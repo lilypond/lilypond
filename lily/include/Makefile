@@ -1,12 +1,7 @@
 # lily/include/Makefile
 
-# subdir level:
-#
 depth = ../..
-#
 
-# identify module:
-#
-MODULE_NAME = lilypond
-include ./$(depth)/make/Include.make
+include $(depth)/make/Stepmake.make
+include $(stepdir)/C++.make
 

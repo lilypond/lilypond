@@ -1,0 +1,124 @@
+article(Automake -- Urgh!)(HWN and JCN)()
+
+sect(Introduction)
+
+Every once in a while, we get comments on our `non-standard' (non GNU
+compliant) configuration/compilation system.  In this document, we try
+to explain why we built our own system.  We focus on Automake, but of
+course writing complex file(Makefile.in)s without generating them
+automatically is an even more deadly sin in our opinion.
+
+
+sect(What's wrong with Automake?)
+
+We have tried to use Automake and found it to be inadequate for our
+needs for several reasons.  On the surface the shortcomings to
+Automake may seem bugs or "not-yet-completed" features.  However, file(make)
+itself is broken, and any tool built on top of file(make) is broken as well.
+
+
+sect(Irritations)
+
+We'll start with the superficial irritations first:
+itemize(
+it() there is no intrinsic support for wildcarding; Adding
+support for wildcarding adds yet another layer to a top-heavy system.
+
+This may sound silly, but for a fast moving project, with 1250
+sourcefiles, one does not want to administer a list of filenames by
+hand: files are created, deleted and moved very often, and wildcarding
+prevents that distributions miss files.
+
+
+it() Automake tries to cater for every taste of file(make).  But anyone
+who does more than the trivial code(configure; make install) has to
+install Automake and GNU make anyway (for example, you need GCC and
+GNU Make for dependency tracking).
+
+Automake's universal make support is good for tools that have to be
+highly portable, but you have pay in ease of use and speed while
+developing.  This means that it is counterproductive to use Automake
+for non-essential programs that are under (heavy) development.
+
+
+it()
+Support for filetypes in built in to Automake, and cannot be added on
+the fly: Automake is very much targeted at standard GNU packages that
+are written in C (or C++) and come with info-pages.  If you want to
+add dependencies from TeX() or METAFONT files you are out of luck.
+Ditto if you have weird file types (.pod), weird programming
+languages, etc.
+
+There are as many file types as there are languages and compilers.
+Extending Automake to support all these languages is error-prone, and
+creates nasty version dependencies between an Automake-using package
+and Automake itself.  A package should be able to supply its own
+specific rules and targets.
+
+it() Dependency handling is unreliable in our experience. On
+several occasions we had unexplainable errors, that went away after
+doing a code(make distclean), and recompile.
+
+it() It is slower, much slower than a tailored solution.  This
+diffence in speed can be as large as 800%. (On JCNs machine a
+code(make dist) takes 17 minutes in stead of 2) for every distribution
+made; this constitutes 45 minutes of irritation on an average hacking-night.
+
+it() For a large project, a specialised file(Makefile) system costs
+relatively little extra effort.  The extra effort pays itself back in
+speed and control.
+
+it() The file(Makefile)s, file(Makefile.in)s, and extensions
+constitute a huge amount of state.  We found it hard to reproduce bugs
+in Automake (Strictly spoken they aren't bugs, as we haven't diagnosed
+because we couldn't reproduce them.)  )
+
+sect(Fundamental problems)
+
+Many of the fundamental problems can be traced back to flaws in make:
+
+itemize(
+it() make is not standardised.  The only decent implementation is
+GNU make, and GNU make is not widespread enough to require GNU make for
+compiling GNU tools.
+
+it() make does not have enough meta-ness: one cannot manipulate
+dependencies and rules in make: they cannot be put in variables,
+mapped at lists, etc.
+
+(In our tailor made compilation system, we worked around this
+non-feature by using generic include files as a stopgap function
+call.)
+
+
+
+it() code(VPATH) is a broken concept: programs should not try to be
+intelligent on their own; being intelligent is something the
+programmer should do.  make should do exactly as it is told, and make
+should enable easy formulation of these commands.
+)
+
+Automake tries to solve these problems by building on top of this
+broken tool: an extra layer of complexity is added, with
+self-modifying Makefiles, and different Makefile versions for
+maintainer and user.
+
+
+sect(Conclusions)
+
+We could be called `cheap' for complaining about the above points,
+while not even filing decent bugreports.  The reality is that we
+ourselves are busy and that we don't find it amusing to hunt for and
+fix bugs in a fix (Automake) for a broken tool (make).
+
+It should also be emphasised that we still think that Automake is a
+good tool: it is excellent for small projects, and reasonable for big
+projects that are fully "standard."  However, for LilyPond, with its
+many sourcefiles and many different filetypes we found it unwieldy.
+
+We hope that some day a better replacement for make comes along, so
+that the gruesomeness of make and friends may die in oblivion.  (*)
+
+(*) I personally would like to enter a Makefile as functional program,
+whose execution caches function results on the disk as files.  But I
+shan't bother you further with my vaporware thoughts..
