@@ -3,14 +3,15 @@
   `(
     (AbortEvent
      . (
-	(description .  "Abort currently running spanners.")
+   (description .  "End the currently running spanners.")
 	(internal-class-name . "Event")
 	(span-type . "abort")
 	(types . (general-music event abort-event))
 	))
     (AbsoluteDynamicEvent
      . (
-	(description . "")
+   (description . "Creates a dynamic mark.  Syntax: @var{note}@code{\\x},
+where x is one of \@\{\\ppp, \\pp, \\p, \\mp, \\mf, \\f, \\ff, \\fff.\@\}")
 	(internal-class-name . "Event")
 	(types . (general-music event dynamic-event absolute-dynamic-event))
 	))
@@ -26,7 +27,11 @@
     ;; separate non articulation scripts  
     (ArticulationEvent
      . (
-	(description .  "")
+   (description .  "Adds an articulation marking to a note.  Syntax:
+@var{note}@code{X}@code{Y}, where X is a direction (up @code{^}, down
+@code{_}, or Lilypond's choice (no direction specified)), and where Y
+is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
+@code{\\downbow}).  See the user manual for details.")
 
 	(internal-class-name . "Event")
 	(types . (general-music event articulation-event script-event))
@@ -55,21 +60,23 @@
 	))
     (BeamEvent
      . (
-	(description .  "")
+   (description .  "Starts or stops a beam.  Syntax for manual control:
+\[c8 c c\] c8")
 
 	(internal-class-name . "Event")
 	(types . (general-music event beam-event span-event))
 	))
     (BreakEvent
      . (
-	(description .  "")
+   (description .  "Creates a line break.  Syntax: \\break.")
 
 	(internal-class-name . "Event")
 	(types . (general-music break-event event))
 	))
     (BreathingSignEvent
      . (
-	(description .  "")
+   (description .  "Creates a `breath mark' or `comma'.  Syntax:
+@var{note}\\breathe.")
 
 	(internal-class-name . "Event")
 	(types . (general-music event breathing-event))
@@ -90,7 +97,9 @@
 	))
     (CrescendoEvent
      . (
-	(description .  "")
+   (description .  "Begins or ends a crescendo.  Syntax: @var{note}\\cr
+... @var{note}\\rc (you can also use \\<, \\!, \\cresc, and
+\\endcresc.  See the user manual for details.).")
 
 	(internal-class-name . "Event")
 	(types . (general-music dynamic-event crescendo-event event))
@@ -446,7 +455,7 @@
 	)) 
     (TieEvent
      . (
-	(description .  "A tie. Entered as ~.")
+	(description .  "A tie.  Entered as ~.")
 	(internal-class-name . "Event")
 	(types . (general-music tie-event event))
 	))

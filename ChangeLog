@@ -1,3 +1,7 @@
+2002-10-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/music-types.scm: doc patch by Graham Percival
+
 2002-10-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* buildscripts/make-font-dir.py (sketch_p): Bugfix: only write
