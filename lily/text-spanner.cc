@@ -244,17 +244,19 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
   if ( to_boolean (me->get_grob_property ("text-start")) )
     {
       height[LEFT] = 0;
-      Grob * textbit = unsmob_grob (me->get_grob_property("pedal-text"));
       extra_short = padding;
-      if (textbit->internal_has_interface(ly_symbol2scm("text-interface"))) 
-	// for plain text, e.g., Sost. Ped.
+      if (Grob *textbit = unsmob_grob (me->get_grob_property("pedal-text")))
 	{
-	  SCM text  =  textbit->get_grob_property("text"); 
-	  if (gh_string_p (text)) {
-	    SCM properties = Font_interface::font_alist_chain (me);
-	    Molecule mol = Text_item::text2molecule (me, text, properties);
-	    extra_short += mol.extent(X_AXIS).length() / 2;
-	  }
+	  if (textbit->internal_has_interface(ly_symbol2scm("text-interface")))
+	    // for plain text, e.g., Sost. Ped.
+	    {
+	      SCM text  =  textbit->get_grob_property("text"); 
+	      if (gh_string_p (text)) {
+		SCM properties = Font_interface::font_alist_chain (me);
+		Molecule mol = Text_item::text2molecule (me, text, properties);
+		extra_short += mol.extent(X_AXIS).length() / 2;
+	      }
+	    }
 	}
       shorten[RIGHT] -= thick;
     }
