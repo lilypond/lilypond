@@ -22,6 +22,7 @@
 #include "main.hh"
 #include "lily-guile.hh"
 
+
 Lookup::Lookup ()
 {
   paper_l_ = 0;
@@ -150,30 +151,40 @@ Lookup::clef (String st) const
   return afm_find (String ("clefs") + String ("-") + st);
 }
 
+SCM
+offset2scm (Offset o)
+{
+  return gh_list (gh_double2scm (o[X_AXIS]), gh_double2scm(o[Y_AXIS]), SCM_UNDEFINED);
+}
+
 Atom
 Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
 {
   assert (controls.size () == 8);
-
-  Real dx = controls[3].x () - controls[0].x ();
-  Real dy = controls[3].y () - controls[0].y ();
+  Offset d = controls[3] - controls[0];
+  
+  Real dx = d[X_AXIS];
+  Real dy = d[Y_AXIS];
 
   Atom a;
   a.font_ = font_;
   a.dim_[X_AXIS] = Interval (0, dx);
   a.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
 
-  // (lambda (o) (dashed-slur o '((0.1 0.2) (1.1 1.2) (2.1 2.2) (3.1 3.2))))
-  a.lambda_ =  (
-    ly_append (ly_lambda_o (), 
-    ly_list1 (ly_append (ly_func_o ("dashed-slur"),
-    gh_cons (gh_double2scm (thick), gh_cons (gh_double2scm (dash),
-    ly_list1 (ly_list2 (ly_quote (),
-    gh_cons (ly_list2 (gh_double2scm (controls[1].x ()), gh_double2scm (controls[1].y ())),
-    gh_cons (ly_list2 (gh_double2scm (controls[2].x ()), gh_double2scm (controls[2].y ())),
-    gh_cons (ly_list2 (gh_double2scm (controls[3].x ()), gh_double2scm (controls[3].y ())),
-    gh_cons (ly_list2 (gh_double2scm (controls[0].x ()), gh_double2scm (controls[0].y ())),
-    SCM_EOL))))))))))));
+  SCM sc[4];
+  for (int i=0; i<  4; i++)
+    {
+      sc[i] =  offset2scm (controls[i]);
+    }
+
+  // (lambda (o) (dashed-slur o thick dash '(stuff))
+  a.lambda_ = gh_list (gh_append3 (ly_lambda_o (),
+				  ly_func_o ("dashed-slur"),
+				  gh_list (gh_double2scm (thick),
+					   gh_double2scm (dash),
+					   ly_quote_scm (gh_list (sc[0], sc[1], sc[2], sc[3], SCM_UNDEFINED)),
+					   SCM_UNDEFINED)
+				  ), SCM_UNDEFINED);
 
   a.str_ = "dashed_slur";
   return a;
@@ -373,8 +384,6 @@ Lookup::hairpin (Real width, bool decresc, bool continued) const
     + to_str (continued ? height/2 : 0) + 
     + " draw_"  + String (decresc ? "de" : "") + "cresc\n";
   a.str_ = ps;
-
-
   a.dim_.x () = Interval (0, width);
   a.dim_.y () = Interval (-2*height, 2*height);
   a.font_ = font_;
@@ -385,8 +394,7 @@ Atom
 Lookup::plet (Real dy , Real dx, Direction dir) const
 {
   String ps;
-  
-  
+    
   ps += String_convert::double_str (dx) + " " 
     + String_convert::double_str (dy) + " "
     + String_convert::int_str ( (int)dir) +
@@ -407,21 +415,32 @@ Lookup::slur (Array<Offset> controls) const
   Real dx = controls[3].x () - controls[0].x ();
   Real dy = controls[3].y () - controls[0].y ();
   Atom a;
- 
-  // (lambda (o) (slur o '((0.1 0.2) (1.1 1.2) (2.1 2.2) (3.1 3.2) .. )))
-  a.lambda_ =  (
-		ly_append (ly_lambda_o (), 
-			   ly_list1 (ly_append (ly_func_o ("slur"),
-						ly_list1 (ly_list2 (ly_quote (),
-								    gh_cons (ly_list2 (gh_double2scm (controls[5].x ()), gh_double2scm (controls[5].y ())),
-									     gh_cons (ly_list2 (gh_double2scm (controls[6].x ()), gh_double2scm (controls[6].y ())),
-										      gh_cons (ly_list2 (gh_double2scm (controls[7].x ()), gh_double2scm (controls[7].y ())),
-											       gh_cons (ly_list2 (gh_double2scm (controls[4].x ()), gh_double2scm (controls[4].y ())),
-													gh_cons (ly_list2 (gh_double2scm (controls[1].x ()), gh_double2scm (controls[1].y ())),
-														 gh_cons (ly_list2 (gh_double2scm (controls[2].x ()), gh_double2scm (controls[2].y ())),
-															  gh_cons (ly_list2 (gh_double2scm (controls[3].x ()), gh_double2scm (controls[3].y ())),
-																   gh_cons (ly_list2 (gh_double2scm (controls[0].x ()), gh_double2scm (controls[0].y ())),
-																	    SCM_EOL))))))))))))));
+
+  SCM scontrols [8];
+  int indices[] = {5,6,7,4,1,2,3,0};
+
+  for (int i= 0; i < 8; i++)
+    scontrols[i] = offset2scm (controls[indices[i]]);
+
+
+  a.lambda_ =
+    gh_append2 (ly_lambda_o (),
+		gh_list (gh_append2 (ly_func_o ("slur"),
+				     gh_list (ly_quote_scm (gh_list (scontrols[0],
+								     scontrols[1],
+								     scontrols[2],
+								     scontrols[3],
+								     scontrols[4],
+								     scontrols[5],
+								     scontrols[6],
+								     scontrols[7],
+								     SCM_UNDEFINED)),
+					      SCM_UNDEFINED)
+				     ),
+			 SCM_UNDEFINED)
+		);
+
+
   a.str_ = "slur";
 
   a.dim_[X_AXIS] = Interval (0, dx);
