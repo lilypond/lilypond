@@ -297,7 +297,8 @@ parentheses () are considered as matching pairs. Otherwise Scheme
 parentheses are considered to be matching pairs, but slurs are not.
 slur-paren-p defaults to nil.
 "
-  (interactive)
+;;; An user does not call this function directly, or by a key sequence.
+  ;;  (interactive)
   (let ( (level 1) 
 	 (regexp-alist LilyPond-parens-regexp-alist) 
 	 (oldpos (point) ) )
@@ -333,7 +334,8 @@ slur-paren-p defaults to nil.
 
 (defun LilyPond-inside-scheme-p ()
   "Tests if point is inside embedded Scheme code"
-  (interactive)
+;;; An user does not call this function directly, or by a key sequence.
+  ;;  (interactive)
   (let ( (test-point (point))
 	 (level 0) )
     (save-excursion 
@@ -366,7 +368,8 @@ slur-paren-p defaults to nil.
 point. In lilypond files this is used for closing ), } and >, whereas the
 builtin 'blink-matching-open' is used for closing ],  which is in
 the syntax table"
-  (interactive)
+;;; An user does not call this function directly, or by a key sequence.
+  ;;  (interactive)
   (let ( (oldpos (point))
 	 (level 0) 
 	 (mismatch) )
