@@ -1,3 +1,36 @@
+1.3.31.jcn5
+===========
+
+* Fixed and cleaned-up Dynamic_engraver.  Optionionally uses vanilla
+  spanner instead of Dynamic_line_spanner.
+
+* Made gcc-2.95 compile fix in libc-extension.
+
+* Various fixes to Coriolan, score starts to look acceptable.
+
+1.3.31.jcn3
+===========
+
+* Moved optional text of crescendo into Crescendo spanner.  Fixed horizontal
+  and vertical alignment of dynamics.
+
+* Added new text crescendo spanners to Coriolan and made some fixes.
+  If you're using timidity, use the -EO option to prevent notes get
+  stuck.  I'm not sure whose fault this is, Lily's MIDI output may be
+  stretching the standard a bit.
+
+1.3.30.jcn4
+===========
+
+* Adjacent dynamic markings are now grouped on a horizontal line, but it's
+  not perfect yet: they're always below the staff and no horizontal spacing
+  is done.  Also, character metrics of dynamics are still not used.
+  See: input/test/crescendi.ly and input/test/dyn-line.ly
+
+* Cleaned up Span_dynamic_performer.
+
+1.3.31
+======
 1.3.30.mb1
 =========
 
@@ -8,19 +41,20 @@
 1.3.30.jcn3
 ===========
 
-* Span_dynamic_performer; perform crescendi/decrescendi.  Bit scrappy.
+* Lily now also performs crescendi and decrescendi in MIDI output:
+  Span_dynamic_performer (bit scrappy).
 
-* Preliminary support for crescendi/decrescendi other than `hairpins', eg:
-  `cresc. poco `a poco -- -- --'
+* Added preliminary support for crescendi/decrescendi other than `hairpins',
+  eg: `cresc. poco `a poco -- -- --'
 
-* Tie performance fix.
+* Made MIDI tie performance fix.
 
 1.3.30.jcn2
 ===========
 
-* Dynamic_performer: performs absolute dynamic requests.
+* Lily now performs absolute dynamics in MIDI output.
 
-* David's comments on opus47
+* Included David's comments on opus47 in TODO.
 
 1.3.30.jcn1
 ===========
