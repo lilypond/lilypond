@@ -9,6 +9,7 @@
 #include "musical-request.hh"
 #include "stem.hh"
 #include "staff-sym.hh"
+#include "general-script-def.hh"
 
 Script_engraver::Script_engraver()
 {
@@ -55,7 +56,9 @@ Script_engraver::do_pre_move_processing()
   for (int i=0; i < script_p_arr_.size(); i++) 
     {
       Script*script_p = script_p_arr_[i];
-      script_p->set_staffsym (s_l);
+      if (!script_p->specs_l_->inside_b())
+	script_p->add_support (s_l);
+
       typeset_element (script_p);
     }
   script_p_arr_.clear();

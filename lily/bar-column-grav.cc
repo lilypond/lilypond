@@ -24,34 +24,34 @@ void
 Bar_column_engraver::acknowledge_element (Score_elem_info info)
 {
   if (info.elem_l_->is_type_b (Script::static_name()) 
-	&& info.req_l_->command()
-	&& info.origin_grav_l_arr_.size() == 1) 
-	  {
-	script_l_arr_.push ((Script*)info.elem_l_->item());
+      && info.req_l_->command()
+      && info.origin_grav_l_arr_.size() == 1) 
+    {
+      script_l_arr_.push ((Script*)info.elem_l_->item());
     }
   else 
     {
-	if  (info.origin_grav_l_arr_.size() == 1 
-	     && info.elem_l_->is_type_b (Bar::static_name()))
-	     bar_l_ = (Bar*)info.elem_l_->item();
+      if  (info.origin_grav_l_arr_.size() == 1 
+	   && info.elem_l_->is_type_b (Bar::static_name()))
+	bar_l_ = (Bar*)info.elem_l_->item();
     }
 	
   if (bar_l_ && !barcol_p_) 
     {
-	barcol_p_ = new Bar_column;
-	barcol_p_->breakable_b_ =true;
-	barcol_p_->set_bar (bar_l_);
-	announce_element (Score_elem_info (barcol_p_, 0));
+      barcol_p_ = new Bar_column;
+      barcol_p_->breakable_b_ =true;
+      barcol_p_->set_bar (bar_l_);
+      announce_element (Score_elem_info (barcol_p_, 0));
     }
 
   if  (barcol_p_) 
     {
-	for (int i=0; i < script_l_arr_.size(); i++) 
-	  {
-	    script_l_arr_[i]->breakable_b_ = true;
-	    barcol_p_->add (script_l_arr_[i]);
-	  }
-	script_l_arr_.clear();
+      for (int i=0; i < script_l_arr_.size(); i++) 
+	{
+	  script_l_arr_[i]->breakable_b_ = true;
+	  barcol_p_->add (script_l_arr_[i]);
+	}
+      script_l_arr_.clear();
     }
 }
 
@@ -60,8 +60,8 @@ Bar_column_engraver::do_pre_move_processing()
 {
   if (barcol_p_) 
     {
-	typeset_element (barcol_p_);
-	barcol_p_ =0;
+      typeset_element (barcol_p_);
+      barcol_p_ =0;
     }
 }
 
