@@ -6,8 +6,7 @@
   (c) 1998--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-
-
+#include "directional-element-interface.hh"
 #include "engraver.hh"
 #include "side-position-interface.hh"
 #include "item.hh"
