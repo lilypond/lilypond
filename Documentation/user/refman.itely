@@ -514,8 +514,8 @@ tuplet brackets should be moved manually.
 @cindex easy notation
 @cindex Hal Leonard
 
-The `easyplay' note head includes a note name inside the head.  It is
-used in music aimed at beginners.
+The `easy play' note head includes a note name inside the head.  It is
+used in music aimed at beginners:
 
 @lilypond[singleline,verbatim,26pt]
 \score {
