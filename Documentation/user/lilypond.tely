@@ -153,7 +153,7 @@ this and other documentation.
 * Invoking LilyPond::              Operation.
 * Converting from other formats::  Converting to lilypond source format.
 * lilypond-book manual::           Integrating text and music with lilypond-book.
-* Index::                          Unified index.
+* Unified index::                  
 * Reference manual details::
 * Cheat sheet::     
 * GNU Free Documentation License:: FDL.
@@ -176,8 +176,8 @@ this and other documentation.
 
 
 @c FIXME: Index has two alphabetically sorted lists @code vs plain?
-@node Index
-@unnumbered Index
+@node Unified index
+@unnumbered Unified index
 
 @printindex cp
 

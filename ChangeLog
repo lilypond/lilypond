@@ -1,5 +1,8 @@
 2003-09-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/lilypond.tely (Unified index): rename Index
+	to accomodate Windows breakage.
+
 	* make/lilypond.redhat.spec.in (Group): remove out=www for web-install 
 
 	* mf/GNUmakefile ($(outdir)/%.afm  $(outdir)/%.enc
