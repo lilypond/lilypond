@@ -508,7 +508,7 @@ without context specification. Called  from parser."
   "Make a new vector consisting of V, with X added to the end."
   (let*
       ((n (vector-length v))
-       gm(nv (make-vector (+ n 1) '())))
+       (nv (make-vector (+ n 1) '())))
     (vector-move-left! v 0 n nv 0)
     (vector-set! nv n x)
     nv))

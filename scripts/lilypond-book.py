@@ -570,7 +570,7 @@ class Lilypond_snippet (Snippet):
 			verb = verbatim_texinfo (self.substring ('code'))
 			str +=  (output[TEXINFO][VERBATIM] % vars ())
 
-		str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
+#		str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
 		str += ('@tex\n' + self.output_latex () + '\n@end tex\n')
 		str += ('@html\n' + self.output_html () + '\n@end html\n')
 		# need par after image
