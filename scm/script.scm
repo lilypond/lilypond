@@ -23,6 +23,9 @@
 	  ((script-molecule . (feta . ("dportato" . "uportato")))
 	   (side-relative-direction . -1)))
 
+	 ("signumcongruentiae" .
+	  ((script-molecule . (feta . ("dsignumcongruentiae" . "usignumcongruentiae")))
+	   (direction .  1)))
 	 ("fermata" .
 	  ((script-molecule . (feta . ("dfermata" . "ufermata")))
 	   (direction .  1)))
