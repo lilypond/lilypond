@@ -1,5 +1,8 @@
 2004-09-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/changing-defaults.itely (Page layout): add
+	betweensystempadding
+
 	* scm/page-layout.scm (ly:optimal-page-breaks): typo.
 
 	* input/regression/quote-cyclic.ly (Module): new file.
