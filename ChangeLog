@@ -1,7 +1,9 @@
 2004-07-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* buildscripts/builder.py:
-	* Documentation/SConscript (outdir): New file.
+	
+	* Documentation/SConscript (outdir): New file.  Add *list.ly
+	dependencies.  Fixes PDF doc build.
 
 2004-07-08  Jan Nieuwenhuizen  <janneke@gnu.org>
 

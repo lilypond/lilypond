@@ -27,15 +27,12 @@ def verbose_opt (env, opt):
 LILYPOND_BIN = env['LILYPOND_BIN']
 LILYPONDPREFIX = env['LILYPONDPREFIX']
 
-# $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(builddir)/lily/$(outconfbase)/lilypond-bin
-# 	cd $(outdir) && $(builddir)/lily/$(outconfbase)/lilypond-bin --verbose $(abs-srcdir)/ly/generate-documentation
-# 	rm -f $(outdir)/lilypond-internals.nexi
-# 	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
 
-e.Depends ('lilypond.texi', 'feta16list.ly')
-e.Depends ('lilypond.texi', 'parmesan16list.ly')
+mfbuild = os.path.join (env['absbuild'], 'mf', env['out'])
+e.Depends ('user/lilypond.texi', os.path.join (mfbuild, 'feta16list.ly'))
+e.Depends ('user/lilypond.texi', os.path.join (mfbuild, 'parmesan16list.ly'))
 e.Depends ('lilypond.texi', 'lilypond-internals.texi')
-			 
+
 e.Command ('lilypond-internals.texi', LILYPOND_BIN,
 	   ('(cd $$(dirname $TARGET) && \
 	   LILYPONDPREFIX=%(LILYPONDPREFIX)s %(LILYPOND_BIN)s ' \

@@ -313,6 +313,7 @@ if build == '.':
 	absbuild = os.getcwd ()
 else:
 	absbuild = build
+env['absbuild'] = absbuild
 
 # duh
 env['MAKEINFO'] = 'LANG= makeinfo'
