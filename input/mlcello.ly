@@ -13,7 +13,7 @@
 %
 cello = music { 
 	$
-	\octave{`}
+\clef"bass"	\octave{`}
 	\duration{4}
 %%1
 	g `g |

@@ -14,6 +14,7 @@
 alto = music { 
 	$
 	\duration{16}
+	\clef\alto
 	\octave{}
 %1
         [ `b8. `a ] [ `g8 `b c ] |
