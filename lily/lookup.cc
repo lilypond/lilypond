@@ -150,7 +150,7 @@ Lookup::flag (int j, Direction d) const
 }
 
 Atom
-Lookup::streepjes (int i) const
+Lookup::streepjes (int type, int i) const
 {
   assert (i);
   
@@ -167,9 +167,14 @@ Lookup::streepjes (int i) const
       arg = i;
       idx = "toplines";
     }
+
+  // ugh
+  Real w = ball (type).dim_[X_AXIS].length ();
+
   Atom ret = (*symtables_)("streepjes")->lookup (idx);
   
   Array<String> a;
+  a.push (String (w) + "pt");
   a.push (arg);
   ret.tex_ = substitute_args (ret.tex_, a);
 
