@@ -4,15 +4,53 @@
 ;;;;
 ;;;; (c)  2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
-(define-module (scm framework-tex))
+(define-module (scm framework-tex)
+  #:export (output-framework-tex	    
+	    output-classic-framework-tex
+))
 
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
 	     (ice-9 format)
 	     (guile)
 	     (srfi srfi-13)
-	     (scm output-tex)
 	     (lily))
+
+(define-public (sanitize-tex-string s) ;; todo: rename
+   (if (ly:get-option 'safe)
+      (regexp-substitute/global #f "\\\\"
+				(regexp-substitute/global #f "([{}])" "bla{}" 'pre  "\\" 1 'post )
+				'pre "$\\backslash$" 'post)
+      
+      s))
+
+(define (symbol->tex-key sym)
+  (regexp-substitute/global
+   #f "_" (sanitize-tex-string (symbol->string sym)) 'pre "X" 'post) )
+
+(define (tex-number-def prefix key number)
+  (string-append
+   "\\def\\" prefix (symbol->tex-key key) "{" number "}%\n"))
+
+(define-public (tex-font-command font)
+  (string-append
+   "magfont"
+   (string-encode-integer
+    (hashq (ly:font-filename font) 1000000))
+   "m"
+   (string-encode-integer
+    (inexact->exact (round (* 1000 (ly:font-magnification font)))))))
+
+(define (font-load-command bookpaper font)
+  (string-append
+   "\\font\\" (tex-font-command font) "="
+   (ly:font-filename font)
+   " scaled "
+   (ly:number->string (inexact->exact
+		       (round (* 1000
+			  (ly:font-magnification font)
+			  (ly:bookpaper-outputscale bookpaper)))))
+   "\n"))
 
 
 (define (define-fonts bookpaper)
@@ -28,7 +66,7 @@
 	  (map (lambda (x) (font-load-command bookpaper x))
 	       (ly:bookpaper-fonts bookpaper)))))
 
-(define-public (header-to-file fn key val)
+(define (header-to-file fn key val)
   (set! key (symbol->string key))
   (if (not (equal? "-" fn))
       (set! fn (string-append fn "." key)))
