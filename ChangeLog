@@ -1,3 +1,7 @@
+2002-10-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/music-glossary.tely: fix links.
+
 2002-10-21  Werner Lemberg  <wl@gnu.org>
 
 	* tex/lily-ps-defs.tex (\lilypondsetdimen): Define ID macro.
