@@ -96,8 +96,8 @@ Spring_spacer::position_loose_cols(Vector &sol_vec)const
     assert(sol_vec.dim());
     Array<bool> fix_b_arr;
     fix_b_arr.set_size(cols.size() + loose_col_arr_.size());
-    Real utter_right_f=-INFTY;
-    Real utter_left_f =INFTY;
+    Real utter_right_f=-INFTY_f;
+    Real utter_left_f =INFTY_f;
     for (int i=0; i < loose_col_arr_.size(); i++) {
 	fix_b_arr[loose_col_arr_[i].rank_i_] = false;
     }
