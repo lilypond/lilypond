@@ -26,6 +26,10 @@
 
 */
 
+
+/*
+  FIXME. Need to use markup. 
+ */
 struct Sustain_pedal
 {
 public:
@@ -48,7 +52,7 @@ Sustain_pedal::print (SCM smob)
 
   for (int i = 0; i < text.length (); i++)
     {
-      String idx ("pedal-");
+      String idx ("pedal.");
       if (text.cut_string (i, 3) == "Ped")
 	{
 	  idx += "Ped";

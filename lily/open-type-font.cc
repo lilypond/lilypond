@@ -15,7 +15,7 @@
 #include "warn.hh"
 #include "open-type-font.hh"
 #include "dimensions.hh"
-
+#include "modified-font-metric.hh"
 
 const Real point_constant = 1 PT;
 
@@ -62,7 +62,7 @@ load_scheme_table (char const *tag_str, FT_Face face)
 }
 
 
-Index_to_charcode_map
+Index_to_charcode_map 
 make_index_to_charcode_map (FT_Face face)
 {
   Index_to_charcode_map m;
@@ -74,29 +74,6 @@ make_index_to_charcode_map (FT_Face face)
     m[gindex] = charcode;
   return m;
 }
-
-#if 0
-Glyph_name_to_charcode_map
-make_glyph_name_to_charcode_map (FT_Face face)
-{
-  Glyph_name_to_charcode_map m;
-  FT_ULong charcode;
-  FT_UInt gindex;
-  char buffer[1024];
-
-  for (charcode = FT_Get_First_Char (face, &gindex); gindex != 0;
-       charcode = FT_Get_Next_Char (face, charcode, &gindex))
-    {
-      if (FT_Get_Glyph_Name (face, gindex, buffer, sizeof (buffer) - 1))
-	{
-	  programming_error ("no glyph name");
-	  continue;
-	}
-      m[String (buffer)] = charcode;
-    }
-  return m;
-}
-#endif
 
 Open_type_font::~Open_type_font()
 {
@@ -124,7 +101,6 @@ Open_type_font::make_otf (String str)
   return otf->self_scm ();
 }
 
-
 Open_type_font::Open_type_font (FT_Face face)
 {
   face_ = face;
@@ -136,8 +112,6 @@ Open_type_font::Open_type_font (FT_Face face)
   lily_global_table_ = alist_to_hashq (load_scheme_table ("LILY", face_));
   lily_subfonts_ = load_scheme_table ("LILF", face_);
   index_to_charcode_map_ = make_index_to_charcode_map (face_);
-  
-  //glyph_name_to_charcode_map_ = make_glyph_name_to_charcode_map (face_);
 }
 
 void
@@ -159,16 +133,47 @@ Open_type_font::attachment_point (String glyph_name) const
     return o;
 
   SCM char_alist = entry;
-
-  
   SCM att_scm = scm_cdr (scm_assq (ly_symbol2scm ("attachment"), char_alist));
   
   return point_constant * ly_scm2offset (att_scm);
 }
 
+
 Box
 Open_type_font::get_indexed_char (int signed_idx) const
 {
+  if (SCM_HASHTABLE_P (lily_character_table_))
+    {
+      const int len =256;
+      char name[len];
+      int code = FT_Get_Glyph_Name (face_, signed_idx, name, len);
+      if (code)
+	{
+	  warning ("FT_Get_Glyph_Name() returned error");
+	}
+	
+      SCM sym = ly_symbol2scm (name);
+      SCM alist = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
+      
+      if (alist != SCM_BOOL_F)
+	{
+	  SCM bbox = scm_cdr (scm_assq (ly_symbol2scm ("bbox"), alist));
+      
+	  Box b;
+	  b[X_AXIS][LEFT] = scm_to_double (scm_car (bbox));
+	  bbox = scm_cdr (bbox);
+	  b[Y_AXIS][LEFT] = scm_to_double (scm_car (bbox));
+	  bbox = scm_cdr (bbox);
+	  b[X_AXIS][RIGHT] = scm_to_double (scm_car (bbox));
+	  bbox = scm_cdr (bbox);
+	  b[Y_AXIS][RIGHT] = scm_to_double (scm_car (bbox));
+	  bbox = scm_cdr (bbox);
+
+	  b.scale (point_constant);
+	  return b;
+	}
+    }
+  
   FT_UInt idx = signed_idx;
   FT_Load_Glyph (face_,
 		 idx,
@@ -201,7 +206,7 @@ Open_type_font::index_to_charcode (int i) const
 
 #if 0
 unsigned
-Open_type_font::glyph_name_to_charcode (String glyph_name) const
+Open_type_font::glyph_name_to_index (String glyph_name) const
 {
   return ((Open_type_font*) this)->glyph_name_to_charcode_map_[glyph_name];
 }
@@ -233,3 +238,36 @@ LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
   return fm->sub_fonts ();
 }
 
+LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
+	  (SCM font, SCM glyph),
+	   "Given the font metric @var{font} of an OpenType font, return the "
+	   "information about named glyph @var{glyph} (a string)")
+{
+  Modified_font_metric * fm
+    = dynamic_cast<Modified_font_metric*> (unsmob_metrics (font));
+  Open_type_font * otf = dynamic_cast<Open_type_font*> (fm->original_font ());
+  SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OTF font-metric");
+  SCM_ASSERT_TYPE (scm_is_string (glyph), glyph, SCM_ARG1,
+		   __FUNCTION__, "string");
+
+  SCM sym = scm_string_to_symbol (glyph);
+  return scm_hashq_ref (otf->get_char_table (), sym, SCM_EOL);
+}
+
+SCM
+Open_type_font::get_char_table () const
+{
+  return lily_character_table_;
+}
+
+SCM
+Open_type_font::get_subfonts () const
+{
+  return lily_subfonts_;
+}
+
+SCM
+Open_type_font::get_global_table () const
+{
+  return lily_global_table_;
+}

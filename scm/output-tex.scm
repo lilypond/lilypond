@@ -91,15 +91,13 @@
 
 
 (define (named-glyph font name)
-  (string-append "\\" (tex-font-command font)
-		 "\\"
-		 (string-append
-;		  (digits->letters (ly:font-name font))
-		  (regexp-substitute/global
-		   #f "[-\\._]"
-		   (digits->letters name)
-		   'pre ""
-		   'post))))
+  (let*
+      ((info  (ly:otf-font-glyph-info font name)))
+
+    (string-append "\\" (tex-font-command-raw
+			 (assoc-get 'subfont info)
+			 (ly:font-magnification font))
+		   "\\char" (number->string (assoc-get 'subfont-index info)))))
 
 (define (dashed-line thick on off dx dy)
   (embedded-ps (list 'dashed-line  thick on off dx dy)))

@@ -23,10 +23,17 @@
   
  */
 
-#include "tuplet-bracket.hh"
+/*
+
+    TODO: quantise, we don't want to collide with staff lines.
+ (or should we be above staff?)
+
+  todo: handle breaking elegantly.
+*/
 
 #include <math.h>
 
+#include "tuplet-bracket.hh"
 #include "line-interface.hh"
 #include "beam.hh"
 #include "warn.hh"
@@ -297,11 +304,10 @@ Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
   use first -> last note for slope, and then correct for disturbing
   notes in between.  */
 void
-Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy) 
+Tuplet_bracket::calc_position_and_height (Grob*me, Real *offset, Real * dy) 
 {
   Link_array<Grob> columns =
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
-
 
   SCM cols = me->get_property ("note-columns");
   Grob * commony = common_refpoint_of_list (cols, me, Y_AXIS);
@@ -495,7 +501,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   else if (!scm_is_number (rp) && !scm_is_number (lp))
     {
       lp = scm_make_real (offset);
-      rp = scm_make_real (offset +dy);
+      rp = scm_make_real (offset + dy);
     }
 
   me->set_property ("left-position", lp);
@@ -537,7 +543,11 @@ Tuplet_bracket::add_column (Grob*me, Item*n)
 
 
 
-ADD_INTERFACE (Tuplet_bracket,"tuplet-bracket-interface",
-  "A bracket with a number in the middle, used for tuplets.",
-  "note-columns bracket-flare edge-height shorten-pair padding left-position right-position bracket-visibility number-visibility thickness direction");
+ADD_INTERFACE (Tuplet_bracket,
+	       "tuplet-bracket-interface",
+	       "A bracket with a number in the middle, used for tuplets.",
+	       
+	       "note-columns bracket-flare edge-height shorten-pair "
+	       "padding left-position right-position bracket-visibility "
+	       "number-visibility thickness direction");
 

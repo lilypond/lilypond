@@ -63,7 +63,10 @@ font_family = 'feta'
 def parse_logfile (fn):
 	(autolines, deps) = read_log_file (fn)
 	charmetrics = []
-	global_info = {}
+	
+	global_info = {
+		'filename' : os.path.splitext (os.path.basename (fn))[0]
+		}
 	group = ''
 
 	for l in autolines:
@@ -171,14 +174,18 @@ def write_character_lisp_table (file, global_info, charmetrics):
 		f = 1.0
 		s = """(%s .
 ((bbox . (%f %f %f %f))
+ (subfont . "%s")
+ (subfont-index . %d)
  (attachment . (%f . %f))))
 """ %(charmetric['name'],
-		 -charmetric['breapth'] * f,
-		 -charmetric['depth'] * f,
-		 charmetric['width'] * f,
-		 charmetric['height'] * f,
-		 charmetric['wx'],
-		 charmetric['wy'])
+      -charmetric['breapth'] * f,
+      -charmetric['depth'] * f,
+      charmetric['width'] * f,
+      charmetric['height'] * f,
+      global_info['filename'],
+      charmetric['code'],
+      charmetric['wx'],
+      charmetric['wy'])
 
 		return s
 

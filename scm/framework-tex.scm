@@ -51,41 +51,40 @@
    'pre ""
    'post))
 
+
+(define-public (tex-font-command-raw name magnification)
+  (string-append
+   "magfont"
+   (string-encode-integer
+    (hash name 1000000))
+   "m"
+   (string-encode-integer
+    (inexact->exact (round (* 1000 magnification))))))
+
+(define-public (tex-font-command font)
+  (tex-font-command-raw
+   (ly:font-file-name font) (ly:font-magnification font)))
+
+
 (define (otf-font-load-command paper font)
   (let*
-      ((sub-fonts (ly:font-sub-fonts font))
-       (base-name (tex-font-command font)))
+      ((sub-fonts (ly:font-sub-fonts font)))
 
     (string-append
      (apply string-append
 	    (map
 	     (lambda (sub-name)
 	       (string-append
-		"\\font\\" (string-append base-name (digits->letters sub-name)) "="
-		sub-name 
+		"\\font\\" (tex-font-command-raw sub-name (ly:font-magnification font))
+		"=" sub-name
 		" scaled "
 		(ly:number->string (inexact->exact
 				    (round (* 1000
 					      (ly:font-magnification font)
 					      (ly:paper-outputscale paper)))))
 		"%\n"))
-	     sub-fonts)))
+	     sub-fonts)))))
 
-    "\\def\\" (tex-font-command font) "{"
-    (apply string-append
-	   (map (lambda (name)
-		  "\\def\\" (string-append base-name (digits->letters name))
-		  )
-    ))))
-
-(define-public (tex-font-command font)
-  (string-append
-   "magfont"
-   (string-encode-integer
-    (hashq (ly:font-file-name font) 1000000))
-   "m"
-   (string-encode-integer
-    (inexact->exact (round (* 1000 (ly:font-magnification font)))))))
 
 (define (simple-font-load-command paper font)
   (let* ((coding-alist (ly:font-encoding-alist font))

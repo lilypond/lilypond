@@ -14,7 +14,6 @@
 #include "warn.hh"
 #include "grob.hh"
 #include "font-interface.hh"
-#include "virtual-font-metric.hh"
 #include "output-def.hh"
 #include "modified-font-metric.hh"
 #include "ly-module.hh"
