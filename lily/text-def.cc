@@ -58,5 +58,5 @@ Text_def::print() const
 	style_str_ << "align " << align_i_ << '\n';
 }
 
-IMPLEMENT_STATIC_NAME(Text_def);
+
 IMPLEMENT_IS_TYPE_B1(Text_def,General_script_def);

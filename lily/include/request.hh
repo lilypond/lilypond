@@ -24,7 +24,6 @@
 class Request : public Music {
 
 public:
-    Voice  * voice_l();
     
     /* *************** */
 
@@ -33,7 +32,6 @@ public:
     NAME_MEMBERS();
     VIRTUAL_COPY_CONS(Request,Music);
     
-    void print()const ;
     virtual MInterval time_int() const;
     virtual void transpose(Melodic_req const &){}
     virtual Moment duration() const { return 0; }

@@ -36,10 +36,10 @@ Horizontal_group::do_width()const
     return r;
 }
 
-IMPLEMENT_STATIC_NAME(Horizontal_group);
+
 IMPLEMENT_IS_TYPE_B1(Horizontal_group, Elbement_group);
 IMPLEMENT_IS_TYPE_B1(Vertical_group, Elbement_group);
-IMPLEMENT_STATIC_NAME(Vertical_group);
+
 
 void
 Elbement_group::add_element(Score_elem*i_l)
@@ -80,7 +80,7 @@ Vertical_group::translate_y(Real y)
 	elem_l_arr_[i]->translate_y(y);
 }
 
-IMPLEMENT_STATIC_NAME(Elbement_group);
+
 IMPLEMENT_IS_TYPE_B1(Elbement_group, Score_elem);
 
 void
@@ -148,7 +148,7 @@ Elbement_group::Elbement_group()
 }
 
 IMPLEMENT_IS_TYPE_B2(Horizontal_vertical_group, Horizontal_group, Vertical_group);
-IMPLEMENT_STATIC_NAME(Horizontal_vertical_group);
+
 
 Horizontal_vertical_group::Horizontal_vertical_group()
 {

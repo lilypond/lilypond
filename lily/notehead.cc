@@ -63,7 +63,7 @@ Note_head::set_rhythmic(Rhythmic_req*r_req_l)
     dots_i_ = r_req_l->duration_.dots_i_;
 }
     
-IMPLEMENT_STATIC_NAME(Note_head);
+
 IMPLEMENT_IS_TYPE_B1(Note_head,Item);
 
 void

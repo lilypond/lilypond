@@ -67,7 +67,7 @@ Bar_engraver::do_post_move_processing()
     bar_p_ =0;
 }
 
-IMPLEMENT_STATIC_NAME(Bar_engraver);
+
 IMPLEMENT_IS_TYPE_B1(Bar_engraver,Engraver);
 ADD_THIS_ENGRAVER(Bar_engraver);
 

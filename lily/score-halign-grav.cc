@@ -45,6 +45,6 @@ Score_horizontal_align_engraver::acknowledge_element(Score_elem_info i)
 	halign_p_->add(it, align_grav_l->priority_i_);
     }
 }
-IMPLEMENT_STATIC_NAME(Score_horizontal_align_engraver);
+
 IMPLEMENT_IS_TYPE_B1(Score_horizontal_align_engraver,Engraver);
 ADD_THIS_ENGRAVER(Score_horizontal_align_engraver);

@@ -13,7 +13,7 @@ Translator::Translator()
     iterator_count_  = 0;
 }
 
-IMPLEMENT_STATIC_NAME(Translator);
+
 IMPLEMENT_IS_TYPE_B(Translator);
 
 bool

@@ -47,7 +47,7 @@ Head_column::add(Note_head *n_l)
 }
 
 
-IMPLEMENT_STATIC_NAME(Head_column);
+
 IMPLEMENT_IS_TYPE_B1(Head_column,Script_column);
 
 void

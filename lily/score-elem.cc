@@ -343,7 +343,7 @@ Score_elem::do_substitute_dependent(Score_elem*,Score_elem*)
 }
 
 
-IMPLEMENT_STATIC_NAME(Score_elem);
+
 IMPLEMENT_IS_TYPE_B(Score_elem);
 
 Molecule*

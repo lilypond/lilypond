@@ -117,5 +117,5 @@ Staff_side::do_substitute_dependency(Score_elem*o, Score_elem*n)
 	staff_sym_l_ = n ? (Staff_symbol*) n->spanner():0;
 }
 
-IMPLEMENT_STATIC_NAME(Staff_side);
+
 IMPLEMENT_IS_TYPE_B1(Staff_side, Score_elem);

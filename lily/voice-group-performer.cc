@@ -13,7 +13,7 @@
 
 //IMPLEMENT_IS_TYPE_B2(Voice_group_performer,Performer, Translator);
 IMPLEMENT_IS_TYPE_B1(Voice_group_performer,Performer_group_performer);
-IMPLEMENT_STATIC_NAME(Voice_group_performer);
+
 ADD_THIS_PERFORMER(Voice_group_performer);
 
 Voice_group_performer::Voice_group_performer()

@@ -12,7 +12,7 @@
 #include "note-head.hh"
 #include "stem.hh"
 
-IMPLEMENT_STATIC_NAME(Script_column);
+
 IMPLEMENT_IS_TYPE_B1(Script_column,Horizontal_vertical_group_item);
 
 

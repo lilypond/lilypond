@@ -72,11 +72,15 @@ Span_bar::do_pre_processing()
 	transparent_b_ = true;
 	empty_b_ =true;
     } else {
-	if  (type_str_ == "")
+	if (type_str_ == "")
 	    type_str_ = spanning_l_arr_[0]->type_str_;
 	if (type_str_ =="") {
 	    transparent_b_=true;
 	    empty_b_ = true;
+	} else if ( type_str_ == "|:") {
+	    type_str_ = ".|";
+	} else if ( type_str_ == ":|"){
+	    type_str_ = "|.";
 	}
     }
 }
@@ -100,5 +104,5 @@ Span_bar::brew_molecule_p()const
     return output;
 }
 
-IMPLEMENT_STATIC_NAME(Span_bar);
+
 IMPLEMENT_IS_TYPE_B1(Span_bar,Bar);

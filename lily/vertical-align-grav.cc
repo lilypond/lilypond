@@ -43,6 +43,6 @@ Vertical_align_engraver::acknowledge_element(Score_elem_info i)
     }
 }
 
-IMPLEMENT_STATIC_NAME(Vertical_align_engraver);
+
 IMPLEMENT_IS_TYPE_B1(Vertical_align_engraver, Engraver);
 ADD_THIS_ENGRAVER(Vertical_align_engraver);

@@ -172,6 +172,6 @@ Stem_beam_engraver::set_feature(Feature i)
 	default_dir_i_ = i.value_;
 }
 
-IMPLEMENT_STATIC_NAME(Stem_beam_engraver);
+
 IMPLEMENT_IS_TYPE_B1(Stem_beam_engraver,Engraver);
 ADD_THIS_ENGRAVER(Stem_beam_engraver);

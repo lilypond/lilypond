@@ -370,7 +370,7 @@ Beam::brew_molecule_p() const
     return mol_p;
 }
 
-IMPLEMENT_STATIC_NAME(Beam);
+
 IMPLEMENT_IS_TYPE_B1(Beam, Spanner);
 
 void

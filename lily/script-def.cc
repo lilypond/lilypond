@@ -81,7 +81,7 @@ Script_def::get_atom(Paper_def *p , int d)const
     return p->lookup_l()->script(preidx_str + symidx_str_);
 }
 
-IMPLEMENT_STATIC_NAME(Script_def);
+
 IMPLEMENT_IS_TYPE_B1(Script_def,General_script_def);
 
 int

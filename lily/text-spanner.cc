@@ -31,7 +31,7 @@ Text_spanner::Text_spanner()
     support_span_l_ = 0;
 }
 
-IMPLEMENT_STATIC_NAME(Text_spanner);
+
 IMPLEMENT_IS_TYPE_B1(Text_spanner,Spanner);
 
 void

@@ -10,7 +10,7 @@
 #include "spanner-elem-group.hh"
 
 
-IMPLEMENT_STATIC_NAME(Spanner_elem_group);
+
 IMPLEMENT_IS_TYPE_B2(Spanner_elem_group,Spanner,Horizontal_vertical_group);
 
 Interval

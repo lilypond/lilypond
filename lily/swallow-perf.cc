@@ -8,6 +8,6 @@
 
 #include "swallow-perf.hh"
 
-IMPLEMENT_STATIC_NAME(Swallow_performer);
+
 IMPLEMENT_IS_TYPE_B1(Swallow_performer, Performer);
 ADD_THIS_PERFORMER(Swallow_performer);

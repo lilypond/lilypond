@@ -53,6 +53,6 @@ Span_bar_engraver::do_pre_move_processing()
 	
 }
 
-IMPLEMENT_STATIC_NAME(Span_bar_engraver);
+
 IMPLEMENT_IS_TYPE_B1(Span_bar_engraver,Engraver);
 ADD_THIS_ENGRAVER(Span_bar_engraver);

@@ -13,10 +13,10 @@
 void
 Command_script_req::do_print() const
 {}
-IMPLEMENT_STATIC_NAME(Command_script_req);
+
 IMPLEMENT_IS_TYPE_B1(Command_script_req,Command_req);
 
-IMPLEMENT_STATIC_NAME(Cadenza_req);
+
 IMPLEMENT_IS_TYPE_B1(Cadenza_req, Timing_req);
 
 void
@@ -38,7 +38,7 @@ Bar_req::compare(Bar_req const &c1)const
     return type_str_ == c1.type_str_;
 }
 
-IMPLEMENT_STATIC_NAME(Bar_req);
+
 IMPLEMENT_IS_TYPE_B1(Bar_req,Command_req);
 
 void
@@ -58,33 +58,33 @@ Partial_measure_req::Partial_measure_req(Moment m)
 }
 /* *************** */
 
-IMPLEMENT_STATIC_NAME(Timing_req);
+
 IMPLEMENT_IS_TYPE_B1(Timing_req,Command_req);
 
 void
 Timing_req::do_print()const{}
 
-IMPLEMENT_STATIC_NAME(Command_req);
+
 IMPLEMENT_IS_TYPE_B1(Command_req,Request);
 
 void
 Command_req::do_print()const{}
 
 IMPLEMENT_IS_TYPE_B1(Disallow_break_req,Command_req);
-IMPLEMENT_STATIC_NAME(Disallow_break_req);
+
 void
 Disallow_break_req::do_print()const
 {
 }
 /* *************** */
-IMPLEMENT_STATIC_NAME(Barcheck_req);
+
 IMPLEMENT_IS_TYPE_B1(Barcheck_req,Timing_req);
 
 void
 Barcheck_req::do_print() const{}
 
 /* *************** */
-IMPLEMENT_STATIC_NAME(Clef_change_req);
+
 IMPLEMENT_IS_TYPE_B1(Clef_change_req,Command_req);
 
 void
@@ -100,7 +100,7 @@ Clef_change_req::Clef_change_req(String s)
     clef_str_ = s;
 }
 /* *************** */
-IMPLEMENT_STATIC_NAME(Group_feature_req);
+
 IMPLEMENT_IS_TYPE_B1(Group_feature_req,Command_req);
 
 void
@@ -113,7 +113,7 @@ Group_feature_req::do_print() const
 
 /* *************** */
 
-IMPLEMENT_STATIC_NAME(Partial_measure_req);
+
 IMPLEMENT_IS_TYPE_B1(Partial_measure_req,Timing_req);
 
 void
@@ -122,7 +122,7 @@ Partial_measure_req::do_print() const
     mtor << duration_;
 }
 
-IMPLEMENT_STATIC_NAME(Meter_change_req);
+
 IMPLEMENT_IS_TYPE_B1(Meter_change_req,Timing_req);
 
 void
@@ -152,7 +152,7 @@ Meter_change_req::set(int b,int o)
 
 /* *************** */
 
-IMPLEMENT_STATIC_NAME(Measure_grouping_req);
+
 IMPLEMENT_IS_TYPE_B1(Measure_grouping_req,Timing_req);
 
 void
@@ -173,7 +173,7 @@ Key_change_req::transpose(Melodic_req const & d)const
     }
 }
 
-IMPLEMENT_STATIC_NAME(Key_change_req);
+
 IMPLEMENT_IS_TYPE_B1(Key_change_req,Command_req);
 void
 Key_change_req::squash_octaves()

@@ -16,6 +16,6 @@ Meter::brew_molecule_p()const
     return new Molecule(Atom(s));
 }
 
-IMPLEMENT_STATIC_NAME(Meter);
+
 
 IMPLEMENT_IS_TYPE_B1(Meter,Item);

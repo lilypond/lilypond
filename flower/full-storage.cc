@@ -211,7 +211,5 @@ Full_storage::try_right_multiply(Matrix_storage * dest, Matrix_storage const * r
     
     
 }
-IMPLEMENT_STATIC_NAME(Full_storage);
-IMPLEMENT_STATIC_NAME(Matrix_storage);
 IMPLEMENT_IS_TYPE_B(Matrix_storage);
 IMPLEMENT_IS_TYPE_B1(Full_storage,Matrix_storage);

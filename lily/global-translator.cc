@@ -68,5 +68,5 @@ Global_translator::prepare(Moment)
 {
 }
 
-IMPLEMENT_STATIC_NAME(Global_translator);
+
 IMPLEMENT_IS_TYPE_B1(Global_translator, Translator);

@@ -20,7 +20,7 @@ Bar::Bar()
 }
 
 
-IMPLEMENT_STATIC_NAME(Bar);
+
 IMPLEMENT_IS_TYPE_B1(Bar,Item);
 
 void

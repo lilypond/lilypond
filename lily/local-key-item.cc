@@ -104,7 +104,7 @@ Local_acc::compare(Local_acc&a, Local_acc&b)
     
     return a.accidental_i_ - b.accidental_i_;
 };
-IMPLEMENT_STATIC_NAME(Local_key_item);
+
 IMPLEMENT_IS_TYPE_B1(Local_key_item,Item);
 
 void

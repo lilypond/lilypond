@@ -119,6 +119,6 @@ Tie_engraver::set_feature(Feature f)
 	dir_i_ = f.value_;
 }
 
-IMPLEMENT_STATIC_NAME(Tie_engraver);
+
 IMPLEMENT_IS_TYPE_B1(Tie_engraver,Engraver);
 ADD_THIS_ENGRAVER(Tie_engraver);

@@ -116,7 +116,7 @@ Dynamic_engraver::set_feature(Feature i)
 	dir_i_ = i.value_;
 }
 
-IMPLEMENT_STATIC_NAME(Dynamic_engraver);
+
 IMPLEMENT_IS_TYPE_B1(Dynamic_engraver,Engraver);
 ADD_THIS_ENGRAVER(Dynamic_engraver);
 

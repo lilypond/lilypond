@@ -12,7 +12,7 @@
 #include "rest-column.hh"
 #include "stem.hh"
 
-IMPLEMENT_STATIC_NAME(Rest_column);
+
 IMPLEMENT_IS_TYPE_B1(Rest_column,Head_column);
 
 
