@@ -204,9 +204,9 @@ Midi_track::process()
 			tcol_l->midi_event_p_array_.del( 0 );
 		}
 #else
-		for ( int i = 0; i < tcol_l->midi_event_p_array_.size(); i++ ) {
-			get_free_midi_voice_l( tcol_l->mom() )->add_event( tcol_l->midi_event_p_array_[ i ] );
-			tcol_l->midi_event_p_array_[ i ] = 0;
+		for ( int j = 0; j < tcol_l->midi_event_p_array_.size(); j++ ) {
+			get_free_midi_voice_l( tcol_l->mom() )->add_event( tcol_l->midi_event_p_array_[ j ] );
+			tcol_l->midi_event_p_array_[ j ] = 0;
 		}
 		tcol_l->midi_event_p_array_.clear();
 #endif 
