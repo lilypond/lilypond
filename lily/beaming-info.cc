@@ -88,9 +88,7 @@ Beaming_info_list::beamify (Moment &beat_length,bool subdivide)
   do
     {
       if (splits[d].infos_.size () != 1)
-	{
-	  splits[d].infos_.boundary (-d, 0).beams_i_drul_[-d] = middle_beams;
-	}
+	splits[d].infos_.boundary (-d, 0).beams_i_drul_[-d] = middle_beams;
     }
   while (flip (&d) != LEFT);
 
