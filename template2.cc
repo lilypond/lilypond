@@ -7,6 +7,7 @@
 #include "stcol.hh"
 
 #include "list.cc"
+#include "plist.cc"
 #include "cursor.cc"
 PL_instantiate(Score_column);
 PL_instantiate(Staff_column);
