@@ -71,7 +71,7 @@ local-WWW-post:
 	cd $(builddir) && $(footify) `$(FIND) . -name '*.html' -print`
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`
 	cd $(builddir) && find Documentation input \
-		$(web-ext:%=-path '*/out-www/*.%' -or) -false \
+		$(web-ext:%=-path '*/out-www/*.%' -or) -type l \
 		> $(outdir)/weblist
 	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $(builddir)/index.html
 	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(builddir)/index.html
