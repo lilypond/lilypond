@@ -24,7 +24,7 @@
 * Piano staffs::                
 * Setting variables::           
 * Fine tuning layout::          
-* Organising larger pieces::    
+* Organizing larger pieces::    
 * An orchestral part::          
 * Integrating text and music::  Integrating text and music
 @end menu
@@ -651,7 +651,9 @@ given to the staves.  It does not matter what names you give, as long
 as each staff has a different name. If you give them the same name,
 they are assumed to belong on the same staff, and will be printed like
 that. @code{\simultaneous } indicates that both fragments happen at
-the same time, and must be printed stacked vertically.
+the same time, and must be printed stacked vertically.  The notation
+@code{< .. >} can also be used as a shorthand for @code{\simultaneous
+@{ .. @}}.
 
 @separate
 
@@ -897,6 +899,10 @@ More options, like putting multiple lines of lyrics below a melody are
 discussed in @ref{Vocal music}.
 
 
+
+TODO: discuss contexts.
+
+
 @node A lead sheet
 @section A lead sheet
 
@@ -1066,12 +1072,10 @@ voices with @code{\\}:
   < @{ a4 g2 f4-~ f4 @} \\
     @{ r4 g4 f2 f4 @} >
 @end example
-@lilypond[relative]
-\context Staff  < { a4 g2 f4-~ f4 } \\
+@lilypond[relative=1]
+\context Staff   < { a4 g2 f4-~ f4 } \\
     { r4 g4 f2 f4 } >
 @end lilypond
-The notation @code{< .. >} is a shorthand for @code{\simultaneous @{
-.. @}}.
 
 For polyphonic typesetting spacer rests can also be convenient: these
 are rests that do not print.  It is useful for filling up voices that
@@ -1081,7 +1085,7 @@ temporarily do not play:
     @{ s4 g4 f2 f4 @} >
 @end example
 @lilypond[relative]
-  < { a4 g2 f4-~ f4 } \\
+\context Staff  < { a4 g2 f4-~ f4 } \\
     { s4 g4 f2 f4 } >
 @end lilypond
 
@@ -1259,15 +1263,7 @@ little to the left, and 1.8 staff space downwards.
 
 @cindex setting object properties
 
-@lilypond[relative=1,verbatim]
-\stemUp
-f-5
-\once \property Voice.Fingering
-  \set #'extra-offset = #'(-0.3 . -1.8) 
-f-5
-@end lilypond
-
-@lilypond[relative=1,verbatim]
+@lilypond[relative=2,verbatim]
 \stemUp
 f-5
 \once \property Voice.Fingering
@@ -1290,7 +1286,7 @@ voice. By introducing a tie in a different voice, and blanking a stem
 in that voice, the tie appears to cross voices.
 
 @lilypond[fragment,relative=1]
-< {
+\context Staff < {
       \once \property Voice.Stem \set #'transparent = ##t
       b8~ b8
   } \\ {
@@ -1309,8 +1305,8 @@ More specific overrides are also possible.  The notation manual
 discusses in depth how to figure out these statements for yourself, in
 @ref{Tuning output}.
 
-@node Organising larger pieces
-@section Organising larger pieces
+@node Organizing larger pieces
+@section Organizing larger pieces
 
 TODO: discuss identifiers, p&c, .
 
