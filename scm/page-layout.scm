@@ -296,7 +296,7 @@ is what have collected so far, and has ascending page numbers."
 		 (ideal (+
 			 (cond
 			  ((and title2? title1?)
-			   (ly:output-def-lookup bookpaper 'betweentitlespace)))
+			   (ly:output-def-lookup bookpaper 'betweentitlespace))
 			  (title1?
 			   (ly:output-def-lookup bookpaper 'aftertitlespace))
 			  (title2?

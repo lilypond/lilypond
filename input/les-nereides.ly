@@ -301,5 +301,4 @@ theScore = \score{
 %%% Local variables:
 %%% LilyPond-indent-level:4
 %%% End:
-%% new-chords-done %%
-m
+
