@@ -38,7 +38,8 @@ INSTALLATION_OUT_SUFFIXES=1 2
 # The cygwin profile.d dir, however, is in /etc
 
 # avoid collapsed directory constructs '//'
-etc=$(dir $(patsubst %/, %, $(dir $(prefix))))etc
+#etc=$(dir $(patsubst %/, %, $(dir $(prefix)/)))etc
+etc=$(patsubst %/, %, $(dir $(prefix)))/etc
 INSTALLATION_DIR=$(etc)/postinstall
 INSTALLATION_FILES=$(OUT_POST_INSTALLS)
 
