@@ -57,8 +57,6 @@ cantus = \notes \relative c' {
 
 %   width = 15.0 \cm %%% no effect?
 %   gourlay_maxmeasures = 1. %%% no effect?
-%   arithmetic_basicspace = 0.0 %%% no effect?
-%   arithmetic_multiplier = 0.\pt %%% no effect?
 
     \translator {
       \VoiceContext
