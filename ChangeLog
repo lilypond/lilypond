@@ -1,3 +1,15 @@
+2005-02-08  Werner Lemberg  <wl@gnu.org>
+
+	* mf/feta-din-code.mf: Format; clean up code.
+	Replace `---' with `--' plus explicit path directions.
+	(linethickness#, stafflinethickness#): Remove.
+	("dynamic f"): Replace `draw' with `draw_rounded_block'.
+	("dynamic s"): Improve shape.
+	("dynamic p"): Improve shape.
+	Replace `draw' with better outline approximation.
+	("dynamic r"): Improve shape.
+	Don't call `fill' and `draw' at the same time.
+
 2005-02-08  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/general-scheme.cc: Compile fixes: include wchar.h, string.h.
@@ -30,7 +42,7 @@
 
 2005-02-07  Erik Sandberg  <ersa9195@student.uu.se>
 
-	* ChangeLog: Added a bunch of bug hunters.
+	* THANKS: Added a bunch of bug hunters.
 
 2005-02-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
