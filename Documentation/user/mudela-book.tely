@@ -163,9 +163,9 @@ eps graphics and include it into the document with the
 
 The code used look like this:
 @example
-@mudela[eps]
+@@mudela[eps]
   <c' e g> <b d g> <c2 e g>
-@end mudela
+@@end mudela
 @end example
 
 You can also use the @code{eps} option if the block is a complete
@@ -178,12 +178,12 @@ mudela source. This 5 cm long empty line,
 @end mudela
 was created with this code:
 @example
-@mudela[eps]
-\score{
-  \notes{s}
-  \paper{ linewidth = 5.\cm;}
-}
-@end mudela
+@@mudela[eps]
+\score@{
+  \notes@{s@}
+  \paper@{ linewidth = 5.\cm;@}
+@}
+@@end mudela
 @end example
 
 To avoid that La@TeX{} places the music on a line of its one, there should
@@ -199,9 +199,9 @@ included in the middle of the text, 11pt or 13pt is probably better.
 
 The code can look like this:
 @example
-@mudela[13pt, eps]
+@@mudela[13pt, eps]
 <c' e g>
-@end mudela
+@@end mudela
 @end example
 
 The following options set the fontsize:
