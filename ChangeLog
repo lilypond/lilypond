@@ -1,5 +1,16 @@
 2003-09-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* GNUmakefile.in (SUBDIRS): Add elisp.
+
+	* elisp/lilypond-mode.el: 
+	* elisp/lilypond-init.el: 
+	* elisp/lilypond-indent.el: 
+	* elisp/lilypond-font-lock.el: Move from top dir.
+
+	* stepmake/stepmake/elisp-vars.make: New file.
+
+	* config.make.in (elispdir): Add.
+
 	* Documentation/topdocs/INSTALL.texi: Typo.
 
 	* make/ly-rules.make: Test for files instead of touching void and

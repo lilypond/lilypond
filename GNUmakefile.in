@@ -9,6 +9,7 @@ depth = .
 # descent order into subdirectories
 # 
 SUBDIRS = buildscripts python scripts \
+	elisp \
 	flower lily \
 	mf ly tex ps scm \
 	po make \
@@ -16,11 +17,14 @@ SUBDIRS = buildscripts python scripts \
 	Documentation input
 #
 
-SCRIPTS = configure aclocal.m4 autogen.sh
+SCRIPTS = configure aclocal.m4 autogen.sh lexer-gcc-3.1.sh
 README_FILES =  ChangeLog  COPYING DEDICATION ROADMAP THANKS
 README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt NEWS.txt
 IN_FILES := $(wildcard *.in)
-EXTRA_DIST_FILES = $(wildcard *.el) VERSION lilypond.vim vimrc  $(README_FILES)  $(SCRIPTS) $(IN_FILES)  emacsclient.patch server.el.patch darwin.patch .cvsignore  lexer-gcc-3.1.sh
+PATCH_FILES = emacsclient.patch server.el.patch darwin.patch
+VIM_FILES = vimrc lilypond.vim
+EXTRA_DIST_FILES = VERSION .cvsignore $(README_FILES) $(SCRIPTS) $(IN_FILES) \
+  $(PATCH_FILES) $(VIM_FILES)
 NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
 INSTALLATION_DIR=$(local_lilypond_datadir)
 INSTALLATION_FILES=$(config_make) VERSION
@@ -32,12 +36,6 @@ include $(depth)/make/stepmake.make
 
 doc: 
 	$(MAKE) -C Documentation
-
-LILYPOND_WORDS = $(outdir)/lilypond.words.el $(outdir)/lilypond.words.vim
-$(LILYPOND_WORDS): $(srcdir)/lily/my-lily-lexer.cc $(buildscript-dir)/lilypond.words.py $(srcdir)/scm/new-markup.scm $(srcdir)/ly/engraver-init.ly
-	cd $(builddir) && $(PYTHON) $(buildscript-dir)/lilypond.words.py $(outdir)
-
-all: $(LILYPOND_WORDS)
 
 web-install: 
 	-$(INSTALL) -m 755 -d $(webdir) 
@@ -120,8 +118,8 @@ $(builddir)/share/lilypond-force:
 		ln -s ../../../mf/$(outconfbase) tfm && \
 		ln -s ../../../mf/$(outconfbase) type1
 	cd $(builddir)/share/lilypond/elisp && \
-		ln -sf ../../../$(outconfbase)/lilypond.words.el . && \
-		ln -s $(abs-srcdir)/*.el .
+		ln -sf ../../../elisp/$(outconfbase)/lilypond.words.el . && \
+		ln -s $(abs-srcdir)/elisp/*.el .
 	$(foreach i,$(CATALOGS), \
 		mkdir -p $(builddir)/share/locale/$i/LC_MESSAGES && \
 		cd $(builddir)/share/locale/$i/LC_MESSAGES && \
