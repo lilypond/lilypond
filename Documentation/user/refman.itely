@@ -3055,8 +3055,8 @@ chord.
  You can change the number of strings, by setting the number of lines
 in the @internalsref{TabStaff} (the @code{line-count} property of
 @internalsref{TabStaff} can only be changed using
-@code{\outputproperty}, for more information, see @ref{Tuning per
-object}.
+@code{\outputproperty}, for more information, see @ref{Tuning
+objects}.
 
 You can change the tuning of the strings. A string tuning is given as
 a Scheme list with one integer number for each string, the number
@@ -3840,8 +3840,6 @@ you can manually force a clef glyph to be typeset on an arbitrary line,
 as described in section @ref{Clef}.  The note printed to the right side
 of each clef denotes the @code{c'} with respect to the clef.
 
-@table @code
-
 @c --- This should go somewhere else: ---
 @c @item modern style G clef (glyph: @code{clefs-G})
 @c
@@ -3865,138 +3863,191 @@ of each clef denotes the @code{c'} with respect to the clef.
 @c
 @c @lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "C" c'}
 
-@item modern style mensural C clef (glyph: @code{clefs-neo_mensural_c'})
+@multitable @columnfractions  .3 .3 .3 .1
 
-Supported clefs:
+@item
+@b{Glyph Name} @tab
+@b{Description} @tab
+@b{Supported Clefs} @tab
+@b{Example}
+
+@item
+@code{clefs-neo_mensural_c} @tab
+modern style mensural C clef @tab
 @code{neo_mensural_c1}, @code{neo_mensural_c2},
-@code{neo_mensural_c3}, @code{neo_mensural_c4}
+@code{neo_mensural_c3}, @code{neo_mensural_c4} @tab
+@lilypond[relative 0, notime]
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "neo_mensural_c2" c
+@end lilypond
 
-@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "neo_mensural_c2" c'}
+@item
+@code{clefs-petrucci_c1} @tab
+petrucci style mensural C clef (specifically for use on 1st staffline) @tab
+@code{petrucci_c1} @tab
+@lilypond[relative 0, notime]
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "petrucci_c1" c
+@end lilypond
 
-@item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c1})
+@item
+@code{clefs-petrucci_c2} @tab
+petrucci style mensural C clef (specifically for use on 2nd staffline) @tab
+@code{petrucci_c2} @tab
+@lilypond[relative 0, notime]
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "petrucci_c2" c
+@end lilypond
 
-Supported clefs:
-@code{petrucci_c1}
-for 1st staffline
+@item
+@code{clefs-petrucci_c3} @tab
+petrucci style mensural C clef (specifically for use on 3rd staffline) @tab
+@code{petrucci_c3} @tab
+@lilypond[relative 0, notime]
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "petrucci_c3" c
+@end lilypond
 
-@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c1" c'}
+@item
+@code{clefs-petrucci_c4} @tab
+petrucci style mensural C clef (specifically for use on 4th staffline) @tab
+@code{petrucci_c4} @tab
+@lilypond[relative 0, notime]
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "petrucci_c4" c
+@end lilypond
 
-@item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c2})
+@item
+@code{clefs-petrucci_c5} @tab
+petrucci style mensural C clef (specifically for use on 5th staffline) @tab
+@code{petrucci_c5} @tab
+@lilypond[relative 0, notime]
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "petrucci_c5" c
+@end lilypond
 
-Supported clefs:
-@code{petrucci_c2}
-for 2nd staffline
+@item
+@code{clefs-petrucci_f} @tab
+petrucci style mensural F clef @tab
+@code{petrucci_f} @tab
+@lilypond[relative 0, notime]
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "petrucci_f" c
+@end lilypond
 
-@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c2" c'}
+@item
+@code{clefs-petrucci_g} @tab
+petrucci style mensural G clef @tab
+@code{petrucci_g} @tab
+@lilypond[relative 0, notime]
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "petrucci_g" c
+@end lilypond
 
-@item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c3})
-
-Supported clefs:
-@code{petrucci_c3}
-for 3rd staffline
-
-@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c3" c'}
-
-@item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c4})
-
-Supported clefs:
-@code{petrucci_c4}
-for 4th staffline
-
-@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c4" c'}
-
-@item petrucci style mensural C clef (glyph: @code{clefs-petrucci_c5})
-
-Supported clefs:
-@code{petrucci_c5}
-for 5th staffline
-
-@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_c5" c'}
-
-@item petrucci style mensural F clef (glyph: @code{clefs-petrucci_f})
-
-Supported clefs:
-@code{petrucci_f}
-
-@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_f" c'}
-
-@item petrucci style mensural G clef (glyph: @code{clefs-petrucci_g})
-
-Supported clefs:
-@code{petrucci_g}
-
-@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "petrucci_g" c'}
-
-@item historic style mensural C clef (glyph: @code{clefs-mensural_c'})
-
-Supported clefs:
+@item
+@code{clefs-mensural_c'} @tab
+historic style mensural C clef @tab
 @code{mensural_c1}, @code{mensural_c2}, @code{mensural_c3},
-@code{mensural_c4}
+@code{mensural_c4} @tab
+@lilypond[relative 0, notime]
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "mensural_c2" c
+@end lilypond
 
-@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "mensural_c2" c'}
+@item
+@code{clefs-mensural_f} @tab
+historic style mensural F clef @tab
+@code{mensural_f} @tab
+@lilypond[relative 0, notime]
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "mensural_f" c
+@end lilypond
 
-@item historic style mensural F clef (glyph: @code{clefs-mensural_f})
+@item
+@code{clefs-mensural_g} @tab
+historic style mensural G clef @tab
+@code{mensural_g} @tab
+@lilypond[relative 0, notime]
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "mensural_g" c
+@end lilypond
 
-Supported clefs:
-@code{mensural_f}
+@item
+@code{clefs-vaticana_do} @tab
+Editio Vaticana style do clef @tab
+@code{vaticana_do1}, @code{vaticana_do2}, @code{vaticana_do3} @tab
+@lilypond[relative 0, notime]
+\context Staff
+\outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "vaticana_do2" c
+@end lilypond
 
-@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "mensural_f" c'}
+@item
+@code{clefs-vaticana_fa} @tab
+Editio Vaticana style fa clef @tab
+@code{vaticana_fa1}, @code{vaticana_fa2} @tab
+@lilypond[relative 0, notime]
+\context Staff
+\outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "vaticana_fa2" c
+@end lilypond
 
-@item historic style mensural G clef (glyph: @code{clefs-mensural_g})
+@item
+@code{clefs-medicaea_do} @tab
+Editio Medicaea style do clef @tab
+@code{medicaea_do1}, @code{medicaea_do2}, @code{medicaea_do3} @tab
+@lilypond[relative 0, notime]
+\context Staff
+\outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "medicaea_do2" c
+@end lilypond
 
-Supported clefs:
-@code{mensural_g}
+@item
+@code{clefs-medicaea_fa} @tab
+Editio Medicaea style fa clef @tab
+@code{medicaea_fa1}, @code{medicaea_fa2} @tab
+@lilypond[relative 0, notime]
+\context Staff
+\outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "medicaea_fa2" c
+@end lilypond
 
-@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "mensural_g" c'}
+@item
+@code{clefs-hufnagel_do} @tab
+historic style hufnagel do clef @tab
+@code{hufnagel_do1}, @code{hufnagel_do2}, @code{hufnagel_do3} @tab
+@lilypond[relative 0, notime]
+\context Staff
+\outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "hufnagel_do2" c
+@end lilypond
 
-@item Editio Vaticana style do clef (glyph: @code{clefs-vaticana_do})
+@item
+@code{clefs-hufnagel_fa} @tab
+historic style hufnagel fa clef @tab
+@code{hufnagel_fa1}, @code{hufnagel_fa2} @tab
+@lilypond[relative 0, notime]
+\context Staff
+\outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "hufnagel_fa2" c
+@end lilypond
 
-Supported clefs:
-@code{vaticana_do1}, @code{vaticana_do2}, @code{vaticana_do3}
+@item
+@code{clefs-hufnagel_do_fa} @tab
+historic style hufnagel combined do/fa clef @tab
+@code{hufnagel_do_fa} @tab
+@lilypond[relative 0, notime]
+\property Staff.TimeSignature \set #'transparent = ##t
+\clef "hufnagel_do_fa" c
+@end lilypond
 
-@lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "vaticana_do2" c'}
-
-@item Editio Vaticana style fa clef (glyph: @code{clefs-vaticana_fa})
-
-Supported clefs:
-@code{vaticana_fa1}, @code{vaticana_fa2}
-
-@lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "vaticana_fa2" c'}
-
-@item Editio Medicaea style do clef (glyph: @code{clefs-medicaea_do})
-
-Supported clefs:
-@code{medicaea_do1}, @code{medicaea_do2}, @code{medicaea_do3}
-
-@lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "medicaea_do2" c'}
-
-@item Editio Medicaea style fa clef (glyph: @code{clefs-medicaea_fa})
-
-Supported clefs:
-@code{medicaea_fa1}, @code{medicaea_fa2}
-
-@lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "medicaea_fa2" c'}
-
-@item historic style hufnagel do clef (glyph: @code{clefs-hufnagel_do})
-
-Supported clefs:
-@code{hufnagel_do1}, @code{hufnagel_do2}, @code{hufnagel_do3}
-
-@lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "hufnagel_do2" c'}
-
-@item historic style hufnagel fa clef (glyph: @code{clefs-hufnagel_fa})
-
-Supported clefs:
-@code{hufnagel_fa1}, @code{hufnagel_fa2}
-
-@lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4 \property Staff.TimeSignature \set #'transparent = ##t \clef "hufnagel_fa2" c'}
-
-@item historic style hufnagel combined do/fa clef (glyph: @code{clefs-hufnagel_do_fa})
-
-Supported clefs:
-@code{hufnagel_do_fa}
-
-@lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "hufnagel_do_fa" c'}
+@end multitable
 
 @c --- This should go somewhere else: ---
 @c @item modern style percussion clef (glyph: @code{clefs-percussion})
@@ -4013,21 +4064,19 @@ Supported clefs:
 @c
 @c @lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #6 \property Staff.TimeSignature \set #'transparent = ##t \clef "tab" c'}
 
-@end table
-
-@emph{Modern style} means ``as is typeset in current editions of
+@emph{Modern style} means ``as is typeset in contemporary editions of
 transcribed mensural music''.
 
 @emph{Petrucci style} means ``inspired by printings published by the
 famous engraver Petrucci (1466-1539)''.
 
-@emph{Historic style} means ``as was typeset or written in contemporary
-historic editions (other than those of Petrucci)''.
+@emph{Historic style} means ``as was typeset or written in historic
+editions (other than those of Petrucci)''.
 
 @emph{Editio XXX style} means ``as is/was printed in Editio XXX''.
 
 Petrucci used C clefs with differently balanced left-side vertical
-beams, depending on which staffline it was printed.
+beams, depending on which staffline it is printed.
 
 
 @node Custodes
@@ -4213,11 +4262,11 @@ Gregorian chant such as the Editio Vaticana from 1905/08.
 
 @syntax
 
-Syntactically, ligatures are simply enclosed by @code{\[} and @code{\]}.
-Some ligature styles (such as Editio Vaticana) may need additional input
-syntax specific for this particular type of ligature.  By default, the
-@internalsref{LigatureBracket} engraver just marks the start and end of
-a ligature by small square angles:
+Syntactically, ligatures are simply enclosed by @code{\[} and
+@code{\]}.  Some ligature styles (such as Editio Vaticana) may need
+additional input syntax specific for this particular type of ligature.
+By default, the @internalsref{LigatureBracket} engraver just puts a
+square bracket above the ligature.
 
 @lilypond[singleline,verbatim]
 \score {
