@@ -1265,7 +1265,10 @@ class Compile_error:
 
 def write_file_map (lys, name):
 	snippet_map = open ('snippet-map.ly', 'w')
-	snippet_map.write ("\n#(ly:add-file-name-alist '(")
+	snippet_map.write ("""
+#(define version-seen? #t)
+#(ly:add-file-name-alist '(
+""")
 	for ly in lys:
 		snippet_map.write ('("%s.ly" . "%s:%d (%s.ly)")\n' \
 				   % (ly.basename (),
