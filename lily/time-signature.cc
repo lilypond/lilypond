@@ -82,12 +82,10 @@ Time_signature::special_time_signature (Grob*me, String s, int n, int d)
   if (!m.empty_b ()) 
     return m;
 
-  String message =
-      "unknown time signature `" + s +
-      "'; resorting to default layout with numbers";
-  warning (_ (message.ch_C ()));
-
-  // Resort to default layout with numbers
+  /*
+    If there is no such symbol, we default without warning to the
+    numbered style.
+   */
   return time_signature (me, n, d);
 }
 
