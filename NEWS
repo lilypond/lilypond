@@ -1,6 +1,17 @@
+pl 73pre
+	- some refs doco.
+	- move Input_engraver into Paper_def
+	- junk Interpreter
+	- naming: Request_engraver -> Engraver, 
+	- Music_iterator::next() -> process_and_next()
+	- junk Voice_engravers
+	- Span_bar, Span_bar_engraver
+	- Vertical_align_engraver
+	
+*******
 july 2
 pl 72pre
-	- paper{} syntax: var = 1.0\pt;, with an Assoc array
+	- \paper{} syntax: var = 1.0\pt;, with an Assoc array
 	- sketch of MIDI Performer classes.
 	- bf: memleak in parser
 	- naming: Acceptor -> Translator

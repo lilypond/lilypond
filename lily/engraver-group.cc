@@ -50,7 +50,7 @@ Engraver_group_engraver::set_feature(Feature d)
     iter_top(grav_list_, i);
     while (i.ok()) {
 	// this construction to ensure clean deletion
-	Request_engraver *grav_l = i++; 
+	Engraver *grav_l = i++; 
 	grav_l->set_feature(d);
     }
 }
@@ -61,7 +61,7 @@ Engraver_group_engraver::sync_features()
     iter_top(grav_list_, i);
     while (i.ok()) {
 
-	Request_engraver *grav_l = i++; 
+	Engraver *grav_l = i++; 
 	grav_l->sync_features();
     }
 }
@@ -72,7 +72,7 @@ Engraver_group_engraver::do_pre_move_processing()
     iter_top(grav_list_, i);
     while (i.ok()) {
 	
-	Request_engraver *grav_l = i++; 
+	Engraver *grav_l = i++; 
 	grav_l->pre_move_processing();
     }
 }
@@ -83,7 +83,7 @@ Engraver_group_engraver::do_process_requests()
     iter_top(grav_list_, i);
     while (i.ok()) {
 	
-	Request_engraver *grav_l = i++; 
+	Engraver *grav_l = i++; 
 	grav_l->process_requests();
     }
 }
@@ -95,16 +95,16 @@ Engraver_group_engraver::do_post_move_processing()
     iter_top(grav_list_, i);
     while (i.ok()) {
 		// this construction to ensure clean deletion
-	Request_engraver *grav_l = i++; 
+	Engraver *grav_l = i++; 
 	grav_l->post_move_processing();
     }
 }
 
 
 bool
-Engraver_group_engraver::contains_b(Request_engraver* grav_l)const
+Engraver_group_engraver::contains_b(Engraver* grav_l)const
 {
-    bool parent_b = Request_engraver::contains_b(grav_l);
+    bool parent_b = Engraver::contains_b(grav_l);
     
     if (parent_b)
 	return true;
@@ -127,8 +127,14 @@ Engraver_group_engraver::do_try_request(Request*req_l)
     return hebbes_b ;
 }
 
+bool
+Engraver_group_engraver::try_request(Request* r)
+{
+    return Engraver::try_request(r);
+}
+
 void
-Engraver_group_engraver::add(Request_engraver *grav_p)
+Engraver_group_engraver::add(Engraver *grav_p)
 {
     grav_list_.bottom().add(grav_p);
     grav_p->daddy_grav_l_ = this;
@@ -141,8 +147,8 @@ Engraver_group_engraver::add(Request_engraver *grav_p)
 }
 
 
-Request_engraver *
-Engraver_group_engraver::remove_engraver_p(Request_engraver*grav_l)
+Engraver *
+Engraver_group_engraver::remove_engraver_p(Engraver*grav_l)
 {
     group_l_arr_.substitute((Engraver_group_engraver*)grav_l,0);
     nongroup_l_arr_.substitute(grav_l,0);
@@ -152,16 +158,16 @@ Engraver_group_engraver::remove_engraver_p(Request_engraver*grav_l)
 }
 
 void
-Engraver_group_engraver::terminate_engraver(Request_engraver*r_l)
+Engraver_group_engraver::terminate_engraver(Engraver*r_l)
 {
     mtor << "Removing " << r_l->name() << " at " << get_staff_info().when() << "\n";
     r_l->do_removal_processing();
-    Request_engraver * grav_p =remove_engraver_p(r_l);
+    Engraver * grav_p =remove_engraver_p(r_l);
     
     delete grav_p;
 }
 
-IMPLEMENT_IS_TYPE_B2(Engraver_group_engraver,Request_engraver, Translator);
+IMPLEMENT_IS_TYPE_B2(Engraver_group_engraver,Engraver, Translator);
 IMPLEMENT_STATIC_NAME(Engraver_group_engraver);
 ADD_THIS_ENGRAVER(Engraver_group_engraver);
 
@@ -237,7 +243,7 @@ void
 Engraver_group_engraver::announce_element(Score_elem_info info)
 {
     announce_info_arr_.push(info);
-    Request_engraver::announce_element(info);
+    Engraver::announce_element(info);
 }
 
 void
@@ -254,7 +260,7 @@ Engraver_group_engraver::do_announces()
        
        if (!info.req_l_)
 	    info.req_l_ = &dummy_req;
-       for (int i=0; i < nongroup_l_arr_.size(); i++) {
+       for (int i=0; i < nongroup_l_arr_.size(); i++) {	// Is this good enough?6
 	   if (nongroup_l_arr_[i] != info.origin_grav_l_arr_[0])
 	       nongroup_l_arr_[i]->acknowledge_element(info);
        }
@@ -273,7 +279,7 @@ Engraver_group_engraver::do_removal_processing()
 Staff_info
 Engraver_group_engraver::get_staff_info()const
 {
-    Staff_info inf = Request_engraver::get_staff_info();
+    Staff_info inf = Engraver::get_staff_info();
 
     for (int i=0; i < nongroup_l_arr_.size(); i++)
 	nongroup_l_arr_[i]->fill_staff_info(inf);
@@ -284,14 +290,21 @@ Engraver_group_engraver::get_staff_info()const
 Translator*
 Engraver_group_engraver::get_default_interpreter()
 {
-    if ( interpreter_l() )
+    // ? 
+    if ( is_bottom_engraver_b() )
 	return daddy_grav_l_->get_default_interpreter();
 
     Engraver_group_engraver *grav_p= igrav_l_->
 	get_default_igrav_l()->get_group_engraver_p();
     add(grav_p );
-    if (grav_p->interpreter_l())
+    if (grav_p->is_bottom_engraver_b())
 	return grav_p;
     else
 	return grav_p->get_default_interpreter();
+}
+
+bool
+Engraver_group_engraver::is_bottom_engraver_b()const
+{
+    return !igrav_l_->get_default_igrav_l();
 }
