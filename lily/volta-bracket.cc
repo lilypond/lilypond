@@ -109,7 +109,7 @@ Volta_bracket_interface::brew_molecule (SCM smob)
   Molecule num = Text_item::text2molecule (me, text, properties);
 
   mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
-		   - 1.0);
+		   - 1.0, 0);
   mol.translate_axis (left, X_AXIS);
   return mol.smobbed_copy ();
 }

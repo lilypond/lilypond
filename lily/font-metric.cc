@@ -156,6 +156,17 @@ LY_DEFINE(ly_find_glyph_by_name, "ly:find-glyph-by-name", 2 , 0, 0,
   return fm->find_by_name (ly_scm2string (name)).smobbed_copy ();
 }
 
+LY_DEFINE(ly_get_glyph, "ly:get-glyph", 2 , 0, 0,
+	  (SCM font, SCM index),
+	  "This function retrieves a Molecule for the glyph numbered @var{index} in "
+"@var{font}. ")
+{
+  Font_metric *fm = unsmob_metrics (font);
+  SCM_ASSERT_TYPE(fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
+  SCM_ASSERT_TYPE(gh_number_p (index), index, SCM_ARG2, __FUNCTION__, "number");
+
+  return fm->get_char_molecule (gh_scm2int (index)).smobbed_copy ();
+}
 
 LY_DEFINE(ly_text_dimension,"ly:text-dimension", 2 , 0, 0,
 	  (SCM font, SCM text),
@@ -172,10 +183,6 @@ LY_DEFINE(ly_text_dimension,"ly:text-dimension", 2 , 0, 0,
   
   return gh_cons (ly_interval2scm (b[X_AXIS]), ly_interval2scm(b[Y_AXIS]));
 }
-
-
-
-
   
 Molecule
 Font_metric::get_char_molecule (int code)  const

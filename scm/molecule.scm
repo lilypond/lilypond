@@ -12,6 +12,17 @@
   ))
 
 
+(define-public (stack-lines dir padding baseline mols)
+  "Stack vertically with a baseline-skip."
+  (if (null? mols)
+      '()
+      (if (pair? mols)
+	  (ly:combine-molecule-at-edge (car mols) Y dir 
+				       (stack-lines Y dir padding (cdr mols))
+				       padding baseline 
+				       )
+	  )
+  ))
 
 
 (define-public (fontify-text font-metric text)

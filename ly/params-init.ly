@@ -52,11 +52,14 @@ interscoreline = 4. \mm
 \translator { \TabVoiceContext }
 
 
-
+%%
+%% TODO: baseline-skip should come from the font.
+%%
 #(define font-defaults
       '((font-family . music)
 	(font-relative-size . 0)
 	(font-shape . upright)
+	(baseline-skip . 2) 
 	(font-series . medium)
 	))
 

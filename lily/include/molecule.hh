@@ -58,7 +58,8 @@ public:
   /**
      Set dimensions to empty, or to (Interval (0,0),Interval (0,0) */
   void set_empty (bool);
-  void add_at_edge (Axis a, Direction d, const Molecule &m, Real padding);
+  void add_at_edge (Axis a, Direction d, const Molecule &m, Real padding,
+		    Real minimum);
   void add_molecule (Molecule const &m);
   void translate (Offset);
   

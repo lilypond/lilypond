@@ -56,7 +56,7 @@ Chord_name::brew_molecule (SCM smob)
       Molecule m;
       m.set_empty (false);
       mol.add_at_edge (X_AXIS, RIGHT, m, gh_scm2double (space)*
-		       Staff_symbol_referencer::staff_space (me));
+		       Staff_symbol_referencer::staff_space (me), 0);
     }
 
   return mol.smobbed_copy ();

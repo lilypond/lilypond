@@ -105,7 +105,7 @@ Lookup::line (Real th, Offset f, Offset t)
 Molecule
 Lookup::blank (Box b) 
 {
-  return Molecule (b, SCM_EOL);
+  return Molecule (b, scm_makfrom0str (""));
 }
 
 Molecule

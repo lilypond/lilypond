@@ -18,8 +18,8 @@ parenthesize (Grob*me, Molecule m)
 {
   Molecule open = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-leftparen"));
   Molecule close = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-rightparen"));
-  m.add_at_edge (X_AXIS, LEFT, Molecule (open), 0);
-  m.add_at_edge (X_AXIS, RIGHT, Molecule (close), 0);
+  m.add_at_edge (X_AXIS, LEFT, Molecule (open), 0,0);
+  m.add_at_edge (X_AXIS, RIGHT, Molecule (close), 0,0);
 
   return m;
 }
@@ -203,7 +203,7 @@ Accidental_interface::brew_molecule (SCM smob)
 	}
       else
 	{
-	  mol.add_at_edge (X_AXIS,  RIGHT, acc, 0.1);
+	  mol.add_at_edge (X_AXIS,  RIGHT, acc, 0.1,0);
 	}
     }
 

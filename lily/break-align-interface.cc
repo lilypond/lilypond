@@ -231,23 +231,21 @@ Break_align_interface::do_alignment (Grob *me)
 
 
 ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
-  "Items that are aligned in prefatory matter.
-
-The spacing of these items is controlled by the space-alist
-property. It contains a list break-align-symbols with a specification
-of the associated space. The space definition is either (extra-space
-. @var{number}), which adds space after the symbol, (minimum-space
-. @var{ms}), which pads the space until it it is @var{ms}.
-
-
-Special keys for the alist are 'first-note and 'next-note, signifyign
-the first note on a line, and the next note halfway a line.
-
-Rules for this spacing are much more complicated than this. 
-See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147
-
-
-",
+	       //
+"Items that are aligned in prefatory matter.\n"
+"\n"
+"The spacing of these items is controlled by the space-alist\n"
+"property. It contains a list break-align-symbols with a specification\n"
+"of the associated space. The space definition is either (extra-space\n"
+". @var{number}), which adds space after the symbol, (minimum-space\n"
+". @var{ms}), which pads the space until it it is @var{ms}.\n"
+"\n"
+"\n"
+"Special keys for the alist are 'first-note and 'next-note, signifyign\n"
+"the first note on a line, and the next note halfway a line.\n"
+"\n"
+"Rules for this spacing are much more complicated than this. \n"
+"See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147\n",
   "break-align-symbol break-alignment-done space-alist");
 
 ADD_INTERFACE (Break_align_interface, "break-alignment-interface",
