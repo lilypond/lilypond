@@ -20,7 +20,7 @@
   (let ((props (page-properties paper)))
 
     (interpret-markup paper props
-		    (markup #:fill-line ("" (number->string page-number))))))
+		      (markup #:fill-line ("" (number->string page-number))))))
 
 
 (define TAGLINE

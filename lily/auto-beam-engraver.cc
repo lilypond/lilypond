@@ -21,9 +21,6 @@
 #include "duration.hh"
 #include "context.hh"
 
-/*
-  TODO: documentme.
- */
 class Auto_beam_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Auto_beam_engraver);

@@ -21,11 +21,9 @@
 
 Music_output_def::Music_output_def ()
 {
-  translator_tab_ = new Scheme_hash_table;
   scope_ = SCM_EOL;
   smobify_self ();
 
-  scm_gc_unprotect_object (translator_tab_->self_scm ());
   scope_ = ly_make_anonymous_module (false);
 }
 
@@ -36,12 +34,8 @@ Music_output_def::~Music_output_def ()
 Music_output_def::Music_output_def (Music_output_def const &s)
 {
   scope_ = SCM_EOL;
-  translator_tab_ = 0;
   smobify_self ();
 
-  translator_tab_ =   new Scheme_hash_table (*s.translator_tab_);  
-  scm_gc_unprotect_object (translator_tab_->self_scm ());  
-  
   scope_= ly_make_anonymous_module (false);
   if (is_module (s.scope_))
     ly_import_module (scope_, s.scope_);
@@ -55,18 +49,7 @@ SCM
 Music_output_def::mark_smob (SCM m)
 {
   Music_output_def * mo = (Music_output_def*) SCM_CELL_WORD_1 (m);
-  if (mo->translator_tab_)
-    scm_gc_mark (mo->translator_tab_->self_scm ());
-
-  mo->derived_mark ();
-  
   return mo->scope_;
-}
-
-void
-Music_output_def::derived_mark ()
-{
-  
 }
 
 void
@@ -75,11 +58,13 @@ Music_output_def::assign_context_def (SCM transdef)
   Context_def *tp = unsmob_context_def (transdef);
   assert (tp);
 
-  translator_tab_->set (tp->get_context_name (), transdef);
+  if (tp)
+    {
+      SCM sym = tp->get_context_name ();
+      scm_module_define (scope_, sym, transdef);
+    }  
   
   String nm = ly_symbol2string (tp->get_context_name ()) + "Context";
-
-
   scm_module_define (scope_, ly_symbol2scm (nm.to_str0 ()), transdef);
 }
 
@@ -89,9 +74,16 @@ Music_output_def::assign_context_def (SCM transdef)
 SCM
 Music_output_def::find_context_def (SCM name) const
 {  
-  SCM val  =SCM_EOL;
-  translator_tab_->try_retrieve (name, &val);
-  return val;
+  SCM var = ly_module_lookup (scope_, name);
+
+  if (var != SCM_BOOL_F)
+    {
+      var = scm_variable_ref (var);
+      Context_def *cd = (unsmob_context_def (var));
+      return cd ? cd->self_scm () : SCM_EOL;
+    }
+  else
+    return SCM_EOL;
 }
 
 int
@@ -168,12 +160,19 @@ LY_DEFINE(ly_output_description, "ly:output-description",
 	  "Return the description of translators in @var{output-def}.")
 {
   Music_output_def *id = unsmob_music_output_def (output_def);
-  SCM al = id->translator_tab_->to_alist ();
+  
+  SCM al =ly_module_to_alist (id->scope_);
+
   SCM l = SCM_EOL;
   for (SCM s = al ; ly_c_pair_p (s); s = ly_cdr (s))
     {
       Context_def * td = unsmob_context_def (ly_cdar (s));
-      l = scm_cons (scm_cons (ly_caar (s), td->to_alist ()),  l);
+      SCM key = ly_caar (s);
+      if (td && key == td->get_context_name ())
+	{
+	  
+	  l = scm_cons (scm_cons (key, td->to_alist ()),  l);
+	}
     }
   return l;  
 }

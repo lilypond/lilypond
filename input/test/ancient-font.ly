@@ -1,4 +1,4 @@
-\version "2.3.1"
+\version "2.3.2"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -222,13 +222,13 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	linethickness = #(/ staffspace 5.0)
 	indent = 0.0
 	\context {
-	    \ScoreContext
+	    \Score
 	    \accepts MensuralStaff
 	    \accepts GregorianStaff
 %	    timing = ##f %%%%%%%% FIXME: this has no effect
 	}
 	\context {
-	    \VoiceContext
+	    \Voice
 	    \name MensuralVoice
 	    \alias Voice
 	    \remove Ligature_bracket_engraver
@@ -240,7 +240,7 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	    autoBeaming = ##f
 	}
 	\context {
-	    \VoiceContext
+	    \Voice
 	    \name GregorianVoice
 	    \alias Voice
 	    \remove Ligature_bracket_engraver
@@ -249,7 +249,7 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	    autoBeaming = ##f
 	}
 	\context {
-	    \StaffContext
+	    \Staff
 	    \name MensuralStaff
 	    \alias Staff
 	    \accepts MensuralVoice
@@ -265,7 +265,7 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	    clefOctavation = #0 
 	}
 	\context {
-	    \StaffContext
+	    \Staff
 	    \name GregorianStaff
 	    \alias Staff
 	    \accepts GregorianVoice

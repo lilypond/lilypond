@@ -55,7 +55,6 @@ public:
   Paper_def ();
   Paper_def (Paper_def const&);
   virtual ~Paper_def ();
-  virtual void derived_mark ();
   
   Paper_outputter* get_paper_outputter (String) const;
   SCM font_descriptions () const;

@@ -377,7 +377,7 @@ System::get_line ()
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
   Paper_line *pl = new Paper_line (Offset (x.length (), y.length ()),
-				   stencils, penalty);
+				   stencils, (bool) penalty); // FIXME.
 
   return scm_gc_unprotect_object (pl->self_scm ());
 }

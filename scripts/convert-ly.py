@@ -2088,6 +2088,19 @@ def conv (str):
 conversions.append (((2, 3, 1), conv,
 		     '''\\apply -> \\applymusic'''))
 
+def conv (str):
+	def func(m):
+		if m.group(1) not in ['RemoveEmptyStaff',
+				      ]:
+			return '\\' + m.group (1)
+		else:
+			return m.group (0)
+		
+	return re.sub (r'\\([a-zA-Z]+)Context\b', func, str)
+
+conversions.append (((2, 3, 2), conv,
+		     '''\\FooContext -> \\Foo'''))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

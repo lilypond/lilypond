@@ -427,6 +427,12 @@ intended to help the programmers and debuggers. Usually, they can be
 ignored. Sometimes, they come in such big quantities that they obscure
 other output. In this case, file a bug-report.
 
+@item Aborted (core dumped)
+This signals a serious programming error that caused the program to
+crash. Such errors are considered critical. If you stumble on one,
+send a bugreport.
+
+
 @end table
 
 @cindex errors, message format
