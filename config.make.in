@@ -46,7 +46,7 @@ package_omfdir = $(omfdir)/$(package)
 local_package_datadir = $(lilypond_datadir)/$(TOPLEVEL_VERSION)
 local_package_libdir = $(lilypond_libdir)/$(TOPLEVEL_VERSION)
 local_package_docdir = $(lilypond_docdir)/$(TOPLEVEL_VERSION)
-local_package_omfdir = $(lilypond_docdir)/$(TOPLEVEL_VERSION)
+local_package_omfdir = $(lilypond_omfdir)/$(TOPLEVEL_VERSION)
 
 lilypond_datadir = $(package_datadir)
 lilypond_libdir = $(package_libdir)
