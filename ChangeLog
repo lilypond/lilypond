@@ -1,3 +1,8 @@
+2004-04-20  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/lilypond.py: Handle --set=fontencoding=FONTENC (default:
+	unset) and --set=inputencoding=INPUTENC (default: latin1).
+
 2004-04-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scripts/convert-ly.py: backport of #'(markup).

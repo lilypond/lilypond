@@ -183,6 +183,8 @@ layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
 
 ## TODO: change name.
 extra_init = {
+	'fontencoding' : [],
+	'inputencoding' : ['latin1'],
 	'language' : [],
 	'latexheaders' : [],
 	'latexpackages' :  ['geometry'],
@@ -369,21 +371,21 @@ def one_latex_definition (defn, first):
 	for (k,v) in defn[1].items ():
 		val = open (v).read ()
 		if (string.strip (val)):
-			s = s + r'''\def\lilypond%s{%s}''' % (k, val)
+			s += r'''\def\lilypond%s{%s}''' % (k, val)
 		else:
-			s = s + r'''\let\lilypond%s\relax''' % k
-		s = s + '\n'
+			s += r'''\let\lilypond%s\relax''' % k
+		s += '\n'
 
 	if first:
-		s = s + '\\def\\mustmakelilypondtitle{}\n'
+		s += '\\def\\mustmakelilypondtitle{}\n'
 	else:
-		s = s + '\\def\\mustmakelilypondpiecetitle{}\n'
+		s += '\\def\\mustmakelilypondpiecetitle{}\n'
 		
-	s = s + '\\input %s\n' % defn[0] # The final \n seems important here. It ensures that the footers and taglines end up on the right page.
+	s += '\\input %s\n' % defn[0] # The final \n seems important here. It ensures that the footers and taglines end up on the right page.
 	return s
 
 
-ly_paper_to_latexpaper =  {
+ly_paper_to_latexpaper = {
 	'letter' : 'letterpaper', 
 	'a3' : 'a3paper',
 	'a4' : 'a4paper',
@@ -397,31 +399,34 @@ ly_paper_to_latexpaper =  {
 def global_latex_preamble (extra):
 	'''construct preamble from EXTRA,'''
 	s = ""
-	s = s + '% generation tag\n'
+	s += '% generation tag\n'
 
 	options = ''
 
 	if extra['latexoptions']:
 		options = options + ',' + extra['latexoptions'][-1]
 
-	s = s + '\\documentclass[%s]{article}\n' % options
+	s += '\\documentclass[%s]{article}\n' % options
 
 	if safe_mode_p:
-		s = s + '\\nofiles\n'
+		s += '\\nofiles\n'
+
+	s += '\\usepackage{%s}\n' % string.join (extra['latexpackages'], ',')
 
 	if extra['language']:
-		s = s + r'\usepackage[%s]{babel}' \
-		    % extra['language'][-1] + '\n'
+		s += r'\usepackage[%s]{babel}' % extra['language'][-1] + '\n'
 
-	s = s + '\\usepackage{%s}\n' \
-		% string.join (extra['latexpackages'], ',')
+	if extra['fontencoding']:
+		s += '\\usepackage[%s]{fontenc}\n' % extra['fontencoding'][-1]
+
+	if extra['inputencoding']:
+		s += '\\usepackage[%s]{inputenc}\n' % extra['inputencoding'][-1]
 
 	if extra['latexheaders']:
-		s = s + '\\include{%s}\n' \
+		s += '\\include{%s}\n' \
 			% string.join (extra['latexheaders'], '}\n\\include{')
 
  	unit = extra['unit'][-1]
-
 
 	papersize = ''
 	if extra['papersize']:
@@ -446,22 +451,21 @@ def global_latex_preamble (extra):
 		linewidth = '597pt'
 	else:
 		linewidth = '%d%s' % (maxlw, unit)
-	s = s + '\geometry{%swidth=%s%s,bottom=11mm,headsep=2mm,top=12mm,headheight=2mm,footskip=5mm,%s}\n' % (papersize, linewidth, textheight, orientation)
+	s += '\geometry{%swidth=%s%s,bottom=11mm,headsep=2mm,top=12mm,headheight=2mm,footskip=5mm,%s}\n' % (papersize, linewidth, textheight, orientation)
 
 
 	if 'twoside' in  extra['latexoptions'] :
-		s = s + '\geometry{twosideshift=4mm}\n'
+		s += '\geometry{twosideshift=4mm}\n'
 
-	s = s + r'''
-\usepackage[latin1]{inputenc}
+	s += r'''
 \input{titledefs}
 '''
 	
 	if extra['pagenumber'] and extra['pagenumber'][-1] and extra['pagenumber'][-1] != 'no':
-		s = s + '\setcounter{page}{%d}\n' % (extra['pagenumber'][-1])
-                s = s + '\\pagestyle{plain}\n'
+		s += '\setcounter{page}{%d}\n' % (extra['pagenumber'][-1])
+                s += '\\pagestyle{plain}\n'
 	else:
-		s = s + '\\pagestyle{empty}\n'
+		s += '\\pagestyle{empty}\n'
 
 
 	return s
@@ -473,17 +477,17 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 
 	
 	s = global_latex_preamble (extra) + '\\begin{document}\n'
-	s = s + '\\parindent 0pt\n'
-	s = s + '\\thispagestyle{firstpage}\n'
+	s += '\\parindent 0pt\n'
+	s += '\\thispagestyle{firstpage}\n'
 
 	first = 1
 	for t in tfiles:
-		s = s + one_latex_definition (t, first)
+		s += one_latex_definition (t, first)
 		first = 0
 
 
-	s = s + '\n\\thispagestyle{lastpage}\n'
-	s = s + '\\end{document}'
+	s += '\n\\thispagestyle{lastpage}\n'
+	s += '\\end{document}'
 
 	return s
 
@@ -656,7 +660,7 @@ def make_html_menu_file (html_file, files_found):
 
 	pages = filter (lambda x : re.search ('page[0-9]+.png',  x),
 			files_found)
-	rest =  filter (lambda x : not re.search ('page[0-9]+.png',  x),
+	rest = filter (lambda x : not re.search ('page[0-9]+.png',  x),
 			files_found)
 
 	preview = filter (lambda x: re.search ('.png$', x), rest)
@@ -855,7 +859,7 @@ if 1:
 		os.environ['openout_any'] = 'p'
 
 	# to be sure, add tmpdir *in front* of inclusion path.
-	#os.environ['TEXINPUTS'] =  tmpdir + ':' + os.environ['TEXINPUTS']
+	#os.environ['TEXINPUTS'] = tmpdir + ':' + os.environ['TEXINPUTS']
 	os.chdir (tmpdir)
 
 	# We catch all exceptions, because we need to do stuff at exit:
