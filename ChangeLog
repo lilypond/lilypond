@@ -4,6 +4,8 @@
 
 	* Documentation/user/examples.itely: make new sections.
 
+	* input/test/bar-lines.ly: improve output, fix bug.
+
 2004-10-01  Werner Lemberg  <wl@gnu.org>
 
 	* tex/lilyponddefs.tex (\lilypondECencoding): New command to handle
