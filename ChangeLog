@@ -1,3 +1,8 @@
+2002-12-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/refman.itely (Graphical interfaces): add note
+	about xml2ly.
+
 2002-12-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/ly2dvi.py (run_dvips): remove trailing newline
