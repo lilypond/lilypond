@@ -1,3 +1,8 @@
+2004-04-02  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/wilhelmus.ly: Use raggedright.  Hack `Een prin -- ce'
+	lyric indent.
+
 2004-04-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* input/regression/bar-check-redefine.ly (pipeSymbol): new file.

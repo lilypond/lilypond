@@ -30,13 +30,16 @@ noclefs = \notes {
 
 setMargins = {
   %% first line left margin
-  \context Staff \applycontext #(set-extra-space 'TimeSignature 'first-note 4.5)
+  %% justified:
+  %% \context Staff \applycontext #(set-extra-space 'TimeSignature 'first-note 4.5)
+  %% raggedright:
+  \context Staff \applycontext #(set-extra-space 'TimeSignature 'first-note 9.5)
   
   %% next lines left margin
   \context Staff \applycontext #(set-extra-space 'KeySignature 'staff-bar 15)
   
   %% next lines small key-signature margin
-  \context Staff \applycontext #(set-extra-space 'LeftEdge 'key-signature 4.0)
+  \context Staff \applycontext #(set-extra-space 'LeftEdge 'key-signature 1.0)
 }
 
 pipeSymbol = {
@@ -64,7 +67,14 @@ voice = \notes \relative c' {
   d4 | g g a a | b a8 \myBreak
   b8 | c4 b a a| g2.  \myBreak
 
-  b8[ c] | d2 e4 d2 c4 | b a8 \myBreak
+  %% Hack for better left tekst margin
+  %% b8[ c] | d2 e4 d2 c4 | b a8 \myBreak
+  %%\override melismaBusyProperties = #'()
+  \set melismaBusyProperties = #'()
+  b8[ c] |
+  %%\revert melismaBusyProperties
+  \set melismaBusyProperties = #default-melisma-properties
+  d2 e4 d2 c4 b | a8 \myBreak
   b8 | c4 b a g | a2. \myBreak
 
   d,4 | g4.\melisma a8\melismaEnd b2 a2 g4 | fis e8 \myBreak
@@ -74,8 +84,10 @@ voice = \notes \relative c' {
 
   g\breve
 
-
-  \override Staff.BarLine #'extra-offset = #'(12 . 0)
+  %% justified lines:
+  %%\override Staff.BarLine #'extra-offset = #'(12 . 0)
+  %% raggedright:
+  \override Staff.BarLine #'extra-offset = #'(23 . 0)
   \bar "|."
 }
 
@@ -119,7 +131,9 @@ text = \lyrics {
   Ben ick van duyt -- schen bloet,
   Den Va -- der -- landt ghe -- trou -- we,
   blyf ick tot in den doot!
-  Een Prin -- ce van O -- ran -- gien
+  %% Hack for better left text margin:
+  %% Een Prin -- ce van O -- ran -- gien
+  Een " " Prin -- ce van O -- ran -- gien
   Ben ick, vry, on -- ver -- veert;
   Den Co -- ninck van His -- pan -- gien
   Heb ick al -- tijt ghe -- eert.
@@ -130,6 +144,21 @@ oneHalfNoteTime = \markup {
   \column < { \number "1" } { \smaller \smaller \note #"2" #-0.5 } >
 }
 
+\paper {
+  raggedright = ##t
+
+  \context {
+    \ScoreContext
+    %% defaults
+    %% (shortest-duration-space . 2.0)
+    %% (spacing-increment . 1.2)
+    %% (base-shortest-duration . ,(ly:make-moment 1 8))
+    %% wider spacing
+    \override SpacingSpanner #'shortest-duration-space = #3.0
+    \override SpacingSpanner #'spacing-increment = #1.2
+    \override SpacingSpanner #'base-shortest-duration = #(ly:make-moment 1 8)
+  }
+}
 
 \score {
   \context Score <<
