@@ -1,5 +1,9 @@
 2005-01-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/include/lily-guile-macros.hh: new file.
+
+	* lily/pango-select-scheme.cc (LY_DEFINE): new file.
+
 	* lily/general-scheme.cc: new file. 
 
 	* lily/font-select.cc (get_font_by_design_size): retrieve

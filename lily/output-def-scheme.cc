@@ -7,6 +7,7 @@
 
 */
 
+#include "font-metric.hh"
 #include "output-def.hh"
 #include "ly-module.hh"
 #include "context-def.hh"
@@ -93,4 +94,30 @@ LY_DEFINE (ly_make_output_def, "ly:make-output-def",
 {
   Output_def *bp = new Output_def ;
   return scm_gc_unprotect_object (bp->self_scm ());
+}
+
+LY_DEFINE (ly_paper_get_font, "ly:paper-get-font", 2, 0, 0,
+	   (SCM paper_smob, SCM chain),
+
+	   "Return a font metric satisfying the font-qualifiers "
+	   "in the alist chain @var{chain}.\n"
+	   "(An alist chain is a list of alists, "
+	   "containing grob properties).\n")
+{
+  Output_def *paper = unsmob_output_def (paper_smob);
+  SCM_ASSERT_TYPE (paper, paper_smob, SCM_ARG1,
+		   __FUNCTION__, "paper definition");
+  
+  Font_metric *fm = select_font (paper, chain);
+  return fm->self_scm ();
+}
+
+LY_DEFINE (ly_paper_get_number, "ly:paper-get-number", 2, 0, 0,
+	   (SCM layout_smob, SCM name),
+	   "Return the layout variable @var{name}.")
+{
+  Output_def *layout = unsmob_output_def (layout_smob);
+  SCM_ASSERT_TYPE (layout, layout_smob, SCM_ARG1,
+		   __FUNCTION__, "layout definition");
+  return scm_make_real (layout->get_dimension (name));
 }
