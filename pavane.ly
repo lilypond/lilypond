@@ -20,7 +20,7 @@ staff {melodic
 % 11
 	)`b [`fis `a `b] cis4 `b4	`fis2 r2
 	cis4 d4()[d cis d e]
-	\octave { '` }
+	\octave {  }
 					a4 gis2.
 	a4 b4()[b a b 'cis]		fis4 e4 cis2
 	e4 fis4 () [fis e fis gis]	cis4 `b4()`b8 r8 r4
@@ -43,7 +43,6 @@ staff {melodic
 		key  $fis cis $
 	}
 }
-
 score {
 	staff {
 		horn
@@ -53,7 +52,8 @@ score {
 		unitspace 1.5 cm
 		geometric 1.4
 	}
-	commands { meter 4 4
+	commands  {meter 4 4
+
 		skip 18:0
 		meter 2 4
 		skip 1:0
