@@ -37,6 +37,7 @@ List<T>::top()
 	assert( t != top_ );	// silly link
 	while ( t )
 	    {
+		assert(false);	// this is even more silly.
 	    top_ = t;
 	    t = top_->previous();
 	    }
