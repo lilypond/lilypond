@@ -154,6 +154,12 @@ Modified_font_metric::name_to_index (String s) const
   return orig_->name_to_index (s);
 }
 
+unsigned
+Modified_font_metric::index_to_charcode (int i) const
+{
+  return orig_->index_to_charcode (i);
+}
+
 int
 Modified_font_metric::index_to_ascii (int k) const
 {

@@ -23,6 +23,7 @@ public:
   virtual Offset get_indexed_wxwy (int) const;
   virtual Offset attachment_point (String) const;
   virtual int name_to_index (String) const;
+  virtual unsigned index_to_charcode (int) const;
   virtual String coding_scheme () const;
   virtual Font_metric *original_font () const;  
   
