@@ -123,17 +123,13 @@ fet_beginchar("> accent", "sforzato", "sforzatoaccent")
 	labels(4);
 fet_endchar;
 
-% Hmm, changed 1.5 to 1.4 to avoid problems with "random" placement of
-% the dots because of quantization effects for almost integer values. /MB
-
-
 %
 % Hmm. Should not meddle with darkness of font. Check out the 
 % correct value for radius. Maybe we'd better change padding --hwn
 %
 fet_beginchar("staccato dot", "staccato", "staccato")
 	save radius;
-	radius# =   ((3/8) * 1.75) staff_space#;
+	radius# =   ((3/8) * 1.75) * staff_space#;
 	define_whole_pixels(radius);
 	pickup pencircle scaled 2 radius;
 	drawdot (0,0);
