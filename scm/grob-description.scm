@@ -83,7 +83,7 @@
 	(thin-kern . 3.0)
 	(hair-thickness . 1.6)
 	(thick-thickness . 6.0)
-	(meta . ((interfaces . (bar-line-interfaceitem-interface   break-aligned-interface font-interface))))
+	(meta . ((interfaces . (bar-line-interface item-interface   break-aligned-interface font-interface))))
 	))
 
     
