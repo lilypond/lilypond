@@ -21,6 +21,7 @@
 		\translator{
 			\ScoreContext
 			TextScript \push #'font-family = #'roman
+			TextScript \push #'font-shape = #'upright
 			TextScript \pop #'no-spacing-rods
 			TextScript \push #'direction = #1
 		}
