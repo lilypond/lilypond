@@ -16,6 +16,9 @@
 	* lily/mensural-ligature-engraver.cc: bugfix: another victim of
 	the "x-y-z"->"x.y.s-z" symetrical notehead glyph renaming.
 
+	* lily/vaticana-ligature-engraver.cc: bugfix: another few
+	"x-y-z"->"x.y.s-z" fixes.
+
 2005-02-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/framework-pdf.scm (scm): new file
