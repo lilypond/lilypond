@@ -489,7 +489,7 @@ set_end_points (Grob *me)
 		  ->lookup_variable (ly_symbol2scm ("debug-slur-quanting")))
       && ly_c_pair_p (inspect_quants))
     {
-      Drul_array<Real> ins = scm_to_interval (inspect_quants);
+      Drul_array<Real> ins = ly_scm2interval (inspect_quants);
       Real mindist = 1e6;
       for (int i = 0; i < scores.size (); i ++)
 	{
@@ -651,7 +651,7 @@ generate_curves (Grob *me, Grob **common,
   (void) extremes;
   Real staff_space = Staff_symbol_referencer::staff_space ((Grob *) me);
   Real r_0 = robust_scm2double (me->get_property ("ratio"), 0.33);
-  Real h_inf = staff_space * ly_scm2double (me->get_property ("height-limit"));
+  Real h_inf = staff_space * scm_to_double (me->get_property ("height-limit"));
   for (int i = 0; i < scores->size(); i++)
     {
       Bezier bez= get_bezier (me, 

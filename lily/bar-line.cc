@@ -196,7 +196,7 @@ Bar_line::get_staff_bar_size (SCM smob)
   Real ss = Staff_symbol_referencer::staff_space (me);
   SCM size = me->get_property ("bar-size");
   if (ly_c_number_p (size))
-    return scm_make_real (ly_scm2double (size)*ss);
+    return scm_make_real (scm_to_double (size)*ss);
   else if (Staff_symbol_referencer::get_staff_symbol (me))
     {
       /*

@@ -407,8 +407,8 @@ Mensural_ligature_engraver::fold_up_primitives (Array<Grob_info> primitives)
 	}
 
       distance +=
-	ly_scm2double (current->get_property ("head-width")) -
-	ly_scm2double (current->get_property ("thickness"));
+	scm_to_double (current->get_property ("head-width")) -
+	scm_to_double (current->get_property ("thickness"));
     }
 }
 

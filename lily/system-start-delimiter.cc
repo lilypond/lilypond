@@ -22,7 +22,7 @@
 Stencil
 System_start_delimiter::staff_bracket (Grob*me,Real height)  
 {
-  Real arc_height = ly_scm2double (me->get_property ("arch-height")) ;
+  Real arc_height = scm_to_double (me->get_property ("arch-height")) ;
   
   SCM at = scm_list_n (ly_symbol2scm ("bracket"),
 		    me->get_property ("arch-angle"),

@@ -94,8 +94,8 @@ Beam::quanting (SCM smob)
   Grob *me = unsmob_grob (smob);
 
   SCM s = me->get_property ("positions");
-  Real yl = ly_scm2double (ly_car (s));
-  Real yr = ly_scm2double (ly_cdr (s));
+  Real yl = scm_to_double (ly_car (s));
+  Real yr = scm_to_double (ly_cdr (s));
 
 
   /*
@@ -108,7 +108,7 @@ Beam::quanting (SCM smob)
   Real slt = Staff_symbol_referencer::line_thickness (me) / ss;
 
   SCM sdy = me->get_property ("least-squares-dy");
-  Real dy_mus = ly_c_number_p (sdy) ? ly_scm2double (sdy) : 0.0;
+  Real dy_mus = ly_c_number_p (sdy) ? scm_to_double (sdy) : 0.0;
   
   Real straddle = 0.0;
   Real sit = (thickness - slt) / 2;
@@ -282,7 +282,7 @@ Beam::quanting (SCM smob)
   if (to_boolean (me->get_paper ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting")))
       && ly_c_pair_p (inspect_quants))
     {
-      Drul_array<Real> ins = scm_to_interval (inspect_quants);
+      Drul_array<Real> ins = ly_scm2interval (inspect_quants);
 
       int i = 0;
 

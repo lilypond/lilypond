@@ -97,7 +97,7 @@ Stem::stem_end_position (Grob *me)
       me->set_property ("stem-end-position", scm_make_real (pos));
     }
   else
-    pos = ly_scm2double (p);
+    pos = scm_to_double (p);
 
   return pos;
 }
@@ -272,12 +272,12 @@ Stem::get_default_stem_end_position (Grob *me)
   Real length = 7;
   SCM scm_len = me->get_property ("length");
   if (ly_c_number_p (scm_len))
-    length = ly_scm2double (scm_len);
+    length = scm_to_double (scm_len);
   else
     {
       s = me->get_property ("lengths");
       if (ly_c_pair_p (s))
-	length = 2 * ly_scm2double (robust_list_ref (durlog - 2, s));
+	length = 2 * scm_to_double (robust_list_ref (durlog - 2, s));
     }
 
   /* URGURGURG
@@ -622,7 +622,7 @@ Stem::dim_callback (SCM e, SCM ax)
 Real
 Stem::thickness (Grob *me)
 {
-  return ly_scm2double (me->get_property ("thickness"))
+  return scm_to_double (me->get_property ("thickness"))
     * Staff_symbol_referencer::line_thickness (me);
 }
 
@@ -743,8 +743,8 @@ Stem::get_stem_info (Grob *me)
 
   Stem_info si;
   si.dir_ = get_grob_direction (me);
-  si.ideal_y_ = ly_scm2double (ly_car (scm_info));
-  si.shortest_y_ = ly_scm2double (ly_cadr (scm_info));
+  si.ideal_y_ = scm_to_double (ly_car (scm_info));
+  si.shortest_y_ = scm_to_double (ly_cadr (scm_info));
   return si;
 }
 
@@ -771,7 +771,7 @@ Stem::calc_stem_info (Grob *me)
   /* Simple standard stem length */
   SCM lengths = me->get_property ("beamed-lengths");
   Real ideal_length =
-    ly_scm2double (robust_list_ref (beam_count - 1,lengths))
+    scm_to_double (robust_list_ref (beam_count - 1,lengths))
 		
     * staff_space
     /* stem only extends to center of beam
@@ -782,7 +782,7 @@ Stem::calc_stem_info (Grob *me)
   /* Condition: sane minimum free stem length (chord to beams) */
   lengths = me->get_property ("beamed-minimum-free-lengths");
   Real ideal_minimum_free =
-    ly_scm2double (robust_list_ref (beam_count - 1, lengths))
+    scm_to_double (robust_list_ref (beam_count - 1, lengths))
     * staff_space;
 
 
@@ -842,7 +842,7 @@ Stem::calc_stem_info (Grob *me)
   ideal_y -= robust_scm2double (beam->get_property ("shorten"), 0);
 
   Real minimum_free =
-    ly_scm2double (robust_list_ref
+    scm_to_double (robust_list_ref
 		   (beam_count - 1,
 		    me->get_property
 		    ("beamed-extreme-minimum-free-lengths")))

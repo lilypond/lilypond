@@ -27,7 +27,7 @@ LY_DEFINE (ly_stencil_set_extent_x, "ly:stencil-set-extent!",
   SCM_ASSERT_TYPE (is_number_pair (np), np, SCM_ARG3, __FUNCTION__,
 		   "number pair");
 
-  Interval iv = scm_to_interval (np);
+  Interval iv = ly_scm2interval (np);
   s->dim_[Axis (scm_to_int (axis))] = iv;
 
   return SCM_UNSPECIFIED;
@@ -44,7 +44,7 @@ LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
 
   SCM new_s = s->smobbed_copy ();
   Stencil *q = unsmob_stencil (new_s);
-  q->translate_axis (ly_scm2double (amount), Axis (scm_to_int (axis)));
+  q->translate_axis (scm_to_double (amount), Axis (scm_to_int (axis)));
   return new_s;
 
 }
@@ -106,13 +106,13 @@ LY_DEFINE (ly_stencil_moved_to_edge, "ly:stencil-moved-to-edge",
   if (padding != SCM_UNDEFINED)
     {
       SCM_ASSERT_TYPE (ly_c_number_p (padding), padding, SCM_ARG5, __FUNCTION__, "number");
-      p = ly_scm2double (padding);
+      p = scm_to_double (padding);
     }
   Real m = 0.0;
   if (minimum != SCM_UNDEFINED)
     {
       SCM_ASSERT_TYPE (ly_c_number_p (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
-      m = ly_scm2double (minimum);
+      m = scm_to_double (minimum);
     }
 
   if (s1)
@@ -156,13 +156,13 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
   if (padding != SCM_UNDEFINED)
     {
       SCM_ASSERT_TYPE (ly_c_number_p (padding), padding, SCM_ARG5, __FUNCTION__, "number");
-      p = ly_scm2double (padding);
+      p = scm_to_double (padding);
     }
   Real m = 0.0;
   if (minimum != SCM_UNDEFINED)
     {
       SCM_ASSERT_TYPE (ly_c_number_p (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
-      m = ly_scm2double (minimum);
+      m = scm_to_double (minimum);
     }
 
   if (s1)
@@ -210,7 +210,7 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
   SCM_ASSERT_TYPE (is_number_pair (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
   SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");
 
-  Box b (scm_to_interval (xext), scm_to_interval (yext));
+  Box b (ly_scm2interval (xext), ly_scm2interval (yext));
   Stencil s (b, expr);
   return s.smobbed_copy ();
 }
@@ -227,6 +227,6 @@ LY_DEFINE (ly_stencil_align_to_x, "ly:stencil-align-to!",
   SCM_ASSERT_TYPE (ly_c_number_p (dir), dir, SCM_ARG3, __FUNCTION__, "number");
 
   unsmob_stencil (stil)->align_to ((Axis)scm_to_int (axis),
-				   ly_scm2double (dir));
+				   scm_to_double (dir));
   return stil;
 }

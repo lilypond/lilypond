@@ -223,7 +223,7 @@ Break_align_interface::do_alignment (Grob *grob)
 	{
 	  entry = ly_cdr (entry);
 	  
-	  distance = ly_scm2double (ly_cdr (entry));
+	  distance = scm_to_double (ly_cdr (entry));
 	  type = ly_car (entry) ;
 	}
 

@@ -206,8 +206,8 @@ Tie::get_control_points (SCM smob)
   SCM lim // groetjes aan de chirurgendochter.
     = scm_assq (ly_symbol2scm ("height-limit"),details);
   
-  Real h_inf = ly_scm2double (ly_cdr (lim)) *  staff_space;
-  Real r_0 = ly_scm2double (ly_cdr (scm_assq (ly_symbol2scm ("ratio"),details)));
+  Real h_inf = scm_to_double (ly_cdr (lim)) *  staff_space;
+  Real r_0 = scm_to_double (ly_cdr (scm_assq (ly_symbol2scm ("ratio"),details)));
 
   Bezier b  = slur_shape (width, h_inf, r_0);
   
@@ -220,7 +220,7 @@ Tie::get_control_points (SCM smob)
   */
 
   Real ypos = Tie::get_position (me) * staff_space/2
-    + dir * ly_scm2double (me->get_property ("y-offset"));;
+    + dir * scm_to_double (me->get_property ("y-offset"));;
 
   /*
     Make sure we don't start on a dots
@@ -268,7 +268,7 @@ Tie::get_control_points (SCM smob)
       Real diff = ry - y;
       Real newy = y;
 
-      Real clear = staff_space * ly_scm2double (me->get_property ("staffline-clearance"));
+      Real clear = staff_space * scm_to_double (me->get_property ("staffline-clearance"));
 
       if (fabs (y) <=
 	  Staff_symbol_referencer::staff_radius (me) * staff_space + clear

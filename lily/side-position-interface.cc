@@ -201,7 +201,7 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
   
   Direction d = Side_position_interface::get_direction (me);
   
-  Real o = ly_scm2double (aligned_on_support_extents (element_smob,axis));
+  Real o = scm_to_double (aligned_on_support_extents (element_smob,axis));
 
   Interval iv =  me->extent (me, a);
 
@@ -226,7 +226,7 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
     {
       Real padding=
       Staff_symbol_referencer::staff_space (me)
-      * ly_scm2double (me->get_property ("staff-padding"));
+      * scm_to_double (me->get_property ("staff-padding"));
   
       Grob *common = me->common_refpoint (st, Y_AXIS);
       

@@ -245,11 +245,11 @@ Score_engraver::try_music (Music *m)
   if (m->is_mus_type ("break-event"))
     {
       SCM pen = command_column_->get_property ("penalty");
-      Real total_penalty = ly_c_number_p (pen) ? ly_scm2double (pen) : 0.0;
+      Real total_penalty = ly_c_number_p (pen) ? scm_to_double (pen) : 0.0;
 
       SCM mpen = m->get_property ("penalty");
       if (ly_c_number_p (mpen))
-	total_penalty += ly_scm2double (mpen);
+	total_penalty += scm_to_double (mpen);
 
       command_column_->set_property ("penalty", scm_make_real (total_penalty));
 
@@ -258,10 +258,10 @@ Score_engraver::try_music (Music *m)
 	forbid_breaks ();
 
       SCM page_pen = command_column_->get_property ("page-penalty");
-      Real total_pp = ly_c_number_p (page_pen) ? ly_scm2double (page_pen) : 0.0;
+      Real total_pp = ly_c_number_p (page_pen) ? scm_to_double (page_pen) : 0.0;
       SCM mpage_pen = m->get_property ("page-penalty");
       if (ly_c_number_p (mpage_pen))
-	total_pp += ly_scm2double (mpage_pen);
+	total_pp += scm_to_double (mpage_pen);
       
       command_column_->set_property ("page-penalty", scm_make_real (total_pp));
       return true;

@@ -16,7 +16,7 @@
 Real
 output_scale (Output_def *od)
 {
-  return ly_scm2double (od->lookup_variable (ly_symbol2scm ("outputscale")));
+  return scm_to_double (od->lookup_variable (ly_symbol2scm ("outputscale")));
 }
 
 /* TODO: should add nesting for Output_def here too. */

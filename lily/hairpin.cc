@@ -35,7 +35,7 @@ Hairpin::print (SCM smob)
   
   Direction grow_dir = to_dir (s);
 
-  Real padding = ly_scm2double (me->get_property ("bound-padding"));
+  Real padding = scm_to_double (me->get_property ("bound-padding"));
  
   Drul_array<bool> broken;
   Drul_array<Item*> bounds ;

@@ -167,7 +167,7 @@ default_rendering (SCM music, SCM outdef,
   /* ugh.  */
   if (bpd->c_variable ("is-bookpaper") == SCM_BOOL_T)
     {
-      Real scale = ly_scm2double (bpd->c_variable ("outputscale"));
+      Real scale = scm_to_double (bpd->c_variable ("outputscale"));
       
       Output_def *def = scale_output_def (unsmob_output_def (outdef), scale);
       scaled_def = def->self_scm ();
@@ -225,7 +225,7 @@ Score::book_rendering (String outname,
   Real scale = 1.0;
 
   if (paperbook && paperbook->c_variable ("is-bookpaper") == SCM_BOOL_T)
-    scale = ly_scm2double (paperbook->c_variable ("outputscale"));
+    scale = scm_to_double (paperbook->c_variable ("outputscale"));
   
   SCM out = scm_makfrom0str (outname.to_str0 ());
   SCM systems = SCM_EOL;

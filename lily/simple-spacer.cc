@@ -414,9 +414,9 @@ Simple_spacer_wrapper::solve (Column_x_positions *positions, bool ragged)
       SCM p = positions->cols_[i]->get_property ( "penalty");
       if (ly_c_number_p (p))
 	{
-	  if (ly_scm2double (p) < -9999)
+	  if (scm_to_double (p) < -9999)
 	    break_satisfy = break_satisfy && (i == 0 || i == sz -1);
-	  if (ly_scm2double (p) > 9999)
+	  if (scm_to_double (p) > 9999)
 	    break_satisfy = break_satisfy && !(i == 0 || i == sz -1);
 	}
       
@@ -505,7 +505,7 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 	  int oi = cols.find_index (other);
 	  if (oi >= 0)
 	    {
-	      spacer_->add_rod (i, oi, ly_scm2double (ly_cdar (s)));
+	      spacer_->add_rod (i, oi, scm_to_double (ly_cdar (s)));
 	    }
 	}
     }

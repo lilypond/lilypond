@@ -59,7 +59,7 @@ Stem_tremolo::raw_stencil (Grob *me)
       Real dy = 0;
       SCM s = beam->get_property ("positions");
       if (is_number_pair (s))
-	dy = -ly_scm2double (ly_car (s)) +ly_scm2double (ly_cdr (s));
+	dy = -scm_to_double (ly_car (s)) +scm_to_double (ly_cdr (s));
       
       Real dx = Beam::last_visible_stem (beam)->relative_coordinate (0, X_AXIS)
 	- Beam::first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
@@ -138,7 +138,7 @@ Stem_tremolo::print (SCM grob)
   Real beamthickness = 0.0;
   SCM sbt = (beam) ? beam->get_property ("thickness") : SCM_EOL ;
   if (ly_c_number_p (sbt))
-    beamthickness = ly_scm2double (sbt) * ss;
+    beamthickness = scm_to_double (sbt) * ss;
 
   Real end_y
     = Stem::stem_end_position (stem) * ss / 2

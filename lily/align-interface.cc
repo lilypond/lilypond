@@ -218,7 +218,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 	line-of-score.
        */
       if (ly_c_number_p (align))
-	center_offset = total.linear_combination (ly_scm2double (align));
+	center_offset = total.linear_combination (scm_to_double (align));
 
       for (int j = 0 ;  j < all_grobs.size (); j++)
 	all_grobs[j]->translate_axis (all_translates[j] - center_offset, a);
