@@ -32,7 +32,8 @@
 	 
 	 (mm (eval 'mm m)))
 
-    (module-define! m 'text-font-size (* 12 (/ sz 20)))
+    (module-define! m 'text-font-size (* 12 (/ sz (* 20 pt))))
+    
     (module-define! m 'outputscale ss)
     (module-define! m 'fonts (make-cmr-tree (/  sz (* 20 pt))))
     (module-define! m 'staffheight sz)

@@ -12,6 +12,7 @@
 
 #include <pango/pangoft2.h>
 
+#include "dimensions.hh"
 #include "pango-font.hh"
 
 #if HAVE_PANGO_FT2
@@ -19,7 +20,6 @@
 
 
 Pango_font::Pango_font (PangoFT2FontMap *fontmap,
-			int resolution,
 			Direction dir,
 			PangoFontDescription *description)
 {
@@ -27,9 +27,11 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
   PangoDirection pango_dir = (dir == RIGHT)
     ? PANGO_DIRECTION_LTR
     : PANGO_DIRECTION_RTL;
-  context_ = pango_ft2_font_map_create_context (fontmap);  
+  context_ =
+    pango_ft2_get_context (PANGO_DPI, PANGO_DPI);
+  //  context_ = pango_ft2_font_map_create_context (fontmap);  
   attribute_list_= pango_attr_list_new();
-  scale_ = 1.0 / (PANGO_SCALE * resolution * 72.27);
+  scale_ = inch_constant / (Real (PANGO_SCALE) * Real (PANGO_DPI));
   
   pango_context_set_language (context_, pango_language_from_string ("en_US"));
   pango_context_set_base_dir (context_, pango_dir);
@@ -45,8 +47,7 @@ Pango_font::~Pango_font ()
 void
 Pango_font::register_font_file (String filename, String ps_name) 
 {
-  subfonts_ = scm_cons (//scm_cons (scm_makfrom0str (ps_name.to_str0 ()),
-			scm_makfrom0str (filename.to_str0 ()),
+  subfonts_ = scm_cons (scm_makfrom0str (filename.to_str0 ()),
 			subfonts_);
 }
 
@@ -77,30 +78,23 @@ Pango_font::text_stencil (String str) const
       PangoAnalysis *pa = &(item->analysis);
       PangoGlyphString *pgs = pango_glyph_string_new ();
 
-      pango_shape (str.to_str0 (), str.length (), pa, pgs);
+      pango_shape (str.to_str0 () + item->offset,
+		   item->length, pa, pgs);
 
       PangoRectangle logical_rect;
-      pango_glyph_string_extents (pgs, pa->font, NULL, &logical_rect);
+      PangoRectangle ink_rect;
+      pango_glyph_string_extents (pgs, pa->font, &ink_rect, &logical_rect);
       
       PangoFcFont *fcfont = G_TYPE_CHECK_INSTANCE_CAST(pa->font,
 						       PANGO_TYPE_FC_FONT,
 						       PangoFcFont);
-      FT_Face ftface = pango_fc_font_lock_face (fcfont);
-      Box b (Interval (0, logical_rect.width),
-	     Interval (0, logical_rect.height));
-
-      if (!face_)
-	{
-	  /* FIXME.  This obvious shortcut apparently does not work.
-	     It seems there are different faces per text string and a
-	     map of face_ and charcode mapping is needed.  */
-	  Pango_font *barf = (Pango_font*) this;
-	  barf->face_ = ftface;
-	  barf->index_to_charcode_map_ = make_index_to_charcode_map (face_);
-	}
-
-      b.translate (Offset (- logical_rect.x, -logical_rect.y));
       
+      FT_Face ftface = pango_fc_font_lock_face (fcfont);
+      Box b (Interval (PANGO_LBEARING(logical_rect),
+		       PANGO_RBEARING(logical_rect)),
+	     Interval (-PANGO_DESCENT(logical_rect),
+		       PANGO_ASCENT(logical_rect)));
+	     
       b.scale (scale_);
 
       SCM glyph_exprs = SCM_EOL;
@@ -111,7 +105,7 @@ Pango_font::text_stencil (String str) const
 	  
 	  PangoGlyph pg = pgi->glyph;
 	  PangoGlyphGeometry ggeo = pgi->geometry;
-	  
+
 	  FT_Get_Glyph_Name (ftface, pg, glyph_name, GLYPH_NAME_LEN);
 	  *tail = scm_cons (scm_list_3 (scm_from_double (ggeo.x_offset * scale_),
 					scm_from_double (ggeo.y_offset * scale_),
@@ -119,7 +113,10 @@ Pango_font::text_stencil (String str) const
 			    SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
 	}
-
+      PangoFontDescription *descr = pango_font_describe (pa->font);
+      Real size = pango_font_description_get_size (descr)
+	 /  (Real (PANGO_SCALE)) ;
+      
       FcPattern *fcpat = fcfont->font_pattern;
       char *filename = 0;
       FcPatternGetString(fcpat, FC_FILE, 0, (FcChar8 **) &filename);
@@ -127,8 +124,8 @@ Pango_font::text_stencil (String str) const
       ((Pango_font *) this)->register_font_file (filename, ps_name);
       
       SCM expr = scm_list_4 (ly_symbol2scm ("glyph-string"),
-			     self_scm (),
 			     scm_makfrom0str (ps_name),
+			     scm_from_double (size),
 			     ly_quote_scm (glyph_exprs));
 
       Stencil item_stencil (b, expr);
@@ -152,21 +149,6 @@ SCM
 Pango_font::font_file_name () const
 {
   return SCM_BOOL_F;
-}
-
-int
-Pango_font::name_to_index (String nm) const
-{
-  char *nm_str = (char*) nm.to_str0 ();
-  if (int idx = FT_Get_Name_Index (face_, nm_str))
-    return idx;
-  return -1;
-}
-
-unsigned
-Pango_font::index_to_charcode (int i) const
-{
-  return ((Pango_font*) this)->index_to_charcode_map_[i];
 }
 
 LY_DEFINE (ly_pango_font_p, "ly:pango-font?",

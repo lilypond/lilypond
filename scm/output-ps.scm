@@ -169,11 +169,15 @@
   (string-append (ly:numbers->string (list breapth width depth height))
 		 " draw_box"))
 
-(define (glyph-string font postscript-font-name x-y-named-glyphs)
+
+(define (glyph-string
+	 postscript-font-name
+	 size
+	 x-y-named-glyphs)
   (apply
    string-append
    (cons
-    (format #f " /~a findfont setfont " postscript-font-name)
+    (format #f " /~a findfont ~a output-scale div scalefont setfont " postscript-font-name size)
     (map (lambda  (item)
 	   (format #f " ~a ~a rmoveto /~a glyphshow "
 		   (car item)
