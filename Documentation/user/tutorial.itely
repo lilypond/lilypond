@@ -46,16 +46,19 @@ program.  This is also possible with LilyPond. If you click on a
 picture in the HTML version of this manual, you will see the exact
 LilyPond input that was used to generate that image.
 @ifhtml
-For example,
-@lilypond[relative 1,verbatim,singleline]
+For example, consider the following input
+@c TODO: intertext fixme
+@lilypond[relative 1,singleline,verbatim,intertext="with the following output"]
   c'^\markup { \bold \huge { Click on this image! } }
 @end lilypond
-As you can see, most of input shown is simplified a little. This has
-been done for reasons of space and clarity.
+If you click it, you can see that the input shown is simplified a
+little. This has been done for reasons of space and clarity. If you
+want to fiddle, you need the full input, otherwise LilyPond will not
+accept it.
 @end ifhtml
-By cutting and pasting that into your own files, you have a starting
-template for experiments. If you like learning in this way, you will
-probably want to print out or bookmark
+By cutting and pasting the full input into a test file, you have a
+starting template for experiments. If you like learning in this way,
+you will probably want to print out or bookmark
 @ifhtml
 the
 @end ifhtml
@@ -441,7 +444,7 @@ This example shows the key signature, accidentals and ties in action.
     \key g \minor
     \clef violin
     r4 r8 a8 gis4 b
-    g8 d4.-~ d' e'8
+    g8 d4.-~ d e8
     fis4 fis8 fis8 eis4  a8 gis-~
     gis2 r2
   }}
@@ -462,13 +465,19 @@ Accidentals (sharps and flats) do not have to be marked explicitly:
 you just enter the pitch of the note, and an accidental is printed
 only when necessary. The flip side of this mechanism, is that you have
 to mark notes as sharp or flat, even when they do not get accidentals.
-For example, in the key of C-sharp major, no note gets an explicit
-accidental, but still you enter
-@lilypond[fragment,verbatim]
+For example, in this example,
+@lilypond[fragment]
 \clef bass
+\property Staff.TimeSignature = #'()
 \key cis \major
 cis dis eis fis gis ais bis 
 @end lilypond
+no note gets an explicit accidental, but still you enter
+@example
+\clef bass
+\key cis \major
+cis dis eis fis gis ais bis 
+@end example
 
 Adding all alterations explicitly might require some more effort when
 typing, but the advantage is that transposing is easier. It also makes
