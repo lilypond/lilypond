@@ -1,3 +1,19 @@
+2004-05-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/lilypond.tely (Top): update version number.
+
+	* lily/lyric-engraver.cc (get_voice_to_lyrics): go higher when
+	finding Voice context. 
+
+	* Documentation/user/music-glossary.tely (Top): replace table strong
+	with table samp.
+
+	* lily/stem.cc (get_default_stem_end_position): handle dir==0
+	case. This fixes a bugs/tremolo-repeat
+
+	* Documentation/user/introduction.itely (About this manual): fix
+	URLS.
+
 2004-04-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/lilypond.py: Handle --set=fontencoding=FONTENC (default:

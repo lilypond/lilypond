@@ -314,7 +314,8 @@ Stem::get_default_stem_end_position (Grob*me)
 
   /* stems in unnatural (forced) direction should be shortened, 
     according to [Roush & Gourlay] */
-  if (dir * head_positions (me)[dir] >= 0)
+  Interval hp = head_positions (me);  
+  if (dir && dir * hp[dir] >= 0)
     {
       SCM sshorten = me->get_property ("stem-shorten");
       SCM scm_shorten = gh_pair_p (sshorten) ?
@@ -364,8 +365,7 @@ Stem::get_default_stem_end_position (Grob*me)
       length = length >? (minlen + 1.0);
     }
    
-  Interval hp = head_positions (me);  
-  Real st = hp[dir] + dir * length;
+  Real st = dir ? hp[dir] + dir * length : 0.0;
 
   /*
     TODO: change name  to extend-stems to staff/center/'()
