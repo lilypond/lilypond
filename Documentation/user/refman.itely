@@ -55,9 +55,9 @@ encouraged to study the tutorial first.
 @section Note entry
 @cindex Note entry
 
-The most basic forms of music are notes.  Notes on their own don't
-form valid input, but for the sake of brevity we omit @code{\score}
-blocks and @code{\paper} declarations.
+Notes constitute the most basic form of music, but they do not form
+valid input on their own. Yet for the sake of brevity and simplicity,
+we'll generally omit @code{\score} blocks and @code{\paper} declarations.
 
 
 @menu
@@ -118,7 +118,7 @@ both forms are accepted.
 LilyPond has predefined sets of note names for various other languages.
 To use them, simply include the language specific init file.  For
 example: @code{\include "english.ly"}.  The available language files and
-the names they define are:
+the note names they define are:
 
 @example 
                         Note Names               sharp       flat
@@ -150,8 +150,8 @@ octave; each @code{,} lowers the pitch by an octave.
 @node Chromatic alterations
 @subsection Chromatic alterations
 
-Normally, accidentals are printed automatically, but you may force
-accidentals in the following ways: A reminder accidental
+Normally, accidentals are automatically printed, but you may force
+them in the following ways: a reminder accidental
 @cindex reminder accidental
 @cindex @code{?}
 can be forced by adding an exclamation mark @code{!} after the pitch.  A
@@ -162,25 +162,25 @@ i.e., an accidental within parentheses can be obtained by adding the
 question mark `@code{?}' after the pitch.
 
 The automatic production of accidentals can be tuned in many
-ways. Refer to @ref{Accidentals} for more information.
+ways. For more information, refer to @ref{Accidentals}.
 
 @c .  {Rests}
 @node  Rests
 @subsection Rests
 @cindex Rests
 
-A rest is entered like a note, with note name `@code{r}':
+Rests are entered like notes, with an `@code{r}' note name:
 
 @lilypond[singleline,verbatim]
 r1 r2 r4 r8
 @end lilypond
 
-Whole bar rests centered in the bar are specified using @code{R}, see
+Whole bar rests, centered in the bar, are specified using @code{R}, see
 @ref{Multi measure rests}. See also @seeinternals{Rest}.
 
-For polyphonic music, it can be convenient to specify the rest position
-directly. You can do that by entering a note, with the keyword
-@code{\rest} appended, e.g. Rest collisions will leave these rests alone.
+For polyphonic music, it can be convenient to explicitly specify the rest's
+vertical position. This can be achieved by entering a note, with the @code{\rest}
+keyword appended. Rest collision testing will leave these rests alone.
 
 @lilypond[singleline,verbatim]
 a'4\rest d'4\rest
@@ -202,13 +202,10 @@ An invisible rest, or skip, can be entered like a note with note name
 a2 s4 a4 \skip 1 a4 
 @end lilypond
 
-The @code{s} syntax  is only available in Note mode and Chord mode. 
-In other situations, you should use the @code{\skip} command, and it is
-only available in Note mode and Chord mode.
+@c FIXME: in Lyrics mode, we have " " and _
 
-@c FIXME: in lyrics mode, we have " " and _
-
-In Lyrics mode, you can use `@code{" "}' and `@code{_}':
+In Lyrics mode, invisible rests are entered using either `@code{" "}' 
+or `@code{_}':
 @lilypond[singleline,verbatim]
 <
   \context Lyrics \lyrics { lah2 di4 " " dah2 _4 di }
@@ -216,8 +213,9 @@ In Lyrics mode, you can use `@code{" "}' and `@code{_}':
 >
 @end lilypond
 
-The unabbreviated `@code{\skip} @var{duration}' also works outside of
-note mode:
+Note that the @code{s} syntax  is only available in Note mode and Chord
+mode. In other situations, you should use the @code{\skip} command, which
+also works outside of those two modes:
 
 @lilypond[singleline,verbatim]
 \score {
@@ -228,8 +226,9 @@ note mode:
 }
 @end lilypond
 
-The skip command is merely a empty musical placeholder. It does not
+The skip command is merely an empty musical placeholder. It doesn't
 produce any output, not even transparent output.
+
 
 
 @c .  {Durations}
@@ -241,7 +240,7 @@ produce any output, not even transparent output.
 @cindex @code{\duration}
 
 
-In Note, Chord, and Lyrics mode, durations may be designated by numbers
+In Note, Chord, and Lyrics mode, durations are designated by numbers
 and dots: durations are entered as their reciprocal values.  For notes
 longer than a whole you must use identifiers.
 
@@ -274,10 +273,10 @@ r1 r2 r4 r8 r16 r32 r64 r64
 @end lilypond
 
 
-If the duration is omitted then it is set to the previous duration
-entered.  At the start of parsing a quarter note is assumed.  The
-duration can be followed by dots (`@code{.}')  to obtain dotted note
-lengths.
+If the duration is omitted then it is set to the previously entered
+duration.  At the start of parsing, a quarter note is assumed.  The
+duration can be followed by dots (`@code{.}') in order to obtain dotted
+note lengths:
 @cindex @code{.}
 
 @lilypond[fragment,verbatim,center]
@@ -286,9 +285,9 @@ lengths.
 @cindex @code{r}
 @cindex @code{s}
 
-You can alter the length of duration by a fraction @var{N/M} by
+You can alter the length of duration by a fraction @var{N/M}
 appending `@code{*}@var{N/M}' (or `@code{*}@var{N}' if @var{M=1}). This
-will not affect the appearance of the notes or rests produced.
+won't affect the appearance of the notes or rests produced.
 
 Durations can also be produced through GUILE extension mechanism. 
 @lilypond[verbatim,fragment]
@@ -312,19 +311,20 @@ Dot placement for chords is not perfect.  In some cases, dots overlap:
 @cindex @code{~}
 
 A tie connects two adjacent note heads of the same pitch.  The tie in
-effect extends the length of a note. A tie is entered with @code{~}.
+effect extends the length of a note. Ties should not be confused with
+slurs, which indicate articulation, and phrasing slurs, which indicate
+musical phrasing. A tie is entered using the tilde symbol `@code{~}'.
 
 @lilypond[fragment,verbatim,center]
   e' ~ e' <c' e' g'> ~ <c' e' g'>
 @end lilypond
 
-When ties are used with chords, all note heads whose pitches match are
-connected.  Ties are indicated using the tilde symbol `@code{~}'.  If
-you try to tie together chords which have no common pitches then no
-ties will be created.
+When a tie is applied to a chord, all note heads, whose pitches match, are
+connected.  If you try to tie together chords that have no common pitches,
+no ties will be created.
 
-If you want less  ties created for a chord, you can  set
-@code{Voice.sparseTies} to true. In this case, a single tie is used
+If you want less ties created for a chord, you can set
+@code{Voice.sparseTies} to true.  In this case, a single tie is used
 for every tied chord.
 @lilypond[fragment,verbatim,center]
   \property Voice.sparseTies = ##t
@@ -338,8 +338,8 @@ exactly the same concept.
 @lilypond[fragment, singleline]
 \time 3/4 c'2. c'2 ~ c'4
 @end lilypond
-Ties should not be confused with slurs, which indicate articulation,
-and phrasing slurs, which indicate musical phrasing.
+And if you need to tie notes over bars, it may be easier to use
+@ref{Automatic note splitting}.
 
 See also  @seeinternals{Tie}.
 
@@ -347,7 +347,7 @@ See also  @seeinternals{Tie}.
 @refbugs
 
 At present, the tie is represented as a separate event, temporally
-located in between the notes.  Tieing only a subset of the note heads
+located in between the notes.  Tying only a subset of the note heads
 of a chord is not supported in a simple way.  It can be achieved by
 moving the tie-engraver into the Thread context and turning on and off
 ties per Thread.
@@ -358,7 +358,7 @@ Switching staffs when a tie is active will not work.
 @subsection Automatic note splitting
 @c FIXME: This subsection doesn't belong in @ref{Note entry}.
 
-There is a facility for automatically converting long notes to  tied
+There is a facility for automatically converting long notes to tied
 notes. This is done by replacing the @code{Note_heads_engraver} by the
 @code{Completion_heads_engraver}. 
 
@@ -391,7 +391,7 @@ represented exactly; the engraver will not insert tuplets.
 @cindex triplets
 @cindex @code{\times}
 
-Tuplets are made out of a music expression by multiplying all duration
+Tuplets are made out of a music expression by multiplying all durations
 with a fraction.
 
 @cindex @code{\times}
