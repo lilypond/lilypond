@@ -212,12 +212,8 @@ ly_scm2string (SCM s)
 {
   assert (gh_string_p (s));
 
-  size_t len; 
-  char *p = gh_scm2newstr (s , &len);
-  
+  char *p = SCM_STRING_CHARS(s);
   String r (p);
-
-  free (p);
   return r;
 }
 
