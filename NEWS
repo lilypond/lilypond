@@ -1,3 +1,8 @@
+pl 60.jcn1
+	- interstaff slur tuning
+	- added some regtests
+	- removed now silly check in encompass-info
+
 pl 59.uu1
 	- papervar loose_column_distance
 	- scripts don't collide.

@@ -93,10 +93,10 @@ slur_x_minimum = 3.0 * \interline;
 
 % slope damping: keep dy/dx < slur_slope_damping
 slur_slope_damping = 0.35;
-slur_interstaff_slope_damping = 0.8;
+slur_interstaff_slope_damping = 0.5;
 % height damping: keep h/dx < slur_height_damping
 slur_height_damping = 0.45;
-slur_interstaff_height_damping = 1.2;
+slur_interstaff_height_damping = 0.7;
 % snap to stem if slur ends closer to stem than
 slur_snap_to_stem = 1.5 * \interline;
 slur_interstaff_snap_to_stem = 2.5 * \interline;

@@ -112,7 +112,7 @@ global = \notes{
 
 \score{
 	% Moderato
-	\context GrandStaff <
+	\context PianoStaff <
 		\context Staff = upper <
 			\global
 			\upper
@@ -128,11 +128,6 @@ global = \notes{
 		% no slur damping
 		slur_slope_damping = 10.0;
 		gourlay_maxmeasures = 4.0;
-		\translator{ 
-			\GrandStaffContext
-			minVerticalAlign = 3.0*\staffheight;
-			maxVerticalAlign = 3.0*\staffheight;
-		}
 	}
 	\midi{ \tempo 4 = 80; }
 	\header {

@@ -47,10 +47,6 @@ Encompass_info::Encompass_info (Note_column const* note_column, Direction dir, S
       && !stem_l->extent (Y_AXIS).empty_b ())
     {
       o_[Y_AXIS] = stem_l->extent (Y_AXIS)[dir];
-      // URG URG.
-      // some slur in choral.ly returns -inf here
-      if (abs (o_[Y_AXIS]) > 1000)
-	o_[Y_AXIS] = 0;
     }
   else
     {

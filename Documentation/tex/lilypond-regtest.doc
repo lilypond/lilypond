@@ -52,6 +52,11 @@ Beams, stems and noteheads often have communication troubles, since
 the two systems for y dimensions (1 unit = staffspace, 1 unit = 1
 point) are mixed.
 
+Stems, beams, ties and slurs should behave similarly, when placed
+on the middle staff line.
+
+\mudelafile{stem-direction.sly}
+
 \section{Grace notes}
 
 Grace notes are typeset as an encapsulated piece of music. You can
@@ -83,6 +88,12 @@ Beams should behave reasonably well, even under extreme circumstances.
 Stems may be short, but noteheads should never touch the beam.
 
 \mudelafile{beam-extreme.ly}
+
+Beams should always reach the middle staff line, the second beam
+counting from the note head side, should never be lower than the
+second staff line.  This does not hold for grace note beams.
+
+\mudelafile{beam-position.sly}
 
 Slurs should look nice and symmetric.  The curvature may increase
 only to avoid noteheads, and as little as possible.

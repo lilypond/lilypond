@@ -189,7 +189,7 @@ global = \notes{
 
 \score{
 	% Allegretto
-	\context GrandStaff <
+	\context PianoStaff <
 		\context Staff = upper <
 			\global
 			\one
@@ -205,11 +205,6 @@ global = \notes{
 	\paper{
 		\include "preludes-paper.ly";
 		gourlay_maxmeasures = 2.0;
-		\translator{ 
-			\GrandStaffContext
-			minVerticalAlign = 3.0*\staffheight;
-			maxVerticalAlign = 3.0*\staffheight;
-		}
 	}
 	\midi{ \tempo 4 = 70; }
 	\header{
