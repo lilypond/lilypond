@@ -1,3 +1,13 @@
+1.3.142.jcn1
+============
+
+* Mup2ly preprocesses and extracts all plain notes.
+
+* Bugfix: patch in $(outdir)
+
+1.3.142
+=======
+
 1.3.141.jcn3
 ============
 

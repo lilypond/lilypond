@@ -239,6 +239,12 @@ def set_setting (dict, key, val):
 		warning (_ ("no such setting: %s") % `key`)
 		dict[key] = [val]
 
+def strip_extension (f, ext):
+	(p, e) = os.path.splitext (f)
+	if e == ext:
+		e = ''
+	return p + e
+
 # END Library
 
 option_definitions = [
@@ -303,7 +309,7 @@ def find_tex_files (files, extra):
 		x = 0
 		while 1:
 			fname = os.path.basename (f)
-			fname = strip_ly_suffix (fname)
+			fname = strip_extension (fname, '.ly')
 			if x:
 				fname = fname + '-%d' % x
 
@@ -521,13 +527,8 @@ include_path = map (compat_abspath, include_path)
 files = map (compat_abspath, files) 
 outdir = compat_abspath (outdir)
 
-def strip_ly_suffix (f):
-	(p, e) =os.path.splitext (f)
-	if e == '.ly':
-		e = ''
-	return p +e
 	
-files = map (strip_ly_suffix, files)
+files = map (lambda x: strip_extension (x, '.ly'), files)
 
 if files:
 	setup_temp ()

@@ -387,7 +387,7 @@ if 1:
 		progress (_ ("fetching %s...") % get)
 		copy_url (get, '.')
 
-	build_command = 'echo hi'
+	build_command = './configure --prefix=$HOME/usr && make web'
 	if not build (latest):
 		if os.path.isdir ('%s/%s' % (build_root, package_name)):
 			os.chdir ('%s/%s' % (build_root, package_name))

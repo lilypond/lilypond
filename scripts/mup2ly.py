@@ -7,8 +7,19 @@
 
 '''
 TODO:
+   LOTS: we get all notes out now, rest after 1.4
 
-   WIP:lots of stuff
+   * lyrics (partly done)
+   * bars
+   * slurs,ties
+   * staff settings
+   * tuplets
+   * grace
+   * ornaments
+   * midi settings
+   * titling
+   * chords entry mode
+   * repeats, percent repeats
    
 '''
 
@@ -23,12 +34,17 @@ import __main__
 import operator
 import tempfile
 
+# let's not yet clutter lily's po with this mup converter junk
+def _ (s):
+	return s
 
-sys.path.append ('@datadir@/python')
-import gettext
-gettext.bindtextdomain ('lilypond', '@localedir@')
-gettext.textdomain('lilypond')
-_ = gettext.gettext
+#sys.path.append ('@datadir@/python')
+#import gettext
+#gettext.bindtextdomain ('lilypond', '@localedir@')
+#gettext.textdomain('lilypond')
+#_ = gettext.gettext
+
+
 
 
 program_name = 'mup2ly'
@@ -196,6 +212,12 @@ def set_setting (dict, key, val):
 		warning (_ ("no such setting: %s") % `key`)
 		dict[key] = [val]
 
+def strip_extension (f, ext):
+	(p, e) = os.path.splitext (f)
+	if e == ext:
+		e = ''
+	return p + e
+
 # END Library
 
 
@@ -315,6 +337,7 @@ class Slur:
 		self.id = id
 		self.start_chord = None
 		self.end_chord = None
+		
 	def calculate (self):
 		s =self.start_chord
 		e= self.end_chord
@@ -366,10 +389,10 @@ class Voice:
         
 	def dump (self):
 		str = ''
-                if not self.entries:
-                        #return '\n'
-                        #ugh ugh
-                        return '\n%s = {}\n\n' % self.idstring ()
+                #if not self.entries:
+                #        #return '\n'
+                #        #ugh ugh
+                #        return '\n%s = {}\n\n' % self.idstring ()
                 ln = '  '
                 one_two = ("One", "Two")
                 if self.staff.voices [1 - self.number].entries:
@@ -390,11 +413,11 @@ class Voice:
 		str = str  + ln
 		id = self.idstring ()
 			
-		str = '''%s = \\notes {
+		str = '''%s = \\context Voice = %s \\notes {
 %s
 }
 
-'''% (id, str)
+'''% (id, id, str)
 		return str
         
 	def calculate_graces (self):
@@ -416,8 +439,34 @@ class Voice:
 class Clef:
 	def __init__ (self, cl):
 		self.type = cl
-	def dump(self):
+		
+	def dump (self):
 		return '\\clef %s;' % self.type
+
+key_sharps = ('c', 'g', 'd', 'a', 'e', 'b', 'fis')
+key_flats = ('BUG', 'f', 'bes', 'es', 'as', 'des', 'ges')
+
+class Key:
+	def __init__ (self, sharps, flats):
+		self.flats = flats
+		self.sharps = sharps
+		
+	def dump (self):
+		if self.sharps and self.flats:
+			k = '\\keysignature %s ;' % 'TODO'
+		elif self.sharps:
+			k = '\\notes\\key %s \major;' % key_sharps[self.sharps]
+		elif self.flats:
+			k = '\\notes\\key %s \major;' % key_flats[self.flats]
+		return k
+
+class Time:
+	def __init__ (self, frac):
+		self.frac = frac
+		
+	def dump (self):
+		return '\\time %d/%d;' % (self.frac[0], self.frac[1])
+	
 
 clef_table = {
 	'b':'bass'  ,
@@ -435,8 +484,9 @@ class Staff:
                 # ugh
 		self.voices = (Voice (0), Voice (1))
                 
-		# self.voice_idx = 0
 		self.clef = None
+		self.time = None
+		self.key = None
 		self.instrument = 0
 		self.number = n
 		
@@ -446,31 +496,35 @@ class Staff:
 			v.number = i
 			i = i+1
                         
-	def set_clef (self, letter):
-		clstr = clef_table[letter]
-		self.voices[0].add_nonchord (Clef (clstr))
+	#def set_clef (self, letter):
+	#	clstr = clef_table[letter]
+	#	self.voices[0].add_nonchord (Clef (clstr))
 		
-	#def current_voice (self):
-	#	return self.voices[self.voice_idx]
-        #
-	#def next_voice (self):
-	#	self.voice_idx = (self.voice_idx + 1)%len (self.voices)
-
 	def calculate (self):
 		for v in self.voices:
 			v.calculate ()
                         
 	def idstring (self):
 		return 'staff%s' % encodeint (self.number)
-        
+
 	def dump (self):
 		str = ''
 
 		refs = ''
 		for v in self.voices:
-			str = str + v.dump()
-			refs = refs + '\n  \\' + v.idstring ()
-		
+			if v.entries:
+				# urg
+				if v == self.voices[0]:
+					if self.clef:
+						refs = refs + self.clef.dump ()
+					if self.time:
+						refs = refs + self.time.dump ()
+					if self.key:
+						refs = refs + self.key.dump ()
+					if refs:
+						refs = '\n  ' + refs
+				str = str + v.dump()
+				refs = refs + '\n  \\' + v.idstring ()
 		str = str + '''
 %s = \context Staff = %s <%s
 >
@@ -521,6 +575,27 @@ class Chord:
 		self.chord_suffix = ''
 		self.note_prefix = ''
 		self.note_suffix = ''
+
+        # maybe use import copy?
+	def copy (self):
+		ch = Chord ()
+		#for i in self.pitches:
+		#	ch.pitches.append (i)
+		ch.pitches = self.pitches[:]
+		ch.multimeasure = self.multimeasure
+		ch.dots = self.dots
+		ch.basic_duration = self.basic_duration
+		#for i in self.scripts:
+		#	ch.scripts.append (i)
+		ch.scripts = self.scripts[:]
+		ch.grace = self.grace
+
+		ch.chord_prefix = self.chord_prefix
+		ch.chord_suffix = self.chord_suffix
+		ch.note_prefix = self.note_prefix
+		ch.note_suffix = self.note_suffix
+		return ch
+
 		
 	def dump (self):
 		str = ''
@@ -587,7 +662,7 @@ ornament_table = {
 
 # http://www.arkkra.com/doc/uguide/contexts.html
 
-contexts = [
+contexts = (
 	'header', 
 	'footer', 
 	'header2', 
@@ -597,10 +672,10 @@ contexts = [
 	'voice',
 	'grids', 
 	'music',
-	] 
+	)
 
 class Parser:
-	def __init__ (self, filename):
+	def __init__ (self, lines):
 		self.parse_function = self.parse_context_music
 		self.staffs = []
                 self.current_voices = []
@@ -609,24 +684,14 @@ class Parser:
 		self.last_oct = 0		
 		self.tuplets_expected = 0
 		self.tuplets = []
-		self.last_basic_duration = 4
-
-		self.parse (filename)
+		self.clef = None
+		self.time = None
+		self.key = None
 		
-	#def set_staffs (self, number):
-	#	self.staffs = map (lambda x: Staff (x), range (0, number))
-		
-	#def current_staff (self):
-	#	return self.staffs[self.staff_idx]
-
-	#def current_voice (self):
-	#	return self.current_staff ().current_voice ()
-	
-	#def next_staff (self):
-	#	self.staff_idx = (self.staff_idx + 1)% len (self.staffs)
+		self.parse (lines)
 		
         def parse_compound_location (self, line):
-                colon = string.index (line, ':')
+		colon = string.index (line, ':')
                 s = line[:colon]
                 debug (s)
                 line = line[colon + 1:]
@@ -648,7 +713,7 @@ class Parser:
                                         for j in i:
                                                 f.append (j)
                                 return f
-                                        
+                                         
                         def range_to_list (s):
                                 if string.find (s, '-') >= 0:
                                         debug ('s: ' + s)
@@ -682,6 +747,7 @@ class Parser:
                 name = (ord (line[0]) - ord ('a') + 5) % 7
                 # FIXME: does key play any role in this?
 		alteration = 0
+		debug ('NOTE: ' + `line`)
                 line = string.lstrip (line[1:])
 		while line:
                         if len (line) > 1 and line[:2] == '//':
@@ -696,60 +762,96 @@ class Parser:
 			elif line[0] == '-':
                                 oct = oct - 1
                         else:
-                                skipping (_ ("%s") % line[0])
+                                skipping (line[0])
 			line = string.lstrip (line[1:])
 		return (oct, name, alteration)
 			
 	def parse_chord (self, line):
+		debug ('CHORD: ' + line)
 		line = string.lstrip (line)
 		ch = Chord ()
 		if not line:
-			ch = self.current_voices[0].last_chord ()
+			#ch = self.current_voices[0].last_chord ()
+			ch = self.last_chord.copy ()
 		else:
 			m = re.match ('^([0-9]+)([.]*)', line)
 			if m:
 				ch.basic_duration = string.atoi (m.group (1))
 				line = line[len (m.group (1)):]
 				if m.group (2):
-					ch.basic_duration = len (m.group (2))
-					line = line[len (m.group (1)):]
+					ch.dots = len (m.group (2))
+					line = line[len (m.group (2)):]
                         else:
-                                ch.basic_duration = self.current_voices[0].last_chord ().basic_duration
+                                #ch.basic_duration = self.current_voices[0].last_chord ().basic_duration
+                                ch.basic_duration = self.last_chord.basic_duration
                                 
                         line = string.lstrip (line)
                         if len (line) > 1 and line[:2] == '//':
                                 line = 0
                         #ugh
                         if not line:
-                                duration = ch.basic_duration
-                                ch = self.current_voices[0].last_chord ()
-                                ch.basic_duration = duration
-                                
+				debug ('nline: ' + line)
+                                #ch = self.current_voices[0].last_chord ()
+				n = self.last_chord.copy ()
+				n.basic_duration = ch.basic_duration
+				n.dots = ch.dots
+                                ch = n
+				debug ('ch.pitsen:' + `ch.pitches`)
+				debug ('ch.dur:' + `ch.basic_duration`)
+			else:
+				debug ('eline: ' + line)
+				
 			while line:
                                 if len (line) > 1 and line[:2] == '//':
                                         line = 0
                                         break
                                 elif line[:1] == 'mr':
 					ch.multimeasure = 1
-                                        line = line[1:]
+                                        line = line[2:]
                                 elif line[:1] == 'ms':
 					ch.multimeasure = 1
-                                        line = line[1:]
+                                        line = line[2:]
 				elif line[0] in 'rs':
+                                        line = line[1:]
                                         pass
 				elif line[0] in 'abcdefg':
-					pitch = self.parse_note (line)
+					m = re.match ('([a-g][-#&+]*)', line)
+					l = len (m.group (1))
+					pitch = self.parse_note (line[:l])
                                         debug ('PITCH: ' + `pitch`)
 					ch.pitches.append (pitch)
-                                        line = 0
+					line = line[l:]
                                         break
 				else:
-					skipping (_ ("%s") % line[0])
-                                line = string.lstrip (line[1:])
+					skipping (line[0])
+					line = line[1:]
+                                line = string.lstrip (line)
+		debug ('CUR-VOICES: ' + `self.current_voices`)
 		map (lambda x, ch=ch: x.add_chord (ch), self.current_voices)
+		self.last_chord = ch
 
+	def parse_lyrics_location (self, line):
+		line = line.lstrip (line)
+		addition = 0
+		m = re.match ('^(between[ \t]+)', line)
+		if m:
+			line = line[len (m.group (1)):]
+			addition = 0.5
+		else:
+			m = re.match ('^(above [ \t]+)', line)
+			if m:
+				line = line[len (m.group (1)):]
+				addition = -0.5
+			else:
+				addlyrics = 1
+		
 	def parse_voice (self, line):
-		chords = string.split (line, ';')
+		line = string.lstrip (line)
+		# `;' is not a separator, chords end with ';'
+		chords = string.split (line, ';')[:-1]
+		# mup resets default duration and pitch each bar
+		self.last_chord = Chord ()
+		self.last_chord.basic_duration = 4
 		map (self.parse_chord, chords)
 
 	def init_context_header (self, line):
@@ -757,48 +859,72 @@ class Parser:
 					
 	def parse_context_header (self, line):
 		debug ('header: ' + line)
-
+		skipping (line)
+		
 	def init_context_footer (self, line):
 		self.parse_function = self.parse_context_footer
 
 	def parse_context_footer (self, line):
 		debug ('footer: ' + line)
+		skipping (line)
 
 	def init_context_header2 (self, line):
 		self.parse_function = self.parse_context_header2
 
 	def parse_context_header2 (self, line):
 		debug ('header2: ' + line)
+		skipping (line)
 
 	def init_context_footer2 (self, line):
 		self.parse_function = self.parse_context_footer2
 
 	def parse_context_footer2 (self, line):
 		debug ('footer2: ' + line)
+		skipping (line)
 
 	def init_context_score (self, line):
 		self.parse_function = self.parse_context_score
 
 	def parse_context_score (self, line):
 		debug ('score: ' + line)
+		line = string.lstrip (line)
+		#ugh, these should also be matche in context_staff
+		m = re.match ('^(time[ \t]*=[ \t]*([0-9]+)[ \t]*/[ \t]*([0-9]+))', line)
+		if m:
+			line = line[len (m.group (1)):]
+			self.time = Time ((string.atoi (m.group (2)),
+					   string.atoi (m.group (3))))
+
+		m = re.match ('^(key[ \t]*=[ \t]*([0-9]+)[ \t]*(#|@))', line)
+		if m:
+			line = line[len (m.group (1)):]
+			n = string.atoi (m.group (2))
+			if m.group (3) == '#':
+				self.key = Key (n, 0)
+			else:
+				self.key = Key (0, n)
+		skipping (line)
 
 	def init_context_staff (self, line):
 		self.parse_function = self.parse_context_staff
 
 	def parse_context_staff (self, line):
 		debug ('staff: ' + line)
+		skipping (line)
 
 	def init_context_voice (self, line):
 		self.parse_function = self.parse_context_voice
 
 	def parse_context_voice (self, line):
 		debug ('voice: ' + line)
+		skipping (line)
 
 	def init_context_grids (self, line):
-		self.parse_function = self.parse_context_line
+		self.parse_function = self.parse_context_grids
 
 	def parse_context_grids (self, line):
 		debug ('grids: ' + line)
+		skipping (line)
 
 	def init_context_music (self, line):
 		self.parse_function = self.parse_context_music
@@ -807,17 +933,22 @@ class Parser:
 		debug ('music: ' + line)
                 line = string.lstrip (line)
                 if line and line[0] in '0123456789':
-                        line = string.lstrip (self.parse_compound_location (line))
+                        line = self.parse_compound_location (line)
                         self.parse_voice (line)
 		else:
-			skipping (_ ("%s") % line)
-	
-	def parse (self, file):
+			m = re.match ('^(TODOlyrics[ \t]+)', line)
+			if m:
+				line = line[len (m.group (1)):]
+				self.parse_lyrics_location (line[7:])
+				self.parse_lyrics (line)
+			else:
+				skipping (line)
+
+	def parse (self, lines):
 		# shortcut: set to official mup maximum (duh)
 		# self.set_staffs (40)
-		lines = open (file).readlines ()
 		for line in lines:
-                        debug ('LINE: ' + line)
+                        debug ('LINE: ' + `line`)
 			m = re.match ('^([a-z]+2?)', line)
 			
 			if m:
@@ -833,6 +964,13 @@ class Parser:
 				self.parse_function (line)
 				
 		for c in self.staffs:
+			# hmm
+			if not c.clef and self.clef:
+				c.clef = self.clef
+			if not c.time and self.time:
+				c.time = self.time
+			if not c.key and self.key:
+				c.key = self.key
 			c.calculate ()
 
 	def dump (self):
@@ -847,27 +985,145 @@ class Parser:
 
 \score {
   <%s
-   >
+  >
+  \paper {}
+  \midi {}
 }
 ''' % refs 
 		return str
 
+
+class Pre_processor:
+	def __init__ (self, raw_lines):
+		self.lines = []
+		self.active = [1]
+		self.process_function = self.process_line
+		self.macro_name = ''
+		self.macro_body = ''
+		self.process (raw_lines)
+
+	def process_line (self, line):
+		global macros
+		m = re.match ('^([ \t]*([a-zA-Z]+))', line)
+		s = line
+		if m:
+			word = m.group (2)
+			debug ('MACRO?: ' + `word`)
+			if word in pre_processor_commands:
+				line = line[len (m.group (1)):]
+				eval ('self.process_macro_%s (line)' % word)
+				s = ''
+			else:
+				if macros.has_key (word):
+					s = macros[word] + line[len (m.group (1)):]
+		if not self.active [-1]:
+			s = ''
+		return s
+
+	def process_macro_body (self, line):
+		global macros
+		# dig this: mup allows ifdefs inside macro bodies
+		s = self.process_line (line)
+		m = re.match ('(.*[^\\\\])(@)(.*)', s)
+		if m:
+			self.macro_body = self.macro_body + '\n' + m.group (1)
+			macros[self.macro_name] = self.macro_body
+			debug ('MACROS: ' + `macros`)
+			# don't do nested multi-line defines
+			self.process_function = self.process_line
+			if m.group (3):
+				s = m.group (3)
+			else:
+				s = ''
+		else:
+			self.macro_body = self.macro_body + '\n' + s
+			s = ''
+		return s
+
+	def process_macro_define (self, line):
+		global macros
+		# don't define new macros in unactive areas
+		if not self.active[-1]:
+			return
+		m = re.match ('^[ \t]*([a-zA-Z][a-zA-Z1-9_]*)(([^@]*)|(\\\\@))(@)?', line)
+		n = m.group (1)
+		if m.group (5):
+			if m.group (2):
+				e = m.group (2)
+			else:
+				e = ''
+			macros[n] = e
+			debug ('MACROS: ' + `macros`)
+		else:
+			# To support nested multi-line define's
+			# process_function and macro_name, macro_body
+			# should become lists (stacks)
+			# The mup manual is undetermined on this
+			# and I haven't seen examples doing it.
+			#
+			# don't do nested multi-line define's
+			if m.group (2):
+				self.macro_body = m.group (2)
+			else:
+				self.macro_body = ''
+			self.macro_name = n
+			self.process_function = self.process_macro_body
+		
+	def process_macro_ifdef (self, line):
+		m = re.match ('^[ \t]*([a-zA-Z][a-zA-Z1-9_]*)', line)
+		if m:
+			
+			active = self.active[-1] and macros.has_key (m.group (1))
+			debug ('ACTIVE: %d' % active)
+			self.active.append (active)
+
+	def process_macro_ifndef (self, line):
+		m = re.match ('^[ \t]*([a-zA-Z][a-zA-Z1-9_]*)', line)
+		if m:
+			active = self.active[-1] and not macros.has_key (m.group (1))
+			self.active.append (active)
+
+	def process_macro_else (self, line):
+		debug ('ELSE')
+		self.active[-1] = not self.active[-1]
+		
+	def process_macro_endif (self, line):
+		self.active = self.active[:-1]
+			
+	def process (self, raw_lines):
+		s = ''
+		for line in raw_lines:
+			ls = string.split (self.process_function (line), '\n')
+			for i in ls:
+				if i:
+					s = s + string.rstrip (i)
+					if s and s[-1] == '\\':
+						s = string.rstrip (s[:-1])
+					elif s:
+						self.lines.append (s)
+						s = ''
+
+
 		
 option_definitions = [
 	('', 'd', 'debug', _ ("debug")),
+	('NAME[=EXP]', 'D', 'define', _ ("define macro NAME [optional expansion EXP]")),
 	('', 'h', 'help', _ ("this help")),
 	('FILE', 'o', 'output', _ ("write output to FILE")),
+	('', 'E', 'pre-process', _ ("only pre-process")),
 	('', 'V', 'verbose', _ ("verbose")),
 	('', 'v', 'version', _ ("print version number")),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
 	]
 
 debug_p = 0
+only_pre_process_p = 0
 def debug (s):
         if debug_p:
                 progress ('DEBUG: ' + s)
+
 def skipping (s):
-        if debug_p:
+	if verbose_p or debug_p:
                 progress ('SKIPPING: ' + s)
 
 (sh, long) = getopt_args (__main__.option_definitions)
@@ -877,6 +1133,14 @@ except:
 	help ()
 	sys.exit (2)
 
+macros = {}
+pre_processor_commands = (
+	'define',
+	'else',
+	'endif',
+	'ifdef',
+	'ifndef',
+	)
 
 for opt in options:
 	o = opt[0]
@@ -885,6 +1149,15 @@ for opt in options:
                 pass
 	elif o== '--debug' or o == '-d':
                 debug_p = 1
+	elif o== '--define' or o == '-D':
+		if string.find (a, '=') >= 0:
+			(n, e) = string.split (a, '=')
+		else:
+			n = a
+			e = ''
+		macros[n] = e
+	elif o== '--pre-process' or o == '-E':
+		only_pre_process_p = 1
 	elif o== '--help' or o == '-h':
 		help ()
 		sys.exit (0)
@@ -912,21 +1185,33 @@ for f in files:
 	if f == '-':
 		f = ''
 
+	if f and not os.path.isfile (f):
+		f = strip_extension (f, '.mup') + '.mup'
 	progress ( _("Processing %s..." % f))
-	e = Parser (f)
-	if not output:
-		output = os.path.basename (re.sub ('(?i).mup$', '.ly', f))
-		
-	if output == f:
-		output = os.path.basename (f + '.ly')
+	raw_lines = open (f).readlines ()
+	p = Pre_processor (raw_lines)
+	if only_pre_process_p:
+		if not output:
+			output = os.path.basename (re.sub ('(?i).mup$', '.mpp', f))
+	else:
+		e = Parser (p.lines)
+		if not output:
+			output = os.path.basename (re.sub ('(?i).mup$', '.ly', f))
+		if output == f:
+			output = os.path.basename (f + '.ly')
 		
 	progress (_ ("Writing %s...") % output)
 
 	tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, f)
-	ly = tag + '\n' + e.dump ()
+	if only_pre_process_p:
+		# duh
+		ly = string.join (p.lines, '\n')
+	else:
+		ly = tag + '\n\n' + e.dump ()
 
 	o = open (output, 'w')
 	o.write (ly)
 	o.close ()
-	print ly
+	if debug_p:
+		print (ly)
 	

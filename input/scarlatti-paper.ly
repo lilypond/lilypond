@@ -12,7 +12,8 @@
 
 	\translator{
 		\PianoStaffContext
-		VerticalAlignment \set #'forced-distance = #8.4
+		%VerticalAlignment \set #'forced-distance = #8.4
+		VerticalAlignment \override #'forced-distance = #8.4
 	}
 	\translator{\StaffContext
 		TimeSignature \override #'style = #'C
