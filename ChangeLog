@@ -4,6 +4,7 @@
 	(markup-typecheck?):  add full typechecking functions.
 	(make-markup-maker): add make-FOO-markup functions.
 	(markup-argument-list-error): nice error checking messages.
+	(make-markup): better function: less quoting escapades.
 
 2002-12-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
