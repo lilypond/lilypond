@@ -213,7 +213,7 @@ msgstr "Ineq_constrained_qp::solve (): voorwaarde zit er %f naast"
 
 #: ineq-constrained-qp.cc:222
 msgid "didn't converge!"
-msgstr "ik convederde niet!"
+msgstr "ik convergederde niet!"
 
 #: ineq-constrained-qp.cc:224
 msgid "Too much degeneracy. "

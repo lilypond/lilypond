@@ -2,7 +2,7 @@
 filename =	 "menuetto-cello.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-piece = "Menuetto I";
+%piece = "Menuetto I";
 source =	 "?";
 % opus =	 "BWV 1008 no. 5";
 opus =	 "";
@@ -16,7 +16,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.0";
+\version "1.0.1";
 
 \include "menuetto-urtext.ly";
 
@@ -63,6 +63,7 @@ menuetto_i_cello_staff = \type Staff <
 	\$menuetto_i_cello_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 110; }
+	\header{ piece = "Menuetto I"; }
 }
 
 menuetto_ii_cello_global = \melodic{
@@ -84,13 +85,10 @@ menuetto_ii_cello_staff = \type Staff <
 %	\$menuetto_ii_cello_scripts
 >
 
-\header{
-piece = "Menuetto II";
-opus =	 "";
-}
 \score{
 	\$menuetto_ii_cello_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 130; }
+	\header{ piece = "Menuetto II"; }
 }
 

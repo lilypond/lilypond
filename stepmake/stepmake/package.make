@@ -31,6 +31,9 @@ rpm: $(depth)/$(package-icon) dist
 update:
 	$(PYTHON) $(step-bindir)/update.py --package=$(topdir) $(makeflags)
 
-zip:
+xzip:
 	$(SHELL) $(step-bindir)/package-zip.sh $(topdir) $(prefix:/%=%)
+
+zip:
+	$(SHELL) $(step-bindir)/package-zip32.sh $(topdir)
 

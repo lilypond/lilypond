@@ -54,8 +54,8 @@ Spanner::break_into_pieces ()
   for (int i=1; i < break_cols.size(); i++) 
     {
       Spanner* span_p = clone()->access_Spanner ();
-      left = break_cols[i-1];
-      right = break_cols[i];
+      Item *left = break_cols[i-1];
+      Item *right = break_cols[i];
       if (!right->line_l())
 	right = right->find_prebroken_piece(LEFT);
       if (!left->line_l())
@@ -108,7 +108,9 @@ Spanner::do_break_processing()
     {
       break_into_pieces ();
       for (int i=0; i < broken_into_l_arr_.size(); i++)
-	broken_into_l_arr_[i]->handle_broken_dependencies();
+	{
+	  broken_into_l_arr_[i]->handle_broken_dependencies();
+	}
     }
   else 
     {
@@ -124,8 +126,16 @@ Spanner::access_Spanner ()
 
 Spanner::Spanner ()
 {
+  unbroken_original_l_ =0;
   spanned_drul_[LEFT]=0;
   spanned_drul_[RIGHT]=0;
+}
+
+Spanner::Spanner (Spanner const &s)
+  :Score_element (s)
+{
+  spanned_drul_[LEFT] = spanned_drul_[RIGHT] =0;
+  unbroken_original_l_ = &s;
 }
 
 void
@@ -182,6 +192,12 @@ Spanner::do_unlink()
 {
   set_bounds (LEFT, 0);
   set_bounds (RIGHT, 0);
+
+  if (unbroken_original_l_)
+    {
+      unbroken_original_l_->broken_into_l_arr_.substitute (this, 0);
+      unbroken_original_l_ =0;
+    }
 }
 
 void

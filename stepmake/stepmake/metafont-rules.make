@@ -10,3 +10,8 @@ $(outdir)/%.log: %.mf
 	mv $(@F) $@
 	rm $(basename $< ).*gf
 
+
+$(outdir)/%.tfm: %.mf
+	mf '\mode:=ljfour;  input $<;'
+	mv $(@F) $(outdir)
+	rm $(basename $<).*{gf,log}

@@ -51,7 +51,7 @@ Score_engraver::finish()
 void
 Score_engraver::do_creation_processing()
 {
-  scoreline_l_ = pscore_p_->super_elem_l_->line_of_score_l_;
+  scoreline_l_ = pscore_p_->line_l_;
   scoreline_l_->set_bounds(LEFT,get_staff_info().command_pcol_l ());
   command_column_l_->breakable_b_ = true;
   Engraver_group_engraver::do_creation_processing();

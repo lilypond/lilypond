@@ -150,6 +150,24 @@ if 1:					# need new a namespace
 		((1,0,0), conv, '0.1.21 -> 1.0.0 '))
 
 
+if 1:					# need new a namespace
+	def conv (lines):
+		newlines = []
+		for x in lines:
+			x = regsub.gsub ('\\\\accidentals',
+					 '\\\\keysignature',x)
+			x = regsub.gsub ('specialaccidentals *= *1',
+					 'keyoctaviation = 0',x)
+			x = regsub.gsub ('specialaccidentals *= *0',
+					 'keyoctaviation = 1',x)
+			newlines.append (x)
+		return newlines
+		
+
+	conversions.append (
+		((1,0,1), conv, '\\accidentals -> \\keysignature, ' +
+		 'specialaccidentals -> keyoctaviation\n'))
+
 
 ############################
 

@@ -133,7 +133,7 @@ Score_element::paper()  const
 }
 
 
-Lookup *
+Lookup const *
 Score_element::lookup_l () const
 {
   return pscore_l_->paper_l_->lookup_l (size_i_);

@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.0";
+\version "1.0.1";
 
 viola2 = \melodic \relative c {
 	% starts on (actualy, most part is on) same staff as viola1

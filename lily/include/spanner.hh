@@ -34,13 +34,13 @@
   */
 class Spanner : public virtual Score_element {
 public:
-  
   Drul_array<Item*> spanned_drul_;
   void set_bounds (Direction d, Item*);
 
   DECLARE_MY_RUNTIME_TYPEINFO;
   virtual Spanner* access_Spanner ();
   Spanner ();
+  Spanner (Spanner const &);
   bool broken_b () const;
   virtual Array<Rod> get_rods () const;
   Spanner* find_broken_piece (Line_of_score*) const;
@@ -54,6 +54,7 @@ protected:
   virtual void break_into_pieces ();
 
   Link_array<Spanner> broken_into_l_arr_;
+  Spanner * unbroken_original_l_;
 
   virtual void do_unlink ();
   virtual void do_junk_links ();

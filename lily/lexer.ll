@@ -4,7 +4,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 

@@ -13,7 +13,7 @@ Tested Features: cadenza mode
 Ugh.. Wish we had grace notes....  It adds another dimension to this
 piece of music.  %}
 
-\version "1.0.0";
+\version "1.0.1";
 
 
 cad = \melodic  \relative c' {

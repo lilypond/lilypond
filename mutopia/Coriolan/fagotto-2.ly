@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.0";
+\version "1.0.1";
 
 fagotto2 = \melodic \relative c {
 	R1 *2 | f4-.\ff r r2 | R1 *3 | f4-. r r2 | R1 *3 |

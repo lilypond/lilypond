@@ -2,7 +2,7 @@
 filename =	 "sarabande-cello.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-piece = "Sarabande";
+% piece = "Sarabande";
 % opus =	 "BWV 1008";
 opus =	 "";
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.0";
+\version "1.0.1";
 
 \include "sarabande-urtext.ly";
 
@@ -42,5 +42,6 @@ sarabande_cello_staff = \type Staff <
 	\$sarabande_cello_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 40; }
+	\header{ piece = "Sarabande"; }
 }
 

@@ -15,6 +15,7 @@
 
 Item::Item ()
 {
+  unbroken_original_l_ =0;
   break_priority_i_ = 0;
   breakable_b_ = false;
   break_status_dir_ = CENTER;
@@ -162,10 +163,13 @@ Item::do_unlink()
       do {
 	if (s->spanned_drul_[d] == this)
 	  s->set_bounds (d, 0);
-
-      } while ( flip (&d) != LEFT);
+	if (unbroken_original_l_
+	    && unbroken_original_l_-> broken_to_drul_[d] == this)
+	  unbroken_original_l_->broken_to_drul_[d] = 0;
+      } while (flip (&d) != LEFT);
     }
   attached_span_l_arr_.set_size (0);
+  unbroken_original_l_ =0;
 }
 
 Paper_column *
@@ -177,6 +181,7 @@ Item::column_l () const
 Item::Item (Item const &s)
   : Score_element (s)
 {
+  unbroken_original_l_ = &s;
   /* do not copy attached_span_l_arr_ */
   breakable_b_ = s.breakable_b_;
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] =0;

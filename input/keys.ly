@@ -1,18 +1,18 @@
-\version "1.0.0";
+\version "1.0.1";
 
 
 blah = \melodic {
 
 \transpose c'' {
 	\time 4/4;
-	\accidentals  es;
+	\keysignature  es;
 	[cis8 d e f] [e! a b cis'] |
 	es e f e a a' a  a' |
  \clef "bass";  }
   [es16 c' b a] [g f es d] [c d es d] [c Bes As G] |
 
 \clef "violin";
-	\accidentals  c;
+	\keysignature  c;
 	cis4 c cis cis |
 	<cis dis eis fes ges> cis dis2 ~ | 
 		\time 2/4 ;

@@ -28,6 +28,7 @@ class Item : public virtual Score_element {
 public:
   Link_array<Spanner> attached_span_l_arr_;
   Drul_array<Item*> broken_to_drul_;
+  Item *unbroken_original_l_;
 
   /// should be put in a breakable col.
   bool breakable_b_;

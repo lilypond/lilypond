@@ -40,5 +40,5 @@ else:
 %	input feta-toevallig;
 %	input feta-schrift;
 %	input feta-schrift;
-	input feta-haak;
+%	input feta-haak;
 fi

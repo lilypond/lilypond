@@ -10,16 +10,43 @@ Yodl-1.30.18 to convert this to tex or html.
 
 TODO
 
+need to rethink paper size stuff?
+
+pipethrough(date) sucks.
+
+paragraphs have too much space.
+
 in stead <-> instead
+)
+
+COMMENT(
+	Mainly written by Han-Wen Nienhuys, 
+
+	with help of (among others)
+
+	* Jan Nieuwenhuizen
+
+	* Lambert Meertens,
+
+	* Adrian Mariano
+
+	* Mats Bengtsson
+
 )
 
 htmlbodyopt(bgcolor)(white)
 htmlcommand(<font color=black>)
 
-latexpackage()(a4wide)
 latexlayoutcmds(
-%\usepackage[latin1]{inputenc}
-\input mudela-book
+    \topmargin -0.25in  
+    \textheight 53\baselineskip
+    \advance\textheight by \topskip
+    \marginparwidth 1 in        %   Width of marginal notes.
+    \oddsidemargin 0.25 in      %   Note that \oddsidemargin = \evensidemargin
+    \evensidemargin 0.25 in
+    \marginparwidth 0.75 in
+    \textwidth 5.875 in % Width of text line.
+    \input mudela-book
 )
 
 whenlatex(notableofcontents())
@@ -28,12 +55,6 @@ whentexinfo(notableofcontents())
 article(Mudela, the Music-Definition Language)
       (Han-Wen Nienhuys and Jan Nieuwenhuizen)
       (nop()PIPETHROUGH(date "+%B %d, %Y")()()nop())
-
-COMMENT(
-
-* paragraphs have too much space.
-
-)
 
 
 latexcommand(\def\interexample{})
@@ -78,7 +99,7 @@ If you are not familiar with the English terms for music notation, you
 should consult bind(Appendix)ref(glossary): it contains a glossary 
 of musical terms along with translations in some other languages.
 
-If you want to try the examples given here, you should have look a 
+If you want to try the examples given here, you should have a 
 look at bind(Section)ref(sec:running-lilypond) first.
 
 sect(Music copying, music definition and music entry)
@@ -262,8 +283,8 @@ verb(\score {
    \melodic { X Y Z }
    \paper {}
 })
-We will continue to leave out the red tape this, until the time is fit to explain what the
-above it means.
+We will continue to leave out the red tape this, until the time is right to explain what 
+it means.
 
 
 Because LilyPond uses a language, it  is a so called em(batch)
@@ -271,7 +292,7 @@ program.
 This means, that you use a
 text editor (such as code(emacs) or code(vi)) to create an input
 file.  When you are done editing your input file, you save it, and you
-run LilyPond on the file.  If Lily finds any errors in your input file
+run LilyPond on the file.  If LilyPond finds any errors in your input file
 then nop(she)footnote(We're sure that if computer programs could have
   gender, LilyPond would be a female computer program.  So we will
   refer to the program as a she. This gender-bending is not to tease
@@ -286,7 +307,7 @@ will complain.  If everything went well, then she'll generate a file, that
 you can process further to view or print.
 
 Using LilyPond to print or view some music is a four-step procedure.
-To get you started we'll run down the full procedure for you once.
+To get you started we'll run down the full procedure for you.
 
 enumerate(
 it()
@@ -466,7 +487,7 @@ previous example can be reduced to verb(
 
 If you entered this, you probably made some little errors with the
 right amount of quotes as well.  To remedy this, mudela has another
-feature called `relative octaves', which reduces the amount of quotes
+feature called `relative octaves', which reduces the number of quotes
 needed.  If you want to enter large pieces of music em(now) we
 recommend you make an excursion to
 bind(Section)ref(sec:relativeoctaves) and learn about relative
@@ -686,17 +707,21 @@ dit(code(\key) var(pitch)) This command changes the current key signature.  The
   is the name of the corresponding major key.  The key of C-minor can 
   thus be specified as `code(\key es)'.
   
-dit(code(\accidentals) var(pitchlist))
+dit(code(\keysignature) var(pitchlist))
 
-This command changes the current key signature.  The signature is
-given in the form of a list of accidentals, which can be useful for
-unconventional keys.  The key of C-minor can be specified as
-`code(\accidentals bes es as)'.   The command `code(\accidentals fis es
-bis)' provides a more exotic example.
+This command changes the current key signature.  Unlike the
+`code(\key)' command, this command can produce arbitrary key
+signatures, which can be useful for unconventional keys or modes.  The
+key signature is given in the form of a list of notes.  The notes will
+be printed in the key signature in the order that they appear on the list.
+For example, the key
+of C-minor can be specified as `code(\accidentals bes es as)'.  The
+command `code(\accidentals fis es bis)' provides a more exotic
+example.
 
 
 dit(code(\time) var(numerator)code(/)var(denominator))
-  This command chages the current time signature.  LilyPond uses the
+  This command changes the current time signature.  LilyPond uses the
   time signature to
   calculate where to place the bars that start a measure.  These bars
   in turn are the places where a system can be broken into lines.
@@ -722,22 +747,32 @@ is printed.  LilyPond will act as if you are again at the start of a
 measure.
 
 dit(code(\bar) var(bartype))
-  This command lets you print special bar lines, such as repeats.  You
-  can also use it to allow line breaks when entering cadenzas.  The
-  argument var(bartype) is a string that describes what kind of bar line to print.
+  This command lets you print special bar
+  lines and repeat symbols.  You can also use it to allow line breaks
+  when entering cadenzas.  The argument var(bartype) is a string that
+  describes what kind of bar line to print.
 
 mudela(fragment,verbatim)(
     \bar "|:"; c'4 \bar ":|:";    c'4  \bar ":|";  c'4 \bar "||";
     c'4 \bar "empty"; c'4 \bar "|.";
 )
   The command `code(\bar "empty")' does not create any visible bar
-    line, but it does  tells LilyPond to allow a linebreak
-  at that position.
+  line, but it does tells LilyPond to allow a linebreak
+  at that position.  The `code(\bar)' command prints the specified
+  symbol immediately.  If you give a `code(\bar)' command at the end
+  of a measure then
+  the specified symbol replaces the automatic bar line; otherwise
+  the specified symbol appears in the middle of the measure.   The
+    code(\bar) command does not affect metric structure.
+
+
   
 dit(code(\partial) var(duration)) some music starts with a measure that
 isn't fully filled, a so-called upstep.  The code(\partial) command
 allows you to make
 upsteps. The argument is a duration similar to the duration of a note.
+The `code(\partial)' command cannot be used to generate partial
+measures in the middle of the music.  
 Example:
   mudela(fragment,verbatim)(
     \time 4/4;
@@ -1682,9 +1717,9 @@ The mechanism of context selection can be used to fabricate an Urtext
 and an edited edition from em(one source).  We will use the first few
 bars of bind(J.)bind(S.)Bach's lovely Cello suite bind(no.)I to
 demonstrate this.  The example makes heavy use of space rests: a space
-rest is a like a rest that doesn't print anything.  It can be used as
-a placeholder, to attach articulation marks to.  It is entered as a
-note with the name code(s).
+rest takes up time, like a rest does, but it doesn't print anything.
+It can be used as a placeholder, to attach articulation marks to.  It
+is entered as a note with the name code(s).
 
 mudela(verbatim)(
   bach =  \melodic { [c16 g e' d'] [e' g e' g] }

@@ -20,7 +20,9 @@
 class Horizontal_vertical_group_item  : public Axis_group_item, public Horizontal_vertical_group_element {
 protected:
   virtual void do_print() const;
-  virtual void do_unlink () { Horizontal_vertical_group_element::do_unlink (); }
+  virtual void do_unlink () {
+    Axis_group_item::do_unlink ();
+  }
   SCORE_ELEMENT_CLONE(Horizontal_vertical_group_item);
 public:
   Horizontal_vertical_group_item ();

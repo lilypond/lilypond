@@ -24,13 +24,13 @@ local-WWW: readme-top_FILES-txt readme-top_FILES-html $(OUTHTML_FILES) $(OUTREAD
 
 doc: do-doc
 
+$(outdir)/$(package).info: $(outdir)/topinfo.texinfo $(OUTTEXINFO_FILES)
+	$(MAKEINFO) -o $@ $(outdir)/topinfo.texinfo
+
 # what to do here?
 ifneq ($(strip $(INFO_FILES)),)
 
 INFOINSTALL=$(MAKE) INSTALLATION_OUT_DIR=$(infodir) depth=$(depth) INSTALLATION_OUT_FILES="$(INFO_FILES)" -f $(stepdir)/install-outfiles.sub.make $@
-
-$(outdir)/$(package).info: check-texinfo-deps $(OUTTEXINFO_FILES)
-	$(MAKEINFO) -o $@ $(outdir)/topinfo.texinfo
 
 localinstall: # $(INFO_FILES)
 	-$(INSTALL) -d $(infodir)

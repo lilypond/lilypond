@@ -15,7 +15,7 @@ copyright =	 "public domain";
 Tested Features: lyrics, interleaving lyrics and staffs
 %}
 
-\version "1.0.0";
+\version "1.0.1";
 
 melody = \melodic \relative c'' {
 	\clef violin;
