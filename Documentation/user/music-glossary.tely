@@ -2444,7 +2444,7 @@ by 16@w{ }@aref{cent}s.  Due to the non-circular character of this
 @aref{temperament} only a limited set of keys are playable.
 Used for tuning keyboard instruments for performance of pre-1650 music.
 
-@aitem{measure, bar}
+@aitemii{measure,bar}
 ES: comp@'as,
 I: misura, battuta,
 F: mesure,
@@ -2486,7 +2486,7 @@ syllable in plainsong
 @aitem{melodic cadence}
 @aref{cadenza}.
 
-@aitem{meter, time}
+@aitemii{meter,time}
 ES: comp@'as,
 I: tempo, metro,
 F: indication de m@'esure,
@@ -2891,7 +2891,7 @@ the upper note is played first.
 >>
 @end lilypond
 
-Other frequently used ornaments are the @emph{turn}, the @emph{mordent} and the
+Other frequently used ornaments are the @emph{turn}, the @emph{mordent}, and the
 @emph{prall} (inverted mordent).
 
 @lilypond
@@ -3003,7 +3003,7 @@ D: piano, leise,
 NL: piano,
 DK: piano,
 S: piano,
-FI, piano, hiljaa,
+FI, piano, hiljaa.
 
 @emph{piano} (@b{p}) soft, @emph{pianissimo} (@b{pp}) very soft,
 @emph{mezzopiano} (@b{mp}) medium soft.
@@ -3056,7 +3056,7 @@ DK: presto,
 S: presto,
 FI: presto, hyvin nopeasti.
 
-Very quick, i.e. quicker than @aref{allegro}.  @emph{prestissimo}
+Very quick, i.e. quicker than @aref{allegro};  @emph{prestissimo}
 denotes the highest possible degree of speed.
 
 @aitem{Pythagorean comma}
@@ -3071,7 +3071,7 @@ FI: pytagorinen komma.
 
 A sequence of fifths starting on@w{ }C eventually circles back to@w{ }C,
 but this@w{ }C, obtained by adding 12@w{ }fifths, is
-24@c{ }@aref{cent}s higher than the@w{ }C obtained by adding
+24 @aref{cent}s higher than the@w{ }C obtained by adding
 7@w{ }octaves.  The difference between those two pitches is called the
 Pythagorean comma.
 
@@ -3133,7 +3133,7 @@ D: rallentando, langsamer werden,
 NL: rallentando,
 DK: rallentando,
 S: rallentando,
-FI. rallerdando, hidastuen,
+FI. rallerdando, hidastuen.
 
 Abbreviation "rall.".  @aref{ritardando}.
 
@@ -3297,7 +3297,7 @@ DK: partitur,
 S: partitur,
 FI: partituuri.
 
-A copy of orchestral, choral or chamber music showing what each instrument is
+A copy of orchestral, choral, or chamber music showing what each instrument is
 to play, each voice to sing, having each part arranged one underneath the
 other on different staves @aref{staff}.
 
@@ -3540,7 +3540,7 @@ note head.
 }
 @end lilypond
 
-@aitem{staff}
+@aitemii{staff,pl. staves}
 ES: pentagrama,
 I: pentagramma, rigo (musicale),
 F: port@'ee,
@@ -3550,7 +3550,7 @@ DK: nodesystem,
 S: notsystem,
 FI: nuottiviivasto.
 
-pl. staves.  A series of (normally@w{ }5) horizontal lines upon and between
+A series of (normally@w{ }5) horizontal lines upon and between
 which the musical notes are written, thus indicating (in connection
 with a @aref{clef}) their pitch.  Staves for
 @aref{percussion} instruments may have fewer lines.
@@ -3712,7 +3712,7 @@ D: syntonisches Komma,
 NL: syntonische komma,
 DK: syntonisk komma,
 S: syntoniskt komma,
-FI: syntoninen komma, terssin taajuusero luonnollisessa ja Pytagorisessa viritysj@"arjestelm@"ass@"a.
+FI: syntoninen komma, terssien taajuusero luonnollisessa ja Pytagorisessa viritysj@"arjestelm@"ass@"a.
 
 Difference between the natural third and the third obtained by Pythagorean
 tuning (@aref{Pythagorean comma}), equal to 22@w{ }cents.
@@ -4074,7 +4074,7 @@ DK: dobbeltslag,
 S: dubbelslag,
 FI: korukuvio.
 
-???
+@aref{ornament}.
 
 @aitem{unison}
 ES: un@'{@dotless{i}}sono,
