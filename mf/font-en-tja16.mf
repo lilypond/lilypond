@@ -13,10 +13,9 @@ test:=0;
 
 staffsize#:=16pt#;
 stafflines:=5;
-stafflinethickness#:=0.4pt#;
 code:=-1;
 
-input bolletjes;
+input generic-tja;
 
 fet_endfont("font-en-tja");
 
