@@ -272,7 +272,8 @@ MO = Builder (action = 'msgfmt -o $TARGET $SOURCE',
 	      suffix = '.mo', src_suffix = '.po')
 env.Append (BUILDERS = {'MO': MO})
 
-ugh =  'ln -f po/lilypond.pot ${TARGET.dir}/lilypond.po; '
+# ' '; ?
+ugh =  'ln -f po/lilypond.pot ${TARGET.dir}/lilypond.po ; '
 a = ugh + 'xgettext --default-domain=lilypond --join \
 --output-dir=${TARGET.dir} --add-comments \
 --keyword=_ --keyword=_f --keyword=_i $SOURCES'

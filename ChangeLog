@@ -1,3 +1,7 @@
+2004-08-12  Jan Nieuwenhuizen  <jan.nieuwenhuizen@aspiratie.nl>
+
+	* buildscripts/builder.py: Fix for scons CVS.
+
 2004-08-11  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/user/notation.itely,
