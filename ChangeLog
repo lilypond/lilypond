@@ -1,12 +1,14 @@
 2004-07-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/topdocs/NEWS.texi (Top): add note about new
+	emacs electric-|
+
 	* scm/*.scm: adapt ly:warn calls.
 
 	* lily/lily-guile.cc (LY_DEFINE): use format on ly:warn arguments.
 
 	* lily/repeat-acknowledge-engraver.cc (process_music): look at
 	main timing, not grace timing. Fixes volta-repeat-grace.
-	
 
 	* lily/kpath.cc (LY_DEFINE): ly:kpathsea-expand-path, new function
 	remove ly:kpathsea-gulp-file.
@@ -64,7 +66,7 @@
 
 	* lily/main.cc (dir_info): Print variables in sh format.
 
-	* lily/includable-lexer.cc: Use #if iso #ifdef for HAVE_ tests.
+2	* lily/includable-lexer.cc: Use #if iso #ifdef for HAVE_ tests.
 
 	* mf/SConscript: Update multiple target rules.
 
@@ -145,10 +147,10 @@
 	* scm/stencil.scm (fontify-text-white) : Adjust to better center, properly
 	scale white text
 
-	* scm/fret-diagrams.scm (make-fret-diagram): change default dot position for numbered dots so dot will
-	touch fret.
-	(various routines): move to font-metric interface, rather than name, size interface.
-	Clean up comments.
+	* scm/fret-diagrams.scm (make-fret-diagram): change default dot
+	position for numbered dots so dot will touch fret.
+	(various routines): move to font-metric interface, rather than
+	name, size interface.  Clean up comments.
 
 	* ps/music-drawing-routines.ps: (/draw_white_text)  Adjust font
 	size and offset to better center white text.
