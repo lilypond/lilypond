@@ -97,13 +97,29 @@ rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan
 /sbin/install-info %{_infodir}/lilypond/music-glossary.info.gz %{_infodir}/dir 
 %endif
 
+export PACKAGEDIR=%{_datadir}/lilypond/@TOPLEVEL_VERSION@
+if [ -d /usr/share/vim ]; then
+  VIMDIR=`find /usr/share/vim -name bugreport.vim`
+  VIMDIR=`dirname $VIMDIR`
+  for a in `cd $PACKAGEDIR/vim/ ; find -type d -name '*' ` ; do
+     mkdir -p  $VIMDIR/$a
+     ln -s $PACKAGEDIR/vim/$a/*.vim $VIMDIR/$a/
+  done
+fi
+
+
 # chkfontpath --add=%{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
-echo 'Please logout first before using LilyPond.'
+echo 'Logout first before using LilyPond.'
 
 %preun
 if [ -f /usr/share/lilypond/%{version}/ls-R ]; then
   rm -f /usr/share/lilypond/%{version}/ls-R
+fi
+
+
+if [ -d /usr/share/vim ]; then
+	rm `find /usr/share/vim -name 'lilypond*.vim'`
 fi
 
 

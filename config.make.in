@@ -37,7 +37,6 @@ stepmake = @stepmake@
 docdir = $(datadir)/doc/
 omfdir = $(datadir)/omf/
 elispdir = $(datadir)/emacs/site-lisp
-vimdir = $(datadir)/vim
 # forced instead of $(datadir)/vim
 
 # move out of config.make.in?
@@ -47,10 +46,13 @@ package_libdir = $(libdir)/$(package)
 package_docdir = $(docdir)/$(package)
 package_omfdir = $(omfdir)/$(package)
 
+
 local_package_datadir = $(lilypond_datadir)/$(TOPLEVEL_VERSION)
 local_package_libdir = $(lilypond_libdir)/$(TOPLEVEL_VERSION)
 local_package_docdir = $(lilypond_docdir)/$(TOPLEVEL_VERSION)
 local_package_omfdir = $(lilypond_omfdir)/$(TOPLEVEL_VERSION)
+
+vimdir = $(local_package_datadir)/vim
 
 lilypond_datadir = $(package_datadir)
 lilypond_libdir = $(package_libdir)

@@ -1,5 +1,7 @@
 2004-03-26  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* make/lilypond.redhat.spec.in (Group): add vim scriptlets.
+
 	* Documentation/user/introduction.itely (Introduction): new node.
 
 2004-03-25  Han-Wen Nienhuys   <hanwen@xs4all.nl>
