@@ -1,10 +1,10 @@
 % prelude-urtext.ly
-% belongs together with -cello.ly and -alto.ly
+% belongs together with -cello.ly and -viola.ly
 % who is going to make a -violin.ly? 
 
 %{
 Well, there are still some scripts in this "urtext".
-But merging melodic and scripts doen't work too well yet see alto_scripts .
+But merging melodic and scripts doen't work too well yet see viola_scripts .
 %}
 
 % urg, Thread is gone, try Voice
