@@ -1,51 +1,47 @@
 % flags 
 %
 
-
 fet_begingroup("floogbars")
 
-save flag_angle, flare;
-save hip_thickness, hip_depth, hip_width;
-save foot_thickness, foot_depth, foot_width;
-
-flag_angle = 32;
-
-hip_thickness# = 1.2 stafflinethickness#;
-foot_thickness# = blot_diameter#;
-flare# = 1.0 interline#;
-
-hip_depth# = 15/7 interline#; 
-hip_width# = 7/8 interline# + hip_thickness# /2 + stemthickness#/2;
-
-foot_depth# = flare# + 15/7 interline#;
-foot_width# = .8 hip_width#;
-
-
-define_pixels(flare, 
-	hip_depth, hip_width, hip_thickness,
-	foot_depth, foot_width, foot_thickness
-);
-
-%treq;
-
+% Flags pointing down overlap with  the notehead (in x-direction), so 
+% the down-flag can be bigger
+upflag_width# = .750 black_notehead_width#;
+downflag_width# = .833 black_notehead_width#;
 
 %
-% Inspired by Adobe Sonata,
+% Flags pointing down cannot overlap with the notehead in y-direction,
+% so they have less slant.
+
+%
+% Because of optical illusion, the utmost flag 
+% (bottom for down-pointing, top  
+% for up-pointing) should be smaller than the other flags 
+%
+
+save hip_thickness, foot_thickness;
+hip_thickness# = 1.3 stemthickness#;
+foot_thickness# =  hip_thickness#;
+
+%
+% Inspired by Adobe Sonata and [Wanske]
 % for example, see POSTSCRIPT Language -- program design, 
-% page 119
+% page 119, and [Wanske], p 41,42
 %
-def draw_eight_flag =
-	penpos0(stemthickness, 0);
-	penpos1(flare, 90);
-	penpos2(hip_thickness, 0);
-	penpos3(foot_thickness, 0) ;
-	penpos4(stemthickness, 0);
+def draw_flag(expr center, flare,
+	hip_depth, hip_width, hip_thickness,
+	foot_depth, foot_width, foot_thickness, flagcut) =
+	clearxy;
 
-	z0r = z1r;
-	z0  = (0,0);
-	z2 = (hip_width, -hip_depth);
-	z3 = (foot_width, -foot_depth);
-	z4r = z1l;
+	penpos1(flare, 90);
+	penpos2(whatever, 40);
+	x2r - x2l = hip_thickness;
+	penpos3(foot_thickness, 0) ;
+
+	z1r  = center;
+	z2 = center + (hip_width, -flare - hip_depth);
+	z3orig = center + (foot_width, -flare - foot_depth);
+	z3 = (1-flagcut) [z2, z3orig];
+
 
 	save bot_dir, bot_path;
 	pair bot_dir;
@@ -53,30 +49,146 @@ def draw_eight_flag =
 	bot_path := z2{down} .. z3;
 	bot_dir := direction 1 of bot_path;
 
-	fill z1l{dir -flag_angle} .. z2l{down} .. 
+	fill z1l{curl 0}
+		..tension 1.1 .. z2l .. 
 		z3l{bot_dir}  .. z3r{-bot_dir} ..
-		{up}z2r .. {up}z1r .. 
-		z0l{down} -- z4l -- cycle;
-		
-		;
-
+		z2r .. {up}z1r & z1r -- cycle;
 enddef;
 
 
-fet_beginchar("8th Flag (up)", "3u", "eighthflag")
-	set_char_box(stemthickness# /2, hip_width# + hip_thickness#/2, 
-		foot_depth# + foot_thickness#/2, stemthickness#/2)
 
-	draw_eight_flag;	
-	penlabels(0, 1, 2, 3, 4);
+% godbewaarme, wat een kutsymbolen
+fet_beginchar("8th Flag (up)", "3u", "eighthflag")
+
+	save flare, 
+	hip_depth, hip_width,
+	foot_depth, foot_width;
+
+	flare# = 1.0 interline#;
+	hip_depth# = 8/15 foot_depth#; 
+	hip_width# = upflag_width# - hip_thickness#/2;
+
+	foot_depth# =  15/7 interline#;
+	foot_width# = .8 hip_width#;
+
+	set_char_box(stemthickness# /2, hip_width#  + hip_thickness#/2 
+		+ stemthickness#/2, 
+		flare# + foot_depth# + foot_thickness#/2, stemthickness#/2)
+
+	define_pixels(flare, 
+	hip_depth, hip_width, hip_thickness,
+	foot_depth, foot_width, foot_thickness);
+	draw_flag((stemthickness/2,0), flare, 
+		hip_depth, hip_width, hip_thickness,
+		foot_depth, foot_width, foot_thickness, 0)
+		;	
+	penlabels(1, 2, 3);
+	pickup pencircle scaled stemthickness;
+	draw (0, 0) .. (0,-2 interline);
 fet_endchar;
 
 fet_beginchar("8th Flag (down)", "3d", "deighthflag")
-	set_char_box(stemthickness# /2, hip_width# + hip_thickness#/2, 
-		foot_depth# + foot_thickness#/2, stemthickness#/2)
+	save flare, 
+	hip_depth, hip_width, 
+	foot_depth, foot_width;
 
-	draw_eight_flag;
+	flare# = 1.0 interline#;
+
+	hip_depth# = 8/15 foot_depth#; 
+	hip_width# = downflag_width# - hip_thickness#/2;
+	foot_depth# = 15/7 interline#;
+	foot_width# = .8 hip_width#;
+
+	set_char_box(stemthickness# /2, hip_width#  + hip_thickness#/2 
+		+ stemthickness#/2, 
+		flare# + foot_depth# + foot_thickness#/2, stemthickness#/2)
+
+	define_pixels(flare, 
+	hip_depth, hip_width, hip_thickness,
+	foot_depth, foot_width, foot_thickness);
+
+	draw_flag((stemthickness/2,0),flare, 
+		hip_depth, hip_width, hip_thickness,
+		foot_depth, foot_width, foot_thickness, 0);	
+	pickup pencircle scaled stemthickness;
+	draw (0, 0) .. (0,-2 interline);
+
 	y_mirror_char;
 fet_endchar;
 
-fet_endgroup("floogbars")
+
+fet_beginchar("16th Flag (up)", "4u", "sixteenthflag")
+	save flare,  flagspace,
+	hip_depth, hip_width, 
+	foot_depth, foot_width;
+
+	flare# = 0.85 interline#;
+	flagspace# = .85 interline#;
+	hip_depth# = 8/15 foot_depth#; 
+
+	flagspace# + flare# + foot_depth# = 3.25 interline#;
+
+	hip_width# = upflag_width# - hip_thickness#/2;
+	foot_width# = .8 hip_width#;
+
+	set_char_box(stemthickness# /2, hip_width#  + hip_thickness#/2 
+		+ stemthickness#/2, 
+		3.25 interline#, stemthickness#/2)
+
+	define_pixels(flagspace);
+		define_pixels(flare, 
+	hip_depth, hip_width, hip_thickness,
+	foot_depth, foot_width, foot_thickness);
+
+	draw_flag((stemthickness/2, 0),flare, 
+		1.2 hip_depth, .97 hip_width, hip_thickness,
+		foot_depth, .9 foot_width, foot_thickness, 0.37);	
+	draw_flag((stemthickness/2, -flagspace),flare, 
+		hip_depth,  hip_width, hip_thickness,
+		foot_depth, foot_width, foot_thickness, 0);	
+
+	pickup pencircle scaled stemthickness;
+	draw (0, 0) .. (0,-2 interline);
+
+fet_endchar;
+
+
+fet_beginchar("16th Flag (up)", "4d", "dsixteenthflag")
+	save flare,  flagspace,
+	hip_depth, hip_width, 
+	foot_depth, foot_width;
+
+	flare# = 0.87 interline#;
+	flagspace# = .9 interline#;
+	hip_depth# = .7 foot_depth#; 
+
+	flagspace# + flare# + foot_depth# = 3 interline#;
+
+	hip_width# = downflag_width# - hip_thickness#/2;
+
+	foot_width# = 1.00 hip_width#;
+
+	set_char_box(stemthickness# /2, hip_width#  + hip_thickness#/2 
+		+ stemthickness#/2, 
+		3 interline#, stemthickness#/2)
+
+	define_pixels(flagspace);
+		define_pixels(flare, 
+	hip_depth, hip_width, hip_thickness,
+	foot_depth, foot_width, foot_thickness);
+
+	draw_flag((stemthickness/2, 0),flare, 
+		 hip_depth, .97 hip_width, hip_thickness,
+		1.2 foot_depth, .95 foot_width, foot_thickness, 0.0);	
+
+	draw_flag((stemthickness/2, -flagspace),flare, 
+		hip_depth,  hip_width, hip_thickness,
+		foot_depth, foot_width, foot_thickness, 0);	
+
+	pickup pencircle scaled stemthickness;
+	draw (0, 0) .. (0,-2 interline);
+
+	y_mirror_char;
+fet_endchar;
+
+fet_endgroup("floogbars");
