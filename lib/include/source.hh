@@ -8,11 +8,17 @@
 #include "cons.hh"
 #include "proto.hh"
 
+/**
+   a set of sourcefiles.
 
+   TODO: 
+ */
 class Sources 
 {
+  Sources (Sources const&) {}
 public:
   Sources ();
+  ~Sources();
 
   Source_file * get_file_l (String &filename );
   Source_file* sourcefile_l (char const* ch_C );
