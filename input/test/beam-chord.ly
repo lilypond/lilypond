@@ -1,10 +1,8 @@
 \version "1.7.18"
-%Hmm. what's this supposed to test?
-%  I don't know what this is supposed to do.  delete it?
-% looks like a regression test, and a test that we don't
-% need, anyway.
 \header {
-texidoc = "DELETE ME.
+texidoc = "MOVE TO REGTEST.
+If the first and last outer notes of a beam are the same, the beam should be
+be horizontal.
 "
 }
 \score{
