@@ -1,3 +1,8 @@
+2002-08-02  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* buildscripts/mf-to-table.py (postfixes): Reduce the line spacing
+	in the font list.
+
 2002-08-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/scm-option.cc: excorcise iostream.
@@ -33,6 +38,15 @@
 	to match the 8th rest. slanted 8th rest a bit more.
 	WARNING: 8th rest and classical quarter rest exchanged.
 	
+2002-08-01  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* scm/grob-description.scm (RehearsalMark): Add baseline-skip to
+	handle multiline marks correctly.
+
+2002-07-31  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* scripts/ly2dvi.py (ly_paper_to_latexpaper): Fix dvips flags
+
 2002-07-31 Rune Zedeler <rune@zedeler.dk>
 
 	* input/SondagMorgen/*.ly: Added. TODO: Lots of cleanups but now
