@@ -196,24 +196,10 @@ ADD_INTERFACE (Bar_line, "bar-line-interface",
 This is a request to print a special bar symbol. It replaces the 
 regular bar symbol with a special
 symbol.  The argument @var{bartype} is a string which specifies the
-kind of bar to print.  Options are @code{:|}
-@cindex |A@@@code{:|}
-,
-@code{|:}
-@cindex |B@@@code{|:}
-, @code{:|:}
-@cindex |C@@@code{:|:}
-,
-@code{||}
-@cindex |D@@@code{||}
-, @code{|.}
-@cindex |E@@@code{|.}
-,
-@code{.|}
-@cindex |F@@@code{.|}
-, and @code{.|.}
-@cindex |G@@@code{.|.}
-. 
+kind of bar to print.  Options are @code{:|},
+@code{|:}, @code{:|:},
+@code{||}, @code{|.},
+@code{.|}, and @code{.|.}. 
 
 These produce, respectively, a right repeat, a left repeat, a double
 repeat, a double bar, a start bar, an end bar, and a thick double bar.

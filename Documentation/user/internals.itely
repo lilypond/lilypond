@@ -177,7 +177,7 @@ extract the alteration from pitch  @var{p}.
 calculate the number of semitones of @var{p} from central C.
 @end defun
 
-@defun Pitch::transpose t p
+@defun Pitch@code{:}@code{:}transpose t p
 Transpose @var{p} by the amount @var{t}, where @var{t} is the pitch that
 central C is transposed to. 
 @end defun
@@ -238,11 +238,11 @@ retrieve the value of @var{sym} from context @var{tr}
 set value of property @var{sym} in context @var{tr} to @var{val}.
 @end defun
 
-@defun Translator::name tr
+@defun Translator@code{:}@code{:}name tr
 Return the type name of the translator @var{tr}.
 @end defun 
 
-@defun Translator::description tr
+@defun Translator@code{:}@code{:}description tr
 Return an alist of properties of  translator @var{tr}.
 @end defun
 

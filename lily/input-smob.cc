@@ -36,7 +36,8 @@ free_smob (SCM s)
 }
 
 /*
-  for unknown reason, we don't use IMPLEMENT_TYPE_P
+  We don't use IMPLEMENT_TYPE_P, since the smobification part is
+  implemented separately from the class.
  */
 SCM
 ly_input_p (SCM x)
@@ -44,6 +45,19 @@ ly_input_p (SCM x)
   return unsmob_input (x) ? SCM_BOOL_T : SCM_BOOL_F ;
 }
 
+SCM
+ly_input_message (SCM sip, SCM msg)
+{
+  Input *ip  = unsmob_input(sip);
+  
+  SCM_ASSERT_TYPE(ip, sip, SCM_ARG1, __FUNCTION__, "input location");
+  SCM_ASSERT_TYPE(gh_string_p(msg), msg, SCM_ARG2, __FUNCTION__, "string");
+
+  String m = ly_scm2string (msg);
+
+  ip->message (m);
+  return SCM_UNDEFINED;
+}
 
 
 static void
@@ -58,6 +72,8 @@ start_input_smobs ()
   
   scm_c_define_gsubr ("ly-input-location?", 1, 0, 0,
 		      (Scheme_function_unknown)ly_input_p);
+  scm_c_define_gsubr ("ly-input-message", 2, 0, 0,
+		      (Scheme_function_unknown)ly_input_message);
 }
 
 SCM

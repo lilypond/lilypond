@@ -12,7 +12,7 @@
 #include "box.hh"
 #include "grob.hh"
 #include "drul-array.hh"
-#include "protected-scm.hh"
+
 
 /**
   A horizontally fixed size element of the score.

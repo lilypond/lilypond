@@ -1,3 +1,17 @@
+2002-05-17  Han-Wen  <hanwen@cs.uu.nl>
+
+	* scm/music-functions.scm (check-start-chords): function to check
+	for chords without \context. Apply automatically from parser.
+
+2002-05-16  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/bar-line.cc: remove index entries. Texinfo can't handle  :
+	in index entries.
+
+	* scm/output-lib.scm: fix ez notation stems. 
+
+	* lily/paper-outputter.cc: various fixes to speed up compilation.
+
 2002-05-16  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* scripts/lilypond-book.py: Don't import pre for Python >= 2.2
@@ -54,7 +68,7 @@
 	* mf/GNUmakefile (INSTALLATION_OUT_FILES4): create and install
 	fonts.dir file.
 
-	* lily/parser.yy (My_lily_parser): uncomment code. (Causes
+	* lily/parser.yy (My_lily_parser): comment out code. (Causes
 	problems  with recent bison releases).
 
 	* make/lilypond.redhat.spec.in: add pfa fonts to X. 

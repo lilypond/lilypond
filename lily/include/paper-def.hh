@@ -14,12 +14,10 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 #include "real.hh"
-
-#include "moment.hh"
 #include "array.hh"
 #include "interval.hh"
 #include "music-output-def.hh"
-#include "protected-scm.hh"
+
 
 /** 
 

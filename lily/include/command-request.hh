@@ -14,7 +14,7 @@
 #include "array.hh"
 #include "duration.hh"
 #include "pitch.hh"
-#include "protected-scm.hh"
+
 
 class Break_req : public Request {
 public:

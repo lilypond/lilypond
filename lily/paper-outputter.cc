@@ -8,9 +8,7 @@
 */
 
 #include <time.h>
-
 #include <math.h>
-
 
 #include "dimensions.hh"
 #include "virtual-methods.hh"

@@ -173,11 +173,14 @@ Note_head::brew_molecule (SCM smob)
 
 /*
   Compute the width the head without ledgers.
+
+  -- there used to be some code from the time that ledgers
+  did take space. Nowadays, we can simply take the standard extent.
  */
 Interval
 Note_head::head_extent (Grob *me, Axis a)
 {
-  return internal_brew_molecule (me, false).extent (a);
+  return me->get_molecule()->extent (a);
 }
 
 

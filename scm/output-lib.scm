@@ -91,6 +91,8 @@ centered, X==1 is at the right, X == -1 is at the left."
     ((harmonic) '(1.0 0.0))
     ((triangle) '(0.75 . 0.15))
     (else
+
+     ;; this also works for easy notation.
      '(1.0 . 0.0)
      )))
 		     

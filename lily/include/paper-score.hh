@@ -15,7 +15,7 @@
 #include "lily-proto.hh"
 #include "music-output.hh"
 #include "lily-guile.hh"
-#include "protected-scm.hh"
+
 
 /** all stuff which goes onto paper. notes, signs, symbols in a score
      #Paper_score# contains the items, the columns.

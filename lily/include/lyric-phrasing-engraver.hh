@@ -14,6 +14,7 @@
 #include "engraver.hh"
 #include "item.hh"
 #include "smobs.hh"
+#include "protected-scm.hh"
 
 class Syllable_group;
 
@@ -80,6 +81,9 @@ public:
 
 private:
   /** association list of Syllable_group smobs
+
+  fixme: should use property.
+  
   */
   Protected_scm voice_alist_;
   Grob * any_notehead_l_;

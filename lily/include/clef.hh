@@ -1,5 +1,5 @@
 /*   
-  clef.hh -- declare 
+  clef.hh -- declare Clef
   
   source file of the GNU LilyPond music typesetter
   

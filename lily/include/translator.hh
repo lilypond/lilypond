@@ -15,7 +15,6 @@
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
 #include "lily-guile.hh"
-#include "parray.hh"
 #include "input.hh"
 #include "smobs.hh"
 
