@@ -1,3 +1,7 @@
+2002-04-03  Han-Wen  <hanwen@cs.uu.nl>
+
+	* mf/feta-new-code.mf (currenttransform): new dynamic p sign.
+
 2002-04-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/note-spacing.cc (stem_dir_correction): only do

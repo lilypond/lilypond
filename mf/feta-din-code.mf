@@ -139,13 +139,8 @@ save fcode;
 fcode = 102;
 
 input feta-ital-f;
-stem#:=M*54/36pt#;    % lowercase stem breadth
-hair#:=M*12/36pt#;    % lowercase hairline breadth
-vair#:=M*7/36pt#;    % vertical diameter of hairlines
 
-font_setup;
-
-input feta-ital-p;
+input feta-new-code;
 
 slant:=.28;      % tilt ratio $(\Delta x/\Delta y)$
 stem#:=M*32/36pt#;    % lowercase stem breadth
