@@ -172,7 +172,7 @@
 ;; adds the articulation script x to m if x is not #f.
 (define (add-articulation-script m x)
   (if x
-   (if (and x (equal? (ly:music-name m) "Request_chord"))
+   (if (and x (equal? (ly:music-name m) "Event_chord"))
      (ly:set-mus-property! m 'elements
        (cons (make-articulation-script x) (ly:get-mus-property m 'elements))
      )
@@ -267,7 +267,7 @@
 ;; converts a midi-pitched (ly/drumpitch.ly) file to paper output.
 (define-public ((drums->paper kit) music)
   (begin
-   (if (equal? (ly:music-name music) "Request_chord")
+   (if (equal? (ly:music-name music) "Event_chord")
     (set! music (make-drum-head kit music))
     (let* ((es (ly:get-mus-property music 'elements))
            (e (ly:get-mus-property music 'element))

@@ -298,8 +298,6 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods,1);
 SCM
 Multi_measure_rest::set_spacing_rods (SCM smob)
 {
-  return SCM_UNSPECIFIED;
-
   Grob*me = unsmob_grob (smob);
 
   Spanner*sp = dynamic_cast<Spanner*> (me);
@@ -343,6 +341,6 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 
 
 ADD_INTERFACE (Multi_measure_rest,"multi-measure-rest-interface",
-	       "A rest that spans a whole number of measures.\n",
+	       "A rest that spans a whole number of measures.",
 	       "expand-limit measure-count hair-thickness thick-thickness use-breve-rest");
 
