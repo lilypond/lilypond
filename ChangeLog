@@ -38,6 +38,10 @@
 	with stand-alone info.
 	Removing superfluous inter-word spaces which also distorts output
 	for stand-alone info.
+	Using ` and ' instead of `` and '' everywhere to improve
+	legilibility with stand-alone info
+	Using @samp for single-letter input items and data which contains
+	spaces, @code for other things.
 
 	* lily/grob-interface.cc: Adding copyright.
 	(check_interfaces_for_property): Improve format of warning message.
