@@ -5383,7 +5383,7 @@ to an articulation, for example,
 
 This defines a note with a conditional fingering indication.
 
-By applying the @code{removeTag} music function, tagged expressions
+By applying the @code{\onlyWithTag} command, tagged expressions
 can be filtered.  For example,
 @example
 <<
