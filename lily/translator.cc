@@ -24,6 +24,7 @@ Translator::Translator ()
 }
 
 Translator::Translator (Translator const &s)
+  : Input (s)
 {
   status = ORPHAN;
   daddy_trans_l_ =0;
@@ -55,8 +56,16 @@ Translator::now_moment () const
 void
 Translator::add_processing ()
 {
-  if (status == ORPHAN)
-    status = VIRGIN;
+  if (status > ORPHAN)
+    return;
+  
+  do_add_processing ();
+  status = VIRGIN;
+}
+
+void
+Translator::do_add_processing ()
+{
 }
 
 void
@@ -65,7 +74,7 @@ Translator::print () const
 #ifndef NPRINT
   DOUT << name () << " {";
   if (name () != type_str_)
-    DOUT << "type= " << type_str_;
+    DOUT << "type = " << type_str_;
   for (Dictionary_iter<Scalar> i (properties_dict_); i.ok (); i++)
     {
       DOUT << i.key () << "=" << i.val () <<"\n";
@@ -107,8 +116,12 @@ Translator::post_move_processing()
 void
 Translator::removal_processing()
 {
+  if (status == ORPHAN)
+    return;
   creation_processing();
   do_removal_processing();
+  // elegancy ...
+  // status = ORPHAN;
 }
 
 

@@ -23,7 +23,6 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   source_l_ = source_l;
   lexer_p_ = 0;
   abbrev_beam_type_i_ = 0;
-  default_abbrev_type_i_ = 0;
   default_duration_.durlog_i_ = 2;
   default_octave_i_ = 0;
   textstyle_str_="roman";		// in lexer?
@@ -146,17 +145,10 @@ My_lily_parser::set_abbrev_beam (int type_i)
 }
 
 void
-My_lily_parser::set_last_abbrev (int type_i)
-{
-  default_abbrev_type_i_ = type_i;
-}
-
-void
 My_lily_parser::set_default_duration (Duration const *d)
 {
   last_duration_mode_b_ = false;
   default_duration_ = *d;
-  set_last_abbrev (0);
 }
 
 
@@ -165,7 +157,6 @@ My_lily_parser::set_last_duration (Duration const *d)
 {
   if (last_duration_mode_b_)
     default_duration_ = *d;
-  set_last_abbrev (0);
 }
 
 
@@ -193,11 +184,11 @@ My_lily_parser::get_rest_element (String s,  Duration * duration_p)
 
   if (s=="s")
     { /* Space */
-    Skip_req * skip_p = new Skip_req;
-    skip_p->duration_ = *duration_p;
+      Skip_req * skip_p = new Skip_req;
+      skip_p->duration_ = *duration_p;
 
-    skip_p->set_spot (here_input());
-    velt_p->add (skip_p);
+      skip_p->set_spot (here_input());
+      velt_p->add (skip_p);
     }
   else 
     {
@@ -216,7 +207,7 @@ Chord *
 My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
 {
   Chord*v = new Request_chord;
-  v->set_spot (here_input());
+  v->set_spot (here_input ());
 
   v->add (rq);
   
@@ -228,7 +219,7 @@ My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
       duration_p->set_plet (1, 2);
     }
   rq->set_duration (*duration_p);
-  rq->set_spot (here_input());
+  rq->set_spot (here_input ());
   delete duration_p ;
   return v;
 }
