@@ -1,4 +1,4 @@
-# tex/Makefile
+# ps/Makefile
 
 depth = ..
 

@@ -5,7 +5,7 @@ depth = ..
 
 TEX_FILES = $(wildcard *.tex)
 
-EXTRA_DIST_FILES =  $(TEX_FILES) lilyponddefs.ps
+EXTRA_DIST_FILES =  $(TEX_FILES)
 STEPMAKE_TEMPLATES=install
 
 INSTALLATION_DIR=$(datadir)/tex/
