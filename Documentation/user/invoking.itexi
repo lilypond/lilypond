@@ -138,13 +138,13 @@ run it yourself.
 @cindex installing LilyPond
 
 If you use sh, bash, or a similar shell, then add the following to
-your @file{.profile}
+your @file{.profile}:
 @example
 	. @var{/the/path/to/}lilypond-profile
 @end example
 
 If you use csh, tcsh or a similar shell, then add the following to
-your @file{~/.login}
+your @file{~/.login}:
 @example
 	source @var{/the/path/to/}lilypond-login
 @end example
@@ -152,7 +152,7 @@ your @file{~/.login}
 Of course, in both cases, you should substitute the proper location of
 either script.
 
-These scripts set the following variables
+These scripts set the following variables:
 @table @code
 @item TEXMF
  To make sure that @TeX{} and lilypond find data files (among
@@ -186,7 +186,7 @@ printer as well.
 @cindex TEXMF
 @cindex printing postscript
 
-The  binary itself recognizes the following environment variables
+The  binary itself recognizes the following environment variables:
 @table @code
 @item LILYPONDPREFIX
 This specifies a directory where locale messages and
@@ -194,7 +194,7 @@ data files will be looked up by default. The directory should contain
 subdirectories called @file{ly/}, @file{ps/}, @file{tex/}, etc.
 
 @item LANG
-This selects the language for the warning messages 
+This selects the language for the warning messages.
 @end table
 
 @cindex LANG
@@ -226,9 +226,9 @@ Point and click lets you find notes in the input by clicking on them in
 the Xdvi window. This makes it easier to find input that causes some
 error in the sheet music.
 
-To use it, you need the following software
+To use it, you need the following software:
 @itemize @bullet
-@item A dvi viewer that supports src specials.
+@item a dvi viewer that supports src specials:
 @itemize @bullet
 @item Xdvi, version 22.36 or newer.  Available from
 @uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,ftp.math.berkeley.edu}.
@@ -249,8 +249,8 @@ and slurs will not be visible in KDVI.
 
 
 @end itemize
-@item An editor with a client/server interface (or a lightweight GUI
-editor).
+@item an editor with a client/server interface (or a lightweight GUI
+editor):
 
 @cindex editor
 
@@ -261,19 +261,19 @@ column location.
 
 @c move this elsewhere?
 
-There is also support for emacs: lilypond-mode for emacs provides
+There is also support for Emacs: lilypond-mode for Emacs provides
 keyword autocompletion, indentation, LilyPond specific parenthesis
 matching and syntax coloring, handy compile short-cuts and reading
 LilyPond manuals using Info.  If lilypond-mode is not installed on
 your platform, then refer to the installation instructions for more
 information.
 
-@cindex emacs
-@cindex emacs mode
-@cindex lilypond-mode for emacs
+@cindex Emacs
+@cindex Emacs mode
+@cindex lilypond-mode for Emacs
 @cindex syntax coloring
 
-@item XEmacs. Xemacs is very similar to emacs.
+@item XEmacs. XEmacs is very similar to Emacs.
 
 @cindex XEmacs
 
@@ -296,7 +296,7 @@ Xdvi must be configured to find the @TeX{} fonts and music
 fonts. Refer to the Xdvi documentation for more information.
 
 To use point-and-click, add one of these lines to the top of your .ly
-file.
+file:
 @example
 #(ly:set-point-and-click 'line)
 @end example
@@ -311,8 +311,8 @@ correcting at the end of the file. When you start at the top, and
 insert one line, all following locations will be off by a line.
 
 @cindex Emacs
-For using point-and-click with emacs,  add the following
-In your emacs startup file (usually @file{~/.emacs}), 
+For using point-and-click with Emacs,  add the following
+In your Emacs startup file (usually @file{~/.emacs}):
 @example
 (server-start)
 @end example
@@ -322,8 +322,8 @@ Make sure that the environment variable @var{XEDITOR} is set to
 emacsclient --no-wait +%l %f
 @end example
 @cindex @var{XEDITOR}
-If you use xemacs instead of emacs, you use @code{(gnuserve-start)} in
-your @file{.emacs}, and set @code{XEDITOR} to @code{gnuclient -q +%l %f}
+If you use XEmacs instead of Emacs, you use @code{(gnuserve-start)} in
+your @file{.emacs}, and set @code{XEDITOR} to @code{gnuclient -q +%l %f}.
 
 For using Vim, set @code{XEDITOR} to @code{gvim --remote +%l %f}, or
 use this argument with Xdvi's @code{-editor} option.
@@ -337,7 +337,7 @@ you clicked. This is only supported on Emacs and VIM. Users of Emacs version
 20 must apply the patch @file{emacsclient.patch}. Users of version 21
 must apply @file{server.el.patch} (version 21.2 and earlier).  At the
 top of the @code{ly} file, replace the @code{set-point-and-click} line
-with the following line,
+with the following line:
 @example
 #(ly:set-point-and-click 'line-column)
 @end example
@@ -360,7 +360,7 @@ are harmless, and can be ignored.
 
 Nicely titled output is created through a separate program:
 @file{ly2dvi} is a script that uses LilyPond and La@TeX{} to create a
-nicely titled piece of sheet music, in DVI format or PostScript.
+nicely titled piece of sheet music, in DVI format or PostScript:
 
 @example
         ly2dvi [@var{option}]@dots{} @var{file}@dots{}
@@ -405,7 +405,7 @@ non-anglosaxian characters.
 @item --png
     Also generate pictures of each page, in PNG format. 
 @item --psgz
-    Gzip the postscript files
+    Gzip the postscript file.
 @item --html
     Make a .HTML file with links to all output files.
 @item --preview
@@ -438,8 +438,8 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 @subsection Titling layout
 
 Ly2dvi extracts the following header fields from the LY files to
-generate titling. An example demonstrating all these fields is in
-@inputfileref{input/test,ly2dvi-testpage.ly}.
+generate titling; an example demonstrating all these fields is in
+@inputfileref{input/test,ly2dvi-testpage.ly}:
 
 @table @code
 @item title
@@ -457,11 +457,11 @@ generate titling. An example demonstrating all these fields is in
 @item arranger
     Name of the arranger, right flushed below the opus.
 @item instrument
-    Name of the instrument, centered below the arranger
+    Name of the instrument, centered below the arranger.
 @item dedication            
     To whom the piece is dedicated.
 @item piece
-    Name of the piece, left flushed below the instrument
+    Name of the piece, left flushed below the instrument.
 @item head
     A text to print in the header of all pages. It is not called
 @code{header}, because @code{\header} is a reserved word in LilyPond.
@@ -499,7 +499,7 @@ included.  Default: unset.
 @item latexheaders
     Specify additional La@TeX{} headers file.
 
-        Normally read from the @code{\header} block. Default value: empty
+        Normally read from the @code{\header} block. Default value: empty.
 
 @item latexpackages
     Specify additional La@TeX{} packages file. This works cumulative,
@@ -512,7 +512,7 @@ so you can add multiple packages using multiple @code{-s=latexpackages} options.
 @code{\documentclass}. You can put any valid value here. This was
 designed to allow ly2dvi to produce output for double-sided paper,
 with balanced margins and pagenumbers on alternating sides. To achieve
-this specify @code{twoside}
+this specify @code{twoside}.
 
 @item orientation
     Set orientation. Choices are @code{portrait} or @code{landscape}. Is
