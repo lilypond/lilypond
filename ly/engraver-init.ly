@@ -40,6 +40,7 @@ StaffContext=\translator {
 	\consists "Instrument_name_engraver"
 	\consists "Grob_pq_engraver"
 	\consists "Forbid_line_break_engraver"
+	\consists "String_number_engraver"
 	\consistsend "Axis_group_engraver"
 
 	minimumVerticalExtent = #'(-6 . 6)

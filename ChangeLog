@@ -1,5 +1,7 @@
 2003-09-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/lilypond.py (escape_path): escape spaces in directory names
+
 	* input/test/text-spanner.ly: fixes.
 
 2003-09-19  Heikki Junes  <hjunes@cc.hut.fi>
