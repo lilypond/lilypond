@@ -1,3 +1,10 @@
+2002-10-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/windows/installing.texi: Soften wording about
+	necessity of becoming Administrator.  tommie@iae.nl reports this
+	does not seem to be necessary for his flavour of Windows 2000.
+	Explicitely discourage text mode mounts.
+
 2002-10-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/rest.cc (after_line_breaking): backport dot position fix.
