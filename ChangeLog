@@ -1,6 +1,7 @@
 2003-01-23  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-font-lock.el: Fontify post-notated slurs [-^_][()].
+	Fontify bass note in chords, e.g., e in c1/e.
 	
 2003-01-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
