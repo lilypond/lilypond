@@ -12,7 +12,7 @@
 #include "string.hh"
 #include "misc.hh"
 #include "paper-def.hh"
-
+#include "warn.hh"
 #include "scaled-font-metric.hh"
 #include "main.hh"
 #include "scm-hash.hh"
