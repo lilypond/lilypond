@@ -97,9 +97,6 @@ settings from within Scheme .}
 @section Environment variables
 
 @table @code
-@item LILYINCLUDE
-additional directories for finding lilypond data.  The
-format is like the format of @file{PATH}.
 @item LILYPONDPREFIX
 This specifies a directory where locale messages and
 data files will be looked up by default. The directory should contain

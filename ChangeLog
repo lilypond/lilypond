@@ -37,6 +37,16 @@
 
 2002-05-17  Han-Wen  <hanwen@cs.uu.nl>
 
+	* scm/lily.scm (ly-load): show SCM filenames if verbose.
+
+	* lily/lily-guile.cc (init_functions): add ly-verbose function.
+
+	* lily/main.cc (setup_paths): remove LILYINCLUDE support. 
+
+	* flower/include/{pointer,tuple}*: removed.
+
+	* VERSION: released 1.5.56
+	
 	* scm/music-functions.scm (check-start-chords): function to check
 	for chords without \context. Apply automatically from parser.
 

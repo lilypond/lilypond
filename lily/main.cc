@@ -247,10 +247,6 @@ setup_paths ()
 #endif
 
   global_path.add ("");
-  // must override (come before) "/usr/local/share/lilypond"!
-  char const *env_sz = getenv ("LILYINCLUDE");
-  if (env_sz)
-    global_path.parse_path (env_sz);
 
 
   /* Adding mf/out make lilypond unchanged source directory, when setting
