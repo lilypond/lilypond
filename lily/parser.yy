@@ -262,6 +262,8 @@ yylex (YYSTYPE *s,  void * v)
 %token <scm>	DURATION_IDENTIFIER
 %token <scm>    FRACTION
 %token <id>	IDENTIFIER
+%token <scm>	CHORDNAMES CHORDNAMES_IDENTIFIER
+%type <scm>	chordnames_block chordnames_list chord_scm
 
 
 %token <scm>	SCORE_IDENTIFIER
@@ -494,7 +496,38 @@ identifier_init:
 	| embedded_scm	{
 		$$ = $1;
 	}
+	| chordnames_block {
+		$$ = $1;
+	}	
 	;
+
+chordnames_block:
+	CHORDNAMES '{'
+		{ THIS->lexer_->push_chord_state (); }
+		chordnames_list
+		{ THIS->lexer_->pop_state (); }
+	'}'
+	{
+		$$ = $4;
+	}
+	;
+
+chordnames_list:
+	/* empty */ {
+		$$ = SCM_EOL;
+	}
+	| CHORDNAMES_IDENTIFIER chordnames_list	{
+		$$ = scm_append (scm_list_2 ($1, $2));
+	}
+	| chord_scm '=' full_markup chordnames_list {
+		$$ = scm_cons (scm_cons ($1, $3), $4);
+	};
+
+chord_scm:
+	steno_tonic_pitch optional_notemode_duration chord_additions chord_subtractions chord_inversion chord_bass {
+		$$ = Chord::tonic_add_sub_to_pitches ($1, $3, $4);
+		/* junk bass and inversion for now */
+	};
 
 translator_spec_block:
 	TRANSLATOR '{' translator_spec_body '}'

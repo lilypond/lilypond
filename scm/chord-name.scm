@@ -939,6 +939,33 @@ inline use in .ly file"
      ((american)
       (chord-name-style-setter chord->markup-american
 			       chord::exception-alist-american))
+     
+     ((double-plus-new-banter)
+      (chord-name-style-setter double-plus-new-chord->markup-banter
+       chord::exception-alist-banter))
+     
+     ((double-plus-new-jazz)
+      (chord-name-style-setter double-plus-new-chord->markup-jazz
+       chord::exception-alist-jazz))
      )))
 
+;; can't put this in double-plus-new-chord-name.scm, because we can't
+;; ly:load that very easily.
+(define-public (set-double-plus-new-chord-name-style style options)
+  "Return music expressions that set the chord naming style. For
+inline use in .ly file"
+  
+  (define (chord-name-style-setter function)
+    (context-spec-music
+     (make-sequential-music 
+      (list (make-property-set 'chordNameFunction function)
+	    (make-property-set 'chordNameExceptions options)))
+     "ChordNames"))
 
+  (ly:export
+   (case style
+     ((banter)
+      (chord-name-style-setter double-plus-new-chord->markup-banter))
+     
+     ((jazz)
+      (chord-name-style-setter double-plus-new-chord->markup-jazz)))))

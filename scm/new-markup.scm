@@ -499,7 +499,7 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
 	 (signature (object-property (car entry) 'markup-signature))
 	 )
   
-    `(define (,(string->symbol make-name) . args)
+    `(define-public (,(string->symbol make-name) . args)
        (make-markup ,(car entry) ,make-name ,(cons 'list signature)  args)
        ))
   )
