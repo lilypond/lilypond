@@ -2734,8 +2734,7 @@ an abbreviated name, and both be used in input files
   hihat hh bassdrum bd
 @end example
 @lilypond[quote,raggedright]
-        \new DrumStaff \drums {   hihat hh bassdrum bd
- }
+\new DrumStaff \drums { hihat hh bassdrum bd }
 @end lilypond
 
 The complete list of drum names is in the init file
@@ -2776,10 +2775,10 @@ polyphonic notation, described in @ref{Polyphony}, can also be used if
 the @internalsref{DrumVoices} are instantiated by hand first. For example, 
 
 @lilypond[quote,fragment,verbatim] 
-\drums \new DrumStaff <<
+\new DrumStaff <<
   \context DrumVoice = "1" {  s1 *2 }
   \context DrumVoice = "2" {  s1 *2 }
-  {
+  \drums {
     bd4 sn4 bd4 sn4
     <<
       { \repeat unfold 16 hh16 }
@@ -3573,11 +3572,11 @@ The complete example is shown here
     \notes \relative c'' \context Voice = duet {
       \time 3/4
        g2 e4 a2 f4 g2. }
-    \lyrics <<
-      \lyricsto "duet" \new Lyrics {
+    <<
+      \lyricsto "duet" \new Lyrics \lyrics {
         \set vocalName = "Bert"
         Hi, my name is Bert. }
-      \lyricsto "duet" \new Lyrics {
+      \lyricsto "duet" \new Lyrics \lyrics {
         \set vocalName = "Ernie"
         Ooooo, ch\'e -- ri, je t'aime. }
     >>

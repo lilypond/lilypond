@@ -909,7 +909,12 @@ Simple_music:
 
 optional_context_mod:
 	/**/ { $$ = SCM_EOL; }
-	| WITH '{' context_mod_list '}'  { $$ = $3; }
+	| WITH { THIS->lexer_->push_initial_state (); }
+	'{' context_mod_list '}'
+	{
+		THIS->lexer_->pop_state ();
+		$$ = $4;
+	}
 	;
 
 grace_head:
@@ -1081,13 +1086,20 @@ basic music objects too, since the meaning is different.
 		SCM nn = THIS->lexer_->lookup_identifier ("drumPitchNames");
 		THIS->lexer_->push_note_state (alist_to_hashq (nn));
 	}
+	/* FIXME: This used to be:
 	Music
+*/
+	Grouped_music_list
 		{ $$ = $3;
 		  THIS->lexer_->pop_state ();
 		}
 	| FIGURES
 		{ THIS->lexer_->push_figuredbass_state (); }
+	/* FIXME: This used to be:
 	Music
+ 	but that breaks web build
+	*/
+	Grouped_music_list
 		{
 		  Music *chm = MY_MAKE_MUSIC ("UntransposableMusic");
 		  chm->set_property ("element", $3->self_scm ());
@@ -1102,7 +1114,12 @@ basic music objects too, since the meaning is different.
 		nn = THIS->lexer_->lookup_identifier ("pitchnames");
 		THIS->lexer_->push_chord_state (alist_to_hashq (nn));
 
-	} Music {
+	}
+	/* FIXME:
+	Music
+*/
+	Grouped_music_list
+	{
 		  Music *chm = MY_MAKE_MUSIC ("UnrelativableMusic");
 		  chm->set_property ("element", $3->self_scm ());
 		  scm_gc_unprotect_object ($3->self_scm ());
@@ -1112,7 +1129,10 @@ basic music objects too, since the meaning is different.
 	}
 	| LYRICS
 		{ THIS->lexer_->push_lyric_state (); }
+	/* FIXME:
 	Music
+*/
+	Grouped_music_list
 		{
 		  $$ = $3;
 		  THIS->lexer_->pop_state ();
@@ -1218,12 +1238,6 @@ context_change:
 	}
 	;
 
-simple_string: STRING {
-	   }
-	| LYRICS_STRING {
-	}
-	;
-
 property_operation:
 	STRING '=' scalar {
 		$$ = scm_list_3 (ly_symbol2scm ("assign"),
@@ -1313,16 +1327,43 @@ music_property_def:
 	;
 
 
+string:
+	STRING {
+		$$ = $1;
+	}
+	| STRING_IDENTIFIER {
+		$$ = $1;
+	}
+	| string '+' string {
+		$$ = scm_string_append (scm_list_2 ($1, $3));
+	}
+	;
 
-scalar:
-        string          { $$ = $1; }
-        | bare_int      { $$ = scm_int2num ($1); }
-        | embedded_scm  { $$ = $1; }
-	| full_markup {  $$ = $1; }
-	| DIGIT { $$ = scm_int2num ($1); }
+simple_string: STRING {
+	}
+	| LYRICS_STRING {
+	}
+	;
+
+scalar: string {
+	}
+	| LYRICS_STRING {
+	}
+        | bare_int {
+		$$ = scm_int2num ($1);
+	}
+        | embedded_scm {
+	}
+	| full_markup {
+	}
+	| DIGIT {
+		$$ = scm_int2num ($1);
+	}
 	;
 
 /*
+FIXME: remove or fix this comment.  What is `This'?
+
 This is a trick:
 
 Adding pre_events to the simple_element
@@ -1946,9 +1987,6 @@ steno_duration:
 	}
 	;
 
-
-
-
 multiplied_duration:
 	steno_duration {
 		$$ = $1;
@@ -1979,7 +2017,6 @@ dots:
 	}
 	;
 
-
 tremolo_type:
 	':'	{
 		$$ = 0;
@@ -1991,11 +2028,6 @@ tremolo_type:
 	}
 	;
 
-
-
-/*****************************************************************
-		BASS FIGURES
-*****************************************************************/
 bass_number:
 	DIGIT   {
 		$$ = scm_number_to_string (scm_int2num ($1), scm_int2num (10));
@@ -2345,20 +2377,6 @@ bare_int:
 		$$ = -$2;
 	}
 	;
-
-
-string:
-	STRING		{
-		$$ = $1;
-	}
-	| STRING_IDENTIFIER	{
-		$$ = $1;
-	}
-	| string '+' string {
-		$$ = scm_string_append (scm_list_2 ($1, $3));
-	}
-	;
-
 
 exclamations:
 		{ $$ = 0; }

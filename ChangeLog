@@ -1,5 +1,8 @@
 2004-04-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/parser.yy (scalar): Bugfix: accept LYRICS_STRING.
+	FIXME: Replace some `Music's with Grouped_music_list; fixes make web.
+
 	* input/regression/newaddlyrics.ly: New file.
 
 	* Documentation/topdocs/NEWS.texi: Update.
