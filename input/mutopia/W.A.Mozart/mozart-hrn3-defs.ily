@@ -44,7 +44,6 @@ stopGraceMusic= \sequential {
 
         \override Beam #'thickness = #0.6
         \override Beam #'space-function = #(lambda (beam mult) 0.8)
-        \override Slur #'beautiful = #0.3
     }
     \context {
         \Staff
