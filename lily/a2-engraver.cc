@@ -135,7 +135,7 @@ A2_engraver::acknowledge_element (Score_element_info i)
   if (Stem::has_interface (i.elem_l_)
       || Slur::has_interface (i.elem_l_)
       // || Text_item::has_interface (i.elem_l_)
-      //|| Crescendo::has_interface (i.elem_l_)
+      //|| Hairpin::has_interface (i.elem_l_)
       )
     {
       /*

@@ -131,14 +131,8 @@ more than this (in staffspace)")
    'note-column-interface
    "Stem and noteheads combined"
    (list
-    (elt-property-description 'horizontal-shift integer? "integer that identifies ranking of note-column for horizontal shifting.")
-    (elt-property-description 'force-hshift number? "amount of collision_note_width that overides automatic collision settings.")
-    (elt-property-description 'merge-differently-dotted boolean? "merge black noteheads with differing dot count in collisions.
-
-Merge noteheads in collisions, even if they have a different number of
-dots. This normal notation for polyphonic guitar music.
-
-")
+    (elt-property-description 'horizontal-shift integer? "integer that identifies ranking of note-column for horizontal shifting. This is used by @ref{note-collision-interface}")
+    (elt-property-description 'force-hshift number? "amount of collision_note_width that overides automatic collision settings. This is used by @ref{note-collision-interface}")
     ))
   )
 
@@ -387,12 +381,13 @@ Align_interface::center_on_element). ")
     (elt-property-description 'grow-direction dir? "crescendo or decrescendo?")
     (elt-property-description 'thickness number? "thickness, measured in stafflinethickness")
     (elt-property-description 'height number? "height, measured in staffspace.")
+    (elt-property-description 'padding number? "horizontal padding. This is useful if a crescendo is set next to a text like `mf'")
     )))
 
 (define arpeggio-interface
   (lily-interface
    'arpeggio-interface
-   "arpeggio"
+   "Functions and settings for drawing an arpeggio symbol (a wavy line left to noteheads."
    (list
     (elt-property-description 'stems list? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
     )
@@ -402,8 +397,16 @@ Align_interface::center_on_element). ")
 (define note-collision-interface
   (lily-interface
    'note-collision-interface
-   "note collision"
+   "An object that handles collisions between notes with different
+stem directions and horizontal shifts. Most of the interesting
+properties are to be set in @ref{note-column-interface}"
    (list
+    (elt-property-description 'merge-differently-dotted boolean? "
+Merge noteheads in collisions, even if they have a different number of
+dots. This normal notation for some types of polyphonic music. The
+value of this setting is used by @ref{note-collision-interface}
+
+")
     (elt-property-description 'note-width 'number? "unit for horizontal translation, measured in staff-space.")
     )   )  )
 

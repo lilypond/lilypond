@@ -105,9 +105,9 @@
        ))
 	
 	(Crescendo . (
-		(molecule-callback . ,Crescendo::brew_molecule)
+		(molecule-callback . ,Hairpin::brew_molecule)
 		(thickness . 1.0)
-		(shorten-for-letter  .  4.0)
+		(padding . 1.0)
 		(height . 0.6666)
 		(dash-thickness . 1.2)
 		(dash-length . 4.0)
@@ -246,7 +246,7 @@
 		(molecule-callback . ,Text_item::brew_molecule)
 		(direction . 1)
 		(breakable . #t)
-		(font-family . number)
+		(font-family . roman)
 		(font-relative-size . 1)
 		(visibility-lambda . ,end-of-line-invisible)
 		(padding . 0.8)
@@ -291,7 +291,7 @@
 		(font-family . roman)
 		(meta . ,(element-description  "NoteName"
 					       note-name-interface font-interface
-					       general-element-interface))
+					       ))
 		))
 
 	(OctavateEight . (

@@ -1,5 +1,5 @@
 /*
-  crescendo.cc -- implement Crescendo
+  crescendo.cc -- implement Hairpin
 
   source file of the GNU LilyPond music typesetter
 
@@ -15,10 +15,10 @@
 #include "debug.hh"
 #include "paper-column.hh"
 
-MAKE_SCHEME_CALLBACK (Crescendo, brew_molecule, 1);
+MAKE_SCHEME_CALLBACK (Hairpin, brew_molecule, 1);
 
 SCM
-Crescendo::brew_molecule (SCM smob) 
+Hairpin::brew_molecule (SCM smob) 
 {
   Score_element *me= unsmob_element (smob);
   Spanner *span = dynamic_cast<Spanner*>(me);
@@ -35,7 +35,7 @@ Crescendo::brew_molecule (SCM smob)
     }
   
   Direction grow_dir = to_dir (s);
-
+  Real padding = gh_scm2double (me->get_elt_property ("padding"));
   Real width = span->spanner_length ();
   width -= span->get_broken_left_end_align ();
 
@@ -47,11 +47,19 @@ Crescendo::brew_molecule (SCM smob)
     }
 
   Drul_array<bool> broken;
+  Drul_array<Real> extra_off;
   Direction d = LEFT;
   do
     {
-      Paper_column* s = dynamic_cast<Paper_column*> (span->get_bound (d)); // UGH
-      broken[d] = (!s->musical_b ());
+      Item *b = span->get_bound (d);
+      broken[d] = b->break_status_dir () != CENTER;
+
+      if (!broken [d])
+	{
+	  Real r = b->extent (b, X_AXIS)[-d] + padding;
+	  width += d * r;
+	  extra_off[d] = r;
+	}
     }
   while (flip (&d) != LEFT);
   
@@ -69,7 +77,7 @@ Crescendo::brew_molecule (SCM smob)
 
   Box b (Interval (0, width), Interval (-2*height, 2*height));
   Molecule mol (b, hairpin);
-  mol.translate_axis (broken_left, X_AXIS);
+  mol.translate_axis (broken_left + extra_off[LEFT], X_AXIS);
 
   return mol.smobbed_copy ();
 }

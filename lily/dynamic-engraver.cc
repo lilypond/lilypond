@@ -266,17 +266,10 @@ Dynamic_engraver::do_process_music ()
 						SCM_UNDEFINED);
 		}
 	    }
-	
-	  Score_element *cc = unsmob_element (get_property ("currentMusicalColumn"));
-	  cresc_p_->set_bound (LEFT, cc);
-
-	  if (script_p_)
-	    {
-	      Side_position::set_direction (script_p_, LEFT);
-	      Side_position::set_axis (script_p_, X_AXIS);
-	      Side_position::add_support (script_p_, cresc_p_);
-	    }
-
+	  cresc_p_->set_bound (LEFT, script_p_
+			       ? script_p_
+			       : unsmob_element (get_property ("currentMusicalColumn")));
+	  
 	  Axis_group_interface::add_element (line_spanner_, cresc_p_);
 	  announce_element (cresc_p_, accepted_spanreqs_drul_[START]);
 	}
@@ -312,6 +305,10 @@ Dynamic_engraver::typeset_all ()
 {  
   if (finished_cresc_p_)
     {
+      finished_cresc_p_->set_bound (RIGHT, script_p_
+			   ? script_p_
+			   : unsmob_element (get_property ("currentMusicalColumn")));
+	        
       typeset_element (finished_cresc_p_);
       finished_cresc_p_ =0;
     }
