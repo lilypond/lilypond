@@ -1,5 +1,7 @@
 2004-12-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/feta-bolletjes.mf (triangle): add s to 0triangle.
+
 	* mf/GNUmakefile (ALL_GEN_FILES): make SVG files too.
 
 2004-12-19  Jan Nieuwenhuizen  <janneke@gnu.org>

@@ -268,7 +268,7 @@ def define_triangle_shape(expr stemdir) =
 	fi
 enddef;
 
-fet_beginchar("Whole trianglehead", "0triangle")
+fet_beginchar("Whole trianglehead", "s0triangle")
 	save hei,xs;
 	save llap;
 	save tilt;
