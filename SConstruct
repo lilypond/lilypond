@@ -200,9 +200,11 @@ for i in functions:
        		key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
                 defines[key] = '1'
 
-
 key = 'HAVE_FLEXLEXER_YY_CURRENT_BUFFER'
-defines[key] = conf.TryCompile ("""using namespace std;
+
+sys.stdout.write('Checking for yy_current_buffer ... ')
+sys.stdout.flush()
+res = conf.TryCompile ("""using namespace std;
 #include <FlexLexer.h>
 class yy_flex_lexer: public yyFlexLexer
 {
@@ -211,7 +213,13 @@ class yy_flex_lexer: public yyFlexLexer
     {
       yy_current_buffer = 0;
     }
-};""", 'cc')
+};""", '.cc')
+if res:
+	defines[key] = '1'
+	sys.stdout.write('yes\n')
+else:
+	sys.stdout.write('no\n')
+
 
 if conf.CheckLib ('dl'):
 	pass

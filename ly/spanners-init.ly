@@ -76,3 +76,27 @@ sostenutoUp = #(make-span-event 'SostenutoEvent STOP)
 %crescpoco = \set crescendoText = "cresc. poco a poco"
 %decresc = \set crescendoText = "decr."
 %dim = \set crescendoText = "dim."
+
+
+% for regression testing purposes.
+assertBeamQuant =
+#(def-music-function (location l r) (pair? pair?)
+  (let* ((f (check-quant-callbacks l r)))
+   
+   #{
+   \once \override Beam #'position-callbacks = $f
+   #}
+   
+))
+
+% for regression testing purposes.
+assertBeamSlope =
+#(def-music-function (location comp) (procedure?)
+  (let* ((f (check-slope-callbacks comp)))
+   
+   #{
+   \once \override Beam #'position-callbacks = $f
+   #}
+   
+))
+

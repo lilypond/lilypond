@@ -1,3 +1,12 @@
+2004-07-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/beam.scm (check-slope-callbacks): check sign of slope. 
+
+	* input/regression/beam-concave.ly (rossFourBeams): add cases from Ross
+
+	* scm/script.scm (default-script-alist): marcato should follow
+	into staff
+	
 2004-07-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* buildscripts/builder.py:
