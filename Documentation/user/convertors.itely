@@ -1,0 +1,80 @@
+@c -*-texinfo-*-
+
+@node Conversion tools
+@chapter Converting to LilyPond format.
+
+@section midi2ly
+
+Midi2ly translates a MIDI input file to a LilyPond source file.
+Midi2ly is part of the GNU LilyPond music typesetting package.
+
+@subsection Invoking midi2ly
+
+@example
+        midi2ly [options] midi-file
+@end example
+
+@table @code
+@item -b, --no-quantify,
+    Write exact durations, e.g.: `a4*385/384'.
+@item -D, --debug,
+    Print lots of debugging stuff.
+@item -h, --help,
+    Show a summary of usage.
+@item -I, --include=@file{DIR},
+    Add DIR to search path.
+@item -k, --key=ACC[:MINOR],
+    Set default key.  ACC > 0 sets number of sharps; ACC < 0 sets number 
+    of flats.  A minor key is indicated by ":1".
+@item -n, --no-silly,
+    Assume no plets or double dots, assume smallest (reciprocal) duration 16.
+@item -o, --output=@file{FILE},
+    Set @file{FILE} as default output.
+@item -p, --no-plets,
+    Assume no plets.
+@item -q, --quiet,
+    Be quiet.
+@item -s, --smallest=N,
+    Assume no shorter (reciprocal) durations than N.
+@item -v, --verbose,
+    Be verbose.
+@item -w, --warranty,
+    Show the warranty with which midi2ly comes. (It comes with @strong{NO WARRANTY}!)
+@item -x, --no-double-dots,
+    Assume no double dotted notes.
+@end table
+
+
+@section etf2ly
+
+@subsection Invoking etf2ly
+Usage:
+
+
+
+@example
+        etf2ly [OPTION]... ETF-FILE
+@end example
+
+Convert ETF to LilyPond.
+
+Options:
+@table @code
+@item   -h,--help
+this help
+@item  -o,--output=FILE
+set output filename to FILE
+@item  -v,--version
+version information
+@end table
+
+Enigma Transport Format is a format used by Coda Music Technology's
+Finale product. This program will convert a subset of ETF to a
+ready-to-use lilypond file.
+
+Report bugs to bug-gnu-music@@gnu.org
+
+Written by  Han-Wen Nienhuys
+
+[descibe abc2ly, pmx2ly, etf2ly, musedata2ly here]
+

@@ -1,29 +1,6 @@
-
-@ifnottex
-@macro keyindex {word}
-@cindex @code{ \word\ }
-@end macro
-
-@macro indexcode {word}
-@cindex @code{ \word\ }
-@end macro
-@end ifnottex
-
-@iftex
-@macro keyindex {word}
-@cindex @code{ \word\ }
-
-@end macro
-
-@macro indexcode {word}
-@cindex @code{ \word\ }
-
-@end macro
-@end iftex
-
 @ifinfo
 @macro rgrob {word}
-@ref{ (lilypond-internals)Grob \word\, \word\ },
+@ref{ (lilypond-internals)\word\, \word\ },
 
 @end macro
 @macro reng {word}
@@ -34,7 +11,7 @@
 
 @ifnotinfo
 @macro rgrob {word}
-@ref{ (lilypond-internals)Grob \word\, \word\ }
+@ref{ (lilypond-internals)\word\, \word\ }
 
 @end macro
 @macro reng {word}

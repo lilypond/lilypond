@@ -1,0 +1,530 @@
+@node Internals
+@chapter Internals
+
+@menu
+* Conversion stages::              Lilypond is a multi-pass program.
+* Moment:: 
+* Grobs::                          Graphical object  
+* Engraver::
+* Music_iterator::
+* Music::
+* Molecules::                       Molecules are stand-alone descriptions of output
+* Font metrics::                    Font metrics
+@end menu
+
+@node Conversion stages
+@section Conversion stages
+
+When translating the input to notation, there are number of distinct
+phases.  We list them here:
+
+@table @code
+
+@item Parsing:
+
+The .ly file is read, and converted to a list of @code{Scores}, which
+each contain @code{Music} and paper/midi-definitions.
+
+@item Interpreting music
+@cindex interpreting music
+
+All music events are "read" in the same order as they would be played
+(or read from paper). At every step of the interpretation, musical
+events are delivered to
+interpretation contexts,
+@cindex engraver
+which use them to build grobs (or MIDI objects, for MIDI output).
+
+@item Prebreaking
+
+@cindex prebreaking
+
+At places where line breaks may occur, clefs and bars are prepared for
+a possible line break. 
+
+@item Preprocessing
+
+@cindex preprocessing
+
+In this stage, all information that is needed to determine line breaking
+is computed. 
+
+@item Break calculation:
+
+The lines and horizontal positions of the columns are determined.
+
+@item Breaking
+
+Relations between all grobs are modified to reflect line breaks. See
+also @ref{Pointer substitution}.
+
+@item Outputting:
+
+All vertical dimensions and spanning objects are computed, and all grobs
+are output, line by line.
+
+@end table
+
+@node Moment
+@section Moment
+
+Moment is a rational number. Since GUILE doesn't support them natively,
+so we created our own rational data type.
+
+@defun moment?
+@end defun
+
+@defun make-moment num den
+create the rational number @var{num}/@var{den}. 
+@end defun
+
+@node Grobs
+@section Grobs
+
+This section is about Grobs (short for Graphical Objects), which are
+formatting objects used to create the final output. This material is
+normally the domain of LilyPond gurus, but occasionally, a normal user
+also has to deal with grobs.
+
+The most simple interaction with Grobs are when you use
+@code{\override}:
+
+@example
+        \property Voice.Stem \override #'direction = #1
+@end example
+
+This piece of lily input causes all stem objects to be stem-up
+henceforth.  In effect, you are telling lilypond to extend the defintion
+of the "Stem" grob with the setting @code{direction := 1}.  Of course
+there are many more ways of customizing Lily output, and since most of
+them involve Grobs in some form, this section explains some details of
+how grobs work.
+
+@menu
+* What is a grob?::
+* Callbacks::
+* Setting grob properties::
+* Items and Spanners::
+* Pointer substitution::
+* Grob Scheme functions::
+@end menu
+
+@node What is a grob?
+@subsection What is a grob?
+
+In music notation, lots of symbols are related in some way.  You can
+think of music notation as a graph where nodes are formed by the
+symbols, and the arcs by their relations. A grob is node in that
+graph. A grob stores references to other grobs, the directed edges in
+the graph.
+
+The objective of this big graph of grobs, is to specify the notation
+problem. The solution of this problem is a description of the printout
+that is in closed form, i.e. but a list of values.  These values are
+Molecules. (see @ref{Molecules})
+
+All grobs have an X and Y-position on the page.  These X and Y positions
+are stored in a relative format, so they can easily be combined by
+stacking them, hanging one grob to the side of another, and coupling
+them into a grouping-grob.
+
+Each grob has a reference point, or parent: the position of a grob is
+stored relative to that reference point. For example the X-reference
+point of a staccato dot usually is the note head that it applies
+to. Whenever the note head is moved, the staccato dot moves along
+automatically.
+
+If you keep following offset reference points, you will always end up at
+the root-object. This root object is called @rgrob{Line_of_score}, and it
+represents a system (ie. a line of music).
+
+All grobs carry a set of grob-properties.  In the Stem example above,
+the property @code{direction} is set to value @code{1}.  The function
+that draws the symbol (@code{Stem::brew_molecule}) uses the value of
+@code{direction} to determine how to print the stem and the flag.  The
+appearance of a grob is determined solely by the values of its
+properties.
+
+Often, a grob also is associated with a symbol. On the other hand,
+Some grobs do not print any symbols, but take care of grouping
+objects. For example, there is a separate grob that stacks staffs
+vertically, so they are not printed in overstrike. The
+@rgrob{NoteCollision} is another example of an abstract grob.  It only
+moves around chords, but doesn't print anything.
+
+A complete list of grob types is found in
+@ref{(lilypond-internals)LilyPond backend}
+
+Grobs are created in the "Interpreting music" phase, by things in
+LilyPond called engravers.  In this phase of the translation, a load of
+grobs are created, and they are linked into a giant network of objects.
+This network of grobs forms the "specification" of the print
+problem. This problem is then solved: configurations, directions,
+dimensions, line breaks, etc.  are calculated. Finally,   the printing
+description in the form of Molecules (@ref{Molecules})  is extracted from
+the network. These are then dumped into the output file
+
+@node Callbacks
+@subsection Callbacks
+
+Offsets of grobs are relative to a parent reference point. Most
+positions are not known when an object is created, so these are
+calculated as needed. This is done by adding a callback for a specific
+direction.
+
+Suppose you have the following code in a .ly file.
+@example
+        #(define (my-callback gr axis)
+                (*  2.0 (get-gr-property grob 'direction))
+        )
+
+....
+
+        \property Voice.Stem \override #'Y-offset-callbacks = #(list
+                        my-callback)
+@end example
+
+When the Y-offset of a Stem object is needed, LilyPond will
+automatically execute all callbacks for that object. In this case, it
+will find @code{my-callback}, and execute that. The result is that the
+stem is translated by two staff spaces in its direction.
+
+(note: Y-offset-callbacks is also a property) 
+
+
+Offset callbacks can be stacked, ie.
+
+@example
+        \property .... \override #'Y-offset-callbacks = #(list
+                callback1 callback2 callback3)
+
+@end example
+
+The callbacks will be executed in the order callback3 callback2
+callback1. This is used for quantized positioning: the staccato dot is
+above or below a note head, and it must not be on a staff-line.
+
+To achieve this, for the staccato there are two callbacks: one callback
+that positions the grob above or below the note head, and one callback
+that rounds the Y-position of the grob to the nearest open space.
+
+Similarly, the size of a grob are determined through callbacks, settable
+with grob properties @code{X-extent-callback} and @code{Y-extent-callback}.
+There can be only one extent-callback for each axis. No callback (value #f)
+means: "empty in this direction". If you fill in a pair, that pair
+hard-codes the extent in that coordinate.
+
+
+@node Setting grob properties
+@subsection Setting grob properties
+
+Grob properties are stored as GUILE association lists, with symbols as
+keys.   From C++, element properties can be accessed using the functions
+
+@example
+  SCM  get_grob_property (SCM) const;
+  void set_grob_property (const char * , SCM val);
+  void set_immutable_grob_property (const char * , SCM val);
+  void set_immutable_grob_property (SCM key, SCM val);  
+  void set_grob_property (SCM , SCM val);  
+  void set_grob_pointer (const char*, SCM val);
+  SCM  remove_grob_property (const char* nm);
+@end example
+
+In GUILE, LilyPond provides
+
+@example
+        ly-get-grob-property GROB SYMBOL
+        ly-set-grob-property GROB SYMBOL VALUE
+@end example
+
+All lookup functions identify undefined properties with 
+end-of-list (ie. @code{'()} in Scheme or @code{SCM_EOL} in C)
+
+Properties are stored in two ways:
+@itemize @bullet
+@item mutable properties:
+element properties that change from object to object. The storage of
+these are private to a grob. Typically this is used to store lists of
+pointers to other grobs
+
+@item immutable properties:
+element properties that are shared across different grobs of the same
+type. The storage is shared, and hence it is read-only. Typically, this
+is used to store function callbacks, and values for shared element
+properties are read from @file{scm/element-description.scm}.
+@end itemize
+
+There are two ways to manually set grob properties.
+
+You can change immutable grob properties. This is done with the
+\override syntax:
+
+@example
+        \property Voice.Stem \override #'direction = #1
+@end example
+
+This will push the entry @code{'(direction . 1)} on the immutable
+property list for stems, in effect overriding the setting from
+@file{scm/element-description.scm}. This can be undone by 
+
+@example
+        \property Voice.stem \revert #'direction
+@end example
+
+If you use this a lot, this gets old quickly. So we also have a
+shorthand,
+
+@example
+        \property Context.GrobType \set #'prop = #VAL
+@end example
+
+this does a @code{\revert} followed by a @code{\override}
+
+The second way is \outputproperty. This construct looks like
+
+@example
+        \context ContextName \outputproperty @var{pred} #@var{sym} = #@var{val}
+@end example
+
+In this case, in every grob that satisfies @var{pred}, the property
+assignment @var{sym} = @var{val} is done.  For example
+
+@example
+        \outputproperty
+                #(lambda (gr) (string? (ly-get-grob-property gr
+                        'text)))
+                #'extra-offset = #'(-1.0 . 0.0)
+@end example
+
+This shifts all elements that have a @code{text} property one staff
+space to the left. This mechanism is rather clumsy to use, but it allows
+you tweak any setting of any grob.
+
+@node Items and Spanners
+@unnumberedsubsec Items and Spanners
+
+Grobs can also be distinguished in their role in the horizontal spacing.
+A lot of grobs define constraints on the spacing by their sizes. For
+example, note heads, clefs, stems, and all other symbols with a fixed
+shape.  These grobs form a subtype called @code{Item}.
+
+Other grobs have a shape that depends on the horizontal spacing. For
+example, slur, beam, tie, etc. These grobs form a subtype called
+@code{Spanner}. All spanners have two span-points (these must be
+@code{Item}s), one on the left and one on the right. The left bound is
+also the X-reference point.
+
+Some items need special treatment for line breaking. For example, a
+clef is normally only printed at the start of a line (ie. after a line
+break).  To model this, `breakable' items (clef, key signature, bar lines,
+etc.) are copied twice. Then we have three versions of each breakable
+item: one version if there is no line break, one version that is printed
+before the line break (at the end of a system), one version that is
+printed after the line break.
+
+Whether these versions are visible and take up space, is determined by
+the outcome of the visibility-lambda. This is a function taking a
+direction (-1, 0 or 1) and returns a cons of booleans, signifying wether
+this grob should be transparent and have no extent.
+
+@node Pointer substitution
+@unnumberedsubsec Pointer substitution
+
+
+Symbols that cross line-breaks (such as slurs) cause some more
+complications. When a  spanner crosses a line-break, then the spanner is
+"broken into pieces", for every line that the spanner is in, a copy of
+the grob is made. A substitution process redirects all grob-reference
+so that spanner grob will only reference other grobs in the same line.
+
+@node Grob Scheme functions
+@unnumberedsubsec Grob Scheme functions
+
+
+@defun ly-get-grob-property g sym
+  Get the value of a value in grob @var{g} of property @var{sym}. It
+will return @code{'()} (end-of-list) if @var{g} doesn't have @var{sym} set.
+@end  defun
+
+@defun ly-set-grob-property g sym val
+@end defun
+
+@defun ly-get-spanner-bound spanner dir
+@end defun
+
+@defun ly-grob? g
+@end defun
+
+@node Duration
+@section Duration
+
+@defun make-duration length dotcount
+
+@var{length} is the negative logarithm (base 2) of the duration:
+1 is a half note, 2 is a quarter note, 3 is an eighth
+note, etc.  The number of dots after the note is given by
+@var{dotcount}.
+
+@end defun
+
+
+@node Pitch data type
+@section Pitch data type
+
+
+
+@defun make-pitch octave note shift
+
+@var{octave} is specified by an integer, zero for the octave
+containing middle C.  @var{note} is a number from 0 to 7, with 0
+corresponding to C and 7 corresponding to B.  The shift is zero for a
+natural, negative to add flats, or positive to add sharps.
+@end defun
+
+@defun pitch-octave
+@end defun
+
+@defun pitch-notename
+@end defun
+
+@defun pitch-alteration
+@end defun
+
+@defun pitch-semitones
+@end defun
+
+@defun Pitch::transpose
+@end defun
+
+@node Engraver
+@section Engraver
+
+@defun ly-get-trans-property
+@end defun
+
+@defun ly-set-trans-property
+@end defun
+
+@node Music_iterator
+@section Music_iterator
+
+@defun c++-function?
+@end defun
+
+@node Music
+@section Music
+
+@defun ly-get-mus-property
+@end defun
+
+@defun ly-set-mus-property
+@end defun
+
+
+@node Molecules
+@section Molecules
+
+@cindex Molecule
+@cindex Atom
+@cindex Output description
+
+The objective of any typesetting system is to put ink on paper in the
+right places. For LilyPond, this final stage is left to the TeX and the
+printer subsystem. For lily, the last stage in processing a score is
+outputting a description of what to put where.  This description roughly
+looks like
+
+@example
+        PUT glyph AT (x,y)
+        PUT glyph AT (x,y)
+        PUT glyph AT (x,y) 
+@end example
+
+you merely have to look at the tex output of lily to see this.
+Internally these instructions are encoded in Molecules:@footnote{At some
+point LilyPond also contained Atom-objects, but they have been replaced
+by Scheme expressions, making the name outdated.}.  A molecule is an
+object that combines dimension information (how large is this glyph ?)
+with what-to-print-where.
+
+Conceptually, Molecules can be constructed from Scheme code, by
+translating a Molecule and by combining two molecules. In BNF
+notation:
+
+@example
+ Molecule = COMBINE Molecule Molecule
+           | TRANSLATE Offset Molecule
+           | GLYPH-DESCRIPTION
+	   ;
+@end example
+
+If you are interested in seeing how this information is stored, you
+can run with the @code{-f scm} option. The scheme expressions are then
+dumped onto the output file.
+
+(refer to the C++ code for more details). All visible,
+ie. non-transparant, grobs have a callback to create a Molecule. The
+name of the property is @code{molecule-callback}, and its value should
+be a Scheme function taking one argument (the grob) and returning a
+Molecule.
+
+@defun molecule? m
+@end defun
+
+@defun ly-combine-molecule-at-edge  mol1 axis dir mol2 padding
+@end defun
+
+@defun ly-get-molecule-extent! mol axis
+@end defun
+
+@defun ly-set-molecule-extent! mol axis extent
+@end defun
+
+@node Font metrics
+@section Font metrics
+
+The font object represents the metric information of a font. Every font
+that is loaded into LilyPond can be accessed via Scheme. 
+
+LilyPond only needs to know the dimension of glyph to be able to process
+them. This information is present in font-metric files. LilyPond can
+read two types of font-metrics: @TeX{} Font Metric files (tfm files) and
+Adobe Font Metric files (afm files).  AFM files are more versatile, and
+LilyPond needs those features to typeset musical symbols. So LilyPond
+will always try to load afm files first. 
+
+
+@defun ly-get-default-font gr
+This returns the default font for grob @var{gr}.
+@end defun
+
+@defun ly-find-glyph-by-name font name
+This function retrieves a Molecule for the glyph named @var{name} in
+@var{font}.  The font must be available as a afm file.
+@cindex afm file
+
+@end defun
+
+@node Miscellaneous Scheme functions
+@section Miscellaneous Scheme functions
+
+@defun ly-input-location?
+@end defun
+
+@defun ly-warn
+@end defun
+
+@defun ly-version
+@end defun
+
+@defun ly-gulp-file
+@end defun
+
+@defun dir?
+@end defun
+
+@defun ly-number->string
+@end defun
+
+

@@ -1,5 +1,40 @@
-1.3.124.jcn3
+1.3.126
+=======
+* Doco:
+  - fixes,
+  - updates,
+  - rewrites.
+  - Changed license to FDL.
+  - added index entries
+  - tutorial: 0-th tune
+  - literature overview.
+  - removed development stuff.
+
+
+1.3.125.jcn3
 ============
+
+* Clef workarounds for Coriolan.
+
+* Moved feature and regression-test input to input/feature, input/regression.
+
+* Added some regtests.
+
+* Bugfix: auto-knee for beam over rest.
+
+* Fixes for Coriolan and viola Solo Cello Suites.
+
+* Replaced generic 'collapse-height' for System_start_delimiter with
+brace-collapse-height, bracket-collapse-height, bar-line-collapse-height.
+
+* Bugfix: measure System_start_delimiter's *-collapse-height in staff-space.
+
+* Fixed some info and html links.
+
+* Automatic knees now on by default for vertical distances >= 7 staff-space.
+
+1.3.125
+=======
 
 * Updated Coriolan.
 

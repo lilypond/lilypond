@@ -1,13 +1,12 @@
 @c -*-texinfo-*-
 
 @node convert-ly
-@section convert-ly
+@chapter convert-ly
 
 
-Convert-ly sequentially applies different
-lilypond-conversions to upgrade a Lilypond input file.  It uses
-@code{\version} statements in the file to detect the old version
-number.
+Convert-ly sequentially applies different conversions to upgrade a
+Lilypond input file.  It uses @code{\version} statements in the file to
+detect the old version number.
 
 @subsection Invoking convert-ly
 
@@ -16,7 +15,7 @@ number.
 @end example
 
 
-@table @samp
+@table @code
 @item --output
     The output file to write.  
 @item --edit
@@ -34,9 +33,8 @@ number.
 Not all language changes are handled. Multiple output options won't
 work.
 
-convert-ly is written in python, so you have install
-@uref{http://www.python.org,python}.  It was written by
-@email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}.
+@code{convert-ly} is written in @uref{http://www.python.org,Python}. It
+was written by @email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}.
 
 
 

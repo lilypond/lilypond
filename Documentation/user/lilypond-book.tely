@@ -251,7 +251,7 @@ There work just as expected. Look at @file{mb-latex.tex} for details.
 
 @section Options
 
-@table @samp
+@table @code
 @item eps
     the music is created as eps graphics that can be inserted in 
     the middle of a text line, not only as a separate paragraph.
@@ -326,7 +326,7 @@ to whatever he wants.
 
 @subsection Command line options
 
-@table @samp
+@table @code
 
 @item @option{-f}, @option{--format=}
     Specify the document type to process, @code{latex} or @code{texi}.
@@ -342,27 +342,27 @@ to whatever he wants.
 @item -M, --dependencies
         Write dependencies to out-www/filename.dep
 @item --dep-prefix=PREF
-	prepend PREF before each -M dependency
+        prepend PREF before each -M dependency
 @item -n, --no-lily
-	don't run lilypond
+        don't run lilypond
 @item --no-pictures
-	don't generate pictures
+        don't generate pictures
 @item --read-lys
-	don't write ly files. This way you can do
-	@example
-	lilypond-book file.tely
-	convert-ly
-	lilypond-book --read-lys
-	@end example
+        don't write ly files. This way you can do
+        @example
+        lilypond-book file.tely
+        convert-ly
+        lilypond-book --read-lys
+        @end example
 @item --outname=FILE
     The name of La@TeX{} file to output. If this option  is not given,
     the output name derived from the input name.
 @item --outdir=
-	where to place generated files
+        where to place generated files
 @item --version
-	print version information
+        print version information
 @item --help
-	Print a short help message
+        Print a short help message
 @end table
 
 
