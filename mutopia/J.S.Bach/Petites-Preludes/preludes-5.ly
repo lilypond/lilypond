@@ -186,7 +186,7 @@ global = \notes{
 
 \score{
 	% Moderato
-	\context GrandStaff <
+	\context PianoStaff <
 		\context Staff = upper <
 			\global
 			\upper
@@ -200,11 +200,6 @@ global = \notes{
 	\paper{
 		\include "preludes-paper.ly";
 		gourlay_maxmeasures = 5.0;
-		\translator{ 
-			\GrandStaffContext
-			minVerticalAlign = 3.0*\staffheight;
-			maxVerticalAlign = 3.0*\staffheight;
-		}
 	}
 	\midi{ \tempo 4 = 90; }
 	\header{

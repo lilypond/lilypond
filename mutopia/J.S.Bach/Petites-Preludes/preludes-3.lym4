@@ -17,7 +17,7 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "1.0.14";
+\version "1.1.60";
 
 
 upper = \type Staff \notes \transpose c'' {
