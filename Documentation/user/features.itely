@@ -1,3 +1,4 @@
+@c -*-texinfo-*-
 @ignore
 
 TODO
@@ -123,6 +124,9 @@ switches to another staff.  This is enabled if the property
 @cindex beams
 @cindex beam settings
 @cindex manual beams
+
+
+@c auto knees
 
 In some cases it may be necessary to override LilyPond's automatic
 beaming algorithm.  For example, the auto beamer will not beam over

@@ -1,3 +1,10 @@
+1.3.124.jcn2
+============
+
+* Cleanup automatic knees, junked calc_interstaff_dist.
+
+* Automatic knees now on by default for vertical distances >= 7 staff-space.
+
 1.3.124.jcn1
 ============
 

@@ -16,9 +16,10 @@ texidoc="Two automatic knees";
   >
   \paper{
     linewidth = 40*\staffspace;
-    \translator{
-      \VoiceContext
-      Beam \override #'auto-interstaff-knee-gap = #4.0
-    }
+% Now by default
+%    \translator{
+%      \VoiceContext
+%      Beam \override #'auto-knee-gap = #7
+%    }
   }
 }

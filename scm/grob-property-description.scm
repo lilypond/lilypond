@@ -41,8 +41,7 @@ This procedure is called (using dependency resolution) after line breaking. Retu
 '(LEFT-offset . RIGHT-offset).  This offset is added to the
 attachments to prevent ugly slurs.  [fixme: we need more documentation here].
 ")
-(grob-property-description 'auto-interstaff-knee-gap number? "")
-(grob-property-description 'auto-knee-gap number? "")
+(grob-property-description 'auto-knee-gap number? "The vertical distance of two adjacent beamed notes beyond which to make a knee.")
 
 (grob-property-description 'axes list? "list of axis numbers.
 

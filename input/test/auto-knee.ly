@@ -8,9 +8,10 @@ texidoc="One automatic knee";
   }
   \paper{
     linewidth = 40*\staffspace;
-    \translator {
-      \VoiceContext
-      Beam \override #'auto-knee-gap = #13
-    }
+% Now by default
+%    \translator {
+%      \VoiceContext
+%      Beam \override #'auto-knee-gap = #7
+%    }
   }
 }
