@@ -20,6 +20,6 @@ two = \notes\relative c{
 \score{
 	< \global \one \two >
 	\paper {
-		\translator { \BarNumberingStaffContext }
+		\translator { \OrchestralPartStaffContext }
 	}
 }

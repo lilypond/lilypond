@@ -101,8 +101,36 @@
   ((invoke-output o "invoke-char") "show" n))
 
 (define 
+  (crescendo o w h cont)
+  ((invoke-output o "crescendo") w h cont))
+
+(define 
+  (crescendo-ps w h cont)
+  (string-append 
+   (numbers->string (list w h (inexact->exact cont)))
+   "draw_crescendo"))
+
+(define 
+  (crescendo-tex w h cont)
+  (embedded-ps-tex (crescendo-ps w h cont)))
+
+(define 
   (dashed-slur o thick dash l) 
   ((invoke-output o "dashed-slur") thick dash l))
+
+(define 
+  (decrescendo o w h cont)
+  ((invoke-output o "decrescendo") w h cont))
+
+(define 
+  (decrescendo-ps w h cont)
+  (string-append 
+   (numbers->string (list w h (inexact->exact cont)))
+   "draw_decrescendo"))
+
+(define 
+  (decrescendo-tex w h cont)
+  (embedded-ps-tex (decrescendo-ps w h cont)))
 
 (define 
   (dashed-slur-ps thick dash l)
@@ -424,4 +452,17 @@
   (string-append "\\set" f "{" s "}"))
 
 
+(define 
+  (tuplet o dx dy dir)
+  ((invoke-output o "tuplet") dx dy dir))
+
+(define 
+  (tuplet-ps dx dy dir)
+  (string-append 
+   (numbers->string (list dx dy (inexact->exact dir)))
+   "draw_tuplet"))
+
+(define 
+  (tuplet-tex dx dy dir)
+  (embedded-ps-tex (tuplet-ps dx dy dir)))
 

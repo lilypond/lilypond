@@ -18,7 +18,7 @@
         closepath fill
 } bind def
 %
-/draw_decresc
+/draw_decrescendo % cont height width
 {
 	stafflinethickness setlinewidth
 	/cresc_cont exch def
@@ -33,7 +33,7 @@
 	stroke
 } bind def
 %
-/draw_cresc
+/draw_crescendo % cont height width
 {
 	stafflinethickness setlinewidth
 	/cresc_cont exch def
@@ -53,29 +53,29 @@
 	1 copy mul exch 1 copy mul add sqrt
 } bind def
 %
-stafflinethickness 1.2 mul /plet_t exch def
-/draw_plet
+stafflinethickness 1.2 mul /tuplet_t exch def
+/draw_tuplet
 {
-	plet_t setlinewidth
+	tuplet_t setlinewidth
 % urg: the only Level-2 PS, check effect in print
 %	true setstrokeadjust
 	1 setlinecap
 	1 setlinejoin
 	/dir exch def
-	/plet_dy exch def
-	/plet_dx exch def
-	staffheight 2 div /plet_gapx exch def
-	plet_dy plet_dx div plet_gapx mul /plet_gapy exch def
-	staffheight 4 div dir mul /plet_h exch def
+	/tuplet_dy exch def
+	/tuplet_dx exch def
+	staffheight 2 div /tuplet_gapx exch def
+	tuplet_dy tuplet_dx div tuplet_gapx mul /tuplet_gapy exch def
+	staffheight 4 div dir mul /tuplet_h exch def
 %
 	0 0 moveto
-	0 plet_h lineto 
-	plet_dx plet_gapx sub 2 div 
-		plet_dy plet_gapy sub 2 div plet_h add lineto
-	plet_dx plet_gapx add 2 div 
-		plet_dy plet_gapy add 2 div plet_h add moveto
-	plet_dx plet_dy plet_h add lineto
-	plet_dx plet_dy lineto
+	0 tuplet_h lineto 
+	tuplet_dx tuplet_gapx sub 2 div 
+		tuplet_dy tuplet_gapy sub 2 div tuplet_h add lineto
+	tuplet_dx tuplet_gapx add 2 div 
+		tuplet_dy tuplet_gapy add 2 div tuplet_h add moveto
+	tuplet_dx tuplet_dy tuplet_h add lineto
+	tuplet_dx tuplet_dy lineto
 	stroke
 } bind def
 %
