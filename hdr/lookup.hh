@@ -17,7 +17,7 @@ struct Lookup {
     Real internote();
 
     Symbol linestaff(int n, Real w);
-
+    Symbol fill(Box b);
     Symbol beam_element(int,int,Real=0);
     /// round slope to closest TeXslope
     Symbol beam(Real&,Real);

@@ -51,7 +51,13 @@ Lookup::rest(int j)
 {
     return (*symtables_)("rests")->lookup(String(j));
 }
-
+Symbol
+Lookup::fill(Box b)
+{
+    Symbol s( (*symtables_)("param")->lookup("fill"));
+    s.dim = b;
+    return s;
+}
 Symbol
 Lookup::accidental(int j)
 {
