@@ -78,8 +78,12 @@ if not pdfview:
 	pdfview = 'xpdf'
 
 os.chdir (dir)
-system ('/usr/bin/lilypond %s > %s.log 2>&1' % (escape_shell (base),
-						escape_shell (stem)))
+if os.path.exists ('/usr/bin/ly2dvi'):
+	system ('/usr/bin/ly2dvi -p %s > %s.log 2>&1' % (escape_shell (base),
+							 escape_shell (stem)))
+else:
+	system ('/usr/bin/lilypond %s > %s.log 2>&1' % (escape_shell (base),
+							escape_shell (stem)))
 if not os.path.exists ('%(stem)s.pdf' % vars ()):
 	# message box?
 	sys.stderr.write ('pdf output not found\n')
