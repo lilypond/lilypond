@@ -403,9 +403,38 @@
    " draw_symmetric_x_triangle"))
 
 (define (text font s)
-  (string-append (font-command font) " setfont "
-		 "(" (ps-encoding s) ") show"))
+  (let*
+      
+      (
+       ;; ugh, we should find a better way to
+       ;; extract the hsbw for /space from the font.
+       
+       (space-length (cdar (ly:text-dimension font "t"))) 
+       (commands '())
+       (add-command (lambda (x) (set! commands (cons x commands)))) )
 
+    (string-fold
+     (lambda (chr word)
+       "Translate space as into moveto, group the rest in words."
+       (if (and (< 0 (string-length word))
+		(equal? #\space  chr))
+	   (add-command 
+	    (string-append "(" (ps-encoding word) ") show\n")))
+
+       (if (equal? #\space  chr)
+	   (add-command  (string-append (number->string space-length) " 0.0 rmoveto ")) )
+       
+       (if (equal? #\space  chr)
+	   ""
+	   (string-append word (make-string 1 chr))))
+     ""
+     (string-append  s " "))
+
+    (string-append
+     (font-command font) " setfont "
+     (string-join (reverse commands)))
+    ))
+  
 (define (unknown) 
   "\n unknown\n")
 

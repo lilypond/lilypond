@@ -93,6 +93,12 @@ LY_DEFINE (ly_font_encoding_alist, "ly:font-encoding-alist",
 SCM
 Modified_font_metric::make_scaled_font_metric (SCM coding, Font_metric *m, Real s)
 {
+  /*
+    UGOHR.
+   */
+  if (is_symbol (coding))
+    coding = scm_symbol_to_string (coding);
+  
   String scheme = ly_scm2string (coding);
   
   Modified_font_metric *sfm = new Modified_font_metric (scheme, m, s);

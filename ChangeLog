@@ -1,3 +1,8 @@
+2004-04-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/output-ps.scm (text): split string into spaces, use moveto
+	for setting space. 
+	
 2004-04-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* po/nl.po: Update.
