@@ -239,7 +239,8 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
   
   status_c_= busy;
 
-  for (SCM d=  get_grob_property ("dependencies"); gh_pair_p (d); d = ly_cdr (d))
+  for (SCM d = get_grob_property ("dependencies"); gh_pair_p (d);
+       d = ly_cdr (d))
     {
       unsmob_grob (ly_car (d))
 	->calculate_dependencies (final, busy, funcname);
@@ -250,9 +251,11 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
   SCM proc = get_grob_property (s.ch_C ());
   if (gh_procedure_p (proc))
     gh_call1 (proc, this->self_scm ());
+  else if (gh_list_p (proc))
+    for (SCM i = proc; gh_pair_p (i); i = ly_cdr (i))
+      gh_call1 (ly_car (i), this->self_scm ());
   
   status_c_= final;
-
 }
 
 Molecule *

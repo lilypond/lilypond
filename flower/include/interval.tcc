@@ -70,6 +70,13 @@ Interval_t<T>::length () const
     return elem (RIGHT)-elem (LEFT);
 }
 
+template<class T>
+T
+Interval_t<T>::delta () const 
+{
+  return elem (RIGHT) - elem (LEFT);
+}
+
 /**
   smallest Interval which includes *this and #h#
  */
