@@ -258,8 +258,10 @@ Must be the car of an entry in `LilyPond-command-alist'."
 			     (LilyPond-check-files (concat name ".tex")
 						   (list name)
 						   LilyPond-file-extensions)
-			   ;; FIXME
-			   (LilyPond-save-buffer)
+			   (if (buffer-modified-p) 
+			       (if (y-or-n-p "Save buffer before next command? ")
+				   (progn (LilyPond-save-buffer)
+					  (setq LilyPond-command-default "LilyPond"))))
 			   ;;"LilyPond"
 			   LilyPond-command-default))
 			(t LilyPond-command-default)))
