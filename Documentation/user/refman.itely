@@ -909,7 +909,7 @@ Internally the @code{set-octavation} function sets the properties
 
 @seealso
 
-@internalsref{OttavaBracket}.
+@internalsref{OttavaSpanner}.
 
 @refbugs
 
@@ -1869,7 +1869,7 @@ paper output, a metronome marking is printed:
 
 @seealso
 
-@internalsref{TempoEvent}.
+@internalsref{MetronomeChangeEvent}.
   
 
 
@@ -2321,7 +2321,7 @@ use spacer notes if multiple marks during one note are needed:
   < f''1 { s4 s4-\< s4-\! \>  s4-\! } >
 @end lilypond
 This may give rise to very short hairpins. Use @code{minimum-length}
-in @internalsref{Voice}.@internalsref{HairPin} to lengthen them, for
+in @internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
 example:
 
 @example
@@ -2961,7 +2961,7 @@ it reaches the stem in the upper stave, or vice versa. An example is
 included with the distribution as @inputfileref{input/test,stem-cross-staff.ly}.
 
 Dynamics are not centered, but kludges do exist. See
-@inputfileref{input/templates,piano-dynamics.ly}.
+@inputfileref{input/template,piano-dynamics.ly}.
 
 @cindex cross staff stem
 @cindex stem, cross staff
@@ -3351,12 +3351,12 @@ putting both together, you would get
 @cindex choral score
 
 A complete example of a SATB score setup is in the file
-@inputfileref{input/template,satb}.
+@inputfileref{input/template,satb.ly}.
 
 @seealso
 
 @internalsref{LyricCombineMusic}, @internalsref{Lyrics}, and
-@inputfileref{input/template,satb}.
+@inputfileref{input/template,satb.ly}.
 
 @refbugs
 
@@ -3386,7 +3386,7 @@ To this end, give the @internalsref{Voice} context an identity:
 Then set the @internalsref{LyricsVoice} contexts to names starting with
 that identity followed by a dash.  In the preceding example, the
 @internalsref{Voice} identity is @code{duet}, so the identities of the
-@internalsref{LyricsVoices} are marked @code{duet-1} and @code{duet-2}:
+@internalsref{LyricsVoice}s are marked @code{duet-1} and @code{duet-2}:
 @example
   \context LyricsVoice = "duet-1" @{
     Hi, my name is bert. @}
@@ -4046,7 +4046,7 @@ whose source is available as
 
 Bar numbers can collide with the @internalsref{StaffGroup} bracket, if
 there is one at the top. To solve this, the
-@internalsref{padding} property of @internalsref{BarNumber} can be
+@code{padding} property of @internalsref{BarNumber} can be
 used to position the number correctly.
 
 @node Instrument names
@@ -7117,7 +7117,7 @@ looks like:
 
 @lilypondfile[notexidoc]{cluster.ly}
 
-By default, @internalsref{Cluster_engraver} is in the
+By default, @internalsref{Cluster_spanner_engraver} is in the
 @internalsref{Voice} context.  This allows putting ordinary notes and
 clusters together in the same staff, even simultaneously.  In such a
 case no attempt is made to automatically avoid collisions between
@@ -7127,7 +7127,7 @@ ordinary notes and clusters.
 
 @internalsref{ClusterSpanner}, @internalsref{ClusterSpannerBeacon},
 @inputfileref{input/regression,cluster.ly},
-@internalsref{Cluster_engraver}, and @internalsref{ClusterNoteEvent}.
+@internalsref{Cluster_spanner_engraver}, and @internalsref{ClusterNoteEvent}.
 
 @refbugs
 
