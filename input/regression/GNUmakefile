@@ -2,7 +2,6 @@ depth = ../..
 
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
-LILYPOND_BOOK_FLAGS = --process="lilypond-bin --header=texidoc -I $(srcdir)/input/test -e '(ly:set-option (quote internal-type-checking) \#t)'"
 
 
 include $(depth)/make/stepmake.make 

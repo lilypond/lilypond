@@ -1,5 +1,14 @@
 2004-07-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/lilypond-latex.py (run_dvips): remove -bin everywhere.
+
+	* lily/GNUmakefile (NAME): create lilypond, not lilypond-bin 
+
+	* scripts/lilypond-latex.py: move from lilypond.py
+
+	* make/lilypond-vars.make: centralize LILYPOND_BOOK_FLAGS setting.
+	(LILYPOND_BOOK_FLAGS): use -f tex for lilypond-book.
+
 	* scm/lily.scm (postscript->png): new function
 	(postscript->pdf): new function
 

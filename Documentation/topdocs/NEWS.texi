@@ -8,6 +8,11 @@
 
 @itemize @bullet
 
+@item The LilyPond binary  now supports output options
+@code{--dvi} @code{--png} @code{--ps} @code{--pdf} and
+@code{--preview}.  The old wrapper script for La@TeX{} has been
+renamed to @code{lilypond-latex}.
+
 @item Support ambituses has been rewritten. The Ambitus object is now
 a grouping object, composed of @code{AmbitusLine},
 @code{AmbitusAccidental} and @code{AmbitusNoteHead}. These objects may

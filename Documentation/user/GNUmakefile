@@ -26,7 +26,6 @@ STEPMAKE_TEMPLATES=tex texinfo omf documentation
 OMF_FILES += $(outdir)/lilypond-internals.html.omf
 
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
-LILYPOND_BOOK_FLAGS = --process="lilypond-bin -I $(srcdir)/input/test -e '(ly:set-option (quote internal-type-checking) \#t)'"
 
 include $(depth)/make/stepmake.make 
 

@@ -10,12 +10,12 @@ convert-ly on book:
      lilypond-book --filter="convert-ly --no-version --from=1.6.11 -" BOOK
 
 classic lilypond-book:
-     lilypond-book --process="lilypond-bin" BOOK.tely
+     lilypond-book --process="lilypond" BOOK.tely
 
 TODO:
     *  ly-options: intertext ?
     *  --linewidth?
-    *  eps in latex / eps by lilypond-bin -fps ?
+    *  eps in latex / eps by lilypond -fps ?
     *  check latex parameters, twocolumn, multicolumn?
       
     *  Converting from lilypond-book source, substitute:
@@ -71,7 +71,7 @@ Example usage:
 
    lilypond-book --filter="tr '[a-z]' '[A-Z]'" BOOK
    lilypond-book --filter="convert-ly --no-version --from=2.0.0 -" BOOK
-   lilypond-book --process='lilypond-bin -I include' BOOK
+   lilypond-book --process='lilypond -I include' BOOK
 
 """)
 
@@ -91,11 +91,11 @@ option_definitions = [
 	]
 
 include_path = [ly.abspath (os.getcwd ())]
-lilypond_binary = os.path.join ('@bindir@', 'lilypond-bin')
+lilypond_binary = os.path.join ('@bindir@', 'lilypond')
 
 # only use installed binary  when we're installed too.
 if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
-	lilypond_binary = 'lilypond-bin'
+	lilypond_binary = 'lilypond'
 
 
 use_hash_p = 1
@@ -415,7 +415,7 @@ def compose_ly (code, options):
 	return (PREAMBLE_LY + body) % vars ()
 
 # BARF
-# use lilypond-bin for latex (.lytex) books,
+# use lilypond for latex (.lytex) books,
 # and lilypond --preview for html, texinfo books?
 def to_eps (file):
 	cmd = r'latex "\nonstopmode \input %s"' % file

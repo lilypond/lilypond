@@ -274,6 +274,9 @@
 (define-public (convert-to-dvi book name)
   (ly:warn "Can not generate DVI via the postscript back-end"))
 
+(define-public (convert-to-tex book name)
+  (ly:warn "Can not generate TeX via the postscript back-end"))
+
 (define-public (convert-to-ps book name)
   #t)
 
