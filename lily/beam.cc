@@ -835,7 +835,12 @@ Beam::shift_region_to_valid (SCM grob)
   for (int i=1; i < stems.size (); i++)
     common = stems[i]->common_refpoint (common, X_AXIS);
 
-  Real x0 = first_visible_stem (me)->relative_coordinate (common, X_AXIS);
+  Grob *fvs = first_visible_stem (me);
+
+  if (!fvs)
+    return SCM_UNSPECIFIED;
+    
+  Real x0 =fvs->relative_coordinate (common, X_AXIS);
   for (int i=0; i < stems.size (); i++)
     {
       Item* s = stems[i];
@@ -843,7 +848,12 @@ Beam::shift_region_to_valid (SCM grob)
       Real x = s->relative_coordinate (common, X_AXIS) - x0;
       x_posns.push (x);
     }
-  Real dx = last_visible_stem (me)->relative_coordinate (common, X_AXIS) - x0;
+
+  Grob *lvs = last_visible_stem (me);
+  if (!lvs)
+    return SCM_UNSPECIFIED;
+  
+  Real dx = lvs->relative_coordinate (common, X_AXIS) - x0;
 
   Interval pos = ly_scm2interval ( me->get_grob_property ("positions"));
   Real dy = pos.delta();
