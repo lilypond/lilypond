@@ -1,5 +1,4 @@
 #include "key.hh"
-#include "notename.hh"
 
 const int OCTAVES=14;
 const int ZEROOCTAVE=7;
@@ -44,9 +43,9 @@ Key::read(svec<Scalar> s)
     for (int j = 0; j < 7; j++)
 	accidentals[j] = 0;
    
-    for (int i=0; i < s.sz(); i++) {
-	int large, small;
-	lookup_notename(large, small, s[i]);
+    for (int i=0; i < s.sz(); ) {
+	int large = s[i++];
+	int small = s[i++];
 	accidentals[large]=small;
 
 	newkey.add(large);
@@ -65,8 +64,8 @@ Key::oldkey_undo(svec<Scalar>s)
 	newkey[i] = 0;
 	
     for (int i=0; i < s.sz(); i++) {
-	int large, small;
-	lookup_notename(large, small, s[i]);
+	int large = s[i++];
+	int small = s[i++];
 	newkey[large] = small;
     }
     for (int i=0; i < newkey.sz(); i++)
