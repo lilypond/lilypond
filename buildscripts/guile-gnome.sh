@@ -21,7 +21,7 @@ SLIB_PATH=`locate slib/require.scm | head -1 | sed -s 's/require.scm//g'`
 
 # What extra modules to pull (eg: EXTRA="libgnomecanvas libwnck")
 EXTRA=${EXTRA-libgnomecanvas}
-GGVERSION=2.5.993
+GGVERSION=2.5.995
 
 export AUTOMAKE=automake-1.8
 export ACLOCAL=aclocal-1.8
@@ -77,7 +77,8 @@ if ! pkg-config --atleast-version=1.5.1 pango; then
 fi
 
 ## 3. Currently (2004-9-15) GUILE CVS works again
-##PATH=/usr/bin:$PATH
+unset GUILE_LOAD_PATH
+PATH=/usr/bin:$PATH
 
 if [ -d $OPT/libffi/ ]; then
     export LDFLAGS=-L$OPT/libffi/lib
