@@ -17,39 +17,41 @@ phases.  We list them here:
 @c todo: moved from refman. 
 
 The purpose of LilyPond is explained informally by the term `music
-typesetter'.  This is not a fully correct name: not only does the
+typesetter'.  This is not a fully correct name: Not only does the
 program print musical symbols, it also makes aesthetic decisions.
 Symbols and their placements are @emph{generated} from a high-level
 musical description.  In other words, LilyPond would be best described
-by `music compiler' or `music to notation compiler'.
+to be a `music compiler' or `music to notation compiler'.
 
 LilyPond is linked to GUILE, GNU's Scheme library for extension
-programming. The Scheme library provides the glue that holds together
+programming.  The Scheme library provides the glue that holds together
 the low-level routines and separate modules which are written in C++.
 
 When lilypond is run to typeset sheet music, the following happens:
+
 @itemize @bullet
-@item GUILE Initialization: various scheme files are read
-@item parsing: first standard @code{ly} initialization  files are read, and
+@item GUILE initialization: Various scheme files are read.
+
+@item Parsing: First standard @code{ly} initialization files are read,
 then the user @file{ly} file is read.
-@item interpretation: the music in the file is processed ``in playing
-order'', i.e. the order that  you  use to read sheet music, or the
-order in which notes are played. The result of this step is a typesetting
-specification.
 
-@item typesetting:
-The typesetting specification is solved: positions and formatting is
-calculated.
+@item Interpretation: The music in the file is processed `in playing
+order', i.e., the order that you use to read sheet music, or the
+order in which notes are played.  The result of this step is a
+typesetting specification.
 
-@item the visible results ("virtual ink") are written to the output file.
+@item Typesetting: The typesetting specification is solved: positions
+and formatting is calculated.
+
+@item The visible results ("virtual ink") are written to the output file.
 @end itemize
 
 During these stages different types of data play the the main role:
-during parsing, @strong{Music} objects are created.  During the
+During parsing, @strong{Music} objects are created.  During the
 interpretation, @strong{contexts} are constructed, and with these
-contexts a network of @strong{graphical objects} (``grobs'') is
-created. These grobs contain unknown variables, and the network forms a
-set of equations. After solving the equations and filling in these
+contexts a network of @strong{graphical objects} (`grobs') is
+created.  These grobs contain unknown variables, and the network forms a
+set of equations.  After solving the equations and filling in these
 variables, the printed output is written to an output file.
 
 These threemanship of tasks (parsing, translating, typesetting) and
@@ -57,61 +59,56 @@ data-structures (music, context, graphical objects) permeates the entire
 design of the program.
 
 
-
 @table @b
 
-@item Parsing:
+@item Parsing
 
-The LY file is read, and converted to a list of @code{Scores}, which
-each contain @code{Music} and paper/midi-definitions. Here @code{Music},
-@code{Pitch} and @code{Duration}  objects are created.
+The @code{ly} file is read and converted to a list of @code{Scores}, which
+each contain @code{Music} and paper/midi-definitions.  Here @code{Music},
+@code{Pitch}, and @code{Duration} objects are created.
 
 @item Interpreting music
 @cindex interpreting music
 
-All music events are "read" in the same order as they would be played
-(or read from paper). At every step of the interpretation, musical
-events are delivered to
-interpretation contexts,
+All music events are `read' in the same order as they would be played
+(or read from paper).  At every step of the interpretation, musical
+events are delivered to interpretation contexts,
 @cindex engraver
-which use them to build @code{Grob}s (or MIDI objects, for MIDI output).
+which use them to build @code{Grob}s (or MIDI objects for MIDI output).
 
 In this stage @code{Music_iterators} do a traversal of the @code{Music}
-structure. The music events thus encountered are reported to
+structure.  The music events thus encountered are reported to
 @code{Translator}s, a set of objects that collectively form interpretation
 contexts.
 
-
 @item Prebreaking
-
 @cindex prebreaking
 
 At places where line breaks may occur, clefs and bars are prepared for
 a possible line break. 
 
 @item Preprocessing
-
 @cindex preprocessing
 
 In this stage, all information that is needed to determine line breaking
 is computed. 
 
-@item Break calculation:
+@item Break calculation
 
 The lines and horizontal positions of the columns are determined.
 
 @item Breaking
 
 Relations between all grobs are modified to reflect line breaks: When a
-spanner, e.g. a slur, crosses a line-break, then the spanner is "broken
-into pieces", for every line that the spanner is in, a copy of the grob
-is made. A substitution process redirects all grob-reference so that
+spanner, e.g. a slur, crosses a line break, then the spanner is `broken
+into pieces'; for every line that the spanner is in, a copy of the grob
+is made.  A substitution process redirects all grob references so that
 each spanner grob will only reference other grobs in the same line.
 
-@item Outputting:
+@item Outputting
 
 All vertical dimensions and spanning objects are computed, and all grobs
-are output, line by line. The output is encoded in the form of
+are output, line by line.  The output is encoded in the form of
 @code{Molecule}s
 
 @end table
@@ -120,13 +117,13 @@ The data types that are mentioned here are all discussed in this
 section.
 
 
-
 @c FIXME: Note entry vs Music entry at top level menu is confusing.
 @c . {Music entry}
 @menu
 * Interpretation context::      
 * Syntactic details::           
 * Lexical details::             
+* Output details::               
 @end menu
 
 
@@ -145,35 +142,38 @@ section.
 
 Interpretation contexts are objects that only exist during a run of
 LilyPond.  During the interpretation phase of LilyPond (when it prints
-"interpreting music"), the music expression in a @code{\score} block is
-interpreted in time order. This is the same order that humans hear and
-play the music.
+@code{interpreting music} to standard output), the music expression in
+a @code{\score} block is interpreted in time order.  This is the same
+order that humans hear and play the music.
 
 During this interpretation, the interpretation context holds the
-state for the current point within the music. It contains information
+state for the current point within the music.  It contains information
 like
 
 @itemize @bullet
-  @item What notes are playing at this point?
-  @item What symbols will be printed at this point?
-  @item What is the current key signature, time signature, point within
-       the measure, etc.?
+@item What notes are playing at this point?
+
+@item What symbols will be printed at this point?
+
+@item What is the current key signature, time signature, point within
+the measure, etc.?
 @end itemize
 
 Contexts are grouped hierarchically: A @internalsref{Voice} context is
 contained in a @internalsref{Staff} context (because a staff can contain
 multiple voices at any point), a @internalsref{Staff} context is contained in
-@internalsref{Score}, @internalsref{StaffGroup}, or @internalsref{ChoirStaff} context.
+@internalsref{Score}, @internalsref{StaffGroup}, or
+@internalsref{ChoirStaff} context.
 
 Contexts associated with sheet music output are called @emph{notation
 contexts}, those for sound output are called @emph{performance
-contexts}. The default definitions of the standard notation and
+contexts}.  The default definitions of the standard notation and
 performance contexts can be found in @file{ly/engraver-init.ly} and
 @file{ly/performer-init.ly}, respectively.
 
+
 @node Creating contexts
 @subsection Creating contexts
-
 @cindex @code{\context}
 @cindex context selection
 
@@ -181,11 +181,12 @@ Contexts for a music expression can be selected manually, using the
 following music expression.
 
 @example
-  \context @var{contexttype} [= @var{contextname}] @var{musicexpr}
+\context @var{contexttype} [= @var{contextname}] @var{musicexpr}
 @end example
 
+@noindent
 This instructs lilypond to interpret @var{musicexpr} within the context
- of type @var{contexttype} and with name @var{contextname}.  If this
+of type @var{contexttype} and with name @var{contextname}.  If this
 context does not exist, it will be created.  
 
 @lilypond[verbatim,singleline]
@@ -194,9 +195,9 @@ context does not exist, it will be created.
     c4 <d4 \context Staff = "another" e4> f
   }
 }
-
 @end lilypond
 
+@noindent
 In this example, the @code{c} and @code{d} are printed on the
 default staff.  For the @code{e}, a context Staff called
 @code{another} is specified; since that does not exist, a new
@@ -206,15 +207,13 @@ context is finished, the context is ended as well.  So after the
 third quarter, @code{another} is removed.
 
 
-
 @node Default contexts
 @subsection Default contexts
 
 Most music expressions don't need an explicit @code{\context}
-declaration: they inherit the 
-notation context from their parent. Each note is a music expression, and
-as you can see in the following example, only the sequential music
-enclosing the three notes has an explicit context. 
+declaration: they inherit the notation context from their parent.  Each
+note is a music expression, and as you can see in the following example,
+only the sequential music enclosing the three notes has an explicit context. 
 
 @lilypond[verbatim,singleline]
 \score { \notes \context Voice = goUp { c'4 d' e' } } 
@@ -223,30 +222,32 @@ enclosing the three notes has an explicit context.
 There are some quirks that you must keep in mind when dealing with
 defaults:
 
-First, every top level music is interpreted by the Score context, in other
+First, every top level music is interpreted by the Score context; in other
 words, you may think of @code{\score} working like
+
 @example
-        \score @{
-                \context Score @var{music}
-        @}
+\score @{
+  \context Score @var{music}
+@}
 @end example
 
 Second, contexts are created automatically to be able to interpret the
-music expressions. Consider the following example.
+music expressions.  Consider the following example.
 
 @lilypond[verbatim, singleline]
-\score { \context Score \notes { c'4 (  d' )e' } }
+\score { \context Score \notes { c'4 ( d' )e' } }
 @end lilypond
 
+@noindent
 The sequential music is interpreted by the Score context initially
 (notice that the @code{\context} specification is redundant), but when a
-note is encountered, contexts are setup to accept that note. In this
-case, a Thread, Voice and Staff are created. The rest of the sequential
-music is also interpreted with the same Thread, Voice and Staff context,
-putting the notes on the same staff, in the same voice.
+note is encountered, contexts are setup to accept that note.  In this
+case, a Thread, Voice, and Staff context are created.  The rest of the
+sequential music is also interpreted with the same Thread, Voice, and
+Staff context, putting the notes on the same staff, in the same voice.
 
 This is a convenient mechanism, but do not expect opening chords to work
-without @code{\context}. For every note, a separate staff is
+without @code{\context}.  For every note, a separate staff is
 instantiated.
 
 @cindex explicit context
@@ -260,72 +261,77 @@ instantiated.
 Of course, if the chord is preceded by a normal note in sequential
 music, the chord will be interpreted by the Thread of the preceding
 note:
-@lilypond[verbatim,singleline]
-\score { \notes { c'4 <c'4 es'> }  }
-@end lilypond
 
+@lilypond[verbatim,singleline]
+\score { \notes { c'4 <c'4 es'> } }
+@end lilypond
 
 
 @node Context properties
 @subsection Context properties
 
-Notation contexts have properties. These properties are from
-the @file{.ly} file using the following  expression:
+Notation contexts have properties.  These properties are from
+the @file{.ly} file using the following expression:
 @cindex @code{\property}
+
 @example
-  \property @var{contextname}.@var{propname} =  @var{value}
+\property @var{contextname}.@var{propname} = @var{value}
 @end example
 
+@noindent
 Sets the @var{propname} property of the context @var{contextname} to the
 specified Scheme expression @var{value}.  All @var{propname} and
 @var{contextname} are strings, which are typically unquoted.
 
 Properties that are set in one context are inherited by all of the
 contained contexts.  This means that a property valid for the
-@internalsref{Voice} context can be set in the @internalsref{Score} context (for
-example) and thus take effect in all @internalsref{Voice} contexts.
+@internalsref{Voice} context can be set in the @internalsref{Score} context
+(for example) and thus take effect in all @internalsref{Voice} contexts.
 
 @cindex @code{Current}
 If you don't wish to specify the name of the context in the
-@code{\property}-expression
-itself, you can refer to the abstract context name,
-@code{Current}. The @code{Current} context is the latest
-used context. This will typically mean the @internalsref{Thread}
+@code{\property}-expression itself, you can refer to the abstract context
+name, @code{Current}.  The @code{Current} context is the latest
+used context.  This will typically mean the @internalsref{Thread}
 context, but you can force another context with the
-@code{\property}-command. Hence the expressions
+@code{\property}-command.  Hence the expressions
 
 @example
-  \property @var{contextname}.@var{propname} = @var{value}
+\property @var{contextname}.@var{propname} = @var{value}
 @end example
 
+@noindent
 and
 
 @example
-  \context @var{contextname}
-  \property Current.@var{propname} = @var{value}
+\context @var{contextname}
+\property Current.@var{propname} = @var{value}
 @end example
 
+@noindent
 do the same thing.
-The main use for this is in macros - allowing the specification of a
+The main use for this is in macros -- allowing the specification of a
 property-setting without restriction to a specific context.
 
 Properties can be unset using the following expression:
+
 @example
-  \property @var{contextname}.@var{propname} \unset
+\property @var{contextname}.@var{propname} \unset
 @end example
 
 @cindex properties, unsetting
 @cindex @code{\unset} 
 
-This removes the definition of @var{propname} in @var{contextname}. If
+@noindent
+This removes the definition of @var{propname} in @var{contextname}.  If
 @var{propname} was not defined in @var{contextname} (but was inherited
 from a higher context), then this has no effect.
-
 
 @refbugs
 
 The syntax of @code{\unset} is asymmetric: @code{\property \unset} is not
 the inverse of @code{\property \set}.
+
 
 @node Engravers and performers
 @subsection Engravers and performers
@@ -336,75 +342,87 @@ Basic building blocks of translation are called engravers; they are
 special C++ classes.
 
 
-
 @node Changing context definitions
 @subsection Changing context definitions
-
 @cindex context definition
 @cindex translator definition
 
 The most common way to define a context is by extending an existing
-context.  You can change an existing context from the paper block, by
+context.  You can change an existing context from the paper block by
 first initializing a translator with an existing context identifier:
+
 @example
 \paper @{
   \translator @{
     @var{context-identifier}
-  @} @}
+  @}
+@}
 @end example
+
+@noindent
 Then you can add and remove engravers using the following syntax:
+
 @example
- \remove @var{engravername}
- \consists @var{engravername}
+\remove @var{engravername}
+\consists @var{engravername}
 @end example
 
-
+@noindent
 Here @var{engravername} is a string, the name of an engraver in the
 system.
 
-
 @lilypond[verbatim,singleline]
-\score {  \notes {
-        c'4 c'4 }
+\score {
+  \notes {
+    c'4 c'4
+  }
   \paper {
-    \translator  { \StaffContext
-        \remove Clef_engraver
-       } } }
+    \translator {
+      \StaffContext
+      \remove Clef_engraver
+    }
+  }
+}
 @end lilypond
 
 @cindex engraver
 
-You can also set properties in a translator definition. The syntax is as
+You can also set properties in a translator definition.  The syntax is as
 follows:
+
 @example
- @var{propname} = @var{value}
- @var{propname} \set  @var{grob-propname} = @var{pvalue}
- @var{propname} \override @var{grob-propname} =  @var{pvalue}
- @var{propname} \revert @var{grob-propname} 
+@var{propname} = @var{value}
+@var{propname} \set @var{grob-propname} = @var{pvalue}
+@var{propname} \override @var{grob-propname} = @var{pvalue}
+@var{propname} \revert @var{grob-propname} 
 @end example
+
+@noindent
 @var{propname} is a string, @var{grob-propname} a symbol, @var{value}
-and @code{pvalue} are Scheme expressions. These type of property
+and @code{pvalue} are Scheme expressions.  These types of property
 assignments happen before interpretation starts, so a @code{\property}
 command will override any predefined settings.
 
-
- To simplify editing translators, all standard contexts have standard
+To simplify editing translators, all standard contexts have standard
 identifiers called @var{name}@code{Context}, e.g. @code{StaffContext},
-@code{VoiceContext}, see @file{ly/engraver-init.ly}.
+@code{VoiceContext}; see @file{ly/engraver-init.ly}.
+
 
 @node Defining new contexts
 @subsection Defining new contexts
 
 If you want to build a context from scratch, you must also supply the
 following extra information:
-@itemize @bullet
-  @item  A name, specified by @code{\name @var{contextname}}.
 
-  @item A cooperation module. This is specified by   @code{\type
+@itemize @bullet
+@item A name, specified by @code{\name @var{contextname}}.
+
+@item A cooperation module.  This is specified by @code{\type
 @var{typename}}.
 @end itemize
 
 This is an example:
+
 @example
 \translator @code{
   \type "Engraver_group_engraver"
@@ -416,52 +434,52 @@ This is an example:
 }@
 @end example
 
+@noindent
 The argument of @code{\type} is the name for a special engraver that
 handles cooperation between simple engravers such as
-@code{Note_head_engraver} and @code{Staff_symbol_engraver}. Alternatives
+@code{Note_head_engraver} and @code{Staff_symbol_engraver}.  Alternatives
 for this engraver are the following:
+
 @table @code
 @cindex @code{Engraver_group_engraver}
-  @item @code{Engraver_group_engraver}  
-    The standard cooperation engraver.
+
+@item @code{Engraver_group_engraver}  
+The standard cooperation engraver.
 
 @cindex @code{Score_engraver}
-
-  @item @code{Score_engraver}  
-    This is cooperation module that should be in the top level context,
-and only the top level context.
-
+@item @code{Score_engraver}  
+This is a cooperation module that should be in the top level context.
 @end table 
 
-Other modifiers   are
+Other modifiers are
 
 @itemize @bullet
-  @item @code{\alias} @var{alternate-name}
-    This specifies a different name. In the above example,
+@item @code{\alias} @var{alternate-name}:
+This specifies a different name.  In the above example,
 @code{\property Staff.X = Y} will also work on @code{SimpleStaff}s
 
-  @item  @code{\consistsend} @var{engravername} 
-    Analogous to @code{\consists}, but makes sure that
-    @var{engravername} is always added to the end of the list of
-    engravers.
+@item @code{\consistsend} @var{engravername}:
+Analogous to @code{\consists}, but makes sure that
+@var{engravername} is always added to the end of the list of
+engravers.
 
-    Some engraver types need to be at the end of the list; this
-    insures they stay there even if a user adds or removes engravers.
+Some engraver types need to be at the end of the list; this
+insures they stay there even if a user adds or removes engravers.
 End-users generally don't need this command.
     
-  @item  @code{\accepts} @var{contextname}
-    Add @var{contextname} to the list of contexts this context can
-    contain in the context hierarchy. The first listed context is the
-    context to create by default.
+@item @code{\accepts} @var{contextname}:
+Add @var{contextname} to the list of contexts this context can
+contain in the context hierarchy.  The first listed context is the
+context to create by default.
 
-  @item @code{\denies}. The opposite of @code{\accepts}. Added for
+@item @code{\denies}:
+The opposite of @code{\accepts}.  Added for
 completeness, but is never used in practice.
- 
-  
-  @item  @code{\name} @var{contextname} 
-    This sets the type name of the context, e.g. @internalsref{Staff},
-    @internalsref{Voice}.  If the name is not specified, the translator won't do
-    anything. 
+
+@item @code{\name} @var{contextname}:
+This sets the type name of the context, e.g. @internalsref{Staff},
+@internalsref{Voice}.  If the name is not specified, the translator won't do
+anything. 
 @end itemize
 
 In the @code{\paper} block, it is also possible to define translator
@@ -469,7 +487,6 @@ identifiers.  Like other block identifiers, the identifier can only
 be used as the very first item of a translator.  In order to define
 such an identifier outside of @code{\score}, you must do
 
-@quotation
 @example 
 \paper @{
   foo = \translator @{ @dots{} @}
@@ -483,9 +500,6 @@ such an identifier outside of @code{\score}, you must do
   @}
 @} 
 @end example 
-
-@end quotation
-
 
 @cindex paper types, engravers, and pre-defined translators
 
@@ -509,18 +523,18 @@ This section describes details that were too boring to be put elsewhere.
 @c .  {Identifiers}
 @node Identifiers
 @subsection Identifiers
-@cindex  Identifiers
+@cindex Identifiers
 
 @ignore
- What has this section got to do with identifiers?
- It seems more appropriate in the introduction to Chapter 4,
- "Internals".
+What has this section got to do with identifiers?
+It seems more appropriate in the introduction to Chapter 4,
+"Internals".
 
-   /MB
+  /MB
 @end ignore
 
-All of the information in a LilyPond input file, is internally
-represented as a Scheme value. In addition to normal Scheme data types
+All of the information in a LilyPond input file is internally
+represented as a Scheme value.  In addition to normal Scheme data types
 (such as pair, number, boolean, etc.), LilyPond has a number of
 specialized data types,
 
@@ -537,25 +551,27 @@ specialized data types,
 @item Moment (rational number)
 @end itemize
 
-LilyPond also includes some transient object types. Objects of these
+LilyPond also includes some transient object types.  Objects of these
 types are built during a LilyPond run, and do not `exist' per se within
-your input file. These objects are created as a result of your input
+your input file.  These objects are created as a result of your input
 file, so you can include commands in the input to manipulate them,
-during a lilypond run.
+during a LilyPond run.
 
 @itemize @bullet
-@item Grob: short for Graphical object. 
-@item Molecule: device-independent page output object,
-including dimensions.  Produced by some Grob functions
-@item Translator: object that produces audio objects or Grobs. This is
-not yet user accessible.
-@item Font_metric: object representing a font.
+@item Grob: short for `Graphical object'.
+
+@item Molecule: Device-independent page output object,
+including dimensions.  Produced by some Grob functions.
+
+@item Translator: An object that produces audio objects or Grobs.  This is
+not yet user-accessible.
+
+@item Font_metric: An object representing a font.
 @end itemize
 
 
 @node Music expressions
 @subsection Music expressions
-
 @cindex music expressions
 
 Music in LilyPond is entered as a music expression.  Notes, rests, lyric
@@ -577,72 +593,83 @@ quarter note @code{d}:
 @cindex Simultaneous music
 @cindex @code{\simultaneous}
 
-The two basic compound  music expressions are simultaneous  and
+The two basic compound music expressions are simultaneous and
 sequential music.
 
 @example
-  \sequential @code{@{} @var{musicexprlist} @code{@}}
-  \simultaneous @code{@{} @var{musicexprlist} @code{@}}
+\sequential @code{@{} @var{musicexprlist} @code{@}}
+\simultaneous @code{@{} @var{musicexprlist} @code{@}}
 @end example
+
 For both, there is a shorthand:
+
 @example
-  @code{@{} @var{musicexprlist} @code{@}}
+@code{@{} @var{musicexprlist} @code{@}}
 @end example
+
+@noindent
 for sequential and
+
 @example
-  @code{<} @var{musicexprlist} @code{>}
+@code{<} @var{musicexprlist} @code{>}
 @end example
+
+@noindent
 for simultaneous music.
 In principle, the way in which you nest sequential and simultaneous to
 produce music is not relevant.  In the following example, three chords
 are expressed in two different ways:
 
 @lilypond[fragment,verbatim,center]
-  \notes \context Voice {
-    <a c'> <b  d' > <c' e'>
-    < { a b  c' } { c' d' e' } >
-  }
+\notes \context Voice {
+  <a c'> <b d'> <c' e'>
+  < { a b c' } { c' d' e' } >
+}
 @end lilypond
 
-
 Other compound music expressions include
+
 @example
- \repeat @var{expr}
- \transpose @var{pitch} @var{expr}
- \apply @var{func} @var{expr}
- \context @var{type} = @var{id} @var{expr}
- \times @var{fraction} @var{expr}
+\repeat @var{expr}
+\transpose @var{pitch} @var{expr}
+\apply @var{func} @var{expr}
+\context @var{type} = @var{id} @var{expr}
+\times @var{fraction} @var{expr}
 @end example
 
 
 @c . {Manipulating music expressions}
 @node Manipulating music expressions
-@subsection  Manipulating music expressions
+@subsection Manipulating music expressions
 
 The @code{\apply} mechanism gives you access to the internal
-representation of music. You can write Scheme-functions that operate
-directly on it. The syntax is 
+representation of music.  You can write Scheme-functions that operate
+directly on it.  The syntax is 
+
 @example
-        \apply #@var{func} @var{music}
+\apply #@var{func} @var{music}
 @end example
+
+@noindent
 This means that @var{func} is applied to @var{music}.  The function
 @var{func} should return a music expression.
 
-This example replaces the text string of a script. It also shows a dump
+This example replaces the text string of a script.  It also shows a dump
 of the music it processes, which is useful if you want to know more
 about how music is stored.
 
 @lilypond[verbatim,singleline]
 #(define (testfunc x)
-        (if (equal? (ly-get-mus-property x 'text) "foo")
-                (ly-set-mus-property! x 'text "bar"))
-        ;; recurse
-        (ly-set-mus-property! x 'elements
-          (map testfunc (ly-get-mus-property x 'elements)))
-        (display x)
-        x        
-)
-\score { \notes
+  (if (equal? (ly-get-mus-property x 'text) "foo")
+      (ly-set-mus-property! x 'text "bar"))
+  ;; recurse
+  (ly-set-mus-property! x 'elements
+    (map testfunc (ly-get-mus-property x 'elements)))
+  (display x)
+  x)
+
+\score {
+  \notes
   \apply #testfunc { c'4_"foo" }
 } 
 @end lilypond
@@ -650,8 +677,7 @@ about how music is stored.
 For more information on what is possible, see the automatically
 generated documentation.
 
-
-Directly accessing internal representations is dangerous: the
+Directly accessing internal representations is dangerous: The
 implementation is subject to changes, so you should avoid this feature
 if possible.
 
@@ -670,7 +696,8 @@ A final example is a function that reverses a piece of music in time:
 
 music = \notes { c'4 d'4( e'4 f'4 }
 
-\score { \context Voice {
+\score {
+  \context Voice {
     \music
     \apply #reverse-music \music
   }
@@ -679,6 +706,7 @@ music = \notes { c'4 d'4( e'4 f'4 }
 
 More examples are given in the distributed example files in
 @code{input/test/}.
+
 
 @c .   {Span requests}
 @menu
@@ -690,29 +718,28 @@ More examples are given in the distributed example files in
 @cindex Span requests
 
 Notational constructs that start and end on different notes can be
-entered using span requests. The syntax is as follows:
-
+entered using span requests.  The syntax is as follows:
 
 @example
-  \spanrequest @var{startstop} @var{type}
+\spanrequest @var{startstop} @var{type}
 @end example
-
 
 @cindex @code{\start}
 @cindex @code{\stop}
 
-This defines a spanning request. The @var{startstop} parameter is either
+@noindent
+This defines a spanning request.  The @var{startstop} parameter is either
 -1 (@code{\start}) or 1 (@code{\stop}) and @var{type} is a string that
 describes what should be started.  Much of the syntactic sugar is a
-shorthand for @code{\spanrequest}, for example,
+shorthand for @code{\spanrequest}, for example
 
 @lilypond[fragment,verbatim,center]
-  c'4-\spanrequest \start "slur"
-  c'4-\spanrequest \stop "slur"
+c'4-\spanrequest \start "slur"
+c'4-\spanrequest \stop "slur"
 @end lilypond
 
 Among the supported types are @code{crescendo}, @code{decrescendo},
-@code{beam}, @code{slur}. This is an internal command.  Users are
+@code{beam}, @code{slur}.  This is an internal command.  Users are
 encouraged to use the shorthands which are defined in the initialization
 file @file{spanners.ly}.
 
@@ -723,8 +750,8 @@ file @file{spanners.ly}.
 @cindex Assignments
 
 Identifiers allow objects to be assigned to names during the parse
-stage.  To assign an identifier, you use @var{name}@code{=}@var{value}
-and to refer to an identifier, you precede its name with a backslash:
+stage.  To assign an identifier, use @var{name}@code{=}@var{value}.
+To refer to an identifier, precede its name with a backslash:
 `@code{\}@var{name}'.  @var{value} is any valid Scheme value or any of
 the input-types listed above.  Identifier assignments can appear at top
 level in the LilyPond file, but also in @code{\paper} blocks.
@@ -745,15 +772,19 @@ foo = \foo * 2.0
 When an identifier is referenced, the information it points to is
 copied.  For this reason, an identifier reference must always be the
 first item in a block.
+
 @example
-\paper  @{
+\paper @{
   foo = 1.0
   \paperIdent % wrong and invalid
 @}
+@end example
 
+@example
 \paper @{
   \paperIdent % correct
-  foo = 1.0 @}
+  foo = 1.0
+@}
 @end example
 
 
@@ -768,24 +799,27 @@ first item in a block.
 @cindex @code{\lyrics}
 
 To simplify entering notes, lyrics, and chords, LilyPond has three
-special input modes in addition to the default mode: note, lyrics and
+special input modes in addition to the default mode: note, lyrics, and
 chords mode.  These input modes change the way that normal, unquoted
-words are interpreted: for example, the word @code{cis} may be
+words are interpreted: For example, the word @code{cis} may be
 interpreted as a C-sharp, as a lyric syllable `cis' or as a C-sharp
 major triad respectively.
 
 A mode switch is entered as a compound music expression
+
 @example
 @code{\notes} @var{musicexpr}
 @code{\chords} @var{musicexpr}
-@code{\lyrics} @var{musicexpr}.
+@code{\lyrics} @var{musicexpr}
 @end example
 
+@noindent
 In each of these cases, these expressions do not add anything to the
 meaning of their arguments.  They just instruct the parser in what mode
 to parse their arguments.
 
 Different input modes may be nested.
+
 
 @c .  {Ambiguities}
 @node Ambiguities
@@ -793,24 +827,23 @@ Different input modes may be nested.
 @cindex ambiguities
 @cindex grammar
 
-
-The grammar contains a number of ambiguities. We hope to resolve them at
+The grammar contains a number of ambiguities.  We hope to resolve them at
 some time.
 
 @itemize @bullet
-  @item  The assignment
+@item The assignment
 
 @example 
 foo = bar 
 @end example 
-         is interpreted as the string identifier assignment. However,
+
+@noindent
+is interpreted as the string identifier assignment.  However,
 it can also be interpreted as making a string identifier @code{\foo}
 containing @code{"bar"}, or a music identifier @code{\foo} containing
 the syllable `bar'.  The former interpretation is chosen.
 
-  @item  If you do a nested repeat like
-
-       @quotation
+@item If you do a nested repeat like
 
 @example 
 \repeat @dots{}
@@ -818,19 +851,18 @@ the syllable `bar'.  The former interpretation is chosen.
 \alternative 
 @end example 
 
-       @end quotation
-
-       then it is ambiguous to which @code{\repeat} the
-       @code{\alternative} belongs.  This is the classic if-then-else
-       dilemma.  It may be solved by using braces.
-
+@noindent
+then it is ambiguous to which @code{\repeat} the
+@code{\alternative} belongs.  This is the classic if-then-else
+dilemma.  It may be solved by using braces.
 @end itemize
+
 
 @c .  {Lexical details}
 @node Lexical details
 @section Lexical details
 
-Even more boring details, now on lexical side of the input parser.
+Even more boring details, now on the lexical side of the input parser.
 
 @menu
 * Direct Scheme::               
@@ -841,46 +873,45 @@ Even more boring details, now on lexical side of the input parser.
 
 @node Direct Scheme
 @subsection Direct Scheme
-
 @cindex Scheme
 @cindex GUILE
 @cindex Scheme, in-line code
-
-
-
-@cindex GUILE
-@cindex Scheme
 @cindex accessing Scheme
 @cindex evaluating Scheme
 @cindex LISP
 
-LilyPond internally uses GUILE, a Scheme-interpreter. Scheme is a
-language from the LISP family. You can learn more about Scheme at
-@uref{http://www.scheme.org}. It is used to represent data throughout
-the whole program. The hash-sign (@code{#}) accesses GUILE directly: the
+LilyPond internally uses GUILE, a Scheme-interpreter.  Scheme is a
+language from the LISP family.  You can learn more about Scheme at
+@uref{http://www.scheme.org}.  It is used to represent data throughout
+the whole program.  The hash-sign (@code{#}) accesses GUILE directly: The
 code following the hash-sign is evaluated as Scheme.  The boolean value
 @var{true} is @code{#t} in Scheme, so for LilyPond @var{true} looks like
 @code{##t}.
 
 LilyPond contains a Scheme interpreter (the GUILE library) for
-internal use. In some places, Scheme expressions also form valid syntax:
-wherever it is allowed,
+internal use.  In some places, Scheme expressions also form valid syntax:
+Wherever it is allowed,
+
 @example
-  #@var{scheme}
+#@var{scheme}
 @end example
+
+@noindent
 evaluates the specified Scheme code.  Example:
+
 @example
-  \property Staff.TestObject \override #'foobar =  #(+ 1 2)
+\property Staff.TestObject \override #'foobar = #(+ 1 2)
 @end example
-@code{\override} expects two Scheme expressions, so there are two Scheme
-expressions. The first one is a symbol (@code{foobar}), the second one
+
+@code{\override} expects two Scheme expressions.
+The first one is a symbol (@code{foobar}), the second one
 an integer (namely, 3).
 
-In-line scheme may be used at the top level. In this case the result is
+In-line Scheme may be used at the top level.  In this case the result is
 discarded.
 
 Scheme is a full-blown programming language, and a full discussion is
-outside the scope of this document. Interested readers are referred to
+outside the scope of this document.  Interested readers are referred to
 the website @uref{http://www.schemers.org/} for more information on
 Scheme.
 
@@ -904,7 +935,7 @@ by a @emph{required} decimal point and an optional exponent such as
 A real constant can be followed by one of the dimension keywords:
 @code{\mm} @code{\pt}, @code{\in}, or @code{\cm}, for millimeters,
 points, inches and centimeters, respectively.  This converts the number
-a number that is the internal representation of that dimension.
+that is the internal representation of that dimension.
 
 
 @node Strings
@@ -918,3 +949,87 @@ sequences have special interpretations as in the C language.  A string
 that contains no spaces can be written without the quotes.  Strings can
 be concatenated with the @code{+} operator.
 
+
+@c .  {Output details}
+@node Output details
+@section Output details
+
+LilyPond's default output format is @TeX{}.  Using the option @option{-f}
+(or @option{--format}) other output formats can be selected also, but
+currently none of them reliably work.
+
+At the beginning of the output file, various global parameters are defined.
+It also contains a large @code{\special} call to define PostScript routines
+to draw items not representable with @TeX{}, mainly slurs and ties.  A DVI
+driver must be able to understand such embedded PostScript, or the output
+will be rendered incompletely.
+
+Then the file @file{lilyponddefs.tex} is loaded to define the macros used
+in the code which follows.  @file{lilyponddefs.tex} includes various other
+files, partially depending on the global parameters.
+
+Now the music is output system by system (a `system' consists of all
+staves belonging together).  From @TeX{}'s point of view, a system is an
+@code{\hbox} which contains a lowered @code{\vbox} so that it is centered
+vertically on the baseline of the text.  Between systems,
+@code{\interscoreline} is inserted vertically to have stretchable space.
+The horizontal dimension of the @code{\hbox} is given by the
+@code{linewidth} parameter from LilyPond's @code{\paper} block (using the
+natural line width if its value is@w{ }@minus{}1).
+
+After the last system LilyPond emits a stronger variant of
+@code{\interscoreline} only if the macro @code{\lilypondpaperlastpagefill}
+is not defined (flushing the systems to the top of the page).  You can
+avoid that manually by saying
+
+@example
+\def\lilypondpaperlastpagefill@{1@}
+@end example
+
+@noindent
+or by setting the variable @code{lastpagefill} in LilyPond's @code{\paper}
+block.
+
+It is possible to fine-tune the vertical offset further by defining the
+macro @code{\lilypondscoreshift}.  Example:
+
+@example
+\def\lilypondscoreshift@{0.25\baselineskip@}
+@end example
+
+@noindent
+@code{\baselineskip} is the distance from one text line to the next.
+
+The code produced by LilyPond can be used by both @TeX{} and La@TeX{}.
+
+Here an example how to embed a small LilyPond file @code{foo.ly} into
+running La@TeX{} text without using the @code{lilypond-book} script
+(@pxref{Integrating text and music with lilypond-book}).
+
+@example
+\documentclass@{article@}
+
+\def\lilypondpaperlastpagefill@{@}
+\lineskip 5pt
+\def\lilypondscoreshift@{0.25\baselineskip@}
+
+\begin@{document@}
+This is running text which includes an example music file
+\input@{foo.tex@}
+right here.
+\end@{document@}
+@end example
+
+The file @file{foo.tex} has been simply produced with
+
+@example
+lilypond foo.ly
+@end example
+
+It is important to set the @code{indent} parameter to zero in the
+@code{\paper} block of @file{foo.ly}.
+
+The call to @code{\lineskip} assures that there is enough vertical space
+between the LilyPond box and the surrounding text lines.
+
+@c EOF
