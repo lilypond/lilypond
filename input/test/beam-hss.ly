@@ -1,6 +1,7 @@
 \header {
 
-texidoc = "Beams in hang, straddle sit positions."
+texidoc = "Beams in hang, straddle sit positions, forced there using
+quanting."
 
 }
 
@@ -9,9 +10,6 @@ texidoc = "Beams in hang, straddle sit positions."
 #(define ps-testing #t)
 \score {
     \notes\relative c'{
-        \property Voice.Beam \override #'height-quant-function
-	= #(lambda (x y) '(0 4))
-
 	\property Voice.Beam \override #'vertical-position-quant-function
  	= #(lambda (beam dy x staff-line)
  	    (let* ((thick (ly-get-grob-property beam 'thickness))
