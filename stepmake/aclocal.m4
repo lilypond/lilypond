@@ -685,7 +685,8 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
 	AC_CHECK_LIB(kpathsea, kpse_find_file)
 	AC_CHECK_FUNCS(kpse_find_file,,kpathsea_b=no)
 	if test "$kpathsea_b" = "no"; then
-	    warn='kpathsea (libkpathsea-dev or kpathsea-devel package)
+	    warn='kpathsea (libkpathsea-dev, kpathsea-devel or tetex-devel
+   package).
    Else, please specify the location of your kpathsea using
    --with-kpathsea-include and --with-kpathsea-lib options.  You should
    install kpathsea; see INSTALL.txt.  Rerun ./configure

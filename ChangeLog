@@ -1,3 +1,8 @@
+2003-05-22  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4: Add tetex-devel as package suggestion for
+	libkpathsea (Maurizio Tomasi).
+
 2003-05-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/slash-repeat-engraver.cc (try_music): new file, handle
