@@ -37,7 +37,7 @@ private:
   Span_req * stop_req_;
   int start_measure_;
   Moment start_moment_;
-  
+  Moment last_main_moment_;  
   Spanner *mmrest_;
   Spanner *lastrest_;
 };
@@ -155,8 +155,11 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 {
   SCM smp = get_property ("measurePosition");
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+  Moment now =now_mom ();
   
-  if (mmrest_ && !mp.to_bool ())
+  if (mmrest_ 
+      && now.main_part_ != last_main_moment_
+      && mp.main_part_ == Rational (0))
     {
       lastrest_ = mmrest_;
       int cur = gh_scm2int (get_property ("currentBarNumber"));
@@ -164,6 +167,8 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 				     gh_int2scm (cur - start_measure_));
       mmrest_ = 0;
     }
+
+  last_main_moment_ = now.main_part_;
 }
 
 
