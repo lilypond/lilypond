@@ -1,5 +1,7 @@
 2003-06-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/chord-name.scm (set-chord-name-style): Update for 'ignatzek.
+
 	* input/ac-extra-voice.ly: Add texidoc.
 
 	* ly/chord-modifiers-init.ly: 
