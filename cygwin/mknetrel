@@ -98,6 +98,10 @@ exit 0
 EOF
 	chmod 755 i686-cygwin-guile-config
 	PATH=$(pwd):$PATH
+	export PKG_CONFIG_PATH=$cygwin_root/usr/lib/pkgconfig
+	export PKG_CONFIG="pkg-config \
+--define-variable prefix=$cygwin_root \
+--define-variable includedir=$cygwin_root/usr/include" \
     fi
 }
 

@@ -1,5 +1,12 @@
 2005-02-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* cygwin/README.in: Update dependencies.
+
+	* stepmake/aclocal.m4 (STEPMAKE_PANGO, STEPMAKE_PANGO_FT2):
+	Bugfix: do not pollute CPPFLAGS, LIBS.
+
+	* cygwin/mknetrel (extras): Cross compile fixes.
+
 	* ttftool/util.c: 
 	* ttftool/ttfps.c: 
 	* ttftool/ps.c: #include libc-extension.hh
