@@ -1,7 +1,7 @@
 MAJOR_VERSION=1
 MINOR_VERSION=1
-PATCH_LEVEL=41
+PATCH_LEVEL=42
 
 # use to send patches, always empty for released version:
 #
-MY_PATCH_LEVEL=jcn1
+MY_PATCH_LEVEL=
