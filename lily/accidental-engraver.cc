@@ -144,9 +144,10 @@ Accidental_engraver::initialize ()
 static bool
 recent_enough (int bar_number, SCM alteration_def, SCM laziness)
 {
-  if (scm_is_number (alteration_def))
+  if (scm_is_number (alteration_def)
+      || laziness== SCM_BOOL_T)
     return true;
-
+  
   return (bar_number <= scm_to_int (ly_cdr (alteration_def)) + scm_to_int (laziness));
 }
 
