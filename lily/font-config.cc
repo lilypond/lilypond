@@ -19,6 +19,9 @@
 void
 init_fontconfig ()
 {
+  if (be_verbose_global)
+    progress (_("Initializing FontConfig ..."));
+  
   if (!FcInit ())
     error (_ ("FontConfig failed to initialize"));
 
@@ -36,6 +39,9 @@ init_fontconfig ()
       if (!FcConfigAppFontAddDir (fcc, (FcChar8 *)dir.to_str0 ()))
 	error (_f ("Failed to add lilypond directory %s", dir));
     }
+
+  if (be_verbose_global)
+    progress ("\n");
 }
 
 #else
