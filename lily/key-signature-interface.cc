@@ -149,7 +149,7 @@ Key_signature_interface::print (SCM smob)
       Stencil natural;
       if (scm_is_pair (old))
 	natural = Font_interface::get_default_font (me)->
-	    find_by_name (String ("accidentals-") + style + String ("0"));
+	    find_by_name (String ("accidentals.") + style + String ("0"));
       
 
       int last_pos = -100;

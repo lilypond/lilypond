@@ -17,7 +17,7 @@ FETA_MF_FILES = $(wildcard feta[0-9]*.mf)\
 STAFF_SIZES = 11 13 14 16 18 20 23 26
 BRACES = a b c d e f g h i
 
-CHEESES = $(addsuffix .otf, $(addprefix $(outdir)/bigcheese, $(STAFF_SIZES)))\
+OTF_FILES = $(addsuffix .otf, $(addprefix $(outdir)/bigcheese, $(STAFF_SIZES)))\
  $(outdir)/aybabtu.otf
 PE_SCRIPTS = $(addsuffix .pe, $(addprefix $(outdir)/bigcheese, $(STAFF_SIZES))) \
   $(addsuffix .dep, $(addprefix $(outdir)/bigcheese, $(STAFF_SIZES))) 
@@ -71,18 +71,13 @@ $(PE_SCRIPTS):
 include $(outdir)/bigcheese20.dep
 
 
-foo:
-	echo $(CHEESES)
-## use separate package sauter-fonts-mftraced.
-SAUTER_FONTS = 
-
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
 PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 PFB_FILES = $(PFA_FILES:%.pfa=%.pfb)
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale $(outdir)/Fontmap.lily $(CHEESES)
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale $(outdir)/Fontmap.lily $(OTF_FILES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
@@ -92,6 +87,9 @@ INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6 7
 
 INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/tex
 INSTALLATION_OUT_FILES1=$(TEXTABLES)
+
+INSTALLATION_OUT_DIR2=$(local_lilypond_datadir)/otf
+INSTALLATION_OUT_FILES2=$(OTF_FILES)
 
 INSTALLATION_OUT_DIR3=$(local_lilypond_datadir)/fonts/tfm
 INSTALLATION_OUT_FILES3=$(TFM_FILES)
@@ -107,6 +105,7 @@ INSTALLATION_OUT_FILES6=$(outdir)/lilypond.map
 
 INSTALLATION_OUT_DIR7=$(local_lilypond_datadir)/ps/
 INSTALLATION_OUT_FILES7=$(ENC_FILES)
+
 
 export MFINPUTS:=.:$(MFINPUTS)
 

@@ -63,6 +63,9 @@
 ;;;;;;;;
 
 
+(define (char font i)
+  (string-append "\\" (tex-font-command font)
+		 "\\char" (ly:inexact->string i 10) " "))
 
 (define (unknown) 
   "%\n\\unknown\n")
@@ -92,13 +95,22 @@
   (embedded-ps (list 'dashed-slur thick dash `(quote ,l))))
 
 (define (named-glyph font name)
-  (let* ((info (ly:otf-font-glyph-info font name)))
+  (let* ((info (ly:otf-font-glyph-info font name))
+	 (subfont (assoc-get 'subfont info))
+	 (subidx  (assoc-get 'subfont-index info)))
+    
     ;;(stderr "INFO: ~S\n" info)
     ;;(stderr "FONT: ~S\n" font)
-    (string-append "\\" (tex-font-command-raw
-			 (assoc-get 'subfont info)
-			 (ly:font-magnification font))
-		   "\\char" (number->string (assoc-get 'subfont-index info)))))
+    (if (and subfont subidx)
+	(string-append "\\" (tex-font-command-raw
+			     subfont
+			     (ly:font-magnification font))
+		       "\\char" (number->string subidx))
+
+	(begin
+	  (ly:warn "Can't find ~a in ~a" name font)
+	  ""))
+	))
 
 (define (dashed-line thick on off dx dy)
   (embedded-ps (list 'dashed-line  thick on off dx dy)))

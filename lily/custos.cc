@@ -56,7 +56,7 @@ Custos::print (SCM smob)
   int pos = Staff_symbol_referencer::get_rounded_position (me);
   int sz = Staff_symbol_referencer::line_count (me)-1;
 
-  String font_char = "custodes-" + style + "-";
+  String font_char = "custodes." + style + ".";
   if (pos < neutral_pos)
     font_char += "u";
   else if (pos > neutral_pos)

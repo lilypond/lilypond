@@ -4,6 +4,12 @@
 
 2004-12-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/main.cc (setup_paths): replace afm by otf for path. 
+
+	* lily/pangofc-afm-decoder.cc: remove.
+
+	* lily/include/pangofc-afm-decoder.hh: remove.
+
 	* scm/framework-scm.scm (output-framework): new file.
 
 	* mf/GNUmakefile: remove SAUTER_FONTS.
