@@ -42,38 +42,6 @@ Lookup::Lookup (Lookup const& s)
 }
 
 
-/*
-  build a ledger line for small pieces.
- */
-Molecule
-Lookup::ledger_line (Interval xwid) const
-{
-  Drul_array<Molecule> endings;
-  endings[LEFT] = afm_find ("noteheads-ledgerending");
-  Molecule * e = &endings[LEFT];
-  endings[RIGHT] = *e;
-  
-  Real thick = e->dim_[Y_AXIS].length();
-  Real len = e->dim_[X_AXIS].length () - thick;
-
-  Molecule total;
-  Direction d = LEFT;
-  do {
-    endings[d].translate_axis (xwid[d] - endings[d].dim_[X_AXIS][d], X_AXIS);
-    total.add_molecule (endings[d]);    
-  } while ((flip(&d)) != LEFT);
-
-  Real xpos = xwid [LEFT] + len;
-
-  while (xpos + len + thick /2 <= xwid[RIGHT])
-    {
-      e->translate_axis (len, X_AXIS);
-      total.add_molecule (*e);
-      xpos += len;
-    }
-
-  return total;
-}
 
 
 Molecule
@@ -202,7 +170,7 @@ Lookup::bar (String str, Real h, Paper_def *paper_l) const
 }
 
 Molecule 
-Lookup::beam (Real slope, Real width, Real thick) const
+Lookup::beam (Real slope, Real width, Real thick) 
 {
   Real height = slope * width; 
   Real min_y = (0 <? height) - thick/2;
@@ -227,11 +195,8 @@ Lookup::beam (Real slope, Real width, Real thick) const
 
 
 
-/*
-  FIXME.
- */
 Molecule
-Lookup::dashed_slur (Bezier b, Real thick, Real dash) const
+Lookup::dashed_slur (Bezier b, Real thick, Real dash)
 {
   SCM l = SCM_EOL;
   for (int i= 4; i -- ;)
@@ -253,7 +218,7 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash) const
 
 
 Molecule
-Lookup::fill (Box b) const
+Lookup::fill (Box b) 
 {
   Molecule m;
   m.dim_ = b;
@@ -262,7 +227,7 @@ Lookup::fill (Box b) const
 
 
 Molecule
-Lookup::filledbox (Box b ) const
+Lookup::filledbox (Box b ) 
 {
   Molecule m;
   
@@ -277,6 +242,33 @@ Lookup::filledbox (Box b ) const
   m.add_atom (at->self_scm_);
   return m;
 }
+
+Molecule
+Lookup::frame (Box b, Real thick)
+{
+  Molecule m;
+  Direction d = LEFT;
+  Axis a = X_AXIS;
+  while (a < NO_AXES)
+    {
+      do
+	{
+	  Axis o = Axis ((a+1)%NO_AXES);
+
+	  Box edges;
+	  edges[a] = b[a][d] + 0.5 * thick * Interval (-1, 1);
+	  edges[o][DOWN] = b[o][DOWN] - thick/2;
+	  edges[o][UP] = b[o][UP] + thick/2;	  
+	  
+	  
+	  m.add_molecule (filledbox (edges));
+	}
+      while (flip (&d) != LEFT);
+    }
+  return m;
+  
+}
+
 
 /*
    TODO: THIS IS UGLY.  Since the user has direct access to TeX
@@ -327,7 +319,7 @@ sanitise_PS_string (String t)
 
 */
 Molecule
-Lookup::text (String style, String text, Paper_def *paper_l) const
+Lookup::text (String style, String text, Paper_def *paper_l) 
 {
   Molecule m;
   if (style.empty_b ())
@@ -384,18 +376,22 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
 
 
 Molecule
-Lookup::staff_brace (Real y, int staff_size) const
+Lookup::staff_brace (Real y, int staff_size) 
 {
   Molecule m;
 
+  // URG
   Real step  = 1.0;
   int minht  = 2 * staff_size;
   int maxht = 7 *  minht;
   int idx = int (((maxht - step) <? y - minht) / step);
   idx = idx >? 0;
 
-
-  String nm = String ("feta-braces" + to_str (staff_size));
+  SCM l = ly_eval_str ("(style-to-cmr \"brace\")");
+  String nm = "feta-braces";
+  if (l != SCM_BOOL_F)
+    nm = ly_scm2string (gh_cdr (l));
+  nm += to_str (staff_size);
   SCM e =gh_list (ly_symbol2scm ("char"), gh_int2scm (idx), SCM_UNDEFINED);
   Atom *at = new Atom (e);
 
@@ -406,13 +402,13 @@ Lookup::staff_brace (Real y, int staff_size) const
   m.add_atom (at->self_scm_);
   return m;
 }
-
+ 
 
 /*
   Make a smooth curve along the points 
  */
 Molecule
-Lookup::slur (Bezier curve, Real curvethick, Real linethick) const
+Lookup::slur (Bezier curve, Real curvethick, Real linethick) 
 {
   Real alpha = (curve.control_[3] - curve.control_[0]).arg ();
   Bezier back = curve;
@@ -451,7 +447,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick) const
 }
 
 Molecule
-Lookup::staff_bracket (Real height, Paper_def* paper_l) const
+Lookup::staff_bracket (Real height, Paper_def* paper_l)
 {
   Molecule m;
   Atom *at = new Atom  ( gh_list (ly_symbol2scm ("bracket"),
@@ -472,25 +468,6 @@ Lookup::staff_bracket (Real height, Paper_def* paper_l) const
   return m;
 }
 
-Molecule
-Lookup::volta (Real h, Real w, Real thick, bool vert_start, bool vert_end) const
-{
-  Molecule m; 
-
-  Atom *at = new Atom(gh_list (ly_symbol2scm ("volta"),
-		     gh_double2scm (h),
-		     gh_double2scm (w),
-		     gh_double2scm (thick),
-		     gh_int2scm (vert_start),
-		     gh_int2scm (vert_end),
-		     SCM_UNDEFINED));
-
-  m.dim_[Y_AXIS] = Interval (- h/2, h/2);
-  m.dim_[X_AXIS] = Interval (0, w);
-
-  m.add_atom (at->self_scm_);
-  return m;
-}
 
 Molecule
 Lookup::accordion (SCM s, Real staff_space) const

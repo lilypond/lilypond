@@ -2,7 +2,9 @@
 
 depth = ..
 
-STEPMAKE_TEMPLATES=metafont metapost install install-out
+STEPMAKE_TEMPLATES=metafont metapost asciifont install install-out
+
+AF_FILES = $(wildcard *.af) 
 
 EXTRA_DIST_FILES += README feta.tex
 
@@ -12,7 +14,7 @@ XPM_FONTS = feta20
 
 LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
-AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm)) 
+AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(AF_FILES:.af=.afm))
 TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
 PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa)) 
 
@@ -20,7 +22,7 @@ ALL_GEN_FILES= $(TEXTABLES) $(LOG_FILES) $(AFM_FILES) $(TFM_FILES) $(PFA_FILES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(datadir)/mf/
-INSTALLATION_FILES=$(MF_FILES)
+INSTALLATION_FILES=$(MF_FILES) $(AF_FILES)
 
 INSTALLATION_OUT_SUFFIXES=1 2 3 4
 

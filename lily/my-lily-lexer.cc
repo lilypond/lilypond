@@ -32,6 +32,7 @@ static Keyword_ent the_key_tab[]={
   {"alternative", ALTERNATIVE},
   {"bar", BAR},
   {"breathe", BREATHE},
+  {"char", CHAR_T},
   {"chordmodifiers", CHORDMODIFIERS},
   {"chords", CHORDS},
   {"clef", CLEF},

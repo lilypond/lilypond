@@ -53,13 +53,13 @@ Paper_outputter::output_header ()
   
   String generate;
   if (no_timestamps_global_b)
-    generate = ".\n";
+    generate = ".";
   else
     {
       generate = _ (", at ");
       time_t t (time (0));
       generate += ctime (&t);
-      //urg
+      generate = generate.left_str (generate.length_i () - 1);
     }
 
   SCM args_scm = 
@@ -153,7 +153,8 @@ Paper_outputter::dump_onto (Paper_stream *ps)
       scm_display (gh_str02scm (
 	";;; Usage: guile -s x.scm > x.tex\n"
 	"(primitive-load-path 'lily.scm)\n"
-	"(scm-tex-output)\n"
+	"(scm-as-output)\n"
+	";(scm-tex-output)\n"
 	";(scm-ps-output)\n"
 	"(map (lambda (x) (display (eval x))) '(\n"
 	), port);
@@ -165,7 +166,7 @@ Paper_outputter::dump_onto (Paper_stream *ps)
 	  scm_display (newline, port);
 	  scm_flush (port);
 	}
-      scm_display (gh_str02scm (")))"), port);
+      scm_display (gh_str02scm ("))"), port);
       scm_display (newline, port);
       scm_flush (port);
       scm_close_port (port);
@@ -191,7 +192,7 @@ Paper_outputter::dump_onto (Paper_stream *ps)
 	  
 	  *ps << ly_scm2string (result);
 	}
-      *ps << ")))";
+      *ps << "))";
     }
 #endif
   

@@ -25,7 +25,7 @@ global = \notes {
   
 melody = \notes\relative c''{
   \clef violin;
-  \property Voice.verticalDirection = 1
+  \property Voice.verticalDirection = #1
   \property Voice.graceFraction = "1/4"
   r2 r r 
   r2 r r
@@ -111,14 +111,15 @@ accompany = \notes \relative c{
       \context Staff=up <
         \global
         \context Voice=foo {
-	  \property Voice.verticalDirection = 1
-	  \property Voice.scriptVerticalDirection = 1
+	  \property Voice.verticalDirection = #1
+	  \property Voice.scriptVerticalDirection = #1
 	  \melody 
 	}
       >
       \context Staff=down <
         \global
 	\clef bass;
+	\property Voice.slurVerticalDirection = #1
         \accompany
       >
     >
@@ -139,8 +140,8 @@ accompany = \notes \relative c{
       defaultBarType = "empty";
       \remove "Time_signature_engraver";
 
-      slurVerticalDirection = 1;
-      verticalDirection = -1;
+      slurVerticalDirection = #1
+      verticalDirection = #-1
       beamAutoEnd = #(make-moment 1 2)
     }
   }

@@ -1,17 +1,21 @@
-% params.ly
+% params-as.ly
 % generic paper parameters
 
 #'staff-height = \staffheight;
 
-paperfile = \papersize + ".ly";
-% paperfile = "a4.ly";
-\include \paperfile;
-\include "paper.ly";
+%%paperfile = \papersize + ".ly";
+%%% paperfile = "a4.ly";
+%%\include \paperfile;
+%hsize = 60.0\char;
+%vsize = 60.0\char;  %?
 
-interline = \staffheight / 4.0;
+%%\include "paper.ly";
+linewidth = 60.0\char;
+textheight = 60.0\char;
+indent = 8.0\char;
 
-
-stafflinethickness = \interline / 10.0;
+interline = (\staffheight - 1.0 ) / 4.0;
+stafflinethickness = \interline / 2.0;
 
 % urg, need grace_ versions of these too?
 beam_thickness = 0.52 * (\interline - \stafflinethickness);
@@ -76,7 +80,6 @@ slur_interstaff_snap_to_stem = 2.5 * \interline;
 % maximum dy change allowed by snapping
 slur_snap_max_slope_change = 0.5;
 slur_interstaff_snap_max_slope_change = 0.5;
-slur_thickness = 1.2 * \stafflinethickness;
 
 
 
@@ -90,8 +93,8 @@ tie_staffspace_length = 4.0 * \interline;
 % ugh: rename to bow (in bezier.cc and fonts.doc too...)
 
 % used to be 1.4 .
+slur_thickness = 1.2 * \stafflinethickness;
 tie_thickness = 1.2 * \stafflinethickness;
-tie_staffline_clearance = 2.0 *\tie_thickness;
 
 %{
  Specifies the maximum height of slurs.
@@ -103,6 +106,7 @@ slur_height_limit = \staffheight;
 Specifes the ratio of slur hight to slur width
 to aim for.  Default value is 0.3. 
 %}
+
 % slur_ratio = 0.3;
 % try bit flatter slurs
 slur_ratio = 0.25;
@@ -112,7 +116,7 @@ slur_clip_angle = 100.0;
 slur_rc_factor = 2.4;
 
 % ugh
-notewidth = (\quartwidth + \wholewidth) / 2.0;
+notewidth = 3.0\char;
 
 gourlay_energybound = 100000.;
 %{
@@ -121,23 +125,11 @@ method.
 %}
 gourlay_maxmeasures = 10.;
 
-
-%{ Ross. page 151 lists these values, but we think that thick lines
-and kernings are too thick.
-
-bar_kern = 0.5 * \interline;
-bar_thinkern = 0.75 * \interline;
-barthick_thick = 0.5* \interline;
-barthick_score = 0.13333* \interline;
-barthick_thin = 0.1*\interline;
-
-%}
-
-bar_kern = 3.0 * \stafflinethickness;
-bar_thinkern = 3.0 * \stafflinethickness;
-barthick_thick = 6.0* \stafflinethickness;
-barthick_thin = 1.6*\stafflinethickness;
-barthick_score = 1.6*\stafflinethickness;
+bar_kern = 1.0\char;
+bar_thinkern = 1.0\char;
+barthick_thick = 2.0\char;
+barthick_score = 1.0\char;
+barthick_thin = 1.0\char;
 
 bracket_arch_thick = \interline / 3.0;
 bracket_width = 2.0 * \interline;
@@ -147,13 +139,13 @@ bracket_arch_width = \bracket_arch_height;
 bracket_arch_angle = 50.0;
 
 tuplet_spanner_gap = 2.0 * \interline;
-tuplet_thick = 1.0*\stafflinethickness;
-volta_thick = 1.6*\stafflinethickness;
-volta_spanner_height = 2.0 *\interline;
+tuplet_thick = 1.0\char;
+volta_thick = 1.0\char;
+volta_spanner_height = 1.0\char;
 
 % relative thickness of thin lines  1.6 : 1 : 0.8
-stemthickness = 0.8*\stafflinethickness;
-rulethickness = \stafflinethickness;
+stemthickness = 1.0\char;
+rulethickness = 1.0\char;
 
 
 extender_height = 0.8*\stafflinethickness;

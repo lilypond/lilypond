@@ -5,6 +5,7 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <math.h>
 
 #include "lookup.hh"
 #include "paper-def.hh"
@@ -61,20 +62,6 @@ Tie::get_default_dir () const
     return DOWN;
   else
     return UP;
-
-#if 0 
-  Real p1 = Staff_symbol_referencer_interface (head (LEFT)).position_f () ;
-  Real p2 = Staff_symbol_referencer_interface (head (RIGHT)).position_f () ;  
-  
-  int m = int (p1  + p2);
-
-  /*
-    If dir is not determined: inverse of stem: down
-    (see stem::get_default_dir ())
-   */
-  Direction neutral_dir = (Direction)(int)paper_l ()->get_var ("stem_default_neutral_direction");
-  return (m == 0) ? other_dir (neutral_dir) : (m < 0) ? DOWN : UP;
-#endif
 }
 
 void
@@ -131,53 +118,12 @@ Tie::do_post_processing()
     OSU: not different for outer notes, so why all this code?
     ie,  can we drop this, or should it be made switchable.
    */
-#if 0
-  Direction d = LEFT;
-  do
-    {
-      Real head_width_f = head (d)
-	? head (d)->extent (X_AXIS).length ()
-	: 0;
-      /*
-	side attached to outer (upper or lower) notehead of chord
-      */
-      if (head (d)
-	  /*
-
-	        a~a~a;
-
-	    to second tie, middle notehead seems not extremal
-
-	    Getting scared a bit by score-element's comment:
-	    // is this a good idea?
-	  */
-	  // FIXME extremal deprecated
-	  && (head (d)->get_elt_property ("extremal")
-	      != SCM_UNDEFINED))
-	{
-	if (d == LEFT)
-	    dx_f_drul_[d] += head_width_f;
-	  dx_f_drul_[d] += -d * x_gap_f;
-	}
-      /*
-	side attached to inner notehead
-      */
-      else
-	{
-	  dx_f_drul_[d] += -d * head_width_f;
-	}
-    } while (flip (&d) != LEFT);
-
-#else
-
   if (head (LEFT))
     dx_f_drul_[LEFT] = head (LEFT)->extent (X_AXIS).length ();
   else
     dx_f_drul_[LEFT] = get_broken_left_end_align ();
   dx_f_drul_[LEFT] += x_gap_f;
   dx_f_drul_[RIGHT] -= x_gap_f;
-
-#endif
 
   /* 
    Slur and tie placement [OSU]  -- check this
@@ -196,8 +142,8 @@ Tie::do_post_processing()
 
 
   Real ypos = head (LEFT)
-    ? Staff_symbol_referencer_interface (head (LEFT)).position_f ()
-    : Staff_symbol_referencer_interface (head (RIGHT)).position_f () ;  
+    ? staff_symbol_referencer (head (LEFT)).position_f ()
+    : staff_symbol_referencer (head (RIGHT)).position_f () ;  
 
   Real y_f = half_staff_space * ypos; 
   int ypos_i = int (ypos);
@@ -258,101 +204,44 @@ Tie::do_brew_molecule_p () const
 Bezier
 Tie::get_curve () const
 {
-  Bezier_bow b (get_encompass_offset_arr (), directional_element (this).get ());
+  Direction d (directional_element (this).get ());
+  Bezier_bow b (get_encompass_offset_arr (), d);
 
   b.ratio_ = paper_l ()->get_var ("slur_ratio");
   b.height_limit_ = paper_l ()->get_var ("slur_height_limit");
   b.rc_factor_ = paper_l ()->get_var ("slur_rc_factor");
 
   b.calculate ();
-  return b.get_curve ();
-}
+  Bezier c (b.get_curve ());
 
-#if 0
+  /* should do this for slurs as well. */
+  Array<Real> horizontal (c.solve_derivative (Offset (1,0)));
 
-/*
-  TODO: FIXME.
- */
-
-/*
-  Clipping
-
-  This function tries to address two issues:
-    * the tangents of the slur should always point inwards 
-      in the actual slur, i.e.  *after rotating back*.
-
-    * slurs shouldn't be too high 
-      let's try : h <= 1.2 b && h <= 3 staffheight?
-
-  We could calculate the tangent of the bezier curve from
-  both ends going inward, and clip the slur at the point
-  where the tangent (after rotation) points up (or inward
-  with a certain maximum angle).
-  
-  However, we assume that real clipping is not the best
-  answer.  We expect that moving the outer control point up 
-  if the slur becomes too high will result in a nicer slur 
-  after recalculation.
-
-  Knowing that the tangent is the line through the first
-  two control points, we'll clip (move the outer control
-  point upwards) too if the tangent points outwards.
- */
-
-bool
-Bezier_Tie::calc_clipping ()
-{
-  Real clip_height = paper_l_->get_var ("slur_clip_height");
-  Real clip_ratio = paper_l_->get_var ("slur_clip_ratio");
-  Real clip_angle = paper_l_->get_var ("slur_clip_angle");
-
-  Real b = curve_.control_[3][X_AXIS] - curve_.control_[0][X_AXIS];
-  Real clip_h = clip_ratio * b <? clip_height;
-  Real begin_h = curve_.control_[1][Y_AXIS] - curve_.control_[0][Y_AXIS];
-  Real end_h = curve_.control_[2][Y_AXIS] - curve_.control_[3][Y_AXIS];
-  Real begin_dy = 0 >? begin_h - clip_h;
-  Real end_dy = 0 >? end_h - clip_h;
-  
-  Real pi = M_PI;
-  Real begin_alpha = (curve_.control_[1] - curve_.control_[0]).arg () + dir_ * alpha_;
-  Real end_alpha = pi -  (curve_.control_[2] - curve_.control_[3]).arg () - dir_  * alpha_;
-
-  Real max_alpha = clip_angle / 90 * pi / 2;
-  if ((begin_dy < 0) && (end_dy < 0)
-    && (begin_alpha < max_alpha) && (end_alpha < max_alpha))
-    return false;
-
-  transform_back ();
-
-  if ((begin_dy > 0) || (end_dy > 0))
+  if (horizontal.size ())
     {
-      Real dy = (begin_dy + end_dy) / 4;
-      dy *= cos (alpha_);
-      encompass_[0][Y_AXIS] += dir_ * dy;
-      encompass_.top ()[Y_AXIS] += dir_ * dy;
+      /*
+	ugh. Doesnt work for non-horizontal curves.
+       */
+      Real space = staff_symbol_referencer (this).staff_space ();
+      Real y = c.curve_point (horizontal[0])[Y_AXIS];
+
+      Real ry = rint (y/space) * space;
+      Real diff = ry - y;
+      Real newy = y;
+      if (fabs (diff) < paper_l ()->get_var ("tie_staffline_clearance"))
+	{
+	  newy = ry - 0.5 * space * sign (diff) ;
+	}
+
+      Real y0 = c.control_ [0][Y_AXIS];
+      c.control_[2][Y_AXIS] = 
+      c.control_[1][Y_AXIS] =
+	(c.control_[1][Y_AXIS] - y0)  * (newy / y) + y0; 
     }
   else
-    {
-      //ugh
-      Real c = 0.4;
-      if (begin_alpha >= max_alpha)
-	begin_dy = 0 >? c * begin_alpha / max_alpha * begin_h;
-      if (end_alpha >= max_alpha)
-	end_dy = 0 >? c * end_alpha / max_alpha * end_h;
-
-      encompass_[0][Y_AXIS] += dir_ * begin_dy;
-      encompass_.top ()[Y_AXIS] += dir_ * end_dy;
-
-      Offset delta = encompass_.top () - encompass_[0];
-      alpha_ = delta.arg ();
-    }
-
-  to_canonic_form ();
-
-  return true;
+    programming_error ("Tie is nowhere horizontal");
+  return c;
 }
-#endif
-
 
 
 Array<Offset>

@@ -139,7 +139,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token BREATHE
 %token CHORDMODIFIERS
 %token CHORDS
-%token HYPHEN
+%token CHAR_T
 %token CLEF
 %token CM_T
 %token CONSISTS
@@ -151,6 +151,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token FONT
 %token GRACE
 %token HEADER
+%token HYPHEN
 %token IN_T
 %token INVALID
 %token KEY
@@ -587,6 +588,9 @@ real_with_dimension:
 	}
 	| REAL MM_T	{
 		$$ = $1 MM;
+	}
+	| REAL CHAR_T	{
+		$$ = $1 CHAR;
 	}
 	;
 

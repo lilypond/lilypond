@@ -23,6 +23,6 @@ $(outdir)/%.$(XPM_RESOLUTION)gf: %.mf
 $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 	gftopk $< $@
 
-%.afm:
-	$(SHELL) $(depth)/buildscripts/tfmtoafm.sh $(shell basename $@ .afm)
-	mv $@ $@.in
+#%.afm:
+#	$(SHELL) $(depth)/buildscripts/tfmtoafm.sh $(shell basename $@ .afm)
+#	mv $@ $@.in
