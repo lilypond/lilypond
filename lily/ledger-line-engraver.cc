@@ -52,13 +52,14 @@ Ledger_line_engraver::finalize ()
 void
 Ledger_line_engraver::acknowledge_grob (Grob_info s)
 {
-  Pointer_group_interface::add_grob (span_, ly_symbol2scm ("note-heads"),
-				     s.grob_);
+  if (!to_boolean (s.grob_->get_property ("no-ledgers")))
+    Pointer_group_interface::add_grob (span_, ly_symbol2scm ("note-heads"),
+				       s.grob_);
 }
 ENTER_DESCRIPTION (Ledger_line_engraver,
 		   "Creates the spanner to draw ledger lines, and notices objects that need ledger lines",
 		   /* creats*/       "LedgerLineSpanner",
 		   /* accepts */     "",
-		   /* acks  */      "custos-interface note-head-interface", // ledgered-interface? 
+		   /* acks  */      "ledgered-interface", // ledgered-interface? 
 		   /* reads */       "",
 		   /* write */       "")

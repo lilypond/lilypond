@@ -503,9 +503,8 @@ set_end_points (Grob *me)
 			 &scores);
 
   Real opt = 1e6;
-  int opt_idx = 0;
-  // why backwards?
-  for (int i = scores.size (); i--;)
+  int opt_idx = -1;
+  for (int i = 0; i < scores.size (); i++)
     {
       if (scores[i].score_ < opt)
 	{
@@ -849,6 +848,8 @@ enumerate_attachments (Grob *me, Grob *common[],
       
       os[LEFT][Y_AXIS] += dir * staff_space / 2;
     }
+
+  assert (scores.size() > 0);
   return scores;
 }
 

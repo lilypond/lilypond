@@ -47,7 +47,7 @@
 	(breakable . #t)
 	(break-align-symbol . ambitus)
 	(break-visibility . ,begin-of-line-visible)
-	(meta . ((interfaces . (axis-group-interface break-aligned-interface ambitus-interface item-interface ))))
+	(meta . ((interfaces . (axis-group-interface break-aligned-interface ambitus-interface item-interface  ))))
 	))
 
     (AmbitusLine
@@ -69,6 +69,7 @@
 	(cautionary-style . parentheses)
 	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (item-interface accidental-interface break-aligned-interface side-position-interface font-interface))))
 	))
+    
     (AmbitusNoteHead
      . (
 	(duration-log . 2)
@@ -78,7 +79,12 @@
 	(X-extent-callback . ,Note_head::extent)
 	(Y-extent-callback . ,Note_head::extent)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
-	(meta . ((interfaces . (font-interface note-head-interface ambitus-interface staff-symbol-referencer-interface rhythmic-head-interface item-interface ))))
+	(meta . ((interfaces . (font-interface note-head-interface
+					       ambitus-interface
+					       staff-symbol-referencer-interface
+					       rhythmic-head-interface
+					       ledgered-interface
+					       item-interface ))))
 	))
     
     (Arpeggio
@@ -731,6 +737,7 @@
 	(stem-attachment-function . ,note-head-style->attachment-coordinates)
 	(meta . ((interfaces . (rhythmic-grob-interface
 				rhythmic-head-interface font-interface note-head-interface
+				ledgered-interface
 				staff-symbol-referencer-interface item-interface ))))
 	))
 
