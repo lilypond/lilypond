@@ -11,7 +11,7 @@
 */
 
 #include <math.h>
-#include <libc-extension.hh>
+#include <libc-extension.hh>	// isinf
 
 #include "simple-spacer.hh"
 #include "paper-column.hh"

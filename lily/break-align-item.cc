@@ -8,7 +8,7 @@
 
 
 #include <math.h>
-#include <libc-extension.hh>
+#include <libc-extension.hh>	// isinf
 
 #include "side-position-interface.hh"
 #include "axis-group-interface.hh"
