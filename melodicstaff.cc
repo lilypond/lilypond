@@ -1,6 +1,6 @@
 #include "melodicstaff.hh"
 #include "stem.hh"
-
+#include "notehead.hh"
 #include "paper.hh"
 #include "molecule.hh"
 #include "linestaff.hh"
@@ -29,15 +29,18 @@ Melodic_column::typeset_command(Command *com, int breakst)
 void
 Melodic_column::typeset_req(Request *rq)
 {
-    Item *i =new Item;
-    Molecule*m=create_req_mol(rq);
-
+    Item *i ;
     if (rq->note()) {
-	int h = rq->note()->height();
-	Real dy = staff_->paper()->interline()/2;
-	m->translate(Offset(0,(h-BOTTOM_POSITION)*dy));
+	Notehead *n =new Notehead((NO_LINES-1)*2);
+	n->balltype = rq->rhythmic()->balltype;
+	n->dots = rq->rhythmic()->dots;
+	n->position = rq->note()->height() - BOTTOM_POSITION;
+	i = n;
+    } else if (rq->rest()) {
+	i =new Item;
+	Molecule*m=create_req_mol(rq);
+	i->output=m;
     }
-    i->output = m;
     typeset_item(i);
 }
 
@@ -49,10 +52,7 @@ Melodic_column::typeset_stem(Stem_req*rq)
     int n = the_note->note()->height()-BOTTOM_POSITION;
     s->minnote =s->maxnote=n;
     s->flag = rq->stem_number;
-    s->calculate();
-    typeset_item(s);
-    
-    s->brew_molecole();
+    typeset_item(s);   
 }
 
 /*

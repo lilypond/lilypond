@@ -47,6 +47,13 @@ Stem::calculate()
     }
 }
 
+void
+Stem::postprocess()
+{
+    calculate();
+    brew_molecole();
+}
+
 Interval
 Stem::width()const
 {
@@ -60,16 +67,18 @@ void
 Stem::brew_molecole()
 {
     assert(pstaff_);
-    Paperdef *p = pstaff_->pscore_->paper_;
-    Parametric_symbol *stem = p->lookup_->stem();
-
     assert(bot!=top);
     assert(!output);
+    
+    Paperdef *p = pstaff_->pscore_->paper_;
+    Parametric_symbol *stem = p->lookup_->stem();
     
     Real dy = p->interline()/2;
     String y1 =print_dimen( dy * bot);
     String y2 = print_dimen(dy * top);
     Symbol ss =stem->eval(y1,y2);
+    delete stem;
+    
     output = new Molecule(Atom(ss));
 
     if (ABS(flag) > 4){
