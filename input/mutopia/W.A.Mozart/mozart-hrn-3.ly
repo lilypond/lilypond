@@ -48,35 +48,39 @@ virtuoso that taught in Geneva.
 \include "mozart-hrn3-romanze.ily"
 \include "mozart-hrn3-rondo.ily"
 
-
+    \bookpaper {
+	betweensystempadding = 0.0
+	betweensystemspace = 20 \mm
+%	raggedbottom = ##t 
+	}
 
 
 \book {
-\score
-{
-	 { \transpose c' bes \allegro }
+    \score
+    {
+	{ \transpose c' bes \allegro }
 	\paper{ }
 	\header { piece = "allegro" opus = "" }	
 	\midi{ \tempo 4=90 }
-}
+    }
 
 
-\score
-{
-     { \transpose c' bes \romanze }
+    \score
+    {
+	{ \transpose c' bes \romanze }
 	\header { piece = "romanze" opus = "" }	
 	\midi{ \tempo 4 = 70  }
 	\paper{}
-}
+    }
 
 
-\score
-{
-     { \transpose c' bes	\rondo }
+    \score
+    {
+	{ \transpose c' bes	\rondo }
 	\header { piece = "rondo" opus = "" }
 	\midi{ \tempo 4 = 100 }
 	\paper { }
-}
+    }
 
 
 }

@@ -1,5 +1,7 @@
 2004-09-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* ly/part-paper-init.ly: remove file.
+
 	* lily/includable-lexer.cc (new_input): elucidate message.
 
 2004-09-19  Jan Nieuwenhuizen  <janneke@gnu.org>
