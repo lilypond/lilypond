@@ -4,11 +4,12 @@ sect(Windows NT Binary Distribution)
 
 subsect(Introduction) label(introduction)
 
-This page is dedicated to the distribution of precompiled and preformatted
-LilyPond binaries for Windows NT 4.0 .  This package is covered under the 
-GNU General Public License and all of the source and documentation are 
+This page is dedicated to the distribution of precompiled and
+preformatted LilyPond binaries for Windows NT 4.0 .  This package is
+covered under the GNU General Public License and all of the source is
 available on the official 
 url(LilyPond Homepage)(http://www.cs.ruu.nl/people/hanwen/lilypond/index.html).
+A full set of url(documentation)(http://www.cs.ruu.nl/people/hanwen/lilypond/Documentation/tex/out-www/index.html) in various formats is also available.
 
 includefile(../BLURB.in)
 
@@ -69,8 +70,8 @@ itemize(
       In a batch file you can add the following entries: nl()
       bf(set LILYPONDPREFIX=em(LilyPond-dir)) nl()
       bf(set path=%path%;%LILYPONDPREFIX%\bin;em(MiKTeX-dir)\miktex\bin) nl()
-      bf(set TEXINPUTS=%LILYPONDPREFIX%\texmf\tex\lilypond;;) nl()
-      bf(set MFINPUTS=%LILYPONDPREFIX%\texmf\mf\public\lilypond;;) nl()
+      bf(set TEXINPUTS=%LILYPONDPREFIX%\share\lilypond\tex;;) nl()
+      bf(set MFINPUTS=%LILYPONDPREFIX%\share\lilypond\mf;;) nl()
 COMMENT(    dit(Windows Environment)
       In the Windows environment you can select
       properties menu of the My Computer icon. Click on

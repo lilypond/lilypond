@@ -42,9 +42,9 @@ Tex_lookup::~Tex_lookup()
 }
 
 Atom
-Tex_lookup::afm_find (String s, bool warn) const
+Tex_lookup::afm_find (String s) const
 {
-  return Lookup::afm_find (s, String ("\\char%d"), warn);
+  return Lookup::afm_find (s, String ("\\char%d"));
 }
 
 Atom*

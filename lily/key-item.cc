@@ -133,7 +133,7 @@ Key_item::brew_molecule_p() const
 	      || (old_pitch_arr_[i] == pitch_arr_[j]
 		  && old_acc_arr_[i] != acc_arr_[j]))
             {
-              Atom a =lookup_l ()->accidental (0,false);
+              Atom a =lookup_l ()->accidental (0);
               a.translate_axis (calculate_position(old_pitch_arr_[i], old_acc_arr_[i]) * inter, Y_AXIS);
               Molecule m (a);
               output->add_at_edge (X_AXIS, RIGHT, m);	
@@ -153,7 +153,7 @@ Key_item::brew_molecule_p() const
  
   for (int i =0; i < pitch_arr_.size(); i++) 
     {
-      Atom a =lookup_l ()->accidental (acc_arr_[i],false);
+      Atom a =lookup_l ()->accidental (acc_arr_[i]);
       a.translate_axis (calculate_position(pitch_arr_[i], acc_arr_[i]) * inter, Y_AXIS);
       Molecule m (a);
       output->add_at_edge (X_AXIS, RIGHT, m);	

@@ -184,7 +184,6 @@ Note_req::do_equal_b (Request*r) const
 
 Note_req::Note_req ()
 {
-  cautionary_b_ = false;
   forceacc_b_ = false;
 }
 
@@ -195,11 +194,7 @@ Note_req::do_print () const
 {
 #ifndef NPRINT
   Melodic_req::do_print ();
-  if (cautionary_b_)
-    {
-	DOUT << " force cautionary accidental\n";
-    }
-  else if (forceacc_b_)
+  if (forceacc_b_)
     {
 	DOUT << " force accidental\n";
     }

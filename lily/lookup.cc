@@ -53,21 +53,9 @@ Lookup::~Lookup ()
 }
 
 Atom
-Lookup::accidental (int j, bool cautionary) const
+Lookup::accidental (int j) const
 {
-  Atom a = afm_find (String ("accidentals") + String ("-") + to_str (j));
-  if (cautionary) 
-    {
-      Box b=a.extent();
-      Atom lparen = afm_find (String ("accidentals") + String ("-("));
-      lparen.translate_axis(b.x().min(),X_AXIS);
-      b.unite(lparen.extent());
-      Atom rparen = afm_find (String ("accidentals") + String ("-)"));
-      rparen.translate_axis(b.x().max(),X_AXIS);
-      b.unite(rparen.extent());
-      a = Atom(lparen.str_ + a.str_ + rparen.str_, b);
-    }
-  return a;
+  return afm_find (String ("accidentals") + String ("-") + to_str (j));
 }
 
 void
@@ -77,7 +65,7 @@ Lookup::add (String s, Symtable*p)
 }
 
 Atom
-Lookup::afm_find (String s, String str, bool warn) const
+Lookup::afm_find (String s, String str) const
 {
   if (!afm_p_)
     {
@@ -86,7 +74,7 @@ Lookup::afm_find (String s, String str, bool warn) const
       *mlog << "]" << flush ;
       DOUT << this->afm_p_->str ();
     }
-  Adobe_font_char_metric m = afm_p_->find_char (s, warn);
+  Adobe_font_char_metric m = afm_p_->find_char (s);
 
   Atom a;
   if (m.code () < 0)
@@ -241,11 +229,11 @@ Atom
 Lookup::special_time_signature (String s, Array<Scalar> arr) const
 {
   String symbolname = "timesig-"+s+"%/%";
-  Atom a (afm_find (substitute_args (symbolname, arr), false));
+  Atom a (afm_find (substitute_args (symbolname, arr)));
   if (!a.empty ()) 
     return a;
   // Try if the full name was given
-  a = afm_find ("timesig-"+s, false);
+  a = afm_find ("timesig-"+s);
   if (!a.empty ()) 
     return a;
   // Resort to default layout with numbers

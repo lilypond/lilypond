@@ -181,7 +181,10 @@ public:
 
   V operator [] (String k) const
     {
-      return elem (k);
+      V retval;
+      if (elem_b (k))
+	retval = ((Dictionary<V>*)this)->elem (k);
+      return retval;
     }
 
   V remove (String s)

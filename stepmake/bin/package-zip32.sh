@@ -40,10 +40,7 @@ distdir=/tmp/${name}
 
 rm -f ${srcdir}/config.cache
 PYTHON=${PYTHON:-python} ${srcdir}/configure --prefix=${distdir} \
-    --srcdir=${srcdir} \
-    --enable-tex-prefix=${distdir}/texmf \
-    --enable-tex-dir=${distdir}/texmf/tex \
-    --enable-mf-dir=${distdir}/texmf/mf
+    --srcdir=${srcdir}
 
 if ! make ; then
     echo "make failed"
@@ -80,7 +77,7 @@ cp $CYGWIN_LIB $distdir/bin
 #
 # Rename python files to <filename>.py
 #
-mv $distdir/bin/ly2dvi32 $distdir/bin/ly2dvi.py
+mv $distdir/bin/ly2dvi $distdir/bin/ly2dvi.py
 mv $distdir/bin/convert-mudela $distdir/bin/convert-mudela.py
 mv $distdir/bin/mudela-book $distdir/bin/mudela-book.py
 
@@ -89,7 +86,7 @@ mv $distdir/bin/mudela-book $distdir/bin/mudela-book.py
 #
 mkdir $distdir/doc
 cp Documentation/man/out/*.txt $distdir/doc
-mv $distdir/doc/ly2dvi32.txt $distdir/doc/ly2dvi_py.txt
+mv $distdir/doc/ly2dvi32.txt $distdir/doc/ly2dvi.txt
 cd $distdir/..
 $ZIP_CMD $ZIP_FILE $name
 echo "Wrote $ZIP_FILE"

@@ -29,8 +29,8 @@ either.
 
       /Mats
 
-Tested Features: Note placement, multipart score, figured base, \breve,
-	time signature styles
+
+Tested Features: Note placement, multipart score, figured base, \breve
 
 %}
 %{
@@ -47,28 +47,8 @@ definition below. --MB
 
 \version "1.0.7";
 
-global = \notes {
-  \property StaffGroup.timeSignatureStyle = "old"
+vi1=\notes \relative c'' {
   \time 4/4;
-  \tempo 4=80;
-  \skip 1*31;
-  \property StaffGroup.timeSignatureStyle = "1"
-  \time 3/2;
-  \bar ":|:";
-  \tempo 2=140;
-  \skip 1.*15;
-  \property StaffGroup.timeSignatureStyle = "old"
-  \time 4/4;
-  \tempo 4=80;
-  \skip 1;
-  \bar ":|:";
-  \skip 1*13;
-  \bar "|.";
-}
-
-vi1=\type Staff = vi1 <
-\global
-\notes \relative c'' {
 
   [d8 d d d] d4 [a16 b c a] |
   [b8 g ][ g g16 a][ b8 g ][ g g16 a] | 
@@ -100,8 +80,9 @@ vi1=\type Staff = vi1 <
   [c8 g ][ g g16 f] e4 d |
   r8 g [g g16 f] e4 d |
   r8 [d16 a ][ b8 b16 c] a2 |
-  b1 | 
-
+  b1 |
+  \time 3/2;
+  \tempo 2=140;
   r4 d d d d d |
   e1. |
   r4 c c c c c |
@@ -117,7 +98,8 @@ vi1=\type Staff = vi1 <
   a4 [c8 b] a4 [b8 c] f,4 [g8 a] |
   d,4 g g g g g |
   a [d,8 c] b4 [c8 d] a2 |
-
+  \time 4/4;
+  \tempo 4=80;
   b1 |
   [d8 d d d] d4 [a16 b c a] |
   [b8 g ][ g g16 a] [b8 g ][ g g16 a] | 
@@ -132,11 +114,11 @@ vi1=\type Staff = vi1 <
   fis4 g2 fis!4 |
   \cadenza 1;
   g\breve
-}>
+  \bar "|.";
+}
 
-vi2=\type Staff = vi2 <
-\global
-\notes \relative c'' {
+vi2=\notes \relative c'' {
+  \time 4/4;
 
   r1 | r | r | 
   [d8 d d d] d4 [a16 b c a] |
@@ -167,7 +149,7 @@ vi2=\type Staff = vi2 <
   e4 d r8 [c16 g ][ b8 b16 c] |
   a4 g2 fis4 |
   g1 |
-
+  \time 3/2;
   r1. |
   r4 [g'8 f] e4 [f8 g] c,4 [d8 e] |
   a,1. |
@@ -183,7 +165,7 @@ vi2=\type Staff = vi2 <
   c,4 a a a a a |
   b [d8 c] b4 [c8 d] d,4 e |
   fis2 g fis! |
-
+  \time 4/4;
   g1 |
   r1 | r1 |
   [g'8 g g g] g4 [d16 e f d] |
@@ -197,13 +179,13 @@ vi2=\type Staff = vi2 <
   [a d c b ][ a g fis e] d4 d' |
   \cadenza 1;
   b\breve
-}>
+  \bar "|.";
+}
 
 
-bc=\type Staff = bc <
-\global
-\notes\transpose c'{
+bc=\notes\transpose c'{
   \clef "bass";
+  \time 4/4;
 
   G2 d^"4 3" | G1 |
   g2 c4 G | d1^"3 4 3" |
@@ -221,7 +203,7 @@ bc=\type Staff = bc <
   G1^"3 4 3" | c4 B c g |
   c B c G | d1^"3 4 3" |
   G1 |
-
+  \time 3/2;
   g1. | c |
   f | d^"\\textsharp" |
   g | c |
@@ -230,9 +212,8 @@ bc=\type Staff = bc <
   d^"\\textsharp" | e |
   f | g1 B2 |
   d1.^"3 4 3" |
-
+  \time 4/4;
   G1 |
-  \bar ":|:";
   g2 fis | g G |
   g1^"3 4 3" | c |
   G^"3 4 3" | c2 G |
@@ -241,10 +222,12 @@ bc=\type Staff = bc <
   ) d^"3 4 3" | 
   \cadenza 1;
   G\breve 
-}>
+  \bar "|.";
+}
 
 \score{
   \type StaffGroup <
+    \property StaffGroup.timeSignatureStyle = "old"
     \vi1
     \vi2
     \bc

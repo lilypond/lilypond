@@ -228,12 +228,14 @@ setup_paths ()
 
   if (!prefix_directory.empty_b())
     {
-      global_path.add (prefix_directory + "/share/lilypond/init/");
-      global_path.add (prefix_directory + "/share/lilypond");
+      global_path.add (prefix_directory + "/share/lilypond/ly/");
+      global_path.add (prefix_directory + "/share/lilypond/afm/");
     }
-
-  global_path.add (String (DIR_DATADIR) + "/ly/");
-  global_path.add (String (DIR_DATADIR) + "/afm/");  
+  else
+    {
+      global_path.add (String (DIR_DATADIR) + "/ly/");
+      global_path.add (String (DIR_DATADIR) + "/afm/");  
+    }
 }
 
 
