@@ -5,8 +5,8 @@
 StaffContext=\translator {
 	\type "Engraver_group_engraver";
 	\name Staff ;
-	barAuto = "1";
-	voltaVisibility = "1";
+	barAuto = ##t
+	voltaVisibility = ##t
 
 	\consists "Multi_measure_rest_engraver";
 	\consists "Bar_engraver";
@@ -33,16 +33,15 @@ StaffContext=\translator {
 %{
 	\consists "Staff_margin_engraver";
 %}
-	defaultClef = treble;
+	defaultClef = #"treble"
 
-	marginBreakPriority = "-5";
-
+	marginBreakPriority = #-5
 
 	\consists "Separating_line_group_engraver";
 	\consists "Font_size_engraver";
 	  
 	\accepts "Voice";
-	dynamicStyle = "dynamic";
+	dynamicStyle = #"dynamic"
 };
 
 \translator{\StaffContext }
@@ -66,7 +65,8 @@ StaffContext=\translator {
 
 RhythmicStaffContext=\translator{
 	\type "Engraver_group_engraver";
-	numberOfStaffLines  = "1";
+	numberOfStaffLines  = #1
+	
 	barSize = \staffheight;
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
@@ -82,7 +82,7 @@ RhythmicStaffContext=\translator{
 \translator{\RhythmicStaffContext}
 VoiceContext = \translator {
 	\type "Engraver_group_engraver";
-	dynamicPadding = "5.0";
+	dynamicPadding = #5.0
 	\consists "Dynamic_engraver";   % must come before text_engraver.
 	\name Voice ;
 
@@ -99,7 +99,7 @@ VoiceContext = \translator {
 
 	% ugh.  Order matters here.
 	\consists "Melisma_engraver";
-	textScriptPadding = "3.0";
+	textScriptPadding = #3.0
 	\consists "Text_engraver";
 	\consists "Script_engraver";
 	\consists "Script_column_engraver";
@@ -122,6 +122,7 @@ GraceContext=\translator {
 	\consists "Stem_engraver";
 	\consists "Beam_engraver";
 	\consists "Slur_engraver";
+	
 	\consists "Auto_beam_engraver";
 	\include "auto-beam-settings.ly";
 	\consists "Align_note_column_engraver";
@@ -129,11 +130,11 @@ GraceContext=\translator {
 	\consists "Rhythmic_column_engraver";
 	\consists "Dynamic_engraver";
 
-	stemStyle = "grace";
-	weAreGraceContext = "1";
-	fontSize = "-1";
-	stemLength = "6.0";
-	verticalDirection = "1";
+	stemStyle = #"grace" 
+	weAreGraceContext = ##t 
+	fontSize = #-1
+	stemLength = #6.0
+	verticalDirection = \up ;
 	graceAccidentalSpace= 1.5 * \interline;
 };
 
@@ -153,9 +154,7 @@ GrandStaffContext=\translator{
 	\consists "Span_bar_engraver";
 	\consists "Piano_bar_engraver";
 
-
 	\accepts "Staff";
-
 };
 \translator{\GrandStaffContext}
 
@@ -174,7 +173,6 @@ PianoStaffContext = \translator{\GrandStaffContext
 StaffGroupContext= \translator {
 	\type "Engraver_group_engraver";
 	\consists "Span_bar_engraver";
-
 	
 	\consists "Staff_group_bar_engraver";
 	\name StaffGroup;
@@ -186,6 +184,7 @@ StaffGroupContext= \translator {
 	\accepts "Lyrics";
 	\accepts "ChordNames";
 };
+
 \translator { \StaffGroupContext }
 
 % UGH! JUNKME
@@ -248,8 +247,8 @@ StupidScore = \translator {
 
 BarNumberingStaffContext = \translator {
 	\StaffContext
-	barColumnPriority = "0";
-	marginBreakPriority = "-4";
+	barColumnPriority = #0
+	marginBreakPriority = #-4
 	\consists "Mark_engraver";
 	\consists "Bar_number_engraver";
 };
@@ -263,8 +262,8 @@ HaraKiriStaffContext = \translator {
 
 OrchestralPartStaffContext = \translator {
 	\StaffContext
-	barColumnPriority = "0";
-	marginBreakPriority = "-4";
+	barColumnPriority = #0
+	marginBreakPriority = #-4
 	\consists "Mark_engraver";
 	\consists "Bar_number_engraver";
 };
@@ -280,8 +279,8 @@ ScoreContext = \translator {
 	\consists "Spacing_engraver";
 	\consists "Vertical_align_engraver";
 	alignmentReference = \down;
-	defaultClef = treble;
-	defaultBarType = "|";
+	defaultClef = #"treble"
+	defaultBarType = #"|"
 	\accepts "Staff";
 	\accepts "StaffGroup";
 	\accepts "RhythmicStaff";	
@@ -297,8 +296,8 @@ ScoreContext = \translator {
 OrchestralScoreContext= \translator {
 	\ScoreContext
 
-	barScriptPadding = "2.0";	% dimension \pt
-	markScriptPadding = "4.0";
+	barScriptPadding = #2.0		% dimension \pt
+	markScriptPadding = #4.0
 
 	\consists "Bar_number_engraver";
 	\consists "Mark_engraver";

@@ -204,24 +204,24 @@ breakmusic = \notes {
     \translator {
     \VoiceContext
     \name "VoiceOne";
-    verticalDirection = "1";
+    verticalDirection = #1
     }
     \translator {
     \VoiceContext
     \name "VoiceTwo";
-    verticalDirection = "-1";
+    verticalDirection = #1
     }
     \translator {
     \VoiceContext
     \name "VoiceThree";
-    verticalDirection = "1";
-    horizontalNoteShift = "1";
+    verticalDirection = #1
+    horizontalNoteShift = #1
     }
     \translator {
     \VoiceContext
     \name "VoiceFour";
-    verticalDirection = "-1";
-    horizontalNoteShift = "1";
+    verticalDirection = #-1
+    horizontalNoteShift = #1
     }
    \translator { 
      \StaffContext 
