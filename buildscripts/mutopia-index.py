@@ -30,16 +30,8 @@ LilyPond currently only outputs TeX and MIDI.  The pictures and
 PostScript files were generated using TeX, Ghostscript and some 
 graphics tools.	 The papersize used for these examples is A4. 
 The  images are in PNG format, and should be viewable with any current browser.
-We don't use GIFS due to <a href="http://www.gnu.org/philosophy/gif.html">patent problems</a>.
 <p>
-If you want an accurate impression of the output quality please <em>print
-out</em> the samples first.
-"""
-
-headertext_nopics = r"""This is a subdirectory of the LilyPond example
-set.  We decided not to show any examples from this directory.	If you
-want to view them, then you have to download LilyPond and compile them
-yourself."""
+These images are generated at approximately 180dpi. If you want a better impression of the appearance do print out one the postscript version of the samples."""
 
 
 #
