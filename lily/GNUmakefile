@@ -25,8 +25,8 @@ ETAGS_FLAGS += --regex='{c++}/^LY_DEFINE *([^"]*"\([^"]+\)"/\1/'
 default:
 
 # force these: Make can't know these have to be generated in advance
-$(outdir)/my-lily-parser.o: $(outdir)/parser.hh
-$(outdir)/my-lily-lexer.o: $(outdir)/parser.hh
+$(outdir)/lily-parser.o: $(outdir)/parser.hh
+$(outdir)/lily-lexer.o: $(outdir)/parser.hh
 $(outdir)/lexer.o: $(outdir)/parser.hh $(outdir)/version.hh
 
 $(outdir)/kpath.o: $(outdir)/version.hh

@@ -16,7 +16,7 @@ for line in ['include','maininput','version']:
     kw = kw + [line]
 
 # the main keywords
-F = open('lily/my-lily-lexer.cc', 'r')
+F = open('lily/lily-lexer.cc', 'r')
 for line in F.readlines():
     m = re.search(r"(\s*{\")(.*)(\",\s*.*},\s*\n)",line)
     if m:

@@ -8,7 +8,7 @@ EXTRA_DIST_FILES=$(wildcard *.vim) vimrc
 
 LILYPOND_WORDS = $(outdir)/lilypond-words $(outdir)/lilypond-words.vim
 LILYPOND_WORDS_DEPENDS =\
-  $(topdir)/lily/my-lily-lexer.cc \
+  $(topdir)/lily/lily-lexer.cc \
   $(buildscript-dir)/lilypond-words.py \
   $(topdir)/scm/new-markup.scm \
   $(topdir)/ly/engraver-init.ly

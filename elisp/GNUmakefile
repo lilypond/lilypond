@@ -14,7 +14,7 @@ include $(depth)/make/stepmake.make
 
 LILYPOND_WORDS = $(outdir)/lilypond-words.el
 LILYPOND_WORDS_DEPENDS =\
-  $(topdir)/lily/my-lily-lexer.cc \
+  $(topdir)/lily/lily-lexer.cc \
   $(buildscript-dir)/lilypond-words.py \
   $(topdir)/scm/new-markup.scm \
   $(topdir)/ly/engraver-init.ly
