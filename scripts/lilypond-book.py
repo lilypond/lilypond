@@ -1176,8 +1176,6 @@ def format_lilypond_block (chunk):
 
 		str = '<a href="%s.ly">%s</a>' % (basename, str)
 
-		print 'hai', str
-		
 		return str
 
 	
