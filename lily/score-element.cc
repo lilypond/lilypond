@@ -27,7 +27,7 @@ Interval
 Score_element::dim_cache_callback (Dimension_cache*c)
 {
   Score_element *  e =dynamic_cast<Score_element*>( c->element_l());
-  if(&e->dim_cache_[X_AXIS] == c)
+  if(e->dim_cache_[X_AXIS] == c)
     return e->do_width ();
   else
     return e->do_height ();
@@ -36,8 +36,8 @@ Score_element::dim_cache_callback (Dimension_cache*c)
 Score_element::Score_element()
 {
   output_p_ =0;
-  dim_cache_[X_AXIS].set_callback (dim_cache_callback);
-  dim_cache_[Y_AXIS].set_callback (dim_cache_callback); 
+  dim_cache_[X_AXIS]->set_callback (dim_cache_callback);
+  dim_cache_[Y_AXIS]->set_callback (dim_cache_callback); 
   used_b_ = false;
   pscore_l_=0;
   lookup_l_ =0;
@@ -214,8 +214,10 @@ Score_element::output_processing ()
     delete output_p_;
   
   output_p_ = do_brew_molecule_p ();
+  Offset o (absolute_coordinate (X_AXIS), absolute_coordinate (Y_AXIS));
+  
   pscore_l_->outputter_l_->output_molecule (output_p_,
-					    absolute_offset (),
+					    o,
 					    classname(this));
 
   pscore_l_->schedule_for_delete (this);

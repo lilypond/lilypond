@@ -1,3 +1,31 @@
+pl 41.hwn2
+	- bf: Score bar line thickness.
+	- more paper writing
+	- website tweaks.
+	- Graphical_element::dim_cache_ now alloced separately. 
+	- junked Graphical_element::absgolute_offset
+	- Musique-de-Table 
+	- mmrest_x_minimum now works at begin-of-line.
+	- junked Span_bar::extra_x_off
+	- \property foo.bar = \stringid + \otherstringid
+	- bf: stop on lexer errors as well.
+	- only do vertical alignment at Score level.
+	- tweaked ledger endings a bit.
+	
+
+pl 41.hwn1
+	- small fixes.
+	- mudela-book.py patch (thanks MB)
+
+pl 41.mb1
+	- Added the installation instructions to the top web page.
+	- N.W.Gade: Added triangolo part, minor changes.
+
+pl 41.tca1
+	- Lookup::accordion and removed some accordionfonts
+
+***************
+
 pl 40.uu2
 	- rest ledger lines are dimensionless.
 	- Score_elements are added to the Paper_score directly when

@@ -14,7 +14,6 @@
 Base_span_bar_engraver::Base_span_bar_engraver()
 {
   spanbar_p_ =0;
-  valign_l_ =0;
   use_priority_b_ = true;
   break_priority_i_ = 0;
 }
@@ -34,7 +33,7 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
       && dynamic_cast<Bar *> (i.elem_l_)) 
     {
       bar_l_arr_.push (dynamic_cast<Bar *> (i.elem_l_));
-	
+
       if (bar_l_arr_.size() >= 2 && !spanbar_p_) 
 	/*
 	  hmm, i do want a bracket with one staff some times, but not always
@@ -51,6 +50,7 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	 */
 	{
 	  spanbar_p_ = get_span_bar_p();
+	  spanbar_p_->dim_cache_[Y_AXIS]->parent_l_ = bar_l_arr_[0]->dim_cache_[Y_AXIS];
 	  String visnam =  String(name()) + "_visibility";
 	  
 	  spanbar_p_->set_elt_property (visibility_lambda_scm_sym,
@@ -63,18 +63,13 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	    }
 	  else
 	    {
-	      spanbar_p_->dim_cache_[X_AXIS].parent_l_ = &bar_l_arr_[0]->dim_cache_[X_AXIS];	  
+	      spanbar_p_->dim_cache_[X_AXIS]->parent_l_ = bar_l_arr_[0]->dim_cache_[X_AXIS];	  
 	    }
 	  
 	  announce_element (Score_element_info (spanbar_p_,0));
 	  if (spanbar_p_->type_str_.empty_b ())
 	    spanbar_p_-> type_str_ = bar_l_arr_[0]->type_str_;
 	}
-    }
-  else if  (dynamic_cast<Axis_align_spanner *> (i.elem_l_) 
-	    && i.origin_grav_l_arr_.size() <= 2) 
-    {
-      valign_l_ = dynamic_cast<Axis_align_spanner *> (i.elem_l_);
     }
 }
 
@@ -85,7 +80,6 @@ Base_span_bar_engraver::do_pre_move_processing()
     {
       for (int i=0; i < bar_l_arr_.size() ; i++)
 	spanbar_p_->add_bar (bar_l_arr_[i]);
-      spanbar_p_->set_align (valign_l_);
       typeset_element (spanbar_p_);
       spanbar_p_ =0;
     }

@@ -4,8 +4,7 @@
 
 \score {
 
-  \notes     \context PianoStaff <
-  
+  \notes \context PianoStaff <
     \context Staff = treble    {
       \property PianoStaff.instrument = "Piano "
       \property Staff.instrument = "Right " { c''4 }}

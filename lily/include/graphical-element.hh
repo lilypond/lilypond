@@ -25,7 +25,7 @@ class Graphical_element
 {
   void init ();
 public:
-  Dimension_cache dim_cache_[NO_AXES];
+  Dimension_cache *dim_cache_[NO_AXES];
 
   /**
      Set this if anyone points to me, or if I point to anyone.
@@ -42,7 +42,7 @@ public:
   Interval extent (Axis) const;
  
   /**
-    translate the symbol. The symbol does not have to be created yet. 
+    translate the symbol.
     */
   void translate (Offset);
   /**
@@ -52,7 +52,6 @@ public:
   void translate_axis (Real, Axis);
 
   Real relative_coordinate (Dimension_cache*group, Axis) const;
-  Offset absolute_offset() const;
   Real absolute_coordinate (Axis) const;
   /**
     Find the group-element which has both #this# and #s#

@@ -50,7 +50,7 @@ Beam::add_stem (Stem*s)
 #if 0
   if (!stems_.size ())
     {
-      dim_cache_[Y_AXIS].parent_l_ = &s->dim_cache_[Y_AXIS];
+      dim_cache_[Y_AXIS]->parent_l_ = s->dim_cache_[Y_AXIS];
     }
 #endif
   stems_.push (s);

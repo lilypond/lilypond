@@ -57,7 +57,7 @@ Score_priority_engraver::acknowledge_element (Score_element_info inf)
 {
   if (Item * item_l = dynamic_cast <Item *> (inf.elem_l_))
     {
-      Dimension_cache * c = &item_l->dim_cache_[X_AXIS];
+      Dimension_cache * c = item_l->dim_cache_[X_AXIS];
       if (c->empty_b () || c->parent_l_)
 	return;
 

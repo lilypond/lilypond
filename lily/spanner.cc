@@ -130,7 +130,8 @@ Spanner::output_processing ()
 
   output_p_ = do_brew_molecule_p ();
   Offset left_off (spanned_drul_[LEFT]->absolute_coordinate(X_AXIS), 0);
-  Offset o = absolute_offset() + left_off;
+  Offset o (absolute_coordinate (X_AXIS), absolute_coordinate (Y_AXIS));
+  o += left_off;
   pscore_l_->outputter_l_->output_molecule (output_p_, o, classname (this));
 }
 

@@ -140,12 +140,17 @@ Molecule
 Lookup::simple_bar (String type, Real h) const
 {
   SCM thick = ly_symbol ("barthick_" + type);
-  Real w = 0.1 PT;
+  Real w = 0.0;
+  
   if (paper_l_->scope_p_->elem_b (thick))
     {
       w = paper_l_->get_realvar (thick);
     }
-
+  else
+    {
+      programming_error ("No bar thickness set ! ");
+      w = 1 PT;
+    }
   return filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 
@@ -600,10 +605,196 @@ Molecule
 Lookup::accordion (SCM s) const
 {
   Molecule m;
-
-  /*
-    Tom: go ahead.
-   */
-  return m;
-  
+  String sym = ly_scm2string(SCM_CAR(s));
+  String reg = ly_scm2string(SCM_CAR(SCM_CDR(s)));
+  Real interline_f = paper_l_->get_realvar(interline_scm_sym);
+  if (sym == "Discant")
+    {
+      Molecule r = afm_find("scripts-accDiscant");
+      m.add_molecule(r);
+      if (reg.left_str(1) == "F")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 2.5 PT, Y_AXIS);
+	  m.add_molecule(d);
+	  reg = reg.right_str(reg.length_i()-1);
+	}
+      int eflag = 0x00;
+      if (reg.left_str(3) == "EEE")
+	{
+	  eflag = 0x07;
+	  reg = reg.right_str(reg.length_i()-3);
+	}
+      else if (reg.left_str(2) == "EE")
+	{
+	  eflag = 0x05;
+	  reg = reg.right_str(reg.length_i()-2);
+	}
+      else if (reg.left_str(2) == "Eh")
+	{
+	  eflag = 0x04;
+	  reg = reg.right_str(reg.length_i()-2);
+	}
+      else if (reg.left_str(1) == "E")
+	{
+	  eflag = 0x02;
+	  reg = reg.right_str(reg.length_i()-1);
+	}
+      if (eflag & 0x02)
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 1.5 PT, Y_AXIS);
+	  m.add_molecule(d);
+	}
+      if (eflag & 0x04)
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 1.5 PT, Y_AXIS);
+	  d.translate_axis(0.8 * interline_f PT, X_AXIS);
+	  m.add_molecule(d);
+	}
+      if (eflag & 0x01)
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 1.5 PT, Y_AXIS);
+	  d.translate_axis(-0.8 * interline_f PT, X_AXIS);
+	  m.add_molecule(d);
+	}
+      if (reg.left_str(2) == "SS")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(0.5 * interline_f PT, Y_AXIS);
+	  d.translate_axis(0.4 * interline_f PT, X_AXIS);
+	  m.add_molecule(d);
+	  d.translate_axis(-0.8 * interline_f PT, X_AXIS);
+	  m.add_molecule(d);
+	  reg = reg.right_str(reg.length_i()-2);
+	}
+      if (reg.left_str(1) == "S")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(0.5 * interline_f PT, Y_AXIS);
+	  m.add_molecule(d);
+	  reg = reg.right_str(reg.length_i()-1);
+	}
+    }
+  else if (sym == "Freebase")
+    {
+      Molecule r = afm_find("scripts-accFreebase");
+      m.add_molecule(r);
+      if (reg.left_str(1) == "F")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 1.5 PT, Y_AXIS);
+	  m.add_molecule(d);
+	  reg = reg.right_str(reg.length_i()-1);
+	}
+      if (reg == "E")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 0.5 PT, Y_AXIS);
+	  m.add_molecule(d);
+	}
+    }
+  else if (sym == "Bayanbase")
+    {
+      Molecule r = afm_find("scripts-accBayanbase");
+      m.add_molecule(r);
+      if (reg.left_str(1) == "T")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 2.5 PT, Y_AXIS);
+	  m.add_molecule(d);
+	  reg = reg.right_str(reg.length_i()-1);
+	}
+      /* include 4' reed just for completeness. You don't want to use this. */
+      if (reg.left_str(1) == "F")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 1.5 PT, Y_AXIS);
+	  m.add_molecule(d);
+	  reg = reg.right_str(reg.length_i()-1);
+	}
+      if (reg.left_str(2) == "EE")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 0.5 PT, Y_AXIS);
+	  d.translate_axis(0.4 * interline_f PT, X_AXIS);
+	  m.add_molecule(d);
+	  d.translate_axis(-0.8 * interline_f PT, X_AXIS);
+	  m.add_molecule(d);
+	  reg = reg.right_str(reg.length_i()-2);
+	}
+      if (reg.left_str(1) == "E")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 0.5 PT, Y_AXIS);
+	  m.add_molecule(d);
+	  reg = reg.right_str(reg.length_i()-1);
+	}
+    }
+  else if (sym == "Stdbase")
+    {
+      Molecule r = afm_find("scripts-accStdbase");
+      m.add_molecule(r);
+      if (reg.left_str(1) == "T")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 3.5 PT, Y_AXIS);
+	  m.add_molecule(d);
+	  reg = reg.right_str(reg.length_i()-1);
+	}
+      if (reg.left_str(1) == "F")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 2.5 PT, Y_AXIS);
+	  m.add_molecule(d);
+	  reg = reg.right_str(reg.length_i()-1);
+	}
+      if (reg.left_str(1) == "M")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 2 PT, Y_AXIS);
+	  d.translate_axis(interline_f PT, X_AXIS);
+	  m.add_molecule(d);
+	  reg = reg.right_str(reg.length_i()-1);
+	}
+      if (reg.left_str(1) == "E")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 1.5 PT, Y_AXIS);
+	  m.add_molecule(d);
+	  reg = reg.right_str(reg.length_i()-1);
+	}
+      if (reg.left_str(1) == "S")
+	{
+	  Molecule d = afm_find("scripts-accDot");
+	  d.translate_axis(interline_f * 0.5 PT, Y_AXIS);
+	  m.add_molecule(d);
+	  reg = reg.right_str(reg.length_i()-1);
+	}
+    }
+  /* ugh maybe try to use regular font for S.B. and B.B and only use one font
+     for the rectangle */
+  else if (sym == "SB")
+    {
+      Molecule r = afm_find("scripts-accSB");
+      m.add_molecule(r);
+    }
+  else if (sym == "BB")
+    {
+      Molecule r = afm_find("scripts-accBB");
+      m.add_molecule(r);
+    }
+  else if (sym == "OldEE")
+    {
+      Molecule r = afm_find("scripts-accOldEE");
+      m.add_molecule(r);
+    }
+  else if (sym == "OldEES")
+    {
+      Molecule r = afm_find("scripts-accOldEES");
+      m.add_molecule(r);
+    }
+  return m;  
 }

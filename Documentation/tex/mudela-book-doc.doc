@@ -88,12 +88,12 @@ will set the \verb|linewidth| variable to -1, so Lilypond
 will make the music as short as possible but without breaking the
 line. Here is a well know harmonic progression:
 \begin{mudela}[veryverbatim, intertext="produce a well known harmonic progression:"]
-  <c' e' g'> <b d' g'> <c'2 e' g'>
+\context Voice {  <c' e' g'> <b d' g'> <c'2 e' g'>}
 \end{mudela}
 
 If you want to place music examples in the text,
 \begin{mudela}[eps]
-  <c' e' g'> <b d' g'> <c'2 e' g'>
+\context Voice {  <c' e' g'> <b d' g'> <c'2 e' g'>}
 \end{mudela}
 , you can use the \verb|eps| option. This will create the music as
 eps graphics and include it into the document with the 
@@ -102,7 +102,7 @@ eps graphics and include it into the document with the
 The code used look like this:
 \begin{verbatim}
 \begin{mudela}[eps]
-  <c' e' g'> <b d' g'> <c'2 e' g'>
+\context Voice {  <c' e' g'> <b d' g'> <c'2 e' g'>}
 \end{mudela}
 \end{verbatim}
 
@@ -301,22 +301,22 @@ names of some triads:
 
 dur &
 \begin{mudela}[eps]
-<c' e' g'>
+\context Voice {<c' e' g'>}
 \end{mudela} 
 \\
 \hline moll &
 \begin{mudela}[eps]
-<c' ees' g'>
+\context Voice {<c' ees' g'>}
 \end{mudela}
 \\
 \hline forminsket &
 \begin{mudela}[eps]
-<c' es' ges'>
+\context Voice {<c' es' ges'>}
 \end{mudela}
 \\
 \hline forstørret &
 \begin{mudela}[eps]
-<c' e' gis'>
+\context Voice {<c' e' gis'>}
 \end{mudela}
 \\
 \hline 
@@ -330,7 +330,7 @@ into the preamble of your document. Then the line spacing will not be
 increased between the lines where you have music printed with the
 smallest font size.
 
-Sinse the version number is quite low, you should be careful not to
+Since the version number is  low, you should be careful not to
 mix braces that belongs to mudela-book and \LaTeX~on the same
 line. The following code will probably break:
 

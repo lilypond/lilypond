@@ -11,6 +11,7 @@
 #include "vertical-align-engraver.hh"
 #include "axis-align-spanner.hh"
 #include "axis-group-spanner.hh"
+#include "span-bar.hh"
 
 Vertical_align_engraver::Vertical_align_engraver()
 {
@@ -60,8 +61,14 @@ Vertical_align_engraver::qualifies_b (Score_element_info i) const
   Translator * t =   i.origin_grav_l_arr_[0];
   int sz = i.origin_grav_l_arr_.size()  ;
 
+#if 0 
   return (sz == 1 && dynamic_cast<Translator_group*> (t))
     || (sz == 2 && dynamic_cast<Axis_group_engraver*> (t));
+#endif
+
+  Axis_group_element * elt = dynamic_cast<Axis_group_element *> (i.elem_l_);
+
+  return sz > 1 && elt && elt->axes_[0] == Y_AXIS && !elt->parent_l (Y_AXIS);
 }
 
 void
@@ -71,6 +78,10 @@ Vertical_align_engraver::acknowledge_element (Score_element_info i)
     {
       valign_p_->add_element (i.elem_l_);
     }
+  else if (dynamic_cast<Span_bar*>(i.elem_l_) && i.origin_grav_l_arr_.size ())
+    {
+      i.elem_l_->add_dependency (valign_p_);
+    }  
 }
 
 

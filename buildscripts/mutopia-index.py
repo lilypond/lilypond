@@ -14,6 +14,24 @@ sys.path.append ('@abs-step-bindir@')
 header_regex = regex.compile('\\header[ \t\n]*{\([^}]*\)}')
 header_entry_regex = regex.compile('[\n\t ]*\([^\n\t ]+\)[\n\t ]*=[\n \t]*\([^;]+\)[\n \t]*;')
 
+headertext= r"""
+These example files are taken from the LilyPond distribution. 
+LilyPond currently only outputs TeX and MIDI.  The pictures and 
+PostScript files were generated using TeX, Ghostscript and some 
+graphics tools.  The papersize used for these examples is A4. 
+The  images are in PNG format, and should be viewable with any current browser.
+We don't use GIFS due to <a href="http://www.gnu.org/philosophy/gif.html">patent problems</a>.
+<p>
+If you want an accurate impression of the output quality please <em>print
+out</em> the samples first.
+"""
+
+headertext_nopics = r"""This is a subdirectory of the LilyPond example
+set.  We decided not to show any examples from this directory.  If you
+want to view them, then you have to download LilyPond and compile them
+yourself."""
+
+
 #
 # FIXME breaks on multiple strings.
 #
@@ -68,7 +86,7 @@ def gen_list(inputs, subdir, filename):
     list = open(filename, 'w')
     list.write ('<html><TITLE>Rendered Examples</TITLE>\n')
     list.write ('<body bgcolor=white>')
-    if len(subdirs):
+    if subdirs:
 	list.write  ('<h2>subdirectories</h2>')
 	list.write  ('<ul>')	
         for ex in subdirs:
@@ -77,18 +95,14 @@ def gen_list(inputs, subdir, filename):
 
 	list.write ('</ul>')
 
-    list.write('<h2>Contents of this directory</h2>\n');
-    list.write ("""
-These example files are taken from the LilyPond distribution. 
-LilyPond currently only outputs TeX and MIDI.  The pictures and 
-PostScript files were generated using TeX, Ghostscript and some 
-graphics tools.  The papersize used for these examples is A4. 
-As you know, <a href="http://www.gnu.org/philosophy/gif.html">no gifs due to patent problems</a>, 
-but the PNG images should be viewable with any current browser
-<p>
-If you want an accurate impression of the output quality please <em>print
-out</em> the samples first.
-    """);
+
+
+    if inputs:
+	    list.write('<h2>Contents of this directory</h2>\n');
+
+	    list.write (headertext)
+    else:
+	    list.write (headertext_nopics)
 
 
     for ex in inputs:

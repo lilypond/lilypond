@@ -1,5 +1,5 @@
 \score{
-	\context GrandStaff <
+	\context PianoStaff <
 	\context Staff=one \notes\relative c'{
 		\stemup c4( c \translator Staff=two c )c |
 		\translator Staff=one
@@ -30,7 +30,7 @@
 		% no slur damping
 		slur_slope_damping = 10.0;
 		\translator{
-			\GrandStaffContext
+			\PianoStaffContext
 			minVerticalAlign = 3.0*\staffheight;
 			maxVerticalAlign = 3.0*\staffheight;
 		}

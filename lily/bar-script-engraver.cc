@@ -40,12 +40,12 @@ void
 Bar_script_engraver::do_acknowledge_element (Item *i)
 {
   Axis other_axis = Axis((axis_ + 1)%2);
-  if (staff_side_p_ && !staff_side_p_->dim_cache_[other_axis].parent_l_) 
+  if (staff_side_p_ && !staff_side_p_->dim_cache_[other_axis]->parent_l_) 
     {
-      staff_side_p_->dim_cache_[other_axis].parent_l_
-	= &i->dim_cache_[other_axis];
-      staff_side_p_->dim_cache_[axis_].parent_l_
-	=  &i->dim_cache_[axis_];	  
+      staff_side_p_->dim_cache_[other_axis]->parent_l_
+	= i->dim_cache_[other_axis];
+      staff_side_p_->dim_cache_[axis_]->parent_l_
+	=  i->dim_cache_[axis_];	  
 
       staff_side_p_->add_support (i);
 

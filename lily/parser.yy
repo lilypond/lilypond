@@ -863,7 +863,7 @@ property_def:
 	;
 
 scalar:
-	STRING		{ $$ = new Scalar (*$1); delete $1; }
+	string		{ $$ = new Scalar (*$1); delete $1; }
 	| int		{ $$ = new Scalar ($1); }
 	;
 
@@ -1558,5 +1558,6 @@ My_lily_parser::do_yyparse ()
 {
 	yyparse ((void*)this);
 }
+
 
 

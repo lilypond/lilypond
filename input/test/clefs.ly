@@ -2,6 +2,7 @@
 
 \score {
        \notes{ 
+       
          \clef "treble"; c'1^"{treble}" \bar "||";
          \clef "french";c'1^"{french}" \bar "||";
          \clef "soprano";c'1^"{soprano}" \bar "||";

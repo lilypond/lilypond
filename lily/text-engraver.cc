@@ -103,7 +103,7 @@ Text_engraver::do_process_requests ()
       Scalar empty = get_property ("textEmptyDimension", 0);
       if (empty.to_bool ())
 	{
-	  text->dim_cache_[X_AXIS].set_empty (true);
+	  text->dim_cache_[X_AXIS]->set_empty (true);
 	}
       
       announce_element (Score_element_info (text, r));

@@ -26,7 +26,6 @@ class Span_bar : public Bar
   Link_array<Score_element> spanning_l_arr_;
   Interval get_spanned_interval () const;
 public:
-  Real extra_x_off_;
   Span_bar();
     
   VIRTUAL_COPY_CONS(Score_element);
@@ -34,6 +33,7 @@ public:
   void set_align (Align_element *);
 protected:
   void evaluate_empty ();
+
   virtual Interval do_width() const;
   virtual void do_pre_processing();
   virtual void do_post_processing();
