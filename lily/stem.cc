@@ -477,31 +477,6 @@ Stem::brew_molecule (SCM smob)
 
   Real dy = Staff_symbol_referencer::staff_space (me)/2.0;
   Real head_wid = 0;
-
-  /*
-TODO:
-
-    I don't really get the idea of the attachment-angle.
-    It seems like that you attach the Stem to the NoteHead at point
-    (1,tan(aa)/2), making it still nessesary to have special CENTER-STEMS
-    option - and if I would like to attach stem i.e. here:
-
-      |
-      |
-      |
-    XXX
-   XXXXX
-   XXXXX
-    XXX
-
-   That would be impossible.
-   Why haven't you just made ATTACHMENT-COORDINATES as a pair of reals,
-   with (0 . 0) meaning CENTER, (1 . 1) upper right, etc...?
-   
--Rune
-
- 
-  */
     
   if (Grob *hed = support_head (me))
     {
@@ -511,7 +486,7 @@ TODO:
       Real y_attach = Note_head::stem_attachment_coordinate ( hed, Y_AXIS);
 
       y_attach = head_height.linear_combination (y_attach);
-      stem_y[Direction (-d)] += d * y_attach;
+      stem_y[Direction (-d)] += d * 2*y_attach;
     }
 
   

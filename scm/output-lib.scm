@@ -70,7 +70,7 @@
 		   (if (< duration 0) "mensural" "")))
    ((default) (number->string duration))
    (else
-    (string-append (number->string duration) (symbol->string style)))))
+    (string-append (number->string (max 0 duration)) (symbol->string style)))))
 
 
 (define (note-head-style->attachment-coordinates style)
@@ -79,9 +79,9 @@ bounding box, where to attach the stem. e.g.: X==0 means horizontally
 centered, X==1 is at the right, X == -1 is at the left."
 
   (case style
-    ((default) '(1.0 . 0.8))
-    ((cross) '(1.0 . -1.0))
-    ((mensural) '(0.0 . 1.0))
+    ((default) '(1.0 . 0.5))
+    ((cross) '(1.0 . 0.75))
+    ((mensural) '(0.0 . 0.6))
     ((diamond) '(1.0 . 0.8))
     ((transparent) '(1.0 . 1.0))
     ((slash) '(1.0 . 1.0))
