@@ -13,6 +13,7 @@
 #include "paper-column.hh"
 #include "spanner.hh"
 #include "lily-guile.hh"
+#include "line-of-score.hh"
 
 Item::Item ()
 {
@@ -57,7 +58,7 @@ Item::copy_breakable_items()
     {
       Score_element * dolly = clone();
       Item * item_p = dynamic_cast<Item*>(dolly);
-      pscore_l_->typeset_element (item_p);
+      pscore_l_->line_l_->typeset_element (item_p);
       new_copies[i] =item_p;
     }
   while (flip(&i) != LEFT);
@@ -84,8 +85,8 @@ Item::try_visibility_lambda ()
 
       if (empty)
 	{
-	  set_empty (X_AXIS);
-	  set_empty ( Y_AXIS);
+	  set_extent_callback (0, X_AXIS);
+	  set_extent_callback (0,  Y_AXIS);
 	}
       if (trans)
 	set_elt_property ("transparent", SCM_BOOL_T);

@@ -137,19 +137,3 @@
 	(beta (/ (* pi r-0) (* 2.0 h-inf))))
     (* alpha (atan (* beta b)))))
  
-;; see mf/feta-pendaal.mf
-(define pedal-kerning-alist '())
-(set! pedal-kerning-alist
-      (append 
-      '(
-	(("P" . "e") . -0.07)
-	(("e" . "d") . -0.53)
-	(("*" . "P") . 0.2)
-	)
-      pedal-kerning-alist))
-
-(define (pedal-kerning l r)
-  (let ((entry (assoc (cons l r) pedal-kerning-alist)))
-    (if entry
-	(cdr entry))))
-

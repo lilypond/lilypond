@@ -25,8 +25,8 @@ Dots::after_line_breaking ()
   if (!gh_number_p (d) || !gh_scm2int (d))
     {
       set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (X_AXIS);
-      set_empty (Y_AXIS);
+      set_extent_callback (0, X_AXIS);
+      set_extent_callback (0, Y_AXIS);
     }
   else
     {

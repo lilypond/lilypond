@@ -15,7 +15,7 @@
 /*
   TODO:
     sostenuto
-    una-chorda / tre-corde
+    una-chorda ?
  */
 
 /**
@@ -36,27 +36,27 @@ protected:
 
 private:
   Link_array<Audio_piano_pedal> audio_p_arr_;
-  Span_req* sustain_start_req_l_;
-  Drul_array<Span_req*> sustain_req_l_drul_;
+  Span_req* span_start_req_l_;
+  Drul_array<Span_req*> span_req_l_drul_;
 };
 
 ADD_THIS_TRANSLATOR (Piano_pedal_performer);
 
 Piano_pedal_performer::Piano_pedal_performer ()
 {
-  sustain_req_l_drul_[START] = 0;
-  sustain_req_l_drul_[STOP] = 0;
-  sustain_start_req_l_ = 0;
+  span_req_l_drul_[START] = 0;
+  span_req_l_drul_[STOP] = 0;
+  span_start_req_l_ = 0;
 }
 
 void
 Piano_pedal_performer::do_process_music ()
 {
-  if (sustain_req_l_drul_[STOP])
+  if (span_req_l_drul_[STOP])
     {
-      if (!sustain_start_req_l_)
+      if (!span_start_req_l_)
 	{
-	  sustain_req_l_drul_[STOP]->warning (_ ("can't find start of piano_pedal"));
+	  span_req_l_drul_[STOP]->warning (_ ("can't find start of piano_pedal"));
 	}
       else
 	{
@@ -64,12 +64,12 @@ Piano_pedal_performer::do_process_music ()
 	  p->type_b_ = false;
 	  audio_p_arr_.push (p);
 	}
-      sustain_start_req_l_ = 0;
+      span_start_req_l_ = 0;
     }
 
-  if (sustain_req_l_drul_[START])
+  if (span_req_l_drul_[START])
     {
-      sustain_start_req_l_ = sustain_req_l_drul_[START];
+      span_start_req_l_ = span_req_l_drul_[START];
       Audio_piano_pedal* p = new Audio_piano_pedal;
       p->type_b_ = true;
       audio_p_arr_.push (p);
@@ -87,8 +87,8 @@ Piano_pedal_performer::do_pre_move_processing ()
 void
 Piano_pedal_performer::do_post_move_processing ()
 {
-  sustain_req_l_drul_[STOP] = 0;
-  sustain_req_l_drul_[START] = 0;
+  span_req_l_drul_[STOP] = 0;
+  span_req_l_drul_[START] = 0;
 }
 
 bool
@@ -96,9 +96,9 @@ Piano_pedal_performer::do_try_music (Music* r)
 {
   if (Span_req * s = dynamic_cast<Span_req*>(r))
     {
-      if (s->span_type_str_ == "sustain")
+      if (s-> span_type_str_ == "sustain")
 	{
-	  sustain_req_l_drul_[s->span_dir_] = s;
+	  span_req_l_drul_[s->span_dir_] = s;
 	  return true;
 	}
     }

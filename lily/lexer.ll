@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
+#include "notename-table.hh"
 #include "lily-guile.hh"
 #include "string.hh"
 #include "string-convert.hh"

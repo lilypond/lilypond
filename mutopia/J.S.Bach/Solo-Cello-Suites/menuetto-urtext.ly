@@ -148,4 +148,4 @@ menuetto_ii = \context Staff\notes \relative c {
 	d2.
 }
 
-\version "1.3.4";
+\version "1.3.42";

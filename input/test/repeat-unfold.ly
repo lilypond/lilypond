@@ -1,5 +1,7 @@
 
-\score { \notes\relative c'' {
+\score {
+
+  \context Voice \notes\relative c'' {
 \repeat unfold 3 { c^"3x 0a" d }
 % less alts than body
 \repeat unfold 4 { c^"4x 0a" d } \alternative { e f }

@@ -385,8 +385,8 @@ Stem::before_line_breaking ()
   if (invisible_b ())
     {
       set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (Y_AXIS);      
-      set_empty (X_AXIS);      
+      set_extent_callback (0, Y_AXIS);      
+      set_extent_callback (0, X_AXIS);      
     }
 
   set_spacing_hints ();

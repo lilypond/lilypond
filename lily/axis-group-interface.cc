@@ -25,6 +25,8 @@ Axis_group_interface (Score_element*s)
 void
 Axis_group_interface::add_element (Score_element *e)
 {
+
+  // ugh. used_b_ should be junked.
   elt_l_->used_b_ = true;
   e->used_b_ = true;
 
@@ -37,7 +39,6 @@ Axis_group_interface::add_element (Score_element *e)
     }
 
   Group_interface (elt_l_).add_element (e);
-
   elt_l_->add_dependency (e);
 }
 
@@ -106,9 +107,9 @@ Axis_group_interface::set_axes (Axis a1, Axis a2)
   elt_l_->set_elt_property ("axes", ax);
 
   if (a1 != X_AXIS && a2 != X_AXIS)
-    elt_l_->set_empty (X_AXIS);
+    elt_l_->set_extent_callback (0, X_AXIS);
   if (a1 != Y_AXIS && a2 != Y_AXIS)
-    elt_l_->set_empty (Y_AXIS);
+    elt_l_->set_extent_callback (0, Y_AXIS);
   
   elt_l_->dim_cache_[a1]->set_extent_callback (Axis_group_interface::group_extent_callback);
   elt_l_->dim_cache_[a2]->set_extent_callback (Axis_group_interface::group_extent_callback);
@@ -137,7 +138,7 @@ bool
 Axis_group_interface::has_interface_b ()
 {
   SCM memq = scm_memq (ly_symbol2scm ("Axis_group"),
-	      elt_l_->get_elt_property ("interfaces"));
+		       elt_l_->get_elt_property ("interfaces"));
   
   return (memq != SCM_BOOL_F);
 }

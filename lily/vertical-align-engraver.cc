@@ -86,21 +86,6 @@ Vertical_align_engraver::acknowledge_element (Score_element_info i)
     {
       Align_interface(valign_p_).add_element (i.elem_l_);
     }
-
-#if 1				// 
-  /*
-    should junk this, but (crossstaff?) Beam doesn't have a clue yet
-    ...  */
-  
-  /*
-     Add make sure spanbars (whose size depends on vertical alignment)
-     depend on the vertical alignment element
-   */
-  else if (dynamic_cast<Span_bar*>(i.elem_l_) && i.origin_trans_l_arr (this).size ())
-    {
-      i.elem_l_->add_dependency (valign_p_);
-    }
-#endif
 }
 
 

@@ -98,8 +98,8 @@ Tie::after_line_breaking ()
     {
       programming_error ("Tie without heads.");
       set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (X_AXIS);
-      set_empty (Y_AXIS);
+      set_extent_callback (0, X_AXIS);
+      set_extent_callback (0, Y_AXIS);
       return;
     }
 

@@ -44,16 +44,12 @@ protected:
   Simple_spacer* generate_spacing_problem (Link_array<Paper_column>, Interval) const;
 
   virtual Array<Column_x_positions> do_solve() const=0;
-  virtual void do_set_pscore();
 
 public:
   Simple_spacer* (*get_line_spacer)();
   Break_algorithm();
   void set_pscore (Paper_score*);
 
-  /// check if the spacing/breaking problem is well-stated
-  void problem_OK() const;
-  void OK() const;
   Array<Column_x_positions> solve() const;
 };
 

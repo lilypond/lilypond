@@ -104,7 +104,7 @@ Text_engraver::do_process_music ()
       
       SCM empty = get_property ("textNonEmpty");
       if (!to_boolean (empty))
-	text->set_empty (X_AXIS);
+	text->set_extent_callback (0, X_AXIS);
 
       announce_element (Score_element_info (text, r));
       texts_.push (text);

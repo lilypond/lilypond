@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.4";
+\version "1.3.42";
 
 flauto1 = \notes \relative c {
 	R1 *2 |

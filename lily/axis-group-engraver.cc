@@ -77,7 +77,8 @@ Axis_group_engraver::process_acknowledged ()
     {
       Score_element *par = elts_[i]->parent_l (Y_AXIS);
 
-      if (!par || !Axis_group_interface (par).has_interface_b ())
+      if ((!par || !Axis_group_interface (par).has_interface_b ())
+	  && ! elts_[i]->empty_b (Y_AXIS))
 	Axis_group_interface (staffline_p_).add_element (elts_[i]);
     }
   elts_.clear ();

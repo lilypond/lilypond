@@ -31,6 +31,11 @@ class Paper_column : public Item
 { 
 public:
   VIRTUAL_COPY_CONS(Score_element);
+
+  /*
+    ugh.
+   */
+  
   Drul_array<Array<Column_rod> > minimal_dists_arr_drul_;
   Drul_array<Array<Column_spring> > spring_arr_drul_;
 
@@ -41,10 +46,8 @@ public:
   virtual Paper_column * column_l () const;
   virtual Line_of_score *line_l () const;
 
-
   /// if lines are broken then this column is in #line#
   Line_of_score *line_l_;
-
 
   /// which  one (left =0)
   int rank_i() const;
@@ -65,10 +68,6 @@ private:
   int rank_i_;
 
 };
-
-
-// #include "compare.hh"
-// INSTANTIATE_COMPARE(Paper_column &, Paper_column::compare);
      
 #endif // P_COL_HH
 

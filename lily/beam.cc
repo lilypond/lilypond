@@ -13,11 +13,13 @@
     * less hairy code
     * move paper vars to scm
 
+
+    remove *-hs variables.
+    
 */
 
 
 #include <math.h>		// tanh.
-
 #include "directional-element-interface.hh"
 #include "beaming.hh"
 #include "dimensions.hh"
@@ -32,11 +34,13 @@
 #include "staff-symbol-referencer.hh"
 #include "cross-staff.hh"
 
-
 Beam::Beam ()
 {
   Group_interface g (this, "stems");
   g.set_interface ();
+
+  set_elt_property ("height", gh_int2scm (0)); // ugh.
+  set_elt_property ("y-position" ,gh_int2scm (0));
 }
 
 void
@@ -269,7 +273,7 @@ Beam::after_line_breaking ()
 {
   /* first, calculate y, dy */
   Real y, dy;
-  calc_position_and_height (&y, &dy);
+  calc_default_position_and_height (&y, &dy);
   if (visible_stem_count ())
     {
       if (suspect_slope_b (y, dy))
@@ -337,9 +341,10 @@ Beam::after_line_breaking ()
   See Documentation/tex/fonts.doc
  */
 void
-Beam::calc_position_and_height (Real* y, Real* dy) const
+Beam::calc_default_position_and_height (Real* y, Real* dy) const
 {
-  *y = *dy = 0;
+  *y = 0;
+  *dy = 0;  
   if (visible_stem_count () <= 1)
     return;
 

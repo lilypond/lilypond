@@ -28,6 +28,10 @@
 #include "lily-version.hh"
 
 
+/*
+  Ugh, this is messy.
+ */
+
 Paper_outputter::Paper_outputter ()
 {
   molecules_ = gh_cons (SCM_EOL, SCM_EOL);
@@ -75,46 +79,7 @@ Paper_outputter::output_header ()
   output_scheme (scm);
 }
 
-void
-Paper_outputter::output_molecule (SCM expr, Offset o, char const *nm)
-{
-#if 0
-  if (flower_dstream)
-    {
-      output_comment (nm);
-    }
-#endif
-  
-  SCM offset_sym = ly_symbol2scm ("translate-molecule");
-  SCM combine_sym = ly_symbol2scm ("combine-molecule");
-enter:
 
-  if (!gh_pair_p (expr))
-    return;
-  
-  SCM head =gh_car (expr);
-  if (head == offset_sym)
-    {
-      o += ly_scm2offset (gh_cadr (expr));
-      expr = gh_caddr (expr);
-      goto enter;
-    }
-  else if (head == combine_sym)
-    {
-      output_molecule (gh_cadr (expr), o, nm);
-      expr = gh_caddr (expr);
-      goto enter;		// tail recursion
-    }
-  else
-    {
-      output_scheme (gh_list (ly_symbol2scm ("placebox"),
-			      gh_double2scm (o[X_AXIS]),
-			      gh_double2scm (o[Y_AXIS]),
-			      expr,
-			      SCM_UNDEFINED));
-
-    }
-}
 
 void
 Paper_outputter::output_comment (String str)
@@ -251,19 +216,7 @@ Paper_outputter::output_version ()
   output_String_def ( "LilyPondVersion", version_str ());
 }
 
-void
-Paper_outputter::start_line (Real height)
-{
-  if (height > 50 CM)
-    {
-      programming_error ("Improbable system height");
-      height = 50 CM;
-    }
-  SCM scm = gh_list (ly_symbol2scm ("start-line"),
-		     gh_double2scm (height),
-		     SCM_UNDEFINED);
-  output_scheme (scm);
-}
+
 
 void
 Paper_outputter::output_font_def (int i, String str)
@@ -316,20 +269,5 @@ Paper_outputter::output_int_def (String k, int v)
 
 
 
-void
-Paper_outputter::stop_line ()
-{
-  SCM scm = gh_list (ly_symbol2scm ("stop-line"), SCM_UNDEFINED);
-  output_scheme (scm);
-}
-
-void
-Paper_outputter::stop_last_line ()
-{
-  SCM scm = gh_list (ly_symbol2scm ("stop-last-line"), SCM_UNDEFINED);
-  output_scheme (scm);
-  scm = gh_list (ly_symbol2scm ("end-output"), SCM_UNDEFINED);
-  output_scheme (scm);
-}
 
 

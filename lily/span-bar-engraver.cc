@@ -60,6 +60,7 @@ Span_bar_engraver::acknowledge_element (Score_element_info i)
 	{
 	  spanbar_p_ = get_span_bar_p();
 	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);
+	  spanbar_p_->set_parent (bar_l_arr_[0], X_AXIS);
 
 	  /*
 	    UGH. UGH UUHGK GUHG G

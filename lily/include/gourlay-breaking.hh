@@ -19,9 +19,6 @@ struct Gourlay_breaking : public Break_algorithm
 {
   Real energy_bound_f_ ;
     
-    /// maximum number of measures in a line
-  int max_measures_i_;
-  void do_set_pscore();
   Array<Column_x_positions> do_solve() const;
   Gourlay_breaking();
   Real combine_demerits (Column_x_positions const&,Column_x_positions const&) const;

@@ -41,7 +41,7 @@ multiple \paper{}s in one \score
 Note: Original key f.
 %}
 
-\version "1.3.4";
+\version "1.3.42";
 
 vocalVerse = \notes\relative c''{
 	\property Voice.dynamicDirection=\up

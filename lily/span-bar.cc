@@ -59,38 +59,38 @@ void
 Span_bar::evaluate_empty ()
 { 
   if (!gh_pair_p (get_elt_property ("elements")))
-  {
-    set_elt_property ("transparent", SCM_BOOL_T);
-    set_empty (X_AXIS);
-    set_empty (Y_AXIS);   
-  }
+    {
+      set_elt_property ("transparent", SCM_BOOL_T);
+      set_extent_callback (0, X_AXIS);
+      set_extent_callback (0, Y_AXIS);   
+    }
   
   SCM gl = get_elt_property ("glyph");
   if (!gh_string_p (gl))
     {
       set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (X_AXIS);
-      set_empty (Y_AXIS);   
+      set_extent_callback (0, X_AXIS);
+      set_extent_callback (0, Y_AXIS);   
     }
   else {
     String type_str = ly_scm2string (gl);
     if (type_str == "|:") 
-    {
-      type_str= ".|";
-    }
-  else if (type_str== ":|")
-    {
-      type_str= "|.";
-    }
-  else if (type_str== ":|:")
-    {
-      type_str= ".|.";
-    }
+      {
+	type_str= ".|";
+      }
+    else if (type_str== ":|")
+      {
+	type_str= "|.";
+      }
+    else if (type_str== ":|:")
+      {
+	type_str= ".|.";
+      }
   }
 
   /*
     uhh. should do something with type_str ?!!
-   */
+  */
 }
 
 Interval
@@ -103,19 +103,22 @@ Span_bar::get_spanned_interval () const
 Real
 Span_bar::get_bar_size () const
 {
-   Interval iv (get_spanned_interval ());
-   if (iv.empty_b ())
-     {
-       programming_error("Huh? My children deflated (FIXME)");
-       iv = Interval (0,0);
-     }
-   return iv.length ();
+  Interval iv (get_spanned_interval ());
+  if (iv.empty_b ())
+    {
+      programming_error("Huh? My children deflated (FIXME)");
+      iv = Interval (0,0);
+    }
+  return iv.length ();
 }
 
 Span_bar::Span_bar ()
 {
   group (this).set_interface ();
   dim_cache_[X_AXIS]->set_extent_callback (width_callback);
-  dim_cache_[Y_AXIS]->set_extent_callback (Axis_group_interface::group_extent_callback);  
+  
+  // dim_cache_[Y_AXIS]->set_extent_callback (Axis_group_interface::group_extent_callback);
+
+  dim_cache_[Y_AXIS]->set_extent_callback (0);
 }
 

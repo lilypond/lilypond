@@ -56,7 +56,7 @@ private:
   void auto_knees ();
   bool auto_knee (String gap_str, bool interstaff_b);
   void set_stem_shorten ();
-  void calc_position_and_height (Real* y, Real* dy) const;
+  void calc_default_position_and_height (Real* y, Real* dy) const;
   bool suspect_slope_b (Real y, Real dy) const;
   Real calc_slope_damping_f (Real dy) const;
   Real calc_stem_y_f (Stem* s, Real y, Real dy) const;

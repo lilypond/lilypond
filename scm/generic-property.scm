@@ -67,11 +67,6 @@
 		     )
 	))
 
-(define generic-sustain-pedal-properties
-  (cons "Sustain_pedal" (list
-			 (list 'textScriptPadding number? 'padding)
-			 (list 'sustainPedalPadding number? 'padding))))
-
 (define generic-crescendo-properties
   (cons "Crescendo" (list
 		     (list 'verticalDirection dir? 'direction)
@@ -203,7 +198,6 @@
    generic-slur-properties
    generic-beam-properties
    generic-text-properties
-   generic-sustain-pedal-properties
    generic-note-column-properties
    generic-script-properties
    generic-All-properties
