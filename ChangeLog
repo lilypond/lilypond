@@ -1,3 +1,8 @@
+2003-10-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* input/test/temporary-stave.ly (texidoc): New example based on an
+	email question from Ralph Little.
+
 2003-10-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/note-performer.cc (try_music): accept busy-playing-event.
