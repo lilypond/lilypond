@@ -1,3 +1,7 @@
+2003-05-22  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-indent.el: Add preliminary test for closing \] and \).
+	
 2003-05-21  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/gregorian-ligature-engraver.cc,
