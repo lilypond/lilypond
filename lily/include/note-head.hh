@@ -20,7 +20,7 @@
 
 class Note_head : public Item {
 public:
-    NAME_MEMBERS(Note_head);
+    NAME_MEMBERS();
 
     bool rest_b_;
     int position_i_;
@@ -45,6 +45,7 @@ public:
     static int compare(Note_head * const &a, Note_head *const &b) ;
 protected:
     virtual    void do_print()const;
+    virtual void do_pre_processing();
     virtual    Molecule* brew_molecule_p()const;
 };
 #endif // NOTEHEAD_HH

@@ -1,3 +1,11 @@
+/*
+  notehead.cc -- implement Note_head
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "misc.hh"
 #include "note-head.hh"
 #include "dimen.hh" 
@@ -21,11 +29,17 @@ Note_head::Note_head(int ss)
 }
 
 void
+Note_head::do_pre_processing()
+{
+   // 8 ball looks the same as 4 ball:
+    if (balltype_i_ > 4 && !rest_b_)
+	balltype_i_ = 4;
+}
+
+void
 Note_head::set_rhythmic(Rhythmic_req*r_req_l)
 {
     balltype_i_ = r_req_l->duration_.type_i_;
-    if (balltype_i_ > 4)
-	balltype_i_ = 4;
     dots_i_ = r_req_l->duration_.dots_i_;
 }
     
