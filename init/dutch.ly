@@ -97,7 +97,3 @@
 
 
 }
-
-
-
-keyCminor =  \key \bes \es \as;

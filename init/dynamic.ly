@@ -17,5 +17,5 @@ sfz = \absdynamic { 10 }
 
 cr = \spandynamic { 1 1 } 
 decr = \spandynamic { -1 1 }
-rc = \spandynamic { 1 2 } % stop a crescendo (worrks for decrescendo too)
-
+rc = \spandynamic { 1 2 } % stop a crescendo
+rced = \spandynamic { 1 2 } % stop a decrescendo
