@@ -101,7 +101,10 @@ if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
 use_hash_p = 1
 format = 0
 output_name = 0
-latex_filter_cmd = 'latex "\\nonstopmode \input /dev/stdin"'
+# Ugh, hard coded file name! Unfortunately tempfile.mktemp doesn't 
+# give a useful file in Cygwin. Also, the original version, 
+# 'latex "\\nonstopmode \input /dev/stdin"' doesn't work in Cygwin.
+latex_filter_cmd = 'cat > lily-tmp.tex; latex "\\nonstopmode \input lily-tmp.tex";rm lily-tmp.tex'
 filter_cmd = 0
 process_cmd = lilypond_binary
 default_ly_options = {}
