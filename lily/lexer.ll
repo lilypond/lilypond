@@ -488,7 +488,7 @@ HYPHEN		--
 				return MARKUP_HEAD_SCM0_MARKUP1;
 			else if (tag == ly_symbol2scm ("scheme0-scheme1-markup2"))
 				return MARKUP_HEAD_SCM0_SCM1_MARKUP2;
-			else if (tag ==4 ly_symbol2scm ("scheme0-scheme1-scheme2"))
+			else if (tag == ly_symbol2scm ("scheme0-scheme1-scheme2"))
 				return MARKUP_HEAD_SCM0_SCM1_SCM2;
 			else {
 				programming_error ("No parser tag defined for this signature. Abort"); 
