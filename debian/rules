@@ -18,6 +18,8 @@ d = usr/share/doc/$(package)
 include VERSION
 VERSION = $(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_LEVEL)
 
+#export CC = gcc-3.2
+#export CXX = g++-3.2
 gcc_version = $(shell g++ --version 2>&1 \
 		| grep '[0-9]\.[0-9]' | head -1 \
 		| sed -e 's/.*[^-.0-9]\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/' \
@@ -148,7 +150,7 @@ binary-arch: build install
 #	dh_installcron
 #	dh_installman
 #	dh_undocumented
-	dh_installchangelogs -k CHANGES
+	dh_installchangelogs ChangeLog
 	dh_link	usr/share/lilypond/$(VERSION)/tex \
 			usr/share/texmf/tex/lilypond \
 		usr/share/lilypond/$(VERSION)/fonts/source \

@@ -1,3 +1,16 @@
+lilypond (1.6.4-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Higher urgency because of memory corruption bugs in previous releases.
+
+ -- Anthony Fok <foka@debian.org>  Sun, 22 Sep 2002 01:55:29 +0800
+
+lilypond (1.6.3-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Anthony Fok <foka@debian.org>  Sat, 21 Sep 2002 11:14:48 +0800
+
 lilypond (1.6.2-1) unstable; urgency=low
 
   * New upstream release.
