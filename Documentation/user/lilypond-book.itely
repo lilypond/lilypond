@@ -112,8 +112,10 @@ or
 @end example
 
 Lilypond-book know about the @code{\onecolumn} and 
-@code{\twocolumn} commands, the @code{geometry} package and
-all the standard paper sizes.
+@code{\twocolumn} commands, the @code{geometry} package
+(all except the following options: paperwidth, papersize,
+hdivide, divide, textwidth, mag, offset) and all the
+standard paper sizes.
 
 The music will be surrounded by @code{\preLilypondExample} and
 @code{\postLilypondExample}. The variables are 

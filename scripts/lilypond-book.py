@@ -191,6 +191,7 @@ class LatexPaper:
 		self.m_geo_textwidth = None
 		self.m_geo_lmargin = None
 		self.m_geo_rmargin = None
+		self.m_geo_columnsep = 0.0
 		self.m_geo_includemp = None
 		self.m_geo_marginparwidth = {10: 57, 11: 50, 12: 35}
 		self.m_geo_marginparsep = {10: 11, 11: 10, 12: 10}
@@ -254,6 +255,8 @@ class LatexPaper:
 			else:
 				self.m_geo_lmargin =  value
 				self.m_geo_rmargin =  value
+		elif name == 'columnsep':
+			self.m_geo_columnsep = value
 		elif name == 'total':
 			if type(value) == type([]):
 				self.m_geo_width =  value[0]
@@ -266,7 +269,7 @@ class LatexPaper:
 		elif name[-5:] == 'paper':
 			self.m_papersize = name
 		else:
-                       	pass 
+			pass
 
 	def __setattr__(self, name, value):
 		if type(value) == type("") and \
@@ -312,6 +315,8 @@ class LatexPaper:
 		#ugh test if this is necessary				
 		if self.__body:
 			mp = 0
+		if self.m_num_cols == 1:
+			self.m_geo_columnsep = 0.0
 
 		if not self.m_use_geometry:
 			return latex_linewidths[self.m_papersize][self.m_fontsize]
@@ -322,31 +327,31 @@ class LatexPaper:
 
 			if geo_opts == (1, 1, 1):
 				if self.m_geo_textwidth:
-					return self.m_geo_textwidth
-				w = self.get_paperwidth() * 0.8
+					return self.m_geo_textwidth - self.m_geo_columnsep
+				w = self.get_paperwidth() * 0.8 - self.m_geo_columnsep
 				return w - mp
 			elif geo_opts == (0, 1, 1):
-				 if self.m_geo_textwidth:
-				 	return self.m_geo_textwidth
-				 return self.f1(self.m_geo_lmargin, mp)
+				if self.m_geo_textwidth:
+					return self.m_geo_textwidth - self.m_geo_columnsep
+				return self.f1(self.m_geo_lmargin, mp)
 			elif geo_opts == (1, 1, 0):
-				 if self.m_geo_textwidth:
-				 	return self.m_geo_textwidth
-				 return self.f1(self.m_geo_rmargin, mp)
+				if self.m_geo_textwidth:
+					return self.m_geo_textwidth - self.m_geo_columnsep
+				return self.f1(self.m_geo_rmargin, mp)
 			elif geo_opts \
 					in ((0, 0, 1), (1, 0, 0), (1, 0, 1)):
 				if self.m_geo_textwidth:
-					return self.m_geo_textwidth
-				return self.m_geo_width - mp
+					return self.m_geo_textwidth - self.m_geo_columnsep
+				return self.m_geo_width - mp - self.m_geo_columnsep
 			elif geo_opts in ((0, 1, 0), (0, 0, 0)):
-				w = self.get_paperwidth() \
-				  - self.m_geo_lmargin - self.m_geo_rmargin - mp
+				w = self.get_paperwidth() - self.m_geo_lmargin \
+					- self.m_geo_rmargin - mp - self.m_geo_columnsep
 				if w < 0:
 					w = 0
 				return w
 			raise "Never do this!"
 	def f1(self, m, mp):
-		tmp = self.get_paperwidth() - m * 2 - mp
+		tmp = self.get_paperwidth() - m * 2 - mp - self.m_geo_columnsep
 		if tmp < 0:
 			tmp = 0
 		return tmp

@@ -13,7 +13,7 @@ URL: http://www.lilypond.org/
 BuildRoot: /tmp/lilypond-install
 
 Buildrequires: t1utils bison flex pktrace texinfo
-Requires: tetex  tetex-latex gcc-c++ python 
+Requires: tetex  tetex-latex libstdc++ python 
 
 %description
 LilyPond lets you create music notation.  It produces
