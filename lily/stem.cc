@@ -346,4 +346,17 @@ Stem::do_substitute_dependency (Score_element*o,Score_element*n)
   head_l_arr_.substitute (h, dynamic_cast<Note_head*>(n));
   if (Rest *r=dynamic_cast<Rest*> (o))
     rest_l_arr_.substitute (r, dynamic_cast<Rest*>(n));
+  if (Beam* b = dynamic_cast<Beam*> (o))
+    {
+      if (b == beam_l_) 
+	{
+	  beam_l_ = dynamic_cast<Beam*> (n);
+	  if (!beam_l_)
+	    {
+	      beams_i_drul_[LEFT] = 0;
+	      beams_i_drul_[RIGHT] = 0;
+	      mult_i_ = 0;
+	    }
+	}
+    }
 }

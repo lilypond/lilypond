@@ -25,7 +25,7 @@ ostream *mlog (&cerr);
 void
 error_t (String const & s, Moment const & r)
 {
-  String t_mom = r.truncated ().str () +  (r - r.truncated ()).str ();
+  String t_mom = r.trunc_rat ().str () +  (r - r.trunc_rat ()).str ();
   String e=s+ " (t = " +  t_mom + ")";
   error (e);
 }

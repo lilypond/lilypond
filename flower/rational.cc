@@ -34,7 +34,7 @@ operator << (ostream &o, Rational r)
 }
 
 Rational
-Rational::truncated () const
+Rational::trunc_rat () const
 {
   return Rational(num_ - (num_ % den_), den_);
 }
@@ -90,6 +90,22 @@ Rational::operator - () const
   return r;
 }
 
+Rational
+Rational::div_rat (Rational div) const
+{
+  Rational r (*this);
+  r /= div;
+  return r.trunc_rat ();
+}
+
+Rational
+Rational::mod_rat (Rational div) const
+{
+  Rational r (*this);
+  r = (r / div - r.div_rat (div)) * div;
+  return r;
+}
+
 void
 Rational::normalise ()
 {
@@ -139,6 +155,13 @@ int
 compare (Rational const &r, Rational const &s)
 {
   return Rational::compare (r, s );
+}
+
+Rational &
+Rational::operator %= (Rational r)
+{
+  *this = r.mod_rat (r);
+  return *this;
 }
 
 Rational &

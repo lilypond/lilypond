@@ -1,3 +1,6 @@
+pl 31.jcn2
+	- fix: rat != float
+
 pl 31.jcn1
 	- bf: slur-follow-music
 

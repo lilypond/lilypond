@@ -1,3 +1,6 @@
+pl 70
+	- GUILE config fixes (AF)
+
 pl 69
 	- package_depth detection fix
 
