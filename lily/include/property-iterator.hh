@@ -11,6 +11,10 @@
 #define PROPERTY_ITERATOR_HH
 
 #include "music-iterator.hh"
+
+
+
+
 /**
   Iterate a property.  
  */
@@ -21,5 +25,18 @@ public:
 protected:
   virtual void do_process_and_next (Moment);
 };
+
+class Push_property_iterator : public Music_iterator
+{
+protected:
+  virtual void do_process_and_next (Moment);
+};
+
+class Pop_property_iterator : public Music_iterator
+{
+protected:
+  virtual void do_process_and_next (Moment);
+};
+
 
 #endif // PROPERTY_ITERATOR_HH

@@ -161,9 +161,16 @@ Lyric_phrasing_engraver::acknowledge_element(Score_element_info i)
   if (h->has_interface (ly_symbol2scm ("lyric-syllable-interface"))) {
 
     /* what's its LyricVoice context name? */
-    String lyric_voice_context_id = 
-      get_context_id(i.origin_trans_l_->daddy_trans_l_, "LyricVoice");
-    record_lyric(trim_suffix(lyric_voice_context_id), h);
+    String voice_context_id;
+    SCM voice_context_scm = i.origin_trans_l_->get_property("associatedVoice");
+    if (gh_string_p (voice_context_scm)) {
+      voice_context_id = ly_scm2string(voice_context_scm);
+    }
+    else {
+      voice_context_id = get_context_id(i.origin_trans_l_->daddy_trans_l_, "LyricVoice");
+      voice_context_id = trim_suffix(voice_context_id);
+    }
+    record_lyric(voice_context_id, h);
     return;
   }
 
@@ -481,7 +488,6 @@ Syllable_group::adjust_melisma_align()
       break;
     }
     group_translation_f_ += translation;
-    printf(" now %f.\n",float(group_translation_f_));
     for(int l = 0; l < lyric_list_.size(); l++) {
       lyric_list_[l]->translate_axis (translation, X_AXIS);
     }

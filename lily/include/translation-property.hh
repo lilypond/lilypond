@@ -26,4 +26,32 @@ public:
   VIRTUAL_COPY_CONS(Music);
 };
 
+/**
+   Push onto basic property list.
+   
+  symbols -- list of basic-property lists
+
+  element-property -- element property name
+
+  element-value -- element property value
+  
+ */
+class Push_translation_property : public Music
+{
+public:
+};
+
+/**
+  Restore previous setting.
+
+  symbols -- list of basic-property lists
+
+  element-property -- element property name
+ */
+class Pop_translation_property : public Music
+{
+public:
+};
+
+
 #endif // PROPERTY_HH

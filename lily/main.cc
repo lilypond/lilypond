@@ -326,10 +326,12 @@ main (int argc, char **argv)
   setup_paths ();
 
   /*
-    prepare guile for heavy mem usage. 
+    prepare guile for heavy mem usage.
+
+    putenv is POSIX, setenv is BSD 4.3
    */
-  setenv ("GUILE_INIT_SEGMENT_SIZE_1", "4194304", 0);
-  setenv ("GUILE_MAX_SEGMENT_SIZE", "8388608", 0);
+  putenv ("GUILE_INIT_SEGMENT_SIZE_1=4194304");
+  putenv ("GUILE_MAX_SEGMENT_SIZE=8388608");
 
 #if KPATHSEA && HAVE_KPATHSEA_KPATHSEA_H
   /*
