@@ -106,7 +106,7 @@ translation property")
 			  "Change to what kind of state? Options are
 solo1, solo2 and unisono")
 
-     (figure ,string? "a `figure' (which may be
+     (figure ,markup? "a `figure' (which may be
 a string) for figured bass")
      (alteration ,number? "alteration for figured bass")
      (bracket-start ,boolean? "start a bracket

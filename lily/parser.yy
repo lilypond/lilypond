@@ -2101,9 +2101,13 @@ tremolo_type:
 bass_number:
 	DIGIT   {
 		$$ = scm_number_to_string (scm_int2num ($1), scm_int2num (10));
+		$$ = scm_list_2 (ly_scheme_function ("number-markup"),
+				$$);
 	}
 	| UNSIGNED {
 		$$ = scm_number_to_string (scm_int2num ($1), scm_int2num (10));
+		$$ = scm_list_2 (ly_scheme_function ("number-markup"),
+				$$);
 	}
 	| STRING { $$ = $1; }
 	;
