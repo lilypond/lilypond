@@ -11,6 +11,7 @@
 #include "offset.hh"
 
 
+#ifndef STANDALONE
 String
 Offset::str () const
 {
@@ -18,14 +19,14 @@ Offset::str () const
   s = String("(") + coordinate_a_[X_AXIS] + ", " + coordinate_a_[Y_AXIS] + ")";
   return s;
 }
-
+#endif
 
 Offset
 complex_multiply (Offset z1, Offset z2)
 {
   Offset z;
   z[X_AXIS] = z1[X_AXIS] * z2[X_AXIS] - z1[Y_AXIS]*z2[Y_AXIS];
-  z[Y_AXIS] = z1[X_AXIS] * z2[Y_AXIS] - z1[Y_AXIS] * z2[X_AXIS];
+  z[Y_AXIS] = z1[X_AXIS] * z2[Y_AXIS] + z1[Y_AXIS] * z2[X_AXIS];
   return z;
 }
 

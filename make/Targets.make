@@ -13,20 +13,7 @@
 # target all:
 #
 all:	 default
-ifdef SUBDIRS
-	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i all; done
-endif
-
-#
-
-# platform specific variables,
-#
-#include ./$(depth)/make/out/Site.make
-#
-
-# where to do this ?
-.PRECIOUS:  $(makeout)/Site.make
-
+	$(LOOP)
 # dependency list of executable:
 #
 
@@ -58,25 +45,27 @@ lib: $(LIBRARY)
 
 
 make-all-outdirs: make-outdir
-	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i make-all-outdirs; done
+	$(LOOP)
 
 make-outdir:
 	-mkdir $(OUTDIR_NAME)
 
 # be careful about deletion.
 clean: localclean
-	rm -f $(outdir)/*
+	-rm -f $(outdir)/*
 	touch $(outdir)/dummy.dep
-ifdef SUBDIRS
-	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean; done
-endif
+	$(LOOP)
 
-distclean: subdir-distclean local-distclean
+distclean: clean 
+	$(LOOP)
+	$(MAKE) local-distclean
 
-subdir-distclean:
-ifdef SUBDIRS
-	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean; done
-endif
+maintainerclean: 
+	$(LOOP)
+	$(MAKE)	local-maintainerclean
+	$(MAKE) local-distclean
+
+
 
 # configure:
 #
@@ -154,12 +143,11 @@ doosdist:
 	rm -rf $(distdir)/
 
 
-localdist: $(DISTFILES)
-	if [ -d out ]; then \
-		mkdir $(distdir)/$(localdir)/out; \
-		touch $(distdir)/$(localdir)/out/dummy.dep; \
-	fi
+localdist: $(DISTFILES) $(OUT_DISTFILES)
+	touch $(outdir)/dummy.dep; \
+	mkdir $(distdir)/$(localdir)/out; \
 	$(LN) $(DISTFILES) $(distdir)/$(localdir)
+	$(LN) $(outdir)/dummy.dep $(OUT_DISTFILES) $(distdir)/$(localdir)/out
 ifdef SUBDIRS
 	set -e; for i in $(SUBDIRS); do mkdir $(distdir)/$(localdir)/$$i; \
 		$(MAKE) localdir=$(localdir)/$$i -C $$i localdist; done
@@ -171,9 +159,7 @@ ifdef all-tag-sources
 	-etags -CT $(all-tag-sources) $(ERROR_LOG)
 	-ctags -CT $(all-tag-sources) $(ERROR_LOG)
 endif
-ifdef SUBDIRS
-	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i TAGS ; done
-endif
+	$(LOOP)
 
 
 # version stuff:
@@ -192,20 +178,18 @@ localclean:
 
 local-distclean:
 
+local-maintainerclean:
+
 install-strip:
 	$(MAKE) INSTALL="$(INSTALL) -s" install
 
 install: localinstall
-ifdef SUBDIRS
-	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i install; done
-endif
+	$(LOOP)
 
 localinstall:
 
 uninstall: localuninstall
-ifdef SUBDIRS
-	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i uninstall; done
-endif
+	$(LOOP)
 
 localuninstall:
 

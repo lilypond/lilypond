@@ -9,11 +9,13 @@ grep for TODO and ugh/ugr
 0.2:
 	* junk embedded mf
 
-	* shared lib
+
+
 
 	* ly2dvi seams to eat accents as in \'el\'egant
 
 	* libtoolize flowerlib
+	* shared lib
 
 	* bf: abbrevbeam? 
 
@@ -24,6 +26,7 @@ grep for TODO and ugh/ugr
 	* check for groff / troff/ nroff et
 
 	* latex quirk?
+
 	* use kpsepath to find all TeX dirs
 	- configure.in 
 	- clean-fonts.sh
@@ -67,6 +70,21 @@ grep for TODO and ugh/ugr
 	* stem len adjustable
 
 STUFF
+      * clefs: The names I'd like are of the form
+
+            [FGC]n{[_^]8}   F, G or C clef, on nth line, subscripted
+                            or superscripted with an 8.
+        So:                 
+            G, G2, treble, (== current `violin') G clef on second line.
+            F, F4, bass    (== current `bass' )  F clef on fourth line
+            G_8, G2_8      G clef on 2nd line, with 8 subscript
+            G^8            G clef on 2nd line with 8 superscript
+            C1, soprano    (==current `soprano') C clef on first line.
+            C2,            (==current `mezzosoprano') C clef on second line
+            C3, alto       (==current `alto')      C clef on third line
+            C4, tenor      (==current `tenor')     C clef on fourth line
+            C5             (==current `baritone') C clef on fifth line)
+
 
 
 	* give Items/Spanners access to unbroken originals	
@@ -103,6 +121,8 @@ STUFF
 	* AFM for font input?
 
 3RD PARTY BUGS:
+	* tried egcs 1.0.2: failed on lily/stem.cc -> flower/include/interval.hh
+	  should narrow down and send bug report
 
 	* xdvi: PS in magnifying glass.
 

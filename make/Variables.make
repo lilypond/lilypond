@@ -226,4 +226,8 @@ endif
 # substitute $(STRIP) in Site.make if you want stripping
 DO_STRIP=true
 
-
+ifdef SUBDIRS
+LOOP=set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i $@; done
+else
+LOOP=
+endif

@@ -10,13 +10,13 @@ Description: LilyPond is the GNU Project music typesetter.  The program
 		clefs, keys, lyrics, versatile input-language, 
 		cadenzas, beams, slurs, triplets.
 		It includes a nice font of musical symbols.
-Keywords: music notation typesetting midi fonts
-Author: hanwen@stack.nl (Han-Wen Nienhuys)
+Keywords: music notation typesetting midi fonts engraving
+Author: hanwen@cs.ruu.nl (Han-Wen Nienhuys)
 	jan@digicash.com (Jan Nieuwenhuizen)
 Maintained-by: hanwen@stack.nl (Han-Wen Nienhuys)
 Primary-site: sunsite.unc.edu /pub/Linux/apps/sound/convert
-	470k lilypond-@TOPLEVEL_VERSION@.tar.gz 
+	570k lilypond-@TOPLEVEL_VERSION@.tar.gz 
 Original-site: pcnov095.win.tue.nl /pub/lilypond/development/
-	470k lilypond-@TOPLEVEL_VERSION@.tar.gz 
+	570k lilypond-@TOPLEVEL_VERSION@.tar.gz 
 Copying-policy: GPL
 End

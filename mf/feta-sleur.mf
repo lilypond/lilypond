@@ -6,6 +6,7 @@
 % (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
 % & Han-Wen Nienhuys <hanwen@stack.nl>
 % 
+% see Documentation/fonts.tex
 
 % mode_setup;
 
@@ -19,34 +20,17 @@ def atan(expr x) =
 	(angle(1,x)*pi/180)
 	enddef;
 
-%breapth, width, depth, height
-
-% urgh
-% having mf would be nice if only from a "use the source" point of view.
-%
-% getslurcontrol:
-%        slurhtlimit 90 div /slur_alpha exch def
-%        slurratio 60 div slur_alpha div  /slur_beta  exch def
-%        slur_beta mul 1 atan slur_alpha mul
-%
-% draw_slur:
-%        slur_b getslurcontrol 
-%        slur_dir mul /slur_ht exch def
-%        slur_b getslurcontrol /slur_indent exch def       
-%
 
 sleur_pen#:=stafflinethickness#;
 slurheightlimit#:=staffsize#/2;
-% staffrulethickness 1.5 mul  /slur_thick exch def
-slurthick#:=3/2stafflinethickness#;
+slurthick#:=1.8stafflinethickness#;
 
 define_pixels(staffsize,interline,stafflinethickness);
 define_pixels(sleur_pen,slurheightlimit,slurthick);
 
-sluralpha:=slurheightlimit#*pi/2;
-% slurratio:=1/3;
-slurratio:=0.3333;
-slurbeta:=3/4*pi*slurratio/sluralpha;
+sluralpha:=2slurheightlimit#/pi;
+slurratio:=1/3;
+slurbeta:=pi*slurratio/2slurheightlimit#;
 
 def draw_slur(expr dxs,dys,hs,d) =
 	save x, y;
@@ -56,8 +40,7 @@ def draw_slur(expr dxs,dys,hs,d) =
 	h#:=hs*1pt#;
 	define_pixels(dx,dy);
 	b#:=length(dx#,dy#);
-	% ugh: huh? 2/5
-	indent#:=2/5*sluralpha*atan(slurbeta*b#);
+	indent#:=sluralpha*atan(slurbeta*b#);
 	define_pixels(b,h,indent);
 	height:=(indent+h)*d;
 	z1=(0,0);

@@ -52,18 +52,12 @@ struct Lookup {
   Atom bar (String, Real height) const;
     
   Atom dots () const;
-  Atom slur (Real &dy, Real &dx, Real ht, Direction dir) const;
-  Atom control_slur (Array<Offset> controls, Real dx, Real dy) const;
+  Atom slur (Array<Offset> controls) const;
   Atom plet (Real &dy, Real &dx, Direction dir) const;
-  Atom tex_slur (int dy, Real &dx, Direction dir) const;
-  Atom ps_slur (Real dy, Real dx, Real ht, Real dir) const;
-  Atom half_slur (int dy, Real &dx, Direction dir, int xpart) const;
-  Atom half_slur_middlepart (Real &dx, Direction dir) const;
-  Atom big_slur (int dy, Real &dx, Direction dir) const;
   Atom text (String style, String text, int align = 1) const;
   Atom script (String idx) const;
   Atom hairpin (Real & width, bool decresc, bool continued) const;
   Atom dynamic (String) const;
 };
 
-#endif
+#endif // LOOKUPSYMS_HH

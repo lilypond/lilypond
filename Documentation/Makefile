@@ -39,7 +39,7 @@ giffiles=$(XPMS:.xpm=.gif)
 gifs: $(addprefix $(outdir)/, $(giffiles))
 
 
-EXTRA_DISTFILES = $(XPMS)  $(DOCFILES)  vocabulary-data vocabulary-forms.el fonts.tex automake.urgh
+EXTRA_DISTFILES = $(XPMS)  $(DOCFILES)  vocabulary-data vocabulary-forms.el fonts.tex automake.urgh engraving.bib
 
 # don't do DVI files. They can only be made if lily is installed
 do-doc: $(TEXTFILES)

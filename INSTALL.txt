@@ -50,7 +50,7 @@ RECOMMENDED
 
        o    GNU make.
 
-       o    Flex (version 2.5.1 or newer).
+       o    Flex (version 2.5.4 or newer).
 
        o    Bison (version 1.25 or newer).  =item *
 
@@ -61,7 +61,7 @@ RECOMMENDED
 
 
 
-20/Mar/98                LilyPond 0.1.57                        1
+21/Apr/98                LilyPond 0.1.58                        1
 
 
 
@@ -127,7 +127,7 @@ CONFIGURING and COMPILING
 
 
 
-20/Mar/98                LilyPond 0.1.57                        2
+21/Apr/98                LilyPond 0.1.58                        2
 
 
 
@@ -193,7 +193,7 @@ INSTALLING
 
 
 
-20/Mar/98                LilyPond 0.1.57                        3
+21/Apr/98                LilyPond 0.1.58                        3
 
 
 
@@ -259,7 +259,7 @@ WINDOWS NT/95
 
 
 
-20/Mar/98                LilyPond 0.1.57                        4
+21/Apr/98                LilyPond 0.1.58                        4
 
 
 
@@ -325,7 +325,7 @@ MUSIXTEX
 
 
 
-20/Mar/98                LilyPond 0.1.57                        5
+21/Apr/98                LilyPond 0.1.58                        5
 
 
 
@@ -391,6 +391,6 @@ AUTHORS
 
 
 
-20/Mar/98                LilyPond 0.1.57                        6
+21/Apr/98                LilyPond 0.1.58                        6
 
 

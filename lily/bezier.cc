@@ -8,7 +8,6 @@
 
 #include <math.h>
 #include "bezier.hh"
-#include "direction.hh"
 
 #ifndef STANDALONE
 #include "direction.hh"
@@ -24,7 +23,6 @@
 void
 Curve::flipy ()
 {
-  // ugh, Offset should have mirror funcs
   for (int i = 0; i < size (); i++)
     (*this)[i].mirror (Y_AXIS);
 }
@@ -52,8 +50,7 @@ Curve::largest_disturbing ()
 void
 Curve::rotate (Real phi)
 {
-  Offset rot (complex_exp (Offset (0,phi)));
-
+  Offset rot (complex_exp (Offset (0, phi)));
   for (int i = 1; i < size (); i++)
     (*this)[i] = complex_multiply (rot, (*this)[i]);
 }
@@ -65,16 +62,16 @@ Curve::translate (Offset o)
     (*this)[i] += o;
 }
 
-Bezier::Bezier (int steps)
+Bezier::Bezier ()
 {
   control_.set_size (4);
-  curve_.set_size (steps);
 }
 
-//from GNU gs3.33: ega.c
 void
-Bezier::calc ()
+Bezier::calc (int steps)
 {       
+  steps = steps >? 10;
+  curve_.set_size (steps);
   Real dt = 1.0 / curve_.size ();
   Offset c = 3.0 * (control_[1] - control_[0]);
   Offset b = 3.0 * (control_[2] - control_[1]) - c;
@@ -97,49 +94,31 @@ Bezier::set (Array<Offset> points)
 Real
 Bezier::y (Real x)
 {
-  if (x <= curve_[0].x ())
-    return curve_[0].y ();
+//  if (x <= curve_[0].x ())
+//    return curve_[0].y ();
   for (int i = 1; i < curve_.size (); i++ )
     {
-      if (x < curve_[i].x ())
-	//           ^ ? see below   
+      if (x < curve_[i].x () || (i == curve_.size () - 1))
 	{
-	  Real lin = (x - curve_[i-1].x ()) / (curve_[i] - curve_[i-1]).x ();
-	  //                     ^ ?
-	  return (curve_[i-1] + lin * (curve_[i] - curve_[i-1])).y ();
+	  Offset z1 = curve_[i-1];
+	  Offset z2 = curve_[i];
+	  Real multiplier = (x - z2.x ()) / (z1.x () - z2.x ());
+	  Real y = z1.y () * multiplier + (1.0 - multiplier) z2.y();
+
+	  return y;
         }
     }
-  return curve_[curve_.size ()-1].y ();
+  assert (false);
+  // silly c++
+  return 0;
 }
 
 
 Bezier_bow::Bezier_bow (Paper_def* paper_l)
-  : Bezier(10)
 {
   paper_l_ = paper_l;
   return_.set_size (4);
 }
-
-/* 
-  from feta-sleur.ly
-
-	slurheightlimit#:=staffsize#/2;
-	sluralpha:=slurheightlimit#*pi/2;
-	% slurratio:=1/3;
-	slurratio:=0.3333;
-	slurbeta:=3/4*pi*slurratio/sluralpha;
-
-        b#:=length(dx#,dy#);
-        % ugh: huh? 2/5
-        indent#:=2/5*sluralpha*atan(slurbeta*b#);
-        height:=(indent+h)*d;
-        z1=(0,0);
-        z2=(b,0);
-        z3=(indent,height);
-        z4=(b-indent,height);
-
-	boogje:=boogje rotated angle(dxs,dys);
-*/
 
 void
 Bezier_bow::blow_fit ()
@@ -149,13 +128,14 @@ Bezier_bow::blow_fit ()
     return;
 
   // be careful not to take too big step
-  Real f = 0.75;
+  Real f = 0.3;
   Real h1 = dy1 * f;
   control_[1].y () += h1; 
   control_[2].y () += h1; 
   return_[1].y () += h1; 
   return_[2].y () += h1; 
 
+  calc_bezier ();
   Real dy2 = check_fit_f ();
   if (!dy2)
     return;
@@ -189,9 +169,23 @@ Bezier_bow::blow_fit ()
   Real h = -b / a;
 
   control_[1].y () += -h1 +h; 
-  control_[2].y () = -h1 +h; 
-  return_[1].y () = -h1 +h;
-  return_[2].y () = -h1 +h; 
+  control_[2].y () += -h1 +h; 
+  return_[1].y () += -h1 +h;
+  return_[2].y () += -h1 +h; 
+}
+
+void
+Bezier_bow::calc_bezier ()
+{
+  Real s = sqrt (control_[3].x () * control_[3].x () 
+    + control_[1].y () * control_[2].y ());
+#ifndef STANDALONE
+  Real internote = paper_l_->internote_f ();
+#else
+  Real internote = STAFFHEIGHT / 8;
+#endif
+  int steps = (int)rint (s / internote);
+  Bezier::calc (steps);
 }
 
 Real
@@ -199,8 +193,9 @@ Bezier_bow::calc_f (Real height)
 {
   transform ();
   calc_default (height);
-  Bezier::calc ();
-  
+
+  calc_bezier ();
+
   Real dy = check_fit_f ();
   calc_return (0, 0);
 
@@ -213,7 +208,7 @@ Bezier_bow::calc ()
 {
   transform ();
   calc_default (0);
-  Bezier::calc ();
+  calc_bezier ();
   
   if (check_fit_bo ())
     calc_return (0, 0);
@@ -232,28 +227,25 @@ Bezier_bow::calc_return (Real begin_alpha, Real end_alpha)
 #ifndef STANDALONE
   Real thick = 1.8 * paper_l_->rule_thickness ();
 #else
-  Real thick = 10.0 * 1.8 * 0.4 PT;
+  Real thick = 1.8 * 0.4 PT;
 #endif
+
   return_[0] = control_[3];
+  return_[3] = control_[0];
 
   return_[1] = control_[2] - thick * complex_exp (Offset (0, 90 + end_alpha));
-  return_[2] = control_[1] - thick * complex_exp (Offset (0, 90 - begin_alpha));  
-  
-  /*
-  return_[1].x () = control_[2].x () - thick * cos (90 + end_alpha);
-  return_[1].y () = control_[2].y () - thick * sin (90 + end_alpha);
-  return_[2].x () = control_[1].x () - thick * cos (90 - begin_alpha);
-  return_[2].y () = control_[1].y () - thick * sin (90 - begin_alpha);
-  */
-  return_[3] = control_[0];
+  return_[2] = control_[1] 
+    - thick * complex_exp (Offset (0, 90 - begin_alpha));  
 }
 
+/*
+ [TODO]
+ Document algorithm in:
+ See Documentation/fonts.tex
+ */
 void
 Bezier_bow::calc_controls ()
 {
-  // ugh: tooo steep
-//  Real default_rc = atan (control_[1].y () / control_[1].x ());
-  
   Offset ijk_p (control_[3].x () / 2, control_[1].y ());
   SLUR_DOUT << "ijk: " << ijk_p.x () << ", " << ijk_p.y () << endl;
 
@@ -269,17 +261,16 @@ Bezier_bow::calc_controls ()
       begin_rc = default_rc;
     }
 
-  // ugh
   Curve reversed;
   reversed.set_size (encompass_.size ());
   Real b = control_[3].x ();
   for (int i = 0; i < encompass_.size (); i++ )
     {
-      reversed[i] = Offset (b,0) - encompass_[encompass_.size () - i -1];
-      /*
+      //       b     1  0
+      // r  =     -        *  c 
+      //       0     0 -1   
       reversed[i].x () = b - encompass_[encompass_.size () - i - 1].x ();
       reversed[i].y () = encompass_[encompass_.size () - i - 1].y ();
-      */
     }
 
   int end_disturb = reversed.largest_disturbing ();
@@ -312,11 +303,16 @@ Bezier_bow::calc_controls ()
   Real end_alpha = atan (-end_rc);
   Real theta = (begin_alpha - end_alpha) / 2;
 
+#ifndef STANDALONE
+  Real internote = paper_l_->internote_f ();
+#else
+  Real internote = STAFFHEIGHT / 8;
+#endif
+  Real epsilon = internote / 5;
+
   // if we have two disturbing points, have height line through those...
-  /*
-    UGH UGH UGH! NEVER compare floats with == 
-   */
-  if (!((begin_p.x () == end_p.x ()) && (begin_p.y () == end_p.y ())))
+  if (!((abs (begin_p.x () - end_p.x ()) < epsilon)
+    && (abs (begin_p.y () - end_p.y ()) < epsilon)))
       theta = atan (end_p.y () - begin_p.y ()) / (end_p.x () - begin_p.x ());
 
   Real rc3 = tan (theta);
@@ -374,10 +370,6 @@ Bezier_bow::transform ()
   encompass_.translate (-origin_);
 
   Offset delta = encompass_[encompass_.size () - 1] - encompass_[0];
-  /*
-  Real dx = encompass_[encompass_.size () - 1].x () - encompass_[0].x (); 
-  Real dy = encompass_[encompass_.size () - 1].y () - encompass_[0].y ();
-  */
 
   alpha_ = delta.arg ();
   encompass_.rotate (-alpha_);
@@ -408,6 +400,9 @@ Bezier_bow::transform_controls_back ()
   encompass_.translate (origin_);
 }
 
+/*
+ See Documentation/fonts.tex
+ */
 void
 Bezier_bow::calc_default (Real h)
 {
@@ -415,33 +410,26 @@ Bezier_bow::calc_default (Real h)
 #ifndef STANDALONE
   Real staffsize_f = paper_l_->get_var ("barsize");
 #else
-  Real staffsize_f = 16 PT;
+  Real staffsize_f = STAFFHEIGHT;
 #endif
 
   Real height_limit = staffsize_f;
-  Real alpha = height_limit * pi / 2.0;
   Real ratio = 1.0/3.0;
-  Real beta = 3.0/4.0 * pi * ratio/alpha;
 
+  Real alpha = height_limit * 2.0 / pi;
+  Real beta = pi * ratio / (2.0 * height_limit);
 
-  Offset delta (encompass_[encompass_.size () - 1].x () - encompass_[0].x (), 0);
-
-  Real d = 1;
-
+  Offset delta (encompass_[encompass_.size () - 1].x () 
+    - encompass_[0].x (), 0);
   Real b = delta.length ();
-  Real indent = 2.0/5.0 * alpha * atan (beta * b);
-  // ugh, ugly height hack, see lily-ps-defs.tex
-  Real height = (indent + h) * d;
+  Real indent = alpha * atan (beta * b);
+  Real height = indent + h;
  
-//  Offset control[4] = {0, 0, indent, height, b - indent, height, b, 0 };
   Array<Offset> control;
   control.push (Offset (0, 0));
   control.push (Offset (indent, height));
   control.push (Offset (b - indent, height));
   control.push (Offset (b, 0));
   Bezier::set (control);
- 
-//  Real phi = dx ? atan (dy/dx) : sign (dy) * pi / 2.0;
-//  control.rotate (phi);
 }
 

@@ -4,14 +4,16 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+    Jan Nieuwenhuizen <jan@digicash.com>
 */
 
 /*
-  TODO:
-  
-  think about crossing stems.
-  Begin and end should be treated as a Script.
+  [TODO]
+    * begin and end should be treated as a Script.
+    * damping
+    * slur from notehead to stemend: c''()b''
  */
+
 #include "slur.hh"
 #include "scalar.hh"
 #include "lookup.hh"
@@ -23,9 +25,13 @@
 #include "debug.hh"
 #include "boxes.hh"
 #include "bezier.hh"
-#include "main.hh"
 
-IMPLEMENT_IS_TYPE_B1(Slur,Spanner);
+//IMPLEMENT_IS_TYPE_B1(Slur,Spanner);
+IMPLEMENT_IS_TYPE_B1(Slur,Bow);
+
+Slur::Slur ()
+{
+}
 
 void
 Slur::add (Note_column*n)
@@ -118,97 +124,38 @@ Slur::do_post_processing ()
 	{
 	  dx_f_drul_[d] = -d 
 	    *(spanned_drul_[d]->width ().length () -0.5*nw_f);
+	  Direction u = d;
+	  flip(&u);
+	  if ((extrema[u] == spanned_drul_[u]) && extrema[u]->stem_l_)
+	    {
+	      dy_f_drul_[d] = extrema[u]->stem_l_->height ()[dir_];
+	      dy_f_drul_[u] = extrema[u]->stem_l_->height ()[dir_];
+	    }
 	}
       else if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_) 
         {
 	  dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_->height ()[dir_]);
-	  /* normal slur from notehead centre to notehead centre, minus gap */
-	  // ugh: diff between old and new slurs
-	  if (!experimental_features_global_b)
-	    dx_f_drul_[d] += -d * gap_f;
-	  else
-	    dx_f_drul_[d] += 0.5 * nw_f - d * gap_f;
+	  dx_f_drul_[d] += 0.5 * nw_f - d * gap_f;
+	  if (dir_ == extrema[d]->stem_l_->dir_)
+	    {
+	      if (dir_ == d)
+		dx_f_drul_[d] += 0.5 * (dir_ * d) * d * nw_f;
+	      else
+		dx_f_drul_[d] += 0.25 * (dir_ * d) * d * nw_f;
+	    }
 	}
       else 
         {
-	  dy_f_drul_[d] = (int)rint (extrema[d]->head_positions_interval ()[dir_])* inter_f;
+	  dy_f_drul_[d] = (int)rint (extrema[d]->head_positions_interval ()
+	    [dir_])* inter_f;
 	}
       dy_f_drul_[d] += dir_ * interline_f;
     }
   while (flip(&d) != LEFT);
 }
 
-Real
-Slur::height_f () const
-{
-  Bezier_bow bow (paper ());
-  Array<Offset> notes = get_notes ();
-  bow.set (notes, dir_);
-
-  Real height = 0;
-  Real dy1 = bow.calc_f (height);
-  if (!dy1)
-    return height;
-
-  height = dy1;
-  bow.set (notes, dir_);
-  Real dy2 = bow.calc_f (height);
-  if (!dy2)
-    return height;
-
-  if (abs (dy2 - dy1) < paper ()->rule_thickness ())
-    return height;
-  
-  /*
-    Assume 
-      dy = B (h) 
-    with 
-      B (h) = a * h + b;
-
-    Then we get for height = h{dy=0}
-   */
-  Real a = (dy2 - dy1) / dy1;
-  Real b = dy1;
-  height = -b / a;
-    
-  if (check_debug && !monitor->silent_b ("Slur")) 
-    { 
-      cout << "************" << endl;
-      cout << "dy1: " << dy1 << endl;
-      cout << "dy2: " << dy2 << endl;
-      cout << "a: " << a << endl;
-      cout << "b: " << b << endl;
-      cout << "h: " << height << endl;
-    }
-
-  return height;
-}
-
-Molecule*
-Slur::brew_molecule_p () const
-{
-  if (!experimental_features_global_b)
-    return Bow::brew_molecule_p ();
-
-  Molecule* mol_p = new Molecule;
-  
-  Real dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
-  
-  Real dx_f = width ().length ();
-  dx_f += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
-  
-  Atom a = paper ()->lookup_l ()->control_slur (get_controls (), dx_f, dy_f);
-
-  Real interline_f = paper ()->interline_f ();
-  Real gap_f = interline_f / 2; // 5;
-  Real nw_f = paper ()->note_width ();
-  a.translate (Offset (dx_f + 0.5 * nw_f + gap_f, dy_f + dy_f_drul_[LEFT]));
-  mol_p->add (a);
-  return mol_p;
-}
-
 Array<Offset>
-Slur::get_notes () const
+Slur::get_encompass_offset_arr () const
 {
   Real interline = paper ()->interline_f ();
   Real notewidth = paper ()->note_width ();
@@ -216,86 +163,76 @@ Slur::get_notes () const
 
   Stem* left_stem = encompass_arr_[0]->stem_l_;
   Real left_x = left_stem->hpos_f ();
-  // ugh, do bow corrections (see brew_mol)
-  left_x += dx_f_drul_[LEFT] + 0.5 * notewidth;
+  left_x += dx_f_drul_[LEFT];
 
-  // ugh, do bow corrections (see brew_mol)
   Real left_y = dy_f_drul_[LEFT];
-  // ugh, where does this asymmetry come from?
-  if (dir_ == DOWN)
-    left_y -= dir_ * internote;
-
-  /*
-    urg, corrections for broken slurs: extra begin or end position 
-   */
-  int first = 0;
-  int n = encompass_arr_.size ();
-  if (encompass_arr_[0] != spanned_drul_[LEFT])
-    {
-      n += 1;
-      first = 1;
-      left_x = spanned_drul_[LEFT]->width ().length ();
-      left_y = 0;
-    }
-  if (encompass_arr_.top () != spanned_drul_[RIGHT])
-      n += 1;
-
-  Array<Offset> notes;
-  notes.set_size (n);
 
   Real dx = width ().length ();
   dx += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
   dx = dx <? 1000;
   dx = dx >? 2 * interline;
-    
+
   Real dy = (dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
   if (abs (dy) > 1000)
     dy = sign (dy) * 1000;
 
-  notes[0].x () = 0;
-  notes[0].y () = 0;
-  notes[n - 1].x () = dx;
-  notes[n - 1].y () = dy;
-  for (int i = 1; i < n - 1; i++)
+  int first = 1;
+  int last = encompass_arr_.size () - 1;
+  if (encompass_arr_[0] != spanned_drul_[LEFT])
     {
-      Stem* stem = encompass_arr_[i - first]->stem_l_;
+      first = 0;
+      left_x = spanned_drul_[LEFT]->width ().length ();
+      left_x -= 2 * notewidth;
+//      left_y = 0;
+      Stem* stem = encompass_arr_[last]->stem_l_;
+      left_y = stem->dir_ == dir_ ? stem->stem_end_f ()
+	: stem->stem_begin_f () + 0.5 * dir_;
+      dy = 0;
+    }
+  if (encompass_arr_.top () != spanned_drul_[RIGHT])
+    {
+      last += 1;
+      dy = 0;
+    }
+
+  Array<Offset> notes;
+  notes.push (Offset (0,0));
+  for (int i = first; i < last; i++)
+    {
+      Stem* stem = encompass_arr_[i]->stem_l_;
       /* 
 	set x to middle of notehead or on exact x position of stem,
 	according to slur direction
 	   */
-      Real x = stem->hpos_f () - left_x + notewidth / 2;
+      Real x = stem->hpos_f ();
+
       if (stem->dir_ != dir_)
-	x += notewidth / 2;
+	x += 0.5 * notewidth;
       else if (stem->dir_ == UP)
-	x += notewidth;
+	x += 1.0 * notewidth;
+
+      x -= left_x;
+
       Real y = stem->dir_ == dir_ ? stem->stem_end_f ()
-	: stem->stem_begin_f () + 2.5 * dir_;
+	: stem->stem_begin_f () + 0.5 * dir_;
 
       /*
 	leave a gap: slur mustn't touch head/stem
        */
       y += 2.5 * dir_;
+
+      // ugh: huh?
+      if (dir_ == DOWN)
+	y += 1.5 * dir_;
+
       y *= internote;
       y -= left_y;
 
-      notes[i].x () = x;
-      notes[i].y () = y;
+      notes.push (Offset (x, y));
     }
-  return notes;
-}
 
-Array<Offset>
-Slur::get_controls () const
-{
-  Bezier_bow b (paper ());
-  b.set (get_notes (), dir_);
-  b.calc ();
-  Array<Offset> controls;
-  controls.set_size (8);
-  for (int i = 0; i < 4; i++)
-    controls[i] = b.control_[i];
-  for (int i = 0; i < 4; i++)
-    controls[i + 4] = b.return_[i];
-  return controls;
+  notes.push (Offset (dx, dy));
+
+  return notes;
 }
 

@@ -266,4 +266,5 @@ AC_OUTPUT(config.make)
 
 rm -f Makefile
 cp make/Toplevel.make.in ./Makefile
-chmod 555 Makefile
+chmod 444 Makefile
+

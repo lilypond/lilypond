@@ -1,4 +1,22 @@
+pl 58
+	- more *.make hacking
+	- bracket fix (AG)
+	- clef fix (PC)
 
+pl 57.jcn1
+	- reincluded test/bow.cc
+	- promoted Bezier bows to standard
+	  * bf's: broken slurs
+	  * some bf's: verneukeratificering van JCN code
+	  * some bezier slur doco
+	  * calculate Ties with Bezier bow
+	  * junked tex-slur.cc
+	  * junked ps-slur code
+	  * junked height-only slur-correction
+	  * lots of bezier/slur fixes
+	  * bezier:blow_fit
+
+**************
 pl 57
 	- verneukeratificering van JCN code.
 	- lots of updates on our own makefile system.
@@ -13,6 +31,10 @@ pl 57
 	- debian patches (AF)
 	- solaris/irix patches (AO)
 
+
+pl 56.jcn5
+	- bezier and slur: cleaning and fixes
+	- bf: removed silly experimental beam feature
 
 pl 56.jcn4
 	- reintruduced slope in bug [c8 c16 c16] in favour of stemlen bug...

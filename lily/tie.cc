@@ -12,6 +12,7 @@
 #include "p-col.hh"
 #include "debug.hh"
 
+IMPLEMENT_IS_TYPE_B1(Tie,Bow);
 
 void
 Tie::set_head (Direction d, Note_head * head_l)
@@ -93,7 +94,9 @@ Tie::do_post_processing()
       if (head_l_drul_[d] && head_l_drul_[d]->extremal_i_)
 	{
 	  /* normal tie between noteheads, with gap of space */
-	  dx_f_drul_[d] += -d * (0.5 * nw_f + gap_f);
+	  if (d == LEFT)
+	    dx_f_drul_[d] +=  nw_f;
+	  dx_f_drul_[d] += -d * gap_f;
 	  /* attach to outer 3/4 end of head */
 	  dy_f_drul_[d] += dir_ * 0.25 * interline_f;
 	}
@@ -121,4 +124,3 @@ Tie::do_substitute_dependency (Score_elem*o, Score_elem*n)
     head_l_drul_[RIGHT] = new_l;
 }
 
-IMPLEMENT_IS_TYPE_B1(Tie,Bow);

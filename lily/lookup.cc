@@ -19,6 +19,7 @@
 #include "tex.hh"
 #include "scalar.hh"
 #include "paper-def.hh"
+#include "string-convert.hh"
 #include "main.hh"
 
 Lookup::Lookup()
@@ -143,6 +144,45 @@ Lookup::flag (int j, Direction d) const
 {
   char c = (d == UP) ? 'u' : 'd';
   return (*symtables_p_)("flags")->lookup (c + String (j));
+}
+
+Atom
+Lookup::slur (Array<Offset> controls) const
+{
+  assert (postscript_global_b);
+  assert (controls.size () == 8);
+
+  String ps = "\\embeddedps{\n";
+  
+#if 1
+  for (int i = 1; i < 4; i++)
+    ps += String_convert::double_str (controls[i].x ()) + " "
+      + String_convert::double_str (controls[i].y ()) + " ";
+
+  Real dx = controls[3].x ();
+  Real dy = controls[3].y ();
+  for (int i = 5; i < 8; i++)
+    ps += String_convert::double_str (controls[i].x () - dx) + " "
+      + String_convert::double_str (controls[i].y () - dy) + " ";
+#else
+  // this would be nice
+  for (int i = 1; i < 4; i++)
+    ps += String_convert::double_str (controls[i].x ()) + " "
+      + String_convert::double_str (controls[i].y ()) + " ";
+
+  for (int i = 5; i < 8; i++)
+    ps += String_convert::double_str (controls[i].x ()) + " "
+      + String_convert::double_str (controls[i].y ()) + " ";
+#endif
+
+  ps += " draw_slur}";
+
+  Atom s;
+  s.tex_ = ps;
+  
+  s.dim_[X_AXIS] = Interval (0, dx);
+  s.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
+  return s;
 }
 
 Atom
@@ -297,5 +337,4 @@ Lookup::vbracket (Real &y) const
 
   return bracket;
 }
-
 
