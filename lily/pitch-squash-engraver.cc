@@ -10,6 +10,14 @@
 #include "note-head.hh"
 #include "pitch-squash-engraver.hh"
 #include "rhythmic-head.hh"
+#include "engraver.hh"
+
+class Pitch_squash_engraver : public Engraver {
+public:
+  VIRTUAL_COPY_CONS (Translator);
+  virtual void acknowledge_element (Score_element_info);
+};
+
 
 void
 Pitch_squash_engraver::acknowledge_element (Score_element_info i)
