@@ -136,11 +136,13 @@ input ital-p;
 
 slant:=.28;      % tilt ratio $(\Delta x/\Delta y)$
 %stem#:=38/36pt#;    % lowercase stem breadth
-stem#:=28/36pt#;    % lowercase stem breadth
+%stem#:=28/36pt#;    % lowercase stem breadth
+stem#:=32/36pt#;    % lowercase stem breadth
 % ess#:=35/36pt#;      % breadth in middle of lowercase s
 ess#:=28/36pt#;      % breadth in middle of lowercase s
 %hair#:=20/36pt#;    % lowercase hairline breadth
-hair#:=16/36pt#;    % lowercase hairline breadth
+% hair#:=16/36pt#;    % lowercase hairline breadth
+hair#:=14/36pt#;    % lowercase hairline breadth
 %vair#:=13/36pt#;    % vertical diameter of hairlines
 vair#:=9/36pt#;    % vertical diameter of hairlines
 % flare#:=42/36pt#;    % diameter of bulbs or breadth of terminals
@@ -155,7 +157,8 @@ curve#:=43/36pt#;    % lowercase curve breadth
 % Chester, Breitkopf suggest smaller sizes of these other chars,
 % using the x-height as reference point.
 % x_height#:=160/36pt#;    % height of lowercase without ascenders
-x_height#:=145/36pt#;    % height of lowercase without ascenders
+% x_height#:=145/36pt#;    % height of lowercase without ascenders
+x_height#:=135/36pt#;    % height of lowercase without ascenders
 
 font_setup;
 

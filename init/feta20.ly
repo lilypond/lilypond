@@ -1,5 +1,5 @@
 % generated automatically by mf-to-table.py version 0.4
-% on Wed Dec  3 11:10:47 1997
+% on Thu Dec  4 23:42:34 1997
 % Do not edit
 % input from out/feta20.log
 % name=\symboltables {

@@ -1,0 +1,26 @@
+% feta-nummer5.mf
+% part of LilyPond's pretty-but-neat music font
+
+input autometric;
+
+fet_beginfont("feta-nummer", 5);
+
+mode_setup;
+
+test:=0;
+input feta-macros;
+
+% copied from 4; will it work?
+height#:=designsize;
+thick#:=7/30height#;
+thin#:=thick#/4;
+hair#:=thin#/2;
+kuulleke#:=hair#;
+%kuulleke#:=0;
+
+input feta-nummer;
+
+fet_endfont("feta-nummer");
+
+end.
+
