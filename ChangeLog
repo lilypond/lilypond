@@ -1,5 +1,8 @@
 2005-01-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/chord-name.scm (alteration->text-accidental-markup): change
+	- to . 
+
 	* scm/output-ps.scm (utf8-string): add utf8-string for completeness.
 
 	* scm/framework-ps.scm (dump-stencil-as-EPS): new function

@@ -490,7 +490,8 @@ output = {
 		OUTPUT: r'''
 @iftex
 @include %(base)s-systems.texi
-@end iftex''',
+@end iftex
+''',
 
 		OUTPUTIMAGE: r'''@noindent
 @ifnottex
