@@ -913,7 +913,7 @@ if 1:
 			if verbose_p:
 				traceback.print_exc ()
 			else:
-				ly.warning (_("Running LaTeX falied. Rerun with --verbose for a trace."))
+				ly.warning (_("Running LaTeX failed. Rerun with --verbose for a trace."))
 				
 	if page_images_p:
 		ly.make_ps_images (outbase + '.ps' )

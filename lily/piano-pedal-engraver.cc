@@ -61,18 +61,18 @@ private:
   /*
     Record a stack of the current pedal spanners, so if more than one pedal
     occurs simultaneously then extra space can be added between them.
-
-
-    Why 4, why not 3. Why not 3423 ?  ---hwn.
   */
   
-  Spanner *previous_ [4];
+  Link_array<Spanner> previous_;
   
   int spanner_count_;
 
   /*
     Left and right flare widths of a \___/, as specified by the grob
     property edge-widen.
+
+    UGR. No GC protection.
+    
    */
   Drul_array<SCM> edge_width_drul_;
   
@@ -94,9 +94,7 @@ Piano_pedal_engraver::initialize ()
   Pedal_info *p = info_list_;
 
   spanner_count_ = 0;
-  for (int i = 0; i < 3; ++i)
-    previous_[i] = 0; 
-
+  previous_.clear ();
 
   char * names [] = { "Sostenuto", "Sustain", "UnaCorda", 0  };
   char **np = names ;
@@ -224,73 +222,92 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, SCM pedaltype)
   SCM s = SCM_EOL;
   SCM strings = get_property ( ("pedal" + String (p->name_) + "Strings").to_str0 ());
 
-  if (scm_ilength (strings) >= 3)
+  if (scm_ilength (strings) < 3)
     {
-      if (p->req_l_drul_[STOP] && p->req_l_drul_[START]) 
-	{
-	  if (pedaltype == ly_symbol2scm ("text")) 
-	    {
-	      if (!p->start_req_)
-		{
-		  p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'",  p->name_));
-		}
-	      else
-		{
-		  s = ly_cadr (strings);
-		}
-	      p->start_req_ = p->req_l_drul_[START];
-	    }
-	}
-      else if (p->req_l_drul_[STOP])
-	{ 
-	  if (pedaltype == ly_symbol2scm ("text"))
-	    {
-	      if (!p->start_req_)
-		{
-		  p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->name_));
-		}
-	      else
-		{
-		  s = ly_caddr (strings);
-		  spanner_count_ --;
-		}
-	      p->start_req_ = 0;
-	    }
-	}
-      else if (p->req_l_drul_[START])
-	{
-	  p->start_req_ = p->req_l_drul_[START];
-	  s = ly_car (strings);
-	  if (pedaltype == ly_symbol2scm ("text"))
-	    {
-	      spanner_count_ ++;
-	      previous_[spanner_count_] = p->line_spanner_;
-	      if (spanner_count_ > 1)
-		// add extra space below the previous already-occuring pedal
-		Side_position_interface::add_support (p->line_spanner_,
-						     previous_[spanner_count_ - 1]);
-	    }
-	}
+      Music * m =       p->req_l_drul_[START]; 
+      if (!m) m = p->req_l_drul_ [STOP];
+
+      String msg = _ ("Need 3 strings for piano pedals. No pedal made. ");
+      if (m)
+	m->origin().warning (msg);
+      else
+	warning (msg)
       
-      if (gh_string_p (s))
-	{
-	  String propname = String (p->name_) + "Pedal";
-	  b = get_property (propname.to_str0 ());
-	  p->item_ = new Item (b);
-	  p->item_->set_grob_property ("text", s);
-	  Axis_group_interface::add_element (p->line_spanner_, p->item_);
-	  
-	  announce_grob (p->item_,
-			 (p->req_l_drul_[START]
-			 ? p->req_l_drul_[START]
-			 : p->req_l_drul_[STOP])->self_scm ());
-	  
-	}
+      return ;
+    }
+
+  
+  if (p->req_l_drul_[STOP] && p->req_l_drul_[START]) 
+    {
       if (pedaltype == ly_symbol2scm ("text")) 
 	{
-	  p->req_l_drul_[START] = 0;
-	  p->req_l_drul_[STOP] = 0;
+	  if (!p->start_req_)
+	    {
+	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'",  p->name_));
+	    }
+	  else
+	    {
+	      s = ly_cadr (strings);
+	    }
+	  p->start_req_ = p->req_l_drul_[START];
 	}
+    }
+  else if (p->req_l_drul_[STOP])
+    { 
+      if (pedaltype == ly_symbol2scm ("text"))
+	{
+	  if (!p->start_req_)
+	    {
+	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->name_));
+	    }
+	  else
+	    {
+	      s = ly_caddr (strings);
+	      spanner_count_ --;
+	      if (previous_.size ())
+		previous_.pop();
+	    }
+	  p->start_req_ = 0;
+	}
+    }
+  else if (p->req_l_drul_[START])
+    {
+      p->start_req_ = p->req_l_drul_[START];
+      s = ly_car (strings);
+      if (pedaltype == ly_symbol2scm ("text"))
+	{
+	  spanner_count_ ++;
+
+	  /*
+	    Code dup?! see below.
+	  */
+	  if (previous_.size ())
+	    // add extra space below the previous already-occuring pedal
+	    Side_position_interface::add_support (p->line_spanner_,
+						  previous_.top ());
+	  previous_.push ( p->line_spanner_);
+	}
+    }
+      
+  if (gh_string_p (s))
+    {
+      String propname = String (p->name_) + "Pedal";
+      b = get_property (propname.to_str0 ());
+      p->item_ = new Item (b);
+      p->item_->set_grob_property ("text", s);
+      Axis_group_interface::add_element (p->line_spanner_, p->item_);
+	  
+      announce_grob (p->item_,
+		     (p->req_l_drul_[START]
+		      ? p->req_l_drul_[START]
+		      : p->req_l_drul_[STOP])->self_scm ());
+	  
+    }
+
+  if (pedaltype == ly_symbol2scm ("text")) 
+    {
+      p->req_l_drul_[START] = 0;
+      p->req_l_drul_[STOP] = 0;
     }
 }
 
@@ -305,8 +322,12 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
 	  p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->name_));
 	}
       else if (!p->req_l_drul_[START])
-	spanner_count_ -- ;
-
+	{
+	  spanner_count_ -- ;
+	  if (previous_.size())
+	    previous_.pop();
+	}
+      
       assert (!p->finished_bracket_ && p->bracket_);
 
       Grob *cmc = unsmob_grob (get_property ("currentMusicalColumn"));
@@ -339,6 +360,14 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
       */
 
       SCM ew = p->bracket_->get_grob_property ("edge-widen");
+
+      /*
+	WTF is this doing here?
+
+	This must go to the backend.
+
+	--HWN.
+       */
       edge_width_drul_[LEFT] =  ly_car (ew);
       edge_width_drul_[RIGHT] = ly_cdr (ew);
       
@@ -372,12 +401,16 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
 
       if (!p->req_l_drul_[STOP])
 	{
-	  spanner_count_ ++;
-	  previous_[spanner_count_] = p->line_spanner_;	
 
-	  if (spanner_count_ > 1) 
+	  /*
+	    code dup.
+	   */
+	  spanner_count_ ++;
+	  if (previous_.size()) 
 	    // position new pedal spanner below the current one
-	    Side_position_interface::add_support (p->line_spanner_, previous_[spanner_count_ - 1]);
+	    Side_position_interface::add_support (p->line_spanner_, previous_.top());
+
+	  previous_.push (p->line_spanner_);	
 	}
     }
 

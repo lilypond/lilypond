@@ -1,3 +1,17 @@
+2003-07-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond-book.py (option_definitions): typo
+
+	* scripts/ly2dvi.py (include_path): typo
+
+	* make/lilypond.redhat.spec.in (Group): add INSTALL.txt
+
+	* lily/parse-scm.cc (parse_handler): typo
+
+	* Documentation/user/macros.itexi: use @heading for headings.
+
+	* Documentation/user/refman.itely: updates, fixes.
+
 2003-07-23  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* po/fi.po: add Finnish translations.
@@ -5,6 +19,9 @@
 	* stepmake/stepmake/toplevel-targets.make: rpm-mandrake -> rpm-mdk.
 
 2003-07-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/volta-bracket.cc (brew_molecule): opps: only wipe number
+	for non-first _broken_ bracket.
 
 	* Documentation/user/refman.itely: corrections.
 

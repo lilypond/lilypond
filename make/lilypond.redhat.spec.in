@@ -144,7 +144,7 @@ scrollkeeper-update
 %doc DEDICATION
 %doc README.txt
 %doc AUTHORS.txt
-
+%doc INSTALL.txt
 
 %if %{info}
 %{_infodir}/*

@@ -44,12 +44,12 @@ Volta_bracket_interface::brew_molecule (SCM smob)
 
   Spanner *orig_span =  dynamic_cast<Spanner*> (me->original_);
 
-  bool first_bracket = orig_span && (orig_span->broken_intos_[0] == (Spanner*)me);
-  
-  bool last_bracket = orig_span && (orig_span->broken_intos_.top () == (Spanner*)me);
+  bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0] == (Spanner*)me);
 
-  bool no_vertical_start = orig_span && !first_bracket;
-  bool no_vertical_end = orig_span && !last_bracket;
+  bool broken_last_bracket = orig_span && (orig_span->broken_intos_.top () == (Spanner*)me);
+
+  bool no_vertical_start = orig_span && !broken_first_bracket;
+  bool no_vertical_end = orig_span && !broken_last_bracket;
   SCM s = me->get_grob_property ("bars");
   Grob * endbar =   unsmob_grob (ly_car (s));
   SCM glyph = endbar->get_grob_property("glyph");
@@ -103,7 +103,7 @@ Volta_bracket_interface::brew_molecule (SCM smob)
   mol.add_molecule (start);
   mol.add_molecule (end);
 
-  if (first_bracket)
+  if (!orig_span || broken_first_bracket)
     {
       SCM text = me->get_grob_property ("text");
       SCM properties = me->get_property_alist_chain (SCM_EOL);

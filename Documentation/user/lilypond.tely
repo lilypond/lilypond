@@ -61,6 +61,8 @@ besides the reader and the writer.
 print. Instead refer to an example input file (@inputfileref), these
 are clickable in HTML.
 
+* abbrevs in caps, e.g. HTML, DVI, MIDI, etc.
+
 @end ignore
 
 @ifhtml

@@ -76,7 +76,7 @@ parse_handler (void * data, SCM tag, SCM args)
 {
   Parse_start* ps = (Parse_start*) data;
 
-  ps->start_location_.error (_("GUILE signaled an error for the expression begining here"));
+  ps->start_location_.error (_("GUILE signaled an error for the expression beginning here"));
 
   if (scm_ilength (args) > 2)
     scm_display_error_message (gh_cadr (args), gh_caddr(args), scm_current_error_port());

@@ -280,11 +280,11 @@ column location.
 @c move this elsewhere?
 
 There is also support for emacs: lilypond-mode for emacs provides
-keyword autocompletion, indentation, LilyPond specific parenthesis matching
-and syntax coloring, handy compile short-cuts and reading LilyPond manuals 
-using Info.  If lilypond-mode
-is not installed on your platform, then refer to the installation
-instructions for more information.
+keyword autocompletion, indentation, LilyPond specific parenthesis
+matching and syntax coloring, handy compile short-cuts and reading
+LilyPond manuals using Info.  If lilypond-mode is not installed on
+your platform, then refer to the installation instructions for more
+information.
 
 @cindex emacs
 @cindex emacs mode
