@@ -185,8 +185,24 @@ DEEP_HTML_FILES =\
  $(outdir)/lilypond/index.html\
  $(outdir)/lilypond-internals/index.html
 
+# Symlinks to refer to external source documents from split and non-split HTML
+source-links = $(outdir)/source $(outdir)/lilypond/source # $(outdir)/music-glossary/source
+
+$(outdir)/source:
+	@rm -f $(@)
+	ln -sf ../../../ $(@)
+
+$(outdir)/lilypond/source:
+	@rm -f $(@)
+	ln -sf ../../../../ $(@)
+
+# not available in 2.4 as split document
+#$(outdir)/music-glossary/source:
+#	@rm -f $(@)
+#	ln -sf ../../../../ $(@)
+
 local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\
- $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) info info-dir
+ $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) $(source-links) info info-dir
 
 local-WWW-clean: deep-WWW-clean
 

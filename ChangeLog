@@ -1,3 +1,16 @@
+2005-04-03  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* GNUmakefile.in: Include symlinks in webball.
+
+	* Documentation/user/GNUmakefile (source-links): Add symlinks to
+	source dir for split and non-split manuals.
+
+	* Documentation/user/*y: Fix @uref/@inputfile links for
+	split/non-split HTML documents.
+
+	* stepmake/bin/add-html-footer.py (do_file): Remove info's
+	annoying's indication of referencing external document.
+
 2005-04-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* buildscripts/install-info-html.sh: Fix link.

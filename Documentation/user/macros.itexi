@@ -60,12 +60,9 @@
 
 
 
-@c dup?
 @ifhtml
+@c ***** HTML *****
 
- @c ***** HTML *****
-
-@macro internalsref{NAME}@c
 @c makeinfo-4.7 encodes html names, which means that nodes that
 @c contain nonalphanum characters will be broken links on the website.
 @c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
@@ -73,44 +70,39 @@
 @c better than a broken link.
 @c @inforef{\NAME\,,lilypond-internals}@c
 @c using @ref without punctuation is OK without for formats other than info
+ 
+@macro internalsref{NAME}@c
+@c annoying parentheses stripped by add-html-footer.py
 @ref{\NAME\,,,lilypond-internals}@c
-@c should we do this? 
 @findex \NAME\
 @end macro
 
-
- @macro inputfileref{DIR,NAME}
- @uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
- @end macro
+@c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
+@macro inputfileref{DIR,NAME}
+@uref{source/\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@end macro
 
 @end ifhtml
 
-@c dup?
+
 @ifdocbook
+@c ***** DOCBOOK-XML *****
 
- @c ***** DOCBOOK-XML *****
-
- @macro internalsref{NAME}
- @c makeinfo-4.7 encodes html names
- @c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
- @inforef{\NAME\,,lilypond-internals}@c
- @c should we do this? 
- @findex @code{\NAME\}
- @end macro
+@macro internalsref{NAME}
+@ref{\NAME\,,,lilypond-internals}@c
+@findex @code{\NAME\}
+@end macro
  
- @macro usermanref{NAME}
- @inforef{\NAME\,,lilypond}@c
- @end macro
-
- @macro inputfileref{DIR,NAME}
- @uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
- @end macro
+@macro inputfileref{DIR,NAME}
+@uref{source/\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@end macro
 
 @end ifdocbook
 
-@ifinfo
 
+@ifinfo
 @c **** INFO ****
+
 @macro internalsref{NAME}
 @inforef{\NAME\,,lilypond/lilypond-internals}@c
 @findex \NAME\@c
@@ -126,8 +118,9 @@
 
 @end ifinfo
 
-@c **** TEX ****
+
 @iftex
+@c **** TEX ****
 
 @macro internalsref{NAME}@c
 @findex \NAME\ @c

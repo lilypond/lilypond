@@ -9,8 +9,8 @@
 @end direntry
 
 @ifhtml
-This document is also available in @uref{music-glossary.ps.gz,gzipped
-PostScript} and @uref{music-glossary.pdf,PDF}.
+This document is also available in @uref{source/Documentation/user/out-www/music-glossary.ps.gz,gzipped
+PostScript} and @uref{source/Documentation/user/out-www/music-glossary.pdf,PDF}.
 @end ifhtml
 
 @titlepage
