@@ -1849,6 +1849,16 @@ For finger changes, use markup texts:
 @cindex superscript
 @cindex subscript
 
+You can use the thumb-script to indicate that a note should be
+played with your thumb (used in cello music):
+
+@lilypond[verbatim, singleline, fragmnt]
+      <<a' a''-3>>8-(_\thumb-[ <<b' b''-3>>-)_\thumb
+      <<c'' c'''-3>>-(_\thumb <<d'' d'''-3>>-)_\thumb-]
+@end lilypond
+
+Fingering for chords can be notated like this:
+
 @lilypond[verbatim,singleline,fragment,relative=1]
         << c-1  e-2 g-3 b-5 >> 4
 	\property Voice.fingerHorizontalDirection = #LEFT
