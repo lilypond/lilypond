@@ -1,3 +1,7 @@
+2003-11-17  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/midi2ly.py: Add space after chords.
+
 2003-11-07  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* input/regression/{many}: add few @code{ ... }.

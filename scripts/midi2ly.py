@@ -792,7 +792,7 @@ def dump_chord (ch):
 			s = s + i.dump (dump_dur = 0 )
 		s = s + '>'
 
-		s = s + notes[0].duration.dump()
+		s = s + notes[0].duration.dump() + ' '
 		reference_note = r
 	return s
 
