@@ -117,7 +117,7 @@ top-WWW-clean:
 
 WWW:
 
-default: builddir-setup
+default: $(config_h) builddir-setup
 
 builddir-setup: $(builddir)/share/lilypond-force
 
@@ -148,3 +148,15 @@ $(builddir)/share/lilypond-force:
 local-clean: builddir-setup-clean
 builddir-setup-clean:
 	@cd $(builddir) && rm -rf share
+
+$(config_h): configure
+#
+# this is to prevent people from getting
+# undefined symbols  when we add them to config.h.in,
+# and they blindly run "cvs update; make".
+#
+	@echo
+	@echo ' *** config.h file is out of date'
+	@echo ' *** Rerun configure or autogen.sh'
+	@echo
+	@false
