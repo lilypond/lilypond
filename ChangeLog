@@ -1,3 +1,7 @@
+2002-06-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mutopia/claop.py: new file: CLA(O)P II by Peter Wallin.
+
 2002-06-19  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/parser.yy: various protection fixes. Less objects are now
