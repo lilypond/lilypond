@@ -11,6 +11,7 @@ copyright =	 "public domain";
 
 \include "global.ly"
 \include "corni.ly"
+
 \score{
 	\corniStaff
 	\include "coriolan-part-combine-paper.ly"
