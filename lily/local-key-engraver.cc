@@ -19,14 +19,15 @@
 
 Local_key_engraver::Local_key_engraver()
 {
-  key_C_ = 0;
+  key_grav_l_ = 0;
   key_item_p_ =0;
+  self_grace_b_ = false;
 }
 
 void
 Local_key_engraver::do_creation_processing ()
 {
-/*
+  /*
     UGHGUHGUH.
 
     Breaks if Key_engraver is removed from under us.
@@ -34,15 +35,23 @@ Local_key_engraver::do_creation_processing ()
   Translator * result =
     daddy_grav_l()->get_simple_translator ("Key_engraver");
 
-  if (!result)
+  key_grav_l_ = dynamic_cast<Key_engraver *> (result);
+
+  if (!key_grav_l_)
     {
       warning (_ ("out of tune") + "! " + _ ("can't find") + " Key_engraver");
     }
   else
     {
-      key_C_ = &(dynamic_cast<Key_engraver *> (result))->key_;
-      local_key_ = *key_C_;
+      local_key_ = key_grav_l_->key_;
     }
+
+  self_grace_b_ = get_property ("weAreGraceContext",0 ).to_bool ();
+
+  /*
+    TODO
+    (if we are grace) get key info from parent Local_key_engraver
+  */
 }
 
 void
@@ -85,6 +94,12 @@ Local_key_engraver::process_acknowledged ()
 }
 
 void
+Local_key_engraver::do_removal_processing ()
+{
+  // TODO: signal accidentals to Local_key_engraver the 
+}
+
+void
 Local_key_engraver::do_pre_move_processing()
 {
   if (key_item_p_)
@@ -107,17 +122,17 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
 {    
   Note_req * note_l =  dynamic_cast <Note_req *> (info.req_l_);
   Note_head * note_head = dynamic_cast<Note_head *> (info.elem_l_);
+
+  bool gr = (info.elem_l_->get_elt_property (grace_scm_sym)!=SCM_BOOL_F);
+  if (gr != self_grace_b_)
+    return;
   
   if (note_l && note_head)
     {
       mel_l_arr_.push (note_l);
       support_l_arr_.push (note_head);
     }
-  else if (dynamic_cast <Key_change_req*> (info.req_l_))
-    {
-      local_key_ = *key_C_;
-    }
-  else if (Tie * tie_l = dynamic_cast<Tie *> (info.elem_l_))
+ else if (Tie * tie_l = dynamic_cast<Tie *> (info.elem_l_))
     {
       tied_l_arr_.push (tie_l-> head_l_drul_[RIGHT]);
     }
@@ -130,8 +145,12 @@ Local_key_engraver::do_process_requests()
   if (time_C_ && !time_C_->whole_in_measure_)
     {
       bool no_res = get_property ("noResetKey",0).to_bool ();
-      if (!no_res && key_C_)
-	local_key_= *key_C_;
+      if (!no_res && key_grav_l_)
+	local_key_= key_grav_l_->key_;
+    }
+  else if (key_grav_l_ && key_grav_l_->key_changed_b ())
+    {
+      local_key_ = key_grav_l_->key_;
     }
 }
 

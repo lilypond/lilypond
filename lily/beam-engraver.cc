@@ -138,11 +138,11 @@ Beam_engraver::acknowledge_element (Score_element_info info)
       if (!stem_l || stem_l->beam_l_)
 	return;
 
-      bool self_grace = beam_p_->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+
       bool stem_grace = stem_l->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
 
-      if (!self_grace && stem_grace)
-	return;
+      if (get_property ("weAreGraceContext",0).to_bool () != stem_grace)
+ 	return;
 
       Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
       if (!rhythmic_req)
