@@ -5,6 +5,7 @@
 #   ...
 #
 # (not finished.)
+# ABC standard v1.6:  http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt
 # 
 
 program_name = 'abc-to-ly'
@@ -14,7 +15,11 @@ import getopt
 import sys
 import re
 import string
-import mpz
+try:
+	import mpz
+except:
+	sys.stderr.write ("This script needs Python 1.5.1\n")
+	sys.exit (1)
 
 
 header = {}
@@ -51,7 +56,7 @@ def dump_header (hdr):
 	print '\\header {'
 	for k in hdr.keys ():
 		print '%s = "%s";\n'% (k,hdr[k])
- 	print '};'
+ 	print '}'
 
 def set_default_length (s):
 	m =  re.search ('1/([0-9]+)', s)
@@ -175,6 +180,7 @@ def compute_key (k):
 tup_lookup = {
 	'3' : '2/3',
 	'4' : '4/3',
+	'5' : '4/5',
 	'6' : '4/6',
 	}
 
@@ -196,12 +202,19 @@ def  try_parse_group_end (str, state):
 			print '}'
 	return str
 
+def header_append (key, a):
+	s = ''
+	if header.has_key (key):
+		s = header[key] + "\n"
+	header [key ] = s + a
+
 def try_parse_header_line (ln):
 	m = re.match ('^(.): *(.*)$', ln)
 
 	if m:
 		g =m.group (1)
 		a = m.group (2)
+		a = re.sub ('"', '\\"', a)
 		if g == 'T':
 			header['title'] =  a
 		if g == 'M':
@@ -216,11 +229,10 @@ def try_parse_header_line (ln):
 			header ['origin'] = a
 		if g == 'X': 
 			header ['crossRefNumber'] = a
-
 		if g == 'A':
 			header ['area'] = a
 		if g == 'H':
-			header ['history'] = a
+			header_append ('history', a)
 		if g == 'B':
 			header ['book'] = a
 		if g == 'S':
@@ -244,6 +256,7 @@ def pitch_to_mudela_name (name, acc):
 	return chr (name  + ord('c'))  + s * acc
 
 def octave_to_mudela_quotes (o):
+	o = o + 2
 	s =''
 	if o < 0:
 		o = -o
@@ -385,7 +398,7 @@ def try_parse_guitar_chord (str):
 		if str:
 			str = str[1:]
 
-		print "guitar chord: %s\n" % gc
+		sys.stderr.write ("warning: ignoring guitar chord: %s\n" % gc)
 		
 	return str
 
@@ -399,6 +412,14 @@ def try_parse_escape (str):
 
 	return str
 
+#
+# |] thin-thick double bar line
+# || thin-thin double bar line
+# [| thick-thin double bar line
+# :| left repeat
+# |: right repeat
+# :: left-right repeat
+#
 
 def try_parse_bar (str):
 	if str and str[0] == '|':
@@ -409,9 +430,28 @@ def try_parse_bar (str):
 				bs = '|.'
 			if str[0] == '|':
 				bs = '||'
-
+			if str[0] == '|:':
+				sys.stderr.write ("warning: repeat kludge\n")
+				bs = '|:'
 		if bs:
 			print '\\bar "%s";' % bs
+			str = str[1:]
+
+	if str and str[:2] == '[|':
+		sys.stderr.write ("warning: thick-thin bar kludge\n")
+		print '\\bar "||";'
+		str = str[2:]
+
+	if str and str[:2] == ':|':
+		sys.stderr.write ("warning: repeat kludge\n")
+		print '\\bar ":|:";'
+		str = str[2:]
+
+	if str and str[:2] == '::':
+		sys.stderr.write ("warning: repeat kludge\n")
+		print '\\bar ":|:";'
+		str = str[2:]
+
 	return str
 	
 
@@ -423,6 +463,19 @@ def try_parse_chord_delims (str):
 	if str and str[0] == ']':
 		str = str[1:]
 		print '>'
+
+	return str
+
+# urg, hairy to compute grace note hack using \times{}
+def try_parse_grace_delims (str):
+	if str and str[0] == '{':
+		str = str[1:]
+		sys.stderr.write ("warning: expanding grace notes\n")
+		print '\\tiny '
+
+	if str and str[0] == '}':
+		str = str[1:]
+		print '\\normalsize '
 
 	return str
 
@@ -438,13 +491,11 @@ def try_parse_body_line (ln, state):
 		ln = try_parse_guitar_chord (ln)
 		ln = try_parse_tuplet_begin (ln, state)
 		ln = try_parse_group_end (ln, state)
+		ln = try_parse_grace_delims (ln)
 		ln = junk_space (ln)
 		
 	if ln:
-		print 'Huh?  Don\'t understand `%s\'' % ln
-		
-
-
+		sys.stderr.write ("Huh?  Don't understand `%s'\n" % ln)
 	
 
 
@@ -468,7 +519,7 @@ def parse_file (fn):
 
 
 def identify():
-	print '%s from LilyPond %s' % (program_name, version)
+	sys.stderr.write ("%s from LilyPond %s\n" % (program_name, version))
 
 def help ():
 	print r"""
@@ -499,7 +550,13 @@ for f in files:
 	if f == '-':
 		f = ''
 	
+	print ("\\score{")
+	print ("    <")
+	print ("        \\context Staff=one \\notes {")
 	parse_file (f)
+	print ("        }")
+	print ("    >")
 	dump_header (header)
-	print global_voice_stuff, 1
+	print "%%%s" % global_voice_stuff, 1
+	print ("}")
 	
