@@ -403,6 +403,7 @@ or
 %type <scm>	context_def_spec_block context_def_spec_body
 %type <scm>	context_mod context_def_mod optional_context_mod
 %type <scm>	context_prop_spec
+%type <scm>	direction_less_char
 %type <scm>	duration_length fraction
 %type <scm>	embedded_scm scalar
 %type <scm>	identifier_init
@@ -1743,45 +1744,53 @@ string_number_event:
 	}
 	;
 
-
-direction_less_event:
+direction_less_char:
 	'['  {
-
-
-/*
-
-TODO: should take all these defs out of the parser, adn make use
-configurable, i.e.
-
-
-(set-articulation '~ "trill")
-
-*/
-		Music *m = MY_MAKE_MUSIC ("BeamEvent");
-		m->set_spot (THIS->here_input ());
-		m->set_property ("span-direction", scm_int2num (START));
-		$$ = m;
+		$$ = ly_symbol2scm ("bracketOpenSymbol");
 	}
 	| ']'  {
-		Music *m = MY_MAKE_MUSIC ("BeamEvent");
+		$$ = ly_symbol2scm ("bracketCloseSymbol"); 
+	}
+	| '~'  {
+		$$ = ly_symbol2scm ("tildeSymbol");
+	}
+	| '('  {
+		$$ = ly_symbol2scm ("parenthesisOpenSymbol");
+	}
+	| ')'  {
+		$$ = ly_symbol2scm ("parenthesisCloseSymbol");
+	}
+	| E_EXCLAMATION  {
+		$$ = ly_symbol2scm ("escapedExclamationSymbol");
+	}
+	| E_OPEN  {
+		$$ = ly_symbol2scm ("escapedParenthesisOpenSymbol");
+	}
+	| E_CLOSE  {
+		$$ = ly_symbol2scm ("escapedParenthesisCloseSymbol");
+	}
+	| E_BIGGER  {
+		$$ = ly_symbol2scm ("escapedBiggerSymbol");
+	}
+	| E_SMALLER  {
+		$$ = ly_symbol2scm ("escapedSmallerSymbol");
+	}
+	;
+
+direction_less_event:
+	direction_less_char  {
+		SCM predefd = THIS->lexer_->lookup_identifier_symbol ($1);
+		Music * m = 0:
+		if (unsmob_music (predefd))
+		{
+			m = unsmob_music (predefd)->clone ();
+		}
+		else
+		{
+			m = MY_MAKE_MUSIC ("Music");
+		}
 		m->set_spot (THIS->here_input ());
-		m->set_property ("span-direction", scm_int2num (STOP));
-		$$ = m;
-	}
-	| '~' {
-		Music *m = MY_MAKE_MUSIC ("TieEvent");
-		m->set_spot (THIS->here_input ());
-		$$ = m;
-	}
-	| close_event {
-		$$ = $1;
-		dynamic_cast<Music *> ($$)->set_property ("span-direction",
-			scm_int2num (START));
-	}
-	| open_event {
-		$$ = $1;
-		dynamic_cast<Music *> ($$)->set_property ("span-direction",
-			scm_int2num (STOP));
+		$$ = m;		
 	}
 	| EVENT_IDENTIFIER	{
 		$$ = unsmob_music ($1);
@@ -1879,52 +1888,6 @@ pitch:
 pitch_also_in_chords:
 	pitch
 	| steno_tonic_pitch
-	;
-
-close_event:
-	'('	{
-		Music *s = MY_MAKE_MUSIC ("SlurEvent");
-		$$ = s;
-		s->set_spot (THIS->here_input ());
-	}
-	| E_OPEN	{
-		Music *s = MY_MAKE_MUSIC ("PhrasingSlurEvent");
-		$$ = s;
-		s->set_spot (THIS->here_input ());
-	}
-	| E_SMALLER {
-		Music *s = MY_MAKE_MUSIC ("CrescendoEvent");
-		$$ = s;
-		s->set_spot (THIS->here_input ());
-	}
-	| E_BIGGER {
-		Music *s = MY_MAKE_MUSIC ("DecrescendoEvent");
-		$$ = s;
-		s->set_spot (THIS->here_input ());
-	}
-	;
-
-
-open_event:
-	E_EXCLAMATION 	{
-		Music *s = MY_MAKE_MUSIC ("CrescendoEvent");
-		s->set_spot (THIS->here_input ());
-
-		$$ = s;
-	}
-	| ')'	{
-		Music *s= MY_MAKE_MUSIC ("SlurEvent");
-		$$ = s;
-		s->set_spot (THIS->here_input ());
-
-	}
-	| E_CLOSE	{
-		Music *s= MY_MAKE_MUSIC ("PhrasingSlurEvent");
-		$$ = s;
-		s->set_property ("span-type",
-			scm_makfrom0str ("phrasing-slur"));
-		s->set_spot (THIS->here_input ());
-	}
 	;
 
 gen_text_def:

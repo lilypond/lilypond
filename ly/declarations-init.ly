@@ -40,8 +40,24 @@ noBreak = #(make-event-chord (list (make-penalty-music 10001 0)))
 pageBreak = #(make-event-chord (list (make-penalty-music -10001 -10001)))
 noPageBreak = #(make-event-chord (list (make-penalty-music 0 10001)))
 
+
+%
+% Code articulation definitions
+%
 noBeam = #(make-music 'BeamForbidEvent) 
 pipeSymbol = #(make-music 'BarCheck)
+bracketOpenSymbol = #(make-span-event 'BeamEvent START)
+bracketCloseSymbol = #(make-span-event 'BeamEvent STOP)
+tildeSymbol = #(make-music 'TieEvent)
+parenthesisOpenSymbol =  #(make-span-event 'SlurEvent START)
+parenthesisCloseSymbol = #(make-span-event 'SlurEvent STOP)
+escapedExclamationSymbol = #(make-span-event 'CrescendoEvent STOP)
+escapedParenthesisOpenSymbol = #(make-span-event 'PhrasingSlurEvent START)
+escapedParenthesisCloseSymbol = #(make-span-event 'PhrasingSlurEvent STOP)
+escapedBiggerSymbol = #(make-span-event 'CrescendoEvent START)
+escapedSmallerSymbol = #(make-span-event 'DecrescendoEvent START)
+
+
 
 foo = { \pageBreak }
 
