@@ -146,6 +146,7 @@ InnerChoirStaff
 \\InnerChoirStaffContext
 \\InnerStaffContainerContext
 \\InnerStaffContext
+InnerStaffGroup
 \\InnerStaffGroupContext
 \\inversions
 \\invisible
@@ -173,6 +174,7 @@ Ligature_bracket_engraver
 \\lyrics
 Lyrics
 \\LyricsContext
+LyricsVoice
 \\LyricsVoiceContext
 \\major
 \\magnify
@@ -354,6 +356,7 @@ SpacingSpanner
 \\staccatissimo
 \\staccato
 Staff
+StaffContainer
 \\StaffContainerContext
 \\StaffContext
 StaffGroup
@@ -386,6 +389,7 @@ System
 SystemStartDelimiter
 \\tab
 TabStaff
+TabVoice
 \\teeny
 \\tempo
 tenor
@@ -397,6 +401,7 @@ tenor
 TextScript 
 \\thenotes
 \\thrd
+Thread
 \\ThreadContext
 \\threevoice
 \\thumb
