@@ -1140,10 +1140,10 @@ voices with @code{\\}
    { r4 g4 f2 f4 } >>
 @end lilypond
 
-For polyphonic music typesetting, spacer rests can also be convenient; these
-are rests that do not print.  It is useful for filling up voices that
-temporarily do not play.  Here is the same example with a spacer rest
-instead of a normal rest---just use @samp{s} instead of @samp{r}
+For polyphonic music typesetting, spacer rests can also be convenient;
+these are rests that do not print.  They are useful for filling up
+voices that temporarily do not play.  Here is the same example with a
+spacer rest (@code{s}) instead of a normal rest (@code{r}),
 
 @lilypond[quote,verbatim,relative=2,fragment]
 << { a4 g2 f4~ f4 } \\
@@ -1193,7 +1193,7 @@ but now this entire expression must be interpreted as a
 \new PianoStaff << \new Staff @dots{} >>
 @end example
 
-Here is a full-fledged example
+Here is a small example
 
 @lilypond[quote,verbatim,relative=1,fragment]
 \new PianoStaff <<
@@ -1233,8 +1233,8 @@ seufzer = {
 { \seufzer \seufzer }
 @end lilypond
 
-The name of an identifier should have alphabetic characters only;
-no numbers, underscores or dashes.  The assignment should be outside of
+The name of an identifier should have alphabetic characters only; no
+numbers, underscores or dashes.  The assignment should be outside of
 running music.
 
 It is possible to use variables for many other types of objects in the
@@ -1258,14 +1258,15 @@ places.  The following example uses the above variables
 @end example
 
 More information on the possible uses of identifiers is in the
-technical manual, in TODO.
+technical manual, in @ref{Input variables and Scheme}.
+@c fixme: the ref is too technical.
 
 
 @node An orchestral part
 @section An orchestral part
 
-In orchestral music, all notes are printed twice; in a part for
-the musicians, and in a full score for the conductor.  Identifiers can
+In orchestral music, all notes are printed twice. Once in a part for
+the musicians, and once in a full score for the conductor.  Identifiers can
 be used to avoid double work. The music is entered once, and stored in
 a variable.  The contents of that variable is then used to generate
 both the part and the score.
@@ -1384,108 +1385,10 @@ leading to
 More in-depth information on preparing parts and scores can be found
 in the notation manual; see @ref{Orchestral music}.
 
-Setting run-time variables (`properties') is discussed in ref-TODO.
+Setting run-time variables (`properties') is discussed in
+@ref{Changing context properties on the fly}.
+
+@node Conclusion of the tutorial
+@section Conclusion of the tutorial
 
 
-@node Musicological essays
-@section Musicological essays
-
-@cindex musicology
-@cindex La@TeX{}, music in
-@cindex HTML, music in
-@cindex Texinfo, music in
-Some texts contain music examples.  These texts are musicological
-treatises, songbooks or manuals like this.  Such texts can be made by
-hand, simply by importing a PostScript figure into the word processor.
-However, there is an automated procedure to reduce the amount of work
-involved HTML, La@TeX{}, and Texinfo documents.
-
-A script called @code{lilypond-book} will extract the music fragments,
-run format them, and put back the resulting notation.  This program is
-fully described in @ref{lilypond-book manual}.  Here we show a small
-example.  The example also contains explanatory text, so we will not
-comment on it further
-
-@example
-\documentclass[a4paper]@{article@}
-\begin@{document@}
-
-Documents for lilypond-book may freely mix music and text.  For
-example,
-
-\begin@{lilypond@}
- @{ \relative c' @{
-     c2 g'2 \times 2/3 @{ f8 e d @} c'2 g4
-  @} 
-\end@{lilypond@}
-
-Options are put in brackets.
-
-\begin[fragment,quote,staffsize=26,verbatim]@{lilypond@}
-  c'4 f16
-\end@{lilypond@}
-
-Larger examples can be put in a separate file, and introduced with
-\verb+\lilypondfile+.
-
-\lilypondfile[quote,noindent]@{screech-boink.ly@}
-
-\end@{document@}
-@end example
-
-Under Unix, you can view the results as follows
-
-@example
-$ cd input/tutorial
-$ mkdir -p out/
-$ lilypond-book --output=out/ lilybook.tex
-lilypond-book (GNU LilyPond) 2.1.19
-Reading `input/tutorial/lilybook.tex'
-Reading `input/screech-boink.ly'
-@var{lots of stuff deleted}
-Writing `out/lilybook.tex'
-$ cd out
-$ latex lilybook
-@var{lots of stuff deleted}
-$ xdvi lilybook 
-@end example
-
-To convert the file into a nice PDF document, run the following
-commands
-
-@example
-$ dvips -Ppdf -u+lilypond -u+ec-mftrace lilybook
-$ ps2pdf lilybook.ps
-@end example
-
-Running lilypond-book and running latex creates a lot of temporary
-files, which would clutter up the working directory.  To remedy this,
-use the @code{--output=@var{dir}} option.  It will create the files in
-a separate subdirectory @file{dir}.
-
-Finally the result of the La@TeX{} example shown above.@footnote{ This
-tutorial is processed with Texinfo, so the example is as well.  This
-gives slightly different results in layout.}  This finishes the
-tutorial section.
-
-@page
-
-Documents for lilypond-book may freely mix music and text.  For
-example,
-
-@lilypond
-\relative c' {
-  c2 g'2 \times 2/3 { f8 e d } c'2 g4
-}
-@end lilypond
-
-Options are put in brackets.
-
-@lilypond[fragment,quote,staffsize=26,verbatim]
-c'4 f16
-@end lilypond
-
-Larger examples can be put in a separate file, and introduced with
-@code{\lilypondfile}.
-
-@lilypondfile[quote,noindent]{screech-boink.ly}
