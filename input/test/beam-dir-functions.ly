@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
   texidoc = "@cindex Beam Dir Functions
 
@@ -24,19 +24,19 @@ your favourite algorithm isn't one of these, you can hook up your own.
 \paper { raggedright = ##t}
 \score {
   \notes\relative c'' {\time 3/4
-    \property Voice.Beam \set #'dir-function = #beam-dir-majority
+    \override Beam  #'dir-function = #beam-dir-majority
       c8[ g]
-    \property Voice.Beam \set #'dir-function = #beam-dir-mean
+    \override Beam  #'dir-function = #beam-dir-mean
       c[ g] 
-    \property Voice.Beam \set #'dir-function = #beam-dir-median
+    \override Beam  #'dir-function = #beam-dir-median
       c[ g]
     
     \time 3/8
-    \property Voice.Beam \set #'dir-function = #beam-dir-majority
+    \override Beam  #'dir-function = #beam-dir-majority
       c8[ c g]
-    \property Voice.Beam \set #'dir-function = #beam-dir-mean
+    \override Beam  #'dir-function = #beam-dir-mean
       c[ c g] 
-    \property Voice.Beam \set #'dir-function = #beam-dir-median
+    \override Beam  #'dir-function = #beam-dir-median
       c[ c g] 
   }
 \paper{raggedright = ##t}

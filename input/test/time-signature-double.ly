@@ -1,5 +1,5 @@
 
-\version "2.1.21"
+\version "2.1.22"
 
 \header { texidoc= "
 
@@ -23,8 +23,8 @@ tsMarkup =
 
 \score  { \notes \relative c'
 	  {
-	   \property Staff.TimeSignature \override #'print-function = #Text_item::print
-	   \property Staff.TimeSignature \override #'text = #tsMarkup
+	   \override Staff.TimeSignature  #'print-function = #Text_item::print
+	   \override Staff.TimeSignature  #'text = #tsMarkup
 	   
 	   
 	   \time 3/2

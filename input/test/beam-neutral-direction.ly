@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header{
 	texidoc="@cindex Beam Neutral Direction
 When a beam falls in the middle of the staff, LilyPond normally
@@ -9,9 +9,9 @@ altered if desired.
 
 fragment = \notes {
    b''8[ b]
-  \property Voice.Beam \set #'neutral-direction = #-1
+  \override Beam  #'neutral-direction = #-1
    b[ b]
-  \property Voice.Beam \set #'neutral-direction = #1
+  \override Beam  #'neutral-direction = #1
    b[ b]
 }
 

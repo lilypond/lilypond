@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 % possible rename to rest-foo
 \header {
     texidoc = "@cindex Rest Collision Count
@@ -10,11 +10,11 @@ Control the number of rests in a collision with maximum-rest-count."
 	\new Voice {
 		a4 
 		r 
-		\property Staff. RestCollision \set #'maximum-rest-count = #1
+		\override Staff.RestCollision  #'maximum-rest-count = #1
 		r 
-		\property Staff. RestCollision \set #'maximum-rest-count = #2
+		\override Staff.RestCollision  #'maximum-rest-count = #2
 		r 
-		\property Staff. RestCollision \set #'maximum-rest-count = #3
+		\override Staff.RestCollision  #'maximum-rest-count = #3
 		r 
 		r8 r8
 		c

@@ -1,5 +1,5 @@
 
-\version "2.1.19"
+\version "2.1.22"
 
 \header {
     texidoc = "Note heads are flipped on the stem to prevent collisions.

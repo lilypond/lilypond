@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 
 
 \header {
@@ -97,28 +97,28 @@ epartialJazzAlt = #(sequential-music-to-chord-exceptions epartialmusicJazzAlt #f
 jazzAltProperties =
 
 \sequential { 
-	    \property ChordNames.majorSevenSymbol = #whiteTriangleMarkup
-	    \property ChordNames.chordNameSeparator = #(make-simple-markup  "/")
-	    \property ChordNames.chordNameExceptionsFull = #efullJazzAlt
-	    \property ChordNames.chordNameExceptionsPartial = #epartialJazzAlt
-	    \property ChordNames.chordNameFunction = #jazz-chord-names
+	    \set majorSevenSymbol =  #whiteTriangleMarkup
+	    \set chordNameSeparator =  #(make-simple-markup  "/")
+	    \set chordNameExceptionsFull =  #efullJazzAlt
+	    \set chordNameExceptionsPartial =  #epartialJazzAlt
+	    \set chordNameFunction =  #jazz-chord-names
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 banterProperties = \sequential { 
-	    \property ChordNames.chordNameFunction = #banter-chord-names
+	    \set chordNameFunction =  #banter-chord-names
 }
 
 \score{
     <<
 	\new ChordNames {
-	    \property ChordNames.instrument = #"Ignatzek (default)"
-	    \property ChordNames.instr = #"Def"
+	    \set instrument =  #"Ignatzek (default)"
+	    \set instr =  #"Def"
 	    \chs }
 	\new ChordNames {
-	    \property ChordNames.instrument = #"Alternative"
-	    \property ChordNames.instr = #"Alt"
+	    \set instrument =  #"Alternative"
+	    \set instr =  #"Alt"
 	    \jazzAltProperties
 	    \chs }
 

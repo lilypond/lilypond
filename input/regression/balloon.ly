@@ -3,7 +3,7 @@
     texidoc = "With balloon texts, objects in the output can be marked,
 with lines and explanatory text added."
     }
-\version "2.1.21"
+\version "2.1.22"
 
 \score  {
  \notes {
@@ -11,11 +11,11 @@ with lines and explanatory text added."
    \relative c'  {
 
        %% by hand:
-       \once\property Voice.Stem \set #'print-function = #Balloon_interface::print
-       \once\property Voice.Stem \set #'balloon-original-callback = #Stem::print
-       \once\property Voice.Stem \set #'balloon-text = #"I'm a stem"
-       \once\property Voice.Stem \set #'balloon-text-offset = #'(3 . 4)
-       \once\property Voice.Stem \set #'balloon-text-props
+       \once\override Stem  #'print-function = #Balloon_interface::print
+       \once\override Stem  #'balloon-original-callback = #Stem::print
+       \once\override Stem  #'balloon-text = #"I'm a stem"
+       \once\override Stem  #'balloon-text-offset = #'(3 . 4)
+       \once\override Stem  #'balloon-text-props
          = #'((font-family .  roman))
 
 

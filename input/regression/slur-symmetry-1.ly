@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header
 {
   texidoc = "Symmetric figures should lead to symmetric slurs."

@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {
     texidoc =
 
@@ -17,7 +17,7 @@ if the black note heads are from 8th or shorter notes.
 	{
 	    c2 c8 c4.
 	    
-	    \property Staff.NoteCollision \override #'merge-differently-headed = ##t
+	    \override Staff.NoteCollision  #'merge-differently-headed = ##t
 	    c2 c8 c4.
 	    c2
 	}\\

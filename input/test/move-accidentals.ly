@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc= "@cindex Scheme Manual Accidentals
@@ -17,7 +17,7 @@ involves some scheme code. " }
   \context Voice \notes \relative c'' {
     c2.
     <<
-\property Staff.AccidentalPlacement = \turnOff
+\set Staff.AccidentalPlacement =  \turnOff
 \context Staff \applyoutput #(outputproperty-compatibility (make-acc-position-checker 9)
                                'extra-offset  '(-1 . 0))
 \context Staff \applyoutput #(outputproperty-compatibility (make-acc-position-checker 5)

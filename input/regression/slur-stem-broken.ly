@@ -1,12 +1,12 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
 texidoc="Trend of broken slur with user-overridden stem attachment should also
 follow the same vertical direction it would have had in unbroken state."
 }
 \score {
   \notes\relative c' {
-    \property Voice.Slur \override #'attachment = #'(stem . stem)
+    \override Slur  #'attachment = #'(stem . stem)
     f( c' c c \break
     c c c \stemUp  c)
   }

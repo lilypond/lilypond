@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 
 \header {
 texidoc = "The staff is a grob, and may be adjusted as well: this one
@@ -13,12 +13,9 @@ mus = \notes \relative c' { c4 g' d'8 d d d }
 \score {
   \notes <<
     \new Staff {
-	\property
-	Staff.	StaffSymbol \set #'thickness = #2.0
-	\property
-	Staff.StaffSymbol \set #'line-count = #6
-	\property
-	Staff.StaffSymbol \set #'staff-space = #1.1
+	\override Staff.StaffSymbol  #'thickness = #2.0
+	\override Staff.StaffSymbol  #'line-count = #6
+	\override Staff.StaffSymbol  #'staff-space = #1.1
 	\mus
     }
     \mus

@@ -1,4 +1,4 @@
-\version "2.1.21"
+\version "2.1.22"
 \header{
     texidoc="
 
@@ -17,7 +17,7 @@ can be shortened.
 	\context Staff \notes\relative c''{
 	    c c c c
 				% coda-klugde: let volta span only one bar
-	    \property Staff.voltaSpannerDuration = #(ly:make-moment 1 1)
+	    \set Staff.voltaSpannerDuration =  #(ly:make-moment 1 1)
 	    \repeat "volta" 5 { d d d d }
 	    \alternative { { e e e e f f f f }
 			   { g g g g } }

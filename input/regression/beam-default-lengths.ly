@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 
 \header{
     texidoc="Beamed stems have standard lengths if possible. Quantization is switched off in this example."
@@ -7,7 +7,7 @@
 
 \score{
     \notes\relative c'{
-	\property Voice.Beam \set #'position-callbacks =
+	\override Beam  #'position-callbacks =
 	 #`(,Beam::least_squares
 	 ,Beam::check_concave
 	 ,Beam::slope_damping)

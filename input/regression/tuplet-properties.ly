@@ -6,7 +6,7 @@ NB should have no bracket, B should have bracket.
 }
  
 
-\version "2.1.7"
+\version "2.1.22"
 
 
 \score { 
@@ -21,23 +21,23 @@ NB should have no bracket, B should have bracket.
  	\times 2/3 { c8^"B"  c[ c]  }
  	\times 2/4 { r8_"B"  c,[ c'] r8 }
 	
- 	\property Voice.TupletBracket \override #'bracket-visibility = #'if-no-beam  
+ 	\override TupletBracket  #'bracket-visibility = #'if-no-beam  
  	\times 2/3 {  c8[ c c]  }
 	
-	\property Voice.TupletBracket \override #'direction = #1
- 	\property Voice.TupletBracket \override #'number-visibility = ##f
+	\override TupletBracket  #'direction = #1
+ 	\override TupletBracket  #'number-visibility = ##f
  	\times 2/3 { c8^""^""^"up, no digit"  c[ c]  }
- 	\property Voice.TupletBracket \revert #'number-visibility
+ 	\revert TupletBracket #'number-visibility
 
-	\property Voice.TupletBracket \override #'bracket-visibility = ##t
-	\property Voice.TupletBracket \override #'edge-height = #'(0.0 . 0.0)
-	\property Voice.TupletBracket \override #'shorten-pair = #'(2.0 . 2.0)
+	\override TupletBracket  #'bracket-visibility = ##t
+	\override TupletBracket  #'edge-height = #'(0.0 . 0.0)
+	\override TupletBracket  #'shorten-pair = #'(2.0 . 2.0)
 	\times 4/6 { c_"shorter, no edges" f b  b f c}	
-	\property Voice.TupletBracket \revert #'edge-height
-	\property Voice.TupletBracket \revert #'shorten-pair
-    	\property Voice.TupletBracket \override #'bracket-flare = #'(0.5 . 0.5)
+	\revert TupletBracket #'edge-height
+	\revert TupletBracket #'shorten-pair
+    	\override TupletBracket  #'bracket-flare = #'(0.5 . 0.5)
 	\times 2/3 { b^""^""^"angled edges" b b }
- 	\property Voice.TupletBracket \revert #'direction
+ 	\revert TupletBracket #'direction
 	\times 2/3 { b b b }
 
     }

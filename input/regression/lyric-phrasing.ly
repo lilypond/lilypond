@@ -1,5 +1,5 @@
 
-\version "2.1.21"
+\version "2.1.22"
 \header{
   texidoc="Lyric phrasing
 
@@ -31,11 +31,11 @@
     }
   <<
       \new Lyrics \lyricsto "v"  \lyrics {
-        \property Lyrics . stanza = "1:"
+        \set stanza =  "1:"
         Start sentence melisma end.
       }
       \new Lyrics \lyricsto "v" \lyrics {
-        \property Lyrics . stanza = "2:"
+        \set stanza =  "2:"
         x x x __ x.
       }
    >>

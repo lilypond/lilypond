@@ -1,4 +1,4 @@
-\version "2.1.21"
+\version "2.1.22"
 
 \header {
   texidoc="@cindex Trills
@@ -16,8 +16,8 @@ title="Marques des agr\\'ements et leur signification"
 
 %}
 
-invisible = \property Voice.NoteHead \override #'transparent = ##t
-visible = \property Voice.NoteHead \revert #'transparent
+invisible = \override NoteHead  #'transparent = ##t
+visible = \revert NoteHead #'transparent
 
 
 
@@ -39,7 +39,7 @@ visible = \property Voice.NoteHead \revert #'transparent
 	\time 1/4
 	<<{ d4}\\
 	{ 
-	   \property Voice.Script \override #'extra-offset = #'(-0.8 . 2.0)
+	   \override Script  #'extra-offset = #'(-0.8 . 2.0)
 	   b_\turn}>>
 %{ FIXME  \comma does not exist
 	\startHorizScript

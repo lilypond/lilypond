@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
     
     texidoc = "The area underneath an (up) slur is minimised to improve the shape. "
@@ -23,7 +23,7 @@ a(a a a a a d a)
 c,(g' c e f d b g) 
 c,(g' c e f d b g) 
 
-\property Voice.autoBeaming = ##f
+\set autoBeaming =  ##f
 \stemUp
 a8(a a a a a a a)
 

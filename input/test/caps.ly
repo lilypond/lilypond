@@ -1,12 +1,12 @@
 
-\version "2.1.21"
+\version "2.1.22"
 \header {
 texidoc =  "@cindex Capital Letters
 You can set the font to use small caps.
 " }
 
-shapeSC   = \property Lyrics.LyricText \override #'font-shape = #'caps
-shapeNorm = \property Lyrics.LyricText \revert   #'font-shape
+shapeSC   = \override LyricText  #'font-shape = #'caps
+shapeNorm = \revert LyricText #'font-shape
 
 \score { <<
   \notes \relative c'' { c4 c4 c8 c8 c8 }

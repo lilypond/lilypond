@@ -1,7 +1,7 @@
-\version "2.1.7"
+\version "2.1.22"
 \header  {
     texidoc = "@cindex Chord Names German
-By setting @code{ChordNames.chordRootNamer}, the root
+By setting @code{chordRootNamer}, the root
 of the chord may be named with a different function.
 
 Setting @code{\germanChords} gives true german chord-names,
@@ -23,10 +23,10 @@ scm = \chords {
 \notes <<
     \context ChordNames { \scm }
     \new ChordNames {
-	\property ChordNames.instrument = #"german"
+	\set instrument =  #"german"
 	\germanChords \scm }
     \new ChordNames {
-	\property ChordNames.instrument =#"semi-german"
+	\set instrument = #"semi-german"
 	\semiGermanChords \scm }
     \context Voice {  \scm } >>
 \paper {

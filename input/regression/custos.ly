@@ -1,25 +1,25 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {
     texidoc = "Custodes in various styles."
 }
 
 \score {
     \notes {
-	\property Staff.Custos \set #'neutral-position = #4
+	\override Staff.Custos  #'neutral-position = #4
 
-	\property Staff.Custos \set #'style = #'hufnagel
+	\override Staff.Custos  #'style = #'hufnagel
 	c'1^"hufnagel"
 	\break < d' a' f''>1
 
-	\property Staff.Custos \set #'style = #'medicaea
+	\override Staff.Custos  #'style = #'medicaea
 	c'1^"medicaea"
 	\break < d' a' f''>1
 
-	\property Staff.Custos \set #'style = #'vaticana
+	\override Staff.Custos  #'style = #'vaticana
 	c'1^"vaticana"
 	\break < d' a' f''>1
 
-	\property Staff.Custos \set #'style = #'mensural
+	\override Staff.Custos  #'style = #'mensural
 	c'1^"mensural"
 	\break < d' a' f''>1
     }

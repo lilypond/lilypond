@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 
 \header{
 texidoc="@cindex Slur Attachment Override
@@ -12,11 +12,11 @@ In some cases you may want to set slur attachments by hand. "
 %%
 
 fragment = \notes {
-  \property Voice.autoBeaming = ##f
-  \property Voice.Stem \set #'direction = #1
-  \property Voice.Slur \set #'direction = #1
+  \set autoBeaming =  ##f
+  \override Stem  #'direction = #1
+  \override Slur  #'direction = #1
   d'32( f'4  d8..)
-  \property Voice.Slur \set #'attachment = #'(stem . stem)
+  \override Slur  #'attachment = #'(stem . stem)
   d,32( f'4  d8.)
 }
 

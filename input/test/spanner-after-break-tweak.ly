@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 
 \header { texidoc = "@cindex Spanner after break
 
@@ -26,7 +26,7 @@ after the line break is moved around. "
 #(debug-enable 'backtrace)
 
 \score {\notes \relative c'' { 
-    \property Voice.Tie \override #'after-line-breaking-callback =
+    \override Tie  #'after-line-breaking-callback =
        #my-callback
     c1 ~ \break c2 ~ c
 }

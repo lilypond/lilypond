@@ -6,7 +6,7 @@ factor, objects generally become too thick or too large.
 "
 
 }
-\version "2.1.13"
+\version "2.1.22"
 
 \score {
   <<
@@ -15,12 +15,12 @@ factor, objects generally become too thick or too large.
       StaffSymbol \set #'staff-space = #(magstep -4)
     }
     \notes \relative c' {
-\property Voice.DynamicText \set #'extra-offset = #'(0 . 3)
+\override DynamicText  #'extra-offset = #'(0 . 3)
       s1-\f c''8[(\< r a g]) e[ r d( <f a>])\! \times 2/3 { d4 d d }
     }
     \new Staff
     \notes \relative c' {
-\property Voice.DynamicText \set #'extra-offset = #'(0 . 3)
+\override DynamicText  #'extra-offset = #'(0 . 3)
       s1-\f c''8[(\< r a g]) e[ r d( <f a>])\! \times 2/3 { d4 d d }
     }
   >>

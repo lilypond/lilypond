@@ -1,4 +1,4 @@
-\version "2.1.21"
+\version "2.1.22"
 
 % this chart is used in the manual too.
 
@@ -12,12 +12,12 @@ A chart showing all feta scripts.
 
 \score {
     <<
-      \property Score.LyricText \override #'font-family = #'typewriter
-      \property Score.LyricText \override #'font-shape = #'upright
+      \override Score.LyricText  #'font-family = #'typewriter
+      \override Score.LyricText  #'font-shape = #'upright
       \context Staff \notes {
-	\property Score.timing = ##f
-	\property Score.barAlways = ##t
-	\property Staff.BarLine \override #'transparent = ##t
+	\set Score.timing =  ##f
+	\set Score.barAlways =  ##t
+	\override Staff.BarLine  #'transparent = ##t
         c''\accent             c''\marcato            c''\staccatissimo
         c''\staccato           c''\tenuto             c''\portato
         c''\upbow              c''\downbow            c''\flageolet

@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
 texidoc = "Downstem notes following a barline are
 printed with some extra space. This is an optical correction similar
@@ -9,13 +9,13 @@ Accidentals after the barline get some space as well.
 "
 }
 
-sd = \property Voice.Stem \set #'direction = #-1
-su = \property Voice.Stem \set #'direction = #1
+sd = \override Stem  #'direction = #-1
+su = \override Stem  #'direction = #1
 \score { \notes\relative c''
 {
 
-%\property Staff.StaffSpacing \override #'stem-spacing-correction = #10
-%\property Staff.NoteSpacing \override #'stem-spacing-correction = #10
+%\override Staff.StaffSpacing  #'stem-spacing-correction = #10
+%\override Staff.NoteSpacing  #'stem-spacing-correction = #10
 
 \time 1/4 \sd c4 \su c4
 \sd c4 \su c4

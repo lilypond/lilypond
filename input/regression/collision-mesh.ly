@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {
 texidoc = "Oppositely stemmed chords,  meshing into each other,
 are resolved."

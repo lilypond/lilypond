@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {
 
     texidoc = "@cindex Clef End of Line
@@ -7,17 +7,17 @@ Scales, but with clef and key signature at the end of the line.
 
 \score {
     \notes \transpose c c' {
-	\property Staff.Clef \set #'break-visibility = #end-of-line-visible
-	\property Staff.KeySignature \set #'break-visibility = #end-of-line-visible
-	\property Staff.explicitClefVisibility = #end-of-line-visible
-	\property Staff.explicitKeySignatureVisibility = #end-of-line-visible
+	\override Staff.Clef  #'break-visibility = #end-of-line-visible
+	\override Staff.KeySignature  #'break-visibility = #end-of-line-visible
+	\set Staff.explicitClefVisibility =  #end-of-line-visible
+	\set Staff.explicitKeySignatureVisibility =  #end-of-line-visible
 
 	% We want the time sig to take space, otherwise there is not
 	% enough white at the start of the line.
 	%
 	
-	\property Staff.TimeSignature \set #'transparent = ##t
-	\property Score.defaultBarType = #"empty"
+	\override Staff.TimeSignature  #'transparent = ##t
+	\set Score.defaultBarType =  #"empty"
 	
 	c1 d e f g a b c
 	\key d \major

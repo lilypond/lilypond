@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 
 \header { texidoc="@cindex Trill
 Show trill line type.
@@ -11,18 +11,18 @@ The extended trill is a TextSpanner in @code{trill} style.
 \score {
   \context RhythmicStaff \notes {
     \stemDown
-    \property Voice.Stem \override #'transparent = ##t
-    \property Voice.TextSpanner \set #'dash-fraction = #0.0
-    \property Voice.TextSpanner \set #'dash-period = #1.0
-    \property Voice.TextSpanner \set #'edge-height = #'(0 . 1.5)
-    \property Voice.TextSpanner \set #'edge-text = #'("bla " . "")
+    \override Stem  #'transparent = ##t
+    \override TextSpanner  #'dash-fraction = #0.0
+    \override TextSpanner  #'dash-period = #1.0
+    \override TextSpanner  #'edge-height = #'(0 . 1.5)
+    \override TextSpanner  #'edge-text = #'("bla " . "")
     a\startTextSpan b c a\stopTextSpan
 
 
     %% TODO: should have trill spanner.
-    \property Voice.TextSpanner \set #'style = #'trill
-    \property Voice.TextSpanner \set #'edge-height = #'(0 . 0)
-    \property Voice.TextSpanner \set #'edge-text
+    \override TextSpanner  #'style = #'trill
+    \override TextSpanner  #'edge-height = #'(0 . 0)
+    \override TextSpanner  #'edge-text
      = #(cons (make-musicglyph-markup "scripts-trill")  "")
     a\startTextSpan b c a\stopTextSpan
   }

@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 % TODO: check to see if this example can be simplified using \small
 % or \tiny.
 \header { texidoc = "@cindex Cue Notes
@@ -10,23 +10,23 @@ Cue notes should be set in smaller type. "
 \score {
   \notes
    {
-       \property Staff.instrument = #"Horn in F"
-       \property Score.skipBars = ##t
+       \set Staff.instrument =  #"Horn in F"
+       \set Score.skipBars =  ##t
        R1*21
     <<
 	{
-	    \property Staff.MultiMeasureRest \override #'staff-position = #-6
+	    \override Staff.MultiMeasureRest  #'staff-position = #-6
 	    R1
-	    \property Voice.MultiMeasureRest \revert #'staff-position
+	    \revert MultiMeasureRest #'staff-position
 	}
      \new Voice { s2
        \clef tenor
 
 	%% this should probably be put into an identifier.
-       \property Staff.fontSize = #-1
-	\property Voice.Stem \override #'length = #5.5
-	\property Voice.Beam \override #'thickness = #0.384
-	\property Voice.Beam \override #'space-function =
+       \set Staff.fontSize =  #-1
+	\override Stem  #'length = #5.5
+	\override Beam  #'thickness = #0.384
+	\override Beam  #'space-function =
 	   #(lambda (beam mult) (* 0.8 (Beam::space_function beam mult)))
 
 	r8^"Bsn." c'8  f'8[ f'8]
@@ -35,14 +35,14 @@ Cue notes should be set in smaller type. "
 %  this is under debate; I don't think it should.  - Graham
 
 % if you want to cancel it in the main part, uncomment the following:
-%       \property Staff.Clef = \turnOff
+%       \set Staff.Clef =  \turnOff
 			    
-       \property Staff.fontSize\unset
+       \unset Staff.fontSize 
 
        \clef treble
      } >>
    c'8^"Horn" cis'
-   \property Staff.Clef \unset
+   \unset Staff.Clef 
    eis'4 fis'4
  }
  \paper { raggedright = ##t}

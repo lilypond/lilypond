@@ -1,4 +1,4 @@
-\version "2.1.21"
+\version "2.1.22"
 \header
 {
     texidoc = "Melismata are triggered by manual beams." 
@@ -9,7 +9,7 @@
     <<
 	\new Staff
 	    \notes \relative c'' {
-		\property Staff.autoBeaming = ##f
+		\set Staff.autoBeaming =  ##f
 		c8 c8[ c8 c8]  c8    }
 	
 	\lyricsto "" \new Lyrics \lyrics { bla bla bla }

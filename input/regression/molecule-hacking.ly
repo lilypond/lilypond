@@ -1,9 +1,9 @@
 
-\version "2.1.21"
+\version "2.1.22"
 
-\header { texidoc=" You can write molecule callbacks in Scheme, thus
+\header { texidoc=" You can write stencil callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is
-adding parentheses to existing molecule callbacks.
+adding parentheses to existing stencil callbacks.
 
 The parenthesized beam is less successful due to implementation of the
 Beam. The note head is also rather naive, since the extent of the
@@ -16,16 +16,16 @@ parens are also not seen by accidentals.
    "Construct a function that will do CALLBACK and add parentheses.
 Example usage:
 
-  \\property Voice.NoteHead \\override #'print-function
+  \\property NoteHead \\override #'print-function
 		      =
 		      #(parenthesize-callback Note_head::print)
 		    
 "
 
    
-   (define (parenthesize-molecule grob)
+   (define (parenthesize-stencil grob)
      "This function adds parentheses to the original callback for
-GROB.  The dimensions of the molecule is not affected.
+GROB.  The dimensions of the stencil is not affected.
 "
      
      (let* (
@@ -35,23 +35,23 @@ GROB.  The dimensions of the molecule is not affected.
 	    (subject (callback grob))
 
 	    ; remember old size
-	    (subject-dim-x (ly:molecule-get-extent subject 0))
-	    (subject-dim-y (ly:molecule-get-extent subject 1))
+	    (subject-dim-x (ly:stencil-get-extent subject 0))
+	    (subject-dim-y (ly:stencil-get-extent subject 1))
 	)
 
         ; add parens
         (set! subject
-	     (ly:molecule-combine-at-edge 
-	      (ly:molecule-combine-at-edge subject 0 1 pclose 0.2)
+	     (ly:stencil-combine-at-edge 
+	      (ly:stencil-combine-at-edge subject 0 1 pclose 0.2)
 	      0 -1 popen  0.2))
 
 	; revert old size.
-       (ly:molecule-set-extent! subject 0 subject-dim-x)
-       (ly:molecule-set-extent! subject 1 subject-dim-y)
+       (ly:stencil-set-extent! subject 0 subject-dim-x)
+       (ly:stencil-set-extent! subject 1 subject-dim-y)
        subject
     )
      )
-   parenthesize-molecule
+   parenthesize-stencil
    )
     
 
@@ -59,12 +59,12 @@ GROB.  The dimensions of the molecule is not affected.
 \score {
 	\notes \relative c' { c4 e
 
-		    \property Voice.NoteHead \override #'print-function
+		    \override NoteHead  #'print-function
 		      =
 		      #(parenthesize-callback Note_head::print)
 		    g bes
-		    \property Voice.NoteHead \revert #'print-function
-		    \property Voice.Beam \override #'print-function
+		    \revert NoteHead #'print-function
+		    \override Beam  #'print-function
 		      =
 		      #(parenthesize-callback Beam::print)
 

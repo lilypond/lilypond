@@ -10,7 +10,7 @@ with @code{Staff.ottavation}.
 "
 
 }
-\version "2.1.7"
+\version "2.1.22"
 
 % . There must be a minimum distance between the octavation line and the
 %   topmost staff line, taking into account the height of the closing
@@ -48,7 +48,7 @@ with @code{Staff.ottavation}.
   \break
   a, 
   #(set-octavation 1)
-  \property Staff.ottavation = #"8"
+  \set Staff.ottavation =  #"8"
   b
   #(set-octavation 0)
   c a 
@@ -56,12 +56,12 @@ with @code{Staff.ottavation}.
   #(set-octavation 0)
   c 
   #(set-octavation -1)
-  \property Staff.ottavation = #"8"
+  \set Staff.ottavation =  #"8"
   c,,16
   #(set-octavation 0)
   c'16
   #(set-octavation -1)
-  \property Staff.ottavation = #"8"
+  \set Staff.ottavation =  #"8"
   g,,16
 }
 }

@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header{
 texidoc="
 Stem tremolos or rolls are tremolo signs that look like beam segments
@@ -12,8 +12,8 @@ tremolo must be centered on the note.
 
 \score{
 	\context Voice\notes \relative c''{
-		\property Voice.TextScript \set #'direction = #1
-		\property Voice.TextScript \set #'padding = #5
+		\override TextScript  #'direction = #1
+		\override TextScript  #'padding = #5
 		a1:4^":4" a:8^":8" c:16^":16" a:32^":32" a^"x" a:^":"
 		a4:4 c:8 a:16 c:32 a a: a2:
 		\break

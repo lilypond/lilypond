@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 
 
 \header {
@@ -17,10 +17,10 @@ texidoc =
 %%
 
 
-  \once \property Voice.Stem \override
+  \once \override Stem 
    #'beaming = #(cons (list   1 2) (list 0 2 4))
 c
-  \once \property Voice.Stem \override
+  \once \override Stem 
    #'beaming = #(cons (list 0 2 4) (list 0 1 4))
 c c c]
 }

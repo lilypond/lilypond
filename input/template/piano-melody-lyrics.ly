@@ -1,5 +1,5 @@
 
-\version "2.1.20"
+\version "2.1.22"
 \header {
   texidoc ="Classical song format: one staff with melody and lyrics,
 and piano accompaniment."
@@ -28,7 +28,7 @@ lower = \notes\relative c {
 	  \autoBeamOff
 	  \melody
       }
-      \lyricsto mel \new LyricsVoice \text
+      \lyricsto mel \new Lyrics \text
 
       \context PianoStaff <<
 	  \context Staff = upper \upper

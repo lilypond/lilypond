@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 
 \header{
 texidoc="Property chordChanges: display chord names only when
@@ -13,7 +13,7 @@ scheme = \chords {
 }
 
 settings = {
-  \property ChordNames.chordChanges = ##t
+  \set chordChanges =  ##t
 }
 
 \score {

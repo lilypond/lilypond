@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
     texidoc = "Once properties take effect during a single time step only."
 }
@@ -7,9 +7,9 @@
 \score {
       \notes \relative c' {
 	  c4
-	  \once \property Voice.Stem = #'()
+	  \once \set Stem =  #'()
 	  c4
-	  \once \property Voice.Stem \override #'thickness = #5.0
+	  \once \override Stem  #'thickness = #5.0
 	  c4
 	  c4
   }

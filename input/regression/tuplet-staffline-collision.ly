@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
 
 texidoc = "Horizontal tuplet brackets are shifted vertically

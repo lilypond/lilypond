@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 
 \header{
 texidoc="
@@ -20,8 +20,8 @@ finalis, the latter three looking similar to bar glyphs.
       \notes \relative c' {
 
 	% we turn bars and bar numbers off for Gregorian stuff
-	\property Staff.BarLine \set #'transparent = ##t
-	\property Score.BarNumber \set #'transparent = ##t
+	\override Staff.BarLine  #'transparent = ##t
+	\override Score.BarNumber  #'transparent = ##t
 
 	% here is no \breathe
 	c g c

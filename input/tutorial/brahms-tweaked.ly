@@ -1,28 +1,26 @@
 #(ly:set-option 'old-relative)
-\version "2.1.7"
+\version "2.1.22"
 \score {
     \notes\context PianoStaff <<
     \context Staff = up
     \relative c'' <<
         {   \key d\major 
-            \property Voice.Slur \set #'attachment = #'(stem . stem)
+            \override Slur  #'attachment = #'(stem . stem)
 
-	    \once \property Voice.Fingering
-	      \override #'extra-offset = #'(-0.3 . -1.8) 
+	    \once \override Fingering  #'extra-offset = #'(-0.3 . -1.8) 
            fis4-3_\p(~
    
 
             fis16 a)^" "^\markup { \finger "5" } } \\
         {
             \dynamicUp
-            \property Voice.DynamicLineSpanner
-	      \override #'padding = #5.0
+            \override DynamicLineSpanner  #'padding = #5.0
             \tieUp
             fis16(\> d b\! \change Staff = down
 	    \stemUp
 	    \clef treble g~ <g e>8) } \\
         { s16
-	  \once \property Voice.Stem \set #'transparent = ##t
+	  \once \override Stem  #'transparent = ##t
           d'
           ~ <d b>4 }
     >>

@@ -1,4 +1,4 @@
-\version "2.1.20"
+\version "2.1.22"
 
 \header {
 
@@ -15,7 +15,7 @@ c16[ c c c]
 r c16[ c c]
 
 }
-    \lyrics \new LyricsVoice {
+    \lyrics \new Lyrics {
 	bla16 -- bla -- bla -- bla --
 	bla -- bla -- bla -- bla8 --
 	       bla16 -- bla -- bla 

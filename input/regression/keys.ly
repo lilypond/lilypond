@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header{
 texidoc="
 Key signatures appear on key  changes. They may also
@@ -14,7 +14,7 @@ also created on a clef change.
 \score {
   \notes \relative c''
   {
-	\property Staff. createKeyOnClefChange = ##t  
+	\set Staff.createKeyOnClefChange =  ##t  
     \key bes \major c2
 %    \key c \major %  \minor
     \key es \major %  \minor
@@ -22,7 +22,7 @@ also created on a clef change.
     \break
     \key bes \major % \major
     c2 \clef alto c2   \key d \major \clef treble c2
-  	\property Staff. keySignature = #'((2 . -1)  (6 . 3) (4 . -2))
+  	\set Staff.keySignature =  #'((2 . -1)  (6 . 3) (4 . -2))
 	e2
   }
 }

@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc = "@cindex Scheme Move Text
 You can move objects around with scheme.  This example shows how to
@@ -10,7 +10,7 @@ move text around. " }
 
 \score {
   \notes\relative c''' {
-    \property Voice.Stem \set #'direction = #1
+    \override Stem  #'direction = #1
     \applyoutput #(outputproperty-compatibility (make-text-checker (make-simple-markup "m.d."))
       'extra-offset '(-3.5 . -4.5))
     a^2^"m.d."

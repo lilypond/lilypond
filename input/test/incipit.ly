@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header { texidoc = "@cindex Incipit
 This shows how to make an ``incipit'' to indicate scordatora 
 tuning of a violin part, using the clefStyle property.
@@ -10,17 +10,17 @@ The two first bars of Biber's Rosary sonata III. " }
 violinincipit =  \notes\relative c''{
   \clef "french"
   \time 2/2
-  \property Staff.TimeSignature \override #'style = #'old
+  \override Staff.TimeSignature  #'style = #'old
   a4. b8 c4 fis |
 %  <b fis' b d>1
-  \property Staff.TimeSignature \override #'style = #'C
+  \override Staff.TimeSignature  #'style = #'C
 }
 
 bcincipit =  \notes\relative c{
   \clef bass
-  \property Staff.TimeSignature \override #'style = #'old
+  \override Staff.TimeSignature  #'style = #'old
   b2. cis4 | 
-  \property Staff.TimeSignature \override #'style = #'C
+  \override Staff.TimeSignature  #'style = #'C
 }
 
 violin =  \notes\relative c''{
@@ -49,16 +49,16 @@ BC  = \notes\relative c{
 \score{
   <<
     \context Staff = violin {\notes{
-      \property Staff.Clef \override #'transparent = ##t
+      \override Staff.Clef  #'transparent = ##t
       \violinincipit \bar ".|" 
-      \property Staff.Clef \revert #'transparent 
+      \revert Staff.Clef #'transparent 
       \endincipit
       \violin
     }}
     \new Staff {\notes{
-      \property Staff.Clef \override #'transparent = ##t
+      \override Staff.Clef  #'transparent = ##t
       \bcincipit \bar ".|" 
-      \property Staff.Clef \revert #'transparent 
+      \revert Staff.Clef #'transparent 
       \endincipit
       \BC
     }}

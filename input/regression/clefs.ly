@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 
 \header{
 
@@ -23,7 +23,7 @@ or below the clef respectively."
          \clef "varbaritone"c'1^"{varbaritone}" \bar "||"
          \clef "bass"c'1^"{bass}" \bar "||"
          \clef "subbass"c'1^"{subbass}" \bar "||"
-	 \property Staff.Clef \override #'full-size-change  = ##t 
+	 \override Staff.Clef  #'full-size-change  = ##t 
          \clef "treble" c'1^"full-size-change = \#t" \bar "|."
          }
          \paper{

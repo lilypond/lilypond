@@ -1,5 +1,5 @@
 
-\version "2.1.18"
+\version "2.1.22"
 \header {
     texidoc ="The a2 string is only printed on notes, not on rests,
 and only after chords, solo or polyphony."
@@ -10,7 +10,7 @@ vone = \notes \relative a' { R1*2 g2 r2 g2 r2 a4 r4 g
 vtwo = \notes \relative a' { R1*2 g2 r2 g2 r2 f4 r4 g }
 
 \score {
-    << \property Score.skipBars = ##t 
+    << \set Score.skipBars =  ##t 
    \partcombine \vone \vtwo
        >>
 }

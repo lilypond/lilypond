@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 % keep for now, although merging into beam-auto-override is a possibility.
 \header {
 	texidoc = "@cindex Auto Beaming 4/8
@@ -26,7 +26,7 @@ You can override LilyPond's automatic beaming.
      |  |  |   |--|
     x| x| x|  x| x|
 %}
-     \property Voice.autoBeamSettings \override #'(end * * * *) = #(ly:make-moment 2 4)
+     \override autoBeamSettings  #'(end * * * *) = #(ly:make-moment 2 4)
      c8 c c c16 c
 
   }

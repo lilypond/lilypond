@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 
 \header{
 texidoc="
@@ -27,7 +27,7 @@ not set.  Main note scripts don't end up on the grace note.
 	\grace  <c d>16  c8[ c8]
 %	\grace  c16  c8[ c8]
         %% broken?
-	%%\grace  { \property Grace.graceAlignPosition = \right c16} c4
+	%%\grace  { \set Grace.graceAlignPosition =  \right c16} c4
 	c4 \grace  { c16 } c4
 }
 \paper {raggedright = ##t}

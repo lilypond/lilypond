@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 
 \header {
 texidoc = "Note head lines (e.g. glissando)
@@ -12,7 +12,7 @@ sd = \notes{ \change Staff = down}
     \context PianoStaff
         \notes <<
 	\context Staff = up   {
-            \property PianoStaff.connectArpeggios = ##t
+            \set PianoStaff.connectArpeggios =  ##t
 	    \showStaffSwitch
 	    \clef F
 	    c4 d \sd b a g8 f16 e32 d \su g2 \glissando a,4 \sd \break a2. \su g4 \glissando f1

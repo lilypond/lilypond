@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 
 \header{
     texidoc="Beams in unnatural direction, have shortened stems, but do not look too short."
@@ -7,7 +7,7 @@
 
 \score{
     \notes\relative c'{
-	\property Voice.Beam \set #'position-callbacks =
+	\override Beam  #'position-callbacks =
 	 #`(,Beam::least_squares
 	 ,Beam::check_concave
 	 ,Beam::slope_damping)

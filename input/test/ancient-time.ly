@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 % TODO: move stuff from ancient-font into here?  See comment
 % for ancient-font.ly
 \header {
@@ -9,7 +9,7 @@ Should use old style.
 
 \score {
   \notes { 
-    \property Staff.TimeSignature \override #'style = #'neo_mensural
+    \override Staff.TimeSignature  #'style = #'neo_mensural
     s1 
   }
 	\paper {raggedright = ##t}

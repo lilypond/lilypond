@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
 
     texidoc = "@cindex Auto Beaming Override
@@ -39,7 +39,7 @@ The beam will be ended also when now % beamAutoEnd = 0.
       	c8 c c4
       	r8 c c c
 	% no autobeaming
-	\property Voice.autoBeaming = ##f
+	\set autoBeaming =  ##f
       	c8 c c c
     }
     \paper{

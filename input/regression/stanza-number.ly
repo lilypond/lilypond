@@ -1,4 +1,4 @@
-\version "2.1.21"
+\version "2.1.22"
 
 \header {
 texidoc = "Stanza numbers are put left of their lyric."
@@ -10,7 +10,7 @@ texidoc = "Stanza numbers are put left of their lyric."
     \context Lyrics
     \lyrics {
 	\skip 2
-	\property Lyrics . stanza = "1."
+	\set stanza =  "1."
 	Foo8 Bar8
     }
 >>

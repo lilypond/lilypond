@@ -6,12 +6,12 @@ file lists all of them.
 "
 }
 
-\version "2.1.7"
+\version "2.1.22"
 
 \score { 
   \context Voice \notes\relative c {
     \time 3/4
-	\property Staff.Accidental \set #'style = #'default
+	\override Staff.Accidental  #'style = #'default
 	cisis''^"Accidental style = \#'default" cisis! cisis? |
 	cis cis! cis? | 
 	c c! c? |
@@ -19,7 +19,7 @@ file lists all of them.
 	ceses ceses! ceses? |
 	\break
 	
-	\property Staff.Accidental \set #'style = #'hufnagel
+	\override Staff.Accidental  #'style = #'hufnagel
 	cisis^"Accidental style = \#'hufnagel" cisis! cisis? |
 	cis cis! cis? | 
 	c c! c? |
@@ -27,7 +27,7 @@ file lists all of them.
 	ceses ceses! ceses? |
 	\break
 	
-	\property Staff.Accidental \set #'style = #'medicaea
+	\override Staff.Accidental  #'style = #'medicaea
 	cisis^"Accidental style = \#'medicaea" cisis! cisis? |
 	cis cis! cis? | 
 	c c! c? |
@@ -35,7 +35,7 @@ file lists all of them.
 	ceses ceses! ceses? |
 	\break
 	
-	\property Staff.Accidental \set #'style = #'vaticana
+	\override Staff.Accidental  #'style = #'vaticana
 	cisis^"Accidental style = \#'vaticana" cisis! cisis? |
 	cis cis! cis? | 
 	c c! c? |
@@ -43,7 +43,7 @@ file lists all of them.
 	ceses ceses! ceses? |
 	\break
 	
-	\property Staff.Accidental \set #'style = #'mensural
+	\override Staff.Accidental  #'style = #'mensural
 	cisis^"Accidental style = \#'mensural" cisis! cisis? |
 	cis cis! cis? | 
 	c c! c? |
