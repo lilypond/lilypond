@@ -1,7 +1,12 @@
 \paper{
 	%my standard paper block
-	0=\font "feta19"
-	-1=\font "feta16"
+
+	% figure out a way to do this cleanly.
+
+%	0=\font "feta19"
+%	-1=\font "feta16"
+%	\stylesheet #(make-style-sheet 'paper19)
+
 	arithmetic_multiplier=7.\pt;
 	indent=0.;
 	linewidth=188.\mm;
@@ -15,7 +20,8 @@
 		minVerticalAlign=8.4;
 	}
 	\translator{\StaffContext
-	timeSignatureStyle="C";}
+		TimeSignature \push #'style = #"C"
+	}
 	\translator{\VoiceContext
 		noStemExtend = ##t
 		tupletVisibility = ##f

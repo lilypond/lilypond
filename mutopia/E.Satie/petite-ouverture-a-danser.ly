@@ -34,7 +34,7 @@ global = \notes {
   \bar "||";
   \time 2/4;
   s2*18
-  \bar ".|";
+  \bar "|.";
 }
   
 i = \context Staff \notes\relative c''{

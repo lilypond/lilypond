@@ -115,7 +115,8 @@ IMPLEMENT_TYPE_P (Font_metric, "font-metric?");
 Molecule
 Font_metric::find_by_name (String) const
 {
-  assert (false);
+  Molecule m ;
+  return m;
 }
 
 

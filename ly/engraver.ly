@@ -372,7 +372,7 @@ ScoreContext = \translator {
 
 	barAuto = ##t
 	voltaVisibility = ##t
-	%  name, glyph id, c0 position
+	%  name, glyph id, clef position 
 	supportedClefTypes = #'(
 	  ("treble" . ("clefs-G" -2))
 	  ("violin" . ("clefs-G" -2))
@@ -431,6 +431,7 @@ ScoreContext = \translator {
 	  Key_item
 	  Staff_bar
 	  Time_signature
+	  Custos
 	  Stanza_number
 	)
 

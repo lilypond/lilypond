@@ -67,12 +67,16 @@
     ((-3 medium upright roman cmr 6) . "cmr6" )
     ((-4 medium upright roman cmr 5) . "cmr5" )
     ((-5 medium upright roman cmr 4) . "cmr4" )
+    ((-3 medium italic roman cmti 5) . "cmti6")    
+    ((-2 medium italic roman cmti 6) . "cmti7")
     ((-1 medium italic roman cmti 8) . "cmti8")    
     ((0 medium italic roman cmti 10) . "cmti10")
     ((1 medium italic roman cmti 12) . "cmti12")
-    ((2 bold upright roman cmbx 10) . "cmbx10")
-    ((1 bold upright roman cmbx 12) . "cmbx12")
     ((2 bold upright roman cmbx 14) . "cmbx14")
+    ((1 bold upright roman cmbx 12) . "cmbx12")
+    ((0 bold upright roman cmbx 10) . "cmbx10")
+    ((-1 bold upright roman cmbx 8) . "cmbx8")
+    ((-2 bold upright roman cmbx 7) . "cmbx7")
     ((-3 medium upright math msam 10) . "msam10")
     ((-2 medium upright math msam 10) . "msam10")
     ((-1 medium upright math msam 10) . "msam10")
@@ -92,13 +96,14 @@
     ((-3 bold italic dynamic feta 10) . "feta-din6")
     ((-4 bold italic dynamic feta 10) . "feta-din5")
     ((-5 bold italic dynamic feta 10) . "feta-din4")
+    ((2 medium upright music feta 26) . "feta26")
+    ((1 medium upright music feta 23) . "feta23")
     ((0 medium upright music feta 20) . "feta20")
+    ((-0.5 medium upright music feta 20) . "feta19")    
     ((-1 medium upright music feta 16) . "feta16")
     ((-2 medium upright music feta 13) . "feta13")
     ((-3 medium upright music feta 13) . "feta11")
     ((-4 medium upright music feta 13) . "feta11")
-    ((1 medium upright music feta 23) . "feta23")
-    ((2 medium upright music feta 26) . "feta26")
     ((-1 medium upright math msam 10) . "msam10")
     ((-2 medium upright math msam 10) . "msam10")
     ((-3 medium upright math msam 10) . "msam10")
@@ -133,9 +138,10 @@
 (define font-list-alist
   (map-alist-vals (lambda (x) (change-style-sheet-relative-size
 			       paper20-style-sheet-alist x))
-		  '((paper11 . -3)
-		    (paper13 . -2)
-		    (paper16 . -1)
+		  '((paper11 . -4)
+		    (paper13 . -3)
+		    (paper16 . -2)
+		    (paper19 . -1)		    
 		    (paper20 . 0)
 		    (paper23 . 1)
 		    (paper26 . 2)
@@ -168,11 +174,12 @@
     ;; FIXME: this is a not-so-cool idea to use ALIGN
     ;; RAISE, LOOKUP, since they are not proper elt-properties,
     ;; and might interfere with them.
-    (markup-abbrev-to-properties-alist
+    (markup-to-properties . ,markup-to-properties)
+    (abbreviation-alist
      . ((rows . ((align . 0)))
 	(lines . ((align . 1)))
 	(roman . ((font-family . roman)))
-	(music . ((font-family . music)))
+	(music . ((font-family . music) (font-shape . upright)))
 	(finger . ((font-style . finger)))
 	(bold . ((font-series . bold)))
 	(italic . ((font-shape . italic)))
@@ -185,17 +192,6 @@
     
     )
   )
-
-
-
-(define (font-regexp-to-font-name paper regexp)
-  (let ((style-sheet (cdr (assoc paper style-sheet-alist))))
-    (let loop ((fonts style-sheet))
-      (if (string-match regexp (caar fonts))
-	  (cdar fonts)
-	  (if (pair? (cdr fonts))
-	      (loop (cdr fonts))
-	      '())))))
 
 ;; reduce the font list by successively applying a font-qualifier.
 (define (qualifiers-to-fontnames  qualifiers font-descr-alist)
@@ -292,19 +288,18 @@
 	selected)	; return the topmost.
     ))
 
-(define markup-abbrev-to-properties-alist
-  (append
-    (map (lambda (x) (cons (car x) (cons 'font-style (car x))))
-	style-to-font-alist)))
-
-(define (markup-to-properties markup)
+(define (markup-to-properties sheet markup)
   ;;(display "markup: `")
-  ;;(display markup)
+  ;;(write markup)
   ;;(display "'\n")
   (if (pair? markup)
       (list markup)
-      (let ((entry (assoc markup markup-abbrev-to-properties-alist)))
-	(if entry (cdr entry)
+      (let ((entry (assoc markup
+			  ;; assoc-chain?
+			  (append (cdr (assoc 'abbreviation-alist sheet))
+				  (cdr (assoc 'style-alist sheet))))))
+	(if entry
+	    (cdr entry)
 	    (list (cons markup #t))))))
 
 ; fixme, how's this supposed to work?
