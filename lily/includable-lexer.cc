@@ -51,15 +51,15 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
       return;
     }
   
-  Source_file * sl = global_sources->get_file (s);
+  Source_file *sl = global_sources->get_file (s);
   if (!sl)
     {
       String msg = _f ("can't find file: `%s'", s);
       msg += "\n";
-      msg += _f ("(search path: `%s')", global_sources->path_->to_string ().to_str0 ());
+      msg += _f ("(search path: `%s')",
+		 global_sources->path_->to_string ().to_str0 ());
       msg += "\n";
       LexerError (msg.to_str0 ());
-
       return;
     }
   filename_strings_.push (sl->name_string ());

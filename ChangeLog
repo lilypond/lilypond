@@ -1,5 +1,9 @@
 2004-04-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/my-lily-lexer.cc (set_encoding): New method.
+
+	* lily/lexer.ll: Grok \encoding.
+
 	* lily/font-metric.cc (get_encoded_index): New function.
 
 	* lily/include/font-metric.hh (coding_scheme): New method.

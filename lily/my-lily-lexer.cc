@@ -25,7 +25,7 @@
 #include "ly-module.hh"
 
 
-static Keyword_ent the_key_tab[]={
+static Keyword_ent the_key_tab[] = {
   {"acciaccatura", ACCIACCATURA},
   {"accepts", ACCEPTS},
   {"addlyrics", ADDLYRICS},
@@ -88,7 +88,7 @@ static Keyword_ent the_key_tab[]={
   {"type", TYPE},
   {"unset", UNSET},
   {"with", WITH},
-  {0,0}
+  {0, 0}
 };
 
 
@@ -102,7 +102,7 @@ My_lily_lexer::My_lily_lexer ()
   scopes_ = SCM_EOL;
   
   add_scope (ly_make_anonymous_module ());
-  errorlevel_ =0; 
+  errorlevel_ = 0; 
 
   main_input_b_ = false;
 }
@@ -114,17 +114,14 @@ My_lily_lexer::add_scope (SCM module)
   scm_set_current_module (module);
   for (SCM s = scopes_; gh_pair_p (s); s = gh_cdr (s))
     {
-      /*
-	UGH. how to do this more neatly? 
-      */      
-      SCM expr = scm_list_n (ly_symbol2scm ("module-use!"),
-			     module, scm_list_n (ly_symbol2scm ("module-public-interface"),
-						 gh_car (s), SCM_UNDEFINED),
-			     SCM_UNDEFINED);
-      
+      /* UGH. how to do this more neatly? */      
+      SCM expr
+	= scm_list_3 (ly_symbol2scm ("module-use!"),
+		      module,
+		      scm_list_2 (ly_symbol2scm ("module-public-interface"),
+				  gh_car (s)));
       scm_primitive_eval (expr);
     }
-  
   scopes_ = scm_cons (module, scopes_);
 }
 
@@ -203,9 +200,7 @@ void
 My_lily_lexer::LexerError (char const *s)
 {
   if (include_stack_.is_empty ())
-    {
-      progress_indication (_f ("error at EOF: %s", s)+ String ("\n"));
-    }
+    progress_indication (_f ("error at EOF: %s", s) + String ("\n"));
   else
     {
       errorlevel_ |= 1;
@@ -243,4 +238,10 @@ void
 My_lily_lexer::prepare_for_next_token ()
 {
   last_input_ = here_input ();
+}
+
+void
+My_lily_lexer::set_encoding (String s)
+{
+  encoding_ = s;
 }
