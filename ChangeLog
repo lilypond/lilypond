@@ -1,5 +1,7 @@
 2002-12-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* NEWS: update.
+
 	* lily/font-interface.cc (get-font): take alist chain i.s.o. alist
 	argument
 	
@@ -17,7 +19,6 @@
 	format for parser.
 
 	* lily/lexer.ll: preliminary \markup syntax. 
-	
 
 2002-11-30  Heikki Junes <hjunes@cc.hut.fi>
 
