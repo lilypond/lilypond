@@ -23,11 +23,36 @@ Note_req::Note_req(Voice_element*v)
     forceacc = false;
 }
 
+int
+Note_req::height() const
+{
+    int s = name -'c';
+    if (s < 0)
+	s+=7;
+    return  s + octave*7;
+}
+
+/****************************************************************/
 Rhythmic_req::Rhythmic_req(Voice_element*v)
      :Request(v)
 {
     balltype = 1;
     dots = 0;
+}
+void
+Rhythmic_req::print() const
+{
+    mtor << "rhythmic: " << balltype ;
+    int d =dots;
+    while (d--)
+	mtor << '.';
+    mtor<<"\n";
+}
+void
+Note_req::print() const
+{
+    mtor << "note: " << name << " oct: "<< octave;
+    Rhythmic_req::print();
 }
 
 Request::Request()
@@ -35,6 +60,12 @@ Request::Request()
     elt = 0;
 }
 
+void
+Rest_req::print() const
+{
+    mtor << "rest, " ;
+    Rhythmic_req::print();
+}
 
 Real
 wholes(int dur, int dots)

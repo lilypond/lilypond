@@ -11,6 +11,7 @@
 #include "debug.hh"
 #include "parseconstruct.hh"
 #include "dimen.hh"
+#include "identifier.hh"
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -36,13 +37,15 @@
 
 %token VOICE STAFF SCORE TITLE RHYTHMSTAFF BAR NOTENAME OUTPUT
 %token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS
+%token MELODICSTAFF
 
 %type <consstr> unit
-%token <id> IDENTIFIER
+%token <id>  IDENTIFIER
+%token <string> NEWIDENTIFIER 
 %token <string> PITCH DURATION RESTNAME
 %token <real> REAL
 %token <string> STRING
-
+%type <id> declaration 
 %type <paper> paper_block paper_body
 %type <real> dim
 %type <voice> voice_block voice_body voice_elts voice_elts_dollar
@@ -50,14 +53,28 @@
 %type <command> score_command
 %type <score> score_block score_body
 %type <staff> staff_block  rhythmstaff_block rhythmstaff_body
+%type <staff> melodicstaff_block melodicstaff_body staffdecl
 %type <i> int
 %type <scommands> score_commands_block score_commands_body
 
 %%
 
 mudela:	/* empty */
-	| score_block { 
-		add_score($1);
+	| mudela score_block { 
+		add_score($2);
+	}
+	| mudela add_declaration {	}
+	;
+
+add_declaration: declaration	{
+		add_identifier($1);
+	}
+	;
+
+declaration:
+	NEWIDENTIFIER '=' staff_block  {
+		$$ = new Staff_id(*$1, $3);
+		delete $1; // this sux
 	}
 	;
 
@@ -86,7 +103,7 @@ paper_block:
 
 paper_body:
 	/* empty */		 	{ $$ = new Paperdef; }
-	| paper_body WIDTH dim		{ $$->width = $3;}
+	| paper_body WIDTH dim		{ $$->linewidth = $3;}
 	| paper_body OUTPUT STRING	{ $$->outfile = *$3;
 		delete $3;
 	}
@@ -104,9 +121,16 @@ unit:	CM		{ $$ = "cm"; }
 	|PT		{ $$ = "pt"; }
 	;
 	
-
+/*
+	staff
+*/
 staff_block:
-	rhythmstaff_block
+	staffdecl
+	| rhythmstaff_block
+	| melodicstaff_block
+	;
+
+staffdecl: STAFF '{' IDENTIFIER '}' { $$ = $3->staff(); }
 	;
 
 rhythmstaff_block:
@@ -118,6 +142,18 @@ rhythmstaff_body:
 	| rhythmstaff_body voice_block 	{ $$->add_voice($2); } 	
 	;
 
+melodicstaff_block:
+	MELODICSTAFF '{' melodicstaff_body '}'	{ $$ = $3; }
+	;
+
+melodicstaff_body:
+	/* empty */			{ $$ = get_new_melodicstaff(); }
+	| melodicstaff_body voice_block 	{ $$->add_voice($2); } 	
+	;
+
+/*
+	voice
+*/
 voice_block:
 	VOICE '{' voice_body '}'	{ $$ = $3; }
 	;
@@ -183,4 +219,5 @@ parse_file(String s)
 #endif
    new_input(s);
    yyparse();
+   *mlog << "\n";
 }

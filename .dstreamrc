@@ -16,3 +16,6 @@ parse_pitch		1
 Col_configuration	1
 Command			1
 Score_commands		1
+Note_req		1
+Rhythmic_req		1
+Rest_req		1

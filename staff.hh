@@ -13,6 +13,8 @@ struct Staff {
 
     /// commands in chronological order
     PointerList<Command *> commands;
+
+    /// runtime field
     PointerList<Staff_column*> cols;
 
     /// indirections to the Score and PScore
@@ -20,11 +22,11 @@ struct Staff {
     PScore *pscore_;
 
     /****************************************************************/
-    
+    Staff(const Staff&src);
     void add_voice(Voice *v);
     void add_staff_column(Staff_column *sp);
 
-	 
+    Paperdef*paper()const;
     /// interpret all requests and add items to #destination#.
     void process();
     /**
@@ -53,12 +55,11 @@ struct Staff {
     /****************************************************************
       VIRTUALS
     ****************************************************************/
-    
+    virtual Staff*clone()const=0;    
     virtual void set_output(PScore * destination)=0;
     virtual void grant_requests()=0;    
     virtual Staff_column * create_col(Score_column * )=0;
     virtual ~Staff() { }
-
 };
 #endif
 

@@ -3,6 +3,20 @@
 #include "sccol.hh"
 #include "debug.hh"
 
+Staff::Staff(Staff const&src)
+{
+    PL_copy(voices,src.voices);
+    PL_copy(commands,src.commands);
+    assert(!cols.size());	// cols is a runtime field.
+
+    score_ = src.score_;
+    pscore_ = src.pscore_;
+}
+
+Paperdef*
+Staff::paper() const{
+    return score_->paper_;
+}
 
 void
 Staff::clean_cols()
@@ -23,7 +37,7 @@ Staff::get_col(Real w, bool mus)
     assert(sc->when == w);
     PCursor<Staff_column *> stc(cols);
     for (; stc.ok(); stc++) {
-	if (*sc  < *stc->score_column)
+	if (*stc->score_column > *sc) // too far
 	    break;
 	if (sc == stc->score_column)
 	    return stc;
@@ -131,7 +145,8 @@ Staff::OK() const
 
 
 Real
-Staff::last() const {
+Staff::last() const
+{
     Real l = 0.0;
     for (PCursor<Voice*> vc(voices); vc.ok(); vc++) {
 	l = MAX(l, vc->last());
@@ -143,20 +158,18 @@ Staff::last() const {
 void
 Staff::print() const
 {
-        #ifndef NPRINT
-
+#ifndef NPRINT
     mtor << "Staff {\n";
     for (PCursor<Voice*> vc(voices); vc.ok(); vc++) {
 	vc->print();
 	
     }
     mtor <<"}\n";
-    #endif
+#endif
 }
 
 Staff::Staff()
 {
     score_ =0;
-    pscore_=0;
-    
+    pscore_=0;    
 }

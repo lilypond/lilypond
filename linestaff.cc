@@ -2,11 +2,14 @@
 #include "symbol.hh"
 #include "lookupsyms.hh"
 #include "dimen.hh"
+#include "paper.hh"
+#include "pscore.hh"
 
-Linestaff::Linestaff(int l)
+Linestaff::Linestaff(int l, PScore *s)
+    : PStaff(s)
 {
     nolines = l;
-    stafsym = Lookup::linestaff(l); 
+    stafsym = s->paper_->lookup_->linestaff(l); 
 }
 
 Symbol

@@ -1,22 +1,21 @@
 #include <assert.h>
-#include "keyword.hh"
+#include "identifier.hh"
+#include "staff.hh"
 #include "lexer.hh"
 #include "parser.hh"
 
-Identifier::Identifier()
+Identifier::Identifier(String n)
+    :name  (n)
 {
     data = 0;
-    type = IDENTIFIER;
 }
 
 
 Identifier::~Identifier()
 {
-    if (!data)
-	return;
-    switch (type) {
-    case IDENTIFIER:
-    default:
-	assert(false);
-    }
+}
+
+Staff_id::~Staff_id()
+{
+    delete staff();
 }

@@ -9,6 +9,7 @@
 #include "proto.hh"
 #include "vray.hh"
 
+/// store simultaneous requests
 struct Staff_column {
     Score_column *score_column;
 
@@ -23,6 +24,7 @@ struct Staff_column {
     /****************************************************************
       VIRTUAL
     ****************************************************************/
+    //virtual Staff_column *clone() const=0;
     virtual void process_requests()=0;
     virtual void process_commands()=0;
     virtual ~Staff_column() { }

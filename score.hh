@@ -2,7 +2,7 @@
 #define SCORE_HH
 #include "vray.hh"
 #include "proto.hh"
-#include "list.hh"
+#include "plist.hh"
 
 
 /// the total music def of one movement

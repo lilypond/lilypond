@@ -1,6 +1,6 @@
 MAJVER=0
 MINVER=0
-PATCHLEVEL=5
+PATCHLEVEL=6
 
 # 
 #
@@ -20,16 +20,19 @@ PACKAGENAME=lilypond
 DNAME=$(PACKAGENAME)-$(VERSION)
 othersrc=lexer.l parser.y
 SCRIPTS=make_version make_patch genheader
-IFILES=dimen.tex symbol.ini suzan.ly maartje.ly  lilyponddefs.tex test.tex .dstreamrc
+IFILES=dimen.tex symbol.ini suzan.ly maartje.ly\
+	lilyponddefs.tex test.tex .dstreamrc
 OFILES=Makefile Sources.make 
-DOC=COPYING README TODO
+DOC=COPYING README TODO CodingStyle
 DFILES=$(hdr) $(mycc) $(othersrc) $(OFILES) $(IFILES) $(SCRIPTS) $(DOC)
 
 #compiling
 LOADLIBES=-L$(FLOWERDIR) -lflower
 FLOWERDIR=../flower
-#DEFINES=-DNDEBUG -DNPRINT -O2 			# speedy
-DEFINES=-g					# lots of debugging info
+# speedy
+#DEFINES=-DNDEBUG -DNPRINT -O2
+# lots of debugging info
+DEFINES=-g
 
 CXXFLAGS=$(DEFINES) -I$(FLOWERDIR) -pipe -Wall -W  -pedantic 
 FLEX=flex

@@ -1,6 +1,4 @@
 #include "matrix.hh"
-#include "string.hh"
-
 
 Real
 Matrix::norm() const

@@ -5,14 +5,12 @@
 #include "glob.hh"
 #include "string.hh"
 
+/// a voice element wants something printed
 struct Request {
     Voice_element*elt;
-#if 0
-    enum {
-	UNKNOWN, NOTE, REST, LYRIC, SCRIPT, CHORD, BEAM,
-	BRACKET, STEM, SLUR, CRESC, DECRESC, ABSDYNAMIC
-    } tag;
-#endif
+    
+    /****************/
+
     virtual void print()const ;
     virtual Note_req *note() {return 0;}
     virtual Rest_req *rest() {return 0;}
@@ -53,12 +51,17 @@ struct Request {
     beams/stems to look up the balls it has to connect to.  */
 	
 
+/// a request with a duration
 struct Rhythmic_req : Request {
     int balltype;
     int dots;
+    
+    /****************/
+
     Real duration() const;
     Rhythmic_req(Voice_element*);
-    Rhythmic_req*rhythmic() { return this;} 
+    Rhythmic_req*rhythmic() { return this;}
+    void print ()const;
 };
 
 /// Put a note of specified type, height, and with accidental on the staff.
@@ -67,8 +70,14 @@ struct Note_req : Rhythmic_req {
     int octave;
     int accidental;
     bool forceacc;
+    
+    /****************/
+
+    // return height from central c (in halflines)
+    int height()const; 
     Note_req(Voice_element*v);
     Note_req*note() { return this;}
+    virtual void print() const;
 };
 /**
 Staff has to decide if the ball should be hanging left or right. This
@@ -83,7 +92,7 @@ based on ottava commands and the appropriate clef.
 
 ///Put a rest on the staff.
 struct Rest_req : Rhythmic_req {
-
+    void print()const;
     Rest_req(Voice_element*v) : Rhythmic_req(v) {  }
     Rest_req * rest() { return this;}
 };

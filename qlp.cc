@@ -4,7 +4,7 @@
 #include "choleski.hh"
 
 void
-Mixed_qp::add_equality_cons(Vector v, double r)
+Mixed_qp::add_equality_cons(Vector , double )
 {
     assert(false);
 }

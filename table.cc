@@ -1,12 +1,14 @@
 #include "glob.hh"
 #include "debug.hh"
 #include "string.hh"
+#include "identifier.hh"
 #include "keyword.hh"
 #include "parser.hh"
 
 static Keyword_ent  the_key_tab[]={
     "voice", VOICE,
     "rhythmstaff", RHYTHMSTAFF,
+    "melodicstaff", MELODICSTAFF,
     "score", SCORE,
     "bar", BAR,
     "output", OUTPUT,
@@ -20,6 +22,7 @@ static Keyword_ent  the_key_tab[]={
     "unitspace", UNITSPACE,
     "skip", SKIP,
     "commands", COMMANDS,
+    "staff", STAFF,
     0,0
 } ;
 
@@ -37,7 +40,13 @@ Identifier*
 lookup_identifier(String s)
 {
     if (!the_id_tab.elt_query(s))
-	 the_id_tab[s]= new Identifier;
+	return 0;
     
     return the_id_tab[s];
+}
+
+void
+add_identifier(Identifier*i)
+{    
+    the_id_tab[i->name] = i;
 }

@@ -1,41 +1,53 @@
+%%
+%% include file for LilyPond
+\def\mdef#1#2{\def#1{{\musicfnt\char#2}}}
+
+%% musix defs
+	\parindent=0pt
+	\newdimen\interlinedist
+	\newcount\n
+	\newdimen\balkhoog
+	\newdimen\staffrulethickness
+	\newdimen\interstaffrule
+
 \def\musixtwentydefs{
 	\font\musicfnt=musix20
-
-%	\hulplijnbreedte5pt
-	%\hlijnhoogte1pt
-	%\balkskip4pt
+	\interlinedist=5pt
+	\balkhoog=20pt
+	\staffrulethickness=0.4pt
+	\interstaffrule=\balkhoog
+	\advance\interstaffrule by-\staffrulethickness
+	\divide\interstaffrule by 4
+	\advance\interstaffrule by -\staffrulethickness		
 }
+
 \def\interstaffline{
 	\vskip 20pt%
 }
 
 \musixtwentydefs
-\def\mdef#1#2{\def#1{{\musicfnt\char#2}}}
+
 \mdef\quartball{'007}
 \mdef\halfball{'010}
 \mdef\wholeball{'011}
-\mdef\wholerest{'075}
 \mdef\halfrest{'074}
-\mdef\quartrest{'076}
-\mdef\eighthrest{'077}
-\mdef\sixteenthrest{'078}
-\mdef\thirtysecondrest{'079}
+\mdef\wholerest{'075}
+\mdef\quartrest{62}
+\mdef\eighthrest{63}
+\mdef\sixteenthrest{64}
+\mdef\thirtysecondrest{65}
 \mdef\sharp{'065}
 \mdef\flat{'063}
 \mdef\natural{'067}
 \mdef\singledot{'00}
 \mdef\doubledot{'01}
 \mdef\tripledot{'02}
-
-
-
-\def\maatstreep{\vrule height8pt depth8pt }
-\def\finishbar{\vrule height8pt width 1pt depth8pt}
-\parindent0pt
-
-\def\generalmeter#1#2{\vbox to 0pt{\vss\rm\hbox{#1}\hbox{#2}\vss}}
-
 \mdef\mussepline{155}
+
+\def\maatstreep{\vrule height\balkhoog}
+\def\finishbar{\vrule height\balkhoog  width 1pt}
+\def\generalmeter#1#2{\vbox to 0pt{\vss\rm\hbox{#1}\hbox{#2}}}
+
 \def\lineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
 \def\interscoreline{
 	\par\vskip 10pt\par
@@ -43,10 +55,18 @@
 	\vskip 10pt
 }
 
-\newcount\n
-\def\linestafsym#1#2{\hbox to 0pt{\vbox to 0pt{\n=0%
+%
+% a staffsymbol with #1 lines, width #2
+% bottom at baseline
+\def\linestafsym#1#2{\hbox to 0pt%
+  {\vbox to 0pt{\vss%
+	\vskip-\interlinedist
+	\n=0%
 	\loop\ifnum\n<#1\advance\n by1%
-	\ifnum\n>1\vskip2pt\fi \hrule width#2\repeat\vss}\hss}}
+		\vskip\interstaffrule \hrule height \staffrulethickness	width#2
+		\repeat
+	}%
+\hss}}
 
 \def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
 
@@ -58,3 +78,5 @@
 \def\lsingledot{\kern-6pt\singledot}
 \def\ldoubledot{\kern-6pt\doubledot}
 \def\ltripledot{\kern-6pt\tripledot}
+
+

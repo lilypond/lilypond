@@ -69,7 +69,6 @@ struct Staff_column;
 struct Staff;
 struct Command;
 struct Symbol;
-struct Stretchable_symbol;
 struct Output;
 struct Text_gob;
 struct Voice;
@@ -83,8 +82,9 @@ class Mixed_qp;
 class Paperdef;
 class Score_commands;
 class Parametric_symbol;
-
-
+struct Lookup;
+struct Symtables;
+struct Symtable;
 
 #endif // PROTO_HH
 

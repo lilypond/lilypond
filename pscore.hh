@@ -10,8 +10,7 @@
 
 /// all stuff which goes onto paper
 struct PScore {
-    /// width of paper
-    Real linewidth;
+    Paperdef *paper_;		// indirection.
     
     /// the columns, ordered left to right
     PointerList<PCol *> cols;
@@ -73,7 +72,7 @@ struct PScore {
     void clean_cols();
     void problem_OK()const ;
     void OK()const ;
-    PScore();
+    PScore(Paperdef*);
     void print() const;
 };
 /** notes, signs, symbols in a score can be grouped in two ways:

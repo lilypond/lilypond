@@ -9,6 +9,7 @@ int yylex();
 void yyerror(char *s);
 
 int lookup_keyword(String s);
-Identifier* lookup_identifier(String s);
 
+Identifier* lookup_identifier(String s);
+void add_identifier(Identifier*i);
 #endif

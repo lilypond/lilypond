@@ -1,12 +1,14 @@
 #include "line.hh"
 
-#include "list.hh"
+#include "plist.hh"
 #include "pcol.hh"
 #include "item.hh"
 #include "request.hh"
 #include "command.hh"
 
 #include "list.cc"
+
+#include "plist.cc"
 #include "cursor.cc"
 #define PLC_instantiate(a) PL_instantiate(a); PL_instantiate(const a)
 

@@ -2,7 +2,7 @@
     do calculations for breaking problem
     
     */
-
+#include "paper.hh"
 #include "linespace.hh"
 #include "debug.hh"
 #include "line.hh"
@@ -17,7 +17,7 @@ PScore::solve_line(svec<const PCol *> curline) const
    sp.add_column(curline[0], true, 0.0);
    for (int i=1; i< curline.sz()-1; i++)
        sp.add_column(curline[i]);
-   sp.add_column(curline.last(), true, linewidth);
+   sp.add_column(curline.last(), true, paper_->linewidth);
 
    // misschien  moeven uit Spacing_problem? 
    for (PCursor<Idealspacing *> i(suz); i.ok(); i++) {

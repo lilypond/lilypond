@@ -4,7 +4,8 @@ struct Linestaff : PStaff {
     
     int nolines;
 
-    Symbol get_stafsym(Real width)const;
-    Linestaff(int);
+/****************/
     
+    Symbol get_stafsym(Real width)const;
+    Linestaff(int, PScore*);   
 };

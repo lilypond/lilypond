@@ -50,6 +50,7 @@ public:
     char *copy_array() const; //  return a "new"-ed copy of contents
 
     const char *ptr() const;
+    const char *ptr() { return ((const String *)this)->ptr(); }
     /// return the data. Don't use for writing the data.
     operator const char *() const { return ptr(); }
     

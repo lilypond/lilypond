@@ -7,12 +7,19 @@
 #include "symbol.hh"
 
 struct Lookup {
-    static Parametric_symbol *linestaff(int n);
-    static Parametric_symbol *meter(String);
-    static Symbol ball(int);
-    static Symbol rest(int);
-    static Symbol bar(String);
-    static Symbol dots(int);
+    Symtables *symtables_;
+    
+    /****************/
+
+    void parse (Text_db&t);
+    Parametric_symbol *linestaff(int n);
+    Parametric_symbol *meter(String);
+    Symbol ball(int);
+    Symbol rest(int);
+    Symbol bar(String);
+    Symbol dots(int);
+    Lookup();
+    ~Lookup();
 };
 
 #endif
