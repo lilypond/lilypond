@@ -70,16 +70,20 @@ LY_DEFINE (ly_grob_paper,"ly:grob-paper", 1, 0, 0,
 
 
 LY_DEFINE(ly_grob_alist_chain, "ly:grob-alist-chain",
-	  1, 0, 0,
-	  (SCM g),
-	  "Get an alist chain for grob @var{g}."
+	  1, 1, 0,
+	  (SCM g, SCM global),
+	  "Get an alist chain for grob @var{g}, with @var{global} as the "
+	  "global default. If unspecified, @code{font-defaults} "
+	  "from the paper block is taken. "
 	  )
 {
   Grob * sc = unsmob_grob (g);
   SCM_ASSERT_TYPE (sc, g, SCM_ARG1, __FUNCTION__, "grob");
 
-  SCM defaults = sc->get_paper ()->lookup_variable (ly_symbol2scm ("font-defaults"));
-  return sc->get_property_alist_chain (defaults);
+  if (global == SCM_UNDEFINED)
+    global = sc->get_paper ()->lookup_variable (ly_symbol2scm ("font-defaults"));
+
+  return sc->get_property_alist_chain (global);
 }
 
 

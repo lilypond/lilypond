@@ -423,7 +423,7 @@ L1 is copied, L2 not.
        "beam.scm"
        "clef.scm"
        "slur.scm"
-       "font.scm"
+;       "font.scm"
        "new-font.scm"
        
        "define-markup-commands.scm"

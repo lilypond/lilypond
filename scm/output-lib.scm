@@ -11,15 +11,6 @@
 (define (tablature-stem-attachment-function style duration)
   (cons 0.0 0.5))
 
-; The TabNoteHead stencil callback.
-; Create a text stencil
-(define-public (tablature-print-function grob)
-  (let ((stencil (fontify-text
-                   (ly:get-default-font grob)
-                   (ly:grob-property grob 'text)
-                   )))
-    stencil ; return the stencil.
-    ))
 
 ; The TabNoteHead tablatureFormat callback.
 ; Compute the text grob-property
@@ -47,8 +38,12 @@
 			(else "")))
                                    
          )
-    (let ((slur (Slur::print grob))
-          (text (fontify-text (ly:get-default-font grob) letter)))
+    (let* ((slur (Slur::print grob))
+	   (paper (ly:grob-paper grob))
+	   (text (interpret-markup
+		  paper
+		  (ly:grob-alist-chain grob (ly:paper-lookup paper 'text-font-defaults))
+		  letter)))
     
       (let ((x (/ (- (cdr (ly:stencil-extent slur 0)) 
                      (/ (cdr (ly:stencil-extent text 0)) 2.0)

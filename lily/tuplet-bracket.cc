@@ -171,7 +171,7 @@ Tuplet_bracket::print (SCM smob)
   Paper_def *pap = me->get_paper ();
   if (gh_string_p (number) && number_visibility)
     {
-      SCM properties = Font_interface::font_alist_chain (me);
+      SCM properties = Font_interface::text_font_alist_chain (me);
       SCM snum = Text_item::interpret_markup (pap->self_scm (), properties, number);
       Stencil num = *unsmob_stencil (snum);
       num.align_to (X_AXIS, CENTER);

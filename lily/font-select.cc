@@ -41,6 +41,7 @@ wild_compare (SCM field_val, SCM val)
 {
   return (val == SCM_BOOL_F || field_val == ly_symbol2scm ("*") || field_val == val);
 }
+
 Font_metric*
 get_font_by_design_size (Paper_def* paper, Real requested,
 			 SCM font_vector)
@@ -87,54 +88,14 @@ get_font_by_mag_step (Paper_def* paper, Real requested_step,
 
 
 
-/*
-  We can probably get more efficiency points if we preprocess FONTS
-  to make lookup easier.
- */
 SCM
 properties_to_font_size_family (SCM fonts, SCM alist_chain)
 {
-  SCM shape = SCM_BOOL_F;
-  SCM family = SCM_BOOL_F;
-  SCM series = SCM_BOOL_F;
-  
-  shape = ly_assoc_chain (ly_symbol2scm ("font-shape"), alist_chain);
-  family = ly_assoc_chain (ly_symbol2scm ("font-family"), alist_chain);
-  series = ly_assoc_chain (ly_symbol2scm ("font-series"), alist_chain);
+  static SCM proc;
+  if (!proc )
+    proc = scm_c_eval_string ("lookup-font");
 
-  if (gh_pair_p (shape))
-    shape = ly_cdr (shape);
-  if (gh_pair_p (family))
-    family = ly_cdr (family);
-  if (gh_pair_p (series))
-    series = ly_cdr (series);
-
-
-  for (SCM s = fonts ; gh_pair_p (s); s = ly_cdr (s))
-    {
-      SCM qlist = ly_caar (s);
-
-      if (!wild_compare (SCM_VECTOR_REF (qlist, 0), series))
-	continue;
-      if (!wild_compare (SCM_VECTOR_REF (qlist, 1), shape))
-	continue;
-      if (!wild_compare (SCM_VECTOR_REF (qlist, 2), family))
-	continue;
-  
-      SCM qname = ly_cdar (s);
-      return qname;
-    }
-
-  warning (_f ("cannot find font for: (%s %s %s)",
-	       ly_symbol2string (series).to_str0 (),
-	       ly_symbol2string (shape).to_str0 (),
-	       ly_symbol2string (family).to_str0 ()));
-  
-  scm_write (scm_list_n (shape, series , family, 
-			 SCM_UNDEFINED), scm_current_error_port ());
-  scm_flush (scm_current_error_port ());
- 
-  return scm_makfrom0str ("cmr10");
+  return scm_call_2 (proc, fonts, alist_chain);
 }
 
 

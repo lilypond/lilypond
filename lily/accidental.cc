@@ -196,7 +196,7 @@ Accidental_interface::print (SCM smob)
   Font_metric *fm = 0;
   if (smaller)
     {
-      SCM ac = Font_interface::font_alist_chain (me);
+      SCM ac = Font_interface::text_font_alist_chain (me);
       ac = gh_cons (gh_cons (gh_cons
 			     (ly_symbol2scm ("font-size"),
 			      scm_int2num (-2)), SCM_EOL),

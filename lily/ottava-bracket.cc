@@ -66,7 +66,7 @@ Ottava_bracket::print (SCM smob)
     }
   while (flip (&d) != LEFT);
 
-  SCM properties = Font_interface::font_alist_chain (me);
+  SCM properties = Font_interface::text_font_alist_chain (me);
   SCM markup = me->get_property ("text");
   Stencil text;
   if (Text_item::markup_p (markup)) 
