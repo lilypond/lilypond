@@ -1,17 +1,7 @@
 # lib/include/Makefile
 
-# subdir level:
-#
 depth = ../..
-#
 
-# identify module:
-#
-MODULE_NAME = lilypond
-#
-
-# generic stuff/Makefile
-#
-include ./$(depth)/make/Include.make
-#
+include $(depth)/make/Stepmake.make
+include $(stepdir)/C++.make
 
