@@ -4,13 +4,7 @@
 (define context-description-alist
   '(
     (Grace . "
-    The context for handling grace notes.  It used to be instantiated
-    automatically when you use @code{\grace}.  Basically, it is an
-    `embedded' miniature of the Score context.  Since this context
-    needs special interaction with the rest of LilyPond, you should
-    not explicitly instantiate it.
-
-   DEPRECATED.
+   DEPRECATED; this is a 1.4 construct.
 ")
     (LyricsVoice . "
     Corresponds to a voice with lyrics.  Handles the printing of a
@@ -86,7 +80,7 @@
     @code{\paper} block) is processed.
 ")
 
-    (TabStaff . "Context for generating tablature.")
+    (TabStaff . "Context for generating tablature. [DOCME]")
     )
   )
 

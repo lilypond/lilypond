@@ -404,7 +404,12 @@ print only if there is no beam associated with this tuplet bracket.")
 (grob-property-description 'number-visibility boolean-or-symbol? "
 Like @code{bracket-visibility}, but for the number.")
 (grob-property-description 'tie ly-grob? "") 
-(grob-property-description 'type symbol? "one of: line, dashed-line or dotted-line.")
+(grob-property-description 'type symbol? " 
+
+one of: line, dashed-line, trill or dotted-line.
+
+[FIXME: type is too generic for this doc, move doco to intefrace] 
+")
 (grob-property-description 'visibility-lambda procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY).")
 (grob-property-description 'when moment? "when does this column happen?.")
 (grob-property-description 'word-space number? "elongate left by this much (FIXME: cumbersome semantics).")
