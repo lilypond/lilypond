@@ -8,7 +8,7 @@ enteredby		Shay Rojansky
 copyright		Public Domain
 }
 
-\version "0.1.5";
+\version "0.1.6";
 
 global = 
     \melodic {
@@ -23,7 +23,7 @@ soprane =
         \clef "violin";
         \octave c';
 
-	<\multi 2;
+	\multi 2 <
 	% Real soprane
 	{\stemup
 	r8 [g16 c'] [e' g c' e'] r8 [g16 c'] [e' g c' e'] |
@@ -94,7 +94,7 @@ bass =
 	b b |
 	a a |	
 %% 10
-	<\multi 2;
+	\multi 2 <
 	% Alt
 	{\stemup
 	r16 a8. ~ a4 r16 a8. ~ a4 |
@@ -163,12 +163,11 @@ bass =
         
 \score {
     \melodic \type Grandstaff < 
-	       \multi 1;
-                 < \multi 2;
+                  <
                        \global 
                        \soprane
                  >
-                 < \multi 2;
+                  <
                        \global
 		       \bass
                  >
