@@ -12,7 +12,6 @@
 struct Notehead_register : Request_register {
     Notehead* note_p_;
     Rhythmic_req * note_req_l_;
-    int dir_i_;
     
     /* *************** */
     Notehead_register();
@@ -20,7 +19,6 @@ struct Notehead_register : Request_register {
     virtual void process_requests();
     virtual void pre_move_processing();
     virtual void post_move_processing();
-    void set_feature(Features);
     NAME_MEMBERS(Notehead_register);
 };
 

@@ -13,7 +13,6 @@
 Notehead_register::Notehead_register()
 {
     note_p_ = 0;
-    set_feature(Features::dir(0));
     post_move_processing();
 }
 
@@ -26,12 +25,6 @@ Notehead_register::try_request(Request *req_l)
 	return false;
 
     return true;
-}
-void
-Notehead_register::set_feature(Features d)
-{
-    if(d.direction_i_ || d.initialiser_b_)
-	dir_i_ = d.direction_i_;
 }
 
 void
@@ -63,9 +56,6 @@ void
 Notehead_register::pre_move_processing()
 {
     if (note_p_) {
-	if (dir_i_ && note_p_->rest_b_ ) {
-	    note_p_->position +=4*dir_i_ ;
-	}
 	typeset_element(note_p_);
 	note_p_ = 0;
     }

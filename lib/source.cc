@@ -26,17 +26,18 @@ Sources::set_path(File_path *f_C)
   open a file
 
   @param file_str the file to be opened, name might be changed if it
-  is found in a search path.
+  is found in a search path. UGH!
 
   @return 0 if no file found
   */
 Source_file*
-Sources::get_file_l(String &file_str )
+Sources::get_file_l(String &file_str ) //UGH
 {
     if (path_C_){
-	file_str = path_C_->find(file_str); 
-	if (file_str== "")
+	String file_str_o = path_C_->find(file_str); 
+	if ( ( file_str_o == "" ) && ( file_str != "" ) )
 	    return 0;
+	file_str = file_str_o;
     }
     Source_file * f_p= (!binary_b_) ?
 	new Source_file(file_str) : new Binary_source_file(file_str);

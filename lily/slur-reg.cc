@@ -13,17 +13,6 @@
 #include "debug.hh"
 #include "notehead.hh"
 
-void
-Slur_register::set_feature(Features i)
-{
-    dir_i_ = i.direction_i_;
-}
-
-Slur_register::Slur_register()
-{
-    set_feature(Features::dir(0));
-}
-
 bool
 Slur_register::try_request(Request *req_l)
 {
@@ -80,8 +69,6 @@ void
 Slur_register::pre_move_processing()
 {
     for (int i = 0; i < end_slur_l_arr_.size(); i++) {
-	if (dir_i_) 
-	    end_slur_l_arr_[i]->dir_i_ = dir_i_;
 	typeset_element(end_slur_l_arr_[i]);
     }
     end_slur_l_arr_.set_size(0);
