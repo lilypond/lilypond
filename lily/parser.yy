@@ -582,7 +582,7 @@ context_def_spec_body:
 		$$ = Context_def::make_scm ();
 		unsmob_context_def ($$)->set_spot (THIS->here_input ());
 	}
-	| CONTEXT_DEF_IDENTIFIER	{
+	| CONTEXT_DEF_IDENTIFIER {
 		$$ = $1;
 		unsmob_context_def ($$)->set_spot (THIS->here_input ());
 	}

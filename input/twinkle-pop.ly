@@ -59,9 +59,9 @@ text = \lyrics{
 
 \score {
         <<  
-	   \chords \context ChordNames \transpose c d\acc
-	   \notes \context Staff=melody \transpose c d\melodie
-           \lyrics \context Lyrics \text
+	   \context ChordNames \transpose c d\acc
+	   \context Staff=melody \transpose c d\melodie
+           \context Lyrics \text
         >>
 	\header{
 		piece = "clarinet in B$\flat$"
