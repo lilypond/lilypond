@@ -1,0 +1,7 @@
+#!/bin/sh
+
+PREFIX="."
+echo '#define LIBDIR "'$PREFIX'/"'> hdr/config.hh
+
+touch depend
+make -f Initial.make

@@ -1,5 +1,5 @@
 DFILES=dutch.ini table_sixteen.ini table_twenty.ini\
-	english.ini script.ini
+	english.ini script.ini symbol.ini
 
 default:
 	echo huh?
