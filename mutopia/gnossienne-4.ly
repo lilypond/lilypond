@@ -9,7 +9,7 @@
 }
 
 %{
- Tested Features: cross staff beams and slurs
+ Tested Features: cross staff beams and slurs, grace notes, no bars
 %}
 
 \version "1.0.14";
@@ -138,31 +138,21 @@ lower = \type Voice=two \notes \relative c{
     % no slur damping
     slur_slope_damping = 100.0;
 
-    %hmm
-%    \translator { \BarNumberingScoreContext }
-%    \translator { \BarNumberingStaffContext }
-%  \translator{ \OrchestralScoreContext }
     \translator{ \OrchestralScoreContext }
     \translator{ 
       \GrandStaffContext
       minVerticalAlign = 3.0*\staffheight;
       maxVerticalAlign = 3.0*\staffheight;
-      % don't display bars?
-      % hmm, this switches something else...
-  %    barAlways = 0.;
     }
     \translator{ 
       \StaffContext
-% hmm, i don't want bars
-% but i do want the staffs to be connected
-%      \remove "Bar_engraver";
+      % don't auto-generate bars: not a good idea: -> no breakpoints
+      % barAuto = "0";
+      % urg defaultBarType = "";
+      defaultBarType = "empty";
       \remove "Time_signature_engraver";
     }
   }
-%  \header{
-%	  opus = "BWV 847";
-%  }
-
   \midi {
     \tempo 4 = 54;
   }

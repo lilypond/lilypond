@@ -1,3 +1,9 @@
+pl 22.jcn4
+	- bf's: repeat-engraver; \bar "|:", ":|" now deprecated for repeats
+	- bf: :|, |:
+	- property barAlways changed to boolean (0/1)
+	- added boolean property: barAuto
+
 pl 22.jcn3
 	- bf: mmrest
 

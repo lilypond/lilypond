@@ -1,9 +1,10 @@
 /*
-  bar-reg.cc -- implement Bar_engraver
+  bar-engraver.cc -- implement Bar_engraver
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997, 1998, 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "bar-engraver.hh"
@@ -18,6 +19,7 @@
 Bar_engraver::Bar_engraver()
 {
   bar_p_ =0;
+  bar_l_ =0;
   do_post_move_processing();
 }
 
@@ -39,12 +41,23 @@ Bar_engraver::do_try_music (Music*r_l)
 }
 
 void
+Bar_engraver::acknowledge_element (Score_element_info i)
+{
+  if (Bar *b = dynamic_cast<Bar *> (i.elem_l_))
+    {
+      bar_l_ = b;
+      //      auto_create_bar_b_ = false;
+    }
+}
+
+void
 Bar_engraver::create_bar ()
 {
   if (!bar_p_)
     {
       bar_p_ = new Bar;
       bar_p_->break_priority_i_  = 0;
+      // urg: "" != empty...
       String default_type = get_property ("defaultBarType", 0);
       if (default_type.length_i ())
 	{
@@ -60,6 +73,8 @@ Bar_engraver::do_creation_processing ()
 {
   create_bar ();
   bar_p_->type_str_ = "";
+  Scalar prop = get_property ("barAuto", 0);
+  auto_create_bar_b_ = prop.to_bool ();
 }
 
 void
@@ -75,6 +90,7 @@ Bar_engraver::do_removal_processing ()
 void
 Bar_engraver::do_process_requests()
 {  
+  Time_description const *time = get_staff_info().time_C_;
   if (bar_req_l_) 
     {
       if (!bar_p_)
@@ -84,15 +100,26 @@ Bar_engraver::do_process_requests()
     }
   else 
     {
-      Time_description const *time = get_staff_info().time_C_;
-      String always = get_property ("barAlways", 0);
-      if ((time && !time->whole_in_measure_) || always.length_i ()) 
- 	create_bar ();
+      Scalar always = get_property ("barAlways", 0);
+      if ((time && !time->whole_in_measure_) || always.to_bool ())
+	{
+	  if (auto_create_bar_b_)
+	    create_bar ();
+	  Scalar prop = get_property ("barAuto", 0);
+	  auto_create_bar_b_ = prop.to_bool ();
+	}
     }
-
   
-  
-  if (!bar_p_)
+  /*
+    hmm, perhaps it's Better to create empty bars if you want none
+    displayed, and keep bars for breakpoints ?
+   */
+#if 0
+  if ((time && time->whole_in_measure_)
+      && !always.to_bool ()
+      && !bar_p_ && !bar_l_)
+#endif
+  if (!bar_p_ && !bar_l_)
     {
       Break_req r;
       r.penalty_i_ = Break_req::DISALLOW;
@@ -104,6 +131,15 @@ Bar_engraver::do_process_requests()
 void 
 Bar_engraver::do_pre_move_processing()
 {
+  if (bar_l_)
+    {
+      bar_l_ = 0;
+      if (bar_p_)
+	{
+	  bar_p_->unlink ();
+	  bar_p_ = 0;
+	}
+    }
   if (bar_p_) 
     {
       typeset_element (bar_p_);

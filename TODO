@@ -58,8 +58,6 @@ BUGS:
 
 	* fix braces
 
-	* multibar rests: SkipBars=0
-
 	* ly2dvi barfs on linewidth = -1.
 
 	* fix midi output:
@@ -79,8 +77,6 @@ BUGS:
 
 	* repeat/volta:
 	  - one volta spanner per score
-	  - repeat bars span staffs
-	  - placement alternative number
 
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
 
@@ -250,9 +246,6 @@ ydirection and hshift preset
 	* en-,discouraged linebreaking: 
 	  - handle DISALLOW < penalty > FORCE
 	  - discourage breaking of slurs
-
-	* multibar rest
-	  - symbol(s)
 
 	* fix variable define/lookup parser global<->paper
 

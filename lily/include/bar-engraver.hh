@@ -17,6 +17,8 @@
 class Bar_engraver : public Engraver {
   Bar_req * bar_req_l_;
   Bar * bar_p_;
+  Bar * bar_l_;
+  bool auto_create_bar_b_;
 
   void create_bar ();
 public:
@@ -26,6 +28,7 @@ public:
 
      
 protected:
+  virtual void acknowledge_element (Score_element_info i);
   virtual void do_creation_processing ();
   virtual void do_removal_processing ();
   virtual bool do_try_music (Music *req_l);

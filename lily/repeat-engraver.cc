@@ -104,7 +104,6 @@ Repeat_engraver::do_process_requests ()
       if (now > Moment (0))
 	announce_element (Score_element_info (bar_p, repeated_music_arr_[i])); 
     }
-#if 0 //urg, try pre-ceating and announcing 
   for (int i = 0; i < bar_p_arr_.size (); i++)
     {
       if (!bar_p_arr_[i] && (now >= stop_mom_arr_[i]))
@@ -115,7 +114,6 @@ Repeat_engraver::do_process_requests ()
 	  announce_element (Score_element_info (bar_p, repeated_music_arr_[i]));
 	}
     }
-#endif
   int bees = volta_p_arr_.size ();
   for (int i = volta_p_arr_.size (); i < alternative_music_arr_.size (); i++)
     {
@@ -144,6 +142,12 @@ Repeat_engraver::do_pre_move_processing ()
 	    delete bar_p_arr_[i];
 	  bar_p_arr_[i] = 0;
 	}
+      if (now >= stop_mom_arr_[i])
+	{
+	  bar_p_arr_.del (i);
+	  stop_mom_arr_.del (i);
+	  repeated_music_arr_.del (i);
+	}
     }
   for (int i = volta_p_arr_.size (); i--; )
     {
@@ -154,6 +158,11 @@ Repeat_engraver::do_pre_move_processing ()
 	      typeset_element (volta_p_arr_[i]);
 	      volta_p_arr_[i] = 0;
 	    }
+	  volta_p_arr_.del (i);
+	  alternative_music_arr_[i] = 0;
+	  alternative_music_arr_.del (i);
+	  alternative_start_mom_arr_.del (i);
+	  alternative_stop_mom_arr_.del (i);
 	 }
     }
 }
@@ -161,35 +170,5 @@ Repeat_engraver::do_pre_move_processing ()
 void 
 Repeat_engraver::do_post_move_processing ()
 {
-  Moment now = now_moment ();
-  for (int i = bar_p_arr_.size (); i--; )
-    {
-#if 0 // urg, try with pre-created and annouced :|
-      if (now >= stop_mom_arr_[i])
-	{
-	  if (bar_p_arr_[i])
-	    {
-	      typeset_element (bar_p_arr_[i]);
-	      bar_p_arr_.del (i);
-	      stop_mom_arr_.del (i);
-	      repeated_music_arr_.del (i);
-	    }
-	  else
-	    {
-	      bar_p_arr_.del (i);
-	    }
-	}
-#else 
-      if (now >= stop_mom_arr_[i])
-	{
-	  Bar* bar_p = new Bar;
-	  bar_p-> type_str_ = ":|";
-	  typeset_element (bar_p);
-	  bar_p_arr_.del (i);
-	  stop_mom_arr_.del (i);
-	  repeated_music_arr_.del (i);
-	}
-#endif
-    }
 }
 

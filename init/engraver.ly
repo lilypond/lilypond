@@ -5,6 +5,7 @@
 StaffContext=\translator {
 	\type "Line_group_engraver_group";
 	\name Staff ;
+	barAuto = "1";
 
 %{
 	The Hara_kiri_line_group_engraver is a Line_group_engraver 
