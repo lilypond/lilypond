@@ -10,15 +10,14 @@
 #include "lily-guile.hh"
 #include "molecule.hh"
 
-/** ball at the end of the stem. Takes care of:
+/** ball at the end of the stem. Also takes care of ledger lines.
 
-  * help lines  
+    NoteHead is a kind of RhythmicHead, see there.
 
-  Properties
-
+  Read-only:
+  
   style -- symbol that sets note head style
-
-  */
+*/
 
 class Note_head 
 {

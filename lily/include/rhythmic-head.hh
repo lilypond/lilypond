@@ -16,9 +16,13 @@
 /*
   Properties
   
-  duration-log -- 2-log of the notehead duration
-
   dot -- reference to Dots object.
+
+  stem -- pointer to Stem object
+
+  Read-only
+
+  duration-log -- 2-log of the notehead duration
 
 */
 class Rhythmic_head
