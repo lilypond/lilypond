@@ -37,7 +37,7 @@ Break_align_engraver::add_column (SCM smob)
 {
   Grob * e = unsmob_grob (smob);
   Break_align_interface::add_element (align_,e);
-  typeset_grob (e);
+  
 }
 
 void
@@ -56,16 +56,8 @@ Break_align_engraver::stop_translation_timestep ()
     }
   column_alist_ = SCM_EOL;
 
-  if (align_)
-    {
-      typeset_grob (align_);
-      align_ = 0;
-    }
-  if (left_edge_)
-    {
-      typeset_grob (left_edge_);
-      left_edge_ = 0;
-    }
+  align_ = 0;
+  left_edge_ = 0;
 }
 
 

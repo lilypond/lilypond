@@ -51,17 +51,8 @@ Cluster_spanner_engraver::finalize ()
 void
 Cluster_spanner_engraver::typeset_grobs ()
 {
-  if (finished_spanner_ )
-    {
-      typeset_grob (finished_spanner_);
-      finished_spanner_ = 0;
-    }
-
-  if (beacon_)
-    {
-      typeset_grob (beacon_);
-      beacon_ = 0;
-    }
+  finished_spanner_ = 0;
+  beacon_ = 0;
 }
 
 bool

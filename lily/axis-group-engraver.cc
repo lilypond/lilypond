@@ -85,7 +85,6 @@ Axis_group_engraver::finalize ()
 
   staffline_->set_bound (RIGHT,it);
 
-  typeset_grob (staffline_);
   staffline_ = 0;
 }
 

@@ -114,7 +114,6 @@ Text_spanner_engraver::typeset_all ()
 	  Grob* e = unsmob_grob (get_property ("currentMusicalColumn"));
 	  finished_->set_bound (RIGHT, e);
 	}
-      typeset_grob (finished_);
       finished_ = 0;
     }
 }

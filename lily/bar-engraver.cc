@@ -84,11 +84,7 @@ Bar_engraver::process_acknowledged_grobs ()
 void
 Bar_engraver::typeset_bar ()
 {
-  if (bar_) 
-    {
-      typeset_grob (bar_);
       bar_ =0;
-    }
 }
 
 /*

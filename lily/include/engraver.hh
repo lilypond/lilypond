@@ -26,10 +26,6 @@ class Engraver : public virtual Translator {
   friend class Engraver_group_engraver;
 protected:
   /*
-    Call this when you're finished with ELEM_P.
-   */
-  virtual void typeset_grob (Grob*elem);
-  /*
     take note of item/spanner
     put item in spanner. Adjust local key; etc.
 

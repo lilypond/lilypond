@@ -47,7 +47,6 @@ Vertical_align_engraver::finalize ()
   if (valign_)
     {
       valign_->set_bound (RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
-      typeset_grob (valign_);
       valign_ =0;
     }
 }

@@ -170,15 +170,10 @@ Percent_repeat_engraver::typeset_perc ()
     {
       SCM col =get_property ("currentCommandColumn");
       finished_perc_->set_bound (RIGHT, unsmob_grob (col));
-      typeset_grob (finished_perc_);
       finished_perc_ = 0;
     }
 
-  if (double_percent_)
-    {
-      typeset_grob (double_percent_);
-      double_percent_ = 0;
-    }
+  double_percent_ = 0;
 }
 
 

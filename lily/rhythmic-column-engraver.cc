@@ -150,15 +150,10 @@ Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
 void
 Rhythmic_column_engraver::stop_translation_timestep ()
 {
-  if (note_column_) 
-    {
-      typeset_grob (note_column_);
       note_column_ =0;
-    }
 
   if (spacing_)
     {
-      typeset_grob (spacing_);
       last_spacing_ = spacing_;
       spacing_ =0;
     }

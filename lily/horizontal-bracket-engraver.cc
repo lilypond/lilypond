@@ -111,7 +111,7 @@ Horizontal_bracket_engraver::stop_translation_timestep ()
   for (int i = pop_count_; i--;)
     {
       if (bracket_stack_.size ())
-	typeset_grob (bracket_stack_.pop ());
+	bracket_stack_.pop ();
     }
   pop_count_ = 0;
   push_count_ = 0;

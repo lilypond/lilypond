@@ -37,11 +37,7 @@ Figured_bass_engraver::Figured_bass_engraver ()
 void
 Figured_bass_engraver::stop_translation_timestep ()
 {
-  if (figure_)
-    {
-      typeset_grob (figure_);
-      figure_ = 0;
-    }
+  figure_ = 0;
 
   figures_.clear ();
   rest_req_ = 0;

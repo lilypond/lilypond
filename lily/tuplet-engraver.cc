@@ -118,8 +118,6 @@ Tuplet_engraver::start_translation_timestep ()
 	      if (!sp->get_bound (RIGHT))
 		sp->set_bound (RIGHT, sp->get_bound (LEFT));
 	      
-	      typeset_grob (sp);
-
 	      started_spanners_[i] =0;
 	    }
 	  
@@ -140,11 +138,6 @@ Tuplet_engraver::start_translation_timestep ()
 void
 Tuplet_engraver::finalize ()
 {
-  for (int i=0; i < started_spanners_.size (); i++)
-    {
-      if (started_spanners_[i])
-	typeset_grob (started_spanners_[i]);
-    }  
 }
 
 

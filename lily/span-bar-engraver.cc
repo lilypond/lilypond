@@ -72,7 +72,7 @@ Span_bar_engraver::stop_translation_timestep ()
       if (ly_c_equal_p (spanbar_->internal_get_property (vissym), vis))
 	spanbar_->internal_set_property (vissym, vis);
 
-      typeset_grob (spanbar_);
+      
       spanbar_ =0;
     }
   bars_.set_size (0);

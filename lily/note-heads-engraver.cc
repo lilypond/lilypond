@@ -93,16 +93,8 @@ Note_heads_engraver::process_music ()
 void
 Note_heads_engraver::stop_translation_timestep ()
 {
-  for (int i=0; i < notes_.size (); i++)
-    {
-      typeset_grob (notes_[i]);
-    }
 
   notes_.clear ();
-  for (int i=0; i < dots_.size (); i++)
-    {
-      typeset_grob (dots_[i]);
-    }
   dots_.clear ();
   note_reqs_.clear ();
 }

@@ -95,7 +95,6 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 	  arpeggios_[i]->set_property ("print-function", SCM_EOL);
 	}
       
-      typeset_grob (span_arpeggio_);
       span_arpeggio_ = 0;
     }
   arpeggios_.clear ();

@@ -92,7 +92,6 @@ Spacing_engraver::finalize ()
       Grob * p = unsmob_grob (get_property ("currentCommandColumn"));
   
       spacing_->set_bound (RIGHT, p);
-      typeset_grob (spacing_);
       spacing_ =0;
     }
 }

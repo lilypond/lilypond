@@ -51,10 +51,6 @@ Custos_engraver::stop_translation_timestep ()
   /*
     delay typeset until we're at the next moment, so we can silence custodes at the end of the piece.
    */
-  for (int i = custodes_.size (); i--;)
-    {
-      typeset_grob (custodes_[i]);
-    }
   pitches_.clear ();
 
   custos_permitted = false;
@@ -138,7 +134,6 @@ Custos_engraver::finalize ()
   for (int i = custodes_.size (); i--;)
     {
       custodes_[i]->suicide ();
-      typeset_grob (custodes_[i]);
     }
   custodes_.clear ();
 }

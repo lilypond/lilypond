@@ -246,7 +246,6 @@ New_fingering_engraver::position_scripts ()
       f->add_offset_callback (Side_position_interface::aligned_side_proc, X_AXIS);
 
       f->set_property ("direction", scm_int2num (hordir));
-      typeset_grob (f);
     }
 
   int finger_prio = 200;
@@ -263,7 +262,6 @@ New_fingering_engraver::position_scripts ()
       
       f->set_property ("direction", scm_int2num (UP));
 
-      typeset_grob (f);
     }
   
   for (int i = 0; i < down.size (); i++)
@@ -278,7 +276,6 @@ New_fingering_engraver::position_scripts ()
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
       f->add_offset_callback (Side_position_interface::aligned_side_proc, Y_AXIS);
       f->set_property ("direction", scm_int2num (DOWN));
-      typeset_grob (f);
     }
 }
 
@@ -307,7 +304,6 @@ New_fingering_engraver::stop_translation_timestep ()
 	  sc->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
 	  sc->set_property ("staff-padding" , SCM_EOL);
 	}
-      typeset_grob (sc);
     }
 
   stem_ = 0;

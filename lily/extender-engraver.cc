@@ -85,7 +85,6 @@ Extender_engraver::stop_translation_timestep ()
 {
   if (pending_extender_ && pending_extender_->get_bound (RIGHT))
     {
-      typeset_grob (pending_extender_);
       pending_extender_ = 0;
     }
 
@@ -140,7 +139,6 @@ Extender_engraver::finalize ()
 
       if (!extender_->get_bound (RIGHT))
 	extender_->warning (_ ("unterminated extender"));
-      typeset_grob (extender_);
       extender_ = 0;
     }
 
@@ -150,7 +148,6 @@ Extender_engraver::finalize ()
 
       if (!pending_extender_->get_bound (RIGHT))
 	  pending_extender_->warning (_("unterminated extender"));
-      typeset_grob (pending_extender_);
       pending_extender_ =0;
     }
 }

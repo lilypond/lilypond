@@ -91,7 +91,6 @@ Separating_line_group_engraver::finalize ()
   Grob *column = unsmob_grob (ccol);
   
   sep_span_->set_bound (RIGHT, unsmob_grob (ccol));
-  typeset_grob (sep_span_);
   sep_span_ =0;
 
   for  (int i= 0 ; i < last_spacings_.note_spacings_.size (); i++)
@@ -189,7 +188,6 @@ Separating_line_group_engraver::stop_translation_timestep ()
   if (break_item_)
     {
       Separating_group_spanner::add_spacing_unit (sep_span_, break_item_);
-      typeset_grob (break_item_);
     }
   
   if (Item * sp = current_spacings_.staff_spacing_)
@@ -202,7 +200,6 @@ Separating_line_group_engraver::stop_translation_timestep ()
 	Pointer_group_interface::add_grob (sp, ly_symbol2scm ("right-items"),
 					   musical_item_);
 
-      typeset_grob (sp);
     }
 
   
@@ -216,7 +213,6 @@ Separating_line_group_engraver::stop_translation_timestep ()
   if (musical_item_)
     {
       Separating_group_spanner::add_spacing_unit (sep_span_, musical_item_);
-      typeset_grob (musical_item_);
     }
   
   musical_item_ =0;

@@ -130,7 +130,7 @@ Ambitus_engraver::stop_translation_timestep ()
       SCM key_signature = get_property ("keySignature");
       ambitus_->set_property ("accidentals", key_signature);
 
-      typeset_grob (ambitus_);
+      
       is_typeset = true;
     }
 }

@@ -153,10 +153,6 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 void
 Phrasing_slur_engraver::stop_translation_timestep ()
 {
-  for (int i = 0; i < end_phrasing_slurs_.size (); i++)
-    {
-      typeset_grob (end_phrasing_slurs_[i]);
-    }
   end_phrasing_slurs_.clear ();
 }
 

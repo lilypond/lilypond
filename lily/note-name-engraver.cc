@@ -60,10 +60,6 @@ Note_name_engraver::process_music ()
 void
 Note_name_engraver::stop_translation_timestep ()
 {
-  for (int i=0; i < texts_.size (); i++)
-    {
-      typeset_grob (texts_[i]);
-    }
   texts_.clear () ;
   events_.clear ();
 }

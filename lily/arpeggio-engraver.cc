@@ -88,11 +88,7 @@ Arpeggio_engraver::process_music ()
 void
 Arpeggio_engraver::stop_translation_timestep ()
 {
-  if (arpeggio_)
-    {
-      typeset_grob (arpeggio_);
-      arpeggio_ = 0;
-    }
+  arpeggio_ = 0;
   arpeggio_req_ = 0;
 }
 

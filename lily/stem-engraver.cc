@@ -135,11 +135,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 void
 Stem_engraver::stop_translation_timestep ()
 {
-  if (tremolo_)
-    {
-      typeset_grob (tremolo_);
-      tremolo_ = 0;
-    }
+  tremolo_ = 0;
 
   if (stem_)
     {
@@ -159,7 +155,7 @@ Stem_engraver::stop_translation_timestep ()
 	  context ()->unset_property (ly_symbol2scm ("stemRightBeamCount"));
 	}
 
-      typeset_grob (stem_);
+      
       stem_ = 0;
     }
 

@@ -26,7 +26,6 @@ protected:
   virtual void create_line_spanner ();
   virtual void initialize ();
   virtual void finalize ();
-  virtual void typeset_grob (Grob*);
 public:
   TRANSLATOR_DECLARATIONS(Line_group_engraver_group);
 };

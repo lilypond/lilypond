@@ -221,7 +221,6 @@ Script_engraver::stop_translation_timestep ()
 	  sc->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
 	  sc->set_property ("staff-padding", SCM_EOL);
 	}
-      typeset_grob (sc);
     }
   scripts_.clear ();
 }

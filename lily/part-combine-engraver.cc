@@ -90,11 +90,7 @@ Part_combine_engraver::acknowledge_grob (Grob_info i)
 void 
 Part_combine_engraver::stop_translation_timestep ()
 {
-  if (text_)
-    {
-      typeset_grob (text_);
       text_ = 0;
-    }
   event_ = 0;
 }
 

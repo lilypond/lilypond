@@ -151,15 +151,9 @@ Score_engraver::announce_grob (Grob_info info)
 {
   announce_infos_.push (info);
   pscore_->system_->typeset_grob (info.grob_);
-    elems_.push (info.grob_);
+  elems_.push (info.grob_);
 }
 
-void
-Score_engraver::typeset_grob (Grob *elem)
-{
-  (void) elem;
-  //  elems_.push (elem);
-}
 
 void
 Score_engraver::typeset_all ()
@@ -168,35 +162,8 @@ Score_engraver::typeset_all ()
     {
       Grob * elem = elems_[i];
 
-#if 0
-      if (Spanner *s = dynamic_cast <Spanner *> (elem))
-	{
-	  /*
-	    do something sensible if spanner not 
-	    spanned on 2 items.
-	  */
-	  Direction d = LEFT;
-	  do {
-	    if (!s->get_bound (d))
-	      {
-		Grob * cc
-		  = unsmob_grob (get_property ("currentCommandColumn"));
-		s->set_bound (d, cc);
-		/* don't warn for empty/suicided spanners,
-		   it makes real warningsinvisible.
-		   maybe should be junked earlier? */
-		if (elem->live ())
-		  elem->warning (_f ("unbound spanner `%s'", s->name ().to_str0 ()));
-	      }
-	  }
-	  while (flip (&d) != LEFT);
-
-	  if (dynamic_cast<Item*> (s->get_parent (Y_AXIS)))
-	    programming_error ("Spanner Y-parent is an item.");
-	}
-#endif
       
-	if (dynamic_cast<Item*> (elem)) 
+      if (dynamic_cast<Item*> (elem)) 
 	{
 	  if (!elem->get_parent (X_AXIS)
 	      && elem != command_column_

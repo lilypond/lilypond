@@ -96,7 +96,7 @@ Bar_number_engraver::stop_translation_timestep ()
   if (text_)
     {
       text_->set_property ("side-support-elements", get_property ("stavesFound"));
-      typeset_grob (text_);
+      
       text_ =0;
     }
 }

@@ -134,11 +134,6 @@ Fingering_engraver::stop_translation_timestep ()
   if (!fingerings_.size ())
     return;
   
-  for (int i=0; i < fingerings_.size (); i++)
-    {
-      Item *ti = fingerings_[i];
-      typeset_grob (ti);
-    }
   fingerings_.clear ();
 }
 

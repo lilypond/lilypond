@@ -69,11 +69,7 @@ Stanza_number_engraver::acknowledge_grob (Grob_info inf)
 void
 Stanza_number_engraver::stop_translation_timestep ()
 {
-  if (text_)
-    {
-      typeset_grob (text_);
-      text_ = 0;
-    }
+  text_ = 0;
 }
 
 

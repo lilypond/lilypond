@@ -281,22 +281,12 @@ Completion_heads_engraver::process_music ()
 void
 Completion_heads_engraver::stop_translation_timestep ()
 {
-  for (int i = ties_.size (); i--;)
-    typeset_grob (ties_[i]); 
   ties_.clear ();
   
-  for (int i=0; i < notes_.size (); i++)
-    {
-      typeset_grob (notes_[i]);
-    }
   if (notes_.size ())
     prev_notes_ = notes_;
   notes_.clear ();
   
-  for (int i=0; i < dots_.size (); i++)
-    {
-      typeset_grob (dots_[i]);
-    }
   dots_.clear ();
 
   for (int i = scratch_note_reqs_.size (); i--;)

@@ -116,11 +116,6 @@ Text_engraver::process_acknowledged_grobs ()
 void
 Text_engraver::stop_translation_timestep ()
 {
-  for (int i=0; i < texts_.size (); i++)
-    {
-      Item *ti = texts_[i];
-      typeset_grob (ti);
-    }
   texts_.clear ();
   evs_.clear ();
 }

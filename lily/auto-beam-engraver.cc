@@ -351,7 +351,6 @@ Auto_beam_engraver::typeset_beam ()
     {
       finished_grouping_->beamify (beat_length_, subdivide_beams_);
       Beam::set_beaming (finished_beam_, finished_grouping_);
-      typeset_grob (finished_beam_);
       finished_beam_ = 0;
     
       delete finished_grouping_;

@@ -69,7 +69,6 @@ Mark_engraver::stop_translation_timestep ()
     {
       SCM lst = get_property ("stavesFound");
       text_->set_property ("side-support-elements" , lst);
-      typeset_grob (text_);
       text_ =0;
     }
   mark_ev_ = 0;

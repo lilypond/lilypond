@@ -22,13 +22,8 @@ class Ligature_bracket_engraver : public Ligature_engraver
 protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void typeset_ligature (Spanner *ligature, Array<Grob_info>);
-
 public:
   TRANSLATOR_DECLARATIONS (Ligature_bracket_engraver);
-
-private:
-  void typeset_ligature_bracket ();
 };
 
 
@@ -42,11 +37,6 @@ Ligature_bracket_engraver::create_ligature_spanner ()
   return make_spanner ("LigatureBracket", SCM_EOL);
 }
 
-void
-Ligature_bracket_engraver::typeset_ligature (Spanner *ligature, Array<Grob_info>)
-{
-  typeset_grob (ligature);
-}
 
 void
 Ligature_bracket_engraver::acknowledge_grob (Grob_info info)

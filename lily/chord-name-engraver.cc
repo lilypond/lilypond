@@ -137,10 +137,6 @@ Chord_name_engraver::try_music (Music* m)
 void
 Chord_name_engraver::stop_translation_timestep ()
 {
-  if (chord_name_)
-    {
-      typeset_grob (chord_name_);
-    }
   chord_name_ = 0;
   notes_.clear ();
 }

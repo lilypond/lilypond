@@ -48,16 +48,8 @@ Rest_engraver::start_translation_timestep ()
 void
 Rest_engraver::stop_translation_timestep ()
 {
-  if (rest_)
-    {
-      typeset_grob (rest_);
-      rest_ =0;
-    }
-  if (dot_)
-    {
-      typeset_grob (dot_);
-      dot_ =0;
-    }    
+  rest_ =0;
+  dot_ =0;
 }
 
 void
