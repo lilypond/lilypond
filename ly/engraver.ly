@@ -1,4 +1,4 @@
-\version "1.3.122"
+\version "1.3.140"
 
 %
 % setup for Request->Element conversion. Guru-only
@@ -45,6 +45,12 @@ StaffContext=\translator {
 
 	\consistsend "Axis_group_engraver";
 
+	% explicitly set instrument, so we don't get 
+	% weird effects when doing instrument names for
+	% piano staffs
+
+	instrument = #""
+	instr = #""
 	  
 	\accepts "Voice";
 }
@@ -57,9 +63,9 @@ StaffContainerContext = \translator {
 	\name StaffContainer;
 }
 
-ChoirStaffContext = \translator {
+InnerChoirStaffContext = \translator {
 	\type "Engraver_group_engraver";
-	\name ChoirStaff;
+	\name InnerChoirStaff;
 	alignmentReference = \center;
 	\consists "System_start_delimiter_engraver";
 	SystemStartDelimiter \override #'glyph = #'bracket
@@ -70,6 +76,12 @@ ChoirStaffContext = \translator {
 	\accepts "PianoStaff";
 	\accepts "Lyrics";
 	\accepts "ChordNames";
+}
+ChoirStaffContext = \translator {
+	\InnerChoirStaffContext
+	\name ChoirStaff;
+	\accepts "InnerChoirStaff";
+	\accepts "InnerStaffGroup";
 }
 
 
@@ -233,9 +245,9 @@ PianoStaffContext = \translator{
 %	\consistsend "Axis_group_engraver";
 }
 
-StaffGroupContext= \translator {
+InnerStaffGroupContext= \translator {
 	\type "Engraver_group_engraver";
-	\name StaffGroup;
+	\name InnerStaffGroup;
 
 	\consists "Span_bar_engraver";
 	\consists "Span_arpeggio_engraver";
@@ -250,6 +262,13 @@ StaffGroupContext= \translator {
 	
 	\accepts "Lyrics";
 	\accepts "ChordNames";
+}
+StaffGroupContext = \translator {
+	\InnerStaffGroupContext
+	\name StaffGroup;
+	\accepts "InnerChoirStaff";
+	\accepts "ChoirStaff";
+	\accepts "InnerStaffGroup";
 }
 
 
@@ -406,7 +425,7 @@ ScoreContext = \translator {
 	verticalAlignmentChildCallback = #Align_interface::alignment_callback
 
 	pedalSustainStrings = #'("Ped." "*Ped." "*")
-	pedalUnaChordaStrings = #'("una chorda" "" "tre chorde")
+	pedalUnaCordaStrings = #'("una corda" "" "tre corde")
 	pedalSostenutoStrings = #'()  % FIXME
 
 	tupletNumberFormatFunction = #denominator-tuplet-formatter
