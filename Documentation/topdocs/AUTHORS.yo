@@ -22,6 +22,8 @@ it()nemail(Neil Jerram)(nj104@cus.cam.ac.uk).
     parts of Documentation/Vocab*
 it()Donald Ervin Knuth,  lurl(http://www-cs-staff.stanford.edu/~knuth/)
     mf/ital-*.mf (these were taken from the CM fonts)
+it()nemail(Michael Krause)(m.krause@tu-harburg.de),
+    breathing signs
 it()nemail(Werner Lemberg)(xlwy01@uxp1.hrz.uni-dortmund.de),
     misc bugfixes, some Beam and Stem code. 
 it()nemail(David R. Linn)(drl@vuse.vanderbilt.edu),

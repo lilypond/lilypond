@@ -96,6 +96,7 @@ VoiceContext = \translator {
 	\name Voice ;
 	beamAuto = "1";
 	
+	\consists "Breathing_sign_engraver";
  	\consists "Rest_engraver";
 	\consists "Dot_column_engraver";
 	\consists "Stem_engraver";

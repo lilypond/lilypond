@@ -25,6 +25,7 @@ static Keyword_ent the_key_tab[]={
   {"accepts", ACCEPTS},
   {"alternative", ALTERNATIVE},
   {"bar", BAR},
+  {"breathe", BREATHE},
   {"cadenza", CADENZA},
   {"chordmodifiers", CHORDMODIFIERS},
   {"chords", CHORDS},
@@ -143,6 +144,7 @@ My_lily_lexer::set_identifier (String name_str, Identifier* i, bool )
 
 My_lily_lexer::~My_lily_lexer()
 {
+  delete chordmodifier_tab_p_;
   delete keytable_p_;
   delete toplevel_scope_p_ ;
   delete note_tab_p_;
