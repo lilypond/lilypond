@@ -21,9 +21,11 @@
     It is implemented as a "tree" of scheme expressions, as in
 
      Expr = combine Expr Expr
-              | translate Offset Expr
-	      | SCHEME
-	      ;
+            | translate Offset Expr
+	    | origin (ORIGIN) Expr
+	    | no-origin Expr
+	    | (SCHEME)
+	    ;
 
     SCHEME is a Scheme expression that --when eval'd-- produces the
     desired output.  
@@ -34,7 +36,8 @@
     efficient to add "fresh" stencils to what you're going to build.
 
     * Do not create Stencil objects on the heap. That includes passing
-    around Stencil* which are produced by unsmob_stencil().
+    around Stencil* which are produced by unsmob_stencil(). Either
+    copy Stencil objects, or use SCM references.
     
     * Empty stencils have empty dimensions.  If add_at_edge is used to
     init the stencil, we assume that
@@ -87,6 +90,11 @@ public:
 
 DECLARE_UNSMOB(Stencil,stencil);
 SCM fontify_atom (Font_metric const*, SCM atom);
+
+void interpret_stencil_expr (SCM expr,
+			void (*func) (void*, SCM),
+			void *func_arg,
+			Offset o);
 
 Stencil create_stencil (SCM print);
 

@@ -342,27 +342,6 @@
 
     (string-append (apply string-append (map output-scope scopes)))))
 
-;; hmm, looks like recursing call is always last statement, does guile
-;; think so too?
-(define (output-stencil port expr offset)
-  (if (pair? expr)
-      (let ((head (car expr)))
-	(cond
-	 ((ly:input-location? head)
-	  (display (apply define-origin (ly:input-location head)) port)
-	  (output-stencil port (cadr expr) offset))
-	 ((eq? head 'no-origin)
-	  (display (expression->string head) port)
-	  (output-stencil port (cadr expr) offset))
-	 ((eq? head 'translate-stencil)
-	  (output-stencil port (caddr expr) (offset-add offset (cadr expr))))
-	 ((eq? head 'combine-stencil)
-	  (output-stencil port (cadr expr) offset)
-	  (output-stencil port (caddr expr) offset))
-	 (else
-	  (display (placebox (car offset) (cdr offset)
-			     (expression->string expr)) port))))))
-
 (define (placebox x y s) 
   (string-append 
    (ly:number->string x) " " (ly:number->string y) " { " s " } place-box\n"))

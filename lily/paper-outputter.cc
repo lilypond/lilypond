@@ -124,7 +124,7 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
 			     ly_quote_scm (ly_offset2scm (*origin)),
 			     ly_quote_scm (ly_offset2scm (dim))));
 
-  output_stencil (unsmob_stencil (p->to_stencil ()));
+  output_stencil (*unsmob_stencil (p->to_stencil ()));
 
   (*origin)[Y_AXIS] += dim[Y_AXIS];
   output_scheme (scm_list_2 (ly_symbol2scm ("stop-system"),
@@ -140,7 +140,7 @@ Paper_outputter::output_page (Page *p, bool is_last)
 			     ly_quote_scm (ly_offset2scm (Offset (0, 0))),
 			     ly_quote_scm (ly_offset2scm (Offset (0, 0)))));
 
-  output_stencil (unsmob_stencil (p->to_stencil ()));
+  output_stencil (*unsmob_stencil (p->to_stencil ()));
 
   output_scheme (scm_list_2 (ly_symbol2scm ("stop-system"), SCM_BOOL_T));
   output_scheme (scm_list_2 (ly_symbol2scm ("stop-page"),
@@ -155,54 +155,19 @@ Paper_outputter::output_music_output_def (Music_output_def *odef)
 			      odef->self_scm ()));
 }
 
+
 void
-Paper_outputter::output_stencil (Stencil *stil)
+paper_outputter_dump (void * po, SCM x)
 {
-  output_expr (stil->expr (), stil->origin ());
+  Paper_outputter * me = (Paper_outputter*) po;
+  me->output_scheme (x);
 }
 
-/* TODO: replaceme/rewriteme, see output-ps.scm: output-stencil  */
+
 void
-Paper_outputter::output_expr (SCM expr, Offset o)
+Paper_outputter::output_stencil (Stencil stil)
 {
-  while (1)
-    {
-      if (!ly_c_pair_p (expr))
-	return;
-  
-      SCM head =ly_car (expr);
-      if (unsmob_input (head))
-	{
-	  Input *ip = unsmob_input (head);
-	  output_scheme (scm_list_4 (ly_symbol2scm ("define-origin"),
-				      scm_makfrom0str (ip->file_string ()
-						       .to_str0 ()),
-				      scm_int2num (ip->line_number ()),
-				      scm_int2num (ip->column_number ())));
-	  expr = ly_cadr (expr);
-	}
-      else  if (head ==  ly_symbol2scm ("no-origin"))
-	{
-	  output_scheme (scm_list_1 (head));
-	  expr = ly_cadr (expr);
-	}
-      else if (head == ly_symbol2scm ("translate-stencil"))
-	{
-	  o += ly_scm2offset (ly_cadr (expr));
-	  expr = ly_caddr (expr);
-	}
-      else if (head == ly_symbol2scm ("combine-stencil"))
-	{
-	  output_expr (ly_cadr (expr), o);
-	  expr = ly_caddr (expr);
-	}
-      else
-	{
-	  output_scheme (scm_list_4 (ly_symbol2scm ("placebox"),
-				     scm_make_real (o[X_AXIS]),
-				     scm_make_real (o[Y_AXIS]),
-				     expr));
-	  return;
-	}
-    }
+  interpret_stencil_expr (stil.expr (), paper_outputter_dump,
+			  (void*) this, Offset (0,0));
 }
+

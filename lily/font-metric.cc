@@ -91,7 +91,7 @@ Font_metric::name_to_index (String) const
 }
 
 Offset
-Font_metric::get_indexed_wxwy (int )const
+Font_metric::get_indexed_wxwy (int) const
 {
   return Offset (0, 0);
 }
