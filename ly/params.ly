@@ -133,7 +133,7 @@ volta_thick = 1.6*\staffline;
 extender_height = 0.8*\staffline;
 
 % Multi-measure rests
-mmrest_x_minimum = 1.0*\staffline;
+mmrest_x_minimum = 2.0*\staffheight;
 
 \include "engraver.ly";
 
