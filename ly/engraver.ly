@@ -433,7 +433,7 @@ ScoreContext = \translator {
 	)
 
 
-	\elementdescriptions #all-element-descriptions
+	\elementdescriptions #all-grob-descriptions
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	% TODO: uniform naming.;  
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
