@@ -1,3 +1,20 @@
+lilypond (1.1.31-1) unstable; urgency=low
+
+  * New upstream release.
+  * Re-incorporated the changes in debian/rules and debian/postinst
+    from lilypond_1.0.xx series.  I forgot these changes when I moved
+    from 1.0.19.uu3-1 to 1.1.29-1.  Sorry!  :-)
+  * [make/lilypond-vars.make]: Copied the definition of TEX_TFMDIR from
+      make/toplevel.make.in and added it to LILYINCLUDE...
+  * Applied the patch lilypond-1.1.31.jcn1.diff from Jan Nieuwenhuizen.
+  * [debian/rules]:
+      - Temporarily use "-$(MAKE) -k -C Documentation/tex dvi" to
+        circumvent the occasional \times segfault problem when building
+        refman.dvi.
+      - Added symlink /usr/lib/texmf/fonts/tfm/public/lilypond.
+
+ -- Anthony Fok <foka@debian.org>  Thu, 18 Feb 1999 00:25:04 -0700
+
 lilypond (1.1.29-1) unstable; urgency=low
 
   * New upstream release.
