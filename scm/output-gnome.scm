@@ -370,7 +370,8 @@ lilypond -fgnome input/simple-song.ly
 	    ;; TODO s/filename/file-name/
 	    (stderr "font-filename: ~S\n" (ly:font-filename font))
 	    (stderr "pango-font-size: ~S\n" (pango-font-size font))
-	    "ecrm12"))))
+	    ;;"ecrm12"))))
+	    (ly:font-filename font)))))
   
   (define (pango-font-size font)
     (let* ((designsize (ly:font-design-size font))
@@ -386,13 +387,9 @@ lilypond -fgnome input/simple-song.ly
 	   ;;design:20.0
   
 	   ;; experimental sizing:
-	   ;; where does factor come from?
-	   ;;
-	   ;; 0.435 * (12 / 20) = 0.261
-	   ;; 2.8346456692913/ 0.261 = 10.86071137659501915708
-	   ;;(ops (* 0.435 (/ 12 20) (* output-scale pixels-per-unit)))
-	   ;; for size-points
-	   (ops 2.61)
+	   ;; where does factor ops come from?
+	   ;; Hmm, design size: 26/20 
+	   (ops 2.60)
 	   
 	   (scaling (* ops magnification designsize)))
       (debugf "OPS:~S\n" ops)
@@ -406,7 +403,7 @@ lilypond -fgnome input/simple-song.ly
     #:parent (canvas-root)
 
     #:anchor 'west
-    #:x 0.0 #:y 0.0
+    #:x 0.0 #:y 0.15
     
     #:font (pango-font-name font)
     
