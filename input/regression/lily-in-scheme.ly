@@ -8,45 +8,39 @@ In this example, the @code{\withpaddingA}, @code{\withpaddingB} and
 @code{\withpaddingC} music functions set different kinds of padding on
 the @code{TextScript} grob.
 
-FIXME: this is broken.
 "
-    
-}
-
-
-\score{ c'4^"FIXME" }
-%{
+          
+      }
 
 \version "2.3.4"
 \paper { raggedright = ##t }
 
 withPaddingA = #(def-music-function (location padding music) (number? ly:music?)
-                   #{ \override TextScript #'padding = #$padding
-                      $music 
-                      \revert TextScript #'padding #})
-  
+                     #{ \override TextScript #'padding = #$padding
+                        $music 
+                        \revert TextScript #'padding #})
+
 withPaddingB = #(def-music-function (location padding music) (number? ly:music?)
-                   #{ \override TextScript #'padding = #$(* padding 2)
-                      $music 
-                      \revert TextScript #'padding #})
-  
+                     #{ \override TextScript #'padding = #$(* padding 2)
+                        $music 
+                        \revert TextScript #'padding #})
+
 withPaddingC = #(def-music-function (location padding music) (number? ly:music?)
-                   #{ \override TextScript #'padding = #(+ 1 $(* padding 2))
-                      $music 
-                      \revert TextScript #'padding #})
-  
-  \score {
-      \notes {
-          c'^"1"
-          \withPaddingA #2
-            { c'^"2" c'^"3"}
-          c'^"4"
-          \withPaddingB #2
-            { c'^"5" c'^"6"}
-          c'^"7"
-          \withPaddingC #2
-            { c'^"8" c'^"9"}
-          c'^"10"
-      }
-  }
-%}
+                     #{ \override TextScript #'padding = #(+ 1 $(* padding 2))
+                        $music 
+                        \revert TextScript #'padding #})
+
+\score {
+    \notes {
+        c'^"1"
+        \withPaddingA #2
+        { c'^"2" c'^"3"}
+        c'^"4"
+        \withPaddingB #2
+        { c'^"5" c'^"6"}
+        c'^"7"
+        \withPaddingC #2
+        { c'^"8" c'^"9"}
+        c'^"10"
+    }
+}
