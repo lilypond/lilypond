@@ -15,9 +15,6 @@
 #include "pqueue.hh"
 
 
-class Iteration_interface_translator : public virtual Translator_group {
-};
-
 class Global_translator : public virtual Translator_group{
   PQueue<Moment> extra_mom_pq_;
 public:

@@ -155,12 +155,7 @@ Item::find_broken_piece (Direction d) const
     }
 }
 
-void
-Item::handle_prebroken_dependencies()
-{
-  if (original_l_)
-    Score_element::handle_prebroken_dependencies();
-}
+
 
 bool
 Item::broken_original_b () const

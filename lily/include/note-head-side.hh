@@ -15,8 +15,6 @@
 
 /**
    be next to noteheads.
-
-   UGH. another reduplication of Staff_side
    */
 class Note_head_side: public virtual Item, public virtual Directional_element
 {

@@ -9,19 +9,20 @@
 
 #include "real.hh"
 #include "axes.hh"
+#include "arithmetic-operator.hh"
+
+struct Offset;
+
+Offset complex_multiply (Offset, Offset);
+Offset complex_exp (Offset);
+
 
 /** 2d vector
     should change to Complex
 */
 struct Offset {
 public:
-
   Real coordinate_a_[NO_AXES];
-    
-  Real &y() { return coordinate_a_[Y_AXIS]; }
-  Real &x() { return coordinate_a_[X_AXIS]; }
-  Real y() const { return coordinate_a_[Y_AXIS]; }
-  Real x() const { return coordinate_a_[X_AXIS]; }
     
   Real &operator[](Axis i) {
     return coordinate_a_[i];
@@ -31,74 +32,62 @@ public:
   }
     
   Offset& operator+=(Offset o) {
-    x()+=o.x ();
-    y()+=o.y ();
+    (*this)[X_AXIS] += o[X_AXIS];
+    (*this)[Y_AXIS] += o[Y_AXIS];
     return *this;
   }
   Offset operator - () const {
     Offset o = *this;
-    o.x () = - o.x ();
-    o.y () = - o.y ();
+    
+    o[X_AXIS]  = - o[X_AXIS];
+    o[Y_AXIS]  = - o[Y_AXIS];
     return o;
   }
   Offset& operator-=(Offset o) {
-    x()-=o.x ();
-    y()-=o.y ();
+    (*this)[X_AXIS] -= o[X_AXIS];
+    (*this)[Y_AXIS] -= o[Y_AXIS];
+
     return *this;
   }
   
   Offset &scale (Offset o) {
-    x()*=o.x ();
-    y()*=o.y ();
+    (*this)[X_AXIS] *= o[X_AXIS];
+    (*this)[Y_AXIS] *= o[Y_AXIS];
+
     return *this;
   }
   Offset &operator *=(Real a) {
-    y() *= a;
-    x() *= a;
+    (*this)[X_AXIS] *= a;
+    (*this)[Y_AXIS] *= a;
+
     return *this;
   }
       
   Offset (Real ix , Real iy) {
-    x()=ix;
-    y()=iy;
+    coordinate_a_[X_AXIS] =ix;
+    coordinate_a_[Y_AXIS] =iy;    
   }
   Offset() {
-    x()=0.0;
-    y()=0.0;
+    coordinate_a_[X_AXIS]=
+      coordinate_a_[Y_AXIS]=
+      0.0;
   }
-#ifndef STANDALONE
+
   String str () const;
-#endif
 
   void mirror (Axis);
   Real  arg () const;
   Real length () const;
+  Offset operator *=(Offset z2) {
+    *this = complex_multiply (*this,z2);
+    return *this;
+  }
+
 };
 
-Offset complex_multiply (Offset, Offset);
-Offset complex_exp (Offset);
-
-
-inline Offset
-operator* (Offset z1, Offset z2)
-{
-  return complex_multiply (z1,z2);
-}
-
-inline Offset
-operator+ (Offset o1, Offset const& o2)
-{
-  o1 += o2;
-  return o1;
-}
-
-inline Offset
-operator- (Offset o1, Offset const& o2)
-{
-  o1 -= o2;
-  return o1;
-}
-
+IMPLEMENT_ARITHMETIC_OPERATOR(Offset, +);
+IMPLEMENT_ARITHMETIC_OPERATOR(Offset, -);
+IMPLEMENT_ARITHMETIC_OPERATOR(Offset, *);
 
 inline Offset
 operator* (Real o1, Offset o2)

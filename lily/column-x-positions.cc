@@ -17,19 +17,6 @@ Column_x_positions::Column_x_positions()
   force_f_ = 0;
 }
 
-Column_x_positions::~Column_x_positions()
-{
-}
-
-
-void
-Column_x_positions::print() const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "energy : " << energy_f_ << '\n';
-  DEBUG_OUT << "line of " << config_.size() << " cols\n";
-#endif
-}
 
 
 

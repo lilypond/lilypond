@@ -82,11 +82,11 @@ Adobe_font_metric::read_char_metrics (Data_file &input, int size)
 }
 
 #define READSTRING(k)  if (key == #k) { \
-  afm.k ## _ = input.get_line (); continue; }
+  afm->k ## _ = input.get_line (); continue; }
 #define READBOX(b) if (key == #b) { \
-  afm.b ## _ = read_box (input); continue; }
+  afm->b ## _ = read_box (input); continue; }
 #define READREAL(r) if (key == #r) { \
-  afm.r ## _ = read_real (input); continue; }
+  afm->r ## _ = read_real (input); continue; }
 
 Real
 read_real(Data_file &d)
@@ -108,7 +108,7 @@ read_box ( Data_file &d)
   return b;
 }
 
-Adobe_font_metric
+Adobe_font_metric *
 read_afm_file (String fn)
 {
   Data_file input (fn);
@@ -120,11 +120,10 @@ read_afm_file (String fn)
     {}
   int font_size = String_convert::dec2_i(fn.cut_str(i+1,INT_MAX));
 
-  Adobe_font_metric afm;
-
+  Adobe_font_metric *afm = new Adobe_font_metric;
   for (i=0; i < 256; i++)
     {
-      afm.ascii_to_metric_idx_.push (-1);
+      afm->ascii_to_metric_idx_.push (-1);
     }
 
   while (!input.eof_b ())
@@ -157,7 +156,7 @@ read_afm_file (String fn)
       if (key == "StartCharMetrics")
 	{
 	  input.get_line ();
-  	  afm.read_char_metrics (input, font_size);
+  	  afm->read_char_metrics (input, font_size);
 	}
       if (key == "EndFontMetrics")
 	break;

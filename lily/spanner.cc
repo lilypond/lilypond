@@ -18,8 +18,10 @@
 #include "break-align-item.hh"
 
 void
-Spanner::break_into_pieces ()
+Spanner::do_break_processing()
 {
+  //break_into_pieces
+  
   if (line_l () || broken_b ())
     return;
   
@@ -99,13 +101,6 @@ Spanner::set_bounds(Direction d, Item*i)
 }
 
 
-
-void
-Spanner::do_break_processing()
-{
-  break_into_pieces ();
-}
-
 Spanner::Spanner ()
 {
   spanned_drul_[LEFT]=0;
@@ -126,8 +121,8 @@ Spanner::spanner_length() const
   Real r = spanned_drul_[RIGHT]->relative_coordinate (0, X_AXIS);
 
   if (r< l)
-    warning (_ ("spanner with negative length"));
-	
+    programming_error ("spanner with negative length");
+
   return r-l;
 }
 
@@ -145,9 +140,6 @@ Spanner::line_l() const
 Score_element*
 Spanner::find_broken_piece (Line_of_score*l) const
 {
-  Spanner* me = (Spanner*) this;
-  me->break_into_pieces ();
-  
   int idx = binsearch_link_array (broken_into_l_arr_,  (Spanner*)l, Spanner::compare);
   
   if (idx < 0)

@@ -36,6 +36,11 @@ Boolean (true iff defined)
 */
 class Score_element  {
   /**
+     The lookup, determined by the font size. Cache this value.
+   */
+  Lookup * lookup_l_;
+public:
+  /**
      properties specific for this element. Destructor will not call
      scm_unprotect, so as to allow more flexible GC arrangements.  The
      real alist is in (cdr element_property_alist_), to reduce the
@@ -43,11 +48,7 @@ class Score_element  {
 
   */
   SCM element_property_alist_;
-  /**
-     The lookup, determined by the font size. Cache this value.
-   */
-  Lookup * lookup_l_;
-public:
+  
   Score_element *original_l_;
 
   /**
@@ -159,7 +160,6 @@ public:
    */
   void set_empty (Axis a);
   bool empty_b (Axis a) const;
-  void invalidate_cache (Axis);
   Interval extent (Axis) const;
  
   /**

@@ -20,7 +20,6 @@
 #include "midi-def.hh"
 #include "main.hh"
 #include "file-path.hh"
-#include "keyword.hh"
 #include "debug.hh"
 #include "dimensions.hh"
 #include "identifier.hh"
@@ -132,7 +131,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token ALTERNATIVE
 %token BAR
 %token BREATHE
-%token CADENZA
 %token CHORDMODIFIERS
 %token CHORDS
 %token HYPHEN
@@ -328,8 +326,7 @@ notenames_body:
 		$$ = $1-> access_content_Notename_table(true);
 	}
 	| notenames_body STRING '=' explicit_musical_pitch {
-		(*$$)[ly_scm2string ($2)] = *$4;
-
+		$$->add_note_name (ly_scm2string ($2), $4);
 		delete $4;
 	}
 	;

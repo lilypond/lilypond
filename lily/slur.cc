@@ -167,7 +167,9 @@ Slur::do_post_processing ()
   Direction d = LEFT;
   do 
     {
-      dx_f_drul_[d] = dy_f_drul_[d] = 0;
+      dx_f_drul_[d] = 0;
+      dy_f_drul_[d] = 0;
+      
       if ((note_column_drul[d] == spanned_drul_[d])
 	  && note_column_drul[d]->first_head ()
 	  && (note_column_drul[d]->stem_l ()))
@@ -319,9 +321,8 @@ Slur::do_post_processing ()
    */
   for (int i = 0; i < 3; i++)
     {
-      Drul_array<Interval> curve_xy_drul = curve_extent_drul ();
-      Real height_f = curve_xy_drul[Y].length ();
-      Real width_f = curve_xy_drul[X].length ();
+      Real height_f = curve_extent (Y_AXIS).length ();
+      Real width_f = curve_extent (X_AXIS).length ();
       
       dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
       if (!fix_broken_b)

@@ -21,7 +21,7 @@ Script::get_molecule(Direction d) const
   SCM s = get_elt_property ("molecule");
   assert (s != SCM_UNDEFINED);
 
-  SCM key = SCM_CAR (s);
+  SCM key = gh_car  (s);
   if (key == ly_symbol2scm ("feta"))
     {
       return lookup_l ()->afm_find ("scripts-" +

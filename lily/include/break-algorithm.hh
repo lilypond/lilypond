@@ -28,7 +28,7 @@ protected:
   Real linewidth_f_;
 
   /// search all pcols which are breakable.
-  Line_of_cols find_breaks() const;
+  Link_array<Paper_column> find_breaks() const;
 
   Array<int> find_break_indices() const;
     
@@ -40,10 +40,10 @@ protected:
   void approximate_solve_line (Column_x_positions*) const;
 
   /// does curline fit on the paper?    
-  bool feasible (Line_of_cols) const;
+  bool feasible (Link_array<Paper_column>) const;
     
 
-  Simple_spacer* generate_spacing_problem (Line_of_cols, Interval) const;
+  Simple_spacer* generate_spacing_problem (Link_array<Paper_column>, Interval) const;
 
   virtual Array<Column_x_positions> do_solve() const=0;
   virtual void do_set_pscore();

@@ -5,11 +5,9 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
-#include "dimension-cache.hh"
-#include "super-element.hh"
-#include "line-of-score.hh"
 #include "debug.hh"
+#include "dimension-cache.hh"
+#include "line-of-score.hh"
 #include "item.hh"
 #include "score-engraver.hh"
 #include "paper-score.hh"

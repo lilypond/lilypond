@@ -10,6 +10,7 @@
 #include <iostream.h>
 #include <assert.h>
 #include <locale.h>
+
 #include "lily-guile.hh"
 #include "lily-version.hh"
 
@@ -178,7 +179,6 @@ notice ()
 	     "USA.\n");
 }
 
-
 void
 setup_paths ()
 {
@@ -217,12 +217,13 @@ setup_paths ()
 
 
   char *suffixes[] = {"ly", "afm", "scm", "tfm", "cmtfm", "ps", 0};
-  for (char **s = suffixes; *s; s++){
-    if (!prefix_directory.empty_b())
-      global_path.add (prefix_directory + to_str ('/') + String (*s));
-    else
-      global_path.add (String (DIR_DATADIR) + to_str ('/') + String(*s));
-  }
+  for (char **s = suffixes; *s; s++)
+    {
+      if (!prefix_directory.empty_b())
+	global_path.add (prefix_directory + to_str ('/') + String (*s));
+      else
+	global_path.add (String (DIR_DATADIR) + to_str ('/') + String(*s));
+    }
 }
 
 
@@ -233,7 +234,7 @@ main_prog (int, char**)
     need to do this first. Engravers use lily.scm contents.
    */
   init_lily_guile ();
-  read_lily_scm_file ( "lily.scm");
+  read_lily_scm_file ("lily.scm");
   cout << endl;
 
   call_constructors ();

@@ -52,28 +52,28 @@ voicefour = {
 infinity=10000
 
 beamslopeproportional = 
-	\property Score.beamslopedamping = 0
+	\property Score.beamSlopedamping = 0
 
 beamslopedamped = 
-	\property Score.beamslopedamping = 1
+	\property Score.beamSlopedamping = 1
 
 
 beamslopezero = 
-	\property Score.beamslopedamping = \infinity
+	\property Score.beamSlopedamping = \infinity
 
 
 % this sucks, you'd want to pass an array, at least
 % (or embedded code: you still can't dictate the slope / stemlength)
 beamposfree = 
-	\property Score.beamquantisation = 0
+	\property Score.beamQuantisation = 0
 
 
 beamposnormal = 
-	\property Score.beamquantisation = 1
+	\property Score.beamQuantisation = 1
 
 
 beampostraditional = 
-	\property Score.beamquantisation = 2
+	\property Score.beamQuantisation = 2
 
 
 slurnormal = 

@@ -66,6 +66,17 @@ Character_metric::dimensions () const
 
 Font_metric::~Font_metric ()
 {
+  unsmobify_self ();
+}
+
+Font_metric::Font_metric ()
+{
+  self_scm_ = SCM_EOL;
+  smobify_self ();
+}
+
+Font_metric::Font_metric (Font_metric const &)
+{
 }
 
 Character_metric::~Character_metric()
@@ -98,3 +109,27 @@ Scaled_font_metric::description () const
   gh_set_cdr_x (od, gh_int2scm (magstep_i_));
   return od;
 }
+
+
+void
+Font_metric::do_smobify_self ()
+{
+}
+
+SCM
+Font_metric::mark_smob (SCM s)
+{
+  return SCM_EOL;
+}
+
+int
+Font_metric::print_smob (SCM s, SCM port, scm_print_state * )
+{
+  scm_puts ("#<Font_metric>", port);
+  
+  return 1;
+}
+
+
+
+

@@ -43,17 +43,21 @@ Align_element::do_side_processing ()
 
 	  // todo: fucks up if item both in Halign & Valign. 
 	  SCM min_dims = e->remove_elt_property ("minimum-space");
-	  if (min_dims != SCM_UNDEFINED)
+	  if (gh_pair_p (min_dims) &&
+	      gh_number_p (gh_car (min_dims))
+	      && gh_number_p (gh_cdr (min_dims)))
 	    {
-	      y.unite (Interval (gh_scm2double (SCM_CAR (min_dims)),
-				 gh_scm2double (SCM_CDR (min_dims))));
+	      y.unite (Interval (gh_scm2double (gh_car  (min_dims)),
+				 gh_scm2double (gh_cdr (min_dims))));
 	    }
 	  
 	  SCM extra_dims = e->remove_elt_property ("extra-space");
-	  if (extra_dims != SCM_UNDEFINED)
+	  if (gh_pair_p (extra_dims) &&
+	      gh_number_p (gh_car (extra_dims))
+	      && gh_number_p (gh_cdr (extra_dims)))
 	    {
-	      y[LEFT] += gh_scm2double (SCM_CAR (extra_dims));
-	      y[RIGHT] += gh_scm2double (SCM_CDR (extra_dims));
+	      y[LEFT] += gh_scm2double (gh_car  (extra_dims));
+	      y[RIGHT] += gh_scm2double (gh_cdr (extra_dims));
 	    }
 
 	  elems.push (e);
@@ -96,10 +100,6 @@ Align_element::do_side_processing ()
     
   if (center_f)
     translate_axis ( - center_f, axis ());
-
-
-  //  dim_cache_[axis ()]->invalidate ();
-
 }
 
 Align_element::Align_element()

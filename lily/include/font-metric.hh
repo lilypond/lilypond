@@ -12,6 +12,7 @@
 
 #include "box.hh"
 #include "lily-guile.hh"
+#include "smobs.hh"
 
 struct Character_metric
 {
@@ -21,11 +22,16 @@ struct Character_metric
 
 struct Font_metric
 {
+  Font_metric ();
   String name_str_;
   virtual SCM description () const;
   virtual Character_metric const *get_char (int ascii, bool warn) const; 
   virtual ~Font_metric ();
   virtual Box text_dimension (String) const;
+
+  DECLARE_SMOBS;
+private:
+  Font_metric (Font_metric const&); // no copy.
 };
 
 

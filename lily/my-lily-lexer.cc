@@ -180,13 +180,13 @@ My_lily_lexer::LexerError (char const *s)
 Musical_pitch
 My_lily_lexer::lookup_notename (String s)
 {
-  return (*note_tab_p_)[s];
+  return note_tab_p_->get_pitch (s);
 }
 
 Musical_pitch
 My_lily_lexer::lookup_chordmodifier (String s)
 {
-  return (*chordmodifier_tab_p_)[s];
+  return chordmodifier_tab_p_->get_pitch (s);
 }
 
 bool

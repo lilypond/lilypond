@@ -8,15 +8,11 @@
 */
 
 #include <math.h>
-
 #include "misc.hh"
 
-#ifndef STANDALONE
-#include "item.hh"
-#endif
-
 int
-intlog2(int d) {
+intlog2(int d)
+{
   int i=0;
   while (!(d&1)) 
     {
@@ -28,76 +24,41 @@ intlog2(int d) {
 }
 
 double
-log_2(double x) {
+log_2(double x)
+{
   return log (x)  /log (2.0);
 }
 
 
-/*
-  TODO
-    group in some Array_*
-    make more generic / templatise
- */
-int
-get_lower_bound (Array<Real> const& positions, Real x)
+static int
+comp (Real const &a, Real const &b)
 {
-  if (x < positions[0])
-    return 0;
-  for (int i = 1; i < positions.size (); i++)
-    if (x < positions[i])
-      return i - 1;
-  return positions.size () - 1;
-}
-
-Slice
-get_bounds_slice (Array<Real> const& positions, Real x)
-{
-  int l = get_lower_bound (positions, x);
-  int u = positions.size () - 1 <? l + 1;
-  if (x < positions[l])
-    u = l;
-  return Slice (l, u);
+  return sign (a-b);
 }
 
 Interval
-get_bounds_iv (Array<Real> const& positions, Real x)
+quantise_iv (Array<Real> positions, Real x)
 {
-  Slice slice = get_bounds_slice (positions, x);
-  return Interval (positions[slice[SMALLER]], positions[slice[BIGGER]]);
-}
+  positions.sort (comp);
+  Real period = positions.top () - positions[0];
+  
+  int n =  int ((x - positions[0]) / period);
+  Real frac = (x - positions[0] ) -  n * period;
 
-// silly name
-Interval
-quantise_iv (Array<Real> const& positions, Real period, Real x)
-{
-  /*
-    ugh
-    assume that 
-      * positions are sorted, 
-      * positions are nonnegative
-      * period starts at zero
-   */
-
-  int n = (int)(x / period);
-  Real frac = (x / period - n) * period;
-  if (frac < 0)
+  while (frac < 0)
     {
       frac += period;
-      n--;
+      n --;
     }
-
-  Slice slice = get_bounds_slice (positions, frac);
-  Interval iv(positions[slice[SMALLER]], positions[slice[BIGGER]]);
-
-  if (slice[SMALLER] == slice[BIGGER])
+  
+  Real px = frac + positions[0];
+  assert ( positions[0] <= px && px <= positions.top ());
+  int i=0;
+  for (; i < positions.size () - 1; i++)
     {
-      if (slice[SMALLER] == 0)
-	iv[SMALLER] = - period + positions.top ();
-      else
-	iv[BIGGER] = period + positions[0];
+      if (positions[i] <= px && px <= positions[i+1])
+	break; 
     }
 
-  iv += period * n;
-
-  return iv;
+  return Interval (positions[i] , positions[i+1]) + period * n;
 }

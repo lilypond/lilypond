@@ -1,3 +1,13 @@
+pl 12.hwn1
+	- polynomial.hh
+	- bf: generic properties
+	- quantise_iv () fix.
+	- bezier cleanup
+	- class Polynomial 
+	- use smobs for font metric tables/hashes.
+	- nl.po bf
+
+
 pl 11.jcn3
 	- small beam fixes (interstaff knees still broken)
 

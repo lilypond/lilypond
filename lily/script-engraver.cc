@@ -55,16 +55,16 @@ Script_engraver::do_process_requests()
       
       list = gh_cdr (list);
       p->set_elt_property ("molecule",
-			   SCM_CAR(list));
+			   gh_car (list));
 
-      list = SCM_CDR(list);
-      bool follow_staff = gh_scm2bool (SCM_CAR(list));
-      list = SCM_CDR(list);
-      int relative_stem_dir = gh_scm2int (SCM_CAR(list));
-      list = SCM_CDR(list);
-      int force_dir =gh_scm2int (SCM_CAR(list));
-      list = SCM_CDR(list);
-      SCM priority = SCM_CAR(list);
+      list = gh_cdr(list);
+      bool follow_staff = gh_scm2bool (gh_car (list));
+      list = gh_cdr(list);
+      int relative_stem_dir = gh_scm2int (gh_car (list));
+      list = gh_cdr(list);
+      int force_dir =gh_scm2int (gh_car (list));
+      list = gh_cdr(list);
+      SCM priority = gh_car (list);
 
       
       if (relative_stem_dir)

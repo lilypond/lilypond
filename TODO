@@ -28,6 +28,7 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 	ctor_dict["Score_element"]->create_func ();
 . * acc at tied note after linebreak.
 . * fix font-naming and selecting
+. * sparse ties.
 . * chord tonic: placement of accidental  C#, Cb (from scm and C++)
 . * note head on stem err msg in dutch.
 . * why need to run -C mf twice?

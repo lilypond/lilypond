@@ -60,7 +60,7 @@ Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
 }
 
 int
-Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*ps)
+Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
 {
   assert (SMOB_IS_TYPE_B (Scheme_hash_table, s));
   Scheme_hash_table *me = SMOB_TO_TYPE(Scheme_hash_table,s);

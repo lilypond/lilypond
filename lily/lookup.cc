@@ -468,24 +468,7 @@ Lookup::staff_brace (Real y, int staff_size) const
   return m;
 }
 
-Molecule
-Lookup::hairpin (Real width, Real height, Real thick, bool decresc, bool continued) const
-{
-  Molecule m;   
 
-  const char* hairpin = decresc ? "decrescendo" :  "crescendo";
-  Atom at  (gh_list (ly_symbol2scm (hairpin),
-		     gh_double2scm (thick),
-		     gh_double2scm (width),
-		     gh_double2scm (height),
-		     gh_double2scm (continued ? height/2 : 0.0),
-		     SCM_UNDEFINED));
-  m.dim_.x () = Interval (0, width);
-  m.dim_.y () = Interval (-2*height, 2*height);
-
-  m.add_atom (&at);
-  return m;
-}
 
 Molecule
 Lookup::tuplet_bracket (Real dy , Real dx, Real thick, Real gap,
@@ -579,8 +562,8 @@ Molecule
 Lookup::accordion (SCM s, Real interline_f) const
 {
   Molecule m;
-  String sym = ly_scm2string(SCM_CAR(s));
-  String reg = ly_scm2string(SCM_CAR(SCM_CDR(s)));
+  String sym = ly_scm2string(gh_car (s));
+  String reg = ly_scm2string(gh_car (gh_cdr(s)));
 
   if (sym == "Discant")
     {

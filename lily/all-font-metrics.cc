@@ -13,7 +13,6 @@
 #include "warn.hh"
 #include "afm.hh"
 #include "tfm.hh"
-#include "dictionary-iter.hh"
 #include "lily-guile.hh"
 #include "tfm-reader.hh"
 
@@ -27,7 +26,8 @@ All_font_metrics::All_font_metrics (String path)
 Adobe_font_metric *
 All_font_metrics::find_afm (String name)
 {
-  if (!afm_p_dict_.elem_b (name))
+  SCM sname = ly_symbol2scm (name.ch_C ());
+  if (!afm_p_dict_.elem_b (sname))
     {
       String path = name  + ".afm";
       path = search_path_.find (path);
@@ -35,16 +35,17 @@ All_font_metrics::find_afm (String name)
 	return 0;
       
       *mlog << "[" << path;
-      Adobe_font_metric
-	* afm_p = new Adobe_font_metric (read_afm_file (path));
+      Adobe_font_metric * afm_p = read_afm_file (path);
 
       afm_p->name_str_ = name;
       
       *mlog << "]" << flush ;
 
-      afm_p_dict_[name] = afm_p;
+      afm_p_dict_[sname] = afm_p->self_scm_;
+      scm_unprotect_object (afm_p->self_scm_);
     }
-  return afm_p_dict_[name];  
+  
+  return dynamic_cast<Adobe_font_metric*> (unsmob_metrics (afm_p_dict_[sname]));
 }
 
 Scaled_font_metric * 
@@ -52,21 +53,28 @@ All_font_metrics::find_scaled (String nm, int m)
 {
   Scaled_font_metric * s=0;
   String index =  nm + "@" + to_str (m);
-  if (!scaled_p_dict_.elem_b (index))
+  SCM sname = ly_symbol2scm (index.ch_C ());
+
+  Font_metric *fm =0;
+  if (!scaled_p_dict_.elem_b (sname))
     {
       Font_metric *f = find_font (nm);
       s = new Scaled_font_metric (f, m);
-      scaled_p_dict_[index] = s;
-      return s;  
+      scaled_p_dict_[sname] = s->self_scm_;
+      fm =  s;
+      scm_unprotect_object (s->self_scm_);
     }
   else
-    return scaled_p_dict_[index];
+    fm = unsmob_metrics (scaled_p_dict_[sname]);
+
+  return dynamic_cast<Scaled_font_metric*> (fm);
 }
 
 Tex_font_metric *
 All_font_metrics::find_tfm (String name)
 {
-  if (!tfm_p_dict_.elem_b (name))
+  SCM sname = ly_symbol2scm (name.ch_C ());  
+  if (!tfm_p_dict_.elem_b (sname))
     {
       String path = name  + ".tfm";
       path = search_path_.find (path);
@@ -79,9 +87,12 @@ All_font_metrics::find_tfm (String name)
 
       *mlog << "]" << flush ;
 
-      tfm_p_dict_[name] = tfm_p;
+      tfm_p_dict_[sname] = tfm_p->self_scm_;
+      scm_unprotect_object (tfm_p->self_scm_);      
     }
-  return tfm_p_dict_[name];  
+    
+  return
+    dynamic_cast<Tex_font_metric*> (unsmob_metrics (tfm_p_dict_[sname]));
 }
 
 
@@ -106,19 +117,40 @@ All_font_metrics::find_font (String name)
   error (_f ("Can't find default font: `%s'", default_font_sz_));
   error (_f ("(search path: `%s'", search_path_.str ()));
   error (_ ("Giving up"));
+
+  return 0;
 }
 
 SCM
 All_font_metrics::font_descriptions () const
 {
-  SCM l = SCM_EOL;
-  for (Dictionary_iter<Adobe_font_metric*> ai(afm_p_dict_); ai.ok (); ai++)
-    l = gh_cons (ai.val ()->description (), l);
-  for (Dictionary_iter<Tex_font_metric*> ai(tfm_p_dict_); ai.ok (); ai++)
-    l = gh_cons(ai.val ()->description (), l);
+  SCM l[] = {0,0,0};
 
-  for (Dictionary_iter<Scaled_font_metric*> ai(scaled_p_dict_); ai.ok (); ai++)
-    l = gh_cons (ai.val ()->description (),l);
-  
-  return l;
+  l[0] = afm_p_dict_.to_alist ();
+  l[1] = tfm_p_dict_.to_alist ();
+  l[2] = scaled_p_dict_.to_alist ();  
+
+  SCM list = SCM_EOL;
+  for (int i=0; i < 3; i++)
+    {
+      for (SCM s = l[i];  gh_pair_p (s); s = gh_cdr (s))
+	{
+	  Font_metric * fm = unsmob_metrics (gh_cdar (s));
+
+	  list = gh_cons (fm->description (), list);
+	}
+    }
+  return list;
 }
+
+Font_metric *
+unsmob_metrics( SCM s)
+{
+  if (SMOB_IS_TYPE_B(Font_metric, s))
+    return SMOB_TO_TYPE(Font_metric, s);
+  else
+    return 0;
+}
+
+#include "ly-smobs.icc"
+IMPLEMENT_SMOBS(Font_metric);

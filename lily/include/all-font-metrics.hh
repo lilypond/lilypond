@@ -14,16 +14,17 @@
 #include "file-path.hh"
 #include "lily-proto.hh"
 #include "font-metric.hh"
-#include "lily-guile.hh"
+#include "scm-hash.hh"
 
 /**
    Interface to all .afm files living in the filesystem.
  */
 class All_font_metrics
 {
-  Dictionary<Adobe_font_metric*> afm_p_dict_;
-  Dictionary<Tex_font_metric*> tfm_p_dict_;
-  Dictionary<Scaled_font_metric*> scaled_p_dict_;
+  Scheme_hash_table afm_p_dict_;
+  Scheme_hash_table tfm_p_dict_;
+  Scheme_hash_table scaled_p_dict_;
+  
   File_path search_path_;
 public:
   
@@ -37,7 +38,7 @@ public:
   SCM font_descriptions () const;
 };
 
-
+Font_metric * unsmob_metrics (SCM s);
 
 
 #endif /* ALL_FONTS_HH */

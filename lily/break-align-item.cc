@@ -70,7 +70,7 @@ Break_align_item::do_pre_processing()
       SCM extra_space
 	= scm_eval (scm_listify (ly_symbol2scm ("break-align-spacer"),
 				 current_origin, next_origin, SCM_UNDEFINED)); 
-      SCM symbol = SCM_CAR (extra_space);
+      SCM symbol = gh_car  (extra_space);
       Real spc = gh_scm2double (SCM_CADR(extra_space));
       spc *= interline;
 
@@ -81,15 +81,15 @@ Break_align_item::do_pre_processing()
 
 
   // skip the first sym.
-  symbol_list  = SCM_CDR (scm_reverse (symbol_list));
+  symbol_list  = gh_cdr (scm_reverse (symbol_list));
   for (int i=0; i <elems.size()-1; i++)
     {
-      String sym_str = ly_scm2string (SCM_CAR (symbol_list));
+      String sym_str = ly_scm2string (gh_car  (symbol_list));
       elems[i]->set_elt_property (sym_str,
 				  scm_cons (gh_double2scm (0),
 					    gh_double2scm (dists[i+1])));
 
-      symbol_list = SCM_CDR (symbol_list);
+      symbol_list = gh_cdr (symbol_list);
     }
 
 
@@ -113,12 +113,12 @@ Break_align_item::do_pre_processing()
   
   Real stretch_distance =0.;
   
-  if (SCM_CAR (symbol_list) == ly_symbol2scm ("extra-space"))
+  if (gh_car  (symbol_list) == ly_symbol2scm ("extra-space"))
     {
       spring_len += dists.top ();
       stretch_distance = dists.top ();
     }
-  else if (SCM_CAR (symbol_list) == ly_symbol2scm ("minimum-space"))
+  else if (gh_car  (symbol_list) == ly_symbol2scm ("minimum-space"))
     {
       spring_len = spring_len >? dists.top ();
       stretch_distance = spring_len;

@@ -63,7 +63,7 @@ complex_exp (Offset o)
 Real
 Offset::arg () const
 {
-  return atan2 (y (), x());
+  return atan2 (coordinate_a_[Y_AXIS], coordinate_a_[X_AXIS]);
 }
 
 /**
@@ -72,7 +72,7 @@ Offset::arg () const
 Real
 Offset::length () const
 {
-  return sqrt (sqr (x()) + sqr (y()));
+  return sqrt (sqr (coordinate_a_[X_AXIS]) + sqr (coordinate_a_[Y_AXIS]));
 }
 void
 Offset::mirror (Axis a)

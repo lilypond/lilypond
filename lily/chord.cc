@@ -220,8 +220,6 @@ Chord::~Chord ()
 {
   delete inversion_p_;
   delete bass_p_;
-  // AAARGH, why doesn't Score_elt do this?
-  unsmobify_self ();
 }
 
 Array<Musical_pitch>
@@ -539,7 +537,7 @@ Chord::user_chord_name (Array<Musical_pitch> pitch_arr, Chord_name* name_p) cons
     chord = gh_cons (pitch2scm (chord_type[i]), chord);
 
   SCM name = scm_eval (gh_list (ly_symbol2scm ("user-chord-name"), ly_quote_scm (chord), SCM_UNDEFINED));
-  if (name != SCM_UNSPECIFIED)
+  if (gh_pair_p (name))
     {
       name_p->modifier_mol = ly_text2molecule (gh_car (name));
       name_p->addition_mol = ly_text2molecule (gh_cdr (name));

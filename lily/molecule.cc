@@ -16,12 +16,12 @@
 
 #ifdef ATOM_SMOB
 #define MOL_EOL SCM_EOL
-#define NEXT_CELL(a) SCM_CDR(a)
+#define NEXT_CELL(a) gh_cdr(a)
 #define CELLTYPE SCM
 #define UNBOX_ATOM(a) Atom::atom_l (a)
 #define BOX_ATOM(a) a->make_smob ()
 #define NEWCELL(a,b) gh_cons (a,b)
-#define UNBOX_PTR(a) SCM_CAR(a)
+#define UNBOX_PTR(a) gh_car (a)
 #else
 #define MOL_EOL 0
 #define NEXT_CELL(a) ptr->next_

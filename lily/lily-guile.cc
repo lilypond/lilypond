@@ -184,7 +184,7 @@ SCM
 index_cell (SCM s, Direction d)
 {
   assert (d);
-  return (d == LEFT) ? SCM_CAR (s) : SCM_CDR (s);
+  return (d == LEFT) ? gh_car  (s) : gh_cdr (s);
 }
 
 SCM

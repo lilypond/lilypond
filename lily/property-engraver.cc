@@ -53,19 +53,17 @@ Property_engraver::acknowledge_element (Score_element_info i)
 void
 Property_engraver::apply_properties (SCM p, Score_element *e)
 {  
-  for (; SCM_NIMP (p); p = gh_cdr (p))
+  for (; gh_pair_p (p); p = gh_cdr (p))
     {
       SCM entry = gh_car (p);
       SCM prop_sym = gh_car (entry);
       SCM type_p   = gh_cadr (entry);
       SCM elt_prop_name = gh_caddr (entry);
 
-      /*
-	urg scm <-> symbol-string
-       */
-      if (e->get_elt_property (ly_scm2string (elt_prop_name)) != SCM_UNDEFINED)
+      SCM preset = scm_assq(prop_sym, e->element_property_alist_);
+      if (preset != SCM_BOOL_F)
 	continue;
-      
+  
       SCM val = get_property (prop_sym, 0);
       if (val != SCM_UNDEFINED
 	  && gh_apply (type_p, scm_listify (val, SCM_UNDEFINED))

@@ -36,14 +36,6 @@ public:
   Stem* first_visible_stem () const;
   Stem* last_visible_stem () const;
 
-  /**
-     the slope of the beam in dy/dx
-   */
-  Real dydx_f_;
-
-  /// position of leftmost end of beam  
-  Real left_y_;
-
   Beam ();
   void add_stem (Stem*);
   void set_grouping (Rhythmic_grouping def, Rhythmic_grouping current);
@@ -61,7 +53,7 @@ protected:
 
   Molecule stem_beams (Stem *here, Stem *next, Stem *prev) const;
 private:
-  Direction calc_default_dir () const;
+  Direction get_default_dir () const;
   void set_stem_directions ();
   void auto_knees ();
   bool auto_knee (String gap_str, bool interstaff_b);
@@ -75,7 +67,6 @@ private:
   Real quantise_dy_f (Real dy) const;
   Real quantise_y_f (Real y, Real dy, int quant_dir);
   int forced_stem_count () const;
-
 };
 
 #endif // BEAM_HH

@@ -168,6 +168,7 @@ struct Note_req;
 struct Notename_table;
 struct Offset;
 struct Paper_column;
+struct Polynomial;
 struct Paper_def;
 struct Paper_outputter;
 struct Paper_score;
