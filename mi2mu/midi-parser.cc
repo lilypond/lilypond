@@ -1,5 +1,5 @@
 /*
-  midi-parser.cc -- implement 
+  midi-parser.cc -- implement Midi_parser[_info]
 
   source file of the GNU LilyPond music typesetter
 
@@ -59,7 +59,10 @@ Midi_parser::get_u (int n)
 String
 Midi_parser::get_str (int n)
 {
-  assert (n > 0);
+  assert (n >= 0);
+  if (!n) 
+    warning ("Zero length string encountered");
+  
   Byte const* p = forward_byte_L (n);
   return String (p, n);
 }

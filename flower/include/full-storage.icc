@@ -21,7 +21,7 @@ INLINE bool
 Full_storage::valid (int i, int j) const
 {
   return (i>=0 && i < height_i_)
-	&& (j < width_i_ && j >=0);
+    && (j < width_i_ && j >=0);
 }
 
 

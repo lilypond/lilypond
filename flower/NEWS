@@ -1,3 +1,7 @@
+pl 28
+	- String::bool ()
+	- GNU indentation.
+
 pl 27
 	- naming: macros are MACROS
 

@@ -24,9 +24,9 @@ List<T>::remove (Cursor<T> me)
 {
   if ( me.ok())
     {
-	Link<T> *lp = me.pointer();	
-	lp->remove (*this);
-	delete lp;
+      Link<T> *lp = me.pointer();	
+      lp->remove (*this);
+      delete lp;
       size_--;
     }
 }

@@ -64,12 +64,12 @@ String_data::setmax (int j)
   OKW();
   if (j > maxlen) 
     {
-	delete data_byte_p_;
-	maxlen = j;
-	data_byte_p_ = new Byte[maxlen + 1];
+      delete data_byte_p_;
+      maxlen = j;
+      data_byte_p_ = new Byte[maxlen + 1];
   
-	data_byte_p_[0] = 0;
-	length_i_ = 0;
+      data_byte_p_[0] = 0;
+      length_i_ = 0;
     }
 }
 
@@ -88,11 +88,11 @@ String_data::remax (int j)
   OKW();
   if (j > maxlen) 
     {
-	Byte *p = new Byte[j + 1];	
-	memcpy (p, data_byte_p_, ( maxlen <? length_i_) + 1 );	    
-	maxlen = j;
-	delete[] data_byte_p_;
-	data_byte_p_ = p;
+      Byte *p = new Byte[j + 1];	
+      memcpy (p, data_byte_p_, ( maxlen <? length_i_) + 1 );	    
+      maxlen = j;
+      delete[] data_byte_p_;
+      data_byte_p_ = p;
     }
 }
 
@@ -188,7 +188,7 @@ String_data::trunc (int j)
 INLINE bool
 String_data::is_binary_bo() const
 {
-//    return !memchr (data_byte_p_, length_i_, 0);
+  //    return !memchr (data_byte_p_, length_i_, 0);
   return ( (int)strlen ((char const*)data_byte_p_) != length_i_ );
 }
 
