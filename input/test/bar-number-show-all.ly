@@ -1,5 +1,5 @@
 \version "1.7.18"
-% renamed file to bar-number-show-all.ly from bar-number-script-visibility.ly
+% renamed file to bar-number-show-all.ly from bar-script-visibility.ly
 % for greater clarity
 \header{
     texidoc="@cindex Bar Number Show All
