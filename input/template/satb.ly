@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 \header {
 
     texidoc = "
@@ -6,19 +6,19 @@
 " 
 }
 
-sopMusic = \notes  \relative c'' { c4 c c8[( b)] c4 }
+sopMusic =   \relative c'' { c4 c c8[( b)] c4 }
 sopWords = \lyrics { hi4 hi hi hi  }
 
-altoMusic = \notes  \relative c' { e4 f d e }
+altoMusic =   \relative c' { e4 f d e }
 altoWords =\lyrics { ha4 ha ha ha }
 
-tenorMusic = \notes \relative c' { g4 a f g }
+tenorMusic =  \relative c' { g4 a f g }
 tenorWords = \lyrics { hu4 hu hu hu }
 
-bassMusic = \notes \relative c { c4 c g c }
+bassMusic =  \relative c { c4 c g c }
 bassWords = \lyrics { ho4 ho ho ho }
 
-\score { \notes
+\score { 
 	  \context StaffGroup <<
 	      \context Lyrics = sopranos { s1 }
 	      \context Staff = women <<

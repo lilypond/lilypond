@@ -1,10 +1,10 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
   texidoc = "Melody and lyrics."
 }
 
-melody = \notes \relative c'' {
+melody =  \relative c'' {
   a b c d
 }
 

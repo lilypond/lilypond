@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.2"
+\version "2.3.4"
 
 %{
  Header for Petites Preludes.
@@ -41,7 +41,7 @@
  footer = "Mutopia-2003/08/22-nr"
 }
 
-one = \notes\relative c{
+one = \relative c{
 	\skip 1 |
 	\stemUp
 	r4 d''2 cis4 |
@@ -62,7 +62,7 @@ one = \notes\relative c{
 	\bar "|."
 }
 
-two = \notes\relative c{
+two = \relative c{
 	r16 d'' c bes  a bes f g 
 	a8.\mordent bes16  g8.\prall f16 |
 	\stemDown
@@ -81,7 +81,7 @@ two = \notes\relative c{
 	fis1
 }
 
-three = \notes\relative c{
+three = \relative c{
 	\stemUp
 	f2 e |
 	\stemBoth
@@ -104,7 +104,7 @@ three = \notes\relative c{
 	\bar "|."
 }
 
-four = \notes\relative c{
+four = \relative c{
 	\stemDown 
 	d2 cis |
 	\skip 1*2 |
@@ -129,7 +129,7 @@ four = \notes\relative c{
 	     >>
 }
 
-global = \notes{
+global = {
 	\time 4/4
 	\key f \major
 }

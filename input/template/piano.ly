@@ -1,14 +1,14 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
   texidoc = "Simple piano music." 
 }
 
-upper = \notes\relative c'' {
+upper = \relative c'' {
   a b c d
 }
 
-lower = \notes\relative c {
+lower = \relative c {
   a2 c
 }
 

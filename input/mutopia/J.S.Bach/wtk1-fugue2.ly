@@ -44,12 +44,12 @@
 %}
 
 
-\version "2.3.2"
+\version "2.3.4"
 
 
 
 
-dux = \context Voice=two \notes \relative c''{
+dux = \context Voice=two  \relative c''{
   \voiceTwo
   \clef violin
 
@@ -111,7 +111,7 @@ dux = \context Voice=two \notes \relative c''{
 }
 
 
-comes = \context Voice=one \notes \relative c'' {
+comes = \context Voice=one  \relative c'' {
   \voiceOne
   \override MultiMeasureRest  #'staff-position = #6 
   R1 |
@@ -153,7 +153,7 @@ comes = \context Voice=one \notes \relative c'' {
   f,16 g as4 g16 f e2 |
 }
 
-bassdux = \context Voice=three \notes \relative c' {
+bassdux = \context Voice=three  \relative c' {
   \clef bass
   R1 |
   R |
@@ -200,7 +200,7 @@ bassdux = \context Voice=three \notes \relative c' {
 
 \book {
 \score {
-    \notes \context PianoStaff << 
+     \context PianoStaff << 
         \override Score.TimeSignature  #'style = #'C
 	\context Staff = treble <<
 	    \key c \minor

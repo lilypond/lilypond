@@ -4,9 +4,9 @@ longgrace = \override Stem  #'stroke-style = #'()
 endlonggrace = \revert Stem #'stroke-style
 ritenuto = \markup { \italic  "rit." }
 
-\version "2.3.2"
+\version "2.3.4"
   
-cresc = \notes {
+cresc =  {
     #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 
     \set crescendoText =  \markup { \italic \bold "cresc." }
     \set crescendoSpanner =  #'dashed-line

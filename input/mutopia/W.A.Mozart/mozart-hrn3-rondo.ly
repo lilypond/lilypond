@@ -1,8 +1,8 @@
-\version "2.2.0"
+\version "2.3.4"
 
 % \include "mozart-hrn3-defs.ly"
 
-rondotheme = \notes \relative c' {
+rondotheme =  \relative c' {
 	 c'8[ c c]  c[ c c]
 	c4( cis8  d) r g,
 	 d'8[ d d]  d[ d d]
@@ -13,7 +13,7 @@ rondotheme = \notes \relative c' {
 	e4.( d8) r r |
 }
 
-lipbreaker = \notes \relative c'
+lipbreaker =  \relative c'
 {
  	r8  g'[-. g-.]  c[( e) g,-.]
 	 c[( e) g,-.]  c[( e) g,-.]
@@ -28,7 +28,7 @@ leftsixteenth = { \set stemLeftBeamCount =  2
 bothsixteenth = { \set stemLeftBeamCount =  2
   \set stemRightBeamCount =  2 }
 
-rondo = \notes 	\relative c'
+rondo =  	\relative c'
 {
 	\partial 8
 	\time 6/8

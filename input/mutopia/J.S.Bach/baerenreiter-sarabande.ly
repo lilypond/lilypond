@@ -1,8 +1,8 @@
-\version "2.3.2"
+\version "2.3.4"
 
 % #(ly:set-point-and-click 'line-column)
 
-forcedLastBreak = \notes { \break }
+forcedLastBreak =  { \break }
 
 %% We want this to perfectly match the Baerenreiter spacing.
 %% If we're not using 6 systems, there's definately a problem.
@@ -46,7 +46,7 @@ half way in measure 13 has been forgotten.
 }
 
 
-sarabandeA =  \context Voice \notes \relative c {
+sarabandeA =  \context Voice  \relative c {
   \override Staff.NoteCollision  #'merge-differently-dotted = ##t
 
   
@@ -128,7 +128,7 @@ sarabandeA =  \context Voice \notes \relative c {
 }
 
 
-sarabandeCelloGlobal = \notes{
+sarabandeCelloGlobal = {
   \time 3/4
   \key f \major
   \clef bass
@@ -139,7 +139,7 @@ sarabandeCelloGlobal = \notes{
   }
 }
 
-sarabandeCelloScripts = \notes{
+sarabandeCelloScripts = {
 }
 
 sarabandeCelloStaff = \context Staff <<

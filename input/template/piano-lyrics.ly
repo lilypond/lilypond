@@ -1,14 +1,14 @@
-\version "2.3.2"
+\version "2.3.4"
 
 \header {
   texidoc ="Lyrics between two staffs."
 }
 
-upper = \notes\relative c'' {
+upper = \relative c'' {
   a b c d
 }
 
-lower = \notes\relative c {
+lower = \relative c {
   a2 c
 }
 

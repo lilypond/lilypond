@@ -42,14 +42,14 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "2.3.2"
+\version "2.3.4"
 
 dynamicUp = \override DynamicLineSpanner  #'direction = #1
 dynamicRevert = \revert DynamicLineSpanner #'direction
 
 #(set-global-staff-size 16)
 
-vocalVerse = \notes\relative c''{
+vocalVerse = \relative c''{
 	\dynamicUp
 	\times 2/3 {  g8[(  as)] g } c4. g8 |
 	\times 2/3 {  f8[(  g)] f } c'4 f,8 r |
@@ -90,7 +90,7 @@ vocalVerse = \notes\relative c''{
 	c!2. |
 }
 
-vocalThrough = \notes\relative c{
+vocalThrough = \relative c{
 	\dynamicUp
 	g''8. g16 b8. b16 d8. d16 |
 	c4 b r |
@@ -155,14 +155,14 @@ lyricThrough = \lyrics{
 	be -- glük -- ke mich!
 }
 
-trebleIntro = \notes\relative c{
+trebleIntro = \relative c{
 	r8^"\bf Mäßig"\pp <g' c>-. <c es>-. <g c>-. <c es>-. <g c>-. |
 	r8 <as c>-. <c es>-. <as c>-. <c es>-. <as c>-. |
 	r8 <as c>-. <c d>-. <as c>-. <c d>-. <as c>-. |
 	r8 <g b>-. <b d>-. <g b>-. <b d>-. <g b>-. |
 }
 
-trebleVerseOne = \notes\relative c{
+trebleVerseOne = \relative c{
 	%5
 	r8 <g' c> <c es> <g c> <c es> <g c> |
 	r8 <f c'> <c' d> <f, c'> <c' d> <f, c'> |
@@ -210,7 +210,7 @@ trebleVerseOne = \notes\relative c{
 	<a a'>4.-> <f f'>8)  |
 }
 
-trebleEentje = \notes \relative c' \context Voice {
+trebleEentje =  \relative c' \context Voice {
 	\stemBoth
 	<e e'>2 r4 |
 	<f as!>2\(\mf <as c>8.(-> <f as>16)\) |
@@ -225,7 +225,7 @@ trebleEentje = \notes \relative c' \context Voice {
 	<e g>2 r4 |
 }
 
-trebleThrough = \notes \relative c'{
+trebleThrough =  \relative c'{
 	\stemBoth
 	<e e'>2. |
 	%61
@@ -278,7 +278,7 @@ trebleThrough = \notes \relative c'{
 	<g e' g>2.\fermata |
 }
 
-bassIntro = \notes\relative c{
+bassIntro = \relative c{
 	\dynamicUp
 %1
 	<c, c'>2 r4 |
@@ -287,7 +287,7 @@ bassIntro = \notes\relative c{
 	<g g'>2 r4 |
 }
 
-bassVerseOne = \notes\relative c{
+bassVerseOne = \relative c{
 %	\clef bass
 	\dynamicUp
 %5
@@ -319,7 +319,7 @@ bassVerseOne = \notes\relative c{
 	c,8 <c' e g>[ <e g c> <c e g> <e g c> <c e g>] |
 }
 
-bassEentje = \notes\relative c{
+bassEentje = \relative c{
 	\dynamicUp
 	<c, c'>8 <c' f as!>[ <f as c> <c f as> <f as c> <c f as>] |
 	c,8 <c' e g>[ <e g c> <c e g> <e g c> <c e g>] |
@@ -331,7 +331,7 @@ bassEentje = \notes\relative c{
 	c,8 <e' g>[ <g c> <e g> <g c> <e g>] |
 }
 
-bassThrough = \notes\relative c{
+bassThrough = \relative c{
 	\dynamicUp
 	%61
 	<g, g'>8^"cresc." <g' b d>[ <b d f> <g b d> <as! b d >-> <b d f>] |
@@ -365,7 +365,7 @@ bassThrough = \notes\relative c{
 	<c, g' c>2._\fermata |
 }
 		
-global = \notes{
+global = {
 	\time 3/4 
 	\key es \major
 	\skip 1 * 3/4 * 4
@@ -388,7 +388,7 @@ allLyrics = {
 	    \lyricThrough 
 } }
 
-vocals = \context Voice = leise \notes {
+vocals = \context Voice = leise  {
 	\clef treble
  	% certainly no auto-beaming for vocals
  	\autoBeamOff

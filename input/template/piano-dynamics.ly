@@ -1,24 +1,24 @@
-\version "2.3.2"
+\version "2.3.4"
 \header {
 texidoc ="
   Dynamics on a separate line, neatly centered between staffs.
 "
 }
 
-upper = \notes\relative c'' {
+upper = \relative c'' {
   a b c d
 }
 
-lower = \notes\relative c {
+lower = \relative c {
   a2 c
 }
 
-dynamics = \notes {
+dynamics =  {
   s2\fff\> s4
   s\!\pp
 }
 
-pedal = \notes {
+pedal =  {
  s2\sustainDown s2\sustainUp
 }
 
