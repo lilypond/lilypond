@@ -1947,15 +1947,16 @@ articulation. They are demonstrated here:
 
 @lilypondfile[notexidoc]{script-abbreviations.ly}
 
+The meanings of these shorthands can be changed: see
+@file{ly/script-init.ly} for examples.
+
+
 The script is automatically placed, but if you need to force
 directions, you can use @code{_} to force them down, or @code{^} to
 put them up:
 @lilypond[fragment, verbatim]
   c''4^^ c''4_^
 @end lilypond
-
-
-
 
 Other symbols can be added using the syntax
 @var{note}@code{-\}@var{name}, e.g. @code{c4-\fermata}. Again, they
