@@ -5,4 +5,4 @@
 
 typedef Real Mtime;
 
-#endif MTIME_HH
+#endif
