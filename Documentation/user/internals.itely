@@ -46,7 +46,7 @@ is printed on the standard output), the music expression in a
 @code{\score} block is interpreted in time order, the same order in
 which we hear and play the music.  During this phase, the interpretation
 context holds the state for the current point within the music, for
-example
+example:
 @itemize @bullet
 @item What notes are playing at this point?
 
@@ -75,7 +75,7 @@ performance contexts can be found in @file{ly/engraver-init.ly} and
 @cindex context selection
 
 Contexts for a music expression can be selected manually, using the
-following music expression.
+following music expression:
 
 @example
 \context @var{contexttype} [= @var{contextname}] @var{musicexpr}
@@ -84,7 +84,7 @@ following music expression.
 @noindent
 This means that @var{musicexpr} should be interpreted within a context
 of type @var{contexttype} (with name @var{contextname} if specified).
-If no such context exists, it will be created.
+If no such context exists, it will be created:
 
 @lilypond[verbatim,singleline]
 \score {
@@ -128,7 +128,7 @@ from the enclosing music expression.
 
 
 Second, contexts are created automatically to be able to interpret the
-music expressions.  Consider the following example.
+music expressions.  Consider the following example:
 
 @lilypond[verbatim, singleline]
   \score { \notes { c'4-( d' e'-) } }
@@ -137,7 +137,7 @@ music expressions.  Consider the following example.
 @noindent
 The sequential music is interpreted by the Score context initially,
 but when a note is encountered, contexts are setup to accept that
-note.  In this case, a @code{Thread},@code{Voice}, and @code{Staff}
+note.  In this case, a @code{Thread}, @code{Voice}, and @code{Staff}
 context are created.  The rest of the sequential music is also
 interpreted with the same @code{Thread}, @code{Voice}, and
 @code{Staff} context, putting the notes on the same staff, in the same
@@ -171,8 +171,8 @@ contained contexts.  This means that a property valid for the
 If you do not wish to specify the name of the context in the
 @code{\property}-expression itself, you can refer to the abstract context
 name, @code{Current}.  The @code{Current} context is the latest
-used context.  This will typically mean the @internalsref{Thread}
-context, but you can force another context with the
+used context.  This will typically mean the @internalsref{Thread} context, 
+but you can force another context with the
 @code{\property}-command.  Hence the expressions
 
 @example
@@ -222,7 +222,7 @@ syntax for this is
 
 @var{function} should be a Scheme function taking a single argument,
 being the context to apply it to. The following code will print the
-current bar number on the standard output during the compile.
+current bar number on the standard output during the compile:
 
 @example
     \applycontext
@@ -305,7 +305,7 @@ engraver. The syntax for these operations is
 Here @var{engravername} is a string, the name of an engraver in the
 system. In the following example, the @code{Clef_engraver} is removed
 from the Staff context. The result is a staff without a clef, where
-the central C is at its default position, the center line.
+the central C is at its default position, the center line:
 
 @lilypond[verbatim,singleline]
 \score {
@@ -352,11 +352,11 @@ should always be  @code{Engraver_group_engraver} (unless you are
 defining a Score context from scratch, in which case
 @code{Score_engraver}   must be used).
 
-The complete list of context  modifiers is as follows:
+The complete list of context  modifiers is the following:
 @itemize @bullet
 @item @code{\alias} @var{alternate-name}:
 This specifies a different name.  In the above example,
-@code{\property Staff.X = Y} will also work on @code{SimpleStaff}s
+@code{\property Staff.X = Y} will also work on @code{SimpleStaff}s.
 
 @item @code{\consistsend} @var{engravername}:
 Analogous to @code{\consists}, but makes sure that
@@ -369,7 +369,7 @@ engravers stay at the end even if a user adds or removes engravers.
     
 @item @code{\accepts} @var{contextname}:
 This context can contains @var{contextname} contexts.  The first
-@code{\accepts} is created as a default context when events (eg. notes
+@code{\accepts} is created as a default context when events (e.g. notes
 or rests) are encountered.
 
 @item @code{\denies}:
@@ -471,7 +471,7 @@ This means that input variables and Scheme variables may be freely
 mixed.  In the following example, a music fragment is stored in the
 variable @code{traLaLa}, and duplicated using Scheme. The result is
 imported in a @code{\score} by means of a second variable
-@code{twice}
+@code{twice}:
 @example
   traLaLa = \notes @{ c'4 d'4 @}
   
@@ -502,10 +502,10 @@ written as
 @subsection Scheme datatypes
 
 Scheme is used to glue together different program modules. To aid this
-glue function, many lilypond specific object types can be passed as
+glue function, many LilyPond specific object types can be passed as
 Scheme value. 
 
-The following list are all lilypond specific types, that
+The following list are all LilyPond specific types, that
 can exist during parsing:
 @table @code
 @item Duration
@@ -615,7 +615,7 @@ manipulated using Scheme functions.
 @cindex music expressions
 
 Notes, rests, lyric syllables are music expressions.  Small music
-expressions may be combined to form larger ones, for example by
+expressions may be combined to form larger ones, for example, by
 enclosing a list of expressions in @code{\sequential @{ @}} or @code{<
 >}.  In the following example, a compound expression is formed out of
 the quarter note @code{c} and a quarter note @code{d}:
@@ -633,7 +633,7 @@ the quarter note @code{c} and a quarter note @code{d}:
 @cindex @code{\simultaneous}
 
 The two basic compound music expressions are simultaneous and
-sequential music.
+sequential music:
 
 @example
 \sequential @code{@{} @var{musicexprlist} @code{@}}
@@ -673,7 +673,7 @@ for chords was introduced in version 1.7: @code{<< >>}.
 
 
 
-Other compound music expressions include
+Other compound music expressions include:
 @example
 \repeat @var{expr}
 \transpose @var{from} @var{to} @var{expr}
@@ -695,24 +695,24 @@ Scheme music objects. The defining property of a music object is that
 it takes up time. Time is a rational number that measures the length
 of a piece of music, in whole notes.
 
-A music object has three kinds of types
+A music object has three kinds of types:
 @itemize @bullet
 @item
-  Music name: each music expression has a name, for example, a note
+  music name: Each music expression has a name, for example, a note
 leads to a @internalsref{NoteEvent}, and @code{\simultaneous} leads to
 a @internalsref{SimultaneousMusic}. A list of all expressions
 available is in the internals manual, under @internalsref{Music
 expressions}.
 
 @item
-  Each music name has several `types' or interface. For example, a
-  note is an @code{event}, but it is also a @code{note-event}, a
-  @code{rhythmic-event} and a @code{melodic-event}.
+  `type' or interface: Each music name has several `types' or interface,
+  for example, a note is an @code{event}, but it is also a @code{note-event}, 
+  a @code{rhythmic-event} and a @code{melodic-event}.
 
   All classes of music are listed in the internals manual, under
   @internalsref{Music classes}. 
 @item
-Each music object is represented by a C++ object.  For technical
+C++ object: Each music object is represented by a C++ object. For technical
 reasons, different music objects may be represented by different C++
 object types. For example, a note is @code{Event} object, while
 @code{\grace} creates a @code{Grace_music} object.
@@ -727,10 +727,10 @@ For example, a @internalsref{NoteEvent} has @code{pitch} and
 note.  A list of all properties available is in the internals manual,
 under @internalsref{Music properties}.
 
-A compound music expresssion is a music object that contains other
+A compound music expression is a music object that contains other
 music objects in its properties. A list of objects can be stored in
 the @code{elements} property of a music object, or a single `child'
-music object is stored in the @code{element} object. For example,
+music object in the @code{element} object. For example,
 @internalsref{SequentialMusic} has its children in @code{elements},
 and @internalsref{GraceMusic} has its single argument in
 @code{element}. The body of a repeat is in @code{element} property of
@@ -741,7 +741,7 @@ and @internalsref{GraceMusic} has its single argument in
 
 Music objects and their properties can be accessed and manipulated
 directly, through the @code{\apply} mechanism.  
-The syntax for @code{\apply} 
+The syntax for @code{\apply} is 
 @example
 \apply #@var{func} @var{music}
 @end example
@@ -749,7 +749,7 @@ The syntax for @code{\apply}
 @noindent
 This means that the scheme function @var{func} is called with
 @var{music} as its argument.  The return value of @var{func} is the
-result of the entire expresssion.  @var{func} may read and write music
+result of the entire expression.  @var{func} may read and write music
 properties using the functions @code{ly:get-mus-property} and
 @code{ly:set-mus-property!}.
 
@@ -774,10 +774,10 @@ multiple children.  The following function application has no effect:
 @noindent
 In this case, @code{\grace} is stored as @internalsref{GraceMusic}, which has no
 @code{elements}, only a single @code{element}. Every generally
-applicable function for @code{\apply} must --like music expressions
-themselves-- be recursive.
+applicable function for @code{\apply} must -- like music expressions
+themselves -- be recursive.
 
-The following example is such a recursive function: it first extracts
+The following example is such a recursive function: It first extracts
 the @code{elements} of an expression, reverses them and puts them
 back. Then it recurses, both on @code{elements} and @code{element}
 children.
@@ -825,7 +825,7 @@ LilyPond input to other formats  (@inputfileref{input/test,to-xml.ly})
 @file{scm/music-functions.scm}, @file{scm/music-types.scm},
 @inputfileref{input/test,add-staccato.ly},
 @inputfileref{input/test,duration-check.ly}.
-@inputfileref{input/test,unfold-all-repeats.ly},
+@inputfileref{input/test,unfold-all-repeats.ly}, and
 @inputfileref{input/test,music-box.ly}.
 
 @node Lexical details
@@ -876,21 +876,21 @@ to the top of the page).  You can avoid that by setting the variable
 @code{lastpagefill} in LilyPond's @code{\paper} block.
 
 It is possible to fine-tune the vertical offset further by defining the
-macro @code{\lilypondscoreshift}.  Example:
+macro @code{\lilypondscoreshift}:
 
 @example
 \def\lilypondscoreshift@{0.25\baselineskip@}
 @end example
 
 @noindent
-@code{\baselineskip} is the distance from one text line to the next.
+where @code{\baselineskip} is the distance from one text line to the next.
 
 The code produced by LilyPond should be run through La@TeX{}, not
 plain @TeX{}.
 
 Here an example how to embed a small LilyPond file @code{foo.ly} into
 running La@TeX{} text without using the @code{lilypond-book} script
-(@pxref{lilypond-book manual}).
+(@pxref{lilypond-book manual}):
 
 @example
 \documentclass@{article@}
