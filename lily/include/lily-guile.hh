@@ -99,7 +99,6 @@ inline SCM scm_c_make_vector  (int k, SCM val) {
  */
 
 SCM ly_last (SCM list);
-SCM ly_str02scm (char const*c);
 SCM ly_write2scm (SCM s);
 SCM ly_deep_copy (SCM);
 SCM ly_truncate_list (int k, SCM l );
@@ -152,7 +151,6 @@ SCM ly_interval2scm (Drul_array<Real>);
 
 
 SCM ly_quote_scm (SCM s);
-SCM ly_type (SCM);
 bool type_check_assignment (SCM val, SCM sym,  SCM type_symbol) ;
 String print_scm_val (SCM val);
 SCM ly_number2string (SCM s);

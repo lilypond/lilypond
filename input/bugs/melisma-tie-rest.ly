@@ -15,7 +15,7 @@ extend during a subsequent rest, and cannot be forced to stop."
 		r2 r1 c
 	    }
 	}
-	\context Lyrics = "soprano" \lyrics {
+	\context Lyrics = "soprano-1" \lyrics {
 	    hey __ stop?
 	    hey __ STOP!!!
 	}

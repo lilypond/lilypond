@@ -145,6 +145,7 @@ ly_scm2string (SCM s)
 SCM
 index_get_cell (SCM s, Direction d)
 {
+  
   assert (d);
   return (d == LEFT) ? ly_car (s) : ly_cdr (s);
 }
@@ -160,10 +161,9 @@ index_set_cell (SCM s, Direction d, SCM v)
 }
   
 LY_DEFINE(ly_warning,"ly-warn", 1, 0, 0,
-  (SCM str),"Scheme callable function to issue the warning @code{msg}.
-")
+  (SCM str),"Scheme callable function to issue the warning @code{msg}.")
 {
-  assert (gh_string_p (str));
+  SCM_ASSERT_TYPE (gh_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
   warning ("lily-guile: " + ly_scm2string (str));
   return SCM_BOOL_T;
 }
@@ -316,33 +316,6 @@ ly_scm2offset (SCM s)
 		 gh_scm2double (ly_cdr (s)));
 }
 
-SCM
-ly_type (SCM exp)
-{
-  char const  * cp = "unknown";
-  if (gh_number_p (exp))
-    {
-      cp = "number";
-    }
-  else if (gh_string_p (exp))
-    {
-      cp = "string";
-    }
-  else if (gh_procedure_p (exp))
-    {
-      cp = "procedure";
-    }
-  else if (gh_boolean_p (exp))
-    {
-      cp = "boolean";
-    }
-  else if (gh_pair_p (exp))
-    {
-      cp = "list";
-    }
-
-  return scm_makfrom0str (cp);
-}
 
 /*
   convert without too many decimals, and leave  a space at the end.
@@ -355,7 +328,7 @@ LY_DEFINE(ly_number2string,  "ly-number->string", 1, 0,0,
 leaves a space at the end.
 ")
 {
-  assert (gh_number_p (s));
+  SCM_ASSERT_TYPE (gh_number_p (s), s, SCM_ARG1, __FUNCTION__, "number");
 
   char str[400];			// ugh.
 
