@@ -1,4 +1,5 @@
 \paper {
+
 	textheight = 295.0\mm;
 	linewidth = 180.0\mm;
 
@@ -10,6 +11,8 @@
 		\ThreadContext
 		\name "VoiceCombineThread";
 		\consists "Rest_engraver";
+		\remove "Thread_devnull_engraver";
+		\consists "A2_devnull_engraver";
 	}
 	\translator{
 		\VoiceContext
@@ -19,6 +22,7 @@
 		\remove "Rest_engraver";
 		\accepts "VoiceCombineThread";
 		\consists "A2_devnull_engraver";
+		\remove "Voice_devnull_engraver";
 	}
 	\translator{
 		\HaraKiriStaffContext
@@ -33,9 +37,8 @@
 	\translator{
 		\ThreadContext
 		\name "StaffCombineThread";
-%%
-			\remove "A2_devnull_engraver";
-%%			\remove "Note_heads_engraver";
+		\remove "Thread_devnull_engraver";
+%%		\consists "A2_devnull_engraver";
 	}
 	\translator{
 		\VoiceContext
@@ -53,6 +56,7 @@
 		\remove "Melisma_engraver";
 		\remove "Text_engraver";
 		\remove "A2_engraver";
+		\remove "Voice_devnull_engraver";
 
 		\remove "Piano_pedal_engraver";
 		\remove "Script_engraver";
@@ -61,6 +65,8 @@
 		\remove "Slur_engraver";
 		\remove "Tie_engraver";
 
+		\remove "Voice_devnull_engraver";
+%%		\consists "Thread_devnull_engraver";
 		\consists "A2_devnull_engraver";
 	}
 	\translator {
@@ -79,9 +85,10 @@
 		\consists "Melisma_engraver";
 		\consists "Text_engraver";
 		\consists "A2_engraver";
+%%		\consists "Voice_devnull_engraver";
+%%		\consists "A2_devnull_engraver";
 
 		soloADue = ##f
-		%soloADue = ##t
 
 		\consists "Piano_pedal_engraver";
 		\consists "Script_engraver";
@@ -89,14 +96,14 @@
 		\consists "Rhythmic_column_engraver";
 		\consists "Slur_engraver";
 		\consists "Tie_engraver";
-
-		\consists "A2_devnull_engraver";
 	}
 	\translator {
 		\StaffGroupContext
 		\accepts "VoiceCombineStaff";
 		\accepts "StaffCombineStaff";
 	}
+	\translator{ \HaraKiriStaffContext }
+
 	\translator {
 		\ScoreContext
 		\accepts "VoiceCombineStaff";
