@@ -45,20 +45,48 @@
    (equal? (substring fontname 0 2) "cm")
    (equal? (substring fontname 0 2) "ec")))
 
+(define (ps-embed-cff body font-set-name version)
+  (string-append
+   (format
+    "%!PS-Adobe-3.0 Resource-FontSet
+%%DocumentNeededResources: ProcSet (FontSetInit)
+%%EndComments
+%%IncludeResource: ProcSet (FontSetInit)
+%%BeginResource: FontSet (~a)
+%%Title: (FontSet/~a)
+%%Version: ~s
+/FontSetInit /ProcSet findresource begin
+%%BeginData: ~s Binary Bytes
+/~a ~s StartData "
+    font-set-name font-set-name version 0 font-set-name (string-length body)
+    )
+
+   body
+
+   "%%EndData
+%%EndResource
+%%EOF
+"
+
+   ))
+
+(display (ly:gulp-file "/home/hanwen/usr/src/lilypond/mf/out/bigcheese20.cff"))
+
+
 (define (load-fonts paper)
   (let* ((fonts (ly:paper-fonts paper))
 	 (font-names (uniq-list (sort (map ly:font-file-name fonts) string<?)))
 	 (pfas (map
 		(lambda (x)
-
-		  (let* ((t42name (string-append x ".t42"))
+		  (let* ((cffname (string-append x ".cff"))
 			 (aname (string-append x ".pfa"))
 			 (bname (string-append x ".pfb"))
-			 (t42path (ly:find-file t42name))
+			 (cffpath (ly:find-file cffname))
 			 (apath (ly:kpathsea-find-file aname))
 			 (bpath (ly:kpathsea-find-file bname)))
+		  (display (list x cffpath))
 		    (cond
-		     (t42path (ly:gulp-file t42path))
+		     (cffpath (ps-embed-cff (ly:gulp-file cffpath) x 0))
 		     (apath (ly:gulp-file apath))
 		     (bpath (ly:pfb->pfa bpath))
 		     (else

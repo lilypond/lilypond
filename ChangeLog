@@ -1,3 +1,9 @@
+2004-12-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-ps.scm (ps-embed-cff): new function.
+
+	* lily/lily-guile.cc (LY_DEFINE): make ly:gulp-file binary proof.
+
 2004-12-12  Werner Lemberg  <wl@gnu.org>
 
 	* mf/bigcheese.pe.in: Add PUA mapping.

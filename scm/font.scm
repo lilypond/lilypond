@@ -179,9 +179,9 @@
 		  ,(delay (ly:make-virtual-font
 			   (ly:font-load "feta18")
 			   (ly:font-load "parmesan18")))
-		  ,(delay (ly:make-virtual-font
-			   (ly:font-load "feta20")
-			   (ly:font-load "parmesan20")))
+;		  ,(delay (ly:make-virtual-font
+;			   (ly:font-load "feta20")
+;			   (ly:font-load "parmesan20")))
 		  ,(delay (ly:make-virtual-font (ly:font-load "bigcheese20")))
 		  ,(delay (ly:make-virtual-font
 			   (ly:font-load "feta23")
