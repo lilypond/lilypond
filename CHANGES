@@ -1,3 +1,12 @@
+1.3.17.jcn1
+===========
+
+* Bugfix: multi-measure rest: #measures (even more scm2int/int2scm mixups!)
+
+* mutopia/J.S.Bach/pa.ly: organ score (for my father)
+
+* small fix to mutopia/J.S.Bach/Duette/violino-ii.ly
+
 1.3.16.hwn1
 ===========
 

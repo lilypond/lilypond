@@ -87,7 +87,7 @@ Multi_measure_rest_engraver::do_process_requests ()
 				     ly_str02scm ("scripts-repeatsign"));
       announce_element (Score_element_info (mmrest_p_, multi_measure_req_l_));
       start_measure_i_
-	= gh_int2scm (time->get_property ("currentBarNumber", 0));
+	= gh_scm2int (time->get_property ("currentBarNumber", 0));
     }
 }
 
@@ -127,7 +127,7 @@ Multi_measure_rest_engraver::do_post_move_processing ()
     {
       lastrest_p_ = mmrest_p_;
       lastrest_p_->measures_i_
-	= gh_int2scm (time->get_property ("currentBarNumber", 0)) - start_measure_i_;
+	= gh_scm2int (time->get_property ("currentBarNumber", 0)) - start_measure_i_;
       mmrest_p_ = 0;
     }
 
