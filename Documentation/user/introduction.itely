@@ -47,9 +47,9 @@ design, and how this approach affects you as a user.
 @cindex Batch
 @cindex UNIX
 
-LilyPond is a @emph{batch} program. To use, one enters commands in a
-file, and the program is run on that file. The output is produced
-without requiring any user-interaction.
+LilyPond is a @emph{batch} program. To use it, one enters commands in a
+file, and runs the program on that file. The output is produced without
+requiring any further interaction.
 
 When we started developing LilyPond, we were still studying at the
 university.  We were interested in music notation, not as publishers
@@ -392,10 +392,21 @@ a lead sheet.
 
 The following example combines some more exotic uses of notation
 
-@lilypondfile{screech-boink.ly}  
+@lilypondfile{screech-boink.ly}
 
+The fragments shown above have all been written by hand, but that is not
+a requirement. Since the formatting engine is mostly automatic, it can
+serve as an output means for other programs that manipulate music. It
+can also be used to convert databases of musical fragments to images for
+use on websites on multimedia presentations.
 
-TODO: show automated formatting example.
+This manual also shows an application: the input format is plain text,
+and can therefore be easily embedded in other text-based formats, such
+as La@TeX{}, HTML or in the case of this manual, Texinfo.  By means of a
+special program, the input fragments can be replaced by music images in
+the resulting PostScript or HTML output files. This makes it easy to
+mix music and text in documents.
+
 
 
 @node About this manual

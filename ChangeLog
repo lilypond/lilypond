@@ -1,5 +1,8 @@
 2003-07-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/introduction.itely (Example applications):
+	add note about databases and lilypond-book.
+
 	* input/test/volta.ly: remove file
 
 	* input/regression/volta-broken-left-edge.ly: simplify file
