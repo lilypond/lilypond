@@ -144,6 +144,8 @@ square of the inner notes involved.")
 
 (grob-property-description 'columns grob-list? "list of grobs, typically containing paper-columns.")
 (grob-property-description 'conditional-elements grob-list? "Internal use only")
+(grob-property-description 'context-info integer? "DOCME")
+
 (grob-property-description 'control-points list? "List of 4 offsets (number-pairs) that form control points for the  tie/slur shape.")
 (grob-property-description 'damping integer? "amount of beam slope damping should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams .")
 (grob-property-description 'dash-length number? "the length of a dash.")
