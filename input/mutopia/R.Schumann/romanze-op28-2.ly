@@ -76,10 +76,10 @@ righta = \notes \transpose c cis' {
  as' des'^1 c'8^#'(finger "2-3") h~h )c'16 \clef F [e,16(^2 f, g,] |
  \break
 
- [as,^5 )h,,^2] \clef G [<<c a^3(>>8 <<c g^2>>16 c'] <<c es ges c'^5>>4.~
+ [as,^5 h,,^2-)-] \clef G [<<c a^3>>8-( <<c g^2>>16 c'] <<c es ges c'^5>>4.~
  <<c es ges c'>>8-) s4 s8 r16 h^2( c' d' | 
  es' ges-1 f-2 a-1 c'-2 f'-4 \stemUp \tieUp e'-5 d' c' b-4 a^\prall^#'(finger "2-4-3") g |
- )f f'-5( e'-5 d'-4 c'-3 )f'-5 <<f^4 a^5(>>4 <<e^3 g^5>>8 |
+ )f f'-5( e'-5 d'-4 c'-3 )f'-5 <<f^4 a^5>>4-( <<e^3 g^5>>8 |
  <<a, f^4>>4 <<g, e^3>>8 f16^4 d'^5~[d'8. c'16^4] |
  \break 
  <)f8^3 \context Voice = another { \m a,16^\pp \u c8 c16] } > \m g, \u c_3 \m b,^#'(finger "2-1") \u c8 c16 \m a, \u c]~ | \stemBoth
@@ -133,12 +133,12 @@ rightb = \notes \transpose c cis' {
   s2. s
  \u s4. \grace {f8(} )f4 e8 |
  f g16_2 b_1 a_2 gis_1 c_2 h, c cis_1 d_2 b,_1 |
- \tieDown c4.~<<f, c  >>16-\< \tieBoth <<f h>>~[<< f^3 h \> >>8 -\! << e b^2>> -\!] |
+ \tieDown c4.~<<f, c  >>16-\< \tieBoth <<f h>>~[<< f^3 h >>8-\> -\! << e b^2>> -\!] |
  \translator Staff=mid
  \transpose c' c {
   a4^1( g8^1 b4 a8^2 |
-  f8..^1 f32^1 g8^2 )a8..   \slurUp <<f f'^3(>>32 <<g g'^4>>8 |
-  <<a a'^5>>8..-) <<f f'^3(>>32 <<g g'^4>>8 <<a a'^5 \> >>4.-) ~ |
+  f8..^1 f32^1 g8^2 )a8..   \slurUp <<f f'^3>>32-( <<g g'^4>>8 |
+  <<a a'^5>>8..-) <<f f'^3>>32-( <<g g'^4>>8 <<a a'^5 >>4.-\>-) ~ |
   a~ \! a^\fermata \bar "|."
  }
 }

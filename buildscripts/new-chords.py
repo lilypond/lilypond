@@ -34,65 +34,67 @@ def sub_chord (m):
 		if dur_str <> d:
 			return '<%s>' % m.group (1)
 
-
-	dyns = ['']
-	def sub_dyn_end (m):
-		dyns.append (' -\!')
-		return m.group(2)
-
-	str = re.sub (r'(\\!)\s*([a-z]+)', sub_dyn_end, str)
-
-	slur_strs = ['']
-	def sub_slurs(m):
-		if '-)' not in slur_strs:
-			slur_strs.append ( '-)')
-		return m.group(1)
-	def sub_p_slurs(m):
-		if '-\)' not in slur_strs:
-			slur_strs.append ( '-\)')
-		return m.group(1)
-	str = re.sub (r"\)[ ]*([a-z]+)", sub_slurs, str)
-	str = re.sub (r"\\\)[ ]*([a-z]+)", sub_p_slurs, str)
-	def sub_begin_slurs(m):
-		if '-(' not in slur_strs:
-			slur_strs.append ( '-(')
-		return m.group(1)
-	str = re.sub (r"([a-z]+[,'!?0-9 ]*)\(", sub_begin_slurs, str)
-	def sub_begin_p_slurs(m):
-		if '-\(' not in slur_strs:
-			slur_strs.append ( '-\(')
-		return m.group(1)
-
-	str = re.sub (r"([a-z]+[,'!?0-9 ]*)\\\(", sub_begin_p_slurs, str)
-
-	def sub_dyns (m):
-		s = m.group(0)
-		if s == '@STARTCRESC@':
-			slur_strs.append ("-\\<")
-		elif s == '@STARTDECRESC@':
-			slur_strs.append ("-\\>")
-		elif s == r'-?\\!':
-			slur_strs.append ('-\\!')
-		return ''
-		
-	str = re.sub (r'@STARTCRESC@', sub_dyns, str)
-	str = re.sub (r'-?\\!', sub_dyns, str)
-	
-	def sub_articulations (m):
-		a = m.group(1)
-		if a not in slur_strs:
-			slur_strs.append (a)
-		return ''
-	
-	str = re.sub (r"([_^-]\@ACCENT\@)", sub_articulations, str)
-	str = re.sub (r"([_^-]\\[a-z]+)", sub_articulations, str)
-	str = re.sub (r"([_^-][>_.+|^-])", sub_articulations, str)
-	
 	pslur_strs = ['']
-	def sub_pslurs(m):
-		slur_strs.append ( ' -\\)')
-		return m.group(1)
-	str = re.sub (r"\\\)[ ]*([a-z]+)", sub_pslurs, str)
+	dyns = ['']
+	slur_strs = ['']
+
+	last_str = ''
+	while last_str <> str:
+	  last_str = str
+	  def sub_dyn_end (m):
+		  dyns.append (' -\!')
+		  return ' ' + m.group(2)
+
+	  str = re.sub (r'(\\!)\s*([a-z]+)', sub_dyn_end, str)
+	  def sub_slurs(m):
+		  if '-)' not in slur_strs:
+			  slur_strs.append ( '-)')
+		  return m.group(1)
+	  def sub_p_slurs(m):
+		  if '-\)' not in slur_strs:
+			  slur_strs.append ( '-\)')
+		  return m.group(1)
+	  str = re.sub (r"\)[ ]*([a-z]+)", sub_slurs, str)
+	  str = re.sub (r"\\\)[ ]*([a-z]+)", sub_p_slurs, str)
+	  def sub_begin_slurs(m):
+		  if '-(' not in slur_strs:
+			  slur_strs.append ( '-(')
+		  return m.group(1)
+	  str = re.sub (r"([a-z]+[,'!?0-9 ]*)\(", sub_begin_slurs, str)
+	  def sub_begin_p_slurs(m):
+		  if '-\(' not in slur_strs:
+			  slur_strs.append ( '-\(')
+		  return m.group(1)
+
+	  str = re.sub (r"([a-z]+[,'!?0-9 ]*)\\\(", sub_begin_p_slurs, str)
+
+	  def sub_dyns (m):
+		  s = m.group(0)
+		  if s == '@STARTCRESC@':
+			  slur_strs.append ("-\\<")
+		  elif s == '@STARTDECRESC@':
+			  slur_strs.append ("-\\>")
+		  elif s == r'-?\\!':
+			  slur_strs.append ('-\\!')
+		  return ''
+
+	  str = re.sub (r'@STARTCRESC@', sub_dyns, str)
+	  str = re.sub (r'-?\\!', sub_dyns, str)
+
+	  def sub_articulations (m):
+		  a = m.group(1)
+		  if a not in slur_strs:
+			  slur_strs.append (a)
+		  return ''
+
+	  str = re.sub (r"([_^-]\@ACCENT\@)", sub_articulations, str)
+	  str = re.sub (r"([_^-]\\[a-z]+)", sub_articulations, str)
+	  str = re.sub (r"([_^-][>_.+|^-])", sub_articulations, str)
+
+	  def sub_pslurs(m):
+		  slur_strs.append ( ' -\\)')
+		  return m.group(1)
+	  str = re.sub (r"\\\)[ ]*([a-z]+)", sub_pslurs, str)
 
 	suffix = string.join (slur_strs, '') + string.join (pslur_strs, '') \
 		 + string.join (dyns, '')
