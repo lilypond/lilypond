@@ -237,4 +237,4 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
 
 ADD_INTERFACE (Font_interface, "font-interface",
   "Any symbol that is typeset through fixed sets of glyphs (ie. fonts)",
-  "font-magnification font-style font font-series font-shape font-family font-name font-design-size font-relative-size");
+  "font-magnification font font-series font-shape font-family font-name font-design-size font-relative-size");
