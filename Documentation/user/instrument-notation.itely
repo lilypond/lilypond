@@ -15,7 +15,7 @@ This chapter explains how to use notation for specific instruments.
 * Chord names::                 
 * Vocal music::                 
 * Rhythmic music::              
-* Tablatures::                  
+* Guitar ::                     
 * Ancient notation::            
 * Other instrument specific notation::  
 @end menu
@@ -1664,6 +1664,7 @@ for this purpose instead.
 @cindex guitar tablature
 
 @menu
+* String number indications::   
 * Tablatures basic::            
 * Non-guitar tablatures::       
 * Fret diagrams::               
@@ -1677,7 +1678,7 @@ for this purpose instead.
 String numbers can be added to chords, by indicating the string number
 with @code{\}@var{number}, 
 
-@lilypond[relative,relative=1,raggedright]
+@lilypond[relative,relative=1,raggedright,fragment]
 <c\1 e\2 g\3>
 @end lilypond
 
