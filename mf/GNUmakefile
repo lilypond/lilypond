@@ -70,8 +70,6 @@ $(outdir)/aybabtu.subfonts:
 $(PE_SCRIPTS): $(buildscript-dir)/gen-bigcheese-scripts.py
 	$(PYTHON) $< --dir=$(outdir)
 
-include $(outdir)/bigcheese20.dep
-
 
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
 PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
@@ -117,7 +115,7 @@ default: pfa_warning $(ALL_GEN_FILES) $(outdir)/bigcheese20.otf
 
 pfa_warning:
 ifneq ($(shell $(MFTRACE) --version | sed 's/ .*//'),mftrace)
- 	@echo ""
+	@echo ""
 	@echo "ERROR: mftrace not found"
 	@echo ""
 	@echo "For obtaining PFA fonts, either install mftrace "

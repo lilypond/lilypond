@@ -15,7 +15,8 @@
 struct Modified_font_metric : public Font_metric
 {
 public:
-  Box text_dimension (String);
+  virtual Box text_dimension (String) const;
+  virtual Stencil text_stencil (String) const;
   
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification,
 				      SCM font_encoding, SCM input_encoding);
@@ -40,6 +41,7 @@ protected:
   Modified_font_metric (Font_metric *fm, Real magnification,
 			String font_encoding, String input_encoding);
   virtual SCM sub_fonts () const;
+  virtual String font_name () const;
   virtual Real design_size () const;
   virtual void derived_mark () const; 
   virtual Box get_indexed_char (int) const;

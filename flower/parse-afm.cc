@@ -79,6 +79,38 @@ Morten Welinder <terra@diku.dk> September 1999.
 
 #include "warn.hh"
 
+/* your basic constants */
+#define TRUE 1
+#define FALSE 0
+#define EOL '\n'                /* end-of-line indicator */
+#define MAX_NAME 4096           /* max length for identifiers */
+
+
+
+/* Flags that can be AND'ed together to specify exactly what
+ * information from the AFM file should be saved.
+ */
+#define P_G	0x01	/* 0000 0001 */   /* Global Font Info      */
+#define P_W	0x02	/* 0000 0010 */   /* Character Widths ONLY */
+#define P_M	0x06	/* 0000 0110 */   /* All Char Metric Info  */
+#define P_P	0x08	/* 0000 1000 */   /* Pair Kerning Info     */
+#define P_T	0x10	/* 0001 0000 */   /* Track Kerning Info    */
+#define P_C	0x20	/* 0010 0000 */   /* Composite Char Info   */
+
+
+/* Commonly used flags
+ */
+#define P_GW\
+	(P_G | P_W) 
+#define P_GM\
+	(P_G | P_M)
+#define P_GMP\
+	(P_G | P_M | P_P)
+#define P_GMK\
+	(P_G | P_M | P_P | P_T) 
+#define P_GALL\
+	(P_G | P_M | P_P | P_T | P_C)
+
 #define METATYPE1_BUG   /* Parse Metatype1's (version unknown)
 			   'Generated' global tag as comment. */
 
