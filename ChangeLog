@@ -1,5 +1,8 @@
 2005-04-06  Jan Nieuwenhuizen  <jan.nieuwenhuizen@aspiratie.nl>
 
+	* scripts/lilypond-book.py (split_options): Bugfix.  Small code
+	formatting cleanups.
+
 	* mf/GNUmakefile: Rewrite $addprefix, $addsuffix using % short-forms.
 	Add PFAaybabtu.pfa dependency on aybabtu.subfonts.
 

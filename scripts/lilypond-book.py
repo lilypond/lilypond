@@ -616,7 +616,10 @@ def verbatim_texinfo (s):
 			       re.sub ('@', '@@', s)))
 
 def split_options (option_string):
-	return re.split (format_res[format]['option_sep'], option_string)
+	if option_string:
+		return re.split (format_res[format]['option_sep'],
+				 option_string)
+	return []
 
 class Chunk:
 	def replacement_text (self):
@@ -674,7 +677,7 @@ class Lilypond_snippet (Snippet):
 	def __init__ (self, type, match, format, line_number):
 		Snippet.__init__ (self, type, match, format, line_number)
 		os = match.group ('options')
-		self.do_options (os,self.type)
+		self.do_options (os, self.type)
 
 	def ly (self):
 		return self.substring ('code')
@@ -1194,7 +1197,8 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 	# it is too generic for lilypond-book.
 	if texstr_names and re.search ('^[0-9A-Za-z/]*lilypond', cmd):
 
-		my_system (string.join ([cmd,'--backend texstr', 'snippet-map.ly'] + texstr_names))
+		my_system (string.join ([cmd, '--backend texstr',
+					 'snippet-map.ly'] + texstr_names))
 		for l in texstr_names:
 			my_system ('latex %s.texstr' % l)
 
@@ -1502,7 +1506,8 @@ def main ():
 	if format == TEXINFO or format == HTML:
 		formats += ',png'
 	if process_cmd == '':
-		process_cmd = lilypond_binary + ' --formats=%s --backend eps ' % formats
+		process_cmd = lilypond_binary \
+			      + ' --formats=%s --backend eps ' % formats
 
 	if process_cmd:
 		process_cmd += string.join ([(' -I %s' % p)
