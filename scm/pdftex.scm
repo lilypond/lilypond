@@ -72,7 +72,24 @@
 (define (ez-ball c l b)
   (embedded-pdf (list 'ez-ball  c  l b)))
 
-
+(define (header-to-file fn key val)
+  (set! key (symbol->string key))
+  (if (not (equal? "-" fn))
+      (set! fn (string-append fn "." key))
+      )
+  (display
+   (format "writing header field `~a' to `~a'..."
+ 	   key
+ 	   (if (equal? "-" fn) "<stdout>" fn)
+ 	   )
+   (current-error-port))
+  (if (equal? fn "-")
+      (display val)
+      (display val (open-file fn "w"))
+      )
+  (display "\n" (current-error-port))
+  ""
+  )
 
 (if (or (equal? (minor-version) "4.1")
 	(equal? (minor-version) "4")
@@ -140,7 +157,14 @@
 
 (define (header-end)
   (string-append
-   "\\input lilyponddefs\\newdimen\\outputscale \\outputscale=\\lilypondpaperoutputscale pt"
+   "\\def\\lilyoutputscalefactor{"
+   (number->string (cond
+		    ((equal? (ly-unit) "mm") (/ 72.0  25.4))
+		    ((equal? (ly-unit) "pt") (/ 72.0  72.27))
+		    (else (error "unknown unit" (ly-unit)))
+		    ))
+   "}\n"
+   "\\input lilyponddefs \\outputscale=\\lilypondpaperoutputscale \\lilypondpaperunit"
    "\\turnOnPostScript"
    "\\pdfcompresslevel=0"))
 
@@ -182,7 +206,7 @@
 (define (placebox x y s) 
   (string-append 
    "\\placebox{"
-   (number->dim y) "}{" (number->dim x) "}{" s "}\n"))
+   (number->dim y) "}{" (number->dim x) "}{" s "}%\n"))
 
 (define (bezier-bow l thick)
   (embedded-pdf (list 'bezier-bow  `(quote ,l) thick)))
@@ -210,6 +234,8 @@
 (define (text s)
   (string-append "\\hbox{" (output-tex-string s) "}"))
 
+(define (draw-line thick fx fy tx ty)
+  (embedded-pdf (list 'draw-line thick fx fy tx ty)))
 
 (define (define-origin file line col)
   (if (procedure? point-and-click)

@@ -6,7 +6,9 @@
         % by executing a 0 0 moveto
         \def\embeddedpdf##1{%
                 \pdfliteral{q \lilypondpaperoutputscale\lilySpace 0 0 %
-                        \lilypondpaperoutputscale\lilySpace 0 0 cm%
+                        \lilypondpaperoutputscale\lilySpace 0 0 cm %
+			\lilyoutputscalefactor\lilySpace 0 0 %
+			\lilyoutputscalefactor\lilySpace 0 0 cm %
                         ##1 Q}%
         }
 }

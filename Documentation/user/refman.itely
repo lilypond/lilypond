@@ -4121,7 +4121,7 @@ abbrev: @code{columns lines roman music bold italic named super sub}
 The markup is broken down and converted into a list of grob properties,
 which are prepended to the property list.  The @var{key}-@var{value}
 pair is a grob property. A list of properties available is included in
-the generated documentation for @rint{Text_interface}.
+the generated documentation for @internalsref{text-interface}.
 
 The following abbreviations are defined:
 @table @code

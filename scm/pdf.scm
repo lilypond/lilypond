@@ -19,12 +19,12 @@
 
 
 
-					; simple commands to store and update currentpoint.  This makes the
-					; other procedures simple rewrites of the PostScript code.
+; simple commands to store and update currentpoint.  This makes the
+; other procedures simple rewrites of the PostScript code.
+
 (define currentpoint (cons 0 0))
 (define (showcp) 
-  (string-append (ly-number->string (car currentpoint)) " " 
-		 (ly-number->string (cdr currentpoint)) " "))
+  (string-append (control->string currentpoint) " "))
 (define (moveto x y)
   (set! currentpoint (cons x y))
   (string-append (showcp) "m "))
@@ -142,30 +142,39 @@
 		 (ly-number->string (+ depth height))
 		 " re f "))
 
-;; TODO:
-;;
-;;(define (dot x y diam)
-;;  (let (radius (/ diam 2))
-;;    (string-append (ly-number->string (x))
-;;		     (ly-number->string (y))
-;;		     (ly-number->string (radius))
-;;		     " ??? "))) ;; how to draw a circle in PDF?
-;;
-;;(define (roundfilledbox x y width height blotdiam)
-;;  (string-append " "
-;;    (dot x y blotdiam)
-;;    (dot (+ x width) y blotdiam)
-;;    (dot (+ x width) (+ y height) blotdiam)
-;;    (dot x (+ y height) blotdiam)
-;;    (filledbox (+ x (/ blotdiam 2)) (+ width (/ blotdiam 2)) y height)
-;;    (filledbox x width (+ y (/ blotdiam 2)) (+ height (/ blotdiam 2)))))
-;;
-;;
-;; WORKAROUND:
-;;
+(define (roundfilledbox breadth width depth height blotdiam)
+  (let* ((rad (/ blotdiam 2))
+ 	 (h (- height rad))
+ 	 (d (- depth rad))
+ 	 (w (- width rad))
+ 	 (b (- breadth rad)))
+    (string-append " 0 J "
+ 		   (setlinewidth blotdiam)
+ 		   "1 j "
+ 		   (moveto (- b) (- d))
+ 		   (rlineto (+ b w) 0)
+ 		   (rlineto 0 (+ d h))
+ 		   (rlineto (- (+ b w)) 0)
+ 		   (rlineto 0 (- (+ d h)))
+ 		   "b ")))
+
+;; PDF doesn't have the nifty arc operator.  This uses a fast
+;; approximation with two curves.  It bulges out a bit more than a
+;; true circle should along the 45 degree axes, but most users won't
+;; notice.
+(define (dot x y radius)
+  (string-append (moveto (- x radius) y)
+ 		 (curveto (- x radius) (+ y (* 1.3333 radius))
+ 			  (+ x radius) (+ y (* 1.3333 radius))
+ 			  (+ x radius) y)
+ 		 (curveto (+ x radius) (- y (* 1.3333 radius))
+ 			  (- x radius) (- y (* 1.3333 radius))
+ 			  (- x radius) y)
+ 		 "f "))
+
+
 (define (roundfilledbox breadth width depth height blot) 
   (filledbox breadth width depth height))
-;;
 
 (define (font-def i s) "")
 
@@ -183,7 +192,6 @@
 
 (define (placebox x y s) "")
 
-;; TODO: bezier-ending, see ps.scm
 (define (bezier-bow l thick)
   (bezier-sandwich l thick))
 
@@ -197,7 +205,21 @@
 		 (curveto-pairs (list-ref l 0)
 				(list-ref l 1)
 				(list-ref l 2))
-		 "B "))
+		 "B "
+		 (bezier-ending (list-ref l 3) (list-ref l 0) (list-ref l 5))
+		 (bezier-ending (list-ref l 7) (list-ref l 0) (list-ref l 5))))
+
+(define (bezier-ending z0 z1 z2)
+  (let ((x0 (car z0))
+	(y0 (cdr z0))
+	(x1 (car z1))
+	(y1 (cdr z1))
+	(x2 (car z2))
+	(y2 (cdr z2)))
+    (dot x0 y0 
+	 (/ (sqrt (+ (* (- x1 x2) (- x1 x2)) 
+		     (* (- y1 y2) (- y1 y2)))) 2))))
+
 
 (define (start-system height) "")
 
@@ -208,11 +230,18 @@
 
 (define (text s) "")
 
+(define (draw-line thick fx fy tx ty)
+  (string-append (setlineparams)
+		 (setlinewidth thick)
+		 (moveto fx fy)
+		 (lineto tx ty)
+		 "S "))
 
 (define (unknown) "\n unknown\n")
 
-					; Problem here -- we're using /F18 for the font, but we don't know
-					; for sure that that will exist.
+; Problem here -- we're using /F18 for the font, but we don't know 
+; for sure that that will exist.
+
 (define (ez-ball ch letter-col ball-col)
   (let ((origin (cons 0.45 0)))
     (string-append (setgray 0)

@@ -34,7 +34,7 @@ StaffContext=\translator {
 	\consists "Forbid_line_break_engraver"
 	\consistsend "Axis_group_engraver"
 
-	minimumverticalExtent = #'(-6 . 6)
+	minimumVerticalExtent = #'(-6 . 6)
 	extraverticalExtent = ##f
 	verticalExtent = ##f 
 	localKeySignature = #'()
@@ -53,7 +53,7 @@ StaffContext=\translator {
 StaffContainerContext = \translator {
 	\type Engraver_group_engraver
 	\consists "Axis_group_engraver"
-	minimumverticalExtent = ##f
+	minimumVerticalExtent = ##f
 	extraverticalExtent = ##f
 	verticalExtent = ##f 
 	localKeySignature = #'()
@@ -91,7 +91,7 @@ RhythmicStaffContext=\translator{
 	\consists "Output_property_engraver"	
 
 
-	minimumverticalExtent = ##f
+	minimumVerticalExtent = ##f
 	extraverticalExtent = ##f
 	verticalExtent = ##f 
 	localKeySignature = #'()
@@ -248,7 +248,7 @@ StaffGroupContext = \translator {
 LyricsVoiceContext= \translator{
 	\type "Engraver_group_engraver"
 	\consistsend "Axis_group_engraver"
-	minimumverticalExtent = #(cons -1.2 1.2)
+	minimumVerticalExtent = #(cons -1.2 1.2)
 	extraverticalExtent = ##f
 	verticalExtent = ##f 
 	\name LyricsVoice 
@@ -266,7 +266,7 @@ NoteNamesContext = \translator {
 	\name NoteNames
 	\consistsend "Axis_group_engraver"
 
-	minimumverticalExtent = ##f
+	minimumVerticalExtent = ##f
 	extraverticalExtent = ##f
 	verticalExtent = ##f 
 
@@ -282,7 +282,7 @@ LyricsContext = \translator {
 
 
 	\consistsend "Axis_group_engraver"
-	minimumverticalExtent = ##f
+	minimumVerticalExtent = ##f
 	extraverticalExtent = ##f
 	verticalExtent = ##f 
 	
@@ -302,7 +302,7 @@ ChordNamesContext = \translator {
 	\consists "Chord_name_engraver"
 	\consists "Skip_req_swallow_translator"
 	\consistsend "Axis_group_engraver"
-	minimumverticalExtent = ##f
+	minimumVerticalExtent = ##f
 	extraverticalExtent = ##f
 	verticalExtent = ##f 
 }
