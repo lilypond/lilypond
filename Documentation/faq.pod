@@ -180,10 +180,9 @@ elements.)
 
 Q: Do you support multiple staff-sizes?
 
-A: Yes and no.  At this time you can choose between 16 or 20 pt
-staff-size (you can have other sizes, but you need to tinker with the
-fonts to get those).  The sizes can't be changed per staff (yet).
-Look at F<standchen.ly> for an example.
+A: Yes and no.  At this time you can choose between 11, 13, 16, 19,
+20, 23 and 20 pt staff-size.  The sizes can't be changed per staff
+(yet).  Look at F<standchen.ly> for an example.
 
 
 =head2 How do I ....

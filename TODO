@@ -8,12 +8,18 @@ grep for TODO and ugh/ugr
 
 0.2:
 
+	* latex quirk?
+
 	* check for groff / troff/ nroff et
 
 	* use kpsepath to find all TeX dirs
 	- configure.in 
 	- clean-fonts.sh
-	
+
+	* fix MIDI
+
+	* mudela-convert.
+
 	* nicen examples:
 	- remove all \multi
 	- break-up heavily-nested score blocks
