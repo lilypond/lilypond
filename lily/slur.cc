@@ -284,6 +284,8 @@ Slur::get_attachment (Grob *me, Direction dir,
   Real hs = staff_space / 2.0;
   Offset o;
   
+  int slurdir = gh_scm2int (me->get_grob_property ("direction"));
+  
   Grob *stem = 0;
   if (Note_column::has_interface (sp->get_bound (dir)))
     {
@@ -323,8 +325,13 @@ Slur::get_attachment (Grob *me, Direction dir,
 	      /*
 		Default position is on stem X, at stem end Y
 	       */
+	      Real stem_thickness =
+		gh_scm2double (stem->get_grob_property ("thickness"))
+		* stem->paper_l ()->get_var ("stafflinethickness");
 	      o += Offset (0.5 *
-			   x_extent * (1 + Stem::get_direction (stem)),
+			   x_extent * (1 + Stem::get_direction (stem))
+			   - ((dir + 1)/2) * stem_thickness
+			   + ((1 - slurdir)/2) * stem_thickness,
 			   0);
 	    }
 	}
@@ -344,7 +351,6 @@ Slur::get_attachment (Grob *me, Direction dir,
 
   SCM alist = me->get_grob_property ("extremity-offset-alist");
   int stemdir = stem ? Stem::get_direction (stem) : 1;
-  int slurdir = gh_scm2int (me->get_grob_property ("direction"));
   SCM l = scm_assoc
     (scm_list_n (a,
 		  gh_int2scm (stemdir * dir),
