@@ -1,3 +1,10 @@
+;;;; translator-property-description.scm -- part of backend documentation
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c) 1998--2002  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
+
 
 (define-public all-translation-properties '())
 
@@ -15,44 +22,17 @@
 
 
 
-(translator-property-description 'extraVerticalExtent
-				 number-pair? "extra vertical extent, same format as  MinimumVerticalExtent")
-
-(translator-property-description
- 'majorSevenSymbol markup?
- "How should the major7 be formatted in a chord name?")
-
-(translator-property-description 'minimumVerticalExtent number-pair?
-				 "minimum vertical extent, same format as VerticalExtent")
-(translator-property-description 'verticalExtent number-pair?
-				 "hard coded vertical extent.
-The format is a pair of dimensions, for example, this sets the sizes
-of a staff to 10 (5+5) staffspaces high.
-
-@example
-property Staff.verticalExtent = #(-5.0 . 5.0)
-@end example
-
-VerticalExtent, MinimumVerticalExtent and ExtraVerticalExtent are
-predefined in all relevant contexts to @code{#f}, so they will not
-inherit values.
-
-Note that these VerticalExtents can only operate on vertical groups,
-and therefore only work in contexts which contain an
-@code{Axis_group_engraver}.
-")
-
-(translator-property-description
- 'acknowledgeHashTable vector?
- "Internal variable: store interface to engraver smob table for current context. Don't mess with this."
- )
-
 (translator-property-description 'acceptHashTable vector? "Internal
 variable: store table with MusicName to Engraver entries.")
+(translator-property-description 'acknowledgeHashTable vector?
+"Internal variable: store interface to engraver smob table for current
+context. Don't mess with this.")
 (translator-property-description 'aDueText string? "text for begin of a due")
-(translator-property-description 'associatedVoice string? "Name of the Voice that has the melody for this LyricsVoice.")
-(translator-property-description 'autoBeamSettings list? "
-Specifies when automatically generated beams should begin and end.  The elements have the format:
+(translator-property-description 'associatedVoice string? "Name of the
+Voice that has the melody for this LyricsVoice.")
+(translator-property-description 'autoBeamSettings list? "Specifies
+when automatically generated beams should begin and end.  The elements
+have the format:
 
 @example
 
@@ -81,6 +61,8 @@ The head of the list:
     )
 
 @end example")
+
+;; "
 
 (translator-property-description 'autoAccidentals list? "List of
 different ways to typeset an accidental. All algorithms in the list
@@ -135,6 +117,7 @@ using barchecks in polyphonic music.")
     count if this property is set to zero.
 ")
 (translator-property-description 'barNumberVisibility procedure? "Procedure that takes an int and returns whether the corresponding bar number should be printed")
+(translator-property-description 'bassFigureFormatFunction procedure? "DOCME")
 (translator-property-description 'beamMelismaBusy boolean? "Signal if a beam is set when automaticMelismata is set")
 (translator-property-description 'beatLength ly:moment? "The length of one beat in this time signature.")
 (translator-property-description 'beatGrouping list?
@@ -251,6 +234,10 @@ extra natural sign before accidentals changing from a non-natural to
 another non-natural.
 ")
 
+(translator-property-description 'extraVerticalExtent number-pair?
+"extra vertical extent, same format as MinimumVerticalExtent")
+
+
 (translator-property-description 'finalizations list? "List of expressions to evaluate before proceeding to next time step. Internal variable.")
 (translator-property-description 'followVoice boolean?
 				 "if set, note heads are tracked  across staff switches by a thin line")
@@ -291,6 +278,8 @@ signature at this point in the measure.  The format is the same as for keySignat
 ) 
 (translator-property-description 'localKeySignatureChanges list? "Experimental.
  [DOCME]")
+(translator-property-description 'majorSevenSymbol markup? "How should
+the major7 be formatted in a chord name?")
 (translator-property-description 'measureLength ly:moment? "Length of one
 measure in the current time signature last?")
 (translator-property-description 'measurePosition ly:moment? " How much
@@ -309,6 +298,8 @@ MIDI instrument to use ")
 (translator-property-description 'minimumFret number? "The tablature
 auto string-selecting mechanism selects the highest string with a fret
 not less than minimumFret")
+(translator-property-description 'minimumVerticalExtent number-pair?
+"minimum vertical extent, same format as VerticalExtent")
 (translator-property-description 'autoBeaming boolean? "If set to true
 then beams are generated automatically.")
 (translator-property-description 'noDirection boolean? "Don't set directions by a2-engraver when part-combining.")
@@ -374,15 +365,13 @@ squashing for Pitch_squash_engraver.")
 top line of the tablature.")
 (translator-property-description 'stavesFound list? "list of all staff-symbols found.")
 (translator-property-description 'stanza markup? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
-
-
 (translator-property-description 'stemLeftBeamCount integer? "
 Specify the number of beams to draw on the left side of the next note.
 Overrides automatic beaming.  The value is only used once, and then it
 is erased.
 .")
 (translator-property-description 'stemRightBeamCount integer? "idem, for the right side.")
-
+(translator-property-description 'stringTunings list? "The tablature strings tuning. Must be a list of the different semitons pitch of each string (starting by the lower one).")
 (translator-property-description 'stz markup? "Abbreviated form for a stanza, see also Stanza property.")
 (translator-property-description 'subdivideBeams boolean? "If set, multiple beams will be subdivided at beat
 positions - by only drawing one beam over the beat.")
@@ -435,8 +424,24 @@ context Voice 	imes 2/3 @{
 procedure? "what callback to add to children of a vertical alignment.
 It determines what alignment procedure is used on the alignment
 itself.  .")
-(translator-property-description
- 'voltaOnThisStaff boolean?
+(translator-property-description 'verticalExtent number-pair? "hard
+coded vertical extent.  The format is a pair of dimensions, for
+example, this sets the sizes of a staff to 10 (5+5) staffspaces high.
+
+@example
+property Staff.verticalExtent = #(-5.0 . 5.0)
+@end example
+
+VerticalExtent, MinimumVerticalExtent and ExtraVerticalExtent are
+predefined in all relevant contexts to @code{#f}, so they will not
+inherit values.
+
+Note that these VerticalExtents can only operate on vertical groups,
+and therefore only work in contexts which contain an
+@code{Axis_group_engraver}.
+")
+
+(translator-property-description 'voltaOnThisStaff boolean?
  "Normally, volta brackets are put only on the topmost staff. Setting this variable to true, will force a bracket to be on this staff as well.")
 (translator-property-description 'voltaSpannerDuration ly:moment? "maximum duration of the volta bracket.
 
@@ -464,5 +469,3 @@ according to values of @code{defaultBarType}, @code{barAlways},
 Valid values are described in @ref{(lilypond-internals)bar-line-interface}.
 
 .")
-(translator-property-description 'stringTunings list? "The tablature strings tuning. Must be a list of the different semitons pitch of each string (starting by the lower one).")
-
