@@ -2,7 +2,7 @@
 \version "2.3.22"
 \header{
 texidoc="
-When tying chords, the outer slurs point outwards, the inner slurs
+When tying chords, the outer ties point outwards, the inner ties
 point away from the center of the staff. The behavior can be overridden 
 by setting explicitly the @code{direction} of a @code{TieColumn}.
 "
