@@ -3,6 +3,7 @@
 #include "symtable.hh"
 #include "dimen.hh"
 #include "tex.hh"
+
 void
 Lookup::parse(Text_db&t)
 {
@@ -53,6 +54,29 @@ Symbol
 Lookup::flag(int j)
 {
     return (*symtables_)("flags")->lookup(j);
+}
+
+Symbol
+Lookup::streepjes(int i)
+{
+    assert(i);
+    
+    int arg;
+    String idx ;
+    if (i<0) {
+	idx = "botlines";
+	arg = -i;
+    }else {
+	arg = i;
+	idx = "toplines";
+    }
+    Symbol ret = (*symtables_)("streepjes")->lookup(idx);
+    
+    svec<String> a;
+    a.add(arg);
+    ret.tex = substitute_args(ret.tex, a);
+
+    return ret;
 }
 
 /****************************************************************/
