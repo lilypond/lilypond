@@ -10,7 +10,7 @@
 #ifndef P_SCORE_HH
 #define P_SCORE_HH
 
-#include "colhpos.hh"
+#include "column-x-positions.hh"
 #include "parray.hh"
 #include "lily-proto.hh"
 #include "music-output.hh"

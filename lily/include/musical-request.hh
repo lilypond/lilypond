@@ -168,12 +168,12 @@ public:
 };
 /** 
  Start / stop an abbreviation beam. */
-class Abbreviation_beam_req : public Span_req  
+class Chord_tremolo_req : public Span_req  
 {
 public:
   VIRTUAL_COPY_CONS (Music);
 
-  Abbreviation_beam_req ();
+  Chord_tremolo_req ();
 
   virtual void do_print () const;
 

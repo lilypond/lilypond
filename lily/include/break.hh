@@ -12,7 +12,7 @@
 #include "array.hh"
 #include "interval.hh"
 #include "lily-proto.hh"
-#include "colhpos.hh"
+#include "column-x-positions.hh"
 
 /**
   Statistics for the number of columns calced.

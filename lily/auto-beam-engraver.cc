@@ -11,7 +11,7 @@
 #include "musical-request.hh"
 #include "bar.hh"
 #include "beam.hh"
-#include "abbreviation-beam.hh"
+#include "chord-tremolo.hh"
 #include "rest.hh"
 #include "stem.hh"
 #include "debug.hh"
@@ -299,7 +299,7 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	{
 	  junk_beam ();
 	}
-      else if (Abbreviation_beam *b = dynamic_cast<Abbreviation_beam*> (info.elem_l_))
+      else if (Chord_tremolo *b = dynamic_cast<Chord_tremolo*> (info.elem_l_))
 	{
 	  junk_beam ();
 	}

@@ -20,7 +20,7 @@
 #include "pointer.tcc"
 #include "score-column.hh"
 #include "paper-def.hh"
-#include "colhpos.hh"
+#include "column-x-positions.hh"
 #include "main.hh"
 
 Vector

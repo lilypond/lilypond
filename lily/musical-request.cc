@@ -159,13 +159,13 @@ Span_req::Span_req ()
   span_dir_ = CENTER;
 }
 
-Abbreviation_beam_req::Abbreviation_beam_req ()
+Chord_tremolo_req::Chord_tremolo_req ()
 {
   type_i_ = 0;
 }
 
 void
-Abbreviation_beam_req::do_print () const
+Chord_tremolo_req::do_print () const
 {
 #ifndef NPRINT
   DOUT << type_i_;

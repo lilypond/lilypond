@@ -24,6 +24,7 @@ needs what, and what information should be available when.
 
 #include <math.h>
 
+#include "chord-tremolo.hh"
 #include "new-beaming.hh"
 #include "proto.hh"
 #include "dimensions.hh"
@@ -341,11 +342,14 @@ Beam::set_steminfo ()
   for (int i=0; i < stems_.size (); i++)
     {
       Stem *s = stems_[i];
-#if 0
-      // abbreviation beam needs to beam over invisible stems of wholes
-      if (s->invisible_b ())
-	continue;
-#endif
+      /*
+	Chord tremolo needs to beam over invisible stems of wholes
+      */
+      if (!dynamic_cast<Chord_tremolo*> (this))
+	{
+	  if (s->invisible_b ())
+	    continue;
+	}
 
       Stem_info info (s, multiple_i_);
       if (leftx == 0)
@@ -667,7 +671,9 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
   // UGH
   Real nw_f;
-  if (here->type_i ()== 1)
+  if (!here->head_l_arr_.size ())
+    nw_f = 0;
+  else if (here->type_i ()== 1)
     nw_f = paper_l ()->get_var ("wholewidth");
   else if (here->type_i () == 2)
     nw_f = paper_l ()->note_width () * 0.8;

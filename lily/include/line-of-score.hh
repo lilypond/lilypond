@@ -7,7 +7,7 @@
 #ifndef SCORELINE_HH
 #define SCORELINE_HH
 
-#include "colhpos.hh"
+#include "column-x-positions.hh"
 #include "axis-group-spanner.hh"
 #include "super-element.hh"
 

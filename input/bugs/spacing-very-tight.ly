@@ -1,11 +1,15 @@
-% when tightly spaced, hinterfleisch -> 0 (and not: -> note-width)
-% we need a mininum of about a note-width/interline space before
-% bar line
+% When tightly spaced, hinterfleisch -> 0.
+% Stems may touch the bar lines, opposite stems may touch eachother.
+% We need a mininum of about a note-width/interline space in these
+% situations, so that in tightly spaced music all vertical lines
+% are about equally spaced.
 
-% set rediculously tight
 \score {
-	\notes { \time 2/2; c'2 c'2 \time 2/2; }
-	\paper { linewidth = 2.0 \cm;
-	indent = 0.0;
+	\notes \relative c''{ 
+		r1 e4 f, e' f,
+	}
+	\paper { 
+		linewidth = 25.0 \mm;
+		indent = 0.0\mm;
 	}
 }

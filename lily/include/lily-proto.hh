@@ -12,9 +12,6 @@
 
 
 
-struct Abbreviation_beam; 
-struct Abbreviation_beam_engraver;
-struct Abbreviation_beam_req;
 struct Absolute_dynamic_req;
 struct Adobe_font_char_metric;
 struct Adobe_font_metric;
@@ -58,6 +55,9 @@ struct Bracket_req;
 struct Break_align_item;
 struct Break_req;
 struct CHyphen_req;
+struct Chord_tremolo; 
+struct Chord_tremolo_engraver;
+struct Chord_tremolo_req;
 struct Cadenza_req;
 struct Change_iterator;
 struct Change_translator;

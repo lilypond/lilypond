@@ -13,7 +13,7 @@
 #include "line-spacer.hh"
 #include "cons.hh"
 #include "col-info.hh"
-#include "colhpos.hh"
+#include "column-x-positions.hh"
 #include "moment.hh"
 
 
