@@ -10,18 +10,9 @@
 #include "directional-element-interface.hh"
 
 
-
-
-bool
-Directional_element_interface::has_interface (Grob*me) 
-{
-  return is_direction (me->get_grob_property ("direction"));
-}
-
 Direction
-Directional_element_interface::get (Grob*me) 
+get_grob_direction (Grob*me) 
 {
-  // return dir_;
   SCM d= me->get_grob_property ("direction");
   if (!is_direction (d))
     return CENTER;
@@ -30,13 +21,8 @@ Directional_element_interface::get (Grob*me)
 }
 
 void
-Directional_element_interface::set (Grob*me, Direction d) 
+set_grob_direction (Grob*me, Direction d) 
 {
   SCM sd = gh_int2scm (d);
-
-  /*
-    Vain attempt to save some conses.
-   */
-  if (me->get_grob_property ("direction") != sd)
-    me->set_grob_property ("direction", sd);
+  me->set_grob_property ("direction", sd);
 }

@@ -236,7 +236,7 @@ Beam::connect_beams (Grob *me)
       Grob *this_stem = stems[i];
       SCM this_beaming = this_stem->get_grob_property ("beaming");
 
-      Direction this_dir = Directional_element_interface::get(this_stem);
+      Direction this_dir = get_grob_direction (this_stem);
       if (gh_pair_p (last_beaming) && gh_pair_p (this_beaming))
 	{
 	  int start_point = position_with_maximal_common_beams
@@ -530,7 +530,7 @@ Beam::get_default_dir (Grob *me)
   for (int i=0; i <stems.size (); i++)
     do {
       Grob *s = stems[i];
-      Direction sd = Directional_element_interface::get (s);
+      Direction sd = get_grob_direction (s);
 
       int center_distance = int(- d * Stem::head_positions (s) [-d]) >? 0;
       int current = sd	? (1 + d * sd)/2 : center_distance;
@@ -572,7 +572,7 @@ Beam::set_stem_directions (Grob *me, Direction d)
   
       SCM forcedir = s->get_grob_property ("direction");
       if (!to_dir (forcedir))
-	Directional_element_interface::set (s, d);
+	set_grob_direction (s,  d);
     }
 }
 
@@ -1223,7 +1223,7 @@ Beam::calc_stem_y (Grob *me, Grob* s, Grob ** common,
 		       * dy
 		       : 0) + pos[LEFT];
   
-  Direction my_dir = Directional_element_interface::get (s);
+  Direction my_dir = get_grob_direction (s);
   SCM beaming = s->get_grob_property ("beaming");
  
   Real stem_y = stem_y_beam0;
@@ -1298,7 +1298,7 @@ Beam::set_stem_lengths (Grob *me)
 	for normal beams, but for tremolo beams it looks silly otherwise.
        */
       if (gap)
-	stem_y += thick * 0.5 * Directional_element_interface::get(s);
+	stem_y += thick * 0.5 * get_grob_direction (s);
 
       Stem::set_stemend (s, 2* stem_y / staff_space);
     }
@@ -1504,8 +1504,7 @@ Beam::knee_b (Grob* me)
   int d = 0;
   for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
     {
-      Direction dir = Directional_element_interface::get
-	(unsmob_grob (ly_car (s)));
+      Direction dir = get_grob_direction (unsmob_grob (ly_car (s)));
       if (d && d != dir)
 	{
 	  knee = true;
