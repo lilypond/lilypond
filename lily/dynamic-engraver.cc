@@ -122,7 +122,10 @@ Dynamic_engraver::try_music (Music * m)
 	   || m->is_mus_type ("crescendo-event"))
     {
       Direction d = to_dir (m->get_mus_property ("span-direction"));
+
       accepted_spanreqs_drul_[d] = m;
+      if (current_cresc_ev_ && d == START)
+	accepted_spanreqs_drul_[STOP] = m;
       return true;
     }
   return false;

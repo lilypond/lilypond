@@ -16,6 +16,7 @@
 #include "font-interface.hh"
 #include "warn.hh"
 #include "align-interface.hh"
+#include "lookup.hh"
 
 #include <math.h>
 
@@ -31,53 +32,43 @@
   grob-properties. Make arbitrary paths.
   
  */
-
-/*
-  slightishly clumsy interface?
-
-  Make  a Scheme expression for a line going from (0,0) to (dx,dy). 
- */
-
-static SCM
-line_atom (Grob *me, Real thick, Real dx, Real dy)
+Molecule
+dashed_line_molecule (Grob *me, Real thick, Offset from, Offset to)
 {
   SCM type = me->get_grob_property ("style");
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  
-      // maybe these should be in line-thickness?
-  Real length = staff_space;
-  SCM s = me->get_grob_property ("dash-length");
-  if (gh_number_p (s))
-    length = gh_scm2double (s) * staff_space;
+  if (type == ly_symbol2scm ("dotted-line")
+      || type == ly_symbol2scm ("dashed-line"))
+    {
+      Real fraction = (type == ly_symbol2scm ("dotted-line")) ? 0.0 : 0.4;
 
-  Real period = 2 * length + thick;
-  s = me->get_grob_property ("dash-period");
-  if (gh_number_p (s))
-    period = gh_scm2double (s) * staff_space;
       
-  if (type == ly_symbol2scm ("dotted-line"))
-    length = thick;
-	
-  if (type == ly_symbol2scm ("line"))
-    length = period + thick;
+      SCM s = me->get_grob_property ("dash-fraction");
+      if (gh_number_p (s))
+	fraction = gh_scm2double (s);
+      fraction = (fraction >? 0) <? 1.0;
 
-  Real on = length - thick;
-  Real off = period - on;
+      Real period = Staff_symbol_referencer::staff_space (me);
+      s = me->get_grob_property ("dash-period");
+      if (gh_number_p (s))
+	period *= gh_scm2double (s);
 
-  SCM list = scm_list_n (ly_symbol2scm ("dashed-line"),
-		      gh_double2scm (thick),
-		      gh_double2scm (on),
-		      gh_double2scm (off),
-		      gh_double2scm (dx),
-		      gh_double2scm (dy),
-		      SCM_UNDEFINED);
-
-  return list;
+      return Lookup::dashed_line (thick, from, to, period, fraction);
+    }
+  else
+    {
+      return Lookup::line (thick, from, to);
+    }
 }
 
-static SCM
-zigzag_atom (Grob *me, Real thick, Real dx, Real dy)
+Molecule
+zigzag_molecule (Grob *me, Real thick, 
+		 Offset from,
+		 Offset to)
 {
+  Offset dz = to -from;
+  Real dx = dz[X_AXIS];
+  Real dy = dz[Y_AXIS];
+  
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   SCM ws = me->get_grob_property ("zigzag-width");
   SCM ls = me->get_grob_property ("zigzag-length");
@@ -93,8 +84,13 @@ zigzag_atom (Grob *me, Real thick, Real dx, Real dy)
 		      gh_double2scm (dx),
 		      gh_double2scm (dy),
 		      SCM_UNDEFINED);
-
-  return list;
+  Box b;
+  b.add_point (Offset (0,0));
+  b.add_point (dz);
+  b[X_AXIS].widen (thick/2);
+  b[Y_AXIS].widen (thick/2);
+     
+  return Molecule (b, list);
 }
 
 MAKE_SCHEME_CALLBACK(Line_spanner, after_line_breaking, 1);
@@ -138,7 +134,6 @@ Line_spanner::line_molecule (Grob *me, Real thick,
 			     Offset to)
 {
   Offset dz = to -from ; 
-  Molecule mol;
   SCM type = me->get_grob_property ("style");
   if (gh_symbol_p (type)
       && (type == ly_symbol2scm ("line")
@@ -147,18 +142,9 @@ Line_spanner::line_molecule (Grob *me, Real thick,
 	  || type == ly_symbol2scm ("zigzag") 
 	  || (type == ly_symbol2scm ("trill") && dz[Y_AXIS] != 0)))
     {
-      Box b;
-      b.add_point (Offset (0,0));
-      b.add_point (dz);
-      b[X_AXIS].widen (thick/2);
-      b[Y_AXIS].widen (thick/2);
-
-      SCM atom =  (type == ly_symbol2scm ("zigzag"))
-	? zigzag_atom (me, thick, dz[X_AXIS], dz[Y_AXIS])
-	: line_atom (me, thick, dz[X_AXIS], dz[Y_AXIS]);
-
-      mol = Molecule (b, atom);
-      mol.translate (from);
+      return  (type == ly_symbol2scm ("zigzag"))
+	? zigzag_molecule (me, thick, from, to)
+	: dashed_line_molecule (me, thick, from, to);
     }
   else if (gh_symbol_p (type)
 	   && type == ly_symbol2scm ("trill"))
@@ -172,6 +158,8 @@ Line_spanner::line_molecule (Grob *me, Real thick,
 						  gh_cons (style_alist,
 							   alist_chain));
       Molecule m = fm->find_by_name ("scripts-trill-element");
+      Molecule mol;
+
       do
 	mol.add_at_edge (X_AXIS, RIGHT, m, 0,0);
       while (m.extent (X_AXIS).length ()
@@ -186,9 +174,9 @@ Line_spanner::line_molecule (Grob *me, Real thick,
 			    + mol.extent (Y_AXIS).length ())/2, Y_AXIS);
 
       mol.translate (from);
+      return mol;
     }
-
-  return mol;
+  return Molecule();
 }
 
 /*
@@ -348,6 +336,6 @@ ADD_INTERFACE (Line_spanner, "line-spanner-interface",
 "gap is measured in staff-spaces.\n"
 "The property 'type is one of: line, dashed-line, trill, dotted-line or zigzag.\n"
 "\n",
-  "gap dash-period dash-length zigzag-width zigzag-length thickness style");
+  "gap dash-period dash-fraction zigzag-width zigzag-length thickness style");
 
 
