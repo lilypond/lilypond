@@ -1,3 +1,9 @@
+2002-05-22  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/script.cc (before_line_breaking): postpone setting the
+	X-parent of vertical scripts. This fixes the case of scripts on
+	chords with seconds 
+
 2002-05-21  Han-Wen  <hanwen@cs.uu.nl>
 
 	* scm/grob-description.scm:  fix alignment of barnumber: make sure
