@@ -216,6 +216,7 @@ mezzosoprano
 \\modernVoiceAccidentals
 \\modernVoiceCautionaries
 \\monstrous
+\\mordent
 \\mp
 \\multipart
 \\music
@@ -348,6 +349,7 @@ Score
 \\shiftOnn
 \\shiftOnnn
 \\shiftV
+\\shortfermata
 \\shortlong
 \\showStaffSwitch
 \\signumcongruentiae
@@ -471,10 +473,12 @@ TupletBracket
 \\under
 unfold
 \\unset
+\\upbow
 \\upmordent
 \\upperOctave
 \\upperOne
 \\upperVoice
+\\upprall
 \\varcoda
 \\version
 VerticalAlignment
