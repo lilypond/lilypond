@@ -1,7 +1,7 @@
 % flags 
 %
 
-fet_begingroup("floogbars")
+fet_begingroup("flags")
 
 % Flags pointing down overlap with  the notehead (in x-direction), so 
 % the down-flag can be bigger
@@ -58,8 +58,7 @@ enddef;
 
 
 % godbewaarme, wat een kutsymbolen
-fet_beginchar("8th Flag (up)", "3u", "eighthflag")
-
+fet_beginchar("8th Flag (up)", "u3", "eighthflag")
 	save flare, 
 	hip_depth, hip_width,
 	foot_depth, foot_width;
@@ -68,7 +67,7 @@ fet_beginchar("8th Flag (up)", "3u", "eighthflag")
 	hip_depth# = 8/15 foot_depth#; 
 	hip_width# = upflag_width# - hip_thickness#/2;
 
-	foot_depth# =  15/7 interline#;
+	foot_depth# + flare# =  3 interline#;
 	foot_width# = .8 hip_width#;
 
 	set_char_box(stemthickness# /2, hip_width#  + hip_thickness#/2 
@@ -87,7 +86,7 @@ fet_beginchar("8th Flag (up)", "3u", "eighthflag")
 	draw (0, 0) .. (0,-2 interline);
 fet_endchar;
 
-fet_beginchar("8th Flag (down)", "3d", "deighthflag")
+fet_beginchar("8th Flag (down)", "d3", "deighthflag")
 	save flare, 
 	hip_depth, hip_width, 
 	foot_depth, foot_width;
@@ -96,8 +95,10 @@ fet_beginchar("8th Flag (down)", "3d", "deighthflag")
 
 	hip_depth# = 8/15 foot_depth#; 
 	hip_width# = downflag_width# - hip_thickness#/2;
-	foot_depth# = 15/7 interline#;
-	foot_width# = .8 hip_width#;
+
+	% 2.9 -> don't intersect staffline at foot
+	foot_depth# + flare# =  2.85 interline#;
+	foot_width# = .82 hip_width#;
 
 	set_char_box(stemthickness# /2, hip_width#  + hip_thickness#/2 
 		+ stemthickness#/2, 
@@ -117,7 +118,7 @@ fet_beginchar("8th Flag (down)", "3d", "deighthflag")
 fet_endchar;
 
 
-fet_beginchar("16th Flag (up)", "4u", "sixteenthflag")
+fet_beginchar("16th Flag (up)", "u4", "sixteenthflag")
 	save flare,  flagspace,
 	hip_depth, hip_width, 
 	foot_depth, foot_width;
@@ -126,14 +127,14 @@ fet_beginchar("16th Flag (up)", "4u", "sixteenthflag")
 	flagspace# = .85 interline#;
 	hip_depth# = 8/15 foot_depth#; 
 
-	flagspace# + flare# + foot_depth# = 3.25 interline#;
+	flagspace# + flare# + foot_depth# = 3.5 interline#;
 
 	hip_width# = upflag_width# - hip_thickness#/2;
 	foot_width# = .8 hip_width#;
 
 	set_char_box(stemthickness# /2, hip_width#  + hip_thickness#/2 
 		+ stemthickness#/2, 
-		3.25 interline#, stemthickness#/2)
+		3.5 interline#, stemthickness#/2)
 
 	define_pixels(flagspace);
 		define_pixels(flare, 
@@ -142,7 +143,7 @@ fet_beginchar("16th Flag (up)", "4u", "sixteenthflag")
 
 	draw_flag((stemthickness/2, 0),flare, 
 		1.2 hip_depth, .97 hip_width, hip_thickness,
-		foot_depth, .9 foot_width, foot_thickness, 0.37);	
+		foot_depth, .9 foot_width, foot_thickness, 0.5);	
 	draw_flag((stemthickness/2, -flagspace),flare, 
 		hip_depth,  hip_width, hip_thickness,
 		foot_depth, foot_width, foot_thickness, 0);	
@@ -153,7 +154,7 @@ fet_beginchar("16th Flag (up)", "4u", "sixteenthflag")
 fet_endchar;
 
 
-fet_beginchar("16th Flag (up)", "4d", "dsixteenthflag")
+fet_beginchar("16th Flag (down)", "d4", "dsixteenthflag")
 	save flare,  flagspace,
 	hip_depth, hip_width, 
 	foot_depth, foot_width;
@@ -179,7 +180,7 @@ fet_beginchar("16th Flag (up)", "4d", "dsixteenthflag")
 
 	draw_flag((stemthickness/2, 0),flare, 
 		 hip_depth, .97 hip_width, hip_thickness,
-		1.2 foot_depth, .95 foot_width, foot_thickness, 0.0);	
+		1.2 foot_depth, .95 foot_width, foot_thickness, 0.0);
 
 	draw_flag((stemthickness/2, -flagspace),flare, 
 		hip_depth,  hip_width, hip_thickness,
@@ -191,4 +192,169 @@ fet_beginchar("16th Flag (up)", "4d", "dsixteenthflag")
 	y_mirror_char;
 fet_endchar;
 
-fet_endgroup("floogbars");
+fet_beginchar("32nd Flag (up)", "u5", "thirtysecondflag")
+	save flare,  flagspace,
+	hip_depth, hip_width, 
+	foot_depth, foot_width;
+
+	flare# = 0.85 interline#;
+	flagspace# = .87 interline#;
+	hip_depth# = 8/15 foot_depth#; 
+
+	2 flagspace# + flare# + foot_depth# = 4.25 interline#;
+
+	hip_width# = upflag_width# - hip_thickness#/2;
+	foot_width# = .8 hip_width#;
+
+	set_char_box(stemthickness# /2, hip_width#  + hip_thickness#/2 
+		+ stemthickness#/2, 
+		4.25 interline#, stemthickness#/2)
+
+	define_pixels(flagspace);
+		define_pixels(flare, 
+	hip_depth, hip_width, hip_thickness,
+	foot_depth, foot_width, foot_thickness);
+
+	draw_flag((stemthickness/2, 0),flare, 
+		1.25 hip_depth, .95 hip_width, hip_thickness,
+		.85 foot_depth, 1.1 foot_width, foot_thickness, 0.0);	
+	draw_flag((stemthickness/2, -flagspace),flare, 
+		1.2 hip_depth, .97 hip_width, hip_thickness,
+		foot_depth, .9 foot_width, foot_thickness, 0.37);	
+	draw_flag((stemthickness/2, -2 flagspace),flare, 
+		1.1 hip_depth,  hip_width,  hip_thickness,
+		foot_depth, 1.15 foot_width,  foot_thickness, 0);	
+
+	pickup pencircle scaled stemthickness;
+	draw (0, 0) .. (0,-3 interline);
+
+fet_endchar;
+
+
+
+fet_beginchar("32nd Flag (up)", "d5", "dthirtysecondflag")
+	save flare,  flagspace,
+	hip_depth, hip_width, 
+	foot_depth, foot_width;
+
+	flare# = 0.85 interline#;
+	flagspace# = .85 interline#;
+	hip_depth# = .57 foot_depth#; 
+	foot_width# = 1.0 hip_width#;
+
+	2 flagspace# + flare# + foot_depth# = 3.85 interline#;
+	hip_width# = upflag_width# - hip_thickness#/2;
+
+
+	set_char_box(stemthickness# /2, hip_width#  + hip_thickness#/2 
+		+ stemthickness#/2, 
+		3.85 interline#, stemthickness#/2)
+
+	define_pixels(flagspace);
+		define_pixels(flare, 
+	hip_depth, hip_width, hip_thickness,
+	foot_depth, foot_width, foot_thickness);
+
+	draw_flag((stemthickness/2, 0),flare, 
+		1.3 hip_depth, .93 hip_width, hip_thickness,
+		foot_depth,  .9 foot_width, foot_thickness, 0.0);	
+	draw_flag((stemthickness/2, -flagspace),flare, 
+		1.15 hip_depth, .97 hip_width, hip_thickness,
+		foot_depth,  .95 foot_width, foot_thickness, 0.0);	
+	draw_flag((stemthickness/2, -2 flagspace),flare, 
+		1.0 hip_depth,  hip_width, .95 hip_thickness,
+		foot_depth,  foot_width, .93 foot_thickness, 0);	
+
+	pickup pencircle scaled stemthickness;
+	draw (0, 0) .. (0,-3 interline);
+	y_mirror_char;
+fet_endchar;
+
+fet_beginchar("64th Flag (up)", "u6", "sixtyfourthflag")
+	save flare,  flagspace,
+	hip_depth, hip_width, 
+	foot_depth, foot_width;
+
+	flare# = 0.85 interline#;
+	flagspace# = .9 interline#;
+	hip_depth# = 8/15 foot_depth#; 
+
+	3 flagspace# + flare# + foot_depth# = 5.25 interline#;
+
+	hip_width# = upflag_width# - hip_thickness#/2;
+	foot_width# = .8 hip_width#;
+
+	set_char_box(stemthickness# /2, hip_width#  + hip_thickness#/2 
+		+ stemthickness#/2, 
+		5.25 interline#, stemthickness#/2)
+
+	define_pixels(flagspace);
+		define_pixels(flare, 
+	hip_depth, hip_width, hip_thickness,
+	foot_depth, foot_width, foot_thickness);
+
+	draw_flag((stemthickness/2, 0),flare, 
+		1.25 hip_depth, .95 hip_width, hip_thickness,
+		.85 foot_depth, 1.1 foot_width, foot_thickness, 0.0);	
+	draw_flag((stemthickness/2, -flagspace),flare, 
+		1.2 hip_depth, .97 hip_width, hip_thickness,
+		foot_depth, .9 foot_width, foot_thickness, 0.37);	
+	draw_flag((stemthickness/2, -2flagspace),flare, 
+		1.2 hip_depth, .97 hip_width, hip_thickness,
+		foot_depth, .9 foot_width, foot_thickness, 0.37);	
+	draw_flag((stemthickness/2, -3 flagspace),flare, 
+		1.1 hip_depth,  hip_width,  hip_thickness,
+		foot_depth, 1.15 foot_width,  foot_thickness, 0);	
+
+	pickup pencircle scaled stemthickness;
+	draw (0, 0) .. (0,-5 interline);
+
+fet_endchar;
+
+
+fet_beginchar("64th Flag (down)", "d6", "dsixtyfourthflag")
+	save flare,  flagspace,
+	hip_depth, hip_width, 
+	foot_depth, foot_width;
+	save lastcut;
+	flare# = 0.85 interline#;
+	flagspace# = .9 interline#;
+	hip_depth# = .57 foot_depth#; 
+	foot_width# = 1.0 hip_width#;
+
+	lastcut = .7;
+
+	3 flagspace# + flare# + hip_depth# + 
+		(foot_depth# - hip_depth#) * (1-lastcut) = 4.35 interline#;
+	hip_width# = upflag_width# - hip_thickness#/2;
+
+
+	set_char_box(stemthickness# /2, hip_width#  + hip_thickness#/2 
+		+ stemthickness#/2, 
+		4.35 interline#, stemthickness#/2)
+
+	define_pixels(flagspace);
+		define_pixels(flare, 
+	hip_depth, hip_width, hip_thickness,
+	foot_depth, foot_width, foot_thickness);
+
+	draw_flag((stemthickness/2, 0),flare, 
+		1.33 hip_depth, .92 hip_width, hip_thickness,
+		1.15 foot_depth,  .9 foot_width, foot_thickness, 0.0);	
+	draw_flag((stemthickness/2, -flagspace),flare, 
+		1.15 hip_depth, .97 hip_width, hip_thickness,
+		1.14 foot_depth,  .92 foot_width, foot_thickness, 0.0);	
+	draw_flag((stemthickness/2, -2 flagspace),flare, 
+		1.15 hip_depth, .97 hip_width, hip_thickness,
+		1.12 foot_depth,  .95 foot_width, foot_thickness, 0.0);	
+	draw_flag((stemthickness/2, -3flagspace),flare, 
+		1.0 hip_depth,  hip_width, .95 hip_thickness,
+		foot_depth,  foot_width, .93 foot_thickness, lastcut);	
+
+	pickup pencircle scaled stemthickness;
+	draw (0, 0) .. (0,-5 interline);
+	y_mirror_char;
+fet_endchar;
+
+
+fet_endgroup("flags");
