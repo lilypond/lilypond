@@ -17,11 +17,12 @@ hdr=    qlp.hh linespace.hh qlpsolve.hh\
 	clef.hh clefitem.hh slur.hh inputcommands.hh\
 	getcommand.hh inputmusic.hh \
 	inputscore.hh inputstaff.hh identparent.hh\
-	inputcommand.hh grouping.hh
+	inputcommand.hh grouping.hh moment.hh
 
 mycc=   qlp.cc qlpsolve.cc leastsquares.cc\
 	inputcommands.cc inputmusic.cc	\
 	inputscore.cc inputstaff.cc\
+	moment.cc\
 	break.cc linespace.cc molecule.cc staffline.cc\
 	pscore.cc tex.cc item.cc pcol.cc staff.cc \
 	rhythmstaff.cc 	score.cc note.cc  main.cc misc.cc\

@@ -18,8 +18,10 @@ struct Staff_column {
     svec<Voice_element *> v_elts;
 
     /// idem
-    svec<Command *> s_commands;
+    Staff_commands_at *s_commands;
 
+    Moment *moment_;
+    
     /****************/
     
     Staff_column(Score_column*s); 
@@ -33,7 +35,7 @@ struct Staff_column {
 
     virtual void process_requests()=0;
 
-    virtual ~Staff_column() { }
+    virtual ~Staff_column();
 };
 
 
