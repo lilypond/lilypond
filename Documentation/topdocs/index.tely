@@ -1,6 +1,6 @@
 \input texinfo @c -*-texinfo-*-
 @setfilename index.info
-@settitle index
+@settitle LilyPond homepage
 
 @node Top, , , (dir)
 @top
@@ -48,11 +48,60 @@ If want more information, you can browse the
 @uref{Documentation/out-www/index.html, documentation}.
 
 
+@unnumberedsec News
+
+For the latest and greatest features, check out the
+@uref{Documentation/out-www/CHANGES.txt, Change Log}.
+
+@unnumberedsec Sheet music
+
+
+If you are interested in sheet music typeset by LilyPond, have a look at
+the examples included. We have @uref{./input/out-www/index.html,short
+examples} and @uref{./mutopia/out-www/index.html,longer examples}. The
+examples include sound bites  in MIDI, pictures in PNG, printable scores
+in PostScript, and LilyPond input.
+
+Other use LilyPond too.
+@uref{http://www.geocities.com/Vienna/Studio/1714/harpsichord.html,John
+Sankey}, harpsichordist to the internet, is typesetting the complete
+@uref{http://www.geocities.com/Vienna/Studio/1714/scarlattidwn.html/,sonatas
+by Scarlatti}. Jeff Covey, guitar player and overall nice guy, is
+putting @uref{http://www4.smart.net/~jcovey/scores/,guitar music} on the
+net. The @uref{http://sca.uwaterloo.ca/Mutopia/,Mutopia project} is a
+large archive of public domain sheet music under construction.
+
+@unnumberedsec Download
+
+If you want to compile LilyPond from sources,  download them here:
+@itemize @bullet
+@item    Download stable releases at
+@uref{ftp://ftp.gnu.org/gnu/lilypond/}
+@item    Download development releases at
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/}
+@item Canadian mirror   @uref{http://sca.uwaterloo.ca/lilypond/} and @uref{ftp://sca.uwaterloo.ca/pub/} 
+@item Another site in Europe
+@uref{ftp://ftp.lilypond.org/pub/LilyPond/}
+@end itemize
+
+Installing and compiling requires many additional packages, which are
+listed in the  @uref{Documentation/topdocs/out-www/INSTALL.html, installation instructions}.
+
+There are binaries available, but alas they are not updated for every version released.
+@itemize @bullet
+@item RedHat i386
+binary RPMs:  @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/}  
+
+@item Debian binary @uref{ftp://ftp.debian.org/pub/debian/dists/unstable/main/binary-i386/tex} 
+@item i386 RPM: @uref{http://linux.umbc.edu/software/lilypond/rpms/} 
+@item Windows NT: @uref{http://home.austin.rr.com/jbr/jeff/lilypond/}
+@end itemize
+
 @unnumberedsec Mailing list
 
-If you have questions do write to the mailing lists
+If you have questions do write to the mailing lists!
  (but don't forget to read the @uref{Documentation/out-www/faq.html,
-Frequently Asked Questions} first:
+Frequently Asked Questions} first)
 
 
 @table @samp
@@ -88,57 +137,7 @@ want to know about bugs, subscribe: send mail with subject "subscribe" to
     @uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org}
 @end table
 
-@unnumberedsec News
 
-For the latest and greatest features, check out the
-@uref{Documentation/out-www/CHANGES.txt, Change Log}.
-
-@unnumberedsec Sheet music
-
-
-If you are interested in sheet music typeset by LilyPond, have a look at
-the examples included. We have @uref{./input/out-www/index.html,short
-examples} and @uref{./mutopia/out-www/index.html,longer examples}. The
-examples include sound bites  in MIDI, pictures in PNG, printable scores
-in PostScript, and LilyPond input.
-
-Other use LilyPond too.
-@uref{http://www.geocities.com/Vienna/Studio/1714/harpsichord.html,John
-Sankey}, harpsichordist to the internet, is typesetting the complete
-@uref{http://www.geocities.com/Vienna/Studio/1714/scarlattidwn.html/,sonatas
-by Scarlatti}. Jeff Covey, guitar player and overall nice guy, is
-putting @uref{http://www4.smart.net/~jcovey/scores/,guitar music} on the
-net. The @uref{http://sca.uwaterloo.ca/Mutopia/,Mutopia project} is a
-large archive of public domain sheet music under construction.
-
-
-
-
-@unnumberedsec Download
-
-If you want to compile LilyPond from sources,  download them here:
-@itemize @bullet
-@item    Download stable releases at
-@uref{ftp://ftp.gnu.org/gnu/lilypond/}
-@item    Download development releases at
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/}
-@item Canadian mirror   @uref{http://sca.uwaterloo.ca/lilypond/} and @uref{ftp://sca.uwaterloo.ca/pub/} 
-@item Another site in Europe
-@uref{ftp://ftp.lilypond.org/pub/LilyPond/}
-@end itemize
-
-Installing and compiling requires many additional packages, which are
-listed in the  @uref{Documentation/topdocs/out-www/INSTALL.html, installation instructions}.
-
-There are binaries available, but alas they are not updated for every version released.
-@itemize @bullet
-@item RedHat i386
-binary RPMs:  @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/}  
-
-@item Debian binary @uref{ftp://ftp.debian.org/pub/debian/dists/unstable/main/binary-i386/tex} 
-@item i386 RPM: @uref{http://linux.umbc.edu/software/lilypond/rpms/} 
-@item Windows NT: @uref{http://home.austin.rr.com/jbr/jeff/lilypond/}
-@end itemize
 
 @unnumberedsubsec Webmaster's Disclaimer
 
