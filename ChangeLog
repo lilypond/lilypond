@@ -1,3 +1,24 @@
+2005-03-19  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/global.itely: added info about naming
+	identifiers and breakbefore.
+
+	* Documentation/user/invoking.itely: added info about batch
+	processing files with convert-ly, removed references to TeX
+	in the jail section.
+
+	* Documentation/user/examples.itely: possibly fixed piano
+	dynamics.
+
+	* Documentation/user/advanced-notation.itely: added info
+	about removing other types of Staff.
+
+	* Documentation/user/instrument-notation.itely: possibly
+	fixed piano staff line switch.
+
+	* Documentation/user/changing-defaults.itely: added info
+	about using normal font in titles.
+
 2005-03-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION (PATCH_LEVEL): release 2.5.16

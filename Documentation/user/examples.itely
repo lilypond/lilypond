@@ -411,13 +411,18 @@ pedal = {
       \override VerticalAlignment #'forced-distance = #7
     }
   }
+}
+\score {
+  \context PianoStaff <<
+    \context Staff=upper << \upper \dynamics >>
+    \context Staff=lower << \lower \dynamics >>
+    \context Dynamics=pedal \pedal
+  >>
   \midi {
     \context {
       \type "Performer_group_performer"
       \name Dynamics
       \consists "Piano_pedal_performer"
-      \consists "Span_dynamic_performer"
-      \consists "Dynamic_performer"
     }
     \context {
       \PianoStaff

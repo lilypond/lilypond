@@ -645,6 +645,15 @@ a line break.
 Page breaks are computed by the @code{page-breaking} function in the
 @code{\paper} block. 
 
+To force a new page for a new piece (in a collection of pieces or a
+piece in several movements), use @code{breakbefore} in the header.
+
+@example
+\header@{
+  breakbefore = ##t
+@}
+@end example
+
 @refcommands
 
 @cindex @code{\pageBreak}
@@ -774,7 +783,7 @@ Name of the piece, flush-left below the instrument.
 
 @cindex page breaks, forcing
 @item breakbefore
-  This forces the title to start on a new page.
+  This forces the title to start on a new page (set to ##t or ##f).
 @end table
 
 Here is a demonstration of the fields available, 
@@ -939,7 +948,8 @@ This behavior can be changed by setting the variable
 @code{toplevel-book-handler} at toplevel.  The default handler is
 defined in the init file @file{scm/@/lily@/.scm}.
 
-@item A compound music expression, such as
+@item
+A compound music expression, such as
 @example
 @{ c'4 d' e'2 @}
 @end example
@@ -952,7 +962,8 @@ This behavior can be changed by setting the variable
 @code{toplevel-music-handler} at toplevel.  The default handler is
 defined in the init file @file{scm/@/lily@/.scm}.
 
-@item A markup text, a verse for example
+@item
+A markup text, a verse for example
 @example
 \markup @{
    2.  The first line verse two.
@@ -962,12 +973,15 @@ defined in the init file @file{scm/@/lily@/.scm}.
 Markup texts are rendered above, between or below the scores or music
 expressions, wherever they appear.
 
-@item An indentifier, such as
+@item
+An indentifier, such as
 @example
 foo = @{ c4 d e d @}
 @end example
 
-This can be used later on in the file by entering @code{\foo}.
+This can be used later on in the file by entering @code{\foo}.  The
+name of an identifier should have alphabetic characters only; no
+numbers, underscores or dashes.
 
 @end itemize
 

@@ -240,14 +240,14 @@ can be printed automatically.  This is switched on by setting
 @code{followVoice} to true
 
 @lilypond[quote,raggedright,fragment,relative=1,verbatim]
-\context PianoStaff <<
-  \set followVoice = ##t
-  \context Staff \context Voice {
+\new PianoStaff <<
+  \context Staff=one {
+    \set followVoice = ##t
     c1
     \change Staff=two
     b2 a
   }
- \context Staff=two { \clef bass \skip 1*2 }
+  \context Staff=two { \clef bass \skip 1*2 }
 >>
 @end lilypond
 

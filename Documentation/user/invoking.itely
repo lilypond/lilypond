@@ -213,11 +213,17 @@ be a single directory writable by this user, which should be passed in
 LilyPond needs to read a number of files while running.  All these files
 are to be copied into the jail, under the same path they apper in the
 real root filesystem.  The entire content of the LilyPond installation
-(e.g., @file{/usr/share/lilypond}), and the content of the @file{fonts},
+(e.g., @file{/usr/share/lilypond})
+should be copied.
+
+@ignore
+FIXME:  fact-check; delete very soon.  -gp
+, and the content of the @file{fonts},
 @file{dvips} and @file{web2c} directories of the @TeX{} installation
 (usually under @file{/usr/share/texmf}) should be copied, too.  If your
 @TeX{} installation uses @file{ls-R} caches, copy also the cache inside the root
 of the installation.
+@end ignore
 
 If problems arise, the simplest way to trace them down is to run
 LilyPond using @command{strace}, which will allow you to determine which
@@ -413,6 +419,14 @@ To upgrade LilyPond fragments in texinfo files, use
 
 @example
 convert-ly --from=... --to=... --no-version *.itely
+@end example
+
+To upgrade many files at once, combine @code{convert-ly} with
+standard unix commands.  This example will upgrade all @code{.ly}
+files in the current directory
+
+@example
+for f in *.ly; do convert-ly -e $f; done;
 @end example
 
 In general, the program is invoked as follows:
