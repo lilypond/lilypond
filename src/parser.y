@@ -19,6 +19,7 @@
 #endif
 
 Array<Request*> pre_reqs, post_reqs;
+sstack<String> define_spots;
 
 Paperdef*default_paper();
 %}
@@ -40,6 +41,7 @@ Paperdef*default_paper();
     int i;
     char c;
     int ii[10];
+	Moment *moment;
 
     Array<String> * strvec;
     Array<Input_command*> *commandvec;
@@ -62,8 +64,9 @@ Paperdef*default_paper();
 %token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS
 %token GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
 %token KEY CLEF VIOLIN BASS MULTI TABLE CHORD VOICES
-%token PARTIAL RHYTHMIC MELODIC MUSIC GROUPING
+%token PARTIAL RHYTHMIC MELODIC MUSIC GROUPING CADENZA
 %token END SYMBOLTABLES TEXID TABLE NOTENAMES SCRIPT TEXTSTYLE PLET
+%token MARK GOTO
 
 %token <id>  IDENTIFIER
 %token <string> NEWIDENTIFIER 
@@ -81,7 +84,7 @@ Paperdef*default_paper();
 %type <paper> paper_block paper_body
 %type <real> dim
 %type <ii> duration
-%type <real> duration_length
+%type <moment> duration_length
 %type <el> voice_elt full_element
 %type <command> score_command staff_command skipcommand
 %type <score> score_block score_body
@@ -182,7 +185,11 @@ notename_tab_body:				{
 /*
 	SCORE
 */
-score_block: SCORE '{' score_body '}' 	{ $$ = $3;
+score_block: SCORE 
+		{ define_spots.push(lexer->spot()); }
+	'{' score_body '}' 	{
+		$$ = $4;
+		$$->define_spot_str_ = define_spots.pop();
 		if (!$$->paper_)
 			$$->paper_ = default_paper();
 	}
@@ -209,7 +216,7 @@ score_commands_body:			{ $$ = new Array<Input_command*>; }
 	}
 	;
 
-staff_commands_block: COMMANDS '{' staff_commands_body '}'	{
+staff_commands_block: COMMANDS '{' staff_commands_body '}'	{	
 		$$ = $3; }
 	;
 
@@ -233,14 +240,22 @@ staff_command:
 	;
 
 duration_length:	
-	 duration		{
-		$$ = wholes($1[0], $1[1]);
+	duration		{
+		$$ = new Moment(wholes($1[0], $1[1]));
+	}
+	|int '*' duration	{
+		$$ = new Moment($1 * wholes($3[0], $3[1]));
 	}
 	;
 
 skipcommand:
 	SKIP int ':' duration_length		{
-		$$ = get_skip_command($2, $4);
+		$$ = get_skip_command($2, *$4);
+		delete $4;
+	}
+	| GOTO STRING	{
+		$$ = get_goto_command(*$2);
+		delete $2;
 	}
 
 score_command:
@@ -249,15 +264,19 @@ score_command:
 		$$ = get_bar_command(*$2);
 		delete $2;
 	}
-	| METER  int int		{
-		$$ = get_meterchange_command($2, $3);
+	| METER  int '*' int		{
+		$$ = get_meterchange_command($2, $4);
 	}
 	| PARTIAL duration_length		{
-		$$ = get_partial_command($2);
+		$$ = get_partial_command(*$2);
+		delete $2;
 	}
 	| GROUPING int_list		{
 		$$ = get_grouping_command(*$2);
 		delete $2;
+	}
+	| CADENZA int	{
+		$$ = get_cadenza_toggle($2);
 	}
 	;
 
@@ -267,7 +286,9 @@ score_command:
 	PAPER
 */
 paper_block:
-	PAPER '{' paper_body '}' 	{ $$ = $3; }
+	PAPER
+
+	'{' paper_body '}' 	{ $$ = $3; }
 	;
 
 paper_body:
@@ -287,7 +308,11 @@ paper_body:
 	STAFFs
 */
 staff_block:
-	STAFF '{' staff_body '}' 	{ $$ = $3; }
+	STAFF 	{ define_spots.push(lexer->spot()); }
+/*cont*/	'{' staff_body '}' 	{
+		$$ = $4; 
+		$$->define_spot_str_ = define_spots.pop();
+	}
 	;
 
 
@@ -475,10 +500,15 @@ duration:		{
 	| int		{
 		get_default_duration($$);
 		$$[0] = $1;
+		$$[1] = 0;
 	}
 	| int DOTS 	{
 		$$[0] = $1;
 		$$[1] = $2;
+	}
+	| DOTS  {
+                get_default_duration($$);
+                $$[1] = $1;
 	}
 	;
 
@@ -486,7 +516,7 @@ pitchmod:		{ $$ = new String; }
 	|PITCHMOD	
 	;
 
-voice_elt:	
+voice_elt:
 	pitchmod NOTENAME duration 			{
 		$$ = get_note_element(*$1, $2, $3);
 		delete $1;
@@ -495,6 +525,10 @@ voice_elt:
 		$$ = get_rest_element(*$1, $2);
 		delete $1;
 
+	}
+	| MARK STRING	{
+		$$ = get_mark_element(*$2);
+		delete $2;
 	}
 	;
 
@@ -623,6 +657,7 @@ parse_file(String s)
    lexer->new_input(s);
    yyparse();
    kill_lexer();
+   assert(define_spots.empty());
 }
 
 Paperdef*
