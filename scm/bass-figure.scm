@@ -6,7 +6,7 @@
   "Brew a single column for a music figure"
   (let* (
 	 (chain (Font_interface::get_property_alist_chain grob))
-	 (mf (ly:get-font grob (cons  '((font-family . music))
+	 (mf (ly:get-font grob (cons  '((font-family . music) (font-magnification . 0.8))
 				      chain 
 				      )))
 	 (nf (ly:get-font grob

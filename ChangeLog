@@ -1,5 +1,18 @@
 2003-03-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/time-signature-double.ly: new file 
+
+	* input/regression/collision-head-chords.ly (texidoc): new file.
+
+	* lily/type-swallow-translator.cc: add note swallow translator 
+
+	* input/test/time-signature-double.ly: new file.
+
+	* lily/type-swallow-translator.cc: add Rest_swallow_translator
+
+	* ly/engraver-init.ly (ChordNamesContext): add Rest_swallow_translator
+	(FiguredBassContext): idem.
+
 	* VERSION (MY_PATCH_LEVEL): 1.7.14 released
 
 	* input/mutopia/W.A.Mozart/*.ly (romanze): markup syntax updates. 
