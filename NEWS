@@ -1,3 +1,27 @@
+pl 1.mb1
+        - Support for cautionary accidentals. , i.e. accidentals 
+          within parantheses. Syntax: 'cis?'. Try input/test/accid.fly
+          Note that the font has changed.
+        - bf: No unnecessary warnings about time signatures
+        - Added optional second argument of \key. Set to \major or \minor 
+          to get a major or minor key. Default: major.
+	- bf: Compilation error in midi-walker.cc
+pl 1.jcn2
+ 	- fixes for htmldoc, website
+ 	- silly jcn1 fixes
+ 	- junked MODULE stuff from lily/GNUmakefile (again)
+ 
+pl 0.jcn4
+ 	-set:
+ 	   export GUILE_LOAD_PATH=$HOME/usr/src/lilypond/init
+ 	- dstream: Score_element, Column_info
+ 	- -fscm debug hack: lilypond -fscm a; guile a.scm > a.tex; tex a
+ 	- init/lily.scm
+ 
+
+********
+
+pl 1
 pl 0.uu5
 	- fixed MIDI output.
 
