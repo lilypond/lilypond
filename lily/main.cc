@@ -133,7 +133,7 @@ identify (FILE *out)
 {
   fputs (gnu_lilypond_version_string ().to_str0 (), out);
 }
-
+ 
 void
 dirinfo (FILE *out)
 {
