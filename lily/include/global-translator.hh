@@ -17,11 +17,10 @@
 class Global_translator : public virtual Translator_group
 {
   PQueue<Moment> extra_mom_pq_;
+  Music_output_def*  output_def_;
+  friend class Music_output_def;
 public:
   VIRTUAL_COPY_CONS (Translator);
-  Moment final_mom_;
-  Moment prev_mom_;
-  Moment now_mom_;
   Global_translator ();
 
   int get_moments_left () const;
@@ -37,12 +36,13 @@ public:
   virtual void one_time_step ();
   virtual void finish ();
   virtual void start ();
-
+  virtual Music_output_def* get_output_def () const; 
   virtual Moment now_mom () const;
 
-  
+  Moment final_mom_;
+  Moment prev_mom_;
+  Moment now_mom_;
 protected:
-
 };
 
 

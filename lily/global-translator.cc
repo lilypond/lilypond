@@ -16,6 +16,13 @@
 
 Global_translator::Global_translator ()
 {
+  output_def_ = 0;
+}
+
+Music_output_def* 
+Global_translator::get_output_def () const
+{
+  return output_def_;
 }
 
 void

@@ -111,7 +111,7 @@ Timing_translator::start_translation_timestep ()
   while (!global);
 
   Moment now = global->now_mom_;
-  Moment dt = now  - global -> prev_mom_;
+  Moment dt = now  - global->prev_mom_;
   if (dt < Moment (0))
     {
       programming_error ("Moving backwards in time");

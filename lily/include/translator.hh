@@ -68,10 +68,6 @@ private:
 protected:			// should be private.
   SCM simple_trans_list_;
   friend class Context_def;
-  // ugir.
-  //   friend SCM Translator_group::get_simple_trans_list ();
-
-
 public:
   Global_translator * top_translator () const;
   TRANSLATOR_DECLARATIONS(Translator);

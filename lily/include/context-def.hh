@@ -42,7 +42,7 @@ public:
   void set_acceptor (SCM accepts, bool add);
 
   Link_array<Context_def> path_to_acceptable_translator (SCM type_string, Music_output_def* odef) const;
-  Translator_group * instantiate (Music_output_def*, SCM extra_ops);
+  Translator_group * instantiate (SCM extra_ops);
 
   SCM to_alist () const;
   bool is_alias (SCM) const;

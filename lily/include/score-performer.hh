@@ -32,7 +32,6 @@ protected:
   virtual int get_tempo () const;
   virtual void play_element (Audio_element* p);
   virtual Music_output *get_output ();
-
 private:
   void header (Midi_stream&);
 

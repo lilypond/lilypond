@@ -26,7 +26,7 @@ Music_iterator::Music_iterator ()
   smobify_self ();
 }
 
-Music_iterator::Music_iterator (Music_iterator const& src)
+Music_iterator::Music_iterator (Music_iterator const& )
 {
   assert (false);
 }

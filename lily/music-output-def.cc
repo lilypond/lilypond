@@ -100,8 +100,10 @@ Music_output_def::get_global_translator ()
   if (!t)
     error (_f ("can't find `%s' context", "Score"));
 
-  Translator_group * tg = t->instantiate (this, SCM_EOL);
+  Translator_group * tg = t->instantiate (SCM_EOL);
+  dynamic_cast<Global_translator*> (tg)->output_def_ = this;
   
+
   tg->initialize ();
   
   return dynamic_cast <Global_translator *> (tg);
