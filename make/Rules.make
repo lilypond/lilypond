@@ -84,7 +84,7 @@ $(lily-config): $(lib-dir)/$(genout)
 $(LIBFLOWER): check-flower-version
 	$(MAKE) ./$(outdir)/$(@F) -C $(depth)/flower/lib
 #
-$(LIBLILY):
+$(LIBLILY): dummy
 	$(MAKE) ./$(outdir)/$(@F) -C $(depth)/lib
 #
 

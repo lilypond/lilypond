@@ -211,7 +211,7 @@ with the parts of the names separated by underscores.
 =item C<byte>
 unsigned char. (The postfix _by is ambiguous)
 
-=item C<bo>
+=item C<b>
 bool
 
 =item C<bi>
