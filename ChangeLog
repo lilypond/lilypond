@@ -1,3 +1,18 @@
+2004-03-31  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* po/nl.po: Update.
+
+	* lily/scm-option.cc (LY_DEFINE): Name of the program is lilypond-bin.
+
+	* lily/event.cc (to_relative_octave): Translatable sentence should
+	be one string.
+
+	* python/lilylib.py (warranty): Year range is not translatable.
+	It's 2004 already!
+
+	* flower/warn.cc (non_fatal_error, warning, programming_error):
+	Remove whitespace from translated string.
+
 2004-03-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* configure.in: check for C language.

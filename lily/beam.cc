@@ -153,7 +153,7 @@ Beam::before_line_breaking (SCM smob)
       SCM stems = me->get_property ("stems");
       if (scm_ilength (stems) == 1)
 	{
-	  me->warning (_ ("Beam has less than two stems. Removing beam."));
+	  me->warning (_ ("removing beam with less than two stems"));
 
 	  unsmob_grob (gh_car (stems))->set_property ("beam", SCM_EOL);
 	  me->suicide ();
@@ -1037,9 +1037,7 @@ Beam::shift_region_to_valid (SCM grob)
     }
       
   if (feasible_left_point.is_empty ())
-    {
-      warning (_ ("Not sure that we can find a nice beam slope (no viable initial configuration found)."));
-    }
+    warning (_ ("no viable initial configuration found: may not find good beam slope"));
   else if (!feasible_left_point.contains (y))
     {
       if (isinf (feasible_left_point[DOWN]))

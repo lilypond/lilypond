@@ -128,17 +128,13 @@ Rest::brew_internal_stencil (SCM smob)
   String style; 
   SCM style_scm = me->get_property ("style");
   if (gh_symbol_p (style_scm))
-    {
-      style = ly_scm2string (scm_symbol_to_string (style_scm));
-    }
+    style = ly_scm2string (scm_symbol_to_string (style_scm));
 
   Font_metric *fm = Font_interface::get_default_font (me);
   String font_char = glyph_name (me, balltype, style);
   Stencil out = fm->find_by_name (font_char);
   if (out.is_empty ())
-    {
-      me->warning (_f ("rest `%s' not found, ", font_char.to_str0 ()));
-    }
+    me->warning (_f ("rest `%s' not found", font_char.to_str0 ()));
 
   return out.smobbed_copy ();
 }

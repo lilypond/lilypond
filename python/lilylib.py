@@ -107,7 +107,7 @@ def identify (port):
 def warranty ():
 	identify (sys.stdout)
 	sys.stdout.write ('\n')
-	sys.stdout.write (_ ('Copyright (c) %s by' % ' 1998--2003'))
+	sys.stdout.write (_ ("Copyright (c) %s by") % '1998--2004')
 	sys.stdout.write ('\n')
 	map (lambda x: sys.stdout.write ('  %s\n' % x), __main__.copyright)
 	sys.stdout.write ('\n')
@@ -120,10 +120,10 @@ def progress (s):
 	sys.stderr.write (s)
 
 def warning (s):
-	sys.stderr.write (__main__.program_name + ": " + _ ("warning: ") + s + '\n')
+	sys.stderr.write (__main__.program_name + ": " + _ ("warning: %s") % s + '\n')
 
 def error (s):
-	sys.stderr.write (__main__.program_name + ": " + _ ("error: ") + s + '\n')
+	sys.stderr.write (__main__.program_name + ": " + _ ("error: %s") % s + '\n')
 	
 def exit (i):
 	if __main__.verbose_p:

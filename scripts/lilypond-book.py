@@ -66,7 +66,8 @@ pseudo_filter_p = 0
 original_dir = os.getcwd ()
 
 
-help_summary = _ ("""Process LilyPond snippets in hybrid HTML, LaTeX or texinfo document.  Example usage:
+help_summary = _ ("""Process LilyPond snippets in hybrid HTML, LaTeX or texinfo document.
+Example usage:
 
    lilypond-book --filter="tr '[a-z]' '[A-Z]'" BOOK
    lilypond-book --filter="convert-ly --no-version --from=2.0.0 -" BOOK
@@ -444,7 +445,7 @@ def find_file (name):
 		full = os.path.join (i, name)
 		if os.path.exists (full):
 			return full
-	ly.error (_ ('file not found: %s\n' % name))
+	ly.error (_ ('file not found: %s') % name + '\n')
 	ly.exit (1)
 	return ''
 	

@@ -115,7 +115,7 @@ preview_resolution = 90
 ## FIXME
 ## do -P or -p by default?
 ##help_summary = _ ("Run LilyPond using LaTeX for titling")
-help_summary = _ ("Process LilyPond snippets in hybrid html, LaTeX or texinfo document")
+help_summary = _ ("Process LilyPond snippets in hybrid HTML, LaTeX or texinfo document")
 copyright = ('Tom Cato Amundsen <tca@gnu.org>',
 	     'Han-Wen Nienhuys <hanwen@cs.uu.nl>')
 
