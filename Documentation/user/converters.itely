@@ -91,6 +91,10 @@ usually lower than the version of @command{convert-ly} itself.
 Not all language changes are handled.  Only one output option can be
 specified.
 
+
+@c  We might want to make this a completely new section, along with more
+@c  info about how to upgrade old input files.  -gp
+
 @ignore
 Copy and paste from CVS, last updated
 Dec 22, 2004
