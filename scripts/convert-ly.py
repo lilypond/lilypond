@@ -691,6 +691,21 @@ if 1:
 	
 	conversions.append (((1,3,138), conv, 'point-and-click argument changed to procedure.'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('followThread', 'followVoice', str)
+		str = re.sub ('FollowThread', 'VoiceFollower', str)
+		return str
+	
+	conversions.append (((1,3,138), conv, 'followThread -> followVoice.'))
+
+if 1:
+	def conv (str):
+		str = re.sub ('font-point-size', 'font-design-size', str)
+		return str
+	
+	conversions.append (((1,3,139), conv, 'font-point-size -> font-design-size.'))
+
 
 ############################
 	

@@ -7,12 +7,6 @@
 @c before saving changes
 
 
-@ignore
- TODO:
-
-@end ignore
-
-
 @macro refbugs
 @unnumberedsubsec Bugs
 
@@ -139,7 +133,7 @@ The verbose syntax for pitch specification is
 @example
   \pitch @var{scmpitch}
 @end example
-
+9
 @var{scmpitch} is a pitch scheme object, see @ref{Pitch data type}.
 
 In Note and Chord mode, pitches may be designated by names.  The default
@@ -353,10 +347,11 @@ warning message will appear and no ties will be created.
 @end lilypond
 
 If you dislike the amount of ties created for a chord, you set
-@code{Thread.sparseTies} to true, resulting in  a smaller number of
+@code{Voice.sparseTies} to true, resulting in  a smaller number of
 ties:
 @lilypond[fragment,verbatim,center]
-  \property Thread.sparseTies = ##t
+%oops: core dump
+%  \property Voice.sparseTies = ##t
   <c' e' g'> ~ <c' e' g'>
 @end lilypond
 
@@ -470,6 +465,7 @@ numbers in this mode.
 @menu
 * Key signature::               
 * Time signature::              
+* Unmetered music::             
 * Bar lines::                   
 @end menu
 
@@ -613,6 +609,27 @@ Internally,  this is a short cut for
 @end example
 @cindex @code{|}
 
+
+@node Unmetered music
+@subsection Unmetered music
+
+Bar lines and bar numbers are calculated automatically. For unmetered
+music (e.g. cadenzas), this is not desirable. The property
+@code{Score.timing} can be used to switch off this automatic timing
+
+@lilypond[fragment,relative,singleline,verbatim]
+c'2.
+\property Score.timing = ##f
+c4 c4 c4  
+\property Score.timing = ##t
+c4 c4 c4 
+@end lilypond
+
+The identifiers @code{\cadenzaOn} and @code{\cadenzaOff} can be used to
+achieve the same effect.
+
+
+
 @c .   {Bar lines}
 @node Bar lines
 @subsection Bar lines
@@ -659,7 +676,7 @@ settings.
 @cindex Polyphony
 
 [TODO: collisions, rest-collisinos, voiceX identifiers, how to
-which  contexts to instantiate.]
+which  contexts to instantiate.  some small examples? ]
 
 
 @table @code
@@ -701,6 +718,23 @@ Aand for ties use
 @code{\tieBoth}, 
 @code{\tieDown}, 
 @code{\tieUp}.
+
+@cindex @code{\voiceOne}
+@cindex @code{\voiceTwo}
+@cindex @code{\voiceThree}
+@cindex @code{\voiceFour}
+@cindex @code{\oneVoice}
+@cindex @code{\shiftOn}
+@cindex @code{\shiftOff}
+
+If two voices sharing one staff have the same stem directions, their
+note heads may collide.  You can shift the note heads of one voice by
+setting @code{\shiftOn}.  This can be undone by setting
+@code{\shiftOff}.
+
+For simple polyphonic music, shorthands are available that combine
+directions and shift settings: @code{\voiceOne}, @code{\voiceTwo},
+@code{\voiceThree}, @code{\voiceFour} and @code{\oneVoice}.
 
 
 @node Beaming
@@ -824,9 +858,31 @@ control the number of beams through the properties
 @end quotation
 @cindex @code{stemRightBeamCount}
 
+The beam symbol can be tweaked through @code{Voice.Beam}'s
+grob-properties @code{height} and @code{staff-position},
+in staff-spaces.
 
-[TODO: explain common tweaks.]
+Set @code{height} to zero, to get horizontal beams:
 
+@quotation
+@lilypond[fragment,relative,verbatim]
+  \property Voice.Beam \set #'direction = #1
+  \property Voice.Beam \set #'height = #0
+  [a''8 e' d c]
+@end lilypond
+@end quotation
+
+Here's how you'd specify a weird looking beam that instead of being
+horizontal, falls two staff spaces:
+
+@quotation
+@lilypond[fragment,relative,verbatim]
+  \property Voice.Beam \set #'staff-position = #2
+  \property Voice.Beam \set #'height = #-2
+  [c'8 c] 
+@end lilypond
+@end quotation
+@cindex @code{default-neutral-direction}
 
 @node Expressive marks
 @section Expressive marks
@@ -837,6 +893,7 @@ control the number of beams through the properties
 * Phrasing slur::               
 * Breath marks::                
 * Tempo::                       
+* Text spanner::                
 @end menu
 
 @node Slur 
@@ -886,45 +943,25 @@ stems might look better:
 Similarly, the curvature of a slur is adjusted to stay clear of note
 heads and stems.  When that would increase the curvature too much, the
 slur is reverted to its default shape.  The threshold for this decision
-is in @code{Voice.Slur}'s grob-property @code{beautiful}.  In some
-cases, you may prefer curved slurs to vertically moved ones.  You can
+is in @code{Voice.Slur}'s grob-property @code{beautiful}.  It is loosely
+related to the enclosed area between the slur and the notes.  Usually,
+the default setting works well, but in some cases you may prefer a
+curved slur when LilyPond decides for a vertically moved one.  You can
 express this by increasing the @code{beautiful} value:
 
-[hoe gedefd?? wat betekent beautiful = X?]
-
-[dit voorbeeld is te lang: junken, of inkorten]
-
-@quotation
-@lilypond[verbatim,singleline]
-\score {
-  \notes \context PianoStaff <
-    \time 6/4;
-    \context Staff=up { s1 * 6/4 }
-    \context Staff=down <
-      \clef bass;
-      \autochange Staff \context Voice
-        \notes \relative c {
-          d,8( a' d f a d f d a f d )a
-        }
-    >
-  >
-  \paper {
-    \translator {
-      \VoiceContext
-      Slur \override #'beautiful = #5.0
-      Slur \override #'direction = #1
-      Stem \override #'direction = #-1
-      autoBeamSettings \override #'(end * * * *)
-        = #(make-moment 1 2)
-    }
-    \translator {
-      \PianoStaffContext
-      VerticalAlignment \override #'threshold = #'(5 . 5)
-    }
-  }
-}
+@lilypond[verbatim,singleline,relative]
+  \property Voice.Beam \override #'direction = #-1
+  \property Voice.Slur \override #'direction = #1
+  c'16( a' f' a a f a, )c,
+  c( a' f' a a f d, )c
+  \property Voice.Slur \override #'beautiful = #5.0
+  c( a' f' a a f d, )c
 @end lilypond
-@end quotation
+
+@refbugs
+
+The definition for @code{beautiful} is vague, the default setting is
+experimental computer science.
 
 @cindex Adusting slurs
 
@@ -1198,7 +1235,7 @@ stem.  This behavior can be controlled with the
 @lilypond[fragment,verbatim]
 \relative c'' {
   \grace c8 c4 \grace { [c16 c16] } c4
-  \grace { \property Grace.Stem \override #'flag-style = ##f c16 } c4
+  \grace { \property Grace.Stem \override #'flag-style = #'() c16 } c4
 }
 
 @end lilypond
@@ -1565,11 +1602,6 @@ are squashed, and the  staff itself  looks has  a single staff line:
 @end lilypond
 
 
-
-[TODO: explain perc notation, if it's finished in time.] 
-
-
-
 @c . {Piano music}
 @node Piano music
 @section Piano music
@@ -1585,7 +1617,7 @@ other pianistic peculiarities.
 * Manual staff switches::       
 * Pedals::                      
 * Arpeggio::                    
-* Follow Thread::               
+* VoiceFollower::               
 @end menu 
 
 
@@ -1711,26 +1743,24 @@ This command creates @code{Arpeggio} grobs.
 connected arpeggios and unconnected arpeggios at the same time.
 
 
-@c .    {Follow Thread}
-@node  Follow Thread
-@subsection Follow Thread
+@c .    {VoiceFollower}
+@node  VoiceFollower
+@subsection VoiceFollower
 
-@cindex follow thread
+@cindex follow voice
 @cindex staff switching
 @cindex cross staff
 
-[todo: figure out different name, eg. voice line, switch indicator ? ]
-
-@cindex @code{followThread}
+@cindex @code{followVoice}
 
 Whenever a voice switches to another staff a line connecting the notes
 can be printed automatically. This is enabled if the property
-@code{PianoStaff.followThread} is set to true:
+@code{PianoStaff.followVoice} is set to true:
 
 @quotation
 @lilypond[fragment,relative,verbatim]
   \context PianoStaff <
-    \property PianoStaff.followThread = ##t
+    \property PianoStaff.followVoice = ##t
     \context Staff \context Voice {
       c'1
       \translator Staff=two
@@ -2338,7 +2368,7 @@ Automatic part combining is used to merge two parts of music onto on
 staff in an intelligent way.  It is aimed primarily at typesetting Hymns
 and orchestral scores.  When the two parts are identical for a period of
 time, only one is shown.  In places where the two parts differ, stem
-directions are set automatically.  Also, soli and @`{a} due parts can be
+directions are set automatically.  Also, soli and @emph{a due} parts can be
 identified and marke.
 
 The syntax for part combining is
@@ -2359,11 +2389,11 @@ one voice, as common for wind parts in orchestral scores:
 @lilypond[verbatim,singleline,fragment]
   \context Staff <
     \context Voice=one \partcombine Voice
-      \context Thread=one \notes\relative c'' {
-        g g a b r2
+      \context Thread=one \relative c'' {
+        g a b r
       }
-      \context Thread=two \notes\relative c'' {
-        g g r2 g4 f4
+      \context Thread=two \relative c'' {
+        g r2 f4
       }
   >
 @end lilypond
@@ -2371,20 +2401,30 @@ one voice, as common for wind parts in orchestral scores:
 Notice that the first @code{g} appears only once, although it was
 specified twice (once in each Thread). Also note that stem, slur and tie
 directions are set automatically, depending whether there is a solo or
-unisono.
-
-There is actually a third engraver involved in part combining; the
-@code{Voice_devnull_engraver}.  This one takes care of removing
-redundant spanners such as beams, slurs, ties, crescendi, etc. Note that
-the Thread called one always gets up stems, and "solo", while @code{two}
-always gets down stems and "Solo II".
+unisono. The Thread called @code{one} always gets up stems, and "solo",
+while @code{two} always gets down stems and "Solo II".
 
 If you just want the splitting of Threads and setting of directions, and
 not the textual markings, you may set the property @var{soloADue} to
-false. There are a number of other properties that you can use to tweak
+false.  This mode can be used to set hymns:
+
+@lilypond[verbatim,singleline,fragment]
+  \context Staff <
+    \property Staff.soloADue = ##f
+    \context Voice=one \partcombine Voice
+      \context Thread=one \relative c'' {
+        b4 a c g
+      }
+      \context Thread=two \relative c'' {
+        d,2 a4 g'
+      }
+  >
+@end lilypond
+
+There are a number of other properties that you can use to tweak
 the behavior of part combining, refer to the automatically generated
 documentation. Look for @code{Thread_devnull_engraver}
-@code{Voice_engraver} and @code{A2_engraver}. 
+@code{Voice_devnull_engraver} and @code{A2_engraver}. 
 
 @cindex @code{Thread_devnull_engraver}
 @cindex @code{Voice_engraver}
@@ -2393,9 +2433,31 @@ documentation. Look for @code{Thread_devnull_engraver}
 @node Hara-kiri staffs
 @subsection Hara-kiri staffs
 
+In orchestral scores, staffs that only have rests are usually removed.
+This saves some space.  LilyPond also supports this through the
+hara-kiri@footnote{Hara kiri, also called Seppuku, is the ritual suicide
+of the Japanese Samourai warriors.} staff. This staff commits suicide
+when it finds itself to be empty after the line-breaking process---note
+that it will not disappear when it contains normal rests, you must use
+multi measure rests.
 
-[TODO]@footnote{Harakiri, also called Seppuku, is the ritual suicide of
-the Japanese Samourai warriors.}
+The hara kiri staff is specialized version of the Staff context. It is
+available as the context identifier @code{\HaraKiriStaffContext}.
+Observe how the second staff in this example disappears in the second
+line.
+
+@lilypond[verbatim]
+\score  {
+  \notes \relative c' <
+    \context Staff = SA { e4 f g a \break c1 }
+    \context Staff = SB { c4 d e f \break R1 }
+  >
+  \paper {
+    linewidth = 6.\cm ; 
+    \translator { \HaraKiriStaffContext }
+  }
+}
+@end lilypond
 
 
 
@@ -2484,6 +2546,7 @@ grob property.
 * Tuning groups of grobs ::     
 * Tuning per grob ::            
 * What to tune?::               
+* Font selection::              
 * Text markup::                 
 @end menu
 
@@ -2642,6 +2705,87 @@ There is also a master list of contexts. Clicking each takes you to an
 overview of the context, listing which grob types are created there.
 
 
+@node Font selection
+@subsection Font selection
+
+Most graphics in LilyPond are composed of characters of fonts.  You can
+alter the characteristics of the font by setting certain grob
+properties. The mechanism that is used for this resembles LaTeX's New
+Font Selection Scheme. Within this scheme, a font is entirely
+characterized by its font name.
+
+For each grob that uses fonts (in other words, each grob that supports
+@code{font-interface}) a font-name must be selected before it can be
+printed.  The font name is selected by looking at a number of grob
+properties:
+
+@table @code
+@item font-family
+  The general class of the typeface.  Supported are roman (Computer
+Modern), braces (for piano staff braces), music (the standard music
+font), dynamic (font for dynamic signs) and typewriter
+
+@item font-shape
+  A symbol indicating the shape of the font, a finer gradation than
+  font-family. Choices are italic and upright
+@item font-series
+  Symbol indicating the serie of the font.  Series form a finer gradation
+  than font-shape. Choices are medium and bold.
+
+@item font-relative-size
+  A number indicating the size relative the standard size.  For example,
+  with 20pt staff height, relative size -1  corresponds to 16pt staff
+  height, and relative size +1 corresponds to 23 pt staff height.
+
+@item font-design-size
+A number indicating  the design size of the font. 
+
+This is a feature of the Computer Modern Font: each point size has a
+slightly different design. Smaller design sizes are relatively wider,
+which enhances readability. Scalable type faces such TrueType and Adobe
+Type1 usually come as ``one design fits all sizes''.
+
+@item font-name
+  The name of the font, without the design size, eg. @code{cmr},
+@code{cmti}, etc. Setting this overrides font-family, font-shape and
+font-series.
+
+@end table
+
+The font is selected by taking the first font that satisfies all
+qualifiers specified. You can override any of these fields through
+@code{\override} and @code{\revert}. The special value @code{*} matches
+any value for that qualifier.
+
+@example
+  \property Lyrics.LyricText \override #'font-series = #'bold
+  \property Lyrics.LyricText \override #'font-shape = #'*
+@end example
+
+@cindex @code{font-style}
+
+There are also pre-cooked font selection qualifiers. These are selected
+through the grob property @code{font-style}.  For example, the style
+@code{finger} selects family @code{number} and relative size @code{-3}.
+Styles available include: volta, finger, tuplet, timesig, mmrest,
+script, large, Large and dynamic.
+
+The style sheets and tables for selecting fonts are located in
+@file{scm/font.scm}. Refer to this file for more information.
+
+@refbugs
+
+Relative size is not linked to any real size.  There is no mechanism to
+select magnifications of fonts, meaning that you can not scale fonts
+continuoussly. There is no style sheet provided for other fonts besides
+the @TeX{} family.
+
+@cindex font selection
+@cindex font magnification
+@cindex @code{font-interface}
+
+@refbugs
+
 
 @node Text markup
 @subsection Text markup
@@ -2709,7 +2853,7 @@ horizontal mode: set all text on one line (default)
 @var{fontstyle} may be any of @code{finger volta timesig mmrest mark
 script large Large dynamic}
 
-[wat is het verschil tussen fontstyle en abbrev?]
+[wat is het verschil tussen fontstyle en abbrev?  ]
 
 
 It is possible to use @TeX{} commands in the strings, but this should be
@@ -2758,7 +2902,7 @@ where each of the items is one of
        @end example
 
         See @file{scm/font.scm} for details of @var{alist}.
-@item an \elementdescriptions declaration.
+  @item an \elementdescriptions declaration.
         @example
                 \elementdescriptions @var{alist}
         @end example
@@ -3123,7 +3267,7 @@ To use it, you need the following software
 @itemize
 @item 
 @uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,plain
-Xdvi} version 22.28 or better.
+Xdvi} version 22.36 or newer.
 
   Note that most @TeX{} distributions ship with xdvik, which is a
   different and less well maintained program. To find out which xdvi you
@@ -3148,29 +3292,30 @@ In the emacs startup file (usually @file{~/.emacs}), add the following
 
 If you want emacs to jump to the exact spot (and not just the line) on a
 click, you must enable column positioning. To do so, you need to patch
-emacsclient. Apply @uref{this patch,
-http://www.cs.uu.nl/~hanwen/public/software/emacsclient-column} to
-@file{emacsclient.c} and @file{server.el} from the emacs source
-code. Stick the compiled emacsclient into a bin directory, and put
-@file{server.el} into a elisp directory
+emacsclient. Apply @file{emacsclient.patch} (included with the source
+package) to @file{emacsclient.c} and @file{server.el} from the emacs
+source code. Recompile and stick the recompiled emacsclient into a bin
+directory, and put @file{server.el} into a elisp directory
 (eg. @file{~/usr/share/emacs/}). Add the following to your @file{.emacs}
-init file, before invoking server-start.
+init file, beifore invoking server-start.
 
 @example
- (setq load-path (cons (concat (getenv "HOME") "/usr/share/emacs")
-   load-path))
+ (setq load-path (cons "~/usr/share/emacs" load-path))
 @end example
 
 
 Xdvi must be configured to use the emacs editor.  Before starting, set
-the environment variable @code{XEDITOR} to @code{emacsclient --no-wait
-+%c:%l %f}. Xdvi also must be configured to find the fonts. Refer to the
+the environment variable @code{XEDITOR} to
+@example
+emacsclient --no-wait +%c:%l %f
+@end example
+Xdvi also must be configured to find the fonts. Refer to the
 xdvi documentation for more information.
 
-[TODO: is that so?]
+When viewing, control-mousebutton 1 will take you to the originating
+line and column. Control-mousebutton 2 will show all clickable boxes.
 
-When viewing, control-mousebutton 1 will take you to the correct
-line/column. Control-mousebutton 2 will show all clickable boxes.
+@refbugs
 
 When you convert the TeX file to PostScript using dvips, dvips
 will complain about not finding @code{src:X:Y} files. Those complaints are

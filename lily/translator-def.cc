@@ -181,14 +181,11 @@ Translator_def::path_to_acceptable_translator (SCM type_str, Music_output_def* o
   Link_array<Translator_def> best_result;
   for (int i=0; i < accepted_arr.size (); i++)
     {
-      bool found =false;
-      if (scm_equal_p (accepted_arr[i]->type_name_, type_str) == SCM_BOOL_T)
-	found = true;
 
-      for (SCM s = accepted_arr[i]->type_aliases_; !found && gh_pair_p (s); s = gh_cdr (s))
-	found = found ||  (gh_equal_p (gh_car (s), type_str));
-
-      if (found)
+      /*
+	don't check aliases, because \context Staff should not create RhythmicStaff.
+      */
+      if (gh_equal_p (accepted_arr[i]->type_name_, type_str))
 	{
 	  best_result.push (accepted_arr[i]);
 	  return best_result;

@@ -1,5 +1,56 @@
-1.3.138.jcn1
+1.3.139.jcn5
 ============
+
+* Coriolan gets mutopia-id 57.
+
+* Experimental start of ports to mutopia archive.
+
+* Bugfix: ly2dvi: added letter support, catch indexing with unknown
+papersize names.
+
+* ly2dvi: removed warning message and changed --set=papersizename= to
+--set=papersize=.  This fixes mutopia letter-targets.
+
+* Small fixes to Coriolan.
+
+* Bugfix: don't typeset suicided multi-measure-rests, don't set
+multi-measure-rests spanning less than one measure.
+
+* Bugfix: line-column-location.
+
+* Allow markup text for crecscendoText and decrescendoText.
+
+* Changed part combiner's a due text: `a2 to a2.
+
+* Bugfix: info direntries.
+
+* Automated fixing of info structure.  Build now stops on info errors.
+This should robustify documentation and website builds.  To undo this,
+remove the target `info: check-info' from Documentation/user/GNUmakefile.
+
+1.3.139.hwn1
+=============
+
+* Move Multi_measure_rest up/down in combined parts.
+
+* Renamed FollowThread into VoiceFollower, followThread into
+followVoice.
+
+* lilypond-book: changed nonfragment into nofragment 
+
+* Cleanups for ledgered rests.  
+
+* Bugfix; don't create RhythmicStaff if asking for Staff.
+
+* Bugfix: sparseTies. 
+
+* Reference manual: hara kiri, font selection
+
+* changed font-point-size into font-design-size
+
+ 
+1.3.139
+=======
 
 * Documentation build fixes.
 
