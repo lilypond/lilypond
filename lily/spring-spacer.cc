@@ -19,7 +19,8 @@
 #include "score-column.hh"
 #include "paper-def.hh"
 #include "dimen.hh"
-#include "minterval.hh"
+#include "colhpos.hh"
+
 
 Vector
 Spring_spacer::default_solution()const
@@ -96,8 +97,8 @@ Spring_spacer::position_loose_cols(Vector &sol_vec)const
     assert(sol_vec.dim());
     Array<bool> fix_b_arr;
     fix_b_arr.set_size(cols.size() + loose_col_arr_.size());
-    Real utter_right_f=-INFTY_f;
-    Real utter_left_f =INFTY_f;
+    Real utter_right_f=-infinity_f;
+    Real utter_left_f =infinity_f;
     for (int i=0; i < loose_col_arr_.size(); i++) {
 	fix_b_arr[loose_col_arr_[i].rank_i_] = false;
     }
@@ -235,6 +236,16 @@ Spring_spacer::make_matrices(Matrix &quad, Vector &lin, Real &c) const
     }
 }
 
+void
+Spring_spacer::set_fixed_cols(Mixed_qp &qp)const
+{
+    for (int j=0; j < cols.size(); j++) 
+	if (cols[j].fixed()) 
+	    qp.add_fixed_var(j,cols[j].fixed_position());	    
+	
+    
+}
+
 // put the constraints into the LP problem
 void
 Spring_spacer::make_constraints(Mixed_qp& lp) const
@@ -242,9 +253,6 @@ Spring_spacer::make_constraints(Mixed_qp& lp) const
     int dim=cols.size();
     for (int j=0; j < dim; j++) {
 	Colinfo c=cols[j];
-	if (c.fixed()) {
-	    lp.add_fixed_var(j,c.fixed_position());	    
-	}
 	if (j > 0){
 	    Vector c1(dim);
 	    
@@ -256,26 +264,44 @@ Spring_spacer::make_constraints(Mixed_qp& lp) const
     }
 }
 
-Array<Real>
-Spring_spacer::solve() const
+void
+Spring_spacer::lower_bound_solution(Col_hpositions*positions)const
+{
+    Mixed_qp lp(cols.size());
+    make_matrices(lp.quad,lp.lin, lp.const_term);
+    set_fixed_cols(lp);
+
+    Vector start(cols.size());
+    start.fill(0.0);
+    Vector solution_vec(lp.solve(start));
+
+    positions->energy_f_ = lp.eval(solution_vec);
+    positions->config = solution_vec;
+    positions->satisfies_constraints_b_ = check_constraints(solution_vec);
+}
+
+void
+Spring_spacer::solve(Col_hpositions*positions) const
 {
     assert(check_feasible());
 
     Mixed_qp lp(cols.size());
     make_matrices(lp.quad,lp.lin, lp.const_term);
     make_constraints(lp);    
+    set_fixed_cols(lp);
     Vector start=find_initial_solution();    
-    Vector sol(lp.solve(start));
-    if (!check_constraints(sol)) {
+    Vector solution_vec(lp.solve(start));
+
+
+    positions->satisfies_constraints_b_ = check_constraints(solution_vec);
+    if (!positions->satisfies_constraints_b_) {
 	WARN << "solution doesn't satisfy constraints.\n" ;
     }
-    Real energy_f =lp.eval(sol);
-    position_loose_cols(sol);
-
-    Array<Real> posns(sol);
-
-    posns.push(energy_f);
-    return posns;
+    position_loose_cols(solution_vec); 
+    positions->energy_f_ = lp.eval(solution_vec);
+    positions->config = solution_vec;
+    positions->error_col_l_arr_ = error_pcol_l_arr();
+    
 }
 
 /**
@@ -292,7 +318,7 @@ Spring_spacer::add_column(PCol  *col, bool fixed, Real fixpos)
     cols.push(c);
 }
 
-Array<PCol*>
+Line_of_cols
 Spring_spacer::error_pcol_l_arr()const
 {
     Array<PCol*> retval;
@@ -445,7 +471,7 @@ Spring_spacer::calc_idealspacing()
 	    }
 	    if ( d_iter.ok() && now >= d_iter.when()) {
 		Durations_iter d2 = d_iter;
-		Moment shortest = (Real)INT_MAX; //ugh INFTY;
+		Moment shortest = infinity_mom;
 		while (d2.ok() && d2.when() <= now) {
 		    shortest = shortest <? d2.duration();
 		    d2.next();
@@ -472,14 +498,18 @@ Spring_spacer::calc_idealspacing()
     
     for (int i=0; i < cols.size(); i++) {
 	if ( !scol_l(i)->musical_b()) {
-	    ideal_arr_[i] = cols[i].minright() + 2 PT;
-	    hooke_arr_[i] = 2.0;
+	    Real symbol_distance =cols[i].minright() + 2 PT;
+	    Real durational_distance = 0;
+
 	    if (i+1 < cols.size()) {
 		Moment delta_t =  scol_l(i+1)->when() - scol_l(i)->when() ;
-		Real dist = delta_t ? paper_l()->duration_to_dist(delta_t) : 0;
-		if (delta_t && dist > ideal_arr_[i])
-		    ideal_arr_[i] = dist;
+		if (delta_t)
+		    durational_distance =  paper_l()->duration_to_dist(delta_t) ;
+		symbol_distance += cols[i+1].minleft();
 	    }
+	    
+	    ideal_arr_[i] = symbol_distance >? durational_distance;
+	    hooke_arr_[i] = 2.0;
 	}
     }
     for (int i=0; i < cols.size(); i++) {
@@ -495,11 +525,14 @@ Spring_spacer::calc_idealspacing()
 	    dist *= delta_t / shortest_len;
 	    if (!scol_l(i+1)->musical_b() ) {
 
-		if (ideal_arr_[i+1] + cols[i+1].minleft() < dist) {
-		    ideal_arr_[i+1] = dist/2 + cols[i+1].minleft();
-		    hooke_arr_[i+1] =1.0;
-		} 
-		ideal_arr_[i] = dist/2;
+		Real minimum_dist =   cols[i+1].minleft() + 2 PT + cols[i].minright() ;
+		if (ideal_arr_[i+1] + minimum_dist < dist) {
+		    ideal_arr_[i] = dist - ideal_arr_[i+1];
+		    // hooke_arr_[i+1] =1.0;
+		} else {
+		    ideal_arr_[i] = minimum_dist;
+		}
+				      
 	    } else
 		ideal_arr_[i] = dist;
 	}
@@ -509,7 +542,6 @@ Spring_spacer::calc_idealspacing()
 	assert (ideal_arr_[i] >=0 && hooke_arr_[i] >=0);
 	connect(i, i+1, ideal_arr_[i], hooke_arr_[i]);
     }
- 
 }
 
 
@@ -527,56 +559,4 @@ Spring_spacer::constructor()
 {
     return new Spring_spacer;
 }
-   
-#if 0
-void obsolete()
-{
-    for (int i=0; i < cols.size(); i++) {
-	if (!scol_l(i)->used_b())
-	    continue;
-	
-	
-	int j = i+1;
-
-	if (scol_l(i)->musical_b()) {
-	    assert ( j < cols.size());
-	    
-	    for (int n=0; n < scol_l(i)->durations.size(); n++) {
-		Moment d = scol_l(i)->durations[n];
-		Real dist = paper_l()->duration_to_dist(d);
-		Real strength =  scol_l(i)->durations[0]/scol_l(i)->durations[n];
-		assert(strength <= 1.0);
-		
-		while (j < cols.size()) {
-		    if (scol_l(j)->used_b() 
-			&& scol_l(j)->when() >= d + scol_l(i)->when() )
-			break;
-		    j++;
-		}
-		if ( j < cols.size() ){
-		    Moment delta_desired = scol_l(j)->when() - (d+scol_l(i)->when());
-		    dist += paper_l()->duration_to_dist(delta_desired);
-		    if (scol_l(j)->musical_b()) {
-			dist += cols[j].minleft() + 2 PT;
-		    }
-		    connect(i, j, dist, strength);
-		}
-	    }
-	} else if (j < cols.size()) {
-	    while  (!scol_l(j)->used_b())
-		j++;
-	    
-	    /* attach i to the next column in use. This exists, since
-	      the last col is breakable, and therefore in use
-	      */
-	    
-	    Moment d = scol_l(j)->when() - scol_l(i)->when();
-	    Real minimal_f = cols[i].minright()  +cols[j].minleft() + 2 PT;
-	    Real durdist_f = (d) ? paper_l()->duration_to_dist(d) : 0; // todo
-	    
-	    connect(i, j, minimal_f <? durdist_f, (d) ? 1.0:1.0);
-	}
-	// !j.ok() might hold if we're at the last col.
-    }
-}
-#endif
+ 
