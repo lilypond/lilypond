@@ -1,3 +1,9 @@
+pl 52
+	- striproff
+	- reeable $(PACKAGE)_LIBES,_INCLUDES
+	- metafont rules
+	- GTK+, --, -draw config stuff
+
 pl 51
 	- bumped version nr
 

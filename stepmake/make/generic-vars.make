@@ -1,5 +1,4 @@
 # title	   package specific variables
-# file	   make/Variables.lilymake.make
 #
 # do not change this file for site-wide extensions; please use 
 # make/$(outdir)/Site.make; 

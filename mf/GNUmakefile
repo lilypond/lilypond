@@ -12,6 +12,7 @@ LYTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.ly))
 LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
 AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm))
+XPM_FONTS = feta20
 
 ALL_GEN_FILES=$(LYTABLES) $(TEXTABLES) $(LOG_FILES) $(AFM_FILES)
 
@@ -24,7 +25,6 @@ default: $(ALL_GEN_FILES)
 
 $(outdir)/%.afm $(outdir)/%.ly $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log
 	$(PYTHON) $(buildscripts)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep) --ly $(outdir)/$(<F:.log=.ly) --afm $(outdir)/$(<F:.log=.afm) --tex $(outdir)/$(<F:.log=.tex) $<
-
 
 
 
