@@ -24,7 +24,8 @@ struct Lookup
   static Molecule beam (Real, Real, Real) ;
   static Molecule dashed_slur (Bezier, Real thick, Real dash) ;
   static Molecule blank (Box b) ;
-  static Molecule filledbox (Box b) ;  
+  static Molecule filledbox (Box b) ;
+  static Molecule repeat_slash( Real w, Real slope, Real th);
 };
 
 #endif // LOOKUP_HH

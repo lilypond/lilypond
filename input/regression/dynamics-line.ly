@@ -1,7 +1,8 @@
 \header{
 texidoc=" Dynamics appear below or above the staff.  If multiple
 dynamics are linked with (de)crescendi, they should be on the same
-line. Isolated dynamics may be forced up or down.  ";
+line. Isolated dynamics may be forced up or down.
+ ";
 }
 
 

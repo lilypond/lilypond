@@ -2,14 +2,14 @@
 \header{
 texidoc="
 Theads can be traced automagically when they switch staffs by setting
-property @code{followThread}.
+property @code{followVoice}.
 ";
 }
 % followThread: connect note heads with line when thread switches staff 
 
 fragment = \notes {
   \context PianoStaff <
-    \property PianoStaff.followThread = ##t
+    \property PianoStaff.followVoice = ##t
     \context Staff \context Voice {
       c'1
       \translator Staff=two

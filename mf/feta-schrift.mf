@@ -585,25 +585,6 @@ fet_beginchar("Flageolet", "flageolet", "flageolet")
 	draw z1..z2..z3..z4..cycle;
 fet_endchar;
 
-fet_beginchar("Repeatsign", "repeatsign", "repeatsign")
-	set_char_box(staff_space#, staff_space#, staff_space#, staff_space#);
-
-	save dot_diam;
-	2 dot_diam# = staff_space# - stafflinethickness#;
-	define_pixels(dot_diam);
-
-	penpos1(dot_diam,0);
-	z1l=(-b,-d);
-	penpos2(dot_diam,0);
-	z2r=(w,h);
-	filldraw z1l--z2l{right}--z2r{down}--z1r{right}--cycle;
-        penlabels (1,2);
-
-	pickup pencircle scaled dot_diam;
-        draw (-staff_space/2, staff_space/2);
-        draw (staff_space/2, -staff_space/2);
-fet_endchar;
-
 fet_beginchar("Segno", "segno", "segno")
 	save thin, thick, ball_diam, darkness, pointheight;
 	save wd, ht, thick_nibangle, ball_nib_thick;

@@ -19,6 +19,8 @@
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "text-item.hh"
+#include "percent-repeat-item.hh"
+
 
 void
 Multi_measure_rest::set_interface (Grob*me)
@@ -36,12 +38,13 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest,percent,1);
 SCM
 Multi_measure_rest::percent (SCM smob)
 {
+  
   Grob *me = unsmob_grob (smob);
   Spanner *sp = dynamic_cast<Spanner*> (me);
   
   Font_metric *musfont = Font_interface::get_default_font (me);
 			
-  Molecule r (musfont->find_by_name ("scripts-repeatsign"));
+  Molecule r = Percent_repeat_item_interface::x_percent (me, 1,  0.75, 1.6);
 
   // ugh copy & paste.
   

@@ -47,17 +47,14 @@
   (define (dashed-slur thick dash l)
     (embedded-ps ((ps-scm 'dashed-slur)  thick dash l)))
 
-  (define (crescendo thick w h cont)
-    (embedded-ps ((ps-scm 'crescendo) thick w h cont)))
+  (define (hairpin thick w sh eh)
+    (embedded-ps ((ps-scm 'hairpin) thick w sh eh)))
 
   (define (char i)
     (string-append "\\char" (inexact->string i 10) " "))
   
   (define (dashed-line thick on off dx dy)
     (embedded-ps ((ps-scm 'dashed-line) thick on off dx dy)))
-
-  (define (decrescendo thick w h cont)
-    (embedded-ps ((ps-scm 'decrescendo) thick w h cont)))
 
   (define (font-load-command name-mag command)
     (string-append
@@ -86,6 +83,9 @@
   (define (experimental-on)
     "")
 
+  (define (repeat-slash w a t)
+    (embedded-ps ((ps-scm 'repeat-slash) w a t)))
+  
   (define (font-switch i)
     (string-append
      "\\" (font i) "\n"))
@@ -201,10 +201,9 @@
 	    (define bezier-sandwich ,bezier-sandwich)
 	    (define bracket ,bracket)
 	    (define char ,char)
-	    (define crescendo ,crescendo)
 	    (define dashed-line ,dashed-line) 
 	    (define dashed-slur ,dashed-slur) 
-	    (define decrescendo ,decrescendo) 
+	    (define hairpin ,hairpin) 
 	    (define end-output ,end-output)
 	    (define experimental-on ,experimental-on)
 	    (define filledbox ,filledbox)
@@ -226,15 +225,15 @@
 	    (define volta ,volta)
 	    (define define-origin ,define-origin)
 	    (define no-origin ,no-origin)
+	    (define repeat-slash ,repeat-slash)
 	    ))
 
 	((eq? action-name 'beam) beam)
 	((eq? action-name 'tuplet) tuplet)
 	((eq? action-name 'bracket) bracket)
-	((eq? action-name 'crescendo) crescendo)
+	((eq? action-name 'hairpin) hairpin)
 	((eq? action-name 'dashed-line) dashed-line) 
 	((eq? action-name 'dashed-slur) dashed-slur) 
-	((eq? action-name 'decrescendo) decrescendo) 
 	((eq? action-name 'end-output) end-output)
 	((eq? action-name 'experimental-on) experimental-on)
 	((eq? action-name 'font-def) font-def)

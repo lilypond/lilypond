@@ -67,11 +67,12 @@
   (define (char i)
     (invoke-char " show" i))
 
-  (define (crescendo thick w h cont )
-    (string-append 
-     (numbers->string (list w h (inexact->exact cont) thick))
-     " draw_crescendo"))
 
+  (define (hairpin thick width starth endh )
+    (string-append 
+     (numbers->string (list width starth endh thick))
+     " draw_hairpin"))
+  
   ;; what the heck is this interface ?
   (define (dashed-slur thick dash l)
     (string-append 
@@ -95,13 +96,11 @@
      " "
      (ly-number->string off)
      " ] 0 draw_dashed_line"))
-
-  (define (decrescendo thick w h cont)
-    (string-append 
-     (numbers->string (list w h (inexact->exact cont) thick))
-     " draw_decrescendo"))
-
-
+  
+  (define (repeat-slash wid slope thick)
+   (string-append (numbers->string (list wid slope thick))
+    " draw_repeat_slash"))
+  
   (define (end-output)
     "\nshowpage\n")
   
@@ -208,12 +207,11 @@ lilypondpaperoutputscale lilypondpaperoutputscale scale
 	    (define tuplet ,tuplet)
 	    (define bracket ,bracket)
 	    (define char ,char)
-	    (define crescendo ,crescendo)
+	    (define hairpin ,hairpin)
 	    (define volta ,volta)
 	    (define bezier-sandwich ,bezier-sandwich)
 	    (define dashed-line ,dashed-line) 
 	    (define dashed-slur ,dashed-slur) 
-	    (define decrescendo ,decrescendo) 
 	    (define end-output ,end-output)
 	    (define experimental-on ,experimental-on)
 	    (define filledbox ,filledbox)
@@ -231,20 +229,21 @@ lilypondpaperoutputscale lilypondpaperoutputscale scale
 	    (define stem ,stem)
 	    (define stop-line ,stop-line)
 	    (define stop-last-line ,stop-line)
+	    (define repeat-slash ,repeat-slash)
 	    (define text ,text)
 	    (define no-origin ,no-origin)
 	    (define define-origin ,define-origin)
 	    (define ez-ball ,ez-ball)
 	    ))
+	((eq? action-name 'repeat-slash) repeat-slash)
 	((eq? action-name 'tuplet) tuplet)
 	((eq? action-name 'beam) beam)
 	((eq? action-name 'bezier-sandwich) bezier-sandwich)
 	((eq? action-name 'bracket) bracket)
 	((eq? action-name 'char) char)
-	((eq? action-name 'crescendo) crescendo)
 	((eq? action-name 'dashed-line) dashed-line) 
 	((eq? action-name 'dashed-slur) dashed-slur) 
-	((eq? action-name 'decrescendo) decrescendo)
+	((eq? action-name 'hairpin) hairpin)
 	((eq? action-name 'experimental-on) experimental-on)
 	((eq? action-name 'filledbox) filledbox)
 	((eq? action-name 'ez-ball) ez-ball)	

@@ -15,7 +15,7 @@
 @titlepage
 @title GNU LilyPond
 @subtitle The music typesetter
-@author Han-Wen Nienhuys, Jan Nieuwenhuizen, Adrian Mariano,  Tom Cato Amundsen
+@author    
 
 
 Copyright @copyright{} 1999--2001 by the authors
@@ -33,7 +33,8 @@ Copyright @copyright{} 1999--2001 by the authors
 @ifinfo
 This file documents GNU LilyPond.
 
-Copyright 1999 Han-Wen Nienhuys, Jan Nieuwenhuizen and Adrian Mariano
+Copyright 1999 Han-Wen Nienhuys, Jan Nieuwenhuizen, Adrian Mariano
+Tom Cato Amundsen.
 
   Permission is granted to copy, distribute and/or modify this document
   under the terms of the GNU Free Documentation License, Version 1.1
