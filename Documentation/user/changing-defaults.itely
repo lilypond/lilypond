@@ -2236,13 +2236,19 @@ The default layout responds to the following settings in the
 
 @item betweensystemspace
   This dimensions determines the distance between systems. It is the
-ideal distance between the center of the bottom staff of one system, and
-the center of the top staff of the next system.
+ideal distance between the center of the bottom staff of one system,
+and the center of the top staff of the next system.
+
+Increasing this will provide a more even appearance of the page at the
+cost of using more vertical space.
 
 @item betweensystempadding
 This dimension is the minimum amount of white space that will always
 be present between the bottom most symbol of one system, and the
 topmost of the next system.
+
+Increasing this will put systems whose bounding boxes almost touch
+farther apart.
 
 @end table
 
