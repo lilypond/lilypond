@@ -150,7 +150,8 @@ Clef_engraver::acknowledge_element (Score_element_info info)
     {
       if (Note_head * h = dynamic_cast<Note_head*>(it_l))
 	{
-	  h->position_i_ += c0_position_i_;
+	  //	  h->position_i_ += c0_position_i_;
+	  h->position_i_ = h->steps_i_ + c0_position_i_;
 	}
       else if (Local_key_item *i = dynamic_cast<Local_key_item*> (it_l))
 	{

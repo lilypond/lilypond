@@ -46,7 +46,8 @@ Note_heads_engraver::do_process_requests()
 	  dot_p_arr_.push (d);
 	}
 
-      note_p->position_i_ = note_req_l->pitch_.steps ();
+      note_p->steps_i_ = note_req_l->pitch_.steps ();
+      //      note_p->position_i_ = note_req_l->pitch_.steps ();
 
   
       Score_element_info itinf (note_p,note_req_l);

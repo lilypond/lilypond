@@ -13,8 +13,10 @@
 		\translator Staff=two
 		\stemup c4( \translator Staff=one c \break c )c
 		r2
-		r1
-		r1
+%		\stemdown c4( \translator Staff=two c c \translator Staff=one )c
+		\stemdown d4( \translator Staff=two c c \translator Staff=one )d
+		\translator Staff=two
+		\stemup c4( \translator Staff=one c c \translator Staff=two )c
 		r1
 	}
 	\type Staff=two \notes\relative c'{

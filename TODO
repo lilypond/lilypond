@@ -64,6 +64,8 @@ BUGS:
 
 	* fix midi output.
 
+	* turn slope-damping on/off
+
 	* c4 \! \> c4
 
 	* tremolo stuff

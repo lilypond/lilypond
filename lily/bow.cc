@@ -88,6 +88,7 @@ Bow::do_height () const
       Real y = c[i][Y_AXIS];
       iv.unite (Interval (y,y));
     }
+  iv -= interstaff_f_;
   return iv;
 }
 

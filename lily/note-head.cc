@@ -20,6 +20,7 @@ Note_head::Note_head ()
 {
   x_dir_ = CENTER;
   staff_size_i_= 8;		// UGH
+  steps_i_ = 0;
   position_i_ = 0;
   extremal_i_ = 0;
 }
