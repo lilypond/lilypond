@@ -1691,7 +1691,7 @@ encoding is passed as an extra argument to @code{\markup} commands.
 If no @code{\encoding} has been specified, then the encoding is taken
 from the @code{\paper} block (or @code{\bookpaper}, if @code{\paper}
 does not specify encoding). The variable @code{inputencoding} may be
-set to a string or symbol specifying  the encoding, eg.
+set to a string or symbol specifying  the encoding, e.g.
 
 @verbatim
   \paper {
