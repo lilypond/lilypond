@@ -2,7 +2,7 @@
 
 fooBar = \notes { < c''4 \\ g'4 > }
 
-#(ly:set-parse-protect #f)
+#(ly:set-option 'parse-protect #f)
 #(load-from-path "to-xml.scm")
 
 #(music-to-xml fooBar (current-output-port))

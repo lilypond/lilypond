@@ -1,3 +1,8 @@
+2002-11-28  Heikki Junes <hjunes@cc.hut.fi>
+
+	* input/test/to-xml.ly:
+	* lily/ligature-engraver.cc: Fixes documentation.
+
 2002-11-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/ly2dvi.py (run_dvips): Use ly.read_pipe () instead of
