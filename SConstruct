@@ -109,7 +109,57 @@ if env['warnings']:
 
 env['MFMODE'] = 'ljfour'
 
+
 conf = Configure (env)
+
+
+vre = re.compile ('^.*[^-.0-9]([0-9][0-9]*\.[0-9][.0-9]*).*$', re.DOTALL)
+def get_version (program):
+	command = '(%(program)s --version || %(program)s -V) 2>&1' % vars ()
+	pipe = os.popen (command)
+	output = pipe.read ()
+	if pipe.close ():
+		return None
+	v = re.sub (vre, '\\1', output)
+	return string.split (v, '.')
+
+def assert_version (lst, program, minimal, description, package):
+	global required
+	sys.stdout.write ('Checking %s version... ' % program)
+	actual = get_version (program)
+	if not actual:
+		print 'not found'
+		lst.append ((description, package, minimal, program,
+			     'not installed'))
+		return
+	sys.stdout.write (string.join (actual, '.'))
+	sys.stdout.write ('\n')
+	if actual < string.split (minimal, '.'):
+		lst.append ((description, package, minimal, program,
+			     string.join (actual, '.')))
+
+required = []
+assert_version (required, 'gcc', '2.8', 'GNU C compiler', 'gcc')
+assert_version (required, 'g++', '3.0.5', 'GNU C++ compiler', 'g++')
+assert_version (required, 'python', '2.1', 'Python (www.python.org)', 'python')
+assert_version (required, 'guile-config', '1.6', 'GUILE development',
+		'libguile-dev or guile-devel')
+# Do not use bison 1.50 and 1.75.
+assert_version (required, 'bison', '1.25', 'Bison -- parser generator',
+		'bison')
+assert_version (required, 'flex', '0.0', 'Flex -- lexer generator', 'flex')
+
+
+optional = []
+assert_version (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
+assert_version (optional, 'guile', '1.6', 'GUILE scheme',
+		'libguile-dev or guile-devel')
+assert_version (optional, 'mftrace', '1.0.27', 'Metafont tracing Type1',
+		'mftrace')
+assert_version (optional, 'perl', '4.0',
+		'Perl practical efficient readonly language', 'perl')
+#assert_version (optional, 'foo', '2.0', 'Foomatic tester', 'bar')
+
 
 defines = {
    'DIRSEP' : "'/'",
@@ -124,7 +174,6 @@ defines = {
 
 
 command = r"""python -c 'import sys; sys.stdout.write ("%s/include/python%s" % (sys.prefix, sys.version[:3]))'""" #"
-print command
 PYTHON_INCLUDE = os.popen (command).read ()
 env.Append (CPPPATH = PYTHON_INCLUDE)
 
@@ -218,57 +267,20 @@ else:
 	env.Append (LIBPATH = ['#/flower/' + out,],
 		    CPPPATH = [outdir, '#',])
 
-vre = re.compile ('^.*[^-.0-9]([0-9][0-9]*\.[0-9][.0-9]*).*$', re.DOTALL)
-def get_version (program):
-	command = '(%(program)s --version || %(program)s -V) 2>&1' % vars ()
-	output = os.popen (command).read ()
-	v = re.sub (vre, '\\1', output)
-	return string.split (v, '.')
-
-def assert_version (lst, program, minimal, description, package):
-	global required
-	sys.stdout.write ('Checking %s version... ' % program)
-	actual = get_version (program)
-	sys.stdout.write (string.join (actual, '.'))
-	sys.stdout.write ('\n')
-	if actual < string.split (minimal, '.'):
-		lst.append ((description, package, minimal, program,
-			     string.join (actual, '.')))
-
-required = []
-assert_version (required, 'gcc', '2.8', 'GNU C compiler', 'gcc')
-assert_version (required, 'g++', '3.0.5', 'GNU C++ compiler', 'g++')
-assert_version (required, 'python', '2.1', 'Python (www.python.org)', 'python')
-assert_version (required, 'guile-config', '1.6', 'GUILE development',
-		'libguile-dev or guile-devel')
-# Do not use bison 1.50 and 1.75.
-assert_version (required, 'bison', '1.25', 'Bison -- parser generator',
-		'bison')
-assert_version (required, 'flex', '0.0', 'Flex -- lexer generator', 'flex')
-
-
-optional = []
-assert_version (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
-assert_version (optional, 'guile', '1.6', 'GUILE scheme',
-		'libguile-dev or guile-devel')
-assert_version (optional, 'mftrace', '1.0.27', 'Metafont tracing Type1',
-		'mftrace')
-assert_version (optional, 'perl', '4.0',
-		'Perl practical efficient readonly language', 'perl')
-
 if required:
 	print
 	print '********************************'
 	print 'Please install required packages'
 	for i in required:
-		print '%s:	%s-%s or newer (found: %s-%s)' % i
+		print '%s:	%s-%s or newer (found: %s %s)' % i
+	sys.exit (1)
 
 if optional:
 	print
 	print '*************************************'
 	print 'Consider installing optional packages'
 	for i in optional:
-		print '%s:	%s-%s or newer (found: %s-%s)' % i
+		print '%s:	%s-%s or newer (found: %s %s)' % i
 
 #env['tarball'] = os.path.join (outdir,
 #			       package.name + '-' + env['version'] + '.tar.gz')
