@@ -3558,7 +3558,7 @@ This results in the following output:
 \score {
   \context ChoirStaff 
   \notes \relative c' <<
-    \new staff {
+    \new Staff {
       as'' c e2 cis,2
     }
     \new Staff  {

@@ -24,17 +24,12 @@ program.  This is also possible with LilyPond. If you click on a
 picture in the HTML version of this manual, you will see the exact
 LilyPond input that was used to generate that image.
 @ifhtml
-For example, consider the following input:
-@example
-  c'^\markup @{ \bold \huge @{ Click on this image! @} @}
-@end example
-@c @lily pond[relative=1,raggedright,with the following output:]
-with the following output:
-@lilypond[relative=1,raggedright]
-  c'^\markup { \bold \huge { Click on this image! } }
+Try it on this image,
+@lilypond[raggedright]
+  c''^\markup { \bold \huge { Click on this image! } }
 @end lilypond
-
 @end ifhtml
+
 By cutting and pasting the full input into a test file, you have a
 starting template for experiments. If you like learning in this way,
 you will probably want to print out or bookmark
