@@ -1,4 +1,10 @@
+pl 30
+	- feta: G clef. 
+	- scripts now do relative coords (fixes lyrics + barnumber bug)
+	- bf: Lyrics lexer mode
+	- bf: bass clef
 
+********
 pl 29
 	- feta: bass clef, bf: dynamics, bf: 64th flag
 	
