@@ -77,7 +77,7 @@ yourself:
 
 @subsubsection Some of your neat scripts fail, what directories do you use:
 
-[This only applies if you don't do @code{make install}, and develop out
+[This only applies if you don't do @code{make install}, and run out
 of the source directory]
 
 I have a directory which contains all our development projects
@@ -100,16 +100,13 @@ which looks like @file{/usr/}
  
 @end example 
 
-
-	
-
-~/usr/src/bin is in the PATH, and contains symbolic links to the
-compiled executables.
+@file{~/usr/src/bin/} is in the variable PATH, and contains symbolic
+links to the compiled executables.
 
 @subsubsection Is there an emacs mode?
 
 Yes.  It is included with the source archive as mudela-mode.el.  If
-you have an rpm it is in /usr/doc/lilypond-X/.  You have to install it
+you have an rpm it is in @file{/usr/doc/lilypond-X/}.  You have to install it
 yourself.
 
 @subsubsection How do I create the @file{.tfm} files?
@@ -124,12 +121,12 @@ be used by LilyPond, not by any other programs.
 
 @subsubsection Why is the documentation/website/etc. so lousy?
 
-LilyPond development is moving quite fast, documentation will often
-lag a bit behind.  We must always make a choice between writing more
-doco, writing more code and answering email.
+LilyPond development is moving quite fast, documentation will often lag
+a bit behind.  We must always make a choice between writing more
+documentation, writing HTML, writing more code and answering email.
 
-If you think you can make a correction, or devised a solution that 
-should be documented, please do so and send in a patch.
+If you think you can make a correction, or devised a solution that
+should be documented, please write it up, and us a diff.
 
 @node Language- mudela, Do you support -, Documentation, FAQ - GNU LilyPond FAQs
 @section Language: mudela
@@ -195,20 +192,20 @@ notation.  We would welcome anyone who could give this a try.
 
 @subsubsection Do you support TAB notation?
 
-No. The same as for the previous subsubsection goes, but TAB is a lot
-more work than diagrams (TAB needs modification of Parser, Lexer,
-Staff, Notehead, Stem code and all the code that creates these graphic
-elements.)
+No. The same as for the previous subsubsection goes.
+
 
 @subsubsection Do you support multiple staff-sizes?
 
-Yes.  At this time you can choose between 11, 13, 16, 19, 20, 23 and
-20 pt staff-size.  Use the staffLineLeading property for setting the
-size of the staff, and fontSize for setting the size of the glyphs.
+Yes.  At this time you can choose between 11, 13, 16, 19, 20, 23 and 20
+pt staff-size.  Use the @code{staffLineLeading} property for setting the
+size of the staff, and @code{fontSize} for setting the size of the
+glyphs.
 
 @subsubsection Do you support Gregorian chant notation?
 
-No.  Go ahead.
+No.
+
 
 @subsubsection Do you support grace notes?
 
@@ -318,38 +315,34 @@ to get a bit less frivolous tagging.
 
 @subsubsection Could you implement feature XXXX? It is really easy, just extend the syntax to allow YYYY!
 
-If it is reasonable, I'll add XXXX to the TODO list. In general
-finding a cute syntax (such as YYYY) isn't very hard. The complicated
-issue how to adapt the internals to do XXXX. The parser is really a
-simple front end to the complicated internals. 
+In general finding a cute syntax (such as YYYY) isn't very hard. The
+complicated issue how to adapt the internals to do XXXX. The parser is
+really a simple front end to the complicated internals.
 
 @subsubsection Can I join in on LilyPond development?  How do I do this?
 
-LilyPond development is open for anyone who wants to join.  We do
-frequent releases, you are welcome to send in a patch or do suggestions.
-Join the gnu-music-discuss mailing list to participate.
+Yes, we do frequent releases, you are welcome to send in a patch or do
+suggestions.  Join the list @email{gnu-music-discuss@@gnu.org} to
+participate.
 
-
-@subsubsection I want to implement XXXX!  Should I do this?
-
-Yes.
-
-But since there might be better ways of doing XXXX, so it's a good thing to
-ask about this before you start hacking.  If you want to keep in touch
-with current developments, you should subscribe to the mailing list
 
 @subsubsection Is there a GUI frontend?  Should I start building one?
 
-LilyPond currently has no graphical interface.  The authors seriously
-doubt if a simple-minded approach (dragging and dropping notes) is any
-easier or quicker to use than mudela.  But for composing a graphical
-environment probably is indispensable.
+LilyPond currently has no graphical interface.  We (LilyPond authors)
+don't feel the need to write a GUI, but several others do:
 
 Matthew Hiller has extended Midiscore and Koobase to handle mudela.
-Check out @uref{http://zoo.cs.yale.edu/~meh25/}.
+Check out @uref{http://zoo.cs.yale.edu/~meh25/}.  He is now working on
+`Denemo', a GTK based notation program (which is still being developed).
 
-If you want to work on this, please send e-mail to the mailing list
-@email{gnu-music-discuss@@gnu.org}.
+Federico Mena-Quintero and Elliot Lee of RedHat Advanced Development
+labs have plans to write a GNOME based Music notation program. However,
+there is no code, only plans.
+
+Chris Cannam is working a rewrite of Rosegarden.  The new design should
+be more modular, and could conceivably be used to output
+mudela. However, the not much seems to have happened the past year. See
+@uref{http://www.all-day-breakfast.com/rosegarden/development.html}.
 
 
 @subsubsection I want to implement XXXX!  How should I do this?
@@ -360,32 +353,20 @@ Your best bet of getting us to include code, is to present it as a
 Please use the diff command to generate a patch, and don't send complete
 files, even if the diff is larger than the whole file.
 
-Don't forget to put your name and e-mail address
-in the @file{AUTHORS.pod} file, or you won't get credits :-]
+Don't forget to put your name and e-mail address in the file
+@file{Documentation/topdocs/AUTHORS.texi}, or you won't get credits
+:-)
 
 
 @subsubsection Your make system does not adhere to GNU coding standards, could you please fix it?
 
 No.  We have evaluated the standard GNU combination for compiling
-programs (autoconf, automake, libtool) and found to be inadequate in
-several respects.  More detailed argumentation is included with
-LilyPond's generic make package @code{StepMake} 
-(see @file{stepmake-x.x.x/Documentation/automake.urgh})
-
-LilyPond already compiles into a different directory ((the different
-directory is called out/, there is one in every source directory).
-make distclean essentially reduces to @file{rm -f out/*} in every directory
+programs (autoconf, automake, libtool) and found to be inadequate for
+our needs.
 
 @subsubsection gdb crashes when I debug!
 
-Upgrade to 4.17.
-
-@subsubsection Why do I need g++ >= 2.8 / EGCS-1.1 ?
-
-Supporting more compilers than EGCS/G++ 2.8 is unlikely to make
-LilyPond run on more platforms.  It would give us an enormous headache
-in detecting and catering for every variant of every compiler: not
-having to support other compilers saves us a @emph{lot} of trouble.
+Upgrade/downgrade to 4.17.
 
 @node Running, Copyright, Development, FAQ - GNU LilyPond FAQs
 @section Running
@@ -466,24 +447,6 @@ output, use TeX and @code{dvips}.
 The beams and slurs are done in PostScript.  XDvi doesn't show
 PostScript in the magnifying glass.  Complain to the XDvi maintainers.
 
-@subsubsection I don't get midi-output, even if I use @strong{-m}!
-
-Your \score should include a \midi block, eg.
-@example 
-
-	\score @{
-		\melodic @{ c4 c g g @}
-		\paper @{@}	
-		\midi @{
-			output = "myfile.midi";
-			\tempo 4=70;
-		@}
-	@}
- 
-@end example 
-
-The @strong{-m} option was added to LilyPond to suppress paper output,
-because processing the \paper block is so slow.
 
 @subsubsection A lot of musical stuff doesn't make it to the MIDI file, eg.  dynamics, articulation, etc.
 

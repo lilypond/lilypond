@@ -21,13 +21,14 @@
 @item @uref{faq.html,Frequently asked questions}, with answers
 @item @uref{programs.html,`Manual pages'}
 @item @uref{../user/out-www/index.html,User documentation}
-@item @uref{../metadoc/out-www/index.html,Hacker documentation}
-@item @uref{../bibliography/out-www/,Bibliography}
+@item @uref{../programmer/out-www/index.html,Programmer's documentation}
+@item @uref{../bibliography/out-www/index.html,Bibliography}
 @item @uref{../misc/out-www/index.html,Miscellaneous texts}
 @end itemize
 
 
-@unnumberedsubsec{Status}
+@unnumberedsubsec Status
+
 @itemize
 @item @uref{TODO.txt, Thing to do}
 @item @uref{CHANGES.txt, Things recently done}
@@ -43,7 +44,8 @@
 @unnumberedsubsec Logo:
 @itemize
 @item @uref{../pictures/out-www/lelieblond.png,  logo} in large size
-@item @uref{../pictures/out-www/lelie_logo.png, logo} in medium size
+@item @uref{../pictures/out-www/lelie-logo.png, logo} in medium size
+@item @uref{../pictures/out-www/lelie-icon.png, logo} in small size
 @end itemize
 
 @bye
