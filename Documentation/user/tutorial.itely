@@ -1532,17 +1532,26 @@ The convention for naming @code{LyricsVoice} and @code{Voice} must
 also be used to get melismata on rests correct.
 
 
-
+@c    I think we need to change the name of this section, but that
+@c    would probably involve a lot of changes in other places too.
 @node More movements 
 @section More movements
 
-LilyPond only handles formatting sheet music. It doesn't concern
-itself with producing titles. This is the jobs of a simple wrapper
-program called ly2dvi. @code{ly2dvi} calls LilyPond to do the
-sheet music formatting. Then it produces titles, and ties together all
-inputs into a single @file{dvi} file. In this section, we show some of
-the options  for titling. We will  show how you can produce a file
-that looks like this:
+The program @code{lilypond} only produces sheet music and does not
+create titles, subtitles, or print the composer's name.  To do that,
+you need to use @code{ly2dvi}, which comes with LilyPond.  @code{ly2dvi}
+creates the title, then calls @code{lilypond} to format the sheet music.
+In this section, we show you how to create titles like this:
+
+@c    Old version of the above paragraph.
+@c LilyPond only produces sheet music; it doesn't concern itself with
+@c producing titles.  Titles are produced using a simply wrapper program
+@c This is the jobs of a simple wrapper
+@c program called ly2dvi. @code{ly2dvi} calls LilyPond to do the
+@c sheet music formatting. Then it produces titles, and ties together all
+@c inputs into a single @file{dvi} file.  In this section, we show some of
+@c the options  for titling.  We will show how you can produce a file
+@c that looks like this:
 
 @center @strong{Two miniatures}
 @flushright
@@ -1587,7 +1596,6 @@ Mental note: discuss Schenkerian analysis of these key pieces.
 
 %@}
 
-
 \score @{
     \notes @{ c'4 d'4 @}
     \header @{
@@ -1602,10 +1610,11 @@ Mental note: discuss Schenkerian analysis of these key pieces.
 @}
 @end example
 
+
 The information for the global titling is in a so-called header block.
-The information in this block is not used by
-LilyPond, but it is passed into the output.  @file{ly2dvi} uses this
-information to print titles above the music.
+The information in this block is not used by LilyPond, but it is
+passed into @code{ly2dvi}, which uses this information to print titles
+above the music.
 @cindex assignments
 @cindex identifier assignment
 the @code{\header} block contains assignments.  In each assignment, a
@@ -1623,17 +1632,17 @@ this
 When you process a file with ly2dvi, a signature line is printed at
 the bottom of the last page.  This signature is produced from the
 @code{tagline} field of @code{\header}.  The default "Lily was here,
-@var{version number}" is convenient for us programmers. Archived
-the layout of different versions can be compared using archived
-print-outs (that include a version number).
+@var{version number}" is convenient for programmers: archiving the
+layouts of different versions allows programmers to compare the
+versions using old print-outs.
 
 @cindex Lily was here
 @cindex signature line
 @cindex tag line
 
-Many people find the default tagline (``Lily was here'') too droll.
-If that is the case, assign something else to @code{tagline}, as shown
-above.
+Many people find the default tagline (``Lily was here'') too droll.  
+If that is the case, you can change @code{tagline} to somethign else,
+as shown above.
 
 @separate
 @example
@@ -1641,15 +1650,15 @@ above.
     linewidth = -1.0 @}
 @end example
 
-A paper block at top level, i.e. not in a @code{\score} block sets the
+A paper block at top level (i.e. not in a @code{\score} block) sets the
 default page layout.  The following @code{\score} blocks don't have
-@code{\paper} sections, so the settings of this block are substituted:
+@code{\paper} sections, so the settings of this block are used.
 
 The variable @code{linewidth} normally sets the length of the systems
 on the page. However, a negative value has a special meaning. If
 @code{linewidth} is less than 0, no line breaks are inserted into the
 score, and the spacing is set to natural length: a short phrase takes
-up little space, a longer phrase more space.
+up little space, a longer phrase takes more space, all on the same line.
 
 @example
 %@{
@@ -1669,16 +1678,16 @@ comments are delimited by @code{%@{} and @code{%@}}.
     \notes @{ c'4 d'4 @}
 @end example
 
-In previous examples, notes were specified in relative octaves,
-i.e. each note was put in the octave that is closest to its
-predecessor. Besides relative, there is also absolute octave
-specification, which you get when you don't specify @code{\relative}. In
-this input mode, the central C is denoted by @code{c'}. Going down, you
-get @code{c} @code{c,} @code{c,,} etc.  Going up, you get @code{c''}
-@code{c'''} etc.
+In previous examples, most notes were specified in relative octaves 
+(i.e. each note was put in the octave that is closest to its
+predecessor).  Besides relative, there is also absolute octave
+specification, which you get when you don't include @code{\relative} in
+your input file.  In this input mode, the middle C is denoted by
+@code{c'}. Going down, you get @code{c} @code{c,} @code{c,,} etc.  
+Going up, you get @code{c''} @code{c'''} etc.
 
 When you're copying music from existing sheet music, relative octaves
-are probably the easiest to use: it's less typing work and errors are
+are probably the easiest to use: you have to do less typing, and errors are
 easily spotted. However, if you write LilyPond input directly, either by
 hand (i.e. composing) or by computer, absolute octaves may be easier to use.
 
@@ -1689,18 +1698,18 @@ hand (i.e. composing) or by computer, absolute octaves may be easier to use.
 @end example
 
 The @code{\header} is normally at the top of the file, where it sets
-values for the rest of the file. If you want to typeset different pieces
+values for the rest of the file.  If you want to typeset different pieces
 from one file (for example, if there are multiple movements, or if
 you're making an exercise book), you can put different @code{\score}
-blocks into the input file. ly2dvi will assemble all LilyPond output
-files into a big document. The contents of \header blocks specified
-within each score, are used for the titling of each movement.
+blocks into the input file.  @code{ly2dvi} will assemble all LilyPond
+output files into a big document.  The contents of @code{\header} blocks
+specified within each score is used for the title of that movement.
 @separate
 @example
         opus = "Opus 1."
         piece = "Up" @}
 @end example
-For example, the Opus number is put at the right, and the piece string
+For example, the Opus number is put at the right, and the "piece" string
 will be at the left.
 
 
@@ -1734,42 +1743,43 @@ will be at the left.
 \version "1.5.72"
 @end example 
 Lilypond and its language are still under development, and
-occasionally, details of the syntax are changed. This fragment
-indicates for which version the input file was written. When you
-compile this file, the version number will be checked, and you will
-get a warning when the file is too old.  This version number is also
-used by the @code{convert-ly} program (See @ref{Invoking convert-ly}),
-which is used to update the file to the latest lily version.
+occasionally details of the syntax are changed.  The @code{version}
+fragment indicates which version of lilypond the input file was written
+for.  When you compile this file, the version number will be checked
+and you will get a warning when the file is too old.  This version
+number is also used by the @code{convert-ly} program (See
+@ref{Invoking convert-ly}), which can used to update the file to the
+latest lily version.
 
 
 @node A piano excerpt
 @section A piano excerpt
 
-Our fourth subject is a piece of piano music.  The fragment in the
+Our eighth subject is a piece of piano music.  The fragment in the
 input file is a piano reduction of the G major Sinfonia by Giovanni
-Battista Sammartini.  It was composed around 1740.  It's in the source
+Battista Sammartini, composed around 1740.  It's in the source
 package under the name @file{input/tutorial/sammartini.ly}.
 
 @lilypondfile[smallverbatim]{sammartini.ly}
 
 As you can see, this example features multiple voices on one staff.  To
-make room for those voices, their notes have to be stemmed in opposite
+make room for those voices, their notes should be stemmed in opposite
 directions.
 
 LilyPond includes the identifiers @code{\stemUp}, @code{\stemDown} along
 with some other commonly used formatting instructions, but to explain how
 it works, we wrote our own here.  Of course, you should use predefined
-identifiers like these if possible: then you will be affected less by
-the implementation changes we occasionally make.
+identifiers like these if possible: you will be less affected by changes
+between different versions of LilyPond.
 
 @separate
 @example 
 viola = \notes \relative c'  \context Voice = viola @{ 
 @end example 
-In this example, you can see multiple parts on a staff.  Each part is
+In this example you can see multiple parts on a staff.  Each part is
 associated with one notation context.  This notation context handles
-stems and dynamics (among others).  The type name of this context is
-@code{Voice}.  For each part we have to make sure that there is
+stems and dynamics (among other things).  The type name of this context
+is @code{Voice}.  For each part we have to make sure that there is
 precisely one @code{Voice} context, so we give it a unique name
 (`@code{viola}').
 
@@ -1829,8 +1839,8 @@ these notes are indeed processed by precisely one context with
 \voiceOne s4  g8. b,16 c8 r <e'8. g> <f16 a> 
 @end example
 
-The oboes should have stems up, so they should have stems up, to keep
-them from interfering with the staff-jumping bass figure.
+The oboes should have stems up to keep them from interfering with
+the staff-jumping bass figure.  To do that, we use @code{\voiceOne}.
 
 @separate
 @example 
@@ -1866,7 +1876,7 @@ three chords.
 @end example 
 At this point, the homophonic music splits into two rhythmically
 different parts.  We can't use a sequence of chords to enter this, so
-we make a `chord' of sequences to do it.  We start with the upper
+we make a "chord of sequences" to do it.  We start with the upper
 voice, which continues with upward stems:
 @separate
 @example 
@@ -1880,7 +1890,7 @@ voice, which continues with upward stems:
 The easiest way to enter multiple voices is demonstrated
 here. Separate the components of the voice (single notes or entire
 sequences) with @code{\\} in a simultaneous music expression. The
-@code{\\} separators split first voice, second voice, third voice, and
+a@code{\\} separators split first voice, second voice, third voice, and
 so on.
 
 As far as relative mode is concerned, the previous note is the
@@ -1901,7 +1911,7 @@ This ends the two-part section.
 @cindex trill
 @cindex stemBoth
 
-@code{\stemBoth} ends the forced stem directions. From here, stems are
+@code{\stemBoth} ends the forced stem directions.  From here, stems are
 positioned as if it were single part music.
 
 The bass has a little hoom-pah melody to demonstrate parts switching
@@ -1943,10 +1953,11 @@ getting the motive in a wrong octave.
 	\stemDown
 	c'8 @}
 @end example
-Voices can switch between staves. Here you see two staff switching
-commands. The first one moves to the lower staff, the second one to
-the lower one. If you set stem directions explicitly (using the
-identifiers @code{\stemUp} and @code{\stemDown}. 
+Voices can switch between staves.  Here you see two staff switching
+commands.  The first one moves to the lower staff, the second one to
+the lower one.  If you set the stem directions explicitly
+(using the identifiers @code{\stemUp} and @code{\stemDown}, the notes
+can be beamed together (despite jumping between staffs).
 
 @separate
 @example 
@@ -1973,7 +1984,7 @@ manual staff switch here.
 @cindex @code{~}
 After skipping some lines, we see @code{~}.  This mark makes ties.  Note
 that ties and slurs are different things.  A tie can only connect two
-note heads of the same pitch, whereas a slur can connect many chords
+note heads of the same pitch, whereas a slur can connect many notes
 with one curve.
 
 @separate
