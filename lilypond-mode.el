@@ -587,7 +587,7 @@ command."
   (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
-  (define-key LilyPond-mode-map [(shift control c)] 'LilyPond-autocompletion)
+  (define-key LilyPond-mode-map [S-iso-lefttab] 'LilyPond-autocompletion)
   )
 
 ;;; Menu Support
@@ -693,48 +693,47 @@ command."
   "Show completions in mini-buffer for the given word."
   (interactive)
 
-  ; search the begin of word
-  (setq beg "")
-  (setq i 0)
-  (setq ch (char-before (- (point) i)))
-  (while (or (and (>= ch 65) (<= ch 90)) 
-	     (and (>= ch 97) (<= ch 122)) 
-	     (= ch 92)) ; add [A-Za-z\\] until non-alpha
-    (setq beg (concat (char-to-string ch) beg))
-    (setq i (+ i 1))
-    (setq ch (char-before (- (point) i)))
-   )
+  ; search the begin of word: add [A-Za-z\\] until bolp/non-alpha
+  (setq pre "")
+  (setq prelen 0)
+  (setq ch (char-before (- (point) prelen)))
+  (while (and ch (or (and (>= ch 65) (<= ch 90)) ; bolp, A-Z
+		     (and (>= ch 97) (<= ch 122)) ; a-z
+		     (= ch 92))) ; \\
+    (setq pre (concat (char-to-string ch) pre))
+    (setq prelen (+ prelen 1))
+    (setq ch (char-before (- (point) prelen))))
 
-  ; search the end of word
-  (setq end "")
-  (setq j 0)
-  (setq ch (char-after (+ (point) j)))
-  (while (or (and (>= ch 65) (<= ch 90)) 
-	     (and (>= ch 97) (<= ch 122))) ; add [A-Z,a-z] until non-alpha
-    (setq end (concat end (char-to-string ch)))
-    (setq j (+ j 1))
-    (setq ch (char-after (+ (point) j))))
+  ; search the end of word: add [A-Za-z] until eolp/non-alpha
+  (setq post "")
+  (setq postlen 0)
+  (setq ch (char-after (+ (point) postlen)))
+  (while (and ch (or (and (>= ch 65) (<= ch 90)) ; eolp, A-Z
+		     (and (>= ch 97) (<= ch 122)))) ; a-z
+    (setq post (concat post (char-to-string ch)))
+    (setq postlen (+ postlen 1))
+    (setq ch (char-after (+ (point) postlen))))
   
   ; insert try-completion and show all-completions
-  (if (> i 0)
+  (if (> prelen 0)
       (progn
-	(setq tryc (try-completion beg (LilyPond-add-dictionary-word ())))
-	(if (char-or-string-p tryc)
-	    (if (string-equal (concat beg end) tryc)
-		(goto-char (+ (point) (length end)))
+	(setq trycomp (try-completion pre (LilyPond-add-dictionary-word ())))
+	(if (char-or-string-p trycomp)
+	    (if (string-equal (concat pre post) trycomp)
+		(goto-char (+ (point) postlen))
 	      (progn
-		(delete-region (point) (+ (point) (length end)))
-		(insert (substring tryc (length beg) nil))))
+		(delete-region (point) (+ (point) postlen))
+		(insert (substring trycomp prelen nil))))
 	  (progn
-	    (delete-region (point) (+ (point) (length end)))
-	    (font-lock-fontify-buffer)))
+	    (delete-region (point) (+ (point) postlen))
+	    (font-lock-fontify-buffer))) ; only inserting fontifies
 	
-	(setq others "")
-	(setq co (all-completions beg (LilyPond-add-dictionary-word ())))
-	(while (> (length co) 0)
-	  (setq others (concat others "\"" (car co) "\" "))
-	  (setq co (cdr co)))
-	(message others) 
+	(setq compsstr "")
+	(setq complist (all-completions pre (LilyPond-add-dictionary-word ())))
+	(while (> (length complist) 0)
+	  (setq compsstr (concat compsstr "\"" (car complist) "\" "))
+	  (setq complist (cdr complist)))
+	(message compsstr) 
 	(sit-for 0 100 1))))
 
 (defun LilyPond-insert-string (pre)
