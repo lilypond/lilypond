@@ -729,8 +729,15 @@ Repeated_music:
 		    _("More alternatives than repeats.  Junking excess alternatives."));
 		  alts = ly_truncate_list (times, alts);
 		}
-		
-		Music *r = MY_MAKE_MUSIC("RepeatedMusic");
+
+
+		static SCM proc;
+		if (!proc)
+			proc = scm_c_eval_string ("make-repeated-music");
+
+		SCM mus = scm_call_1 (proc, $2);
+		scm_gc_protect_object (mus); // UGH. 
+		Music *r =unsmob_music (mus);
 		if (beg)
 			{
 			r-> set_mus_property ("element", beg->self_scm ());
@@ -739,9 +746,6 @@ Repeated_music:
 		r->set_mus_property ("repeat-count", gh_int2scm (times >? 1));
 
 		r-> set_mus_property ("elements",alts);
-		SCM func = scm_primitive_eval (ly_symbol2scm ("repeat-name-to-ctor"));
-		SCM result = gh_call1 (func, $2);
-
 		if (gh_equal_p ($2, scm_makfrom0str ("tremolo")))
 		{
 		/*
@@ -754,9 +758,6 @@ Repeated_music:
 			else
 			  gh_call3 (func, r->self_scm (), gh_int2scm(-intlog2 ($3)), gh_int2scm(0));
 		}
-
-		set_music_properties (r, result);
-
 		r->set_spot (*$4->origin ());
 
 		$$ = r;

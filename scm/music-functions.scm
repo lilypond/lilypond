@@ -52,37 +52,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; repeats.
 
-(define-public (repeat-name-to-ctor name)
-  (let*
-      ((supported-reps
-	`(("volta" . ((iterator-ctor . ,Volta_repeat_iterator::constructor)
-		      (start-moment-function .  ,Repeated_music::first_start)
-		      (length . ,Repeated_music::volta_music_length)))
-	  
-	    ("unfold" . ((iterator-ctor . ,Unfolded_repeat_iterator::constructor)
-			 (start-moment-function .  ,Repeated_music::first_start)			 
-			 (length . ,Repeated_music::unfolded_music_length)))
-	    ("fold" . ((iterator-ctor  . ,Folded_repeat_iterator::constructor)
-		       (start-moment-function .  ,Repeated_music::minimum_start)			 
-		       (length . ,Repeated_music::folded_music_length)))
-	    ("percent" . ((iterator-ctor . ,Percent_repeat_iterator::constructor)
-			  (start-moment-function .  ,Repeated_music::first_start)
-			  (length . ,Repeated_music::unfolded_music_length)))
-	    ("tremolo" . ((iterator-ctor . ,Chord_tremolo_iterator::constructor)
-			  (start-moment-function .  ,Repeated_music::first_start)
-
-			  ;; the length of the repeat is handled by shifting the note logs
-			  (length . ,Repeated_music::folded_music_length)))))
-	  
-       (handle (assoc name supported-reps)))
-
-    (if (pair? handle)
-	(cdr handle)
-	(begin
-	  (ly-warn
-	   (string-append "Unknown repeat type `" name "'\nSee scm/c++.scm for supported repeats"))
-	  '(type . 'repeated-music)))))
-
 (define-public (unfold-repeats music)
 "
 This function replaces all repeats  with unfold repeats. It was 

@@ -35,8 +35,7 @@
 	))
      (BarCheck
       . (
-	(description .  "")
-
+	 (description .  "")
 	 (internal-class-name . "Music")
 	 (types . (general-music bar-check))
 	 (iterator-ctor . ,Bar_check_iterator::constructor)
@@ -79,8 +78,8 @@
     (ContextSpeccedMusic
      . (
 	(description .  "")
-
-	(internal-class-name . "Context_specced_music")
+	(iterator-ctor . ,Context_specced_music_iterator::constructor)
+	(internal-class-name . "Music_wrapper")
 	(types . (context-specification general-music music-wrapper-music))
 	))
    (CrescendoEvent
@@ -251,7 +250,6 @@
      . (
 	(description .  "")
 
-	(internal-class-name . "Repeated_music")
 	(type .  repeated-music)
 	(types . (general-music repeated-music))
 	))
@@ -453,8 +451,58 @@
 	 (internal-class-name . "Music")
 	 (types . (separator general-music))
 	 ))
-    
-    ))
+
+     (VoltaRepeatedMusic
+      . (
+	 (iterator-ctor . ,Volta_repeat_iterator::constructor)
+	 (internal-class-name . "Repeated_music")
+	 (description . "")
+	 (start-moment-function .  ,Repeated_music::first_start)
+	 (length . ,Repeated_music::volta_music_length)
+	 (types . (general-music repeated-music volta-repeated-music))
+	 ))
+      
+     (UnfoldedRepeatedMusic
+      . (
+	 (iterator-ctor . ,Unfolded_repeat_iterator::constructor)
+	 (description .  "")
+	 (start-moment-function .  ,Repeated_music::first_start)
+	 (internal-class-name . "Repeated_music")
+	 (types . (general-music repeated-music unfolded-repeated-music))
+	 (length . ,Repeated_music::unfolded_music_length)
+	 ))
+     (PercentRepeatedMusic
+      . (
+	 (internal-class-name . "Repeated_music")
+	 (description .  "")
+	 (iterator-ctor . ,Percent_repeat_iterator::constructor)
+	 (start-moment-function .  ,Repeated_music::first_start)
+	 (length . ,Repeated_music::unfolded_music_length)
+	 (types . (general-music repeated-music percent-repeated-music))
+	 ))
+     
+     (TremoloRepeteadMusic
+      . (
+	 (iterator-ctor . ,Chord_tremolo_iterator::constructor)
+	 (description .  "")
+	 (internal-class-name . "Repeated_music")
+	 (start-moment-function .  ,Repeated_music::first_start)
+
+	 ;; the length of the repeat is handled by shifting the note logs
+	 (length . ,Repeated_music::folded_music_length)
+	 (types . (general-music repeated-music tremolo-repeated-music))
+	 
+	 ))
+     (FoldedRepeatedMusic
+      . (
+	 (internal-class-name . "Repeated_music")
+	 (description .  "")
+	 (iterator-ctor  . ,Folded_repeat_iterator::constructor)
+	 (start-moment-function .  ,Repeated_music::minimum_start)
+	 (length . ,Repeated_music::folded_music_length)
+	 (types . (general-music repeated-music folded-repeated-music))
+	 ))
+     ))
 
 (set! music-descriptions
       (sort music-descriptions alist<?))
@@ -519,3 +567,30 @@
 	(make-music-by-name (cdr entry))
 	)
   ))
+
+(define-public (make-repeated-music name)
+  (let*
+      (
+       (handle (assoc
+		name
+		'(("volta" . VoltaRepeatedMusic)
+		  ("unfold" . UnfoldedRepeatedMusic)
+		  ("percent" . PercentRepeatedMusic)
+		  ("tremolo" . TremoloRepeteadMusic)
+		  ("fold" . FoldedRepeatedMusic)
+		  )))
+       (music-name
+	(if (pair? handle)
+	    (cdr handle)
+	    (begin
+	      (ly-warn
+	       (string-append "Unknown repeat type `" name
+			      "'\nSee music-types.scm for supported repeats"))
+	      'VoltaRepeatedMusic)
+	    )
+       )
+       )
+
+       (make-music-by-name music-name)
+    ))
+
