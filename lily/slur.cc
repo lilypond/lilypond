@@ -122,6 +122,8 @@ Slur::do_post_processing ()
 
   Direction d=LEFT;
  
+#define BROKEN_SLUR_b(dir) \
+  (extrema[dir] != spanned_drul_[d])
 #define NORMAL_SLUR_b(dir) \
   (extrema[dir]->stem_l_ \
    && !extrema[dir]->stem_l_->transparent_b_  \
@@ -129,10 +131,7 @@ Slur::do_post_processing ()
 
   do 
     {
-      /*
-        broken slur
-       */
-      if (extrema[d] != spanned_drul_[d]) 
+      if (BROKEN_SLUR_b (d))
 	{
 	  // ugh -- check if needed
 	  dx_f_drul_[d] = -d 
@@ -180,10 +179,7 @@ Slur::do_post_processing ()
   // now that both are set, do dependent
   do 
     {
-      /*
-        broken slur
-       */
-      if (extrema[d] != spanned_drul_[d]) 
+      if (BROKEN_SLUR_b (d))
         {
 	  Direction u = d;
 	  flip(&u);
@@ -200,7 +196,8 @@ Slur::do_post_processing ()
   /*
     Slur should follow line of music
    */
-  if (NORMAL_SLUR_b (LEFT) && NORMAL_SLUR_b (RIGHT)
+  if (!BROKEN_SLUR_b (LEFT) && !BROKEN_SLUR_b (RIGHT)
+      && NORMAL_SLUR_b (LEFT) && NORMAL_SLUR_b (RIGHT)
       && (extrema[LEFT]->stem_l_ != extrema[RIGHT]->stem_l_))
     {
       Real note_dy = extrema[RIGHT]->stem_l_->head_positions ()[dir_]
