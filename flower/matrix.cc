@@ -1,4 +1,42 @@
+/*
+  matrix.cc -- implement Matrix
+
+  source file of the Flower Library
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "matrix.hh"
+#include "full-storage.hh"
+#include "diagonal-storage.hh"
+
+bool
+Matrix::band_b()const
+{
+    return dat->is_type_b( Diagonal_storage::static_name());
+}
+
+void
+Matrix::set_full() const
+{
+    if ( dat->name() != Full_storage::static_name()) {
+	Matrix_storage::set_full( ((Matrix*)this)->dat );
+    }
+}
+
+void
+Matrix::try_set_band()const
+{
+    if (band_b())
+	return;
+    
+    int b = band_i();
+    if (  b > dim()/2)
+	return;
+    // it only looks constant
+    Matrix*self  = (Matrix*)this;
+    Matrix_storage::set_band(self->dat,b);
+}
 
 Real
 Matrix::norm() const
@@ -33,6 +71,7 @@ Matrix::set_diag(Vector d)
 void
 Matrix::operator+=(Matrix const &m)
 {
+    Matrix_storage::set_addition_result(dat, m.dat);
     assert(m.cols() == cols());
     assert(m.rows() == rows());
     for (int i=0, j=0; dat->mult_ok(i,j); dat->mult_next(i,j))
@@ -42,6 +81,7 @@ Matrix::operator+=(Matrix const &m)
 void
 Matrix::operator-=(Matrix const &m)
 {
+    Matrix_storage::set_addition_result(dat, m.dat);
     assert(m.cols() == cols());
     assert(m.rows() == rows());
     for (int i=0, j=0; dat->mult_ok(i,j); dat->mult_next(i,j))
@@ -64,6 +104,23 @@ Matrix::operator=(Matrix const &m)
     delete dat;
     dat = m.dat->clone();
 }
+
+int
+Matrix::band_i()const
+{
+    int starty = dim();
+    while (starty >= 0 ) {
+	for ( int i = starty, j = 0; i < dim(); i++, j++ )
+	    if (dat->elem( i,j ))
+		goto gotcha;
+	for ( int i=0, j = starty; j < dim(); i++,j++)
+	    if (dat->elem(i,j))
+		goto gotcha;
+	starty --;
+    }
+gotcha:
+    return  starty;
+}
     
 Matrix::Matrix(Matrix const &m)
 {
@@ -77,6 +134,11 @@ Matrix::Matrix(int n, int m)
 {
     dat = Matrix_storage::get_full(n,m);
     fill(0);
+}
+
+Matrix::Matrix(Matrix_storage*stor_p)
+{
+    dat = stor_p;
 }
 
 Matrix::Matrix(int n)
@@ -173,12 +235,11 @@ Matrix::transposed() const
     return m;
 }
 
-
-/* should do something smarter: bandmatrix * bandmatrix is also banded matrix.  */
 Matrix
 operator *(Matrix const &m1, Matrix const &m2)
 {
-    Matrix result(m1.rows(), m2.cols());
+    Matrix result(Matrix_storage::get_product_result(m1.dat, m2.dat));
+
     result.set_product(m1,m2);
     return result;
 }
@@ -188,7 +249,7 @@ Matrix::set_product(Matrix const &m1, Matrix const &m2)
 {
     assert(m1.cols()==m2.rows());
     assert(cols()==m2.cols() && rows()==m1.rows());
-
+    
     if (m1.dat->try_right_multiply(dat, m2.dat))
 	return; 
     for (int i=0, j=0; dat->mult_ok(i,j);
@@ -242,4 +303,6 @@ Matrix::dim() const
     assert(cols() == rows());
     return rows();
 }
+
+
 

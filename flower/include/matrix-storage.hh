@@ -39,19 +39,22 @@ public:
 
     /// width of matrix
     virtual int cols() const = 0;
- 
+
+    /// size if square
+    virtual int dim() const =0;
       
     /**  set the size. contents lost.       
       PRE
       i >=0, j>=0
     */
-    virtual void set_size(int rows, int cols) = 0;
+    virtual void set_size(int rows, int cols) ;
+
  
     /**set the size to square dimen. contents lost
       PRE
       i>=0
     */
-    virtual void set_size(int i) = 0;
+    virtual void set_size(int i) ;
      /**set the size to i.
 
       keep contents. If enlarged contents unspecified
@@ -72,7 +75,7 @@ public:
     virtual void resize(int i) = 0;
   
     
-        /**
+    /**
     access an element.
 
     Generate an errormessage, if this happens
@@ -82,10 +85,10 @@ public:
     virtual Real& elem(int i,int j) = 0;
 
     /// access a element, no modify
-    virtual Real const & elem(int i, int j) const = 0;
+    virtual Real elem(int i, int j) const = 0;
 
-    virtual Array<Real> row(int i) const = 0;
-    virtual Array<Real> column(int j) const = 0;
+    virtual Array<Real> row(int i) const ;
+    virtual Array<Real> column(int j) const;
 
     
     /**
@@ -106,7 +109,7 @@ public:
     virtual void delete_row(int k)=0;
         virtual void delete_column(int k)=0;
     virtual ~Matrix_storage() { }
-    virtual Matrix_storage *clone()=0;
+    virtual Matrix_storage *clone()const=0;
 
 
     
@@ -130,7 +133,7 @@ public:
      */
     virtual void mult_next(int &i, int &j) const  = 0;
 
-/**
+    /**
       valid matrix entry. return false if at end of row
     */
     virtual bool trans_ok(int i, int j) const=0;
@@ -144,25 +147,28 @@ public:
      */
 
     virtual void trans_next(int &i, int &j) const  = 0;
+    
     /// generate a "Full_storage" matrix    
     static Matrix_storage *get_full(int n, int m);
-    
-
+    static void set_band(Matrix_storage*&, int band);
+    static void set_full(Matrix_storage*&);
     virtual bool try_right_multiply(Matrix_storage *dest, 
-				    const Matrix_storage *fact) ;
+				    const Matrix_storage *fact)const ;
     /**
       RTTI.
      */
-    NAME_MEMBERS();
+    DECLARE_MY_RUNTIME_TYPEINFO;
+
+    
+    static Matrix_storage* get_product_result(Matrix_storage *left, 
+					      Matrix_storage *right);
+    
+    
+    static void set_addition_result(
+	Matrix_storage *&dat, Matrix_storage *right);
+    static void set_product_result(
+	Matrix_storage*&dest, Matrix_storage*left, Matrix_storage*right);
 };
 
-
-
-inline bool
-Matrix_storage::try_right_multiply(Matrix_storage *, 
-				    const Matrix_storage *)
-{
-    return false;
-}
 #endif // MATRIX_STORAGE_HH
 
