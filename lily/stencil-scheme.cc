@@ -47,8 +47,10 @@ LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
   SCM_ASSERT_TYPE (scm_is_number (amount), amount, SCM_ARG2, __FUNCTION__, "number");
 
   Real real_amount = scm_to_double (amount);
+#if 0
   SCM_ASSERT_TYPE (!isinf (real_amount) && !isnan (real_amount),
 		   amount, SCM_ARG2, __FUNCTION__, "finite number");
+#endif
   
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 

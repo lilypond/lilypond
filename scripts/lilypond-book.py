@@ -64,6 +64,7 @@ program_name = sys.argv[0]
 verbose_p = 0
 pseudo_filter_p = 0
 original_dir = os.getcwd ()
+backend = 'ps'
 
 help_summary = _ (
 '''Process LilyPond snippets in hybrid HTML, LaTeX, or texinfo document.
@@ -892,6 +893,9 @@ class Lilypond_snippet (Snippet):
 				     or glob.glob (base + '-page*.png'))
 		return not ok
 	def texstr_is_outdated (self):
+		if backend == 'ps':
+			return 0
+		
 		base = self.basename ()
 		ok = self.ly_is_outdated ()
 		ok = ok and (os.path.exists (base + '.texstr'))
@@ -1410,6 +1414,8 @@ def do_options ():
 			format = a
 			if a == 'texi-html' or a == 'texi':
 				format = TEXINFO
+		elif o == '--tex-backend ':
+			backend = 'tex'
 		elif o == '--help' or o == '-h':
 			ly.help ()
 			sys.exit (0)
