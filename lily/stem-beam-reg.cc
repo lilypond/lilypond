@@ -79,7 +79,7 @@ Stem_beam_register::process_requests()
     }
 
     if (stem_req_l_) {
-	stem_p_ = new Stem(4);
+	stem_p_ = new Stem(10);
 	if (current_grouping)
 	    current_grouping->add_child(
 		get_staff_info().time_C_->whole_in_measure_,

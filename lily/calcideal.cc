@@ -41,7 +41,8 @@ Score::calc_idealspacing()
 		}
 		Moment delta_desired = j->when() - (d+i->when());
 		dist += paper_p_->duration_to_dist(delta_desired);
-		
+		if (!j->musical_b())
+		    dist += 1 PT; // ugh
 		pscore_p_->connect(i->pcol_l_, j->pcol_l_, dist, strength);
 	    }
 	} else if (j.ok()) {

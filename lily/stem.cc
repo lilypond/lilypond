@@ -130,7 +130,7 @@ Stem::set_default_stemlen()
     
     // ugh... how about non 5-line staffs?
     if ((max_head_i() < -2 && dir_i_ == 1 )
-	||(min_head_i() > staff_size_i_ + 2 && dir_i_ == -1) ){
+	||(min_head_i() > staff_size_i_ && dir_i_ == -1) ){
 	set_stemend(    staff_size_i_ /2 );
     } else {
 	set_stemend( (dir_i_ > 0) ? max_head_i() + STEMLEN : 
