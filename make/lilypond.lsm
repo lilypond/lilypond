@@ -1,7 +1,7 @@
 Begin3
 Title: LilyPond
-Version: 0.1.1
-Entered-date: 05AUG97
+Version: 0.1.7
+Entered-date: 14AUG97
 Description:	GNU LilyPond is a program which converts music
 		definition files into visual or auditive output: it can
 		typeset formatted sheet music to a TeX file and and
@@ -14,8 +14,8 @@ Author: hanwen@stack.nl (Han-Wen Nienhuys)
 	jan@digicash.com (Jan Nieuwenhuizen)
 Maintained-by: hanwen@stack.nl (Han-Wen Nienhuys)
 Primary-site: sunsite.unc.edu /pub/Linux/apps
-	340k lilypond-0.1.1.tar.gz 
+	340k lilypond-0.1.7.tar.gz 
 Original-site: pcnov095.win.tue.nl /pub/lilypond/
-	340k lilypond-0.1.1.tar.gz 
+	340k lilypond-0.1.7.tar.gz 
 Copying-policy: GPL
 End
