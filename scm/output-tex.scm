@@ -6,24 +6,26 @@
 ;;;;                  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
-(define-module (scm output-tex) )
-; (debug-enable 'backtrace)
-(use-modules (scm output-ps)
-	     (ice-9 regex)
+;; (debug-enable 'backtrace)
+(define-module (scm output-tex))
+(use-modules (ice-9 regex)
 	     (ice-9 string-fun)
 	     (ice-9 format)
 	     (guile)
 	     (srfi srfi-13)
-	     (lily)
-	     )
+	     (lily))
 
 (define this-module (current-module))
 
 ;; dumper-compatibility
-
+(define output-ps #f)
 (define (ps-output-expression expr port)
-  (let ((output-ps (resolve-module '(scm output-ps))))
-    (display (eval expr output-ps) port)))
+  (if (not output-ps)
+      (let ((ps-module (resolve-module '(scm output-ps))))
+	(eval '(use-modules (guile) (ice-9 regex) (srfi srfi-13) (lily))
+	      ps-module)
+	(set! output-ps ps-module)))
+  (display (eval expr output-ps) port))
 
 ;;; Output interface entry
 (define-public (tex-output-expression expr port)

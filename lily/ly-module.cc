@@ -19,6 +19,7 @@ static int module_count;
 void
 ly_init_anonymous_module (void * data)
 {
+  (void) data;
   scm_c_use_module ("lily");
 }
 
@@ -50,11 +51,12 @@ ly_clear_anonymous_modules ()
 
 #define FUNC_NAME __FUNCTION__
 
-SCM
-define_one_var (void * closure, SCM key, SCM val, SCM result)
+static SCM
+ly_module_define (void *closure, SCM key, SCM val, SCM result)
 {
-  SCM dest =  (SCM) closure;
-  scm_module_define (dest, key, scm_variable_ref (val));
+  (void) result;
+  SCM module = (SCM) closure;
+  scm_module_define (module, key, scm_variable_ref (val));
   return SCM_EOL;
 }
 
@@ -62,17 +64,18 @@ define_one_var (void * closure, SCM key, SCM val, SCM result)
 typedef SCM (*Hash_cl_func)();
 
 void
-ly_copy_module_variables (SCM dest, SCM src)
+ly_import_module (SCM dest, SCM src)
 {
   SCM_VALIDATE_MODULE (1, src);
-
-  SCM obarr= SCM_MODULE_OBARRAY (src);
-  scm_internal_hash_fold ((Hash_cl_func) &define_one_var, (void*) dest, SCM_EOL, obarr);
+  scm_internal_hash_fold ((Hash_cl_func) &ly_module_define, (void*) dest,
+			  SCM_EOL, SCM_MODULE_OBARRAY (src));
 }
 
-SCM
-accumulate_symbol (void * closure, SCM key, SCM val, SCM result)
+static SCM
+accumulate_symbol (void *closure, SCM key, SCM val, SCM result)
 {
+  (void) closure;
+  (void) val;
   return scm_cons (key, result);
 }
 
@@ -86,9 +89,10 @@ ly_module_symbols (SCM mod)
 				 NULL, SCM_EOL, obarr); 
 }
 
-SCM
-entry_to_alist (void * closure, SCM key, SCM val, SCM result)
+static SCM
+entry_to_alist (void *closure, SCM key, SCM val, SCM result)
 {
+  (void) closure;
   return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
 }
 

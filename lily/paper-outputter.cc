@@ -39,16 +39,56 @@ Paper_outputter::Paper_outputter (String name)
   if (output_format_global == PAGE_LAYOUT)
     {
       output_func_ = SCM_UNDEFINED;
-      output_module_
-	= scm_call_1 (scm_primitive_eval (ly_symbol2scm ("get-output-module")),
-		      scm_makfrom0str (output_format_global.to_str0 ()));
+      String name = "scm output-" + output_format_global;
       if (safe_global_b)
 	{
-	  SCM safe_module = scm_primitive_eval (ly_symbol2scm ("safe-module"));
-	  SCM m = scm_set_current_module (safe_module);
-	  scm_c_use_module (("output-" + output_format_global).to_str0 ());
-	  output_module_ = scm_set_current_module (m);
+	  /* In safe mode, start from a GUILE safe-module and import
+	     all symbols from the output module.  */
+	  scm_c_use_module ("ice-9 safe");
+	  SCM msm = scm_primitive_eval (ly_symbol2scm ("make-safe-module"));
+ 	  output_module_ = scm_call_0 (msm);
+	  ly_import_module (output_module_,
+			    scm_c_resolve_module (name.to_str0 ()));
 	}
+      else
+	output_module_ = scm_c_resolve_module (name.to_str0 ());
+
+#define IMPORT_LESS 1 // only import the list of IMPORTS
+#if IMPORT_LESS
+      scm_c_use_module ("lily");
+      scm_c_use_module ("ice-9 regex");
+      scm_c_use_module ("srfi srfi-13");
+#endif
+      char const *imports[] = {
+	"lilypond-version",          /* from lily */
+	"ly:output-def-scope",
+	"ly:gulp-file",
+	"ly:number->string",
+	"assoc-get",
+	"number-pair->string",
+	"inexact->string",
+	"numbers->string",
+#if IMPORT_LESS	
+	"string-index",              /* from srfi srfi-13 */
+	"regexp-substitute/global",  /* from (ice9 regex) */
+#endif	
+	0,
+      };
+      
+      for (int i = 0; imports[i]; i++)
+	{
+	  SCM s = ly_symbol2scm (imports[i]);
+	  scm_module_define (output_module_, s, scm_primitive_eval (s));
+	}
+#ifndef IMPORT_LESS  // rather crude, esp for safe-mode let's not
+      SCM m = scm_set_current_module (output_module_);
+      /* not present in current module*/
+      scm_c_use_module ("ice-9 regex");
+      scm_c_use_module ("srfi srfi-13");
+      /* Need only a few of these, see above
+	 scm_c_use_module ("lily"); */
+      scm_set_current_module (m);
+#endif
     }
   else
     {

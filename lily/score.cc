@@ -95,7 +95,7 @@ Score::Score (Score const &s)
 
   header_ = ly_make_anonymous_module ();
   if (ly_module_p (s.header_))
-    ly_copy_module_variables (header_, s.header_);
+    ly_import_module (header_, s.header_);
 }
 
 LY_DEFINE (ly_run_translator, "ly:run-translator", 

@@ -48,7 +48,7 @@ Music_output_def::Music_output_def (Music_output_def const &s)
 
   scope_= ly_make_anonymous_module ();
   if (ly_module_p (s.scope_))
-    ly_copy_module_variables (scope_, s.scope_);
+    ly_import_module (scope_, s.scope_);
 }
 
 
