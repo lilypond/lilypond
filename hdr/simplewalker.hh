@@ -10,6 +10,7 @@
 #include "proto.hh"
 #include "grouping.hh"
 
+
 struct Simple_walker: Staff_walker {
     Stem *stem_;
     Array<Notehead *>noteheads;
@@ -34,8 +35,9 @@ struct Simple_walker: Staff_walker {
     virtual void do_TYPESET_command(Command*);
     virtual void do_INTERPRET_command(Command*);
     virtual void process_requests();
-    virtual void reset();
-    
+    virtual void do_post_move();
+    ~Simple_walker();
+    Simple_walker(Simple_walker const& c);
     void do_note(Note_info);
     Simple_walker(Simple_staff*);
     Simple_column *col();
