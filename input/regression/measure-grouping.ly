@@ -2,7 +2,7 @@
 \header
 {
 
-    texidoc = "The Measure_grouping_engraver adds triangles and
+    texidoc = "The @code{Measure_grouping_engraver} adds triangles and
 brackets above beats when you set beatGrouping.  This shows a fragment
 of Steve Martland's Dance Works. "
 

@@ -3,7 +3,7 @@
 \header {
 
 texidoc = "A clef can be folded below notes in a different staff, if
-there is space enough. With Paper_column molecule callbacks we can
+there is space enough. With @code{Paper_column} molecule callbacks we can
 show where columns are in the score."
 }
 

@@ -1,3 +1,7 @@
+2003-11-07  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* input/regression/{many}: add few @code{ ... }.
+
 2003-11-05  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* mf/GNUmakefile (SAUTER_FONTS): Added cmss14, 
