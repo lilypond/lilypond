@@ -1,5 +1,9 @@
 2003-08-03  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION 1.7.30 released
+	
+	* GNUmakefile.in (EXTRA_DIST_FILES): remove lexer GCC patch.
+
 	* buildscripts/mutopia-index.py (headertext): rewording
 
 2003-08-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
