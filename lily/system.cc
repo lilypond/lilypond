@@ -395,15 +395,7 @@ System::get_line ()
 	Stencil st = *stil;
 	st.translate (o + extra);
 
-	/* color support... see interpret_stencil_expression() for more... */
-	SCM color = g->get_property ("color");
-	if (color != SCM_EOL)
-	  { 
-		SCM tmp = scm_list_3 (ly_symbol2scm ("color"), color, st.expr ());
-		*tail = scm_cons (tmp, SCM_EOL);
-	  }
-	else
-		*tail = scm_cons (st.expr (), SCM_EOL);
+	*tail = scm_cons (st.expr (), SCM_EOL);
 	tail = SCM_CDRLOC(*tail);
       }
 

@@ -217,7 +217,6 @@ Grob::get_stencil ()  const
     return unsmob_stencil (stil);
 
   stil = get_uncached_stencil ();
-
   if (is_live ())
     {
       Grob *me = (Grob*) this;
@@ -232,7 +231,7 @@ Grob::get_uncached_stencil () const
 {
   SCM proc = get_property ("print-function");
 
-  SCM  stil = SCM_EOL;
+  SCM stil = SCM_EOL;
   if (ly_c_procedure_p (proc))
     stil = scm_apply_0 (proc, scm_list_n (this->self_scm (), SCM_UNDEFINED));
 
@@ -245,6 +244,18 @@ Grob::get_uncached_stencil () const
 	  SCM expr = scm_list_3 (ly_symbol2scm ("grob-cause"), self_scm(),
 				 m->expr ());
 	  stil = Stencil (m->extent_box (), expr). smobbed_copy ();
+	}
+
+      /* color support... see interpret_stencil_expression() for more... */
+      SCM color = get_property ("color");
+      if (color != SCM_EOL)
+	{
+	  m = unsmob_stencil (stil);
+	  SCM expr = scm_list_3 (ly_symbol2scm ("color"),
+				 color,
+				 m->expr ());
+
+	  stil = Stencil (m->extent_box (), expr).smobbed_copy();
 	}
      }
 
@@ -771,6 +782,7 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "Y-extent-callback print-function extra-offset spacing-procedure "
 	       "context staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent "
 	       "meta layer before-line-breaking-callback "
+	       "color "
 	       "axis-group-parent-X "
 	       "axis-group-parent-Y "
 	       "after-line-breaking-callback extra-Y-extent minimum-X-extent "
