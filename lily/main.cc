@@ -40,6 +40,9 @@ bool find_old_relative_b = false;
 char const* output_global_ch = "tex";
 
 String default_outname_base_global =  "lelie";
+String outname_str_global;
+String init_str_global;
+
 int default_count_global;
 File_path global_path;
 
@@ -48,6 +51,8 @@ bool experimental_features_global_b = false;
 bool dependency_global_b = false;
 
 int exit_status_i_;
+
+Getopt_long * oparser_global_p = 0;
 
 String distill_inname_str (String name_str, String& ext_r);
 
@@ -236,8 +241,60 @@ setup_paths ()
   }
 }
 
+
 void
 main_prog (int argc, char **argv)
+{
+  default_outname_base_global = "lelie";
+
+  int p=0;
+  const char *arg ;
+  while ((arg= oparser_global_p->get_next_arg ()))
+    {
+      
+      if (outname_str_global == "")
+	{
+	  Midi_def::reset_default_count ();
+	  Paper_def::reset_default_count ();
+	}
+      String f (arg);
+      String i;
+      f = distill_inname_str (f, i);
+      if (f == "-")
+	default_outname_base_global = "-";
+      else
+	{
+	  String a,b,c,d;
+	  split_path (f, a, b, c, d);
+	  default_outname_base_global = c;
+	}
+      if (outname_str_global.length_i ())
+	default_outname_base_global = outname_str_global;
+      if (init_str_global.length_i ())
+	i = init_str_global;
+      else
+	i = "init" + i;
+      do_one_file (i, f);
+      p++;
+    }
+  if (!p)
+    {
+      String i;
+      if (init_str_global.length_i ())
+	i = init_str_global;
+      else
+	i = "init.ly";
+      default_outname_base_global = "-";
+      if (outname_str_global.length_i ())
+	default_outname_base_global = outname_str_global;
+      do_one_file (i, default_outname_base_global);
+    }
+  delete oparser_global_p;
+  exit( exit_status_i_);
+}
+
+int
+main (int argc, char **argv)
 {
   identify ();
   call_constructors ();
@@ -245,11 +302,8 @@ main_prog (int argc, char **argv)
 
   setup_paths ();
 
-  String init_str;
-  String outname_str;
-
-  Getopt_long oparser (argc, argv,theopts);
-  while (Long_option_init const * opt = oparser ())
+  oparser_global_p = new Getopt_long(argc, argv,theopts);
+  while (Long_option_init const * opt = (*oparser_global_p)())
     {
       switch (opt->shortname)
 	{
@@ -258,23 +312,23 @@ main_prog (int argc, char **argv)
 	  *mlog << "*** enabling experimental features, you're on your own now ***\n";
 	  break;
 	case 'o':
-	  outname_str = oparser.optional_argument_ch_C_;
+	  outname_str_global = oparser_global_p->optional_argument_ch_C_;
 	  break;
 	case 'w':
 	  notice ();
 	  exit (0);
 	  break;
 	case 'f':
-	  output_global_ch = oparser.optional_argument_ch_C_;
+	  output_global_ch = oparser_global_p->optional_argument_ch_C_;
 	  break;
 	case 'Q':
 	  find_old_relative_b= true;
 	  break;
 	case 'I':
-	  global_path.push (oparser.optional_argument_ch_C_);
+	  global_path.push (oparser_global_p->optional_argument_ch_C_);
 	  break;
 	case 'i':
-	  init_str = oparser.optional_argument_ch_C_;
+	  init_str_global = oparser_global_p->optional_argument_ch_C_;
 	  break;
 	case 'a':
 	  about ();
@@ -307,56 +361,6 @@ main_prog (int argc, char **argv)
 	}
     }
 
-  default_outname_base_global = "lelie";
-
-  int p=0;
-  const char *arg ;
-  while ((arg= oparser.get_next_arg ()))
-    {
-      
-      if (outname_str == "")
-	{
-	  Midi_def::reset_default_count ();
-	  Paper_def::reset_default_count ();
-	}
-      String f (arg);
-      String i;
-      f = distill_inname_str (f, i);
-      if (f == "-")
-	default_outname_base_global = "-";
-      else
-	{
-	  String a,b,c,d;
-	  split_path (f, a, b, c, d);
-	  default_outname_base_global = c;
-	}
-      if (outname_str.length_i ())
-	default_outname_base_global = outname_str;
-      if (init_str.length_i ())
-	i = init_str;
-      else
-	i = "init" + i;
-      do_one_file (i, f);
-      p++;
-    }
-  if (!p)
-    {
-      String i;
-      if (init_str.length_i ())
-	i = init_str;
-      else
-	i = "init.ly";
-      default_outname_base_global = "-";
-      if (outname_str.length_i ())
-	default_outname_base_global = outname_str;
-      do_one_file (i, default_outname_base_global);
-    }
-  exit( exit_status_i_);
-}
-
-int
-main (int argc, char **argv)
-{
   gh_enter (argc, argv, (void(*)())main_prog);
   return 0;			// unreachable
 }

@@ -84,8 +84,6 @@ STUFF
 
 	* check out legal/(c) matters for scores.
 
-	* move option processing out of gh_enter
-
 	* check out GCC signatures?
 
 	* Align_element::padding  ?
