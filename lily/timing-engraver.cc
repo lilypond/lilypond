@@ -54,7 +54,7 @@ Timing_engraver::start_translation_timestep ()
   if (!gh_string_p (which))
     which
       = (now.main_part_ || now.main_part_ == last_moment_.main_part_)
-      ? SCM_EOL : ly_str02scm ("|");
+      ? SCM_EOL : scm_makfrom0str ("|");
 
   Moment mp = measure_position ();
   bool start_of_measure = (last_moment_.main_part_ != now.main_part_&& !mp.main_part_  );

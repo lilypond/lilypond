@@ -35,11 +35,11 @@ Paper_outputter::Paper_outputter (String name)
       gh_define ("security-paranoia", SCM_BOOL_T);      
     }
   
-  file_ = scm_open_file (ly_str02scm (name.to_str0 ()),
-			    ly_str02scm ("w"));
+  file_ = scm_open_file (scm_makfrom0str (name.to_str0 ()),
+			    scm_makfrom0str ("w"));
   
   SCM exp = scm_list_n (ly_symbol2scm ("find-dumper"),
-			ly_str02scm (output_format_global.to_str0 ()),
+			scm_makfrom0str (output_format_global.to_str0 ()),
 			SCM_UNDEFINED);
 
   output_func_  = scm_primitive_eval (exp);
@@ -65,8 +65,8 @@ Paper_outputter::output_header ()
   generate = generate + to_string (' ' * (120 - generate.length ())>? 0)  ;
   String creator = "lelie";
   
-  SCM args_scm = scm_list_n (ly_str02scm (creator.to_str0 ()),
-			     ly_str02scm (generate.to_str0 ()), SCM_UNDEFINED);
+  SCM args_scm = scm_list_n (scm_makfrom0str (creator.to_str0 ()),
+			     scm_makfrom0str (generate.to_str0 ()), SCM_UNDEFINED);
 
 
   SCM scm = gh_cons (ly_symbol2scm ("header"), args_scm);
@@ -80,7 +80,7 @@ void
 Paper_outputter::output_comment (String str)
 {
   output_scheme (scm_list_n (ly_symbol2scm ("comment"),
-			  ly_str02scm ((char*)str.to_str0 ()),
+			  scm_makfrom0str ((char*)str.to_str0 ()),
 			  SCM_UNDEFINED)
 		 );
 }
@@ -133,8 +133,8 @@ Paper_outputter::output_Real_def (String k, Real v)
 {
   
   SCM scm = scm_list_n (ly_symbol2scm ("lily-def"),
-			ly_str02scm (k.get_str0 ()),
-			ly_str02scm (to_string (v).get_str0 ()),
+			scm_makfrom0str (k.get_str0 ()),
+			scm_makfrom0str (to_string (v).get_str0 ()),
 			SCM_UNDEFINED);
   output_scheme (scm);
 }
@@ -144,8 +144,8 @@ Paper_outputter::output_String_def (String k, String v)
 {
   
   SCM scm = scm_list_n (ly_symbol2scm ("lily-def"),
-		     ly_str02scm (k.get_str0 ()),
-		     ly_str02scm (v.get_str0 ()),
+		     scm_makfrom0str (k.get_str0 ()),
+		     scm_makfrom0str (v.get_str0 ()),
 		     SCM_UNDEFINED);
   output_scheme (scm);
 }
@@ -154,8 +154,8 @@ void
 Paper_outputter::output_int_def (String k, int v)
 {
   SCM scm = scm_list_n (ly_symbol2scm ("lily-def"),
-		     ly_str02scm (k.get_str0 ()),
-		     ly_str02scm (to_string (v).get_str0 ()),
+		     scm_makfrom0str (k.get_str0 ()),
+		     scm_makfrom0str (to_string (v).get_str0 ()),
 		     SCM_UNDEFINED);
   output_scheme (scm);
 }
@@ -164,7 +164,7 @@ void
 Paper_outputter::write_header_field_to_file (String filename, SCM key, SCM value)
 {
   output_scheme (scm_list_n (ly_symbol2scm ("header-to-file"),
-			     ly_str02scm (filename.to_str0 ()),
+			     scm_makfrom0str (filename.to_str0 ()),
 			     ly_quote_scm (key), value,
 			     SCM_UNDEFINED));
 }

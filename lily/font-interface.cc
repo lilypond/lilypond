@@ -239,7 +239,7 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
   scm_write (scm_list_n (point_str0, shape, series , family, rel_str0, SCM_UNDEFINED), scm_current_error_port ());
   scm_flush (scm_current_error_port ());
  
-  return ly_str02scm ("cmr10");
+  return scm_makfrom0str ("cmr10");
   
 }
 

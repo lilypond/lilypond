@@ -404,7 +404,7 @@ sane_putenv (char const* key, char const* value, bool overwrite)
     {
       String combine = String (key) + "=" + String (value);
       char * s = strdup(combine.to_str0 ());
-      //      return putenv (s);
+      return putenv (s);
     }
   return -1;
 }
@@ -414,17 +414,15 @@ main (int argc, char **argv)
 {
   setup_paths ();
 
-  /* Prepare GUILE for heavy memory usage.  If you have plenty memory,
-     this may speed up GUILE a bit.  If you're short on memory, these
-     settings
+  /*
     
-	 export GUILE_INIT_SEGMENT_SIZE_1=36000
-         export GUILE_MAX_SEGMENT_SIZE=576000
+    These settings hopefully prepare lily for a lot of memory usage.
 
-     may considerably decrease memory footprint (~*0.85), with a small
-     execution time penalty (~*1.10).  However, if this 15% gain in memory
-     usage prevents swapping, the execution time falls drastically. */
-  
+    In practice the effect on GC times is barely measurable -- larger
+    segments cost slighly less time for the conservative marking. (but
+    not impressively much)
+    
+  */
   sane_putenv ("GUILE_INIT_SEGMENT_SIZE_1", "4194304", false);
   sane_putenv ("GUILE_MAX_SEGMENT_SIZE", "8388608", false);
 

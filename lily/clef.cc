@@ -32,7 +32,7 @@ Clef::before_line_breaking (SCM smob)
 	  && !to_boolean (s->get_grob_property ("full-size-change")))
 	{
 	  str += "_change";
-	  s->set_grob_property ("glyph-name", ly_str02scm (str.to_str0 ()));	  
+	  s->set_grob_property ("glyph-name", scm_makfrom0str (str.to_str0 ()));	  
 	}
     }
   else

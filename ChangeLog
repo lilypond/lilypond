@@ -1,5 +1,15 @@
 2002-08-04  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/lily-guile.cc: change gh_str02scm scm_makfrom0str.
+
+2002-08-04  Werner Lemberg  <wl@gnu.org>
+
+	* tex/lilyponddefs.tex: s/filllastpage/lastpagefill/.
+	
+	* Documentation/user/refman.itely: Document it.
+
+2002-08-04  Han-Wen  <hanwen@cs.uu.nl>
+
 	* lily/main.cc (sane_putenv): Oops.  Should supply a private copy
 	to putenv. (this was actually caught by valgrind, but I didn't
 	think the error was mine... )

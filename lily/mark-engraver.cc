@@ -159,7 +159,7 @@ Mark_engraver::process_music ()
 		  c++;
 		  next = to_string (c);
 		}
-	      m = ly_str02scm (next.to_str0 ());
+	      m = scm_makfrom0str (next.to_str0 ());
 	    }
 	  else
 	    {
@@ -169,7 +169,7 @@ Mark_engraver::process_music ()
 	  daddy_trans_->set_property ("rehearsalMark", m);
 	  
 	  text_->set_grob_property ("text",
-				      ly_str02scm (t.to_str0 ()));
+				      scm_makfrom0str (t.to_str0 ()));
 
 	  String style = "mark-number";
 	  for (int i=0; i < t.length (); i++)

@@ -103,7 +103,7 @@ Lyric_phrasing_engraver::finalize ()
 Syllable_group * 
 Lyric_phrasing_engraver::lookup_context_id (const String &context_id)
 {
-  SCM key = ly_str02scm (context_id.to_str0 ());
+  SCM key = scm_makfrom0str (context_id.to_str0 ());
   if (! gh_null_p (voice_alist_))
     {
       SCM s = scm_assoc (key, voice_alist_);
@@ -155,7 +155,7 @@ Lyric_phrasing_engraver::record_lyric (const String &context_id, Grob * lyric)
 void 
 Lyric_phrasing_engraver::record_extender (const String &context_id, Grob * extender)
 {
-  SCM key = ly_str02scm (context_id.to_str0 ());
+  SCM key = scm_makfrom0str (context_id.to_str0 ());
   if (! gh_null_p (voice_alist_))
     {
       SCM s = scm_assoc (key, voice_alist_);

@@ -254,7 +254,7 @@ Dynamic_engraver::process_music ()
 	      if (gh_string_p (s) || gh_pair_p (s))
 		{
 		  cresc_->set_grob_property ("edge-text",
-					       gh_cons (s, ly_str02scm ("")));
+					       gh_cons (s, scm_makfrom0str ("")));
 		  daddy_trans_->set_property ((start_type + "Text").to_str0 (),
 						SCM_EOL);
 		}

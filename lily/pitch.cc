@@ -255,7 +255,7 @@ Pitch::print_smob (SCM s, SCM port, scm_print_state *)
   Pitch  *r = (Pitch *) ly_cdr (s);
      
   scm_puts ("#<Pitch ", port);
-  scm_display (ly_str02scm (r->string ().to_str0 ()), port);
+  scm_display (scm_makfrom0str (r->string ().to_str0 ()), port);
   scm_puts (" >", port);
   
   return 1;

@@ -55,7 +55,7 @@ Voice_devnull_engraver::try_music (Music *m)
         
 	  for (char const **p = eat_spanners; *p; p++)
 	    {
-	      if (t == ly_str02scm (*p))
+	      if (t == scm_makfrom0str (*p))
 		return true;
 	    }
 	}

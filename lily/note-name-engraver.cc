@@ -49,7 +49,7 @@ Note_name_engraver::process_acknowledged_grobs ()
   if (s.length ())
     {
       Item * t = new Item (get_property ("NoteName"));
-      t->set_grob_property ("text", ly_str02scm (s.to_str0 ()));
+      t->set_grob_property ("text", scm_makfrom0str (s.to_str0 ()));
       announce_grob(t, reqs_[0]->self_scm());
       texts_.push (t);
     }

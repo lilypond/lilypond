@@ -105,7 +105,7 @@ Repeat_acknowledge_engraver::process_music ()
     {
       if (s != "" || (volta_found && !gh_string_p (wb)))
 	{
-	  daddy_trans_->set_property ("whichBar", ly_str02scm (s.to_str0 ()));
+	  daddy_trans_->set_property ("whichBar", scm_makfrom0str (s.to_str0 ()));
 	}
     }
 }

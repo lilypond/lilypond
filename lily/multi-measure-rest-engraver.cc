@@ -59,7 +59,7 @@ Multi_measure_rest_engraver::try_music (Music* req)
     {
       
       if (scm_equal_p (sp->get_mus_property ("span-type"),
-		       ly_str02scm ("rest")) == SCM_BOOL_T)
+		       scm_makfrom0str ("rest")) == SCM_BOOL_T)
 	{
 	  if (sp->get_span_dir () == STOP)
 	    {

@@ -227,7 +227,7 @@ HYPHEN		--
 }
 <chords,notes,figures>{RESTNAME} 	{
 	const char *s = YYText ();
-	yylval.scm = ly_str02scm (s);
+	yylval.scm = scm_makfrom0str (s);
 	return RESTNAME;
 }
 <chords,notes,figures>R		{
@@ -325,7 +325,7 @@ HYPHEN		--
 
 		/* yylval is union. Must remember STRING before setting SCM*/
 		String *sp = yylval.string;
-		yylval.scm = ly_str02scm (sp->to_str0 ());
+		yylval.scm = scm_makfrom0str (sp->to_str0 ());
 		delete sp;
 		return STRING;
 	}
@@ -362,7 +362,7 @@ HYPHEN		--
 		if (c == '{' ||  c == '}') // brace open is for not confusing dumb tools.
 			here_input ().warning (
 				_ ("Brace found at end of lyric. Did you forget a space?"));
-		yylval.scm = ly_str02scm (s.to_str0 ());
+		yylval.scm = scm_makfrom0str (s.to_str0 ());
 
 
 		return STRING;
@@ -566,7 +566,7 @@ My_lily_lexer::scan_escaped_word (String str)
 	String msg (_f ("unknown escaped string: `\\%s'", str));	
 	LexerError (msg.to_str0 ());
 
-	yylval.scm = ly_str02scm (str.to_str0 ());
+	yylval.scm = scm_makfrom0str (str.to_str0 ());
 
 	return STRING;
 }
@@ -587,7 +587,7 @@ My_lily_lexer::scan_bare_word (String str)
 		}
 	}
 
-	yylval.scm = ly_str02scm (str.to_str0 ());
+	yylval.scm = scm_makfrom0str (str.to_str0 ());
 	return STRING;
 }
 

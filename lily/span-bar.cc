@@ -218,7 +218,7 @@ Span_bar::evaluate_glyph (Grob*me)
       type = ".|.";
     }
 
-  gl = ly_str02scm (type.to_str0 ());
+  gl = scm_makfrom0str (type.to_str0 ());
   if (scm_equal_p (me->internal_get_grob_property (glyph_symbol), gl) != SCM_BOOL_T)
     me->internal_set_grob_property (glyph_symbol, gl);
 }

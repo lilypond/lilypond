@@ -4428,6 +4428,15 @@ that case @code{interscoreline} specifies the minimum spacing.
 @cindex @code{interscoreline}
 @cindex @code{interscorelinefill}
 
+If the variable @code{lastpagefill} is defined (that is, it gets any
+value assigned in the @code{\paper} block), systems are evenly
+distributed vertically on the last page.  This might produce ugly results
+in case there are not enough systems on the last page.  Note that
+@command{lilypond-book} ignores @code{lastpagefill}.  See
+@ref{Merging text and music with lilypond-book} for more information.
+
+@cindex @code{lastpagefill}
+
 Page breaks are normally computed by @TeX{}, so they are not under
 direct control of LilyPond.  However, you can insert a commands into
 the @file{.tex} output to instruct @TeX{} where to break pages. You

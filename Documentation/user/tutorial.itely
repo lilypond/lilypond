@@ -25,9 +25,9 @@
 @end menu
 
 Operating lilypond is done through text files: to print a piece of
-music, you enter the music in a file.  When you run lilypond, that
-file is read, and after some computations, the program produces a file
-containing the sheet music that you can print or view.
+music, you enter the music in a file.  When you run lilypond on that
+file, the program produces another file which contains sheet music that
+you can print or view.
 
 This tutorial starts with a small introduction to the LilyPond music
 language.  After this first contact, we will show you how to run
@@ -38,8 +38,8 @@ complex examples.
 @node First steps
 @section First steps
 
-We tsart off with showing how very simple music is entered in
-LilyPond:  you get a simple note by typing its note name, from
+We start off by showing how very simple music is entered in
+LilyPond:  you get a note simply by typing its note name, from
 @code{a} through @code{g}. So if you enter
 @quotation
 @example
@@ -99,7 +99,9 @@ s16_" "
 @separate
 
 A sharp (@texisharp{}) is made by adding ``@code{is}'', a flat
-(@texiflat{}) by adding ``@code{es}'':
+(@texiflat{}) by adding ``@code{es}''.  As you would expect, a
+double-sharp or double-flat is made by adding ``@code{isis}'' or
+``@code{eses}'':
 
 @quotation
 @example
@@ -159,9 +161,10 @@ The clef can be set using the ``@code{\clef}'' command:
 
 @c what is more common name treble or violin?
 @c in Dutch, its violin.
+@c in English its definately treble.
 @quotation
 @example
-\clef violin
+\clef treble
 \clef bass
 \clef alto
 \clef tenor
@@ -182,9 +185,12 @@ s16_" "
 @end quotation
 @separate
 
-From these commands and notes, a piece of music can be formed.  A piece
-of music is made by enclosing it in ``@code{\notes @{ ... @}}''.
-LilyPond then knows that music follows (and not lyrics, for example):
+@c From these commands and notes, a piece of music can be formed.  A piece
+@c of music is made by enclosing it in ``@code{\notes @{ ... @}}''.
+@c     rephrased:
+With these commands you can now write a piece of music.  The next step
+is to enclose your music inside ``@code{\notes @{ .. @}}''.
+This lets LilyPond know that music (and not lyrics, for example) follows:
 
 @quotation
 @example
@@ -198,11 +204,11 @@ LilyPond then knows that music follows (and not lyrics, for example):
 @end quotation
 @separate
 
-At this point, the piece of music is ready to be printed.  This is done
-by combining the music with a printing command.
+Now the piece of music is almost ready to be printed.  The final step is to
+combine the music with a printing command.
 
-The printing command is the so-called ``@code{\paper}'' block.  You
-will see later that the @code{\paper} block is necessary to customize
+The printing command is the so-called ``@code{\paper}'' block.  Later on
+you will see that the @code{\paper} block is used to customize
 printing specifics.  The music and the @code{\paper} block are combined by
 enclosing them in ``@code{\score @{ ... @}}''.  This is what a full
 LilyPond source file looks like:
@@ -238,18 +244,19 @@ LilyPond source file looks like:
 @node Running LilyPond
 @section Running LilyPond
 
-In the last section, we explained what kind of things you could enter
-in a lilypond file.  In this section we explain how to run LilyPond,
+In the last section we explained what kind of things you could enter
+in a lilypond file.  In this section we explain how to run LilyPond 
 and how view or print the output.  If you have not used LilyPond
-before, want to test your setup of LilyPond, or try to run an example
-file yourself, then read this section.  The instructions that follow
+before, want to test your setup of LilyPond, or want to run an example
+file yourself, read this section.  Most of the instructions that follow
 are for running LilyPond on Unix-like systems.  Some additional
 instructions for running LilyPond on Windows are given at the end of
 this section.
 
-You begin with opening a terminal window, and start up a text editor.
-For example, open an xterm and execute @code{joe}.  In your text editor,
-enter the following input, and save the file as @file{test.ly}:
+Begin by opening a terminal window and starting a text editor.
+For example, you could open an xterm and execute @code{joe}.  In your
+text editor, enter the following input and save the file as
+@file{test.ly}:
 
 @quotation
 @example
@@ -281,7 +288,7 @@ You will see the following on your screen:
 
 @quotation
 @example
-GNU LilyPond 1.4.0
+GNU LilyPond 1.6.0
 Now processing: `/home/fred/ly/test.ly'
 Parsing...
 Interpreting music...[1]
@@ -308,16 +315,15 @@ produce a window with some music notation on your screen:
   kghostview test.ps
 @end example
 @end quotation
-If you are satisfied with the looks of the music displayed on your
-screen, you can print the PS file by clicking File/Print inside
-ghostview.
+If the music on your screen looks good, you can print it by clicking
+File/Print inside ghostview.
 
 The DVI file (@file{test.dvi}) contains the same sheet music in a
 different format. DVI files are more easily processed by the computer,
-so viewing them usually is quicker.  Execute @code{xdvi test.dvi} or
+so viewing them usually is quicker.  You can run @code{xdvi test.dvi} or
 @code{kdvi test.dvi} to view the DVI file. In Xdvi, the mouse buttons
-activate magnifying glasses.  Unfortunately, variable symbols, such as
-beams and slurs won't show up in these.
+activate magnifying glasses.  Unfortunately, variable symbols (such as
+beams and slurs) are not displayed in the magnifying glasses.
 
 If your DVI viewer does not have a "Print" button, you can print the
 file by executing @code{lpr test.ps}.
@@ -334,25 +340,25 @@ GhostScript's website at @uref{http://www.ghostscript.com}.
 @cindex PostScript
 @cindex PDF
 
-A final option, is to use the popular PDF format. You can get a PDF
-file by running @code{ly2dvi --pdf test.ly}. With the @code{--pdf},
-you will get a DVI, PS and PDF file. The viewers for the PS files also
+A final option is to use the popular PDF format.  You can get a PDF
+file by running @code{ly2dvi --pdf test.ly}.  With @code{--pdf}
+you will get DVI, PS and PDF files.  Viewers for PS files also
 accept PDF files, but there are also many other applications for
 viewing PDF files.
 
-If you are familiar with @TeX{}, then one warning is in place: do not
-use other DVI drivers like @code{dvilj}. The @TeX{} coming out of
-LilyPond uses embedded PostScript code, and will not render correctly
-if you use anything different than @code{dvips}.
+If you are familiar with @TeX{}, be warned: do not use other
+DVI drivers like @code{dvilj}. The @TeX{} coming out of LilyPond
+uses embedded PostScript code and will not render correctly if
+you use anything other than @code{dvips}.
 
 @cindex dvips
 @cindex dvilj
 @cindex DVI driver
 
 @unnumberedsubsec Windows users
-Windows users start the terminal by clicking on the LilyPond or Cygwin
-icon.  Notepad is sufficient for editing the LilyPond file.  Viewing
-the PS file can be done with:
+Windows users can start the terminal by clicking on the LilyPond or
+Cygwin icons.  You can use any text editor (such as Notepad) to edit
+the LilyPond file.  Viewing the PS file can be done with:
 @quotation
 @example
 @code{gsview32 test.ps}
@@ -368,10 +374,10 @@ You can also print from the command line by executing:
 
 @strong{SUMMARY}
 
-To run LilyPond, enter a file, and run the command @code{ly2dvi} on
-that file. The resulting files are either DVI or PostScript, and can
+To run LilyPond, input a text file, then run the command @code{ly2dvi} on
+that file.  The resulting files are either DVI or PostScript, and can
 be viewed with @code{xdvi} (unix) and ghostview (unix and windows)
-respectively. The following table summarizes the constructs that were
+respectively.  The following table summarizes the constructs that were
 discussed in the previous two sections.
 
 @multitable @columnfractions  .3 .3 .4  
@@ -463,7 +469,7 @@ s16_" "
 @c but we'd need to remove the ', from \key and tie 
 To raise a note by an octave, add a high quote @code{'} (apostrophe) to
 the note name, to lower a note one octave, add a ``low quote'' @code{,}
-(a comma).  The central C is @code{c'}:
+(a comma).  Middle C is @code{c'}:
 
 @quotation
 @example
@@ -480,7 +486,7 @@ c'4 c'' c''' \clef bass c c,
 
 A tie is created by entering a tilde ``@code{~}'' between the notes to
 be tied.  A tie between two notes means that the second note must not be
-played separately, but just makes the first note sound longer:
+played separately; it just makes the first note sound longer:
 
 @quotation
 @lilypond[fragment,verbatim]
@@ -561,9 +567,11 @@ and is therefore also a potential source of errors.
 The solution is to use ``relative octave'' mode.  In practice, this is
 the most convenient way to copy existing music.  To use relative mode,
 add @code{\relative} before the piece of music.  You must also give a
-note from which relative starts, in this case @code{c''}.  If you type
-no octavation quotes, relative mode chooses the note that is closest
-to the previous one, which is often just the one you need.
+note from which relative starts, in this case @code{c''}.  If you don't
+use octavation quotes (ie don't add ' or , after a note), relative mode
+chooses the note that is closest to the previous one.  Since most music
+has small intervals, you can write quite a lot in relative mode without
+using octavation quotes.
 @c don't use commas or quotes in this sentence
 For example: @code{c f} goes up; @code{c g} goes down:
 
@@ -584,10 +592,12 @@ For example: @code{c f} goes up; @code{c g} goes down:
 @end quotation
 @separate
 
+
 @c needed better, maybe even redundant explanation
+@c   added another example below.
 @c grappig: Pa vond het heel logies, en slim toen-i eenmaal begreep.
 @c in eerste instantie drong het `relative' niet door zonder extra uitleg.
-You can make a large interval by adding octavation quotes.  Note that
+You can make larger intervals by adding octavation quotes.  Note that
 quotes or commas do not determine the absolute height of a note;
 the height of a note is relative to the previous one.
 @c don't use commas or quotes in this sentence
@@ -612,9 +622,46 @@ For example: @code{c f,} goes down; @code{f, f} are both the same;
 @separate
 
 
+Here's an example of the difference between relative mode and
+``normal'' (non-relative) mode:
+
+@quotation
+@example
+\relative a @{
+\clef bass
+  a d a e d c' d'
+@}
+@end example
+
+@lilypond[fragment]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\relative a {
+\clef bass
+  a d a e d c' d'
+}
+@end lilypond
+@end quotation
+@separate
+
+@quotation
+@example
+\clef bass
+  a d a e d c' d'
+@end example
+
+@lilypond[fragment]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\clef bass
+  a d a e d c' d'
+@end lilypond
+@end quotation
+@separate
+
 @strong{SUMMARY}
 
-The following table  summarizes the syntax learned in this section.
+The following table summarizes the syntax learned so far in this section.
 
 @multitable @columnfractions .3 .3 .4  
 
@@ -807,7 +854,7 @@ happens at the same time, like in chords, or (like in the two-staff
 example above) in a bunch of stacked staves.
 @end ignore
 
-Of course, you can combine beams and ties with chords.  Notice that
+You can combine beams and ties with chords.  Notice that
 beam and tie markings must be placed outside the chord markers:
 @quotation
 @lilypond[relative 0, fragment,verbatim]
@@ -817,7 +864,8 @@ r4 [<c8 e g> <c8 f a>] ~ <c8 f a>
 
 When you want to combine chords with slurs and dynamics, technical
 detail crops up: you have type these commands next to the notes, which
-means that they have to be inside the @code{< >}:
+means that they have to be inside the @code{< >}.  Don't get confused
+by the chord @code{< >} and the dynamic @code{\< \>}!
 
 
 @quotation
@@ -831,12 +879,20 @@ r4 <c8 e g \> ( > <c e g> <c e g>  < ) \! c8 f a>
 @end quotation
 @separate
 
-There is one golden rule that you should keep in mind when writing
-LilyPond input:
-@quotation
-@strong{DO NOT START A PIECE WITH A CHORD}
-@end quotation
-Of course, it is a allowed, but the result might not be what you expect:
+@c   this example is a bit too strongly worded -- there's nothing wrong
+@c   with starting a piece with a chord; you just have to be careful when
+@c   you do so.  I've rephrased this example below.
+@c There is one golden rule that you should keep in mind when writing
+@c LilyPond input:
+@c @quotation
+@c @strong{DO NOT START A PIECE WITH A CHORD}
+@c @end quotation
+@c Of course, it is a allowed, but the result might not be what you expect:
+
+@c   rephrased "don't start with a chord"
+There is one caution when using chords: if you use a chord at the very
+beginning of the piece, LilyPond might not understand what you want:
+
 @quotation
 @lilypond[verbatim,singleline]
 \score { \notes <c'2 e'2> }
@@ -844,10 +900,10 @@ Of course, it is a allowed, but the result might not be what you expect:
 @end quotation
 @separate
 
-If you have a piece that starts with a chord, then you must explicitly
+If you have a piece that begins with a chord, you must explicitly
 state that the notes of the chord are to be put on the same staff, in
-the same voice.  This is done by specifying @code{\context Staff} for
-the notes:
+the same voice.  This is done by specifying @code{\context Staff} or
+@code{\context Voice} for the notes:
 
 @quotation
 @lilypond[verbatim,singleline]
@@ -855,7 +911,6 @@ the notes:
 @end lilypond
 @end quotation
 @separate
-
 
 
 @strong{SUMMARY}
@@ -964,14 +1019,14 @@ a\> a \!a
 
 @end multitable
 
-You know the basic ingredients of a music file, so this is the right
-moment to try your at hand at doing it yourself: try to type some
+Now you know the basic ingredients of a music file, so this is the right
+moment to try your at hand at doing it yourself: try typing some
 simple examples, and experiment a little.
 
-When you're comfortable with the basics, then you might want to read
-the rest of this chapter. It also a manual in tutorial-style, but it
+When you're comfortable with the basics, you might want to read
+the rest of this chapter.  It continues in tutorial-style, but it
 is much more in-depth, dealing with more advanced topics such as
-lyrics, chords, orchestral scores and parts, fine tuning output,
+lyrics, chords, orchestral scores and parts, fine tuning of output,
 polyphonic music, and integrating text and music.
 
 

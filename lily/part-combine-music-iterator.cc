@@ -369,7 +369,7 @@ Part_combine_music_iterator::process (Moment m)
   if (!abort_req)
     {
       abort_req = new Span_req;
-      abort_req->set_mus_property ("span-type", ly_str02scm ("abort"));
+      abort_req->set_mus_property ("span-type", scm_makfrom0str ("abort"));
     }
   
   if (combine_b && combine_b != previously_combined_b)

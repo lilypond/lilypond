@@ -131,7 +131,7 @@ Translator_group::find_create_translator (String n, String id)
     return existing;
 
   Link_array<Translator_def> path
-    = unsmob_translator_def (definition_)->path_to_acceptable_translator (ly_str02scm ((char*)n.to_str0 ()), get_output_def ());
+    = unsmob_translator_def (definition_)->path_to_acceptable_translator (scm_makfrom0str ((char*)n.to_str0 ()), get_output_def ());
 
   if (path.size ())
     {

@@ -59,12 +59,12 @@ Note_heads_engraver::try_music (Music *m)
   else if (Span_req *req_ = dynamic_cast<Span_req*> (m))
     {
       if (scm_equal_p (req_->get_mus_property ("span-type"),
-		       ly_str02scm ("abort")) == SCM_BOOL_T)
+		       scm_makfrom0str ("abort")) == SCM_BOOL_T)
 	{
 	  in_ligature = 0;
 	}
       else if (scm_equal_p (req_->get_mus_property ("span-type"),
-			    ly_str02scm ("ligature")) == SCM_BOOL_T)
+			    scm_makfrom0str ("ligature")) == SCM_BOOL_T)
 	{
 	  in_ligature = (req_->get_span_dir () == START);
 	}
