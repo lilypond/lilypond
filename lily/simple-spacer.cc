@@ -325,7 +325,7 @@ Simple_spacer::solve (Column_x_positions *positions, bool ragged) const
 	maybe this should be tunable?
        */
       if (compression_penalty_b_)
-	positions->force_f_ *= 2; //  hmm.
+	; //	positions->force_f_ *= 2; //  hmm.
     }
   
   positions->config_.push (indent_f_);

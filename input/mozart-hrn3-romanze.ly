@@ -4,6 +4,7 @@
 romanze = \notes \relative c' {
 	\key f \major
 	\time 2/2
+	\property Score.skipBars = ##t
 
 	c'4.( _#'(italic (dynamic "p") " con molto espressione") 
 		)f8 a,4 a

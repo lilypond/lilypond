@@ -1,4 +1,17 @@
-2002-04-06  Jan Nieuwenhuizen  <janneke@gnu.org>
+2002-04-08  Han-Wen  <hanwen@cs.uu.nl>
+
+	* VERSION (MY_PATCH_LEVEL): Release 1.5.51.
+
+	* mf/feta-din-code.mf: kerning for dynamics.
+
+2002-04-07  Han-Wen  <hanwen@cs.uu.nl>
+
+	* input/regression/dynamics-glyphs.ly: new file
+
+	* mf/feta-din-code.mf: dynamic tweaks. New dynamic s.
+
+	* mf/feta-nummer-code.mf: another bulb routine: mimic the bulb of
+	forte f for the 2 number. Some fixes for the other bulbed glyphs.
 
 	* Documentation/windows/gs-profile.sh:
 	* Documentation/windows/gsview-profile.sh: Remove.  Functionality
@@ -27,7 +40,7 @@
 
 2002-04-05  Han-Wen  <hanwen@cs.uu.nl>
 
-	* mf/cmbase.mf: remove file. -- do without s and z signs for now.
+	* mf/cmbase.mf: remove file. -- do without s, r and z signs for now.
 
 2002-04-04  Han-Wen  <hanwen@cs.uu.nl>
 
