@@ -316,7 +316,8 @@ Beam::brew_molecule (SCM grob)
   Real dy = pos.delta ();
   Real dydx = dy && dx ? dy/dx : 0;
   
-  Real thick = gh_scm2double (me->get_grob_property ("thickness"));
+  Real thick = gh_scm2double (me->get_grob_property ("thickness"))
+    * Staff_symbol_referencer::staff_space (me);
   Real bdy = get_beam_translation (me);
 
   SCM last_beaming = SCM_EOL;;

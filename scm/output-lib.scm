@@ -35,6 +35,38 @@
    )
   )
 
+(define (hammer-molecule-callback grob)
+  (let* ((note-collums (ly-get-grob-property grob 'note-columns))
+         (note-column1 (cadr note-collums))
+         (note-column2 (car  note-collums))
+         (note1        (car (ly-get-grob-property note-column1 'note-heads)))
+         (note2        (car (ly-get-grob-property note-column2 'note-heads)))
+         (fret1        (string->number (ly-get-grob-property note1 'text)))
+         (fret2        (string->number (ly-get-grob-property note2 'text)))
+         (letter       (if (< fret1 fret2) "H"
+                       (if (> fret1 fret2) "P"
+                                           "")))
+         )
+    (let ((slur (Slur::brew_molecule grob))
+          (text (fontify-text (ly-get-default-font grob) letter)))
+    
+      (let ((x (/ (- (cdr (ly-get-molecule-extent slur 0)) 
+                     (/ (cdr (ly-get-molecule-extent text 0)) 2.0)
+                     )
+                  -2.0)))
+      
+        (ly-set-molecule-extent! text 0 (cons x x))
+        (ly-align-to! text 0 1)
+        )
+      
+      (ly-combine-molecule-at-edge slur 1 1 text -0.6)
+      )
+    )
+  )
+
+
+
+
 ; end of tablature functions
 
 

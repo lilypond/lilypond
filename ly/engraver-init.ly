@@ -464,9 +464,14 @@ TabVoiceContext =   \translator {
       \denies "Thread"
       \consists "Tab_note_heads_engraver"
 
+      Slur \override #'font-family       = #'roman
+      Slur \override #'molecule-callback = #hammer-molecule-callback
+      Slur \override #'direction    = #-1
+
       % Draws all stems/beams out of the staff (and not in the middle of the staff !)
-      Beam \override #'damping = #100000
-      Stem \override #'up-to-staff = ##t
+      % This feature is now disabled because most of the tab does not use it.
+      %Beam \override #'damping = #100000
+      %Stem \override #'up-to-staff = ##t
 
       % No accidental in tablature !
       \remove Accidental_engraver
