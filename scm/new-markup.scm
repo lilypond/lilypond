@@ -173,7 +173,10 @@ for the reader.
   (let* ((m (interpret-markup paper props (car rest))))
     (ly:molecule-align-to! m X RIGHT)
     m))
-
+(define-public (left-align-markup paper props . rest)
+  (let* ((m (interpret-markup paper props (car rest))))
+    (ly:molecule-align-to! m X LEFT)
+    m))
 (define-public (halign-markup paper props . rest)
   "Set horizontal alignment. Syntax: haling A MARKUP. A=-1 is LEFT,
 A=1 is right, values in between vary alignment accordingly."
@@ -181,10 +184,7 @@ A=1 is right, values in between vary alignment accordingly."
     (ly:molecule-align-to! m X (car rest))
     m))
 
-(define-public (left-align-markup paper props . rest)
-  (let* ((m (interpret-markup paper props (car rest))))
-    (ly:molecule-align-to! m X RIGHT)
-    m))
+
 
 (define-public (musicglyph-markup paper props . rest)
   (ly:find-glyph-by-name

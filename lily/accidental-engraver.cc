@@ -394,7 +394,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 void
 Accidental_engraver::finalize ()
 {
-
+  last_keysig_ = SCM_EOL;
 }
 
 void

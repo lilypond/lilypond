@@ -58,7 +58,7 @@ Each plug-in are completely modular and independent, so each can be
 developed and improved separately.  When put together, the plug-ins
 can solve the music notation program in cooperation.  People that put
 graphics to musical ideas are called copyists or engravers, so by
-analogy, each plug-in is also @code{engraver}.
+analogy, each plug-in is also called @code{engraver}.
 
 In the following example, we see how we start out with a note head
 engraver.
