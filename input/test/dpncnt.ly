@@ -1,5 +1,5 @@
 \header {
-1    texidoc = "test file for new-new-chord names, ie, double-plus-new-chord-name"
+    texidoc = "test file for new-new-chord names, ie, double-plus-new-chord-name"
 }
 
 efull = \chordnames {
