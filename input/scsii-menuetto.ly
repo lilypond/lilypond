@@ -57,8 +57,8 @@ ii_menuetto = music {
 %	{ 'e4-.-\downbow g4 `g4\stemdown } |
 	{ 'e4-.-\downbow g4 `g4 } |
 %%8
-%	{ 'cis2.-\upbow e2. `a2.\stemdown } :||:
-	{ 'cis2.-\upbow e2. `a2. } | % :||:
+%	{ 'cis2.-\upbow e2. `a2.\stemdown } :|:%%sorry!!
+	{ 'cis2.-\upbow e2. `a2. } \bar ":|:"%%!! sorry!
 %%9
 	\clef "violin"
 %	{ 'e2 a2_f\stemdown }
@@ -99,27 +99,25 @@ ii_menuetto = music {
 	{ a2^"0" fis2_"3" } bes4 |
 %%%18
 %%	[ { 'c( es } ) bes 'c a ] fis4^\tr |
-	{ [ 'c es } bes 'c a ] fis4 |
+	{ \music{ [ 'c( )bes 'c a ] } \music{ [ es ] } } fis4 |
 %%%19
-%%	{ 'd4-\downbow g4 `bes4\stemdown } { 'c4-\upbow g4 c4\stemdown } [ { bes d } a ] |
 	{ 'd4-\downbow g4 `bes4 } { 'c4-\upbow g4 c4 } { [ bes d } a ] |
 %%%20
 %%	[ { 'c( d `g } bes a ) bes g ( ) bes ] |
-	{ [ 'c d `g } bes a bes g( )bes ] |
+	{ \music{ [ 'c( bes a )bes g( )bes ] } \music{ [ d ] } \music{ [ g ] } } |
 %%%21
 %%	{ 'd4\stemup g2\stemdown } (^ ) 'cis4\stemup { 'd4\stemup =f4\stemdown } |
-%	{ 'd4 g2 } 'cis4 { 'd4 f4 } |
 	{ \multivoice \music {\stem{1}  'd4(\stem{1} ) 'cis4 'd4 } \music { \stem{-1} g2 f4 } } |
 %%%22
 %%	[ { g(  cis } )f g e ] { f4 d4 } |
-	{ [ g cis } f g e ] { f4 d4 } |
+	{ \music{ [ g( )f g e ] } \music{ [ cis ] } } { f4 d4 } |
 %%%23
 %%	[ `g g ] { e4.\stemup^\tr `a4.\stemdown } d\stemup-\upbow |
 	[ `g g ] { e4. `a4. } d-\upbow |
 %%%24
 %%	{ d2.^{fine}  `a2. `d2.\stemup_{ }_{ }_{3 mins.}}	s4 :||
 %%	{ \textstyle "italic" d2.^"fine" `a2. \textstyle "roman" `d2._"3 mins."} | % :||
-	{ d2.^"fine" `a2. `d2._"3 mins."} | % :||
+	{ d2.^"fine" `a2. `d2._"3 mins."} \bar ":||"
 %% \tighten		% use one line less
 	$
 }
@@ -130,13 +128,6 @@ score {
 	}
 	commands {
 		meter {3 * 4}
-		skip {24 * 4}% 8 measures
-		bar ":|:"
-
-		skip {15 * 4} % 5 meas.
-
-		skip {36*4}
-		bar ":||"
 	}
 	paper {
 		symboltables { table_sixteen }
@@ -146,4 +137,11 @@ score {
 		geometric 1.4
 		output "scsii-menuetto.out"
 	}
-o}
+	staff {
+		midi music { ii_menuetto }
+	}
+	midi { 
+		tempo 4:120
+		output "scsii-menuetto.midi"
+	}
+}
