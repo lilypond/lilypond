@@ -166,7 +166,7 @@ Side-effect: set BASS and INVERSION in containing body
 			       (gobble-pitches tail)))
 
 	     ;; ugh. Simply add isolated pitches. This will give
-	     ;; unexpected results. 
+	     ;; unexpected results....
 	     ((ly:pitch? tag)
 	      (interpret-chord root
 			       (add-pitches root chord tail)
@@ -177,9 +177,13 @@ Side-effect: set BASS and INVERSION in containing body
 	  ))
 
     (write-me "*******\n" flat-mods)
-    (set! complete-chord (interpret-chord root base-chord flat-mods))
     (write-me "pitches: " complete-chord)
     (write-me "bass: " bass)
+
+    (set! complete-chord (interpret-chord root base-chord flat-mods))
+    (set! complete-chord (sort complete-chord ly:pitch<?))
+    
+    ;; TODO: lower bass to be below chord.
     (process-inversion (make-chord complete-chord bass duration) inversion)
     
   ))
