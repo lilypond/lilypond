@@ -26,7 +26,7 @@ Align_interface::alignment_callback (SCM element_smob, SCM axis)
   Grob * par = me->parent_l (ax);
   if (par && !to_boolean (par->get_grob_property ("alignment-done")))
     {
-      Align_interface::align_to_extents (par, ax);
+      Align_interface::align_elements_to_extents (par, ax);
     }
   return gh_double2scm (0.0);
 }
@@ -81,7 +81,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
   from the outside by setting minimum-space and extra-space in its
   children */
 void
-Align_interface::align_to_extents (Grob * me, Axis a)
+Align_interface::align_elements_to_extents (Grob * me, Axis a)
 {
   me->set_grob_property ("alignment-done", SCM_BOOL_T);
   
@@ -139,15 +139,30 @@ Align_interface::align_to_extents (Grob * me, Axis a)
     }
   
  
-  Real where_f=0;
+  /*
+    Read self-alignment-X and self-alignment-Y. This may seem like
+    code duplication. (and really: it is), but this is necessary to
+    prevent ugly cyclic dependencies that arise when you combine
+    self-alignment on a child with alignment of children.
+  */
+
+  String s ("self-alignment-");
+
+  s +=  (a == X_AXIS) ? "X" : "Y";
+
+  SCM align (me->get_grob_property (s.ch_C()));
+     
   Array<Real> translates ;
+  Interval total;
+  Real where_f=0;
+  
   for (int j=0 ;  j < elems.size(); j++) 
     {
       Real dy = 0.0;
       dy = - stacking_dir * dims[j][-stacking_dir];
       if (j)
 	dy += stacking_dir * dims[j-1][stacking_dir];
-      
+
       if (j)
 	{
 	  dy = (dy >? threshold[SMALLER] )
@@ -155,12 +170,19 @@ Align_interface::align_to_extents (Grob * me, Axis a)
 	}
 
       where_f += stacking_dir * dy;
+      total.unite ( dims[j] +   where_f);
       translates.push (where_f);
     }
 
+  
+
+  Grob * align_center = unsmob_grob (align);
+  Real center_offset = 0.0;
+  
   /*
     also move the grobs that were empty, to maintain spatial order. 
    */
+  Array<Real> all_translates;
   if (translates.size  ())
     {
       int i =0;
@@ -172,11 +194,20 @@ Align_interface::align_to_extents (Grob * me, Axis a)
 	    {
 	      w = translates[i++];
 	    }
-	  all_grobs[j]->translate_axis (w, a);
-
+	  if (all_grobs[j] == align_center)
+	    center_offset = w;
+	  all_translates .push (w);
 	  j++;
 	}
     }
+
+  if (isdir_b  (align))
+    {
+      center_offset = total.linear_combination (gh_scm2double (align));
+    }
+
+  for (int j = 0 ;  j < all_grobs.size (); j++)
+    all_grobs[j]->translate_axis (all_translates[j] - center_offset, a);
 }
 
 Axis

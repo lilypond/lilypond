@@ -744,12 +744,8 @@ either unison, unisilence or soloADue is set"
     (engraver-description
      "Tuplet_engraver"
      "Catch Time_scaled_music and generate appropriate bracket  "
-     '(
-       TupletBracket)
-     '(
-      tupletSpannerDuration
-      tupletInvisible
-      )))
+     '( TupletBracket)
+     '(tupletNumberFormatFunction tupletSpannerDuration tupletInvisible)))
 
 
    (cons

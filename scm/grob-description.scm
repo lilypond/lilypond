@@ -87,7 +87,6 @@
 		(breakable . #t)
 		(stacking-dir . 1)
 		(axes 0)
-		(X-offset-callbacks . (,Break_align_interface::self_align_callback))
 		(space-alist . ,default-break-align-space-alist) 
 		(meta . ,(grob-description "BreakAlignment"
 			axis-group-interface align-interface
@@ -324,7 +323,8 @@
 	(NoteHead . (
 		(style . default)
 		(molecule-callback . ,Note_head::brew_molecule)
-		(Y-offset-callbacks  . (,Staff_symbol_referencer::callback)) 
+		(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
+		(attachment-angle . ,(* 20/360 3.14159))
 		(meta . ,(grob-description  "NoteHead"
 			rhythmic-head-interface font-interface 
 			note-head-interface ))

@@ -117,7 +117,6 @@ Dynamic_engraver::try_music (Music * m)
 	    It will disappear by itself when stop_translation_timestep
 	    () finds that there is nothing to support anymore.  */
 	  
-	  line_spanner_ = 0;
 	  if (cresc_p_)
 	    cresc_p_->suicide ();
 	  cresc_p_ = 0;

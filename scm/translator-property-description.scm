@@ -152,7 +152,13 @@ Staff.defaultBarType will have no effect.
 if they change.
 ")
 (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clef changes.")
-(translator-property-description 'explicitKeySignatureVisibility procedure? "visibility-lambda function for explicit Key changes.")
+
+(translator-property-description 'explicitKeySignatureVisibility
+procedure? "visibility-lambda function for explicit Key changes;
+\override of #'visibility-lambda will set the visibility for normal
+(ie. at the start of the line) key signatures.")
+
+
 (translator-property-description 'followThread boolean?
 				 "if set, note heads are tracked  across staff switches by a thin line")
 (translator-property-description 'forceClef boolean? "Show clef symbol, even if it hasn't changed.")

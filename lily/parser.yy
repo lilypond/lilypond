@@ -1138,7 +1138,7 @@ shorthand_command_req:
 
 
 verbose_command_req:
-	COMMANDSPANREQUEST bare_int STRING {
+	COMMANDSPANREQUEST bare_int STRING { /*TODO: junkme */
 		Span_req * sp_p = new Span_req;
 		sp_p-> set_span_dir ( Direction($2));
 		sp_p->set_mus_property ("span-type",$3);

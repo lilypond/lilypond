@@ -37,6 +37,8 @@ This procedure is called (using dependency resolution) after line breaking. Retu
 (grob-property-description 'arithmetic-multiplier number? "see @ref{spacing-spanner-interface}.")
 (grob-property-description 'attachment pair? "cons of symbols, '(LEFT-TYPE . RIGHT-TYPE), where both types may be alongside-stem, stem, head or loose-end.")
 
+(grob-property-description 'attachment-angle number? "Where does the stem
+attach to the notehead?")
 (grob-property-description 'attachment-offset pair? "cons of offsets,
 '(LEFT-offset . RIGHT-offset).  This offset is added to the
 attachments to prevent ugly slurs.  [fixme: we need more documentation here].
@@ -115,7 +117,11 @@ Align_interface::center_on_element). .")
 (grob-property-description 'expand-limit integer? "maximum number of measures expanded in church rests.")
 (grob-property-description 'extra-extent-X number-pair? "enlarge in X dimension by this much, measured in staff space.")
 (grob-property-description 'extra-extent-Y number-pair? "see @code{extra-extent-Y}.")
-(grob-property-description 'extra-offset number-pair? "pair of reals (a cons) forcing an extra offset   before outputting.")
+(grob-property-description 'extra-offset number-pair? "pair of reals
+(a cons) forcing an extra offset before outputting.
+@code{extra-offset} is added just before `printing' the grob, so the
+typesetting engine is completely oblivious to it.
+")
 (grob-property-description 'extra-space number-pair? "pair of distances (cons LEFT RIGHT).")
 (grob-property-description 'extremity-offset-alist list? "an alist (attachment stem-dir*dir slur-dir*dir) -> offset.  The offset adds to the centre of the notehead, or stem.")
 

@@ -218,17 +218,8 @@ a list of priorities for lowest to hightest proirity.
 
 @subsection  Bugs
 
-See @ref{Bug reports}.  If you have found a bug, you should send a
-bugreport.
-
-@itemize @bullet
-@item Send a copy of the input which causes the error.
-@item Send a description of the platform you use.
-@item Send a description of the LilyPond and ly2dvi version you use.
-@item Send a description of the bug itself.
-@item Send it to @email{bug-gnu-music@@gnu.org} (you don't have to subscribe
-    to this mailinglist).
-@end itemize
+If find something that you consider a bug, please send a bugreport (See
+@ref{Bug reports}) to @email{bug-gnu-music@@gnu.org}.
 
 @subsection  Remarks
 

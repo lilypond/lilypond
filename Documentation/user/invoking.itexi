@@ -21,9 +21,9 @@ dump).
 
 For processing both the @TeX{} and the PostScript output, you must
 have appropriate environment variables set.  For @TeX{}, you have to
-set @var{MFINPUTS} and @var{TEXINPUTS} to point to the directory
+set @code{MFINPUTS} and @code{TEXINPUTS} to point to the directory
 containing LilyPond metafont and .tex files.  For processing the
-PostScript with Ghostscript, you have to set @var{GS_FONTPATH} to
+PostScript with Ghostscript, you have to set @code{GS_FONTPATH} to
 point to the directory containing LilyPond @file{pfa} files.
 
 Scripts to do this are included in

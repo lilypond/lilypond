@@ -3,7 +3,35 @@
 
 name = 'mutopia-index'
 
-import find
+# find.py -- deprecated in python 2.0
+import fnmatch
+import os
+
+_debug = 0
+
+_prune = ['(*)']
+
+def find(pattern, dir = os.curdir):
+        list = []
+        names = os.listdir(dir)
+        names.sort()
+        for name in names:
+                if name in (os.curdir, os.pardir):
+                        continue
+                fullname = os.path.join(dir, name)
+                if fnmatch.fnmatch(name, pattern):
+                        list.append(fullname)
+                if os.path.isdir(fullname) and not os.path.islink(fullname):
+                        for p in _prune:
+                                if fnmatch.fnmatch(name, p):
+                                        if _debug: print "skip", `fullname`
+                                        break
+                        else:
+                                if _debug: print "descend into", `fullname`
+                                list = list + find(pattern, fullname)
+        return list
+
+
 import re
 import os
 import sys
@@ -154,7 +182,7 @@ for opt in options:
 
 dirs  = []
 for f in files:
-	dirs = dirs + find.find ('out-www', f);
+	dirs = dirs + find ('out-www', f)
 
 if not dirs:
 	dirs = ['.']
@@ -162,7 +190,7 @@ if not dirs:
 allfiles = []
 
 for d in dirs:
-	allfiles = allfiles + find.find ('*.ly.txt', d)
+	allfiles = allfiles + find ('*.ly.txt', d)
 
 print allfiles
 
