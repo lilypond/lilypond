@@ -33,20 +33,20 @@ I found a somewhat more elegant patch for this: Just #include
 
 #include <unistd.h>	
 
+#if !HAVE_DYNAMIC_LIBKPATHSEA
+
 #define popen REALLYUGLYKLUDGE
 #define pclose ANOTHERREALLYUGLYKLUDGE
 #define getopt YAKLUDGE
 
 #include <kpathsea/kpathsea.h>
 #include <kpathsea/tex-file.h>
-
-
-
+#endif
 
 static  void *kpathsea_handle = 0;
 static  char *(*dl_kpse_find_file) (char const*, kpse_file_format_type, boolean) = 0;
 static  void (*dl_kpse_maketex_option) (char const*, boolean) = 0;
-static  void (*dl_kpse_set_program_name) (char const*) = 0;
+static  void (*dl_kpse_set_program_name) (char const*, char const*) = 0;
 static  char const *(*dl_kpse_init_format) (kpse_file_format_type) = 0;
 static  char *(*dl_kpse_var_expand) (char const*) = 0;
 static  kpse_format_info_type (*dl_kpse_format_info)[kpse_last_format] = 0;
@@ -107,7 +107,7 @@ SCM ly_kpathsea_expand_variable(SCM var)
 static char const* LIBKPATHSEA = "libkpathsea.so";
 
 int
-open_dynamic_library ()
+open_library ()
 {
 #if HAVE_DYNAMIC_LIBKPATHSEA
   struct
@@ -152,21 +152,27 @@ open_dynamic_library ()
 	  return 1;
 	}
     }
-
   return 0;
+#else
+  dl_kpse_find_file = &kpse_find_file;
+  dl_kpse_set_program_name = &kpse_set_program_name;
+  dl_kpse_format_info = &kpse_format_info;
+  dl_kpse_init_format = &kpse_init_format;
+  dl_kpse_maketex_option = &kpse_maketex_option;
+  dl_kpse_var_expand = &kpse_var_expand;
 #endif
 }
 
 void
 initialize_kpathsea ()
 {
-  if (open_dynamic_library ())
+  if (open_library ())
     {
       fprintf (stderr, "Error opening kpathsea library. Aborting");
       exit (1);
     }
 
-  (*dl_kpse_set_program_name) ("lilypond");
+  (*dl_kpse_set_program_name) ("lilypond", "lilypond");
   (*dl_kpse_maketex_option) ("tfm", TRUE);
   
   SCM find = scm_c_define_gsubr ("ly:kpathsea-find-file", 1, 0, 0, ly_kpathsea_find_file);
