@@ -238,9 +238,6 @@ Beam::quanting (SCM smob)
     }
 
   Real rad = Staff_symbol_referencer::staff_radius (me);
-
-  
-  
   Drul_array<int> edge_beam_counts
     (Stem::beam_multiplicity (stems[0]).length  () + 1,
      Stem::beam_multiplicity (stems.top ()).length  () + 1);
@@ -252,8 +249,8 @@ Beam::quanting (SCM smob)
     if (qscores[i].demerits < reasonable_score)
       {
 	Real d = score_forbidden_quants (qscores[i].yl, qscores[i].yr,
-				     rad, slt, thickness, beam_translation,
-				     edge_beam_counts, ldir, rdir); 
+					 rad, slt, thickness, beam_translation,
+					 edge_beam_counts, ldir, rdir); 
 	qscores[i].demerits += d;
 
 #if DEBUG_QUANTING

@@ -179,6 +179,9 @@ Music::compress (Moment factor)
 void
 Music::transpose (Pitch delta)
 {
+  if (to_boolean (get_property ("untransposable")))
+    return ;
+  
   for (SCM s = this->get_property_alist (true); scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
@@ -191,7 +194,7 @@ Music::transpose (Pitch delta)
 
 	  if (abs (transposed.get_alteration ()) > DOUBLE_SHARP)
 	    {
-	      warning (_f ("Transposition by %s makes alteration larger than two",
+	      warning (_f ("Transposition by %s makes alteration larger than double",
 			   delta.to_string ()));
 	    }
 	}
