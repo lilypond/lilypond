@@ -1,5 +1,8 @@
 2005-03-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-tex.scm (convert-to-ps): add -ofoo.ps to dvips
+	options.
+
 	* lily/slur-scoring.cc (get_base_attachments): only look at stem
 	extent for visible stems.
 
