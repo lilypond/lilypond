@@ -1,5 +1,14 @@
+
+	./input/standchen.ly.rej
+
+	./src/stem.cc.rej
+
+	* scrap simplestaff
+
 BUGS
 	* first clef isn't printed
+
+	* accidental placement for other clefs
 
 SEVERELY LACKING:
 
@@ -12,8 +21,6 @@ INPUTLANGUAGE
 	* figured bass?
 
 	* transposition
-
-	* voicegroups.
 
 	* rest name configurable
 
@@ -44,8 +51,6 @@ SMALLISH PROJECTS
 	* use (char *) iso. String for communication between lexer and
 	parser.
 
-	* As vs. as  notename.
-
 	* configure idealspacing: arithmetic spacing
 
 	* fix linking: `Warning: size of symbol'
@@ -53,17 +58,17 @@ SMALLISH PROJECTS
 BIGGISH PROJECT
 
 	* merge musical & non-musical column. Scrap Commands in favour
-	of Requests, and do multiparralel meters
+	of Requests, and do multiparallel meters
 
 DOC
 
 	* beam generation.
 
+	* Request_register
+
 	* all errors
 
 FUTURE
-
-	* syntax: grouping 2*4 3*8.
 
 	* put scripts on barcommands 
 
@@ -74,8 +79,6 @@ FUTURE
 	* better beamslope calculation
 
 	* implement better breaking algorithm
-
-	* check out linux -> go32 crosscompiler: dos port
 
 	* Implement all requests
 
@@ -89,22 +92,14 @@ FUTURE
 
 IDEAS
 
-	* voice terminate req.
-
-	* keep input in mem, store char* to define spots
-
 	* enter Requests directly
 
 	* itemcolumns
-
-	* check out PMX
 
 	* dependencies: -> implement children more elegantly. Handle
 	spanner with broken deps.
 
 	* use an embedded language: scheme, lisp, S-lang, Perl, ?
-
-	* Broadcasts in Walker of Request and Item.
 
 	* y -dims in internote?
 
