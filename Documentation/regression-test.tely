@@ -152,6 +152,7 @@ Grace note do weird things with timing. Fragile.
 
 @section Beams
 
+
 @lilypondfile[printfilename]{beams.ly}
 
 @lilypondfile[printfilename]{beam-funky.ly}
@@ -183,6 +184,13 @@ Grace note do weird things with timing. Fragile.
 @lilypondfile[printfilename]{auto-isknee.ly}
 
 @lilypondfile[printfilename]{triplets.ly}
+
+@lilypondfile[printfilename]{beam-cross-staff.ly}
+
+@lilypondfile[printfilename]{beam-cross-staff-slope.ly}
+
+
+@section Auto beamer
 
 @lilypondfile[printfilename]{beaming-ternary-metrum.ly}
 
@@ -328,8 +336,6 @@ Grace note do weird things with timing. Fragile.
 
 
 @section PianoStaff
-
-@lilypondfile[printfilename]{beam-cross-staff.ly}
 
 @lilypondfile[printfilename]{slur-cross-staff.ly}
 

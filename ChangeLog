@@ -1,5 +1,11 @@
 2002-07-14  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/beam.cc (quanting): add explicit support for cross-staff
+	beaming: make slope penalty larger.
+
+	* lily/beam.cc: use common refpoints throughout. This fixes many
+	cross staff issues.
+ 
 	* lily/paper-column.cc (before_line_breaking): bug fix.
 
 	* lily/volta-engraver.cc (process_music): do something sensible if

@@ -199,15 +199,16 @@ PianoStaffContext = \translator{
 	\name "PianoStaff"
 	\alias "GrandStaff"
 
+	verticalAlignmentChildCallback = #Align_interface::fixed_distance_alignment_callback
+	VerticalAlignment \override #'forced-distance = #12
+	VerticalAlignment \override #'self-alignment-Y = #0
+
 	\consists "Vertical_align_engraver"
 	\consists "Instrument_name_engraver"
 	
 	instrument = #'()
 	instr = #'()
 	
-	verticalAlignmentChildCallback = #Align_interface::fixed_distance_alignment_callback
-	VerticalAlignment \override #'forced-distance = #12
-	VerticalAlignment \override #'self-alignment-Y = #0
 %	\consistsend "Axis_group_engraver"
 }
 
