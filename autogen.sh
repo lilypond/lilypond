@@ -7,6 +7,8 @@
 srcdir=`dirname $0`
 DIE=0
 
+# autoconf > 2.50 is not very common yet,
+# and disappointingly incompatible with the widely available 2.13
 version=`autoconf --version 2>/dev/null | awk '{print $3}'`
 if test "$version" != "2.13"; then
   echo "ERROR: Please install autoconf 2.13"
