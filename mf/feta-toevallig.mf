@@ -30,6 +30,8 @@ picture remember_pic;
 
 def draw_meta_sharp (expr width, offset) =
 	save beamheight, beamwidth, beamslope;
+	save ne, nw_dist;
+	pair ne, nw_dist;
 
 	beamwidth := width;
 
@@ -50,14 +52,17 @@ def draw_meta_sharp (expr width, offset) =
 	x4 = x1;
 	top y1 - bot y4 = beamheight;
 
+	ne = unitvector (z2 - z1);
+	nw_dist = (ne rotated 90) * blot_diameter;
+
 	fill lft z1{up}
-	     .. top z1{z2 - z1}
-	     -- top z2{z2 - z1}
-	     .. rt z2{down}
+	     ... (z1 + nw_dist){ne}
+	     -- (z2 + nw_dist){ne}
+	     ... rt z2{down}
 	     -- rt z3{down}
-	     .. bot z3{z4 - z3}
-	     -- bot z4{z4 - z3}
-	     .. lft z4{up}
+	     ... (z3 - nw_dist){-ne}
+	     -- (z4 - nw_dist){-ne}
+	     ... lft z4{up}
 	     -- cycle;
 
 	labels (1, 2, 3, 4);
@@ -268,9 +273,9 @@ fet_beginchar ("Natural", "0");
 	z1 - z1' = z2 - z2';
 
 	draw z1
-	     .. z2;
+	     -- z2;
 	draw z1'
-	     .. z2';
+	     -- z2';
 
 	beamtop = top y2;
 

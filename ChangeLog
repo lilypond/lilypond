@@ -1,3 +1,11 @@
+2005-01-26  Werner Lemberg  <wl@gnu.org>
+
+	* mf/feta-slag.mf (draw_trillelement): Fix shape to get clean
+	overlapping.
+
+	* mf/feta-toevallig.mf (draw_meta_sharp): Fix shape to avoid curves
+	with inflections for the 1/2 sharp glyph.
+
 2005-01-24  Werner Lemberg  <wl@gnu.org>
 
 	* mf/feta-autometric.mf (fet_beginfont): Set font_coding_scheme
