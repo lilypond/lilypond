@@ -94,9 +94,9 @@ Hara_kiri_group_spanner::add_interesting_item (Grob* me,Grob* n)
 
 
 ADD_INTERFACE (Hara_kiri_group_spanner,"hara-kiri-group-interface",
-  "  As Vertical_group_spanner, but keep track of interesting items.  If
-we don't contain any interesting items after linebreaking, then
-gracefully commit suicide.  Objective: don't disgrace Lily by
-typesetting empty lines in orchestral scores.",
+  "  As Vertical_group_spanner, but keep track of interesting items.  If	\
+we don't contain any interesting items after linebreaking, then			\
+gracefully commit suicide.  Objective: don't disgrace Lily by			\
+typesetting empty lines in orchestral scores.",					\
   "items-worth-living");
 

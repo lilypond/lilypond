@@ -9,6 +9,9 @@
 
 (use-modules (ice-9 regex))
 
+;;(write standalone (current-error-port))
+
+
 ;;; General settings
 ;; debugging evaluator is slower.
 

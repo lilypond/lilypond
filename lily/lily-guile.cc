@@ -193,6 +193,7 @@ void add_scm_init_func (void (*f) ())
   scm_init_funcs_->push (f);
 }
 
+
 void
 ly_init_ly_module (void *data)
 {

@@ -4315,6 +4315,7 @@ LilyPond may crash.
 @node Tuning per object 
 @subsection Tuning per object 
 
+@cindex \once
 Tuning a single object is most often done with @code{\property}. The
 form,
 @example

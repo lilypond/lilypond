@@ -53,9 +53,14 @@ static PyObject *Midi_error;
 static PyObject *Midi_warning;
 
 static PyObject *
-midi_error (char *s)
+midi_error (char * func, char *s)
 {
-  PyErr_SetString (Midi_error, s);
+  char*dest = (char*) malloc (sizeof (char) * (strlen (func) + strlen (s) + 1));
+  strcpy (dest, func);
+  strcat (dest, s);
+  PyErr_SetString (Midi_error, dest);
+  free (dest);
+  
   return 0;
 }
 
@@ -280,7 +285,7 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
 
   debug_print ("%s", "\n");
   if (strcmp (*track, "MTrk"))
-    return midi_error (__FUNCTION__ ": MTrk expected");
+    return midi_error (__FUNCTION__,  ": MTrk expected");
   
   *track += 4;
 
@@ -293,7 +298,7 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
   debug_print ("track end: %p\n", track + track_len);
   
   if (track_len > track_size)
-    return midi_error (__FUNCTION__ ": track size corrupt");
+    return midi_error (__FUNCTION__,  ": track size corrupt");
 
   pytrack = PyList_New (0);
 
@@ -335,7 +340,7 @@ pymidi_parse_track (PyObject *self, PyObject *args)
     return 0;
 
   if (track_size < 0)
-    return midi_error (__FUNCTION__  ": negative track size");
+    return midi_error (__FUNCTION__,   ": negative track size");
 
   track_end = track + track_size;
   
@@ -358,13 +363,13 @@ midi_parse (unsigned char **midi,unsigned  char *midi_end)
 
   
   if (header_len < 6)
-    return midi_error (__FUNCTION__ ": header too short");
+    return midi_error (__FUNCTION__,  ": header too short");
     
   format = get_number (midi, *midi + 2, 2);
   tracks = get_number (midi, *midi + 2, 2);
 
   if (tracks > 32)
-    return midi_error (__FUNCTION__ ": too many tracks");
+    return midi_error (__FUNCTION__,  ": too many tracks");
   
   division = get_number (midi, *midi + 2, 2) * 4;
 
@@ -398,7 +403,7 @@ pymidi_parse (PyObject *self, PyObject *args)
     return 0;
 
   if (strcmp (midi, "MThd"))
-      return midi_error (__FUNCTION__ ": MThd expected");
+      return midi_error (__FUNCTION__,  ": MThd expected");
   
   midi += 4;
 

@@ -200,14 +200,14 @@ A2_engraver::stop_translation_timestep ()
 }
 
 ENTER_DESCRIPTION(A2_engraver,
-/* descr */       "Part combine engraver for orchestral scores.
-
-The markings @emph{a2}, @emph{Solo} and @emph{Solo II}, are
-created by this engraver.  It also acts upon instructions of the part
-combiner.  Another thing that the this engraver, is forcing of stem,
-slur and tie directions, always when both threads are not identical;
-up for the musicexpr called @code{one}, down for the musicexpr called
-@code{two}.
+/* descr */       "Part combine engraver for orchestral scores.		\
+									\
+The markings @emph{a2}, @emph{Solo} and @emph{Solo II}, are		\
+created by this engraver.  It also acts upon instructions of the part	\
+combiner.  Another thing that the this engraver, is forcing of stem,	\
+slur and tie directions, always when both threads are not identical;	\
+up for the musicexpr called @code{one}, down for the musicexpr called	\
+@code{two}.								\
 
 ",
 /* creats*/       "TextScript",

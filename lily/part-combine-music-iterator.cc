@@ -19,7 +19,6 @@ Part_combine_music_iterator::Part_combine_music_iterator ()
   second_iter_ = 0;
   first_until_ = 0;
   second_until_ = 0;
-
   state_ = 0;
 }
 
@@ -87,8 +86,7 @@ void
 Part_combine_music_iterator::construct_children ()
 {
   SCM lst = get_music ()->get_mus_property ("elements");
-  
-  
+
   first_iter_ = unsmob_iterator (get_iterator (unsmob_music (gh_car (lst))));
   second_iter_ = unsmob_iterator (get_iterator (unsmob_music (gh_cadr (lst))));
 }

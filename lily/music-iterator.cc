@@ -17,6 +17,8 @@
 #include "simple-music-iterator.hh"
 #include "ly-smobs.icc"
 
+#include "ly-smobs.icc"
+
 Music_iterator::Music_iterator ()
 {
   music_ = 0;
