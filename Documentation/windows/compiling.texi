@@ -56,7 +56,7 @@ introduction of the non-feature bzip2.  Here's how I did it:
     cd winsup/cinstall
     patch < ../../cygwin-installer.patch
     cp /home/cygwin/cygwin-1.3.2/usr/lib/mingw/crt2.o .
-    cd ../bzip
+    cd ../bz2lib
     MINGW32=yes CFLAGS='-mno-cygwin' ./configure
     make
     cd -

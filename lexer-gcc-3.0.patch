@@ -1,0 +1,11 @@
+--- ./lily/out-gcc-3.0/lexer.cc~	Tue Jun 26 13:12:26 2001
++++ ./lily/out-gcc-3.0/lexer.cc	Tue Jun 26 13:11:56 2001
+@@ -21,7 +21,7 @@
+ #ifdef __cplusplus
+ 
+ #include <stdlib.h>
+-class istream;
++#include <iostream.h>
+ #include <unistd.h>
+ 
+ /* Use prototypes in function declarations. */

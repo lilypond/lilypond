@@ -1,3 +1,21 @@
+*** WARNING(reminder): all output via TeX (ie: using ly2dvi or plain
+*** lilypond) still yields broken stems, bars and staff lines.
+
+1.5.1.jcn1
+==========
+
+* Beam knee fix.
+
+* Now really included lexer-gcc-3.0.patch.
+
+* Make Voice context accept Thread again; this fixes MIDI output for music
+that uses Thread contexts.
+
+* Removed debug printing from chord-name.scm.
+
+1.5.0
+=====
+
 1.5.0.jcn1
 ==========
 

@@ -407,7 +407,7 @@ EasyNotation =  \translator {
 	easyPlay = ##t
 }
 
-% retain for compatibility reasons.
+% retain for compatibility reasons (FIXME: convert-ly)
 GraceContext = \translator {
 	\type "Engraver_group_engraver"
 }

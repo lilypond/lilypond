@@ -2,11 +2,6 @@
 %
 % Functions for direct and embedded PostScript
 
-
-% FIXME: set with individual symbols
-% round cappings 
-1 setlinecap
-
 /euclidean_length  
 { 
 	1 copy mul exch 1 copy mul add sqrt 
@@ -91,39 +86,46 @@
 
 /draw_repeat_slash % width slope thick
 {
-  /beamthick exch def
-  /slope exch def
-  /width exch def
-  beamthick beamthick slope div euclidean_length
-    /xwid exch def 
-  0 0 moveto
-  xwid 0  rlineto
-  width slope width mul rlineto
-  xwid neg 0 rlineto
-%  width neg width angle sin mul neg rlineto
-  closepath fill
+	1 setlinecap
+	1 setlinejoin
+
+	/beamthick exch def
+	/slope exch def
+	/width exch def
+	beamthick beamthick slope div euclidean_length
+	  /xwid exch def 
+	0 0 moveto
+	xwid 0  rlineto
+	width slope width mul rlineto
+	xwid neg 0 rlineto
+      %  width neg width angle sin mul neg rlineto
+	closepath fill
 } bind def
 
 /draw_hairpin % width start_h end_h thick
 {
-  setlinewidth
-  /end_h exch def 
-  /start_h exch def
-  /wid exch def
-  0 start_h moveto
-  wid end_h lineto
-  stroke
-  0 start_h neg moveto
-  wid end_h neg lineto
-  stroke
+	1 setlinecap
+	1 setlinejoin
+
+	setlinewidth
+	/end_h exch def 
+	/start_h exch def
+	/wid exch def
+	0 start_h moveto
+	wid end_h lineto
+	stroke
+	0 start_h neg moveto
+	wid end_h neg lineto
+	stroke
 } bind def
 
 /draw_tuplet % height gap dx dy thick dir 
 { 
-	/dir exch def 
-	setlinewidth 
 	1 setlinecap 
 	1 setlinejoin 
+
+	/dir exch def 
+	setlinewidth 
 	/tuplet_dy exch def 
 	/tuplet_dx exch def 
 	/tuplet_gapx exch def 
@@ -196,13 +198,14 @@
 
 /draw_volta % h w thick vert_start vert_end 
 { 
+	1 setlinecap 
+	1 setlinejoin 
+
 	/vert_end exch def 
 	/vert_start exch def 
 	setlinewidth 
 	/volta_w exch def 
  	/volta_h exch def 
-	1 setlinecap 
-	1 setlinejoin 
 	vert_start 0 eq { 
 		0 0 moveto 
 		0 volta_h lineto 
