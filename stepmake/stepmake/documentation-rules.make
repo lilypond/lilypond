@@ -8,6 +8,7 @@
 $(outdir)/%.gif: %.xpm
 	xpmtoppm $< | ppmtogif > $@
 
+# use striproff?
 $(outdir)/%.txt: $(outdir)/%.1
 	troff -man -Tascii $< | grotty -b -u -o > $@
 

@@ -1,3 +1,55 @@
+pl 8
+	- make website fixes.
+
+pl 7.jcn1
+ 	- minor stepmake/yodl fixes
+ 
+pl 7.uu1
+
+	- changed separator in vocabulary
+	- added barAlways and defaultBarType properties.
+
+pl 7.hwn1
+	- changed header format.  Use a + for concatenation.
+
+		\header { key = "concat" + "string" }
+	
+	(mudela 1.0.2)	
+	- allow computed properties in translator definition
+
+		GrandStaff = \translator {
+			minVerticalAlign = 1.5\staffheight;
+			..
+		}
+
+	- Music inheritance. Datastructure and parser now follow this grammar
+
+		Music_list:
+			| Music_list Music
+			;
+		Simultaneous_music: '<' Music_list '>'
+			;
+		Sequential_music: '{' Music_list '}'
+			;
+
+	- bf: Item::do_unlink () don't iterate on attached_span_l_arr_,
+because it is changed by Spanner::set_bounds () (thanks Thomas)
+	- bf: URL Documentation/index (thanks EP)
+	- bf: twinkle.ly (thanks EP)
+	- bf: mi2mu (thanks Murray)
+	- bf: mudela-book --dependencies
+	- split LaTeX and TeX stuff
+
+pl 7.tca1
+	- more Partita's 
+
+pl 7.jbr1
+        - aclocal.m4,make/lilypond-vars.make: added PATHSEP as AC_SUBST to  
+          help support Windows NT doco build.  
+          Documentation/ntweb/index.yo: minor spelling changes
+
+
+*************
 pl 7
 	- refman updates by Adriano Moriano.
 
