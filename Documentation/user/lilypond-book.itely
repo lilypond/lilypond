@@ -218,12 +218,11 @@ A special feature not (yet) available in other output formats, is the
 @example
   <ly2dvifile>trip.ly</ly2dvifile>
 @end example
-This runs @file{trip.ly} through ly2dvi (see also @ref{Invoking
-ly2dvi}), and substitutes a preview image in the output. The image
+This runs @file{trip.ly} through @code{lilypond} (see also @ref{Invoking
+lilypond}), and substitutes a preview image in the output. The image
 links to a separate HTML file, so clicking it will take the viewer to
 a menu, with links to images, midi and printouts.
 
-@cindex ly2dvi
 @cindex titling in THML
 @cindex preview image
 @cindex thumbnail

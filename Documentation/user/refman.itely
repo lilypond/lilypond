@@ -527,7 +527,7 @@ used in music aimed at beginners:
 The @code{EasyNotation} variable overrides a @internalsref{Score} context.  
 You probably will want to print it with magnification or a
 large font size to make it more readable.  To print with
-magnification, you must create a DVI file (with @file{ly2dvi}) and
+magnification, you must create a DVI file (with @file{lilypond}) and
 then enlarge it with something like @file{dvips -x 2000 file.dvi}.
 See the @code{dvips} documentation for more details.  To print with a
 larger font, see @ref{Font Size}.
@@ -537,8 +537,8 @@ larger font, see @ref{Font Size}.
 @cindex ghostscript
 
 If you view the result with Xdvi, then staff lines will show through
-the letters.  Printing the PostScript file obtained with ly2dvi does
-produce the correct result.
+the letters.  Printing the PostScript file obtained does produce the
+correct result.
 
 
 @node Easier music entry
@@ -8276,14 +8276,14 @@ spacing is.
 
 The page layout process happens outside the LilyPond formatting
 engine: variables controlling page layout are passed to the output,
-and are further interpreted by @code{ly2dvi}. @code{ly2dvi} responds
-to the following variables in the @code{\paper} block.  The variable
-@code{textheight} sets the total height of the music on each page.
-The spacing between systems is controlled with @code{interscoreline},
-its default is 16pt.  The distance between the score lines will
-stretch in order to fill the full page @code{interscorelinefill} is
-set to a positive number.  In that case @code{interscoreline}
-specifies the minimum spacing.
+and are further interpreted by @code{lilypond} wrapper program. It
+responds to the following variables in the @code{\paper} block.  The
+variable @code{textheight} sets the total height of the music on each
+page.  The spacing between systems is controlled with
+@code{interscoreline}, its default is 16pt.  The distance between the
+score lines will stretch in order to fill the full page
+@code{interscorelinefill} is set to a positive number.  In that case
+@code{interscoreline} specifies the minimum spacing.
 
 @cindex @code{textheight}
 @cindex @code{interscoreline}
@@ -8324,7 +8324,7 @@ the default font, then use the 20 point font.
 
 The file @code{paper16.ly}  will now include a file named @file{a4.ly}, which
 will set the paper variables @code{hsize} and @code{vsize} (used by
-@code{lilypond} and @code{ly2dvi}).
+@code{lilypond-book} and @code{lilypond}).
 
 
 @refcommands
@@ -8335,7 +8335,7 @@ will set the paper variables @code{hsize} and @code{vsize} (used by
 
 @seealso
 
-@ref{Invoking ly2dvi},
+@ref{Invoking lilypond},
 @inputfileref{input/regression,between-systems.ly}, and
 @internalsref{NonMusicalPaperColumn}.
 

@@ -41,8 +41,8 @@ reference.
 
 This tutorial starts with a short introduction to the LilyPond music
 language.  After this first contact, we will show you how to to
-produce printed output, normally using the program @code{ly2dvi}.  You
-should then be able to create and print your first sheets of music.
+produce printed output.  You should then be able to create and print
+your first sheets of music.
 
 @menu
 * First steps::                 Music language of LilyPond.
@@ -273,21 +273,11 @@ your text editor, enter the following input and save the file as
 @end example
 @end quotation
 
-@cindex ly2dvi
-
-@c now this is weird, running ly2dvi to run LilyPond
-@c (therefore name change proposal) 
-
-LilyPond is the program that computes the sheet music. All other
-things, such as adding titles, page breaking and other page layout,
-are done by a small wrapper program called
-@code{ly2dvi}. @code{ly2dvi} calls LilyPond to render the music, and
-then adds the titling and page layout instructions.  To process
-@file{test.ly} with @code{ly2dvi}, proceed as follows:
+To process @file{test.ly}, proceed as follows:
 
 @quotation
 @example
-ly2dvi -p test.ly
+lilypond test.ly
 @end example
 @end quotation
 
@@ -308,12 +298,12 @@ DVI output to `test.dvi'...
 @cindex Viewing music
 @cindex xdvi
 
-The result of the ly2dvi is the file @file{test.pdf}.@footnote{For
-@TeX{} afficionados, there is also a @file{test.dvi} file. It can be
-viewed with @code{xdvi}. The DVI uses a lot of PostScript specials,
-which do not show up in the magnifying glass. The specials also mean
-that the DVI file cannot be processed with @code{dvilj}. Use
-@code{dvips} for printing.
+The result is the file @file{test.pdf}.@footnote{For @TeX{}
+afficionados, there is also a @file{test.dvi} file. It can be viewed
+with @code{xdvi}. The DVI uses a lot of PostScript specials, which do
+not show up in the magnifying glass. The specials also mean that the
+DVI file cannot be processed with @code{dvilj}. Use @code{dvips} for
+printing.
 @cindex dvips
 @cindex dvilj
 @cindex DVI driver
@@ -1194,10 +1184,9 @@ example,
 @cindex bibliographic information
 @cindex titles
 @cindex composer
-@cindex ly2dvi
 
 
-When the file is processed by @code{ly2dvi}, the title and composer
+When the file is processed by @code{lilypond}, the title and composer
 specified are printed above the music. The `tagline' is a short line
 printed at bottom of the last page, which normally says ``Engraved
 by LilyPond, version @dots{}''. In the example above, it is replaced by the
@@ -1229,7 +1218,7 @@ will be printed before each movement:
   @}
 @end example
 
-More information on titling can be found in @ref{Invoking ly2dvi}.
+More information on titling can be found in @ref{Invoking lilypond}.
 
 
 @node Single staff polyphony
