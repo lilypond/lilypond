@@ -402,8 +402,8 @@ engraver. The syntax for these operations is
 \remove @var{engravername}
 @end example
 
-@cindex \consists
-@cindex \remove
+@cindex @code{\consists}
+@cindex @code{\remove}
 
 @noindent
 Here @var{engravername} is a string, the name of an engraver in the
