@@ -26,13 +26,12 @@ build-stamp:
 	dh_testdir
 
 	./configure --disable-checking --disable-debugging \
-		--enable-printing --prefix=/usr --disable-optimise \
+		--enable-printing --prefix=/usr --enable-optimise \
 		--enable-shared \
 		--infodir='$${prefix}/share/info' \
 		--mandir='$${prefix}/share/man'
 	$(MAKE) all
 	$(MAKE) -C Documentation
-#	$(MAKE) -C Documentation/programmer ps
 	$(MAKE) -C Documentation/user ps
 	$(MAKE) -C Documentation/pictures pngs
 
@@ -56,8 +55,8 @@ install: build
 	dh_testroot
 	dh_clean -k
 	dh_installdirs usr/share/doc/texmf \
-		usr/share/emacs/site-lisp \
 		$(d)/examples \
+		usr/share/emacs/site-lisp \
 		usr/share/texmf/tex \
 		usr/share/texmf/fonts/source/public \
 		usr/share/texmf/fonts/afm/public \
@@ -78,22 +77,22 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	cp -av lilypond-mode.el $(r)/usr/share/emacs/site-lisp
+	cp -av lilypond-mode.el $(r)/usr/share/emacs/site-lisp/
 	dh_installdocs DEDICATION TODO *.txt \
 		Documentation/pictures/out/*.png \
 		Documentation/out/*.txt \
 		Documentation/*/out/[a-z]*.dvi \
 		Documentation/*/out/*.ps
 	mkdir $(r)/$(d)/bibliography $(r)/$(d)/misc
-	cp -a Documentation/bibliography/*.bib $(r)/$(d)/bibliography
-	cp -a Documentation/misc/[ACN]* $(r)/$(d)/misc
+	cp -a Documentation/bibliography/*.bib $(r)/$(d)/bibliography/
+	cp -a Documentation/misc/[ACN]* $(r)/$(d)/misc/
 #	dh_installexamples input
 	cp -aP `find input mutopia \( -name '*.*ly' -o -name '*.abc' -o -name '*.tex' -o -name 'TODO' \)` \
 		$(r)/$(d)/examples
 	for i in `find $(r)/$(d)/examples/ -type d -name out`; do \
 		mv -fv $$i/* $$i/..; rmdir $$i; done
 #	dh_installmenu
-#	dh_installemacsen
+	dh_installemacsen
 #	dh_installcron
 #	dh_installmanpages
 #	dh_undocumented

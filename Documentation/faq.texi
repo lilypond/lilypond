@@ -120,7 +120,7 @@ be used by LilyPond, not by any other programs.
 @node Documentation, Language- mudela, Installing, FAQ - GNU LilyPond FAQs
 @section Documentation
 
-@subsubsection What  a sober website/manual you have there!
+@subsubsection What a sober website/manual you have there!
 
 LilyPond development is moving quite fast, documentation will often lag
 a bit behind.  But don't hesitate to point out inaccuracies. Whip up

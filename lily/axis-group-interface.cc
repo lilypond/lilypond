@@ -49,25 +49,37 @@ Axis_group_interface::axis_b (Axis a )const
 }
 
 Interval
+Axis_group_interface::relative_group_extent (Axis a, Score_element *common, SCM elts)
+{
+  Interval r;
+  for (SCM s = elts; gh_pair_p (s); s = gh_cdr (s))
+    {
+      Score_element * se = unsmob_element (gh_car (s));
+      Interval dims = se->extent (a);
+      if (!dims.empty_b ())
+	r.unite (dims + se->relative_coordinate (common, a));
+    }
+  return r;
+}
+
+Interval
 Axis_group_interface::group_extent_callback (Dimension_cache const *c) 
 {
   Axis a = c->axis ();
   Score_element * me = c->element_l ();
+  Score_element * common = me;
 
-  Interval r;
   for (SCM s = me->get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      SCM e=gh_car (s); 
-      Score_element * se = SMOB_TO_TYPE (Score_element, e);
-
-      Interval dims = se->extent (a);
-      if (!dims.empty_b ())
-	r.unite (dims + se->relative_coordinate (me, a));
+      Score_element * se = unsmob_element (gh_car (s));
+      common = se->common_refpoint (common, a);
     }
 
-  return r;
-}
+  Real my_coord = me->relative_coordinate (common, a);
+  Interval r (relative_group_extent (a, common, me->get_elt_property ("elements")));
 
+  return r - my_coord;
+}
 
 void
 Axis_group_interface::set_interface ()
@@ -75,7 +87,7 @@ Axis_group_interface::set_interface ()
   if (!has_interface_b ())
     {
       elt_l_->set_elt_property ("elements", SCM_EOL);
-      elt_l_->set_elt_property ("transparent", SCM_BOOL_T);
+      elt_l_->set_elt_property ("transparent", SCM_BOOL_T); //  junk this?
       elt_l_->set_elt_property ("axes" , SCM_EOL);
       group (elt_l_, "interfaces").add_thing (ly_symbol2scm ("Axis_group"));
     }

@@ -604,8 +604,16 @@ fi
     fi
     stepmake=`echo ${stepmake} | sed "s!\\\${prefix}!$presome!"`
 
+    # urg, how is this supposed to work?
+    if test "$program_prefix" = "NONE"; then
+	  program_prefix=
+    fi
+    if test "$program_suffix" = "NONE"; then
+	  program_suffix=
+    fi
+
     echo $ac_n "checking Package""... $ac_c" 1>&6
-echo "configure:609: checking Package" >&5
+echo "configure:617: checking Package" >&5
     if test "x$PACKAGE" = "xSTEPMAKE"; then
 	echo "$ac_t""Stepmake package!" 1>&6
 
@@ -657,7 +665,7 @@ ac_configure=$ac_aux_dir/configure # This should be Cygnus configure.
 	fi
 
 	echo $ac_n "checking for stepmake""... $ac_c" 1>&6
-echo "configure:661: checking for stepmake" >&5
+echo "configure:669: checking for stepmake" >&5
 	# Check for installed stepmake
 	if test -d $stepmake; then
 	    echo "$ac_t""$stepmake" 1>&6
@@ -779,7 +787,7 @@ else { echo "configure: error: can not run $ac_config_sub" 1>&2; exit 1; }
 fi
 
 echo $ac_n "checking host system type""... $ac_c" 1>&6
-echo "configure:783: checking host system type" >&5
+echo "configure:791: checking host system type" >&5
 
 host_alias=$host
 case "$host_alias" in
@@ -804,7 +812,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:808: checking for $ac_word" >&5
+echo "configure:816: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKE'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -839,7 +847,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:843: checking for $ac_word" >&5
+echo "configure:851: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_FIND'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -876,7 +884,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:880: checking for $ac_word" >&5
+echo "configure:888: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_TAR'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -911,7 +919,7 @@ test -n "$TAR" || TAR="error"
 	# Extract the first word of "bash", so it can be a program name with args.
 set dummy bash; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:915: checking for $ac_word" >&5
+echo "configure:923: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_BASH'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -951,7 +959,7 @@ fi
 	# Extract the first word of "bash", so it can be a program name with args.
 set dummy bash; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:955: checking for $ac_word" >&5
+echo "configure:963: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_SHELL'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -988,7 +996,7 @@ fi
 	# Extract the first word of "bash", so it can be a program name with args.
 set dummy bash; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:992: checking for $ac_word" >&5
+echo "configure:1000: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_BASH'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1029,7 +1037,7 @@ fi
     # Extract the first word of "${PYTHON:-python}", so it can be a program name with args.
 set dummy ${PYTHON:-python}; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1033: checking for $ac_word" >&5
+echo "configure:1041: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_PYTHON'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1089,7 +1097,7 @@ fi
 	LN=cp # hard link does not work under cygnus-nt
 	LN_S='cp -r' # symbolic link does not work for native nt
 	ZIP="zip -r -9" #
-	DOTEXE=.exe
+	program_suffix=.exe
 	# urg
         # DIRSEP='\\'
  	# PATHSEP=';'
@@ -1124,6 +1132,7 @@ fi
 	ZIP="zip -r -9"
         INSTALL="\$(SHELL) \$(stepdir)/../bin/install-sh -c"
     fi
+    
     
     
     
@@ -1195,7 +1204,7 @@ fi
 
 
     echo $ac_n "checking language""... $ac_c" 1>&6
-echo "configure:1199: checking language" >&5    
+echo "configure:1208: checking language" >&5    
     case "$language" in
       En* | en* | Am* | am* | US* | us*)
 	    lang=English;;
@@ -1230,7 +1239,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1234: checking for $ac_word" >&5
+echo "configure:1243: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKEINFO'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1413,7 +1422,8 @@ s%@FIND@%$FIND%g
 s%@TAR@%$TAR%g
 s%@BASH@%$BASH%g
 s%@PYTHON@%$PYTHON%g
-s%@DOTEXE@%$DOTEXE%g
+s%@program_prefix@%$program_prefix%g
+s%@program_suffix@%$program_suffix%g
 s%@ZIP@%$ZIP%g
 s%@LN@%$LN%g
 s%@LN_S@%$LN_S%g

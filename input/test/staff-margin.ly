@@ -15,7 +15,9 @@ linewidth=-1.0;
 \translator { \ScoreContext
 	%textVerticalAlignment = #0
 	}
-\translator { \StaffContext \consists "Staff_margin_engraver"; }
-\translator { \PianoStaffContext \consists "Staff_margin_engraver"; }
+%\translator { \StaffContext \consists "Staff_margin_engraver"; }
+%\translator { \PianoStaffContext \consists "Staff_margin_engraver"; }
+\translator { \StaffContext \consists "New_staff_margin_engraver"; }
+\translator { \PianoStaffContext \consists "New_staff_margin_engraver"; }
 }}
 

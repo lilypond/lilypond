@@ -1,3 +1,20 @@
+lilypond1.3 (1.3.41-1) frozen unstable; urgency=low
+
+  * New upstream development release.
+  * [debian/postinst]: Fixed the pathname to README.Debian.  Thanks to
+      Olivier Abad for the bug report (closes: Bug#58674).
+  * [debian/rules]: Now configure with --enable-optimise again.
+      Yes, it appears that LilyPond and glibc2.1.3 finally get along
+      nicely even with optimisation turned on.  Hurray!  :-)
+  * [Documentation/user/*]: Fixed some formatting bugs in the texinfo files.
+  * [debian/control]: Modified description to hint that 1.3.41 is better
+      than 1.2.17.  :-)
+  * [debian/{rules,emacsen-startup}]: Added an Emacs startup file
+      /etc/emacs/site-start.d/50lilypond1.3.el so that lilypond-mode is
+      automatically loaded for *.ly files.
+
+ -- Anthony Fok <foka@debian.org>  Sat,  1 Apr 2000 03:49:31 -0700
+
 lilypond1.3 (1.3.24-1) frozen unstable; urgency=low
 
   * New upstream development release with lots of bug fixes.  :-)

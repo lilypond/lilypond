@@ -143,8 +143,7 @@ Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
 	  if (rc->musical_b () && to_boolean (rc->get_elt_property ("contains-grace")))
 	    right_dist *= paper_l ()->get_var ("before_grace_spacing_factor");
  
- 
-	  s.distance_f_ = left_distance + right_dist;
+ 	  s.distance_f_ = left_distance + right_dist;
 	    
 	  Real stretch_dist = 0.;
 	  if (gh_number_p (stretch_hint))

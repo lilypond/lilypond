@@ -3,7 +3,7 @@
 # postinst script for the Debian GNU/Linux lilypond package
 #   by Anthony Fok <foka@debian.org>
 #   Initial release:  Sun, 26 Oct 1997 03:23:00 -0700
-#     Last modified:  Wed,  7 Jul 1999 19:36:36 -0600
+#     Last modified:  Sun, 26 Mar 2000 02:18:41 -0700
 
 set -e
 
@@ -26,4 +26,4 @@ install-info --description='LilyPond, the GNU Project music typesetter' \
 
 echo
 echo " $pkg_name configuration completed."
-echo " Please read /usr/doc/$package/README.Debian to get started."
+echo " Please read /usr/share/doc/lilypond1.3/README.Debian to get started."

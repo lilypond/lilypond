@@ -209,7 +209,7 @@ four = \context Staff \notes\relative c{
 
 global = \notes{
 	\time 4/4;
-	\key D;
+	\key d;
 }
 
 \score{

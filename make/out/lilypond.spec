@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.3.41
+Version: 1.3.42
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.41.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.42.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 # Icon: lilypond-icon.gif
@@ -28,10 +28,13 @@ The documentation of LilyPond, both in HTML and PostScript.
 
 %prep
 %setup
+
 %build
-#./configure --disable-checking --disable-debugging --enable-printing --prefix=/usr --disable-optimise --enable-shared
+
 %{configure} --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --disable-optimise --enable-shared
+
 make all
+
 ln -s %{_prefix}/share/texmf/fonts/tfm/public/cm/ tfm
 
 # urg
@@ -63,6 +66,10 @@ tar -C htmldocs -xzf out/htmldoc.tar.gz || true
 mkdir -p out/examples/
 tar -cf - input/  | tar -C out/examples/ -xf- || true
 
+%ifos cygwin
+%{fix_suffixes}
+%endif
+
 %post
 
 touch /tmp/.lilypond-install
@@ -79,12 +86,17 @@ fi
 # hairy to hook it in (possibly non-existing) emacs
 %doc mudela-mode.el
 
+%ifnos cygwin
 %{_prefix}/bin/abc2ly
 %{_prefix}/bin/convert-mudela
 %{_prefix}/bin/mudela-book
 %{_prefix}/bin/ly2dvi
 %{_prefix}/bin/lilypond
 %{_prefix}/bin/midi2ly
+%else
+%{_prefix}/bin
+%endif
+
 %{_prefix}/man/man1/midi2ly.1
 %{_prefix}/man/man1/lilypond.1
 %{_prefix}/man/man1/mudela-book.1

@@ -41,7 +41,7 @@ bass= \notes \relative c' {
 global=\notes{
 	\time 4/4;
 	\property Staff.timeSignatureStyle="C"
-	\key G;
+	\key g;
 	\skip 1*4; \bar "||";
 	\skip 1*4; \bar "||";
 	\skip 1*4; \bar "||";

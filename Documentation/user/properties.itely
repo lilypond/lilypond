@@ -8,22 +8,21 @@ property is listed in parentheses after the property name.
 @end macro
 
 @table @samp
-  @item @code{Generic_property_list} Defines names and types for
-generic properties. These are properties than can be plugged into the
-backend directly. See the init file @file{generic-property.scm} for
-details.  For internal use only.
+  @item @code{Generic_property_list}
+    Defines names and types for generic properties. These are properties
+    than can be plugged into the backend directly. See the init file
+    @file{generic-property.scm} for details.  For internal use only.
 
-
-@item @code{XXXVerticalExtent}@indexcode{groupVerticalExtent}
-@propertytype{Interval: a cons of numbers}
-
-   Hard code the size of the vertical group in context XXX, example
+  @item @code{XXXVerticalExtent}@indexcode{groupVerticalExtent} @propertytype{Interval: a cons of numbers}
+    Hard code the size of the vertical group in context XXX, example
 @example
-  \property Staff.StaffVerticalExtent = #(-5.0 . 5.0)
+\property Staff.StaffVerticalExtent = #(-5.0 . 5.0)
 @end example
-  The value is a cons of real numbers, that measure the extent in
-staff spaces
-   
+    The value is a cons of real numbers, that measure the extent in
+    staff spaces.
+@end table   
+
+@subsubheading Lyrics properties
 
 @cindex properties!Lyrics
 
@@ -39,6 +38,7 @@ staff spaces
     dot.
 @end table
 
+@subsubheading Thread properties
 
 @cindex properties!Thread
 
@@ -377,7 +377,10 @@ Normally a tuplet bracket is as wide as the
 property, you can make brackets last shorter. Example
 
 @mudela[verbatim,fragment]
-\context Voice \times 2/3 { \property  Voice.tupletSpannerDuration = #(make-moment 1 4) [c8 c c] [c c c] }
+\context Voice \times 2/3 {
+  \property Voice.tupletSpannerDuration = #(make-moment 1 4)
+  [c8 c c] [c c c]
+}
 @end mudela
 
 @end table
@@ -572,6 +575,7 @@ no clef is printed upon creation.
     the music given in an @code{\alternative}.
 @end table
    
+@subsubheading GrandStaff properties
 
 @cindex properties!GrandStaff
 
@@ -583,6 +587,7 @@ no clef is printed upon creation.
     Set the minimum vertical distance between staffs.  
 @end table
 
+@subsubheading Score properties
 
 @cindex properties!Score
 
@@ -618,6 +623,7 @@ r1 r1*3 R1*3\property Score.skipBars=1 r1*3 R1*3
 @end example
 @end table
 
+@subsubheading ChordNamesVoice properties
 
 @cindex properties!ChordNamesVoice
 

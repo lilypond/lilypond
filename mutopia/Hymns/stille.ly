@@ -18,7 +18,7 @@
 
 global=\notes {
       \time 6/4;
-      \key Bes;
+      \key bes;
       \skip 1.*12;
       \bar "|.";
 }

@@ -19,6 +19,7 @@ Timing_engraver::do_post_move_processing( )
 {
   bar_req_l_ = 0;
   Timing_translator::do_post_move_processing ();
+  
 }
 
 bool
@@ -35,6 +36,22 @@ Timing_engraver::do_try_music (Music*m)
   
   return Timing_translator::do_try_music (m);
 }
+#if 0
+String
+Timing_engraver::do_process_music ()
+{
+  if (gh_string_p (get_property  ("barType")))
+    ;
+  else if (!now_mom ())
+    {
+      daddy_trans_l_->set_property ("barType", ly_str02scm ("|"));
+    }
+  else
+
+  {
+  }
+}
+#endif
 
 
 String

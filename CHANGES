@@ -1,38 +1,5 @@
---- ../lilypond-1.3.41.jcn3/CHANGES	Sat Apr  1 16:51:17 2000
-++ b/CHANGES	Mon Apr  3 10:06:40 2000
-@@ -1,3 +1,8 @@
-1.3.41.jcn4
-===========
 
-* Windows distribution does not longer require Cygnus' usertools.
-
- 1.3.41.jcn3
- ===========
- --- ../lilypond-1.3.41/CHANGES	Thu Mar 30 11:05:01 2000
-++ b/CHANGES	Sat Apr  1 20:35:51 2000
-@@ -1,3 +1,8 @@
-1.3.41.mb1
-
-* Avoid that xxxXXXVerticalExtent is used for empty HaraKiriStaff 
-  lines.
-
- 1.3.40.jcn3
- ===========
- --- ../lilypond-1.3.41.jcn2/CHANGES	Sat Apr  1 13:09:18 2000
-++ b/CHANGES	Sat Apr  1 16:51:17 2000
-@@ -1,3 +1,9 @@
 1.3.41.jcn3
-===========
-
-* chord.cc (to_chord): Forgot to remove early chord bugfix, introducing
-a new bug.
-
- 1.3.41.jcn2
- ===========
- --- ../lilypond-1.3.41.jcn1/CHANGES	Thu Mar 30 17:50:26 2000
-++ b/CHANGES	Sat Apr  1 13:09:18 2000
-@@ -1,3 +1,13 @@
-1.3.41.jcn2
 ===========
 
 * Lots of fixes to windows distribution scripts.
@@ -42,25 +9,30 @@ a new bug.
 * lily/my-lily-parser.cc (get_chord): Bugfix, don't use deleted pitch.
 This fixes inversions c/g and bass additions d/+c on chords.
 
- 1.3.41.jcn1
- ===========
- --- ../lilypond-1.3.41/CHANGES	Thu Mar 30 04:05:01 2000
-++ b/CHANGES	Fri Mar 31 00:30:53 2000
-@@ -1,3 +1,10 @@
-1.3.41.mwd1
+1.3.41.mb1
+==========
+
+* Avoid that xxxXXXVerticalExtent is used for empty HaraKiriStaff
+  lines.
+
+1.3.41.hwn1
 ===========
 
-* Fixed extra dots on repeat span-bars.
+* Debian patches (thanks Anthony!)
 
-* Changed the look of :|: repeat bars.
+* Use symbols for prefatory matter spacing. Do not use the typename
+for looking up item pairs in the table, but read element property
+break-align-symbol
 
- 1.3.40.jcn3
- ===========
- 1.3.41.jcn1
-===========
+* Instrument_name_engraver, uses break alignment instead of
+side-position.
 
-* More windows distribution changes: distribute minimal .zip too, and
-fixes to setup scripts.
+* System_start_delimiter_engraver, System_start_delimiter, uses a
+spanner for the braces/brackets at the left of the system. Remove all
+old Span_score_bar engravers.
+
+* Removed Base_span_bar_engraver::use_prority_b_, and moved
+Base_span_bar_engraver into Span_bar_engraver.
 
 1.3.40.jcn3
 ===========
@@ -69,7 +41,7 @@ fixes to setup scripts.
 
 * input/test: Removed stale AutoStaffSwitch examples.
 
-* mutopia/E.Saite: Fixed gnossiene-4, doing \autochange.  Removed
+* mutopia/E.Satie: Fixed gnossiene-4, doing \autochange.  Removed
 stale copy of gnossiene-4.
 
 * buildscripts/make-cygwin-cross.sh: Made some small .zip package fixes.

@@ -33,7 +33,6 @@ protected:
   void evaluate_empty ();
 
   static Interval width_callback(Dimension_cache const*) ;
-  static Interval height_callback(Dimension_cache const*) ;  
   
   virtual Real get_bar_size () const;
   virtual void before_line_breaking ();

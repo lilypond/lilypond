@@ -3,7 +3,7 @@ Build-Depends: debhelper (>= 2.0.71), python-base (>= 1.5.2-4), libguile6-dev, t
 Section: tex
 Priority: optional
 Maintainer: Anthony Fok <foka@debian.org>
-Standards-Version: 3.1.0
+Standards-Version: 3.1.1
 
 Package: lilypond1.3
 Architecture: any
@@ -17,8 +17,9 @@ Description: A program for printing sheet music.
  using a high level description file as input.  LilyPond is part of 
  the GNU Project.
  .
- This is the unstable 1.3 branch of LilyPond.  It is not intended for
- use with stable projects!
+ This is the developmental 1.3 branch of LilyPond.  It is not intended for
+ use with stable projects, although arguably 1.3.41 is less buggy and much
+ more featureful than then the "stable" 1.2.17.
  .
   URLs: http://www.cs.uu.nl/~hanwen/lilypond/
         http://www.xs4all.nl/~jantien/lilypond/

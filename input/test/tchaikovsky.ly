@@ -16,7 +16,7 @@ instrument=	"Violoncello";
 	\notes
 	  \relative c{
 	 	\clef "bass";
-		\key D;
+		\key d;
 		<a2\ppp\cr d> <gis\rc\p\decr d'> | <a2\rced d> ~ <a8 d> r8 r4 |
 		a2\ppp\cr a2\rc\p\decr | <a2\rced d> ~ <a8 d> r8 r4 |
 		a2\pppp ~ a8 r8 r4 | a2\ppppp ~ a8 r8 r4 | r4 a8_"pizz"
@@ -32,7 +32,7 @@ instrument=	"Violoncello";
 	\notes
 	\relative c{
 		\clef "bass";
-		\key C;
+		\key c;
 		<e1\sff cis'^\downbow> | <cis\sff a'^\downbow> | 
 		<d,\ffff\decr g> ~ <d2 g> ~ <d8\p\rced g> |
 	}

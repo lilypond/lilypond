@@ -5,10 +5,10 @@
 
 @titlepage
 @title mudela-book Manual
-@subtitle Integrating mudela with LateX and TeXinfo
+@subtitle Integrating mudela with La@TeX{} and TeXinfo
 @author Tom Cato Amundsen and  Han-Wen Nienhuys
 
-     Copyright @copyright 1999 by the authors
+     Copyright @copyright{} 1999 by the authors
 
 @vskip 0pt plus 1filll
 
@@ -78,19 +78,19 @@ translation approved by the Free Software Foundation.
 
 [TODO: THIS MANUAL IS OUTDATED. FIXME.]
 
-Mudela-book is a script that process your \LaTeX file and with great
+Mudela-book is a script that process your La@TeX{} file and with great
 help from GNU LilyPond it translates blocks of mudela code it finds
 inside @code{mudela} environments to tex or eps graphics. It then
-creates a new file that can be sent through \LaTeX to create a
+creates a new file that can be sent through La@TeX{} to create a
 @file{.dvi} file with lines of music integrated with text.
 
 Mudela-book will do its best to try to align the music to the left and
 right margins. Currently the most used papersizes and one- and
 twocolumn mode is supported, but if you use the geometry-package from
-LaTeX or change the margins things will break.
+La@TeX{} or change the margins things will break.
 
 This document assumes you have basic knowledge of GNU LilyPond and
-LaTeX.
+La@TeX{}.
 
 So what does this look like? Well, here is an example:
 @mudela[veryverbatim, intertext="produces this music:"]
@@ -105,8 +105,8 @@ So what does this look like? Well, here is an example:
 }
 @end mudela
 If you are lucky, the above example show a nice feature of LilyPond
-and LaTeX. Since LilyPond can output the music as \TeX graphics,
-LaTeX can insert pagebreaks between the lines of music.
+and La@TeX{}. Since LilyPond can output the music as @TeX{} graphics,
+La@TeX{} can insert pagebreaks between the lines of music.
 
 Notice that there is no @code{\paper} statement in the example
 above. Mudela-book will insert some code for you that defines the
@@ -186,7 +186,7 @@ was created with this code:
 @end mudela
 @end example
 
-To avoid that LaTeX places the music on a line of its one, there should
+To avoid that La@TeX{} places the music on a line of its one, there should
 be no empty lines between the normal text and the mudela
 environment. 
 
@@ -266,7 +266,7 @@ if you need this one of these options.
 
 This was all options to @code{\begin}. The rest of the mudela
 document will show some ways you can use mudela in
-LaTeX documents. It will also act as a simple test-suite for
+La@TeX{} documents. It will also act as a simple test-suite for
 mudela-book. You can place @code{eps} mudela in and marginspars just
 as any other included eps graphics.
 
@@ -315,8 +315,8 @@ Mudela-book does know about @code{\onecolumn} and @code{\twocolumn}.
 So the music will be adjusted to the new linewith:
 
 Verbatim environments will also ignore the page margins. That is
-a feature of LaTeX. (But you usually put things inside a verbatim
-environment when you don't want LaTeX to do any linebreaking)
+a feature of La@TeX{}. (But you usually put things inside a verbatim
+environment when you don't want La@TeX{} to do any linebreaking)
 
 
 @section Texinfo behavior
@@ -326,9 +326,9 @@ environment when you don't want LaTeX to do any linebreaking)
 @section Invocation
 
 @file{mudela-book} is a script that helps integrating mudela and
-LaTeX.  mudela-book runs LilyPond on fragments of mudela in your
+La@TeX{}.  mudela-book runs LilyPond on fragments of mudela in your
 source file, and includes the results into document that can be
-processed with LaTeX.  The result is a text document with formatted
+processed with La@TeX{}.  The result is a text document with formatted
 music integrated.
 
 Lilypond will by default create all output files in directory @file{out}.
@@ -382,7 +382,7 @@ to whatever he wants.
     Force all mudela to use this fontsize, overriding options
     given to \begin@{mudela@}
 @item --outname=FILE
-    The name of LaTeX file to output. If this option  is not given,
+    The name of La@TeX{} file to output. If this option  is not given,
 the output name derived from the input name.
 @item --out-www=DIRECTORY
     The name of the directory to output lilypond output and input to.
@@ -406,9 +406,9 @@ the output name derived from the input name.
 
 @section Bugs
   
-The LaTeX \includeonly@{...@} command is ignored.
+The La@TeX{} \includeonly@{...@} command is ignored.
 
-Ignores almost all LaTeX commands that changes margins and linewidths.
+Ignores almost all La@TeX{} commands that changes margins and linewidths.
 
 @section Authors
 
@@ -418,9 +418,4 @@ Ignores almost all LaTeX commands that changes margins and linewidths.
 
 
 @bye
-
-
-
-
-
 

@@ -145,6 +145,8 @@ Side_position_interface::aligned_on_self (Dimension_cache const *c)
     return 0.0;
 }
 
+
+
 Real
 directed_round (Real f, Direction d)
 {

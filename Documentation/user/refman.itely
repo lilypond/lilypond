@@ -312,8 +312,6 @@ Simply include the language specific init file.  For example:
 `@code{\include "english.ly"}'.  The available language files and the
 names they define are:
 
-@quotation
-
 @example 
                         Note Names               sharp       flat
 nederlands.ly  c   d   e   f   g   a   bes b   -is         -es
@@ -324,8 +322,6 @@ svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess
 italiano.ly    do  re  mi  fa  sol la  sid si  -d          -b
 catalan.ly     do  re  mi  fa  sol la  sid si  -d/-s       -b 
 @end example 
-
-@end quotation
 
 Pitch names can be redefined using the
 @code{\notenames}@keyindex{notenames} command, see
@@ -394,7 +390,7 @@ different modes have different rules for deciding what is a word.
     over 127, or a two-character combination of a backslash followed
     by one of `@code{`}', `@code{'}', `@code{"}', or
     `@code{^}'.@footnote{The purpose of Lyrics mode is that you can
-    enter lyrics in TeX format or a standard encoding without
+    enter lyrics in @TeX{} format or a standard encoding without
     needing quotes.  The precise definition of this mode indeed is
     ludicrous.  This will remain so until the authors of LilyPond
     acquire a deeper understanding of character encoding, or someone
@@ -410,10 +406,7 @@ different modes have different rules for deciding what is a word.
     spaces into words without using quotes.  Quoted words can also be
     used in Lyrics mode to specify words that cannot be written with
     the above rules.  Here are some examples.  Not all of these words
-    are printable by TeX.
-
-
-    @quotation
+    are printable by @TeX{}.
 
 @example 
 Ah!             % a word
@@ -421,8 +414,6 @@ Ah!             % a word
 ``Hello''       % not a word because it starts with `
 _ _ _ _         % 4 words, each one a space 
 @end example 
-
-    @end quotation
 
     Since combinations of numbers and dots are used for indicating
     durations, you can not enter real numbers in this mode.
@@ -1136,7 +1127,7 @@ name of the corresponding symbol appearing underneath.
 @end mudela
 
 In addition, it is possible to place arbitrary strings of text or
-TeX above or below notes by using a string instead of an
+@TeX{} above or below notes by using a string instead of an
 identifier: `@code{c^"text"}'.  Fingerings 
 @cindex fingering
  can be
@@ -2837,8 +2828,7 @@ instrument name should be chosen from the following list.  If the
 selected string does not exactly match, then LilyPond uses the default
 piano.
 
-
-@quotation
+@c @quotation
 
 @example 
 "acoustic grand"            "contrabass"           "lead 7 (fifths)"
@@ -2886,7 +2876,7 @@ piano.
 "cello"                     "lead 6 (voice)" 
 @end example 
 
-@end quotation
+@c @end quotation
 
 
 @cindex MIDI types and performers

@@ -12,12 +12,12 @@
 
 @table @samp
 @item -f,--format=
-	Output format for sheet music. Choices are tex (for TeX
+	Output format for sheet music. Choices are tex (for @TeX{}
 	output), ps (for PostScript) and scm (for GUILE)
 @item -I,--include=
     add @file{FILE} to the search path for input files.
 @item -m,--midi
-    Disable TeX output. If you have a \midi definition, it will do the 
+    Disable @TeX{} output. If you have a \midi definition, it will do the 
     midi output only.
 @item -M,--dependencies
     Also output rules to be included in Makefile.
@@ -26,7 +26,7 @@
     which lists what functions and classes may produce copious debugging
     output.
 @item -s,--safe
-    Disallow untrusted @code{\include} directives, backslashes in TeX
+    Disallow untrusted @code{\include} directives, backslashes in @TeX{}
 code and named output.
 @item -t,--test
     Switch on any experimental features.  Not for general public use.
