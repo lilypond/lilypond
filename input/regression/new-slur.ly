@@ -68,10 +68,8 @@
     \clef treble
     \new Voice {
 	\slurDown
-	c=''4( d, c') s4
-    }
-    \new Voice \relative c'' {
-	\slurDown f2( d4 f | g c a f | d c f2 | f1) |
+	c=''4(^"slurs forced down"  d, c') s4
+	f=''2( d4 f | g c a f | d c f2 | f1) |
     }
 
 %    \override Slur #'excentricity = #-2
