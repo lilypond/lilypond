@@ -1,3 +1,24 @@
+2003-07-24  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* cygwin/changelog: 
+	* cygwin/mknetrel: Update.
+
+	* GNUmakefile.in (web-install): Rename (was: install-html-doc).
+	(html-doc): Remove (use: web).
+
+	* stepmake/stepmake/script-rules.make: 
+	* stepmake/stepmake/python-module-rules.make ($(outdir)/%.py):
+	Fix $(config_make) dependencies for srcdir build.
+
+	* stepmake/stepmake/generic-targets.make ($(config_make)): Fix
+	target for srcdir build.
+
+	* stepmake/make/stepmake.make: 
+	* make/srcdir.make.in: 
+	* GNUmakefile.in:
+	* make/stepmake.make (config_make): Rename variable (was:
+	configuration).
+
 2003-07-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/internals.itely (Manipulating music
