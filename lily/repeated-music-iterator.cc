@@ -102,12 +102,15 @@ void
 Folded_repeat_iterator::enter_alternative ()
 {
   New_repeated_music const *  mus = dynamic_cast<New_repeated_music const*> (music_l_);  
-  Simultaneous_music_iterator * s = new Simultaneous_music_iterator;
-  s->separate_contexts_b_ = true;
-  s->init_translator (mus->alternatives_p_, report_to_l ());
+  if (mus->alternatives_p_)
+    {
+      Simultaneous_music_iterator * s = new Simultaneous_music_iterator;
+      s->separate_contexts_b_ = true;
+      s->init_translator (mus->alternatives_p_, report_to_l ());
   
-  alternative_iter_p_ = s;
-  alternative_iter_p_->construct_children ();
+      alternative_iter_p_ = s;
+      alternative_iter_p_->construct_children ();
+    }
 }
 
 void

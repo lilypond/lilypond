@@ -13,7 +13,7 @@
 #include "multi-measure-rest.hh"
 #include "command-request.hh"
 #include "time-description.hh"
-#include "engraver-group.hh"
+#include "engraver-group-engraver.hh"
 #include "new-repeated-music.hh"
 #include "time-description.hh"
 #include "volta-spanner.hh"

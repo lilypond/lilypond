@@ -1,5 +1,5 @@
 /*   
-  g-script.cc --  implement G_script
+  g-script.cc --  implement Script
   
   source file of the GNU LilyPond music typesetter
   
@@ -13,27 +13,27 @@
 
 */
 #include "debug.hh"
-#include "g-script.hh"
+#include "script.hh"
 #include "lookup.hh"
-#include "g-staff-side.hh"
+#include "staff-side.hh"
 #include "paper-def.hh"
 
-G_script::G_script ()
+Script::Script ()
 {
   staff_side_l_ =0;
 }
 
 void
-G_script::do_substitute_element_pointer (Score_element*o, Score_element*n)
+Script::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   if (o == staff_side_l_)
-    staff_side_l_ = dynamic_cast<G_staff_side_item*>(n);
+    staff_side_l_ = dynamic_cast<Staff_side_item*>(n);
 }
 
 
 
 Molecule
-G_script::get_molecule(Direction d) const
+Script::get_molecule(Direction d) const
 {
   SCM s = get_elt_property (molecule_scm_sym);
   assert  (s != SCM_BOOL_F);
@@ -57,7 +57,7 @@ G_script::get_molecule(Direction d) const
 
 
 void
-G_script::do_pre_processing ()
+Script::do_pre_processing ()
 {
   Graphical_element * e
     = staff_side_l_->dim_cache_[X_AXIS]->parent_l_->element_l();
@@ -65,7 +65,7 @@ G_script::do_pre_processing ()
 }
 
 void
-G_script::do_post_processing ()
+Script::do_post_processing ()
 {
   Direction d =  staff_side_l_->dir_;
   Molecule m (get_molecule(d));
@@ -73,7 +73,7 @@ G_script::do_post_processing ()
 }
 
 void
-G_script::set_staff_side (G_staff_side_item*g)
+Script::set_staff_side (Staff_side_item*g)
 {
   staff_side_l_ = g;
   add_dependency (g);
@@ -81,13 +81,13 @@ G_script::set_staff_side (G_staff_side_item*g)
 }
 
 Molecule*
-G_script::do_brew_molecule_p () const
+Script::do_brew_molecule_p () const
 {
   return new Molecule (get_molecule (staff_side_l_->dir_));
 }
 
 void
-G_script::do_print () const
+Script::do_print () const
 {
 
 }

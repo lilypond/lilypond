@@ -14,7 +14,7 @@
 #include "paper-def.hh"
 #include "main.hh"
 #include "dimensions.hh"
-#include "g-text-item.hh"
+#include "text-item.hh"
 
 ADD_THIS_TRANSLATOR (Chord_name_engraver);
 
@@ -69,7 +69,7 @@ Chord_name_engraver::do_process_requests ()
 	}
     }
     
-  G_text_item* item_p =  new G_text_item;
+  Text_item* item_p =  new Text_item;
 
   /*
    TODO:

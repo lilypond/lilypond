@@ -24,6 +24,8 @@
 #include "new-repeated-music.hh"
 #include "folded-repeat-iterator.hh"
 #include "unfolded-repeat-iterator.hh"
+#include "grace-iterator.hh"
+#include "grace-music.hh"
 
 void
 Music_iterator::do_print() const
@@ -124,6 +126,8 @@ Music_iterator::static_get_iterator_p (Music const *m)
     p = new Change_iterator;
   else if (dynamic_cast<Time_scaled_music  const *> (m))
     p = new Time_scaled_music_iterator;
+  else if (dynamic_cast<Grace_music const*> (m))
+    p = new Grace_iterator;      
   else if (dynamic_cast<Music_wrapper  const *> (m))
     p = new Music_wrapper_iterator;
   else if (New_repeated_music const * n = dynamic_cast<New_repeated_music const *> (m))

@@ -10,6 +10,8 @@
 #ifndef LY_SYMBOLS_HH
 #define LY_SYMBOLS_HH
 
+#include "lily-guile.hh"
+
 #ifndef DECLARE_LY_SYMBOL
 #define DECLARE_LY_SYMBOL(a) extern SCM a ## _scm_sym
 #endif
@@ -34,11 +36,13 @@ DECLARE_LY_SYMBOL(dir_list);
 DECLARE_LY_SYMBOL(extender_height);
 DECLARE_LY_SYMBOL(filledbox);
 DECLARE_LY_SYMBOL(fontsize);
+DECLARE_LY_SYMBOL(grace);
 DECLARE_LY_SYMBOL(header);
 DECLARE_LY_SYMBOL(horizontal_shift);
 DECLARE_LY_SYMBOL(interbeam);
 DECLARE_LY_SYMBOL(interbeam4);
 DECLARE_LY_SYMBOL(interline);
+DECLARE_LY_SYMBOL(length);
 DECLARE_LY_SYMBOL(linewidth);
 DECLARE_LY_SYMBOL(minimum_space);
 DECLARE_LY_SYMBOL(molecule);

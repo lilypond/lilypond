@@ -50,10 +50,6 @@ Translator_group::check_removal()
     }
 }
 
-
-
-
-
 void
 Translator_group::add_translator (Translator *trans_p)
 {

@@ -17,7 +17,7 @@ TODO:
 #include "breathing-sign.hh"
 #include "musical-request.hh"
 #include "command-request.hh"
-#include "engraver-group.hh"
+#include "engraver-group-engraver.hh"
 #include "note-head.hh"
 #include "local-key-item.hh"
 

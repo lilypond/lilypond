@@ -1,5 +1,5 @@
 /*   
-  g-script-column-engraver.cc --  implement G_script_column_engraver
+  g-script-column-engraver.cc --  implement Script_column_engraver
   
   source file of the GNU LilyPond music typesetter
   
@@ -8,19 +8,19 @@
  */
 
 #include "engraver.hh"
-#include "g-script-column.hh"
-#include "g-staff-side.hh"
+#include "script-column.hh"
+#include "staff-side.hh"
 
 /**
    Find potentially colliding scripts, and put them in a
-   G_script_column, that will fix the collisions.  */
-class G_script_column_engraver : public Engraver
+   Script_column, that will fix the collisions.  */
+class Script_column_engraver : public Engraver
 {
-  G_script_column *scol_p_;
+  Script_column *scol_p_;
   Link_array<Item> script_l_arr_;
-  Link_array<G_staff_side_item> staff_side_l_arr_;  
+  Link_array<Staff_side_item> staff_side_l_arr_;  
 public:
-  G_script_column_engraver ();
+  Script_column_engraver ();
   VIRTUAL_COPY_CONS(Translator);
 protected:
   virtual void acknowledge_element (Score_element_info);
@@ -30,13 +30,13 @@ protected:
 };
 
 
-G_script_column_engraver::G_script_column_engraver()
+Script_column_engraver::Script_column_engraver()
 {
   scol_p_ =0;
 }
 
 void
-G_script_column_engraver::do_pre_move_processing ()
+Script_column_engraver::do_pre_move_processing ()
 {
   if (scol_p_)
     {
@@ -46,14 +46,14 @@ G_script_column_engraver::do_pre_move_processing ()
 }
 
 void
-G_script_column_engraver::do_post_move_processing ()
+Script_column_engraver::do_post_move_processing ()
 {
   script_l_arr_.clear ();
   staff_side_l_arr_.clear ();
 }
 
 void
-G_script_column_engraver::acknowledge_element( Score_element_info inf) 
+Script_column_engraver::acknowledge_element( Score_element_info inf) 
 {
   Item *thing =  dynamic_cast<Item*>(inf.elem_l_);
   if (!thing)
@@ -65,7 +65,7 @@ G_script_column_engraver::acknowledge_element( Score_element_info inf)
   
   Graphical_element *parent = parcache->element_l ();
 
-  if (G_staff_side_item * ss = dynamic_cast<G_staff_side_item*>(parent))
+  if (Staff_side_item * ss = dynamic_cast<Staff_side_item*>(parent))
     {
       if (!ss->breakable_b ())
 	{
@@ -75,11 +75,11 @@ G_script_column_engraver::acknowledge_element( Score_element_info inf)
 }
 
 void
-G_script_column_engraver::process_acknowledged ()
+Script_column_engraver::process_acknowledged ()
 {
   if (!scol_p_ && script_l_arr_.size () > 1)
     {
-      scol_p_ = new G_script_column;
+      scol_p_ = new Script_column;
       announce_element (Score_element_info (scol_p_, 0));
     }
 
@@ -90,4 +90,4 @@ G_script_column_engraver::process_acknowledged ()
       script_l_arr_.clear ();
     }
 }
-ADD_THIS_TRANSLATOR(G_script_column_engraver);
+ADD_THIS_TRANSLATOR(Script_column_engraver);

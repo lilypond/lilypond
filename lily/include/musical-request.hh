@@ -55,7 +55,7 @@ public:
 };
 
 
-class Articulation_req : public G_script_req
+class Articulation_req : public Script_req
 {
 public:
   String articulation_str_;
@@ -65,7 +65,7 @@ protected:
   VIRTUAL_COPY_CONS(Music);
 };
 
-class Text_script_req : public G_script_req {
+class Text_script_req : public Script_req {
 public:
   String text_str_;
 

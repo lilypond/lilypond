@@ -12,7 +12,7 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-#include "g-text-item.hh"
+#include "text-item.hh"
 #include "p-score.hh"
 
 void
@@ -49,13 +49,13 @@ Clef_item::do_add_processing ()
 {
   if (!break_status_dir ())	// broken stuff takes care of their own texts
     {
-      G_text_item *g =0;
+      Text_item *g =0;
 
       SCM octave_dir = remove_elt_property (octave_dir_scm_sym);
       if (octave_dir != SCM_BOOL_F)
 	{
 	  Direction d = Direction (gh_scm2int (SCM_CDR(octave_dir)));
-	  g = new G_text_item;
+	  g = new Text_item;
 	  pscore_l_->typeset_element (g);
       
 	  g->text_str_ = "8";

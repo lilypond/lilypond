@@ -1,5 +1,5 @@
 /*   
-  g-staff-side.cc --  implement G_staff_side_element
+  g-staff-side.cc --  implement Staff_side_element
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,13 +7,13 @@
   
  */
 
-#include "g-staff-side.hh"
+#include "staff-side.hh"
 #include "staff-symbol.hh"
 #include "debug.hh"
 #include "warn.hh"
 #include "dimensions.hh"
 
-G_staff_side_element::G_staff_side_element ()
+Staff_side_element::Staff_side_element ()
 {
   dir_ = CENTER;
   to_position_l_ = 0;
@@ -25,7 +25,7 @@ G_staff_side_element::G_staff_side_element ()
 
 
 void
-G_staff_side_element::do_pre_processing ()
+Staff_side_element::do_pre_processing ()
 {
   if (!dir_)
     dir_ = get_default_direction ();
@@ -35,14 +35,14 @@ G_staff_side_element::do_pre_processing ()
 }
 
 Direction
-G_staff_side_element::get_default_direction () const
+Staff_side_element::get_default_direction () const
 {
   return DOWN;
 }
 
 
 void
-G_staff_side_element::set_victim (Score_element *e)
+Staff_side_element::set_victim (Score_element *e)
 {
   add_dependency (e);
   to_position_l_ = e;
@@ -50,7 +50,7 @@ G_staff_side_element::set_victim (Score_element *e)
 }
 
 void
-G_staff_side_element::add_support (Score_element*e)
+Staff_side_element::add_support (Score_element*e)
 {
   add_dependency (e);
   support_l_arr_.push (e);
@@ -58,7 +58,7 @@ G_staff_side_element::add_support (Score_element*e)
 
 
 void
-G_staff_side_element::do_substitute_element_pointer (Score_element*o, Score_element*n)
+Staff_side_element::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   Staff_symbol_referencer::do_substitute_element_pointer (o,n);
   if (o == to_position_l_)
@@ -68,7 +68,7 @@ G_staff_side_element::do_substitute_element_pointer (Score_element*o, Score_elem
 }
 
 void
-G_staff_side_element::position_self ()
+Staff_side_element::position_self ()
 {
   if (to_position_l_ &&
       to_position_l_->get_elt_property (transparent_scm_sym) != SCM_BOOL_F)
@@ -117,7 +117,7 @@ G_staff_side_element::position_self ()
 }
 
 void
-G_staff_side_element::do_post_processing ()
+Staff_side_element::do_post_processing ()
 {
   if (axis_ == Y_AXIS)
     position_self ();
@@ -125,7 +125,7 @@ G_staff_side_element::do_post_processing ()
 
 
 void
-G_staff_side_element::do_add_processing ()
+Staff_side_element::do_add_processing ()
 {
   if (staff_support_b_
       && axis_ == Y_AXIS && staff_symbol_l ())
@@ -135,7 +135,7 @@ G_staff_side_element::do_add_processing ()
 }
 
 Interval
-G_staff_side_element::do_height () const
+Staff_side_element::do_height () const
 {
   Interval i;
   if (to_position_l_)
@@ -144,7 +144,7 @@ G_staff_side_element::do_height () const
 }
 
 void
-G_staff_side_element::do_print () const
+Staff_side_element::do_print () const
 {
 #ifndef NPRINT
   if (to_position_l_)
@@ -157,7 +157,7 @@ G_staff_side_element::do_print () const
 
 
 Interval
-G_staff_side_item::do_width () const
+Staff_side_item::do_width () const
 {
   Interval i;
   if (to_position_l_)
@@ -166,13 +166,13 @@ G_staff_side_item::do_width () const
 }
 
 void
-G_staff_side_item::do_print () const
+Staff_side_item::do_print () const
 {
-  G_staff_side_element::do_print ();
+  Staff_side_element::do_print ();
 }
 
 void
-G_staff_side_spanner::do_print () const
+Staff_side_spanner::do_print () const
 {
-  G_staff_side_element::do_print ();
+  Staff_side_element::do_print ();
 }

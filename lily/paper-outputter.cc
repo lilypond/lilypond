@@ -26,14 +26,17 @@
 #include "lily-version.hh"
 #include "atom.hh"
 
-// urg
-static SCM port = 0;
-
 Paper_outputter::Paper_outputter (Paper_stream *s)
 {
-  port = 0;
   outstream_l_ = s;
   output_header ();
+  if (output_global_ch == String ("scm"))
+    *outstream_l_->os << ""
+      "(primitive-load-path 'lily.scm)\n"
+      "(eval (tex-scm 'all-definitions))\n"
+      ";(eval (ps-scm 'all-definitions))\n"
+      "(display (map (lambda (x) (string-append (eval x) \"\\n\")) '(\n"
+    ;
 }
 
 Paper_outputter::~Paper_outputter ()
@@ -43,12 +46,7 @@ Paper_outputter::~Paper_outputter ()
 
   if (String (output_global_ch) == "scm")
     {
-#if 1
-      scm_display (gh_str02scm (")))\n"), port);
-      scm_fflush (port);
-#else
       *outstream_l_->os << ")";
-#endif
     }
 }
 
@@ -172,73 +170,8 @@ Paper_outputter::output_scheme (SCM scm)
 {
   if (String (output_global_ch) == "scm")
     {
-#if 1
-      /*
-       we'd rather use C++ i/o iso Guile's, but how?
-       and: they can't be mixed (or synchronised) easily?
-       */
-
-      // urg
-      if (!port)
-        {
-	  int fd = 1;
-	  ofstream * of = dynamic_cast<ofstream*> (outstream_l_->os);
-	  if (of)
-	    fd = of->rdbuf()->fd();
-	  FILE *file = fdopen (fd, "a");
-	  port = scm_standard_stream_to_port (file, "a", "");
-	  scm_display (gh_str02scm (
-	    "(primitive-load-path 'lily.scm)\n"
-	    "(eval (tex-scm 'all-definitions))\n"
-	    ";(eval (ps-scm 'all-definitions))\n"
-	    "(display (map (lambda (x) (string-append (eval x) \"%\\n\")) '(\n"
-	    ), port);
-	}
-
-      scm_write (scm, port);
-      // duh
-      scm_display (gh_str02scm ("\n"), port);
-      scm_fflush (port);
-#else
-      static bool first = true;
-      if (first)
-        {
-	  *outstream_l_->os << ""
-	    "(primitive-load-path 'lily.scm)\n"
-	    "(eval (tex-scm 'all-definitions))\n"
-	    ";(eval (ps-scm 'all-definitions))\n"
-	    "(display (map (lambda (x) (string-append (eval x) \"\\n\")) '(\n"
-	    ;
-	}
-
-      /*
-        why doesn't this work?
-
-	ERROR: In procedure gh_scm2newstr:
-	ERROR: Wrong type argument in position 3: 
-	  (header "GNU LilyPond 1.1.49.jcn1" ", at Tue Jun 22 20:58:17 1999")
-
-	or:
-
-	ERROR: In procedure symbol->string:
-	ERROR: Wrong type argument in position 1: 
-	  (header "GNU LilyPond 1.1.49.jcn2" ", at Wed Jun 23 18:42:14 1999")
-
-	eg, two ways to print '(foo bar)'
-
-        SCM scm = gh_list (ly_symbol ("foo"), gh_str2scm ("bar"), SCM_UNDEFINED);
-	scm_write (scm, port);
-        puts (gh_xxx2newstr (scm, 0));
-       */
-
-      char* p;
-      //p = gh_scm2newstr (scm, 0);
-      //p = gh_symbol2newstr (scm, 0);
-      //p = gh_scm2newstr (scm_symbol_to_string (scm), 0);
-      //p = gh_symbol2newstr (scm_symbol_to_string (scm), 0);
-      //*outstream_l_->os << p << endl;
-      *outstream_l_->os << symbol_to_string (scm) << endl;
-#endif
+      SCM result =  scm_eval (scm_listify (ly_symbol ("scm->string"), ly_quote_scm (scm), SCM_UNDEFINED));
+    *outstream_l_->os << ly_scm2string (result)	<< endl;
     }
   else
     {

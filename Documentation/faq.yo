@@ -173,9 +173,10 @@ Yes, see the file(twinkle-pop) example.
 
 question(Do you support guitar chord diagrams?)
 
-No, not yet. We ourselves don't play guitar, and don't know the
-fine points of this notation.  We would welcome anyone who could give
-this a try.
+No. Go ahead and send a patch.
+
+We ourselves don't play guitar, and don't know the fine points of this
+notation.  We would welcome anyone who could give this a try.
 
 question(Do you support TAB notation?)
 
@@ -192,12 +193,11 @@ size of the staff, and fontSize for setting the size of the glyphs.
 
 question(Do you support Gregorian chant notation?)
 
-No.  There is no reason why LilyPond can't be extended to do so, but
-we haven't done it yet (and there are currently no plans to do it).
+No.  Go ahead.
 
 question(Do you support grace notes?)
 
-No.  But they can kludged.  See file(input/test/grace.ly)
+Yes. See file(input/test/grace.ly)
 
 
 sect(How do I ....)

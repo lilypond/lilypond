@@ -62,7 +62,7 @@ Stem_info::Stem_info (Stem*s, int mult)
   Real min_stem_f = paper_l->get_var (String ("minimum_stem_length")
 				     + to_str (mult_i_ <? stem_max));
   Real stem_f = paper_l->get_var (String ("stem_length")
-				 + to_str (mult_i_ <? stem_max));
+				 + to_str (mult_i_ <? stem_max))* internote_f;
 
   if (!beam_dir_ || (beam_dir_ == dir_))
     /* normal beamed stem */

@@ -119,6 +119,7 @@ Stem::type_i () const
 void
 Stem::add_head (Rhythmic_head *n)
 {
+  n->stem_l_ = this;
   n->add_dependency (this);	// ?
   if (Note_head *nh = dynamic_cast<Note_head *> (n))
     {
@@ -164,9 +165,16 @@ Stem::get_dir () const
 void
 Stem::set_default_stemlen ()
 {
-  Real internote_f = staff_line_leading_f ()/2.0;
-  Real length_f = paper_l ()->get_var ("stem_length0") / internote_f;
-  Real shorten_f = paper_l ()->get_var ("forced_stem_shorten0") / internote_f;
+  Real length_f = 0.;
+  SCM scm_len = get_elt_property(length_scm_sym);
+  if (scm_len != SCM_BOOL_F)
+    {
+      length_f = gh_scm2double (SCM_CDR(scm_len));
+    }
+  else
+    length_f = paper_l ()->get_var ("stem_length0");
+  
+  Real shorten_f = paper_l ()->get_var ("forced_stem_shorten0");
 
   if (!dir_)
     dir_ = get_default_dir ();
@@ -311,7 +319,7 @@ Stem::do_brew_molecule_p () const
   if (!invisible_b ())
     {
       Real stem_width = paper_l ()->get_var ("stemthickness");
-       Molecule ss =lookup_l ()->filledbox (Box (Interval (-stem_width/2, stem_width/2),
+      Molecule ss =lookup_l ()->filledbox (Box (Interval (-stem_width/2, stem_width/2),
 						 Interval (stem_y[DOWN]*dy, stem_y[UP]*dy)));
       mol_p->add_molecule (ss);
     }

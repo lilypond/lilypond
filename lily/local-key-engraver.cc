@@ -14,7 +14,7 @@
 #include "tie.hh"
 #include "note-head.hh"
 #include "time-description.hh"
-#include "engraver-group.hh"
+#include "engraver-group-engraver.hh"
 
 
 Local_key_engraver::Local_key_engraver()

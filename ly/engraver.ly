@@ -13,7 +13,6 @@ StaffContext=\translator {
 	\consists "Bar_engraver";
 	\consists "Clef_engraver";
 	\consists "Key_engraver";
-	\consists "Local_key_engraver";
 	\consists "Time_signature_engraver";
 	\consists "Staff_symbol_engraver";
 	\consists "Collision_engraver";
@@ -95,6 +94,7 @@ VoiceContext = \translator {
 	\consists "Dynamic_engraver";   % must come before text_engraver.
 	\name Voice ;
 	beamAuto = "1";
+	\consists "Local_key_engraver";
 	
 	\consists "Breathing_sign_engraver";
  	\consists "Rest_engraver";
@@ -108,17 +108,36 @@ VoiceContext = \translator {
 
 	% ugh.  Order matters here.
 	\consists "Text_engraver";
-	\consists "G_script_engraver";
-	\consists "G_script_column_engraver";
+	\consists "Script_engraver";
+	\consists "Script_column_engraver";
 	\consists "Rhythmic_column_engraver";
 	\consists "Font_size_engraver";
 	\consists "Slur_engraver";
 	\consists "Tie_engraver";
-	\consists "Tuplet_engraver";	
+	\consists "Tuplet_engraver";
+	\consists "Grace_position_engraver";
 	\consists "Skip_req_swallow_translator";
 	\accepts Thread; % bug if you leave out this!
+	\accepts Grace;
 };
 
+GraceContext=\translator {
+	\type "Grace_engraver_group";
+	\name "Grace";
+	\consists "Note_heads_engraver";
+	\consists "Stem_engraver";
+	\consists "Slur_engraver";
+	\consists "Timing_engraver";	%UGH.
+	\consists "Beam_engraver";
+	\consists "Align_note_column_engraver";
+	\consists "Font_size_engraver";
+	\consists "Rhythmic_column_engraver";
+	
+	fontSize = "-1";
+	stemLength = "6.0";
+	verticalDirection = "1";
+};
+\translator{\GraceContext}
 \translator {\VoiceContext}
 
 ThreadContext = \translator{

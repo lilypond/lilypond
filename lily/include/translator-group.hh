@@ -32,6 +32,7 @@ class Translator_group : public virtual Translator {
 
   int iterator_count_;
   friend class Interpretation_context_handle;
+
   Cons_list<Translator> trans_p_list_;
 
 public:
@@ -81,8 +82,8 @@ protected:
   virtual void do_post_move_processing();   
   virtual void do_creation_processing();
   virtual void do_removal_processing();
-  void each (Method_pointer);
-  void each (Const_method_pointer) const;
+  virtual void each (Method_pointer);
+  virtual void each (Const_method_pointer) const;
 };
 
 #endif // TRANSLATOR_GROUP_HH

@@ -10,8 +10,8 @@
 #include "bar-script-engraver.hh"
 #include "bar.hh"
 #include "clef-item.hh"
-#include "g-staff-side.hh"
-#include "g-text-item.hh"
+#include "staff-side.hh"
+#include "text-item.hh"
 #include "lily-guile.hh"
 #include "p-col.hh"
 #include "paper-def.hh"
@@ -132,12 +132,12 @@ Bar_script_engraver::create_items (Request *rq)
   if (staff_side_p_ || text_p_)
     return;
   
-  staff_side_p_ = new G_staff_side_item;
+  staff_side_p_ = new Staff_side_item;
   staff_side_p_->axis_ = axis_;
   staff_side_p_->set_elt_property (breakable_scm_sym, SCM_BOOL_T); // ugh
 
   
-  text_p_ = new G_text_item;
+  text_p_ = new Text_item;
   text_p_->set_elt_property (breakable_scm_sym, SCM_BOOL_T); // ugh
 
   Scalar prop = get_property (type_ + "Direction", 0);

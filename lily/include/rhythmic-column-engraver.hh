@@ -15,6 +15,7 @@
 
 class Rhythmic_column_engraver :public Engraver {
   Link_array<Rhythmic_head> rhead_l_arr_;
+  Link_array<Slur> grace_slur_endings_;
   Stem * stem_l_;
   Note_column *ncol_p_;
   Dot_column *dotcol_l_;

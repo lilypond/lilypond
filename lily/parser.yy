@@ -53,7 +53,7 @@
 #include "time-scaled-music.hh"
 #include "new-repeated-music.hh"
 #include "version.hh"
-
+#include "grace-music.hh"
 
 // mmm
 Mudela_version oldest_version ("1.0.20");
@@ -151,6 +151,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token EXTENDER
 %token FONT
 %token GROUPING
+%token GRACE
 %token HEADER
 %token IN_T
 %token KEY
@@ -775,6 +776,9 @@ Composite_music:
 
 		$$ = csm;
 	}
+	| GRACE Music {
+		$$ = new Grace_music ($2);
+	}
 	| CONTEXT STRING '=' STRING Music {
 		Context_specced_music *csm =  new Context_specced_music ($5);
 
@@ -1033,7 +1037,7 @@ request_that_take_dir:
 
 request_with_dir:
 	script_dir request_that_take_dir	{
-		if (G_script_req * gs = dynamic_cast<G_script_req*> ($2))
+		if (Script_req * gs = dynamic_cast<Script_req*> ($2))
 			gs->dir_ = Direction ($1);
 		else if ($1)
 			$2->warning ("Can't specify direction for this request");

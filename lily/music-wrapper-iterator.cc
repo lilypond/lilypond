@@ -40,7 +40,7 @@ Music_wrapper_iterator::~Music_wrapper_iterator ()
 bool
 Music_wrapper_iterator::ok () const
 {
-  return child_iter_p_->ok ();
+  return child_iter_p_ && child_iter_p_->ok ();
 }
 
 void

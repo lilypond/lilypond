@@ -15,34 +15,15 @@ Grep for TODO and ugh/ugr/urg.
 .  * ps/lily.ps see comments.
 . * didot / big point.
 . * midi key.
-. * Repeats
-.  * input/bugs/rep.ly (moved from test)
-.  * unfold broken: 
-.   * without alternatives: repeat unfold 4 { a b c d }
-.   * count > alternatives: repeat unfold 79 { a b c d } 
-\alternative { { c c c c } { d d d d } }
-.  * kind of 'initial property' iso fold/volta(semi)/unfold strings
 . * fix singleStaffBracket
 . * declare performers in \midi
 . * input/test/stem-spacing.ly: 12/4 touches first note
-4 too high?
+. * timesig: sometimes bottom digit  too high
 . * fix MIDI
 . * \shape 1st dim skipped? 
 . * turn slope-damping on/off
 . * We need feta-din*.mf files for more sizes than 10.
 . * fix dynamics decently, ie. use kerning & ligatures.  
-. * 
-BUGS:
-> +
-> +    Causes segfault:
-> +
-> +    \score{
-> +      \notes{  \context Voice {
-> +         \repeat fold 2 { a b c d } {}
-> +     }
-> +     }
-> +    }
-> +
 . * dots & rest collisions?
 . * mudela-book.py
 .  * fix \mudelafile{} to have decent functionality
@@ -51,7 +32,6 @@ pre,postMudelaExample, whether MudelaExample is epsed or not: ( if
 this fragment is floating eps, than 1, otherwise 2). say
 preMudelaExample[eps]{}, and change it in document body sometimes.
 .  * use less RE's
-. * slurs colllide with lyrics.
 . * junk _ in lyric mode for " "
 . * Lyrics and scripts collide.
 . * a note with a circle after it, meaning:
@@ -62,6 +42,7 @@ preMudelaExample[eps]{}, and change it in document body sometimes.
    page three, the c-sharp on the second line should be a quarter with 
    a circle, not a quarter tied to a sixteenth.  is this at all
    possible with lily?
+. * grace_align_item -> stackingdir = left, weird placement.
 . * tuplets that are written as "number : note", for example
    "3 : [image of a half note here]".  possible?
 
@@ -72,10 +53,11 @@ preMudelaExample[eps]{}, and change it in document body sometimes.
 .  * heavier beams?
 
 .* Cleanups needed
-. * \$ and $ identifier syntax.
+. * \$ and $ identifier syntax in examples.
 . * Y dimension units: staffspace vs. Point
 . * Beam
 . * Stem
+. * Rhythmic_column and interaction stem/rhythmic_column/note_head/dots.
 . * Slur
 . * Rhythmic_grouping
 . * Duration
@@ -417,11 +399,6 @@ you or other people with implementing this, so if you need help, don't
 hesitate to ask.
 .  * account for rhythmic position in measure
 .  * etc.
-
-. * grace notes
-.  * make separate class for Grace_*_engravers 
-	(which is at Voice_gravs level)
-.  * make encapsulated spacing problems.
 
 . * accidentals per Voice_group
 

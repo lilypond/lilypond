@@ -5,7 +5,7 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
+#include "grace-iterator.hh"
 #include "translator-group.hh"
 #include "debug.hh"
 #include "sequential-music-iterator.hh"
@@ -66,7 +66,8 @@ Sequential_music_iterator::start_next_element()
 void
 Sequential_music_iterator::set_sequential_music_translator()
 {
-  if (iter_p_->report_to_l()->depth_i () > report_to_l ()->depth_i ())
+  if (iter_p_->report_to_l()->depth_i () > report_to_l ()->depth_i ()
+      && ! dynamic_cast<Grace_iterator*> (iter_p_)) // UGH.!
     set_translator (iter_p_->report_to_l());
 }
 

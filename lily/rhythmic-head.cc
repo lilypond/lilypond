@@ -15,6 +15,7 @@
 #include "dots.hh"
 #include "axis-group-element.hh"
 #include "p-score.hh"
+#include "stem.hh"
 
 void
 Rhythmic_head::do_add_processing ()
@@ -22,14 +23,6 @@ Rhythmic_head::do_add_processing ()
   if (dots_i_ && !dots_l_)
     {
       assert (false);
-      /*      Dots *d = new Dots;
-      add_dots (d);
-      pscore_l_->typeset_element (d);
-
-
-      
-      axis_group_l_a_[Y_AXIS]->add_element (d);
-      axis_group_l_a_[X_AXIS]->add_element (d);*/
     }
   if (dots_l_)
     {
@@ -50,13 +43,16 @@ Rhythmic_head::Rhythmic_head ()
   dots_l_ =0;
   balltype_i_ =0;
   dots_i_ = 0;
+  stem_l_ =0;
 }
 
 void
 Rhythmic_head::do_substitute_element_pointer (Score_element*o,Score_element*n)
 {
   if (o == dots_l_)
-    dots_l_ = n ? dynamic_cast<Dots *> (n) :0;
+    dots_l_ = dynamic_cast<Dots *> (n) ;
+  else if (o == stem_l_)
+    stem_l_ = dynamic_cast<Stem*>(n);
 }
 
 

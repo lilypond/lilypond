@@ -72,33 +72,10 @@ Score::run_translator (Music_output_def *odef_l)
       return ;
     }
 
-  trans_p->start();
-
-  while (iter->ok() || trans_p->moments_left_i ())
-    {
-      Moment w;
-      w.set_infinite (1);
-      if (iter->ok())
-	{
-	  w = iter->next_moment();
-	  DOUT << "proccing: " << w << '\n';
-	  if (!monitor->silent_b ("walking"))
-	    iter->print();
-	}
-      
-      trans_p->modify_next (w);
-      trans_p->prepare (w);
-      
-      if (!monitor->silent_b ("walking"))
-	trans_p->print();
-
-      iter->process_and_next (w);
-      trans_p->process();
-    }
-  
+  trans_p->start ();
+  trans_p->run_iterator_on_me (iter);
   delete iter;
-  trans_p->finish();
-
+  trans_p->finish ();
 
   if (errorlevel_i_)
     {

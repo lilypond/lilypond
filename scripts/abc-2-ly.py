@@ -470,12 +470,11 @@ def try_parse_chord_delims (str):
 def try_parse_grace_delims (str):
 	if str and str[0] == '{':
 		str = str[1:]
-		sys.stderr.write ("warning: expanding grace notes\n")
-		print '\\tiny '
+		print '\\grace { '
 
 	if str and str[0] == '}':
 		str = str[1:]
-		print '\\normalsize '
+		print '}'
 
 	return str
 

@@ -9,7 +9,7 @@
 #include "extender-engraver.hh"
 #include "extender-spanner.hh"
 #include "score-column.hh"
-#include "g-text-item.hh"
+#include "text-item.hh"
 
 ADD_THIS_TRANSLATOR (Extender_engraver);
 
@@ -22,7 +22,7 @@ Extender_engraver::Extender_engraver ()
 void
 Extender_engraver::acknowledge_element (Score_element_info i)
 {
-  if (G_text_item* t = dynamic_cast<G_text_item*> (i.elem_l_))
+  if (Text_item* t = dynamic_cast<Text_item*> (i.elem_l_))
     {
       Rhythmic_req * rh = dynamic_cast<Rhythmic_req*>  (i.req_l_);
       if (!rh)
@@ -125,7 +125,7 @@ Text_lyric_tuple::Text_lyric_tuple ()
   end_ = 0;
 }
 
-Text_lyric_tuple::Text_lyric_tuple (G_text_item *h, Rhythmic_req*m, Moment mom)
+Text_lyric_tuple::Text_lyric_tuple (Text_item *h, Rhythmic_req*m, Moment mom)
 {
   text_l_ = h;
   req_l_ = m;

@@ -1,14 +1,15 @@
 /*   
-  g-staff-side.hh -- declare G_staff_side_item
+  staff-side.hh -- declare Staff_side_{element,spanner,item}
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
-#ifndef G_STAFF_SIDE_HH
-#define G_STAFF_SIDE_HH
+#ifndef STAFF_SIDE_HH
+#define STAFF_SIDE_HH
+
 
 #include "spanner.hh"
 #include "item.hh"
@@ -24,7 +25,7 @@
 
     Amount of extra space to add.
 */
-class G_staff_side_element :  public Staff_symbol_referencer
+class Staff_side_element :  public Staff_symbol_referencer
 {
   void position_self ();
 
@@ -36,7 +37,7 @@ public:
   //junkme.
   bool staff_support_b_;
   
-  G_staff_side_element ();
+  Staff_side_element ();
   void set_victim (Score_element*);
   void add_support (Score_element*);
 
@@ -51,7 +52,7 @@ protected:
   virtual void do_post_processing ();
 };
 
-class G_staff_side_item : public G_staff_side_element, public Item
+class Staff_side_item : public Staff_side_element, public Item
 {
 public:
   VIRTUAL_COPY_CONS(Score_element);
@@ -60,7 +61,7 @@ protected:
   virtual void do_print () const;
 };
 
-class G_staff_side_spanner : public G_staff_side_element, public Spanner
+class Staff_side_spanner : public Staff_side_element, public Spanner
 {
 public:
   VIRTUAL_COPY_CONS(Score_element);
@@ -68,5 +69,5 @@ protected:
   virtual void do_print () const;
 };
 
-#endif /* G_STAFF_SIDE_HH */
+#endif /* STAFF_SIDE_HH */
 

@@ -9,7 +9,7 @@
 
 #include "lyric-engraver.hh"
 #include "musical-request.hh"
-#include "g-text-item.hh"
+#include "text-item.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
 
@@ -40,7 +40,7 @@ Lyric_engraver::do_process_requests()
 {
   if (req_l_)
     {
-      text_p_=  new G_text_item;
+      text_p_=  new Text_item;
       text_p_->text_str_ = req_l_->text_str_;
 
       text_p_->text_str_ += " ";	// ugh.

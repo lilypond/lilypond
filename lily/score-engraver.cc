@@ -49,14 +49,19 @@ Score_engraver::finish()
   removal_processing();
 }
 
+/*
+  use start/finish?
+ */
 void
-Score_engraver::do_creation_processing()
+Score_engraver::do_creation_processing ()
 {
   scoreline_l_ = pscore_p_->line_l_;
   scoreline_l_->set_bounds(LEFT,command_column_l_);
   command_column_l_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
+
   Engraver_group_engraver::do_creation_processing();
 }
+
 
 void
 Score_engraver::do_removal_processing()
@@ -95,6 +100,9 @@ Score_engraver::announce_element (Score_element_info info)
    Engraver_group_engraver::do_announces, then
    announce_info_arr_.size() will be nonzero again
 */
+/* junkme? Done by Engraver_group_engraver::do_announces ()?
+ */
+   
 void
 Score_engraver::do_announces()
 {

@@ -5,21 +5,21 @@
 */
 
 
-#ifndef G_SCRIPT_GRAV
-#define G_SCRIPT_GRAV
+#ifndef Script_GRAV
+#define Script_GRAV
 
 #include "engraver.hh"
 
 
-class G_script_engraver : public Engraver {
-  Link_array<G_script> script_p_arr_;
-  Link_array<G_staff_side_item> staff_side_p_arr_;
+class Script_engraver : public Engraver {
+  Link_array<Script> script_p_arr_;
+  Link_array<Staff_side_item> staff_side_p_arr_;
   Link_array<Articulation_req> script_req_l_arr_;
 
 public:
   VIRTUAL_COPY_CONS(Translator);
   
-  G_script_engraver();
+  Script_engraver();
 protected:
   virtual bool do_try_music (Music*);
   virtual void do_process_requests ();
@@ -28,4 +28,4 @@ protected:
   virtual void acknowledge_element (Score_element_info);
 };
 
-#endif // G_SCRIPT_GRAV
+#endif // Script_GRAV

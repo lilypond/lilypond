@@ -1,3 +1,24 @@
+
+pl 50.hwn1
+	- grace notes:
+	  * Grace_iterator
+	  * Grace_music
+	  * Grace_engraver_group
+	  * move Score::run_translator to Global_translator::run_iterator_on_me
+	  * stemLength property, Stem::length elt property
+	  * Grace_align_item
+	  * Note_head_side baseclasses Local_key_item, Grace_align_item
+	  * Local_key_engraver moved to Voice.
+	  * Grace_position_engraver
+	  * Added Rhythmic_head::stem_l_
+	  * Various other robustifications.
+	- lily.scm: scm->string
+	- folded reps without alts.
+	- Paper_outputter uses scm->string
+	- stem params now in staff positions iso. real dimensions
+	- internal: Junk all G_ and g- prefixes
+
+************
 pl 49.mb1
 	- bf: ly2dvi -N
 	- Added dynamicPadding property (applies only to dynamic marks, 

@@ -612,3 +612,34 @@
 	((null? alist) #t)
       (set! ret-ls (cons (fn (car (car alist)) (cdr (car alist))) ret-ls)))))
 
+
+;;;; print a SCM expression.  Isn't this part of the std lib?
+
+(define (scmlist->string exp)
+  (cond
+   ((pair? (cdr exp)) (string-append (scm->string (car exp)) " " (scmlist->string (cdr exp))))
+   ((eq? '() (cdr exp)) (string-append (scm->string (car exp)) ")"))
+   (else (string-append (scm->string (car exp)) " . " (scm->string (cdr exp)) ")"))
+   ))
+
+(define (scm->string exp)
+  (cond
+   ((pair? exp) (string-append "(" (scmlist->string exp)))
+   ((number? exp) (number->string exp))
+   ((symbol? exp) (symbol->string exp))
+   ((string? exp) (string-append "\"" exp "\""))
+   ))
+
+(define (test-scm->string)
+(list (scmlist->string '(a))
+(scmlist->string '(a b))
+(scmlist->string '(a b . c))
+
+
+(scm->string '(a))
+(scm->string '(a b ))
+(scm->string '(a b . c))
+(scm->string '(a b (c . d)))
+(scm->string '(a "bla" (c . 1.5)))
+)
+)

@@ -1,5 +1,6 @@
+
 /*
-  engraver-group.hh -- declare Engraver_group_engraver
+  engraver-group-engraver.hh -- declare Engraver_group_engraver
 
   source file of the GNU LilyPond music typesetter
 

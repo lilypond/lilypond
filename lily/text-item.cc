@@ -1,5 +1,5 @@
 /*   
-  g-text-item.cc -- implement G_text_item
+  text-item.cc -- implement Text_item
 
   source file of the GNU LilyPond music typesetter
   
@@ -7,27 +7,27 @@
   
  */
 
-#include "g-text-item.hh"
+#include "text-item.hh"
 #include "debug.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
 
 Molecule*
-G_text_item::do_brew_molecule_p () const
+Text_item::do_brew_molecule_p () const
 {
   Molecule a= paper_l ()->lookup_l(0)->text (style_str_,text_str_, paper_l ()); 
 
   return new Molecule (a);
 }
 
-G_text_item::G_text_item ()
+Text_item::Text_item ()
 {
   style_str_ = "roman";
 }
 
 void
-G_text_item::do_print () const
+Text_item::do_print () const
 {
   DOUT <<  "text= " << text_str_;
 }

@@ -31,8 +31,6 @@ public:
 protected:
   virtual void do_print () const;
   virtual void do_process_and_next (Moment) ;
-
-private:
   Music_iterator *child_iter_p_;
 };
 

@@ -10,8 +10,8 @@
 #include "bar-number-engraver.hh"
 #include "time-description.hh"
 #include "timing-engraver.hh"
-#include "engraver-group.hh"
-#include "g-text-item.hh"
+#include "engraver-group-engraver.hh"
+#include "text-item.hh"
 
 Bar_number_engraver::Bar_number_engraver()
 {

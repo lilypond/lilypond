@@ -53,11 +53,6 @@ Rational::Rational (int n, int d)
   normalise ();
 }
 
-Rational::Rational (Rational const &r)
-{
-  copy (r);
-}
-
 static
 int gcd (int a, int b)
 {

@@ -10,7 +10,7 @@
 #include "time-signature.hh"
 #include "command-request.hh"
 #include "timing-engraver.hh"
-#include "engraver-group.hh"
+#include "engraver-group-engraver.hh"
 
 Time_signature_engraver::Time_signature_engraver()
 { 

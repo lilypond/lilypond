@@ -1,5 +1,5 @@
 /*   
-  g-script.hh -- declare G_script
+  script.hh -- declare Script
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,26 +7,26 @@
   
  */
 
-#ifndef G_STEM_SCRIPT_HH
-#define G_STEM_SCRIPT_HH
+#ifndef SCRIPT_HH
+#define SCRIPT_HH
 
 #include "item.hh"
 #include "drul-array.hh"
 
 /**
    Articulation marks (and the like) that are attached to notes/stems.
-   Needs support from G_staff_side for proper operation.  G_staff_side
+   Needs support from Staff_side for proper operation.  Staff_side
    handles the positioning.
 
 */
-class G_script : public Item
+class Script : public Item
 {
-  G_staff_side_item * staff_side_l_;
+  Staff_side_item * staff_side_l_;
 
   Molecule get_molecule (Direction d) const;
 public:
-  G_script ();
-  void set_staff_side (G_staff_side_item*);
+  Script ();
+  void set_staff_side (Staff_side_item*);
 
 protected:
   virtual void do_print () const;
@@ -37,5 +37,5 @@ protected:
   Molecule* do_brew_molecule_p () const;
 };
 
-#endif /* G_STEM_SCRIPT_HH */
+#endif /* Stem_SCRIPT_HH */
 

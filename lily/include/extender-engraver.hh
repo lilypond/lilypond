@@ -16,11 +16,11 @@
 
 struct Text_lyric_tuple {
   Rhythmic_req *req_l_ ;
-  G_text_item *text_l_;
+  Text_item *text_l_;
   Moment end_;
   
   Text_lyric_tuple ();
-  Text_lyric_tuple (G_text_item*, Rhythmic_req*, Moment);
+  Text_lyric_tuple (Text_item*, Rhythmic_req*, Moment);
   static int time_compare (Text_lyric_tuple const &, Text_lyric_tuple const &);
 };
 
@@ -36,7 +36,7 @@ inline int compare (Text_lyric_tuple const &a, Text_lyric_tuple const &b)
   Generate an extender.  Should make an Extender_spanner that typesets
   a nice extender line.
 
-  We remember all G_text_items that come across, and store their
+  We remember all Text_items that come across, and store their
   termination times. When we get a request, we create the spanner, and
   attach the left point to the finished lyrics, and the right point to
   any lyrics we receive by then.

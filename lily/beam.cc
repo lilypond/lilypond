@@ -320,11 +320,9 @@ Beam::set_steminfo ()
       total_count_i++;
     }
 
-  Real internote_f = stems_[0]->staff_line_leading_f ()/2;
   int stem_max = (int)rint(paper_l ()->get_var ("stem_max"));
   Real shorten_f = paper_l ()->get_var (String ("forced_stem_shorten"
-					      + to_str (multiple_i_ <? stem_max)))
-    / internote_f;
+					      + to_str (multiple_i_ <? stem_max)));
     
   Real leftx = 0;
   for (int i=0; i < stems_.size (); i++)

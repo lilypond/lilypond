@@ -40,6 +40,9 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 {
   if (Rhythmic_head * h = dynamic_cast<Rhythmic_head *> (i.elem_l_))
     {
+      if (h->stem_l_)
+	return;
+      
       Rhythmic_req * r = dynamic_cast <Rhythmic_req *> (i.req_l_);
       int duration_log = r->duration_.durlog_i_;      
       if (!stem_p_) 
@@ -113,6 +116,12 @@ Stem_engraver::do_pre_move_processing()
 	{
 	  stem_p_->beams_i_drul_[RIGHT] = prop;
 	  ((Translator_group*)which)->set_property ("stemRightBeamCount", "");
+	}
+
+      prop = get_property ("stemLength", 0);
+      if (prop.isnum_b ())
+	{
+	  stem_p_->set_elt_property (length_scm_sym, gh_double2scm (prop.to_f ()));
 	}
 
       typeset_element(stem_p_);

@@ -1,5 +1,5 @@
 /*   
-  g-script-column.hh -- declare G_script_column
+  g-script-column.hh -- declare Script_column
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,12 +7,12 @@
   
  */
 
-#ifndef G_SCRIPT_COLUMN_HH
-#define G_SCRIPT_COLUMN_HH
+#ifndef Script_COLUMN_HH
+#define Script_COLUMN_HH
 
 #include "item.hh"
 
-class G_script_column : public Item
+class Script_column : public Item
 {
   /**
      Array of objects that are placed by staffsides
@@ -25,6 +25,6 @@ protected:
 };
 
 
-#endif /* G_SCRIPT_COLUMN_HH */
+#endif /* Script_COLUMN_HH */
 
 

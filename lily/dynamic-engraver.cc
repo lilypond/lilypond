@@ -14,8 +14,8 @@
 #include "score-column.hh"
 #include "staff-symbol.hh"
 #include "note-column.hh"
-#include "g-text-item.hh"
-#include "g-staff-side.hh"
+#include "text-item.hh"
+#include "staff-side.hh"
 #include "engraver.hh"
 #include "stem.hh"
 #include "note-head.hh"
@@ -25,10 +25,10 @@
  */
 class Dynamic_engraver : public Engraver
 {
-  G_text_item * text_p_;
-  G_staff_side_item * staff_side_p_;
-  G_staff_side_spanner * ss_span_p_;
-  G_staff_side_spanner * to_end_ss_span_p_;
+  Text_item * text_p_;
+  Staff_side_item * staff_side_p_;
+  Staff_side_spanner * ss_span_p_;
+  Staff_side_spanner * to_end_ss_span_p_;
   
   
   Crescendo * to_end_cresc_p_;
@@ -99,7 +99,7 @@ void
 Dynamic_engraver::do_process_requests()
 {
   Crescendo*  new_cresc_p=0;
-  G_staff_side_spanner * new_sss_p =0;
+  Staff_side_spanner * new_sss_p =0;
   for (int i=0; i < dynamic_req_l_arr_.size(); i++)
     {
       if (Text_script_req *absd =
@@ -113,13 +113,13 @@ Dynamic_engraver::do_process_requests()
 	  
 	  String loud = absd->text_str_;
 
-	  text_p_ = new G_text_item;
+	  text_p_ = new Text_item;
 	  text_p_->text_str_ =  loud; // ugh
 	  Scalar prop = get_property ("dynamicStyle", 0);
 
 	  text_p_->style_str_ = prop.length_i () ? prop :  "dynamic";
 
-	  staff_side_p_ = new G_staff_side_item;
+	  staff_side_p_ = new Staff_side_item;
 	  staff_side_p_->set_elt_property (script_priority_scm_sym,
 					   gh_int2scm (100));
 					   
@@ -175,7 +175,7 @@ Dynamic_engraver::do_process_requests()
 	      new_cresc_p->grow_dir_ = (span_l->span_type_str_ == "crescendo")  ? BIGGER : SMALLER;
 	      announce_element (Score_element_info (new_cresc_p, span_l));
 
-	      new_sss_p = new G_staff_side_spanner;
+	      new_sss_p = new Staff_side_spanner;
 	      new_sss_p->set_victim (new_cresc_p);
 	      new_sss_p->axis_ = Y_AXIS;
 	      announce_element (Score_element_info (new_sss_p, span_l));

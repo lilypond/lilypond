@@ -12,6 +12,13 @@
 
 #include "engraver.hh"
 
+/**
+   Set font size on elements that do not have a fontsize set yet.
+
+   Reads context property fontSize.
+
+   Writes element property fontsize 
+ */
 class Font_size_engraver : public Engraver {
   int size_i_;
 protected:
