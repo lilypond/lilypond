@@ -29,21 +29,21 @@
 * Integrating text and music::  Integrating text and music
 @end menu
 
-Operating is done through text files: To print a piece of music, you
-enter the music in a file.  When LilyPond is run (normally using the
-program @code{ly2dvi}) on that file, another file containing formatted
-sheet music, is produced. That file may be printed or viewed.
+Printing music with LilyPond is a two step process.  First, the music
+to be printed is described in a text file.  After that, LilyPond reads
+this @emph{input file} that describes the music and produces an
+@emph{output file} that can be printed or viewed.
 
-This tutorial starts with a small introduction to the LilyPond music
-language.  After this first contact, we will show which commands to
-run to produce printed output, so you should then be able to create
-your first sheets of music.  When starting out, it will be convenient
-to print out
+This tutorial starts with a short introduction to the LilyPond music
+language.  After this first contact, we will show you how to to
+produce printed output, normally using the program @code{ly2dvi}.  You
+should then be able to create and print your first sheets of music.
+Before starting out, it will be convenient for you to print
 @ifhtml
 the
 @end ifhtml
-@ref{Cheat sheet}, which is a table listing all commands for
-convenient reference.
+@ref{Cheat sheet}, which is a table listing all commands for quick
+reference.
 
 
 
