@@ -25,7 +25,10 @@
 Tuplet_spanner::Tuplet_spanner ()
 {
   set_elt_property ("beams", SCM_EOL);
-  set_elt_property ("columns", SCM_EOL);  
+  set_elt_property ("columns", SCM_EOL);
+
+  // ugh.
+  set_elt_property ("delta-y", gh_int2scm (0));
 }
 
 /*
@@ -197,11 +200,11 @@ Tuplet_spanner::after_line_breaking ()
   if (!column_arr.size ())
     {
       set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (X_AXIS);
-      set_empty (Y_AXIS);
+      set_extent_callback (0, X_AXIS);
+      set_extent_callback (0, Y_AXIS);
     }
 
-  Direction d =   directional_element (this).get ();
+  Direction d = directional_element (this).get ();
   if (!d)
     {
       d = get_default_dir ();
@@ -210,8 +213,7 @@ Tuplet_spanner::after_line_breaking ()
     }
   Real dy, offset;
 
-calc_position_and_height  (&offset,&dy);
-  // calc_position (&offset, dy);
+  calc_position_and_height  (&offset,&dy);
   
   set_elt_property ("delta-y", gh_double2scm (dy));
 
