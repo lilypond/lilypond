@@ -26,8 +26,8 @@ upper =  \context Staff \notes\relative c
 		{
 			\stemUp 
 			\property Voice.TextScript \set #'font-style = #'roman
-			c4-\mordent^"(\\textsharp)" r r |
-			c4-\mordent^"(\\textsharp)" r r
+			c4-\mordent^#'(music "accidentals-1") r r |
+			c4-\mordent^#'(music "accidentals-1") r r
 			\property Voice.TextScript \set #'font-style = #'italic
 		}
 		\context Voice=ii { \stemDown a4 r r | a4 r r }
@@ -124,7 +124,7 @@ lower =  \context Staff \notes\relative c{
 	fis,4 r r 
 	d  fis d |
 	\property Voice.TextScript \set #'font-style = #'roman
-	g4-\mordent^"(\\textsharp)" r r8 f!8 |
+	g4-\mordent^#'(music "accidentals-1") r r8 f!8 |
 	\property Voice.TextScript \set #'font-style = #'italic
 	e4-\prall r r |
 	f4-\mordent r r8 e |

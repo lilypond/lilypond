@@ -60,7 +60,7 @@ lower =  \context Staff \notes\relative c{
 	g2 r4 g |
 	a8 a, c e  c a g' e |
 	fis2 r4 d |
-	g-\mordent-"(\\textsharp)" g, 4 g'-\mordent g, |
+	g-\mordent-#'(music "accidentals-1") g, 4 g'-\mordent g, |
 	% mordents in brackets...
 	g'-\mordent g, g'-\mordent g, |
 	g'-\mordent g, g'-\mordent g, |

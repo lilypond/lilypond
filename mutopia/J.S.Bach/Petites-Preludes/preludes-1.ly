@@ -95,13 +95,13 @@ upper =  \context Staff=upper \notes\relative c {
 lower =  \context Staff=lower \notes\relative c{
 	\context Voice=i
 	\property Voice.TextScript \set #'font-style = #'roman
-	c4 e g^"\\textsharp"-\mordent g,4 |
-	d'4-\mordent f a-\mordent^"\\textsharp" a,4 |
+	c4 e g^#'(music "accidentals-1") -\mordent g,4 |
+	d'4-\mordent f a-\mordent^#'(music "accidentals-1")  a,4 |
  	e' e'-\mordent a, b-\upprall |
  	c4 e, fis gis-\upprall |
 	a4 c, d e-\upprall |
 	f4 e d-\prall c |
-	g'-\mordent^"\\textsharp" g, g'-\mordent g, |
+	g'-\mordent^#'(music "accidentals-1")  g, g'-\mordent g, |
 	g'-\mordent g, g'-\mordent g, |
 	g' r s s | s s s s \clef "bass" |
 	<

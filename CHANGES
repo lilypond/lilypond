@@ -1,3 +1,67 @@
+1.3.149.jcn3
+============
+
+* Bugfix: markup text: lines with markup.
+
+* Fixed line height in postscript output.
+
+* Windows installer stuff: the ``It shouldn't be hard -- but do need
+  some sleep'' release.
+
+  Think of it: /shouldn't/ is *exactly* why GNU/Linux exists, and
+  why we advise to run LilyPond on Linux -- UMSDOS if you must.
+
+  You may consider our part of the job done.  Any more of this
+  sad and sorry stuff will drive me to drink.  It makes you realise
+  again how much fun using Linux actually is.
+
+  We'll take patches from now on, from people that have a stronger
+  stomach.  Good night.
+
+  - Ly2dvi: run commands from sh (so that tex wrappers be used).
+
+  - Added cygwin man,less and windows gs, gsview, miktex, python to
+    lilypond installer repository.  Moved profile.d setup functionality to
+    postinstall.
+  - Added tex and latex wrappers.
+  - Wrappers for all python scripts.
+
+* Removed RMAIL header from german-chords.ly + fixes (Rune).
+
+1.3.149.hwn1
+============
+
+* Website fixes
+
+* Allow ` for lyric punctuation
+
+* Add note to refman  saying to read the tutorial first.
+
+* Changed regular identifier error  to  warning.
+
+* Make lexer emit FRACTION for N/M (where N, M unsigned numbers). This
+fixes one shift reduce, fixing the problem with multiplied durations
+and inversions.
+
+* Set measureLength and beatLength from the parser. This fixes percent
+repeats that come directly after a time signature change.
+
+* Bugfix: process clef change upon Clef_engraver creation. This fixes
+grace notes beginning a piece; bug with combining clef changes and
+grace notes remains.
+
+* Bugfix: typo in convert-ly rule
+
+* spelling: barsize-procedure -> bar-size-procedure
+
+* fixes for input/test/ (thanks, Laura) 
+
+* Bugfix: \version "1.2.4.foo" now doesn't cause a crash.
+
+
+1.3.149
+=======
+
 1.3.148.jcn3
 ============
 

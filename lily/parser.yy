@@ -38,6 +38,7 @@
 #include "transposed-music.hh"
 #include "time-scaled-music.hh"
 #include "repeated-music.hh"
+
 #include "lilypond-input-version.hh"
 #include "grace-music.hh"
 #include "part-combine-music.hh"
@@ -45,8 +46,6 @@
 #include "auto-change-iterator.hh"
 #include "un-relativable-music.hh"
 #include "chord.hh"
-
-
 
 bool
 regular_identifier_b (SCM id)
@@ -64,12 +63,23 @@ regular_identifier_b (SCM id)
 }
 
 
+Music* 
+set_property_music (SCM sym, SCM value)
+{
+	Music * p = new Music (SCM_EOL);
+	p->set_mus_property ("symbol", sym);
+	p->set_mus_property ("iterator-ctor",
+	Property_iterator::constructor_cxx_function);
+
+	p->set_mus_property ("value", value);
+	return p;
+}
+
 bool
 is_duration_b (int t)
 {
   return t && t == 1 << intlog2 (t);
 }
-
 
 void
 set_music_properties (Music *p, SCM a)
@@ -81,15 +91,9 @@ set_music_properties (Music *p, SCM a)
 }
 
 
-// mmm JUNKME ?
-Lilypond_version oldest_version ("1.3.59");
 
-void
-print_lilypond_versions (ostream &os)
-{
-  os << _f ("Oldest supported input version: %s", oldest_version.str ()) 
-    << endl;
-}
+
+
 
 
 // needed for bison.simple's malloc () and free ()
@@ -231,6 +235,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <scm>	TONICNAME_PITCH
 %token <scm>	CHORDMODIFIER_PITCH
 %token <scm>	DURATION_IDENTIFIER
+%token <scm>    FRACTION
 %token <id>	IDENTIFIER
 
 
@@ -271,7 +276,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <scm>	chord_additions chord_subtractions chord_notes chord_step
 %type <music>	chord
 %type <scm>	chord_note chord_inversion chord_bass
-%type <scm>	duration_length
+%type <scm>	duration_length fraction
 
 %type <scm>  embedded_scm scalar
 %type <music>	Music Sequential_music Simultaneous_music Music_sequence
@@ -284,7 +289,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <music> command_req verbose_command_req
 %type <request>	extender_req
 %type <request> hyphen_req
-%type <scm>	string bare_number number_expression
+%type <scm>	string bare_number number_expression number_term number_factor 
 
 %type <score>	score_block score_body
 
@@ -296,7 +301,10 @@ yylex (YYSTYPE *s,  void * v_l)
 
 
 %left '-' '+'
-%left '*' '/'
+
+/* We don't assign precedence to / and *, because we might need varied
+prec levels in different prods */
+
 %left UNARY_MINUS
 
 %%
@@ -306,11 +314,9 @@ lilypond:	/* empty */
 	| lilypond assignment  { }
 	| lilypond error {
 		THIS->error_level_i_  = 1;
-		//THIS->parser_error (_ ("ly invalid"));
 	}
 	| lilypond INVALID	{
 		THIS->error_level_i_  = 1;
-		//THIS->parser_error (_ ("ly invalid"));
 	}
 	;
 
@@ -328,7 +334,6 @@ toplevel_expression:
 	}
 	| score_block {
 		score_global_array.push ($1);
-		
 	}
 	| output_def {
 		if (dynamic_cast<Paper_def*> ($1))
@@ -351,12 +356,9 @@ chordmodifiers_block:
 	CHORDMODIFIERS notenames_body   {  $$ = $2; }
 	;
 
-
 notenames_block:
 	PITCHNAMES notenames_body   {  $$ = $2; }
 	;
-
-
 
 notenames_body:
 	embedded_scm	{
@@ -403,8 +405,16 @@ assignment:
 		THIS->remember_spot ();
 	}
 	/* cont */ '=' identifier_init  {
+
+	/*
+		Should find generic way of associating input with objects.
+	*/
+		Input ip = THIS->pop_spot ();
+
 		if (! regular_identifier_b ($1))
-			THIS->parser_error (_ ("Identifier should have  alphabetic characters only"));
+		{
+			ip.warning (_ ("Identifier should have  alphabetic characters only"));
+		}
 
 	        THIS->lexer_p_->set_identifier (ly_scm2string ($1), $4);
 
@@ -415,10 +425,6 @@ assignment:
 all objects can be unprotected as soon as they're here.
 
 */
-	/*
-		Should find generic way of associating input with objects.
-	*/
-		THIS->pop_spot ();
 	}
 	;
 
@@ -812,11 +818,11 @@ Composite_music:
 		THIS->remember_spot ();
 	}
 	/* CONTINUED */ 
-		bare_unsigned '/' bare_unsigned Music 	
+		fraction Music 	
 
 	{
-		int n = $3; int d = $5;
-		Music *mp = $6;
+		int n = gh_scm2int (gh_car ($3)); int d = gh_scm2int (gh_cdr ($3));
+		Music *mp = $4;
 		$$ = new Time_scaled_music (SCM_EOL);
 		$$->set_spot (THIS->pop_spot ());
 
@@ -943,13 +949,8 @@ translator_change:
 
 property_def:
 	PROPERTY STRING '.' STRING '='  scalar {
-		Music *t = new Music (SCM_EOL);
-
-		t->set_mus_property ("iterator-ctor",
-			Property_iterator::constructor_cxx_function);
-		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
-		t->set_mus_property ("value", $6);
-
+		
+		Music *t = set_property_music (scm_string_to_symbol ($4), $6);
 		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
 
 		csm->set_mus_property ("element", t->self_scm ());
@@ -1058,12 +1059,7 @@ command_element:
 		$1-> set_spot (THIS->here_input ());
 	}
 	| BAR STRING  			{
-		Music *t = new Music (SCM_EOL);
-
-		t->set_mus_property ("iterator-ctor",
-			Property_iterator::constructor_cxx_function);
-		t->set_mus_property ("symbol", ly_symbol2scm ("whichBar"));
-		t->set_mus_property ("value", $2);
+		Music *t = set_property_music (ly_symbol2scm ("whichBar"), $2);
 
 		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
 		csm->set_mus_property ("element", t->self_scm ());
@@ -1075,13 +1071,8 @@ command_element:
 		csm->set_mus_property ("context-type", ly_str02scm ("Score"));
 	}
 	| PARTIAL duration_length  	{
-		Music * p = new Music (SCM_EOL);
-		p->set_mus_property ("symbol", ly_symbol2scm ( "measurePosition"));
-		p->set_mus_property ("iterator-ctor",
-			Property_iterator::constructor_cxx_function);
-
 		Moment m = - unsmob_duration ($2)->length_mom ();
-		p->set_mus_property ("value", m.smobbed_copy ());
+		Music * p = set_property_music (ly_symbol2scm ( "measurePosition"),m.smobbed_copy ());
 
 		Context_specced_music * sp = new Context_specced_music (SCM_EOL);
 		sp->set_mus_property ("element", p->self_scm ());
@@ -1111,19 +1102,33 @@ command_element:
 		$$ =sp ;
 		sp-> set_mus_property ("context-type", ly_str02scm ("Staff"));
 	}
-	| TIME_T bare_unsigned '/' bare_unsigned  {
-		Music * p = new Music (SCM_EOL);
-		p->set_mus_property ("symbol",
-			ly_symbol2scm ( "timeSignatureFraction"));
-		p->set_mus_property ("iterator-ctor",
-			Property_iterator::constructor_cxx_function);
+	| TIME_T fraction  {
+		Music * p1 = set_property_music (ly_symbol2scm ( "timeSignatureFraction"), $2);
 
-		p->set_mus_property ("value", gh_cons (gh_int2scm ($2),
-							gh_int2scm ($4)));
+  int l = gh_scm2int (gh_car ($2));
+  int o = gh_scm2int (gh_cdr ($2));
+  
+  Moment one_beat = Moment (1)/Moment (o);
+  Moment len = Moment (l) * one_beat;
+
+
+		Music *p2 = set_property_music (ly_symbol2scm ("measureLength"), len.smobbed_copy ());
+		Music *p3 = set_property_music (ly_symbol2scm ("beatLength"), one_beat.smobbed_copy ());
+
+		SCM list = gh_list (p1->self_scm (), p2->self_scm (), p3->self_scm(), SCM_UNDEFINED);
+		Sequential_music *seq = new Sequential_music (SCM_EOL);
+		seq->set_mus_property ("elements", list);
+		
 
 		Context_specced_music * sp = new Context_specced_music (SCM_EOL);
-		sp->set_mus_property ("element", p->self_scm ());
-		scm_unprotect_object (p->self_scm ());
+		sp->set_mus_property ("element", seq->self_scm ());
+
+		
+
+		scm_unprotect_object (p3->self_scm ());
+		scm_unprotect_object (p2->self_scm ());
+		scm_unprotect_object (p1->self_scm ());
+		scm_unprotect_object (seq->self_scm ());
 
 		$$ = sp;
 
@@ -1588,11 +1593,20 @@ multiplied_duration:
 	steno_duration {
 		$$ = $1;
 	}
-	| multiplied_duration '*' bare_unsigned {
+	| steno_duration '*' bare_unsigned {
 		$$ = unsmob_duration ($$)->compressed ( $3) .smobbed_copy ();
 	}
-	| multiplied_duration '/' bare_unsigned {
-		$$ = unsmob_duration ($$)->compressed (Moment (1,$3)).smobbed_copy ();
+	| steno_duration '*' FRACTION {
+		Moment m (gh_scm2int (gh_car ($3)), gh_scm2int (gh_cdr ($3)));
+
+		$$ = unsmob_duration ($$)->compressed (m).smobbed_copy ();
+	}
+	;
+
+fraction:
+	FRACTION { $$ = $1; }
+	| UNSIGNED '/' UNSIGNED {
+		$$ = gh_cons (gh_int2scm ($1), gh_int2scm ($3));
 	}
 	;
 
@@ -1809,28 +1823,37 @@ chord_note:
 	UTILITIES
  */
 number_expression:
-	bare_number {
-		$$ = $1;
-	}
-	| '-'  number_expression %prec UNARY_MINUS {
-		$$ = scm_difference ($2, SCM_UNDEFINED);
-	}
-	| number_expression '*' number_expression {
-		$$ = scm_product ($1, $3);
-	}
-	| number_expression '/' number_expression {
-		$$ = scm_divide ($1, $3);
-	}
-	| number_expression '+' number_expression {
+	number_expression '+' number_term {
 		$$ = scm_sum ($1, $3);
 	}
-	| number_expression '-' number_expression {
+	| number_expression '-' number_term {
 		$$ = scm_difference ($1, $3);
 	}
-	| '(' number_expression ')'	{
-		$$ = $2;
+	| number_term 
+	;
+
+number_term:
+	number_factor {
+		$$ = $1;
+	}
+	| number_factor '*' number_factor {
+		$$ = scm_product ($1, $3);
+	}
+	| number_factor '/' number_factor {
+		$$ = scm_divide ($1, $3);
 	}
 	;
+
+number_factor:
+	'(' number_expression ')'	{
+		$$ = $2;
+	}
+	| '-'  number_factor { /* %prec UNARY_MINUS */
+		$$ = scm_difference ($2, SCM_UNDEFINED);
+	}
+	| bare_number
+	;
+
 
 bare_number:
 	UNSIGNED	{
