@@ -11,7 +11,7 @@
 #define MIDI_TRACK_PARSER_HH
 
 #include "proto.hh"
-#include "plist.hh"
+#include "cons.hh"
 #include "moment.hh"
 #include "mi2mu-proto.hh"
 #include "midi-parser.hh"
@@ -36,7 +36,7 @@ private:
 
   Moment at_mom_;
   Byte running_byte_;
-  Link_list<Mudela_note*> open_note_l_list_;
+  Cons_list<Mudela_note> open_note_l_list_;
   Mudela_staff* mudela_staff_p_;
   Midi_parser_info* track_info_p_;
 };

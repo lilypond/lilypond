@@ -22,6 +22,7 @@ struct Column_rod {
   void print () const;
 };
 
+
 struct Rod
 {
   Drul_array <Item*> item_l_drul_;
@@ -31,6 +32,18 @@ struct Rod
   Rod ();
 };
 
+struct Column_spring {
+  Paper_column *other_l_;
+  Real distance_f_;
+  Real strength_f_;
+  
+  Column_spring ();
+  static int compare (const Column_spring &r1, const Column_spring &r2);
+  void print () const;
+};
 
+struct Spring{
+  
+};
 #endif /* ROD_HH */
 

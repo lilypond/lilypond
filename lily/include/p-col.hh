@@ -31,7 +31,7 @@ class Paper_column : public Axis_group_item {
 public:
   VIRTUAL_COPY_CONS(Score_element);
   Drul_array<Array<Column_rod> > minimal_dists_arr_drul_;
-
+  Drul_array<Array<Column_spring> > spring_arr_drul_;
   void preprocess ();
   /// set a minimum distance
   void add_rod (Paper_column * to, Real distance);

@@ -8,20 +8,21 @@
 
 #include "mi2mu-proto.hh"
 #include "proto.hh"
-#include "plist.hh"
+#include "cons.hh"
 #include "string.hh"
 
 /// (mudela_staff)
-class Mudela_staff {
+class Mudela_staff
+{
 public:
   Mudela_staff (int number_i, String copyright_str, String track_name_str, String instrument_str);
 
   void add_item (Mudela_item* mudela_item_p);
-  void eat_voice (Link_list<Mudela_item*>& items);
-  String id_str();
-  String name_str();
+  void eat_voice (Cons_list<Mudela_item>& items);
+  String id_str ();
+  String name_str ();
   void output (Mudela_stream& mudela_stream_r);
-  void process();
+  void process ();
 
   String copyright_str_;
   String instrument_str_;
@@ -34,8 +35,8 @@ public:
 private:
   void output_mudela_begin_bar (Mudela_stream& mudela_stream_r, Moment now_mom, int bar_i);
 
-  Pointer_list<Mudela_voice*> mudela_voice_p_list_;
-  Pointer_list<Mudela_item*> mudela_item_p_list_;
+  Cons_list<Mudela_voice> mudela_voice_p_list_;
+  Cons_list<Mudela_item> mudela_item_p_list_;
 };
 
 #endif // MUDELA_STAFF_HH

@@ -11,6 +11,8 @@
 #define CONS_HH
 
 
+#include <assert.h>
+
 template<class T>
 class Cons
 {
@@ -55,6 +57,31 @@ Cons<T> *remove_cons (Cons<T> **pp)
   return knip;
 }
 
+template<class T> int cons_list_size_i (Cons<T> *l)
+{
+  int i=0;
+  while  (l)
+    {
+      l = l->next_;
+	i++;
+    }
+  return i;
+}
+
+
+
+
+
+template<class T>
+Cons<T> * last_cons (Cons<T> * head)
+{
+  while (head->next_)
+    {
+      head = head->next_;
+    }
+  return head;
+}
+
 /**
 
    Invariants:
@@ -69,15 +96,22 @@ class Cons_list
 {
 public:
   Cons<T> * head_;
-  Cons<T> ** tail_;
-  Cons_list () { init_list (); }
-  void init_list () {head_ =0; tail_ = &head_; }
+  Cons<T> ** nil_pointer_address_;
+  Cons_list ()
+    {
+      init ();
+    }
+  void init ()
+    {
+      head_ =0;
+      nil_pointer_address_ = &head_;
+    }
   void append (Cons<T> *c)
     {
       assert (!c->next_);
-      *tail_ = c;
-      while (*tail_)
-	tail_ = &(*tail_)->next_;
+      *nil_pointer_address_ = c;
+      while (*nil_pointer_address_)
+	nil_pointer_address_ = &(*nil_pointer_address_)->next_;
     }
   /**
      PRE: *pp should either be the head_ pointer, or the next_ pointer
@@ -85,8 +119,8 @@ public:
   */
   Cons<T> *remove_cons (Cons<T> **pp)
     {
-      if (&(*pp)->next_ == tail_)
-	tail_ = pp;
+      if (&(*pp)->next_ == nil_pointer_address_)
+	nil_pointer_address_ = pp;
 
       return ::remove_cons (pp);
     }
@@ -95,7 +129,14 @@ public:
       delete head_;
       head_ =0;
     }
-  ~Cons_list () { junk (); }
+  ~Cons_list ()
+    {
+      junk ();
+    }
+  int size_i ()
+    {
+      return cons_list_size_i (head_);
+    }
 };
 
 
@@ -104,20 +145,6 @@ void  copy_killing_cons_list (Cons_list<T>&, Cons<T> *src);
 template<class T>
 void
 clone_killing_cons_list (Cons_list<T>&, Cons<T> *src);
-
-template<class T> int cons_list_size_i (Cons<T> *l)
-{
-  int i=0;
-  while  (l)
-    {
-      l = l->next_;
-	i++;
-    }
-  return i;
-}
-
-
-
 
 #endif /* CONS_HH */
 

@@ -53,19 +53,17 @@ Midi_track_parser::note_end (Mudela_column* col_l, int channel_i, int pitch_i, i
 
   assert (col_l);
 
-  for (PCursor<Mudela_note*> i (open_note_l_list_.top ()); i.ok (); )
+  for (Cons<Mudela_note>** pp = &open_note_l_list_.head_; *pp;)
     {
-      if ((i->pitch_i_ == pitch_i) && (i->channel_i_ == channel_i))
+      Cons<Mudela_note>* i = *pp;
+      if ((i->car_->pitch_i_ == pitch_i) && (i->car_->channel_i_ == channel_i))
 	{
-	  i->end_column_l_ = col_l;
-	  // LOGOUT(DEBUG_ver) << "Note: " << pitch_i;
-	  // LOGOUT(DEBUG_ver) << "; " << i->mudela_column_l_->at_mom_;
-	  // LOGOUT(DEBUG_ver) << ", " << i->end_column_l_->at_mom_ << '\n';
-	  i.remove_p();
+	  i->car_->end_column_l_ = col_l;
+	  delete open_note_l_list_.remove_cons (pp);
 	  return;
 	}
       else
-	i++;
+	pp = &i->next_;
     }
   warning (_f ("junking note-end event: channel = %d, pitch = %d", 
 	       channel_i, pitch_i));
@@ -76,11 +74,12 @@ Midi_track_parser::note_end_all (Mudela_column* col_l)
 {
   // find
   assert (col_l);
-  for (PCursor<Mudela_note*> i (open_note_l_list_.top ()); i.ok (); )
+  for (Cons<Mudela_note>* i = open_note_l_list_.head_; i; i = i->next_)
     {
-      i->end_column_l_ = col_l;
-      i.remove_p ();
+      i->car_->end_column_l_ = col_l;
     }
+  // UGH UGH. MEMORY LEAK.
+  open_note_l_list_.init ();
 }
 
 Mudela_staff*
@@ -169,13 +168,14 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	{
 	  Mudela_note* p = new Mudela_note (col_l, channel_i, pitch_i, dyn_i);
 	  item_p = p;
-	  open_note_l_list_.bottom ().add (p);
+	  open_note_l_list_.append (new Cons<Mudela_note> (p, 0));
 	}
       else
 	{
 	  note_end (col_l, channel_i, pitch_i, dyn_i);
 	}
     }
+    
   // POLYPHONIC_AFTERTOUCH	[\xa0-\xaf]
   else if ((byte >= 0xa0) && (byte <= 0xaf))
     {
