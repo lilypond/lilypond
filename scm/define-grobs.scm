@@ -741,7 +741,7 @@
 
     (RepeatSlash
      . (
-	(molecule-callback . , Percent_repeat_item_interface::beat_slash)
+	(molecule-callback . ,Percent_repeat_item_interface::beat_slash)
 	(thickness . 0.48)
 	(slope . 1.7)
 	(meta . ((interfaces . (percent-repeat-interface item-interface ))))

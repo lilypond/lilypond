@@ -31,17 +31,16 @@ Midi_stream::~Midi_stream ()
 Midi_stream&
 Midi_stream::operator << (String str)
 {
-  Byte *b = str.get_bytes ();
-#if 0
-  for (int sz = str.length (); sz--;)
+  size_t sz = sizeof (Byte);
+  size_t n = str.length ();
+  size_t written = fwrite (str.get_bytes (),
+			   sz, n, out_file_);
+
+  if (written != sz * n)
     {
-      fputc (*b, out_file_);
-      b++;
+      warning ("Could not write file. Disk full?");
     }
-#else
-  for (int i = 0, n = str.length (); i < n; i++)
-    fputc (b[i], out_file_);
-#endif
+
   return *this;
 }
 

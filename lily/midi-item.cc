@@ -231,14 +231,6 @@ Moment
 Midi_note::get_length () const
 {
   Moment m = audio_->length_mom_;
-#if 0
-  //junkme?
-  if (m < Moment (Rational (1, 1000)))
-    {
-      warning (_ ("silly duration"));
-      m = 1;
-     }
-#endif
   return m;
 }
 
