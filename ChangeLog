@@ -1,3 +1,8 @@
+2002-10-15  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/sodipodi.scm: Some fixes.  Sketch also groks this bare-bones
+	svg output, including font.
+
 2002-10-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/lily.scm: Register sodipodi output module.
