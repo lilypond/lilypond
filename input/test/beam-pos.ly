@@ -1,7 +1,7 @@
 \score{
-	\melodic{
+	\melodic\transpose c''{
 		\property Score.beamquantisation = 3 % TEST
-		\octave c';
+
 		[c8 c] [c c] [c c] [c c]
 		[a' a'] [a' a'] [a' a'] [a' a']
 		[c16 c] [c c] [c c] [c c]
