@@ -1208,7 +1208,7 @@ if 1:
 			str)
 		return str
 	
-	conversions.append (((1,7,22), conv,"remove GraceContext"))
+	conversions.append (((1,7,22), conv,"#'type -> #'style"))
 
 if 1:
 	def conv(str):
