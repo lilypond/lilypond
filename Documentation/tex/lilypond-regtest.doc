@@ -60,9 +60,8 @@ Slurs that start within a grace section, but aren't ended are attached
 to the next normal note.  Grace notes have zero duration.  If there
 are tuplets, the grace notes won't be under the brace.  Grace notes
 can have accidentals, but they are (currently) spaced at a fixed
-distance.
-
-
+distance.  Grace notes (of course) come before the accidentals of the
+main note.  Grace notes can also be positioned after the main note.
 
 \mudelafile{grace.ly}
 
@@ -203,9 +202,10 @@ convoluted way, so this is fragile as well.
 
 By default, time signatures are written with two numbers. With style
 ``C'', 4/4 and 2/2 are written with their corresponding symbols and
-with style ``old'', 2/2, 3/2, 3/4, 4/4, 6/4, 9/4, 6/8 and 9/8 are
-typeset with symbols, all other signatures retain the default layout.
-The style ``1'', gives single number signatures for all signatures.
+with style ``old'', 2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and
+9/8 are typeset with symbols, all other signatures retain the default
+layout. The style ``1'', gives single number signatures for all
+signatures. 
 
 \mudelafile{time.fly}
 
