@@ -55,11 +55,15 @@ ch = \chords { c:7-	}
 %ch = \chords { c:7.11.13 }
 
 % ch = \chords { c:7.11.15.17.19.21 }
-ch = \chords { c c:m c:7 c:7.9 c:7+.9 c:7.9+ c:9^7 c:3.11^7 }
-
+ch = \chords { c c:m c:7 c:7.9 c:7+.9 c:7.9+ c:9^7 c:3.11^7
+}
 %ch = \chords { c:9^7 c:5^3}
 
-ch = \chords { c:3- c:3 c:2 c:7+ c:3-.5-.7- c:6.9^7 }
+ch = \chords { c:3- c:3 c:2 c:7+ c:3-.5-.7- c:6.9^7
+	c:4.7+^3
+	r
+
+}
 
 \score{
     <
@@ -72,15 +76,15 @@ ch = \chords { c:3- c:3 c:2 c:7+ c:3-.5-.7- c:6.9^7 }
 	   `((separator . ,(make-simple-markup ":"))
 	     (full-exceptions . ,efull)
 	     (partial-exceptions . ,epartial)))
-	
-	%#(set-double-plus-new-chord-name-style 'jazz
-	%   `((separator . ,(make-simple-markup ":"))
-	%     (full-exceptions . ,efull)
-	%     (partial-exceptions . ,epartial)))
+	\ch
+	#(set-double-plus-new-chord-name-style 'jazz
+	   `((separator . ,(make-simple-markup ":"))
+	     (full-exceptions . ,efull)
+	     (partial-exceptions . ,epartial)))
 	
 	\ch
     }
-	\context Staff \notes \transpose c c' \ch
+	\context Staff \notes \transpose c c' { \ch \ch}
     >
     \paper{
 	\translator { 
