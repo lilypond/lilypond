@@ -3,7 +3,7 @@
 
   source file of the Flower Library
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include "full-storage.hh"
@@ -23,12 +23,13 @@ void
 Full_storage::OK() const
 {
 #ifndef NDEBUG
-    //    static Real dummy;		
+
     assert(max_height_i_ >= height_i_ && max_width_i_ >= width_i_);
     assert(height_i_ >= 0 && width_i_ >= 0);
     assert(els_p_p_||!max_height_i_);
 #endif
 }
+
 void
 Full_storage::resize_cols(int newh)
 {
@@ -47,6 +48,18 @@ Full_storage::resize_cols(int newh)
     els_p_p_=newa;
 
     height_i_ = max_height_i_ = newh;
+}
+
+
+Full_storage::Full_storage(Matrix_storage*m)
+{
+    set_size(m->rows(), m->cols());
+    if ( !m->is_type_b ( Full_storage::static_name()))
+	for (int i=0; i<height_i_; i++)
+	    for (int j=0; j<width_i_; j++)
+		els_p_p_[i][j]=0.0;
+    for (int i,j=0; m->mult_ok(i,j); m->mult_next(i,j))
+	els_p_p_[i][j] = m->elem(i,j);
 }
 
 void
@@ -79,20 +92,19 @@ Full_storage::resize(int rows, int cols)
     OK();
     resize_cols(rows);
     resize_rows(cols);
-
 }
 
 
 bool
-Full_storage::mult_ok(int i, int j) const
+Full_storage::mult_ok(int i, int ) const
 {
-    return valid(i,j);
+    return i < height_i_;
 }
 
 bool
-Full_storage::trans_ok(int i, int j) const
+Full_storage::trans_ok(int , int j) const
 {
-       return valid(i,j);
+       return j < width_i_;
 } 
 
 
@@ -149,47 +161,21 @@ Full_storage::insert_row(int k)
 
 }
 
-
-Array<Real>
-Full_storage::row(int n) const
+int
+Full_storage::dim()const
 {
-    Array<Real> r;
-    for (int j = 0; j < width_i_; j++)
-	r.push(els_p_p_[n][j]);
-    return r;
+    assert (rows()==cols());
+    return rows();
 }
 
-Array<Real>
-Full_storage::column(int n) const
-{
-    
-    Array<Real> r;
-    for (int i = 0; i<height_i_; i++)
-	r.push(els_p_p_[i][n]);
-    return r;
-}
-
-
-Full_storage::Full_storage(Full_storage&s)
+Full_storage::Full_storage(Full_storage const&s)
 {
     init();
     (*this) = s;
 }
-Matrix_storage*
-Full_storage::clone()
-{
-    return new Full_storage(*this);
-}
-
-
-Matrix_storage *
-Matrix_storage::get_full(int n, int m)
-{
-    return new Full_storage(n,m);
-}
 
 bool
-Full_storage::try_right_multiply(Matrix_storage * dest, Matrix_storage const * right)
+Full_storage::try_right_multiply(Matrix_storage * dest, Matrix_storage const * right)const
 {
     if (dest->name() != Full_storage::static_name() ||
 	right->name() != Full_storage::static_name())
@@ -211,5 +197,4 @@ Full_storage::try_right_multiply(Matrix_storage * dest, Matrix_storage const * r
     
     
 }
-IMPLEMENT_IS_TYPE_B(Matrix_storage);
 IMPLEMENT_IS_TYPE_B1(Full_storage,Matrix_storage);
