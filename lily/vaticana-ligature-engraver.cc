@@ -108,7 +108,7 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
        * Save the head's final shape and x-offset.
        */
       primitive->set_grob_property ("glyph-name",
-				    ly_symbol2scm (glyph_name.to_str0 ()));
+				    scm_makfrom0str (glyph_name.to_str0 ()));
       primitive->set_grob_property ("x-offset",
 				    gh_double2scm (x_offset));
 

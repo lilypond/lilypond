@@ -168,7 +168,7 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
       return Molecule ();
     }
 
-  String glyph_name = ly_symbol2string (glyph_name_scm);
+  String glyph_name = ly_scm2string (glyph_name_scm);
   if (!String::compare (glyph_name, ""))
     {
       // empty head (typically, this is the right side of porrectus
