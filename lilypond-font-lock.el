@@ -10,7 +10,7 @@
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       1.7.11
+;; Version:       1.7.12
 ;; Last Modified: 13DEC2003
 ;; Keywords: lilypond languages music notation
 
@@ -91,9 +91,9 @@
       '("\\(\\(-.\\)+\\|[^-^_]\\)\\([<>]+\\(\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\\\(breve\\|longa\\)\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)?\\|\\\\\\\\\\)" 3 font-lock-function-name-face t)
 
 ;; "on top", ... expressional grouping:
-;;               - slurs \( () \)
+;;               - slurs ( ), \( \), -( -)
 ;;               - hairpins \<, \>, \! 
-      '("\\(\\\\[(<!>)]\\|[()]\\)" 0 font-lock-builtin-face t)
+      '("\\(\\\\[(<!>)]\\|-?[()]\\)" 0 font-lock-builtin-face t)
 
 ;; "on top", ... lyrics-mode: fontify everything between '{' and '}'
       '("\\(\\\\lyrics[^{]*{\\)\\([^}]*\\)" 2 font-lock-string-face t)
