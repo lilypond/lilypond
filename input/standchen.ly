@@ -134,10 +134,10 @@ melodie = \melodic{
 	[ e' \f( )dis' e' ]2/3  g'4.^> cis' |
 %%48
 	\textstyle "italic";
-	< \multivoice {
-		\stem  1 ; fis2.( 
-		| \stem  -1 ; )f2. }
-	{ \stem  1 ; d'2.( | \stem  1 ; )d'4 r4_"decresc." d'4 } >
+	< 
+	{ fis2.( \group "+1"; \stem -1; )f2. }
+	{ d'2. (  \stem  1 ; )d'4 r4_"decresc." d'4 } 
+	>
 	\textstyle "roman"; |
 %%50
 	< bes2. e2. > |
@@ -182,66 +182,67 @@ begeleiding = \melodic{
 	''a r4 |
 %%5
 \duration  8 ;
- 	< \multivoice { \stem  1 ; [ 'f 'a d 'a d 'a ] }
-	{ \stem  -1 ; 'd2 r4 } > |
-%%6
- 	< \multivoice { \stem  1 ; [ 'd 'e 'g 'e 'g 'e ] }
-	{ \stem  -1 ; ''bes2 r4 } > |
-%%7 
-	< \multivoice { \stem  1 ; [ 'cis 'e 'g 'e 'g e ] }
-	{ \stem  -1 ; ''a2 r4 } > |
- %%8
-	< \multivoice { \stem  1 ; [ 'd 'a d 'a d 'a ] }
-	{ \stem  -1 ; 'd2 r4 } > |
+ 	< \multivoice { \stem  1 ;	
+		[ 'f 'a d 'a d 'a ] 
+		[ 'd 'e 'g 'e 'g 'e ] 
+		[ 'cis 'e 'g 'e 'g e ]
+		[ 'd 'a d 'a d 'a ]
+		}
+	{ \stem -1; 
+		'd2 r4 
+		 ''bes2 r4 
+		 ''a2 r4
+		 'd2 r4 	
+	} >
 %%9
 	[ 'a e g e g e ] |
 %%10
 	[ 'd 'a d 'a d 'a ] |
 %%11
-	< \multivoice { \stem  1 ; [ 'f 'a d 'a d 'a ] }
-	{ \stem  -1 ; 'd2 r4 } > |
-%%12 == 6
-	< \multivoice { \stem  1 ; [ 'd 'e 'g 'e 'g 'e ] }
-	{ \stem  -1 ; ''bes2 r4 } > |
-%13
-	< \multivoice { [ 'e 'g 'bes 'g 'bes 'g ] }
-	{ \stem  -1 ; 'c2 r4 } > |
-%%14
-	< \multivoice { \stem  1 ; [ 'a c f c f c ] }
-	{ \stem  -1 ; 'f2 r4 } > |
+	< \multivoice 	
+	{ \stem  1 ;
+		[ 'f 'a d 'a d 'a ]
+		[ 'd 'e 'g 'e 'g 'e ] 
+		[ 'e 'g 'bes 'g 'bes 'g ] 
+		[ 'a c f c f c ]
+	} { \stem -1; 
+		'd2 r4 
+		 ''bes2 r4
+		 'c2 r4 
+		 'f2 r4 } 
+	>
 %%15
 	[ 'c 'g 'bes 'g 'bes 'g ] |
 %%16
 	[ ''f 'c 'f 'c 'f 'c ] |
-%%17
-	< \multivoice { \stem  1 ; [ ''a 'e 'g 'e 'g 'e ] }
-	{ \stem  -1 ; ''a2 r4 } > |
-%%18
-	< \multivoice { \stem  1 ; [ 'd 'a d 'a d 'a ] }
-	{ \stem  -1 ; 'd2 r4 } > |
-%%19
-	< \multivoice { \stem  1 ; [ ''bes 'f 'bes 'f 'bes 'f ] }
-	{ \stem  -1 ; ''bes2 r4 } > |
-%%20
-	< \multivoice { \stem  1 ; [ ''f 'c 'f 'c 'f 'c ] }
-	{ \stem  -1 ; ''f2 r4 } > |
+	< \multivoice
+	{ \stem 1; 
+		[ ''a 'e 'g 'e 'g 'e ][ 'd 'a d 'a d 'a ]
+		[ ''bes 'f 'bes 'f 'bes 'f ][ ''f 'c 'f 'c 'f 'c ]  }
+	{ \stem -1; 
+		''a2 r4
+		'd2 r4 
+		''bes2 r4 
+		''f2 r4 
+	} > 
 %%21
 	< [ 'e 'c > 'g c 'g c 'g ] |
 %%22
 	[ 'f 'a c 'a 'f 'c ] |
-%%23
-	< \multivoice { \stem  1 ; [ ''a 'e 'g 'e 'g 'e ] }
-	{ \stem  -1 ; ''a2 r4 } > |
-%%24
-	< \multivoice { \stem  1 ; [ 'd 'fis 'a 'fis 'a 'fis ] }
-	{ \stem  -1 ; 'd2 r4 } > |
-%%25
-	< \multivoice { \stem  1 ; [ ''g 'd 'b 'd 'b 'd ] }
-	{ \stem  -1 ; ''g2 r4 } > |
-%%26
-	< \multivoice { \stem  1 ; [ 'd 'a d 'a d 'a ] }
-	{ \stem  -1 ; 'd2 r4 } > |
-%%27
+	< \multivoice {
+		\stem 1;
+		[ ''a 'e 'g 'e 'g 'e ] 
+		[ 'd 'fis 'a 'fis 'a 'fis ] 
+		[ ''g 'd 'b 'd 'b 'd ] 
+		[ 'd 'a d 'a d 'a ] 
+	}
+	{\stem -1;
+		''a2 r4 
+		'd2 r4 
+		''g2 r4 
+		'd2 r4 
+	}
+	>
 	< [ 'cis ''a > 'e 'a 'e 'a 'e ] |
 %%28
 	[ 'd 'a d 'a d 'a ] |
@@ -280,11 +281,15 @@ begeleiding = \melodic{
 %%44
 	< [ 'd ''b > 'fis 'b 'fis 'b 'fis ] |
 %%45
-	< \multivoice { \stem  1 ; [ ''g 'd 'b 'd 'b 'd ] }
-	{ \stem  -1 ; ''g2 r4 } > |
-%%46
-	< \multivoice { \stem  1 ; [ 'd 'a d 'a d 'a ] }
-	{ \stem  -1 ; 'd2 r4 } > |
+	< \multivoice { \stem 1; 
+		[ ''g 'd 'b 'd 'b 'd ] 
+		[ 'd 'a d 'a d 'a ] 
+	} {
+		\stem -1;
+		''g2 r4
+		'd2 r4 
+	} >
+
 %%47
 	< [ 'cis ''a > 'e 'a 'e 'a 'e ] |
 %%48
@@ -444,7 +449,10 @@ tekstII = \lyric{
 }
 
 \score{
-	\staff{ lyricregs tekstI tekstII }
+	\staff{ lyricregs tekstI }
+% sorry. Have to fix
+%	\staff{ lyricregs tekstII }
+
 	\staff{ melodicregs melodie }
 	\staff{ melodicregs begeleiding }
 	\paper{
