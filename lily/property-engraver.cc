@@ -126,7 +126,7 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
 	  SCM name = e->get_grob_property ("meta");
 	  name = scm_assoc (ly_symbol2scm ("name"), name);
 	  scm_display (gh_cdr(name), errport);
-	  scm_puts(" \\push #'",errport);
+	  scm_puts(" \\override #'",errport);
 	  scm_write (elt_prop_sym,errport);
 	  scm_puts ( " = #",errport);
 	  scm_write (val, scm_current_error_port ());

@@ -148,6 +148,7 @@ the music.
 ")
 (translator-property-description 'melismaBusy boolean? "")
 (translator-property-description 'melismaEngraverBusy boolean? "")
+(translator-property-description 'midiInstrument string? "")
 (translator-property-description 'noAutoBeaming boolean? "  If set to true then beams are not generated automatically.
 ")
 (translator-property-description 'noResetKey boolean? "Do not

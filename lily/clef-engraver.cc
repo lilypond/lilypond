@@ -96,7 +96,7 @@ Clef_engraver::set_central_c (SCM glyph,SCM clefpos, SCM octavation)
 void
 Clef_engraver::set_glyph ()
 {
-  SCM glyph_sym = ly_symbol2scm ("glyph");
+  SCM glyph_sym = ly_symbol2scm ("glyph-name");
   SCM glyph = get_property ("clefGlyph");
 
   SCM basic = ly_symbol2scm ("Clef");

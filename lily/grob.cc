@@ -77,7 +77,7 @@ Grob::Grob(SCM basicprops)
     /*
       Should change default to be empty? 
      */
-    if (!gh_procedure_p (cb) && !gh_pair_p (cb))
+    if (cb != SCM_BOOL_F && !gh_procedure_p (cb) && !gh_pair_p (cb))
       cb = molecule_extent_proc;
     
     dim_cache_[a].dimension_ = cb;

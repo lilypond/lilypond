@@ -63,6 +63,16 @@ Line_spanner::line_atom (Grob* me, Real dx, Real dy)
 }
 
 
+
+/*
+  Warning: this thing is a cross-staff object, so it should have empty Y-dimensions.
+
+  (If not, you risk that this is called from the staff-alignment
+  routine, via molecule_extent. At this point, the staffs aren't
+  separated yet, so it doesn't work cross-staff.
+
+*/
+
 MAKE_SCHEME_CALLBACK (Line_spanner, brew_molecule, 1);
 SCM
 Line_spanner::brew_molecule (SCM smob) 
@@ -71,44 +81,55 @@ Line_spanner::brew_molecule (SCM smob)
   Spanner *spanner = dynamic_cast<Spanner*> (me);
 
   Grob *common[] = { 0, 0 };
-  common[X_AXIS] = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
-  common[Y_AXIS] = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), Y_AXIS);
 
-  if (!common[X_AXIS] || !common[Y_AXIS])
+  Item *l = spanner->get_bound (LEFT);
+  Item *r = spanner->get_bound (RIGHT);  
+
+  /*
+    FIXME: should also do something sensible across line breaks.
+   */
+  if (l->break_status_dir () || r->break_status_dir ())
     return SCM_EOL;
   
-  Real dx =
-    spanner->get_bound (LEFT)->relative_coordinate (common[X_AXIS], X_AXIS)
-    - spanner->get_bound (RIGHT)->relative_coordinate (common[X_AXIS], X_AXIS)
-    + spanner->get_bound (RIGHT)->extent (spanner->get_bound (RIGHT),
-					  X_AXIS)[LEFT]
-    - spanner->get_bound (LEFT)->extent (spanner->get_bound (LEFT),
-					 X_AXIS)[RIGHT];
+  for (Axis a = X_AXIS;  a < NO_AXES; a = Axis (a + 1))
+    {
+      common[a] = l->common_refpoint (r, a);
   
-  Real dy =
-    spanner->get_bound (LEFT)->relative_coordinate (common[Y_AXIS], Y_AXIS)
-    - spanner->get_bound (RIGHT)->relative_coordinate (common[Y_AXIS], Y_AXIS)
-    + spanner->get_bound (RIGHT)->extent (spanner->get_bound (RIGHT),
-					  Y_AXIS).center ()
-    - spanner->get_bound (LEFT)->extent (spanner->get_bound (LEFT),
-					 Y_AXIS).center ();
+    if (!common[a])
+      return SCM_EOL;
+    }
+  
+  Offset dxy ; 
+  for (Axis a = X_AXIS;  a < NO_AXES; a = Axis (a + 1))
+    {
+      dxy[a] = r->extent (common[a], a)[LEFT] -
+	l->extent (common[a], a)[RIGHT];
+    }
   
   Molecule line;
   Real gap = gh_scm2double (me->get_grob_property ("gap"));
-  Offset o (dx, dy);
-  o *= (o.length () - 2 * gap) / o.length ();
+
+  Offset my_off(me->relative_coordinate (common[X_AXIS], X_AXIS),
+		me->relative_coordinate (common[Y_AXIS], Y_AXIS) ); 
+ 
+  Offset his_off(l->relative_coordinate (common[X_AXIS], X_AXIS),
+		 l->relative_coordinate (common[Y_AXIS], Y_AXIS) ); 
+ 
+  dxy *= (dxy.length () - 2 * gap) / dxy.length ();
   
-  SCM list = Line_spanner::line_atom (me, o[X_AXIS], o[Y_AXIS]);
+  SCM list = Line_spanner::line_atom (me, dxy[X_AXIS], dxy[Y_AXIS]);
     
   if (list == SCM_EOL)
     return SCM_EOL;
   
-  Box b (Interval (0, o[X_AXIS]), Interval (0, o[Y_AXIS]));
+  Box b (Interval (0, dxy[X_AXIS]), Interval (0, dxy[Y_AXIS]));
   
   line = Molecule (b, list);
-  line.translate_axis (spanner->get_bound (LEFT)->extent (spanner->get_bound (LEFT), X_AXIS).length (), X_AXIS);
-  Offset g = o * (gap / o.length ());
-  line.translate (g);
+  line.translate_axis (l->extent (l, X_AXIS).length (), X_AXIS); 
+  
+  
+  Offset g = dxy * (gap / dxy.length ());
+  line.translate (g - my_off + his_off);
       
   return line.smobbed_copy ();
 }

@@ -22,7 +22,7 @@ Clef::before_line_breaking (SCM smob)
 {
   Item * s = dynamic_cast<Item*> (unsmob_grob (smob));
 
-  SCM glyph = s->get_grob_property ("glyph");
+  SCM glyph = s->get_grob_property ("glyph-name");
   
   if (gh_string_p (glyph))
     {
@@ -33,7 +33,7 @@ Clef::before_line_breaking (SCM smob)
 	  to_boolean (s->get_grob_property ("full-size-change")))
 	{
 	  str += "_change";
-	  s->set_grob_property ("glyph", ly_str02scm (str.ch_C()));	  
+	  s->set_grob_property ("glyph-name", ly_str02scm (str.ch_C()));	  
 	}
     }
   else
@@ -63,7 +63,7 @@ SCM
 Clef::brew_molecule (SCM smob) 
 {
   Grob * sc = unsmob_grob (smob);
-  SCM glyph = sc->get_grob_property ("glyph");
+  SCM glyph = sc->get_grob_property ("glyph-name");
   if (gh_string_p (glyph))
     {
       return Font_interface::get_default_font (sc)->find_by_name (String (ly_scm2string (glyph))).smobbed_copy ();

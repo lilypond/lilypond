@@ -141,10 +141,8 @@ is used by @ref{note-collision-interface}")
 (elt-property-description 'fraction number-pair? "")
 (elt-property-description 'full-size-change boolean? "if set, don't make a change clef smaller.")
 
-(elt-property-description 'glyph symbol? "a string determining what style of  glyph is typeset. Valid choices depend on the function that is reading this property. ")
-(elt-property-description 'glyph string? "what kind barline? A concatenation of |, : and .")
-(elt-property-description 'glyph string? "a string determining what glyph is typeset")
-
+(elt-property-description 'glyph symbol? "a string determining what (style) of  glyph is typeset. Valid choices depend on the function that is reading this property. ")
+(elt-property-description 'glyph-name string? "a name of character within font")
 
 (elt-property-description 'grow-direction dir? "crescendo or decrescendo?")
 (elt-property-description 'hair-thickness number? "thickness, measured in stafflinethickness")

@@ -94,8 +94,8 @@ Note_head_line_engraver::create_grobs ()
     {
       /* type Glissando? */
       line_ = new Spanner (get_property ("NoteHeadLine"));
-      line_->set_bound (LEFT, head_);
-      line_->set_bound (RIGHT, last_head_);
+      line_->set_bound (RIGHT, head_);
+      line_->set_bound (LEFT, last_head_);
 
       line_->set_parent (head_, X_AXIS);
       line_->set_parent (head_, Y_AXIS);
