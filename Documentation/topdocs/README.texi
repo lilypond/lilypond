@@ -9,12 +9,12 @@
 @node Top, , , 
 @top
 
-@chapter This is the toplevel README to LilyPond
+@chapter Toplevel README
 
 
-LilyPond is a music typesetter.  It produces beautiful sheet music
-using a high level description file as input.  LilyPond is part of 
-the GNU Project.
+LilyPond  is a music  typesetter.  It  produces beautiful  sheet music
+using  a description  file as  input.   LilyPond  is  part of  the  GNU
+Project.
 
 @section Versioning
 
@@ -41,8 +41,8 @@ lilypond, as @file{lilypond-x.y.z/INSTALL.txt}. They are also
 available on the web at
 @uref{http://lilypond.org/Documentation/topdocs/out-www/INSTALL.html}.
 
-NOTE: If you downloaded a binary (@file{.rpm} or a W95/NT @file{.zip}
-file), you don't have to compile LilyPond.
+NOTE: If you downloaded a binary (@file{.rpm} or use the Cygwin
+@file{setup.exe} program, then you don't have to compile LilyPond.
 
 
 @section Documentation
@@ -58,7 +58,7 @@ website' in the installation instructions.
 
 LilyPond is a long way from finished so we appreciate your criticism,
 comments, bugreports, patches, etc. Please send them to the mailing
-list, @emph{not} to us personally.
+list, not to us personally.
 
 @html
 <a name="mailing-lists">
@@ -91,13 +91,6 @@ If you have bugreports, you should send them to this list.
 
 You can search the lists from the following page:
 @uref{http://lilypond.org/search, searching facilities}.
-
-@section Windows 32
-
-If you have received this file as part of a DOS/Window32 distribution
-(@file{LilyPond-*.zip}), it is advisable to also download the
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/,source package}, since it
-might contain more documentation
 
 @section Caveats
 

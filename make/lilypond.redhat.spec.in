@@ -145,5 +145,5 @@ chkfontpath --remove=/usr/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 %files documentation
 
 %doc web/
-%doc input/
+
 
