@@ -661,7 +661,7 @@ class Snippet (Chunk):
 		self.format = format
 
 	def replacement_text (self):
-		return self.match.group (0)
+		return self.match.group ('match')
 
 	def substring (self, s):
 		return self.match.group (s)
@@ -675,7 +675,7 @@ class Include_snippet (Snippet):
 		return os.path.splitext (f)[0] + format2ext[format]
 
 	def replacement_text (self):
-		s = self.match.group (0)
+		s = self.match.group ('match')
 		f = self.substring ('filename')
 
 		return re.sub (f, self.processed_filename (), s)
