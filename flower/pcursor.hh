@@ -25,7 +25,7 @@ struct PCursor : public Cursor<T> {
     PCursor(const List<T> & l) : Cursor<T> (l) {}
 
     PCursor( const Cursor<T>& cursor ) : Cursor<T>(cursor) { }
-    T operator ->() { return  *(*this); }
+    T operator ->() const { return  *(*(Cursor<T> *)this); }
 
 };
 /**
