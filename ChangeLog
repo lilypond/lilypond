@@ -1,5 +1,7 @@
 2005-03-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/ledger-line-minimum.ly (texidoc): new file.
+
 	* lily/ledger-line-spanner.cc (set_spacing_rods): new
 	function. Keep ledgered note heads at a minimum distance.
 	Introduce minimum-length-fraction
