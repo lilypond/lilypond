@@ -1,3 +1,10 @@
+2003-04-09  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* scm/music-types.scm: compile fix: escape braces
+
+	* buildscripts/mf-to-table.py: replaced \char -> \musicglyph to
+	work around font selection problem
+
 2003-04-09  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* Documentation/topdocs/AUTHORS.texi (AUTHORS): Updated contact

@@ -235,7 +235,7 @@ e.g. @code{\\mark \"A\"}.")
     (MultiMeasureTextEvent
      . (
 	(description . "Texts on mm rests. Syntax
-@code{R-\\markup { \\roman \"bla\"}. Note the explicit font switch.")
+@code{R-\\markup @{ \\roman \"bla\" @}}. Note the explicit font switch.")
 	(internal-class-name . "Event")
 	(types . (general-music event multi-measure-text-event))
 	))
