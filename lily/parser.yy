@@ -113,10 +113,6 @@ parser_make_music (SCM sym)
 
 #define MY_MAKE_MUSIC(x)  parser_make_music (ly_symbol2scm (x))
 
-#define TYPED_MAKE_MUSIC(x,v,y) x *v = dynamic_cast<x*> (parser_make_music (ly_symbol2scm (y)));
-
-
-
 Music* 
 set_property_music (SCM sym, SCM value)
 {
@@ -683,8 +679,7 @@ music_output_def_body:
 
 tempo_request:
 	TEMPO steno_duration '=' bare_unsigned	{
-		TYPED_MAKE_MUSIC(Tempo_req,t,"TempoEvent");
-		$$ = t;
+		$$ = MY_MAKE_MUSIC("TempoEvent");
 		$$->set_mus_property ("duration", $2);
 		$$->set_mus_property ("metronome-count", gh_int2scm ( $4));
 	}
@@ -742,7 +737,7 @@ Repeated_music:
 		  alts = ly_truncate_list (times, alts);
 		}
 		
-		TYPED_MAKE_MUSIC(Repeated_music,r,"RepeatedMusic");
+		Music *r = MY_MAKE_MUSIC("RepeatedMusic");
 		if (beg)
 			{
 			r-> set_mus_property ("element", beg->self_scm ());
@@ -816,7 +811,7 @@ Simple_music:
 			THIS->parser_error (_ ("First argument must be a procedure taking one argument"));
 		}
 
-	TYPED_MAKE_MUSIC(Music,m,"OutputPropertySetMusic");
+	Music*m = MY_MAKE_MUSIC("OutputPropertySetMusic");
 		m->set_mus_property ("predicate", pred);
 		m->set_mus_property ("grob-property", $3);
 		m->set_mus_property ("grob-value",  $5);
@@ -835,7 +830,7 @@ Simple_music:
 
 Composite_music:
 	CONTEXT STRING Music	{
-	TYPED_MAKE_MUSIC(Music,csm, "ContextSpeccedMusic");
+	Music*csm =TYPED_MAKE_MUSIC("ContextSpeccedMusic");
 
 		csm->set_mus_property ("element", $3->self_scm ());
 		scm_gc_unprotect_object ($3->self_scm ());
@@ -846,7 +841,7 @@ Composite_music:
 		$$ = csm;
 	}
 	| AUTOCHANGE STRING Music	{
-	TYPED_MAKE_MUSIC(Music,chm,"AutoChangeMusic");
+	Music*chm = MY_MAKE_MUSIC("AutoChangeMusic");
 		chm->set_mus_property ("element", $3->self_scm ());
 
 		scm_gc_unprotect_object ($3->self_scm ());
@@ -1013,7 +1008,7 @@ relative_music:
 
 re_rhythmed_music:
 	ADDLYRICS Music Music {
-	TYPED_MAKE_MUSIC(Lyric_combine_music, l,"LyricCombineMusic");
+	Music*l =MY_MAKE_MUSIC("LyricCombineMusic");
 	  l->set_mus_property ("elements", gh_list ($2->self_scm (), $3->self_scm (), SCM_UNDEFINED));
 	  scm_gc_unprotect_object ($3->self_scm ());
 	  scm_gc_unprotect_object ($2->self_scm ());
@@ -1023,7 +1018,7 @@ re_rhythmed_music:
 
 part_combined_music:
 	PARTCOMBINE STRING Music Music {
-TYPED_MAKE_MUSIC(Part_combine_music,p, "PartCombineMusic");
+	Music * p= MY_MAKE_MUSIC("PartCombineMusic");
 		p->set_mus_property ("what", $2);
 		p->set_mus_property ("elements", gh_list ($3->self_scm (),$4->self_scm (), SCM_UNDEFINED));  
 
@@ -1036,7 +1031,7 @@ TYPED_MAKE_MUSIC(Part_combine_music,p, "PartCombineMusic");
 
 translator_change:
 	TRANSLATOR STRING '=' STRING  {
-		TYPED_MAKE_MUSIC(Music,t,"TranslatorChange");
+		Music*t= MY_MAKE_MUSIC("TranslatorChange");
 		t-> set_mus_property ("change-to-type", $2);
 		t-> set_mus_property ("change-to-id", $4);
 
