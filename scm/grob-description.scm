@@ -14,7 +14,7 @@
 	       (Y-extent-callback . #f)	       
 	       (molecule-callback . ,Arpeggio::brew_molecule)
 	       (Y-offset-callbacks . (,Staff_symbol_referencer::callback))
-	       (X-offset-callbacks . (,Side_position::aligned_side))
+	       (X-offset-callbacks . (,Side_position_interface::aligned_side))
 	       (direction . -1)
 	       (staff-position . 0.0)
 	       (meta . ,(grob-description "Arpeggio" arpeggio-interface side-position-interface font-interface))
@@ -49,7 +49,7 @@
 		(direction . 1)
                 (font-family . roman)
 		(font-relative-size . -1)
-		(Y-offset-callbacks . (,Side_position::aligned_side))
+		(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 		(meta . ,(grob-description "BarNumber"
 					   side-position-interface
 			text-interface  font-interface break-aligned-interface))
@@ -150,7 +150,7 @@
 		(dash-thickness . 1.2)
 		(dash-length . 4.0)
 		(self-alignment-Y . 0)
-		(Y-offset-callbacks . (,Side_position::aligned_on_self))
+		(Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
 		(meta . ,(grob-description "Hairpin" hairpin-interface))
 	))
 
@@ -164,11 +164,11 @@
 		(dot-count . 1)
 		(staff-position . 0.0)
 		(Y-offset-callbacks  . (,Dots::quantised_position_callback ,Staff_symbol_referencer::callback))
-		(meta . ,(grob-description "Dots"  font-interface dot-interface ))
+		(meta . ,(grob-description "Dots"  font-interface dots-interface ))
 	))
 	
 	(DynamicText . (
-		(Y-offset-callbacks . (,Side_position::aligned_on_self))
+		(Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
 		(molecule-callback . ,Text_item::brew_molecule)
 		(script-priority . 100)
 		(font-series . bold)
@@ -182,6 +182,7 @@
 		(axes . ( 1))
 		(padding . 0.6)
 		(minimum-space . 1.2)
+		(direction . -1)
 		(meta . ,(grob-description "DynamicLineSpanner" dynamic-interface axis-group-interface side-position-interface))
 	))
 	
@@ -194,8 +195,9 @@
 	
 	(Fingering . (
 		(molecule-callback . ,Text_item::brew_molecule)
-		(X-offset-callbacks . (,Side_position::centered_on_parent ,Side_position::aligned_on_self))
+		(X-offset-callbacks . (,Side_position_interface::centered_on_parent ,Side_position_interface::aligned_on_self))
 		(padding . 0.6)
+		(direction . -1)
 		(self-alignment-X . 0)
 		(font-family . number)
 		(font-relative-size . -3)
@@ -229,8 +231,10 @@
 	
 	(InstrumentName . (
 		(breakable . #t)
-		(Y-offset-callbacks . (,Side_position::centered_on_parent
-				       ,Side_position::aligned_on_self))
+		(Y-offset-callbacks . (,Side_position_interface::aligned_on_self
+				       ,Side_position_interface::aligned_on_support_refpoints
+))
+		(direction . 0)
 		(self-alignment-Y . 0)
 		(molecule-callback . ,Text_item::brew_molecule)		
 		(break-align-symbol . Instrument_name)
@@ -250,7 +254,7 @@
 	
 	(Accidentals . (
 		(molecule-callback . ,Local_key_item::brew_molecule)
-		(X-offset-callbacks . (,Side_position::aligned_side))
+		(X-offset-callbacks . (,Side_position_interface::aligned_side))
 		(after-line-breaking-callback . ,Local_key_item::after_line_breaking)
 		(direction . -1)
 		(left-padding . 0.2)
@@ -273,7 +277,7 @@
 	
 	(LyricText . (
 		(molecule-callback . ,Text_item::brew_molecule)
-		(X-offset-callbacks . (,Side_position::aligned_on_self))
+		(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
 		(self-alignment-X . 0)
 		(non-rhythmic . #t)
 		(word-space . 0.6)
@@ -284,7 +288,7 @@
 	
 	(RehearsalMark . (
 		(molecule-callback . ,Text_item::brew_molecule)
-		(X-offset-callbacks . (,Side_position::aligned_on_self))
+		(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
 		(self-alignment-X . 0)
 
 		(direction . 1)
@@ -363,8 +367,8 @@
 		(self-alignment-X . 0)
 		(text . "8")
 		(visibility-lambda . ,begin-of-line-visible)
-		(X-offset-callbacks . (,Side_position::centered_on_parent ,Side_position::aligned_on_self))
-		(Y-offset-callbacks . (,Side_position::aligned_side))
+		(X-offset-callbacks . (,Side_position_interface::centered_on_parent ,Side_position_interface::aligned_on_self))
+		(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 		(molecule-callback . ,Text_item::brew_molecule)
                 (font-shape . italic)
 		(font-family . roman)
@@ -410,9 +414,11 @@
 		(X-extent-callback . ,Rest::extent_callback)
 		(Y-extent-callback . ,Rest::extent_callback)		
 		(molecule-callback . ,Rest::brew_molecule)
+		(Y-offset-callbacks . (,Staff_symbol_referencer::callback)) 
 		(minimum-beam-collision-distance . 1.5)
 		(meta . ,(grob-description  "Rest"
 			rhythmic-head-interface
+			staff-symbol-referencer-interface
 			rest-interface))
 	))
 	(RestCollision . (
@@ -422,7 +428,7 @@
 
 	(Script . (
 		(molecule-callback . ,Script::brew_molecule)
-		(X-offset-callbacks . (,Side_position::centered_on_parent))
+		(X-offset-callbacks . (,Side_position_interface::centered_on_parent))
 		(after-line-breaking-callback . ,Script::after_line_breaking)
 		(meta . ,(grob-description "Script" script-interface side-position-interface font-interface))
 	))
@@ -498,15 +504,16 @@
 	(StaffSymbol . (
 		(molecule-callback . ,Staff_symbol::brew_molecule)
 		(staff-space . 1.0)
-		(line-count . 5 )
+		(line-count . 5)
+		(layer . 0)
 		(meta . ,(grob-description "StaffSymbol" staff-symbol-interface ))
 	))
 	(SostenutoPedal . (
 		(molecule-callback . ,Text_item::brew_molecule)
-		(X-offset-callbacks . (,Side_position::aligned_on_self))
+		(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
 		(Y-offset-callbacks .
-		 (,Side_position::aligned_side
-		  ,Side_position::centered_on_parent))
+		 (,Side_position_interface::aligned_side
+		  ,Side_position_interface::centered_on_parent))
 		(no-spacing-rods . #t)
                 (font-shape . italic)
 		(self-alignment-X . 0)
@@ -557,10 +564,10 @@
 		(no-spacing-rods . #t)
 		(molecule-callback . ,Sustain_pedal::brew_molecule)
 		(self-alignment-X . 0)
-		(X-offset-callbacks . (,Side_position::aligned_on_self))
+		(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
 		(Y-offset-callbacks .
-				    (,Side_position::aligned_side
-				     ,Side_position::centered_on_parent))
+				    (,Side_position_interface::aligned_side
+				     ,Side_position_interface::centered_on_parent))
 
 		(meta . ,(grob-description "SustainPedal" sustain-pedal-interface side-position-interface font-interface))
 	))
@@ -654,10 +661,10 @@
                 (font-shape . italic)
 		(no-spacing-rods . #t)
 		(self-alignment-X . 0)
-		(X-offset-callbacks . (,Side_position::aligned_on_self))
+		(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
 		(Y-offset-callbacks .
-		 (,Side_position::aligned_side
-		  ,Side_position::centered_on_parent))
+		 (,Side_position_interface::aligned_side
+		  ,Side_position_interface::centered_on_parent))
 		(meta . ,(grob-description "UnaChordaPedal" text-interface font-interface))
 	))
 
@@ -667,7 +674,7 @@
 		(direction . 1)
 		(padding . 1)
                 (font-style . volta)
-		(Y-offset-callbacks . (,Side_position::aligned_side))
+		(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 		(thickness . 1.6)  ;  stafflinethickness
 		(height . 2.0) ; staffspace;
 		(minimum-space . 5)

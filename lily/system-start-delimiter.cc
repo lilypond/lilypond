@@ -100,7 +100,8 @@ System_start_delimiter::brew_molecule (SCM smob)
 				  (me->self_scm(), gh_int2scm (Y_AXIS)));
   Real l = ext.length () / staff_space;
   
-  if (gh_number_p (c) && l <= gh_scm2double (c))
+  if (ext.empty_b ()
+      || (gh_number_p (c) && l <= gh_scm2double (c)))
     {
       me->suicide();
       return SCM_EOL;

@@ -120,7 +120,7 @@ Syllable_group::set_lyric_align(const char *punc, Grob *default_notehead_l)
     // centre on notehead ... if we have one. 
     if(notehead_l_) {
       lyric->set_parent(notehead_l_, X_AXIS);
-      lyric->add_offset_callback (Side_position::centered_on_parent_proc, X_AXIS);
+      lyric->add_offset_callback (Side_position_interface::centered_on_parent_proc, X_AXIS);
       // reference is on the right of the notehead; move it left half way, and add translation
       lyric->translate_axis (group_translation_f_-(notehead_l_->extent(notehead_l_, X_AXIS)).center(), X_AXIS);
     }

@@ -91,7 +91,7 @@ Arpeggio_engraver::create_grobs ()
 	}
       for (int i = 0; i < supports_.size (); i++)
 	{
-	  Side_position::add_support (arpeggio_, supports_[i]);
+	  Side_position_interface::add_support (arpeggio_, supports_[i]);
 	}
       announce_grob (arpeggio_, arpeggio_req_);
     }

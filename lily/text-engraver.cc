@@ -53,15 +53,15 @@ Text_engraver::acknowledge_grob (Grob_info inf)
       for (int i=0; i < texts_.size (); i++)
 	{
 	  Grob*t = texts_[i];
-	  Side_position::add_support (t,inf.elem_l_);
+	  Side_position_interface::add_support (t,inf.elem_l_);
 
 	  /*
 	    ugh.
 	   */
-	  if (Side_position::get_axis( t) == X_AXIS
+	  if (Side_position_interface::get_axis( t) == X_AXIS
 	      && !t->parent_l (Y_AXIS))
 	    t->set_parent (inf.elem_l_, Y_AXIS);
-	  else if (Side_position::get_axis(t) == Y_AXIS
+	  else if (Side_position_interface::get_axis(t) == Y_AXIS
 	      && !t->parent_l (X_AXIS))
 	    t->set_parent (inf.elem_l_, X_AXIS);
 	}
@@ -71,7 +71,7 @@ Text_engraver::acknowledge_grob (Grob_info inf)
     {
       for (int i=0; i < texts_.size (); i++)
 	{
-	  Side_position::add_support(texts_[i],inf.elem_l_);
+	  Side_position_interface::add_support(texts_[i],inf.elem_l_);
 	}
     }
 }
@@ -101,7 +101,7 @@ Text_engraver::create_grobs ()
       SCM axisprop = get_property ("scriptHorizontal");
       
       Axis ax = to_boolean (axisprop) ? X_AXIS : Y_AXIS;
-      Side_position::set_axis (text, ax);
+      Side_position_interface::set_axis (text, ax);
 
 #if 0
       if (r->style_str_ == "finger" && ax == Y_AXIS)
@@ -109,8 +109,8 @@ Text_engraver::create_grobs ()
 	  /*
 	    nicely center the scripts.
 	   */ 
-	  text->add_offset_callback (Side_position::aligned_on_self_proc, X_AXIS);
-	  text->add_offset_callback (Side_position::centered_on_parent_proc, X_AXIS);
+	  text->add_offset_callback (Side_position_interface::aligned_on_self_proc, X_AXIS);
+	  text->add_offset_callback (Side_position_interface::centered_on_parent_proc, X_AXIS);
 	}
 #endif
       
@@ -123,7 +123,7 @@ Text_engraver::create_grobs ()
 			      gh_int2scm (200 + i));
 
       if (r->get_direction ())
-	Side_position::set_direction (text, r->get_direction ());
+	Side_position_interface::set_direction (text, r->get_direction ());
       
       text->set_grob_property ("text", r->get_mus_property ("text"));
       
@@ -145,7 +145,7 @@ Text_engraver::stop_translation_timestep ()
   for (int i=0; i < texts_.size (); i++)
     {
       Item *ti = texts_[i];
-      Side_position::add_staff_support (ti);
+      Side_position_interface::add_staff_support (ti);
       typeset_grob (ti);
     }
   texts_.clear ();

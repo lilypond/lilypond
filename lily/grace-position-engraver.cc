@@ -67,7 +67,7 @@ Grace_position_engraver::create_grobs ()
   if (align_l_)
     {
       for (int i=0; i < support_.size (); i++)
-	Side_position::add_support (align_l_,support_[i]);
+	Side_position_interface::add_support (align_l_,support_[i]);
       support_.clear ();
     }
 }
@@ -75,7 +75,7 @@ Grace_position_engraver::create_grobs ()
 void
 Grace_position_engraver::stop_translation_timestep ()
 {
-  if (align_l_ && !Side_position::supported_b (align_l_))
+  if (align_l_ && !Side_position_interface::supported_b (align_l_))
     {
   /*
      We don't have support. Either some moron tried attaching us to a rest,

@@ -48,8 +48,8 @@ Align_note_column_engraver::initialize ()
 {
   align_item_p_ = new Item (get_property ("GraceAlignment"));
   Grace_align_item::set_interface (align_item_p_);
-  Side_position::set_axis (align_item_p_, X_AXIS);
-  Side_position::set_direction (align_item_p_, LEFT);
+  Side_position_interface::set_axis (align_item_p_, X_AXIS);
+  Side_position_interface::set_direction (align_item_p_, LEFT);
   
   // needed  for setting font size.
   announce_grob (align_item_p_, 0);

@@ -55,7 +55,7 @@ A2_engraver::create_grobs ()
 		  && daddy_trans_l_->id_str_.left_str (3) == "one")))
 	{
 	  text_p_ = new Item (get_property ("TextScript"));
-	  Side_position::set_axis (text_p_, Y_AXIS);
+	  Side_position_interface::set_axis (text_p_, Y_AXIS);
 	  announce_grob (text_p_, 0);
       
 	  Direction dir = UP;
@@ -80,7 +80,7 @@ A2_engraver::create_grobs ()
 		text = get_property ("aDueText");
 	    }
 	  
-	  Side_position::set_direction (text_p_, dir);
+	  Side_position_interface::set_direction (text_p_, dir);
 	  text_p_->set_grob_property ("text", text);
 	}
     }
@@ -97,14 +97,14 @@ A2_engraver::acknowledge_grob (Grob_info i)
       if (Note_head::has_interface (i.elem_l_))
 	{
 	  Grob*t = text_p_;
-	  Side_position::add_support (t, i.elem_l_);
-	  if (Side_position::get_axis (t) == X_AXIS
+	  Side_position_interface::add_support (t, i.elem_l_);
+	  if (Side_position_interface::get_axis (t) == X_AXIS
 	      && !t->parent_l (Y_AXIS))
 	    t->set_parent (i.elem_l_, Y_AXIS);
 	}
       if (Stem::has_interface (i.elem_l_))
 	{
-	  Side_position::add_support (text_p_, i.elem_l_);
+	  Side_position_interface::add_support (text_p_, i.elem_l_);
 	}
     }
 	  
@@ -174,7 +174,7 @@ A2_engraver::stop_translation_timestep ()
 {
   if (text_p_)
     {
-      Side_position::add_staff_support (text_p_);
+      Side_position_interface::add_staff_support (text_p_);
       typeset_grob (text_p_);
       text_p_ = 0;
     }

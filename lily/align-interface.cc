@@ -199,17 +199,16 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 	  all_translates .push (w);
 	  j++;
 	}
-    }
 
-  if (isdir_b  (align))
-    {
-      center_offset = total.linear_combination (gh_scm2double (align));
-    }
+      if (isdir_b  (align))
+	{
+	  center_offset = total.linear_combination (gh_scm2double (align));
+	}
 
-  for (int j = 0 ;  j < all_grobs.size (); j++)
-    all_grobs[j]->translate_axis (all_translates[j] - center_offset, a);
+      for (int j = 0 ;  j < all_grobs.size (); j++)
+	all_grobs[j]->translate_axis (all_translates[j] - center_offset, a);
+    }
 }
-
 Axis
 Align_interface::axis (Grob*me)
 {

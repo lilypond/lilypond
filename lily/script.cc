@@ -44,8 +44,8 @@ Script::after_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
 
-  Direction d = Side_position::get_direction (me);
-  Side_position::set_direction (me,d);
+  Direction d = Side_position_interface::get_direction (me);
+  Side_position_interface::set_direction (me,d);
 
   return SCM_UNSPECIFIED;
 }
@@ -62,7 +62,7 @@ Script::brew_molecule (SCM smob)
    if (isdir_b (d))
      dir = to_dir (d);
 #endif
-  Direction dir = Side_position::get_direction(me);
+  Direction dir = Side_position_interface::get_direction(me);
   return get_molecule (me, dir).smobbed_copy();
 }
 

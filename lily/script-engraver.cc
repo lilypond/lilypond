@@ -100,13 +100,13 @@ Script_engraver::create_grobs ()
        */
       SCM axisprop = get_property ("scriptHorizontal");
       bool xaxis = to_boolean (axisprop);
-      Side_position::set_axis (p, xaxis ? X_AXIS : Y_AXIS);
+      Side_position_interface::set_axis (p, xaxis ? X_AXIS : Y_AXIS);
       
       if (!follow_staff && ! xaxis)
 	p->set_grob_property ("staff-support", SCM_BOOL_T);
 
       if (!xaxis && follow_staff)
-	p->add_offset_callback (Side_position::quantised_position_proc, Y_AXIS);
+	p->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
       
       
       p->set_grob_property ("script-priority", priority);
@@ -134,7 +134,7 @@ Script_engraver::acknowledge_grob (Grob_info inf)
 	  Grob*e = script_p_arr_[i];
 
 	  e->set_grob_property ("direction-source", inf.elem_l_->self_scm ());
-	  Side_position::add_support (e, inf.elem_l_);
+	  Side_position_interface::add_support (e, inf.elem_l_);
 	}
     }
   else if (Rhythmic_head::has_interface (inf.elem_l_))
@@ -147,11 +147,11 @@ Script_engraver::acknowledge_grob (Grob_info inf)
 	    {
 	      e->set_parent (inf.elem_l_, X_AXIS);
 	    }
-	  if (Side_position::get_axis (e) == X_AXIS
+	  if (Side_position_interface::get_axis (e) == X_AXIS
 	      && !e->parent_l (Y_AXIS))
 	    e->set_parent (inf.elem_l_, Y_AXIS);
 	  
-	  Side_position::add_support (e,inf.elem_l_);
+	  Side_position_interface::add_support (e,inf.elem_l_);
 	}
     }  
 }
@@ -164,7 +164,7 @@ Script_engraver::stop_translation_timestep()
       Grob * sc = script_p_arr_[i];
       if (to_boolean (sc->get_grob_property ("staff-support")))
 	{
-	  Side_position::add_staff_support (sc);
+	  Side_position_interface::add_staff_support (sc);
 	}
       typeset_grob (sc);
     }

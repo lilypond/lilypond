@@ -90,15 +90,15 @@ Piano_pedal_engraver::acknowledge_grob (Grob_info info)
 	{
 	  if (Rhythmic_head::has_interface (info.elem_l_))
 	    {
-	      Side_position::add_support (p->item_p_, info.elem_l_);
+	      Side_position_interface::add_support (p->item_p_, info.elem_l_);
 
-	      if (Side_position::get_axis(p->item_p_) == X_AXIS
+	      if (Side_position_interface::get_axis(p->item_p_) == X_AXIS
 		  && !p->item_p_->parent_l (Y_AXIS))
 		p->item_p_->set_parent (info.elem_l_, Y_AXIS);
 	    }
 	  if (Stem::has_interface (info.elem_l_))
 	    {
-	      Side_position::add_support (p->item_p_,info.elem_l_);
+	      Side_position_interface::add_support (p->item_p_,info.elem_l_);
 	    }
 	}
     }
@@ -195,7 +195,7 @@ Piano_pedal_engraver::stop_translation_timestep ()
     {
       if (p->item_p_)
 	{
-	  Side_position::add_staff_support (p->item_p_);
+	  Side_position_interface::add_staff_support (p->item_p_);
 	  
 	  /*
 	    Hmm.
@@ -204,7 +204,7 @@ Piano_pedal_engraver::stop_translation_timestep ()
 	    {
 	      if (sustain)
 		{
-		  Side_position::add_support (p->item_p_,sustain);
+		  Side_position_interface::add_support (p->item_p_,sustain);
 		}
 	    }
 	  typeset_grob (p->item_p_);
