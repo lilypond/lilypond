@@ -10,10 +10,10 @@
  Tested Features: beams and beamflags
 EndMudelaHeader
 %}
-\version "0.1.5"
+\version "0.1.6"
 
 \score{
-	\melodic <\multi 3; 
+	\melodic \multi 3 < 
 		{ \octave c'; 
 			\meter 8/4;
 			\duration8;
