@@ -2,7 +2,7 @@
 " Language:	LilyPond
 " Maintainer:	Heikki Junes <hjunes@cc.hut.fi>
 " Created:      Oct 17, 2002
-" Last Change:	Oct 17, 2002
+" Last Change:	Nov 13, 2002
 " Version:	6.1-1
 " Latest:
 " http://savannah.gnu.org/cgi-bin/viewcvs/lilypond/lilypond/lilypond.vim
@@ -30,6 +30,7 @@ syn region lilyComment	start="%\([^{]\|$\)" end="$"
 
 syn match lilyStatement	"[-_^]\?\\\a\+"
 syn match lilyNote	"\<\(\(\(bb\|as[ae]s\|[ae]s\|eses\|[a-h]\(\|is\|isis\|es\|eses\)\)\([,']\)\{,4}\([?!]\)\?\|[srR]\)\(\(128\|6\?4\|3\?2\|16\?\|8\|\\breve\)[.]*\)\?\)\(\A\|\n\)"me=e-1
+syn match lilyNote	"\<\(\(\(bb\|as[ae]s\|[ae]s\|eses\|[a-h]\(\|is\|isis\|es\|eses\)\)\([,']\)\{,4}\([?!]\)\?\|[srR]\)\(\(128\|6\?4\|3\?2\|16\?\|8\|\\breve\)[.]*\)\?\)$"
 syn match lilyNumber	"[-_^.]\?\d\+[.]\?"
 syn match lilyEquation	"\(#['`]\)\?\(\a*[-]\)*\a*\s*=\s*\(#[#'`]\?\)\?\a*"
 syn match lilySlur	"[(~)]"

@@ -1,3 +1,11 @@
+2002-11-13  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond.words: add vocabulary to be used in auto-completion
+
+	* vimrc: autocompletion in Insert/Replace-mode with <Ctrn-N>
+
+	* lilypond.vim: allow note name at EOF
+
 2002-11-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* buildscripts/new-chords.py (edit): -e option: inline editing.
