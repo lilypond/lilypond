@@ -105,7 +105,7 @@ def parse_logfile (fn):
 			encoding = re.sub (' ','-', tags[5])
 			tags = tags[:-1]
 			name = tags[1:]
-			global_info['DesignSize'] = string.atof (tags[4])
+			global_info['design_size'] = string.atof (tags[4])
 			global_info['FontName'] = string.join (name, '-')
 			global_info['FullName'] = string.join (name,' ')
 			global_info['FamilyName'] = string.join (name[1:-1],
@@ -198,6 +198,7 @@ def write_global_lisp_table (file, global_info):
 
 	keys = ['staffsize', 'stafflinethickness', 'staff_space',
 		'linethickness', 'black_notehead_width', 'ledgerlinethickness',
+		'design_size', 
 		'blot_diameter'
 		]
 	for k in keys:

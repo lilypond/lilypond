@@ -211,8 +211,15 @@ Real
 Open_type_font::design_size () const
 {
   SCM entry = scm_hashq_ref (lily_global_table_,
-			     ly_symbol2scm ("staffsize"),
-			     scm_from_int (12));
+			     ly_symbol2scm ("design_size"),
+
+			     /*
+			       Hmm. Design size is arbitrary for
+			       non-designe-size fonts. I vote for 1 -
+			       which will trip errors more
+			       quickly. --hwn.
+			      */
+			     scm_from_int (1));
   return scm_to_double (entry);
 }
 
