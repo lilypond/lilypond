@@ -1,0 +1,60 @@
+#!@PERL@ -w
+
+# generate the standard header of a LilyPond source file.
+my $fn;
+
+sub
+    do_init
+{
+    $MAILADRESS=$ENV{MAILADRESS};
+     @pw=(getpwuid($<));
+     $username=$pw[6];
+
+    die "arg needed\n" if (!($#ARGV+1));
+     $fn = $ARGV[0];
+
+     $hh_b =  ($fn =~ /hh$/ );
+     $inc_b=  ($hh_b || $fn =~ /[ti]cc$/);
+}
+
+sub 
+    do_head
+{
+    
+    my $what="implement ";
+    $what = "declare " if ($hh_b);
+    my ($PROJECT, $cwd);
+    $PROJECT = "the GNU LilyPond music typesetter";
+    chop($cwd = `pwd`);
+    
+    $PROJECT= "the Flower Library" if ($cwd =~ /flower/);
+    
+    my $headstr ="/*
+  $fn -- $what
+
+  source file of $PROJECT
+
+  (c) 1997 $username <$MAILADRESS>
+*/\n";
+    print $headstr;
+}
+sub do_inc
+{
+    my $headstr="";
+    my $startdef= $fn;
+    $startdef =~ s/[\.-]/_/g;
+    $startdef =~ tr/a-z/A-Z/;
+    my $terminatestr="\n";
+
+    if ($inc_b) {
+	$headstr = "\n\n#ifndef $startdef\n#define $startdef\n";
+	$terminatestr .= "#endif // $startdef\n"  
+	}
+
+    print $headstr, $terminatestr;
+}
+do_init;
+do_head;
+do_inc;
+
+

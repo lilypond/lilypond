@@ -1,0 +1,293 @@
+#!@PERL@ -w
+
+=head1 TODO
+
+    detect \lyrics and \melodic, and do substitution accordingly.
+    count <> and {} ?
+
+Ugh . Perl sux. Anybody for Python?
+    
+=cut    
+
+
+
+#
+# version of "supporting" engine, not mudela conversions.
+# 
+
+
+
+
+$convert_mudela_version = "0.1.1";
+
+use Getopt::Long;
+
+
+sub version_compare
+{
+    local ($a,$b)=@_;
+    return &cmpver;
+}
+    
+
+sub  cmpver 
+{ 	
+	my(@a)= split /\./,$a;
+	my(@b)= split /\./,$b;
+
+	for $i (0,1,2) {
+	    return $a[$i] <=> $b[$i] if ($a[$i] != $b[$i]);
+	}
+	return $a cmp $b;
+}
+
+sub version_string_conv
+{
+    my ($from_version, $to_version) = @_;
+    s/\version \"$from_version\"/\version \"$to_version\"/g;
+}
+
+################################################################
+
+sub no_conv
+{
+}
+ 
+sub convert_0_0_52_to_0_0_53
+{
+
+    s/include \"/$1\\include \"/g;
+}
+
+  
+sub convert_0_0_54_to_0_0_55
+{
+    s/%{/% {/g;
+}
+
+  
+sub convert_0_0_53_to_0_0_54
+{
+    print STDERR "Not smart enough to convert \\transpose\n"    if (/\\transpose/) ;
+}
+
+# we-re not at 58 yet, but this is at least one of the rules
+sub convert_0_0_55_to_0_0_56
+{
+    s/\"\|\|\"/\"|.\"/g;
+}
+
+sub convert_0_0_56_to_0_0_57
+{
+    s/\(([ \]\[|\t-\.>]|\\[<!>a-z]+)*\)/\~ $1/g;
+}
+
+sub convert_0_0_57_to_0_0_58
+{
+    s/\[ *([^\[\]]*)\] *([1-9]*) *\/ *([1-9]*)/[$2\/$3 $1]1\/1/g;
+}
+
+sub convert_0_0_58_to_0_0_59
+{
+    die "Not smart enough to convert 0.0.58 to 0.0.59\n";
+}
+
+sub convert_0_0_59_to_0_0_60
+{
+    s/(\\unitspace [0-9.mcptin\\ ]+|\\geometric [0-9.]+|\\width [0-9.mcp\\tin]+)/$1;/g;
+    s/(\\output \"[^\"]+\")/$1;/;
+    s/(\\tempo  [0-9: ]+)/$1;/;
+}
+
+sub convert_0_0_60_to_0_0_61
+{
+    s/(\\unitspace|\\geometric|\\width)/$1=/g;
+   
+}
+
+###############################################################
+
+sub    last_conversion
+{
+    my @v = &versions;
+    return pop @v;
+}
+sub identify
+{
+    
+    print STDERR "This is convert-mudela " . $convert_mudela_version . 
+	" (up to mudela version ", last_conversion,	")\n";
+}
+  
+  
+ sub usage
+  {
+     print STDERR "Usage: convert-mudela [options] [mudela-file]...\n"
+     . "Convert old mudela source from mudela-file or stdin\n\n"
+     . "Options:\n"
+     . "  -e, --edit             perform in-place conversion\n"
+     . "  -f, --from=PATHLEVEL   use source version 0.0.PATCHLEVEL\n"
+     . "  -h, --help             print this help\n"
+     . "  -o, --output=FILE      name output file\n"
+     . "  -s, --show-rules       print all known conversion rules\n"
+     . "  -t, --to=VERSION    convert to version VERSION\n"
+  }
+      
+
+my %minor_conversions = ("0.0.50" => \&no_conv,
+ 			 "0.0.52" => \&convert_0_0_50_to_0_0_52,
+  			 "0.0.53" => \&convert_0_0_52_to_0_0_53,
+			 "0.0.54" => \&convert_0_0_53_to_0_0_54,
+			 "0.0.55" => \&convert_0_0_54_to_0_0_55,
+			 "0.0.56" => \&convert_0_0_55_to_0_0_56,
+			 "0.0.57" => \&convert_0_0_56_to_0_0_57,
+			 "0.0.58" => \&convert_0_0_57_to_0_0_58,
+			 "0.0.59" => \&convert_0_0_58_to_0_0_59,
+			 "0.0.60" => \&convert_0_0_59_to_0_0_60,
+			 "0.0.61" => \&convert_0_0_60_to_0_0_61
+			 );
+ 
+
+sub versions 
+{
+    return (sort keys %minor_conversions);
+}
+    
+
+sub    show_rules
+{
+    print "Rules: ", join(", ", sort keys %minor_conversions), "\n";
+    
+}
+
+sub do_conversion
+{
+    my ($from,$to) = @_;
+
+    my @applicable_conversion;
+    my @mudela_levels;
+    
+#    die "This is too old  to convert " if $from < 50;
+    my @v = versions;
+    foreach $ver (@v) {
+	if (version_compare($ver, $from) > 0 && version_compare($ver,$to) <= 0 ){ 
+	    push @applicable_conversion, $minor_conversions{$ver};
+	    push @mudela_levels, $ver;
+	}
+    }
+    
+    print STDERR "Applying following rules: ", join(", ", @mudela_levels) , "\n";
+
+    while (<INLY>) {
+	foreach $subroutine (@applicable_conversion) {
+	
+	    &$subroutine;
+	    
+	}
+	version_string_conv $from, $to;
+	print OUTLY;
+    }
+}
+
+sub get_auto_from
+{
+    my ($fn)=@_;
+    my ($ver);
+    open INLY, $fn || die "Can't open";
+
+    while (<INLY>) {
+	s/^.*\\version \"([^\"]*)\".*$//;
+	if (defined ($1)) {
+	    print STDERR "Guessing version: ", $1, ".. ";
+	    $ver = $1;
+	    last;
+	}
+    }
+    if (!defined($ver)){
+	print STDERR "can't determine mudela version in $fn.\n";
+	my $u;
+	return $u;
+    }
+    close INLY;
+    return $ver;
+}   
+
+sub  set_files 
+{
+    $infile = "-";
+    $outfile = "-";
+    $outfile = $opt_output if (defined($opt_output));
+
+    if ($ARGV [0])  {
+	$infile = $ARGV[0];
+    } 
+    if (( ! -f $infile) && (! $infile =~ /\\.ly$/s ) ){
+	$infile .= ".ly";
+	
+
+    }
+    if ($opt_edit && $infile ne "-") {
+	$opt_edit = 1;
+	$outfile = "$infile.NEW";
+	$infile = "$infile";
+    }
+    print STDERR "Input ", (($infile eq "-") ?"STDIN" : $infile), " .. ";
+
+}
+
+sub do_one_arg
+{
+    set_files;
+
+    local ($from_version, $to_version);
+    $from_version = $opt_from;
+    $to_version = $opt_to;
+    
+    ($from_version = get_auto_from $infile) unless defined($opt_from);
+    return if (!defined($from_version));
+    
+    ($to_version =  last_conversion) unless (defined($opt_to));
+
+    die "can't open \`$infile\'" unless open INLY,$infile ;
+    die "can't open \`$outfile\'" unless open OUTLY, ">$outfile";
+    
+    do_conversion $from_version, $to_version;
+    close INLY;
+    close OUTLY;
+
+    if ($opt_edit) {
+	rename $infile, "$infile~";
+	rename $outfile, "$infile";
+    }
+}
+
+## "main"
+
+identify;
+
+
+GetOptions ("help", "output=s", "from=i", "to=i", "minor=i", "edit", "show-rules");
+
+if ($opt_help) {
+    usage();
+    $opt_help = 0;	# to extinguish typo check.
+    exit 0;
+}
+
+if ($opt_show_rules) { 
+    show_rules ;
+    $opt_show_rules = 0;	# to extinguish typo check.
+    exit 0;
+}
+
+local ( $infile,$outfile);
+my $processed_one=0;
+
+while (defined($ARGV[0])) {
+    do_one_arg;
+    shift @ARGV;
+    $processed_one = 1;
+}
+do_one_arg unless ($processed_one);
+
+    
