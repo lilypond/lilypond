@@ -9,8 +9,7 @@ using Scheme functions to avoid typing work. " }
 
 #(define (transform music)
   (let* ((es (ly:music-property music 'elements))
-         (n  (ly:music-name music))
-        )
+         (n  (ly:music-name music)))
    (if (not (equal? n "Sequential_music"))
      (ly:warn "transform needs sequential music!")
      (begin
@@ -20,14 +19,9 @@ using Scheme functions to avoid typing work. " }
            ((trans (ly:music-property (cadr elts) 'elements)) (car elts))
 	   (set-cdr! elts (cddr elts))
 	   (recurse (cdr elts))
-	 )
-       )
-      )
-     )
-   )
+	 )))))
    music
-  )
- )
+  )) 
 
 #(define ((trans pitches) music)
   (let* ((es (ly:music-property music 'elements))
@@ -52,11 +46,8 @@ using Scheme functions to avoid typing work. " }
 	      (pnew (ly:music-property (car pes) 'pitch))
              )
           (ly:music-set-property! music 'pitch pnew)
-	)
-    )
-    music
-  )
- )
+	))
+    music))
 
 
 
@@ -82,63 +73,65 @@ endc =  {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
 
 \score {
    \transpose c c' \context PianoStaff <<
-    \context Staff=up   { \clef "G"  }
-    \context Staff=down { \clef "F" }
-    { \applymusic #transform {\pat {c e g c' e' }
-                         \pat {c d a d' f' }
-			 \pat {h, d g d' f' }
-			 \pat {c e g c' e' }
-		     }
-      
-      %{
-      %Etc.
+       \context Staff=up   { \clef "G"  }
+       \context Staff=down { \clef "F" }
+       { \applymusic #transform {
+	   \pat {c e g c' e' }
+	   \pat {c d a d' f' }
+       }
+	 
+%{
+				%Etc.
 
-      %we get the idea now.
+				%we get the idea now.
 
 
-      
-			 \pat {c e a e' a' }
-			 \pat {c d fis a d'  }
-			 \pat {h, d g d' g' }
-			 \pat {h, c e g c' }
-			 \pat {a, c e g c'  }
-			 \pat {d, a, d fis c' }
-			 \pat {g, h, d g h }
-			 \pat {g, b, e g cis'  }
-			 \pat {f, a, d a d' }
-			 \pat {f, as, d f h }
-			 \pat {e, g, c g c' }
-			 \pat {e, f, a, c f }
-			 \pat {d, f, a, c f }
+	 \pat {h, d g d' f' }
+	 \pat {c e g c' e' }
 
-			 \pat {g,, d, g, h, f }
-			 \pat {c, e, g, c e }
-			 \pat {c, g, b, c e }
-			 \pat {f,, f, a, c e  }
-			 \pat {fis,, c, a, c es }
-			 \pat {as,, f, h, c d }
-			 \pat {g,, f, g, h, d }
-			 \pat {g,, e, g, c e }
-			 \pat {g,, d, g, c f }
-			 \pat {g,, d, g, h, f }
-			 \pat {g,, es, a, c fis }
-			 \pat {g,, e, g, c g }
-			 \pat {g,, d, g, c f }
-			 \pat {g,, d, g, h, f }
-			 \pat {c,, c, g, b, e }
-			%}
-    }
-  >>
-  \paper {
-    \context {
-      \PianoStaff
-      \override VerticalAlignment #'forced-distance = #10
-    }
+	 \pat {c e a e' a' }
+	 \pat {c d fis a d'  }
+	 \pat {h, d g d' g' }
+	 \pat {h, c e g c' }
+	 \pat {a, c e g c'  }
+	 \pat {d, a, d fis c' }
+	 \pat {g, h, d g h }
+	 \pat {g, b, e g cis'  }
+	 \pat {f, a, d a d' }
+	 \pat {f, as, d f h }
+	 \pat {e, g, c g c' }
+	 \pat {e, f, a, c f }
+	 \pat {d, f, a, c f }
 
-    linewidth = 18.0 \cm
-  }
-  \midi {
-      \tempo 4 = 80
-  }
+	 \pat {g,, d, g, h, f }
+	 \pat {c, e, g, c e }
+	 \pat {c, g, b, c e }
+	 \pat {f,, f, a, c e  }
+	 \pat {fis,, c, a, c es }
+	 \pat {as,, f, h, c d }
+	 \pat {g,, f, g, h, d }
+	 \pat {g,, e, g, c e }
+	 \pat {g,, d, g, c f }
+	 \pat {g,, d, g, h, f }
+	 \pat {g,, es, a, c fis }
+	 \pat {g,, e, g, c g }
+	 \pat {g,, d, g, c f }
+	 \pat {g,, d, g, h, f }
+	 \pat {c,, c, g, b, e }
+%}
+     }
+   >>
+   
+   \paper {
+       \context {
+	   \PianoStaff
+	   \override VerticalAlignment #'forced-distance = #10
+       }
+       linewidth = 18.0 \cm
+   }
+   
+   \midi {
+       \tempo 4 = 80
+   }
 }
 

@@ -23,10 +23,6 @@
        (stencil (ly:paper-system-stencil 1st)) )
 
     (ly:stencil-align-to! stencil Y CENTER)
-    (display (ly:stencil-extent stencil X))
-    (display (ly:stencil-extent stencil Y))
-;    (set! stencil (ly:stencil-translate-axis stencil -20 X))
-;    (set! stencil (ly:stencil-translate-axis stencil 20 Y))
     stencil))
 
 (def-markup-command (simple paper props str) (string?)

@@ -1,5 +1,38 @@
 2004-07-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/staff-symbol-referencer.cc (get_position): emergency
+	fallback: use coordinate * 2.
+
+	* input/no-notation/midi-scales.ly: move from test/
+
+	* scm/define-markup-commands.scm (score): remove debugging code.
+
+	* input/test/incipit.ly (violin): remove. 
+
+	* lily/system-start-delimiter.cc (print): only draw system
+	delimiter to staves that reach up to left bound of the delimiter.
+
+	* input/no-notation/embedded-scm.ly: move from test/
+
+	* input/test/follow-voice.ly: remove
+
+	* input/no-notation/dynamic-absolute-volume.ly: move from test/.
+
+	* input/test/drarn*: remove
+	
+	* input/test/count-systems.ly: remove.
+
+	* input/regression/baerenreiter-sarabande.ly: move file.
+	
+	* lily/bar-line.cc (compound_barline): fix : for staff without
+	lines.
+
+	* lily/accidental.cc (print): use music_font_alist_chain(). This
+	fixes smaller cautionaries.
+
+	* scm/define-grobs.scm (all-grob-descriptions): use fetaMusic
+	encoding for accidental.
+
 	* Documentation/user/notation.itely (Educational use): new section
 
 	* input/test/*.ly: clean up directory: move examples into manual

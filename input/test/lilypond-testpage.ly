@@ -17,11 +17,11 @@ metre = "metre"
 opus = "opus"
 piece = "piece"
 poet = "poet"
-texidoc = "In the generated output for printing, there are several titles which do not appear in the web pages. "
+texidoc = "All header fields with special meanings."
+  copyright = "public domain"
+  enteredby = "jcn"
+  source = "urtext"
 
-%
-% todo: check whether title.ly does the same. --hwn
-%
 }
 
 

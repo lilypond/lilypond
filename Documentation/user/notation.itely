@@ -4122,7 +4122,9 @@ chart}.  Turning on these styles is described in the input file
 Examples: @inputfileref{input/regression,chord-name-major7.ly},
 @inputfileref{input/regression,chord-name-exceptions.ly},
 @inputfileref{input/test,chord-names-jazz.ly},
-@inputfileref{input/test,chord-names-german.ly}.
+@inputfileref{input/test,chord-names-german.ly},
+@inputfileref{input/test,chords-without-melody.ly}.
+
 
 Init files: @file{scm/chords-ignatzek.scm}, and @file{scm/chord-entry.scm}.
 
