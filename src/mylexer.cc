@@ -1,3 +1,4 @@
+#include <strstream.h>
 #include "interval.hh"
 #include "identparent.hh"
 #include "associter.hh"
@@ -9,6 +10,7 @@
 #include "sstack.hh"
 #include "debug.hh"
 #include "notename.hh"
+#include "sourcefile.hh"
 
 static Keyword_ent the_key_tab[]={
     "bar", BAR,
@@ -25,6 +27,7 @@ static Keyword_ent the_key_tab[]={
     "mark", MARK,
     "meter", METER,
     "mm", MM,
+    "multivoice", MULTIVOICE,
     "octave", OCTAVECOMMAND,
     "output", OUTPUT,
     "partial", PARTIAL,
@@ -36,13 +39,12 @@ static Keyword_ent the_key_tab[]={
     "skip", SKIP,
     "staff", STAFF,
     "start", START_T,
+    "stem", STEM,
     "table", TABLE,
     "symboltables", SYMBOLTABLES,
     "notenames", NOTENAMES,
     "texid", TEXID,
     "textstyle", TEXTSTYLE,
-    "chord", CHORD,
-    "multi", MULTI,
     "unitspace", UNITSPACE,
     "voice", VOICE,
     "voices", VOICES,
@@ -52,11 +54,35 @@ static Keyword_ent the_key_tab[]={
     0,0
 };
 
+int
+My_flex_lexer::ret_notename(int *p, String text, int octave_mod)
+{
+    text.lower();
+    char const* ch_c_l = here_ch_c_l();
+    ch_c_l--;
+    while ( ( *ch_c_l == ' ' ) || ( *ch_c_l == '\t' ) || ( *ch_c_l == '\n' ) )
+	ch_c_l--;
+    ch_c_l++;
+	
+    lookup_notename(p[0], p[1], text);
+    p[2] = octave_mod;
+    mtor << "notename: "<< text <<eol;
+    if (p[0] < 0) {
+
+	errorlevel_i_ |= 1;
+	warning( String( "notename does not exist: " ) +YYText() + ": ", ch_c_l );
+	p[0] = p[1] = 0;
+    }
+    return NOTENAME;
+}
+
 My_flex_lexer::My_flex_lexer()
 {
     keytable = new Keyword_table(the_key_tab);
     the_id_tab = new Assoc<String, Identifier*>;
     defaulttab = 0;
+    data_ch_c_l_m = 0;
+    errorlevel_i_ = 0;
 }
 
 int
@@ -72,6 +98,12 @@ My_flex_lexer::lookup_identifier(String s)
 	return 0;
     
     return (*the_id_tab)[s];
+}
+
+char const*
+My_flex_lexer::here_ch_c_l()
+{
+    return data_ch_c_l_m + yyin->tellg();
 }
 
 void
@@ -95,7 +127,7 @@ My_flex_lexer::~My_flex_lexer()
 String
 My_flex_lexer::spot()const
 {
-    return include_stack.top()->name +  ": " + lineno();
+    return include_stack.top()->name +  ": " + String( lineno() );
 }
 
 void
@@ -103,10 +135,16 @@ My_flex_lexer::LexerError(const char *s)
 {
     if (lexer->include_stack.empty()) {
 	*mlog << "error at EOF" << s << '\n';
-    }else 
-	*mlog << spot() << ": error:" << s << '\n';
-     exit(1);
+    } else {
+	char const* ch_c_l = here_ch_c_l();
+	ch_c_l--;
+	while ( ( *ch_c_l == ' ' ) || ( *ch_c_l == '\t' ) || ( *ch_c_l == '\n' ) )
+		ch_c_l--;
+	ch_c_l++;
+	error( s, ch_c_l );
+    }
 }
+
 // set the  new input to s, remember old file.
 void
 My_flex_lexer::new_input(String s)
@@ -117,6 +155,7 @@ My_flex_lexer::new_input(String s)
    Input_file *newin = new Input_file(s);
    include_stack.push(newin);
    switch_streams(newin->is);
+   data_ch_c_l_m = newin->sourcefile_l_->ch_c_l();
    yylineno = 1;
 }
 

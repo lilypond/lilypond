@@ -30,7 +30,7 @@ Complex_column::setup_requests()
 
 	    if (j->barcheck()) {
 		if (tdescription_->whole_in_measure) {
-		    error("Barcheck failed, " + tdescription_->str());
+		    error( "Barcheck failed", j->defined_ch_c_l_m );
 		}
 		continue;
 	    }
@@ -38,7 +38,10 @@ Complex_column::setup_requests()
 		continue;
 	    if (j->command())
 		continue;
-	    todo_l_arr_.push(j);
+	    if (j->groupchange()) // ugh
+		first_l_arr_.push(j);
+	    else
+		second_l_arr_.push(j);
 	}
 }
 
