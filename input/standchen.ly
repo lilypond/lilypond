@@ -465,11 +465,13 @@ tekstII = \lyric{
 }
 
 \score{
-%	\staff{ lyricregs tekstI }
-%	\staff{ lyricregs tekstII }
+	<	\multi 3; 
+		{ \id "Lyric" "1"; tekstI } % ugh
+		{ \id "Lyric" "2"; tekstII }
 
-	\melodic < \multi 3; < \melodie \commands >
-	  <\begeleiding \commands >
+		\melodic < \melodie \commands >
+		\melodic <\begeleiding \commands >
+	
 	>
 	\paper{
 		\width 195.\mm;
