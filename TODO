@@ -6,18 +6,19 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
+	* Make general "spanning"-elements and "placer"-elements
+
 	- naming Mozarella, Madeira, Muella, Fontaigna?
 
 	- bf: abbrevs over whole note
 
 	- scoping for properties
 
-	{ \multi 2  < { \stemup .. } { \stemdown .. } >
+	{	c4
+		\multi 2  < { \stemup .. } { \stemdown .. } >
 		c2 }
 	
 	this modifies \stem for the c2
-
-	* Fix ledgerlines
 
 	* use properties for:
 	- Text_style
@@ -36,6 +37,8 @@ grep for TODO and ugh/ugr
 	* check out egcs
 
 	* give Items/Spanners access to unbroken originals	
+
+	* Score_bar/Piano_braces, are *not* ordinary bars 
 
 3RD PARTY BUGS:
 
@@ -183,8 +186,6 @@ languages:
 
 	* Redo fonts
 	- adapt for multiple font sizes.
-	- hack up mf sources for decent spacing info (and then 
-	read AFM/TFM directly, for text too)
 
 	* Font support:
 	- mixed fontsizes
@@ -414,5 +415,3 @@ Mudela.
 	  - 1 thread per Translator
 
 	* Use hooks/dependency graphs for properties
-
-	* Make general "spanning"-elements and "placer"-elements

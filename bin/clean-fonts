@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# remove possibly stale .pk/.tfm files 
+
+rm  `locate font-en-tja| egrep '.*pk$|.*tfm$'`

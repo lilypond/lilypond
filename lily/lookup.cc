@@ -169,9 +169,7 @@ Lookup::streepjes (int type, int i) const
     }
 
   // ugh
-  Real w = paper_l_->note_width ();
-  if (type <= 0)
-    w *= 1.46;
+  Real w = ball (type).dim_[X_AXIS].length ();
 
   Atom ret = (*symtables_)("streepjes")->lookup (idx);
   

@@ -103,6 +103,7 @@
 \input dyndefs
 
 \input taupindefs
+%\input eglerdefs
 
 \musicmathdef\cup{91} % \cup
 \musicmathdef\wedge{94} % \wedge
@@ -182,14 +183,11 @@
 %%
 % Ugh. Need to redo this. Wish we had PS.
 %
-\def\toplines#1#2{ % why space needed here?
-	\dist#1
-	% ugh, lily still uses "notewith" for all heads
-        \topalign{\hbox{\kern-.50\notewidth\kern-.25\dist\lines{#2}{1.5\dist}{2\staffrulethickness}}}}
+\def\toplines#1#2{\dist#1
+        \topalign{\hbox{\kern-.25\dist\lines{#2}{1.5\dist}{2\staffrulethickness}}}}
 
-\def\botlines#1#2{ % idem ditto
-	\dist#1
-        \botalign{\hbox{\kern-.50\notewidth\kern-.25\dist\lines{#2}{1.5\dist}{2\staffrulethickness}}}}
+\def\botlines#1#2{\dist#1
+        \botalign{\hbox{\kern-.25\dist\lines{#2}{1.5\dist}{2\staffrulethickness}}}}
 
 %
 % a staffsymbol with #1 lines, width #2
@@ -203,7 +201,6 @@
 }
 
 
-\def\beamslope#1#2{{\count0=#2\advance\count0 by#1\musicfnt\char\count0}}
 \def\brace#1{\count0=148\advance\count0 by #1\musicdraw\char\count0}
 \def\crescendosym#1{\count0=84\advance\count0 by #1\musicdraw\char\count0}
 \def\decrescendosym#1{\count0=116\advance\count0 by #1\musicdraw\char\count0}

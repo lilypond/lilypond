@@ -17,7 +17,6 @@ stafflinethickness#:=0.4pt#;
 code:=-1;
 
 input bolletjes;
-input eindelijk;
 
 fet_endfont("font-en-tja");
 

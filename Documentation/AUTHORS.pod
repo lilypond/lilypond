@@ -24,7 +24,7 @@ lily/midi-*, mi2mu/*, parts flower/string*.cc, make/*.make, */Makefile
 parts of Documentation/mudela.pod, lib/*source-file*, lib/duration.cc,
 lib/source*, flower/*{list,cursor}*, lily/rest-collision*,
 lily/*abbreviation*, conflily, cygnus w32 stuff, lily/*perf*, some
-input files
+input files, mf/*
 
 and corresponding header files.
 
@@ -68,4 +68,5 @@ Your name could be here! If you want to help, then take a look at the
 SMALLISH PROJECTS section of in the file F<TODO>. Some do not involve
 coding C++
 
-[And of course, J.S.Bach,  F.Schubert, T. Merula and W.A.Mozart]
+[And of course we sincerely thank J.S.Bach, F.Schubert, T. Merula and
+W.A.Mozart for their beautiful music]

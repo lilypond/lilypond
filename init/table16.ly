@@ -166,8 +166,9 @@ table_sixteen=
      }
 
      "beamslopes" = \table {
-	"slope"	"\beamslope{%}{%}"
-	"horizontal"	"\rulesym{%}{%}"
+	"uslope"	"\beamuslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt
+	"dslope"	"\beamdslope{%}{%}"  2.0\pt 64.0\pt 0.0\pt 0.0\pt
+	"horizontal"	"\rulesym{%}{%}"	
      }
 
 }

@@ -25,7 +25,7 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
            Documentation/mudela.pod, lib/*source-file*,
            lib/duration.cc, lib/source*, flower/*{list,cursor}*,
            lily/rest-collision*, lily/*abbreviation*, conflily,
-           cygnus w32 stuff, lily/*perf*, some input files
+           cygnus w32 stuff, lily/*perf*, some input files, mf/*
 
            and corresponding header files.
 
@@ -52,8 +52,8 @@ CCCCOOOONNNNTTTTRRRRIIIIBBBBUUUUTTTTOOOORRRRSS
        look at the SMALLISH PROJECTS section of in the file _T_O_D_O.
        Some do not involve coding C++
 
-       [And of course, J.S.Bach,  F.Schubert, T. Merula and
-       W.A.Mozart]
+       [And of course we sincerely thank J.S.Bach, F.Schubert, T.
+       Merula and W.A.Mozart for their beautiful music]
 
 
 
@@ -61,6 +61,6 @@ CCCCOOOONNNNTTTTRRRRIIIIBBBBUUUUTTTTOOOORRRRSS
 
 
 
-11/Sep/97                LilyPond 0.1.14                        1
+23/Sep/97                LilyPond 0.1.17                        1
 
 

@@ -95,8 +95,7 @@ of use and power.
 Preferably in Metafont, suited to both screen display and use on
 paper; This is needed because
 
-1. the copyright heritage of
-{Opus,Musix}tex is unclear. 
+1. the copyright heritage of {Opus,Musix}tex is unclear.
 
 2. We don't have any legal papers which make these fonts free (to use
 and alter)

@@ -1,6 +1,6 @@
 Document Really Ugly Bugs (coredumps, assert fails, etc)
 
-[Solaris]
+[Solaris, fixed in pl13]
 
 Stack frame overwrite on Solaris 2.x (this will produce a seg
 fault, signal 11).  Stacktrace
