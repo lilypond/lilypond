@@ -20,7 +20,7 @@
 Input_staff::Input_staff(String s)
 {
     type= s;
-    defined_ch_c_l_ = 0;
+    defined_ch_C_ = 0;
 }
 
 void
@@ -38,7 +38,7 @@ Input_staff::parse(Score*score_l)
     else if (type == "lyric")
     	p = new Lyric_staff;
     else {
- 	error( "Unknown staff-type `" + type +"\'", defined_ch_c_l_ );
+ 	error( "Unknown staff-type `" + type +"\'", defined_ch_C_ );
 	exit( 1 );
     }
 
@@ -55,7 +55,7 @@ Input_staff::Input_staff(Input_staff const&s)
 {    
     for (iter_top(s.music_,i); i.ok(); i++)
 	add(i->clone());
-    defined_ch_c_l_ = s.defined_ch_c_l_;
+    defined_ch_C_ = s.defined_ch_C_;
     type = s.type;
 }
 

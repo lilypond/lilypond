@@ -73,8 +73,8 @@ Midi_stream::header()
 //                00 01   one track
 //                00 60   96 per quarter-note
 
-//    char const ch_c_l = "0000" "0006" "0001" "0001" "0060";
-//    str += String_convert::hex2bin_str( ch_c_l );
+//    char const ch_C = "0000" "0006" "0001" "0001" "0060";
+//    str += String_convert::hex2bin_str( ch_C );
 //    *os_p_ << str;
 
 //      *this << Midi_header( 1, 1, tempo_i_ );

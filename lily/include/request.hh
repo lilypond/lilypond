@@ -23,7 +23,7 @@
 class Request {
 public:
     Voice_element*elt_l_;
-    char const* defined_ch_c_l_;
+    char const* defined_ch_C_;
     
     /* *************** */
     Voice  * voice_l();

@@ -13,7 +13,7 @@
 struct Local_key_register : Request_register {
     Local_key local_key_;
     Local_key_item* key_item_p_;
-    Key const *key_c_l_;
+    Key const *key_C_;
     /* *************** */
     virtual void process_requests();
     virtual void acknowledge_element(Staff_elem_info);

@@ -311,6 +311,12 @@ user built array.
 
 const. Note that the proper order C<Type const> i.s.o. C<const Type>
 
+=item C<C>
+
+A const pointer. This would be equivalent to C<_c_l>, but since any
+"const" pointer has to be a link (you can't delete a const pointer),
+it is superfluous.
+
 =item C<l>
 
 temporary pointer to object (link)

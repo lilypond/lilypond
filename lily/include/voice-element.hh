@@ -18,7 +18,7 @@
     *the requests, */
 struct Voice_element {
     Moment duration;
-    char const* defined_ch_c_l_;
+    char const* defined_ch_C_;
     Voice const *voice_l_;
     IPointerList<Request*> reqs;
 

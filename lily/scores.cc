@@ -15,7 +15,7 @@ do_scores()
 	Input_score* &is_p = score_array_global[i];
 	if (is_p->errorlevel_i_) {
 	    warning("Score contains errors. Will not process it. ",
-		    is_p->defined_ch_c_l_);
+		    is_p->defined_ch_C_);
 	    delete is_p;
 	    continue;
 	} 
