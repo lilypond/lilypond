@@ -28,12 +28,20 @@
 #include "side-position-interface.hh"
 #include "item.hh"
 
+/*
+TODO:
+
+remove dynamic_cast<Spanner,Item> and put this code into respective
+  subclass.
+*/
+
 Score_element::Score_element()
 {
   dim_cache_[X_AXIS] = new Dimension_cache;
   dim_cache_[Y_AXIS] = new Dimension_cache;
   dim_cache_[X_AXIS]->elt_l_ = dim_cache_[Y_AXIS]->elt_l_ = this;
-  
+
+  // junkme.
   used_b_ = false;
 
   dim_cache_[X_AXIS]->set_callback (molecule_extent);
@@ -261,11 +269,6 @@ Score_element::after_line_breaking ()
 {
 }
 
-void
-Score_element::do_breakable_col_processing()
-{
-  handle_prebroken_dependencies();
-}
 
 void
 Score_element::before_line_breaking ()
@@ -686,3 +689,8 @@ init_functions ()
 }
 
 ADD_SCM_INIT_FUNC(scoreelt, init_functions);
+
+void
+Score_element::do_breakable_col_processing ()
+{
+}

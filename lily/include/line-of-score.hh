@@ -14,8 +14,6 @@
 class Line_of_score : public Spanner
 {
 public:
-
-  
 /*
   imported the following  from Super_element
   
@@ -26,13 +24,8 @@ public:
   tracker.  Every XXXX_processing () call traverses the entire
   dependency graph, and calls the appropriate
   Score_element::do_XXX_processing function on each Score_element it encounters.
+  */
   
-
-  FIXME: remove this class, to eliminate multiple inheritance. Merge
-  with Line_of_score ?  */
-  void space_processing ();
-  void pre_processing();
-  void breakable_col_processing();
   void post_processing();
   void output_all ();
 
