@@ -14,6 +14,11 @@
 	   (follow-into-staff . #t)
 	   (script-stencil . (feta . ("sforzato" .  "sforzato")))
 	   (side-relative-direction . -1)))	 
+         ("espressivo" .
+	  ((inside-slur . #f)
+	   (follow-into-staff . #t)
+	   (script-stencil . (feta . ("espr" .  "espr")))
+	   (side-relative-direction . -1)))	 
 	 ("marcato" .
 	  ((script-stencil . (feta . ("dmarcato" . "umarcato")))
 	   (follow-into-staff . #t)
