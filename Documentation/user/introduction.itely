@@ -289,6 +289,7 @@ mechanism can be used to adjust a setting globally. By issuing
 the entire piece is formatted with thick stems:
 @lilypond
 \score { \notes {
+    \property Score.Stem \override #'thickness = #2.0 
     \once\property Voice. DynamicLineSpanner  \override #'padding = #4.0 
     g'4-\f g4
   	}
@@ -321,7 +322,7 @@ The full scope of this functionality certainly is intimidating, but
 there is no need to fear: normally, it is not necessary to define
 style-sheets or rewrite formatting functions. In fact, LilyPond gets a
 lot of formatting right automatically, so adjusting individual layout
-situations is not needed very often.
+situations is not needed very often at all.
 
 
 @node Music representation
