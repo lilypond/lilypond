@@ -6,13 +6,18 @@ For more information, tutorial, documentation, packaging instructions, visit:
   http://lilypond.org
 
 Runtime requirements:
-  cygwin-1.5.11 or newer
-  libguile12-1.6.5-1 or newer
   bash
+  cygwin-1.5.11 or newer
+  ec-fonts-mftraced
   ghostscript
+  glib2-runtime
+  libfontconfig1
+  libfreetype2
+  libguile12-1.6.5-1 or newer
   libiconv2
   libintl2
   libkpathsea3-2.0.2-15 or newer
+  pango-runtime
   python
   tetex-bin-2.0.2-15 or newer
   tetex-tiny or tetex-base
@@ -28,8 +33,9 @@ Suggested:
 Build requirements:
   binutils-20040725-2 or newer
   bison-1.35 or newer
+  coreutils
   cygwin-1.5.11 or newer
-  fileutils
+  findutils
   flex-2.5.4 or newer
   gcc-2.95.3-5 or newer
   glib2-devel
@@ -41,7 +47,6 @@ Build requirements:
   pango-devel
   python
   sed
-  sh-utils
   tetex-devel-2.0.2-15 or newer
   texinfo-4.7 or newer
 
