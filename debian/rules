@@ -104,7 +104,13 @@ binary-arch: build install
 #	dh_installcron
 #	dh_installmanpages
 #	dh_undocumented
-	dh_installchangelogs -k CHANGES
+#	dh_installchangelogs -k CHANGES
+#	dh_installchangelogs CHANGES
+# These give all errrors.
+# Strange, in the maint-guide, it says add the upstream changelog name.
+# Let's install as doc, then.  --jcn
+	dh_installdocs CHANGES
+	dh_installchangelogs
 	dh_link
 	dh_strip
 	dh_compress
