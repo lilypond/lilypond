@@ -117,7 +117,8 @@ static bool protect = true;
 
 LY_DEFINE(set_parse_protect, "ly-set-parse-protect",
 	  1,0,0, (SCM t),
-	  "If protection is switched on, errors in inline scheme are caught.")
+	  "If protection is switched on, errors in inline scheme are caught.
+If off, GUILE will halt on errors, and give a stack trace. Default is protected evaluation.")
 {
   protect =  (t == SCM_BOOL_T);
   return SCM_UNSPECIFIED;
