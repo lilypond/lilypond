@@ -122,7 +122,7 @@ Paper_book::output (String outname)
   /* Generate all stencils to trigger font loads.  */
   pages ();
   
-  SCM formats = ly_output_formats();
+  SCM formats = ly_output_formats ();
   for (SCM s = formats; ly_c_pair_p (s); s = ly_cdr (s)) 
     {
       String format = ly_scm2string (ly_car (s));

@@ -163,26 +163,6 @@ setup_pango (GtkWidget *canvas)
     (use-modules (gnome gw canvas))
     (use-modules (gnome gw libgnomecanvas)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; module entry
-(define-public (gnome-output-expression expr port)
-  (display (dispatch expr) port))
-
-(define (dispatch expr)
-  (if (pair? expr)
-      (let ((keyword (car expr)))
-	(cond
-	 ((eq? keyword 'some-func) "")
-	 ;;((eq? keyword 'placebox) (dispatch (cadddr expr)))
-	 (else
-	  (if (module-defined? this-module keyword)
-	      (apply (eval keyword this-module) (cdr expr))
-	      (begin
-		(display
-		 (string-append "undefined: " (symbol->string keyword) "\n"))
-		"")))))
-      expr))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Lily output interface --- fix silly names and docme
 "
@@ -207,7 +187,7 @@ setup_pango (GtkWidget *canvas)
  The Bare minimum interface for \score { \notes c } } should
  implement:
 
-    INTERFACE-output-expression
+    output-framework-INTERFACE (see framework-INTERFACE)
     char
     filledbox
     placebox
