@@ -9,56 +9,62 @@
    
     */
 
-Array<Col_configuration>
+Array<Col_hpositions>
 Word_wrap::solve()
 {
     problem_OK();
     iter_top(pscore_.cols,curcol);
-    Array<Col_configuration> breaking;
-    Array<PCol *> breakpoints(find_breaks());
+    Array<Col_hpositions> breaking;
+    Line_of_cols breakpoints(find_breaks());
     assert(breakpoints.size()>=2);
-    for (int i=0 ; i < breakpoints.size() -1; ) {
-	Col_configuration minimum;
-	Col_configuration current;
+
+    int break_idx_i=0;			
+    while ( break_idx_i < breakpoints.size() -1) {
+	Col_hpositions minimum;
+	Col_hpositions current;
 
         // do  another line
-	PCol *post = breakpoints[i]->postbreak_p_;
+	PCol *post = breakpoints[break_idx_i]->postbreak_p_;
 	current.add( post);
 	curcol++;		// skip the breakable.
-	i++;
+	break_idx_i++;
 
-	while (i < breakpoints.size()) {
+	while (break_idx_i < breakpoints.size()) {
 
 	    // add another measure.
-	    while (breakpoints[i] != curcol.ptr()){
-		
+	    while (breakpoints[break_idx_i] != curcol.ptr()){
 		current.add(curcol);
 		curcol++;
 	    }
-	    current.add(breakpoints[i]->prebreak_p_ );
+	    current.add(breakpoints[break_idx_i]->prebreak_p_ );
+
+	    // try to solve
 	    if (!feasible(current.cols)) {
 		if (!minimum.cols.size())
 		    error("sorry, this measure is too long");
-		break;
+		current.energy = INFTY;	// make sure we go back
+	    } else {
+		current = solve_line(current.cols);
+		current.print();
 	    }
-	    current.setsol(solve_line(current.cols));
-	    current.print();
-	    
+
+	    // update minimum, or backup.
 	    if (current.energy < minimum.energy) {		
 		minimum = current;	   
 	    } else {		// we're one col too far.
-		i--;
-		while (curcol.ptr() != breakpoints[i])
+		break_idx_i--;
+		while (curcol.ptr() != breakpoints[break_idx_i])
 		    curcol --;
-		
-		break;
+		break;		// do the next line.
 	    }
-	
-	    current.cols.last()=breakpoints[i];
+
+
+	    // add nobreak version of breakable column
+	    current.cols.last()=breakpoints[break_idx_i];
 	    curcol ++;
-	    i++;
+	    break_idx_i++;
 	}
-	mtor << "Adding cols~, next breakpoint " << i << '\n';
+	mtor << "Adding cols~, next breakpoint " << break_idx_i << '\n';
 	breaking.push(minimum);
     }
     
