@@ -125,9 +125,7 @@ Midi_note::mom()
 Midi_tempo::Midi_tempo( int useconds_per_4_i )
 {
 	useconds_per_4_i_ = useconds_per_4_i;
-// huh, is it not per 4?
-//	seconds_per_1_f_ = (Real)useconds_per_4_i_ * 4 / 1e6;
-	seconds_per_1_f_ = (Real)useconds_per_4_i_ * 8 / 1e6;
+	seconds_per_1_f_ = (Real)useconds_per_4_i_ * 4 / 1e6;
 }
 
 String
@@ -139,6 +137,12 @@ Midi_tempo::mudela_str( bool command_mode_bo )
 	String str = "tempo 4:";
 	str += String( get_tempo_i( Moment( 1, 4 ) ) );
 	return str;
+}
+
+int 
+Midi_tempo::useconds_per_4_i()
+{
+	return useconds_per_4_i_;
 }
 
 int
@@ -171,14 +175,14 @@ Midi_time::Midi_time( int num_i, int den_i, int clocks_4_i, int count_32_i )
 	if ( count_32_i != 8 )
 		warning( String( "#32 in quarter: " ) + String( count_32_i ), 0 );
 	num_i_ = num_i;
-	den_i_ = 2 << den_i;
+	den_i_ = den_i;
 	clocks_1_i_ = clocks_4_i * 4; 
 }
 
 Moment
 Midi_time::bar_mom()
 {
-	return Moment( num_i_ ) * Duration_convert::dur2_mom( Duration( den_i_ ) );
+	return Moment( num_i_ ) * Duration_convert::dur2_mom( Duration( 1 << den_i_ ) );
 }
 
 int
@@ -187,34 +191,23 @@ Midi_time::clocks_1_i()
 	return clocks_1_i_;
 }
 
-Duration
-Midi_time::i2_dur( int time_i, int division_1_i )
+int
+Midi_time::den_i()
 {
-	Moment mom = Duration_convert::i2_mom( time_i, division_1_i );
-	mom /= sync_f_;
+	return den_i_;
+}
 
-	dtor << "\n% (" << time_i << ", " << mom << "): "
-		<< sync_f_ << endl;
-
-	Duration dur = Duration_convert::mom2_dur( mom );
-	if ( !dur.type_i_ ) {
-		vtor << "\n% resyncing(" << time_i << ", " << mom << "): "
-			<< sync_f_ << " -> ";
-		mom *= sync_f_;
-		sync_f_ = Duration_convert::sync_f( sync_dur_, mom );
-		vtor << sync_f_ << endl;
-		mom /= sync_f_;
-		dur = Duration_convert::mom2_dur( mom );
-	}
-
-	return dur;
+int
+Midi_time::num_i()
+{
+	return num_i_;
 }
 
 String
 Midi_time::mudela_str( bool command_mode_bo )
 {
 	String str = "meter { "
-		+ String( num_i_ ) + "*" + String( den_i_ ) 
+		+ String( num_i_ ) + "*" + String( 1 << den_i_ ) 
 		+ " }";
 	if ( !command_mode_bo )
 	    str =  String( '\\' ) + str;

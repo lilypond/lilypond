@@ -47,9 +47,9 @@ My_midi_parser::reset()
 	midi_key_p_ = new Midi_key( 0, 0 );
 	// useconds per 4: 250000 === 60 4 per minute
 	delete midi_tempo_p_;
-	midi_tempo_p_ = new Midi_tempo( 250000 );
+	midi_tempo_p_ = new Midi_tempo( 1000000 );
 	delete midi_time_p_;
-	midi_time_p_ = new Midi_time( 4, 4, 384, 8 );
+	midi_time_p_ = new Midi_time( 4, 2, 24, 8 );
 	now_i64_ = 0;
 	bar_i_ = 1;
 
@@ -90,7 +90,7 @@ My_midi_parser::forward( int i )
 Moment
 My_midi_parser::mom()
 {
-	return Duration_convert::i2_mom( now_i64_, division_1_i_ );
+	return Moment( now_i64_, Duration::division_1_i_s );
 }
 
 void
@@ -110,7 +110,12 @@ My_midi_parser::note_end_midi_event_p( int channel_i, int pitch_i, int dyn_i )
 //	running_i64_i64_a_[ channel_i ][ pitch_i ] = -1;
 //	assert( start_i64 != -1 ); // did we start?
 
-	return new Midi_note( midi_key_p_->notename_str( pitch_i ), midi_time_p_->i2_dur( now_i64_ - start_i64, division_1_i_ ) );
+	Duration dur( 0 );
+	if ( Duration_convert::be_blonde_b_s )
+		dur = Duration_convert::ticks2_dur( (I64)now_i64_ - start_i64 );
+	else
+		dur = Duration_convert::ticks2standardised_dur( (I64)now_i64_ - start_i64 );
+	return new Midi_note( midi_key_p_->notename_str( pitch_i ), dur );
 }
 
 int
@@ -133,6 +138,7 @@ void
 My_midi_parser::set_division_4( int division_4_i )
 {
 	division_1_i_ = division_4_i * 4;
+	Duration::division_1_i_s = division_1_i_;
 	if ( division_4_i < 0 )
 		warning( "seconds iso metrical time" , 0 );
 }
@@ -145,10 +151,10 @@ My_midi_parser::set_key( int accidentals_i, int minor_i )
 }
 
 void
-My_midi_parser::set_tempo( int useconds_i )
+My_midi_parser::set_tempo( int useconds_per_4_i )
 {
 	delete midi_tempo_p_;
-	midi_tempo_p_ = new Midi_tempo( useconds_i );
+	midi_tempo_p_ = new Midi_tempo( useconds_per_4_i );
 }
 
 void
