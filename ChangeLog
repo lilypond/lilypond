@@ -1,5 +1,10 @@
 2004-07-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/lilypond.py (include_path): remove --no-lily, --no-ps ,
+	--no-pdf, --pdftex
+	(copyright): add --latex option
+	(ic_p.make_include_option): use direct PS as default.
+
 	* scm/beam.scm (check-slope-callbacks): check sign of slope. 
 
 	* input/regression/beam-concave.ly (rossFourBeams): add cases from Ross
