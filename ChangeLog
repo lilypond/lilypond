@@ -1,5 +1,7 @@
 2004-04-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/kpath.cc (kpathsea_find_tfm): Do not trigger TMF generation.
+
 	* scm/output-ps.scm: Remove some cruft.
 
 2004-04-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
