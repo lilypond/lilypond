@@ -199,6 +199,8 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{collision-dots.ly}
 
+@lilypondfile[printfilename]{collision-mesh.ly}
+
 @lilypondfile[printfilename]{number-staff-lines.ly}
 
 

@@ -66,7 +66,6 @@ import __main__
 import operator
 import tempfile
 import traceback
-import resource
 
 datadir = '@datadir@'
 sys.path.append (datadir + '/python')
@@ -78,6 +77,15 @@ try:
 except:
 	def _ (s):
 		return s
+
+# Attempt to fix problems with limited stack size set by Python!
+# Sets unlimited stack size. Note that the resource module only
+# is available on UNIX.
+try:
+       import resource
+       resource.setrlimit(resource.RLIMIT_STACK, (-1,-1))
+except:
+       pass
 
 
 layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
@@ -151,7 +159,7 @@ verbose_p = 0
 #
 environment = {
 	'MFINPUTS' : datadir + '/mf' + ':',
-	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps' + ':',
+	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:' + os.getcwd() + ':',
 	'TFMFONTS' : datadir + '/tfm' + ':',
 	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
 	'GS_LIB' : datadir + '/ps',

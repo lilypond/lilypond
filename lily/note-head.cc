@@ -94,7 +94,7 @@ Note_head::brew_molecule (SCM smob)
     }
 
   /*
-    ugh: use gh_call ()
+    ugh: use gh_call () / scm_apply ().
 
     UGH: use grob-property.
   */

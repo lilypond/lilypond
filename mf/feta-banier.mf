@@ -257,6 +257,11 @@ fet_beginchar("8th (down)", "d3", "deighthflag")
 		(hip_width, foot_depth), 
 		hip_depth_ratio,foot_width_ratio, hip_thickness, foot_thickness);
 
+	pickup pencircle scaled stemthickness;
+        draw (0, 0) .. (0,-2 staff_space);
+        y_mirror_char;
+fet_endchar;
+
 %%%%%%%%
 %
 %
@@ -468,11 +473,6 @@ fet_beginchar("grace dash (up)", "ugrace", "gracedash")
 	pickup pencircle scaled 1.5 stemthickness;
 	draw (-b ,-d) ..
 	  (w, h);
-fet_endchar;
-
-	pickup pencircle scaled stemthickness;
-	draw (0, 0) .. (0,-2 staff_space);
-	y_mirror_char;
 fet_endchar;
 
 fet_beginchar("16th (down)", "d4", "dsixteenthflag")

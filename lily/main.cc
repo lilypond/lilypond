@@ -105,7 +105,7 @@ static Long_option_init options_static[] = {
   {_i ("EXPR"), "evaluate", 'e',_i ("evalute EXPR as Scheme after .scm init is read")},
   /* another bug in option parser: --output=foe is taken as an abbreviation
      for --output-format */
-  {_i ("EXT"), "format", 'f',  _i ("use output format EXT (scm, ps, tex or as)")},
+  {_i ("EXT"), "format", 'f',  _i ("use output format EXT (tex [default], pdftex, ps, scm or as)")},
   {0, "help", 'h',  _i ("this help")},
   {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
@@ -154,12 +154,6 @@ _ (
     << " " <<
 #ifdef NDEBUG
     "NDEBUG "
-#endif
-#ifdef NPRINT
-    "NPRINT "
-#endif
-#ifdef STRING_UTILS_INLINED
-    "STRING_UTILS_INLINED "
 #endif
     "\n"
     "datadir: `" DIR_DATADIR "'\n"

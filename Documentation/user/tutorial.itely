@@ -2385,7 +2385,7 @@ When naming the tuning of the french horn, we'll need a piece of text
 with a flat sign.  LilyPond has a mechanism for font selection and
 kerning called Scheme markup text (See @ref{Text markup}).  The flat
 sign is taken from the music font, and its name is @code{accidentals--1}
-(The sharp sign is called @code{accidentals-1}).  The default font is
+(The natural sign is called @code{accidentals-0}).  The default font is
 too big for text, so we select a relative size of @code{-2}.
 
 @separate

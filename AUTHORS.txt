@@ -30,7 +30,8 @@ list is alphabetically ordered.
    * Neil Jerram <nj104@cus.cam.ac.uk>.      parts of
      Documentation/Vocab*
 
-   * Heikki Junes <heikki.junes@hut.fi>.      Finnish note names
+   * Heikki Junes <heikki.junes@hut.fi>.      Finnish note names,
+     updates to Emacs-mode
 
    * Donald Ervin Knuth,  `http://www-cs-staff.stanford.edu/~knuth/'
      mf/ital-*.mf (these were taken from the CM fonts)

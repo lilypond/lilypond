@@ -5,9 +5,12 @@ texidoc = "overriding the molecule callback can also be used to draw a
  box around arbitrary grobs.
 
  TODO: check whether the corners are really correct.
- 
+
+ TODO:  circled molecules.
+  
  "
 }
+
 #(define (box-molecule xext yext)
   (ly-make-molecule
       (list 'filledbox (- (car xext)) (cdr xext)

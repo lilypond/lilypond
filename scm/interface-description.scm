@@ -251,6 +251,7 @@ object."
    tuplet-bracket-visibility 
    tuplet-number-visibility 
    thick 
+   direction
    ))
 
 

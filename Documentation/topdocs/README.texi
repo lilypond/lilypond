@@ -61,6 +61,12 @@ LilyPond is a long way from finished and polished, so please send your
 criticism, comments, bugreports, patches, etc., to the mailing list,
 @emph{not} to us personally.
 
+@html
+<a name="mailing-lists">
+@end html
+
+
+
 We have the following mailing lists:
 
 @itemize @bullet
