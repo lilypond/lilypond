@@ -122,6 +122,16 @@ def write_tex_defs (file, global_info, charmetrics):
 	for m in charmetrics:
 		file.write (r'''\def\%s%s{\char%d}%s''' % (nm, m['tex'], m['code'],'\n'))
 
+def write_ps_encoding (file, global_info, charmetrics):
+	encs = ['.notdef'] * 256
+	for m in charmetrics:
+		encs[m['code']] = m['tex']
+		
+	file.write ('/FetaEncoding [\n')
+	for m in range(0,256):
+		file.write ('  /%s %% %d\n' % (encs[m], m))
+	file.write ('] def\n')
+	
 def write_fontlist (file, global_info, charmetrics):
 	nm = global_info['FontFamily']
 	file.write (r"""
@@ -177,9 +187,10 @@ Options:
 
 (options, files) = getopt.getopt(
     sys.argv[1:], 'a:d:hl:o:p:t:', 
-    ['afm=', 'outdir=', 'dep=',  'tex=', 'ly=', 'debug', 'help', 'package='])
+    ['enc=', 'afm=', 'outdir=', 'dep=',  'tex=', 'ly=', 'debug', 'help', 'package='])
 
 
+enc_nm = ''
 texfile_nm = ''
 depfile_nm = ''
 afmfile_nm = ''
@@ -195,6 +206,8 @@ for opt in options:
 		outdir_prefix = a
 	elif o == '--tex' or o == '-t':
 		texfile_nm = a
+	elif o == '--enc':
+		enc_nm = a
 	elif o == '--ly' or o == '-':
 		lyfile_nm = a
 	elif o== '--help' or o == '-h':
@@ -220,6 +233,8 @@ for filenm in files:
 	
 	write_afm_metric (afm, g,m)
 	write_tex_defs (open (texfile_nm, 'w'), g, m)
+	write_ps_encoding (open (enc_nm, 'w'), g, m)
+	
 	write_deps (open (depfile_nm, 'wb'), deps, [base + '.dvi', texfile_nm, afmfile_nm])
 	if lyfile_nm != '':
 		write_fontlist(open (lyfile_nm, 'w'), g, m)

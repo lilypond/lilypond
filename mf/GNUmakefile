@@ -27,12 +27,13 @@ $(outdir)/cmr10.afm:
 LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log) $(PARMESAN_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex) $(PARMESAN_FILES:.mf=.tex))
 AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(PARMESAN_FILES:.mf=.afm) $(AF_FILES:.af=.afm) $(addsuffix .afm, $(CM_AFM_FILES)))
+ENC_FILES=$(TEXTABLES:.tex=.enc)
 TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
 
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES)
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(datadir)/fonts/source
@@ -54,6 +55,7 @@ INSTALLATION_OUT_FILES3=$(TFM_FILES)
 #MAKE_PFA_FILES=1
 
 PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
+
 ifdef MAKE_PFA_FILES
 ALL_GEN_FILES += $(PFA_FILES) $(outdir)/lilypond.map
 INSTALLATION_OUT_DIR4=$(datadir)/fonts/type1
@@ -74,8 +76,8 @@ $(outdir)/lilypond.map:
 
 ##
 ## todo: this also depends on .tfm, FIXME.
-$(outdir)/%.afm  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log 
-	$(PYTHON) $(buildscript-dir)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm) --tex $(outdir)/$(<F:.log=.tex) --ly $(outdir)/$(<F:.log=list.ly) $<
+$(outdir)/%.afm  $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log 
+	$(PYTHON) $(buildscript-dir)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm)  --enc $(outdir)/$(<F:.log=.enc) --tex $(outdir)/$(<F:.log=.tex) --ly $(outdir)/$(<F:.log=list.ly) $<
 
 local-clean:
 	rm -f mfplain.mem mfplain.log 
