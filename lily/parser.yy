@@ -667,25 +667,31 @@ score_block:
 	;
 
 score_body:
-	Music	{
+	/**/	{
 		$$ = new Score;
 	
 		$$->set_spot (THIS->here_input ());
-		SCM m = $1->self_scm ();
+	}
+	| SCORE_IDENTIFIER {
+		$$ = new Score ( *unsmob_score ($1));
+		$$->set_spot (THIS->here_input ());
+	}
+	| score_body Music {
+		SCM m = $2->self_scm ();
 		scm_gc_unprotect_object (m);
-
+	
 		/*
 			guh.
 		*/
 		SCM check_funcs = ly_scheme_function ("toplevel-music-functions");
 		for (; ly_c_pair_p (check_funcs); check_funcs = ly_cdr (check_funcs))
 			m = scm_call_1 (ly_car (check_funcs), m);
+		if (unsmob_music ($$->music_))
+		{
+			THIS->parser_error (_("Already have music in score"));
+			unsmob_music ($$->music_)->origin ()->error (_("This is the previous music"));
+		}
 		$$->music_ = m;
-
-	}
-	| SCORE_IDENTIFIER {
-		$$ = new Score ( *unsmob_score ($1));
-		$$->set_spot (THIS->here_input ());
 	}
 	| score_body lilypond_header 	{
 		$$->header_ = $2;

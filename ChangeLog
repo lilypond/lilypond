@@ -1,3 +1,13 @@
+2004-06-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/changing-defaults.itely (Page layout): new node.
+	(Paper size): rename node
+	(Page breaking): new node.
+	(Titling): move from invoking.
+
+	* lily/parser.yy (score_body): allow \header and music anywhere in
+	\score body.
+
 2004-06-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/lily.scm (ly:load): Remove page-breaking.scm.
