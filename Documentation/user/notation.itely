@@ -929,6 +929,24 @@ This command sets the context property
 @internalsref{Staff}.@code{keySignature}.  Non-standard key signatures
 can be specified by setting this property directly.
 
+A natural sign is printed to cancel any previous accidentals.  This
+can be suppressed by setting the @code{Staff.printKeyCancellation}
+property.
+
+@lilypond[quote,raggedright,fragment,verbatim,relative=2]
+{
+  \key d \major
+  a b cis d
+  \key g \minor
+  a bes c d
+  \set Staff.printKeyCancellation = ##f
+  \key d \major
+  a b cis d
+  \key g \minor
+  a bes c d
+}
+@end lilypond
+
 Accidentals and key signatures often confuse new users, because
 unaltered notes get natural signs depending on the key signature.  For
 more information, see @ref{More about pitches}.
@@ -1012,6 +1030,9 @@ This command is equivalent to setting @code{clefGlyph},
 when any of these properties are changed.  The following example shows
 possibilities when setting properties manually.
 
+@ignore
+should to be fixed very quickly  -gp
+
 @lilypond[quote,raggedright,verbatim]
 {
   \set Staff.clefGlyph = #"clefs.F"
@@ -1028,9 +1049,12 @@ possibilities when setting properties manually.
   c'4
   \clef "bass"
   c'4
+  \set Staff.middleCPosition = #4
+  c'4
 }
 @end lilypond
 
+@end ignore
 
 @seealso
 
