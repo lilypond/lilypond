@@ -96,7 +96,7 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 
 @code{lilypond} extracts the following header fields from the LY files
 to generate titling; an example demonstrating all these fields is in
-@inputfileref{input/test,ly2dvi-testpage.ly}:
+@inputfileref{input/test,lilypond-testpage.ly}:
 
 @table @code
 @item title

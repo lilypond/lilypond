@@ -3,6 +3,11 @@
 	* Documentation/user/refman.itely, input/regression/tie-accidental.ly,
 	input/regression/tie-chord.ly: Fix spell for tying.
 
+	* input/test/ly2dvi-testpage.ly: removed (renamed, see below).
+
+	* input/test/lilypond-testpage.ly, Documentation/user/invoking.itexi:
+	new file (renamed, see above).
+
 2003-10-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/lilypond-book.py (output_dict): Add definition of
