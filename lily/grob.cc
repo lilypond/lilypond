@@ -769,7 +769,7 @@ Grob::mark_smob (SCM ses)
 	for Y relations). Marking these can be done in limited stack
 	space.  If we add the parents, we will jump between X and Y in
 	an erratic manner, leading to much more recursion depth (and
-	core dumps if we link to pthreads.
+	core dumps if we link to pthreads.)
        */
     }
   
