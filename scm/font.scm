@@ -33,7 +33,7 @@
 
 (define (filter-field field-name value font-descr-alist)
   "return those descriptions from FONT-DESCR-LIST whose FIELD-NAME matches VALUE"
-      (filter-list
+      (filter
        (lambda (x) (let* (field-value (font-field field-name (car x))) 
 		     (or (eq? field-value '*) (eq? value field-value))))
        font-descr-alist)
@@ -346,7 +346,7 @@ and warn if the selected font is not unique.
 
 (if #f (begin
 	 (define (test-module)
-	   (display (filter-list pair? '(1 2 (1 2) (1 .2)))
+	   (display (filter pair? '(1 2 (1 2) (1 .2)))
 		    (display (filter-field 'font-name 'cmbx paper20-style-sheet-alist))
 		    
 		    (display (qualifiers-to-fontname '((font-name . cmbx)) paper20-style-sheet-alist))

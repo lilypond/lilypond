@@ -1,5 +1,8 @@
 2003-07-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/lily.scm: remove tail, filter-list, filter-out-list,
+	first-n, butfirst-n in favor of srfi-1 functions
+
 	* mf/parmesan-custodes.mf (dir_down): remove _ from glyph names.
 
 	* NEWS: use complete sentences.

@@ -113,8 +113,8 @@ the bass specified.
 			   (ly:pitch-alteration inversion))
 			)))
 		 
-	   (rest-of-chord (filter-out-list inv? complete-chord))
-	   (inversion-candidates (filter-list inv? complete-chord))
+	   (rest-of-chord (remove inv? complete-chord))
+	   (inversion-candidates (filter inv? complete-chord))
 	   (down-inversion (pitch-octavated-strictly-below inversion root))
 	   )
 

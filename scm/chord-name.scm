@@ -89,7 +89,7 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
     (let* ((elts (ly:get-mus-property m 'elements))
 	   (omit-root (and (pair? rest) (car rest)))
 	   (pitches (map (lambda (x) (ly:get-mus-property x 'pitch))
-			 (filter-list
+			 (filter
 			  (lambda (y) (memq 'note-event
 					    (ly:get-mus-property y 'types)))
 			  elts)))
@@ -104,7 +104,7 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
 	   (diff (ly:pitch-diff root (ly:make-pitch 0 0 0)))
 	   (normalized (map (lambda (x) (ly:pitch-diff x diff)) sorted))
 	   (texts (map (lambda (x) (ly:get-mus-property x 'text))
-		       (filter-list
+		       (filter
 			(lambda (y) (memq 'text-script-event
 					  (ly:get-mus-property y 'types)))
 			elts)))
@@ -117,9 +117,9 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
      (memq 'event-chord (ly:get-mus-property m 'types))
      (not (equal? (ly:make-moment 0 1) (ly:get-music-length m)))))
 
-  (let* ((elts (filter-list is-req-chord? (ly:get-mus-property seq 'elements)))
+  (let* ((elts (filter is-req-chord? (ly:get-mus-property seq 'elements)))
 	 (alist (map chord-to-exception-entry elts)))
-    (filter-list (lambda (x) (cdr x)) alist)))
+    (filter (lambda (x) (cdr x)) alist)))
 
 
 (define-public (new-chord-name-brew-molecule grob)

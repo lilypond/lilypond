@@ -152,7 +152,7 @@ is then separated.
   (string-append
    "<" (symbol->string tag)
    (apply string-append
-	  (map dump-attr (filter-list candidate? attrs)))
+	  (map dump-attr (filter candidate? attrs)))
    ">\n")
    
   )

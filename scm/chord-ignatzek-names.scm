@@ -152,7 +152,7 @@ work than classifying the pitches."
        '()
        (let*
 	   (
-	    (l (filter-list altered? alters))
+	    (l (filter altered? alters))
 	    (lp (last-pair alters))
 	    )
 
@@ -273,7 +273,7 @@ work than classifying the pitches."
 	   (
 	    (3-diff? (lambda (x y)
 		       (= (- (pitch-step y) (pitch-step x)) 2)))
-	    (split (split-at 3-diff? (remove-uptil-step 5 pitches)))
+	    (split (split-at-predicate 3-diff? (remove-uptil-step 5 pitches)))
 	    )
 	 (set! alterations (append alterations (car split)))
 	 (set! add-steps (append add-steps (cdr split)))
@@ -296,10 +296,10 @@ work than classifying the pitches."
 	      (= 7 (pitch-step main-name))
 	      (is-natural-alteration? main-name)
 	      (pair? (remove-uptil-step 7 alterations))
-	      (reduce (lambda (x y) (and x y))
+	      (reduce (lambda (x y) (and x y)) #t
 		      (map is-natural-alteration? alterations)))
 	     (begin
-	       (set! main-name (tail alterations))
+	       (set! main-name (last alterations))
 	       (set! alterations '())
 	       ))
 	 

@@ -58,7 +58,7 @@
      (human-listify
       (map ref-ify
       (map ly:translator-name
-	   (filter-list
+	   (filter
 	    (lambda (x) (engraver-accepts-music-type? (car entry) x)) all-engravers-list))))
      "\n\n"
      )))
@@ -89,7 +89,7 @@
      (human-listify
       (map ref-ify
       (map ly:translator-name
-	   (filter-list
+	   (filter
 	    (lambda (x) (engraver-accepts-music-types? types x)) all-engravers-list))))
      "\n\nProperties: \n"
      (description-list->texi

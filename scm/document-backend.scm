@@ -109,7 +109,7 @@ node."
 "\n\n"
 			(interface-doc-string iface description)))
 		      (reverse ifaces)))
-       (engravers (filter-list
+       (engravers (filter
 		   (lambda (x) (engraver-makes-grob? name x)) all-engravers-list))
        (namestr (symbol->string name))
        (engraver-names (map ly:translator-name engravers))
