@@ -185,6 +185,12 @@ void add_scm_init_func (void (*f) ())
   scm_init_funcs_->push (f);
 }
 
+#if KPATHSEA
+extern "C" {
+  void initialize_kpathsea ();
+}
+#endif
+    
 void
 ly_init_ly_module (void *)
 {
@@ -193,6 +199,10 @@ ly_init_ly_module (void *)
 
   if (be_verbose_global)
     progress_indication ("\n");
+
+#if KPATHSEA
+  initialize_kpathsea ();
+#endif
   
   scm_primitive_load_path (scm_makfrom0str ("lily.scm"));
 }
