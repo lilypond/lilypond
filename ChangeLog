@@ -1,3 +1,8 @@
+2002-10-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/stem-engraver.cc (acknowledge_grob): don't crash on
+	undefined tremolo. 
+
 2002-10-15  Werner Lemberg  <wl@gnu.org>
 
 	* scripts/lilypond-book.py (g_make_html): New global variable.
