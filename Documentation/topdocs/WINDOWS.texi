@@ -75,11 +75,19 @@ or visit @uref{http://www.miktex.org,www.miktex.org}.
 @item PostScript tools
 @table @code
 @item GSView-2.6, or
-Click  @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv26w32.exe,here} to
+This old package has two advantages.  It has gsview and ghostscript
+bundeled, and it doesn't popup @emph{Register Now|Cancel} windows all
+the time.  It doesn't work together with Yap to display PostScript
+specials.
+
+Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv26w32.exe,here} to
 install GSView-2.6 (GhostView for Windows), or visit
 @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
 
 @item GSView-3.6 and GhostScript-6.50
+If you install both these packages, Yap will display PostScript
+specials.  You get annoying @emph{Register Now|Cancel} popups, though.
+
 Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv36w32.exe,here} for
 GSview and 
 Click @uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs650/gs650w32.exe
@@ -91,7 +99,11 @@ or visit the
 
 @item Python
 Click @uref{http://www.python.org/ftp/python/win32/py152.exe,here} to
-install Python-1.5.2, or visit @uref{http://www.python.org,www.python.org}.
+install Python-1.5.2, or visit
+@uref{http://www.python.org,www.python.org}.
+
+Python > 1.5.2 has ugly licensing issues, so we only used and tested
+1.5.2.
 @end table
 
 
@@ -119,7 +131,8 @@ Options:
 [..]
 @end example
 
-you should try adding @file{/usr/lilypond-x.y.z/bin} to your path, do:
+you should try adding @file{/usr/lilypond-x.y.z/bin} to your @var{PATH},
+do:
 @example
 PATH=/usr/lilypond-1.3.147/bin:$PATH
 @end example
@@ -128,11 +141,17 @@ and try again.
 
 [TODO:
 
+* politely ask windows users not to complain but rather send instructive
+bug reports along with patches.
+
+* emacs-mode installation, figure out and describe proper
+emacs-on-cygwin setup.
+
 * talk about /etc/profile.d/lilypond-profile.sh
 
-* GUILE errors
+* GUILE errors, simple guile test
 
-* TEX errors
+* TEX errors, simple tex test
 
 ]
 
