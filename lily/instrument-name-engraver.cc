@@ -37,7 +37,6 @@ Instrument_name_engraver::Instrument_name_engraver ()
   text_ = 0;
 }
 
-
 void
 Instrument_name_engraver::initialize ()
 {
@@ -54,7 +53,6 @@ Instrument_name_engraver::stop_translation_timestep ()
       text_ = 0;
     }
 }
-
 
 void
 Instrument_name_engraver::create_text ()
@@ -88,8 +86,13 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
       create_text ();
     }
 
+  /*
+    Ugh - typechecking for pedal and dynamic sucks.
+   */
   if (dynamic_cast<Spanner*> (i.grob_)
-      && i.grob_->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
+      && (i.grob_->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
+	  || i.grob_->internal_has_interface (ly_symbol2scm ("pedal-interface")))
+	  )
     return;
 
   /*
