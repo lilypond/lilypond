@@ -229,14 +229,43 @@ LY_DEFINE(ly_paper_book_book_paper, "ly:paper-book-book-paper",
   return unsmob_paper_book(pb)->bookpaper_->self_scm ();
 }
 
+/*
+
+TODO: resurrect more complex user-tweaks for titling .
+
+*/
 Stencil
-Paper_book::title (int i)
+Paper_book::book_title ()
 {
-  SCM user_title = bookpaper_->lookup_variable (ly_symbol2scm ("user-title"));
-  SCM book_title = bookpaper_->lookup_variable (ly_symbol2scm ("book-title"));
-  SCM score_title = bookpaper_->lookup_variable (ly_symbol2scm ("score-title"));
-  SCM field = (i == 0 ? ly_symbol2scm ("bookTitle")
-	       : ly_symbol2scm ("scoreTitle"));
+  SCM title_func = bookpaper_->lookup_variable (ly_symbol2scm ("book-title"));
+  Stencil title;
+
+  SCM scopes = SCM_EOL;
+  if (ly_c_module_p (header_))
+    scopes = scm_cons (header_, scopes);
+
+ 
+  SCM tit = SCM_EOL;
+  if (ly_c_procedure_p (title_func))
+    tit = scm_call_2 (title_func,
+		     bookpaper_->self_scm (),
+		     scopes);
+
+  if (unsmob_stencil (tit))
+    title = *unsmob_stencil (tit);
+
+  if (!title.is_empty ())
+    title.align_to (Y_AXIS, UP);
+  
+  return title;
+}
+
+  
+
+Stencil
+Paper_book::score_title (int i)
+{
+  SCM title_func = bookpaper_->lookup_variable (ly_symbol2scm ("score-title"));
 
   Stencil title;
 
@@ -247,22 +276,26 @@ Paper_book::title (int i)
 
   if (ly_c_module_p (score_lines_[i].header_))
     scopes = scm_cons (score_lines_[i].header_, scopes);
-   //end ugh
-  
-  SCM s = ly_modules_lookup (scopes, field, SCM_BOOL_F);
-  if (s != SCM_BOOL_F)
-    title = *unsmob_stencil (scm_call_2 (user_title,
-					 bookpaper_->self_scm (),
-					 s));
-  else
-    title = *unsmob_stencil (scm_call_2 (i == 0 ? book_title : score_title,
-					 bookpaper_->self_scm (),
-					 scopes));
+  //end ugh
+
+  SCM tit = SCM_EOL;
+  if (ly_c_procedure_p (title_func))
+    tit =scm_call_2 (title_func,
+		     bookpaper_->self_scm (),
+		     scopes);
+
+  if (unsmob_stencil (tit))
+    title = *unsmob_stencil (tit);
+
+
   if (!title.is_empty ())
     title.align_to (Y_AXIS, UP);
   
   return title;
 }
+
+  
+
 
 /* calculate book height, #lines, stencils.  */
 void
@@ -273,9 +306,13 @@ Paper_book::init ()
   /* Calculate the full book height.  Hmm, can't we cache system
      heights while making stencils?  */
   height_ = 0;
+  Stencil btitle = book_title ();
+  if (!btitle.is_empty ())
+    height_ += btitle.extent (Y_AXIS).length ();
+  
   for (int i = 0; i < score_count; i++)
     {
-      Stencil title = this->title (i);
+      Stencil title = score_title (i);
       if (!title.is_empty ())
 	height_ += title.extent (Y_AXIS).length ();
 
@@ -313,15 +350,20 @@ Paper_book::lines ()
 {
   if (ly_c_pair_p (lines_))
     return lines_;
-      
+
+  Stencil title = book_title ();      
+  if (!title.is_empty ())
+    lines_ = scm_cons (stencil2line (title, true), lines_);
+  
   int score_count = score_lines_.size ();
   for (int i = 0; i < score_count; i++)
     {
-      Stencil title = this->title (i);      
+      Stencil title = score_title (i);      
       if (!title.is_empty ())
 	lines_ = scm_cons (stencil2line (title, true), lines_);
 
-      lines_ = scm_append (scm_list_2 (scm_vector_to_list (score_lines_[i].lines_), lines_));
+      SCM line_list = scm_vector_to_list (score_lines_[i].lines_); // guh.
+      lines_ = scm_append (scm_list_2 (scm_reverse (line_list), lines_));
     }
   
   lines_ = scm_reverse (lines_);

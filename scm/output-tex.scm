@@ -7,13 +7,14 @@
 
 
 ;; (debug-enable 'backtrace)
+
+;; the public interface is tight.
+;; It has to be, because user-code is evalled with this module.
+
 (define-module (scm output-tex)
   #:re-export (quote)
-  #:export (define-fonts
-	     font-command
+  #:export (font-command
 	     unknown
-	     output-paper-def
-	     output-scopes
 	     blank
 	     dot
 	     beam
@@ -25,11 +26,7 @@
 	     symmetric-x-triangle
 	     ez-ball
 	     comment
-	     end-output
-	     experimental-on
 	     repeat-slash
-	     header-end
-	     header
 	     placebox
 	     bezier-sandwich
 	     horizontal-line
@@ -64,12 +61,13 @@
    (string-encode-integer
     (inexact->exact (round (* 1000 (ly:font-magnification font)))))))
 
+
 (define (unknown) 
   "%\n\\unknown\n")
 
 (define-public (symbol->tex-key sym)
   (regexp-substitute/global
-   #f "_" (output-tex-string (symbol->string sym)) 'pre "X" 'post) )
+   #f "_" (sanitize-tex-string (symbol->string sym)) 'pre "X" 'post) )
 
 (define (string->param string)
   (string-append "{" string "}"))
@@ -127,24 +125,7 @@
 (define (ez-ball c l b)
   (embedded-ps (list 'ez-ball  c  l b)))
 
-(define (header-to-file fn key val)
-  (set! key (symbol->string key))
-  (if (not (equal? "-" fn))
-      (set! fn (string-append fn "." key))
-      )
-  (display
-   (format "Writing header field `~a' to `~a'..."
-	   key
-	   (if (equal? "-" fn) "<stdout>" fn)
-	   )
-   (current-error-port))
-  (if (equal? fn "-")
-      (display val)
-      (display val (open-file fn "w"))
-  )
-  (display "\n" (current-error-port))
-  ""
-  )
+
 
 (define (embedded-ps expr)
   (let ((ps-string
@@ -168,7 +149,7 @@
   (embedded-ps (list 'repeat-slash  w a t)))
 
 
-(define-public (output-tex-string s) ;; todo: rename
+(define-public (sanitize-tex-string s) ;; todo: rename
    (if (ly:get-option 'safe)
       (regexp-substitute/global #f "\\\\"
 				(regexp-substitute/global #f "([{}])" "bla{}" 'pre  "\\" 1 'post )
@@ -179,9 +160,9 @@
 (define (lily-def key val)
   (let ((tex-key
 	 (regexp-substitute/global
-	      #f "_" (output-tex-string key) 'pre "X" 'post))
+	      #f "_" (sanitize-tex-string key) 'pre "X" 'post))
 	 
-	(tex-val (output-tex-string val)))
+	(tex-val (sanitize-tex-string val)))
     (if (equal? (sans-surrounding-whitespace tex-val) "")
 	(string-append "\\let\\" tex-key "\\undefined\n")
 	(string-append "\\def\\" tex-key "{" tex-val "}%\n"))))
@@ -225,7 +206,6 @@
        ;; LaTeX gets in the way, and we need to remap
        ;; nonprintable chars.
        
-
        (input-enc-name #f) ;; (assoc-get 'input-name (ly:font-encoding-alist font) ))
        )
 
@@ -233,7 +213,7 @@
 		   (if (string? input-enc-name)
 		       (string-append "\\inputencoding{" input-enc-name "}")
 		       "{}")
-		   (output-tex-string
+		   (sanitize-tex-string
 		    (if (vector? mapping)
 			(reencode-string mapping s)
 			s))

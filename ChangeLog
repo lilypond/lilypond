@@ -1,5 +1,16 @@
 2004-05-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/ly-module.cc (LY_DEFINE): bugfix.
+
+	* lily/paper-book.cc (book_title): separate function for the book
+	title.
+
+	* scm/page-layout.scm (default-book-title): only account for
+	markup fields.
+
+	* scm/framework-ps.scm: new file. Move high level interface from
+	output-ps.scm
+
 	* scm/music-functions.scm (def-grace-function): move macros from
 	ly/music-functions-init.ly
 

@@ -244,17 +244,18 @@ Score::book_rendering (String outname,
 	  scaled = def->self_scm ();
 	  scm_gc_unprotect_object (scaled);
 	}
+
+      /*
+	TODO: fix or junk --no-paper.
+	*/
       
-      if (!(no_paper_global_b && dynamic_cast<Output_def*> (def)))
+      SCM context = ly_run_translator (music_, def->self_scm ());
+      if (dynamic_cast<Global_context*> (unsmob_context (context)))
 	{
-	  SCM context = ly_run_translator (music_, def->self_scm ());
-	  if (dynamic_cast<Global_context*> (unsmob_context (context)))
+	  SCM s = ly_format_output (context, out);
+	  if (s != SCM_UNDEFINED)
 	    {
-	      SCM s = ly_format_output (context, out);
-	      if (s != SCM_UNDEFINED)
-		{
-		  systems = s;
-		}
+	      systems = s;
 	    }
 	}
 

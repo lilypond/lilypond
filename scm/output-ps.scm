@@ -19,8 +19,6 @@
   #:re-export (quote)
   #:export (define-fonts
 	     unknown
-	     output-paper-def
-	     output-scopes
 	     select-font
 	     blank
 	     dot
@@ -62,10 +60,6 @@
 	     (srfi srfi-13)
 	     (lily))
 
-;;; Global vars
-(define page-count 0)
-(define page-number 0)
-
 ;;; helper functions, not part of output interface
 (define (escape-parentheses s)
   (regexp-substitute/global #f "(^|[^\\])([\\(\\)])" s 'pre 1 "\\" 2 'post))
@@ -78,7 +72,7 @@
   (escape-parentheses text))
 
 ;; FIXME: lily-def
-(define (ps-string-def prefix key val)
+(define-public (ps-string-def prefix key val)
   (string-append "/" prefix (symbol->string key) " ("
 		 (escape-parentheses val)
 		 ") def\n"))
@@ -88,9 +82,6 @@
 	       (ly:number->string val)
 	       (ly:number->string (exact->inexact val)))))
     (string-append "/" prefix (symbol->string key) " " s " def\n")))
-
-(define (tex-font? fontname)
-  (equal? (substring fontname 0 2) "cm"))
 
 
 ;;;
@@ -118,7 +109,7 @@
 
 (define (char font i)
   (string-append 
-    (font-command font) " setfont " 
+    (ps-font-command font) " setfont " 
    "(\\" (ly:inexact->string i 8) ") show" ))
 
 (define (comment s)
@@ -147,7 +138,9 @@
    (ly:number->string (* 10 thick))
    " ] 0 draw_dashed_slur"))
 
-(define (font-command font . override-coding)
+; todo: merge with tex-font-command?
+
+(define-public (ps-font-command font . override-coding)
   (let* ((name (ly:font-filename font))
 	 (magnify (ly:font-magnification font))
 	 (coding-alist (ly:font-encoding-alist font))
@@ -168,74 +161,6 @@
      "magfont" (string-encode-integer (hashq  name 1000000))
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify))))
      (if (not coding-command) "" (string-append "e" coding-command)))))
-
-(define (define-fonts bookpaper)
-
-  (define font-list (ly:bookpaper-fonts bookpaper))
-  (define (define-font command fontname scaling)
-    (string-append
-     "/" command " { /" fontname " findfont "
-     (ly:number->string scaling) " output-scale div scalefont } bind def\n"))
-
-  (define (reencode-font plain encoding command)
-    (let ((coding-vector (get-coding-command encoding)))
-      (string-append
-       plain " " coding-vector " /" command " reencode-font\n"
-       "/" command "{ /" command " findfont 1 scalefont } bind def\n")))
-  
-  (define (guess-ps-fontname basename)
-    "We do not have the FontName, try to guess is from basename."
-    (cond
-     ((tex-font? basename)
-      ;; FIXME: we need proper Fontmap for the bluesky CM*, EC* fonts.
-      ;; Only the fonts that we trace in mf/ are in our own FontMap.
-      (string-append basename ".pfb"))
-     (else (string-append basename ".pfa"))
-     ))
-
-  (define (font-load-command font)
-    (let* ((specced-font-name (ly:font-name font))
-	   (fontname (if specced-font-name
-			 specced-font-name
-			 (guess-ps-fontname (ly:font-filename font))))
-	   
-	   (coding-alist (ly:font-encoding-alist font))
-	   (input-encoding (assoc-get 'input-name coding-alist))
-	   (font-encoding (assoc-get 'output-name coding-alist))
-	   (command (font-command font))
-	   ;; FIXME -- see (font-command )
-	   (plain (font-command font #f))
-	   (designsize (ly:font-design-size font))
-	   (magnification (* (ly:font-magnification font)))
-	   (ops (ly:output-def-lookup bookpaper 'outputscale))
-	   (scaling (* ops magnification designsize)))
-
-      (string-append
-       (define-font plain fontname scaling)
-       (if (or (equal? input-encoding font-encoding)
-	       ;; guh
-	       (equal? font-encoding "fetaBraces")
-	       (equal? font-encoding "fetaNumber")
-	       (equal? font-encoding "fetaMusic")
-	       (equal? font-encoding "parmesanMusic"))
-	       ""
-	   (reencode-font plain input-encoding command)))))
-  
-  (define (font-load-encoding encoding)
-    (let ((filename (get-coding-filename encoding)))
-      (ly:kpathsea-gulp-file filename)))
-
-  (let* ((encoding-list (map (lambda (x)
-			       (assoc-get 'input-name
-					  (ly:font-encoding-alist x)))
-			     font-list))
-	 (encodings (uniq-list (sort-list (filter string? encoding-list)
-					  string<?))))
-
-    (string-append
-     (apply string-append (map font-load-encoding encodings))
-     (apply string-append
-	    (map (lambda (x) (font-load-command x)) font-list)))))
 
 (define (define-origin file line col) "")
 
@@ -268,26 +193,6 @@
   (string-append (ly:numbers->string (list breapth width depth height))
 		 " draw_box"))
 
-(define (header creator time-stamp paper page-count- classic?)
-  (set! page-count page-count-)
-  (set! page-number 0)
-  (string-append
-   "%!PS-Adobe-3.0\n"
-   "%%Creator: " creator " " time-stamp "\n"
-   "%%Pages: " (number->string page-count) "\n"
-   "%%PageOrder: Ascend\n"
-   "%%DocumentPaperSizes: " (ly:output-def-lookup paper 'papersize) "\n"
-   ;;(string-append "GNU LilyPond (" (lilypond-version) "), ")
-   ;;	   (strftime "%c" (localtime (current-time))))
-   ;; FIXME: duplicated in every backend
-   (ps-string-def
-    "lilypond" 'tagline
-    (string-append "Engraved by LilyPond (version " (lilypond-version) ")"))
-   ))
-
-(define (header-end)
-  "")
-
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)
   (draw-line th x1 0 x2 0))
@@ -302,58 +207,7 @@
 
 (define (no-origin) "")
 
-;; FIXME: duplictates output-scopes, duplicated in other backends
-;; FIXME: silly interface name
-(define (output-paper-def pd)
-  (let ((prefix "lilypondpaper"))
-    
-    (define (scope-entry->string key var)
-      (if (variable-bound? var)
-	  (let ((val (variable-ref var)))
-	    (cond
-	     ((string? val) (ps-string-def prefix key val))
-	     ((number? val) (ps-number-def prefix key val))
-	     (else "")))
-	  ""))
-      
-    (apply
-     string-append
-     (module-map scope-entry->string (ly:output-def-scope pd)))))
 
-;; FIXME: duplicated in other output backends
-;; FIXME: silly interface name
-(define (output-scopes paper scopes fields basename)
-  (let ((prefix "lilypond"))
-
-    ;; FIXME: duplicates output-paper's scope-entry->string, mostly
-    (define (value->string  val)
-      (cond
-       ((string? val) (string-append "(" val ")"))
-       ((symbol? val) (symbol->string val))
-       ((number? val) (number->string val))
-       (else "")))
-      
-    (define (output-entry ps-key ly-key)
-      (string-append
-       "/" ps-key " " (value->string (ly:output-def-lookup paper ly-key)) " def \n"))
-
-    
-    (string-append
-     "/lily-output-units 2.83464  def  %% milimeter \n"
-     "% /lily-output-units 0.996264  def  %% true points.\n"
-     (output-entry "staff-line-thickness" 'linethickness)
-     (output-entry "line-width" 'linewidth)
-     (output-entry "paper-size" 'papersize)
-     (output-entry "staff-height" 'staffheight)	;junkme.
-     "/output-scale "
-     (number->string (ly:output-def-lookup paper 'outputscale))
-     " lily-output-units mul def \n"
-     
-     (ly:gulp-file "music-drawing-routines.ps")
-     (ly:gulp-file "lilyponddefs.ps")
-
-    )))
-  
 
 (define (placebox x y s) 
   (string-append 
@@ -376,19 +230,11 @@
     (ly:numbers->string
      (list x y width height blotdiam)) " draw_round_box"))
 
-(define (start-system origin dim)
-  (string-append
-   "\n" (ly:number-pair->string origin) " start-system\n"
-   "{\n"
-   "set-ps-scale-to-lily-scale\n"))
 
 (define (stem breapth width depth height) ; FIXME: use draw_round_box.
   (string-append
    (ly:numbers->string (list breapth width depth height))
    " draw_box" ))
-
-(define (stop-system last?)
-  "} stop-system\n")
 
 (define (symmetric-x-triangle thick w h)
   (string-append
@@ -424,7 +270,7 @@
      (string-append  s " "))
 
     (string-append
-     (font-command font) " setfont "
+     (ps-font-command font) " setfont "
      (string-join (reverse commands)))
     ))
   
@@ -441,14 +287,3 @@
     (ly:number->string dx) " "
     (ly:number->string dy)
     " draw_zigzag_line"))
-
-(define (start-page)
-  (set! page-number (+ page-number 1))
-  (string-append
-   "%%Page: " (number->string page-number) " " (number->string page-count) "\n"
-  "start-page\n"))
-
-(define (stop-page last?)
-  (if last?
-      "\nstop-last-page\n"
-      "\nstop-page\n"))

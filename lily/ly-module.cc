@@ -135,7 +135,7 @@ LY_DEFINE(ly_modules_lookup, "ly:modules-lookup",
 	  "Lookup @var{sym} in the list @var{modules}, returning the "
 	  "first occurence. If not found, return @var{default}, or @code{#f}.")
 {
-  for (SCM s = modules; SCM_MODULEP (s); s = ly_cdr (s))
+  for (SCM s = modules; ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM mod = ly_car (s);      
       SCM v = scm_sym2var (sym, scm_module_lookup_closure (mod), SCM_UNDEFINED);
