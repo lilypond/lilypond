@@ -8,7 +8,6 @@ texidoc = "New markup syntax."
 \score {
   \notes
    {
-    \property Voice.TextScript \set #'molecule-callback = #brew-new-markup-molecule
     f'-\markup {
 		foo
 		\raise #0.2 \hbracket \bold bar
