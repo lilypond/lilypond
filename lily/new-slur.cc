@@ -10,6 +10,7 @@
 
 #include <math.h>
 
+#include "bezier.hh"
 #include "new-slur.hh"
 #include "main.hh"
 #include "font-interface.hh"
@@ -21,8 +22,6 @@
 #include "note-column.hh"
 #include "output-def.hh"
 #include "rod.hh"
-#include "slur-bezier-bow.hh"
-#include "slur.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"

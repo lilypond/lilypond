@@ -51,17 +51,7 @@ called first.  The functions take a grob and axis argument. ")
      (arch-width ,ly:dimension? "Width of the hook of a system brace.")
      (arpeggio-direction ,ly:dir? "If set, put an
 arrow on the arpeggio squiggly line.")
-     (attachment ,pair? "Pair of symbols
-indicating how a slur should be attached at the ends. The format is
-'(@var{left-type} . @var{right-type}), where both @var{type}s are
-symbols. The values of these symbols may be @code{alongside-stem},
-@code{stem}, @code{head} or @code{loose-end}.")
-     (attachment-offset ,pair? "cons of offsets,
-'(@var{left-offset} . @var{right-offset}).  This offset is added to
-the attachments to prevent ugly slurs.  [fixme: we need more
-documentation here].")
-
-
+  
      (auto-knee-gap ,ly:dimension? "If a gap is found between note heads
 where a  horizontal beam fits that is larger than this number,  make a kneed beam.")
      (axes ,list? "list of axis numbers.
@@ -101,7 +91,6 @@ note etc. This information is used to determine how to connect the
 beaming patterns from stem to stem inside a beam.")
 
 
-     (beautiful ,number? "number that dictates when a slur should be de-uglyfied.  It correlates with the enclosed area between noteheads and slurs.  A value of 0.1 yields only undisturbed slurs, a value of 5 will tolerate quite high blown slurs.")
      (before-line-breaking-callback ,procedure? "This procedure is
 called before line breaking, but after splitting breakable items at
 potential line breaks.")
@@ -197,7 +186,7 @@ the vertical edges '(@var{left-height} . @var{right-height}).")
 edges '(@var{left-text} . @var{right-text}).")
      (excentricity ,number? "How asymmetrical to make a slur. Positive means move the center to the right.")
      
-(expand-limit ,integer? "maximum number of measures expanded in church rests.")
+     (expand-limit ,integer? "maximum number of measures expanded in church rests.")
 
      ;; remove me? 
      (extra-X-extent ,number-pair? "A grob is enlarged in X dimension
@@ -211,16 +200,6 @@ by this much.")
 offset is added just before outputting the symbol, so the typesetting
 engine is completely oblivious to it.")
 
-      ;; docme.
-     (extremity-offset-alist ,list? "The offset adds to the centre of
-the note head, or stem.
-
-Format: alist (attachment stem-dir*dir slur-dir*dir) -> offset.
-")
-
-     ;;
-     (extremity-function ,procedure? "A function that calculates the
-attachment of  a slur-end. The function takes a slur and direction argument and returns a symbol.")  
      (finger-code ,symbol? "Code for the type of fingering indication in a
 fret diagram.  Options include @code{none}, @code{in-dot}, and @code{below-string}.")
      (flag-style ,symbol?
@@ -416,8 +395,6 @@ note that starts here.")
 object.")
      (size ,number? "Size of object, relative to standard size.")
      (slope ,number? "The slope of this object.")
-     (slope-limit ,number? "Set slope to zero if slope is running away
-steeper than this.")
      (slur-details ,list?
 		   "An alist of scoring parameters for slur formatting")
      (space-alist ,list? "A table that specifies distances between
@@ -443,12 +420,6 @@ expressed in global staffspace.")
 staff spaces, counted from the middle line.")
      (staffline-clearance ,ly:dimension? "How far away ties keep from
 staff lines.")
-
-     (stem-attachment-function ,procedure? "A function that calculates
-where a stem attaches to the note head? This is a fallback when this
-information is not specified in the font.  The function takes a grob
-and axis argument, and returns a (@var{x} . @var{y}) pair, specifying
-location in terms of note head bounding box.")
 
      (stem-end-position ,number? "Where does the stem end (the end is opposite to the support-head.")
 
@@ -503,8 +474,6 @@ happen?")
 words in texts.")
      (width ,ly:dimension? "The width of a grob measured in staff space.")
      (x-gap ,ly:dimension? "The horizontal gap between note head and tie.")
-     (y-free ,ly:dimension? "The minimal vertical gap between slur and
-note heads or stems.")
      (y-offset ,ly:dimension? "Extra vertical offset for ties away
 from the center line.")
      (zigzag-length ,ly:dimension? "The length of the lines of a
@@ -629,9 +598,6 @@ functions set spanner positions.")
      ;; [TODO: change this]
      (primitive ,integer? "Pointer to a ligature primitive, i.e. an item similar to a note head that is part of a ligature. ")
      (stencil ,ly:stencil? "Cached output of the print-function.")
-     (de-uglify-parameters ,list? "list of 3 real constants. They
-define the valid areas for the middle control points.  They are
-empirical.")
      (ideal-distances ,list? "(@var{obj} . (@var{dist} . @var{strength})) pairs.")
      (minimum-distances ,list? "list of rods, that have the format (@var{obj} . @var{dist}).")
 

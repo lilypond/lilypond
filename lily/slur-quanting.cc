@@ -19,7 +19,7 @@
 #include "note-column.hh"
 #include "output-def.hh"
 #include "pitch.hh"
-#include "slur-bezier-bow.hh"
+#include "bezier.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"

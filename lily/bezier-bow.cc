@@ -8,7 +8,6 @@
 
 #include <math.h>
 
-#include "bezier-bow.hh"
 #include "misc.hh"
 #include "bezier.hh"
 

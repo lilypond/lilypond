@@ -204,7 +204,6 @@
 	;; sadly possibly breaking patterns with high order beams.
 	(beamed-stem-shorten . (1.0 0.5 0.25))
 	
-	(slope-limit . 0.2)
 	(flag-width-function . ,beam-flag-width-function)
 	(damping . 1)
 	(auto-knee-gap . 5.5)
