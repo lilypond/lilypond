@@ -8,6 +8,7 @@
   some code shamelessly copied from GNU fontutils-0.6/tfm/tfm_input.c
  */
 
+#include "file-name.hh"
 #include "tfm.hh"
 #include "tfm-reader.hh"
 #include "string-convert.hh"
@@ -98,7 +99,15 @@ Tex_font_metric::make_tfm (String file_name)
   tfm->char_metrics_ = reader.char_metrics_;
   tfm->ascii_to_metric_idx_ = reader.ascii_to_metric_idx_;
 
+  File_name fn (file_name);
+  tfm->font_name_ = fn.base_;
   return tfm->self_scm ();
+}
+
+Tfm_info const &
+Tex_font_metric::info () const
+{
+  return info_;
 }
 
 Real
@@ -107,8 +116,14 @@ Tex_font_metric::design_size () const
   return info_.design_size * point_constant;
 }
 
+String
+Tex_font_metric::font_name () const
+{
+  return font_name_;
+}
+
 int
-Tex_font_metric::name_to_index (String s) const
+Tex_font_metric::name_to_index (String) const
 {
   assert (false);
 }

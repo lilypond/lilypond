@@ -99,8 +99,8 @@
       ;; FIXME - don't support Bluesky? 
       (if (standard-tex-font? fontname)
 	  (set! fontname (string-upcase fontname)))
-      
-      
+      (if (equal? fontname "unknown")
+	  (display (list font fontname)))
       (define-font plain fontname scaling)))
 
   (apply string-append

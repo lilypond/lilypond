@@ -269,9 +269,7 @@
   (let* ((space-length (cdar (ly:text-dimension font " ")))
 	 (space-move (string-append (number->string space-length)
 				    " 0.0 rmoveto "))
-	 (input-enc (assoc-get 'input-name
-			       (ly:font-encoding-alist font)
-			       'latin1))
+	 (input-enc 'latin1)
 	 (out-vec (decode-byte-string input-enc s)))
 
     (string-append
@@ -289,7 +287,7 @@
 ;;(define text old-text)
 (define (text font str)
   (ly:warn "TEXT backend-command encountered in Pango backend\nargs: ~a ~a" font str)
-  "")
+  (new-text font str))
 
 ;; FIXME: BARF helvetica?
 (define (white-text scale s)
