@@ -19,20 +19,28 @@
 INLINE void 
 String_handle::down () 
 { 
-  if (! (--data->references)) delete data; data = 0; 
+  if (! (--data->ref_count_))
+    delete data;
+  data = 0; 
 }
 
-/// increase ref count
+/*
+  increase ref count
+
+  THIS does not have to be initialized.
+*/
+
 INLINE void 
 String_handle::up (String_data *d) 
 { 
-  data=d; data->references ++; 
+  data=d;
+  data->ref_count_ ++; 
 }
 
 INLINE void 
 String_handle::copy () 
 {
-  if (data->references !=1)
+  if (data->ref_count_ !=1)
     {
       String_data *newdata = new String_data (*data);
       down ();

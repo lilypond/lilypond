@@ -30,7 +30,7 @@ class String_handle {
   void up (String_data *d);
     
   /** make sure data has only one reference.      
-      POST: data->references == 1
+      POST: data->ref_count_ == 1
   */
   void copy ();
     
