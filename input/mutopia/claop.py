@@ -273,7 +273,7 @@ sys.stdout.write (r"""
     \notes <
 	\property Score.BarNumber \override #'padding = #2.5
 	\property Score.autoBeamSettings \override
-	  #'(end * * * *) = #(make-moment 1 4)
+	  #'(end * * * *) = #(ly:make-moment 1 4)
 	\property Score.skipBars = ##t
 	\context StaffGroup <
 	    \property StaffGroup.Stem \override #'direction = #1
