@@ -1,5 +1,8 @@
 version 1.1:
 
+pl 22:
+	- ACursor and PACursor to give array a List like interface.
+
 pl 21:
 pl 20.mb
 	- bf: Warning about NPRINT only if debugging requested.
