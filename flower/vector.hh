@@ -16,6 +16,7 @@ public:
     void OK() const { dat.OK();}
     int dim() const { return dat.size(); }
     Vector() { }
+    Vector(Array<Real> d );
     Vector(const Vector&n);
     Vector(int n) {
 	dat.set_size(n);

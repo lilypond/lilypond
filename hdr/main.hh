@@ -10,6 +10,6 @@ void set_default_output(String s);
 Input_score* current_iscore_l();
 String find_file(String);
 const char *get_version();
-extern Source* source_l;
+extern Source* source_global_l;
 
 #endif

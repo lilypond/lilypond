@@ -22,7 +22,9 @@ struct Request {
     
     virtual Moment duration() const { return 0; }
 
-    /*  accessors for children */
+    /*  accessors for children
+	maybe checkout RTTI
+     */
     virtual Barcheck_req *barcheck() { return 0; }
     virtual Note_req *note() {return 0;}
     virtual Script_req *script() {return 0;}
@@ -40,6 +42,8 @@ struct Request {
     virtual Terminate_voice_req *terminate() {return 0;}
     virtual Group_change_req * groupchange() { return 0;}
     virtual Group_feature_req * groupfeature() { return 0; }
+    virtual Spacing_req * spacing() { return 0; }
+    virtual Blank_req * blank() { return 0; }
 protected:
     virtual void do_print()const ;
 };
@@ -87,6 +91,18 @@ struct Rhythmic_req : virtual Request {
     REQUESTMETHODS(Rhythmic_req, rhythmic);
 };
 
+struct Spacing_req :virtual Request {
+    Moment next;
+    Real distance;
+    Real strength;
+    /****************/
+    REQUESTMETHODS(Spacing_req, spacing);
+};
+
+struct Blank_req : Spacing_req, Rhythmic_req {
+    REQUESTMETHODS(Spacing_req, spacing);
+    
+};
 
 ///Put a text above or below (?) this staff.
 struct Text_req : virtual Request {
@@ -307,11 +323,6 @@ struct Grace_note : Melodic_req {
 
 struct Grace_notes {
     
-};
-
-struct Spacing_req {
-    Moment next;
-    Real distance;
 };
 
 struct Glissando_req : Span_req {

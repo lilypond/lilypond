@@ -11,14 +11,14 @@ void
 Script::set_stem(Stem*st_l)
 {
     stem_l_ = st_l;
-    dependencies.push(st_l);
+    add_depedency(st_l);
 }
 
 void
 Script::set_support(Item*i)
 {
     support.push(i);
-    dependencies.push(i);
+    add_depedency(i);
 }
 
 Script::Script(Script_req* rq, int staflen)
@@ -68,7 +68,7 @@ Script::set_default_pos()
 	Interval v= support_height();
 	y = v[dir]  -dy[-dir] + 2*dir*inter_f;
     } else {
-	Real y  = (d > 0) ? staffsize + 2: -2; // ug
+	y  = (d > 0) ? staffsize + 2: -2; // ug
 	y *=inter_f;
 	Interval v= support_height();
 
@@ -78,6 +78,7 @@ Script::set_default_pos()
 	    y = y <? v.min();
 	}
     }
+    
     if (stem_l_) {
 	Interval v= stem_l_->height();
 

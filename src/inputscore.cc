@@ -36,7 +36,7 @@ Input_score::parse()
 {
     Paperdef* paper_p=new Paperdef(*paper_);
     Score *s_p = new Score(paper_p);
-    s_p->define_spot_str_ = define_spot_str_;
+    s_p->defined_ch_c_l_= defined_ch_c_l_;
     s_p->errorlevel_i_ = errorlevel_i_;
     Array<Staff*> parsed_staffs;
     for (iter_top(staffs_,i); i.ok(); i++) {
@@ -60,6 +60,7 @@ Input_score::~Input_score()
 
 Input_score::Input_score()
 {
+    defined_ch_c_l_=0;
     paper_= 0;
     errorlevel_i_ = 0;
 }

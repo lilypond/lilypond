@@ -55,6 +55,7 @@ score {
 			key $bes es as$
 		}
 	}
+	staff { basstaf }
 	commands { 
 		meter 4*4
 		skip 8:0

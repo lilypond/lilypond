@@ -1,3 +1,8 @@
+/*
+
+  TODO:
+  think about crossing stems.
+ */
 #include "slur.hh"
 #include "scalar.hh"
 #include "lookup.hh"
@@ -31,7 +36,7 @@ void
 Slur::add(Notehead*n)
 {
     encompass.push(n);
-    dependencies.push(n);
+    add_depedency(n);
 }
 
 void

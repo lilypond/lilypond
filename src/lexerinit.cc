@@ -38,7 +38,7 @@ Input_file::Input_file(String s)
     }
     else {
 	Source_file* sourcefile_p = new Source_file( pf );
-	source_l->add( sourcefile_p );
+	source_global_l->add( sourcefile_p );
 	sourcefile_l_ = sourcefile_p;
 	is = sourcefile_l_->istream_l();
     }

@@ -28,8 +28,6 @@ SMALLISH PROJECTS
 
 	* make spanner for staffsym
 	
-	* Lyric_req: Text_req, Rhythmic_req
-	
 	* Lookup::tex_glissando, Lookup::tex_bracket,
 	Lookup::tex_cresc, Lookup::tex_decresc (use texbeam.cc as an
 	example.)
@@ -64,7 +62,6 @@ DOC
 
 	* beam generation.
 
-	* Request_register
 
 	* all errors
 

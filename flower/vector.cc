@@ -1,7 +1,11 @@
 #include "vector.hh"
-
+Vector::Vector(Array<Real> d)
+       : dat(d)
+{
+ 
+}
 Vector::Vector(const Vector&n)
-          :dat(n.dat)
+    : dat(n.dat)
 {
 }    
 

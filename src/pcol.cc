@@ -97,7 +97,7 @@ PCol::PCol(PCol *parent)
     prebreak_p_=0;
     postbreak_p_=0;
     line_l_=0;
- 
+    hpos = -1.0;
     pscore_l_ = 0;
 }
 

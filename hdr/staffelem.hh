@@ -15,12 +15,12 @@ struct Staff_elem {
     enum Status {
 	ORPHAN,			// not yet added to pstaff
 	VIRGIN,			// added to pstaff
+	PRECALCING,
 	PRECALCED,		// calcs before spacing done
+	POSTCALCING,
 	POSTCALCED,		// after spacing calcs done
 	OUTPUT,			// molecule has been output
     } status;
-    bool calc_children;
-    Array<Staff_elem*> dependencies;
     
     ///  the pstaff it is in
     PStaff *pstaff_l_;
@@ -43,6 +43,8 @@ struct Staff_elem {
     virtual const char *name() const;		// to find out derived classes.
     virtual Spanner* spanner()  { return 0; }
     virtual Item * item() { return 0; }
+    void add_depedency(Staff_elem* );    
+    void substitute_dependency(Staff_elem* old, Staff_elem * newdep);
 protected:
     
     /// do printing of derived info.
@@ -57,6 +59,8 @@ protected:
     /// do calculations after determining horizontal spacing
     virtual void do_post_processing();
 
+    Array<Staff_elem*> dependants;
+
 private:
     /// member: the symbols
     Molecule *output;		// should scrap, and use temp var?
@@ -67,6 +71,7 @@ private:
       This is  needed, because #output# may still be
       NULL.
       */
+    Array<Staff_elem*> dependencies;
 };
 /** Both Spanner and Item are Staff_elem's. Most Staff_elem's depend
   on other Staff_elem's, eg, Beam needs to know and set direction of

@@ -1,5 +1,6 @@
 #include "timedescription.hh"
 #include "debug.hh"
+
 String
 Time_description::str()const
 {
@@ -57,7 +58,7 @@ Time_description::Time_description(Moment dt, Time_description const *prev)
     } else {    			// default 4/4
 	whole_per_measure = 1;
 	whole_in_measure =0;
-	one_beat = 0.25;
+	one_beat = Moment(1,4);
 	when = 0.0;
 	bars = 0;
 	cadenza_b_ = false;

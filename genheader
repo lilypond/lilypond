@@ -8,10 +8,15 @@ cat << HERE
   (c) 1997 $USERNAME <$MAILADRESS>
 */
 
+HERE
+
+if [ $1 != `basename .hh` ]
+then
+cat <<EOF
 #ifndef $def
 #define $def
 
 
 #endif // $def
-
-HERE
+EOF
+fi

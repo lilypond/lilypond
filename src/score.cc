@@ -5,7 +5,9 @@
 #include "staff.hh"
 #include "debug.hh"
 #include "paper.hh"
-
+#include "main.hh"
+#include "source.hh"
+#include "sourcefile.hh"
 
 void
 Score::process()
@@ -14,7 +16,7 @@ Score::process()
     
     assert (paper_p_);
     if (last() == Moment(0)) {
-	error("Need to have music in a score.");
+	warning("Need to have music in a score.", defined_ch_c_l_);
     }
     // distribute commands to disciples
     pscore_p_ = new PScore(paper_p_);
@@ -161,6 +163,7 @@ Score::Score(Paperdef*p)
     pscore_p_=0;
     paper_p_ = p;		// ?? safe?
     errorlevel_i_ = 0;
+    defined_ch_c_l_ = 0;
 }
 
 Score::~Score()
@@ -185,7 +188,10 @@ Score::output(String s)
     *mlog << "output to " << paper_p_->outfile << "...\n";
     
     Tex_stream the_output(paper_p_->outfile);
-    the_output << "% outputting Score, defined at: " << define_spot_str_ << "\n";
+    
+    the_output << "% outputting Score, defined at: " <<
+	source_global_l->
+	sourcefile_l (defined_ch_c_l_)->file_line_no_str(defined_ch_c_l_) << "\n";
     pscore_p_->output(the_output);
 }
 

@@ -19,7 +19,7 @@
 #endif
 
 Array<Request*> pre_reqs, post_reqs;
-sstack<String> define_spots;
+sstack<const char *> define_spots;
 Paperdef*default_paper();
 char const* defined_ch_c_l;
 char const* req_defined_ch_c_l;
@@ -195,10 +195,10 @@ notename_tab_body:				{
 	SCORE
 */
 score_block: SCORE 
-		{ define_spots.push(lexer->spot()); }
+		{ define_spots.push(lexer->here_ch_c_l()); }
 	'{' score_body '}' 	{
 		$$ = $4;
-		$$->define_spot_str_ = define_spots.pop();
+		$$->defined_ch_c_l_ = define_spots.pop();
 		if (!$$->paper_)
 			$$->paper_ = default_paper();
 
@@ -333,10 +333,10 @@ paper_body:
 	STAFFs
 */
 staff_block:
-	STAFF 	{ define_spots.push(lexer->spot()); }
+	STAFF 	{ define_spots.push(lexer->here_ch_c_l()); }
 /*cont*/	'{' staff_body '}' 	{
 		$$ = $4; 
-		$$->define_spot_str_ = define_spots.pop();
+		$$-> defined_ch_c_l_ = define_spots.pop();
 	}
 	;
 

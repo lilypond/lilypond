@@ -12,7 +12,7 @@
 #include "source.hh"
 
 Source source;
-Source* source_l = &source;
+Source* source_global_l = &source;
 
 extern void parse_file(String,String);
 

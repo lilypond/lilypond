@@ -2,7 +2,7 @@
 # sourcefiles to be shipped. Also for dependencies
 
 hdr=   bar.hh beam.hh boxes.hh break.hh clef.hh clefitem.hh\
-	command.hh complexwalker.hh complexstaff.hh\
+	colhpos.hh command.hh complexwalker.hh complexstaff.hh\
 	const.hh debug.hh dimen.hh directionalspanner.hh\
 	getcommand.hh glob.hh  grouping.hh idealspacing.hh\
 	identifier.hh identparent.hh inputcommand.hh inputcommands.hh\
@@ -24,7 +24,7 @@ hdr=   bar.hh beam.hh boxes.hh break.hh clef.hh clefitem.hh\
 	voicegroup.hh
 
 mycc=bar.cc beam.cc boxes.cc break.cc calcideal.cc clef.cc\
-	clefitem.cc command.cc complexstaff.cc complexwalker.cc \
+	clefitem.cc colhpos.cc command.cc complexstaff.cc complexwalker.cc \
 	 complexprint.cc debug.cc dimen.cc\
 	directionalspanner.cc\
 	getcommands.cc grouping.cc groupregs.cc idealspacing.cc identifier.cc\

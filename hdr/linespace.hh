@@ -40,6 +40,7 @@ class Spacing_problem {
 
     /// check if problem is too tight
     bool check_feasible() const;
+
     /// does #this# contain the column #w#? 
     bool contains(const PCol *w);
 

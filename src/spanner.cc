@@ -8,17 +8,16 @@ Spanner::do_print()const
 {
     mtor << " (unknown) ";
 }
+
 Spanner*
 Spanner::broken_at(PCol*c1, PCol *c2)const
 {
-    Spanner *me_p = (Spanner*)this;
     Spanner *span_p = do_break_at(c1,c2);
 
-    me_p->calc_children = true;
-    me_p->dependencies.push(span_p);
-
-    span_p->calc_children = false; // should handle in ctor
-
+    for (int i=0; i < dependants.size(); i++) {
+	dependants[i]->substitute_dependency((Staff_elem*)this, span_p); 
+    }
+    
     span_p->left = c1;
     span_p->right = c2;
     

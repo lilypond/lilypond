@@ -1,3 +1,17 @@
+pl 28
+
+Internal
+	- idealspacing slightly better for multivoice.
+Doc
+	- Request_register
+Bugfix
+	- Script.cc : float exception
+	- Request::Request(Request) copying of definition pointer
+	- cleaned dependencies for broken spanners
+	- stupid typo in Staff_elem::post_processing()
+	- init of hpos in PCol::PCol
+	- Word_wrap::solve() bug 
+
 pl 27
 	- preliminary WIN32 support (JN)
 Features

@@ -21,6 +21,7 @@ public:
     bool in_b( char const* pos_ch_c_l );
     int line_i( char const* pos_ch_c_l );
     String name_str();
+    String file_line_no_str(const char *ch_c_l );
 
 private:
     void close();
