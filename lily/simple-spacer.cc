@@ -268,7 +268,7 @@ LY_DEFINE(ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
 		   length, SCM_ARG3, __FUNCTION__, "number or #f");
 
 
-  bool is_ragged   = ragged == SCM_BOOL_T; 
+  bool is_ragged = ragged == SCM_BOOL_T; 
   Simple_spacer spacer; 
   for (SCM s = springs; scm_is_pair (s); s = scm_cdr (s))
     {

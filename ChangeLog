@@ -1,3 +1,15 @@
+2004-11-09  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/framework-gnome.scm (item-event): Print grob id.
+
+	* lily/context-property.cc (make_item_from_properties): Register grob.
+	* lily/context.cc (add_context): Register context.
+
+	* lily/include/context-selector.hh:
+	* lily/include/grob-selector.hh:
+	* lily/context-selector.cc:
+	* lily/grob-selector.cc: New file.
+
 2004-11-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/slur.cc: add 'positions to interface

@@ -72,15 +72,12 @@ Paper_column::Paper_column (SCM l)
 }
 
 Moment
-Paper_column::when_mom (Grob*me)
+Paper_column::when_mom (Grob *me)
 {
   SCM m = me->get_property ("when");
-  Moment s (0);
-  if (unsmob_moment (m))
-    {
-      return *unsmob_moment (m);
-    }
-  return s;
+  if (Moment *when = unsmob_moment (m))
+    return *when;
+  return Moment (0);
 }
 
 bool

@@ -151,4 +151,3 @@ SCM ly_grobs2scm (Link_array<Grob> a);
 Interval robust_relative_extent (Grob*, Grob*, Axis); 
 
 #endif /* GROB_HH */
-

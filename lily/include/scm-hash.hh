@@ -54,11 +54,12 @@ public:
   Scheme_hash_table (Scheme_hash_table const &);
 
   SCM to_alist () const;
+
 private:
   SCM hash_tab_;
   unsigned elt_count_;
   
-  DECLARE_SMOBS (Scheme_hash_table,foo);
+  DECLARE_SMOBS (Scheme_hash_table, foo);
 };
 
 

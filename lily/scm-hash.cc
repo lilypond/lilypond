@@ -4,8 +4,8 @@
   source file of the GNU LilyPond music typesetter
   
   (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
+
 #include <stdio.h>
 
 #include "scm-hash.hh"
@@ -58,6 +58,10 @@ Scheme_hash_table::operator = (Scheme_hash_table const & src)
   elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 
+Scheme_hash_table::~Scheme_hash_table ()
+{
+}
+
 SCM
 Scheme_hash_table::mark_smob (SCM s)
 {
@@ -89,7 +93,6 @@ Scheme_hash_table::try_retrieve (SCM k, SCM *v)
     }
   else
     return false;
-
 }
 
 bool
@@ -104,9 +107,7 @@ Scheme_hash_table::set (SCM k, SCM v)
   assert (scm_is_symbol (k));
   SCM handle = scm_hashq_create_handle_x (hash_tab_, k, SCM_UNDEFINED);
   if (scm_cdr (handle) == SCM_UNDEFINED)
-    {
-      elt_count_++;
-    }
+    elt_count_++;
   
   scm_set_cdr_x (handle, v);
 
@@ -135,31 +136,20 @@ void
 Scheme_hash_table::remove (SCM k)
 {
   scm_hashq_remove_x (hash_tab_, k);
-  /*
-    don't decrease elt_count_ , as this may cause underflow. The exact
-    value of elt_count_ is not important.
-   */
-}
-
-Scheme_hash_table::~Scheme_hash_table ()
-{
+  /* Do not decrease elt_count_ as this may cause underflow.  The exact
+     value of elt_count_ is not important. */
 }
 
 SCM
 Scheme_hash_table::to_alist () const
 {
-  SCM l = SCM_EOL;
+  SCM lst = SCM_EOL;
   for (int i = SCM_VECTOR_LENGTH (hash_tab_); i--;)
-    for (SCM s = scm_vector_ref (hash_tab_, scm_int2num (i)); scm_is_pair (s); s = scm_cdr (s))
-      {
-	l = scm_acons (scm_caar (s), scm_cdar (s), l);
-      }
-  return l;  
+    for (SCM s = scm_vector_ref (hash_tab_, scm_int2num (i)); scm_is_pair (s);
+	 s = scm_cdr (s))
+      lst = scm_acons (scm_caar (s), scm_cdar (s), lst);
+  return lst;
 }
-
-
-
-
 
 IMPLEMENT_SMOBS (Scheme_hash_table);
 IMPLEMENT_DEFAULT_EQUAL_P (Scheme_hash_table);
