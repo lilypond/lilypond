@@ -24,6 +24,7 @@ LilyPond.  perhaps lily/VERSION, i.e. without my-patch-level would be
 best...
 )url(Download)(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz)
 LilyPond.
+Or get the latest url(patch)(DOEXPAND(depth)/DOEXPAND(outdir)/lilypond-@TOPLEVEL_VERSION@.diff.gz).
 
 nsubsect(Introduction)
 
@@ -41,7 +42,8 @@ nsect(Sites)
 
 description(
 dit(lurl(http://www.cs.uu.nl/people/hanwen/lilypond/))Han-Wen's site.
-dit(lurl(http://www.digicash.com/~jan/lilypond/))Jan's site.
+dit(lurl(http://www.xs4all.nl/~jantien/lilypond/))Jan's site.
+dit(lurl(http://www.realtime.net/~daboys/lilypond/))Jeff's Windows NT Distribution site.
 )
 
 nsubsubsect(Mirrors)
@@ -66,8 +68,7 @@ verb(
 top_of_NEWS
 )
 
-
-Go get it at  lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/)
+Go get it at lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/)
 
 nsubsect(Documentation)
 
