@@ -202,6 +202,11 @@ Page::text_height () const
   return h;
 }
 
+
+/*
+  TODO: unused?
+  
+ */
 LY_DEFINE (ly_page_paper_lines, "ly:page-paper-lines",
 	   1, 0, 0, (SCM page),
 	   "Return paper-lines from @var{page}.")

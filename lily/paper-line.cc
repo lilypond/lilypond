@@ -18,8 +18,6 @@ IMPLEMENT_TYPE_P (Paper_line, "ly:paper-line?");
 IMPLEMENT_DEFAULT_EQUAL_P (Paper_line);
 
 
-#define TITLE_PENALTY -1
-
 
 Paper_line::Paper_line (Stencil s, int penalty, bool is_title)
 {
