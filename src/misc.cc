@@ -6,6 +6,10 @@
 Real
 wholes(int dur, int dots)
 {
+    if (!dur)
+	return 0.0;
+
+    // stupid Intel: doesn't crash if !dur
     Real f = 1.0/Real(dur);
     Real delta = f;
 
