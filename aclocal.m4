@@ -8,8 +8,9 @@ dnl StepMake subroutines for configure.in
 AC_DEFUN(AC_STEPMAKE_COMPILE, [
     # -O is necessary to get inlining
     OPTIMIZE=""
-    CXXFLAGS=${CXXFLAGS:-""}
     CFLAGS=${CFLAGS:-""}
+    CXXFLAGS=${CXXFLAGS:-$CFLAGS}
+    LDFLAGS=${LDFLAGS:-""}
     checking_b=yes
     optimise_b=no
     profile_b=no
@@ -42,12 +43,6 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
     [MINGWPREFIX=$enableval],
     [MINGWPREFIX=no])
 
-    if test "$printing_b" = no; then
-	# ugh
-	AC_DEFINE(NPRINT)
-	DEFINES="$DEFINES -DNPRINT"
-    fi
-	
     if test "$checking_b" = no; then
 	# ugh
 	AC_DEFINE(NDEBUG)
@@ -101,7 +96,7 @@ AC_DEFUN(AC_STEPMAKE_CXX, [
 
     CPPFLAGS="$CPPFLAGS $DEFINES"
     CXXFLAGS="$CXXFLAGS $OPTIMIZE"
-    LDFLAGS=$EXTRA_LIBES
+    LDFLAGS="$LDFLAGS $EXTRA_LIBES"
 
     AC_SUBST(CXXFLAGS)
     AC_SUBST(CXX)

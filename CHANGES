@@ -1,3 +1,9 @@
+pl 11.jcn2
+	- bf: LDFLAGS=foo CFLAGS=bar ./configure
+	- bf: configure (--disable-printing = default) -DNPRINT
+	- bf: mf-to-xpms / make -C mf xpms; feta-accordion is broken,
+	  see mf/README
+
 pl 11.jcn1
 	- gnossiene with new \autochange
 

@@ -3,3 +3,16 @@ This is a font of music symbols.  All MF sources are original.  Most
 of the doco is in comments in the MF code, and in
 Documentation/tex/fonts.doc
 
+To make xpms of feta20 font:
+
+    make xpms
+
+
+Accordion symbols are broken: comment-out 
+
+    input feta-accordion;
+
+from feta-schrift, and remake mf dir:
+
+    make clean
+    make all xpms

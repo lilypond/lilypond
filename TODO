@@ -5,13 +5,18 @@
 Features you cannot find in the documentation as working, should be
 mentioned here.  This is an assorted collection of stuff that will be
 done, might be done, or is an idea that we want to think about.
-m
+
 Most of the items are marked in the code as well
 Grep -i for TODO, FIXME and ugh/ugr/urg.  
 
 .* TODO
 . * use Rhythmic_head::position_i () for all Staff_referenced 
 . * setting indent to 0 with \shape fails
+. * fix or replace feta-accordion.mf
+. * fix configure with CFLAGS or LDFLAGS, try:
+   CFLAGS=-g LDFLAGS='-Wl,--warn-common' ./configure
+configure will use them while testing the compiler, but they don't
+appear in config.make
 . * junk -M ?
 . * mudela-book doco
 . * Depracate Wordwrap

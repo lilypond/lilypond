@@ -8,6 +8,7 @@ EXTRA_DIST_FILES += README
 
 FET_FILES = $(wildcard feta[0-9]*.mf)
 FONT_FILES = $(wildcard feta*[0-9].mf)
+XPM_FONTS = feta20
 
 LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
