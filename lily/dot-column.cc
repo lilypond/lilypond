@@ -14,20 +14,48 @@
 #include "directional-element-interface.hh"
 #include "side-position-interface.hh"
 #include "axis-group-interface.hh"
-
-
-
-
+#include "stem.hh"
 
 void
 Dot_column::set_interface (Grob* me)
 {
-
-  Directional_element_interface::set (me, RIGHT);
-  
-  Axis_group_interface::set_interface (me);
-  Axis_group_interface::set_axes (me, X_AXIS,X_AXIS);
 }
+MAKE_SCHEME_CALLBACK (Dot_column,force_shift_callback,2);
+SCM
+Dot_column::force_shift_callback (SCM element_smob, SCM axis)
+{
+  Grob *me = unsmob_grob (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
+  assert (a == Y_AXIS);
+  me = me->parent_l (X_AXIS);
+  SCM l = me->get_grob_property ("dots");
+  do_shifts (l);
+  return gh_double2scm (0.0);
+}
+
+MAKE_SCHEME_CALLBACK(Dot_column,side_position, 2);
+SCM
+Dot_column::side_position (SCM element_smob, SCM axis)
+{
+  Grob *me = unsmob_grob (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
+  assert (a == X_AXIS);
+
+  Grob * stem = unsmob_grob (me->get_grob_property ("stem"));
+  if (stem
+      && !Stem::beam_l (stem)
+      && Stem::flag_i (stem))
+    {
+      /*
+	trigger stem end & direction calculation.
+
+	This will add the stem to the support if a flag collision happens.
+       */
+      Stem::stem_end_position (stem); 
+    }
+  return Side_position_interface::aligned_side (element_smob, axis);
+}
+
 
 /*
   Will fuck up in this case.
@@ -44,21 +72,6 @@ Dot_column::set_interface (Grob* me)
 
    Should be smarter.
  */
-
-
-MAKE_SCHEME_CALLBACK (Dot_column,force_shift_callback,2);
-SCM
-Dot_column::force_shift_callback (SCM element_smob, SCM axis)
-{
-  Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
-  assert (a == Y_AXIS);
- me = me->parent_l (X_AXIS);
-  SCM dots = me->get_grob_property ("dots");
-  do_shifts (dots);
-  return gh_double2scm (0.0);
-}
-
 SCM
 Dot_column::do_shifts (SCM l)
 {

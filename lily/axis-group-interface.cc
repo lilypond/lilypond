@@ -72,8 +72,6 @@ Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
   return ly_interval2scm (r - my_coord);
 }
 
-
-
 void
 Axis_group_interface::set_axes (Grob*me,Axis a1, Axis a2)
 {
@@ -131,8 +129,6 @@ Axis_group_interface::has_interface (Grob*me)
 {
   return me && me->has_interface (ly_symbol2scm ("axis-group-interface"));
 }
-
-
 
 void
 Axis_group_interface::set_interface (Grob*me)
