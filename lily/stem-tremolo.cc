@@ -55,23 +55,22 @@ Stem_tremolo::height (SCM smob, SCM ax)
 }
 
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo,brew_molecule,1);
-SCM
-Stem_tremolo::brew_molecule (SCM smob)
+Molecule
+Stem_tremolo::raw_molecule (Grob *me)
 {
-  Grob *me= unsmob_grob (smob);
-  Grob * stem = unsmob_grob (me->get_grob_property ("stem"));
-  Grob * beam = Stem::get_beam (stem);
+  Grob *stem = unsmob_grob (me->get_grob_property ("stem"));
+  Grob *beam = Stem::get_beam (stem);
   
   Real dydx;
   if (beam)
     {
       Real dy = 0;
       SCM s = beam->get_grob_property ("positions");
-      if (gh_pair_p (s))
+      if (ly_number_pair_p (s))
 	{
 	  dy = -gh_scm2double (gh_car (s)) +gh_scm2double (gh_cdr (s));
 	}
+      
       Real dx = Beam::last_visible_stem (beam)->relative_coordinate (0, X_AXIS)
 	- Beam::first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
       dydx = dx ? dy/dx : 0;
@@ -80,7 +79,7 @@ Stem_tremolo::brew_molecule (SCM smob)
     // urg
     dydx = 0.25;
 
-  Real ss = Staff_symbol_referencer::staff_space (stem);
+  Real ss = Staff_symbol_referencer::staff_space (me);
   Real thick = gh_scm2double (me->get_grob_property ("beam-thickness"));
   Real width = gh_scm2double (me->get_grob_property ("beam-width"));
   width *= ss;
@@ -99,7 +98,7 @@ Stem_tremolo::brew_molecule (SCM smob)
       programming_error ("No tremolo flags?");
 
       me->suicide();
-      return SCM_EOL;
+      return Molecule ();
     }
 
   /*
@@ -116,11 +115,26 @@ Stem_tremolo::brew_molecule (SCM smob)
       b.translate_axis (beam_translation * i, Y_AXIS);
       mol.add_molecule (b);
     }
+  return mol;
+}
+
+
+MAKE_SCHEME_CALLBACK (Stem_tremolo,brew_molecule,1);
+SCM
+Stem_tremolo::brew_molecule (SCM grob) 
+{
+  Grob *me = unsmob_grob (grob);
+  Grob *stem = unsmob_grob (me->get_grob_property ("stem"));
+  Grob *beam = Stem::get_beam (stem);
   Direction stemdir = Stem::get_direction (stem);
+  Real beam_translation = beam ? Beam::get_beam_translation (beam) : 0.81;
+
+  Molecule mol = raw_molecule (me);
   Interval mol_ext = mol.extent (Y_AXIS);
+  Real ss = Staff_symbol_referencer::staff_space (me);
 
   // ugh, rather calc from Stem_tremolo_req
-  int beams_i = (beam) ? (Stem::beam_multiplicity (stem).length ()+ 1): 0;
+  int beam_count = (beam) ? (Stem::beam_multiplicity (stem).length ()+ 1): 0;
 
   /*
     TODO.
@@ -136,8 +150,8 @@ Stem_tremolo::brew_molecule (SCM smob)
 
   Real end_y
     = Stem::stem_end_position (stem) *ss/2 
-    - stemdir * (beams_i * beamthickness
-		 + ((beams_i -1) >? 0) * beam_translation);
+    - stemdir * (beam_count * beamthickness
+		 + ((beam_count -1) >? 0) * beam_translation);
 
   /*
     the 0.33 ss is to compensate for the size of the note head
@@ -148,12 +162,18 @@ Stem_tremolo::brew_molecule (SCM smob)
   Real padding = beam_translation;
 
   /*
+    if there is a flag, just above/below the notehead.
     if there is not enough space, center on remaining space,
     else one beamspace away from stem end.
    */
-  if (stemdir * (end_y - chord_start_y) - 2*padding - mol_ext.length ()  < 0.0)
+  if (!beam && Stem::duration_log (stem) >= 3)
     {
-      mol.translate_axis ((end_y + chord_start_y) /2.0  - mol_ext.center (),Y_AXIS);
+      mol.align_to (Y_AXIS, -stemdir);
+      mol.translate_axis (chord_start_y + .5 * stemdir, Y_AXIS);
+    }
+  else if (stemdir * (end_y - chord_start_y) - 2*padding - mol_ext.length ()  < 0.0)
+    {
+      mol.translate_axis (0.5 * (end_y + chord_start_y)  - mol_ext.center (),Y_AXIS);
     }
   else
     {

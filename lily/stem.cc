@@ -33,6 +33,7 @@
 #include "spanner.hh"
 #include "side-position-interface.hh"
 #include "dot-column.hh"
+#include "stem-tremolo.hh"
 
 void
 Stem::set_beaming (Grob*me, int beam_count,  Direction d)
@@ -229,7 +230,7 @@ Stem::note_head_positions (Grob *me)
 
       ps.push (p);
     }
-
+  
   ps.sort (icmp);
   return ps; 
 }
@@ -284,12 +285,16 @@ Stem::get_default_stem_end_position (Grob*me)
       Direction dir = get_direction (me);
       return dir * (line_count + 3.5);
     }
-  
+  Real ss = Staff_symbol_referencer::staff_space (me); 
+
+  int durlog = duration_log (me);
+    
   bool grace_b = to_boolean (me->get_grob_property ("grace"));
   SCM s;
   Array<Real> a;
 
-  Real length = 3.5;
+  
+  Real length = 7;		// WARNING: IN HALF SPACES
   SCM scm_len = me->get_grob_property ("length");
   if (gh_number_p (scm_len))
     {
@@ -300,18 +305,8 @@ Stem::get_default_stem_end_position (Grob*me)
       s = me->get_grob_property ("lengths");
       if (gh_pair_p (s))
 	{
-	  length = 2* gh_scm2double (robust_list_ref (duration_log(me) -2, s));
+	  length = 2* gh_scm2double (robust_list_ref (durlog -2, s));
 	}
-    }
-
-  Real shorten = 0.0;
-  
-  SCM sshorten = me->get_grob_property ("stem-shorten");
-  SCM scm_shorten = gh_pair_p (sshorten) ?
-    robust_list_ref ((duration_log (me) - 2) >? 0, sshorten): SCM_EOL;
-  if (gh_number_p (scm_shorten))
-    {
-      shorten = 2* gh_scm2double (scm_shorten);
     }
 
 
@@ -326,16 +321,65 @@ Stem::get_default_stem_end_position (Grob*me)
       Directional_element_interface::set (me, dir);
     }
 
-  /* On boundary: shorten only half */
-  if (abs (head_positions (me)[get_direction (me)]) <= 1)
-    shorten *= 0.5;
-  
+
   /* stems in unnatural (forced) direction should be shortened, 
     according to [Roush & Gourlay] */
   if (!chord_start_y (me)
       || (get_direction (me) != get_default_dir (me)))
-    length -= shorten;
+    {
+      
+      Real shorten = 0.0;
+  
+      SCM sshorten = me->get_grob_property ("stem-shorten");
+      SCM scm_shorten = gh_pair_p (sshorten) ?
+	robust_list_ref ((duration_log (me) - 2) >? 0, sshorten): SCM_EOL;
+      if (gh_number_p (scm_shorten))
+	{
+	  shorten = 2* gh_scm2double (scm_shorten);
+	}
+  
+      /* On boundary: shorten only half */
+      if (abs (head_positions (me)[get_direction (me)]) <= 1)
+	shorten *= 0.5;
+  
+      length -= shorten;
+    }
 
+  /*
+    Tremolo stuff: 
+  */
+  Grob * trem = unsmob_grob (me->get_grob_property ("tremolo-flag"));
+  if (trem &&  !unsmob_grob (me->get_grob_property ("beam")))
+    {
+      /*
+	Crude hack: add extra space if tremolo flag is there.
+
+	We can't do this for the beam, since we get into a loop
+	(Stem_tremolo::raw_molecule() looks at the beam.)
+	
+	 --hwn 
+      */
+      
+      Real minlen =
+	1.0 + 2 * Stem_tremolo::raw_molecule (trem).extent (Y_AXIS).length  () / ss;
+      
+      if (durlog >= 3)
+	{
+	  Interval flag_ext = flag (me).extent (Y_AXIS) ;
+	  if (!flag_ext.empty_b())
+	    minlen += 2 * flag_ext.length () / ss ;
+
+	  /*
+	    The clash is smaller for down stems (since the tremolo is
+	    angled up.)
+	   */
+	  if (dir == DOWN)
+	    minlen -= 1.0;
+	}
+      
+      length = length >? (minlen + 1.0);
+    }
+   
   Interval hp = head_positions (me);  
   Real st = hp[dir] + dir * length;
 
@@ -353,7 +397,7 @@ Stem::get_default_stem_end_position (Grob*me)
     
   */
   if (!get_beam (me) && dir == UP
-      && duration_log (me) > 2)
+      && durlog > 2)
     {
       Grob * closest_to_flag = extremal_heads (me)[dir];
       Grob * dots = closest_to_flag
@@ -363,7 +407,7 @@ Stem::get_default_stem_end_position (Grob*me)
 	{
 	  Real dp = Staff_symbol_referencer::get_position (dots);
 	  Real flagy =  flag (me).extent (Y_AXIS)[-dir] * 2
-	    / Staff_symbol_referencer::staff_space (me); 
+	    / ss;
 
 	  /*
 	    Very gory: add myself to the X-support of the parent,
@@ -579,7 +623,8 @@ Stem::flag (Grob*me)
 	     flag's shape accordingly.  In the worst case, the shape
 	     looks slightly misplaced, but that will usually be the
 	     programmer's fault (e.g. when trying to attach multiple
-	     note heads to a single stem in mensural notation).  */
+	     note heads to a single stem in mensural notation).
+	  */
 
 	  /*
 	    perhaps the detection whether this correction is needed should
@@ -806,6 +851,10 @@ Stem::get_stem_info (Grob *me)
   return si;
 }
 
+
+/*
+  TODO: add extra space for tremolos!
+ */
 void
 Stem::calc_stem_info (Grob *me)
 {
@@ -921,7 +970,7 @@ Stem::calc_stem_info (Grob *me)
     /* stem only extends to center of beam */
     - 0.5 * beam_thickness;
 
-  Real minimum_y = note_start + minimum_length;
+ Real minimum_y = note_start + minimum_length;
   
   
   ideal_y *= my_dir;

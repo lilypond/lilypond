@@ -32,16 +32,16 @@ protected:
 private:
   Grob  *stem_;
   Grob *tremolo_;
-  Music *rhythmic_req_;
-  Music* tremolo_req_;
+  Music *rhythmic_ev_;
+  Music* tremolo_ev_;
 };
 
 Stem_engraver::Stem_engraver ()
 {
-  tremolo_req_ = 0;
+  tremolo_ev_ = 0;
   stem_ = 0;
   tremolo_ = 0;
-  rhythmic_req_ =0;
+  rhythmic_ev_ =0;
 }
 
 
@@ -68,48 +68,49 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 
 	  stem_->set_grob_property ("duration-log", gh_int2scm (duration_log));
 
-	  if (tremolo_req_)
+	  if (tremolo_ev_)
 	    {
 	      /*
 		Stem tremolo is never applied to a note by default,
-		is must me requested.  But there is a default for the
+		is must me evuested.  But there is a default for the
 		tremolo value:
 
 		   c4:8 c c:
 
 		the first and last (quarter) note bothe get one tremolo flag.
 	       */
-	      int requested_type = gh_scm2int (tremolo_req_->get_mus_property ("tremolo-type"));
+	      int evuested_type = gh_scm2int (tremolo_ev_->get_mus_property ("tremolo-type"));
 	      SCM f = get_property ("tremoloFlags");
-	      if (!requested_type)
+	      if (!evuested_type)
 		if (gh_number_p (f))
-		  requested_type = gh_scm2int (f);
+		  evuested_type = gh_scm2int (f);
 		else
-		  requested_type = 8; 
+		  evuested_type = 8; 
 	      else
-		daddy_trans_->set_property ("tremoloFlags", gh_int2scm (requested_type));
+		daddy_trans_->set_property ("tremoloFlags", gh_int2scm (evuested_type));
 
-	      int tremolo_flags = intlog2 (requested_type) - 2
+	      int tremolo_flags = intlog2 (evuested_type) - 2
 		- (duration_log > 2 ? duration_log - 2 : 0);
 	      if (tremolo_flags <= 0)
 		{
-		  tremolo_req_->origin()->warning (_("tremolo duration is too long"));
+		  tremolo_ev_->origin()->warning (_("tremolo duration is too long"));
 		  tremolo_flags = 0;
 		}
 
 	      if (tremolo_flags)
 		{
 		  tremolo_ = new Item (get_property ("StemTremolo"));
-		  announce_grob(tremolo_, tremolo_req_->self_scm());
+		  announce_grob(tremolo_, tremolo_ev_->self_scm());
 
 		  /*
 		    The number of tremolo flags is the number of flags of
 		    the tremolo-type minus the number of flags of the note
 		    itself.
 		   */
-			  tremolo_->set_grob_property ("flag-count",
-						gh_int2scm (tremolo_flags));
+		  tremolo_->set_grob_property ("flag-count",
+					       gh_int2scm (tremolo_flags));
 		  tremolo_->set_parent (stem_, X_AXIS);
+		  stem_->set_grob_property ("tremolo-flag", tremolo_->self_scm ());
 		}
 	    }
 
@@ -160,7 +161,7 @@ Stem_engraver::stop_translation_timestep ()
     }
 
 
-  tremolo_req_ = 0;
+  tremolo_ev_ = 0;
 }
 
 bool
@@ -168,7 +169,7 @@ Stem_engraver::try_music (Music* r)
 {
   if (r->is_mus_type ("tremolo-event"))
     {
-      tremolo_req_ = r;
+      tremolo_ev_ = r;
       return true;
     }
   return false;

@@ -22,6 +22,7 @@ public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   DECLARE_SCHEME_CALLBACK (height, (SCM,SCM));
   static void set_stem (Grob*me, Grob *st);
+  static Molecule raw_molecule (Grob*);
 };
 
 #endif /* ABBREV_HH */
