@@ -120,14 +120,6 @@ def brush(expr a,w,b,v) =
 	endgroup;
 enddef;
 
-def draw_rounded_path(expr p, thick) =
-	push_pen(currentpen);
-	fill p;
-	pickup pencircle scaled thick;
-	draw p;
-	currentpen := pop_pen;
-enddef;
-
 %
 %
 %
@@ -159,4 +151,26 @@ enddef;
 def xy_mirror_char =
 	currentpicture := currentpicture scaled -1;
 	set_char_box(charwd, charbp, charht, chardp);
+enddef;
+
+ 
+%
+% center_factor: typically .5, the larger, the larger the radius of the bulb
+% radius factor: how much the bulb curves inward
+%
+def draw_bulb(expr turndir, zl, zr, center_factor, radius_factor)=
+	begingroup;
+	clearxy;
+	save rad, ang;
+
+	ang = angle(zr-zl);
+	z0 = center_factor [zr, zl];
+	rad =  length(zr - z0);
+	
+	z1 = z0 + radius_factor* rad * dir(ang + turndir* 100);
+	z2 = z0 + rad * dir(ang  + turndir*270);
+	labels(0,1,2);
+	fill zr{dir (ang + turndir* 90)} .. z1 .. z2 -- cycle;
+
+	endgroup
 enddef;
