@@ -29,7 +29,6 @@ Copyright @copyright{} 1999--2002 by the authors
 @omfcategory Music 
 @end ignore
 
-
 @ifnottex
 @node Top
 @top
@@ -76,6 +75,7 @@ We don't use refs for Info:
 
 they look too intrusive (says Han-Wen).
 @end ignore
+
 
 @c arrowref
 @macro aref{word}
