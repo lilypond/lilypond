@@ -49,7 +49,9 @@
 		(direction . 1)
                 (font-family . roman)
 		(font-relative-size . -1)
+		(Y-offset-callbacks . (,Side_position::aligned_side))
 		(meta . ,(grob-description "BarNumber"
+					   side-position-interface
 			text-interface  font-interface break-aligned-interface))
 	))
 
@@ -370,6 +372,27 @@
                 (before-musical-spacing-factor . 0.4)
  		(meta . ,(grob-description "PaperColumn" paper-column-interface axis-group-interface spaceable-element-interface))
 	))
+	(PhrasingSlur . (
+		 (molecule-callback . ,Slur::brew_molecule)
+		 (thickness . 1.2)		
+		 (spacing-procedure . ,Slur::set_spacing_rods)		
+		 (minimum-length . 1.5)
+		 (after-line-breaking-callback . ,Slur::after_line_breaking)
+		 (extremity-rules . ,default-slur-extremity-rules)
+		 (extremity-offset-alist . ,default-phrasing-slur-extremity-offset-alist)
+		 (de-uglify-parameters . ( 1.5  0.8  -2.0))
+		 (Y-extent-callback . ,Slur::height)
+		 (details . ((height-limit . 2.0) (ratio . 0.333) (force-blowfit . 0.5)
+			     (bezier-pct-c0 . -0.2) (bezier-pct-c3 . 0.000006)
+			     (bezier-pct-out-max . 0.8) (bezier-pct-in-max . 1.2)
+			     (bezier-area-steps . 1.0)))
+		 (beautiful . 0.5)
+		 (y-free . 0.75)
+		 (attachment . (#f . #f))
+		 (attachment-offset . ((0 . 0) . (0 . 0)))
+		 (slope-limit . 0.8)
+		 (meta . ,(grob-description "PhrasingSlur" slur-interface))
+		 ))
 	(NonMusicalPaperColumn . (
                 (axes 0)
                 (before-musical-spacing-factor . 1.0)

@@ -51,7 +51,7 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{staccato-pos.ly}
 
-@lilypondfile[printfilename]{dyn-line.ly}
+@lilypondfile[printfilename]{dynamics-line.ly}
 
 @lilypondfile[printfilename]{arpeggio.ly}
 
@@ -108,6 +108,8 @@ and documenting bugfixes.
 @lilypondfile[printfilename]{slur-attachment-override.ly}
 
 @lilypondfile[printfilename]{ophee-slurs.ly}
+
+@lilypondfile[printfilename]{phrasing-slur.ly}
 
 @lilypondfile[printfilename]{tie.ly}
 

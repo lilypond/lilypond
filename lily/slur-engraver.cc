@@ -1,11 +1,10 @@
 /*
-  slur-grav.cc -- implement Slur_engraver
+  slur-engraver.cc -- implement Slur_engraver
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "musical-request.hh"
-#include "slur-engraver.hh"
 #include "slur.hh"
 #include "debug.hh"
 #include "note-column.hh"

@@ -107,4 +107,24 @@
     ((loose-end -1 1) . (-4 . 0))
     ))
 
+;; This is a bit of a hack: slurs and phrasing slurs
+;; attaching at the same note must not collide.
+;; However, slurs (and phrasing slurs) should look
+;; at scripts and eachother.
+(define default-phrasing-slur-extremity-offset-alist
+  '(
+    ((head 1 1) . (-0.25 . 1.25))
+    ((head 1 -1) . (-0.25 . -1.25))
+    ((head -1 1) . (-0.25 . 1.25))
+    ((head -1 -1) . (-0.85 . -1.25))
+
+    ((stem 1 1) . (0 . 1.5))
+    ((stem -1 -1) . (0 . -1.5))
+
+    ((loose-end 1 1) . (-0.4 . 0))
+    ((loose-end 1 -1) . (-0.4 . 0))
+    ((loose-end -1 -1) . (-4 . 0))
+    ((loose-end -1 1) . (-4 . 0))
+    ))
+
 

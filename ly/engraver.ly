@@ -1,6 +1,6 @@
+\version "1.3.122"
 
-\version "1.3.110"
-	%
+%
 % setup for Request->Element conversion. Guru-only
 %
 
@@ -33,8 +33,6 @@ StaffContext=\translator {
 	\consists "Local_key_engraver";
 	\consists "Piano_pedal_engraver";
 
-	\consistsend "Axis_group_engraver";
-
 %{
 	The Instrument_name_engraver puts the name of the instrument
 	(\property Staff.instrument; Staff.instr for subsequent lines)
@@ -45,9 +43,18 @@ StaffContext=\translator {
 	\consists "Instrument_name_engraver";
 %}
 
+	\consistsend "Axis_group_engraver";
 
 	  
 	\accepts "Voice";
+}
+
+
+StaffContainerContext = \translator {
+	\type Engraver_group_engraver;
+	\consists "Axis_group_engraver";
+	\accepts Staff;
+	\name StaffContainer;
 }
 
 ChoirStaffContext = \translator {
@@ -101,7 +108,6 @@ VoiceContext = \translator {
 	\consists "Output_property_engraver";	
 	\consists "Arpeggio_engraver";
 
-	\consists "Dynamic_engraver";   % must come before text_engraver.
 	\consists "Text_spanner_engraver";
 	\consists "Property_engraver";
 	
@@ -114,17 +120,25 @@ VoiceContext = \translator {
 
 	\consists "Chord_tremolo_engraver";
 	\consists "Melisma_engraver";
+
+%{
+ Must come before text_engraver, but after note_column engraver.
+
+%}
+	\consists "Dynamic_engraver";
 	\consists "Text_engraver";
-	\consists "A2_engraver";
-	\consists "Voice_devnull_engraver";
 
 	\consists "Script_engraver";
 	\consists "Script_column_engraver";
 	\consists "Rhythmic_column_engraver";
+	\consists "Phrasing_slur_engraver";
 	\consists "Slur_engraver";
 	\consists "Tie_engraver";
 	\consists "Tuplet_engraver";
 	\consists "Grace_position_engraver";
+	\consists "A2_engraver";
+	\consists "Voice_devnull_engraver";
+
 	\consists "Skip_req_swallow_translator";
 	\accepts Thread; % bug if you leave out this!
 	\accepts Grace;
@@ -338,8 +352,8 @@ ScoreContext = \translator {
 	\consists "Bar_number_engraver";
 	\consists "Span_arpeggio_engraver";
 
-	
-	\accepts "Staff";
+	\accepts "Staff";	
+	\accepts "StaffContainer";
 	\accepts "StaffGroup";
 	\accepts "RhythmicStaff";	
 	\accepts "Lyrics";
