@@ -1,10 +1,2 @@
-This file documents bugs which were "re-introduced" in various pl's
 
-pl69
-	* slurs.ly
-
-pl68:
-	* opening rests of wohltemperirt
-	
-
-	* midi broken
+[document reintroduced deficiencies.]

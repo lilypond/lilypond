@@ -57,41 +57,50 @@ Note_column_engraver::acknowledge_element(Score_elem_info i)
 	    rest_col_l()->add(h_l);
 	else
 	    note_col_l()->add(h_l);
-    }
-    else if (nC == Stem::static_name()){ 
+
+    } else if (nC == Stem::static_name()){ 
 	stem_l_ = (Stem*)i.elem_l_->item();
     }
+
+    if ( ncol_p_ || restcol_p_ ) {
+	if ( stem_l_ ) {
+	    if (restcol_p_&& !restcol_p_->stem_l_)
+		restcol_p_->set (stem_l_ );
+	    if (ncol_p_ && !ncol_p_->stem_l_)
+		ncol_p_->set(stem_l_);
+	}
+    
+    
+	for (int i=0; i < script_l_arr_.size(); i++) {
+	    if (restcol_p_)
+		restcol_p_->add(script_l_arr_[i]);
+	    if ( ncol_p_ )
+		ncol_p_->add(script_l_arr_[i]);
+	}
+    
+	script_l_arr_.set_size(0);
+    }
+
 }
 
 void
 Note_column_engraver::do_pre_move_processing()
 {
-    Script_column *col_l = ( ncol_p_ ) ? ncol_p_ : restcol_p_;
-    if (!col_l)
-	return;
-    
-    for (int i=0; i < script_l_arr_.size(); i++)
-	col_l->add(script_l_arr_[i]);
-    
-    if (stem_l_) {
-	if (ncol_p_)
-	    ncol_p_->add(stem_l_);
-	if (restcol_p_)
-	    restcol_p_->add(stem_l_);
-    }
-    if (restcol_p_) {
-	if (! restcol_p_ -> dir_i_)
-	    restcol_p_->dir_i_ = dir_i_;
-	typeset_element(restcol_p_);
-	restcol_p_ =0;
-    }
     if (ncol_p_) {
-	if (!	ncol_p_->dir_i_ )
-	    ncol_p_->dir_i_ = dir_i_;
 	if (! ncol_p_->h_shift_b_)
 	    ncol_p_->h_shift_b_ = h_shift_b_;
+	if (! ncol_p_->dir_i_ )
+	    ncol_p_->dir_i_ = dir_i_;
+
 	typeset_element(ncol_p_);
 	ncol_p_ =0;
+    }
+    if (restcol_p_) {
+	if (! restcol_p_->dir_i_ )
+	    restcol_p_->dir_i_ = dir_i_;
+
+	typeset_element(restcol_p_);
+	restcol_p_ =0;
     }
 }
 
@@ -120,6 +129,7 @@ Note_column_engraver::Note_column_engraver()
     restcol_p_ =0;
     do_post_move_processing();
 }
+
 IMPLEMENT_STATIC_NAME(Note_column_engraver);
 IMPLEMENT_IS_TYPE_B1(Note_column_engraver,Engraver);
 ADD_THIS_ENGRAVER(Note_column_engraver);
