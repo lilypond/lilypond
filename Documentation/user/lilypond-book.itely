@@ -1,10 +1,10 @@
 @c -*-texinfo-*-
 
-@node lilypond-book
-@chapter  lilypond-book
+@node Merging text and music with lilypond-book
+@chapter Merging text and music with lilypond-book
 
 @command{lilypond-book} runs Lilypond on fragments of lilypond in a
-La@TeX{} or texinfo file, and includes the results into a document that
+La@TeX{} or Texinfo file, and includes the results into a document that
 can be processed with La@TeX{}, @command{makeinfo} or
 @command{texi2dvi}.  The result is a text document containing formatted
 music integrated.
@@ -47,11 +47,11 @@ as follows:
        \lilypond[options, go,here]@{ .. @}
 @end example
 
-In the texinfo version, bitmaps of the music are also generated, so you
+In the Texinfo version, bitmaps of the music are also generated, so you
 can make a HTML document with embedded music.
 
 
-@section TeXinfo reference
+@section Texinfo reference
 
 You specify the lilypond code like this:
 @example
@@ -73,10 +73,7 @@ sizes. One of these commands should be in the beginning of the document:
 @end itemize
 @code{@@pagesizes} are not yet supported.
 
-@subsection Examples
-
-Two simple examples. First a complete block:
-
+We show two simple examples here. First a complete block:
 @example
 @@lilypond[26pt]
 c' d' e' f' g'2 g'
@@ -123,7 +120,7 @@ The music will be surrounded by @code{\preLilypondExample} and
 defined to nothing by default, and the user can redefine them
 to whatever he wants.
 
-@subsection Examples 
+We show some examples here.
 
 @example
 \begin[26pt]@{lilypond@}
@@ -249,7 +246,7 @@ directory, or use the @code{--outdir} command line options:
 
 
 For latex input, the file to give to latex has extension @file{.latex}.
-TeXinfo input will be written to a file with extension @file{.texi}.
+Texinfo input will be written to a file with extension @file{.texi}.
 
 If you use @code{--outdir}, you should also @code{cd} to that directory
 before running LaTeX or makeinfo. This may seem a little kludgey, but
@@ -268,12 +265,8 @@ files, you should add  the following to the top of your LaTeX
 \def\preLilypondExample@{\def\mustmakelilypondtitle@{@}@}
 @end example
 
-
-
-@subsection Command line options
-
+lilypond-book accepts the following command-line options: 
 @table @code
-
 @item @option{-f}, @option{--format=}
     Specify the document type to process, @code{latex} or @code{texi}.
     @command{lilypond-book} usually figure this out automatically.
@@ -294,7 +287,7 @@ files, you should add  the following to the top of your LaTeX
 @item --no-music
         strip all  lilypond blocks from the file.
 @item --no-pictures
-        don't generate pictures when processing texinfo.
+        don't generate pictures when processing Texinfo.
 @item --read-lys
         don't write ly files. This way you can do
 @example
@@ -321,23 +314,12 @@ files, you should add  the following to the top of your LaTeX
   
 The La@TeX{} \includeonly@{...@} command is ignored.
 
-The TeXinfo command @code{pagesize} is on the TODO list for Lilypond 1.4,
-but changing the linewidth in other ways will not give you a straight
-right margin.
+The Texinfo command @code{pagesize} is on the TODO list for Lilypond
+1.6, but changing the linewidth in other ways will not give you a
+straight right margin.
 
-Almost all La@TeX{} commands that change margins and line widths are ignored.
+Almost all La@TeX{} commands that change margins and line widths are
+ignored.
 
 There is no way to automatically apply convert-ly to fragments inside a
 lilypond-book file.
-
-Since there is no finder's fee which doubles every year, there is no
-need to wait for the prize money to grow. So send a bug report today if
-you need this one of these options.
-
-
-@section Authors
-
-@email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}, @uref{http://www.cs.uu.nl/~hanwen}
-
-@email{tca@@gnu.org, Tom Cato Amundsen}
-

@@ -34,6 +34,8 @@ new compositions.
 * Semantic input format::	
 * A programming approach::	
 * About this manual::		
+* Bug reports::			
+* Web site::			
 @end menu
 
 @node Why LilyPond
@@ -175,3 +177,47 @@ blabla
 
 blabla
 
+
+@node Bug reports
+@section Bug reports
+
+@cindex bugs
+@cindex reporting bugs
+
+
+Since there is no finder's fee which doubles every year, there is no
+need to wait for the prize money to grow. So send a bug report today!
+
+LilyPond development moves quickly, so if you have a problem, it is
+wise to check if it has been fixed in a newer release.  If you think
+you found a bug, please send in a bugreport.  When you send us a
+bugreport, we have to diagnose the problem and if possible, duplicate
+it.  To make this possible, it is important that you include the
+following information in your report:
+
+@itemize @bullet
+
+@item A sample input which causes the error.  Please have mercy on the
+developers, send a @emph{small} sample file.
+
+@item The version number of lilypond.
+
+@item A description of the platform you use (i.e., operating system,
+system libraries, whether you downloaded a binary release)
+
+@item If necessary, send a description of the bug itself.  If you
+include output a ly2dvi run, please use @code{--verbose} option of
+ly2dvi.
+
+@end itemize
+
+You can send the report to @email{bug-lilypond@@gnu.org}. This is a
+mailinglist, but you don't have to be subscribed to it to post.
+
+
+@node Web site
+@section Web site
+
+If you are reading this manual in print, it is possible that the
+website contains updates to the manual. You can find the lilypond
+website at @uref{http://www.lilypond.org/}.

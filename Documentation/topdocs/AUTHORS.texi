@@ -28,8 +28,6 @@ lilypond-book.py
 @item @email{matsb@@s3.kth.se, Mats Bengtsson},
     @uref{http://www.s3.kth.se/~matsb/}
     lots of testing, fixes, general comments and contributions.
-@item @email{eric@@aut.ee.ethz.ch, Eric Bullinger},
-    accidental transposition.
 @item Laura Conrad (lconrad@@world.std.com)
     fixes to abc2ly
 @item @email{Jan.A.Fagertun@@trondheim.online.no, Jan Arne Fagertun},

@@ -9,12 +9,27 @@
 Usage:
 
 @example
-        lilypond [@var{OPTION}@dots{} @var{FILE}@dots{}
+        lilypond [@var{options}] @var{file}@dots{}
 @end example
 
-To have LilyPond read from stdin, use a dash @code{-} for @var{FILE}.
 
-@unnumberedsec Options
+
+When invoked with a filename that has no extension, LilyPond will try
+to add @file{.ly} as an extension first.  To have LilyPond read from
+stdin, use a dash @code{-} for @var{file}.
+
+When LilyPond processes @file{filename.ly} it will produce
+@file{filename.tex} as output (or @file{filename.ps} for PostScript
+output).  If @file{filename.ly} contains more than one @code{\score}
+block, then LilyPond will output the rest in numbered files, starting
+with @file{filename-1.tex}.  Several files can be specified; they will
+each be processed independently.  @footnote{The status of GUILE is not
+reset across invocations, so be careful not to change any default
+settings from within Scheme .}
+
+@section Command line options
+
+The following options are supported:
 
 @table @code
 
@@ -23,31 +38,14 @@ To have LilyPond read from stdin, use a dash @code{-} for @var{FILE}.
 files. Multiple @code{-e} options may be given. They will be evaluated
 sequentially.
 
-@item -f,--format=@var{format}
-Output format for sheet music. Choices are @code{tex} (for @TeX{}
-output), @code{pdftex} for PDF@TeX{} input, @code{ps} (for PostScript), @code{scm} (for a Scheme
-dump), and @code{as} (for ASCII-art).
+@item -f,--format=@var{format} Output format for sheet music. Choices
+are @code{tex} (for @TeX{} output, to be processed with plain @TeX{},
+or through ly2dvi), @code{pdftex} for PDF@TeX{} input, @code{ps} (for
+PostScript), @code{scm} (for a Scheme dump), and @code{as} (for
+ASCII-art).
 
 Unless you have special requirements, you should use @TeX{}
 output. All other options are experimental.
-
-@c TODO: TFMFONTS
-
-For processing both the @TeX{} and the PostScript output, you must
-have appropriate environment variables set.  For @TeX{}, you have to
-set @code{MFINPUTS} and @code{TEXINPUTS} to point to the directory
-containing LilyPond metafont and @file{.tex} files.  For processing
-PostScript output with Ghostscript you have to set @code{GS_FONTPATH}
-to point to the directory containing LilyPond PFA files.  When you
-print direct PS output, remember to send the PFA files to the printer
-as well.
-
-Scripts to do this are included in
-@file{buildscripts/out/lilypond-profile} (for sh shells) and
-@file{buildscripts/out/lilypond-login} (for C-shells), and should
-normally be run as part of your login process.
-
-
 @item -h,--help
 Show a summary of usage.
 @item --include, -I=@var{directory}
@@ -69,9 +67,8 @@ Disallow untrusted @code{\include} directives, in-line
 Scheme evaluation, backslashes in @TeX{}, code.
 
 @strong{WARNING}: the @code{--safe} option has not been reviewed for a
-long time; do not rely on it for automatic invocation (e.g. over the
+long time. Do not rely on it for automatic invocation (e.g. over the
 web). Volunteers are welcome to do a new audit.
-
 @item -v,--version
 Show version information 
 @item -V,--verbose
@@ -83,21 +80,66 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 @strong{NO WARRANTY}!)
 @end table
 
-
-When invoked with a filename that has no extension, LilyPond will try to
-add @file{.ly} as an extension first.
-
-When LilyPond processes @file{filename.ly} it will produce
-@file{filename.tex} as output (or @file{filename.ps} for PostScript
-output).  If @file{filename.ly} contains more than one @code{\score}
-block, then LilyPond will output the rest in numbered files, starting
-with @file{filename-1.tex}.  Several files can be specified; they will
-each be processed independently.  @footnote{The status of GUILE is not
-reset across invocations, so be careful not to change any default
-settings from within Scheme .}
-
 @section Environment variables
 
+
+For processing both the @TeX{} and the PostScript output, you must
+have appropriate environment variables set.  Scripts to do this are
+included in @file{buildscripts/out/lilypond-profile} (for sh shells)
+and @file{buildscripts/out/lilypond-login} (for C-shells), and should
+normally be sourced as part of your login process. If these scripts
+are not run from the system wide login process, then you must run it
+yourself.
+
+@cindex installing LilyPond
+
+If you use sh, bash, or a similar shell, then add the following to
+your @file{.profile}
+@example
+	. lilypond-profile
+@end example
+
+If you use csh, tcsh or a similar shell, then add the following to
+your @file{~/.login}
+@example
+	source lilypond-login
+@end example
+
+These scripts set the following variables
+@table @code
+@item TEXMF
+This is to make sure that @TeX{} and lilypond find data files (among
+others @file{.tex}, @file{.mf} and @file{.tfm}). A typical setting would be
+@example
+@{/usr/share/lilypond/1.6.0,@{!!/usr/share/texmf@}@}
+@end example
+
+you have to set @code{TEXMF} to point to the lilypond data
+file tree.
+
+@item GS_LIB
+For processing PostScript output (obtained with
+@code{-f ps}) with Ghostscript you have to set @code{GS_LIB} to
+point to the directory containing LilyPond PS files.
+
+@item GS_FONTPATH
+For processing PostScript output (obtained with
+@code{-f ps}) with Ghostscript you have to set @code{GS_FONTPATH} to
+point to the directory containing LilyPond PFA files.
+
+When you print direct PS output, remember to send the PFA files to the
+printer as well.
+@end table
+
+
+@cindex ghostscript
+@cindex PostScript
+@cindex GS_FONTPATH
+@cindex GS_LIB
+@cindex TEXMF
+@cindex printing postscript
+
+The LilyPond binary itself recognizes the following environment variables
 @table @code
 @item LILYPONDPREFIX
 This specifies a directory where locale messages and
@@ -105,7 +147,10 @@ data files will be looked up by default. The directory should contain
 subdirectories called @file{ly/}, @file{ps/}, @file{tex/}, etc.
 
 @item LANG
-selects the language for the warning messages of LilyPond.
+This selects the language for the warning messages of LilyPond.
 @end table
+
+@cindex LANG
+@cindex LILYPONDPREFIX
 
 

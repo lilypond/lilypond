@@ -12,6 +12,13 @@
 #include "column-x-positions.hh"
 #include "spanner.hh"
 
+/*
+  If you keep following offset reference points, you will always end
+up at the root object. This root object is called @ref{System}, and it
+represents a system (i.e. a line of music).
+
+
+ */
 class System : public Spanner
 {
 public:

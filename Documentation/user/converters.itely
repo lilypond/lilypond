@@ -1,23 +1,21 @@
 @c -*-texinfo-*-
 
-@node Conversion tools
-@chapter Converting to LilyPond format.
-
+@node Importing other formats
+@chapter Importing other formats
 
 @menu
-* midi2ly::                     
-* etf2ly::                      
-* abc2ly::                      
-* pmx2ly::                      
-* musedata2ly::                 
-* mup2ly::                      
+* Importing MIDI::              
+* Importing Finale ::           
+* Importing ABC::               
+* Importing PMX::               
+* Importing Musedata ::         
+* Importing MUP::               
 @end menu
 
-@node midi2ly
-@section midi2ly
+@node  Importing MIDI
+@section Importing MIDI
 
 @cindex MIDI
-@cindex importing MIDI
 
 Midi2ly translates a MIDI input file to a LilyPond source file. MIDI
 (Music Instrument Digital Interface) is a standard for digital
@@ -32,22 +30,18 @@ It is possible to record a MIDI file using a digital keyboard, and then
 convert it to @file{.ly}. However, human players are not rhythmically
 exact enough to make a MIDI to LY conversion trivial.  midi2ly tries to
 compensate for these timing errors, but is not very good at this. It is
-therefore not recommended to use midi2ly for human-generated midi
-files. Correcting the quantization mistakes of the human player takes a
-lot of time.
+therefore not recommended to use midi2ly for human-generated midi files.
 
 Hackers who know about signal processing are invited to write a more
 robust midi2ly.  midi2ly is written in Python, using a module written in
 C to parse the MIDI files.
 
-
-@subsection Invoking midi2ly
-
+It is invoked as follows:
 @example
-        midi2ly [@var{OPTION}]@dots{} @var{MIDI-FILE}
+        midi2ly [@var{option}]@dots{} @var{midi-file}
 @end example
 
-@unnumberedsubsec Options
+The following options are supported by midi2ly:
 
 @table @code
 @item -b, --no-quantify,
@@ -56,15 +50,16 @@ C to parse the MIDI files.
     Print lots of debugging stuff.
 @item -h, --help,
     Show a summary of usage.
-@item -I, --include=@file{DIR},
-    Add DIR to search path.
-@item -k, --key=ACC[:MINOR],
-    Set default key.  ACC > 0 sets number of sharps; ACC < 0 sets number 
+@item -I, --include=@var{dir},
+    Add @var{dir} to search path.
+@item -k, --key=@var{acc}[:@var{minor}],
+    Set default key.  @var{acc} > 0 sets number of sharps; @var{acc} < 0
+sets number
     of flats.  A minor key is indicated by ":1".
 @item -n, --no-silly,
     Assume no plets or double dots, assume smallest (reciprocal) duration 16.
-@item -o, --output=@file{FILE},
-    Set @file{FILE} as default output.
+@item -o, --output=@var{file},
+    Set @var{file} as default output.
 @item -p, --no-plets,
     Assume no plets.
 @item -q, --quiet,
@@ -80,8 +75,8 @@ C to parse the MIDI files.
 @end table
 
 
-@node etf2ly
-@section etf2ly
+@node Importing Finale 
+@section Importing Finale
 
 @cindex ETF
 @cindex enigma
@@ -89,19 +84,15 @@ C to parse the MIDI files.
 @cindex Coda Technology
 
 ETF (Enigma Transport Format) is a format used by Coda Music
-Technology's Finale product. This program will convert part of an ETF
+Technology's Finale product. etf2ly will convert part of an ETF
 file to a ready-to-use LilyPond file.
 
-@subsection Invoking etf2ly
-Usage:
-
+It is invoked as follows:
 @example
-        etf2ly [@var{OPTION}]@dots{} @var{ETF-FILE}
+        etf2ly [@var{option}]@dots{} @var{etf-file}
 @end example
 
-Convert ETF to LilyPond.
-
-@unnumberedsubsec Options
+The following options are supported by etf2ly.
 @table @code
 @item   -h,--help
 this help
@@ -118,22 +109,29 @@ The list of articulation scripts is incomplete.  Empty measures confuse
 etf2ly.
 
 
-@node abc2ly
-@section abc2ly
-
-ABC is a fairly simple ASCII based format. It is described at
-@uref{http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt}.
+@node Importing ABC
+@section Importing ABC
 
 @cindex ABC
-@cindex Importing ABC
 
-@subsection Invoking abc2ly
+ABC is a fairly simple ASCII based format. It is described at
+@uref{http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt}. abc2ly
+translates from ABC to LilyPond. It is invoked as follows:
 
 @example
-        abc2ly [@var{OPTION}]@dots{} @var{ABC-FILE}
+        abc2ly [@var{option}]@dots{} @var{abc-file}
 @end example
 
-Convert ABC to LilyPond.
+The following options are supported by abc2ly:
+
+@table @code
+@item   -h,--help
+this help
+@item  -o,--output=@var{file}
+set output filename to @var{file}.
+@item  -v,--version
+print version information.
+@end table
 
 There is a rudimentary facility for adding lilypond code to the ABC
 source file.  If you say:
@@ -154,19 +152,10 @@ Similarly:
 will cause the text following the ``slyrics'' keyword to be inserted
 into the current line of lyrics.
 
-@unnumberedsubsec Options
-@table @code
-@item   -h,--help
-this help
-@item  -o,--output=FILE
-set output filename to FILE
-@item  -v,--version
-version information
-@end table
 
 @refbugs
 
-The ABC standard is not very "standard". For extended features
+The ABC standard is not very ``standard''. For extended features
 (eg. polyphonic music) different conventions exist. 
 
 Multiple tunes in one file cannot be converted.
@@ -176,25 +165,28 @@ not.
 
 abc2ly ignores the ABC beaming.
 
-@node pmx2ly
-@section pmx2ly
+@node Importing PMX
+@section Importing PMX
 
-PMX is a MusiXTeX preprocessor written by Don Simons, see
+PMX is a MusiXTeX preprocessor written by Don Simons. More information
+on PMX is available from the following site:
+
+@quotation
 @uref{http://icking-music-archive.sunsite.dk/Misc/Music/musixtex/software/pmx/}.
+@end quotation
 
 @cindex PMX
 @cindex MusiXTeX
 @cindex Simons, Don
 
-@subsection Invoking pmx2ly
+pmx2ly converts from PMX to LilyPond input. The program is invoked as
+follows:
 
 @example
-        pmx2ly [@var{OPTION}]@dots{} @var{PMX-FILE}
+        pmx2ly [@var{option}]@dots{} @var{pmx-file}
 @end example
 
-Convert PMX to LilyPond.
-
-@unnumberedsubsec Options
+The following options are supported by pmx2ly:
 
 @table @code
 @item   -h,--help
@@ -206,8 +198,8 @@ version information
 @end table
 
 
-@node musedata2ly
-@section musedata2ly
+@node Importing Musedata 
+@section Importing Musedata
 
 @cindex Musedata
 @cindex CCARH
@@ -215,20 +207,15 @@ version information
 Musedata (@uref{http://www.musedata.org/}) is an electronic library of
 classical music scores, currently comprising about 800 composition
 dating from 1700 to 1825.  The music is encoded in so-called Musedata
-format
-(@uref{http://www.ccarh.org/publications/books/beyondmidi/online/musedata}).
-musedata2ly converts a set of musedata files to one .ly file, and will
-include a @code{\header} field if a @file{.ref} file is supplied
-
-@subsection Invoking musedata2ly
+format.  musedata2ly converts a set of musedata files to one .ly file,
+and will include a @code{\header} field if a @file{.ref} file is
+supplied. It is invoked as follows:
 
 @example
-        musedata2ly [@var{OPTION}]@dots{} @var{MUSEDATA-FILE}
+        musedata2ly [@var{option}]@dots{} @var{musedata-files}
 @end example
 
-Convert Musedata to LilyPond.
-
-@unnumberedsubsec Options
+The following options are supported by musedata2ly:
 
 @table @code
 @item   -h,--help
@@ -239,45 +226,46 @@ set output filename to @var{file}
 version information
 @item  -r,--ref=@var{reffile}
  read background information from ref-file
-@var{REFFILE}
+@var{reffile}
 @end table
 
+@refbugs
 
-@node mup2ly
-@section mup2ly
+musedata2ly converts only a small subset musedata. 
+
+@node Importing MUP
+@section Importing MUP
 
 MUP (Music Publisher) is a shareware music notation program by Arkkra
 Enterprises.  It is also the name of the input format.  Mup2ly will
-convert part of a Mup file to a ready-to-use LilyPond file.
+convert part of a Mup file to a ready-to-use LilyPond file. Mup2ly is
+invoked as follows:
 
+@cindex Music Publisher
 @cindex MUP
 @cindex Arkkra
 
-@subsection Invoking mup2ly
-
 @example
-        mup2ly [@var{OPTION}]@dots{} @var{MUP-FILE}
+        mup2ly [@var{option}]@dots{} @var{mup-file}
 @end example
 
-Convert Mup to LilyPond.
-
-@unnumberedsubsec Options
+The following options are supported by mup2ly:
 
 @table @code
 @item   -d,--debug
 show what constructs are not converted, but skipped.
-@item D, --define=@var{NAME}[=@code{EXP}]
-define macro @var{NAME} with opt expansion @code{EXP}
+@item D, --define=@var{name}[=@code{exp}]
+define macro @var{name} with opt expansion @code{exp}
 @item   -E,--pre-process
 only run the pre-processor
 @item   -h,--help
 print help
-@item  -o,--output=FILE
-write output to @var{FILE}
+@item  -o,--output=@var{file}
+write output to @var{file}
 @item  -v,--version
 version information
 @item  -w,--warranty
-print warranty and copyright.  Mup2ly comes with absolutely @strong{NO WARRANTY}.
+print warranty and copyright. 
 @end table
 
 

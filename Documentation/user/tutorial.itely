@@ -19,7 +19,6 @@
 * A piano excerpt::             Piano music
 * Fine tuning a piece::         
 * An orchestral score::         Conductor's score and individual parts
-* Other ways to run LilyPond::  Other ways to run LilyPond
 * Integrating text and music::  Integrating text and music
 * End of tutorial::             The end
 @end menu
@@ -1828,8 +1827,8 @@ version number will be checked, and you will get a warning when the file
 is too old.
 
 This version number is also used by the @code{convert-ly} program (See
-@ref{convert-ly}), which is used to update the file to the latest lily
-version.
+@ref{Upgrading from older LilyPond versions}), which is used to update
+the file to the latest lily version.
 
 @separate
 @example
@@ -2906,43 +2905,6 @@ bars.  LilyPond will do this if Score's @var{skipBars} property to
 true. 
 
 
-@node Other ways to run LilyPond
-@section Other ways to run LilyPond
-
-Until now, you have been using @file{ly2dvi} to invoke LilyPond.
-There are three other routes.  Firstly, there is a script called
-@code{lilypond-book}, that allows you to freely mix LilyPond input with
-Texinfo or \LaTeX input. For example, this manual was written using
-@code{lilypond-book}. It is discussed below and in @ref{lilypond-book}.
-
-
-Secondly, you can generate PostScript directly. This is useful if you
-can not or do not want to run @TeX{} on your system.  To obtain direct
-PostScript output, invoke LilyPond as follows:
-@cindex PostScript output
-@example
-lilypond -f ps test.ly
-@end example
-You have to set some environment variables to view or print this output. 
-More information can be found in @ref{Invoking LilyPond}. Since the
-direct Postscript generation has some problems, it is recommended
-to use @file{ly2dvi}.
-
-
-Thirdly, if you want to do special things with your output, you can run
-invoke LilyPond directly:
-@example
-lilypond test.ly
-@end example
-to produce plain @TeX{} output.  Note that La@TeX{} will not work on the
-resulting @file{test.tex}.  You must run plain @TeX{} on it.
-
-@cindex @TeX{}
-
-
-
-
-
 @node Integrating text and music
 @section Integrating text and music
 
@@ -2952,12 +2914,13 @@ songbook, or (like us) the LilyPond manual.  You can make such texts by
 hand, simply by importing a PostScript figure into your wordprocessor.
 However, there is a also an automated procedure:
 
-If you use La@TeX{} or texinfo, you can mix text and LilyPond code. A
-script called @code{lilypond-book} will extract the music fragments, run
-LilyPond on them, and put back the resulting notation.  lilypond-book is
-described fully in @ref{lilypond-book}, but here we show a small
-example. Since the example also contains explanatory text, we won't
-comment on the contents.
+If you use HTML, La@TeX{} or texinfo, you can mix text and LilyPond
+code. A script called @code{lilypond-book} will extract the music
+fragments, run LilyPond on them, and put back the resulting notation.
+This utility program is described fully in the chapter @ref{Merging text
+and music with lilypond-book}. Here we show a small example. Since the
+example also contains explanatory text, we won't comment on the
+contents.
 
 @example
 \documentclass[a4paper]@{article@}

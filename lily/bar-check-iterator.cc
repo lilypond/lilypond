@@ -47,7 +47,7 @@ Bar_check_iterator::process (Moment m)
       Translator_group *tr = report_to_l ();
 
       SCM mp = tr->get_property ("measurePosition");
-      SCM sync= tr->get_property ("barCheckNoSynchronize");
+      SCM sync= tr->get_property ("barCheckSynchronize");
 
       Moment * where =unsmob_moment (mp);
       if (!where)
@@ -57,7 +57,7 @@ Bar_check_iterator::process (Moment m)
 	{
 	  music_l ()->origin ()->warning (_f ("barcheck failed at: %s", 
 					      where->str ()));
-	  if (!to_boolean (sync))
+	  if (to_boolean (sync))
 	    {
 	      tr = tr->where_defined (ly_symbol2scm("measurePosition"));
 	      Moment zero;

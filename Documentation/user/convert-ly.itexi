@@ -1,19 +1,24 @@
 @c -*-texinfo-*-
 
-@node convert-ly
-@chapter convert-ly
+@node Upgrading from older LilyPond versions
+@chapter Upgrading from older LilyPond versions
 
 
 Convert-ly sequentially applies different conversions to upgrade a
 Lilypond input file.  It uses @code{\version} statements in the file to
-detect the old version number.
-
-@unnumberedsubsec Invoking convert-ly
-
+detect the old version number.  For example, to upgrade all lilypond
+files in the current directory and its subdirectories, use
 @example
-        convert-ly [OPTION]... [FILE]...
+        convert-ly -e --to=1.3.150 `find . -name '*.ly' -print`
 @end example
 
+The program is invoked as follows:
+@example
+        convert-ly [@var{options}] @var{files}
+@end example
+
+
+The following options can be given:
 
 @table @code
 @item -a,--assume-old
@@ -37,22 +42,8 @@ detect the old version number.
     Print usage help
 @end table
 
-@unnumberedsubsec Example
-
-Upgrade all lilypond files to 1.3.150:
-@example
-        convert-ly -e --to=1.3.150 `find -name '*.ly'`
-@end example
-
-@unnumberedsubsec Bugs
-
-Not all language changes are handled. Multiple output options won't
-work.
-
-@unnumberedsubsec Authors
-
-@code{convert-ly} is written in @uref{http://www.python.org,Python}. It
-was written by @email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}. Report bugs
-to @code{bug-lilypond@@gnu.org}
 
 
+@refbugs Bugs
+
+Not all language changes are handled. Only one output options can be specified.

@@ -31,6 +31,7 @@ encouraged to study the tutorial first.
 
 @menu
 * Note entry::                  
+* Easier music entry::          
 * Staff notation::              
 * Polyphony::                   
 * Beaming::                     
@@ -44,14 +45,10 @@ encouraged to study the tutorial first.
 * Chords::                      
 * Writing parts::               
 * Ancient notation ::           
-* Ancient clefs ::              
-* Figured bass::                
 * Tuning output::               
 * Page layout::                 
 * Output formats::              
 * Sound::                       
-* Music entry::                 
-* Skipping corrected music::    
 * Interpretation context::      
 * Syntactic details::           
 * Lexical details::             
@@ -506,6 +503,222 @@ readable, see @ref{Output scaling}.
 If you view the result with Xdvi, then staff lines will show through the
 letters.  Printing the postscript file obtained either by using dvips or
 the @code{-f ps} option of lilypond produces the correct result.
+
+
+@node Easier music entry
+@section Easier music entry
+@cindex Music entry
+@menu
+* Relative octaves::            
+* Bar check::                   
+* Point and click::             
+* Skipping corrected music::    
+@end menu
+
+When entering music with LilyPond, it is easy to introduce errors. This
+section deals with tricks and features that help you enter music, and
+find and correct mistakes.
+
+@c .  {Relative}
+@node Relative octaves
+@subsection Relative octaves
+@cindex Relative
+@cindex relative octave specification
+
+Octaves are specified by adding @code{'} and @code{,} to pitch names.
+When you copy existing music, it is easy to accidentally put a pitch in
+the wrong octave and hard to find such an error.  To prevent these
+errors, LilyPond features octave entry.
+
+@cindex @code{\relative}
+@example
+  \relative @var{startpitch} @var{musicexpr}
+@end example
+
+The octave of notes that appear in @var{musicexpr} are calculated as
+follows: If no octave changing marks are used, the basic interval
+between this and the last note is always taken to be a fourth or less
+(This distance is determined without regarding alterations; a
+@code{fisis} following a @code{ceses} will be put above the
+@code{ceses})
+
+The octave changing marks @code{'} and @code{,} can be added to raise or
+lower the pitch by an extra octave.  Upon entering relative mode, an
+absolute starting pitch must be specified that will act as the
+predecessor of the first note of @var{musicexpr}.
+
+Entering music that changes octave frequently  is easy in relative mode.
+@lilypond[fragment,singleline,verbatim,center]
+  \relative c'' {
+    b c d c b c bes a 
+  }
+@end lilypond
+
+And octave changing marks are used for intervals greater than a fourth.
+@lilypond[fragment,verbatim,center]
+  \relative c'' {
+    c g c f, c' a, e'' }
+@end lilypond
+
+If the preceding item is a chord, the first note of the chord is used
+to determine the first note of the next chord. However, other notes
+within the second chord are determined by looking at the immediately
+preceding note.
+
+@lilypond[fragment,verbatim,center]
+  \relative c' {
+    c <c e g> 
+    <c' e g>
+    <c, e' g>
+  }
+@end lilypond 
+@cindex @code{\notes}
+
+The pitch after the @code{\relative} contains a note name.  To parse
+the pitch as a note name, you have to be in note mode, so there must
+be a surrounding @code{\notes} keyword (which is not
+shown here).
+
+The relative conversion will not affect @code{\transpose},
+@code{\chords} or @code{\relative} sections in its argument.  If you
+want to use relative within transposed music, you must place an
+additional @code{\relative} inside the @code{\transpose}.
+
+
+@c .  {Bar check}
+@node Bar check
+@subsection Bar check
+@cindex Bar check
+
+@cindex bar check
+@cindex @code{barCheckNoSynchronize}
+@cindex @code{|}
+
+
+Whenever a bar check is encountered during interpretation, a warning
+message is issued if it doesn't fall at a measure boundary.  This can
+help you find errors in the input.  Depending on the value of
+@code{barCheckSynchronize}, the beginning of the measure will be
+relocated, so this can also be used to shorten measures.
+
+A bar check is entered using the bar symbol, @code{|}:
+@example
+  \time 3/4 c2 e4 | g2.
+@end example
+
+
+
+@cindex skipTypesetting
+
+Failed bar checks are most often caused by entering incorrect
+durations. Incorrect durations often completely garble up the score,
+especially if it is polyphonic, so you should start correcting the score
+by scanning for failed bar checks and incorrect durations.  To speed up
+this process, you can use @code{skipTypesetting} (See @ref{Skipping
+corrected music})). Bar
+
+
+@c .  {Point and click}
+@node Point and click
+@subsection Point and click
+
+Point and click lets you find notes in the input by clicking on them in
+the Xdvi window. This makes it very easy to find input that causes some
+error in the sheet music.
+
+To use it, you need the following software
+
+@itemize @bullet
+@item 
+@uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,plain
+Xdvi} version 22.36 or newer.
+
+  Note that most @TeX{} distributions ship with xdvik, which is a
+  different and less well maintained program. To find out which xdvi you
+  are running, try @code{xdvi --version} or @code{xdvi.bin --version}.
+@item emacs
+@end itemize
+
+Xdvi must be configured to find the TeX fonts and music
+fonts. Refer to the Xdvi documentation for more information.
+
+
+To use point-and-click, add one of these lines to the top of your .ly
+file. The first one is for line location only. The second one is more
+convenient, but requires patching @code{emacsclient} and
+@code{server.el}.
+
+@example
+#(set! point-and-click line-location)
+@end example
+
+In the emacs startup file (usually @file{~/.emacs}), add the following
+@example
+(server-start)
+@end example
+
+Make sure that  the environment  variable @code{XEDITOR} is set
+to
+@example
+emacsclient --no-wait +%l %f
+@end example
+The second one, that also specifies the column, only works if you have
+patched your emacsclient and server, and have compiled your @code{.ly}
+file using the @code{line-column-location} setting.
+
+When viewing, control-mousebutton 1 will take you to the originating
+spot in the @file{.ly} file. Control-mousebutton 2 will show all
+clickable boxes.
+
+If you want emacs to jump to the exact spot (and not just the line) on a
+click, you must enable column positioning. To do so, you need to patch
+emacsclient. Apply @file{emacsclient.patch} (included with the source
+package) to @file{emacsclient.c} and @file{server.el} from the emacs
+source code. Recompile and stick the recompiled emacsclient into a bin
+directory, and put @file{server.el} into a elisp directory
+(e.g. @file{~/usr/share/emacs/}). Add the following to your
+@file{.emacs} init file, before invoking server-start.
+
+@example
+ (setq load-path (cons "~/usr/share/emacs" load-path))
+@end example
+
+Set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}
+
+At the top of the @code{ly} file, replace the @code{set!} line with the
+following line
+@example
+#(set! point-and-click line-column-location)
+@end example
+
+One final hint: if you correct large files with point-and-click, then
+start correcting at the end of the file. When you start at the top, and
+insert one line, all subsequent locations will be off by a line.
+
+
+@refbugs
+
+When you convert the @TeX{} file to PostScript using @code{dvips}, it
+will complain about not finding @code{src:X:Y} files. Those complaints
+are harmless, and can be ignored.
+
+@node Skipping corrected music
+@subsection Skipping corrected music
+
+The property @code{Score.skipTypesetting} can be used to switch on and
+off typesetting completely during the interpretation phase. When
+typesetting is switched off, the music is processed much more quickly.
+You can use this to skip over the parts of a score that you have already
+checked for errors. 
+
+@lilypond[fragment,singleline,verbatim]
+\relative c'' { c8 d
+\property Score.skipTypesetting = ##t
+  e f g a g c, f e d
+\property Score.skipTypesetting = ##f
+c d b bes a g c2 } 
+@end lilypond
+
 
 
 
@@ -1404,6 +1617,12 @@ account.
 c4^"longtext" \fatText c4_"longlongtext" c4 }
 @end lilypond
 
+It is possible to use @TeX{} commands in the strings, but this should be
+avoided because it makes it impossible for LilyPond to compute the
+exact length of the string, which may lead to collisions.  Also, @TeX{}
+commands won't work with direct PostScript output (see @ref{PostScript
+output}).
+
 Text scripts are created in form of @internalsref{TextScript} grobs, in
 @internalsref{Voice} context. 
 
@@ -2075,7 +2294,7 @@ are @code{PianoStaff.Arpeggio}.
 
 To add an arrow head to explicitly specify the direction of the
 arpeggio, you should set the arpeggio grob property
-@code{arpeggio-type}.
+@code{arpeggio-direction}.
 
 @lilypond[fragment,relative,verbatim]
   \context Voice {
@@ -2095,7 +2314,8 @@ arpeggiate the chord. To draw these brackets, set the
 @lilypond[fragment,relative,verbatim]
   \context PianoStaff <
     \property PianoStaff.connectArpeggios = ##t
-    \property PianoStaff.Arpeggio \override #'molecule-callback = \arpeggioBracket
+    \property PianoStaff.Arpeggio \override
+        #'molecule-callback = \arpeggioBracket
     \context Voice = one  { <c'\arpeggio e g c> }
     \context Voice = other { \clef bass  <c,,\arpeggio e g>}
   >  
@@ -3004,6 +3224,8 @@ output.
 @menu
 * Ancient note heads::          
 * Custodes::                    
+* Ancient clefs ::              
+* Figured bass::                
 @end menu
 
 
@@ -3082,7 +3304,7 @@ block:
 @end example
 
 @node Ancient clefs 
-@section Ancient clefs
+@subsection Ancient clefs
 
 LilyPond supports a variety of clefs, many of them ancient. These can
 be selected from the @code{ancient} font family, by setting
@@ -3135,10 +3357,8 @@ Editio XXX.''
 @cindex hufnagel clefs
 
 
-
-@c . {Figured bass}
 @node Figured bass
-@section Figured bass
+@subsection Figured bass
 
 @cindex Basso continuo
 
@@ -3164,7 +3384,7 @@ In figures input mode, a group of bass figures is delimited by
 @code{<} and @code{>}. The duration is entered after the @code{>}.
 @lilypond[fragment]
 \context FiguredBass
-\figures {	<4 6> }
+\figures { <4 6> }
 @end lilypond
 @example
 	<4 6>
@@ -3469,11 +3689,8 @@ which enhances readability. Scalable type faces such TrueType and Adobe
 Type1 usually come as ``one design fits all sizes''.
 
 @item font-name
-  The name of the font, without the design size, e.g. @code{cmr},
-@code{cmti}, etc. Setting this overrides font-family, font-shape and
-font-series.
-
-
+  The name of the font, as a string, e.g. @code{"cmr12"}. This overrides
+all other font-qualifiers. 
 @end table
 
 
@@ -3691,7 +3908,6 @@ typesetting them:
 
 A very rigorous way of removing grobs from the whole score is to remove
 the engraver that creates them. For example,
-
 @lilypond[singleline,verbatim]
 \score {\notes { c'4 d'8 e'8 g2 }
   \paper { \translator {
@@ -3700,45 +3916,20 @@ the engraver that creates them. For example,
   } }
 }
 @end lilypond
+However, as you can see, this can lead to unexpected effects.
 
 @node Dirty tricks
 @subsection Dirty tricks
 @cindex embedded tex
 
-It is possible to use @TeX{} commands in the strings, but this should be
-avoided because it makes it impossible for LilyPond to compute the
-exact length of the string, which may lead to collisions.  Also, @TeX{}
-commands won't work with direct PostScript output (see @ref{PostScript
-output}).
-
 @lilypond[fragment,relative,verbatim]
   a'^"3 $\\times$ \\`a deux"
-@end lilypond
-
-You can also use raw PostScript commands embedded in text scripts.  This
-offers ultimate flexibility, but requires you to learn PostScript.
-Currently, embedded PostScript will @strong{not} work with direct
-PostScript output.  Note that all dimensions that you use are in staff
-space.
-
-@lilypond[verbatim]
-\score {
-  \notes \relative c'' {
-    a-#"\\embeddedps{3 4 moveto 5 3 rlineto stroke}"
-    -#"\\embeddedps{ [ 0 1 ] 0 setdash 3 5 moveto 5 -3 rlineto stroke}"
-    b-#"\\embeddedps{3 4 moveto 0 0 1 2 8 4 20 3.5 rcurveto stroke}"
-    s2
-    a'1
-  }
-  \paper { linewidth = 70*\staffspace }
-}
 @end lilypond
 
 @node Spacing
 @subsection Spacing
 
 TODO: Move this section.
-
 
 @refbugs
 
@@ -4031,6 +4222,7 @@ LilyPond can output processed music in different output formats.
 * PostScript output::           
 * Scheme output::               
 * ASCIIScript output::          
+* Sketch output::               
 @end menu
 
 @node TeX output
@@ -4182,6 +4374,17 @@ The poor looks of most ASCII Art output and its limited general
 usefulness gives ASCII Art output a low priority; it may be
 dropped in future versions.
 
+
+@node Sketch output
+@subsection Sketch output
+
+@uref{http://sketch.sourceforge.net,Sketch} is a Free vector drawing
+program. LilyPond includes bare bones output for Sketch version 0.7.
+
+@cindex Sketch
+@cindex vector drawing
+@cindex drawing program
+
 @c . {Sound}
 @node Sound
 @section Sound
@@ -4271,226 +4474,6 @@ number.
 
 @c FIXME: Note entry vs Music entry at top level menu is confusing.
 @c . {Music entry}
-@node Music entry
-@section Music entry
-@cindex Music entry
-@menu
-* Relative::                    
-* Bar check::                   
-* Point and click::             
-@end menu
-
-When entering music with LilyPond, it is easy to introduce errors. This
-section deals with tricks and features that help you enter music, and
-find and correct mistakes.
-
-@c .  {Relative}
-@node Relative
-@subsection Relative
-@cindex Relative
-@cindex relative octave specification
-
-Octaves are specified by adding @code{'} and @code{,} to pitch names.
-When you copy existing music, it is easy to accidentally put a pitch in
-the wrong octave and hard to find such an error.  To prevent these
-errors, LilyPond features octave entry.
-
-@cindex @code{\relative}
-@example
-  \relative @var{startpitch} @var{musicexpr}
-@end example
-
-The octave of notes that appear in @var{musicexpr} are calculated as
-follows: If no octave changing marks are used, the basic interval
-between this and the last note is always taken to be a fourth or less
-(This distance is determined without regarding alterations; a
-@code{fisis} following a @code{ceses} will be put above the
-@code{ceses})
-
-The octave changing marks @code{'} and @code{,} can be added to raise or
-lower the pitch by an extra octave.  Upon entering relative mode, an
-absolute starting pitch must be specified that will act as the
-predecessor of the first note of @var{musicexpr}.
-
-Entering music that changes octave frequently  is easy in relative mode.
-@lilypond[fragment,singleline,verbatim,center]
-  \relative c'' {
-    b c d c b c bes a 
-  }
-@end lilypond
-
-And octave changing marks are used for intervals greater than a fourth.
-@lilypond[fragment,verbatim,center]
-  \relative c'' {
-    c g c f, c' a, e'' }
-@end lilypond
-
-If the preceding item is a chord, the first note of the chord is used
-to determine the first note of the next chord. However, other notes
-within the second chord are determined by looking at the immediately
-preceding note.
-
-@lilypond[fragment,verbatim,center]
-  \relative c' {
-    c <c e g> 
-    <c' e g>
-    <c, e' g>
-  }
-@end lilypond 
-@cindex @code{\notes}
-
-The pitch after the @code{\relative} contains a note name.  To parse
-the pitch as a note name, you have to be in note mode, so there must
-be a surrounding @code{\notes} keyword (which is not
-shown here).
-
-The relative conversion will not affect @code{\transpose},
-@code{\chords} or @code{\relative} sections in its argument.  If you
-want to use relative within transposed music, you must place an
-additional @code{\relative} inside the @code{\transpose}.
-
-
-@c .  {Bar check}
-@node Bar check
-@subsection Bar check
-@cindex Bar check
-
-@cindex bar check
-@cindex @code{barCheckNoSynchronize}
-@cindex @code{|}
-
-
-Whenever a bar check is encountered during interpretation, a warning
-message is issued if it doesn't fall at a measure boundary.  This can
-help you find errors in the input.  Depending on the value of
-@code{barCheckNoSynchronize}, the beginning of the measure will be
-relocated, so this can also be used to shorten measures.
-
-A bar check is entered using the bar symbol, @code{|}:
-@example
-  \time 3/4 c2 e4 | g2.
-@end example
-
-
-
-@cindex skipTypesetting
-
-Failed bar checks are most often caused by entering incorrect
-durations. Incorrect durations often completely garble up the score,
-especially if it is polyphonic, so you should start correcting the score
-by scanning for failed bar checks and incorrect durations.  To speed up
-this process, you can use @code{skipTypesetting} (See @ref{Skipping
-corrected music})). Bar
-
-
-@c .  {Point and click}
-@node Point and click
-@subsection Point and click
-
-Point and click lets you find notes in the input by clicking on them in
-the Xdvi window. This makes it very easy to find input that causes some
-error in the sheet music.
-
-To use it, you need the following software
-
-@unnumberedsubsec Installation
-
-@itemize @bullet
-@item 
-@uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,plain
-Xdvi} version 22.36 or newer.
-
-  Note that most @TeX{} distributions ship with xdvik, which is a
-  different and less well maintained program. To find out which xdvi you
-  are running, try @code{xdvi --version} or @code{xdvi.bin --version}.
-@item emacs
-@end itemize
-
-Xdvi must be configured to find the TeX fonts and music
-fonts. Refer to the Xdvi documentation for more information.
-
-
-@unnumberedsubsec Using it
-
-Add one of these lines to the top of your .ly file. The first one is for
-line location only. The second one is more convenient, but requires
-patching @code{emacsclient} and @code{server.el}.
-
-@example
-#(set! point-and-click line-location)
-@end example
-
-In the emacs startup file (usually @file{~/.emacs}), add the following
-@example
-(server-start)
-@end example
-
-Make sure that  the environment  variable @code{XEDITOR} is set
-to
-@example
-emacsclient --no-wait +%l %f
-@end example
-The second one, that also specifies the column, only works if you have
-patched your emacsclient and server, and have compiled your @code{.ly}
-file using the @code{line-column-location} setting.
-
-When viewing, control-mousebutton 1 will take you to the originating
-spot in the @file{.ly} file. Control-mousebutton 2 will show all
-clickable boxes.
-
-
-@unnumberedsubsec Column location
-
-If you want emacs to jump to the exact spot (and not just the line) on a
-click, you must enable column positioning. To do so, you need to patch
-emacsclient. Apply @file{emacsclient.patch} (included with the source
-package) to @file{emacsclient.c} and @file{server.el} from the emacs
-source code. Recompile and stick the recompiled emacsclient into a bin
-directory, and put @file{server.el} into a elisp directory
-(e.g. @file{~/usr/share/emacs/}). Add the following to your @file{.emacs}
-init file, before invoking server-start.
-
-@example
- (setq load-path (cons "~/usr/share/emacs" load-path))
-@end example
-
-Set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}
-
-At the top of the @code{ly} file, replace the @code{set!} line with the
-following line
-@example
-#(set! point-and-click line-column-location)
-@end example
-
-One final hint: if you correct large files with point-and-click, then
-start correcting at the end of the file. When you start at the top, and
-insert one line, all subsequent locations will be off by a line.
-
-
-@refbugs
-
-When you convert the @TeX{} file to PostScript using @code{dvips}, it
-will complain about not finding @code{src:X:Y} files. Those complaints
-are harmless, and can be ignored.
-
-@node Skipping corrected music
-@section Skipping corrected music
-
-The property @code{Score.skipTypesetting} can be used to switch on and
-off typesetting completely during the interpretation phase. When
-typesetting is switched off, the music is processed much more quickly.
-You can use this to skip over the parts of a score that you have already
-checked for errors. 
-
-@lilypond[fragment,singleline,verbatim]
-\relative c'' { c8 d
-\property Score.skipTypesetting = ##t
-  e f g a g c, f e d
-\property Score.skipTypesetting = ##f
-c d b bes a g c2 } 
-@end lilypond
-
-
 @node Interpretation context
 @section Interpretation context
 
@@ -4850,6 +4833,7 @@ This section describes details that were too boring to be put elsewhere.
 * Identifiers::                 
 * Music expressions::           
 * Manipulating music expressions::  
+* Span requests::               
 * Assignments::                 
 * Lexical modes::               
 * Ambiguities::                 
@@ -4952,10 +4936,9 @@ file, so you can include commands in the input to manipulate them,
 during a lilypond run.
 
 @itemize @bullet
-@item Grob: short for Graphical object. See @ref{Grobs}. 
+@item Grob: short for Graphical object. 
 @item Molecule: device-independent page output object,
 including dimensions.  Produced by some Grob functions
-See @ref{Molecules}
 @item Translator: object that produces audio objects or Grobs. This is
 not yet user accessible.
 @item Font_metric: object representing a font.
@@ -5095,7 +5078,7 @@ More examples are given in the distributed example files in
 @end menu
 
 @node Span requests
-@subsubsection Span requests
+@subsection Span requests
 @cindex Span requests
 
 Notational constructs that start and end on different notes can be
@@ -5252,8 +5235,6 @@ Even more boring details, now on lexical side of the input parser.
 @menu
 * Comments::                    
 * Direct Scheme::               
-* Keywords::                    
-* Integers::                    
 * Reals::                       
 * Strings::                     
 * Main input::                  
@@ -5306,47 +5287,9 @@ the website @uref{http://www.schemers.org/} for more information on
 Scheme.
 
 
-@node Keywords
-@subsection Keywords
-@cindex Keywords
-
-
-Keywords start with a backslash, followed by a number of lower case
-alphabetic characters.  These are all the keywords.
-
-@example
-apply arpeggio autochange spanrequest commandspanrequest
-simultaneous sequential accepts alternative bar breathe
-char chordmodifiers chords clef cm consists consistsend
-context denies duration dynamicscript elementdescriptions
-font grace header in lyrics key mark pitch
-time times midi mm name pitchnames notes outputproperty
-override set revert partial paper penalty property pt
-relative remove repeat addlyrics partcombine score
-script stylesheet skip textscript tempo translator
-transpose type
-@end example
-
-@node Integers
-@subsection Integers
-
-@cindex integers
-@cindex @code{+}
-@cindex @code{-}
-@cindex @code{*}
-@cindex @code{/}
-
-Formed from an optional minus sign followed by digits.  Arithmetic
-operations cannot be done with integers, and integers cannot be mixed
-with reals.
-
 @node Reals
 @subsection Reals
 @cindex real numbers
-
-
-
-
 
 Formed from an optional minus sign and a sequence of digits followed
 by a @emph{required} decimal point and an optional exponent such as
@@ -5407,10 +5350,11 @@ filename including the @file{.ly} extension must be given,
 @end example
 
 Specify the version of LilyPond that a file was written for.  The
-argument is a version string in quotes, for example @code{"1.2.0"}. 
-This is used to detect invalid input, and to aid
-@code{convert-ly}  a tool that automatically upgrades input files. See
-See @ref{convert-ly} for more information on @code{convert-ly}.
+argument is a version string in quotes, for example @code{"1.2.0"}.
+This is used to detect invalid input, and to aid @code{convert-ly} a
+tool that automatically upgrades input files. See the chapter
+@ref{Upgrading from older LilyPond versions} for more information on
+@code{convert-ly}.
 
 @cindex convert-ly
 
