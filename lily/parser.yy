@@ -1807,30 +1807,28 @@ simple_element:
 		Input i = THIS->pop_spot (); 
 		m->set_spot (i);
 		for (SCM s = m->get_mus_property ("elements"); gh_pair_p (s); s = ly_cdr (s))
-			{
-				unsmob_music (ly_car (s))->set_mus_property ("duration", $2);
-			}
+		{
+			unsmob_music (ly_car (s))->set_mus_property ("duration", $2);
+		}
 		$$ = m;
 	}	
  	| RESTNAME optional_notemode_duration		{
 
 		Input i = THIS->pop_spot ();
  		SCM e = SCM_UNDEFINED;
+		Music * ev = 0;
  		if (ly_scm2string ($1) =="s") {
 			/* Space */
-			Music * skip = MY_MAKE_MUSIC("SkipEvent");
-			skip->set_mus_property ("duration" ,$2);
-			skip->set_spot (i);
-			e = skip->self_scm ();
+			ev = MY_MAKE_MUSIC("SkipEvent");
 		  }
-		  else {
- 			Music * rest_req = MY_MAKE_MUSIC("RestEvent");
-		      	rest_req->set_mus_property ("duration", $2);
-		      	rest_req->set_spot (i);
-			e = rest_req->self_scm ();
+		else {
+			ev = MY_MAKE_MUSIC("RestEvent");
+		
 		    }
+		skip->set_mus_property ("duration" ,$2);
+		skip->set_spot (i);
  		Music * velt = MY_MAKE_MUSIC("EventChord");
-		velt-> set_mus_property ("elements", scm_list_n (e,SCM_UNDEFINED));
+		velt->set_mus_property ("elements", scm_list_n (ev->self_scm (),SCM_UNDEFINED));
 		velt->set_spot (i);
 
  		$$ = velt;
