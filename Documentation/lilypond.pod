@@ -1,0 +1,298 @@
+=head1 NAME
+
+LilyPond - a music typesetter
+
+=head1 SYNOPSIS
+
+	lilypond [options] [inputfiles]
+
+=head1 DESCRIPTION
+
+Technically LilyPond is a preprocessor which generates TeX
+(or LaTeX) output which contains information to typeset a musical
+score. Practically it is a typesetter, which only uses TeX as an
+output medium. (this is handy because there exist music fonts for TeX)
+
+As a bonus, you can also output a MIDI file of what you typed.
+
+It translates script files (mudela files or F<*.ly>'s) into TeX input.
+Typesetting music is a complex task, whereas the message that printed
+music conveys is usually a simple one. LilyPond is a try at providing
+a simple interface for setting music.
+
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<-I,--include>=F<FILE>,
+
+add F<FILE> to the search path for input files.
+
+
+=item B<-M,--midi>
+
+do midi output only
+
+=item B<-d,--debug>,
+
+Turn debugging info. LilyPond will read the file F<.dstreamrc>, which
+tells for what functions and classes may produce copious debugging
+output.
+
+=item B<-w,--warranty>,
+
+Show the warranty with which LilyPond comes. (It comes with B<NO WARRANTY>!)
+
+=item B<-o,--output=>F<FILE>,
+
+Set the default output file to F<FILE>.
+
+=item B<-h,--help>,
+
+Show a summary of usage
+
+=item B<-i,--init=>F<FILE>
+
+set init file to F<FILE> (default: F<symbol.ini>)
+
+=item B<--include, -I>=F<DIRECTORY>
+add F<DIRECTORY> to the search path for input files.
+
+=back
+
+=head1 FEATURES
+
+=over 5
+
+=item *
+ASCII script input, with identifiers (for music reuse),
+customizable notenames, customizable fontset
+
+=item *
+MIDI output lets you check if you have entered the correct notes.
+
+=item *
+MIDI to Mudela conversion through the mi2mu program.
+
+=item *
+Multiple staffs in one score. Each staff can have a different meters.
+
+=item *
+multiple stafftypes (melodic, rhythmic) [broken from  pl28 on]
+
+=item *
+beams, slurs, chords, super/subscripts (accents and text),
+triplets, general n-plet (triplet, quadruplets, etc.), lyrics
+
+=item *
+multiple voices within one staff; beams optionally shared
+between voices. (well, more than 2 voices won't look pretty --yet.)
+
+=item *
+multiple scores within one input file. Each score is output to
+a different file.
+
+=item *
+clef changes, meter changes, cadenza-mode, key changes, repeat bars
+
+=back
+
+=head1 DESIGN CONSIDERATIONS
+
+LilyPond was written with some considerations in mind:
+
+=over 5
+
+=item *
+Describing a well-defined language for defining music. We call
+this language (rather arrogantly) The Musical Definition Language
+(mudela for short). LilyPond reads a mudela sourcefile and outputs a
+TeX file.  This musical definition language should:
+
+=over 5
+
+=item 1.
+define the musical message of the writer as unambigiously as
+possible.
+
+=item 2.
+be easily readable. (as compared to, say, MusixTeX input)
+
+=item 3.
+be writable in ASCII (with a simple texteditor).
+
+=back
+
+At this time, the language isn't yet defined precisely. It is evolving as
+LilyPond is getting more complex.
+
+=item *
+We want to provide an easy-to-use interface for typesetting music in
+its broadest sense. This interface should be intuitive from a musical
+point of view. By broadest sense we mean: it is designed for music
+printed left to right in staffs, using notes to designate rythm and
+pitch.
+
+=item *
+LilyPond uses MusiXTeX fonts and TeX for its output. This is not a key
+issue: in a future version, LilyPond might bypass TeX, but at the moment
+TeX is very convenient for producing output.
+
+=item  *
+Generate high-quality output. Ideally it should be of a professional
+quality. We'd like to render Herbert Chlapiks words, "Fine music
+setting is not possible without a knowledgeable printer,"  untrue.
+
+=item *
+LilyPond does not display notes directly, nor will it be rehacked to be
+used interactively. LilyPond writes output to a file.  It will not be
+extended to play music, or to recognize music.
+
+=item *
+LilyPond is intended to run on Unix platforms, but it should
+be portable to any platform which can run TeX and the GNU tools
+
+=item *
+LilyPond is free. Commercial windows packages for setting music are
+abundant. Free musicprinting software is scarce.
+
+=item *
+LilyPond is written in GNU C++. It will not be downgraded/ported to fit
+broken systems.
+
+=back
+
+=head1 
+DISCLAIMER & COPYING POLICY
+
+LilyPond is copyright 1996,97 by its authors. LilyPond is
+distributed under the terms of the GNU General Public
+License. LilyPond is provided without any warranty what so ever.
+LilyPond may be freely distributed.  For further information consult
+the GNU General Public License, which is in the file F<COPYING>
+
+=head1 AUTHORS
+
+=over 5
+
+=item *
+Han-Wen Nienhuys <hanwen@stack.nl>, Main author
+
+=item *
+Jan Nieuwenhuizen <jan@digicash.com>, Context errors, Lyrics,
+mi2mu, MIDI stuff, make structure, bits of FlowerLib, general
+comments.
+
+=item *
+Mats Bengtsson <matsb@s3.kth.se>, bugfixes, testing, general comments.
+
+=back
+
+Your name could be here! If you want to help, then take a look at the
+SMALLISH PROJECTS section of in the file F<TODO>. Some do not involve
+coding C++
+
+=head1 EXAMPLES
+
+At this time, LilyPond output looks nice, but is not of production
+quality. If you're not discouraged; this is what I type in my xterm:
+
+	lilypond someinput.ly
+	tex test
+	xdvi test&
+
+This is what the output looks like over here:
+
+	LilyPond 0.0.40 #0/FlowerLib 1.1.7 #2. Compile: Mar 11 1997, 22:58:47 (g++ 2.7.2)
+	Parsing ... [./init//symbol.ini[./init//dynamic.ini][./init//dutch.ini][./init//script.ini][./init//table_sixteen.ini]][./input/wohltemperirt.ly]
+	Setting up music ...Processing music ............
+	Preprocessing ... 
+	Calculating column positions ... [3][6][9]
+	Postprocessing ...
+	TeX output to lelie.out ...
+	midi output to lelie.midi ...
+
+	hw:~/musix/spacer$ tex test
+	This is TeX, Version 3.14159 (C version 6.1)
+	(test.tex
+	Hyphenation patterns for english, dutch, loaded.
+	(lilyponddefs.tex) (lelie.uit) [1] [2] )
+	Output written on test.dvi (2 pages, 8420 bytes).
+	Transcript written on test.log.
+
+	hw:~/musix/spacer$ xdvi test&
+	[1] 855
+
+Check out the input files, some of them have comments
+
+
+=head1 PROBLEMS
+
+If LilyPond bombs out, then please recompile using with debugging info
+turned on, and send a copy of the input which causes the error and a
+gdb stacktrace of the crash. It also helps if you can print the values
+of the objects. So if your trace is
+
+	(gdb) backtrace 12
+	#0  Interval::operator+= (this=0x11fffec60..)
+	    at ../flower/interval.hh:50
+	#1  0x12005195c in Item::width (this=0x14008a680) at src/item.cc:39
+	#2  0x12008fdbc in itemlist_width (its=0x11fffed58 ..
+	  :
+	  :
+
+Than it would help if you send a dump of the Interval and the Item
+(use: C<print *this> or use LilyPond C<print()> methods).
+
+This is a beta version of LilyPond. Please send your helpful comments
+and patches to me (see AUTHORS section)
+
+LilyPond is updated very frequently, the latest version is always available at:
+ftp://pcnov095.win.tue.nl/pub/lilypond. 
+
+
+=head1 FILES
+
+=over 5
+
+=item F<symbol.ini>
+The initialisation file with symbol tables etc. It
+includes files from the directory F<init/>.
+
+=back
+
+=head1 SEE ALSO
+
+There are some documentation files  in the subdirectory F<Documentation/>,
+among others: lilygut, lilyinput, error, faq, 
+
+=head1  REMARKS
+
+LilyPond has no connection with the music package RoseGarden, other
+than the names being similar :-)
+
+=head1 HISTORY
+
+(for a  detailed changelog, see F<NEWS>)
+
+LilyPond's roots lie in MPP, a preprocessor to the rather arcane
+MusiXTeX macro package for TeX. A friend of mine, Jan Nieuwenhuizen
+wrote the first 44 versions (0.01 to 0.44), then his program caught my
+attention, and I was slowly sucked in to the interesting problem of
+easily producing beautifully printed music. I contributed some
+code. We soon realised that MPP's design was too fundamentally broken
+to be repaired. It was decided to rewrite MPP.  We debated a lot about
+the requirements to an inputformat (fall 1995). I sat down and started
+with a parser-first, bottom-up rewrite called mpp95 (which totally
+failed, obviously).
+
+After long and hard thinking, I came up with an algorithm for the
+horizontal spacing of multiple staffs (april 1996) I coded it (and did
+not test it). After starting with this fundamental piece, I slowly
+added the stages which come before spacing, and after.  A half year
+later later, I had a first working version, (october 1996).  I
+announced Patchlevel 0.0.7 (or 8) to the mutex list after asking some
+technical details on spacing; it was downloaded approximately 4 times.
+Then I got the hang of it, and in the subsequent two months, I coded
+until it had doubled in size (pl 23).
