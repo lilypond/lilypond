@@ -36,8 +36,9 @@ global = \notes { \key fis \major \time 6/8
 righta = \notes \transpose cis'' {
  % \stemUp \slurUp \tieUp
  \stemUp
+ \property Voice.Slur \override #'attachment = #'(stem . stem)
  \repeat volta 2 {
- \property Voice.TextScript \override #'extra-offset = #'(-8.0 . 2.5)
+  \property Voice.TextScript \override #'extra-offset = #'(-8.0 . 2.5)
   \m a,16^\p( \u c^#`((rows (Large "Einfach.  (") ,eight-note (Large " = 100.)")))
   a c \m g, \u c^3 \m b, \u c^2 b c \m a, \u )c^3 | 
   \property Voice.TextScript \revert #'extra-offset
@@ -133,7 +134,7 @@ rightb = \notes \transpose cis'' {
  \translator Staff=mid
  \transpose c {
   a4^1( g8^1 b4 a8^2 |
-  f8..^1 f32^1 g8^2 )a8.. <f32 f'^3(> <g8 g'^4> |
+  f8..^1 f32^1 g8^2 )a8..   \slurUp <f32 f'^3(> <g8 g'^4> |
   <)a8.. a'^5> <f32 f'^3(> <g8 g'^4> <)a4. a'^5 \> > ~ |
   a~ \! a^\fermata \bar "|."
  }
