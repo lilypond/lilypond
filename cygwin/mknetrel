@@ -291,10 +291,6 @@ prebuild () {
     # Build for build, generating doc
     cd $build || exit 1
     
-    # ugh, footify fix
-    cd $src && ln -s GNUmakefile.in GNUmakefile
-
-    cd $build || exit 1
     #PATH=/bin:/usr/bin:$PATH make conf=for-build all doc html-doc || exit 1
     PATH=/bin:/usr/bin:$PATH make conf=for-build all doc web || exit 1
     for i in $(find . -path "out-for-build/*.1"); do

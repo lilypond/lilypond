@@ -1,3 +1,9 @@
+lilypond (1.7.28-2) unstable; urgency=low
+
+  * New upstream release; pre1.8 build.
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Thu, 24 Jul 2003 19:31:59 +0200
+
 lilypond (1.7.25-1) unstable; urgency=low
 
   * New upstream release: pre1.8 build.
