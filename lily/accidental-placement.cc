@@ -37,7 +37,6 @@ Accidental_placement::alignment_callback(SCM s, SCM )
 }
 
 
-
 void
 Accidental_placement::add_accidental (Grob* me, Grob* a)
 {
