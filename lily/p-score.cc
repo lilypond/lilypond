@@ -1,3 +1,12 @@
+/*
+  p-score.cc -- implement PScore
+
+  source file of the LilyPond music typesetter
+
+  (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+#include "super-elem.hh"
 #include "idealspacing.hh"
 #include "debug.hh"
 #include "lookup.hh"
@@ -10,6 +19,54 @@
 #include "tex-stream.hh"
 #include "item.hh"
 #include "break.hh"
+#include "p-col.hh"
+
+void
+PScore::typeset_element(Score_elem * elem_p)
+{
+    elem_p_list_.bottom().add(elem_p);
+    elem_p->pscore_l_ = this;
+    elem_p->add_processing();
+}
+
+void
+PScore::typeset_item(Item *i, PCol *c, int breakstat)
+{
+    assert(c && i);
+
+    if (breakstat == 0) {
+	typeset_item(i, c->prebreak_p_);
+	return;
+    }
+
+    if (breakstat == 2) {
+	typeset_item(i, c->postbreak_p_);
+	return;
+    }
+
+    c->add(i);
+    typeset_element(i);
+}
+
+void
+PScore::typeset_broken_spanner(Spanner*span_p)
+{
+    span_p->left_col_l_->starters.bottom().add (span_p);
+    span_p->right_col_l_->stoppers.bottom().add(span_p);
+    assert(span_p->left_col_l_->line_l_ == span_p->right_col_l_->line_l_);
+
+    typeset_element(span_p);
+}
+
+
+void
+PScore::typeset_unbroken_spanner(Spanner*span_p)
+{
+    spanners.bottom().add(span_p);
+    span_p->pscore_l_=this;
+    // do not init start/stop fields. These are for broken spans only.
+    span_p->add_processing();
+}
 
 Idealspacing*
 PScore::get_spacing(PCol*l, PCol*r)
@@ -34,17 +91,7 @@ PScore::clean_cols()
 	    c->set_rank(rank_i++);
 	    c++;
 	}
-    
 }
-
-
-void
-PScore::add(PStaff *s)
-{
-    assert(s->pscore_l_ == this);
-    staffs.bottom().add(s);
-}
-
 
 void
 PScore::do_connect(PCol *c1, PCol *c2, Real d, Real h)
@@ -68,42 +115,6 @@ PScore::connect(PCol* c1, PCol *c2, Real d, Real h)
 }
 
 void
-PScore::typeset_item(Item *i, PCol *c, PStaff *s, int breakstat)
-{
-    assert(c && i && s);
-
-    if (breakstat == 0) {
-	typeset_item(i, c->prebreak_p_, s);
-	return;
-    }
-
-    if (breakstat == 2) {
-	typeset_item(i, c->postbreak_p_, s);
-	return;
-    }
-
-
-    its.bottom().add(i);
-    s->add(i);
-    c->add(i);
-
-    /* first do this, because i->width() may follow the 0-pointer */
-    i->add_processing();    
-}
-
-void
-PScore::typeset_spanner(Spanner*span_p, PStaff*ps)
-{
-    span_p->pstaff_l_ = ps;
-    spanners.bottom().add(span_p);
-    ps->spans.bottom().add(span_p);
-
-    // do not init start/stop fields. These are for broken spans only.
-    span_p->add_processing();
-}
-
-
-void
 PScore::add(PCol *p)
 {
     p->pscore_l_ = this;
@@ -114,37 +125,25 @@ PScore::add(PCol *p)
     cols.bottom().add(p);
 }
 
-PScore::PScore( Paper_def*p)
+PScore::PScore(Paper_def*p)
 {
     paper_l_ = p;
+    super_elem_l_   = new Super_elem;
+    typeset_element(super_elem_l_);
 }
 
 void
 PScore::output(Tex_stream &ts)
 {
-    int l=1;
-
     ts << "\n "<<  paper_l_->lookup_l()->texsetting << "%(Tex id)\n";
-    for (iter_top(lines,lic); lic.ok(); lic++) {
-	ts << "% line of score no. " << l++ <<"\n";
-	ts << lic->TeXstring();
-	if ((lic+1).ok())
-	    ts << "\\interscoreline\n";
-    }	
+    ts<< super_elem_l_->TeX_string();
     ts << "\n\\EndLilyPondOutput";
 }
 
 
-Array<Item*>
-PScore::select_items(PStaff*ps, PCol*pc)
+PScore::~PScore()
 {
-    Array<Item*> ret;
-    assert(ps && pc);
-    for (iter_top(pc->its,i); i.ok(); i++){
-	if (i->pstaff_l_ == ps)
-	    ret.push((Item*)(Item const *)i);
-    }
-    return ret;
+    super_elem_l_->unlink_all();
 }
 
 void
@@ -164,8 +163,11 @@ PScore::print() const
 #ifndef NPRINT
     mtor << "PScore { ";
     paper_l_->print();
+    mtor << "\n elements: ";
+    for (iter_top(elem_p_list_,cc); cc.ok(); cc++)	
+	cc->print();
     mtor << "\ncolumns: ";
-    for (iter_top(cols,cc); cc.ok(); cc++)
+     for (iter_top(cols,cc); cc.ok(); cc++)
 	cc->print();
     
     mtor << "\nideals: ";
@@ -178,34 +180,14 @@ PScore::print() const
 void
 PScore::preprocess()
 {
-    for (iter_top(spanners,i); i.ok(); i++) {
-	i->pre_processing();
-    }
-    for (iter_top(its,i); i.ok(); i++){
-	i->pre_processing();
-    }
+    super_elem_l_->pre_processing();
 }
 
 void
 PScore::postprocess()
 {
-    for (iter_top(broken_spans,i); i.ok(); i++) { // could chase spans as well.
-	i->post_processing();
-    }
-    for (iter_top(its,i); i.ok(); i++){
-	i->post_processing();
-    }
-    
-    for (iter_top(broken_spans,i); i.ok(); i++) {
-	i->molecule_processing();
-    }
-    for (iter_top(its,i); i.ok(); i++){
-	i->molecule_processing();
-    }
-
-    for (iter_top(lines,i); i.ok(); i++)
-	i->process();
-
+    super_elem_l_->post_processing();
+    super_elem_l_->molecule_processing();
 }
 
 PCursor<PCol *>
@@ -218,31 +200,22 @@ PScore::find_col(PCol const *c)const
     return cols.find((PCol*)what);
 }
 
-void
-PScore::add_broken(Spanner*s)
-{
-    assert(s->left_col_l_->line_l_ == s->right_col_l_->line_l_);
-    broken_spans.bottom().add(s);
-    s->left_col_l_->starters.bottom().add (s);
-    s->right_col_l_->stoppers.bottom().add (s);
-}
 
 void
 PScore::set_breaking(Array<Col_hpositions> const &breaking)
 {
-    for (int j=0; j < breaking.size(); j++) {
-	const Array<PCol*> &curline(breaking[j].cols);
-	const Array<PCol*> &errors(breaking[j].error_col_l_arr_);
-	const Array<Real> &config(breaking[j].config);
-	
-	Line_of_score *s_p = new Line_of_score(curline,this);
-	s_p->error_mark_b_ =  breaking[j].ugh_b_;
-	lines.bottom().add(s_p);   	
-	for (int i=0; i < curline.size(); i++){
-	    curline[i]->hpos = config[i];
+    super_elem_l_->line_of_score_l_->set_breaking( breaking);
+    super_elem_l_->break_processing();
+
+
+    for (iter_top(spanners,i); i.ok(); ) {
+	Spanner *span_p = i.remove_p();
+	if (span_p->broken_b()) {
+	    span_p->unlink();
+	    delete span_p;
+	}else{
+	    typeset_broken_spanner(span_p);
 	}
-	for (int i=0; i < errors.size(); i++)
-	    errors[i]->error_mark_b_ = true;
     }
 }
 
@@ -264,4 +237,18 @@ PScore::process()
     calc_breaking();
     *mlog << "\nPostprocessing elements..." << endl;
     postprocess();
+}
+
+Link_array<PCol>
+PScore::col_range(PCol*l,PCol*r)const
+{
+    Link_array<PCol> ret;
+    
+    PCursor<PCol*> start(l ? find_col(l)+1 : cols.top() );
+    PCursor<PCol*> stop(r ? find_col(r) : cols.bottom());
+    ret.push(l);
+    while ( start < stop )
+	ret.push(start++);
+    ret.push(r);
+    return ret;
 }
