@@ -120,6 +120,11 @@ Add a ref if REF is set
    "\\input texinfo @c -*-texinfo-*-"
    "\n@setfilename " file-name ".info"
    "\n@settitle " name
+   "\n@dircategory GNU music project"
+   "\n@direntry"
+   ;; prepend GNU for dir, must be unique
+   "\n* GNU " name " (" file-name ").           " name "."
+   "\n@end direntry"
    (node "Top") top
    "\n@top"
    (texi-section 1 name #f)

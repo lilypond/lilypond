@@ -34,6 +34,8 @@ ps: $(PS_FILES)
 # `.nexi', making sure we don't run LilyPond for inline pictures, when
 # generating info.
 $(outdir)/%.info: $(outdir)/%.texi
+# Cancel default dvi rule, we use lilypond-book.
+$(outdir)/%.dvi: $(outdir)/%.texi
 
 default: 
 
