@@ -69,6 +69,10 @@ otherwise 2). say preMudelaExample[eps]{}, and change it in document body someti
 . * We need feta-din*.mf files for more sizes than 10.
 . * latex bla.tex broken (titles / \lilyfooter stuff?
 . * fix dynamics decently, ie. use kerning & ligatures.  
+. * dots & rest collisions?
+. * mudela-book.py
+.  * \mudelafile{} to have decent functionality
+.  * use less RE's
 . * support_l_arr_ empty in staff-margin's G_staff_side_item
 . * slurs colllide with lyrics.
 . * minVerticalAlign for StaffGroups.
@@ -80,6 +84,14 @@ There are distinct ways of specifying the first two (although at
 present, they're not properly distinguished) but no distinct way to
 specify the third.  Should there be?
 . * spacing of mmrests.
+. * mem leak: redo p-score object deletion.
+. * rest collision minimum dist.
+. * Matanya's tips: 
+.  * spacing for prefatory matter
+.  * accidentals closer to note head
+.  * ledger line for rest dim less
+.  * heavier beams?
+
 
 .* Cleanups needed
 . * Beam
@@ -150,18 +162,7 @@ compilation.
 .  * --prefix option?
 .  * -I option per filetype?
 .  * kpathsea?
-
 . * ly2dvi/lilypond logfile.
-. * How can I specify a chord whose duration is longer than a whole note?
- \type ChordNames { \chord{ A1*2-min } }
-
-gives me a parse error.  And \times doesn't work either.  I can't use
-a spacer note.  So it seems to be impossible to have long chords of
-general length.  Of course, in the example above I can use \breve.
-But what if I want a chord that lasts for 3 whole notes?  Or what
-about 2.5 whole notes?  Is there a mechanism for getting this kind of
-length?  
-
 . * fractional chord durs.
 . * hang Item on Spanner
 . * do --safe for PS output?
@@ -570,6 +571,8 @@ hesitate to ask.
 
 
 .* SMALLISH PROJECTS
+
+. * Faulenzer sign (% repeat)
 
 . * fix confusing naming in Engraver vs Engraver_group_engraver (context)
 
