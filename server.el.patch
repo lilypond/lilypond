@@ -1,22 +1,30 @@
 From: Jan Nieuwenhuizen <janneke@gnu.org>
-To: bug-gnu-emacs@gnu.org
-Cc: Han-Wen <hanwen@cs.uu.nl>
 Subject: Bugfix and feature for server.el
-Date: Sun, 21 Jul 2002 00:44:32 +0200
+To: emacs-devel@gnu.org
+cc: Han-Wen <hanwen@cs.uu.nl>
+Date: Sat, 10 Aug 2002 17:46:22 +0200
+Organization: Jan at Peder
 
-
-Hi,
 
 Find the following fix attached.  We had a problem with our
-application that uses emaclient --no-wait to edit input files.
+application that uses `emacslient --no-wait' to edit input files.
 
-Emacs21 wants to revert buffers whenever they have been edited, which
-is annoying.  And when it does revert the buffer, it does not use the
-column argument of emacsclient; fixed.
+Emacs-21.2 (unlike previous versions), when invoked through
+`emacsclient --no-wait', wants to revert buffers whenever they have
+been edited, and does allow any editing, which is annoying.  When
+invoking with --no-wait, we are typically `moving around' and editing
+the same file all the time; and do not want to revert.
 
+When it does revert the buffer, it does not use the column argument of
+emacsclient; this is now fixed.
 
-Greeting,
+Greetings,
 Han-Wen and Jan.
+
+
+Btw: this message was sent to bug-gnu-emacs about three weeks ago, but
+     that list seems to be slightly foobarred?  We both have current
+     disclaimers with GNU.
 
 
 ChangeLog:
@@ -29,8 +37,8 @@ ChangeLog:
 	'no-revert option.  Bugfix: also goto column when reverting
 	buffer.
 
---- server.el.~1.78.~	Tue Dec 18 17:42:38 2001
-+++ server.el	Sun Jul 21 00:30:29 2002
+--- server.el.~1.78.~	2001-12-18 17:42:38.000000000 +0100
++++ server.el	2002-08-10 17:32:10.000000000 +0200
 @@ -251,40 +251,43 @@ Prefix arg means just kill any existing 
  		       (substring request (match-beginning 0) (1- (match-end 0))))
  		      (pos 0))
@@ -147,17 +155,11 @@ ChangeLog:
  	      (run-hooks 'server-visit-hook)))
  	  (if (not nowait)
  	      (setq server-buffer-clients
-@@ -404,8 +412,9 @@ or nil.  KILLED is t if we killed BUFFER
- 	    (unless for-killing
- 	      (when (and (not killed)
- 			 server-kill-new-buffers
--			 (with-current-buffer buffer
--			   (not server-existing-buffer)))
-+			 (save-excursion
-+			   (set-buffer buffer)
-+			   server-existing-buffer))
- 		(setq killed t)
- 		(bury-buffer buffer)
- 		(kill-buffer buffer))
-        
+
+-- 
+Jan Nieuwenhuizen <janneke@gnu.org> | GNU LilyPond - The music typesetter
+http://www.xs4all.nl/~jantien       | http://www.lilypond.org
+
+
+
 
