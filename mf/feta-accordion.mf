@@ -126,7 +126,7 @@ def def_S(expr w, h) =
 	bue=z2{left}..z1{up};
 	numeric t;
 	t:=xpart(bue intersectiontimes(z8l--z7l));
-	show t;
+%	show t;
 	bueoverst=z6{right}..z7{down};
 enddef;
 
@@ -159,8 +159,6 @@ enddef;
 %%% strange turning path.
 fet_beginchar("accOldEE", "accOldEE")
 	set_char_box(staff_space#, staff_space#, 0, 2staff_space#);
-	show w;
-	show h;
 	r = staff_space;
 	lr = .4 staff_space - linethickness;
 	ir = .6 staff_space;
