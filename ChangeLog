@@ -1,3 +1,7 @@
+2003-05-25  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-indent.el: adjust regexps in bracket-matching.
+
 2003-05-24  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/refman.itely: more tiny fixes
