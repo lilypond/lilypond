@@ -1493,6 +1493,11 @@ a stem directions and horizontal shift for each part
 The command @code{\oneVoice} will revert back to the normal setting.
 @cindex @code{\oneVoice}
 
+Defining voices (either with the separator @code{\\} or with
+@code{\voiceXXX}) will set the direction of stems, slurs, ties,
+articulations, text annotations, augmentation dots of dotted
+notes, and fingerings.  @code{\voiceOne} makes these objects
+point upwards, while @code{\voiceTwo} makes them point down.
 
 Normally, note heads with a different number of dots are not merged, but
 when the object property @code{merge-differently-dotted} is set in
@@ -5231,9 +5236,13 @@ c1 \mark \markup { \musicglyph #"scripts-ufermata" }
 c1
 @end lilypond
 
-In the case of a line break, marks must also be printed at the end of
-the line, and not at the beginning.  Use the following to force that
-behavior
+If the mark occurs at a line break, the mark will be printed at the
+beginning of the next line.
+@c  IMO this is a bug; hopefully it'll be fixed soon, so I can
+@c  delete this sentence.   -gp
+If there is no next line, then the mark will not be printed at all.
+To print the mark at the end of the current line, use
+
 @example
 \override Score.RehearsalMark
   #'break-visibility = #begin-of-line-invisible
