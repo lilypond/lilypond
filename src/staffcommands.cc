@@ -8,6 +8,7 @@ Staff_commands_at::when()
 {
     return tdescription_.when;
 }
+
 void
 Staff_commands_at::print() const
 {
