@@ -1,3 +1,22 @@
+2004-10-26  Werner Lemberg  <wl@gnu.org>
+
+	* scripts/lilypond-book.py: Some additional formatting for
+	orthogonality.
+	(ly_options) [*]: Format strings.
+	[RAGGEDRIGHT]: Don't set `indent'.  This is now properly handled
+	by `compose_ly'.
+	(output) [LATEX][OUTPUT]: Format string and simplify.
+	(PREAMBLE_LY, FRAGMENT_LY): Format string.
+	(classic_lilypond_book_compatibility): Take key/value pair as
+	parameter.
+	Return key/value pair.
+	(compose_ly): Rewritten, taking the snippet type as third parameter. 
+	The default values are now set more sensible, and a `linewidth'
+	option is no longer overwritten under some circumstances.
+
+	* Documentation/user/music-glossary.tely: Replace all accented
+	character macros with latin-1 codes.
+
 2004-10-26  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* lily/music-function.cc (ly_make_music_function): when an
