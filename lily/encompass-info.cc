@@ -64,14 +64,16 @@ Encompass_info::Encompass_info (Note_column const* note, Direction dir)
   if (slur_l->encompass_arr_.size ()
       && stem_l->staff_sym_l_ != slur_l->encompass_arr_[0]->stem_l_->staff_sym_l_)
     {
+#if 0 // this is nonsense..., don't issue warning
       if (stem_l->staff_sym_l_->dim_cache_[Y_AXIS].valid_b ())
 	{
 	  interstaff_f_ = stem_l->staff_sym_l_->absolute_coordinate (Y_AXIS)
 	    - slur_l->encompass_arr_[0]->stem_l_->staff_sym_l_->absolute_coordinate (Y_AXIS);
 	}
       else
+#endif
 	{
-	  warning (_ ("invalid dimension cache: guessing staff position"));
+	  //  warning (_ ("invalid dimension cache: guessing staff position"));
 	  if (slur_l->vertical_align_drul_[MIN] != 
 	      slur_l->vertical_align_drul_[MAX])
 	    warning (_ ("minVerticalAlign != maxVerticalAlign: interstaff slurs may be broken"));

@@ -62,7 +62,9 @@ BUGS:
 
 	* ly2dvi barfs on linewidth = -1.
 
-	* fix midi output.
+	* fix midi output:
+	   - default duration?  duration must be not entered
+	     explicitely on first note.
 
 	* turn slope-damping on/off
 

@@ -1,3 +1,8 @@
+pl 22.jcn2
+	- updated mi2mu
+	- bf: multi-measure-rest (input/test/m.ly)
+	- half fix for staff-margin-engraver
+
 pl 22.jcn1
 	- bf's: cross-staff slur
 	- bf: gnossienne-4
