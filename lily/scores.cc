@@ -109,6 +109,7 @@ do_one_file (String init_str, String file_str)
   if (init_str.length_i () && global_path.find (init_str).empty_b ())
     {
       warning (_f ("can't find file: `%s\'", init_str));
+      warning (_f ("Search path: %s", global_path.str ().ch_C()));
       return;
     }
   if ((file_str != "-") && global_path.find (file_str).empty_b ())

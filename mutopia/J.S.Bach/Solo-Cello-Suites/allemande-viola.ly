@@ -50,18 +50,9 @@ allemande_viola_staff = \type Staff <
 
 \score{
 	\$allemande_viola_staff
-%	\include "scs-paper.ly";
 	\paper{
-	        linewidth = 180.\mm;
-		\translator{
-			\VoiceContext
-			% add experimental auto-beaming
-			\consists Auto_beam_engraver;
-			beamAuto = 1.;
-			beamAutoEnd8 = "1/4";
-			beamAutoEnd16 = "1/4";
-			beamAutoEnd32 = "1/4";
-		}
+		\include "scs-paper.ly";
+		gourlay_maxmeasures = 3.0;
 	}
 	\midi{ \tempo 4 = 45; }
 	\header{ piece = "Allemande"; }

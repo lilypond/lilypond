@@ -10,7 +10,7 @@
 #include "translator.hh"
 #include "debug.hh"
 #include "translator-group.hh"
-#include "dictionary-iter.hh"
+
 #include "rational.hh"
 
 Translator::~Translator ()
@@ -30,7 +30,6 @@ Translator::Translator (Translator const &s)
   status = ORPHAN;
   daddy_trans_l_ =0;
   output_def_l_ = s.output_def_l_;
-  properties_dict_ = s.properties_dict_;
   type_str_ = s.type_str_;
 }
 
@@ -76,10 +75,6 @@ Translator::print () const
   DOUT << classname (this) << " {";
   if (classname (this) != type_str_)
     DOUT << "type = " << type_str_;
-  for (Dictionary_iter<Scalar> i (properties_dict_); i.ok (); i++)
-    {
-      DOUT << i.key () << "=" << i.val () << '\n';
-    }
   do_print ();
   DOUT << "}\n";
 #endif
@@ -154,29 +149,6 @@ Translator::pre_move_processing ()
   status = CREATION_INITED;
 }
 
-Scalar
-Translator::get_property (String id, Translator const **where_l) const
-{
-  if (properties_dict_.elem_b (id))
-    {
-      if (where_l)
-	*where_l = this;
-      return properties_dict_[id];
-    }
-  
-  if (daddy_trans_l_)
-    return daddy_trans_l_->get_property (id, where_l);
-
-  if (where_l)
-    *where_l = 0;
-  return "";
-}
-
-void
-Translator::set_property (String id, Scalar val)
-{
-  properties_dict_[id] = val;
-}
 
 
 Music_output_def *
@@ -184,3 +156,10 @@ Translator::output_def_l () const
 {
   return output_def_l_;
 }
+
+Scalar
+Translator::get_property (String id, Translator_group **where_l) const
+{
+  return daddy_trans_l_->get_property (id, where_l);
+}
+

@@ -14,6 +14,7 @@
 #include "misc.hh"
 #include "abbrev.hh"
 #include "staff-info.hh"
+#include "translator-group.hh"
 
 Stem_engraver::Stem_engraver()
 {
@@ -96,18 +97,18 @@ Stem_engraver::do_pre_move_processing()
 	  stem_p_->dir_forced_b_ = true;
 	}
 
-      Translator const *which;
+      Translator_group const *which;
       prop = get_property ("stemLeftBeamCount", &which);
       if (prop.isnum_b ())
 	{
 	  stem_p_->beams_i_drul_[LEFT] = prop;
-	  ((Translator*)which)->set_property ("stemLeftBeamCount", "");
+	  ((Translator_group*)which)->set_property ("stemLeftBeamCount", "");
 	}
       prop = get_property ("stemRightBeamCount", &which);
       if (prop.isnum_b ())
 	{
 	  stem_p_->beams_i_drul_[RIGHT] = prop;
-	  ((Translator*)which)->set_property ("stemRightBeamCount", "");
+	  ((Translator_group*)which)->set_property ("stemRightBeamCount", "");
 	}
 
 

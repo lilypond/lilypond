@@ -57,50 +57,27 @@ Music_iterator::get_req_translator_l()
   return report_to_l();
 }
 
-void
-Music_iterator::push_translator (Translator_group*t)
-{
-  report_to_l_arr_.push (t);
-  t->iterator_count_ ++;
-}
-
-void
-Music_iterator::pop_translator()
-{
-  report_to_l()->iterator_count_ --;
-  assert (report_to_l()->iterator_count_ >=0);
-  report_to_l_arr_.pop();
-}
 
 Translator_group* 
 Music_iterator::report_to_l() const
 {
-  if (! report_to_l_arr_.size())
-    return 0;
-  return report_to_l_arr_.top();
+  return handle_.report_to_l ();
 }
 
 
 void
 Music_iterator::set_translator (Translator_group*trans)
-{   
-  if (report_to_l()==trans)
-    return;
-  if (report_to_l())
-    pop_translator();
-  if (trans)
-    push_translator (trans);
+{
+  handle_.set_translator (trans);
 }
 
 void
 Music_iterator::construct_children()
 {
-
 }
 
 Music_iterator::~Music_iterator()
 {
-  set_translator (0);
 }
 
 Moment

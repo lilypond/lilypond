@@ -17,10 +17,9 @@
 
 /// where is c-0 in the staff?
 class Clef_engraver : public  Engraver {
-  Link_array<Clef_item> clef_p_arr_;
+  Clef_item * clef_p_;
   Clef_change_req * clef_req_l_;
   void create_clef();
-  void read_req (Clef_change_req*);
   bool set_type (String);
 protected:
   virtual void do_process_requests();
@@ -36,7 +35,7 @@ public:
   int clef_position_i_;
   Direction octave_dir_;
   String clef_type_str_;
-
+  bool create_default_b_;
    
   Clef_engraver();
   

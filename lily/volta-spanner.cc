@@ -29,8 +29,6 @@ Volta_spanner::Volta_spanner ()
   visible_b_ = true;
   number_p_.set_p (new Text_def);
   number_p_->align_dir_ = LEFT;
-  dot_p_.set_p (new Text_def);
-  dot_p_->align_dir_ = LEFT;
 }
 
 Molecule*
@@ -50,7 +48,6 @@ Volta_spanner::do_brew_molecule_p () const
   Atom volta (lookup_l ()->volta (w, last_b_));
   Real h = volta.dim_.y ().length ();
   Atom num (number_p_->get_atom (paper (), LEFT));
-  Atom dot (dot_p_->get_atom (paper (), LEFT));
   Real dy = column_arr_.top ()->extent (Y_AXIS) [UP] > 
      column_arr_[0]->extent (Y_AXIS) [UP];
   dy += 2 * h;
@@ -64,14 +61,10 @@ Volta_spanner::do_brew_molecule_p () const
 
   Real gap = num.dim_.x ().length () / 2;
   Offset off (num.dim_.x ().length () + gap, 
-    (h - num.dim_.y ().length ()) / internote_f - gap);
+	      h / internote_f - gap);
   num.translate (off);
-  Real dotheight = dot.dim_.y ().length () / 7;
-  off -= Offset (0, dotheight);
-  dot.translate (off);
   mol_p->add_atom (volta);
   mol_p->add_atom (num);
-  mol_p->add_atom (dot);
   mol_p->translate (Offset (0, dy));
   return mol_p;
 }
@@ -86,8 +79,6 @@ Volta_spanner::do_add_processing ()
     }
 
   number_p_->style_str_ = "number-1";
-  dot_p_->text_str_ = ".";
-  dot_p_->style_str_ = "bold";
 }
   
 Interval

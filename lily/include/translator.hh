@@ -23,7 +23,6 @@
   hierarchically grouped #Translator#s
   */
 class Translator : public Input {
-  Dictionary<Scalar> properties_dict_;
 public:
   Music_output_def * output_def_l_;
   String  type_str_;
@@ -60,10 +59,8 @@ public:
   /**
     ask daddy for a feature
     */
-  Scalar get_property (String type_str, Translator const **where_found_l) const;
-  void set_property (String var_name, Scalar value);
   Music_output_def *output_def_l () const;
-  
+  Scalar get_property (String, Translator_group **) const;
   virtual Moment now_moment () const;  
 
 protected:

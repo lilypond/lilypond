@@ -7,6 +7,38 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
+*In a piece such as the Zipoli piece in mutopia/... there is a stray
+`8' over every bar line when processed by LilyPond 1.1.25.
+
+TODO before 1.2
+
+	* junk Text_def, use G_text_item in stead.
+
+	* junk Script_def
+
+	* fix partial measures in meaningful way.
+
+	* fix AFM for BlueSky AFM files.
+
+	* working notehead style.
+
+	* add scripts to bars eg.  |^"bla" 
+
+	* relative mode for mi2mu
+
+	* uniformise recent feta contributions.
+	- use SCM and Molecules for {accordeon stuff, }
+	- bigger and fatter 4/4 C
+
+	* make a SMOB of Atom and Molecule
+
+	* use kerning for dynamics.
+
+	* sort out directory stuff.
+	- --prefix option?
+	- -I option per filetype?
+	- kpathsea?
+
 **************
 I also found a few bugs:
 
@@ -14,25 +46,99 @@ I also found a few bugs:
   don't work. The problem seems to be that you can't define a 
   a score identifier and then use it in the \score block.
 
-* Instrument names in the margin. Example: 
-  input/test/hara-kiri.ly. The text should of course
-  be to the left of the staff lines.
-**************
 
-- Textual scripts and dynamics are printed in the middle of the staff.
+	- make separate MF chars for endings of ledger lines, and calc rest of lines.
 
-	* fix AFM for BlueSky AFM files.
+ 	* support_l_arr_ empty in staff-margin's G_staff_side_item
 
-- I didn't find any working example of the Staff_margin-engraver in 
-  input/test, and I couldn't invent one myself either. 
-  bar-scripts.ly, score-bar-scripts.ly and hara-kiri.ly don't work
-  properly.
 
-	* check widths of TFM, something's wrong here. 
+************
+
+How can I specify a chord whose duration is longer than a whole note?
+
+ \type ChordNames { \chord{ A1*2-min } }
+
+gives me a parse error.  And \times doesn't work either.  I can't use
+a spacer note.  So it seems to be impossible to have long chords of
+general length.  Of course, in the example above I can use \breve.
+But what if I want a chord that lasts for 3 whole notes?  Or what
+about 2.5 whole notes?  Is there a mechanism for getting this kind of
+length?  
+
+
+Why does my second extender request get junked in the following:
+
+\score{
+< \notes \relative c''{ 
+     a4()b()c()d c()d()b()a }
+   \type Lyrics \lyrics {
+     foo1 __  bar2. __ _4 }
+> }
+
+It seems that \cr and \decr don't work any more.  
+
+\score{
+  \notes{
+    a \cr b \rc c }
+  \paper{linewidth=-1.;}
+}
+
+Gives me 
+
+qq.ly:3:9: warning: can't find (de)crescendo to end:
+    a \cr
+          b \rc c }
+
+
+
+Use of semicolons is still rather confusing.  They are obligatory
+after some types of assignments and illegal after others.  
+
+  \property foo=bar               illegal
+  foo = 3 at top level            illegal
+  foo = 3 inside \paper           obligatory               
+  foo = \notes{ ...} top level    illegal
+  foo = \translator{ } in \paper  obligatory
+
+As far as I can tell, the sole accomplishment of this syntactic
+irregularity is to keep the user as confused as possible.  
+
+
+I was trying to get interstaff beams to work and did this:
+
+\score{
+\type GrandStaff <
+\type Staff=one \notes\relative c'{
+  \stemup
+  [c8 c \translator Staff=two \stemup c c]
+  \translator Staff=one
+  \stemdown 
+  [ b8 \translator Staff=two a8]
+  \translator Staff=one 
+  c4 
+  }
+\type Staff=two \notes{ \clef bass; s1 }
+>
+\paper{
+		\translator{
+			\GrandStaffContext
+			minVerticalAlign = 3.0*\staffheight;
+			maxVerticalAlign = 3.0*\staffheight;
+		}
+  linewidth = -1.;
+}
+}
+
+The beams are at the right angle, but they aren't in the right place.
+
+
+
+*******************
+
+
+	* fractional chord durs.
 
 	* hang Item on Spanner
-
-	* junk Text_def, use G_text_item in stead.
 
 	* remove Interval dim_ from Dimension_cache and rename the struct.
 
@@ -40,13 +146,9 @@ I also found a few bugs:
 
 	* convert-mudela --output
 
-	* staff_margin (with a partial measure.)
+	* Staff_margin (with a partial measure.)
 
 	* fix "I've been drinking too much"
-
-	* add scripts to bars eg.  |^"bla" 
-
-	* fix Staff_margin_engraver.
 
 	* fix pletvisibility properties:
 	  - bracket on/off/no-bracket-when-beam
@@ -59,8 +161,6 @@ I also found a few bugs:
 	* junk text{sharp,flat,etc}
 
 	* fix convert-mudela manpage
-
-	* automatic staff selection.
 
 	* decimal point in \paper {}
 
@@ -157,8 +257,6 @@ BUGS:
 	portato= \script { "portato" 0 -1 0 1 0 }
 
 STUFF
-	* uniformise recent feta contributions.
-
 	* check out legal/(c) matters for scores.
 
 	* check out GCC signatures?
@@ -207,8 +305,6 @@ STUFF
 	* stable make/config stuff
 
 	* $DEPENDENCIES_OUTPUT support
-
-	* fix weird behaviour when .AFMs/.SCMs not found.
 
 	* Xdvi zooming ?! Try to understand GS garbage collection.
 		gs: Error: /undefined in draw_beam
@@ -770,3 +866,48 @@ if you just sit there."
              --Will Rogers (1879-1935)
 
 ***************************
+
+> I am still muddling along with integrating GUILE in LilyPond, and I
+> have a question.  I want to replace an existing C++ implementation of
+> identifier tables by GUILE's code.  I've managed to replace
+> 
+> 	Hash_table<String,Identifier*>
+> 
+> by
+> 
+> 	Hash_table<SCM, Identifier*>
+> 
+> and use interning and GUILE symbols for doing the identifier lookup.
+> But I'd like to use GUILE's hash tables as well, and that's were my
+> question comes in: is there an interface that allows me to iterate
+> through the entries of a GUILE hash table?
+
+I use the following, which should definitely be provided somewhere
+in guile, but isn't, AFAIK:
+
+(define (hash-table-for-each fn ht)
+  (do ((i 0 (+ 1 i)))
+      ((= i (vector-length ht)))
+    (do ((alist (vector-ref ht i) (cdr alist)))
+	((null? alist) #t)
+      (fn (car (car alist)) (cdr (car alist))))))
+
+(define (hash-table-map fn ht)
+  (do ((i 0 (+ 1 i))
+       (ret-ls '()))
+      ((= i (vector-length ht)) (reverse ret-ls))
+    (do ((alist (vector-ref ht i) (cdr alist)))
+	((null? alist) #t)
+      (set! ret-ls (cons (fn (car (car alist)) (cdr (car alist))) ret-ls)))))
+
+If you want a C version, you can run the above code through hobbit, or
+tranlate it to C by hand.
+
+-russ
+
+
+--
+"Whenever you find yourself on the side of the majority, it is time to
+pause and reflect."
+             -- Mark Twain
+***********************

@@ -41,19 +41,9 @@ sarabande_viola_staff = \type Staff <
 
 \score{
 	\$sarabande_viola_staff
-	% \paper { \include "scs-paper.ly"; }
 	\paper{
-	        linewidth = 180.\mm;
-		\translator { \BarNumberingStaffContext }
-		\translator{
-			\VoiceContext
-			% add experimental auto-beaming
-			\consists Auto_beam_engraver;
-			beamAuto = 1.;
-			beamAutoEnd8 = "1/4";
-			beamAutoEnd16 = "1/4";
-			beamAutoEnd32 = "1/4";
-		}
+		\include "scs-paper.ly";
+		gourlay_maxmeasures = 5.0;
 	}
 	\midi{ \tempo 4 = 40; }
 	\header{ piece = "Sarabande"; }

@@ -28,6 +28,7 @@ left = -1
 right = 1
 up = 1
 down = -1
+
 % zillie spellink?
 center=0
 
@@ -40,6 +41,8 @@ minor = 3
 \include "property.ly"
 
 \scmfile "lily.scm";
+
+unusedEntry = \notes { c4 }		% reset default duration
 
 % music = "\melodic\relative c"
 

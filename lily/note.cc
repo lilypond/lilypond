@@ -17,6 +17,9 @@
 
 
 
+/*
+  SHOULD JUNK THIS.
+ */
 String *
 get_scriptdef (char c)
 {

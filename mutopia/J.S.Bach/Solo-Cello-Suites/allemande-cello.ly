@@ -49,30 +49,10 @@ allemande_cello_staff = \type Staff <
 >
 
 \score{
-%{
-	urg, this breaks auto-beam-engraver?
-	really hairy bug: 1.1.23
-	extra bars get encountered!!
+   	\$allemande_cello_staff
 	\paper{
 		\include "scs-paper.ly";
-		gourlay_maxmeasures = 4.0;
-	}
-%}
-   	\$allemande_cello_staff
-	% \paper{ \include "scs-paper.ly"; }
-	\paper{
-
-	        linewidth = 180.\mm;
-		\translator { \BarNumberingStaffContext }
-		\translator{
-			\VoiceContext
-			% add experimental auto-beaming
-			\consists Auto_beam_engraver;
-			beamAuto = 1.;
-			beamAutoEnd8 = "1/4";
-			beamAutoEnd16 = "1/4";
-			beamAutoEnd32 = "1/4";
-		}
+		gourlay_maxmeasures = 3.0;
 	}
 	\midi{ \tempo 4 = 45; }
 	\header{ piece = "Allemande"; }

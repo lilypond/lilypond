@@ -20,15 +20,7 @@ void
 Clef_item::do_pre_processing()
 {
   dim_cache_[Y_AXIS].translate (paper()->internote_f () * y_position_i_);
-  
-  bool b= (break_status_dir() != RIGHT);
-  change_b_ = b;
-
-  if (default_b_)
-    {
-      set_empty(b);
-      transparent_b_ = b;
-    }
+  change_b_ = (break_status_dir() != RIGHT);
 }
 
 /*
@@ -47,21 +39,32 @@ Clef_item::Clef_item()
 void
 Clef_item::do_add_processing ()
 {
-  if (!break_status_dir_	// broken stuff takes care of their own texts
-      && octave_dir_)
+  if (!break_status_dir_)	// broken stuff takes care of their own texts
     {
-      G_text_item *g = new G_text_item;
-      pscore_l_->typeset_element (g);
+      SCM defvis = gh_eval_str ("(lambda (d) (if (= d 1) '(#f . #f) '(#t . #t)))");
+      G_text_item *g =0;
+      if (octave_dir_)
+	{
+	  g = new G_text_item;
+	  pscore_l_->typeset_element (g);
       
-      g->text_str_ = "8";
-      g->style_str_ = "italic";
-      g->dim_cache_[Y_AXIS].parent_l_ = &dim_cache_[Y_AXIS];
-      g->dim_cache_[X_AXIS].parent_l_ = &dim_cache_[X_AXIS];
-      add_dependency (g);	// just to be sure.
+	  g->text_str_ = "8";
+	  g->style_str_ = "italic";
+	  g->dim_cache_[Y_AXIS].parent_l_ = &dim_cache_[Y_AXIS];
+	  g->dim_cache_[X_AXIS].parent_l_ = &dim_cache_[X_AXIS];
+	  add_dependency (g);	// just to be sure.
 
-      Real r = do_height ()[octave_dir_] + g->extent (Y_AXIS)[-octave_dir_];
-      g->dim_cache_[Y_AXIS].set_offset (r);
+	  Real r = do_height ()[octave_dir_] + g->extent (Y_AXIS)[-octave_dir_];
+	  g->dim_cache_[Y_AXIS].set_offset (r);
+	}
+      if (default_b_)
+	{
+	  visibility_lambda_ = defvis;
+	  if (g)
+	    g->visibility_lambda_ = defvis;
+	}
     }
+
 
 }
 

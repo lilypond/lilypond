@@ -1,3 +1,27 @@
+25.jcn2
+	- bf: staffside axis init
+	- bf: staffmargin stuff.
+	- Timesig C fixes
+
+
+pl 25.uu2
+	- junked Scarlatti clef
+	- fixed clef^8
+	- Interpretation_context_handle is interface to interpretation context 
+	- Staff_switching_translator: automatic staff switching for Piano staffs.
+
+pl25.jcn1
+	- volta-spanner: junked dot_p_; not so handy after all: kerning??
+	- feta-nummer: added : ,-.
+	- volta/tuplet thickness
+	- bf: scs-paper
+	- bf: ".|", and bar-thicknesses
+
+pl 25.uu1
+	- bf: default duration is 4
+
+**********
+pl 25
 
 pl 23.ms2
 	- property noteheadStyle

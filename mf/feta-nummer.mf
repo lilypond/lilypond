@@ -7,7 +7,6 @@
 % (c) 1997, 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
 fet_begingroup("nummer")
-code := 47;
 
 define_pixels(height,thick,thick,thin,hair,flare);
 define_pixels(foot_top,foot_width);
@@ -80,6 +79,48 @@ def draw_six =
 	unfill z2l{right}..tension t..z3l{down}..tension t
 		..z4l{left}..tension t..z10l{up}..tension t..cycle;
 	enddef;
+
+save dot_diam;
+dot_diam# = 7/8flare#;
+define_pixels(dot_diam);
+
+code := 43;
+
+% urg
+fet_beginchar("Numeral comma", ",", "comma")
+	set_char_box(0, dot_diam#, 3/2dot_diam#, dot_diam#);
+	pickup pencircle scaled dot_diam;
+	draw (dot_diam/2,dot_diam/2);
+	z0=(w/3,0);
+	alpha=65;
+        penpos1(thin,alpha+90);
+        z1l=(w/2,-1.5h+hair);
+	z2=(w,h/2);
+	pickup pencircle;
+	filldraw z1l{dir(alpha)}..{up}z2..{z0-z2}z0{right}..{dir(180+alpha)}z1r..cycle;
+	labels(0,1,2);
+	penlabels(1);
+fet_endchar;
+
+fet_beginchar("Numeral dash", "-", "dash")
+	set_char_box(0, height#/3, 0, height#);
+	pickup pencircle scaled thin;
+	lft x1 = -b;
+	rt x2 = w;
+	y1 = y2 = h/3;
+	draw z1 .. z2;
+fet_endchar;
+
+fet_beginchar("Numeral dot", ".", "dot")
+	set_char_box(0, dot_diam#, 0, dot_diam#);
+	pickup pencircle scaled dot_diam;
+	draw (dot_diam/2,dot_diam/2);
+fet_endchar;
+
+
+% skip slash
+
+code := 47;
 
 fet_beginchar("Numeral 0", "0", "zero")
 %	set_char_box(0, 4/5height#*widen, 0, height#);

@@ -12,6 +12,7 @@
 #include "debug.hh"
 #include "pcursor.hh"
 #include "rational.hh"
+#include "dictionary-iter.hh"
 
 Translator_group::Translator_group (Translator_group const&s)
   : Translator(s)
@@ -19,6 +20,8 @@ Translator_group::Translator_group (Translator_group const&s)
   consists_str_arr_ = s.consists_str_arr_;
   accepts_str_arr_ = s.accepts_str_arr_;
   iterator_count_ =0;
+  properties_dict_ = s.properties_dict_;
+  
 }
 
 Translator_group::~Translator_group ()
@@ -331,6 +334,10 @@ Translator_group::do_print() const
 #ifndef NPRINT
   if (!check_debug)
     return ;
+  for (Dictionary_iter<Scalar> i (properties_dict_); i.ok (); i++)
+    {
+      DOUT << i.key () << "=" << i.val () << '\n';
+    }
   if (status == ORPHAN)
     {
       DOUT << "consists of: ";
@@ -391,4 +398,28 @@ Translator_group::do_add_processing ()
       else
 	add_translator (t->clone ());
     }
+}
+
+Scalar
+Translator_group::get_property (String id, Translator_group  **where_l) const
+{
+  if (properties_dict_.elem_b (id))
+    {
+      if (where_l)
+	*where_l = this;
+      return properties_dict_[id];
+    }
+  
+  if (daddy_trans_l_)
+    return daddy_trans_l_->get_property (id, where_l);
+
+  if (where_l)
+    *where_l = 0;
+  return "";
+}
+
+void
+Translator_group::set_property (String id, Scalar val)
+{
+  properties_dict_[id] = val;
 }

@@ -15,6 +15,7 @@
 #include "array.hh"
 #include "moment.hh"
 #include "virtual-methods.hh"
+#include "interpretation-context-handle.hh"
 
 /** Walk through music and deliver music to translation units, synced
   in time.  This classa provides both the implementation of the shared
@@ -25,9 +26,7 @@
   construct with one point in musical time.
  */
 class Music_iterator {
-  Array<Translator_group*>report_to_l_arr_;
-  void push_translator (Translator_group*);
-  void pop_translator();
+  Interpretation_context_handle handle_;
 
 protected:
   Music const * music_l_;

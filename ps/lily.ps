@@ -52,14 +52,14 @@
 	1 copy mul exch 1 copy mul add sqrt
 } bind def
 
-/draw_tuplet
+/draw_tuplet % dx dy thick dir
 {
-	tuplet_t setlinewidth
 % urg: the only Level-2 PS, check effect in print
 %	true setstrokeadjust
+	/dir exch def
+	setlinewidth
 	1 setlinecap
 	1 setlinejoin
-	/dir exch def
 	/tuplet_dy exch def
 	/tuplet_dx exch def
 	staffheight 2 div /tuplet_gapx exch def
@@ -77,12 +77,12 @@
 	stroke
 } bind def
 
-/draw_volta % w last
+/draw_volta % w thick last
 {
 	/last exch def
+	setlinewidth
 	/volta_w exch def
 	staffheight 2 div /volta_h exch def
-	volta_t setlinewidth
 % urg: the only Level-2 PS, check effect in print
 %	true setstrokeadjust
 	1 setlinecap

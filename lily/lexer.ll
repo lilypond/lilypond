@@ -92,7 +92,7 @@ RESTNAME	[rs]
 NOTECOMMAND	\\{A}+
 LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 ESCAPED		[nt\\'"]
-EXTENDER	[_][_]
+EXTENDER	__
 
 %%
 
