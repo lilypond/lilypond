@@ -138,10 +138,9 @@ LY_DEFINE(ly_paper_lookup,
   SCM_ASSERT_TYPE (op, pap, SCM_ARG1, __FUNCTION__, "Paper");
   SCM_ASSERT_TYPE (gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
-  SCM v = op->lookup_variable (sym);
-
-  if (SCM_VARIABLEP(v))
-    return SCM_VARIABLE_REF(v);
+  SCM var = ly_module_lookup (op->scope_, sym);
+  if (SCM_VARIABLEP (var))
+    return SCM_VARIABLE_REF (var);
   else
     return SCM_EOL;
 }
