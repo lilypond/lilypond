@@ -2771,14 +2771,11 @@ Internals: @internalsref{RhythmicStaff}.
 Examples: @inputfileref{input/regression,rhythmic-staff.ly}.
 
 
-@node Percussion staves
-@subsection Percussion staves
+@node Entering percussion
+@subsection Entering percussion
+
 @cindex percussion
 @cindex drums
-
-A percussion part for more than one instrument typically uses a
-multiline staff where each position in the staff refers to one piece
-of percussion.
 
 @syntax
 
@@ -2789,6 +2786,24 @@ an abbreviated name, and both be used in input files:
 @lilypond[raggedright]
  \drums { hihat4 hh4 }
 @end lilypond
+
+The complete list of drum names is in the init file
+@file{ly/drumpitch-init.ly}.
+@c TODO: properly document this.
+
+@seealso
+
+Internals: @internalsref{DrumNoteEvent}
+
+@node Percussion staves
+@subsection Percussion staves
+@cindex percussion
+@cindex drums
+
+A percussion part for more than one instrument typically uses a
+multiline staff where each position in the staff refers to one piece
+of percussion.
+
 
 To typeset the music, the notes must be interpreted in a
 @internalsref{DrumStaff} and @internalsref{DrumVoice} contexts:

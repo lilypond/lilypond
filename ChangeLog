@@ -1,5 +1,9 @@
 2004-02-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (do_file):  fix latex output.
+
+	* VERSION: release 2.1.20
+	
 	* scm/part-combiner.scm (determine-split-list): robustness fix 
 
 	* lily/paper-score.cc (process): move gc stat stuff to init.ly 
