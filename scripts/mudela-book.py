@@ -1,25 +1,8 @@
 #!@PYTHON@
 # vim: set noexpandtab:
 # TODO:
-# * Figure out clean set of options.
+# * Figure out clean set of options. Hmm, isn't it pretty ok now?
 # * add support for .lilyrc
-# * %\def\preMudelaExample should be ignored by mudela-book because
-#   it is commented out
-# * if you run mudela-book once with --no-pictures, and then again
-#   without the option, then the pngs will not be created. You have
-#   to delete the generated .ly files and  rerun mudela-book.
-# * kontroller hvordan det skannes etter preMudelaExample i preamble
-#   det ser ut til at \usepackage{graphics} legges til bare hvis
-#   preMudelaExample ikke finnes.
-# * add suppoert for @c comments. Check that preamble scanning works after this.
-
-# * in LaTeX, commenting out blocks like this
-# %\begin{mudela}
-# %c d e
-# %\end{mudela} works as expected.
-# * \usepackage{landscape} is gone. Convince me it is really neede to get it back.
-# * We are calculating more of the linewidths, for example 2 col from 1 col.
-
 
 
 # This is was the idea for handling of comments:
@@ -368,15 +351,11 @@ output_dict= {
 		}
 	}
 
-def output_verbatim (body):#ugh .format
+def output_verbatim (body):
 	if __main__.format == 'texi':
 		body = re.sub ('([@{}])', '@\\1', body)
 	return get_output ('output-verbatim') % body
 
-def output_mbverbatim (body):#ugh .format
-	if __main__.format == 'texi':
-		body = re.sub ('([@{}])', '@\\1', body)
-	return get_output ('output-verbatim') % body
 
 re_dict = {
 	'latex': {'input': r'(?m)^[^%\n]*?(?P<match>\\mbinput{?([^}\t \n}]*))',
@@ -407,13 +386,11 @@ re_dict = {
 		 'landscape': no_match,
 		 'verbatim': r"""(?s)(?P<code>@example\s.*?@end example\s)""",
 		 'verb': r"""(?P<code>@code{.*?})""",
-		 'mudela-file': '(?P<match>@mudelafile(\[(?P<options>.*?)\])?{(?P<filename>[^}]+)})',
+		 'mudela-file': '(?m)^(?!@c)(?P<match>@mudelafile(\[(?P<options>.*?)\])?{(?P<filename>[^}]+)})',
 		 'mudela' : '(?m)^(?!@c)(?P<match>@mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)})',
-		 #ugh add check for @c
 		 'mudela-block': r"""(?m)^(?!@c)(?P<match>(?s)(?P<match>@mudela(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end mudela\s))""",
 		  'option-sep' : ', *',
 		  'intertext': r',?\s*intertext=\".*?\"',
-		  #ugh fix
 		  'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
 		  'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>@c.*$\n+))",
 		  'numcols': no_match,
@@ -574,16 +551,24 @@ def scan_latex_preamble(chunks):
 				paperguru.set_geo_option(k, o[k])
 		idx = idx + 1
 
+def scan_texi_preamble (chunks):
+	# this is not bulletproof..., it checks the first 10 chunks
+	idx = 0
+	while 1:
+		if chunks[idx][0] == 'input':
+			if string.find(chunks[idx][1], "@afourpaper") != -1:
+				paperguru.m_papersize = 'a4'
+			elif string.find(chunks[idx][1], "@afourwide") != -1:
+				paperguru.m_papersize = 'a4wide'
+			elif string.find(chunks[idx][1], "@smallbook") != -1:
+				paperguru.m_papersize = 'smallbook'
+		idx = idx + 1
+		if idx == 10 or idx == len(chunks):
+			break
+
 def scan_preamble (chunks):
 	if __main__.format == 'texi':
-		#ugh has to be fixed when @c comments are implemented
-		# also the searching here is far from bullet proof.
-		if string.find(chunks[0][1], "@afourpaper") != -1:
-			paperguru.m_papersize = 'a4'
-		elif string.find(chunks[0][1], "@afourwide") != -1:
-			paperguru.m_papersize = 'a4wide'
-		elif string.find(chunks[0][1], "@smallbook") != -1:
-			paperguru.m_papersize = 'smallbook'
+		scan_texi_preamble(chunks)
 	else:
 		assert __main__.format == 'latex'
 		scan_latex_preamble(chunks)
@@ -679,17 +664,6 @@ def make_mudela_block(m):
 	else:
 	    options = []
 	options = filter(lambda s: s != '', options)
-	if 'mbverbatim' in options:#ugh this is ugly and only for texi format
-		s  = m.group()
-		im = get_re('intertext').search(s)
-		if im:
-			s = s[:im.start()] + s[im.end():]
-		im = re.search('mbverbatim', s)
-		if im:
-			s = s[:im.start()] + s[im.end():]
-		if s[:9] == "@mudela[]":
-			s = "@mudela" + s[9:]
-		return [('mudela', m.group('code'), options, s)]
 	return [('mudela', m.group('code'), options)]
 
 def do_columns(m):
@@ -767,11 +741,7 @@ def schedule_mudela_block (chunk):
 	TODO has format [basename, extension, extension, ... ]
 	
 	"""
-	if len(chunk) == 3:
-		(type, body, opts) = chunk
-		complete_body = None
-	else:# mbverbatim
-		(type, body, opts, complete_body) = chunk
+	(type, body, opts) = chunk
 	assert type == 'mudela'
 	file_body = compose_full_body (body, opts)
 	basename = `abs(hash (file_body))`
@@ -784,7 +754,6 @@ def schedule_mudela_block (chunk):
 			else:
 			    taken_file_names[basename] = taken_file_names[basename] + 1
 			    basename = basename + "-%i" % taken_file_names[basename]
-	# writes the file if necessary, returns true if it was written
 	if not g_read_lys:
 		update_file(file_body, os.path.join(g_outdir, basename) + '.ly')
 	needed_filetypes = ['tex']
@@ -795,18 +764,24 @@ def schedule_mudela_block (chunk):
 	if 'eps' in opts and not ('eps' in needed_filetypes):
 		needed_filetypes.append('eps')
 	outname = os.path.join(g_outdir, basename)
-	if not os.path.isfile(outname + '.tex') \
-		or os.stat(outname+'.ly')[stat.ST_MTIME] > \
-			os.stat(outname+'.tex')[stat.ST_MTIME]:
-		todo = needed_filetypes
-	else:
-		todo = []
-		
+	def f(base, ext1, ext2):
+		a = os.path.isfile(base + ext2)
+		if (os.path.isfile(base + ext1) and
+		    os.path.isfile(base + ext2) and
+				os.stat(base+ext1)[stat.ST_MTIME] >
+				os.stat(base+ext2)[stat.ST_MTIME]) or \
+				not os.path.isfile(base + ext2):
+			return 1
+	todo = []
+	if 'tex' in needed_filetypes and f(outname, '.ly', '.tex'):
+		todo.append('tex')
+	if 'eps' in needed_filetypes and f(outname, '.tex', '.eps'):
+		todo.append('eps')
+	if 'png' in needed_filetypes and f(outname, '.eps', '.png'):
+		todo.append('png')
 	newbody = ''
 	if 'verbatim' in opts:
 		newbody = output_verbatim (body)
-	elif 'mbverbatim' in opts:
-		newbody = output_mbverbatim (complete_body)
 
 	for o in opts:
 		m = re.search ('intertext="(.*?)"', o)

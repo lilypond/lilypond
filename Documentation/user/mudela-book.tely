@@ -395,11 +395,6 @@ The La@TeX{} \includeonly@{...@} command is ignored.
 
 Ignores almost all La@TeX{} commands that changes margins and linewidths.
 
-La@TeX{} comments can confuse @command{mudela-book}:
-@example
-% this music will be displayed: \mudela@{c d e@}
-@end example
-
 @section Authors
 
 @email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}, @uref{http://www.cs.uu.nl/people/hanwen}
