@@ -34,6 +34,11 @@ public:
   void banter (Array<Musical_pitch> pitch_arr, Chord_mol* name_p) const;
 
   Chord_name (Chord const& c);
+
+  /*
+    ugh. Junkme, I must be elt property.
+   */
+  
   Chord chord_;
 
 protected:

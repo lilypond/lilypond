@@ -44,12 +44,6 @@
 class Stem : public Item,
 	     public Directional_element
 {
-
-  /**extent of the stem (positions).
-    fractional, since Beam has to adapt them.
-    */
-  Interval yextent_;
-
 public:
   /// log of the duration. Eg. 4 -> 16th note -> 2 flags
   int flag_i () const;
@@ -64,6 +58,7 @@ public:
   Note_head * first_head () const;
   Score_element * support_head () const;
   Stem ();
+
   /// ensure that this Stem also encompasses the Notehead #n#
   void add_head (Rhythmic_head*n);
 
@@ -75,15 +70,14 @@ public:
   int type_i () const;
   void set_stemend (Real);
   Direction get_default_dir() const;
-
   int get_center_distance(Direction) const;
+  Real  get_default_stemlen() const;
 
-  void set_default_stemlen();
-  void set_default_extents();
-  void set_noteheads();
+  void position_noteheads();
 
-  Real stem_end_f() const;
-  Real stem_begin_f() const;
+  Real stem_end_position () const;
+
+  // todo: cleanup, naming
   Real note_delta_f () const;
 
   bool invisible_b() const;

@@ -1,3 +1,11 @@
+pl 14.hwn1
+	- specialize duration.cc for lily, move out of lib/
+	- stem cleanup
+	- more SCM typechecking
+	- stafflineleading -> staff_space
+	- bf: rod distances.
+	- junk some unused code.
+	
 pl 13.hwn2
 	- paper/score column cleanups. Junk Score_column type
 

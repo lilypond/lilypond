@@ -31,7 +31,7 @@ void
 Hara_kiri_group_spanner::do_post_processing ()
 {
   SCM worth = get_elt_property ("items-worth-living");
-  if (worth != SCM_EOL && worth != SCM_UNDEFINED)
+  if (gh_pair_p (worth))
     return;
 
   Link_array<Score_element> childs = get_children ();

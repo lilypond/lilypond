@@ -81,7 +81,7 @@ Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
 	  SCM next_stretch_hint = rc->get_elt_property ("stretch-distance");	  
 
 	  Real left_distance;
-	  if (hint != SCM_UNDEFINED)
+	  if (gh_pair_p (hint))
 	    {
 	      left_distance = gh_scm2double (gh_cdr (hint)); 
 	    }
@@ -111,7 +111,7 @@ Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
 
 	  
 	  Real right_dist = 0.0;
-	  if (next_hint != SCM_UNDEFINED)
+	  if (gh_pair_p (next_hint))
 	    {
 	      right_dist += - gh_scm2double (gh_car (next_hint));
 	    }
@@ -142,7 +142,7 @@ Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
 	  else
 	    stretch_dist += left_distance;
 	  
-	  if (next_stretch_hint != SCM_UNDEFINED)
+	  if (gh_pair_p (next_stretch_hint))
 	    // see regtest spacing-tight
 	    stretch_dist += - gh_scm2double (gh_car  (next_stretch_hint));
 	  else

@@ -88,7 +88,8 @@ Midi_event::Midi_event (Moment delta_mom, Midi_item* midi_p)
 String
 Midi_event::str () const
 {
-  int delta_i = delta_mom_ * Moment (Duration::division_1_i_s);
+  int delta_i = delta_mom_ * Moment (384 * 4); // ugh.
+
   String delta_str = Midi_item::i2varint_str (delta_i);
   String midi_str = midi_p_->str ();
   assert (midi_str.length_i ());

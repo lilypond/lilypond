@@ -11,7 +11,6 @@
 #include "note-head.hh"
 #include "stem.hh"
 #include "musical-request.hh"
-#include "duration-convert.hh"
 #include "misc.hh"
 #include "stem-tremolo.hh"
 #include "staff-info.hh"

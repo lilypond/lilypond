@@ -128,7 +128,7 @@ and plenty of RAM is recommended for comfortable use.
 The website is the most convenient form to use for reading the
 documentation on-line documentation. It is made by entering @example 
 
-  make website
+  make htmldoc
  
 @end example 
 This does require a  functioning  LilyPond. The binary doesn't have to

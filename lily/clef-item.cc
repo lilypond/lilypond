@@ -67,7 +67,7 @@ Clef_item::do_add_processing ()
 	  
 	  add_dependency (g);	// just to be sure.
 	  SCM my_vis = get_elt_property ("visibility-lambda");
-	  if (my_vis != SCM_UNDEFINED)
+	  if (gh_procedure_p (my_vis))
 	    g->set_elt_property ("visibility-lambda", my_vis);
 			
 	}

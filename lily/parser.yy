@@ -30,7 +30,6 @@
 #include "translator-group.hh"
 #include "score.hh"
 #include "music-list.hh"
-#include "duration-convert.hh"
 #include "change-translator.hh"
 #include "file-results.hh"
 #include "scope.hh"
@@ -45,6 +44,13 @@
 
 // mmm
 Mudela_version oldest_version ("1.3.4");
+
+bool
+is_duration_b (int t)
+{
+  return t == 1 << intlog2(t);
+}
+
 
 
 
@@ -920,7 +926,7 @@ abbrev_command_req:
 		$$ =b;
 	}
 	| '[' ':' unsigned {
-		if (!Duration::duration_type_b ($3))
+		if (!is_duration_b ($3))
 		  THIS->parser_error (_f ("not a duration: %d", $3));
 		else if ($3 < 8)
 		  THIS->parser_error (_ ("Can't abbreviate"));
@@ -1300,10 +1306,10 @@ duration_length:
 		$$ = $1;
 	}
 	| duration_length '*' unsigned {
-		$$->plet_.iso_i_ *= $3;
+		$$->tuplet_iso_i_ *= $3;
 	}
 	| duration_length '/' unsigned {
-		$$->plet_.type_i_ *= $3;
+		$$->tuplet_type_i_ *= $3;
 	}
 	;
 
@@ -1325,10 +1331,10 @@ optional_notemode_duration:
 steno_duration:
 	unsigned		{
 		$$ = new Duration;
-		if (!Duration::duration_type_b ($1))
+		if (!is_duration_b ($1))
 			THIS->parser_error (_f ("not a duration: %d", $1));
 		else {
-			$$->durlog_i_ = Duration_convert::i2_type ($1);
+			$$->durlog_i_ = intlog2 ($1);
 		     }
 	}
 	| DURATION_IDENTIFIER	{
@@ -1345,7 +1351,7 @@ abbrev_type:
 		$$ =0;
 	}
 	| ':' unsigned {
-		if (!Duration::duration_type_b ($2))
+		if (!is_duration_b ($2))
 			THIS->parser_error (_f ("not a duration: %d", $2));
 		else if ($2 < 8)
 			THIS->parser_error (_ ("Can't abbreviate"));

@@ -7,7 +7,6 @@
            Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "duration-convert.hh"
 #include "timing-translator.hh"
 #include "chord-tremolo-engraver.hh"
 #include "stem.hh"

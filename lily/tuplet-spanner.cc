@@ -140,11 +140,12 @@ Tuplet_spanner::get_default_dir () const
 {
   Direction d = UP;
   SCM dir_sym =get_elt_property ("dir-forced");
-  if (dir_sym != SCM_UNDEFINED) {
-    d= (Direction) gh_scm2int (dir_sym);
-    if (d != CENTER)
-      return d;
-  }
+  if (gh_number_p (dir_sym))
+    {
+      d= (Direction) gh_scm2int (dir_sym);
+      if (d != CENTER)
+	return d;
+    }
 
   for (SCM s = get_elt_property ("columns"); gh_pair_p (s); s = gh_cdr (s))
     {

@@ -23,7 +23,7 @@ Time_signature::do_brew_molecule_p () const
 {
   SCM st = get_elt_property ("style");
   
-  if (st != SCM_UNDEFINED)
+  if (gh_string_p (st))
     {
       String style (ly_scm2string (st));
       if (style[0]=='1')

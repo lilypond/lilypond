@@ -72,7 +72,7 @@ void
 Item::try_visibility_lambda ()
 {
   SCM vis = remove_elt_property ("visibility-lambda");
-  if (vis != SCM_UNDEFINED)
+  if (gh_procedure_p (vis))
     {
       SCM args = scm_listify (gh_int2scm (break_status_dir ()), SCM_UNDEFINED);
       SCM result = gh_apply (vis, args);

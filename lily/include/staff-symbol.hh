@@ -20,8 +20,8 @@ class Staff_symbol : public Spanner
 public:
   /// this many lines.
   int no_lines_i_;
-  Real staff_line_leading_f_;
-  Real staff_line_leading_f ();
+  Real staff_space_;
+  Real staff_space ();
   
   
   Staff_symbol ();

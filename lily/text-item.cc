@@ -17,7 +17,7 @@ Molecule*
 Text_item::do_brew_molecule_p () const
 {
   SCM style = get_elt_property ("style");
-  String st = (style == SCM_UNDEFINED) ? "" : ly_scm2string (style);
+  String st = gh_string_p (style) ?  ly_scm2string (style) : "";
   
   Molecule a= paper_l ()->lookup_l(0)->text (st, text_str_, paper_l ());
 

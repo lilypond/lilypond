@@ -17,7 +17,7 @@
 Staff_symbol::Staff_symbol ()
 {
   no_lines_i_ = 5;
-  staff_line_leading_f_ = 5.0 PT;
+  staff_space_ = 5.0 PT;
 }
 
 void
@@ -53,12 +53,12 @@ Staff_symbol::do_brew_molecule_p() const
   Molecule rule  = lookup_l ()->filledbox (Box (Interval (0,width),
 						Interval (-t/2, t/2)));
 
-  Real height = (no_lines_i_-1) * staff_line_leading_f_ /2;
+  Real height = (no_lines_i_-1) * staff_space_ /2;
   Molecule * m = new Molecule;
   for (int i=0; i < no_lines_i_; i++)
     {
       Molecule a (rule);
-      a.translate_axis (height - i * staff_line_leading_f_, Y_AXIS);
+      a.translate_axis (height - i * staff_space_, Y_AXIS);
       m->add_molecule (a);
     }
 
@@ -73,7 +73,7 @@ Staff_symbol::steps_i() const
   return no_lines_i_*2;
 }
 Real
-Staff_symbol::staff_line_leading_f ()
+Staff_symbol::staff_space ()
 {
-  return staff_line_leading_f_;
+  return staff_space_;
 }

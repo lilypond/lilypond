@@ -129,9 +129,8 @@ Translator_group::find_existing_translator_l (String n, String id)
   if (is_alias_b (n) && (id_str_ == id || id.empty_b ()))
     return this;
 
-
   Translator_group* r = 0;
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
+  for (Cons<Translator> *p = trans_p_list_.head_; !r && p; p = p->next_)
     {
       if (Translator_group *trg =  dynamic_cast <Translator_group *> (p->car_))
 	r = trg->find_existing_translator_l (n, id);

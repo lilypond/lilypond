@@ -43,7 +43,7 @@ Stem_tremolo::dim_callback (Dimension_cache const *c)
 {
   Stem_tremolo * s = dynamic_cast<Stem_tremolo*> (c->element_l ());
   Real space = Staff_symbol_referencer_interface (s->stem_l ())
-    .staff_line_leading_f ();
+    .staff_space ();
   return Interval (-space, space);
 }
 
@@ -60,7 +60,7 @@ Stem_tremolo::do_brew_molecule_p () const
   
   Real interbeam_f = paper_l ()->interbeam_f (mult);
   Real w  = gh_scm2double (get_elt_property ("beam-width"));
-  Real space = Staff_symbol_referencer_interface (st).staff_line_leading_f ();
+  Real space = Staff_symbol_referencer_interface (st).staff_space ();
   Real internote_f = space / 2;
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));
 
@@ -71,7 +71,7 @@ Stem_tremolo::do_brew_molecule_p () const
     {
       Real dy = 0;
       SCM s = st->beam_l ()->get_elt_property ("height");
-      if (s != SCM_UNDEFINED)
+      if (gh_number_p (s))
 	dy = gh_scm2double (s);
       Real dx = st->beam_l ()->last_visible_stem ()->hpos_f ()
 	- st->beam_l ()->first_visible_stem ()->hpos_f ();
@@ -99,7 +99,7 @@ Stem_tremolo::do_brew_molecule_p () const
       if (st->beam_l ())
         {
 	  beams->translate (Offset(st->hpos_f () - hpos_f (),
-	    st->stem_end_f () * internote_f - 
+	    st->stem_end_position () * internote_f - 
 	    st->beam_l ()->get_direction () * beams_i * interbeam_f));
 	}
       else
@@ -116,7 +116,7 @@ Stem_tremolo::do_brew_molecule_p () const
 	    ? -st->get_direction () * st->note_delta_f ()/2
 	    : 0.0;
 
-	  dy += st->stem_end_f ();
+	  dy += st->stem_end_position ();
 	  beams->translate (Offset(st->hpos_f () - hpos_f ()+
 				   whole_note_correction, dy));
 	}

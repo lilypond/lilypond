@@ -10,6 +10,7 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use hash tabs iso. alist_ for elt property?
+. * TODO: junk dstream output.
 . * agressive type-checking for SCM stuff.
 . * use  "staff-space" and "half-space" iso interline,
     staff_line_leading () etc.
@@ -67,23 +68,18 @@ ChoirStaff bar line types in the rest of the scores
 . * make all Feta (including dynamics) available to the user in
     textual scripts. Examples: "D.S. al \coda", "\mf espress.".
 . * Write script that uses --find-old-relative to do auto relativization. 
-. * Junk shared cruft (duration, moment) in lib/
 
 
 .* Cleanups needed
 . * \$ and $ identifier syntax in examples. 
-. * Junk ghost positioning objects eg, Script leans on  Staffside
-    leans on Staff.
 . * Key_engraver, Local_key_item
 . * Think of comprehensive solution for "if (grace_b == self_grace_b_)"
 . * String[String.length] doesn't trap.
 . * Rhythmic_column and interaction stem/rhythmic_column/note_head/dots.
-. * Duration
 . * clef engraver 
 . * parser
 . * Lookup::text -> needs  to be TeX independent.
 . * junk Music_iterator::first_b_
-. * Bezier
 
 .* ACCIDENTALS
 . * half-sharps, half-flats
@@ -94,9 +90,7 @@ ChoirStaff bar line types in the rest of the scores
 .* Beams
 . * [c8. c16 c16 c16] in 6/8 timesig.
 . * Rewrite Stem, Beam (hairy)
-.  * general shaving on Beam and Stem
-.  * use plet grouping
-.  * beams over bars
+.  * beams over barlines
 . * Rests and beams don't work too well together. Example:
    [ r8 g''16 des'] [r8 c16 a] 
 . * autoBeamMelisma: if I explicitly beam notes in a staff with auto

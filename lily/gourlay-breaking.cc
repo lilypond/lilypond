@@ -183,7 +183,7 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
   if (pc->original_l_)
     {
       SCM pen = pc->get_elt_property ("penalty");
-      if (pen != SCM_UNDEFINED)
+      if (gh_number_p (pen))
 	{
 	  break_penalties += gh_scm2double (pen);
 	}

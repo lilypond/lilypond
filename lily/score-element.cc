@@ -198,7 +198,7 @@ Score_element::lookup_l () const
     {
       Score_element * urg = (Score_element*)this;
       SCM sz = urg->remove_elt_property ("fontsize");
-      int i = (sz != SCM_UNDEFINED)
+      int i = (gh_number_p (sz))
 	? gh_scm2int  (sz)
 	: 0;
 

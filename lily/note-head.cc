@@ -51,7 +51,7 @@ Note_head::do_brew_molecule_p() const
 {
   Staff_symbol_referencer_interface si (this);
   
-  Real inter_f = si.staff_line_leading_f ()/2;
+  Real inter_f = si.staff_space ()/2;
   int sz = si.lines_i ()-1;
   Real p = si.position_f ();
   int streepjes_i = abs (p) < sz 
@@ -60,7 +60,7 @@ Note_head::do_brew_molecule_p() const
 
  String type; 
   SCM style  = get_elt_property ("style");
-  if (style != SCM_UNDEFINED)
+  if (gh_string_p (style))
     {
       type = ly_scm2string (style);
     }

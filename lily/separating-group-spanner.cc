@@ -39,8 +39,11 @@ Separating_group_spanner::get_rods () const
   
   for (SCM s = get_elt_property ("elements"); gh_pair_p (s) && gh_pair_p (gh_cdr (s)); s = gh_cdr (s))
     {
-      SCM elt = gh_car (s);
-      SCM next_elt = gh_cadr (s);
+      /*
+	Order of elements is reversed!
+       */
+      SCM elt = gh_cadr (s);
+      SCM next_elt = gh_car (s);
 
       Single_malt_grouping_item *l = dynamic_cast<Single_malt_grouping_item*> (unsmob_element (elt));
       Single_malt_grouping_item *r = dynamic_cast<Single_malt_grouping_item*> (unsmob_element ( next_elt));

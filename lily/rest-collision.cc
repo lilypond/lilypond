@@ -90,7 +90,7 @@ Rest_collision::do_pre_processing()
       Real staff_space = paper_l()->get_var ("interline");
 
 	/* FIXME
-	  staff_space =  rcol->rest_l_arr[0]->staff_line_leading_f ();
+	  staff_space =  rcol->rest_l_arr[0]->staff_space ();
 	*/
       Real internote_f = staff_space/2;
       Real minimum_dist = paper_l ()->get_var ("restcollision_minimum_dist")

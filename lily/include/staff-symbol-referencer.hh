@@ -33,7 +33,7 @@ public:
      typeface. ie. leading is vertical space.
    */
   
-  Real staff_line_leading_f () const;
+  Real staff_space () const;
   Staff_symbol * staff_symbol_l () const;
   int lines_i () const;
   Real position_f () const;

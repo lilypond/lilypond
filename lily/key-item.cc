@@ -100,7 +100,7 @@ Key_item::do_brew_molecule_p() const
   Molecule*output = new Molecule;
 
   Staff_symbol_referencer_interface si (this);
-  Real inter = si.staff_line_leading_f ()/2.0;
+  Real inter = si.staff_space ()/2.0;
   
   int j;
   if ((break_status_dir () == LEFT || break_status_dir () == CENTER)

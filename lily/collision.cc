@@ -194,7 +194,7 @@ Collision::forced_shift ()
       Score_element * se = unsmob_element ( gh_car (s));
 
       SCM force =  se->remove_elt_property ("force-hshift");
-      if (force != SCM_UNDEFINED)
+      if (gh_number_p (force))
 	{
 	  tups. push (Shift_tup (se, gh_scm2double (force)));
 	}
