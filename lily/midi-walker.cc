@@ -109,6 +109,9 @@ Midi_walker::process()
   Audio_item* ptr = (*item_l_arr_l_)[index_];
   do_stop_notes (ptr->audio_column_l_->at_mom ());
 
+  /*
+    THIS IS A MEMORY LEAK. FIXME.
+   */
   Midi_item* p = ptr->midi_item_p ();
   if (!p)
     return;
