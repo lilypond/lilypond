@@ -1,5 +1,7 @@
 2003-08-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/convert-ly.py (FatalConversionError.conv): typo
+
 	* Documentation/misc/GNUmakefile: restore misc directory.
 
 	* input/mutopia/J.S.Bach/bwv940.ly: add 1 petite prelude
