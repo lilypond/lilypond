@@ -1,6 +1,7 @@
 2002-10-31  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* vimrc: Add shortcuts for compiling, midi-playing and PS-viewing.
+	Remove nonvalid settings. Use descriptive key names.
 
 2002-10-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
