@@ -3,7 +3,7 @@
 @settitle LilyPond homepage
 
 @html
-<!--- @@WEB-TITLE@@=Welcome to the home of the GNU Music Typesetter --->
+<!--- @@WEB-TITLE@@=GNU Music Typesetter Homepage --->
 @end html
 
 @node Top, , , (dir)
