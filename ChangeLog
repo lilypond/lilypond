@@ -1,3 +1,8 @@
+2004-07-16  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/lilypond-book.py (Lilypond_snippet.is_outdated): Check
+	for lilypondend.
+
 2004-07-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* make/mutopia-vars.make ($(addprefix $(outdir)/,$(LYM4_FILES):

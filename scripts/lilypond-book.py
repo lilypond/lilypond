@@ -549,15 +549,18 @@ class Lilypond_snippet (Snippet):
 	def is_outdated (self):
 		base = self.basename ()
 
-		found = os.path.exists (base + '.ly') and \
-			os.path.exists (base + '.tex')
+		tex_file = '%s.tex' % base
+		ly_file = '%s.ly' % base
+		ok = os.path.exists (ly_file) and os.path.exists (tex_file)\
+		     and os.stat (tex_file)[stat.ST_SIZE] \
+		     and open (tex_file).readlines ()[-1][1:-1] \
+		     == 'lilypondend'
 
 		if format == HTML or format == TEXINFO:
-			found = found and (os.path.exists (base + '.png')
-					   or glob.glob (base + '-page*.png'))
+			ok = ok and (os.path.exists (base + '.png')
+				     or glob.glob (base + '-page*.png'))
 			
-		if found and (use_hash_p \
-			or self.ly () == open (base + '.ly').read ()):
+		if ok and (use_hash_p or self.ly () == open (ly_file).read ()):
 			# TODO: something smart with target formats
 			# (ps, png) and m/ctimes
 			return None
