@@ -33,7 +33,11 @@ Bar::brew_molecule (SCM smob)
     {
       String str  =ly_scm2string (s);
       SCM siz = gh_call1 (barsiz_proc, me->self_scm ());
-      return compound_barline (me, str, gh_scm2double (siz)).create_scheme ();
+      Real sz =  gh_scm2double (siz);
+      if (sz < 0)
+	return SCM_EOL;
+      
+      return compound_barline (me, str, sz).create_scheme ();
     }
   return SCM_EOL;
 }

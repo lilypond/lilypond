@@ -26,7 +26,9 @@ protected:
   virtual void acknowledge_element (Score_element_info);
   virtual void process_acknowledged ();
   virtual Spanner* get_spanner_p () const;
+  virtual void add_element (Score_element*) ;
 public:
+  
   VIRTUAL_COPY_CONS(Translator);
   Axis_group_engraver ();
 };
@@ -106,11 +108,16 @@ Axis_group_engraver::process_acknowledged ()
 
       if ((!par || !Axis_group_interface::has_interface (par))
 	  && ! elts_[i]->empty_b (Y_AXIS))
-	Axis_group_interface::add_element (staffline_p_, elts_[i]);
+	add_element (elts_[i]);
     }
   elts_.clear ();
 }
 
+void
+Axis_group_engraver::add_element (Score_element*e)
+{
+  Axis_group_interface::add_element (staffline_p_, e);
+}
 
 ////////////////////////////////////////////////////////
 
@@ -124,9 +131,17 @@ class Hara_kiri_engraver : public Axis_group_engraver
 protected:
   virtual Spanner*get_spanner_p ()const;
   virtual void acknowledge_element (Score_element_info);
+  virtual void add_element (Score_element *e);
 public:
   VIRTUAL_COPY_CONS(Translator);
 };
+
+void
+Hara_kiri_engraver::add_element (Score_element*e)
+{
+  Hara_kiri_group_spanner::add_element (staffline_p_, e);
+}
+
 
 Spanner*
 Hara_kiri_engraver::get_spanner_p () const

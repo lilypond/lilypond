@@ -45,6 +45,9 @@ remove dynamic_cast<Spanner,Item> and put this code into respective
 
 Score_element::Score_element(SCM basicprops)
 {
+  /*
+    fixme: default should be no callback.
+   */
   set_extent_callback (molecule_extent, X_AXIS);
   set_extent_callback (molecule_extent, Y_AXIS);    
 
@@ -520,8 +523,8 @@ Score_element::get_offset (Axis a) const
       Real r =  (*c) (me,a );
       if (isinf (r) || isnan (r))
 	{
-	  r = 0.0;
 	  programming_error (INFINITY_MSG);
+	  r = 0.0;
 	}
       me->dim_cache_[a].offset_ +=r;
     }
@@ -639,6 +642,13 @@ bool
 Score_element::has_extent_callback_b (Extent_callback cb, Axis a)const
 {
   return cb == dim_cache_[a].extent_callback_l_;
+}
+
+
+bool
+Score_element::has_extent_callback_b (Axis a) const
+{
+  return dim_cache_[a].extent_callback_l_;
 }
 
 bool

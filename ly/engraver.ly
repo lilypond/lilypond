@@ -492,12 +492,12 @@ ScoreContext = \translator {
 		(interfaces . (dot-interface))
 	)
 	basicDynamicLineSpannerProperties = #`(
-		(interfaces (dynamic-interface axis-group-interface))
+		(interfaces . (dynamic-interface axis-group-interface))
 		(axes . ( 1))
 	)
 	basicDynamicTextProperties	 = # `(
 		(style . "dynamic")
-		(interface (dynamic-interface))
+		(interfaces . (dynamic-interface))
 		(molecule-callback . ,Text_item::brew_molecule)
 		(script-priority . 100)
 		(self-alignment-Y . 0)
@@ -684,7 +684,9 @@ ScoreContext = \translator {
 	)
 	basicTextScriptProperties = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
-		(no-spacing-rods . #t)
+
+: -- don't set, because property-engraver will not override it.  
+;		(no-spacing-rods . #t)
 		(interfaces . (text-script-interface text-item-interface))
 	)
 	basicTieProperties = #`(

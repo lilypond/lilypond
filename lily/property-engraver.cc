@@ -85,7 +85,7 @@ Property_engraver::acknowledge_element (Score_element_info i)
 
 void
 Property_engraver::apply_properties (SCM p, Score_element *e)
-{  
+{
   for (; gh_pair_p (p); p = gh_cdr (p))
     {
       /*

@@ -6,7 +6,7 @@
   (c) 2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-
+#include "hara-kiri-group-spanner.hh"
 #include "axis-group-interface.hh"
 #include "score-element.hh"
 
@@ -28,7 +28,13 @@ Axis_group_interface::add_element (Score_element*me,Score_element *e)
 bool
 Axis_group_interface::axis_b (Score_element*me,Axis a )
 {
-  return me->has_extent_callback_b (group_extent_callback, a);
+  /*
+    urg. FIXME, check for Hara_kiri_group_spanner shouldn't be necessary?
+
+    
+   */
+  return me->has_extent_callback_b (group_extent_callback, a) ||
+    (me->has_extent_callback_b (Hara_kiri_group_spanner::y_extent, a));
 }
 
 Interval
@@ -88,8 +94,11 @@ Axis_group_interface::set_axes (Score_element*me,Axis a1, Axis a2)
   if (a1 != Y_AXIS && a2 != Y_AXIS)
     me->set_extent_callback (0, Y_AXIS);
   
-  me->set_extent_callback (Axis_group_interface::group_extent_callback,a1);
-  me->set_extent_callback (Axis_group_interface::group_extent_callback,a2);
+  //  if (!me->has_extent_callback_b (a1))
+  if (me->has_extent_callback_b (Score_element::molecule_extent, a1))
+    me->set_extent_callback (Axis_group_interface::group_extent_callback,a1);
+  if (me->has_extent_callback_b (Score_element::molecule_extent, a2))
+    me->set_extent_callback (Axis_group_interface::group_extent_callback,a2);
 }
 
 Link_array<Score_element> 
