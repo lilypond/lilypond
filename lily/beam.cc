@@ -285,22 +285,21 @@ Beam::do_post_processing ()
   dy *= directional_element (this).get ();
 
   Staff_symbol_referencer_interface st (this);
-  Real staff_space = st.staff_space ();
+  Real half_space = st.staff_space () / 2;
 
   /* check for user-override of dy */
-  SCM s = remove_elt_property ("Height");
+  SCM s = remove_elt_property ("height-hs");
   if (gh_number_p (s))
     {
-      dy = gh_scm2double (s) * staff_space;
+      dy = gh_scm2double (s) * half_space;
     }
   set_elt_property ("height", gh_double2scm (dy));
 
   /* check for user-override of y */
-  s = remove_elt_property ("verticalPosition");
+  s = remove_elt_property ("y-position-hs");
   if (gh_number_p (s))
     {
-      y = gh_scm2double (s) * staff_space;
-      set_stem_length (y, dy);
+      y = gh_scm2double (s) * half_space;
     }
   else
     { 
@@ -311,7 +310,6 @@ Beam::do_post_processing ()
       set_stem_length (y, dy);
       y_shift = check_stem_length_f (y, dy);
 
-      Real half_space = st.staff_space () / 2;
       if (y_shift > half_space / 4)
 	{
 	  y += y_shift;
@@ -324,11 +322,11 @@ Beam::do_post_processing ()
 	  if (abs (y_shift) > half_space / 2)
 	    quant_dir = sign (y_shift) * directional_element (this).get ();
 	  y = quantise_y_f (y, dy, quant_dir);
-	  set_stem_length (y, dy);
 	}
     }
   // UGH. Y is not in staff position unit?
   // Ik dacht datwe daar juist van weg wilden?
+  set_stem_length (y, dy);
   set_elt_property ("y-position", gh_double2scm (y)); 
 }
 

@@ -76,8 +76,8 @@ Item::try_visibility_lambda ()
     {
       SCM args = scm_listify (gh_int2scm (break_status_dir ()), SCM_UNDEFINED);
       SCM result = gh_apply (vis, args);
-      int trans = gh_scm2bool (gh_car (result));
-      int empty = gh_scm2bool (gh_cdr (result));
+      bool trans = gh_scm2bool (gh_car (result));
+      bool empty = gh_scm2bool (gh_cdr (result));
 
       if (empty)
 	{
@@ -148,25 +148,14 @@ Item::find_broken_piece (Direction d) const
   Item * me = (Item *) (this);	
   if (!d)
     return me;
-  else 
+  else if (breakable_b ())
     {
       me->do_break ();
       return dynamic_cast<Item*> (broken_to_drul_[d]);
     }
+  else
+    return 0;
 }
-
-
-
-
-#if 0
-int
-Item::left_right_compare(Item const *l, Item const *r)
-{
-  Paper_column *p1 = l->column_l ();
-  Paper_column* p2 = r->column_l ();
-  return p1->rank_i () - p2->rank_i ();
-}
-#endif
 
 Paper_column *
 Item::column_l () const
