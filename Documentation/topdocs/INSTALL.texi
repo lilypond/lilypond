@@ -119,10 +119,10 @@ You need the following packages to compile Lilypond.
 @item A reasonably new C++ compiler:  EGCS 1.1, GCC 2.95.2 or
 newer. Check out @uref{ftp://ftp.gnu.org/gnu/gcc/, the gcc site}.
 
-@item  Python 1.5,
+@item  Python (version 1.5 or newer; not 2.1.x)
 Check out @uref{http://www.python.org, the python website}.
 
-@item  GUILE 1.3.4 or newer,  check out
+@item  GUILE 1.4 or newer,  check out
 @uref{http://www.gnu.org/software/guile/guile.html,the GUILE webpage}.
 Version 1.4 is recommended for better performance.
 
@@ -418,19 +418,28 @@ If you're real impatient, you may even do:
 Debian's @TeX{} installation is a bit short on memory, you may want to
 increase it like this:
 @example
---- /etc/texmf/texmf.cnf.dpkg	Sun Jan 28 14:12:14 2001
-+++ /etc/texmf/texmf.cnf	Fri Apr 27 11:09:35 2001
-@@ -384,8 +384,8 @@
+--- texmf.cnf.orig	Sun Dec 16 23:47:07 2001
++++ texmf.cnf	Sun Dec 16 23:46:34 2001
+@@ -411,8 +411,8 @@
  main_memory.context = 1500000
  main_memory.mpost = 1000000
  main_memory = 263000 % words of inimemory available; also applies to inimf&mp
 -extra_mem_top = 0    % extra high memory for chars, tokens, etc.
 -extra_mem_bot = 0    % extra low memory for boxes, glue, breakpoints, etc.
-+extra_mem_top = 100000    % extra high memory for chars, tokens, etc.
-+extra_mem_bot = 100000    % extra low memory for boxes, glue, breakpoints, etc.
++extra_mem_top = 1000000    % extra high memory for chars, tokens, etc.
++extra_mem_bot = 1000000    % extra low memory for boxes, glue, breakpoints, etc.
  
- obj_tab_size.context = 256000
-
+ obj_tab_size.context = 300000
+ 
+@@ -430,7 +430,7 @@
+ % Max number of characters in all strings, including all error messages,
+ % help texts, font names, control sequences.  These values apply to TeX and MP.
+ pool_size.context = 750000
+-pool_size = 125000		
++pool_size = 250000		
+ % Minimum pool space after TeX/MP's own strings; must be at least
+ % 25000 less than pool_size, but doesn't need to be nearly that large.
+ string_vacancies.context = 45000
 @end example
 
 You could also export @env{extra_mem_top} and @env{extra_mem_bot} as
@@ -543,8 +552,11 @@ LilyPond with gcc-3.0 you may do:
 
 Note that this is fixed in Debian/unstable for flex >= 2.5.4a-13.
 
- 
- 
+@unnumberedsubsec Python-2.1[.1]
+
+Regular expressions are broken in Python 2.1.[.1], either upgrade or
+downgrade python.
+
 @unnumberedsubsec Linux-2.4.0, Guile-1.4 --with-threads
 
 There's a bug in certain kernels around version 2.4.0, that is

@@ -14,12 +14,10 @@ $(outdir)/%.lo: %.c
 
 $(outdir)/%.c: %.y
 	$(BISON) $<
-#	mv $<.tab.c $@
 	mv parser.tab.c $@
 
 $(outdir)/%.h: %.y
 	$(BISON) -d $<
-#	mv $<.tab.h $@
 	mv parser.tab.h $@
 	mv parser.tab.c $(basename $@).c
 
