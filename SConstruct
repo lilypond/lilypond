@@ -385,12 +385,13 @@ def configure (target, source, env):
 	if env['fast']:
 		# Using CCFLAGS = -I<system-dir> rather than CPPPATH = [
 		# <system-dir>] speeds up SCons
+		print 'cpp', env['CPPPATH']
 		env['CCFLAGS'] += map (lambda x: '-I' + x,
 				       env['CPPPATH'][len (cpppath):])
 		env['CPPPATH'] = cpppath
 
 	if required:
-		print
+F		print
 		print '********************************'
 		print 'Please install required packages'
 		for i in required:
