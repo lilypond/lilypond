@@ -7,7 +7,6 @@
  */
 
 #include "score-translator.hh"
-
 #include "moment.hh"
 
 void

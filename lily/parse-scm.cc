@@ -1,5 +1,5 @@
 /*
-  parse-scm --
+  parse-scm -- Parse a single SCM expression exactly.
 
   source file of the GNU LilyPond music typesetter
 

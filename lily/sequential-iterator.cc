@@ -1,5 +1,5 @@
 /*
-  Sequential_iterator.cc -- implement Sequential_iterator
+  sequential-iterator.cc -- implement Sequential_iterator
 
   source file of the GNU LilyPond music typesetter
 

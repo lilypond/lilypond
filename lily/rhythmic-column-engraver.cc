@@ -1,5 +1,5 @@
 /*
-  rhythmic-column-grav.cc -- implement Rhythmic_column_engraver
+  rhythmic-column-engraver.cc -- implement Rhythmic_column_engraver
 
   source file of the GNU LilyPond music typesetter
 
