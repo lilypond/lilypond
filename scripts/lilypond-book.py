@@ -517,10 +517,9 @@ class Lilypond_snippet (Snippet):
 		return images
 		
 	def output_html (self):
+		str = self.output_print_filename (HTML)
 		base = self.basename ()
-		str = ''
 		if format == HTML:
-			str = self.output_print_filename (HTML)
 			if VERBATIM in self.options:
 				verb = verbatim_html (self.substring ('code'))
 				str += write (output[HTML][VERBATIM] % vars ())
@@ -533,6 +532,7 @@ class Lilypond_snippet (Snippet):
 		return str
 
 	def output_info (self):
+		str = self.output_print_filename (HTML)
 		str = output[TEXINFO][BEFORE] % vars ()
 		for image in self.get_images ():
 			base, ext = os.path.splitext (image)
@@ -544,10 +544,9 @@ class Lilypond_snippet (Snippet):
 		return str
 
 	def output_latex (self):
-		str = ''
+		str = self.output_print_filename (LATEX)
 		base = self.basename ()
 		if format == LATEX:
-			str = self.output_print_filename (LATEX)
 			if  VERBATIM in self.options:
 				verb = self.substring ('code')
 				str += (output[LATEX][VERBATIM] % vars ())
