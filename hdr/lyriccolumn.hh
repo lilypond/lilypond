@@ -10,7 +10,6 @@
 #include "key.hh"
 #include "stcol.hh"
 #include "staff.hh"
-#include "staffwalker.hh"
 
 struct Lyric_staff;
 
@@ -28,12 +27,7 @@ struct Lyric_column : Staff_column {
     Lyric_staff* lstaff_l_;
     
     void typeset_item(Item *, int=1);
-//    void typeset_item_directional(Item *, int dir, int=1);
-
-//    Molecule *create_command_mol(Command *com);
-
-//    void take_request(Request *rq);   
-    virtual void process_requests();
+    virtual void setup_requests();
 
     Lyric_column(Score_column*s,Lyric_staff*rs);
 };
