@@ -211,7 +211,7 @@ def add_enc_src (target, source, env):
 a = 'cd ${TARGET.dir} && \
 if test -e ${SOURCE.filebase}.enc; then encoding="--encoding=${SOURCE.filebase}.enc"; fi; \
 MFINPUTS=$srcdir/mf:.: \
-mftrace --pfa --simplify --keep-trying $$encoding $TOO__verbose \
+mftrace --formats=pfa --simplify --keep-trying $$encoding $TOO__verbose \
 --include=${TARGET.dir} \
 ${SOURCE.file}'
 
