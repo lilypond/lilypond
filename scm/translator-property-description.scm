@@ -165,6 +165,12 @@ part-combining.  Usually unset or zero when combining threads into one
 voice, and 1 (or the duration of one measure) when combining voices
 into one staff.")
 
+(translator-property-description
+ 'chordNameFunction procedure?
+ "The function that converts lists of pitches to chord names.")
+(translator-property-description
+ 'chordNameExceptions list?
+ "Alist of chord exceptions. Contains (CHORD . MARKUP) entries.")
 (translator-property-description 'chordChanges boolean? "Only show changes in chords scheme?")
 (translator-property-description 'clefGlyph string? "Name of the symbol within the music font")
 (translator-property-description 'clefOctavation integer? "Add
