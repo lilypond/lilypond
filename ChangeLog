@@ -14,7 +14,7 @@
 	* lily/duration.cc: 
 	* lily/grob-scheme.cc:
 	* lily/context-scheme.cc: Put scheme name on first line in
-	LY_DEFINE to help etags (multiline regexps are broken).  Stray
+	LY_DEFINE to help etags (/ms multiline regexp flag broken?).  Stray
 	style cleanups.
 
 	* stepmake/stepmake/scm-vars.make: 
