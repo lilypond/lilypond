@@ -1,5 +1,5 @@
 /*
-  midioutput.cc -- implement Midi_output
+  midi-output.cc -- implement Midi_output
 
   source file of the LilyPond music typesetter
 
@@ -10,12 +10,12 @@
 #include "debug.hh"
 #include "score.hh"
 #include "staff.hh"
-#include "midistream.hh"
-#include "mididef.hh"
-#include "midioutput.hh"
-#include "midiwalker.hh"
-#include "midiitem.hh"
-#include "staffcolumn.hh"
+#include "midi-stream.hh"
+#include "midi-def.hh"
+#include "midi-output.hh"
+#include "midi-walker.hh"
+#include "midi-item.hh"
+#include "staff-column.hh"
 #include "musicalrequest.hh"
 
 

@@ -1,5 +1,5 @@
 /*
-  inputfile.cc -- implement Input_file
+  input-file.cc -- implement Input_file
 
   source file of the LilyPond music typesetter
 
@@ -10,9 +10,9 @@
 #include <strstream.h>
 #include "proto.hh"
 #include "plist.hh"
-#include "inputfile.hh"
+#include "input-file.hh"
 #include "debug.hh"
-#include "sourcefile.hh"
+#include "source-file.hh"
 #include "binary-source-file.hh"
 #include "source.hh"
 

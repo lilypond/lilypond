@@ -1,5 +1,5 @@
 /*
-  midiwalker.cc -- implement Midi_walker
+  midi-walker.cc -- implement Midi_walker
 
   source file of the LilyPond music typesetter
 
@@ -9,11 +9,11 @@
 #include "musicalrequest.hh"
 #include "pscore.hh"
 #include "staff.hh"
-#include "midiwalker.hh"
-#include "midiitem.hh"
-#include "midistream.hh"
+#include "midi-walker.hh"
+#include "midi-item.hh"
+#include "midi-stream.hh"
 #include "debug.hh"
-#include "staffcolumn.hh"
+#include "staff-column.hh"
 
 Midi_walker::Midi_walker(Staff *st_l, Midi_track* track_l)
     : PCursor<Staff_column*>(st_l->cols_)

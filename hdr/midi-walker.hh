@@ -1,5 +1,5 @@
 /*
-  midiwalker.hh -- declare Midi_walker
+  midi-walker.hh -- declare Midi_walker
 
   (c) 1996,97 Han-Wen Nienhuys, Jan Nieuwenhuizen <jan@digicash.com>
   */
@@ -9,7 +9,7 @@
 
 #include "proto.hh"
 #include "grouping.hh"
-#include "staffwalker.hh"
+#include "staff-walker.hh"
 #include "pcursor.hh"
 #include "pqueue.hh"
 
