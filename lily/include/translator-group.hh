@@ -27,13 +27,18 @@ typedef void (Translator::*Const_method_pointer)(void) const;
 class Translator_group : public virtual Translator {
   Array<String> consists_str_arr_;
   Array<String> accepts_str_arr_;
+  Dictionary<Scalar> properties_dict_;
+
+  int iterator_count_;
+  friend class Interpretation_context_handle;
 
 public:
+  Scalar get_property (String type_str, Translator_group  **where_found_l) const;
+  void set_property (String var_name, Scalar value);
+
   Pointer_list<Translator *> trans_p_list_;
   String id_str_;
 
-
-  int iterator_count_;
 
   VIRTUAL_COPY_CONS(Translator);
   

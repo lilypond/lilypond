@@ -19,8 +19,11 @@ Prereq: tetex
 %build
 ./configure --disable-checking --disable-debugging --enable-printing --prefix=/usr --disable-optimise --enable-shared
 make all
-make -C Documentation info || true
+ln -s /usr/share/texmf/fonts/tfm/public/cm/ tfm
+
+# make -C Documentation info || true
 make htmldoc || true
+
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -60,7 +63,6 @@ cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 /usr/share/lilypond/
 /usr/share/locale/*/LC_MESSAGES/lilypond.mo
 /etc/profile.d/lilypond.*
-
 
 %post
 

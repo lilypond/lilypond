@@ -73,8 +73,15 @@ Atom
 Lookup::afm_find (String s, bool warn) const
 {
   if (!afm_l_)      
-    ((Lookup*)this)->afm_l_ = all_fonts_global_p->find_afm (font_name_);
-  
+    {
+      Lookup * me =     ((Lookup*)this);
+      me->afm_l_ = all_fonts_global_p->find_afm (font_name_);
+      if (!me->afm_l_)
+	{
+	  warning (_f("Can't open `%s'\n", font_name_));
+	  warning (_f("Search path %s\n", global_path.str ().ch_C()));
+	}
+    }
   Adobe_font_char_metric m = afm_l_->find_char (s, warn);
 
   Atom a;

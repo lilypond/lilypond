@@ -39,7 +39,9 @@ Bar_script_engraver::acknowledge_element (Score_element_info i)
       if (i.origin_grav_l_arr_.size () == 1)
 	{
 	  staff_side_p_->dim_cache_[other_axis].parent_l_ =  &bar_l->dim_cache_[other_axis];
+	  //	  staff_side_p_->dim_cache_[axis_].parent_l_ =  &bar_l->dim_cache_[axis_];	  
 	  staff_side_p_->add_support (i.elem_l_);
+	  bar_l->add_dependency (staff_side_p_); // UGH. 
 	}
     }
 }

@@ -48,6 +48,8 @@ ln -sf $LILYPOND_SOURCEDIR/scripts/out/mudela-book $prefix/bin/mudela-book
 chmod 755 $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh
 ln -sf $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh $prefix/bin/ps-to-gifs
 ln -sf $LILYPOND_SOURCEDIR/mf/out/ afm
+TFMDIR=`kpsewhich cmr10.tfm`
+ln -sf `dirname $TFMDIR` tfm
 mkdir -p $prefix/share/
 ln -sf $prefix/lilypond/ $sources/lilypond
 

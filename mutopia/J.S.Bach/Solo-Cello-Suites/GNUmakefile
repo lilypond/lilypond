@@ -4,7 +4,7 @@ depth = ../../..
 
 EXTRA_DIST_FILES=
 
-examples=
+examples=scsii-cello
 LOCALSTEPMAKE_TEMPLATES=mutopia
 
 include $(depth)/make/stepmake.make

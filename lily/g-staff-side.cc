@@ -15,6 +15,7 @@ G_staff_side_item::G_staff_side_item ()
   to_position_l_ = 0;
   transparent_b_ = true;
   padding_f_ = 0;
+  axis_ = Y_AXIS;
 }
 
 
@@ -40,7 +41,7 @@ G_staff_side_item::set_victim (Score_element *e)
 {
   add_dependency (e);
   to_position_l_ = e;
-  to_position_l_->dim_cache_[Y_AXIS].parent_l_ = &dim_cache_[Y_AXIS];
+  to_position_l_->dim_cache_[axis_].parent_l_ = &dim_cache_[axis_];
 }
 
 void
@@ -63,20 +64,25 @@ G_staff_side_item::do_substitute_dependency (Score_element*o, Score_element*n)
 void
 G_staff_side_item::position_self ()
 {
-  if (!support_l_arr_.size ())
-    return ;
-  
-  Dimension_cache *common = common_group (typecast_array (support_l_arr_, (Graphical_element*)0),
-					  axis_);
-
   Interval dim;
-  for (int i=0; i < support_l_arr_.size (); i++)
+  Dimension_cache *common = 0;
+  if (support_l_arr_.size ())
     {
-      Score_element * e = support_l_arr_ [i];
-      Real coord = e->relative_coordinate (common, axis_);
-      dim.unite (coord + e->extent (axis_));
-    }
+      common = common_group (typecast_array (support_l_arr_, (Graphical_element*)0),
+			     axis_);
 
+      for (int i=0; i < support_l_arr_.size (); i++)
+	{
+	  Score_element * e = support_l_arr_ [i];
+	  Real coord = e->relative_coordinate (common, axis_);
+	  dim.unite (coord + e->extent (axis_));
+	}
+    }
+  else
+    {
+      dim = Interval(0,0);
+      common = dim_cache_[axis_].parent_l_;
+    }
   Interval sym_dim = to_position_l_->extent (axis_);
   Real off = dim_cache_[axis_].relative_coordinate (common) - padding_f_ * dir_;
   

@@ -4,6 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>,
+
   Mats Bengtsson <matsb@s3.kth.se>
 */
 
@@ -20,6 +21,7 @@
 
 Clef_engraver::Clef_engraver()
 {
+  clef_p_ = 0;
   clef_req_l_ = 0;
   clef_type_str_ = "";
   c0_position_i_ = 0;
@@ -27,6 +29,9 @@ Clef_engraver::Clef_engraver()
   octave_dir_ = CENTER;
 }
 
+/*
+  ugh.  Should be configurable.
+ */
 struct Clef_settings {
   char const *name;
   char const *cleftype;
@@ -36,7 +41,6 @@ struct Clef_settings {
   {"violin", "treble", -2},
   {"G", "treble", -2},
   {"G2", "treble", -2},  
-  {"scarlatti", "scarlatti", 0 },
   {"french", "treble",-4 },
   {"soprano", "alto",-4 },
   {"mezzosoprano", "alto",-2 },
@@ -50,12 +54,6 @@ struct Clef_settings {
   {0,0,0}
 };
 
-
-
-
-/*
-  Ugh.  Should have support for Dictionaries in mudela.
- */
 bool
 Clef_engraver::set_type (String s)
 {
@@ -82,6 +80,7 @@ Clef_engraver::set_type (String s)
 	  found = 1;
 	}
       }
+
   if (!found)
     {
       switch(toupper (s[0]))
@@ -107,21 +106,12 @@ Clef_engraver::set_type (String s)
     c0_position_i_ = clef_position_i_;
   else if (clef_type_str_ == "bass")
     c0_position_i_ = clef_position_i_ + 4;
-  else if (clef_type_str_ == "scarlatti")
-    c0_position_i_ = 0;
   else
     assert (false);
       
   c0_position_i_ -= (int) octave_dir_ * 7;
   
   return true;
-}
-
-void
-Clef_engraver::read_req (Clef_change_req*c_l)
-{
-  if (!set_type (c_l->clef_str_))
-    c_l->error (_ ("unknown clef type "));
 }
 
 
@@ -137,11 +127,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
     {
       create_clef();
       if (!clef_req_l_)
-	for (int i=0; i < clef_p_arr_.size (); i++)
-	  {
-	    clef_p_arr_[i]->default_b_ = true;
-	  }
-
+	clef_p_->default_b_ = true;
     }
 
   /* ugh; should make Clef_referenced baseclass */
@@ -167,16 +153,15 @@ Clef_engraver::acknowledge_element (Score_element_info info)
 void
 Clef_engraver::do_creation_processing()
 {
-  Scalar def = get_property ("defaultClef", 0);
+  create_default_b_ = true;	// should read property.
+  Scalar def = get_property ("createInitdefaultClef", 0);
   if (def.to_bool ()) // egcs: Scalar to bool is ambiguous
     set_type (def);
   
   if (clef_type_str_.length_i ())
     { 
       create_clef();
-	for (int i=0; i < clef_p_arr_.size (); i++)
-
-	    clef_p_arr_[i]->default_b_ = false;
+      clef_p_->default_b_ = false;
     }
 }
 
@@ -186,7 +171,9 @@ Clef_engraver::do_try_music (Music * r_l)
   if (Clef_change_req *cl = dynamic_cast <Clef_change_req *> (r_l))
     {
       clef_req_l_ = cl;
-      read_req (clef_req_l_);
+      if (!set_type (cl->clef_str_))
+	cl->error (_ ("unknown clef type "));
+
       return true;
     }
   else
@@ -197,37 +184,18 @@ Clef_engraver::do_try_music (Music * r_l)
 void
 Clef_engraver::create_clef()
 {
-  if (clef_type_str_ == "scarlatti")
+  if (!clef_p_)
     {
-      while (clef_p_arr_.size () < 2)
-	{
-	  Clef_item *ct= new Clef_item;
-	  ct->break_priority_i_ =  -2; // UGH
-	  announce_element (Score_element_info (ct, clef_req_l_));
-	  clef_p_arr_.push (ct);
-	}
-      clef_p_arr_[0]->symbol_ = "treble";
-      clef_p_arr_[0]->y_position_i_ = 4;
-      clef_p_arr_[1]->symbol_ = "bass";
-      clef_p_arr_[1]->y_position_i_ = -4;
+      Clef_item *c= new Clef_item;
+      c->break_priority_i_ = -2; // ugh
+      announce_element (Score_element_info (c, clef_req_l_));
+      clef_p_ = c;
     }
-  else
-    {
-      if (!clef_p_arr_.size ())
-	{
-	  Clef_item *c= new Clef_item;
-	  c->break_priority_i_ = -2; // ugh
-	  announce_element (Score_element_info (c, clef_req_l_));
-	  clef_p_arr_.push (c);
-	}
 
-      for (int i=0; i < clef_p_arr_.size (); i++)
-	{
-	  clef_p_arr_[i]->symbol_ = clef_type_str_;
-	  clef_p_arr_[i]->y_position_i_ = clef_position_i_;
-	  clef_p_arr_[i]->octave_dir_ = octave_dir_;
-	}
-    }
+  
+  clef_p_->symbol_ = clef_type_str_;
+  clef_p_->y_position_i_ = clef_position_i_;
+  clef_p_->octave_dir_ = octave_dir_;
 }
 
 
@@ -237,19 +205,27 @@ Clef_engraver::do_process_requests()
   if (clef_req_l_)
     {
       create_clef();
-      for (int i=0; i < clef_p_arr_.size (); i++)
-	clef_p_arr_[i]->default_b_ = false;
+      clef_p_->default_b_ = false;
+    }
+  else if (create_default_b_)
+    {
+      String type = get_property ("defaultClef", 0);
+      set_type (type.length_i () ? type : "treble");
+      create_clef ();
+      clef_p_->default_b_ = false;
+      create_default_b_ =0;
     }
 }
 
 void
 Clef_engraver::do_pre_move_processing()
 {
-  for (int i=0; i <clef_p_arr_.size (); i++)
+  if (clef_p_)
     {
-      typeset_element (clef_p_arr_[i]);
+      typeset_element (clef_p_);
+      clef_p_ =0;
     }
-  clef_p_arr_.clear ();
+  create_default_b_ = false;
 }
 
 void
@@ -261,10 +237,7 @@ Clef_engraver::do_post_move_processing()
 void
 Clef_engraver::do_removal_processing()
 {
-  if (clef_p_arr_.size ())
-    {
-      assert (false);
-    }
+  assert (!clef_p_);
 }
 
 

@@ -10,6 +10,7 @@
 #include "bar.hh"
 #include "time-description.hh"
 #include "g-text-item.hh"
+#include "g-staff-side.hh"
 
 ADD_THIS_TRANSLATOR (Staff_margin_engraver);
 
@@ -48,14 +49,15 @@ Staff_margin_engraver::acknowledge_element (Score_element_info i)
 
   String long_str = get_property ("instrument", 0);
   String str = get_property ("instr", 0);
-  if (now_moment () > Moment (0))
+  if (now_moment () > Moment (0) && str.length_i ())
     long_str = str;
 
-  if (!long_str.empty_b ())
+  if (long_str.empty_b ())
     return;
 
   create_items (0);
   text_p_->text_str_ = long_str;
+  staff_side_p_->dir_ = LEFT;
   Bar_script_engraver::acknowledge_element(i);
 }
 

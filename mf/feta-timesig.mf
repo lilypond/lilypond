@@ -9,27 +9,30 @@ fet_begingroup("timesig");
 
 def set_C_width =
 	save left_width, right_width;
-	left_width# := .8 interline#;
+	left_width# := 0.9 interline#;
 	right_width# := .7 interline#;
 	define_pixels(left_width,right_width);
 enddef;
 
 def draw_C =
-	save hair, bulb_rad;
-	hair# := stafflinethickness#;
-	bulb_rad# := interline# / 3;
-	define_pixels(hair, bulb_rad);
+  	save hair, bulb_rad, left_fatness;
 
-	x1r = x5;
-	y1r = .4 interline;
+  
+	hair# := stafflinethickness#;
+	bulb_rad# := 0.4 interline#;
+	define_pixels(hair, bulb_rad);
+	left_fatness = 0.55;
+	
+	x1r = x5r;
+	y1r = .45 interline;
 	z2 = (0, interline);
 	z3r = (-left_width, 0);
 	z4 = (0, -interline);
-	z5r = (right_width, -2 stafflinethickness);
+	z5r = (right_width - stafflinethickness, -0.4 interline);
 	
 	penpos1(hair, 0);
 	penpos2(stafflinethickness, 90);
-	penpos3(4 stafflinethickness, 180);
+	penpos3(left_fatness * interline, 180);
 	penpos4(stafflinethickness, -90);
 	penpos5(hair, -5);
 	
@@ -57,7 +60,11 @@ fet_beginchar ("2/2 meter", "C2/2", "allabreve")
 		1.4 interline#, 1.4 interline#);
 	
 	draw_C;
-	draw_block((-1.5stafflinethickness, -d), (0, h));
+	save excentricity;
+	pair excentricity;
+	excentricity = (-1.25 stafflinethickness, 0);
+
+	draw_block((- .75 stafflinethickness, -d) + excentricity, (.75 stafflinethickness , h) + excentricity);
 fet_endchar;
 
 path threequartercircle;

@@ -482,7 +482,9 @@ translator_spec_body:
 			THIS->parser_error (_("Wrong type for property value"));
 
 		delete $4;
-		$$->set_property (*$2, str);
+		/* ugh*/
+		Translator_group * tr = dynamic_cast<Translator_group*>($$);
+		tr->set_property (*$2, str);
 	}
 	| translator_spec_body NAME STRING ';' {
 		$$->type_str_ = *$3;
