@@ -57,122 +57,105 @@ $staff2_voice_2 = \notes {
   g8. g16 fis4.()a,8 d8 e8 fis2 b8 b8 a4. a8 a,4 d2 s4 
 }
 
-% hw: how does this work with new repeats?
-textx = \lyrics {  
-  Oh4 __ \repeat fold 2 { }
-  \alternative {
-     { 
-       say.4 can you | see,2 by8. the16 dawn's4 ear- ly light2 What8
-       so8 proud-4. ly8 we4 hailed,2 At8. the16 twi-4 light's last gleam-
-       ing. Whose8. broad16 
-     }
 
-    { 
-      stripes4 and bright stars,2 through8. the16 per-4 il- ous fight,2
+altOne =\lyrics {  say,4 can you | see,2 __ by8. the16 dawn's4 ear- ly light2 What8
+       so8 proud-4. ly8 we4 hailed,2 At8. the16 twi-4 light's last gleam-
+       ing. Whose8. broad16  }
+
+altTwo =     \lyrics {  stripes4 and bright stars,2 through8. the16 per-4 il- ous fight,2
       O'er8 the8 ram-4. parts8 we4 watched,2 were8. so16 gal-4 lant- ly 
-    }
-  }
-  stream-4 ing. And8. the16 rock-4 ets' red glare,2 the8 bombs8
+	_ _   % UGH UGH
+	stream-4 ing
+  And8. the16 rock-4 ets' red glare,2 the8 bombs8
   burst-4 ing in air,2 gave4 proof4. through8 the4 night2 that8.
   our16 flag4 was still there,2 Oh4 say, does that star- span-
   gled ban- ner yet wave,2 __ O'er8. the16 land2 __ of8 the8 free2
   and8 the8 home4. of8 the4 brave.2
 }
+% old code
+nonRepeatText = \lyrics  \context LyricVoice = LVA {
+  Oh4 __
+  \context Lyrics <
+	\altOne  
+	\altTwo 
+  >
+}
+
+%{
+Be careful to have all duration within the lyrics of the same kind.
+
+Alternatives & need to be matched more intelligently.  See
+"whose broad" alt1, volta1, "streaming" alt2, *volta2*!
+
+%}
 
 textxx = \lyrics {  
-  Oh __ " " \repeat fold 2 { }
+  Oh __ \repeat "fold" 2 { }
   \alternative {
      { 
-       say. can you | see, by the16 dawn's ear- ly light What
-       so proud- ly we hailed, At the16 twi- light's last gleam-
-       ing. Whose broad16 
+       say, can you | see, by the dawn's ear- ly light What
+       so proud- ly we hailed, At the twi- light's last gleam-
+       ing. Whose broad 
      }
 
     { 
-      stripes and bright stars, through the16 per- il- ous fight,
-      O'er the ram- parts we watched, were so16 gal- lant- ly 
-    }
-  }
-  stream- ing. And the16 rock- ets' red glare, the bombs
+      stripes and bright stars, through the per- il- ous fight,
+      O'er the ram- parts we watched, were so gal- lant- ly
+	_ _ _ _ % UGH UGH UGH 
+	stream- ing
+  And the rock- ets' red glare, the bombs
   burst- ing in air, gave proof through the night that
   our flag was still there, Oh say, does that star- span-
   gled ban- ner yet wave, __ O'er the land __ of the free
   and the home of the brave.
-}
+  }
+}}
 
-textxxx = \lyrics {  
-  Oh4 __ 
-  %\alternative {
-     { 
-       say.4 can you | see,2 by8. the16 dawn's4 ear- ly light2 What8
-       so8 proud-4. ly8 we4 hailed,2 At8. the16 twi-4 light's last gleam-
-       ing. Whose8. broad16 
-     }
 
-    %{ 
-      stripes4 and bright stars,2 through8. the16 per-4 il- ous fight,2
-      O'er8 the8 ram-4. parts8 we4 watched,2 were8. so16 gal-4 lant- ly 
-    }
-  %}
-  stream-4 ing. And8. the16 rock-4 ets' red glare,2 the8 bombs8
-  burst-4 ing in air,2 gave4 proof4. through8 the4 night2 that8.
-  our16 flag4 was still there,2 Oh4 say, does that star- span-
-  gled ban- ner yet wave,2 __ O'er8. the16 land2 __ of8 the8 free2
-  and8 the8 home4. of8 the4 brave.2
-}
+beginmatter = \notes {\time 3/4; \key D;  s4 | }
+			
 
-text = \lyrics {  
-  Oh __ " "
-  %\alternative {
-     { 
-       say. can you | see, " " by the16 dawn's ear- ly light What
-       so proud- ly we hailed, At the16 twi- light's last gleam-
-       ing. Whose broad16 
-     }
+automaticLyrics = \notes \context GrandStaff < 
+		\addlyrics
+		\context Staff=staffA <
+			\beginmatter
+			\clef treble;
+			\property Staff.automaticMelismas = "1"
+			\notes \transpose c'' {\voiceone \$staff1_voice_1 \bar "|.";} 
+			\notes \transpose c'' {\voicetwo \$staff1_voice_2 } 
+		>
+		\context LyricVoice \textxx
+		\context Staff=staffB <
+			\beginmatter
+			\clef bass;
+		\property Staff.noVoltaBraces = "1"
+			{\voiceone \$staff2_voice_1 \bar "|."; } 
+			{\voicetwo \$staff2_voice_2 } 
+		>
+	>
 
-    %{ 
-      stripes and bright stars, through the16 per- il- ous fight,
-      O'er the ram- parts we watched, were so16 gal- lant- ly 
-    }
-  %}
-  stream- ing. And the16 rock- ets' red glare, the bombs
-  burst- ing in air, gave proof through the night that
-  our flag was still there, Oh say, does that " " star- span-
-  gled ban- ner " " yet " " wave, __ " " O'er the land __ " " of the free
-  and the home of the brave.
-}
+handLyrics = \notes \context GrandStaff < 
+		\context Staff=staffA <
+			\beginmatter
+			\notes \transpose c'' {\voiceone \$staff1_voice_1 \bar "|.";} 
+			\notes \transpose c'' {\voicetwo \$staff1_voice_2 } 
+		>
+		\nonRepeatText
+		\context Staff=staffB <
+			\beginmatter
+			\clef bass;
 
-global = \notes {
-	\time 3/4;
-	\key D;
-	\partial 4;
-	\skip 4;
-	\skip 2.*8;
-	\skip 2.*16;
-	\skip 2.;
-	\bar "|.";
-	}
+			\property Staff.noVoltaBraces = "1"
+			{\voiceone \$staff2_voice_1 \bar "|."; } 
+			{\voicetwo \$staff2_voice_2 } 
+		>
+	>
+
 
 \include "paper16.ly";
 
 \score{ 
-	\context GrandStaff < 
-		\addlyrics
-		\context Staff=staffA < 
-			\global
-			\notes \transpose c'' {\voiceone \$staff1_voice_1 } 
-			\notes \transpose c'' {\voicetwo \$staff1_voice_2 } 
-		>
-		\context LyricVoice \text
-		\context Staff=staffB <
-		
-			\global
-			\clef bass;
-			\property Staff.voltaVisibility = "0"
-			{\voiceone \$staff2_voice_1 } 
-			{\voicetwo \$staff2_voice_2 } 
-		>
-	>
+	\automaticLyrics
 	\paper{
 		\paper_sixteen
 		textheight = 230.\mm;
