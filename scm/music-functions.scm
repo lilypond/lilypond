@@ -406,6 +406,27 @@ Rest can contain a list of beat groupings
     (not (eq? #f (memq symbol (ly:get-grob-property elt 'interfaces))))))
 
 
+;;
+(define-public (smart-bar-check n)
+  "Make  a bar check that checks for a specific bar number. 
+"
+  (let*
+      (
+       (m (make-music-by-name 'ApplyContext))
+       )
+    
+    (define (checker tr)
+      (let* ((bn (ly:get-context-property tr 'currentBarNumber)))
+	(if (= bn  n)
+	    #t
+	    (error
+	     (format "Bar check failed, we should have reached ~a, instead at ~a\n"
+		     n bn ))
+	    )))
+
+    (ly:set-mus-property! m 'procedure checker)
+    m
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; warn for bare chords at start.
