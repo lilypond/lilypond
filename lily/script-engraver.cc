@@ -220,7 +220,7 @@ Script_engraver::acknowledge_grob (Grob_info info)
 	    e->set_parent (info.grob_, X_AXIS);
 	}
     }
-  else if (New_slur::has_interface (info.grob_))
+  else if (Slur::has_interface (info.grob_))
     slur_ = dynamic_cast<Spanner*> (info.grob_);
 }
 
