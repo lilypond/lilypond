@@ -1,5 +1,5 @@
 % Creator: mf-to-table.py version 0.4
-% Automatically generated on Sat Dec 13 19:36:32 1997
+% Automatically generated on Sat Dec 13 20:07:15 1997
 % Do not edit
 % input from out/feta16.log
 % name=\symboltables {
@@ -56,7 +56,7 @@
         "trill"	"\\trill"	-0.00\pt	8.00\pt	-0.00\pt	9.00\pt	
         "pedalheel"	"\\pedalheel"	-2.00\pt	2.00\pt	-2.00\pt	2.67\pt	
         "pedaltoe"	"\\pedaltoe"	-2.00\pt	2.00\pt	-0.00\pt	6.00\pt	
-        "flageolet"	"\\flageolet"	-0.00\pt	2.40\pt	-0.00\pt	2.40\pt	
+        "flageolet"	"\\flageolet"	2.13\pt	2.13\pt	2.13\pt	2.13\pt	
         }
     "flags"	 = \table {
         "u3"	"\\eighthflag"	-0.20\pt	4.94\pt	-12.26\pt	0.20\pt	
