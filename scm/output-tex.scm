@@ -75,11 +75,13 @@
    (tex-number-def "lilypondpaper" 'outputscale
 		   (number->string (exact->inexact
 				    (ly:bookpaper-outputscale bookpaper))))
-  (apply string-append
-	 (map (lambda (x) (font-load-command bookpaper x))
-	      (ly:bookpaper-fonts bookpaper)
-	      )))
-)
+   (tex-string-def "lilypondpapersize" 'papersize
+		   (eval 'papersize (ly:bookpaper-def-scope bookpaper)))
+   (apply string-append
+	  (map (lambda (x) (font-load-command bookpaper x))
+	       (ly:bookpaper-fonts bookpaper)
+	       )))
+  )
 (define (unknown) 
   "%\n\\unknown\n")
 

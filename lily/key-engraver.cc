@@ -72,7 +72,6 @@ Key_engraver::create_key (bool def)
       if (to_boolean (get_property ("printKeyCancellation")))
 	item_->set_property ("old-accidentals", get_property ("lastKeySignature"));
       item_->set_property ("new-accidentals", get_property ("keySignature"));
-
     }
 
   if (!def)
@@ -135,7 +134,8 @@ Key_engraver::process_music ()
 void
 Key_engraver::stop_translation_timestep ()
 {
-      item_ = 0;
+  item_ = 0;
+  context ()->set_property ("lastKeySignature", get_property ("keySignature"));
 }
 
 
@@ -172,7 +172,6 @@ void
 Key_engraver::start_translation_timestep ()
 {
   key_ev_ = 0;
-  context ()->set_property ("lastKeySignature", get_property ("keySignature"));
 }
 
 

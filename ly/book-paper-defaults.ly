@@ -66,4 +66,6 @@
        #:fill-line (#:large #:bigger #:caps (get 'piece) "")))))))
 
 
+  papersize = "a4"
+
 }
