@@ -187,18 +187,18 @@ At the start of parsing, Mudela assumes normal mode.
 In Normal mode, a word is looked up in the following order:
 
 	word	identifier, string
-	\word	keyword, string
+	\word	keyword, identifier, string
 
 In normalmode, a word is assumed to start with an alphabetic
 character, followed by alpha-numeric characters.
 
 =item Note mode
 
-Note mode (and thus Simple mudela) is introduced by the keyword C<\music>.
+Note mode (and thus Simple mudela) is introduced by the keyword C<\melodic>.
 In Note mode, a word is looked up in the following order:
 
-	word	identifier, string
-	\word	keyword, string
+	word	notename, string
+	\word	keyword, identifier, string
 
 In Note mode a word is considered to have alphabetic characters only.
 
@@ -209,7 +209,7 @@ Lyrics mode (and thus Simple mudela)  is introduced by the keyword C<\lyrics>.
 In Lyrics mode, a word is looked up in the following order:
 
 	word	string
-	\word	keyword, string
+	\word	keyword, identifier, string
 
 In Lyric mode every sequence of non-digit and non-white characters
 starting with an alphabetic character is considered a word.
@@ -222,8 +222,8 @@ starting with an alphabetic character is considered a word.
 =back
 
 These modes are of a lexical nature. Normal and Note mode largely
-resemble each other, save the possibility of entering Reals, and
-meaning of C<_>
+resemble each other, save the possibility of entering Reals, 
+meaning of C<_> and the resolution of words
 
 =head2 Notes
 
@@ -232,9 +232,8 @@ enter.
 
 	a'4	% dutch names
 
-is a A-1 pitched quaver. The ' as well as the ' signify an octave change.
-A-1 is 440 Hz concert-pitch. C<c'> is also known as the central
-c. More examples:
+is a A-1 pitched quaver. The ' signifies an octave change.  A-1 is 440
+Hz concert-pitch. C<c'> is also known as the central c. More examples:
 
 	'a	% 110
 	a	% 220
@@ -249,7 +248,10 @@ This is an A flat, (just below 110 Hz concert-pitch). The C<*2/3>
 signifies that this note is part of a triplet (3 in stead of 2). The
 duration is one and a half quaver (C<4.>) times 2/3. 
 
-The default language for notenames is defined to be dutch,
+
+Notenames are just a special kind of identifiers, and can be declared
+for any language appropriate (see F<dutch.ini>).  The default language
+for notenames is defined to be dutch,
 
 	% double sharp
 	cisis disis eisis fisis gisis aisis bisis
@@ -305,6 +307,7 @@ Symbols which can be put at either side of a staff are entered as follows:
 	a^-	% portato, direction: above note
 	a_.	% staccato, direction: below note
 	a^\script { "symbolindex"  . . . } % see script.ini for details.
+	a^\fermata	% predefined identifier
 
 Dynamics can be put after the notename:
 
@@ -320,14 +323,17 @@ and the following abbreviations:
 	\>	% start decrescendo
 	\!	% end crescendo/decrescendo
 
-=head2 General
+=head2 Text
 
-The general form of a note is:
+To accompany a note with a text (eg, "marcato"), you should say: 
 
-	post-requests de-octavate notename octavate duration pre-requests 
+	c_"marcato"
+	c^"marcato"
+	c-"marcato"
 
-Notenames are just identifiers, and can be declared for any
-language appropriate (see F<dutch.ini>). 
+the c- construct chooses the default up/down direction.
+
+
 
 
 
@@ -401,7 +407,7 @@ notes with < and >. Example:
 
 You can also put vertical music inside horizontal music:
 
-	{ c < c e > <c e g> <c e g c'> }	% 4 increasing chords
+	{ c <c e> <c e g> <c e g c'> }	% 4 increasing chords
 
 And vice versa
 
