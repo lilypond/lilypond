@@ -1353,8 +1353,9 @@ durations, i.e., you'll have to specify manual beams to get:
   \time 12/8 c'8 c c c16 c c c c c [c c c c] c8 c c4
 @end example
 @end quotation
-@lilypond[singleline,relative,noverbatim]
-#(ly-set-option 'internal-type-checking #f)
+@ignore
+@lily pond[singleline,relative,noverbatim]
+%%#(ly-set-option 'internal-type-checking #f)
 \score{
   \notes\relative c{
     \property Voice.autoBeamSettings
@@ -1362,6 +1363,7 @@ durations, i.e., you'll have to specify manual beams to get:
     \time 12/8 c'8 c c c16 c c c c c [c c c c] c8 c c4
   }  
 }
+@end ignore
 It is not possible to specify beaming parameters that act differently in
 different parts of a measure. This means that it is not possible to use
 automatic beaming in irregular meters such as @code{5/8}.
@@ -2945,12 +2947,12 @@ tuning defaults to the standard guitar tuning (with 6 strings).
 @lily pond[fragment,verbatim]
 @example
   \context TabStaff <
-    \notes {
+    \notes @{
       \property Staff.Stem \override #'direction = #1
       
       a,4-2 c'-5 a-4 e'-6
       e-3 c'-5 a-4 e'-6
-    }
+    @}
   >  
 @end example
 @c @end lilypond
@@ -2988,11 +2990,11 @@ the standard staff.
 @c FIXME
 @c @lily pond[verbatim]
 @example
-  part = \notes {
+  part = \notes @{
     a,4-2 c'-5 a-4 e'-6
     e-3 c'-5 a-4 e'-6
-  }
-  \score{
+  @}
+  \score @{
     \context StaffGroup <
       \context Staff <
         % Hide fingering number
@@ -3006,7 +3008,7 @@ the standard staff.
         \part
       >
     >
-  }
+  @}
 @end example
 @c @end lilypond
 
