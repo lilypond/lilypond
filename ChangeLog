@@ -1,5 +1,11 @@
 2005-03-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/part-combiner.scm (determine-split-list): switch off
+	debugging info.
+
+	* scm/backend-library.scm (postscript->png): explicitly use ps2png.py
+	if available.
+
 	* scm/define-context-properties.scm
 	(all-user-translation-properties): add stringNumberOrientations.
 
