@@ -3,7 +3,8 @@
 # @configure_input@
 
 INSTALL = @INSTALL@
-USER_CXXFLAGS = @CXXFLAGS@
+USER_CXXFLAGS = @CXXFLAGS@ @CPPFLAGS@
+
 #CXX = @CXX@
 
 prefix = @prefix@
@@ -13,7 +14,7 @@ exec_prefix = @exec_prefix@
 bindir = @bindir@
 includedir = @includedir@
 datadir = @datadir@
-
+EXTRA_LIBES = @EXTRA_LIBES@
 RANLIB = @RANLIB@
 DEFS = @DEFS@
 #SET_MAKE = @SET_MAKE@
