@@ -15,9 +15,6 @@
 
 #include <map>
 
-#include "hash-table.hh"
-
-
 unsigned int string_hash (String);
 
 
