@@ -1,3 +1,7 @@
+2004-11-04  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/topdocs/INSTALL.texi (Top): Remove geometry.
+
 2004-11-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/INSTALL.texi (Top): Fix geometry url (dax).
