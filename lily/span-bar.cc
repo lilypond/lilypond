@@ -152,7 +152,7 @@ Span_bar::get_bar_size () const
 Span_bar::Span_bar ()
 {
   group (this).set_interface ();
-  dim_cache_[X_AXIS]->set_callback (width_callback);
-  dim_cache_[Y_AXIS]->set_callback (height_callback);  
+  dim_cache_[X_AXIS]->set_extent_callback (width_callback);
+  dim_cache_[Y_AXIS]->set_extent_callback (height_callback);  
 }
 

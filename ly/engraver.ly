@@ -255,7 +255,7 @@ LyricsContext = \translator {
 	\type "Engraver_group_engraver";
 	\name Lyrics;
 	\consists Vertical_align_engraver;%need this for getting folded repeats right.
-
+	Generic_property_list = #generic-lyrics-properties
 	\consists "Property_engraver";
 	\consistsend "Axis_group_engraver";
 	

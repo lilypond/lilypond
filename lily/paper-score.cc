@@ -187,7 +187,6 @@ Paper_score::process ()
   */
   line_l_->output_lines ();
 
-
   SCM font_names = ly_quote_scm (all_fonts_global_p->font_descriptions ());
   gh_set_cdr_x (before_output,
 		gh_cons  (gh_list (ly_symbol2scm ("define-fonts"),
@@ -243,7 +242,7 @@ Paper_score::fixup_refpoints ()
 	{
 	  Score_element * se = unsmob_element (e);
 	  se->fixup_refpoint ();
-
+	      
 	  if (!dynamic_cast<Line_of_score*> (se) && !se->parent_l (Y_AXIS))
 	    {
 	      programming_error ("No parent!");

@@ -126,6 +126,8 @@ public:
   void add_dependency (Score_element*);    
   virtual Line_of_score * line_l () const;
   bool linked_b () const;
+
+
   VIRTUAL_COPY_CONS(Score_element);
  
   /**
@@ -150,6 +152,9 @@ public:
   /// do calculations before determining horizontal spacing
   virtual void before_line_breaking ();
 
+  static Interval preset_extent (Dimension_cache const*);
+  static Interval molecule_extent (Dimension_cache const*);
+
 protected:
 
   /**
@@ -158,8 +163,7 @@ protected:
   virtual ~Score_element ();
   
   virtual void output_processing ();
-  static Interval molecule_extent (Dimension_cache const*);
-
+  
   /// do printing of derived info.
   virtual void do_print () const;
   /// generate the molecule    

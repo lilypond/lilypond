@@ -164,14 +164,14 @@ bassdux = \context Voice=three \notes \relative c' {
  
     \notes \context PianoStaff < 
 	\context Staff = treble <
-	    \key C \minor;
+	    \key c \minor;
 	    \dux
 	    { \comes \bar "|."; }
 	      \time 4/4;
 	      \property Score.timeSignatureStyle = "C"
 	  >
 	\context Staff = bass <
-	    \key C \minor;
+	    \key c \minor;
 	    \bassdux
 	>
     >

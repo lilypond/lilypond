@@ -136,7 +136,7 @@ Dimension_cache::get_dim () const
 }
 
 void
-Dimension_cache::set_callback (Dim_cache_callback c)
+Dimension_cache::set_extent_callback (Dim_cache_callback c)
 {
   extent_callback_l_ =c;
 }

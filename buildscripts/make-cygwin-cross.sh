@@ -27,7 +27,7 @@
 #
 #          bin-crtdll-2000-02-03.tar.gz  (mingw only)
 #
-#  * regex-0.12.tar.gz
+#  * rx-1.5.tar.gz
 #
 #  * guile-1.3.4.tar.gz
 #
@@ -107,12 +107,6 @@ rpm_patch='patchm.ring.diff'
 native_configure='--target=$TARGET_ARCH --build=$TARGET_ARCH --host=$HOST --oldincludedir=$PREFIX/include --prefix=$NATIVE_PREFIX/$package --program-suffix='
 native_config_site='$PREFIX/share/native-config.site'
 
-# urg: avoid making doc dir
-regex_make='subdirs=test'
-regex_before_install='ar -ru libregex.a regex.o \; mkdir -p $PREFIX/{include,lib} \; cp ../$package/regex.h $PREFIX/include \; cp libregex.a $PREFIX/lib'
-regex_install='subdirs=test'
-regex_before_zip='mkdir -p $install_prefix/{include,lib} \; cp ../$package/regex.h $install_prefix/include \; cp libregex.a $install_prefix/lib'
-
 rx_install='prefix=$PREFIX'
 
 guile_patch='guile-1.3.4-gnu-windows.patch'
@@ -149,7 +143,6 @@ lilypond-$lilypond_version
 "
 
 not_yet_needed="
-regex-0.12
 rpm-3.04
 "
 

@@ -13,6 +13,18 @@ generic properties. These are properties than can be plugged into the
 backend directly. See the init file @file{generic-property.scm} for
 details.  For internal use only.
 
+
+@item @code{XXXVerticalExtent}@indexcode{groupVerticalExtent}
+@propertytype{Interval: a cons of numbers}
+
+   Hard code the size of the vertical group in context XXX, example
+@example
+  \property Staff.StaffVerticalExtent = #(-5.0 . 5.0)
+@end example
+  The value is a cons of real numbers, that measure the extent in
+staff spaces
+   
+
 @cindex properties!Lyrics
 
 @table @samp

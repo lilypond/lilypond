@@ -27,7 +27,7 @@ Hyphen_spanner::Hyphen_spanner ()
 {
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
 
-  dim_cache_[Y_AXIS]->set_callback (Dimension_cache::point_dimension_callback);
+  dim_cache_[Y_AXIS]->set_extent_callback (Dimension_cache::point_dimension_callback);
 }
 
 Molecule 

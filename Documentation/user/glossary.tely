@@ -1,4 +1,4 @@
-
+\input ruled
 \input texinfo
 @setfilename glossary.info
 
@@ -67,8 +67,8 @@ accidental.
   gis1_"sharp" s s2
   gisis1_"db. sharp" s s2
   ges1_"flat" s s2
-  geses1_"db. flat" s s2
-  g!1_"natural"
+  geses1_"db. flat" s s2 
+  g!1_"natural" s2
 }
 @end mudela
 
@@ -140,8 +140,8 @@ the duration of the long a. is proportionate to that of the main note.
 @
 
 @mudela[13pt,eps]
-\property Voice.textEmptyDimension = ##t
-
+\emptyText
+%\property Voice.textEmptyDimension = ##t
 \property Voice.textStyle = "large"
 \notes\relative c'' {
 \key d;
@@ -178,8 +178,8 @@ An appoggiatura may have more notes preceding the main note.
 @end mudela
 
 @item arpeggio
-I: arpeggio, F: arp@`ege, D: Arpeggio, Akkordbrechungen, gebrochener Akkord,
-NL: gebroken akoord, DK: arpeggio, akkordbrydning, S: arpeggio, N:
+I: arpeggio, F: arp@`ege, D: Arpeggio, Akkordbrechungen, gebrochener
+Akkord, NL: gebroken akoord, DK: arpeggio, akkordbrydning, S: arpeggio, N:
 
 @
 
@@ -325,7 +325,8 @@ orchestral or choral score.
 @
 
 @mudela[13pt,eps] 
-\context StaffGroup < 
+%\context StaffGroup < 
+\context ChoirStaff < 
   \property StaffGroup.minVerticalAlign = 12
   \notes\relative c'' { \clef treble; g4 e c2 }
   \notes\relative c { \clef bass; c1 \bar "|."; } > 
@@ -373,17 +374,20 @@ lines.
 
 @mudela[13pt,eps] 
 \property Score.barNonAuto = ##t
-\property Lyrics.textStyle = "large"
-\property Voice.clefStyle = "fullSizeChanges"
+\property Staff.clefStyle = #"fullSizeChanges"
+\property Staff.textStyle = #"large"
+\property Lyrics.textStyle = #"large"
 \addlyrics
 \notes\relative c' { 
-  \clef "C1"; c1 s s
-  \clef "C2"; c s s
-  \clef "C3"; c s s
-  \clef "C4"; c s s
-  \clef "C5"; c s
+  \clef soprano; c1 s s
+  \clef mezzosoprano; c s s
+  \clef alto; c s s
+  \clef tenor; c s s
+  \clef baritone; c s
 }
-\context Lyrics \lyrics { Soprano Mezzosoprano Alto Tenor Baritone }
+\context Lyrics \lyrics { 
+  Soprano Mezzosoprano Alto Tenor Baritone 
+}
 @end mudela
 
 @item cadence 
@@ -430,6 +434,7 @@ chords are denoted open chords
 
 @mudela[13pt,eps] 
 \property Score.barNonAuto = ##t
+\property Voice.textNonEmpty = ##t
 \property Voice.textStyle = "large"
 \time 4/4;
 \notes\relative c'' {
@@ -438,7 +443,7 @@ chords are denoted open chords
   <g_"dimished" bes des>
   <g_"augmented~" b dis>
   <g_"seventh-chord~" b d f>
-  <g_"ninth-chord" b d f a>
+  <g_"ninth-chord" b d f a> s s2
 }
 @end mudela
 
@@ -687,7 +692,7 @@ also to some extent in newer jazz music.
 \addlyrics
 \notes\relative c' { 
   d1
- \property Voice.textScriptPadding = #-10
+  \property Voice.textScriptPadding = #-10
   e^"~~ S"
   f g a 
   \property Voice.textScriptPadding = #-4
@@ -821,7 +826,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
   b^"~~ S" c d e fis 
   \property Voice.textScriptPadding = #0
   gis^"~~ S" a g! 
-  \property Voice.textScriptPadding = "-1"
+  \property Voice.textScriptPadding = #-1
   f!^"~~ S" e d 
   \property Voice.textScriptPadding = #-4
   c^"~~ S" b a
@@ -1038,18 +1043,21 @@ octave lower (for example on double bass @w{@ar{}@strong{strings}}).
 
 @
 
-@ignore
-@mud ela[13pt,eps] 
+@c @ignore
+@mudela[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Voice.clefStyle = "fullSizeChanges"
+\property Staff.clefStyle = #"fullSizeChanges"
 \property Lyrics.textStyle = "large"
 \addlyrics
 \notes\relative c { 
-  \clef "F3";
+%  \clef "F3";
+  \clef varbaritone;
   f1 s
-  \clef "F4";
+%  \clef "F4";
+  \clef bass;
   f1 s
-  \clef "F5";
+%  \clef "F5";
+  \clef subbass;
   f1 s
   \clef "F^8";
   f'1 s s
@@ -1064,7 +1072,7 @@ octave lower (for example on double bass @w{@ar{}@strong{strings}}).
   "octaved down" 
 }
 @end mudela
-@end ignore
+@c @end ignore
 
 @item fermata
 I: corona, F: pause, D: Fermate, NL: fermate, DK: fermat, S: fermat, N: .
@@ -1178,14 +1186,18 @@ that).
 
 @mudela[13pt,eps] 
 \property Score.barNonAuto = ##t 
+\property Staff.clefStyle = #"fullSizeChanges"
 \property Lyrics.textStyle = "large"
-\property Voice.clefStyle = "fullSizeChanges"
 \addlyrics
 \notes\relative c'' { 
-  \clef "G1"; g1 s s s s
-  \clef "G2"; g s s s 
-  \clef "G^8"; g' s s s 
-  \clef "G_8"; g,, s s
+  \clef french; 
+  g1 s s s s
+  \clef treble; 
+  g s s s
+  \clef "G^8"; 
+  g' s s s 
+  \clef "G_8"; 
+  g,, s s
 }
 \context Lyrics \lyrics { 
   "french violin clef" 
@@ -1502,7 +1514,10 @@ note value: double length of @w{@ar{}@strong{brevis}}. @w{@ar{}@strong{note valu
 
 @mudela[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\notes\relative c'' { g\longa } 
+\notes\relative c'' { 
+  \property Voice.noteHeadStyle = "mensural"
+  g\longa 
+} 
 @end mudela
 
 @item major interval
@@ -1614,11 +1629,11 @@ First C below the 440 Hz A.
 
 @mudela[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Voice.clefStyle = "fullSizeChanges"
+\property Staff.clefStyle = #"fullSizeChanges"
 \notes\relative c' { 
-  \clef "F"; c1 s
-  \clef "C3"; c s
-  \clef "G2"; c s
+  \clef bass; c1 s
+  \clef alto; c s
+  \clef treble; c s
 } 
 @end mudela
 
@@ -1717,7 +1732,7 @@ I: nona, F: neuvi@`eme, D: None, NL: noon, DK: none, S: nona, N: .
 @item note
 I: nota, F: note, D: Note, NL: noot, DK: node, S: not, N: ,
 
-Notes are signs by means of which music is fixed in writing. The term is, also
+Notes are signs by means of which music is fixed in writing. The term is also
 used for the sound indicated by a note, and even for the key of the piano
 which produces the sound. However, a clear distinction between the terms tone
 and @w{@ar{}@strong{note}} is strongly recommended. Briefly, one sees a note,
@@ -1749,7 +1764,9 @@ but sometimes (mostly in pre baroque music) the double length note value
 \property Voice.textStyle = "large"
 \property Score.barNonAuto = ##t
 \notes\relative c'' { 
+  \property Voice.noteHeadStyle = "mensural"
   g\longa_"longa" g\breve_"breve" 
+  \property Voice.noteHeadStyle = ""
   g1_"1/1" g2_"1/2" g4_"1/4" s16 g8_"1/8" s16
   g16_"1/16" s16 g32_"1/32" s16 g64_"1/64" s32 }
 @end mudela
@@ -1798,6 +1815,9 @@ frequently used.
   g8 g g g g4 \bar "||";}
 @end mudela
 
+@
+
+
 @item octave sign
 @w{@ar{}@strong{g clef}} @w{@ar{}@strong{f clef}}
 
@@ -1815,8 +1835,6 @@ with the diatonic @w{@ar{}@strong{second}} above it. In the music from the
 middle of the 19th century and onwards the trill is performed with the main
 note first while in the music from the preceding baroque and classic periods
 the upper note is played first.
-
-@
 
 @mudela[13pt,eps]
 <
@@ -2623,7 +2641,139 @@ A family of blown wooden musical instruments. Today some of these instruments
 are actually made from metal. The woodwind instruments commonly used in a
 symphony orchestra are flute, oboe, clarinet, saxophone and bassoon.
 
+@end table
+
+@page
+
+@table @strong
+@item DURATION NAMES, NOTES AND RESTS
+@end table
+
+@multitable @columnfractions .111 .111 .111 .111 .111 .111 .111 .111 .111 
+
+@item @tab @strong{UK} @tab @strong{I} @tab @strong{F} @tab @strong{D} @tab
+@strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{N}
+
+@item
+
+@item @strong{longa} @tab longa @tab longa @tab Longa @tab longa @tab longa
+@tab longa @tab longa @tab longa
+
+@item
+
+@item @strong{breve} @tab breve @tab breve @tab br@`eve @tab Brevis @tab
+brevis @tab brevis @tab brevis @tab brevis
+
+@item
+
+@item @strong{whole} @tab semi@-breve @tab semi@-breve @tab ronde @tab 
+Ganze @tab hele @tab hel @tab hel @tab
+
+@item
+
+@item @strong{half} @tab minim @tab minima @tab blanche @tab Halbe @tab 
+halve @tab halv @tab halv @tab 
+
+@item
+
+@item @strong{quarter} @tab crotchet @tab semi@-minima @tab noire @tab  
+Viertel @tab kwart @tab fjerde@-del @tab fj@"arde@-del @tab 
+
+@item
+
+@item @strong{eighth} @tab quaver @tab croma @tab croche @tab Achtel @tab 
+achtste @tab ottende@-del @tab @aa{}tton@-del @tab 
+
+@item
+
+@item @strong{sixteenth} @tab semi@-quaver @tab semi@-croma @tab double croche
+@tab Sech@-zehntel @tab zes@-ti@-ende @tab seks@-tende@-del @tab sexton@-del
+@tab
+
+@item
+
+@item @strong{thirty-second} @tab demi@-semi@-quaver @tab bis@-croma @tab
+triple croche @tab Zwei@-und@-drei@-@ss{}ig@-stel @tab 32e @tab
+toog@-tredivte-del @tab trettio@-tv@aa{}on@-del @tab
+
+@item
+
+@item @strong{sixty-fourth} @tab hemi@-demi@-semi@-quaver @tab
+semi@-bis@-croma @tab qua@-druple croche @tab Vier@-und@-sechzig@-stel @tab
+vier@-en@-zestig@-ste @tab fireog@-tred@-sinds@-ty@-ven@-de@-del @tab
+sextio@-fj@"arde@-del @tab
+
+@end multitable
+@c @item @tab @tab @tab @tab @tab @tab @tab @tab 
+
+@page
+
+@table @strong
+@item PITCH NAMES
+@end table
+
+@multitable @columnfractions .125 .125 .125 .125 .125 .125 .125 .125 
+
+@item @tab @strong{I} @tab @strong{F} @tab @strong{D} @tab
+@strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{N}
+
+@item
+
+@item @strong{c} @tab do @tab ut @tab C @tab c @tab c @tab c @tab c
+
+@item
+
+@item @strong{c-sharp} @tab do diesis @tab ut di@`ese @tab Cis @tab cis @tab
+cis @tab cis @tab cis
+
+@item
+
+@item @strong{d-flat} @tab re bemolle @tab r@'e b@'emol @tab Des @tab des @tab
+des @tab des @tab des
+
+@item
+
+@item @strong{d} @tab re @tab r@'e @tab D @tab d @tab d @tab d @tab d
+
+@item
+
+@item @strong{e} @tab mi @tab mi @tab E @tab e @tab e @tab e @tab e
+
+@item
+
+@item @strong{f} @tab fa @tab fa @tab F @tab f @tab f @tab f @tab f
+
+@item
+
+@item @strong{g} @tab sol @tab sol @tab G @tab g @tab g @tab g @tab g
+
+@item
+
+@item @strong{a-flat} @tab la bemolle @tab la b@'emol @tab As @tab as @tab as
+@tab as @tab as
+
+@item
+
+@item @strong{a} @tab la @tab la @tab A @tab a @tab a @tab a @tab a
+
+@item
+
+@item @strong{a-sharp} @tab la diesis @tab la di@`ese @tab Ais @tab ais @tab
+ais @tab ais @tab ais
+
+@item
+
+@item @strong{b-flat} @tab si bemolle @tab si b@'emol @tab B @tab bes @tab b
+@tab b @tab b
+
+@item
+
+@item @strong{b} @tab si @tab si @tab H @tab b @tab h @tab h @tab h
+
+@end multitable
 @
+
+@table @strong
 
 @item ---------------------
 
