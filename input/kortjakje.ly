@@ -10,7 +10,7 @@
  Tested Features: example file with comments
 EndMudelaHeader
 %}
-\version "0.0.61";
+\version "0.1.0";
 
 
 % the % is a comment.
@@ -58,10 +58,9 @@ begeleiding = \melodic{
 }
 
 \score{
-	\melodic < \multi 3;
-	
-	 \melodie
-	 \begeleiding 
+	\melodic < \id "Piano" ""; \multi 3;
+		\melodie
+		\begeleiding 
 	>
 }
 

@@ -13,7 +13,7 @@
 EndMudelaHeader
 %}
 
-\version "0.0.61";
+\version "0.1.0";
 
 %% Stuff from MPP version
 % \lefttitle{Menuetto}
@@ -101,7 +101,10 @@ IImenuetto = \melodic{
 }
 
 \score{
-	\melodic { \IImenuetto }
+	% huh? how to set id_str
+	\melodic{ 
+		\id "Staff" "Cello"; \IImenuetto 
+	}
 	\paper{
 		unitspace= 9.0\mm  ;% to get lily to use only three lines
 		geometric= 1.40;

@@ -12,7 +12,7 @@ EndMudelaHeader
 %}
 
 
-\version "0.0.61";
+\version "0.1.0";
 
 \score{
 	\melodic 
@@ -21,6 +21,15 @@ EndMudelaHeader
 			< \multi 2;  { \stem -1; c2 c2 } { \stem 1; c'2 c'2 } > 
 			< \multi 3;  { \clef "bass"; c2 c2 } { \meter 2/4;\bar "||"; \key fis cis gis; c'2 c'2 } > 
 	 			c2 c1 
-
+			c1 c1
+			< \multi 1; < \multi 3; 
+				{ \meter 2/4; \clef "violin"; c2 c2 }
+				{ \meter 2/4; \clef "bass"; c2 c2 }
+			>
+			< \multi 3; 
+				{ \meter 2/4; \clef "violin"; c2 c2 }
+				{ \meter 2/4; \clef "bass"; c2 c2 }
+			>
+			>
 		}
 }

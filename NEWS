@@ -1,3 +1,39 @@
+pl 76
+	- mudela version bumped to 0.1
+	- mudela-book
+	- doco updates, now some stuff in LaTeX
+	- junked book.{ly,tex} example
+	- progress indicator
+	- rhythm.ly updated
+	- removed mf sources from distribution due to (c) stuff
+	- allowal of breaks handled cleanly
+	- junked Subtle_reqs, junked Request_iterator. Request
+	iteration now by Voice_element_iterator
+	- Piano_bar, Piano_bar_engraver, Span_score_bar_engraver, 
+	Span_score_bar
+	- Swallow_performer
+	- removed  Staff_engravers, grouping into Line_group_engraver
+	- Head_column as base for Rest_column,Note_column
+	- Score_column derived from PCol
+	- regurgled Line spacing: interface and implementation
+	separate. Idealspacing moved into Spring_spacer
+	- Gourlay style linespacing
+
+pl 75.jcn6
+	- {lyric,meter,key}-performer
+	- span-brace-* (Removed again. Such is life)
+	- doze compile
+	- midi output, notes only
+	- working midi output -- hacked
+	- doze compile, mingw32 configure (still triggers gcc int. comp err)
+
+pl 74pre.jcn2
+	- mi2mu fixes after scott snyder <snyder@d0sgif.fnal.gov> [sss]
+	- mi2mu update for mudela 0.0.61
+	- conflily fixes
+
+*******
+july 21
 
 pl 75
 	- inbook.ly & book.tex example.
@@ -626,6 +662,7 @@ Bugfix
 *******
 pl 41
 	- release
+
 pl 40.3
 	- all of the above
 	- hw's configure.in

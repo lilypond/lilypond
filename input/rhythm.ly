@@ -11,18 +11,12 @@
 	unsynced bars
 EndMudelaHeader
 %}
-\version "0.0.58";
 
-%
-% 	Ive' got rhythm!
-%
-% add any impressive examples here, please
 
-\version "0.0.58";
 
-ritme = \staff {
-	melodicregs
-	\melodic{ %\octave ;
+\version "0.1.0";
+
+ritme = \melodic{ %\octave ;
 	\partial 8;
 	\octave c';
 	\meter  4/4;
@@ -48,29 +42,28 @@ ritme = \staff {
 	
 	 }
 	
-}
-another = \staff {
-	melodicregs
+
+another = 
 	\melodic{ \meter 4/4; 
 		c1.  c1. c4 c4 c4 c4  \meter  4/4; c1 c1 c1
 	 }
-}
 
-yanother = \staff 	{ 
-	melodicregs
+
+yanother = 
 	\melodic{ \meter 4/4; 
 		c1 c1 c1 c4 c4 c4 c4  c1 c1 c1
 	 }
-}
+
 
 \score{
-	ritme
-	another
-	yanother
+	 < \multi 3;
+		\ritme
+		\another
+		\yanother
+	>
 	
-	\midi { }
 	\paper{
-		\unitspace 2\cm
-		\geometric 1.3
+		unitspace =2.0\cm;
+		geometric =1.6;
 	}
 }

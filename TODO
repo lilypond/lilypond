@@ -1,3 +1,7 @@
+0.1:
+
+	* versioning stuff (cvt mudela, mudela, etc.)
+
 Features you cannot find in the doco as working, should be mentioned here.
 	
 This is an assorted collection of stuff that will be done, might be
@@ -6,33 +10,24 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
-	* script for unified musicological source: 
+	* dots into separate item.
 
-		blah blah latex
-		\begin{mudela} c4  d4 e4 f4 
-		\end{mudela}
+	* lyrics in chords still fuck up.
 
-	* lyrics with chords broken
-
-	* Redo MIDI output to use Translators
-	- remember more horizontal info than melodics:
+	* add to MIDI output:
 	- tempo change
 	- repeat
 	- slurs
 	- dynamics etc.
 
+	* rewire acknowledge_element() logic with a process_acknowledged()
+
 	* pushgroup/popgroup
-
-	* strict separation between visual and auditive processing.
-
-	* fix depcy/dept stuff in eg. Beam.
 
 	* whole head on ledger line
 
 	* piano staff
 
-	* decent spacing
-	
 	* implement better breaking algorithm
 
 	* update 20 pt table
@@ -41,7 +36,7 @@ grep for TODO and ugh/ugr
 
 	* enter script priority
 
-	* a Hands on tutorial
+	* a hands on tutorial
 
 PROJECTS
 
@@ -257,6 +252,8 @@ SMALLISH PROJECTS
 	* stafftypes: voice names/ instrument names.
 
 	* Decent TeX titledefs (\tempo, \metron, etc. )
+
+	* lily \tempo
 
 	* C meter iso 4/4, idem for alla breve, etc.
 
