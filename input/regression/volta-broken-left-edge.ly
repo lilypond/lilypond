@@ -130,7 +130,6 @@ voiceE = \notes {
 
     >
 	\paper {
-	    font_normal = 12.
 	    \translator {
 	    	 \StaffContext 
 		 \consists Instrument_name_engraver
