@@ -1,5 +1,7 @@
 2003-08-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION (MY_PATCH_LEVEL): open HEAD/1.9 branch.
+
 	* Documentation/user/refman.itely (Text markup): add comment about
 	markup in header.
 
