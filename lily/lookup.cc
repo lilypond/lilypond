@@ -111,12 +111,12 @@ Lookup::afm_find (String s, bool warn) const
     {
       /*
 	don't want people relying on this kind of dimension. 
-       */
+      */
       m.set_empty (false);
       return m;
     }
   
-  Atom at (gh_list (char_scm_sym,
+  Atom at (gh_list (gh_symbol2scm ("char"),
 		    gh_int2scm (cm.code ()),
 		    SCM_UNDEFINED));
   at.font_ = ly_symbol (font_name_.ch_C());
@@ -161,7 +161,7 @@ Molecule
 Lookup::bar (String str, Real h, Paper_def *paper_l) const
 {
   if (str == "bracket")
-    return staff_bracket (h);
+    return staff_bracket (h, paper_l);
   else if (str == "brace")
     {
       Real staffht  = paper_l->get_var ("staffheight");
@@ -241,11 +241,11 @@ Lookup::beam (Real slope, Real width, Real thick) const
   
   Molecule m;
   Atom at
-     (gh_list (beam_scm_sym,
-				gh_double2scm (width),
-				gh_double2scm (slope),
-				gh_double2scm (thick),
-				SCM_UNDEFINED));
+    (gh_list (gh_symbol2scm ("beam"),
+	      gh_double2scm (width),
+	      gh_double2scm (slope),
+	      gh_double2scm (thick),
+	      SCM_UNDEFINED));
 
   m.dim_[X_AXIS] = Interval (0, width);
   m.dim_[Y_AXIS] = Interval (min_y, max_y);
@@ -288,7 +288,7 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
     }
 
   Atom at
-    (gh_list (ly_symbol ("dashed-slur"),
+    (gh_list (gh_symbol2scm ("dashed-slur"),
 	      gh_double2scm (thick), 
 	      gh_double2scm (dash),
 	      ly_quote_scm (array_to_list (sc, 4)),
@@ -346,7 +346,7 @@ Lookup::filledbox (Box b ) const
 {
   Molecule m;
   
-  Atom at  (gh_list (filledbox_scm_sym,
+  Atom at  (gh_list (gh_symbol2scm ("filledbox"),
 		     gh_double2scm (-b[X_AXIS][LEFT]),
 		     gh_double2scm (b[X_AXIS][RIGHT]),		       
 		     gh_double2scm (-b[Y_AXIS][DOWN]),
@@ -398,7 +398,7 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
   SCM l = ly_ch_C_eval_scm (("(style-to-cmr \"" + style + "\")").ch_C());
   if (l != SCM_BOOL_F)
     {
-      style = ly_scm2string (SCM_CDR(l)) +to_str  ((int)font_h);
+      style = ly_scm2string (gh_cdr(l)) +to_str  ((int)font_h);
     }
 
   Real w = 0;
@@ -454,8 +454,8 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
   m.dim_.y () = ydims;
 
   
-  Atom at  (gh_list (text_scm_sym,
-		     ly_ch_C_to_scm (text.ch_C()),
+  Atom at  (gh_list (gh_symbol2scm ("text"),
+		     ly_str02scm (text.ch_C()),
 		     SCM_UNDEFINED));
   at.font_ = ly_symbol (style);
   at.magn_ = gh_int2scm (font_mag);
@@ -492,15 +492,15 @@ Lookup::staff_brace (Real y, int staff_size) const
 {
   Molecule m;
   /*
-  (define (pianobrace y staffht)
+    (define (pianobrace y staffht)
     (let* ((step 1.0)
-	   (minht (* 2 staffht))
-	   (maxht (* 7 minht))
-	   )
-      (string-append
-       (select-font (string-append "feta-braces" (number->string (inexact->exact staffht))) 0)
-       (char (max 0 (/  (- (min y (- maxht step)) minht) step))))
-      )
+    (minht (* 2 staffht))
+    (maxht (* 7 minht))
+    )
+    (string-append
+    (select-font (string-append "feta-braces" (number->string (inexact->exact staffht))) 0)
+    (char (max 0 (/  (- (min y (- maxht step)) minht) step))))
+    )
     )
   */
 
@@ -511,7 +511,7 @@ Lookup::staff_brace (Real y, int staff_size) const
   idx = idx >? 0;
   
   SCM f =  ly_symbol (String ("feta-braces" + to_str (staff_size)));
-  SCM e =gh_list (char_scm_sym, gh_int2scm (idx), SCM_UNDEFINED);
+  SCM e =gh_list (gh_symbol2scm ("char"), gh_int2scm (idx), SCM_UNDEFINED);
   Atom at  (e);
   at.font_ = f;
   
@@ -541,12 +541,13 @@ Lookup::hairpin (Real width, Real height, Real thick, bool decresc, bool continu
 }
 
 Molecule
-Lookup::tuplet_bracket (Real dy , Real dx, Real thick, Real gap, Real interline_f, Direction dir) const
+Lookup::tuplet_bracket (Real dy , Real dx, Real thick, Real gap,
+			Real height, Direction dir) const
 {
   Molecule m;
 
-  Atom at  (gh_list(tuplet_scm_sym,
-		    gh_double2scm (interline_f),
+  Atom at  (gh_list(gh_symbol2scm ("tuplet"),
+		    gh_double2scm (height),
 		    gh_double2scm (gap),
 		    gh_double2scm (dx),
 		    gh_double2scm (dy),
@@ -586,14 +587,21 @@ Lookup::slur (Array<Offset> controls, Real linethick) const
 }
 
 Molecule
-Lookup::staff_bracket (Real y) const
+Lookup::staff_bracket (Real height, Paper_def* paper_l) const
 {
-  Molecule m; 
-  Atom at  ( gh_list (bracket_scm_sym,
-		      gh_double2scm (y),
-		      SCM_UNDEFINED));
+  Molecule m;
+  Atom at  ( gh_list (gh_symbol2scm ("bracket"),
+		      gh_double2scm (paper_l->get_var("bracket_arch_angle")),
+		      gh_double2scm (paper_l->get_var("bracket_arch_width")),
+		      gh_double2scm (paper_l->get_var("bracket_arch_height")),
+		      gh_double2scm (paper_l->get_var("bracket_width")),
+		      gh_double2scm (height),
+		      gh_double2scm (paper_l->get_var("bracket_arch_thick")),
+		      gh_double2scm (paper_l->get_var("bracket_thick")),
+  		      SCM_UNDEFINED));
+  
   m.add_atom (&at);				 
-  m.dim_[Y_AXIS] = Interval (-y/2,y/2);
+  m.dim_[Y_AXIS] = Interval (-height/2,height/2);
   m.dim_[X_AXIS] = Interval (0,4 PT);
 
   m.translate_axis (- 4. / 3. * m.dim_[X_AXIS].length (), X_AXIS);
@@ -605,7 +613,7 @@ Lookup::volta (Real h, Real w, Real thick, bool vert_start, bool vert_end) const
 {
   Molecule m; 
 
-  Atom at  (gh_list (volta_scm_sym,
+  Atom at  (gh_list (gh_symbol2scm ("volta"),
 		     gh_double2scm (h),
 		     gh_double2scm (w),
 		     gh_double2scm (thick),
@@ -817,3 +825,4 @@ Lookup::accordion (SCM s, Real interline_f) const
     }
   return m;  
 }
+

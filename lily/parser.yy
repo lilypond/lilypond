@@ -447,7 +447,7 @@ translator_spec_body:
 		int_identifier *i = dynamic_cast<int_identifier*> (id);
 	
 		SCM v;
-		if (s) v = ly_ch_C_to_scm (s->access_content_String (false)->ch_C());
+		if (s) v = ly_str02scm (s->access_content_String (false)->ch_C());
 		if (i) v = gh_int2scm (*i->access_content_int (false));
 		if (r) v = gh_double2scm (*r->access_content_Real (false));
 		if (!s && !i && !r)
@@ -557,6 +557,12 @@ paper_def_body:
 			THIS->parser_error ("expect a symbol as lvalue");
 		else
 			$$->default_properties_[$2] = $4;
+	}
+	| paper_def_body SCM_T '=' real semicolon {
+		if (!gh_symbol_p ($2))
+			THIS->parser_error ("expect a symbol as lvalue");
+		else
+			$$->default_properties_[$2] = gh_double2scm ($4);
 	}
 	| paper_def_body translator_spec_block {
 		$$->assign_translator ($2);
@@ -1577,7 +1583,7 @@ string:
 		$$ = $1;
 	}
 	| STRING_IDENTIFIER	{
-		$$ = ly_ch_C_to_scm ($1->access_content_String (true)->ch_C ());
+		$$ = ly_str02scm ($1->access_content_String (true)->ch_C ());
 	}
 	| string '+' string {
 		$$ = scm_string_append (scm_listify ($1, $3, SCM_UNDEFINED));

@@ -21,6 +21,7 @@ ADD_THIS_TRANSLATOR (Chord_name_engraver);
 Chord_name_engraver::Chord_name_engraver ()
 {
   tonic_req_ = 0;
+  //  bass_req_ = 0;
 }
 
 void
@@ -43,6 +44,14 @@ Chord_name_engraver::do_try_music (Music* m)
       tonic_req_ = t;
       return true;
     }
+#if 0
+  if (Bass_req* b = dynamic_cast<Bass_req*> (m))
+    {
+      bass_req_ = b;
+      return true;
+    }
+#endif
+  
   return false;
 }
 
