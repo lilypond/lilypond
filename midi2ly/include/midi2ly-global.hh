@@ -1,10 +1,10 @@
 //
-// mi2mu-global.hh -- declare global (sic) stuff for mi2mu
+// midi2ly-global.hh -- declare global (sic) stuff for midi2ly
 //
 // copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
-#ifndef MI2MU_GLOBAL_HH
-#define MI2MU_GLOBAL_HH
+#ifndef MIDI2LY_GLOBAL_HH
+#define MIDI2LY_GLOBAL_HH
 
 #include "string.hh"
 #include "proto.hh"
@@ -26,8 +26,8 @@ void message (String message_str); //, char const* context_ch_C);
 void warning (String message_str); //, char const* context_ch_C);
 void error (String message_str); //, char const* context_ch_C);
 
-String mi2mu_version_str();
+String midi2ly_version_str();
 extern bool no_timestamps_b_g;;
 
-#endif // MI2MU_GLOBAL_HH
+#endif // MIDI2LY_GLOBAL_HH
 

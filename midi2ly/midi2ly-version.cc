@@ -9,11 +9,11 @@
 
 #define VERSION_SZ  MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL "." MY_PATCH_LEVEL
 
-static char *s = "mi2mu " VERSION_SZ;
+static char *s = "midi2ly " VERSION_SZ;
 
 
 const char * 
-mi2mu_version_sz()
+midi2ly_version_sz()
 {
   return s;
 }
