@@ -22,17 +22,17 @@ char direction_char (int y_sign)
   char c='#';
   switch (y_sign)
     {
-  case -1:
-	c = 'd';
-	break;
-  case 0:
-	c = 'h';
-	break;
-  case 1:
-	c = 'u';
-	break;
-  default:
-	assert (false);
+    case -1:
+      c = 'd';
+      break;
+    case 0:
+      c = 'h';
+      break;
+    case 1:
+      c = 'u';
+      break;
+    default:
+      assert (false);
     }
   return c;
 }
@@ -41,15 +41,15 @@ Symbol
 Lookup::half_slur_middlepart (Real &dx, int dir) const
 {
   if (dx >= 400 PT) {// todo
-	WARN<<"halfslur too large" <<print_dimen (dx)<< "shrinking (ugh)\n";
-	dx = 400 PT;
-    }
+    WARN<<"halfslur too large" <<print_dimen (dx)<< "shrinking (ugh)\n";
+    dx = 400 PT;
+  }
   int widx = int (floor (dx / 4.0));
   dx = widx * 4.0;
   if (widx) widx --;
   else 
     {
-	WARN <<  "slur too narrow\n";
+      WARN <<  "slur too narrow\n";
     }
 
   Symbol s;
@@ -62,11 +62,11 @@ Lookup::half_slur_middlepart (Real &dx, int dir) const
 
   int idx = widx;
   if (dir < 0)
-	idx += 128;
+    idx += 128;
 
   assert (idx < 256);
 
-  f+=String ("{") + String (idx ) + "}";
+  f+=String ("{") + String (idx) + "}";
   s.tex = f;
   Atom a (s);
   a.translate (dx/2, X_AXIS);
@@ -79,23 +79,23 @@ Lookup::half_slur (int dy, Real &dx, int dir, int xpart) const
 {
   Real orig_dx = dx;
   if (!xpart)
-	return half_slur_middlepart (dx, dir);
+    return half_slur_middlepart (dx, dir);
 
   int widx;
   	 	
   if (dx >= 96 PT) 
     {
-	WARN << "Slur half too wide." << print_dimen (orig_dx) << " shrinking (ugh)\n";
-	dx =  96 PT;
+      WARN << "Slur half too wide." << print_dimen (orig_dx) << " shrinking (ugh)\n";
+      dx =  96 PT;
     }
 
   widx = int (rint (dx/12.0));
   dx = widx*12.0;
   if (widx)
-	widx --;
+    widx --;
   else 
     {
-	WARN <<  "slur too narrow " << print_dimen (orig_dx)<<"\n";
+      WARN <<  "slur too narrow " << print_dimen (orig_dx)<<"\n";
     }
 	
   Symbol s;
@@ -109,16 +109,16 @@ Lookup::half_slur (int dy, Real &dx, int dir, int xpart) const
 
   int hidx = dy;
   if (hidx <0)
-	hidx = -hidx;
+    hidx = -hidx;
   hidx --;
   int idx =-1;
 
   idx = widx * 16 + hidx;
   if (xpart < 0)
-	idx += 128;
+    idx += 128;
   
   assert (idx < 256);
-  f+=String ("{") + String (idx ) + "}";
+  f+=String ("{") + String (idx) + "}";
 
   
   s.tex = f;
@@ -136,32 +136,32 @@ Lookup::slur (int dy , Real &dx, int dir) const
 
   if (y_sign) 
     {
-	large |= dx>= 4*16 PT;
+      large |= dx>= 4*16 PT;
     }
   else
-	large |= dx>= 4*54 PT;
+    large |= dx>= 4*54 PT;
   
   if (large) 
     {
-	return big_slur (dy, dx, dir);
+      return big_slur (dy, dx, dir);
     }
   Real orig_dx = dx;
   int widx = int (floor (dx/4.0)); // slurs better too small..
   dx = 4.0 * widx;
   if (widx)
-	widx --;
+    widx --;
   else 
     {
-	WARN <<  "slur too narrow: " << print_dimen (orig_dx) << "\n";
+      WARN <<  "slur too narrow: " << print_dimen (orig_dx) << "\n";
     }
 
   int hidx = dy;
   if (hidx <0)
-	hidx = -hidx;
+    hidx = -hidx;
   hidx --; 
   if (hidx > 8) 
     {
-	WARN<<"slur to steep: " << dy << " shrinking (ugh)\n";
+      WARN<<"slur to steep: " << dy << " shrinking (ugh)\n";
     }
   
   Symbol s;
@@ -172,25 +172,25 @@ Lookup::slur (int dy , Real &dx, int dir) const
 
   int idx=-1;
   if (y_sign) {	
-	idx = hidx * 16 + widx;
-	if (dir < 0)
-	    idx += 128;
-    }
+    idx = hidx * 16 + widx;
+    if (dir < 0)
+      idx += 128;
+  }
   else 
     {
-	if (dx >= 4*54 PT) 
-	  {
-	    WARN << "slur too wide: " << print_dimen (dx) <<
-		" shrinking (ugh)\n";
-	    dx = 4*54 PT;
-	  }
-	idx = widx;
-	if (dir < 0)
-	    idx += 54;		
+      if (dx >= 4*54 PT) 
+	{
+	  WARN << "slur too wide: " << print_dimen (dx) <<
+	    " shrinking (ugh)\n";
+	  dx = 4*54 PT;
+	}
+      idx = widx;
+      if (dir < 0)
+	idx += 54;		
     }
   
   assert (idx < 256);
-  f+=String ("{") + String (idx ) + "}";
+  f+=String ("{") + String (idx) + "}";
   s.tex = f;
 
   Atom a (s);

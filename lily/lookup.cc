@@ -45,13 +45,13 @@ Lookup::add (String s, Symtable*p)
 }
 
 void
-Lookup::print()const
+Lookup::print() const
 {
-  #ifndef NPRINT
+#ifndef NPRINT
   DOUT << "Lookup: " << texsetting << " {\n";
   symtables_->print();
   DOUT << "}\n";
-  #endif
+#endif
 }
 
 Symbol
@@ -75,7 +75,7 @@ Symbol
 Lookup::ball (int j) const
 {
   if (j > 2)
-	j = 2;
+    j = 2;
 
   Symtable * st = (*symtables_)("balls");
   return st->lookup (String (j));
@@ -136,8 +136,8 @@ Lookup::dots (int j) const
 {
   if (j>3) 
     {
-	j = 3;
-	warning ("max 3 dots");	// todo
+      j = 3;
+      warning ("max 3 dots");	// todo
     }
   return (*symtables_)("dots")->lookup (j);
 }
@@ -158,13 +158,13 @@ Lookup::streepjes (int i) const
   
   if (i < 0) 
     {
-	idx = "botlines";
-	arg = -i;
+      idx = "botlines";
+      arg = -i;
     }
   else 
     {
-	arg = i;
-	idx = "toplines";
+      arg = i;
+      idx = "toplines";
     }
   Symbol ret = (*symtables_)("streepjes")->lookup (idx);
   
@@ -227,9 +227,9 @@ Lookup::stem (Real y1,Real y2) const
 {
   if (y1 > y2) 
     {
-	Real t = y1;
-	y1 = y2;
-	y2 = t;
+      Real t = y1;
+      y1 = y2;
+      y2 = t;
     }
   Symbol s;
   
@@ -253,31 +253,31 @@ Lookup::vbrace (Real &y) const
 {
   if (y < 2* 20 PT) 
     {
-	warning ( "piano brace too small (" + print_dimen (y)+ ")");
-	y = 2*20 PT;
+      warning ("piano brace too small (" + print_dimen (y)+ ")");
+      y = 2*20 PT;
     }
   if (y > 67 * 2 PT) 
     {
-	warning ( "piano brace too big (" + print_dimen (y)+ ")");	
-	y = 67 *2 PT;
+      warning ("piano brace too big (" + print_dimen (y)+ ")");	
+      y = 67 *2 PT;
     }
   
   int idx = int (rint ((y/2.0 - 20) + 148));
   
   Symbol s = (*symtables_)("param")->lookup ("brace");
   {
-	Array<String> a;
-	a.push (idx);
-	s.tex = substitute_args (s.tex,a);
-	s.dim.y() = Interval (0,y);
-    }
+    Array<String> a;
+    a.push (idx);
+    s.tex = substitute_args (s.tex,a);
+    s.dim.y() = Interval (0,y);
+  }
   {
-	Array<String> a;
-	a.push (print_dimen (y/2));
-	a.push (print_dimen (0));
-	a.push (s.tex);
-	s.tex = substitute_args ("\\placebox{%}{%}{%}", a);
-    }
+    Array<String> a;
+    a.push (print_dimen (y/2));
+    a.push (print_dimen (0));
+    a.push (s.tex);
+    s.tex = substitute_args ("\\placebox{%}{%}{%}", a);
+  }
 
 	
   return s;
