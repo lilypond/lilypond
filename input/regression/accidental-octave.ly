@@ -4,7 +4,8 @@
 \header {
 texidoc="
 This shows how accidentals in different octaves are handled.
-Fixme: Shorten and docu
+FIXME: Shorten and docu
+
 "
 }
 
@@ -48,7 +49,11 @@ mel = \notes \transpose c'' {
 
 mus = \notes {
    \mel
-   \property Score.oneMeasureLazy = ##t
+
+%% FIXME.
+%   \property Score.oneMeasureLazy = ##t
+
+
    \property Score.autoAccidentals = #'(Staff (same-octave . 0))
    < s1^""^""^"$\\backslash$property Score.autoAccidentals = \\#'(Staff (same-octave . 0))" \mel >
    \property Score.autoAccidentals = #'(Staff (same-octave . 1))

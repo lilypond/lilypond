@@ -272,6 +272,7 @@ not less than minimumFret")
 then beams are generated automatically.")
 (translator-property-description 'noDirection boolean? "Don't set directions by a2-engraver when part-combining.")
 (translator-property-description 'oneBeat moment? "  How long does one beat in the current time signature last?")
+(translator-property-description 'othersolo boolean? "FIXME")
 (translator-property-description 'pedalSustainStrings list? "List of   string to print for sustain-pedal. Format is
  (UP UPDOWN DOWN), where each of the three is the string to print when
 this is done with the pedal.")

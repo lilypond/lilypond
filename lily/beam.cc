@@ -1480,6 +1480,6 @@ the ideal slope, how close the result is to the ideal stems, etc.). We
 take the best scoring combination.
 
 ",
-  "french-beaming position-callbacks concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy damping flag-width-function neutral-direction positions space-function thickness");
+  "knee french-beaming position-callbacks concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy damping flag-width-function neutral-direction positions space-function thickness");
 
 

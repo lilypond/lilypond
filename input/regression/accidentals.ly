@@ -44,7 +44,7 @@ mel = \notes { \key d \major \time 4/4
  <
   \context Staff \transpose c''' {
    \mel
-   \property Score.oneMeasureLazy = ##t
+%   \property Score.oneMeasureLazy = ##t
    \property Score.autoAccidentals = #'(Staff (same-octave . 0))
    < s1^"$\\backslash$property Score.autoAccidentals = \\#'((same-octave . 0))" \mel >
    \property Score.autoAccidentals = #'(Staff (same-octave . 1))

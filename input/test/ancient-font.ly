@@ -133,7 +133,7 @@ lowerVoice =  \context Staff = lowerNotes <
 	\property Staff.KeySignature \set #'font-family = #'ancient
 	\property Staff.KeySignature \override #'style = #'mensural
 	\property Staff.Accidental \set #'font-family = #'ancient
-	\property Staff.Accidentalg \override #'style = #'mensural
+	\property Staff.Accidental \override #'style = #'mensural
 	\property Staff.Custos \set #'font-family = #'ancient
 	\property Staff.Custos \override #'style = #'mensural
 	\property Staff.Custos \override #'neutral-position = #3
@@ -147,7 +147,6 @@ lowerVoice =  \context Staff = lowerNotes <
 	\property Voice.Porrectus \override #'style = #'mensural
 	\property Voice.Porrectus \override #'solid = ##f
 	\property Voice.Porrectus \override #'add-stem = ##t
-	\property Voice.Porrectus \override #'stem-direction = #1
 	\property Voice.Porrectus \override #'thickness = #0.7
 %	\property Voice.Porrectus \override #'auto-properties = ##t
 %	\property Voice.Porrectus \override #'width = #3.0

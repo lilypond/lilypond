@@ -2,9 +2,6 @@
 
 \header {
   texidoc ="Test font selection and scm text markup"
-%% Note that the font-encoding trick only works when uning latex,
-%% ie, you must use ly2dvi.
-
 }
 
 
@@ -74,7 +71,6 @@
       TextScript \override #'font-shape = #'upright
       TextScript \revert #'no-spacing-rods
       TextScript \override #'direction = #1
-      TextScript \override #'font-encoding = #'T1
     }
   }
 }

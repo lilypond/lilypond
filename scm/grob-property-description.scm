@@ -124,6 +124,8 @@ column as start/begin point. Only columns that have grobs or act as bounds are s
 (grob-property-description 'breakable boolean? "boolean indicating if this is a breakable item (clef, barline, key sig, etc.).")
 (grob-property-description 'c0-position integer? "integer indicating the position of central C.")
 (grob-property-description 'cautionary-style symbol? "style  of cautionary accidentals. Choices are 'smaller (one size smaller) or 'parentheses.")
+(grob-property-description 'cautionary boolean? "is this a cautionary accidentals.?")
+
 (grob-property-description 'center-element ly-grob? "grob which will
 be at the center of the group after aligning (when using
 Align_interface::center_on_element). .")
@@ -262,6 +264,7 @@ beaming style: stems stop at innermost beams.")
 For text,  this is `relative'(?) to the current alignment.
 
 For barline, space after a thick line.")
+(grob-property-description 'knee boolean? "Is this beam a knee?")
 (grob-property-description 'knee-spacing-correction number? "optical correction amount for knees. 0: no correction; 1: full correction.")
 (grob-property-description 'layer number? "The output layer [0..2].  The default is 1.")
 

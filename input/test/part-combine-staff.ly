@@ -102,7 +102,9 @@
 			%% URG: this changes dynamics too
 			%%textStyle = #"italic"
 			TimeSignature \override #'style = #'C
-			maximumRestCount = #1
+
+			RestCollision \set #'maximum-rest-count = #1
+
 		}
 	}
 }
