@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
     
     texidoc = "In complex configurations of knee beaming, according to
@@ -9,7 +9,7 @@ beam. This is in disagreement with the current algorithm."
     
 }
 
-\score { \notes
+\score { 
 \relative c'
 	 {
 	     \override Beam  #'auto-knee-gap = #7

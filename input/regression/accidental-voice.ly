@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -11,18 +11,18 @@ The last f gets cautionary natural because fis was only in the other voice.
 
 
 
-voicea = \notes \transpose c c' {
+voicea =  \transpose c c' {
     \stemUp
     fis2 a2 f4 fis a2
 }
-voiceb = \notes \transpose c c' {
+voiceb =  \transpose c c' {
     \stemDown
     c2 fis2  f4 c   f2
 }
 
 \score {
     <<
-	\notes
+	
 	\new NoteNames {
 	    \set printOctaveNames = ##f
 	     \voicea

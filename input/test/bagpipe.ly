@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 
 \header {
     texidoc = "@cindex Bagpipe Music
@@ -16,123 +16,123 @@ Here's an example of bagpipe music.
     }	
 }
 
-taor =  \notes{ \grace {
+taor =  { \grace {
     g32[ d' g e']
 }
 	    }
-grip =  \notes {
+grip =   {
     \grace {
 	g32[ b g ]
     }
 }
-thrd =  \notes {
+thrd =   {
     \grace {
 	g32[ d' c'] 
     }
 }
-birl =  \notes {
+birl =   {
     \grace {
 	g32[ a g] 
     }
 }
-gstd =  \notes {
+gstd =   {
     \grace {
 	g'32[ d' g] 
     }
 }
-lgg = \notes {
+lgg =  {
     \grace {
 	g32 
     }
 }
-lag = \notes {
+lag =  {
     \grace {
 	a32 
     }
 }
-fgg = \notes {
+fgg =  {
     \grace {
 	f32[ g'32] 
     }
 }
-dblb =  \notes {
+dblb =   {
     \grace {
 	g'32[ b d'] 
     }
 }
-dblc =  \notes {
+dblc =   {
     \grace {
 	g'32[ c' d'] 
     }
 }
-dble =  \notes {
+dble =   {
     \grace {
 	g'32[ e' f'] 
     }
 }
-dblf =  \notes {
+dblf =   {
     \grace {
 	g'32[ f' g'] 
     }
 }
-dblg =  \notes {
+dblg =   {
     \grace {
 	g'32[ f'] 
     }
 }
-dbla =  \notes {
+dbla =   {
     \grace {
 	a'32[ g'] 
     }
 }
-cg   = \notes {
+cg   =  {
     \grace {
 	c'32 
     }
 }
-eg   = \notes {
+eg   =  {
     \grace {
 	e'32 
     }
 }
-gg   = \notes {
+gg   =  {
     \grace {
 	g'32 
     }
 }
-dg   = \notes {
+dg   =  {
     \grace {
 	d'32 
     }
 }
-hag  = \notes {
+hag  =  {
     \grace {
 	a'32 
     }
 }
-gefg =  \notes {
+gefg =   {
     \grace {
 	g'32[ e' f'] 
     }
 }
-efg  = \notes {
+efg  =  {
     \grace {
 	e'32[ f'] 
     }
 }
-gdcg =  \notes {
+gdcg =   {
     \grace {
 	g'32[ d' c']
     }
 }
-gcdg =  \notes {
+gcdg =   {
     \grace {
 	g'32[ c' d']
     }
 }
 	
 \score {		
-    \notes  {
+      {
 	\time 6/8 \partial 4
 	\tieUp
 	\slurUp

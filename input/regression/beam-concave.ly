@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 
 texidoc = "Concave beams should be horizontal. Informally spoken,
@@ -23,7 +23,7 @@ beams this way."
 
 
 \score{
-  \notes\relative c'{
+  \relative c'{
 
 %% This case seems easy: second beam should be horizontal.
     

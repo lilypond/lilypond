@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc = "Hairy case for beam, chord, and automatic knees."
@@ -12,7 +12,7 @@ texidoc = "Hairy case for beam, chord, and automatic knees."
 
 
 \score{
-  \notes\relative c'{
+  \relative c'{
     %\stemUp
     \clef alto
     \time 3/4

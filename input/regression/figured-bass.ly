@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 texidoc = "
 Figured bass is created by the FiguredBass context which eats
@@ -11,7 +11,7 @@ last bass figure.
 
 " }
 
-\score { \notes  <<
+\score {   <<
  \context FiguredBass {
    \figures { 
 	<3 [5 7]>

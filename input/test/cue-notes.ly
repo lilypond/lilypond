@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 % TODO: check to see if this example can be simplified using \small
 % or \tiny.
 \header { texidoc = "@cindex Cue Notes
@@ -8,7 +8,7 @@ Cue notes are typeset in a smaller font. "
 
 
 \score {
-  \notes
+  
    {
        \set Staff.instrument = #"Horn in F"
        \set Score.skipBars = ##t

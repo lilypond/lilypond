@@ -1,5 +1,5 @@
 
-\version "2.2.0" \header {
+\version "2.3.4" \header {
 
     texidoc = "Octavation signs may be added to clefs.  These
 octavation signs may be placed below or above (meaning an octave
@@ -7,7 +7,7 @@ higher or lower), and can take any value, including 15 for two octaves."
 
 }
 
-\score { \notes
+\score { 
 
 	\relative c'' {
 

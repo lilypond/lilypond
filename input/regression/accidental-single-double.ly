@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc="
 A sharp sign after a double sharp sign, as well as a flat sign
@@ -10,7 +10,7 @@ natural sign.
 
 
 
-thenotes = \notes \relative cis' { \time 4/4
+thenotes =  \relative cis' { \time 4/4
 gisis'4 gis gisis ges |
 }
 

@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 
 \header {
 
@@ -8,7 +8,7 @@ they go past the first note. "
     }
 
 \score {
-<<    \notes \new Staff \relative c'' { \time 1/4 c16[ c c  c]
+<<     \new Staff \relative c'' { \time 1/4 c16[ c c  c]
 \time 1/4
 c16[ c c c]
 \time 1/4

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 
@@ -14,7 +14,7 @@
     
 }
 
-\score { \context Lyrics \notes {
+\score { \context Lyrics  {
     \override Score.RehearsalMark  #'self-alignment-X = #LEFT
     \mark #(ly:export (string-append "Processed with LilyPond version " (lilypond-version)))
     s2

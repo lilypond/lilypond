@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.2.0"
+\version "2.3.4"
 \header { texidoc = "
 A voicelet (a very short voice to get polyphonic chords correct)
 should not confuse the spacing engine."
@@ -7,7 +7,7 @@ should not confuse the spacing engine."
 
 
 	\score {
-\notes {  \context Staff \relative c' {
+ {  \context Staff \relative c' {
   c4
   <<
       { r4 dis'4 } \\

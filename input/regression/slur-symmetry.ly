@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header
 {
     texidoc = "Symmetric figures should lead to symmetric slurs."
@@ -6,7 +6,7 @@
 }
 
 \score{
-	\notes\relative c'<<
+	\relative c'<<
 		\time 6/8
 		\context Staff{
 			e8(e e) e(d e) e(c e) e(b e)

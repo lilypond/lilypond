@@ -1,9 +1,9 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 texidoc = "Measure repeats may be nested with beat repeats."
 }
 	
-\score { \notes \relative c'' \context Voice { \time 4/4
+\score {  \relative c'' \context Voice { \time 4/4
    % riff
    \repeat "percent" 2 { r8. a16 g8. a16 bes8. a16 f8 d |  a c8 ~ c8 d8 ~ d8 r8 r4 }
    

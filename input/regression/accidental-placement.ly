@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 
@@ -12,7 +12,7 @@ flats in a sixth should be staggered.  "
 
 
 \score {
-    \notes \context Voice \relative c'
+     \context Voice \relative c'
     {
 	cis4
 	c4

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
   texidoc = "@cindex Beam Dir Functions
 
@@ -23,7 +23,7 @@ own one.
 
 \paper { raggedright = ##t}
 \score {
-  \notes\relative c'' {\time 3/4
+  \relative c'' {\time 3/4
     \override Beam  #'dir-function = #beam-dir-majority
       c8[ g]
     \override Beam  #'dir-function = #beam-dir-mean

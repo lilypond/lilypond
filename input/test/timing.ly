@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 % possible rename to bar-something.
 
 \header{ texidoc = "@cindex Bar Length
@@ -9,7 +9,7 @@ You can alter the length of bars by setting explicitly
 }
 
 \score { 
-  \context Voice \notes\relative c {
+  \context Voice \relative c {
     
 	
 	% \set Score.measurePosition = #(ly:make-moment -1 4)

@@ -1,4 +1,4 @@
-\version "2.2.0" \header{
+\version "2.3.4" \header{
 
 
     texidoc=" Noteheads can have dots, and rests too.  
@@ -23,7 +23,7 @@ The priorities to print the dots are (ranked in importance):
 
 
 \score { 
-  \context Voice \notes\relative c'' {
+  \context Voice \relative c'' {
     \time 6/8
 	d4. g,,
     \stemDown

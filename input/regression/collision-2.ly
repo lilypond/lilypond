@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 texidoc = "Single head notes may collide. "
 }
@@ -6,9 +6,9 @@ texidoc = "Single head notes may collide. "
 
 
 \score {
-    \notes
+    
 
-  \context Staff \notes \transpose c c' <<  
+  \context Staff  \transpose c c' <<  
 	{  c4 d e f g2 g4 a | }  \\
 	{ g4 f e g  g2 g2 } 
   >>

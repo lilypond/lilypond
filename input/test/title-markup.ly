@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 %{
    Markup titles also available for direct PostScript output:
@@ -91,7 +91,7 @@ spaceTest = \markup { "two space chars" }
 \book {
     
     \score {
-	\context Staff \notes \relative c' {
+	\context Staff  \relative c' {
 	    c2-\sizeTest c2-\spaceTest
 	}
 	\paper {
@@ -100,7 +100,7 @@ spaceTest = \markup { "two space chars" }
     }
     
     \score {
-	\context Staff \notes \relative c' {
+	\context Staff  \relative c' {
 	    %% stress page breaking:
 	    %% 35 keep on 3 pages
 	    %% 36 spread evenly over 4 pages

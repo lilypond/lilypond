@@ -1,12 +1,12 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
     texidoc = "Beaming can be also given explicitly."
 }
 
     \paper { raggedright= ##t }
 
-\score { \notes
+\score { 
 \relative c'
 	 {
 	 c16[ c8.]

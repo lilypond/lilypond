@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
     texidoc ="@cindex Artificial Harmonics
 
@@ -8,7 +8,7 @@ marking the harmonic pitch with @code{\harmonic}."
 }
 
 \score {
-    \notes { 
+     { 
 	     <c' g'\harmonic>4
 	 }
     \paper {

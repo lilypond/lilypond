@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header { texidoc = "@cindex Stem Cross Staff
 The chords which exceptionally cross staves may be produced by increasing 
@@ -12,7 +12,7 @@ stemExtend = \once \override Stem  #'length = #22
 noFlag = \once \override Stem  #'flag-style = #'no-flag
 
 
-\score { \notes 
+\score {  
     \context  PianoStaff
         << \new Staff   {
 	    \stemDown

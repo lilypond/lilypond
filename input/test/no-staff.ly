@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 % possible rename to staff-something.  -gp
 
 \header{ texidoc = "@cindex Staff Remove
@@ -8,7 +8,7 @@ corresponding engraver.
 }
 
 \score {
-  \notes { c4 d4 e8 d8 }
+   { c4 d4 e8 d8 }
   \paper {
     raggedright = ##t
     \context {

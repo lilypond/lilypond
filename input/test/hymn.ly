@@ -1,5 +1,5 @@
 
-\version "2.3.2"
+\version "2.3.4"
 
 \header { texidoc = "
 
@@ -13,12 +13,12 @@ texts, so they should be switched off.
 	\context Staff <<
 		\time 4/4
 		\partcombine 
-			\notes\relative c'' {
+			\relative c'' {
 				a4 c4.(g8) a4 |
 				g4 e' g(f) | 
 				b, a c2
 			}
-			\notes\relative c'' {
+			\relative c'' {
 				g4 e4.(d8) c4 |
 				g'4 c, e(f) |
 				d2 a

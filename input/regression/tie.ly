@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -8,7 +8,7 @@ The horizontal middle should not overlap with a staffline.
 "
 }
 \score{
-	\notes\relative c''{
+	\relative c''{
 		%b2~b4~b8~b16~b32~b64 r64\break
 		%a2~a4~a8~a16~a32~a64 r64
 		\time 8/4

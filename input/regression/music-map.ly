@@ -10,7 +10,7 @@ dynamics are left over. These are put onto the 2nd measure."
 
 }
 
-\version "2.3.1"
+\version "2.3.4"
 
 #(define (notes-to-skip m)
 "Convert all stuff with duration (notes, lyrics, bass figures, etc.) to skips.
@@ -29,10 +29,10 @@ Scripts and dynamics are maintained.
 
     \paper { raggedright= ##t }
 
-foobar = \notes \transpose c c' { c4\>-^ c4-^ c4\!-^ c4-^  } 
+foobar =  \transpose c c' { c4\>-^ c4-^ c4\!-^ c4-^  } 
 
 \score {
-  \notes \relative c''  \context Voice {
+   \relative c''  \context Voice {
 	\foobar
 
 	<< \applymusic #(lambda (x) (music-map notes-to-skip x))

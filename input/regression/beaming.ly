@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -9,7 +9,7 @@ hidden just as with breakable bar lines.
 "
 }
 
-\score { \context Staff \notes \relative c''  {
+\score { \context Staff  \relative c''  {
 	 c8.[ c16]
 	 c8.[ c16 c8.  c16]
 	 c16[ c8.] |

@@ -3,14 +3,14 @@
 texidoc = "An alternate method to make bass figures is to use
 @code{markup} texts."
 }
-\version "2.2.0"
+\version "2.3.4"
 
 nat = \markup { \natural }
 sh = \markup { \smaller \raise #0.6 \sharp }
 fl = \markup { \flat }
 
 \score {
-      \context Voice \notes {
+      \context Voice  {
 	  \clef bass
 	  \override TextScript  #'font-family = #'number
 	  \override TextScript  #'font-size = #-6

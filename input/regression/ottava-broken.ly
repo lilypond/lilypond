@@ -8,12 +8,12 @@ their horizontal line does not stick out."
 
 
 }
-\version "2.2.0"
+\version "2.3.4"
 
 
 \paper { raggedright = ##t} 
 \score {
-  \notes\relative c''' \notes {
+  \relative c'''  {
   a2 b
   #(set-octavation 1)
   a2 b \break c''1 \break

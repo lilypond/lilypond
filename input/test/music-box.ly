@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 \include "deutsch.ly"
 % possible rename to scheme- something.  -gp
 % TODO: ask if it needs to have so many empty bars in the middle.  -gp
@@ -62,9 +62,9 @@ using Scheme functions to avoid typing work. " }
 
 
 
-\version "2.3.2"
+\version "2.3.4"
 
-pat = \notes \transpose c c' \repeat unfold 2 {
+pat =  \transpose c c' \repeat unfold 2 {
   << { \context Staff=up {r8 e16 f g e f g } }
     { \context Staff=down <<
       \context Voice=vup  { \stemUp \tieUp r16 d8.~d4 }
@@ -73,15 +73,15 @@ pat = \notes \transpose c c' \repeat unfold 2 {
   >>
 }
 
-enda = \notes { r8 f,16 a, c f c a, \stemUp c \change Staff = down
+enda =  { r8 f,16 a, c f c a, \stemUp c \change Staff = down
       a, f, a, f, d, f, d, \change Staff = up \stemBoth
       r8 g16 h d' f' d' h d' h g h d f e\prall d <e g c'>1^\fermata \bar "|."
 }
-endb = \notes {\stemUp \tieUp r16 c,8.~c,4~c,2 r16 h,,8.~h,,4~h,,2 c,1 \bar "|."}
-endc = \notes {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
+endb =  {\stemUp \tieUp r16 c,8.~c,4~c,2 r16 h,,8.~h,,4~h,,2 c,1 \bar "|."}
+endc =  {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
 
 \score {
-  \notes \transpose c c' \context PianoStaff <<
+   \transpose c c' \context PianoStaff <<
     \context Staff=up   { \clef "G"  }
     \context Staff=down { \clef "F" }
     { \applymusic #transform {\pat {c e g c' e' }

@@ -4,10 +4,10 @@
 
 }
 
-\version "2.3.1"
+\version "2.3.4"
 
 \score {
-\notes    \new PianoStaff <<
+    \new PianoStaff <<
     \context Staff = up     {
 	s1 *2
 	}

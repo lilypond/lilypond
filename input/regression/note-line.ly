@@ -1,16 +1,16 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 texidoc = "Note head lines (e.g. glissando)
 run between centers of the note heads."
 }
 
-su = \notes{ \change Staff = up}
-sd = \notes{ \change Staff = down}
+su = { \change Staff = up}
+sd = { \change Staff = down}
 
 \score {
     \context PianoStaff
-        \notes <<
+         <<
 	\context Staff = up   {
             \set PianoStaff.connectArpeggios = ##t
 	    \showStaffSwitch

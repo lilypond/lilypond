@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -16,7 +16,7 @@ upperStaff = \context GregorianStaff = upperStaff <<
 
     \override Staff.StaffSymbol  #'line-count = #4
 
-    \notes \transpose c c {
+     \transpose c c {
 	\override Staff.KeySignature  #'style = #'vaticana
 	\override Staff.Accidental  #'style = #'vaticana
 	\override NoteHead  #'style = #'vaticana_punctum
@@ -119,7 +119,7 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
     % \override Staff.StaffSymbol  #'line-count = #5
     \context Staff \applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 5)
 
-    \notes \transpose c c {
+     \transpose c c {
 	\set autoBeaming = ##f
 	\override NoteHead  #'style = #'neo_mensural
 	\override Rest  #'style = #'neo_mensural

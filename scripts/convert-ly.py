@@ -2107,6 +2107,14 @@ def conv (str):
 conversions.append (((2, 3, 2), conv,
 		     '''\\FooContext -> \\Foo'''))
 
+def conv (str):
+	str = re.sub (r'\\notes\b', '', str)
+	
+	return str
+
+conversions.append (((2, 3, 4), conv,
+		     '''remove \\notes'''))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

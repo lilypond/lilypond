@@ -1,6 +1,6 @@
 
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc="
 A square bracket on the left indicates that the player should not
@@ -9,7 +9,7 @@ arpeggiate the chord.
 }
 
 \score{
-     \notes\relative c''{
+     \relative c''{
 	 \arpeggioBracket
 	 
 	 <fis,  d a >\arpeggio

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 texidoc="An extra offset may be added between a slur and staccato(s)."
 }
@@ -7,7 +7,7 @@ texidoc="An extra offset may be added between a slur and staccato(s)."
 \paper { raggedright = ##t}
 
 \score {
-  \context Staff \notes\relative c'' {
+  \context Staff \relative c'' {
     \override Slur 
       #'attachment-offset = #'((0 . 1) . (0 . 1))
     a-.( g-.  a)-.

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
 texidoc = "Cautionary accidentals are indicated using either
@@ -9,7 +9,7 @@ parentheses (default) or smaller accidentals.
 }
 
 \score {
-    \notes {
+     {
     c''4
     cis''?4
     \override Staff.Accidental  #'cautionary-style = #'smaller

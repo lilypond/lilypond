@@ -4,7 +4,7 @@ texidoc = "Music function are generic music transformation functions,
 which can be used to extend music syntax seamlessly."
 
 }
-\version "2.3.1"
+\version "2.3.4"
 
 #(define myBar
   (ly:make-music-function
@@ -17,7 +17,7 @@ which can be used to extend music syntax seamlessly."
     ))
 
 \score{
-    \notes {
+     {
 	d4 \myBar #"|:" d4
 	
     }

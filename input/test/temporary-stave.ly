@@ -1,5 +1,5 @@
 
-\version "2.3.2"
+\version "2.3.4"
 
 \header {
 
@@ -11,7 +11,7 @@ time and key signatures and clef at the beginning of the extra stave.
 } 
 
 \score {
-  \notes {
+   {
     \relative c' {
       \context Staff = One { c4 d e f }
       <<

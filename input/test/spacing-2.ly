@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 % more yummy regression goodness.  -gp
 \header {
@@ -9,7 +9,7 @@ Eighth notes should be spaced equidistantly.
 }
 
 \score { 
-    \notes \relative c''
+     \relative c''
 	\context GrandStaff <<
 	\new Staff <<
 		\new Voice { \stemUp\slurUp\tieUp

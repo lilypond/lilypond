@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
     texidoc = "Point-symmetric beams should receive the same
@@ -8,7 +8,7 @@
 }
 
 \score{
-    \notes\relative c'{
+    \relative c'{
 	 a8[ b'' a,, b'']
 	 b8[ a,, b'' a,,]
     }

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
     texidoc = "@cindex Bar Lines
 There a many types of bar lines available.
@@ -7,7 +7,7 @@ There a many types of bar lines available.
 % TODO: dashed "|", HJJ
 \score
 {
-\notes \relative c'' {
+ \relative c'' {
 c4
 \bar "|." c
 \bar "|:"c

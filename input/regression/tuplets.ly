@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
     
 texidoc="
@@ -19,7 +19,7 @@ direction as the bracket. The endings can be adjusted with
 \paper { raggedright= ##t }
 
 \score{
-	\notes \context Voice \relative c'' {
+	 \context Voice \relative c'' {
 		 \times 2/3 { a8 b c }
 		 \times 2/3 { r8  b[ f] }
 		 \override TupletBracket  #'bracket-flare = #'(0.5 . 0.5)

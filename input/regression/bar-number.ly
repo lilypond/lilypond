@@ -1,5 +1,5 @@
 
-\version "2.3.2"
+\version "2.3.4"
 
 \header {
 
@@ -13,7 +13,7 @@ be increased.
 }
 
 \score {
-  \notes \relative c'' {
+   \relative c'' {
       \partial 4 c4 
       c1 c c
       \set Score.currentBarNumber = #99999

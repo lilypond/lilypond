@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc="
 Staff margins are also markings attached to barlines.  They should be
@@ -13,7 +13,7 @@ PianoStaff.
 
 \score {
 
-  \notes \context PianoStaff <<
+   \context PianoStaff <<
     \context Staff = treble    {
       \set PianoStaff.instrument = "Piano "
       \set Staff.instrument = "Right " { c''4 }}

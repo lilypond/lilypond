@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc= "Lyrics can be set to a melody automatically.  Excess lyrics will be
@@ -17,7 +17,7 @@ to work."
 
 
 
-m = \notes  \relative c'' {
+m =   \relative c'' {
 	\autoBeamOff
 	g8( a)  r8 \times 2/3 { g'8( f e) } r8 \grace {  d16[ c b] } e4
 	\emptyText
@@ -25,13 +25,13 @@ m = \notes  \relative c'' {
 	\melismaEnd
 	b }
 
-noise = \repeat unfold 6 \notes \relative c'' { g16 g g g }
+noise = \repeat unfold 6  \relative c'' { g16 g g g }
 
  textI = \context Lyrics = "middle-1" \lyrics { la2 __ la -- la __ la la la la la  }
 textII = \context Lyrics = "middle-1" \lyrics { da -- da __ da -- da da da da da  }
 
 \score {
-    \notes << \context Staff = SA \noise
+     << \context Staff = SA \noise
       \context Lyrics = LA { s1 }
       \context Staff = SB { s1 }
       \context Lyrics = LB { s1 }

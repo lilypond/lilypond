@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header{ texidoc = "@cindex Tabulature
 A sample tablature, with both normal staff and tab.
@@ -12,7 +12,7 @@ chord articulations (outside a chord)
 "
 }
 
-partition = \notes {
+partition =  {
     \key e \major
     <e\5 dis'\4>
     <e dis'>

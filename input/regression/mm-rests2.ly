@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -10,7 +10,7 @@ The number of bars will be written above the sign.
 "
 }
 
-thenotes = \notes \relative cis' {
+thenotes =  \relative cis' {
 \set Score.skipBars = ##t
 \time 4/4
 R1 |

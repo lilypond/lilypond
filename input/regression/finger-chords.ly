@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
 texidoc = "With the new chord syntax, it is possible to associate
@@ -11,7 +11,7 @@ easier to process."
 
 
 \score {
-    \notes \relative c'{
+     \relative c'{
 
 	%% input order is not 1 2 3 , output is.
 	<c-1 g'-3 e-2  b'-4 d-5 f-6 a-7 c-8 > 4	

@@ -1,4 +1,4 @@
-\version "2.3.1"
+\version "2.3.4"
 
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc= "@cindex Scheme Manual Accidentals
@@ -14,7 +14,7 @@ some Scheme code. " }
 	    (ly:grob-parent elt 1) 'staff-position) pos))))
 
 \score {
-  \context Voice \notes \relative c'' {
+  \context Voice  \relative c'' {
     c2.
     <<
 \set Staff.AccidentalPlacement = \turnOff

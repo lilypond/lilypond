@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
 texidoc = "Rests can have pitches--these will be affected by
@@ -9,7 +9,7 @@ beam/rest collision resolving will leave it alone."
 
     \paper { raggedright= ##t }
 
-\score { \notes\relative c'' 
+\score { \relative c'' 
 	 {
 	     a4\rest b4\rest c4\rest
 

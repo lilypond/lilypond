@@ -1,5 +1,5 @@
 
-\version "2.3.1"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -9,7 +9,7 @@ setting the @code{extra-offset} of a grob.
 }
 
 \score{
-	\notes\relative c''{
+	\relative c''{
 	    \context Bottom
 	      \applyoutput #(outputproperty-compatibility
 			   (make-type-checker 'note-head-interface)

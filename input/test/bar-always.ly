@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
     texidoc = "@cindex Bars Always
@@ -10,7 +10,7 @@ By setting @code{barAlways} and @code{defaultBarType}, barlines may be inserted 
 
 
 \score {
-	\notes \relative c''{
+	 \relative c''{
 		\set Score.barAlways = ##t
 		\set Score.defaultBarType = ":|:"
 		c4 c4 c4 c4 }

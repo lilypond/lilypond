@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc="
 Breathing signs are available in different tastes: commas (default),
@@ -14,7 +14,7 @@ ticks, vees and `railroad tracks' (caesura)."
     % Modern notation:
     %
     \new Staff {
-      \notes \relative c'' {
+       \relative c'' {
 	\key es \major \time 3/4
 
 	% this bar contains no \breathe

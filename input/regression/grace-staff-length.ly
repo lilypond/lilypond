@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc = "Stripped version of trip.ly.  Staves should be of correct length."
 }
@@ -6,7 +6,7 @@ texidoc = "Stripped version of trip.ly.  Staves should be of correct length."
     \paper { raggedright= ##t }
 
 \score{
-  \context PianoStaff \notes \relative c'' <<
+  \context PianoStaff  \relative c'' <<
     \new Staff {
        r1
        r1

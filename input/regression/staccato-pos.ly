@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 
@@ -11,7 +11,7 @@ to it.  "
 }
 
 \score { 
-    \context Voice \notes\relative c' {
+    \context Voice \relative c' {
 	e'4-. f-. g-. d-. c-. b-.
 	\stemDown
 	e,-. d-. c-. b-. a-. g-.    

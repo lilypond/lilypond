@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \paper { raggedright= ##t }
 
@@ -6,5 +6,5 @@
 texidoc = "Scripts may be stacked."
 }
 
-\score { \notes { c'''->-. } }
+\score {  { c'''->-. } }
 

@@ -1,10 +1,10 @@
-\version "2.2.0"
+\version "2.3.4"
 \header{
 	texidoc="@cindex Cautionary Accidentals
 Cautinary accidentals are displayed in slurs by default. They can be 
 shown also with accidentals of smaller size.
 " }
-\score { \notes \context Staff \transpose c c'' {
+\score {  \context Staff \transpose c c'' {
   \key d \major
 %  \set Staff.autoReminders = #'cautionary
   \override Staff.Accidental  #'font-size = #0

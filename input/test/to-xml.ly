@@ -1,6 +1,6 @@
-\version "2.2.0"
+\version "2.3.4"
 
-fooBar = \notes { << c''4 \\ g'4 >> }
+fooBar =  { << c''4 \\ g'4 >> }
 
 #(ly:set-option 'parse-protect #f)
 #(load-from-path "to-xml.scm")

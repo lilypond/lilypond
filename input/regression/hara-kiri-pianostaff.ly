@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 
 \header { texidoc =
 
@@ -21,7 +21,7 @@ alignment; this should not confuse the mechanism.
 \paper { raggedright= ##t }
 
 	
-\score { \notes \transpose c c''
+\score {  \transpose c c''
  \context PianoStaff <<
    \new Staff {  c4 c c c \break  s1 \break c4 c c c \break c c c c}
    \new Staff {  d4 d d d s1 s1 s1 s1 }

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header { texidoc = "@cindex Stem Extend
 Extending stems to the center line may be prevented using @code{no-stem-extend}.
@@ -6,7 +6,7 @@ Extending stems to the center line may be prevented using @code{no-stem-extend}.
 }
 
 \score { 
-  \context Voice \notes\relative c {
+  \context Voice \relative c {
 	\context Staff <<
 		\new Voice { 
 			f2 f8 g a b 

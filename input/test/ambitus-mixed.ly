@@ -13,7 +13,7 @@ in the same score (not demonstrated in this file).
 "
 }
 
-\version "2.3.2"
+\version "2.3.4"
 
 #(define (kill-ambitus grob grob-context apply-context)
   (if (memq 'ambitus-interface (ly:grob-property grob 'interfaces))
@@ -27,10 +27,10 @@ in the same score (not demonstrated in this file).
 
 
 
-voiceA = \notes \relative c'' {
+voiceA =  \relative c'' {
   c4 a d e f2
 }
-voiceB = \notes \relative c' {
+voiceB =  \relative c' {
   es4 f g as b2 
 }
 \score {

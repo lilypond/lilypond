@@ -1,11 +1,11 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
     texidoc = "Instrument names are also printed on  partial starting measures."
 }
 
 \score {
-  \notes \relative c'' { \set Staff.instrument = "foo" \partial 4 c4 c1 }
+   \relative c'' { \set Staff.instrument = "foo" \partial 4 c4 c1 }
   \paper { raggedright = ##t }
 }
 

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 texidoc="
@@ -12,7 +12,7 @@ are also automatically printed but the octavation has been dropped out.
 
 
 
-mel = \notes \transpose c c' {
+mel =  \transpose c c' {
   \time 4/4 \key d \major
   gis4 g' g gis' | gis2 g' | g1 | gis | g | gis' | g |
   fis4 f' f fis' | fis2 f' | f1 | fis | f | fis' | f |

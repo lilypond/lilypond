@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 texidoc = "Whole and half rests moving outside the staff should get
 ledger lines."
@@ -6,7 +6,7 @@ ledger lines."
 
 
 \score {
-\notes  {
+  {
    \override Rest  #'staff-position = #4
   r1 \override Rest  #'staff-position = #5
   r1 \override Rest  #'staff-position = #6

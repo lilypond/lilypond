@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 
 
 \header {
@@ -15,7 +15,7 @@ are turned off for brevity.
 
 }
 
-chs = \notes \transpose c' c' 
+chs =  \transpose c' c' 
 {
 	<c e g>1
 	<c es g>% m = minor triad
@@ -67,7 +67,7 @@ chs = \notes \transpose c' c'
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % alternate Jazz notation
 
-efullmusicJazzAlt = \notes
+efullmusicJazzAlt = 
 {
     <c e gis>1-\markup { "+" }
     <c e g b>-\markup { \normal-size-super
@@ -83,7 +83,7 @@ efullmusicJazzAlt = \notes
 
 efullJazzAlt = #(sequential-music-to-chord-exceptions efullmusicJazzAlt #f)
 
-epartialmusicJazzAlt = \notes{
+epartialmusicJazzAlt = {
     <c d>1-\markup { \normal-size-super "2" }
     <c es>-\markup { "m" }
     <c f>-\markup { \normal-size-super "sus4" }
@@ -141,7 +141,7 @@ banterProperties = \sequential {
 	}
 %}
 	
-	\new Staff \notes \transpose c c' { \chs }
+	\new Staff  \transpose c c' { \chs }
     >>
     \paper {
 	indent = 3.\cm

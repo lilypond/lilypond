@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc = "Concurrent tuplets should be equidistant on all staffs.
 
@@ -9,7 +9,7 @@ uneven spacing.
 
 
 
-multipart = \notes \relative c'{ 
+multipart =  \relative c'{ 
     \context StaffGroup << 
                 \new Staff  \context Voice { 
                    \times 2/10 {  c8[ c c c c c c c c c] } 
@@ -23,7 +23,7 @@ multipart = \notes \relative c'{
 	}
     
 \score{
-    \notes { 
+     { 
 	\multipart 
     }
 

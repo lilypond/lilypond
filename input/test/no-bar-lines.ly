@@ -1,5 +1,5 @@
 
-\version "2.3.2"
+\version "2.3.4"
 % possible rename to bar-lines-foo.  -gp
 
 \header{ texidoc = "@cindex Bar Lines Remove
@@ -9,7 +9,7 @@ have been removed.
 }
 
 \score {
-  \notes \relative c'' {
+   \relative c'' {
     a b c d
     d c b a
   }

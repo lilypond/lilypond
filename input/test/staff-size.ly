@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header { texidoc = "@cindex Staff Size
 
@@ -8,7 +8,7 @@ must be scaled."
 }
 
 \score {
-  \notes \relative c' <<
+   \relative c' <<
       \new Staff \relative c'' {
 	  \dynamicDown c,,4 \ff c c c
       }

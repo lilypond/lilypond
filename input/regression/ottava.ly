@@ -10,7 +10,7 @@ string can be tuned with @code{Staff.ottavation}.
 "
 
 }
-\version "2.2.0"
+\version "2.3.4"
 
 % . There must be a minimum distance between the octavation line and the
 %   topmost staff line, taking into account the height of the closing
@@ -34,7 +34,7 @@ string can be tuned with @code{Staff.ottavation}.
 
 \paper { raggedright = ##t} 
 \score {
-  \notes\relative c''' \notes {
+  \relative c'''  {
   a b c a
   #(set-octavation 1)
   a b c a

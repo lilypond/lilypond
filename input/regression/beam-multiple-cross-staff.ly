@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
     texidoc = "Kneed beams (often happens with cross-staff beams)
@@ -8,7 +8,7 @@ to the last beam.
 "
 }
 
-\score { \notes
+\score { 
 	 \context PianoStaff \relative c' <<
 	     \context Staff = SA {
 		 \stemDown

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
     texidoc="@cindex Beam Position Control
 
@@ -7,7 +7,7 @@ Beam positions may be controlled manually, by overriding the @code{positions} se
 
 " }
 \score { 
-    \context Voice \notes\relative c {
+    \context Voice \relative c {
 	%% from upper staffline (position 4) to centre (position 0)
 	\override Beam  #'positions = #'(2 . 0)
 	 c'8[ c] 

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 
 \header { texidoc= "
@@ -9,7 +9,7 @@ can be printed automatically. This is enabled if the property
 
       }
 \score {
-    \notes \relative c'
+     \relative c'
     \context PianoStaff <<
 	\set PianoStaff.followVoice = ##t
 	\context Staff = one \context Voice {

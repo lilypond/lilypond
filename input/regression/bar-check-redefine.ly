@@ -1,4 +1,4 @@
-\version "2.3.0"
+\version "2.3.4"
 \header {
     texidoc = "The meaning of @code{|} is stored in the
 identifier @code{pipeSymbol}."
@@ -7,6 +7,6 @@ identifier @code{pipeSymbol}."
 pipeSymbol = \bar "||"
 
 \score {
-    \notes  { c'2 | c'2 | }
+      { c'2 | c'2 | }
 }
     

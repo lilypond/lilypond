@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header { texidoc=" You can write stencil callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is
@@ -57,7 +57,7 @@ GROB.  The dimensions of the stencil is not affected.
 
 
 \score {
-	\notes \relative c' { c4 e
+	 \relative c' { c4 e
 
 		    \override NoteHead  #'print-function
 		   =

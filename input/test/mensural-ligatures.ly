@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 % TODO:
 % check with ancient- stuff.  rename, merge, something.  -gp
 
@@ -13,7 +13,7 @@ in a tight manner."
 % graphical width of the ligatures rather to the musical moment in time.
 % This is intended behaviour.
 
-voice = \notes \transpose c c' {
+voice =  \transpose c c' {
   \set Score.timing = ##f
   \set Score.defaultBarType = "empty"
   g\longa c\breve a\breve f\breve d'\longa^\fermata

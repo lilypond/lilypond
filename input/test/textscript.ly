@@ -1,12 +1,12 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header { texidoc = "@cindex Textscript
 There are different fonts and glyphs to be used with @code{\markup} command. "
 }
 
 \score{
-  \notes\relative c''{
+  \relative c''{
     \override TextScript  #'font-shape = #'upright
     c1^\markup { \dynamic "p" "ma sosten." }  
     c^\markup \huge "ABCD" 

@@ -1,12 +1,12 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
 texidoc = "Tuplet-spanner should not put (visible) brackets on
 beams even if they're auto generated."
 }
 
-\score { \notes \relative c' {
+\score {  \relative c' {
   \set tupletSpannerDuration = #(ly:make-moment 1 4)
   \override TupletBracket  #'bracket-visibility = #'if-no-beam
   \times 2/3 {

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
     title	= "Gregorian Scripts"
     texidoc  = "@cindex Gregorian Scripts
@@ -30,7 +30,7 @@ FIXME: episem stops one notehead too early.
 \score {
   \context VaticanaVoice {
     \override VaticanaScript  #'padding = #-0.5
-    \notes {
+     {
       a\ictus
       a\circulus
       a\semicirculus

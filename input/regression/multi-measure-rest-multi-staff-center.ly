@@ -2,10 +2,10 @@
 independent on prefatory matter in other staves."
 
 	  }
-\version "2.2.0"
+\version "2.3.4"
 
 \score {
-\notes    << \new Staff  { R1 } 
+    << \new Staff  { R1 } 
      \new Staff { f'1  \clef bass } 
 
     >>

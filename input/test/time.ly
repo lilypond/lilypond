@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 % TODO: This file could be old.  Ask about it later.  -gp
 
 \header { texidoc = "@cindex Time
@@ -41,7 +41,7 @@ properties will quite definitely change, and maybe the syntax of the
 %}
 
 \score { 
-  \context Voice \notes\relative c {
+  \context Voice \relative c {
     % LilyPond doesn't understand 'default =>> it does what you want
     \override Staff.TimeSignature  #'style = #'default
     \time 1/1

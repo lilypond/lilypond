@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 
 \header {
@@ -10,7 +10,7 @@ texidoc = "Percent repeats are not skipped, even when @code{skipBars} is set."
 \score {
      \context Staff <<
 	\set Score.skipBars = ##t
-	\notes {
+	 {
 	\repeat "percent" 2 { g2 a g a }
 	}
      >>

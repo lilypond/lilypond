@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
     
     texidoc ="Broken engraving of a bar at the end of a line does not upset 
@@ -7,7 +7,7 @@
 
 \score
 {
-\notes \relative c' {
+ \relative c' {
     c2.. r8
     c2.. r8
     \time 3/4 \break

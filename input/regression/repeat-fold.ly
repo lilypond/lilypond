@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -8,7 +8,7 @@ should not be more alternatives than repeats.
 }
 
 \score {
-  \context Staff \notes \relative c'' {
+  \context Staff  \relative c'' {
     \repeat fold 3 { c^"3$\\times$ 0alt" d }
     % less alts than body
     \repeat fold 4 { c^"4$\\times$ 2alt" d } \alternative { e f }

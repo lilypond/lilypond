@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.2"
+\version "2.3.4"
 
 \header{
 
@@ -13,7 +13,7 @@ The engraver does no time-keeping, so it involves some trickery to get
 }
 
 \score{
-        \context Staff=one \notes\relative c''{
+        \context Staff=one \relative c''{
 		     % gliss non gliss and 
 	     c4 \glissando d e \glissando f \glissando \break
 	     % consecutive 

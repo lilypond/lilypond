@@ -12,10 +12,10 @@ The bracket direction is determined by the dominating stem direction.
 }
 
 
-\version "2.2.0"
+\version "2.3.4"
 
 \score {
-    \notes \relative c' {
+     \relative c' {
 	\times 4/5 { a'4 as g fis f }
 	\times 4/5 { fis4 e es d des }
 	\times 4/5 { fis,4 e es d des }

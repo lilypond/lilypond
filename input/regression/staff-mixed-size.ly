@@ -7,7 +7,7 @@ large on smaller staves."
 
 }
 
-\version "2.2.0"
+\version "2.3.4"
 
 \score {
   <<
@@ -15,12 +15,12 @@ large on smaller staves."
       fontSize = #-4
       \override StaffSymbol #'staff-space = #(magstep -4)
     }
-    \notes \relative c' {
+     \relative c' {
 \override DynamicText  #'extra-offset = #'(0 . 3)
       s1-\f c''8[(\< r a g]) e[ r d( <f a>])\! \times 2/3 { d4 d d }
     }
     \new Staff
-    \notes \relative c' {
+     \relative c' {
 \override DynamicText  #'extra-offset = #'(0 . 3)
       s1-\f c''8[(\< r a g]) e[ r d( <f a>])\! \times 2/3 { d4 d d }
     }

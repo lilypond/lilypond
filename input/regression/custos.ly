@@ -1,10 +1,10 @@
-\version "2.3.2"
+\version "2.3.4"
 \header {
     texidoc = "Custodes may be engraved in various styles."
 }
 
 \score {
-    \notes {
+     {
 	\override Staff.Custos  #'neutral-position = #4
 
 	\override Staff.Custos  #'style = #'hufnagel

@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 \header{
 
 texidoc="
@@ -15,7 +15,7 @@ are used then a different symbol is used.
 }
 
 
-\score { \notes {
+\score {  {
     \time 3/4 \key cis \major
     R2.*15
   

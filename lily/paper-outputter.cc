@@ -102,7 +102,7 @@ Paper_outputter::output_stencil (Stencil stil)
 {
   ly_interpret_stencil (stil.expr (),
 			ly_scheme_function ("ly:paper-outputter-dump"),
-			smobify_self (),
+			self_scm (),
 			ly_offset2scm (Offset (0, 0)));
 }
 

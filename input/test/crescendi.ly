@@ -1,11 +1,11 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
 	texidoc="@cindex Crescendi
 Crescendi can be printed in a number of different ways.
 " }
 \score{
-\notes\relative c''{
+\relative c''{
 a1\fff\> a\pp\!
 a\< a\!
 \set crescendoText = \markup { \italic \bold "cresc." }

@@ -1,11 +1,11 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
   texidoc = "Grace note spacing. Should it be tuned? "
 }
 	
 \score {
- \notes \context Voice \relative c'' { \grace {  c16[ d] } c4 }
+  \context Voice \relative c'' { \grace {  c16[ d] } c4 }
   \paper { raggedright = ##t}
 
 }

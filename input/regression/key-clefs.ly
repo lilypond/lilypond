@@ -1,10 +1,10 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header { texidoc = "Each clef have own accidental placing rules. " }
 
 #(set-global-staff-size 16)
 
-\score { \notes
+\score { 
   \relative cis' {
 
 % \clef french % same as octaviated bass

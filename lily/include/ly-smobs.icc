@@ -79,10 +79,10 @@ SCM CL::smobbed_copy () const					\
 
 #define IMPLEMENT_SMOBS(CL)							\
 IMPLEMENT_BASE_SMOBS (CL)							\
-SCM										\
+void										\
 CL::smobify_self ()								\
 {										\
-  SCM s =   unprotected_smobify_self ();\
+  SCM s = unprotected_smobify_self ();\
   scm_gc_protect_object (s);\
   return s;\
 }\

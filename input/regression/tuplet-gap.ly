@@ -5,7 +5,7 @@
 
 }
 
-\version "2.2.0"
+\version "2.3.4"
 
 \paper {
    indent = 0.0\mm
@@ -13,7 +13,7 @@
 }
 
 \score{
-    \notes \relative c'' {
+     \relative c'' {
 	\set tupletNumberFormatFunction = #fraction-tuplet-formatter
 	\times  17/12  { c8 c4 c8 c8}
 	}

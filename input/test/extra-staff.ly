@@ -1,5 +1,5 @@
 
-\version "2.3.2"
+\version "2.3.4"
 
 % definitely wil be renamed to something.
 %{
@@ -35,8 +35,8 @@ a piece. "
 
 \score {
 	<<
-		\new Staff \notes\relative c''{ c1 c c c c }
-		\new StaffGroup \notes\relative c''{ 
+		\new Staff \relative c''{ c1 c c c c }
+		\new StaffGroup \relative c''{ 
 			\new Staff 
 			c1 c
 			<< c1 \new Staff { c1 } >>

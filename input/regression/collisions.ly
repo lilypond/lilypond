@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.2.0"
+\version "2.3.4"
 \header{
 texidoc="
 In addition to normal collision rules, there is support for polyphony, 
@@ -12,12 +12,12 @@ copyright = 	 "public domain"
 
 
 twovoice =
-\notes \relative c' \context Staff \notes << 
+ \relative c' \context Staff  << 
 	 {  g4 f f e e d d c } 
 \\ {  c4 c  d d e e f f }
 >>
 
-twovoicechords = \context Staff \notes <<
+twovoicechords = \context Staff  <<
  \relative c' {
  e4 d c b a g f
 	}\\
@@ -28,13 +28,13 @@ twovoicechords = \context Staff \notes <<
 >>
 
 
-threevoice = \context Staff \notes <<
+threevoice = \context Staff  <<
 	 { g4 f e f g a g2 } \\
 	 {  c4 d e d c d es } \\
 	 { e4 e e e e e e e  }
 >>
 
-hairyChord = \context Staff \notes \relative c''
+hairyChord = \context Staff  \relative c''
     << e \\
       fis, \\
       cis' \\
@@ -44,7 +44,7 @@ hairyChord = \context Staff \notes \relative c''
 
 
 \score{
-	\notes { \transpose c c' {
+	 { \transpose c c' {
 	   \twovoice
 	   \twovoicechords
 	   \threevoice   }

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
     texidoc = "@cindex Clef End of Line
@@ -6,7 +6,7 @@ In these scales, the clef and key signature are shown at the end of the line.
 " }
 
 \score {
-    \notes \transpose c c' {
+     \transpose c c' {
 	\override Staff.Clef  #'break-visibility = #end-of-line-visible
 	\override Staff.KeySignature  #'break-visibility = #end-of-line-visible
 	\set Staff.explicitClefVisibility = #end-of-line-visible

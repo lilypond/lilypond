@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -17,7 +17,7 @@ finalis, the latter three looking similar to bar glyphs.
     % Gregorian notation:
     %
     \context VaticanaStaff {
-      \notes \relative c' {
+       \relative c' {
 
 	% we turn bars and bar numbers off for Gregorian stuff
 	\override Staff.BarLine  #'transparent = ##t

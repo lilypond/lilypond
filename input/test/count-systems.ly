@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header{
     
     texidoc="@cindex Count Systems
@@ -40,7 +40,7 @@ to the number of systems or the system number of a grob.
   
   
 \score{
-    \notes\relative c''{
+    \relative c''{
 	\override NoteHead  #'after-line-breaking-callback
 	 = #display-system-count
 %	= #display-systemno

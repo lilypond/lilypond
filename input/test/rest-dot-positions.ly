@@ -1,10 +1,10 @@
 
-\version "2.2.0"
+\version "2.3.4"
 % candidate for regression.  -gp
 \header { texidoc = "@cindex Rest Dot Positions
 Dots of rests should follow the rest positions. " }
 
-muz = \notes \relative c'' {
+muz =  \relative c'' {
     \time 6/1
     r\longa r\breve |
     r\longa. |

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -18,7 +18,7 @@ not set.  Main note scripts do not end up on the grace note.
 "
 }
 
-\score {\notes \context Voice = VA \relative c'' {
+\score { \context Voice = VA \relative c'' {
 	\grace b8 c4\fermata
 	\grace {  c32[ cis32] } gis4
 	\grace {  cis32[ dis32] } e4

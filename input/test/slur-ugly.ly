@@ -1,16 +1,16 @@
 
-\version "2.3.2"
+\version "2.3.4"
 
 \header { texidoc="@cindex Slur Ugly
 Strange slurs can be produced by setting properties by hand. "
 }
 
-baseWalk = \notes \relative c {
+baseWalk =  \relative c {
   d,8( a' d f a d f d a f d  a)
 }
 
 \score {
-  \notes \context PianoStaff <<
+   \context PianoStaff <<
     \time 6/4
     \context Staff=up { s1 * 6/4 }
     \context Staff=down <<

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -10,7 +10,7 @@ in unbroken state.
 "
 }
 \score{
-	\notes \relative c''{
+	 \relative c''{
 		e1( \break a,)
 		\time 2/4
 		e'2( \break a,)(\break

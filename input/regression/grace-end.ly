@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
     texidoc="@cindex Grace End
@@ -9,7 +9,7 @@
 }
 
 \score { 
-  \context Voice \notes\relative c' {
+  \context Voice \relative c' {
     
 	c4 \grace {  d16[ d16] }
 	

@@ -1,4 +1,4 @@
-\version "2.3.1"
+\version "2.3.4"
 
 \header {
     texidoc = "@cindex Bar Number Every Fifth Reset
@@ -16,7 +16,7 @@ resetBarnum = \context Score \applycontext
   #(set-bar-number-visibility 4)
 \score {
     <<
-        \notes \transpose c c'' {
+         \transpose c c'' {
 	    \override Score.BarNumber  #'break-visibility =#end-of-line-invisible
 	    \override Score.RehearsalMark  #'padding = #2.5
 	    \mark "A" \resetBarnum

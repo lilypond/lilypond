@@ -4,9 +4,9 @@ texidoc = "Tied accidentaled notes (which cause reminder accidentals) do not
 wreak havoc in the spacing when unbroken."
 }
 
-\version "2.2.0"
+\version "2.3.4"
 
-rechts = \notes \relative c' {
+rechts =  \relative c' {
   \clef treble
   \time 3/4
     c8 b2  <g b des f>8 ~ |

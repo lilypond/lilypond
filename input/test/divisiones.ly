@@ -7,13 +7,13 @@ Choices are @code{divisioMinima}, @code{divisioMaior},
 @code{caesura}.
 " }
 
-\version "2.2.0"
+\version "2.3.4"
 
 \include "gregorian-init.ly"
 
 \score {
  <<
-	\context Voice \notes \transpose c c' {
+	\context Voice  \transpose c c' {
 	    \set Score.timing = ##f
 	    \set Score.barAlways = ##t
 	    \override TextScript  #'padding = #3

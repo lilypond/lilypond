@@ -5,13 +5,13 @@
 
 }
 
-\version "2.3.0"
+\version "2.3.4"
 
 \score {
    <<
      \new Staff
        \partcombine
-         \notes { R1 * 2 }
-         \notes { c'8\> c'\! r2.  }
+          { R1 * 2 }
+          { c'8\> c'\! r2.  }
    >>
 }

@@ -6,23 +6,23 @@
 In this example, all instruments play sounding central C, the target is a instrument in F."
 
 }
-\version "2.2.0"
+\version "2.3.4"
 
 
-\addquote clarinet \notes {
+\addquote clarinet  {
     \transposition bes
     d'16 d'16 d'8 
     d'16 d'16 d'8 
     d'16 d'16 d'8 
     d'16 d'16 d'8 
     }
-\addquote sax \notes {
+\addquote sax  {
     \transposition es'
     a8 a a a a a  a a 
     }
 
 \score {
-    \notes{
+    {
 	\transposition f  % french horn
 	
 	g'4

@@ -5,15 +5,15 @@
 
 }
 
-\version "2.2.0"
+\version "2.3.4"
 
 \score {
     \new Staff
-    \partcombine \notes \relative c'' {
+    \partcombine  \relative c'' {
 	bes2(
 	 a4)
 	}
-    \notes \relative c' {
+     \relative c' {
 	r2 cis4
     }
 }

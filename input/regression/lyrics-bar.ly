@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 
 \header{
 texidoc="
@@ -9,7 +9,7 @@ lyrics do not collide with barlines.
 
 \score {
 	\context StaffGroup <<
-	\notes \context Staff {
+	 \context Staff {
 	        b1 \bar "|:" b1 \bar ":|"
 	}
 	\lyrics <<
@@ -21,7 +21,7 @@ lyrics do not collide with barlines.
 		        this4 one has no BarEngraverAddedToContext1
 		}
 	>>
-	\notes \new Staff { b1 b1 }
+	 \new Staff { b1 b1 }
 	>>
 	\paper {
 		raggedright = ##t

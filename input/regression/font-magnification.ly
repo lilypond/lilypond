@@ -1,11 +1,11 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header { texidoc = "The magnification can be set for any font. Note
 that this does not change variable symbols such as beams or slurs. 
 " }
 
 \score {
-\notes \relative c'' \context Voice {
+ \relative c'' \context Voice {
 \override NoteHead  #'font-magnification = #0.9
 c4
 \override NoteHead  #'font-magnification = #0.8

@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 \header {
     title = "Screech and boink"
     subtitle = "Random complex notation"
@@ -6,7 +6,7 @@
 }
 
 \score {
-    \notes \context PianoStaff <<
+     \context PianoStaff <<
 	\context Staff = up {
 	    \time 4/8
 	    \key c \minor

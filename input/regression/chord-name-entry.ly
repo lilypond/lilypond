@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 
 \header {
@@ -12,7 +12,7 @@ the suffixes are printed below pitches.
 
 \score
 {
-\notes  { \context Voice \chords {
+  { \context Voice \chords {
 c1_"(nothing)"
 c:7_":7"
 c:m_":m"

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 % keep for now, although merging into beam-auto-override is a possibility.
 \header {
 	texidoc = "@cindex Auto Beaming 4/8
@@ -8,7 +8,7 @@ You can override the automatic beaming settings.
 }
 
 \score{
-   \notes\relative c''{
+   \relative c''{
      \time 4/8
 
 %{

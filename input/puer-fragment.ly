@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 \header {
     title	= "Puer natus est nobis (excerptum)"
     subtitle	= "Antiphona ad introitum VII"
@@ -24,7 +24,7 @@ before the ligature (not demonstrated in this example)."
 %%% but this is intentional for editorial purposes (simplifies some
 %%% global search/replace operations in emacs).
 
-cantus = \context VaticanaVoice = "cantus" \notes {
+cantus = \context VaticanaVoice = "cantus"  {
   \[ g4\melisma %%% Pu-
     \pes
     d'\melismaEnd

@@ -16,10 +16,10 @@ output for printing of the source of this example (commenting one line).
 
     }
 
-\version "2.2.0"
+\version "2.3.4"
 
 \score {
-\new Staff \notes \relative c'' {
+\new Staff  \relative c'' {
     \set Staff.instrument = #"rotatebox{90}{Chor}"
 
 %%  uncomment this for rotation

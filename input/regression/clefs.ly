@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header{
 
@@ -11,7 +11,7 @@ or below the clef respectively."
 
 
 \score {
-       \notes{ 
+       { 
        
          \clef "treble" c'1^"{treble}" \bar "||"
          \clef "french"c'1^"{french}" \bar "||"

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.4"
 \header {
 
 texidoc = "Horizontal tuplet brackets are shifted vertically
@@ -9,7 +9,7 @@ to avoid staff line collisions."
 
     \paper { raggedright= ##t }
 
-\score { \notes \context Voice\relative c'' {
+\score {  \context Voice\relative c'' {
 \times 2/3 { b'4 b b }
 \times 2/3 { f4 f f }
 \times 2/3 { g4 g g }

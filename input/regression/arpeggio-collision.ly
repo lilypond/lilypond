@@ -1,11 +1,11 @@
-\version "2.3.2"
+\version "2.3.4"
 
 \header  {
 texidoc = "Arpeggio stays clear of accidentals and flipped note heads."
 }
 
 \score{
-    \notes \transpose c c' {
+     \transpose c c' {
 	<fis'' g d a>\arpeggio
 	<fis, g d a>\arpeggio
 	<fis'' g d a>\arpeggio
