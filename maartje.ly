@@ -45,7 +45,7 @@ staff { melodic
 
 	commands {
 	skip 0:0.125
-	skip 2:0
+	skip 1:0 % BUG!!
 	key $ fis cis gis $
 	skip 2:0
 	key $ $
