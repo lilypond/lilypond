@@ -11,46 +11,68 @@
 ;;; Variables for customising indentation style
 
 ;;; TODO:
-;;;    * currently, in bracket matching one may need a non-bracket 
+;;;    * currently, in bracket matching one may need a non-bracket
 ;;;      chararacter between the bracket characters, like ( ( ) )
 
 (defcustom LilyPond-indent-level 4
-  "*Indentation of lilypond statements with respect to containing block.")
+  "*Indentation of lilypond statements with respect to containing block."
+  :group 'LilyPond
+  :type 'integer)
 
 (defcustom LilyPond-brace-offset 0
   "*Extra indentation for open braces.
-Compares with other text in same context.")
+Compares with other text in same context."
+  :group 'LilyPond
+  :type 'integer)
 
 (defcustom LilyPond-angle-offset 0
   "*Extra indentation for open angled brackets.
-Compares with other text in same context.")
+Compares with other text in same context."
+  :group 'LilyPond
+  :type 'integer)
 
 (defcustom LilyPond-square-offset 0
   "*Extra indentation for open square brackets.
-Compares with other text in same context.")
+Compares with other text in same context."
+  :group 'LilyPond
+  :type 'integer)
 
 (defcustom LilyPond-scheme-paren-offset 0
   "*Extra indentation for open scheme parens.
-Compares with other text in same context.")
+Compares with other text in same context."
+  :group 'LilyPond
+  :type 'integer)
 
 (defcustom LilyPond-close-brace-offset 0
-  "*Extra indentation for closing braces.")
+  "*Extra indentation for closing braces."
+  :group 'LilyPond
+  :type 'integer)
 
 (defcustom LilyPond-close-angle-offset 0
-  "*Extra indentation for closing angle brackets.")
+  "*Extra indentation for closing angle brackets."
+  :group 'LilyPond
+  :type 'integer)
 
 (defcustom LilyPond-close-square-offset 0
-  "*Extra indentation for closing square brackets.")
+  "*Extra indentation for closing square brackets."
+  :group 'LilyPond
+  :type 'integer)
 
 (defcustom LilyPond-close-scheme-paren-offset 0
-  "*Extra indentation for closing scheme parens.")
+  "*Extra indentation for closing scheme parens."
+  :group 'LilyPond
+  :type 'integer)
 
 (defcustom LilyPond-fancy-comments t
-  "*Non-nil means distiguish between %, %%, and %%% for indentation.")
+  "*Non-nil means distiguish between %, %%, and %%% for indentation."
+  :group 'LilyPond
+  :type 'boolean)
 
 (defcustom LilyPond-comment-region "%%$"
   "*String inserted by \\[LilyPond-comment-region]\
- at start of each line in region.")
+ at start of each line in region."
+  :group 'LilyPond
+  :type 'string)
 
 (defun LilyPond-comment-region (beg-region end-region)
   "Comment/uncomment every line in the region.

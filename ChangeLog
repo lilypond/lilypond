@@ -1,3 +1,8 @@
+2004-02-23  Heikki Junes <hjunes@cc.hut.fi>
+
+	* elisp/lilypond-indent.el (get-buffer-size): add customization
+	groups for several variables (Reuben Thomas).
+
 2004-02-23  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/chord-entry.scm (construct-chord): process transposition
