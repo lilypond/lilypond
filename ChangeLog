@@ -1,5 +1,8 @@
 2004-03-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/tie-performer.cc (acknowledge_audio_element): bugfix: use
+	and init ties_created_
+
 	* lily/include/music-iterator.hh (IMPLEMENT_CTOR_CALLBACK): remove
 	doc string from IMPLEMENT_CTOR_CALLBACK().
 
