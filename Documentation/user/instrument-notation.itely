@@ -313,7 +313,6 @@ handle this cross-staffing behavior.  In this section we discuss the
 * Automatic staff changes::     
 * Manual staff switches::       
 * Pedals::                      
-* Arpeggio::                    
 * Staff switch lines::          
 * Cross staff stems::           
 @end menu
@@ -499,82 +498,6 @@ of the note head
 \override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
 c\sostenutoDown d e c, f g a\sostenutoUp
 @end lilypond
-
-@node Arpeggio
-@subsection Arpeggio
-@cindex Arpeggio
-
-@cindex broken chord
-@cindex @code{\arpeggio}
-
-You can specify an arpeggio sign (also known as broken chord) on a
-chord by attaching an @code{\arpeggio} to a chord
-
-
-@lilypond[quote,raggedright,fragment,relative=1,verbatim]
-<c e g c>\arpeggio
-@end lilypond
-
-When an arpeggio crosses staves, you attach an arpeggio to the chords
-in both staves, and set
-@internalsref{PianoStaff}.@code{connectArpeggios}
-
-@lilypond[quote,raggedright,fragment,relative=1,verbatim]
-\context PianoStaff <<
-  \set PianoStaff.connectArpeggios = ##t
-  \new Staff { <c' e g c>\arpeggio }
-  \new Staff { \clef bass <c,, e g>\arpeggio }
->>
-@end lilypond
-
-The direction of the arpeggio is sometimes denoted by adding an
-arrowhead to the wiggly line
-
-@lilypond[quote,raggedright,fragment,relative=1,verbatim]
-\context Voice {
-  \arpeggioUp
-  <c e g c>\arpeggio
-  \arpeggioDown
-  <c e g c>\arpeggio
-}
-@end lilypond
-
-A square bracket on the left indicates that the player should not
-arpeggiate the chord
-
-@c todo: ugh, lousy typography.  Look for real example. --hwn
-
-@lilypond[quote,raggedright,fragment,relative=1,verbatim]
-\arpeggioBracket
-<c' e g c>\arpeggio
-@end lilypond
-
-@refcommands
-
-@cindex @code{\arpeggio}
-@code{\arpeggio},
-@cindex @code{\arpeggioUp}
-@code{\arpeggioUp},
-@cindex @code{\arpeggioDown}
-@code{\arpeggioDown},
-@cindex @code{\arpeggioNeutral}
-@code{\arpeggioNeutral},
-@cindex @code{\arpeggioBracket}
-@code{\arpeggioBracket}.
-
-@seealso
-
-Notation manual: @ref{Ties}, for writing out arpeggios.
-
-Program reference: @internalsref{ArpeggioEvent},
-@internalsref{Arpeggio}.
-
-
-
-@refbugs
-
-It is not possible to mix connected arpeggios and unconnected
-arpeggios in one @internalsref{PianoStaff} at the same point in time.
 
 @node Staff switch lines
 @subsection Staff switch lines
@@ -1542,13 +1465,6 @@ This example also shows that the chord printing routines do not try to
 be intelligent.  The last chord (@code{f bes d}) is not interpreted as
 an inversion.
 
-@c this menu isn't needed.
-@ignore
-@menu
-* Chords mode::
-* Printing chord names::
-@end menu
-@end ignore
 
 @node Chords mode
 @subsection Chords mode
