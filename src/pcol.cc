@@ -92,7 +92,8 @@ PCol::breakable() const
     return prebreak||postbreak;
 }
 
-PCol::PCol(PCol *parent) {
+PCol::PCol(PCol *parent)
+{
     daddy = parent;
     prebreak=0;
     postbreak=0;
@@ -102,10 +103,8 @@ PCol::PCol(PCol *parent) {
 
 PCol::~PCol()
 {
-
-	delete prebreak;	
-
-	delete postbreak;	
+    delete prebreak;
+    delete postbreak;	
 }
 
 void
@@ -115,4 +114,3 @@ PCol::add( Item *i)
     i->pcol_ = this;
     used = true;
 }
-
