@@ -1,4 +1,7 @@
 
+
+	* Unicode support in strings
+
 	* write a decent Dictionary
 	- write a String_hash template
 	- write a Pointer_hash template
