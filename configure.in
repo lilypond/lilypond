@@ -42,6 +42,7 @@ STEPMAKE_CXX(REQUIRED)
 STEPMAKE_GXX(REQUIRED, 3.0.5)
 STEPMAKE_CXXTEMPLATE
 STEPMAKE_LIB(REQUIRED)
+STEPMAKE_DLOPEN
 # Do not use bison 1.50 and 1.75.
 # 1.29 is required fr %locations, but I'm not sure it's enough --ns
 STEPMAKE_BISON(REQUIRED, 1.29)

@@ -13,38 +13,36 @@
 
 #include <fontconfig/fontconfig.h>
 
+#include "file-path.hh"
 #include "main.hh"
 #include "warn.hh"
-#include "file-path.hh"
 
 void
 init_fontconfig ()
 {
-  if (!FcInit())
-    {
-      error ("FontConfig failed to initialize"); 
-    }
+  if (!FcInit ())
+    error (_ ("FontConfig failed to initialize"));
 
   FcConfig *fcc = FcConfigGetCurrent ();
 
-  
   Array<String> dirs;
   dirs.push (prefix_directory + "/otf/");
   dirs.push (prefix_directory + "/mf/out/");
   dirs.push (prefix_directory + "/type1/");
   dirs.push (prefix_directory + "/cff/");
   
-  for (int i = 0; i < dirs.size(); i++)
+  for (int i = 0; i < dirs.size (); i++)
     {
-      String path = dirs[i];
-      if (!FcConfigAppFontAddDir (fcc, (FcChar8*)path.to_str0 ()))
-	{
-	  error (_f ("Failed to add lilypond directory %s", path.to_str0 ()));
-	}
+      String dir = dirs[i];
+      if (!FcConfigAppFontAddDir (fcc, (FcChar8*)dir.to_str0 ()))
+	error (_f ("Failed to add lilypond directory %s", dir));
     }     
 }
 
 #else
 
-void init_fontconfig() {}
+void
+init_fontconfig ()
+{
+}
 #endif

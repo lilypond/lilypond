@@ -545,6 +545,11 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
 ])
 
 
+AC_DEFUN(STEPMAKE_DLOPEN, [
+    AC_CHECK_LIB(dl, dlopen)
+    AC_CHECK_FUNCS(dlopen)
+])
+
 AC_DEFUN(STEPMAKE_GXX, [
     if test "$GXX" = "yes"; then
         STEPMAKE_CHECK_VERSION(CXX, $1, $2)
@@ -769,6 +774,7 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     [  --with-kpathsea         use kpathsea lib.  Default: on],
     [kpathsea_b=$with_kpathsea])
 
+    save_LIBS="$LIBS"
     if test "$kpathsea_b" != "no"; then	
 	AC_CHECK_HEADERS([kpathsea/kpathsea.h],,kpathsea_b=no)
 	AC_CHECK_LIB(kpathsea, kpse_find_file)
@@ -784,6 +790,8 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
 	    STEPMAKE_ADD_ENTRY(REQUIRED, $warn)
 	fi
     fi
+    KPATHSEA_LIBS="$LIBS"
+    LIBS="$save_LIBS"
     AC_MSG_CHECKING(whether to use kpathsea)
     if test "$kpathsea_b" != no; then
         AC_MSG_RESULT(yes)
@@ -794,6 +802,7 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     fi
 
     AC_SUBST(KPATHSEA)
+    AC_SUBST(KPATHSEA_LIBS)
     AC_DEFINE_UNQUOTED(KPATHSEA, $KPATHSEA)
 ])
 
