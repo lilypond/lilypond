@@ -11,10 +11,19 @@
 #include "string-convert.hh"  
 #include "libc-extension.hh"
 
-
 Rational::operator bool () const
 {
   return sign_;
+}
+
+Rational::operator int () const
+{
+  return sign_ * num_ / den_;
+}
+
+Rational::operator double () const
+{
+  return (double)sign_ * num_ / den_;
 }
 
 ostream &
