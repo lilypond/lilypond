@@ -1,8 +1,8 @@
-//
-//  midiwalker.hh -- declare Midi_walker
-//
-//  (c) 1996,97 Han-Wen Nienhuys, Jan Nieuwenhuizen <jan@digicash.com>
-//
+/*
+  midiwalker.hh -- declare Midi_walker
+
+  (c) 1996,97 Han-Wen Nienhuys, Jan Nieuwenhuizen <jan@digicash.com>
+  */
 
 #ifndef MIDIWALKER_HH
 #define MIDIWALKER_HH
@@ -10,16 +10,29 @@
 #include "proto.hh"
 #include "grouping.hh"
 #include "staffwalker.hh"
+#include "pcursor.hh"
+#include "pqueue.hh"
 
-/// a simple walker which collects midi stuff, and then outputs
-struct Midi_walker: Staff_walker {
-//    Midi_stream* midi_stream_l_;
+
+/**
+  a simple walker which collects midi stuff, and then outputs.
+
+  Should derive from Staff_walker
+  */
+class Midi_walker : public PCursor<Staff_column*> {
+    Midi_track *track_l_;
+    PQueue<Melodic_req*, Moment> stop_notes;
+    Moment last_moment_;
+
     /* *************** */
-    virtual void process_requests();
     
-    Midi_walker( Midi_staff* mstaff_l );
-    Midi_column* mcol_l();
-    Midi_staff* mstaff_l();
+    /// output notestop events
+    void do_stop_notes(Moment);
+public:
+    
+    Midi_walker(Staff*, Midi_track*);
+    void process_requests();
+    ~Midi_walker();
 };
 
 
