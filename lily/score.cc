@@ -160,7 +160,8 @@ Score::mark_smob (SCM s)
 {
   Score * sc = (Score*) SCM_CELL_WORD_1 (s);
 
-  scm_gc_mark (sc->header_);
+  if (sc->header_)
+    scm_gc_mark (sc->header_);
   for (int i = sc->defs_.size (); i--;)
     scm_gc_mark (sc->defs_[i]->self_scm ());
   

@@ -1,5 +1,7 @@
 2003-03-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/score.cc (mark_smob): bugfix.
+
 	* input/regression/rehearsal-mark.ly: new file.
 
 	* lily/my-lily-parser.cc (here_input): revert reporting of errors:
