@@ -7,7 +7,13 @@
 #include "vector.hh"
 
 Dstream monitor(&cout,".dstreamrc");
-ostream * nulldev = new ofstream("/dev/null");
+ostream * nulldev =0;
+
+struct _Dinit {
+    _Dinit() { nulldev = new ofstream("/dev/null");}
+    ~_Dinit() { delete nulldev; }
+} dinit;
+
 
 
 /*

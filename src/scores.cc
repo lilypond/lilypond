@@ -5,7 +5,7 @@
 
 static Array<Input_score*> score_array_global;
 
-static String outfn="lelie.uit";
+static String outfn="lelie.out";
 
 // todo: check we don't overwrite default output.
 void
