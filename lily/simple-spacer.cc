@@ -56,6 +56,12 @@
    Perhaps this is not a bad thing, because the 1st looks better anyway.  */
 
 
+/*
+
+  positive force = expanding, negative force = compressing.
+  
+*/
+
 Simple_spacer::Simple_spacer ()
 {
   /*
@@ -297,13 +303,21 @@ LY_DEFINE(ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
       posns.push (posns.top() + l);
     }
 
+
+    
   SCM force_return = SCM_BOOL_F;
   if (!isinf (spacer.force_)
       && spacer.is_active ())
     {
       force_return = scm_from_double (spacer.force_);
     }
-  
+
+  if (is_ragged
+      && posns.top () > spacer.line_len_)
+    {
+      force_return = SCM_BOOL_F;
+    }
+
   SCM retval= SCM_EOL;
   for (int i = posns.size(); i--;)
     {

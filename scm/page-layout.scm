@@ -112,15 +112,17 @@
 	     (ly:output-def-lookup layout 'topmargin)
 	     (ly:output-def-lookup layout 'bottommargin)))
        (head (page-headfoot layout scopes number 'make-header 'headsep UP last?))
-       (foot (page-headfoot layout scopes number 'make-footer 'footsep DOWN last?)))
-    (- h (if (ly:stencil? head)
-	     (interval-length (ly:stencil-extent head Y))
-	     0)
-       (if (ly:stencil? foot)
-	   (interval-length (ly:stencil-extent foot Y))
-	   0))
-    ))
-
+       (foot (page-headfoot layout scopes number 'make-footer 'footsep DOWN last?))
+       (available 
+	(- h (if (ly:stencil? head)
+		 (interval-length (ly:stencil-extent head Y))
+		 0)
+	   (if (ly:stencil? foot)
+	       (interval-length (ly:stencil-extent foot Y))
+	       0))))
+    
+;    (display (list "\n available" available head foot))
+    available))
 
 (define-public (default-page-make-stencil
 		 lines offsets layout scopes number last? )
@@ -283,7 +285,7 @@ is what have collected so far, and has ascending page numbers."
 			'()) 
 		    )))
 	 (no-systems (vector-length real-extents))
-	 (topskip (cdr (vector-ref real-extents 0)))
+	 (topskip (interval-end (vector-ref real-extents 0)))
 	 (space-left (- page-height
 			(apply + (map interval-length (vector->list real-extents)))
 
@@ -291,7 +293,7 @@ is what have collected so far, and has ascending page numbers."
 		     
 	 (space (- page-height
 		   topskip
-		   (-  (car (vector-ref real-extents (1- no-systems))))
+		   (-  (interval-start (vector-ref real-extents (1- no-systems))))
 		   ))
 
 	 (fixed-dist (ly:output-def-lookup paper 'betweensystempadding))
@@ -300,9 +302,9 @@ is what have collected so far, and has ascending page numbers."
 	    (let*
 		((this-system-ext (vector-ref staff-extents idx))
 		 (next-system-ext (vector-ref staff-extents (1+ idx)))
-		 (fixed (max 0  (- (+ (cdr next-system-ext)
+		 (fixed (max 0  (- (+ (interval-end next-system-ext)
 				      fixed-dist)
-				   (car this-system-ext))))
+				   (interval-start this-system-ext))))
 		 (title1? (and (vector-ref system-vector idx)
 			       (ly:paper-system-title? (vector-ref system-vector idx))))
 		 (title2? (and
@@ -329,9 +331,9 @@ is what have collected so far, and has ascending page numbers."
 	    (let*
 		((this-system-ext (vector-ref real-extents idx))
 		 (next-system-ext (vector-ref real-extents (1+ idx)))
-		 (distance (max  (- (+ (cdr next-system-ext)
+		 (distance (max  (- (+ (interval-end next-system-ext)
 				 fixed-dist)
-				    (car this-system-ext)
+				    (interval-start this-system-ext)
 				    ) 0)) 
 		 (entry (list idx (1+ idx) distance)))
 	      entry)))
@@ -343,8 +345,7 @@ is what have collected so far, and has ascending page numbers."
 		  springs rods space
 		  ragged?))
 
-	 (force (car (ly:solve-spring-rod-problem
-		      springs rods space #f)))
+	 (force (car result))
 	 (positions
 	  (map (lambda (y)
 		       (+ y topskip)) 
@@ -357,7 +358,6 @@ is what have collected so far, and has ascending page numbers."
 			  "\nreal-ext" real-extents "\nstaff-ext" staff-extents
 			  "\ninterscore" inter-system-space
 			  "\nspace-letf" space-left
-			  "\npage empty" page-very-empty?
 			  "\nspring,rod" springs rods
 			  "\ntopskip " topskip
 			  " space " space
@@ -381,14 +381,19 @@ CURRENT-BEST is the best result sofar, or #f."
                               (ly:output-def-lookup paper 'firstpagenumber)
                               (1+ (node-page-number (car best-paths)))))
 
-	   
-	   (ragged? (or (eq? #t (ly:output-def-lookup paper 'raggedbottom))
-			(and (eq? #t (ly:output-def-lookup paper 'raggedlastbottom))
+	   (ragged-all? (eq? #t (ly:output-def-lookup paper 'raggedbottom)))
+	   (ragged-last? (eq? #t (ly:output-def-lookup paper 'raggedlastbottom)))
+	   (ragged? (or ragged-all? 
+			(and ragged-last?
 			     last?)))
            (page-height (page-height this-page-num last?))
 	   (vertical-spacing (space-systems page-height current-lines ragged?))
 	   (satisfied-constraints (car vertical-spacing))
-           (force (if satisfied-constraints satisfied-constraints 10000))
+           (force (if satisfied-constraints
+		      (if (and last? ragged-last?)
+			  0.0
+			  satisfied-constraints)
+		      10000))
 	   (positions (cdr vertical-spacing))
            (user-penalty (ly:paper-system-break-penalty (car current-lines)))
            (total-penalty (combine-penalties
