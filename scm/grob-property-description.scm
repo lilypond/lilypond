@@ -576,7 +576,6 @@ columns.
 (grob-property-description 'least-squares-dy number? 
  "ideal beam slope, without damping.")
 (grob-property-description 'ligature-primitive-callback number? "DOCME")
-(grob-property-description 'regular-distance-to ly-grob? "DOCME")
 (grob-property-description 'stem-info pair? "caching of stem parameters")
 (grob-property-description 'note-columns pair? "list of NoteColumn grobs.")
 
