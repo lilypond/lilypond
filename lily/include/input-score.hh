@@ -14,12 +14,11 @@
 #include "proto.hh"
 #include "plist.hh"
 #include "string.hh"
-
+#include "input.hh"
 
 /// the total music def of one movement
-struct Input_score {
-    /// defined where?    
-    char const * defined_ch_C_;
+class Input_score : public Input {
+public:
     int errorlevel_i_;
     
     /// paper_, staffs_ and commands_ form the problem definition.
@@ -35,7 +34,7 @@ struct Input_score {
     void add(Input_staff*);
     ~Input_score();
     /// construction
-    void set(Paper_def*);
+    void set(Paper_def* paper_p);
     void set(Midi_def* midi_p);
     void print() const;
     Score*parse();
