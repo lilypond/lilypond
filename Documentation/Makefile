@@ -31,7 +31,8 @@ DVIFILES = $(addprefix $(outdir)/, $(DOCFILES:.doc=.dvi))
 #
 # list of distribution files:
 #
-EXTRA_DISTFILES = lelie_icon.gif lelie_logo.gif  $(DOCFILES)
+EXTRA_DISTFILES = lelie_icon.gif lelie_logo.gif  $(DOCFILES) 
+# $(wildcard Vocab*)
 
 default: do-doc
 

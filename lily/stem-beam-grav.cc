@@ -43,7 +43,7 @@ Stem_beam_engraver::do_try_request(Request*req_l)
 	if (bool(beam_p_ ) == bool(mus_l->beam()->spantype == Span_req::START))
 	    return false;
 	
-	if (beam_req_l_ && Beam_req::compare(*beam_req_l_ , *mus_l->beam()))
+	if (beam_req_l_ && beam_req_l_ ->equal_b(mus_l))
 	    return false;
 	
 	beam_req_l_ = mus_l->beam();
@@ -55,7 +55,7 @@ Stem_beam_engraver::do_try_request(Request*req_l)
 	    get_staff_info().time_C_->whole_in_measure_))
 	    return false;
 
-	if (stem_req_l_ && Stem_req::compare(*stem_req_l_, *mus_l->stem()))
+	if (stem_req_l_ && !stem_req_l_->equal_b( mus_l ) )
 	    return false;
 
 	stem_req_l_ = mus_l->stem();
