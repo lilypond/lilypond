@@ -53,6 +53,14 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
       if (gh_symbol_p (gl) && gl  == ly_symbol2scm ("brace")
 	  && gh_symbol_p (my_gl) && my_gl == ly_symbol2scm ("bracket"))
 	inf.elem_l_->translate_axis (-1.0, X_AXIS); // ugh
+      else if (gh_symbol_p (gl) && gl  == ly_symbol2scm ("bracket")
+	       && gh_symbol_p (my_gl) && my_gl == ly_symbol2scm ("bracket"))
+	{
+	  inf.elem_l_->translate_axis ( -0.8, X_AXIS); // ugh
+          inf.elem_l_->set_grob_property ("arch-height",
+	  gh_double2scm(gh_scm2double(inf.elem_l_->get_grob_property
+				      ("arch-height"))+0.5));
+        }
     }
 
 }

@@ -253,11 +253,9 @@
 
 (define (pitch->note-name pitch)
   (cons (cadr pitch) (caddr pitch)))
-  
-(define (pitch->text pitch)
-  (cons
-    (make-string 1 (integer->char (+ (modulo (+ (cadr pitch) 2) 7) 65)))
-    (if (= (caddr pitch) 0)
+
+(define (accidental->text acc)
+    (if (= acc 0)
       '()
       (list
        (append '(music)
@@ -268,7 +266,15 @@
 				(list (append '((raise . 0.6))
 				  (list
 				   (string-append "accidentals-" 
-						  (number->string (caddr pitch)))))))))))))))
+						  (number->string acc))))))))))))
+)
+
+(define (pitch->text pitch)
+  (cons
+    (make-string 1 (integer->char (+ (modulo (+ (cadr pitch) 2) 7) 65)))
+    (accidental->text (caddr pitch))
+  )
+)
 
 ;;; Hooks to override chord names and note names, 
 ;;; see input/tricks/german-chords.ly

@@ -68,6 +68,8 @@ ChoirStaffContext = \translator {
 	\accepts "RhythmicStaff";
 	\accepts "GrandStaff";
 	\accepts "PianoStaff";
+	\accepts "StaffGroup";
+	\accepts "ChoirStaff";
 	\accepts "Lyrics";
 	\accepts "ChordNames";
 }
@@ -245,6 +247,8 @@ StaffGroupContext= \translator {
 	\accepts "RhythmicStaff";
 	\accepts "GrandStaff";
 	\accepts "PianoStaff";
+	\accepts "StaffGroup";
+	\accepts "ChoirStaff";
 	
 	\accepts "Lyrics";
 	\accepts "ChordNames";
