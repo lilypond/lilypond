@@ -28,8 +28,9 @@
 * Rhythmic music::              
 * Piano music::                 
 * Vocal music::                 
+* More stanzas::                
 * Tablatures::                  
-* Chords::                      
+* Chord names::                 
 * Writing parts::               
 * Ancient notation ::           
 * Contemporary notation::       
@@ -44,16 +45,13 @@
 @section Note entry
 @cindex Note entry
 
-Notes constitute the most basic elements of LilyPond input, but they do
-not form valid input on their own without a @code{\score} block.  However,
-for the sake of brevity and simplicity we will generally omit
-@code{\score} blocks and @code{\paper} declarations in this manual.
 
 
 @menu
 * Notes::                       
 * Pitches::                     
 * Chromatic alterations::       
+* Chords::                      
 * Rests::                       
 * Skips::                       
 * Durations::                   
@@ -69,6 +67,12 @@ for the sake of brevity and simplicity we will generally omit
 
 
 A note is printed by specifying its pitch and then its duration.
+@footnote{Notes constitute the most basic elements of LilyPond input,
+but they do not form valid input on their own without a @code{\score}
+block.  However, for the sake of brevity and simplicity we will
+generally omit @code{\score} blocks and @code{\paper} declarations in
+this manual.}
+
 @lilypond[fragment,verbatim]
   cis'4 d'8 e'16 c'16
 @end lilypond
@@ -82,20 +86,12 @@ A note is printed by specifying its pitch and then its duration.
 @cindex pitches
 @cindex entering notes
 
-The verbose syntax for pitch specification is
-
-@cindex @code{\pitch}
-@example
-  \pitch @var{scmpitch}
-@end example
-
-where @var{scmpitch} is a pitch scheme object.
-
-In Note and Chord mode, pitches may be designated by names.  The
-default names are the Dutch note names.  The notes are specified by
-the letters @code{a} through @code{g}, while the octave is formed with
-notes ranging from @code{c} to @code{b}.  The pitch @code{c} is an
-octave below middle C and the letters span the octave above that C.
+The commonest syntax for pitch entry is used in @code{\chords} and
+@code{\notes} mode.  In Note and Chord mode, pitches may be designated
+by names.  The notes are specified by the letters @code{a} through
+@code{g}, while the octave is formed with notes ranging from @code{c}
+to @code{b}.  The pitch @code{c} is an octave below middle C and the
+letters span the octave above that C.
 
 @lilypond[fragment,verbatim]
 \clef bass
@@ -104,10 +100,12 @@ octave below middle C and the letters span the octave above that C.
 
 @cindex note names, Dutch
 
-In Dutch, a sharp is formed by adding @code{-is} to the end of a pitch
+A sharp is formed by adding @code{-is} to the end of a pitch
 name and a flat is formed by adding @code{-es}.  Double sharps and
 double flats are obtained by adding @code{-isis} or @code{-eses}.
-@code{aes} is contracted to @code{as} in Dutch, but both forms are
+
+These default names are the Dutch note names.  In Dutch, @code{aes} is
+contracted to @code{as} in Dutch, but both forms are
 accepted. Similarly, both @code{es} and @code{ees} are accepted.
 
 There are predefined sets of note names for various other languages.
@@ -145,6 +143,16 @@ octave; each @code{,} lowers the pitch by an octave.
 @end lilypond
 
 
+The verbose syntax for pitch specification is
+
+@cindex @code{\pitch}
+@example
+  \pitch @var{scmpitch}
+@end example
+
+where @var{scmpitch} is a Scheme object of the @code{Pitch} type.
+
+
 @seealso
 
 @internalsref{NoteEvent}, @internalsref{NoteHead}
@@ -171,6 +179,13 @@ question mark `@code{?}' after the pitch.
 The automatic production of accidentals can be tuned in many
 ways. For more information, refer to @ref{Accidentals}.
 
+@node Chords
+@subsection Chords
+
+A chord is formed by a enclosing a set of pitches in @code{<<} and
+@code{>>}.
+
+TODO: accidental overides?
 
 @node  Rests
 @subsection Rests
@@ -2890,6 +2905,14 @@ The associated object is @internalsref{VoiceFollower}.
 For a discussion of how to put lyrics into a score, see section
 @code{Printing lyrics} in the tutorial.
 
+@cindex context variables
+@cindex setting context variables
+An interpretation context has variables that tune its behavior.  These
+variables are also called @emph{properties}.  The @code{autoBeaming}
+variable in a @code{Staff} controls whether 8th and shorter notes are
+beamed automatically. Setting the variable to @code{##f}, which is the
+boolean value @var{false}, turns it off.
+
 
 This will create an extender, which is a line
 that extends over the entire duration of the lyric.  This line will
@@ -2966,6 +2989,70 @@ See also the sections on @ref{Slurs} and @ref{Breath marks}.
 
 [TODO: Write subsection upon usage of ChoirStaff.]
 
+
+
+@node More stanzas
+@section More stanzas
+
+
+@cindex phrasing
+
+If you have multiple stanzas printed underneath each other, the vertical
+groups of syllables should be aligned around punctuation.  LilyPond can
+do this if you tell it which lyric lines belong to which melody.
+We show how you can do this by showing how you could print a frivolous
+fragment of a fictional Sesame Street duet. 
+
+@lilypond[singleline,verbatim]
+\score {
+\addlyrics
+  \notes \relative c'' \context Voice = duet { \time 3/4
+     g2 e4 a2 f4 g2.  }
+  \lyrics \context Lyrics <
+  \context LyricsVoice = "duet-1" {
+    \property LyricsVoice . stanza = "Bert"
+    Hi, my name is bert.    }
+  \context LyricsVoice = "duet-2" {
+    \property LyricsVoice . stanza = "Ernie" 
+    Ooooo, ch\'e -- ri, je t'aime. }
+  >
+}
+@end lilypond
+
+To this end, give the Voice context an identity, and set the
+LyricsVoice to a name starting with that identity followed by a dash.
+In the following example, the Voice identity is @code{duet},
+@example
+\context Voice = duet @{
+     \time 3/4
+     g2 e4 a2 f4 g2.  @}
+@end example
+and the
+identities of the LyricsVoices are @code{duet-1} and @code{duet-2}.
+@example
+  \context LyricsVoice = "duet-1" @{
+    Hi, my name is bert. @}
+  \context LyricsVoice = "duet-2" @{
+    Ooooo, ch\'e -- ri, je t'aime. @}
+@end example
+The convention for naming @code{LyricsVoice} and @code{Voice} must
+also be used to get melismata on rests correct.
+
+
+We add the names of the singers.  This can be done by setting
+@code{LyricsVoice.Stanza} (for the first system) and
+@code{LyricsVoice.stz} for the following systems.   You must
+surround dots with spaces in @code{\lyrics} mode.
+
+@example
+    \property LyricsVoice . stanza = "Bert"
+    @dots{}
+    \property LyricsVoice . stanza = "Ernie" 
+@end example
+
+
+
+
 For entering quotes in Lyrics mode, use the following
 @example
 "\"God\"" is "`King'"
@@ -2974,6 +3061,7 @@ For entering quotes in Lyrics mode, use the following
 You can use empty syllables, e.g. @code{_4} or @code{" "4} to enter
 lyrics. This can confuse the LilyPond -- for example, this might put
 (empty) lyrics under rests. To remedy this, use @code{\skip}.
+
 
 
 @refbugs
@@ -3180,8 +3268,8 @@ As tablature is a recent feature, most of the guitar special effects
 such as bend are not yet supported.
 
 
-@node Chords
-@section Chords
+@node Chord names
+@section Chord namess
 @cindex Chords
 
 LilyPond has support for both entering and printing chords. 
@@ -3638,6 +3726,8 @@ If you want to use both @code{\transpose} and @code{\relative}, then
 you must put @code{\transpose} outside of @code{\relative}, since
 @code{\relative} will have no effect music that appears inside a
 @code{\transpose}.
+
+
 
 
 @node  Multi measure rests

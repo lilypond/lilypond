@@ -117,8 +117,8 @@ Hyphen_spanner::Hyphen_spanner (Spanner*s)
 
 
 ADD_INTERFACE (Hyphen_spanner, "lyric-hyphen-interface",
-  "A centred hyphen is a simple line between lyrics used to divide
-syllables.   The length of the hyphen line should stretch based on the
-size of the gap between syllables.",
+  "A centred hyphen is a simple line between lyrics used to divide "
+"syllables.   The length of the hyphen line should stretch based on the "
+"size of the gap between syllables.",
   "thickness height minimum-length maximum-length word-space");
 
