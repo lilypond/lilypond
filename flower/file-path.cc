@@ -27,6 +27,12 @@
 #define PATHSEP ':'
 #endif
 
+Array<String>
+File_path::paths () const
+{
+  return *this;
+}
+
 void
 File_path::parse_path (String p)
 {

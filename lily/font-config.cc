@@ -15,6 +15,7 @@
 
 #include "main.hh"
 #include "warn.hh"
+#include "file-path.hh"
 
 void
 init_fontconfig ()
@@ -24,12 +25,18 @@ init_fontconfig ()
       error ("FontConfig failed to initialize"); 
     }
 
-  char const **dirs = prefix_directories;
-  for (; *dirs; dirs++)
+  FcConfig *fcc = FcConfigGetCurrent ();
+
+  
+  Array<String> dirs;
+  dirs.push (prefix_directory + "/otf/");
+  dirs.push (prefix_directory + "/mf/out/");
+  dirs.push (prefix_directory + "/type1/");
+  
+  for (int i = 0; i < dirs.size(); i++)
     {
-      String path = String (*dirs) + "/" + "otf";
-      
-      if (!FcConfigAppFontAddDir (0, (FcChar8*)path.to_str0 ()))
+      String path = dirs[i];
+      if (!FcConfigAppFontAddDir (fcc, (FcChar8*)path.to_str0 ()))
 	{
 	  error (_f ("Failed to add lilypond directory %s", path.to_str0 ()));
 	}

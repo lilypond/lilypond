@@ -2,18 +2,16 @@
 
 #define PACKAGE "@package@"
 
-#define TOPLEVEL_VERSION "@TOPLEVEL_VERSION@"
-
 /* datadir */
 #define DATADIR "@DATADIR@"
 
 /* LilyPond init and input base directory */
-#define PACKAGE_DATADIR DATADIR "/" PACKAGE
-#define LILYPOND_DATADIR PACKAGE_DATADIR
 
-/* LilyPond specific init and input directory */
-#define LOCAL_PACKAGE_DATADIR PACKAGE_DATADIR "/" TOPLEVEL_VERSION
-#define LOCAL_LILYPOND_DATADIR LOCAL_PACKAGE_DATADIR
+/*
+urg.
+*/
+/* #define PACKAGE_DATADIR DATADIR "/" PACKAGE "@TOPLEVEL_MAJOR_VERSION@.@TOPLEVEL_MINOR_VERSION@" @MAJOR_VERSION@
+#define LILYPOND_DATADIR PACKAGE_DATADIR */
 
 /* default lilypond locale dir */
 #define LOCALEDIR "@LOCALEDIR@"
