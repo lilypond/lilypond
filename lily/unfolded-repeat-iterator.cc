@@ -7,12 +7,79 @@
   
  */
 
-
+/*
+  This is too hairy.  Maybe split into subclasses for volta and full
+  unfold?
+  
+ */
+#include "music-iterator.hh"
 #include "repeated-music.hh"
 #include "music-list.hh"
-#include "unfolded-repeat-iterator.hh"
 #include "debug.hh"
 #include "translator-group.hh"
+
+/**
+   Iterate repeats.  First do body, then alternatives one by one,
+   optionally interspersed by the body.
+ */
+class Unfolded_repeat_iterator : public Music_iterator
+{
+  void add_repeat_command (SCM);
+
+public:
+  VIRTUAL_COPY_CONS (Music_iterator);
+  /**
+     How often have we done the body (assuming bodies are interspersed.)?
+
+     In volta: the number to print in the bracket.
+   */
+  int done_count_;
+  static SCM constructor_cxx_function; 
+
+  /*
+    are we now busy doing the body?
+
+   */
+  bool do_main_b_;
+
+  /*
+    are we doing volta's?
+   */
+  bool volta_b_;
+
+  /** How far have we progressed into the repeat.
+      This excludes the elt currently being iterated.
+  */
+  Moment here_mom_;
+  int alternative_count_i_;
+  Music_iterator * current_iter_p_;
+  
+  /// pointer to the alternative that will be processed next.
+  SCM alternative_cons_;
+  ~Unfolded_repeat_iterator();
+  Unfolded_repeat_iterator ();
+  Unfolded_repeat_iterator (Unfolded_repeat_iterator const &);
+protected:  
+  virtual void construct_children ();
+  virtual Moment pending_moment () const;
+  virtual void process (Moment);
+  virtual Music_iterator *try_music_in_children (Music *) const;
+  virtual void skip (Moment);
+  virtual SCM get_music (Moment) const;
+  
+  virtual bool ok () const;
+  virtual void next_element (bool side_effect);
+};
+
+class Volta_repeat_iterator : public Unfolded_repeat_iterator
+{
+public:
+  Volta_repeat_iterator ();
+  static  SCM constructor_cxx_function;
+  VIRTUAL_COPY_CONS(Music_iterator);
+};
+
+
 
 Unfolded_repeat_iterator::~Unfolded_repeat_iterator ()
 {
@@ -83,7 +150,20 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 
 	  if (volta_b_)
 	    {
-	      String repstr = to_str (done_count_ + 1);
+	      String repstr = to_str (done_count_ + 1) + ".";
+
+	      /*
+		we're coming in from main, so we're always on the first repeat.
+	       */
+	      assert (done_count_ == 0);
+
+	      if (done_count_ == 0
+		  && alternative_count_i_ < repmus->repeat_count ())
+		{
+		  done_count_ += repmus->repeat_count () - alternative_count_i_;		  
+		  repstr = "1.--" + to_str (done_count_ + 1) + ".";		  
+		}		  
+	      
 	      if (do_repcommands)
 		add_repeat_command (gh_list (ly_symbol2scm ("volta"),
 					     ly_str02scm (repstr.ch_C()), SCM_UNDEFINED));
@@ -142,7 +222,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 	{
 	  if (do_repcommands)
 	    {
-	      String repstr = to_str (done_count_ + 1);
+	      String repstr = to_str (done_count_ + 1) + ".";
 	      add_repeat_command (gh_list (ly_symbol2scm ("volta"),
 					   ly_str02scm (repstr.ch_C()), SCM_UNDEFINED));
 	      add_repeat_command (ly_symbol2scm ("end-repeat"));
@@ -164,7 +244,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 bool
 Unfolded_repeat_iterator::ok () const
 {
-  return current_iter_p_ ;
+  return current_iter_p_;
 }
 
 Moment
@@ -194,6 +274,11 @@ Unfolded_repeat_iterator::construct_children ()
     {
       current_iter_p_ = get_iterator_p (unsmob_music (gh_car (alternative_cons_)));
       do_main_b_ = false;
+    }
+
+  while (current_iter_p_ && !current_iter_p_-> ok())
+    {
+      next_element(true);
     }
 }
 
