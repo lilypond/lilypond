@@ -1,5 +1,13 @@
 2004-01-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/GNUmakefile
+	($(outdir)/lilypond/lilypond.html): posix conforming globs. Link
+	iso. copy.
+
+	* stepmake/stepmake/metafont-rules.make: remove --keep-trying.
+
+	* lily/separating-group-spanner.cc (set_spacing_rods): add padding.
+
 	* mf/,scripts/,make/,ly/,scm/: remove AsciiScript remnants.
 
 	* lily/lily-guile.cc (robust_scm2double): new function. Use throughout.

@@ -71,7 +71,7 @@ default: pfa_warning $(ALL_GEN_FILES)
 
 
 pfa_warning:
-ifneq ($(basename $(MFTRACE)),mftrace)
+ifneq ($(notdir $(MFTRACE)),mftrace)
 	@echo ""
 	@echo "ERROR: mftrace not found"
 	@echo ""
