@@ -50,6 +50,7 @@ code and named output.
 When invoked with a filename that has no extension, LilyPond will try
 adding `@file{.ly}' as an extension first.
 
+@c ****** Is the following on its way out?  /MB
 If you invoke LilyPond with a file `@file{foo.}@var{ext}' that doesn't
 have the `@file{.ly}' extension, then LilyPond will look for a file
 called `@file{init.}@var{ext}' and process this file.  The file
