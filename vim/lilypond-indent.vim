@@ -10,6 +10,7 @@ endif
 let b:did_indent = 1
 
 setlocal indentexpr=GetLilyPondIndent()
+setlocal indentkeys+==},>>,!<TAB>
 
 " Only define the function once.
 if exists("*GetLilyPondIndent")
@@ -23,7 +24,17 @@ function GetLilyPondIndent()
 
   "Find a non-blank line above the current line.
   let lnum = prevnonblank(v:lnum - 1)
-  let ind = indent(lnum)
+  "Check if a block was started: '{' or '<<' is the last non-blank character of the line.
+  if getline(lnum) =~ '^.*\({\|<<\)\s*$'
+    let ind = indent(lnum) + &sw
+  else
+    let ind = indent(lnum)
+  endif
+
+  "Check if a block was ended: '}' or '>>' is the first non-blank character of the line.
+  if getline(v:lnum) =~ '^\s*\(}\|>>\)'
+    let ind = ind - &sw
+  endif
 
   return ind
 endfunction
