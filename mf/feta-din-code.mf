@@ -29,7 +29,10 @@ define_blacker_pixels (serif_thick);
 med_thick = round (1.5 stafflinethickness);
 
 fet_beginchar("dynamic p", "p", "dynp")
-	set_char_box (0, 13/12 ex#, descender#, 1.0 ex#);
+	%
+	% TODO w really   is 13/12 ex
+	% but should do kerning
+	set_char_box (0, 15/12 ex#, descender#, 1.0 ex#);
 
 	save twiddle_thick, stem_thick, cheek_thick;
 	save updir, fill_up;
@@ -169,12 +172,13 @@ fet_beginchar("dynamic f", "f", "dynf");
 	serif_length = 0.96 ex;
 	serif_excentricity = 0.01 ex;
 
-	z1 = (0.375 ex,0);
+	z1 = (0.375 ex, - serif_thick);
 	y2 = y1 + ex;
+
 	z2l = z1 + whatever*dir (90 - left_angle);
 	penpos2 (f_thick, 0);
 
-	y3l = ex + ascender;
+	y3l = y1 + ex + ascender;
 	x3l = x1 + 1 ex;
 	penpos3 (med_thick, -90);
 	penpos4 (bulb_thick, -20);
@@ -187,10 +191,10 @@ fet_beginchar("dynamic f", "f", "dynf");
 	y5l = y4l - bulb_diam;
 
 	z6 = z2r + whatever* dir (90 - right_angle);
-	y6 = 3/8 ex;
+	y6 = y1 + 3/8 ex;
 
 	x7 = x1 - 1/4 ex;
-	y7r = -descender;
+	y7r = y1 -descender;
 	penpos7(med_thick, -90);
 
 	penpos8 (bulb_thick, 160);
