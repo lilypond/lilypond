@@ -366,7 +366,7 @@ output_dict= {
 		## inline music doesn't.
 		## possibly other center options?
 		'output-html': r'''
-<a href="%(fn)s.png">
+<a href="%(fn)s.ly">
 <img align="center" valign="center" border="0" src="%(fn)s.png" alt="[picture of music]"></a>
 ''',
 		},
@@ -448,7 +448,7 @@ output_dict= {
 \catcode`\@=0
 @end tex
 @html
-<p><a href="%(fn)s.png">
+<p><a href="%(fn)s.ly">
 <img border=0 src="%(fn)s.png" alt="[picture of music]">
 </a><p>
 @end html
@@ -461,7 +461,7 @@ output_dict= {
 \catcode`\@=0
 @end tex
 @html
-<a href="%(fn)s.png">
+<a href="%(fn)s.ly">
 <img border=0 src="%(fn)s.png" alt="[picture of music]">
 </a>
 @end html

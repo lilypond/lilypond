@@ -64,14 +64,14 @@ extra-local-help:
 $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$@ --html $<
-	-cp -f $(outdir)/*.png $(outdir)/lilypond
+	-cp -f $(outdir)/*.{png,ly} $(outdir)/lilypond
 	-cp -f $(outdir)/lilypond/index.html $@
 	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 
 $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$@ --html $<
-	-cp -f $(outdir)/*.png $(outdir)/lilypond-internals
+	-cp -f $(outdir)/*.{png,ly} $(outdir)/lilypond-internals
 	-cp -f $(outdir)/lilypond-internals/index.html $@
 	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 

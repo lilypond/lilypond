@@ -1,5 +1,18 @@
 2003-04-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/GNUmakefile
+	($(outdir)/lilypond-internals/lilypond-internals.html): copy ly
+	files too.
+
+	* scm/document-markup.scm: new file: document all markup
+	functions.
+
+	* scm/documentation-generate.scm: rename all documentation modules
+	to document-*.scm
+
+	* scripts/lilypond-book.py: generate link to .ly file iso. link to
+	.png
+
 	* input/test/divisiones.ly: added
 
 	* input/regression/output-property.ly: new file

@@ -151,6 +151,11 @@ octave; each @code{,} lowers the pitch by an octave.
   c' c'' es' g' as' gisis' ais'  
 @end lilypond
 
+
+@seealso
+
+@internalsref{NoteEvent}, @internalsref{NoteHead}
+
 @node Chromatic alterations
 @subsection Chromatic alterations
 
@@ -196,6 +201,7 @@ keyword appended. Rest collision testing will leave these rests alone.
 a'4\rest d'4\rest
 @end lilypond
 
+@internalsref{RestEvent}, @internalsref{Rest}
 
 
 @c FIXME: naming.
@@ -228,6 +234,9 @@ which will work outside of those two modes:
 The skip command is merely an empty musical placeholder.  It does not
 produce any output, not even transparent output.
 
+@seealso
+
+@internalsref{SkipEvent}
 
 
 
@@ -369,8 +378,8 @@ give optimal results.
 @c FIXME: This subsection does not belong in @ref{Note entry}.
 
 LilyPond can automatically converting long notes to tied notes.  This
-is done by replacing the @code{Note_heads_engraver} by the
-@code{Completion_heads_engraver}. 
+is done by replacing the @internalsref{Note_heads_engraver} by the
+@internalsref{Completion_heads_engraver}. 
 
 @lilypond[verbatim,noindent]
 \score{
@@ -3118,7 +3127,7 @@ print them as name.
 
 @menu
 * Chords mode::                 
-* Printing chord names::       
+* Printing chord names::        
 @end menu
 
 
@@ -4425,7 +4434,7 @@ The following example (from
 @inputfileref{input/regression,cluster.ly}) shows what the result
 looks like.
 
-@lilypondfile{cluster.ly}
+@lilypondfile[notexidoc]{cluster.ly}
 
 By default, @internalsref{Cluster_engraver} is in the
 @internalsref{Voice} context.  This allows putting ordinary notes and
@@ -4487,7 +4496,6 @@ music notation, are supported
 See @ref{Articulations} for general instructions how to apply scripts
 such as fermatas to a @code{\notes@{@}} block.
 
-
 @node Tuning output
 @section Tuning output
 
@@ -4508,8 +4516,9 @@ affecting a whole set of objects.  Second, you can select one specific
 object, and set a object property in that object.
 
 @menu
-* Tuning groups of objects ::   
 * Tuning per object ::          
+* Tuning objects ::             
+* Outputproperty::              
 * Font selection::              
 * Text markup::                 
 @end menu
@@ -4676,7 +4685,7 @@ LilyPond may crash.
 
 
 @node Outputproperty
-
+@subsection Outputproperty
 
 @cindex \outputproperty
 
@@ -4983,13 +4992,9 @@ their center lines.
  c1^\markup { \line << a b c >> }
 @end lilypond
 
-
-
 The markup mechanism is very flexible and extensible.  Refer to
 @file{scm/new-markup.scm} for more information on extending the markup
 mode.
-
-[TODO: generate markup doco automatically.]
 
 @cindex metronome mark
 
@@ -5011,6 +5016,10 @@ eighthNote = \markup
   }
 }
 @end lilypond
+
+@seealso
+
+@internalsref{Markup functions}, @file{scm/new-markup.scm}
 
 @refbugs
 
@@ -5190,6 +5199,12 @@ must be overriden from the @code{\paper} block, e.g.
 @end example
 
 
+@seealso
+
+@internalsref{SpacingSpanner}, @internalsref{NoteSpacing},
+@internalsref{StaffSpacing}, @internalsref{SeparationItem},
+@internalsref{SeparatingGroupSpanner}.
+
 @refbugs
 
 Spacing is determined on a score wide basis. If you have a score that
@@ -5212,6 +5227,7 @@ kneed stems.
      \paper { raggedright = ##t }
 }
 @end lilypond
+
 
 
 
@@ -5273,6 +5289,11 @@ If you want linebreaks at regular intervals, you can use the following:
 @end  example
 This makes the following 28 measures (assuming 4/4 time) be broken every
 4 measures.
+
+@seealso
+
+@internalsref{BreakEvent}
+
 
 @node Page layout
 @subsection Page layout

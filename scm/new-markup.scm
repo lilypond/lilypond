@@ -411,7 +411,7 @@ for the reader.
 ;; 
 (define markup?  cheap-markup?)
 
-(define markup-function-list
+(define markup-functions-and-signatures
   (list
 
    ;; abs size
@@ -470,7 +470,9 @@ for the reader.
        (set-object-property! (car x) 'markup-signature (cdr x))
        (set-object-property! (car x) 'markup-keyword (markup-signature-to-keyword (cdr x)))
        )
-     markup-function-list)
+     markup-functions-and-signatures)
+
+(define-public markup-function-list (map car markup-functions-and-signatures))
 
 
 ;; construct a
@@ -560,7 +562,7 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
   )
 
 (eval
- (cons 'begin (map make-markup-maker markup-function-list))
+ (cons 'begin (map make-markup-maker markup-functions-and-signatures))
  markup-module
  )
 
