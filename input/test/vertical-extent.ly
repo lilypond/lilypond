@@ -13,7 +13,8 @@
     }
   >
   \paper{
-    interscoreline = 3.0\mm;
+    interscoreline = 13.0\mm;
+    interscorelinefill = 0;
     \translator{\ScoreContext \remove "Bar_number_engraver";}
     \translator{\StaffContext StaffMinimumVerticalExtent = #'(-2.0 . 2.0)}
   }
