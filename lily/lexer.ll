@@ -129,6 +129,9 @@ TELP		\\\]
 }
 
 
+<notes,INITIAL,lyrics>\\maininput           {
+	start_main_input ();
+}
 
 <notes,INITIAL,lyrics>\\include           {
 	yy_push_state (incl);
