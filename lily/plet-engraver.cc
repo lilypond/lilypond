@@ -54,9 +54,9 @@ Plet_engraver::do_try_music (Music* req_l)
   Beam_req* b = dynamic_cast <Beam_req *> (req_l);
   if (b)
     {
-      if (b->spantype)
+      if (b->spantype_)
         {
-          Direction d = (Direction)(((int)(b->spantype - 1)) * 2 - 1);
+          Direction d = (Direction)(((int)(b->spantype_ - 1)) * 2 - 1);
           beam_mom_drul_[d] = get_staff_info ().musical_l ()->when ();
 	}
       return false;
@@ -66,7 +66,7 @@ Plet_engraver::do_try_music (Music* req_l)
   if (!p)
     return false;
 
-  if (bool (plet_spanner_p_) == bool (p->spantype == Span_req::START))
+  if (bool (plet_spanner_p_) == bool (p->spantype_ == START))
     return false;
 
   Direction d = (!plet_spanner_p_) ? LEFT : RIGHT;

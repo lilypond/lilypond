@@ -13,7 +13,7 @@
  Tested Features: stem direction, multivoice, forced accidentals.
 %}
 
-\version "1.0.10";
+\version "1.0.14";
 
 \include "nederlands.ly"                 % for correct parsing of note names
 
@@ -67,7 +67,7 @@ dux = \notes \relative c'' {
   [b, c d b] [b c] r c |
   [f16 d es c] ~ [c8 b] c4 r8 e |
 %%30
-  f4 r8 f [f es16 d] [es8 <f as]> |
+  f4 r8 f [f es16 d] [es8 <f as>] |
   <b, d> r <b d> r <g2 c> |
 }
 
@@ -110,7 +110,7 @@ comes = \notes \relative c''  {
   [g f16 es] [f8 d] [as' g] r a |
   [b c] [f,16 es d c] c8 [c'16 b] [c8 g] |
 %%30
-  [as c16 b] [c8 <d b ! as !]> [g,8 c16 b] [c8 d] |
+  [as c16 b] [c8 <d b ! as !>] [g,8 c16 b] [c8 d] |
   [f,16 g] as4 [g16 f] e2 |
 }
 

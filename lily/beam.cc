@@ -613,8 +613,8 @@ Beam::set_grouping (Rhythmic_grouping def, Rhythmic_grouping cur)
   for (int j=0, i=0; i < b.size () && j <stems_.size (); i+= 2, j++)
     {
       Stem *s = stems_[j];
-      s->beams_left_i_ = b[i];
-      s->beams_right_i_ = b[i+1];
+      s->beams_i_drul_[LEFT] = b[i];
+      s->beams_i_drul_[RIGHT] = b[i+1];
       multiple_i_ = multiple_i_ >? (b[i] >? b[i+1]);
     }
 }
@@ -647,8 +647,8 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   /* half beams extending to the left. */
   if (prev)
     {
-      int lhalfs= lhalfs = here->beams_left_i_ - prev->beams_right_i_ ;
-      int lwholebeams= here->beams_left_i_ <? prev->beams_right_i_ ;
+      int lhalfs= lhalfs = here->beams_i_drul_[LEFT] - prev->beams_i_drul_[RIGHT] ;
+      int lwholebeams= here->beams_i_drul_[LEFT] <? prev->beams_i_drul_[RIGHT] ;
       /*
        Half beam should be one note-width, 
        but let's make sure two half-beams never touch
@@ -669,8 +669,8 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
   if (next)
     {
-      int rhalfs = here->beams_right_i_ - next->beams_left_i_;
-      int rwholebeams = here->beams_right_i_ <? next->beams_left_i_;
+      int rhalfs = here->beams_i_drul_[RIGHT] - next->beams_i_drul_[LEFT];
+      int rwholebeams = here->beams_i_drul_[RIGHT] <? next->beams_i_drul_[LEFT];
 
       Real w = next->hpos_f () - here->hpos_f ();
       Atom a = lookup_l ()->beam (sl, w + stemdx, beam_f);

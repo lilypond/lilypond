@@ -1,4 +1,4 @@
-\version "1.0.12";
+\version "1.0.14";
 
 scales = \notes\transpose c''{
 		f2 f f f f f f f f f\break 

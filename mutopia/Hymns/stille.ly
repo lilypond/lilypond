@@ -8,7 +8,7 @@ poet = "Joseph Mohr";
 }
 
 
-\version "1.0.7";
+\version "1.0.14";
 
 global=\notes {
 	      \time 6/4;

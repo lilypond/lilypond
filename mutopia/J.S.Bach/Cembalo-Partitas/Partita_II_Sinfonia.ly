@@ -10,7 +10,7 @@
   copyright =   "Public Domain";
 }
 
-\version "1.0.10";
+\version "1.0.14";
 
 global = \notes {
 	\time 4/4;
@@ -36,8 +36,8 @@ hoyreOpp = \notes\relative c''  {
 %4
 	f4 \stemboth r16 [f g. as32] \stemup d,4 r16 [d g. es32] |
 	c4 ~ [c32 es des c des16. f32] [b,16. c32 b16. c32] d4 ~ |
-	d2 ~ [d16. g,32 a16. b32] [c16. <b32 g> <c16. a> <d32 b]> |
-	<[es8. c> <es16 c]>
+	d2 ~ [d16. g,32 a16. b32] [c16. <b32 g> <c16. a> <d32 b>] |
+	<[es8. c> <es16 c>]
 	\type Staff <
 		{ \stemup fis4 }
 		{ \stemup \property Voice.hshift = 1 [es16 d32 c d16. a32] }
@@ -63,9 +63,9 @@ venstreOpp = \notes\relative c' {
 	<c4 g es> r <b as f d> r |
 	r <b f d> <c g es> r |
 	<c g e> r r <c g> |
-	<c as f> r r16 <[as d,><as. d,><g32 d]> <g4 d> |
+	<c as f> r r16 <[as d,><as. d,><g32 d>] <g4 d> |
 %5
-	r16 <[g c,><g. c,><f32 c]> 
+	r16 <[g c,><g. c,><f32 c>] 
 	\type Staff <
 		{\stemup f4~ f}
 		{\stemup c4 d}

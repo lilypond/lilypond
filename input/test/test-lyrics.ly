@@ -1,4 +1,4 @@
-\version "1.0.10";
+\version "1.0.14";
 
 $somewhat_long = \lyrics{
 	\property Lyrics . textstyle = "roman" 

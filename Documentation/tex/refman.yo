@@ -470,40 +470,8 @@ code([) and code(]).
 mudela(fragment,verbatim,center)(
 [a'8 a'] [a'16 a' a' a']
 )
-If you want to put beams over chords, you will find that the obvious
-construction does not work.  You must do the following:
-mudela(fragment,verbatim,center)(<[a'8 c''> b' <c'' e''> <a' c'']>)
-The bracket characters must appear immediately adjacent to a note. 
 
-In order to create triplets, you must use a length multiplier after
-the brackets.  An open bracket code([) followed by a fraction
-instructs LilyPond to print a number over the beam, and it also
-starts multiplying all note lengths by the fraction.  The closing
-bracket code(]) should be followed by the fraction code(1/1) in order
-to restore normal note lengths.  To create a triplet without a beam,
-place a backslace code(\) before the opening and closing brackets. 
-
-For example, in an ordinary triplet, the notes have duration 2/3 as
-long as normal. 
-mudela(fragment,verbatim,center)(
-[2/3 a'8 a' a' ]1/1 \[2/3 b'4 b' b'\]1/1
-)
-
-There is a shorthand that can be used when you 
-want notes lengths multiplied by 2/n.  
-The 2 can be omitted after the open bracket
-and the first 1 can be omitted after the closing bracket.  
-mudela(fragment,verbatim,center)(
-[/3 b'8 b' b' ]/1  \[/3 a'4 a'8\]/1
-)
-
-COMMENT(This next bit needs to be fixed...or the language needs to be
-fixed.)
-
-Here is a combination
-mudela(fragment,verbatim,center)(
-[/3 a'8 a'16 a'] a'8 \]
-)
+[EXPLAIN TUPLETS HERE]
 
 Another type of spanner is the slur.  Slurs connects chords and try to
 avoid crossing stems.  A slur is started with code(CHAR(40)) and stopped with
@@ -517,13 +485,10 @@ f'()g'()a' [a'8 b']( a'4 g' )f'
 
 A tie connects two adjacent note heads.  When used with chords, it
 connects all of the note heads.  Ties are indicated using the tilde symbol
-code(~) by analogy with TeX()'s tie which connects words.  For ties
-between chords, the input convention is somewhat peculiar.  You cannot
-write code(<c g>~<c g>), but rather must put the tilde after
-a note within the first chord.  
+code(~) by analogy with TeX()'s tie which connects words.  
 
 mudela(fragment,verbatim,center)(
-e' ~ e' <c'~ e' g'><c' e' g'>
+e' ~ e' <c' e' g'> ~ <c' e' g'>
 )
 
 
@@ -613,18 +578,21 @@ property if there was no last value.  To place tremolo marks in
 between two notes, begin with code([:)var(length) and end with code(]).
 The tremolo marks will appear instead of beams.  Putting more than two
 notes in such a construction will produce odd effects. 
-mudela(fragment,verbatim,center)(
+
+[TREMOLO BEAMS TEMPORARILY OUT OF ORDER]
+
+COMMENT(mudela (fragment,verbatim,center)(
 c'2:8 c':32 [:16 e'1 g'] [:8 e'4 f']
-)
+))
 
 COMMENT(
 Is the last paragraph correct?  Is it called "tremolo"?  Why is
 "abbreviation" used?  (What is the unabreviated form?)
 
-
-mudela(fragment,verbatim,center)(
+COMMENT(
+mudela (fragment,verbatim,center)(
 c'4:32 [:16 c'8 d'8]
-)
+))
 
 )
 

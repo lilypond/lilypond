@@ -63,8 +63,7 @@ public:
    */
   Beam* beam_l_;
 
-  int beams_left_i_;
-  int beams_right_i_;
+  Drul_array<int> beams_i_drul_;
 
   /// maximum number of beams
   int mult_i_;

@@ -10,7 +10,7 @@ title = "An Sylvia";
 }
 
 
-\version "1.0.10";
+\version "1.0.14";
 
 \include "paper16.ly";
 \include "paper13.ly";
@@ -18,119 +18,119 @@ title = "An Sylvia";
 pianoRH=\notes \relative c''  {
 		 \clef "G";
 %1
-		 <[b,8-.(\pp d-. g-.> <b8-. d-. g-.> <b-. d-. g-.> <)b-. d-. g-.]>
-		 <[b8-. d-. g-.(> <b8-. d-. g-.> <b-. d-. g-.> <)b-. d-. g-.]>
+		 <[b,8-.(\pp d-. g-.> <b8-. d-. g-.> <b-. d-. g-.> <)b-. d-. g-.>]
+		 <[b8-. d-. g-.(> <b8-. d-. g-.> <b-. d-. g-.> <)b-. d-. g-.>]
 		 |
 %2
-		 <[c d g_"{\it simile}" \< > <c d g> <c d fis> <c d fis]>
-		 <[c d fis> < \! c d fis > <c d fis> <c d fis]>
+		 <[c d g_"{\it simile}" \< > <c d g> <c d fis> <c d fis>]
+		 <[c d fis> < \! c d fis > <c d fis> <c d fis>]
 %3
 		 |
-		 <[d f gis \> > <d f gis> <d f gis> < \! d f gis ]>
-		 <[c e a> <c e a> <e a c> <e a c]> 
+		 <[d f gis \> > <d f gis> <d f gis> < \! d f gis >]
+		 <[c e a> <c e a> <e a c> <e a c>] 
 		 |
 %4
-		 <[d a' b> <d a' b> <d g! b> <d g b]> 
-		 <[d g a> <d g a> <d fis a> <d fis a]> |
+		 <[d a' b> <d a' b> <d g! b> <d g b>] 
+		 <[d g a> <d g a> <d fis a> <d fis a>] |
 		  \bar "|:";
 %5
-		 <[b_. d g( \pp > <b_. d g> <b_. d g> <)b_. d g]>
-		 <[b_. d g(> <b_. d g> <b_. d g> <)b_. d g]>
+		 <[b_. d g( \pp > <b_. d g> <b_. d g> <)b_. d g>]
+		 <[b_. d g(> <b_. d g> <b_. d g> <)b_. d g>]
 		 |
 %6
-		 <[c d g> <c d g> <c d fis> <c d fis]>
-		 <[c d fis> <c d fis> < a c dis fis> <a c dis fis]>
+		 <[c d g> <c d g> <c d fis> <c d fis>]
+		 <[c d fis> <c d fis> < a c dis fis> <a c dis fis>]
 		 |
 %7
-		 <[g c e g> <g c e g> <g c e g> <g c e g ]> 
-		 <[g c e g> <g c e g>  <g c e> <g c e]>
+		 <[g c e g> <g c e g> <g c e g> <g c e g >] 
+		 <[g c e g> <g c e g>  <g c e> <g c e>]
 		 |
 %8
-		 <[g c e> <g c e> <g b d> <g b d]>
-		 <[g b d> <g b d> <g b d> <g b d]>
+		 <[g c e> <g c e> <g b d> <g b d>]
+		 <[g b d> <g b d> <g b d> <g b d>]
 		 |
 %9
-		 <[fis a d> <fis a d> <fis a d> <fis a d]>
-		 <[g b d> <g b d> <g b d> <g b d]>
+		 <[fis a d> <fis a d> <fis a d> <fis a d>]
+		 <[g b d> <g b d> <g b d> <g b d>]
 		 |
 %10
-		 <[  g a c d \> > <g a c d> <fis a c d> <\! fis a c d ]>
-		 <[g b d> <g b d><g b d><g b d]>
+		 [< g a c d \> > <g a c d> <fis a c d> <\! fis a c d >]
+		 <[g b d> <g b d><g b d><g b d>]
 		 |
 %11
-		<[g a c d> <g a c d> <fis a c d> <fis a c d]>
-		<[g b d> <g b d]> <[b d g> <b d g]>
+		<[g a c d> <g a c d> <fis a c d> <fis a c d>]
+		<[g b d> <g b d>] <[b d g> <b d g>]
 		|
 %12
-		<[ d fis b> <d fis b><d fis b><d fis b]>
-		<[ d fis b> <d fis b><d fis b><d fis b]>
+		[<d fis b> <d fis b><d fis b><d fis b>]
+		[<d fis b> <d fis b><d fis b><d fis b>]
 		|
 %13
-		<[e fis b> <e fis b> < e fis ais> <e fis ais]>
-		<[e fis ais> <e fis ais> <d fis b> <d fis b]>
+		<[e fis b> <e fis b> < e fis ais> <e fis ais>]
+		<[e fis ais> <e fis ais> <d fis b> <d fis b>]
 		|
 %14
-		<[cis g' a!> <cis g' a> <cis a' g> <cis a' g]>
-		<[cis g' a> <cis g' a> < e g a> <e g a]>
+		<[cis g' a!> <cis g' a> <cis a' g> <cis a' g>]
+		<[cis g' a> <cis g' a> < e g a> <e g a>]
 		|
 %15
-		<[e g a> <e g a> <d fis a> <d fis a]>
-		<[d fis a> <d fis a> <d fis a> <d fis a]>
+		<[e g a> <e g a> <d fis a> <d fis a>]
+		<[d fis a> <d fis a> <d fis a> <d fis a>]
 		|
 %16
-		<[d fis a> <d fis a> <d fis a> <d fis a]>
-		<[d fis a \< > <d fis a> <d fis a> < \! d fis a ]>
+		<[d fis a> <d fis a> <d fis a> <d fis a>]
+		<[d fis a \< > <d fis a> <d fis a> < \! d fis a >]
 		|
 %17
-		<[d a' c \> > <d a' c><d a' c>< \! d a' c  ]>
-		<[d a' c> <d a' c><d a' c><d a' c]>
+		<[d a' c \> > <d a' c><d a' c>< \! d a' c  >]
+		<[d a' c> <d a' c><d a' c><d a' c>]
 		|
 %18
-		<[d g a c \> > <d g a c> <d g a c> <d g a c]>
-		<[d fis a c> <\! d fis a c \pp > <d fis a c> <d fis a c]>
+		<[d g a c \> > <d g a c> <d g a c> <d g a c>]
+		<[d fis a c> <\! d fis a c \pp > <d fis a c> <d fis a c>]
 		|
 %19
-		<[d g b> <d g b> <d g b> <d g b]>
-		<[d g b> <d g b> <d g b> <s g b]>
+		<[d g b> <d g b> <d g b> <d g b>]
+		<[d g b> <d g b> <d g b> <s g b>]
 		|
 %20
-		<[e g c> <e g c> <e gis c> <e gis c]>
-		<[e a c> <e a c> <e b' c> < e b' c]>
+		<[e g c> <e g c> <e gis c> <e gis c>]
+		<[e a c> <e a c> <e b' c> < e b' c>]
 		|
 %21
-		<[e c'> <e c'> <e a c> <e a c]>
-		<[e a c> <e a c> <e a c> <e a c]>
+		<[e c'> <e c'> <e a c> <e a c>]
+		<[e a c> <e a c> <e a c> <e a c>]
 		|
 %22
-		<[d a' c> <d a' c> <d a'> <d a']>
-		<[d a' d> <d a' d> <d a' c> <d a' c]>
+		<[d a' c> <d a' c> <d a'> <d a'>]
+		<[d a' d> <d a' d> <d a' c> <d a' c>]
 		|
 %23
-		<[b d b'> <b d b'> <b d a'> <b d a']>
-		<[b d g \< > <b d g> <b d fis> < \! b d fis  ]>
+		<[b d b'> <b d b'> <b d a'> <b d a'>]
+		<[b d g \< > <b d g> <b d fis> < \! b d fis  >]
 		|
 %24
-		<[b d e \> > <b d e> <gis b e> < \! gis b e  ]>
-		<[a c e> <a c e> <e' a> <e a]>
+		<[b d e \> > <b d e> <gis b e> < \! gis b e  >]
+		<[a c e> <a c e> <e' a> <e a>]
 		|
 %25
-		<[d a' c> <d a' c> <d a' c> <d a' c]>
-		<[d a'> <d a' \> > <c d fis> < \! c d fis  \p ]>
+		<[d a' c> <d a' c> <d a' c> <d a' c>]
+		<[d a'> <d a' \> > <c d fis> < \! c d fis  \p >]
 		|
 %26
-		<[b d g> <b d g> <b d g> <b d g]>
-		<[b d g> <b d g> <b d g> <b d g]>
+		<[b d g> <b d g> <b d g> <b d g>]
+		<[b d g> <b d g> <b d g> <b d g>]
 		|
 %27
-		<[c d g > <c d g > <c d fis  > <c d fis ]>
-		<[c d fis \< > <c d fis >< \! c d fis  ><c d fis ]>
+		<[c d g > <c d g > <c d fis  > <c d fis >]
+		<[c d fis \< > <c d fis >< \! c d fis  ><c d fis >]
 		|
 %28
-		<[d f gis \> > <d f gis> < \! d f gis  > <d f gis]>
-		<[c e a> <c e a> <e a c> <e a c]>
+		<[d f gis \> > <d f gis> < \! d f gis  > <d f gis>]
+		<[c e a> <c e a> <e a c> <e a c>]
 %29
-		<[d a' b> <d a' b> <d g! b> <d g b]>
-		<[d g a> <d g a> < d fis! a> <d fis a]>
+		<[d a' b> <d a' b> <d g! b> <d g b>]
+		<[d g a> <d g a> < d fis! a> <d fis a>]
 		\bar ":|";
 %30
 		<b2 d2 g2> r2

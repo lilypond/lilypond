@@ -23,7 +23,7 @@
    * organ staff...
 %}
 
-\version "1.0.10";
+\version "1.0.14";
 
 
 
@@ -70,17 +70,17 @@ praeludium_left = \notes \relative c {
 
   % 13
   \type Staff <
-    { \stemup r4 dis' cis cis ~ |
+    \type VoiceOne { \stemup r4 dis' cis cis ~ |
       [cis8 a d cis] [bis gis] cis4 |
       dis2 cis4 r8 cis }
-    { \stemup bis2 }
-    { \stemup \shifton r4 gis ~ [gis8 gis] ~ \stemdown \shiftoff gis4 |
+    \type VoiceOne { \stemup bis2 }
+    \type VoiceThree { \stemup \shifton r4 gis ~ [gis8 gis] ~ \stemdown \shiftoff gis4 |
       a4. fis8 gis4. a8 ~ |
       a4 gis4 gis r8 gis }
 %    { \stemup \shifton s4 fis4 e}
 % a quick hack to avoid some collisons
-    { \stemdown \shifton s4 fis4 e}
-    { \stemdown s4 dis4 cis4 }
+    \type VoiceFour { \stemdown \shifton s4 fis4 e}
+    \type VoiceTwo { \stemdown s4 dis4 cis4 }
   > |
   %16
 }
@@ -187,7 +187,35 @@ breakmusic = \notes {
       \praeludium_pedal \breakmusic \fugaII_pedal }
   >
 
-  \paper{}
+  \paper {
+    \translator {
+    \VoiceContext
+    \name "BLA";
+    }
+    \translator {
+    \VoiceContext
+    \name "VoiceOne";
+    ydirection = "1";
+    }
+    \translator {
+    \VoiceContext
+    \name "VoiceTwo";
+    ydirection = "-1";
+    }
+    \translator {
+    \VoiceContext
+    \name "VoiceThree";
+    ydirection = "1";
+    hshift = "1";
+    }
+    \translator {
+    \VoiceContext
+    \name "VoiceFour";
+    ydirection = "-1";
+    hshift = "1";
+    }
+
+  }
 
   \midi {
     \tempo 4 =96; }

@@ -72,9 +72,7 @@ public:
 class Span_req  : public virtual Request  {
 public:
   /// should the spanner start or stop, or is it unwanted?
-  enum Spantype {
-    NOSPAN, START, STOP
-  } spantype;
+  Direction spantype_;
   bool do_equal_b (Request*) const;
   REQUESTMETHODS(Span_req);
 

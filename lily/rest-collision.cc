@@ -48,7 +48,7 @@ Rest_collision::do_post_processing()
   if (!stem_l)
     return;
   // no beam
-  if (!(stem_l->beams_left_i_ || stem_l->beams_right_i_))
+  if (!(stem_l->beams_i_drul_[LEFT] || stem_l->beams_i_drul_[RIGHT]))
     return;
 
   int dir_i = rest_l_arr_[0]->dir_;

@@ -25,14 +25,13 @@
 Stem::~Stem ()
 {
 }
+
 Stem::Stem ()
 {
   /*
     TODO: staff-size
     */
-  beam_l_ = 0;
-  beams_left_i_ = 0;
-  beams_right_i_ = 0;
+  beams_i_drul_[LEFT] = beams_i_drul_[RIGHT] = 0;
   mult_i_ = 0;
 
   yextent_drul_[DOWN] = yextent_drul_[UP] = 0;

@@ -59,7 +59,7 @@ Slur_engraver::do_process_requests()
     {
       Slur_req* slur_req_l = new_slur_req_l_arr_[i];
       // end slur: move the slur to other array
-      if (slur_req_l->spantype == Span_req::STOP)
+      if (slur_req_l->spantype_ == STOP)
 	{
 	  if (slur_l_stack_.empty())
 
@@ -70,7 +70,7 @@ Slur_engraver::do_process_requests()
 	      requests_arr_.pop();
 	    }
 	}
-      else  if (slur_req_l->spantype == Span_req::START)
+      else  if (slur_req_l->spantype_ == START)
 	{
 	  // push a new slur onto stack.
 	  //(use temp. array to wait for all slur STOPs)

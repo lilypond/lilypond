@@ -16,15 +16,14 @@
 program_name = 'convert-mudela'
 version = '0.4'
 
-
 import os
 import sys
 import __main__
 import getopt
 from string import *
 import re
-
 import time
+
 mudela_version_re_str = '\\\\version *\"(.*)\"'
 mudela_version_re = re.compile(mudela_version_re_str)
 
@@ -48,7 +47,6 @@ def gulp_file(f):
 		print 'gulped empty file: ' + f + '\n'
 	i.close ()
 	return s
-
 
 def str_to_tuple (s):
 	return tuple (map (atoi, split (s,'.')))
@@ -126,7 +124,7 @@ if 1:					# need new a namespace
 		((0,1,20), conv, 'deprecated \\textstyle, new \key syntax'))
 
 
-if 1:					# need new a namespace
+if 1:
 	def conv (lines):
 		newlines = []
 		for x in lines:
@@ -142,7 +140,7 @@ if 1:					# need new a namespace
 		((0,1,21), conv, '\\musical_pitch -> \\musicalpitch, '+
 		 '\\meter -> \\time'))
 
-if 1:					# need new a namespace
+if 1:
 	def conv (lines):
 		return lines
 
@@ -150,7 +148,7 @@ if 1:					# need new a namespace
 		((1,0,0), conv, '0.1.21 -> 1.0.0 '))
 
 
-if 1:					# need new a namespace
+if 1:
 	def conv (lines):
 		newlines = []
 		for x in lines:
@@ -255,6 +253,34 @@ if 1:
 		return newlines
 	
 	conversions.append ((1,0,10), conv, '[2/3 ]1/1 -> \\times 2/3 ')
+
+if 1:
+	def conv(lines):
+		return lines
+	conversions.append ((1,0,12), conv, 'Chord syntax stuff')
+
+
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('<([^>~]+)~([^>]*)>','<\\1 \\2> ~', x)
+			newlines.append (x)
+		return newlines
+	
+	conversions.append ((1,0,13), conv, '<a ~ b> c -> <a b> ~ c')
+
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('<\\[ ','[<', x)
+			x =  re.sub ('\\]>','>]', x)
+			newlines.append (x)
+		return newlines
+	
+	conversions.append ((1,0,14), conv, '<[a b> <a b]>c -> [<a b> <a b>]')
+
 
 
 ############################

@@ -46,8 +46,8 @@
 #include "repeated-music.hh"
 
 // mmm
-Mudela_version oldest_version ("1.0.10");
-Mudela_version version ("1.0.12");
+Mudela_version oldest_version ("1.0.14");
+Mudela_version version ("1.0.14");
 
 
 // needed for bison.simple's malloc() and free()
@@ -231,7 +231,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <scope> 	mudela_header mudela_header_body
 %type <box>	box
 %type <i>	open_request_parens close_request_parens
-%type <i>	open_abbrev_parens
 %type <i>	sub_quotes sup_quotes
 %type <music>	simple_element  request_chord command_element Simple_music  Composite_music 
 %type <music>	Alternative_music Repeated_music
@@ -774,9 +773,13 @@ Simple_music:
 	| MUSIC_IDENTIFIER { $$ = $1->access_content_Music (true); }
 	| property_def
 	| translator_change
-	| Simple_music '*' unsigned '/' unsigned {  }
-	| Simple_music '*' unsigned		 {  }
-
+	| Simple_music '*' unsigned '/' unsigned 	{
+		/* urg */
+		$$ = new Compressed_music ($3, $5, $1);
+	}
+	| Simple_music '*' unsigned		 {
+		$$ = new Compressed_music ($3, 1, $1);
+	}
 	;
 
 
@@ -906,19 +909,19 @@ abbrev_command_req:
 	| COMMAND_IDENTIFIER	{
 		$$ = $1->access_content_Request (true);
 	}
-/* TODO */
-/*	| '~'	{
+	| '~'	{
 		$$ = new Command_tie_req;
 	}
 	| '['		{
-		$$ = new Beam_req;
-		$$->spantype = Span_req::START;
+		Beam_req*b= new Beam_req;
+		b->spantype_ = START;
+		$$ =b;
 	}
 	| ']'		{
-		$$ = new Beam_req;
-		$$->spantype = Span_req::STOP;
+		Beam_req*b= new Beam_req;
+		b->spantype_ = STOP;
+		$$ = b;
 	}
-*/
 	;
 
 
@@ -1136,7 +1139,7 @@ extender_req:
 		if (!THIS->lexer_p_->lyric_state_b ())
 			THIS->parser_error (_ ("have to be in Lyric mode for lyrics"));
 		Extender_req * e_p = new Extender_req;
-		e_p->spantype = Span_req::START;
+		e_p->spantype_ = START;
 		$$ = e_p;
 		THIS->extender_req = e_p;
 	};
@@ -1149,7 +1152,7 @@ dynamic_req:
 	}
 	| SPANDYNAMIC '{' int int '}' {
 		Span_dynamic_req * sp_p = new Span_dynamic_req;
-		sp_p->spantype = (Span_req::Spantype)$4;
+		sp_p->spantype_ = (Direction)$4;
 		sp_p-> dynamic_dir_  = (Direction)$3;
 		$$ = sp_p;
 	}
@@ -1158,14 +1161,8 @@ dynamic_req:
 
 
 close_request_parens:
-	'~'	{
-		$$ = '~';
-	}
-	| '('	{
+	'('	{
 		$$='(';
-	}
-	| ']'	{
-		$$ = ']';
 	}
 	| E_SMALLER {
 		$$ = '<';
@@ -1175,17 +1172,6 @@ close_request_parens:
 	}
 	;
 
-open_abbrev_parens:
-	'[' ':' unsigned {
-		$$ = '[';
-		if (!Duration::duration_type_b ($3))
-			THIS->parser_error (_f ("not a duration: %d", $3));
-		else if ($3 < 8)
-			THIS->parser_error (_ ("can't abbreviate"));
-		else
-			THIS->set_abbrev_beam ($3);
-	}
-	;
 
 
 open_request_parens:
@@ -1195,10 +1181,6 @@ open_request_parens:
 	| ')'	{
 		$$=')';
 	}
-	| '['	{
-		$$='[';
-	}
-	| open_abbrev_parens
 	;
 
 
@@ -1294,7 +1276,7 @@ pre_requests:
 		if (THIS->extender_req)
 		  {
 		    Extender_req * e_p = new Extender_req;
-		    e_p->spantype = Span_req::STOP;
+		    e_p->spantype_ = STOP;
 		    THIS->pre_reqs.push (e_p);
 		    THIS->extender_req = 0;
 		  }

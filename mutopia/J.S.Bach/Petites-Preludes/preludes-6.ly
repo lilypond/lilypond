@@ -8,7 +8,7 @@ composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";
 }
-\version "1.0.10";
+\version "1.0.14";
 
 
 one = \notes\relative c{
@@ -84,7 +84,7 @@ four = \notes\relative c{
 	\stemup
 	b2-1 a-1 |
 	g a4. [gis16 a] |
-	gis2 <[g8 cis,> <f-3 d-1]> e4-2 |
+	gis2 <[g8 cis,> <f-3 d-1>] e4-2 |
 	d4. [fis16-3 g-2] r16 bes8.-1 ~ bes4 |
 	%10
 	\stemdown

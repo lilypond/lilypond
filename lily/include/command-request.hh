@@ -168,4 +168,5 @@ public:
   REQUESTMETHODS(Bracket_req);
 };
 
+
 #endif // COMMANDREQUEST_HH

@@ -43,7 +43,7 @@ Extender_engraver::do_try_music (Music* req_l)
 {
   if (Extender_req* p = dynamic_cast <Extender_req *> (req_l))
     {
-      if (bool (extender_spanner_p_) == bool (p->spantype == Span_req::START))
+      if (bool (extender_spanner_p_) == bool (p->spantype_ == START))
 	return false;
 
       Direction d = (!extender_spanner_p_) ? LEFT : RIGHT;

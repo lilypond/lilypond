@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.10";
+\version "1.0.14";
 
 violino1 = \notes \relative c {
 	c'1\ff ~ | c | <f4-. c'-. as'-.> r r2 | R1 |
@@ -54,9 +54,9 @@ violino1 = \notes \relative c {
 	g2.\p( as4 | g f d ) bes | bes'2.( c4 | 
 	%55
 	bes2 )as |
-	g4 <bes2-"cresc." bes'> <bes4 bes'~> |
-	<bes-"cresc." bes'> <bes2 bes'> <bes4 bes'~> |
-	<bes bes'> <bes2 bes'> <bes4 bes'~>  |
+	g4 <bes2-"cresc." bes'> <bes4 bes' > ~ |
+	<bes-"cresc." bes'> <bes2 bes'> <bes4 bes' > ~ |
+	<bes bes'> <bes2 bes'> <bes4 bes' > ~  |
 	<bes bes'> <bes2 bes'> <bes4 bes'> |
 	%60
 	bes'2:16 bes: | bes: bes: |
@@ -237,11 +237,11 @@ violino1 = \notes \relative c {
 	[c8 c] c4. c8 c4 ~ |
 	[c8 c] c4. c8 c4 ~ |
 	[c8 c] c4. c8 c4 ~ |
-	c4.\ff <c8 c,> <c2\sf c,~> |
+	c4.\ff <c8 c,> <c2\sf c, > ~ |
 	%265
-	<c4. c,> <c8 c,> <c2\sf c,~> |
-	<c4. c,> <c8 c,> <c2\sf c,~> |
-	<c4. c,> <c8 c,> <c2\sf c,~> |
+	<c4. c,> <c8 c,> <c2\sf c, > ~ |
+	<c4. c,> <c8 c,> <c2\sf c, > ~ |
+	<c4. c,> <c8 c,> <c2\sf c, > ~ |
 	<c4. c,> <c8 c,> <c2\sf c,> |
 	d4. d8 d2\sf |
 	%270
