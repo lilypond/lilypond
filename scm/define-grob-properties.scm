@@ -157,7 +157,7 @@ square of the inner notes involved.")
 
      (control-points ,list? "List of 4 offsets (number-pairs) that form control points for the  tie/slur shape.")
 
-     (damping ,integer? "Amount of beam slope damping. 0: no, 1: yes,
+     (damping ,number? "Amount of beam slope damping. 0: no, 1: yes,
 100000: horizontal beams.")
      (dash-period ,number? "the length of one dash + white space. If
 negative, no line is drawn at all.")

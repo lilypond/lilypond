@@ -7,6 +7,7 @@
 */
 
 #include <sstream>
+
 #include "config.h"
 
 #include "includable-lexer.hh"

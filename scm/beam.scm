@@ -92,6 +92,26 @@
 
 	
 	  )))
+(define ((check-beam-slope-sign comparison) beam)
+  "Check whether the slope of BEAM is correct wrt. COMPARISON."
+  (let*
+      ((posns (ly:grob-property beam 'positions))
+       (slope-sign (- (cdr posns) (car posns)))
+       (correct (comparison slope-sign 0)))
+
+    
+    (if (not correct)
+	(begin
+	  (ly:warn
+	   (format "Error in beam quanting found. Want ~S 0 found ~S."
+		   (procedure-name comparison) slope-sign
+		   ))
+	  (set! (ly:grob-property beam 'quant-score)
+		(format "~S 0" (procedure-name comparison) )))
+	(set! (ly:grob-property beam 'quant-score) "")
+
+	
+	  )))
 		 
 (define-public (check-quant-callbacks l r)
   (list Beam::least_squares
@@ -100,6 +120,16 @@
     Beam::shift_region_to_valid
     Beam::quanting
     (check-beam-quant l r)
+    ))
+
+		 
+(define-public (check-slope-callbacks comparison)
+  (list Beam::least_squares
+    Beam::check_concave
+    Beam::slope_damping
+    Beam::shift_region_to_valid
+    Beam::quanting
+    (check-beam-slope-sign comparison)
     ))
 
   

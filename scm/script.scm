@@ -18,6 +18,7 @@
 	 ("marcato" .
 	  (
 	   (script-stencil . (feta . ("dmarcato" . "umarcato")))
+	   (follow-into-staff . #t)
 	   (side-relative-direction .  -1)))
 	 ("staccatissimo" .
 	  (

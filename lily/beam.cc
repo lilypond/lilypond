@@ -522,13 +522,13 @@ Beam::print (SCM grob)
       String str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
+      Direction stem_dir = stems.size() ? to_dir (stems[0]->get_property ("direction")) : UP;
+    
       Stencil tm = *unsmob_stencil (Text_item::interpret_markup
 	 (me->get_paper ()->self_scm (), properties, quant_score));
-      the_beam.add_at_edge (Y_AXIS, UP, tm, 5.0, 0);
+      the_beam.add_at_edge (Y_AXIS, stem_dir, tm, 1.0, 0);
     }
 #endif
-    
-  
   
   return the_beam.smobbed_copy ();
 }
