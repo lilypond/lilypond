@@ -5771,7 +5771,7 @@ Hymnarius}), published 1983 by the monks of Solesmes.
 \score {
     \notes \transpose c c' {
         % Salicus
-        \[ g \pes \oriscus a \virga b \]
+        \[ g \oriscus a \pes \virga b \]
     }
     \paper {
         interscoreline = 1
@@ -5803,7 +5803,7 @@ Hymnarius}), published 1983 by the monks of Solesmes.
 \score {
     \notes \transpose c c' {
         % Salicus Auctus Descendens
-        \[ g \pes \oriscus a \auctum \descendens b \]
+        \[ g \oriscus a \pes \auctum \descendens b \]
     }
     \paper {
         interscoreline = 1
@@ -5870,15 +5870,10 @@ Hymnarius}), published 1983 by the monks of Solesmes.
 
 @refbugs
 
-Horizontal head alignment is broken in Pes Quassus, Pes Quassus Auctus
-Descendens, Quilisma Pes Auctus Descendens, Pes Initio Debilis, Pes
-Auctus Descendens Initio Debilis, Torculus Deminutus Initio Debilis,
-Porrectus Deminutus, Scandicus Auctus Descendens, Scandicus Deminutus,
-Salicus, and Salicus Auctus Descendens.
+Horizontal head alignment is broken in Pes Initio Debilis.
 
-Porrectus Auctus Descendens: wrong glyph for auctus descendens head.
-
-Torculus Deminutus: use cephalicus head without stem.
+Use special heads for lower/upper head of Pes only when heads are
+stacked.
 
 @node Figured bass
 @subsection Figured bass

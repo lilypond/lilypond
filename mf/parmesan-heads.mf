@@ -547,7 +547,13 @@ punctum_char("Ed. Vat. rev. plica", "vaticana_reverse_plica", "vatrplicahead",
 	     false, false, false, false, false,
 	     false, true, false, false, 0.7);
 
-% excentric punctum as used in cephalicus
+% excentric punctum as used in cephalicus; without left stem
+punctum_char("Ed. Vat. cephalicus", "vaticana_inner_cephalicus",
+	     "vatinnercephalicushead",
+	     false, false, false, false, false,
+	     false, false, true, false, 1.0);
+
+% excentric punctum as used in cephalicus; with left stem
 punctum_char("Ed. Vat. cephalicus", "vaticana_cephalicus",
 	     "vatcephalicushead",
 	     true, false, false, false, false,

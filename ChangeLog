@@ -1,3 +1,10 @@
+2003-05-24  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/refman.itely,
+	lily/vaticana-ligature-engraver.cc, lily/vaticana-ligature.cc,
+	mf/parmesan-heads.mf: fixed most of the head selection/alignment
+	bugs in the solesmes neumes table
+
 2003-05-24  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el: Match '(' and ')' by skipping '\(' and '\)'.
