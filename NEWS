@@ -1,3 +1,11 @@
+pl 28.hwn1
+	- bf: mid measure clefs (breakable  items in non-breakable columns.)
+	- spanner.cc assert changed to warning
+	- (c) 1998 -> 1999 search replace.
+
+pl 28.jcn1
+	- new outline TODO + .emacs setup
+*******
 pl 28
 pl 27.hwn2
 	- un-SMOB Atom.  Cons and Killing_cons as simple cons replacements.

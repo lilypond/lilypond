@@ -1,7 +1,7 @@
 /*
   clef-item.hh -- declare Clef_item
 
-  (c) 1996--1998 Han-Wen Nienhuys
+  (c) 1996--1999 Han-Wen Nienhuys
 */
 
 #ifndef CLEFITEM_HH

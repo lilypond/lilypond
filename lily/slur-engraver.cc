@@ -1,7 +1,7 @@
 /*
   slur-grav.cc -- implement Slur_engraver
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "proto.hh"

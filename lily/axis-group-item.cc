@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include "axis-group-item.hh"
 #include "p-col.hh"
@@ -24,9 +24,9 @@ Axis_group_item::OK() const
 void
 Axis_group_item::do_breakable_col_processing()
 {
-  if (!breakable_b_ || !column_l ()->breakable_b_) // ugh should merge with Item code
+  if (!breakable_b ()) // ugh should merge with Item code
     return;
-  
+
   OK();
   copy_breakable_items();
   

@@ -1,7 +1,7 @@
 /*
   plet-spanner.hh -- part of GNU LilyPond
 
-  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--1999 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef Tuplet_spanner_HH

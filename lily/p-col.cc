@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "p-col.hh"
@@ -139,4 +139,10 @@ Paper_column::preprocess ()
 {
   minimal_dists_arr_drul_[LEFT].sort (Column_rod::compare);
   minimal_dists_arr_drul_[RIGHT].sort (Column_rod::compare);  
+}
+
+bool
+Paper_column::breakable_b () const
+{
+  return breakable_b_;
 }

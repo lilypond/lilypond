@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "p-score.hh"
@@ -19,6 +19,13 @@ Item::Item ()
   breakable_b_ = false;
   break_status_dir_ = CENTER;
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
+}
+
+bool
+Item::breakable_b () const
+{
+  return !unbroken_original_l_ 
+    && dynamic_cast<Item*>(parent_l (X_AXIS))->breakable_b ();
 }
 
 void
@@ -43,7 +50,7 @@ Item::line_l() const
   Graphical_element *g = parent_l (X_AXIS);
   if (!g)
     return 0;
-  return dynamic_cast <Score_element *> (g)-> line_l ();
+  return dynamic_cast<Score_element *> (g)-> line_l ();
 }
 
 Direction
@@ -55,8 +62,10 @@ Item::break_status_dir() const
 void
 Item::copy_breakable_items()
 {
-  if (broken_to_drul_[LEFT] || broken_to_drul_[RIGHT])
+  if (broken_to_drul_[LEFT] || broken_to_drul_[RIGHT] 
+      || ! breakable_b ())
     return;
+
   Drul_array<Item *> new_copies;
   Direction  i=LEFT;
   do 
@@ -108,13 +117,12 @@ Item::do_break ()
   */
   add_dependency (broken_to_drul_[LEFT]);
   add_dependency (broken_to_drul_[RIGHT]);
-
 }
 
 void
 Item::do_breakable_col_processing()
 {
-  if (breakable_b_)
+  if (breakable_b ())
     do_break ();
 
 }
@@ -211,14 +219,10 @@ Item::Item (Item const &s)
 void
 Item::handle_prebroken_dependents ()
 {
-  Dimension_cache * dim = dim_cache_[X_AXIS].parent_l_;
-  if (!dim)
-    return;
-  
-  Item * parent =  dynamic_cast<Item*> (dim->element_l ());
-  if (parent && parent->broken_to_drul_[LEFT])
+  Item * parent =  dynamic_cast<Item*> (parent_l( X_AXIS));
+  if (breakable_b () && parent)
     {
-      if(!(broken_to_drul_[LEFT] || broken_to_drul_[RIGHT]))
+       if(!(broken_to_drul_[LEFT] || broken_to_drul_[RIGHT]))
 	do_break ();
 
       Direction d = LEFT;

@@ -1,4 +1,5 @@
-# -*-outline-*-
+-*-outline-layout:(2 (-1 -1 0 :) 0);outline-stylish-prefixes:nil -*-
+
 * GNU LilyPond TODO
 Features you cannot find in the doco as working, should be
 mentioned here.  This is an assorted collection of stuff that will be
@@ -7,60 +8,95 @@ done, might be done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
-** BUGS
-*** .ly files
-**** input/praeludium-fuga-E.ly
-**** mutopia/J.S.Bach/wtk1-fugue2.ly
-**** fix: text on rests: rediculous dims
-*** fix midi output:
-**** default duration?  d
+.* BUGS
+. * .ly files
+.  * input/praeludium-fuga-E.ly
+.  * input/font20
+.  * mutopia/J.S.Bach/wtk1-fugue2.ly
+.  * fix: text on rests: rediculous dims
+. * fix midi output:
+.  * default duration?  d
      duration must be not entered explicitely on first note.
-*** fix singleStaffBracket
-*** \shape 1st dim skipped? 
-*** turn slope-damping on/off
-*** c4 \! \> c4
-*** tremolo stuff
-*** gallina barlines.
-*** fix height of / collisions with lyrics (chords), 
+. * fix singleStaffBracket
+. * \shape 1st dim skipped? 
+. * turn slope-damping on/off
+. * c4 \! \> c4
+. * tremolo stuff
+. * gallina barlines.
+. * fix height of / collisions with lyrics (chords), 
     see input/test/vertical-text.ly; input/test/repeat.ly
-*** latex bla.tex broken (titles / \lilyfooter stuff?)
-*** fix dynamics decently, ie. use kerning & ligatures.  
-*** fix "I've been drinking too much"
-*** support_l_arr_ empty in staff-margin's G_staff_side_item
-*** remove old preformats in RPM
-*** declaring \score	
-*** is \break broken? input/test/hara-kiri.ly
-*** fix OrchestralScore and Hara-kiri (i.e., fix Coriolan)
+. * latex bla.tex broken (titles / \lilyfooter stuff?)
+. * fix dynamics decently, ie. use kerning & ligatures.  
+. * fix "I've been drinking too much"
+. * support_l_arr_ empty in staff-margin's G_staff_side_item
+. * remove old preformats in RPM
+. * declaring \score	
+. * is \break broken? input/test/hara-kiri.ly
+. * fix OrchestralScore and Hara-kiri (i.e., fix Coriolan)
+. *
+\score{
+	\type Staff \notes\relative c''{
+		\property Staff.instrument = "Toeters"
+		c c c c(\break
+		)c c c c ~\break
+		c c c c\break
+	}
+	\paper{
+		linewidth=60.0\mm;
+%		\translator { \HaraKiriStaffContext }
+		\translator { \OrchestralScoreContext }
+		\translator {
+			\StaffContext
+			\consists "Staff_margin_engraver";
+		}
+	}
+}
 
-** TODO before 1.2
-*** do scaled fonts.
-*** profile atom smobs
-*** make ly2dvi test page.
-*** Try to use Killing_cons iso. Pointer_list
-*** make dependencies () a virtual function.
-*** fix Repeated_music_iterator::ok() (constness.)
-*** one big ly2dvi input that includes *all* tests.
-*** Don't use boolean properties (0,1), instead check existence
+. *
+Phrasing:  Indicating the textual underlay of a piece, or
+		otherwise dividing a piece into phrases.
+
+There are distinct ways of specifying the first two (although at
+present, they're not properly distinguished) but no distinct way to
+specify the third.  Should there be?
+
+.* TODO before 1.2
+. *
+> Yes.  I want ties to tie only notes of the same pitch, so that
+> 	< a~  a,>  a
+> works as you'd expect it to.
+. * 1. Can Lily be told where to start numbering?
+. * The timpani part has rests the full first line. Is it possible
+   to force lilypond to print all parts on the first page of the score
+   but use the hara-kiri mechanism on the remaining pages?
+. * do scaled fonts.
+. * profile atom smobs
+. * make ly2dvi test page.
+. * Try to use Killing_cons iso. Pointer_list
+. * make dependencies () a virtual function.
+. * fix Repeated_music_iterator::ok() (constness.)
+. * one big ly2dvi input that includes *all* tests.
+. * Don't use boolean properties (0,1), instead check existence
 of property.
-*** store req -> element, element -> element causes for warnings
-*** junk Text_def, use G_text_item in stead.
-*** junk Script_def
-*** fix partial measures in meaningful way.
-*** fix AFM for BlueSky AFM files.
-*** working notehead style.
-*** add scripts to bars eg.  |^"bla" 
-*** relative mode for mi2mu
-*** uniformise recent feta contributions.
-**** use SCM and Molecules for {accordeon stuff, }
-**** bigger and fatter 4/4 C
-*** sort out directory stuff.
-**** --prefix option?
-**** -I option per filetype?
-**** kpathsea?
-*** todo doc left/rightbeamcount
-*** doc Single_malt_grouping_item
-*** ly2dvi/lilypond logfile.
-*** How can I specify a chord whose duration is longer than a whole note?
+. * store req -> element, element -> element causes for warnings
+. * junk Text_def, use G_text_item in stead.
+. * junk Script_def
+. * fix partial measures in meaningful way.
+. * fix AFM for BlueSky AFM files.
+. * working notehead style.
+. * add scripts to bars eg.  |^"bla" 
+. * relative mode for mi2mu
+. * uniformise recent feta contributions.
+.  * use SCM and Molecules for {accordeon stuff, }
+.  * bigger and fatter 4/4 C
+. * sort out directory stuff.
+.  * --prefix option?
+.  * -I option per filetype?
+.  * kpathsea?
+. * todo doc left/rightbeamcount
+. * doc Single_malt_grouping_item
+. * ly2dvi/lilypond logfile.
+. * How can I specify a chord whose duration is longer than a whole note?
  \type ChordNames { \chord{ A1*2-min } }
 
 gives me a parse error.  And \times doesn't work either.  I can't use
@@ -135,48 +171,48 @@ I was trying to get interstaff beams to work and did this:
 }
 
 The beams are at the right angle, but they aren't in the right place.
-*** fractional chord durs.
-*** hang Item on Spanner
-*** remove Interval dim_ from Dimension_cache and rename the struct.
-*** do --safe for PS output?
-*** convert-mudela --output
-*** Staff_margin (with a partial measure.)
-*** fix "I've been drinking too much"
-*** fix pletvisibility properties:
-**** bracket on/off/no-bracket-when-beam
-**** num on/off/no-num-when-beam
-*** fix: standchen.
-*** junk backlinks?
-*** junk text{sharp,flat,etc}
-*** fix convert-mudela manpage
-*** decimal point in \paper {}
-*** {  \voiceone <a'4.*2/3  d''4.*2/3 fis''4.*2/3>  [g''8 fis'' e''] d''4 |}
+. * fractional chord durs.
+. * hang Item on Spanner
+. * remove Interval dim_ from Dimension_cache and rename the struct.
+. * do --safe for PS output?
+. * convert-mudela --output
+. * Staff_margin (with a partial measure.)
+. * fix "I've been drinking too much"
+. * fix pletvisibility properties:
+.  * bracket on/off/no-bracket-when-beam
+.  * num on/off/no-num-when-beam
+. * fix: standchen.
+. * junk backlinks?
+. * junk text{sharp,flat,etc}
+. * fix convert-mudela manpage
+. * decimal point in \paper {}
+. * {  \voiceone <a'4.*2/3  d''4.*2/3 fis''4.*2/3>  [g''8 fis'' e''] d''4 |}
 	 and=20
 	 { \voicetwo  d'4 d'2.*2/3 } spacing
-*** tied notes for MIDI
-*** sharp /flat on trills (in MIDI ??)
-*** scm-ify \property values.
-*** move class Lookup {} into scm
-*** collisions/voices \voiceone \voicetwo are broken; see 
-*** msgfmt -o check?
-*** \breathmark TeX macro 
-*** catch GUILE errors?
-*** add new glyphs to font.ly
-*** formatting of input stuff. 
-*** \notes{ a \< b \cr } vs \notes{ a \< b \! }
-*** if possible, it might be nice for a warning to appear if someone does
+. * tied notes for MIDI
+. * sharp /flat on trills (in MIDI ??)
+. * scm-ify \property values.
+. * move class Lookup {} into scm
+. * collisions/voices \voiceone \voicetwo are broken; see 
+. * msgfmt -o check?
+. * \breathmark TeX macro 
+. * catch GUILE errors?
+. * add new glyphs to font.ly
+. * formatting of input stuff. 
+. * \notes{ a \< b \cr } vs \notes{ a \< b \! }
+. * if possible, it might be nice for a warning to appear if someone does
 	\translator with no name and without assigning it to an
 	identifier.  
-*** space after bars?
-*** 'hinterfleisch' before bar (e.g. wtk1-fugue2)?
-*** \type Voice \times 2/3 { [c8 c16 c16 c16 c16] }
-*** repeat bars: need distance after ":|" and before "|:"
-** Summary of minor spelling irregularities:
-***  capitalization/use of underscores in property names
-*** fix SkipBars  -> skipBars
+. * space after bars?
+. * 'hinterfleisch' before bar (e.g. wtk1-fugue2)?
+. * \type Voice \times 2/3 { [c8 c16 c16 c16 c16] }
+. * repeat bars: need distance after ":|" and before "|:"
+.* Summary of minor spelling irregularities:
+. *  capitalization/use of underscores in property names
+. * fix SkipBars  -> skipBars
 
-*** fix marks/barnumbers/marginal notes
-*** broken scripts:
+. * fix marks/barnumbers/marginal notes
+. * broken scripts:
 	lbheel = \script { "bheel" 0 0 -1  0 0 }
 	rbheel = \script { "bheel" 0 0 1 0 0 }
 	lbtoe = \script { "btoe" 0 0 -1 0 0 }
@@ -189,296 +225,296 @@ The beams are at the right angle, but they aren't in the right place.
 	and also
 	
 	portato= \script { "portato" 0 -1 0 1 0 }
-*** ly2dvi
-**** bottomnote for ly2dvi
-**** cf'able ly2dvi  tagline.
-**** deps for ly2dvi
-** STUFF
-*** check out legal/(c) matters for scores.
-*** check out GCC signatures?
-*** Align_element::padding  ?
-*** uniformise property names...
-**** ydirection <-> yDirection
-**** rather allow '_' in identifiers first (i.e. junk ^ and _),
+. * ly2dvi
+.  * bottomnote for ly2dvi
+.  * cf'able ly2dvi  tagline.
+.  * deps for ly2dvi
+.* STUFF
+. * check out legal/(c) matters for scores.
+. * check out GCC signatures?
+. * Align_element::padding  ?
+. * uniformise property names...
+.  * ydirection <-> yDirection
+.  * rather allow '_' in identifiers first (i.e. junk ^ and _),
 	    and do y_direction?
-**** typo checks on property names?
-*** use streambufs and iostream
+.  * typo checks on property names?
+. * use streambufs and iostream
 	to provide IO handling for TeX stream, mudela stream, data-file.
-*** seriously buffer TeX output (do profile of writing .5 mb TeX file.)
-*** strip EXEs before installing
-*** zip target for binary windows dist (JBR)
-*** junking \skip req in lyrics
-*** Language:
-**** \type -> \context ?
-**** \translator -> ?
-**** fix \partial 
-**** \bla {} vs \bla ; 
-**** mix engraver hacking with music ?
-**** \once\property  KEY = VAL
-**** \addtranslator, \removetranslator
-**** junk ^ and _ for scripts
-**** junk _ for lyrics.
-**** abstract grammar.
-*** percussion note heads
-*** mi2mu empty staffs.
-*** horizontal centering of dynamics 
-*** gzip RH manpage
-*** stable make/config stuff
-*** $DEPENDENCIES_OUTPUT support
-*** Xdvi zooming ?! Try to understand GS garbage collection.
+. * seriously buffer TeX output (do profile of writing .5 mb TeX file.)
+. * strip EXEs before installing
+. * zip target for binary windows dist (JBR)
+. * junking \skip req in lyrics
+. * Language:
+.  * \type -> \context ?
+.  * \translator -> ?
+.  * fix \partial 
+.  * \bla {} vs \bla ; 
+.  * mix engraver hacking with music ?
+.  * \once\property  KEY = VAL
+.  * \addtranslator, \removetranslator
+.  * junk ^ and _ for scripts
+.  * junk _ for lyrics.
+.  * abstract grammar.
+. * percussion note heads
+. * mi2mu empty staffs.
+. * horizontal centering of dynamics 
+. * gzip RH manpage
+. * stable make/config stuff
+. * $DEPENDENCIES_OUTPUT support
+. * Xdvi zooming ?! Try to understand GS garbage collection.
 		gs: Error: /undefined in draw_beam
 		gs: Operand stack:
-*** fix vertical alignment and stafflines
-*** GrandStaff needs more work -- I want a single word
+. * fix vertical alignment and stafflines
+. * GrandStaff needs more work -- I want a single word
 	`harpsichord' to the left of the grandstaff, not one on each
 	stave.  (Organ staff -- with separate pedal -- but common
 	properties may be something to think about.  Of course for
 	organ you want to be able to give stop indications on the way
 	through, so the \property Voice.Instrument would be a stop,
 	and \property GrandStaff.instrument would be PipeOrgan...)
-*** revise the Score_priority_align_engraver concept.  It sucks. 
-*** make new VoiceOne, VoiceTwo, VoiceThree contexts with
+. * revise the Score_priority_align_engraver concept.  It sucks. 
+. * make new VoiceOne, VoiceTwo, VoiceThree contexts with
 ydirection and hshift preset
-*** *.yo: fix pod manpage layout legacy
-*** text-items clash with stems/beams
-*** --include, -I option for ly2dvi (pass on to lily)
-*** fix placement of beam-less abbrev
-*** \meter 3/4;
+. * *.yo: fix pod manpage layout legacy
+. * text-items clash with stems/beams
+. * --include, -I option for ly2dvi (pass on to lily)
+. * fix placement of beam-less abbrev
+. * \meter 3/4;
 	<{\voiceone cis4. cis8 cis4 | cis4 cis cis | r1 }
 	 {\voicetwo cis,4 r r | r2. | r1 }> |
 	}
-*** try to use template<Type> iso MACRO(Type)
-**** NEWS: ... Musical_pitch (analogous to Duration and Rhythmic_req)
+. * try to use template<Type> iso MACRO(Type)
+.  * NEWS: ... Musical_pitch (analogous to Duration and Rhythmic_req)
 	  think about, analogous to pitch: 
 	   * { a4 a16 } c <-- duration of c?
 	   * < a4 b8 > c <-- duration of c?
-*** \tempo 4. = 90;
-*** fix audio-items (don't use (input) requests, but copy data)
-*** make sure all ex's have a mudela-version
-*** do rest-collisions for Multi_measure_rests as well.
-*** split error/warning in error/warning/non_fatal_error
-*** add a Duration_convert member to Duration_iter to set parameters.
+. * \tempo 4. = 90;
+. * fix audio-items (don't use (input) requests, but copy data)
+. * make sure all ex's have a mudela-version
+. * do rest-collisions for Multi_measure_rests as well.
+. * split error/warning in error/warning/non_fatal_error
+. * add a Duration_convert member to Duration_iter to set parameters.
 	Junk global duration settings. 
-*** minimum length second part broken tie
-*** en-,discouraged linebreaking: 
-**** handle DISALLOW < penalty > FORCE
-**** discourage breaking of slurs
-*** fix variable define/lookup parser global<->paper
-*** fix title/instrument placements; see input/test/title.ly
-*** <\voiceone c4. \voicetwo c4>
-*** add full cello suites to web site (kom op, Maarten!)
-*** Rethink Time_description
+. * minimum length second part broken tie
+. * en-,discouraged linebreaking: 
+.  * handle DISALLOW < penalty > FORCE
+.  * discourage breaking of slurs
+. * fix variable define/lookup parser global<->paper
+. * fix title/instrument placements; see input/test/title.ly
+. * <\voiceone c4. \voicetwo c4>
+. * add full cello suites to web site (kom op, Maarten!)
+. * Rethink Time_description
 	  * \cadenza , \meter, \grouping should all be \properties
-*** rename
-**** measure -> bar
-**** abbrev -> tremolo
-**** abbreviation-beam -> (measured/unmeasured) tremolo
-**** partial -> anacrouse
-*** shared lib
-*** robustify Beam (in case of no stems, 32nd notes)
-*** decentralised spring factory
-*** move paper vars into engraver properties
-*** check for groff / troff/ nroff et
-*** more intelligent file searching
-*** make LilyPond RPM fully relocatable
-*** disable spaces in TeX stuff
-*** handle ^C for tmp/file creation.
-*** dots & rest collisions.
-*** documentation
-**** introduction?
-**** info?
-**** LaTeX?
-**** more manpages?
-*** versioning for Feta
-*** the warning about the negative slur/tie length appears twice
+. * rename
+.  * measure -> bar
+.  * abbrev -> tremolo
+.  * abbreviation-beam -> (measured/unmeasured) tremolo
+.  * partial -> anacrouse
+. * shared lib
+. * robustify Beam (in case of no stems, 32nd notes)
+. * decentralised spring factory
+. * move paper vars into engraver properties
+. * check for groff / troff/ nroff et
+. * more intelligent file searching
+. * make LilyPond RPM fully relocatable
+. * disable spaces in TeX stuff
+. * handle ^C for tmp/file creation.
+. * dots & rest collisions.
+. * documentation
+.  * introduction?
+.  * info?
+.  * LaTeX?
+.  * more manpages?
+. * versioning for Feta
+. * the warning about the negative slur/tie length appears twice
 	which is irritating.
-*** The `3' in the meter key is a one or two pixels too thin (at 600dpi)
+. * The `3' in the meter key is a one or two pixels too thin (at 600dpi)
 	in the middle:
-*** the bracket is ugly (wings are too parabolic, should be more circular)
-*** better hshift (dots, distance, head dependent)
+. * the bracket is ugly (wings are too parabolic, should be more circular)
+. * better hshift (dots, distance, head dependent)
         * clefs (AG): The "8" should appear closer to the actual clef,
           touching it.
-*** put errorlevel in Input class
-*** junk nesting slurs
-*** integrate midi-elts from mi2mu and lily?
-** 3RD PARTY BUGS
-*** GNU diff 2.7: diff -rN does not see a new directory with empty file
-*** glibc 2.0:
+. * put errorlevel in Input class
+. * junk nesting slurs
+. * integrate midi-elts from mi2mu and lily?
+.* 3RD PARTY BUGS
+. * GNU diff 2.7: diff -rN does not see a new directory with empty file
+. * glibc 2.0:
 	  f = fopen ("/dev/null", "r")
 	  assert (feof (f))
-** 3RD PARTY PROJECTS:
-*** make GCC warn about ctor that leaves member vars  uninitialised.
-*** GNU patch 
-**** 'double-fix' mode: ignore identical fix, rather than suggest 
+.* 3RD PARTY PROJECTS:
+. * make GCC warn about ctor that leaves member vars  uninitialised.
+. * GNU patch 
+.  * 'double-fix' mode: ignore identical fix, rather than suggest 
 	    to revert patch direction when (more or less? exactly) the same 
 	    thing is fixed
-** PROJECTS
-*** Scripts:
-**** fix position of bar number
-**** stack scripts in chords:
+.* PROJECTS
+. * Scripts:
+.  * fix position of bar number
+.  * stack scripts in chords:
 	  % fingering:        footing:
 	    < a-4 c-2 g-1 >   < c-\ltoe e-\lheel >
-**** script-spacing
-**** slur parts as a script
-**** stack parameterised scripts for fingering and footing:
+.  * script-spacing
+.  * slur parts as a script
+.  * stack parameterised scripts for fingering and footing:
 
-*** convert-mudela:
-**** automatically add  a \version if not present.
-**** better parsing
-**** make smarter
-**** convert-mudela -e empty.ly
+. * convert-mudela:
+.  * automatically add  a \version if not present.
+.  * better parsing
+.  * make smarter
+.  * convert-mudela -e empty.ly
 
-*** emacs mudela-mode
-****  should handle block comments too.
-****  handle lexer modes (\header, \melodic, \lyric) etc.
-****  indentation
-****  notenames?
-****  fontlock: \melodic \melodic
+. * emacs mudela-mode
+.  *  should handle block comments too.
+.  *  handle lexer modes (\header, \melodic, \lyric) etc.
+.  *  indentation
+.  *  notenames?
+.  *  fontlock: \melodic \melodic
 
-*** use properties for:
-**** plet?
-**** Staff_sym size
-**** default tempo.
-**** font size
-**** bartypes (get rid of derived Span_bar_engravers)
-**** cadenza mode? 
+. * use properties for:
+.  * plet?
+.  * Staff_sym size
+.  * default tempo.
+.  * font size
+.  * bartypes (get rid of derived Span_bar_engravers)
+.  * cadenza mode? 
 
-*** page handling:
-**** PS output
-**** optimal pagebreaking.
+. * page handling:
+.  * PS output
+.  * optimal pagebreaking.
 
-*** Unicode support? -> man 7 unicode
-**** 16 bit Strings
-**** -u switch
-**** detect of 16/8 bit files
-**** examples to go with it.
+. * Unicode support? -> man 7 unicode
+.  * 16 bit Strings
+.  * -u switch
+.  * detect of 16/8 bit files
+.  * examples to go with it.
 
-*** Spring_spacer:
-**** write a faster Spring_spacer (without matrices if possible)
-**** relate energybound to linelen unitspace fontsize etc.
-**** used fixed point fp?
+. * Spring_spacer:
+.  * write a faster Spring_spacer (without matrices if possible)
+.  * relate energybound to linelen unitspace fontsize etc.
+.  * used fixed point fp?
 
-*** \header
-**** output header info to MIDI too.
+. * \header
+.  * output header info to MIDI too.
 
-*** a musical dictionary. See Documentation/vocabulary-*, other
+. * a musical dictionary. See Documentation/vocabulary-*, other
 	languages:
-**** explanations
-**** italian
-**** german
-**** dutch
-**** swedish
+.  * explanations
+.  * italian
+.  * german
+.  * dutch
+.  * swedish
 	 .. ?
 
-*** chords
-**** guitar chords (fret diagrams)
-**** other chord name styles (american(?) style)
-**** basso continuo
-**** MIDI output?
+. * chords
+.  * guitar chords (fret diagrams)
+.  * other chord name styles (american(?) style)
+.  * basso continuo
+.  * MIDI output?
 
-*** Debug logs:
-**** derive lily_stream, Dstream, texstream from ostream?
-**** indentable stream as baseclass for TeX stream, lily stream, Dstream.
-**** use dstream feature in mi2mu
-**** integrate IO checking into stream class
+. * Debug logs:
+.  * derive lily_stream, Dstream, texstream from ostream?
+.  * indentable stream as baseclass for TeX stream, lily stream, Dstream.
+.  * use dstream feature in mi2mu
+.  * integrate IO checking into stream class
 
-*** input converters
-**** NIFF?
-**** ABC? 
-**** SMDL?
+. * input converters
+.  * NIFF?
+.  * ABC? 
+.  * SMDL?
 
-*** add to MIDI output:
-**** tempo change
-**** ornaments (and trills?)
-**** repeat/volta
-**** slurs
-**** accents
-**** dynamics
-**** account for rhythmic position in measure
-**** etc.
+. * add to MIDI output:
+.  * tempo change
+.  * ornaments (and trills?)
+.  * repeat/volta
+.  * slurs
+.  * accents
+.  * dynamics
+.  * account for rhythmic position in measure
+.  * etc.
 
-*** grace notes
-**** make separate class for Grace_*_engravers 
+. * grace notes
+.  * make separate class for Grace_*_engravers 
 	(which is at Voice_gravs level)
-**** make encapsulated spacing problems.
+.  * make encapsulated spacing problems.
 
-*** accidentals per Voice_group
+. * accidentals per Voice_group
 
-*** Output class, handles : (smallish)
-**** help text /(c) notice?
-**** version line
-**** warning /errors/progress
-**** abort on error/warning; exit status
-**** quiet/ignore-version options
-**** logfile output
+. * Output class, handles : (smallish)
+.  * help text /(c) notice?
+.  * version line
+.  * warning /errors/progress
+.  * abort on error/warning; exit status
+.  * quiet/ignore-version options
+.  * logfile output
 
-*** elaborate Staff_side baseclass:
-**** scripts
-**** text
-**** slur start/end
+. * elaborate Staff_side baseclass:
+.  * scripts
+.  * text
+.  * slur start/end
 
-*** PS 
-**** speed up PS code.
-**** PS lines to .eps files
-**** write custom prolog
+. * PS 
+.  * speed up PS code.
+.  * PS lines to .eps files
+.  * write custom prolog
 
-*** Output an output format independent (ofi) typeset file; and 
+. * Output an output format independent (ofi) typeset file; and 
 	  make ofi2 TeX, MusiXTex, Display PostScript, PostScript,
 	  Ascii... interpreters. (difficult)
 
-**** NIFF ?
-**** Common Music Notation
-**** PostScript output (esp. Beams, Slurs, etc)
-**** Move all Score_elems, into libmutype.a
-**** SGML
+.  * NIFF ?
+.  * Common Music Notation
+.  * PostScript output (esp. Beams, Slurs, etc)
+.  * Move all Score_elems, into libmutype.a
+.  * SGML
 
-*** Documentation
-**** Doc (C) stuff of sheet music
-**** a better format?  SGML?  TeX?  Info?
-**** a better tutorial
+. * Documentation
+.  * Doc (C) stuff of sheet music
+.  * a better format?  SGML?  TeX?  Info?
+.  * a better tutorial
 
-*** more spanners (smallish)
-**** Glissando
-**** trill
+. * more spanners (smallish)
+.  * Glissando
+.  * trill
 
-*** Rewrite Stem, Beam and Rhythmic_grouping (hairy)
-**** [c8. c32 c32]
+. * Rewrite Stem, Beam and Rhythmic_grouping (hairy)
+.  * [c8. c32 c32]
  **** doc on Rhythmic_grouping
-**** general shaving on Beam and Stem
-**** use plet grouping
-**** separate visual from rhythmic info even more
-**** beams over bars
+.  * general shaving on Beam and Stem
+.  * use plet grouping
+.  * separate visual from rhythmic info even more
+.  * beams over bars
 
-*** lines:
-**** Ledger lines, should be separate item: Ledger_lines, Ledger_lines
-**** set different line sizes / thicknesses
-**** beam stem showthrough, inter beam sizes (french vs german style)
+. * lines:
+.  * Ledger lines, should be separate item: Ledger_lines, Ledger_lines
+.  * set different line sizes / thicknesses
+.  * beam stem showthrough, inter beam sizes (french vs german style)
 
-*** Collisions
-**** left/right note balls should be handled by Collision:
+. * Collisions
+.  * left/right note balls should be handled by Collision:
 	< \multi 2; { \stem 1; <b c> } { <f as b> } >
 
-*** Keys:
-**** merge key{item} & localkey{item}?
-**** spacing, national styles?
+. * Keys:
+.  * merge key{item} & localkey{item}?
+.  * spacing, national styles?
 
-*** Support for TAB
-**** redo Notehead to allow digits as heads
-**** add a \tablature {} lexer mode for easy entering
+. * Support for TAB
+.  * redo Notehead to allow digits as heads
+.  * add a \tablature {} lexer mode for easy entering
 
-*** should adjust stemlength for flag number.
+. * should adjust stemlength for flag number.
 
-*** breaking:
-**** caching breakpoints
-**** saving them
-**** specify number of lines
-** INPUTLANGUAGE
+. * breaking:
+.  * caching breakpoints
+.  * saving them
+.  * specify number of lines
+.* INPUTLANGUAGE
 
-*** c4 4 4 4 for c4 c4 c4 c4?
-*** neatly (and readably) expressing concurrent
+. * c4 4 4 4 for c4 c4 c4 c4?
+. * neatly (and readably) expressing concurrent
 	voices
-*** <c f a>4 ?
-*** Viola mode?
+. * <c f a>4 ?
+. * Viola mode?
 
 		@c c g e g 
 	for
@@ -487,46 +523,46 @@ ydirection and hshift preset
 		@A c g e g
 	for
 		cis gis e gis
-*** relative mode for pitch entering
-*** configure pitch_byte
-*** rest name configurable
+. * relative mode for pitch entering
+. * configure pitch_byte
+. * rest name configurable
 
 
-** SMALLISH PROJECTS
+.* SMALLISH PROJECTS
 
-*** limit memory usage; the full coriolan takes up too much resources.
+. * limit memory usage; the full coriolan takes up too much resources.
 
-*** fix confusing naming in Engraver vs Engraver_group_engraver (context)
+. * fix confusing naming in Engraver vs Engraver_group_engraver (context)
 
-*** progress when creating MIDI elts.
+. * progress when creating MIDI elts.
 
-*** A range for context errors (eg. mark both { and }. )
+. * A range for context errors (eg. mark both { and }. )
 
-*** lyric in staff  (sharpsharp in staff, text below)
+. * lyric in staff  (sharpsharp in staff, text below)
 
-*** half sharps/flats
+. * half sharps/flats
 
-*** write Dynamic_line (to group dynamics horizontally)
+. * write Dynamic_line (to group dynamics horizontally)
 
-*** use Real for all y positions.
+. * use Real for all y positions.
 
-*** half-sharps, half-flats
+. * half-sharps, half-flats
 
-*** adaptive accidental spacing.
+. * adaptive accidental spacing.
 
-*** handle EOF graciously in error messages.
+. * handle EOF graciously in error messages.
 
-*** declare notenametab?
+. * declare notenametab?
 
-*** midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
+. * midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
 
-*** stafftypes: voice names/ instrument names.
+. * stafftypes: voice names/ instrument names.
 
-*** lily \tempo
+. * lily \tempo
 
-*** C meter iso 4/4, idem for alla breve, etc.
+. * C meter iso 4/4, idem for alla breve, etc.
 
-*** textspanner: center position
+. * textspanner: center position
 
         *   % toe to bheel   four to five
 	    %   ^_u            4_5  
@@ -536,28 +572,28 @@ ydirection and hshift preset
 	    %  --|---         --|---
           (where "to" is a tiny bow)
 
-*** auxilliary file for caching info.
+. * auxilliary file for caching info.
 
-*** Text_crescendo
+. * Text_crescendo
 
-*** clean solution for staffsize in items.
+. * clean solution for staffsize in items.
 
-*** revise calcideal
-** IDEAS
-*** Output data structures of Mudela in XML/SGML.
-*** create libmudela, or liblily_frontend
-*** move MIDI stuff (including Quantization) to a ANSI C libmidi library.
-*** Spacing_request for manually adjusting spacing
-*** caching breakpoints
-*** used fixedpoint arithmetic for min. energy.
-*** move towards incremental algorithms.
-*** far fetched language ideas
-**** design meta-language like TeX and Metafont
-**** programming/macros input
-*** versioning stuff (cvt mudela, mudela, etc.)
-*** Klavarskribo?
-*** dynamic loading of engravers? 
-** SMOBS
+. * revise calcideal
+.* IDEAS
+. * Output data structures of Mudela in XML/SGML.
+. * create libmudela, or liblily_frontend
+. * move MIDI stuff (including Quantization) to a ANSI C libmidi library.
+. * Spacing_request for manually adjusting spacing
+. * caching breakpoints
+. * used fixedpoint arithmetic for min. energy.
+. * move towards incremental algorithms.
+. * far fetched language ideas
+.  * design meta-language like TeX and Metafont
+.  * programming/macros input
+. * versioning stuff (cvt mudela, mudela, etc.)
+. * Klavarskribo?
+. * dynamic loading of engravers? 
+.* SMOBS
 Han-Wen Nienhuys <hanwen@cs.uu.nl> writes:
 
 > mcmanus@IDT.NET writes:
@@ -673,49 +709,32 @@ I hope the above helps,
 if you just sit there."  
              --Will Rogers (1879-1935)
 
-> I am still muddling along with integrating GUILE in LilyPond, and I
-> have a question.  I want to replace an existing C++ implementation of
-> identifier tables by GUILE's code.  I've managed to replace
-> 
-> 	Hash_table<String,Identifier*>
-> 
-> by
-> 
-> 	Hash_table<SCM, Identifier*>
-> 
-> and use interning and GUILE symbols for doing the identifier lookup.
-> But I'd like to use GUILE's hash tables as well, and that's were my
-> question comes in: is there an interface that allows me to iterate
-> through the entries of a GUILE hash table?
+* OUTLINE SETUP
+.* .EMACS
+;;; from outline.el
+(defvar outline-font-lock-keywords
+  '(;; Highlight headings according to the level.
+    ;; must change this to allout node layout
+    ;;("^\\(\\*+\\)[ \t]*\\(.+\\)?[ \t]*$"
+    ("^\\([.]*[ ]*[*]\\)[ \t]*\\(.*\\)$"
+     (1 font-lock-string-face)
+     (2 (let ((len (- (match-end 1) (match-beginning 1))))
+	  (or (cdr (assq len '((1 . font-lock-function-name-face)
+			       (2 . font-lock-keyword-face)
+			       (3 . font-lock-comment-face))))
+	      font-lock-variable-name-face))
+	nil t))
+    ;; Highlight citations of the form [1] and [Mar94].
+    ("\\[\\([A-Z][A-Za-z]+\\)*[0-9]+\\]" . font-lock-type-face))
+  "Additional expressions to highlight in Outline mode.")
 
-I use the following, which should definitely be provided somewhere
-in guile, but isn't, AFAIK:
-
-(define (hash-table-for-each fn ht)
-  (do ((i 0 (+ 1 i)))
-      ((= i (vector-length ht)))
-    (do ((alist (vector-ref ht i) (cdr alist)))
-	((null? alist) #t)
-      (fn (car (car alist)) (cdr (car alist))))))
-
-(define (hash-table-map fn ht)
-  (do ((i 0 (+ 1 i))
-       (ret-ls '()))
-      ((= i (vector-length ht)) (reverse ret-ls))
-    (do ((alist (vector-ref ht i) (cdr alist)))
-	((null? alist) #t)
-      (set! ret-ls (cons (fn (car (car alist)) (cdr (car alist))) ret-ls)))))
-
-If you want a C version, you can run the above code through hobbit, or
-tranlate it to C by hand.
-
--russ
-
-
---
-"Whenever you find yourself on the side of the majority, it is time to
-pause and reflect."
-             -- Mark Twain
-
-
-
+(add-hook 'outline-mode-hook
+	  (lambda ()
+	    (setq font-lock-maximum-decoration t)
+	    (setq font-lock-maximum-decoration t)
+	    (make-local-variable 'font-lock-defaults)
+	    (setq font-lock-defaults '(outline-font-lock-keywords t))
+	    (font-lock-mode (global-font-lock-mode))))
+ 
+(require 'allout)
+(outline-init 't)

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--1999 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 
@@ -81,7 +81,7 @@ Volta_spanner::do_add_processing ()
       set_bounds (RIGHT, column_arr_.top ());  
     }
 
-  number_p_->style_str_ = "number"; // number-1
+  number_p_->style_str_ = "number";
 }
   
 Interval
