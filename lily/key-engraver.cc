@@ -92,7 +92,7 @@ Key_engraver::try_music (Music * req)
 	  /*
 	    do this only once, just to be on the safe side.
 	    */	    
-	  keyreq_ = req;
+	  keyreq_ = dynamic_cast<Key_change_req*> (req); // UGH.
 	  read_req (keyreq_);
 	}
       
