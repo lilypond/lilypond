@@ -1,3 +1,8 @@
+2003-07-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* GNUmakefile.in (topdocs-web): New target.
+	(local-web): Depend on topdocs-web; fixes html-doc.
+
 2003-07-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/drums.scm (reset-drum-kit): new function.
