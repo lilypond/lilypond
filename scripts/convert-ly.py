@@ -1,9 +1,9 @@
 #!@PYTHON@
 #
 # convert-ly.py -- Update old LilyPond input files (fix name?)
-# 
+#
 # source file of the GNU LilyPond music typesetter
-# 
+#
 # (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 
@@ -41,7 +41,7 @@ def identify ():
 
 def usage ():
 	sys.stdout.write (
-		r"""Usage: %s [OPTIONS]... [FILE]... 
+		r"""Usage: %s [OPTIONS]... [FILE]...
 Try to convert to newer lilypond-versions.  The version number of the
 input is guessed by default from \version directive.
 
@@ -517,7 +517,7 @@ if 1:
 		str = re.sub (r"""\\key *([a-z]+) *;""", r"""\\key \1 \major;""",str);
 		return str
 	conversions.append (((1,3,59), conv,
-                '\key X ; -> \key X major; ')) 
+                '\key X ; -> \key X major; '))
 
 if 1:
 	def conv (str):
@@ -632,7 +632,7 @@ if 1:
 		str = re.sub ('\\\\property *"?Voice"? *[.] *"?textStyle"? *= *"([^"]*)"', '\\\\property Voice.TextScript \\\\set #\'font-style = #\'\\1', str)
 		str = re.sub ('\\\\property *"?Lyrics"? *[.] *"?textStyle"? *= *"([^"]*)"', '\\\\property Lyrics.LyricText \\\\set #\'font-style = #\'\\1', str)
 
-		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?timeSignatureStyle"? *= *"([^"]*)"', '\\\\property \\1.TimeSignature \\\\override #\'style = #\'\\2', str) 
+		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?timeSignatureStyle"? *= *"([^"]*)"', '\\\\property \\1.TimeSignature \\\\override #\'style = #\'\\2', str)
 
 		str = re.sub ('"?timeSignatureStyle"? *= *#?""', 'TimeSignature \\\\override #\'style = ##f', str)
 		
@@ -640,12 +640,12 @@ if 1:
 		
 		str = re.sub ('#\'style *= #*"([^"])"', '#\'style = #\'\\1', str)
 		
-		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?horizontalNoteShift"? *= *"?#?([-0-9]+)"?', '\\\\property \\1.NoteColumn \\\\override #\'horizontal-shift = #\\2', str) 
+		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?horizontalNoteShift"? *= *"?#?([-0-9]+)"?', '\\\\property \\1.NoteColumn \\\\override #\'horizontal-shift = #\\2', str)
 
 		# ugh
 		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?flagStyle"? *= *""', '\\\\property \\1.Stem \\\\override #\'flag-style = ##f', str)
 		
-		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?flagStyle"? *= *"([^"]*)"', '\\\\property \\1.Stem \\\\override #\'flag-style = #\'\\2', str) 
+		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?flagStyle"? *= *"([^"]*)"', '\\\\property \\1.Stem \\\\override #\'flag-style = #\'\\2', str)
 		return str
 	
 	conversions.append (((1,3,98), conv, 'CONTEXT.textStyle -> GROB.#font-style '))
@@ -866,7 +866,7 @@ if 1:
 			      func, str)
 		return str
 
-	# 40 ? 
+	# 40 ?
 	conversions.append (((1,5,40), conv, 'breakAlignOrder property names'))
 	
 
@@ -1008,7 +1008,7 @@ if 1:
 		return "(make-span-event '%s %s)" % (mtype , stype)
 
 	def subst_definition_ev_name(match):
-		return ' = #%s' % subst_ev_name (match) 
+		return ' = #%s' % subst_ev_name (match)
 	def subst_inline_ev_name (match):
 		s = subst_ev_name (match)
 		return '#(ly-export %s)' % s
@@ -1284,82 +1284,92 @@ if 1:
 
 		last_str = ''
 		while last_str <> str:
-		  last_str = str
-		  def sub_tremolos (m):
-			  tr = m.group (2)
-			  if tr not in slur_strs:
-				  slur_strs.append (tr)
-			  return  m.group (1)
-		  
-  		  str = re.sub (r"([a-z]+[',!? ]*)(:[0-9]+)", sub_tremolos, str)
+			last_str = str
+			def sub_tremolos (m):
+				tr = m.group (2)
+				if tr not in slur_strs:
+					slur_strs.append (tr)
+				return  m.group (1)
+			
+  			str = re.sub (r"([a-z]+[',!? ]*)(:[0-9]+)",
+				      sub_tremolos, str)
 
-		  def sub_dyn_end (m):
-			  dyns.append (' \!')
-			  return ' ' + m.group(2)
+			def sub_dyn_end (m):
+				dyns.append (' \!')
+				return ' ' + m.group(2)
 
-		  str = re.sub (r'(\\!)\s*([a-z]+)', sub_dyn_end, str)
-		  def sub_slurs(m):
-			  if '-)' not in slur_strs:
-				  slur_strs.append ( ')')
-			  return m.group(1)
-		  def sub_p_slurs(m):
-			  if '-\)' not in slur_strs:
-				  slur_strs.append ( '\)')
-			  return m.group(1)
-		  str = re.sub (r"\)[ ]*([a-z]+)", sub_slurs, str)
-		  str = re.sub (r"\\\)[ ]*([a-z]+)", sub_p_slurs, str)
-		  def sub_begin_slurs(m):
-			  if '-(' not in slur_strs:
-				  slur_strs.append ( '(')
-			  return m.group(1)
-		  str = re.sub (r"([a-z]+[,'!?0-9 ]*)\(", sub_begin_slurs, str)
-		  def sub_begin_p_slurs(m):
-			  if '-\(' not in slur_strs:
-				  slur_strs.append ( '\(')
-			  return m.group(1)
+			str = re.sub (r'(\\!)\s*([a-z]+)', sub_dyn_end, str)
+			def sub_slurs(m):
+				if '-)' not in slur_strs:
+					slur_strs.append (')')
+				return m.group(1)
+			
+			def sub_p_slurs(m):
+				if '-\)' not in slur_strs:
+					slur_strs.append ('\)')
+				return m.group(1)
+			
+			str = re.sub (r"\)[ ]*([a-z]+)", sub_slurs, str)
+			str = re.sub (r"\\\)[ ]*([a-z]+)", sub_p_slurs, str)
+			def sub_begin_slurs(m):
+				if '-(' not in slur_strs:
+					slur_strs.append ('(')
+				return m.group(1)
+			
+			str = re.sub (r"([a-z]+[,'!?0-9 ]*)\(",
+				      sub_begin_slurs, str)
+			def sub_begin_p_slurs(m):
+				if '-\(' not in slur_strs:
+					slur_strs.append ('\(')
+				return m.group(1)
 
-		  str = re.sub (r"([a-z]+[,'!?0-9 ]*)\\\(", sub_begin_p_slurs, str)
+			str = re.sub (r"([a-z]+[,'!?0-9 ]*)\\\(",
+				sub_begin_p_slurs, str)
 
-		  def sub_dyns (m):
-			  s = m.group(0)
-			  if s == '@STARTCRESC@':
-				  slur_strs.append ("\\<")
-			  elif s == '@STARTDECRESC@':
-				  slur_strs.append ("\\>")
-			  elif s == r'-?\\!':
-				  slur_strs.append ('\\!')
-			  return ''
+			def sub_dyns (m):
+				s = m.group(0)
+				if s == '@STARTCRESC@':
+					slur_strs.append ("\\<")
+				elif s == '@STARTDECRESC@':
+					slur_strs.append ("\\>")
+				elif s == r'-?\\!':
+					slur_strs.append ('\\!')
+				return ''
 
-		  str = re.sub (r'@STARTCRESC@', sub_dyns, str)
-		  str = re.sub (r'-?\\!', sub_dyns, str)
+			str = re.sub (r'@STARTCRESC@', sub_dyns, str)
+			str = re.sub (r'-?\\!', sub_dyns, str)
 
-		  def sub_articulations (m):
-			  a = m.group(1)
-			  if a not in slur_strs:
-				  slur_strs.append (a)
-			  return ''
+			def sub_articulations (m):
+				a = m.group(1)
+				if a not in slur_strs:
+					slur_strs.append (a)
+				return ''
 
-		  str = re.sub (r"([_^-]\@ACCENT\@)", sub_articulations, str)
-		  str = re.sub (r"([_^-]\\[a-z]+)", sub_articulations, str)
-		  str = re.sub (r"([_^-][>_.+|^-])", sub_articulations, str)
+			str = re.sub (r"([_^-]\@ACCENT\@)", sub_articulations,
+				      str)
+			str = re.sub (r"([_^-]\\[a-z]+)", sub_articulations,
+				      str)
+			str = re.sub (r"([_^-][>_.+|^-])", sub_articulations,
+				      str)
 
-		  def sub_pslurs(m):
-			  slur_strs.append ( ' \\)')
-			  return m.group(1)
-		  str = re.sub (r"\\\)[ ]*([a-z]+)", sub_pslurs, str)
+			def sub_pslurs(m):
+				slur_strs.append (' \\)')
+				return m.group(1)
+			str = re.sub (r"\\\)[ ]*([a-z]+)", sub_pslurs, str)
 
-		suffix = string.join (slur_strs, '') + string.join (pslur_strs, '') \
+		## end of while <>
+
+		suffix = string.join (slur_strs, '') + string.join (pslur_strs,
+								    '') \
 			 + string.join (dyns, '')
 
 		return '@STARTCHORD@%s@ENDCHORD@%s%s' % (str , dur_str, suffix)
 
 
 
-
-
 	def sub_chords (str):
 		simend = '>'
-		simstart = "<" 
+		simstart = '<'
 		chordstart = '<<'
 		chordend = '>>'
 		marker_str = '%% new-chords-done %%'
@@ -1369,22 +1379,25 @@ if 1:
 		str = re.sub ('<<', '@STARTCHORD@', str)
 		str = re.sub ('>>', '@ENDCHORD@', str)
 		
-		str= re.sub (r'\\<', '@STARTCRESC@', str)
-		str= re.sub (r'\\>', '@STARTDECRESC@', str)
-		str= re.sub (r'([_^-])>', r'\1@ACCENT@', str)
-		str = re.sub ('<([^<>{}]+)>', sub_chord, str)
+		str = re.sub (r'\\<', '@STARTCRESC@', str)
+		str = re.sub (r'\\>', '@STARTDECRESC@', str)
+		str = re.sub (r'([_^-])>', r'\1@ACCENT@', str)
+		str = re.sub (r'<([^<>{}]+)>', sub_chord, str)
 
+		# add dash: -[, so that [<<a b>> c d] becomes
+		#                      <<a b>>-[ c d]
+		# and gets skipped by articulation_substitute
 		str = re.sub (r'\[ *(@STARTCHORD@[^@]+@ENDCHORD@[0-9.]*)',
-			      r'\1[',
-			      str)
+			      r'\1-[', str)
 		str = re.sub (r'\\! *(@STARTCHORD@[^@]+@ENDCHORD@[0-9.]*)',
-			      r'\1\\!',
-			      str)
-		str = re.sub ('<([^?])', r'%s\1' % simstart, str)
-		str = re.sub ('>([^?])', r'%s\1' % simend,  str)
+			      r'\1-\\!', str)
+		
+		str = re.sub (r'<([^?])', r'%s\1' % simstart, str)
+		str = re.sub (r'>([^?])', r'%s\1' % simend,  str)
 		str = re.sub ('@STARTCRESC@', r'\\<', str)
 		str = re.sub ('@STARTDECRESC@', r'\\>' ,str)
-		str = re.sub (r'\\context *Voice *@STARTCHORD@', '@STARTCHORD@', str)
+		str = re.sub (r'\\context *Voice *@STARTCHORD@',
+			      '@STARTCHORD@', str)
 		str = re.sub ('@STARTCHORD@', chordstart, str)
 		str = re.sub ('@ENDCHORD@', chordend, str)
 		str = re.sub (r'@ACCENT@', '>', str)
@@ -1392,7 +1405,7 @@ if 1:
 
 	def articulation_substitute (str):
 		str = re.sub (r"""([^-])\[ *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
-			      r" \1 \2[", str)
+			      r"\1 \2[", str)
 		str = re.sub (r"""([^-])\) *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
 			      r"\1 \2)", str)
 		str = re.sub (r"""([^-])\\! *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
@@ -1439,7 +1452,7 @@ if 1:
 			      'ly:set-context-property!', str)
 		str = re.sub ('\\\\newcontext', '\\\\new', str)
 		str = re.sub ('\\\\grace[\t\n ]*([^{ ]+)',
-			      r'\\grace { \1 }', str) 
+			      r'\\grace { \1 }', str)
 		str = re.sub ("\\\\grace[\t\n ]*{([^}]+)}",
 			      r"""\\grace {
   \\property Voice.Stem \\override #'stroke-style = #"grace"
@@ -1458,7 +1471,7 @@ if 1:
 
 		if re.search ("context-spec-music", str):
 			sys.stderr.write ("context-spec-music takes a symbol for the context now. Update by hand.")
-					  
+					
 			raise FatalConversionError()
 		
 		str = re.sub ('fingerHorizontalDirection *= *#(LEFT|-1)',
@@ -1543,9 +1556,11 @@ def conv (str):
 			'2': 'DOUBLE-SHARP',
 			}[alt]
 		
-		return '(ly:make-pitch %s %s %s)' % (m.group(1), m.group (2), alt)
+		return '(ly:make-pitch %s %s %s)' % (m.group(1), m.group (2),
+						     alt)
 	
-	str =re.sub ("\\(ly:make-pitch *([0-9-]+) *([0-9-]+) *([0-9-]+) *\\)", sub_alteration, str) 
+	str =re.sub ("\\(ly:make-pitch *([0-9-]+) *([0-9-]+) *([0-9-]+) *\\)",
+		     sub_alteration, str)
 
 
 	str = re.sub ("ly:verbose", "ly:get-option 'verbose", str)
@@ -1553,7 +1568,7 @@ def conv (str):
 	m= re.search ("\\\\outputproperty #([^#]+)[\t\n ]*#'([^ ]+)", str)
 	if m:
 		sys.stderr.write (\
-			r"""\outputproperty found, 
+			r"""\outputproperty found,
 Please hand-edit, using
 
   \applyoutput #(outputproperty-compatibility %s '%s <GROB PROPERTY VALUE>)
