@@ -1,4 +1,16 @@
---- ../lilypond-1.3.137.jcn2/CHANGES	Wed Mar 14 23:37:02 2001
+--- ../lilypond-1.3.137.jcn3/CHANGES	Thu Mar 15 18:57:45 2001
+++ b/CHANGES	Fri Mar 16 09:55:00 2001
+@@ -1,3 +1,10 @@
+1.3.137.jcn4
+============
+
+* Bugfix: ly2dvi: handle input files with multiple extensions.
+
+* Minor doco updates.
+
+ 1.3.136.jcn3
+ ============
+ --- ../lilypond-1.3.137.jcn2/CHANGES	Wed Mar 14 23:37:02 2001
 ++ b/CHANGES	Thu Mar 15 18:57:45 2001
 @@ -1,3 +1,18 @@
 1.3.136.jcn3

@@ -1576,7 +1576,6 @@ conductor's score.
 @}
 @end example
 
-% geen echte titels, wat jammer :-(
 @center @strong{Zo, goed lieverd?}
 @sp 1
 @center How's, this babe?
@@ -1602,8 +1601,8 @@ editing.
 #(set! point-and-click #t)
 @end example
 
-We need a flat to specify the tuning of the french horn, so we predefine
-it with bit of scheme markup text (See @ref{Text markup}).
+We need a flat sign in text to name the tuning of the french horn, so we
+predefine it with bit of scheme markup text (See @ref{Text markup}).
 @example
 #(define text-flat '((font-relative-size . -2)
          (music "accidentals--1")))
@@ -1726,8 +1725,8 @@ the automatic removing of empty staffs.
     @}
 @end example
 
-Lastly, we want bar numbering at score level and want to move the bar
-number a few staff-spaces up.
+We want bar numbering at score level and want to move the bar number a
+few staff spaces up.
 @example
     \translator @{
       \OrchestralScoreContext
