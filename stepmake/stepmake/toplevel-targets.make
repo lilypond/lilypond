@@ -4,8 +4,8 @@
 local-dist: configure 
 
 local-distclean: 
-	rm -f config.hh config.make Makefile config.cache \
-		config.status config.log index.html
+	rm -f config.h config.hh config.make Makefile GNUmakefile \
+		config.cache config.status config.log index.html
 
 local-maintainerclean:
 	rm -f configure

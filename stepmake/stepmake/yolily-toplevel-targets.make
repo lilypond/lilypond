@@ -21,6 +21,8 @@ htmldoc:
 	-ln -f $(depth)/$(distname).diff.gz out-www
 	tar cfz $(outdir)/htmldoc.tar.gz  `cat wwwlist` `ls *.png out-www/$(distname).diff.gz $(ERRORLOG)`  index.html
 
+localclean:
+	rm -f wwwlist
 
 # if you fix this, please fix yodl too!
 check-top-web:

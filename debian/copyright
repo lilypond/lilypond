@@ -1,12 +1,8 @@
-This package was debianized by Anthony Fok <foka@debian.org> on
+This package was Debianized by Anthony Fok <foka@debian.org> on
 Wed,  6 Aug 1997 04:30:28 -0600
 
 It was downloaded from
-      ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/v1.1/lilypond-1.1.31.tar.gz
-
-It is also available from:
-
-      ftp://sca.uwaterloo.ca/pub/lilypond/development/
+      ftp://ftp.lilypond.org/pub/LilyPond/v1.1/lilypond-1.1.36.tar.gz
 
 For more information about GNU LilyPond, please visit:
       http://www.cs.uu.nl/~hanwen/lilypond/
