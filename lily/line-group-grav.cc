@@ -23,7 +23,7 @@ void
 Line_group_engraver::acknowledge_element (Score_elem_info  elem)
 {
   if (!elem.elem_l_->axis_group_l_a_[Y_AXIS])
-	staffline_p_->add_element (elem.elem_l_);
+    staffline_p_->add_element (elem.elem_l_);
 }
 
 
@@ -38,11 +38,17 @@ Line_group_engraver::do_removal_processing()
 void
 Line_group_engraver::do_creation_processing()
 {
-  staffline_p_ = new Vertical_group_spanner ;
+  create_line_spanner ();
   staffline_p_->set_bounds(LEFT,get_staff_info().command_pcol_l ());
 
   // don't broadcast to self.
   announce_element (Score_elem_info (staffline_p_,0));
+}
+
+void
+Line_group_engraver::create_line_spanner ()
+{
+  staffline_p_ = new Vertical_group_spanner ;
 }
 
 
