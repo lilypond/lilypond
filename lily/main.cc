@@ -121,11 +121,11 @@ static Getopt_long *option_parser = 0;
 
 static Long_option_init options_static[] =
   {
+    {_i ("EXT"), "backend", 'b', _i ("select backend to use")},
     {_i ("EXPR"), "evaluate", 'e',
      _i ("set option, use -e '(ly:option-usage)' for help")},
     /* Bug in option parser: --output =foe is taken as an abbreviation
        for --output-format.  */
-    {_i ("EXT"), "backend", 'b', _i ("select back-end to use")},
     {_i ("EXTs"), "formats", 'f', _i ("list of formats to dump")},
     {0, "help", 'h',  _i ("print this help")},
     {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
