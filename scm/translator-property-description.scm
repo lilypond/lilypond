@@ -4,7 +4,7 @@
 (define (translator-property-description symbol type? description)
  (if (not (equal? #f (object-property symbol 'translation-doc)))
       (begin
-	(ly-warn (string-append "Redefining " (symbol->string symbol) "\n"))
+	(ly:warn (string-append "Redefining " (symbol->string symbol) "\n"))
 	(exit 2)
       ))
   
@@ -65,13 +65,13 @@ are given by * *
 The user can override beam begin or end time by pushing a wildcard entries
 '(begin * * * *) or '(end * * * *) resp., eg:
 
-    property Voice.autoBeamSettings push #'(end * * * *) = #(make-moment 1 4)
+    property Voice.autoBeamSettings push #'(end * * * *) = #(ly:make-moment 1 4)
 
 The head of the list:
     '(
-((end * * 3 2) . ,(make-moment 1 2))
-((end 1 16 3 2) . ,(make-moment 1 4))
-((end 1 32 3 2) . ,(make-moment 1 8))
+((end * * 3 2) . ,(ly:make-moment 1 2))
+((end 1 16 3 2) . ,(ly:make-moment 1 4))
+((end 1 32 3 2) . ,(ly:make-moment 1 8))
      ...
     )
 
@@ -131,7 +131,7 @@ using barchecks in polyphonic music.")
 ")
 (translator-property-description 'barNumberVisibility procedure? "Procedure that takes an int and returns whether the corresponding bar number should be printed")
 (translator-property-description 'beamMelismaBusy boolean? "Signal if a beam is set when automaticMelismata is set")
-(translator-property-description 'beatLength moment? "The length of one beat in this time signature.")
+(translator-property-description 'beatLength ly:moment? "The length of one beat in this time signature.")
 (translator-property-description 'breakAlignOrder list? "Defines the order in which
 prefatory matter (clefs, key signatures) appears, eg. this puts the
 key signatures after the bar lines:
@@ -176,8 +176,8 @@ arpeggios that cross staves.
 (translator-property-description 'currentBarNumber integer? "Contains the current barnumber. This property is incremented at
 every barline.
 ")
-(translator-property-description 'currentCommandColumn ly-grob? "Grob that is X-parent to all current breakable (clef, key signature, etc.) items.")
-(translator-property-description 'currentMusicalColumn ly-grob? "Grob that is X-parent to all non-breakable items (note heads, lyrics, etc.).")
+(translator-property-description 'currentCommandColumn ly:grob? "Grob that is X-parent to all current breakable (clef, key signature, etc.) items.")
+(translator-property-description 'currentMusicalColumn ly:grob? "Grob that is X-parent to all non-breakable items (note heads, lyrics, etc.).")
 (translator-property-description 'defaultBarType string? "Sets the default type of bar line.  Available bar types: [FIXME];
 
 This variable is typically read at Score level, so overriding
@@ -232,7 +232,7 @@ in a context. This is done using the @code{Font_size_engraver}.")
 
 (translator-property-description 'forceClef boolean? "Show clef symbol, even if it hasn't changed. Only active for the first clef after the property is set, not for the full staff.")
 (translator-property-description 'graceAccidentalSpace number? "amount space to alot for an accidental")
-(translator-property-description 'graceAlignPosition dir? "put the grace note before or after the main note?")
+(translator-property-description 'graceAlignPosition ly:dir? "put the grace note before or after the main note?")
 (translator-property-description 'highStringOne boolean? "Whether the 1st string is the string with
 highest pitch on the instrument (used by the automatic string selector).")
 (translator-property-description 'instr markup? "see @code{instrument}")
@@ -263,9 +263,9 @@ signature at this point in the measure.  The format is the same as for keySignat
 ) 
 (translator-property-description 'localKeySignatureChanges list? "Experimental.
  [DOCME]")
-(translator-property-description 'measureLength moment? "Length of one
+(translator-property-description 'measureLength ly:moment? "Length of one
 measure in the current time signature last?")
-(translator-property-description 'measurePosition moment? " How much
+(translator-property-description 'measurePosition ly:moment? " How much
 of the current measure (measured in whole notes) have we had.  This
 can be set manually to create incomplete measures (anacrusis, upbeat),
 the start of the music.
@@ -284,7 +284,7 @@ not less than minimumFret")
 (translator-property-description 'autoBeaming boolean? "If set to true
 then beams are generated automatically.")
 (translator-property-description 'noDirection boolean? "Don't set directions by a2-engraver when part-combining.")
-(translator-property-description 'oneBeat moment? "  How long does one beat in the current time signature last?")
+(translator-property-description 'oneBeat ly:moment? "  How long does one beat in the current time signature last?")
 (translator-property-description 'othersolo boolean? "FIXME")
 (translator-property-description 'pedalSustainStrings list? "List of   string to print for sustain-pedal. Format is
  (UP UPDOWN DOWN), where each of the three is the string to print when
@@ -294,7 +294,7 @@ this is done with the pedal.")
 
 (translator-property-description 'phrasingPunctuation string? "")
 (translator-property-description 'rehearsalMark number-or-string? "")
-(translator-property-description 'regularSpacingDelta moment? "TODO")
+(translator-property-description 'regularSpacingDelta ly:moment? "TODO")
 (translator-property-description 'repeatCommands list? "This property is read to find any command of the form (volta . X), where X is a string or #f")
 (translator-property-description 'scriptDefinitions list? "
 Description of scripts. This is used by Script_engraver for typesetting note-super/subscripts. See @file{scm/script.scm} for more information
@@ -377,7 +377,7 @@ entirely. This has the same effect as setting both
 @code{tupletNumberVisibility} and @code{tupletBracketVisibility} to
 @code{#f}, but as this does not even create any grobs, this setting
 uses less memory and time.")
-(translator-property-description 'tupletSpannerDuration moment? "
+(translator-property-description 'tupletSpannerDuration ly:moment? "
 Normally a tuplet bracket is as wide as the
 @code{	imes} expression that gave rise to it. By setting this
 property, you can make brackets last shorter. Example
@@ -385,7 +385,7 @@ property, you can make brackets last shorter. Example
 @example
 @@lilypond[verbatim,fragment]
 context Voice 	imes 2/3 @{
-  property Voice.tupletSpannerDuration = #(make-moment 1 4)
+  property Voice.tupletSpannerDuration = #(ly:make-moment 1 4)
   [c8 c c] [c c c]
 @}
 @@end lilypond
@@ -401,7 +401,7 @@ itself.  .")
 (translator-property-description
  'voltaOnThisStaff boolean?
  "Normally, volta brackets are put only on the topmost staff. Setting this variable to true, will force a bracket to be on this staff as well.")
-(translator-property-description 'voltaSpannerDuration moment? "maximum duration of the volta bracket.
+(translator-property-description 'voltaSpannerDuration ly:moment? "maximum duration of the volta bracket.
 
     Set to a duration to control the size of the brackets printed by
 @code{\\alternative}.  It specifies the number of whole notes duration

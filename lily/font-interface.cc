@@ -61,7 +61,7 @@ Font_interface::get_default_font (Grob*me)
 
 
 LY_DEFINE(ly_font_interface_get_default_font,
-	  "ly-get-default-font", 1 , 0, 0,
+	  "ly:get-default-font", 1 , 0, 0,
 	  (SCM grob), "Return the default font for grob @var{gr}.")
 {
   Grob * gr  = unsmob_grob (grob);
@@ -70,7 +70,7 @@ LY_DEFINE(ly_font_interface_get_default_font,
   return Font_interface::get_default_font (gr)->self_scm ();
 }
 
-LY_DEFINE(ly_font_interface_get_font,"ly-get-font", 2, 0, 0,
+LY_DEFINE(ly_font_interface_get_font,"ly:get-font", 2, 0, 0,
 	  (SCM grob, SCM alist),
 	  "Return a font metric satisfying the font-qualifiers in @var{alist}.
 

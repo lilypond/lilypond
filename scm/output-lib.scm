@@ -16,8 +16,8 @@
 ; Create a text molecule
 (define-public (tablature-molecule-callback grob)
   (let ((molecule (fontify-text
-                   (ly-get-default-font grob)
-                   (ly-get-grob-property grob 'text)
+                   (ly:get-default-font grob)
+                   (ly:get-grob-property grob 'text)
                    )))
     molecule ; return the molecule.
     )
@@ -27,7 +27,7 @@
 ; Compute the text grob-property
 (define-public (fret-number-tablature-format string tuning pitch)
   (number->string
-   (- (pitch-semitones pitch)
+   (- (ly:pitch-semitones pitch)
       (list-ref tuning
                 (- string 1) ; remove 1 because list index starts at 0 and guitar string at 1.
                 )
@@ -36,30 +36,30 @@
   )
 
 (define-public (hammer-molecule-callback grob)
-  (let* ((note-collums (ly-get-grob-property grob 'note-columns))
+  (let* ((note-collums (ly:get-grob-property grob 'note-columns))
          (note-column1 (cadr note-collums))
          (note-column2 (car  note-collums))
-         (note1        (car (ly-get-grob-property note-column1 'note-heads)))
-         (note2        (car (ly-get-grob-property note-column2 'note-heads)))
-         (fret1        (string->number (ly-get-grob-property note1 'text)))
-         (fret2        (string->number (ly-get-grob-property note2 'text)))
+         (note1        (car (ly:get-grob-property note-column1 'note-heads)))
+         (note2        (car (ly:get-grob-property note-column2 'note-heads)))
+         (fret1        (string->number (ly:get-grob-property note1 'text)))
+         (fret2        (string->number (ly:get-grob-property note2 'text)))
          (letter       (if (< fret1 fret2) "H"
                        (if (> fret1 fret2) "P"
                                            "")))
          )
     (let ((slur (Slur::brew_molecule grob))
-          (text (fontify-text (ly-get-default-font grob) letter)))
+          (text (fontify-text (ly:get-default-font grob) letter)))
     
-      (let ((x (/ (- (cdr (ly-get-molecule-extent slur 0)) 
-                     (/ (cdr (ly-get-molecule-extent text 0)) 2.0)
+      (let ((x (/ (- (cdr (ly:get-molecule-extent slur 0)) 
+                     (/ (cdr (ly:get-molecule-extent text 0)) 2.0)
                      )
                   -2.0)))
       
-        (ly-set-molecule-extent! text 0 (cons x x))
-        (ly-align-to! text 0 1)
+        (ly:set-molecule-extent! text 0 (cons x x))
+        (ly:align-to! text 0 1)
         )
       
-      (ly-combine-molecule-at-edge slur 1 1 text -0.6)
+      (ly:combine-molecule-at-edge slur 1 1 text -0.6)
       )
     )
   )
@@ -77,17 +77,17 @@
   (let*
    (
     (mol    (callback grob))
-    (x-ext (widen-interval (ly-get-molecule-extent mol 0) x-padding))
-    (y-ext (widen-interval (ly-get-molecule-extent mol 1) y-padding))
+    (x-ext (widen-interval (ly:get-molecule-extent mol 0) x-padding))
+    (y-ext (widen-interval (ly:get-molecule-extent mol 1) y-padding))
     (x-rule (box-molecule (widen-interval x-ext line-thick)
                               (cons 0 line-thick)))
     (y-rule (box-molecule (cons 0 line-thick) y-ext))
     )
     
-    (set! mol (ly-combine-molecule-at-edge mol 0 1 y-rule x-padding))
-    (set! mol (ly-combine-molecule-at-edge mol 0 -1  y-rule x-padding))
-    (set! mol (ly-combine-molecule-at-edge mol 1 1  x-rule 0))  
-    (set! mol (ly-combine-molecule-at-edge mol 1 -1 x-rule 0))
+    (set! mol (ly:combine-molecule-at-edge mol 0 1 y-rule x-padding))
+    (set! mol (ly:combine-molecule-at-edge mol 0 -1  y-rule x-padding))
+    (set! mol (ly:combine-molecule-at-edge mol 1 1  x-rule 0))  
+    (set! mol (ly:combine-molecule-at-edge mol 1 -1 x-rule 0))
     
     mol
  ))
@@ -101,7 +101,7 @@
 (define (comment s) "")
 
 (define-public (numbers->string l)
-  (apply string-append (map ly-number->string l)))
+  (apply string-append (map ly:number->string l)))
 
 ; (define (chop-decimal x) (if (< (abs x) 0.001) 0.0 x))
 
@@ -250,7 +250,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 			)))
 
      (if (equal? result #f)
-	 (ly-warn (string-append "Unknown bar glyph: `" glyph "'"))
+	 (ly:warn (string-append "Unknown bar glyph: `" glyph "'"))
 	 (index-cell (cdr result) dir))
      )
    )

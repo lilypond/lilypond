@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "1.5.68"
+\version "1.7.3"
 
 stemUp = \property Voice.Stem \set #'direction = #1
 stemDown = \property Voice.Stem \set #'direction = #-1 
@@ -69,7 +69,7 @@ tupletBoth = {
 cadenzaOn = \property Timing.timing = ##f
 cadenzaOff = {
   \property Timing.timing = ##t
-  \property Timing.measurePosition = #(make-moment 0 1)
+  \property Timing.measurePosition = #(ly:make-moment 0 1)
 }
 
 newpage = \notes
@@ -80,7 +80,7 @@ newpage = \notes
     #'between-system-string = #"\\newpage"
 }
 
-% dynamic dir?  text script, articulation script dir?	
+% dynamic ly:dir?  text script, articulation script ly:dir?	
 oneVoice = #(context-spec-music (make-voice-props-revert) "Voice")
 voiceOne = #(context-spec-music (make-voice-props-set 0) "Voice")
 voiceTwo = #(context-spec-music (make-voice-props-set 1) "Voice")

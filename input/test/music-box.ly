@@ -22,19 +22,19 @@ using Scheme functions to save typing work.
 }
 
 \include "deutsch.ly"
-\version "1.5.68"
+\version "1.7.3"
 
 #(define (transform music)
-  (let* ((es (ly-get-mus-property music 'elements))
-         (n  (ly-music-name music))
+  (let* ((es (ly:get-mus-property music 'elements))
+         (n  (ly:music-name music))
         )
    (if (not (equal? n "Sequential_music"))
-     (ly-warn "transform needs sequential music!")
+     (ly:warn "transform needs sequential music!")
      (begin
       (let recurse ((elts es))
        (if (not (equal? elts '()))
 	 (begin
-           ((trans (ly-get-mus-property (cadr elts) 'elements)) (car elts))
+           ((trans (ly:get-mus-property (cadr elts) 'elements)) (car elts))
 	   (set-cdr! elts (cddr elts))
 	   (recurse (cdr elts))
 	 )
@@ -47,28 +47,28 @@ using Scheme functions to save typing work.
  )
 
 #(define ((trans pitches) music)
-  (let* ((es (ly-get-mus-property music 'elements))
-         (e (ly-get-mus-property music 'element))
-         (p (ly-get-mus-property music 'pitch)))
+  (let* ((es (ly:get-mus-property music 'elements))
+         (e (ly:get-mus-property music 'element))
+         (p (ly:get-mus-property music 'pitch)))
 
     (if (pair? es)
-        (ly-set-mus-property!
+        (ly:set-mus-property!
          music 'elements
          (map (trans pitches) es)))
 
-    (if (music? e)
-        (ly-set-mus-property!
+    (if (ly:music? e)
+        (ly:set-mus-property!
          music 'element
          ((trans pitches) e)))
 
-    (if (pitch? p)
-       (let* ((o (pitch-octave p))
-              (n (pitch-notename p))
+    (if (ly:pitch? p)
+       (let* ((o (ly:pitch-octave p))
+              (n (ly:pitch-notename p))
               (i (+ (* 7 o) n))
-	      (pes (ly-get-mus-property (list-ref pitches i) 'elements))
-	      (pnew (ly-get-mus-property (car pes) 'pitch))
+	      (pes (ly:get-mus-property (list-ref pitches i) 'elements))
+	      (pnew (ly:get-mus-property (car pes) 'pitch))
              )
-          (ly-set-mus-property! music 'pitch pnew)
+          (ly:set-mus-property! music 'pitch pnew)
 	)
     )
     music
@@ -79,7 +79,7 @@ using Scheme functions to save typing work.
 
 
 
-\version "1.5.68"
+\version "1.7.3"
 
 pat = \notes \transpose c'' \repeat unfold 2 {
   < { \context Staff=up {r8 e16 f g e f g } }

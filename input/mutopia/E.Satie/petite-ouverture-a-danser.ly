@@ -12,7 +12,7 @@
  Tested Features:
 %}
 
-\version "1.5.68"
+\version "1.7.3"
 
 \include "nederlands.ly"
 
@@ -150,8 +150,8 @@ lower =  \context Staff \notes \relative c{
     \translator{
 	    \VoiceContext
 	    Slur \override #'attachment = #'(stem . stem)
-	    autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 1 4)
-	    autoBeamSettings \override #'(end 1 16 * *) = #(make-moment 1 4)
+	    autoBeamSettings \override #'(end 1 8 * *) = #(ly:make-moment 1 4)
+	    autoBeamSettings \override #'(end 1 16 * *) = #(ly:make-moment 1 4)
     }
   }
   \midi {

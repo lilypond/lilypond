@@ -21,7 +21,7 @@
   (display (pythonify expr) port )
   )
 
-(define (ly-warn s) (display s))
+(define (ly:warn s) (display s))
 
 (define (pythonify q)
   (cond
@@ -35,7 +35,7 @@
    ((number? q) (number->string q))
    ((eq? q '()) '())
    (else (begin
-	   (ly-warn "Unknown object to pythonify:")
+	   (ly:warn "Unknown object to pythonify:")
 	   (write q)
 	   (newline)
 	   )

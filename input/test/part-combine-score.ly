@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 
 \header {
 texidoc="Template for part-combining orchestral scores"
@@ -265,7 +265,7 @@ archiGroup =  \context StaffGroup = archi_group <
       % the only way to tell the difference.
       aDueText = #"\\`a2"
       splitInterval = #'(1 . 0)
-      changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
+      changeMoment = #`(,(ly:make-moment 1 1) . ,(ly:make-moment 1 1))
     }
     \translator {
       \StaffGroupContext

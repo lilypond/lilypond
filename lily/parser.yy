@@ -1825,8 +1825,8 @@ simple_element:
 			ev = MY_MAKE_MUSIC("RestEvent");
 		
 		    }
-		skip->set_mus_property ("duration" ,$2);
-		skip->set_spot (i);
+		ev->set_mus_property ("duration" ,$2);
+		ev->set_spot (i);
  		Music * velt = MY_MAKE_MUSIC("EventChord");
 		velt->set_mus_property ("elements", scm_list_n (ev->self_scm (),SCM_UNDEFINED));
 		velt->set_spot (i);

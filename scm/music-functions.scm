@@ -2,47 +2,49 @@
 ;; tuplets.
 
 (define-public (denominator-tuplet-formatter mus)
-  (number->string (ly-get-mus-property mus 'denominator)))
+  (number->string (ly:get-mus-property mus 'denominator)))
 
 (define-public (fraction-tuplet-formatter mus)
-  (string-append (number->string (ly-get-mus-property mus 'numerator))
+  (string-append (number->string (ly:get-mus-property mus 'numerator))
 		 ":"
-		 (number->string (ly-get-mus-property mus 'denominator))
+		 (number->string (ly:get-mus-property mus 'denominator))
 		 ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 (define-public (shift-duration-log music shift dot)
-  "Recurse through music, adding SHIFT to duration-log and optionally 
+  "Recurse through music, adding SHIFT to ly:duration-log and optionally 
   a dot to any note encountered. This scales the music up by a factor 
   2^shift * (2 - (1/2)^dot)"
-  (let* ((es (ly-get-mus-property music 'elements))
-         (e (ly-get-mus-property music 'element))
-         (n  (ly-music-name music))
+  (let* ((es (ly:get-mus-property music 'elements))
+         (e (ly:get-mus-property music 'element))
+         (n  (ly:music-name music))
 	 (f  (lambda (x)  (shift-duration-log x shift dot)))
 	 )
+
+    ;; FIXME: broken by the great music rename.
     (if (or (equal? n "Note_req")
 	    (equal? n "Rest_req"))
 	(let* (
-	       (d (ly-get-mus-property music 'duration))
-	       (cp (duration-factor d))
-	       (nd (make-duration (+ shift (duration-log d))
+	       (d (ly:get-mus-property music 'duration))
+	       (cp (ly:duration-factor d))
+	       (nd (ly:make-duration (+ shift (ly:duration-log d))
 				  (+ dot (duration-dot-count d))
 				  (car cp)
 				  (cdr cp)))
 	       
 	       )
-	  (ly-set-mus-property! music 'duration nd)
+	  (ly:set-mus-property! music 'duration nd)
 	  ))
     
     (if (pair? es)
-        (ly-set-mus-property!
+        (ly:set-mus-property!
          music 'elements
          (map f es)))
     
-    (if (music? e)
-        (ly-set-mus-property!
+    (if (ly:music? e)
+        (ly:set-mus-property!
          music 'element
          (f e)))
     
@@ -56,31 +58,31 @@
 "
 This function replaces all repeats  with unfold repeats. It was 
 written by Rune Zedeler. "
-  (let* ((es (ly-get-mus-property music 'elements))
-         (e (ly-get-mus-property music 'element))
-         (n  (ly-music-name music)))
+  (let* ((es (ly:get-mus-property music 'elements))
+         (e (ly:get-mus-property music 'element))
+         (n  (ly:music-name music)))
  
     (if (equal? n "Repeated_music")
         (begin
 	  (if (equal?
-	       (ly-get-mus-property music 'iterator-ctor)
+	       (ly:get-mus-property music 'iterator-ctor)
 	       Chord_tremolo_iterator::constructor)
-	      (shift-duration-log music  (intlog2 (ly-get-mus-property music 'repeat-count)) 0)
+	      (shift-ly:duration-log music  (ly:intlog2 (ly:get-mus-property music 'repeat-count)) 0)
 	      )
-          (ly-set-mus-property!
+          (ly:set-mus-property!
            music 'length Repeated_music::unfolded_music_length)
-	  (ly-set-mus-property!
+	  (ly:set-mus-property!
 	   music 'start-moment-function Repeated_music::first_start)
-          (ly-set-mus-property!
+          (ly:set-mus-property!
            music 'iterator-ctor Unfolded_repeat_iterator::constructor)))
 
     (if (pair? es)
-        (ly-set-mus-property!
+        (ly:set-mus-property!
          music 'elements
          (map unfold-repeats es)))
 
-    (if (music? e)
-        (ly-set-mus-property!
+    (if (ly:music? e)
+        (ly:set-mus-property!
          music 'element
          (unfold-repeats e)))
 
@@ -94,29 +96,29 @@ written by Rune Zedeler. "
   "Copy the pitch fields of the Note_requests into  Text_script_requests, to aid
 Fingering_engraver."
   (define (find-note musics)
-    (filter-list (lambda (m) (equal? (ly-music-name m) "Note_req")) musics)
+    (filter-list (lambda (m) (equal? (ly:music-name m) "Note_req")) musics)
     )
   (define (find-scripts musics)
-    (filter-list (lambda (m) (equal? (ly-music-name m) "Text_script_req")) musics))
+    (filter-list (lambda (m) (equal? (ly:music-name m) "Text_script_req")) musics))
 
   (let* (
-	 (e (ly-get-mus-property music 'element))
-	 (es (ly-get-mus-property music 'elements))
+	 (e (ly:get-mus-property music 'element))
+	 (es (ly:get-mus-property music 'elements))
 	 (notes (find-note es))
-	 (pitch (if (pair? notes) (ly-get-mus-property (car  notes) 'pitch) #f))
+	 (pitch (if (pair? notes) (ly:get-mus-property (car  notes) 'pitch) #f))
 	 )
 
     (if pitch
-	(map (lambda (x) (ly-set-mus-property! x 'pitch pitch)) (find-scripts es))
+	(map (lambda (x) (ly:set-mus-property! x 'pitch pitch)) (find-scripts es))
 	)
 	
     (if (pair? es)
-        (ly-set-mus-property!
+        (ly:set-mus-property!
          music 'elements
          (map pitchify-scripts es)))
 
-    (if (music? e)
-        (ly-set-mus-property!
+    (if (ly:music? e)
+        (ly:set-mus-property!
          music 'element
          (pitchify-scripts e)))
 
@@ -131,10 +133,10 @@ this is not an override
 "
   
    (let* ((m (make-music-by-name  'OverrideProperty)))
-     (ly-set-mus-property! m 'symbol grob)
-     (ly-set-mus-property! m 'grob-property gprop)
-     (ly-set-mus-property! m 'grob-value val)
-     (ly-set-mus-property! m 'pop-first #t)
+     (ly:set-mus-property! m 'symbol grob)
+     (ly:set-mus-property! m 'grob-property gprop)
+     (ly:set-mus-property! m 'grob-value val)
+     (ly:set-mus-property! m 'pop-first #t)
 		
      m
    
@@ -144,8 +146,8 @@ this is not an override
 (define-public (make-grob-property-revert grob gprop)
   "Revert the grob property GPROP for GROB."
    (let* ((m (make-music-by-name  'OverrideProperty)))
-     (ly-set-mus-property! m 'symbol grob)
-     (ly-set-mus-property! m 'grob-property gprop)
+     (ly:set-mus-property! m 'symbol grob)
+     (ly:set-mus-property! m 'grob-property gprop)
 		
      m
    
@@ -182,29 +184,29 @@ this is not an override
   "Add \context CONTEXT = foo to M. "
   
   (let* ((cm (make-music-by-name 'ContextSpeccedMusic)))
-    (ly-set-mus-property! cm 'element m)
-    (ly-set-mus-property! cm 'context-type context)
+    (ly:set-mus-property! cm 'element m)
+    (ly:set-mus-property! cm 'context-type context)
     (if (and  (pair? rest) (string? (car rest)))
-	(ly-set-mus-property! cm 'context-id (car rest))
+	(ly:set-mus-property! cm 'context-id (car rest))
     )
     cm
   ))
 
 (define-public (make-sequential-music elts)
   (let*  ((m (make-music-by-name 'SequentialMusic)))
-    (ly-set-mus-property! m 'elements elts)
+    (ly:set-mus-property! m 'elements elts)
     m
   ))
 
 (define-public (make-simultaneous-music elts)
   (let*  ((m (make-music-by-name 'SimultaneousMusic)))
-    (ly-set-mus-property! m 'elements elts)
+    (ly:set-mus-property! m 'elements elts)
     m
     ))
 
 (define-public (make-event-chord elts)
   (let*  ((m (make-music-by-name 'EventChord)))
-    (ly-set-mus-property! m 'elements elts)
+    (ly:set-mus-property! m 'elements elts)
     m
     ))
 
@@ -219,10 +221,10 @@ this is not an override
        (ch2  (make-music-by-name 'BarCheck))
        )
 
-    (ly-set-mus-property! start 'span-direction START)
-    (ly-set-mus-property! stop 'span-direction STOP)    
-    (ly-set-mus-property! skip 'duration duration)
-    (map (lambda (x) (ly-set-mus-property! x 'origin location))
+    (ly:set-mus-property! start 'span-direction START)
+    (ly:set-mus-property! stop 'span-direction STOP)    
+    (ly:set-mus-property! skip 'duration duration)
+    (map (lambda (x) (ly:set-mus-property! x 'origin location))
 	 (list start stop skip ch ch2))
     (make-sequential-music
      (list
@@ -237,14 +239,14 @@ this is not an override
 (define-public (make-penalty-music pen)
  (let
      ((m (make-music-by-name 'BreakEvent)))
-    (ly-set-mus-property! m 'penalty pen)
-    m))
+   (ly:set-mus-property! m 'penalty pen)
+   m))
 
 (define-public (make-articulation name)
   (let* (
 	 (m (make-music-by-name 'ArticulationEvent))
       )
-      (ly-set-mus-property! m 'articulation-type name)
+      (ly:set-mus-property! m 'articulation-type name)
       m
   ))
 
@@ -253,13 +255,13 @@ this is not an override
   "Set all of ALIST as properties of M." 
   (if (pair? alist)
       (begin
-	(ly-set-mus-property! m (caar alist) (cdar alist))
+	(ly:set-mus-property! m (caar alist) (cdar alist))
 	(set-mus-properties! m (cdr alist)))
   ))
 
 (define-public (music-separator? m)
   "Is M a separator?"
-  (let* ((ts (ly-get-mus-property m 'types )))
+  (let* ((ts (ly:get-mus-property m 'types )))
     (memq 'separator ts)
   ))
 
@@ -314,10 +316,10 @@ this is not an override
 
 (define (voicify-chord ch)
   "Split the parts of a chord into different Voices using separator"
-   (let* ((es (ly-get-mus-property ch 'elements)))
+   (let* ((es (ly:get-mus-property ch 'elements)))
 
 
-     (ly-set-mus-property!  ch 'elements
+     (ly:set-mus-property!  ch 'elements
        (voicify-list (split-list es music-separator?) 0))
      ch
    ))
@@ -325,20 +327,20 @@ this is not an override
 (define (voicify-music m)
    "Recursively split chords that are separated with \\ "
    
-   (if (not (music? m))
+   (if (not (ly:music? m))
        (begin (display m)
        (error "not music!"))
        )
    (let*
-       ((es (ly-get-mus-property m 'elements))
-	(e (ly-get-mus-property m 'element))
+       ((es (ly:get-mus-property m 'elements))
+	(e (ly:get-mus-property m 'element))
 	)
      (if (pair? es)
-	 (ly-set-mus-property! m 'elements (map voicify-music es)))
-     (if (music? e)
-	 (ly-set-mus-property! m 'element  (voicify-music e)))
+	 (ly:set-mus-property! m 'elements (map voicify-music es)))
+     (if (ly:music? e)
+	 (ly:set-mus-property! m 'element  (voicify-music e)))
      (if
-      (and (equal? (ly-music-name m) "Simultaneous_music")
+      (and (equal? (ly:music-name m) "Simultaneous_music")
 	   (reduce (lambda (x y ) (or x y)) 	(map music-separator? es)))
       (voicify-chord m)
       )
@@ -347,7 +349,7 @@ this is not an override
      ))
 
 (define-public (empty-music)
-  (ly-id (make-music-by-name 'Music))
+  (ly:id (make-music-by-name 'Music))
   )
 ;;;
 
@@ -355,35 +357,35 @@ this is not an override
 (define-public (make-type-checker symbol)
   (lambda (elt)
     ;;(display  symbol)
-    ;;(eq? #t (ly-get-grob-property elt symbol))
-    (not (eq? #f (memq symbol (ly-get-grob-property elt 'interfaces))))))
+    ;;(eq? #t (ly:get-grob-property elt symbol))
+    (not (eq? #f (memq symbol (ly:get-grob-property elt 'interfaces))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; warn for bare chords at start.
 
 (define (has-request-chord elts)
-  (reduce (lambda (x y) (or x y)) (map (lambda (x) (equal? (ly-music-name x)
+  (reduce (lambda (x y) (or x y)) (map (lambda (x) (equal? (ly:music-name x)
 							   "Request_chord")) elts)
   ))
 
-(define (ly-music-message music msg)
+(define (ly:music-message music msg)
   (let* (
-      (ip (ly-get-mus-property music 'origin))
+      (ip (ly:get-mus-property music 'origin))
       )
 
-    (if (ly-input-location? ip)
-	(ly-input-message ip msg)
-	(ly-warn msg))
+    (if (ly:input-location? ip)
+	(ly:input-message ip msg)
+	(ly:warn msg))
   ))
   
 (define (check-start-chords music)
   "Check music expression for a Simultaneous_music containing notes\n(ie. Request_chords), without context specification. Called  from parser."
   
      (let*
-       ((es (ly-get-mus-property music 'elements))
-	(e (ly-get-mus-property music 'element))
-	(name (ly-music-name music)) 
+       ((es (ly:get-mus-property music 'elements))
+	(e (ly:get-mus-property music 'element))
+	(name (ly:music-name music)) 
 	)
 
        (cond 
@@ -391,13 +393,13 @@ this is not an override
 	 ((equal? name "Simultaneous_music")
 
 	  (if (has-request-chord es)
-	      (ly-music-message music "Starting score with a chord.\nPlease insert an explicit \\context before chord")
+	      (ly:music-message music "Starting score with a chord.\nPlease insert an explicit \\context before chord")
 	      (map check-start-chords es)))
 	 
 	 ((equal? name "Sequential_music")
 	   (if (pair? es)
 	       (check-start-chords (car es))))
-	  (else (if (music? e) (check-start-chords e )))
+	  (else (if (ly:music? e) (check-start-chords e )))
        
        ))
      music

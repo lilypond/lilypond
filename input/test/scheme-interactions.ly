@@ -1,4 +1,4 @@
-\version "1.7.2"
+\version "1.7.3"
 
 \header {
 
@@ -15,7 +15,7 @@ bra = \notes \transpose c' { e'4-. }
 \score { 
   \context Voice \notes\relative c' {
       c4
-      #(ly-import (make-sequential-music (list foo foo foo )))
+      #(ly:import (make-sequential-music (list foo foo foo )))
       #(begin (define baz (make-simultaneous-music (list foo bra)))
 	(empty-music))
       c4

@@ -22,7 +22,7 @@ INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
 
 STEPMAKE_TEMPLATES=tex texinfo documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
-LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly-set-option (quote internal-type-checking) \#t)"'
+LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'
 
 include $(depth)/make/stepmake.make 
 

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 % The volta texts should read: 1-4  and  5
 % Not 1 and 2
 % (see 1.2.17)
@@ -36,7 +36,7 @@ Hi,
 		\context Staff \notes\relative c''{
 			c c c c
 			% coda-klugde: let volta span only one bar
-			\property Staff.voltaSpannerDuration = #(make-moment 1 1)
+			\property Staff.voltaSpannerDuration = #(ly:make-moment 1 1)
 			\repeat "volta" 5 { d d d d }
 				\alternative { { e e e e f f f f }
 			{ g g g g } }

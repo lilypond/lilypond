@@ -197,7 +197,7 @@
   (let* ((c (assoc name-mag-pair font-name-alist)))
     (if (eq? c #f)
 	(begin
-	  (ly-warn 
+	  (ly:warn 
 	   (string-append 
 	    "Programming error: No such font known " 
 	    (car name-mag-pair))))

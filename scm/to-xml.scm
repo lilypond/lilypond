@@ -90,19 +90,19 @@ is then separated.
 
 (define (dump-duration d port)
  (display (open-tag 'duration
-	    `((log . ,(duration-log d))
+	    `((log . ,(ly:duration-log d))
 	      (dots . ,(duration-dot-count d))
-	      (numer . ,(car (duration-factor d)))
-	      (denom . ,(cdr (duration-factor d)))
+	      (numer . ,(car (ly:duration-factor d)))
+	      (denom . ,(cdr (ly:duration-factor d)))
 	      )
 	    '() ) port)
  (display  (close-tag 'duration) port))
 
 (define (dump-pitch p port)
  (display (open-tag 'pitch
-	    `((octave . ,(pitch-octave p))
-	      (notename . ,(pitch-notename p))
-	      (alteration . ,(pitch-alteration p))
+	    `((octave . ,(ly:pitch-octave p))
+	      (notename . ,(ly:pitch-notename p))
+	      (alteration . ,(ly:pitch-alteration p))
 	      )
 	    '() ) port)
  (display  (close-tag 'pitch) port))
@@ -163,12 +163,12 @@ is then separated.
 (define (music-to-xml-helper music port)
    (let*
        (
-	(name (ly-get-mus-property music 'name))
-	(e (ly-get-mus-property music 'element))
-	(es (ly-get-mus-property music 'elements))
-	(mprops (ly-get-mutable-properties music))
-	(p (ly-get-mus-property music 'pitch))
-	(d (ly-get-mus-property music 'duration))
+	(name (ly:get-mus-property music 'name))
+	(e (ly:get-mus-property music 'element))
+	(es (ly:get-mus-property music 'elements))
+	(mprops (ly:get-mutable-properties music))
+	(p (ly:get-mus-property music 'pitch))
+	(d (ly:get-mus-property music 'duration))
 	(ignore-props '(origin elements duration pitch element))
 	)
 
@@ -177,15 +177,15 @@ is then separated.
      
      (display (open-tag 'music (cons `(type . ,name) mprops) ignore-props)
 	      port)
-     (if (duration? d)
+     (if (ly:duration? d)
 	 (dump-duration d port))
-     (if (pitch? p)
+     (if (ly:pitch? p)
 	 (dump-pitch p port))
      (if (pair? es)
 	 (map (lambda (x) (music-to-xml-helper x port)) es)
 	 )
 
-     (if (music? e)
+     (if (ly:music? e)
 	 (begin
 	   (music-to-xml-helper e port)))
      (display (close-tag 'music) port)

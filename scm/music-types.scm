@@ -553,8 +553,8 @@
        )
 
     (if (eq? props '())
-	(ly-warn (format "Could not find music type `~a'" x)))  
-    (ly-make-bare-music name props)
+	(ly:warn (format "Could not find music type `~a'" x)))  
+    (ly:make-bare-music name props)
     ))
 
 
@@ -574,7 +574,7 @@
 	(if (pair? handle)
 	    (cdr handle)
 	    (begin
-	      (ly-warn
+	      (ly:warn
 	       (string-append "Unknown repeat type `" name
 			      "'\nSee music-types.scm for supported repeats"))
 	      'VoltaRepeatedMusic)

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 
 \header {
 texidoc="You can get ugly slurs, if you want.
@@ -26,7 +26,7 @@ baseWalk = \notes \relative c {
       Slur \override #'direction = #1
       Stem \override #'direction = #-1
       autoBeamSettings \override #'(end * * * *)
-        = #(make-moment 1 2)
+        = #(ly:make-moment 1 2)
     }
     \translator {
       \PianoStaffContext

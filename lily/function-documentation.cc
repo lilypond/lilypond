@@ -16,7 +16,7 @@ void ly_add_function_documentation (char const * fname,
 }
 
 
-LY_DEFINE(ly_get_all_function_documentation, "ly-get-all-function-documentation",
+LY_DEFINE(ly_get_all_function_documentation, "ly:get-all-function-documentation",
 	  0,0,0, (),
 	  "Get a hash table with all lilypond Scheme extension functions.")
 {

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
   
 #(define (voicify-list lst number)
    "Make a list of Musics.
@@ -21,10 +21,10 @@
 
 #(define (voicify-chord ch)
   "Split the parts of a chord into different Voices using separator"
-   (let* ((es (ly-get-mus-property ch 'elements)))
+   (let* ((es (ly:get-mus-property ch 'elements)))
 
 
-     (ly-set-mus-property! ch 'elements
+     (ly:set-mus-property! ch 'elements
        (voicify-list (split-list es music-separator?) 0))
      ch
    ))
@@ -32,24 +32,24 @@
 #(define (voicify-music m)
    "Recursively split chords that are separated with \\ "
    
-   (if (not (music? m))
+   (if (not (ly:music? m))
        (begin (display m)
        (error "not music!"))
        )
    (let*
-       ((es (ly-get-mus-property m 'elements))
-	(e (ly-get-mus-property m 'element))
+       ((es (ly:get-mus-property m 'elements))
+	(e (ly:get-mus-property m 'element))
 	)
 	
      (if
-      (and (equal? (ly-music-name m) "Simultaneous_music")
+      (and (equal? (ly:music-name m) "Simultaneous_music")
 	   (reduce (lambda (x y ) (or x y)) 	(map music-separator? es)))
       (voicify-chord m)
       (begin
 	(if (pair? es)
-	    (ly-set-mus-property! m 'elements (map voicify-music es)))
-	(if (music? e)
-	    (ly-set-mus-property! m 'element  (voicify-music e)))
+	    (ly:set-mus-property! m 'elements (map voicify-music es)))
+	(if (ly:music? e)
+	    (ly:set-mus-property! m 'element  (voicify-music e)))
 	    
 	m)
       

@@ -8,37 +8,37 @@
 
 ; should include default value?
 
-(ly-add-interface
+(ly:add-interface
 'note-name-interface
  "Note name"
  '(style))
 
-(ly-add-interface
+(ly:add-interface
  'dynamic-interface
    "Any kind of loudness sign"
    '()
     )
 
-(ly-add-interface
+(ly:add-interface
  'finger-interface
  "A fingering instruction"
  '()
  )
 
-(ly-add-interface
+(ly:add-interface
  'ligature-interface
  "A ligature"
  '()
  )
 
-(ly-add-interface
+(ly:add-interface
  'mark-interface
  "a rehearsal mark"
  '(
    ))
 
 ;;; todo: this is not typesetting info. Move to interpretation.
-(ly-add-interface
+(ly:add-interface
  'tablature-interface
  "tablature notes"
  '())

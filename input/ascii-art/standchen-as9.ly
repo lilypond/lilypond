@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 % ASCII Art output
 
 % Process as:
@@ -34,7 +34,7 @@
       \VoiceContext 
       % horizontal beams
       Beam \override #'height = #0
-      autoBeamSettings \override #'(begin * * * *) = #(make-moment 0 1)
+      autoBeamSettings \override #'(begin * * * *) = #(ly:make-moment 0 1)
       TextScript \set #'no-spacing-rods = ##t
     }
   }

@@ -1,9 +1,9 @@
-\version "1.7.2"
+\version "1.7.3"
 
 
 #(define (make-span-event type spandir)
   (let* ((m (make-music-by-name  type)))
-  (ly-set-mus-property! m 'span-direction spandir)
+  (ly:set-mus-property! m 'span-direction spandir)
   m
   ))
 
@@ -20,7 +20,7 @@ startTextSpan = #(make-span-event 'TextSpanEvent START)
 stopTextSpan = #(make-span-event 'TextSpanEvent STOP)
 
 cresc = \notes {
-  #(ly-export (make-event-chord (list cr)))
+  #(ly:export (make-event-chord (list cr)))
   \property Voice.crescendoText = #'((font-shape . italic) "cresc.")
   \property Voice.crescendoSpanner = #'dashed-line
 }
@@ -28,20 +28,20 @@ cresc = \notes {
 % ah, this is handy: maybe drop resetting of properties in
 % dynamic-engraver ?
 endcresc = \notes {
-  #(ly-export (make-event-chord (list rc)))
+  #(ly:export (make-event-chord (list rc)))
   \property Voice.crescendoText \unset
   \property Voice.crescendoSpanner \unset
 }
 
 dim = \notes {
-  #(ly-export (make-event-chord (list decr)))
+  #(ly:export (make-event-chord (list decr)))
 
   \property Voice.decrescendoText = #"dim."
   \property Voice.decrescendoSpanner = #'dashed-line
 }
 
 enddim = \notes {
-  #(ly-export (make-event-chord (list rced)))
+  #(ly:export (make-event-chord (list rced)))
    \property Voice.decrescendoText \unset
  \property Voice.decrescendoSpanner \unset
 }

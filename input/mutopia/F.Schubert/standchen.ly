@@ -1,5 +1,5 @@
 
-#(set-point-and-click! 'line-column)
+#(ly:set-point-and-click! 'line-column)
 
 instrument = "Piano"
 
@@ -41,7 +41,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "1.5.72"
+\version "1.7.3"
 
 dynamicUp = \property Voice.DynamicLineSpanner \override #'direction = #1
 dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction
@@ -399,7 +399,7 @@ vocalStaff =  \context Staff = vocal<
 
 treble =  {
 	\clef treble
-	\property Voice.autoBeamSettings \override #'(begin * * * *) = #(make-moment 0 1)
+	\property Voice.autoBeamSettings \override #'(begin * * * *) = #(ly:make-moment 0 1)
 	\trebleIntro 
 	\trebleVerseOne 
 	\trebleEentje

@@ -20,7 +20,7 @@
     (lambda (key val prior)
       (cons (cons key val)  prior)
       )
-    '() (ly-get-all-function-documentation))
+    '() (ly:get-all-function-documentation))
    )
 
 (define (all-scheme-functions-doc)

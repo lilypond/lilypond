@@ -96,7 +96,7 @@
 	 (m (make-music-by-name 'PropertySet))
 	 )
 
-      (map (lambda (x) (ly-set-mus-property! m (car x) (cdr x))) props)
+      (map (lambda (x) (ly:set-mus-property! m (car x) (cdr x))) props)
       m
     ))
     
@@ -140,14 +140,14 @@
 	     (csp (make-music-by-name 'ContextSpeccedMusic))
 	     )
 
-	  (ly-set-mus-property! seq 'elements musics)
-	  (ly-set-mus-property! csp 'element seq)
-	  (ly-set-mus-property! csp 'context-type "Staff")
+	  (ly:set-mus-property! seq 'elements musics)
+	  (ly:set-mus-property! csp 'element seq)
+	  (ly:set-mus-property! csp 'context-type "Staff")
 
 	  csp
 	  )
 	(begin
-	  (ly-warn (format "Unknown clef type `~a'
+	  (ly:warn (format "Unknown clef type `~a'
 See scm/lily.scm for supported clefs" cl))
 	  (make-music-by-name 'Music)
 	  

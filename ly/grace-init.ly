@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 
 startGraceMusic = {
     \property Voice.Stem \override  #'direction = #1
@@ -69,12 +69,12 @@ and restore afterwards. Use this to add settings to default grace notes.
     (make-sequential-music
      (cons
       (context-spec-music  (make-grob-property-revert object prop) context)
-      (ly-get-mus-property stopGraceMusic 'elements)
+      (ly:get-mus-property stopGraceMusic 'elements)
      )))
    (set! startGraceMusic
     (make-sequential-music
      (append
-      (ly-get-mus-property startGraceMusic 'elements)
+      (ly:get-mus-property startGraceMusic 'elements)
       (list (context-spec-music  (make-grob-property-set object prop val) context))
       )
      )))

@@ -5,7 +5,7 @@
 #include "paper-def.hh"
 #include "system.hh"
 
-LY_DEFINE(ly_set_grob_property,"ly-set-grob-property!", 3, 0, 0,
+LY_DEFINE(ly_set_grob_property,"ly:set-grob-property!", 3, 0, 0,
   (SCM grob, SCM sym, SCM val),
   "Set @var{sym} in grob @var{grob} to value @var{val}")
 {
@@ -21,7 +21,7 @@ LY_DEFINE(ly_set_grob_property,"ly-set-grob-property!", 3, 0, 0,
 }
 
 LY_DEFINE(ly_get_grob_property,
-	  "ly-get-grob-property", 2, 0, 0, (SCM grob, SCM sym),
+	  "ly:get-grob-property", 2, 0, 0, (SCM grob, SCM sym),
 	  "Get the value of a value in grob @var{g} of property @var{sym}. It
 will return @code{'()} (end-of-list) if @var{g} doesn't have @var{sym} set.
 
@@ -52,7 +52,7 @@ initially read from @file{scm/grob-description.scm}.
   return sc->internal_get_grob_property (sym);
 }
 
-LY_DEFINE(spanner_get_bound, "ly-get-spanner-bound", 2 , 0, 0,
+LY_DEFINE(spanner_get_bound, "ly:get-spanner-bound", 2 , 0, 0,
 	  (SCM slur, SCM dir),
 	  "Get one of the bounds of @var{spanner}. @var{dir} may be @code{-1} for
 left, and @code{1} for right.
@@ -68,7 +68,7 @@ left, and @code{1} for right.
   TODO: make difference between scaled and unscalead variable in
   calling (i.e different funcs.)
  */
-LY_DEFINE(ly_get_paper_var,"ly-get-paper-variable", 2, 0, 0,
+LY_DEFINE(ly_get_paper_var,"ly:get-paper-variable", 2, 0, 0,
   (SCM grob, SCM sym),
   "Get a variable from the \\paper block.")
 {
@@ -81,7 +81,7 @@ LY_DEFINE(ly_get_paper_var,"ly-get-paper-variable", 2, 0, 0,
 
 
 
-LY_DEFINE(ly_get_extent, "ly-get-extent", 3, 0, 0,
+LY_DEFINE(ly_get_extent, "ly:get-extent", 3, 0, 0,
 	  (SCM grob, SCM refp, SCM axis),
 	  "Get the extent in @var{axis} direction of @var{grob} relative to the
 grob @var{refp}")
@@ -96,7 +96,7 @@ grob @var{refp}")
   return ly_interval2scm ( sc->extent (ref, Axis (gh_scm2int (axis))));
 }
 
-LY_DEFINE (ly_get_parent,   "ly-get-parent", 2, 0, 0, (SCM grob, SCM axis),
+LY_DEFINE (ly_get_parent,   "ly:get-parent", 2, 0, 0, (SCM grob, SCM axis),
 	   "Get the parent of @var{grob}.  @var{axis} can be 0 for the X-axis, 1
 for the Y-axis.")
 {
@@ -110,7 +110,7 @@ for the Y-axis.")
 
 /* ly prefix? */
 LY_DEFINE (get_system,
-	   "get-system",
+	   "ly:get-system",
 	   1, 0, 0, (SCM grob),
 	   "
 Return the System Grob of @var{grob}.
@@ -127,7 +127,7 @@ Return the System Grob of @var{grob}.
 
 /* ly prefix? */
 LY_DEFINE (get_original,
-	   "get-original",
+	   "ly:get-original",
 	   1, 0, 0, (SCM grob),
 	   "
 Return the original Grob of @var{grob}
@@ -146,7 +146,7 @@ Return the original Grob of @var{grob}
  */
 
 LY_DEFINE (get_broken_into,
-	  "get-broken-into", 1, 0, 0, (SCM spanner),
+	  "ly:get-broken-into", 1, 0, 0, (SCM spanner),
 	   "
 Return broken-into list for @var{spanner}.
 "

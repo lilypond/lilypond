@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 
 %{
   Currently (1.1.27.jcn3), the auto-beam engraver will only engrave
@@ -19,7 +19,7 @@
       	c8 c c c
       	c16 c c c c c c c
 	% from here on consider ending beam every 1/4 note
-	\property Voice.autoBeamSettings \override #'(end * * * *) = #(make-moment 1 4)
+	\property Voice.autoBeamSettings \override #'(end * * * *) = #(ly:make-moment 1 4)
       	c8 c c c
 	% manually override autobeam with weird beaming
       	c8 [c c] c
@@ -34,7 +34,7 @@
       	\translator{
 	    \VoiceContext
 	    % consider ending beam at every 1/2 note
-	    autoBeamSettings \override #'(end * * * *) = #(make-moment 1 2)
+	    autoBeamSettings \override #'(end * * * *) = #(ly:make-moment 1 2)
 	}
     }
 }

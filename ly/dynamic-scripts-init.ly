@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 
 %
 % declare the standard dynamic identifiers.
@@ -6,7 +6,7 @@
 
 #(define (make-dynamic-script str)
   (let* ((m (make-music-by-name  'AbsoluteDynamicEvent)))
-  (ly-set-mus-property! m 'text str)
+  (ly:set-mus-property! m 'text str)
   m
   ))
 ppppp = #(make-dynamic-script "pppp")

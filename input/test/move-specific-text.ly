@@ -1,7 +1,7 @@
-\version "1.5.68"
+\version "1.7.3"
 
 #(define (make-text-checker text)
-   (lambda (grob) (equal? text (ly-get-grob-property grob 'text))))
+   (lambda (grob) (equal? text (ly:get-grob-property grob 'text))))
 
 \score {
   \notes\relative c''' {

@@ -1,9 +1,9 @@
-#(set-point-and-click! 'line-column)
+#(ly:set-point-and-click! 'line-column)
 
 opus = "BWV 925"
 piece = "4"
 
-\version "1.5.72"
+\version "1.7.3"
 
 %{
 
@@ -218,7 +218,7 @@ global = \notes{
 		\translator{
 		        \VoiceContext
 			% consider ending beam at every 1 2 note
-			autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 1 4)
+			autoBeamSettings \override #'(end 1 8 * *) = #(ly:make-moment 1 4)
 		}
 	}
 	\midi{ \tempo 4 = 70 }

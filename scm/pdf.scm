@@ -41,15 +41,15 @@
   (lineto (+ x (car currentpoint)) (+ y (cdr currentpoint))))
 (define (curveto x1 y1 x2 y2 x y)
   (set! currentpoint (cons x y))
-  (string-append (ly-number->string x1) (ly-number->string y1)
-		 (ly-number->string x2) (ly-number->string y2)
-		 (ly-number->string x) (ly-number->string y) "c "))
+  (string-append (ly:number->string x1) (ly:number->string y1)
+		 (ly:number->string x2) (ly:number->string y2)
+		 (ly:number->string x) (ly:number->string y) "c "))
 (define (curveto-pairs pt1 pt2 pt)
   (curveto (car pt1) (cdr pt1) (car pt2) (cdr pt2) (car pt) (cdr pt)))
 (define (closefill) "h f ")
 (define (closestroke) "S ")
-(define (setlinewidth w) (string-append (ly-number->string w) "w "))
-(define (setgray g) (string-append (ly-number->string g) "g "))
+(define (setlinewidth w) (string-append (ly:number->string w) "w "))
+(define (setgray g) (string-append (ly:number->string g) "g "))
 (define (setlineparams) "1 j 1 J ")
 
 (define (beam width slope thick)
@@ -106,8 +106,8 @@
 
 (define (dashed-slur thick dash l)
   (string-append (setlineparams)
-		 "[ " (ly-number->string dash) " "
-		 (ly-number->string (* 10 thick)) " ] 0 d "
+		 "[ " (ly:number->string dash) " "
+		 (ly:number->string (* 10 thick)) " ] 0 d "
 		 (setlinewidth thick)
 		 (moveto-pair (car l))
 		 (apply curveto (cdr l))
@@ -115,8 +115,8 @@
 
 (define (dashed-line thick on off dx dy)
   (string-append (setlineparams)
-		 "[ " (ly-number->string on) " "
-		 (ly-number->string off) " ] 0 d "
+		 "[ " (ly:number->string on) " "
+		 (ly:number->string off) " ] 0 d "
 		 (setlinewidth thick)
 		 (moveto 0 0)
 		 (lineto dx dy)
@@ -136,10 +136,10 @@
 (define (experimental-on) "")
 
 (define (filledbox breadth width depth height) 
-  (string-append (ly-number->string (- breadth))
-		 (ly-number->string (- depth))
-		 (ly-number->string (+ breadth width))
-		 (ly-number->string (+ depth height))
+  (string-append (ly:number->string (- breadth))
+		 (ly:number->string (- depth))
+		 (ly:number->string (+ breadth width))
+		 (ly:number->string (+ depth height))
 		 " re f "))
 
 (define (roundfilledbox breadth width depth height blotdiam)

@@ -1,5 +1,7 @@
 2002-10-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Use uniform ly: prefix for exported scheme primitive functions.
+
 	* scm/music-types.scm: junk compat glue
 
 	* scripts/convert-ly.py: add rules for stuff below, junk

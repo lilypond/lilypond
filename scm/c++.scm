@@ -14,7 +14,7 @@
   (and (pair? x)
        (number? (car x)) (number? (cdr x))))
 (define-public (number-or-grob? x)
-  (or (ly-grob? x) (number? x))
+  (or (ly:grob? x) (number? x))
   )
 
 (define-public (grob-list? x)
@@ -22,7 +22,7 @@
 
 (define-public (moment-pair?  x)
   (and (pair? x)
-       (moment? (car x)) (moment? (cdr x))))
+       (ly:moment? (car x)) (ly:moment? (cdr x))))
 
 (define-public (boolean-or-symbol? x)
   (or (boolean? x) (symbol? x)))
@@ -39,23 +39,23 @@
 ;;
 (define type-p-name-alist
   `(
-   (,dir? . "direction")
+   (,ly:dir? . "direction")
    (,scheme? . "any type")
    (,number-pair? . "pair of numbers")
-   (,ly-input-location? . "input location")   
-   (,ly-grob? . "grob (GRaphical OBject)")
+   (,ly:input-location? . "input location")   
+   (,ly:grob? . "grob (GRaphical OBject)")
    (,grob-list? . "list of grobs")
-   (,duration? . "duration")
+   (,ly:duration? . "duration")
    (,pair? . "pair")
    (,integer? . "integer")
    (,list? . "list")
    (,symbol? . "symbol")
    (,string? . "string")
    (,boolean? . "boolean")
-   (,moment? . "moment")
-   (,ly-input-location? . "input location")
+   (,ly:moment? . "moment")
+   (,ly:input-location? . "input location")
    (,music-list? . "list of music")
-   (,music? . "music")
+   (,ly:music? . "music")
    (,number? . "number")
    (,char? . "char")
    (,input-port? . "input port")

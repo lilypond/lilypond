@@ -14,7 +14,7 @@
 #include "ly-smobs.icc"
 
 IMPLEMENT_SIMPLE_SMOBS (Moment);
-IMPLEMENT_TYPE_P (Moment, "moment?");
+IMPLEMENT_TYPE_P (Moment, "ly:moment?");
 
 SCM
 Moment::mark_smob (SCM)
@@ -47,7 +47,7 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
 /*
   TODO: add optional factor argument.
  */
-LY_DEFINE (make_moment,"make-moment", 2,0,0, (SCM n, SCM d),
+LY_DEFINE (make_moment,"ly:make-moment", 2,0,0, (SCM n, SCM d),
 	   "create the rational number with main timing @var{n}/@var{d}. 
 
 

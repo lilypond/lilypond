@@ -554,7 +554,7 @@ Lookup::bracket (Axis a, Interval iv, Real thick, Real protude)
 /*
   TODO: use rounded boxes.
  */
-LY_DEFINE(ly_bracket ,"ly-bracket",
+LY_DEFINE(ly_bracket ,"ly:bracket",
 	  4, 0, 0,
 	  (SCM a, SCM iv, SCM t, SCM p),
 	  "Make a bracket in direction @var{a}. The extent of the bracket is
