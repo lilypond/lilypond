@@ -100,6 +100,10 @@ env.Alias ('doc', pdfs)
 env.Alias ('doc', 'lilypond-internals/lilypond.html')
 env.Alias ('doc', 'lilypond-internals/lilypond-internals.html')
 
-#testing
 all_sources = ['SConscript',] + sources + pngs
-x = env.Tar (env['tarball'], all_sources)
+ballprefix = env['ballprefix'] + '/Documentation/user'
+ball = Builder (prefix = ballprefix + '/', action = 'ln $SOURCE $TARGET')
+et = env.Copy (BUILDERS = {'BALL': ball})
+ballize = map (et.BALL, all_sources)
+tar = env.Tar (env['tarball'],
+	       map (lambda x: os.path.join (ballprefix, x), all_sources))

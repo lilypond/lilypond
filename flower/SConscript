@@ -20,6 +20,11 @@ if env['static']:
 if not env['static'] or env['shared']:
 	e.SharedLibrary (name, sources)
 
-#testing
-all_sources = ['SConscript',] + sources + includes 
-x = env.Tar (env['tarball'], all_sources)
+all_sources = ['SConscript',] + sources + includes
+ballprefix = env['ballprefix'] + '/flower'
+ball = Builder (prefix = ballprefix + '/', action = 'ln $SOURCE $TARGET')
+#et = env.Copy (BUILDERS = {'BALL': ball})
+et = env.Copy ()
+#ballize = map (et.BALL, all_sources)
+tar = env.Tar (env['tarball'],
+	       map (lambda x: os.path.join (ballprefix, x), all_sources))

@@ -199,6 +199,6 @@ a = ('%(PYTHON)s %(DIFF_PY)s%(verbose)s'\
 patch = Builder (action = a, suffix = '.diff', src_suffix = '.tar.gz')
 env.Append (BUILDERS = {'PATCH': patch})
 
-# Ugh, how to make a sane tarball with scons?
-ball = Builder (prefix = env['ballprefix'], action = 'ln $SOURCE $TARGET')
-env.Append (BUILDERS = {'BALL': ball})
+#ball = Builder (prefix = env['ballprefix'] + '/',
+#action = 'ln $SOURCE $TARGET')
+#env.Append (BUILDERS = {'BALL': ball})
