@@ -30,6 +30,8 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
     : PANGO_DIRECTION_RTL;
   context_ =
     pango_ft2_get_context (PANGO_RESOLUTION, PANGO_RESOLUTION);
+
+  description_ = pango_font_description_copy (description);
   //  context_ = pango_ft2_font_map_create_context (fontmap);  
   attribute_list_= pango_attr_list_new();
 
@@ -47,6 +49,7 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 
 Pango_font::~Pango_font ()
 {
+  pango_font_description_free (description_);
   g_object_unref (context_);
   pango_attr_list_unref (attribute_list_);
 }
@@ -131,6 +134,13 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 }
 
 Stencil
+Pango_font::direct_pango_text_stencil (String str) const
+{
+
+
+}
+
+Stencil
 Pango_font::text_stencil (String str) const
 {
   GList *items = pango_itemize (context_,
@@ -154,6 +164,21 @@ Pango_font::text_stencil (String str) const
       ptr = ptr->next;      
     }
 
+  if (output_format_global != "ps")
+    {
+      /*
+	For Pango based backends, we take a shortcut.
+       */
+      SCM exp
+	= scm_list_3 (ly_symbol2scm ("utf-8-string"),
+		      scm_makfrom0str (pango_font_description_to_filename (description_)),
+		      scm_makfrom0str (str.to_str0 ()));
+
+
+      return Stencil (dest.extent_box (),
+		      exp);
+    }
+  
   return dest;
 }
 
