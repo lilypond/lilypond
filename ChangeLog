@@ -1,3 +1,10 @@
+2002-09-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/footer.html.in: How time flies: It's already 2002!
+
+	* Documentation/topdocs/index.tely: Stable/development fix.  Use
+	more descriptive link names than 'here'.
+
 2002-09-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/tex.scm (header-end): enclose lily output in begingroup/endgroup.

@@ -19,11 +19,11 @@
 @end html
 
 
-@unnumberedsec What is LilyPond? What can it do for you?
+@unnumberedsec What is LilyPond?
 
-LilyPond prints beautiful sheet music.  It produces music notation from
-a description file. It excels at typesetting classical music, but you
-can also print pop-songs.
+LilyPond prints beautiful sheet music.  It produces music notation
+from a description file.  It excels at typesetting classical music,
+but you can also print pop-songs.
 
 LilyPond input is @b{plain text}. So, you can use your favorite text
 editor to enter it, you can put it in mail or embed it in an article like
@@ -46,13 +46,13 @@ LilyPond is @b{free software}. It is part of the
 Public License, so you can use, modify and redistribute the program with
 almost no restrictions.
 
-
-LilyPond has a development version and a stable version. This webpage is
-for the @b{development} release. This release contains experimental and
-often buggy code, so use it only if you need special new features.  On
-the other hand, stable releases don't change much, and are essentially
-bug-free.  You can access the website for the stable releases
-@uref{http://lilypond.org/stable, here}.
+LilyPond has a development version and a stable version.  This webpage
+is for the @b{stable} release.  This means that it won't change much,
+and it is essentially bug-free.  The development releases contain
+experimental and often buggy code, so you should use those if you need
+any special new features.  If you're still insterested, you may visit
+the @uref{http://lilypond.org/development, latest development
+website}.
 
 @unnumberedsec Want to know more?
 
@@ -60,6 +60,6 @@ If you want to know more, visit the
 @uref{Documentation/out-www/index.html, documentation page}. If you
 want to see some sheet music, then have a look at the
 @uref{examples.html, examples}.  For even more sheet music, head over
-to @uref{http://www.mutopiaproject.org, the mutopia project}.
+to @uref{http://www.mutopiaproject.org, the Mutopia Project}.
 
 @bye
