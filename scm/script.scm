@@ -57,6 +57,7 @@
 	   (direction .  1)))
 	 ("fermata" .
 	  ((script-stencil . (feta . ("dfermata" . "ufermata")))
+	   (inside-slur . #f)
 	   (direction .  1)))
 	 ("shortfermata" .
 	  ((script-stencil . (feta . ("dshortfermata" . "ushortfermata")))
@@ -79,6 +80,7 @@
 	 ("tenuto" .
 	  ((script-stencil . (feta . ("tenuto" . "tenuto")))
 	   (follow-into-staff . #t)
+	   (inside-slur . #t)
 	   (side-relative-direction . -1)))
 	 ("comma" .
 	  ((script-stencil . (feta . ("lcomma" . "rcomma")))
