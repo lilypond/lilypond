@@ -3,14 +3,23 @@
 
   source file of the LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
+#include <strstream.h>
+
 #include "includable-lexer.hh"
 #include "source-file.hh"
 #include "source.hh"
+#include "debug.hh"
 
 #ifndef YY_BUF_SIZE
 #define YY_BUF_SIZE 16384
+#endif
+
+#ifndef YY_START
+#define YY_START ((yy_start - 1) / 2)
+#define YYSTATE YY_START
 #endif
 
 Includable_lexer::Includable_lexer ()
@@ -26,7 +35,7 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
   Source_file * sl = global_sources->get_file_l (s);
   if (!sl)
     {
-      String msg =_ ("Can't find file `") + s+ "'";
+      String msg = _f ("can't find file: `%s\'", s);
       LexerError (msg.ch_C ());
       return;
     }
@@ -35,7 +44,7 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
   char_count_stack_.push (0);
   if (yy_current_buffer)
     state_stack_.push (yy_current_buffer);
-  cout << "[" << s<<flush;
+  *mlog << "[" << s<<flush;
   include_stack_.push (sl);
 
   /*
@@ -48,6 +57,21 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
   yy_switch_to_buffer (yy_create_buffer (sl->istream_l (), YY_BUF_SIZE));
 
 }
+void
+Includable_lexer::new_input (String name, String data, Sources* sources)
+{
+  Source_file* file = new Source_file (name, data);
+  sources->add (file);
+  filename_str_arr_.push (name);
+
+  char_count_stack_.push (0);
+  if (yy_current_buffer)
+    state_stack_.push (yy_current_buffer);
+  *mlog << "[" << name << flush;
+  include_stack_.push (file);
+
+  yy_switch_to_buffer (yy_create_buffer (file->istream_l (), YY_BUF_SIZE));
+}
 
 /** pop the inputstack.  conceptually this is a destructor, but it
   does not destruct the Source_file that Includable_lexer::new_input creates.  */
@@ -56,11 +80,12 @@ Includable_lexer::close_input ()
 {
   include_stack_.pop ();
   char_count_stack_.pop ();
-  cout << "]"<<flush;
+  *mlog << "]"<<flush;
   yy_delete_buffer (yy_current_buffer);
   yy_current_buffer = 0;
   if (state_stack_.empty ())
     {
+      yy_current_buffer = 0;
       return false;
     }
   else

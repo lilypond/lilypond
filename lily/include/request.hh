@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #ifndef REQUEST_HH
@@ -17,6 +17,9 @@
 #include "music.hh"
 #include "direction.hh"
 
+#define DEFAULTACCESSOR(T)  virtual T *access_ ## T () { return 0; }
+
+
 /**
  a voice element wants something printed.
  Hungarian postfix: req
@@ -26,34 +29,36 @@ class Request : public Music {
 
 public:
     
-    /* *************** */
+  /* *************** */
 
-    virtual ~Request(){}
+  virtual ~Request(){}
 
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    VIRTUAL_COPY_CONS(Request,Music);
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Request,Music);
     
-    virtual MInterval time_int() const;
-    virtual Moment duration() const { return 0; }
+  virtual MInterval time_int() const;
+  virtual Moment duration() const { return 0; }
 
-    /*  accessors for children
-	maybe checkout RTTI
-     */
-    virtual Barcheck_req *barcheck() { return 0; }
-    virtual Script_req *script() { return 0;}
-    virtual Span_req *span() { return 0; }
-    virtual Spacing_req * spacing() { return 0; }
-    virtual Blank_req * blank() { return 0; }
-    virtual Musical_req *musical() { return 0; }
-    virtual Command_req * command() { return 0; }
-    bool equal_b (Request*) const;
+  /*  accessors for children
+      maybe checkout RTTI
+  */
+
+  DEFAULTACCESSOR(Barcheck_req)
+  DEFAULTACCESSOR(Script_req)
+  DEFAULTACCESSOR(Span_req)
+  DEFAULTACCESSOR(Spacing_req)
+  DEFAULTACCESSOR(Musical_req)
+  DEFAULTACCESSOR(Command_req)
+    
+  bool equal_b (Request*) const;
 protected:
-    virtual bool do_equal_b (Request*) const;
-    virtual void do_print() const;
+  virtual bool do_equal_b (Request*) const;
+  virtual void do_print() const;
 };
 
-#define REQUESTMETHODS(T,accessor)	\
-virtual T * accessor() { return this;}\
+
+#define REQUESTMETHODS(T)	\
+virtual T * access_ ## T() { return this;}\
 DECLARE_MY_RUNTIME_TYPEINFO;\
 VIRTUAL_COPY_CONS(T, Request);\
 virtual void do_print() const
@@ -63,18 +68,18 @@ virtual void do_print() const
 /** Put a script above or below this ``note'' or bar. eg upbow, downbow. Why
   a request? These symbols may conflict with slurs and brackets, so
   this also a request */
+
 class Script_req  : public virtual Request { 
 public:
-    Direction dir_;
-    General_script_def *scriptdef_p_;
+  Direction dir_;
+  General_script_def *scriptdef_p_;
+  
+  bool do_equal_b (Request*) const;
 
-    /* *************** */
-    bool do_equal_b (Request*) const;
-
-    Script_req();
-    REQUESTMETHODS(Script_req,script);
-    ~Script_req();
-    Script_req (Script_req const&);
+  Script_req();
+  REQUESTMETHODS(Script_req);
+  ~Script_req();
+  Script_req (Script_req const&);
 };
 
     

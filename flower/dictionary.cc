@@ -3,7 +3,9 @@
 
 
 /**
-   neuk. hsearch_* is te dom.
+   Dictionary implementation.  Please fix me.
+
+   (neuk. hsearch_* is te dom.)
  */
 template<class T>
 class Dictionary<T>

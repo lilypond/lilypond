@@ -3,7 +3,7 @@
 
   source file of the Flower Library
 
-  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -137,7 +137,7 @@ public:
   Vector row (int) const;
   Vector col (int) const;
 
-  operator String() const;
+  String str () const;
   void print() const;
   ~Matrix ();
 };

@@ -3,7 +3,7 @@
   
   source file of the Flower Library
   
-  (c) '95, '96, '97 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) '95, '96, '97 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
   */
 #include <fstream.h>
@@ -18,8 +18,8 @@ Data_file::gobble_white()
   char c;
 
   while ((c=data_get()) == ' ' ||c == '\t')
-    if (eof())
-      break;
+    if (eof_b())
+      return;
 
   data_unget (c);
 }
@@ -32,8 +32,11 @@ Data_file::get_word()
   while (1)
     {
       char 	c  = data_get();
+      
+      if  (eof_b ())
+	break;
 
-      if (isspace (c) || eof())
+      if (isspace (c))
 	{
 	  data_unget (c);
 	  break;
@@ -45,16 +48,16 @@ Data_file::get_word()
 	  rawmode= true;
 
 	  while ((c  = data_get()) != '\"')
-	    if (eof())
-	      error (_("EOF in a string"));
+	    if (eof_b ())
+	      error (_ ("EOF in a string"));
 	    else
-	      s += c;
+	      s += to_str (c);
 
 
 	  rawmode= false;
 	}
       else
-	s += c;
+	s += to_str (c);
     }
 
   return s;
@@ -64,11 +67,12 @@ Data_file::get_word()
    Only class member who uses text_file::get
    */
 char
-Data_file::data_get() {
+Data_file::data_get()
+{
   char c =  get();
   if (!rawmode && c == '#') // gobble comment
     {
-      while ((c = get()) != '\n' && !eof ())
+      while (!eof_b () && (c = get()) != '\n')
 	;
       return '\n';
     }
@@ -77,13 +81,14 @@ Data_file::data_get() {
 }
 
 /// read line, gobble '\n'
-String Data_file::get_line()
+String
+Data_file::get_line()
 {
   char c;
   String s;
 
-  while ((c  = data_get()) != '\n' && !eof ())
-    s += c;
+  while (!eof_b () && (c  = data_get()) != '\n')
+    s += to_str (c);
   return s;
 }
 
@@ -92,7 +97,7 @@ void
 Data_file::gobble_leading_white()
 {
   // eat blank lines.
-  while (!eof())
+  while (!eof_b ())
     {
       char c = data_get();
       if (!isspace (c))
@@ -101,4 +106,41 @@ Data_file::gobble_leading_white()
 	  break;
 	}
     }
+}
+
+Data_file::Data_file (String s)
+  : Text_stream (s) 
+{
+  //*mlog << "(" << s << flush;	
+  rawmode=  false;	
+}
+
+void
+Data_file::warning (String s)
+{
+  message (_ ("warning: ") + s);
+}
+
+void
+Data_file::error (String s)
+{
+  message (s);
+  exit (1);    
+}
+
+String
+Data_file::gulp ()
+{
+  String s;
+
+  while (!eof_b ())
+    {
+      s += to_str (data_get ());
+    }
+  return s;
+}
+  
+
+Data_file::~Data_file ()
+{
 }

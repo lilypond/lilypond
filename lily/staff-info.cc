@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "proto.hh"
@@ -20,10 +20,8 @@ Staff_info::score_l()
 Staff_info::Staff_info()
 {
   score_l_ =0;
-  c0_position_i_l_ = 0;
   time_C_ = 0;
   rhythmic_C_ =0;
-  break_allowed_b_ = 0;
 }
 
 Score_column*

@@ -3,24 +3,25 @@
 
   source file of the Flower Library
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #include "flower-debug.hh"
 #include "matrix.hh"
 
-Matrix::operator String() const
+String
+Matrix::str () const
 {
   String s;
 #ifndef NPRINT
   Full_storage const * stor_c_l = dat_;
-  s=String ("matrix {");
+  s = String ("matrix {");
   for (int i=0; i< rows(); i++)
     {
       for (int j = 0; j < cols(); j++) 
 	{
-	  s+= String (stor_c_l->elem (i,j), "%6f ");
+	  s+= to_str (stor_c_l->elem (i,j), "%6f ");
 	}
       s+="\n";
     }
@@ -31,23 +32,24 @@ Matrix::operator String() const
 
 
 void
-Matrix::print() const
+Matrix::print () const
 {
 #ifndef NPRINT
   fdebug << *this;
 #endif
 }
 
-Vector::operator String() const
+String
+Vector::str () const
 {
   String s;
 #ifndef NPRINT
-  s=String ("vector (") + dim () + ") [";
+  s = String ("vector (") + to_str (dim ()) + ") [";
   for (int i=0; i < dim(); i++) 
     {
-      s += String (dat[i], "%6f") + String (' ');
+      s += to_str (dat[i], "%6f") + to_str (' ');
     }
-  s+="]\n";
+  s += "]\n";
 #endif
   return s;
 }
@@ -57,6 +59,6 @@ void
 Vector::print() const
 {
 #ifndef NDEBUG
-  fdebug << *this<<'\n';
+  fdebug << *this << '\n';
 #endif
 }

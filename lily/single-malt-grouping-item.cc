@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998 Han-Wen Nienhuys <hanwen@cs.ruu.nl>
+  (c) 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
@@ -18,7 +18,7 @@ Single_malt_grouping_item ::Single_malt_grouping_item()
 }
 
 void
-Single_malt_grouping_item::add (Item* i)
+Single_malt_grouping_item::add_item (Item* i)
 {
   assert (i);
   item_l_arr_.push (i);
@@ -44,11 +44,11 @@ Single_malt_grouping_item::my_width () const
 IMPLEMENT_IS_TYPE_B1(Single_malt_grouping_item, Item);
 
 void
-Single_malt_grouping_item::do_substitute_dependency (Score_elem*o, Score_elem*n)
+Single_malt_grouping_item::do_substitute_dependency (Score_element*o, Score_element*n)
 {
-  if (o->item ())
+  if (o->access_Item ())
     {
-      item_l_arr_.unordered_substitute (o->item (),  n ? n->item () : 0);
+      item_l_arr_.unordered_substitute (o->access_Item (),  n ? n->access_Item () : 0);
     }
 }
 

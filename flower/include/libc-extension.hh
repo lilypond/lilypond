@@ -3,17 +3,17 @@
 
   source file of the flowerlib
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef LIBC_EXTENSION_HH
 #define LIBC_EXTENSION_HH
+
 #include "fproto.hh"
-
 #include "config.hh"
-
 #include <cstddef>
+#include <stdarg.h>
 
 char* strnlwr (char* start_l ,int n);
 char* strnupr (char* start_l, int n);
@@ -24,8 +24,11 @@ Byte *memmem (Byte const * haystack, int haystack_len,
 #endif HAVE_MEMMEM
 
 #if !HAVE_SNPRINTF		// GNU extension.
-int snprintf (char *str, size_t n,
-	      char const *format, ...);
+int snprintf (char *str, size_t n, char const *format, ...);
+#endif
+
+#if !HAVE_VSNPRINTF	 	// GNU extension.
+int vsnprintf (char *str, size_t, char const *format, va_list args);
 #endif
 
 

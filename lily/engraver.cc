@@ -3,7 +3,7 @@
 
   Sourcefile of GNU LilyPond musictypesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "music-list.hh"
@@ -20,7 +20,7 @@ Engraver::fill_staff_info (Staff_info&)
 
 
 void
-Engraver::announce_element (Score_elem_info i)
+Engraver::announce_element (Score_element_info i)
 {
   i.origin_grav_l_arr_.push (this);
   daddy_grav_l()->announce_element (i);
@@ -28,7 +28,7 @@ Engraver::announce_element (Score_elem_info i)
 
 
 void
-Engraver::typeset_element (Score_elem*p)
+Engraver::typeset_element (Score_element*p)
 {
   daddy_grav_l()->typeset_element (p);
 }

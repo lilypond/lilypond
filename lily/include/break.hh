@@ -3,13 +3,13 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef BREAK_HH
 #define BREAK_HH
-#include "varray.hh"
+#include "array.hh"
 #include "interval.hh"
 #include "lily-proto.hh"
 #include "colhpos.hh"
@@ -47,10 +47,10 @@ protected:
     
 
   /// helper: solve for the columns in #curline#.
-  void solve_line (Col_hpositions*) const;
+  void solve_line (Column_x_positions*) const;
 
   /// helper: approximate the energyv
-  void approximate_solve_line (Col_hpositions*) const;
+  void approximate_solve_line (Column_x_positions*) const;
 
   /// does curline fit on the paper?    
   bool feasible (Line_of_cols) const;
@@ -58,7 +58,7 @@ protected:
 
   Line_spacer* generate_spacing_problem (Line_of_cols, Interval) const;
 
-  virtual Array<Col_hpositions> do_solve() const=0;
+  virtual Array<Column_x_positions> do_solve() const=0;
   virtual void do_set_pscore();
 
 public:
@@ -73,7 +73,7 @@ public:
   /// check if the spacing/breaking problem is well-stated
   void problem_OK() const;
   void OK() const;
-  Array<Col_hpositions> solve() const;
+  Array<Column_x_positions> solve() const;
 };
 
 #endif // BREAK_HH

@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998 Han-Wen Nienhuys <hanwen@cs.ruu.nl>
+  (c) 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
@@ -45,7 +45,6 @@ Separating_group_spanner::get_rods () const
 	  r.distance_f_ += paper ()->interline_f () *1.5;
 	  a.push (r);
 	}
-	
     }
       
   return a;
@@ -61,13 +60,13 @@ Separating_group_spanner::add_spacing_unit (Single_malt_grouping_item*i)
 IMPLEMENT_IS_TYPE_B1(Separating_group_spanner, Spanner);
 
 void
-Separating_group_spanner::do_substitute_dependency (Score_elem*o, Score_elem*n)
+Separating_group_spanner::do_substitute_dependency (Score_element*o, Score_element*n)
 {
   if (o->is_type_b (Single_malt_grouping_item::static_name ()))
     {
       Single_malt_grouping_item*ns = n ?
-	(Single_malt_grouping_item*)n->item () : 0;
-      spacing_unit_l_arr_.substitute ((Single_malt_grouping_item*)o->item (), ns);
+	(Single_malt_grouping_item*)n->access_Item () : 0;
+      spacing_unit_l_arr_.substitute ((Single_malt_grouping_item*)o->access_Item (), ns);
     }
 }
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -96,21 +96,27 @@ protected:
   virtual void do_removal_processing() {}
 };
 
+
+template<class T>
+class Translator_adder
+{
+public:
+  static Translator *ctor ()
+    {
+      Translator *t = new T;
+      t->type_str_ = T::static_name ();
+      return t;
+    }
+  Translator_adder () {	
+    add_constructor (ctor);
+  }				
+};
+
 /**
   A macro to automate administration of translators.
  */
 #define ADD_THIS_TRANSLATOR(c)				\
-struct c ## init {					\
-   static Translator *ctor ()\
-  {\
-        Translator *t = new c;\
-        t-> type_str_ = c::static_name ();\
-        return t;\
-    }\
-    c ## init() {					\
-       add_constructor (ctor);\
-    }							\
-} _ ## c ## init;
+  Translator_adder<c> _ ## c ## init;
 
 typedef Translator *(*Translator_ctor) ();
 

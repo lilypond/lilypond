@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "bar.hh"
@@ -23,12 +23,12 @@ Bar_column::set_bar (Bar*b)
 }
 
 void
-Bar_column::do_substitute_dependency (Score_elem*o,Score_elem*n)
+Bar_column::do_substitute_dependency (Score_element*o,Score_element*n)
 {
   Script_column::do_substitute_dependency (o,n);
   if (o == bar_l_) 
     {
-      bar_l_ = n ? (Bar*)n->item() : 0;
+      bar_l_ = n ? (Bar*)n->access_Item () : 0;
     }
 }
 

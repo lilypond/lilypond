@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -11,7 +11,7 @@
 #define SCORE_COLUMN_HH
 
 #include "lily-proto.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "moment.hh"
 #include "p-col.hh"
 
@@ -36,7 +36,7 @@ class Score_column : public Paper_column {
 public:
   int break_penalty_i () { return break_penalty_i_; }
   DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEM_CLONE(Score_column);
+  SCORE_ELEMENT_CLONE(Score_column);
   /// length of notes/rests in this column
   Array<Moment> durations;
     

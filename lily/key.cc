@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
   TODO
   transposition.
@@ -21,7 +21,7 @@ void
 Octave_key::print () const
 {
   for (int i= 0; i < 7 ; i++)
-    DOUT << "note " << i << " acc: " << accidental_i_arr_[i] << "\n";
+    DOUT << "note " << i << " acc: " << accidental_i_arr_[i] << '\n';
 }
 
 
@@ -51,12 +51,12 @@ Key::octave_to_index (int o) const
   int i = o + ZEROOCTAVE;
   if (i < 0)
     {
-      warning ("Don't have that many octaves (" + String (o) + ")");
+      warning ("Don't have that many octaves (" + to_str (o) + ")");
       i = 0;
     }
   if (i >= NUMBER_OF_OCTAVES)
     {
-      warning ("Don't have that many octaves (" + String (o) + ")");
+      warning ("Don't have that many octaves (" + to_str (o) + ")");
       i = NUMBER_OF_OCTAVES -1;
     }
   return i;
@@ -74,12 +74,12 @@ Octave_key::set (int i, int a)
 {
   if (a <= -3)
     {
-      warning ("Underdone accidentals (" + String (a)+ ")");
+      warning ("Underdone accidentals (" + to_str (a) + ")");
       a = -2;
     }
   if (a >= 3)
     {
-      warning ("Overdone accidentals (" + String (a) + ")");
+      warning ("Overdone accidentals (" + to_str (a) + ")");
       a = 2;
     }
   accidental_i_arr_[i]=a;

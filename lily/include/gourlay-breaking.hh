@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -22,7 +22,7 @@ struct Gourlay_breaking : public Break_algorithm
     /// maximum number of measures in a line
     int max_measures_i_;
     void do_set_pscore();
-    Array<Col_hpositions> do_solve() const;
+    Array<Column_x_positions> do_solve() const;
     Gourlay_breaking();
 };
 #endif // GOURLAY_BREAKING_HH

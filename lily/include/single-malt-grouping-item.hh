@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.ruu.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
@@ -19,15 +19,15 @@
    It's 1 30 am.  Naming suggestions appreciated.  */
 class Single_malt_grouping_item : public Item
 {
-  SCORE_ELEM_CLONE (Single_malt_grouping_item);
+  SCORE_ELEMENT_CLONE (Single_malt_grouping_item);
   Link_array<Item> item_l_arr_;
 public:
   Single_malt_grouping_item ();
   Interval my_width () const;
-  void add (Item*);
+  void add_item (Item*);
   DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
-  virtual  void do_substitute_dependency (Score_elem*, Score_elem*);
+  virtual  void do_substitute_dependency (Score_element*, Score_element*);
   virtual void do_print () const;
 };
 

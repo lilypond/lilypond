@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -20,7 +20,7 @@ public:
   bool rawmode;
 
   Text_stream::line;    
-  Text_stream::eof;
+  Text_stream::eof_b;
   Text_stream::get_name;    
 
   char data_get();    
@@ -39,21 +39,15 @@ public:
 
   /// gobble empty stuff before first field.
   void gobble_leading_white();
-  Data_file (String s) : Text_stream (s) {
-    //*mlog << "(" << s << flush;	
-    rawmode=  false;	
-  }
-
-  ~Data_file()  {
-    //	*mlog << ")"<<flush;	
-  }    
-
-  warning (String s) {
-    message ("warning: " + s);
-  }
-  error (String s){
-    message (s);
-    exit (1);    
-  }
+  Data_file (String);
+  ~Data_file();
+  /**
+     eat complete file
+     @post
+     eof () is true
+  */
+  String gulp ();
+  void warning (String s);
+  void error (String s);
 };
 #endif // DATAFILE_HH

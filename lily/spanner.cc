@@ -3,24 +3,30 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "debug.hh"
 #include "spanner.hh"
 #include "p-col.hh"
 #include "p-score.hh"
-#include "outputter.hh"
+#include "tex-outputter.hh"
+#include "molecule.hh"
 
-IMPLEMENT_IS_TYPE_B1(Spanner,Score_elem);
+IMPLEMENT_IS_TYPE_B1(Spanner,Score_element);
 
 void
 Spanner::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "Between col ";
+  DOUT << "Between " << spanned_drul_[LEFT]->name ()
+       << " and " << spanned_drul_[RIGHT]->name() << '\n';
   if (broken_into_l_arr_.size())
-    DOUT << "with broken pieces\n";
+    {
+      DOUT << "with broken pieces:\n";
+      for (int i=0; i < broken_into_l_arr_.size (); i++)
+	broken_into_l_arr_[i]->print ();
+    }  
 #endif
 }
 
@@ -33,6 +39,11 @@ Spanner::break_into_pieces ()
   Item * left = spanned_drul_[LEFT];
   Item * right = spanned_drul_[RIGHT];
   
+  if  (left == right)
+    {
+      warning (_ ("left spanpoint is right spanpoint\n"));
+      return;
+    }
   
   Link_array<Item> break_cols = pscore_l_->broken_col_range (left,right);
   Link_array<Spanner> broken_into_l_arr;
@@ -42,7 +53,7 @@ Spanner::break_into_pieces ()
 
   for (int i=1; i < break_cols.size(); i++) 
     {
-      Spanner* span_p = clone()->spanner ();
+      Spanner* span_p = clone()->access_Spanner ();
       left = break_cols[i-1];
       right = break_cols[i];
       if (!right->line_l())
@@ -50,7 +61,7 @@ Spanner::break_into_pieces ()
       if (!left->line_l())
 	left = left->find_prebroken_piece(RIGHT);
 
-            assert (left&&right && left->line_l() == right->line_l());
+      assert (left&&right && left->line_l() == right->line_l());
 
       span_p->set_bounds(LEFT,left);
       span_p->set_bounds(RIGHT,right);
@@ -87,7 +98,7 @@ Spanner::set_bounds(Direction d, Item*i)
 
   if  (spanned_drul_[Direction(-d)] == spanned_drul_[d]
        && i)
-    warning ("Spanner (" + String (name ()) + ") with equal left and right spanpoints.");
+    warning (_f ("Spanner `%s\' with equal left and right spanpoints", name ()));
 }
 
 void
@@ -105,8 +116,13 @@ Spanner::do_break_processing()
     }
 }
 
+Spanner* 
+Spanner::access_Spanner ()
+{
+  return this;
+}
 
-Spanner::Spanner()
+Spanner::Spanner ()
 {
   spanned_drul_[LEFT]=0;
   spanned_drul_[RIGHT]=0;
@@ -120,7 +136,8 @@ Spanner::do_brew_molecule ()
   Molecule *output= brew_molecule_p ();
   Offset left_off (spanned_drul_[LEFT]->absolute_coordinate(X_AXIS), 0);
   Offset o = absolute_offset() + left_off;
-  pscore_l_->outputter_l_->output_molecule (output, o);
+  pscore_l_->outputter_l_->output_molecule (output, o, name ());
+  delete output;
 }
 
 Interval

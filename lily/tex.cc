@@ -3,13 +3,13 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "dimen.hh"
+#include "dimension.hh"
 #include "tex.hh"
 #include "atom.hh"
-#include "varray.hh"
+#include "array.hh"
 
 String
 vstrut (Real h)

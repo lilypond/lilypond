@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -48,8 +48,8 @@ class Spring_spacer : public Line_spacer {
   
     
   Pointer_list<Idealspacing *> ideal_p_list_;
-  Array<Colinfo> cols_;
-  Array<Colinfo> loose_col_arr_;
+  Array<Column_info> cols_;
+  Array<Column_info> loose_col_arr_;
   Array<Spacer_rod> rods_;
   
   /// mark column #i# as being loose.
@@ -86,8 +86,8 @@ public:
   static Line_spacer *constructor();
   Real energy_normalisation_f_;
   Spring_spacer ();
-  virtual void solve (Col_hpositions*) const;
-  virtual void lower_bound_solution (Col_hpositions*) const;
+  virtual void solve (Column_x_positions*) const;
+  virtual void lower_bound_solution (Column_x_positions*) const;
   virtual void add_column (Paper_column  *, bool fixed=false, Real fixpos=0.0);
  
 

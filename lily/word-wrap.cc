@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "word-wrap.hh"
@@ -21,13 +21,13 @@
    similar to TeX's is in Gourlay_breaking
 
    */
-Array<Col_hpositions>
+Array<Column_x_positions>
 Word_wrap::do_solve() const
 {
   problem_OK();
 
   PCursor<Paper_column*> curcol (pscore_l_->col_p_list_.top());
-  Array<Col_hpositions> breaking;
+  Array<Column_x_positions> breaking;
   Line_of_cols breakpoints (find_breaks());
   assert (breakpoints.size()>=2);
 
@@ -35,14 +35,14 @@ Word_wrap::do_solve() const
   int line_no_i = 0;
   while (break_idx_i < breakpoints.size() -1)
     {
-      Col_hpositions minimum;
-      Col_hpositions current;
+      Column_x_positions minimum;
+      Column_x_positions current;
 
       // do  another line
       line_no_i ++;
       Paper_column *post = breakpoints[break_idx_i]->postbreak_l();
       int start_break_idx = break_idx_i;
-      current.add (post);
+      current.add_paper_column (post);
       curcol++;		// skip the breakable.
       break_idx_i++;
 
@@ -52,10 +52,10 @@ Word_wrap::do_solve() const
 	  // add another measure.
 	  while (breakpoints[break_idx_i] != curcol.ptr())
 	    {
-	      current.add (curcol);
+	      current.add_paper_column (curcol);
 	      curcol++;
 	    }
-	  current.add (breakpoints[break_idx_i]->prebreak_l());
+	  current.add_paper_column (breakpoints[break_idx_i]->prebreak_l());
 
 	  current.spacer_l_ = generate_spacing_problem (current.cols, 
 	    pscore_l_->paper_l_->line_dimensions_int (line_no_i));
@@ -65,9 +65,9 @@ Word_wrap::do_solve() const
 	    {
 	      if (!minimum.cols.size())
 		{
-		  warning (_("Ugh, this measure is too long, breakpoint: ")
-			   + String (break_idx_i) +
-			   _(" (generating stupido solution)"));
+		  warning (_ ("ugh, this measure is too long") 
+		    + ", " + _f ("breakpoint: %d", break_idx_i) 
+		    + "(" + _ ("generating stupido solution") + ")");
 		  current.stupid_solution();
 		  current.energy_f_ = - 1; // make sure we break out.
 		}
@@ -85,7 +85,7 @@ Word_wrap::do_solve() const
 
 	  if (!current.satisfies_constraints_b_ && start_break_idx == break_idx_i - 1)
 	    {
-	      warning ( _ ("I don't fit.  Put me on Montignac"));
+	      warning ( _ ("I don't fit; put me on Montignac"));
 	      minimum = current;
 	      break;
 	    }
@@ -108,7 +108,7 @@ Word_wrap::do_solve() const
 	  break_idx_i++;
 	}
 
-      *mlog << "[" <<break_idx_i<<"]"<<flush;
+      *mlog << "[" << break_idx_i << "]" << flush;
       breaking.push (minimum);
     }
   return breaking;

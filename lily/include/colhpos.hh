@@ -1,18 +1,18 @@
 /*
   colhpos.hh -- part of GNU LilyPond
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #ifndef COLHPOS_HH
 #define COLHPOS_HH
 
-#include "varray.hh"
+#include "array.hh"
 #include "lily-proto.hh"
 
 typedef Array<Paper_column*>  Line_of_cols;
 
-struct Col_hpositions {
+struct Column_x_positions {
   Line_spacer * spacer_l_;
   bool ugh_b_;
   Line_of_cols error_col_l_arr_;
@@ -23,15 +23,15 @@ struct Col_hpositions {
 
   /* ************** */
   void OK() const;
-  ~Col_hpositions();
+  ~Column_x_positions();
   void solve_line();
   void approximate_solve_line();
   /** generate a solution with no regard to idealspacings or
     constraints.  should always work */
   void stupid_solution();
   void set_stupid_solution (Vector);
-  Col_hpositions();
-  void add (Paper_column*c);
+  Column_x_positions();
+  void add_paper_column (Paper_column*c);
   void print() const;
 };
 

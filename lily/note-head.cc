@@ -3,13 +3,13 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "misc.hh"
 #include "dots.hh"
 #include "note-head.hh"
-#include "dimen.hh" 
+#include "dimension.hh" 
 #include "debug.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -47,7 +47,7 @@ Note_head::compare (Note_head *const  &a, Note_head * const &b)
 Interval
 Note_head::do_width () const
 {
-  Atom a =  paper ()->lookup_l()->ball (balltype_i_);
+  Atom a =  lookup_l ()->ball (balltype_i_);
   Interval i = a.dim_[X_AXIS];
   i+= x_dir_ * i.length ();
   return i;
@@ -65,14 +65,14 @@ Note_head::brew_molecule_p() const
     ? 0
     : (abs(position_i_) - staff_size_i_/2) /2;
   
-  Atom  s = p->lookup_l()->ball (balltype_i_);
+  Atom  s = lookup_l()->ball (balltype_i_);
   out = new Molecule (Atom (s));
   out->translate_axis (x_dir_ * s.dim_[X_AXIS].length (), X_AXIS);
 
   if (streepjes_i) 
     {
       int dir = sign (position_i_);
-      Atom streepje = p->lookup_l ()->streepje (balltype_i_);
+      Atom streepje = lookup_l ()->streepje (balltype_i_);
       
       int parity =  (position_i_ % 2) ? 1 : 0;
 	
@@ -82,7 +82,7 @@ Note_head::brew_molecule_p() const
 	  Atom s = streepje;
 	  s.translate_axis (-dir * inter_f * (i*2 + parity),
 			   Y_AXIS);
-	  out->add (s);
+	  out->add_atom (s);
 	}
     }
   

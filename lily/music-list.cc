@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -152,10 +152,10 @@ Request_chord::to_relative_octave (Musical_pitch last)
 {
   for (iter (music_p_list_.top(),i); i.ok (); i++)
     {
-      Musical_req *m =((Request*)i.ptr ())->musical ();
-      if (m && m->melodic ())
+      Musical_req *m =((Request*)i.ptr ())->access_Musical_req ();
+      if (m && m->access_Melodic_req ())
 	{	  
-	  Musical_pitch &pit = m->melodic()->pitch_;
+	  Musical_pitch &pit = m->access_Melodic_req ()->pitch_;
 	  pit.to_relative_octave (last);
 	  return pit;
 	}

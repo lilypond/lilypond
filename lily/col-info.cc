@@ -1,9 +1,9 @@
 /*
-  col-info.cc -- implement Colinfo
+  col-info.cc -- implement Column_info
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "p-col.hh"
@@ -11,12 +11,12 @@
 #include "debug.hh"
 
 void
-Colinfo::print() const
+Column_info::print() const
 {
 #ifndef NPRINT
   DOUT << "column { ";
   if (fixed_b())
-    DOUT << "fixed at " << fixed_position()<<", ";
+    DOUT << "fixed at " << fixed_position() << ", ";
   assert (pcol_l_);
   DOUT << width_.str();
   Direction d = LEFT;
@@ -29,7 +29,7 @@ Colinfo::print() const
 #endif
 }
 
-Colinfo::Colinfo (Paper_column *col_l, Real const *fixed_C)
+Column_info::Column_info (Paper_column *col_l, Real const *fixed_C)
 {
   if (fixed_C)
     fixpos_p_.set_l (fixed_C);
@@ -41,26 +41,26 @@ Colinfo::Colinfo (Paper_column *col_l, Real const *fixed_C)
 }
 
 
-Colinfo::Colinfo()
+Column_info::Column_info()
 {
   ugh_b_ = false;
   pcol_l_ =0;
 }
 
 bool
-Colinfo::fixed_b () const
+Column_info::fixed_b () const
 {
  return fixpos_p_.get_C();
 }
 
 Real
-Colinfo::fixed_position () const
+Column_info::fixed_position () const
 {
   return *fixpos_p_;
 }
 
 int
-Colinfo::rank_i () const
+Column_info::rank_i () const
 {
   return pcol_l_->rank_i ();
 }

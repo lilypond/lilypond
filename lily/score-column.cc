@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "debug.hh"
@@ -22,7 +22,7 @@ void
 Score_column::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "mus "<< musical_b_ <<" at " <<  when_<< '\n';
+  DOUT << "mus "<< musical_b_ << " at " <<  when_ << '\n';
   if (break_penalty_i_ >= Break_req::FORCE)
     DOUT << "Break forced";
       
@@ -52,8 +52,8 @@ Score_column::add_duration (Moment d)
 {
   if (!d)
     {
-      warning (_("Ignoring zero duration added to column at ")
-	       + when_.str ());
+      warning (_f ("ignoring zero duration added to column at %s",
+	       when_.str ()));
       return;
     }
   

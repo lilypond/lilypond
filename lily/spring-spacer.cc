@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996,  1997--1998, 1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996,  1997--1998, 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -18,9 +18,8 @@
 #include "pointer.tcc"
 #include "score-column.hh"
 #include "paper-def.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "colhpos.hh"
-#include "main.hh"		// experimental_fietsers
 
 Vector
 Spring_spacer::default_solution() const
@@ -80,7 +79,7 @@ Spring_spacer::handle_loose_cols()
     {
       if (! connected.equiv (fixed[0], i))
 	{
-	  warning (_("unconnected column: ") + String (i));
+	  warning (_f ("unconnected column: %d", i));
 	  loosen_column (i);
 	}
     }
@@ -133,7 +132,7 @@ Spring_spacer::position_loose_cols (Vector &sol_vec) const
 	  int right_rank = (j<sol_vec.dim()) ? cols_[j].rank_i_ : sol_vec.dim ();
 
 	  int d_r = right_rank - left_rank;
-	  Colinfo loose=loose_col_arr_[k++];
+	  Column_info loose=loose_col_arr_[k++];
 	  int r = loose.rank_i_ ;
 	  assert (r > left_rank && r < right_rank);
 
@@ -165,9 +164,9 @@ Spring_spacer::check_constraints (Vector v) const
 	  Real diff =v (other) - v (i) ;
 	  if (COLFUDGE +diff <  rods[j].distance_f_)
 	    {
-	      DOUT << "i, other_i: " << i << "  " << other << "\n";
-	      DOUT << "dist, minimal = " << diff <<" "
-		   << rods[j].distance_f_<<'\n';
+	      DOUT << "i, other_i: " << i << "  " << other << '\n';
+	      DOUT << "dist, minimal = " << diff << " "
+		   << rods[j].distance_f_ << '\n';
 	      return false;
 	    }
 	}
@@ -184,7 +183,7 @@ Spring_spacer::try_initial_solution() const
   Vector v;
   if (!try_initial_solution_and_tell (v))
     {
-      warning ("I'm too fat; call Oprah");
+      warning (_ ("I'm too fat; call Oprah"));
     }
   return v;
 
@@ -214,7 +213,7 @@ Spring_spacer::try_initial_solution_and_tell (Vector &v) const
 	  initsol (i)=cols_[i].fixed_position();
 	  if (initsol (i) < min_x )
 	    {
-	      DOUT << "failing: init, min : " << initsol (i) << " " << min_x << "\n";
+	      DOUT << "failing: init, min : " << initsol (i) << " " << min_x << '\n';
 	      initsol (i) = min_x;
 	      succeeded = false;
 	    }
@@ -253,7 +252,7 @@ Spring_spacer::make_matrices (Matrix &quad, Vector &lin, Real &c) const
 
       c += sqr (i->space_f_);
     }
-  // experimental
+
   if (quad.dim() > 10)
     quad.set_band();
   
@@ -301,7 +300,7 @@ Spring_spacer::calculate_energy_f (Vector solution) const
   return e;
 }
 void
-Spring_spacer::lower_bound_solution (Col_hpositions*positions) const
+Spring_spacer::lower_bound_solution (Column_x_positions*positions) const
 {
   Mixed_qp lp (cols_.size());
   make_matrices (lp.quad_,lp.lin_, lp.const_term_);
@@ -323,7 +322,7 @@ Spring_spacer::Spring_spacer ()
 }
 
 void
-Spring_spacer::solve (Col_hpositions*positions) const
+Spring_spacer::solve (Column_x_positions*positions) const
 {
 
   DOUT << "Spring_spacer::solve ()...";
@@ -342,7 +341,7 @@ Spring_spacer::solve (Col_hpositions*positions) const
       positions->satisfies_constraints_b_ = check_constraints (solution_vec);
       if (!positions->satisfies_constraints_b_)
 	{
-	  WARN << _("solution doesn't satisfy constraints.\n") ;
+	  WARN << _ ("solution doesn't satisfy constraints") << '\n' ;
 	}
       position_loose_cols (solution_vec);
       positions->energy_f_ = calculate_energy_f (solution_vec);
@@ -362,7 +361,7 @@ Spring_spacer::solve (Col_hpositions*positions) const
 void
 Spring_spacer::add_column (Paper_column  *col, bool fixed, Real fixpos)
 {
-  Colinfo c (col,(fixed)? &fixpos :  0);
+  Column_info c (col,(fixed)? &fixpos :  0);
   int this_rank =  cols_.size();
   c.rank_i_ = this_rank;
   
@@ -407,7 +406,7 @@ Spring_spacer::error_pcol_l_arr() const
 void
 Spring_spacer::loosen_column (int i)
 {
-  Colinfo c=cols_.get (i);
+  Column_info c=cols_.get (i);
   for (PCursor<Idealspacing*> j (ideal_p_list_.top()); j.ok (); j++)
     {
       if (j->left_i_ == i|| j->right_i_ == i)
@@ -433,7 +432,7 @@ Spring_spacer::print() const
 #ifndef NPRINT
   for (int i=0; i < cols_.size(); i++)
     {
-      DOUT << "col " << i<<' ';
+      DOUT << "col " << i << " ";
       cols_[i].print();
     }
   for (PCursor<Idealspacing*> i (ideal_p_list_.top()); i.ok (); i++)
@@ -549,9 +548,13 @@ Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
 /**
   generate springs between columns.
 
-  TODO: This needs rethinking.  Spacing should take optical
+  TODO: This needs rethinking.
+
+  *  Spacing should take optical
   effects into account
 
+  *  Should be decentralised
+  
   The algorithm is taken from :
 
   John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
@@ -589,12 +592,15 @@ Spring_spacer::calc_idealspacing()
 	  
 	  Moment delta_t =  scol_l (i+1)->when() - scol_l (i)->when () ;
 
-	  Real k=  paper_l()->arithmetic_constant (context_shortest_arr[i]);
+
 	  /*
 	    ugh should use shortest_playing distance
 	  */
 	  if (delta_t)
-	    durational_distance =  paper_l()->duration_to_dist (delta_t,k);
+	    {
+	      Real k=  paper_l()->arithmetic_constant (context_shortest_arr[i]);
+	      durational_distance =  paper_l()->duration_to_dist (delta_t,k);
+	    }
 	  symbol_distance += -cols_[i+1].width_[LEFT];
  
 
@@ -614,14 +620,14 @@ Spring_spacer::calc_idealspacing()
 	  Moment context_shortest = context_shortest_arr[i];
 	  if (! shortest_playing_len)
 	    {
-	      warning (_("Can't find a ruling note at ")
-		       +scol_l (i)->when().str ());
+	      warning (_f ("can't find a ruling note at %s", 
+	        scol_l (i)->when().str ()));
 	      shortest_playing_len = 1;
 	    }
 	  if (! context_shortest)
 	    {
-	      warning(_("No minimum in measure at ")
-		      + scol_l (i)->when().str ());
+	      warning (_f ("no minimum in measure at %s", 
+		      scol_l (i)->when().str ()));
 	      context_shortest = 1;
 	    }
 	  Moment delta_t = scol_l (i+1)->when() - scol_l (i)->when ();
@@ -661,7 +667,7 @@ Spring_spacer::calc_idealspacing()
 	      // fixed: probably should set minimum (rod/spring)?
 	      cols_[i-1].width_[RIGHT] += interline_f;
 	      // should adjust dist too?
-	      ideal_arr_[i-1] = ideal_arr_[i-1] >? interline_f;
+	      ideal_arr_[i-1] = ideal_arr_[i-1] >? (2 * interline_f);
 	    }
 
 	  /* 

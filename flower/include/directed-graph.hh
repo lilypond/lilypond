@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -29,7 +29,7 @@ public:
   bool linked_b() const;
   void unlink();
   void junk_links();
-  void add (Directed_graph_node*);
+  void add_edge (Directed_graph_node*);
   void remove_edge_in (Directed_graph_node *);
   void remove_edge_out (Directed_graph_node*);
   bool contains_b (Directed_graph_node const*) const;

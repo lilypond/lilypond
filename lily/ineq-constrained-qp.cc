@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include "ineq-constrained-qp.hh"
 #include "qlpsolve.hh"
@@ -17,6 +17,7 @@
 
 const int MAXITER=100;		// qlpsolve.hh
 
+const int MAXDEGEN=5;
 
 /*
   assume x (idx) == value, and adjust constraints, lin and quad accordingly
@@ -119,13 +120,13 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
 
   Vector x (start);
   Vector gradient=quad_*x+lin_;
-  //    Real fvalue = x*quad_*x/2 + lin*x + const_term;
-  // it's no use.
 
+  
+  //    Real fvalue = x*quad_*x/2 + lin*x + const_term;// it's no use.
   Vector last_gradient (gradient);
   int iterations=0;
 
-  while (iterations++ < MAXITER)
+  while (iterations++ < MAXITER && act.degenerate_count_i_ < MAXDEGEN)
     {
       //#ifdef PARANOID
       if (experimental_features_global_b)
@@ -134,7 +135,7 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
       
       Vector direction= - act.find_active_optimum (gradient);
 
-      DOUT << "gradient "<< gradient<< "\ndirection " << direction<<"\n";
+      DOUT << "gradient "<< gradient<< "\ndirection " << direction<< '\n';
 
       if (direction.norm() > EPS)
 	{
@@ -162,7 +163,10 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
 	      if (numerator >= 0)
 		{
 		  if (numerator > EPS)
-		    warning (String ("Ineq_constrained_qp::solve (): Constraint off by ") + numerator);
+		    {
+		      warning (_f ("Ineq_constrained_qp::solve (): Constraint off by %f", numerator));
+		      act.degenerate_count_i_ ++;
+		    }
 		  minalf = -numerator;
 		  minidx = ia;
 		  break;
@@ -180,23 +184,21 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
 
 	  Real optimal_step = minalf;
 
-	  Vector deltax=direction * optimal_step;
+	  Vector deltax = direction * optimal_step;
 	  x += deltax;
 	  gradient += optimal_step * (quad_ * deltax);
 
-	  DOUT << "step = " << optimal_step<< " (|dx| = " <<
-	    deltax.norm() << ")\n";
+	  DOUT << "step = " << optimal_step << " (|dx| = " <<
+	    to_str (deltax.norm()) << ")\n";
 
 	  if (minalf < unbounded_alfa)
 	    {
 	      /* bumped into an edge. try again, in smaller space. */
-	      act.add (minidx.idx());
-	      DOUT << "adding cons "<< minidx.idx()<<'\n';
+	      act.add_constraint (minidx.idx());
+	      DOUT << "adding cons "<< minidx.idx () << '\n';
 	      continue;
 	    }
-	  /*ASSERT: we are at optimal solution for this "plane"*/
-
-
+	  /*ASSERT: we are at the optimal solution for this "plane"*/
 	}
 
       Vector lagrange_mult=act.get_lagrange (gradient);
@@ -213,13 +215,14 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
 	  break;
 	}
 
-      DOUT << "dropping cons " << m<<'\n';
-      act.drop (m);
+      DOUT << "dropping cons " << m << '\n';
+      act.drop_constraint (m);
     }
   if (iterations >= MAXITER)
-    WARN<<_("didn't converge!\n");
-
-  DOUT <<  ": found " << x<<" in " << iterations <<" iterations\n";
+    WARN << _ ("didn't converge!") << '\n';
+  if (act.degenerate_count_i_ >= MAXDEGEN)
+    WARN << _ ("Too much degeneracy. ") << '\n';
+  DOUT <<  ": found " << x << " in " << iterations <<" iterations\n";
   assert_solution (x);
   return x;
 }
@@ -246,3 +249,33 @@ Ineq_constrained_qp::dim () const
   return lin_.dim();
 }
 
+
+
+
+void
+Ineq_constrained_qp::assert_solution (Vector sol) const
+{
+  bool sol_b=true;
+
+  for (int i=0; sol_b && i < cons_.size(); i++) 
+    {
+      Real R=cons_[i] * sol- consrhs_[i];
+      if (R> -EPS)
+	sol_b = false;
+    }
+}
+
+void
+Ineq_constrained_qp::print() const
+{
+#ifndef NPRINT
+  DOUT << "Quad " << quad_;
+  DOUT << "lin " << lin_ << '\n'
+       << "const " << const_term_<< '\n';
+  for (int i=0; i < cons_.size(); i++) 
+    {
+      DOUT << "constraint["<<i<<"]: " << cons_[i] << " >= " << consrhs_[i];
+      DOUT << '\n';
+    }
+#endif
+}
