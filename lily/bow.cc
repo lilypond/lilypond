@@ -46,8 +46,6 @@ Bow::do_brew_molecule_p () const
       cout << "dy_f_r: " << dy_f_drul_[RIGHT] << endl;
       cout << "dy_f: " << dy_f_drul_[RIGHT] - dy_f_drul_[LEFT] << endl;
     }
-  a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
-
   return new Molecule (a); 
 }
 
@@ -97,14 +95,11 @@ Bow::get_controls () const
 Array<Offset>
 Bow::get_encompass_offset_arr () const
 {
-  Offset d (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
-    dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
-  d.x() += extent (X_AXIS). length ();
-
-  Array<Offset> notes;
-  notes.push (Offset (0, 0));
-  notes.push (d);
-
-  return notes;
+  Array<Offset> offset_arr;
+  offset_arr.push (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
+  offset_arr.push (Offset (do_width ().length () + dx_f_drul_[RIGHT],
+		      dy_f_drul_[RIGHT]));
+		      
+  return offset_arr;
 }
 

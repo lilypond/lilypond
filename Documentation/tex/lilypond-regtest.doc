@@ -70,6 +70,22 @@ hidden just as with breakable bar lines.
 %
 % \mud elafile{beam-repeat.ly}
 
+Beams should behave reasonably well, even under extreme circumstances.
+Stems may be short, but noteheads should never touch the beam.
+
+\mudelafile{beam-extreme.ly}
+
+Slurs should look nice and symmetric.  The curvature may increase
+only to avoid noteheads, and as little as possible.
+
+\mudelafile{slur-symmetry.ly}
+\mudelafile{slur-symmetry-1.ly}
+
+Ties are strictly horizontal.  They are placed in between note heads.
+The horizontal middle should not overlap with a staffline.
+
+\mudelafile{tie.ly}
+
 Beams can be typeset over fixed distance aligned staffs, beam
 beautification doesn't really work, but knees do. Beams should be
 behave well, wherever the switching point is.

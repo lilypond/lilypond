@@ -1,3 +1,31 @@
+pl 56.jcn3
+	- slur de-hairification
+	  * slurs always attached to noteheads, by default
+	  * corrections for steep and high slurs
+	  * snap to stem end when close
+	- bow/tie/slur dy/dx fix
+
+pl 56.hwn1
+	- some spacing tweaks.
+ 	- bf: two repeats + alts after each other.
+pl 56.jcn2
+	- tie: bfs + even simpler
+
+pl 56.jcn1
+	- bf: re-added \textflat,sharp to fix chords...
+	- bf: chord-modifier and mandatory dot: c-maj5 
+	- tutorial chord fixes
+	- tie fixes and boldifying:
+	  * removed sloping (dy!=0) code
+	  * use actual note-widths
+	  * y[left] == y[right]
+	  * follow OSU rules, I hope (from comments in text -- must check)
+	  * undetermined direction -> down; inverse of stem
+	- bf: beam: undetermined direction -> up; like stem
+	- slur-symmetry fixes
+	- fix for \rhythm and seq_iter childs (still crude, but more effective)
+*********
+
 pl 55.uu1
 	- use GS' anti aliasing
 

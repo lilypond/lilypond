@@ -407,8 +407,7 @@ Spring_spacer::add_column (Paper_column  *col, bool fixed, Real fixpos)
       Real d  = cr.distance_f_;
       if (fabs (d) < EPS)
 	{
-	  connect (idx, this_rank, 0.0, 10); // large strength. 
-	  programming_error ("requesting zero distance.");
+	  connect (idx, this_rank, cr.distance_f_, cr.strength_f_); // large strength. 
 	}
       else
 	connect (idx, this_rank, cr.distance_f_,

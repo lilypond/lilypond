@@ -87,17 +87,23 @@ beam_steep_slope = 0.2 / 1.0;
 
 % OSU: suggested gap = ss / 5;
 slur_x_gap = \interline / 5.0;
+slur_y_gap = 0.25 * \interline;
+slur_y_free = 0.75 * \interline;
 slur_x_minimum = 3.0 * \interline;
 
 % slope damping: keep dy/dx < slur_slope_damping
-slur_slope_damping = 0.6;
-
-% dy_slur := dy_music * factor
-slur_slope_follow_music_factor = 0.8;
+slur_slope_damping = 0.3;
+% height damping: keep h/dx < slur_height_damping
+slur_height_damping = 0.5;
+% snap to stem if slur ends closer to stem than
+slur_snap_to_stem = 1.5 * \interline;
 
 tie_x_minimum = \slur_x_minimum;
+% OSU: tie gap == slur gap
 tie_x_gap = \slur_x_gap;
-tie_slope_damping = 0.8;
+tie_y_gap = 0.25 * \interline;
+% length of a tie that's a staffspace high
+tie_staffspace_length = 4.0 * \interline;
 
 % ugh: rename to bow (in bezier.cc and fonts.doc too...)
 % slur_thickness = 1.8 * \staffline;
@@ -180,6 +186,8 @@ postBreakPadding = 0.0;
 stemSpacingCorrection = 0.5*\interline;
 
 
+% relative strength of space following  time signature, 
+non_musical_space_strength = 4.0; 
 
 
 

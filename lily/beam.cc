@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1999, 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
     Jan Nieuwenhuizen <janneke@gnu.org>
 
 */
@@ -194,27 +194,29 @@ Beam::get_default_dir () const
      wants to provide some real simple hands-on rules.
      
      We have our doubts, so we simply provide all sensible alternatives.
+
+     If dir is not determined: up (see stem::get_default_dir ())
   */
 
   Dir_algorithm a = (Dir_algorithm)rint(paper_l ()->get_var ("beam_dir_algorithm"));
   switch (a)
     {
     case MAJORITY:
-      beamdir = (count[UP] > count[DOWN]) ? UP : DOWN;
+      beamdir = (count[UP] >= count[DOWN]) ? UP : DOWN;
       break;
     case MEAN:
       // mean center distance
-      beamdir = (total[UP] > total[DOWN]) ? UP : DOWN;
+      beamdir = (total[UP] >= total[DOWN]) ? UP : DOWN;
       break;
     default:
     case MEDIAN:
       // median center distance
+      if (!count[DOWN])
+	beamdir = UP;
       if (!count[UP])
 	beamdir = DOWN;
-      else if (!count[DOWN])
-	beamdir = UP;
       else
-	beamdir = (total[UP] / count[UP] > total[DOWN] / count[DOWN]) ? UP : DOWN;
+	beamdir = (total[UP] / count[UP] >= total[DOWN] / count[DOWN]) ? UP : DOWN;
       break;
     }
   return beamdir;

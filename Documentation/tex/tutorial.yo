@@ -210,7 +210,7 @@ this command comes after the code(\time) command, in the
 output, the key comes before the time signature: LilyPond knows about
 music typesetting conventions.
 verb(
-	\repeat 2 {
+	\repeat "semi" 2 {
 ) COMMENT(
 
 ) This command tells LilyPond that the enclosed piece of music must
@@ -379,7 +379,7 @@ verb(
   c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64 c'2. c'8. c'16
 )
 
-mudela()(
+COMMENT(
 \score {
        \notes {
          c'\longa c'\breve  
@@ -1650,14 +1650,11 @@ COMMENT(
 
 Of course, you can also use different ratios, and use beamed notes or
 rests:
-COMMENT( BROKEN
-
-lilypond: score-element.cc:134: class Paper_def * Score_element::paper() const: Assertion `pscore_l_' failed.
-
-mudela(fragment)(
+COMMENT( 
+)mudela(fragment)(
 	\context Voice \times 4/5 { [c''8 c''16 c''16] r8 [g'8 g'8] }
 )
-)
+
 If you make a tuplet of  beamed notes, where the beam is as wide as
 the bracket, the bracket is omitted.
 
@@ -1666,11 +1663,12 @@ sect(Repeats)
 A repeated piece of music can consist of two parts: one part to be 
 repeated, and optionally, a list of alternative endings:
 COMMENT(
+
 )mudela(verbatim,fragment,center)(
     \relative c'{
     	\time 2/4;
     	g' a
-        \repeat 2 { b c }
+        \repeat "semi" 2 { b c }
 	\alternative { 
 	    { d c } { d e }
 	}
@@ -1684,15 +1682,16 @@ A less intuitive form may be needed for lyrics, when there are
 a couple alternatives, but nothing is repeated.  The code(\repeat) command
 must be present, but it may specify an empty music list:
 COMMENT(
+
 )mudela(verbatim,fragment,center)(
     \context Lyrics \lyrics {
-	\repeat 2 { }
-	\alternative < 
+	\repeat "folded" 2 { }
+	\alternative { 
 	    { Let's not sing 
 	      this twice } 
 	    { Rather sing 
 	      this in- stead } 
-	> 
+	} 
     }
 )
 

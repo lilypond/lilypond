@@ -1,15 +1,3 @@
-
-
-
-/*#include <typeinfo>
-
-signature S
-{
-  int foo ();
-  int bar (int);
-};
-*/
-
 #include <ctype.h>
 #include "virtual-methods.hh"
 

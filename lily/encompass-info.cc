@@ -23,33 +23,28 @@ Encompass_info::Encompass_info ()
   assert (0);
 }
 
-Encompass_info::Encompass_info (Note_column const* note, Direction dir, Slur const* slur_l)
+Encompass_info::Encompass_info (Note_column const* note_column, Direction dir, Slur const* slur_l)
 {
   interstaff_f_ = 0;
   
-  Paper_def* paper = note->paper_l ();
-  
-  // UGH
-  Real notewidth = paper->note_width () * 0.8;
-  
-
-  Stem* stem_l = note->stem_l_;
+  Stem* stem_l = note_column->stem_l_;
   if (!stem_l)
     {
-      warning ("Slur over rest?");
-      o_[X_AXIS] = note->hpos_f ();
+      warning (_ ("Slur over rest?"));
+      o_[X_AXIS] = note_column->hpos_f ();
       return; 
     }
   
-  Real internote = stem_l-> staff_line_leading_f ()/2.;
-
-  /* 
-    set o_[X_AXIS] to middle of notehead or on the exact position of stem,
-    according to slur direction
-   */
   o_[X_AXIS] = stem_l->hpos_f ();
 
-  /*
+#if 0
+  /* 
+    Let's not do this; yields ugly assymetric slurs.
+
+    set o_[X_AXIS] to middle of notehead or on the exact position of stem,
+    according to slur direction
+
+    
      stem_l->dir == dir
                       ________
            |   |     /        \
@@ -58,18 +53,34 @@ Encompass_info::Encompass_info (Note_column const* note, Direction dir, Slur con
 
    */
 
-  if (stem_l->dir_ != dir)
-    o_[X_AXIS] -= 0.5 * notewidth * stem_l->dir_;
+  dx_f_drul_[d] = -d * spanned_drul_[d]->extent (X_AXIS).length ();
 
-  o_[Y_AXIS] = stem_l->extent (Y_AXIS)[dir];
+  if (stem_l->dir_ != dir)
+    o_[X_AXIS] -= 0.5 * stem_l->dir_ * note_column->extent (X_AXIS).length ();
+
+#else
+
+  /*
+    Instead; simply set x to middle of notehead
+   */
+
+  o_[X_AXIS] -= 0.5 * stem_l->dir_ * note_column->extent (X_AXIS).length ();
+
+#endif
+
+  if (stem_l->dir_ == dir)
+    {
+      o_[Y_AXIS] = stem_l->extent (Y_AXIS)[dir];
+    }
+  else
+    {
+      o_[Y_AXIS] = note_column->extent (Y_AXIS)[dir];
+    }
+
   /*
    leave a gap: slur mustn't touch head/stem
    */
-  o_[Y_AXIS] += 2.5 * internote * dir;
-
-  if (stem_l->dir_ != dir)
-    o_[Y_AXIS] += 1.0 * internote * dir;
-
+  o_[Y_AXIS] += dir * slur_l->paper_l ()->get_var ("slur_y_free");
 
   Dimension_cache *common = stem_l->common_group (slur_l, Y_AXIS);
   Align_element * align = dynamic_cast<Align_element*> (common->element_l ());
@@ -82,7 +93,7 @@ Encompass_info::Encompass_info (Note_column const* note, Direction dir, Slur con
       interstaff_f_ = align->threshold_interval_[MIN];
 
       Dimension_cache * slur_refpoint = slur_l->dim_cache_[Y_AXIS];
-      Dimension_cache * note_refpoint = note->dim_cache_[Y_AXIS];
+      Dimension_cache * note_refpoint = note_column->dim_cache_[Y_AXIS];
 
       while (slur_refpoint->parent_l_ != common)
 	slur_refpoint = slur_refpoint->parent_l_;

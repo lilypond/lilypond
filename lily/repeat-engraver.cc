@@ -104,8 +104,13 @@ Repeat_engraver::queue_events ()
 	  else
 	    becel.append (new Bar_create_event (walk_mom, "stop"));
 	}
-    } 
-  create_barmoments_queue_ = becel.head_ ;
+    }
+
+  Cons<Bar_create_event> *&tail = create_barmoments_queue_
+    ? last_cons (create_barmoments_queue_)->next_
+    : create_barmoments_queue_;
+
+  tail = becel.head_ ;
   becel.head_ = 0;
 }
 
@@ -129,7 +134,6 @@ Repeat_engraver::do_process_requests ()
   /*
     Do all the events that need to be done now.
   */
-  bool stop = false;
   while (head && now_mom () == head->car_->when_)
     {
       create_barmoments_queue_ = create_barmoments_queue_->next_;

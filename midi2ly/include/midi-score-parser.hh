@@ -24,8 +24,6 @@ private:
   void open (String filename_str, Sources*);
 
   void parse_header ();
-  // why the #*&$#{%) has Link_array another behaviour than Link_list??
-  //  int find_earliest_i (Link_array<Midi_track_parser*>& tracks);
   int find_earliest_i (Link_array<Midi_track_parser>& tracks);
   Mudela_score* parse_score ();
 };	    

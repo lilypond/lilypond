@@ -9,7 +9,6 @@ Most of the items are marked in the code as well
 Grep for TODO and ugh/ugr/urg.  
 
 .* TODO before 1.2
-. * rename abc2ly mup2ly
 . * rename 'staff_line_leading' (who is being lead where?) to
 staff_space, interline; (or other meaningful name) and use throughout lily
 . * rename files to class-name:
@@ -18,7 +17,29 @@ staff_space, interline; (or other meaningful name) and use throughout lily
 .  * p-score
 .  * engraver-group
 . * standardise(d) switches: -v, --version; -d, --debug,
-. * Auto_beam debugging output (waarom/wanneer heb jij die weggehaald?)
+. * Peter    1.  Key signatures are no longer transposed with the rest
+    of
+        the music.
+
+                \notes\transpose bes  {\key D; d1 }
+        should produce no key signature (key C)
+
+        2.  Crescendos and other dynamic markings that start inside a
+        \grace { } section are ignored.
+
+        \notes \relative c' { fis4 r4   \grace { [g16 ( \<   a16] }
+        ) b4 \! a8. g16}
+
+        3.  Slurs that end within a grace section but start outside
+        are treated strangely.
+        a2 d,4 ( \grace { [e16 ) d16]} cis8 d
+
+
+        4.  Lyrics and grace sections don't go too well together.
+        The words are aligned with the main note, not the start of the
+        grace note.  This is usually wrong, but is sometimes right.
+
+
 . * Auto_beam debugging output (waarom/wanneer heb jij die weggehaald?)
 .  * Rename illegal to invalid
 .  * Mats:
@@ -51,11 +72,68 @@ staff_space, interline; (or other meaningful name) and use throughout lily
 
 - The paper11/13/26 files have to be updated.
 . * Grace_slur_engraver.
+. * input/star-spangled-banner.ly: fold for lyrics?
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * hangOnClef with non-breakable clefs.
 . * do scaled fonts generally 
 . * fix partial measures in meaningful way.
+. * Michael
+
+- The two spacing bugs in the choral-1.ly I sent you earlier, small
+GIFs attached for easy reference: #1: time meter and first note on the
+line are too close; #2: last note on the line and next bar are too
+close.
+
+- And I haven't got any feedback on this one, posted last week:
+
+Check out:
+
+\score {
+  \notes \relative c' {
+    \context Staff <
+      \context Voice = one { \stemdown c1 c4 }
+      \context Voice = two { \stemup d1 d4 }
+    >
+  }
+}
+
+Notes are shifted as expected. Now check out:
+
+\score {
+  \notes \relative c' {
+    \context Staff <
+      \context Voice = one { \stemdown c1 <a4 c4> }
+      \context Voice = two { \stemup d1 d4 }
+    >
+  }
+}
+
+i.e. do 
+
+-      \context Voice = one { \stemdown c1 c4 }
++      \context Voice = one { \stemdown c1 <a4 c4> }
+
+Now the chord collides with the note of the other voice!
+
 . * relative mode for midi2ly
+. * 
+Crescendi/diminuendi that cross a line break lose their vertical
+position and all end up above the top staff line, see the 
+following example.
+
+----------------
+\score{
+  \context StaffGroup <
+    \context Staff=s1 \notes\relative c'{
+      c d e f | 
+      g f e d | \break %% If this break is removed, it works fine
+      c d e f |}
+    \context Staff=s2 \notes\relative c'{
+      c \< d e f | 
+      g f e d | 
+      c d e \! f |}
+  >
+}
 . * uniformise recent feta contributions.
 .  * bigger and fatter 4/4 C
 . * sort out directory stuff.
@@ -81,6 +159,7 @@ GNU LilyPond 1.1.54.
 [/home/fred/usr/src/lilypond/scm/lily.scm]
 warning: can't find file: `init'
 . * indent = 0.0 with linewidth=-1.0
+. * collisions & accidentals.
 . * auto-beaming in input/test/spacing.ly.
 huh, snap niks van: gewone beam gaat wel goed.  hoe kan abe nu
 invloed hebben op beam-creatie, stopt toch gewoon stokken in?
@@ -107,7 +186,6 @@ invloed hebben op beam-creatie, stopt toch gewoon stokken in?
 . * Beam
 . * Stem
 . * Rhythmic_column and interaction stem/rhythmic_column/note_head/dots.
-. * Slur
 . * Duration
 . * clef engraver 
 . * parser
@@ -562,3 +640,12 @@ hesitate to ask.
  
 (require 'allout)
 (outline-init 't)
+
++ pl 56.jcn3
++ 	- slur de-hairification
++ 	  * slurs always attached to noteheads, by default
++ 	  * corrections for steep and high slurs
++ 	  * snap to stem end when close
++ 	- bow/tie/slur dy/dx fix
++ 
++ 

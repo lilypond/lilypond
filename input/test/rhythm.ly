@@ -1,5 +1,7 @@
 \score{
 	\context Voice \notes\relative c''{
-		c4. 8 4. 8
+		% still thinking 'bout this
+		%c4. 8 4. 8
+		c4. c8 c4. c8
 	}
 }
