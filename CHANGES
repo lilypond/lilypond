@@ -1,5 +1,15 @@
+1.3.65.jcn2
+===========
+
+* Added some comments to new slur code.
+
+* Removed some ugly interstaff slur code, interstaff slurs at line-break
+  are still broken.
+
 1.3.65.jcn1
 ===========
+
+* Bugfix: 16th beams are also beams.
 
 * Patches from hw
 

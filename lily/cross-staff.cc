@@ -4,6 +4,9 @@
 #include "spanner.hh"
 #include "warn.hh"
 
+/*
+  JUNKME
+ */
 Real
 calc_interstaff_dist (Item const *item, Spanner const *span)
 {
