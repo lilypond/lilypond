@@ -124,6 +124,11 @@
 
 2003-05-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION (PATCH_LEVEL): release 1.7.18
+
+	* scripts/lilypond-book.py: only print basename for printfilename
+	option
+
 	* input/mutopia/J.S.Bach/baerenreiter-sarabande.ly: corrections
 	and syntax updates.
 
