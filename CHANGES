@@ -1,3 +1,53 @@
+1.5.6.jcn2
+=========
+ 
+* Use Cygwin included Python; drop Windows Python and workarounds.
+
+* Include make/lilypond.mandrake.spec (unchecked!) and README.mandrake.
+
+* Comment out two non existing examples in regression test, add one
+missing from 1.5.5 distribution.
+
+* Revert silly grace-with-braces stuff in tutorial.
+
+* Add short crescendo bug to input/bugs.
+
+* Update and bit more verbose download instructions in INSTALL, 
+  fix some links on ftp.lilypond.org.
+
+
+1.5.6.hwn1
+==========
+
+* Grace note bugfixes.
+
+* Move staff-adjacency detection (for the spacing engine) to
+Separating_group_spanner.
+
+* Loose column support: clef changes, key changes may be folded underneath
+notes in a different staff. See input/regression/spacing-folded-clef.ly.
+Changes were made to
+
+  - Separating_group_spanner: decide which columns are loose
+
+  - Simple_spacer, New_spacing_spanner: only look at non-loose columns.
+
+  - Line_of_score: set horizontal positions for loose columns.
+ 
+1.5.6
+=====
+
+* Loose column support: clef changes, key changes may be folded
+underneath notes in a different staff; changes made to
+
+  - Separating_group_spanner: decide which columns are loose
+
+  - Simple_spacer, New_spacing_spanner: only look at non-loose columns.
+
+  - Line_of_score: set horizontal positions for loose columns.
+ 
+
+
 1.4.6.mb1
 =========
 
