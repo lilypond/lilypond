@@ -8,7 +8,7 @@
 
 
 #include "lily-guile.hh"
-#include "bar.hh"
+#include "bar-line.hh"
 #include "item.hh"
 #include "span-bar.hh"
 #include "engraver.hh"
@@ -49,7 +49,7 @@ Span_bar_engraver::acknowledge_grob (Grob_info i)
 {
   int depth = i.origin_trans_l_arr (this).size ();
   if (depth > 1
-      && Bar::has_interface (i.grob_l_))
+      && Bar_line::has_interface (i.grob_l_))
     {
       Item * it = dynamic_cast<Item*> (i.grob_l_);
       bar_l_arr_.push (it);

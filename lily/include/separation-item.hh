@@ -16,7 +16,7 @@
 */
 struct Separation_item
 {
-  static void set_interface (Grob*);
+
   static bool has_interface (Grob*);
   static Interval my_width (Grob*) ;
   static void add_item (Grob*,Item*);

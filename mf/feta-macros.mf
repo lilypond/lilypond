@@ -104,6 +104,12 @@ def soft_penstroke text t =
 	fi
 enddef;
 
+
+%
+% make a round path segment going from P to Q. 2*A is the angle that the 
+% path should take.
+%
+
 def simple_serif(expr p,q, a)= 
 	p{dir(angle(q-p) -a)} .. q{ - dir(angle(p -q) + a)}
 enddef;
@@ -168,6 +174,18 @@ enddef;
 
 
 
+%
+% make a superellipsoid segment going from FROM to TO, with SUPERNESS.  
+% Take superness = sqrt(2)/2 to get a circle segment 
+%
+% see Knuth, p. 267 and p.126
+def super_curvelet(expr from, to, superness, dir) =
+	if dir = 1:
+	 (superness [xpart to, xpart from], superness [ypart from,ypart to]){to - from}
+	else:
+	 (superness [xpart from, xpart to], superness [ypart  to,ypart from]){to - from}
+	fi
+enddef;
 
 
 %

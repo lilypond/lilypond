@@ -26,7 +26,7 @@
    (let ((result (assoc glyph 
 			'((":|:" . (":|" . "|:"))
 			  ("||:" . ("||" . "|:"))
-			  ("|" . ("|" . ""))
+			  ("|" . ("|" . ()))
 			  ("||:" . ("||" . "|:"))
 			  ("|s" . (() . "|"))
 			  ("|:" . ("|" . "|:"))
@@ -36,7 +36,7 @@
 			  ("||" . ("||" . ()))
 			  (".|." . (".|." . ()))
 			  ("" . ("" . ""))
-			  ("empty" . ("()" . ()))
+			  ("empty" . (() . ()))
 			  ("brace" . (() . "brace"))
 			  ("bracket" . (() . "bracket"))  
 			  )
@@ -62,40 +62,22 @@
 ;; (Measured in staff space)
 (define default-break-align-space-alist
  '(
-   ((Staff_bar Custos) . (minimum-space-pair  2.0))
-   ((Custos begin-of-note) . (minimum-space-pair  0.0))
    ((none Instrument_name) . (extra-space 1.0))
-   ((Instrument_name Left_edge_item) . (extra-space 1.0))
-   ((Left_edge_item Clef_item) . (extra-space 1.0))
-   ((Left_edge_item Key_item) . (extra-space 0.0))   
-   ((Left_edge_item begin-of-note) . (extra-space 1.0))
    ((none Left_edge_item) . (extra-space 0.0))
-   ((Left_edge_item Staff_bar) . (extra-space 0.0))
-;   ((none Left_edge_item) . (extra-space -15.0))
-;   ((none Left_edge_item) . (extra-space -15.0))
    ((none Clef_item) . (minimum-space-pair  1.0))
    ((none Staff_bar) . (minimum-space-pair  0.0))
    ((none Clef_item) . (minimum-space-pair  1.0))
    ((none Key_item) . (minimum-space-pair  0.5))
    ((none Time_signature) . (extra-space 0.0))
-   ((none begin-of-note) . (minimum-space-pair  1.5))
-   ((Clef_item Key_item) . (minimum-space-pair  4.0))
-   ((Key_item Time_signature) . (extra-space 1.0))
-   ((Clef_item  Time_signature) . (minimum-space-pair  3.5))
-   ((Staff_bar Clef_item) .   (minimum-space-pair  1.0))
-   ((Clef_item  Staff_bar) .  (minimum-space-pair  3.7))
-   ((Time_signature Staff_bar) .  (minimum-space-pair  2.0))
-   ((Key_item  Staff_bar) .  (extra-space 1.0))
-   ((Staff_bar Time_signature) . (minimum-space-pair  1.5)) 
-   ((Time_signature begin-of-note) . (extra-space 2.0)) 
-   ((Key_item begin-of-note) . (extra-space 2.5))
-   ((Staff_bar begin-of-note) . (extra-space 1.0))
-   ((Clef_item begin-of-note) . (minimum-space-pair  5.0))
-   ((Left_edge_item Breathing_sign) . (minimum-space-pair  0.0))   
    ((none Breathing_sign) . (minimum-space-pair  0.0))
-   ((Breathing_sign Key_item) . (minimum-space-pair  1.5))
-   ((Breathing_sign begin-of-note) . (minimum-space-pair  1.0))
-   ((Breathing_sign Staff_bar) . (minimum-space-pair  1.5))
-   ((Breathing_sign Clef_item) . (minimum-space-pair  2.0))
+
+   
+
+
+
+
+   ((none begin-of-note) . (minimum-space-pair  1.5))
+
    )
 )
+

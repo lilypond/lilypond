@@ -10,7 +10,7 @@
 
 #include "engraver.hh"
 #include "item.hh"
-#include "bar.hh"
+#include "bar-line.hh"
 
 class Stanza_number_engraver : public Engraver
 {

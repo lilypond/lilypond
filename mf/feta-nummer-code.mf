@@ -71,6 +71,10 @@ def draw_six =
 	penpos10(7/8thick,180);
 	z10r=(0,y3);
 	penlabels(1,2,3,4,5,6,7,8,9,10,11);
+
+
+	% TODO: use super_curvelet for stuff connected to flare_path.
+
 	save t; t=tense;
 	fill z7{right}..z2r{right}..tension t..z3r{down}
 		..tension t..z4r{left}

@@ -129,13 +129,10 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   me->set_grob_property ("alignment-done", SCM_BOOL_T);
   
   SCM d =   me->get_grob_property ("stacking-dir");
-
   
   Direction stacking_dir = gh_number_p (d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
     stacking_dir = DOWN;
-
-
   
   Interval threshold = Interval (0, Interval::infinity ());
   SCM thr = me->get_grob_property ("threshold");
@@ -264,25 +261,6 @@ Axis
 Align_interface::axis (Grob*me)
 {
   return  Axis (gh_scm2int (ly_car (me->get_grob_property ("axes"))));
-}
-
-
-/*
-  should  use generic Scm funcs.
- */
-int
-Align_interface::get_count (Grob*me,Grob*s)
-{
-  SCM e = me->get_grob_property ("elements");
-  int c =0;
-  while (gh_pair_p (e))
-    {
-      if (ly_car (e) == s->self_scm ())
-	break;
-      c++;
-      e = ly_cdr (e);
-    }
-  return c;
 }
 
 void

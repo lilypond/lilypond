@@ -1,4 +1,43 @@
+2002-03-03  Han-Wen  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.37 released
+
+	* lily/key-signature-interface.cc (brew_molecule): rename from key_item
+	left-align molecule.
+	
+	* lily/break-align-interface.cc (do_alignment): completely
+	rewritten. Now it does not use Align_interface anymore, but a
+	separate routine. Like StaffSpacing, it reads space-alist from the
+	breakable grobs.  This allows you to set spacing using
+	
+	\property Staff.Clef \override #'space-alist = '(....stuff....)  
+ 
+	* lily/bar-line.cc, lily/include/bar-line.hh: change name from Bar
+	to Bar_line. Move files around as well.
+
+	* lily/time-signature.cc (time_signature): left align time signatures. 
+
+	* mf/feta-timesig.mf: Remove padding from C-style time signatures.
+	Corrections of the glyph shape C. Comments added.
+
 2002-03-02  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/spacing-spanner.cc: move from third-try.cc; rename
+	Third_spacing_spanner to Spacing_spanner.
+
+	* lily/staff-spacing.cc (get_spacing_params): redo prefatory
+	spacing stuff. Much cleaner now, and we prepare for neat spacing
+	tricks around bar lines and such.
+
+	* lily/third-try.cc (prune_loose_colunms): bugfix. Don't init
+	variables with themselves. (Ouch.)
+
+	* lily/span-bar.cc (brew_molecule): don't try to span bars that
+	overlap.
+
+2002-03-02  Han-Wen  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.36
 
 	* lily/lily-guile.cc: isdir_b and isaxis_b changed to ly_axis_p,
 	ly_dir_p

@@ -13,7 +13,7 @@
 #include "stem.hh"
 #include "debug.hh"
 #include "engraver-group-engraver.hh"
-#include "bar.hh"
+#include "bar-line.hh"
 #include "rest.hh"
 #include "engraver.hh"
 #include "item.hh"
@@ -346,7 +346,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 	{
 	  end_beam ();
 	}
-      else if (Bar::has_interface (info.grob_l_))
+      else if (Bar_line::has_interface (info.grob_l_))
 	{
 	  end_beam ();
 	}

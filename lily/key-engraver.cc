@@ -10,7 +10,7 @@
 #include "command-request.hh"
 #include "musical-request.hh"
 #include "item.hh"
-#include "bar.hh"
+#include "bar-line.hh"
 #include "staff-symbol-referencer.hh"
 #include "translator-group.hh"
 #include "engraver.hh"
@@ -70,9 +70,6 @@ Key_engraver::create_key (bool def)
       item_p_->set_grob_property ("new-accidentals", get_property ("keySignature"));
 
       Staff_symbol_referencer::set_interface (item_p_);
-      Key_item::set_interface (item_p_);
-
-
       announce_grob(item_p_, keyreq_l_ ? keyreq_l_->self_scm() : SCM_EOL);
     }
 
@@ -116,7 +113,7 @@ Key_engraver::acknowledge_grob (Grob_info info)
 	  create_key (false);
 	}
     }
-  else if (Bar::has_interface (info.grob_l_)
+  else if (Bar_line::has_interface (info.grob_l_)
 	   && gh_pair_p (get_property ("keySignature")))
     {
       create_key (true);

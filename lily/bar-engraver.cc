@@ -7,7 +7,7 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "bar.hh"
+#include "bar-line.hh"
 #include "score-engraver.hh"
 #include "musical-request.hh"
 #include "engraver-group-engraver.hh"

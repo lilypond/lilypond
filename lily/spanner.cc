@@ -17,7 +17,7 @@
 #include "paper-outputter.hh"
 #include "paper-column.hh"
 #include "line-of-score.hh"
-#include "break-align-item.hh"
+
 #include "group-interface.hh"
 
 void

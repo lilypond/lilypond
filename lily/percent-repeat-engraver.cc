@@ -16,7 +16,7 @@
 #include "spanner.hh"
 #include "item.hh"
 #include "percent-repeat-iterator.hh"
-#include "bar.hh"
+#include "bar-line.hh"
 
 #include "score-engraver.hh"
 #include "translator-group.hh"

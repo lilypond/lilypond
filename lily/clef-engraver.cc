@@ -12,7 +12,7 @@
 
 #include "translator-group.hh"
 #include "key-item.hh"
-#include "bar.hh"
+#include "bar-line.hh"
 #include "staff-symbol-referencer.hh"
 #include "debug.hh"
 #include "engraver.hh"
@@ -79,7 +79,7 @@ Clef_engraver::acknowledge_grob (Grob_info info)
   Item * item =dynamic_cast <Item *> (info.grob_l_);
   if (item)
     {
-      if (Bar::has_interface (info.grob_l_)
+      if (Bar_line::has_interface (info.grob_l_)
 	  && gh_string_p (get_property ("clefGlyph")))
 	create_clef ();
 

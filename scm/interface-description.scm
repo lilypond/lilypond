@@ -298,7 +298,8 @@ object."
  'break-aligned-interface
  "Items that are aligned in prefatory matter"
  '(
-   break-align-symbol 
+   break-align-symbol
+   space-alist
    visibility-lambda 
    breakable 
    ))

@@ -9,7 +9,7 @@
 
 #include "engraver.hh"
 #include "item.hh"
-#include "bar.hh"
+#include "bar-line.hh"
 #include "system-start-delimiter.hh"
 #include "side-position-interface.hh"
 #include "align-interface.hh"
@@ -77,7 +77,7 @@ Instrument_name_engraver::create_text (SCM txt)
 void
 Instrument_name_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Bar::has_interface (i.grob_l_))
+  if (Bar_line::has_interface (i.grob_l_))
     {
       SCM s = get_property ("instrument");
   
