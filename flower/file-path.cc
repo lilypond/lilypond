@@ -5,9 +5,17 @@
 #include "config.h"
 #include <stdio.h>
 #include <errno.h>
+#include <limits.h>
 
 #if HAVE_SYS_STAT_H 
 #include <sys/stat.h>
+#endif
+
+#ifdef __CYGWIN__
+#include <sys/cygwin.h>
+
+// URGURG
+#include "../lily/include/scm-option.hh"
 #endif
 
 #include "file-path.hh"
@@ -29,6 +37,38 @@
 #ifndef EXTSEP
 #define EXTSEP '.'
 #endif
+
+
+
+#ifdef __CYGWIN__
+static String
+dos_to_posix (String path)
+{
+  char buf[PATH_MAX];
+  char *filename = path.copy_ch_p ();
+  /* urg, wtf? char const* argument gets modified! */
+  cygwin_conv_to_posix_path (filename, buf);
+  delete filename;
+  return buf;
+}
+
+static String
+dos_to_posix_list (String path)
+{
+  char *filename = path.copy_ch_p ();
+  int len = cygwin_win32_to_posix_path_list_buf_size (filename);
+  if (len < PATH_MAX)
+    len = PATH_MAX;
+  char *buf = new char[len];
+  /* urg, wtf? char const* argument gets modified! */
+  cygwin_win32_to_posix_path_list (filename, buf);
+  delete filename;
+  
+  String ret = buf;
+  delete buf;
+  return ret;
+}
+#endif /* __CYGWIN__ */
 
 /* Join components to full path. */
 String
@@ -52,6 +92,13 @@ Path::str () const
 Path
 split_path (String path)
 {
+#ifdef __CYGWIN__
+  /* All system functions would work, even if we don't convert to
+     posix path, but we'd think that \foe\bar\baz.ly is in the cwd.  */
+  if (testing_level_global & 1)
+    path = dos_to_posix (path);
+#endif
+
   Path p;
   int i = path.index_i (ROOTSEP);
   if (i >= 0)
@@ -81,6 +128,11 @@ split_path (String path)
 void
 File_path::parse_path (String p)
 {
+#ifdef __CYGWIN__
+  if (testing_level_global & 4)
+    p = dos_to_posix_list (p);
+#endif
+
   int l;
   
   while ((l = p.length_i ()) )
@@ -162,13 +214,18 @@ File_path::try_add (String s)
     return false;
   fclose (f);
     
-  push (s);
+  add (s);
   return true;
 }
 
 void
 File_path::add (String s)
 {
+#ifdef __CYGWIN__
+  if (testing_level_global & 2)
+    s = dos_to_posix (s);
+#endif
+
   push (s);
 }
 

@@ -75,7 +75,6 @@ by computer}.
 
 
 @itemize @bullet
-@item @uref{README-W32.html,Compiling and running on Windows32}
 @item @uref{../misc/out-www/CHANGES-0.0.html, Change logs from 0.0 till 0.1 }
 @item @uref{../misc/out-www/CHANGES-0.1.html, Change logs from 0.1 till 1.0 }
 @item @uref{../misc/out-www/CHANGES-1.0.html, Change logs from 1.0 till 1.1 }
@@ -90,6 +89,7 @@ changes)}
 @item @uref{../misc/out-www/ANNOUNCE-1.2.html, Announcement of 1.2 (includes summary of changes)}
 @item @uref{../misc/out-www/AIMS.html, Why LilyPond?}
 @item @uref{../misc/out-www/interview.html, Answers} to the Brave GNU world standard questions.
+@item @uref{../windows/out-www/lily-wins.html, Lily Wins}
 @end itemize
 
 

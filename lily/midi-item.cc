@@ -15,6 +15,7 @@
 #include "midi-stream.hh"
 #include "audio-item.hh"
 #include "duration.hh"
+#include "scm-option.hh"
 
 #include "killing-cons.tcc"
 

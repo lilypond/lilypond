@@ -1,17 +1,19 @@
-Binary files ../cinstall/LilyPond.ico and ./LilyPond.ico differ
+Only in .: LilyPond.ico
 diff -urN ../cinstall/Makefile.in ./Makefile.in
 --- ../cinstall/Makefile.in	Thu Feb  8 05:55:22 2001
-+++ ./Makefile.in	Sun Apr  8 19:54:54 2001
-@@ -130,11 +130,15 @@
++++ ./Makefile.in	Tue Apr 10 19:20:14 2001
+@@ -130,11 +130,16 @@
  	@chmod a-x $@
  
  clean:
 -	rm -f *.o *.rc $(PROGS)
+-	$(MAKE) -C zlib clean
 +	rm -f *.o $(PROGS)
- 	$(MAKE) -C zlib clean
++	$(MAKE) -C zlib $@
  
  realclean: clean
  	rm -f  Makefile config.cache
++	rm -f *.d
 +	rm -f inilex.c iniparse.c iniparse.h version.c config.log config.status *.d 
 +
 +
@@ -21,20 +23,19 @@ diff -urN ../cinstall/Makefile.in ./Makefile.in
  	$(SHELL) $(updir1)/mkinstalldirs $(bindir) $(etcdir)
 diff -urN ../cinstall/desktop.cc ./desktop.cc
 --- ../cinstall/desktop.cc	Sat Nov 11 05:55:16 2000
-+++ ./desktop.cc	Sun Apr  8 21:52:48 2001
-@@ -85,6 +85,11 @@
++++ ./desktop.cc	Tue Apr 10 19:15:01 2001
+@@ -79,9 +79,7 @@
+   "done",
+   "",
+   "export MAKE_MODE=unix",
+-  "export PS1='\\[\\033]0;\\w\\007",
+-  "\\033[32m\\]\\u@\\h \\[\\033[33m\\w\\033[0m\\]",
+-  "$ '",
++  "export PS1='\\[\\033]0;\\w\\007\\033[32m\\]\\u@\\h \\[\\033[33m\\w\\033[0m\\]$ '",
    "",
    "cd \"$HOME\"",
    "",
-+  "PATH=\"/usr/lilypond/bin:$PATH\"",
-+  "if [ ! -e \"/usr/lilypond\" ]; then",
-+  "  ln -s `tail -1 /usr/lilypond-*` /usr/lilypond",
-+  "fi",
-+  "",
-   "test -f ./.bashrc && . ./.bashrc",
-   0
- };
-@@ -197,6 +202,30 @@
+@@ -197,6 +195,30 @@
  }
  
  static void
@@ -65,7 +66,7 @@ diff -urN ../cinstall/desktop.cc ./desktop.cc
  make_etc_profile ()
  {
    char *fname = concat (root_dir, "/etc/profile", 0);
-@@ -299,11 +328,11 @@
+@@ -299,11 +321,11 @@
  }
  
  static void
@@ -80,7 +81,7 @@ diff -urN ../cinstall/desktop.cc ./desktop.cc
    if (rsrc == NULL)
      {
        fatal ("FindResource failed");
-@@ -323,7 +352,7 @@
+@@ -323,7 +345,7 @@
  static void
  do_desktop_setup()
  {
@@ -89,7 +90,7 @@ diff -urN ../cinstall/desktop.cc ./desktop.cc
  
    make_cygwin_bat ();
    make_etc_profile ();
-@@ -335,6 +364,17 @@
+@@ -335,6 +357,17 @@
  
    if (root_desktop) {
      desktop_icon ("Cygwin", batname);
@@ -350,3 +351,4 @@ diff -urN ../cinstall/resource.h ./resource.h
  #define IDC_SOURCE_DOWNLOAD             1000
  #define IDC_SOURCE_NETINST              1001
  #define IDC_SOURCE_CWD                  1002
+Common subdirectories: ../cinstall/zlib and ./zlib

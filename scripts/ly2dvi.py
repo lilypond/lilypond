@@ -45,8 +45,6 @@ TODO:
 
   * multiple \score blocks?
   
-  * windows-sans-cygwin compatibility?  rm -rf, cp file... dir
-  
 '''
 
 
@@ -56,6 +54,7 @@ import string
 import re
 import getopt
 import sys
+import shutil
 import __main__
 import operator
 import tempfile
@@ -110,9 +109,6 @@ targets = {
 
 track_dependencies_p = 0
 dependency_files = []
-
-# be verbose?
-verbose_p = 0
 
 
 # lily_py.py -- options and stuff
@@ -169,17 +165,19 @@ Distributed under terms of the GNU General Public License. It comes with
 NO WARRANTY.'''))
 	sys.stdout.write ('\n')
 
+if ( os.name == 'posix' ):
+	errorport=sys.stderr
+else:
+	errorport=sys.stdout
+
 def progress (s):
-	sys.stderr.write (s + '\n')
+	errorport.write (s + '\n')
 
 def warning (s):
-	sys.stderr.write (_ ("warning: ") + s)
-	sys.stderr.write ('\n')
-	
+	progress (_ ("warning: ") + s)
 		
 def error (s):
-	sys.stderr.write (_ ("error: ") + s)
-	sys.stderr.write ('\n')
+	progress (_ ("error: ") + s)
 	raise _ ("Exiting ... ")
 
 def getopt_args (opts):
@@ -279,7 +277,7 @@ def cleanup_temp ():
 	if not keep_temp_dir_p:
 		if verbose_p:
 			progress (_ ("Cleaning %s...") % temp_dir)
-		system ('rm -rf %s' % temp_dir)
+		shutil.rmtree (temp_dir)
 
 
 def set_setting (dict, key, val):
@@ -321,9 +319,11 @@ option_definitions = [
 
 def run_lilypond (files, outbase, dep_prefix):
 	opts = '--output=%s.tex' % outbase
-	opts = opts + ' ' + string.join (map (lambda x : '-I ' + x, include_path))
+	opts = opts + ' ' + string.join (map (lambda x : '-I ' + x,
+					      include_path))
 	if paper_p:
-		opts = opts + ' ' + string.join (map (lambda x : '-H ' + x, fields))
+		opts = opts + ' ' + string.join (map (lambda x : '-H ' + x,
+						      fields))
 	else:
 		opts = opts + ' --no-paper'
 		
@@ -500,7 +500,7 @@ def global_latex_definition (tfiles, extra):
 		first = 0
 
 	s = s + r'''
-% I don't see why we want to clobber the footer here
+% I do not see why we want to clobber the footer here
 \vfill\hfill\parbox{\textwidth}{\mbox{}\makelilypondtagline}
 %\makeatletter
 %\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
@@ -518,7 +518,10 @@ def run_latex (files, outbase, extra):
 	f.write (s)
 	f.close ()
 
-	cmd = 'latex \\\\nonstopmode \\\\input %s' % outbase + '.latex'
+        if ( os.name == 'posix' ):
+		cmd = 'latex \\\\nonstopmode \\\\input %s' % outbase + '.latex'
+	else:
+		cmd = 'latex \\nonstopmode \\input %s' % outbase + '.latex'
 	if not verbose_p:
 		progress ( _("Running %s...") % 'LaTeX')
 		cmd = cmd + ' 1> /dev/null 2> /dev/null'
@@ -529,16 +532,17 @@ def run_dvips (outbase, extra):
 
 	opts = ''
 	if extra['papersize']:
-		opts = opts + ' -t %s' % extra['papersize'][0]
+		opts = opts + ' -t%s' % extra['papersize'][0]
 
 	if extra['orientation'] and extra['orientation'][0] == 'landscape':
-		opts = opts + ' -t landscape'
+		opts = opts + ' -tlandscape'
 
-	cmd = 'dvips %s -o %s %s' % (opts, outbase + '.ps', outbase + '.dvi')
+	cmd = 'dvips %s -o%s %s' % (opts, outbase + '.ps', outbase + '.dvi')
 	
 	if not verbose_p:
 		progress ( _("Running %s...") % 'dvips')
-		cmd = cmd + ' 2> /dev/null'
+		if os.name == 'posix':
+			cmd = cmd + ' 1> /dev/null 2> /dev/null'
 		
 	system (cmd)
 
@@ -606,12 +610,35 @@ for opt in options:
 			warranty ()
 		sys.exit (0)
 
+
+def cp_to_dir (pattern, dir):
+	"Copy files matching re PATTERN from cwd to DIR"
+	# Duh.  Python style portable: cp *.EXT OUTDIR
+	# system ('cp *.%s %s' % (ext, outdir), 1)
+	files = filter (lambda x, p=pattern: re.match (p, x), os.listdir ('.'))
+	map (lambda x, d=dir: shutil.copy2 (x, os.path.join (d, x)), files)
+
+# Python < 1.5.2 compatibility
+#
 # On most platforms, this is equivalent to
 #`normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
-def compat_abspath (path):
-	return os.path.normpath (os.path.join (os.getcwd (), path))
+if os.path.__dict__.has_key ('abspath'):
+	abspath = os.path.abspath
+else:
+	def abspath (path):
+		return os.path.normpath (os.path.join (os.getcwd (), path))
 
-include_path = map (compat_abspath, include_path)
+if os.__dict__.has_key ('makedirs'):
+	makedirs = os.makedirs
+else:
+	def makedirs (dir, mode=0777):
+		system ('mkdir -p %s' % dir)
+
+def mkdir_p (dir, mode=0777):
+	if not os.path.isdir (dir):
+		makedirs (dir, mode)
+
+include_path = map (abspath, include_path)
 
 original_output = output
 
@@ -625,7 +652,7 @@ if files and files[0] != '-':
 	for i in ('.dvi', '.latex', '.ly', '.ps', '.tex'):
 		output = strip_extension (output, i)
 
-	files = map (compat_abspath, files) 
+	files = map (abspath, files) 
 
 	if os.path.dirname (output) != '.':
 		dep_prefix = os.path.dirname (output)
@@ -633,7 +660,7 @@ if files and files[0] != '-':
 		dep_prefix = 0
 
 	reldir = os.path.dirname (output)
-	(outdir, outbase) = os.path.split (compat_abspath (output))
+	(outdir, outbase) = os.path.split (abspath (output))
 	
 	setup_environment ()
 	setup_temp ()
@@ -674,7 +701,7 @@ if files and files[0] != '-':
 		run_dvips (outbase, extra)
 
 	if outdir != '.' and (track_dependencies_p or targets.keys ()):
-		system ('mkdir -p %s' % outdir)
+		mkdir_p (outdir, 0777)
 
 	# add DEP to targets?
 	if track_dependencies_p:
@@ -685,8 +712,7 @@ if files and files[0] != '-':
 
 	for i in targets.keys ():
 		ext = string.lower (i)
-		if re.match ('.*[.]%s' % ext, string.join (os.listdir ('.'))):
-			system ('cp *.%s %s' % (ext, outdir))
+		cp_to_dir ('.*\.%s$' % ext, outdir)
 		outname = outbase + '.' + string.lower (i)
 		abs = os.path.join (outdir, outname)
 		if reldir != '.':
@@ -702,7 +728,7 @@ if files and files[0] != '-':
 else:
 	# FIXME
 	help ()
-	sys.stderr.write ('\n')
+	progress ('\n')
 	try:
 		error (_ ("no FILEs specified, can't invoke as filter"))
 	except:
