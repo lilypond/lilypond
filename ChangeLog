@@ -1,3 +1,13 @@
+2003-09-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* cygwin/GNUmakefile:
+	* cygwin/lily-wins.py:
+	* cygwin/postremove-lilypond.sh: 
+	* cygwin/postinstall-lilypond.sh: Merge from stable.
+
+	* cygwin/bug-lilypond-cygwin.sh: s/lilypond/lilypond-bin,
+	s/ly2dvi/lilypond/.
+
 2003-09-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/slur.cc (after_line_breaking): only set control points if

@@ -6,6 +6,9 @@
 # stable LilyPond releases: lilypond-1.8
 # archive=ftp://lilypond.org/pub/LilyPond/v1.8
 
+# development LilyPond releases: lilypond-1.9
+# archive=ftp://lilypond.org/pub/LilyPond/v1.9
+
 # LilyPond mknetrel overrides
 # To use this, do something like:
 cat >/dev/null <<EOC
@@ -69,7 +72,7 @@ EOF
     chmod 755 guile-config
     PATH=$(pwd):$PATH
 
-    export CFLAGS="-fpermissive"
+
     if [ "$ABI" != "1.5" ];then
 	export LDFLAGS="$cygwin_prefix/bin/cygkpathsea-3abi13.dll"
     fi
