@@ -55,9 +55,9 @@
     (module-define! m 'packed #f)
     (module-define! m 'indent (/ w 14))
 
-    ;; page layout
-    (module-define! m 'top-margin (* 3 mm))
-    (module-define! m 'bottom-margin (* 3 mm))
+    ;; page layout - what to do with (printer specific!) margin settings?
+    (module-define! m 'top-margin (* 5 mm))
+    (module-define! m 'bottom-margin (* 6 mm))
     (module-define! m 'head-sep (* 4 mm))
     (module-define! m 'foot-sep (* 4 mm))))
 
