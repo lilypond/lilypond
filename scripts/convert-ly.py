@@ -857,6 +857,15 @@ if 1:
 	
 	conversions.append (((1,5,56), conv, 'Pitch::transpose->ly-transpose-pitch'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('textNonEmpty *= *##t', "TextScript \\set #'no-spacing-rods = ##f", str)
+		str = re.sub ('textNonEmpty *= *##f', "TextScript \\set #'no-spacing-rods = ##t", str)
+		return str
+	
+	conversions.append (((1,5,58), conv, 'deprecate textNonEmpty'))
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################

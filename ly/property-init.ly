@@ -119,8 +119,8 @@ endincipit = \notes{
 autoBeamOff = \property Voice.autoBeaming = ##f
 autoBeamOn = \property Voice.autoBeaming = ##t
 
-emptyText = \property Voice.textNonEmpty = ##f
-fatText = \property Voice.textNonEmpty = ##t
+fatText = \property Voice.TextScript \set #'no-spacing-rods = ##f
+emptyText = \property Voice.TextScript \set #'no-spacing-rods  = ##t
 
 showStaffSwitch = \property Voice.followVoice = ##t
 hideStaffSwitch = \property Voice.followVoice = ##f

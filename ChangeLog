@@ -1,3 +1,9 @@
+2002-05-25  Han-Wen  <hanwen@cs.uu.nl>
+
+	* scripts/convert-ly.py:  add textNonEmpty rule
+
+	* lily/text-engraver.cc (create_grobs): remove textNonEmpty
+
 2002-05-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/text-item.cc (markup_text2molecule): Junk ugly lookahead by

@@ -198,13 +198,6 @@ Fingering_engraver::make_script (Direction d, Music *r,Axis a,  int i)
     }
   
   fingering->set_grob_property ("text", r->get_mus_property ("text"));
-  
-  SCM nonempty = get_property ("textNonEmpty");
-  if (to_boolean (nonempty))
-    /*
-      empty fingering: signal that no rods should be applied.  
-    */
-    fingering->set_grob_property ("no-spacing-rods" , SCM_BOOL_F);
 		
   announce_grob (fingering, r->self_scm());
   fingerings_.push (fingering);
@@ -243,5 +236,5 @@ ENTER_DESCRIPTION(Fingering_engraver,
 /* descr */       "Create fingering-scripts",
 /* creats*/       "Fingering",
 /* acks  */       "rhythmic-head-interface stem-interface",
-/* reads */       "scriptHorizontal textNonEmpty",
+/* reads */       "scriptHorizontal",
 /* write */       "");
