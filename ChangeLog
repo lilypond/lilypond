@@ -5,6 +5,8 @@
 
 	* lilypond.mandrake.spec.in:
 	* lilypond.redhat.spec.in: Add lilypond.words.
+
+	* Documentation/user/refman.itely: Mention Info inside emacs.
 	
 2002-11-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
