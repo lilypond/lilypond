@@ -1,0 +1,52 @@
+input feta-macros;
+input feta-params;
+
+save code;
+code :=0;
+
+
+def draw_bracket( expr height_sharp, width_sharp) = 
+	save alpha, height, p, width, thin, thick;
+	height# := height_sharp;
+	width#  := width_sharp;
+
+	beginchar(incr code, width#, height#/2, height#/2);
+ 
+	define_pixels (height, width);
+	thin = 2 stafflinethickness;
+	thick = .5 interline;
+	
+	pickup pencircle scaled thin;
+	lft x1 = 0;
+	top y1 = height/2 + thick + thin;
+
+	x2 = x1;
+	z2 = (x1, 0);
+	rt x3 = thick;
+	y3 = y2;
+
+	x4 = x3;
+	bot y4 = y1 - thick + thin/2;
+
+	alpha = 50;
+	z5 = z1 + (width, 3/4interline);
+
+	% need silly z6?
+	% strange turning path when invoked via MakeTeXTFM...?
+	% mf "\\mode:=ljfour; mag:=1; scrollmode; input feta-brackets16"
+	z6 = z5 - (0, thin/16);
+
+	filldraw z5{dir(180+alpha)}..{left}z1--z2--z3..{up}z4{right}
+		..{dir(alpha)}z6..cycle;
+
+	labels(1,2,3,4,5,6);
+	addto currentpicture also currentpicture yscaled -1;
+endchar;
+enddef;
+
+
+% for h :=  staffsize# step 1 pt# until (2 * staffsize#):
+for h :=  staffsize# step 1 pt# until (7 * staffsize#):
+	draw_bracket(h, 2interline# );
+endfor
+
