@@ -24,9 +24,6 @@ bool busy_parsing ();
 void kill_lexer ();
 void set_lexer ();
 
-/*
-  TODO: this has a lot of SCM objects. Smobify me.
- */
 class Lily_lexer : public Includable_lexer 
 {
   DECLARE_SMOBS(Lily_lexer,);

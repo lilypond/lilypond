@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.10"
 \header{
 filename = 	 "denneboom.ly"
 enteredby = 	 "jcn"
@@ -34,7 +34,7 @@ ugloeit = \lyrics{
 	licht ge- spreid 
 }
 
-oboom = \notes\transpose c c'{
+oboom = \transpose c c'{
 	g,8 |
 	c8. c16 c4. d8 | 
 	e8. e16 e4. e8 | 
@@ -42,7 +42,7 @@ oboom = \notes\transpose c c'{
 	d8. c16 c4 r8
 }
 
-bos = \notes\transpose c c'{
+bos = \transpose c c'{
 	g8 | 
 	g e a4. g8 | 
 	g8. f16 f4 r8 f8 |
@@ -51,7 +51,7 @@ bos = \notes\transpose c c'{
 }
 
 
-melody = \notes{
+melody = {
 	\oboom
 	\oboom
 	\bos
@@ -59,7 +59,7 @@ melody = \notes{
 }
 
 
-verseOne = \notes{
+verseOne = {
 	\oden
 	\oden
 	\ikheb
@@ -70,7 +70,7 @@ verseOneStaff = \context Lyrics = one
 	\verseOne
 
 
-verseTwo = \notes{
+verseTwo = {
 	\oden
 	\oden
 	\ugloeit
@@ -106,7 +106,7 @@ denneboomShape = \paper{
 }
 
 \score{
-	\addlyrics
+	\oldaddlyrics
 		\context Staff { \time 3/4 \melody }
 		\context Lyrics \verseOne
 	\paper{ 

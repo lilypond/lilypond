@@ -115,7 +115,9 @@
 
 	;;
 	;; Ross. page 151 lists other values, we opt for a leaner look
-	;; 
+	;;
+	;; TODO:
+	;; kern should scale with linethickness too. 
 	(kern . 3.0)
 	(thin-kern . 3.0)
 	(hair-thickness . 1.9)
@@ -885,6 +887,7 @@
 	(grace-space-factor . 0.6)
 	(shortest-duration-space . 2.0)
 	(spacing-increment . 1.2)
+;	(base-shortest-duration . ,(ly:make-moment 1 8 3 2))
 	(base-shortest-duration . ,(ly:make-moment 1 8))
 	(meta . ((interfaces . (spacing-interface spacing-spanner-interface spanner-interface))))
 	))
