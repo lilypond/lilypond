@@ -6,6 +6,8 @@
    input/test/beams.ly input/test/crescendo-text.ly : deleted
    * input/test/beam-chord.ly: moved to input/regression/beam-chord.ly
 	* input/test/ beam-pos.ly beam-second.ly : moved to input/regression/
+	* input/test/default-bars.ly: moved to bar-always.ly
+	* input/test/ {many}: deleted old "renamed from foo to bar" comments.
 
 2003-06-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 

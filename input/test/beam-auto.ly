@@ -1,5 +1,4 @@
 \version "1.7.18"
-% renamed from auto-beam.ly to beam-auto.ly
 \header{
 	texidoc = "@cindex Beaming Presets
 The auto-beam engraver has presets for common time signatures.

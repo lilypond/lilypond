@@ -1,5 +1,4 @@
 \version "1.7.18"
-% renamed from absolute-volume.ly to dynamic-absolute-volume.ly
 \header {
     texidoc = "@cindex Dynamic Absolute Volume
 Absolute dynamics have effect in MIDI files.
