@@ -34,6 +34,16 @@ blah = 	\melodic {
 	d' _>_._\fermata _"text"
 	d'' _>_._\fermata _"text"
 			
+	\stemup
+	'b-. c-. d-. e-. f-. g-. a-. b-. c'-.
+	\stemdown
+	a-. b-. c'-. d'-. e'-. f'-. g'-. a'-. b'-.
+	\stemup
+	'b-> c-> d-> e-> f-> g-> a-> b-> c'->
+	\stemup
+	'b---. c---. d---. e---. f---. g---. a---. b---. c'---.
+	\stemboth
+
       \meter 4/4;
 	\duration  8;
 	\octave c';

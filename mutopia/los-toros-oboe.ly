@@ -93,13 +93,13 @@ hoboonemid = \melodic{
 
 % ugh
 %	d'4(\<^"Un peu plus lent" \textstyle "italic; _"tr\\`es \\'el\\'egant"
-%	d'4(\<^"Un peu plus lent"
-	d'4(\<
+%	d'4(\^"Un peu plus lent et \\'el\\'egant"<
 	\textstyle "italic"; 
-	[e'8_"tr\\`es \\'el\\'egant" \!f'8] |
+	d'4(\<
+	[e'8 \!f'8] |
 %	[)b'-. a'-.] [g16( fis' e' )d'] |
 	\textstyle "bold";
-	[)b'-.^"Un peu plus lent" a'-.] [g16( fis' e' )d'] |
+	[)b'-.^"Un peu plus lent et \\'el\\'egant" a'-.] [g16( fis' e' )d'] |
 	\textstyle "italic"; 
 	[d'( c' b\< c'] [)\!f'8-. e'-.] |
 	d4-> ~ [d16 e( fis g] |
@@ -177,10 +177,12 @@ hoboonelast = \melodic{
 	[bes16-. bes-. bes-. bes-.] [bes8-. ces'->] |
 	[bes'16-.\ff bes'-. bes'-. bes'-.] [bes'8-. ces''16->] r16^"court"-\fermata |
 	% ugh: eight measures rest (ugh: r1 -> four beats...)
-	r2-"Un peu plus lent et \\'el\\'egant"
-	\textstyle "italic";
+	\textstyle "bold";
+%	r2^"Un peu plus lent et \\'el\\'egant"
+	r2
 	r4 r8\p bes |
-	g2-> ~ |
+	g2->^"Un peu plus lent et \\'el\\'egant" ~ |
+	\textstyle "italic";
 	g8 r r c' |
 	c'2-> ~ |
 	c'8 r r bes'\f |
@@ -280,12 +282,55 @@ $staff_hoboone = \type Staff = hoboonestaff <
 
 a4 = \paper{
 	\paper_twenty
-	linewidth= 195.\mm;
+	linewidth= 165.\mm;
+	Score = \translator {
+		\type Score_engraver;
+
+		\consists "Timing_engraver";
+		\consists "Bar_column_engraver";
+		\consists "Bar_number_engraver";
+
+		\consists "Span_score_bar_engraver";
+		\consists "Score_priority_engraver";
+		\consists "Priority_horizontal_align_engraver";
+		\consists "Vertical_align_engraver";
+
+
+		\accepts "Staff_group";
+		\accepts "Staff";
+		\accepts "Rhythmic_staff";	
+		\accepts "Lyrics";
+		\accepts "Grandstaff";
+	}
+}
+
+a4sixteen = \paper{
+	linewidth= 165.\mm;
+	Score = \translator {
+		\type Score_engraver;
+
+		\consists "Timing_engraver";
+		\consists "Bar_column_engraver";
+		\consists "Bar_number_engraver";
+
+		\consists "Span_score_bar_engraver";
+		\consists "Score_priority_engraver";
+		\consists "Priority_horizontal_align_engraver";
+		\consists "Vertical_align_engraver";
+
+
+		\accepts "Staff_group";
+		\accepts "Staff";
+		\accepts "Rhythmic_staff";	
+		\accepts "Lyrics";
+		\accepts "Grandstaff";
+	}
 }
 
 \score{
 	\$staff_hoboone
 	\paper{ \a4 }
+%	\paper{ \a4sixteen }
 	\midi{
 		\tempo 4 = 80;
 	}
