@@ -102,6 +102,7 @@ makes bar-checks for polyphonic music easier.")
     count if this property is set to zero.
 ")
 (translator-property-description 'beamMelismaBusy boolean? "Signal if a beam is set when automaticMelismata is set")
+(translator-property-description 'beatLength moment? "The length of one beat in this time signature.")
 (translator-property-description 'breakAlignOrder list? "Defines the order in which
 prefatory matter (clefs, key signatures) appears, eg. this puts the
 key signatures after the bar lines:

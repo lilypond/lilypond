@@ -42,8 +42,8 @@ StaffContext=\translator {
 	% weird effects when doing instrument names for
 	% piano staffs
 
-	instrument = #""
-	instr = #""
+	instrument = ##f
+	instr = ##f
 	  
 	\accepts "Voice"
 }
@@ -238,8 +238,10 @@ PianoStaffContext = \translator{
 	\name "PianoStaff"
 
 	\consists "Vertical_align_engraver"
-
+	\consists "Instrument_name_engraver"
 	
+	instrument = ##f
+	instr = ##f
 	
 	verticalAlignmentChildCallback = #Align_interface::fixed_distance_alignment_callback
 	VerticalAlignment \override #'forced-distance = #12

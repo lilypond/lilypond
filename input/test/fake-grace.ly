@@ -6,7 +6,7 @@
 	c'4 c4
 	
 	\property Voice.fontSize= #-2
-	b16 (*1/2 
+	b16*1/2  (
 	\property Voice.fontSize= #0
 	
 	) g4 *31/32

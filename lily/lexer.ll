@@ -72,6 +72,9 @@ LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 
 */
 
+
+SCM scan_fraction (String);
+
 %}
 
 %option c++
@@ -96,7 +99,7 @@ A		[a-zA-Z]
 AA		{A}|_
 N		[0-9]
 AN		{AA}|{N}
-PUNCT		[?!:']
+PUNCT		[?!:'`]
 ACCENT		\\[`'"^]
 NATIONAL	[\001-\006\021-\027\031\036\200-\377]
 TEX		{AA}|-|{PUNCT}|{ACCENT}|{NATIONAL}
@@ -104,6 +107,7 @@ WORD		{A}{AN}*
 ALPHAWORD	{A}+
 DIGIT		{N}
 UNSIGNED	{N}+
+FRACTION	{N}+\/{N}+
 INT		-?{UNSIGNED}
 REAL		({INT}\.{N}*)|(-?\.{N}+)
 KEYWORD		\\{WORD}
@@ -269,6 +273,10 @@ HYPHEN		--
 	{NOTECOMMAND}	{
 		return scan_escaped_word (YYText () + 1); 
 	}
+	{FRACTION}	{
+		yylval.scm =  scan_fraction (YYText ());
+		return FRACTION;
+	}
 
 	{DIGIT}		{
 		yylval.i = String_convert::dec2_i (String (YYText ()));
@@ -313,6 +321,10 @@ HYPHEN		--
 	\" {
 		start_quote ();
 	}
+	{FRACTION}	{
+		yylval.scm =  scan_fraction (YYText ());
+		return FRACTION;
+	}
 	{UNSIGNED}		{
 		yylval.i = String_convert::dec2_i (String (YYText ()));
 		return UNSIGNED;
@@ -348,6 +360,10 @@ HYPHEN		--
 	}
 	{NOTECOMMAND}	{
 		return scan_escaped_word (YYText () + 1);
+	}
+	{FRACTION}	{
+		yylval.scm =  scan_fraction (YYText ());
+		return FRACTION;
 	}
 	{UNSIGNED}		{
 		yylval.i = String_convert::dec2_i (String (YYText ()));
@@ -591,6 +607,15 @@ strip_trailing_white (String&s)
 
 
 
+Lilypond_version oldest_version ("1.3.59");
+
+void
+print_lilypond_versions (ostream &os)
+{
+  os << _f ("Oldest supported input version: %s", oldest_version.str ()) 
+    << endl;
+}
+
 
 bool
 valid_version_b (String s)
@@ -630,3 +655,20 @@ lyric_fudge (String s)
 
   return s;
 }
+
+/*
+Convert "NUM/DEN" into a '(NUM . DEN) cons.
+*/
+SCM
+scan_fraction (String frac)
+{
+	int i = frac.index_i ('/');
+	int l = frac.length_i ();
+	String left = frac.left_str (i);
+	String right = frac.right_str (l - i - 1);
+
+	int n = String_convert::dec2_i (left);
+	int d = String_convert::dec2_i (right);
+	return gh_cons (gh_int2scm (n), gh_int2scm (d));
+}
+		

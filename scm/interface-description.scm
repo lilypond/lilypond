@@ -359,7 +359,7 @@ If @var{bartype} is set to @code{\"empty\"} then nothing is printed,
 but a line break is allowed at that spot.
 
 "
- '( barsize-procedure kern thin-kern hair-thickness thick-thickness glyph bar-size break-glyph-function ))
+ '(bar-size-procedure kern thin-kern hair-thickness thick-thickness glyph bar-size break-glyph-function ))
 
 
 (lily-interface

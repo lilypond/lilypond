@@ -20,7 +20,7 @@
 	     }
 	     \context Voice=four {
 		\stemDown\slurDown\tieDown 
-		\property Voice.horizontalNoteShift=-1
+		\property Voice .NoteColumn \override #'horizontal-shift = #-1
 		fis
 	     }
 	>

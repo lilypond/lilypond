@@ -42,14 +42,6 @@ Timing_translator::process_music ()
       if (!to_boolean (get_property ("barCheckNoSynchronize")))
 	daddy_trans_l_->set_property ("measurePosition", zero.smobbed_copy ());
     }
-
-  SCM fr = get_property ("timeSignatureFraction");
-  
-  if (scm_equal_p (fr, last_time_sig_) == SCM_BOOL_F)
-    {
-      last_time_sig_ = fr;
-      set_time_signature ();
-    }
 }
 
 
@@ -96,7 +88,8 @@ Timing_translator::initialize ()
   daddy_trans_l_->set_property ("timeSignatureFraction",
 				gh_cons (gh_int2scm (4), gh_int2scm (4)));
 
-  set_time_signature ();
+  daddy_trans_l_->set_property ("measureLength", Moment (1).smobbed_copy ());
+  daddy_trans_l_->set_property ("beatLength", Moment (1,4).smobbed_copy ());
 }
 
 Moment
@@ -110,24 +103,10 @@ Timing_translator::measure_length () const
 }
 
 
-void
-Timing_translator::set_time_signature ()
-{
-  SCM fr = get_property ("timeSignatureFraction");
-  int l = gh_scm2int (gh_car (fr));
-  int o = gh_scm2int (gh_cdr (fr));
-  
-  Moment one_beat = Moment (1)/Moment (o);
-  Moment len = Moment (l) * one_beat;
-
-  daddy_trans_l_->set_property ("measureLength", len.smobbed_copy ());
-  daddy_trans_l_->set_property ("beatLength", one_beat.smobbed_copy ());
-}
 
 Timing_translator::Timing_translator ()
 {
 
-  last_time_sig_ = SCM_BOOL_F;
 
 }
 

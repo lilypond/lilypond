@@ -21,7 +21,9 @@
 @chapter Reference Manual
 
 This document describes GNU LilyPond and its input format. The last
-revision of this document was made for LilyPond 1.3.145.
+revision of this document was made for LilyPond 1.3.145.  It supposes a
+passing familiarity with how LilyPond input works. New users are
+encouraged to study the tutorial first.
 
 
 @menu
@@ -608,19 +610,23 @@ Editio XXX.''
 
 The time signature is changed by the @code{\time} command. Syntax:
 @example
-  \time @var{numerator}@code{/}@var{denominator} 
+  \time @var{n}@code{/}@var{d} 
 @end example
 Internally, this is a shortcut for doing
 @example
-     \property Score.timeSignatureFraction = #'(@var{numerator} . @var{denominator})
+\property Score.timeSignatureFraction = #'(@var{n} . @var{d})
+\property Score.beatLength = #(make-moment 1 @var{d})
+\property Score.measureLength = #(make-moment @var{n} @var{d})
 @end example
 
-The property @code{timeSignatureFraction} is used to determine where bar
-lines should be inserted, and how automatic beams should be generated.
+These properties @code{timeSignatureFraction} determine where bar lines
+should be inserted, and how automatic beams should be
+generated.
 
-The grob is @code{TimeSignature}.  There are many options for the layout
-of this grob. They are selected through the @code{style} grob
-property. See @file{input/test/time.ly} for examples.
+Changing the value of @code{timeSignatureFraction} also causes a
+fraction to be printed. This grob is @code{TimeSignature}.  There are
+many options for the layout of this grob. They are selected through the
+@code{style} grob property. See @file{input/test/time.ly} for examples.
 
 @c .   {Partial}
 @subsection Partial
@@ -1309,6 +1315,8 @@ syntactically valid, but makes no sense and may cause runtime errors.
 Ending a staff or score with grace notes may also generate a run-time
 error, since there will be no main note to attach the grace notes to.
 
+Combining grace notes and clef changes will prints note heads on
+erroneous vertical positions.
 
 The present implementation of grace notes is not robust and generally
 kludgey. We expect it to change after LilyPond 1.4. Syntax changes might
@@ -1730,18 +1738,21 @@ Voices can be switched between staffs manually, using the following command:
 @example
   \translator Staff = @var{staffname} @var{music}
 @end example
-The string @var{staffname} is the name of the staff. Typically it is
-@code{"up"} or @code{"down"}. 
+The string @var{staffname} is the name of the staff. It switches the
+current voice from its current staff to the Staff called
+@var{staffname}. Typically @var{staffname} is @code{"up"} or
+@code{"down"}.
 
-Formally, this construct is a music expression indicating that the
-context which is a direct child of the context of type
-@var{contexttype} should be shifted to a context of type
-@var{contexttype} and the specified name.
-
+The formal definition of this construct is obtuse, but for the sake of
+completeness we give it here.
 @cindex @code{\translator}
 @example
   \translator @var{contexttype} = @var{name}
 @end example
+Formally, this construct is a music expression indicating
+that the context which is a direct child of the context of type
+@var{contexttype} should be shifted to a context of type
+@var{contexttype} and the specified name.
 
 
 @c .   {Pedals}

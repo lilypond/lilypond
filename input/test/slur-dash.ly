@@ -6,11 +6,11 @@
 		c( d e )c |
 		\slurDotted
 		c( d e )c |
-		\slurNoDots
+		\slurSolid
 		c( d e )c |
-		\property Voice.slurDash = #0.0
+		\property Voice. Slur \set #'dashed = #0.0
 		c( d e )c |
-		\slurNoDots
+		\slurSolid
 		c( d e )c |
 	}
 	\paper{ 

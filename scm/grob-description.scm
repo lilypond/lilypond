@@ -37,7 +37,7 @@
 		(break-align-symbol . Staff_bar)
 		(glyph . "|")
 		(break-glyph-function . ,default-break-barline)
-		(barsize-procedure . ,Bar::get_staff_bar_size)
+		(bar-size-procedure . ,Bar::get_staff_bar_size)
 		(molecule-callback . ,Bar::brew_molecule)	   
 		(visibility-lambda . ,all-visible)
 		(breakable . #t)
@@ -467,6 +467,7 @@
 	(Script . (
 		;; don't set direction here: it breaks staccato.
 		(molecule-callback . ,Script::brew_molecule)
+		(padding . 0.3) 
 		(X-offset-callbacks . (,Side_position_interface::centered_on_parent))
 		(before-line-breaking-callback . ,Script::before_line_breaking)
 		(meta . ,(grob-description "Script" script-interface side-position-interface font-interface))
@@ -510,7 +511,7 @@
 	))
 	(SpanBar . (
 		(break-align-symbol . Staff_bar)
-		(barsize-procedure . ,Span_bar::get_bar_size) 
+		(bar-size-procedure . ,Span_bar::get_bar_size) 
 		(molecule-callback . ,Bar::brew_molecule)
 		(visibility-lambda . ,begin-of-line-invisible)
 		(X-extent-callback . ,Span_bar::width_callback)

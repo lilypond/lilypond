@@ -1,3 +1,7 @@
+
+\header {
+texidoc = "some instruments (notably: cello and double bass) are alternatively written on one and two staves. This is the way to do it:"
+}
 \version "1.3.146"
 
 
@@ -46,7 +50,7 @@ grandstaff =  \context GrandStaff = one <
 
 		\translator { \VoiceContext noAutoBeaming = ##t }
 		\translator { \HaraKiriStaffContext }
-		\translator { \OrchestralScoreContext skipBars = 1 }
+		\translator { \OrchestralScoreContext skipBars = ##t }
 	}
 }
 

@@ -20,7 +20,7 @@
 #include "side-position-interface.hh"
 #include "item.hh"
 
-/// where is c-0 in the staff?
+
 class Clef_engraver : public  Engraver
 {
 public:
@@ -34,7 +34,7 @@ protected:
   virtual void start_translation_timestep ();
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
-
+  virtual void do_creation_processing ();
 private:
   Item * clef_p_;
   Item * octavate_p_;
@@ -45,6 +45,7 @@ private:
   void create_clef ();
   void set_central_c (SCM, SCM, SCM);
   void set_glyph ();
+  void inspect_clef_properties ();
 };
 
 Clef_engraver::Clef_engraver ()
@@ -162,6 +163,24 @@ Clef_engraver::create_clef ()
 
 void
 Clef_engraver::process_music ()
+{
+  inspect_clef_properties ();
+}
+
+/*
+  this must be done in creation_proc() since grace notes will be
+  processed before Clef_engraver::prcoess_music()
+
+  Grace notes and clef changes are still broken.
+*/
+void
+Clef_engraver::do_creation_processing ()
+{
+  inspect_clef_properties ();
+}
+
+void
+Clef_engraver::inspect_clef_properties ()
 {
   SCM glyph = get_property ("clefGlyph");
   SCM clefpos = get_property ("clefPosition");

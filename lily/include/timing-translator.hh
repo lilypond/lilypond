@@ -17,8 +17,6 @@
 
 class Timing_translator : public virtual Translator
 {
-
-  SCM last_time_sig_;
 public:
   VIRTUAL_COPY_CONS (Translator);
   Timing_translator ();
@@ -34,6 +32,6 @@ protected:
 public:
   Moment measure_position () const;
   Moment measure_length () const;  
-  void set_time_signature ();
+
 };
 #endif // TIMING_TRANSLATOR_HH

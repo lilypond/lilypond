@@ -1,0 +1,265 @@
+%!PS-Adobe-1.0: lily.ps 
+%
+% Functions for direct and embedded PostScript
+
+% round cappings 
+1 setlinecap
+
+/euclidean_length  
+{ 
+	1 copy mul exch 1 copy mul add sqrt 
+} bind def 
+
+/draw_beam % width slope thick 
+{ 
+        2 div /beam_thick exch def 
+        /beam_slope exch def 
+        /beam_wd exch def 
+        beam_slope beam_wd mul /beam_ht exch def 
+        0 beam_thick neg moveto  
+        beam_wd beam_ht rlineto  
+        0 beam_thick 2 mul rlineto 
+        0 beam_thick lineto 
+        closepath fill 
+} bind def 
+
+/draw_repeat_slash % width slope thick
+{
+  /beamthick exch def
+  /slope exch def
+  /width exch def
+  beamthick beamthick slope div euclidean_length
+    /xwid exch def 
+  0 0 moveto
+  xwid 0  rlineto
+  width slope width mul rlineto
+  xwid neg 0 rlineto
+%  width neg width angle sin mul neg rlineto
+  closepath fill
+} bind def
+
+/draw_hairpin % width start_h end_h thick
+{
+  setlinewidth
+  /end_h exch def 
+  /start_h exch def
+  /wid exch def
+  0 start_h moveto
+  wid end_h lineto
+  stroke
+  0 start_h neg moveto
+  wid end_h neg lineto
+  stroke
+} bind def
+
+/draw_tuplet % height gap dx dy thick dir 
+{ 
+	/dir exch def 
+	setlinewidth 
+	1 setlinecap 
+	1 setlinejoin 
+	/tuplet_dy exch def 
+	/tuplet_dx exch def 
+	/tuplet_gapx exch def 
+	/tuplet_h exch def 
+	tuplet_dy tuplet_dx div tuplet_gapx mul /tuplet_gapy exch def 
+
+
+	0 0 moveto 
+	0 tuplet_h dir mul lineto  
+	tuplet_dx tuplet_gapx sub 2 div  
+		tuplet_dy tuplet_gapy sub 2 div tuplet_h dir mul add lineto 
+	tuplet_dx tuplet_gapx add 2 div  
+		tuplet_dy tuplet_gapy add 2 div tuplet_h dir mul add moveto 
+	tuplet_dx tuplet_dy tuplet_h dir mul add lineto 
+	tuplet_dx tuplet_dy lineto 
+	stroke 
+} bind def 
+
+/difficult_draw_ez_ball % ch letter_col ball_col font
+{
+	% font
+	findfont 0.7 scalefont setfont 
+	0.1 setlinewidth
+	0 0 moveto
+	0 setgray
+	0.5 0 0.5 0 360 arc closepath fill stroke
+	% ball_col
+	1 eq {
+		0.01 setlinewidth
+		1 setgray
+		0.5 0 0.4 0 360 arc closepath
+		fill stroke
+	} if 
+	% letter_col
+	setgray
+	% 0.25 is empiric centering. Change to taste
+	0.25 -0.25 moveto
+	% ch
+	show
+} bind def
+
+% Simple, but does it work everywhere?
+% The filled circles are drawn by setting the linewidth
+% to 2*radius and drawing a point.  Is that (defined to be)
+% a nice filled circle?
+/draw_ez_ball % ch letter_col ball_col font
+{
+	% font
+	findfont 0.85 scalefont setfont
+	/origin { 0.45 0 } def
+	0 setgray
+	1.1 setlinewidth
+	origin moveto
+	origin lineto stroke
+	% ball_col
+ 	setgray
+	0.9 setlinewidth
+	origin moveto
+	origin lineto stroke
+	% letter_col
+	setgray
+	% 0.25 is empiric centering. Change to taste
+	origin moveto
+	-0.28 -0.30 rmoveto
+	% ch
+	show
+} bind def
+
+/draw_volta % h w thick vert_start vert_end 
+{ 
+	/vert_end exch def 
+	/vert_start exch def 
+	setlinewidth 
+	/volta_w exch def 
+ 	/volta_h exch def 
+	1 setlinecap 
+	1 setlinejoin 
+	vert_start 0 eq { 
+		0 0 moveto 
+		0 volta_h lineto 
+	} if 
+	0 volta_h moveto 
+	volta_w volta_h lineto 
+	vert_end 0 eq { 
+		volta_w 0 lineto 
+	} if 
+	stroke 
+} bind def 
+
+% this is for drawing slurs. 
+/draw_bezier_sandwich  % thickness controls 
+{ 
+	setlinewidth 
+	moveto 
+	curveto 
+	lineto 
+	curveto 
+	gsave 
+	fill 
+	grestore 
+	stroke 
+} bind def 
+
+/draw_dashed_line % dash thickness dx dy
+{ 
+	1 setlinecap 
+	1 setlinejoin 
+	setdash 
+	setlinewidth 
+	0 0 moveto
+	lineto
+	stroke 
+} bind def 
+
+/draw_dashed_slur % dash thickness controls
+{ 
+	1 setlinecap 
+	1 setlinejoin 
+	setdash 
+	setlinewidth 
+	8 -2 roll 
+	moveto 
+	curveto 
+	stroke 
+} bind def 
+
+
+
+/bracket_traject 
+{ 
+	/traject_ds exch def 
+	/traject_alpha exch def 
+	traject_ds traject_alpha sin mul add 
+	exch 
+	traject_ds traject_alpha cos mul add 
+	exch 
+} bind def 
+
+
+
+/half_bracket
+{ 
+%6 
+	0 0 
+%5a 
+	bracket_thick arch_height add half_height arch_thick sub arch_width add 
+	arch_angle arch_height -0.15 mul bracket_traject 
+%5b 
+	bracket_thick 0.5 mul half_height 
+	0 arch_height 0.5 mul bracket_traject 
+%5c 
+	0 half_height 
+%4a 
+	bracket_thick half_height arch_thick sub 
+	0 arch_height 0.4 mul bracket_traject 
+%4b 
+	bracket_thick arch_height add half_height arch_thick sub arch_width add 
+	arch_angle arch_height -0.25 mul bracket_traject 
+%4c 
+	bracket_thick arch_height add half_height arch_thick sub arch_width add 
+%3 
+	bracket_thick half_height arch_thick sub 
+%2 
+	bracket_thick 0 
+%1 
+	0 0 
+} bind def 
+
+/draw_half_bracket { 
+	moveto 
+	lineto 
+	lineto 
+	curveto 
+	curveto 
+	lineto 
+	gsave 
+	fill 
+	grestore 
+} bind def 
+
+/draw_bracket % arch_angle arch_width arch_height bracket_height arch_thick bracket_thick
+{ 
+	% urg
+
+	/bracket_thick exch def
+	/arch_thick exch def
+	/bracket_height exch def
+	/arch_height exch def
+	/arch_width exch def
+	/arch_angle exch def
+
+	bracket_height 2 div bracket_thick add /half_height exch def 
+	bracket_thick 0.5 mul setlinewidth
+	1 setlinecap 
+	1 setlinejoin 
+	half_bracket 
+	20 copy 
+	1 -1 scale 
+	draw_half_bracket 
+	stroke 
+	1 -1 scale 
+	draw_half_bracket 
+	stroke 
+} bind def 
+

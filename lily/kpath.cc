@@ -7,6 +7,7 @@
 */
 
 #include <stdio.h>
+#include <string.h>
 
 #include "config.h"
 #include "string.hh"
@@ -48,6 +49,27 @@ void
 ly_init_kpath (char *av0)
 {
 #if KPATHSEA && HAVE_KPATHSEA_KPATHSEA_H
+
+  /*
+    Remove the setting for TFMFONTS if we have kpathsea, because
+    kpathsea can find TFM fonts anyway.
+
+    If we don't lily will want to make tfms for cmr fonts, even if
+    there is a :: entry in the TFMFONTS path.
+
+    This will fail if a user has special fonts (outside of feta) that
+    can not be found by kpath.
+
+    If TFMFONTS is unset, TFMs of feta will be generated on the
+    fly. The risk is that this will cause checksum mismatch errors,
+    but MF is reasonably deterministic (so we hope not).
+
+    The advantage is that the PK font will also be generated under
+    /var/texmf/fonts, reducing clutter and compilation time.
+    
+  */
+  unsetenv ("TFMFONTS");
+  
   /*
    initialize kpathsea
    */

@@ -232,8 +232,8 @@ gsview32 /s test.ps
 
 To demonstrate what LilyPond input looks like, we start off with a
 full-fledged, yet simple example. It is a convoluted version
-of the famous menuet in J. S. Bach's @emph{Klavierb@"uchlein}. The file
-is included in the distribution as  @file{menuet.ly}.
+of the famous minuet in J. S. Bach's @emph{Klavierb@"uchlein}. The file
+is included in the distribution as  @file{minuet.ly}.
 @cindex Bach, Johann Sebastian 
 
 @lilypond[verbatim]
@@ -2202,10 +2202,10 @@ project}.
 mkdir my-project
 cd my-project
 cp /usr/share/lilypond/make/ly.make GNUmakefile
-cp /usr/share/doc/lilypond/examples/input/tutorial/menuet.ly .
-make menuet
+cp /usr/share/doc/lilypond/examples/input/tutorial/minuet.ly .
+make minuet
 [..]
-Generated out/menuet.ps for target menuet.
+Generated out/minuet.ps for target minuet.
 @end example
 
 Type @samp{make help} to see possible targets.

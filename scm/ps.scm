@@ -125,7 +125,7 @@
      ;; URG: now we can't use scm output without Lily
      (ly-gulp-file "lilyponddefs.ps")
      " {exch pop //systemdict /run get exec} "
-     (ly-gulp-file "lily.ps")
+     (ly-gulp-file "music-drawing-routines.ps")
      "{ exch pop //systemdict /run get exec } "
     ))
   
@@ -160,10 +160,14 @@
      (ly-number->string  thick)
      " draw_bezier_sandwich"))
 
+; TODO: use HEIGHT argument
   (define (start-line height)
-	  "\nstart-line {
+    (string-append
+     "\n"
+     (ly-number->string height)
+     " start-line {
 lilypondpaperoutputscale lilypondpaperoutputscale scale
-")
+"))
   
   (define (stem breapth width depth height) 
     (string-append (numbers->string (list breapth width depth height))

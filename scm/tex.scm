@@ -102,8 +102,8 @@
      (if use-regex
 	 ;; fixed in 1.3.4 for powerpc -- broken on Windows
 	 (regexp-substitute/global #f "\n"
-				   (ly-gulp-file "lily.ps") 'pre " %\n" 'post)
-	 (ly-gulp-file "lily.ps"))
+				   (ly-gulp-file "music-drawing-routines.ps") 'pre " %\n" 'post)
+	 (ly-gulp-file "music-drawing-routines.ps"))
      "}"
      "\\input lilyponddefs\\newdimen\\outputscale \\outputscale=\\lilypondpaperoutputscale pt\\turnOnPostScript"))
 

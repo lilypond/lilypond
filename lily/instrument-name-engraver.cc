@@ -89,7 +89,6 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
       */
       if (gh_string_p (s) || gh_pair_p (s))
 	create_text (s);
-	  
     }
 
   if (dynamic_cast<Spanner*> (i.elem_l_)

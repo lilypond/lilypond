@@ -1,3 +1,5 @@
+% DOCUMENTME!
+
 \version "1.3.146"
 
 
@@ -38,11 +40,9 @@ voicedefault =  \notes {
 
     >
         \paper {
-            font_normal = 12.
             \translator {
                  \StaffContext
 		 TimeSignature \override   #'style = #'C
-                 \consists Instrument_name_engraver
             }
         }
 }

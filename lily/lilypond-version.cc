@@ -22,10 +22,15 @@ Lilypond_version::Lilypond_version (String str)
 {
   Array<String> version;
   version = String_convert::split_arr (str, '.');
-  assert (version.size () == 3);
+  
   major_i_ = version[0].value_i ();
   minor_i_ = version[1].value_i ();
-  patch_i_ = version[2].value_i ();
+  patch_i_ = 0;
+  if (version.size () >= 3)
+    patch_i_ = version[2].value_i ();
+
+  if (version.size () >= 4)
+    extra_patch_str_ = version[3];
 }
 
 String
