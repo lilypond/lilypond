@@ -19,4 +19,4 @@ Blank music paper with clefs.
     }
   }
 }
-%% new-chords-done %%
+

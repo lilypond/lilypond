@@ -11,4 +11,4 @@ this doesn't disrupt the flow of the notes."
 
 	\paper { raggedright = ##t}
 	}
-%% new-chords-done %%
+

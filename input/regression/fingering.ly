@@ -14,5 +14,5 @@ next to noteheads.
   << c-1 e-2 g-3  b-4 >>
 }}
  
-%% new-chords-done %%
-%% new-chords-done %%
+
+

@@ -14,4 +14,4 @@ texidoc = "Rests in collisions sit opposite of the note if no direction is
     r4 }
 \context Voice=lower {\voiceTwo
 b8  }>}
-%% new-chords-done %%
+

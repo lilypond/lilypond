@@ -32,4 +32,4 @@ You can override Lilypond's automatic beaming.
 \paper{raggedright = ##t}
 }
     
-%% new-chords-done %%
+

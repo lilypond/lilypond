@@ -61,4 +61,4 @@ timb = \notes \repeat "unfold" 2 {timh4 ssh timl8 ssh r timh r4 ssh8 timl r4 cb8
   \midi{ \tempo 4=120 }
 }
 
-%% new-chords-done %%
+

@@ -23,4 +23,3 @@ start counting after the anacrusis."
     }
   }
 }
-%% new-chords-done %%

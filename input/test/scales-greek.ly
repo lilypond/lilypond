@@ -57,4 +57,4 @@ voicedefault = \notes {
 	\paper { }
 	\midi {}
 }
-%% new-chords-done %%
+

@@ -21,4 +21,4 @@ If they don't barlines should still be shown.
   \midi {}
 }
 
-%% new-chords-done %%
+

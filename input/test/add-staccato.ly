@@ -38,4 +38,4 @@ one would not use scm constructs.  See separate-staccato.ly first.
 	\paper{ raggedright = ##t }
 }
 
-%% new-chords-done %%
+

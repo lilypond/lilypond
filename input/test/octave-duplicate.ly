@@ -57,4 +57,4 @@ lowerOctave = \notes <
   >  
   \paper { }
 }
-%% new-chords-done %%
+

@@ -19,4 +19,4 @@ if this test isn't covered in regression, we're in trouble.  :)  DELETE. "}
 	}
 }
 
-%% new-chords-done %%
+

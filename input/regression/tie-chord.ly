@@ -20,4 +20,4 @@ t =  \notes \relative c' {   <<c e g>> ~ <<c e g>> }
 
   }
 }
-%% new-chords-done %%
+

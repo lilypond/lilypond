@@ -10,4 +10,4 @@ texidoc = "Pieces may begin with grace notes."
   }
   \paper { raggedright = ##t}
 }
-%% new-chords-done %%
+

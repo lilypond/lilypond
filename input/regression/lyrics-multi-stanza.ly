@@ -21,4 +21,4 @@ texidoc = "Lyrics syllables are aligned according to
   \paper { raggedright = ##t}
 }
 
-%% new-chords-done %%
+

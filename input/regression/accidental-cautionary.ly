@@ -20,4 +20,4 @@ parentheses (default) or smaller accidentals.
 
 \paper { raggedright = ##t }
 }
-%% new-chords-done %%
+

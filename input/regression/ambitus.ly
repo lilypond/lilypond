@@ -96,4 +96,4 @@ lower = \notes \relative c {
 		}
 	}
 }
-%% new-chords-done %%
+

@@ -24,4 +24,4 @@ You can attach slurs and ties to noteheads.
   \paper { linewidth = 40*\staffspace
 		raggedright = ##t } 
 }
-%% new-chords-done %%
+

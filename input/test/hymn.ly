@@ -35,4 +35,4 @@ You can combine two parts on the same staff. " }
 	}
 }
 
-%% new-chords-done %%
+

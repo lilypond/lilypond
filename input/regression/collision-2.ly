@@ -12,4 +12,4 @@ texidoc = "Collisions for single head notes. "
   >
 }
 
-%% new-chords-done %%
+

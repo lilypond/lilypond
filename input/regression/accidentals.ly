@@ -69,4 +69,3 @@ mel = \notes { \key d \major \time 4/4
  }
 }
 
-%% new-chords-done %%

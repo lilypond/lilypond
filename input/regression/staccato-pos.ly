@@ -14,4 +14,4 @@ not be on staff lines.
     raggedright = ##t
   }  
 }
-%% new-chords-done %%
+

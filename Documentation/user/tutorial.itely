@@ -839,7 +839,7 @@ The lyrics can be set to these notes, combining both with the
 @end example
 
 The final result is 
-@lilypond[singleline,verbatim]
+@lilypond[verbatim,linewidth=6.0cm]
 \score  {
  \notes {
   \addlyrics
@@ -1072,7 +1072,7 @@ voices with @code{\\}:
   < @{ a4 g2 f4-~ f4 @} \\
     @{ r4 g4 f2 f4 @} >
 @end example
-@lilypond[relative=1]
+@lilypond[relative=2]
 \context Staff   < { a4 g2 f4-~ f4 } \\
     { r4 g4 f2 f4 } >
 @end lilypond
@@ -1084,7 +1084,7 @@ temporarily do not play:
   < @{ a4 g2 f4-~ f4 @} \\
     @{ s4 g4 f2 f4 @} >
 @end example
-@lilypond[relative]
+@lilypond[relative=2]
 \context Staff  < { a4 g2 f4-~ f4 } \\
     { s4 g4 f2 f4 } >
 @end lilypond
@@ -1118,7 +1118,7 @@ Here is a full-fledged example:
 @lilypond[relative 0,fragment]
 \context PianoStaff
  < \context Staff = up {
-     c4 c g g  }
+     c4 c g' g  }
    \context Staff = down {
      \clef bass c, c' e c }
  >
@@ -1263,7 +1263,7 @@ little to the left, and 1.8 staff space downwards.
 
 @cindex setting object properties
 
-@lilypond[relative=2,verbatim]
+@lilypond[relative 2,verbatim]
 \stemUp
 f-5
 \once \property Voice.Fingering
@@ -1285,7 +1285,7 @@ using ties. Normally ties only happen between notes of the same
 voice. By introducing a tie in a different voice, and blanking a stem
 in that voice, the tie appears to cross voices.
 
-@lilypond[fragment,relative=1]
+@lilypond[fragment,relative 1]
 \context Staff < {
       \once \property Voice.Stem \set #'transparent = ##t
       b8~ b8

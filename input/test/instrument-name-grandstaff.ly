@@ -18,4 +18,4 @@ raggedright = ##t
   }
 \translator { \GrandStaffContext \consists "Instrument_name_engraver" }
 }}
-%% new-chords-done %%
+

@@ -32,4 +32,4 @@ not set.  Main note scripts don't end up on the grace note.
 \paper {raggedright = ##t}
 \midi{ }
 }
-%% new-chords-done %%
+

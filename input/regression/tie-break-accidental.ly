@@ -17,4 +17,4 @@ Only first B should get natural sign."
     linewidth = 40*\staffspace
   }
 }
-%% new-chords-done %%
+

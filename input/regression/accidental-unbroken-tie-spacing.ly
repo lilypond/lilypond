@@ -26,4 +26,3 @@ Rechts = \context Staff \notes {
     raggedright = ##t
   }
 }
-%% new-chords-done %%

@@ -45,4 +45,3 @@ extreme = \notes\relative c'' {
     raggedright = ##t
   }
 }
-%% new-chords-done %%

@@ -15,4 +15,4 @@ Lilypond (e.g. no staff but retaining the barlines. "
 	 }
 	\paper{raggedright= ##t}
 }
-%% new-chords-done %%
+

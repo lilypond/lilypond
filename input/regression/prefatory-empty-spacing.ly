@@ -12,4 +12,4 @@ the break alignment."
 a a a a \break
 \mark A
 a a a a}}
-%% new-chords-done %%
+

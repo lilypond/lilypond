@@ -21,4 +21,4 @@ texidoc = "Span bars draw only in between staff bar lines, so setting those to t
   raggedright =##t 
  }
 }
-%% new-chords-done %%
+

@@ -30,4 +30,4 @@ fooMusic  = #(seq-music-list
 \score { \fooMusic 
 \paper { raggedright = ##t }
 }
-%% new-chords-done %%
+

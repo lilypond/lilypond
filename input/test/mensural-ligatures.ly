@@ -81,4 +81,4 @@ voice = \notes \transpose c c' {
 	}
     }
 }
-%% new-chords-done %%
+

@@ -30,4 +30,4 @@ flats in a sixth should be staggered.  "
 \paper { raggedright = ##t}
      }
 
-%% new-chords-done %%
+

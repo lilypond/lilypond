@@ -17,4 +17,4 @@ interesting bug in 1.3.98). " }
 	\paper { raggedright =  ##t }
 	}
 
-%% new-chords-done %%
+

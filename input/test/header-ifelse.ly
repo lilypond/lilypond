@@ -20,4 +20,4 @@ High level functionality can be accomplished with GUILE. Semantics aren't nice t
 \score{ \notes{ c4 }
 \paper {raggedright=##t}
 }
-%% new-chords-done %%
+

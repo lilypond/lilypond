@@ -26,4 +26,4 @@ property @code{followVoice}. " }
 
   \paper { raggedright = ##t }  
 }
-%% new-chords-done %%
+

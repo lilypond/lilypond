@@ -11,4 +11,4 @@ Make PhrasingSlur higher, to avoid colission from other slurs. "
     }
     \paper { raggedright = ##t }
 }
-%% new-chords-done %%
+

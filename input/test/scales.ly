@@ -110,4 +110,4 @@ Prints scales. "
 
   \paper { }  
 }
-%% new-chords-done %%
+

@@ -43,4 +43,4 @@ notes as well.)
   \midi { }
   \paper {} 
 }
-%% new-chords-done %%
+

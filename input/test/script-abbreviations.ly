@@ -17,4 +17,4 @@ Some scripts may be entered using an abbreviation. "
       c''4-__"c-\_" s4      
     }
   }
-%% new-chords-done %%
+

@@ -14,4 +14,4 @@ two different notehead styles on the same stem. " }
     }
 	\paper {raggedright=##t}
 }
-%% new-chords-done %%
+

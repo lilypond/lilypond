@@ -81,4 +81,3 @@ beams this way."
 %% Local variables:
 %% LilyPond-indent-level:2
 %% End:
-%% new-chords-done %%

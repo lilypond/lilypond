@@ -62,4 +62,4 @@ BC  = \notes\relative c{
 	\paper { raggedright = ##t }
 }  
 
-%% new-chords-done %%
+

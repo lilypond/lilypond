@@ -20,4 +20,4 @@ You can stop Lilypond from printing bar lines by removing the engraver. "
   }
 }
 
-%% new-chords-done %%
+

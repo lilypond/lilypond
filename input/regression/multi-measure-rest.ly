@@ -34,4 +34,4 @@ are used then a different symbol is used.
 	raggedright = ##t	
 	}
 }
-%% new-chords-done %%
+

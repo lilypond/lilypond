@@ -8,4 +8,4 @@
     \translator { \StaffContext \consists Instrument_name_engraver }
   }
 }
-%% new-chords-done %%
+

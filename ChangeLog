@@ -1,3 +1,15 @@
+2003-07-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/*.itely: various fixes.
+
+	* buildscripts/mf-to-table.py (base): break table every three
+	symbols.
+
+	* input/:  remove %% new-chords-done %% .
+
+	* input/tutorial: remove os-flute-2.ly os-score.ly miniatures.ly
+	os-music.ly
+	
 2003-07-03  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* make/lilypond.redhat.spec.in: require GUILE >= 1.6.4-7

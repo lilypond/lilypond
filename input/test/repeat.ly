@@ -23,4 +23,4 @@ You can use alternate lyrics as well as alternate notes for repeats. "
 	>
 	\paper{raggedright=##t}
 }
-%% new-chords-done %%
+

@@ -12,4 +12,4 @@ fragment = \notes {
   \notes\relative c \fragment
   \paper { raggedright = ##t }  
 }
-%% new-chords-done %%
+

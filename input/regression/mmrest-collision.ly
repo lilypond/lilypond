@@ -26,4 +26,4 @@ different voices. " }
 	raggedright = ##t
   }
 }
-%% new-chords-done %%
+

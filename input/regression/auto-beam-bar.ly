@@ -20,4 +20,3 @@ a16 g a bes c d % ees8 d c
    raggedright = ##t
 }
 }
-%% new-chords-done %%

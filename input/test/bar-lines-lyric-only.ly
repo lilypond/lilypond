@@ -38,4 +38,4 @@ Span_bar_engraver if you want bar lines on lyrics.
   \remove "Span_bar_engraver"
 }
 }}
-%% new-chords-done %%
+

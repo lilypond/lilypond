@@ -15,4 +15,3 @@ texidoc = "Hairy case for beam, chord, and automatic knees."
     r8 <<d  bes >>-( ) bes' d <<e g, c, c,>>-> r |
   }
 }
-%% new-chords-done %%

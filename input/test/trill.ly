@@ -24,4 +24,4 @@ Show trill line type. "
 	\paper { raggedright = ##t} 
 }
 
-%% new-chords-done %%
+

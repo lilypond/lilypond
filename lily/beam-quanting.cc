@@ -343,7 +343,7 @@ my_modf (Real x)
 
 Real
 Beam::score_forbidden_quants (Real yl, Real yr,
-			      Real rad,
+			      Real radius,
 			      Real slt,
 			      Real thickness, Real beam_translation,
 			      int beam_count,
@@ -355,7 +355,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
   for (int i = 0; i < 2; i++)
     {
       Real y = i? yl : yr;
-      if (fabs (y) <= (rad + 0.5) && fabs ( my_modf (y) - 0.5) < 1e-3)
+      if (fabs (y) <= (radius + 0.5) && fabs ( my_modf (y) - 0.5) < 1e-3)
 	dem += INTER_QUANT_PENALTY;
     }
 
@@ -368,10 +368,10 @@ Beam::score_forbidden_quants (Real yl, Real yr,
       Real hang = 1.0 - (thickness - slt) / 2;
       
 
-      if (fabs (yl - ldir * beam_translation) < rad
+      if (fabs (yl - ldir * beam_translation) < radius
 	  && fabs (my_modf (yl) - inter) < 1e-3)
 	dem += SECONDARY_BEAM_DEMERIT;
-      if (fabs (yr - rdir * beam_translation) < rad
+      if (fabs (yr - rdir * beam_translation) < radius
 	  && fabs (my_modf (yr) - inter) < 1e-3)
 	dem += SECONDARY_BEAM_DEMERIT;
 
@@ -388,7 +388,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 
 
       // hmm, without Interval/Drul_array, you get ~ 4x same code...
-      if (fabs (yl - ldir * beam_translation) < rad + inter)
+      if (fabs (yl - ldir * beam_translation) < radius + inter)
 	{
 	  if (ldir == UP && dy <= eps
 	      && fabs (my_modf (yl) - sit) < eps)
@@ -399,7 +399,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	    dem += SECONDARY_BEAM_DEMERIT;
 	}
 
-      if (fabs (yr - rdir * beam_translation) < rad + inter)
+      if (fabs (yr - rdir * beam_translation) < radius + inter)
 	{
 	  if (rdir == UP && dy >= eps
 	      && fabs (my_modf (yr) - sit) < eps)
@@ -412,7 +412,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
       
       if (beam_count >= 3)
 	{
-	  if (fabs (yl - 2 * ldir * beam_translation) < rad + inter)
+	  if (fabs (yl - 2 * ldir * beam_translation) < radius + inter)
 	    {
 	      if (ldir == UP && dy <= eps
 		  && fabs (my_modf (yl) - straddle) < eps)
@@ -423,7 +423,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 		dem += SECONDARY_BEAM_DEMERIT;
 	    }
 	  
-	  if (fabs (yr - 2 * rdir * beam_translation) < rad + inter)
+	  if (fabs (yr - 2 * rdir * beam_translation) < radius + inter)
 	    {
 	      if (rdir == UP && dy >= eps
 		  && fabs (my_modf (yr) - straddle) < eps)

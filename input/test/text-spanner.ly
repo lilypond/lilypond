@@ -37,4 +37,4 @@ You can make Lilypond print ottava spanners. "
     }
 	\paper{ raggedright = ##t}
 }
-%% new-chords-done %%
+

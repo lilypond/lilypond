@@ -22,4 +22,4 @@ Beams are less steep than the notes they encompass. " }
 	}
 }
 
-%% new-chords-done %%
+

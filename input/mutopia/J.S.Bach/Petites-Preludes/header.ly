@@ -39,4 +39,4 @@ instrument = "Piano"
  tagline = \mutopiapublicdomain
  footer = "pre-Mutopia-200y/mm/dd-nr"
 }
-%% new-chords-done %%
+

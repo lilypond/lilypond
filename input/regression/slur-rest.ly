@@ -16,4 +16,4 @@ the rest
 	      }
 \paper { raggedright = ##t}
     }
-%% new-chords-done %%
+

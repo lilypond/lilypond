@@ -54,4 +54,4 @@ thenotes = \notes \relative cis' {
     \context NoteNames \thenotes
   >
 }
-%% new-chords-done %%
+

@@ -177,4 +177,4 @@ right side of the nominator).  -- jr
   \paper { }  
   \midi { }
 }
-%% new-chords-done %%
+

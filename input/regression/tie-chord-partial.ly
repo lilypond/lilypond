@@ -28,4 +28,4 @@ to a different thread."
 }
 }}
 
-%% new-chords-done %% 
+ 

@@ -10,4 +10,4 @@ texidoc = "Crescendi may start off-notes. In that case, they should  not collaps
 
 \paper { raggedright = ##t}
 }
-%% new-chords-done %%
+

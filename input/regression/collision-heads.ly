@@ -28,4 +28,3 @@ if the black note heads are from 8th or shorter notes.
 }
     >
 	 }
-%% new-chords-done %%

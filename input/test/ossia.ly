@@ -14,4 +14,4 @@ really supported, but can be somewhat faked in lily. "
 }
 	\paper {raggedright= ##t}
 }
-%% new-chords-done %%
+

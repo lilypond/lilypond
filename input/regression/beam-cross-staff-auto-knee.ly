@@ -23,4 +23,3 @@ with explicit staff switches)."
     raggedright = ##t
   }
 }
-%% new-chords-done %%

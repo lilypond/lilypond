@@ -1119,7 +1119,7 @@ Normally, note heads with a different number of dots are not merged, but
 when  the object property @code{merge-differently-dotted} is set in
 the @internalsref{NoteCollision} object, they are:
 @lilypond[verbatim,fragment,singleline]
-\relative c' \context Voice < {
+\relative c'' \context Voice < {
      g8 g8 
      \property Staff.NoteCollision \override
         #'merge-differently-dotted = ##t
@@ -1249,9 +1249,8 @@ same effect as twiddling with @code{stemLeftBeamCount} and
         c16-[ c c c c c c c-]
         \property Voice.subdivideBeams = ##t
         c16-[ c c c c c c c-]
-        c32-[ c c c c c c c c c c c c c c c-]
         \property Score.beatLength = #(ly:make-moment 1 8)
-        c32-[ c c c c c c c c c c c c c c c-]
+        c16-[ c c c c c c c-]
 @end lilypond
 @cindex subdivideBeams
 
@@ -6847,6 +6846,7 @@ LilyPond version.
 @c  [TODO: revise for new site.]
 
 Suppose we want to move the fingering indication in the fragment below
+
 @lilypond[relative=2]
 c-2
 \stemUp

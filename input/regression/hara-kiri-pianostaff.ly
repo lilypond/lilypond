@@ -17,4 +17,4 @@ texidoc = "Hara kiri should not upset fixed distance alignment like in pianostaf
  }
 }
 
-%% new-chords-done %%
+

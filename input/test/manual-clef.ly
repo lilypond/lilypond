@@ -24,4 +24,4 @@ is merely a front-end to this. " }
 }
 	\paper{ raggedright = ##t }
 }
-%% new-chords-done %%
+

@@ -24,4 +24,4 @@ fooBar = \notes { < c''4 \\ g'4 > }
 \score {
 \fooBar
 }
-%% new-chords-done %%
+

@@ -22,4 +22,4 @@ than clef changes halfway the line."
 	 }
 
      }}
-%% new-chords-done %%
+

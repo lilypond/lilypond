@@ -20,4 +20,4 @@ bra = \notes \transpose c c { e'4-. }
   }
 	\paper {raggedright=##t}
 }
-%% new-chords-done %%
+

@@ -15,4 +15,4 @@ c4
 \paper {raggedright = ##t} 
 }
 
-%% new-chords-done %%
+

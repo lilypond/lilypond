@@ -18,4 +18,3 @@ should be pointing to the note head.
   \paper { raggedright = ##t}
 }
 	  
-%% new-chords-done %%

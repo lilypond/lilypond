@@ -74,4 +74,4 @@ GROB.  The dimensions of the molecule is not affected.
 	\paper { raggedright = ##t}
 	}
 
-%% new-chords-done %%
+

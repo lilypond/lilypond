@@ -17,4 +17,4 @@ texidoc = "Stanza numbers may differ for the first and following systems."
 \paper { raggedright = ##t } 
 } 
 
-%% new-chords-done %%
+

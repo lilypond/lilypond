@@ -24,4 +24,4 @@ foollilypondbook = "
 \score{
 \context Lyrics \lyrics { "." }
 }
-%% new-chords-done %%
+

@@ -27,4 +27,4 @@ You can alter the length of bars in a number of ways. "
   }
   \paper { raggedright= ##t}  
 }
-%% new-chords-done %%
+

@@ -31,4 +31,4 @@ are two options: using StaffContainer and override/revert, or
 \paper { raggedright = ##t}
 }
 
-%% new-chords-done %%
+

@@ -16,4 +16,4 @@ texidoc="Similarly, if @code{'neutral-direction} is set to @code{-1}.  "
 
 	}
 }
-%% new-chords-done %%
+

@@ -103,4 +103,4 @@ scales = \notes \relative c {
   \paper { }
   \midi { }
 }
-%% new-chords-done %%
+

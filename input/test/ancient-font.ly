@@ -296,4 +296,4 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
         }
     }
 }
-%% new-chords-done %%
+

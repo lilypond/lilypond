@@ -25,4 +25,4 @@ Force hshift to override collisions. " }
     raggedright = ##t
   }  
 }
-%% new-chords-done %%
+

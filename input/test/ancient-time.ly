@@ -14,4 +14,4 @@ Should use old style.
   }
 	\paper {raggedright = ##t}
 }
-%% new-chords-done %%
+

@@ -12,4 +12,4 @@ You can set the minimum length of a slur. "
 		c~c\break
 		}
 }
-%% new-chords-done %%
+

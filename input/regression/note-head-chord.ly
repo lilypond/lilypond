@@ -15,4 +15,4 @@ It also works for whole heads that have invisible stems.
 	     <<c c g>>
 	     <<c d f g>>1
     }}
-%% new-chords-done %%
+

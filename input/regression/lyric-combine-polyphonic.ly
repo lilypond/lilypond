@@ -38,4 +38,4 @@ texidoc ="polyphonic rhythms and rests don't disturb
     }
     \paper { raggedright = ##t}
 }
-%% new-chords-done %%
+

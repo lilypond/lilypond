@@ -31,4 +31,4 @@ The engraver does no time-keeping, so it involves some trickery to get
 	}
     }
 }
-%% new-chords-done %%
+

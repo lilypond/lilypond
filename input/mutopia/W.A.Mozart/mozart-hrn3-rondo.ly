@@ -192,4 +192,4 @@ rondo = \notes 	\relative c'
 	\midi{ \tempo 4 = 100 }
 	\paper { }
 }
-%% new-chords-done %%
+

@@ -72,5 +72,5 @@ keys =  \notes{
 		}
 	}
 }
-%% new-chords-done %%
+
 %}

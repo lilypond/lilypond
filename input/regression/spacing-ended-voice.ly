@@ -18,4 +18,4 @@ should not confuse the spacing engine."
 }}
   \paper { raggedright = ##t }
 }
-%% new-chords-done %%
+

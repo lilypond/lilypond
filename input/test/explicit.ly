@@ -11,4 +11,4 @@ Explicit pitches and durations. "
   }
 \paper{raggedright = ##t}
 }
-%% new-chords-done %%
+

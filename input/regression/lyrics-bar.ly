@@ -39,4 +39,4 @@ lyrics don't collide with barlines.
 		}
 	}
 }
-%% new-chords-done %%
+

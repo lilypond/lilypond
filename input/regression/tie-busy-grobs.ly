@@ -15,4 +15,4 @@ note heads. Test if this queue works by throwing many  mixed tuplets at it."
   \context Voice = VIII { \voiceTwo \times 2/5 { a,4 ~a4 ~a4~ a4~ a4 }}
  >
 }
-%% new-chords-done %%
+
