@@ -174,7 +174,11 @@ Lookup::meter(Array<Scalar> a)
 Symbol
 Lookup::stem(Real y1,Real y2)
 {
-    assert(y1 <= y2);
+    if (y1 > y2) {
+	Real t = y1;
+	y1 = y2;
+	y2 = t;
+    }
     Symbol s;
     
     s.dim.x = Interval(0,0);

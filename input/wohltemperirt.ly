@@ -48,6 +48,8 @@ basstaf = staff { melodic
 
 score {
 	staff { melodic
+
+		% every "music {} " in a staff has its own "voicegroup"
 		music { dux }
 		music { comes }
 		

@@ -5,7 +5,7 @@ include Variables.make
 
 
 $(exe): $(obs)
-	strip --strip-debug $(STABLEOBS)
+	$(STRIPDEBUG) $(STABLEOBS)
 	$(CXX) -o $@ $^ $(LOADLIBES)
 
 
@@ -22,6 +22,9 @@ distclean: clean
 	rm -f  version.hh $(gencc) .GENERATE *~ $(ALLDEPS)
 
 all: kompijl doc
+
+win32: # value of $(OSTYPE) on windhoos; "make $OSTYPE" if u use bash :-)
+	$(MAKE) -C . CXX=g++ 
 
 doc:
 	$(MAKE) -C Documentation doc
