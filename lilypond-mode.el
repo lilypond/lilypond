@@ -165,11 +165,19 @@ in LilyPond-include-path."
     (and process
 	 (eq (process-status process) 'run))))
 
-(defun LilyPond-kill-job ()
-  "Kill the currently running LilyPond job."
+(defun LilyPond-kill-jobs ()
+  "Kill the currently running LilyPond compiling jobs."
   (interactive)
-  ;; What bout TeX, Xdvi?
-  (quit-process (get-process "lilypond") t))
+  (let ((process-names (list "lilypond" "tex" "2dvi" "2ps" "2midi" 
+			     "book" "latex"))
+	(killed nil))
+    (while (setq process-name (pop process-names))
+      (setq process (get-process process-name))
+      (if (and process 
+	       (eq (process-status process) 'run))
+	  (progn (quit-process process t)
+		 (setq killed t))))
+    killed))
 
 ;; URG, should only run LilyPond-compile for LilyPond
 ;; not for tex,xdvi (ly2dvi?)
@@ -313,7 +321,7 @@ in LilyPond-include-path."
     ("TeX" . ("tex '\\nonstopmode\\input %t'" . "View"))
 
     ("2Dvi" . ("ly2dvi %s" . "View"))
-    ("2PS" . ("ly2dvi -P %s" . "View"))
+    ("2PS" . ("ly2dvi -P %s" . "ViewPS"))
     ("2Midi" . ("lilypond -m %s" . "View"))
 
     ("Book" . ("lilypond-book %x" . "LaTeX"))
@@ -590,7 +598,7 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-l" 'LilyPond-command-lilypond)
   (define-key LilyPond-mode-map "\C-c\C-r" 'LilyPond-command-region)
   (define-key LilyPond-mode-map "\C-c\C-b" 'LilyPond-command-buffer)
-  (define-key LilyPond-mode-map "\C-c\C-k" 'LilyPond-kill-job)
+  (define-key LilyPond-mode-map "\C-c\C-k" 'LilyPond-kill-jobs)
   (define-key LilyPond-mode-map "\C-c\C-c" 'LilyPond-command-master)
   (define-key LilyPond-mode-map "\C-c\C-d" 'LilyPond-command-formatdvi)
   (define-key LilyPond-mode-map "\C-c\C-f" 'LilyPond-command-formatps)
@@ -886,9 +894,12 @@ command."
 	  '([ "2Midi" (LilyPond-command (LilyPond-command-menu "2Midi") 'LilyPond-master-file)])
 	  '([ "Book" (LilyPond-command (LilyPond-command-menu "Book") 'LilyPond-master-file) ])
 	  '([ "LaTeX" (LilyPond-command (LilyPond-command-menu "LaTeX") 'LilyPond-master-file) ])
+	  '([ "Kill jobs" LilyPond-kill-jobs t])
+	  '("-----")
 	  '([ "SmartView" LilyPond-command-smartview t])
 	  '([ "View" LilyPond-command-view t])
 	  '([ "ViewPS" LilyPond-command-viewps t])
+	  '("-----")
 	  '([ "Midi (toggle)" LilyPond-command-current-midi t])
 	  '([ "Midi all" LilyPond-command-all-midi t])
 	  ))
