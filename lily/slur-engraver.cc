@@ -91,8 +91,8 @@ Slur_engraver::do_process_requests()
 void
 Slur_engraver::do_pre_move_processing()
 {
-  Scalar dir (get_property ("slurydirection", 0));
-  Scalar dir2 (get_property ("ydirection", 0));
+  Scalar dir (get_property ("slurVerticalDirection", 0));
+  Scalar dir2 (get_property ("verticalDirection", 0));
 
   Direction slurdir = CENTER;
   if (dir.length_i () && dir.isnum_b ())

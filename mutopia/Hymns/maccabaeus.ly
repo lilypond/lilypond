@@ -7,7 +7,7 @@ title = "Maccabaeus";
 metre = "10 11. 11 11. and refrain";
 }
 
-\version "1.0.19";
+\version "1.0.20";
 
 sop=\notes \relative c'' {
 	b2 gis4. a8  |b2 e,2 |

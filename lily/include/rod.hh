@@ -13,7 +13,8 @@
 #include "direction.hh"
 #include "drul-array.hh"
 
-struct Column_rod {
+struct Column_rod
+{
   Paper_column *other_l_;
   Real distance_f_;
 
@@ -30,20 +31,6 @@ struct Rod
   void add_to_cols ();
 
   Rod ();
-};
-
-struct Column_spring {
-  Paper_column *other_l_;
-  Real distance_f_;
-  Real strength_f_;
-  
-  Column_spring ();
-  static int compare (const Column_spring &r1, const Column_spring &r2);
-  void print () const;
-};
-
-struct Spring{
-  
 };
 #endif /* ROD_HH */
 

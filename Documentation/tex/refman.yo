@@ -976,6 +976,9 @@ END OF COMMENT  )
 
 sect(Repeats)
 
+
+OUTDATED. FIXME
+
 In order to specify repeats, use the code(\repeat) keyword.  By
 default, repeats are printed with repeat symbols.  
 mudela(fragment,verbatim,center)(
@@ -1553,9 +1556,6 @@ than the music given in an code(\alternative).
 dit(code(barNonAuto)) If set to 1 then bar lines will not be printed
 automatically; they must be explicitly created with code(\bar) keywords.
 
-dit(code(unfoldRepeats)) If set to 1 then repeats will be unfolded.
-Otherwise, they will be printed using repeat symbols.  
- 
 dit(code(defaultClef)) Determines the default clef.  See code(\clef)
 keyword.
 

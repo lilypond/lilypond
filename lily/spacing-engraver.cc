@@ -7,26 +7,10 @@
   
  */
 
-#include "engraver.hh"
-#include "pqueue.hh"
 #include "musical-request.hh"
 #include "score-column.hh"
-
-struct Rhythmic_tuple
-{
-  Score_element_info info_;
-  Moment end_;
-  
-  Rhythmic_tuple ()
-    {
-    }
-  Rhythmic_tuple (Score_element_info i, Moment m )
-    {
-      info_ = i;
-      end_ = m;
-    }
-  static int time_compare (Rhythmic_tuple const &, Rhythmic_tuple const &);  
-};
+#include "spacing-engraver.hh"
+#include "spacing-spanner.hh"
 
 inline int
 compare (Rhythmic_tuple const &a, Rhythmic_tuple const &b)
@@ -35,31 +19,35 @@ compare (Rhythmic_tuple const &a, Rhythmic_tuple const &b)
 }
 
 int
-Rhythmic_tuple::time_compare (Rhythmic_tuple const&h1,
+Rhythmic_tuple::time_compare (Rhythmic_tuple const &h1,
 			      Rhythmic_tuple const &h2)
 {
+  
   return (h1.end_ - h2.end_ ).sign ();
 }
 
-/**
-   Acknowledge rhythmic elements, for initializing spacing fields in
-   the columns.  */
-class Spacing_engraver : public Engraver
+Spacing_engraver::Spacing_engraver()
 {
-  PQueue<Rhythmic_tuple> playing_durations_;
-  Array<Rhythmic_tuple> now_durations_;
-  Array<Rhythmic_tuple> stopped_durations_;
+  spacing_p_ = 0;
+}
 
-protected:
-  VIRTUAL_COPY_CONS(Translator);
-  virtual void acknowledge_element (Score_element_info);
-  virtual void do_post_move_processing ();
-  virtual void do_pre_move_processing ();
+void
+Spacing_engraver::do_creation_processing ()
+{
+  spacing_p_  =new Spacing_spanner;
+  spacing_p_->set_bounds (LEFT, get_staff_info ().command_pcol_l ());  
+  announce_element (Score_element_info (spacing_p_, 0));
+}
 
-public:
+void
+Spacing_engraver::do_removal_processing ()
+{
+  Paper_column * p = get_staff_info ().command_pcol_l ();
 
-};
-
+  spacing_p_->set_bounds (RIGHT, p);
+  typeset_element (spacing_p_);
+  spacing_p_ =0;
+}
 
 void
 Spacing_engraver::acknowledge_element (Score_element_info i)
@@ -83,8 +71,9 @@ Spacing_engraver::do_pre_move_processing ()
 	shortest_playing = shortest_playing <? m;
     }
 
-  Moment starter;
-  starter.set_infinite (1);
+  Moment starter, inf;
+  inf.set_infinite (1);
+  starter=inf;
   for (int i=0; i < now_durations_.size (); i++)
     {
       Moment m = now_durations_[i].info_.req_l_->length_mom ();
@@ -103,7 +92,6 @@ Spacing_engraver::do_pre_move_processing ()
   sc->shortest_playing_mom_ = shortest_playing;
   sc->shortest_starter_mom_ = starter;
 }
-
 
 void
 Spacing_engraver::do_post_move_processing ()

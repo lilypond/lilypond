@@ -1,3 +1,5 @@
+dnl WARNING WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -277,14 +279,15 @@ dnl    fi
     AC_CHECK_PROGS(TAR, tar, error)
 
     if test "x`uname`" = "xHP-UX"; then
+	AC_PATH_PROG(BASH, bash, /bin/sh)
 	AC_STEPMAKE_WARN(avoiding buggy /bin/sh)
-	AC_CHECK_PROGS(SHELL, bash, /bin/ksh)
+	AC_PATH_PROG(SHELL, bash, /bin/ksh)
     else
+	AC_PATH_PROG(BASH, bash, /bin/sh)
 	SHELL=/bin/sh
 	AC_SUBST(SHELL)
     fi
 
-    AC_CHECK_PROGS(BASH, bash, /bin/sh)
 
     AC_PATH_PROG(PYTHON, ${PYTHON:-python}, -echo no python)
     AC_SUBST(PYTHON)
@@ -517,11 +520,11 @@ AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
     [TFMDIR=$enableval],
     [TFMDIR=auto] )
 
-    AC_MSG_CHECKING(TeX TFM directory)
+    AC_CHECK_PROGS(KPSEWHICH, kpsewhich, no)
+    AC_MSG_CHECKING(for TeX TFM directory)
     if test "x$TFMDIR" = xauto ; then
 	if test "x$TEX_TFMDIR" = "x" ; then
-	    if kpsewhich --version > /dev/null 2>&1 ; then
-		TEX_TFMDIR=`kpsewhich tfm cmr10.tfm`
+	    if test "x$KPSEWHICH" != "xno" ; then
 		CMR10=`kpsewhich tfm cmr10.tfm`
 		TEX_TFMDIR=`dirname $CMR10`
 	    else

@@ -92,7 +92,7 @@ Stem_engraver::do_pre_move_processing()
 
   if (stem_p_)
     {
-      Scalar prop = get_property ("ydirection", 0);
+      Scalar prop = get_property ("verticalDirection", 0);
       Direction dir = prop.isnum_b () ? (Direction)int(prop) : CENTER;
       if (dir)
 	{

@@ -608,8 +608,10 @@ fi
     fi
     stepmake=`echo ${stepmake} | sed "s!\\\${prefix}!$presome!"`
 
+    echo $ac_n "checking Package""... $ac_c" 1>&6
+echo "configure:613: checking Package" >&5
     if test "x$PACKAGE" = "xSTEPMAKE"; then
-        echo Stepmake package!
+	echo "$ac_t""Stepmake package!" 1>&6
 	(cd stepmake; rm -f stepmake; ln -s ../stepmake .)
 	(cd stepmake; rm -f bin; ln -s ../bin .)
 	ac_aux_dir=
@@ -633,13 +635,15 @@ ac_configure=$ac_aux_dir/configure # This should be Cygnus configure.
 
 	stepmake=stepmake
     else
-        echo Package: $PACKAGE
+        echo "$ac_t""$PACKAGE" 1>&6
+	echo $ac_n "checking for stepmake""... $ac_c" 1>&6
+echo "configure:641: checking for stepmake" >&5
 	# Check for installed stepmake
 	if test -d $stepmake; then
-	    echo Using installed stepmake: $stepmake
+	    echo "$ac_t""$stepmake" 1>&6
 	else
 	    stepmake='$(depth)'/stepmake
-	    echo Using local stepmake: $datadir/stepmake not found
+	    echo "$ac_t""./stepmake  ($datadir/stepmake not found)" 1>&6
 	fi
 	ac_aux_dir=
 for ac_dir in \
@@ -756,7 +760,7 @@ else { echo "configure: error: can not run $ac_config_sub" 1>&2; exit 1; }
 fi
 
 echo $ac_n "checking host system type""... $ac_c" 1>&6
-echo "configure:760: checking host system type" >&5
+echo "configure:764: checking host system type" >&5
 
 host_alias=$host
 case "$host_alias" in
@@ -781,7 +785,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:785: checking for $ac_word" >&5
+echo "configure:789: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKE'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -816,7 +820,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:820: checking for $ac_word" >&5
+echo "configure:824: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_FIND'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -853,7 +857,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:857: checking for $ac_word" >&5
+echo "configure:861: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_TAR'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -885,90 +889,128 @@ test -n "$TAR" || TAR="error"
 
 
     if test "x`uname`" = "xHP-UX"; then
-	
-    echo "configure: warning: avoiding buggy /bin/sh" 1>&2
-    warn_b=yes
-
-	for ac_prog in bash
-do
-# Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
+	# Extract the first word of "bash", so it can be a program name with args.
+set dummy bash; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:898: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_prog_SHELL'+set}'`\" = set"; then
+echo "configure:896: checking for $ac_word" >&5
+if eval "test \"`echo '$''{'ac_cv_path_BASH'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
-  if test -n "$SHELL"; then
-  ac_cv_prog_SHELL="$SHELL" # Let the user override the test.
-else
+  case "$BASH" in
+  /*)
+  ac_cv_path_BASH="$BASH" # Let the user override the test with a path.
+  ;;
+  ?:/*)			 
+  ac_cv_path_BASH="$BASH" # Let the user override the test with a dos path.
+  ;;
+  *)
   IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
   ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do
+  for ac_dir in $ac_dummy; do 
     test -z "$ac_dir" && ac_dir=.
     if test -f $ac_dir/$ac_word; then
-      ac_cv_prog_SHELL="$ac_prog"
+      ac_cv_path_BASH="$ac_dir/$ac_word"
       break
     fi
   done
   IFS="$ac_save_ifs"
+  test -z "$ac_cv_path_BASH" && ac_cv_path_BASH="/bin/sh"
+  ;;
+esac
 fi
-fi
-SHELL="$ac_cv_prog_SHELL"
-if test -n "$SHELL"; then
-  echo "$ac_t""$SHELL" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
-
-test -n "$SHELL" && break
-done
-test -n "$SHELL" || SHELL="/bin/ksh"
-
-    else
-	SHELL=/bin/sh
-	
-    fi
-
-    for ac_prog in bash
-do
-# Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:938: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_prog_BASH'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  if test -n "$BASH"; then
-  ac_cv_prog_BASH="$BASH" # Let the user override the test.
-else
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_prog_BASH="$ac_prog"
-      break
-    fi
-  done
-  IFS="$ac_save_ifs"
-fi
-fi
-BASH="$ac_cv_prog_BASH"
+BASH="$ac_cv_path_BASH"
 if test -n "$BASH"; then
   echo "$ac_t""$BASH" 1>&6
 else
   echo "$ac_t""no" 1>&6
 fi
 
-test -n "$BASH" && break
-done
-test -n "$BASH" || BASH="/bin/sh"
+	
+    echo "configure: warning: avoiding buggy /bin/sh" 1>&2
+    warn_b=yes
+
+	# Extract the first word of "bash", so it can be a program name with args.
+set dummy bash; ac_word=$2
+echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+echo "configure:936: checking for $ac_word" >&5
+if eval "test \"`echo '$''{'ac_cv_path_SHELL'+set}'`\" = set"; then
+  echo $ac_n "(cached) $ac_c" 1>&6
+else
+  case "$SHELL" in
+  /*)
+  ac_cv_path_SHELL="$SHELL" # Let the user override the test with a path.
+  ;;
+  ?:/*)			 
+  ac_cv_path_SHELL="$SHELL" # Let the user override the test with a dos path.
+  ;;
+  *)
+  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
+  ac_dummy="$PATH"
+  for ac_dir in $ac_dummy; do 
+    test -z "$ac_dir" && ac_dir=.
+    if test -f $ac_dir/$ac_word; then
+      ac_cv_path_SHELL="$ac_dir/$ac_word"
+      break
+    fi
+  done
+  IFS="$ac_save_ifs"
+  test -z "$ac_cv_path_SHELL" && ac_cv_path_SHELL="/bin/ksh"
+  ;;
+esac
+fi
+SHELL="$ac_cv_path_SHELL"
+if test -n "$SHELL"; then
+  echo "$ac_t""$SHELL" 1>&6
+else
+  echo "$ac_t""no" 1>&6
+fi
+
+    else
+	# Extract the first word of "bash", so it can be a program name with args.
+set dummy bash; ac_word=$2
+echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+echo "configure:973: checking for $ac_word" >&5
+if eval "test \"`echo '$''{'ac_cv_path_BASH'+set}'`\" = set"; then
+  echo $ac_n "(cached) $ac_c" 1>&6
+else
+  case "$BASH" in
+  /*)
+  ac_cv_path_BASH="$BASH" # Let the user override the test with a path.
+  ;;
+  ?:/*)			 
+  ac_cv_path_BASH="$BASH" # Let the user override the test with a dos path.
+  ;;
+  *)
+  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
+  ac_dummy="$PATH"
+  for ac_dir in $ac_dummy; do 
+    test -z "$ac_dir" && ac_dir=.
+    if test -f $ac_dir/$ac_word; then
+      ac_cv_path_BASH="$ac_dir/$ac_word"
+      break
+    fi
+  done
+  IFS="$ac_save_ifs"
+  test -z "$ac_cv_path_BASH" && ac_cv_path_BASH="/bin/sh"
+  ;;
+esac
+fi
+BASH="$ac_cv_path_BASH"
+if test -n "$BASH"; then
+  echo "$ac_t""$BASH" 1>&6
+else
+  echo "$ac_t""no" 1>&6
+fi
+
+	SHELL=/bin/sh
+	
+    fi
 
 
     # Extract the first word of "${PYTHON:-python}", so it can be a program name with args.
 set dummy ${PYTHON:-python}; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:972: checking for $ac_word" >&5
+echo "configure:1014: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_PYTHON'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1135,7 +1177,7 @@ fi
 
 
     echo $ac_n "checking language""... $ac_c" 1>&6
-echo "configure:1139: checking language" >&5    
+echo "configure:1181: checking language" >&5    
     case "$language" in
       En* | en* | Am* | am* | US* | us*)
 	    lang=English;;
@@ -1168,7 +1210,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1172: checking for $ac_word" >&5
+echo "configure:1214: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_STRIPROFF'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1203,7 +1245,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1207: checking for $ac_word" >&5
+echo "configure:1249: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YODL'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1238,7 +1280,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1242: checking for $ac_word" >&5
+echo "configure:1284: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YODL2HTML'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1273,7 +1315,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1277: checking for $ac_word" >&5
+echo "configure:1319: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YODL2LATEX'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1307,7 +1349,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1311: checking for $ac_word" >&5
+echo "configure:1353: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YODL2MAN'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1342,7 +1384,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1346: checking for $ac_word" >&5
+echo "configure:1388: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YODL2MSLESS'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1377,7 +1419,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1381: checking for $ac_word" >&5
+echo "configure:1423: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YODL2TEXINFO'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1412,7 +1454,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1416: checking for $ac_word" >&5
+echo "configure:1458: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YODL2TXT'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1471,7 +1513,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1475: checking for $ac_word" >&5
+echo "configure:1517: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKEINFO'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else

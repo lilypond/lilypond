@@ -13,8 +13,6 @@
 #include "molecule.hh"
 #include "paper-outputter.hh"
 
-
-
 void
 Spanner::do_print() const
 {
@@ -47,7 +45,6 @@ Spanner::break_into_pieces ()
 
   break_points.insert (left,0);
   break_points.push (right);
-
 
   for (int i=1; i < break_points.size(); i++) 
     {
@@ -86,7 +83,6 @@ Spanner::set_my_columns()
   while (flip(&i) != 1);
 }       
 
-
 void
 Spanner::set_bounds(Direction d, Item*i)
 {
@@ -94,6 +90,11 @@ Spanner::set_bounds(Direction d, Item*i)
   if (i)
     {
       i->used_b_ = true;
+    }
+
+  if (d== LEFT)
+    {
+      dim_cache_[X_AXIS]->parent_l_ = i->dim_cache_[X_AXIS];
     }
   
   if  (spanned_drul_[Direction(-d)] == spanned_drul_[d]
@@ -117,23 +118,11 @@ Spanner::Spanner ()
 }
 
 Spanner::Spanner (Spanner const &s)
-  :Score_element (s)
+  : Score_element (s)
 {
   spanned_drul_[LEFT] = spanned_drul_[RIGHT] =0;
 }
 
-void
-Spanner::output_processing () 
-{
-  if (get_elt_property (transparent_scm_sym) != SCM_BOOL_F)
-    return;
-
-  output_p_ = do_brew_molecule_p ();
-  Offset left_off (spanned_drul_[LEFT]->absolute_coordinate(X_AXIS), 0);
-  Offset o (absolute_coordinate (X_AXIS), absolute_coordinate (Y_AXIS));
-  o += left_off;
-  pscore_l_->outputter_l_->output_molecule (output_p_, o, classname (this));
-}
 
 Interval
 Spanner::do_width() const
@@ -173,7 +162,6 @@ Spanner::find_broken_piece (Line_of_score*l) const
 	      span_p->set_bounds(LEFT,info.bounds_[LEFT]);
 	      span_p->set_bounds(RIGHT,info.bounds_[RIGHT]);
 	      pscore_l_->typeset_element (span_p);
-
 	      
 	      info.broken_spanner_l_ = span_p;
 	      span_p->handle_broken_dependencies();
@@ -192,14 +180,18 @@ Spanner::broken_b() const
   return broken_info_.size();
 }
 
-
-
-
 Array<Rod>
 Spanner::get_rods () const
 {
   Array<Rod> r;
   return r;
+}
+
+Array<Spring>
+Spanner::get_springs () const
+{
+  Array<Spring> s;
+  return s;    
 }
 
 void
@@ -209,5 +201,11 @@ Spanner::do_space_processing ()
   for (int i=0; i < rs.size (); i++)
     {
       rs[i].add_to_cols ();
+    }
+
+  Array<Spring> ss (get_springs ());
+  for (int i=0; i < ss.size (); i++)
+    {
+      ss[i].add_to_cols ();
     }
 }

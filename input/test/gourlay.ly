@@ -4,7 +4,7 @@ copyright =	 "PD";
 TestedFeatures =	 "This file tests some nasty Gourlay spacings";
 }
 
-\version "1.0.19";
+\version "1.0.20";
 
 %{
 

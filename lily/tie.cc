@@ -28,7 +28,6 @@ Tie::Tie()
 {
   head_l_drul_[RIGHT] =0;
   head_l_drul_[LEFT] =0;
-  same_pitch_b_ =false;
 }
 
 

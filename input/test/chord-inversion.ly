@@ -22,4 +22,4 @@ inversions = \notes\transpose c''\chords{
 	>
 }
 
-\version "1.0.19"; 
+\version "1.0.20"; 

@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.19";
+\version "1.0.20";
 
 violino2 = \notes \relative c {
 	c'1\ff ~ | c | <f4-. c'-. as'-.> r r2 | R1 |

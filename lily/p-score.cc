@@ -221,8 +221,7 @@ Paper_score::process ()
 
       line_l->post_processing ();
 	*mlog << i << flush;
-      line_l->output_all ();
-
+      line_l->output_all (i + 1 == lines.size());
       if (experimental_features_global_b)
 	*mlog << '(' << elem_p_arr_.size () + span_p_arr_.size () << ')';
       

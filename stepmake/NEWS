@@ -1,3 +1,9 @@
+pl 77
+	- mfmode
+
+pl 76
+	- bfs: shells, scripts
+
 pl 75
 	- bfs: release
 

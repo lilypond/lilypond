@@ -19,7 +19,7 @@ traditional song in various languages.
 Tested Features: lyrics, interleaving lyrics and staffs, repeats
 %}
 
-\version "1.0.18";
+\version "1.0.20";
 
 melody = \notes \relative c'' {
 	\clef violin;

@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #!@PYTHON@
 
 # mup-to-ly.py -- 

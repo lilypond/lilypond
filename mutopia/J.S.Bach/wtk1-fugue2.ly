@@ -19,7 +19,7 @@
    * auto beaming
 %}
 
-\version "1.0.19";
+\version "1.0.20";
 
 \include "nederlands.ly"                 % for correct parsing of note names
 
@@ -35,7 +35,7 @@ dux = \context Voice=two \notes \relative c''{
   \voicetwo
   \clef violin;
 
-  \property Voice.ydirection = "-1"
+  \property Voice.verticalDirection = "-1"
   
   r8 c16 b c8 g as c16 b c8 d |
   g, c16 b c8 d f,16 g as4 g16 f |

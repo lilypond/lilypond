@@ -21,6 +21,12 @@ struct Spacer_rod {
   void print () const;
 };
 
+struct Spacer_spring
+{
+  Real distance_f_;
+  Real hooke_f_;
+  Real other_idx_;
+};
 
 /// helper struct for #Spacing_problem#
 struct Column_info {
@@ -33,6 +39,7 @@ struct Column_info {
   bool ugh_b_;		
 
   Drul_array< Array<Spacer_rod> > rods_;
+  Drul_array< Array<Spacer_spring> > springs_;  
   
   Column_info();
   Column_info (Paper_column *,Real const *);

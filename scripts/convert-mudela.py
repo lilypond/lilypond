@@ -324,6 +324,20 @@ if 1:
 			    'fontsize -> fontSize, midi_instrument -> midiInstrument, SkipBars -> skipBars')
 
 
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('tieydirection','tieVerticalDirection', x)
+			x =  re.sub ('slurydirection','slurVerticalDirection', x)
+			x =  re.sub ('ydirection','verticalDirection', x)			
+			newlines.append (x)
+		return newlines
+
+	conversions.append ((1,0,20), conv,
+			    '{,tie,slur}ydirection -> {v,tieV,slurV}erticalDirection')
+
+
 
 ############################
 	

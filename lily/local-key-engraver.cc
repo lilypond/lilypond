@@ -50,6 +50,7 @@ Local_key_engraver::process_acknowledged ()
 {
   if (!key_item_p_ && mel_l_arr_.size()) 
     {
+      bool forget = get_property ("forgetAccidentals",0).to_bool();
       for (int i=0; i  < mel_l_arr_.size(); i++) 
 	{
 	  Item * support_l = support_l_arr_[i];
@@ -72,9 +73,10 @@ Local_key_engraver::process_acknowledged ()
 	  key_item_p_->add_pitch (note_l->pitch_,
 				  note_l->cautionary_b_);
 	  key_item_p_->add_support (support_l);
-	  local_key_.set (note_l->pitch_);
+	  
+	  if (!forget)
+	    local_key_.set (note_l->pitch_);
 	}
-	
     }
 }
 
@@ -113,8 +115,7 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
     }
   else if (Tie * tie_l = dynamic_cast<Tie *> (info.elem_l_))
     {
-      if (tie_l->same_pitch_b_)
-	tied_l_arr_.push (tie_l-> head_l_drul_[RIGHT]);
+      tied_l_arr_.push (tie_l-> head_l_drul_[RIGHT]);
     }
 }
 
@@ -124,7 +125,8 @@ Local_key_engraver::do_process_requests()
   Time_description const * time_C_ = get_staff_info().time_C_;
   if (time_C_ && !time_C_->whole_in_measure_)
     {
-      if (key_C_)
+      bool no_res = get_property ("noResetKey",0).to_bool ();
+      if (!no_res && key_C_)
 	local_key_= *key_C_;
     }
 }

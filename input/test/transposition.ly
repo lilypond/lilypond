@@ -22,7 +22,7 @@ copyright =	 "public domain";
 }
 
 
-\version "1.0.19";
+\version "1.0.20";
 
 vOne = \notes \relative c''{
         \clef"violin";

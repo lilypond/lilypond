@@ -64,6 +64,10 @@ Tie_engraver::process_acknowledged ()
   
   if (req_l_)
     {
+
+      /*
+	JUNKME!
+       */
       if (old_behavior)
 	{
 	  if (now_heads_.size () != stopped_heads_.size ())
@@ -148,8 +152,8 @@ Tie_engraver::do_pre_move_processing ()
     }
   now_heads_.clear ();
 
-  Scalar dir (get_property ("tieydirection", 0));
-  Scalar dir2 (get_property ("ydirection", 0));
+  Scalar dir (get_property ("tieVerticalDirection", 0));
+  Scalar dir2 (get_property ("verticalDirection", 0));
 
   Direction tie_dir = CENTER;
   if (dir.length_i () && dir.isnum_b ())

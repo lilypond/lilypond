@@ -24,6 +24,7 @@ Line_of_score::contains_b (Paper_column const* c) const
   return cols_.find_l ((Paper_column*)(c));
 }
 
+// const?
 Line_of_score*
 Line_of_score::set_breaking (Array<Column_x_positions> const &breaking, int j) const
 {
@@ -83,7 +84,7 @@ Line_of_score::do_substitute_element_pointer (Score_element*o, Score_element*n)
 }
 
 void
-Line_of_score::output_all ()
+Line_of_score::output_all (bool last_line)
 {
   Interval i(extent(Y_AXIS));
   if (i.empty_b())
@@ -93,5 +94,8 @@ Line_of_score::output_all ()
   
   pscore_l_->outputter_l_->start_line (i.length ());
   Super_element::output_all ();
-  pscore_l_->outputter_l_->stop_line ();
+  if (last_line)
+    pscore_l_->outputter_l_->stop_last_line();
+  else
+    pscore_l_->outputter_l_->stop_line ();
 }

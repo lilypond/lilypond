@@ -18,7 +18,7 @@ README_FILES = BUGS DEDICATION ANNOUNCE-0.1 ANNOUNCEMENT-1.0 \
  COPYING NEWS-0.1 NEWS-1.0 NEWS-0.0 NEWS  TODO AIMS
 README_TXT_FILES = README.txt AUTHORS.txt INSTALL.txt PATCHES.txt
 IN_FILES := $(wildcard *.in)
-EXTRA_DIST_FILES = dstreamrc mudela-mode.el vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES)
+EXTRA_DIST_FILES = dstreamrc mudela-mode.el vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES) TASKS
 NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
 
 # bootstrap stepmake:
@@ -37,3 +37,7 @@ examples:
 localinstall:
 	mkdir -p $(datadir)
 	$(LN_S) $(TEX_TFMDIR) $(datadir)/cmtfm
+
+
+local-WWW-clean:
+	$(depth)/buildscripts/out/clean-fonts

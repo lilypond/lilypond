@@ -158,8 +158,6 @@ StaffGroupContext= \translator {
 	
 	\accepts "Lyrics";
 	\accepts "ChordNames";
-	\consistsend "Axis_group_engraver";
-
 };
 \translator { \StaffGroupContext }
 

@@ -28,7 +28,7 @@
 % \lbheel \lbheel \lfheel \lftoe
 % \rbheel \rbtoe \rfheel \rftoe
 
-\version "1.0.19";
+\version "1.0.20";
 
 \score{
 		\notes {

@@ -37,6 +37,7 @@ public:
   void output_scheme (SCM scm);
   void start_line (Real height);
   void stop_line ();
+  void stop_last_line ();
   void switch_to_font (String fontname);
 
   Paper_stream* outstream_l_;

@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.19";
+\version "1.0.20";
 
 \include "prelude-urtext.ly";
 

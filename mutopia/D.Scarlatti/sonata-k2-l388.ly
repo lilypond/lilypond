@@ -336,4 +336,4 @@ g,4. |
 Bar_number_engraver;}}
 }
 
-\version "1.0.19";
+\version "1.0.20";

@@ -42,29 +42,10 @@ Column_rod::compare (const Column_rod &r1, const Column_rod &r2)
 void
 Rod::add_to_cols ()
 {
-  item_l_drul_[RIGHT]->column_l ()->add_rod
-    (item_l_drul_[LEFT]->column_l (), distance_f_);
-  item_l_drul_[LEFT]->column_l ()->add_rod
-    (item_l_drul_[RIGHT]->column_l (), distance_f_);
+  Direction d = LEFT;
+  do {
+    item_l_drul_[-d]->column_l ()->add_rod
+      (item_l_drul_[d]->column_l (), distance_f_);
+  }while ((flip (&d))!=LEFT);
 }
 
-void
-Column_spring::print () const
-{
-#ifndef NDEBUG
-  DOUT << "Column_spring { rank = "
-       << other_l_->rank_i () << ", dist = " << distance_f_ << "}\n";   
-#endif
-}
-
-Column_spring::Column_spring ()
-{
-  distance_f_ = 0;
-  other_l_ = 0;
-}
-  
-int
-Column_spring::compare (const Column_spring &r1, const Column_spring &r2)
-{
-  return r1.other_l_->rank_i() - r2.other_l_->rank_i();
-}

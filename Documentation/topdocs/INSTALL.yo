@@ -9,6 +9,15 @@ file(buildscripts/set-lily.sh) script.  It sets some environment
 variables and symlinks, which comes in handly when you have to compile 
 LilyPond more often.  
 
+sect(OBTAINING)
+
+You can get the latest version of LilyPond at
+lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/).  Refer to the links
+document for mirror sites.
+
+em(If you upgrade by patching do remember to rerun autoconf after
+applying the patch).
+
 sect(PREREQUISITES)
 
 For compilation you need:
@@ -74,7 +83,8 @@ or any mirror of this site.
 it()Bison (version 1.25 or newer).
 Check out lurl(ftp://ftp.gnu.org)
 or any mirror of this site.
-it() GUILE 1.3 (no, GUILE 1.2 won't work), 	check out lurl(http://www.gnu.org/programs/guile.html)
+it() GUILE 1.3 (no, GUILE 1.2 won't work),
+check out lurl(http://www.gnu.org/programs/guile.html).
 
 
 it()Python (version 1.5 or newer).  Check out
