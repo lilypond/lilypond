@@ -2690,10 +2690,10 @@ problems in orchestral music.
 * Bar numbers::                 
 * Instrument names::            
 * Transpose::                   
-* Sound output for transposing instruments::  
 * Multi measure rests::         
 * Automatic part combining::    
 * Hara kiri staves::            
+* Sound output for transposing instruments::  
 @end menu
 
 @c .   {Rehearsal marks}
@@ -3221,7 +3221,6 @@ object, and set a grob property in that object.
 @menu
 * Tuning groups of grobs ::     
 * Tuning per grob ::            
-* What to tune?::               
 * Font selection::              
 * Text markup::                 
 * Invisible grobs::             
