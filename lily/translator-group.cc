@@ -428,6 +428,17 @@ Translator_group::do_add_processing ()
     }
 }
 
+Translator_group*
+Translator_group::where_defined (SCM sym) const
+{
+  if (properties_dict_.elem_b (sym))
+    {
+      return (Translator_group*)this;
+    }
+
+  return (daddy_trans_l_) ? daddy_trans_l_->where_defined (sym) : 0;
+}
+
 SCM
 Translator_group::get_property (SCM sym) const
 {
@@ -448,3 +459,4 @@ Translator_group::set_property (String id, SCM val)
 {
   properties_dict_.set (ly_symbol2scm (id.ch_C()), val);
 }
+

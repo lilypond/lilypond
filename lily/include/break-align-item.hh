@@ -12,7 +12,18 @@
 
 #include "item.hh"
 
-/// align breakable items (clef, bar, etc.)
+/**
+   align breakable items (clef, bar, etc.)
+
+   Properties:
+
+   break-align-symbol -- the index in the spacing table (symbol) of
+   the to be aligned item.
+
+
+   TODO: remove this as a class, and make interface.
+ */
+
 class Break_align_item : public Item
 {
 protected:

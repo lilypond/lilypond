@@ -46,6 +46,7 @@ struct Align_interface  {
   int get_count (Score_element*)const;
   void set_interface ();
   bool has_interface_b ();
+  static Real center_on_element (Dimension_cache const *c);
 };
 
 #endif /* ALIGN_INTERFACE_HH */

@@ -27,14 +27,6 @@
     * merge with/derive from/add functionality to Bar_script_engraver
  */
 
-/**
-   Hang on left edge of staff to provide suppor for simple items.
- */
-class Left_edge_item : public Item
-{
-public:
-  VIRTUAL_COPY_CONS (Score_element);
-};
 
 /**
   put (instrument) text to left of line
@@ -52,7 +44,7 @@ protected:
 private:
   String type_;
   Text_item* text_p_;
-  Left_edge_item* left_edge_p_;
+  Item* left_edge_p_;
   void create_text (SCM);
 };
 
@@ -81,7 +73,6 @@ Staff_margin_engraver::acknowledge_element (Score_element_info info)
 	  create_text (s);
 	  if (Span_bar* s= dynamic_cast<Span_bar*> (b))
 	    {
-	      assert (text_p_);
 	      text_p_->set_parent (s, Y_AXIS);
 	    }
 	}
@@ -94,27 +85,25 @@ Staff_margin_engraver::create_text (SCM text)
   if (!text_p_)
     {
       assert (!left_edge_p_);
-      Left_edge_item* l = new Left_edge_item;
-      
-      l->set_elt_property ("breakable", SCM_BOOL_T);
-      l->set_elt_property ("break-aligned", SCM_BOOL_T);
+      left_edge_p_ = new Item;
+      left_edge_p_->set_elt_property ("breakable", SCM_BOOL_T);
+      left_edge_p_->set_elt_property ("break-align-symbol", ly_symbol2scm ("Left_edge_item"));
 
-      announce_element (Score_element_info (l, 0));
+      announce_element (Score_element_info (left_edge_p_, 0));
 
-      Staff_symbol_referencer_interface sl (l);
+      Staff_symbol_referencer_interface sl (left_edge_p_);
       sl.set_interface ();
-      left_edge_p_ = l;
       
       Text_item* t = new Text_item;
 
       t->set_elt_property ("self-alignment-Y", gh_int2scm (0));
       t->add_offset_callback (Side_position_interface::aligned_on_self, Y_AXIS);
 
-      t->set_parent (l, X_AXIS);
-      t->set_parent (l, Y_AXIS);
+      t->set_parent (left_edge_p_, X_AXIS);
+      t->set_parent (left_edge_p_, Y_AXIS);
 
       // 'just to be sure': see Clef_item::do_add_processing
-      l->add_dependency (t);
+      left_edge_p_->add_dependency (t);
 
 
       /*
@@ -158,7 +147,7 @@ Staff_margin_engraver::create_text (SCM text)
       else
 	{
 	  side_position (t).set_axis (X_AXIS);
-	  side_position (t).add_support (l);
+	  side_position (t).add_support (left_edge_p_);
       
 	  Direction d;
 	  if (isdir_b (s))
@@ -200,7 +189,7 @@ Staff_margin_engraver::do_pre_move_processing ()
 				scm_eval (ly_symbol2scm ("begin-of-line-visible")));
       typeset_element (text_p_);
       text_p_ = 0;
-      assert (left_edge_p_);
+
       typeset_element (left_edge_p_);
       left_edge_p_ = 0;
     }

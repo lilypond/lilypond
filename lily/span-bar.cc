@@ -12,8 +12,8 @@
 #include "paper-def.hh"
 #include "molecule.hh"
 #include "warn.hh"
+#include "axis-group-interface.hh"
 #include "group-interface.hh"
-
 
 void
 Span_bar::add_bar (Score_element*b)
@@ -31,7 +31,8 @@ Span_bar::width_callback (Dimension_cache const * c)
   Span_bar*  s= dynamic_cast<Span_bar*> (c->element_l ());  
   String gl = ly_scm2string (s->get_elt_property ("glyph"));
 
-  /*urg.
+  /*
+    urg.
    */
   Molecule m = s->compound_barline (gl, 40 PT);
   
@@ -44,23 +45,12 @@ Span_bar::before_line_breaking ()
   Bar::before_line_breaking ();
   
   evaluate_empty ();
-  
-  //  set_empty (false, Y_AXIS); // a hack to make mark scripts work.
 }
 
 void
 Span_bar::after_line_breaking ()
 {
   Bar::after_line_breaking ();
-  SCM s = get_elt_property ("collapse-height");
-  if (gh_number_p (s)
-      && get_spanned_interval ().length () < gh_scm2double (s))
-    {
-      set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (X_AXIS);
-      set_empty (Y_AXIS);   
-    }
-
   Interval i (get_spanned_interval ());
   translate_axis (i.center (), Y_AXIS);
 }
@@ -106,36 +96,9 @@ Span_bar::evaluate_empty ()
 Interval
 Span_bar::get_spanned_interval () const
 {
-  Interval y_int;
-
-  for (SCM s = get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
-    {
-      Score_element *bar = unsmob_element ( gh_car (s));
-
-      if (!bar)
-	continue;
-      
-      Score_element*common = common_refpoint (bar, Y_AXIS);
-
-      Interval iv (bar->extent(Y_AXIS));
-      if (!iv.empty_b ())
-	{
-	  Real y = bar->relative_coordinate (common, Y_AXIS)  
-	    - relative_coordinate (common, Y_AXIS);
-
-	  y_int.unite (y + iv);
-	}
-    }
-  
-  return y_int;
+  return Axis_group_interface::group_extent_callback (dim_cache_[Y_AXIS]);  
 }
 
-Interval
-Span_bar::height_callback (Dimension_cache const *c) 
-{
-  Span_bar * s= dynamic_cast<Span_bar*> (c->element_l ()); 
-  return s->get_spanned_interval ();
-}
 
 Real
 Span_bar::get_bar_size () const
@@ -153,6 +116,6 @@ Span_bar::Span_bar ()
 {
   group (this).set_interface ();
   dim_cache_[X_AXIS]->set_extent_callback (width_callback);
-  dim_cache_[Y_AXIS]->set_extent_callback (height_callback);  
+  dim_cache_[Y_AXIS]->set_extent_callback (Axis_group_interface::group_extent_callback);  
 }
 

@@ -41,7 +41,7 @@ protected:
 public:
   SCM get_property (SCM name_sym) const;
   void set_property (String var_name, SCM value);
-  
+  Translator_group *where_defined (SCM name_sym) const;
 
   String id_str_;
   void add_last_element (String s);

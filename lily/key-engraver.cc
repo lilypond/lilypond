@@ -36,9 +36,9 @@ Key_engraver::create_key ()
       item_p_ = new Key_item;
       Staff_symbol_referencer_interface st (item_p_);
       st.set_interface ();
+
       
-      item_p_->set_elt_property ("break-aligned", SCM_BOOL_T); // ugh
-      
+      item_p_->set_elt_property ("break-align-symbol", ly_symbol2scm ("Key_item")); 
       item_p_->set_elt_property ("multi-octave",
 				 gh_bool2scm (key_.multi_octave_b_));
       

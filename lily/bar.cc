@@ -39,40 +39,11 @@ Bar::do_brew_molecule () const
   if (gh_string_p (s))
     {
       String str  =ly_scm2string (s);
-      if (str == "bracket")
-	return staff_bracket (get_bar_size ());
-      else if  (str == "brace")
-	return staff_brace (get_bar_size ());
-      else
-	return compound_barline (str, get_bar_size ());
+      return compound_barline (str, get_bar_size ());
     }
   return Molecule ();
 }
 
-
-Molecule
-Bar::staff_bracket (Real height) const 
-{
-  Paper_def* p= paper_l ();
-  Real arc_height = p->get_var("bracket_arch_height");
-  SCM at = gh_list (ly_symbol2scm ("bracket"),
-		    gh_double2scm (p->get_var("bracket_arch_angle")),
-		    gh_double2scm (p->get_var("bracket_arch_width")),
-		    gh_double2scm (arc_height),
-		    gh_double2scm (p->get_var("bracket_width")),
-		    gh_double2scm (height),
-		    gh_double2scm (p->get_var("bracket_arch_thick")),
-		    gh_double2scm (p->get_var("bracket_thick")),
-		    SCM_UNDEFINED);
-
-  Real staff_space = p->get_var ("interline");
-  Real h = height + 2 * arc_height;
-  Box b (Interval (0, 1.5 * staff_space), Interval (-h/2, h/2));
-  Molecule mol (b, at);
-  
-  mol.translate_axis (- mol.dim_[X_AXIS].length () / 2, X_AXIS);
-  return mol;
-}
 
 Molecule
 Bar::compound_barline (String str, Real h) const
@@ -141,40 +112,6 @@ Bar::compound_barline (String str, Real h) const
   return m;
 }
 
-/*
-  ugh. Suck me plenty.
- */
-Molecule
-Bar::staff_brace (Real y)  const
-{
-  Real staffht  = paper_l ()->get_var ("staffheight");
-  int staff_size  = int (rint (staffht ));
-
-  // URG
-  Real step  = 1.0;
-  int minht  = 2 * staff_size;
-  int maxht = 7 *  minht;
-  int idx = int (((maxht - step) <? y - minht) / step);
-  idx = idx >? 0;
-
-  SCM l = scm_eval (gh_list (ly_symbol2scm ("style-to-cmr"),
-			    ly_str02scm ("brace"),
-			    SCM_UNDEFINED));
-  
-  String nm = "feta-braces";
-  if (l != SCM_BOOL_F)
-    nm = ly_scm2string (gh_cdr (l));
-  nm += to_str (staff_size);
-  SCM e =gh_list (ly_symbol2scm ("char"), gh_int2scm (idx), SCM_UNDEFINED);
-  SCM at = (e);
-
-  at = fontify_atom (all_fonts_global_p->find_font (nm), at);
-  
-  Box b (Interval (0,0), Interval (-y/2, y/2));
-
-  return Molecule(b, at);
-}
-  
 
 Molecule
 Bar::simple_barline (Real w, Real h) const

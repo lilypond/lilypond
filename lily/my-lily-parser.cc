@@ -116,24 +116,26 @@ My_lily_parser::get_chord (Musical_pitch tonic,
     ugh
    */
   Chord chord = to_chord (tonic, add_arr_p, sub_arr_p, inversion_p, bass_p);
+  inversion_p = 0;
+  bass_p = 0;
 
   Tonic_req* t = new Tonic_req;
   t->pitch_ = tonic;
   v->add_music (t);
 
   //urg
-  if (inversion_p
-      && Chord::find_notename_i (&chord.pitch_arr_, *inversion_p) > 0)
+  if (chord.inversion_b_
+      && Chord::find_notename_i (&chord.pitch_arr_, chord.inversion_pitch_) > 0)
     {
       Inversion_req* i = new Inversion_req;
-      i->pitch_ = *inversion_p;
+      i->pitch_ = chord.inversion_pitch_;
       v->add_music (i);
     }
 
-  if (bass_p)
+  if (chord.bass_b_)
     {
       Bass_req* b = new Bass_req;
-      b->pitch_ = *bass_p;
+      b->pitch_ = chord.bass_pitch_;
       v->add_music (b);
     }
 

@@ -11,6 +11,7 @@
 #include "break-align-item.hh"
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
+#include "dimension-cache.hh"
 
 class Break_align_engraver : public Engraver
 {
@@ -88,20 +89,36 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
       if (!breakable)
 	return ;
 
-      SCM al = item_l->remove_elt_property ("break-aligned");
-      if (!gh_boolean_p (al ) || !gh_scm2bool (al))
+      SCM align_name = item_l->remove_elt_property ("break-align-symbol");
+      if (!gh_symbol_p (align_name))
 	return ;
 
-      
       if (!align_l_)
 	{
 	  align_l_ = new Break_align_item;
 	  align_l_->set_elt_property ("breakable", SCM_BOOL_T);
 	  announce_element (Score_element_info (align_l_,0));
+
+
+	  Item * edge = new Item;
+	  SCM edge_sym =   ly_symbol2scm ("Left_edge_item");
+	  edge->set_elt_property ("break-align-symbol", edge_sym);
+
+	  /*
+	    If the element is empty, it will be ignored in the break
+	    alignment stuff.
+
+	    TODO: switch off ignoring empty stuff?
+	  */
+	  edge->dim_cache_[X_AXIS]->set_extent_callback (Dimension_cache::point_dimension_callback);
+	  
+	  align_l_->set_elt_property ("group-center-element", edge->self_scm_);
+
+	  announce_element (Score_element_info(edge, 0));
+	  column_alist_ = scm_assoc_set_x (column_alist_, edge_sym, edge->self_scm_);
 	}
 
-      SCM name = ly_str02scm (inf.elem_l_->name());
-      SCM s = scm_assoc (name, column_alist_);
+      SCM s = scm_assoc (align_name, column_alist_);
 
       Item * group = 0;
 
@@ -117,10 +134,10 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 	  Axis_group_interface (group).set_interface ();
 	  Axis_group_interface (group).set_axes (X_AXIS,X_AXIS);
 
-	  group->set_elt_property ("origin", name);
+	  group->set_elt_property ("break-align-symbol", align_name);
 	  group->set_parent (align_l_, Y_AXIS);
 	  announce_element (Score_element_info (group, 0));
-	  column_alist_ = scm_assoc_set_x (column_alist_, name, group->self_scm_);
+	  column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm_);
 	}
       Axis_group_interface (group).add_element (item_l);
     }

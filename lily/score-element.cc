@@ -512,7 +512,9 @@ Score_element::extent (Axis a) const
   Dimension_cache const * d = dim_cache_[a];
   Interval ext = d->get_dim ();
 
-  
+  if (empty_b (a)) 
+    return ext;
+
   SCM extra = get_elt_property (a == X_AXIS ? "extra-extent-X"
 				: "extra-extent-Y");
 

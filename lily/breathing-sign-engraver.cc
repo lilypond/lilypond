@@ -47,7 +47,8 @@ Breathing_sign_engraver::do_process_music()
   if(breathing_sign_req_l_)
     {
       breathing_sign_p_ = new Breathing_sign;
-      breathing_sign_p_->set_elt_property ("break-aligned", SCM_BOOL_T);
+      breathing_sign_p_->set_elt_property ("break-align-symbol",
+					   ly_symbol2scm ("Breathing_sign"));
       Staff_symbol_referencer_interface st (breathing_sign_p_);
       st.set_interface ();
 

@@ -55,12 +55,12 @@ StaffContext=\translator {
 
 
 %{
-	The Staff_margin_engraver puts the name of the instrument
+	The Instrument_name_engraver puts the name of the instrument
 	(\property Staff.instrument; Staff.instr for subsequent lines)
 	to the left of a staff.
 	Usually, you only want this in the full score, not in the parts.
 
-	\consists "Staff_margin_engraver";
+	\consists "Instrument_name_engraver";
 %}
 
 	defaultClef = #"treble"
@@ -75,8 +75,10 @@ StaffContext=\translator {
 \translator {
 	\type "Engraver_group_engraver";
 	\name ChoirStaff;
-	alignmentReference = \center;	
-	\consists "Staff_group_bar_engraver";
+	alignmentReference = \center;
+	\consists "System_start_delimiter_engraver";
+	systemStartDelimiterGlyph = #'bracket
+
 
 
 	\accepts "Staff";
@@ -201,7 +203,9 @@ GrandStaffContext=\translator{
 	\type "Engraver_group_engraver";
 	\name GrandStaff;
 	\consists "Span_bar_engraver";
-	\consists "Piano_bar_engraver";
+	\consists "System_start_delimiter_engraver";
+	systemStartDelimiterGlyph = #'brace
+	
 	\consists "Property_engraver";	
 	Generic_property_list = #generic-grand-staff-properties
 	\accepts "Staff";
@@ -224,7 +228,12 @@ StaffGroupContext= \translator {
 	\type "Engraver_group_engraver";
 	\consists "Span_bar_engraver";
 	\consists "Output_property_engraver";	
-	\consists "Staff_group_bar_engraver";
+	\consists "System_start_delimiter_engraver";
+       systemStartDelimiterGlyph = #'bracket
+       
+
+	\consistsend "Axis_group_engraver" ;
+
 
 	\name StaffGroup;
 	\accepts "Staff";
@@ -310,7 +319,7 @@ HaraKiriStaffContext = \translator {
 	\StaffContext
 	\remove "Axis_group_engraver";
 	\consistsend "Hara_kiri_engraver";	  
-	\consists "Staff_margin_engraver";
+	\consists "Instrument_name_engraver";
 	\accepts "Voice";
 };
 %{
@@ -336,17 +345,19 @@ ScoreContext = \translator {
 	\consists "Output_property_engraver";	
 
 	%bracketCollapseHeight = #10  % \pt
-	\consists "Span_score_bar_engraver";
+	\consists "System_start_delimiter_engraver";
+	
 %	\consists "Score_priority_engraver";
 	\consists "Break_align_engraver";
 	breakAlignOrder = #'(
-	  "Left_edge_item"
-	  "Span_bar"
-	  "Breathing_sign"
-	  "Clef_item"
-	  "Key_item"
-	  "Staff_bar"
-	  "Time_signature"
+	  Instrument_name
+	  Left_edge_item
+	  Span_bar
+	  Breathing_sign
+	  Clef_item
+	  Key_item
+	  Staff_bar
+	  Time_signature
 	)
 	\consists "Spacing_engraver";
 	\consists "Vertical_align_engraver";
@@ -365,7 +376,6 @@ ScoreContext = \translator {
 
 	markVisibilityFunction = #end-of-line-invisible
 	barNumberVisibilityFunction = #begin-of-line-visible
-	marginVisibilityFunction = #begin-of-line-visible
 };
 
 \translator { \ScoreContext }

@@ -22,12 +22,18 @@
 void
 Break_align_item::before_line_breaking ()
 {
-  Direction ad = (break_status_dir() == LEFT) ? RIGHT : LEFT;
+  if (break_status_dir() == LEFT)
+    {
+      set_elt_property ("self-alignment-X", gh_int2scm (RIGHT));
+    }
+  else
+    {
+      add_offset_callback (Align_interface::center_on_element, X_AXIS);
+    }
+  
+
+
   Real interline= paper_l ()->get_var ("interline");	
-
-  set_elt_property ("self-alignment-X", gh_int2scm (ad));
-
-
   Link_array<Score_element> elems;
   Link_array<Score_element> all_elems
     = Group_interface__extract_elements (this, (Score_element*)0,
@@ -45,7 +51,7 @@ Break_align_item::before_line_breaking ()
 
   SCM symbol_list = SCM_EOL;
   Array<Real> dists;
-  SCM current_origin = ly_str02scm ("");
+  SCM current_origin = ly_symbol2scm ("none");
   for (int i=0; i <= elems.size (); i++)
     {
       Score_element *next_elt  = i < elems.size ()
@@ -56,18 +62,20 @@ Break_align_item::before_line_breaking ()
 
       if (next_elt)
 	{
-	  next_origin = next_elt->get_elt_property ("origin");
+	  next_origin = next_elt->get_elt_property ("break-align-symbol");
 	  next_origin =
 	    (next_origin == SCM_UNDEFINED)
-	    ? ly_str02scm ("")
+	    ? ly_symbol2scm ("none")
 	    : next_origin;
 	}
       else
-	next_origin = ly_str02scm ("begin-of-note");
+	next_origin = ly_symbol2scm ("begin-of-note");
       
       SCM extra_space
 	= scm_eval (scm_listify (ly_symbol2scm ("break-align-spacer"),
-				 current_origin, next_origin, SCM_UNDEFINED)); 
+				 ly_quote_scm (current_origin),
+				 ly_quote_scm (next_origin),
+				 SCM_UNDEFINED));
       SCM symbol = gh_car  (extra_space);
       Real spc = gh_scm2double (SCM_CADR(extra_space));
       spc *= interline;
@@ -136,7 +144,6 @@ Break_align_item::before_line_breaking ()
 
   /*
     Hint the spacing engine how much space to put in.
-
 
     The pairs are in the format of an interval (ie. CAR <  CDR).
   */

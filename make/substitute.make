@@ -14,10 +14,10 @@ ATVARIABLES = \
   package\
   PATHSEP\
   PERL\
+  program_prefix\
+  program_suffix\
   PYTHON\
   SHELL\
   TOPLEVEL_VERSION\
   step-bindir\
-  abs-step-bindir\
-
 

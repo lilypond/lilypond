@@ -29,7 +29,7 @@ Bar_engraver::create_bar ()
   if (!bar_p_)
     {
       bar_p_ = new Staff_bar;
-      bar_p_->set_elt_property ("break-aligned", SCM_BOOL_T);
+      bar_p_->set_elt_property ("break-align-symbol", ly_symbol2scm ("Staff_bar"));
 
       // urg: "" != empty...
       SCM default_type = get_property ("defaultBarType");

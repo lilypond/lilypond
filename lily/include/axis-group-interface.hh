@@ -32,6 +32,7 @@ struct Axis_group_interface
   Axis_group_interface (Score_element*);
 
   static Interval group_extent_callback (Dimension_cache const*);
+  static Interval relative_group_extent (Axis, Score_element * common, SCM list);
 
   void add_element (Score_element*);
   void set_axes (Axis,Axis);
@@ -39,6 +40,7 @@ struct Axis_group_interface
   Link_array<Score_element> get_children ();
   bool has_interface_b ();
   void set_interface ();
+  
 };
 
 #endif /* AXIS_GROUP_INTERFACE_HH */
