@@ -104,7 +104,7 @@ latex lilybook
 xdvi lilybook
 @end example
 
-To convert the file into a nice PDF document, run the following commands
+To convert the file into a PDF document, run the following commands
 
 @example
 dvips -Ppdf -u+lilypond -u+ec-mftrace lilybook
@@ -241,8 +241,9 @@ defined by the user.
 @cindex invoking dvips
 
 For printing the La@TeX{} document you need a DVI to PostScript
-translator like @command{dvips}.  For producing PostScript with scalable
-fonts, add the following options to the @command{dvips} command line:
+translator like @command{dvips}.  To use @command{dvips} to produce
+a PostScript file, add the following options to the @command{dvips}
+command line:
 
 @example
 -Ppdf -u+lilypond.map -u+ec-mftrace.map

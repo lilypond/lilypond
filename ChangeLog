@@ -1,3 +1,11 @@
+2005-02-07  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/notation.itely: add warning about
+	percent repeats and Voice contexts.
+
+	* Documentation/user/lilypond-book.itely: clarified the
+	necessity of dvips -u arguments.
+
 2005-02-07  Erik Sandberg  <ersa9195@student.uu.se>
 
 	* ChangeLog: Added a bunch of bug hunters.

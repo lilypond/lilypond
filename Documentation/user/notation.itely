@@ -2863,7 +2863,8 @@ Make tremolo beams.  These are not played in MIDI output by default.
 
 @item percent
 Make beat or measure repeats.  These look like percent signs.  These
-are not played in MIDI output by default.
+are not played in MIDI output by default.  Percent repeats must be
+declared within a Voice context.
 
 @end table
 
@@ -3123,7 +3124,8 @@ Elsewhere: @internalsref{StemTremolo}, @internalsref{TremoloEvent}.
 In the @code{percent} style, a note pattern can be repeated.  It is
 printed once, and then the pattern is replaced with a special sign.
 Patterns of one and two measures are replaced by percent-like signs,
-patterns that divide the measure length are replaced by slashes
+patterns that divide the measure length are replaced by slashes.
+Percent repeats must be declared within a @code{Voice} context.
 
 @lilypond[quote,verbatim,raggedright]
 \new Voice \relative c' {
