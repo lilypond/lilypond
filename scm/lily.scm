@@ -19,10 +19,12 @@
 
 ;; The regex module may not be available, or may be broken.
 ;; If you have trouble with regex, define #f
-(define use-regex #t)
+;;(define use-regex #t)
 ;;(define use-regex #f)
-;;(define use-regex
-;;  (not (equal? "Windows" (substring (vector-ref (uname) 0) 0 7))))
+
+(define use-regex
+  (let ((os (string-downcase (vector-ref (uname) 0))))
+    (not (equal? "cygwin" (substring os 0 (min 6 (string-length os)))))))
 
 ;; do nothing in .scm output
 (define (comment s) "")

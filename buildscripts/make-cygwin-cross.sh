@@ -60,7 +60,7 @@ WWW=$DEVEL/WWW/lilypond/gnu-windows
 
 CYGWIN_SOURCE=$DEVEL/sourceware.cygnus.com/pub/cygwin/private/cygwin-net-485
 MINGW_SOURCE=$DEVEL/ftp.xraylith.wisc.edu/pub/khan/gnu-win32/mingw32/runtime
-SOURCE_PATH=$DEVEL/usr/src/releases:$DEVEL/usr/src/patches:$DEVEL/usr/src/lilypond/Documentation/ntweb:$MINGW_SOURCE
+SOURCE_PATH=$DEVEL/usr/src/releases:$DEVEL/usr/src/patches:$DEVEL/usr/src/lilypond/Documentation/ntweb:$MINGW_SOURCE:/usr/src/redhat/SOURCES
 
 HOST=`uname -m`-gnu-`uname -s | tr '[A-Z]' '[a-z]'`
 
@@ -82,14 +82,17 @@ gcc-2.95.2
 flex
 bison
 "
+
 not_yet_needed="
 cygwin-2000301
+rpm-3.04
 "
 
 cross_configure='--prefix=$PREFIX --target=$TARGET_ARCH'
 gcc_make='LANGUAGES="c++"'
 cygwin_make='-k || true'
 
+rpm_patch='patchm.ring.diff'
 
 #################
 # native packages
@@ -110,6 +113,8 @@ regex_before_install='ar -ru libregex.a regex.o \; mkdir -p $PREFIX/{include,lib
 regex_install='subdirs=test'
 regex_before_zip='mkdir -p $install_prefix/{include,lib} \; cp ../$package/regex.h $install_prefix/include \; cp libregex.a $install_prefix/lib'
 
+rx_install='prefix=$PREFIX'
+
 guile_patch='guile-1.3.4-gnu-windows.patch'
 if [ $target = mingw ]; then
 	guile_patch1='guile-1.3.4-mingw.patch'
@@ -129,7 +134,7 @@ if [ $target = mingw ]; then
 	lilypond_cflags='-I $PREFIX/$TARGET_ARCH/include -I $PREFIX/i686-pc-cygwin/include'
 fi
 lilypond_ldflags='-L$PREFIX/lib -lguile $PREFIX/bin/$CYGWIN_DLL'
-#lilypond_configure='--enable-tex-tfmdir=miktex/usr/share/texmf/fonts/tfm/public/cm/'
+lilypond_configure='--enable-tex-tfmdir=/texmf/fonts/tfm/public/cm'
 ## URG, help2man: doesn't know about cross-compilation.
 #lilypond_make='-k || make -k || true'
 lilypond_patch=lilypond-manpages.patch
@@ -138,9 +143,14 @@ lilypond_install='--just-print'
 lilypond_before_zip='cp -pr $PREFIX/src/$package/input $install_prefix \; cp -p \`find $PREFIX/src/$package -type f -maxdepth 1\` $install_prefix'
 
 native_packages="
-regex-0.12
+rx-1.5
 guile-1.3.4
 lilypond-$lilypond_version
+"
+
+not_yet_needed="
+regex-0.12
+rpm-3.04
 "
 
 #######################
