@@ -7,7 +7,7 @@ parsheadnew=$(HEADERDIR)/parser.hh
 $(CCDIR)/parser.cc: $(CCDIR)/parser.y
 	$(BISON) -d $<
 	(if diff  $(parsheadorig) $(parsheadnew)>/dev/null; then \
-		echo leaving $(parsheadnew);  \
+		echo Ignoring $(parsheadorig);  \
 	else \
 		mv $(parsheadorig) $(parsheadnew); \
 	fi )
