@@ -1,6 +1,6 @@
 
 \version "2.1.22"
-\header { texidoc = "Tests placement of accidentals in every clef. " }
+\header { texidoc = "Each clef have own accidental placing rules. " }
 
 \score { \notes
   \relative cis' {

@@ -1,6 +1,6 @@
 
 \version "2.1.22"
-\header {texidoc = "Tests tuplet rests. "}
+\header {texidoc = "Tuplets may contain rests. "}
 
 \score {
   \context Voice \notes \relative c'' {

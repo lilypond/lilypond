@@ -1,6 +1,6 @@
 \version "2.1.23"
-\header { texidoc = "Tests a collision between multimeasure rests in
-different voices. " }
+\header { texidoc = "Collision between multimeasure rests in different voices
+may be avoided. " }
 \score {
   \context Staff \notes <<
     \new Voice {

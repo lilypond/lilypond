@@ -2,8 +2,8 @@
 \version "2.1.22"
 \header{
   texidoc="
-Seconds are tricky.  We used to have problems with seconds being too
-steep, or getting too long stems.  In a file like this, showing
+Engraving second intervals is tricky.  We used to have problems with seconds 
+being too steep, or getting too long stems.  In a file like this, showing
 seconds, you'll spot something fishy very quickly.
  
 " }
