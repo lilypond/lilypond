@@ -1,3 +1,24 @@
+2004-02-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* make/ly-rules.make ($(outdir)/%.pdf): add DVIPS_FLAGS. This will
+	create scalable PS and PDFs  for input/{test,template,regression}.
+
+2004-02-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/context.cc (is_alias): move function.
+	(is_alias): add Bottom as context alias. 
+	(find_create_translator): add Bottom as a context alias for creation.
+
+	* lily/stencil.cc: rename Molecule to Stencil. Changes throughout.
+
+	* lily/parser.yy (music_property_def): new syntax for property
+	assignments:
+
+	\set A.B = #C , \unset A.B
+	\override A.B #C = #D, \revert A.B #C 
+
+	* lily/my-lily-lexer.cc: remove \property
+
 2004-02-13  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/user/refman.itely: add dots after seealso refs.
@@ -5,6 +26,10 @@
 	* input/template/{many}.ly: harmonise descriptions.
 
 	* Documentation/user/music-glossary.itely: add Finnish author.
+
+2004-02-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* VERSION (PACKAGE_NAME): release 2.1.21
 
 2004-02-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 

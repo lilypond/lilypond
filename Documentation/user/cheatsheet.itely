@@ -1,3 +1,4 @@
+\version "2.1.22"
 @c -*-texinfo-*-
 
 @node Cheat sheet
@@ -14,8 +15,8 @@
 @tab durations 
 @tab
 @lilypond[relative=1,notime]
-\property Staff.autoBeaming = ##f
-\property Staff.Clef = \turnOff
+\set Staff.autoBeaming =  ##f
+\set Staff.Clef =  \turnOff
 c1 c2 c8 c16
 @end lilypond
 
@@ -23,7 +24,7 @@ c1 c2 c8 c16
 @tab augmentation dots
 @tab
 @lilypond[relative=1,notime]
-\property Staff.Clef = \turnOff
+\set Staff.Clef =  \turnOff
 c4. c4..  
 @end lilypond
 
@@ -55,7 +56,7 @@ s4_" "
 @tab time signature
 @tab
 @lilypond
-\property Staff.Clef \set #'transparent = ##t 
+\override Staff.Clef   #'transparent = ##t 
 \time 3/4
 s4_" "
 \time 4/4
@@ -67,7 +68,7 @@ s16_" "
 @tab rest 
 @tab
 @lilypond[relative=1,notime]
-\property Staff.Clef = \turnOff
+\set Staff.Clef =  \turnOff
 r4 r8
 @end lilypond
 
@@ -75,8 +76,8 @@ r4 r8
 @tab tie
 @tab
 @lilypond[relative=1,notime]
-\property Score.timing = ##f
-\property Staff.autoBeaming = ##f
+\set Score.timing =  ##f
+\set Staff.autoBeaming =  ##f
 d ~ d
 @end lilypond
 
@@ -93,8 +94,8 @@ s4
 @tab raise octave
 @tab
 @lilypond[relative=1,notime]
-\property Score.timing = ##f
-\property Staff.autoBeaming = ##f
+\set Score.timing =  ##f
+\set Staff.autoBeaming =  ##f
 a a'
 @end lilypond
 
@@ -102,8 +103,8 @@ a a'
 @tab lower octave
 @tab
 @lilypond[relative=1,notime]
-\property Score.timing = ##f
-\property Staff.autoBeaming = ##f
+\set Score.timing =  ##f
+\set Staff.autoBeaming =  ##f
 c c,
 @end lilypond
 
@@ -112,9 +113,9 @@ c c,
 @tab slur
 @tab
 @lilypond[fragment,relative=1]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
-\property Staff.autoBeaming = ##f
+\set Score.timing =  ##f
+\set Staff.TimeSignature =  \turnOff
+\set Staff.autoBeaming =  ##f
 c( d e)
 @end lilypond
 
@@ -123,9 +124,9 @@ c( d e)
 @tab phrasing slur
 @tab
 @lilypond[fragment,relative=1]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
-\property Staff.autoBeaming = ##f
+\set Score.timing =  ##f
+\set Staff.TimeSignature =  \turnOff
+\set Staff.autoBeaming =  ##f
 c\(  c( d) e\)
 @end lilypond
 
@@ -134,9 +135,9 @@ c\(  c( d) e\)
 @tab beam
 @tab
 @lilypond[fragment,relative=1]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
-\property Staff.autoBeaming = ##f
+\set Score.timing =  ##f
+\set Staff.TimeSignature =  \turnOff
+\set Staff.autoBeaming =  ##f
 a8-[ b-]
 @end lilypond
 
@@ -154,7 +155,7 @@ a8-[ b-]
 @tab articulations
 @tab
 @lilypond[fragment,relative=1]
-\property Staff.TimeSignature = \turnOff
+\set Staff.TimeSignature =  \turnOff
 c-> c-.
 @end lilypond
 
@@ -163,7 +164,7 @@ c-> c-.
 @tab dynamics
 @tab
 @lilypond[fragment,relative=1]
-\property Staff.TimeSignature = \turnOff
+\set Staff.TimeSignature =  \turnOff
 c\mf c\sfz
 @end lilypond
 
@@ -172,9 +173,9 @@ c\mf c\sfz
 @tab crescendo
 @tab
 @lilypond[fragment,relative=1]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
-\property Staff.autoBeaming = ##f
+\set Score.timing =  ##f
+\set Staff.TimeSignature =  \turnOff
+\set Staff.autoBeaming =  ##f
 a\< a \!a
 @end lilypond
 
@@ -182,9 +183,9 @@ a\< a \!a
 @tab decrescendo
 @tab
 @lilypond[fragment,relative=1]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
-\property Staff.autoBeaming = ##f
+\set Score.timing =  ##f
+\set Staff.TimeSignature =  \turnOff
+\set Staff.autoBeaming =  ##f
 a\> a a\!
 @end lilypond
 

@@ -14,7 +14,7 @@
 #include "note-head.hh"
 #include "warn.hh"
 #include "font-interface.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "event.hh"
 #include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"
@@ -62,7 +62,7 @@
   TODO: ledger lines are also a property of the staff. Maybe move them
   to there?
  */
-Molecule
+Stencil
 Note_head::brew_ledger_lines (Grob *me,
                               int pos,
                               int interspaces,
@@ -75,7 +75,7 @@ Note_head::brew_ledger_lines (Grob *me,
   int line_count = (abs (pos) < interspaces)
     ? 0
     : (abs (pos) - interspaces) / 2;
-  Molecule molecule = Molecule();
+  Stencil stencil = Stencil();
 
 
   if (line_count)
@@ -86,11 +86,11 @@ Note_head::brew_ledger_lines (Grob *me,
       Interval y_extent =
 	Interval (-0.5*(ledgerlinethickness),
 		  +0.5*(ledgerlinethickness));
-      Molecule proto_ledger_line =
+      Stencil proto_ledger_line =
 	Lookup::round_filled_box (Box (x_extent, y_extent), blotdiameter);
 
       x_extent[LEFT] += left_shorten;
-      Molecule proto_first_line =
+      Stencil proto_first_line =
 	Lookup::round_filled_box (Box (x_extent, y_extent), blotdiameter);
 
       if (!take_space)
@@ -106,25 +106,25 @@ Note_head::brew_ledger_lines (Grob *me,
       
       for (int i = 0; i < line_count; i++)
         {
-          Molecule ledger_line ((i == 0) 
+          Stencil ledger_line ((i == 0) 
 				? proto_first_line
 				: proto_ledger_line
 				);
           ledger_line.translate_axis (-dir * inter_f * i * 2 + offs, Y_AXIS);
-          molecule.add_molecule (ledger_line);
+          stencil.add_stencil (ledger_line);
         }
     }
 
-  return molecule;
+  return stencil;
 }
 
-Molecule
+Stencil
 internal_print (Grob *me, bool with_ledgers)
 {
   SCM style  = me->get_grob_property ("style");
   if (!gh_symbol_p (style))
     {
-      return Molecule ();
+      return Stencil ();
     }
 
   SCM log = gh_int2scm (Note_head::get_balltype (me));
@@ -133,7 +133,7 @@ internal_print (Grob *me, bool with_ledgers)
   String font_char = "noteheads-" + ly_scm2string (scm_font_char);
 
   Font_metric * fm = Font_interface::get_default_font (me);
-  Molecule out = fm->find_by_name (font_char);
+  Stencil out = fm->find_by_name (font_char);
   if (out.is_empty ())
     {
       me->warning (_f ("note head `%s' not found", font_char.to_str0 ()));
@@ -170,7 +170,7 @@ internal_print (Grob *me, bool with_ledgers)
 	   */
 	}
 
-      out.add_molecule (Note_head::brew_ledger_lines (me, pos, interspaces,
+      out.add_stencil (Note_head::brew_ledger_lines (me, pos, interspaces,
 						      ledger_size,
 						      left_shorten,
 						      false));
@@ -203,14 +203,14 @@ Note_head::head_extent (Grob *me, Axis a)
   SCM brewer = me->get_grob_property ("print-function");
   if (brewer == Note_head::print_proc)
     {
-      Molecule mol = internal_print (me, false);
+      Stencil mol = internal_print (me, false);
   
       if (!mol.is_empty ())
 	return mol.extent (a);
     }
   else
     {
-      Molecule * mol = me->get_molecule ();
+      Stencil * mol = me->get_stencil ();
       if (mol)
 	return  mol->extent (a) ;
     }
@@ -220,7 +220,7 @@ Note_head::head_extent (Grob *me, Axis a)
 
 /*
   This is necessary to prevent a cyclic dependency: the appearance of
-  the ledgers depends on positioning, so the Grob::get_molecule() can
+  the ledgers depends on positioning, so the Grob::get_stencil() can
   not be used for determining the note head extent.
   
  */ 
@@ -233,9 +233,9 @@ Note_head::extent (SCM smob, SCM axis)
   return ly_interval2scm (head_extent (me, (Axis) gh_scm2int (axis)));
 }
 
-MAKE_SCHEME_CALLBACK (Note_head,brew_ez_molecule,1);
+MAKE_SCHEME_CALLBACK (Note_head,brew_ez_stencil,1);
 SCM
-Note_head::brew_ez_molecule (SCM smob)
+Note_head::brew_ez_stencil (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   int l = Note_head::get_balltype (me);
@@ -258,7 +258,7 @@ Note_head::brew_ez_molecule (SCM smob)
 		       gh_int2scm (1-b),
 		       SCM_UNDEFINED);
   Box bx (Interval (0, 1.0), Interval (-0.5, 0.5));
-  Molecule m (bx, at);
+  Stencil m (bx, at);
 
   int pos = (int)rint (Staff_symbol_referencer::get_position (me));
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
@@ -266,7 +266,7 @@ Note_head::brew_ez_molecule (SCM smob)
     {
       Interval hd = m.extent (X_AXIS);
       hd.widen ( hd.length ()/4);
-      m.add_molecule (brew_ledger_lines (me, pos, interspaces, hd, 0, false));
+      m.add_stencil (brew_ledger_lines (me, pos, interspaces, hd, 0, false));
     }
 
   return m.smobbed_copy ();

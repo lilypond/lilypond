@@ -10,7 +10,7 @@
 #define CHORD_NAME_HH
 
 #include "lily-guile.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 
 
 class Chord_name

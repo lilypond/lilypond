@@ -51,7 +51,7 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 	pstops '2:0L@.7(21cm,0)+1L@.7(21cm,14.85cm)' $<.tmp $@
 
 $(outdir)/%.pdf: $(outdir)/%.dvi
-	dvips -u +lilypond.map -o $@.pdfps -t $(DVIPS_PAPERSIZE)  -Ppdf $<
+	dvips $(DVIPS_FLAGS)  -o $@.pdfps -t $(DVIPS_PAPERSIZE)  $<
 	ps2pdf -sPAPERSIZE=$(DVIPS_PAPERSIZE) $@.pdfps $@
 
 

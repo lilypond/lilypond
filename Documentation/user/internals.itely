@@ -1,3 +1,4 @@
+\version "2.1.22"
 @c -*-texinfo-*-
 @c Note:
 @c
@@ -72,7 +73,7 @@ regularly. For example, beaming behavior is tuned with
 These use mixed-caps naming: @code{autoBeamSettings},
 @code{ignoreMelismata}. They are assigned as follows:
 @example
-  \property Lyrics.ignoreMelismata = ...
+  \set ignoreMelismata =  ...
 @end example
 
 @item Layout properties
@@ -85,7 +86,7 @@ These properties use Scheme-style naming: @code{c0-position},
 @code{break-align-symbol}. They most often assigned as follows:
 
 @example
-  \property Score.RehearsalMark \set #'break-align-symbol = ...
+  \override Score.RehearsalMark   #'break-align-symbol = ...
 @end example
 
 @noindent
@@ -244,7 +245,7 @@ file using the following expression:
 @cindex properties, context
 
 @example
-\property @var{contextname}.@var{propname} = @var{value}
+\set @var{contextname}.@var{propname} =  @var{value}
 @end example
 
 @noindent
@@ -267,7 +268,7 @@ but you can force another context with the
 @code{\property}-command.  Hence the expressions
 
 @example
-\property @var{contextname}.@var{propname} = @var{value}
+\set @var{contextname}.@var{propname} =  @var{value}
 @end example
 
 @noindent
@@ -275,7 +276,7 @@ and
 
 @example
 \context @var{contextname}
-\property Current.@var{propname} = @var{value}
+\set Current.@var{propname} =  @var{value}
 @end example
 
 @noindent
@@ -285,7 +286,7 @@ without restriction to a specific context.
 
 Properties can be unset using the following statement.
 @example
-\property @var{contextname}.@var{propname} \unset
+\unset @var{contextname}.@var{propname} 
 @end example
 
 @cindex properties, unsetting
@@ -297,9 +298,6 @@ This removes the definition of @var{propname} in @var{contextname}.  If
 from a higher context), then this has no effect.
 
 @refbugs
-
-The syntax of @code{\unset} is asymmetric: @code{\property \unset} is not
-the inverse of @code{\property \set}.
 
 The context @code{Current} is confusing.  
 
@@ -488,7 +486,7 @@ The complete list of context  modifiers is the following:
 @itemize @bullet
 @item @code{\alias} @var{alternate-name}:
 This specifies a different name.  In the above example,
-@code{\property Staff.X = Y} will also work on @code{SimpleStaff}s.
+@code{\set Staff.X =  Y} will also work on @code{SimpleStaff}s.
 
 @item @code{\consistsend} @var{engravername}:
 Analogous to @code{\consists}, but makes sure that
@@ -557,7 +555,7 @@ evaluated as Scheme. For example, the boolean value @var{true} is
 @code{#t} in Scheme, so for LilyPond @var{true} looks like @code{##t},
 and can be used in property assignments:
 @example
-  \property Staff.autoBeaming = ##f
+  \set Staff.autoBeaming =  ##f
 @end example
 
 
@@ -661,7 +659,7 @@ During a run, transient objects are also created and destroyed.
 @item Scheme_hash_table
 @item Music_iterator
 
-@item Molecule: Device-independent page output object,
+@item Stencil: Device-independent page output object,
 including dimensions.
 
 @item Syllable_group

@@ -22,11 +22,11 @@ public:
   virtual int count () const;
   virtual Box get_indexed_char (int ascii) const;
   virtual Box get_ascii_char (int ascii) const;
-  virtual Molecule get_indexed_char_molecule (int ascii) const;
-  virtual Molecule get_ascii_char_molecule (int ascii) const;
+  virtual Stencil get_indexed_char_stencil (int ascii) const;
+  virtual Stencil get_ascii_char_stencil (int ascii) const;
   virtual Offset get_indexed_wxwy (int) const;
   virtual int name_to_index (String)const;
-  virtual Molecule find_by_name (String) const;
+  virtual Stencil find_by_name (String) const;
 
 protected:
   virtual void derived_mark () const;

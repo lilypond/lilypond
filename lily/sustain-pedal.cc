@@ -7,7 +7,7 @@
   
  */
 #include "grob.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "font-interface.hh"
 #include "string.hh"
 
@@ -40,7 +40,7 @@ Sustain_pedal::print (SCM smob)
 {
   Grob * e = unsmob_grob (smob);
   
-  Molecule mol;
+  Stencil mol;
   SCM glyph = e->get_grob_property ("text");
   if (!gh_string_p (glyph))
     return mol.smobbed_copy ();
@@ -57,7 +57,7 @@ Sustain_pedal::print (SCM smob)
 	}
       else
 	idx += String (&text.to_bytes ()[i], 1);
-      Molecule m = Font_interface::get_default_font (e)->find_by_name (idx);
+      Stencil m = Font_interface::get_default_font (e)->find_by_name (idx);
       if (!m.is_empty ())
 	mol.add_at_edge (X_AXIS, RIGHT, m, 0, 0);
     }

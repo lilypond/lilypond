@@ -10,7 +10,7 @@
 #define VATICANA_LIGATURE_HH
 
 #include "lily-guile.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 
 struct Vaticana_ligature
 {

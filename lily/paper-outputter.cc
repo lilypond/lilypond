@@ -13,7 +13,7 @@
 #include "dimensions.hh"
 #include "virtual-methods.hh"
 #include "paper-outputter.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "array.hh"
 #include "string-convert.hh"
 #include "warn.hh"

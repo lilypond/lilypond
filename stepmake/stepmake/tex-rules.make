@@ -15,8 +15,8 @@ $(outdir)/%.dvi: $(outdir)/%.latex
 
 
 $(outdir)/%.ps: $(outdir)/%.dvi
-	cd $(outdir) && dvips -t $(DVIPS_PAPERSIZE) -o $(@F) $(<F)
+	cd $(outdir) && dvips $(DVIPS_FLAGS) -t $(DVIPS_PAPERSIZE) -o $(@F) $(<F)
 
 $(outdir)-$(PAPERSIZE)/%.ps: $(outdir)-$(PAPERSIZE)/%.dvi
-	cd $(outdir)-$(PAPERSIZE) && dvips -t$(PAPERSIZE) -o $(@F) $(<F)
+	cd $(outdir)-$(PAPERSIZE) && dvips $(DVIPS_FLAGS)  -t$(PAPERSIZE) -o $(@F) $(<F)
 

@@ -9,7 +9,7 @@
 #include "lookup.hh"
 #include "dimensions.hh"
 #include "paper-def.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "warn.hh"
 #include "item.hh"
 #include "staff-symbol.hh"
@@ -68,14 +68,14 @@ Staff_symbol::print (SCM smob)
   int l = Staff_symbol::line_count (me);
   
   Real height = (l-1) * staff_space (me) /2;
-  Molecule m;
+  Stencil m;
   for (int i=0; i < l; i++)
     {
-      Molecule a =
+      Stencil a =
 	Lookup::horizontal_line (Interval (0,width), t);
 
       a.translate_axis (height - i * staff_space (me), Y_AXIS);
-      m.add_molecule (a);
+      m.add_stencil (a);
     }
 
   return m.smobbed_copy ();

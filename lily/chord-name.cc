@@ -7,7 +7,7 @@
 */
 
 #include "chord-name.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"
 #include "grob.hh"

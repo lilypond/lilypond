@@ -7,7 +7,7 @@
 
  */
 
-#include "molecule.hh"
+#include "stencil.hh"
 #include "text-item.hh"
 #include "text-spanner.hh"
 #include "line-spanner.hh"
@@ -68,9 +68,9 @@ Ottava_bracket::print (SCM smob)
 
   SCM properties = Font_interface::font_alist_chain (me);
   SCM markup = me->get_grob_property ("text");
-  Molecule text;
+  Stencil text;
   if (Text_item::markup_p (markup)) 
-    text = *unsmob_molecule (Text_item::interpret_markup (paper->self_scm (), properties, markup));
+    text = *unsmob_stencil (Text_item::interpret_markup (paper->self_scm (), properties, markup));
 
 
   Drul_array<Real> shorten = robust_scm2interval (me->get_grob_property ("shorten-pair"),
@@ -130,7 +130,7 @@ Ottava_bracket::print (SCM smob)
   if (broken[RIGHT])
     edge_height[RIGHT] = 0.0;
   
-  Molecule b;
+  Stencil b;
   if (!bracket_span_points.is_empty () && bracket_span_points.length () > 0.001)
     b = Tuplet_bracket::make_bracket (me,
 				      Y_AXIS, Offset (bracket_span_points.length (), 0),
@@ -153,14 +153,14 @@ Ottava_bracket::print (SCM smob)
 
   */
   
-  b = Molecule (Box (b.extent (X_AXIS),
+  b = Stencil (Box (b.extent (X_AXIS),
 		     Interval (0.1,0.1)),
 		b.get_expr ());
   
   b.translate_axis (bracket_span_points[LEFT], X_AXIS);
   text.translate_axis (span_points[LEFT], X_AXIS);
   text.align_to (Y_AXIS, CENTER);
-  b.add_molecule (text);
+  b.add_stencil (text);
   
   b.translate_axis (- me->relative_coordinate (common, X_AXIS), X_AXIS);
   

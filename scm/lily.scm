@@ -373,7 +373,7 @@ L1 is copied, L2 not.
   `(
     ("tex" . ("TeX output. The default output form." ,tex-output-expression))
     ("ps" . ("Direct postscript. Requires setting GS_LIB and GS_FONTPATH" ,ps-output-expression))
-    ("scm" . ("Scheme dump: debug scheme molecule expressions" ,write))
+    ("scm" . ("Scheme dump: debug scheme stencil expressions" ,write))
     ("sketch" . ("Bare bones Sketch output." ,sketch-output-expression))
     ("sodipodi" . ("Bare bones Sodipodi output." ,sodipodi-output-expression))
     ("pdftex" . ("PDFTeX output. Was last seen nonfunctioning." ,pdftex-output-expression))
@@ -407,7 +407,7 @@ L1 is copied, L2 not.
        "chord-ignatzek-names.scm"
        "chord-entry.scm"
        "chord-generic-names.scm"
-       "molecule.scm"
+       "stencil.scm"
        "new-markup.scm"
        "bass-figure.scm"
        "music-functions.scm"

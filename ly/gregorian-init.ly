@@ -1,4 +1,4 @@
-\version "2.1.21"
+\version "2.1.22"
 
 %%%%%%%%
 %%%%%%%% shortcuts common for all styles of gregorian chant notation
@@ -8,85 +8,85 @@
 % declare head prefix shortcuts
 %
 virga =
-  \once \property Voice.NoteHead \override #'virga = ##t
+  \once \override NoteHead  #'virga = ##t
 stropha =
-  \once \property Voice.NoteHead \override #'stropha = ##t
+  \once \override NoteHead  #'stropha = ##t
 inclinatum =
-  \once \property Voice.NoteHead \override #'inclinatum = ##t
+  \once \override NoteHead  #'inclinatum = ##t
 auctum =
-  \once \property Voice.NoteHead \override #'auctum = ##t
+  \once \override NoteHead  #'auctum = ##t
 descendens =
-  \once \property Voice.NoteHead \override #'descendens = ##t
+  \once \override NoteHead  #'descendens = ##t
 ascendens =
-  \once \property Voice.NoteHead \override #'ascendens = ##t
+  \once \override NoteHead  #'ascendens = ##t
 pes =
-  \once \property Voice.NoteHead \override #'pes-or-flexa = ##t
+  \once \override NoteHead  #'pes-or-flexa = ##t
 flexa =
-  \once \property Voice.NoteHead \override #'pes-or-flexa = ##t
+  \once \override NoteHead  #'pes-or-flexa = ##t
 oriscus =
-  \once \property Voice.NoteHead \override #'oriscus = ##t
+  \once \override NoteHead  #'oriscus = ##t
 quilisma =
-  \once \property Voice.NoteHead \override #'quilisma = ##t
+  \once \override NoteHead  #'quilisma = ##t
 deminutum =
-  \once \property Voice.NoteHead \override #'deminutum = ##t
+  \once \override NoteHead  #'deminutum = ##t
 linea =
-  \once \property Voice.NoteHead \override #'linea = ##t
+  \once \override NoteHead  #'linea = ##t
 cavum =
-  \once \property Voice.NoteHead \override #'cavum = ##t
+  \once \override NoteHead  #'cavum = ##t
 
 %
 % declare divisiones shortcuts
 %
 virgula = {
-  \once \property Voice.BreathingSign \override #'text = #(make-musicglyph-markup "scripts-rcomma")
-  \once \property Voice.BreathingSign \override #'font-size = #-2
+  \once \override BreathingSign  #'text = #(make-musicglyph-markup "scripts-rcomma")
+  \once \override BreathingSign  #'font-size = #-2
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \property Voice.BreathingSign \override #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
 
   \breathe
 }
 caesura = {
-  \once \property Voice.BreathingSign \override #'text = #(make-musicglyph-markup "scripts-rvarcomma")
-  \once \property Voice.BreathingSign \override #'font-size = #-2
+  \once \override BreathingSign  #'text = #(make-musicglyph-markup "scripts-rvarcomma")
+  \once \override BreathingSign  #'font-size = #-2
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \property Voice.BreathingSign \override #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
 
   \breathe
 }
 divisioMinima = {
-  \once \property Voice.BreathingSign \override #'print-function = #Breathing_sign::divisio_minima
+  \once \override BreathingSign  #'print-function = #Breathing_sign::divisio_minima
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \property Voice.BreathingSign \override #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
 
   \breathe
 }
 divisioMaior = {
-  \once \property Voice.BreathingSign \override #'print-function = #Breathing_sign::divisio_maior
-  \once \property Voice.BreathingSign \override #'Y-offset-callbacks = #'()
+  \once \override BreathingSign  #'print-function = #Breathing_sign::divisio_maior
+  \once \override BreathingSign  #'Y-offset-callbacks = #'()
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \property Voice.BreathingSign \override #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
 
   \breathe
 }
 divisioMaxima = {
-  \once \property Voice.BreathingSign \override #'print-function = #Breathing_sign::divisio_maxima
-  \once \property Voice.BreathingSign \override #'Y-offset-callbacks = #'()
+  \once \override BreathingSign  #'print-function = #Breathing_sign::divisio_maxima
+  \once \override BreathingSign  #'Y-offset-callbacks = #'()
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \property Voice.BreathingSign \override #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
 
   \breathe
 }
 finalis = {
-  \once \property Voice.BreathingSign \override #'print-function = #Breathing_sign::finalis
-  \once \property Voice.BreathingSign \override #'Y-offset-callbacks = #'()
+  \once \override BreathingSign  #'print-function = #Breathing_sign::finalis
+  \once \override BreathingSign  #'Y-offset-callbacks = #'()
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
-  \once \property Voice.BreathingSign \override #'extra-X-extent = #'(-1.0 . 0)
+  \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
 
   \breathe
 }

@@ -37,7 +37,7 @@ public:
   static Real get_default_stem_end_position (Grob*me);
   static void position_noteheads (Grob *);
   static Real stem_end_position (Grob *);
-  static Molecule flag (Grob *);
+  static Stencil flag (Grob *);
   static bool has_interface (Grob *);
   static void set_spacing_hints (Grob *);
   

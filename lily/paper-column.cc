@@ -12,7 +12,7 @@
 #include "warn.hh"
 #include "axis-group-interface.hh"
 #include "spaceable-grob.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "text-item.hh"
 #include "lookup.hh"
 #include "font-interface.hh"
@@ -122,14 +122,14 @@ Paper_column::print (SCM p)
   SCM scm_mol = Text_item::interpret_markup (me->get_paper ()->self_scm (),
 					     properties,
 					     scm_makfrom0str (r.to_str0 ()));
-  Molecule t = *unsmob_molecule (scm_mol);
+  Stencil t = *unsmob_stencil (scm_mol);
   t.align_to (X_AXIS, CENTER);
   t.align_to (Y_AXIS, DOWN);
   
-  Molecule l = Lookup::filled_box (Box (Interval (-0.01, 0.01),
+  Stencil l = Lookup::filled_box (Box (Interval (-0.01, 0.01),
 				       Interval (-2, -1)));
 
-  t.add_molecule (l);
+  t.add_stencil (l);
   return t.smobbed_copy ();						
 }
 

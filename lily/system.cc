@@ -18,7 +18,7 @@
 #include "string.hh"
 #include "warn.hh"
 #include "dimensions.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "all-font-metrics.hh"
 #include "spacing-interface.hh"
 #include "staff-symbol-referencer.hh"
@@ -336,7 +336,7 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
 }
 
 void
-System::output_molecule (SCM expr, Offset o)
+System::output_stencil (SCM expr, Offset o)
 {
   while (1)
     {
@@ -360,14 +360,14 @@ System::output_molecule (SCM expr, Offset o)
 	  pscore_->outputter_->output_scheme (scm_list_n (head, SCM_UNDEFINED));
 	  expr = ly_cadr (expr);
 	}
-      else if (head == ly_symbol2scm ("translate-molecule"))
+      else if (head == ly_symbol2scm ("translate-stencil"))
 	{
 	  o += ly_scm2offset (ly_cadr (expr));
 	  expr = ly_caddr (expr);
 	}
-      else if (head == ly_symbol2scm ("combine-molecule"))
+      else if (head == ly_symbol2scm ("combine-stencil"))
 	{
-	  output_molecule (ly_cadr (expr), o);
+	  output_stencil (ly_cadr (expr), o);
 	  expr = ly_caddr (expr);
 	}
       else
@@ -465,7 +465,7 @@ System::post_processing (bool last_line)
     }
 
   /*
-    generate all molecules  to trigger all font loads.
+    generate all stencils  to trigger all font loads.
 
     (ugh. This is not very memory efficient.)  */
 
@@ -475,14 +475,14 @@ System::post_processing (bool last_line)
   /*
     triger font loads first.
 
-    This might seem inefficient, but Molecules are cached per grob
+    This might seem inefficient, but Stencils are cached per grob
     anyway.
     */
-  this->get_molecule();
+  this->get_stencil();
   for (SCM s = all; gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * g = unsmob_grob (ly_car (s));
-      g->get_molecule ();
+      g->get_stencil ();
     }
   
   /*
@@ -507,9 +507,9 @@ System::post_processing (bool last_line)
   /* Output elements in three layers, 0, 1, 2.
      The default layer is 1. */
   {
-    Molecule *m = this->get_molecule();
+    Stencil *m = this->get_stencil();
     if (m)
-      output_molecule (m->get_expr (), Offset(0,0));
+      output_stencil (m->get_expr (), Offset(0,0));
   }
   
   for (int i = 0; i < 3; i++)
@@ -517,7 +517,7 @@ System::post_processing (bool last_line)
 	 s = ly_cdr (s))
       {
 	Grob *sc = unsmob_grob (ly_car (s));
-	Molecule *m = sc->get_molecule ();
+	Stencil *m = sc->get_stencil ();
 	if (!m)
 	  continue;
 	
@@ -538,7 +538,7 @@ System::post_processing (bool last_line)
 	    o += z;
 	  }
 	
-	output_molecule (m->get_expr (), o);
+	output_stencil (m->get_expr (), o);
       }
 
   

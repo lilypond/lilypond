@@ -9,7 +9,7 @@
 #include "staff-symbol-referencer.hh"
 #include "pitch.hh"
 #include "ambitus.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "note-head.hh"
 #include "item.hh"
 #include "font-interface.hh"
@@ -100,14 +100,14 @@ number_accidentals (SCM key_signature, Pitch *pitch,
 }
 
 void
-add_accidentals (Item *me, Molecule *head, int num_acc,
+add_accidentals (Item *me, Stencil *head, int num_acc,
 		 Pitch *pitch, String accidentals_style, Real yoffs)
 {
   if (!num_acc)
     return;
   if (pitch->get_alteration())
     {
-      Molecule accidental (Font_interface::get_default_font (me)->
+      Stencil accidental (Font_interface::get_default_font (me)->
 			   find_by_name (String ("accidentals-") +
 					 accidentals_style +
 					 to_string (pitch->get_alteration ())));
@@ -116,7 +116,7 @@ add_accidentals (Item *me, Molecule *head, int num_acc,
     }
   if (num_acc == 2)
     {
-      Molecule natural (Font_interface::get_default_font (me)->
+      Stencil natural (Font_interface::get_default_font (me)->
 			find_by_name (String ("accidentals-") +
 				      accidentals_style +
 				      to_string ("0")));
@@ -130,7 +130,7 @@ SCM
 Ambitus::print (SCM smob)
 {
   Item *me = (Item *)unsmob_grob (smob);
-  Molecule molecule = Molecule ();
+  Stencil stencil = Stencil ();
 
   SCM scm_note_head_style = me->get_grob_property ("note-head-style");
   String note_head_style;
@@ -187,10 +187,10 @@ Ambitus::print (SCM smob)
     }
 
   // create heads
-  Molecule head_min =
+  Stencil head_min =
     Font_interface::get_default_font (me)->find_by_name (note_head_style);
   head_min.translate_axis (0.5*p_min, Y_AXIS);
-  Molecule head_max =
+  Stencil head_max =
     Font_interface::get_default_font (me)->find_by_name (note_head_style);
   head_max.translate_axis (0.5*p_max, Y_AXIS);
 
@@ -203,9 +203,9 @@ Ambitus::print (SCM smob)
       Interval x_extent = 0.5 * Interval (-linethickness, +linethickness);
       Interval y_extent = 0.5 * Interval (p_min + 1.35, p_max - 1.35);
       Box line_box (x_extent, y_extent);
-      Molecule line = Lookup::round_filled_box (line_box, blotdiameter);
+      Stencil line = Lookup::round_filled_box (line_box, blotdiameter);
       line.translate_axis (0.5 * head_min.extent (X_AXIS).length (), X_AXIS);
-      molecule.add_molecule (line);
+      stencil.add_stencil (line);
     }
 
   // add ledger lines
@@ -214,16 +214,16 @@ Ambitus::print (SCM smob)
   Real right_ledger_protusion = left_ledger_protusion;
   Interval l_extents = Interval (hd[LEFT] - left_ledger_protusion,
 				 hd[RIGHT] + right_ledger_protusion);
-  Molecule ledger_lines;
+  Stencil ledger_lines;
   int interspaces = Staff_symbol_referencer::line_count (me) - 1;
   ledger_lines =
     Note_head::brew_ledger_lines (me, p_min, interspaces, l_extents, 0,true);
   ledger_lines.translate_axis (0.5 * p_min, Y_AXIS);
-  molecule.add_molecule (ledger_lines);
+  stencil.add_stencil (ledger_lines);
   ledger_lines =
     Note_head::brew_ledger_lines (me, p_max, interspaces, l_extents, 0, true);
   ledger_lines.translate_axis (0.5 * p_max, Y_AXIS);
-  molecule.add_molecule (ledger_lines);
+  stencil.add_stencil (ledger_lines);
 
   // add accidentals
   SCM key_signature = me->get_grob_property ("key-signature");
@@ -247,10 +247,10 @@ Ambitus::print (SCM smob)
 		   accidentals_style, 0.5 * p_max);
 
   // add heads
-  molecule.add_molecule (head_min);
-  molecule.add_molecule (head_max);
+  stencil.add_stencil (head_min);
+  stencil.add_stencil (head_max);
 
-  return molecule.smobbed_copy ();
+  return stencil.smobbed_copy ();
 }
 
 ADD_INTERFACE (Ambitus, "ambitus-interface",

@@ -21,7 +21,7 @@
 class Script_interface
 {
 public:
-  static Molecule get_molecule (Grob*,Direction d);
+  static Stencil get_stencil (Grob*,Direction d);
   
   static bool  has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (print, (SCM ));

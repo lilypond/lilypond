@@ -22,7 +22,8 @@ Translator_group::find_existing_translator (SCM n, String id)
     {
       Translator *  t = unsmob_translator (ly_car (p));
       
-      r = dynamic_cast<Translator_group*> (t)->find_existing_translator (n, id);    }
+      r = dynamic_cast<Translator_group*> (t)->find_existing_translator (n, id);
+    }
 
   return r;
 }
@@ -35,6 +36,12 @@ Translator_group::find_create_translator (SCM n, String id, SCM operations)
   if (existing)
     return existing;
 
+  if (n == ly_symbol2scm ("Bottom"))
+    {
+      Translator_group* tg = get_default_interpreter ();
+      tg->id_string_ = id;
+      return tg;
+    }
 
   /*
     TODO: use accepts_list_.
@@ -151,6 +158,15 @@ Translator_group::internal_get_property (SCM sym) const
     return daddy_trans_->internal_get_property (sym);
   
   return val;
+}
+
+bool
+Translator_group::is_alias (SCM sym) const
+{
+  if (sym == ly_symbol2scm ("Bottom")
+      && !gh_pair_p (accepts_list_))
+    return true;
+  return unsmob_context_def (definition_)->is_alias (sym);
 }
 
 void

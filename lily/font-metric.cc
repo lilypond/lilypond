@@ -13,7 +13,7 @@
 
 #include "virtual-methods.hh"
 #include "warn.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "ly-smobs.icc"
 #include "font-metric.hh"
 #include "string.hh"
@@ -155,16 +155,16 @@ IMPLEMENT_SMOBS (Font_metric);
 IMPLEMENT_DEFAULT_EQUAL_P (Font_metric);
 IMPLEMENT_TYPE_P (Font_metric, "ly:font-metric?");
 
-Molecule
+Stencil
 Font_metric::find_by_name (String) const
 {
-  Molecule m ;
+  Stencil m ;
   return m;
 }
 
 LY_DEFINE(ly_find_glyph_by_name, "ly:find-glyph-by-name", 2 , 0, 0,
 	  (SCM font, SCM name),
-	  "This function retrieves a Molecule for the glyph named @var{name} in "
+	  "This function retrieves a Stencil for the glyph named @var{name} in "
 "@var{font}.  The font must be available as an AFM file. If the glyph "
 "is not found, #f is returned. ")
 {
@@ -172,7 +172,7 @@ LY_DEFINE(ly_find_glyph_by_name, "ly:find-glyph-by-name", 2 , 0, 0,
   SCM_ASSERT_TYPE(fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
   SCM_ASSERT_TYPE(gh_string_p (name), name, SCM_ARG2, __FUNCTION__, "string");
 
-  Molecule m =  fm->find_by_name (ly_scm2string (name));
+  Stencil m =  fm->find_by_name (ly_scm2string (name));
 
   /*
     TODO: make optional argument for default if not found.
@@ -183,14 +183,14 @@ LY_DEFINE(ly_find_glyph_by_name, "ly:find-glyph-by-name", 2 , 0, 0,
 
 LY_DEFINE(ly_get_glyph, "ly:get-glyph", 2 , 0, 0,
 	  (SCM font, SCM index),
-	  "This function retrieves a Molecule for the glyph numbered @var{index} in "
+	  "This function retrieves a Stencil for the glyph numbered @var{index} in "
 "@var{font}. ")
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE(fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
   SCM_ASSERT_TYPE(gh_number_p (index), index, SCM_ARG2, __FUNCTION__, "number");
 
-  return fm->get_ascii_char_molecule (gh_scm2int (index)).smobbed_copy ();
+  return fm->get_ascii_char_stencil (gh_scm2int (index)).smobbed_copy ();
 }
 
 LY_DEFINE(ly_text_dimension,"ly:text-dimension", 2 , 0, 0,
@@ -209,22 +209,22 @@ LY_DEFINE(ly_text_dimension,"ly:text-dimension", 2 , 0, 0,
   return gh_cons (ly_interval2scm (b[X_AXIS]), ly_interval2scm(b[Y_AXIS]));
 }
 
-Molecule
-Font_metric::get_ascii_char_molecule (int code)  const
+Stencil
+Font_metric::get_ascii_char_stencil (int code)  const
 {
   SCM at = scm_list_n (ly_symbol2scm ("char"), gh_int2scm (code),
 		       SCM_UNDEFINED);
   at = fontify_atom (this, at);
   Box b = get_ascii_char (code);
-  return Molecule (b, at);
+  return Stencil (b, at);
 }
 
-Molecule
-Font_metric::get_indexed_char_molecule (int code)  const
+Stencil
+Font_metric::get_indexed_char_stencil (int code)  const
 {
   SCM at = scm_list_n (ly_symbol2scm ("char"), gh_int2scm (code),
 		       SCM_UNDEFINED);
   at = fontify_atom (this, at);
   Box b = get_indexed_char (code);
-  return Molecule (b, at);
+  return Stencil (b, at);
 }

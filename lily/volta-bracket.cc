@@ -12,7 +12,7 @@
 #include "warn.hh"
 #include "font-interface.hh"
 #include "line-interface.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
 #include "text-item.hh"
@@ -91,23 +91,23 @@ Volta_bracket_interface::print (SCM smob)
   Real w = dynamic_cast<Spanner*> (me)->spanner_length () - left - half_space;
   Real h =  robust_scm2double (me->get_grob_property ("height"), 1);
 
-  Molecule start,end ;
+  Stencil start,end ;
   if (!no_vertical_start)
     start = Line_interface::line (me, Offset (0,0), Offset (0, h)); 
   
   if (!no_vertical_end)
     end = Line_interface::line (me, Offset (w, 0), Offset (w,h));
 
-  Molecule mol = Line_interface::line (me, Offset (0, h), Offset (w,h));
-  mol.add_molecule (start);
-  mol.add_molecule (end);
+  Stencil mol = Line_interface::line (me, Offset (0, h), Offset (w,h));
+  mol.add_stencil (start);
+  mol.add_stencil (end);
 
   if (!orig_span || broken_first_bracket)
     {
       SCM text = me->get_grob_property ("text");
       SCM properties = me->get_property_alist_chain (SCM_EOL);
       SCM snum  = Text_item::interpret_markup (paper->self_scm (), properties, text);
-      Molecule num = *unsmob_molecule (snum);
+      Stencil num = *unsmob_stencil (snum);
 
       mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
 		       - 1.0, 0);

@@ -40,7 +40,7 @@ Measure_grouping::print (SCM grob)
 
   Interval iv (0,w);
 
-  Molecule m;
+  Stencil m;
 
   /*
     TODO: use line interface

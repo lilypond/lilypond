@@ -8,14 +8,14 @@ source file of the GNU LilyPond music typesetter
  */
 
 #include "line-interface.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "grob.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
 
 
-Molecule
+Stencil
 Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
 			     Real dash_period, Real dash_fraction)
 {
@@ -38,12 +38,12 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
   box[X_AXIS].widen (thick/2);
   box[Y_AXIS].widen (thick/2);  
 
-  Molecule m = Molecule (box, at);
+  Stencil m = Stencil (box, at);
   m.translate (from);
   return m;
 }
 
-Molecule
+Stencil
 Line_interface::make_line (Real th, Offset from, Offset to)
 {
   SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
@@ -61,10 +61,10 @@ Line_interface::make_line (Real th, Offset from, Offset to)
   box[X_AXIS].widen (th/2);
   box[Y_AXIS].widen (th/2);  
 
-  return Molecule (box, at);
+  return Stencil (box, at);
 }
 
-Molecule
+Stencil
 Line_interface::line (Grob *me, Offset from, Offset to)
 {
   Real thick = Staff_symbol_referencer::line_thickness (me)
@@ -86,7 +86,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 	* robust_scm2double (me->get_grob_property ("dash-period"), 1.0);
 
       if (period < 0)
-	return Molecule ();
+	return Stencil ();
   
       return make_dashed_line (thick, from, to, period, fraction);
     }

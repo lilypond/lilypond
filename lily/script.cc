@@ -14,15 +14,15 @@
 #include "side-position-interface.hh"
 #include "paper-def.hh"
 #include "item.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "lookup.hh"
 #include "stem.hh"
 #include "note-column.hh"
 
-Molecule
-Script_interface::get_molecule (Grob * me, Direction d)
+Stencil
+Script_interface::get_stencil (Grob * me, Direction d)
 {
-  SCM s = me->get_grob_property ("script-molecule");
+  SCM s = me->get_grob_property ("script-stencil");
   assert (gh_pair_p (s));
 
   SCM key = ly_car (s);
@@ -41,7 +41,7 @@ Script_interface::get_molecule (Grob * me, Direction d)
   else
     assert (false);
 
-  return Molecule ();
+  return Stencil ();
 }
 
 MAKE_SCHEME_CALLBACK (Script_interface,before_line_breaking,1);
@@ -86,11 +86,11 @@ Script_interface::print (SCM smob)
   Direction dir = Side_position_interface::get_direction (me);
   if (!dir)
     {
-      programming_error ("Script direction not known, but molecule wanted.");
+      programming_error ("Script direction not known, but stencil wanted.");
       dir= DOWN;
     }
   
-  return get_molecule (me, dir).smobbed_copy ();
+  return get_stencil (me, dir).smobbed_copy ();
 }
 
 
@@ -111,5 +111,5 @@ ADD_INTERFACE (Text_script,"text-script-interface",
 
 ADD_INTERFACE (Script_interface, "script-interface",
   "",
-  "script-priority script-molecule");
+  "script-priority script-stencil");
 

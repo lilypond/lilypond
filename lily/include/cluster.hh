@@ -10,7 +10,7 @@
 #define CLUSTER_HH
 
 #include "lily-guile.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 
 class Cluster
 {

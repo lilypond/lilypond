@@ -31,7 +31,7 @@ public:
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
 
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
-  static Molecule make_bracket (Grob *me,  Axis protusion_axis,
+  static Stencil make_bracket (Grob *me,  Axis protusion_axis,
 				Offset dz,  Drul_array<Real> height,
 				Real gap, Drul_array<Real> widen,
 				Drul_array<Real> shorten);

@@ -7,7 +7,7 @@ source file of the GNU LilyPond music typesetter
 
 */
 
-#include "molecule.hh"
+#include "stencil.hh"
 #include "spanner.hh"
 #include "item.hh"
 #include "tuplet-bracket.hh"
@@ -69,7 +69,7 @@ Piano_pedal_bracket::print (SCM smob)
     }
   
 
-  Molecule m ;
+  Stencil m ;
   if (!span_points.is_empty () &&
       span_points.length () > 0.001)
     {

@@ -41,7 +41,7 @@ public:
   
   void add_column (Paper_column*);
   void typeset_grob (Grob*);
-  void output_molecule (SCM, Offset);
+  void output_stencil (SCM, Offset);
   void output_scheme (SCM);
   void pre_processing ();
 protected:

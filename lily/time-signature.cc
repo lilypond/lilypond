@@ -8,7 +8,7 @@
  */
 
 
-#include "molecule.hh"
+#include "stencil.hh"
 #include "text-item.hh"
 #include "time-signature.hh"
 #include "paper-def.hh"
@@ -40,7 +40,7 @@ Time_signature::print (SCM smob)
       d = gh_scm2int (ly_cdr (frac));
     }
 
-  Molecule m;
+  Stencil m;
   if (gh_symbol_p (st))
     {
       String style (ly_scm2string (scm_symbol_to_string (st)));
@@ -62,7 +62,7 @@ Time_signature::print (SCM smob)
   return m.smobbed_copy ();
 }
 
-Molecule
+Stencil
 Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
 {
   String style = ly_scm2string (scm_symbol_to_string (scm_style));
@@ -85,7 +85,7 @@ Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
 
   String char_name = style + to_string (n) + "/" + to_string (d);
   me->set_grob_property ("font-family", ly_symbol2scm ("music"));
-  Molecule out = Font_interface::get_default_font (me)
+  Stencil out = Font_interface::get_default_font (me)
     ->find_by_name ("timesig-" + char_name);
   if (!out.is_empty ())
     return out;
@@ -97,7 +97,7 @@ Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
   return numbered_time_signature (me, n, d);
 }
 
-Molecule
+Stencil
 Time_signature::numbered_time_signature (Grob*me,int num, int den)
 {
   SCM chain = Font_interface::font_alist_chain (me);
@@ -110,12 +110,12 @@ SCM sd =
     Text_item::interpret_markup (me->get_paper ()->self_scm(), chain,
 				 scm_makfrom0str (to_string (den).to_str0 ()));
 
-  Molecule n = *unsmob_molecule (sn);
-  Molecule d = *unsmob_molecule (sd);
+  Stencil n = *unsmob_stencil (sn);
+  Stencil d = *unsmob_stencil (sd);
 			      
   n.align_to (X_AXIS, CENTER);
   d.align_to (X_AXIS, CENTER);
-  Molecule m;
+  Stencil m;
   if (den)
     {
       m.add_at_edge (Y_AXIS, UP, n, 0.0, 0);

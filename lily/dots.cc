@@ -8,7 +8,7 @@
 
 #include "dots.hh"
 #include "item.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"
 #include "lookup.hh"
@@ -20,13 +20,13 @@ SCM
 Dots::print (SCM d)
 {
   Grob *sc = unsmob_grob (d);
-  Molecule mol;
+  Stencil mol;
   
   SCM c = sc->get_grob_property ("dot-count");
 
   if (gh_number_p (c))
     {
-      Molecule d = Font_interface::get_default_font (sc)->find_by_name (String ("dots-dot"));
+      Stencil d = Font_interface::get_default_font (sc)->find_by_name (String ("dots-dot"));
       Real dw = d.extent (X_AXIS).length ();
       
 

@@ -1,3 +1,4 @@
+\version "2.1.22"
 @c -*-texinfo-*-
 @c This file is part of lilypond.tely
 
@@ -100,8 +101,8 @@ a1 a2 a4 a16 a32
 @end example
 
 @lilypond[notime]
-\property Score.timing = ##f
-\property Staff.autoBeaming = ##f
+\set Score.timing =  ##f
+\set Staff.autoBeaming =  ##f
 \transpose c c' { a1 a2 a4 a16 a32 s16_" " }
 @end lilypond
 
@@ -112,7 +113,7 @@ a4 a a2 a
 @end example
 
 @lilypond[notime]
-\property Score.timing = ##f
+\set Score.timing =  ##f
 \transpose c c' { a a a2 a s16_" " }
 @end lilypond
 
@@ -126,9 +127,9 @@ r2 r4 r8 r16
 @end example
 
 @lilypond[fragment]
-\property Score.timing = ##f
-\property Staff.Clef = \turnOff
-\property Staff.TimeSignature = \turnOff
+\set Score.timing =  ##f
+\set Staff.Clef =  \turnOff
+\set Staff.TimeSignature =  \turnOff
 r2 r4 r8 r16
 s16_" "
 @end lilypond
@@ -143,7 +144,7 @@ a2. a4 a8. a16
 @end example
 
 @lilypond[notime]
-\property Score.timing = ##f
+\set Score.timing =  ##f
 \transpose c c' { a2. a4 a8. a16 s16_" " }
 @end lilypond
 
@@ -159,7 +160,7 @@ The @rglos{meter} (or @rglos{time signature}) can be set with the
 
 @c a clef here may lead to confusion
 @lilypond
-\property Staff.Clef \set #'transparent = ##t 
+\override Staff.Clef   #'transparent = ##t 
 \time 3/4
 s4_" "
 \time 6/8
@@ -182,7 +183,7 @@ The @rglos{clef} can be set using the @code{\clef} command:
 @end example
 
 @lilypond[notime]
-\property Score.timing = ##f
+\set Score.timing =  ##f
 \clef violin
 s4_" "
 \clef bass
@@ -383,7 +384,7 @@ cis1 ees fisis aeses
 @end example
 
 @lilypond[notime]
-\property Score.timing = ##f
+\set Score.timing =  ##f
 \transpose c c' { cis1 ees fisis aeses s16_" " }
 @end lilypond
 
@@ -401,7 +402,7 @@ g
 @end example
 
 @lilypond[fragment]
-\property Staff.TimeSignature = \turnOff
+\set Staff.TimeSignature =  \turnOff
 \key d \major
 g'1
 \key c \minor
@@ -427,7 +428,7 @@ not be added automatically, and you must enter what you want to hear.
 
 For example, in this example:
 @lilypond[fragment]
-\property Staff.TimeSignature = \turnOff
+\set Staff.TimeSignature =  \turnOff
 \key d \major
 d' cis' fis'
 @end lilypond
@@ -445,7 +446,7 @@ staff.'' Rather, it means: ``a note with pitch D-natural.'' In the key
 of A-flat, it gets an accidental:
 
 @lilypond[fragment]
-\property Staff.TimeSignature =\turnOff
+\set Staff.TimeSignature = \turnOff
 \key as \major
 d'
 @end lilypond
@@ -566,8 +567,8 @@ c'4 c'' c''' \clef bass c c,
 @end example
 
 @lilypond[fragment]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
+\set Score.timing =  ##f
+\set Staff.TimeSignature =  \turnOff
 c'4 c'' c''' \clef bass c c,
 @end lilypond
 @end quotation
@@ -599,8 +600,8 @@ one.  For example, @code{c f} goes up while @code{c g} goes down:
 @end example
 
 @lilypond[fragment]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
+\set Score.timing =  ##f
+\set Staff.TimeSignature =  \turnOff
 \relative c'' {
   c f c g c
 }
@@ -636,8 +637,8 @@ Larger intervals are made by adding octavation quotes.
 @end example
 
 @lilypond[fragment]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
+\set Score.timing =  ##f
+\set Staff.TimeSignature =  \turnOff
 \relative c'' {
   c f, f c' c g' c,
 }
@@ -665,8 +666,8 @@ Here is an example of the difference between relative mode and
 @end example
 
 @lilypond[fragment]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
+\set Score.timing =  ##f
+\set Staff.TimeSignature =  \turnOff
 \relative a {
 \clef bass
   a d a e d c' d'
@@ -682,8 +683,8 @@ Here is an example of the difference between relative mode and
 @end example
 
 @lilypond[fragment]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
+\set Score.timing =  ##f
+\set Staff.TimeSignature =  \turnOff
 \clef bass
   a d a e d c' d'
 @end lilypond
@@ -1401,7 +1402,7 @@ accidentals to print, and where barlines must be placed, are stored in
 variables. These variables are called @emph{context properties}.
 The properties can also be manipulated from input files. Consider this input:
 @example
-\property Staff.autoBeaming = ##f
+\set Staff.autoBeaming =  ##f
 @end example 
 
 @noindent
@@ -1411,7 +1412,7 @@ property controls whether beams are printed automatically:
 @c
 @lilypond[relative=1,fragment,verbatim]
   c8 c c c
-  \property Staff.autoBeaming = ##f
+  \set Staff.autoBeaming =  ##f
   c8 c c c  
 @end lilypond
 
@@ -1425,23 +1426,23 @@ entered as follows:
 @itemize @bullet
 @item a string, enclosed in double quotes, for example,
 @example
-  \property Staff.instrument = #"French Horn"
+  \set Staff.instrument =  #"French Horn"
 @end example
 @item a boolean: either @code{#t} or @code{#f}, for true and false
 respectively, e.g.
 @example
-  \property Voice.autoBeaming = ##f
-  \property Score.skipBars = ##t
+  \set autoBeaming =  ##f
+  \set Score.skipBars =  ##t
 @end example
 
 @item a number, such as
 @example
-  \property Score.currentBarNumber = #20
+  \set Score.currentBarNumber =  #20
 @end example
 
 @item a symbol, which is introduced by a quote character, as in 
 @example
-  \property Staff.crescendoSpanner = #'dashed-line
+  \set Staff.crescendoSpanner =  #'dashed-line
 @end example
 
 @item a pair, which is also introduced by a quote character, like in
@@ -1449,15 +1450,15 @@ the following statements, which set properties to the pairs (-7.5, 6)
 and (3, 4) respectively:
 
 @example
-  \property Staff.minimumVerticalExtent  = #'(-7.5 . 6)
-  \property Staff.timeSignatureFraction  = #'(3 . 4)
+  \set Staff.minimumVerticalExtent =  #'(-7.5 . 6)
+  \set Staff.timeSignatureFraction =  #'(3 . 4)
 @end example
 
 @item a list, which is also introduced by a quote character. In the
 following example, the @code{breakAlignOrder} property is set to a
 list of symbols:
 @example
-  \property Score.breakAlignOrder =
+  \set Score.breakAlignOrder = 
     #'(left-edge time-signature key-signatures)
 @end example
 
@@ -1489,14 +1490,14 @@ values, we can alter the look of a formatted score:
 
 @lilypond[verbatim,relative]
   c4
-  \property Voice.Stem \override #'thickness = #3.0
+  \override Stem   #'thickness = #3.0
   c4 c4 c4 
 @end lilypond
 
 @noindent
 In the example shown here, the layout property @code{thickness} (a
 symbol) is set to 3 in the @code{Stem} layout objects of the current
-Voice.  As a result, the notes following @code{\property} have thicker
+  As a result, the notes following @code{\property} have thicker
 stems.
 
 In most cases of manual overrides, only a single object must be
@@ -1504,12 +1505,12 @@ changed. This can be achieved by prefixing @code{\once} to the
 @code{\property} statement, i.e.
 
 @example
- \once \property Voice.Stem \set #'thickness = #3.0
+ \once \override Stem   #'thickness = #3.0
 @end example
 
 @lilypond[relative]
   c4
-  \once \property Voice.Stem \set #'thickness = #3.0
+  \once \override Stem   #'thickness = #3.0
   c4 c4 c4 
 @end lilypond
 
@@ -1547,8 +1548,8 @@ the left, and 1.8 staff space downwards:
 @lilypond[relative=1,verbatim]
 \stemUp
 f-5
-\once \property Voice.Fingering
-  \set #'extra-offset = #'(-0.3 . -1.8) 
+\once \override Fingering
+    #'extra-offset = #'(-0.3 . -1.8) 
 f-5
 @end lilypond
 
@@ -1568,7 +1569,7 @@ in that voice, the tie appears to cross voices:
 
 @lilypond[fragment,relative=1,verbatim]
   c4 << {
-      \once \property Voice.Stem \set #'transparent = ##t
+      \once \override Stem   #'transparent = ##t
       b8~ b8
   } \\ {
        b[ g8]
@@ -1585,7 +1586,7 @@ tweak}:
 
 @lilypond[relative=1,verbatim]
   c2\fermata
-  \property Voice.Script \set #'padding = #3
+  \override Script   #'padding = #3
   b2\fermata
 @end lilypond
 
@@ -1712,14 +1713,14 @@ When printing the part, the following @code{skipBars} property must be
 set to false, to prevent the rest from being expanded in three one bar
 rests:
 @example
-  \property Score.skipBars = ##t
+  \set Score.skipBars =  ##t
 @end example
 Prepending the rest and the property setting above, leads to the
 following result:
 
 @lilypond[raggedright]
 \score {\notes { \transpose f c' \relative c { \time 2/4
-\property Score.skipBars = ##t 
+\set Score.skipBars =  ##t 
         R2*3
     r4 f8 a cis4 f e d } }}
 @end lilypond

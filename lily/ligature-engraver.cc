@@ -110,7 +110,7 @@ Ligature_engraver::create_ligature_spanner ()
  * nests \[ and \].
  */
 void
-Ligature_engraver::override_molecule_callback ()
+Ligature_engraver::override_stencil_callback ()
 {
   SCM target_callback = ly_symbol2scm ("print-function");
   SCM source_callback = ly_symbol2scm ("ligature-primitive-callback");
@@ -134,7 +134,7 @@ Ligature_engraver::override_molecule_callback ()
  * nests \[ and \].
  */
 void
-Ligature_engraver::revert_molecule_callback ()
+Ligature_engraver::revert_stencil_callback ()
 {
   SCM symbol = ly_symbol2scm ("NoteHead");
   SCM key = ly_symbol2scm ("print-function");
@@ -166,7 +166,7 @@ Ligature_engraver::process_music ()
       finished_ligature_ = ligature_;
       primitives_.clear ();
       ligature_ = 0;
-      revert_molecule_callback ();
+      revert_stencil_callback ();
     }
   last_bound_ = unsmob_grob (get_property ("currentMusicalColumn"));
 
@@ -206,7 +206,7 @@ Ligature_engraver::process_music ()
       ligature_start_mom_ = now_mom ();
       
       announce_grob(ligature_, reqs_drul_[START]->self_scm());
-      override_molecule_callback ();
+      override_stencil_callback ();
     }
 }
 

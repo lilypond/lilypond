@@ -204,7 +204,7 @@ check_meshing_chords (Grob *me,
       if (wipe_ball->live ())
 	{
 	  wipe_ball->set_grob_property ("transparent", SCM_BOOL_T);
-	  wipe_ball->set_grob_property ("molecule", SCM_EOL);
+	  wipe_ball->set_grob_property ("stencil", SCM_EOL);
 
 	  if (Grob *d = unsmob_grob (wipe_ball->get_grob_property ("dot")))
 	    d->suicide ();

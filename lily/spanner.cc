@@ -13,7 +13,7 @@
 #include "spanner.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-outputter.hh"
 #include "paper-column.hh"
 #include "system.hh"

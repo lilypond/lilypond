@@ -1,3 +1,4 @@
+\version "2.1.22"
 @c Note: -*-texinfo-*-
 @c This file is part of lilypond.tely
 
@@ -481,7 +482,7 @@ example, there are two triplets shown, while @code{\times} was only
 used once:
 
 @lilypond[fragment,relative,raggedright,verbatim]
-\property Voice.tupletSpannerDuration = #(ly:make-moment 1 4)
+\set tupletSpannerDuration =  #(ly:make-moment 1 4)
 \times 2/3 { c'8 c c c c c }
 @end lilypond
 
@@ -710,9 +711,9 @@ been checked for errors:
 
 @lilypond[fragment,raggedright,verbatim]
 \relative c'' { c8 d
-\property Score.skipTypesetting = ##t
+\set Score.skipTypesetting =  ##t
   e f g a g c, f e d
-\property Score.skipTypesetting = ##f
+\set Score.skipTypesetting =  ##f
 c d b bes a g c2 } 
 @end lilypond
 
@@ -958,7 +959,7 @@ The @code{set-octavation} function also takes -1 (for 8va bassa) and 2
 
 @example
   #(set-octavation 1)
-  \property Staff.ottavation = #"8"
+  \set Staff.ottavation =  #"8"
 @end example
 
 @seealso
@@ -1058,7 +1059,7 @@ The syntax for this command is
 @end example
 This is  internally translated into
 @example
-  \property Timing.measurePosition = -@var{length of duration}
+  \set Timing.measurePosition =  -@var{length of duration}
 @end example
 @cindex @code{|}
 The property @code{measurePosition} contains a rational number
@@ -1138,7 +1139,7 @@ connected between different staves of a @internalsref{StaffGroup}:
 
 
 The command @code{\bar @var{bartype}} is a short cut for doing
-@code{\property Score.whichBar = @var{bartype}} Whenever
+@code{\set Score.whichBar =  @var{bartype}} Whenever
 @code{whichBar} is set to a string, a bar line of that type is
 created.  At the start of a measure it is set to
 @code{defaultBarType}. The contents of @code{repeatCommands} are used
@@ -1225,7 +1226,7 @@ the @internalsref{NoteCollision} object, they are merged:
 @lilypond[verbatim,fragment,raggedright]
 \relative c'' \context Voice << {
      g8 g8 
-     \property Staff.NoteCollision \override
+     \override Staff.NoteCollision  
         #'merge-differently-dotted = ##t
      g8 g8
   } \\ { g8.[ f16] g8.[ f16] } 
@@ -1237,8 +1238,8 @@ Similarly, you can merge half note heads with eighth notes, by setting
 @lilypond[fragment,relative=2,verbatim]
 \context Voice << {
     c8 c4.
-    \property Staff.NoteCollision
-      \override #'merge-differently-headed = ##t
+    \override Staff.NoteCollision
+        #'merge-differently-headed = ##t
     c8 c4. } \\ { c2 c2 } >>
 @end lilypond
 
@@ -1356,14 +1357,14 @@ point are marked with @code{[} and @code{]}:
 
 Normally, beaming patterns within a beam are determined automatically.
 When this mechanism fouls up, the properties
-@code{Voice.stemLeftBeamCount} and @code{Voice.stemRightBeamCount} can
+@code{stemLeftBeamCount} and @code{stemRightBeamCount} can
 be used to control the beam subdivision on a stem.  If either property
 is set, its value will be used only once, and then it is erased.
 
 @lilypond[fragment,relative,verbatim]
   \context Staff {
     f8[ r16 f g a]
-    f8[ r16 \property Voice.stemLeftBeamCount = #1 f g a]
+    f8[ r16 \set stemLeftBeamCount =  #1 f g a]
   }
 @end lilypond
 @cindex @code{stemRightBeamCount}
@@ -1378,9 +1379,9 @@ but it take less typing:
 
 @lilypond[relative=1,verbatim,noindent]
         c16[ c c c c c c c]
-        \property Voice.subdivideBeams = ##t
+        \set subdivideBeams =  ##t
         c16[ c c c c c c c]
-        \property Score.beatLength = #(ly:make-moment 1 8)
+        \set Score.beatLength =  #(ly:make-moment 1 8)
         c16[ c c c c c c c]
 @end lilypond
 @cindex subdivideBeams
@@ -1424,14 +1425,14 @@ Automatically kneed beams cannot be used together with hidden staves.
 In normal time signatures, automatic beams can start on any note but can
 only end in a few positions within the measure: beams can end on a beat,
 or at durations specified by the properties in
-@code{Voice.autoBeamSettings}. The defaults for @code{autoBeamSettings}
+@code{autoBeamSettings}. The defaults for @code{autoBeamSettings}
 are defined in @file{scm/auto-beam.scm}.
 
 The value of @code{autoBeamSettings} is changed using
 @code{\override} and restored with @code{\revert}:
 @example
-\property Voice.autoBeamSettings \override #'(@var{BE} @var{P} @var{Q} @var{N} @var{M}) = @var{dur}
-\property Voice.autoBeamSettings \revert #'(@var{BE} @var{P} @var{Q} @var{N} @var{M})
+\override autoBeamSettings   #'(@var{BE} @var{P} @var{Q} @var{N} @var{M}) = @var{dur}
+\property autoBeamSettings \revert #'(@var{BE} @var{P} @var{Q} @var{N} @var{M})
 @end example
 Here, @var{BE} is the symbol @code{begin} or @code{end}. It determines
 whether the rule applies to begin or end-points.  The quantity
@@ -1443,7 +1444,7 @@ signatures).
 For example, if automatic beams should end on every quarter note, use
 the following:
 @example
-\property Voice.autoBeamSettings \override
+\override autoBeamSettings  
     #'(end * * * *) = #(ly:make-moment 1 4)
 @end example
 Since the duration of a quarter note is 1/4 of a whole note, it is
@@ -1452,7 +1453,7 @@ entered as @code{(ly:make-moment 1 4)}.
 The same syntax can be used to specify beam starting points. In this
 example, automatic beams can only end on a dotted quarter note:
 @example
-\property Voice.autoBeamSettings \override
+\override autoBeamSettings  
     #'(end * * * *) = #(ly:make-moment 3 8)
 @end example
 In 4/4 time signature, this means that automatic beams could end only on
@@ -1464,7 +1465,7 @@ should only be applied in @var{N}/@var{M} time signature is formed by
 replacing the second asterisks by @var{N} and @var{M}. For example, a
 rule for 6/8 time exclusively looks like
 @example
-\property Voice.autoBeamSettings \override
+\override autoBeamSettings  
     #'(begin * * 6 8) =  ... 
 @end example
 
@@ -1479,11 +1480,11 @@ accepting notes, this last beam will not be typeset at all.
 
 @cindex automatic beam generation
 @cindex autobeam
-@cindex @code{Voice.autoBeaming}
+@cindex @code{autoBeaming}
 @cindex lyrics
 
 For melodies that have lyrics, you may want to switch off 
-automatic beaming. This is done by setting @code{Voice.autoBeaming} to
+automatic beaming. This is done by setting @code{autoBeaming} to
 @code{#f}. 
 
 @refcommands
@@ -1506,8 +1507,8 @@ end at 3 eights; the third beam can only be corrected by specifying
 manual beaming.
 
 @lilypond[raggedright,fragment,relative,noverbatim,quote]
-  \property Voice.autoBeamSettings
-  \override #'(end * * * *) = #(ly:make-moment 3 8)
+  \override autoBeamSettings
+    #'(end * * * *) = #(ly:make-moment 3 8)
   % rather show case where it goes wrong
   %\time 12/8 c'8 c c c16 c c c c c c[ c c c] c8[ c] c4
   \time 12/8 c'8 c c c16 c c c c c c c c c c8 c c4
@@ -1768,7 +1769,7 @@ accidentals depending on the order in which the notes occur in the
 input file:
 
 @lilypond[raggedright,fragment,verbatim]
-\property Staff.autoAccidentals = #'( Staff (any-octave . 0) )
+\set Staff.autoAccidentals =  #'( Staff (any-octave . 0) )
 cis'4 <c'' c'> r2 | cis'4 <c' c''> r2
 | <cis' c''> r | <c'' cis'> r | 
 @end lilypond
@@ -1826,9 +1827,9 @@ the attachment type of the left and right end points:
 
 @lilypond[fragment,relative,verbatim]
   \slurUp
-  \property Voice.Stem \set #'length = #5.5
+  \override Stem   #'length = #5.5
   g'8(g g4)
-  \property Voice.Slur \set #'attachment = #'(stem . stem)
+  \override Slur   #'attachment = #'(stem . stem)
   g8( g g4)
 @end lilypond
 
@@ -1839,7 +1840,7 @@ stems might look better:
 @lilypond[fragment,relative,verbatim]
   \stemUp \slurUp
   d32( d'4 d8..)
-  \property Voice.Slur \set #'attachment = #'(stem . stem)
+  \override Slur   #'attachment = #'(stem . stem)
   d,32( d'4 d8..)
 @end lilypond
 
@@ -1928,7 +1929,7 @@ The glyph of the breath mark can be tweaked by overriding the
 any markup text.   For example,
 @lilypond[fragment,verbatim,relative]
 c'4
-\property Voice.BreathingSign \override #'text
+\override BreathingSign   #'text
  = #(make-musicglyph-markup "scripts-rvarcomma")
 \breathe
 d4
@@ -1982,8 +1983,8 @@ properties:
 
 @lilypond[fragment,relative,verbatim]
  \relative c' {  c1 
-  \property Voice.TextSpanner \set #'direction = #-1
-  \property Voice.TextSpanner \set #'edge-text = #'("rall " . "")
+  \override TextSpanner   #'direction = #-1
+  \override TextSpanner   #'edge-text = #'("rall " . "")
   c2\startTextSpan b c\stopTextSpan a }
 @end lilypond
 
@@ -2157,9 +2158,9 @@ In this case, setting @code{fingeringOrientations} will put  fingerings next
 to note heads:
 
 @lilypond[verbatim,raggedright,fragment,relative=1]
-	\property Voice.fingeringOrientations = #'(left down)
+	\set fingeringOrientations =  #'(left down)
 	<c-1 es-2 g-4 bes-5 > 4
-	\property Voice.fingeringOrientations = #'(up right down)
+	\set fingeringOrientations =  #'(up right down)
 	<c-1 es-2 g-4 bes-5 > 4
 @end lilypond
 
@@ -2304,9 +2305,9 @@ for example,
 @lilypond[fragment,verbatim,relative=1]
 \new Voice {
     \acciaccatura {
-      \property Voice.Stem \override #'direction = #-1
+      \override Stem   #'direction = #-1
       f16->
-      \property Voice.Stem \revert #'direction
+      \revert Stem #'direction
     }
     g4
 }
@@ -2447,7 +2448,7 @@ in @internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
 example:
 
 @example
- \property Staff.Hairpin \override #'minimum-length = #5
+ \override Staff.Hairpin   #'minimum-length = #5
 @end example
 
 You can also use a text saying @emph{cresc.} instead of hairpins. Here
@@ -2463,8 +2464,8 @@ is an example how to do it:
 You can also supply your own texts:
 @lilypond[fragment,relative,verbatim]
   \context Voice {
-    \property Voice.crescendoText = \markup { \italic "cresc. poco" }
-    \property Voice.crescendoSpanner = #'dashed-line
+    \set crescendoText =  \markup { \italic "cresc. poco" }
+    \set crescendoSpanner =  #'dashed-line
     a'2\< a a a\!\mf
   }
 @end lilypond
@@ -2650,9 +2651,9 @@ alphabetic characters. Or,
 
 @lilypond[verbatim,fragment,relative=2]
  c4
-    \property Score.repeatCommands = #'((volta "93") end-repeat)
+    \set Score.repeatCommands =  #'((volta "93") end-repeat)
  c4 c4
-    \property Score.repeatCommands = #'((volta #f))
+    \set Score.repeatCommands =  #'((volta #f))
  c4 c4
 @end lilypond
 
@@ -2709,7 +2710,7 @@ Tremolo marks can be printed on a single note by adding
 `@code{:}[@var{length}]' after the note.  The length must be at least 8.
 A @var{length} value of 8 gives one line across the note stem.  If the
 length is omitted, then then the last value (stored in
-@code{Voice.tremoloFlags}) is used:
+@code{tremoloFlags}) is used:
 
 @lilypond[verbatim,fragment,center]
   c'2:8 c':32 | c': c': |
@@ -2973,8 +2974,8 @@ up = \drums { hh8 hh hh hh hhp4 hhp }
 down = \drums { bd4 sn bd toml8 toml }
 \score {
     \new DrumStaff <<
-        \property DrumStaff.drumStyleTable
-           = #(alist->hash-table mydrums)
+        \set DrumStaff.drumStyleTable
+ =  #(alist->hash-table mydrums)
         \new DrumVoice { \voiceOne \up }
         \new DrumVoice { \voiceTwo \down }
     >>
@@ -3129,7 +3130,7 @@ Pedals can also be indicated by a sequence of brackets, by setting the
 @code{pedalSustainStyle} property to @code{bracket} objects: 
 
 @lilypond[fragment,verbatim]
- \property Staff.pedalSustainStyle = #'bracket
+ \set Staff.pedalSustainStyle =  #'bracket
  c''4\sustainDown d''4 e''4
  a'4\sustainUp\sustainDown
  f'4 g'4 a'4\sustainUp
@@ -3140,7 +3141,7 @@ obtained by setting the @code{pedalSustainStyle} style property to
 @code{mixed}:
 
 @lilypond[fragment,verbatim]
- \property Staff.pedalSustainStyle = #'mixed
+ \set Staff.pedalSustainStyle =  #'mixed
 c''4\sustainDown d''4 e''4
 c'4\sustainUp\sustainDown
  f'4 g'4 a'4\sustainUp
@@ -3161,7 +3162,7 @@ For fine-tuning of the appearance of a pedal bracket, the properties
 bracket may be extended to the end of the note head:
 
 @lilypond[fragment,verbatim]
-\property Staff.PianoPedalBracket \override
+\override Staff.PianoPedalBracket  
    #'shorten-pair = #'(0 . -1.0)
 c''4\sostenutoDown d''4 e''4 c'4
 f'4 g'4 a'4\sostenutoUp
@@ -3188,7 +3189,7 @@ in both staves, and set
 
 @lilypond[fragment,relative,verbatim]
   \context PianoStaff <<
-    \property PianoStaff.connectArpeggios = ##t
+    \set PianoStaff.connectArpeggios =  ##t
     \new Staff  { <c' e g c>\arpeggio }
     \new Staff { \clef bass  <c,, e g>\arpeggio }
   >>
@@ -3200,9 +3201,9 @@ arrowhead to the wiggly line.  This can be typeset by setting
 
 @lilypond[fragment,relative,verbatim]
   \context Voice {
-     \property Voice.Arpeggio \set #'arpeggio-direction = #1
+     \override Arpeggio   #'arpeggio-direction = #1
      <c e g c>\arpeggio
-     \property Voice.Arpeggio \set #'arpeggio-direction = #-1
+     \override Arpeggio   #'arpeggio-direction = #-1
      <c e g c>\arpeggio
   }
 @end lilypond
@@ -3214,7 +3215,7 @@ arpeggiate the chord. To draw these brackets, set the
 @code{\arpeggio} statements within the chords as before:
 
 @lilypond[fragment,relative,verbatim]
-    \property PianoStaff.Arpeggio \override
+    \override PianoStaff.Arpeggio  
         #'print-function = \arpeggioBracket
        <c' e g c>\arpeggio
 @end lilypond
@@ -3253,7 +3254,7 @@ can be printed automatically. This is enabled if the property
 
 @lilypond[fragment,relative,verbatim]
   \context PianoStaff <<
-    \property PianoStaff.followVoice = ##t
+    \set PianoStaff.followVoice =  ##t
     \context Staff \context Voice {
       c1
       \change Staff=two
@@ -3321,7 +3322,7 @@ Similarly, a  period following a alphabetic sequence, is included in the
 resulting string. As a consequence, spaces must be inserted around
 @code{\property} commands:
 @example
-  \property Lyrics . LyricText \set #'font-shape = #'italic
+  \override Lyrics .LyricText   #'font-shape = #'italic
 @end example
 
 @cindex @code{_}
@@ -3524,10 +3525,10 @@ The complete example is shown here:
   << \notes \relative c'' \context Voice = duet { \time 3/4
      g2 e4 a2 f4 g2.  }
   \lyrics << \lyricsto "duet" \new Lyrics {
-    \property Lyrics . stanza = "1"
+    \set stanza =  "1"
     Hi, my name is bert. }
   \lyricsto "duet" \new Lyrics {
-    \property Lyrics . stanza = "2" 
+    \set stanza =  "2" 
     Ooooo, ch\'e -- ri, je t'aime. }
   >> >>
 }
@@ -3537,16 +3538,16 @@ The complete example is shown here:
 @cindex singer's names
 @cindex name of singer 
 
-Stanza numbers can be added by setting @code{Lyrics.stanza}, e.g.
+Stanza numbers can be added by setting @code{stanza}, e.g.
 
 @example
-    \property Lyrics . stanza = "Bert"
+    \set stanza =  "Bert"
     @dots{}
-    \property Lyrics . stanza = "Ernie" 
+    \set stanza =  "Ernie" 
 @end example
 
 Notice how dots are surrounded with spaces in @code{\lyrics} mode, to
-prevent @code{Lyrics.stanza} being interpreted as a single
+prevent @code{stanza} being interpreted as a single
 string.
 
 Names of the singers should be added using @code{Lyrics
@@ -3709,14 +3710,14 @@ value for @code{minimumFret} is 0:
 
 @example
 e8 fis gis a b cis' dis' e'
-\property TabStaff.minimumFret = #8
+\set TabStaff.minimumFret =  #8
 e8 fis gis a b cis' dis' e'
 @end example
 @lilypond[noindent]
 frag = \notes {
     \key e \major
     e8 fis gis a b cis' dis' e'
-    \property TabStaff.minimumFret = #8
+    \set TabStaff.minimumFret =  #8
     e8 fis gis a b cis' dis' e'
 }
 \score {
@@ -3756,7 +3757,7 @@ g:
 
 @lilypond[fragment,verbatim]
   \context TabStaff <<
-    \property TabStaff.stringTunings =  #'(-5 -10 -15 -20)
+    \set TabStaff.stringTunings =   #'(-5 -10 -15 -20)
     
     \notes {
       a,4 c' a e' e c' a e'
@@ -3968,7 +3969,7 @@ scheme = \chords {
 \score {
   \notes <<
     \context ChordNames {
-        \property ChordNames.chordChanges = ##t
+        \set chordChanges =  ##t
         \scheme }
     \context Staff \transpose c c' \scheme
   >>
@@ -4003,8 +4004,8 @@ separators, e.g.
 @lilypond[fragment,verbatim]
 \context ChordNames \chords {
       c:7sus4
-      \property ChordNames.chordNameSeparator
-        = \markup { \typewriter "|" }
+      \set chordNameSeparator
+ =  \markup { \typewriter "|" }
       c:7sus4 }
 @end lilypond
 
@@ -4149,11 +4150,11 @@ example, @code{markFormatter} is set to a canned procedure. After a
 few measures, it is set to function that produces a boxed number. 
 
 @lilypond[verbatim,fragment,relative=1]
-  \property Score.markFormatter = #format-mark-numbers 
+  \set Score.markFormatter =  #format-mark-numbers 
   c1 \mark \default
   c1 \mark \default
-  \property Score.markFormatter
-    = #(lambda (mark  context)
+  \set Score.markFormatter
+ =  #(lambda (mark  context)
 	(make-bold-markup (make-box-markup (number->string mark))))
   c1 \mark \default
   c1 \mark \default
@@ -4183,7 +4184,7 @@ In this case, during line breaks, marks must also be printed at the
 end of the line, and not at the beginning. Use the following to force
 that behavior:
 @example
-\property Score.RehearsalMark \override
+\override Score.RehearsalMark  
   #'break-visibility = #begin-of-line-invisible
 @end example
 
@@ -4253,7 +4254,7 @@ used, for the next ones @code{instr} is used:
 
 @quotation
 @lilypond[verbatim,raggedright]
-  \property Staff.instrument = "ploink " { c''4 }  
+  \set Staff.instrument =  "ploink " { c''4 }  
 @end lilypond
 @end quotation
 
@@ -4263,7 +4264,7 @@ names:
 @quotation
 @lilypond[fragment,verbatim,raggedright]
   \notes {
-    \property Staff.instrument = \markup {
+    \set Staff.instrument =  \markup {
         \column < "Clarinetti"
           { "in B"
             \smaller \musicglyph #"accidentals--1"
@@ -4365,7 +4366,7 @@ be expanded, and the appropriate number is added automatically:
 
 @lilypond[fragment,verbatim]
  \time 4/4 r1 | R1 | R1*2
- \property Score.skipBars = ##t R1*17  R1*4
+ \set Score.skipBars =  ##t R1*17  R1*4
 @end lilypond
 
 The @code{1} in @code{R1} is similar to the duration notation used for
@@ -4373,7 +4374,7 @@ notes. Hence, for time signatures other than 4/4, you must enter other
 durations.  This can be done with augmentation dots or fractions:
 
 @lilypond[fragment,verbatim]
- \property Score.skipBars = ##t
+ \set Score.skipBars =  ##t
  \time 3/4
   R2. | R2.*2
  \time 13/8
@@ -4492,7 +4493,7 @@ may set the property @var{soloADue} to false:
 
 @lilypond[verbatim,raggedright,fragment]
    \new Staff <<
-    \property Staff.soloADue = ##f
+    \set Staff.soloADue =  ##f
     \partcombine 
       {
         g a( b) r
@@ -4572,7 +4573,7 @@ for the full score, and one with cue notes for the instrumental part:
         \tag #'part <<
           R1 \\
           @{
-              \property Voice.fontSize = #-1
+              \set fontSize =  #-1
               c4_"cue" f2 g4 @} 
         >>
         \tag #'score R1
@@ -4628,8 +4629,8 @@ output:
 @cindex @code{transposing}
 
 @example
-        \property Staff.instrument = #"Cl. in B-flat"
-        \property Staff.transposing = #-2
+        \set Staff.instrument =  #"Cl. in B-flat"
+        \set Staff.transposing =  #-2
 @end example
 
 
@@ -4723,7 +4724,7 @@ printings of the 16th century.
 The following example demonstrates the @code{neo_mensural} style:
 
 @lilypond[fragment,raggedright,verbatim]
-  \property Voice.NoteHead \set #'style = #'neo_mensural
+  \override NoteHead   #'style = #'neo_mensural
   a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
@@ -4840,7 +4841,7 @@ in historic prints of the 16th century.
 The following example demonstrates the @code{neo_mensural} style:
 
 @lilypond[fragment,raggedright,verbatim]
-  \property Voice.Rest \set #'style = #'neo_mensural
+  \override Rest   #'style = #'neo_mensural
   r\longa r\breve r1 r2 r4 r8 r16
 @end lilypond
 
@@ -4889,7 +4890,7 @@ modern style mensural C clef @tab
 @code{neo_mensural_c1}, @code{neo_mensural_c2},
 @code{neo_mensural_c3}, @code{neo_mensural_c4} @tab
 @lilypond[relative,notime]
-\property Staff.TimeSignature \set #'transparent = ##t
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "neo_mensural_c2" c
 @end lilypond
 
@@ -4913,7 +4914,7 @@ petrucci style mensural C clefs, for use  on different  stafflines
 
 @tab
 @lilypond[relative,notime]
-\property Staff.TimeSignature \set #'transparent = ##t
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "petrucci_c2" c
 @end lilypond
 
@@ -4922,7 +4923,7 @@ petrucci style mensural C clefs, for use  on different  stafflines
 petrucci style mensural F clef @tab
 @code{petrucci_f} @tab
 @lilypond[relative,notime]
-\property Staff.TimeSignature \set #'transparent = ##t
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "petrucci_f" c
 @end lilypond
 
@@ -4931,7 +4932,7 @@ petrucci style mensural F clef @tab
 petrucci style mensural G clef @tab
 @code{petrucci_g} @tab
 @lilypond[relative,notime]
-\property Staff.TimeSignature \set #'transparent = ##t
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "petrucci_g" c
 @end lilypond
 
@@ -4941,7 +4942,7 @@ historic style mensural C clef @tab
 @code{mensural_c1}, @code{mensural_c2}, @code{mensural_c3},
 @code{mensural_c4} @tab
 @lilypond[relative,notime]
-\property Staff.TimeSignature \set #'transparent = ##t
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "mensural_c2" c
 @end lilypond
 
@@ -4950,7 +4951,7 @@ historic style mensural C clef @tab
 historic style mensural F clef @tab
 @code{mensural_f} @tab
 @lilypond[relative,notime]
-\property Staff.TimeSignature \set #'transparent = ##t
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "mensural_f" c
 @end lilypond
 
@@ -4959,7 +4960,7 @@ historic style mensural F clef @tab
 historic style mensural G clef @tab
 @code{mensural_g} @tab
 @lilypond[relative,notime]
-\property Staff.TimeSignature \set #'transparent = ##t
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "mensural_g" c
 @end lilypond
 
@@ -4968,8 +4969,8 @@ historic style mensural G clef @tab
 Editio Vaticana style do clef @tab
 @code{vaticana_do1}, @code{vaticana_do2}, @code{vaticana_do3} @tab
 @lilypond[relative,notime]
-    \property Staff.StaffSymbol \set #'line-count  = #4
-\property Staff.TimeSignature \set #'transparent = ##t
+    \override Staff.StaffSymbol   #'line-count  = #4
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "vaticana_do2" c
 @end lilypond
 
@@ -4978,8 +4979,8 @@ Editio Vaticana style do clef @tab
 Editio Vaticana style fa clef @tab
 @code{vaticana_fa1}, @code{vaticana_fa2} @tab
 @lilypond[relative,notime]
-    \property Staff.StaffSymbol \set #'line-count  = #4
-\property Staff.TimeSignature \set #'transparent = ##t
+    \override Staff.StaffSymbol   #'line-count  = #4
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "vaticana_fa2" c
 @end lilypond
 
@@ -4988,8 +4989,8 @@ Editio Vaticana style fa clef @tab
 Editio Medicaea style do clef @tab
 @code{medicaea_do1}, @code{medicaea_do2}, @code{medicaea_do3} @tab
 @lilypond[relative,notime]
-    \property Staff.StaffSymbol \set #'line-count  = #4
-\property Staff.TimeSignature \set #'transparent = ##t
+    \override Staff.StaffSymbol   #'line-count  = #4
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "medicaea_do2" c
 @end lilypond
 
@@ -4998,8 +4999,8 @@ Editio Medicaea style do clef @tab
 Editio Medicaea style fa clef @tab
 @code{medicaea_fa1}, @code{medicaea_fa2} @tab
 @lilypond[relative,notime]
-    \property Staff.StaffSymbol \set #'line-count  = #4
-\property Staff.TimeSignature \set #'transparent = ##t
+    \override Staff.StaffSymbol   #'line-count  = #4
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "medicaea_fa2" c
 @end lilypond
 
@@ -5008,8 +5009,8 @@ Editio Medicaea style fa clef @tab
 historic style hufnagel do clef @tab
 @code{hufnagel_do1}, @code{hufnagel_do2}, @code{hufnagel_do3} @tab
 @lilypond[relative,notime]
-    \property Staff.StaffSymbol \set #'line-count  = #4
-\property Staff.TimeSignature \set #'transparent = ##t
+    \override Staff.StaffSymbol   #'line-count  = #4
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "hufnagel_do2" c
 @end lilypond
 
@@ -5018,8 +5019,8 @@ historic style hufnagel do clef @tab
 historic style hufnagel fa clef @tab
 @code{hufnagel_fa1}, @code{hufnagel_fa2} @tab
 @lilypond[relative,notime]
-    \property Staff.StaffSymbol \set #'line-count  = #4
-\property Staff.TimeSignature \set #'transparent = ##t
+    \override Staff.StaffSymbol   #'line-count  = #4
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "hufnagel_fa2" c
 @end lilypond
 
@@ -5028,7 +5029,7 @@ historic style hufnagel fa clef @tab
 historic style hufnagel combined do/fa clef @tab
 @code{hufnagel_do_fa} @tab
 @lilypond[relative,notime]
-\property Staff.TimeSignature \set #'transparent = ##t
+\override Staff.TimeSignature   #'transparent = ##t
 \clef "hufnagel_do_fa" c
 @end lilypond
 
@@ -5040,14 +5041,14 @@ historic style hufnagel combined do/fa clef @tab
 @c Supported clefs:
 @c @code{percussion}
 @c
-@c @lilypond{\property Staff.TimeSignature \set #'transparent = ##t \clef "percussion" c'}
+@c @lilypond{\override Staff.TimeSignature   #'transparent = ##t \clef "percussion" c'}
 @c
 @c @item modern style tab clef (glyph: @code{clefs-tab})
 @c
 @c Supported clefs:
 @c @code{tab}
 @c
-@c @lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #6 \property Staff.TimeSignature \set #'transparent = ##t \clef "tab" c'}
+@c @lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #6 \override Staff.TimeSignature   #'transparent = ##t \clef "tab" c'}
 
 @emph{Modern style} means ``as is typeset in contemporary editions of
 transcribed mensural music''.
@@ -5089,9 +5090,9 @@ select ancient flags.  Besides the @code{default} flag style,
  only @code{mensural} style is supported:
 
 @lilypond[fragment,raggedright,verbatim]
-  \property Voice.Stem \set #'flag-style = #'mensural
-  \property Voice.Stem \set #'thickness = #1.0
-  \property Voice.NoteHead \set #'style = #'mensural
+  \override Stem   #'flag-style = #'mensural
+  \override Stem   #'thickness = #1.0
+  \override NoteHead   #'style = #'mensural
   \autoBeamOff
   c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
   c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
@@ -5105,10 +5106,10 @@ of the end of each flare is different between notes on staff lines and
 notes between staff lines:
 
 @lilypond[fragment,raggedright]
-  \property Voice.Stem \set #'flag-style = #'mensural
-  \property Voice.Stem \set #'thickness = #1.0
-  \property Voice.Stem \set #'adjust-if-on-staffline = ##f
-  \property Voice.NoteHead \set #'style = #'mensural
+  \override Stem   #'flag-style = #'mensural
+  \override Stem   #'thickness = #1.0
+  \override Stem   #'adjust-if-on-staffline = ##f
+  \override NoteHead   #'style = #'mensural
   \autoBeamOff
   c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
   c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
@@ -5136,8 +5137,8 @@ following table:
 @lilypond
 \score {
     \notes {
-        \property Score.timing = ##f
-        \property Score.barAlways = ##t
+        \set Score.timing =  ##f
+        \set Score.barAlways =  ##t
         s_\markup { "$\\backslash$time 4/4" }
          ^\markup { "       " \musicglyph #"timesig-neo_mensural4/4" }
 	s
@@ -5260,7 +5261,7 @@ The result looks like this:
 \score {
     \notes {
 	a'1
-	\property Staff.Custos \set #'style = #'mensural
+	\override Staff.Custos   #'style = #'mensural
 	\break
 	g'
     }
@@ -5500,10 +5501,10 @@ automatic transcription of the ligatures.
 For example,
 
 @example
-        \property Score.timing = ##f
-        \property Score.defaultBarType = "empty"
-        \property Voice.NoteHead \set #'style = #'neo_mensural
-        \property Staff.TimeSignature \set #'style = #'neo_mensural
+        \set Score.timing =  ##f
+        \set Score.defaultBarType =  "empty"
+        \override NoteHead   #'style = #'neo_mensural
+        \override Staff.TimeSignature   #'style = #'neo_mensural
         \clef "petrucci_g"
         \[ g\longa c\breve a\breve f\breve d'\longa \]
         s4
@@ -5512,10 +5513,10 @@ For example,
 @lilypond[raggedright]
 \score {
     \notes \transpose c c' {
-        \property Score.timing = ##f
-        \property Score.defaultBarType = "empty"
-        \property Voice.NoteHead \set #'style = #'neo_mensural
-        \property Staff.TimeSignature \set #'style = #'neo_mensural
+        \set Score.timing =  ##f
+        \set Score.defaultBarType =  "empty"
+        \override NoteHead   #'style = #'neo_mensural
+        \override Staff.TimeSignature   #'style = #'neo_mensural
         \clef "petrucci_g"
         \[ g\longa c\breve a\breve f\breve d'\longa \]
         s4
@@ -5538,10 +5539,10 @@ to the following:
 @lilypond[raggedright]
 \score {
     \notes \transpose c c' {
-        \property Score.timing = ##f
-        \property Score.defaultBarType = "empty"
-        \property Voice.NoteHead \set #'style = #'neo_mensural
-        \property Staff.TimeSignature \set #'style = #'neo_mensural
+        \set Score.timing =  ##f
+        \set Score.defaultBarType =  "empty"
+        \override NoteHead   #'style = #'neo_mensural
+        \override Staff.TimeSignature   #'style = #'neo_mensural
         \clef "petrucci_g"
         \[ g\longa c\breve a\breve f\breve d'\longa \]
         s4
@@ -7308,7 +7309,7 @@ entering the chant, as the following short excerpt demonstrates:
 \score {
 <<
   \context VaticanaVoice = "cantus" {
-    \property Score.BarNumber \set #'transparent = ##t
+    \override Score.BarNumber   #'transparent = ##t
     \notes {
       \[ c'\melisma c' \flexa a \] \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
       \[ f\melisma \pes a c' c' \pes d'\melismaEnd \] c' \divisioMinima \break
@@ -7542,7 +7543,7 @@ Do not confuse layout properties with translation
 properties. Translation properties always use a mixed caps style
 naming, and are manipulated using @code{\property}:
 @example
-  \property Context.propertyName  = @var{value}
+  \set Context.propertyName =  @var{value}
 @end example
 
 Layout properties are use Scheme style variable naming, i.e.  lower
@@ -7596,8 +7597,8 @@ Changing a variable for only one object is commonly achieved with
 @code{\once}:
 
 @example
-\once \property @var{context}.@var{objectname}
-  \override @var{symbol} = @var{value}
+\once \override @var{context}.@var{objectname}
+    @var{symbol} = @var{value}
 @end example
 Here @var{symbol} is a Scheme expression of symbol type, @var{context}
 and @var{objectname} is a string and @var{value} is a Scheme expression.
@@ -7608,7 +7609,7 @@ changed from its original setting:
 
 @lilypond[verbatim,fragment,relative=1]
   c4 
-  \once \property Voice.Stem \set #'thickness = #4
+  \once \override Stem   #'thickness = #4
   c4
   c4
 @end lilypond
@@ -7617,7 +7618,7 @@ changed from its original setting:
 For changing more objects, the same command, without @code{\once} can
 be used:
 @example
-\property @var{context}.@var{objectname} \override @var{symbol} = @var{value}
+\override @var{context}.@var{objectname}   @var{symbol} = @var{value}
 @end example
 This command adds @code{@var{symbol} = @var{value}} to the definition
 of @var{objectname} in the context @var{context}, and this definition
@@ -7634,14 +7635,14 @@ The @code{\set} shorthand performs a revert followed by an override,
 and is often more convenient to use
 
 @example
-\property @var{context}.@var{objectname} \set @var{symbol} = @var{value}
+\override @var{context}.@var{objectname}   @var{symbol} = @var{value}
 @end example
 
 Some examples: 
 @lilypond[verbatim,quote]
-c'4 \property Voice.Stem \override #'thickness = #4.0
+c'4 \override Stem   #'thickness = #4.0
 c'4
-c'4 \property Voice.Stem \revert #'thickness
+c'4 \revert Stem #'thickness
 c'4
 @end lilypond
 
@@ -7649,9 +7650,9 @@ The following example gives exactly the same result as the previous
 one (assuming the system default for stem thickness is 1.3):
 @c
 @lilypond[verbatim,quote]
-  c'4 \property Voice.Stem \set #'thickness = #4.0
+  c'4 \override Stem   #'thickness = #4.0
   c'4
-  c'4 \property Voice.Stem \set #'thickness = #1.3
+  c'4 \override Stem   #'thickness = #1.3
   c'4
 @end lilypond
 
@@ -7695,7 +7696,7 @@ list is a singly linked list, we can treat it as a stack, and
 @code{\override} and @code{\revert} are push and pop operations.  The
 association list is stored in a normal context property, hence
 @example
- \property Voice.NoteHead  = #'() 
+ \set NoteHead =  #'() 
 @end example
 will effectively erase @internalsref{NoteHead}s from the current
 @internalsref{Voice}. Typically, this will blank the object. However,
@@ -7832,15 +7833,15 @@ By increasing the value of @code{padding}, we can move away the
 fingering.  The following command inserts 3 staff spaces of white
 between the note and the fingering:
 @example
-\once \property Voice.Fingering \set #'padding = #3
+\once \override Fingering   #'padding = #3
 @end example
 
 Inserting this command before the Fingering object is created,
 i.e. before @code{c2}, yields the following result:
 
 @lilypond[relative=2,fragment,verbatim]
-\once \property Voice.Fingering
-  \set #'padding = #3
+\once \override Fingering
+    #'padding = #3
 c-2
 \stemUp
 f
@@ -7862,7 +7863,7 @@ Fingering_engraver is part of contexts: Voice
 @end example
 so tuning the settings for Fingering should be done with
 @example
-  \property Voice.Fingering \set @dots{}
+  \override Fingering   @dots{}
 @end example
 
 Of course, the tweak may also done in a larger context than
@@ -7927,7 +7928,7 @@ negative numbers make the font smaller, positive numbers larger. An
 example is given below:
 @c
 @lilypond[fragment,relative=1,verbatim,quote]
-  c4 c4 \property Voice.fontSize = #-1
+  c4 c4 \set fontSize =  #-1
   f4 g4
 @end lilypond
 This command will set @code{font-size} (see below), and does
@@ -7943,8 +7944,8 @@ notes. An elaborate example of those is in
 The font used for printing a object can be selected by setting
 @code{font-name}, e.g.
 @example
-  \property Staff.TimeSignature
-    \set #'font-name = #"cmr17"
+  \override Staff.TimeSignature
+      #'font-name = #"cmr17"
 @end example
 
 @noindent
@@ -7988,9 +7989,9 @@ For any of these properties, the value @code{*} (i.e. the symbol
 @code{*}, entered as @code{#'*}), acts as a wildcard. This can be used
 to override default setting, which are always present. For example:
 @example
-  \property Lyrics . LyricText \override #'font-series = #'bold
-  \property Lyrics . LyricText \override #'font-family = #'typewriter
-  \property Lyrics . LyricText \override #'font-shape  = #'*
+  \override Lyrics .LyricText   #'font-series = #'bold
+  \override Lyrics .LyricText   #'font-family = #'typewriter
+  \override Lyrics .LyricText   #'font-shape  = #'*
 @end example
 
 @cindex @code{font-style}
@@ -8391,7 +8392,7 @@ done with the property @code{minimumVerticalExtent}. It takes a pair
 of numbers, so if you want to make it smaller from its, then you could
 set
 @example
-  \property Staff.minimumVerticalExtent = #'(-4 . 4)
+  \set Staff.minimumVerticalExtent =  #'(-4 . 4)
 @end example
 This sets the vertical size of the current staff to 4 staff spaces on
 either side of the center staff line.  The argument of
@@ -8493,9 +8494,9 @@ exaggerated corrections:
     \score { \notes {
       c'4 e''4 e'4 b'4 |
       b'4 e''4 b'4 e''4|
-      \property Staff.NoteSpacing \override #'stem-spacing-correction
+      \override Staff.NoteSpacing   #'stem-spacing-correction
       = #1.5
-      \property Staff.StaffSpacing \override #'stem-spacing-correction
+      \override Staff.StaffSpacing   #'stem-spacing-correction
       = #1.5
       c'4 e''4 e'4 b'4 |
       b'4 e''4 b'4 e''4|      

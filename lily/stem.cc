@@ -23,7 +23,7 @@
 #include "paper-def.hh"
 #include "rhythmic-head.hh"
 #include "font-interface.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-column.hh"
 #include "misc.hh"
 #include "beam.hh"
@@ -345,13 +345,13 @@ Stem::get_default_stem_end_position (Grob*me)
 	Crude hack: add extra space if tremolo flag is there.
 
 	We can't do this for the beam, since we get into a loop
-	(Stem_tremolo::raw_molecule() looks at the beam.)
+	(Stem_tremolo::raw_stencil() looks at the beam.)
 	
 	 --hwn 
       */
       
       Real minlen =
-	1.0 + 2 * Stem_tremolo::raw_molecule (trem).extent (Y_AXIS).length  () / ss;
+	1.0 + 2 * Stem_tremolo::raw_stencil (trem).extent (Y_AXIS).length  () / ss;
       
       if (durlog >= 3)
 	{
@@ -559,10 +559,10 @@ Stem::height (SCM smob, SCM ax)
   Grob * me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
-  SCM mol = me->get_uncached_molecule ();
+  SCM mol = me->get_uncached_stencil ();
   Interval iv;
   if (mol != SCM_EOL)
-    iv = unsmob_molecule (mol)->extent (a);
+    iv = unsmob_stencil (mol)->extent (a);
   if (Grob *b =get_beam (me))
     {
       Direction d = get_direction (me);
@@ -573,7 +573,7 @@ Stem::height (SCM smob, SCM ax)
 }
 
 
-Molecule
+Stencil
 Stem::flag (Grob*me)
 {
   /* TODO: maybe property stroke-style should take different values,
@@ -589,7 +589,7 @@ Stem::flag (Grob*me)
 
   if (flag_style == "no-flag")
     {
-      return Molecule ();
+      return Stencil ();
     }
 
   bool adjust = to_boolean (me->get_grob_property ("adjust-if-on-staffline"));
@@ -648,7 +648,7 @@ Stem::flag (Grob*me)
   String font_char =
     flag_style + to_string (dir) + staffline_offs + to_string (duration_log (me));
   Font_metric *fm = Font_interface::get_default_font (me);
-  Molecule flag = fm->find_by_name ("flags-" + font_char);
+  Stencil flag = fm->find_by_name ("flags-" + font_char);
   if (flag.is_empty ())
     {
       me->warning (_f ("flag `%s' not found", font_char));
@@ -661,14 +661,14 @@ Stem::flag (Grob*me)
       if (!stroke_style.is_empty ())
 	{
 	  String font_char = to_string (dir) + stroke_style;
-	  Molecule stroke = fm->find_by_name ("flags-" + font_char);
+	  Stencil stroke = fm->find_by_name ("flags-" + font_char);
 	  if (stroke.is_empty ())
 	    {
 	      me->warning (_f ("flag stroke `%s' not found", font_char));
 	    }
 	  else
 	    {
-	      flag.add_molecule (stroke);
+	      flag.add_stencil (stroke);
 	    }
 	}
     }
@@ -707,7 +707,7 @@ SCM
 Stem::print (SCM smob) 
 {
   Grob*me = unsmob_grob (smob);
-  Molecule mol;
+  Stencil mol;
   Direction d = get_direction (me);
      
   /*
@@ -754,15 +754,15 @@ Stem::print (SCM smob)
   Box b = Box (Interval (-stem_width/2, stem_width/2),
 	       Interval (stem_y[DOWN]*dy, stem_y[UP]*dy));
 
-  Molecule ss = Lookup::round_filled_box (b, blot);
-  mol.add_molecule (ss);
+  Stencil ss = Lookup::round_filled_box (b, blot);
+  mol.add_stencil (ss);
 
   if (!get_beam (me) && abs (duration_log (me)) > 2)
     {
-      Molecule fl = flag (me);
+      Stencil fl = flag (me);
       fl.translate_axis (stem_y[d]*dy - d * blot/2, Y_AXIS);
       fl.translate_axis (stem_width/2, X_AXIS);
-      mol.add_molecule (fl);
+      mol.add_stencil (fl);
     }
 
   return mol.smobbed_copy ();

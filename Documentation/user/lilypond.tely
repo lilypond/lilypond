@@ -1,3 +1,4 @@
+\version "2.1.22"
 \input texinfo @c -*-texinfo-*-
 @setfilename lilypond.info
 @settitle GNU LilyPond
@@ -94,7 +95,7 @@ Copyright @copyright{} 1999--2004 by the authors
 @lilypond[raggedright]
 \score {
     \context Lyrics \notes {
-        \property Score.RehearsalMark \set #'self-alignment-X = #LEFT
+        \override Score.RehearsalMark   #'self-alignment-X = #LEFT
         \mark #(ly:export (string-append
              "(For LilyPond version " (lilypond-version) ")"))
         s2

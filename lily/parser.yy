@@ -283,7 +283,6 @@ yylex (YYSTYPE *s,  void * v)
 %token PAPER
 %token PARTCOMBINE
 %token PARTIAL
-%token PROPERTY
 %token RELATIVE
 %token REMOVE
 %token REPEAT
@@ -381,8 +380,9 @@ yylex (YYSTYPE *s,  void * v)
 %type <scm>  embedded_scm scalar
 %type <music>	Music Sequential_music Simultaneous_music 
 %type <music>	relative_music re_rhythmed_music 
-%type <music>	music_property_def context_change 
-%type <scm> Music_list
+%type <music>	music_property_def context_change
+%type <scm> context_prop_spec 
+%type <scm> Music_list 
 %type <scm> property_operation context_mod translator_mod optional_context_mod
 %type <outputdef>  music_output_def_body music_output_def_head
 %type <music>	post_event tagged_post_event
@@ -1168,25 +1168,50 @@ context_mod:
 	}
 	;
 
+context_prop_spec:
+	STRING  {
+		$$ = scm_list_n (ly_symbol2scm ("Bottom"), scm_string_to_symbol ($1), SCM_UNDEFINED);
+	}
+	| STRING '.' STRING {
+		$$ = scm_list_n (scm_string_to_symbol ($1), scm_string_to_symbol ($3), SCM_UNDEFINED);
+	}
+	;
+
 music_property_def:
-	PROPERTY STRING '.' property_operation {
-		Music * t = property_op_to_music ($4);
-		Music *csm = MY_MAKE_MUSIC("ContextSpeccedMusic");
+	OVERRIDE context_prop_spec embedded_scm '=' scalar {
+		$$ = property_op_to_music (scm_list_n (
+			ly_symbol2scm ("poppush"),
+			gh_cadr ($2),
+			$3, $5, SCM_UNDEFINED));
+		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+	}
+	| SET context_prop_spec '=' scalar {
+		$$ = property_op_to_music (scm_list_n (
+			ly_symbol2scm ("assign"),
+			gh_cadr ($2),
+			$4, SCM_UNDEFINED));
+		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+	}
+	| REVERT context_prop_spec embedded_scm {
+		$$ = property_op_to_music (scm_list_n (
+			ly_symbol2scm ("pop"),
+			gh_cadr ($2),
+			$3, SCM_UNDEFINED));
 
-		csm->set_mus_property ("element", t->self_scm ());
-		scm_gc_unprotect_object (t->self_scm ());
-
-		$$ = csm;
-		$$->set_spot (THIS->here_input ());
-
-		csm-> set_mus_property ("context-type", scm_string_to_symbol ($2));
+		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+	}
+	| UNSET context_prop_spec {
+		$$ = property_op_to_music (scm_list_n (
+			ly_symbol2scm ("unset"),
+			gh_cadr ($2)));
+		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
 	| ONCE music_property_def {
 		$$ = $2;
-		SCM e = $2->get_mus_property ("element");
-		unsmob_music (e)->set_mus_property ("once", SCM_BOOL_T);
+		$$->set_mus_property ("once", SCM_BOOL_T);
 	}
 	;
+
 
 
 scalar:
@@ -2448,7 +2473,8 @@ context_spec_music (SCM type, SCM id, Music * m, SCM ops)
 	csm->set_mus_property ("element", m->self_scm ());
 	scm_gc_unprotect_object (m->self_scm ());
 
-	csm->set_mus_property ("context-type", scm_string_to_symbol (type));
+	csm->set_mus_property ("context-type",
+		gh_symbol_p (type) ? type : scm_string_to_symbol (type));
 	csm->set_mus_property ("property-operations", ops);
 
 	if (gh_string_p (id))

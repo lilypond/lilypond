@@ -18,7 +18,7 @@
 #include "warn.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "bezier-bow.hh"
 #include "stem.hh"
 #include "note-head.hh"
@@ -333,7 +333,7 @@ Tie::print (SCM smob)
     }
 
   if (!gh_pair_p (cp))
-    return Molecule ().smobbed_copy ();
+    return Stencil ().smobbed_copy ();
   
   Real thick
     = Staff_symbol_referencer::line_thickness (me)
@@ -347,7 +347,7 @@ Tie::print (SCM smob)
       i++;
     }
   
-   Molecule a = Lookup::slur (b, get_grob_direction (me) * thick, thick);
+   Stencil a = Lookup::slur (b, get_grob_direction (me) * thick, thick);
    
    return a.smobbed_copy ();
 }

@@ -46,17 +46,17 @@ Stem_tremolo::height (SCM smob, SCM ax)
   Grob * me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
-  SCM mol = me->get_uncached_molecule ();
+  SCM mol = me->get_uncached_stencil ();
 
-  if (Molecule *m = unsmob_molecule (mol))
+  if (Stencil *m = unsmob_stencil (mol))
     return ly_interval2scm (m->extent (a));
   else
     return ly_interval2scm (Interval());
 }
 
 
-Molecule
-Stem_tremolo::raw_molecule (Grob *me)
+Stencil
+Stem_tremolo::raw_stencil (Grob *me)
 {
   Grob *stem = unsmob_grob (me->get_grob_property ("stem"));
   Grob *beam = Stem::get_beam (stem);
@@ -87,7 +87,7 @@ Stem_tremolo::raw_molecule (Grob *me)
   width *= ss;
   thick *= ss;
   
-  Molecule a (Lookup::beam (dydx, width, thick, blot));
+  Stencil a (Lookup::beam (dydx, width, thick, blot));
   a.translate (Offset (-width/2, width / 2 * dydx));
   
   int tremolo_flags = 0;
@@ -100,7 +100,7 @@ Stem_tremolo::raw_molecule (Grob *me)
       programming_error ("No tremolo flags?");
 
       me->suicide();
-      return Molecule ();
+      return Stencil ();
     }
 
   /*
@@ -110,12 +110,12 @@ Stem_tremolo::raw_molecule (Grob *me)
    */
   Real beam_translation = beam ? Beam::get_beam_translation (beam) : 0.81;
 
-  Molecule mol; 
+  Stencil mol; 
   for (int i = 0; i < tremolo_flags; i++)
     {
-      Molecule b (a);
+      Stencil b (a);
       b.translate_axis (beam_translation * i, Y_AXIS);
-      mol.add_molecule (b);
+      mol.add_stencil (b);
     }
   return mol;
 }
@@ -134,7 +134,7 @@ Stem_tremolo::print (SCM grob)
     ? Beam::get_beam_translation (beam)
     : 0.81;
 
-  Molecule mol = raw_molecule (me);
+  Stencil mol = raw_stencil (me);
   Interval mol_ext = mol.extent (Y_AXIS);
   Real ss = Staff_symbol_referencer::staff_space (me);
 

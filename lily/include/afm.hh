@@ -41,7 +41,7 @@ protected:
   Array<int> ascii_to_metric_idx_;
   std::map<String,int> name_to_metric_dict_;
 
-  virtual Molecule find_by_name (String) const;
+  virtual Stencil find_by_name (String) const;
 
   Adobe_font_metric (AFM_Font_info*);
 };

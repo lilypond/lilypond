@@ -16,13 +16,13 @@
 #include "group-interface.hh"
 #include "misc.hh"
 #include "paper-score.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "grob.hh"
 #include "warn.hh"
 #include "spanner.hh"
 #include "system.hh"
 #include "item.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "misc.hh"
 #include "music.hh"
 #include "item.hh"
@@ -114,7 +114,7 @@ Grob::Grob (SCM basicprops)
       else if (cb != SCM_BOOL_F
 	  && !gh_procedure_p (cb) && !gh_pair_p (cb)
 	  && gh_procedure_p (get_grob_property ("print-function")))
-	cb = molecule_extent_proc;
+	cb = stencil_extent_proc;
     
       dim_cache_[a].dimension_ = cb;
     }
@@ -152,14 +152,14 @@ Grob::~Grob ()
 }
 
 
-MAKE_SCHEME_CALLBACK (Grob,molecule_extent,2);
+MAKE_SCHEME_CALLBACK (Grob,stencil_extent,2);
 SCM
-Grob::molecule_extent (SCM element_smob, SCM scm_axis)
+Grob::stencil_extent (SCM element_smob, SCM scm_axis)
 {
   Grob *s = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (scm_axis);
 
-  Molecule *m = s->get_molecule ();
+  Stencil *m = s->get_stencil ();
   Interval e ;
   if (m)
     e = m->extent (a);
@@ -201,31 +201,31 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
   status_= final;
 }
 
-Molecule *
-Grob::get_molecule ()  const
+Stencil *
+Grob::get_stencil ()  const
 {
   if (!live())
     {
       return 0;
     }
   
-  SCM mol = get_grob_property ("molecule");
-  if (unsmob_molecule (mol))
-    return unsmob_molecule (mol);
+  SCM mol = get_grob_property ("stencil");
+  if (unsmob_stencil (mol))
+    return unsmob_stencil (mol);
 
-  mol = get_uncached_molecule ();
+  mol = get_uncached_stencil ();
   
   if (live ())
     {
       Grob *me = (Grob*)this;
-      me->set_grob_property ("molecule", mol);
+      me->set_grob_property ("stencil", mol);
     }
   
-  return unsmob_molecule (mol);  
+  return unsmob_stencil (mol);  
 }
 
 SCM
-Grob::get_uncached_molecule ()const
+Grob::get_uncached_stencil ()const
 {
   SCM proc = get_grob_property ("print-function");
 
@@ -233,9 +233,9 @@ Grob::get_uncached_molecule ()const
   if (gh_procedure_p (proc)) 
     mol = gh_apply (proc, scm_list_n (this->self_scm (), SCM_UNDEFINED));
   
-  Molecule *m = unsmob_molecule (mol);
+  Stencil *m = unsmob_stencil (mol);
   
-  if (unsmob_molecule (mol))
+  if (unsmob_stencil (mol))
     {
       SCM origin = ly_symbol2scm ("no-origin");
       
@@ -252,18 +252,18 @@ Grob::get_uncached_molecule ()const
 
       // ugr.
       
-      mol = Molecule (m->extent_box (),
+      mol = Stencil (m->extent_box (),
 		      scm_list_n (origin, m->get_expr (), SCM_UNDEFINED)
 		      ). smobbed_copy ();
 
-      m = unsmob_molecule (mol);
+      m = unsmob_stencil (mol);
     }
   
   /*
     transparent retains dimensions of element.
    */
   if (m && to_boolean (get_grob_property ("transparent")))
-    mol = Molecule (m->extent_box (), SCM_EOL).smobbed_copy ();
+    mol = Stencil (m->extent_box (), SCM_EOL).smobbed_copy ();
 
   return mol;
 }
@@ -805,7 +805,7 @@ ADD_INTERFACE (Grob, "grob-interface",
 "other grobs (i.e. pointers).  This big graph of grobs specifies the\n"
 "notation problem. The solution of this problem is a description of the\n"
 "printout in closed form, i.e. a list of values.  These values are\n"
-"Molecules.\n"
+"Stencils.\n"
 "\n"
 "All grobs have an X and Y-position on the page.  These X and Y positions\n"
 "are stored in a relative format, so they can easily be combined by\n"
@@ -824,7 +824,7 @@ ADD_INTERFACE (Grob, "grob-interface",
 "is also an abstract grob: it only moves around chords, but doesn't print\n"
 "anything.\n"
 ,
-  "X-offset-callbacks Y-offset-callbacks X-extent-callback molecule cause "
+  "X-offset-callbacks Y-offset-callbacks X-extent-callback stencil cause "
 "Y-extent-callback print-function extra-offset spacing-procedure "
 "staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent "
 "meta layer before-line-breaking-callback "

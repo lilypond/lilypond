@@ -8,7 +8,7 @@
 
 #include "clef.hh"
 #include "string.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "item.hh"
 #include "font-interface.hh"
 
@@ -58,7 +58,7 @@ Clef::print (SCM smob)
 
   String glyph = String (ly_scm2string (glyph_scm));
   Font_metric *fm = Font_interface::get_default_font (me);
-  Molecule out = fm->find_by_name (glyph);
+  Stencil out = fm->find_by_name (glyph);
   if (out.is_empty ())
     {
       me->warning (_f ("clef `%s' not found", glyph.to_str0 ()));

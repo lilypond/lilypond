@@ -103,7 +103,7 @@ void make_script_from_event (Grob *p,
   *descr = art;  
 
 
-  copy_property (p, ly_symbol2scm ("script-molecule"), art);
+  copy_property (p, ly_symbol2scm ("script-stencil"), art);
   copy_property (p, ly_symbol2scm ("direction"), art);
   copy_property (p, ly_symbol2scm ("side-relative-direction"), art);
 

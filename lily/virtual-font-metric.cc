@@ -10,7 +10,7 @@ source file of the GNU LilyPond music typesetter
 #include "warn.hh"
 #include "virtual-font-metric.hh"
 #include "all-font-metrics.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-def.hh"
 
 
@@ -50,10 +50,10 @@ Virtual_font_metric::count () const
   return k;
 }
 
-Molecule
+Stencil
 Virtual_font_metric::find_by_name (String glyph) const
 {
-  Molecule m;  
+  Stencil m;  
   for (SCM s = font_list_; m.is_empty () && gh_pair_p (s); s = gh_cdr (s))
     {
       m = unsmob_metrics (gh_car (s))->find_by_name (glyph);
@@ -71,11 +71,11 @@ Virtual_font_metric::get_ascii_char (int)  const
   return Box();
 }
 
-Molecule
-Virtual_font_metric::get_ascii_char_molecule (int )  const
+Stencil
+Virtual_font_metric::get_ascii_char_stencil (int )  const
 {
   programming_error ("Virtual font metric cannot be indexed by ASCII.");
-  return Molecule();
+  return Stencil();
 }
 
 
@@ -119,7 +119,7 @@ Virtual_font_metric::get_indexed_char (int code)  const
 int 
 Virtual_font_metric::name_to_index (String glyph) const
 {
-  Molecule m;
+  Stencil m;
   int total = 0; 
   for (SCM s = font_list_; m.is_empty () && gh_pair_p (s); s = gh_cdr (s))
     {
@@ -135,10 +135,10 @@ Virtual_font_metric::name_to_index (String glyph) const
 }
 
   
-Molecule
-Virtual_font_metric::get_indexed_char_molecule (int code)  const
+Stencil
+Virtual_font_metric::get_indexed_char_stencil (int code)  const
 {
-  Molecule  m ;  
+  Stencil  m ;  
   int total = 0;
   
   for (SCM s = font_list_; gh_pair_p (s); s = gh_cdr (s))
@@ -146,7 +146,7 @@ Virtual_font_metric::get_indexed_char_molecule (int code)  const
       Font_metric* fm = unsmob_metrics (gh_car (s));
       if (code < total + fm->count())
 	{
-	  m = fm->get_indexed_char_molecule (code - total); // ugh.
+	  m = fm->get_indexed_char_stencil (code - total); // ugh.
 	  break; 
 	}
       total += fm->count ();

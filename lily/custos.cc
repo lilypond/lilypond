@@ -19,7 +19,7 @@
 #include "direction.hh"
 #include "staff-symbol-referencer.hh"
 #include "custos.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "warn.hh"
 #include "note-head.hh"
 #include "item.hh"
@@ -85,9 +85,9 @@ Custos::print (SCM smob)
       font_char += "2";
     }
 
-  Molecule molecule
+  Stencil stencil
     = Font_interface::get_default_font (me)->find_by_name (font_char);
-  if (molecule.is_empty ())
+  if (stencil.is_empty ())
     {
       me->warning (_f ("custos `%s' not found", font_char));
       return SCM_EOL;
@@ -99,12 +99,12 @@ Custos::print (SCM smob)
       int interspaces = Staff_symbol_referencer::line_count (me)-1;
       if (abs (pos) - interspaces > 1)
 	{
-	  Molecule ledger_lines =
+	  Stencil ledger_lines =
 	    Note_head::brew_ledger_lines (me, pos, interspaces,
-					  molecule.extent (X_AXIS), 0, true);
-	  molecule.add_molecule (ledger_lines);
+					  stencil.extent (X_AXIS), 0, true);
+	  stencil.add_stencil (ledger_lines);
 	}
-      return molecule.smobbed_copy ();
+      return stencil.smobbed_copy ();
     }
 }
 

@@ -22,11 +22,11 @@ public:
   DECLARE_SCHEME_CALLBACK (percent, (SCM));
   static  void add_column (Grob*,Item*);
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));
-  DECLARE_SCHEME_CALLBACK (centered_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (centered_stencil, (SCM ));
   
-  static Molecule big_rest (Grob*,Real);
-  static Molecule symbol_molecule (Grob*,Real);  
-  static Molecule church_rest (Grob*, Font_metric*, int,Real);
+  static Stencil big_rest (Grob*,Real);
+  static Stencil symbol_stencil (Grob*,Real);  
+  static Stencil church_rest (Grob*, Font_metric*, int,Real);
 };
 
 #endif /* MULTI_MEASURE_REST_HH */

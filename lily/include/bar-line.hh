@@ -18,8 +18,8 @@ class Bar_line
 public:
   static bool has_interface (Grob*);
   
-  static Molecule compound_barline (Grob*, String, Real height) ;
-  static Molecule simple_barline (Grob*, Real wid, Real height) ;      
+  static Stencil compound_barline (Grob*, String, Real height) ;
+  static Stencil simple_barline (Grob*, Real wid, Real height) ;      
   DECLARE_SCHEME_CALLBACK (get_staff_bar_size, (SCM ));
   DECLARE_SCHEME_CALLBACK (print, (SCM ));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));

@@ -18,12 +18,12 @@
 #include "file-path.hh"
 #include "main.hh"
 #include "lily-guile.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "lookup.hh"
 #include "font-metric.hh"
 #include "interval.hh"
 
-Molecule
+Stencil
 Lookup::dot (Offset p, Real radius)
 {
   SCM at = (scm_list_n (ly_symbol2scm ("dot"),
@@ -34,7 +34,7 @@ Lookup::dot (Offset p, Real radius)
   Box box;
   box.add_point (p - Offset (radius, radius));
   box.add_point (p + Offset (radius, radius));
-  return Molecule (box, at);
+  return Stencil (box, at);
 }
 
 
@@ -56,7 +56,7 @@ Lookup::dot (Offset p, Real radius)
  *       <----->
  *        width
  */
-Molecule 
+Stencil 
 Lookup::beam (Real slope, Real width, Real thick, Real blot) 
 {
   Real height = slope * width; 
@@ -72,10 +72,10 @@ Lookup::beam (Real slope, Real width, Real thick, Real blot)
 		    gh_double2scm (thick),
 		    gh_double2scm (blot),
 		    SCM_UNDEFINED);
-  return Molecule (b, at);
+  return Stencil (b, at);
 }
 
-Molecule
+Stencil
 Lookup::dashed_slur (Bezier b, Real thick, Real dash)
 {
   SCM l = SCM_EOL;
@@ -92,12 +92,12 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash)
 			       SCM_UNDEFINED));
 
   Box box (Interval (0,0),Interval (0,0));
-  return   Molecule (box, at);
+  return   Stencil (box, at);
 }
 
 
 
-Molecule
+Stencil
 Lookup::horizontal_line (Interval w, Real th)
 {
   SCM at = scm_list_n (ly_symbol2scm ("horizontal-line"),
@@ -111,17 +111,17 @@ Lookup::horizontal_line (Interval w, Real th)
   box[X_AXIS] = w;
   box[Y_AXIS] = Interval (-th/2,th/2);
 
-  return Molecule (box, at);
+  return Stencil (box, at);
 }
 
 
-Molecule
+Stencil
 Lookup::blank (Box b) 
 {
-  return Molecule (b, scm_makfrom0str (""));
+  return Stencil (b, scm_makfrom0str (""));
 }
 
-Molecule
+Stencil
 Lookup::filled_box (Box b) 
 {
   SCM  at  = (scm_list_n (ly_symbol2scm ("filledbox"),
@@ -131,7 +131,7 @@ Lookup::filled_box (Box b)
 		     gh_double2scm (b[Y_AXIS][UP]),		       
 		     SCM_UNDEFINED));
 
-  return Molecule (b,at);
+  return Stencil (b,at);
 }
 
 /*
@@ -161,7 +161,7 @@ Lookup::filled_box (Box b)
  * |<-------------------------->|
  *       Box extent(X_AXIS)
  */
-Molecule
+Stencil
 Lookup::round_filled_box (Box b, Real blotdiameter)
 {
   if (b.x ().length () < blotdiameter)
@@ -183,13 +183,13 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
 			gh_double2scm (blotdiameter),
 			SCM_UNDEFINED));
 
-  return Molecule (b,at);
+  return Stencil (b,at);
 }
 
 	  
 
 /*
- * Create Molecule that represents a filled polygon with round edges.
+ * Create Stencil that represents a filled polygon with round edges.
  *
  * LIMITATIONS:
  *
@@ -228,7 +228,7 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
  * postscript routine in the backend effectively does, but on the
  * shrinked polygon). --jr
  */
-Molecule
+Stencil
 Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
 {
   /* TODO: Maybe print a warning if one of the above limitations
@@ -249,7 +249,7 @@ Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
 
   /* special cases: degenerated polygons */
   if (points.size () == 0)
-    return Molecule ();
+    return Stencil ();
   if (points.size () == 1)
     return dot (points[0], 0.5 * blotdiameter);
   if (points.size () == 2)
@@ -316,7 +316,7 @@ Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
 				gh_double2scm (blotdiameter),
 				SCM_UNDEFINED);
 
-  Molecule polygon = Molecule (box, polygon_scm);
+  Stencil polygon = Stencil (box, polygon_scm);
   shrinked_points.clear ();
   return polygon;
 }
@@ -325,10 +325,10 @@ Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
 /*
   TODO: deprecate?
  */
-Molecule
+Stencil
 Lookup::frame (Box b, Real thick, Real blot)
 {
-  Molecule m;
+  Stencil m;
   Direction d = LEFT;
   for (Axis a = X_AXIS; a < NO_AXES; a = Axis (a + 1))
     {
@@ -340,7 +340,7 @@ Lookup::frame (Box b, Real thick, Real blot)
 	  edges[o][DOWN] = b[o][DOWN] - thick/2;
 	  edges[o][UP] = b[o][UP] + thick/2;	  
 	  
-	  m.add_molecule (round_filled_box (edges, blot));
+	  m.add_stencil (round_filled_box (edges, blot));
 	}
       while (flip (&d) != LEFT);
     }
@@ -350,7 +350,7 @@ Lookup::frame (Box b, Real thick, Real blot)
 /*
   Make a smooth curve along the points 
  */
-Molecule
+Stencil
 Lookup::slur (Bezier curve, Real curvethick, Real linethick) 
 {
   Real alpha = (curve.control_[3] - curve.control_[0]).arg ();
@@ -391,7 +391,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
   b[X_AXIS].unite (back.extent (X_AXIS));
   b[Y_AXIS].unite (back.extent (Y_AXIS));
 
-  return Molecule (b, at);
+  return Stencil (b, at);
 }
 
 /*
@@ -417,7 +417,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
  *    |
  *
  */
-Molecule
+Stencil
 Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve)
 {
   /*
@@ -444,28 +444,28 @@ Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve)
   y_extent.unite (bottom_curve.extent (Y_AXIS));
   Box b (x_extent, y_extent);
 
-  return Molecule (b, horizontal_bend);
+  return Stencil (b, horizontal_bend);
 }
 
 /*
   TODO: junk me.
  */
-Molecule
+Stencil
 Lookup::accordion (SCM s, Real staff_space, Font_metric *fm) 
 {
-  Molecule m;
+  Stencil m;
   String sym = ly_scm2string (ly_car (s));
   String reg = ly_scm2string (ly_car (ly_cdr (s)));
 
   if (sym == "Discant")
     {
-      Molecule r = fm->find_by_name ("accordion-accDiscant");
-      m.add_molecule (r);
+      Stencil r = fm->find_by_name ("accordion-accDiscant");
+      m.add_stencil (r);
       if (reg.left_string (1) == "F")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 2.5 PT, Y_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
       int eflag = 0x00;
@@ -491,135 +491,135 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	}
       if (eflag & 0x02)
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	}
       if (eflag & 0x04)
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  d.translate_axis (0.8 * staff_space PT, X_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	}
       if (eflag & 0x01)
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  d.translate_axis (-0.8 * staff_space PT, X_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	}
       if (reg.left_string (2) == "SS")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (0.5 * staff_space PT, Y_AXIS);
 	  d.translate_axis (0.4 * staff_space PT, X_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  d.translate_axis (-0.8 * staff_space PT, X_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-2);
 	}
       if (reg.left_string (1) == "S")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (0.5 * staff_space PT, Y_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
     }
   else if (sym == "Freebase")
     {
-      Molecule r = fm->find_by_name ("accordion-accFreebase");
-      m.add_molecule (r);
+      Stencil r = fm->find_by_name ("accordion-accFreebase");
+      m.add_stencil (r);
       if (reg.left_string (1) == "F")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
       if (reg == "E")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 0.5 PT, Y_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	}
     }
   else if (sym == "Bayanbase")
     {
-      Molecule r = fm->find_by_name ("accordion-accBayanbase");
-      m.add_molecule (r);
+      Stencil r = fm->find_by_name ("accordion-accBayanbase");
+      m.add_stencil (r);
       if (reg.left_string (1) == "T")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 2.5 PT, Y_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
       /* include 4' reed just for completeness. You don't want to use this. */
       if (reg.left_string (1) == "F")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
       if (reg.left_string (2) == "EE")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 0.5 PT, Y_AXIS);
 	  d.translate_axis (0.4 * staff_space PT, X_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  d.translate_axis (-0.8 * staff_space PT, X_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-2);
 	}
       if (reg.left_string (1) == "E")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 0.5 PT, Y_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
     }
   else if (sym == "Stdbase")
     {
-      Molecule r = fm->find_by_name ("accordion-accStdbase");
-      m.add_molecule (r);
+      Stencil r = fm->find_by_name ("accordion-accStdbase");
+      m.add_stencil (r);
       if (reg.left_string (1) == "T")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 3.5 PT, Y_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
       if (reg.left_string (1) == "F")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 2.5 PT, Y_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
       if (reg.left_string (1) == "M")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 2 PT, Y_AXIS);
 	  d.translate_axis (staff_space PT, X_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
       if (reg.left_string (1) == "E")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
       if (reg.left_string (1) == "S")
 	{
-	  Molecule d = fm->find_by_name ("accordion-accDot");
+	  Stencil d = fm->find_by_name ("accordion-accDot");
 	  d.translate_axis (staff_space * 0.5 PT, Y_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	  reg = reg.right_string (reg.length ()-1);
 	}
     }
@@ -627,28 +627,28 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
      for the rectangle */
   else if (sym == "SB")
     {
-      Molecule r = fm->find_by_name ("accordion-accSB");
-      m.add_molecule (r);
+      Stencil r = fm->find_by_name ("accordion-accSB");
+      m.add_stencil (r);
     }
   else if (sym == "BB")
     {
-      Molecule r = fm->find_by_name ("accordion-accBB");
-      m.add_molecule (r);
+      Stencil r = fm->find_by_name ("accordion-accBB");
+      m.add_stencil (r);
     }
   else if (sym == "OldEE")
     {
-      Molecule r = fm->find_by_name ("accordion-accOldEE");
-      m.add_molecule (r);
+      Stencil r = fm->find_by_name ("accordion-accOldEE");
+      m.add_stencil (r);
     }
   else if (sym == "OldEES")
     {
-      Molecule r = fm->find_by_name ("accordion-accOldEES");
-      m.add_molecule (r);
+      Stencil r = fm->find_by_name ("accordion-accOldEES");
+      m.add_stencil (r);
     }
   return m;  
 }
 
-Molecule
+Stencil
 Lookup::repeat_slash (Real w, Real s, Real t)
 {
   SCM wid = gh_double2scm (w);
@@ -660,11 +660,11 @@ Lookup::repeat_slash (Real w, Real s, Real t)
   Box b (Interval (0, w + sqrt (sqr(t/s) + sqr (t))),
 	 Interval (0, w * s));
 
-  return Molecule (b, slashnodot); //  http://slashnodot.org
+  return Stencil (b, slashnodot); //  http://slashnodot.org
 }
 
 
-Molecule
+Stencil
 Lookup::bracket (Axis a, Interval iv, Real thick, Real protude, Real blot)
 {
   Box b;
@@ -672,20 +672,20 @@ Lookup::bracket (Axis a, Interval iv, Real thick, Real protude, Real blot)
   b[a] = iv;
   b[other] = Interval(-1, 1) * thick * 0.5;
   
-  Molecule m =  round_filled_box (b, blot);
+  Stencil m =  round_filled_box (b, blot);
 
   b[a] = Interval (iv[UP] - thick, iv[UP]);
   Interval oi = Interval (-thick/2, thick/2 + fabs (protude)) ;
   oi *=  sign (protude);
   b[other] = oi;
-  m.add_molecule (round_filled_box (b, blot));
+  m.add_stencil (round_filled_box (b, blot));
   b[a] = Interval (iv[DOWN], iv[DOWN]  +thick);
-  m.add_molecule (round_filled_box (b,blot));
+  m.add_stencil (round_filled_box (b,blot));
 
   return m;
 }
 
-Molecule
+Stencil
 Lookup::triangle (Interval iv, Real thick, Real protude)
 {
   Box b ;
@@ -697,7 +697,7 @@ Lookup::triangle (Interval iv, Real thick, Real protude)
 		      gh_double2scm (iv.length()), 
 		      gh_double2scm (protude), SCM_UNDEFINED);
 
-  return Molecule (b, s);
+  return Stencil (b, s);
 }
 
 

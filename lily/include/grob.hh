@@ -111,14 +111,14 @@ public:
   virtual void discretionary_processing ();
   virtual SCM do_derived_mark () const;
 
-  Molecule * get_molecule () const;
-  SCM get_uncached_molecule () const;
+  Stencil * get_stencil () const;
+  SCM get_uncached_stencil () const;
 
   SCM get_property_alist_chain (SCM) const;
   void suicide ();
   bool live () const;
   
-  DECLARE_SCHEME_CALLBACK (molecule_extent, (SCM smob, SCM axis));
+  DECLARE_SCHEME_CALLBACK (stencil_extent, (SCM smob, SCM axis));
 
   static SCM ly_set_grob_property (SCM, SCM,SCM);
   static SCM ly_get_grob_property (SCM, SCM);  

@@ -11,7 +11,7 @@
 #include "box.hh"
 #include "warn.hh"
 #include "lookup.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
 #include "lyric-extender.hh"
@@ -106,7 +106,7 @@ Lyric_extender::print (SCM smob)
   if (w < 1.5 * h)
     return SCM_EOL;
   
-  Molecule  mol (Lookup::round_filled_box (Box (Interval (0,w), Interval (0,h)),
+  Stencil  mol (Lookup::round_filled_box (Box (Interval (0,w), Interval (0,h)),
 					   0.8 * h));
   mol.translate_axis (left_point - me->relative_coordinate (common, X_AXIS), X_AXIS);
   return mol.smobbed_copy ();

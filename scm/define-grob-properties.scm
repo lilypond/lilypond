@@ -76,7 +76,7 @@ for balloon text.")
 			  "Where to put text relative to balloon.")
      (balloon-padding ,ly:dimension? "Text to add to help balloon")
      (balloon-original-callback ,procedure? "The
-original molecule drawer to draw the balloon around.")
+original stencil drawer to draw the balloon around.")
 
 
      (bar-size ,ly:dimension? "size of a bar line.")
@@ -319,7 +319,7 @@ Also works as a scaling parameter for the length of hyphen. .")
      (print-function ,procedure? "Function taking grob as argument,
 returning a Molecule object.")
 
-     (molecule ,ly:molecule? "Cached output of the print-function.")
+     (stencil ,ly:stencil? "Cached output of the print-function.")
 
      (new-accidentals ,list? "list of (pitch, accidental) pairs.")
      (no-spacing-rods ,boolean? "read from grobs: boolean that makes Separation_item ignore this item (MOVE ME TO ITEM).")
@@ -549,7 +549,7 @@ columns.
 did it's job. This ensures that a positioning is only done once.")
 
 
-     (script-molecule ,pair? "Index code for script -- internal, see script.cc.")
+     (script-stencil ,pair? "Index code for script -- internal, see script.cc.")
 
 
      (flag-count ,number? "")
