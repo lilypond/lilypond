@@ -87,7 +87,6 @@ static Keyword_ent the_key_tab[] = {
 Lily_lexer::Lily_lexer (Sources *sources)
 {
   keytable_ = new Keyword_table (the_key_tab);
-  encoding_ = SCM_EOL;
   chordmodifier_tab_ = SCM_EOL;
   pitchname_tab_stack_ = SCM_EOL; 
   sources_ = sources;
@@ -106,7 +105,6 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src)
   : Includable_lexer ()
 {
   keytable_ = (src.keytable_) ? new Keyword_table (*src.keytable_) : 0;
-  encoding_ = src.encoding_;
   chordmodifier_tab_ = src.chordmodifier_tab_;
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
   sources_ = src.sources_;
@@ -137,11 +135,6 @@ Lily_lexer::~Lily_lexer ()
   delete keytable_;
 }
 
-SCM
-Lily_lexer::encoding () const
-{
-  return encoding_ ;
-}
 
 
 void
@@ -274,15 +267,6 @@ Lily_lexer::prepare_for_next_token ()
   last_input_ = here_input ();
 }
 
-void
-Lily_lexer::set_encoding (String s)
-{
-  if (s.length ())
-    encoding_ = ly_symbol2scm (s.to_str0 ());
-  else
-    encoding_ = SCM_EOL;
-}
-
 #include "ly-smobs.icc"
 
 IMPLEMENT_SMOBS (Lily_lexer);
@@ -296,8 +280,7 @@ Lily_lexer::mark_smob (SCM s)
 
   scm_gc_mark (lexer->chordmodifier_tab_);
   scm_gc_mark (lexer->pitchname_tab_stack_);
-  scm_gc_mark (lexer->scopes_);
-  return lexer->encoding_;
+  return lexer->scopes_;
 }
 
 int

@@ -314,7 +314,7 @@ def punctum_char (expr verbose_name, internal_name,
 		  left_stem, right_stem, linea, cavum,
 		  straight, auctum, direction_up, excentric, up_shift, down_shift, mag) =
 
-	fet_beginchar(verbose_name, internal_name)
+	fet_beginchar(verbose_name, "s" & internal_name)
 		save b_h, a_w;
 		a_b := 1.54; % b_h*a_b/a_w = wd/ht
 		b_h := 0.85;
@@ -471,7 +471,7 @@ enddef;
 def inclinatum_char(expr verbose_name, internal_name,
 		    small, stropha, auctum) =
 
-	fet_beginchar(verbose_name, internal_name)
+	fet_beginchar(verbose_name, "s"&internal_name)
 		save ht, alpha;
 		alpha# = 35;
 		if small:
@@ -593,7 +593,7 @@ punctum_char("Ed. Vat. cephalicus", "vaticana.cephalicus",
 	     false, false, true, false, false, 1.0);
 
 % quilisma
-fet_beginchar("Ed. Vat. quilisma", "vaticana.quilisma")
+fet_beginchar("Ed. Vat. quilisma", "svaticana.quilisma")
 	save b_h,a_w;
 	a_b:=1.54; % b_h*a_b/a_w = wd/ht
 	b_h:=0.85;
@@ -646,7 +646,7 @@ inclinatum_char("Solesmes stropha aucta", "solesmes.stropha.aucta",
 		false, true, true);
 
 % solesmes oriscus
-fet_beginchar("Solesmes oriscus", "solesmes.oriscus")
+fet_beginchar("Solesmes oriscus", "ssolesmes.oriscus")
 	save b_h, a_w;
 	a_b := 1.54; % b_h*a_b/a_w = wd/ht
 	b_h := 0.85;
@@ -683,7 +683,7 @@ fet_endchar;
 %
 
 % inclinatum
-fet_beginchar("Ed. Med. inclinatum", "medicaea.inclinatum")
+fet_beginchar("Ed. Med. inclinatum", "smedicaea.inclinatum")
 	draw_diamond_head (1.2staff_space#, 0, 0, 35, false);
 fet_endchar;
 
@@ -691,7 +691,7 @@ fet_endchar;
 def punctum_char (expr verbose_name, internal_name,
 	left_up_stem, left_down_stem) =
 
-	fet_beginchar(verbose_name, internal_name)
+	fet_beginchar(verbose_name, "s"&internal_name)
 
 		save a, beta, ht, wd;
 		ht# = 2 staff_space#;
@@ -752,7 +752,7 @@ punctum_char("Ed. Med. virga", "medicaea.virga",
 % parametrized punctum
 def punctum_char (expr verbose_name, internal_name,
 	down_stem) =
-	fet_beginchar(verbose_name, internal_name)
+	fet_beginchar(verbose_name, "s" & internal_name)
 		save alpha;
 		alpha# = 55;
 		draw_diamond_head (staff_space#, 0, 0, alpha#, false);
@@ -778,7 +778,7 @@ punctum_char("Hufnagel punctum", "hufnagel.punctum", false)
 punctum_char("Hufnagel virga", "hufnagel.virga",  true)
 
 % pes lower punctum
-fet_beginchar("Hufnagel pes lower punctum", "hufnagel.lpes")
+fet_beginchar("Hufnagel pes lower punctum", "shufnagel.lpes")
 	save width, height, alpha;
 	width# = 2*staff_space#;
 	height# = 0.7*staff_space#;

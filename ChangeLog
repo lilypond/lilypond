@@ -1,5 +1,31 @@
 2005-01-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/new-markup-scheme.ly: oops. font-family=music
+	-> font-encoding fetaMusic.  
+
+	* lily/main.cc: put default to PS.
+
+	* lily/tfm.cc: idem.
+
+	* lily/afm.cc: idem.
+
+	* lily/include/modified-font-metric.hh (struct
+	Modified_font_metric): remove coding_scheme() method.
+
+	* input/mutopia/F.Schubert/morgenlied.ly: convert to utf8
+
+	* scripts/convert-ly.py (conv): crash on encountering \encoding.
+
+	* input/les-nereides.ly: convert to utf8
+
+	* lily/modified-font-metric.cc (text_dimension): idem.
+
+	* lily/parser.yy (TODO): idem.
+
+	* lily/include/lily-lexer.hh (class Lily_lexer): idem.
+
+	* lily/lexer.ll: remove encoding
+
 	* scm/framework-ps.scm (output-variables): separately scale the
 	page to mm 
 

@@ -1537,6 +1537,9 @@ Syntax errors for markup mode are confusing.
 @node Text encoding
 @subsection Text encoding
 
+[FIXME: OBSOLETE, use UTF8 for input files.]
+
+
 Texts can be entered in different encodings.  The encoding of the
 file can be set with @code{\encoding}.
 

@@ -6,6 +6,8 @@
 the appropriate object. This may include Postscript fonts that are
 available through (La)TeX.
 
+
+BROKEN by pango/fontconfig
 "
 
 
@@ -20,7 +22,9 @@ available through (La)TeX.
 
 \score {
      {
-	\override Staff.TimeSignature  #'font-name = #"cmr17"
+
+       %% FIXME. 
+%	\override Staff.TimeSignature  #'font-name = #"cmr17"
 	\set Score.skipBars = ##t
 
 	% use font-name putri8r for Utopia Italic :

@@ -9,15 +9,12 @@
  */
 
 #include "tfm.hh"
-
 #include "tfm-reader.hh"
 #include "string-convert.hh"
 #include "warn.hh"
 #include "dimensions.hh"
 
 static Tex_font_char_metric dummy_static_char_metric;
-
-
 
 Tex_font_char_metric::Tex_font_char_metric ()
 {
@@ -44,7 +41,6 @@ Tex_font_char_metric::dimensions () const
     }
   
   Real d = -depth_;
-
   Real point_constant = 1 PT;
   
   return Box (Interval (0, width_* point_constant ),
@@ -101,9 +97,6 @@ Tex_font_metric::make_tfm (String file_name)
   tfm->header_ = reader.header_;
   tfm->char_metrics_ = reader.char_metrics_;
   tfm->ascii_to_metric_idx_ = reader.ascii_to_metric_idx_;
-  tfm->encoding_table_
-    = scm_call_1 (ly_lily_module_constant ("get-coding-table"),
-		  scm_makfrom0str (tfm->coding_scheme ().to_str0 ()));
 
   return tfm->self_scm ();
 }
@@ -114,28 +107,8 @@ Tex_font_metric::design_size () const
   return info_.design_size * point_constant;
 }
 
-String
-Tex_font_metric::coding_scheme () const
-{
-  String scm = info_.coding_scheme;
-
-  for(int i = 0; i < scm.length (); i++)
-    if (scm[i] == ' ')
-      scm[i] = '-';
-
-  return scm;
-}
-
 int
 Tex_font_metric::name_to_index (String s) const
 {
-  SCM sym = ly_symbol2scm (s.to_str0 ());
-
-  SCM idx = scm_hash_ref (encoding_table_, sym, SCM_BOOL_F);
-  if (ly_c_char_p (idx))
-    {
-      return (unsigned char) ly_scm2char (idx);
-    }
-  else
-    return -1;  
+  assert (false);
 }

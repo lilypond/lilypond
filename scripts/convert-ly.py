@@ -2292,6 +2292,20 @@ def conv (str):
 	str = re.sub ("'(vaticana|hufnagel|medicaea|petrucci|neomensural|mensural)-", r"'\1.", str) 
 	return str
 
+conversions.append (((2, 5, 3),
+		     conv,
+		     'ly:find-glyph-by-name -> ly:font-get-glyph, remove - from glyphnames.'))
+
+
+
+def conv (str):
+	if re.search (r"\\encoding", str):
+		sys.stderr.write ("Sorry, input files should be UTF8.\n"
+				  + "Please convert by hand.")
+		raise FatalConversionError()
+
+	return str
+
 conversions.append (((2, 5, 2),
 		     conv,
 		     'ly:find-glyph-by-name -> ly:font-get-glyph, remove - from glyphnames.'))

@@ -32,7 +32,6 @@ public:
   virtual Box get_ascii_char (int) const;
   virtual Box get_indexed_char (int) const;
   virtual Offset get_indexed_wxwy (int) const;
-  virtual String coding_scheme () const;
   static SCM make_afm (AFM_Font_info*, unsigned, Real);
   virtual Real design_size () const;
   virtual String font_name () const; 

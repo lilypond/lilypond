@@ -36,7 +36,6 @@ public:
   virtual Stencil find_by_name (String) const;
   virtual Stencil get_indexed_char_stencil (int k) const;
   virtual Stencil get_ascii_char_stencil (int k) const;
-  virtual String coding_scheme () const;
   virtual SCM sub_fonts () const;
   virtual SCM font_file_name () const; 
   DECLARE_SMOBS (Font_metric,);

@@ -58,7 +58,6 @@ sizeTest = \markup {
        }
 }
 
-\encoding "latin1"
 
 spaceTest = \markup { "two space chars" }
 \header {
@@ -70,7 +69,7 @@ spaceTest = \markup { "two space chars" }
     % ugh: encoding char-size
     %dedication = "For my öòóôõø so dear Lily"
     dedication = \markup { "For my "
-			   "öòóôõø"
+%			   "öòóôõø"
 			   " so dear Lily" }
     title = "Title"
     subtitle = "(and (the) subtitle)"

@@ -68,15 +68,14 @@ void set_tempo (Output_def*def, Moment moment, int count_per_minute_i);
 Interval line_dimensions_int (Output_def*def, int);
  
 
-Font_metric *select_encoded_font (Output_def *layout, SCM input_encoding, SCM chain);
+Font_metric *select_encoded_font (Output_def *layout, SCM chain);
 Font_metric *select_font (Output_def *layout, SCM chain);
 
 DECLARE_UNSMOB (Output_def, output_def);
 
 
 Font_metric *find_scaled_font (Output_def *od,
-			       Font_metric *f, Real magnification,
-			       SCM font_encoding, SCM input_encoding);
+			       Font_metric *f, Real magnification);
 Output_def *scale_output_def (Output_def *def, Real scale);
 Real output_scale (Output_def*);
 

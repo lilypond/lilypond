@@ -1,5 +1,5 @@
 \header {
-    title = "Sängers Morgenlied"
+    title = "SÃ¤ngers Morgenlied"
     composer = "Franz Schubert (1797-1828)"
     date = "27. Februar 1815"
     source = "Edition Peters"
@@ -85,25 +85,25 @@ ignoreMelismaOff = \unset ignoreMelismata
 firstVerse = \lyricmode {
     \set stanza = "1."
     
-    Sü -- ßes Licht! Aus
+    SÃ¼ -- ÃŸes Licht! Aus
     \ignoreMelisma
     gol --
     \ignoreMelismaOff
 
     de -- nen  Pfor -- ten brichst du __ \manuscriptBreak | 
-    sie -- gend durch __ die Nacht. Schö -- ner Tag, du __ bist er -- wacht. __ Mit ge -- |
+    sie -- gend durch __ die Nacht. SchÃ¶ -- ner Tag, du __ bist er -- wacht. __ Mit ge -- |
     \manuscriptBreak
-    heim -- nis -- vol -- len Wor -- ten, in me -- lo -- di -- schen Ak -- kor -- den, grüß __ ich __ \manuscriptBreak |
-    dei -- ne Ro -- sen -- pracht, grüß __ ich __ dei -- ne Ro -- sen -- pracht. 
+    heim -- nis -- vol -- len Wor -- ten, in me -- lo -- di -- schen Ak -- kor -- den, grÃ¼ÃŸ __ ich __ \manuscriptBreak |
+    dei -- ne Ro -- sen -- pracht, grÃ¼ÃŸ __ ich __ dei -- ne Ro -- sen -- pracht. 
     }
 
 secondVerse = \lyricmode {
     \set stanza = "2."
     Ach, der Lie -- be sanf
     -- tes We -- hen schwellt mir |
-    das be -- weg -- te __ Herz, sanft, wie ein ge -- lieb -- ter Schmerz. __ Dürft ich | 
-    nur auf gold -- nen Hö -- hen mich im Mor -- gen -- duft er -- ge -- hen! Sehn -- sucht |
-    zieht mich him -- mel -- wärts, Sehn -- sucht zieht mich him -- mel -- wärts.
+    das be -- weg -- te __ Herz, sanft, wie ein ge -- lieb -- ter Schmerz. __ DÃ¼rft ich | 
+    nur auf gold -- nen HÃ¶ -- hen mich im Mor -- gen -- duft er -- ge -- hen! Sehn -- sucht |
+    zieht mich him -- mel -- wÃ¤rts, Sehn -- sucht zieht mich him -- mel -- wÃ¤rts.
     }
 
 pianoRH =  \relative c''' \repeat volta 2 {

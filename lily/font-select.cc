@@ -50,8 +50,7 @@ wild_compare (SCM field_val, SCM val)
 
 Font_metric *
 get_font_by_design_size (Output_def *layout, Real requested,
-			 SCM font_vector,
-			 SCM font_encoding, SCM input_encoding)
+			 SCM font_vector)
 {
   int n = SCM_VECTOR_LENGTH (font_vector);
   Real size = 1e6;
@@ -82,18 +81,16 @@ get_font_by_design_size (Output_def *layout, Real requested,
 
   Font_metric *fm = unsmob_metrics (scm_force (SCM_VECTOR_REF (font_vector,
 							       i)));
-  return find_scaled_font (layout, fm, requested / size,
-			   font_encoding, input_encoding);
+  return find_scaled_font (layout, fm, requested / size);
 }
 
 Font_metric *
 get_font_by_mag_step (Output_def *layout, Real requested_step,
-		      SCM font_vector, Real default_size,
-		      SCM font_encoding, SCM input_encoding)
+		      SCM font_vector, Real default_size)
 {
   return get_font_by_design_size (layout, default_size
 				  * pow (2.0, requested_step / 6.0),
-				  font_vector, font_encoding, input_encoding);
+				  font_vector);
 }
 
 SCM
@@ -103,7 +100,7 @@ properties_to_font_size_family (SCM fonts, SCM alist_chain)
 }
 
 Font_metric *
-select_encoded_font (Output_def *layout, SCM chain, SCM input_encoding)
+select_encoded_font (Output_def *layout, SCM chain)
 {
   SCM name = ly_chain_assoc (ly_symbol2scm ("font-name"), chain);
 
@@ -123,9 +120,7 @@ select_encoded_font (Output_def *layout, SCM chain, SCM input_encoding)
 		   : 1);
       Font_metric *fm = all_fonts_global->find_font (ly_scm2string (name));
 		
-      SCM font_encoding
-	= scm_cdr (ly_chain_assoc (ly_symbol2scm ("font-encoding"), chain));
-      return find_scaled_font (layout, fm, rmag, font_encoding, input_encoding);
+      return find_scaled_font (layout, fm, rmag);
     }
   else if (scm_instance_p (name))
     {
@@ -137,12 +132,8 @@ select_encoded_font (Output_def *layout, SCM chain, SCM input_encoding)
       if (scm_is_pair (font_size))
 	req = scm_to_double (scm_cdr (font_size));
 
-      SCM font_encoding
-	= scm_cdr (ly_chain_assoc (ly_symbol2scm ("font-encoding"), chain));
-
       return get_font_by_mag_step (layout, req, vec,
-				   scm_to_double (base_size) * point_constant,
-				   font_encoding, input_encoding);
+				   scm_to_double (base_size) * point_constant);
     }
 
   assert (0);
@@ -152,5 +143,5 @@ select_encoded_font (Output_def *layout, SCM chain, SCM input_encoding)
 Font_metric *
 select_font (Output_def *layout, SCM chain)
 {
-  return select_encoded_font (layout, chain, SCM_EOL);
+  return select_encoded_font (layout, chain);
 }

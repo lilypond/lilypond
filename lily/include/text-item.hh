@@ -18,7 +18,7 @@ class Text_interface
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (interpret_markup, (SCM, SCM, SCM));
-  DECLARE_SCHEME_CALLBACK (interpret_string, (SCM, SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (interpret_string, (SCM, SCM, SCM));
   static bool has_interface (Grob*);
   static bool markup_p (SCM) ;
 };

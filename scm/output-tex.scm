@@ -159,26 +159,9 @@
   (embedded-ps (list 'round-filled-box  x y width height blotdiam)))
 
 (define (text font s)
-  ;; (assoc-get 'char-mapping (ly:font-encoding-alist font))))  
-  (let* ((mapping #f)
-
-	 ;; TODO: we'd better do this for PS only
-	 ;; LaTeX gets in the way, and we need to remap
-	 ;; nonprintable chars.
-	 
-	 ;; (assoc-get 'input-name (ly:font-encoding-alist font)))
-	 
-	 (input-enc-name #f))
-
-    (string-append "\\hbox{\\" (tex-font-command font)
-		   (if (string? input-enc-name)
-		       (string-append "\\inputencoding{" input-enc-name "}")
-		       "{}")
-		   (sanitize-tex-string
-		    (if (vector? mapping)
-			(reencode-string mapping s)
-			s))
-		   "}")))
+  (format
+   "\\hbox{\\~a{}~a}" (tex-font-command font)
+   (sanitize-tex-string s)))
 
 (define (white-text scale s)
   (embedded-ps (list 'white-text scale s)))

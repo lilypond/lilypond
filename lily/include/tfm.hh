@@ -150,7 +150,6 @@ public:
   virtual int count () const;
   virtual Box get_ascii_char (int) const;
   virtual Real design_size () const;
-  virtual String coding_scheme () const;
   virtual void derived_mark () const;
   virtual int name_to_index (String) const;
   

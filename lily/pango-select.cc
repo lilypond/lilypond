@@ -49,9 +49,7 @@ select_pango_font (Output_def *layout, SCM chain)
   
   Font_metric * fm = all_fonts_global->find_pango_font (description);
 
-  return find_scaled_font (layout, fm, 1.0,
-			   ly_symbol2scm ("latin1"),
-			   ly_symbol2scm ("latin1")); 
+  return find_scaled_font (layout, fm, 1.0);
 }
 
 

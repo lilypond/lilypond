@@ -46,7 +46,7 @@ bool no_layout_global_b = false;
 /* Selected output format.
    One of tex, ps, scm, as.
 */
-String output_format_global = "tex";
+String output_format_global = "ps";
 
 /* Current output name. */
 String output_name_global;

@@ -35,7 +35,6 @@
      ly:export
      ly:font-get-glyph
      ly:font-design-size
-     ly:font-encoding-alist
      ly:font-file-name
      ly:font-magnification
      ly:font-metric?

@@ -101,7 +101,6 @@ SCM (* scm_parse_error_handler) (void *);
 %option warn
 
 %x chords
-%x encoding
 %x figures
 %x incl
 %x lyrics
@@ -164,20 +163,11 @@ HYPHEN		--
   }
 }
 
-<INITIAL,lyrics,figures,notes>\\encoding{WHITE}* {
-	yy_push_state (encoding);
-}
 <INITIAL,chords,lyrics,notes,figures>\\version{WHITE}*	{
 	yy_push_state (version);
 }
 <INITIAL,chords,lyrics,notes,figures>\\renameinput{WHITE}*	{
 	yy_push_state (renameinput);
-}
-<encoding>\"[^"]*\"     {
-	String s (YYText () + 1);
-	s = s.left_string (s.index_last ('\"'));
-	set_encoding (s);
-	yy_pop_state ();
 }
 <version>\"[^"]*\"     { /* got the version number */
 	String s (YYText () + 1);
@@ -203,10 +193,6 @@ HYPHEN		--
 		     ly_symbol2scm ("input-file-name"),
 		     scm_makfrom0str (s.to_str0 ()));
 
-}
-<encoding>. 	{
-	LexerError (_ ("No quoted string found after \\encoding").to_str0 ());
-	yy_pop_state ();
 }
 <version>. 	{
 	LexerError (_ ("No quoted string found after \\version").to_str0 ());

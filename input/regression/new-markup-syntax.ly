@@ -15,9 +15,8 @@ texidoc = "With the new markup syntax, text may be written in various manners."
 
 		\bracket \column { baz bazr bla }
 		\hspace #2.0
-		\override #'(font-family . music) {
+		\override #'(font-encoding . fetaMusic) {
 			\lookup #"noteheads-0"
-			\char #53
 		}
 		\semiflat
 
