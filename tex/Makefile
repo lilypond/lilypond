@@ -15,9 +15,9 @@ DISTFILES = Makefile $(TEXFILES)
 #
 
 localinstall:
-	$(INSTALL) -d $(TEXPREFIX)/lilypond
-	$(INSTALL) -m 755 $(TEXFILES) $(TEXPREFIX)/lilypond/
+	$(INSTALL) -d $(TEXDIR)/lilypond
+	$(INSTALL) -m 755 $(TEXFILES) $(TEXDIR)/lilypond/
 
 localuninstall:
-	for i in $(TEXFILES) ; do rm -f $(TEXPREFIX)/lilypond/$$i; done
-	-rmdir $(TEXPREFIX)/lilypond/
+	for i in $(TEXFILES) ; do rm -f $(TEXDIR)/lilypond/$$i; done
+	-rmdir $(TEXDIR)/lilypond/
