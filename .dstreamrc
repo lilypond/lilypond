@@ -1,3 +1,5 @@
+#This file controls which classes produce debugging output
+
 # class name		silence?
 Dstream			1
 

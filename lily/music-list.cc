@@ -7,19 +7,18 @@
 */
 
 
+#include <limits.h>
 #include "music.hh"
 #include "debug.hh"
 #include "music-list.hh"
 
 Music_list::Music_list(Music_list const&s)
+    : Music(s)
 {
     multi_level_i_ = s.multi_level_i_;   
     for (iter(s.music_p_list_.top(), i); i.ok(); i++)
 	add(i->clone());
 }
-
-
-
 
 IMPLEMENT_IS_TYPE_B1(Music_list, Music);
 IMPLEMENT_IS_TYPE_B1(Voice,Music_list);
@@ -28,7 +27,8 @@ IMPLEMENT_IS_TYPE_B1(Chord,Music_list);
 MInterval
 Chord::time_int()const
 {
-    MInterval m;
+//    MInterval m( -(Real)INT_MAX, (Real)INT_MAX );
+    MInterval m( 0, 0 );
     for (iter(music_p_list_.top(), i); i.ok(); i++)
 	m.unite(i->time_int());
     return m;
