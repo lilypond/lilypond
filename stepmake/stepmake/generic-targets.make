@@ -48,22 +48,22 @@ webdir = $(local_package_docdir)
 help: generic-help local-help
 	@echo -e "\
   all         update everything\n\
-  clean       remove all genated stuff in $(outdir)\n\
-  check       run selftest\n\
+  clean       remove all generated stuff in $(outdir)\n\
+  check       run self tests\n\
   default     same as the empty target\n\
   exe         update all executables\n\
   help        this help\n\
   install     install programs and data (prefix=$(prefix))\n\
   lib         update all libraries\n\
-  web         update website in out-www\n\
+  web         update website in directory \`out-www'\n\
   web-install install website documentation in (webdir=$(webdir))\n\
-  web-clean   clean out-www\n\
-  TAGS        genarate tagfiles\n\
+  web-clean   clean \`out-www' directory\n\
+  TAGS        generate tagfiles\n\
 \n\
-Make may be invoked from any subdirectory\n\
-Note that all commands recurse into SUBDIRS;\n\
-prepend \`local-' to do only cwd, eg: local-clean\n\
-"\
+\`make' may be invoked from any subdirectory.\n\
+Note that all commands recurse into subdirectories;\n\
+prepend \`local-' to restrict operation to the current directory.\n\
+Example: \`local-clean'.\n"
 
 local-help:
 
