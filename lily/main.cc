@@ -513,13 +513,7 @@ main (int argc, char **argv)
       exit (2);
     }
 
-#ifdef WINNT
-  scm_boot_guile (argc, argv, main_prog, 0);
-#else
   scm_boot_guile (argc, argv, (void (*) (void*, int, char**))main_prog, 0);
-#endif
 
   return 0;			// unreachable
 }
-
-

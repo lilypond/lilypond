@@ -300,11 +300,14 @@ prebuild () {
 	cp -pv $i $(dirname $(dirname $i))/$(basename $i)
     done
 
-    addmakeflags LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll" " " 'target=i686-pc-cygwin'
+    mkdir -p mf/out
+    cp -pv mf/out-for-build/* mf/out
+    
+    addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll" ' ' 'target=i686-pc-cygwin'
 }
 
 preinstall () {
-    addmakeflags LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll" " " 'target=i686-pc-cygwin'
+    addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll" ' ' 'target=i686-pc-cygwin'
 }
 
 postinstall () {
