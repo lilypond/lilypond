@@ -42,7 +42,7 @@ NOTE: If you downloaded a binary (@file{.rpm}) or use the Cygwin
 @section Documentation
 
 The documentation is available online at
-@uref{http://www.lilypond.org/Documentation/out-www/index.html}.
+@uref{http://www.lilypond.org/doc/v1.9/Documentation/out-www/}.
 
 You can also build it locally: follow the instructions under `Building
 documentation' in the installation instructions.
@@ -50,8 +50,7 @@ documentation' in the installation instructions.
 
 @section Comments
 
-LilyPond is a long way from finished so we appreciate your criticism,
-comments, bugreports, patches, etc. Please send them to the mailing
+Send your criticism, comments, bugreports, patches, etc. to the mailing
 list, not to us personally.
 
 @html
@@ -62,7 +61,7 @@ We have the following mailing lists:
 
 @itemize @bullet
 @item @uref{http://mail.gnu.org/mailman/listinfo/info-lilypond,info-lilypond@@gnu.org}
-is a low-volume list for information on the GNU Music project.
+is a low-volume list for information on LilyPond project.
     This list is moderated; ask 
     @email{drl@@gnu.org, David R. Linn} or
     @email{hanwen@@cs.uu.nl, Han-Wen} to send announcements for this
@@ -70,13 +69,13 @@ list.
 
 @item
 @uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,lilypond-devel@@gnu.org}
-  for discussions about developing lilypond, in particular the unstable series.
+  for discussions about developing LilyPond, in particular the unstable series.
 
 @item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,lilypond-user@@gnu.org}
-  for discussions about using lilypond, in particular the stable series.
+  for discussions about using LilyPond, in particular the stable series.
 
 @item @uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,bug-lilypond@@gnu.org}
-for bugrepots; if you have one, you should send it to this list.
+for sending bugreports.
 
 @item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-cvs,lilypond-cvs@@gnu.org}
   for commit messages in CVS development. This is a high-volume moderated
@@ -99,8 +98,7 @@ a script to do this for you is left
 @section Bugs
 
 Send bug reports to @email{bug-lilypond@@gnu.org}.  For help and
-questions use @email{lilypond-user@@gnu.org}.  Please consult the
-documentation before mailing your problems.
+questions use @email{lilypond-user@@gnu.org}.
 
 
 @bye

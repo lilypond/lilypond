@@ -1,3 +1,10 @@
+2003-09-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/bibliography/computer-notation.bib (isbn): add phd
+	theses of Gieseking and Renz.
+
+	* GNUmakefile.in (README_FILES): remove README.mandrake.
+
 2003-09-01  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* buildscripts/lilypond.words.py: add file. Creates lilypond.words
@@ -14,6 +21,8 @@
 	* lily/parser.yy, lily/my-lily-lexer.cc: spell it acciaccatura.
 
 2003-08-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.9.4 released
 
 	* scripts/convert-ly.py (FatalConversionError.figures_replace):
 	rule for < > <-> << >> substitution
