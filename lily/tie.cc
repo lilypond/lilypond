@@ -31,10 +31,9 @@ Tie::Tie()
 void
 Tie::set_default_dir()
 {
-  int m= (head_l_drul_[LEFT]->position_i_ + head_l_drul_[RIGHT]->position_i_) /2 ;
+  int m= (head_l_drul_[LEFT]->position_i_ + head_l_drul_[RIGHT]->position_i_) /2;
   dir_ =  (m < 5)? DOWN : UP;	// UGH
 }
-  
 
 void
 Tie::do_add_processing()
@@ -47,6 +46,7 @@ Tie::do_add_processing()
 void
 Tie::do_post_processing()
 {
+  Real nw_f = paper()->note_width ();
   assert (head_l_drul_[LEFT] || head_l_drul_[RIGHT]);
 
   Direction d = LEFT;
@@ -64,16 +64,15 @@ Tie::do_post_processing()
 	  pos_i_drul_[d] += 2*dir_;
 	  dx_f_drul_[d] += d * 0.25;
 	}
-      else
+      else if (head_l_drul_[d])
 	dx_f_drul_[d] += d*0.5;
+      else
+	{
+	  pos_i_drul_[d] = pos_i_drul_[(Direction) -d];
+	  dx_f_drul_[d] = -d 
+	    *(spanned_drul_[d]->width ().length ()/nw_f -0.5);
+	}
     }
-  while ((d *= -1) != LEFT);
-
-  do 
-    {
-      if (!head_l_drul_[d])
-	pos_i_drul_[d] = pos_i_drul_[(Direction)-d];
-    } 
   while ((d *= -1) != LEFT);
 }
 
@@ -88,7 +87,5 @@ Tie::do_substitute_dependency (Score_elem*o, Score_elem*n)
   else if (o->item() == head_l_drul_[RIGHT])
     head_l_drul_[RIGHT] = new_l;
 }
-
-
 
 IMPLEMENT_IS_TYPE_B1(Tie,Bow);
