@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.5.69\n"
 "POT-Creation-Date: 2002-07-21 01:00+0200\n"
-"PO-Revision-Date: 2002-07-25 08:00-0500\n"
+"PO-Revision-Date: 2002-07-30 08:00-0500\n"
 "Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -220,7 +220,7 @@ msgstr "DUR"
 
 #: midi2ly.py:96
 msgid "quantise note durations on DUR"
-msgstr ""
+msgstr "quantifier la durée de la note sur DUR"
 
 #: midi2ly.py:97
 msgid "print explicit durations"
@@ -231,13 +231,12 @@ msgid "ALT[:MINOR]"
 msgstr "ALT[:MINEUR]"
 
 #: midi2ly.py:99
-#, fuzzy
 msgid "set key: ALT=+sharps|-flats; MINOR=1"
-msgstr "définir la clef: ALT= +do dièse/-si bémol; MINEUR=1"
+msgstr "définir la clef: ALT=+dièse|-bémol; MINEUR=1"
 
 #: midi2ly.py:101
 msgid "quantise note starts on DUR"
-msgstr ""
+msgstr "quantifier le début de la note sur DUR"
 
 #: midi2ly.py:102
 msgid "DUR*NUM/DEN"
@@ -537,7 +536,7 @@ msgstr "faisceau a moins de deux queues. Retrait du faisceau."
 
 #: beam.cc:797
 msgid "Not sure that we can find a nice beam slope (no viable initial configuration found)."
-msgstr ""
+msgstr "Pas certain que l'on puisse repérer un joli pente dans le faisceau (configuration initiale viable non repérée)"
 
 #: break-align-interface.cc:166
 #, c-format
@@ -703,11 +702,11 @@ msgstr "Vérification de type pour « %s » a échoué; la valeur « %s » doit être de
 
 #: lookup.cc:141
 msgid "round filled box horizontal extent smaller than blot; decreasing blot"
-msgstr ""
+msgstr "largeur horizontale de la boîte plus petite que le diamètre du coin; réduction du diamètre du coin"
 
 #: lookup.cc:146
 msgid "round filled box vertical extent smaller than blot; decreasing blot"
-msgstr ""
+msgstr "hauteur verticale de la boîte plus petite que le diamètre du coin; réduction du diamètre du coin"
 
 #: lyric-phrasing-engraver.cc:301
 msgid "lyrics found without any matching notehead"
@@ -857,30 +856,30 @@ msgstr "premier interval dans la ligature -> escamoté"
 
 #: mensural-ligature-engraver.cc:380
 msgid "mensural ligature: duration none of L, B, S -> skipping"
-msgstr ""
+msgstr "Mensural_ligature: aucune durée parmie L, B, S -> escomatée"
 
 #: mensural-ligature.cc:152
 #, c-format
 msgid "Mensural_ligature: thickness undefined on flexa %d; assuming 1.4"
-msgstr ""
+msgstr "Mensural_ligature: épaisseur indéfinie sur flexa %d; 1.4 est assumé"
 
 #: mensural-ligature.cc:166
 #, c-format
 msgid "Mensural_ligature: delta-pitch undefined on flexa %d; assuming 0"
-msgstr ""
+msgstr "Mensural_ligature: croissance du ton indéfinie sur flexa %d; 0 est assumé"
 
 #: mensural-ligature.cc:177
 #, c-format
 msgid "Mensural_ligature: flexa-width undefined on flexa %d; assuming 2.0"
-msgstr ""
+msgstr "Mensural_ligature: largeur de flexa indéfinie sur flexa %d; 2.0 est assumé"
 
 #: mensural-ligature.cc:208
 msgid "Mensural_ligature: unexpected case fall-through"
-msgstr ""
+msgstr "Mensural_ligature: cas inattendu sans interception"
 
 #: mensural-ligature.cc:217
 msgid "Menusral_ligature: (join_left == 0)"
-msgstr ""
+msgstr "Mensural_liguture: (joint_left == 0)"
 
 #: midi-item.cc:144
 #, c-format
@@ -1019,9 +1018,8 @@ msgid "can't find start of piano pedal: `%s'"
 msgstr "ne peut repérer le début de la pédale de piano: « %s »"
 
 #: piano-pedal-engraver.cc:404
-#, fuzzy
 msgid "unterminated pedal bracket"
-msgstr "faisceau non terminé"
+msgstr "accolades des pédales non complétées"
 
 #: pitch.cc:25
 msgid "Pitch arguments out of range"
@@ -1045,20 +1043,20 @@ msgstr "right_head indéfini"
 
 #: porrectus.cc:96
 msgid "junking lonely porrectus"
-msgstr ""
+msgstr "porrectus rebut isolé"
 
 #: porrectus.cc:106
 msgid "porrectus style undefined; using mensural"
-msgstr ""
+msgstr "style porrectus indéfini; utilisation du mensural"
 
 #: porrectus.cc:251
 msgid "ascending vaticana style porrectus"
-msgstr ""
+msgstr "porrectus ascendant de style vaticana"
 
 #: property-iterator.cc:64
 #, c-format
 msgid "Not a grob name, `%s'."
-msgstr ""
+msgstr "N'est pas un nom de type grob, « %s »"
 
 #: rest-collision.cc:186
 msgid "too many colliding rests"
@@ -1126,7 +1124,7 @@ msgstr "Separation_item:  cela ne devrait pas se produire mais..."
 #: simple-spacer.cc:254
 #, c-format
 msgid "No spring between column %d and next one"
-msgstr ""
+msgstr "Pas de tension entre la colonne %d et la suivante"
 
 #: slur-engraver.cc:124
 msgid "unterminated slur"
@@ -1184,9 +1182,9 @@ msgid "Element count %d."
 msgstr "Éléments dénombrés %d."
 
 #: system.cc:362
-#, fuzzy, c-format
+#, c-format
 msgid "Grob count %d "
-msgstr "Éléments dénombrés %d."
+msgstr "Éléments de type grob dénombrés %d."
 
 #: system.cc:376
 msgid "Calculating column positions..."
