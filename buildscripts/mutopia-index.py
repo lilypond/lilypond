@@ -10,6 +10,10 @@ import stat
 sys.path.append ('@abs-step-bindir@')
 
 
+def gulp_file (fn):
+	f = open (fn)
+	return f.read ()
+
 
 header_regex = regex.compile('\\header[ \t\n]*{\([^}]*\)}')
 header_entry_regex = regex.compile('[\n\t ]*\([^\n\t ]+\)[\n\t ]*=[\n \t]*\([^;]+\)[\n \t]*;')
