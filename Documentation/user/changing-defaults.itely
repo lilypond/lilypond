@@ -2137,7 +2137,7 @@ default format is created, and it may be used as a template for
 different styles.
 
  
-
+@cindex \bookpaper
 @cindex header
 @cindex footer
 @cindex page layout
@@ -2195,25 +2195,51 @@ footers to each page.
 
 The default layout responds to the following settings in the
 @code{\bookpaper} block
+@cindex \bookpaper
 
 @table @code
 @item hsize
  The width of the page
 @item vsize
  The height of the page
-@item top-margin
+@item topmargin (top-margin)
  Margin between header and top of the page
-@item bottom-margin
+@item bottommargin (bottom-margin)
  Margin between footer and bottom of the page
-@item head-sep
+@item headsep (head-sep)
  Distance between top-most music system and the page header
-@item foot-sep
+@item footsep (foot-sep)
  Distance between bottom-most music system and the page footer
 @item raggedbottom
  If set to true, systems will not be spread across the page.  
 @item raggedlastbottom
  If set to true, systems will not be spread to fill the last page.
 @end table
+
+@example
+        \bookpaper@{
+           hsize = 2\cm
+           topmargin = 3\cm
+           bottommargin = 3\cm
+           raggedlastbottom = ##t
+        @}
+@end example
+
+You can also define these values in scheme. Please note that the scheme
+expressions may have a dash, like @code{foot-sep}, but not LilyPond
+expressions, like @code{footsep}. 
+
+@example
+        \bookpaper@{
+        #(define bottom-margin (* 2 cm)) 
+        @}
+@end example
+
+@c is this explanations really necessary?
+In that case @code{mm}, @code{in}, @code{pt} and @code{cm} are variables
+defined in @file{book-paper-defaults.ly} with values in
+millimeters. That's why the value has to be multiplied in the example
+above.
 
 The default page header puts the page number and the @code{instrument}
 field from the @code{\header} block on a line.
