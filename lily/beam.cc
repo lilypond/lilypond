@@ -609,49 +609,46 @@ Beam::consider_auto_knees (Grob* me)
   if (!scm_is_number (scm))
     return ;
 
-  Real threshold = scm_to_double (scm);
-  
   Interval_set gaps;
 
   gaps.set_full ();
 
   Link_array<Grob> stems =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
-      
+    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
+  
   Grob *common = common_refpoint_of_array (stems, me,  Y_AXIS);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   
-  Array<Interval> hps_array;  
+  Array<Interval> head_positions_array;  
   for (int i = 0; i < stems.size (); i++)
     {
       Grob* stem = stems[i];
       if (Stem::is_invisible (stem))
 	continue;
 
-      Interval hps = Stem::head_positions (stem);
-      if (!hps.is_empty ())
+      Interval head_positions = Stem::head_positions (stem);
+      if (!head_positions.is_empty ())
 	{
-	  hps[LEFT] += -1;
-	  hps[RIGHT] += 1; 
-	  hps *= staff_space * 0.5 ;
+	  head_positions[LEFT] += -1;
+	  head_positions[RIGHT] += 1; 
+	  head_positions *= staff_space * 0.5 ;
 
 	  /*
 	    We could subtract beam Y position, but this routine only
 	    sets stem directions, a constant shift does not have an
 	    influence.
-	    
 	   */
-	  hps += stem->relative_coordinate (common, Y_AXIS);
+	  head_positions += stem->relative_coordinate (common, Y_AXIS);
 
 	  if (to_dir (stem->get_property ("direction")))
 	    {
 	      Direction stemdir = to_dir (stem->get_property ("direction"));
-	      hps[-stemdir] = - stemdir * infinity_f;
+	      head_positions[-stemdir] = - stemdir * infinity_f;
 	    }
 	}
-      hps_array.push (hps);
+      head_positions_array.push (head_positions);
 
-      gaps.remove_interval (hps);
+      gaps.remove_interval (head_positions);
     }
 
   Interval max_gap;
@@ -674,6 +671,13 @@ Beam::consider_auto_knees (Grob* me)
 	}
     }
 
+  Real beam_translation = get_beam_translation (me);
+  Real beam_thickness = Beam::get_thickness (me);
+  int beam_count = Beam::get_beam_count (me);  
+  Real height_of_beams = beam_thickness / 2
+    + (beam_count - 1) * beam_translation;
+  Real threshold = scm_to_double (scm) +  height_of_beams;
+  
   if (max_gap_len > threshold)
     {
       int j = 0;
@@ -683,16 +687,16 @@ Beam::consider_auto_knees (Grob* me)
 	  if (Stem::is_invisible (stem))
 	    continue;
 
-	  Interval hps = hps_array[j++];
+	  Interval head_positions = head_positions_array[j++];
 
 
-	  Direction d =  (hps.center () < max_gap.center ()) ?
+	  Direction d =  (head_positions.center () < max_gap.center ()) ?
 	    UP : DOWN ;
 	  
 	  stem->set_property ("direction", scm_int2num (d));
 	  
-	  hps.intersect (max_gap);
-	  assert (hps.is_empty () || hps.length () < 1e-6 );
+	  head_positions.intersect (max_gap);
+	  assert (head_positions.is_empty () || head_positions.length () < 1e-6 );
 	}
     }
 }
@@ -1354,7 +1358,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   /*
     TODO: this is not strictly correct for 16th knee beams. 
    */
-  int beam_count =
+  int beam_count = 
     Stem::beam_multiplicity (stem).length() + 1;
   
   Real height_of_my_beams = beam_thickness / 2
