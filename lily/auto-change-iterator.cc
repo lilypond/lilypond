@@ -97,7 +97,6 @@ Auto_change_iterator::process (Moment m)
       if ((*splitm + start_moment_) > now)
 	break ;
 
-      *splitm += start_moment_;
       SCM tag = gh_cdar (split_list_);
       Direction d = to_dir  (tag);
       
