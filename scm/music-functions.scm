@@ -750,3 +750,23 @@ Rest can contain a list of beat groupings
   (music-map apply-duration lyric-music))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+
+
+(define-public ((add-balloon-text object-name text off) grob orig-context cur-context)
+   "Usage: see input/regression/balloon.ly "
+  (let*
+   ((meta (ly:get-grob-property grob 'meta))
+    (nm (if (pair? meta) (cdr (assoc 'name meta)) "nonexistant"))
+    (cb (ly:get-grob-property grob 'molecule-callback)))
+    
+   (if (equal? nm object-name)
+    (begin
+     (ly:set-grob-property! grob 'molecule-callback Balloon_interface::brew_molecule)
+     (ly:set-grob-property! grob 'balloon-original-callback cb)
+     (ly:set-grob-property! grob 'balloon-text text)
+     (ly:set-grob-property! grob 'balloon-text-offset off)
+     (ly:set-grob-property! grob 'balloon-text-props '((font-family . roman)))
+
+     ))))
