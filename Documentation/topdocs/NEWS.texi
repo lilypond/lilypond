@@ -73,7 +73,7 @@ is the same as
 These toplevel forms are handled by
 @code{default-toplevel-music-handler}.  Similarly, a @code{score}
 block at toplevel is handled by @code{default-toplevel-score-handler}
-an a @code{book} at toplevel is handled by
+and a @code{book} at toplevel is handled by
 @code{default-toplevel-book-handler}.
 
 @ignore
