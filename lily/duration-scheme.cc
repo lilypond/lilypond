@@ -68,7 +68,7 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
   bool compress = false;
   if (num != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (scm_is_number (num), length, SCM_ARG3, __FUNCTION__, "integer");
+      SCM_ASSERT_TYPE (scm_is_number (num), num, SCM_ARG3, __FUNCTION__, "integer");
       compress = true;
     }
   else
@@ -76,7 +76,7 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
 
   if (den != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (scm_is_number (den), length, SCM_ARG4, __FUNCTION__, "integer");
+      SCM_ASSERT_TYPE (scm_is_number (den), den, SCM_ARG4, __FUNCTION__, "integer");
       compress = true;
     }
   else
