@@ -1,7 +1,7 @@
 #include "rest.hh"
 #include "dimen.hh" 
 #include "debug.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "lookup.hh"
 #include "molecule.hh"
 

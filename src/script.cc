@@ -1,5 +1,5 @@
 #include "request.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "script.hh"
 #include "stem.hh"
 #include "molecule.hh"

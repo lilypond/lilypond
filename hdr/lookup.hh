@@ -8,6 +8,7 @@
 #include "fproto.hh"
 #include "scalar.hh"
 
+/// intuitive interface to symbol table
 struct Lookup {
     Symtables *symtables_;
     String texsetting;

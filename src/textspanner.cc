@@ -3,7 +3,7 @@
 #include "textspanner.hh"
 #include "textdef.hh"
 #include "debug.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 
 NAME_METHOD(Text_spanner);
 

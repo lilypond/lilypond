@@ -6,7 +6,7 @@
 #include "rest.hh"
 #include "notehead.hh"
 #include "headreg.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "complexwalker.hh"
 
 

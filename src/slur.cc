@@ -6,7 +6,7 @@
 #include "slur.hh"
 #include "scalar.hh"
 #include "lookup.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "notehead.hh"
 #include "pcol.hh"
 #include "molecule.hh"

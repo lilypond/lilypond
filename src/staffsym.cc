@@ -7,7 +7,7 @@
 */
 #include "staffsym.hh"
 #include "lookup.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "debug.hh"
 
 NAME_METHOD(Staff_symbol);

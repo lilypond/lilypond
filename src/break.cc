@@ -2,7 +2,7 @@
     do calculations for breaking problem    
     */
 #include "break.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "linespace.hh"
 #include "debug.hh"
 #include "scoreline.hh"
