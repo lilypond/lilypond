@@ -1,3 +1,13 @@
+2003-08-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/topdocs/INSTALL.texi (Top): explain how to get
+	.pfas from a .deb.
+
+2003-08-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/bibliography/engraving.bib: add entry for
+	Jaschinski's Notation
+
 2003-08-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/refman.itely (Beaming): add note about
