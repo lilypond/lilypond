@@ -37,6 +37,28 @@ pfa-fonts:
 	$(MAKE) MAKE_PFA_FILES=1 -C mf
 # don't make fontball - we have binary packages for that.
 
+install-pfa-fonts:
+	$(MAKE) MAKE_PFA_FILES=1 -C mf install
+
+fontball=type1-$(TOPLEVEL_VERSION).tar.gz
+deb=lilypond_$(TOPLEVEL_VERSION)-1_i386.deb
+debian-mirror=http://ftp.$(LANG).debian.org
+
+$(outdir)/$(deb):
+	wget -P $(outdir) $(debian-mirror)/debian/pool/main/l/lilypond/$(deb)
+
+#lld=.$(local_lilypond_datadir)
+lld=./usr/share/lilypond/$(TOPLEVEL_VERSION)
+$(outdir)/$(fontball): $(outdir)/$(deb)
+	rm -rf $(outdir)/./usr
+	ar p $< data.tar.gz | \
+		tar -C $(outdir) -zxf - $(lld)/dvips $(lld)/fonts/type1
+	# strip the $(lld) part?
+	tar -C $(outdir) -czf $@ ./usr
+
+get-pfa-fonts: $(outdir)/$(fontball)
+	# install by hand from $<
+
 web-install: 
 	-$(INSTALL) -m 755 -d $(webdir) 
 	tar -C $(webdir)/ -xzf $(outdir)/web.tar.gz
