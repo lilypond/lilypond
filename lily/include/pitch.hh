@@ -75,7 +75,7 @@ enum {
   SEMI_SHARP,
   SHARP ,
   THREE_Q_SHARP,
-  DOUBLE_SHARP  ,
+  DOUBLE_SHARP,
 };
 
 SCM ly_pitch_transpose (SCM p, SCM delta);

@@ -23,8 +23,9 @@ lower = \notes\relative c {
     \new Staff <<
       \clef bass
       \lower
-      \applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface)
-        'line-count = 4)
+      \applyoutput #(outputproperty-compatibility
+		     (make-type-checker 'staff-symbol-interface)
+		     'line-count  4)
     >>  
   >>
   \paper { raggedright=##t}  

@@ -11,7 +11,7 @@ move text around. " }
 \score {
   \notes\relative c''' {
     \property Voice.Stem \set #'direction = #1
-    \applyoutput #(outputproperty (make-text-checker (make-simple-markup "m.d."))
+    \applyoutput #(outputproperty-compatibility (make-text-checker (make-simple-markup "m.d."))
       'extra-offset '(-3.5 . -4.5))
     a^2^"m.d."
   }

@@ -67,12 +67,12 @@
   (let* ((name (ly:pitch-notename pitch))
 	 (alt (ly:pitch-alteration pitch))
 	 (n-a (if (member (cons name alt) `((6 . ,FLAT) (6 . ,DOUBLE-FLAT)))
-		  (cons 7 (+ 2 alt))
+		  (cons 7 (+ SEMI-TONE alt))
 		  (cons name alt))))
     (make-line-markup
      (list
       (string-append
-       (list-ref '("c" "d" "e" "f" "g" "a" "h" "b") (/ (car n-a) 2))
+       (list-ref '("c" "d" "e" "f" "g" "a" "h" "b")  (car n-a) )
        (if (or (equal? (car n-a) 2) (equal? (car n-a) 5))
 	   (list-ref '( "ses"  "s" "" "is" "isis") (+ 2 (/ (cdr n-a) 2) ))
 	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (/ (cdr n-a) 2) ))
