@@ -346,7 +346,8 @@ New_pc_iterator::process (Moment m)
       if (tag == ly_symbol2scm ("chords"))
 	chords_together ();
       else if (tag == ly_symbol2scm ("apart")
-	       || tag == ly_symbol2scm ("apart-silence"))
+	       || tag == ly_symbol2scm ("apart-silence")
+	       || tag == ly_symbol2scm ("apart-spanner"))
 	apart (tag == ly_symbol2scm ("apart-silence"));
       else if (tag == ly_symbol2scm ("unisono"))
 	unisono (false);

@@ -1,5 +1,14 @@
 2004-02-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/new-part-combine-solo.ly: more cases.
+
+	* lily/slur.cc (height): robustness fix.
+
+	* lily/new-part-combine-iterator.cc (process): add apart-spanner. 
+
+	* input/mutopia/F.Schubert/morgenlied.ly (melody): revert
+	stemUp/stemDown.
+
 	* scm/music-functions.scm (determine-split-list): further analysis.
 
 	* lily/script-engraver.cc (try_music): discard duplicate
