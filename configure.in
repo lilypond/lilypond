@@ -58,6 +58,17 @@ AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([gettext isinf memmem snprintf vsnprintf gettext])
 
 
+# This is developer only anyway, help pkgconfig a bit
+export PKG_CONFIG_PATH
+PKG_CONFIG_PATH=/usr/lib/pkgconfig:$PKG_CONFIG_PATH
+PKG_CONFIG_PATH=/opt/gnome/lib/pkgconfig:$PKG_CONFIG_PATH
+PKG_CONFIG_PATH=$HOME/usr/pkg/gnome/lib/pkgconfig:$PKG_CONFIG_PATH
+PKG_CONFIG_PATH=$HOME/usr/pkg/pango/lib/pkgconfig:$PKG_CONFIG_PATH
+
+#STEPMAKE_FREETYPE2
+STEPMAKE_GTK2
+STEPMAKE_PANGO
+
 ## Optional tools for building documentation, website, extra fonts.
 
 # guile executable for some scripts

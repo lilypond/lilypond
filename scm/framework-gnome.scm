@@ -139,7 +139,13 @@
 
     ;; ugh.  The GOOPS doc promises this is called automagically.
     (initialize go)
-    
+
+    (map ly:pango-add-afm-decoder
+	 '("lilypond-feta"
+	   "lilypond-braces"
+	   "lilypond-dyn"
+	   "lilypond-parmesan"))
+
     (dump-page go 0)
 
     ;; ugh
