@@ -11,7 +11,7 @@ else
     cd ../
     if [ ! -f $flowertar ]
     then
-	echo can't find $flowertar
+	echo "can't find $flowertar"
 	exit 1;
     fi
     rm flower

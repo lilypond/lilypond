@@ -10,6 +10,8 @@
 #include "item.hh"
 #include "varray.hh"
 
+struct Clef;
+
 /// 
 struct Keyitem : Item {
     Array<int> pitch;
@@ -22,6 +24,7 @@ struct Keyitem : Item {
     Keyitem(int cposition);
     void add(int pitch, int acc);
     void read(Array<int> k);
+    void read(const Clef& c);
 
     void preprocess();
 

@@ -153,6 +153,12 @@ COMMENT		[%#].*\n
 	int l = lookup_keyword(c);
 	if (l != -1)
 		return l;
+
+/* let's try passing tex's typesetting macros like \ss \alpha \c */
+	String* str_p = new String(YYText());
+	return STRING;	
+
+/* and skip identifiers...
 	Identifier * id = lookup_identifier(c);
 	if (id) {		
 		yylval.id = id;
@@ -162,6 +168,7 @@ COMMENT		[%#].*\n
 
 	yylval.string=sp;
 	return NEWIDENTIFIER;
+*/
 }
 <lyrics>\"[^\"]*\" {
 	String s (YYText()+1);
@@ -187,6 +194,12 @@ COMMENT		[%#].*\n
 }
 <lyrics>{COMMENT}		{ 
 
+}
+<lyrics>[{}]	{
+	return YYText()[0];
+}
+<lyrics>[()\[\]|/.^>_-] {
+	return yylval.c = YYText()[0];
 }
 <lyrics>[ \t\n]+		{
 }
