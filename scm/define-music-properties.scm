@@ -97,8 +97,6 @@ starting grace notes.")
      (string-number ,integer? "The number of the string in a String_number_req")
      (symbol ,symbol? "Grob name to perform an override/revert on.")
      (text ,markup? "markup expression to be printed")
-     (transpose-callback ,procedure? "How to transpose a piece of
-music")
      (tremolo-type ,integer? "")
      (type ,symbol? "The type of this music object. Determines iteration in some cases.")
      (types ,list? "The types of this music object; determines by what
@@ -116,5 +114,5 @@ a string) for figured bass")
      (bracket-start ,boolean? "start a bracket
 here. TODO: use span requests?")
      (bracket-stop ,boolean? "stop a bracket here.")
-
+     (untransposable ,boolean? "If set, this music is not transposed.")
      )))

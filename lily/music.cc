@@ -17,6 +17,13 @@
 #include "score.hh"
 #include "warn.hh"
 
+/*
+  Music is anything that has duration and supports both time compression
+  and transposition.
+  
+  In Lily, everything that can be thought to have a length and a pitch
+ (which has a duration which can be transposed) is considered "music",
+*/
 bool
 Music::internal_is_music_type (SCM k) const
 {
