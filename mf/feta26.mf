@@ -2,8 +2,8 @@
 % part of LilyPond's pretty-but-neat music font
 
 input feta-autometric;
-fet_beginfont("feta", 16);
-staffsize#:=16pt#;
+fet_beginfont("feta", 26);
+staffsize#:=26pt#;
 test:=0;
 
 
@@ -12,4 +12,5 @@ input feta-generic;
 fet_endfont("feta");
 
 end.
+
 

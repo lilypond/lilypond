@@ -4,31 +4,27 @@ Subject: LilyPond 0.2 released - The GNU Project music typesetter
 GNU LilyPond - The GNU Project Music Typesetter
 
 
-``WHAT IS GNU LilyPond?''
+WHAT IS LilyPond?
 
 GNU LilyPond is the GNU Project Music typesetter: it reads a music
 definition file and outputs formatted sheet music to a TeX file or
 (mechanical) performances to MIDI files.
 
 
-WHY ?
+WHAT'S NEW SINCE VERSION 0.1?
 
-We want to create tools to produce production quality scores and parts
-of public domain music.
-
-
-WHAT'S NEW
-
-* LilyPond now includes a completely rewritten font: the Feta font.
-We did our best to copy the best symbol designs available and We're
-proud of the result.  We hope you agree, so go check it out!
+* LilyPond now includes a completely new music font: the Feta font.  
+  We were quite disappointed with available music fonts, so we rolled
+  our own.  We did our best to copy the best symbol designs available,
+  and we think that we've succeeded in doing so.  We're proud of the
+  result, and we hope you agree, so go check it out!
 
 * More elegant output due to 
 
 	* better spacing
-	* better breaking
+	* better line breaking
 	* better font design
-	* PostScript output for variable symbols.
+	* PostScript output for variable symbols
 
 * Lots of bugfixes
 
@@ -36,7 +32,7 @@ proud of the result.  We hope you agree, so go check it out!
 
 * Better MIDI importing
 
-* Easier to use due to better scripts and input format enhancements.
+* Easier to use due to better scripts and input format enhancements
 
 * MusixTeX not needed anymore
 
@@ -49,10 +45,11 @@ customizable notenames.
 MIDI output lets you check if you have entered the correct notes.
 MIDI to Mudela conversion through the mi2mu program.
 
-Multiple staffs in one score. Each staff can have a different meters.
-Multiple voices within one staff (up to four handled graciously);
-beams optionally shared between voices.  Multiple scores within one
-input file. Each score is output to a different file.
+Font size selectable (26pt, 20pt, 16pt staffsize) for each score.
+Multiple staffs in one score.  Each staff may have various different
+meters.  Multiple voices within one staff (up to four handled
+graciously); beams optionally shared between voices.  Multiple scores
+within one input file.  Each score is output to a different file.
 
 Beams, slurs, chords, super/subscripts (accents and text), 
 general n-plet (triplet, quadruplets, etc.), lyrics, transposition,
