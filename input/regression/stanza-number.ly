@@ -1,7 +1,7 @@
 \version "2.3.4"
 
 \header {
-texidoc = "Stanza numbers are put left of their lyric. Theyr are aligned in a column."
+texidoc = "Stanza numbers are put left of their lyric. They are aligned in a column."
 }
 
 \score {

@@ -1,7 +1,7 @@
 \header {
 
     texidoc = "By setting @code{voltaOnThisStaff}, repeats can be put
-    on more staves in a score."
+    also over other staves than the topmost one in a score."
 
 }
 \version "2.3.4"
