@@ -136,6 +136,11 @@ Return the original Grob of @var{grob}
 
 
 /* ly prefix? spanner in name? */
+/*
+  TODO: maybe we should return a vector -- random access is more
+  logical for this list?
+ */
+
 LY_DEFINE (get_broken_into,
 	  "get-broken-into", 1, 0, 0, (SCM spanner),
 	   "
