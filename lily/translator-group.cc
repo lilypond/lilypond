@@ -453,7 +453,6 @@ Translator_group::get_property (SCM sym) const
   if (daddy_trans_l_)
     return daddy_trans_l_->get_property (sym);
   
-
   return SCM_UNDEFINED;
 }
 

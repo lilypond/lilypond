@@ -88,8 +88,8 @@ Polynomial::clean()
   We only do relative comparisons. Absolute comparisons break down in
   degenerate cases.  */
   while (degree () > 0 &&
-	 (fabs (coefs_.top ()) < FUDGE * fabs (coefs_.top (1)))
-	 || !coefs_.top ())
+	 (fabs (coefs_.top ()) < FUDGE * fabs (coefs_.top (1))
+	  || !coefs_.top ()))
     coefs_.pop ();
 }
 
@@ -346,7 +346,6 @@ Polynomial::solve () const
     case 3:
       return solve_cubic ();
     }
-  assert (false);
   Array<Real> s;
   return s;
 }

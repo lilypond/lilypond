@@ -142,6 +142,15 @@ Staff_symbol_referencer::set_position (Score_element*me,Real p)
   me->add_offset_callback (callback, Y_AXIS);
 }
 
+/*
+  half  of the height, in staff space.
+ */
+Real
+Staff_symbol_referencer::staff_radius (Score_element*me)
+{
+  return  (line_count (me) -1) / 2;
+}
+
 
 int
 compare_position (Score_element *const  &a, Score_element * const &b)

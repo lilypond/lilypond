@@ -37,9 +37,7 @@
 void
 Slur::set_interface (Score_element*me)
 {
-  me-> set_elt_property ("attachment", gh_cons (SCM_BOOL_F, SCM_BOOL_F));
-  me->set_elt_property ("note-columns", SCM_EOL);
-  me->set_elt_property ("control-points", SCM_EOL);
+  me->set_elt_property ("attachment", gh_cons (SCM_BOOL_F, SCM_BOOL_F));
   me->set_interface (ly_symbol2scm ("slur-interface"));
 }
 
@@ -160,7 +158,7 @@ Slur::after_line_breaking (SCM smob)
   Score_element *me = unsmob_element (smob);
   set_extremities (me);
   set_control_points (me);
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 } 
 
 void
@@ -361,10 +359,12 @@ Slur::set_spacing_rods (SCM smob)
   Spanner*sp = dynamic_cast<Spanner*>(me);
   r.item_l_drul_[LEFT] = sp->get_bound (LEFT);
   r.item_l_drul_[RIGHT] = sp->get_bound (RIGHT);
-  r.distance_f_ = me->paper_l ()->get_var ("slur_x_minimum");
+  r.distance_f_ =
+    gh_scm2double (me->get_elt_property ("minimum-length"))
+    * me->paper_l ()->get_var ("staffspace");
 
   r.add_to_cols ();
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 
@@ -376,7 +376,8 @@ SCM
 Slur::brew_molecule (SCM smob)
 {
   Score_element * me = unsmob_element (smob);
-  Real thick = me->paper_l ()->get_var ("slur_thickness");
+  Real thick = me->paper_l ()->get_var ("stafflinethickness") *
+    gh_scm2double (me->get_elt_property ("thickness"));
   Bezier one = get_curve (me);
 
   Molecule a;
@@ -392,20 +393,20 @@ Slur::brew_molecule (SCM smob)
 void
 Slur::set_control_points (Score_element*me)
 {
-  Slur_bezier_bow bb (get_encompass_offset_arr (me),
-		      Directional_element_interface (me).get ());
-
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real h_inf = me->paper_l ()->get_var ("slur_height_limit_factor") * staff_space;
+  Real staff_space = Staff_symbol_referencer::staff_space ((Score_element*)me);  
+  Real h_inf = me->paper_l ()->get_var ("slur_height_limit_factor") *
+    staff_space;
   Real r_0 = me->paper_l ()->get_var ("slur_ratio");
-
-  bb.set_default_bezier (h_inf, r_0);
+  
+  Slur_bezier_bow bb (get_encompass_offset_arr (me),
+		      Directional_element_interface (me).get (),
+		      h_inf, r_0);
 
   if (bb.fit_factor () > 1.0)
     {
       Real length = bb.curve_.control_[3][X_AXIS]; 
-      Real default_height = bb.get_default_height (h_inf, r_0, length);
-      bb.minimise_enclosed_area (me->paper_l(), default_height);
+      Real default_height = slur_height (length, h_inf, r_0);
+      bb.minimise_enclosed_area (me->paper_l());
       
       Real bff = me->paper_l ()->get_var ("slur_force_blowfit");
       bb.curve_.control_[1][Y_AXIS] *= bff;

@@ -10,36 +10,21 @@
 #ifndef TIE_HH
 #define TIE_HH
 
-#include "spanner.hh"
-#include "rod.hh"
+#include "lily-guile.hh"
+#include "lily-proto.hh"
 
-/**
-  Connect two noteheads.
-  */
-class Tie : public Spanner
+class Tie
 {
 public:
-  Tie (SCM);
   static void set_head (Score_element*,Direction, Item*head_l);
   static void set_interface (Score_element*);
   static bool has_interface (Score_element*);
-  VIRTUAL_COPY_CONS(Score_element);
   static Score_element * head (Score_element*,Direction) ;
   static Real position_f (Score_element*) ;
   static SCM brew_molecule (SCM);
   static Direction get_default_dir(Score_element*) ;
-  static SCM after_line_breaking (SCM);
-
-
-  /*
-    JUNKME
-   */
-  Array<Offset> get_encompass_offset_arr () const;
-  Bezier get_curve () const;
-  Drul_array<Real> dy_f_drul_;
-  Drul_array<Real> dx_f_drul_;
+  static SCM get_control_points (SCM);
   static SCM set_spacing_rods (SCM);
-  Array<Offset> get_controls () const;
 };
 
 #endif // TIE_HH

@@ -1,7 +1,7 @@
 # title	   generic make targets
 # file	   make/Targets.make
 
-.PHONY : all clean config default dist doc doc++  exe help html lib TAGS\
+.PHONY : all clean config default dist doc exe help html lib TAGS\
 	 po
 
 all:	 default
@@ -62,7 +62,6 @@ help: generic-help local-help
   dist        roll tarball: $(depth)/$(outdir)/$(distname).tar.gz\n\
   distclean   cleaner than clean (duh)\n\
   doc         update all documentation\n\
-  doc++       make doc++ documentation\n\
   exe         update all executables\n\
   help        this help\n\
   install     install programs and data (prefix=$(prefix))\n\
@@ -86,15 +85,6 @@ doc: local-doc
 	$(LOOP)
 
 local-doc:
-
-# Ugh.  C++ specific.
-# If you're not the maintainer, there's no tarball in $(outdir)!
-# Maybe, there is one in ../releases
-doc++:
-	(cd $(outdir); \
-		$(SHELL) ../$(step-bindir)/tar-docxx.sh $(package)-$(TOPLEVEL_VERSION).tar.gz || \
-		$(SHELL) ../$(step-bindir)/tar-docxx.sh $(release-dir)/$(package)-$(TOPLEVEL_VERSION).tar.gz)
-
 
 local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
 	mkdir -p $(distdir)/$(localdir)

@@ -129,11 +129,3 @@
 (define stem-shorten '(0.5))
 (define grace-stem-shorten '(0.0))
 
-;; urg
-(define pi (* 2 (acos 0)))
-
-(define (slur-default-height h-inf r-0 b)
-  (let ((alpha (/ (* 2.0 h-inf) pi))
-	(beta (/ (* pi r-0) (* 2.0 h-inf))))
-    (* alpha (atan (* beta b)))))
- 

@@ -387,12 +387,19 @@ wave_sweep_goodbye (void *dummy1, void *dummy2, void *dummy3)
 }
 #endif
 
+SCM
+undefd ()
+{
+  return SCM_UNDEFINED;
+}
+
 static void
 init_functions ()
 {
   scm_make_gsubr ("ly-warn", 1, 0, 0, (SCM(*)(...))ly_warning);
   scm_make_gsubr ("ly-gulp-file", 1,0, 0, (SCM(*)(...))ly_gulp_file);
   scm_make_gsubr ("dir?", 1,0, 0, (SCM(*)(...))ly_isdir_p);
+  scm_make_gsubr ("undefd", 0,0, 0, (SCM(*)(...))undefd);  
   scm_make_gsubr ("ly-number->string", 1, 0,0, (SCM(*)(...)) ly_number2string);
 
 
@@ -415,4 +422,5 @@ ly_deep_copy (SCM l)
   else
     return l;
 }
+
 

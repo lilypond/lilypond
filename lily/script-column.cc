@@ -70,6 +70,6 @@ Script_column::before_line_breaking (SCM smob)
     
   } while (flip (&d) != DOWN);
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 

@@ -92,7 +92,7 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
       it->suicide ();
     }
   me->suicide ();
-  return SCM_UNDEFINED ;
+  return SCM_UNSPECIFIED ;
 }
 
 void

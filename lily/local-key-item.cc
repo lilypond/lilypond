@@ -35,10 +35,8 @@ SCM
 Local_key_item::before_line_breaking (SCM smob)
 {
   Local_key_item* me = dynamic_cast<Local_key_item*>(unsmob_element (smob));
-
-  
   me->accidental_arr_.sort (Local_key_cautionary_tuple::compare);
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 Molecule
@@ -79,7 +77,7 @@ Local_key_item::brew_molecule (SCM smob)
   bool oct_b = false;
   int lastoct = -100;
   
-  for  (int i = 0; i <  lki->accidental_arr_.size(); i++) 
+  for  (int i = 0; i < lki->accidental_arr_.size(); i++) 
     {
       Musical_pitch p (lki->accidental_arr_[i].pitch_);
       // do one octave

@@ -45,7 +45,7 @@ Script::after_line_breaking (SCM smob)
   Direction d = Side_position::get_direction (me);
   Side_position::set_direction (me,d);
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 MAKE_SCHEME_CALLBACK(Script,brew_molecule);

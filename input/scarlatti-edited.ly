@@ -5,10 +5,12 @@
 	composer = "D. Scarlatti and J. D. S. Sankey";
 }
 
-\version "1.3.70";
-
 \include "scarlatti-properties.ly"
 \include "scarlatti-paper.ly"
+
+forceStaffDown = \translator "Staff" = "down"
+forceStaffUp = \translator "Staff" = "up"
+
 
 \score{
 	\notes \context PianoStaff <
@@ -32,7 +34,7 @@
 		%a6
 		a''32 s fis'' s d'' s a' s d' s a s|
 		%a7
-		r16 a' fis'8. d'16~
+		\forceStaffUp r16 a' fis'8. d'16~
 		%a8
 		d'16 g' e'8. cis'16|
 		%a9
@@ -131,7 +133,13 @@
 	\context Voice=vb< \zs
 	\sd
 	\context Thread=td{ \n
-		\lh \sm[\times 2/3{d32 fis a}\n d'16]a8 a|
+		\lh \sm
+		%
+		% WARNING: interface still subject to change!
+		%
+		\property Voice. beamHeight = 5
+		[\times 2/3{d32 fis a}\n d'16]a8 a|
+		\property Voice.beamHeight = ##f
 		%b2
 		d4 s8|
 		%b3
@@ -139,7 +147,7 @@
 		%b4
 		r32[d fis a][d' fis' a' d'']r \rh[d fis a]
 		%b5
-		[d'32 fis' a' d'']r32 \lh[d fis a][d' fis' a' d'']
+		[d'32 fis' a' d''] \forceStaffDown r32 \lh[d fis a][d' fis' a' d'']
 		%b6
 		s a''32 s fis'' s d'' s a' s d' s a|
 		%b7

@@ -69,7 +69,7 @@ SCM
 System_start_delimiter::after_line_breaking (SCM smob)
 {
   try_collapse (unsmob_element (smob));
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 void

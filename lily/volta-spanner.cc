@@ -29,7 +29,7 @@ Volta_spanner::set_interface (Score_element*me)
 
 
 /*
-  me is too complicated. Yet another version of side-positioning,
+  this is too complicated. Yet another version of side-positioning,
   badly implemented.
 
   --
@@ -71,6 +71,9 @@ Volta_spanner::brew_molecule (SCM smob)
   Real h = me->paper_l()->get_var ("volta_spanner_height");
   Real t = me->paper_l ()->get_var ("volta_thick");
 
+  /*
+    ugh: should build from line segments.
+   */
   SCM at = (gh_list (ly_symbol2scm ("volta"),
 		     gh_double2scm (h),
 		     gh_double2scm (w),

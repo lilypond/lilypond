@@ -100,7 +100,7 @@ My_lily_lexer::lookup_identifier (String s)
   for (int i = scope_l_arr_.size (); i--; )
     if (scope_l_arr_[i]->elem_b (sym))
       return scope_l_arr_[i]->scm_elem(sym);
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 void

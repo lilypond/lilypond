@@ -131,19 +131,19 @@ Chord_name::brew_molecule (SCM smob)
 {
   Score_element *sc = unsmob_element (smob);
   SCM style = sc->get_elt_property ("style");
-  if (style == SCM_UNDEFINED)
+
+  if (!gh_string_p (style))
     style = ly_str02scm ("banter");
 
   SCM inversion = sc-> get_elt_property ("inversion");
-  if (inversion == SCM_UNDEFINED)
+  if (inversion != SCM_BOOL_T)
     inversion = SCM_BOOL_F;
 
   SCM bass =  sc->get_elt_property ("bass");
-  if (bass == SCM_UNDEFINED)
+  if (bass != SCM_BOOL_T)
     bass = SCM_BOOL_F;
 
   SCM pitches =  sc->get_elt_property ("pitches");
-
   SCM text = scm_eval (gh_list (ly_symbol2scm ("chord::user-name"),
 				style,
 				ly_quote_scm (pitches),

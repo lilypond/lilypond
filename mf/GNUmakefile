@@ -22,11 +22,6 @@ AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(AF_FILES:.af=.afm))
 TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
 PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa)) 
 
-foo:
-	@echo fof: $(FONT_FILES)
-	@echo fef: $(FET_FILES)
-	@echo tfm: $(TFM_FILES)
-
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
 ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(PFA_FILES) $(LOG_FILES)

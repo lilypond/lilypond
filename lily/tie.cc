@@ -7,6 +7,7 @@
 */
 #include <math.h>
 
+#include "spanner.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "tie.hh"
@@ -20,6 +21,19 @@
 #include "bezier-bow.hh"
 #include "stem.hh"
 
+/*
+  tie: Connect two noteheads.
+
+  What if we have
+
+  c4 ~ \clef bass ; c4 or
+
+  c4 \staffchange c4
+
+  do we have non-horizontal ties then?
+  */
+
+
 void
 Tie::set_head (Score_element*me,Direction d, Item * head_l)
 {
@@ -30,18 +44,13 @@ Tie::set_head (Score_element*me,Direction d, Item * head_l)
   me->add_dependency (head_l);
 }
 
-Tie::Tie(SCM s)
-  : Spanner (s)
-{
-  dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = 0.0;
-  dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
-}
 void
 Tie::set_interface (Score_element*me)
 {
   me->set_elt_property ("heads", gh_cons (SCM_EOL, SCM_EOL));
   me->set_interface (ly_symbol2scm ("tie-interface"));
 }
+
 bool
 Tie::has_interface (Score_element*me)
 {
@@ -66,8 +75,9 @@ Tie::position_f (Score_element*me)
 
 
 /*
-  ugh: direction of the Tie is more complicated.  See [Ross] p136 and further
- */
+  The direction of the Tie is more complicated (See [Ross] p136 and
+  further), the case of multiple ties is handled by Tie_column.
+*/
 Direction
 Tie::get_default_dir (Score_element*me) 
 {
@@ -82,93 +92,127 @@ Tie::get_default_dir (Score_element*me)
 }
 
 
-
-MAKE_SCHEME_CALLBACK(Tie,after_line_breaking);
 SCM
-Tie::after_line_breaking (SCM smob)
-{
-  Tie*me = dynamic_cast<Tie*> (unsmob_element (smob));
-  
-  if (!head (me,LEFT) && !head (me,RIGHT))
+Tie::get_control_points (SCM smob)
+{  
+  Spanner*me = dynamic_cast<Spanner*> (unsmob_element (smob));
+  Direction headdir = CENTER; 
+  if (head (me,LEFT))
+    headdir = LEFT;
+  else if (head(me,RIGHT))
+    headdir = RIGHT;
+  else
     {
       programming_error ("Tie without heads.");
       me->suicide ();
-      return SCM_UNDEFINED;
+      return SCM_UNSPECIFIED;
     }
-
+  
   if (!Directional_element_interface (me).get ())
     Directional_element_interface (me).set (Tie::get_default_dir (me));
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real half_space = staff_space / 2;
+
   Real x_gap_f = me->paper_l ()->get_var ("tie_x_gap");
-  Real y_gap_f = me->paper_l ()->get_var ("tie_y_gap");
 
-  /* 
-   Slur and tie placement [OSU]
+  Score_element* commonx = me->common_refpoint (me->get_bound (LEFT), X_AXIS);
+  commonx = me->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+  
+  Score_element* l = me->get_bound (LEFT);
+  Score_element* r = me->get_bound (RIGHT);  
+  Real width = r->relative_coordinate (commonx, X_AXIS)
+    + r->extent (X_AXIS)[LEFT]
+    - l->relative_coordinate (commonx, X_AXIS)
+    - l->extent (X_AXIS)[RIGHT]
+    -2* x_gap_f;
 
-   Ties:
+  Real left_x = l->extent (X_AXIS)[RIGHT] + x_gap_f;
+  
+  Direction dir = Directional_element_interface (me).get();
+  
+  Real h_inf = me->paper_l ()->get_var ("tie_height_limit_factor") * staff_space;
+  Real r_0 = me->paper_l ()->get_var ("tie_ratio");
 
-       * x = inner vertical tangent - d * gap
 
-   */
+  Bezier b  = slur_shape (width, h_inf, r_0);
+  
+  Offset leave_dir = b.control_[1] - b.control_[0];
 
+  Real dx = (head (me, headdir)->extent (X_AXIS).length () + x_gap_f)/2.0;
+  Real max_gap = leave_dir[Y_AXIS] * dx / leave_dir[X_AXIS];
 
   /*
-    OSU: not different for outer notes, so why all me code?
-    ie,  can we drop me, or should it be made switchable.
-   */
-  if (head (me,LEFT))
-    me->dx_f_drul_[LEFT] = Tie::head (me,LEFT)->extent (X_AXIS).length ();
-  else
-    me->dx_f_drul_[LEFT] = dynamic_cast<Spanner*>(me)->get_broken_left_end_align ();
-  me->dx_f_drul_[LEFT] += x_gap_f;
-  me->dx_f_drul_[RIGHT] -= x_gap_f;
+    for small ties (t small) we want to start in the Y-center (so dy = 0), for
+    large ties, the tie should appear to come from the center of the
+    head, so dy = max_gap
 
-  /* 
-   Slur and tie placement [OSU]  -- check me
+    maybe use a different formula?
 
-   Ties:
+    TODO: what if 2 heads have different size.
 
-       * y = dx <  5ss: horizontal tangent
-	 y = dx >= 5ss: y next interline - d * 0.25 ss
+    TODO: for small ties, it is better to start over the heads
+    iso. next to the heads. 
+  */
+  Real t = (width / staff_space - 5.0);	// ugh.
+  Real dy = t > 0 ? max_gap * sqr (t / (1 + t)) : 0.0;
 
-	 which probably means that OSU assumes that
+  Real ypos = Tie::position_f (me) * staff_space/2 + dir * dy;
 
-	    dy <= 5 dx
+  /*
+    todo: prevent ending / staffline collision.
 
-	 for smal slurs
+    todo: tie / stem collision
    */
 
-
-  Real ypos = Tie::position_f (me);
-
-  Real y_f = half_space * ypos; 
-  int ypos_i = int (ypos);
- 
-  Real dx_f = me->extent (X_AXIS).length () + me->dx_f_drul_[RIGHT] - me->dx_f_drul_[LEFT];
-  Direction dir = Directional_element_interface (me).get();
-  if (dx_f < me->paper_l ()->get_var ("tie_staffspace_length"))
-    {
-      if (abs (ypos_i) % 2)
-	y_f += dir * half_space;
-      y_f += dir * y_gap_f;
-    }
-  else
-    {
-      if (! (abs (ypos_i) % 2))
-	y_f += dir * half_space;
-      y_f += dir * half_space;
-      y_f -= dir * y_gap_f;
-    }
+  b = slur_shape(width,h_inf, r_0);
+  b.scale (1, dir);
+  b.translate (Offset (left_x, ypos));
   
-  me->dy_f_drul_[LEFT] = me->dy_f_drul_[RIGHT] = y_f;
 
-  return SCM_UNDEFINED;
+  /*
+    Avoid colliding of the horizontal part with stafflines.
+    
+    should do me for slurs as well.
+
+   */
+  Array<Real> horizontal (b.solve_derivative (Offset (1,0)));
+  if (horizontal.size ())
+    {
+      /*
+	ugh. Doesnt work for non-horizontal curves.
+       */
+      Real y = b.curve_point (horizontal[0])[Y_AXIS];
+
+      Real ry = rint (y/staff_space) * staff_space;
+      Real diff = ry - y;
+      Real newy = y;
+      if (fabs (y) <= Staff_symbol_referencer::staff_radius (me)
+	  && fabs (diff) < me->paper_l ()->get_var ("tie_staffline_clearance"))
+	{
+	  newy = ry - 0.5 * staff_space * sign (diff) ;
+	}
+
+      Real y0 = b.control_ [0][Y_AXIS];
+      b.control_[2][Y_AXIS] = 
+      b.control_[1][Y_AXIS] =
+	(b.control_[1][Y_AXIS] - y0)  * ((newy - y0) / (y - y0)) + y0; 
+    }
+  else
+    programming_error ("Tie is nowhere horizontal");
+
+
+
+  SCM controls = SCM_EOL;
+  for (int i= 4; i--;)
+    controls = gh_cons ( ly_offset2scm (b.control_[i]), controls);
+  return controls;
 }
 
-
 MAKE_SCHEME_CALLBACK(Tie,set_spacing_rods);
+
+/*
+  TODO: set minimum distances for begin/end of line
+ */
 SCM
 Tie::set_spacing_rods (SCM smob)  
 {
@@ -179,94 +223,41 @@ Tie::set_spacing_rods (SCM smob)
   r.item_l_drul_ [LEFT]=sp->get_bound (LEFT);
   r.item_l_drul_ [RIGHT]=sp->get_bound (RIGHT);  
   
-  r.distance_f_ = me->paper_l ()->get_var ("tie_x_minimum");
+  r.distance_f_
+    = gh_scm2double (me->get_elt_property ("minimum-length"))
+    * me->paper_l ()->get_var ("staffspace");
   r.add_to_cols ();
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
-
-
-
-
-
 
 MAKE_SCHEME_CALLBACK(Tie,brew_molecule);
 SCM
 Tie::brew_molecule (SCM smob) 
 {
   Score_element*me = unsmob_element (smob);
-  Real thick = me->paper_l ()->get_var ("tie_thickness");
-  Bezier one = dynamic_cast<Tie*> (me)->get_curve ();
 
-  Molecule a;
-  SCM d =  me->get_elt_property ("dashed");
-  if (gh_number_p (d))
-    a = me->lookup_l ()->dashed_slur (one, thick, gh_scm2int (d));
-  else
-    a = me->lookup_l ()->slur (one, Directional_element_interface (me).get () * thick, thick);
-  
-  return a.create_scheme(); 
-}
-
-
-
-Bezier
-Tie::get_curve () const
-{
-  Score_element*me = (Score_element*)this;
-  Direction d (Directional_element_interface (me).get ());
-  Bezier_bow b (get_encompass_offset_arr (), d);
-
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real h_inf = paper_l ()->get_var ("tie_height_limit_factor") * staff_space;
-  Real r_0 = paper_l ()->get_var ("tie_ratio");
-
-  b.set_default_bezier (h_inf, r_0);
-  Bezier c = b.get_bezier ();
-
-  /*
-    Avoid colliding of the horizontal part with stafflines.
-    
-    should do me for slurs as well.
-
-   */
-  Array<Real> horizontal (c.solve_derivative (Offset (1,0)));
-
-  
-  if (horizontal.size ())
+  SCM cp = me->get_elt_property ("control-points");
+  if (cp == SCM_EOL)
     {
-      /*
-	ugh. Doesnt work for non-horizontal curves.
-       */
-      Real y = c.curve_point (horizontal[0])[Y_AXIS];
-
-      Real ry = rint (y/staff_space) * staff_space;
-      Real diff = ry - y;
-      Real newy = y;
-      if (fabs (y) <= 2.0
-	  && fabs (diff) < paper_l ()->get_var ("tie_staffline_clearance"))
-	{
-	  newy = ry - 0.5 * staff_space * sign (diff) ;
-	}
-
-      Real y0 = c.control_ [0][Y_AXIS];
-      c.control_[2][Y_AXIS] = 
-      c.control_[1][Y_AXIS] =
-	(c.control_[1][Y_AXIS] - y0)  * ((newy - y0) / (y - y0)) + y0; 
+      cp = get_control_points (smob);
+      me->set_elt_property ("control-points", cp);
     }
-  else
-    programming_error ("Tie is nowhere horizontal");
-  return c;
-}
+  
+  Real thick =
+    gh_scm2double (me->get_elt_property ("thickness"))
+    * me->paper_l ()->get_var ("stafflinethickness");
 
-Array<Offset>
-Tie::get_encompass_offset_arr () const
-{
-  Array<Offset> offset_arr;
-  offset_arr.push (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
-  offset_arr.push (Offset (spanner_length () + dx_f_drul_[RIGHT],
-			   dy_f_drul_[RIGHT]));
-		      
-  return offset_arr;
+  Bezier b;
+  int i = 0;
+  for (SCM s= cp; s != SCM_EOL; s = gh_cdr (s))
+    {
+      b.control_[i] = ly_scm2offset (gh_car (s));
+      i++;
+    }
+  
+   Molecule a = me->lookup_l ()->slur (b, Directional_element_interface (me).get () * thick, thick);
+   
+   return a.create_scheme ();
 }
 
 

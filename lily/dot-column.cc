@@ -86,7 +86,7 @@ Dot_column::do_shifts (SCM l)
   dots.sort (compare_position);
   
   if (dots.size () < 2)
-    return SCM_UNDEFINED;
+    return SCM_UNSPECIFIED;
   Slice s;
   s.set_empty ();
 
@@ -106,7 +106,7 @@ Dot_column::do_shifts (SCM l)
     }
 
   if (!conflicts)
-    return SCM_UNDEFINED;
+    return SCM_UNSPECIFIED;
   
   int  middle = s.center ();
   /*
@@ -122,7 +122,7 @@ Dot_column::do_shifts (SCM l)
       Staff_symbol_referencer::set_position (d,pos);
     }
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 bool

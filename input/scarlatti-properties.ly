@@ -1,5 +1,8 @@
 
 
+
+\version "1.3.70";
+
 rh=\property Thread.noteHeadStyle=##f 
 lh=\property Thread.noteHeadStyle = #'diamond
 n=\property Thread.fontSize=#0  

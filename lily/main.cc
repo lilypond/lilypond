@@ -230,10 +230,6 @@ setup_paths ()
       String p =  prefix + to_str ('/') + String (*s);
       
       global_path.add (p);
-      /* Urg: GNU make's $(word) index starts at 1 */
-      int i  = 1;
-      while (global_path.try_add (p + to_str (".") + to_str (i)))
-	i++;
     }
 }
 

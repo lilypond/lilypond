@@ -18,7 +18,7 @@
 void
 Crescendo::set_interface (Score_element*s)
 {
-  s->set_elt_property ("dynamic-drul", gh_cons (SCM_UNDEFINED, SCM_UNDEFINED));
+  s->set_elt_property ("dynamic-drul", gh_cons (SCM_EOL, SCM_EOL));
 }
 
 

@@ -34,7 +34,7 @@ Rest::after_line_breaking (SCM smob)
 			   gh_int2scm ((bt == 7) ? 4 : 3));
     }
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 

@@ -47,7 +47,7 @@ Span_bar::before_line_breaking (SCM smob)
   
   evaluate_empty (unsmob_element (smob));
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 Real

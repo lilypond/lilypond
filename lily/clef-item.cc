@@ -46,10 +46,10 @@ Clef::before_line_breaking (SCM smob)
   else
     {
       s->suicide ();
-      return SCM_UNDEFINED;
+      return SCM_UNSPECIFIED;
     }
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 bool

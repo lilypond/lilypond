@@ -56,7 +56,7 @@ Script_column_engraver::do_post_move_processing ()
 void
 Script_column_engraver::acknowledge_element( Score_element_info inf) 
 {
-  if (Side_position::has_interface (inf.elem_l_))
+  if (Side_position::has_interface (inf.elem_l_)) // ugh FIXME
     {
       Item *thing = dynamic_cast<Item*> (inf.elem_l_);
       if (thing

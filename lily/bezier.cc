@@ -29,10 +29,13 @@ binomial_coefficient (Real over , int under)
 }
 
 void
-flip (Array<Offset>* arr_p, Axis a)
+scale (Array<Offset>* arr_p, Real x , Real y)
 {
   for (int i = 0; i < arr_p->size (); i++)
-    (*arr_p)[i][a] = - (*arr_p)[i][a];
+    {
+      (*arr_p)[i][X_AXIS] = x* (*arr_p)[i][X_AXIS];
+      (*arr_p)[i][Y_AXIS] = y* (*arr_p)[i][Y_AXIS];
+    }
 }
 
 void
@@ -179,10 +182,13 @@ Bezier::extent (Axis a)const
  */
 
 void
-Bezier::flip (Axis a)
+Bezier::scale (Real x, Real y)
 {
   for (int i = CONTROL_COUNT; i--;)
-    control_[i][a] = - control_[i][a];
+    {
+      control_[i][X_AXIS] = x * control_[i][X_AXIS];
+      control_[i][Y_AXIS] = y * control_[i][Y_AXIS];
+    }
 }
 
 void

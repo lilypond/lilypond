@@ -96,11 +96,11 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
 
   // no rests to collide
   if (!rests.size())
-    return SCM_UNDEFINED;
+    return SCM_UNSPECIFIED;
 
   // no partners to collide with
   if (rests.size() + notes.size () < 2)
-    return SCM_UNDEFINED;
+    return SCM_UNSPECIFIED;
 
   // meisjes met meisjes
   if (!notes.size()) 
@@ -169,7 +169,7 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
 
       Interval restdim = Note_column::rest_dim (rcol);
       if (restdim.empty_b ())
-	return SCM_UNDEFINED;
+	return SCM_UNSPECIFIED;
       
       // staff ref'd?
       Real staff_space = me->paper_l()->get_var ("interline");
@@ -210,7 +210,7 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
       
       Note_column::translate_rests (rcol,dir * discrete_dist);
     }
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 void

@@ -35,6 +35,7 @@ public:
   static Score_element * staff_symbol_l (Score_element*);
   static int line_count (Score_element*);
   static Real position_f (Score_element*);
+  static Real staff_radius (Score_element*);
 };
 
 int compare_position (Score_element *const&,Score_element *const&); 
