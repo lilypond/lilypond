@@ -19,6 +19,7 @@
 #include "rod.hh"
 #include "warn.hh"
 #include "column-x-positions.hh"
+#include "spaceable-element.hh"
 #include "dimensions.hh"
 
 Simple_spacer::Simple_spacer ()
@@ -164,26 +165,27 @@ Simple_spacer::my_solve_natural_len ()
 }
 
 void
-Simple_spacer::add_columns (Link_array<Paper_column> cols)
+Simple_spacer::add_columns (Link_array<Score_element> cols)
 {
   for (int i=0; i < cols.size () - 1; i++)
     {
-      Paper_column * c = cols [i];
-      Column_spring *to_next = 0;
-      for (int j =0; !to_next && j < c->springs_.size( ); j++)
+      SCM spring_params = SCM_UNDEFINED;
+      for (SCM s = Spaceable_element::get_ideal_distances (cols[i]);
+	   spring_params == SCM_UNDEFINED && gh_pair_p (s);
+	   s = gh_cdr (s))
 	{
-	  Column_spring &sp = c->springs_ [j];
-	  if (sp.other_l_ != cols[i+1])
+	  Score_element *other = unsmob_element (gh_caar (s));
+	  if (other != cols[i+1])
 	    continue;
 
-	  to_next = &sp;
+	  spring_params = gh_cdar (s);
 	}
 
       Spring_description desc;
-      if (to_next)
+      if (spring_params != SCM_UNDEFINED)
 	{
-	  desc.hooke_f_ = to_next->strength_f_;
-	  desc.ideal_f_ = to_next->distance_f_;
+	  desc.ideal_f_ = gh_scm2double (gh_car (spring_params));
+	  desc.hooke_f_ = gh_scm2double (gh_cdr (spring_params));
 	}
       else
 	{
@@ -204,13 +206,14 @@ Simple_spacer::add_columns (Link_array<Paper_column> cols)
   
   for (int i=0; i < cols.size () - 1; i++)
     {
-      Array<Column_rod> * rods = &cols [i]->minimal_dists_;
-      for (int j =0; j < rods->size( ); j++)
+      for (SCM s = Spaceable_element::get_minimum_distances (cols[i]);
+	   gh_pair_p (s); s = gh_cdr (s))
 	{
-	  int oi = cols.find_i (rods->elem (j).other_l_ );
+	  Score_element * other = unsmob_element (gh_caar (s));
+	  int oi = cols.find_i (other);
 	  if (oi >= 0)
 	    {
-	      add_rod (i, oi, rods->elem (j).distance_f_);
+	      add_rod (i, oi, gh_scm2double (gh_cdar (s)));
 	    }
 	}
     }

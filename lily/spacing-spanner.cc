@@ -16,11 +16,11 @@
 #include "line-of-score.hh"
 #include "misc.hh"
 
-Spacing_spanner::Spacing_spanner (SCM s)
-  : Spanner (s)
+void
+Spacing_spanner::set_interface (Score_element*me)
 {
-  set_extent_callback (0, X_AXIS);
-  set_extent_callback (0, Y_AXIS);  
+  me->set_extent_callback (0, X_AXIS);
+  me->set_extent_callback (0, Y_AXIS);  
 }
 
 /*
@@ -36,8 +36,8 @@ Spacing_spanner::Spacing_spanner (SCM s)
   TODO: write comments 
   
  */
-Array<Spring>
-Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
+void
+Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols) 
 {
   Moment shortest;
   Moment mean_shortest;
@@ -46,7 +46,7 @@ Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
   int n = 0;
   for (int i =0 ; i < cols.size (); i++)  
     {
-      if (cols[i]->musical_b ())
+      if (dynamic_cast<Paper_column*> (cols[i])->musical_b ())
 	{
 	  SCM  st = cols[i]->get_elt_property ("shortest-starter-duration");
 	  Moment this_shortest = (*SMOB_TO_TYPE(Moment, st));
@@ -60,15 +60,13 @@ Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
     }
   mean_shortest /= n;
 
-  Array<Spring> meas_springs;
-
-  Real non_musical_space_strength = paper_l ()->get_var ("breakable_column_space_strength");
+  Real non_musical_space_strength = me->paper_l ()->get_var ("breakable_column_space_strength");
   for (int i= 0; i < cols.size () - 1; i++)
     {
-      Item * l = cols[i];
-      Item * r = cols[i+1];
-      Item * lb = l->find_prebroken_piece (RIGHT);
-      Item * rb = r->find_prebroken_piece (LEFT);      
+      Item * l = dynamic_cast<Item*> (cols[i]);
+      Item * r =  dynamic_cast<Item*> (cols[i+1]);
+      Item * lb = dynamic_cast<Item*> ( l->find_prebroken_piece (RIGHT));
+      Item * rb = dynamic_cast<Item*> ( r->find_prebroken_piece (LEFT));
 
       Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
 
@@ -96,11 +94,11 @@ Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
 	   // 2nd condition should be (i+1 < col_count()), ie. not the last column in score.  FIXME
 	  else if (!lc->musical_b() && i+1 < cols.size ()) 
 	    {
-	      left_distance= default_bar_spacing (lc,rc,shortest);
+	      left_distance= default_bar_spacing (me,lc,rc,shortest);
 	    }
 	  else if (lc->musical_b())
 	    {
-	      left_distance  = note_spacing (lc, rc, shortest);
+	      left_distance  = note_spacing (me,lc, rc, shortest);
 	    }
 
 	  s.distance_f_ = left_distance;
@@ -112,10 +110,10 @@ Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
 	    We want the space before barline to be like the note
 	    spacing in the measure.
 	  */
-	  if (lc->breakable_b () || lc->original_l_)
+	  if (Item::breakable_b (lc) || lc->original_l_)
 	    s.strength_f_ = non_musical_space_strength;
 	  else if (!lc->musical_b ())
-	    left_distance *= paper_l ()->get_var ("decrease_nonmus_spacing_factor");
+	    left_distance *= me->paper_l ()->get_var ("decrease_nonmus_spacing_factor");
 
 	  
 	  Real right_dist = 0.0;
@@ -135,11 +133,11 @@ Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
 	  if (lc->musical_b () && rc->musical_b ())
 	    {
 	      if (!to_boolean (rc->get_elt_property ("contains-grace")))
-		right_dist *= paper_l ()->get_var ("musical_to_musical_left_spacing_factor");
+		right_dist *= me->paper_l ()->get_var ("musical_to_musical_left_spacing_factor");
 	    }
 
 	  if (rc->musical_b () && to_boolean (rc->get_elt_property ("contains-grace")))
-	    right_dist *= paper_l ()->get_var ("before_grace_spacing_factor");
+	    right_dist *= me->paper_l ()->get_var ("before_grace_spacing_factor");
  
  	  s.distance_f_ = left_distance + right_dist;
 	    
@@ -170,30 +168,29 @@ Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
 	  else
 	    s.strength_f_ /= stretch_dist;
 	  
-	  meas_springs.push (s);	
+	  s.add_to_cols ();
 	}
     }
-
-  return meas_springs;
+  
 }
 
 /**
    Do something if breakable column has no spacing hints set.
  */
 Real
-Spacing_spanner::default_bar_spacing (Paper_column *lc, Paper_column *rc,
-				      Moment shortest) const
+Spacing_spanner::default_bar_spacing (Score_element*me, Score_element *lc, Score_element *rc,
+				      Moment shortest) 
 {
   Real symbol_distance = lc->extent (X_AXIS)[RIGHT] ;
   Real durational_distance = 0;
-  Moment delta_t =  rc->when_mom () - lc->when_mom () ;
+  Moment delta_t = Paper_column::when_mom (rc) - Paper_column::when_mom (lc);
 
   /*
 		ugh should use shortest_playing distance
   */
   if (delta_t)
     {
-      durational_distance =  get_duration_space (delta_t, shortest);
+      durational_distance =  get_duration_space (me, delta_t, shortest);
     }
 
   return  symbol_distance >? durational_distance;
@@ -201,7 +198,7 @@ Spacing_spanner::default_bar_spacing (Paper_column *lc, Paper_column *rc,
 
 
 /**
-  Get the measure wide constant for arithmetic spacing.
+  Get the measure wide ant for arithmetic spacing.
 
   @see
   John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
@@ -210,42 +207,47 @@ Spacing_spanner::default_bar_spacing (Paper_column *lc, Paper_column *rc,
 
   */
 Real
-Spacing_spanner::get_duration_space (Moment d, Moment shortest) const
+Spacing_spanner::get_duration_space (Score_element*me, Moment d, Moment shortest) 
 {
   Real log = log_2 (Moment (1,8) <? shortest);
-  Real k=   paper_l ()->get_var ("arithmetic_basicspace")
+  Real k=   me->paper_l ()->get_var ("arithmetic_basicspace")
     - log;
   
-  return (log_2 (d) + k) * paper_l ()->get_var ("arithmetic_multiplier");
+  return (log_2 (d) + k) * me->paper_l ()->get_var ("arithmetic_multiplier");
 }
 
 
 Real
-Spacing_spanner::note_spacing (Paper_column *lc, Paper_column *rc, Moment shortest) const
+Spacing_spanner::note_spacing (Score_element*me, Score_element *lc, Score_element *rc, Moment shortest) 
 {
   Moment shortest_playing_len = 0;
   SCM s = lc->get_elt_property ("shortest-playing-duration");
-  //  SCM s = lc->get_elt_property ("mean-playing-duration");  
-  if (SMOB_IS_TYPE_B(Moment, s))
-    shortest_playing_len = *SMOB_TO_TYPE (Moment, s);
 
+  //  SCM s = lc->get_elt_property ("mean-playing-duration");  
+  if (unsmob_moment (s))
+    shortest_playing_len = *unsmob_moment(s);
   
   if (! shortest_playing_len)
     {
-      programming_error ("can't find a ruling note at " + lc->when_mom ().str ());
+      programming_error ("can't find a ruling note at " + Paper_column::when_mom (lc).str ());
       shortest_playing_len = 1;
     }
   
   if (! shortest)
     {
-      programming_error ("no minimum in measure at " + lc->when_mom ().str ());
+      programming_error ("no minimum in measure at " + Paper_column::when_mom (lc).str ());
       shortest = 1;
     }
-  Moment delta_t = rc->when_mom () - lc->when_mom ();
-  Real dist = get_duration_space (shortest_playing_len, shortest);
+  Moment delta_t = Paper_column::when_mom (rc) - Paper_column::when_mom (lc);
+  Real dist = get_duration_space (me, shortest_playing_len, shortest);
   dist *= (double)(delta_t / shortest_playing_len);
 
-  dist += stem_dir_correction (lc,rc);
+  /*
+    UGH: KLUDGE!
+  */
+  
+  if (delta_t > Moment (1,32))
+    dist += stem_dir_correction (me, lc,rc);
   return dist;
 }
 
@@ -264,17 +266,16 @@ Spacing_spanner::note_spacing (Paper_column *lc, Paper_column *rc, Moment shorte
    TODO: lookup correction distances?  More advanced correction?
    Possibly turn this off?
 
+   TODO: have to check wether the stems are in the same staff.
+
    This routine reads the DIR-LIST property of both its L and R arguments.  */
 Real
-Spacing_spanner::stem_dir_correction (Paper_column*l, Paper_column*r) const
+Spacing_spanner::stem_dir_correction (Score_element*me, Score_element*l, Score_element*r) 
 {
   SCM dl = l->get_elt_property ("dir-list");
   SCM dr = r->get_elt_property ("dir-list");
-  if (dl == SCM_UNDEFINED || dr == SCM_UNDEFINED)
-    return 0.0;
-
-
-  if (scm_ilength (dl) != 1 && scm_ilength (dr) != 1)
+  
+  if (scm_ilength (dl) != 1 || scm_ilength (dr) != 1)
     return 0.;
 
   dl = gh_car (dl);
@@ -289,44 +290,35 @@ Spacing_spanner::stem_dir_correction (Paper_column*l, Paper_column*r) const
 
   bool err = false;
   Real correction = 0.0;
-  Real ssc = paper_l ()->get_var("stemSpacingCorrection");
+  Real ssc = me->paper_l ()->get_var("stemSpacingCorrection");
 
 
-  if (d1 && d2)
+  if (d1 && d2 && d1 * d2 == -1)
     {
-      if (d1 == 1 && d2 == -1)
-	correction = ssc;
-      else if (d1 == -1 && d2 == 1)
-	correction = -ssc;
-      else
-	err = true;
+      correction = d1 * ssc;
     }
-  
   else
-    err = true;
-
-  if (err)
     programming_error ("Stem directions not set correctly for optical correction");
   return correction;
 }
   
 
-Array<Spring>
-Spacing_spanner::get_springs () const
+MAKE_SCHEME_CALLBACK(Spacing_spanner, set_springs);
+SCM
+Spacing_spanner::set_springs (SCM smob)
 {
-  Array<Spring> springs;
-
-  Link_array<Paper_column> all (pscore_l_->line_l_->column_l_arr ()) ;
+  Score_element *me = unsmob_element (smob);
+  Link_array<Score_element> all (me->pscore_l_->line_l_->column_l_arr ()) ;
 
   int j = 0;
 
   for (int i = 1; i < all.size (); i++)
     {
-      Paper_column* sc = dynamic_cast<Paper_column*> (all[i]);
-      if (sc->breakable_b ())
+      Score_element *sc = all[i];
+      if (Item::breakable_b (sc))
         {
-	  Link_array<Paper_column> measure (all.slice (j, i+1));	  
-          springs.concat (do_measure (measure));
+	  Link_array<Score_element> measure (all.slice (j, i+1));	  
+          do_measure (me, measure);
 	  j = i;
         }
     }
@@ -334,9 +326,8 @@ Spacing_spanner::get_springs () const
   /*
     farewell, cruel world
    */
-  ((Spacing_spanner*)this)->suicide ();
-  
-  return springs;
+  me->suicide ();
+  return SCM_UNDEFINED;
 }
 
 
