@@ -184,8 +184,7 @@
 
 (define (property->texi where sym)
   "Document SYM for WHERE (which can be translation, backend, music)"
-  (let* (
-	 (name (symbol->string sym))
+  (let* ((name (symbol->string sym))
 	 (type?-name (string->symbol
 		      (string-append (symbol->string where) "-type?")))
 	 (doc-name (string->symbol		    
@@ -195,8 +194,8 @@
 	 (desc (object-property sym doc-name)))
 
     (if (eq? desc #f)
-	(error "No description for property ~S" sym)
-	)
+	(error "No description for property ~S" sym))
+	
     (cons
      (string-append "@code{" name "} "
 		    "(" typename ")")

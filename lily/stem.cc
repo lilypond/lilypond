@@ -964,6 +964,6 @@ ADD_INTERFACE (Stem,"stem-interface",
 	       "beamed-extreme-minimum-free-lengths lengths beam stem-shorten "
 	       "duration-log beaming neutral-direction stem-end-position "
 	       "note-heads direction length flag-style "
-	       "no-stem-extend stroke-style ");
+	       "no-stem-extend stroke-style");
 
 

@@ -30,21 +30,17 @@ Interfaces:
 
 (define (interface-doc-string interface grob-description)
   (let*
-      (
-       (name (car interface))
+      ((name (car interface))
        (desc (cadr interface))
        (props (sort (caddr interface) symbol<?))
        (docfunc (lambda (pr)
 		  (document-property
-		   pr 'backend grob-description )))
-       (propdocs (map docfunc props))
-       )
-    
+		   pr 'backend grob-description)))
+       (propdocs (map docfunc props)))
     (string-append
      desc
      "\n\n"
      (description-list->texi propdocs))
-
     ))
 
 
