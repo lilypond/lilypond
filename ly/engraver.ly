@@ -148,6 +148,7 @@ VoiceContext = \translator {
 	\consists "A2_engraver";
 	\consists "Voice_devnull_engraver";
 
+	% ugh :  set these in Score context, please.
 	startSustain = #"Ped."
 	stopSustain = #"*"
 	stopStartSustain = #"*Ped."
