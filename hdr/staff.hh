@@ -15,20 +15,21 @@
 
 /// base class for a collection of voices.
 class Staff {
-    Staff_column *get_col(Moment, PCursor<Staff_column*> * last= 0);
     Staff(const Staff&src);
     
     /// synchronous horizontal stuff
     IPointerList<Voice*> voice_list_;
+    Staff_column *get_col(Moment, PCursor<Staff_column*> * last= 0);
 
 public:
 
     /// runtime field
-    IPointerList<Staff_column*> cols;
+    IPointerList<Staff_column*> cols_;
 
     Score *score_l_;
     PScore *pscore_l_;
-
+    PStaff *pstaff_l_;
+    
     /* *************************************************************** */
 
     void add(const PointerList<Voice*> &s);
@@ -55,6 +56,6 @@ public:
     virtual Staff_walker *get_walker_p()=0;    
     virtual ~Staff() { }
 protected:
-    virtual Staff_column * create_col()=0;
+
 };
 #endif
