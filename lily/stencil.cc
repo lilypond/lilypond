@@ -42,7 +42,7 @@ Stencil::print_smob (SCM, SCM port, scm_print_state *)
 SCM
 Stencil::mark_smob (SCM smob)
 {
-  Stencil *s = (Stencil*) ly_cdr (smob);
+  Stencil *s = (Stencil*) SCM_CELL_WORD_1 (smob);
   return s->expr_;
 }
 

@@ -162,8 +162,16 @@ inline bool ly_c_procedure_p (SCM x) { return SCM_NFALSEP (scm_procedure_p (x));
 inline bool ly_c_equal_p (SCM x, SCM y) {
   return SCM_NFALSEP (scm_equal_p (x, y));
 }
-inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
-inline SCM ly_car (SCM x) { return SCM_CAR (x); }
+inline SCM ly_cdr (SCM x) {
+  if (SCM_NCONSP(x))
+    abort();
+  return SCM_CDR (x);
+}
+inline SCM ly_car (SCM x) {
+  if (SCM_NCONSP(x))
+    abort();    
+  return SCM_CAR (x);
+}
 inline SCM ly_caar (SCM x) { return SCM_CAAR (x); }
 inline SCM ly_cdar (SCM x) { return SCM_CDAR (x); }
 inline SCM ly_cadr (SCM x) { return SCM_CADR (x); }

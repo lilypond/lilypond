@@ -295,7 +295,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Lily_lexer);
 SCM
 Lily_lexer::mark_smob (SCM s)
 {
-  Lily_lexer *lexer = (Lily_lexer*) ly_cdr (s);
+  Lily_lexer *lexer = (Lily_lexer*) SCM_CELL_WORD_1 (s);
 
   scm_gc_mark (lexer->chordmodifier_tab_);
   scm_gc_mark (lexer->pitchname_tab_stack_);

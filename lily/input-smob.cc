@@ -65,7 +65,7 @@ unsmob_input (SCM s)
   if (SCM_IMP (s))
     return 0;
   if (SCM_CAR (s) == (SCM)input_tag) // ugh.
-    return (Input*) ly_cdr (s);
+    return (Input*) SCM_CDR (s);
   else						
     return 0;					
 }

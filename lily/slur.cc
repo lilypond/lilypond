@@ -154,6 +154,7 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   Real slur_padding = robust_scm2double (script->get_property ("slur-padding"),
 					 0.0);	// todo: slur property, script property?
   yext.widen (slur_padding);
+  Real EPS = 1e-3;
   
   Interval bezext (curve.control_[0][X_AXIS],
 		   curve.control_[3][X_AXIS]);
@@ -170,7 +171,12 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
 
       if (consider[k])
 	{
-	  ys[k] = curve.get_other_coordinate (X_AXIS, x);
+	  ys[k] =
+	    (fabs(bezext[LEFT] - x) < EPS)
+	    ? curve.control_[0][Y_AXIS]
+	    : ((fabs(bezext[RIGHT] - x) < EPS)
+	       ? curve.control_[3][Y_AXIS]
+	       : curve.get_other_coordinate (X_AXIS, x));
 	  consider[k] = true;
 
 	  if (yext.contains (ys[k]))

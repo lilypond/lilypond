@@ -36,7 +36,7 @@ Paper_system::~Paper_system ()
 SCM
 Paper_system::mark_smob (SCM smob)
 {
-  Paper_system *system = (Paper_system*) ly_cdr (smob);
+  Paper_system *system = (Paper_system*) SCM_CELL_WORD_1 (smob);
   return system-> stencil_.expr ();
 }
 
