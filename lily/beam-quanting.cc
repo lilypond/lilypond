@@ -189,31 +189,31 @@ Beam::quanting (SCM smob)
   */
 
   for (int i = qscores.size (); i--;)
-    if (qscores[i].demerits < 100)
-      {
-	qscores[i].demerits
-	  += score_slopes_dy (me, qscores[i].yl, qscores[i].yr,
-			      dy_mus, yr- yl, xstaff); 
-      }
+    {
+      qscores[i].demerits
+	+= score_slopes_dy (me, qscores[i].yl, qscores[i].yr,
+			    dy_mus, yr- yl, xstaff); 
+    }
 
   Real rad = Staff_symbol_referencer::staff_radius (me);
   int beam_count = get_beam_count (me);
-  Real beam_space = beam_count < 4
+  Real beam_translation = beam_count < 4
     ? (2*ss + slt - thickness) / 2.0
      : (3*ss + slt - thickness) / 3.0;
 
+  Real reasonable_score = (knee_b) ? 200000 : 100;
   for (int i = qscores.size (); i--;)
-    if (qscores[i].demerits < 100)
+    if (qscores[i].demerits < reasonable_score)
       {
 	qscores[i].demerits
 	  += score_forbidden_quants (me, qscores[i].yl, qscores[i].yr,
-				     rad, slt, thickness, beam_space,
+				     rad, slt, thickness, beam_translation,
 				     beam_count, ldir, rdir); 
       }
 
 
   for (int i = qscores.size (); i--;)
-    if (qscores[i].demerits < 100)
+    if (qscores[i].demerits < reasonable_score)
       {
 	qscores[i].demerits
 	  += score_stem_lengths (stems, stem_infos,
@@ -251,9 +251,10 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
 			  Grob*me,
 			  Real yl, Real yr)
 {
-  Real demerit_score = 0.0 ;
   Real pen = STEM_LENGTH_LIMIT_PENALTY;
-  
+
+  Drul_array<Real> score (0, 0);
+  Drul_array<int> count (0, 0);
   for (int i=0; i < stems.size (); i++)
     {
       Grob* s = stems[i];
@@ -268,16 +269,21 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
       Stem_info info = stem_infos[i];
       Direction d = info.dir_;
 
-      demerit_score += pen
+      score[d] += pen
 	* (0 >? (info.dir_ * (info.shortest_y_ - current_y)));
       
-      demerit_score += STEM_LENGTH_DEMERIT_FACTOR
+      score[d] += STEM_LENGTH_DEMERIT_FACTOR
 	* shrink_extra_weight (d * current_y  - info.dir_ * info.ideal_y_);
+
+      count[d] ++;
     }
+  
+  if(count[LEFT])
+    score[LEFT] /= count[LEFT];
+  if(count[RIGHT])
+    score[RIGHT] /= count[RIGHT];
 
-  demerit_score *= 2.0 / stems.size (); 
-
-  return demerit_score;
+  return score[LEFT]+score[RIGHT];
 }
 
 Real
@@ -321,7 +327,7 @@ Beam::score_forbidden_quants (Grob*me,
 			      Real yl, Real yr,
 			      Real rad,
 			      Real slt,
-			      Real thickness, Real beam_space,
+			      Real thickness, Real beam_translation,
 			      int beam_count,
 			      Direction ldir, Direction rdir)
 {
@@ -343,10 +349,10 @@ Beam::score_forbidden_quants (Grob*me,
       Real hang = 1.0 - (thickness - slt) / 2;
       
 
-      if (fabs (yl - ldir * beam_space) < rad
+      if (fabs (yl - ldir * beam_translation) < rad
 	  && fabs (my_modf (yl) - inter) < 1e-3)
 	dem += SECONDARY_BEAM_DEMERIT;
-      if (fabs (yr - rdir * beam_space) < rad
+      if (fabs (yr - rdir * beam_translation) < rad
 	  && fabs (my_modf (yr) - inter) < 1e-3)
 	dem += SECONDARY_BEAM_DEMERIT;
 
@@ -363,7 +369,7 @@ Beam::score_forbidden_quants (Grob*me,
 
 
       // hmm, without Interval/Drul_array, you get ~ 4x same code...
-      if (fabs (yl - ldir * beam_space) < rad + inter)
+      if (fabs (yl - ldir * beam_translation) < rad + inter)
 	{
 	  if (ldir == UP && dy <= eps
 	      && fabs (my_modf (yl) - sit) < eps)
@@ -374,7 +380,7 @@ Beam::score_forbidden_quants (Grob*me,
 	    dem += SECONDARY_BEAM_DEMERIT;
 	}
 
-      if (fabs (yr - rdir * beam_space) < rad + inter)
+      if (fabs (yr - rdir * beam_translation) < rad + inter)
 	{
 	  if (rdir == UP && dy >= eps
 	      && fabs (my_modf (yr) - sit) < eps)
@@ -387,7 +393,7 @@ Beam::score_forbidden_quants (Grob*me,
       
       if (beam_count >= 3)
 	{
-	  if (fabs (yl - 2 * ldir * beam_space) < rad + inter)
+	  if (fabs (yl - 2 * ldir * beam_translation) < rad + inter)
 	    {
 	      if (ldir == UP && dy <= eps
 		  && fabs (my_modf (yl) - straddle) < eps)
@@ -398,7 +404,7 @@ Beam::score_forbidden_quants (Grob*me,
 		dem += SECONDARY_BEAM_DEMERIT;
 	}
 	  
-	  if (fabs (yr - 2 * rdir * beam_space) < rad + inter)
+	  if (fabs (yr - 2 * rdir * beam_translation) < rad + inter)
 	    {
 	      if (rdir == UP && dy >= eps
 		  && fabs (my_modf (yr) - straddle) < eps)

@@ -1,5 +1,5 @@
 
-% #(set! point-and-click line-column-location)
+#(set! point-and-click line-column-location)
 
 instrument = "Piano"
 
@@ -166,7 +166,7 @@ trebleVerseOne =  \notes\relative c{
 	<{ es'( )  d4.() f8}{ c' | bes4.  as8 } >
 	% manual beam override bug
 	% \times 2/3 { < [f( as> <es g> <)d f] > } |
-	\times 2/3 < { [ f( es )d ] } { as g f } > |
+	\times 2/3 < { [ f( es )d ] } { as' g f } > |
 	%16
 	<es2. g> |
 	r8 <f, g> <g b> <f g> <g b> <f g> |
@@ -207,7 +207,9 @@ trebleThrough =  \notes \relative c'{
 	%61
 	R2. |
 	[<g,8.\< g'> <g16 g'> <b8. b'> <\! b16\> b'16> <d8. d'> <d16 d'>] |
-	< { c4( )b } { c'4( )b } > \!r |
+
+	%% score has double slur on chord.
+	< { c4( )b } { c'4 b } > \!r |
 
 	<g4. g'> <b8 b'> [<d'8.-> d,-> > c16] |
 	%65

@@ -1,7 +1,7 @@
 
 startGraceMusic = {
     \property Voice.Stem \override  #'direction = #1
-    \property Voice.Stem \override #'length = #6
+    \property Voice.Stem \override #'length = #5.5
     \property Voice.Stem \override #'lengths = 
         #(map (lambda (x) (* 0.8 x)) '(3.5 3.5 3.5 4.5 5.0))
     \property Voice.Stem \override #'beamed-lengths =

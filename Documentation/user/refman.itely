@@ -436,8 +436,7 @@ A entirely different type of note head is the "easyplay" note head: a
 note head that includes a note name.  It is used in some publications by
 Hal-Leonard Inc.  music publishers.
 
-@lilypond[singleline,verbatim]
-\include "paper23.ly"
+@lilypond[singleline,verbatim,26pt]
 \score {
   \notes { c'2 e'4 f' | g'1 }
   \paper { \translator { \EasyNotation } } 
@@ -445,7 +444,7 @@ Hal-Leonard Inc.  music publishers.
 @end lilypond
 
 Note that @code{EasyNotation} overrides a @internalsref{Score} context.  You
-probably will want to print it with magnification to make it more
+probably will want to print it with magnification or a large font size to make it more
 readable.
 
 
@@ -3827,16 +3826,36 @@ the syntax and semantics are up for rewrite.
 @node Font selection
 @subsection Font selection
 
-Most graphics in LilyPond are composed of characters of fonts.  You can
-alter the characteristics of the font by setting certain grob
-properties. The mechanism that is used for this resembles La@TeX{}'s New
-Font Selection Scheme. Within this scheme, a font is entirely
-characterized by its font name.
+The most common thing to change about the appearance of fonts is
+their size. The font size of a @internalsref{Voice},
+@internalsref{Staff} or @internalsref{Thread} context, can be easily
+changed by setting the @code{fontSize} property for that context:
+@lilypond[fragment,relative=1]
+  c4 c4 \property Voice.fontSize = #-1
+  f4 g4
+@end lilypond
+ This command will not change the size of variable symbols, such as
+beams or slurs.  You can use this command to get smaller symbol for
+cue notes, but that involves some more subtleties. An elaborate
+example of those is in @file{input/test/cue-notes.ly}.
 
-For each grob that uses fonts (in other words, each grob that supports
-@code{font-interface}) a font-name must be selected before it can be
-printed.  The font name is selected by looking at a number of grob
-properties:
+@cindex cue notes
+@cindex font size
+@cindex size
+
+The font used for printing a grob can be selected by setting
+@code{font-name}, e.g.
+@example
+  \property Staff.TimeSignature
+    \set #'font-name = #"cmr17"
+@end example
+You may use any font which is available to @TeX{}, such as foreign
+fonts or fonts that do not belong to the Computer Modern font family.
+Font selection for the standard fonts, @TeX{}'s Computer Modern fonts,
+can also be adjusted with a more fine-grained mechanism.  By setting
+the grob properties described below, you can select a different font.
+All three mechanisms work for every grob that supports
+@code{font-interface}.
 
 @table @code
 @item font-family
@@ -3844,8 +3863,8 @@ properties:
 @code{roman} (Computer Modern), @code{braces} (for piano staff
 braces), @code{music} (the standard music font), @code{ancient} (the
 ancient notation font) @code{dynamic} (font for dynamic signs) and
-@code{typewriter}
-
+@code{typewriter}. 
+  
 @item font-shape
   A symbol indicating the shape of the font, there are typically several
   font shapes available for each font family. Choices are @code{italic},
@@ -3867,38 +3886,29 @@ A number indicating  the design size of the font.
 This is a feature of the Computer Modern Font: each point size has a
 slightly different design. Smaller design sizes are relatively wider,
 which enhances readability.
-
-@item font-name
-  The name of the font, as a string, e.g. @code{"cmr12"}. This overrides
-all other font-qualifiers. 
-You may use this to use special fonts, which are not a part of the
-style sheet, or which have special encodings.
-
 @end table
 
-
-The font is selected by taking the first font that satisfies all
-qualifiers specified. You can override any of these fields through
-@code{\override} and @code{\revert}. The special value @code{*} matches
-any value for that qualifier.  The value @code{*} is needed to
-override default settings which are always present. 
-
+For any of these properties, the value @code{*} (i.e. the @em{symbol},
+@code{*}, entered as @code{#'*}), acts as a wildcard. This can be used
+to override default setting, which are always present. For example:
 @example
-  \property Lyrics.LyricText \override #'font-series = #'bold
-  \property Lyrics.LyricText \override #'font-shape = #'*
+  \property Lyrics . LyricText \override #'font-series = #'bold
+  \property Lyrics . LyricText \override #'font-family = #'typewriter
+  \property Lyrics . LyricText \override #'font-shape = #'*
 @end example
 
 @cindex @code{font-style}
 
-There are also pre-cooked font selection qualifiers. These are selected
-through the grob property @code{font-style}.  For example, the style
-@code{finger} selects family @code{number} and relative size @code{-3}.
-Styles available include @code{volta}, @code{finger}, @code{tuplet},
-@code{timesig}, @code{mmrest}, @code{script}, @code{large}, @code{Large}
-and @code{dynamic}.
+There are also pre-cooked font selection qualifiers. These are
+selected through the grob property @code{font-style}.  For example,
+the style @code{finger} selects family @code{number} and relative size
+@code{-3}.  Styles available include @code{volta}, @code{finger},
+@code{tuplet}, @code{timesig}, @code{mmrest}, @code{script},
+@code{large}, @code{Large} and @code{dynamic}. The style sheets and
+tables for selecting fonts are located in @file{scm/font.scm}. Refer
+to this file for more information.
 
-The style sheets and tables for selecting fonts are located in
-@file{scm/font.scm}. Refer to this file for more information.
+@cindex magnification
 
 The size of the font may be scaled with the grob property
 @code{font-magnification}.  For example, @code{2.0} blows up all
@@ -4171,17 +4181,18 @@ kneed stems.
 @cindex staff size, setting
 @cindex @code{paper} file
 
-The Feta font provides musical symbols at six different sizes.  These
-fonts are 11 point, 13 point, 16 point, 20 point, 23 point, and 26
-point.  The point size of a font is the height of the five lines in a
-staff when displayed in the font.
+The Feta font provides musical symbols at seven different sizes.
+These fonts are 11 point, 13 point, 16 point, 19 pt, 20 point, 23
+point, and 26 point.  The point size of a font is the height of the
+five lines in a staff when displayed in the font.
 
 Definitions for these sizes are the files @file{paperSZ.ly}, where
-@code{SZ} is one of 11, 13, 16, 20, 23 and 26.  If you include any of
-these files, the identifiers @code{paperEleven}, @code{paperThirteen},
-@code{paperSixteen}, @code{paperTwenty}, @code{paperTwentythree}, and
-@code{paperTwentysix} are defined respectively.  The default
-@code{\paper} block is also set. These files should be imported at toplevel, i.e.
+@code{SZ} is one of 11, 13, 16, 19, 20, 23 and 26.  If you include any
+of these files, the identifiers @code{paperEleven},
+@code{paperThirteen}, @code{paperSixteen}, @code{paperNineteen},
+@code{paperTwenty}, @code{paperTwentythree}, and @code{paperTwentysix}
+are defined respectively.  The default @code{\paper} block is also
+set. These files should be imported at toplevel, i.e.
 @example
 	\include "paper26.ly"
 	\score @{  ... @}
