@@ -12,6 +12,8 @@
 Music_wrapper::Music_wrapper (SCM x)
   : Music (x)
 {
+  if (!ly_c_procedure_p (length_callback_))
+    length_callback_ = length_callback_proc; 
 }
 
 

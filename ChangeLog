@@ -1,6 +1,10 @@
 2005-01-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/time-scaled-music.cc: remove file.
+
 	* lily/include/music.hh (class Music): include SCM init argument.
+	(class Music): replace Music::get_length() virtual by
+	length-callback property everywhere.
 
 	* scripts/convert-ly.py (conv): add  # to \property scalar value.
 

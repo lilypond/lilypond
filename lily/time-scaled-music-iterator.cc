@@ -8,10 +8,8 @@
  */
 
 #include "time-scaled-music-iterator.hh"
-
-#include "time-scaled-music.hh"
-#include "event.hh"
 #include "context.hh"
+#include "input.hh"
 
 void
 Time_scaled_music_iterator::process (Moment m)

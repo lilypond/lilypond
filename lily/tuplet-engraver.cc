@@ -9,7 +9,6 @@
 
 #include "tuplet-bracket.hh"
 #include "note-column.hh"
-#include "time-scaled-music.hh"
 #include "beam.hh"
 #include "music-list.hh"
 #include "engraver.hh"
