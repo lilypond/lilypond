@@ -56,7 +56,7 @@ remove all old font files. These include @file{.pk} and @file{.tfm} files
 that may be located in @file{/var/lib/texmf}, @file{/var/spool/texmf},
 @file{/var/tmp/texmf} or @file{@var{prefix}/share/lilypond/fonts/}.  A
 script automating this has been included, see
-@file{buildscripts/clean-fonts.sh}.
+@file{buildscripts/out/clean-fonts}.
 
 
 
@@ -180,7 +180,7 @@ one of the following commands:
 
 If you are doing an upgrade, you should remove all @file{feta}
 @code{.pk} and @code{.tfm} files.  A script has been provided to do the
-work for you, see @file{buildscripts/clean-fonts.sh}.
+work for you, see @file{buildscripts/out/clean-fonts}.
 
 If you are not root, you should choose a @code{--prefix} argument that
 points into your home directory, e.g.:

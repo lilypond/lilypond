@@ -1,3 +1,9 @@
+2004-12-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/topdocs/INSTALL.texi (Top): Point to
+	buildscripts/out/clean-fonts instead of
+	buildscripts/clean-fonts.sh. 
+
 2004-12-13  Graham Percival  <gperlist@shaw.ca>
 
 	* input/regression/figured-bass.ly: attempt to clarify text.
