@@ -10,6 +10,10 @@ slurUp   = \property Voice.Slur \set #'direction = #1
 slurDown = \property Voice.Slur \set #'direction = #-1
 slurBoth = \property Voice.Slur \revert #'direction 
 
+phrasingSlurUp   = \property Voice.PhrasingSlur \set #'direction = #1
+phrasingSlurDown = \property Voice.PhrasingSlur \set #'direction = #-1
+phrasingSlurBoth = \property Voice.PhrasingSlur \revert #'direction 
+
 shiftOn  = \property Voice.NoteColumn \set #'horizontal-shift = #1
 shiftOnn  = \property Voice.NoteColumn \set #'horizontal-shift = #2
 shiftOnnn  = \property Voice.NoteColumn \set #'horizontal-shift = #3
