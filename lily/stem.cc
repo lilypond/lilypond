@@ -743,7 +743,7 @@ Stem::off_callback (SCM element_smob, SCM)
 	  r += - d * rule_thick * 0.5;
 	}
     }
-  else if (scm_is_number (me->get_property ("stemlet-length")))
+  else
     {
       SCM rests = me->get_property ("rests");
       if (scm_is_pair (rests))

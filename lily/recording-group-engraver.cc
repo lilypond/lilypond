@@ -29,6 +29,7 @@ void
 Recording_group_engraver::derived_mark () const
 {
   Engraver_group_engraver::derived_mark();
+  scm_gc_mark (now_events_);
   scm_gc_mark (accumulator_);
 }
 

@@ -298,7 +298,7 @@
 	(begin
 	  (format (current-error-port) (_ "Converting to `~a.ps'...") base)
 	  (newline (current-error-port))))
-    (system cmd)))
+    (ly:system cmd)))
 
 (define-public (convert-to-dvi book name)
   (let* ((curr-extra-mem
@@ -327,7 +327,7 @@
     (if (ly:get-option 'safe)
 	(set! cmd (string-append "openout_any=p " cmd)))
 
-    (system cmd)))
+    (ly:system cmd)))
 
 (define-public (convert-to-tex book name)
   #t)
