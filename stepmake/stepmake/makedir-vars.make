@@ -1,8 +1,4 @@
 
-
-# stepmake/makedir.shared.make
-# urg: stuff shared between yodl/lily/stepmake
-
 MAKE_FILES := $(wildcard *.make)
 LSM_FILES:= $(wildcard *.lsm.in)
 OUTLSM_FILES=$(addprefix $(outdir)/,$(basename $(LSM_FILES)))

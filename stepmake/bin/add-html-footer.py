@@ -137,6 +137,37 @@ footer = compose (default_footer, footer_file) + built
 header_tag = '<!-- header_tag -->'
 footer_tag = '<!-- footer_tag -->'
 
+# Python < 1.5.2 compatibility
+#
+# On most platforms, this is equivalent to
+#`normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
+if os.path.__dict__.has_key ('abspath'):
+	abspath = os.path.abspath
+else:
+	def abspath (path):
+		return os.path.normpath (os.path.join (os.getcwd (), path))
+
+
+def remove_self_ref (s):	
+	self_url = abspath (os.getcwd () + '/' + f)
+	#sys.stderr.write ('url0: %s\n' % self_url)
+	self_url = re.sub ('.*' + string.lower (package_name) + '[^/]*/',
+			 '', self_url)
+	#sys.stderr.write ('url1: %s\n' % self_url)
+	
+	#urg, ugly lily-specific toplevel index hack
+	self_url = re.sub ('.*topdocs/out-www/index.html', 'index.html', self_url)
+	#sys.stderr.write ('url2: %s\n' % self_url)
+
+	m = re.match ('.*?(<a href="[\./]*' + self_url + '#?[^"]*">)([^<]*)(</a>)',
+		      s, re.DOTALL)
+	while m:
+		#sys.stderr.write ('self: %s\n' % m.group (2))
+		s = s[:m.start (1)] + m.group (2) + s[m.end (3):]
+		m = re.match ('.*?(<a href="[\./]*' + self_url + '#?[^"]*">)([^<]*)(</a>)',
+			      s, re.DOTALL)
+	return s
+
 def do_file (f):
 	s = gulp_file (f)
 
@@ -196,6 +227,24 @@ def do_file (f):
 	s = re.sub ('@GCOS@', gcos, s)
 	s = re.sub ('@LOCALTIME@', localtime, s)
 	s = re.sub ('@MAIL_ADDRESS@', mail_address, s)
+
+	m = re.match ('.*?<!-- (@[a-zA-Z0-9_-]*@)=(.*?) -->', s, re.DOTALL)
+	while m:
+		at_var = m.group (1)
+		at_val = m.group (2)
+		#sys.stderr.write ('at: %s -> %s\n' % (at_var, at_val))
+		s = re.sub (at_var, at_val, s)
+		m = re.match ('.*?<!-- (@[a-zA-Z0-9_-]*@)=(.*?) -->', s, re.DOTALL)
+
+	# urg
+	# maybe find first node?
+	fallback_web_title = '-- --'
+	m = re.match ('.*?<title>\(.*?\)</title>', s, re.DOTALL)
+	if m:
+		fallback_web_title = m.group (1)
+	s = re.sub ('@WEB-TITLE@', fallback_web_title, s)
+	
+	s = remove_self_ref (s)
 
 	open (f, 'w').write (s)
 

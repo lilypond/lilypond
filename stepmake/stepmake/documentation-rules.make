@@ -1,5 +1,3 @@
-# Docrules.make
-
 # special rules for the documentation section.
 # There are too many to add to the general rules
 

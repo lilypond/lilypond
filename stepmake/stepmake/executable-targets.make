@@ -1,8 +1,3 @@
-# Executable.make
-
-# dependency list of executable:
-#
-
 default: $(EXECUTABLE)
 
 $(EXECUTABLE): $(outdir)/config.h $(O_FILES) $(outdir)/version.hh
@@ -32,9 +27,3 @@ uninstallexe:
 	$(foreach a, $(SEXECUTABLES), rm -f $(bindir)/$(a) &&) true
 
 
-# Piss off.  Use MODULE_LIBS
-#
-# UGH. fucks up if $(outdir) not created.
-#
-#%/$(outdir)/library.a:
-#	$(MAKE) -C $(dir $@)/.. default

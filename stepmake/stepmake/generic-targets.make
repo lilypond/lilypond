@@ -1,6 +1,3 @@
-# title	   generic make targets
-# file	   make/Targets.make
-
 .PHONY : all clean config default diff dist doc exe help html lib TAGS\
 	 po
 
@@ -61,7 +58,6 @@ Make may be invoked from any subdirectory\n\
 Note that all commands recurse into SUBDIRS;\n\
 prepend \`local-' to do only cwd, eg: local-clean\n\
 "\
-#
 
 local-help:
 
@@ -132,8 +128,6 @@ installextradoc:
 	$(foreach i, $(EXTRA_DOC_FILES),\
 		cp -r $(i) $(prefix)/doc/$(package) &&) true
 
-include $(stepdir)/package.make
-
 include $(outdir)/dummy.dep $(DEP_FILES)
 
 $(outdir)/dummy.dep:
@@ -153,3 +147,22 @@ $(depth)/$(configuration).make: $(depth)/configure
 	@echo "************************************************************"
 	(cd $(depth); ./config.status)
 	touch $@		# do something for multiple simultaneous configs.
+
+
+deb:
+	$(MAKE) -C $(depth)/debian
+	cd $(depth) && debuild
+
+diff:
+	$(PYTHON) $(step-bindir)/package-diff.py  --outdir=$(topdir)/$(outdir) --package=$(topdir) $(makeflags)
+	-ln -f $(depth)/$(outdir)/$(distname).diff.gz $(patch-dir)
+
+release: 
+	$(PYTHON) $(step-bindir)/release.py --outdir=$(topdir)/$(outdir) --package=$(topdir)
+
+rpm: $(depth)/$(package-icon) dist
+	@echo "Assuming Red Hat system"	#FIXME: check distro, then issue rpm
+	$(MAKE) -C $(depth)/make
+	cd $(depth) && rmp -bb make/$(outdir)/lilypond.redhat.spec
+#	su -c 'rpm -tb $(depth)/$(outdir)/$(distname).tar.gz'
+

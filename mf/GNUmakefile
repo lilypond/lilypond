@@ -1,8 +1,7 @@
-# mf/Makefile
-
 depth = ..
 
-STEPMAKE_TEMPLATES=metafont metapost asciifont install install-out
+STEPMAKE_TEMPLATES=metafont metapost install install-out
+LOCALSTEPMAKE_TEMPLATES=asciifont
 include $(depth)/make/stepmake.make 
 
 AF_FILES = $(wildcard *.af) 

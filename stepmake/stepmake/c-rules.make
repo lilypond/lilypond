@@ -1,5 +1,3 @@
-# stepmake/C_rules.make
-
 .SUFFIXES: .c .o .h .y .l .dep
 
 $(outdir)/%.o: %.c

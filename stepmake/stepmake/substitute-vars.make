@@ -1,4 +1,3 @@
-# Substitute.make
 
 sed-endline = sed 's!$$!\\!'
 sed-newline = sed 's!$$!\n!'

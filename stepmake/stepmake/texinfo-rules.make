@@ -1,4 +1,3 @@
-# Texinfo_rules.make
 
 .SUFFIXES: .html .info .texi .texinfo
 

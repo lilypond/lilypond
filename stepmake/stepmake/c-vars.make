@@ -1,4 +1,3 @@
-
 # header files:
 H_FILES := $(wildcard *.h)
 C_FILES := $(wildcard *.c)
