@@ -2240,8 +2240,15 @@ care when you mix staves with grace notes and staves without, for example,
 
 @lilypond[relative=2,verbatim,fragment]
 << \new Staff { e4 \bar "|:" \grace c16 d4 }
-  \new Staff { c4 \bar "|:"  d4 } >>
+   \new Staff { c4  \bar "|:"  d4 } >>
 @end lilypond
+
+@noindent
+This can be remedied by inserting grace skips, for the above example
+
+@verbatim
+   \new Staff { c4  \bar "|:"  \grace s16 d4 } >>
+@end verbatim
 
 Grace sections should only be used within sequential music
 expressions.  Nesting or juxtaposing grace sections is not supported,

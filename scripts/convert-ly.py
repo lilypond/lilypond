@@ -1995,8 +1995,8 @@ def conv (str):
 		      'ly:stencil-extent', str)
 	str = re.sub (r'ly:translator-find',
 		      'ly:context-find', str)
-	str = re.sub ('ly:context-unset-property',
-		     'ly:unset-context-property', str)
+	str = re.sub ('ly:unset-context-property','ly:context-unset-property',
+		      str)
 		     
 	str = re.sub (r'ly:get-mutable-properties',
 		      'ly:mutable-music-properties',str)
@@ -2008,7 +2008,7 @@ conversions.append (((2,1,30), conv,
 		     '''\\threeq{flat,sharp} -> \\sesqui{flat,sharp}
 ly:get-mutable-properties -> ly:mutable-music-properties
 centralCPosition -> middleCPosition
-ly:unset-context-property -> ly:unset-context-property
+ly:unset-context-property -> ly:context-unset-property
 ly:translator-find -> ly:context-find
 ly:get-stencil-extent -> ly:stencil-extent
 '''))
