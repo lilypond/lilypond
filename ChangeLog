@@ -1,5 +1,9 @@
 2003-10-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/lyric-combine-music-iterator.cc
+	(Lyric_combine_music_iterator): change init order, to prevent GC
+	segfaults.
+
 	* lily/context-specced-music-iterator.cc (construct_children): 
 	only change  translator if found. This fixes a core dump problem.
 
