@@ -5788,15 +5788,13 @@ with respect to that clef.
 @b{Supported Clefs} @tab
 @b{Example}
 
-@c  FIXME: Unknown clef type `neomensural_c2'
-
 @item
 modern style mensural C clef @tab
-@code{neomensural_c1}, @code{neomensural_c2},
-@code{neomensural_c3}, @code{neomensural_c4} @tab
+@code{neomensural-c1}, @code{neomensural-c2},
+@code{neomensural-c3}, @code{neomensural-c4} @tab
 @lilypond[fragment,quote,relative=1,notime]
 
-\clef "neomensural_c2" c
+\clef "neomensural-c2" c
 @end lilypond
 
 @item
@@ -5804,118 +5802,118 @@ petrucci style mensural C clefs, for use on different staff lines
 (the examples shows the 2nd staff line C clef).
 
 @tab
-@code{petrucci_c1}
-@code{petrucci_c2}
-@code{petrucci_c3}
-@code{petrucci_c4}
-@code{petrucci_c5}
+@code{petrucci-c1}
+@code{petrucci-c2}
+@code{petrucci-c3}
+@code{petrucci-c4}
+@code{petrucci-c5}
 
 @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
 
-\clef "petrucci_c2" c
+\clef "petrucci-c2" c
 @end lilypond
 
 @item
 petrucci style mensural F clef @tab
-@code{petrucci_f} @tab
+@code{petrucci-f} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
 
-\clef "petrucci_f" c
+\clef "petrucci-f" c
 @end lilypond
 
 @item
 petrucci style mensural G clef @tab
-@code{petrucci_g} @tab
+@code{petrucci-g} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
 
-\clef "petrucci_g" c
+\clef "petrucci-g" c
 @end lilypond
 
 @item
 historic style mensural C clef @tab
-@code{mensural_c1}, @code{mensural_c2}, @code{mensural_c3},
-@code{mensural_c4} @tab
+@code{mensural-c1}, @code{mensural-c2}, @code{mensural-c3},
+@code{mensural-c4} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
 
-\clef "mensural_c2" c
+\clef "mensural-c2" c
 @end lilypond
 
 @item
 historic style mensural F clef @tab
-@code{mensural_f} @tab
+@code{mensural-f} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
 
-\clef "mensural_f" c
+\clef "mensural-f" c
 @end lilypond
 
 @item
 historic style mensural G clef @tab
-@code{mensural_g} @tab
+@code{mensural-g} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
 
-\clef "mensural_g" c
+\clef "mensural-g" c
 @end lilypond
 
 @item
 Editio Vaticana style do clef @tab
-@code{vaticana_do1}, @code{vaticana_do2}, @code{vaticana_do3} @tab
+@code{vaticana-do1}, @code{vaticana-do2}, @code{vaticana-do3} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
     \override Staff.StaffSymbol   #'line-count = #4
 
-\clef "vaticana_do2" c
+\clef "vaticana-do2" c
 @end lilypond
 
 @item
 Editio Vaticana style fa clef @tab
-@code{vaticana_fa1}, @code{vaticana_fa2} @tab
+@code{vaticana-fa1}, @code{vaticana-fa2} @tab
 @lilypond[quote,relative=1,notime,indent=0.0\mm,fragment]
     \override Staff.StaffSymbol   #'line-count = #4
 
-\clef "vaticana_fa2" c
+\clef "vaticana-fa2" c
 @end lilypond
 
 @item
 Editio Medicaea style do clef @tab
-@code{medicaea_do1}, @code{medicaea_do2}, @code{medicaea_do3} @tab
+@code{medicaea-do1}, @code{medicaea-do2}, @code{medicaea-do3} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
     \override Staff.StaffSymbol   #'line-count = #4
 
-\clef "medicaea_do2" c
+\clef "medicaea-do2" c
 @end lilypond
 
 @item
 Editio Medicaea style fa clef @tab
-@code{medicaea_fa1}, @code{medicaea_fa2} @tab
+@code{medicaea-fa1}, @code{medicaea-fa2} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
     \override Staff.StaffSymbol   #'line-count = #4
 
-\clef "medicaea_fa2" c
+\clef "medicaea-fa2" c
 @end lilypond
 
 @item
 historic style hufnagel do clef @tab
-@code{hufnagel_do1}, @code{hufnagel_do2}, @code{hufnagel_do3} @tab
+@code{hufnagel-do1}, @code{hufnagel-do2}, @code{hufnagel-do3} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
     \override Staff.StaffSymbol   #'line-count = #4
 
-\clef "hufnagel_do2" c
+\clef "hufnagel-do2" c
 @end lilypond
 
 @item
 historic style hufnagel fa clef @tab
-@code{hufnagel_fa1}, @code{hufnagel_fa2} @tab
+@code{hufnagel-fa1}, @code{hufnagel-fa2} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
     \override Staff.StaffSymbol   #'line-count = #4
 
-\clef "hufnagel_fa2" c
+\clef "hufnagel-fa2" c
 @end lilypond
 
 @item
 historic style hufnagel combined do/fa clef @tab
-@code{hufnagel_do_fa} @tab
+@code{hufnagel-do-fa} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
-\clef "hufnagel_do_fa" c
+\clef "hufnagel-do-fa" c
 @end lilypond
 
 @end multitable
@@ -6329,7 +6327,7 @@ For example,
         \set Score.defaultBarType = "empty"
         \override NoteHead #'style = #'neomensural
         \override Staff.TimeSignature   #'style = #'neomensural
-        \clef "petrucci_g"
+        \clef "petrucci-g"
         \[ g\longa c\breve a\breve f\breve d'\longa \]
         s4
         \[ e1 f1 a\breve g\longa \]
@@ -6341,7 +6339,7 @@ For example,
         \set Score.defaultBarType = "empty"
         \override NoteHead #'style = #'neomensural
         \override Staff.TimeSignature   #'style = #'neomensural
-        \clef "petrucci_g"
+        \clef "petrucci-g"
         \[ g\longa c\breve a\breve f\breve d'\longa \]
         s4
         \[ e1 f1 a\breve g\longa \]
@@ -6366,7 +6364,7 @@ to the following
         \set Score.defaultBarType = "empty"
         \override NoteHead #'style = #'neomensural
         \override Staff.TimeSignature   #'style = #'neomensural
-        \clef "petrucci_g"
+        \clef "petrucci-g"
         \[ g\longa c\breve a\breve f\breve d'\longa \]
         s4
         \[ e1 f1 a\breve g\longa \]
@@ -7196,8 +7194,7 @@ the following excerpt demonstrates
 \score {
   <<
     \context VaticanaVoice = "cantus" {
-      \override Score.BarNumber #'transparent = ##t
-       {
+      \override Score.BarNumber #'transparent = ##t {
         \[ c'\melisma c' \flexa a \]
         \[ a \flexa \deminutum g\melismaEnd \]
         f \divisioMinima

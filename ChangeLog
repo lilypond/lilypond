@@ -1,3 +1,9 @@
+2004-09-10  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* (many files): removed most occurrences of underscore ("_")
+	from font characters; made font character naming more
+	consistent
+
 2004-09-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* Documentation/user/changing-defaults.itely (Paper size): doc

@@ -67,7 +67,7 @@ voice =  \transpose c c' {
 	    \override Custos #'style = #'mensural
 	    \override Custos #'neutral-position = #3
 	    \override Custos #'neutral-direction = #-1
-	    clefGlyph = #"clefs-petrucci_g"
+	    clefGlyph = #"clefs-petrucci-g"
 	    clefPosition = #-2
 	    clefOctavation = #-0
 	}

@@ -8,7 +8,7 @@ calligraphic notes. "
 \include "gregorian-init.ly"
 
 cantus = \context VaticanaVoice = "cantus"  {
-  \clef "vaticana_fa2"
+  \clef "vaticana-fa2"
   \[ f\melisma \quilisma g \auctum \descendens a\melismaEnd \]
   \[ \virga a\melisma g \pes a \inclinatum f \inclinatum d
      c \pes d \quilisma e \pes f \virga g

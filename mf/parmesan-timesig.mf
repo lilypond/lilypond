@@ -13,11 +13,12 @@ fet_begingroup ("timesig")
 path threequartercircle;
 threequartercircle = halfcircle & quartercircle rotated 180;
 
-save Cdiameter, Cthickness, Chairpin;
-Cdiameter# := 3/2 staff_space#;
-Cthickness# := 2 linethickness#;
-Chairpin# := 0.5 linethickness#;
-define_pixels(Cdiameter, Cthickness, Chairpin);
+save mensural_Cdiameter, mensural_Cthickness, mensural_Chairpin;
+mensural_Cdiameter# := 3/2 staff_space#;
+mensural_Cthickness# := 2 linethickness#;
+mensural_Chairpin# := 0.5 linethickness#;
+define_pixels(mensural_Cdiameter, mensural_Cthickness);
+define_pixels(mensural_Chairpin);
 
 %%%%%%%%
 %
@@ -38,15 +39,15 @@ def draw_nail (expr bottom_left, top_right) =
 
 	begingroup;
 		save x,y;
-		z2+(round/2,round/2) = top_right + (Cthickness/2, 0);
+		z2+(round/2,round/2) = top_right + (mensural_Cthickness/2, 0);
 		z4-(round/2,round/2) = bottom_left;
 		y3 = y2;
 		y4 = y1;
-		x2 = x1 + Cthickness/2;
+		x2 = x1 + mensural_Cthickness/2;
 		x2 - x1 = x4 - x3;
 		x5 = x1;
 		x6 = x4;
-		y5 = y6 = y2 - 2Cthickness;
+		y5 = y6 = y2 - 2mensural_Cthickness;
 
 		pickup pencircle scaled round;
 		fill bot z1 .. rt z1 --- rt z5 .. rt z2 .. top z2 ---
@@ -56,85 +57,85 @@ def draw_nail (expr bottom_left, top_right) =
 
 enddef;
 
-def mens_timesig (expr verbose_name, internal_name, ly_name,
-			full_circle, reverse_circle, slashed, dotted) =
+def mensural_timesig (expr verbose_name, internal_name, ly_name,
+		      full_circle, reverse_circle, slashed, dotted) =
 
 	fet_beginchar(verbose_name, internal_name, ly_name)
 		if slashed:
 			set_char_box(0,
-				     Cdiameter# + Cthickness#,
-				     .75 (Cdiameter# + Cthickness#),
-				     .75 (Cdiameter# + Cthickness#));
+				     mensural_Cdiameter# + mensural_Cthickness#,
+				     .75 (mensural_Cdiameter# + mensural_Cthickness#),
+				     .75 (mensural_Cdiameter# + mensural_Cthickness#));
 			if (full_circle or dotted):
-				draw_nail((-Cthickness/2, -d), (Cthickness/2, h));
+				draw_nail((-mensural_Cthickness/2, -d), (mensural_Cthickness/2, h));
 			else:
-				draw_nail((-Cthickness, -d), (0, h));
+				draw_nail((-mensural_Cthickness, -d), (0, h));
 			fi;
 		else:
 			set_char_box(0,
-				     Cdiameter# + Cthickness#,
-				     .5 (Cdiameter# + Cthickness#),
-				     .5 (Cdiameter# + Cthickness#));
+				     mensural_Cdiameter# + mensural_Cthickness#,
+				     .5 (mensural_Cdiameter# + mensural_Cthickness#),
+				     .5 (mensural_Cdiameter# + mensural_Cthickness#));
 		fi;
-		pickup pencircle xscaled Cthickness yscaled Chairpin rotated 0;
+		pickup pencircle xscaled mensural_Cthickness yscaled mensural_Chairpin rotated 0;
 		if full_circle:
-			draw fullcircle scaled Cdiameter;
+			draw fullcircle scaled mensural_Cdiameter;
 		elseif reverse_circle:
-			draw threequartercircle rotated 225 scaled Cdiameter;
+			draw threequartercircle rotated 225 scaled mensural_Cdiameter;
 		else:
-			draw threequartercircle rotated 45 scaled Cdiameter;
+			draw threequartercircle rotated 45 scaled mensural_Cdiameter;
 		fi;
 		if dotted:
 			pickup pencircle scaled 4 linethickness;
 			draw (0,0);
 		fi;
-		currentpicture := currentpicture shifted 0.5(Cdiameter + Cthickness, 0);
+		currentpicture := currentpicture shifted 0.5(mensural_Cdiameter + mensural_Cthickness, 0);
 	fet_endchar;
 enddef;
 
 %% tempus imperfectum cum prolatione imperfecta
-mens_timesig ("Mensural 4/4 meter", "mensural4/4", "mensuralfourfourmeter",
-		false, false, false, false);
+mensural_timesig ("Mensural 4/4 meter", "mensural4/4", "mensuralfourfourmeter",
+		  false, false, false, false);
 
 %% tempus imperfectum cum prolatione imperfecta proportio dupla
-mens_timesig ("Mensural 2/2 meter", "mensural2/2", "mensuralallabreve",
-		false, false, true, false);
+mensural_timesig ("Mensural 2/2 meter", "mensural2/2", "mensuralallabreve",
+		  false, false, true, false);
 
 %% tempus perfectum cum prolatione imperfecta
-mens_timesig ("Mensural 3/2 meter", "mensural3/2", "mensuralthreetwometer",
-		true, false, false, false);
+mensural_timesig ("Mensural 3/2 meter", "mensural3/2", "mensuralthreetwometer",
+		  true, false, false, false);
 
 %% tempus imperfectum cum prolatione perfecta
-mens_timesig ("Mensural 6/4 meter", "mensural6/4", "mensuralsixfourmeter",
-		false, false, false, true);
+mensural_timesig ("Mensural 6/4 meter", "mensural6/4", "mensuralsixfourmeter",
+		  false, false, false, true);
 
 %% tempus perfectum cum prolatione perfecta
-mens_timesig ("Mensural 9/4 meter", "mensural9/4", "mensuralninefourmeter",
-		true, false, false, true);
+mensural_timesig ("Mensural 9/4 meter", "mensural9/4", "mensuralninefourmeter",
+		  true, false, false, true);
 
 %% tempus perfectum cum prolatione imperfecta proportio dupla
-mens_timesig ("Mensural 3/4 meter", "mensural3/4", "mensuralthreefourmeter",
-		true, false, true, false);
+mensural_timesig ("Mensural 3/4 meter", "mensural3/4", "mensuralthreefourmeter",
+		  true, false, true, false);
 
 %% tempus imperfectum cum prolatione perfecta proportio dupla
-mens_timesig ("Mensural 6/8 meter", "mensural6/8", "mensuralsixeightmeter",
-		false, false, true, true);
+mensural_timesig ("Mensural 6/8 meter", "mensural6/8", "mensuralsixeightmeter",
+		  false, false, true, true);
 
 %% tempus perfectum cum prolatione perfecta proportio dupla
-mens_timesig ("Mensural 9/8 meter", "mensural9/8", "mensuralnineeight",
-		true, false, true, true);
+mensural_timesig ("Mensural 9/8 meter", "mensural9/8", "mensuralnineeight",
+		  true, false, true, true);
 	
 %% tempus imperfectum cum prolatione imperfecta diminutio simplex
-mens_timesig ("Mensural 4/8 meter", "mensural4/8", "mensuralfoureightmeter",
-		false, true, false, false);
+mensural_timesig ("Mensural 4/8 meter", "mensural4/8", "mensuralfoureightmeter",
+		  false, true, false, false);
 
 %% tempus imperfectum cum prolatione perfecta diminutio simplex
-mens_timesig ("Mensural 6/8 meter", "mensural6/8alt", "mensuralsixeightmeteralt",
-		false, true, false, true);
+mensural_timesig ("Mensural 6/8 meter", "mensural6/8alt", "mensuralsixeightmeteralt",
+		  false, true, false, true);
 
 %% tempus imperfectum cum prolatione imperfecta diminutio duplex
-mens_timesig ("Mensural 2/4 meter", "mensural2/4", "mensuraltwofourmeter",
-		false, true, true, false);
+mensural_timesig ("Mensural 2/4 meter", "mensural2/4", "mensuraltwofourmeter",
+		  false, true, true, false);
 
 %%%%%%%%
 %
@@ -145,89 +146,89 @@ mens_timesig ("Mensural 2/4 meter", "mensural2/4", "mensuraltwofourmeter",
 %
 %
 
-save neo_Cdiameter, neo_Cthickness;
-neo_Cdiameter# := 3/2 staff_space#;
-neo_Cthickness# := 2 linethickness#;
-define_pixels(neo_Cdiameter, neo_Cthickness);
+save neomensural_Cdiameter, neomensural_Cthickness;
+neomensural_Cdiameter# := 3/2 staff_space#;
+neomensural_Cthickness# := 2 linethickness#;
+define_pixels(neomensural_Cdiameter, neomensural_Cthickness);
 
-def neo_mens_timesig (expr verbose_name, internal_name, ly_name,
-			full_circle, reverse_circle, slashed, dotted) =
+def neomensural_timesig (expr verbose_name, internal_name, ly_name,
+			 full_circle, reverse_circle, slashed, dotted) =
 
 	fet_beginchar(verbose_name, internal_name, ly_name)
 		if slashed:
 			set_char_box(0,
-				     neo_Cdiameter# + neo_Cthickness#,
-				     .5 (neo_Cdiameter# + neo_Cthickness#),
-				     .5 (neo_Cdiameter# + neo_Cthickness#));
+				     neomensural_Cdiameter# + neomensural_Cthickness#,
+				     .5 (neomensural_Cdiameter# + neomensural_Cthickness#),
+				     .5 (neomensural_Cdiameter# + neomensural_Cthickness#));
 			if (full_circle or dotted):
-				draw_block((-neo_Cthickness/2, -d), (neo_Cthickness/2, h));
+				draw_block((-neomensural_Cthickness/2, -d), (neomensural_Cthickness/2, h));
 			else:
-				draw_block((-neo_Cthickness, -d), (0, h));
+				draw_block((-neomensural_Cthickness, -d), (0, h));
 			fi;
 		else:
 			set_char_box(0,
-				     neo_Cdiameter# + neo_Cthickness#,
-				     .5 (neo_Cdiameter# + neo_Cthickness#),
-				     .5 (neo_Cdiameter# + neo_Cthickness#));
+				     neomensural_Cdiameter# + neomensural_Cthickness#,
+				     .5 (neomensural_Cdiameter# + neomensural_Cthickness#),
+				     .5 (neomensural_Cdiameter# + neomensural_Cthickness#));
 		fi;
-		pickup pencircle scaled neo_Cthickness;
+		pickup pencircle scaled neomensural_Cthickness;
 		if full_circle:
-			draw fullcircle scaled neo_Cdiameter;
+			draw fullcircle scaled neomensural_Cdiameter;
 		elseif reverse_circle:
-			draw threequartercircle rotated 225 scaled neo_Cdiameter;
+			draw threequartercircle rotated 225 scaled neomensural_Cdiameter;
 		else:
-			draw threequartercircle rotated 45 scaled neo_Cdiameter;
+			draw threequartercircle rotated 45 scaled neomensural_Cdiameter;
 		fi;
 		if dotted:
 			pickup pencircle scaled 4 linethickness;
 			draw (0,0);
 		fi;
-		currentpicture := currentpicture shifted 0.5(neo_Cdiameter + neo_Cthickness, 0);
+		currentpicture := currentpicture shifted 0.5(neomensural_Cdiameter + neomensural_Cthickness, 0);
 	fet_endchar;
 enddef;
 
 %% tempus imperfectum cum prolatione imperfecta
-neo_mens_timesig ("Mensural 4/4 meter", "neomensural4/4", "neomensuralfourfourmeter",
+neomensural_timesig ("Mensural 4/4 meter", "neomensural4/4", "neomensuralfourfourmeter",
 			false, false, false, false);
 
 %% tempus imperfectum cum prolatione imperfecta proportio dupla
-neo_mens_timesig ("Mensural 2/2 meter", "neomensural2/2", "neomensuralallabreve",
+neomensural_timesig ("Mensural 2/2 meter", "neomensural2/2", "neomensuralallabreve",
 			false, false, true, false);
 
 %% tempus perfectum cum prolatione imperfecta
-neo_mens_timesig ("Mensural 3/2 meter", "neomensural3/2", "neomensuralthreetwometer",
+neomensural_timesig ("Mensural 3/2 meter", "neomensural3/2", "neomensuralthreetwometer",
 			true, false, false, false);
 
 %% tempus imperfectum cum prolatione perfecta
-neo_mens_timesig ("Mensural 6/4 meter", "neomensural6/4", "neomensuralsixfourmeter",
+neomensural_timesig ("Mensural 6/4 meter", "neomensural6/4", "neomensuralsixfourmeter",
 			false, false, false, true);
 
 %% tempus perfectum cum prolatione perfecta
-neo_mens_timesig ("Mensural 9/4 meter", "neomensural9/4", "neomensuralninefourmeter",
+neomensural_timesig ("Mensural 9/4 meter", "neomensural9/4", "neomensuralninefourmeter",
 			true, false, false, true);
 
 %% tempus perfectum cum prolatione imperfecta proportio dupla
-neo_mens_timesig ("Mensural 3/4 meter", "neomensural3/4", "neomensuralthreefourmeter",
+neomensural_timesig ("Mensural 3/4 meter", "neomensural3/4", "neomensuralthreefourmeter",
 			true, false, true, false);
 
 %% tempus imperfectum cum prolatione perfecta proportio dupla
-neo_mens_timesig ("Mensural 6/8 meter", "neomensural6/8", "neomensuralsixeightmeter",
+neomensural_timesig ("Mensural 6/8 meter", "neomensural6/8", "neomensuralsixeightmeter",
 			false, false, true, true);
 
 %% tempus perfectum cum prolatione perfecta proportio dupla
-neo_mens_timesig ("Mensural 9/8 meter", "neomensural9/8", "neomensuralnineeight",
+neomensural_timesig ("Mensural 9/8 meter", "neomensural9/8", "neomensuralnineeight",
 			true, false, true, true);
 	
 %% tempus imperfectum cum prolatione imperfecta diminutio simplex
-neo_mens_timesig ("Mensural 4/8 meter", "neomensural4/8", "neomensuralfoureightmeter",
+neomensural_timesig ("Mensural 4/8 meter", "neomensural4/8", "neomensuralfoureightmeter",
 			false, true, false, false);
 
 %% tempus imperfectum cum prolatione perfecta diminutio simplex
-neo_mens_timesig ("Mensural 6/8 meter", "neomensural6/8alt", "neomensuralsixeightmeteralt",
+neomensural_timesig ("Mensural 6/8 meter", "neomensural6/8alt", "neomensuralsixeightmeteralt",
 			false, true, false, true);
 
 %% tempus imperfectum cum prolatione imperfecta diminutio duplex
-neo_mens_timesig ("Mensural 2/4 meter", "neomensural2/4", "neomensuraltwofourmeter",
+neomensural_timesig ("Mensural 2/4 meter", "neomensural2/4", "neomensuraltwofourmeter",
 			false, true, true, false);
 
 fet_endgroup ("timesig")
