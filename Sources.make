@@ -1,26 +1,20 @@
 # -*- Makefile-*-
 # sourcefiles to be shipped. Also for dependencies
 
-hdr=    qlp.hh linespace.hh qlpsolve.hh\
-	pcol.hh proto.hh pstaff.hh  scoreline.hh staffline.hh\
-	const.hh glob.hh molecule.hh  boxes.hh pscore.hh item.hh tex.hh\
-	request.hh voice.hh command.hh staff.hh  linestaff.hh \
-	tstream.hh rhythmstaff.hh\
-	parseconstruct.hh debug.hh globvars.hh keyword.hh\
-	misc.hh score.hh notename.hh lexer.hh symtable.hh\
-	symbol.hh main.hh dimen.hh paper.hh lookup.hh\
-	spanner.hh  beam.hh directionalspanner.hh slur.hh textspanner.hh\
-	sccol.hh stcol.hh staffcommands.hh melodicstaff.hh\
-	identifier.hh simplestaff.hh  stem.hh\
-	notehead.hh leastsquares.hh  rest.hh\
-	swalker.hh bar.hh meter.hh accidental.hh\
-	key.hh keyitem.hh localkeyitem.hh simplewalker.hh\
-	clef.hh clefitem.hh  inputcommands.hh\
-	getcommand.hh inputmusic.hh timedescription.hh\
-	inputscore.hh inputstaff.hh identparent.hh\
-	inputcommand.hh grouping.hh moment.hh offset.hh\
-	staffelem.hh idealspacing.hh break.hh\
-	scriptdef.hh script.hh textdef.hh textitem.hh
+hdr=   accidental.hh bar.hh beam.hh boxes.hh break.hh clef.hh clefitem.hh\
+	command.hh const.hh debug.hh dimen.hh directionalspanner.hh\
+	getcommand.hh glob.hh globvars.hh grouping.hh idealspacing.hh\
+	identifier.hh identparent.hh inputcommand.hh inputcommands.hh\
+	inputmusic.hh inputscore.hh inputstaff.hh item.hh key.hh keyitem.hh\
+	keyword.hh leastsquares.hh lexer.hh linespace.hh linestaff.hh\
+	localkeyitem.hh lookup.hh main.hh melodicstaff.hh meter.hh misc.hh\
+	molecule.hh moment.hh notehead.hh notename.hh offset.hh paper.hh\
+	parseconstruct.hh pcol.hh proto.hh pscore.hh pstaff.hh qlp.hh\
+	qlpsolve.hh request.hh rest.hh rhythmstaff.hh sccol.hh score.hh\
+	scoreline.hh script.hh scriptdef.hh simplestaff.hh simplewalker.hh\
+	slur.hh spanner.hh staff.hh staffcommands.hh staffelem.hh staffline.hh\
+	stcol.hh stem.hh swalker.hh symbol.hh symtable.hh tex.hh textdef.hh\
+	textitem.hh textspanner.hh timedescription.hh tstream.hh voice.hh
 
 mycc=bar.cc beam.cc boxes.cc break.cc calcideal.cc clef.cc\
 	clefitem.cc command.cc debug.cc dimen.cc directionalspanner.cc\
