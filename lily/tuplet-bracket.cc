@@ -495,22 +495,21 @@ Tuplet_bracket::after_line_breaking (SCM smob)
 
 
 /*
-  similar to slur.
+  similar to beam ? 
  */
 Direction
 Tuplet_bracket::get_default_dir (Grob*me)
 {
-  Direction d = UP;
+  Drul_array<int> dirs(0,0);  
   for (SCM s = me->get_grob_property ("note-columns"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * nc = unsmob_grob (ly_car (s));
-      if (Note_column::dir (nc) < 0) 
-	{
-	  d = DOWN;
-	  break;
-	}
+
+      
+      dirs[Note_column::dir (nc)]++;
     }
-  return d;
+
+  return dirs[UP] >= dirs[DOWN] ? UP : DOWN;
 }
 
 void

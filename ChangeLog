@@ -1,5 +1,8 @@
 2004-01-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/tuplet-bracket.cc (get_default_dir): new algorithm for
+	tuplet direction.
+
 	* mf/parmesan-heads.mf (overdone_heads): enlarge harmonic head.
 
 2004-01-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
