@@ -10,11 +10,6 @@
 @node Notation manual
 @chapter Notation manual
 
-@html
-<!--- @@WEB-TITLE@@=Notation manual --->
-@end html
-
-
 @menu
 * Note entry::                  
 * Easier music entry::          

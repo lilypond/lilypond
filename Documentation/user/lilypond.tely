@@ -3,9 +3,6 @@
 @settitle GNU LilyPond
 
 
-@html
-<!--- @@WEB-TITLE@@=User Manual --->
-@end html
 
 @ignore
 Distributions will want to install lilypond.info doing:
@@ -90,6 +87,23 @@ Copyright @copyright{} 1999--2003 by the authors
   A copy of the license is included in the section entitled ``GNU
   Free Documentation License''.
 
+@vskip 20pt
+
+  
+@lilypond[singleline]
+\score { \context Lyrics \notes {
+    \property Score.RehearsalMark \set #'self-alignment-X = #LEFT
+
+\mark #(ly:export    (string-append "(For LilyPond version "
+(lilypond-version) ")"))
+s2
+ }
+ \paper { indent = 0.0\pt
+ raggedright   = ##t 
+ }
+}
+@end lilypond
+  
 
 @end titlepage
 

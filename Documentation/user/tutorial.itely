@@ -8,9 +8,6 @@
 @node Tutorial
 @chapter Tutorial
 
-@html
-<!--- @@WEB-TITLE@@=Tutorial --->
-@end html
 
 
 Using LilyPond comes down to encoding music in an input file. After
@@ -1605,15 +1602,15 @@ Then, an individual part is made by putting the following in a file:
 @end example
 The @code{\include} command substitutes the contents of the file at
 this position in the file, so that @code{hornNotes} is defined
-afterwards.  Since the horn is tuned in F, the @code{\transpose}
-command is used. The code @code{\transpose c' f} indicates that the
+afterwards.  The code @code{\transpose f c'} indicates that the
 argument, being @code{\hornNotes}, should be transposed by a fifth
-downwards: the @code{c'} becomes a @code{f}. The transposition can be
-seen in the following output:
+downwards: sounding @code{f} is denoted by notated @code{c'}, which
+corresponds with tuning of a normal French Horn in F. The
+transposition can be seen in the following output:
 
 @lilypond[singleline]
 \score {
-  \notes \transpose c' f  \notes \relative c' {
+  \notes \transpose f c' \notes \relative c {
   \time 2/4
   r4 f8 a cis4 f e d
 }
@@ -1640,7 +1637,7 @@ Prepending the rest and the property setting above, leads to the
 following result:
 
 @lilypond[singleline]
-\score {\notes { \transpose c' f \relative c' { \time 2/4
+\score {\notes { \transpose f c' \relative c { \time 2/4
 \property Score.skipBars = ##t 
         R2*3
     r4 f8 a cis4 f e d } }}

@@ -14,7 +14,10 @@
 	     )
 
 ;;; General settings
-;; debugging evaluator is slower.
+;;; debugging evaluator is slower.  This should
+;;; have a more sensible default.
+
+
 
 (debug-enable 'debug)
 ;(debug-enable 'backtrace)
@@ -33,6 +36,16 @@
   )
 
 (define-public point-and-click #f)
+
+(define-public (lilypond-version)
+  (string-join
+   (map (lambda (x) (if (symbol? x)
+			(symbol->string x)
+			(number->string x)))
+		(ly:version))
+   "."))
+
+
 
 ;; cpp hack to get useful error message
 (define ifdef "First run this through cpp.")

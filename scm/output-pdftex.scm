@@ -93,19 +93,11 @@
   ""
   )
 
-(if (or (equal? (minor-version) "4.1")
-	(equal? (minor-version) "4")
-	(equal? (minor-version) "3.4"))
-    (define (embedded-pdf expr)
-      (let ((ps-string
-	     (with-output-to-string
-	       (lambda () (pdf-output-expression expr (current-output-port))))))
-	(string-append "\\embeddedpdf{" ps-string "}")))
-    (define (embedded-pdf expr)
-      (let
-	  ((os (open-output-string)))
-	(pdf-output-expression expr os)
-	(string-append "\\embeddedpdf{" (get-output-string os) "}"))))
+(define (embedded-pdf expr)
+  (let
+      ((os (open-output-string)))
+    (pdf-output-expression expr os)
+    (string-append "\\embeddedpdf{" (get-output-string os) "}")))
 
 
 (define (comment s)

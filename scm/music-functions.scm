@@ -230,6 +230,7 @@ i.e.  this is not an override"
     m
     ))
 
+
 (define-public (make-nonevent-skip dur)
   (let*  ((m (make-music-by-name 'NonEventSkip)))
     (ly:set-mus-property! m 'duration dur)
@@ -401,6 +402,13 @@ Rest can contain a list of beat groupings
       m
   ))
 
+(define-public (make-lyric-event string duration)
+  (let* ((m (make-music-by-name 'LyricEvent)))
+
+    (ly:set-mus-property! m 'duration duration)
+    (ly:set-mus-property! m 'text string)
+    m))
+
 (define-public (make-span-event type spandir)
   (let* (
 	 (m (make-music-by-name  type))
@@ -416,6 +424,8 @@ Rest can contain a list of beat groupings
 	(ly:set-mus-property! m (caar alist) (cdar alist))
 	(set-mus-properties! m (cdr alist)))
   ))
+
+
 
 (define-public (music-separator? m)
   "Is M a separator?"

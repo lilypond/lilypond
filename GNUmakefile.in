@@ -62,7 +62,7 @@ local-WWW-post:
 	cd $(builddir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -false \
 		> $(outdir)/weblist
-	echo '<META HTTP-EQUIV="refresh" content="1;URL=Documentation/out-www/index.html">' > $(builddir)/index.html
+	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $(builddir)/index.html
 	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(builddir)/index.html
 	cd $(builddir) && ls *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
