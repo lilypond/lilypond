@@ -1,3 +1,7 @@
+2002-07-22  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/abe.ly: 
+	* input/test/transposing.ly: Remove mention of mudela.
 
 2002-07-22  Han-Wen  <hanwen@cs.uu.nl>
 
