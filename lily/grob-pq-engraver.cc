@@ -147,6 +147,7 @@ Grob_pq_engraver::start_translation_timestep ()
 
   if (start_busy != busy)
     daddy_trans_l_->set_property ("busyGrobs", busy);
+
 }
 
 
