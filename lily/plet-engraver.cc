@@ -46,15 +46,11 @@ Plet_engraver::acknowledge_element (Score_element_info i)
 bool
 Plet_engraver::do_try_request (Request* req_l)
 {
-  Musical_req* mus_l = dynamic_cast <Musical_req *> (req_l);
-  if (!mus_l)
-    return false;
-
   /*
     UGH! This is incorrect!
     Beam_req might not reach the Plet_engraver if ordering is wrong!
    */
-  Beam_req* b = dynamic_cast <Beam_req *> (mus_l);
+  Beam_req* b = dynamic_cast <Beam_req *> (req_l);
   if (b)
     {
       if (b->spantype)
@@ -65,7 +61,7 @@ Plet_engraver::do_try_request (Request* req_l)
       return false;
     }
     
-  Plet_req* p = dynamic_cast <Plet_req *> (mus_l);
+  Plet_req* p = dynamic_cast <Plet_req *> (req_l);
   if (!p)
     return false;
 
@@ -73,7 +69,7 @@ Plet_engraver::do_try_request (Request* req_l)
     return false;
 
   Direction d = (!plet_spanner_p_) ? LEFT : RIGHT;
-  if (span_reqs_drul_[d] && !span_reqs_drul_[d]->equal_b (mus_l))
+  if (span_reqs_drul_[d] && !span_reqs_drul_[d]->equal_b (req_l))
     return false;
 
   span_reqs_drul_[d] = p;

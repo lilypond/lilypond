@@ -1,6 +1,5 @@
 Features you cannot find in the doco as working, should be mentioned here.
 
-
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
@@ -11,7 +10,15 @@ grep for TODO and ugh/ugr/urg
 BUGS:
 	* --safe:  disallow backslashes, disallow \include.
 
+	* fix fontsize switching
+
+	* fix rounding stuff in number->string
+
+	* msgfmt -o check?
+
 	* \breathmark TeX macro 
+
+	* configure error if GUILE 1.3 not found
 
 	* catch GUILE errors?
 
