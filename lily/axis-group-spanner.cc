@@ -65,39 +65,36 @@ Axis_group_spanner::do_break_processing()
 	  /* this piece doesn't know where it belongs.
 	     Find out if it was broken, and use the broken remains
 	     */
-	  if (dynamic_cast <Spanner *> (elt)) 
+	  Spanner * sp =dynamic_cast <Spanner *> (elt);
+	  Item *it = dynamic_cast <Item *> (elt) ;	  
+	  if (sp)
 	    {
-	      Spanner * sp = dynamic_cast <Spanner *> (elt);
-		
 	      for (int j =0; j < broken_into_l_arr_.size(); j++) 
 		{
 		  Axis_group_spanner * my_broken_l
-		    = (Axis_group_spanner*)broken_into_l_arr_[j];
+		    = dynamic_cast<Axis_group_spanner*>(broken_into_l_arr_[j]);
 		    
 		  Spanner * broken_span_l 
-		    = sp->find_broken_piece (
-					     ((Score_element*)my_broken_l)->line_l());
+		    = sp->find_broken_piece (dynamic_cast<Score_element*>(my_broken_l)->line_l());
 		    
 		  if (broken_span_l) 
 		    my_broken_l->add_element (broken_span_l);
 		    
 		}
 	    }
-	  else if (dynamic_cast <Item *> (elt) 
-		   && dynamic_cast <Item *> (elt)->breakable_b_ 
-		   && dynamic_cast <Item *> (elt)->break_status_dir () == 0) 
+	  else if (it && it->breakable_b_ && it->break_status_dir () == 0) 
 	    {
 	      // broken items
 	      Direction  j=LEFT;
 	      do 
 		{
-		  Item * my_item = dynamic_cast <Item *> (elt)->broken_to_drul_[j];
+		  Item * my_item = it->broken_to_drul_[j];
 		  Line_of_score * item_line_l = my_item->line_l() ;
 		  if (! item_line_l) 
 		    continue;
 		    
 		  Axis_group_spanner * v
-		    = (Axis_group_spanner*)find_broken_piece (item_line_l);
+		    = dynamic_cast<Axis_group_spanner*>(find_broken_piece (item_line_l));
 		  if (v)
 		    v->add_element (my_item);
 		  else
@@ -118,7 +115,7 @@ Axis_group_spanner::do_break_processing()
 	     Put it in appropriate piece of this spanner
 	     */
 	  Axis_group_spanner * my_broken_l
-	    = (Axis_group_spanner*)find_broken_piece (elt->line_l());
+	    = dynamic_cast<Axis_group_spanner*> (find_broken_piece (elt->line_l()));
 	  my_broken_l->add_element (elt);
 	}
     }

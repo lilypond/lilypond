@@ -48,10 +48,10 @@ Midi_walker::do_start_note (Midi_note* note_p)
   Moment stop_mom = note_p->duration() + ptr ()->audio_column_l_->at_mom ();
   for (int i=0; i < stop_note_queue.size(); i++) 
     {
-      if (stop_note_queue[ i ].val->pitch_i() == note_p->pitch_i ()) 
+      if (stop_note_queue[i].val->pitch_i() == note_p->pitch_i ()) 
 	{
-	  if (stop_note_queue[ i ].key < stop_mom)
-	    stop_note_queue[ i ].ignore_b_ = true;
+	  if (stop_note_queue[i].key < stop_mom)
+	    stop_note_queue[i].ignore_b_ = true;
 	  else {
 	    // skip the stopnote
 	    delete note_p;
@@ -111,9 +111,9 @@ Midi_walker::process()
     return;
   p->channel_i_ = track_l_->number_i_;
   
-  if (p->name() != Midi_note::static_name ())
-    output_event (ptr()->audio_column_l_->at_mom (), p);
+  if (Midi_item *mi = dynamic_cast<Midi_note*>(p))
+    do_start_note (mi);
   else
-    do_start_note ((Midi_note*)p);
+    output_event (ptr()->audio_column_l_->at_mom (), p);
 }
 

@@ -16,20 +16,12 @@
 IMPLEMENT_IS_TYPE_B1(Lyric_performer,Performer);
 ADD_THIS_TRANSLATOR(Lyric_performer);
 
-Lyric_performer::Lyric_performer()
-{
-}
-
-Lyric_performer::~Lyric_performer()
-{
-}
-
 void 
 Lyric_performer::do_print() const
 {
 #ifndef NPRINT
   if (lreq_arr_.size())
-    lreq_arr_[ 0 ]->print();
+    lreq_arr_[0]->print();
 #endif
 }
 
@@ -37,18 +29,18 @@ void
 Lyric_performer::do_process_requests()
 {
   if (lreq_arr_.size() && lreq_arr_[0]->text_str_.length_i())
-    play (new Audio_text (Audio_text::LYRIC, lreq_arr_[ 0 ]->text_str_));
+    play (new Audio_text (Audio_text::LYRIC, lreq_arr_[0]->text_str_));
   lreq_arr_.clear();
 }
 
 bool
 Lyric_performer::do_try_request (Request* req_l)
 {
-  Musical_req* m_l = dynamic_cast <Musical_req *> (req_l);
-  if (!m_l || ! dynamic_cast <Lyric_req *> (m_l)) 
-    return false;
-  lreq_arr_.push (dynamic_cast <Lyric_req *> (m_l));
-
-  return true;
+  if (Lyric_req *lr = dynamic_cast <Lyric_req *> (req_l))
+    {
+      lreq_arr_.push (lr);
+      return true;
+    }
+  return false;
 }
 

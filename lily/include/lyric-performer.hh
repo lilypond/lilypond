@@ -17,17 +17,15 @@
 class Lyric_performer : public Performer {
 public:
   TRANSLATOR_CLONE(Lyric_performer);
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    Lyric_performer();
-    ~Lyric_performer();
+  DECLARE_MY_RUNTIME_TYPEINFO;
 
 protected:
-    void do_print() const;
-    virtual bool do_try_request (Request* req_l);
-    virtual void do_process_requests();
+  void do_print() const;
+  virtual bool do_try_request (Request* req_l);
+  virtual void do_process_requests();
 
 private:
-    Array<Lyric_req*> lreq_arr_;
+  Array<Lyric_req*> lreq_arr_;
 };
 
 #endif // LYRIC_PERFOMER_HH
