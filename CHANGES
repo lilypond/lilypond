@@ -1,3 +1,8 @@
+1.3.152.jcn2
+============
+
+* Some small chord name fixes.
+
 1.3.151.jcn4
 ============
 
@@ -7,6 +12,9 @@
 choke on it (so there are printers that don't use ghostscript?).
 
 * Chord tremolo fixes: shift beams vertically on whole notes.  Center beams on whole notes.  'beam-gap' had been renamed to 'gap', but only for reading.
+
+1.3.152
+=======
 
 1.3.151.uu1
 ===========

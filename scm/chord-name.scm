@@ -47,16 +47,16 @@
 	; Cm iso Cm.no5
 	(((0 . 0) (2 . -1)) . ("m"))
 	; C2 iso C2.no3
-	(((0 . 0) (1 . 0) (4 . 0)) . ("" (super "2")))
+	(((0 . 0) (1 . 0) (4 . 0)) . ("" (super "2") " "))
 	; C4 iso C4.no3
-	(((0 . 0) (3 . 0) (4 . 0)) . ("" (super "4")))
+	(((0 . 0) (3 . 0) (4 . 0)) . ("" (super "4") " " ))
 	;; Cdim iso Cm5-
 	(((0 . 0) (2 . -1) (4 . -1)) . ("dim"))
 	; Co iso Cm5-7-
-        (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("" (super "o")))
+        (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("" (super "o") " "))
 	; Cdim9
-	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1)) . ("dim" (super "9")))
-	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1) (3 . -1)) . ("dim" (super "11")))
+	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1)) . ("dim" (super "9") " "))
+	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1) (3 . -1)) . ("dim" (super "11") " "))
 	)
       chord::names-alist-banter))
 
@@ -456,7 +456,7 @@
 ;Alternate:	 (((0 . 0) (2 . 0) (4 . 1)) . ("+"))
 	 (((0 . 0) (1 . 0) (4 . 0)) . ("2"))
 	 ;; Common seventh chords
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("" (super "o") "7"))
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("" (super "o") " " "7"))
 	 (((0 . 0) (2 . 0) (4 . 0) (6 . 0)) . ("maj7"))
 	 ;; urg! should use (0 . 0 2 . -1) -> "m", and add "7" to that!!
 	 (((0 . 0) (2 . -1) (4 . 0) (6 . -1)) . ("m7"))
@@ -465,7 +465,7 @@
 	 ;jazz: the delta, see jazz-chords.ly
 	 ;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (super ((font-family . math) "N"))
 	 ;; slashed o
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (columns (super (overstrike "o") "/") "7"))
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (columns (super (overstrike "o") "/") " " "7"))
 
 	 (((0 . 0) (2 . 0) (4 . 1) (6 . -1)) . ("aug7"))
 	 (((0 . 0) (2 . 0) (4 . -1) (6 . 0)) . (columns "maj7" ((font-relative-size . -2) ((raise . 0.2) (music (named "accidentals--1")))) "5"))
@@ -625,7 +625,7 @@
 	;; half diminshed chords
 	;; half diminished seventh chord = slashed o
 	;; (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (((raise . 0.8) "/o")))
-        (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (columns (super (overstrike "o") "/") "7")) ; slashed o
+        (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (columns (super (overstrike "o") "/") " " "7")) ; slashed o
 
 	; half diminished seventh chord  with major 9 = slashed o cancelation 9
 	(((0 . 0) (2 . -1) (4 . -1) (6 . -1) (1 . 0)) . (
@@ -827,6 +827,16 @@ If we encounter a chromatically altered step, turn on list-step
       (append
       '(
         (((0 . 0) (2 . -1)) . ("m"))
+
+	;; some fixups -- jcn
+	; major seventh chord = triangle
+	(((0 . 0) (2 . 0) (4 . 0) (6 . 0)) .  (((raise . 0.5)((font-family . math) "N"))))
+	;; (((0 . 0) (2 . 0) (4 . 0) (6 . 0)) .  (((raise . 0.5)((font-family . math) "M"))))
+
+	;; minor major seventh chord = m triangle
+	(((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . (columns ("m") ((raise . 0.5)((font-family . math) "N"))))
+	;; (((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . (columns ("m") ((raise . 0.5)((font-family . math) "M"))))
+	
 	)
-      '()))
-      ;;chord::names-alist-american))
+      ;; '()))
+      chord::names-alist-american))
