@@ -10,9 +10,8 @@
 @itemize
 @item
 The weight of the stafflines is now heavier at smaller staff sizes.
-To match this, the font has been revamped completely for looking: the
-font is now much heavier for smaller sizes, and the note heads are
-more rounded in smaller sizes.
+The font has been modified to match this look: at smaller sizes, the
+font is heavier and the note heads are more rounded.
 
 @item Processing scores is now done while parsing the file. New
 Scheme functions give more flexibility: for example, it is now possible
