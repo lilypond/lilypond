@@ -1,0 +1,668 @@
+COMMENT(-*-text-*-)
+
+DEFINEMACRO(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))\
+    whenhtml(sc(ARG1)))
+
+
+
+COMMENT( This document contains Mudela fragments.  You need at least
+Yodl-1.30.18 to convert this to tex or html.
+
+TODO
+
+in stead <-> instead
+)
+
+htmlbodyopt(bgcolor)(white)
+htmlcommand(<font color=black>)
+
+latexpackage()(a4wide)
+latexlayoutcmds(
+%\usepackage[latin1]{inputenc}
+\input mudela-book
+)
+
+whenlatex(notableofcontents())
+whentexinfo(notableofcontents())
+
+report(Mudela, reference manual)
+      (Han-Wen Nienhuys and Jan Nieuwenhuizen)
+      (nop()PIPETHROUGH(date "+%B %d, %Y")()()nop())
+
+COMMENT(
+
+* The [ ] look weird
+
+* paragraphs have too much space.
+
+)
+
+
+latexcommand(\def\interexample{})
+latexcommand(\def\preexample{\par})
+latexcommand(\def\postexample{\par\medskip})
+latexcommand(\def\file#1{{code(#1)}})
+COMMENT(
+latexcommand(\def\texttt#1{\tt #1})
+latexcommand(\def\textbf#1{\bf #1})
+)
+
+
+bf(This document is not up to date).  All rendered examples of course
+are current, but the rest probably isn't.  Adjusting the tutorial was
+considered more important than writing the reference manual.  We
+apologize for the inconvenience.
+
+
+This document describes the the GNU LilyPond input format, which is an
+effective language for defining music.  We call this language (rather
+arrogantly) The Musical Definition Language or Mudela, for
+short.footnote(If anybody comes up with a better name, we'd gladly
+  take this. Gourlay already uses Musical Description Language,
+  G-Sharp Score Definition Language.  ISO standard 10743 defines a
+  Standard Music Description Language.  We're not being original here.)
+
+The first aim of Mudela is to define a piece of music, being complete
+from both from a musical typesetting, as from a musical performing
+point of view.
+
+The Musical Definition Language (Mudela), has a logical structure,
+making use of identifiers, that allows for flexible input, and
+definition reuse. See the documentation file file(MANIFESTO), included
+with the LilyPond sources for reasons and design considerations.
+
+The below is included for explanatory purposes only (i.e., for a
+complete and up-to-date definition, see file(lily/parser.yy) and
+file(lily/lexer.ll)).
+
+As a related note, you should take a look at the examples and the init
+files, as this document does not cover every aspect of Mudela yet, and
+may be out of date.footnote(Ok, I am being pessimistic here.  This
+just is a disclaimer.  Docs usually are written after the program
+itself.)  This document intends to give an idea of how it works. It is
+not a guide on how to use it.
+
+sect(Files)
+
+The de-facto extension of Mudela is file(.ly). Files may be included by
+entering code(\include) at the start of a line:
+
+verb(
+\include "a_file.ly"
+)
+
+
+sect(Comments)
+
+Line comments are introduced by a
+code(%).
+Block comments are delimited
+by 
+code(%{)
+and
+code(%}).
+They do not nest.
+
+
+sect(Versions)
+
+Occasionally, small changes in syntax across different versions of
+Mudela might give syntax errors. To warn you about possible
+incompatibilities, you can specify the Mudela version for which the
+inputfile was written,
+verb(
+\version "0.0.50";
+)
+
+A Python-script which tries to convert to newer versions
+(file(convert-mudela)) is included in the LilyPond distribution.
+
+sect(Keywords)
+
+Keywords are preceded by a backslash: code(\). They contain
+alphabetic characters only.
+
+
+sect(Nesting characters)
+
+Mudela uses the brace, `code({)' and `code(})' for most hierarchical
+structures.  For chords the code(<) and the code(>) are used as
+nesting braces.
+
+sect(Constants)
+
+verb(
+"I am a string"
+-1.2e3          % a real
+12              % an int
+)
+
+        
+sect(Identifiers)
+
+When assigning identifiers you use
+
+verb(
+string = ...
+)
+
+If you reuse identifiers, then the previous contents will be thrown
+away after the right hand is evaluated, e.g.
+verb(
+bla = \melodic { \bla }
+)
+is legal
+
+When using identifiers they have to be escaped:
+
+verb(
+oboe = \melodic { ... }
+\score{ \melodic { \oboe }}
+)
+
+The left-hand part of the assignment is really a string, so 
+verb(
+"Foo bar 4 2 " = \melodic { .. }
+)
+
+is also a valid assignment (but you would have trouble referencing to it)
+
+
+sect(Hierarchical structures)
+
+The general structure consists of declarations:
+verb(
+IDENTIFIER = \TYPE{
+        <type specific data>
+}
+)
+and instantiations:
+
+verb(
+\TYPE{ <type specific data> }
+)
+
+(Currently, code(\score) is the only type that can be instantiated
+at top level.)
+
+Most instantiations that use an IDENTIFIER are specified as follows:
+
+verb(
+\TYPE{ \IDENTIFIER [...] }
+)
+
+Some exceptions on this rule have been made to prevent inputting
+Mudela becoming tedious
+
+sect(Modes:)
+
+To simplify different aspects of music definition (entering the notes
+and manipulating them) Mudela has a number of different input "modes":
+
+description(
+
+
+dit(Normal mode)
+
+At the start of parsing, Mudela assumes normal mode.
+In Normal mode, a word is looked up in the following order:
+description(
+dit(code(word))    string
+dit(code("string")) string
+dit(code(\word)) keyword, identifier
+)
+In normal mode, a word is assumed to start with an alphabetic
+character, followed by alpha-numeric characters.
+
+dit(Note mode) Note mode is introduced by the keyword
+  code(\melodic).  In Note mode, a word is looked up in the following
+  order:
+description(
+dit(code(word)) notename, string
+dit(code("string")) string
+dit(code(\word)) keyword, identifier
+)
+
+In Note mode a word is considered to have alphabetic characters only,
+so the underscore (_) is invalid.  If you accidently mistype a
+notename, the parser will assume that you are entering a string (and
+it will most likely complain that you should be in code(\lyric) mode to
+do lyrics)
+
+
+dit(Lyric mode) Lyrics mode is introduced by the keyword
+  code(\lyric).  Because of the various control characters that can
+  appear in lyrics, e.g., foreign language accents, the inputting a
+  string containing these has been made very easy.
+
+In Lyrics mode, a word is looked up in the following order:
+description(
+dit(code(word))    string (thus a lyric)
+dit(code("string")) string
+dit(code(\word)) keyword, identifier
+)
+
+In Lyric mode every sequence of non-digit and non-white characters
+starting with an alphabetic character or the _ is considered a word.
+
+verb(
+a&@&@&TSI|{[    % a word
+1THtrhortho     % not a "word"
+Leise DOEXPAND(Fl\)DOEXPAND("u\)ss{}teren meine Sapfe       % 4 words
+_ _ _ _         % 4 words: 4 spaces
+)
+)
+
+These modes are of a lexical nature. Normal and Note mode largely
+resemble each other, save the possibility of entering Reals, 
+meaning of code(_) and the resolution of words
+
+
+
+
+
+Durations are entered as their reciprocal values
+mudela(fragment,verbatim,center)(
+a'1 a'2 a'4 a a'8 a a'16 a'32 a'64
+)
+Notice that you only have to specify the duration when it changes: Lily
+assumes a note has the same duration as the previous one.
+
+Now we can already write a little tune
+mudela(fragment,verbatim,center)(
+c' d' e' c' | c' d' e' c' | e' f' g'2
+)
+As you'll probably have guessed,
+the vertical bar  code(|) may be used to mark
+measures.
+
+In the scale shown above
+we left-out the last c note of the next octave.
+Postfixing the pitch with a quote code(')
+produces a note by one octave higher
+mudela(fragment,verbatim,center)(
+c c' c''
+)
+
+Postfixing the pitch with a comma, code(,)
+produces a note by one octave lower
+mudela(fragment,verbatim,center)(
+a a, a,,
+)
+
+sect(Slurs and Ties)
+
+A tie connects two adjacent note heads
+
+mudela(fragment,verbatim,center)(
+e' ~ e'
+)
+
+Whereas a slur rather connects `chords', 
+and tries to avoid crossing stems
+
+mudela(fragment,verbatim,center)(
+e'( )e'
+)
+
+And of course, such a (legato) slur can span several notes
+mudela(fragment,verbatim,center)(
+c'( d' e' )f'
+)
+
+sect(Beams and Tuplets)
+
+A beam is 
+mudela(fragment,verbatim,center)(
+[a'8 a'] [a'16 a' a' a']
+)
+
+Here's a beamed triplet
+mudela(fragment,verbatim,center)(
+[/3 a'8 a' a']/1
+)
+
+a triplet without a beam
+mudela(fragment,verbatim,center)(
+\[/3 a'4 a'8\]
+)
+
+and a combination
+mudela(fragment,verbatim,center)(
+[/3 a'8 a'16 a'] a'8 \]
+)
+
+Abbreviations
+mudela(fragment,verbatim,center)(
+c'1:16 [:16 e'1 g']
+)
+
+mudela(fragment,verbatim,center)(
+c'4:32 [:16 c'8 d'8]
+)
+
+sect(Notenames)
+
+Lily has predefined sets of notenames
+for various nop(languages)footnote(These 
+are Dutch, English, German, Italian and Swedish.
+Simply include the language specific init file file(language.ly).).
+The default set are the ones we like best are the Dutch notenames.
+
+A sharp is formed by adding code(is)
+mudela(fragment,verbatim,center)(
+cis' dis' eis' fis' gis' ais' bis'
+)
+
+and a flat is formed by adding code(es)
+mudela(fragment,verbatim,center)(
+ces' des' es' fes' ges' as' bes'
+)
+
+With the obvious names for double sharps
+mudela(fragment,verbatim)(
+cisis' disis' eisis' fisis' gisis' aisis' bisis'
+)
+
+and double flats
+mudela(fragment,verbatim)(
+ceses' deses' eses' feses' geses' ases' beses'
+)
+
+
+There are two special `notenames', the rest
+mudela(fragment,verbatim,center)(
+r16 [a' a' a']
+)
+
+and the space
+mudela(fragment,verbatim,center)(
+a'2 s-"diminuendo" | a'
+)
+
+
+sect(Commands)
+
+mudela(fragment,verbatim,center)(
+\clef "bass"; c
+)
+
+and a clef-change
+mudela(fragment,verbatim,center)(
+\clef "treble"; f' e' \clef "alto"; d' c'
+)
+
+mudela(fragment,verbatim,center)(
+\time 3/4; c' g' g' |
+)
+
+mudela(fragment,verbatim,center)(
+\key d;
+g a b cis' d' e' fis' g'
+)
+Note how Mudela allows you to 
+convey a musical message and doesn't force  you to produce a list of typesetting commands.
+If the music has a code(cis), you type a code(cis).
+Depending on the key and context of the note
+Lily will determine what accidentals to typeset.
+
+A reminder accidental can be forced by
+using an exclamation mark code(!)
+on a pitch a reminder accidental
+mudela(fragment,verbatim,center)(
+cis' d' e' cis' | c'! d' e' c' |
+)
+
+mudela(fragment,verbatim)(
+\time 2/4;
+\bar "|:"; c' c' \bar ":|:"; c' c' \bar ":|"; c' c' \bar "|."; 
+)
+
+sect(Chords and Voices)
+
+Here's a simple chord
+mudela(fragment,verbatim,center)(
+<c e g>
+)
+
+here are a few
+mudela(fragment,verbatim,center)(
+<
+        { c'()d'()c' }
+        { e'()f'()e' }
+        { g'()a'()g' }
+>
+)
+
+and similarly voices
+mudela(fragment,verbatim)(
+<
+        { \voiceone c'4 g' c' g' }
+        { \voicetwo c2 g2 }
+>
+)
+
+
+sect(A complete example)
+COMMENT(%label(se:complete))
+
+A Mudela file needs some red tape
+
+mudela(verbatim)(
+\score{
+        \melodic {
+                c' d' e' c' |
+                c' d' e' c' |
+                e' f' g'2 |
+        }
+}
+)
+
+sect(Lyrics)
+
+Lyrics are entered like notes, with pitches substituted
+by text. 
+
+All syllables are entered separately, separated by whitespace 
+verb(
+Twin-4 kle4 twin-4 kle4 ... 
+)
+
+Two syllables or words that compose a single
+duration entry are bound together using an underscore 
+verb(
+He_could4 not4
+)
+
+
+COMMENT(
+URG
+                        Fr\`e-4 re Ja- que
+                        Fr\`e- re Ja- que
+)
+
+mudela(verbatim,center)(
+\score{
+        < 
+                \melodic  \transpose c''  {
+                        c d e c | c d e c |
+                        e f g'2 | e'4 f g'2
+                        \bar "|.";
+                }
+                \type Lyrics \lyric{ 
+                        DOEXPAND(Fr\)`e-4 re Ja- que
+                        DOEXPAND(Fr\)`e- re Ja- que
+                        Dor- mez vous?2
+                        Dor-4 mez vous?2
+                }
+        >
+}
+)
+
+sect(Composition: forming bigger structures)
+label(sec:grammar)
+
+The computer savy user may be interested in a more formal
+specification.  We can capture what have learned about forming
+sentences in Mudela in a context-free grammar.
+
+latexcommand(\smallskip)
+
+table(2)(lll)(
+        row(cell(em(Music))cell(: em(Note)))
+        row(cell()cell(code(|) em(Rest)))
+        row(cell()cell(code(|) code({) em(MusicList) code(})))
+        row(cell()cell(code(|) code(<) em(MusicList) code(>)))
+        row(cell()cell(code(|) em(Command)))
+        row(cell()cell(code(|) code(\type) em(string) code(=) em(string)  em(Music)))
+        row(cell()cell(;))
+        row(cell(em(MusicList))cell(: em(empty)))
+        row(cell()cell(code(|)  em(MusicList)  em(Music)))
+	row(cell()cell(;))
+)
+
+latexcommand(\smallskip)
+
+
+
+
+
+In mathematics you can form expressions by combining expressions,
+which are ultimately some kind of atom or terminal symbol.  The same
+goes for Mudela: there are some basic building blocks, and by
+combining those you create complex music.
+
+You can combine music in three ways:
+itemize(
+it()If you enclose a sequence of music-elements in braces ( code({)
+    and code(}) ), then you form another kind of music called
+sequential music
+    with those pieces.
+  The duration of sequential composition is the sum of the durations of its elements
+  verb(
+      { c c g g a a g2 }      % twinkle twinkle
+      { { c c g g} { a a g2 } }
+  )
+it()You can stack music by enclosing a sequence of music elements
+    with code(<) and code(>). This is called simultaneous music.  
+    The duration of a simultaneous composition is the union of the durations 
+    of its elements Example:
+    verb(
+        <a4 {cis8 cis8} e'4>      % a-major chord
+    )
+it()You can form music by transposing music:
+    verb(
+    \transpose  
+        d       % from c to the d that's almost one octave down
+                { e4 f4 }       % the horizontal music
+)
+it()verb(\type)
+it()verb(\property)
+it()verb(\translator)
+it()verb(\relative)
+)
+
+Of course you can also combine these three mechanisms.
+verb(
+{ c <c e> <c e g> <c e g \transpose d' dis > }  % 4 increasing chords
+)
+
+
+sect(Durations)
+
+A duration always starts with the duration type (1,2,4 etc), and then
+any optional multipliers/dots.  `Gregrorian' durations can be entered
+as follows
+verb(
+c'\breve
+gis'\longa
+)
+
+
+        
+sect(Time signatures/groupings)
+
+A time signature specification has this form:
+verb(
+\time 3/4 ;
+)
+
+Rhythmic grouping is  a concept closely associated with this. For
+example, in a 5/8 time signature, the counts are grouped 2+3. In Mudela this is
+entered as
+verb(
+\grouping  8*2 8*3 ;
+)
+
+You can start the piece with a partial measure, the command takes a
+duration as an argument
+verb(
+\partial 16*3;
+)
+
+Make the piece start with a upstep 
+lasting 1 3/4 quarter notes.
+
+These commands  constitute `Music', and have a duration of 0.
+
+
+sect(Properties)
+
+By default the same accidentals are valid for all octaves, but
+  this can be changed with the property code(specialaccidentals).
+
+
+The identifier code(\specialkey) sets the property for the Staff.  A
+key with two flats in one octave and three
+  sharps in the next can be declared with verb(\specialkey
+\accidentals bes es fis' cis' gis';)
+
+sect(Music fragments)
+label(tutorial:music-fragments)
+
+Sometimes you only need to print a small fragment of music, perhaps 
+something much like one of the examples in this document.  Back in
+section ref(sec:running-lilypond) we told you that the music you
+enter should be encapsulated in something like:
+verb(
+\score<
+        \melodic\relative c{
+		d
+	}
+	\paper{ }
+	\midi{ }
+>
+)
+where the only interesting information is this particular example is verb(
+	d
+)
+The rest of the above example was already nicknamed `red tape'.
+You may easily get bored if you have to provide this same red tape 
+for every fragmenty you nop(try)footnote(Of course, in most cases your
+favourite text editor (TM)
+will help you out.).
+
+Luckily there's a trick around this, and it's called file(.fly) files.
+If you use the extension file(.fly) for Mudela file file(foo),
+LilyPond will embed your file(foo.fly) nop(in)footnote(Or something very 
+similar.  If you want to know exactly, see file(init/init.fly)):
+verb(
+\score<
+        \melodic\relative c{
+		<<foo.ly>>
+	}
+	\paper{ }
+	\midi{ }
+)
+
+Here's how it works.  If you run LilyPond on your file file(bar.ly), you
+may notice that she starts-off by reading quite a number of files before
+she actually reaches your file(bar.ly).  There's no magic going on, Lily
+by default reads an initialisation file (file(init/init.ly)).  In the
+initialisation process a lot of things are defined that you'll need for 
+normal operation, such as notenames and various other mudela shortcuts,
+engraver and perforer definitions, font sizes, musical dimensions and 
+paper sizes.  When you use the extension file(.fly), Lily just starts
+reading another initialisation file (file(init/init.fly)), that includes the 
+red tape for you too.
+

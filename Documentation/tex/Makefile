@@ -29,8 +29,9 @@ default:
 GENHTMLS = engraving colorado vocabulary computer-notation
 OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 
-$(outdir)/mudela.dvi: $(outdir)/vocabulary.tex $(outdir)/engraving.bib
-$(outdir)/mudela.html: $(OUTGENHTMLS)
+
+$(outdir)/glossary.dvi: $(outdir)/vocabulary.tex 
+$(outdir)/glossary.html: $(OUTGENHTMLS)
 
 local-WWW: $(HTML_FILES) $(OUTDOC_FILES:.doc=.ps.gz) $(OUTYO_FILES:.yo=.latex) $(OUTYO_FILES:.yo=.ps.gz) $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html)) $(datafiles)
 	$(PYTHON) $(step-bindir)/ls-latex.py --package=$(topdir) --title 'LaTeX documents about LilyPond' \
