@@ -48,28 +48,60 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
   TODO: add optional factor argument.
  */
 LY_DEFINE (make_moment,"ly:make-moment", 2,0,0, (SCM n, SCM d),
-	   "create the rational number with main timing @var{n}/@var{d}. 
-
-
-Moment is a point in musical time. It is consists of a pair of
-rationals (@var{m},@var{g}), where @var{m} is the timing for the  main
-notes, and @var{g} the timing for  grace notes. In absence of grace
-notes, @var{g} is zero.
-")
+	   "create the rational number with main timing @var{n}/@var{d}. \n"
+"\n"
+"\n"
+"Moment is a point in musical time. It is consists of a pair of\n"
+"rationals (@var{m},@var{g}), where @var{m} is the timing for the  main\n"
+"notes, and @var{g} the timing for  grace notes. In absence of grace\n"
+"notes, @var{g} is zero.\n"
+)
 {
-  Moment m (Rational (1,1));
+  SCM_ASSERT_TYPE(SCM_INUMP (n), n, SCM_ARG1, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE(SCM_INUMP (d), d, SCM_ARG2, __FUNCTION__, "integer");
 
-  if (SCM_INUMP (n) && SCM_INUMP (d))
-    {
-      m =  Moment (Rational (gh_scm2int (n), gh_scm2int (d)));
-    }
-  else
-    {
-      ::error ("make-moment takes two integer arguments. Using 1/1");
-    }
-
-  return m.smobbed_copy ();
+  return Moment (Rational (gh_scm2int (n), gh_scm2int (d))).smobbed_copy();
 }
+
+LY_DEFINE (add_moment,"ly:add-moment", 2,0,0, (SCM a, SCM b),
+	   "Add two moments."
+)
+{
+  Moment * ma = unsmob_moment (a);
+  Moment * mb = unsmob_moment (b);
+  SCM_ASSERT_TYPE (ma, a, SCM_ARG1, __FUNCTION__, "moment");
+  SCM_ASSERT_TYPE (mb, b, SCM_ARG2, __FUNCTION__, "moment");
+
+  return (*ma + *mb).smobbed_copy();
+}
+
+
+LY_DEFINE (mul_moment,"ly:mul-moment", 2,0,0, (SCM a, SCM b),
+	   "Multiply two moments."
+)
+{
+  Moment * ma = unsmob_moment (a);
+  Moment * mb = unsmob_moment (b);
+  SCM_ASSERT_TYPE (ma, a, SCM_ARG1, __FUNCTION__, "moment");
+  SCM_ASSERT_TYPE (mb, b, SCM_ARG2, __FUNCTION__, "moment");
+
+  return (*ma *  *mb).smobbed_copy();
+}
+
+
+
+LY_DEFINE (div_moment,"ly:div-moment", 2,0,0, (SCM a, SCM b),
+	   "Divide two moments."
+)
+{
+  Moment * ma = unsmob_moment (a);
+  Moment * mb = unsmob_moment (b);
+  SCM_ASSERT_TYPE (ma, a, SCM_ARG1, __FUNCTION__, "moment");
+  SCM_ASSERT_TYPE (mb, b, SCM_ARG2, __FUNCTION__, "moment");
+
+  return (*ma /  *mb).smobbed_copy();
+}
+
 
 SCM
 Moment::equal_p (SCM a, SCM b)

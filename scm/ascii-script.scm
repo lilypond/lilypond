@@ -85,6 +85,8 @@
     sheet))
 
 
+(define (dot x y radius) "") ;; TODO
+
 (define (beam width slope thick)
   (string-append
    (func "set-line-char" "#")
@@ -127,6 +129,8 @@
      (func "rmove-to" 0 (+ height 1))
      (func "put" "/")
      )))
+
+(define (polygon points blotdiameter) "") ;; TODO
 
 (define (char i)
   (func "char" i))

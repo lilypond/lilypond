@@ -309,7 +309,7 @@ def punctum_char (expr verbose_name, internal_name, mudela_name,
 		2beta# = ht# * b_h;
 		a# = beta# * a_b;
 		wd# = 2a# / a_w;
-		set_char_box(0.50wd#, 0.10wd#, 0.5ht#, 0);
+		set_char_box(0.00wd#, 0.40wd#, 0.5ht#, 0);
 		black_notehead_width# := wd#;
 
 		% direction

@@ -184,6 +184,8 @@
 (define (roundfilledbox x y dx dy w h b)
   (sketch-filled-rectangle w 0 0 h x y))
 
+(define (polygon points blotdiameter) "") ;; TODO
+
 (define (select-font name-mag-pair)
   ;; name-mag-pair: (quote ("feta20" . 0.569055118110236))"feta20"(quote ("feta20" . 0.569055118110236))
   (let ((f (assoc (caadr name-mag-pair) font-alist)))

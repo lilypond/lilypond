@@ -18,8 +18,10 @@
 
 struct Lookup
 {
+  static Molecule dot (Offset p, Real radius);
   static Molecule bracket (Axis a, Interval iv, Real thick, Real protude);
   static Molecule accordion (SCM arg, Real interline_f, Font_metric*fm);
+  static Molecule round_filled_polygon (Array<Offset> points, Real blotdiameter);
   static Molecule frame (Box b, Real thick);
   static Molecule slur (Bezier controls, Real cthick, Real thick);
   static Molecule bezier_sandwich (Bezier top_curve, Bezier bottom_curve);

@@ -23,6 +23,21 @@
 #include "molecule.hh"
 #include "lookup.hh"
 #include "font-metric.hh"
+#include "interval.hh"
+
+Molecule
+Lookup::dot (Offset p, Real radius)
+{
+  SCM at = (scm_list_n (ly_symbol2scm ("dot"),
+			gh_double2scm (p[X_AXIS]),
+			gh_double2scm (p[Y_AXIS]),
+			gh_double2scm (radius),
+			SCM_UNDEFINED));
+  Box box;
+  box.add_point (p - Offset (radius, radius));
+  box.add_point (p + Offset (radius, radius));
+  return Molecule (box, at);
+}
 
 Molecule 
 Lookup::beam (Real slope, Real width, Real thick) 
@@ -158,18 +173,149 @@ Lookup::roundfilledbox (Box b, Real blotdiameter)
   return Molecule (b,at);
 }
 
+/*
+ * Create Molecule that represents a filled polygon with round edges.
+ *
+ * LIMITATIONS:
+ *
+ * (a) Only outer (convex) edges are rounded.
+ *
+ * (b) This algorithm works as expected only for polygons whose edges
+ * do not intersect.  For example, the polygon ((0, 0), (q, 0), (0,
+ * q), (q, q)) has an intersection at point (q/2, q/2) and therefore
+ * will give a strange result.  Even non-adjacent edges that just
+ * touch each other will in general not work as expected for non-null
+ * blotdiameter.
+ *
+ * (c) Given a polygon ((x0, y0), (x1, y1), ... , (x(n-1), y(n-1))),
+ * if there is a natural number k such that blotdiameter is greater
+ * than the maximum of { | (x(k mod n), y(k mod n)) - (x((k+1) mod n),
+ * y((k+1) mod n)) |, | (x(k mod n), y(k mod n)) - (x((k+2) mod n),
+ * y((k+2) mod n)) |, | (x((k+1) mod n), y((k+1) mod n)) - (x((k+2)
+ * mod n), y((k+2) mod n)) | }, then the outline of the rounded
+ * polygon will exceed the outline of the core polygon.  In other
+ * words: Do not draw rounded polygons that have a leg smaller or
+ * thinner than blotdiameter (or set blotdiameter to a sufficiently
+ * small value -- maybe even 0.0)!
+ *
+ * NOTE: Limitations (b) and (c) arise from the fact that round edges
+ * are made by moulding sharp edges to round ones rather than adding
+ * to a core filled polygon.  For details of these two different
+ * approaches, see the thread upon the ledger lines patch that started
+ * on March 25, 2002 on the devel mailing list.  The below version of
+ * round_filled_polygon() sticks to the moulding model, which the
+ * majority of the list participants finally voted for.  This,
+ * however, results in the above limitations and a much increased
+ * complexity of the algorithm, since it has to compute a shrinked
+ * polygon -- which is not trivial define precisely and unambigously.
+ * With the other approach, one simply could move a circle of size
+ * blotdiameter along all edges of the polygon (which is what the
+ * postscript routine in the backend effectively does, but on the
+ * shrinked polygon). --jr
+ */
+Molecule
+Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
+{
+  /* TODO: Maybe print a warning if one of the above limitations
+     applies to the given polygon.  However, this is quite complicated
+     to check. */
+
+  /* remove consecutive duplicate points */
+  const Real epsilon = 0.01;
+  for (int i = 0; i < points.size ();)
+    {
+      int next_i = (i + 1) % points.size ();
+      Real d = (points[i] - points[next_i]).length ();
+      if (d < epsilon)
+	points.del (next_i);
+      else
+	i++;
+    }
+
+  /* special cases: degenerated polygons */
+  if (points.size () == 0)
+    return Molecule ();
+  if (points.size () == 1)
+    return dot (points[0], 0.5 * blotdiameter);
+  if (points.size () == 2)
+    return line (blotdiameter, points[0], points[1]);
+
+  /* shrink polygon in size by 0.5 * blotdiameter */
+  Array<Offset> shrinked_points;
+  shrinked_points.set_size (points.size ());
+  bool ccw = 1; // true, if three adjacent points are counterclockwise ordered
+  for (int i = 0; i < points.size (); i++)
+    {
+      int i0 = i;
+      int i1 = (i + 1) % points.size ();
+      int i2 = (i + 2) % points.size ();
+      Offset p0 = points[i0];
+      Offset p1 = points[i1];
+      Offset p2 = points[i2];
+      Offset p10 = p0 - p1;
+      Offset p12 = p2 - p1;
+      if (p10.length () != 0.0)
+	{ // recompute ccw
+	  Real phi = p10.arg ();
+	  // rotate (p2 - p0) by (-phi)
+	  Offset q = complex_multiply (p2 - p0, complex_exp (Offset (1.0, -phi)));
+
+	  if (q[Y_AXIS] > 0)
+	    ccw = 1;
+	  else if (q[Y_AXIS] < 0)
+	    ccw = 0;
+	  else {} // keep ccw unchanged
+	}
+      else {} // keep ccw unchanged
+      Offset p10n = (1.0 / p10.length ()) * p10; // normalize length to 1.0
+      Offset p12n = (1.0 / p12.length ()) * p12;
+      Offset p13n = 0.5 * (p10n + p12n);
+      Offset p14n = 0.5 * (p10n - p12n);
+      Offset p13;
+      Real d = p13n.length () * p14n.length (); // distance p3n to line(p1..p0)
+      if (d < epsilon)
+	// special case: p0, p1, p2 are on a single line => build
+	// vector orthogonal to (p2-p0) of length 0.5 blotdiameter
+	{
+	  p13[X_AXIS] = p10[Y_AXIS];
+	  p13[Y_AXIS] = -p10[X_AXIS];
+	  p13 = (0.5 * blotdiameter / p13.length ()) * p13;
+	}
+      else
+	p13 = (0.5 * blotdiameter / d) * p13n;
+      shrinked_points[i1] = p1 + ((ccw) ? p13 : -p13);
+    }
+
+  /* build scm expression and bounding box */
+  SCM shrinked_points_scm = SCM_EOL;
+  Box box;
+  for (int i = 0; i < shrinked_points.size (); i++)
+    {
+      SCM x = gh_double2scm (shrinked_points[i][X_AXIS]);
+      SCM y = gh_double2scm (shrinked_points[i][Y_AXIS]);
+      shrinked_points_scm = gh_cons (x, gh_cons (y, shrinked_points_scm));
+      box.add_point (points[i]);
+    }
+  SCM polygon_scm = scm_list_n (ly_symbol2scm ("polygon"),
+				ly_quote_scm (ly_quote_scm (shrinked_points_scm)),
+				gh_double2scm (blotdiameter),
+				SCM_UNDEFINED);
+
+  Molecule polygon = Molecule (box, polygon_scm);
+  shrinked_points.clear ();
+  return polygon;
+}
+
 Molecule
 Lookup::frame (Box b, Real thick)
 {
   Molecule m;
   Direction d = LEFT;
-  Axis a = X_AXIS;
-  while (a < NO_AXES)
+  for (Axis a = X_AXIS; a < NO_AXES; a = Axis (a + 1))
     {
+      Axis o = Axis ((a+1)%NO_AXES);
       do
 	{
-	  Axis o = Axis ((a+1)%NO_AXES);
-
 	  Box edges;
 	  edges[a] = b[a][d] + 0.5 * thick * Interval (-1, 1);
 	  edges[o][DOWN] = b[o][DOWN] - thick/2;
@@ -555,8 +701,8 @@ Molecule
 Lookup::triangle (Interval iv, Real thick, Real protude)
 {
   Box b ;
-  b[X_AXIS] =iv;
-  b[Y_AXIS] = Interval (0, protude);
+  b[X_AXIS] = iv;
+  b[Y_AXIS] = Interval (0 <? protude , 0 >? protude);
 
   SCM s = scm_list_n (ly_symbol2scm ("symmetric-x-triangle"),
 		      gh_double2scm (thick),

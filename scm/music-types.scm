@@ -95,6 +95,13 @@ c8-[ c c-] c8")
 	(internal-class-name . "Event")
 	(types . (general-music event busy-playing-event))
 	)) 
+    (ClusterEvent
+     . (
+	(description .  "Begins or ends a cluster.")
+
+	(internal-class-name . "Event")
+	(types . (general-music cluster-event event))
+	)) 
     (ContextSpeccedMusic
      . (
 	(description .  "")
@@ -167,6 +174,14 @@ c8-[ c c-] c8")
 	(internal-class-name . "Key_change_req")
 	(types . (general-music key-change-event event))
 	)) 
+    (LigatureEvent
+     . (
+	(description .  "")
+
+	(internal-class-name . "Event")
+	(span-type . ligature)
+	(types . (general-music span-event ligature-event event))
+	))
     (LyricCombineMusic
      . (
 	(description .  "")
@@ -183,14 +198,6 @@ c8-[ c c-] c8")
 
 	(internal-class-name . "Event")
 	(types . (general-music rhythmic-event lyric-event event))
-	))
-    (LigatureEvent
-     . (
-	(description .  "")
-
-	(internal-class-name . "Event")
-	(span-type . ligature)
-	(types . (general-music event span-event ligature-event))
 	))
     (MarkEvent
      . (

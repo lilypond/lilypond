@@ -77,7 +77,7 @@
 
 (define (symmetric-x-triangle thick w h)
   (string-append
-   (numbers->string (list thick w h ))
+   (numbers->string (list h w thick))
    " draw_symmetric_x_triangle"))
 
 
@@ -189,6 +189,14 @@
    " "
    (ly:number->string y2)
    " lineto stroke"))
+
+(define (polygon points blotdiameter)
+  (string-append
+   " "
+   (numbers->string points)
+   (ly:number->string (/ (length points) 2))
+   (ly:number->string blotdiameter)
+   " draw_polygon"))
 
 (define (end-output)
   "\nend-lilypond-output\n")

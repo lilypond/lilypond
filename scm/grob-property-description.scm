@@ -384,6 +384,7 @@ reference point.
 
 TODO: revise typing.")
 (grob-property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis.")
+(grob-property-description 'shape symbol? "shape of cluster segments.  Valid values include 'leftsided-stairs', 'rightsided-stairs', 'centered-stairs', and 'ramp'.")
 (grob-property-description 'shorten number? "the amount of space that a stem should be shortened (DOCME!)")
 (grob-property-description 'shorten-pair number-pair? "the length on each side to shorten a text-spanner, for example a pedal bracket")
 (grob-property-description 'common-shortest-duration ly:moment?
@@ -509,9 +510,6 @@ Like @code{bracket-visibility}, but for the number.")
 (grob-property-description 'tie ly:grob? "") 
 (grob-property-description 'type symbol? " 
 
-one of: line, dashed-line, trill, dotted-line or zigzag.
-
-[FIXME: type is too generic for this doc, move doco to interface] 
 ")
 
 (grob-property-description 'break-visibility procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY).
@@ -567,6 +565,13 @@ columns.
 (grob-property-description 'cause scheme? "Any kind of causation objects (i.e. music, or perhaps translator) that was the cause for this grob.  ")
 (grob-property-description 'font ly:font-metric? "Cached font metric object")
 (grob-property-description 'break-alignment-done boolean? "mark flag to signal we've done alignment already.")
+(grob-property-description
+ 'staff-padding number?
+ "Maintain this much space to the staff.  It's effect is similar to
+the padding mechanism, but this will keep objects above and below the
+staff in a row more often, when the heights of the notes vary.
+")
+
 (grob-property-description 'staff-symbol ly:grob? "the staff symbol grob that we're in.")
 (grob-property-description 'collision-done boolean? "")
 (grob-property-description 'rest ly:grob? "the staff symbol grob that we're in.")

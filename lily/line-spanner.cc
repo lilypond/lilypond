@@ -294,8 +294,10 @@ Line_spanner::brew_molecule (SCM smob)
 
 
 ADD_INTERFACE (Line_spanner, "line-spanner-interface",
-  "Generic line drawn between two objects, eg. for use with glissandi.
-gap is measured in staff-spaces.   ",
+  "Generic line drawn between two objects, eg. for use with glissandi.\n"
+"gap is measured in staff-spaces.\n"
+"The property 'type is one of: line, dashed-line, trill, dotted-line or zigzag.\n"
+"\n",
   "gap dash-period dash-length zigzag-width zigzag-length thickness type");
 
 

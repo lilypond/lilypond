@@ -41,6 +41,7 @@ class Break_algorithm;
 class Change_iterator;
 class Change_translator;
 class Chord_tremolo_iterator;
+class Cluster_engraver;
 class Column_x_positions;
 class Context_specced_music;
 class Engraver;

@@ -171,7 +171,7 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
       if (Ligature_head::has_interface (info.grob_))
 	{
 	  info.grob_->set_grob_property ("ligature-primitive-callback",
-					   brew_ligature_primitive_proc);
+					 brew_ligature_primitive_proc);
 	}
       else if (Rest::has_interface (info.grob_))
 	{
