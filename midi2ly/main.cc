@@ -30,6 +30,7 @@ String filename_str_g;
 Mudela_score* mudela_score_l_g = 0;
 
 bool no_timestamps_b_g = false;
+bool no_rests_b_g = false;
 
 Sources source;
 
@@ -92,10 +93,11 @@ Long_option_init long_option_init_a[] =
   {0, "debug", 'd', _i ("enable debugging output")},
   {0, "help", 'h', _i ("this help")},
   {_i ("ACC[:MINOR]"), "key", 'k', _i ("set key: ACC +sharps/-flats; :1 minor")},
-  {0, "no-silly", 'n', _i ("don't output tuplets or double dots, smallest is 32")},
+  {0, "no-silly", 'n', _i ("don't output tuplets, double dots or rests, smallest is 32")},
   {_i ("FILE"), "output", 'o', _i ("set FILE as default output")},
   {0, "no-tuplets", 'p', _i ("don't output tuplets")},
   {0, "quiet", 'q', _i ("be quiet")},
+  {0, "no-rests", 'r', _i ("don't output rests or skips")},
   {_i ("DUR"), "smallest", 's', _i ("set smallest duration")},
   {0, "no-timestamps", 'T', _i ("don't timestamp the output")},
   {0, "version", 'V', _i ("print version number")},
@@ -168,17 +170,21 @@ main (int argc_i, char* argv_sz_a[])
 	}
       case 'n':
 	Duration_convert::no_double_dots_b_s = true;
-	Duration_convert::no_triplets_b_s = true;
+	Duration_convert::no_tuplets_b_s = true;
 	Duration_convert::no_smaller_than_i_s = 5;
+	no_rests_b_g = true;
 	break;
       case 'o':
 	output_str = getopt_long.optional_argument_ch_C_;
 	break;
       case 'p':
-	Duration_convert::no_triplets_b_s = true;
+	Duration_convert::no_tuplets_b_s = true;
 	break;
       case 'q':
 	level_ver = QUIET_ver;
+	break;
+      case 'r':
+	no_rests_b_g = true;
 	break;
       case 'T':
 	no_timestamps_b_g = true;
@@ -223,6 +229,19 @@ main (int argc_i, char* argv_sz_a[])
   path.add ("");
   source.set_binary (true);
   source.set_path (&path);
+
+  LOGOUT (NORMAL_ver) << "\n";
+  LOGOUT (NORMAL_ver) << _f ("no_double_dots: %d\n", 
+    Duration_convert::no_double_dots_b_s);
+  LOGOUT (NORMAL_ver) << _f ("no_rests: %d\n", 
+    no_rests_b_g);
+  LOGOUT (NORMAL_ver) << _f ("no_quantify_b_s: %d\n", 
+    Duration_convert::no_quantify_b_s);
+  LOGOUT (NORMAL_ver) << _f ("no_smaller_than: %d (1/%d)\n", 
+    Duration_convert::no_smaller_than_i_s,
+    Duration_convert::type2_i (Duration_convert::no_smaller_than_i_s));
+  LOGOUT (NORMAL_ver) << _f ("no_tuplets: %d\n", 
+    Duration_convert::no_tuplets_b_s);
 
   char const* arg_sz = 0;
   while ( (arg_sz = getopt_long.get_next_arg ()))

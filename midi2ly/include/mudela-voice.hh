@@ -18,6 +18,7 @@ public:
   void output (Mudela_stream& mudela_stream_r);
   String get_clef () const;
   Mudela_item * last_item_l_;
+  Mudela_note * last_note_l_;
 private:
   Mudela_staff* mudela_staff_l_;
   Cons_list<Mudela_item> mudela_item_l_list_;
