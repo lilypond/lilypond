@@ -2633,10 +2633,10 @@ functions. The system is based on the general MIDI drum-pitches.
 Include @file{drumpitch-init.ly} to use drum pitches. This file
 defines the pitches from the Scheme variable @code{drum-pitch-names},
 the definition of which can be read in @file{scm/drums.scm}.  Each
-piece of percussion has a full name and an abbreviated name, and both
+piece of percussion has a full name and an abbreviated name, and either
 the full name or the abbreviation may be used in input files.
 
-to typeset the music on a staff apply the function @code{drums->paper}
+To typeset the music on a staff apply the function @code{drums->paper}
 to the percussion music. This function takes a list of percussion
 instrument names, notehead scripts and staff positions (that is:
 pitches relative to the C-clef) and transforms the input
@@ -2851,14 +2851,15 @@ To use a modified existing list, one can prepend modifications to the
 the existing list:
 
 @example
-#(set-drum-kit mydrums (append `(
+#(set-drum-kit 'mydrums (append `(
    (bassdrum default #f ,(ly:make-pitch -1 2 0))
    (lowtom   diamond #f ,(ly:make-pitch -1 6 0))
 ) (get-drum-kit 'drums)))
 @end example
 
-The file @file{drumpitch-init.ly} replaces the normal pitch names, so
-you have to reinclude @file{nederlands.ly} after the
+You can easily combine percussion notation with pitched notation.
+Indeed, the file @file{drumpitch-init.ly} replaces the normal pitch
+names, so you will have to reinclude @file{nederlands.ly} after the
 drum-pattern-definitions to enter normal notes:
 @c
 @lilypond[singleline,verbatim]

@@ -1,3 +1,11 @@
+2003-07-27  Rune Zedeler  <rz@daimi.au.dk>
+
+	* Documentation/user/refman.itely (Percussion): Small
+	clarifications and fixes.
+
+	* scm/drums.scm: Bugfix: Use string instead of symbol when naming
+	threads. This fixes different heads playing simultainously.
+
 2003-07-27  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/user/{ many }: increase readability (read through 
