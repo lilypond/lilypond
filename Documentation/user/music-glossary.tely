@@ -208,7 +208,7 @@ accidental.
 @lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
 \context Staff \relative c'' {
   gis1 s s gisis s s ges s s geses s s g!
 }
@@ -680,7 +680,7 @@ lines.
 \set Score.automaticBars = ##f
 \override Score.Clef   #'full-size-change = ##t
 %\override Score.LyricText   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
 \context Staff \relative c' {
   \clef soprano c1 s s
   \clef mezzosoprano c s s
@@ -773,7 +773,7 @@ chords are denoted open chords
 @lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
 \context Staff \relative c'' {
   <g b d>1 s s
   <g bes d> s s
@@ -1187,7 +1187,7 @@ also to some extent in newer jazz music.
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
   \context Staff \relative c' {
     c1 d
     \override TextScript   #'padding = #-4
@@ -1202,7 +1202,7 @@ also to some extent in newer jazz music.
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
   \context Staff \relative c' {
     d1
     \override TextScript   #'padding = #-4
@@ -1217,7 +1217,7 @@ also to some extent in newer jazz music.
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
   \relative c' {
     \override TextScript   #'padding = #-4
     e1^"~~ S" f g a b^"~~ S" c d e
@@ -1231,7 +1231,7 @@ also to some extent in newer jazz music.
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
   \relative c' {
     f1 g a
     \override TextScript   #'padding = #-4
@@ -1246,7 +1246,7 @@ also to some extent in newer jazz music.
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
   \relative c'' {
     g1 a
     \override TextScript   #'padding = #-4
@@ -1260,7 +1260,7 @@ also to some extent in newer jazz music.
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
   \relative c'' {
     a1
     \override TextScript   #'padding = #-4
@@ -1280,7 +1280,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
   \relative c' {
     c1 d
     \override TextScript   #'padding = #-4
@@ -1295,7 +1295,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
   \relative c'' {
     a1
     \override TextScript   #'padding = #-4
@@ -1310,7 +1310,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
   \relative c'' {
     a1
     \override TextScript   #'padding = #-4
@@ -1325,7 +1325,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
   \relative c'' {
     a1
     \override TextScript   #'padding = #-4
@@ -1646,7 +1646,7 @@ but equal pitch.
 @lilypond[fragment,notime]
 \set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
 \context Staff \relative c'' {
   gis1 s s as s s <des g,!> s s <cis g!> s s
 }
@@ -1714,7 +1714,7 @@ symbol indicates playing an octave lower (for example on double bass
 \set Score.automaticBars = ##f
 \override Staff.Clef   #'full-size-change = ##t
 %\override Score.LyricText   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
 \relative c {
   \clef varbaritone
   f1
@@ -1882,7 +1882,7 @@ variants of the base chords.
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
 \context Voice \relative c'' {
   <g e c >1 < a f d > < b g e >
   <c a f > < d b g > < e c a > < f d b > }
@@ -1919,7 +1919,7 @@ scores are notated like that).
 \set Score.automaticBars = ##f
 \override Staff.Clef   #'full-size-change = ##t
 %\override Score.LyricText   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
 \relative c'' {
   \clef french
   g1 s s
@@ -2038,7 +2038,7 @@ section.  @aref{functional harmony}.
     < c a f > < b g d > < c g e >2
   }
 %  %\override Score.LyricText   #'font-style = #'large
-  \addlyrics
+  \oldaddlyrics
   \context Staff = SB \relative c {
     \clef bass
     \partial 4 c4 | f, g c2
@@ -2126,7 +2126,7 @@ of such two forms an octave.
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
 \context Voice \relative c'' {
   < g g >1 s
   < g as >^"minor" s
@@ -2147,7 +2147,7 @@ of such two forms an octave.
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
 \context Staff \relative c'' {
   < g c >^"perfect" s
   < g cis >^"augm"  s
@@ -2168,7 +2168,7 @@ of such two forms an octave.
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
-\addlyrics
+\oldaddlyrics
 \context Staff \relative c'' {
   < gis f'! >1^"dimin"  s
   < g! f'! >^"minor"  s
@@ -2306,7 +2306,7 @@ unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato}, and
 
 @lilypond[fragment,notime]
 \set Score.automaticBars = ##f
-\addlyrics
+\oldaddlyrics
 \context Staff \relative c'' {
   c4-( d e-) \bar "||"
   c4-- d-- e-- \bar "||"
@@ -3275,7 +3275,7 @@ sub@-do@-mi@-nant (S) and V = dominant (D).
 \set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\set minVerticalAlign = #8
-\addlyrics
+\oldaddlyrics
 \context Staff \relative c' {
   c1 d e f g a b c
 }
@@ -3848,7 +3848,7 @@ with figures designating the chief @aref{interval}s and
         < bes g >8 as < as f > g < g es > f < d f > es | < g es >4 }
     >>
   }
-  \addlyrics
+  \oldaddlyrics
     \context Staff = rh \relative c' {
     \clef bass
     \key es \major

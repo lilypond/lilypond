@@ -2137,8 +2137,8 @@ conversions.append (((2, 3, 9), conv,
 
 
 def conv (str):
-	str = re.sub (r'\\addlyrics', '\\oldaddlyrics', str)
-	str = re.sub (r'\\newlyrics', '\\addlyrics', str)
+	str = re.sub (r'\\addlyrics', r'\\oldaddlyrics', str)
+	str = re.sub (r'\\newlyrics', r'\\addlyrics', str)
 	return str
 
 conversions.append (((2, 3, 10), conv,

@@ -169,7 +169,10 @@ line_spanner_common_parent (Grob *me)
   routine, via stencil_extent. At this point, the staves aren't
   separated yet, so it doesn't work cross-staff.
 
+  (huh? crossable staves have fixed distance? --hwn)
+  
 */
+
 
 
 MAKE_SCHEME_CALLBACK (Line_spanner, print, 1);
@@ -203,7 +206,7 @@ Line_spanner::print (SCM smob)
       /*
 	This is hairy. For the normal case, we simply find common
 	parents, and draw a line between the bounds. When two note
-	heads are on different lines, there is no common parent
+	heads are on different systems, there is no common parent
 	anymore. We have to find the piano-staff object.
       */
       

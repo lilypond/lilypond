@@ -8,22 +8,22 @@
     \new Staff \relative {
 	d'2 d c4 bes a2 \break
     }
-    \newlyrics {
+    \addlyrics {
 	My first Li -- ly song,
     }
-    \newlyrics {
+    \addlyrics {
 	Not much can go wrong!
     }
     \new Staff \relative {
 	\clef bass
 	d2 d c4 bes a2 \break
     }
-    \newlyrics {
+    \addlyrics {
 	MY FIRST LI -- LY SONG,
     }
-    \newlyrics {
+    \addlyrics {
 	NOT MUCH CAN GO WRONG!
     }
 >>
 
-\version "2.3.4"
+\version "2.3.10"

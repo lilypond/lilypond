@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.10"
 \header {
     title	= "Puer natus est nobis (excerptum)"
     subtitle	= "Antiphona ad introitum VII"
@@ -10,7 +10,7 @@ This file pretty nicely demonstrates what still does
 not work among ligatures: (i) horizontal spacing between ligatures and
 lyrics aligment is broken; (ii) lily crashes when removing
 Stem_engraver, but still using Slur_engraver (this is useful needed
-for the \addlyrics feature when no slurs are to be typeset); (iii)
+for the \oldaddlyrics feature when no slurs are to be typeset); (iii)
 episem causes a parse error (this used to work a while ago); (iv)
 support for augmentum dots is missing; (v) accidentals must be placed
 before the ligature (not demonstrated in this example)."

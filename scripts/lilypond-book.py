@@ -710,7 +710,7 @@ class Lilypond_snippet (Snippet):
 class Lilypond_file_snippet (Lilypond_snippet):
 	def ly (self):
 		name = self.substring ('filename')
-		return open (find_file (name)).read ()
+		return '\\renameinput \"%s\"\n%s' % (name, open (find_file (name)).read ())
 			
 snippet_type_to_class = {
 	'lilypond_file' : Lilypond_file_snippet,

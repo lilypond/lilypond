@@ -7284,7 +7284,7 @@ supported
 
 @lilypond[quote,raggedright]
 <<
-    \addlyrics  {
+    \oldaddlyrics  {
       b'
       ^\shortfermata
       _\shortfermata

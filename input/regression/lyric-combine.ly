@@ -1,5 +1,5 @@
 
-\version "2.3.4"
+\version "2.3.10"
 
 \header{
 texidoc= "Lyrics can be set to a melody automatically.  Excess lyrics will be
@@ -37,7 +37,7 @@ textII = \context Lyrics = "middle-1" \lyrics { da -- da __ da -- da da da da da
       \context Lyrics = LB { s1 }
       \context Staff = SC \noise
       
-      \addlyrics
+      \oldaddlyrics
 	  \context Staff = SB \context Voice="middle" \m
 	  << \context Lyrics = LA \textI
 	    \context Lyrics = LB \textII
