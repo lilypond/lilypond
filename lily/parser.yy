@@ -353,6 +353,7 @@ or
 %token <scm> MUSIC_FUNCTION_MUSIC 
 %token <scm> MUSIC_FUNCTION_MUSIC_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM 
+%token <scm> MUSIC_FUNCTION_SCM_SCM 
 %token <scm> MUSIC_FUNCTION_SCM_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM_MUSIC_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM_SCM_MUSIC 
@@ -987,6 +988,11 @@ Generic_prefix_music_scm:
 	}  embedded_scm Music {
 		$$ = scm_list_4 ($1, make_input (THIS->pop_spot ()), $3, $4->self_scm ());
 		scm_gc_unprotect_object ($4->self_scm ());
+	}
+	| MUSIC_FUNCTION_SCM_SCM {
+		THIS->push_spot (); 
+	}  embedded_scm embedded_scm {
+		$$ = scm_list_4 ($1, make_input (THIS->pop_spot ()), $3, $4);
 	}
 	| MUSIC_FUNCTION_MUSIC_MUSIC {
 		THIS->push_spot (); 

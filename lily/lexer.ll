@@ -913,6 +913,10 @@ music_function_type (SCM func)
 	{
 		return MUSIC_FUNCTION_SCM_MUSIC;
 	}
+	else if (type == ly_symbol2scm ("scm-scm"))
+	{
+		return MUSIC_FUNCTION_SCM_SCM;
+	}
 	else if (type == ly_symbol2scm ("music-music"))
 	{
 		return MUSIC_FUNCTION_MUSIC_MUSIC;
@@ -932,7 +936,7 @@ music_function_type (SCM func)
 	else
 		{
 		/* TODO: print location */
-		error ("Can not find sigature for music function.");
+		error ("Can not find signature for music function.");
 		}
 
 	return MUSIC_FUNCTION_SCM;
