@@ -1,3 +1,8 @@
+2002-11-21  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* lily/volta-engraver.cc (process_acknowledged_grobs): 
+	Allow for text markup in repeatCommands. 
+
 2002-11-21  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el (LilyPond-insert-string): new function, use it
