@@ -1,10 +1,13 @@
 #!@PYTHON@
-#
 # update-lily.py -- lilypond autobuilder
 # 
 # source file of the GNU LilyPond music typesetter
 #
 # download and rebuild latest lilypond or from specified url
+#
+# To show latest version do:
+#
+#     update-lily --command='echo "Latest is: %n-%v"'
 #
 
 
@@ -14,9 +17,7 @@ TODO:
     * use urllib iso ftplib
 
     * more flexible build/ftp/patches/releases paths
-
     
-    show only: --command='echo "latest is: %n-%v"'
 '''
 
 import ftplib
@@ -51,7 +52,7 @@ url = 'ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-*.tar.gz'
 build_root = os.path.join (os.environ ['HOME'], 'usr', 'src')
 release_dir = build_root + '/releases'
 patch_dir = build_root + '/patches'
-
+symlink_name = ''
 
 
 try:
@@ -112,7 +113,7 @@ except:
 		return s
 
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.5.17'
+	program_version = '1.7.0'
 
 def identify ():
 	sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
@@ -388,9 +389,11 @@ def version_str_to_tuple (s):
 		my_name, my_number)
 
 def next_version (t):
+	#print 'tup: %s' % `t`
 	l = list (t)
 	if len (l) >= 4:
-		if l[4]:
+		# if l[3]:  # 1.0.0.my1 -> 1.0.0.my1
+		if l[4]:  # 1.0.0.my1 -> 1.0.1
 			l[4] += 1
 		else:
 			l[3] = l[4] = ''
@@ -400,16 +403,32 @@ def next_version (t):
 
 	return tuple (l)
 
-def prev_version(t):
+def prev_version (t):
+	#print 'tup: %s' % `t`
 	l = list (t)
 	if len (l) >= 4:
-		if l[4]:
-			l[4] += 1
+		if l[4]: # 1.0.0.my1 -> 1.0.0
+			if l[4] == 1:
+				l[3] = l[4] = ''
+			else:
+				l[4] -= 1
+		# if l[3]: # 1.0.0.my1 -> 1.0.0.my0
+		#	l[4] -= 1
 		else:
 			l[3] = l[4] = ''
-			l[2] -= 1
+			if l[2]:
+				l[2] -= 1
+			elif l[1]:
+				l[1] -= 1
+			else:
+				l[0] -= 1
 	else:
-		l[2] -= 1
+			if l[2]:
+				l[2] -= 1
+			elif l[1]:
+				l[1] -= 1
+			else:
+				l[0] -= 1
 		
 	return tuple (l)
 
@@ -440,6 +459,7 @@ def build (p):
 		'%n' : tar_name,
 		'%r' : release_dir,
 		'%v' : version_tuple_to_str (tar_version),
+		'%s' : symlink_name,
 		'%t' : tar_ball,
 		}
 
@@ -470,7 +490,7 @@ for opt in options:
 	elif o == '--help' or o == '-h':
 		help ()
 		sys.exit (0)
-	elif o == '--buid-root' or o == '-b':
+	elif o == '--build-root' or o == '-b':
 		build_root = a
 	elif o == '--command' or o == '-c':
 		build_command = a
@@ -488,6 +508,8 @@ for opt in options:
 	elif o == '--warranty' or o == '-w':
 		warranty ()
 		sys.exit (0)
+	else:
+		sys.exit (2)
 		
 if 1:
 	latest = find_latest (url)
@@ -498,6 +520,9 @@ if 1:
 		progress (_ ("relax, %s is up to date" % package_name))
 		sys.exit (0)
 
+	if not symlink_name:
+		symlink_name = string.split (url, '/')[-2]
+		
 	get_base = url[:string.rindex (url, '/')] + '/'
 	if os.path.isdir (patch_dir):
 		os.chdir (patch_dir)
@@ -505,7 +530,10 @@ if 1:
 		if not os.path.isfile (latest_diff + '.diff.gz'):
 			get = get_base + latest_diff + '.diff.gz'
 			progress (_ ("Fetching `%s'...") % get)
-			copy_url (get, '.')
+			try:
+				copy_url (get, '.')
+			except:
+				warning (_ ("can't open: %s") % get)
 
 	if not os.path.isdir (build_root):
 		build_root = temp_dir
@@ -537,7 +565,7 @@ if 1:
 		sys.exit (1)
 		
 	os.chdir (original_dir)
-	if release_dir != temp_dir:
+	if release_dir != temp_dir and os.path.isdir (temp_dir):
 		cleanup_temp ()
 	sys.exit (0)
 	

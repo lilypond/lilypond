@@ -1,3 +1,10 @@
+2002-09-22  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* ROADMAP: Remove test stuff.
+
+	* scripts/update-lily.py: Allow auto-building of stable and
+	development versions.  Bugfixes.
+
 2002-09-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/tex.scm (header-end): enclose lily output in begingroup/endgroup.
