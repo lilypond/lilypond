@@ -1,7 +1,7 @@
 2003-02-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/chord-entry.scm (construct-chord): move chord construction
-	Scheme.
+	to Scheme.
 
 	* lily/parser.yy (new_chord): new setup for chord entry.
 
