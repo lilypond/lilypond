@@ -64,11 +64,12 @@ execute_pushpop_property (Translator_group * trg,
 	  if (gh_pair_p (prev_alist) || prev_alist == SCM_EOL)
 	    {
 	      bool ok = type_check_assignment (eltprop, val, ly_symbol2scm ("backend-type?"));
-	      
+
+	      /*
+	       tack onto alist:
+	      */
 	      if (ok)
-		{
-		  gh_set_car_x (prev, scm_acons (eltprop, val, prev_alist));
-		}
+		gh_set_car_x (prev, scm_acons (eltprop, val, prev_alist));
 	    }
 	  else
 	    {

@@ -296,9 +296,6 @@ a quarter note is entered using a @code{4} (since it is a 1/4 note), while
 a half note is entered using a @code{2} (since it is a 1/2 note).  For notes
 longer than a whole you must use variables:
 
-@c FIXME: what is an identifier?  I do not think it's been introduced yet.
-@c and if it has, I obviously skipped that part.     - Graham
-
 @example 
 c'\breve  
 c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64 
@@ -318,8 +315,8 @@ r1 r2 r4 r8 r16 r32 r64 r64
     \translator {
       \StaffContext
         \remove "Clef_engraver"
-        \remove "Staff_symbol_engraver"
-        \remove "Time_signature_engraver"
+        StaffSymbol \set #'transparent = ##t 
+        TimeSignature \set #'transparent = ##t 
         \consists "Pitch_squash_engraver"
     }
   }
@@ -728,7 +725,7 @@ by replacing the @internalsref{Note_heads_engraver} by the
 In the following examples, notes crossing the barline are split and tied.
 
 
-@lilypond[noindent,verbatim]
+@lilypond[noindent,verbatim,relative=1]
 \new Voice \with {
       \remove "Note_heads_engraver"
       \consists "Completion_heads_engraver"
@@ -3623,6 +3620,7 @@ To apply, add the @internalsref{Ambitus_engraver} to the
 @end example
 
 This results in the following output:
+
 @lilypond[raggedright]
 upper = \notes \relative c {
   \clef "treble"
