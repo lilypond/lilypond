@@ -60,7 +60,7 @@ Figured_bass_engraver::process_music ()
     {
       figure_ = new Item (get_property ("BassFigure"));
       announce_grob (figure_, rest_req_); // todo
-      figure_->set_grob_property ("text" , gh_str02scm ("-"));
+      figure_->set_grob_property ("text" , ly_str02scm ("-"));
     }
   else if (figures_.size ())
     {
