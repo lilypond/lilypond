@@ -23,13 +23,14 @@ def draw_c_clef (expr reduction) =
 	norm#:=2/3reduced_il#;
 	hair#:=1/6norm#;
 	define_pixels (hair,norm,reduced_il);
-	set_char_box (0, 5/2reduced_il#, 2 reduced_il#, 2 reduced_il#);
-	draw_block ((0,-d), (1/2reduced_il,h));
-	draw_block ((1/2reduced_il+stafflinethickness,-d), 
-	  (1/2reduced_il+2stafflinethickness,h));
+	set_char_box (0, 15/4norm#+2hair#, 
+		2 reduced_il#, 2 reduced_il#);
+	draw_block ((0,-d), (3/4norm+1/2hair,h));
+	draw_block ((3/4norm+2hair,-d), 
+		(3/4norm+7/2hair,h));
 	
 	save xoff;
-	xoff=1/2reduced_il+2hair;
+	xoff=3/4norm+7/2hair;
 	penpos1(hair,-90);
 	z1l=(xoff+norm+hair,h);
 	penpos2(norm-hair,180);
@@ -51,11 +52,8 @@ def draw_c_clef (expr reduction) =
 
 	save t; t=0.833;
 	save p; path p;
-%	p = z5l..z4l{up}..z4r{down}..z3r{right}..tension t..z2r{up}
-%		..z1r{left}..z1l{right}..z2l{down}
-%		..z3l{left}..z5r{down};
 	p = z5l..z4l{up}..z4r{down}..z3r{right}..tension t..z2r{up}
-		..z1r{left}..z1l{right}..z2l{down}
+		..tension t..z1r{left}..z1l{right}..tension t..z2l{down}
 		..z3l{left}..z6r..z5r{down};
 	pickup pencircle scaled 1pt#;
 	filldraw p..(reverse p yscaled -1)..cycle;

@@ -11,10 +11,7 @@ test:=0;
 input feta-macros;
 
 height#:=designsize;
-%thick#:=height#/4;
-thick#:=8/30height#;
-%norm#:=3/4thick#;
-norm#:=7/8thick#;
+thick#:=7/30height#;
 thin#:=thick#/4;
 hair#:=thin#/2;
 kuulleke#:=hair#;

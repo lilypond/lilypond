@@ -28,12 +28,13 @@
         {\vetfont\char\count0}}}
 
 % stacked numbers; overrules def in lilyponddefs
+% widest num should be .4 balkheight
 % oeps: \meter 12/8;
 \def\generalmeter#1#2{%
         \vbox to 0pt{\vss%
-        \hbox to0.42\balkheight{\hss\fetanummer #1\hss}%
+        \hbox to0.45\balkheight{\hfill\fetanummer #1\hfill}%
         \nointerlineskip%
-        \hbox to0.42\balkheight{\hss\fetanummer #2\hss}%
+        \hbox to0.45\balkheight{\hfill\fetanummer #2\hfill}%
         \vss}}
 
 \newcount\embedcount\embedcount=0
