@@ -30,6 +30,6 @@ IMPLEMENT_IS_TYPE_B1(C ## _align_engraver, Type_align_engraver)    	;
 
 IMPLEMENT_ALIGN_GRAV(Key,Key_item,3);
 IMPLEMENT_ALIGN_GRAV(Clef,Clef_item,2);
-IMPLEMENT_ALIGN_GRAV(Meter,Meter,4);
-IMPLEMENT_ALIGN_GRAV(Normal_bar, Normal_bar,5);
+IMPLEMENT_ALIGN_GRAV(Normal_bar, Normal_bar,4);
+IMPLEMENT_ALIGN_GRAV(Meter,Meter,5);
 IMPLEMENT_ALIGN_GRAV(Score_bar, Score_bar,0);
