@@ -14,6 +14,7 @@
 #include "main.hh"
 #include "simple-file-storage.hh"
 #include "file-path.hh"
+#include "debug.hh"
 
 
 /*
@@ -41,18 +42,36 @@ ly_symbol (String name)
   return gh_car (scm_intern (name.ch_C(), name.length_i()));
 }
 
+SCM
+ly_set_scm (String name , SCM val)
+{
+  return scm_sysintern (name.ch_C(), val);
+  
+}
 /**
 
    Read a file, and shove it down GUILE.  GUILE also has file read
    functions, but you can't fiddle with the path of those.
    
  */
-
 void
 read_lily_scm_file (String fn)
 {
   String s = global_path.find (fn);
+  if (s == "")
+    {
+      String e = _f ("Can not find file `%s\'", fn);
+      e += " ";
+      e += _f ("(Load path is `%s\'", global_path.str ());
+      error (e);
+    }
+  else
+    *mlog << '[' << s;
+
+
   Simple_file_storage f(s);
   
   gh_eval_str ((char *) f.ch_C());
+  *mlog << ']' << flush;  
 }
+

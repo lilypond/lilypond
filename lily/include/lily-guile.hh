@@ -16,6 +16,7 @@
 #include <libguile.h>
 
 SCM ly_symbol (String name);
+SCM ly_set_scm (String name , SCM val);
 
 SCM ly_append (SCM a, SCM b);
 SCM ly_eval (SCM a);
