@@ -49,7 +49,7 @@ Note_heads_engraver::do_process_requests()
   if (note_p_arr_.size ())
     return ;
   
-  String noteheadstyle = get_property ("noteHeadStyle", 0);
+  SCM noteheadstyle = get_property ("noteHeadStyle", 0);
   for (int i=0; i < note_req_l_arr_.size (); i++)
     {
       Note_head *note_p  = new Note_head;
@@ -62,10 +62,10 @@ Note_heads_engraver::do_process_requests()
 	  note_p->dots_l_ = d;
 	  d->dots_i_ = note_req_l->duration_.dots_i_;
 
-	  Scalar dir = get_property ("verticalDirection",0);
-	  if (dir.isdir_b())
+	  SCM dir = get_property ("verticalDirection",0);
+	  if (isdir_b (dir))
 	    {
-	      d->resolve_dir_ = (Direction)(int)dir;
+	      d->resolve_dir_ = to_dir (dir);
 	    }
 	  
 	  announce_element (Score_element_info (d,0));
@@ -73,12 +73,13 @@ Note_heads_engraver::do_process_requests()
 	}
       note_p->position_i_  = note_req_l->pitch_.steps ();
 
-      if (noteheadstyle == "transparent")
-	note_p->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
-      else 
-        note_p->set_elt_property (style_scm_sym,
-				  ly_ch_C_to_scm (noteheadstyle.ch_C()));
-
+      if (gh_string_p (noteheadstyle))
+	{
+	  if (ly_scm2string (noteheadstyle) == "transparent")
+	    note_p->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+	  else 
+	    note_p->set_elt_property (style_scm_sym, noteheadstyle);
+	}
       
       Score_element_info itinf (note_p,note_req_l);
       announce_element (itinf);
