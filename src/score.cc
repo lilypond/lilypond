@@ -12,8 +12,7 @@ Score::process()
 {
     *mlog << "Processing ... ";
     
-    if (!paper_)
-	paper_ = new Paperdef;
+    assert (paper_);
     
     /// distribute commands to disciples
     pscore_ = new PScore(paper_);

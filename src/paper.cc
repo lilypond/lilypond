@@ -1,14 +1,10 @@
 #include <math.h>
-
+#include "misc.hh"
 #include "paper.hh"
 #include "debug.hh"
 #include "lookup.hh"
 #include "dimen.hh"
 #include "textdb.hh"
-
-double log2(double x) {
-    return log(x)  /log(2.0);
-}
 
 
 // golden ratio
@@ -20,38 +16,33 @@ Paperdef::duration_to_dist(Real d)
 {
     return whole_width * pow(geometric_, log2(d));
 }
+
 Real
 Paperdef::rule_thickness()const
 {
     return convert_dimen(0.4, "pt");
 }
-Paperdef::Paperdef()
+
+Paperdef::Paperdef(Lookup *l)
 {
-    lookup_ = new Lookup();
-    parse();
+    lookup_ = l;
+
     linewidth = convert_dimen(15,"cm");		// in cm for now
-    whole_width= 8*note_width();
-//    geometric_ = PHI;
-        geometric_ = sqrt(2);
-}
-
-void 
-Paperdef::parse()
-{
-    Text_db symini("symbol.ini");
-
-    
-    while (!symini.eof()) {	
-	 Text_record  r(  symini++);
-	
-	 if  (r[0] == "symboltables")
-	     lookup_->parse(symini);	 
-    }
+    whole_width = 8 * note_width();
+    geometric_ = sqrt(2);
 }
 
 Paperdef::~Paperdef()
 {
     delete lookup_;
+}
+
+void
+Paperdef::set(Lookup*l)
+{
+    assert(l != lookup_);
+    delete lookup_;
+    lookup_ = l;
 }
 
 Real
