@@ -31,7 +31,7 @@ old_path=$PATH
 patch=$mknetrel_root/patch
 
 # for cross-compiling LilyPond:
-if !iscygwin; then
+if ! iscygwin; then
     uploads=$here/uploads/$base && mkdir -p $uploads/
     tarstem=$uploads/$package
 fi
@@ -55,7 +55,7 @@ preconfig () {
     rm -f config.cache
 
     # for cross-compiling LilyPond:
-    if !iscygwin; then
+    if ! iscygwin; then
 	cd $build || exit 1
 	GUILE=1.6.4
 	cat > guile-config <<EOF
@@ -71,7 +71,7 @@ EOF
 
 postconfig () {
     # cross-compiling: configure for build-host
-    if !iscygwin; then
+    if ! iscygwin; then
 	rm -f config.cache
 	export HOST_CC=gcc
 	export HOST_CXX=g++
@@ -96,7 +96,7 @@ prebuild () {
     done
     
     # cross-compiling: build for build-host, generate doc
-    if !iscygwin; then
+    if ! iscygwin; then
 	cd $build || exit 1
 
 	PATH=/bin:/usr/bin:$PATH \
@@ -120,7 +120,7 @@ prebuild () {
 preinstall () {
 
     # cross-compiling: fix manual pages
-    if !iscygwin; then
+    if ! iscygwin; then
         # as of 1.9.9, this should no longer be necessary:
 	cd $build || exit 1
 	cp -v scripts/out-for-build/midi2ly.1 scripts/out
