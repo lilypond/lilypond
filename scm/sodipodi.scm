@@ -78,10 +78,20 @@
 
 ;; Global vars
 
+(define output-scale 1)
+
+(define scale-to-unit
+  (cond
+   ((equal? (ly:unit) "mm") (/ 72.0  25.4))
+   ((equal? (ly:unit) "pt") (/ 72.0  72.27))
+   (else (error "unknown unit" (ly:unit)))))
+
 ;; alist containing fontname -> fontcommand assoc (both strings)
 ;;(define font-name-alist '())
 
 ;; Helper functions
+
+
 (define (tagify tag string . attribute-alist)
   (string-append
    "<" tag
@@ -102,26 +112,26 @@
   (tagify "tspan" (make-string 1 (integer->char i))))
 
 (define (end-output)
-  "</svg>")
+  "</g></svg>")
 
 
 (define (filledbox breapth width depth height)
   (tagify "rect" ""
 
 	  '(style . "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;")
-;;	  `(x . "50.0")
-;;	  `(y . "400.0")
-	  `(x . ,(number->string (* 5.5 breapth)))
-	  `(y . ,(number->string (* 5.5 (- 0 depth))))
-	  `(width . ,(number->string (* 5.5 (+ breapth width))))
-	  `(height . ,(number->string (* 5.5 (+ depth height))))))
+	  `(x . ,(number->string (* output-scale (- 0 breapth))))
+	  `(y . ,(number->string (* output-scale (- 0 height))))
+	  `(width . ,(number->string (* output-scale (+ breapth width))))
+	  `(height . ,(number->string (* output-scale (+ depth height))))))
 
 
 (define (fontify name-mag-pair expr)
-;;  (dispatch expr))
-;;  (tagify "text" (dispatch expr) '(style . "font-family:LilyPond;font-style:feta20;font-size:200;")))
-;;  (tagify "text" (dispatch expr) '(style . "fill:black;stroke:none;font-family:feta20;font-style:normal;font-weight:normal;font-size:200;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;text-anchor:start;writing-mode:lr;"))
-  (tagify "text" (dispatch expr) '(style . "fill:black;stroke:none;font-family:futa20;font-style:normal;font-weight:normal;font-size:20;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;text-anchor:start;writing-mode:lr;"))
+
+  ;; for simple sodipodi with feta20.pfb:
+;;  (tagify "text" (dispatch expr) '(style . "fill:black;stroke:none;font-family:futa20;font-style:normal;font-weight:normal;font-size:20;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;text-anchor:start;writing-mode:lr;"))
+
+  ;; Sketch' svg input filter groks this:
+  (tagify "text" (dispatch expr) '(style . "fill:black;stroke:none;font-family:LilyPond-Feta-20;font-style:normal;font-weight:normal;font-size:20;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;text-anchor:start;writing-mode:lr;"))
 
   )
 
@@ -148,16 +158,24 @@
   <defs
      id='defs3' />
   <sodipodi:namedview
-     id='base' />")
+     id='base' />
+  <g tranform='translate(50,-250)'>
+  ")
 
 
 (define (placebox x y expr)
-;;  (dispatch expr))
   (tagify "g" (dispatch expr) `(transform .
 					  ,(string-append
 					    "translate(" (number->string
-							  (* 5.5 x))
+							  (* output-scale x))
 					    ","
-					    (number->string (- 700 (* 5.5 y)))
+					    (number->string (- 0 (* output-scale y)))
 					    ")"))))
 				 
+(define (lily-def key val)
+  (if (equal? key "lilypondpaperoutputscale")
+      ;; ugr
+      (set! output-scale (* scale-to-unit (string->number val))))
+  "")
+
+
