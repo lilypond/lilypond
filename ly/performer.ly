@@ -24,6 +24,7 @@ VoiceContext = \translator {
 % All notes fall to Grace if you leave Thread out (huh?)
 	\consists "Dynamic_performer";
 	\consists "Span_dynamic_performer";
+	\consists "Piano_pedal_performer";
 	\consists "Grace_position_performer";
 	\accepts Thread;
 	\accepts Grace;

@@ -12,6 +12,7 @@
 #include "lily-proto.hh"
 #include "proto.hh"
 #include "moment.hh"
+#include "audio-item.hh"
 
 /**
   Any piece of midi information.
@@ -168,6 +169,16 @@ public:
   virtual String str () const;
 
   Audio_dynamic* audio_l_;
+};
+
+class Midi_piano_pedal : public Midi_item
+{
+public:
+  Midi_piano_pedal (Audio_piano_pedal*);
+  
+  virtual String str () const;
+
+  Audio_piano_pedal* audio_l_;
 };
 
 class Midi_tempo : public Midi_item
