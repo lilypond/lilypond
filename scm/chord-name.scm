@@ -154,6 +154,6 @@ inline use in .ly file"
 
   (ly:export
    (case sym
-     ((ignatzek) (chord-name-style-setter ignatzek-chord-names))
+     ((ignatzek) (chord-name-style-setter ignatzek-chord-names 'foobar))
      ((banter) (chord-name-style-setter double-plus-new-chord->markup 'banter))
      ((jazz) (chord-name-style-setter double-plus-new-chord->markup 'jazz)))))
