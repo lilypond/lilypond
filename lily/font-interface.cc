@@ -108,7 +108,7 @@ Font_interface::get_font (Grob *me, SCM chain)
 {
   SCM name = ly_assoc_chain (ly_symbol2scm  ("font-name"), chain);
   
-  if (!gh_string_p (name))
+  if (!gh_pair_p (name) || !gh_string_p (gh_cdr (name)))
     {
       Paper_def * p =  me->get_paper ();
 
@@ -118,6 +118,8 @@ Font_interface::get_font (Grob *me, SCM chain)
       assert (gh_procedure_p (proc));
       name = gh_call2 (proc, fonts, chain);
     }
+  else
+    name  = gh_cdr (name);
   
   SCM mag = ly_assoc_chain (ly_symbol2scm ("font-magnification"), chain);
   
