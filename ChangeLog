@@ -1,3 +1,9 @@
+2004-03-22  Heikki Junes  <hjunes@cc.hut.fi>
+
+        * config.make.in: add vimdir.
+
+        * vim/GNUmakefile: add local-install.
+
 2004-03-22  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* tex/titledefs.tex: Replaced \ifx\blabla\undefined
@@ -31,7 +37,7 @@
 
 2004-03-22  Werner Lemberg  <wl@gnu.org>
 
-	lily/stem.cc (Stem::extremal_heads, Stem::note_head_positions),
+	* lily/stem.cc (Stem::extremal_heads, Stem::note_head_positions),
 	lily/dot-column.cc (Dot_column::do_shifts), lily/note-column.cc
 	(Note_column::head_position_interval): Do proper rounding for
 	calls to Staff_symbol_referencer::get_position.

@@ -37,6 +37,7 @@ stepmake = @stepmake@
 docdir = $(datadir)/doc/
 omfdir = $(datadir)/omf/
 elispdir = $(datadir)/emacs/site-lisp
+vimdir = $(datadir)/vim
 
 # move out of config.make.in?
 package_datadir = $(datadir)/$(package)
