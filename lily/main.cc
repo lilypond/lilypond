@@ -262,13 +262,13 @@ determine_output_options ()
     }
 
       
-  if (make_ps && found_tex)
-    {
-      make_dvi = true;
-    }
   if (make_pdf || make_png)
     {
       make_ps = true;
+    }
+  if (make_ps && found_tex)
+    {
+      make_dvi = true;
     }
   if (make_dvi && found_tex)
     {
