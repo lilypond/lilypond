@@ -7,7 +7,7 @@
 
 #include "plist.hh"        // ugh
 #include "string.hh"
-#include "sourcefile.hh"
+#include "source-file.hh"
 #include "source.hh"
 #include "midi-main.hh"    // *tors
 

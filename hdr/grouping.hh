@@ -44,8 +44,10 @@ struct Rhythmic_grouping {
 
     Array<int> generate_beams(Array<int>, int&);
 
-    /// multiply self to span #i#
-    void extend(MInterval i);
+    /** multiply self to span #i#.
+      In implementation, this isn't really const, but conceptually it is.
+      */
+    void extend(MInterval i) const;
     void translate(Moment);
 private:
     void init();

@@ -1,8 +1,8 @@
 #include "proto.hh"
 #include "plist.tcc"
 #include "register.hh"
-#include "voicegroupregs.hh"
-#include "voiceregs.hh"
+#include "voice-group-regs.hh"
+#include "voice-regs.hh"
 
 
 IPL_instantiate(Voice_registers);

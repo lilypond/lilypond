@@ -13,7 +13,7 @@
 #include "lexer.hh"
 #include "debug.hh"
 #include "main.hh"
-#include "sourcefile.hh"
+#include "source-file.hh"
 #include "source.hh"
 
 My_flex_lexer *lexer=0;

@@ -1,10 +1,10 @@
 #include "request.hh"
-#include "inputscore.hh"
-#include "inputstaff.hh"
-#include "inputmusic.hh"
+#include "input-score.hh"
+#include "input-staff.hh"
+#include "input-music.hh"
 #include "molecule.hh"
-#include "sourcefile.hh"
-
+#include "source-file.hh"
+#include "voice-element.hh"
 #include "plist.tcc"
 #include "pcursor.tcc"
 

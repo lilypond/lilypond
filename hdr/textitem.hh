@@ -7,7 +7,7 @@
 #ifndef TEXT_ITEM_HH
 #define TEXT_ITEM_HH
 
-#include "textdef.hh"
+#include "text-def.hh"
 #include "item.hh"
   
 struct Text_item : Item {
@@ -17,7 +17,7 @@ struct Text_item : Item {
     Text_def* tdef_l_;
     
     /* ***************/
-    const char * name() const;    
+    NAME_MEMBERS(Text_item);
     virtual void set_default_index();
     Molecule* brew_molecule_p() const;
     void do_pre_processing();

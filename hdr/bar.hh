@@ -12,7 +12,7 @@ struct Bar: Item {
     String type;
     
     Bar(String type);
-    const char * name() const;
+NAME_MEMBERS(Bar);
     void do_print() const;
     Molecule*brew_molecule_p()const;
 };

@@ -8,7 +8,7 @@
 #define SPANNER_HH
 
 #include "proto.hh"
-#include "staffelem.hh"
+#include "staff-elem.hh"
 
 
 /** a symbol which is attached between two columns. A spanner is a symbol which spans across several columns, so its
@@ -38,7 +38,7 @@ struct Spanner:Staff_elem {
     Spanner();
     virtual Interval width()const;
     void do_print()const;
-    const char* name()const;
+
     Spanner *broken_at(PCol *c1,  PCol *c2) const;
     virtual Spanner* spanner() { return this; }
 protected:
@@ -48,6 +48,7 @@ protected:
     PRE
     c1 >= start, c2  <= stop
     */
-    virtual Spanner *do_break_at( PCol *c1,  PCol *c2) const=0; 
+    virtual Spanner *do_break_at( PCol *c1,  PCol *c2) const=0;
+    NAME_MEMBERS(Spanner);
 };
 #endif

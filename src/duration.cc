@@ -8,7 +8,7 @@
 #include "proto.hh"         // ugh, these all for midi-main.hh 
 #include "plist.hh"
 #include "string.hh"
-#include "sourcefile.hh"
+#include "source-file.hh"
 #include "source.hh"
 #include "midi-main.hh"    // *tors
 

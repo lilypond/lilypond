@@ -8,8 +8,8 @@
 #define TEXTSPANNER_HH
 
 #include "string.hh"
-#include "directionalspanner.hh"
-#include "textdef.hh"
+#include "directional-spanner.hh"
+#include "text-def.hh"
 
 /** a spanner which puts texts on top of other spanners.  Use for
   triplets, eentweetjes, ottava, etc.  */
@@ -20,10 +20,10 @@ struct Text_spanner : Spanner {
 
     /* *************** */
 
-    const char * name() const;
-    virtual    void do_pre_processing();
-    virtual    void do_post_processing();
-    virtual    Interval height() const ;
+    NAME_MEMBERS(Text_spanner);
+    virtual void do_pre_processing();
+    virtual void do_post_processing();
+    virtual Interval height() const ;
     virtual Molecule* brew_molecule_p()const;
     virtual void do_print() const;
     virtual Spanner* do_break_at(PCol*,PCol*)const;

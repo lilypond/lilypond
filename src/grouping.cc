@@ -316,7 +316,7 @@ Rhythmic_grouping::translate(Moment m)
 }
 
 void
-Rhythmic_grouping::extend(MInterval m)
+Rhythmic_grouping::extend(MInterval m)const
 {    
     assert(m.left >= interval().left);
     while (m.right  >interval().right ) {
@@ -325,7 +325,7 @@ Rhythmic_grouping::extend(MInterval m)
 	    a[i] =new Rhythmic_grouping(*children[i]);
 	    a[i]->translate(children.top()->interval().right);	    
 	}
-	children.concat(a);
+	((Rhythmic_grouping*)this)->children.concat(a);
     }
     assert(m.right <= interval().right);
     OK();

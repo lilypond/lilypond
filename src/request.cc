@@ -9,8 +9,10 @@
 #include "musicalrequest.hh"
 #include "misc.hh"
 #include "debug.hh"
-#include "scriptdef.hh"
-#include "textdef.hh"
+#include "script-def.hh"
+#include "text-def.hh"
+#include "voice.hh"
+#include "voice-element.hh"
 
 void
 Stem_req::do_print() const
@@ -288,3 +290,11 @@ Skip_req::do_print() const
     mtor << "duration: " << duration();
 }
 
+Voice *
+Request::voice_l()
+{
+    if (!elt_l_)
+	return 0;
+    else
+	return (Voice*)elt_l_->voice_l_;
+}

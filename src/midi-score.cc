@@ -8,7 +8,7 @@
 #include "string.hh"
 #include "moment.hh"
 #include "duration.hh"
-#include "sourcefile.hh"
+#include "source-file.hh"
 #include "source.hh"
 #include "midi-main.hh"    // *tors
 #include "midi-event.hh"

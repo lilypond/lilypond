@@ -9,7 +9,7 @@
 
 #include "proto.hh"
 #include "grouping.hh"
-#include "staffwalker.hh"
+#include "staff-walker.hh"
 
 /// a simple walker which collects words, and then print them, first on top
 struct Lyric_walker: Staff_walker {

@@ -18,7 +18,7 @@ struct Rest : Item {
 
     Rest(int dur,int dots);
     void do_print()const;
-    const char * name() const;
+NAME_MEMBERS(Rest);
     Molecule* brew_molecule_p()const;
 };
 #endif 

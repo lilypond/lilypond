@@ -4,7 +4,7 @@
 #include "glob.hh"
 #include "boxes.hh"
 #include "string.hh"
-#include "staffelem.hh"
+#include "staff-elem.hh"
 
 /**
  a horizontally fixed size element of the score
@@ -24,7 +24,8 @@ struct Item : Staff_elem {
     virtual Item *item() { return this; }
     Item();
     void do_print()const;
-    const char*name()const;
+
+    NAME_MEMBERS(Item);
 };
 
 

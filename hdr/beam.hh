@@ -7,7 +7,7 @@
 #ifndef BEAM_HH
 #define BEAM_HH
 #include "proto.hh"
-#include "directionalspanner.hh"
+#include "directional-spanner.hh"
 #include "plist.hh"
 
 /** a beam connects multiple stems Beam adjusts the stems its owns to
@@ -23,7 +23,7 @@ struct Beam:  public Directional_spanner {
    
 
     /* *************** */
-    const char * name() const;
+NAME_MEMBERS(Beam);
     
     virtual Interval width()const;    
     Offset center() const;

@@ -7,7 +7,7 @@
 #ifndef SLUR_HH
 #define SLUR_HH
 
-#include "directionalspanner.hh"
+#include "directional-spanner.hh"
 #include "fproto.hh"
 #include "varray.hh"
 
@@ -29,7 +29,7 @@ struct Slur : Directional_spanner {
     void process();
 private:
     Molecule*brew_molecule_p()const;
-    const char * name() const;
+    NAME_MEMBERS(Slur);
 };
 
 #endif // SLUR_HH

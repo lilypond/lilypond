@@ -8,7 +8,7 @@
 #include "main.hh"
 #include "path.hh"
 #include "config.hh"
-#include "sourcefile.hh"
+#include "source-file.hh"
 #include "source.hh"
 
 Source source;
@@ -19,7 +19,7 @@ extern void parse_file(String,String);
 
 void
 destill_inname( String &name_str_r);
-long_option_init theopts[] = {
+Long_option_init theopts[] = {
     1, "output", 'o',
     0, "warranty", 'w',
     0, "help", 'h',
@@ -91,7 +91,7 @@ main (int argc, char **argv)
     cout << get_version();
     String init_str("symbol.ini");
     
-    while (long_option_init * opt = oparser()) {
+    while (Long_option_init * opt = oparser()) {
 	switch ( opt->shortname){
 	case 'o':
 	    set_default_output(oparser.optarg);

@@ -4,8 +4,8 @@
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
 #include "debug.hh"
-#include "inputfile.hh"
-#include "sourcefile.hh"
+#include "input-file.hh"
+#include "source-file.hh"
 #include "my-midi-lexer.hh"
 
 int

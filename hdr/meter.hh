@@ -13,7 +13,7 @@
 struct Meter: Item {
     Array<Scalar> args;
     /* *************** */
-    const char * name() const;
+NAME_MEMBERS(Meter);
     
     Meter(Array<Scalar> args) ;
     Molecule*brew_molecule_p() const;
