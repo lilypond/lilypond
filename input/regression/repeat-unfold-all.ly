@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.1"
 
 \header { texidoc = "Volta repeats may be unfolded through the Scheme
     function @code{unfold-repeats}."
@@ -13,7 +13,7 @@ nots = \notes\relative c'   {
     \notes \context Voice {
 	\nots
 	\bar "||"
-	\apply #unfold-repeats \nots
+	\applymusic #unfold-repeats \nots
     }
     \paper {raggedright = ##t} 
 }

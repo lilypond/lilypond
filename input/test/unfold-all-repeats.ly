@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.1"
 % regression.  -gp
 
 \header { 
@@ -20,7 +20,7 @@ mel = \notes \context Staff {
 
 \score { \notes {
   \mel \break
-  \apply #unfold-repeats \mel 
+  \applymusic #unfold-repeats \mel 
  }
 }
 

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.1"
 % possible rename to scheme-something.
 \header { texidoc="@cindex Scheme Reverse Music
 Symmetric, or palindromical music can be produced, first, by printing
@@ -33,7 +33,7 @@ music = \notes \relative c'' { c4 d4( e4 f4 }
 \score {
   \context Voice {
     \music
-    \apply #reverse-music \music
+    \applymusic #reverse-music \music
   }
   \paper { raggedright = ##t}
 }

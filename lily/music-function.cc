@@ -18,7 +18,7 @@ print_music_function (SCM b, SCM port, scm_print_state *)
 {
   SCM value = SCM_CELL_OBJECT_1 (b);
 
-  scm_puts ("#<packaged object ", port);
+  scm_puts ("#<Music function ", port);
   scm_write (value, port);
   scm_puts (">", port);
 
@@ -78,4 +78,5 @@ init_music_function (void)
   scm_set_smob_mark (music_function_tag, scm_markcdr);
   scm_set_smob_print (music_function_tag, print_music_function);
 }
+
 ADD_SCM_INIT_FUNC (music_function_tag, init_music_function); 

@@ -151,11 +151,11 @@ follows the general form of
 
 Such syntax can also be defined as user code. To do this, it is
 necessary to create a @em{music function}. This is a specially marked
-Scheme function. For example, the music function @code{\apply} applies
+Scheme function. For example, the music function @code{\applymusic} applies
 a user-defined function to a music expression.  Its syntax is
 
 @example
-\apply #@var{func} @var{music}
+\applymusic #@var{func} @var{music}
 @end example
 
 A music function is created with @code{ly:make-music-function},
@@ -164,7 +164,7 @@ A music function is created with @code{ly:make-music-function},
   (ly:make-music-function
 @end example
 
-@code{\apply} takes a Scheme function and a Music expression as
+@code{\applymusic} takes a Scheme function and a Music expression as
 argument. This is encoded in its first argument,
 
 @example
@@ -183,7 +183,7 @@ function
 @end example
 
 The above Scheme code only defines the functionality. The tag
-@code{\apply} is selected by defining
+@code{\applymusic} is selected by defining
 
 @example
   apply = #(ly:make-music-function
@@ -192,17 +192,17 @@ The above Scheme code only defines the functionality. The tag
      (func music)))
 @end example
 
-Examples of the use of @code{\apply} are in the next section.
+Examples of the use of @code{\applymusic} are in the next section.
 
 
 @node Manipulating music expressions
 @appendixsubsec Manipulating music expressions
 
 Music objects and their properties can be accessed and manipulated
-directly, through the @code{\apply} mechanism.
-The syntax for @code{\apply} is
+directly, through the @code{\applymusic} mechanism.
+The syntax for @code{\applymusic} is
 @example
-\apply #@var{func} @var{music}
+\applymusic #@var{func} @var{music}
 @end example
 
 @noindent
@@ -219,7 +219,7 @@ its argument:
      (ly:music-set-property! m 'elements (reverse
        (ly:music-property m 'elements)))
      m)
-  \score { \notes \apply #rev-music-1 { c4 d4 } }
+  \score { \notes \applymusic #rev-music-1 { c4 d4 } }
 @end lilypond
 
 The use of such a function is very limited. The effect of this
@@ -227,13 +227,13 @@ function is void when applied to an argument which is does not have
 multiple children.  The following function application has no effect:
 
 @example
-  \apply #rev-music-1 \grace @{ c4 d4 @}
+  \applymusic #rev-music-1 \grace @{ c4 d4 @}
 @end example
 
 @noindent
 In this case, @code{\grace} is stored as @internalsref{GraceMusic}, which has no
 @code{elements}, only a single @code{element}. Every generally
-applicable function for @code{\apply} must -- like music expressions
+applicable function for @code{\applymusic} must -- like music expressions
 themselves -- be recursive.
 
 The following example is such a recursive function: It first extracts
@@ -273,7 +273,7 @@ above by the internal equivalent of
     \context Voice = "2" @{ \voiceTwo b @} >>
 @end example
 
-Other applications of @code{\apply} are writing out repeats
+Other applications of @code{\applymusic} are writing out repeats
 automatically (@inputfileref{input/test,unfold-all-repeats.ly}),
 saving keystrokes (@inputfileref{input/test,music-box.ly}) and
 exporting

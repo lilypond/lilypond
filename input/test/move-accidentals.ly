@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.1"
 
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc= "@cindex Scheme Manual Accidentals

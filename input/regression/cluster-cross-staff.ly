@@ -4,7 +4,7 @@
 
 }
 
-\version "2.2.0"
+\version "2.3.1"
 
 \score {
 \notes    \new PianoStaff <<
@@ -12,7 +12,7 @@
 	s1 *2
 	}
 	\context Staff = down <<
-	    \apply #notes-to-clusters \relative c  { <c e>4 <f a> <b e> \change Staff = up <e a>
+	    \applymusic #notes-to-clusters \relative c  { <c e>4 <f a> <b e> \change Staff = up <e a>
 						     <a d> <d g> }
 
 	    { \clef bass s1 * 2 }

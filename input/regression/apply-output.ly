@@ -1,5 +1,5 @@
 
-\version "2.2.0" 
+\version "2.3.1" 
 \header {
 
 texidoc = "The @code{\applyoutput} expression is the most flexible way to

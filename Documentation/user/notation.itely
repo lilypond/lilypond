@@ -4663,8 +4663,8 @@ filtered. For example,
 @example
 \simultaneous @{
   @var{the music}
-  \apply #(remove-tag 'score) @var{the music}
-  \apply #(remove-tag 'part) @var{the music}
+  \applymusic #(remove-tag 'score) @var{the music}
+  \applymusic #(remove-tag 'part) @var{the music}
 @}
 @end example
 would yield
@@ -7369,7 +7369,7 @@ applying the function @code{notes-to-clusters} to a sequence of
 chords, e.g.
 @c
 @lilypond[quote,relative=2,verbatim]
-\apply #notes-to-clusters {  <c e > <b f'>  }
+\applymusic #notes-to-clusters {  <c e > <b f'>  }
 @end lilypond
 
 The following example (from

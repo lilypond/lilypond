@@ -29,29 +29,25 @@
 (define all-scheme-functions
    (hash-fold
     (lambda (key val prior)
-      (cons (cons key val)  prior)
-      )
+      (cons (cons key val)  prior))
     '() (ly:get-all-function-documentation)))
 
 (define (all-scheme-functions-doc)
   (let*
-      (
-
-       (fdocs (map (lambda (x)
+      ((fdocs (map (lambda (x)
 		(document-scheme-function (car x) (cadr x) (cddr x))
 		)
 	      all-scheme-functions)
 	 )
        (sfdocs (sort fdocs string<?))
+       
        )
-
 
     (make <texi-node>
       #:name "Scheme functions"
       #:desc "Primitive functions exported by LilyPond"
       #:text
-      (apply string-append sfdocs)
-	) 
+      (apply string-append sfdocs)) 
   ))
 
 
