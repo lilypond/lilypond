@@ -362,7 +362,7 @@ wave_sweep_goodbye (void *dummy1, void *dummy2, void *dummy3)
 LY_DEFINE(ly_version,  "ly:version", 0, 0, 0, (),
 	  "Return the current lilypond version as a list, e.g. @code{(1 3 127 uu1)}. ")
 {
-  char const* vs =  "\' (" MAJOR_VERSION " " MINOR_VERSION " "  PATCH_LEVEL " " MY_PATCH_LEVEL ")" ;
+  char const* vs =  "\'(" MAJOR_VERSION " " MINOR_VERSION " "  PATCH_LEVEL " " MY_PATCH_LEVEL ")" ;
   
   return gh_eval_str ((char*)vs);
 }

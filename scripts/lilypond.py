@@ -432,7 +432,9 @@ def global_latex_preamble (extra):
 		linewidth = '%d%s' % (maxlw, unit)
 	s = s + '\geometry{width=%s%s,headheight=2mm,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
-	if extra['latexoptions']:
+
+	if extra['latexoptions'] \
+	       and string.find (extra['latexoptions'], 'twoside') >= 0:
 		s = s + '\geometry{twosideshift=4mm}\n'
 
 	s = s + r'''

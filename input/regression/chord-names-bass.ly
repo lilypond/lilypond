@@ -1,3 +1,5 @@
+\version "1.9.5"
+
 \header {
 
 texidoc = "Test igatzek inversion and bass notes.
@@ -13,6 +15,6 @@ bladidbla = \chords {
  }
 
 \score {
-< \context ChordNames \bladidbla
-  \context Voice \bladidbla >
+<< \context ChordNames \bladidbla
+  \context Voice \bladidbla >>
 }
