@@ -11,6 +11,10 @@
 
 #include <guile/gh.h>
 #include <libguile.h>
+
+#define fix_guile_1_3_4_scm_puts(scm_data, port) scm_puts ((char*)scm_data, port)
+#define scm_puts(scm_data, port) fix_guile_1_3_4_scm_puts (scm_data, port)
+
 #include "direction.hh"
 #include "flower-proto.hh"
 
