@@ -45,7 +45,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
     }
   while (flip (&d) != LEFT);
   
-  Real lt = sp->paper_l ()->get_var ("stafflinethickness");
+  Real lt = sp->paper_l ()->get_var ("linethickness");
   Real th = gh_scm2double (sp->get_grob_property ("thickness")) * lt ;
   Real h = gh_scm2double (sp->get_grob_property ("height"));
 

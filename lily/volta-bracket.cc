@@ -59,7 +59,7 @@ Volta_bracket_interface::brew_molecule (SCM smob)
     (strcmp(cs,":|")!=0 && strcmp(cs,"|:")!=0 && strcmp(cs,"|.")!=0
      && strcmp(cs,":|:")!=0 && strcmp(cs,".|")!=0);
 
-  Real staff_thick = me->paper_l ()->get_var ("stafflinethickness");  
+  Real staff_thick = me->paper_l ()->get_var ("linethickness");  
   Real half_space = 0.5;
 
   Item * bound = dynamic_cast<Spanner*> (me)->get_bound (LEFT);

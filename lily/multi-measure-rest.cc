@@ -196,7 +196,7 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Real thick = gh_scm2double (me->get_grob_property ("thickness"));
   Real ss = Staff_symbol_referencer::staff_space (me);
   
-  Real slt = me->paper_l ()->get_var ("stafflinethickness");
+  Real slt = me->paper_l ()->get_var ("linethickness");
   Real y = slt * thick/2 * ss;
   Box b(Interval (0, width), Interval (-y, y));
   Real ythick = slt * ss;
@@ -301,7 +301,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   Item * rb = r->find_prebroken_piece (LEFT);      
   
   Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
+
   for (int i=0; i < 4; i++)
     {
       Item * l =  combinations[i][0];
@@ -314,7 +314,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
       rod.item_l_drul_[LEFT] = l;
       rod.item_l_drul_[RIGHT] = r;
       rod.distance_f_ = l->extent (l, X_AXIS)[BIGGER] - r->extent (r, X_AXIS)[SMALLER]
-	+ 4.0;			// magic!
+	+ 5.0;			// magic!
   
       rod.add_to_cols ();
     }

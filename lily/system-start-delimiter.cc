@@ -67,7 +67,7 @@ System_start_delimiter::has_interface (Grob*me)
 Molecule
 System_start_delimiter::simple_bar (Grob*me,Real h) 
 {
-  Real w = me->paper_l ()->get_var ("stafflinethickness") *
+  Real w = me->paper_l ()->get_var ("linethickness") *
     gh_scm2double (me->get_grob_property ("thickness"));
   return Lookup::filledbox (Box (Interval (0,w), Interval (-h/2, h/2)));
 }
