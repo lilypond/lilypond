@@ -1,6 +1,58 @@
-
-1.3.145.jcn2
+1.3.146.jcn4
 ============
+
+* Updated doco to reflect Windows installer.
+
+* Ripped Cygnus' installer/updater for Windows.
+
+* Cleanups: chord-name.scm.
+
+* Added 'trunc' target for ports, and run at local-dist: in
+ports/mutopia topdir.
+
+* Bugfixes: update-lily.py
+
+* Bugfix: synchronised german-chords.ly with chord-name.scm.
+
+* --srcdir build fix: really included dummy-interfaces.itexi now.
+
+* Added warning message, rather than encouragement, against configuring
+without kpathsea support.
+
+* Moved convert-ly targets from ports to ly make, added ly templates
+to mutopia and input directories.  Bugfix to convert-ly.  Ran
+convert-ly in mutopia dir.
+
+* Recommented some scheme comments in .lys, checked that convert-ly
+doesn't destroy them.
+
+* Bugfixes to convert-ly: don't try to open unexistent file (eg,
+unexpanded wildcard).  Don't remove one semicolon of ';;' scheme
+comments, don't remove semicolon after hash: #;
+
+* Fixed some errors from ; conversion.
+
+1.3.146.hwn3
+============
+
+* ly2dvi bugfixes and latexoptions  support (Mark Hindley)
+
+* Reference manual fixes.
+
+* Added lilypond-book tutorial section
+
+* Hairy bugfix for Align_interface::align_to_fixed_distance (). This
+fixes gaps that appear sometimes when you put things on top of a piano
+staff.
+
+* Added Rune's apply example of wtk1-prelude1.
+
+* Bugfixes for wtk1-fugue1
+
+* Add a check for regular identifiers to parser.
+
+1.3.145
+=======
 
 * Make and ly2dvi fixes.
  
@@ -36,7 +88,7 @@
 
 * Bugfix: LyricsVoice.stz property now works.
 
-* Remove sem-colons from lilypond syntax. 
+* Remove semi-colons from lilypond syntax. 
 
 * Removed a grammar ambiguity: '-' DIGIT (fingering, only possible in \notes)
 now can not be interpreted as a negative number.
@@ -318,11 +370,6 @@ Slur::set_spacing_rods into Spanner::set_spacing_rods
 
 1.3.140
 =======
- 
-
-
-1.3.139.jcn5
-============
 
 * Coriolan gets mutopia-id 57.
 

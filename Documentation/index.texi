@@ -13,6 +13,7 @@
 @item @uref{../topdocs/out-www/AUTHORS.html, Authors}
 @item @uref{../topdocs/out-www/README.html, Readme file}
 @item @uref{../topdocs/out-www/INSTALL.html, Installation instructions}
+@item @uref{../topdocs/out-www/WINDOWS.html, LilyPond for Windows}
 @item @uref{CHANGES.html, Things recently done}
 @item @uref{../topdocs/out-www/FAQ.html,Very Frequently Asked Questions}, with answers
 @item @uref{http://appel.lilypond.org/wiki?LilyPondFaqs,Full Frequently asked questions}, with answers

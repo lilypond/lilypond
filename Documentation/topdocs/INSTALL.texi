@@ -44,8 +44,8 @@ on the FTP site.
 
 This document describes how to build LilyPond on Unix platforms.  It is
 also known to run and compile on Windows NT/95/98 as well.  More
-information on this topic can be found at
-@uref{http://appel.lilypond.org/lilypond/gnu-windows/, Jan's windows
+information on this topic can be found at the
+@uref{http://appel.lilypond.org/lilypond/gnu-windows/, LilyPond on Windows
 page}.
 
 You need the following packages to compile Lilypond.
@@ -72,11 +72,13 @@ Check out @uref{http://www.gnu.org/software/flex/,the Flex webpage}.
 @item Bison (version 1.25 or newer).
 Check out @uref{http://www.gnu.org/software/bison/,the bison  webpage}
 
-@item TeX.
+@item @TeX{}.
 
-If you want LilyPond to use kpathsea support (recommended), make sure
-you have tetex 1.0 or newer (1.0.6 is known to work).  You may need to
-install a tetex-devel or tetex-dev package too.
+@TeX{} is used as an output backend.
+
+Also, @TeX{}'s libkpathsea is used to find the fonts (.mf, .afm, .tfm).
+Make sure you have tetex 1.0 or newer (1.0.6 is known to work).  You may
+need to install a tetex-devel or tetex-dev package too.
 
 @item Texinfo (version 4.0 or newer).
 The documentation of lily is written in texinfo.  Check out
@@ -97,7 +99,18 @@ If you don't have MetaPost and don't want to use PostScript output, then
 edit @file{mf/GNUmakefile}, removing the line saying @code{PFA_FILES=}.
 
 @item kpathsea, a library for searching (TeX) files.  @code{kpathsea} is
-usually included with your installation of TeX. 
+usually included with your installation of TeX.  You may need to install
+a tetex-devel or tetex-dev package too.
+
+In the very unlikely case that kpathsea is not available for your
+platform (ie, you're not running GNU/Linux, Windows, or any recent
+UNIX), you can compile LilyPond without kpathsea support.  In that case,
+you'll probably have to indicate where @TeX{}'s tfm files live.  Invoke
+configure something like:
+
+@example
+./configure --without-kpathsea --enable-tfm-path=/usr/share/texmf/fonts/tfm/public/cm/:/usr/share/texmf/fonts/tfm/ams/symbols
+@end example
 
 @end itemize
 
