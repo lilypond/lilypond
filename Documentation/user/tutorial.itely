@@ -2168,15 +2168,31 @@ to the page layout of this document.
 In this section, we show some ways to fine tune the final output of a
 piece. We do so using a single measure of a moderately complex piano
 piece: a Brahms intermezzo (opus 119, no. 1).
+@cindex Brahms, Johannes
 
 The code for the untuned example shows us some new things.
 
 @lilypondfile[verbatim]{brahms-original.ly}
 
+
+@cindex dynamics
+@cindex loudness
+@cindex forte
+@cindex crescendo
+@cindex @code{\<}
+@cindex @code{\!}
+
+The crescendo is ended at the half note by the escaped exclamation
+mark @code{\!}.
+
 Hairpin dynamics can be indicated using @code{\>} to start a
 decrescendo, and @code{\!} to end one. The crescendo is started using
 @code{\<} and also ended using @code{\!}. Absolute dynamics can be
-entered using @code{\p}, @code{\mf}, etc.
+entered using @code{\p}, @code{\mf}, etc. All these commands apply to
+the complete chord where they are entered, but for syntactical
+reasons, they must be attached to one of the notes of  the chord.
+
+@cindex fingering instructions
 
 Fingering indications are entered simply using @code{-@var{N}}, where
 @var{N} is a digit.
@@ -2187,6 +2203,8 @@ edition by Schott/Universal Edition:
 
 @lilypondfile{brahms-tweaked.ly}
 
+@cindex tuning grob behavior
+
 The basic process that we follow is that we override defaults in the
 printing system. We do this by setting variables in so-called grobs.
 Printed symbols are internally represented by Graphical Objects
@@ -2194,6 +2212,8 @@ Printed symbols are internally represented by Graphical Objects
 determine the fonts, offsets, sub-routines to be called on the grob,
 etc.  The initial values of these settings are set in the Scheme file
 @file{scm/grob-description.scm}.
+
+@cindex slur attachments
 
 We start with the slur: the slur in the upper part, running from the F
 sharp to the A, runs from stem to stem in the printed edition, while
@@ -2216,6 +2236,10 @@ lilypond backend supports approximately 240 variables like
 different types of Grobs, that may be created in 14 different context
 types besides Voice.
 
+@cindex internal documentation
+@cindex finding grobs
+@cindex grob descriptiosn 
+
 The interesting information is how you can figure out which properties
 to tune for your own scores. To discover this, you must have a copy of
 the internals document. This is a set of HTML pages, which should be
@@ -2226,9 +2250,16 @@ also available on the web: go to the lilypond website, click
 ``Documentation: other'' on the side bar, click
 ``lilypond-internals'', under information for users.
 
+You might want to bookmark either the HTML files on disk, or the one
+on the web. One word of caution is in place here: the internals
+documentation is generated from the definitions that lily uses. For
+that reason, it is strongly tied to the version of LilyPond that you
+use. Before you proceed, please make sure that you are using the
+documentation that corresponds to the LilyPond version that you use.
+
 Suppose that you wanted to tune the behavior of the slur. The first
 step is to get some general info on slurs in lilypond. Turn to the
-index, and look up slur. The text says
+index, and look up slur. The section on slurs says
 @quotation
 The grob for this object is @internalsref{Slur}, generally in
 @internalsref{Voice} context.
@@ -2241,7 +2272,18 @@ must look it up the internal documentation: click ``grob overview'' ,
 and select ``slur'' (the list is alphabetical.)
 
 Now you get a list of all the properties that the slur object
-supports, along with their default values.
+supports, along with their default values. Among the properties we
+find the @code{attachment} property, leading to 
+@example 
+ \property Voice.Slur \set #'attachment = #'(stem . stem)
+@end example
+
+If you ran the previous example, you have unknowingly already used
+this kind of command.  The @file{ly/property-init.ly} contains the
+definition of @code{\stemUp}
+@example
+  stemUp = \property Voice.Stem \set #'direction = #1
+@end example  
 
 
 We also want to move around the fingering `3'.  In the printed edition
@@ -2319,8 +2361,8 @@ encounter the latter type if you run Scheme functions on music using
 The second fingering instruction should be moved up a little, to avoid
 a collision with the slur. This could be achieved with
 @code{extra-offset}, but in this case, a simpler mechanism also
-works. We insert an empty text between the 5 and note. The empty text
-pushes the fingering instruction away:
+works. We insert an empty text between the 5 and the note. The empty
+text pushes the fingering instruction away:
 @example
   a^" "^#'(finger "5")
 @end example
@@ -2330,46 +2372,67 @@ text instructions. To insert an empty text (@code{^" "}) between the
 finger and the note, we have disguised the fingering instruction as a
 text: @code{(finger "5")}.
 
-
-
-@separate
+Normally, one would specify dynamics in a single voice, and start and
+end dynamics (such as @b{f} and @b{p}) will be aligned with
+hairpins. In this case, we want the decrescendo to be in a different
+place from the piano sign. We achieve this by putting the dynamic
+markings in different voices. The crescendo should be above the upper
+staff. This can be forced by the precooked command 
 @example
-  stemDown = \property Voice.Stem \override #'direction = #-1
+  \dynamicsUp
 @end example
 
-Set a property for all Stem grobs in the current Voice:
-@code{direction} is set to @code{-1}, which encodes down.  The setting
-remains in effect until it is reverted.
+However, if you do that, the decrescendo will be too close to the
+upper voice, and collide with the stems. Looking at the manual for
+dynamics, we notice that ``Vertical positioning of these symbols is
+handled by the @internalsref{DynamicLineSpanner} grob.''. If we turn
+to the documentation of @code{DynamicLineSpanner}, we find that the
+@code{DynamicLineSpanner} supports several so-called
+`interfaces'. This grob not only puts dynamic objects next to the
+staff (@code{side-position-interface}), but it also groups dynamic
+objects (@code{axis-group-interface}), is considered a dynamic sign
+itself (@code{dynamic-interface}) and is a grob: it has the
+@code{grob-interface}, with all the variables that come with it.
 
-@separate
+For the moment, we are interested in the side positioning:
+@quotation
+ side-position-interface
+
+  Position a victim object (this one) next to other objects (the
+  support).  In this case, the direction signifies where to put the
+  victim object relative to the support (left or right, up or down?)
+@end quotation
+Between the grob and its support (in this case: the notes in the voice
+going down), there should be more space. This space is controlled by
+@code{padding}, so we increase it.
 @example
- \property Voice.Stem \revert #'direction  
+	    \property Voice.DynamicLineSpanner \override #'padding = #5.0
 @end example
 
-Revert the to the previous setting.  The effect of precisely one
-@code{\stemDown} or @code{\stemUp} is neutralized.
+This command is almost like the command for setting slur attachments,
+but subtly different in its details.  Grob properties can be
+manipulated with two commands: @code{\override} extends the grob
+variables with a setting, and @code{\revert} releases this
+setting. This has a certain theoretical appeal: the operations are
+simple and symmetric. For practical use, it can be cumbersome.  Both
+commands act like parentheses: you should carefully balance the use of
+@code{\override} and @code{\revert}. The @code{\set} command is more
+friendly: it first does a @code{\revert} followed by @code{\override}.
 
+Finally, Brahms uses music notation is a slightly unorthodox way. Ties
+usually happen only within one voice. In this piece, the composer
+gladly produces ties that jump voices. We deal with this by faking
+these ties: whenever we need such a tie, we insert a notehead in a
+different voice, and blank the stem. This is done in the following
+snippet of code.
 
-@cindex dynamics
-@cindex loudness
-@cindex forte
-@code{\f} places a forte symbol under the chord. The forte applies to
-the whole chord, but the syntax requires that commands like forte and
-arpeggio are attached to a note, so here we attach them to the first
-note.
+@example
+	  \property Voice.Stem \set #'transparent = ##t
+	  d'
+	  \property Voice.Stem \revert #'transparent
+@end example
 
-On the first chord, a crescendo is started with
-@code{\<}. To be precise, the crescendo start is syntactically attached
-to the preceding note, the @code{d}.
-
-@cindex dynamics
-@cindex crescendo
-@cindex @code{\<}
-
-@cindex @code{\!}
-
-The crescendo is ended at the half note by the escaped exclamation
-mark @code{\!}.
+Finally, the last tie is forced up using @code{\tieUp}.
 
 
 @node An orchestral score

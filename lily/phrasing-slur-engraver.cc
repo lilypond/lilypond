@@ -133,11 +133,6 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 	  else
 	    {
 	      Grob* phrasing_slur = phrasing_slur_l_stack_.pop ();
-	      SCM s = get_property ("phrasingSlurEndAttachment");
-	      if (gh_symbol_p (s))
-		{
-		  index_set_cell (phrasing_slur->get_grob_property ("attachment"), STOP, s);
-		}
 	      end_phrasing_slur_l_arr_.push (phrasing_slur);
 	      requests_arr_.pop ();
 	    }
@@ -148,11 +143,6 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 	  // (use temp. array to wait for all phrasing_slur STOPs)
 	  Grob* phrasing_slur = new Spanner (get_property ("PhrasingSlur"));
 	  Slur::set_interface (phrasing_slur); // can't remove.
-	  SCM s = get_property ("phrasingSlurBeginAttachment");
-	  if (gh_symbol_p (s))
-	    {
-	      index_set_cell (phrasing_slur->get_grob_property ("attachment"), START, s);
-	    }
 	  start_phrasing_slur_l_arr.push (phrasing_slur);
 	  requests_arr_.push (phrasing_slur_req_l);
 	  announce_grob(phrasing_slur, phrasing_slur_req_l->self_scm());
@@ -185,5 +175,5 @@ ENTER_DESCRIPTION(Phrasing_slur_engraver,
 /* descr */       "Print phrasing slurs. Similar to Slur_engraver",
 /* creats*/       "PhrasingSlur",
 /* acks  */       "note-column-interface",
-/* reads */       "slurBeginAttachment slurEndAttachment slurMelismaBusy",
+/* reads */       "slurMelismaBusy",
 /* write */       "");

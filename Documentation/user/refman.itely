@@ -14,15 +14,6 @@
 
 
 
-@ifnothtml
-@macro seeinternals{NAME}
-@end macro
-@macro internalsref{NAME}
-@cindex \NAME\
-\NAME\
-@end macro
-@end ifnothtml
-
 @c .{Reference Manual}
 
 @node Reference Manual
@@ -1639,11 +1630,12 @@ For everyday use, we recommend the identifiers @code{\cresc},
 @cindex diminuendo
 
 Dynamics are grobs of @internalsref{DynamicText} and
-@internalsref{Hairpin}. Vertical positioning of these symbols is handled
-by the @internalsref{DynamicLineSpanner} grob.  If you want to adjust
-padding or vertical direction of the dynamics, you must set properties
-for the @internalsref{DynamicLineSpanner} grob. Predefined identifiers
-to set the vertical direction are \dynamicUp and \dynamicDown.
+@internalsref{Hairpin}. Vertical positioning of these symbols is
+handled by the @internalsref{DynamicLineSpanner} grob.  If you want to
+adjust padding or vertical direction of the dynamics, you must set
+properties for the @internalsref{DynamicLineSpanner} grob. Predefined
+identifiers to set the vertical direction are \dynamicUp and
+\dynamicDown.
 
 @cindex direction, of dynamics
 @cindex @code{\dynamicDown}
@@ -2013,7 +2005,9 @@ Pedals can also be indicated by a sequence of brackets, by setting the
 
 @lilypond[fragment,verbatim]
 \property Staff.SustainPedal \override #'pedal-type = #'bracket
-c''4 \sustainDown d''4 e''4 a'4 \sustainUp \sustainDown f'4 g'4 a'4 \sustainUp
+c''4 \sustainDown d''4 e''4 a'4
+\sustainUp \sustainDown
+ f'4 g'4 a'4 \sustainUp
 @end lilypond
 
 A third style of pedal notation is a mixture of text and brackets,
@@ -2021,7 +2015,9 @@ obtained by setting @code{pedal-type} to @code{mixed}:
 
 @lilypond[fragment,verbatim]
 \property Staff.SustainPedal \override #'pedal-type = #'mixed
-c''4 \sustainDown d''4 e''4 c'4 \sustainUp \sustainDown f'4 g'4 a'4 \sustainUp
+c''4 \sustainDown d''4 e''4 c'4
+\sustainUp \sustainDown
+ f'4 g'4 a'4 \sustainUp
 @end lilypond
 
 The default '*Ped' style for sustain and damper pedals corresponds to
@@ -2439,14 +2435,7 @@ mode.
 @section Chords
 @cindex Chords
 
-LilyPond has support for both entering and printing chords.  Chords are
-characterized by a set of pitches. They are
-internally stored as simultaneous music expressions. This means you can
-enter chords by name and print them as note head, enter them as notes
-and print them as chord names, or (the most common case) enter them by
-name, and print them as name.
-
-
+LilyPond has support for both entering and printing chords. 
 @lilypond[verbatim,singleline]
 twoWays = \notes \transpose c'' {
   \chords {
@@ -2462,9 +2451,15 @@ twoWays = \notes \transpose c'' {
      \context Voice \twoWays > }
 @end lilypond
 
-Note that this example also shows that the chord printing routines do
-not attempt to be intelligent. If you enter @code{f bes d}, it does not
-interpret this as an inversion.
+This example also shows that the chord printing routines do not try to
+be intelligent. If you enter @code{f bes d}, it does not interpret
+this as an inversion.
+
+As you can see chords really are a set of pitches. They are internally
+stored as simultaneous music expressions. This means you can enter
+chords by name and print them as notes, enter them as notes and print
+them as chord names, or (the most common case) enter them by name, and
+print them as name.
 
 @menu
 * Chords mode::                 
@@ -2479,24 +2474,9 @@ interpret this as an inversion.
 Chord mode is a mode where you can input sets of pitches using common
 names.  It is introduced by the keyword @code{\chords}.  It is similar
 to note mode, but words are also looked up in a chord modifier table
-(containing @code{maj}, @code{dim}, etc).
-
-Dashes and carets are used to indicate chord additions and subtractions,
-so articulation scripts can not be entered in Chord mode.
-
-The syntax for named chords is as follows:
-@example
-  @var{tonic}[@var{duration}][@code{-}@var{modifiers}][@code{^}@var{subtractions}][@code{/}@var{inversion}][@code{/+}@var{bass}].
-@end example
-
-@var{tonic} should be the tonic note of the chord, and @var{duration} is
-the chord duration in the usual notation.  There are two kinds of
-modifiers.  One type is formed by @emph{chord additions}. Additions are
-obtained by listing intervals separated by dots.  An interval is written
-by its number with an optional @code{+} or @code{-} to indicate raising
-or lowering by half a step.  Chord additions have two effects: they adds
-the specified interval and all lower odd numbered intervals to the
-chord, and they may lower or raise the specified interval.
+(containing @code{maj}, @code{dim}, etc). Dashes and carets are used
+to indicate chord additions and subtractions, so articulation scripts
+can not be entered in Chord mode.
 
 Throughout these examples, chords have been shifted around the staff
 using @code{\transpose}.
@@ -2574,10 +2554,25 @@ so it becomes the lowest note in the chord.
 
 @end lilypond 
 
+The formal syntax for named chords is as follows:
+@example
+  @var{tonic}[@var{duration}][@code{-}@var{modifiers}][@code{^}@var{subtractions}][@code{/}@var{inversion}][@code{/+}@var{bass}].
+@end example
+
+@var{tonic} should be the tonic note of the chord, and @var{duration} is
+the chord duration in the usual notation.  There are two kinds of
+modifiers.  One type is formed by @emph{chord additions}. Additions are
+obtained by listing intervals separated by dots.  An interval is written
+by its number with an optional @code{+} or @code{-} to indicate raising
+or lowering by half a step.  Chord additions have two effects: they adds
+the specified interval and all lower odd numbered intervals to the
+chord, and they may lower or raise the specified interval.
+
+
 @refbugs
 
-Implementation details are gory. For example @code{c:4} not only
-adds a fourth, but also removes the third.
+Implementation details are gory. For example @code{c:4} not only adds
+a fourth, but also removes the third.
 
 
 @c .  {Printing named chords}
@@ -2619,7 +2614,9 @@ scheme = \chords {
         \property ChordNames.chordChanges = ##t
         \scheme }
     \context Staff \transpose c'' \scheme
-  > }
+  >
+\paper{linewidth= 9.\cm}
+}
 @end lilypond
 
 LilyPond examines chords specified as lists of notes to determine a name
@@ -2706,31 +2703,25 @@ problems in orchestral music.
 @cindex mark
 @cindex @code{\mark}
 
-
-@example
-  \mark @var{unsigned}
-  \mark @var{string}
-  \mark \default
-@end example
-
-This command prints a rehearsal mark above the system. You can provide
-a number, a string or a markup text as argument. If you use
-@code{\default}, the value of property @code{rehearsalMark} is used and
-automatically incremented.
-
+To print a  rehearsal mark, use the @code{\mark} command. 
 @lilypond[fragment,verbatim]
 \relative c'' {
-  c1 \mark "A2"
+  c1 \mark "A"
   c1 \mark \default
   c1 \mark \default 
   c1 \mark "12"
+  c1 \mark \default
   c1 \mark #'(music "scripts-segno") 
   c1
 }
 @end lilypond
 
-The grob is @internalsref{RehearsalMark} in @internalsref{Score} context. See
-@code{input/test/boxed-molecule.ly} if you need boxes around the marks.
+As you can see, the mark is incremented automatically if you use
+@code{\mark \default}. The value to use is stored in the property
+@code{rehearsalMark} is used and automatically incremented.  The grob
+is @internalsref{RehearsalMark} in @internalsref{Score} context. See
+@code{input/test/boxed-molecule.ly} if you need boxes around the
+marks.
 
 @node Bar numbers
 @subsection Bar numbers
@@ -2740,7 +2731,7 @@ The grob is @internalsref{RehearsalMark} in @internalsref{Score} context. See
 @cindex measure numbers
 @cindex currentBarNumber
 
-Bar numbers are @internalsref{BarNumber} grobs.  They are printed at the
+  They are printed at the
 start of the line.  The number itself is a property that can be set by
 modifying the @code{currentBarNumber} property, i.e.
 @example
@@ -2750,22 +2741,26 @@ modifying the @code{currentBarNumber} property, i.e.
 If you want boxed bar numbers, see the example file
 @code{input/test/boxed-molecule.ly}.
 
+Bar numbers are @internalsref{BarNumber} grobs.
+
 @refbugs
 
 It is not possible to have bar numbers printed at regular intervals
 only.
 
 Barnumbers can collide with the StaffGroup, if there is one at the
-top. To solve this, You have to twiddle with the padding-property of
-the bar-number if your score starts with a staff-group. 
+top. To solve this, You have to twiddle with the
+@internalsref{padding} property of @internalsref{BarNumber} if your
+score starts with a @internalsref{StaffGroup}.
 
 @node Instrument names
 @subsection Instrument names
 
-You can specify an instrument name for a staff by setting
-@code{Staff.instrument} and @code{Staff.instr}. This will print a string
-before the start of the staff. For the first start, @code{instrument} is
-used, for the next ones @code{instr} is used.
+In scores, the instrument name is printed before the staff. This can
+be done by setting @code{Staff.instrument} and
+@code{Staff.instr}. This will print a string before the start of the
+staff. For the first start, @code{instrument} is used, for the next
+ones @code{instr} is used.
 
 @lilypond[verbatim,singleline]
   \property Staff.instrument = "ploink " { c''4 }  
@@ -2813,35 +2808,19 @@ This means that middle C in @var{musicexpr} is transposed to
 a tone.  The first version will print sharps and the second version
 will print flats.
 
-@lilypond[fragment,verbatim]
-\context Staff {
-  \clef "F"
-  { \key e \major c d e f }
+@lilypond[singleline, verbatim]
+mus =\notes { \key e \major c d e f }
+\score { \notes \context Staff {
+  \clef "F" \mus
   \clef "G"
-  \transpose des'' { \key e \major c d e f }
-  \transpose cis'' { \key e \major c d e f }
-}
+  \transpose des'' \mus
+  \transpose cis'' \mus
+}}
 @end lilypond
 
 If you want to use both @code{\transpose} and @code{\relative}, then
 you must use @code{\transpose} first.  @code{\relative} will have no
 effect music that appears inside a @code{\transpose}.
-
-@node Sound output for transposing instruments
-@subsection Sound output transposing instruments
-
-When you want to make a MIDI file from a score containing transposed and
-untransposed 
-instruments, you have to instruct LilyPond the pitch offset (in
-semitones) for the transposed instruments. This is done using the
-@code{transposing} property. It does not affect printed output.
-
-@cindex @code{transposing}
-
-@example
-        \property Staff.instrument = #"Cl. in B-flat"
-        \property Staff.transposing = #-2
-@end example
 
 @c .  {Multi measure rests}
 @node  Multi measure rests
@@ -2859,7 +2838,8 @@ Lily will not expand empty measures, and the appropriate number is added
 automatically.
 
 @lilypond[fragment,verbatim]
- \time 3/4 r2. | R2. | R2.*2 \property Score.skipBars = ##t R2.*17  R2.*4
+ \time 3/4 r2. | R2. | R2.*2
+ \property Score.skipBars = ##t R2.*17  R2.*4
 @end lilypond
 
 Notice that the @code{R2.} is printed as a whole rest, centered in the
@@ -2871,8 +2851,9 @@ The grob for this object is @internalsref{MultiMeasureRest}.
 
 @refbugs
 
-Currently, there is no way to automatically condense multiple rests into
-a single multimeasure rest.
+Currently, there is no way to automatically condense multiple rests
+into a single multimeasure rest. Multi measure rests do not take part
+in rest collisions.
 
 @cindex condensing rests
 
@@ -2885,9 +2866,10 @@ a single multimeasure rest.
 Automatic part combining is used to merge two parts of music onto a
 staff in an intelligent way.  It is aimed primarily at typesetting
 orchestral scores.  When the two parts are identical for a period of
-time, only one is shown.  In places where the two parts differ, they are
-typeset as separate voices, and stem directions are set automatically.
-Also, solo and @emph{a due} parts can be identified and marked.
+time, only one is shown.  In places where the two parts differ, they
+are typeset as separate voices, and stem directions are set
+automatically.  Also, solo and @emph{a due} parts can be identified
+and marked.
 
 The syntax for part combining is
 
@@ -2994,6 +2976,23 @@ example disappears in the second line.
   }
 }
 @end lilypond
+
+
+@node Sound output for transposing instruments
+@subsection Sound output for transposing instruments
+
+When you want to make a MIDI file from a score containing transposed
+and untransposed instruments, you have to instruct LilyPond the pitch
+offset (in semitones) for the transposed instruments. This is done
+using the @code{transposing} property. It does not affect printed
+output.
+
+@cindex @code{transposing}
+
+@example
+        \property Staff.instrument = #"Cl. in B-flat"
+        \property Staff.transposing = #-2
+@end example
 
 
 
@@ -3142,7 +3141,62 @@ Editio XXX.''
 
 @cindex Basso continuo
 
-TODO. see figured-bass.ly
+LilyPond has limited support for figured bass:
+
+@lilypond[verbatim,fragment]
+<
+ \context FiguredBass
+   \figures {
+	<_! 3+ 5- _ 7! 9 >4
+	< [4 6] 8 >
+   }
+ \context Voice { c4 g8 }
+>
+@end lilypond
+
+The support for figured bass consists of two parts: there is an input
+mode, introduced by @code{\figures}, where you can enter bass figures
+as numbers, and there is a context called @internalsref{FiguredBass}
+that takes care of making @internalsref{BassFigure} grobs.
+
+In figures input mode, a group of bass figures is delimited by
+@code{<} and @code{>}. The duration is entered after the @code{>}.
+@lilypond[fragment]
+\context FiguredBass
+\figures {	<4 6> }
+@end lilypond
+@example
+	<4 6>
+@end example
+
+Accidentals are added to the numbers if you alterate them by
+appending @code{-}, @code{!}  and @code{+}.
+
+@lilypond[fragment]
+  \context FiguredBass
+\figures { <4- 6+ 7!> }
+@end lilypond
+@example
+  <4- 6+ 7!>
+@end example
+
+Spaces or dashes may be inserted by using @code{_}. Brackets are
+introduced with @code{[} and @code{]}.
+
+@lilypond[fragment]
+ \context FiguredBass
+\figures { < [4 6] 8 [_ 12]> }
+@end lilypond
+@example
+	< [4 6] 8 [_ 12]>
+@end example
+
+Although the support for figured bass may superficially resemble chord
+support, it works much simpler: in figured bass simply stores the
+numbers, and then prints the numbers you entered. There is no
+conversion to pitches, and no realizations of the bass are played in
+the MIDI file.
+
 
 @c . {Tuning output}
 @node Tuning output
@@ -3368,38 +3422,6 @@ If possible, avoid this feature: the semantics are not very clean, and
 the syntax and semantics are up for rewrite.
 
 
-
-
-@node What to tune?
-@subsection What to tune?
-
-This all tells you how to tune grobs, but you don't know what variables
-to set? The question is not answered in this part of the manual
-(although you may encounter some examples.).
-
-Grob properties are tied directly to the implementation of LilyPond, and
-they are thus a moving target. Documentation of such variables is in the
-automatically generated documentation.  Description of properties are
-generated from the source code for each version. This documentation is
-therefore more up to date.  It should be available from the same place
-where you got this manual.
-
-To decide how to tune a grob, you need to find the following information
-@itemize @bullet
-@item
-which grob to modify
-@item
-which property to modify
-@item
-which context the grob comes from.
-@end itemize
-
-Included with the automatically generated documentation is a master list
-of grobs. Selecting a grob will take you to an overview of the
-properties available for that grob.
-
-There is also a master list of contexts. Selecting one takes you to an
-overview of that context which lists which grob types are created there.
 
 
 @node Font selection

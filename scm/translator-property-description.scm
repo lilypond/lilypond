@@ -306,12 +306,6 @@ r1 r1*3 R1*3  \\\\property Score.skipBars= ##t r1*3 R1*3
 				 "When true, all no typesetting is done at
 this moment, causing  the interpretation phase to go a lot faster. This can
 help with debugging large scores.")
-
-(translator-property-description 'slurBeginAttachment symbol?
-"translates to the car of grob-property 'attachment of NoteColumn. See
-@ref{Slur}.")
-
-(translator-property-description 'slurEndAttachment symbol? "translates to the cdr of grob-property 'attachment of NoteColumn. See @ref{Slur}.")
 (translator-property-description 'slurMelismaBusy boolean? "Signal a slur if automaticMelismata is set.")
 (translator-property-description 'solo boolean? "set if solo is detected by the part combiner.")
 (translator-property-description 'soloADue boolean? "set Solo/A due texts in the part combiner?.")

@@ -1,7 +1,7 @@
 
 New features in 1.5
 
-* Simple tablature.
+* Tablature support.
 
 * Many speedups, many slowdowns.
 
@@ -17,7 +17,8 @@ New features in 1.5
 
 * Better spacing.  Includes subtle details like optical stem spacing.
 
-* More ancient notation support: mensural ligatures, porrectuses, more shapes.
+* More ancient notation support: mensural ligatures, porrectuses,
+ambituses, more shapes.
 
 * Bracket piano pedals.
 
@@ -26,3 +27,5 @@ New features in 1.5
 * Font completely revised and improved.
 
 * Completely rewritten midi input support.
+
+* Many bugfixes

@@ -141,3 +141,12 @@ $\\flat$
 See @internalsref{\NAME\}
 @end macro
 @end ifhtml
+@ifnothtml
+@macro seeinternals{NAME}
+@end macro
+@macro internalsref{NAME}
+@cindex \NAME\
+\NAME\
+@end macro
+@end ifnothtml
+

@@ -4,6 +4,11 @@
 
 2002-06-29  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/(phrasing-)slur-engraver.cc: remove slur{Begin|End}Attachment.
+
+	* lily/separating-line-group-engraver.cc (acknowledge_grob):
+	ignore grobs with no-spacing-rods set.
+
 	* Documentation/user/tutorial.itely (Fine tuning a piece): more tut.
 
 	* scm/grob-description.scm (all-grob-descriptions): sort list
