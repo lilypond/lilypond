@@ -5,9 +5,7 @@
 ;;;; (c) 2004 Carl D. Sorensen <c_sorensen@byu.edu>
 
 (define ly:paper-lookup ly:output-def-lookup) ; compat for 2.3, remove  when using 2.2
-
-;;TODO -- Change font interface from name, magnification to family, weight, size
-;      Right now, using the desired interface gives an error, so we use name, magnification
+(define my-font-encoding 'TeX-text )
 
 (define (fret-parse-marking-list marking-list fret-count)
    (let* ((fret-range (list 1 fret-count))
@@ -122,30 +120,23 @@
                  (- size th) 0))) 
                  
 
-(define (centered-text-stencil procedure font text)
-"Create a centered text stencil of @var{text} in font @var{font} using stencil creation procedure @var{procedure}"
-;UGH -- version check is necessary because 2.3 is not available on cygwin, so CDS development
-;   needs 2.2 compatible ly:stencil-align-to!
-;   Once 2.3 is built on cygwin, version check can go (fret-diagrams.scm is not part of dist for 2.2)
-(let* ((text-stencil (procedure font text)))
-     (if (= (cadr (ly:version)) 3)
+(define (centered-stencil stencil)
+ "Center stencil @var{stencil} in both the X and Y directions"
+ (let* ((output-stencil stencil))
+;     (if (= (cadr (ly:version)) 3)
 	 (begin
-	   (ly:stencil-align-to! text-stencil Y 0)
-	   (ly:stencil-align-to! text-stencil X 0)
-	   text-stencil)
-	 (ly:stencil-align-to (ly:stencil-align-to text-stencil X 0) Y 0))))
+	   (ly:stencil-align-to! output-stencil Y 0)
+	   (ly:stencil-align-to! output-stencil X 0)
+	   output-stencil)))
+;	 (ly:stencil-align-to (ly:stencil-align-to text-stencil X 0) Y 0))))
 
-(define (draw-dots paper props string-count fret-range size finger-code dot-circle-font-mag dot-position dot-radius dot-list)
+(define (draw-dots paper props string-count fret-range size finger-code dot-position dot-radius dot-list)
   "Make dots for fret diagram."
-;TODO -- move away from name,magnification font spec to family, size
-;  Note -- family, size doesn't work with fontify-text procedure; need to fix that before we can make the switch
   (let* ((scale-dot-radius (* size dot-radius))
          (dot-color (chain-assoc-get 'dot-color props 'black))
          (finger-xoffset (chain-assoc-get 'finger-xoffset props -0.25))
          (finger-yoffset (chain-assoc-get 'finger-yoffset props (- size)))
-;part of deprecated font interface 
-         (label-font-name (chain-assoc-get 'label-font-name props "cmss8"))
-         (dot-label-font-mag (* scale-dot-radius (chain-assoc-get 'dot-label-font-mag props 1.2)))
+         (dot-label-font-mag (* scale-dot-radius (chain-assoc-get 'dot-label-font-mag props 1.0)))
          (string-label-font-mag (* size (chain-assoc-get 'string-label-font-mag props 0.6)))
          (fret-count (+ (- (cadr fret-range) (car fret-range) 1)))
          (mypair (car dot-list))
@@ -157,24 +148,10 @@
          (extent (cons (- scale-dot-radius) scale-dot-radius))
          (finger (caddr mypair))
          (finger (if (number? finger) (number->string finger) finger))
-; desired font interface
-          (string-label-font (ly:paper-get-font paper `(((font-family . sans)(font-encoding . latin1)(font-series . medium) (font-shape . upright)
-                                        (font-size . ,(stepmag (* size string-label-font-mag)))))))
-; deprecated font interface
-;         (string-label-font (ly:paper-get-font paper `(((font-magnification . ,string-label-font-mag)
-;                                                        (font-name . ,label-font-name)))))
-; desired font interface
-          (dot-label-font (ly:paper-get-font paper `(((font-family . sans)(font-encoding . latin1)(font-series . medium) (font-shape . upright)
-                                        (font-size . ,(stepmag (* size dot-label-font-mag)))))))
-; deprecated font interface
-;         (dot-label-font (ly:paper-get-text-font paper `(((font-magnification . ,dot-label-font-mag)
-;                                                     (font-name . ,label-font-name)))))
-; desired font interface
-          (dot-circle-font (ly:paper-get-font paper `(((font-family . sans)(font-encoding . latin1)(font-series . medium) (font-shape . upright)
-                                        (font-size . ,(stepmag (* size dot-circle-font-mag)))))))
-; deprecated font interface
-;         (dot-circle-font (ly:paper-get-font paper `(((font-magnification . ,dot-circle-font-mag)
-;                                                      (font-name . ,label-font-name)))))
+          (string-label-font (ly:paper-get-font paper `(((font-family . sans)(font-encoding . ,my-font-encoding)(font-series . medium) (font-shape . upright)
+                                        (font-size . ,(stepmag  string-label-font-mag))))))
+          (dot-label-font (ly:paper-get-font paper `(((font-family . sans)(font-encoding . ,my-font-encoding)(font-series . medium) (font-shape . upright)
+                                        (font-size . ,(stepmag  dot-label-font-mag))))))
          (dotstencil  (if (eq? dot-color 'white)
                           (begin
                           (ly:make-stencil (list 'white-dot 0 0 scale-dot-radius) extent extent))
@@ -186,12 +163,15 @@
                  (if (or (eq? finger '())(eq? finger-code 'none))
                      positioned-dot
                  (if (eq? finger-code 'in-dot)
-                    (let*  ((dot-proc (if (eq? dot-color 'white) 'white-dot 'dot))
-                            (text-proc (if (eq? dot-color 'white) fontify-text fontify-text-white)))
+                    (let*  ((dot-proc (if (eq? dot-color 'white) 'white-dot 'dot)))
                      (ly:stencil-add 
                         (ly:stencil-translate-axis 
                           (ly:stencil-translate-axis 
-                              (centered-text-stencil text-proc dot-label-font finger) xpos X)
+                              (if (eq? dot-color 'white)
+                              (centered-stencil (fontify-text dot-label-font finger))
+                              (centered-stencil (fontify-text-white dot-label-font-mag 
+                                                                    dot-label-font  finger)))
+                               xpos X)
                               ypos Y)
                         (ly:stencil-translate-axis
                            (ly:stencil-translate-axis 
@@ -203,30 +183,25 @@
                          positioned-dot
                          (ly:stencil-translate-axis 
                              (ly:stencil-translate-axis 
-                                 (centered-text-stencil fontify-text string-label-font finger) xpos  X)
+                                 (centered-stencil (fontify-text string-label-font finger)) xpos  X)
                              (* size finger-yoffset) Y))
                      ;unknown finger-code
                      positioned-dot)))))
     (if (null? restlist) 
         labeled-dot-stencil
         (ly:stencil-add 
-            (draw-dots paper props string-count fret-range size finger-code dot-circle-font-mag
+            (draw-dots paper props string-count fret-range size finger-code 
                           dot-position dot-radius restlist)
             labeled-dot-stencil))))
 
 (define (draw-xo paper props string-count fret-range size xo-list) 
 "Put open and mute string indications on diagram, as contained in @var{xo-list}."
-;TODO -- Move away from name,mag font spec to family, size
     (let* ((fret-count (+ (- (cadr fret-range) (car fret-range) 1)))
            (xo-font-mag (* size (chain-assoc-get 'xo-font-magnification props 0.5)))
-           (xo-font-name (chain-assoc-get 'xo-font-name props "cmss8"))
            (xo-horizontal-offset (* size (chain-assoc-get 'xo-horizontal-offset props -0.35)))
-; desired font interface
-;           (font (ly:paper-get-font paper `(((font-family . sans)(font-series . medium) (font-shape . upright)
-;                                        (font-size . ,(stepmag (* size xo-font-mag)))))))
-; deprecated font interface
-           (font (ly:paper-get-font paper `(((font-magnification . ,xo-font-mag)
-                                             (font-name . ,xo-font-name)))))
+           (font (ly:paper-get-font paper `(((font-encoding . ,my-font-encoding)(font-family . sans)
+                                        (font-series . medium) (font-shape . upright)
+                                        (font-size . ,(stepmag (* size xo-font-mag)))))))
            (mypair (car xo-list))
            (restlist (cdr xo-list))
            (glyph-string (if (eq? (car mypair) 'mute) "X" "O"))
@@ -251,7 +226,7 @@
        (list (cons x1 bottom-control-point-height) (cons x2 bottom-control-point-height) (cons right bottom) (cons left bottom)
              (cons x2 top-control-point-height) (cons x1 top-control-point-height) (cons left bottom) (cons right bottom))))
 
-(define (draw-barre paper props string-count fret-range size finger-code dot-circle-font-mag dot-position dot-radius barre-list)
+(define (draw-barre paper props string-count fret-range size finger-code dot-position dot-radius barre-list)
    "Create barre indications for a fret diagram"
    (if (not (null? barre-list))
      (let* ((string1 (caar barre-list))
@@ -277,7 +252,7 @@
                                   (cons bottom (+ bottom (* size bezier-height)))))))
         (if (not (null? (cdr barre-list)))
             (ly:stencil-add barre-stencil
-                 (draw-barre paper props string-count fret-range size finger-code dot-circle-font-mag
+                 (draw-barre paper props string-count fret-range size finger-code 
                       dot-position dot-radius (cdr barre-list)))
             barre-stencil ))))
 
@@ -288,24 +263,18 @@
 
 (define (label-fret paper props string-count fret-range size)
    "Label the base fret on a fret diagram"
-;TODO -- move away from name,magnification font spec to family, size
    (let* ((base-fret (car fret-range))
           (label-font-mag (chain-assoc-get 'fret-label-font-magnification props 0.7))
-;          (label-horizontal-offset (chain-assoc-get 'fret-label-horizontal-offset props -0.5))
           (label-vertical-offset (chain-assoc-get 'fret-label-vertical-offset props -0.2))
           (fret-count (+ (- (cadr fret-range) (car fret-range)) 1))
-; desired font interface
-;          (font (ly:paper-get-font paper `(((font-family . sans)(font-series . medium) (font-shape . upright)
-;                                        (font-size . ,(stepmag (* size label-font-mag))))))))
-; deprecated font interface
-          (font (ly:paper-get-font paper `(((font-magnification . ,label-font-mag)
-                                                      (font-name . "cmss8"))))))          
+          (font (ly:paper-get-font paper `(((font-encoding . ,my-font-encoding)(font-family . sans)
+                                            (font-series . medium) (font-shape . upright)
+                                            (font-size . ,(stepmag (* size label-font-mag))))))))
        (ly:stencil-translate-axis (fontify-text font (format #f "~(~:@r~)" base-fret)) 
                        (* size (+ fret-count label-vertical-offset)) Y)))
  
 (def-markup-command (fret-diagram-verbose paper props marking-list)
   (list?)
-;TODO -- put table in doc string
   "Make a fret diagram containing the symbols indicated in @var{marking-list}
   
   Syntax: \\fret-diagram   marking-list
@@ -353,10 +322,9 @@ part of the place-fret element is present, @var{finger-value} will be displayed 
          (fret-count (chain-assoc-get 'fret-count props 4)) ; needed for everything
          (finger-code (chain-assoc-get 'finger-code props 'none))  ; needed for both draw-dots and draw-barre
          (default-dot-radius (if (eq? finger-code 'in-dot) 0.45 0.25))  ; bigger dots if labeled
-         (default-dot-position (if (eq? finger-code 'in-dot) 0.5 0.6))  ; move up to make room for bigger if labeled
+         (default-dot-position (if (eq? finger-code 'in-dot) (- 1 default-dot-radius) 0.6))  ; move up to make room for bigger if labeled
          (dot-radius (chain-assoc-get 'dot-radius props default-dot-radius))  ; needed for both draw-dots and draw-barre
          (dot-position (chain-assoc-get 'dot-position props default-dot-position)) ; needed for both draw-dots and draw-barre
-         (dot-circle-font-mag (* size (chain-assoc-get 'dot-circle-font-mag props .75))) ; needed for both draw-dots and draw-barre
          (th (* (ly:paper-lookup paper 'linethickness)
                 (chain-assoc-get 'thickness props 0.5))) ; needed for both draw-frets and draw-strings
                 
@@ -373,12 +341,12 @@ part of the place-fret element is present, @var{finger-value} will be displayed 
                             (draw-frets paper props fret-range string-count th size))))
          (if (not (null? barre-list))
              (set! fret-diagram-stencil (ly:stencil-add
-                                    (draw-barre paper props string-count fret-range size finger-code dot-circle-font-mag 
+                                    (draw-barre paper props string-count fret-range size finger-code  
                                                 dot-position dot-radius barre-list)
                                     fret-diagram-stencil)))
          (if (not (null? dot-list))
              (set! fret-diagram-stencil (ly:stencil-add
-                                    (draw-dots paper props string-count fret-range size finger-code dot-circle-font-mag
+                                    (draw-dots paper props string-count fret-range size finger-code 
                                           dot-position dot-radius dot-list)
                                     fret-diagram-stencil)))
          (if (not (null? xo-list))
@@ -394,7 +362,6 @@ part of the place-fret element is present, @var{finger-value} will be displayed 
          
 (def-markup-command (fret-diagram paper props definition-string)
   (string?)
-;TODO -- put table in doc string
   "Syntax: \\fret-diagram definition-string
   
 eg: \\markup \\fret-diagram #\"s:0.75;6-x;5-x;4-o;3-2;2-3;1-2;\"
@@ -451,8 +418,6 @@ Note:  There is no limit to the number of fret indications per string.
 @end itemize
     
 "
-;       (define new-props (acons 'size size '()))
-;       (set! props (cons new-props props))
        (let ((definition-list (fret-parse-definition-string props definition-string)))
        (make-fret-diagram paper (car definition-list) (cdr definition-list))))
 
@@ -462,10 +427,6 @@ Note:  There is no limit to the number of fret indications per string.
   a fret-indication list with the appropriate values"
    (let* ((fret-count 4)
           (string-count 6)
-   ;       (thickness 0.05)
-   ;       (finger-code 0)
-   ;       (dot-size 0.25)
-   ;       (dot-position 0.6)
           (fret-range (list 1 fret-count))
           (barre-list '())
           (dot-list '())
@@ -529,7 +490,6 @@ Note:  There is no limit to the number of fret indications per string.
            
 (def-markup-command (fret-diagram-terse paper props definition-string)
   (string?)
-;TODO -- put table in doc string
   "Make a fret diagram markup using terse string-based syntax.
 
 Syntax: \\fret-diagram-terse definition-string
@@ -574,7 +534,6 @@ with \"-(\" to start a barre and \"-)\" to end the barre.
     props, modified to include the string-count determined by the definition-string
     a fret-indication list with the appropriate values"
 ;TODO -- change syntax to  fret\string-finger
-;TODO -- fix bug that doesn't allow multiple indications per string
    (let* ((barre-start-list '())
           (output-list '())
           (new-props '())
@@ -591,11 +550,11 @@ with \"-(\" to start a barre and \"-)\" to end the barre.
                                   (max-element-index (- (length this-list) 1))
                                   (last-element (car (list-tail this-list max-element-index)))
                                   (fret (if (string->number (car this-list)) (string->number (car this-list)) (car this-list))))
-                               (if (equal? last-element "(") ; here I add ) to balance parentheses for my editor
+                               (if (equal? last-element "(")
                                    (begin
                                      (set! barre-start-list (cons-fret (list current-string fret) barre-start-list))
                                      (set! this-list (list-head this-list max-element-index))))
-                               (if (equal? last-element ")") ; here I add ( to balance parentheses for my editor
+                               (if (equal? last-element ")")
                                    (let* ((this-barre (get-sub-list fret barre-start-list))
                                           (insert-index (- (length this-barre) 1)))
                                      (set! output-list (cons-fret (cons* 'barre (car this-barre) current-string (cdr this-barre)) 

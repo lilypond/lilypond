@@ -1,3 +1,20 @@
+2004-07-02  Carl Sorensen  <carldsorensen@comcast.net>
+
+	* scm/output-ps.scm (white-text): Add scale paramter to allow scaling
+
+	* scm/output-tex.scm (white-text): Add scale parameter to allow font scaling
+
+	* scm/stencil.scm (fontify-text-white) : Adjust to better center, properly
+	scale white text
+
+	* scm/fret-diagrams.scm (make-fret-diagram): change default dot position for numbered dots so dot will
+	touch fret.
+	(various routines): move to font-metric interface, rather than name, size interface.
+	Clean up comments.
+
+	* ps/music-drawing-routines.ps: (/draw_white_text)  Adjust font
+	size and offset to better center white text.
+
 2004-07-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* ChangeLog: Remove pre-2.1 changes.
@@ -13,6 +30,8 @@
 	input/test/no-key-at-end-of-line.ly: New example files (FAQs)
 
 2004-07-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* VERSION: release 2.3.6
 
 	* input/regression/beam-quant-standard.ly: new file: test standard
 	beam quants.
