@@ -400,6 +400,7 @@ System::columns () const
   return acs;
 }
 
+
 ADD_INTERFACE (System, "system-interface",
 	       "This is the toplevel object: each object in a score "
 	       "ultimately has a System object as its X and Y parent. ",
