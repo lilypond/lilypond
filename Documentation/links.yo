@@ -1,4 +1,3 @@
-
 article(links - Links to other related websites)(HWN and JCN)()
 
 sect(DESCRIPTION)
@@ -12,7 +11,6 @@ nsubsect(LilyPond)
 
 description(
 dit(lurl(http://www.cs.uu.nl/people/hanwen/lilypond/))Han-Wen's site.
-dit(lurl(http://www.xs4all.nl/~jantien/lilypond/))Jan's site.
 dit(lurl(http://sca.uwaterloo.ca/lilypond/))The canadian mirror
 (thanks, Eric!)
 )
@@ -21,8 +19,9 @@ subsect(Other)
 
 description(
 dit(lurl(http://www.gnu.org/))
-    LilyPond is part of the GNU Project started by the Free Software
-    Foundation to create a system of free software for the world-community
+    LilyPond is part of the GNU Project.  The GNU project is the name 
+    of Richard Stallman's effort to create a freely available 
+    system of software.
 dit(lurl(http://www.zib.de/Visual/software/doc++/index.html))
     The documentation system for C++ sources, which is used for the
     LilyPond sources.
@@ -34,38 +33,22 @@ dit(lurl(http://www.iat.unc.edu/technology/music/music.html))
     An enormous collection of music related URLs
 dit(lurl(http://www.ram.org/ramblings/philosophy/fmp.html))
     Musings on free music, plus hints how to record your own (free) music.
-
 dit(lurl(http://www.geocities.com/Vienna/Studio/1714/))
 	John Sankey has taken up the task of recording classical
-music, and distributing the results at no cost.
+	music, and distributing the results at no cost.
 )
-
 
 sect(Ftp)
 
-We will upload major releases to the following sites:
-
-description(
-dit(lurl(ftp://metalab.unc.edu/pub/Linux/apps/sound/convert))
-    The GNU/Linux FTP site
-
-dit(lurl(ftp://ftp.dante.de/tex-archive/support/lilypond))
-    An ftp site which is in CTAN. CTAN is a worldwide network of
-    sites full of TeX() stuff.
-
-dit(lurl(ftp://ftp.redhat.com/pub/contrib/))
-    The FTP site of RedHat Software.
-)
-
-At this moment we have about one development-patchlevel per week. 
-These development releases will also be at
+At this moment we have about one development-patchlevel per week.
+These development releases will be at
 
 itemize(
 it()lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development)
 
 it()lurl(ftp://sca.uwaterloo.ca/pub/lilypond)
 
-it()[your mirror here]
+it()lurl(ftp://ftp.lilypond.org/pub/lilypond)
 )
 
 Debian releases are located at
@@ -102,13 +85,11 @@ dit(lurl(http://www.ssc.com/linux/))
 dit(lurl( http://sound.condorow.net))
     Dave Philips' Linux sound applications page
 dit(lurl(http://www4.smart.net/~jcovey/scores.html))
-	Jeff Covey's guitar music=
+	Jeff Covey's guitar music
 dit(lurl(http://www.home.fh-karlsruhe.de/~rost0001/web/musik/musik.html))
     Stochastic composing using LilyPond 
 dit(lurl(http://www.medieval.org/emfaq/scores/software.html))
     More software for (early) music.
-dit(lurl(http://www.emry.net/webwatcher/))
-    The Linux webwatcher: this site logs changes in important Linux sites.
 dit(lurl(http://www.pbm.com/~lindahl/ravenscroft/modern))
     Transcriptions of the music of Thomas Ravenscroft, partly using
     LilyPond

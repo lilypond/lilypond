@@ -5,11 +5,14 @@ PATCHES - track and distribute your code changes
 nsect(DESCRIPTION)
 
 This page documents how to distribute your changes to GNU lilypond
-(or in fact any other StepMake package).
 
 nsect(ABSTRACT)
 
-Distributing a change normally goes like this:
+We would like to have unified context diffs with full pathnames.  A
+script automating supplied with Lily.
+
+ Distributing a change normally
+goes like this:
 
 itemize(
 it()make your fix/add your code 
@@ -108,12 +111,11 @@ verb(
 
 nsect(SYNCHRONISE)
 
-If you're not very quick with sending your patch, there's a good chance
-that an new release of LilyPond comes available.  In such a case (and
-sometimes for other unkown reasons :-), the maintainer will probably ask
-you to make a new patch against the latest release.
-Your best bet is to download the latest release, and apply your patch
-against this new source tree:
+If you're not very quick with sending your patch, there's a good
+chance that an new release of LilyPond comes available.  In such a
+case, the maintainer will probably ask you to make a new patch against
+the latest release.  Your best bet is to download the latest release,
+and apply your patch against this new source tree:
 
 verb(
     cd lilypond-0.1.74

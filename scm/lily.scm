@@ -82,7 +82,7 @@
 
 ;; Spacing constants for prefatory matter.
 ;;
-;; rules for this are complicated. See [Wanske] page 126 -- 134
+;; rules for this spacing are much more complicated than this. See [Wanske] page 126 -- 134
 ;;
 ;;
 (define space-alist

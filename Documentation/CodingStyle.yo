@@ -7,8 +7,7 @@ We use these standards while doing programming for GNU LilyPond.  If
 you do some hacking, we appreciate it if you would follow this rules,
 but if you don't, we still like you.
 
-Functions and methods do not return errorcodes, but use assert for
-checking status.
+Functions and methods do not return errorcodes.
 
 quote(
 
@@ -100,7 +99,6 @@ nsubsect(CLASSES and TYPES:)
 
 verb(
 	This_is_a_class
-	AClass_name	(for Abbreviation_class_name)
 )
 
 nsubsect(MEMBERS)
@@ -229,73 +227,8 @@ verb(
 nsect(HUNGARIAN NOTATION NAMING CONVENTION)
 
 Proposed is a naming convention derived from the so-called
-em(Hungarian Notation).
-
-nsubsect(Hungarian)
-
-The Hungarian Notation was conceived by or at least got its name from,
-the hungarian programmer Charles Simonyi.  It is a naming convention 
-with the aim to make code more readable (for fellow programmers), and 
-more accessible for programmers that are new to a project.
-
-The essence of the Hungarian Notation is that every identifier has a
-part which identifies its type (for functions this is the result
-type).  This is particularly useful in object oriented programming,
-where a particular object implies a specific interface (a set of
-member functions, perhaps some redefined operators), and for
-accounting heap allocated memory pointers and links.
-
-nsubsect(Advantages)
-
-Another fun quote from Microsoft Secrets:
-
-quote(
-	The Hungarian naming convention gives developers the ability
-	to read other people's code relatively easily, with a minmum
-	number of comments in the source code.  Jon De Vann estimated
-	that only about 1 percent of all lines in the Excel product
-	code consist of comments, but the code is still very
-	understandable due to the use of Hungarian: "if you look at
-	our source code, you also notice very few comments.  Hungarian
-	gives us the ability to go in and read code..."
-)
-
-Wow! If you use Hungarian you don't have to document your software!
-Just think of the hours I have wasted documenting while this "silver bullet"
-existed. I feel so stupid and ashamed!  (Didn't MMM-Brooks say `There is
-no silver bullet?' --HWN)
-
-
-nsubsect(Disadvantages)
-
-itemize(
-it()more keystrokes (disk space!)
-it()it looks silly code(get_slu_p())
-it()it looks like code from micro suckers
-it()(which) might scare away some (otherwise good?)
-    progammers, or make you a paria in the free
-    software community
-it()it has ambiguities
-it()not very useful if not used consistently
-it()usefullness in em(very large) (but how many classes is very large?)
-    remains an issue.
-)
-
-nsubsect(Proposal)
-
-itemize(
-it()learn about cut and paste / use emacs or vi
-    or lean to type using ten fingers
-it()Use emacs dabbrev-expand, with dabbrev-case-fold-search set to nil.
-it()use no, or pick less silly, abbrvs.
-it()use non-ambiguous postfixes code(identifier_name_type_modifier[_modifier])
-it()There is no need for Hungarian if the scope of the variable is small,
-    ie. local variables, arguments in function definitions (not
-    declarations).
-)
-
-Macros, code(enum)s and code(const)s are all uppercase,
-with the parts of the names separated by underscores.
+em(Hungarian Notation).  Macros, code(enum)s and code(const)s are all
+uppercase, with the parts of the names separated by underscores.
 
 nsubsect(Types)
 

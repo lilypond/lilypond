@@ -97,7 +97,7 @@ struct Midi_time_signature : Midi_item {
 };
 
 /**
-  Turn a note on (blond).
+  Turn a note on.
  */
 struct Midi_note : public Midi_item {
   Midi_note (Audio_item* audio_item_l); 
@@ -111,7 +111,7 @@ struct Midi_note : public Midi_item {
 };
 
 /**
-  Turn a note off (dark).
+  Turn a note off 
  */
 struct Midi_note_off : public Midi_item {
   Midi_note_off (Midi_note*); 

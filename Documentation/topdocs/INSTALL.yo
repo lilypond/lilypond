@@ -27,7 +27,7 @@ it()A GNU system: GNU LilyPond is known to run on these GNU systems: Linux
     (PPC, intel), FreeBSD, AIX, NeXTStep, IRIX, Digital Unix and
 Solaris.
 
-it()Lots of disk space: LilyPond takes between 50 and 100 mb to
+it()Lots of disk space: LilyPond takes between 30 and 100 mb to
 compile if you use debugging information.  If you are short on
 disk-space run configure with code(--disable-debugging).
 
@@ -35,23 +35,43 @@ Although we recommend to use Unix, LilyPond is known to run on Windows
 NT/95/98 as well.  See Section ref(w32).
 
 it() EGCS 1.1 or newer.
-it() Python 1.5 (Strictly speaking, you shouldn't need Python for 
-   compiling and installing, but you'll need it to regenerate the font
-   tables, e.g.). 
-it() GUILE 1.3 (no, GUILE 1.2 won't work), check out lurl(http://www.gnu.org/software/guile/guile.html).
+
+it() Python 1.5,
+Check out
+lurl(ftp://ftp.python.org) or lurl(ftp://ftp.cwi.nl/pub/python).
+
+it() GUILE 1.3,  check out lurl(http://www.gnu.org/software/guile/guile.html).
+
+it()GNU make. 
+Check out lurl(ftp://ftp.gnu.org).
+
+it()Flex (version 2.5.4 or newer). 
+Check out lurl(ftp://ftp.gnu.org).
+
+it()Bison (version 1.25 or newer).
+Check out lurl(ftp://ftp.gnu.org).
+
+it()Yodl.  All documentation will be in Yodl. (1.30.17)
+lurl(ftp://ftp.lilypond.org/pub/yodl)
+
+it()The geometry package for LaTeX is needed to use ly2dvi.  
+Available at 
+lurl(ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry)
+or at mirror site lurl(ftp://ftp.dante.de)
 )
+
 
 sect(RUNNING)
 
 GNU LilyPond does use a lot of resources. For operation you need the
-following:
+following software
 
 itemize(
 it()TeX
 it()A PostScript printer and/or viewer (such as Ghostscript) is strongly
     recommended.  Xdvi will show all embedded PostScript too if you have
     Ghostscript installed.
-it() GUILE 1.3 (no, GUILE 1.2 won't work), check out lurl(http://www.gnu.org/programs/guile.html)
+it() GUILE 1.3, check out lurl(http://www.gnu.org/programs/guile.html)
 )
 
 
@@ -66,47 +86,11 @@ The empty path component
 represents TeX() and MetaFont's default search paths.  Scripts with
 the proper paths for the bourne and C-shell respectively are generated in
 file(buildscripts/out/lilypond-profile) and
-file(buildscripts/out/lilypond-login) during compilation.
+file(buildscripts/out/lilypond-login) during compilation. 
 
+LilyPond is a hideously slow program.  A fast CPU and plenty of RAM is
+recommended for comfortable use.
 
-sect(RECOMMENDED)
-
-Although not strictly necessary, these are recommended to have.
-
-itemize(
-it()GNU make. 
-Check out lurl(ftp://ftp.gnu.org)
-or any mirror of this site.
-it()Flex (version 2.5.4 or newer). 
-Check out lurl(ftp://ftp.gnu.org)
-or any mirror of this site.
-it()Bison (version 1.25 or newer).
-Check out lurl(ftp://ftp.gnu.org)
-or any mirror of this site.
-it() GUILE 1.3 (no, GUILE 1.2 won't work),
-check out lurl(http://www.gnu.org/programs/guile.html).
-
-
-it()Python (version 1.5 or newer).  Check out
-lurl(ftp://ftp.python.org) or lurl(ftp://ftp.cwi.nl/pub/python).
-
-it()Yodl.  All documentation will be in Yodl. (1.30.17)
-lurl(ftp://ftp.lilypond.org/pub/yodl)
-    lurl(http://www.cs.uu.nl/~hanwen/yodl)
-it()Texinfo. (version 3.12 or newer)
-
-it()GNU find
-Check out lurl(ftp://ftp.gnu.org)
-or any mirror of this site.
-
-it()The geometry package for LaTeX is needed to use ly2dvi.  
-    Available at 
-lurl(ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry)
-or at mirror site lurl(ftp://ftp.dante.de)
-
-it() A fast computer: a full page of music typically takes 1 minute on my
-    486/133, using the bf(--enable-checking) compile.
-)
 
 sect(WEBSITE)
 
@@ -124,10 +108,11 @@ man2html can be had from lurl(http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Ne
 )
 
 Building the website requires pnmtopng.  The version of file(pnmtopng)
-that is distributed with RedHat 5.1 contains a bug (pnmtopng is
-dynamically linked to the wrong version of libpng).  Recompile it from
-source, and make sure that the pnmtopng binary is linked statically to
-the libpng that is included in libgr.
+that is distributed with RedHat 5.1 and 5.2 contains a bug: pnmtopng
+is dynamically linked to the wrong version of libpng.  Recompile it
+from source, and make sure that the pnmtopng binary is linked
+statically to the libpng that is included in libgr.   RedHat 6.0 does
+not have this problem.
 
 verb( tar xzf libgr-2.0.13.tar.gz
       make
