@@ -46,6 +46,8 @@
 
 2003-01-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: release 1.7.12
+
 	* lily/vaticana-ligature-engraver.cc (finish_primitive): compile fixes.
 
 	* lily/gregorian-ligature.cc: new file
