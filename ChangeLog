@@ -1,5 +1,7 @@
 2003-04-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/lilypond.tely: remove abbreviations (n't, 's)
+
 	* lily/multi-measure-rest-engraver.cc (stop_translation_timestep):
 	add staff support.
 

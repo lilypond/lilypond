@@ -211,7 +211,7 @@ third quarter, @code{another} is removed.
 @node Default contexts
 @subsection Default contexts
 
-Most music expressions don't need an explicit @code{\context}
+Most music expressions do not need an explicit @code{\context}
 declaration: they inherit the notation context from their parent.  Each
 note is a music expression, and as you can see in the following example,
 only the sequential music enclosing the three notes has an explicit context. 
@@ -294,7 +294,7 @@ contained contexts.  This means that a property valid for the
 (for example) and thus take effect in all @internalsref{Voice} contexts.
 
 @cindex @code{Current}
-If you don't wish to specify the name of the context in the
+If you do not wish to specify the name of the context in the
 @code{\property}-expression itself, you can refer to the abstract context
 name, @code{Current}.  The @code{Current} context is the latest
 used context.  This will typically mean the @internalsref{Thread}
@@ -470,7 +470,7 @@ engravers.
 
 Some engraver types need to be at the end of the list; this
 insures they stay there even if a user adds or removes engravers.
-End-users generally don't need this command.
+End-users generally do not need this command.
     
 @item @code{\accepts} @var{contextname}:
 Add @var{contextname} to the list of contexts this context can
@@ -483,7 +483,7 @@ completeness, but is never used in practice.
 
 @item @code{\name} @var{contextname}:
 This sets the type name of the context, e.g. @internalsref{Staff},
-@internalsref{Voice}.  If the name is not specified, the translator won't do
+@internalsref{Voice}.  If the name is not specified, the translator will not do
 anything. 
 @end itemize
 

@@ -69,7 +69,7 @@ Copyright 1999-2002 by the authors
 @end macro
 
 @ignore
-We don't use refs for Info:
+We do not use refs for Info:
 
    @w{@ar{}\word\}@c vs:
    @w{@ar{}@pxref{\word\}}@c
