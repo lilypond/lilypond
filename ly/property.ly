@@ -86,3 +86,7 @@ autoBeamOn = \property Voice.noAutoBeaming = ##f
 emptyText = \property Voice.textNonEmpty = ##f
 fatText = \property Voice.textNonEmpty = ##t
 
+% To remove a Volta bracet or some other graphical object,
+% set it to turnOff. Example: \property Staff.VoltaBracket = turnOff
+
+turnOff = #'((meta .  ((interfaces . ()))))

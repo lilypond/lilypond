@@ -99,7 +99,7 @@ so a 14% speedup.
 
 */
 
-static SCM name_sym, shape_sym, family_sym, series_sym, rel_sz_sym, pt_sz_sym;
+static SCM name_sym, shape_sym, family_sym, series_sym, rel_sz_sym, pt_sz_sym, wild_sym;
 
 
 static void
@@ -111,8 +111,14 @@ init_syms ()
   series_sym = scm_permanent_object (ly_symbol2scm ("font-series"));
   rel_sz_sym = scm_permanent_object (ly_symbol2scm ("font-relative-size"));
   pt_sz_sym = scm_permanent_object (ly_symbol2scm ("font-point-size"));
+  wild_sym = scm_permanent_object (ly_symbol2scm ("*"));
 }
 
+bool
+Font_interface::wild_compare(SCM field_val, SCM val)
+{
+  return (val == SCM_BOOL_F || field_val == wild_sym || field_val == val);
+}
 
 ADD_SCM_INIT_FUNC(Font_interface_syms,init_syms);
 
@@ -163,31 +169,29 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
 
       if (name != SCM_BOOL_F)
 	{
-	  if (scm_list_ref (qlist, gh_int2scm (4)) != name)
+	  if (!wild_compare(scm_list_ref (qlist, gh_int2scm (4)), name))
 	    continue;
 	}
       else
 	{
-	  if (series != SCM_BOOL_F
-	      && scm_list_ref (qlist, gh_int2scm (1)) != series)
+	  if (!wild_compare(scm_list_ref (qlist, gh_int2scm (1)), series))
 	    continue;
-	  if (shape != SCM_BOOL_F
-	      && scm_list_ref (qlist, gh_int2scm (2)) != shape)
+	  if (!wild_compare(scm_list_ref (qlist, gh_int2scm (2)), shape))
 	    continue;
-	  if (family != SCM_BOOL_F
-	      && scm_list_ref (qlist, gh_int2scm (3)) != family)
+	  if (!wild_compare(scm_list_ref (qlist, gh_int2scm (3)), family))
 	    continue;
 	}
   
       if (point_sz != SCM_BOOL_F)
 	{
-	  if (scm_list_ref (qlist, gh_int2scm (4)) != name)
+	  // This if statement will always be true since name must 
+	  // be SCM_BOOL_F here, right?  /MB
+	  if (!wild_compare(scm_list_ref (qlist, gh_int2scm (4)), name))
 	    continue;
 	}
       else
 	{
-	  if (rel_sz != SCM_BOOL_F
-	      && gh_car (qlist) != rel_sz)
+	  if (!wild_compare(gh_car (qlist), rel_sz))
 	    continue;
 	}
 
@@ -198,7 +202,8 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
 
   warning (_("couldn't find any font satisfying ") );
   scm_write (gh_list (name, point_sz, shape, series , family, rel_sz, SCM_UNDEFINED), scm_current_error_port ());
-
+  scm_flush(scm_current_error_port ());
+ 
   return ly_str02scm ("cmr10");
   
 }

@@ -17,11 +17,10 @@ right_downflag_space# = .2 downflag_width#;
 % Flags pointing down cannot overlap with the notehead in y-direction,
 % so they have less slant.
 
-%
 % Because of optical illusion, the utmost flag (bottom for
 % down-pointing, top for up-pointing) should be smaller than the other
-% flags.  Adobe Sonata doesn't do this correctly.  (Instead they have an 
-% extension flag. Yuck)
+% flags.  Adobe Sonata doesn't do this correctly.  (Instead they have
+% an extension flag, which looks less elegant)
 %
 
 save hip_thickness, foot_thickness;
@@ -433,17 +432,23 @@ fet_beginchar("grace dash (down)", "dgrace", "dgracedash")
 fet_endchar;
 
 % ustem?
+%
+%
+% Stem characters so we can compose metronome markings with Feta
+% entirely.
+%
+
 fet_beginchar("stem (up)", "stem", "stem")
-	set_char_box(stemthickness#/2, 0, 3.5staff_space#, stemthickness#/2);
+	set_char_box(stemthickness#/2, stemthickness#/2, 0, 3.5staff_space#);
 	pickup pencircle scaled stemthickness;
 	draw (0, 0.2staff_space) .. (0, 3.5staff_space);
 fet_endchar;
 
 % do we want this?
 fet_beginchar("stem (down)", "dstem", "dstem")
-	set_char_box(stemthickness#/2, -3.5staff_space#, 0, stemthickness#/2);
+	set_char_box(stemthickness#/2, stemthickness#/2, 3.5staff_space#, 0);
 	pickup pencircle scaled stemthickness;
-	draw (0, -0.2staff_space) .. (-3.5staff_space, 0);
+	draw (0, -0.2staff_space) .. (0, -3.5staff_space);
 fet_endchar;
 
 

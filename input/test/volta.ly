@@ -6,6 +6,8 @@ voiceE =  \notes {
 \clef bass;
  \property Staff.instrument = "Bass"
  \property Staff.instr = "B"
+% \property Staff.VoltaBracket = \turnOff
+
  \time 4/4;  f,2 (   ) f,8    r8   f8    e8    
 \repeat  volta 2
 {

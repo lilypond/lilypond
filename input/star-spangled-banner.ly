@@ -152,7 +152,7 @@ text =  \lyrics {
 		\context Staff=lower <
 			\global
 			\clef bass;
-			\property Staff.noVoltaBraces = ##t
+			\property Staff.VoltaBracket = \turnOff
 			\context Voice = three {
 				\stemUp
 				\staffCVoiceB
