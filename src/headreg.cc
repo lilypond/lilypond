@@ -8,7 +8,7 @@
 #include "headreg.hh"
 #include "paperdef.hh"
 #include "complexwalker.hh"
-
+#include "musicalrequest.hh"
 
 Notehead_register::Notehead_register(Complex_walker*w_l)
     :Request_register(w_l)
@@ -45,7 +45,7 @@ Notehead_register::process_request()
 	note_p_ = n_p;
 	n_p->set_rhythmic(req_l->rhythmic());
 	n_p->position = req_l->note()->height() +
-	    walk_l_->clef_.c0_position_i_;
+	    walk_l_->c0_position_i();
     } else {
 	note_p_ = new Rest ( req_l->rhythmic()->balltype,
 			     req_l->rhythmic()->dots);
