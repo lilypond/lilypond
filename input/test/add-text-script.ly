@@ -13,7 +13,7 @@ create, then write a function that will build the structure for you.
 #(define (make-text-script x) 
    (let ((m (make-music-by-name 'TextScriptEvent)))
     (ly:set-mus-property! m 'direction DOWN) 
-     (ly:set-mus-property! m 'text (make-simple@\markup x))
+     (ly:set-mus-property! m 'text (make-simple-markup x))
      m))
      
 #(define (add-text-script m x)

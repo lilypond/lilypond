@@ -165,8 +165,8 @@ lefta = \notes \transpose c cis {
   es' des'4^1~ \stemDown  des'8.[ c'16] }
  }
  \transpose c' c, {
-  g4(-4 a8-3~a f-5 g-4 | a4-3 g8\markup { \finger "4-3" } ~g f-4 e-5 |
-   d4)\markup { \finger "4-5" }( g8-3~g es f-4 | g4-3 f8-4~f es d-4 |
+  g4(-4 a8-3~a f-5 g-4 | a4-3 g8-\markup { \finger "4-3" } ~g f-4 e-5 |
+   d4)-\markup { \finger "4-5" }( g8-3~g es f-4 | g4-3 f8-4~f es d-4 |
    c4) r8 f4-4( as8-5~ | as g-4  b)-5 as4-5( ces'8-4~ |
   ces' b des'-4  c'4)-5( <<es'-4 es''>>8 |
   \stemDown \tieDown  des'4.)_5~des'~ |

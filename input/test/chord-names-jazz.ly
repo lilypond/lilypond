@@ -67,29 +67,29 @@ chs = \notes \transpose c' c'
 
 efullmusicJazzAlt = \notes
 {
-    <<c e gis>>1\markup { "+" }
-    <<c e g b>>\markup { \normal-size-super
+    <<c e gis>>1-\markup { "+" }
+    <<c e g b>>-\markup { \normal-size-super
     %			  \override #'(font-family . math) "N" }
 			  \override #'(font-family . math) "M" }
     %%c:3.5.7 = \markup { \override #'(font-family . math) "M" }
     %%c:3.5.7 = \markup { \normal-size-super "maj7" }
 
-   <<c es ges>>\markup { \super "o" } % should be $\circ$ ?
-   <<c es ges bes>>\markup { \super \combine "o" "/" }
-   <<c es ges beses>>\markup { \super  "o7" }
+   <<c es ges>>-\markup { \super "o" } % should be $\circ$ ?
+   <<c es ges bes>>-\markup { \super \combine "o" "/" }
+   <<c es ges beses>>-\markup { \super  "o7" }
 }
 
 efullJazzAlt = #(sequential-music-to-chord-exceptions efullmusicJazzAlt #f)
 
 epartialmusicJazzAlt = \notes{
-    <<c d>>1\markup { \normal-size-super "2" }
-    <<c es>>\markup { "m" }
-    <<c f>>\markup { \normal-size-super "sus4" }
-    <<c g>>\markup { \normal-size-super "5" }
+    <<c d>>1-\markup { \normal-size-super "2" }
+    <<c es>>-\markup { "m" }
+    <<c f>>-\markup { \normal-size-super "sus4" }
+    <<c g>>-\markup { \normal-size-super "5" }
     
     %% TODO, partial exceptions
-    <<c es f>>\markup { "m" }\markup { \normal-size-super "sus4" }
-    <<c d es>>\markup { "m" }\markup { \normal-size-super "sus2" }
+    <<c es f>>-\markup { "m" }-\markup { \normal-size-super "sus4" }
+    <<c d es>>-\markup { "m" }-\markup { \normal-size-super "sus2" }
 }
 
 epartialJazzAlt = #(sequential-music-to-chord-exceptions epartialmusicJazzAlt #f)
@@ -98,7 +98,7 @@ jazzAltProperties =
 
 \sequential { 
 	    \property ChordNames.majorSevenSymbol = #whiteTriangleMarkup
-	    \property ChordNames.chordNameSeparator = #(make-simple@\markup  "/")
+	    \property ChordNames.chordNameSeparator = #(make-simple-markup  "/")
 	    \property ChordNames.chordNameExceptionsFull = #efullJazzAlt
 	    \property ChordNames.chordNameExceptionsPartial = #epartialJazzAlt
 	    \property ChordNames.chordNameFunction = #jazz-chord-names

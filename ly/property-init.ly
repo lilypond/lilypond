@@ -255,10 +255,10 @@ unHideNotes =  \sequential {
 }
 
 germanChords = {
-    \property ChordNames. chordRootNamer = #(chord-name->german@\markup #t)
-    \property ChordNames. chordNoteNamer = #note-name->german@\markup
+    \property ChordNames. chordRootNamer = #(chord-name->german-markup #t)
+    \property ChordNames. chordNoteNamer = #note-name->german-markup
 }
 semiGermanChords = {
-    \property ChordNames. chordRootNamer = #(chord-name->german@\markup #f)
-    \property ChordNames. chordNoteNamer = #note-name->german@\markup
+    \property ChordNames. chordRootNamer = #(chord-name->german-markup #f)
+    \property ChordNames. chordNoteNamer = #note-name->german-markup
 }

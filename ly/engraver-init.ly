@@ -503,7 +503,7 @@ ScoreContext = \translator {
 	%% chord names:
 	chordNameFunction = #ignatzek-chord-names
 	majorSevenSymbol = #whiteTriangleMarkup
-	chordNameSeparator = #(make-simple@\markup  "/")
+	chordNameSeparator = #(make-simple-markup  "/")
 	chordNameExceptions = #ignatzekExceptions
 	chordNoteNamer = #'()
 	chordRootNamer = #note-name->markup
@@ -521,8 +521,8 @@ ScoreContext = \translator {
 	tablatureFormat = #fret-number-tablature-format
 
 	%%
-	bassFigureFormatFunction = #make-bass-figure@\markup
-	metronomeMarkFormatter = #make-metronome@\markup
+	bassFigureFormatFunction = #make-bass-figure-markup
+	metronomeMarkFormatter = #make-metronome-markup
 
 	\grobdescriptions #all-grob-descriptions
 }

@@ -1205,7 +1205,7 @@
 	(molecule-callback . ,Volta_bracket_interface::brew_molecule)
 	(direction . 1)
 	(padding . 1)
-	(font-style . volta)
+	(font-family . number)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(thickness . 1.6)  ;  stafflinethickness
 	(height . 2.0) ; staffspace;

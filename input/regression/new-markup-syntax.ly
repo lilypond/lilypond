@@ -8,7 +8,7 @@ texidoc = "New markup syntax."
 \score {
   \notes
    {
-    f'\markup {
+    f'-\markup {
 		foo
 		\raise #0.2 \hbracket \bold bar
 		\override #'(baseline-skip . 4)
