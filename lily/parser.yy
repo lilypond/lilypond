@@ -1200,7 +1200,7 @@ re_rhythmed_music:
 		/* FIXME: should find out uniqueXXX name from music */
 		SCM name = $1->get_property ("context-id");
 		//if (name == SCM_EOL)
-		if (!ly_c_string_p (name))
+		if (!scm_is_string (name))
 			name = scm_makfrom0str ("");
 
 		SCM context = scm_makfrom0str ("Lyrics");
@@ -1786,7 +1786,7 @@ direction_reqd_event:
 	| script_abbreviation {
 		SCM s = THIS->lexer_->lookup_identifier ("dash" + ly_scm2string ($1));
 		Music *a = MY_MAKE_MUSIC ("ArticulationEvent");
-		if (ly_c_string_p (s))
+		if (scm_is_string (s))
 			a->set_property ("articulation-type", s);
 		else THIS->parser_error (_ ("Expecting string as script definition"));
 		$$ = a;
@@ -2559,7 +2559,7 @@ otherwise, we have to import music classes into the lexer.
 int
 Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 {
-	if (ly_c_string_p (sid)) {
+	if (scm_is_string (sid)) {
 		*destination = sid;
 		return STRING_IDENTIFIER;
 	} else if (ly_c_number_p (sid)) {
@@ -2665,7 +2665,7 @@ context_spec_music (SCM type, SCM id, Music *m, SCM ops)
 		ly_c_symbol_p (type) ? type : scm_string_to_symbol (type));
 	csm->set_property ("property-operations", ops);
 
-	if (ly_c_string_p (id))
+	if (scm_is_string (id))
 		csm->set_property ("context-id", id);
 	return csm;
 }

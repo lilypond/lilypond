@@ -74,7 +74,7 @@ LY_DEFINE(ly_pfb_to_pfa, "ly:pfb->pfa",
 	  "Convert the contents of a PFB file to PFA."
 	  )
 {
-  SCM_ASSERT_TYPE(ly_c_string_p (pfb_path), pfb_path,
+  SCM_ASSERT_TYPE(scm_is_string (pfb_path), pfb_path,
 		  SCM_ARG1, __FUNCTION__, "string");
 
   String path = ly_scm2string (pfb_path);

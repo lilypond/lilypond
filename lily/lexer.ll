@@ -257,7 +257,7 @@ HYPHEN		--
 	  s = s.left_string (s.length () - 1);
 
 	SCM sid = lookup_identifier (s);
-	if (ly_c_string_p (sid)) {
+	if (scm_is_string (sid)) {
 		new_input (ly_scm2string (sid), sources_);
 		yy_pop_state ();
 	} else { 

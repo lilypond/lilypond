@@ -147,7 +147,7 @@ Volta_engraver::process_music ()
     }
 
   if (volta_span_ && 
-      (ly_c_string_p (start_string_) || ly_c_pair_p (start_string_)))
+      (scm_is_string (start_string_) || ly_c_pair_p (start_string_)))
     {
       warning (_ ("Already have a volta spanner.  Stopping that one prematurely."));
       
@@ -162,7 +162,7 @@ Volta_engraver::process_music ()
     }
 
   if (!volta_span_ && 
-      (ly_c_string_p (start_string_) || ly_c_pair_p (start_string_)))
+      (scm_is_string (start_string_) || ly_c_pair_p (start_string_)))
     {
       started_mom_ = now_mom () ;
 

@@ -154,7 +154,7 @@ LY_DEFINE (ly_kpathsea_expand_path, "ly:kpathsea-expand-path",
 	   "Return the expanded path of @var{name}, or"
 	   "@code{#f} if not found.")
 {
-  SCM_ASSERT_TYPE (ly_c_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
 
   String nm = ly_scm2string (name);
   String filename = global_path.find (nm);

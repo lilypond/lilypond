@@ -101,9 +101,9 @@ Repeat_acknowledge_engraver::process_music ()
    */
   SCM wb = get_property ("whichBar");
   SCM db  = get_property ("defaultBarType");
-  if (!ly_c_string_p (wb) || ly_c_equal_p (db, wb))
+  if (!scm_is_string (wb) || ly_c_equal_p (db, wb))
     {
-      if (s != "" || (volta_found && !ly_c_string_p (wb)))
+      if (s != "" || (volta_found && !scm_is_string (wb)))
 	{
 	  context ()->set_property ("whichBar", scm_makfrom0str (s.to_str0 ()));
 	}

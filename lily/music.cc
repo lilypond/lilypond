@@ -130,7 +130,7 @@ Music::print_smob (SCM s, SCM p, scm_print_state*)
   Music* m = unsmob_music (s);
 
   SCM nm = m->get_property ("name");
-  if (ly_c_symbol_p (nm) || ly_c_string_p (nm))
+  if (ly_c_symbol_p (nm) || scm_is_string (nm))
     scm_display (nm, p);
   else
     scm_puts (classname (m),p);
@@ -294,7 +294,7 @@ LY_DEFINE (ly_extended_make_music, "ly:make-bare-music",
 	  "for creating music objects. "
 	  )
 {
-  SCM_ASSERT_TYPE (ly_c_string_p (type), type, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (type), type, SCM_ARG1, __FUNCTION__, "string");
   SCM s = make_music (ly_scm2string (type))->self_scm ();
   unsmob_music (s)->immutable_property_alist_ = props;
   scm_gc_unprotect_object (s);

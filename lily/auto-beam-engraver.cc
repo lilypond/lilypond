@@ -75,7 +75,7 @@ private:
 void
 Auto_beam_engraver::process_music ()
 {
-  if (ly_c_string_p (get_property ("whichBar")))
+  if (scm_is_string (get_property ("whichBar")))
     {
       consider_end (shortest_mom_);
       junk_beam ();

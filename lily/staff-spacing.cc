@@ -101,7 +101,7 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
     {
       SCM glyph = bar_grob->get_property ("glyph");
       
-      String glyph_string = ly_c_string_p (glyph) ? ly_scm2string (glyph) : "";
+      String glyph_string = scm_is_string (glyph) ? ly_scm2string (glyph) : "";
       if (glyph_string.left_string (1) == "|" || glyph_string.left_string (1) == ".")
 	{
 	  SCM sz = Bar_line::get_staff_bar_size (bar_grob->self_scm ());
