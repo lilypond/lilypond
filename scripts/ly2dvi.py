@@ -66,6 +66,20 @@ import tempfile
 import traceback
 
 
+# Handle bug in Python 1.6-2.1
+#
+# there are recursion limits for some patterns in Python 1.6 til 2.1. 
+# fix this by importing pre instead. Fix by Mats.
+
+# todo: should check Python version first.
+try:
+	import pre
+	re = pre
+	del pre
+except ImportError:
+	import re
+
+
 ################################################################
 # lilylib.py -- options and stuff
 # 
@@ -719,6 +733,7 @@ for opt in options:
 		sys.exit (0)
 	elif o == '--find-pfa' or o == '-f':
 		fonts = map (lambda x: x + '.pfa', find_pfa_fonts (a))
+		print `fonts`
 		files = map (lambda x:
 			     find_file_in_path (os.environ['GS_FONTPATH'], x),
 			     fonts)
