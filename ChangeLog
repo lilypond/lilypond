@@ -1,5 +1,10 @@
 2003-03-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* buildscripts/mf-to-table.py: add .pfa, .pfb target dependency.
+
+	* stepmake/stepmake/metafont-rules.make ($(outdir)/%.pfb): remove
+	.afm dependency
+
 	* buildscripts/mf-to-table.py (write_fontlist): use new markup syntax
 
 	* python/lilylib.py (make_page_images): add function.

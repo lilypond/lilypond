@@ -184,7 +184,10 @@ def write_fontlist (file, global_info, charmetrics):
 """)
 
 def write_deps (file, deps, targets):
+	
+	
 	for t in targets:
+		t = re.sub ( '^\\./', '', t)
 		file.write ('%s '% t)
 	file.write (": ")
 	for d in deps:
@@ -257,8 +260,8 @@ for filenm in files:
 	
 	write_tex_defs (open (texfile_nm, 'w'), g, m)
 	write_ps_encoding (open (enc_nm, 'w'), g, m)
-	
-	write_deps (open (depfile_nm, 'wb'), deps, [base + '.dvi', texfile_nm, afmfile_nm])
+
+	write_deps (open (depfile_nm, 'wb'), deps, [base + '.dvi', base + '.pfa', base + '.pfb',  texfile_nm, afmfile_nm])
 	if lyfile_nm != '':
 		write_fontlist(open (lyfile_nm, 'w'), g, m)
 
