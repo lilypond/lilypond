@@ -389,7 +389,7 @@ if 1:
 
 if 1:
 	def conv (str):
-		str = re.sub ('beamAuto([^=]+)= *"([0-9]+)/([0-9]+)" *;',
+		str = re.sub ('"?beamAuto([^"=]+)"? *= *"([0-9]+)/([0-9]+)" *;*',
 			      'beamAuto\\1 = #(make-moment \\2 \\3)',
 			      str)
 		return str
@@ -506,15 +506,19 @@ if 1:
 		str = re.sub ('basicLocalKeyProperties' ,"Accidentals", str)
 		str = re.sub ('basicMarkProperties' ,"Accidentals", str) 				
 		str = re.sub ('basic([A-Za-z_]+)Properties', '\\1', str)
+
 		return str
 	
 	conversions.append (((1,3,92), conv, 'basicXXXProperties -> XXX'))
 
 if 1:
 	def conv (str):
+		# Ugh, but meaning of \stemup changed too
+		# maybe we should do \stemup -> \stemUp\slurUp\tieUp ?
 		str = re.sub ('\\\\stemup', '\\\\stemUp', str)
 		str = re.sub ('\\\\stemdown', '\\\\stemDown', str)
 		str = re.sub ('\\\\stemboth', '\\\\stemBoth', str)
+		
 		str = re.sub ('\\\\slurup', '\\\\slurUp', str)
 		str = re.sub ('\\\\slurboth', '\\\\slurBoth', str)
 		str = re.sub ('\\\\slurdown', '\\\\slurDown', str)
@@ -531,7 +535,13 @@ if 1:
 		str = re.sub ('\\\\voicetwo', '\\\\voiceTwo', str)
 		str = re.sub ('\\\\voicethree', '\\\\voiceThree', str)
 		str = re.sub ('\\\\voicefour', '\\\\voiceFour', str)
-		
+
+		# I don't know exactly when these happened...
+		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?(1|(\\\\up))', '\\\\stemUp\\\\slurUp\\\\tieUp', str)
+		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?((-1)|(\\\\down))', '\\\\stemDown\\\\slurDown\\\\tieDown', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?(1|(\\\\up))', '\\\\\\1Up', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?((-1)|(\\\\down))', '\\\\\\1Down', str)
+
 		return str
 	
 	conversions.append (((1,3,93), conv,
@@ -550,10 +560,17 @@ if 1:
 	
 	conversions.append (((1,3,97), conv, 'ChordName -> ChordNames'))
 
+
+## TODO: add lots of these
+	
 if 1:
 	def conv (str):
-		str = re.sub ('\\\\property *Voice *[.] *textStyle *= *"([^"]*)"', '\\\\property Voice.TextScript \\\\set #\'font-style = #\'\\1', str)
-		str = re.sub ('\\\\property *Lyrics *[.] *textStyle *= *"([^"]*)"', '\\\\property Lyrics.LyricText \\\\set #\'font-style = #\'\\1', str)
+		str = re.sub ('\\\\property *"?Voice"? *[.] *"?textStyle"? *= *"([^"]*)"', '\\\\property Voice.TextScript \\\\set #\'font-style = #\'\\1', str)
+		str = re.sub ('\\\\property *"?Lyrics"? *[.] *"?textStyle"? *= *"([^"]*)"', '\\\\property Lyrics.LyricText \\\\set #\'font-style = #\'\\1', str)
+
+		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?timeSignatureStyle"? *= *"([^"]*)"', '\\\\property \\1.TimeSignature \\\\override #\'style = #\'\\2', str) 
+
+		str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?horizontalNoteShift"? *= *"?#?([0-9]+)"?', '\\\\property \\1.NoteColumn \\\\override #\'horizonta-shift = #\\2', str) 
 
 		return str
 	
@@ -561,10 +578,10 @@ if 1:
 
 if 1:
 	def conv (str):
-		str = re.sub ('beamAutoEnd_([0-9]*) *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(end 1 \\1 * *) = \\2', str)
-		str = re.sub ('beamAutoBegin_([0-9]*) *= *(#\\([^)]*\))', 'autoBeamSettings \\push #\'(begin 1 \\1 * *) = \\2', str)
-		str = re.sub ('beamAutoEnd *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(end * * * *) = \\1', str)
-		str = re.sub ('beamAutoBegin *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(begin * * * *) = \\1', str)
+		str = re.sub ('"?beamAutoEnd_([0-9]*)"? *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(end 1 \\1 * *) = \\2', str)
+		str = re.sub ('"?beamAutoBegin_([0-9]*)"? *= *(#\\([^)]*\))', 'autoBeamSettings \\push #\'(begin 1 \\1 * *) = \\2', str)
+		str = re.sub ('"?beamAutoEnd"? *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(end * * * *) = \\1', str)
+		str = re.sub ('"?beamAutoBegin"? *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(begin * * * *) = \\1', str)
 
 
 		return str

@@ -8,13 +8,37 @@ enteredby = 	"jcn";
 copyright = 	"Public Domain";
 }
 
-\version "1.3.117";
+\version "1.3.122";
 
 violinoI =  \notes\relative c'' {
-  \property Voice.beamAutoEnd = "3/8"
-  %% should fix autobeamer: not only check shortest type's end in beam,
-  %%% but also the newly added type's end
-  \property Voice."beamAutoEnd_8" = "1/16"
+  \property Voice.autoBeamSettings \override #'(end * * * *) = #(make-moment 3 8)
+  %{
+     should fix autobeamer: not only check shortest type's end in beam,
+     but also the newly added type's end
+  
+    %\property Voice.autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 1 16)
+
+     Normally, we want
+
+         [c8 c c] and [c16 c  c c  c c],
+
+     ie '(end *) = 3/8
+
+     However, we don't want
+
+         [c16 c  c c  c8] c8,  TODO: manually correct these
+
+     but rather
+
+         [c16 c  c c]  c8 c8,
+
+     ie '(end X) = 1/4
+	 
+    X can't be 1/16 or 1/8
+
+    Hmm.
+   %}
+   
   %r4 r8 [g16(fis e)d] b'8 a r r [g16(fis e)d] c'8 |
   r4 r8 g16(fis e)d b'8 a r r g16(fis e)d c'8 |
   b r r d16(b)a g(e')c d(b)a g(c)a c(b)a g(a)fis |
@@ -68,8 +92,8 @@ violinoI =  \notes\relative c'' {
   <c4.\prall>~c16 b(a g)e' c()d b(a g)c a()c b(a)g
   \context Staff<
     %\context Voice { a16 f | g1. }
-    \context Voice { \property Voice.verticalDirection=1 a16 fis | g1. }
-    \context Voice=x { \property Voice.verticalDirection=-1 c,16 c | b1. }
+    \context Voice { \stemUp\slurUp\tieUp a16 fis | g1. }
+    \context Voice=x { \stemDown\slurDown\tieDown c,16 c | b1. }
   >
   \bar "|.";
 }
@@ -78,8 +102,8 @@ violinoI =  \notes\relative c'' {
 
 violinoIStaff =  \context Staff = violino <
   %urg
-  % \notes\property Voice.textStyle = "large" s4^"Moderato"
-  % \notes {s4. \property Voice.textStyle = "large" s4^"Moderato"}
+  % \notes\property Voice.TextScript \set #'font-style = #'large s4^"Moderato"
+  % \notes {s4. \property Voice.TextScript \set #'font-style = #'large s4^"Moderato"}
   % urg, timidity violino patches broken?
   %\property Staff.instrument = "violin"
   \property Staff.instrument = "viola"

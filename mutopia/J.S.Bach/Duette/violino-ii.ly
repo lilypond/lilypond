@@ -8,7 +8,7 @@ enteredby = 	"jcn";
 copyright = 	"Public Domain";
 }
 
-\version "1.3.117";
+\version "1.3.122";
 
 violinoIi =  \notes\relative c''{
   R1*8 |
@@ -68,7 +68,7 @@ violinoIi =  \notes\relative c''{
   %<a2 b, d4><gis\prall b,4 d>| checkme
   \context Staff<
     \context Voice { 
-      \property Voice.verticalDirection=1
+      \stemUp\slurUp\tieUp
       <a2 b,>gis\prall|a8 g f4~f8 e(d)cis|
 %105
       d c bes4~bes8 a(gis)fis|gis4 e <e' a,><f a,>|
@@ -77,7 +77,7 @@ violinoIi =  \notes\relative c''{
       a1|
     }
     \context Voice=x { 
-      \property Voice.verticalDirection=-1
+      \stemDown\slurDown\tieDown
       d,4 s<d b'>s|<a2 d> s2|
 %105
       <d g,> s2|s1|
@@ -93,12 +93,12 @@ violinoIi =  \notes\relative c''{
 
 violinoIiStaff =  \context Staff = violino <
   %urg
-  % \notes\property Voice.textStyle = "large" s4^"Moderato"
-  % \notes {s4. \property Voice.textStyle = "large" s4^"Moderato"}
+  % \notes\property Voice.TextScript \set #'font-style = #'large s4^"Moderato"
+  % \notes {s4. \property Voice.TextScript \set #'font-style = #'large s4^"Moderato"}
   % urg, timidity violino patches broken?
   %\property Staff.instrument = "violin"
   \property Staff.instrument = "viola"
   \violinoIi
   \globalIi
 >
-\version "1.3.117";
+\version "1.3.122";

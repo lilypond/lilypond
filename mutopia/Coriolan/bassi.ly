@@ -21,7 +21,7 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
 		\property Staff.midiInstrument = #"contrabass"
 		\property Staff.instrument = #"Contrabasso"
 		\property Staff.instr = #"Cb."
-%		\property Staff.transposing = #-12
+		\property Staff.transposing = #-12
 	 	\clef "bass"; 
 		%\property Staff.clefGlyph = #"clefs-F"
 		%\property Staff.clefPosition = #2

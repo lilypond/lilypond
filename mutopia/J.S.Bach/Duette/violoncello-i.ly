@@ -8,10 +8,12 @@ enteredby = 	"jcn";
 copyright = 	"Public Domain";
 }
 
-\version "1.3.117";
+\version "1.3.122";
 
 violoncelloI =  \notes\relative c{
-  \property Voice.beamAutoEnd = "3/8"
+  \property Voice.autoBeamSettings \override #'(end * * * *) = #(make-moment 3 8)
+  %\property Voice.autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 1 16)
+
   g8()a d, g b()g d()fis a d a()fis |
   g()d b' g b()c b()e fis g d()d, |
   g r r [d'16(b a )g] e'8 d r r [c16(b a )b] g'8 |

@@ -18,7 +18,7 @@
 
 \score {
   \notes\relative c'' {
-    a1^#`(rows ,dotted-eight-note " = 64")
+    a1^#`((rows (font-relative-size . -1)) ,dotted-eight-note " = 64")
   }
   \paper {
     linewidth = -1.;

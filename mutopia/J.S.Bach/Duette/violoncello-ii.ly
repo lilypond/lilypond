@@ -8,7 +8,7 @@ enteredby = 	"jcn";
 copyright = 	"Public Domain";
 }
 
-\version "1.3.117";
+\version "1.3.122";
 
 violoncelloIi =  \notes\relative c{
   r2 a'2|c e,| f8(e)d2 e8()fis| g a bes2 a8()gis|
@@ -52,7 +52,8 @@ violoncelloIi =  \notes\relative c{
 %75
   e dis8 cis dis2\prall|e4 b' e2~|e dis\prall|e r4 d|cis bes(a\prall)g|
 %80
-  bes, g'(()f\prall)e|g, e'(()d\prall)cis|d8()a d e f g as f|d e f4.(e8 d)c|
+  %FIXME: did Bach really use phrasing marks?
+  bes, g'\(()f\prall\)e|g, e'\(()d\prall\)cis|d8()a d e f g as f|d e f4.(e8 d)c|
   b c d4.(c8 b)a|
 %85
   b()g b c d()e b d|e4 e, a2~|a4 g8 fis g2~|g4 a8 b c2~|c4 bes8 a bes2~|
