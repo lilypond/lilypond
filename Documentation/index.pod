@@ -6,19 +6,19 @@ Excuse me for this poor page. I don't really have time for doing this..
 
 =head1 DESCRIPTION
 
-Technically GNU LilyPond is a preprocessor which generates TeX
-(or LaTeX) output which contains information to typeset a musical
-score. Practically it is a typesetter, which only uses TeX as an
-output medium. (this is handy because there exist music fonts for TeX)
+GNU LilyPond is a program to typeset music: it generates TeX (or
+LaTeX) output from file input.
 
 As a bonus, you can also output a MIDI file of what you typed.
 
-It translates script files (mudela files or F<*.ly>'s) into TeX input.
-Typesetting music is a complex task, whereas the message that printed
-music conveys is usually a simple one. GNU LilyPond is a try at providing
-a simple interface for setting music.
+<a href=example_output.html
+>
+examples of what LilyPond can do: MIDI, PS, .gif and input.
+</a
+>
 
 =head1 DOCUMENTATION
+
 
 =item *
 <a href=INSTALL.html
@@ -110,13 +110,6 @@ The lilypond logo (Big, format: .gif)
 <a href=lelie_logo.gif
 >
 The lilypond logo (medium size, format: .gif)
-</a
->
-
-=item *
-<a href=example_output.html
->
-examples: MIDI, PS, .gif and input.
 </a
 >
 
