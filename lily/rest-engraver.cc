@@ -58,10 +58,9 @@ Rest_engraver::do_process_requests ()
 	}
       if (rest_p_->balltype_i_ >= 2) 
 	{
-	  String reststyle = get_property ("restStyle", 0);
-	  if (reststyle.length_i ())
-	    rest_p_->set_elt_property (style_scm_sym,
-				       ly_ch_C_to_scm (reststyle.ch_C()));
+	  SCM reststyle = get_property ("restStyle", 0);
+	  if (gh_string_p (reststyle))
+	    rest_p_->set_elt_property (style_scm_sym,reststyle);
 	}
       announce_element (Score_element_info (rest_p_, rest_req_l_));
     }
