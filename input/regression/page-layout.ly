@@ -1,10 +1,9 @@
 
 \version "2.3.8"
 
-\header{
-texidoc="This shows how different settings on \bookpaper modify the general page layout
-"
-}
+\header{ texidoc = "This shows how different settings on \bookpaper
+modify the general page layout. Basically \bookpaper will set the
+values for the whole paper while \paper for each \score block." }
 
  \header {
     title = "Title"
@@ -42,6 +41,7 @@ texidoc="This shows how different settings on \bookpaper modify the general page
             }
         }
         \header {piece = "Piece I"}
+        \paper {linewidth = 13\cm}
     }
     \score {
         \notes {
@@ -50,5 +50,6 @@ texidoc="This shows how different settings on \bookpaper modify the general page
             }
         }
         \header {piece = "Piece II"}
+        \paper {linewidth = 9\cm}
     }
 }
