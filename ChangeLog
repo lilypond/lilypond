@@ -1,3 +1,12 @@
+2002-11-24  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/sodipodi.scm: Add more output functions.
+
+	* mf/feta-nummer.mf: 
+	* mf/feta-beugel.mf: Add font_coding_scheme.
+
+	* lily/paper-outputter.cc (output_header): Fix creator string.
+
 2002-11-23  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el (LilyPond-autocompletion): invoked with

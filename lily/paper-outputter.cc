@@ -59,19 +59,21 @@ Paper_outputter::~Paper_outputter ()
 void
 Paper_outputter::output_header ()
 {
-  String       generate = _ (", at ");
   time_t t (time (0));
-  generate += ctime (&t);
-  generate = generate.left_string (generate.length () - 1);
+  String generate = ctime (&t);
+  generate = generate.left_string (generate.length () - 1) + " " + *tzname;
   
-  /*
-    Make fixed length time stamps
-   */
-  generate = generate + to_string (' ' * (120 - generate.length ())>? 0)  ;
-  String creator = "lelie";
+  /* Fixed length time stamp */
+  generate = generate + to_string (' ', (50 - generate.length ()) >? 0);
+  
+  /* Fixed length creator string */
+  String creator = gnu_lilypond_version_string ();
+  creator += " (http://lilypond.org)";
+  creator = creator + to_string (' ', (50 - creator.length ()) >? 0);
   
   SCM args_scm = scm_list_n (scm_makfrom0str (creator.to_str0 ()),
-			     scm_makfrom0str (generate.to_str0 ()), SCM_UNDEFINED);
+			     scm_makfrom0str (generate.to_str0 ()),
+			     SCM_UNDEFINED);
 
 
   SCM scm = gh_cons (ly_symbol2scm ("header"), args_scm);

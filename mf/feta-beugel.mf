@@ -2,6 +2,9 @@ input feta-autometric;
 input feta-macros;
 input feta-params;
 
+font_coding_scheme "feta braces";
+
+
 fet_beginfont("feta-braces", 16);
 mode_setup;
 

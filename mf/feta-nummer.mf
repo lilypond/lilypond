@@ -20,6 +20,7 @@ space# := design_size/2;
 
 font_x_height height#;
 font_normal_space space#;
+font_coding_scheme "feta number";
 
 
 %

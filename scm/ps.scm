@@ -275,7 +275,6 @@
     (numbers->string
      (list x y width height blotdiam)) " draw_round_box"))
 
-;; TODO: use HEIGHT argument
 (define (start-system width height)
   (string-append
    "\n" (ly:number->string height)

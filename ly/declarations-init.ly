@@ -59,7 +59,7 @@ paperfile = \papersize + "-init.ly"
 
 
 % reset default duration
-unusedEntry = \notes { c4 }	
+unusedEntry = \notes { c4 }
 
 % music = "\melodic\relative c"
 

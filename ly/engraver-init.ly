@@ -251,7 +251,7 @@ StaffGroupContext = \translator {
 LyricsVoiceContext= \translator{
 	\type "Engraver_group_engraver"
 	\consistsend "Axis_group_engraver"
-	minimumVerticalExtent = #(cons -1.2 1.2)
+	minimumVerticalExtent = #'(-1.2 . 1.2)
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 
 	\name LyricsVoice 
@@ -281,8 +281,9 @@ NoteNamesContext = \translator {
 LyricsContext = \translator {
 	\type "Engraver_group_engraver"
 	\name Lyrics
-	\consists Vertical_align_engraver %need this for getting folded repeats right.
-
+	
+	%% To get folded repeats right.
+	\consists Vertical_align_engraver 
 
 	\consistsend "Axis_group_engraver"
 	minimumVerticalExtent = ##f
@@ -388,9 +389,8 @@ ScoreContext = \translator {
 	systemStartDelimiter =#'SystemStartBar
 
 
-	%  name, glyph id, clef position 
-	% where is c0 in this clef?
-
+	%% name, glyph id, clef position 
+	%% where is c0 in this clef?
 	clefGlyph = #"clefs-G"
 	clefPosition = #-2
 	centralCPosition = #-6
@@ -412,8 +412,10 @@ ScoreContext = \translator {
 	pedalSustainStrings = #'("Ped." "*Ped." "*")
 	pedalUnaCordaStrings = #'("una corda" "" "tre corde")
 
-	%% these are in ordinary italic font, including the *, but they are unlikely to be used, 
-	%% as the default pedal-style for SostenutoPedal is 'mixed': i.e.  Sost. Ped_____________________ 
+	%% These are in ordinary italic font, including the *,
+	%% but they are unlikely to be used, 
+	%% as the default pedal-style for SostenutoPedal is 'mixed':
+	%% i.e.  Sost. Ped_____________________ 
 	pedalSostenutoStrings = #'("Sost. Ped." "*Sost. Ped." "*") 
 
 	tupletNumberFormatFunction = #denominator-tuplet-formatter
