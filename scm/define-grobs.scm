@@ -95,7 +95,7 @@
     
     (BarNumber
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(molecule-callback . ,brew-new-markup-molecule)
 	(breakable . #t)
 	(break-visibility . ,begin-of-line-visible)
 	(padding . 1.0)
@@ -315,7 +315,7 @@
     (DynamicText
      . (
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
-	(molecule-callback . ,Text_item::brew_molecule)
+	(molecule-callback . ,brew-new-markup-molecule)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_parent))
 	(self-alignment-X . 0)
@@ -360,7 +360,7 @@
 
     (Fingering
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(molecule-callback . ,brew-new-markup-molecule)
 	(padding . 0.6)
 	;;		(direction . -1)
 	(self-alignment-X . 0)
@@ -481,7 +481,7 @@
 
     (LyricText
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(molecule-callback . ,brew-new-markup-molecule)
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent
 			       ,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 0)
@@ -636,7 +636,7 @@
 
     (NoteName
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(molecule-callback . ,brew-new-markup-molecule)
 	(font-family . roman)
 	(meta . ((interfaces . (note-name-interface text-interface font-interface item-interface ))))
 	))
@@ -648,7 +648,7 @@
 	(break-visibility . ,begin-of-line-visible)
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent ,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(molecule-callback . ,Text_item::brew_molecule)
+	(molecule-callback . ,brew-new-markup-molecule)
 	(font-shape . italic)
 	(padding . 0.4)
 	(font-relative-size . -2)
@@ -843,7 +843,7 @@
     (StanzaNumber
      . (
 	(breakable . #t)
-	(molecule-callback . ,Text_item::brew_molecule)		
+	(molecule-callback . ,brew-new-markup-molecule)		
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
 	(font-family . roman)
@@ -878,7 +878,7 @@
 
     (SostenutoPedal
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(molecule-callback . ,brew-new-markup-molecule)
 	(direction . 1)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(no-spacing-rods . #t)
@@ -1162,7 +1162,7 @@
 
     (UnaCordaPedal
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(molecule-callback . ,brew-new-markup-molecule)
 	(font-family . roman)
 	(font-shape . italic)
 	(no-spacing-rods . #t)
