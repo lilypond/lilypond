@@ -35,13 +35,16 @@ Voice_group_registers::try_request(Request*r_l)
 {
     for (int i=0; i < voice_regs_l_.size(); i++) {	
 	if (voice_regs_l_[i]->voice_l_ == r_l->voice_l())
-	    goto gotcha;
+	    goto gotcha;	// yeah, yeah, I know
     }
     return false;
 gotcha:
     Command_req* c_l = r_l->command();
     if (c_l&& c_l->groupfeature()) {
-	set_feature(Features::dir(c_l->groupfeature()->stemdir_i_));
+	Feature f;
+	f.type_ = c_l->groupfeature()->type_str_;
+	f.value_ = c_l->groupfeature()->value_str_;
+	set_feature(f);
 	return true;
     }
     return Register_group_register::try_request(r_l);

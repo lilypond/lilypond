@@ -19,9 +19,10 @@
 Stem_beam_register::Stem_beam_register()
 {
     post_move_processing();
+
     current_grouping = 0;
     beam_p_ = 0;
-    set_feature(Features::dir(0));
+    default_dir_i_ =0;
     start_req_l_ = 0;
 }
 
@@ -151,9 +152,10 @@ Stem_beam_register::~Stem_beam_register()
 }
 
 void
-Stem_beam_register::set_feature(Features i)
+Stem_beam_register::set_feature(Feature i)
 {
-    default_dir_i_ = i.direction_i_;
+    if (i.type_ == "vdir")	
+	default_dir_i_ = i.value_;
 }
 
 IMPLEMENT_STATIC_NAME(Stem_beam_register);

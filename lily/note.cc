@@ -71,10 +71,19 @@ Request*
 get_stemdir_req(int d)
 {
     Group_feature_req * gfreq_p = new Group_feature_req;
-    gfreq_p->stemdir_i_ =d; 
+    gfreq_p->type_str_ = "vdir";
+    gfreq_p->value_str_ = String(d);
     return gfreq_p;
 }
-
+Request*
+get_hshift_req(int i)
+{
+   Group_feature_req * gfreq_p = new Group_feature_req;
+    gfreq_p->type_str_ = "hshift";
+    gfreq_p->value_str_ = String(i);
+    return gfreq_p;
+}
+    
 Request*
 get_grouping_req(Array<int> i_arr)
 {
