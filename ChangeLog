@@ -1,5 +1,7 @@
 2005-03-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/test/music-box.ly: use 'name property, not ly:music-name.
+
 	* lily/GNUmakefile (MODULE_LDFLAGS): add KPATHSEA_LIBS.
 
 	* stepmake/aclocal.m4: STEPMAKE_FONTCONFIG: add.

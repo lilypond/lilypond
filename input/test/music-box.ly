@@ -9,9 +9,9 @@ using Scheme functions to avoid typing work. " }
 
 #(define (transform music)
   (let* ((es (ly:music-property music 'elements))
-         (n  (ly:music-name music)))
-   (if (not (equal? n "Sequential_music"))
-     (ly:warn "transform needs sequential music!")
+         (n  (ly:music-property music 'name)))
+   (if (not (equal? n 'SequentialMusic))
+     (ly:warn "transform needs SequentialMusic, got ~a" n)
      (begin
       (let recurse ((elts es))
        (if (not (equal? elts '()))
