@@ -62,7 +62,7 @@ local-WWW-post:
 		$(web-ext:%=-path '*/out-www/*.%' -or) -false \
 		> $(outdir)/weblist
 	echo '<META HTTP-EQUIV="refresh" content="2;URL=Documentation/out-www/">' > $(builddir)/index.html
-	cd $(builddir) && ls *.png *.html >> $(outdir)/weblist
+	cd $(builddir) && ls *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh

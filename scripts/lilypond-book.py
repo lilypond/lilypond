@@ -124,7 +124,7 @@ option_definitions = [
 	(_ ("DIM"),  '', 'default-music-fontsize', _ ("default fontsize for music.  DIM is assumed to be in points")),
 	(_ ("DIM"),  '', 'default-lilypond-fontsize', _ ("deprecated, use --default-music-fontsize")),
 	(_ ("OPT"), '', 'extra-options', _ ("pass OPT quoted to the lilypond command line")),
-	(_ ("DIM"), '', 'force-music-fontsize', _ ("force fontsize for all inline lilypond. DIM is assumed be to in points")),
+	(_ ("DIM"), '', 'force-music-fontsize', _ ("force fontsize for all inline lilypond. DIM is assumed to be in points")),
 	(_ ("DIM"), '', 'force-lilypond-fontsize', _ ("deprecated, use --force-music-fontsize")),
 	('', 'h', 'help', _ ("this help")),
 	(_ ("DIR"), 'I', 'include', _ ("include path")),

@@ -263,9 +263,12 @@ yourself, read this section.  The instructions that follow are for
 Unix-like systems.  Some additional instructions for Microsoft Windows
 are given at the end of this section.
 
-Begin by opening a terminal window and starting a text editor.
-For example, you could open an xterm and execute @code{joe}.  In your
-text editor, enter the following input and save the file as
+Begin by opening a terminal window and starting a text editor.  For
+example, you could open an xterm and execute
+@code{joe}.@footnote{There are macro files for VIM addicts, and there
+is a @code{LilyPond-mode} for Emacs addicts. If it has not been
+installed already, then refer to the file @file{INSTALL.txt}}.  In
+your text editor, enter the following input and save the file as
 @file{test.ly}:
 
 @quotation
@@ -1516,6 +1519,7 @@ The @code{padding} property for objects with
 symbols that are printed above or below notes. We only give an
 example; a more elaborate explanation is in @ref{Constructing a
 tweak}.
+
 @lilypond[relative 1]
   c2-\fermata
   \property Voice.Script \set #'padding = #3

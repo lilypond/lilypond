@@ -187,6 +187,15 @@ Text_spanner::brew_molecule (SCM smob)
 
   Perhaps make separate function for pedal-bracket.
  */
+/*
+  UGH UGH UGH .
+
+  This is broken broken.
+
+  All the tweak props should be unnecessary.
+
+  This should not be linked with Text_spanner.
+ */
 
 void 
 Text_spanner::setup_pedal_bracket(Spanner *me)
@@ -211,7 +220,7 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
   Interval e;
   Real padding = 0;
 
-  if (gh_number_p (pa) )
+  if (gh_number_p (pa))
     padding = gh_scm2double (pa);
 
   do
@@ -226,11 +235,11 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
       width[d]  =  0;
       height[d] =  0;
       shorten[d] = 0;
-      if ( ly_number_pair_p (ew) )
+      if (ly_number_pair_p (ew))
 	width[d] +=  gh_scm2double (index_get_cell (ew, d));
-      if ( !broken[d] && (ly_number_pair_p (eh) ) )
+      if (!broken[d] && (ly_number_pair_p (eh)))
 	height[d] += gh_scm2double (index_get_cell (eh, d));
-      if ( ly_number_pair_p (sp) )
+      if (ly_number_pair_p (sp))
 	shorten[d] +=  gh_scm2double (index_get_cell (sp, d));
     }
   while (flip (&d) != LEFT);
@@ -238,7 +247,7 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
   Real extra_short = 0;
   // For 'Mixed' style pedals, i.e.  a bracket preceded by text:  Ped._____|
   // need to shorten by the extent of the text grob
-  if ( to_boolean (me->get_grob_property ("text-start")) )
+  if (to_boolean (me->get_grob_property ("text-start")))
     {
       height[LEFT] = 0;
       extra_short = padding;

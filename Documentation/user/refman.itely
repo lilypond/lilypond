@@ -1588,7 +1588,7 @@ some of them are typeset as cautionaries.
 @item \forgetAccidentals
       @cindex @code{\forgetAccidentals}
       This is sort of the opposite of @code{\noResetKey}: Accidentals
-      are not remembered at all - and hence all accidentals are
+      are not remembered at all---and hence all accidentals are
       typeset relative to the key signature, regardless of what was
       before in the music:
 @lilypond[singleline,fragment,verbatim,relative]
@@ -1758,8 +1758,8 @@ stems might look better:
 @refbugs
 
 Producing nice slurs is a difficult problem, and LilyPond currently
-uses a simple, empiric method to produce slurs. In some cases, the
-results of this method are ugly.
+uses a simple, empiric method to produce slurs. In some cases, its
+results are ugly.
 
 
 @cindex Adjusting slurs
@@ -1812,7 +1812,7 @@ slurs. Putting phrasing slurs over rests leads to spurious warnings.
 Breath marks are entered using @code{\breathe}.
 
 
-@lilypond[fragment,relative]
+@lilypond[fragment,relative,verbatim]
 c'4 \breathe d4
 @end lilypond
 
@@ -1914,13 +1914,6 @@ To use this, add the @internalsref{Horizontal_bracket_engraver} to
 @internalsref{HorizontalBracket}, @internalsref{NoteGroupingEvent},
 @inputfileref{input/regression,note-group-bracket.ly}. 
 
-@refbugs
-
-Bracket endings should be angled/slanted. (TODO)
- 
-
-
-
 
 @node Articulations
 @section Articulations
@@ -1948,8 +1941,8 @@ put them up:
 
 
 Other symbols can be added using the syntax
-@var{note}@code{-\}@var{name}. Again, they can be forced up or down
-using @code{^} and @code{_}.
+@var{note}@code{-\}@var{name}, e.g. @code{c4-\fermata}. Again, they
+can be forced up or down using @code{^} and @code{_}.
 
 @cindex accent
 @cindex marcato
@@ -2031,17 +2024,20 @@ played with your thumb (used in cello music):
       <<c'' c'''-3>>-(_\thumb <<d'' d'''-3>>-)_\thumb-]
 @end lilypond
 
-Fingering for chords can be notated like this:
-
-@c TODO: confusing example. 
+Fingerings for chords can also be added to individual notes
+of the chord by adding them after the pitches
 @lilypond[verbatim,singleline,fragment,relative=1]
         << c-1  e-2 g-3 b-5 >> 4
+@end lilypond
+
+Setting @code{fingerHorizontalDirection} will put the fingerings next
+to the note head.
+
+@lilypond[verbatim,singleline,fragment,relative=1]
 	\property Voice.fingerHorizontalDirection = #LEFT
-	<< c-1  es-3 g-5 >> 4
+	<< c-1  es-2 g-4 bes-5 >> 4
 	\property Voice.fingerHorizontalDirection = #RIGHT
-	<< c-1  e-2 g-3 b-5 >>4
-	\property Voice.fingerHorizontalDirection = #LEFT
-	<< c_1  e-2 g-3 b^5 >>4
+	<< c-1  es-2 g-4 bes-5 >> 4
 @end lilypond
         
 @seealso
@@ -2482,10 +2478,9 @@ example file @inputfileref{input/test,unfold-all-repeats.ly}.
 @refbugs
 
 Timing information is not remembered at the start of an alternative,
-so you have to reset timing information after a repeat, e.g. using a
-bar-check (See @ref{Bar check}), setting @code{Score.measurePosition}
-or entering @code{\partial}.  Similarly, slurs or ties are also not
-repeated.
+so after a repeat timing information must be reset by hand, for
+example by setting @code{Score.measurePosition} or entering
+@code{\partial}.  Similarly, slurs or ties are also not repeated.
 
 
 @node Manual repeat commands
@@ -2497,18 +2492,18 @@ The property @code{repeatCommands} can be used to control the layout of
 repeats. Its value is a Scheme list of repeat commands, where each repeat
 command can be
 
-@table @code
-@item 'start-repeat
- Print a |: bar line
-@item 'end-repeat
- Print a :| bar line
-@item (volta . @var{text})
- Print a volta bracket saying @var{text}. The text can be specified as
+@table @asis
+@item the symbol @code{start-repeat},
+  which prints a @code{|:} bar line.
+@item The symbol @code{end-repeat},
+  which prints a @code{:|} bar line
+@item The list @code{(volta @var{text})}
+  which prints a volta bracket saying @var{text}. The text can be specified as
 a text string or as a markup text, see @ref{Text markup}. Do not
 forget to change the font, as the default number font does not contain
 alphabetic characters.
-@item (volta . #f) 
- Stop a running volta bracket
+@item The list @code{(volta #f)}, which 
+  stops a running volta bracket
 @end table
 
 @lilypond[verbatim, fragment]
@@ -2546,13 +2541,14 @@ style.
 
 @seealso
 
-Tremolo beams are @internalsref{Beam} objects. Single stem tremolos are
-@internalsref{StemTremolo}.  @internalsref{TremoloEvent}.
+Tremolo beams are @internalsref{Beam} objects. Single stem tremolos
+are @internalsref{StemTremolo}.  The music expression is
+@internalsref{TremoloEvent}.
 
 
 @refbugs
 
-The single stem tremolo @emph{must} be entered without @code{@{} and
+The single stem tremolo must be entered without @code{@{} and
 @code{@}}.
 
 @node Tremolo subdivisions
@@ -2601,9 +2597,6 @@ patterns that divide the measure length are replaced by slashes.
 @internalsref{DoublePercentRepeat}.
 
 
-@refbugs
-
-Single measure and double measure percent-repeats cannot be nested.
 
 @node Rhythmic music
 @section Rhythmic music
@@ -2629,15 +2622,15 @@ staff are squashed, and the staff itself has a single line:
 @cindex percussion
 @cindex drums
 
-To typeset more than one piece of percussion to be played by the same
-musician one typically uses a multiline staff where each staff
-position refers to a specific piece of percussion.
+A percussion part for more than one instrument typically uses a
+multiline staff where each position in the staff refers to one piece
+of percussion.
 
 @syntax
 
 Percussion staves are typeset with help of a set of Scheme
 functions. The system is based on the general MIDI drum-pitches.
-Include @file{ly/drumpitch-init.ly} to use drum pitches. This file
+Include @file{drumpitch-init.ly} to use drum pitches. This file
 defines the pitches from the Scheme variable @code{drum-pitch-names},
 the definition of which can be read in @file{scm/drums.scm}.  Each
 piece of percussion has a full name and an abbreviated name, and both
@@ -2858,10 +2851,10 @@ To use a modified existing list, one can prepend modifications to the
 the existing list:
 
 @example
-#(define mydrums (append `(
+#(set-drum-kit mydrums (append `(
    (bassdrum default #f ,(ly:make-pitch -1 2 0))
    (lowtom   diamond #f ,(ly:make-pitch -1 6 0))
-) drums ))
+) (get-drum-kit 'drums)))
 @end example
 
 The file @file{drumpitch-init.ly} replaces the normal pitch names, so
@@ -2886,15 +2879,15 @@ bass = \notes \transpose c c,, { a4. e8 r e g e }
 }
 @end lilypond
 
-@node Percussion midi output
-@subsection Percussion midi output
+@node Percussion MIDI output
+@subsection Percussion MIDI output
 
-In order to produce correct midi output you need to produce two score
-blocks---one for the paper and one for the midi output.  To use the
+In order to produce correct MIDI output you need to produce two score
+blocks---one for the paper and one for the MIDI output.  To use the
 percussion channel you set the property @code{instrument} to
-@code{'drums}. Because the drum-pitches themself are similar to the
-general midi pitches all you have to do is to insert the voices with
-none of the scheme functions to get the correct midi output:
+@code{'drums}. Because the drum-pitches themselves are similar to the
+general MIDI pitches all you have to do is to insert the voices with
+none of the scheme functions to get the correct MIDI output:
 
 @example
 \score @{    
@@ -2916,7 +2909,7 @@ none of the scheme functions to get the correct midi output:
 
 @refbugs
 
-This scheme is to be considered a temporary implementation.
+This scheme is a temporary implementation.
 
 
 @node Piano music
@@ -2968,7 +2961,7 @@ staff. The syntax for this is
   \autochange Staff \context Voice @{ @dots{}@var{music}@dots{} @}
 @end example        
 The autochanger switches on basis of pitch (central C is the turning
-point), and it looks ahead skipping over rests to switch rests in
+point), and it looks ahead skipping over rests to switch in
 advance. Here is a practical example:
         
 @lilypond[verbatim,singleline,quote]
@@ -2981,7 +2974,9 @@ advance. Here is a practical example:
        s1*2
 } > }
 @end lilypond
-Spacer rests are used to prevent the bottom staff from
+
+@noindent
+In this example, spacer rests are used to prevent the bottom staff from
 terminating too soon.
 
 
@@ -3002,6 +2997,8 @@ Voices can be switched between staves manually, using the following command:
 @example
   \translator Staff = @var{staffname} @var{music}
 @end example
+
+@noindent
 The string @var{staffname} is the name of the staff. It switches the
 current voice from its current staff to the Staff called
 @var{staffname}. Typically @var{staffname} is @code{"up"} or
@@ -3022,16 +3019,20 @@ Piano pedal instruction can be expressed by attaching
 @code{\treCorde}, @code{\sostenutoDown} and @code{\sostenutoUp} to a
 note or chord.
 
-The symbols that are printed can be modified by setting
-@code{pedal@var{X}Strings}, where @var{X} is one of the pedal types:
-Sustain, Sostenuto or UnaCorda.  Refer to the generated documentation
-of @internalsref{SustainPedal} for more information.
+@lilypond[fragment,verbatim]
+  c'4-\sustainDown c'4-\sustainUp
+@end lilypond
+
+What is printed can be modified by setting @code{pedal@var{X}Strings},
+where @var{X} is one of the pedal types: @code{Sustain},
+@code{Sostenuto} or @code{UnaCorda}.  Refer to the generated
+documentation of @internalsref{SustainPedal} for more information.
 
 Pedals can also be indicated by a sequence of brackets, by setting the 
 @code{pedal-type} property of @internalsref{SustainPedal} objects: 
 
 @lilypond[fragment,verbatim]
-\property Staff.SustainPedal \override #'pedal-type = #'bracket
+ \property Staff.SustainPedal \override #'pedal-type = #'bracket
  c''4-\sustainDown d''4 e''4
  a'4-\sustainUp-\sustainDown
  f'4 g'4 a'4-\sustainUp
