@@ -16,7 +16,6 @@
 Hara_kiri_group_spanner::Hara_kiri_group_spanner()
 {
   set_elt_property ("items-worth-living", SCM_EOL);
-  axis_group (this).set_axes(Y_AXIS,Y_AXIS);
 }
 
 void 
@@ -35,7 +34,7 @@ Hara_kiri_group_spanner::after_line_breaking ()
   if (gh_pair_p (worth))
     return;
 
-  Link_array<Score_element> childs = axis_group (this).get_children ();
+  Link_array<Score_element> childs = Axis_group_interface (this).get_children ();
   for (int i = 0; i < childs.size (); i++)
     {
       Score_element* s = childs[i];
