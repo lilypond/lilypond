@@ -125,7 +125,6 @@ Grob::Grob (Grob const&s)
   self_scm_ = SCM_EOL;
 
   immutable_property_alist_ = s.immutable_property_alist_;
-
   mutable_property_alist_ = SCM_EOL;
   
   /*
@@ -148,9 +147,6 @@ Grob::~Grob ()
     do nothing scm-ish and no unprotecting here.
    */
 }
-
-
-
 
 
 MAKE_SCHEME_CALLBACK (Grob,molecule_extent,2);
@@ -325,12 +321,16 @@ Grob::handle_broken_dependencies ()
 
   if (sp)
     {
+      /*
+	This is the original spanner. We use a special function
+	because some Spanners have enormously long lists in their
+	properties.
+       */
       for (SCM s = mutable_property_alist_; gh_pair_p(s);
 	   s = gh_cdr(s))
 	{
 	  sp->substitute_one_mutable_property (gh_caar (s),
 					      gh_cdar (s));
-	  
 	}
     }
 

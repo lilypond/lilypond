@@ -188,9 +188,9 @@ Cluster::brew_molecule (SCM smob)
     {
       Spanner *orig = dynamic_cast<Spanner*> (spanner->original_);
       
-      if (spanner->break_index_ < orig->broken_intos_.size()-1)
+      if (spanner->get_break_index () < orig->broken_intos_.size()-1)
 	{
-	  Spanner * next = orig->broken_intos_[spanner->break_index_+1];
+	  Spanner * next = orig->broken_intos_[spanner->get_break_index () + 1];
 	  SCM cols = next->get_grob_property ("columns");
 	  if (gh_pair_p (cols))
 	    {

@@ -48,6 +48,11 @@ extents of a cluster spanner at this X position.
  '())
 
 (ly:add-interface
+ 'lyric-interface
+ "Any object that is related to lyrics."
+ '())
+
+(ly:add-interface
  'mark-interface
  "a rehearsal mark"
  '())

@@ -18,6 +18,20 @@
 #include "note-head.hh"
 #include "group-interface.hh"
 
+
+bool
+Lyric_extender::is_visible (Grob *gr)
+{
+  Spanner*me = dynamic_cast<Spanner*> (gr);
+
+  SCM heads = me->get_grob_property ("heads");
+  int l = scm_ilength (heads);
+  if (l == 0)
+    return false;
+  
+  return true;
+}
+
 MAKE_SCHEME_CALLBACK (Lyric_extender,brew_molecule,1)
 SCM 
 Lyric_extender::brew_molecule (SCM smob) 
@@ -56,18 +70,33 @@ Lyric_extender::brew_molecule (SCM smob)
   Real right_point
     = left_point + (robust_scm2double  (minlen,0));
 
-  if (r->break_status_dir ())
-    right_point = infinity_f;
-  else
+  Spanner *orig = dynamic_cast<Spanner*> (me->original_);
+  bool last_line = orig
+    && (me->get_break_index () == orig->broken_intos_.size() - 2)
+    && !Lyric_extender::is_visible (orig->broken_intos_.top ());
+    
+
+  if (heads.size ())
     right_point = right_point >? heads.top ()->extent (common, X_AXIS)[RIGHT];
-  
+
   Real h = sl * robust_scm2double (me->get_grob_property ("thickness"), 0);
   Real pad = 2* h;
-  right_point = right_point <? (r->extent (common, X_AXIS)[LEFT] - pad);
 
-  if (isinf (right_point))
-    return SCM_EOL;
+  if (!r->break_status_dir ())
+    right_point = right_point <? (r->extent (common, X_AXIS)[LEFT] - pad);
+  else if (!last_line)
+    {
+      /*
+	run to end of line.
+       */
+      right_point = right_point >? (r->extent (common, X_AXIS)[LEFT] - pad);
+    }
   
+  if (isinf (right_point))
+    {
+      programming_error ("Right point of extender not defined?");
+      right_point = r->relative_coordinate (common, X_AXIS);
+    }  
 
   left_point += pad;
 

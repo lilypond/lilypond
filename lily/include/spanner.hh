@@ -31,13 +31,14 @@
   */
 class Spanner : public  Grob {
   Drul_array<Item*> spanned_drul_;
+  int break_index_;
   
 public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
   
   Link_array<Spanner> broken_intos_;
 
-  int break_index_;
+  int get_break_index () const;
   // todo: move to somewhere else.
   Real get_broken_left_end_align () const;
   void substitute_one_mutable_property (SCM sym, SCM val)  ;

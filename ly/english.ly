@@ -85,7 +85,7 @@ pitchnamesEnglish = #`(
 	(bx . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
 )
 
-pitchnames = pitchnamesEnglish
+pitchnames = \pitchnamesEnglish
 
 \version "2.1.19"
 

@@ -28,6 +28,7 @@
 class Lyric_extender
 {
 public:
+  static bool is_visible (Grob*);
   static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
 };
