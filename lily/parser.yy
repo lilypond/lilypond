@@ -111,7 +111,7 @@ set_music_properties (Music *p, SCM a)
 
 // needed for bison.simple's malloc () and free ()
 
-#include <malloc.h>
+// #include <malloc.h>
 #include <stdlib.h>
 
 
