@@ -78,10 +78,14 @@ if env['debugging']:
 	env.Append (CXXFLAGS = '-g')
 if env['optimising']:
 	env.Append (CFLAGS = '-O2')
-	env.Append (CXXFLAGS = '-O2 -DSTRING_UTILS_INLINED')
+	env.Append (CXXFLAGS = '-O2')
+	env.Append (CXXFLAGS = '-DSTRING_UTILS_INLINED')
 if env['warnings']:
-	env.Append (CFLAGS = '-W -Wall')
-	env.Append (CXXFLAGS = '-W -Wall -Wconversion')
+	env.Append (CFLAGS = '-W ')
+	env.Append (CFLAGS = '-Wall')
+	env.Append (CXXFLAGS = '-W')
+	env.Append (CXXFLAGS = '-Wall')
+	env.Append (CXXFLAGS = '-Wconversion')
 
 env['MFMODE'] = 'ljfour'
 
@@ -119,6 +123,19 @@ for i in functions:
 	if 0 or conf.CheckFunc (i):
        		key = re.sub ('[./]', '_', 'zHAVE_' + string.upper (i))
                 defines[key] = '1'
+
+
+key = 'HAVE_FLEXLEXER_YY_CURRENT_BUFFER'
+defines[key] = conf.TryCompile("""using namespace std;
+#include <FlexLexer.h>
+class yy_flex_lexer: public yyFlexLexer
+{
+  public:
+    yy_flex_lexer ()
+    {
+      yy_current_buffer = 0;
+    }
+};""", 'cc')
 
 if conf.CheckLib ('dl'):
 	pass

@@ -161,7 +161,7 @@ Key_engraver::read_ev (Music const * r)
 
   context ()->set_property ("keySignature", accs);
   context ()->set_property ("tonic" ,
-			      r->get_property ("tonic"));
+			    r->get_property ("tonic"));
 }
 
 
