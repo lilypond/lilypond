@@ -1,3 +1,7 @@
+2004-11-24  Erik Sandberg  <ersa9195@student.uu.se>
+
+        * buildscripts/guile-gnome.sh: Fixed typo.
+
 2004-11-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/lexer.ll: add < >  to markup lexer mode (backportme)
