@@ -1,5 +1,10 @@
 2004-06-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/framework-gnome.scm (output-framework-gnome): Try loading
+	gnome modules from non-toplevel.
+
+	* lily/ly-module.cc (ly:import-module): Export to ly:.
+
 	* lily/paper-score.cc (process): Do not show progress newline.
 
 	* lily/paper-book.cc (output, classic_output): Show progess
