@@ -9,6 +9,8 @@
 
 2005-03-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* python/lilylib.py (make_ps_images): add x to -g argument. 
+
 	* lily/key-performer.cc (create_audio_elements): don't use
 	scm_eval_string. Check for minor 3rd directly.
   
