@@ -45,11 +45,31 @@ scoreTitleMarkup = \markup {
   }
 }
 
+#(define (first-page layout props arg)
+  (if (= (chain-assoc-get 'page:page-number props -1) 1)
+    (interpret-markup layout props arg)
+    empty-stencil))
+
+#(define (last-page layout props arg)
+  (if (chain-assoc-get 'page:last? props #f)
+    (interpret-markup layout props arg)
+    empty-stencil))
+
+#(define (not-first-page layout props arg)
+  (if (not (= (chain-assoc-get 'page:page-number props -1) 1))
+    (interpret-markup layout props arg)
+    empty-stencil))
+
+%%#(define (multiple-pages layout props arg)
 
 oddHeaderMarkup = \markup
+%% Do not print page number on fist page.
+%% FIXME: only if multiple pages, do page number
+%% \on-the-fly #multiple-pages
+\on-the-fly #not-first-page
 \fill-line {
   ""
-  \fromproperty #'header:instrument
+  \on-the-fly #not-first-page \fromproperty #'header:instrument
   \fromproperty #'page:page-number-string
 }
 
@@ -64,22 +84,12 @@ oddFooterMarkup = \markup {
   \column {
     \fill-line {
 
-      % put copyright only on pagenr. 1 
-      \on-the-fly #(lambda (layout props arg)
-		    (if (= 1 (chain-assoc-get 'page:page-number props   -1))
-		     (interpret-markup layout props arg)
-		     empty-stencil
-		   ))
-      \fromproperty #'header:copyright
+      %% Copyright header field only on first page.
+      \on-the-fly #first-page \fromproperty #'header:copyright
     }
     \fill-line {
-      % put tagline only on last page
-      \on-the-fly #(lambda (layout props arg)
-		    (if (chain-assoc-get 'page:last?  props #f)
-		     (interpret-markup layout props arg)
-		     empty-stencil
-		   ))
-      \fromproperty #'header:tagline
+      %% Tagline header field only on last page.
+      \on-the-fly #last-page \fromproperty #'header:tagline
     }
   }
 }
