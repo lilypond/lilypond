@@ -68,14 +68,14 @@ Script_engraver::do_process_requests()
       if (relative_stem_dir)
 	  ss->relative_dir_ = (Direction)relative_stem_dir;
       else
-	  ss->dir_ = (Direction)force_dir;
+	  ss->set_direction ((Direction)force_dir);
 
       SCM dir_prop (get_property ("articulationScriptVerticalDirection", 0));
       if (gh_number_p(dir_prop))
-	ss->dir_ = to_dir (dir_prop);
+	ss->set_direction (to_dir (dir_prop));
 
-      if (l->dir_)
-	ss->dir_ = l->dir_;
+      if (l->get_direction ())
+	ss->set_direction (l->get_direction ());
 
       SCM paddingprop = get_property ("articulationScriptPadding", 0);
       if (gh_number_p(paddingprop))

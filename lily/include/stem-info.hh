@@ -14,7 +14,10 @@
 
 struct Stem_info {
   Real x_;
-  int dir_;
+  Direction dir_;
+  void set_direction (Direction d ) { dir_ =  d; }
+  Direction get_direction () const { return dir_; }
+
   int beam_dir_;
   Real idealy_f_;
   Real miny_f_;

@@ -31,6 +31,8 @@ private:
   Link_array<Item> text_p_arr_;
   Array<Musical_pitch> rebuild_pitch_arr (int tonic_i) const;
   Tonic_req* tonic_req_;
+  Inversion_req* inversion_req_;
+  Bass_req* bass_req_;
 };
 
 #endif // CHORD_NAME_ENGRAVER_HH

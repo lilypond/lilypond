@@ -20,6 +20,9 @@ public:
   Breathing_sign ();
 
   void set_vertical_position (Direction);
+  void set_direction (Direction d ) { dir_ =  d; }
+  Direction get_direction () const { return dir_; }
+
 
 protected:
   virtual void do_post_processing ();

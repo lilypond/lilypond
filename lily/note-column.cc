@@ -61,7 +61,7 @@ Direction
 Note_column::dir () const
 {
   if (stem_l_)
-    return stem_l_->dir_;
+    return stem_l_->get_direction ();
   else if (head_l_arr_.size ())
     return (Direction)sign (head_positions_interval().center ());
 
@@ -162,7 +162,7 @@ Note_column::do_post_processing ()
     return;
   
   /* ugh. Should be done by beam. */
-  Direction d = stem_l_->get_dir ();
+  Direction d = stem_l_->get_direction ();
   Real beamy = (stem_l_->hpos_f () - b->stems_[0]->hpos_f ()) * b->slope_f_ + b->left_y_;
 
   Real staff_space = rest_l_arr_[0]->staff_line_leading_f ();      

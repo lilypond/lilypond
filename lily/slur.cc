@@ -101,7 +101,7 @@ Slur::encompass_offset (Note_column const* col) const
     {
       warning (_ ("Slur over rest?"));
       o[X_AXIS] = col->hpos_f ();
-      o[Y_AXIS] = col->extent (Y_AXIS)[dir_];
+      o[Y_AXIS] = col->extent (Y_AXIS)[get_direction ()];
       return o;  
     }
   
@@ -111,22 +111,22 @@ Slur::encompass_offset (Note_column const* col) const
     Simply set x to middle of notehead
    */
 
-  o[X_AXIS] -= 0.5 * stem_l->dir_ * col->extent (X_AXIS).length ();
+  o[X_AXIS] -= 0.5 * stem_l->get_direction () * col->extent (X_AXIS).length ();
 
-  if ((stem_l->dir_ == dir_)
+  if ((stem_l->get_direction () == get_direction ())
       && !stem_l->extent (Y_AXIS).empty_b ())
     {
-      o[Y_AXIS] = stem_l->extent (Y_AXIS)[dir_];
+      o[Y_AXIS] = stem_l->extent (Y_AXIS)[get_direction ()];
     }
   else
     {
-      o[Y_AXIS] = col->extent (Y_AXIS)[dir_];
+      o[Y_AXIS] = col->extent (Y_AXIS)[get_direction ()];
     }
 
   /*
    leave a gap: slur mustn't touch head/stem
    */
-  o[Y_AXIS] += dir_ * paper_l ()->get_var ("slur_y_free");
+  o[Y_AXIS] += get_direction () * paper_l ()->get_var ("slur_y_free");
   o[Y_AXIS] += calc_interstaff_dist (stem_l, this);
   return o;
 }
@@ -140,8 +140,8 @@ void
 Slur::do_post_processing ()
 {
   encompass_arr_.sort (Note_column_compare);
-  if (!dir_)
-    dir_ = get_default_dir ();
+  if (!get_direction ())
+    set_direction (get_default_dir ());
 
   /* 
    Slur and tie placement [OSU]
@@ -179,23 +179,23 @@ Slur::do_post_processing ()
 	    no beam getting in the way
 	  */
 	  if ((stem_l->extent (Y_AXIS).empty_b ()
-	       || !((stem_l->dir_ == dir_) && (dir_ != d)))
-	      && !((dir_ == stem_l->dir_)
+	       || !((stem_l->get_direction () == get_direction ()) && (get_direction () != d)))
+	      && !((get_direction () == stem_l->get_direction ())
 		   && stem_l->beam_l_ && (stem_l->beams_i_drul_[-d] >= 1)))
 	    {
 	      dx_f_drul_[d] = spanned_drul_[d]->extent (X_AXIS).length () / 2;
 	      dx_f_drul_[d] -= d * x_gap_f;
 
-	      if (stem_l->dir_ != dir_)
+	      if (stem_l->get_direction () != get_direction ())
 		{
-		  dy_f_drul_[d] = note_column_drul[d]->extent (Y_AXIS)[dir_];
+		  dy_f_drul_[d] = note_column_drul[d]->extent (Y_AXIS)[get_direction ()];
 		}
 	      else
 		{
 		  dy_f_drul_[d] = stem_l->chord_start_f ()
-		    + dir_ * internote_f;
+		    + get_direction () * internote_f;
 		}
-	      dy_f_drul_[d] += dir_ * y_gap_f;
+	      dy_f_drul_[d] += get_direction () * y_gap_f;
 	    }
 	  /*
 	    side attached to (visible) stem
@@ -209,8 +209,8 @@ Slur::do_post_processing ()
 	       */
 	      if (stem_l->beam_l_ && (stem_l->beams_i_drul_[-d] >= 1))
 		{
-		  dy_f_drul_[d] = stem_l->extent (Y_AXIS)[dir_];
-		  dy_f_drul_[d] += dir_ * 2 * y_gap_f;
+		  dy_f_drul_[d] = stem_l->extent (Y_AXIS)[get_direction ()];
+		  dy_f_drul_[d] += get_direction () * 2 * y_gap_f;
 		}
 	      /*
 		side attached to notehead, with stem getting in the way
@@ -220,8 +220,8 @@ Slur::do_post_processing ()
 		  dx_f_drul_[d] -= d * x_gap_f;
 		  
 		  dy_f_drul_[d] = stem_l->chord_start_f ()
-		    + dir_ * internote_f;
-		  dy_f_drul_[d] += dir_ * y_gap_f;
+		    + get_direction () * internote_f;
+		  dy_f_drul_[d] += get_direction () * y_gap_f;
 		}
 	    }
 	}
@@ -300,7 +300,7 @@ Slur::do_post_processing ()
   Real slope_ratio_f = abs (dy_f / dx_f);
   if (slope_ratio_f > slope_damp_f)
     {
-      Direction d = (Direction)(- dir_ * (sign (dy_f)));
+      Direction d = (Direction)(- get_direction () * (sign (dy_f)));
       if (!d)
 	d = LEFT;
       Real damp_f = (slope_ratio_f - slope_damp_f) * dx_f;
@@ -308,7 +308,7 @@ Slur::do_post_processing ()
 	must never change sign of dy
        */
       damp_f = damp_f <? abs (dy_f);
-      dy_f_drul_[d] += dir_ * damp_f;
+      dy_f_drul_[d] += get_direction () * damp_f;
     }
 
   /*
@@ -331,7 +331,7 @@ Slur::do_post_processing ()
       Real height_ratio_f = abs (height_f / width_f);
       if (height_ratio_f > height_damp_f)
 	{
-	  Direction d = (Direction)(- dir_ * (sign (dy_f)));
+	  Direction d = (Direction)(- get_direction () * (sign (dy_f)));
 	  if (!d)
 	    d = LEFT;
 	  /* take third step */
@@ -341,8 +341,8 @@ Slur::do_post_processing ()
 	  */
 	  if (abs (dy_f / dx_f ) < slope_damp_f)
 	    {
-	      dy_f_drul_[-d] += dir_ * damp_f;
-	      dy_f_drul_[d] += dir_ * damp_f;
+	      dy_f_drul_[-d] += get_direction () * damp_f;
+	      dy_f_drul_[d] += get_direction () * damp_f;
 	    }
 	  /*
 	    don't change slope too much, would have been catched by slope damping
@@ -350,7 +350,7 @@ Slur::do_post_processing ()
 	  else
 	    {
 	      damp_f = damp_f <? abs (dy_f/2);
-	      dy_f_drul_[d] += dir_ * damp_f;
+	      dy_f_drul_[d] += get_direction () * damp_f;
 	    }
 	}
     }
@@ -369,8 +369,8 @@ Slur::do_post_processing ()
       Note_column * nc = note_column_drul[d];
       if (nc == spanned_drul_[d]
 	  && nc->stem_l_
-	  && nc->stem_l_->dir_ == dir_
-	  && abs (nc->stem_l_->extent (Y_AXIS)[dir_]
+	  && nc->stem_l_->get_direction () == get_direction ()
+	  && abs (nc->stem_l_->extent (Y_AXIS)[get_direction ()]
 		  - dy_f_drul_[d] + (d == LEFT ? 0 : interstaff_f))
 	      <= snap_f)
 	{
@@ -380,9 +380,9 @@ Slur::do_post_processing ()
 	  snapx_f_drul[d] = nc->stem_l_->hpos_f ()
 	    - spanned_drul_[d]->relative_coordinate (0, X_AXIS);
 
-	  snapy_f_drul[d] = nc->stem_l_->extent (Y_AXIS)[dir_]
+	  snapy_f_drul[d] = nc->stem_l_->extent (Y_AXIS)[get_direction ()]
 	    + interstaff_interval[d]
-	    + dir_ * 2 * y_gap_f;
+	    + get_direction () * 2 * y_gap_f;
 	  
 	  snapped_b_drul[d] = true;
 	}

@@ -163,20 +163,37 @@ My_lily_parser::get_rest_element (String s,  Duration * duration_p)
 
 // junk me
 Simultaneous_music *
-My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p, Musical_pitch* inversion_p, Duration d)
+My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p, Musical_pitch* inversion_p, Musical_pitch* bass_p, Duration d)
 {
   Simultaneous_music*v = new Request_chord;
   v->set_spot (here_input ());
 
-  Chord chord (tonic, add_arr_p, sub_arr_p, inversion_p);
+  Chord chord = to_chord (tonic, add_arr_p, sub_arr_p, inversion_p, bass_p);
 
   Tonic_req* t = new Tonic_req;
   t->pitch_ = tonic;
   v->add_music (t);
 
-  for (int i = 0; i < chord.pitch_arr_.size (); i++)
+  //urg
+  if (inversion_p
+      && Chord::find_notename_i (&chord.pitch_arr_, *inversion_p) > 0)
     {
-      Musical_pitch p = chord.pitch_arr_[i];
+      Inversion_req* i = new Inversion_req;
+      i->pitch_ = *inversion_p;
+      v->add_music (i);
+    }
+
+  if (bass_p)
+    {
+      Bass_req* b = new Bass_req;
+      b->pitch_ = *bass_p;
+      v->add_music (b);
+    }
+
+  Array<Musical_pitch> pitch_arr = chord.to_pitch_arr ();
+  for (int i = 0; i < pitch_arr.size (); i++)
+    {
+      Musical_pitch p = pitch_arr[i];
       Note_req* n = new Note_req;
       n->pitch_ = p;
       n->duration_ = d;

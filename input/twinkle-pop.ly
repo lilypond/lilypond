@@ -25,12 +25,12 @@ melodie = \notes\relative c'' {
 acc = \chords {
 	% why don't \skip, s4 work?
         c2 c f c
-        f c g-7 c
-	g f c  g-7 % urg, bug!
-        g f c  g-7
+        f c g:7 c
+	g f c  g:7 % urg, bug!
+        g f c  g:7
 	% copy 1-8
         c2 c f c
-        f c g-7 c
+        f c g:7 c
 }
 
 text = \lyrics{ 

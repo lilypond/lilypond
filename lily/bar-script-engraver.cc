@@ -144,11 +144,11 @@ Bar_script_engraver::create_items (Request *rq)
   SCM prop = get_property (type_ + "Direction", 0);
   if (isdir_b (prop))
     {
-      staff_side_p_->dir_ = to_dir (prop);
+      staff_side_p_->set_direction ( to_dir (prop));
     }
   else 
     {
-      staff_side_p_->dir_ = UP;
+      staff_side_p_->set_direction ( UP);
     }
 
   staff_side_p_->set_victim(text_p_);

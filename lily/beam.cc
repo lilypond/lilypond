@@ -158,7 +158,7 @@ Beam::auto_knee (SCM gap, bool interstaff_b)
         {
 	  int y = (int)(stems_[i]->chord_start_f () / internote_f)
 	    + (int)sinfo_[i].interstaff_f_;
-	  stems_[i]->dir_ = y < knee_y ? UP : DOWN;
+	  stems_[i]->set_direction ( y < knee_y ? UP : DOWN);
 	  stems_[i]->set_elt_property ("dir-forced", SCM_BOOL_T);
 	}
     }
@@ -182,10 +182,10 @@ Beam::do_pre_processing ()
     urg: it seems that info on whether beam (voice) dir was forced
          is being junked here?
   */
-  if (!dir_)
-    dir_ = get_default_dir ();
+  if (!get_direction ())
+    set_direction ( get_default_dir ());
   
-  set_direction (dir_);
+  set_direction (get_direction ());
 }
 
 void
@@ -213,8 +213,8 @@ Beam::do_post_processing ()
 	if auto-knee did its work, most probably stem directions
 	have changed, so we must recalculate all.
        */
-      dir_ = get_default_dir ();
-      set_direction (dir_);
+      set_direction ( get_default_dir ());
+      set_direction (get_direction ());
 
       /* auto-knees used to only work for slope = 0
 	 anyway, should be able to set slope per beam
@@ -255,8 +255,8 @@ Beam::get_default_dir () const
   for (int i=0; i <stems_.size (); i++)
     do {
       Stem *s = stems_[i];
-      int current = s->dir_ 
-	? (1 + d * s->dir_)/2
+      int current = s->get_direction () 
+	? (1 + d * s->get_direction ())/2
 	: s->get_center_distance ((Direction)-d);
 
       if (current)
@@ -312,7 +312,7 @@ Beam::get_default_dir () const
 void
 Beam::set_direction (Direction d)
 {
-  dir_ = d;
+  set_direction ( d);
   for (int i=0; i <stems_.size (); i++)
     {
       Stem *s = stems_[i];
@@ -320,7 +320,7 @@ Beam::set_direction (Direction d)
 
       SCM force = s->remove_elt_property ("dir-forced");
       if (force == SCM_UNDEFINED)
-	s->dir_ = d;
+	s->set_direction ( d);
     }
 }
 
@@ -359,21 +359,21 @@ Beam::check_stemlengths_f (bool set_b)
       Real y = sinfo_[i].x_ * slope_f_ + left_y_;
 
       // correct for knee
-      if (dir_ != sinfo_[i].dir_)
+      if (get_direction () != sinfo_[i].get_direction ())
 	{
 	  Real internote_f = sinfo_[i].stem_l_->staff_line_leading_f ()/2;
-	  y -= dir_ * (beam_f / 2
+	  y -= get_direction () * (beam_f / 2
 		       + (sinfo_[i].mult_i_ - 1) * interbeam_f) / internote_f;
 	  if (!i && sinfo_[i].stem_l_->staff_symbol_l () !=
 	      sinfo_.top ().stem_l_->staff_symbol_l ())
-	    y += dir_ * (multiple_i_ - (sinfo_[i].stem_l_->flag_i_ - 2) >? 0)
+	    y += get_direction () * (multiple_i_ - (sinfo_[i].stem_l_->flag_i_ - 2) >? 0)
 	      * interbeam_f / internote_f;
 	}
 
       if (set_b)
 	sinfo_[i].stem_l_->set_stemend (y - sinfo_[i].interstaff_f_);
 	
-      y *= dir_;
+      y *= get_direction ();
       if (y > sinfo_[i].maxy_f_)
 	dy_f = dy_f <? sinfo_[i].maxy_f_ - y;
       if (y < sinfo_[i].miny_f_)
@@ -404,7 +404,7 @@ Beam::set_steminfo ()
       s->set_default_extents ();
       if (s->invisible_b ())
 	continue;
-      if (((int)s->chord_start_f ()) && (s->dir_ != s->get_default_dir ()))
+      if (((int)s->chord_start_f ()) && (s->get_direction () != s->get_default_dir ()))
         forced_count_i++;
       total_count_i++;
     }
@@ -433,7 +433,7 @@ Beam::set_steminfo ()
       if (leftx == 0)
 	leftx = info.x_;
       info.x_ -= leftx;
-      if (info.dir_ == dir_)
+      if (info.get_direction () == get_direction ())
         {
 	  if (forced_count_i == total_count_i)
 	    info.idealy_f_ -= shorten_f;
@@ -453,7 +453,7 @@ Beam::calculate_slope ()
     {
       slope_f_ = 0;
       left_y_ = sinfo_[0].idealy_f_;
-      left_y_ *= dir_;
+      left_y_ *= get_direction ();
     }
   else
     {
@@ -496,8 +496,8 @@ Beam::calculate_slope ()
       Real damped_slope_dy_f = (solved_slope_f - slope_f_) * dx_f / 2;
       left_y_ += damped_slope_dy_f;
 
-      left_y_ *= dir_;
-      slope_f_ *= dir_;
+      left_y_ *= get_direction ();
+      slope_f_ *= get_direction ();
     }
 }
 
@@ -597,7 +597,7 @@ Beam::quantise_left_y (bool extend_b)
   // isn't this asymmetric ? --hwn
   
   // dim(left_y_) = internote
-  Real dy_f = dir_ * left_y_ * internote_f;
+  Real dy_f = get_direction () * left_y_ * internote_f;
 
   Real beamdx_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
   Real beamdy_f = beamdx_f * slope_f_ * internote_f;
@@ -630,7 +630,7 @@ Beam::quantise_left_y (bool extend_b)
     quanty_f = iv[BIGGER];
 
   // dim(left_y_) = internote
-  left_y_ = dir_ * quanty_f / internote_f;
+  left_y_ = get_direction () * quanty_f / internote_f;
 }
 
 void
@@ -645,7 +645,7 @@ Beam::set_stemlens ()
   Real dy_f = check_stemlengths_f (false);
   for (int i = 0; i < 2; i++)	// 2 ?
     { 
-      left_y_ += dy_f * dir_;
+      left_y_ += dy_f * get_direction ();
       quantise_left_y (dy_f);
       dy_f = check_stemlengths_f (true);
       if (abs (dy_f) <= epsilon_f)
@@ -745,7 +745,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       for (int j = 0; j  < lhalfs; j++)
 	{
 	  Molecule b (a);
-	  b.translate_axis (-dir_ * dy * (lwholebeams+j), Y_AXIS);
+	  b.translate_axis (-get_direction () * dy * (lwholebeams+j), Y_AXIS);
 	  leftbeams.add_molecule (b);
 	}
     }
@@ -770,7 +770,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 	  for (; j  < nogap; j++)
 	    {
 	      Molecule b (a);
-	      b.translate_axis (-dir_ * dy * j, Y_AXIS);
+	      b.translate_axis (-get_direction () * dy * j, Y_AXIS);
 	      rightbeams.add_molecule (b);
 	    }
 	  // TODO: notehead widths differ for different types
@@ -783,9 +783,9 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 	{
 	  Molecule b (a);
 	  if (!here->invisible_b ())
-	    b.translate (Offset (gap_f, -dir_ * dy * j));
+	    b.translate (Offset (gap_f, -get_direction () * dy * j));
 	  else
-	    b.translate (Offset (0, -dir_ * dy * j));
+	    b.translate (Offset (0, -get_direction () * dy * j));
 	  rightbeams.add_molecule (b);
 	}
 
@@ -796,7 +796,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       for (; j  < rwholebeams + rhalfs; j++)
 	{
 	  Molecule b (a);
-	  b.translate_axis (-dir_ * dy * j, Y_AXIS);
+	  b.translate_axis (-get_direction () * dy * j, Y_AXIS);
 	  rightbeams.add_molecule (b);
 	}
 

@@ -359,6 +359,12 @@ HYPHEN		--
 	-  {
 		return CHORD_MINUS;
 	}
+	:  {
+		return CHORD_COLON;
+	}
+	\/\+ {
+		return CHORD_BASS;
+	}
 	\^  {
 		return CHORD_CARET;
 	}

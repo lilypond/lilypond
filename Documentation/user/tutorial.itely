@@ -346,8 +346,8 @@ text = \lyrics @{
 
 accompaniment =\chords @{
         r8
-        c2-3- f-3-.7 d-min es4 c8-min r8
-        c2-min f-min7 g-7^3.5 c-min @}
+        c2:3- f:3-.7 d:min es4 c8:min r8
+        c2:min f:min7 g:7^3.5 c:min @}
 
 \score @{
         \simultaneous @{
@@ -397,8 +397,8 @@ text = \lyrics {
 
 accompaniment =\chords {
         r8
-        c2-3- f-3-.7 d-min es4 c8-min r8
-        c2-min f-min7 g-7^3.5 c-min }
+        c2:3- f:3-.7 d:min es4 c8:min r8
+        c2:min f:min7 g:7^3.5 c:min }
 
 \score {
         \simultaneous {
@@ -513,7 +513,7 @@ of the chords you want, instead of the notes comprising the chord.
 @end example 
 There is no accompaniment during the anacrusis.@example 
 
-        c2-3- f-3-.7
+        c2:3- f:3-.7
  
 @end example 
 A chord is started by  the tonic of the chord. The
@@ -523,19 +523,19 @@ be small. @code{7} modifies (adds) a seventh, which is small by default
 to create the @code{f a c es} chord.  Multiple modifiers must be
 separated by a dot.@example 
 
-        d-min es4 c8-min r8
+        d:min es4 c8:min r8
  
 @end example 
 Some modifiers have predefined names, eg. @code{min} is  the same as
 @code{3-}, so @code{d-min} is a minor @code{d} chord.@example 
 
-        c2-min f-min7 g-7^3.5 c-min @}
+        c2:min f:min7 g:7^3.5 c:min @}
  
 @end example 
 A named modifier @code{min} and a normal modifier @code{7} do not have
 to be separated by a dot.  Tones from a chord are removed with chord
 subtractions.  Subtractions are started with a caret, and they are
-also separated by dots.  In this example, @code{g-7^3.5} produces a
+also separated by dots.  In this example, @code{g:7^3.5} produces a
 minor seventh.  The brace ends the sequential music. @example 
 
         \score @{

@@ -203,5 +203,5 @@ Articulation_req::do_equal_b (Request const* r) const
 
 Script_req::Script_req ()
 {
-  dir_ = CENTER;
+  set_direction (CENTER);
 }

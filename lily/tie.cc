@@ -159,15 +159,15 @@ Tie::do_post_processing()
   if (dx_f < paper_l ()->get_var ("tie_staffspace_length"))
     {
       if (abs (ypos_i) % 2)
-	y_f += dir_ * internote_f;
-      y_f += dir_ * y_gap_f;
+	y_f += get_direction () * internote_f;
+      y_f += get_direction () * y_gap_f;
     }
   else
     {
       if (! (abs (ypos_i) % 2))
-	y_f += dir_ * internote_f;
-      y_f += dir_ * internote_f;
-      y_f -= dir_ * y_gap_f;
+	y_f += get_direction () * internote_f;
+      y_f += get_direction () * internote_f;
+      y_f -= get_direction () * y_gap_f;
     }
   
   dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = y_f;

@@ -50,7 +50,7 @@ Script_column::do_pre_processing ()
   for (int i=0; i < staff_sided_item_l_arr_.size (); i++)
     {
       Staff_side_item * ip = get_Staff_side (staff_sided_item_l_arr_[i]);
-      arrs[ip->dir_].push (staff_sided_item_l_arr_[i]);
+      arrs[ip->get_direction ()].push (staff_sided_item_l_arr_[i]);
     }
 
   Direction d = DOWN;

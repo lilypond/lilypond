@@ -115,7 +115,7 @@ Slur_engraver::do_pre_move_processing()
   
   for (int i = 0; i < end_slur_l_arr_.size(); i++)
     {
-      end_slur_l_arr_[i]->dir_ = slurdir;
+      end_slur_l_arr_[i]->set_direction (slurdir);
       typeset_element (end_slur_l_arr_[i]);
     }
   end_slur_l_arr_.clear();

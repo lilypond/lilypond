@@ -1,12 +1,14 @@
 
+%% Chord gurus, is this ok now??
+
 monstrous= \chords{
     \property Score.chordInversion = "1"
 
-    % /c is missing:
-    bes-6/c
+    % /c is/was missing:
+    bes:6/+c
 
-    % Cdim7 ??
-    cis-3-.5-.6 
+    % Cdim7
+    c:dim7
 }
 
 \score{

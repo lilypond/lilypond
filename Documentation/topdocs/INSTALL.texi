@@ -80,9 +80,13 @@ Available at
 @uref{ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry,ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry}
 or at mirror site @uref{ftp://ftp.dante.de,ftp://ftp.dante.de}
 
-@item MetaPost, if you want to use direct PostScript output. Please
-note  that  tetex-0.4pl8 (included with Redhat 5.x) does not include
-@file{mfplain.mp}, which is needed  for producing the scaleable font files.
+@item MetaPost, needed for generating PostScript fonts. Please
+note that tetex-0.4pl8 (included with Redhat 5.x) does not include
+@file{mfplain.mp}, which is needed for producing the scalable font
+files.
+
+If you do not want to use PostScript output, edit @file{mf/GNUmakefile}.
+
 
 @end itemize
 

@@ -9,13 +9,13 @@ Directional_spanner::get_default_dir() const
 void
 Directional_spanner::do_pre_processing()
 {
-  if (!dir_)
-    dir_ = get_default_dir();
+  if (!get_direction ())
+    set_direction (get_default_dir());
 }
 
 Directional_spanner::Directional_spanner()
 {
-  dir_ = CENTER;
+  set_direction (CENTER);
 }
 
 Offset

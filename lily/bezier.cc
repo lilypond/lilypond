@@ -338,8 +338,8 @@ Bezier_bow::calc_clipping ()
   Real end_dy = 0 >? end_h - clip_h;
   
   Real pi = M_PI;
-  Real begin_alpha = (control_[1] - control_[0]).arg () + dir_ * alpha_;
-  Real end_alpha = pi -  (control_[2] - control_[3]).arg () - dir_ * alpha_;
+  Real begin_alpha = (control_[1] - control_[0]).arg () + get_direction () * alpha_;
+  Real end_alpha = pi -  (control_[2] - control_[3]).arg () - get_direction () * alpha_;
 
   Real max_alpha = clip_angle / 90 * pi / 2;
   if ((begin_dy < 0) && (end_dy < 0)
@@ -354,8 +354,8 @@ Bezier_bow::calc_clipping ()
     {
       Real dy = (begin_dy + end_dy) / 4;
       dy *= cos (alpha_);
-      encompass_[0][Y_AXIS] += dir_ * dy;
-      encompass_[encompass_.size () - 1][Y_AXIS] += dir_ * dy;
+      encompass_[0][Y_AXIS] += get_direction () * dy;
+      encompass_[encompass_.size () - 1][Y_AXIS] += get_direction () * dy;
     }
   else
     {
@@ -366,8 +366,8 @@ Bezier_bow::calc_clipping ()
       if (end_alpha >= max_alpha)
 	end_dy = 0 >? c * end_alpha / max_alpha * end_h;
 
-      encompass_[0][Y_AXIS] += dir_ * begin_dy;
-      encompass_[encompass_.size () - 1][Y_AXIS] += dir_ * end_dy;
+      encompass_[0][Y_AXIS] += get_direction () * begin_dy;
+      encompass_[encompass_.size () - 1][Y_AXIS] += get_direction () * end_dy;
 
       Offset delta = encompass_[encompass_.size () - 1] - encompass_[0];
       alpha_ = delta.arg ();
@@ -466,8 +466,6 @@ Bezier_bow::calc_tangent_controls ()
       end_p = ijk_p;
       end_rc = default_rc;
     }
-  BEZIER_BOW_DEBUG_OUT << "begin " << begin_p[X_AXIS] << ", " << begin_p[Y_AXIS] << endl;
-  BEZIER_BOW_DEBUG_OUT << "end " << end_p[X_AXIS] << ", " << end_p[Y_AXIS] << endl;
 
   Real height =control_[1][Y_AXIS]; 
   for (int i = 0; i < encompass_.size (); i++ )
@@ -507,17 +505,10 @@ Bezier_bow::calc_tangent_controls ()
   Real c3 = begin_p[Y_AXIS] > end_p[Y_AXIS] ? begin_p[Y_AXIS] 
     - rc3 * begin_p[X_AXIS] : end_p[Y_AXIS] - rc3 * end_p[X_AXIS];
 
-  BEZIER_BOW_DEBUG_OUT << "y1 = " << rc1 << " x + 0" << endl;
-  BEZIER_BOW_DEBUG_OUT << "y2 = " << rc2 << " x + " << c2 << endl;
-  BEZIER_BOW_DEBUG_OUT << "y3 = " << rc3 << " x + " << c3 << endl;
   control_[1][X_AXIS] = c3 / (rc1 - rc3);
   control_[1][Y_AXIS] = rc1 * control_[1][X_AXIS];
   control_[2][X_AXIS] = (c3 - c2) / (rc2 - rc3);
-  BEZIER_BOW_DEBUG_OUT << "c2[X_AXIS] = " << control_[2][X_AXIS] << endl;
-  BEZIER_BOW_DEBUG_OUT << "(c3 - c2) = " << (c3 - c2) << endl;
-  BEZIER_BOW_DEBUG_OUT << "(rc2 - rc3) = " << (rc2 - rc3) << endl;
   control_[2][Y_AXIS] = rc2 * control_[2][X_AXIS] + c2;
-  BEZIER_BOW_DEBUG_OUT << "c2[Y_AXIS]" << control_[2][Y_AXIS] << endl;
 
   calc_return (begin_alpha, end_alpha);
 }
@@ -561,9 +552,9 @@ Bezier_bow::print () const
 }
 
 void
-Bezier_bow::set (Array<Offset> points, int dir)
+Bezier_bow::set (Array<Offset> points, Direction dir)
 {
-  dir_ = dir;
+  set_direction (dir);
   encompass_ = points;
 }
 
@@ -578,14 +569,14 @@ Bezier_bow::transform ()
 
   encompass_.rotate (-alpha_);
 
-  if (dir_ == DOWN)
+  if (get_direction () == DOWN)
     encompass_.flipy ();
 }
 
 void
 Bezier_bow::transform_back ()
 {
-  if (dir_ == DOWN)
+  if (get_direction () == DOWN)
     {
       control_.flipy ();
       return_.flipy ();
