@@ -40,24 +40,12 @@ files. The temporary directory is created in the current directory as @code{@cod
     Print usage help.
 @item -I,--include=@var{dir}
     Add @var{dir} to LilyPond's include path.
-@item -m,--no-paper
-    Produce MIDI output only.
-@item --no-lily
-    Do not run @file{lilypond-bin}. Useful for debugging @code{lilypond}.
 @item -o,--output=@var{file}
     Generate output to @var{file}.  The extension of @var{file} is ignored.
-@item --no-pdf
-    Do not generate  (PDF) or PS.
-
-@cindex PDF
-@cindex Scalable fonts
-    
 @item --png
     Also generate pictures of each page, in PNG format. 
 @item --psgz
     Gzip the postscript file.
-@item --html
-    Make a .HTML file with links to all output files.
 @item --preview
     Also generate a picture of the first system of the score.
 

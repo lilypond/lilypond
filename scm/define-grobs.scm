@@ -485,7 +485,12 @@
 	(breakable . #t)
 	(meta . ((interfaces . (key-signature-interface  font-interface  break-aligned-interface item-interface ))))
 	))
-
+    (LedgerLineSpanner
+     . (
+	(print-function . ,Ledger_line_spanner::print)
+	(meta . ((interfaces . (spanner-interface ledger-line-interface))))
+	))
+    
     (LigatureBracket
      . (
 	(ligature-primitive-callback . ,Note_head::print)

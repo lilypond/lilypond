@@ -175,6 +175,7 @@
     \consists "Breathing_sign_engraver"
 				% \consists "Rest_engraver"
     \consists "Note_heads_engraver"
+    \consists "Ledger_line_engraver" 
     \consists "Rest_engraver"
 
     \consists "Stem_engraver"

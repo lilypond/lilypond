@@ -22,41 +22,40 @@ template<class T>
 struct Drul_array
 {
   T array_[2];
-  T &elem (Direction d)
-    {
-      assert (d==1 || d== -1);
-      return array_[ (d+1)/2];
-    }
-  T &operator[] (Direction d)
+  T &elem_ref (Direction d)
   {
-    return elem (d);
-  }
-  T elem (Direction d) const
-    {
     assert (d==1 || d== -1);
     return array_[ (d+1)/2];
-    }
-  
+  }
+  T elem (Direction d) const
+  {
+    assert (d==1 || d== -1);
+    return array_[ (d+1)/2];
+  }
+  T &operator[] (Direction d)
+  {
+    return elem_ref (d);
+  }
   T operator[] (Direction d) const
   {
     return elem (d);
   }
   Drul_array ()
-    {
-    }
+  {
+  }
   Drul_array (T t1, T t2)
-    {
-      array_[0] = t1;
-      array_[1] = t2;
-    }
+  {
+    array_[0] = t1;
+    array_[1] = t2;
+  }
 };
 
 template<class T>
 void
 scale_drul (Drul_array<T> * dr, T x)
 {
-  dr->elem (LEFT) *= x;
-  dr->elem (RIGHT) *= x;
+  dr->elem_ref (LEFT) *= x;
+  dr->elem_ref (RIGHT) *= x;
 }
 
 inline Real

@@ -12,7 +12,7 @@ are available and explains how to lookup which knob to use for a
 certain effect.
 
 The controls available for tuning are described in a separate
-document, the @internalsref{Program reference} manual. This manual
+document, the @internalsref{Program reference} manual. That manual
 lists all different variables, functions and options available in
 LilyPond. It is written as a HTML document, which is available
 @uref{http://lilypond.org/doc/Documentation/user/out-www/lilypond-internals/,on-line},
