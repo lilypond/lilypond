@@ -269,12 +269,6 @@ fet_endchar;
 %
 % Inspired by Baerenreiter
 % 
-% FIXME bulb should curve (see bass clef)
-% FIXME start (inside) should be little thinner
-%
-
-
-
 
 % Beste lezers, kijk,
 %
@@ -286,11 +280,11 @@ fet_endchar;
 %
 %  -- vrij naar Van Kooten & De Bie
 %
-
+def debugfill = fill enddef;
 def draw_gclef (expr exact_center, reduction)=
 	save reduced_ss, downstroke_dir, downstroke_angle, center;
 	save breapth_factor, inner_thick_end, thinness, thickness, thinnib;
-	save inner_start_angle, thinness, thinpen;
+	save inner_start_angle, thinness;
 	reduced_ss# = staff_space# * reduction;
 	define_pixels(reduced_ss);
 	pair downstroke_dir, center;
@@ -298,7 +292,7 @@ def draw_gclef (expr exact_center, reduction)=
 	center := (hround_pixels(xpart exact_center), 
 		vround_pixels(ypart exact_center));
 
-	thinness = 1.3 stafflinethickness;
+	thinness = 1.4 stafflinethickness;
 	downstroke_dir = unitvector (14, -75);
 	downstroke_angle = angle downstroke_dir;
 
@@ -309,7 +303,7 @@ def draw_gclef (expr exact_center, reduction)=
 	thickness = .4 reduced_ss;
 
 	thinnib = thinness;
-	thinpen = thinness;
+
 	set_horizontal_spacing;
 	
 	set_char_box(
@@ -348,12 +342,11 @@ def draw_gclef (expr exact_center, reduction)=
 	x9 = .7 [x10, x7r];
 	top y9l = 5 reduced_ss;
 
-	y11 = ypart center  -20/14 reduced_ss;
+	y11 = ypart center  - 20/14 reduced_ss;
 	y12 = ypart center  - 34/14 reduced_ss;
-	y13 = y12 + .65 reduced_ss;
-	x11 - x13r  = 1.25 reduced_ss + 0.5 thinnib;
-
-	x12r = xpart (.52 [z13r , z11] + .75 reduced_ss * downstroke_dir) ;
+	y13 = .48 [y12,y4r];
+	x11 - x13r  = 1.5 reduced_ss + 0.5 thinnib;
+	x12r = xpart (.45 [z13r , z11] + .75 reduced_ss * downstroke_dir) ;
 
 	z10=  center + whatever * dir (downstroke_angle + .5);
 	y10 = ypart center + 3.35  reduced_ss;
@@ -363,8 +356,7 @@ def draw_gclef (expr exact_center, reduction)=
 
 	z10 = .5 [z10l, z10r];
 
-
-	z11 =  center + whatever * downstroke_dir;
+	z11 =  center + whatever * downstroke_dir + (.2 reduced_ss, 0);
 
 	penpos1(thinnib, inner_start_angle);
 	penpos2(thickness, 90);
@@ -373,13 +365,14 @@ def draw_gclef (expr exact_center, reduction)=
 
 
 	penpos9(1.4 thickness, -70);  
-
-	penpos13(3 thinnib, 180);
+	save lipje;
+	pair lipje;
+	lipje= .5 [z9l, z9r] +  .25 ((z9r- z9l)  rotated -90);
+	penpos13(2 thinnib, 180);
 
 	pickup pencircle scaled 1;
 
-	fill
-%	draw 
+	debugfill
 		z2l{right}
 		.. z3l
 		.. z4l{left}
@@ -387,7 +380,7 @@ def draw_gclef (expr exact_center, reduction)=
 		.. z7l{up} 
 		%.. z8l	
 		.. tension 1.2 
-		.. z9l
+		.. z9l -- lipje
 		--z9r % {dir (downstroke_angle+ 0)}
 		.. tension 0.8
 		%.. z8r
@@ -397,14 +390,13 @@ def draw_gclef (expr exact_center, reduction)=
 		z1r -- z1l 
 		.. tension 0.85 ..cycle;
 
-	save p, staffline_time, q;
+ 	save p, staffline_time, q, down_staff_line_intersection;
 	path p,q;
+	pair down_staff_line_intersection;
 	p := z4{left} .. z5{up} .. z7{up} ;
-
 	q := (-reduced_ss, 2 reduced_ss) ..  (2 reduced_ss,2 reduced_ss);
 
 	draw p;
-%	z14 = point xpart (p intersectiontimes  q) of p;
 
 
 	% we don't do this with a path: variations in thickness
@@ -414,16 +406,20 @@ def draw_gclef (expr exact_center, reduction)=
 
 	save bot_angle;
 
-	bot_angle = downstroke_angle- 87;
+	bot_angle = -180; % downstroke_angle- 87;
 
 	penpos12(thinnib, bot_angle + 90);
 
 	p := z9 .. z10{down}
-		.. z6 
-		..  z11{dir (-93)} 
+		..  z11{dir (-87)}
 		.. z12{dir(bot_angle)}
+		.. z13{up}
 	;
-
+	save down_intersection_t;	
+	down_intersection_t :=  xpart (p intersectiontimes  q) ;
+	down_staff_line_intersection = point down_intersection_t of p;
+	z14 = down_staff_line_intersection;
+	penpos14(thinnib, angle (direction down_intersection_t of p) + 90);
 
 	save start_angle;
 	start_angle=angle (direction xpart (p intersectiontimes z11) of p);
@@ -435,11 +431,11 @@ def draw_gclef (expr exact_center, reduction)=
 	draw p;
 
 	penpos6(thinnib, angle (loop_end_dir) + 90);
-	fill
-%	draw
+	pickup pencircle scaled 1;
+	debugfill
 		z9l
 		.. {down}z10l
-		.. z6l{loop_end_dir} -- z6r{-loop_end_dir}
+		.. z14l{loop_end_dir} -- z14r{-loop_end_dir}
 		.. z10r{up}
 		.. tension .98
 		.. z9r
@@ -449,14 +445,13 @@ def draw_gclef (expr exact_center, reduction)=
 
 	fill simple_serif(z1r, z1l, 80)  -- cycle;
 
-%	draw
-	fill
+	debugfill
 		z11r{dir(start_angle)}
 		.. z12r{dir(bot_angle)}
 
 		..new_bulb (z13r, 0.45 reduced_ss, 0.38 reduced_ss, 3 stafflinethickness,  1, -1) {down}
 
-		.. tension 0.98
+%		.. tension 0.98
 		.. z12l{-dir (bot_angle)}
 
 		.. z11l{-dir(start_angle)}
