@@ -109,6 +109,9 @@ _i ("    This program is free software; you can redistribute it and/or\n"
    LOCAL_LILYPOND_DATADIR = /usr/share/lilypond/<VERSION> */
 char const *prefix_directories[] = {LILYPOND_DATADIR, LOCAL_LILYPOND_DATADIR, 0};
 
+/* The jail specification: USER,GROUP,JAIL,DIR. */
+String jail_spec;
+
 /*  The option parser */
 static Getopt_long *option_parser = 0;
 
@@ -129,6 +132,7 @@ static Long_option_init options_static[] =
     {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
     {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
     {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
+    {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP and cd into DIR")},
     {0, "preview", 'p',  _i ("generate a preview")},
     {0, "no-pages", 0,  _i ("don't generate full pages")},
     {0, "png", 0,  _i ("generate PNG")},
@@ -252,6 +256,82 @@ void init_fontconfig ();
 
 
 static void
+do_chroot_jail ()
+{
+  /* Now we chroot, setuid/setgrp and chdir. If something goes wrong, we exit (this is a
+     security-sensitive area). First we split jail_spec into its components, then we
+     retrieve the user/group id (necessarily *before* chroot'ing!) and finally we perform
+     the actual actions. */
+
+  Array<String> components = String_convert::split(jail_spec, ',');
+  if (components.size() < 3)
+    {
+      error (_ ("too few elements in jail specification"));
+      exit(1);
+    }
+  if (components.size() > 4)
+    {
+      error (_ ("too many elements in jail specification"));
+      exit(1);
+    }
+
+  int uid, gid;
+  char *user_name = components[0].get_str0 ();
+  char *group_name = components[1].get_str0 ();
+  char *jail = components[2].get_str0 ();
+  char *wd = components[3].get_str0 ();
+
+  errno = 0;
+  struct passwd *passwd = getpwnam(user_name);
+  if (passwd == NULL)
+    {
+      if (errno == 0) 
+	error (_ ("user not found"));
+      else 
+	error(_f ("can't get user id from user name (%s)", strerror (errno)));
+      exit (3);
+    }
+  uid = passwd->pw_uid;
+
+  errno = 0;
+  struct group *group = getgrnam(group_name);
+  if (group == NULL)
+    {
+      if (errno == 0) 
+	error (_ ("group not found"));
+      else 
+	error(_f ("can't get group id from group name (%s)", strerror (errno)));
+      exit (3);
+    }
+  gid = group->gr_gid;
+
+  if (chroot (jail))
+    {
+      error (_f ("can't chroot (%s)", strerror (errno)));
+      exit (3);
+    }
+
+  if (setgid (gid))
+    {
+      error (_f ("can't change group id (%s)", strerror (errno)));
+      exit (3);
+    }
+
+  if (setuid (uid))
+    {
+      error (_f ("can't change user id (%s)", strerror (errno)));
+      exit (3);
+    }
+
+  if (chdir (wd))
+    {
+      error (_f ("can't change working directory (%s)", strerror (errno)));
+      exit (3);
+    }
+}
+
+
+static void
 main_with_guile (void *, int, char **)
 {
   /* Engravers use lily.scm contents, need to make Guile find it.
@@ -302,6 +382,9 @@ main_with_guile (void *, int, char **)
       usage ();
       exit (2);
     }
+
+  if (! jail_spec.is_empty ()) 
+     do_chroot_jail ();
 
   SCM result = scm_call_1 (ly_lily_module_constant ("lilypond-main"), files);
   (void) result;
@@ -372,6 +455,9 @@ parse_argv (int argc, char **argv)
 	    File_name file_name (s);
 	    output_name_global = file_name.to_string ();
 	  }
+	  break;
+	case 'j':
+	  jail_spec = option_parser->optional_argument_str0_;
 	  break;
 	case 'e':
 	  init_scheme_code_string += option_parser->optional_argument_str0_;
