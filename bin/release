@@ -1,6 +1,10 @@
 #!/bin/sh
-
-
+grep -q  '^TOP' .version
+    res=$?
+if test ! -f .version  || test $res != 0; then
+    echo not in topleveldir
+    exit 1
+fi    
 function setversion() {
 eval `sed -n 's/^\([A-Z_]*\) *= *\(.*\)$/\1=\2/p' .version`
 MJ=$TOPLEVEL_MAJOR_VERSION
