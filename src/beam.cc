@@ -22,6 +22,7 @@ struct Stem_info {
     Stem_info(){}
     Stem_info(const Stem*);
 };
+
 Stem_info::Stem_info(const Stem*s)
 {
     x = s->hpos();
