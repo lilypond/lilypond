@@ -44,7 +44,9 @@ sub set_html_footer
     my $username=$pw[6];
 
     $footstr = 
-	"\n<hr>Please take me <a href=index.html>back to the LilyPond index</a>\n<hr>
+	"\n<hr>Please take me <a href=index.html>back to the index</a>\n
+of LilyPond -- The GNU Project Music typesetter
+<hr>
 <font size=-1>
 This page was built using <code>" . $id_str . "</code> from lilypond-"
     . $lily_version . 
