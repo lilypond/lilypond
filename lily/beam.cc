@@ -34,6 +34,7 @@
 
 IMPLEMENT_IS_TYPE_B1 (Beam, Spanner);
 
+// ugh, hardcoded
 const int MINIMUM_STEMLEN[6] = {
   0, // just in case
   5, 
@@ -47,6 +48,9 @@ Beam::Beam ()
 {
   slope_f = 0;
   left_y = 0.0;
+  damping_i_ = 1;
+  quantisation_ = NORMAL;
+  multiple_i_ = 0;
 }
 
 void
@@ -232,7 +236,8 @@ Beam::solve_slope ()
     This neat trick is by Werner Lemberg, damped = tanh (slope_f) corresponds
     with some tables in [Wanske]
     */
-  slope_f = 0.6 * tanh (slope_f);
+  if (damping_i_)
+    slope_f = 0.6 * tanh (slope_f) / damping_i_;
 
   quantise_yspan ();
 
@@ -255,6 +260,10 @@ Beam::quantise_yspan ()
       - beam_thickness + staffline_thickness
     + n * interline
     */
+
+  if (!quantisation_)
+    return;
+
   Real interline_f = paper ()->interline_f ();
   Real internote_f = interline_f / 2;
   Real staffline_thickness = paper ()->rule_thickness ();
@@ -299,6 +308,9 @@ Beam::quantise_left_y (Beam::Pos pos, bool extend_b)
    if extend then stems must not get shorter
    */
 
+  if (!quantisation_)
+    return;
+
   Real interline_f = paper ()->interline_f ();
   Real internote_f = interline_f / 2;
   Real staffline_thickness = paper ()->rule_thickness ();
@@ -306,11 +318,11 @@ Beam::quantise_left_y (Beam::Pos pos, bool extend_b)
 
   const int QUANTS = 6;
   Real qy[QUANTS] = {
-    -staffline_thickness,
+    0,
     beam_thickness / 2,
-    beam_thickness + staffline_thickness / 2,
+    beam_thickness,
     interline_f / 2 + beam_thickness / 2 + staffline_thickness / 2,
-    interline_f - staffline_thickness,
+    interline_f,
     interline_f + beam_thickness / 2,
   };
   /* 
@@ -385,6 +397,8 @@ Beam::set_stemlens ()
   Real staffline_thickness = paper ()->rule_thickness ();
   Real beam_thickness = 0.48 * (interline_f - staffline_thickness);
   Real interbeam_f = paper ()->interbeam_f ();
+  if (multiple_i_ > 3)
+    interbeam_f += 2.0 * staffline_thickness / 4;
   Real xspan_f = stems.top ()->hpos_f () - stems[0]->hpos_f ();
   /*
    ugh, y values are in "internote" dimension
@@ -394,7 +408,7 @@ Beam::set_stemlens ()
 
   Pos left_pos = NONE;
 
-  if (yspan_f < staffline_thickness / 2)
+  if ((yspan_f < staffline_thickness / 2) || (quantisation_ == NORMAL))
     left_pos = (Pos)(STRADDLE | SIT | HANG);
   else
     left_pos = (Pos) (sign (slope_f) > 0 ? STRADDLE | HANG 
@@ -467,6 +481,7 @@ Beam::set_grouping (Rhythmic_grouping def, Rhythmic_grouping cur)
       Stem *s = stems[j];
       s->beams_left_i_ = b[i];
       s->beams_right_i_ = b[i+1];
+      multiple_i_ = multiple_i_ >? (b[i] >? b[i+1]);
     }
 }
 
@@ -478,9 +493,12 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 {
   assert (!next || next->hpos_f () > here->hpos_f ());
   assert (!prev || prev->hpos_f () < here->hpos_f ());
-  //    Real dy=paper ()->internote_f ()*2;
-  Real dy = paper ()->interbeam_f ();
-  Real stemdx = paper ()->rule_thickness ();
+  Real staffline_thickness = paper ()->rule_thickness ();
+  Real interbeam_f = paper ()->interbeam_f ();
+  if (multiple_i_ > 3)
+    interbeam_f += 2.0 * staffline_thickness / 4;
+  Real dy = interbeam_f;
+  Real stemdx = staffline_thickness;
   Real sl = slope_f*paper ()->internote_f ();
   paper ()->lookup_l ()->beam (sl, 20 PT);
 

@@ -1,3 +1,15 @@
+pl 38.jcn2
+	- added to beams.ly
+	- open-up beam spacing for mult > 3
+	- fixed hang/sit to overlap iso aligne with staffline
+	- fixed inter beam spacing, paper*.ly
+	- scsii-menuetto.ly fixes
+	- init/property.ly
+	- property settings for beam quantiseing and damping
+
+pl 38.jcn1
+	- provisionary multiple-beam fix
+
 pl 38
 	- bf: \> \! \ff (crescendo overlap)
 	- misc feta-fixes, flageolet sign.

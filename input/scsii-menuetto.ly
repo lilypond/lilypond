@@ -28,6 +28,7 @@ copyright =	 "public domain";
 %		% because piece is set very tightly
 
 IImenuetto = \melodic{
+	\property Voice.beamslopedamping = \infinity
 	\clef"alto";
 	\property Staff.instrument = cello
 	\meter 3/4;
@@ -39,13 +40,15 @@ IImenuetto = \melodic{
 %%2
 	\textstyle "finger";		% ugh.
 	
-	< [ bes8^"1" e8 c8_"2"_"4" >
-		a8 bes8-. g8-. ] a4-.^"4" |
+	< [ bes8^"1"( e8 c8_"2"_"4" >
+		)a8 bes8-. g8-. ] a4-.^"4" |
 
 %%3
+	\property Voice.beamslopedamping = \normal
 	< d4 'bes4-. > g4-. [ f8-. e8-. ] |
+	\property Voice.beamslopedamping = \infinity
 %%4
-	< [ f8 'a > e8 d8 cis8-. 'b8-. 'a8-. ]
+	< [ f8( 'a > e8 )d8 cis8-. 'b8-. 'a8-. ]
 %%5
 	< a2 f2 d2 > bes!4-. |
 %%6
@@ -61,16 +64,21 @@ IImenuetto = \melodic{
 %%9
 	\clef "violin";
 	< e'2 a2 \f >
+	\property Voice.beamslopedamping = \normal
 	[ d'8( e'16 )f'16 ] |
+	\property Voice.beamslopedamping = \infinity
 %%10
-	< [ e'8 g8 > d' cis'_"2" e' a ()  g8 ] |
+	< [ e'8( g8 > d' cis'_"2" )e' a ()  g8 ] |
 %%11
 	\multi 2 <  
 		{\stemup a4()  d'4 cis'4-. }
 		{ \stemdown f2 e4 } > |
 	\stemboth
 %%12
-	< [ g'8^"4" d8 > f' e' f' d'^"3"()   c' ] |
+	% oeps: slur gets attached at d8 iso g'8!
+%	< [ g'8^"4"( d8 > f' e' )f' d'^"3"()   c' ] |
+	% wrong still...
+	< { [ g'8^"4"( f' e' )f' d'^"3"()   c' ] } { [ d8 ] } > |
 %%13
 	\clef "alto";
 	\multi 2 <
@@ -85,9 +93,9 @@ IImenuetto = \melodic{
 %%16
 	[ f( e8 )f a8-. g8-. bes8-. ] |
 %%17
-	< a2^"0" fis2_"3" > bes4 |
+	< a2^"0"^\trill fis2_"3" > bes4 |
 %%18
-	< { [ c'8 ()  bes8 c' a8 ] } es8 > fis4 |
+	< { [ c'8 ()  bes8 c' a8 ] } es8 > fis4^\trill |
 %%19
 	< d'4-\downbow g4 'bes4 > < c'4-\upbow g4 c4 > < [ bes8 d8 > a8 ] |
 %%20
@@ -101,7 +109,9 @@ IImenuetto = \melodic{
 %%22
 	< { [ g8 ()  f8 g8 e8 ] }  cis8  > < f4 d4 > |
 %%23
-	[ 'g8 g8 ] < e4. 'a4. > d8-\upbow |
+	\property Voice.beamslopedamping = \normal
+	[ 'g8 g8 ] < e4.^\trill 'a4. > d8-\upbow |
+	\property Voice.beamslopedamping = \infinity
 %%24
 	\textstyle "roman";		% ugh
 	< d2.^"fine" 'a2. 'd2._"3 mins."> 

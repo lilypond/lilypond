@@ -68,6 +68,19 @@ Beam_engraver::do_process_requests()
 	plet_spanner_p_->spec_p_  = defp;
 	announce_element (Score_elem_info(plet_spanner_p_,0));
       }
+
+      Scalar prop = get_property ("beamslopedamping");
+      if (prop.isnum_b ()) 
+      {
+	beam_p_->damping_i_ = prop;
+      }
+
+      prop = get_property ("beamquantisaton");
+      if (prop.isnum_b ()) 
+      {
+	beam_p_->quantisation_ = (Beam::Quantise)(int)prop;
+      }
+     
     announce_element (Score_elem_info (beam_p_, span_reqs_drul_[LEFT]));
   }
 }
