@@ -35,6 +35,7 @@ public:
   static int heads_i (Grob *) ;
   static bool invisible_b (Grob *) ;
   static Interval head_positions (Grob *) ;
+  static Array<int> note_head_positions (Grob *);  
   static Real get_default_stem_end_position (Grob*me) ;
   static void position_noteheads (Grob*);
   static Real stem_end_position (Grob*) ;

@@ -51,21 +51,6 @@ Stem::beam_count (Grob*me,Direction d)
     return 0;
 }
 
-Interval
-Stem::head_positions (Grob*me) 
-{
-  if (!heads_i (me))
-    {
-      Interval iv;
-      return iv;
-    }
-
-  Drul_array<Grob*> e (extremal_heads (me));
-
-  return Interval (Staff_symbol_referencer::position_f (e[DOWN]),
-		   Staff_symbol_referencer::position_f (e[UP]));
-}
-
 
 Real
 Stem::chord_start_f (Grob*me) 
@@ -195,6 +180,32 @@ Stem::extremal_heads (Grob*me)
 
   return exthead;
 }
+
+ 
+static int
+icmp (int const &a, int const &b)
+{
+  return a-b;
+}
+
+Array<int>
+Stem::note_head_positions (Grob *me)
+{
+  Array<int> ps ;
+  for (SCM s = me->get_grob_property ("heads"); gh_pair_p (s); s = gh_cdr (s))
+    {
+      Grob * n = unsmob_grob (gh_car (s));
+      int p = int (Staff_symbol_referencer::position_f (n));
+
+      ps.push (p);
+    }
+
+  ps.sort (icmp);
+  return ps; 
+}
+
+
+
 
 void
 Stem::add_head (Grob*me, Grob *n)
@@ -346,6 +357,24 @@ Stem::flag_i (Grob*me)
   SCM s = me->get_grob_property ("duration-log");
   return (gh_number_p (s)) ? gh_scm2int (s) : 2;
 }
+
+
+
+Interval
+Stem::head_positions (Grob*me) 
+{
+  if (!heads_i (me))
+    {
+      Interval iv;
+      return iv;
+    }
+
+  Drul_array<Grob*> e (extremal_heads (me));
+
+  return Interval (Staff_symbol_referencer::position_f (e[DOWN]),
+		   Staff_symbol_referencer::position_f (e[UP]));
+}
+
 
 void
 Stem::position_noteheads (Grob*me)

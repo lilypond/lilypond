@@ -27,13 +27,17 @@ save stem, ball_crook_stem, ball_crook_balldiam, flare;
 
 % stem#:=1/8*staff_space#;
 stem# = 1/5staff_space#;
+
+%%
+%% DOCME: what is FLARE, what is STEM
+%% 
 % flare# = 2/3staff_space#;
 flare# = 2/3staff_space# - 1/8stafflinethickness#;
 
 define_pixels(stem,flare);
 
 ball_crook_stem = stem;
-ball_crook_balldiam =flare;
+ball_crook_balldiam =  flare;
 
 
 save block_rest_y, block_rest_x;
@@ -174,6 +178,54 @@ fet_beginchar("Quarter rest","2","quartrest");
 %	  18/5staff_space# + yshift#)
 
 	fet_endchar;
+
+
+%
+% Draw a (rest) crook, starting at thickness STEM in point A,
+% ending a ball W to the left, diameter BALLDIAM
+% ypart of the center of the ball is BALLDIAM/4 lower than ypart A
+%
+
+
+%
+% TODO: this is rather ugly, the bulb is too circular, making for  
+% abrupt change in direction (z5r{right}), which gives a  strange bend
+% since y1r == y5r. 
+%
+% Also, the crook-bulb  change gives a sharp concave corner, probably not
+% good either.
+%
+
+def balled_crook(expr a, w, balldiam, stem) =
+begingroup;
+	save x,y;
+	save valley_pen_angle;
+
+	penpos1(balldiam/2,-90);
+	penpos2(balldiam/2,0);
+	penpos3(balldiam/2,90);
+	penpos4(balldiam/2,180);
+	x4r=xpart a-w; y3r=ypart a+balldiam/4;
+	x1l=x2l=x3l=x4l;
+	y1l=y2l=y3l=y4l;
+	valley_pen_angle := 250;
+%	valley_pen_angle := 247; 	
+%	x5l=x4r+9/8balldiam - 0.5 * stem * (xpart (dir(250)));
+	x5 =x4r+9/8balldiam;
+	
+	y5r=y1r;
+	penpos5(0.95 stem,valley_pen_angle);
+
+	penpos6(stem,260);
+	x6l=xpart a; y6l=ypart a;
+
+%	fill z1r{right} .. z2r .. z3r .. z4r .. z1r .. z5r
+%		.. z6r -- z6l .. z5l .. z1l .. z4l .. z3l .. z2l .. cycle;
+	penstroke z1e..z2e..z3e..z4e..z1e..z5e{right}..z6e;
+	penlabels(1,2,3,4,5,6);
+endgroup;
+enddef;
+
 
 def rest_crook(expr a, w) =
 	balled_crook(a, w, ball_crook_balldiam, ball_crook_stem)

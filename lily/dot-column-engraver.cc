@@ -66,7 +66,6 @@ Dot_column_engraver::acknowledge_grob (Grob_info info)
 	{
 	  dotcol_ = new Item (get_property ("DotColumn"));
 
-	  Dot_column::set_interface (dotcol_);
 	  announce_grob (dotcol_, 0);
 	}
 

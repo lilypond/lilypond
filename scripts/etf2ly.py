@@ -1101,7 +1101,7 @@ Enigma Transport Format is a format used by Coda Music Technology's
 Finale product. This program will convert a subset of ETF to a
 ready-to-use lilypond file.
 
-Report bugs to bug-gnu-music@gnu.org
+Report bugs to bug-lilypond@gnu.org
 
 Written by  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 """)

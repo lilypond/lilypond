@@ -14,7 +14,7 @@
 		      (list 7 (+ (if german-Bb 0 1) (caddr pitch)))
 		      (cdr pitch)
 		 )))
-     (cons
+     (list
        (list-ref '("C" "D" "E" "F" "G" "A" "H" "B") (car dopitch))
        (accidental->text-super (cadr dopitch))
      )

@@ -12,7 +12,7 @@
 datadir="@datadir@"
 
 # For direct ps output fonts
-GS_FONTPATH="$datadir/afm:$datadir/pfa:"${GS_FONTPATH:=""}
+GS_FONTPATH="$datadir/afm:$datadir/pfa"
 
 # For direct ps output: ps/lilyponddefs.ps
 GS_LIB="$datadir/ps:"${GS_LIB:=""}

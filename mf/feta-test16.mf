@@ -7,7 +7,7 @@ staffsize#:=16pt#;
 test:=1;
 
 % smoked cheese
-% test := -1;
+%test := -1;
 
 
 % dem piksels.

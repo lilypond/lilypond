@@ -49,7 +49,7 @@ Stanza_number_engraver::acknowledge_grob (Grob_info i)
 
 
       // TODO
-      if (gh_string_p (s))
+      if (gh_string_p (s) || gh_pair_p (s))
 	
 
 	/*

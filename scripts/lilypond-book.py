@@ -51,19 +51,35 @@ program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
 	program_version = '1.4.9'
 
-#
+# if set, LILYPONDPREFIX must take prevalence
+# if datadir is not set, we're doing a build and LILYPONDPREFIX 
+datadir = '@datadir@'
+
+if os.environ.has_key ('LILYPONDPREFIX') :
+	datadir = os.environ['LILYPONDPREFIX']
+else:
+	datadir = '@datadir@'
+
+while datadir[-1] == os.sep:
+	datadir= datadir[:-1]
+
 # Try to cater for bad installations of LilyPond, that have
 # broken TeX setup.  Just hope this doesn't hurt good TeX
 # setups.  Maybe we should check if kpsewhich can find
 # feta16.{afm,mf,tex,tfm}, and only set env upon failure.
-#
-datadir = '@datadir@'
 environment = {
 	'MFINPUTS' : datadir + '/mf:',
 	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:.:',
 	'TFMFONTS' : datadir + '/tfm:',
 	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
 	'GS_LIB' : datadir + '/ps',
+}
+
+# tex needs lots of memory, more than it gets by default on Debian
+non_path_environment = {
+	'extra_mem_top' : '1000000',
+	'extra_mem_bottom' : '1000000',
+	'pool_size' : '250000',
 }
 
 def setup_environment ():
@@ -73,7 +89,10 @@ def setup_environment ():
 			val = val + os.pathsep + os.environ[key]
 		os.environ[key] = val
 
-
+	for key in non_path_environment.keys ():
+		val = non_path_environment[key]
+		print '%s=%s' % (key,val)
+		os.environ[key] = val
 
 include_path = [os.getcwd()]
 
@@ -132,6 +151,16 @@ class LatexPaper:
 		self.m_geo_x_marginparsep = None
 		self.__body = None
 	def set_geo_option(self, name, value):
+
+		if type(value) == type(""):
+			m = re.match ("([0-9.]+)(cm|in|pt|mm|em|ex)",value)
+			if m:
+				unit = m.group (2)
+				num = string.atof(m.group (1))
+				conv =  dimension_conversion_dict[m.group(2)]
+
+				value = conv(num)
+
 		if name == 'body' or name == 'text':
 			if type(value) == type(""):
 				self.m_geo_textwidth =  value
@@ -194,9 +223,9 @@ class LatexPaper:
 		elif name[-5:] == 'paper':
 			self.m_papersize = name
 		else:
-			pass 
+                       	pass 
 			# what is _set_dimen ?? /MB
-			#self._set_dimen('m_geo_'+name, value)
+                       	#self._set_dimen('m_geo_'+name, value)
 	def __setattr__(self, name, value):
 		if type(value) == type("") and \
 		   dimension_conversion_dict.has_key (value[-2:]):
@@ -307,6 +336,7 @@ def pt2pt(x):
 
 dimension_conversion_dict ={
 	'mm': mm2pt,
+	'cm': lambda x: mm2pt(10*x),
 	'in': in2pt,
 	'em': em2pt,
 	'ex': ex2pt,
@@ -371,9 +401,9 @@ output_dict= {
 		'output-verbatim': "\\begin{verbatim}%s\\end{verbatim}",
 		'output-default-post': "\\def\postLilypondExample{}\n",
 		'output-default-pre': "\\def\preLilypondExample{}\n",
-		'usepackage-graphics': '\\usepackage{graphicx}\n',
-		'output-eps': '\\noindent\\parbox{\\lilypondepswidth{%(fn)s.eps}}{\includegraphics[width=\\lilypondepswidth{%(fn)s.eps}]{%(fn)s.eps}}',
-		'output-tex': '\\preLilypondExample \\input %(fn)s.tex \\postLilypondExample\n',
+		'usepackage-graphics': '\\usepackage{graphics}\n',
+		'output-eps': '\\noindent\\parbox{\\lilypondepswidth{%(fn)s.eps}}{\includegraphics{%(fn)s.eps}}',
+		'output-tex': '{\\preLilypondExample \\input %(fn)s.tex \\postLilypondExample\n}',
 		'pagebreak': r'\pagebreak',
 		},
 	'texi' : {'output-lilypond': """@lilypond[%s]
@@ -426,15 +456,15 @@ def output_verbatim (body):
 re_dict = {
 	'latex': {'input': r'(?m)^[^%\n]*?(?P<match>\\mbinput{?([^}\t \n}]*))',
 		  'include': r'(?m)^[^%\n]*?(?P<match>\\mbinclude{(?P<filename>[^}]+)})',
-		  'option-sep' : ', *',
+		  'option-sep' : ',\s*',
 		  'header': r"\\documentclass\s*(\[.*?\])?",
 		  'geometry': r"^(?m)[^%\n]*?\\usepackage\s*(\[(?P<options>.*)\])?\s*{geometry}",
 		  'preamble-end': r'(?P<code>\\begin{document})',
 		  'verbatim': r"(?s)(?P<code>\\begin{verbatim}.*?\\end{verbatim})",
 		  'verb': r"(?P<code>\\verb(?P<del>.).*?(?P=del))",
-		  'lilypond-file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile(\[(?P<options>.*?)\])?\{(?P<filename>.+)})',
-		  'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond(\[(?P<options>.*?)\])?{(?P<code>.*?)})',
-		  'lilypond-block': r"(?sm)^[^%\n]*?(?P<match>\\begin(\[(?P<options>.*?)\])?{lilypond}(?P<code>.*?)\\end{lilypond})",
+		  'lilypond-file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile\s*(\[(?P<options>.*?)\])?\s*\{(?P<filename>.+)})',
+		  'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond\s*(\[(?P<options>.*?)\])?\s*{(?P<code>.*?)})',
+		  'lilypond-block': r"(?sm)^[^%\n]*?(?P<match>\\begin\s*(\[(?P<options>.*?)\])?\s*{lilypond}(?P<code>.*?)\\end{lilypond})",
 		  'def-post-re': r"\\def\\postLilypondExample",
 		  'def-pre-re': r"\\def\\preLilypondExample",		  
 		  'usepackage-graphics': r"\usepackage{graphics}",
@@ -456,8 +486,12 @@ re_dict = {
 		 'verb': r"""(?P<code>@code{.*?})""",
 		 'lilypond-file': '(?m)^(?!@c)(?P<match>@lilypondfile(\[(?P<options>.*?)\])?{(?P<filename>[^}]+)})',
 		 'lilypond' : '(?m)^(?!@c)(?P<match>@lilypond(\[(?P<options>.*?)\])?{(?P<code>.*?)})',
+# pyton2.2b2 barfs on this
 		 'lilypond-block': r"""(?m)^(?!@c)(?P<match>(?s)(?P<match>@lilypond(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end lilypond\s))""",
-		  'option-sep' : ', *',
+
+# 1.5.2 barfs on this. 
+# 'lilypond-block': r"""(?m)^(?!@c)(?P<match>@lilypond(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end lilypond\s)""",
+		  'option-sep' : ',\s*',
 		  'intertext': r',?\s*intertext=\".*?\"',
 		  'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
 		  'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>@c.*$\n+))",
@@ -500,8 +534,8 @@ def bounding_box_dimensions(fname):
 	str = fd.read ()
 	s = re.search('%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', str)
 	if s:
-		return (int(s.group(3))-int(s.group(1)), 
-			int(s.group(4))-int(s.group(2)))
+		return (int (s.group (3) - s.group (1) + 0.5),
+			int (s.group (4) - s.group (2) + 0.5))
 	else:
 		return (0,0)
 
@@ -614,7 +648,7 @@ def scan_latex_preamble(chunks):
 			idx = idx + 1
 			continue
 		m = get_re ('header').match(chunks[idx][1])
-		if m.group (1):
+		if m <> None and m.group (1):
 			options = re.split (',[\n \t]*', m.group(1)[1:-1])
 		else:
 			options = []
@@ -628,8 +662,8 @@ def scan_latex_preamble(chunks):
 				m = re.match("(\d\d)pt", o)
 				if m:
 					paperguru.m_fontsize = int(m.group(1))
-			
 		break
+	
 	while chunks[idx][0] != 'preamble-end':
 		if chunks[idx] == 'ignore':
 			idx = idx + 1

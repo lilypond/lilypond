@@ -13,8 +13,8 @@ Tested = 	 "test the Collision resolution "
 
 
 twovoice =  \context Staff \notes < 
-	\context Voice=i { \stemDown c4 d e f g2~  g4 a [c8 d e f] c2| }
-	\context Voice=ii { \stemUp g4 f e g ~ g2 g2  c4 g4 g2 } 
+	\context Voice=i { \stemDown e1  c4 d e f  g2~  g4 a [c8 d e f] c2| }
+	\context Voice=ii { \stemUp e1 g4 f e g ~ g2 g2  c4 g4 g2 } 
 >
 
 twovoicesteminvert =  \context Staff \notes <  

@@ -1,11 +1,28 @@
+
+1.4.9.uu2
+=========
+
+* drum-pitch updates
+
+* Bugfix in German Chords (thanks Rune)
+
+* lilypond-book updates from 1.5
+
+* dotsDown identifier
+
+* Resurrected bibliography stuff
+
+* Move bar checking into iterator so skip-typesetting can be used to
+find failed bar-checks.
+
+* Between barlines span-bar patch, version from lily 1.5 
+
+* Bugfix: showStaffSwitch should be a voice property.
+
 1.4.9.jcn3
 ==========
 
 * Really included .cvsignore.
-
-* Included Han-Wen's uu1 windows fixes.
-
-* Bugfix: lilypond-profile.sh: append to GS_FONTPATH, GS_LIB.
 
 * Added Cygwin setup.hint
 
@@ -16,8 +33,25 @@
 
 * ly2dvi: Don't accept filenames with spaces (+ fix).
 
-1.4.9
-=====
+1.4.9.mb1
+=========
+
+* Documentation fix, papersize
+
+* Allow for font markup in stanza numbers.
+
+* Bugfix: textNonEmpty works again
+
+* \breathe: Use feta font comma by default
+
+1.4.9.hwn1
+==========
+
+* Various windows bugfixes
+
+* Backport of 1.5 collision code
+
+* Collision bugfix: do not merge whole notes.
 
 1.4.8.moh2
 ==========

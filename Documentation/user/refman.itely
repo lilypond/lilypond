@@ -7,7 +7,10 @@
 @c before saving changes
 
 
-@
+
+@c NOTE: if you're submitting a patch, please make sure that the doco 
+@c also compiles without errors.
+@c  thanks --hwn
 
 @macro refbugs
 @strong{BUGS}
@@ -769,6 +772,7 @@ shortcuts.
 
 
 
+
 @c .   {Bar lines}
 @node Bar lines
 @subsection Bar lines
@@ -1178,7 +1182,9 @@ Note that the skip does not produce any output, not even transparent output.
 
 @refbugs
 
-  Currently, only tick marks are supported, not comma style breath marks.
+  The current layout of the default comma style breath marks
+  could be improved and more optional symbols should be added to the
+  font.
 
 
 @c .  {Tempo}
@@ -2458,16 +2464,30 @@ automatically incremented.
 The grob is @internalsref{RehearsalMark} in @internalsref{Score} context. See
 @code{input/test/boxed-molecule.ly} if you need boxes around the marks.
 
+
+
 @node Bar numbers
 @subsection Bar numbers
 
-Bar numbers (grob: @internalsref{BarNumber}) are printed at the start of the
-line. See @code{input/test/boxed-molecule.ly} for boxed bar numbers.
+
+@cindex bar numbers
+@cindex measure numbers
+@cindex currentBarNumber
+
+Bar numbers are @internalsref{BarNumber} grobs.  They are printed at the
+start of the line.  The number itself is a property that can be set by
+modifying the @code{currentBarNumber} property, i.e.
+@example
+  \property Score.currentBarNumber = #217
+@end example
+
+If you want boxed bar numbers, see the example file
+@code{input/test/boxed-molecule.ly}.
 
 @refbugs
 
 It is not possible to have bar numbers printed at regular intervals
-only.
+
 
 @node Instrument names
 @subsection Instrument names
@@ -3466,19 +3486,19 @@ details, see the file @file{scm/font.scm}.
 @cindex @code{papersize}
 
 To change the paper size, you must first set the
-@code{papersize} variable at top level.  Set it to
+@code{papersize} paper variable variable.  Set it to
 the strings @code{a4}, @code{letter}, or @code{legal}.  After this
 specification, you must set the font as described above.  If you want
 the default font, then use the 20 point font.
 
 @example
-        papersize = "a4"
+        \paper @{papersize = "a4" @}
         \include "paper16.ly"
 @end example
 
 The file @code{paper16.ly}  will now include a file named @file{a4.ly}, which
 will set the paper variables @code{hsize} and @code{vsize} (used by
-@code{ly2dvi})
+Lilypond and @code{ly2dvi})
 
 @c .  {Line break}
 @node Line break
@@ -3909,6 +3929,16 @@ A bar check is entered using the bar symbol, @code{|}:
 @example
   \time 3/4 c2 e4 | g2.
 @end example
+
+@cindex skipTypesetting
+
+Failed bar checks are most often caused by entering incorrect
+durations. Incorrect durations often completely garble up the score,
+especially if it is polyphonic, so you should start correcting the score
+by scanning for failed bar checks and incorrect durations.  To speed up
+this process, you can use @code{skipTypesetting} (See @ref{Skipping
+corrected music})). Bar
+
 
 @c .  {Point and click}
 @node Point and click

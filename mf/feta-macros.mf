@@ -10,7 +10,7 @@ if test>1:
 	makegrid(0pt,0pt for i:=-4.8pt step .2pt until 4.8pt: ,i endfor)
 		(0pt,0pt for i:=-4.8pt step .2pt until 4.8pt: ,i endfor);
 fi
-	enddef;
+enddef;
 
 def treq =
 	tracingequations := tracingonline := 1;
@@ -166,30 +166,6 @@ def brush(expr a,w,b,v) =
 	draw_brush(a,w,b,v);	
 	penlabels(3,4,5,6);
 	endgroup;
-enddef;
-
-%
-% Draw a (rest) crook, starting at thickness STEM in point A,
-% ending a ball W to the left, diameter BALLDIAM
-% ypart of the center of the ball is BALLDIAM/4 lower than ypart A
-%
-def balled_crook(expr a, w, balldiam, stem) =
-begingroup;
-	save x,y;
-	penpos1(balldiam/2,-90);
-	penpos2(balldiam/2,0);
-	penpos3(balldiam/2,90);
-	penpos4(balldiam/2,180);
-	x4r=xpart a-w; y3r=ypart a+balldiam/4;
-	x1l=x2l=x3l=x4l;
-	y1l=y2l=y3l=y4l;
-	penpos5(stem,250);
-	x5=x4r+9/8balldiam; y5r=y1r;
-	penpos6(stem,260);
-	x6l=xpart a; y6l=ypart a;
-	penstroke z1e..z2e..z3e..z4e..z1e..z5e{right}..z6e;
-	penlabels(1,2,3,4,5,6);
-endgroup;
 enddef;
 
 def y_mirror_char =

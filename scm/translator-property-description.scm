@@ -291,7 +291,7 @@ help with debugging large scores.")
 (translator-property-description 'squashedPosition integer? " Vertical position of
 squashing for Pitch_squash_engraver.")
 (translator-property-description 'staffsFound list? "list of all staff-symbols found.")
-(translator-property-description 'stanza string? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
+(translator-property-description 'stanza markup? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
 
 
 (translator-property-description 'stemLeftBeamCount integer? "
@@ -300,7 +300,7 @@ Overrides automatic beaming.  The value is only used once, and then it
 is erased.
 .")
 (translator-property-description 'stemRightBeamCount integer? "idem, for the right side.")
-(translator-property-description 'stz string? "Abbreviated form for a stanza, see also Stanza property.")
+(translator-property-description 'stz markup? "Abbreviated form for a stanza, see also Stanza property.")
 (translator-property-description 'textNonEmpty boolean? " If set
 to true then text placed above or below the staff is not assumed to
 have zero width.  @code{\fatText} and @code{\emptyText} are predefined

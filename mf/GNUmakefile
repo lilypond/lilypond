@@ -67,3 +67,5 @@ local-clean:
 	rm -f *.tfm *.log
 
 
+
+out/feta-test16.dvi: feta-eindelijk.mf

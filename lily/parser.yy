@@ -1066,6 +1066,11 @@ command_element:
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
 	}
+	| '|'      {
+                extern Music * get_barcheck();
+                $$ = get_barcheck ();
+                $$->set_spot (THIS->here_input ());
+        }
 	| BAR STRING  			{
 		Music *t = set_property_music (ly_symbol2scm ("whichBar"), $2);
 
@@ -1159,9 +1164,6 @@ shorthand_command_req:
 	}
 	| hyphen_req {
 		$$ = $1;
-	}
-	| '|'				{
-		$$ = new Barcheck_req;
 	}
 	| '~'	{
 		$$ = new Tie_req;

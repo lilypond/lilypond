@@ -115,10 +115,13 @@
 	(BreathingSign . (
 		(break-align-symbol . Breathing_sign)
 		(breakable . #t )
-		(molecule-callback . ,Breathing_sign::brew_molecule)
+		(molecule-callback . ,Text_item::brew_molecule)
+		(lookup . name)
+		(font-family . music)	   
+		(text . "scripts-rcomma")
 		(Y-offset-callbacks . (,Breathing_sign::offset_callback))
 		(visibility-lambda . ,begin-of-line-invisible)
-		(meta . ,(grob-description "BreathingSign"  break-aligned-interface))
+		(meta . ,(grob-description "BreathingSign"  break-aligned-interface text-interface font-interface))
 	))
 
 	(Clef . (
