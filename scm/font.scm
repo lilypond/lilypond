@@ -324,10 +324,11 @@
 			  (font-shape . ,shape)))
 		       (ly:pt 12)))))))
 
-  (add-node 'upright 'medium) 
+  (add-node 'upright 'normal) 
   (add-node 'upright 'bold) 
-  (add-node 'italic 'bold) 
-  (add-node 'italic 'medium))
+  (add-node 'italic 'normal)
+  (add-node 'italic 'bold)
+  )
 
 (define-public (make-cmr-tree factor)
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))

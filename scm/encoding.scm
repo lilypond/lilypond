@@ -14,7 +14,7 @@
   "Read .enc file, return (COMMAND-NAME . VECTOR-OF-SYMBOLS)."
   (let* ((path (ly:kpathsea-find-file file-name))
 	 (unused (if (string? path) #t (ly:warn "can't find ~s" file-name)))
-	 (raw (ly:gulp-file path))
+	 (raw (cached-file-contents path))
 	 (string (regexp-substitute/global #f "%[^\n]*" raw 'pre "" 'post))
 	 (command (match:substring
 		   (string-match "/([^ \t\n\r]*)[ \t\n\r]*[[]" string) 1))
