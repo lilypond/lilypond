@@ -1,3 +1,7 @@
+2003-08-03  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* buildscripts/mutopia-index.py (headertext): rewording
+
 2003-08-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/new-markup.scm (strut-markup): new markup function.
