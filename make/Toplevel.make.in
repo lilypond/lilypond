@@ -1,13 +1,5 @@
 # -*-Makefile-*-
 ########################################################
-#
-# WARNING!WARNING!WARNING!WARNING!WARNING!WARNING!
-#	
-#	DO NOT EDIT!	
-#
-#
-# @configure_input@
-########################################################
 # project  LilyPond -- the musical typesetter
 # title	   top level makefile for LilyPond  
 # file	   Makefile 
@@ -67,12 +59,11 @@ localdistclean:
 
 
 localclean:
-	rm -f $(allexe) core config.cache config.log config.status 
+	rm -f core config.cache config.log config.status 
 	rm -f $(outdir)/*.{class,html,gif}
 
-localinstall: all
-	$(INSTALL) -d $(bindir)
-	$(INSTALL) -m 755 $(allexe) $(bindir)
+Makefile: make/Toplevel.make.in
+	echo '# WARNING WARNING WARNING WARNING' > $@
+	echo '# do not edit! this is generated from make/Toplevel.make.in' >> $@
+	cat $< >> $@
 
-localuninstall:
-	for i in $(allexe); do rm -f $(bindir)/`basename $$i`; done
