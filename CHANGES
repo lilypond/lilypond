@@ -1,7 +1,11 @@
-1.5.17.jcn2
+1.5.17.jcn3
 ===========
 
-* Some more random hacking at midi2ly.py.
+* Some more random hacking at midi2ly.py:
+   - handle keys and note names
+   - simple quantising
+   - options and stuff: moved to library for ly2dvi, midi2ly, mup2ly,
+	update-lily.
 
 * Bugfix: Key_change_req::transpose: don't deliver reversed list.
 

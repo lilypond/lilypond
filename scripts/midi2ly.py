@@ -1,42 +1,71 @@
 #!@PYTHON@
+#
+# midi2ly.py -- LilyPond midi import script
+# 
+# source file of the GNU LilyPond music typesetter
+#
+# convert MIDI to LilyPond source
+#
 
-import midi
+
+'''
+TODO:
+
+   * fix duration bug for lily input: a4*3/5
+   * handle all notes off
+   * recognise (note-on, volume = 0) as note-off
+   * don't ever quant skips
+   * handle lyrics and other text events
+
+'''
+
+import getopt
+import __main__
 import sys
 import string
 
-LINE_BELL = 60
-scale_steps = [0,2,4,5,7,9,11]
+sys.path.append ('@datadir@/python')
+sys.path.append ('@datadir@/buildscripts/out')
+sys.path.append ('@datadir@/modules/out')
 
-clocks_per_1 = 1536
+import midi
+
+try:
+	import gettext
+	gettext.bindtextdomain ('lilypond', '@localedir@')
+	gettext.textdomain ('lilypond')
+	_ = gettext.gettext
+except:
+	def _ (s):
+		return s
+
+# Attempt to fix problems with limited stack size set by Python!
+# Sets unlimited stack size. Note that the resource module only
+# is available on UNIX.
+try:
+       import resource
+       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
+except:
+       pass
+
+program_name = 'midi2ly [experimental]'
+package_name = 'lilypond'
+help_summary = _ ("Convert MIDI to LilyPond source")
+
+option_definitions = [
+	('', 'h', 'help', _ ("this help")),
+	(_ ("DUR"), 'd', 'duration-quant', _ ("quantise note durations on DUR")),
+	(_ ("ACC[:MINOR]"), 'k', 'key', _ ("set key: ACC=+sharps|-flats; MINOR=1")),
+	(_ ("FILE"), 'o', 'output', _ ("write ouput to FILE")),
+	(_ ("DUR"), 's', 'start-quant', _ ("quantise note starts on DUR")),
+	(_ ("DUR*NUM/DEN"), 't', 'allow-tuplet', _ ("allow tuplet durations DUR*NUM/DEN")),
+	('', 'v', 'version', _ ("print version number")),
+	('', 'w', 'warranty', _ ("show warranty and copyright")),
+	]
+
+from lilylib import *
 
 
-program_name = 'midi2ly.py [experimental]'
-
-def split_track (track):
-	chs = {}
-	for i in range(16):
-		chs[i] = []
-		
-	for e in track:
-		data = list (e[1])
-		if data[0] > 0x7f and data[0] < 0xf0:
-			c = data[0] & 0x0f
-			e = (e[0], tuple ([data[0] & 0xf0] + data[1:]))
-			chs[c].append (e)
-		else:
-			chs[0].append (e)
-
-	for i in range (16):
-		if chs[i] == []:
-			del chs[i]
-
-	threads = []
-	for v in chs.values ():
-		events = events_on_channel (v)
-		thread = unthread_notes (events)
-		if len (thread):
-			threads.append (thread)
-	return threads
 
 
 class Note:
@@ -228,6 +257,57 @@ class Text:
 	def dump (self):
 		return '\n  % [' + self.text_types[self.type] + '] ' + self.text + '\n  '
 
+
+output_name = ''
+LINE_BELL = 60
+scale_steps = [0,2,4,5,7,9,11]
+
+clocks_per_1 = 1536
+key = 0
+start_quant = 0
+start_quant_clocks = 0
+duration_quant = 0
+duration_quant_clocks = 0
+allowed_tuplets = []
+allowed_tuplet_clocks = []
+
+def split_track (track):
+	chs = {}
+	for i in range(16):
+		chs[i] = []
+		
+	for e in track:
+		data = list (e[1])
+		if data[0] > 0x7f and data[0] < 0xf0:
+			c = data[0] & 0x0f
+			e = (e[0], tuple ([data[0] & 0xf0] + data[1:]))
+			chs[c].append (e)
+		else:
+			chs[0].append (e)
+
+	for i in range (16):
+		if chs[i] == []:
+			del chs[i]
+
+	threads = []
+	for v in chs.values ():
+		events = events_on_channel (v)
+		thread = unthread_notes (events)
+		if len (thread):
+			threads.append (thread)
+	return threads
+
+
+def quantise_clocks (clocks, quant):
+ 	q = int (clocks / quant) * quant
+	if q != clocks:
+		for tquant in allowed_tuplet_clocks:
+		 	if int (clocks / tquant) * tquant == clocks:
+				return clocks
+	 	if 2 * (clocks - q) > quant:
+ 			q = q + quant
+	return q
+
 def events_on_channel (channel):
 	pitches = {}
 
@@ -235,6 +315,10 @@ def events_on_channel (channel):
 	events = []
 	for e in channel:
 		t = e[0]
+
+		if start_quant_clocks:
+			t = quantise_clocks (t, start_quant_clocks)
+
 
 		if e[1][0] == midi.NOTE_ON:
 			if not pitches.has_key (e[1][1]):
@@ -250,8 +334,14 @@ def events_on_channel (channel):
 						i = i -1
 					else:
 						break
+				d = t - lt
+				if duration_quant_clocks:
+					d = quantise_clocks (d, duration_quant_clocks)
+					if not d:
+						d = duration_quant_clocks
+
 				notes.insert (i + 1,
-					    (lt, Note (t-lt, e[1][1], vel)))
+					    (lt, Note (d, e[1][1], vel)))
 
 			except KeyError:
 				pass
@@ -330,14 +420,23 @@ def dump_skip (clocks):
 	return 's' + dump_duration (clocks) + ' '
 
 def dump_duration (clocks):
+	for i in range (len (allowed_tuplet_clocks)):
+		if clocks == allowed_tuplet_clocks[i]:
+ 			(dur, num, den) = allowed_tuplets[i]
+			s = '%d*%d/%d' % (dur, num, den)
+			return s
+
 	g = gcd (clocks, clocks_per_1)
-	(d, n) = (clocks_per_1/ g, clocks / g)
-	if n == 1:
-		s = '%d' % d
-	elif n == 3 and d != 1:
-		s = '%d.' % (d / 2)
+	if g:
+		(d, n) = (clocks_per_1 / g, clocks / g)
+		if n == 1:
+			s = '%d' % d
+		elif n == 3 and d != 1:
+			s = '%d.' % (d / 2)
+		else:
+			s = '%d*%d' % (d, n)
 	else:
-		s = '%d*%d' % (d, n)
+		s = '1*%d/%d' % (clocks, clocks_per_1)
 	return s
 	
 def dump (self):
@@ -426,14 +525,26 @@ def dump_track (channels, n):
 	s = s + '>\n\n'
 	return s
 			
-	
-def convert_midi (f):
+def convert_midi (f, o):
 	global clocks_per_1
 
 	str = open (f).read ()
 	midi_dump = midi.parse (str)
 
 	clocks_per_1 = midi_dump[0][1]
+
+	global start_quant, start_quant_clocks
+	if start_quant:
+		start_quant_clocks = clocks_per_1 / start_quant
+
+	global duration_quant, duration_quant_clocks
+	if duration_quant:
+		duration_quant_clocks = clocks_per_1 / duration_quant
+
+	global allowed_tuplet_clocks
+	allowed_tuplet_clocks = []
+	for (dur, num, den) in allowed_tuplets:
+		allowed_tuplet_clocks.append (clocks_per_1 * num / (dur * den))
 
 	tracks = []
 	for t in midi_dump[1]:
@@ -451,9 +562,109 @@ def convert_midi (f):
 		track = track_name (i)
 		s = s + '    \\context Staff=%s \\%s\n' % (track, track)
 	s = s + '  >\n}\n'
-	
-	sys.stdout.write (s)
-		
 
-for f in sys.argv[1:]:
-	convert_midi (f)
+ 	progress (_ ("%s output to `%s'...") % ('LY', o))
+
+	if o == '-':
+		h = sys.stdout
+	else:
+		h = open (o, 'w')
+
+	h.write (s)
+	h.close ()
+
+
+(sh, long) = getopt_args (__main__.option_definitions)
+try:
+	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
+except getopt.error, s:
+	errorport.write ('\n')
+	errorport.write (_ ("error: ") + _ ("getopt says: `%s\'" % s))
+	errorport.write ('\n')
+	errorport.write ('\n')
+	help ()
+	sys.exit (2)
+	
+for opt in options:	
+	o = opt[0]
+	a = opt[1]
+
+	if 0:
+		pass
+	elif o == '--help' or o == '-h':
+		help ()
+		errorport.write ('\n')
+		errorport.write (_ ("Example:"))
+		errorport.write  (r'''
+    midi2ly --key=-2:1 --duration-quant=32 \
+        --allow-tuplet=4*2/3 --allow-tuplet=2*4/3 foo.midi
+''')
+		sys.exit (0)
+	elif o == '--output' or o == '-o':
+		output_name = a
+	elif o == '--verbose' or o == '-V':
+		verbose_p = 1
+	elif o == '--version' or o == '-v':
+		identify ()
+		sys.exit (0)
+	elif o == '--warranty' or o == '-w':
+		status = system ('lilypond -w', ignore_error = 1)
+		if status:
+			warranty ()
+		sys.exit (0)
+	elif o == '--key' or o == '-k':
+		(accidentals, minor) = map (string.atoi, string.split (a + ':0', ':'))[0:2]
+ 		sharps = 0
+ 		flats = 0
+ 		if accidentals >= 0:
+ 			sharps = accidentals
+ 		else:
+ 			flats = - accidentals
+		global key
+		key = Key (sharps, flats, minor)
+	elif o == '--duration-quant' or o == '-d':
+		global duration_quant
+		duration_quant = string.atoi (a)
+	elif o == '--start-quant' or o == '-s':
+		global start_quant, start_quant_clocks
+		start_quant = string.atoi (a)
+	elif o == '--allow-tuplet' or o == '-t':
+		global allowed_tuplets
+		a = string.replace (a, '/', '*')
+		tuplet = map (string.atoi, string.split (a, '*'))
+		allowed_tuplets.append (tuplet)
+
+
+if not files or files[0] == '-':
+
+	# FIXME: read from stdin when files[0] = '-'
+	help ()
+	errorport.write (program_name + ":" + _ ("error: ") + _ ("no files specified on command line.") + '\n')
+	sys.exit (2)
+
+
+for f in files:
+
+	g = f
+	g = strip_extension (g, '.midi')
+	g = strip_extension (g, '.mid')
+	g = strip_extension (g, '.MID')
+	(outdir, outbase) = ('','')
+
+	if not output_name:
+		outdir = '.'
+		outbase = os.path.basename (g)
+		o = os.path.join (outdir, outbase + '-midi.ly')
+	elif output_name[-1] == os.sep:
+		outdir = output_name
+		outbase = os.path.basename (g)
+		os.path.join (outdir, outbase + '-gen.ly')
+	else:
+		o = output_name
+ 		(outdir, outbase) = os.path.split (o)
+
+	if outdir != '.':
+		mkdir_p (outdir, 0777)
+
+	convert_midi (f, o)
+

@@ -31,40 +31,6 @@ import string
 import sys
 import __main__
 
-sys.path.append ('@datadir@/python')
-try:
-	import gettext
-	gettext.bindtextdomain ('lilypond', '@localedir@')
-	gettext.textdomain('lilypond')
-	_ = gettext.gettext
-except:
-	def _ (s):
-		return s
-
-program_name = 'build-lily'
-package_name = 'lilypond'
-help_summary = _("Fetch and rebuild from latest source package")
-build_root = os.path.join (os.environ ['HOME'], 'usr', 'src')
-release_dir = build_root + '/releases'
-patch_dir = build_root + '/patches'
-notify = 0
-
-build_command = '''
-set -x
-cd %b &&
-[ -d %n-%v ] && exit 1 || true;
-mkdir -p %n-%v
-(
-tar xzf %r/%t &&
-rm -f building &&
-ln -s %n-%v building &&
-cd %n-%v &&
-./configure --prefix=$HOME/usr && make all web
-) >> %n-%v/log.txt 2>&1 &&
-rm -f %n &&
-ln -s %n-%v %n
-'''
-
 
 url = 'file:/home/ftp/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
 url = 'ftp://appel.lilypond.org/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
@@ -73,166 +39,38 @@ url = 'ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-*.tar.gz'
 remove_previous_p = 0
 
 
-# lily_py.py -- options and stuff
-# 
-# source file of the GNU LilyPond music typesetter
+sys.path.append ('@datadir@/python')
+sys.path.append ('@datadir@/buildscripts/out')
 
-# BEGIN Library for these?
-# cut-n-paste from ly2dvi
+try:
+	import gettext
+	gettext.bindtextdomain ('lilypond', '@localedir@')
+	gettext.textdomain ('lilypond')
+	_ = gettext.gettext
+except:
+	def _ (s):
+		return s
 
-program_version = '@TOPLEVEL_VERSION@'
-if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.3.142'
+# Attempt to fix problems with limited stack size set by Python!
+# Sets unlimited stack size. Note that the resource module only
+# is available on UNIX.
+try:
+       import resource
+       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
+except:
+       pass
 
 
+program_name = 'build-lily'
+package_name = 'lilypond'
+help_summary = _ ("Fetch and rebuild from latest source package")
+
+build_root = os.path.join (os.environ ['HOME'], 'usr', 'src')
+release_dir = build_root + '/releases'
+patch_dir = build_root + '/patches'
 original_dir = os.getcwd ()
-temp_dir = '%s.dir' % program_name
-keep_temp_dir_p = 0
-verbose_p = 0
+temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
 
-def identify ():
-	sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
-
-def warranty ():
-	identify ()
-	sys.stdout.write ('\n')
-	sys.stdout.write (_ ('Copyright (c) %s by' % ' 2001'))
-	sys.stdout.write ('\n')
-	sys.stdout.write ('  Han-Wen Nienhuys')
-	sys.stdout.write ('  Jan Nieuwenhuizen')
-	sys.stdout.write ('\n')
-	sys.stdout.write (_ (r'''
-Distributed under terms of the GNU General Public License. It comes with
-NO WARRANTY.'''))
-	sys.stdout.write ('\n')
-
-def progress (s):
-	sys.stderr.write (s + '\n')
-
-def warning (s):
-	sys.stderr.write (_ ("warning: ") + s)
-	sys.stderr.write ('\n')
-	
-		
-def error (s):
-	sys.stderr.write (_ ("error: ") + s)
-	sys.stderr.write ('\n')
-	raise _ ("Exiting ... ")
-
-def getopt_args (opts):
-	'''Construct arguments (LONG, SHORT) for getopt from  list of options.'''
-	short = ''
-	long = []
-	for o in opts:
-		if o[1]:
-			short = short + o[1]
-			if o[0]:
-				short = short + ':'
-		if o[2]:
-			l = o[2]
-			if o[0]:
-				l = l + '='
-			long.append (l)
-	return (short, long)
-
-def option_help_str (o):
-	'''Transform one option description (4-tuple ) into neatly formatted string'''
-	sh = '  '	
-	if o[1]:
-		sh = '-%s' % o[1]
-
-	sep = ' '
-	if o[1] and o[2]:
-		sep = ','
-		
-	long = ''
-	if o[2]:
-		long= '--%s' % o[2]
-
-	arg = ''
-	if o[0]:
-		if o[2]:
-			arg = '='
-		arg = arg + o[0]
-	return '  ' + sh + sep + long + arg
-
-
-def options_help_str (opts):
-	'''Convert a list of options into a neatly formatted string'''
-	w = 0
-	strs =[]
-	helps = []
-
-	for o in opts:
-		s = option_help_str (o)
-		strs.append ((s, o[3]))
-		if len (s) > w:
-			w = len (s)
-
-	str = ''
-	for s in strs:
-		str = str + '%s%s%s\n' % (s[0], ' ' * (w - len(s[0])  + 3), s[1])
-	return str
-
-def help ():
-	sys.stdout.write (_ ("Usage: %s [OPTION]... FILE") % program_name)
-	sys.stdout.write ('\n\n')
-	sys.stdout.write (help_summary)
-	sys.stdout.write ('\n\n')
-	sys.stdout.write (_ ("Options:"))
-	sys.stdout.write ('\n')
-	sys.stdout.write (options_help_str (option_definitions))
-	sys.stdout.write ('\n\n')
-	sys.stdout.write (_ ("Report bugs to %s") % 'bug-gnu-music@gnu.org')
-	sys.stdout.write ('\n')
-	sys.exit (0)
-
-
-def setup_temp ():
-	global temp_dir
-	if not keep_temp_dir_p:
-		temp_dir = tempfile.mktemp (program_name)
-	try:
-		os.mkdir (temp_dir, 0777)
-	except OSError:
-		pass
-		
-	
-def system (cmd, ignore_error = 0):
-	if verbose_p:
-		progress (_ ("Invoking `%s\'") % cmd)
-	st = os.system (cmd)
-	if st:
-		msg =  ( _ ("error: ") + _ ("command exited with value %d") % st)
-		if ignore_error:
-			sys.stderr.write (msg + ' ' + _ ("(ignored)") + ' ')
-		else:
-			error (msg)
-
-	return st
-
-
-def cleanup_temp ():
-	if not keep_temp_dir_p:
-		if verbose_p:
-			progress (_ ("Cleaning `%s'...") % temp_dir)
-		system ('rm -rf %s' % temp_dir)
-
-
-def set_setting (dict, key, val):
-	try:
-		val = string.atof (val)
-	except ValueError:
-		#warning (_ ("invalid value: %s") % `val`)
-		pass
-
-	try:
-		dict[key].append (val)
-	except KeyError:
-		warning (_ ("no such setting: %s") % `key`)
-		dict[key] = [val]
-
-# END Library
 
 option_definitions = [
 	('DIR', 'b', 'build-root', _ ("unpack and build in DIR [%s]") % build_root),
@@ -252,6 +90,28 @@ option_definitions = [
 	('URL', 'u', 'url', _ ("fetch and build URL [%s]") % url),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
 	]
+
+from lilylib import *
+
+
+notify = 0
+
+build_command = '''
+set -x
+cd %b &&
+[ -d %n-%v ] && exit 1 || true;
+mkdir -p %n-%v
+(
+tar xzf %r/%t &&
+rm -f building &&
+ln -s %n-%v building &&
+cd %n-%v &&
+./configure --prefix=$HOME/usr && make all web
+) >> %n-%v/log.txt 2>&1 &&
+rm -f %n &&
+ln -s %n-%v %n
+'''
+
 
 def list_file (user, passwd, host, dir, file):
 	match = []
@@ -379,13 +239,19 @@ def build (p):
 		c = re.sub (i, expand[i], c)
 	return system (c, 1)
 
+
+
 (sh, long) = getopt_args (__main__.option_definitions)
 try:
-	(options, files) = getopt.getopt (sys.argv[1:], sh, long)
-except:
+	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
+except getopt.error, s:
+	errorport.write ('\n')
+	errorport.write (_ ("error: ") + _ ("getopt says: `%s\'" % s))
+	errorport.write ('\n')
+	errorport.write ('\n')
 	help ()
 	sys.exit (2)
-	
+
 for opt in options:	
 	o = opt[0]
 	a = opt[1]
