@@ -424,8 +424,6 @@ eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
       (make-line-markup (list-insert-separator markups sep))
       empty-markup))
 
-;; unused?
-;;(define-public brew-markup-stencil Text_interface::print)
 
 (define-public interpret-markup Text_interface::interpret_markup)
 (define-public (prepend-alist-chain key val chain)
