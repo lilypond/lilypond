@@ -1,6 +1,4 @@
-\version "2.4.0"
-
-% #(ly:set-point-and-click 'line-column)
+\version "2.5.13"
 
 forcedLastBreak =  { \break }
 

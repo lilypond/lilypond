@@ -1,5 +1,3 @@
-%% Optional helper for quick click and edit mode.  May be omitted
-#(ly:set-point-and-click 'line-column)
 
 %% A simple song in LilyPond
 <<
@@ -15,5 +13,5 @@
 >>
 
 %% Optional helper for automatic updating by convert-ly.  May be omitted.
-\version "2.4.0"
+\version "2.5.13"
     

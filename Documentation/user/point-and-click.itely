@@ -2,133 +2,83 @@
 @appendix Point and click
 @cindex point and click
 
+
+
+
 @cindex source specials
 @cindex specials, source
 
-Point and click lets you find notes in the input by clicking on them in
-the Xdvi window.  This makes it easier to find input that causes some
-error in the sheet music.
+Point and click lets you find notes in the input by clicking on them
+in the PDF viewer.  This makes it easier to find input that causes
+some error in the sheet music.
 
-To use it, you need the following software:
+When this functionality is active, LilyPond adds hyperlinks to the PDF
+file. These hyperlinks are sent to the web-browser, which opens a
+text-editor with the cursor in the right place. 
+
+To make this chain work, the following should done:
 
 @itemize @bullet
-@item a dvi viewer that supports src specials.
-
-The most obvious choice is Xdvi@footnote{KDVI also provides src
-@cindex Xdvi
-@cindex KDVI
-@cindex KDE
-specials, but does not use the kpathsea library, so it cannot find
-LilyPond font and PostScript library files.}, version 22.36 or newer.
-It is available from
-@uref{ftp://@/ftp@/.math@/.berkeley@/.edu/@/pub/@/Software/@/TeX/@/xdvi@/.tar@/.gz,
-ftp@/.math@/.berkeley@/.edu}.
-
-Most @TeX{} distributions ship with @command{xdvik}, which is always a few
-versions behind the official Xdvi.  To find out which Xdvi you are
-running, try @code{xdvi -version} or @code{xdvi.bin -version}.
-
-@item an editor with a client/@/server interface (or a lightweight GUI
-editor):
-
-
-@cindex editor
-
-@itemize @minus
-@item
-Emacs.  Emacs is an extendable text editor.  It is available from
-@uref{http://@/www@/.gnu@/.org/@/software/@/emacs/}.  You need version 21
-to use column location.
-
-@c move this elsewhere?
-
-
-@cindex Emacs
-@cindex Emacs mode
-@cindex lilypond-mode for Emacs
-@cindex syntax coloring
 
 @item
-XEmacs.  XEmacs is very similar to Emacs.
+The PDF viewer must be configured for following hyperlinks, preferably
+using Mozilla Firefox.
 
-@cindex XEmacs
+For Xpdf on Unix, the following should be present in
+@file{xpdfrc}@footnote{On unix, this file is found either in
+@file{/etc} or your home directory.}
 
-@item
-NEdit.  NEdit runs under Windows and Unix.
-It is available from @uref{http://@/www@/.nedit@/.org}.
+@example
+urlCommand     "firefox -remote 'OpenURL(%s)'"
+@end example
 
-@cindex NEdit
+@item Your web-browser must be configured for the @code{textedit}
+protocol,
 
-@item
-GVim.  GVim is a GUI variant of VIM, the popular VI
-clone.  It is available from @uref{http://@/www@/.vim@/.org}.
+For Mozilla and Mozilla Firefox, this is done by adding following
+lines to the @file{prefs.js}@footnote{On a typical unix system, this
+file is found in your home-directory under
+@file{.mozilla/firefox/default.trn/prefs.js}.}  
 
-@cindex GVim
-@cindex Vim
-
-
-@item
-jEdit.  jEdit is an editor written in Java with extensive plug-in
-support.  The LilyPond plugin for jEdit comes with an DVI 
-viewer, which is preconfigured for point-and-click. 
-
-@cindex jEdit
+@example
+user_pref("network.protocol-handler.app.textedit", "lilypond-pdfpc-helper");
+user_pref("network.protocol-handler.warn-external.textedit", false);
+@end example
 
 @end itemize
-@end itemize
 
+The program @file{lilypond-pdfpc-helper} is a small helper program.
+It tests the environment variable @code{EDITOR} for the following
+patterns,
 
-Xdvi must be configured to find the @TeX{} fonts and music
-fonts.  Refer to the Xdvi documentation for more information.
-
-To use point-and-click, add one of these lines to the top of your @file{.ly}
-file:
-
+@table @code
+@item emacs
+  this will invoke
 @example
-#(ly:set-point-and-click 'line)
+emacsclient --no-wait +@var{line}:@var{column} @var{file}
 @end example
-@cindex line-location
-
-When viewing, Control-Mousebutton@tie{}1 will take you to the originating
-spot in the @file{.ly} file.  Control-Mousebutton@tie{}2 will show all
-clickable boxes.
-
-If you correct large files with point-and-click, be sure to start
-correcting at the end of the file.  When you start at the top, and
-insert one line, all following locations will be off by a line.
-
-@cindex Emacs
-For using point-and-click with Emacs, add the following
-In your Emacs startup file (usually @file{~/@/.emacs}):
+@item vim
+  this will invoke
 @example
-(server-start)
+gvim --remote +:@var{line}:norm@var{column} @var{file}
 @end example
 
-Make sure that the environment variable @var{XEDITOR} is set to
+@item nedit
 @example
-emacsclient --no-wait +%l %f
+  nc -noask +@var{line} @var{file}'
 @end example
-@cindex @var{XEDITOR}
-If you use XEmacs instead of Emacs, insert @code{(gnuserve-start)} in
-your @file{.emacs} file, and set @code{XEDITOR} to
-@code{gnuclient -q +%l %f}.
+@end table
 
-For using Vim, set @code{XEDITOR} to @code{gvim --remote +%l %f}, or
-use this argument with Xdvi's @code{-editor} option.
+The environment variable @code{LYEDITOR} is used to override this. It
+contains the command line to start the editor, where @code{%(file)s},
+@code{%(column)s}, @code{%(line)s} is replaced with the file, column
+and line respectively. The  setting
 
-@cindex NEdit
-For using NEdit, set @code{XEDITOR} to @code{nc -noask +%l %f}, or
-use this argument with Xdvi's @code{-editor} option.
-
-It can also make your editor jump to the exact location of the note
-you clicked.  This is only supported on Emacs and VIM.  Users of Emacs version
-20 must apply the patch @file{emacsclient.patch}.  Users of version 21
-must apply @file{server.el.patch} (version 21.2 and earlier).  At the
-top of the @code{.ly} file, replace the @code{set-point-and-click} line
-with the following line:
 @example
-#(ly:set-point-and-click 'line-column)
+emacsclient --no-wait +%(line)s:%(column)s %(file)s
 @end example
-@cindex line-column-location
-and set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}.  Vim
-users can set @code{XEDITOR} to @code{gvim --remote +:%l:norm%c| %f}.
+
+@noindent
+for @code{LYEDITOR} is equivalent to the standard emacsclient
+invocation.
+

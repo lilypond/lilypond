@@ -1,11 +1,9 @@
 #(ly:set-option 'old-relative)
 
-% #(ly:set-point-and-click 'line-column)
-
 instrument = "Piano"
 
 \header {
-  title = "Ständchen"
+  title = "StÃ¤ndchen"
   subtitle = "(Serenade)"
   subsubtitle = "Leise flehen meine Lieder"
   opus = "D. 957 No. 4"
@@ -42,7 +40,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "2.4.0"
+\version "2.5.13"
 
 dynamicUp = \override DynamicLineSpanner  #'direction = #1
 dynamicRevert = \revert DynamicLineSpanner #'direction
@@ -121,42 +119,42 @@ lyricVerseOne = \lyricmode {
 	in den stil -- len Hain her nie -- der,
 	Lieb -- chen, komm zu mir! 
 	
-	Flüs -- ternd schlan -- ke Wip -- fel rau -- schen
+	FlÃ¼s -- ternd schlan -- ke Wip -- fel rau -- schen
 	in des Mon -- des Licht,
 	in des Mon -- des Licht;
 
-	des Ver -- rä -- ters feind -- lich Lau -- schen
-	fürch -- te, Hol -- de, nicht,
-	fürch -- te, Hol -- de, nicht.
+	des Ver -- rÃ¤ -- ters feind -- lich Lau -- schen
+	fÃ¼rch -- te, Hol -- de, nicht,
+	fÃ¼rch -- te, Hol -- de, nicht.
 }
 	
 lyricVerseTwo = \lyricmode{
-	Hörst die Nach -- ti -- gal -- len schla -- gen?
+	HÃ¶rst die Nach -- ti -- gal -- len schla -- gen?
 	ach! sie fle -- hen dich, 
-	mit der Tö -- ne sü -- "\ss en" Kla -- gen
-	fle -- hen sie für mich. 
+	mit der TÃ¶ -- ne sÃ¼ -- "\ss en" Kla -- gen
+	fle -- hen sie fÃ¼r mich. 
 	
 	Sie -- ver -- "steh'n" des Bu -- sens Seh -- nen,
 	ken -- nen Lieb -- es -- schmerz,
 	ken -- nen Lieb -- es -- schmerz,
 
-	rüh -- ren mit den Sil -- ber -- tö -- nen
+	rÃ¼h -- ren mit den Sil -- ber -- tÃ¶ -- nen
 	jed -- es wei -- che Herz,
 	jed -- es wei -- che Herz.
 }
 
 lyricThrough = \lyricmode{
 	La\ss auch dir die Brust be -- we -- gen 
-	Lieb -- chen, hö -- re mich! 
+	Lieb -- chen, hÃ¶ -- re mich! 
 	be -- bend harr' ich dir ent -- ge -- gen! 
 	
-	komm, be -- glük -- ke mich!
-	komm, be -- glük -- ke mich, __ 
-	be -- glük -- ke mich!
+	komm, be -- glÃ¼k -- ke mich!
+	komm, be -- glÃ¼k -- ke mich, __ 
+	be -- glÃ¼k -- ke mich!
 }
 
 trebleIntro = \relative c{
-	r8^"\bf Mäßig"\pp <g' c>-. <c es>-. <g c>-. <c es>-. <g c>-. |
+	r8^"\bf MÃ¤ÃŸig"\pp <g' c>-. <c es>-. <g c>-. <c es>-. <g c>-. |
 	r8 <as c>-. <c es>-. <as c>-. <c es>-. <as c>-. |
 	r8 <as c>-. <c d>-. <as c>-. <c d>-. <as c>-. |
 	r8 <g b>-. <b d>-. <g b>-. <b d>-. <g b>-. |

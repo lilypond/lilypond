@@ -2429,11 +2429,15 @@ def conv (str):
 			de_utf_8 (str)
 		except UnicodeDecodeError:
 			str = en_utf_8 (de_input (str)[0])[0]
+
+
+
+	str = re.sub (r"#\(ly:set-point-and-click '[a-z-]+\)", '', str)
 	return str
 
 conversions.append (((2, 5, 13),
 		     conv,
-		     '\\encoding: smart recode latin1..utf-8'))
+		     '\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click'))
 
 
 ################################

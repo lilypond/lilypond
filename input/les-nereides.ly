@@ -1,4 +1,4 @@
-\version "2.4.0"
+\version "2.5.13"
 \header {
     composer = "ARTHUR GRAY"
     title = "LES NÉRÉIDES"
@@ -25,7 +25,6 @@ possibly more impressive to render without tweaks?
 
 %}
 
-#(ly:set-point-and-click 'line-column)
 #(define (make-text-checker text)
   (lambda (elt) (equal? text (ly:get-grob-property elt 'text))))
 

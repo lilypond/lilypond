@@ -215,17 +215,19 @@
 		       (ly:input-file-line-column music-origin)
 		       #f
 		       ))
+	 (file (if location (string-append (getcwd) "/" (car location))
+		   #f))
 	 (x-ext (ly:grob-extent grob grob X)) 
 	 (y-ext (ly:grob-extent grob grob Y)) 
 	 )
 
     (if location
-	(format "~a ~a ~a ~a (~a:~a:~a) mark_file_line\n"
+	(format "~a ~a ~a ~a (textedit://~a:~a:~a) mark_file_line\n"
 		(+ (car offset) (car x-ext))
 		(+ (cdr offset) (car y-ext))
 		(+ (car offset) (cdr x-ext))
 		(+ (cdr offset) (cdr y-ext))
-		(car location)
+		file
 		(cadr location)
 		(caddr location))
 	"")))

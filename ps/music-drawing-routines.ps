@@ -19,22 +19,11 @@
 	/Rect [ llx lly urx ury ]
 	/Border [ 0 0 0 0 ]
 
-	pdf-viewer (acroread) eq
-	{
-	    /Action
+        /Action
 	    <<
 		/Subtype /URI
 		/URI command
 	    >>
-	}
-	{
-	    % xpdf.  FIXME: gpdf, kpdf etc?
-	    /Action
-	    <<
-		/Launch
-		/File command
-	    >>
-	} ifelse
         /Subtype /Link
     /ANN
     pdfmark
