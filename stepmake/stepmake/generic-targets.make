@@ -47,6 +47,7 @@ help: generic-help local-help
 	@echo -e "\
   all         update everything\n\
   clean       remove all genated stuff in $(outdir)\n\
+  check       run selftest\n\
   default     same as the empty target\n\
   exe         update all executables\n\
   help        this help\n\
