@@ -296,6 +296,7 @@ A reminder accidental
 can be forced by adding an exclamation mark @code{!} after the pitch.  A
 cautionary accidental,
 @cindex cautionary accidental
+@cindex parenthesized accidental
 i.e., an accidental within parentheses can be obtained by adding the
 question mark `@code{?}' after the pitch.
 
@@ -474,7 +475,8 @@ printed.  The shorthand is only available in Note and Chord mode.
 
 @cindex @code{\key}
 
-Changing the key signature is done with the @code{\key} command.
+Setting or changing the key signature is done with the @code{\key}
+command.
 @example
   @code{\key} @var{pitch} @var{type}
 @end example
@@ -498,7 +500,7 @@ The standard mode names @code{\ionian},
 
 This command sets the context property @code{Staff.keySignature}. 
 Non-standard key signatures can be specified by setting this property
-directly, see the generated documentation.
+directly, see the generated documentation for @rgrob{KeySignature}.
 
 The printed signature is a @code{KeySignature} grob.
 
@@ -508,8 +510,10 @@ The printed signature is a @code{KeySignature} grob.
 @node Clef
 @subsection Clef
 @cindex @code{\clef}
+
+The clef can be set or changed with the @code{\clef} command.
 @example
-  \clef @var{clefname} @code{;}
+  \clef @var{clefname}
 @end example
 
 Shortcut for
@@ -608,7 +612,8 @@ Editio XXX.''
 @cindex meter
 @cindex @code{\time}
 
-The time signature is changed by the @code{\time} command. Syntax:
+The time signature is set or changed by the @code{\time}
+command. Syntax:
 @example
   \time @var{n}@code{/}@var{d} 
 @end example
@@ -624,9 +629,26 @@ should be inserted, and how automatic beams should be
 generated.
 
 Changing the value of @code{timeSignatureFraction} also causes a
-fraction to be printed. This grob is @code{TimeSignature}.  There are
-many options for the layout of this grob. They are selected through the
-@code{style} grob property. See @file{input/test/time.ly} for examples.
+fraction to be printed. This grob is @code{TimeSignature}.
+
+The actual symbol that's printed can be customised with the style
+property.
+@lilypond[fragment, verbatim, singleline]
+\time 3/4 s2
+\property Staff.TimeSignature \override #'style = #'C
+\time 4/4 s2
+\property Staff.TimeSignature \override #'style = #'()
+\time 4/4 s2
+\property Staff.TimeSignature \override #'style = #'C
+\time 2/2 s2
+@end lilypond
+
+There are many more options for the layout of this grob. They are
+selected through the @code{style} grob property.
+
+@c FIXME: this isn't documented except in example?
+See
+@file{input/test/time.ly} for examples.
 
 @c .   {Partial}
 @subsection Partial
@@ -1086,7 +1108,7 @@ Metronome settings can be entered as follows:
   \tempo @var{duration} = @var{perminute} 
 @end example
 
-For example, @code{\tempo 4 = 76;} requests output with 76 quarter notes
+For example, @code{\tempo 4 = 76} requests output with 76 quarter notes
 per minute.
   
 @refbugs
@@ -1775,7 +1797,8 @@ c''4 \spanrequest \stop "Sustain"
 
 The symbols that are printed can be modified by setting
 @code{pedal@var{X}Strings}, where @var{X} is one of the pedal
-types. Refer to the generated documentation for more information.
+types. Refer to the generated documentation of @rgrob{PianoPedal} for
+more information.
 
 @refbugs
 
@@ -2535,9 +2558,10 @@ may set the property @var{soloADue} to false.
 
 There are a number of other properties that you can use to tweak the
 behavior of part combining, refer to the automatically generated
-documentation. Look at the documentation of the responsible engravers,
-@code{Thread_devnull_engraver}, @code{Voice_devnull_engraver} and
-@code{A2_engraver}.
+documentation of @reng{Thread_devnull_engraver} and
+@reng{Voice_devnull_engraver}. Look at the documentation of the
+responsible engravers, @code{Thread_devnull_engraver},
+@code{Voice_devnull_engraver} and @code{A2_engraver}.
 
 @refbugs
 
@@ -3029,7 +3053,7 @@ overstrike text}
 The markup is broken down and converted into a list of grob properties,
 which are prepended to the property list.  The @var{key}-@var{value}
 pair is a grob property. A list of properties available is included in
-the generated documentation for @code{text-interface}
+the generated documentation for @rint{Text_interface}.
 
 The following abbreviations are currently defined:
 @table @code
@@ -3219,7 +3243,7 @@ The most important output definition is the @code{\paper} block, for
 music notation.  The syntax is
 
 @example
-  @code{\paper @{} @var{[paperidentifier]} @var{items} @code{@}}
+  @code{\paper @{} [@var{paperidentifier}] @var{items} @code{@}}
 @end example
 
 where each of the items is one of
@@ -4124,10 +4148,10 @@ identifiers called @var{name}@code{Context}, e.g. @code{StaffContext},
 If you want to build a context from scratch, you must also supply the
 following extra information:
 @itemize @bullet
-  @item  A name, specified by @code{\name @var{contextname};}.
+  @item  A name, specified by @code{\name @var{contextname}}.
 
   @item A cooperation module. This is specified by   @code{\type
-@var{typename};}.
+@var{typename}}.
 @end itemize
 
 This is an example:

@@ -105,6 +105,7 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{triplets.ly}
 
+
 @section  Slurs 
 
 @lilypondfile[printfilename]{slur-nice.ly}
@@ -119,9 +120,14 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{slur-attachment-override.ly}
 
+@lilypondfile[printfilename]{slur-stem-broken.ly}
+
 @lilypondfile[printfilename]{drarn-slurs.ly}
 
 @lilypondfile[printfilename]{phrasing-slur.ly}
+
+@lilypondfile[printfilename]{slur-staccato.ly}
+
 
 @section Ties
 

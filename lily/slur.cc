@@ -9,7 +9,6 @@
 
 /*
   [TODO]
-    * fix broken interstaff slurs
     * should avoid stafflines with horizontal part.
     * begin and end should be treated as a/acknowledge Scripts.
     * smart changing of endings
@@ -157,7 +156,9 @@ Slur::check_slope (Grob *me)
 	  o[LEFT] = ly_scm2offset (index_cell (a, LEFT));
 	  o[RIGHT] = ly_scm2offset (index_cell (a, RIGHT));
 	  o[d][Y_AXIS] -= (limit - slope) * dx * dir / staff_space;
-	  //o[d][Y_AXIS] = attachment[-d][Y_AXIS] + (dx * limit * dir / staff_space);
+
+	  o[d][Y_AXIS] *= Directional_element_interface::get (me);
+
 	  me->set_grob_property ("attachment-offset",
 				gh_cons (ly_offset2scm (o[LEFT]),
 					 ly_offset2scm (o[RIGHT])));
@@ -279,6 +280,11 @@ Slur::get_attachment (Grob *me, Direction dir,
       Grob * n =sp->get_bound (dir);
       if ((stem = Note_column::stem_l (n)))
 	{
+	  Real x_extent;
+	  if (Grob *head = Note_column::first_head (n))
+	    x_extent = head->extent (head, X_AXIS).length ();
+	  else
+	    x_extent = n->extent (n, X_AXIS).length ();
 
 	  if (str == "head")
 	    {
@@ -287,7 +293,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 	      /*
 		Default position is centered in X, on outer side of head Y
 	       */
-	      o += Offset (0.5 * n->extent (n,X_AXIS).length (),
+	      o += Offset (0.5 * x_extent,
 			   0.5 * staff_space
 			   * Directional_element_interface::get (me));
 	    }
@@ -297,8 +303,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 	      /*
 		Default position is on stem X, on outer side of head Y
 	       */
-	      o += Offset (n->extent (n,X_AXIS).length ()
-			   * (1 + Stem::get_direction (stem)),
+	      o += Offset (x_extent * (1 + Stem::get_direction (stem)),
 			   0.5 * staff_space
 			   * Directional_element_interface::get (me));
 	    }
@@ -309,44 +314,39 @@ Slur::get_attachment (Grob *me, Direction dir,
 		Default position is on stem X, at stem end Y
 	       */
 	      o += Offset (0.5 *
- (n->extent (n,X_AXIS).length ()
-			    - stem->extent (stem,X_AXIS).length ())
-			    * (1 + Stem::get_direction (stem)),
-			    0);
+			   x_extent * (1 + Stem::get_direction (stem)),
+			   0);
 	    }
 	}
     }
-  else if (str == "loose-end")
+  /*
+    If we're not a note_column, we can't be anything but a loose-end.
+    But if user has set (attachment . (stem . stem)), our string is
+    stem, not loose-end.
+
+    Hmm, maybe after-line-breaking should set this to loose-end?  */
+  else // if (str == "loose-end")
     {
       SCM other_a = dir == LEFT ? gh_cdr (s) : gh_car (s);
       if (ly_symbol2string (other_a) != "loose-end")
-	{
-#if 0
-	  /*
-	    The braindead way: horizontal
-	  */
-	  o = Offset (0, get_attachment (me, -dir, common)[Y_AXIS]);
-#else
-	  o = broken_trend_offset (me, dir);
-#endif
-
-	  
-	}
-	
+	o = broken_trend_offset (me, dir);
     }
 
   SCM alist = me->get_grob_property ("extremity-offset-alist");
-int stemdir = stem ? Stem::get_direction (stem) : 1;
+  int stemdir = stem ? Stem::get_direction (stem) : 1;
   int slurdir = gh_scm2int (me->get_grob_property ("direction"));
   SCM l = scm_assoc
- (scm_listify (a,
-                gh_int2scm (stemdir * dir),
-                gh_int2scm (slurdir * dir),
+    (scm_listify (a,
+		  gh_int2scm (stemdir * dir),
+		  gh_int2scm (slurdir * dir),
                   SCM_UNDEFINED), alist);
 
   if (l != SCM_BOOL_F)
     {
-      o += ly_scm2offset (gh_cdr (l)) * staff_space * dir;
+      Offset off = ly_scm2offset (gh_cdr (l)) * staff_space;
+      off[X_AXIS] *= dir;
+      off[Y_AXIS] *= Directional_element_interface::get (me);
+      o += off;
     }
 
   /*
@@ -359,8 +359,12 @@ int stemdir = stem ? Stem::get_direction (stem) : 1;
 	- me->relative_coordinate (common[Y_AXIS], Y_AXIS);
     }
 
-  o += ly_scm2offset (index_cell (me->get_grob_property ("attachment-offset"),
-				  dir)) * staff_space;
+  Offset off = ly_scm2offset (index_cell (me->get_grob_property
+					  ("attachment-offset"),
+					  dir)) * staff_space;
+
+  off[Y_AXIS] *= Directional_element_interface::get (me);
+  o += off;
   return o;
 }
 
@@ -387,8 +391,12 @@ Slur::encompass_offset (Grob*me,
   /*
     Simply set x to middle of notehead
    */
-
-  o[X_AXIS] -= 0.5 * stem_dir * col->extent (col,X_AXIS).length ();
+  Real x_extent;
+  if (Grob *head = Note_column::first_head (col))
+    x_extent = head->extent (head, X_AXIS).length ();
+  else
+    x_extent = col->extent (col, X_AXIS).length ();
+  o[X_AXIS] -= 0.5 * stem_dir * x_extent;
 
   if ((stem_dir == dir)
       && !stem_l->extent (stem_l, Y_AXIS).empty_b ())
