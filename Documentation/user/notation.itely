@@ -4086,10 +4086,6 @@ Program reference: @internalsref{LyricCombineMusic},
 @internalsref{Lyrics}, @internalsref{Melisma_translator}.
 
 
-@c link broken:
-@c Examples: @ref{Small ensembles},
-
-
 @inputfileref{input/@/regression,lyric@/-combine@/-new@/.ly}.
 @c TODO: make separate section for melismata
 

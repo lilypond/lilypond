@@ -435,41 +435,40 @@ pedal = {
 This template demonstrates a string quartet.  It also uses a @code{\global}
 section for time and key signatures.
 
-@ignore
-@li lypond[quote,verbatim,raggedright]
-version "2.4.0"
+@lilypond[quote,verbatim,raggedright]
+\version "2.4.0"
 
 global= {
   \time 4/4
   \key c \major
 }
 
-Violinone = \new Voice { \relative c''{
+violinOne = \new Voice { \relative c''{
   \set Staff.instrument = "Violin 1 "
 
   c2 d e1
 
 \bar "|." }}
-Violintwo = \new Voice { \relative c''{
+violinTwo = \new Voice { \relative c''{
   \set Staff.instrument = "Violin 2 "
 
   g2 f e1
 
 \bar "|." }}
-Viola = \new Voice { \relative c' {
+viola = \new Voice { \relative c' {
   \set Staff.instrument = "Viola "
   \clef alto
 
   e2 d c1
 
 \bar "|." }}
-Cello = \new Voice { \relative c' {
+cello = \new Voice { \relative c' {
   \set Staff.instrument = "Cello     "
   \clef bass
 
   c2 b a1
 
-\bar "|."}}   %**********************************
+\bar "|."}}
 
 \score {
    \new StaffGroup <<
@@ -482,7 +481,6 @@ Cello = \new Voice { \relative c' {
    \midi { \tempo 4=60}
 }
 @end lilypond
-@end ignore
 
 @subsection String quartet parts
 
