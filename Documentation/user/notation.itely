@@ -2508,8 +2508,28 @@ every eighth grace note
 
 
 
-If you want to end a note with a grace, the standard trick is to put
-the grace notes after a ``space note''
+If you want to end a note with a grace, use the @code{\afterGrace}
+command. It takes two arguments: the main note, and the grace notes
+following the main note. 
+
+@lilypond[raggedright, verbatim,relative=2]
+c1 \afterGrace d1 { c16[ d] } c4   
+@end lilypond
+
+This will put the grace notes after a ``space'' lasting 3/4 of the
+length of the main note. The fraction 3/4 can be changed by setting
+@code{afterGraceFraction}, ie.
+
+@example
+afterGraceFraction = #(cons 7 8) 
+@end example
+
+@noindent
+will put the grace note at 7/8 of the main note. 
+
+
+The same effect can be achieved manually by doing
+
 
 @lilypond[quote,raggedright,fragment,verbatim,relative=2]
 \context Voice {
@@ -2522,6 +2542,8 @@ the grace notes after a ``space note''
 @noindent
 By adjusting the duration of the skip note (here it is a half-note),
 the space between the main-note and the grace is adjusted.
+
+
 
 
 A @code{\grace} section will introduce special typesetting settings,
