@@ -18,6 +18,8 @@
 
 DECLARE_LY_SYMBOL(alt_symbol);
 DECLARE_LY_SYMBOL(at_line_start);
+DECLARE_LY_SYMBOL(auto_interstaff_knee_gap);
+DECLARE_LY_SYMBOL(auto_knee_gap);
 DECLARE_LY_SYMBOL(bar_size);
 DECLARE_LY_SYMBOL(beam);
 DECLARE_LY_SYMBOL(beam_thickness);
