@@ -113,6 +113,7 @@ struct Key_item;
 struct Key_performer;
 struct Keyword;
 struct Keyword_table;
+struct Left_edge_item;
 struct Lily_stream;
 struct Line_group_engraver;
 struct Line_of_score;

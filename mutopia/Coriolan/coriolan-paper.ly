@@ -28,6 +28,7 @@
 	}
 	\translator { 
 		\HaraKiriStaffContext 
+      		marginScriptPadding = #10  %% urg, this is in pt
 		\accepts "VoiceOne";
 		\accepts "VoiceTwo";
 	}

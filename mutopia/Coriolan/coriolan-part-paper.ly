@@ -1,5 +1,8 @@
 \paper {
-	\translator { \OrchestralPartStaffContext }
+	\translator { 
+		\OrchestralPartStaffContext 
+      		marginScriptPadding = #10  %% urg, this is in pt
+	}
 	\translator {
 		\VoiceContext
 		\name "VoiceOne";

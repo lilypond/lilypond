@@ -41,6 +41,7 @@ arithmetic_multiplier = 0.9 * \quartwidth ;
 
 #'Stem_tremolo::beam-width = 1.5 * \quartwidth ; 
 
+#'Left_edge_item::visibility-lambda = #begin-of-line-visible
 #'Clef_item::visibility-lambda = #begin-of-line-visible
 #'Key_item::visibility-lambda = #begin-of-line-visible
 #'Breathing_sign::visibility-lambda = #begin-of-line-invisible
