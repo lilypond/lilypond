@@ -3,10 +3,11 @@ article(INSTALL - compiling and installing GNU LilyPond)(HWN & JCN)()
 sect(ABSTRACT)
 
 This document explains what you need to install LilyPond, and what you
-should do.  If you are going to compile and install LilyPond very
-often you might want to check out the file(buildscripts/set-lily.sh)
-script.  It sets some environment variables and symlinks, which comes
-in handly when you have to compile LilyPond more often.  
+should do.  If you are going to compile and install LilyPond often,
+e.g. when doing development, you might want to check out the 
+file(buildscripts/set-lily.sh) script.  It sets some environment 
+variables and symlinks, which comes in handly when you have to compile 
+LilyPond more often.  
 
 sect(PREREQUISITES)
 
@@ -28,7 +29,7 @@ it() GNU C++ version 2.8 or newer (egcs-1.1 or newer is also fine).
 it() Python 1.5 (Strictly speaking, you shouldn't need Python for 
    compiling and installing, but you'll need it to regenerate the font
    tables, e.g.). 
-it() GUILE 1.3 (no, GUILE 1.2 won't work), check out lurl(http://www.gnu.org/programs/guile.html).
+it() GUILE 1.3 (no, GUILE 1.2 won't work), check out lurl(http://www.gnu.org/software/guile/guile.html).
 )
 
 sect(RUNNING)
@@ -93,9 +94,8 @@ it()The geometry package for LaTeX is needed to use ly2dvi.
 lurl(ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry)
 or at mirror site lurl(ftp://ftp.dante.de)
 
-it() A fast computer (a full page of music typically takes 1 minute on my
-    486/133, using the bf(--enable-checking) compile. It's lot slower than
-    most MusiXTeX preprocessors)
+it() A fast computer: a full page of music typically takes 1 minute on my
+    486/133, using the bf(--enable-checking) compile.
 )
 
 sect(WEBSITE)

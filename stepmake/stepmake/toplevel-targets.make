@@ -39,7 +39,4 @@ dist:
 	rm -rf $(distdir)/
 
 local-help:
-	@echo -e "\
-  dist        roll tarball: $(outdir)/$(package)-$(TOPLEVEL_VERSION).tar.gz\n"
-
 

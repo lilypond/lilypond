@@ -17,7 +17,7 @@ localpo:
 else
 po: localpo
 	$(LOOP)
-ALL_PO_SOURCES = $(ALL_C_SOURCES) $(wildcard $(outdir)/*.hh) $(wildcard $(outdir)/*.cc)
+ALL_PO_SOURCES = $(ALL_C_SOURCES) $(ALL_CC_SOURCES) $(wildcard $(outdir)/*.hh) $(wildcard $(outdir)/*.cc)
 localpo:
 ifneq ($(strip $(ALL_PO_SOURCES)),)
 	@echo $(ALL_PO_SOURCES)
@@ -31,6 +31,6 @@ endif
 po-update: po
 	$(MAKE) -C $(po-dir) po-update
 
-show-po-changes:
-	$(MAKE) -C $(po-dir) show-po-changes
+po-changes:
+	$(MAKE) -C $(po-dir) po-changes
 

@@ -1,3 +1,10 @@
+pl 16.jcn2
+	- fix: TEMPO 4., well urg, "TEMPO 4 ."
+	- beginning of violino/violoncello (viola) duet
+
+pl 16.jcn1
+	- resurrected po-stuff
+
 pl 15.uu1
 	- dynamic fix.	
 	- junked abbrev stuff from parser.

@@ -6,8 +6,11 @@ NAME = lily
 SUBDIRS = include
 # MODULE_LIBS= $(depth)/flower
 MODULE_CXXFLAGS += -D_REENTRANT
-STEPMAKE_TEMPLATES=library c++
+STEPMAKE_TEMPLATES=library c++ po
 
 include $(depth)/make/stepmake.make 
 
 
+bla:
+	echo $(ALL_C_SOURCES)
+	echo $(ALL_C_SOURCES)

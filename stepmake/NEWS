@@ -1,3 +1,8 @@
+pl 62
+	- fixed dist from subdirs
+	- junked stepmake/aclocal.m4 (again?)
+	- resurrected po stuff
+
 pl 61
 	- bf: package-diff
 
