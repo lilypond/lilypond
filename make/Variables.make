@@ -5,8 +5,10 @@
 # abstract 
 #
 # do not change this file for site-wide extensions; please use 
-# make/out/Site.make; 
-# Any change in files in this directory (make/) would be distributed.
+# make/$(OUTDIR_NAME)/Site.make; 
+#
+# Any change in files in this directory (make/) would be distributed, if 
+# you do make dist 
 #
 # Copyright (c) 1997 by    
 #   	Jan Nieuwenhuizen <jan@digicash.com>
@@ -15,23 +17,21 @@
 # toplevel version info, might be handy?
 #
 include $(depth)/VERSION
-#
+
+
 ifeq (0,${MAKELEVEL})
+
+# Don't try to outsmart us, you puny computer!
 MAKE:=$(MAKE) --no-builtin-rules
 endif
 
-# directory names:
-
-
-ifdef buildprefix
-top-directory := $(shell  cd $(depth); pwd)
-abs-sub-directory := $(shell pwd)
-relative-sub-directory := $(subst $(top-directory),,$(abs-sub-directory))
-outdir=$(buildprefix)/$(relative-sub-directory)/out/
-else
-buildprefix=$(depth)
-outdir=out
+ifndef OUTDIR_NAME
+OUTDIR_NAME=out
 endif
+
+# directory names:
+buildprefix=$(depth)
+outdir=$(OUTDIR_NAME)
 
 # derived names
 lily_bindir = $(depth)/bin
@@ -39,13 +39,13 @@ distdir = $(depth)/$(DIST_NAME)
 module-distdir = $(depth)/$(MODULE_DIST_NAME)
 depdir = $(outdir)
 
-flowerout = $(buildprefix)/flower/out
-libout = $(buildprefix)/lib/out
-lilyout = $(buildprefix)/lily/out
-mi2muout = $(buildprefix)/mi2mu/out
-makeout = $(buildprefix)/make/out
-docout = $(buildprefix)/Documentation/out
-binout = $(buildprefix)/bin/out
+flowerout = $(buildprefix)/flower/$(OUTDIR_NAME)
+libout = $(buildprefix)/lib/$(OUTDIR_NAME)
+lilyout = $(buildprefix)/lily/$(OUTDIR_NAME)
+mi2muout = $(buildprefix)/mi2mu/$(OUTDIR_NAME)
+makeout = $(buildprefix)/make/$(OUTDIR_NAME)
+docout = $(buildprefix)/Documentation/$(OUTDIR_NAME)
+binout = $(buildprefix)/bin/$(OUTDIR_NAME)
 
 doc-dir = $(depth)/Documentation
 flower-dir = $(depth)/flower
@@ -85,6 +85,7 @@ TOPLEVEL_VERSION=$(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_
 # fix naming, use TOPLEVEL_ prefix _or_ MODULE?
 MODULE_DIST_NAME = $(MODULE_NAME)-$(VERSION)
 DIST_NAME = lilypond-$(TOPLEVEL_VERSION)
+NO_DOOS_DIST = bin flower lib lily make mi2mu out
 #
 
 # list of object files:
@@ -122,8 +123,8 @@ mi2mu-version = $(mi2muout)/version.hh
 
 # custom libraries:
 #
-LIBFLOWER = $(depth)/flower/$(outdir)/$(LIB_PREFIX)flower$(LIB_SUFFIX)
-LIBLILY = $(depth)/lib/$(outdir)/$(LIB_PREFIX)lily$(LIB_SUFFIX)
+LIBFLOWER = $(flowerout)/$(LIB_PREFIX)flower$(LIB_SUFFIX)
+LIBLILY = $(libout)/$(LIB_PREFIX)lily$(LIB_SUFFIX)
 #
 
 # compile and link options:
@@ -141,7 +142,7 @@ EXTRA_CXXFLAGS= -Wall -W -Wmissing-prototypes -Wmissing-declarations -Wconversio
 CXXFLAGS = $(CFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
 INCLUDES = -Iinclude -I$(outdir) -I$(include-lib) -I$(libout) -I$(include-flower) -I$(flowerout) 
 CXX_OUTPUT_OPTION = $< -o $@
-LDFLAGS = $(ILDFLAGS) $(USER_LDFLAGS) $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) -L$(depth)/lib/out -L$(depth)/flower/out
+LDFLAGS = $(ILDFLAGS) $(USER_LDFLAGS) $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) -L$(depth)/lib/$(OUTDIR_NAME) -L$(depth)/flower/$(OUTDIR_NAME)
 LOADLIBES = $(EXTRA_LIBES) $(MODULE_LIBES) -lg++ # need lg++ for win32, really!
 #
 
@@ -180,7 +181,12 @@ DODEP=rm -f $(depfile); DEPENDENCIES_OUTPUT="$(depfile) $(outdir)/$(notdir $@)"
 
 # generic target names:
 #
+ifdef NAME
 EXECUTABLE = $(outdir)/$(NAME)$(EXE)
+else
+EXECUTABLE =
+endif
+
 EXECUTABLES = $(EXECUTABLE)
 LIB_PREFIX = lib
 
@@ -199,7 +205,7 @@ DOCDIR=$(depth)/$(outdir)
 
 # .hh should be first. Don't know why
 # take some trouble to auto ignore sources and obsolete stuff.
-progdocs=$(shell $(FIND) ./ -name '*.hh' |egrep -v 'out/') $(shell $(FIND) ./ -name '*.cc'|egrep -v 'out/')
+progdocs=$(shell $(FIND) ./ -name '*.hh' |egrep -v '$(OUTDIR_NAME)') $(shell $(FIND) ./ -name '*.cc'|egrep -v '$(OUTDIR_NAME)')
 
 
 pod2html=pod2html

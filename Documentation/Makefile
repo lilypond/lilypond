@@ -52,7 +52,6 @@ include $(depth)/make/Rules.make
 #
 
 localclean:
-	rm -f out/*
 	rm -f $(TEXTFILES) $(HTMLFILES) $(GROFFFILES)
 
 MAN1FILES = lilypond convert-mudela mi2mu mudela-book
