@@ -8,6 +8,13 @@
   (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
            Jan Nieuwenhuizen <janneke@gnu.org>
 */
+
+/*
+  Two shift/reduce problems:
+    -
+    -
+ */
+
 #include <ctype.h>
 #include <iostream.h>
 
@@ -294,10 +301,32 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <scm>	script_abbreviation
 
 
-
+/*
+  left association: must reduce
+  a - b - c = (a - b) - c
+ */
 %left '-' '+'
 %left '*' '/'
 %left UNARY_MINUS
+
+
+
+/*
+  multiplied_duration precedence
+  `* 3 / c' and `* 1 / 2' should be equal, try shift rather than
+   forced reduce, and take higher precedence than plain `*' and `/'
+
+  -- ugr, but it doesn't really work? input/no-notation/parse5.ly
+     it seems that:
+
+       %left *forces* reduce
+       %right *forces* shift
+
+     but we need (the default): *try* shift, and we can't override
+     above %left '*' '/' with `%prec default setting'?
+
+ */
+%right MUL1 MUL2 INVERSION
 
 %%
 
@@ -1584,15 +1613,32 @@ steno_duration:
 
 
 
+/*
+  Multiplied durations are always multiplied, ie,
+  c1 * INT or c1 * RAT.
+
+  No support for c1 /4 and c1 /2/2.
+
+  '*' and '/' are declared %left, with makes them reduce rather than
+  shift.
+
+  Because there are no a/b/c association problems anymore, it is
+  safe to allow '*' and '/' to shift.
+
+   * 1 / 4 shifts to match second rule: '* 1 / 4'
+
+   '/' TONIC_NAME shifts to match rule: chord_inversion
+
+ */
 multiplied_duration:
 	steno_duration {
 		$$ = $1;
 	}
-	| multiplied_duration '*' bare_unsigned {
-		$$ = unsmob_duration ($$)->compressed ( $3) .smobbed_copy ();
+	| multiplied_duration '*' bare_unsigned %prec MUL1 {
+		$$ = unsmob_duration ($$)->compressed ($3).smobbed_copy ();
 	}
-	| multiplied_duration '/' bare_unsigned {
-		$$ = unsmob_duration ($$)->compressed (Moment (1,$3)).smobbed_copy ();
+	| multiplied_duration '*' bare_unsigned '/' bare_unsigned %prec MUL2 {
+		$$ = unsmob_duration ($$)->compressed (Moment ($3, $5)).smobbed_copy ();
 	}
 	;
 
@@ -1751,7 +1797,7 @@ chord_inversion:
 	{
 		$$ = SCM_EOL;
 	}
-	| '/' steno_tonic_pitch {
+	| '/' steno_tonic_pitch %prec INVERSION {
 		$$ = $2;
 	}
 	;
