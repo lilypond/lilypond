@@ -50,14 +50,13 @@ Chord_name_engraver::do_process_requests ()
   /*
    Banter style chord names (almost).
    TODO:
-     - don't print inclusive scale (i.e. no "9" in c 9/11)
-     - handle c7 / cmaj7
-     - use #,b iso -es -is on tonica
+     - move this stuff to new Item class Chord_name
      - switch on property, add american (?) chordNameStyle
+     - jazz inversions
 
   Scalar chordNameStyle = get_property ("chordNameStyle");
-  if (chordNameStyle == "Banner")
-     chord = pitches_to_banner (pitch_arr_.size ());
+  if (chordNameStyle == "Banter")
+     chord = pitches_to_banter (pitch_arr_));
 
    */
 

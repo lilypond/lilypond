@@ -21,18 +21,8 @@ fragments of mudela in your source file, and includes the results into
 document that can be processed with LaTeX.  The result is a text
 document with formatted music integrated.
 
-Lilypond will create a directory to put temporary files, the default
-dir name is file(out). When you run mudela on a file, like this:
-
-verb(mudelab-book myfile.tex)
-
-the a file file(out/myfile.latex) will be created. And to create
-the file(.dvi) file you should type:
-
-verb(latex out/myfile.latex)
-
-This will create file(myfile.dvi) in the current directory. Bad things
-will happen if you cd to file(out) and then runs verb(latex myfile.latex)
+Lilypond will by default create all output files in directory file(out).
+The file to give to latex has ext file(.latex).
 
 bf(About the input)
 
@@ -53,16 +43,17 @@ to whatever he wants.
 code(\begin) takes the following options:
 
 description(
-dit(floating)
-    the created graphics can be inserted in the middle of a text line, 
-    not only as a separate paragraph
-dit(fragment)
-    mudela-book adds some redtape. You
-    can substitute voice-contents for CONTENTS in this case.
+dit(eps)
+    the music is created as eps graphics that can be inserted in 
+    the middle of a text line, not only as a separate paragraph
 dit(verbatim)
     CONTENTS is copied into the TeX source enclosed in a verbatim block.
 dit(11pt, 13pt, 16pt, 20pt, 26pt)
     set the fontsize to use for the music
+dit(fragment)
+dit(nonfragment)
+    Override mudela-book autodetection of what type of code is in the
+    mudela block, voice contents or complete code.
 )
 
 
@@ -70,16 +61,16 @@ manpageoptions()
 
 startdit()
 
-dit(--mudela-fontsize)
+dit(--default-mudela-fontsize=??pt)
     Set the fontsize to use for mudela if no fontsize is given
     as option.
-dit(--force-mudela-fontsize)
+dit(--force-mudela-fontsize=??pt)
     Force all mudela to use this fontsize, overriding options
     given to \begin{mudela}
-dit(--outname)
+dit(--outname=FILE)
     The name of LaTeX() file to output. If this option  is not given,
 the output name derived from the input name.
-dit(--outdir)
+dit(--outdir=DIRECTORY)
     The directory to output lilypond output and input to.
 dit(--help)
 	Print a short help message
@@ -87,12 +78,13 @@ dit(--dependencies)
         Write dependencies to outdir/filename.dep
 dit(--force-verbatim)
 	Make all mudela verbatim.
+dit(--initfile=FILE)
+        read command definitions from file(FILE)
 enddit()
 
 manpagefiles()
-  You have to install LaTeX. file(mudela-book) is not tested on LaTeX 2.09
-  and will probably fail on something else than LaTeX2e.
-
+  See file(Documentation/tex/out/mudela-book-doc.dvi) for more info.
+  You have to install LaTeX.
   file(mudela-book) is written in  python 1.5, so you have to install 
   url(python)(http://www.python.org).
 
@@ -104,7 +96,8 @@ You get trouble if you use the --force-verbatim option and have some
 music in \footnote{...} or \marginpar{...}.
 
 Ignores almost all LaTeX commands that changes margins and linewidths.
-  
+
+file(\begin{verbatim}) is ignored.
 manpageauthor()
 
 nemail(Han-Wen Nienhuys)(hanwen@cs.uu.nl), lurl(http://www.cs.uu.nl/people/hanwen)
