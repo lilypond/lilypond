@@ -26,7 +26,7 @@ praeludiumRight =  \notes {
   % 13 -- how to type -- where to split -- this more neatly?
   \context Staff <
     \context Voice = I \relative c'' { \stemup r4 dis4 e4. e8 ~ |
-      \shifton e4 [d8 fis8] \shiftoff gis4 ~ [gis8 fis16 e ] |
+      \shifton e4-.-^^\f [d8 fis8] \shiftoff gis4 ~ [gis8 fis16 e ] |
       fis4 ~ [fis8 e16 dis] e4 r8 e8 }
     \context Voice = III \relative c'' { \stemup \shifton r4 bis cis \shiftoff cis |
       a' ~ [a16 gis a b] \shifton dis,4 cis ~ |
@@ -203,7 +203,7 @@ fugaIIPedal = \notes \relative c {
      b!-\lheel ais-\rtoe gis-\ltoe ~ ] |
       gis8  r4.
     )
-      c2 
+      c2^^^-^\f 
  \time 3/4;
 
   \fugaIIPedal }

@@ -32,9 +32,10 @@
 #include "staff-symbol-referencer.hh"
 #include "cross-staff.hh"
 
-Beam::Beam ()
+Beam::Beam (SCM s)
+  : Spanner (s)
 {
-  Group_interface g (this, "stems");
+  Pointer_group_interface g (this, "stems");
   g.set_interface ();
 
   set_elt_property ("height", gh_int2scm (0)); // ugh.
@@ -44,13 +45,13 @@ Beam::Beam ()
 void
 Beam::add_stem (Stem*s)
 {
-  Group_interface gi (this, "stems");
+  Pointer_group_interface gi (this, "stems");
   gi.add_element (s);
   
   s->add_dependency (this);
 
   assert (!s->beam_l ());
-  s->set_elt_property ("beam", self_scm_);
+  s->set_elt_pointer ("beam", self_scm_);
 
   if (!get_bound (LEFT))
     set_bound (LEFT,s);
@@ -62,7 +63,7 @@ int
 Beam::get_multiplicity () const
 {
   int m = 0;
-  for (SCM s = get_elt_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_elt_pointer ("stems"); gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * sc = unsmob_element (gh_car (s));
 
@@ -422,6 +423,8 @@ Real
 Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
 {
   Real thick = gh_scm2double (get_elt_property ("beam-thickness"));
+  thick *= paper_l ()->get_var ("staffspace");
+  
   int beam_multiplicity = get_multiplicity ();
   int stem_multiplicity = (s->flag_i () - 2) >? 0;
 
@@ -603,12 +606,13 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       programming_error ("Beams are not left-to-right");
 
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
-  int   multiplicity = get_multiplicity ();
+  int multiplicity = get_multiplicity ();
 
 
   Real interbeam_f = paper_l ()->interbeam_f (multiplicity);
   Real thick = gh_scm2double (get_elt_property ("beam-thickness"));
-
+  thick *= paper_l ()->get_var ("staffspace");
+    
   Real bdy = interbeam_f;
   Real stemdx = staffline_f;
 
@@ -780,20 +784,20 @@ Beam::forced_stem_count () const
 Stem *
 Beam::stem (int i) const
 {
-  return Group_interface__extract_elements ((Beam*) this, (Stem*) 0, "stems")[i];
+  return Pointer_group_interface__extract_elements ((Beam*) this, (Stem*) 0, "stems")[i];
 }
 
 int
 Beam::stem_count () const
 {
-  Group_interface gi (this, "stems");
+  Pointer_group_interface gi (this, "stems");
   return gi.count ();
 }
 
 Stem*
 Beam::stem_top () const
 {
-  SCM s = get_elt_property ("stems");
+  SCM s = get_elt_pointer ("stems");
   
   return gh_pair_p (s) ? dynamic_cast<Stem*> (unsmob_element (gh_car (s))) : 0;
 }

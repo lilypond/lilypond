@@ -23,22 +23,23 @@
     lengthen stem if necessary
  */
 
-Stem_tremolo::Stem_tremolo ()
+Stem_tremolo::Stem_tremolo (SCM s)
+  : Item (s)
 {
-  set_elt_property ("stem", SCM_EOL);
+  set_elt_pointer ("stem", SCM_EOL);
 }
 
 
 Stem *
 Stem_tremolo::stem_l ()const
 {
-  SCM s =   get_elt_property ("stem");
+  SCM s =   get_elt_pointer ("stem");
 
   return dynamic_cast<Stem*> (  unsmob_element (s));
 }
 
 Interval
-Stem_tremolo::dim_callback (Score_element * se, Axis a)
+Stem_tremolo::dim_callback (Score_element * se, Axis )
 {
   Stem_tremolo * s = dynamic_cast<Stem_tremolo*> (se);
   Real space = Staff_symbol_referencer_interface (s->stem_l ())
@@ -68,8 +69,12 @@ Stem_tremolo::do_brew_molecule () const
     // urg
     dydx = 0.25;
 
+  Real ss = Staff_symbol_referencer_interface (stem).staff_space ();
   Real thick = gh_scm2double (get_elt_property ("beam-thickness"));
   Real width = gh_scm2double (get_elt_property ("beam-width"));
+  width *= ss;
+  thick *= ss;
+  
   Molecule a (lookup_l ()->beam (dydx, width, thick));
   a.translate (Offset (-width/2, width / 2 * dydx));
   
@@ -92,15 +97,12 @@ Stem_tremolo::do_brew_molecule () const
     }
   if (tremolo_flags)
     mol.translate_axis (-mol.extent (Y_AXIS).center (), Y_AXIS);
-
-  Real half_space = Staff_symbol_referencer_interface (stem).staff_space ()
-    / 2;
   if (beam)
     {
       // ugh, rather calc from Stem_tremolo_req
       int beams_i = stem->beam_count(RIGHT) >? stem->beam_count (LEFT);
       mol.translate (Offset(stem->relative_coordinate (0, X_AXIS) - relative_coordinate (0, X_AXIS),
-			    stem->stem_end_position () * half_space - 
+			    stem->stem_end_position () * ss / 2 - 
 			    directional_element (beam).get () * beams_i * interbeam_f));
     }
   else
@@ -108,7 +110,7 @@ Stem_tremolo::do_brew_molecule () const
       /*
 	Beams should intersect one beamthickness below stem end
       */
-      Real dy = stem->stem_end_position () * half_space;
+      Real dy = stem->stem_end_position () * ss / 2;
       dy -= mol.extent (Y_AXIS).length () / 2 *  stem->get_direction ();
 
       /*
@@ -132,7 +134,7 @@ Stem_tremolo::do_brew_molecule () const
 void
 Stem_tremolo::set_stem (Stem *s)
 {
-  set_elt_property ("stem", s->self_scm_);
+  set_elt_pointer ("stem", s->self_scm_);
   add_dependency (s);
 }
 
