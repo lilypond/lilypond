@@ -24,7 +24,7 @@ static Keyword_ent the_key_tab[]={
     "goto", GOTO,
     "in", IN_T,
     "key", KEY,
-    "mark", MARK,
+
     "meter", METER,
     "mm", MM_T,
     "multivoice", MULTIVOICE,
@@ -81,7 +81,7 @@ My_flex_lexer::My_flex_lexer()
     keytable = new Keyword_table(the_key_tab);
     the_id_tab = new Assoc<String, Identifier*>;
     defaulttab = 0;
-    data_ch_c_l_m = 0;
+    data_ch_c_l_ = 0;
     errorlevel_i_ = 0;
 }
 
@@ -103,7 +103,7 @@ My_flex_lexer::lookup_identifier(String s)
 char const*
 My_flex_lexer::here_ch_c_l()
 {
-    return data_ch_c_l_m ? data_ch_c_l_m + yyin->tellg() : 0;
+    return data_ch_c_l_ ? data_ch_c_l_ + yyin->tellg() : 0;
 }
 
 void
@@ -155,16 +155,16 @@ My_flex_lexer::new_input(String s)
    if (!include_stack.empty()) {
 	include_stack.top()->line = lineno();
 	     // should this be saved at all?
-	include_stack.top()->defined_ch_c_l_m = defined_ch_c_l;
+	include_stack.top()->defined_ch_c_l_ = defined_ch_c_l;
    }
 
    Input_file *newin = new Input_file(s);
    include_stack.push(newin);
    switch_streams(newin->is);
    if ( newin->sourcefile_l_ )
-       data_ch_c_l_m = newin->sourcefile_l_->ch_c_l();
+       data_ch_c_l_ = newin->sourcefile_l_->ch_c_l();
    else
-       data_ch_c_l_m = 0;
+       data_ch_c_l_ = 0;
 
    yylineno = 1;
 }
@@ -181,7 +181,7 @@ My_flex_lexer::close_input()
 	Input_file *i = include_stack.top();
 	switch_streams(i->is);
 	yylineno = i->line;	
-	defined_ch_c_l = i->defined_ch_c_l_m;
+	defined_ch_c_l = i->defined_ch_c_l_;
     }
     delete old;
     return ok;
