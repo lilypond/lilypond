@@ -15,6 +15,7 @@
 #include "virtual-font-metric.hh"
 #include "output-def.hh"
 #include "scaled-font-metric.hh"
+#include "ly-module.hh"
 
 MAKE_SCHEME_CALLBACK (Text_item, interpret_string, 4)
 SCM
@@ -33,7 +34,8 @@ Text_item::interpret_string (SCM paper, SCM props, SCM encoding, SCM markup)
       SCM var = ly_module_lookup (pap->scope_,
 				  ly_symbol2scm ("inputencoding"));
       if (var != SCM_BOOL_F) 
-	input_enc_name = scm_variable_ref (var);
+	encoding = scm_variable_ref (var);
+      
     }
   
   Font_metric *fm = select_encoded_font (pap, props, encoding);
