@@ -1,3 +1,11 @@
+2002-04-10  Mats Bengtsson  <matsb@s3.kth.se>
+
+        * scm/grob-description.scm (MultiMeasureRest): number-threshold=1
+        by default: avoid "1" over single bar rests.
+
+	* scripts/lilypond-book.py (LatexPaper.set_geo_option): Simplify
+	and correct the handling of geometry options.
+
 2002-04-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/include/grob-interface.hh (ADD_INTERFACE): make
@@ -10,7 +18,8 @@
 
 	* lily/beam.cc: remove end_after_line_breaking().
 
-	* lily/grob.cc (calculate_dependencies): remove list support for callbacks.
+	* lily/grob.cc (calculate_dependencies): remove list support for
+	callbacks.
 
 	* lily/font-size-engraver.cc: only do font-interface.
 
@@ -78,7 +87,7 @@
 	* Documentation/windows/gsview-profile.sh: Remove.  Functionality
 	moved to gs/gsview windows packages.
 
-2002-04-06  Mats Bengtsson  <matsb@matsb@s3.kth.se>
+2002-04-06  Mats Bengtsson  <matsb@s3.kth.se>
 
 	* lily/stem-engraver.cc (acknowledge_grob): Revert to old way of
 	finding out the duration. Fixes chord tremolo bug. 
@@ -1018,7 +1027,7 @@
 	* lily/system-start-delimiter.cc (after_line_breaking): Bugfix:
 	glyph is string.
 
-2002-02-28  Mats Bengtsson  <matsb@matsb@s3.kth.se>
+2002-02-28  Mats Bengtsson  <matsb@s3.kth.se>
 
 	* scm/tex.scm, scm/ps.scm (or): Bugfix, ps output with Guile 3.4
 
@@ -1392,7 +1401,7 @@
 	* scm/font.scm (make-style-sheet): Fixes to make staff-sizes work
 	again.
 
-2001-12-22  Mats Bengtsson  <matsb@matsb@s3.kth.se>
+2001-12-22  Mats Bengtsson  <matsb@s3.kth.se>
 
 	* tex/lilyponddefs.tex: Make sure interscorelinefill=1 doesn't
 	spread the last few lines all over the last page of a score.

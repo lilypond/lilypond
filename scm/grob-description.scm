@@ -429,7 +429,7 @@
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(staff-position . 0)
 	(expand-limit . 10)
-	(number-threshold . 0)
+	(number-threshold . 1)
 	(padding . 1)
 	(thickness . 6.6)
 	(font-family . number)
