@@ -20,7 +20,6 @@ In musicmode, eg,
 
 	''!c8.-"text"_v
 
-
 a lot of characters parse differently
 than in "command" mode, eg,
 
@@ -47,14 +46,14 @@ not really crystallized; you can use '#' or '%' as line comment
 OTHER
 
 A correctly parsed .ly does not guarantuee output. A lot (most) of the
-checking is done *after* parsing (some checks are after the break calc!)
-I'm sorry.
+checking is done *after* parsing (some checks even are done after the
+break calc!);  I'm sorry.
 
 The parser's job is to construct appropriate objects. It will *only*
 detect parse errors.
 
 LilyPond first reads 'symbol.ini', which contains declarations crucial
-to proper operation of LilyPond (symbol tables)
+to proper operation of LilyPond (symbol tables, note names)
 
 This language looks a lot like Rayce's which in turn owes a lot to the
 POVRay raytracer. Now, I know, musictypesetting and Raytracing do not
