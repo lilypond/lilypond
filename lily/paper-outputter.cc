@@ -66,6 +66,8 @@ Paper_outputter::Paper_outputter (String name)
 	"ly:output-def-scope",
 	"ly:gulp-file",
 	"ly:number->string",
+	"ly:ragged-page-breaks",
+	"ly:optimal-page-breaks",
 	
 	"ly:number-pair->string",    /* output-lib.scm */
 	"ly:numbers->string",
@@ -74,6 +76,7 @@ Paper_outputter::Paper_outputter (String name)
 	"assoc-get",
 #if IMPORT_LESS	
 	"string-index",              /* from srfi srfi-13 */
+	"string-join",
 	"regexp-substitute/global",  /* from (ice9 regex) */
 #endif	
 	0,
