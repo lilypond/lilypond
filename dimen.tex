@@ -1,5 +1,7 @@
 \font\musicfnt=musix20
-\def\mb#1{{\musicfnt\musicfnt\char#1}}
+%\def\mb#1{{\musicfnt\musicfnt\char#1}}
+\font\slurfont=xslhz20
+\def\mb#1{{\musicfnt\slurfont\char#1}}
 \newdimen\wid
 \newdimen\inc
 \newdimen\here
@@ -13,6 +15,7 @@
 		\hbox to0pt{\kern\here\vrule width0.05pt height 2pt\hss}%
 	\repeat%
 }
+
 \def\vruler#1{%
 	\wid=#1pt
 	\inc=\wid
