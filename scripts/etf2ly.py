@@ -559,7 +559,7 @@ class Staff:
 
 					str = string.join (map (lambda x: '(volta %s)' % x, strs))
 					
-					e = e + ' \\property Score.repeatCommands =  #\'(%s) ' % str
+					e = e + ' \\set Score.repeatCommands =  #\'(%s) ' % str
 
 				if g.force_break:
 					e = e + ' \\break '  

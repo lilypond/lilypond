@@ -18,6 +18,11 @@
 #include "note-head.hh"
 #include "accidental-placement.hh"
 
+/*
+  TODO: figure out if we can prune this class. This is just an
+  annoying layer between (rest)collision & (note-head + stem)
+ */
+
 bool
 Note_column::has_rests (Grob*me) 
 {
@@ -82,31 +87,48 @@ Note_column::set_stem (Grob*me,Grob * stem)
   Axis_group_interface::add_element (me, stem);
 }
 
+
+Grob*
+Note_column::get_rest (Grob*me)
+{
+  return unsmob_grob (me->get_grob_property ("rest"));
+}
+  
 void
 Note_column::add_head (Grob*me,Grob *h)
 {
+  bool both = false;
   if (Rest::has_interface (h))
     {
-      me->set_grob_property ("rest", h->self_scm ());
+      if (gh_pair_p (me->get_grob_property ("note-heads")))
+	both = true;
+      else
+	me->set_grob_property ("rest", h->self_scm ());
     }
   else if (Note_head::has_interface (h))
     {
+      if (unsmob_grob (me->get_grob_property ("rest")))
+	both = true;
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-heads"),h);
     }
-  Axis_group_interface::add_element (me, h);
+
+  if (both)
+    me->warning ("Can't have rests and note heads together on a stem.");
+  else
+    Axis_group_interface::add_element (me, h);
 }
 
 /**
-  translate the rest symbols vertically by amount DY_I, but only if
+  translate the rest symbols vertically by amount DY, but only if
   they have no staff-position set.
 */
 void
-Note_column::translate_rests (Grob*me,int dy_i)
+Note_column::translate_rests (Grob*me, int dy)
 {
   Grob * r = unsmob_grob (me->get_grob_property ("rest"));
   if (r && !gh_number_p (r->get_grob_property ("staff-position")))
     {
-      r->translate_axis (dy_i * Staff_symbol_referencer::staff_space (r)/2.0, Y_AXIS);
+      r->translate_axis (dy * Staff_symbol_referencer::staff_space (r)/2.0, Y_AXIS);
     }
 }
 

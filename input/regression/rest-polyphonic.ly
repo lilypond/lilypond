@@ -14,5 +14,5 @@ staff-spaces. "
      << { r8 g''4 g8 r g4 g8 } \\
             { d,4    r   d   r   } >>
   }
-
+  \paper { raggedright = ##t }
 }

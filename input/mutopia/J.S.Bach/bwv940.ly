@@ -116,11 +116,7 @@ four = \notes\relative c{
 	a gis ~ gis16 gis fis e 
 	\skip 4*1
 	\change Staff=lower \stemDown
-<<<<<<< bwv940.ly
-	\override NoteColumn  #'horizontal-shift = #0
-=======
 	\override NoteColumn   #'horizontal-shift = #0
->>>>>>> 1.7
 	\stemUp\tieUp
 	b2 a |
 	g a4. gis16 a |

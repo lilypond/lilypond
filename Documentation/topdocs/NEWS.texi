@@ -22,6 +22,8 @@ Version 2.1.13
 the following table lists the differences:
 
 @example
+      (old)                           (new)
+
 \property A.B = #C                \set A.B = #C
 \property A.B \unset              \unset A.B
 \property A.B \set #C = #D        \override A.B #C = #D 

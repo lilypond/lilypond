@@ -13,6 +13,7 @@
 #include "dots.hh"
 #include "paper-score.hh"
 #include "staff-symbol-referencer.hh"
+#include "directional-element-interface.hh"
 
 // -> offset callback
 MAKE_SCHEME_CALLBACK (Rest,after_line_breaking,1);
@@ -159,7 +160,17 @@ Rest::extent_callback (SCM smob, SCM ax)
   return ly_interval2scm (unsmob_stencil (m)->extent (a));
 }
 
-
+MAKE_SCHEME_CALLBACK (Rest,polyphonic_offset_callback,2);
+SCM
+Rest::polyphonic_offset_callback (SCM smob, SCM)
+{
+  Grob* me = unsmob_grob (smob);
+  Direction d = get_grob_direction (me);
+  Real off = 2* d ;
+  if(off)
+    off *= Staff_symbol_referencer::staff_space (me);
+  return gh_double2scm (off);
+}
 
 ADD_INTERFACE (Rest,"rest-interface",
   "a rest",

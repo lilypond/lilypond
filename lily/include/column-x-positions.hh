@@ -18,7 +18,7 @@ struct Column_x_positions
   
   Array<Real> config_;
   Real force_;
-  bool satisfies_constraints_b_;
+  bool satisfies_constraints_;
 
   Column_x_positions ();
 };
