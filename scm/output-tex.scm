@@ -13,8 +13,7 @@
 
 (define-module (scm output-tex)
   #:re-export (quote)
-  #:export (font-command
-	     unknown
+  #:export (unknown
 	     blank
 	     dot
 	     beam
@@ -45,6 +44,7 @@
 	     (ice-9 format)
 	     (guile)
 	     (srfi srfi-13)
+	     (scm framework-tex)
 	     (lily))
 
 ;;;;;;;;
@@ -52,35 +52,10 @@
 ;;;;;;;;
 
 
-(define (font-command font)
-  (string-append
-   "magfont"
-   (string-encode-integer
-    (hashq (ly:font-filename font) 1000000))
-   "m"
-   (string-encode-integer
-    (inexact->exact (round (* 1000 (ly:font-magnification font)))))))
-
 
 (define (unknown) 
   "%\n\\unknown\n")
 
-(define-public (symbol->tex-key sym)
-  (regexp-substitute/global
-   #f "_" (sanitize-tex-string (symbol->string sym)) 'pre "X" 'post) )
-
-(define (string->param string)
-  (string-append "{" string "}"))
-
-(define (number->param number)
-  (string->param (ly:number->string number)))
-
-(define (number-pair->param o)
-  (string-append (number->param (car o)) (number->param (cdr o))))
-
-(define-public (tex-number-def prefix key number)
-  (string-append
-   "\\def\\" prefix (symbol->tex-key key) (string->param number) "%\n"))
 
 
 (define (blank)
@@ -99,7 +74,7 @@
   (embedded-ps (list 'dashed-slur thick dash `(quote ,l))))
 
 (define (char font i)
-  (string-append "\\" (font-command font)
+  (string-append "\\" (tex-font-command font)
 		 "\\char" (ly:inexact->string i 10) " "))
 
 (define (dashed-line thick on off dx dy)
@@ -111,16 +86,6 @@
 (define (symmetric-x-triangle t w h)
   (embedded-ps (list 'symmetric-x-triangle t w h)))
 
-(define-public (font-load-command bookpaper font)
-  (string-append
-   "\\font\\" (font-command font) "="
-   (ly:font-filename font)
-   " scaled "
-   (ly:number->string (inexact->exact
-		       (round (* 1000
-			  (ly:font-magnification font)
-			  (ly:bookpaper-outputscale bookpaper)))))
-   "\n"))
 
 (define (ez-ball c l b)
   (embedded-ps (list 'ez-ball  c  l b)))
@@ -149,23 +114,6 @@
   (embedded-ps (list 'repeat-slash  w a t)))
 
 
-(define-public (sanitize-tex-string s) ;; todo: rename
-   (if (ly:get-option 'safe)
-      (regexp-substitute/global #f "\\\\"
-				(regexp-substitute/global #f "([{}])" "bla{}" 'pre  "\\" 1 'post )
-				'pre "$\\backslash$" 'post)
-      
-      s))
-
-(define (lily-def key val)
-  (let ((tex-key
-	 (regexp-substitute/global
-	      #f "_" (sanitize-tex-string key) 'pre "X" 'post))
-	 
-	(tex-val (sanitize-tex-string val)))
-    (if (equal? (sans-surrounding-whitespace tex-val) "")
-	(string-append "\\let\\" tex-key "\\undefined\n")
-	(string-append "\\def\\" tex-key "{" tex-val "}%\n"))))
 
 (define (number->dim x)
   (string-append
@@ -174,7 +122,7 @@
 
 (define (placebox x y s) 
   (string-append
-   "\\lyitem" (number->param x) (number->param y) (string->param s) "%\n"))
+   "\\lyitem{" (ly:number->string x) "}{" (ly:number->string y) "}{" s "}%\n"))
 
 (define (bezier-sandwich l thick)
   (embedded-ps (list 'bezier-sandwich  `(quote ,l) thick)))
@@ -209,7 +157,7 @@
        (input-enc-name #f) ;; (assoc-get 'input-name (ly:font-encoding-alist font) ))
        )
 
-    (string-append "\\hbox{\\" (font-command font)
+    (string-append "\\hbox{\\" (tex-font-command font)
 		   (if (string? input-enc-name)
 		       (string-append "\\inputencoding{" input-enc-name "}")
 		       "{}")

@@ -12,8 +12,34 @@
 	     (guile)
 	     (srfi srfi-1)
 	     (srfi srfi-13)
-	     (scm output-ps)
 	     (lily))
+
+(define-public (ps-font-command font . override-coding)
+  (let* ((name (ly:font-filename font))
+	 (magnify (ly:font-magnification font))
+	 (coding-alist (ly:font-encoding-alist font))
+	 (input-encoding (assoc-get 'input-name coding-alist))
+	 (font-encoding (assoc-get 'output-name coding-alist))
+	 (coding-command (if (null? override-coding)
+			     (if (equal? input-encoding font-encoding)
+				 #f font-encoding)
+			     (car override-coding))))
+
+    ;; FIXME:  now feta stuff has feta* input-encoding (again?)
+    ;;(format (current-error-port) "FONT: ~S, ~S\n" name font-encoding)
+    ;;(format (current-error-port) "INPUT: ~S\n" input-encoding)
+    (if (and coding-command
+	     (or
+	      (equal? (substring coding-command 0 4) "feta")
+	      (equal? (substring coding-command 0 8) "parmesan")
+
+	     ))
+	(set! coding-command #f))
+
+    (string-append
+     "magfont" (string-encode-integer (hashq  name 1000000))
+     "m" (string-encode-integer (inexact->exact (round (* 1000 magnify))))
+     (if (not coding-command) "" (string-append "e" coding-command)))))
 
 (define (tex-font? fontname)
   (equal? (substring fontname 0 2) "cm"))
