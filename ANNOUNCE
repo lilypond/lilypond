@@ -1,0 +1,115 @@
+
+CALL FOR HACKERS: LilyPond, the Music Typesetter
+
+[Sorry if this is a bit off-topic; I want to announce this software to
+small crowd, because it is still test-stage]
+
+Hi net!
+
+this is to announce the availability of the first public release
+(v0.1) of my music typesetter.
+
+WHAT IS LILYPOND
+
+Technically it is a preprocessor which generates TeX
+(or LaTeX) output which contains information to typeset a musical
+score. Practically it is a typesetter, which only uses TeX as an
+output medium. (this is handy because there exist music fonts for TeX)
+
+HOW DOES IT WORK
+
+The input is a script file (example appended) which is read. The
+script file is a "music definition", ie, you type the melody as if it
+is read out loud
+
+LilyPond interprets this melody and generates appropriate output items
+(balls, stems, beams), and calculates where they should be put. Then
+it outputs a TeX file. Warning: this said calculations is *slow* (a full
+page of music typically takes 1 minute on my 486/66)
+
+WHY IS THIS A TEST VERSION
+
+There a lot of advanced features (grace notes, piano staffs) which are
+VapourFeatures (tm). We're not sure about the language. It may change;
+having a large user base is a burden then.
+
+WHY A CALL FOR HACKERS
+
+Currently, the development has three people. I'd this project to have
+more people working on it (there is a lot of work to be done) I think
+this program is pretty original, so join in if you anything about
+music and computers!
+
+As an aside, I really like the anarchist approach of linux development.
+
+WHAT HAS TO BE DONE
+
+LilyPond is written in Gnu C++, and it is (imo) written very cleanly
+(Lots of classes, lots of comments, small files/small functions) and
+with extensions in mind.
+
+	- Coding. For this time, there won't any biggish (global)
+source hackings. There are a lot of small projects which could use
+some work.
+
+	- Some TeX hacking. I know little about TeX
+
+	- Documentation. I don't have time for this
+
+I WANT MORE INFO!
+
+You can download it at:
+
+	ftp://pcnov095.win.tue.nl/pub/lilypond
+
+or visit the incredibly lousy webpage at:
+
+	http://www.stack.nl/~hanwen/lilypond/index.html
+
+
+EXAMPLE INPUT
+
+	% twinkle twinkle little star
+	melody = music {
+		$\clef\violin
+		c c | g g | a a | g g |
+		f f | e e | d d8.( e16 | )c2 |
+
+		g g | f f | e e | d d |
+		g g | f f | e( e8. f16 | e )d |
+
+		c c | g g | a a | g g |
+		f f | e e | d d8.( e16 | )c2 
+		$
+	}
+
+	text2 = music {
+		@
+		\textstyle "roman"
+		When the bla- zing sun is gone,2
+		When he no- thing shines up- on,2
+		Then you show your lit- tle light,2
+		Twin- kle, twin- kle, all the night.2
+		Twin- kle, twin- kle, lit- tle star,2
+		How I won- der what you are!2
+		@
+	}
+
+	english_staf = staff {
+		lyric 
+		music { text2 }
+	}
+
+	score {
+		staff { melodic music { melody }  }
+		staff { english_staf }
+		paper {
+			unitspace 2.5cm
+		}
+		commands {
+			meter {2 * 4}
+			skip 24*2
+			bar "||"
+		}
+	}
+

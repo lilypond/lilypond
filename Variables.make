@@ -1,9 +1,9 @@
-# -*-make-*-
+# -*-Makefile-*-
 
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=31
+PATCHLEVEL=32
 
 
 
@@ -66,12 +66,13 @@ include Sources.make
 gencc=parser.cc lexer.cc
 cc=$(mycc) $(gencc)
 
+MY_CCSOURCE=$(addprefix $(CCDIR)/, $(mycc))
 CCSOURCE=$(addprefix $(CCDIR)/, $(cc))
 obs=$(addprefix $(OBJECTDIR)/,$(cc:.cc=.o)) 
 ALLDEPS=$(addprefix $(DEPDIR)/,$(cc:.cc=.dep))
 STABLEOBS=$(addprefix $(OBJECTDIR)/,$(stablecc:.cc=.o)) 
 HEADERS=$(addprefix $(HEADERDIR)/,$(hdr)) 
-progdocs=$(HEADERS) #$(CCSOURCE)
+progdocs=$(HEADERS) $(MY_CCSOURCE)
 
 #dist
 .EXPORT_ALL_VARIABLES:
@@ -86,7 +87,7 @@ othersrc=lexer.l parser.y
 SCRIPTS=make_version make_patch genheader clearlily
 MAKFILES=Makefile Variables.make Sources.make Initial.make Generate.make \
 	configure
-OFILES=COPYING README NEWS TODO
+OFILES=COPYING README NEWS TODO ANNOUNCE
 IFILES=  titledefs.tex lilyponddefs.tex \
 	ltest.tex test.tex .dstreamrc dimen.tex 
 DFILES=$(MAKFILES) $(OFILES) $(IFILES) $(SCRIPTS)
@@ -107,6 +108,8 @@ SUBDIRS=Documentation $(OBJECTDIR) $(CCDIR) $(HEADERDIR) $(INITDIR) $(DEPDIR) \
 depfile=deps/$(subst .o,.dep,$(notdir $@)) 
 DODEP=rm -f $(depfile); DEPENDENCIES_OUTPUT="$(depfile) $(OBJECTDIR)/$(notdir $@)"
 
-STRIPDEBUG=true # replace to do stripping of certain objects
+STRIPDEBUG=true #replace to do stripping of certain objects
+LINKER=$(CXX)
+
 
 include Site.make
