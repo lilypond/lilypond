@@ -227,7 +227,7 @@ Rhythmic_grouping::print()const
 }
 
 bool
-Rhythmic_grouping::child_fit_query(Moment start)
+Rhythmic_grouping::child_fit_b(Moment start)
 {
     if (children.size())
 	return ( children.top()->interval().right== start);
@@ -240,7 +240,7 @@ Rhythmic_grouping::add_child(Moment start, Moment len)
 {
     Moment stop = start+len;
 
-    assert(child_fit_query(start));
+    assert(child_fit_b(start));
     children.push(new Rhythmic_grouping(MInterval(start, stop)));
 }
 

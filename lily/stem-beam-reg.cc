@@ -40,7 +40,7 @@ Stem_beam_register::try_request(Request*req_l)
     }
     
     if ( req_l->stem() ) {
-	if (current_grouping && !current_grouping->child_fit_query(
+	if (current_grouping && !current_grouping->child_fit_b(
 	    get_staff_info().time_C_->whole_in_measure_))
 	    return false;
 
