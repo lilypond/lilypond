@@ -1,6 +1,6 @@
 depth = ../..
 
-examples=sondag-morgen
+examples=
 LOCALSTEPMAKE_TEMPLATES=ly mutopia
 
 include $(depth)/make/stepmake.make

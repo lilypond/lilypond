@@ -1135,6 +1135,8 @@ def get_bbox (filename):
 
 def make_pixmap (name):
 	bbox = get_bbox (name + '.eps')
+
+
 	margin = 0
 	fo = open (name + '.trans.eps' , 'w')
 	fo.write ('%d %d translate\n' % (-bbox[0]+margin, -bbox[1]+margin))
@@ -1144,6 +1146,10 @@ def make_pixmap (name):
 
 	x = (2* margin + bbox[2] - bbox[0]) * res / 72.
 	y = (2* margin + bbox[3] - bbox[1]) * res / 72.
+	if x == 0:
+		x = 1
+	if y == 0:
+		y = 1
 
 	cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c quit '''
 
@@ -1284,7 +1290,6 @@ def option_help_str (o):
 		arg = arg + o[0]
 	return '  ' + sh + sep + long + arg
 
-
 def options_help_str (opts):
 	"Convert a list of options into a neatly formatted string"
 	w = 0
@@ -1310,7 +1315,6 @@ Options:
 	sys.stdout.write (options_help_str (option_definitions))
 	sys.stdout.write (r'''
 Warning: All output is written in the CURRENT directory.
-
 
 
 Report bugs to bug-lilypond@gnu.org.

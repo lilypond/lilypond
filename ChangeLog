@@ -1,3 +1,7 @@
+2002-09-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond-book.py (make_pixmap): don't produce empty pages.
+
 2002-09-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/translator-property-description.scm (voltaOnThisStaff): add
@@ -154,6 +158,8 @@
 
 2002-09-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.6.4 released
+	
 	* scm/tex.scm (header-end): enclose lily output in begingroup/endgroup.
 
 	* tex/lilyponddefs.tex: set hsize for plain tex, but only for
