@@ -14,7 +14,9 @@
   -* shorter! (now +- 1000 lines)
   
   -* less hairy code
-  
+
+  -* Remove #'direction from beam. The beam has no direction per se.
+  It may only set directions for stems.
   */
 
 

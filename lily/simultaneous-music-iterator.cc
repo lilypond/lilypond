@@ -49,9 +49,8 @@ void
 Simultaneous_music_iterator::construct_children ()
 {
   int j = 0;
-  Music_sequence const *sim = dynamic_cast<Music_sequence const*> (music_l ());
 
-  SCM i = sim->music_list ();
+  SCM i = music_l ()->get_mus_property ("elements");
   for (; gh_pair_p (i); i = ly_cdr (i), j++)
     {
       Music *mus = unsmob_music (ly_car (i));

@@ -157,6 +157,15 @@ Porrectus::brew_molecule (SCM smob)
 {
   Item *me = (Item *)unsmob_grob (smob);
 
+  Item *left_head = get_left_head (me);
+  Item *right_head = get_right_head (me);
+  if (!left_head || !right_head)
+    {
+      warning (_ ("junking lonely porrectus"));
+      me->suicide ();
+      return SCM_EOL;
+    }
+
   SCM scm_style = me->get_grob_property ("style");
   String style;
   if ((gh_symbol_p (scm_style)) && (scm_style != SCM_EOL))
@@ -175,13 +184,45 @@ Porrectus::brew_molecule (SCM smob)
   if (!stem_direction)
     stem_direction = DOWN;
 
-  Item *left_head = get_left_head (me);
-  Item *right_head = get_right_head (me);
-  if (!left_head || !right_head)
+  bool auto_properties = to_boolean (me->get_grob_property ("auto-properties"));
+  if (auto_properties)
+      // determine add_stem and stem_direction automatically from durations
     {
-      warning (_ ("junking lonely porrectus"));
-      me->suicide ();
-      return SCM_EOL;
+      if (String::compare_i (style, "mensural") != 0)
+	warning (String("auto-property should be used for\r\n") +
+		 String("mensural style porrectus only; trying anyway"));
+
+      int left_duration =
+	  gh_scm2int (left_head->get_grob_property ("duration-log"));
+      int right_duration =
+	  gh_scm2int (right_head->get_grob_property ("duration-log"));
+
+      if ((left_duration == -1) && (right_duration == -1))
+        {
+	  // brevis -- brevis:
+	  // cum proprietate et sine perfectione (c.s.)
+	  add_stem = true;
+	  stem_direction = DOWN;
+	}
+      else if ((left_duration == -2) && (right_duration == -1))
+        {
+	  // longa -- brevis:
+	  // sine proprietate et sine perfectione (s.s.)
+	  add_stem = false;
+	}
+      else if ((left_duration == 0) && (right_duration == 0))
+        {
+	  // semibrevis -- semibrevis:
+	  // cum opposita proprietate (c.o.p.)
+	  add_stem = true;
+	  stem_direction = UP;
+	}
+      else
+        {
+	  warning (String("auto-property: failed determining porrectus\r\n") +
+		   String("properties due to improper durations; ") +
+		   String("using user-supplied properties"));
+	}
     }
 
   Real left_position_f = Staff_symbol_referencer::position_f (left_head);
@@ -255,27 +296,32 @@ Porrectus::brew_vaticana_molecule (Item *me,
 				   bool add_stem,
 				   Direction stem_direction)
 {
-  Real space = Staff_symbol_referencer::staff_space (me);
-  Molecule molecule = Molecule ();
-
   if (interval >= 0.0)
     {
       warning (_ ("ascending vaticana style porrectus"));
     }
+
+  Real space = Staff_symbol_referencer::staff_space (me);
+  Molecule molecule = Molecule ();
+  Real right_height = 0.6 * space;
+
+  // Compensate thickness that appears to be smaller in steep section
+  // of bend.
+  Real left_height = right_height + min (0.12 * abs(interval), 0.3) * space;
 
   if (add_stem)
     {
       bool consider_interval =
 	stem_direction * interval > 0.0;
 
-      Interval stem_box_x (-thickness/2, +thickness/2);
+      Interval stem_box_x (0, thickness);
       Interval stem_box_y;
 
       if (consider_interval)
-        {
-	  Real y_length = interval / 2.0;
-	  if (y_length < 1.2 * space)
-	    y_length = 1.2 * space;
+	{
+	  Real y_length = max (abs(interval)/2.0*space +
+			       (right_height-left_height),
+			       1.2*space);
 	  stem_box_y = Interval (0, y_length);
 	}
       else
@@ -283,8 +329,8 @@ Porrectus::brew_vaticana_molecule (Item *me,
 
       Real y_correction =
 	(stem_direction == UP) ?
-	0.3 * space :
-	- 0.3 * space - stem_box_y.length();
+	+0.5*left_height :
+	-0.5*left_height - stem_box_y.length();
 
       Box stem_box (stem_box_x, stem_box_y);
       Molecule stem = Lookup::filledbox (stem_box);
@@ -292,36 +338,66 @@ Porrectus::brew_vaticana_molecule (Item *me,
       molecule.add_molecule(stem);
     }
 
-  Box vertical_edge (Interval (-thickness/2, +thickness/2),
-		     Interval (-4*thickness/2, +4*thickness/2));
-  Molecule left_edge = Lookup::filledbox (vertical_edge);
-  Molecule right_edge = Lookup::filledbox (vertical_edge);
-  right_edge.translate_axis (width, X_AXIS);
-  right_edge.translate_axis (interval / 2.0, Y_AXIS);
-  molecule.add_molecule(left_edge);
-  molecule.add_molecule(right_edge);
+  // Compensate optical illusion regarding vertical position of left
+  // and right endings due to curved shape.
+  Real ypos_correction = -0.1*space * sign(interval);
+  Real interval_correction = 0.2*space * sign(interval);
+  Real corrected_interval = interval*space + interval_correction;
 
-  Bezier bezier;
-  bezier.control_[0] = Offset (0.00 * width, 0.0);
-  bezier.control_[1] = Offset (0.33 * width, interval / 2.0);
-  bezier.control_[2] = Offset (0.66 * width, interval / 2.0);
-  bezier.control_[3] = Offset (1.00 * width, interval / 2.0);
+  // middle curve of vaticana style porrectus
+  Bezier curve;
+  curve.control_[0] = Offset (0.00 * width, 0.0);
+  curve.control_[1] = Offset (0.33 * width, corrected_interval / 2.0);
+  curve.control_[2] = Offset (0.66 * width, corrected_interval / 2.0);
+  curve.control_[3] = Offset (1.00 * width, corrected_interval / 2.0);
 
-  Molecule slice;
-  slice = Lookup::slur (bezier, 0.0, thickness);
-  slice.translate_axis (-3 * thickness/2, Y_AXIS);
-  molecule.add_molecule (slice);
+  Bezier top_curve = curve, bottom_curve = curve;
+  for (int i = 0; i < 4; i++)
+    {
+      Real thickness = 0.33 * ((3 - i)*left_height + i*right_height);
+      top_curve.control_[i] += Offset (0, +0.5*thickness);
+      bottom_curve.control_[i] += Offset (0, -0.5*thickness);
+    }
+
   if (solid)
-    for (int i = -2; i < +2; i++)
-      {
-	slice = Lookup::slur (bezier, 0.0, thickness);
-	slice.translate_axis (i * thickness/2, Y_AXIS);
-	molecule.add_molecule (slice);
-      }
-  slice = Lookup::slur (bezier, 0.0, thickness);
-  slice.translate_axis (+3 * thickness/2, Y_AXIS);
-  molecule.add_molecule (slice);
+    {
+      Molecule solid_head =
+	brew_bezier_sandwich (top_curve, bottom_curve);
+      molecule.add_molecule (solid_head);
+    }
+  else // outline
+    {
+      Bezier inner_top_curve = top_curve;
+      inner_top_curve.translate (Offset (0.0, -thickness));
+      Molecule top_edge =
+	brew_bezier_sandwich (top_curve, inner_top_curve);
+      molecule.add_molecule(top_edge);
 
+      Bezier inner_bottom_curve = bottom_curve;
+      inner_bottom_curve.translate (Offset (0.0, +thickness));
+      Molecule bottom_edge =
+	brew_bezier_sandwich (bottom_curve, inner_bottom_curve);
+      molecule.add_molecule(bottom_edge);
+
+      // TODO: Use horizontal slope with proper slope value rather
+      // than filled box for left edge, since the filled box stands
+      // out from the porrectus shape if the interval is big and the
+      // line thickness small.  The difficulty here is to compute a
+      // proper slope value, as it should roughly be equal with the
+      // slope of the left end of the bezier curve.
+      Box left_edge_box (Interval (0, thickness),
+			 Interval (-0.5*left_height, +0.5*left_height));
+      Molecule left_edge = Lookup::filledbox (left_edge_box);
+      molecule.add_molecule(left_edge);
+
+      Box right_edge_box (Interval (-thickness, 0),
+			  Interval (-0.5*right_height, +0.5*right_height));
+      Molecule right_edge = Lookup::filledbox (right_edge_box);
+      right_edge.translate_axis (width, X_AXIS);
+      right_edge.translate_axis (corrected_interval / 2.0, Y_AXIS);
+      molecule.add_molecule(right_edge);
+    }
+  molecule.translate_axis (ypos_correction, Y_AXIS);
   return molecule;
 }
 
@@ -335,13 +411,11 @@ Porrectus::brew_mensural_molecule (Item *me,
 				   Direction stem_direction)
 {
   Real space = Staff_symbol_referencer::staff_space (me);
+  Real height = 0.6 * space;
   Molecule molecule = Molecule ();
 
   if (add_stem)
     {
-      // Uugh.  This is currently the same as in
-      // brew_vaticana_molecule, but may eventually be changed.
-
       bool consider_interval =
 	stem_direction * interval > 0.0;
 
@@ -350,9 +424,7 @@ Porrectus::brew_mensural_molecule (Item *me,
 
       if (consider_interval)
         {
-	  Real y_length = interval / 2.0;
-	  if (y_length < 1.2 * space)
-	    y_length = 1.2 * space;
+	  Real y_length = max (interval/2.0*space, 1.2*space);
 	  stem_box_y = Interval (0, y_length);
 	}
       else
@@ -360,8 +432,8 @@ Porrectus::brew_mensural_molecule (Item *me,
 
       Real y_correction =
 	(stem_direction == UP) ?
-	0.3 * space :
-	- 0.3 * space - stem_box_y.length();
+	+0.5*height :
+	-0.5*height - stem_box_y.length();
 
       Box stem_box (stem_box_x, stem_box_y);
       Molecule stem = Lookup::filledbox (stem_box);
@@ -369,7 +441,7 @@ Porrectus::brew_mensural_molecule (Item *me,
       molecule.add_molecule(stem);
     }
 
-  Real slope = (interval / 2.0) / width;
+  Real slope = (interval / 2.0 * space) / width;
 
   // Compensate optical illusion regarding vertical position of left
   // and right endings due to slope.
@@ -380,29 +452,29 @@ Porrectus::brew_mensural_molecule (Item *me,
   if (solid)
     {
       Molecule solid_head =
-	brew_horizontal_slope (width, corrected_slope, 0.6*space);
+	brew_horizontal_slope (width, corrected_slope, height);
       molecule.add_molecule (solid_head);
     }
-  else
+  else // outline
     {
       Molecule left_edge =
-	  brew_horizontal_slope (thickness, corrected_slope, 0.6*space);
+	  brew_horizontal_slope (thickness, corrected_slope, height);
       molecule.add_molecule(left_edge);
 
       Molecule right_edge =
-	  brew_horizontal_slope (thickness, corrected_slope, 0.6*space);
+	  brew_horizontal_slope (thickness, corrected_slope, height);
       right_edge.translate_axis (width-thickness, X_AXIS);
       right_edge.translate_axis (corrected_slope * (width-thickness), Y_AXIS);
       molecule.add_molecule(right_edge);
 
       Molecule bottom_edge =
 	  brew_horizontal_slope (width, corrected_slope, thickness);
-      bottom_edge.translate_axis (-0.3*space, Y_AXIS);
+      bottom_edge.translate_axis (-0.5*height, Y_AXIS);
       molecule.add_molecule (bottom_edge);
 
       Molecule top_edge =
 	  brew_horizontal_slope (width, corrected_slope, thickness);
-      top_edge.translate_axis (+0.3*space, Y_AXIS);
+      top_edge.translate_axis (+0.5*height, Y_AXIS);
       molecule.add_molecule (top_edge);
     }
   molecule.translate_axis (ypos_correction, Y_AXIS);
@@ -410,11 +482,65 @@ Porrectus::brew_mensural_molecule (Item *me,
 }
 
 /*
+ * Bezier Sandwich:
+ *
+ *                               .|
+ *                        .       |
+ *              top .             |
+ *              . curve           |
+ *          .                     |
+ *       .                        |
+ *     .                          |
+ *    |                           |
+ *    |                          .|
+ *    |                     .
+ *    |         bottom .
+ *    |            . curve
+ *    |         .
+ *    |      .
+ *    |   .
+ *    | .
+ *    |.
+ *    |
+ *
+ */
+// TODO: Move this to class Lookup?
+Molecule
+Porrectus::brew_bezier_sandwich (Bezier top_curve, Bezier bottom_curve)
+{
+  /*
+    Need the weird order b.o. the way PS want its arguments  
+   */
+  SCM list = SCM_EOL;
+  list = gh_cons (ly_offset2scm (bottom_curve.control_[3]), list);
+  list = gh_cons (ly_offset2scm (bottom_curve.control_[0]), list);
+  list = gh_cons (ly_offset2scm (bottom_curve.control_[1]), list);
+  list = gh_cons (ly_offset2scm (bottom_curve.control_[2]), list);
+  list = gh_cons (ly_offset2scm (top_curve.control_[0]), list);
+  list = gh_cons (ly_offset2scm (top_curve.control_[3]), list);
+  list = gh_cons (ly_offset2scm (top_curve.control_[2]), list);
+  list = gh_cons (ly_offset2scm (top_curve.control_[1]), list);
+
+  SCM horizontal_bend = scm_list_n (ly_symbol2scm ("bezier-sandwich"),
+				    ly_quote_scm (list),
+				    gh_double2scm (0.0),
+				    SCM_UNDEFINED);
+
+  Interval x_extent = top_curve.extent (X_AXIS);
+  x_extent.unite (bottom_curve.extent (X_AXIS));
+  Interval y_extent = top_curve.extent (Y_AXIS);
+  y_extent.unite (bottom_curve.extent (Y_AXIS));
+  Box b (x_extent, y_extent);
+
+  return Molecule (b, horizontal_bend);
+}
+
+/*
  * Horizontal Slope:
  *
  *            /|   ^
  *           / |   |
- *          /  |   | thickness
+ *          /  |   | height
  *         /   |   |
  *        /    |   v
  *       |    /
@@ -426,16 +552,17 @@ Porrectus::brew_mensural_molecule (Item *me,
  *       <----->
  *        width
  */
+// TODO: Move this to class Lookup?
 Molecule
-Porrectus::brew_horizontal_slope(Real width, Real slope, Real thickness)
+Porrectus::brew_horizontal_slope (Real width, Real slope, Real height)
 {
   SCM width_scm = gh_double2scm (width);
   SCM slope_scm = gh_double2scm (slope);
-  SCM thickness_scm = gh_double2scm (thickness);
+  SCM height_scm = gh_double2scm (height);
   SCM horizontal_slope = scm_list_n (ly_symbol2scm ("beam"),
-				  width_scm, slope_scm,
-				  thickness_scm, SCM_UNDEFINED);
+				     width_scm, slope_scm,
+				     height_scm, SCM_UNDEFINED);
   Box b (Interval (0, width),
-	 Interval (-thickness/2, thickness/2 + width*slope));
+	 Interval (-height/2, height/2 + width*slope));
   return Molecule (b, horizontal_slope);
 }

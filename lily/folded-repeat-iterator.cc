@@ -118,8 +118,8 @@ Folded_repeat_iterator::enter_alternative ()
     {
       Simultaneous_music_iterator * s = new Simultaneous_music_iterator;
       s->separate_contexts_b_ = true;
-      s->init_translator (mus->alternatives (), report_to_l ());
-  
+      s->init_translator (mus, report_to_l ());
+      
       alternative_iter_p_ = s;
       alternative_iter_p_->construct_children ();
     }

@@ -7,16 +7,14 @@
 Moment
 Simultaneous_music::length_mom () const
 {
-  return maximum_length ();
+  return Music_sequence::maximum_length (get_mus_property ("elements"));
 }
 
 Moment
 Simultaneous_music::start_mom () const
 {
-  return minimum_start ();
+  return Music_sequence::minimum_start (get_mus_property ("elements"));
 }
-
-
 
 Simultaneous_music::Simultaneous_music (SCM head)
   : Music_sequence (head)

@@ -519,3 +519,26 @@ parse_symbol_list (const char * list)
   free (orig);
   return create_list;
 }
+
+
+SCM
+ly_truncate_list (int k, SCM l )
+{
+  if (k == 0)
+    {
+      l = SCM_EOL;
+    }
+  else
+    {
+      SCM s = l;
+      k--;
+      for (; gh_pair_p (s) && k--; s = ly_cdr (s))
+	;
+
+      if (gh_pair_p (s))
+	{
+	  gh_set_cdr_x (s, SCM_EOL);
+	}
+    }
+  return l;
+}

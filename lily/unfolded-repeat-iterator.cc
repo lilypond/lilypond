@@ -259,7 +259,7 @@ Unfolded_repeat_iterator::construct_children ()
   Repeated_music * mus =dynamic_cast<Repeated_music *> (music_l ());
   
   alternative_cons_ = (mus->alternatives ())
-    ? mus->alternatives ()->music_list ()
+    ? mus->alternatives ()
     : SCM_EOL;
 
   for (SCM p = alternative_cons_; gh_pair_p (p); p = ly_cdr (p))

@@ -15,30 +15,19 @@
  *
  * TODO: Hufnagel support.
  *
- * TODO: Fine-tuning of vaticana-style porrectus shape; in particular,
- * ensure solidity if solid is set to #t and thickness is very small.
- *
- * TODO: For white mensural (i.e. #'style=#'mensural, #'solid=##f)
- * porrectus grobs, it is possible to automatically determine all
- * porrectus specific properties (add-stem, stem-direction) solely
- * from the duration of the contributing notes and time-signature.
- * Introduce a boolean grob property called auto-config, so that, if
- * turned on, lily automatically sets the properties add-stem and
- * stem-direction properly.
- *
  * TODO: The following issues are currently not handled by this
- * engraver: (1) accidentals placement, (2) avoiding line breaking
- * inbetween porrectus, (3) spacing.  (Han-Wen says: for (2), look at
- * beam engraver.)  For example, currently only the accidental for the
- * second note (cp. the above FIXME) is printed.  These issues should
- * be resolved by some sort of ligature context that encloses use of
- * this engraver, using syntax like: \ligature { e \~ c }.
+ * engraver: (1) accidentals placement, (2) spacing.  For example,
+ * currently only the accidental for the second note (cp. the above
+ * FIXME) is printed.  These issues should be resolved by some sort of
+ * ligature context that encloses use of this engraver, using syntax
+ * like: \ligature { e \~ c }.
  *
  * TODO: Do not allow a series of adjacent porrectus requests, as in:
  * e \~ d \~ c.
  *
  * TODO: Junk duplicate (or rather triple) implementation of
- * create_ledger_line in porrectus.cc, custos.cc and note-head.cc.  */
+ * create_ledger_line in porrectus.cc, custos.cc and note-head.cc.
+ */
 
 #include "staff-symbol-referencer.hh"
 #include "porrectus.hh"
@@ -47,7 +36,9 @@
 #include "rhythmic-head.hh"
 #include "item.hh"
 #include "engraver.hh"
+#include "score-engraver.hh"
 #include "pqueue.hh"
+#include "warn.hh"
 
 // TODO: PHead_melodic_tuple is duplicated code from tie-engraver.cc.
 // Maybe put this into public class?
@@ -74,6 +65,7 @@ public:
   
 protected:
   virtual bool try_music (Music *req_l);
+  virtual void process_music ();
   virtual void create_grobs ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
@@ -102,6 +94,28 @@ Porrectus_engraver::try_music (Music *m)
     }
   else
     return false;
+}
+
+void
+Porrectus_engraver::process_music ()
+{
+  if (porrectus_req_l_)
+    {
+      // TODO: Move code that forbids breaking into ligature music
+      // wrapper?
+      Score_engraver *engraver = 0;
+      for (Translator *translator = daddy_grav_l ();
+	   translator && !engraver;
+	   translator = translator->daddy_trans_l_)
+	{
+	  engraver = dynamic_cast<Score_engraver*> (translator);
+	}
+      
+      if (!engraver)
+	programming_error ("No score engraver!");
+      else
+	engraver->forbid_breaks ();
+    }
 }
 
 void

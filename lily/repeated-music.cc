@@ -15,13 +15,13 @@
 Music *
 Repeated_music::body ()const
 {
-  return unsmob_music (get_mus_property ("body"));
+  return unsmob_music (get_mus_property ("element"));
 }
 
-Music_sequence*
+SCM
 Repeated_music::alternatives ()const
 {
-  return dynamic_cast<Music_sequence*> (unsmob_music (get_mus_property ("alternatives")));
+  return get_mus_property ("elements");
 }
 
 
@@ -40,7 +40,7 @@ Repeated_music::to_relative_octave (Pitch p)
 
   Pitch last = p ; 
   if (alternatives ())
-    for (SCM s = alternatives ()->music_list (); gh_pair_p (s);  s = ly_cdr (s))
+    for (SCM s = alternatives (); gh_pair_p (s);  s = ly_cdr (s))
       unsmob_music (ly_car (s))->to_relative_octave (p);
      
 
@@ -53,8 +53,7 @@ Repeated_music::transpose (Pitch p)
   if (body ())
     body ()->transpose (p);
 
-  if (alternatives ())
-    alternatives ()->transpose (p);  
+  Music_sequence::transpose_list (get_mus_property ("elements"), p);
 }
 
 void
@@ -63,8 +62,7 @@ Repeated_music::compress (Moment p)
   if (body ())
     body ()->compress (p);
 
-  if (alternatives ())
-    alternatives ()->compress (p);  
+  Music_sequence::compress_list (alternatives (), p);
 }
 
 Moment
@@ -74,17 +72,17 @@ Repeated_music::alternatives_length_mom (bool fold) const
     return 0;
   
   if (fold)
-    return alternatives ()->maximum_length ();
+    return Music_sequence::maximum_length (alternatives ());
 
   Moment m =0;
   int done =0;
 
-  SCM p = alternatives ()->music_list ();
+  SCM p = alternatives ();
   while (gh_pair_p (p) && done < repeat_count ())
     {
       m = m + unsmob_music (ly_car (p))->length_mom ();
       done ++;
-      if (repeat_count () - done < alternatives ()->length_i ())
+      if (repeat_count () - done < scm_ilength (alternatives ()))
 	p = ly_cdr (p);
     }
   return m;
@@ -101,7 +99,7 @@ Repeated_music::alternatives_volta_length_mom () const
     return 0;
 
   Moment m;
-  SCM p = alternatives ()->music_list ();
+  SCM p = alternatives ();
   while (gh_pair_p (p))
     {
       m = m + unsmob_music (ly_car (p))->length_mom ();

@@ -25,19 +25,18 @@ public:
   VIRTUAL_COPY_CONS (Music);
   
   Pitch do_relative_octave (Pitch p, bool b);
+  static void transpose_list (SCM , Pitch);
+  static void compress_list (SCM, Moment);
+  
   virtual void transpose (Pitch );
-  void truncate (int k);
   virtual void compress (Moment);
-  int length_i () const;
-  Moment cumulative_length () const;
-  Moment maximum_length () const;
 
-  Moment first_start () const;
-  Moment minimum_start () const;
+  static Moment cumulative_length (SCM) ;
+  static Moment maximum_length (SCM) ;
+  static Moment first_start (SCM list) ;
+  static Moment minimum_start (SCM list);
   
 protected:
   virtual Pitch to_relative_octave (Pitch);
-
-
 };
 #endif

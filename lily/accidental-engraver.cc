@@ -1,7 +1,8 @@
 /*
-  local-key-engraver.cc -- implement accidental_engraver
+  accidental-engraver.cc -- implement accidental_engraver
 
   (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Modified 2001 by Rune Zedeler <rz@daimi.au.dk>
 */
 
 #include "musical-request.hh"
@@ -38,6 +39,7 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual void initialize ();
+  virtual int  number_accidentals (SCM sig, Note_req *);
   virtual void create_grobs ();
   virtual void finalize ();
 public:
@@ -69,6 +71,34 @@ Accidental_engraver::initialize ()
 {
   last_keysig_ = get_property ("keySignature");
   daddy_trans_l_->set_property ("localKeySignature",  last_keysig_);  
+  daddy_trans_l_->set_property ("lazyKeySignature",   last_keysig_);  
+}
+
+/** calculates the number of accidentals on basis of the current local time sig
+  * (passed as argument).
+  * Returns number of accidentals (0, 1 or 2).
+  *   Negative (-1 or -2) if accidental has changed.
+  **/
+int
+Accidental_engraver::number_accidentals (SCM sig, Note_req * note_l)
+{
+  int n = unsmob_pitch (note_l->get_mus_property ("pitch"))->notename_i_;
+  int o = unsmob_pitch (note_l->get_mus_property ("pitch"))->octave_i () ;
+  int a = unsmob_pitch (note_l->get_mus_property ("pitch"))->alteration_i_;
+  
+  SCM prev = scm_assoc (gh_cons (gh_int2scm (o), gh_int2scm (n)), sig);
+  if (prev == SCM_BOOL_F)
+    prev = scm_assoc (gh_int2scm (n), sig);
+  SCM prev_acc = (prev == SCM_BOOL_F) ? gh_int2scm (0) : ly_cdr (prev);
+  bool different = !gh_equal_p (prev_acc , gh_int2scm (a));
+  int p = gh_number_p (prev_acc) ? gh_scm2int (prev_acc) : 0;
+
+  int num;
+  if (a==p && !to_boolean (note_l->get_mus_property ("force-accidental"))) num=0;
+  else if ( (abs(a)<abs(p) || p*a<0) && a!=0 ) num=2;
+  else num=1;
+  
+  return a==p ? num : -num;
 }
 
 void
@@ -77,26 +107,37 @@ Accidental_engraver::create_grobs ()
   if (!key_item_p_ && mel_l_arr_.size ()) 
     {
       SCM localsig = get_property ("localKeySignature");
-  
+      SCM lazysig = get_property ("lazyKeySignature");
+
       for (int i=0; i  < mel_l_arr_.size (); i++) 
 	{
 	  Grob * support_l = support_l_arr_[i];
 	  Note_req * note_l = mel_l_arr_[i];
 
-	  int n = unsmob_pitch (note_l->get_mus_property ("pitch"))->notename_i_;
-	  int o = unsmob_pitch (note_l->get_mus_property ("pitch"))->octave_i () ;
-	  int a = unsmob_pitch (note_l->get_mus_property ("pitch"))->alteration_i_;
-	  
+	  int local_num = number_accidentals(localsig,note_l);
+	  bool local_diff = local_num<0; local_num = abs(local_num);
+	  int lazy_num = number_accidentals(lazysig,note_l);
+	  bool lazy_diff = lazy_num<0; lazy_num = abs(lazy_num);
+
+	  int num = local_num;;
+	  bool different= local_diff;
+	  bool cautionary = to_boolean (note_l->get_mus_property ("cautionary"));
+	  if (to_boolean (get_property ("noResetKey"))) {
+	    num = lazy_num;
+	    different = lazy_diff;
+	  }
+	  else if (gh_equal_p (get_property ("autoReminders"),ly_symbol2scm("cautionary"))
+		   || gh_equal_p (get_property ("autoReminders"),ly_symbol2scm("accidental"))) {
+	    num = max(local_num,lazy_num);
+	    if (gh_equal_p (get_property ("autoReminders"),ly_symbol2scm("cautionary"))
+		&& lazy_num>local_num)
+	      cautionary = true;
+	  }
+
 	  /* see if there's a tie that "changes" the accidental */
 	  /* works because if there's a tie, the note to the left
 	     is of the same pitch as the actual note */
 
-	  SCM prev = scm_assoc (gh_cons (gh_int2scm (o), gh_int2scm (n)), localsig);
-	  if (prev == SCM_BOOL_F)
-	    prev = scm_assoc (gh_int2scm (n), localsig);
-	  SCM prev_acc = (prev == SCM_BOOL_F) ? gh_int2scm (0) : ly_cdr (prev);
-	  bool different = !gh_equal_p (prev_acc , gh_int2scm (a));
-	  int p = gh_number_p (prev_acc) ? gh_scm2int (prev_acc) : 0;
 
 	  Grob *tie_break_reminder = 0;
 	  bool tie_changes = false;
@@ -115,17 +156,7 @@ Accidental_engraver::create_grobs ()
 		break;
 	      }
 
-	  /* When do we want accidentals:
-
-	     1. when property force-accidental is set, and not
-	     tie_changes
-	     2. when different and not tie-changes
-	     3. maybe when at end of a tie: we must later see if
-	     we're after a line break */
-	  if (( (to_boolean (note_l->get_mus_property ("force-accidental"))
-		|| different)
-	       && !tie_changes)
-	      || tie_break_reminder)
+	  if (num)
 	    {
 	      if (!key_item_p_) 
 		{
@@ -142,37 +173,36 @@ Accidental_engraver::create_grobs ()
 		}
 
 	      
-	      bool extra_natural =
-		sign (p) * (p - a) == 1
-		&& abs (p) == 2;
-
 	      Local_key_item::add_pitch (key_item_p_, *unsmob_pitch (note_l->get_mus_property ("pitch")),
-					 to_boolean (note_l->get_mus_property ("cautionary")),
-					 extra_natural,
+					 cautionary,
+					 num==2,
 					 tie_break_reminder);
 	      Side_position_interface::add_support (key_item_p_,support_l);
 	    }
 	  
+
 	  /*
 	    We should not record the accidental if it is the first
 	    note and it is tied from the previous measure.
 
 	    Checking whether it is tied also works mostly, but will it
 	    always do the correct thing?
-
+	    (???? -Rune )
 	   */
+	  int n = unsmob_pitch (note_l->get_mus_property ("pitch"))->notename_i_;
+	  int o = unsmob_pitch (note_l->get_mus_property ("pitch"))->octave_i () ;
+	  int a = unsmob_pitch (note_l->get_mus_property ("pitch"))->alteration_i_;
+	  SCM ON = gh_cons (gh_int2scm (o), gh_int2scm (n));
 	  bool forget = to_boolean (get_property ("forgetAccidentals"));
 	  if (tie_changes)
 	    {
 	      /*
 		Remember an alteration that is different both from
 		that of the tied note and of the key signature.
-
+		(????? -Rune )
 	       */
-	      localsig = scm_assoc_set_x (localsig, gh_cons (gh_int2scm (o),
-							     gh_int2scm (n)),
-					  SCM_BOOL_T); 
-
+	      localsig = scm_assoc_set_x (localsig, ON, SCM_BOOL_T); 
+	      lazysig = scm_assoc_set_x  (lazysig,  ON, SCM_BOOL_T); 
 	    }
 	  else if (!forget)
 	    {
@@ -180,17 +210,13 @@ Accidental_engraver::create_grobs ()
 		not really really correct if there are more than one
 		noteheads with the same notename.
 	       */
-	      localsig = scm_assoc_set_x (localsig, gh_cons (gh_int2scm (o),
-							     gh_int2scm (n)),
-					  gh_int2scm (a)); 
-
+	      localsig = scm_assoc_set_x (localsig, ON, gh_int2scm (a)); 
+	      lazysig = scm_assoc_set_x  (lazysig,  ON, gh_int2scm (a)); 
 	    }
         }
-
-
-  
   
       daddy_trans_l_->set_property ("localKeySignature",  localsig);
+      daddy_trans_l_->set_property ("lazyKeySignature",   lazysig);
     }
   
 
@@ -274,11 +300,11 @@ Accidental_engraver::process_music ()
   if (last_keysig_ != sig) 
     {
       daddy_trans_l_->set_property ("localKeySignature",  ly_deep_copy (sig));
+      daddy_trans_l_->set_property ("lazyKeySignature",  ly_deep_copy (sig));
       last_keysig_ = sig;
     }
   else if (!mp.to_bool () )
     {
-      if (!to_boolean (get_property ("noResetKey")))
 	daddy_trans_l_->set_property ("localKeySignature",  ly_deep_copy (sig));
     }
 }

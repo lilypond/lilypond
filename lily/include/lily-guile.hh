@@ -75,6 +75,8 @@ SCM ly_last (SCM list);
 SCM ly_str02scm (char const*c);
 SCM ly_write2scm (SCM s);
 SCM ly_deep_copy (SCM);
+SCM ly_truncate_list (int k, SCM l );
+
 #define CACHE_SYMBOLS
 #ifdef CACHE_SYMBOLS
 

@@ -46,16 +46,28 @@ Lyric_combine_music::compress (Moment m)
   music_l ()->compress (m);
 }
 
+
+
 Music*
 Lyric_combine_music::music_l () const
 {
-  return unsmob_music (get_mus_property ("music"));
+  SCM l = get_mus_property ("elements");
+  if (!gh_pair_p (l))
+    return 0;
+  return unsmob_music (gh_car (l));
 }
+
 
 Music*
 Lyric_combine_music::lyrics_l () const
 {
-  return unsmob_music (get_mus_property ("lyrics"));
+  SCM l = get_mus_property ("elements");
+  if (!gh_pair_p (l))
+    return 0;
+  l = gh_cdr (l);
+  if (!gh_pair_p (l))
+    return 0;
+  return unsmob_music (gh_car (l));
 }
 
 Lyric_combine_music::Lyric_combine_music ()

@@ -323,15 +323,14 @@
 	
 	(Porrectus . (
 		(style . mensural)
-		(auto-properties . #t)
+		(auto-properties . #f)
 		(solid . #f)
 		(porrectus-width . 2.4)
 		(line-thickness . 1.0)
 		(add-stem . #t)
 		(stem-direction . 1)
 		(molecule-callback . ,Porrectus::brew_molecule)
-		(meta . ,(grob-description
-					   porrectus-interface))
+		(meta . ,(grob-description porrectus-interface))
 	))
 
 	(RehearsalMark . (

@@ -279,11 +279,6 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
   debug_print ("%s", "\n");
   
   track_size = track_end - *track;
-#if 0
-  /* need this for direct midi.parse_track (s) on midi file */
-  if (strcmp (*track, "MTrk"))
-    *track = memmem (*track, track_size - 1, "MTrk", 4);
-#endif
 
   debug_print ("%s", "\n");
   if (strcmp (*track, "MTrk"))
