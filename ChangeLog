@@ -1,5 +1,7 @@
 2003-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/cheatsheet.itely: more verbose examples.
+
 	* input/regression/clefs.ly: remove bogus docstring.
 
 2003-09-23  Jan Nieuwenhuizen  <janneke@gnu.org>
