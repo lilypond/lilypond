@@ -12,6 +12,7 @@
 	* vimrc: add menu in console and shortcut <F10> for it.
 
 	* vim/:
+	* vim/compiler/:
 	* vim/syntax/:
 	* vim/indent/:
 	* vim/ftplugin/: new directories.
@@ -28,6 +29,9 @@
 	add header. apply bindings only locally.
 
 	* vim/indent/lilypond.vim: new file.
+
+	* vim/ftplugin/lilypond.vim: remove errorformat.
+	* vim/compiler/lilypond.vim: new file for errorformats.
 
 	* Documentation/topdocs/INSTALL.texi: give easier orders.
 
