@@ -21,7 +21,7 @@
 #include "align-interface.hh"
 
 const int INTER_QUANT_PENALTY = 1000;
-const int SECONDARY_BEAM_DEMERIT  = 5;
+const Real SECONDARY_BEAM_DEMERIT  = 10.0;
 const int STEM_LENGTH_DEMERIT_FACTOR = 5;
 
 // possibly ridiculous, but too short stems just won't do
@@ -355,6 +355,8 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 {
   Real dy = yr - yl;
 
+  Real extra_demerit = SECONDARY_BEAM_DEMERIT / beam_count;
+  
   Real dem = 0.0;
   for (int i = 0; i < 2; i++)
     {
@@ -370,14 +372,13 @@ Beam::score_forbidden_quants (Real yl, Real yr,
       Real sit = (thickness - slt) / 2;
       Real inter = 0.5;
       Real hang = 1.0 - (thickness - slt) / 2;
-      
 
       if (fabs (yl - ldir * beam_translation) < radius
 	  && fabs (my_modf (yl) - inter) < 1e-3)
-	dem += SECONDARY_BEAM_DEMERIT;
+	dem += extra_demerit;
       if (fabs (yr - rdir * beam_translation) < radius
 	  && fabs (my_modf (yr) - inter) < 1e-3)
-	dem += SECONDARY_BEAM_DEMERIT;
+	dem += extra_demerit;
 
       Real eps = 1e-3;
 
@@ -396,22 +397,22 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	{
 	  if (ldir == UP && dy <= eps
 	      && fabs (my_modf (yl) - sit) < eps)
-	    dem += SECONDARY_BEAM_DEMERIT;
+	    dem += extra_demerit;
 	  
 	  if (ldir == DOWN && dy >= eps
 	      && fabs (my_modf (yl) - hang) < eps)
-	    dem += SECONDARY_BEAM_DEMERIT;
+	    dem += extra_demerit;
 	}
 
       if (fabs (yr - rdir * beam_translation) < radius + inter)
 	{
 	  if (rdir == UP && dy >= eps
 	      && fabs (my_modf (yr) - sit) < eps)
-	    dem += SECONDARY_BEAM_DEMERIT;
+	    dem += extra_demerit;
 	  
 	  if (rdir == DOWN && dy <= eps
 	      && fabs (my_modf (yr) - hang) < eps)
-	    dem += SECONDARY_BEAM_DEMERIT;
+	    dem += extra_demerit;
 	}
       
       if (beam_count >= 3)
@@ -420,22 +421,22 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	    {
 	      if (ldir == UP && dy <= eps
 		  && fabs (my_modf (yl) - straddle) < eps)
-		dem += SECONDARY_BEAM_DEMERIT;
+		dem += extra_demerit;
 	      
 	      if (ldir == DOWN && dy >= eps
 		  && fabs (my_modf (yl) - straddle) < eps)
-		dem += SECONDARY_BEAM_DEMERIT;
+		dem += extra_demerit;
 	    }
 	  
 	  if (fabs (yr - 2 * rdir * beam_translation) < radius + inter)
 	    {
 	      if (rdir == UP && dy >= eps
 		  && fabs (my_modf (yr) - straddle) < eps)
-		dem += SECONDARY_BEAM_DEMERIT;
+		dem += extra_demerit;
 	      
 	      if (rdir == DOWN && dy <= eps
 		  && fabs (my_modf (yr) - straddle) < eps)
-		dem += SECONDARY_BEAM_DEMERIT;
+		dem += extra_demerit;
 	    }
 	}
     }

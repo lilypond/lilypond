@@ -1268,8 +1268,8 @@ Beam::set_stem_lengths (Grob *me)
 
   bool gap = false;
   Real thick =0.0;
-  if (gh_number_p (me->get_grob_property ("gap"))
-      &&gh_scm2double (me->get_grob_property ("gap")))
+  if (gh_number_p (me->get_grob_property ("gap-count"))
+      &&gh_scm2int (me->get_grob_property ("gap-count")))
     {
       gap = true;
       thick = get_thickness(me);
