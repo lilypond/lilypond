@@ -18,10 +18,11 @@
 ;;;;;;;;;;;;;;;;
 
 (define load-files '("documentation-lib.scm"
-		     "function-documentation.scm"
-		     "engraver-documentation-lib.scm"
-		     "music-documentation-lib.scm"
-		     "backend-documentation-lib.scm"
+		     "document-functions.scm"
+		     "document-translation.scm"
+		     "document-music.scm"
+		     "document-backend.scm"
+		     "document-markup.scm"
 		     ))
 (map ly:load load-files)
 
@@ -95,6 +96,7 @@
      (translation-doc-node)
      (backend-doc-node)
      (all-scheme-functions-doc)
+     (markup-doc-node)
      (make <texi-node>
        #:name "Index"
        #:text "

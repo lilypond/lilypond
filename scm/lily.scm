@@ -288,8 +288,11 @@ is the  first to satisfy CRIT
 ;;;;;;;;;;;;;;;;
 ; strings.
 
+
+;; TODO : make sep optional.
 (define-public (string-join str-list sep)
   "append the list of strings in STR-LIST, joining them with SEP"
+  
   (apply string-append (list-insert-separator str-list sep))
   )
 

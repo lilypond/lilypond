@@ -134,6 +134,8 @@ internals document,  @internalsref{\NAME\}
 
 @macro refbugs
 @strong{BUGS}
+
+
 @end macro
 
 @macro seealso
