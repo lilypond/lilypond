@@ -6,6 +6,8 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "all-font-metrics.hh"
+#include "afm.hh"
 #include "warn.hh"
 #include "main.hh"
 #include "system.hh"
@@ -95,6 +97,11 @@ Score_engraver::finish ()
 void
 Score_engraver::initialize ()
 {
+  Font_metric *fm =
+    all_fonts_global_p->find_afm("feta20");
+  if (!fm)
+    error (_("Could not find feta20.afm. Fonts have not been installed properly; Aborting"));
+   
   unsmob_translator_def (definition_)->apply_property_operations (this);
 
   assert (dynamic_cast<Paper_def *> (output_def_l_));

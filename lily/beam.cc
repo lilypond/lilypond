@@ -24,7 +24,7 @@ Notes:
 
  - Stems run to the Y-center of the beam.
   
- - beam_space is the offset between Y centers of the beam.
+ - beam_translation is the offset between Y centers of the beam.
 
 */
 
@@ -69,8 +69,12 @@ Beam::add_stem (Grob *me, Grob *s)
   add_bound_item (dynamic_cast<Spanner*> (me), dynamic_cast<Item*> (s));
 }
 
+
+/*
+  this returns the translation between 2 adjoining beams.
+ */
 Real
-Beam::get_beam_space (Grob *me)
+Beam::get_beam_translation (Grob *me)
 {
   SCM func = me->get_grob_property ("space-function");
   SCM s = gh_call2 (func, me->self_scm (), gh_int2scm (get_beam_count (me)));
@@ -104,11 +108,11 @@ Beam::space_function (SCM smob, SCM beam_count)
   Real thickness = gh_scm2double (me->get_grob_property ("thickness"))
     * staff_space;
   
-  Real beam_space = gh_scm2int (beam_count) < 4
+  Real beam_translation = gh_scm2int (beam_count) < 4
     ? (2*staff_space + line - thickness) / 2.0
     : (3*staff_space + line - thickness) / 3.0;
   
-  return gh_double2scm (beam_space);
+  return gh_double2scm (beam_translation);
 }
 
 
@@ -213,6 +217,7 @@ Beam::connect_beams (Grob *me)
 	}
       else
 	{
+	  gh_set_car_x ( this_beaming, SCM_EOL);
 	  SCM s = gh_cdr (this_beaming);
 	  for (; gh_pair_p (s); s = gh_cdr (s))
 	    {
@@ -221,8 +226,13 @@ Beam::connect_beams (Grob *me)
 	      last_int.add_point (np);
 	    }
 	}
+
+      if (i == stems.size () -1)
+	{
+	  gh_set_cdr_x ( this_beaming, SCM_EOL);
+	}
     }
-}
+ }
 
 MAKE_SCHEME_CALLBACK (Beam, brew_molecule, 1);
 SCM
@@ -260,7 +270,7 @@ Beam::brew_molecule (SCM grob)
   Real dydx = dy && dx ? dy/dx : 0;
   
   Real thick = gh_scm2double (me->get_grob_property ("thickness"));
-  Real bdy = get_beam_space (me);
+  Real bdy = get_beam_translation (me);
 
   SCM last_beaming = SCM_EOL;;
   Real last_xposn = -1;
@@ -996,7 +1006,7 @@ Beam::calc_stem_y (Grob *me, Grob* s, Grob ** common,
 		   Real xl, Real xr,
 		   Interval pos, bool french) 
 {
-  Real beam_space = get_beam_space (me);
+  Real beam_translation = get_beam_translation (me);
 
     
   Real r = s->relative_coordinate (common[X_AXIS], X_AXIS) - xl;
@@ -1015,13 +1025,13 @@ Beam::calc_stem_y (Grob *me, Grob* s, Grob ** common,
     {
       Slice bm = where_are_the_whole_beams (beaming);
       if (!bm.empty_b())
-	stem_y += beam_space * bm[-my_dir];
+	stem_y += beam_translation * bm[-my_dir];
     }
   else
     {
       Slice bm = Stem::beam_multiplicity(s);
       if (!bm.empty_b())
-	stem_y +=bm[my_dir] * beam_space;
+	stem_y +=bm[my_dir] * beam_translation;
     }
   
   Real id = me->relative_coordinate (common[Y_AXIS], Y_AXIS)
@@ -1052,13 +1062,23 @@ Beam::set_stem_lengths (Grob *me)
 
   bool french = to_boolean (me->get_grob_property ("french-beaming"));
 
-
+  
+  bool gap = false;
+  Real thick =0.0;
+  if (gh_number_p (me->get_grob_property ("gap"))
+      &&gh_scm2double (me->get_grob_property ("gap")))
+  {
+    gap = true;
+    thick = gh_scm2double (me->get_grob_property ("thickness"))
+      * Staff_symbol_referencer::staff_space(me);
+  }
+      
   // ugh -> use commonx
   Grob * fvs = first_visible_stem (me);
   Grob *lvs = last_visible_stem (me);
     
   Real xl = fvs ? fvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
-  Real xr = fvs ? lvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
+  Real xr = lvs ? lvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
   
   for (int i=0; i < stems.size (); i++)
     {
@@ -1070,6 +1090,13 @@ Beam::set_stem_lengths (Grob *me)
 				 xl, xr,
 				 pos, french && i > 0&& (i < stems.size  () -1));
 
+      /*
+	Make the stems go up to the end of the beam. This doesn't matter
+	for normal beams, but for tremolo beams it looks silly otherwise.
+       */
+      if (gap)
+	stem_y += thick * 0.5 * Directional_element_interface::get(s);
+      
       Stem::set_stemend (s, 2* stem_y / staff_space);
     }
 }

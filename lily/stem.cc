@@ -760,6 +760,19 @@ Stem::beam_l (Grob*me)
   return unsmob_grob (b);
 }
 
+/*
+  return I-th element, or last elt L
+
+  PRE: length (L) > 0
+ */
+SCM
+robust_list_ref(int i, SCM l)
+{
+  while (i--  && gh_pair_p (gh_cdr(l)))
+    l = gh_cdr (l);
+
+  return gh_car(l);
+}
 
 // ugh still very long.
 Stem_info
@@ -804,55 +817,37 @@ Stem::calc_stem_info (Grob*me)
   Real half_space = staff_space / 2;
 
   Grob * beam = beam_l (me);
-  int beam_count = Beam::get_beam_count (beam);
-  Real beam_space_f = Beam::get_beam_space (beam);
-
+  int beam_count = beam_multiplicity(me).length()+1;
+  Real beam_translation_f = Beam::get_beam_translation (beam);
   Real thick = gh_scm2double (beam->get_grob_property ("thickness"));
-  
   Real ideal_y = chord_start_y (me);
   
   /* from here on, calculate as if dir == UP */
   ideal_y *= mydir;
   
   SCM grace_prop = me->get_grob_property ("grace");
+
   
   bool grace_b = to_boolean (grace_prop);
-  
-  Array<Real> a;
-  SCM s;
-  
-  s = me->get_grob_property ("beamed-minimum-lengths");
-  a.clear ();
-  for (SCM q = s; q != SCM_EOL; q = ly_cdr (q))
-    a.push (gh_scm2double (ly_car (q)));
+  SCM bml = robust_list_ref ( beam_count ,
+			      me->get_grob_property ("beamed-minimum-lengths"));
 
+  Real minimum_length = gh_scm2double(bml)*staff_space;
+  SCM bl =  robust_list_ref ( beam_count ,
+			      me->get_grob_property ("beamed-lengths"));
+  Real stem_length =  gh_scm2double(bl) * staff_space;
 
-  Real minimum_length = a[beam_count <? (a.size () - 1)] * staff_space;
-  s = me->get_grob_property ("beamed-lengths");
+  ideal_y += thick + (beam_count - 1) * beam_translation_f;
 
-  a.clear ();
-  for (SCM q = s; q != SCM_EOL; q = ly_cdr (q))
-    a.push (gh_scm2double (ly_car (q)));
-
-  Real stem_length =  a[beam_count <? (a.size () - 1)] * staff_space;
-
-  Grob *fvs = Beam::first_visible_stem (beam);
-
-  /*
-    Let's hope people don't use kneed tremolo beams.
-   */
-  Direction first_dir = fvs ? Directional_element_interface::get(fvs) : mydir;
-
-  // FIXME, hairy.  see beam::calc_stem_y, for knees it's not trival
-  // to calculate where secondary, ternary beams will go.
-  if (beam_count && first_dir == mydir)
-    ideal_y += thick + (beam_count - 1) * beam_space_f;
+   
+  Real shortest_y = ideal_y + minimum_length
+    + (beam_count > 0) ? thick : 0
+    + beam_translation_f * (beam_count - 1);
+    
 
   ideal_y += stem_length;
 
   
-  Real shortest_y = ideal_y -stem_length + minimum_length; 
-
   /*
     lowest beam of (UP) beam must never be lower than second staffline
 
@@ -870,39 +865,29 @@ Stem::calc_stem_info (Grob*me)
 	 staffline
 	 lowest beam of (UP) beam must never be lower than second staffline
       */
+#if 0
       shortest_y =
 	shortest_y >? 0
 	>? (- 2 * half_space - thick
 	    + (beam_count > 0) * thick
-	    + beam_space_f * (beam_count - 1));
+	    + beam_translation_f * (beam_count - 1));
+
+#else
+      ideal_y =
+	ideal_y >? 0
+	>? (- 2 * half_space - thick
+	    + (beam_count > 0) * thick
+	    + beam_translation_f * (beam_count - 1));
+#endif
+      
     }
     
   
-  ideal_y = ideal_y >? shortest_y;
-
-  s = beam->get_grob_property ("shorten");
+  //  ideal_y = ideal_y >? shortest_y;
+  SCM s = beam->get_grob_property ("shorten");
   if (gh_number_p (s))
     ideal_y -= gh_scm2double (s);
 
-#if 0
-  Grob *common = me->common_refpoint (beam, Y_AXIS);
-
-  /*
-    UGH -> THIS CAUSES ASYMETRY: the same beam can start/end on
-    different staffs.
-
-    TODO: the beam calculation should probably also use
-    relative_coordinate() for the Y positions of all beams.
-
-    
-   */
-  Real interstaff_f = mydir *
-    (me->relative_coordinate (common, Y_AXIS)
-     - beam->relative_coordinate (common, Y_AXIS));
-  
-  ideal_y += interstaff_f;
-  shortest_y += interstaff_f;
-#endif
   
   ideal_y *= mydir;
   shortest_y *= mydir; 

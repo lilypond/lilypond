@@ -107,13 +107,13 @@ Stem_tremolo::brew_molecule (SCM smob)
 
     --hwn.
    */
-  Real beam_space = beam ? Beam::get_beam_space (beam) : 0.81;
+  Real beam_translation = beam ? Beam::get_beam_translation (beam) : 0.81;
 
   Molecule mol; 
   for (int i = 0; i < tremolo_flags; i++)
     {
       Molecule b (a);
-      b.translate_axis (beam_space * i, Y_AXIS);
+      b.translate_axis (beam_translation * i, Y_AXIS);
       mol.add_molecule (b);
     }
   Direction stemdir = Stem::get_direction (stem);
@@ -137,7 +137,7 @@ Stem_tremolo::brew_molecule (SCM smob)
   Real end_y
     = Stem::stem_end_position (stem) *ss/2 
     - stemdir * (beams_i * beamthickness
-		 + ((beams_i -1) >? 0) * beam_space);
+		 + ((beams_i -1) >? 0) * beam_translation);
 
   /*
     the 0.33 ss is to compensate for the size of the note head
@@ -145,7 +145,7 @@ Stem_tremolo::brew_molecule (SCM smob)
   Real chord_start_y = Stem::chord_start_y (stem) +
     0.33 * ss * stemdir;
 
-  Real padding = beam_space;
+  Real padding = beam_translation;
 
   /*
     if there is not enough space, center on remaining space,
@@ -157,7 +157,7 @@ Stem_tremolo::brew_molecule (SCM smob)
     }
   else
     {
-      mol.translate_axis (end_y - stemdir * beam_space
+      mol.translate_axis (end_y - stemdir * beam_translation
 			  -mol_ext [stemdir]
 			  , Y_AXIS);
     }

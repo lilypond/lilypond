@@ -10,5 +10,7 @@ You also get ledger lines, of course."
 
 \score {
         \notes { c'2 e'4 f' | g'1 b8 }
-        \paper { \translator { \EasyNotation } } 
+        \paper { \translator { \EasyNotation }
+		 linewidth = -1. 
+	     } 
 }

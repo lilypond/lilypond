@@ -1,50 +1,41 @@
-\version "1.5.68"
+\header {
+
+    texidoc = "Cue notes should be set in smaller type. Cue clefs are
+usually not restored explicitly."
+
+}
 
 
-
-
-% add cue notes context
-\paper {
-	CueVoiceContext = \translator {
-            \VoiceContext
-            \name CueVoice
-            NoteHead \override #'font-relative-size = #-1
-            Stem \override #'font-relative-size = #-1
-            Beam \override #'font-relative-size = #-1
-            TextScript \override #'font-relative-size = #-1
-            Slur \override #'font-relative-size = #-1
-            Accidentals \override #'font-relative-size = #-1
+\score {
+  \notes
+   {
+       \property Staff.instrument = #"Horn in F"
+       \property Score.skipBars = ##t
+       R1*21
+    <
+	{
+	    \property Staff.MultiMeasureRest \override #'staff-position = #-6
+	    R1
+	    \property Voice.MultiMeasureRest \revert #'staff-position
 	}
-	\translator{ \CueVoiceContext }
-	StaffContext = \translator{\StaffContext
-		\accepts "CueVoice"
-	} 
-}
+     \context Voice = cue { s2
+       \clef tenor
 
-\paper {
-    StaffContext = \translator{
-       \StaffContext
-       \remove "Time_signature_engraver"
-    }
-    \translator { \StaffContext }   
-    \translator{
-      \VoiceContext
-      \remove "Auto_beam_engraver"
-     }
-     \translator {
-         \ScoreContext
-         barScriptPadding = #2.0
-         markScriptPadding = #4.0
-         barNumberScriptPadding = #15
-     }
-}
+	%% this should probably be put into an identifier.
+       \property Staff.fontSize = #-1
+	\property Voice.Stem \override #'length = #5.5
+	\property Voice.Beam \override #'thickness = #0.384
+	\property Voice.Beam \override #'space-function =
+	   #(lambda (beam mult) (* 0.8 (Beam::space_function beam mult)))
 
-\score{
-  \notes \relative c' \context Voice
-      {
-        c4 c4 g'2 
-	 \context CueVoice { r2 [f16 f f f] [a f f f] }
-	c4 c4 g'2
-      }
+	r8^"Bsn." c'8 [f'8 f'8]
+       \property Staff.fontSize\unset
+       \property Staff . Clef = \turnOff
+       \clef treble
+     } >
+   c'8^"Horn" cis'
+   \property Staff.Clef \unset
+   eis'4 fis'4
+ }
+ \paper { linewidth = -1 }
 }
-

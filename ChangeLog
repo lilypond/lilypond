@@ -1,3 +1,12 @@
+2002-07-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/beam.cc (set_stem_lengths): extend stems for gapped tremolo
+	beams.
+	(connect_beams): chop off beaming outside the beam. Fixes problem
+	with tremolo beams.
+
+	* lily/score-engraver.cc (initialize): error if feta20.afm
+
 2002-07-19  Han-Wen  <hanwen@cs.uu.nl>
 
 	* scm/engraver-documentation-lib.scm
