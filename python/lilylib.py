@@ -522,3 +522,5 @@ def make_ps_images (ps_name, resolution = 90):
 	cmd = r'''gs -s  -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c quit''' % (output_file,
 																      resolution, ps_name)
 
+	return output_file
+

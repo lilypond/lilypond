@@ -10,7 +10,11 @@
 struct Long_option_init {
   char const * take_arg_str0_;
   char const * longname_str0_;
-  char        shortname_char_;
+
+  /*
+    > 255: don't take short version.
+   */
+  int        shortname_char_;
 
   char const * help_str0_;
   

@@ -44,8 +44,6 @@ files. The temporary directory is created in the current directory as @code{@cod
     Generate output to @var{file}.  The extension of @var{file} is ignored.
 @item --png
     Also generate pictures of each page, in PNG format. 
-@item --psgz
-    Gzip the postscript file.
 @item --preview
     Also generate a picture of the first system of the score.
 
@@ -180,9 +178,9 @@ information.
 @item -f,--format=@var{format}
 @c
 @c
-A comma separated list of output formats.  Choices are @code{tex} (for
-@TeX{} output, to be processed with La@TeX{}, and @code{ps} for
-PostScript.
+A comma separated list of back-end output formats to use.  Choices are
+@code{tex} (for @TeX{} output, to be processed with La@TeX{}, and
+@code{ps} for PostScript.
 
 Other output options are intended for developers. 
 
@@ -199,12 +197,19 @@ Add @var{directory} to the search path for input files.
 @cindex search path
 @item -i,--init=@var{file}
 Set init file to @var{file} (default: @file{init.ly}).
-@item -m,--no-paper
-@cindex MIDI
-Disable @TeX{} output. If you have a @code{\midi} definition MIDI output
-will be generated.
 @item -o,--output=@var{FILE}
-Set the default output file to @var{FILE}.
+    Set the default output file to @var{FILE}.
+@item --ps
+    Generate PostScript.
+@item --dvi
+    Generate DVI files. In this case, the @TeX{} backend  should be
+    specified, i.e. @code{-f tex}.
+@item --png
+    Generate pictures of each page, in PNG format.  This implies @code{--ps}.
+@item --pdf
+    Generate PDF. This implies @code{--ps}.
+@item --preview
+    Also generate a picture of the first system of the score.
 
 @item -s,--safe
 Do not trust the @code{.ly} input. 

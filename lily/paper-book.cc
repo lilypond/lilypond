@@ -117,28 +117,33 @@ void
 Paper_book::post_processing (SCM module,
 			     SCM file_name)
 {
-  if (make_pdf)
-    {
-      SCM func = scm_c_module_lookup (module, "convert-to-pdf");
-      if (scm_variable_p (func) == SCM_BOOL_T)
-	{
-	  func = scm_variable_ref (func);
-	  if (ly_c_procedure_p (func))
-	    scm_call_2 (func, self_scm(), file_name);
-	}
-    }
+  struct
+  {
+    bool do_it_;
+    char const *func_name_;
+  } settings[] = {
+    {make_dvi, "convert-to-dvi"},
+    {make_ps, "convert-to-ps"},
+    {make_pdf, "convert-to-pdf"},
+    {make_png, "convert-to-png"},
+    {0,0}
+  };
 
-  if (make_png)
+  for (int i= 0; settings[i].func_name_; i++)
     {
-      SCM func = scm_c_module_lookup (module, "convert-to-png");
-      if (scm_variable_p (func) ==  SCM_BOOL_T)
+      if (settings[i].do_it_)
 	{
-	  func = scm_variable_ref (func);
-	  if (ly_c_procedure_p (func))
-	    scm_call_2 (func, self_scm(), file_name);
+	  SCM func = scm_c_module_lookup (module, settings[i].func_name_);
+	  if (scm_variable_p (func) == SCM_BOOL_T)
+	    {
+	      func = scm_variable_ref (func);
+	      if (ly_c_procedure_p (func))
+		scm_call_2 (func, self_scm(), file_name);
+	    }
 	}
     }
 }
+
 void
 Paper_book::output (String outname)
 {

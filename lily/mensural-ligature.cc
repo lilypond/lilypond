@@ -103,7 +103,7 @@ brew_flexa (Grob *me,
 }
 
 Stencil
-internal_brew_primitive (Grob *me, bool ledger_take_space)
+internal_brew_primitive (Grob *me)
 {
   SCM primitive_scm = me->get_property ("primitive");
   if (primitive_scm == SCM_EOL)
@@ -194,7 +194,7 @@ SCM
 Mensural_ligature::brew_ligature_primitive (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  return internal_brew_primitive (me, false).smobbed_copy ();
+  return internal_brew_primitive (me).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Mensural_ligature, print, 1);
