@@ -24,11 +24,6 @@ Event::length_callback (SCM m)
   return mom.smobbed_copy();
 }
 
-void
-Event::compress (Moment m)
-{
-}
-
 
 Pitch
 Event::to_relative_octave (Pitch last)
@@ -83,21 +78,4 @@ Key_change_ev::transpose (Pitch p)
   Event::transpose (p);
 }
 
-bool
-alist_equal_p (SCM a, SCM b)
-{
-  for (SCM s = a;
-       scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM key = scm_caar (s);
-      SCM val = scm_cdar (s);
-      SCM l = scm_assoc (key, b);
-
-      if (l == SCM_BOOL_F
-	  || !ly_c_equal_p ( scm_cdr (l), val))
-
-	return false;
-    }
-  return true;
-}
 ADD_MUSIC (Key_change_ev);

@@ -49,6 +49,7 @@ public:
   Moment get_length () const;
   Moment start_mom () const;
   void print () const;
+
   /// Transpose, with the interval central C to #p#
   virtual void transpose (Pitch p);
 
