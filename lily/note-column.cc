@@ -59,7 +59,7 @@ Note_column::head_positions_interval (Grob *me)
     {
       Grob *se = unsmob_grob (ly_car (h));
       
-      int j = (int)rint (Staff_symbol_referencer::get_position (se));
+      int j = Staff_symbol_referencer::get_rounded_position (se);
       iv.unite (Slice (j,j));
     }
   return iv;

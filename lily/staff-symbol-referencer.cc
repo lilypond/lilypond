@@ -77,6 +77,11 @@ Staff_symbol_referencer::get_position (Grob *me)
   return robust_scm2double (me->get_property ("staff-position"), p);
 }
 
+int
+Staff_symbol_referencer::get_rounded_position (Grob*me)
+{
+  return int (rint (get_position (me)));
+}
 
 LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
 	   1, 0,0, (SCM sg),
@@ -163,3 +168,4 @@ ADD_INTERFACE (Staff_symbol_referencer,"staff-symbol-referencer-interface",
 	       "in their @code{Y-offset-callbacks}. "
 	       ,
 	       "staff-position");
+

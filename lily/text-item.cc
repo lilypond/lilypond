@@ -22,14 +22,7 @@ Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
   if (gh_string_p (markup))
     {
       String str = ly_scm2string (markup);
-      if (str.index_any (" \t\n\r") != -1)
-	{
-	  /* Multi word string to line markup.  */
-	  SCM proc= ly_scheme_function ("make-simple-markup");
-	  return interpret_markup (paper, props, scm_call_1 (proc, markup));
-	}
-
-      /* Simple word.  */
+      
       Paper_def *pap = unsmob_paper (paper);
       Font_metric *fm = select_font (pap, props);
       SCM lst = scm_list_n (ly_symbol2scm ("text"), markup, SCM_UNDEFINED);
