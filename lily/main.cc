@@ -34,6 +34,7 @@
 #include "global-ctor.hh"
 #include "kpath.hh"
 
+static int sane_putenv (char const* key, char const* value, bool overwrite = false);
 
 /*
   Global options that can be overridden through command line.
@@ -269,21 +270,6 @@ setup_paths ()
 	i++;
 #endif
     }
-
-  char const * glp = getenv ("GUILE_LOAD_PATH");
-  
-  String new_glp (glp? glp : "") ;
-  if (glp)
-    new_glp = ":" + new_glp;
-  new_glp = prefix_directory + new_glp;
-
-  /*
-    Yes , so setenv is not posix.
-
-    I say, fuckem'all.
-   */
-
-  setenv ("GUILE_LOAD_PATH", new_glp.ch_C(), 1);
 }
 
 /**
@@ -332,7 +318,13 @@ main_prog (void * , int, char**)
   /*
     need to do this first. Engravers use lily.scm contents.
    */
-  init_lily_guile ();
+  
+  /*
+    prepend onto GUILE  loadpath.
+
+    Very ugh.
+   */
+  init_lily_guile (prefix_directory);
   cout << endl;
 
   call_constructors ();
@@ -403,14 +395,11 @@ main_prog (void * , int, char**)
   exit (exit_status_global);
 }
 
+
 static int
-sane_putenv (char const* key, char const* value)
+sane_putenv (char const* key, char const* value, bool overwrite)
 {
-  /*
-    putenv is POSIX, setenv is BSD 4.3
-    Urg, but putenv blindly overwrites environment settings.
-  */
-  if (!getenv (key))
+  if (overwrite || !getenv (key))
     return putenv ((char*)((String (key) + "=" + value).ch_C ()));
   return -1;
 }
@@ -431,8 +420,8 @@ main (int argc, char **argv)
      execution time penalty (~*1.10).  However, if this 15% gain in memory
      usage prevents swapping, the execution time falls drastically. */
   
-  sane_putenv ("GUILE_INIT_SEGMENT_SIZE_1", "4194304");
-  sane_putenv ("GUILE_MAX_SEGMENT_SIZE", "8388608");
+  sane_putenv ("GUILE_INIT_SEGMENT_SIZE_1", "4194304", false);
+  sane_putenv ("GUILE_MAX_SEGMENT_SIZE", "8388608", false);
 
   ly_init_kpath (argv[0]);
   
