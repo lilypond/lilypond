@@ -1,11 +1,15 @@
-% bar-numbering.ly
-% 
+%score-paper.ly
+
+\paper { 
+	% for simple testing only!
+	castingalgorithm = \Wordwrap; % lots faster on my 486 -- jcn
 Staff = \translator {
-	\type "Line_group_engraver_group";
+	\type "Hara_kiri_line_group_engraver";
+
 	defaultclef = violin;
 	barColumnPriority = "0";
-
 	marginBreakPriority = "-4";
+
 	\consists "Bar_engraver";
 	\consists "Clef_engraver";
 	\consists "Key_engraver";
@@ -14,9 +18,12 @@ Staff = \translator {
 	\consists "Staff_sym_engraver";
 	\consists "Collision_engraver";
 	\consists "Rest_collision_engraver";
-	\consists "Bar_column_engraver";
-	\consists "Bar_number_engraver";
+	\consists "Staff_margin_engraver";
 	\consists "Separating_line_group_engraver";
 	  
 	\accepts "Voice";
+}
+
+\include "score-bar-numbering.ly";
+
 }
