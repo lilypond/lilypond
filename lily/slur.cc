@@ -150,14 +150,28 @@ Slur::encompass_offset (Score_element*me,
   return o;
 }
 
-MAKE_SCHEME_CALLBACK(Slur,after_line_breaking);
+MAKE_SCHEME_CALLBACK (Slur, before_line_breaking);
+SCM
+Slur::before_line_breaking (SCM smob)
+{
+  Score_element *me = unsmob_element (smob);
+  if (Pointer_group_interface__extract_elements (me, (Score_element*)0, "note-columns").size () < 2)
+    me->suicide ();
+  return SCM_UNSPECIFIED;
+}
 
+MAKE_SCHEME_CALLBACK(Slur,after_line_breaking);
 SCM
 Slur::after_line_breaking (SCM smob)
 {
   Score_element *me = unsmob_element (smob);
-  set_extremities (me);
-  set_control_points (me);
+  if (Pointer_group_interface__extract_elements (me, (Score_element*)0, "note-columns").size () < 2)
+    me->suicide ();
+  else
+    {
+      set_extremities (me);
+      set_control_points (me);
+    }
   return SCM_UNSPECIFIED;
 } 
 
@@ -281,7 +295,7 @@ Slur::get_attachment (Score_element*me,Direction dir,
 Array<Offset>
 Slur::get_encompass_offset_arr (Score_element*me) 
 {
-    Spanner*sp = dynamic_cast<Spanner*>(me);
+  Spanner*sp = dynamic_cast<Spanner*>(me);
   SCM eltlist = me->get_elt_property ("note-columns");
   Score_element *common[] = {me->common_refpoint (eltlist,X_AXIS),
 			     me->common_refpoint (eltlist,Y_AXIS)};
@@ -376,11 +390,16 @@ SCM
 Slur::brew_molecule (SCM smob)
 {
   Score_element * me = unsmob_element (smob);
+  Molecule a;
+  if (Pointer_group_interface__extract_elements (me, (Score_element*)0, "note-columns").size () < 2)
+    {
+      me->suicide ();
+      return a.create_scheme ();
+    }
   Real thick = me->paper_l ()->get_var ("stafflinethickness") *
     gh_scm2double (me->get_elt_property ("thickness"));
   Bezier one = get_curve (me);
 
-  Molecule a;
   SCM d =  me->get_elt_property ("dashed");
   if (gh_number_p (d))
     a = me->lookup_l ()->dashed_slur (one, thick, thick * gh_scm2double (d));

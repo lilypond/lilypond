@@ -625,6 +625,7 @@ ScoreContext = \translator {
 		(thickness . 1.2)		
 		(spacing-procedure . ,Slur::set_spacing_rods)		e
 		(minimum-length . 1.5)
+		(before-line-breaking-callback . ,Slur::before_line_breaking) 
 		(after-line-breaking-callback . ,Slur::after_line_breaking) 
 	)
 	basicSpacingSpannerProperties =#`(

@@ -24,9 +24,8 @@ $flauti_staff = \notes \context Staff = flauti <
 	\context Voice=one { \skip 1; }
 	\context Voice=two { \skip 1; }
 
-	\context Voice=one \partcombine Voice <
+	\context Voice=one \partcombine Voice
 		\context Thread=one \$flauto1
 		\context Thread=two \$flauto2
-	>
 >
 

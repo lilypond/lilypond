@@ -1,3 +1,9 @@
+1.3.78.jcn5
+===========
+
+* Made crude fixes so unbound slurs don't crash, bezier still crashes on
+  infinitely steep slurs (eg flauti-part *with* slur_engraver).
+
 1.3.78.jcn4
 ===========
 
