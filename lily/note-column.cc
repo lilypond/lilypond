@@ -7,7 +7,7 @@
 */
 #include <math.h>		// ceil
 
-
+#include "axis-group-interface.hh"
 #include "dot-column.hh"
 #include "note-column.hh"
 #include "beam.hh"
@@ -42,7 +42,7 @@ Note_column::Note_column()
 {
   set_elt_property ("rests", SCM_EOL);
   set_elt_property ("note-heads", SCM_EOL);  
-  set_axes (X_AXIS, Y_AXIS);
+  axis_group (this).set_axes (X_AXIS, Y_AXIS);
 }
 
 Stem *
@@ -92,7 +92,7 @@ Note_column::set_stem (Stem * stem_l)
   set_elt_property ("stem", stem_l->self_scm_);
 
   add_dependency (stem_l);
-  add_element (stem_l);
+  axis_group (this).add_element (stem_l);
 }
 
 
@@ -110,7 +110,7 @@ Note_column::add_head (Rhythmic_head *h)
       Group_interface gi (this, "note-heads");
       gi.add_element (nh);
     }
-  add_element (h);
+  axis_group (this).add_element (h);
 }
 
 /**
@@ -133,7 +133,7 @@ Note_column::translate_rests (int dy_i)
 void
 Note_column::set_dotcol (Dot_column *d)
 {
-  add_element (d);
+  axis_group (this).add_element (d);
 }
 
 /*

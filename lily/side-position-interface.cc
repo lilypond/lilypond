@@ -93,18 +93,21 @@ Side_position_interface::side_position (Dimension_cache const * c)
       dim = Interval(0,0);
     }
 
-  Real off =  me->parent_l (axis)->relative_coordinate (common, axis);
-
-
   Direction dir = Side_position_interface (me).get_direction ();
     
-  SCM pad = me->remove_elt_property ("padding");
-  if (gh_number_p (pad))
-    {
-      off += gh_scm2double (pad) * dir;
-    }
-  Real total_off = dim[dir] + off;
+  Real off =  me->parent_l (axis)->relative_coordinate (common, axis);
+  SCM minimum = me->remove_elt_property ("minimum-space");
 
+  Real total_off = dim[dir] + off;
+  SCM padding = me->remove_elt_property ("padding");
+  if (gh_number_p (padding))
+    {
+      total_off += gh_scm2double (padding) * dir;
+    }
+  if (gh_number_p (minimum) && total_off * dir < gh_scm2double (minimum))
+    {
+      total_off = gh_scm2double (minimum) * dir;
+    }
   if (fabs (total_off) > 100 CM)
     programming_error ("Huh ? Improbable staff side dim.");
 
@@ -255,6 +258,18 @@ void
 Side_position_interface::set_direction (Direction d) 
 {
   elt_l_->set_elt_property ("direction", gh_int2scm (d));
+}
+
+void
+Side_position_interface::set_minimum_space (Real m)
+{
+  elt_l_->set_elt_property ("minimum-space", gh_double2scm (m));
+}
+
+void
+Side_position_interface::set_padding (Real p)
+{
+  elt_l_->set_elt_property ("padding", gh_double2scm (p));
 }
 
 bool

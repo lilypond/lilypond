@@ -26,8 +26,8 @@ corno2 = \notes \relative c {
 	R1*2 |
 	% `a 2
 	% urg, yes this is a-deux, but lily doesn't know about I. / a2 yet.
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceTwo.crescendoText = "cresc."
+	\property VoiceTwo.crescendoSpanner = "dashed-line"
 	r8 f'\p\< f2 e4 |
 	r8 f f2 e4 |
 	f4. e8 f4. e8 |
@@ -97,7 +97,7 @@ corno2 = \notes \relative c {
 	d4\f r r2|
 	g,4 r r2|
 	g4 r8 g g4 r8 g|
-	g4 r8 g g'4 r8 g|
+	g4 r8 g e'4 r8 e|
 	d4\p r r2|
 	R1*3|
 	d4\ff r c r|
@@ -129,8 +129,8 @@ corno2 = \notes \relative c {
 	e~|
 	e~|
 	e~|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceTwo.crescendoText = "cresc."
+	\property VoiceTwo.crescendoSpanner = "dashed-line"
 	e\<~|
 	e~|
 	e~|
@@ -142,8 +142,8 @@ corno2 = \notes \relative c {
 	%a deux|
 	r4 r8 e,\p e4. e8|
 	r4 r8 e e4. e8|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceTwo.crescendoText = "cresc."
+	\property VoiceTwo.crescendoSpanner = "dashed-line"
 	r4 r8 e\< e4. e8|
 	r4 r8 e e4. e8|
 	r4 r8 e e4. e8|
@@ -189,8 +189,8 @@ corno2 = \notes \relative c {
 	e~|
 	e~|
 	e~|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceTwo.crescendoText = "cresc."
+	\property VoiceTwo.crescendoSpanner = "dashed-line"
 	e\<~|
 	e~|
 	e|

@@ -9,6 +9,9 @@
 
 #ifndef PAPER_DEF_HH
 #define PAPER_DEF_HH
+
+#include <map>
+
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 #include "real.hh"
@@ -44,7 +47,7 @@
 */
 class Paper_def : public Music_output_def 
 {
-  Hash_table<int, Lookup *> *lookup_p_tab_p_;
+  map<int, Lookup *> *lookup_p_tab_p_;
   static int default_count_i_;
 
 protected:

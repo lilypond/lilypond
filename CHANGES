@@ -1,3 +1,40 @@
+.3.35.hwn1
+===========
+
+* textEmptyDimension changed into textNonEmpty, default: off,
+ie. texts don't occupy space.
+
+* Use STL map for Lookup::lookup_p_tab_p_
+
+* Abstracted Axis_group_element into Axis_group_interface, and removed
+Axis_group_element. This eliminates some multiple inheritance in the
+backend
+
+1.3.35.jcn1
+===========
+
+* Added minimum-space property to Side_position_interface.  Used in
+  positioning of Volta_spanner: voltaMinimumSpace.
+
+* Fixed and cleaned-up volta-spanner.
+
+* Moved directional-element.cc -> directional-element-interface.cc
+
+* Renamed all `process_requests' to `process_music', which fixes
+  midi performance.
+
+* Fixed dimensions (more x-y interchanges) of brace, bracket and
+  volta-spanner.
+
+* Bit half-baken fix in to get similar vertical placement of orphaned vs.
+  line-spanned dynamic elements.
+
+* Added property bracketCollapseHeight: the minimal size of a staff bracket
+  that will be typeset.  Smaller brackets will not be displayed.  This
+  fixes the (in 1.3.x reintroduced) funny duck-beak-bracket-bug (sorry).
+
+* Removed some dissonant chords from Coriolan
+
 1.3.35
 ======
 

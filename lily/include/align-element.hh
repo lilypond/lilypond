@@ -10,11 +10,7 @@
 #ifndef VERTICAL_ALIGN_ITEM_HH
 #define VERTICAL_ALIGN_ITEM_HH
 
-#include "axis-group-element.hh"
-#include "interval.hh"
-#include "direction.hh"
-#include "axes.hh"
-#include "hash-table.hh"
+#include "score-element.hh"
 
 /**
   Order elements top to bottom/left to right/right to left etc..
@@ -36,10 +32,11 @@
 
 
 */
-class Align_element : public virtual Axis_group_element {
+class Align_element : public virtual Score_element {
 public:
   Axis axis () const;
 
+  Align_element ();
   void set_axis (Axis);
   int get_count (Score_element*)const;
   void add_element (Score_element *);

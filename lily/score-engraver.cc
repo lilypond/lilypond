@@ -5,6 +5,7 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "debug.hh"
 #include "dimension-cache.hh"
 #include "line-of-score.hh"
@@ -15,6 +16,7 @@
 #include "paper-column.hh"
 #include "command-request.hh"
 #include "paper-def.hh"
+#include "axis-group-interface.hh"
 
 Score_engraver::Score_engraver()
 {
@@ -80,7 +82,7 @@ Score_engraver::do_removal_processing()
 void
 Score_engraver::process()
 {
-  process_requests();
+  process_music();
   do_announces();
   pre_move_processing();
   check_removal();
@@ -145,14 +147,12 @@ Score_engraver::typeset_all()
 	  if (!elem_p->parent_l (X_AXIS))
 	    {
 	      bool br = to_boolean (elem_p->remove_elt_property ("breakable"));
-	      if (br)
-		command_column_l_->add_element(elem_p);
-	      else
-		musical_column_l_->add_element(elem_p);
+	      Axis_group_interface gi ((br) ? command_column_l_ : musical_column_l_) ;
+	      gi.add_element(elem_p);
 	    }
 	}
       if (!elem_p->parent_l(Y_AXIS))
-	scoreline_l_->add_element (elem_p);
+	axis_group (scoreline_l_).add_element (elem_p);
     }
   elem_p_arr_.clear();
 }

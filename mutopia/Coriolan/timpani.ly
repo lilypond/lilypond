@@ -153,7 +153,7 @@ $timpani_staff = \context Staff = timpani <
 	\notes< 
 %		\global
 		\time 4/4;
-		\context VoiceOne=timpani
+		\context Voice=timpani
 			\$timpani
 	>
 >

@@ -13,6 +13,8 @@
 #include "debug.hh"
 #include "line-group-group-engraver.hh"
 #include "paper-column.hh"
+#include "axis-group-interface.hh"
+
 
 Line_group_engraver_group::Line_group_engraver_group()
 {
@@ -24,7 +26,7 @@ void
 Line_group_engraver_group::typeset_element (Score_element *elem)
 {
   if (!elem->parent_l (Y_AXIS))      
-    staffline_p_->add_element (elem);
+    axis_group (staffline_p_).add_element (elem);
   Engraver_group_engraver::typeset_element (elem);
 }
 
@@ -52,7 +54,7 @@ void
 Line_group_engraver_group::create_line_spanner ()
 {
   staffline_p_ = new Axis_group_spanner ;
-  staffline_p_->set_axes (Y_AXIS,Y_AXIS);
+  axis_group (staffline_p_).set_axes (Y_AXIS,Y_AXIS);
 }
 
 

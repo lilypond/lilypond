@@ -16,6 +16,7 @@
 #include "paper-score.hh"
 #include "paper-def.hh"
 #include "paper-column.hh"
+#include "group-interface.hh"
 
 /*
   Handle spacing for prefatory matter. 
@@ -33,7 +34,9 @@ Break_align_item::before_line_breaking ()
 
 
   Link_array<Score_element> elems;
-  Link_array<Score_element> all_elems (elem_l_arr ());
+  Link_array<Score_element> all_elems
+    = Group_interface__extract_elements (this, (Score_element*)0,
+					 "elements");
   
   for (int i=0; i < all_elems.size(); i++) 
     {

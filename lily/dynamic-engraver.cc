@@ -29,8 +29,8 @@
 /*
   TODO:
 
-  * padding of orphaned items
-  * direction of orphaned items
+  * direction of text-dynamic-request if not equalt to direction
+  of line-spanner
  */
 
 class Dynamic_line_spanner : public Spanner
@@ -39,7 +39,9 @@ public:
   Dynamic_line_spanner ();
   VIRTUAL_COPY_CONS(Score_element);
   void add_column (Item*);
-  Direction get_default_dir () const;
+
+protected:
+  virtual void after_line_breaking ();
 };
 
 Dynamic_line_spanner::Dynamic_line_spanner ()
@@ -59,10 +61,29 @@ Dynamic_line_spanner::add_column (Item* n)
   add_dependency (n);
 }
 
-Direction
-Dynamic_line_spanner::get_default_dir () const
+void
+Dynamic_line_spanner::after_line_breaking ()
 {
-  return DOWN;
+#if 0
+
+  /*
+    We hebben hier een probleempje: er is een verschil tussen
+    dynamics zonder en met line-spanner.
+    Allen zijn gecentreerd (aligned-on-self), wat okee is, 
+    maar de losse hebben zelf een padding tov de staff.
+
+    Deze padding werkt niet op items die in line-spanner zitten:
+    de padding werkt op line-spanner zelf.
+    De line-spanner moet dus eigenlijk zoveel naar beneden of boven
+    als er items uitsteken, maar Hmm.
+   */
+#endif
+  Direction dir = directional_element (this).get ();
+  if (!dir)
+    dir = DOWN;
+  //Hmm. inf
+  //translate_axis (extent (Y_AXIS)[dir], Y_AXIS);
+  translate_axis (staff_symbol_referencer (this).staff_space () * dir, Y_AXIS);
 }
 
 /**
@@ -213,6 +234,9 @@ Dynamic_engraver::do_process_music ()
 	  SCM s = get_property ("dynamicPadding");
 	  if (gh_number_p (s))
 	    e->set_elt_property ("padding", s);
+	  s = get_property ("dynamicMinimumSpace");
+	  if (gh_number_p (s))
+	    e->set_elt_property ("minimum-space", s);
 	}
       pending_element_arr_.clear ();
     } 

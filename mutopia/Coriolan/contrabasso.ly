@@ -152,8 +152,8 @@ contrabasso = \notes \relative c {
 	)g,4 r r r8 g( |
 	\!)d2\ff e' |
 	dis b |
-	e4\p r r r8 e(|
-	)a4 r r r8 a(|
+	es4\p r r r8 es(|
+	)a,4 r r r8 a(|
 
 	%200
 	)g1 |
@@ -161,7 +161,7 @@ contrabasso = \notes \relative c {
 	\skip 1*18; |
 
 	%220
-	f4 r r2 |
+	f'4 r r2 |
 	f'4 r r2 |
 	f4 r r2 |
 	f4 r r2 |

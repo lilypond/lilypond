@@ -414,6 +414,18 @@ if 1:
 
 	conversions.append ((1,3,18), conv, 'staffLineLeading -> staffSpace')
 
+if 1:
+	def conv (str):
+		str = re.sub ('textEmptyDimension *= *##t',
+			      'textNonEmpty = ##f',
+			      str)
+		str = re.sub ('textEmptyDimension *= *##f',
+			      'textNonEmpty = ##t',
+			      str)
+		return str
+
+	conversions.append ((1,3,35), conv, 'textEmptyDimension -> textNonEmpty')
+
 ############################
 	
 

@@ -19,19 +19,17 @@
 #include "stem.hh"
 #include "dimension-cache.hh"
 #include "group-interface.hh"
-
-
+#include "side-position-interface.hh"
+#include "directional-element-interface.hh"
 
 Volta_spanner::Volta_spanner ()
 {
-  dim_cache_ [Y_AXIS]->set_callback (dim_callback);
+  //dim_cache_ [Y_AXIS]->set_callback (dim_callback);
   set_elt_property ("bars", SCM_EOL);
-  set_elt_property ("note-columns", SCM_EOL);
+  side_position (this).set_axis (Y_AXIS);
+  directional_element (this).set (UP);
 }
 
-/*
-  FIXME: too complicated.
- */
 Molecule 
 Volta_spanner::do_brew_molecule () const
 {
@@ -43,9 +41,6 @@ Volta_spanner::do_brew_molecule () const
   if (!bar_arr.size ())
     return mol;
 
-  Link_array<Score_element> note_column_arr
-    = Group_interface__extract_elements (this, (Score_element*)0, "note-columns");
-  
   bool no_vertical_start = false;
   bool no_vertical_end = to_boolean (get_elt_property ("last-volta"));
   Spanner *orig_span =  dynamic_cast<Spanner*> (original_l_);
@@ -61,12 +56,11 @@ Volta_spanner::do_brew_molecule () const
 #endif
 
   Real staff_space = paper_l ()->get_var ("interline");
-  Real half_staff_space = staff_space/2;
-  Real t = paper_l ()->get_var ("volta_thick");
+  Real half_space = staff_space / 2;
 
-  Real dx = half_staff_space;
-  Real w = spanner_length() - dx - get_broken_left_end_align ();
+  Real w = spanner_length () - get_broken_left_end_align () - half_space;
   Real h = paper_l()->get_var ("volta_spanner_height");
+  Real t = paper_l ()->get_var ("volta_thick");
 
   SCM at = (gh_list (ly_symbol2scm ("volta"),
 		     gh_double2scm (h),
@@ -75,33 +69,17 @@ Volta_spanner::do_brew_molecule () const
 		     gh_int2scm (no_vertical_start),
 		     gh_int2scm (no_vertical_end),
 		     SCM_UNDEFINED));
-  Box b (Interval (- h/2, h/2),  Interval (0, w));
-  Molecule volta(b,at);
+  //Box b (Interval (0, w), Interval (- h/2, h/2));
+  Box b (Interval (0, w), Interval (0, h));
+  Molecule volta (b, at);
+  mol.add_molecule (volta);
   
   Molecule num (lookup_l ()->text ("volta",
 				   ly_scm2string (get_elt_property("text")),
 				   paper_l ()));
-  Real dy = bar_arr.top ()->extent (Y_AXIS) [UP] >? 
-     bar_arr[0]->extent (Y_AXIS) [UP];
-  dy += 2 * h;
 
-
-  /*
-    CODE DUPLICATION.
-    FIXME (see axis-group-elt, side-pos interface.)
-   */
-  for (int i = 0; i < note_column_arr.size (); i++)
-    dy = dy >? note_column_arr[i]->extent (Y_AXIS)[BIGGER];
-  dy -= h;
-
-  Molecule two (lookup_l ()->text ("volta", "2", paper_l ()));
-  Real gap = two.dim_.x ().length () / 2;
-  Offset off (num.dim_.x ().length () + gap, 
-	      h / half_staff_space - gap);
-  num.translate (off);
-  mol.add_molecule (volta);
-  mol.add_molecule (num);
-  mol.translate (Offset (0, dy));
+  mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
+		   - staff_space);
   return mol;
 }
   
@@ -119,50 +97,25 @@ Volta_spanner::do_add_processing ()
     }
 }
 
-/*
-    Originally the following comment existed here
-    "in most cases, it's a lot better not no have height...",
-    but problems existed with collision between volta spanner
-    and above staff or lyrics for multi-staff music, so the proper
-    height is now being returned. Additional space should still
-    be added elsewhere so lyrics from above staff do not sit on
-    volta spanner. (Roy R. Rankin)
-*/
-Interval
-Volta_spanner::dim_callback (Dimension_cache const *c)
-{
-  Volta_spanner * v = dynamic_cast<Volta_spanner*> (c->element_l ());
-  Real h = v->paper_l()->get_var ("volta_spanner_height") * 2.;
-  return Interval (0., h);
-}
-
 void
 Volta_spanner::after_line_breaking ()
 {
-  Link_array<Bar> bar_arr
-    = Group_interface__extract_elements (this, (Bar*)0, "bars");
-  
-  if (bar_arr.size())
-    translate_axis (bar_arr[0]->extent (Y_AXIS)[UP], Y_AXIS);
-  translate_axis (get_broken_left_end_align (), X_AXIS);
+  side_position (this).add_staff_support ();
 }
   
 void
-Volta_spanner::add_bar  (Bar* c)
+Volta_spanner::add_bar  (Bar* b)
 {
   Group_interface gi(this, "bars");
-  gi.add_element (c);
+  gi.add_element (b);
 
-  add_dependency (c);
+  side_position (this).add_support (b);
+  add_dependency (b);
 }
 
 void
 Volta_spanner::add_column (Note_column* c)
 {
-  Group_interface gi(this, "note-columns");
-  gi.add_element (c);
-
+  side_position (this).add_support (c);
   add_dependency (c);
 }
-
-

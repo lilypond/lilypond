@@ -10,8 +10,8 @@
 #include "interval.hh"
 #include "direction.hh"
 #include "debug.hh"
-#include "hash-table-iter.hh"
 #include "dimension-cache.hh"
+#include "axis-group-interface.hh"
 
 /*
   This callback is set in the children of the align element. It does
@@ -34,7 +34,7 @@ void
 Align_element::add_element (Score_element* s)
 {
   s->add_offset_callback (alignment_callback, axis ());
-  Axis_group_element::add_element (s);
+  axis_group (this).add_element (s);
 }
 
 /*
@@ -55,7 +55,8 @@ Align_element::do_side_processing (Axis a)
   Array<Interval> dims;
 
   Link_array<Score_element> elems;
-  Link_array<Score_element> all_elts (elem_l_arr ());
+  Link_array<Score_element> all_elts
+    = Group_interface__extract_elements (this, (Score_element*) 0, "elements");
   for (int i=0; i < all_elts.size(); i++) 
     {
       Interval y = all_elts[i]->extent(a) + all_elts[i]->relative_coordinate (this, a);
@@ -139,11 +140,10 @@ Align_element::axis () const
 void
 Align_element::set_axis (Axis a)
 {
-  set_axes (a, a);
+  axis_group (this).set_axes (a, a);
 }
 
-
-
-
-
-
+Align_element::Align_element ()
+{
+  axis_group (this).set_interface ();
+}

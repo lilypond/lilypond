@@ -7,6 +7,7 @@
 */
 
 #include <math.h>
+
 #include "all-font-metrics.hh"
 #include "string.hh"
 #include "misc.hh"
@@ -26,16 +27,16 @@
 
 Paper_def::Paper_def ()
 {
-  lookup_p_tab_p_ = new Hash_table<int, Lookup*>;
-  lookup_p_tab_p_->hash_func_ = int_hash;
+  lookup_p_tab_p_ = new map<int, Lookup*>;
 }
 
 
 Paper_def::~Paper_def ()
 {
-  for (Hash_table_iter<int, Lookup*> ai(*lookup_p_tab_p_); ai.ok (); ai++)
+  for (map<int,Lookup*>::const_iterator ai = lookup_p_tab_p_->begin();
+       ai != lookup_p_tab_p_->end (); ai++)
     {
-      delete ai.val ();
+      delete (*ai).second;
     }
   
   delete lookup_p_tab_p_;
@@ -45,13 +46,13 @@ Paper_def::Paper_def (Paper_def const&s)
   : Music_output_def (s)
 {
   shape_int_a_ = s.shape_int_a_;
-  lookup_p_tab_p_ = new Hash_table<int, Lookup*>;
-  lookup_p_tab_p_->hash_func_ = int_hash;
+  lookup_p_tab_p_ = new map<int, Lookup*>;
   
-  for (Hash_table_iter<int, Lookup*> ai(*s.lookup_p_tab_p_); ai.ok (); ai++)
+  for (map<int,Lookup*>::const_iterator ai = s.lookup_p_tab_p_->begin();
+       ai != s.lookup_p_tab_p_->end (); ai++)
     {
-      Lookup * l = new Lookup (*ai.val ());
-      set_lookup (ai.key(), l);
+      Lookup * l = new Lookup (* (*ai).second);
+      set_lookup ((*ai).first, l);      
     }
 }
 
@@ -112,9 +113,10 @@ Paper_def::line_dimensions_int (int n) const
 void
 Paper_def::set_lookup (int i, Lookup*l)
 {
-  if (lookup_p_tab_p_->elem_b (i))
+  map<int,Lookup*> :: const_iterator it (lookup_p_tab_p_->find (i));
+  if (it != lookup_p_tab_p_->end ())
     {
-      delete lookup_p_tab_p_->elem (i);
+      delete (*it).second;
     }
   (*lookup_p_tab_p_)[i] = l;
 }
@@ -139,9 +141,11 @@ Paper_def::print () const
 #ifndef NPRINT
   Music_output_def::print ();
   DEBUG_OUT << "Paper {";
-  for (Hash_table_iter<int, Lookup*> ai(*lookup_p_tab_p_); ai.ok (); ai++)
+  for (map<int,Lookup*>::const_iterator ai = lookup_p_tab_p_->begin();
+       ai != lookup_p_tab_p_->end (); ai++)
     {
-      DEBUG_OUT << "Lookup: " << ai.key () << " = " << ai.val ()->font_name_ << '\n';
+      DEBUG_OUT << "Lookup: " << (*ai).first
+		<< " = " << (*ai).second->font_name_ << '\n';
     }
   DEBUG_OUT << "}\n";
 #endif

@@ -7,8 +7,13 @@
 
 	\translator {
 		\VoiceContext
+		dynamicPadding = #3  % urg, in \pt
+		dynamicMinimumSpace = #6  % urg, in \pt
+	}
+	\translator {
+		\VoiceContext
 		\name "VoiceOne";
-		\consists "Line_number_engraver";
+		%%\consists "Line_number_engraver";
 		verticalDirection = #1
 		stemVerticalDirection = #1
 		dynamicDirection = #-1
@@ -16,7 +21,7 @@
 	\translator {
 		\VoiceContext
 		\name "VoiceTwo";
-		\consists "Line_number_engraver";
+		%%\consists "Line_number_engraver";
 		verticalDirection = #-1
 		stemVerticalDirection = #-1
 		\remove "Dynamic_engraver";
@@ -33,5 +38,9 @@
 		maximumRestCount = #1
 	}
 	\translator { \OrchestralPartStaffContext }
-	\translator { \ScoreContext skipBars = ##t }
+	\translator { 
+		\ScoreContext skipBars = ##t 
+		textEmptyDimension = ##t
+		textStyle = #"italic"
+	}
 }

@@ -10,16 +10,18 @@
 #include "note-column.hh"
 #include "note-head.hh"
 #include "paper-def.hh"
+#include "axis-group-interface.hh"
+
 
 Collision::Collision()
 {
-  set_axes (X_AXIS, Y_AXIS);
+  axis_group (this).set_axes (X_AXIS, Y_AXIS);
 }
 
 void
 Collision::add_column (Note_column* ncol_l)
 {
-  add_element (ncol_l);
+  axis_group (this).add_element (ncol_l);
   add_dependency (ncol_l);
 }
 

@@ -31,7 +31,7 @@ public:
 protected:
   void do_print () const;
   virtual bool do_try_music (Music* req_l);
-  virtual void do_process_requests ();
+  virtual void do_process_music ();
   virtual void do_pre_move_processing ();
 
 private:
@@ -61,7 +61,7 @@ Dynamic_performer::do_print () const
 }
 
 void
-Dynamic_performer::do_process_requests ()
+Dynamic_performer::do_process_music ()
 {
   if (text_script_req_l_)
     {

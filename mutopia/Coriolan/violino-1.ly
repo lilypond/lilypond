@@ -212,7 +212,7 @@ violino1 = \notes \relative c {
 	f4\f r8 bes as4 r8 es |
 	des4 r8 ges f4 r8 c |
 	bes4 r8 e f4 r8 bes, |
-	bes4 r8 g'! es4 r8 bes' |
+	bes4 r8 g'! e4 r8 bes' |
 	\property Voice.crescendoText = "cresc."
 	\property Voice.crescendoSpanner = "dashed-line"
 	as4\p r8 des\< c4 r8 g |

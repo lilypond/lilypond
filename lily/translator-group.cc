@@ -390,7 +390,7 @@ Translator_group::do_post_move_processing ()
 void
 Translator_group::do_process_music ()
 {
-  each (&Translator::process_requests);
+  each (&Translator::process_music);
 }
 
 void
