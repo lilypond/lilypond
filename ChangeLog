@@ -1,5 +1,7 @@
 2003-09-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* make/srcdir.make.in (web-install): Must call install-WWW now.
+
 	* mf/GNUmakefile: resolve conflict: %list.ly is a target, not a
 	dependency
 
