@@ -15,12 +15,11 @@
 #include "text-item.hh"
 #include "paper-score.hh"
 #include "dimension-cache.hh"
-#include "staff-side.hh"
+#include "side-position-interface.hh"
 
 void
 Clef_item::do_pre_processing()
 {
-  Staff_symbol_referencer::do_pre_processing();
   SCM style_sym =get_elt_property ("style");
   String style;
   if (style_sym != SCM_UNDEFINED)
@@ -43,7 +42,6 @@ Clef_item::Clef_item()
   set_elt_property ("breakable", SCM_BOOL_T);
 
   symbol_ = "treble";
-  set_position(-2);
 }
 
 void

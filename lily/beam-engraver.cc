@@ -183,7 +183,8 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	  return;
 	}
 
-      stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
+      stem_l->set_elt_property ("duration-log",
+				gh_int2scm (rhythmic_req->duration_.durlog_i_));
       Moment stem_location = now_mom () - beam_start_mom_ + beam_start_location_;
       beam_info_p_->add_stem (stem_location, rhythmic_req->duration_.durlog_i_ - 2);
       beam_p_->add_stem (stem_l);

@@ -11,9 +11,9 @@
 #define MULTI_MEASURE_REST_HH
 
 #include "spanner.hh"
-#include "staff-symbol-referencer.hh"
 
-class Multi_measure_rest : public Spanner, public Staff_symbol_referencer
+
+class Multi_measure_rest : public Spanner
 {
 public:
   Multi_measure_rest ();
@@ -26,7 +26,6 @@ protected:
 
   virtual void do_add_processing ();
   virtual void do_post_processing ();
-  virtual void do_print () const;
   virtual Array<Rod> get_rods () const;
 };
 

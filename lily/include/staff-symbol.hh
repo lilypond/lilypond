@@ -21,6 +21,8 @@ public:
   /// this many lines.
   int no_lines_i_;
   Real staff_line_leading_f_;
+  Real staff_line_leading_f ();
+  
   
   Staff_symbol ();
   int steps_i() const;

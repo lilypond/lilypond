@@ -19,9 +19,6 @@ class Axis_group_spanner : public virtual Axis_group_element,
 			   public virtual Spanner
 
 {
-  void do_break_processing_if_unbroken();
-protected:
-  virtual void do_break_processing();
 public:
   VIRTUAL_COPY_CONS(Score_element);
 };

@@ -15,6 +15,8 @@
 #include "stem.hh"
 #include "offset.hh"
 #include "dimension-cache.hh"
+#include "staff-symbol-referencer.hh"
+
 
 Stem_tremolo::Stem_tremolo ()
 {
@@ -40,7 +42,8 @@ Interval
 Stem_tremolo::dim_callback (Dimension_cache const *c) 
 {
   Stem_tremolo * s = dynamic_cast<Stem_tremolo*> (c->element_l ());
-  Real space = s->stem_l ()->staff_line_leading_f ();
+  Real space = Staff_symbol_referencer_interface (s->stem_l ())
+    .staff_line_leading_f ();
   return Interval (-space, space);
 }
 
@@ -52,28 +55,25 @@ Stem_tremolo::do_brew_molecule_p () const
   int mult =0;
   if (Beam * b = st->beam_l ())
     {
-      Stem_info i = b->get_stem_info (st);
-      mult = i.mult_i_;
+      mult = b->multiplicity_i_;
     }
   
   Real interbeam_f = paper_l ()->interbeam_f (mult);
   Real w  = gh_scm2double (get_elt_property ("beam-width"));
-  Real space = st->staff_line_leading_f ();
-  Real internote_f = space/2;
-  
+  Real space = Staff_symbol_referencer_interface (st).staff_line_leading_f ();
+  Real internote_f = space / 2;
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));
 
   int beams_i = 0;
-  Real slope_f = internote_f / 4 / internote_f;	// HUH?
+  Real slope_f = 0.25;
 
   if (st && st->beam_l ()) {
     slope_f = st->beam_l ()->slope_f_;
     // ugh, rather calc from Stem_tremolo_req
     beams_i = st->beams_i_drul_[RIGHT] >? st->beams_i_drul_[LEFT];
   } 
-  Real sl = slope_f * internote_f;
 
-  Molecule a (lookup_l ()->beam (sl, w, beam_f));
+  Molecule a (lookup_l ()->beam (slope_f, w, beam_f));
   a.translate (Offset (-w/2, w / 2 * slope_f));
 
   Molecule *beams= new Molecule; 
@@ -107,12 +107,7 @@ Stem_tremolo::do_brew_molecule_p () const
 	    ? -st->get_direction () * st->note_delta_f ()/2
 	    : 0.0;
 
-	  /*
-	    UGH. Internote fudging.
-	   */
-	  dy /= internote_f;
 	  dy += st->stem_end_f ();
-	  dy *= internote_f;
 	  beams->translate (Offset(st->hpos_f () - hpos_f ()+
 				   whole_note_correction, dy));
 	}

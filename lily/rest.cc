@@ -13,30 +13,26 @@
 #include "dots.hh"
 #include "axis-group-element.hh"
 #include "paper-score.hh"
+#include "staff-symbol-referencer.hh"
 
-void
-Rest::do_add_processing ()
-{
-  if (balltype_i_ == 0)
-    set_position (position_f () + 2);
-
-  Rhythmic_head::do_add_processing ();
-}
 
 void
 Rest::do_post_processing ()
 {
-  Rhythmic_head::do_post_processing ();
-  if (dots_l ()
-      && balltype_i_ > 4) // UGH.
+  if (balltype_i () == 0)
+    {
+      Staff_symbol_referencer_interface si (this);
+      si.set_position (si.position_f () + 2);
+    }
+  
+  Dots * d = dots_l ();
+  if (d && balltype_i () > 4) // UGH.
     {
       /*
 	UGH. 
        */
-      if (balltype_i_ == 7)
-	dots_l ()->set_position (4);
-      else
-	dots_l ()->set_position (3);
+      staff_symbol_referencer_interface (d)
+	.set_position ((balltype_i () == 7) ? 4 : 3);
     }
 }
 
@@ -46,18 +42,21 @@ Rest::do_brew_molecule_p () const
 {
   bool ledger_b =false;
 
-  if (balltype_i_ == 0 || balltype_i_ == 1)
-    ledger_b = abs(position_f ()  - (2* balltype_i_ - 1)) > lines_i (); 
-
+  if (balltype_i () == 0 || balltype_i () == 1)
+    {
+      Staff_symbol_referencer_interface si(this);
+      ledger_b = abs(si.position_f ()  - (2* balltype_i () - 1))
+	> si.lines_i (); 
+    }
   
   String style; 
   SCM style_sym =get_elt_property ("style");
-  if (balltype_i_ >= 2 && style_sym != SCM_UNDEFINED)
+  if (balltype_i () >= 2 && style_sym != SCM_UNDEFINED)
     {
       style = ly_scm2string (style_sym);
     }
 
-  String idx =  ("rests-") + to_str (balltype_i_) + (ledger_b ? "o" : "") + style;
+  String idx =  ("rests-") + to_str (balltype_i ()) + (ledger_b ? "o" : "") + style;
 
   return new Molecule(lookup_l ()->afm_find (idx));
 }

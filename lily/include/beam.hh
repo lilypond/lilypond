@@ -9,7 +9,6 @@
 
 #include "lily-proto.hh"
 #include "directional-spanner.hh"
-#include "stem-info.hh"
 
 
 /** a beam connects multiple stems.
@@ -29,8 +28,12 @@ slope_quantisation: 'none, 'normal or 'traditional
 class Beam : public Directional_spanner  {
 public:
 
-  int stem_count ()const;
-  Stem * stem (int )const;
+  int stem_count () const;
+  Stem* stem (int) const;
+  Stem* stem_top () const;
+  int visible_stem_count () const;
+  Stem* first_visible_stem () const;
+  Stem* last_visible_stem () const;
 
   /**
      the slope of the beam in (staffpositions) per (X-dimension, in PT).
@@ -41,15 +44,14 @@ public:
   /// position of leftmost end of beam  
   Real left_y_;
 
+  /** 
+    highest number of beams present, for opening-up of beam-spacing
+    and calculation of stem lengths
+   */
+  int multiplicity_i_;
 
-  /// maximum number of beams (for opening-up of beam-spacing)
-  int multiple_i_;
-
-  Array<Stem_info> sinfo_;
-  
-  Beam();
+  Beam ();
   void add_stem (Stem*);
-  Stem_info get_stem_info (Stem*);
 
   void set_grouping (Rhythmic_grouping def, Rhythmic_grouping current);
   void set_beaming (Beaming_info_list *);
@@ -60,7 +62,7 @@ protected:
   Offset center () const;
   Direction get_default_dir () const;
   void set_direction (Direction);
-  void set_steminfo ();
+  void set_stem_shorten ();
   bool auto_knee (SCM gap, bool interstaff_b);
   bool auto_knees ();
   

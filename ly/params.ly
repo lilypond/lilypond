@@ -29,7 +29,7 @@ stem_max = 3.0;
 
 %{ Specify length of stems for notes in the staff
 that don't have beams. 
- Measured in staff positions.
+   Measured in staff positions.
 %}
 stem_length0 = 7.;
 stem_length1 = 5.;
@@ -63,7 +63,7 @@ grace_stem_length3 = \stem_length3 * \grace_factor;
 
 % only used for beams
 minimum_stem_length0 = 0.0 ; % not used
-minimum_stem_length1 = 3. ;
+minimum_stem_length1 = 3.;
 minimum_stem_length2 = 2.5;
 minimum_stem_length3 = 2.0;
 

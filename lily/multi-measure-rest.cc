@@ -18,6 +18,7 @@
 #include "misc.hh"
 #include "group-interface.hh"
 #include "stem.hh"
+#include "staff-symbol-referencer.hh"
 
 Multi_measure_rest::Multi_measure_rest ()
 {
@@ -25,13 +26,7 @@ Multi_measure_rest::Multi_measure_rest ()
   set_elt_property ("columns", SCM_EOL);
 }
 
-void
-Multi_measure_rest::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "measures_i_ " << measures_i_;
-#endif
-}
+
 
 
 
@@ -94,7 +89,8 @@ Multi_measure_rest::do_brew_molecule_p () const
     }
   
   mol_p->add_molecule (s);
-  Real interline_f = staff_line_leading_f ();
+  Real interline_f
+    = staff_symbol_referencer_interface (this).staff_line_leading_f ();
   if (measures_i_ == 1 && rest_symbol)
     {
       mol_p->translate_axis (interline_f, Y_AXIS);

@@ -9,6 +9,7 @@
 
 #include <string.h>
 
+#include "group-interface.hh"
 #include "misc.hh"
 #include "paper-score.hh"
 #include "paper-def.hh"
@@ -24,9 +25,8 @@
 #include "misc.hh"
 #include "paper-outputter.hh"
 #include "dimension-cache.hh"
-#include "staff-side.hh"
+#include "side-position-interface.hh"
 #include "item.hh"
-
 
 Score_element::Score_element()
 {
@@ -48,6 +48,9 @@ Score_element::Score_element()
   element_property_alist_ = SCM_EOL;
 
   smobify_self ();
+
+
+  set_elt_property ("dependencies", SCM_EOL);
 }
 
 SCM ly_deep_copy (SCM);
@@ -78,7 +81,7 @@ Score_element::Score_element (Score_element const&s)
     should protect because smobify_self () might trigger GC.
    */
   element_property_alist_ = scm_protect_object (ly_deep_copy (s.element_property_alist_));
-  dependency_arr_ = s.dependency_arr_;
+
   output_p_ =0;
   status_i_ = s.status_i_;
   lookup_l_ = s.lookup_l_;
@@ -97,16 +100,17 @@ Score_element::~Score_element()
   delete dim_cache_[Y_AXIS];  
 }
 
-Score_element*
-Score_element::dependency (int i) const
+
+Real
+Score_element::get_real (String s) const
 {
-  return dependency_arr_ [i];
+  return gh_scm2double (get_elt_property (s));
 }
 
-int
-Score_element::dependency_size () const
+void
+Score_element::set_real (String s, Real r)
 {
-  return dependency_arr_.size ();
+  set_elt_property (s, gh_double2scm (r));
 }
 
 // should also have one that takes SCM arg. 
@@ -173,7 +177,6 @@ Score_element::print() const
   if (flower_dstream && !flower_dstream->silent_b ("Score_element"))
     ly_display_scm (element_property_alist_);
 
-  DEBUG_OUT << "dependencies: " << dependency_size();
   if (original_l_)
     DEBUG_OUT << "Copy ";
   do_print();
@@ -185,7 +188,7 @@ Score_element::print() const
 Paper_def*
 Score_element::paper_l ()  const
 {
- return pscore_l_->paper_l_;
+ return pscore_l_ ? pscore_l_->paper_l_ : 0;
 }
 
 Lookup const *
@@ -245,8 +248,11 @@ Score_element::calculate_dependencies (int final, int busy,
   assert (status_i_!= busy);
   status_i_= busy;
 
-  for (int i=0; i < dependency_arr_.size(); i++)
-    dependency_arr_[i]->calculate_dependencies (final, busy, funcptr);
+  Link_array<Score_element> dependency_arr =
+    Group_interface__extract_elements (this, (Score_element*)0, "dependencies");
+  
+  for (int i=0; i < dependency_arr.size(); i++)
+    dependency_arr[i]->calculate_dependencies (final, busy, funcptr);
 
   Link_array<Score_element> extra (get_extra_dependencies());
   for (int i=0; i < extra.size(); i++)
@@ -293,7 +299,6 @@ Score_element::output_processing ()
 void
 Score_element::do_break_processing()
 {
-  handle_broken_dependencies();
 }
 
 void
@@ -345,8 +350,8 @@ Score_element::add_dependency (Score_element*e)
 {
   if (e)
     {
-      dependency_arr_.push (e);
-      e->used_b_ = true;
+      Group_interface gi (this, "dependencies");
+      gi.add_element (e);
     }
   else
     programming_error ("Null dependency added");
@@ -400,12 +405,17 @@ Score_element::handle_broken_smobs (SCM s, SCM criterion)
       gh_set_car_x (s, handle_broken_smobs (gh_car (s), criterion));
       gh_set_cdr_x (s, handle_broken_smobs (gh_cdr (s), criterion));
 
-      if (gh_car (s) == SCM_UNDEFINED && gh_list_p (gh_cdr(s)))
-	return gh_cdr (s);
+      SCM c = gh_cdr(s);
+
+      // gh_list_p () is linear, this is O(1)  
+      bool list = gh_pair_p (c) || c == SCM_EOL;
+      
+      if (gh_car (s) == SCM_UNDEFINED && list)
+	return c;
     }
   return s;
 }
-
+#if 0
 void
 Score_element::recurse_into_smobs (SCM s, void (Score_element::*meth_ptr)())
 {
@@ -420,6 +430,7 @@ Score_element::recurse_into_smobs (SCM s, void (Score_element::*meth_ptr)())
       recurse_into_smobs (gh_cdr (s), meth_ptr);      
     }
 }
+#endif
 
 void
 Score_element::handle_broken_dependencies()
@@ -435,27 +446,8 @@ Score_element::handle_broken_dependencies()
 						 line ? line->self_scm_ : SCM_UNDEFINED);
 
 
-  recurse_into_smobs (element_property_alist_,
-		      &Score_element::handle_broken_dependencies);
-  
   if (!line)
     return;
-
-
-  Link_array<Score_element> new_deps;
-
-  for (int i=0; i < dependency_size(); i++) 
-    {
-      Score_element * elt = dependency (i);
-      if (elt->line_l() != line)
-	{
-	  Score_element * broken = elt->find_broken_piece (line);
-	  elt  = broken ;
-	}
-      if (elt)
-	new_deps.push (elt);
-    }
-  dependency_arr_ = new_deps;
 }
 
 
@@ -597,7 +589,7 @@ unsmob_element (SCM s)
 void
 Score_element::invalidate_cache (Axis a)
 {
-  dim_cache_[a]->invalidate ();
+  //  dim_cache_[a]->invalidate ();
 }
 
 Score_element*

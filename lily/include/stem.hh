@@ -6,12 +6,13 @@
 
 #ifndef STEM_HH
 #define STEM_HH
+
 #include "item.hh"
 #include "array.hh"
 #include "moment.hh"
 #include "molecule.hh"
-#include "staff-symbol-referencer.hh"
 #include "directional-element.hh"
+#include "stem-info.hh"
 
 /**the rule attached to the ball.
   takes care of:
@@ -40,22 +41,21 @@
 
   
   */
-// todo: remove baseclass Staff_symbol_referencer, since stem
-// can be across a staff.
-class Stem : public Item, public Staff_symbol_referencer,
+class Stem : public Item,
 	     public Directional_element
 {
 
   /**extent of the stem (positions).
     fractional, since Beam has to adapt them.
     */
-  Drul_array<Real> yextent_drul_;
+  Interval yextent_;
 
 public:
-
-    
   /// log of the duration. Eg. 4 -> 16th note -> 2 flags
-  int flag_i_;
+  int flag_i () const;
+
+  Drul_array<int> beams_i_drul_;
+
 
   /** 
     don't print flag when in beam.
@@ -63,19 +63,17 @@ public:
    */
   Beam* beam_l () const;
   Note_head * first_head () const;
-
-  Drul_array<int> beams_i_drul_;
   Stem ();
     
   /// ensure that this Stem also encompasses the Notehead #n#
   void add_head (Rhythmic_head*n);
 
   Real hpos_f () const;
+  Stem_info calc_stem_info () const;
+
   Real chord_start_f () const;
   
   int type_i () const;
-
-  void do_print() const;
   void set_stemend (Real);
   Direction get_default_dir() const;
 

@@ -15,6 +15,7 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "musical-pitch.hh"
+#include "staff-symbol-referencer.hh"
 
 const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
 const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
@@ -97,7 +98,9 @@ Molecule*
 Key_item::do_brew_molecule_p() const
 {
   Molecule*output = new Molecule;
-  Real inter = staff_line_leading_f ()/2.0;
+
+  Staff_symbol_referencer_interface si (this);
+  Real inter = si.staff_line_leading_f ()/2.0;
   
   int j;
   if ((break_status_dir () == LEFT || break_status_dir () == CENTER)

@@ -137,25 +137,25 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info i)
       if (Stem* s = dynamic_cast<Stem *> (i.elem_l_))
 	{
 	  int type_i = prev_start_req_->type_i_;
-	  s->flag_i_ = intlog2 (type_i) - 2;
+	  s->set_elt_property ("duration-log",  gh_int2scm (intlog2 (type_i) - 2));
 
-	  s->beams_i_drul_[LEFT] = s->flag_i_;
-	  s->beams_i_drul_[RIGHT] = s->flag_i_;
+	  s->beams_i_drul_[LEFT] = s->flag_i ();
+	  s->beams_i_drul_[RIGHT] = s->flag_i ();
 	  
-	  abeam_p_->multiple_i_ = s->flag_i_;
+	  abeam_p_->multiplicity_i_ = s->flag_i ();
 	  /*
 	    abbrev gaps on all but half note
 	  */
 #if 0
 	  if (s->type_i () != 1)
 	    {
-	      int gap_i =s->flag_i_ - ((s->type_i () >? 2) - 2);
+	      int gap_i =s->flag_i () - ((s->type_i () >? 2) - 2);
 	      s->set_elt_property ("beam-gap", gh_int2scm(gap_i));
 	    }
 #else
 	  if (s->type_i () != 1)
 	    {
-	      int gap_i =s->flag_i_ - ((s->type_i () >? 2) - 2);
+	      int gap_i =s->flag_i () - ((s->type_i () >? 2) - 2);
 	      abeam_p_->set_elt_property ("beam-gap", gh_int2scm(gap_i));
 	    }
 #endif

@@ -58,15 +58,8 @@ Vertical_align_engraver::do_removal_processing()
 bool
 Vertical_align_engraver::qualifies_b (Score_element_info i) const
 {
-#if 0
-  Translator * t =   i.origin_trans_l_arr_[0];
-#endif
   int sz = i.origin_trans_l_arr_.size()  ;
 
-#if 0 
-  return (sz == 1 && dynamic_cast<Translator_group*> (t))
-    || (sz == 2 && dynamic_cast<Axis_group_engraver*> (t));
-#endif
 
   Axis_group_element * elt = dynamic_cast<Axis_group_element *> (i.elem_l_);
 

@@ -1,3 +1,20 @@
+
+pl 10.uu1
+	- various small bfs
+	- bf: alignment reversed
+	- Staff_symbol_referencer -> Staff_symbol_referencer_interface
+	- bf: staccato pos
+	- Knee fixes (thanks, Jan)
+
+pl 10.jcn2
+	- fixes for invisible beamed stems
+	- removed steminfo from properties, don't cache Stem_info
+
+pl 10.jcn1
+	- steminfo to properties
+	- dropped internote dim for stem-beams
+
+**********
 pl 9.hwn1
 	- abstracting Staff_symbol_referencer to an interface.
 	- quantised_position for staccato dots.

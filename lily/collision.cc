@@ -155,7 +155,7 @@ Collision::automatic_shift ()
       
       bool merge  =
 	downpos == uppos
-	&& nu_l->balltype_i_ == nd_l->balltype_i_
+	&& nu_l->balltype_i () == nd_l->balltype_i ()
 	&& nu_l->dots_i () == nd_l->dots_i ();
 
       /*

@@ -123,6 +123,17 @@ Paper_score::process ()
   Array<Column_x_positions> breaking = calc_breaking ();
   line_l_->break_into_pieces (breaking);
 
+  for (SCM s = element_smob_list_; gh_pair_p (s); s = gh_cdr (s))
+    {
+      Score_element *sc = unsmob_element (gh_car (s));
+      sc->do_break_processing ();
+    }
+  for (SCM s = element_smob_list_; gh_pair_p (s); s = gh_cdr (s))
+    {
+      Score_element *sc = unsmob_element (gh_car (s));
+      sc->handle_broken_dependencies ();
+    }
+
   outputter_l_ = new Paper_outputter ;
   outputter_l_->output_header ();
 

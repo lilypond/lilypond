@@ -16,6 +16,7 @@
 #include "timing-translator.hh"
 #include "engraver-group-engraver.hh"
 #include "grace-align-item.hh"
+#include "staff-symbol-referencer.hh"
 
 Local_key_engraver::Local_key_engraver()
 {
@@ -82,6 +83,9 @@ Local_key_engraver::process_acknowledged ()
                  if (!key_item_p_) 
 	             {
 	                 key_item_p_ = new Local_key_item;
+			 Staff_symbol_referencer_interface si(key_item_p_);
+			 si.set_interface ();
+			 
 	                 announce_element (Score_element_info (key_item_p_, 0));
 	             }
 

@@ -11,6 +11,8 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 .* TODO
 . * use hash tabs iso. alist_ for elt property?
 . * agressive type-checking for SCM stuff.
+. * use  "staff-space" and "half-space" iso interline,
+    staff_line_leading () etc.
 
 . * TODO^2:
 .  * make  a TODO.texi, like http://www.gnu.org/software/guile/ideas.html
@@ -24,8 +26,6 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 	ctor_dict["Score_element"]->create_func ();
 . * acc at tied note after linebreak.
 . * fix font-naming and selecting
-. * fix naming: \interline Context.staffLineLeading, staff_line_leading (),
-staff_position staff_space
 . * chord tonic: placement of accidental  C#, Cb (from scm and C++)
 . * note head on stem err msg in dutch.
 . * why need to run -C mf twice?

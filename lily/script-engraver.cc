@@ -6,7 +6,7 @@
 
 #include "script-engraver.hh"
 #include "script.hh"
-#include "staff-side.hh"
+#include "side-position-interface.hh"
 #include "musical-request.hh"
 #include "stem.hh"
 #include "staff-symbol.hh"
@@ -50,7 +50,8 @@ Script_engraver::do_process_requests()
 	  continue;
 	}
       Script *p =new Script;
-      Side_position_interface stafy (p); 
+      Side_position_interface stafy (p);
+      
       
       list = gh_cdr (list);
       p->set_elt_property ("molecule",

@@ -46,8 +46,8 @@ Dimension_cache::init()
 void
 Dimension_cache::invalidate ()
 {
-  off_valid_b_ =false;
-  valid_b_ = false;
+  /*  off_valid_b_ =false;
+      valid_b_ = false;*/
 }
 
 
@@ -99,16 +99,13 @@ Dimension_cache::axis () const
 Real
 Dimension_cache::get_offset () const
 {
-  if (!off_valid_b_)
+  Dimension_cache *me = (Dimension_cache*) this;
+  while (off_callbacks_.size ())
     {
-      Dimension_cache *d = (Dimension_cache*) this;
-
-      d->basic_offset_ =0.0;
-      d->off_valid_b_ = true;
-      for (int i=0; i < off_callbacks_.size (); i++)
-	d->basic_offset_ += (*off_callbacks_[i]) (d);
+      Offset_cache_callback c = me->off_callbacks_[0];
+      me->off_callbacks_.del (0);
+      me->basic_offset_ += (*c) (me);
     }
-
   return basic_offset_ + extra_offset_;
 }
 

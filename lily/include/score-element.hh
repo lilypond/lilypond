@@ -43,7 +43,6 @@ class Score_element  {
 
   */
   SCM element_property_alist_;
-  Link_array<Score_element> dependency_arr_;
   /**
      The lookup, determined by the font size. Cache this value.
    */
@@ -74,6 +73,9 @@ public:
   void set_elt_property (String, SCM val);
   SCM remove_elt_property (String nm);
 
+  void Score_element::set_real (String, Real);
+  Real Score_element::get_real (String s) const;
+
   /*
     related classes.
    */
@@ -103,7 +105,7 @@ public:
   static SCM handle_broken_smobs (SCM, SCM criterion);
   void recurse_into_smobs (SCM s, void (Score_element::*meth_ptr)());
 
-
+  virtual void do_break_processing ();
   virtual Score_element *find_broken_piece (Line_of_score*) const;
 protected:
 
@@ -111,9 +113,6 @@ protected:
     Junk score element. This is protected because this is supposed to
     be handled by GUILE gc.  */
   virtual ~Score_element ();
-  
-  Score_element* dependency (int) const;
-  int dependency_size () const;
   
   virtual void output_processing ();
   static Interval molecule_extent (Dimension_cache const*);
@@ -134,8 +133,6 @@ protected:
   /// do calculations after determining horizontal spacing
   virtual void do_post_processing ();
     
-  virtual void do_break_processing ();
-
   virtual Link_array<Score_element> get_extra_dependencies () const;
 
   static Interval dim_cache_callback (Dimension_cache const*);

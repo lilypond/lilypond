@@ -14,7 +14,7 @@
 #include "staff-symbol.hh"
 #include "note-column.hh"
 #include "text-item.hh"
-#include "staff-side.hh"
+#include "side-position-interface.hh"
 #include "engraver.hh"
 #include "stem.hh"
 #include "note-head.hh"

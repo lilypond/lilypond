@@ -11,14 +11,15 @@
 #define DOTS_HH
 
 #include "item.hh"
-#include "staff-symbol-referencer.hh"
+
 #include "directional-element.hh"
 
 /**
   The dots to go with a notehead/rest.  A separate class, since they
   are a party in collision resolution.
   */
-class Dots : public Item, public Staff_symbol_referencer,
+class Dots :
+  public Item,
   public Directional_element
 {
 protected:
