@@ -40,6 +40,16 @@
 #include "duration-convert.hh"
 #include "change-translator.hh"
 
+int const GUESS_PLET = 5;
+int guess_plet_a[GUESS_PLET] =
+{ 
+  1,
+  3,
+  2,
+  3,
+  4
+};
+
 #ifndef NDEBUG
 #define YYDEBUG 1
 #endif
@@ -91,6 +101,7 @@
     char c;
     const char *consstr;
     int i;
+    int pair[2];
     int ii[10];
 }
 %{
@@ -224,6 +235,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <real>	unit
 %type <request> abbrev_command_req
 %type <request>	post_request structured_post_request
+%type <pair>	plet_fraction
 %type <request> command_req verbose_command_req
 %type <request>	script_req  dynamic_req
 %type <score>	score_block score_body
@@ -846,13 +858,26 @@ dynamic_req:
 	}
 	;
 
+plet_fraction:
+	unsigned '/' unsigned {
+		$$[0] = $1;
+		$$[1] = $3;
+	}
+	|
+	'/' unsigned {
+		int num = $2 >? 1;
+		$$[0] = guess_plet_a[(num <? GUESS_PLET) - 1];
+		$$[1] = num;
+	}
+	;
+
 close_plet_parens:
-	']' unsigned '/' unsigned {
+	']' plet_fraction {
 		$$ = MAEBTELP;
-		THIS->plet_.type_i_ = $4;
-		THIS->plet_.iso_i_ = $2;
-		THIS->default_duration_.plet_.type_i_ = $4;
-		THIS->default_duration_.plet_.iso_i_ = $2;
+		THIS->plet_.type_i_ = $2[1];
+		THIS->plet_.iso_i_ = $2[0];
+		THIS->default_duration_.plet_.type_i_ = $2[1];
+		THIS->default_duration_.plet_.iso_i_ = $2[0];
 	}
 	| TELP {
 		$$ = TELP;
@@ -861,12 +886,12 @@ close_plet_parens:
 		THIS->default_duration_.plet_.iso_i_ = 1;
 		THIS->default_duration_.plet_.type_i_ = 1;
 	}
-	| TELP unsigned '/' unsigned {
+	| TELP plet_fraction {
 		$$ = TELP;
-		THIS->plet_.type_i_ = $4;
-		THIS->plet_.iso_i_ = $2;
-		THIS->default_duration_.plet_.type_i_ = $4;
-		THIS->default_duration_.plet_.iso_i_ = $2;
+		THIS->plet_.type_i_ = $2[1];
+		THIS->plet_.iso_i_ = $2[0];
+		THIS->default_duration_.plet_.type_i_ = $2[1];
+		THIS->default_duration_.plet_.iso_i_ = $2[0];
 	}
 	;
 
@@ -903,19 +928,19 @@ open_abbrev_parens:
 	;
 
 open_plet_parens:
-	'[' unsigned '/' unsigned {
+	'[' plet_fraction {
 		$$ = BEAMPLET;
-		THIS->plet_.type_i_ = $4;
-		THIS->plet_.iso_i_ = $2;
-		THIS->default_duration_.plet_.type_i_ = $4;
-		THIS->default_duration_.plet_.iso_i_ = $2;
+		THIS->plet_.type_i_ = $2[1];
+		THIS->plet_.iso_i_ = $2[0];
+		THIS->default_duration_.plet_.type_i_ = $2[1];
+		THIS->default_duration_.plet_.iso_i_ = $2[0];
 	}
-	| PLET unsigned '/' unsigned {
+	| PLET plet_fraction {
 		$$ = PLET;
-		THIS->plet_.type_i_ = $4;
-		THIS->plet_.iso_i_ = $2;
-		THIS->default_duration_.plet_.type_i_ = $4;
-		THIS->default_duration_.plet_.iso_i_ = $2;
+		THIS->plet_.type_i_ = $2[1];
+		THIS->plet_.iso_i_ = $2[0];
+		THIS->default_duration_.plet_.type_i_ = $2[1];
+		THIS->default_duration_.plet_.iso_i_ = $2[0];
 	}
 	;
 

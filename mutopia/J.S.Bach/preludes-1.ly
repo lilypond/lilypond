@@ -13,7 +13,7 @@ rh = \melodic{
 	\octave c'';
 	\textstyle "italic";
 	r16\p_"legato"\< ['g-1( c-3 )e-5] r ['g-1( c )e]
-	r [g( c )d] r ['b-1( d-2 \!)g-5] |
+	r ['g( c )d] r ['b-1( d-2 \!)g-5] |
 	r\mf ['a( d-2 ) g-5] r ['a(\< d )f-4]
 	r ['a( d )e-3] r [c-1( e-2 \!)a-5] |
 	r\f ['b e a-5] r ['b e-3 g-5] 
@@ -76,9 +76,9 @@ lh = \melodic{
 	% f4-1 e d-3\tr c |
 	f4-1 e d-3 c |
 	% g( )'g g\pr-"(#)"( )'g |
-	g( )'g g-"(\\textsharp)"( )'g |
-	% g\pr-"(\\textsharp)"( )'g g\pr-"(\\textsharp)"( )'g |
-	g-"(\\textsharp)"( )'g g-"(\\textsharp)"( )'g |
+	g ~ 'g g-"(\\textsharp)" ~ 'g |
+	% g\pr-"(\\textsharp)" ~ 'g g\pr-"(\\textsharp)" ~ 'g |
+	g-"(\\textsharp)" ~ 'g g-"(\\textsharp)" ~ 'g |
 	% ugh, f should be at upper staff
 	g r r16 ['g-5( 'b-4 d] )f-1 s s s |
 	s [g-5( b-4 d'-2] )f'-1 s s s s \clef violin; [g'-4 b'-2 d''-1] 

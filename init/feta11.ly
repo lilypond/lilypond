@@ -4,8 +4,8 @@
 % input from out/feta11.log
 % name=\symboltables {
     "rests"	 = \table {
-        "0"	"\\wholerest"	-0.00\pt	4.13\pt	-1.72\pt	0.00\pt	
-        "1"	"\\halfrest"	-0.00\pt	4.13\pt	-0.00\pt	1.72\pt	
+        "0"	"\\wholerest"	-0.00\pt	4.12\pt	-1.72\pt	0.00\pt	
+        "1"	"\\halfrest"	-0.00\pt	4.12\pt	-0.00\pt	1.72\pt	
         "0o"	"\\outsidewholerest"	-1.72\pt	5.84\pt	-1.72\pt	0.28\pt	
         "1o"	"\\outsidehalfrest"	-1.72\pt	5.84\pt	-0.28\pt	1.72\pt	
         "2"	"\\quartrest"	-0.00\pt	2.97\pt	2.06\pt	9.90\pt	
@@ -16,8 +16,8 @@
         "7"	"\\hundredtwentyeighthrest"	-0.00\pt	5.75\pt	-0.00\pt	16.06\pt	
         }
     "accidentals"	 = \table {
-        "1"	"\\sharp"	-0.00\pt	3.03\pt	-4.13\pt	4.13\pt	
-        "0"	"\\natural"	-0.00\pt	1.83\pt	-4.13\pt	4.13\pt	
+        "1"	"\\sharp"	-0.00\pt	3.03\pt	-4.12\pt	4.12\pt	
+        "0"	"\\natural"	-0.00\pt	1.83\pt	-4.12\pt	4.12\pt	
         "-1"	"\\flat"	-0.33\pt	2.20\pt	-1.38\pt	5.50\pt	
         "-2"	"\\flatflat"	-0.33\pt	3.99\pt	-1.38\pt	5.50\pt	
         "2"	"\\sharpsharp"	-0.00\pt	2.75\pt	-1.38\pt	1.38\pt	
@@ -54,8 +54,10 @@
         "downbow"	"\\downbow"	-2.06\pt	2.06\pt	-0.00\pt	3.67\pt	
         "turn"	"\\turn"	-3.01\pt	3.01\pt	-1.46\pt	1.46\pt	
         "trill"	"\\trill"	-2.75\pt	2.75\pt	-0.00\pt	6.19\pt	
-        "pedalheel"	"\\pedalheel"	-1.38\pt	1.38\pt	-1.38\pt	1.83\pt	
-        "pedaltoe"	"\\pedaltoe"	-1.38\pt	1.38\pt	-0.00\pt	4.13\pt	
+        "upedalheel"	"\\upedalheel"	-1.38\pt	1.38\pt	-1.38\pt	1.83\pt	
+        "dpedalheel"	"\\dpedalheel"	-1.38\pt	1.38\pt	-1.83\pt	1.38\pt	
+        "upedaltoe"	"\\upedaltoe"	-1.38\pt	1.38\pt	-0.00\pt	4.12\pt	
+        "dpedaltoe"	"\\dpedaltoe"	-1.38\pt	1.38\pt	-4.12\pt	0.00\pt	
         "flageolet"	"\\flageolet"	-1.47\pt	1.47\pt	-1.47\pt	1.47\pt	
         }
     "flags"	 = \table {

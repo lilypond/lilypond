@@ -83,7 +83,7 @@ sub open_mudela
 	print BOOK "\\begin{verbatim}\n";
     }
     if ($fragment_b) {
-	print MUDELA "\\score { \\melodic {";
+	print MUDELA "\\score { \\melodic {\\octave c';";
     }
 
 }
