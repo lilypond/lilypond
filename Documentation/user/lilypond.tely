@@ -14,7 +14,10 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @dircategory GNU music project
 @direntry
-@c    ;; prepend GNU for dir, must be unique
+@c  prepend GNU for dir, must be unique
+@c  `info lilypond' brings up node Invoking LilyPond (WL)
+@c  that is because the node name is an exact match. --jcn
+@c  we could try to think of another node name...
 * GNU LilyPond: (lilypond/lilypond).           The GNU music typesetter.
 * lilypond: (lilypond/lilypond)Invoking LilyPond.      Titling LilyPond scores.
 * Glossary: (lilypond/music-glossary).                  Glossary of music terms.

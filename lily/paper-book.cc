@@ -399,8 +399,8 @@ Paper_book::pages ()
   SCM breaks = scm_apply_0 (proc, scm_list_n (all,
 					      gh_double2scm (height_),
 					      gh_double2scm (text_height),
-					      gh_double2scm (copy_height),
-					      gh_double2scm (tag_height),
+					      gh_double2scm (-copy_height),
+					      gh_double2scm (-tag_height),
 					      SCM_UNDEFINED));
 
   /* Copyright on first page.  */
