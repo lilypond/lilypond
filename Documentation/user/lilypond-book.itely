@@ -12,8 +12,8 @@ TODO: cleanup
 @end ignore
 
 
-@node Integrating text and music with lilypond-book
-@chapter Integrating text and music with lilypond-book
+@node lilypond-book manual
+@chapter lilypond-book manual
 
 If you want to add pictures of music to a document, you can simply do
 it the way you would do with other types of pictures.  You write
@@ -28,9 +28,9 @@ pictures substituted for the music you entered.  The line width and
 font size definitions for the music are adjusted to match the layout
 of your document.
 
-It can work on La@TeX{}, @code{html} or texinfo documents.  A tutorial
-on using lilypond-book is in @ref{Integrating text and music}.  In
-case that you do not know La@TeX{}, then
+This procedure may be applied to La@TeX{}, @code{html} or Texinfo
+documents.  A tutorial on using lilypond-book is in @ref{Integrating
+text and music}.  In case that you do not know La@TeX{}, then
 @uref{http://www.ctan.org/tex-archive/info/lshort/english/,The not so
 Short Introduction to LaTeX} provides a introction to using La@TeX{}.
 
@@ -174,11 +174,17 @@ many columns there are.  @command{lilypond-book} knows about the
 @code{\onecolumn} and @code{\twocolumn} commands and the @code{multicols}
 environment from the multicol package.
 
-The music will be surrounded by @code{\preLilypondExample} and
-@code{\postLilypondExample}.  The variables are
-defined to nothing by default, and the user can redefine them
-to whatever he wants.
 
+If you want to add titling from the @code{\header} section of the
+files, you should add the following to the top of your La@TeX{} file:
+
+@example
+\input titledefs.tex
+\def\preLilypondExample@{\def\mustmakelilypondtitle@{@}@}
+@end example
+
+The music will be surrounded by @code{\preLilypondExample} and
+@code{\postLilypondExample}, which are defined to be empty by default.
 
 @node Integrating HTML and music
 @section Integrating HTML and music
@@ -228,14 +234,15 @@ a menu, with links to images, midi and printouts.
 @node Music fragment options
 @section Music fragment options
 
-The commands for lilypond-book have room to specify options.  These
-are all of the options:
+The commands for lilypond-book have room to specify one or more of the
+following options:
 
 @table @code
 @item eps
 This will create the music as eps graphics and include it into the
 document with the @code{\includegraphics} command.  It works in
 La@TeX{} only.
+
 
 This enables you to place music examples in the running text (and not in
 a separate paragraph).  To avoid that La@TeX{} places the music on a line
@@ -299,9 +306,9 @@ of the code is used.
 }
 @end lilypond
 
-@item singleline
-Produce a single, naturally spaced, unjustified line
-(i.e., @code{raggedright = ##t}).
+@item raggedright
+Produce naturally spaced lines (i.e., @code{raggedright = ##t}); this
+works well for small music fragments.
 
 @item multiline
 The opposite of @code{singleline}: Justify and break lines.
@@ -329,10 +336,21 @@ Set indentation of the first music system to zero.  This option
 affects LilyPond, not the text layout.
 
 @item notexidoc
-Do not include the .texidoc header. This is only for Texinfo output.
+Do not include @code{texidoc}. This is only for Texinfo output.
+
+In Texinfo, the music fragment is normally preceded by the
+@code{texidoc} field from the @code{\header}. The LilyPond test
+documents are composed from small @file{.ly} files in this way,
+
+@example
+  \header @{
+    texidoc = "this file demonstrates a single note"
+  @}
+  \score @{ \notes { c'4 @} @} 
+@end example
 
 @item quote
-Instruct @command{lilypond-book} to put La@TeX{} and texinfo output
+Instruct @command{lilypond-book} to put La@TeX{} and Texinfo output
 into a quotation block.
 
 @item printfilename
@@ -341,9 +359,8 @@ with @code{\lilypondfile}.
 
 @item relative, relative @var{N}
 Use relative octave mode.  By default, notes are specified relative
-central C.  The optional integer argument specifies how many octaves
-higher (positive number) or lower (negative number) to place the
-starting note.
+central C.  The optional integer argument specifies the octave of the
+starting note, where the default @code{1} is central C.
 @end table
 
 
@@ -390,7 +407,7 @@ Specify the document type to process: @code{html}, @code{latex} or
 out automatically.
 
 The @code{texi} document type produces a DVI file; to convert a
-texinfo document to @code{html}, you should use the additional format
+Texinfo document to @code{html}, you should use the additional format
 @code{texi-html} instead of @code{texi} to convert lilypond fragments
 to PNG images.
 
@@ -420,15 +437,6 @@ Strip all  LilyPond blocks from the file.
 @item @option{--no-pictures}
 Do not generate pictures when processing Texinfo.
 
-@item @option{--read-lys}
-Do not write ly files.  This way you can do
-
-@example
-lilypond-book file.tely
-convert-ly
-lilypond-book --read-lys
-@end example
-
 @item @option{--outname=@var{file}}
 The name of La@TeX{} file to output.  If this option is not given,
 the output name is derived from the input name.
@@ -448,17 +456,17 @@ Print a short help message.
 
 The La@TeX{} @code{\includeonly@{...@}} command is ignored.
 
-The Texinfo command @code{pagesize} is on the TODO list for LilyPond
-1.8, but changing the linewidth in other ways will not give you a
-straight right margin.
+The Texinfo command @code{pagesize} is not interpreted. Almost all
+La@TeX{} commands that change margins and line widths are ignored.
 
-Almost all La@TeX{} commands that change margins and line widths are
-ignored.
+The size of a lilypond block is limited to 1.5 kb, due to technical
+problems with Python's regular expressions. For longer files, use
+@code{\lilypondfile}.  Using @code{\lilypondfile} also makes upgrading
+files (through convert-ly, see @ref{Invoking convert-ly}) easier.
 
-There is no way to automatically apply @command{convert-ly} only to fragments
-inside a lilypond-book file.
 
-@command{lilypond-book} processes all music fragments in one big run.  The
-state of the GUILE interpreter is not reset between fragments; this
-means that global GUILE definitions, e.g., done with @code{#(define @dots{})}
-and @code{#(set! @dots{})} can leak from one fragment into the next fragment.
+@command{lilypond-book} processes all music fragments in one big run.
+The state of the GUILE interpreter is not reset between fragments;
+this means that changes made to global GUILE definitions, e.g., done
+with @code{set!} or @code{set-cdr!}, can leak from one fragment into
+the next fragment.

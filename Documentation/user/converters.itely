@@ -3,6 +3,14 @@
 @node Converting from other formats
 @chapter Converting from other formats
 
+Music can be entered also by importing it from other formats.  This
+chapter documents the tools included in the distribution to do so.
+There are other tools that produce LilyPond input, for example GUI
+sequencers and XML converters. Refer to the
+@uref{website,http://lilypond.org} for more details.
+
+
+
 @menu
 * Invoking convert-ly::            Older LilyPond versions.
 * Invoking midi2ly::               Importing MIDI.
@@ -34,8 +42,6 @@ The program is invoked as follows:
 The following options can be given:
 
 @table @code
-@item -a,--assume-old
-    If version number cannot be determined, apply all conversions.
 @item -e,--edit
     Do an inline edit of the input file. Overrides @code{--output}.
 @item -f,--from=@var{from-patchlevel}
@@ -59,7 +65,7 @@ The following options can be given:
 
 @refbugs
 
-Not all language changes are handled. Only one output options can be specified.
+Not all language changes are handled. Only one output option can be specified.
 
 @node Invoking midi2ly
 @section Invoking midi2ly
@@ -254,8 +260,7 @@ version information
 
 This script was updated last in September 2000, and then successfully
 converted the @file{barsant.pmx} example from the PMX
-distribution. Apparently no-one has ever bothered to use pmx2ly, since
-pmx2ly can not parse recent PMX files.
+distribution. pmx2ly cannot parse more recent PMX files.
 
 
 @node Invoking musedata2ly
@@ -297,9 +302,8 @@ musedata2ly converts only a small subset musedata.
 @section Invoking mup2ly
 
 MUP (Music Publisher) is a shareware music notation program by Arkkra
-Enterprises.  It is also the name of the input format.  Mup2ly will
-convert part of a Mup file to a ready-to-use LilyPond file. Mup2ly is
-invoked as follows:
+Enterprises.  Mup2ly will convert part of a Mup file to LilyPond
+format. It is invoked as follows:
 
 @cindex Music Publisher
 @cindex MUP
@@ -314,7 +318,7 @@ The following options are supported by mup2ly:
 @table @code
 @item   -d,--debug
 show what constructs are not converted, but skipped.
-@item D, --define=@var{name}[=@code{exp}]
+@item -D, --define=@var{name}[=@code{exp}]
 define macro @var{name} with opt expansion @code{exp}
 @item   -E,--pre-process
 only run the pre-processor

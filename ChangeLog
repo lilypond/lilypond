@@ -1,3 +1,13 @@
+2003-04-24    <hanwen@cs.uu.nl>
+
+	* Documentation/user/invoking.itexi (Invoking LilyPond): revise
+
+	* Documentation/user/converters.itely (Invoking convert-ly): revise
+
+	* scripts/convert-ly.py (outfile_name): remove --assume-old.
+
+	* scripts/lilypond-book.py (schedule_lilypond_block): remove --read-lys
+
 2003-04-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/internals.itely: more updates.

@@ -46,7 +46,6 @@ Try to convert to newer lilypond-versions.  The version number of the
 input is guessed by default from \version directive
 
 Options:
-  -a, --assume-old       apply all conversions to unversioned files
   -h, --help             print this help
   -e, --edit             in place edit
   -f, --from=VERSION     start from version. Overrides \version found in file.
@@ -1274,7 +1273,7 @@ from_version = ()
 outfile_name = ''
 
 (options, files) = getopt.getopt (
-	sys.argv[1:], 'ao:f:t:senh', ['no-version', 'assume-old', 'version', 'output', 'show-rules', 'help', 'edit', 'from=', 'to='])
+	sys.argv[1:], 'ao:f:t:senh', ['no-version', 'version', 'output', 'show-rules', 'help', 'edit', 'from=', 'to='])
 
 for opt in options:
 	o = opt[0]
@@ -1296,8 +1295,6 @@ for opt in options:
 		sys.exit(0)
 	elif o == '--output' or o == '-o':
 		outfile_name = a
-	elif o == '--assume-old' or o == '-a':
-		assume_old = 1
 	elif o == '--no-version' or o == '-n':
 		add_version = 0
 	else:

@@ -121,7 +121,6 @@ option_definitions = [
 	('', 'n', 'no-lily', _ ("don't run lilypond")),
 	('', '', 'no-pictures', _ ("don't generate pictures")),
 	('', '', 'no-music', _ ("strip all lilypond blocks from output")),
-	('', '', 'read-lys', _ ("don't write ly files.")),
 	(_ ("FILE"), 'o', 'outname', _ ("filename main output file")),
 	(_ ("FILE"), '', 'outdir', _ ("where to place generated files")),
 	(_ ('RES'), '', 'preview-resolution',
@@ -161,7 +160,6 @@ g_here_dir = os.getcwd ()
 g_dep_prefix = ''
 g_outdir = ''
 g_force_music_fontsize = 0
-g_read_lys = 0
 g_do_pictures = 1
 g_do_music = 1
 g_make_html = 0
@@ -1043,8 +1041,7 @@ def schedule_lilypond_block (chunk):
 			else:
 				taken_file_names[basename] = taken_file_names[basename] + 1
 				basename = basename + "-%i" % taken_file_names[basename]
-	if not g_read_lys:
-		update_file (file_body, os.path.join (g_outdir, basename) + '.ly')
+	update_file (file_body, os.path.join (g_outdir, basename) + '.ly')
 	needed_filetypes = ['tex']
 
 	if format == 'html' or g_make_html:
@@ -1504,8 +1501,6 @@ for opt in options:
 		g_do_pictures = 0
 	elif o == '--no-music':
 		g_do_music = 0
-	elif o == '--read-lys':
-		g_read_lys = 1
 	elif o == '--outdir':
 		g_outdir = a
 	elif o == '--warranty' or o == '-w':

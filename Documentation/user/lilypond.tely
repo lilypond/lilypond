@@ -144,11 +144,11 @@ this and other documentation.
 @mbinclude introduction.itely 
 @mbinclude tutorial.itely
 @mbinclude refman.itely
+@mbinclude literature.itely
 @mbinclude internals.itely
 @mbinclude invoking.itexi
 @mbinclude lilypond-book.itely
 @mbinclude converters.itely
-@mbinclude literature.itely
 
 
 @c FIXME: Index has two alphabetically sorted lists @code vs plain?
