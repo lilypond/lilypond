@@ -216,7 +216,7 @@
 (define (comment s)
   (string-append "% " s "\n"))
 
-(define (end-output) 
+(define (end-output)
   (begin
     ;; uncomment for some stats about lily memory	  
     ;; (display (gc-stats))
@@ -224,9 +224,6 @@
      "\\lilypondend\n"
      ;; Put GC stats here.
      )))
-
-(define (experimental-on)
-  "")
 
 (define (repeat-slash w a t)
   (embedded-ps (list 'repeat-slash  w a t)))
