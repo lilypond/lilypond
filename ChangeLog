@@ -1,9 +1,11 @@
 2004-07-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* SConstruct: GO_FAST_BUTTON: implement tips from Andreas Roach.
+	* SConstruct[GO_FAST_BUTTON]: implement tips from Andreas Roach.
 	This brings SCons run-time on up-to-date tree down from 48s with
 	only checksums, to 34s without 2day checksums, to 14s (make needs
 	4 seconds).
+	(subdirs)[GO_FAST_BUTTON]: Try to read all subdirs only when
+	necessary.
 
 2004-07-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
