@@ -57,7 +57,11 @@ struct Col_configuration {
 };
 
 /// wordwrap type algorithm
-/* el stupido. This should be optimised...
+/* el stupido. This should be optimised:
+
+   It would be nice to have a Dynamic Programming type of algorithm
+   similar to TeX's
+   
     */
 
 void
@@ -87,7 +91,7 @@ PScore::calc_breaking()
 	    }
 	    current.add(breakpoints[i]->prebreak );
 	    current.setsol(solve_line(current.line));
-
+	    mtor << "energy : " << current.energy << '\n';
 	    
 	    if (current.energy < minimum.energy) {
 		minimum = current;
@@ -99,7 +103,7 @@ PScore::calc_breaking()
 	    curcol ++;
 	    i++;
 	}
-
+	mtor << "Adding line, next breakpoint " << i << '\n';
 	add_line(minimum.line, minimum.config);	
     }
 }

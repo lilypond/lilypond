@@ -9,7 +9,30 @@
 void
 Score::add(Command *c)
 {
-    commands_.bottom().add(new Command(*c));
+    if (c->code == TYPESET && c->args[0] == "BAR") {
+	/* should be encapsulated in BREAKs
+
+	   THIS SUX.
+
+	 */
+	Command k;
+	
+	k.when = c->when;
+	k.code = BREAK_PRE;
+	commands_.bottom().add(new Command(k));
+	commands_.bottom().add(new Command(*c));
+	k.code = BREAK_MIDDLE;
+	commands_.bottom().add(new Command(k));
+	commands_.bottom().add(new Command(*c));
+	k.code = BREAK_POST;
+	commands_.bottom().add(new Command(k));
+	k.code = BREAK_END;
+	commands_.bottom().add(new Command(k));
+    }
+    else
+	commands_.bottom().add(new Command(*c));
+    
+    
 }
 
 void
@@ -103,12 +126,16 @@ Score::process()
 	sc->set_output(pscore_);
 	sc->process();
     }
+
+    // do this after processing, staffs first have to generate PCols.
     do_pcols();
     calc_idealspacing();
     clean_cols();
     OK();
     //    print();
     pscore_->calc_breaking();
+    // TODO: calculate vertical structs
+    // TODO: calculate mixed structs.
 }
 
 // remove empty cols with no spacing attached.
