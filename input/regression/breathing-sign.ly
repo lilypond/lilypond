@@ -24,8 +24,8 @@ two measures all have the same distance from each other:
 % Change to wedge:
     \property Voice.BreathingSign \override #'text = #"scripts-upbow"
     es8 d es f g8 \breathe f |
-% Revert to old layout:
-    \property Voice.BreathingSign \override #'molecule-callback = #Breathing_sign::brew_molecule
+
+    \property Voice.BreathingSign \set #'text = #"scripts-caesura"
     [es8 d] \breathe [es f g f] |
     es2 r4 \bar "||"
   }
