@@ -1,5 +1,5 @@
 
-% lines preceded by a percent are comments.
+% lines preceded by a percent sign are comments.
 \include "paper16.ly"
 \score {
     \notes			

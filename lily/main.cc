@@ -101,20 +101,24 @@ static Getopt_long *oparser_p_static = 0;
        follow regular localisation guidelines).
  */
 static Long_option_init options_static[] = {
-  {_i ("EXT"), "output-format", 'f',  _i ("use output format EXT (scm, ps, tex or as)")},
+  /* another bug in option parser: --output=foe is taken as an abbreviation
+     for --output-format */
+  //  {_i ("EXT"), "output-format", 'f',  _i ("use output format EXT (scm, ps, tex or as)")},
+  
+  {_i ("EXT"), "format", 'f',  _i ("use output format EXT (scm, ps, tex or as)")},
   {0, "help", 'h',  _i ("this help")},
   {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
   {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
   {0, "dependencies", 'M',  _i ("write Makefile dependencies for every input file")},
   {_i ("DIR"), "dep-prefix", 'P',  _i ("prepend DIR to dependencies")},
+  {_i ("EXPR"), "evaluate", 'e',_i ("evalute EXPR as Scheme after .scm init is read")},
   {0, "no-paper", 'm',  _i ("produce MIDI output only")},
-  {_i ("NAME"), "output", 'o',  _i ("write output to NAME")},
+  {_i ("FILE"), "output", 'o',  _i ("write output to FILE")},
   {0, "safe", 's',  _i ("inhibit file output naming and exporting")},
   {0, "version", 'v',  _i ("print version number")},
   {0, "verbose", 'V', _i ("verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},
-  {_i ("EXPR"), "evaluate", 'e',_i ("evalute EXPR as Scheme after .scm init is read")},
   {0,0,0,0}
 };
 

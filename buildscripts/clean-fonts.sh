@@ -4,7 +4,7 @@
 #     /var/spool/texmf/tfm/lilypond/<NOT-OUR-VERSION>/
 # ?
 
-VERSION="@TOPLEVEL_VERSION@
+VERSION="@TOPLEVEL_VERSION@"
 
 case  $# in
 0) 

@@ -83,8 +83,8 @@ calculated.
 
 During these stages different types of data play the the main role:
 during parsing, @strong{Music} objects are created.  During the
-interpretation, @strong{context} is constructed, and with this context
-af network of @strong{graphical objects} (``grobs'') is created. The
+interpretation, @strong{context}s are constructed, and with these contexts
+a network of @strong{graphical objects} (``grobs'') is created. These
 grobs contain unknown variables, and the network forms a set of
 equations. After solving the equations and filling in these variables,
 the printed output (in the form of @strong{molecules}) is written to an
@@ -93,7 +93,7 @@ output file.
 These threemanship of tasks (parsing, translating, typesetting) and
 data-structures (music, context, graphical objects) permeates the entire
 design of the program.  This manual is ordered in terms of user
-tasks. With each concept will be explained to which of the three parts
+tasks. For each concept, it will be explained to which of the three parts
 it belongs.
 
 
@@ -235,7 +235,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
 @lilypond[]
 \score {
   \notes \relative c'' {
-  \breve  \autoBeamOff
+    a\longa a\breve  \autoBeamOff
     a1 a2 a4 a8 a16 a32 a64 a64 
     r\longa r\breve  
     r1 r2 r4 r8 r16 r32 r64 r64 
@@ -323,7 +323,8 @@ Hal-Leonard Inc.  music publishers.
 
 Note that @code{EasyNotation} overrides a @code{Score} context.  You
 probably will want to print it with magnification to make it better
-readable.
+readable, see @ref{Output scaling}.
+
 
 @cindex Xdvi
 @cindex ghostscript
@@ -2879,10 +2880,14 @@ The style sheets and tables for selecting fonts are located in
 
 @refbugs
 
-Relative size is not linked to any real size.  There is no mechanism to
-select magnifications of fonts, meaning that you can not scale fonts
-continuoussly. There is no style sheet provided for other fonts besides
-the @TeX{} family.
+Relative size is not linked to any real size.
+
+There is no mechanism to select magnification of particular fonts,
+meaning that you don't have access to continuously scaled fonts.  You
+can scale the entire output, of course, see @ref{Output scaling}.
+
+There is no style sheet provided for other fonts besides the @TeX{}
+family.
 
 @cindex font selection
 @cindex font magnification
@@ -3133,6 +3138,7 @@ use are in @code{staff-space}s.
 * Paper size::                  
 * Line break::                  
 * Page break::                  
+* Output scaling::              
 @end menu
 
 @c .  {Paper block}
@@ -3282,12 +3288,6 @@ The file @code{paper16.ly}  will now include a file named @file{a4.ly}, which
 will set the paper variables @code{hsize} and @code{vsize} (used by
 @code{ly2dvi})
 
-
-
-
-
-
-
 @c .  {Line break}
 @node Line break
 @subsection Line break
@@ -3335,6 +3335,28 @@ Page breaks are normally computed by @TeX{}, so they are not under
 direct control of LilyPond.  However, you can insert a commands into the
 @file{.tex} output to instruct @TeX{} where to break pages. For more
 details, see the example file @file{input/test/between-systems.ly}
+
+
+
+@c .  {Output scaling}
+@node Output scaling
+@subsection Output scaling
+
+[TODO]
+
+@example
+dvips ...
+@end example
+
+@example
+pstops ...
+@end example
+
+
+@refbugs
+There is no mechanism to select magnification of particular fonts,
+meaning that you don't have access to continuously scaled fonts.
+
 
 
 @c . {Output formats}

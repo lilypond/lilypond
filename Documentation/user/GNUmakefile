@@ -46,7 +46,7 @@ $(outdir)/%.info: $(outdir)/%.texi
 default: 
 
 # Info is now built by default via texinfo-rules.
-# We must build them by defaulbt, otherwise they get built during make install
+# We must build them by default, otherwise they get built during make install
 info: $(INFO_FILES)
 
 
