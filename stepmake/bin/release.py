@@ -48,7 +48,10 @@ print barbaal
 os.remove(package.release_dir + barbaal)
 os.link('out/' + barbaal, package.release_dir + barbaal)
 os.chdir(package.test_dir)
-os.system('set -x; rm ' + package.test_dir + package.name + '*gz')
+try:
+	os.system('set -x; rm ' + package.test_dir + package.name + '*gz')
+except:
+	pass
 # os.link(released_tarball(cur_ver), tarball(cur_ver))
 os.link(package.release_dir + barbaal, barbaal)
 
@@ -70,5 +73,7 @@ rel_pn = package.patch_dir + pn
 os.rename(pn, rel_pn)
 os.link(rel_pn, pn)
 
-os.system('tar cf ' + package.nickname + ' *gz')
+# urg; this includes lilypond*.gz into yodl ball
+# os.system('tar cf ' + package.nickname + ' *gz')
+os.system('set -x; tar cf ' + package.nickname + ' ' + package.name + '*gz')
 

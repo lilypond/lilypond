@@ -1,3 +1,6 @@
+pl 75
+	- bfs: release
+
 pl 74
 	- avoid buggy /bin/sh on hp-ux
 	- bf: make/stepmake.make

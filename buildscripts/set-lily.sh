@@ -1,81 +1,77 @@
 #!/bin/sh
-# zet-lily.sh --- configure LilyPond sourcetree
-# nice in first character unique name
+# set-lily.sh --- configure LilyPond sourcetree; 
 #
+# configure Lily in $HOME/usr/src/lilypond-x.x.x, 
+# and without installing
+#
+
 PACKAGE_NAME=LilyPond
 export PACKAGE_NAME
 prefix=$HOME/usr
 sources=$prefix/src
 
-#
-#
-. ./stepmake/bin/package-zet.sh
-#
-# The $sources dir looks like this:
-#
-# <SEE PATCHES.txt>
-#
-if [ "x$LILYINCLUDE" = "x" ]; then
-	# we can try...
-	echo you should add the following to your profile script
-	if [ "x$MAILADDRESS" = "x" ]; then
-		MAILADDRESS=$USER@`hostname`
-		export MAILADDRESS
-		echo "        MAILADDRESS=\$USER@`hostname`"
-		echo "        export MAILADDRESS"
+showln ()
+{
+	(set -x; ln $*)
+}
+
+testmkdir ()
+{
+	if [ ! -x $1 ]; then
+		(set -x; mkdir -p $1)
 	fi
-	LILYINCLUDE=$LILYPOND_SOURCEDIR/init:$LILYPOND_SOURCEDIR/input:$LILYPOND_SOURCEDIR/mf/out
-	MFINPUTS=$MFINPUTS:$LILYPOND_SOURCEDIR/mf
-	TEXINPUTS=$TEXINPUTS:$LILYPOND_SOURCEDIR/mf/out:$LILYPOND_SOURCEDIR/ps:$LILYPOND_SOURCEDIR/tex
-	export LILYINCLUDE MFINPUTS TEXINPUTS
-	GS_LIB=$HOME/usr/src/lilypond/ps
-	GS_FONTPATH=$HOME/usr/src/lilypond/mf/out
-	GUILE_LOAD_PATH=$HOME/usr/src/lilypond/init
-	export GS_LIB GS_FONTPATH GUILE_LOAD_PATH
-	cat <<EOF
-	LILYINCLUDE=$LILYPOND_SOURCEDIR/init:$LILYPOND_SOURCEDIR/mf/out
-	MFINPUTS=\$MFINPUTS:\$LILYPOND_SOURCEDIR/mf
-	TEXINPUTS=$TEXINPUTS:$LILYPOND_SOURCEDIR/mf/out:$LILYPOND_SOURCEDIR/ps:$LILYPOND_SOURCEDIR/tex
-	export LILYINCLUDE MFINPUTS TEXINPUTS
-EOF
+}
 
-fi
+testvar ()
+{
+	var=`eval echo '\$'$1`
+	if [ "`echo "$var" | grep $2`" = "" ]; then
+#	if ! expr "$var" : ".*\($2\).*" ; then
+		eval $1=$3 
+		export $1
+		echo "        $1=$3"
+		echo "        export $1"
+	fi
+}
 
-ln -sf $LILYPOND_SOURCEDIR/lily/out/lilypond $prefix/bin/lilypond
-ln -sf $LILYPOND_SOURCEDIR/mi2mu/out/mi2mu $prefix/bin/mi2mu
-ln -sf $LILYPOND_SOURCEDIR/scripts/out/ly2dvi $prefix/bin/ly2dvi
-ln -sf $LILYPOND_SOURCEDIR/scripts/out/mudela-book $prefix/bin/mudela-book
+. ./stepmake/bin/package-zet.sh
+
+echo You should add the following to your profile script
+echo
+testvar LILYPONDPREFIX lily $LILYPOND_SOURCEDIR
+testvar MFINPUTS lily .:$MFINPUTS:$LILYPOND_SOURCEDIR/mf
+testvar TEXINPUTS lily .:$TEXINPUTS:$LILYPOND_SOURCEDIR/ps:$LILYPOND_SOURCEDIR/tex
+testvar GS_LIB lily $HOME/usr/src/lilypond/ps
+testvar GS_FONTPATH lily $HOME/usr/src/lilypond/mf/out
+testvar GUILE_LOAD_PATH lily $HOME/usr/src/lilypond/init
+testvar MAILADDRESS "@" $USER@`hostname`
+echo
+
+echo Setting up links
+echo
+showln -sf $LILYPOND_SOURCEDIR/lily/out/lilypond $prefix/bin/lilypond
+showln -sf $LILYPOND_SOURCEDIR/mi2mu/out/mi2mu $prefix/bin/mi2mu
+showln -sf $LILYPOND_SOURCEDIR/scripts/out/ly2dvi $prefix/bin/ly2dvi
+showln -sf $LILYPOND_SOURCEDIR/scripts/out/mudela-book $prefix/bin/mudela-book
 chmod 755 $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh
-ln -sf $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh $prefix/bin/ps-to-gifs
-ln -sf $LILYPOND_SOURCEDIR/mf/out/ afm
-TFMDIR=`kpsewhich tfm cmr10.tfm`
-ln -sf `dirname $TFMDIR` cmtfm
-rm -f tfm;
-ln -s mf/out tfm
+showln -sf $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh $prefix/bin/ps-to-gifs
 
-mkdir -p $prefix/share/
-if [ ! -x $prefix/share/lilypond ]; then
-    echo ln -sf  $sources/lilypond $prefix/share
-    ln -sf  $sources/lilypond $prefix/
-fi
-# real weird locale dir if $LILYPONDPREFIX is set...
-if [ $LILYPONDPREFIX != "" ]; then
-	LOCALES="it nl"
-	for i in $LOCALES; do
-		dir=$LILYPONDPREFIX/share/locale/$i/LC_MESSAGES
-		mkdir -p $dir
-		ln -sf $LILYPOND_SOURCEDIR/po/out/$i.mo $dir/lilypond.mo
-	done
-fi
+testmkdir $prefix/share
+rm -rf $prefix/share/lilypond
+showln -sf $sources/lilypond $prefix/share/lilypond
+
 if [ -f ../.gdbinit ];
 then
-    ln ../.gdbinit .
+    showln -f ../.gdbinit .
 fi
 
 if [ -f ../.dstreamrc ]
 then
-    ln ../.dstreamrc .
+    showln -f ../.dstreamrc .
 fi
+echo
 
-./configure --prefix=$prefix --enable-debugging --enable-printing --enable-checking --disable-optimise --enable-guile
+echo Starting configuration
+echo
+(set -x; TEX_TFMDIR=$TEX_TFMDIR ./configure --prefix=$prefix --enable-debugging --enable-printing --enable-checking --disable-optimise --enable-guile)
 

@@ -51,7 +51,7 @@ find various files.  The recommended way of doing so is adjusting the
 environment variables in the start-up scripts of your shell.  An
 example is given here for the Bourne shell:
 verb(export MFINPUTS="/usr/local/share/lilypond/mf:"
-export TEXINPUTS="/usr/local/share/lilypond/tex:"
+export TEXINPUTS="/usr/local/share/lilypond/tex:/usr/local/share/lilypond/ps:"
 )
 The empty path component
 represents TeX() and MetaFont's default search paths.  Scripts with
@@ -134,7 +134,7 @@ to install GNU LilyPond, simply type:
 verb(
 	gunzip -c lilypond-x.y.z | tar xf -
 	cd lilypond-x.y.z
-	configure		# fill in your standard prefix with --prefix
+	./configure		# fill in your standard prefix with --prefix
 	make
 	make install
 )
@@ -158,7 +158,7 @@ adjust your environment variables to your taste:
 
 verb(
 	export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR" 
-	configure
+	./configure
 )
 
 code(CPPFLAGS) are the preprocessor flags. 
@@ -168,7 +168,7 @@ bf(--help). If you are not root, you will probably have to make it
 with a different bf(--prefix) option.  Our favourite location is
 
 verb(
-	configure --prefix=$HOME/usr
+	./configure --prefix=$HOME/usr
 )
 
 In this case, you will have to set up MFINPUTS, and TEXINPUTS accordingly.
@@ -216,7 +216,7 @@ want to build with and   without profiling.  Then I'd use the
 following for the normal build, 
 
 verb(
-      configure --prefix=~ --disable-optimise --enable-checking
+      ./configure --prefix=~ --disable-optimise --enable-checking
       make
       make install
      )
@@ -224,7 +224,7 @@ verb(
 and for the profiling version, I specify a different configuration.
 
 verb(
-      configure --prefix=~ --enable-profiling --enable-config=optprof --enable-optimise --disable-checking
+      ./configure --prefix=~ --enable-profiling --enable-config=optprof --enable-optimise --disable-checking
       make config=optprof
       make config=optprof install
 )

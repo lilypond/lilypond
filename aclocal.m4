@@ -196,20 +196,22 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
     fi
     stepmake=`echo ${stepmake} | sed "s!\\\${prefix}!$presome!"`
 
+    AC_MSG_CHECKING(Package)
     if test "x$PACKAGE" = "xSTEPMAKE"; then
-        echo Stepmake package!
+	AC_MSG_RESULT(Stepmake package!)
 	(cd stepmake; rm -f stepmake; ln -s ../stepmake .)
 	(cd stepmake; rm -f bin; ln -s ../bin .)
 	AC_CONFIG_AUX_DIR(bin)
 	stepmake=stepmake
     else
-        echo Package: $PACKAGE
+        AC_MSG_RESULT($PACKAGE)
+	AC_MSG_CHECKING(for stepmake)
 	# Check for installed stepmake
 	if test -d $stepmake; then
-	    echo Using installed stepmake: $stepmake
+	    AC_MSG_RESULT($stepmake)
 	else
 	    stepmake='$(depth)'/stepmake
-	    echo Using local stepmake: $datadir/stepmake not found
+	    AC_MSG_RESULT(./stepmake  ($datadir/stepmake not found))
 	fi
 	AC_CONFIG_AUX_DIR(\
 	  $HOME/usr/local/share/stepmake/bin\
@@ -474,7 +476,8 @@ AC_DEFUN(AC_STEPMAKE_MSGFMT, [
     fi
 ])
 
-AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
+#why has this been dropped?
+AC_DEFUN(XXAC_STEPMAKE_TEXMF_DIRS, [
     AC_ARG_ENABLE(tex-prefix,
     [  enable-tex-prefix=DIR   set the tex-directory to find TeX subdirectories. (default: PREFIX)],
     [TEXPREFIX=$enableval],
@@ -506,6 +509,29 @@ AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
     AC_SUBST(TEXPREFIX)
     AC_SUBST(TEXDIR)
     AC_SUBST(MFDIR)
+])
+
+AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
+    AC_ARG_ENABLE(tex-tfmdir,
+    [  enable-tex-tfmdir=DIR   set the tex-directory where cmr10.tfm lives (default: use kpsewhich)],
+    [TFMDIR=$enableval],
+    [TFMDIR=auto] )
+
+    AC_MSG_CHECKING(TeX TFM directory)
+    if test "x$TFMDIR" = xauto ; then
+	if test "x$TEX_TFMDIR" = "x" ; then
+	    if kpsewhich --version > /dev/null 2>&1 ; then
+		TEX_TFMDIR=`kpsewhich tfm cmr10.tfm`
+		CMR10=`kpsewhich tfm cmr10.tfm`
+		TEX_TFMDIR=`dirname $CMR10`
+	    else
+		AC_STEPMAKE_WARN(Please set TEX_TFMDIR (to where cmr10.tfm lives):
+	TEX_TFMDIR=/usr/local/TeX/lib/tex/fonts ./configure)
+	    fi
+	fi
+    fi
+    AC_MSG_RESULT($TEX_TFMDIR)
+    AC_SUBST(TEX_TFMDIR)
 ])
 
 AC_DEFUN(AC_STEPMAKE_TEXMF, [
