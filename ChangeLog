@@ -1,5 +1,19 @@
 2004-02-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/refman.itely (Automatic note splitting):
+	remove Thread references.
+
+	* input/no-notation/pc-direction.ly: remove file.
+
+	* ly/engraver-init.ly: remove Thread
+
+	* input/regression/tie-chord-partial.ly: remove file.
+
+	* scripts/convert-ly.py (conv): \harmonic rule
+
+	* lily/new-fingering-engraver.cc (acknowledge_grob): add new
+	notation for harmonic notes: <c' g''\harmonic>
+
 	* lily/lily-guile.cc (alist_to_hashq): new function
 
 	* scm/lily.scm (alist->hash-table): new function.
@@ -12,7 +26,7 @@
 
 	* ly/engraver-init.ly: add DrumStaff and DrumVoice contexts
 
-2004-02-05  Jan Nieuwenhuizen  <janneke@gnua.org>
+2004-02-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/filter-lilypond-book.py (find_toplevel_snippets): Do not
 	discard valid matches.

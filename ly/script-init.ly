@@ -9,6 +9,8 @@ dashLarger= "accent"
 dashDot= "staccato"
 dashUnderscore = "portato"
 
+harmonic = #(make-music-by-name 'HarmonicEvent)
+
 thumb = #(make-articulation "thumb")
 accent = #(make-articulation "accent")
 marcato = #(make-articulation "marcato")

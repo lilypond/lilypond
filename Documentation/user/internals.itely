@@ -228,9 +228,9 @@ music expressions.  Consider the following example:
 @noindent
 The sequential music is interpreted by the Score context initially,
 but when a note is encountered, contexts are setup to accept that
-note.  In this case, a @code{Thread}, @code{Voice}, and @code{Staff}
+note.  In this case, a @code{Voice}, and @code{Staff}
 context are created.  The rest of the sequential music is also
-interpreted with the same @code{Thread}, @code{Voice}, and
+interpreted with the same @code{Voice}, and
 @code{Staff} context, putting the notes on the same staff, in the same
 voice.
 
@@ -262,7 +262,7 @@ contained contexts.  This means that a property valid for the
 If you do not wish to specify the name of the context in the
 @code{\property}-expression itself, you can refer to the abstract context
 name, @code{Current}.  The @code{Current} context is the latest
-used context.  This will typically mean the @internalsref{Thread} context,
+used context.  This will typically mean the @internalsref{Voice} context,
 but you can force another context with the
 @code{\property}-command.  Hence the expressions
 
@@ -300,6 +300,8 @@ from a higher context), then this has no effect.
 
 The syntax of @code{\unset} is asymmetric: @code{\property \unset} is not
 the inverse of @code{\property \set}.
+
+The context @code{Current} is confusing.  
 
 
 @node Context evaluation

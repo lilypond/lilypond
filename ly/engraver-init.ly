@@ -185,6 +185,9 @@
     \consists "Ligature_bracket_engraver"
     \consists "Breathing_sign_engraver"
 				% \consists "Rest_engraver"
+    \consists "Note_heads_engraver"
+    \consists "Rest_engraver"
+
     \consists "Stem_engraver"
     \consists "Beam_engraver"
     \consists "Grace_beam_engraver"
@@ -214,7 +217,6 @@
     \consists "Tuplet_engraver"
 
     \consists "Skip_event_swallow_translator"
-    \accepts Thread % bug if you leave out this!
 }
 
 \translator {
@@ -246,26 +248,7 @@
     \consists "Tuplet_engraver"
 
     \consists "Skip_event_swallow_translator"
-    \denies Thread
 }
-
-\translator{
-    \type Engraver_group_engraver
-    \name Thread
-    localKeySignature = #'()
-    \description "
-    Handles note heads, and is contained in the Voice context.  You
-    have to instantiate this explicitly if you want to adjust the
-    style of individual note heads.
-"
-    \consists "Font_size_engraver"	
-    \consists "Note_heads_engraver"
-    \consists "Rest_engraver"
-
-				% why here ? 
-    \consists "Output_property_engraver"	
-}
-
 
 \translator{
     \type "Engraver_group_engraver"
@@ -288,10 +271,11 @@
     \GrandStaffContext
     \name "PianoStaff"
     \alias "GrandStaff"
-    \description "
-    Just like @code{GrandStaff} but with @code{minVerticalAlign} set
-    equal to @code{maxVerticalAlign} so that interstaff beaming and
-    slurring can be used."
+
+    \description
+    "Just like @code{GrandStaff} but with a forced distance between
+    the staves, so cross staff beaming and slurring can be used."
+    
     verticalAlignmentChildCallback = #Align_interface::fixed_distance_alignment_callback
     VerticalAlignment \override #'forced-distance = #12
     VerticalAlignment \override #'self-alignment-Y = #0
@@ -330,10 +314,9 @@
     
     \description
 
-    " Groups staffs while adding a bracket on the left side,
-	grouping the staves together.  The bar lines of the contained
-	staves are connected vertically.
-"
+    "Groups staffs while adding a bracket on the left side, grouping
+the staves together.  The bar lines of the contained staves are
+connected vertically.  "
     
     \accepts "InnerChoirStaff"
     \accepts "ChoirStaff"
@@ -349,10 +332,8 @@
     extraVerticalExtent = ##f
     verticalExtent = ##f
 
-    \description "
-    Corresponds to a voice with lyrics.  Handles the printing of a
-    single line of lyrics.
-"
+    \description " Corresponds to a voice with lyrics.  Handles the
+printing of a single line of lyrics.  "
     
     \name LyricsVoice 
     \consists "Separating_line_group_engraver"
@@ -651,7 +632,6 @@ EasyNotation = \translator {
 \translator {
       \VoiceContext
       \name "TabVoice"
-      \denies "Thread"
       \consists "Tab_note_heads_engraver"
       \remove "Fingering_engraver"
       \remove "New_fingering_engraver"

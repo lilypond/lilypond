@@ -1,9 +1,9 @@
-\version "2.1.7"
+\version "2.1.19"
 % MERGED: stuff from follow-break.ly to follow-thread.ly
 
 % followVoice: connect note heads with line when thread switches staff 
-\header{ texidoc="@cindex followVoice Thread
-Threads can be traced automagically when they switch staves by setting
+\header{ texidoc="@cindex followVoice Voice
+Voices can be traced automagically when they switch staves by setting
 property @code{followVoice}. " }
 
 
