@@ -70,9 +70,13 @@ class Cursor
       cursor points to same object, cursor.previous()
       is newly inserted object.
       */
-    /// remove and cleanup Link // HWN: backspace or del?
-    void remove();		
+    
+    ///
+    void backspace();
 
+    /// 
+    void del();
+    
     /// access the list this came from
     const List<T>& list() const ;
     Link<T>* pointer();
