@@ -1426,24 +1426,27 @@ or at durations specified by the properties in
 @code{autoBeamSettings}. The defaults for @code{autoBeamSettings}
 are defined in @file{scm/auto-beam.scm}.
 
-The value of @code{autoBeamSettings} is changed using
-@code{\override} and restored with @code{\revert}:
+The value of @code{autoBeamSettings} is changed with two functions:
 @example
-\override autoBeamSettings   #'(@var{BE} @var{P} @var{Q} @var{N} @var{M}) = @var{dur}
-\revert autoBeamSettings #'(@var{BE} @var{P} @var{Q} @var{N} @var{M})
+  #(override-auto-beam-setting
+     '(@var{be} @var{p} @var{q} @var{n} @var{m}) @var{a} @var{b}
+     [@var{context}])
+  #(revert-auto-beam-setting '(@var{be} @var{p} @var{q} @var{n} @var{m}))
 @end example
-Here, @var{BE} is the symbol @code{begin} or @code{end}. It determines
+Here, @var{be} is the symbol @code{begin} or @code{end}. It determines
 whether the rule applies to begin or end-points.  The quantity
-@var{P}/@var{Q} refers to the length of the beamed notes (and `@code{*
-*}' designates notes of any length), @var{N}/@var{M} refers to a time
+@var{p}/@var{q} refers to the length of the beamed notes (and `@code{*
+*}' designates notes of any length), @var{n}/@var{M} refers to a time
 signature (wildcards `@code{* *}' may be entered to designate all time
-signatures).
+signatures), var{a}/var{b} is a duration. 
+By default, this command changes setting for the current voice. It is
+also possible to adjust settings at higher contexts, by adding a
+@var{context} argument.
 
 For example, if automatic beams should end on every quarter note, use
 the following:
 @example
-\override autoBeamSettings  
-    #'(end * * * *) = #(ly:make-moment 1 4)
+   #(override-auto-beam-setting '(end * * * *) 1 4)
 @end example
 Since the duration of a quarter note is 1/4 of a whole note, it is
 entered as @code{(ly:make-moment 1 4)}.
@@ -1451,8 +1454,7 @@ entered as @code{(ly:make-moment 1 4)}.
 The same syntax can be used to specify beam starting points. In this
 example, automatic beams can only end on a dotted quarter note:
 @example
-\override autoBeamSettings  
-    #'(end * * * *) = #(ly:make-moment 3 8)
+   #(override-auto-beam-setting '(end * * * *) 3 8)
 @end example
 In 4/4 time signature, this means that automatic beams could end only on
 3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
@@ -1463,8 +1465,7 @@ should only be applied in @var{N}/@var{M} time signature is formed by
 replacing the second asterisks by @var{N} and @var{M}. For example, a
 rule for 6/8 time exclusively looks like
 @example
-\override autoBeamSettings  
-    #'(begin * * 6 8) = ... 
+ #(override-auto-beam-setting '(begin * * 6 8) @dots{})
 @end example
 
 If a rule should be to applied only to certain types of beams, use the
@@ -1505,8 +1506,7 @@ end at 3 eights; the third beam can only be corrected by specifying
 manual beaming.
 
 @lilypond[raggedright,fragment,relative,noverbatim,quote]
-  \override autoBeamSettings
-    #'(end * * * *) = #(ly:make-moment 3 8)
+  #(override-auto-beam-setting '(end * * * *) 3 8)
   % rather show case where it goes wrong
   %\time 12/8 c'8 c c c16 c c c c c c[ c c c] c8[ c] c4
   \time 12/8 c'8 c c c16 c c c c c c c c c c8 c c4
