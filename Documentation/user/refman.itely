@@ -27,7 +27,8 @@ See @internalsref{\NAME\}
 @macro seeinternals{NAME}
 @end macro
 @macro internalsref{NAME}
-\NAME\@cindex \NAME\
+@cindex \NAME\
+\NAME\
 @end macro
 @end ifnothtml
 
@@ -778,8 +779,8 @@ top level, and they are connected between different staffs of a
   \context Staff = up { e'4 d'
      \bar "||"
      f' e' }
-  \context Staff = down { c4 g e g } >
-\context Staff = pedal { c2 c2 } >
+  \context Staff = down { \clef bass c4 g e g } >
+\context Staff = pedal { \clef bass c2 c2 } >
 @end lilypond
 
 The grobs that are created at @internalsref{Staff} level. The name is
@@ -1292,6 +1293,7 @@ An application---or rather, a hack---is to fake octavation indications.
 @menu
 * Articulations::               
 * Text scripts::                
+* Adding scripts::              
 * Grace notes::                 
 * Glissando ::                  
 * Dynamics::                    
@@ -1408,7 +1410,9 @@ text (see @ref{Text markup}) above or below notes by using a string:
 
 By default, these indications do not influence the note spacing, but
 by using the command @code{\fatText}, the widths will be taken into
-account.  @lilypond[fragment,singleline,verbatim] \relative c' {
+account.
+@c
+@lilypond[fragment,singleline,verbatim] \relative c' {
 c4^"longtext" \fatText c4_"longlongtext" c4 }
 @end lilypond
 
