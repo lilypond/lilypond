@@ -24,8 +24,8 @@ public:
   Link_array<Paper_def> papers_;
   Array<SCM> scores_;
   Real height_;
-  Protected_scm copyright_;
-  Protected_scm tagline_;
+  SCM copyright_;
+  SCM tagline_;
 
   Paper_book ();
   void init ();

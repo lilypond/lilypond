@@ -23,7 +23,9 @@ static Real const MAX_CRAMP = 0.05;
 static SCM
 stencil2line (Stencil* stil)
 {
-  static SCM z = ly_offset2scm (Offset (0, 0));
+  static SCM z;
+  if (!z)
+    z = scm_permanent_object (ly_offset2scm (Offset (0, 0)));
   Offset dim = Offset (stil->extent (X_AXIS).length (),
 		       stil->extent (Y_AXIS).length ());
   return scm_cons (ly_offset2scm (dim),
@@ -202,6 +204,9 @@ Paper_book *paper_book;
 
 Paper_book::Paper_book ()
 {
+  copyright_ = SCM_EOL;
+  tagline_ = SCM_EOL;
+  
   smobify_self ();
 }
 
@@ -471,7 +476,11 @@ Paper_book::mark_smob (SCM smob)
     scm_gc_mark (pb->papers_[i]->self_scm ());
   for (int i = 0; i < pb->scores_.size (); i++)
     scm_gc_mark (pb->scores_[i]);
-  return SCM_EOL;
+
+  scm_gc_mark (pb->copyright_);
+
+  
+  return pb->tagline_;
 }
 
 int
