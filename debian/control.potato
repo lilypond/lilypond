@@ -1,25 +1,22 @@
-Source: lilypond1.3
-Build-Depends: debhelper (>= 2.0.72), python-base (>= 1.5.2-4), libguile6-dev, tetex-bin, tetex-dev, tetex-extra, flex, bison, texinfo (>= 4.0-1), groff, gs, netpbm, pnmtopng, m4, gettext (>= 0.10.35-13)
+Source: lilypond
+Build-Depends: debhelper (>= 2.0.72), python-base (>= 1.5.2-4), libguile6-dev, tetex-bin, tetex-lib, tetex-extra, flex, bison, texinfo (>= 4.0-4), groff, m4, gettext (>= 0.10.35-13)
+Build-Depends-Indep: gs | gs-aladdin, netpbm, pnmtopng
 Section: tex
 Priority: optional
 Maintainer: Anthony Fok <foka@debian.org>
-Standards-Version: 3.2.1
+Standards-Version: 3.1.1
 
-Package: lilypond1.3
+Package: lilypond
 Architecture: any
-Replaces: lilypond
-Provides: lilypond
+Replaces: lilypond1.3
+Provides: lilypond1.3
 Depends: ${shlibs:Depends}, tetex-bin (>= 1.0.5-1), python-base (>= 1.5.2-4), guile
-Recommends: tetex-extra (>= 1.0-1)
-Conflicts: lilypond, musixtex-fonts
+Recommends: lilypond-doc, tetex-extra (>= 1.0-1)
+Conflicts: lilypond, lilypond1.3 (<= 1.3.132-1), musixtex-fonts
 Description: A program for printing sheet music.
  LilyPond is a music typesetter.  It produces beautiful sheet music
  using a high level description file as input.  LilyPond is part of 
  the GNU Project.
- .
- This is the developmental 1.3 branch of LilyPond.  It is not intended for
- use with stable projects, although 1.3.x is most likely to be less buggy
- and much more featureful than then the old "stable" 1.2.17.
  .
   URLs: http://www.cs.uu.nl/~hanwen/lilypond/
         http://www.xs4all.nl/~jantien/lilypond/
@@ -27,3 +24,22 @@ Description: A program for printing sheet music.
         http://www.lilypond.org/
   Authors: Han-Wen Nienhuys <hanwen@cs.uu.nl>
            Jan Nieuwenhuizen <janneke@gnu.org>
+
+Package: lilypond-doc
+Section: doc
+Architecture: all
+Suggests: lilypond (>= 1.4.1-1)
+Suggests: postscript-viewer, www-browser
+Description: LilyPond Documentation in HTML, PS and DVI formats
+ This package contains the HTML, PostScript and DVI documentation for the
+ LilyPond music typestting software.
+
+Package: lilypond1.3
+Architecture: all
+Depends: lilypond (>= 1.3.150-1)
+Description: Dummy package for transition to new stable lilypond.
+ This dummy package provides a transition from the previous lilypond1.3
+ package back to a newer lilypond because the stable 1.4 series has arrived.
+ .
+ Please feel free to remove this dummy package after you have upgraded
+ to the latest lilypond.

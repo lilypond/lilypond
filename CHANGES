@@ -1,5 +1,20 @@
-1.4.1.jcn4
+1.4.2.jcn1
 ==========
+
+* Included mktexnam.patch (again?).
+
+* Documentation fix (Mark Hindley).
+
+* Debian patch and bashism fix (Anthony).
+
+* Bugfix: local-install should depend on $(INSTALLATION_FILES).  This fixes
+./configure; make install in buildscripts/ (Michael Vanier).
+
+* Removed les-nereides from short-examples, as it is tweaked a lot,
+contrary to what the webpage claims (didn't know that).
+
+1.4.2
+=====
 
 * Glossary fixes (Thanks Jean-Pierre Coulon).
 

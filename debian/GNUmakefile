@@ -11,7 +11,8 @@ CONF_FILES = changelog control copyright emacsen-startup \
 EXTRA_DIST_FILES = README.Debian $(CONF_FILES) \
 	control.foka control.potato \
 	lilypond.dirs lilypond.doc-base lilypond.links \
-	lilypond-doc.dirs lilypond-doc.doc-base lilypond-doc.README.Debian
+	lilypond-doc.dirs lilypond-doc.doc-base lilypond-doc.README.Debian \
+	lilypond1.3.copyright
 #OUTCONF_FILES = $(addprefix $(outdir)/, $(basename $(CONF_FILES))) $(OUTIN_FILES)
 OUTCONF_FILES = $(OUTIN_FILES)
 OUT_DIST_FILES = $(OUTIN_FILES)

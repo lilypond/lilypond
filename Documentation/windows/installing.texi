@@ -49,11 +49,16 @@ Cygwin @uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
 If you're lucky, after running @file{setup.exe} you're all set up.
 
 Open a LilyPond shell (or any bash shell), and type
+
+@quotation
 @example
 lilypond --help
 @end example
+@end quotation
 
 If you don't see something similar to
+
+@quotation
 @example
 Usage: lilypond [OPTION]... [FILE]...
 
@@ -67,12 +72,16 @@ Options:
   -h,--help             this help
 [..]
 @end example
+@end quotation
 
 you should try adding @file{/usr/lilypond-x.y.z/bin} to your @var{PATH},
 do:
+
+@quotation
 @example
 PATH=/usr/lilypond-1.3.147/bin:$PATH
 @end example
+@end quotation
 
 and try again.
 

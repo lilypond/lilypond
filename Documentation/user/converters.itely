@@ -180,7 +180,7 @@ Report bugs to @email{bug-gnu-music@@gnu.org}.
 @node pmx2ly
 @section pmx2ly
 
-PMX is a Musixtex preprocessor written by Don Simons, see
+PMX is a MusiXTeX preprocessor written by Don Simons, see
 @uref{http://icking-music-archive.sunsite.dk/Misc/Music/musixtex/software/pmx/}.
 
 Report bugs to @email{bug-gnu-music@@gnu.org}.

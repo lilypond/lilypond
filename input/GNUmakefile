@@ -1,10 +1,9 @@
-# input/Makefile
-
 depth = ..
 
 SUBDIRS=bugs test regression tutorial no-notation ascii-art
 
-examples=trip  star-spangled-banner paddy twinkle nereides
+# nereides is tweaked a lot, can't do (read webpage)
+examples=trip star-spangled-banner paddy twinkle #nereides
 
 LOCALSTEPMAKE_TEMPLATES=ly mutopia
 EXTRA_DIST_FILES=paddy.abc

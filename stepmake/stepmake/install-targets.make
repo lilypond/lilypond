@@ -5,7 +5,7 @@ local-install: local-install-files local-install-outfiles
 local-install-outfiles:
 
 # urg, parameterise
-local-install-files:
+local-install-files: $(INSTALLATION_FILES)
 	$(PRE_INSTALL)
 	-$(INSTALL) -d $(INSTALLATION_DIR)
 	$(foreach i,  $(INSTALLATION_FILES),\

@@ -1,3 +1,12 @@
+lilypond (1.4.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Moved "bibtex2html, gs | gs-aladdin, netpbm (>= 2:9.10-1)"
+    from Build-Depends to Build-Depends-Indep because these packages
+    are only needed for building lilypond-doc.
+
+ -- Anthony Fok <foka@debian.org>  Tue, 29 May 2001 02:26:58 -0600
+
 lilypond (1.4.1-1) unstable; urgency=low
 
   * New upstream release.  (Closes: Bug#97598)

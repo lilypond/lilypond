@@ -193,7 +193,7 @@ def error (s):
 
 
 	'''Report the error S.  Exit by raising an exception. Please
-	do not abuse by trying to catch this error. If you donn't want
+	do not abuse by trying to catch this error. If you do not want
 	a stack trace, write to the output directly.
 
 	RETURN VALUE

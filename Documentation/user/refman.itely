@@ -886,15 +886,15 @@ are defined in @file{scm/auto-beam.scm}.
 The value of @code{autoBeamSettings} is changed using
 @code{\override} and unset using @code{\revert}:
 @example
-\property Voice.autoBeamSettings \override #'(@var{BE} @var{N} @var{M} @var{P} @var{Q}) = @var{dur}
-\property Voice.autoBeamSettings \revert #'(@var{BE} @var{N} @var{M} @var{P} @var{Q})
+\property Voice.autoBeamSettings \override #'(@var{BE} @var{P} @var{Q} @var{N} @var{M}) = @var{dur}
+\property Voice.autoBeamSettings \revert #'(@var{BE} @var{P} @var{Q} @var{N} @var{M})
 @end example
 Here, @var{BE} is the symbol @code{begin} or @code{end}. It determines
 whether the rule applies to begin or end-points.  The quantity
-@var{N}/@var{M} refers to a time signature (wildcards, `@code{* *}' may
-be entered to designate all time signatures), @var{P}/@var{Q} refers to
-the length of the beamed notes (and `@code{* *}' designates notes of any
-length).
+@var{P}/@var{Q} refers to the length of the beamed notes (and `@code{*
+*}' designates notes of any length), @var{N}/@var{M} refers to a time
+signature (wildcards, `@code{* *}' may be entered to designate all time
+signatures).
 
 For example, if you want automatic beams to end on every quarter note,
 you can use the following:
@@ -917,18 +917,18 @@ In 4/4 time signature, this means that automatic beams could end only on
 
 You can also restrict rules to specific time signatures. A rule that
 should only be applied in @var{N}/@var{M} time signature is formed by
-replacing the first asterisks by @var{N} and @var{M}. For example, a
+replacing the second asterisks by @var{N} and @var{M}. For example, a
 rule for 6/8 time exclusively looks like
 @example
 \property Voice.autoBeamSettings \override
-    #'(begin 6 8 * *) =  ... 
+    #'(begin * * 6 8) =  ... 
 @end example
 
 If you want a rule to apply to certain types of beams, you can use the
-second pair of asterisks. Beams are classified according to the shortest
+first pair of asterisks. Beams are classified according to the shortest
 note they contain. For a beam ending rule that only applies to beams
-with 32nd notes (and no shorter notes), you would use @code{(end * * 1
-32)}.
+with 32nd notes (and no shorter notes), you would use @code{(end 1
+32 * *)}.
 
 @c not true
 @c Automatic beams can not be put on the last note in a score.
