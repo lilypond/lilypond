@@ -139,6 +139,12 @@ TEXIDOC = 'texidoc'
 TEXINFO = 'texinfo'
 VERBATIM = 'verbatim'
 
+# NOTIME has no opposite so it isn't part of this dictionary
+no_options = {
+	NOFRAGMENT: FRAGMENT,
+	NOINDENT: INDENT,
+}
+
 # Recognize special sequences in the input;
 #
 # (?P<name>regex) -- assign result of REGEX to NAME
@@ -358,6 +364,17 @@ format_res = {
 	},
 }
 
+# options without a pattern in ly_options
+simple_options = [
+	EXAMPLEINDENT,
+	FRAGMENT,
+	NOFRAGMENT,
+	NOINDENT,
+	PRINTFILENAME,
+	TEXIDOC,
+	VERBATIM
+]
+
 ly_options = {
 	##
 	NOTES: {
@@ -370,8 +387,6 @@ ly_options = {
 
 		LINEWIDTH: r'''linewidth = %(linewidth)s''',
 
-		NOINDENT: r'''indent = 0.0\mm''',
-
 		QUOTE: r'''linewidth = %(linewidth)s - 2.0 * %(exampleindent)s''',
 
 		RAGGEDRIGHT: r'''raggedright = ##t''',
@@ -379,8 +394,6 @@ ly_options = {
 
 	##
 	LAYOUT: {
-		EXAMPLEINDENT: '',
-
 		NOTIME: r'''\context {
     \Staff
     \remove Time_signature_engraver
@@ -558,26 +571,55 @@ def classic_lilypond_book_compatibility (key, value):
 
 def compose_ly (code, options, type):
 	option_dict = {}
+
 	for i in options:
 		if string.find (i, '=') > 0:
 			(key, value) = re.split ('\s*=\s*', i)
 			option_dict[key] = value
 		else:
-			option_dict[i] = None
+			if i in no_options.keys ():
+				if no_options[i] in option_dict.keys ():
+					del option_dict[no_options[i]]
+			else:
+				option_dict[i] = None
 
 	has_linewidth = option_dict.has_key (LINEWIDTH)
+	no_linewidth_value = 0
+
+	# if LINEWIDTH is used without parameter, set it to default
+	if has_linewidth and option_dict[LINEWIDTH] == None:
+		no_linewidth_value = 1
+		del option_dict[LINEWIDTH]
 
 	for i in default_ly_options.keys ():
 		if i not in option_dict.keys ():
 			option_dict[i] = default_ly_options[i]
 
-	if not INDENT in option_dict.keys ():
-		option_dict[NOINDENT] = None
-
-	if not has_linewidth and LINEWIDTH in option_dict.keys ():
-		if QUOTE in option_dict.keys () or type == 'lilypond':
-			del option_dict[LINEWIDTH]
+	if not has_linewidth:
+		if type == 'lilypond' or FRAGMENT in option_dict.keys ():
 			option_dict[RAGGEDRIGHT] = None
+
+		if type == 'lilypond':
+			if LINEWIDTH in option_dict.keys ():
+				del option_dict[LINEWIDTH]
+		else:
+			if RAGGEDRIGHT in option_dict.keys ():
+				if LINEWIDTH in option_dict.keys ():
+					del option_dict[LINEWIDTH]
+
+		if QUOTE in option_dict.keys () or type == 'lilypond':
+			if LINEWIDTH in option_dict.keys ():
+				del option_dict[LINEWIDTH]
+
+	if not INDENT in option_dict.keys ():
+		option_dict[INDENT] = '0\\mm'
+
+	# the QUOTE pattern from ly_options only emits the `linewidth' keyword
+	if has_linewidth and QUOTE in option_dict.keys ():
+		if no_linewidth_value:
+			del option_dict[LINEWIDTH]
+		else:
+			del option_dict[QUOTE]
 
 	if FRAGMENT in option_dict.keys ():
 		body = FRAGMENT_LY
@@ -640,11 +682,10 @@ def compose_ly (code, options, type):
 				found = 1
 				break
 
-		if not found and key not in (FRAGMENT, NOFRAGMENT, PRINTFILENAME,
-					     RELATIVE, VERBATIM, TEXIDOC):
+		if not found and key not in simple_options:
 			ly.warning (_ ("ignoring unknown ly option: %s") % i)
 
-	#URGS
+	# URGS
 	if RELATIVE in override.keys () and override[RELATIVE]:
 		relative = string.atoi (override[RELATIVE])
 
@@ -828,8 +869,8 @@ class Lilypond_snippet (Snippet):
 		code = self.substring ('code')
 		s = run_filter (code)
 		d = {
-		  'code': s,
-		  'options': self.match.group ('options')
+			'code': s,
+			'options': self.match.group ('options')
 		}
 		# TODO
 		return output[self.format][FILTER] % d
@@ -1082,7 +1123,7 @@ LATEX_DOCUMENT = r'''
 \makeatletter\if@twocolumn\typeout{columns=2}\fi\makeatother
 \end{document}
 '''
-#need anything else besides textwidth?
+# need anything else besides textwidth?
 def get_latex_textwidth (source):
 	m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
 	preamble = source[:m.start (0)]
@@ -1122,7 +1163,7 @@ ext2format = {
 
 format2ext = {
 	HTML: '.html',
-	#TEXINFO: '.texinfo',
+	# TEXINFO: '.texinfo',
 	TEXINFO: '.texi',
 	LATEX: '.tex',
 }
@@ -1148,7 +1189,7 @@ def do_process_cmd (chunks):
 	ly.progress ('\n')
 
 def do_file (input_filename):
-	#ugh
+	# ugh
 	global format
 	if not format:
 		e = os.path.splitext (input_filename)[1]
@@ -1322,7 +1363,7 @@ def main ():
 	files = do_options ()
 	global process_cmd
 	if process_cmd == '':
-		process_cmd = lilypond_binary + " -f tex "
+		process_cmd = lilypond_binary + " -f tex"
 
 	if process_cmd:
 		process_cmd += string.join ([(' -I %s' % p)

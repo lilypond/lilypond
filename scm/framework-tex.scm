@@ -202,13 +202,11 @@
 (define (dump-line putter line last?)
   (ly:outputter-dump-string
    putter
-   (string-append "\\lybox{"
-		  (ly:number->string
-		   (interval-length (ly:paper-system-extent line X)))
-		  "}{"
-		  (ly:number->string
-		   (interval-length (ly:paper-system-extent line Y)))
-		  "}{%\n"))
+   (format "\\lybox{~a}{~a}{%\n"
+	   (ly:number->string
+	    (max 0 (interval-end (ly:paper-system-extent line X))))
+	   (ly:number->string
+	    (interval-length (ly:paper-system-extent line Y)))))
 
   (ly:outputter-dump-stencil putter (ly:paper-system-stencil line))
   (ly:outputter-dump-string
