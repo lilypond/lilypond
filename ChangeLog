@@ -1,3 +1,8 @@
+2003-04-01  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* lily/multi-measure-rest.cc (set_spacing_rods): Handle the
+	minumum-length property correctly.
+
 2003-03-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/music-functions.scm (make-multi-measure-rest): set input
