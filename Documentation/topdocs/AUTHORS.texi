@@ -42,7 +42,7 @@ list is alphabetically ordered.
 @item @email{nj104@@cus.cam.ac.uk, Neil Jerram}. 
     Glossary translations.
 @item @email{heikki.junes@@hut.fi, Heikki Junes}. 
-    Finnish note names, updates to Emacs-mode
+    Finnish translations, Emacs- and Vim-modes updates, docs.
 @item @email{m.krause@@tu-harburg.de, Michael Krause},
     breathing signs
 @item @email{dlatt@@datenrat.de, Dirk Lattermann},
