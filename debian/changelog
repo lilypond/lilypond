@@ -1,3 +1,10 @@
+lilypond (1.6.66-1) unstable; urgency=low
+
+  * Change python requirement in build-depend to build on unstable.
+  * Remove this entry: upstream testing build as we're gearing up to 1.6.
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Wed, 10 Jul 2002 02:54:14 +0200
+
 lilypond (1.4.8-1) unstable; urgency=high
 
   * New upstream release.  (Closes: Bug#111132)
