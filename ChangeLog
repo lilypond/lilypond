@@ -1,5 +1,8 @@
 2004-04-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/scaled-font-metric.cc (text_dimension): only multiply with
+	magnification_ when looking up in orig_.
+
 	* scm/output-tex.scm (text): switch off char-mapping.
 
 	* lily/tfm.cc (coding_scheme): replace ' ' in encoding with '-',
