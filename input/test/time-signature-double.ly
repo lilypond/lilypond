@@ -1,45 +1,32 @@
 
 \version "1.9.4"
 
-\header { texidoc= "@cindex Time Signature Double
-Double time signatures are not supported
-explicitly, but can be faked by overriding formatting routines. "
-}
+\header { texidoc= "
+
+@cindex Double time signature
+@cindex markup
+@cindex Time signature, double.
 
 
-#(define (brew-double-time-sig grob)
-  (define (frac-to-mol font frac)
-    (let*
-	((d (fontify-text font (number->string (cdr frac))))
-	 (n (fontify-text font (number->string (car frac))))
-	 (c (ly:molecule-combine-at-edge d Y UP n 0.0)) )
-      (ly:molecule-align-to! c Y CENTER)
-      c
-    ))
-  
-  (let*
-      
-    ((chain (Font_interface::get_property_alist_chain grob))
-     (font (ly:paper-get-font (ly:grob-get-paper grob) chain))
-     (f1 '(6 . 4))
-     (musfont (ly:paper-get-font (ly:grob-get-paper grob) (cons (list '(font-relative-size . 2) '(font-family . music)) chain)))
-     (plus (ly:molecule-translate-axis (ly:find-glyph-by-name musfont "scripts-stopped") 0.1 Y))
-     (f2 '(3 . 2))
-     (m1 (frac-to-mol font f1))
-     (m2 (frac-to-mol font f2)) )
-     
-    
-    (ly:molecule-combine-at-edge
-     (ly:molecule-combine-at-edge m1 X RIGHT plus 0.2)
-     X RIGHT m2  0.2)
-    
-    )
-)
+Double time
+signatures are not supported explicitly, but can be faked with markups
+and overriding formatting routines. " }
 
+tsMarkup =
+\markup  {
+    \number { 
+    \column < "6" "4" >
+    \musicglyph #"scripts-stopped" 
+    \bracket \column < "3" "2" >
+    }}
+	
 
 \score  { \notes \relative c'
 	  {
-	   \property Staff.TimeSignature \override #'molecule-callback = #brew-double-time-sig
+	   \property Staff.TimeSignature \override #'molecule-callback = #Text_item::brew_molecule
+	   \property Staff.TimeSignature \override #'text = #tsMarkup
+	   
+	   
 	   \time 3/2
 	   c2 c c 
 	   
