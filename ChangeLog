@@ -3,6 +3,9 @@
 	* lilypond-mode.el (LilyPond-words-filename): find lilypond.words
 	from load-path.
 	
+	* lilypond-mode.el (LilyPond-autocompletion): shows completions in
+	the mini-buffer with Control-Shift-c.
+	
 2002-11-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/parser.yy (tempo_event): use tempo-unit for \tempo
