@@ -86,6 +86,16 @@ Volta_spanner::do_add_processing ()
   dot_p_->style_str_ = "bold";
 }
   
+Interval
+Volta_spanner::do_height () const
+{
+  /*
+    in most cases, it's a lot better not no have height...
+  */
+  Interval i;
+  return i;
+}
+
 void
 Volta_spanner::do_post_processing ()
 {

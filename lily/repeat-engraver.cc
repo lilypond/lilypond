@@ -8,6 +8,7 @@
 
 #include "repeat-engraver.hh"
 #include "bar.hh"
+#include "bar-engraver.hh"
 #include "musical-request.hh"
 #include "multi-measure-rest.hh"
 #include "command-request.hh"
@@ -17,6 +18,7 @@
 #include "time-description.hh"
 #include "volta-spanner.hh"
 #include "note-column.hh"
+#include "paper-def.hh"
 
 ADD_THIS_TRANSLATOR (Repeat_engraver);
 
@@ -99,26 +101,58 @@ Repeat_engraver::do_removal_processing ()
       typeset_element (volta_p_arr_[i]);
 }
 
+#define URG
+
 void
 Repeat_engraver::do_process_requests ()
 {  
   Moment now = now_moment ();
+  Time_description const *time = get_staff_info().time_C_;
+  Bar_engraver* bar_engraver_l = dynamic_cast <Bar_engraver*>
+    (paper ()->find_translator_l ("Bar_engraver"));
   for (int i = bar_p_arr_.size (); i < repeated_music_arr_.size (); i++)
     {
-      Bar* bar_p = new Bar;
-      bar_p-> type_str_ = "|:";
-      bar_p_arr_.push (bar_p);
-      if (now > Moment (0))
-	announce_element (Score_element_info (bar_p, repeated_music_arr_[i])); 
+#ifndef URG
+      //suck me plenty
+      // nou hw, ik heb 't geprobeerd, maar ik snap er geen ruk van:
+      // zodra ik het via gevonden bar-engraver doe, dumpt ze koor
+      // in create_bar::announce_element, of ze zet helemaal geen ":|".
+      // het lijkt erop alsof ik een heel andere bar-engraver vind
+      // dan die ik zoek, ofzo??
+      if (bar_engraver_l && (now > Moment (0)))
+	bar_engraver_l->request_bar (":|");
+      else
+#endif
+	if (now > Moment (0))
+	{
+	  Bar* bar_p = new Bar;
+	  bar_p-> type_str_ = "|:";
+	  bar_p_arr_.push (bar_p);
+#ifndef URG
+	  announce_element (Score_element_info (bar_p,
+						repeated_music_arr_[i])); 
+#endif
+	}
     }
   for (int i = 0; i < bar_p_arr_.size (); i++)
     {
       if (!bar_p_arr_[i] && (now >= stop_mom_arr_[i]))
         {
-	  Bar* bar_p = new Bar;
-	  bar_p-> type_str_ = ":|";
-	  bar_p_arr_[i] = bar_p;
-	  announce_element (Score_element_info (bar_p, repeated_music_arr_[i]));
+#ifndef URG
+	  //suck me plenty
+	  if (bar_engraver_l)
+	    bar_engraver_l->request_bar ("|:");
+	  else
+#endif
+	    {
+	      Bar* bar_p = new Bar;
+	      bar_p-> type_str_ = ":|";
+	      bar_p_arr_[i] = bar_p;
+#ifndef URG
+	      announce_element (Score_element_info (bar_p,
+						    repeated_music_arr_[i]));
+#endif
+	    }
 	}
     }
   int bees = volta_p_arr_.size ();

@@ -19,7 +19,6 @@
 Bar_engraver::Bar_engraver()
 {
   bar_p_ =0;
-  bar_l_ =0;
   do_post_move_processing();
 }
 
@@ -45,8 +44,8 @@ Bar_engraver::acknowledge_element (Score_element_info i)
 {
   if (Bar *b = dynamic_cast<Bar *> (i.elem_l_))
     {
-      bar_l_ = b;
-      //      auto_create_bar_b_ = false;
+      // only bar-engraver should create bars
+      assert (0);
     }
 }
 
@@ -67,6 +66,30 @@ Bar_engraver::create_bar ()
     }
 }
 
+void
+Bar_engraver::request_bar (String type_str)
+{
+#if 0 // will dump core at announce_element (invalid daddy_grav_l_...)
+  create_bar ();
+#else
+  if (!bar_p_)
+    {
+      bar_p_ = new Bar;
+      bar_p_->break_priority_i_  = 0;
+      // urg: "" != empty...
+      String default_type = get_property ("defaultBarType", 0);
+      if (default_type.length_i ())
+	{
+	  bar_p_->type_str_ = default_type;
+	}
+    }
+#endif
+  if (((type_str == "|:") && (bar_p_->type_str_ == ":|"))
+    || ((type_str == ":|") && (bar_p_->type_str_ == "|:")))
+    bar_p_->type_str_ = ":|:";
+  else
+    bar_p_->type_str_ = type_str;
+}
 
 void 
 Bar_engraver::do_creation_processing ()
@@ -93,9 +116,7 @@ Bar_engraver::do_process_requests()
   Time_description const *time = get_staff_info().time_C_;
   if (bar_req_l_) 
     {
-      if (!bar_p_)
-	create_bar ();    
-
+      create_bar ();    
       bar_p_->type_str_ = bar_req_l_->type_str_;
     }
   else 
@@ -110,16 +131,7 @@ Bar_engraver::do_process_requests()
 	}
     }
   
-  /*
-    hmm, perhaps it's Better to create empty bars if you want none
-    displayed, and keep bars for breakpoints ?
-   */
-#if 0
-  if ((time && time->whole_in_measure_)
-      && !always.to_bool ()
-      && !bar_p_ && !bar_l_)
-#endif
-  if (!bar_p_ && !bar_l_)
+  if (!bar_p_)
     {
       Break_req r;
       r.penalty_i_ = Break_req::DISALLOW;
@@ -131,15 +143,6 @@ Bar_engraver::do_process_requests()
 void 
 Bar_engraver::do_pre_move_processing()
 {
-  if (bar_l_)
-    {
-      bar_l_ = 0;
-      if (bar_p_)
-	{
-	  bar_p_->unlink ();
-	  bar_p_ = 0;
-	}
-    }
   if (bar_p_) 
     {
       typeset_element (bar_p_);
