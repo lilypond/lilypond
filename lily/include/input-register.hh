@@ -24,7 +24,7 @@ struct Input_register : Input {
     String name_str_;
 
     void add(Input_register *);
-    
+    bool is_name_b(String);
     bool accept_req_b();
     bool accepts_b(String);
     void print() const;
