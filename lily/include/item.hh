@@ -31,12 +31,12 @@ public:
 
   /// should be put in a breakable col.
   bool breakable_b_;
-  int break_status_i_;
+  Direction break_status_i_;
   int break_priority_i_;
   
   /// nobreak = 0, pre = -1, post = 1
   int break_status_i() const;
-  Item * find_prebroken_piece (int) const;
+  Item * find_prebroken_piece (Direction) const;
   Item * find_prebroken_piece (Line_of_score*) const;    
 
   virtual Item *item() { return this; }
@@ -44,6 +44,7 @@ public:
   Real hpos_f() const;
   DECLARE_MY_RUNTIME_TYPEINFO;
   virtual Line_of_score * line_l() const;
+  virtual Paper_column * column_l () const;
     
   static int left_right_compare (Item const *, Item const*);
 protected:

@@ -46,9 +46,9 @@ Spanner::break_into_pieces ()
       left = break_cols[i-1];
       right = break_cols[i];
       if (!right->line_l())
-	right = right->find_prebroken_piece(-1);
+	right = right->find_prebroken_piece(LEFT);
       if (!left->line_l())
-	left = left->find_prebroken_piece(1);
+	left = left->find_prebroken_piece(RIGHT);
 
             assert (left&&right && left->line_l() == right->line_l());
 
@@ -69,9 +69,9 @@ Spanner::set_my_columns()
   do 
     {
       if (!spanned_drul_[i]->line_l())
-	set_bounds(i,spanned_drul_[i]->find_prebroken_piece(-i));
+	set_bounds(i,spanned_drul_[i]->find_prebroken_piece((Direction)-i));
     } 
-  while ((i*=-1) != 1);
+  while (flip(&i) != 1);
 }       
 
 
@@ -171,4 +171,21 @@ void
 Spanner::do_junk_links()
 {
   spanned_drul_[LEFT] = spanned_drul_[RIGHT] =0;
+}
+
+Array<Rod>
+Spanner::get_rods () const
+{
+  Array<Rod> r;
+  return r;
+}
+
+void
+Spanner::do_space_processing ()
+{
+  Array<Rod> rs (get_rods ());
+  for (int i=0; i < rs.size (); i++)
+    {
+      rs[i].add_to_cols ();
+    }
 }
