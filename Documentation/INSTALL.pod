@@ -188,7 +188,11 @@ Set then directory TeX input is in (detected as a subdir of tex-prefix)
 
 =item --enable-mf-dir
 
-Set then directory mf input is in (idem) [obsolete]
+Set the directory mf input is in (idem) [obsolete]
+
+=item --enable-out-dir
+
+Set the directory for machine generated output.
 
 =back
 
@@ -202,6 +206,33 @@ If you do
 everything will be compiled, but nothing will be installed.  The
 resulting binaries can be found in the subdirectories F<out/> (which
 contain all files generated during compilation).
+
+=head2 Building for multiple hosts
+
+LilyPond does not follow the GNU standards when it comes to
+configuring and making Makefiles. In LilyPond, F<make> generates I<all>
+output in output directories (called F<out/>, by default). 
+You can have multiple compiles from the same source-tree, by
+overriding the setting for the output directory.
+
+Example: on my system, I do debugging and lots compiling. For this I
+use the configuration as follows:
+
+	configure --prefix=~ --enable-debugging --enable-printing --enable-checking
+	make all
+
+and I want to do profiling. For that I use
+
+	configure --prefix=~ --enable-debugging --disable-printing\
+		--disable-checking --enable-profiling --enable-optimise\
+		--enable-out-dir=out-profile
+
+	make OUTDIR_NAME=out-profile all
+
+These two commands build two entirely separate versions of
+LilyPond. In Real Life, you would probably also want to have two
+different prefixes. On my machine this is no problem; I never do 
+C<make install>. My prefix dirs are linked back to my source directory.
 
 
 =head1 INSTALLING
@@ -231,6 +262,10 @@ files, I ran "texhash"
 
 The -O2 option to gcc triggers a gcc bug on DEC Alpha in dstream.cc. You
 should turn off this flag for this file.
+
+=item * 
+
+Perl5.003 and Perl5.004 use different syntax for pod2html:
 
 =back
 
@@ -269,6 +304,11 @@ F<make/out/lilypond.spec>. You should be able to create an rpm as a normal
 user. Be sure you have a ~/.rpmrc, and edit the RPM-dir in
 F<Variables.make>. (If you create the RPM as a normal user the
 permissions will not be set correctly, unfortunately)
+
+
+=head1 DEBIAN GNU/LINUX
+
+A Debian package is in the works
 
 
 =head1 WINDOZE

@@ -1,13 +1,13 @@
 /*
-  template2.cc -- instantiate some list templates. 
+  template2.cc -- Instantiate some list templates. 
 
   source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "score-column.hh"
+#include "line-spacer.hh"
 #include "plist.tcc"
 #include "pcursor.tcc"
 
-IPL_instantiate(Score_column);
+IPL_instantiate(Line_spacer);

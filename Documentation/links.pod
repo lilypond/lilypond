@@ -45,7 +45,7 @@ Beta releases will also be at
 
 =item ftp://pcnov095.win.tue.nl/pub/lilypond
 
-=item ftp://alpha.gnu.ai.mit.edu/
+=item ftp://alpha.gnu.ai.mit.edu/gnu/
 
 =back
 
@@ -117,8 +117,13 @@ Dave Philips' Linux sound applications page
 
 More software for (early) music.
 
-=item http://www.emry.net/
+=item http://www.emry.net/webwatcher/
 
-Linux webwatcher.
+The Linux webwatcher.
+
+=item http://www.pbm.com/~lindahl/ravenscroft/modern
+
+Transcriptions of the music of Thomas Ravenscroft, partly using
+LilyPond
 
 =back
