@@ -1,5 +1,5 @@
 struct  Symtable : public Assoc<String, Symbol> {
-    
+
 };
 
 

@@ -76,6 +76,7 @@ struct Box {
     }
     Box(svec<Real> );
     Box();
+    Box(Interval ix, Interval iy);
 };
 
 
