@@ -1,14 +1,14 @@
 \header {
 
-texidoc = "Beams may be entered in postfix notation, separating the
+texidoc = "Beams and ties may be entered in postfix notation, separating the
     notes and the brackets with a dash."
 
 }
 
 \score
 {
- \notes
+ \notes\relative c''
    {
-       c8-[ c-]
+       c8-[-~ c-]
    }
 }

@@ -25,15 +25,17 @@
    just at this time, and note that start at this time.
 
    TODO: Remove the dependency on musical info. We should tie on the
-   basis of position and duration-log of the heads (not of the reqs).
+   basis of position and duration-log of the heads (not of the events).
 
+   New tie event happens at the time of the first note, the 
 */
 class Tie_engraver : public Engraver
 {
   Moment end_mom_;
   Moment next_end_mom_;
 
-  Music *req_;
+  Music *event_;
+  
   Link_array<Grob> now_heads_;
   Link_array<Grob> stopped_heads_;
   Link_array<Grob> ties_;
@@ -57,7 +59,7 @@ public:
 
 Tie_engraver::Tie_engraver ()
 {
-  req_ = 0;
+  event_ = 0;
   tie_column_ = 0;
 }
 
@@ -65,12 +67,19 @@ Tie_engraver::Tie_engraver ()
 bool
 Tie_engraver::try_music (Music *mus)
 {
-  req_ = mus;
-  SCM m = get_property ("automaticMelismata");
-  bool am = gh_boolean_p (m) &&gh_scm2bool (m);
-  if (am)
+  if(mus->is_mus_type( "tie-event"))
     {
-      set_melisma (true);
+      event_ = mus;
+    }
+
+  if (event_)
+    {
+      SCM m = get_property ("automaticMelismata");
+      bool am = gh_boolean_p (m) &&gh_scm2bool (m);
+      if (am)
+	{
+	  set_melisma (true);
+	}
     }
   return true;
 }
@@ -103,7 +112,7 @@ head_pitch_compare (Grob  *const&a,Grob  *const&b)
 void
 Tie_engraver::process_acknowledged_grobs ()
 {
-  if (req_)
+  if (event_)
     {
       now_heads_.sort (&head_pitch_compare);
       /*
@@ -153,7 +162,7 @@ Tie_engraver::process_acknowledged_grobs ()
 	  Tie::set_head (p,RIGHT, dynamic_cast<Item*> (unsmob_grob (ly_cdr (pair))));
 	  
 	  ties_.push (p);
-	  announce_grob(p, req_->self_scm());
+	  announce_grob(p, event_->self_scm());
 	}
       else for (SCM s = head_list; gh_pair_p (s); s = ly_cdr (s))
 	{
@@ -164,7 +173,7 @@ Tie_engraver::process_acknowledged_grobs ()
 	  Tie::set_head (p, RIGHT, dynamic_cast<Item*> (unsmob_grob (ly_cdar (s))));
 	  
 	  ties_.push (p);
-	  announce_grob(p, req_->self_scm());
+	  announce_grob(p, event_->self_scm());
 	}
 
       if (ties_.size () > 1 && !tie_column_)
@@ -182,8 +191,7 @@ Tie_engraver::process_acknowledged_grobs ()
 void
 Tie_engraver::stop_translation_timestep ()
 {
-  req_ = 0;
-
+  event_ = 0;
   now_heads_.clear ();
 
   /*
@@ -268,6 +276,8 @@ Tie_engraver::start_translation_timestep ()
     it at the top.
    */
   stopped_heads_.reverse();
+
+  event_ = 0;
 }
 
 

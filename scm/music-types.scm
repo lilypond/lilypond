@@ -465,6 +465,12 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 	(internal-class-name . "Event")
 	(types . (general-music tie-event event))
 	))
+    (NewTieEvent
+     . (
+	(description .  "A tie.  Entered as @var{note}-~.")
+	(internal-class-name . "Event")
+	(types . (general-music new-tie-event event))
+	))
     (TremoloEvent
      . (
 	(description . "Un measured tremolo.")

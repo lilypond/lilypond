@@ -37,7 +37,7 @@
 
 
 void
-Tie::set_head (Grob*me,Direction d, Item * h)
+Tie::set_head (Grob*me,Direction d, Grob * h)
 {
   assert (!head (me,d));
   index_set_cell (me->get_grob_property ("heads"), d, h->self_scm ());
