@@ -4,7 +4,7 @@ a1\fff\> \!a\pp
 a\< \!a
 \property Voice.crescendoText = "cresc."
 \property Voice.crescendoSpanner = "dashed-line"
-a\mf\cresc \endcresc a
+a\mf\< a \!a 
 a\< \!a
 }
 \paper{

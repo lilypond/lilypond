@@ -314,8 +314,11 @@ addition to the those needed for running:
 Debian GNU/linux
 ================
 
-   A Debian package is also available; contact Anthony Fok
-<foka@debian.org>.  The build scripts are in the subdirectory `debian/'.
+   A Debian package is also available; see
+http://packages.debian.org/lilypond
+(http://packages.debian.org/lilypond) or contact Anthony Fok
+<foka@debian.org> for more information.  The build scripts are in the
+subdirectory `debian/'.
 
 Windows NT/95
 =============

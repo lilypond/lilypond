@@ -20,18 +20,24 @@ flauto1 = \notes \relative c {
 	g4-. r r2 |
 	b,4-. r r2 |
 	R1 *4 |
-	r2 g'\p_"\ \ \ cresc." ( |
-	)fis2. g4-.\f |
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	r2 g'\p\< ( |
+	)fis2. \!g4-.\f |
 	R1*5 |
-	r2 f\p_"\ \ \ cresc." ~ |
-	f4 e-.\f r2 |
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	r2 f\p\< ~ |
+	f4 \!e-.\f r2 |
 	R1 |
 	f2()es |
-	d1-"cresc."  |
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	d1\<  |
 	d1 |
 	d2 d2 |
 	d2 d2 |
-	f1\ff ~|
+	\!f1\ff ~|
 	f4(es des)c |
 	b4. r8 c4. r8 |
 	d4. r8 es4. r8 |
@@ -57,23 +63,29 @@ flauto1 = \notes \relative c {
 	c~|
 	c~|
 	c~|
-	c-"cresc."~|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	c\<~|
 	c~|
-	c2\ff es|
+	\!c2\ff es|
 	d1~|
-	d\p-"\ \ \ cresc."~|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	d\p\<~|
 	d~| 
 	d2.()f4|
 	f(es2)d4|
 	d(c2)bes4|
 	bes(a bes)g|
-	fis\pp r r2|
+	\!fis\pp r r2|
 	r2 r4 r8 a|
 	bes4 r r2|
-	r r4 r8 bes-"cresc."|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	r r4 r8 bes\<|
 	c4 r r r8 c |
 	d4 r r r8 d|
-	es2.\ff()d4|
+	\!es2.\ff()d4|
 	fis(g fis)g|
 	es2.()d4|
 	fis(g fis)g|
@@ -115,7 +127,9 @@ flauto1 = \notes \relative c {
 	r4 r8 f' es4 r8 bes|
 	c4 r r2|
 	R1*2|
-	r4 r8 ges'-"cresc." f4 r8 c|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = ""
+	r4 r8 ges'\< f4 r8 c|
 	des4 r r2|
 	R1*5|
 	f4 r r r8 es|
@@ -129,7 +143,7 @@ flauto1 = \notes \relative c {
 	f4 r8 f e4 r8 e|
 	f4 r r2|
 	R1|
-	des4-.\ff r r2|
+	\!des4-.\ff r r2|
 	R1*3|
 	d2\sf r|
 	d2\sf r|
@@ -148,14 +162,18 @@ flauto1 = \notes \relative c {
 	)d2. es4\sf(|
 	)d r r2|
 	R1*9|
-	e2.\p-"\ \ \ cresc."(f4|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	e2.\p\<(f4|
 	e d b )g|
-	g2\ff bes|
+	\!g2\ff bes|
 	a1~a4\p r r2|
 	R1*3|
-	a1-"cresc."~|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	a1\<~|
 	a|
-	a2\ff c|
+	\!a2\ff c|
 	b a|
 	g2.\p( a4|
 	g fis dis )b|
@@ -195,10 +213,12 @@ flauto1 = \notes \relative c {
 	c r8 f8 es4 r8 bes|
 	as4-. des4-. r2|
 	R1*11|
-	es2.\p-"\ \ \ cresc."(f4|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	es2.\p\<(f4|
 	es d b)g|
 	g1|
-	as\f~|
+	\!as\f~|
 	as\p|
 	bes\f~|
 	bes\p|
@@ -213,7 +233,7 @@ flauto1 = \notes \relative c {
 	c~|
 	c|
 	d|
-	es4.-"sempre\ \ \ \ \ \ \ "\ff b8 c4. as8|
+	es4.-"sempre"\ff b8 c4. as8|
 	g4. as8 g4. f'8|
 	es4. b8 c4. as8|
 	g4. as8 g4. f'8|
@@ -233,9 +253,11 @@ flauto1 = \notes \relative c {
 	R1|
 	c4-. c4-. r2|
 	c4-. c4-. r2|
-	c4-"dim." r d r|
+	\property Voice.decrescendoText = "dim."
+	\property Voice.decrescendoSpanner = "dashed-line"
+	c4\> r d r|
 	R1|
-	es4\p r r2|
+	\!es4\p r r2|
 	R1|
 	d,4 r r2|
 	R1|

@@ -32,10 +32,12 @@ protected:
   virtual void acknowledge_element (Audio_element_info);
   virtual void do_process_requests ();
   virtual void do_pre_move_processing ();
+  virtual void do_post_move_processing ();
 
 private:
   Audio_dynamic* audio_p_;
-  Drul_array<Span_req*> request_drul_;
+  Span_req* span_start_req_l_;
+  Drul_array<Span_req*> span_req_l_drul_;
   Array<Audio_dynamic_tuple> dynamic_tuple_arr_;
   Array<Audio_dynamic_tuple> finished_dynamic_tuple_arr_;
   Direction finished_dir_;
@@ -45,7 +47,9 @@ ADD_THIS_TRANSLATOR (Span_dynamic_performer);
 
 Span_dynamic_performer::Span_dynamic_performer ()
 {
-  request_drul_[START] = request_drul_[STOP] = 0;
+  span_req_l_drul_[START] = 0;
+  span_req_l_drul_[STOP] = 0;
+  span_start_req_l_ = 0;
   audio_p_ = 0;
 }
 
@@ -55,7 +59,7 @@ Span_dynamic_performer::acknowledge_element (Audio_element_info i)
   if (Audio_dynamic * d = dynamic_cast <Audio_dynamic*> (i.elem_l_))
     {
       Audio_dynamic_tuple a = { d, now_mom () };
-      if (!request_drul_[START])
+      if (!span_req_l_drul_[START])
 	dynamic_tuple_arr_.clear ();
       dynamic_tuple_arr_.push (a);
       if (finished_dynamic_tuple_arr_.size ())
@@ -72,7 +76,18 @@ Span_dynamic_performer::do_process_requests ()
       Real start_volume = finished_dynamic_tuple_arr_[0].audio_l_->volume_i_;
       Real dv = finished_dynamic_tuple_arr_.top ().audio_l_->volume_i_
 	- start_volume;
-      if (!dv)
+      /*
+	urg.
+	Catch and fix the case of:
+
+             |                         |
+	    x|                        x|
+            f cresc.  -- -- -- -- --  pp 
+
+	 Actually, we should provide a non-displayed dynamic/volume setting,
+	 to set volume to 'ff' just before the pp.
+       */
+      if (!dv || sign (dv) != finished_dir_)
 	{
 	  // urg.  about one volume step
 	  dv = (int)finished_dir_ * 13;
@@ -92,20 +107,27 @@ Span_dynamic_performer::do_process_requests ()
       finished_dynamic_tuple_arr_.clear ();
     }
 
-  if (request_drul_[STOP])
+  if (span_req_l_drul_[STOP])
     {
-      finished_dynamic_tuple_arr_ = dynamic_tuple_arr_;
-      finished_dir_ = request_drul_[STOP]->span_type_str_ == "crescendo"
-	? RIGHT : LEFT;
-      dynamic_tuple_arr_.clear ();
-      if (finished_dynamic_tuple_arr_.size ())
-	dynamic_tuple_arr_.push (finished_dynamic_tuple_arr_.top ());
-      request_drul_[STOP] = 0;
-      request_drul_[START] = 0;
+      if (!span_start_req_l_)
+	{
+	  span_req_l_drul_[STOP]->warning (_ ("can't find start of (de)crescendo"));
+	}
+      else
+	{
+	  span_start_req_l_ = 0;
+	  finished_dynamic_tuple_arr_ = dynamic_tuple_arr_;
+	  finished_dir_ = span_req_l_drul_[STOP]->span_type_str_ == "crescendo"
+	    ? RIGHT : LEFT;
+	  dynamic_tuple_arr_.clear ();
+	  if (finished_dynamic_tuple_arr_.size ())
+	    dynamic_tuple_arr_.push (finished_dynamic_tuple_arr_.top ());
+	}
     }
 
-  if (request_drul_[START])
+  if (span_req_l_drul_[START])
     {
+      span_start_req_l_ = span_req_l_drul_[START];
       audio_p_ = new Audio_dynamic (0);
       Audio_element_info info (audio_p_, 0);
       announce_element (info);
@@ -125,24 +147,24 @@ Span_dynamic_performer::do_pre_move_processing ()
     }
 }
 
+void
+Span_dynamic_performer::do_post_move_processing ()
+{
+  span_req_l_drul_[STOP] = 0;
+  span_req_l_drul_[START] = 0;
+}
+
 bool
 Span_dynamic_performer::do_try_music (Music* r)
 {
   if (Span_req * s = dynamic_cast<Span_req*>(r))
     {
-      if (s-> span_type_str_ != "crescendo"
-	  && s->span_type_str_ != "decrescendo")
-	return false;
-      
-      Direction d = s->span_dir_;
-
-      if (d == STOP && !request_drul_[START])
+      if (s-> span_type_str_ == "crescendo"
+	  || s->span_type_str_ == "decrescendo")
 	{
-	  r->warning (_ ("No (de)crescendo to end"));
-	  return false;
+	  span_req_l_drul_[s->span_dir_] = s;
+	  return true;
 	}
-      request_drul_[d] = s;
-      return true;
     }
   return false;
 }

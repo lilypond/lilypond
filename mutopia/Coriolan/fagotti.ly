@@ -22,8 +22,10 @@ $fagotti_staff = \context Staff = fagotti <
 	%\notes \context Voice=fagotti < 
 	\notes \context Staff=fagotti < 
 		\global
-		\$fagotto1
-		\$fagotto2
+		\context VoiceOne=fagottoi
+			\$fagotto1
+		\context VoiceTwo=fagottoii
+			\$fagotto2
 	>
 >
 

@@ -6,9 +6,11 @@ a1\fff\> \!c,,\pp a'' a\p
 % We need this to test if we get two Dynamic line spanners
 a
 
-% because Dynamic_engraver::do_removal_processing ()
-% doesn't seem to do its job?
-a\f
+% because do_removal_processing ()
+% doesn't seem to post_process elements
+d\f
+
+a
 
 }
 \paper{

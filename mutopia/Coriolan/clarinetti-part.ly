@@ -14,6 +14,6 @@ copyright =	 "public domain";
 \score{
 	\$clarinetti_staff
 	\include "coriolan-part-paper.ly"
-	\midi{ \tempo 4 = 160; }
+	\include "coriolan-midi.ly"
 }
 

@@ -21,8 +21,10 @@ $oboi_staff = \context Staff = oboi <
 	%\notes \context Voice=oboi < 
 	\notes \context Staff=oboi < 
 		\global
-		\$oboe1
-		\$oboe2
+		\context VoiceOne=oboei
+			\$oboe1
+		\context VoiceTwo=oboeii
+			\$oboe2
 	>
 >
 

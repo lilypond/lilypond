@@ -345,9 +345,10 @@ in addition to the those needed for running:
 
 @section Debian GNU/linux
 
-A Debian package is also available; contact Anthony Fok
-@email{foka@@debian.org}.  The build scripts are in the subdirectory
-@file{debian/}.
+A Debian package is also available; see
+@uref{http://packages.debian.org/lilypond,http://packages.debian.org/lilypond}
+or contact Anthony Fok @email{foka@@debian.org} for more information.
+The build scripts are in the subdirectory @file{debian/}.
 
 @section Windows NT/95
 

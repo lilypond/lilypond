@@ -1,3 +1,54 @@
+lilypond1.3 (1.3.24-1) frozen unstable; urgency=low
+
+  * New upstream development release with lots of bug fixes.  :-)
+  * [debian/control]: Added missing build dependencies.  Thanks to
+     Roman Hodek for the bug report and solution (closes: Bug#58078).
+
+ -- Anthony Fok <foka@debian.org>  Sat, 19 Feb 2000 15:14:31 -0700
+
+lilypond1.3 (1.3.17-1) unstable; urgency=low
+
+  * New upstream release.  Merry Christmas!
+
+ -- Anthony Fok <foka@debian.org>  Fri, 24 Dec 1999 08:59:21 -0700
+
+lilypond1.3 (1.3.16-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Anthony Fok <foka@debian.org>  Wed, 22 Dec 1999 22:12:30 -0700
+
+lilypond1.3 (1.3.12-1) unstable; urgency=low
+
+  * New upstream release.
+  * [debian/rules]: Commented out "$(MAKE) -C Documentation/programmer ps"
+      temporarily because of error making lilypond-overview.dvi.
+
+ -- Anthony Fok <foka@debian.org>  Fri, 17 Dec 1999 00:33:47 -0700
+
+lilypond1.3 (1.3.5-1) unstable; urgency=low
+
+  * New upstream release.  lilypond1.3 is the developmental branch.
+  * [debian/rules]: Removed "install-stamp".
+  * [debian/control]:
+      - Standards-Version: 3.1.0
+      - Added the Build-Depends field.
+      - Updated dependencies of tetex-{base,bin,extra} packages to
+        1.0*-1.
+
+ -- Anthony Fok <foka@debian.org>  Sat, 13 Nov 1999 23:25:42 -0700
+
+lilypond (1.2.17-1) unstable; urgency=low
+
+  * New upstream release.
+  * [debian/rules]:
+     - Reverted to configuring with --disable-optimise.
+     - The documentation files are now built properly, and both
+       ps and dvi versions are included.
+  * Standards-Version: 3.0.1
+
+ -- Anthony Fok <foka@debian.org>  Sat, 30 Oct 1999 06:57:04 -0600
+
 lilypond (1.2.2-1) unstable; urgency=low
 
   * New upstream release.

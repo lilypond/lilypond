@@ -1,5 +1,5 @@
-\paper {
-	\translator { \OrchestralPartStaffContext }
+\paper{
+	\paper_sixteen
 	\translator {
 		\VoiceContext
 		\name "VoiceOne";
@@ -18,11 +18,10 @@
 		%% Aargh: absulute dynamics:
 		\remove "Text_engraver";
 	}
-
-	\translator {
-		\StaffContext
+	\translator { 
+		\HaraKiriStaffContext 
 		\accepts "VoiceOne";
 		\accepts "VoiceTwo";
 	}
-	\translator { \ScoreContext skipBars = ##t }
+	\translator { \OrchestralScoreContext }
 }

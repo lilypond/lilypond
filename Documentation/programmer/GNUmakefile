@@ -30,7 +30,7 @@ default:
 localclean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk
 
-local-WWW: $(HTML_FILES)
+local-WWW: $(HTML_FILES) $(addsuffix .gz, $(PS_FILES))
 	$(PYTHON) $(step-bindir)/ls-latex.py --title 'Hacker documentation' \
 	   $(DOC_FILES) $(TEXI_FILES) $(TELY_FILES) \
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html

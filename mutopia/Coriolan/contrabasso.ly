@@ -37,38 +37,46 @@ contrabasso = \notes \relative c {
 	)as,4 r r r8 as(|
 	)g4 r r r8 g(|
 	)d'4 r r r8 d(|
-	)es4-"cresc." r r r8 es(|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	)es4\< r r r8 es(|
 	)as,4 r r r8 as(|
 	)g4 r r r8 g(|
 	)d'4 r r r8 d(|
 	%60
 	)es4 r r r8 es(|
 	)as,4 r r r8 as(|
-	)g2\ff f |
+	\!)g2\ff f |
 	e c' |
 	f,4\p r r r8 f(|
 	%65
 	)bes4 r r r8 bes(|
 	)as4 r r r8 as(|
 	)e4 r r r8 e(|
-	)f4-"cresc." r r r8 f(|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	)f4\< r r r8 f(|
 	)bes4 r r r8 bes(|
 	%70
-	)as2\ff g |
+	\!)as2\ff g |
 	fis d' |
-	g,4\p-"cresc." r r r8 g(|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	g,4\p\< r r r8 g(|
 	)c4 r r r8 c(|
 	% )<b1\sf\> { s2 s4 \!s8}> |
-	)b1 |
+	\!)b1\sf |
 	%75
 	\skip 1*3; |
 	d4\pp r d r |
 	d r d r |
 	%80
-	d r d-"cresc." r |
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	d r d\< r |
 	d r d r |
 	d r d r |
-	d r d r |
+	d r d \!r |
 	\skip 1*8; |
 	c4 r r2 |
 	c4 r r2 |
@@ -120,35 +128,38 @@ contrabasso = \notes \relative c {
 	%180
 	)e4 r r r8 e(|
 	)b'4 r r r8 b(|
-	)c4-"cresc." r r r8 c(|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	)c4\< r r r8 c(|
 	)f,4 r r r8 f(|
 	)e4 r r r8 e'(|
 	%185
 	)b4 r r r8 b(|
 	)c4 r r r8 c(|
 	)f,4 r r r8 f(|
-	)e2\ff d' |
+	\!)e2\ff d' |
 	cis a |
 	%190
 	d4\p r r r8 d(|
 	)g,4 r r r8 g(|
 	)f4 r r r8 f(|
 	)cis'4 r r r8 cis(|
-	)d4-"cresc." r r r8 d(|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	)d4\< r r r8 d(|
+
 	%195
 	)g,4 r r r8 g( |
-	)d2\ff e' |
+	\!)d2\ff e' |
 	dis b |
 	e4\p r r r8 e(|
-	% )a4\< r r r8 a(|
-	%200
-	% g1 |
-	<f {s2 s4 \!s8}> |
 	)a4 r r r8 a(|
+
 	%200
 	)g1 |
 	f |
 	\skip 1*18; |
+
 	%220
 	f4 r r2 |
 	f'4 r r2 |

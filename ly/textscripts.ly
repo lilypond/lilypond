@@ -12,9 +12,6 @@ f = \textscript "e" "dynamic"			% see feta-din layout
 ff = \textscript "ff" "dynamic"
 fff = \textscript "fff" "dynamic"
 fp = \textscript "fp" "dynamic"
-cresc = \textscript "cresc." "italic"
-decresc = \textscript "decresc." "italic"
-dim = \textscript "dim." "italic"
 
 sf = \textscript "sf" "dynamic"
 sfp = \textscript "sfp" "dynamic"

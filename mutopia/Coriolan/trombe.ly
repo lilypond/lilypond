@@ -22,8 +22,10 @@ $trombe_staff = \context Staff = trombe <
 	\notes \context Staff=trombe < 
 %		\global
 		\time 4/4;
-		\$trombo1
-		\$trombo2
+		\context VoiceOne=tromboi
+			\$trombo1
+		\context VoiceTwo=tromboii
+			\$trombo2
 	>
 >
 

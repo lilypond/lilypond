@@ -1,11 +1,14 @@
 This package was Debianized by Anthony Fok <foka@debian.org> on
 Wed,  6 Aug 1997 04:30:28 -0600
 
-It was downloaded from
-      ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-1.2.2.tar.gz
+The development branch, lilypond1.3, is packaged separately
+on Tue,  9 Nov 1999 22:30:32 -0700
 
-It is also available at:
-      ftp://ftp.lilypond.org/pub/LilyPond/v1.2/lilypond-1.2.2.tar.gz
+It was downloaded from
+      ftp://ftp.lilypond.org/pub/LilyPond/v1.3/lilypond-1.3.24.tar.gz
+
+It is also available at: 
+      ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/v1.3/lilypond-1.3.24.tar.gz
 
 For more information about GNU LilyPond, please visit:
       http://www.cs.uu.nl/~hanwen/lilypond/
@@ -19,7 +22,7 @@ Authors:
  
 Copyright:
 
-  GNU LilyPond is Copyright (C) 1996-1999
+  GNU LilyPond is Copyright (C) 1996-2000
   Jan Nieuwenhuizen & Han-Wen Nienhuys
 
     This program is free software; you can redistribute it and/or modify

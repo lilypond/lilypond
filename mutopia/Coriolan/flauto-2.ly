@@ -129,18 +129,20 @@ flauto2 = \notes \relative c {
 	bes\f~|
 	bes\p|
 	c1\f~|
-	c\p-"\ \ \ cresc."~|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	c\p\<~|
 	c~|
 	c~|
 	c~|
-	c\ff~|
+	\!c\ff~|
 	c~|
 	c~|
 	c~|
 	c|
 	d|
 	%a deux urg: copied flauto-1(270,277)|
-	es4.-"sempre\ \ \ \ \ \ \ "\ff b8 c4. as8||
+	es4.-"sempre"\ff b8 c4. as8||
 	g4. as8 g4. f'8||
 	es4. b8 c4. as8||
 	g4. as8 g4. f'8||
@@ -162,9 +164,11 @@ flauto2 = \notes \relative c {
 	R1|
 	c4-. g'-. r2|
 	as4-. e-. r2|
-	f4-"dim." r f r|
+	\property Voice.decrescendoText = "dim."
+	\property Voice.decrescendoSpanner = "dashed-line"
+	f4\> r f r|
 	R1|
-	es4\p r r2|
+	\!es4\p r r2|
 	R1|
 	b4 r r2|
 	R1|

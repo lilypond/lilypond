@@ -15,6 +15,6 @@ copyright =	 "public domain";
 \score{
 	\$violoncello_staff 
 	\include "coriolan-part-paper.ly"
-	\midi{ \tempo 4 = 160; }
+	\include "coriolan-midi.ly"
 }
 

@@ -27,6 +27,6 @@ $bassi = \context GrandStaff = bassi_group <
 \score{
 	\$bassi
 	\include "coriolan-part-paper.ly"
-	\midi{ \tempo 4 = 160; }
+	\include "coriolan-midi.ly"
 }
 

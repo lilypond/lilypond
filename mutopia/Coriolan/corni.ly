@@ -24,8 +24,10 @@ $corni_staff = \context Staff = corni <
 	%\notes \context Voice=corni < 
 	\notes \context Staff=corni < 
 		\time 4/4;
-		\$corno1
-		\$corno2
+		\context VoiceOne=cornoi
+			\$corno1
+		\context VoiceTwo=cornoii
+			\$corno2
 	>
 >
 

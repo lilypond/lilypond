@@ -16,19 +16,31 @@ viola2 = \notes \relative c {
 	\context Thread
 	\translator Staff=violai
 	\translator Voice=one
-	c1 ~ | c | s1*2 |
+	c1 ~ |
+	c |
+	s1*2 |
 	% copied 3 bars from three back...
-	c ~ | c | s1*2 % |
+	c ~ |
+	c |
+	s1*2 % |
 %	\translator Staff=viola
-	c ~ | c | s1*2 | 
-	g'4-. r r2 | g4-. r r2 |
+	c ~ |
+	c |
+	s1*2 | 
+	g'4-. r r2 |
+	g4-. r r2 |
 	%15
 	s1*14
 	% same as viola-1, octave lower
-	r8 c,-.\p c4. c8-. c4~ | [c8-"cresc." c-.]c2.~ |
-	[c8 c-.]c2.~ | [c8 c-.] c4. c8-. c4~ | [c8 c8-.] c4. c8-. c4 |
+	r8 c,-.\p c4. c8-. c4~ |
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	[c8\< c-.]c2.~ |
+	[c8 c-.]c2.~ |
+	[c8 c-.] c4. c8-. c4~ |
+	[c8 c8-.] c4. c8-. c4 |
 	%35
-	[as'16\ff as a as][as as as as]as2:16 |
+	[\!as'16\ff as a as][as as as as]as2:16 |
 }
 
 % $viola2_staff = \context Staff = viola_2 <

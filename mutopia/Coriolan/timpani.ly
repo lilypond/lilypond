@@ -26,11 +26,13 @@ timpani = \notes \relative c {
 	R1*6 |
 	r4 c-.\f r2 |
 	R1*2 |
-	r2 c4-.\p-"\ \ \ cresc." r |
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	r2 c4-.\p\< r |
 	r2 c4-. r |
 	r2 c4-. r |
 	c r c r |
-	c1\ff-\trill |
+	\!c1\ff-\trill |
 	c8 r g r g r g r|
 	g4 r g r|
 	g r c r |
@@ -69,6 +71,7 @@ timpani = \notes \relative c {
 	R1|
 	g1\trill~|
 	g|
+	g4 r8 g g4 r8 g|
 	g4 r8 g g4 r8 g|
 	g4\p r r2|
 	R1*24|
@@ -114,7 +117,7 @@ timpani = \notes \relative c {
 	c4 r r2|
 	c4 r r2|
 	g4 r r2|
-	c4-"sempre\ \ \ \ \ \ \ "\ff r c r|
+	c4-"sempre"\ff r c r|
 	g r r2|
 	c4 r c r|
 	g r r2|
@@ -130,9 +133,11 @@ timpani = \notes \relative c {
 	R1|
 	c4-. c-. r2|
 	c4-. c-. r2|
-	c4-"dim." r g r|
+	\property Voice.decrescendoText = "dim."
+	\property Voice.decrescendoSpanner = "dashed-line"
+	c4\> r g r|
 	R1|
-	c4\p r r2|
+	\!c4\p r r2|
 	R1|
 	g4 r r2|
 	R1|
@@ -148,7 +153,8 @@ $timpani_staff = \context Staff = timpani <
 	\notes< 
 %		\global
 		\time 4/4;
-		\$timpani
+		\context VoiceOne=timpani
+			\$timpani
 	>
 >
 

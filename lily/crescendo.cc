@@ -22,6 +22,7 @@ Crescendo::Crescendo ()
 
 
 
+
 Molecule 
 Crescendo::do_brew_molecule () const
 {
@@ -76,9 +77,27 @@ Crescendo::do_brew_molecule () const
     }
   while (flip (&d) != LEFT);
   
+ 
+  Molecule m;
+  
+  Real pad = 0;
+  SCM s = get_elt_property ("start-text");
+  if (gh_string_p (s))
+    {
+      Molecule start_text (lookup_l ()->text ("italic",
+					      ly_scm2string (s),
+					      paper_l ()));
+      m.add_molecule (start_text);
+
+      pad = paper_l ()->get_var ("interline") / 2;
+
+      width -= start_text.extent ()[X_AXIS].length ();
+      width -= pad;
+      width = width >? 0;
+    }
 
   SCM at;
-  SCM s = get_elt_property ("spanner");
+  s = get_elt_property ("spanner");
   Real height;
   if (gh_string_p (s) && ly_scm2string (s) == "dashed-line")
     {
@@ -106,11 +125,12 @@ Crescendo::do_brew_molecule () const
 		    gh_double2scm (continued ? height/2 : 0.0),
 		    SCM_UNDEFINED);
     }
-  
   Box b (Interval (0, width), Interval (-2*height, 2*height));
-  Molecule m (b, at);
-  
+  Molecule span (b, at);
+
+  m.add_at_edge (X_AXIS, RIGHT, span, pad);
   m.translate_axis (extra_left, X_AXIS);
+
   return m;
 }
 

@@ -7,6 +7,7 @@ rc = \spanrequest   \stop "crescendo"
 rced = \spanrequest \stop "decrescendo"
 
 %% urg, these don't work yet.
+%% must set manually
 xcresc = {
 %\spanrequest \start "crescendo"
 \property Voice.crescendoText = "cresc."
@@ -20,7 +21,7 @@ xendcresc = {
 }
 
 cresc = \spanrequest \start "crescendo"
-endcresc = \spanrequest   \stop "crescendo"
+endcresc = \spanrequest \stop "crescendo"
 
 %crescpoco = \property Voice.crescendoText = "cresc. poco a poco"
 %decresc = \property Voice.crescendoText = "decr."

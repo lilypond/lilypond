@@ -82,7 +82,7 @@ changes)}
 changes)}
 @item @uref{../misc/out-www/ANNOUNCE-1.2.txt, Announcement of 1.2 (includes summary of changes)}
 @item @uref{../misc/out-www/AIMS.txt, Why LilyPond?}
-@item @uref{../misc/out-www/interview.txt, Answers} to the Brave GNU world standard questions.
+pp@item @uref{../misc/out-www/interview.txt, Answers} to the Brave GNU world standard questions.
 @end itemize
 
 

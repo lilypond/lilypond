@@ -24,15 +24,19 @@ fagotto1 = \notes \relative c {
 	R1*5 |
 	r2 r4 g4-.\f |
 	R1*5 |
-	ges'2\p-"\ \ \ cresc." f2 ~ |
-	f4 e-.\f r2 |
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	ges'2\p\< f2 ~ |
+	f4 \!e-.\f r2 |
 	R1 |
 	f2\p()es |
-	d1-"cresc." |
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	d1\< |
 	d |
 	d2 d |
 	d d |
-	c1\ff ~ |
+	\!c1\ff ~ |
 	c4(bes as)g|
 	f4. r8 es4. r8|
 	b'4. r8 c4. r8|
@@ -50,19 +54,23 @@ fagotto1 = \notes \relative c {
 	)d4 r r2|
 	R1*9|
 	\clef "tenor";
-	g'2.(as4 \p-"\ \ \ cresc."|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	g'2.(as4 \p\<|
 	g f d)bes
 	\clef "bass";
 	|
-	bes2\ff as|
+	\!bes2\ff as|
 	g c~|
 	c1\p~|
 	c~|
 	c~|
 	c~|
-	c-"cresc."~|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	c\<~|
 	c|
-	c2\ff bes|
+	\!c2\ff bes|
 	a d~|
 	d1~|
 	d~|
@@ -72,11 +80,13 @@ fagotto1 = \notes \relative c {
 	bes(a bes)g|
 	fis r8 a\pp a4. a8|
 	r4 r8 a a4. a8|
-	r4 r8 bes-"cresc." bes4. bes8|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	r4 r8 bes\< bes4. bes8|
 	r4 r8 bes bes4. bes8|
 	r4 r8 c8 c4. c8|
 	r4 r8 d d4. d8|
-	es2.\ff()d4|
+	\!es2.\ff()d4|
 	c(bes c)bes|
 	es2.()d4|
 	c(bes c)bes|
@@ -119,14 +129,16 @@ fagotto1 = \notes \relative c {
 	e4 r r2|
 	R1*3|
 	r4 r8 f' es4 r8 bes|
-	c4-"cresc." r4 r2|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	c4\< r4 r2|
 	R1*2|
 	r4 r8 ges' f4 r8 c|
 	des4 r bes2|
 	c1|
 
 	% 136 a deux
-	des2\p( c|
+	\!des2\p( c|
 	bes as|
 	ges f|
 	)es as,|
@@ -137,13 +149,15 @@ fagotto1 = \notes \relative c {
 	[g,: bes: c: des:][f,: bes: c: des:]||
 	[e,: g: bes: des:][c: e: g: c:]||
 
-	c1\p-"\ \ \ cresc." ~|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	c1\p\< ~|
 	c1~|
 	c1~|
 	c|
 
 	%%148 copied from cello (from viola)|
-	[f,8:\ff as: c: des:][es,: g: b: c:]||
+	[\!f,8:\ff as: c: des:][es,: g: b: c:]||
 	[des,: f: a: bes:][c,: es: g: as:]||
 	%150|
 	% r[des,16 des][e e g g]r8[c,16 c][e e f f]||
@@ -203,7 +217,9 @@ fagotto1 = \notes \relative c {
 	es(d es)c|
 	b r8 d\p d4. d8|
 	r4 r8 d d4. d8|
-	r4 r8 es-"cresc." es4. es8|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	r4 r8 es\< es4. es8|
 	r4 r8 es es4. es8|
 	r4 r8 %
 	\clef "tenor"; %
@@ -211,7 +227,7 @@ fagotto1 = \notes \relative c {
 	r4 r8 g g4. g8 %
 	\clef "bass"; %
 	|
-	f2.\ff()es4|
+	\!f2.\ff()es4|
 	d(c d)c|
 	f2.\ff()es4|
 	d(c d)c|
@@ -243,19 +259,23 @@ fagotto1 = \notes \relative c {
 	es d b)g|
 	g'2.(as4|
 	g2)f|
-	es2.-"cresc." f4|
-	es d b g|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	es2.\<( f4|
+	es d b)g|
 	R1|
-	c1\f|
+	\!c1\f|
 	des\p|
 	d\f|
 	es\p|
 	e\f|
-	as,4.\p-"\ \ \ cresc." as8 g4. g8|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	as,4.\p\< as8 g4. g8|
 	f4. f8 es4. es8|
 	as4. as8 g4. g8|
 	f4. f8 es4. es8|
-	f4.\ff as8 as2\sf|
+	\!f4.\ff as8 as2\sf|
 	r4 r8 as as2\sf|
 	r4 r8 bes bes2\sf|
 	r4 r8 bes bes2\sf|
@@ -263,7 +283,7 @@ fagotto1 = \notes \relative c {
 	r4 r8 d d2\sf|
 
 	%% 270 copied from cello |
-	[c,8-"sempre\ \ \ \ \ \ \ "\ff b c d][es\ff d es c]||
+	[c,8-"sempre"\ff b c d][es\ff d es c]||
 	[b c d c][b c b g]||
 	[c8 b c d][es d es c]||
 	[b c d c][b c b g]||
@@ -286,14 +306,18 @@ fagotto1 = \notes \relative c {
 	R1|
 	g,4-. g-. r2|
 	as4-. bes-. r2|
-	c4-"dim." r d r|
+	\property Voice.decrescendoText = "dim."
+	\property Voice.decrescendoSpanner = "dashed-line"
+	c4\> r d r|
 	R1|
-	c,4\p r r2|
+	\!c,4\p r r2|
 	R1|
 	g4 r r2|
 	R1|
 	c4\pp r r2|
-	r r4 g\p-"\ \ \ sempre pi\\`u piano"~|
+	\property Voice.decrescendoText = "sempre pi\\`u piano"
+	\property Voice.decrescendoSpanner = ""
+	r r4 g\p\>~|
 	g1~|
 	g~|
 	g~|
@@ -303,7 +327,7 @@ fagotto1 = \notes \relative c {
 	g~|
 	g~|
 	g~|
-	g\>~|
+	\!g\>~|
 	g~|
 	g|
 	\!c4\pp r r2|

@@ -43,32 +43,40 @@ fagotto2 = \notes \relative c {
 	)d4 r r2|
 	R1*9|
 	\clef "tenor";
-	g''2.(as4 \p-"\ \ \ cresc."||
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	g''2.(as4 \p\<||
 	g f d)bes||
 	\clef "bass";
 	
-	g2\ff f|
+	\!g2\ff f|
 	e c~|
 	c1\p~|
 	c~|
 	c~|
 	c~|
-	c-"cresc."~|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	c\<~|
 	c|
-	c2\ff g'|
+	\!c2\ff g'|
 	fis d|
-	g,4 \p-"\ \ \ cresc." r r r8 g(|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	g,4 \p\< r r r8 g(|
 	)c4 r r r8 c(|
-	)b1\sf\>|
+	\!)b1\sf\>|
 	\!c4\p r4 r2|
 	R1*2|
 	r4 r8 fis\pp fis4. fis8|
 	r4 r8 fis fis4. fis8|
-	r4 r8 g-"cresc." g4. g8|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	r4 r8 g\< g4. g8|
 	r4 r8 g g4. g8|
 	r4 r8 a a4. a8|
 	r4 r8 bes bes4. bes8|
-	c2.\ff()bes4|
+	\!c2.\ff()bes4|
 	a(g a)g|
 	c2.()bes4|
 	a(g a)g|
@@ -122,7 +130,9 @@ fagotto2 = \notes \relative c {
 	e|
 	f|
 	g|
-	as-"cresc."|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	as\<|
 	g|
 	as|
 	a|
@@ -130,7 +140,7 @@ fagotto2 = \notes \relative c {
 	c|
 
 	%a deux|
-	des2\p( c||
+	\!des2\p( c||
 	bes as||
 	ges f||
 	)es as,||
@@ -181,21 +191,25 @@ fagotto2 = \notes \relative c {
 	g~|
 	g~|
 	g~|
-	g-"cresc."~|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	g\<~|
 	g~|
 	g~|
 	g~|
 	g~|
 	g|
-	e'2\ff d|
+	\!e'2\ff d|
 	cis a~|
 	a1\p~|
 	a~|
 	a~|
 	a~|
-	a-"cresc."~|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	a\<~|
 	a|
-	f'2\ff e|
+	\!f'2\ff e|
 	dis b~|
 	b1\p|
 	a\<|
@@ -205,13 +219,15 @@ fagotto2 = \notes \relative c {
 	R1*3|
 	r4 r8 b'' b4. b8|
 	r4 r8 b b4. b8|
-	r4 r8 c-"cresc." c4. c8|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	r4 r8 c\< c4. c8|
 	r4 r8 c c4. c8|
 	\clef "tenor";
 	r4 r8 d d4. d8|
 	r4 r8 es es4. es8|
 	\clef "bass"; 
-	f,2.\ff()es4|
+	\!f,2.\ff()es4|
 	d(c d)c|
 	f2.\ff()es4|
 	d(c d)c|
@@ -253,11 +269,13 @@ fagotto2 = \notes \relative c {
 	g\p|
 	bes\f|
 	%a deux|
-	as4.\p-"\ \ \ cresc." as8 g4. g8|
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
+	as4.\p\< as8 g4. g8|
 	f4. f8 es4. es8|
 	as4. as8 g4. g8|
 	f4. f8 es4. es8|
-	f4.\sf f8 f2\sf|
+	\!f4.\sf f8 f2\sf|
 	r4 r8 f f2\sf|
 	r4 r8 g g2\sf|
 	r4 r8 g g2\sf|
@@ -266,7 +284,7 @@ fagotto2 = \notes \relative c {
 
 	% a deux|
 	%% 270 copied from cello ||
-	[c,8-"sempre\ \ \ \ \ \ \ "\ff b c d][es\ff d es c]|||
+	[c,8-"sempre"\ff b c d][es\ff d es c]|||
 	[b c d c][b c b g]|||
 	[c8 b c d][es d es c]|||
 	[b c d c][b c b g]|||
@@ -289,10 +307,12 @@ fagotto2 = \notes \relative c {
 	R1|
 	es,4-. e-. r2|
 	f4-. g-. r2|
-	as4-"dim." r b r|
+	\property Voice.decrescendoText = "dim."
+	\property Voice.decrescendoSpanner = "dashed-line"
+	as4\> r b r|
 	R1|
 	%a deux|
-	c,4\p r r2|
+	\!c,4\p r r2|
 	R1|
 	g4 r r2|
 	R1|
