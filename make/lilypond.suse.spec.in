@@ -94,7 +94,7 @@ The documentation of LilyPond, both in HTML and PostScript.
 
 CFLAGS="$RPM_OPT_FLAGS" ./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --enable-optimise --enable-shared
 
-make LDFLAGS=-s "CFLAGS=$RPM_OPT_FLAGS" all
+make MAKE_PFA_FILES=1 LDFLAGS=-s "CFLAGS=$RPM_OPT_FLAGS" all
 
 # urg
 # %build doc
@@ -119,7 +119,7 @@ cp tex/titledefs.tex scripts/share/lilypond/tex
 
 
 strip lily/out/lilypond midi2ly/out/midi2ly
-make prefix="$RPM_BUILD_ROOT%{_prefix}" install
+make  MAKE_PFA_FILES=1 prefix="$RPM_BUILD_ROOT%{_prefix}" install
 
 %{INSTALL_DIR} $RPM_BUILD_ROOT/usr/share/texmf/fonts/source/public/lilypond
 (cd $RPM_BUILD_ROOT/usr/share/lilypond \

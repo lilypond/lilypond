@@ -67,21 +67,33 @@ Translator_group::check_removal ()
 SCM
 Translator_group::add_translator (SCM list, Translator *t)
 {
+  /*
+    Must append, since list ordering must be preserved.
+   */
   list = gh_append2 (list, gh_cons (t->self_scm (), SCM_EOL));
   t->daddy_trans_l_ = this;
   t->output_def_l_ = output_def_l_;
-  if (Translator_group*tg = dynamic_cast<Translator_group*> (t))
-    {
-      unsmob_translator_def (tg->definition_)->apply_property_operations (tg);
-    }
-  
-  t->initialize ();
+
   return list;
 }
+
 void
-Translator_group::add_group_translator (Translator *t)
+Translator_group::add_used_group_translator (Translator *t)
 {
   trans_group_list_ = add_translator (trans_group_list_,t);
+}
+ 
+ 
+void
+Translator_group::add_fresh_group_translator (Translator*t)
+{
+  Translator_group*tg = dynamic_cast<Translator_group*> (t);
+  assert (tg);
+
+  trans_group_list_ = add_translator (trans_group_list_,t); 
+  unsmob_translator_def (tg->definition_)->apply_property_operations (tg);
+  t->initialize ();
+  
 }
 
 
@@ -131,7 +143,7 @@ Translator_group::find_create_translator_l (String n, String id)
 	{
 	  Translator_group * new_group = path[i]->instantiate (output_def_l_);
 
-	  current->add_group_translator (new_group);
+	  current->add_fresh_group_translator (new_group);
 	  current = new_group;
 	}
       current->id_str_ = id;
@@ -232,7 +244,7 @@ Translator_group::get_default_interpreter ()
 	  t = unsmob_translator_def (this->definition_);
 	}
       Translator_group *tg = t->instantiate (output_def_l_);
-      add_group_translator (tg);
+      add_fresh_group_translator (tg);
 
       if (!tg->is_bottom_translator_b ())
 	return tg->get_default_interpreter ();

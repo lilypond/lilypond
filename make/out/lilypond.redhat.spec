@@ -1,11 +1,11 @@
 %define info yes
 
 Name: lilypond
-Version: 1.4.10
+Version: 1.4.11
 Release: 1
 License: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.4.10.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.4.11.tar.gz
 Summary: Create and print music notation 
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 BuildRoot: /tmp/lilypond-install
@@ -40,7 +40,7 @@ The documentation of LilyPond, both in HTML and PostScript.
 
 ./configure --disable-checking --prefix=%{_prefix} --enable-optimise
 
-make all
+make MAKE_PFA_FILES=1 all
 
 # make info
 make -C Documentation
@@ -55,7 +55,7 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc
 
 strip lily/out/lilypond midi2ly/out/midi2ly
-make prefix="$RPM_BUILD_ROOT%{_prefix}" install
+make  MAKE_PFA_FILES=1 prefix="$RPM_BUILD_ROOT%{_prefix}" install
 
 %if info=="yes"
 gzip -9fn $RPM_BUILD_ROOT%{_prefix}/info/*

@@ -28,9 +28,14 @@ $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 
 
 
-$(outdir)/%.pfb: 
-	pktrace  $(basename $(@F))
+$(outdir)/%.pfa: %.mf
+	pktrace --simplify --keep-trying $(basename $(@F))
+	mv $(basename $(@F)).pfa $(outdir)
+
+$(outdir)/%.pfb: %.mf
+	pktrace --simplify --keep-trying  $(basename $(@F))
 	mv $(basename $(@F)).pfb $(outdir)
+
 
 #%.afm:
 #	$(SHELL) $(depth)/buildscripts/tfmtoafm.sh $(shell basename $@ .afm)

@@ -49,7 +49,7 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
 	Translator_group * dest = 
 	  it->report_to_l ()->find_create_translator_l (to_type, to_id);
 	current->remove_translator_p (last);
-	dest->add_group_translator (last);
+	dest->add_used_group_translator (last);
       }
     else
       {

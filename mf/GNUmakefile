@@ -2,7 +2,7 @@
 
 depth = ..
 
-STEPMAKE_TEMPLATES=metafont metapost asciifont install install-out
+STEPMAKE_TEMPLATES=metafont asciifont install install-out
 include $(depth)/make/stepmake.make 
 
 AF_FILES = $(wildcard *.af) 
@@ -25,13 +25,11 @@ LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
 AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(AF_FILES:.af=.afm) $(addsuffix .afm, $(CM_AFM_FILES)))
 TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
-PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa)) 
-PFB_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfb))
 
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(PFA_FILES) $(LOG_FILES)
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(datadir)/mf/
@@ -48,10 +46,23 @@ INSTALLATION_OUT_FILES2=$(AFM_FILES)
 INSTALLATION_OUT_DIR3=$(datadir)/tfm
 INSTALLATION_OUT_FILES3=$(TFM_FILES)
 
-# comment these out if you don't want pfa's to be generated
-# or you don't have metapost.
+# comment this out if you don't want pfa's to be generated
+#
+#MAKE_PFA_FILES=1
+#
+# making pfas takes a lot of CPU time. Let's skip it for now.
+
+
+ifdef MAKE_PFA_FILES
+
+PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
+ALL_GEN_FILES += $(PFA_FILES)
 INSTALLATION_OUT_DIR4=$(datadir)/pfa
 INSTALLATION_OUT_FILES4=$(PFA_FILES)
+
+pfa: $(PFA_FILES)
+
+endif
 
 export MFINPUTS:=.:$(MFINPUTS)
 

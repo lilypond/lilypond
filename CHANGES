@@ -1,3 +1,12 @@
+1.4.10.uu1
+==========
+
+* pktrace for makefile, spec, etc.
+
+* fresh/used translator bugfix (backport from 1.5)
+
+* rest-collision fix (backport from 1.5)
+
 1.4.10.jcn2
 ===========
 
@@ -9,9 +18,6 @@
 * stepmake/bin/add-html-footer.py: Python2.[12] re workarounds.
 
 * Documentation/footer.html.in: Comment fix.
-
-1.4.10.jcn1
-===========
 
 * po: regenerate.
 

@@ -14,11 +14,11 @@
 
 Distribution: SuSE Linux 7.0 (i386)
 Name: lilypond
-Version: 1.4.10
+Version: 1.4.11
 Release: 2
 Copyright:    GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.4.10.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.4.11.tar.gz
 # music notation software for.. ?
 Summary: A program for printing sheet music.
 URL: http://www.lilypond.org/
@@ -94,7 +94,7 @@ The documentation of LilyPond, both in HTML and PostScript.
 
 CFLAGS="$RPM_OPT_FLAGS" ./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --enable-optimise --enable-shared
 
-make LDFLAGS=-s "CFLAGS=$RPM_OPT_FLAGS" all
+make MAKE_PFA_FILES=1 LDFLAGS=-s "CFLAGS=$RPM_OPT_FLAGS" all
 
 # urg
 # %build doc
@@ -119,7 +119,7 @@ cp tex/titledefs.tex scripts/share/lilypond/tex
 
 
 strip lily/out/lilypond midi2ly/out/midi2ly
-make prefix="$RPM_BUILD_ROOT%{_prefix}" install
+make  MAKE_PFA_FILES=1 prefix="$RPM_BUILD_ROOT%{_prefix}" install
 
 %{INSTALL_DIR} $RPM_BUILD_ROOT/usr/share/texmf/fonts/source/public/lilypond
 (cd $RPM_BUILD_ROOT/usr/share/lilypond \
