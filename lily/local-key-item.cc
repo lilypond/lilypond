@@ -61,7 +61,7 @@ Local_key_item::add_pitch (Grob*me, Pitch p, bool cautionary, bool natural,
 Molecule
 Local_key_item::parenthesize (Grob*me, Molecule m)
 {
-  Molecule open = Font_interface::get_default_font (me)->find_by_name (String ("accidentals- ("));
+  Molecule open = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-("));
   Molecule close = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-)"));
   m.add_at_edge (X_AXIS, LEFT, Molecule (open), 0);
   m.add_at_edge (X_AXIS, RIGHT, Molecule (close), 0);
