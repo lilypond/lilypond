@@ -28,8 +28,9 @@ extern String default_out_fn;
 
 Score::Score()
 {
-  header_p_ =0;
-  pscore_p_=0;
+  header_p_ = 0;
+  music_p_ = 0;
+  pscore_p_ = 0;
   audio_score_p_ = 0;
   paper_p_ = 0;
   midi_p_ = 0;
@@ -42,7 +43,7 @@ Score::Score (Score const &s)
   music_p_ = s.music_p_->clone();
   midi_p_ = new Midi_def (*s.midi_p_);
   paper_p_ = new Paper_def (*s.paper_p_);
-  header_p_ = new Header(*s.header_p_);
+  header_p_ = new Header (*s.header_p_);
 }
 
 Score::~Score()
@@ -118,7 +119,6 @@ Score::midi()
     {
 	// should we? hampers debugging. 
 	warning ("Errors found, /*not processing score*/");
-//	return;
     }
   *mlog << endl;
 
@@ -142,7 +142,6 @@ Score::paper()
     {
 	// should we? hampers debugging. 
 	warning ("Errors found, /*not processing score*/");
-//	return;
     }
   
   *mlog << endl;
@@ -184,6 +183,9 @@ Score::paper_output()
   
   the_output << "% outputting Score, defined at: " <<
 	location_str() << "\n";
+  if (header_p_) {
+    the_output << header_p_->TeX_string();
+  }
   pscore_p_->output (the_output);
 }
 
