@@ -5,11 +5,13 @@
         \font\fontentja=feta16
         \font\vetfont=feta-beams16
         \font\fetanummer=feta-nummer8
+        \font\dynfont=feta-din10 scaled \magstep1
 }
 \def\fettwentydefs{
         \font\fontentja=feta20
         \font\vetfont=feta-beams20
         \font\fetanummer=feta-nummer10
+        \font\dynfont=feta-din10 scaled \magstep2
 }
 \def\fetdef#1#2{\def#1{%
         % what the fuck is this?
@@ -127,7 +129,14 @@
         \edef\embedid{feta-sleur-\number\embedcount}
         \immediate\openout\embedfile=\embedid.mf
         \global\advance\embedcount by 1
+
+% should write ``automatically generated.''
+%        \immediate\write\embedfile{\def\
+%       
+%      }
+
         \immediate\write\embedfile{#1}
+
         \immediate\closeout\embedfile
         \font\expandafter\embedid\expandafter=\embedid
         \embedid\char0
@@ -138,9 +147,9 @@
 \def\nometafont{\def\embeddedmf##1{}}
 
 % dat heb je handig gedaan, lieverd!
-%\nometafont
+\nometafont
 \nopostscript
-\notex
+%\notex
 
 \def\EndLilyPondOutput{
         \storeembedcount
