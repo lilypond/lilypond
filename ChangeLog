@@ -1,5 +1,8 @@
 2003-02-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/chord-entry.scm (construct-chord): mark inversion as bass if
+	not present in chord.
+
 	* lily/chord.cc: junk contents.
 
 2003-02-17  Heikki Junes <hjunes@cc.hut.fi>

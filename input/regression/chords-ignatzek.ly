@@ -1,28 +1,29 @@
 \header {
 
-texidoc = "Jazz chords, following [Ignatzek1995], page 17 and 18."
+texidoc = " Chord names are generated from a list pitches.  The
+functions constructing the names are customisable. This file shows
+Jazz chords, following [Ignatzek1995], page 17 and 18."
 
 }
-
 
 chs = \notes \transpose c' c' 
 {
 	<<c e g>>1
-	<<c es g>>
+	<<c es g>>% m = minor triad
 	<<c e gis>>
 	<<c es ges>> \break
 	<<c e g bes>>
 	<<c es g bes>>
-	<<c e g b>>
+	<<c e g b>> 		% triangle = maj
 	<<c es ges beses>> 
 	<<c es ges b>> \break
 	<<c e gis bes>>
 	<<c es g b>>
 	<<c e gis b>> 
 	<<c es ges bes>>\break
-	<<c e g a>>
-	<<c es g a>>
-	<<c e g bes d'>> % ?? 
+	<<c e g a>>   % 6 = major triad with added sixth
+	<<c es g a>>  % m6 = minor triad with added sixth
+	<<c e g bes d'>> 
 	<<c es g bes d'>> \break
 	<<c es g bes d' f' a' >>
 	<<c es g bes d' f' >>
@@ -49,7 +50,7 @@ chs = \notes \transpose c' c'
 	<<c f g>>
 	<<c f g bes>>\break
 	<<c f g bes d'>>
-	<<c e g d'>>
+	<<c e g d'>>	% add9
 	<<c es g f'>>
 }
 

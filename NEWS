@@ -2,6 +2,8 @@ New features in 1.7 since 1.6
 
 * INPUT
 
+** Completely rewritten support for chord entry. Cleaner and more flexible.
+
 ** Text entry is now done in a separate mode, and is more ergonomic
 than the previous Scheme texts.
 
@@ -41,7 +43,7 @@ for a beamed slurred pair of eighth notes.
 ** Completely rewritten text formatting support. It is implemented in a
 completely modular way.
 
-** Better chord names. 
+** Chord name formatting completely rewritten.
 
 ** Texts on multimeasure rests can be set by the user.
 
