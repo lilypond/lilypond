@@ -125,14 +125,7 @@ Text_spanner::brew_molecule (SCM smob)
   /* ugh */
   Real thick = me->paper_l ()->get_var ("stafflinethickness");  
   
-  Molecule line;
-  SCM list = Line_spanner::line_atom (me, width, 0);
-  if (list != SCM_EOL)
-    {
-      
-      Box b (Interval (0, width), Interval (-thick / 2, thick / 2));
-      line = Molecule (b, list);
-    }
+  Molecule line = Line_spanner::line_molecule (me, width, 0);
   
   Drul_array<Molecule> edge_line;
   s = me->get_grob_property ("edge-height");

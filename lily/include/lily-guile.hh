@@ -15,6 +15,9 @@
 
 /* Guile 1.3.4 compatibility */
 #if GUILE_MINOR_VERSION < 4
+
+#define scm_bits_t SCM
+
 #define fix_guile_1_3_4_scm_puts(scm_data, port) scm_puts ((char*)scm_data, port)
 #define scm_puts(scm_data, port) fix_guile_1_3_4_scm_puts (scm_data, port)
 #endif

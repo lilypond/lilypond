@@ -166,10 +166,16 @@
   (define (stop-last-line)
     "}\\vss}")
   
-  (define (filledbox breapth width depth height) 
-    (embedded-ps
-     (string-append (numbers->string (list breapth width depth height))
-		   " draw_box" )))
+  (define (filledbox breapth width depth height)
+    (if (defined? 'ps-testing)
+	(embedded-ps
+	 (string-append (numbers->string (list breapth width depth height))
+			" draw_box" ))
+	(string-append 
+	 "\\kern" (number->dim (- breapth))
+	 "\\vrule width " (number->dim (+ breapth width))
+	 "depth " (number->dim depth)
+	 "height " (number->dim height) " ")))
 
   (define (text s)
     (string-append "\\hbox{" (output-tex-string s) "}"))
