@@ -409,7 +409,6 @@ measurePosition and currentBarNumber to determine what number to print over the 
      '(
       )))
 
-
    (cons
     'Note_heads_engraver
     (engraver-description
@@ -419,6 +418,14 @@ measurePosition and currentBarNumber to determine what number to print over the 
      '(
       )))
 
+   (cons
+    'Note_head_line_engraver
+    (engraver-description
+     "Note_head_line_engraver"
+     "Engrave a line between two note heads."
+     '(Glissando FollowThread)
+     '(
+      )))
 
    (cons
     'Note_name_engraver

@@ -17,6 +17,10 @@ class Line_spanner
 public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
   static SCM line_atom (Grob* me, Real dx, Real dy);
+
+private:
+  static Offset get_broken_offset (Grob *me, Direction dir);
+  static Offset broken_trend_offset (Grob *me, Direction dir);
 };
 
 #endif /* LINE_SPANNER_HH */

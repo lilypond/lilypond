@@ -466,24 +466,16 @@ font-point-size font-relative-size)
   we don't contain any interesting items after linebreaking, then
   gracefully commit suicide.  Objective: don't disgrace Lily by
   typesetting empty lines in orchestral scores."
-   '(
-    items-worth-living 
-
-
-    )))
+   '( items-worth-living )
+))
 
 (define line-spanner-interface
   (lily-interface
    'line-spanner-interface
    "Generic line drawn between two objects, eg. for use with glissandi.
-gap is relative to the total length of the line.   "
+gap is measured in staff-spaces.   "
 
-   '(gap 
-    dash-period 
-    dash-length 
-    line-thickness 
-    type 
-    )
+   '(gap dash-period dash-length line-thickness type )
    ))
 
 (define lyric-hyphen-interface
