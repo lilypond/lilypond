@@ -59,6 +59,8 @@ Context_def::Context_def ()
   description_ = SCM_EOL;
 
   smobify_self ();
+
+  context_name_ = ly_symbol2scm ("");
 }
 
 Context_def::~Context_def ()
