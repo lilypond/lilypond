@@ -43,6 +43,20 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 }
 
 
+MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback_rest, 2);
+SCM
+Rest_collision::force_shift_callback_rest (SCM rest, SCM axis)
+{
+  Grob *rest_grob = unsmob_grob (rest);
+  assert ((Axis) scm_to_int (axis) == Y_AXIS);
+
+  Grob *parent = rest_grob->get_parent (X_AXIS);
+  if (Note_column::has_interface (parent))
+    return force_shift_callback (parent->self_scm(), axis);
+  else
+    return scm_make_real (0.0);
+}
+
 
 void
 Rest_collision::add_column (Grob*me, Grob *p)
@@ -58,9 +72,14 @@ Rest_collision::add_column (Grob*me, Grob *p)
   */
   p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
   p->set_property ("rest-collision", me->self_scm ());
+
+  Grob *rest = unsmob_grob (p->get_property ("rest"));
+  if (rest)
+    {
+      rest->add_offset_callback (Rest_collision::force_shift_callback_rest_proc,
+				 Y_AXIS);
+    }
 }
-
-
 
 /*
   TODO: look at horizontal-shift to determine ordering between rests
@@ -153,7 +172,7 @@ Rest_collision::do_shift (Grob *me)
 
       Real diff = 
 	(ordered_rests[DOWN].top ()->extent (common, Y_AXIS)[UP]
-	 - ordered_rests[UP].top ()->extent (common, Y_AXIS)[DOWN]) /staff_space;
+	 - ordered_rests[UP].top ()->extent (common, Y_AXIS)[DOWN]) / staff_space;
 
       if (diff > 0)
 	{
