@@ -10,7 +10,6 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
-#include <libio.h>
 #include "memory-stream.hh"
 
 
