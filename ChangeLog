@@ -35,7 +35,6 @@
 	shortened to avoid almost-collision with staff line; code cleanup;
 	other custodes: fixed char boxes; code cleanup
 
->>>>>>> 1.1333
 2003-09-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/lilypond.py (global_latex_preamble): only set
