@@ -114,11 +114,12 @@
 
 
 (define (ly-load x)
+  ;; should check verbose
+;;  (format (current-error-port) "[~s]" x)
   (primitive-load (%search-load-path x))
 
   )
 
-(ly-load "output-lib.scm")
 
 
 
