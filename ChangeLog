@@ -1,5 +1,7 @@
 2003-05-24  Juergen Reuter  <reuter@ipd.uka.de>
 
+	* Documentation/user/refman.itely: more tiny fixes
+
 	* Documentation/user/refman.itely: bugfix: "Chord namess" ->
 	"Chord names"; added table with input syntax for solesmes neumes
 	table; added some words about rationale on input syntax design

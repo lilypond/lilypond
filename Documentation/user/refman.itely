@@ -4604,7 +4604,7 @@ to the following:
 Gregorian square neumes notation (following the style of the Editio
 Vaticana) is under heavy development, but not yet really usable for
 production purposes.  Core ligatures can already be typeset, but
-essentials issues for serious typesetting are still under development,
+essential issues for serious typesetting are still under development,
 such as (among others) horizontal alignment of multiple ligatures,
 lyrics alignment and proper accidentals handling.  Still, this section
 gives a sneak preview of what Gregorian chant may look like once it
@@ -4633,7 +4633,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \include "gregorian-init.ly"
 \score {
     \notes \transpose c c' {
-        % Puctum
+        % Punctum
         \[ b \]
         \noBreak s^\markup {"a"} \noBreak
 
@@ -5996,217 +5996,217 @@ ligature, using @code{g}, @code{a} and @code{b} as example pitches.
 @item
 @b{#} @tab
 @b{Name} @tab
-@b{Input Language} @tab
+@b{Input Language}
 
 @item
 a @tab
-Puctum @tab
-@samp{@code{\[ b \]}}
+Punctum @tab
+@code{\[ b \]}
 
 @item
 b @tab
 Punctum Inclinatum @tab
-@samp{@code{\[ \inclinatum b \]}}
+@code{\[ \inclinatum b \]}
 
 @item
 c @tab
 Punctum Auctum Ascendens @tab
-@samp{@code{\[ \auctum \ascendens b \]}}
+@code{\[ \auctum \ascendens b \]}
 
 @item
 d @tab
 Punctum Auctum Descendens @tab
-@samp{@code{\[ \auctum \descendens b \]}}
+@code{\[ \auctum \descendens b \]}
 
 @item
 e @tab
 Punctum Inclinatum Auctum @tab
-@samp{@code{\[ \inclinatum \auctum b \]}}
+@code{\[ \inclinatum \auctum b \]}
 
 @item
 f @tab
 Punctum Inclinatum Parvum @tab
-@samp{@code{\[ \inclinatum \deminutum b \]}}
+@code{\[ \inclinatum \deminutum b \]}
 
 @item
 g @tab
 Virga @tab
-@samp{@code{\[ \virga b \]}}
+@code{\[ \virga b \]}
 
 @item
 h @tab
 Stropha @tab
-@samp{@code{\[ \stropha b \]}}
+@code{\[ \stropha b \]}
 
 @item
 i @tab
 Stropha Aucta @tab
-@samp{@code{\[ \stropha \auctum b \]}}
+@code{\[ \stropha \auctum b \]}
 
 @item
 j @tab
 Oriscus @tab
-@samp{@code{\[ \oriscus b \]}}
+@code{\[ \oriscus b \]}
 
 @item
 k @tab
 Clivis vel Flexa @tab
-@samp{@code{\[ b \flexa g \]}}
+@code{\[ b \flexa g \]}
 
 @item
 l @tab
 Clivis Aucta Descendens @tab
-@samp{@code{\[ b \flexa \auctum \descendens g \]}}
+@code{\[ b \flexa \auctum \descendens g \]}
 
 @item
 m @tab
 Clivis Aucta Ascendens @tab
-@samp{@code{\[ b \flexa \auctum \ascendens g \]}}
+@code{\[ b \flexa \auctum \ascendens g \]}
 
 @item
 n @tab
 Cephalicus @tab
-@samp{@code{\[ b \flexa \deminutum g \]}}
+@code{\[ b \flexa \deminutum g \]}
 
 @item
 o @tab
 Podatus vel Pes @tab
-@samp{@code{\[ g \pes b \]}}
+@code{\[ g \pes b \]}
 
 @item
 p @tab
 Pes Auctus Descendens @tab
-@samp{@code{\[ g \pes \auctum \descendens b \]}}
+@code{\[ g \pes \auctum \descendens b \]}
 
 @item
 q @tab
 Pes Auctus Ascendens @tab
-@samp{@code{\[ g \pes \auctum \ascendens b \]}}
+@code{\[ g \pes \auctum \ascendens b \]}
 
 @item
 r @tab
 Epiphonus @tab
-@samp{@code{\[ g \pes \deminutum b \]}}
+@code{\[ g \pes \deminutum b \]}
 
 @item
 s @tab
 Pes Quassus @tab
-@samp{@code{\[ \oriscus g \pes \virga b \]}}
+@code{\[ \oriscus g \pes \virga b \]}
 
 @item
 t @tab
 Pes Quassus Auctus Descendens @tab
-@samp{@code{\[ \oriscus g \pes \auctum \descendens b \]}}
+@code{\[ \oriscus g \pes \auctum \descendens b \]}
 
 @item
 u @tab
 Quilisma Pes @tab
-@samp{@code{\[ \quilisma g \pes b \]}}
+@code{\[ \quilisma g \pes b \]}
 
 @item
 v @tab
 Quilisma Pes Auctus Descendens @tab
-@samp{@code{\[ \quilisma g \pes \auctum \descendens b \]}}
+@code{\[ \quilisma g \pes \auctum \descendens b \]}
 
 @item
 w @tab
 Pes Initio Debilis @tab
-@samp{@code{\[ \deminutum g \pes b \]}}
+@code{\[ \deminutum g \pes b \]}
 
 @item
 x @tab
 Pes Auctus Descendens Initio Debilis @tab
-@samp{@code{\[ \deminutum g \pes \auctum \descendens b \]}}
+@code{\[ \deminutum g \pes \auctum \descendens b \]}
 
 @item
 y @tab
 Torculus @tab
-@samp{@code{\[ a \pes b \flexa g \]}}
+@code{\[ a \pes b \flexa g \]}
 
 @item
 z @tab
 Torculus Auctus Descendens @tab
-@samp{@code{\[ a \pes b \flexa \auctum \descendens g \]}}
+@code{\[ a \pes b \flexa \auctum \descendens g \]}
 
 @item
 A @tab
 Torculus Deminutus @tab
-@samp{@code{\[ a \pes b \flexa \deminutum g \]}}
+@code{\[ a \pes b \flexa \deminutum g \]}
 
 @item
 B @tab
 Torculus Initio Debilis @tab
-@samp{@code{\[ \deminutum a \pes b \flexa g \]}}
+@code{\[ \deminutum a \pes b \flexa g \]}
 
 @item
 C @tab
 Torculus Auctus Descendens Initio Debilis @tab
-@samp{@code{\[ \deminutum a \pes b \flexa \auctum \descendens g \]}}
+@code{\[ \deminutum a \pes b \flexa \auctum \descendens g \]}
 
 @item
 D @tab
 Torculus Deminutus Initio Debilis @tab
-@samp{@code{\[ \deminutum a \pes b \flexa \deminutum g \]}}
+@code{\[ \deminutum a \pes b \flexa \deminutum g \]}
 
 @item
 E @tab
 Porrectus @tab
-@samp{@code{\[ a \flexa g \pes b \]}}
+@code{\[ a \flexa g \pes b \]}
 
 @item
 F @tab
 Porrectus Auctus Descendens @tab
-@samp{@code{\[ a \flexa g \pes \auctum \descendens b \]}}
+@code{\[ a \flexa g \pes \auctum \descendens b \]}
 
 @item
 G @tab
 Porrectus Deminutus @tab
-@samp{@code{\[ a \flexa g \pes \deminutum b \]}}
+@code{\[ a \flexa g \pes \deminutum b \]}
 
 @item
 H @tab
 Climacus @tab
-@samp{@code{\[ \virga b \inclinatum a \inclinatum g \]}}
+@code{\[ \virga b \inclinatum a \inclinatum g \]}
 
 @item
 I @tab
 Climacus Auctus @tab
-@samp{@code{\[ \virga b \inclinatum a \inclinatum \auctum g \]}}
+@code{\[ \virga b \inclinatum a \inclinatum \auctum g \]}
 
 @item
 J @tab
 Climacus Deminutus @tab
-@samp{@code{\[ \virga b \inclinatum a \inclinatum \deminutum g \]}}
+@code{\[ \virga b \inclinatum a \inclinatum \deminutum g \]}
 
 @item
 K @tab
 Scandicus @tab
-@samp{@code{\[ g \pes a \virga b \]}}
+@code{\[ g \pes a \virga b \]}
 
 @item
 L @tab
 Scandicus Auctus Descendens @tab
-@samp{@code{\[ g \pes a \pes \auctum \descendens b \]}}
+@code{\[ g \pes a \pes \auctum \descendens b \]}
 
 @item
 M @tab
 Scandicus Deminutus @tab
-@samp{@code{\[ g \pes a \pes \deminutum b \]}}
+@code{\[ g \pes a \pes \deminutum b \]}
 
 @item
 N @tab
 Salicus @tab
-@samp{@code{\[ g \oriscus a \pes \virga b \]}}
+@code{\[ g \oriscus a \pes \virga b \]}
 
 @item
 O @tab
 Salicus Auctus Descendens @tab
-@samp{@code{\[ g \oriscus a \pes \auctum \descendens b \]}}
+@code{\[ g \oriscus a \pes \auctum \descendens b \]}
 
 @item
 P @tab
 Trigonus @tab
-@samp{@code{\[ \stropha b \stropha b \stropha a \]}}
+@code{\[ \stropha b \stropha b \stropha a \]}
 
 @end multitable
 
