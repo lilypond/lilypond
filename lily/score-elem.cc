@@ -5,7 +5,9 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-
+/*
+  too big. Should split.
+ */
 #include "p-score.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -44,16 +46,16 @@ Score_elem::dependent_size() const
 }
 
 
+
 String
-Score_elem::TeX_string() const
+Score_elem::TeX_string_without_offset(Offset o)const
 {
-    assert( status_ > POSTCALCED);
     if (transparent_b_ )
 	return "";
     String s( "\\placebox{%}{%}{%}");
     Array<String> a;
-    a.push(print_dimen(offset_.y));
-    a.push(print_dimen(offset_.x));
+    a.push( print_dimen(o.y() ));
+    a.push( print_dimen(o.x() ));
     String t = output->TeX_string();
     if (t == "")
 	return t;
@@ -64,7 +66,13 @@ Score_elem::TeX_string() const
 	r = String("\n%start: ") + name() + "\n";
     r += substitute_args(s, a);;
     return r;
-    
+}
+
+String
+Score_elem::TeX_string() const
+{
+    assert( status_ > POSTCALCED);
+    return TeX_string_without_offset(offset_);
 }
 
 void
@@ -81,8 +89,7 @@ Score_elem::Score_elem(Score_elem const&s)
 {
     transparent_b_ = s.transparent_b_;
     empty_b_ = s.empty_b_;
-    x_group_l_ = 0;
-    y_group_l_ = 0;    
+    axis_group_l_a_[0] = axis_group_l_a_[1] =0;
     status_ = s.status_;
     assert(!s.output);
     output = 0;
@@ -100,26 +107,69 @@ Score_elem::~Score_elem()
 
 }
 
-void
-Score_elem::translate_x(Real x)
+/*
+  GEOMETRY
+ */
+Real
+Score_elem::absolute_coordinate(Axis a)const
 {
-    offset_.x += x;
+    Real r = offset_[a];
+    for ( Axis_group_element * axis_group_l = axis_group_l_a_[a];
+	  axis_group_l; axis_group_l = axis_group_l->axis_group_l_a_[a])
+	
+	r += axis_group_l->offset_[a];
+    return r;
+}
+ 
+
+Offset
+Score_elem::absolute_offset() const
+{
+    return Offset(absolute_coordinate(X_AXIS), absolute_coordinate(Y_AXIS));
 }
 
-
-
-void
-Score_elem::translate_y(Real y)
+ void
+Score_elem::translate(Real y, Axis a)
 {
-    offset_.y += y;
+    offset_[a] += y;
 }
+
+Real
+Score_elem::relative_coordinate(Axis_group_element*e, Axis a)const
+{
+    Real r =0.0;
+    for ( Axis_group_element * axis_group_l = axis_group_l_a_[a];
+	  axis_group_l != e;
+	  axis_group_l = axis_group_l->axis_group_l_a_[a])
+	r +=  axis_group_l->offset_[a];
+
+    return r;
+}
+
+Axis_group_element* 
+Score_elem::common_group(Score_elem const* s, Axis a)const
+{
+    Link_array<Axis_group_element> my_groups;
+    for ( Axis_group_element * axis_group_l = axis_group_l_a_[a];
+	  axis_group_l;
+	  axis_group_l = axis_group_l->axis_group_l_a_[a])
+	my_groups.push( axis_group_l );
+
+    Axis_group_element* common_l=0;
+    for ( Axis_group_element * axis_group_l = s->axis_group_l_a_[a];
+	  !common_l && axis_group_l;
+	  axis_group_l = axis_group_l->axis_group_l_a_[a])
+	common_l = my_groups.find_l( axis_group_l );
+
+    return common_l;
+}
+
 
 
 void
 Score_elem::translate(Offset O)
 {
-    translate_y(O.y);
-    translate_x(O.x);
+    offset_ += O;
 }
 
 Interval
@@ -129,20 +179,30 @@ Score_elem::do_width() const
 
     if (!output){
 	Molecule*m = brew_molecule_p();
-	r = m->extent().x;
+	r = m->extent().x();
 	delete m;
     } else
-	r = output->extent().x;
+	r = output->extent().x();
     return r;
 }
 
 Interval
 Score_elem::width() const
 {
-    Interval r=(empty_b_)?Interval(0,0):do_width();
+    return extent( X_AXIS);
+}
 
+Interval
+Score_elem::extent(Axis a)const
+{
+    Interval r;
+    if ( !empty_b_ ) {
+	
+	r = (a == X_AXIS)? do_width(): do_height();
+    }
+    
     if (!r.empty_b()) // float exception on DEC Alpha
-	r+=offset_.x;
+	r+=offset_[a];
 
     return r;
 }
@@ -153,25 +213,22 @@ Score_elem::do_height() const
     Interval r;
     if (!output){
 	Molecule*m = brew_molecule_p();
-	r = m->extent().y;
+	r = m->extent().y();
 	delete m;
     } else
-	r = output->extent().y;
+	r = output->extent().y();
     return r;
 }
 
 Interval
 Score_elem::height() const
 {
-    Interval r=(empty_b_)?Interval(0,0): do_height();
-
-    if (!r.empty_b())
-	r+=offset_.y;
-
-  
-    return r;
+    return extent(Y_AXIS);
 }
 
+/*
+  STANDARD METHS
+ */
 void
 Score_elem::print()const
 {
@@ -179,8 +236,8 @@ Score_elem::print()const
     mtor << name() << "{\n";
     mtor << "dets: " << dependent_size() << "dependencies: " << 
 	dependency_size();
-    if (offset_.x || offset_.y)
-	mtor << "offset (" << offset_.x << ", " << offset_.y <<")";
+    if (offset_.x() || offset_.y())
+	mtor << "offset (" << offset_.x() << ", " << offset_.y() <<")";
     mtor << "\n";
 
     do_print();
@@ -191,13 +248,10 @@ Score_elem::print()const
 #endif
 }
 
-
-
 Score_elem::Score_elem()
 {
     transparent_b_ = empty_b_ = false;
-    x_group_l_ = 0;
-    y_group_l_ =0;
+    axis_group_l_a_[0] = axis_group_l_a_[1] =0;
     pscore_l_=0;
     offset_ = Offset(0,0);
     output = 0;
@@ -233,6 +287,9 @@ Score_elem::pre_processing()
     for (int i=0; i < dependency_size(); i++)
 	dependency(i)->pre_processing();
 
+    Link_array<Score_elem> extra(get_extra_dependencies());
+    for (int i=0; i < extra.size(); i++)
+	extra[i]->pre_processing();
     
     do_pre_processing();
     status_ = PRECALCED;
@@ -253,7 +310,11 @@ Score_elem::breakable_col_processing()
     for (int i=0; i < dependency_size(); i++)
 	dependency(i)->breakable_col_processing();
 
+      Link_array<Score_elem> extra(get_extra_dependencies());
+    for (int i=0; i < extra.size(); i++)
+	extra[i]->breakable_col_processing();
     
+  
     do_breakable_col_processing();
     status_ = PREBROKEN;
 }
@@ -272,6 +333,11 @@ Score_elem::break_processing()
 
     for (int i=0; i < dependency_size(); i++)
 	dependency(i)->break_processing();
+
+    Link_array<Score_elem> extra(get_extra_dependencies());
+    for (int i=0; i < extra.size(); i++)
+	extra[i]->break_processing();
+    
 
     
     do_break_processing();
@@ -297,6 +363,12 @@ Score_elem::post_processing()
   
     for (int i=0; i < dependency_size(); i++)
 	dependency(i)->post_processing();
+
+    Link_array<Score_elem> extra(get_extra_dependencies());
+    for (int i=0; i < extra.size(); i++)
+	extra[i]->post_processing();
+    
+
     do_post_processing();
     status_=POSTCALCED;
 }
@@ -317,11 +389,21 @@ Score_elem::molecule_processing()
     for (int i=0; i < dependency_size(); i++)
 	dependency(i)->molecule_processing();
 
+    Link_array<Score_elem> extra(get_extra_dependencies());
+    for (int i=0; i < extra.size(); i++)
+	extra[i]->molecule_processing();
+    
+
     if (transparent_b_)
 	return ;
     output= brew_molecule_p();
 }
 
+/*
+  
+  VIRTUAL STUBS
+
+ */
 void
 Score_elem::do_post_processing()
 {
@@ -341,7 +423,6 @@ Score_elem::do_pre_processing()
 void
 Score_elem::do_add_processing()
 {
-
 }
 
 void
@@ -349,16 +430,13 @@ Score_elem::do_substitute_dependency(Score_elem*,Score_elem*)
 {
 }
 void
-Score_elem::do_substitute_dependent(Score_elem*o,Score_elem*n)
+Score_elem::do_substitute_dependent(Score_elem*,Score_elem*)
 {
-    if  ( o== y_group_l_ ) {
-	y_group_l_ = n ?  n->vertical_group() : 0;
-    } else if (o == x_group_l_ ) {
-	x_group_l_ = n ? n->horizontal_group() : 0;
-    }
 }
 
-
+void
+Score_elem::do_unlink()
+{}
 
 IMPLEMENT_IS_TYPE_B(Score_elem);
 
@@ -368,11 +446,7 @@ Score_elem::brew_molecule_p()const
     Atom a(paper()->lookup_l()->fill(Box(Interval(0,0), Interval(0,0))));
     return new Molecule (a);
 }
-Offset
-Score_elem::offset() const
-{
-    return offset_; 
-}
+
 
 Line_of_score *
 Score_elem::line_l()const
@@ -381,8 +455,10 @@ Score_elem::line_l()const
 }
 
 /*
+  
   DEPENDENCIES
- */
+
+  */
 
 void
 Score_elem::remove_dependency(Score_elem*e)
@@ -437,7 +513,6 @@ Score_elem::handle_broken_dependencies()
 	    }
 	    remove_us_arr.push(elt);
 	} 
-	
     }
 
     remove_us_arr.default_sort();
@@ -445,6 +520,7 @@ Score_elem::handle_broken_dependencies()
     for (int i=0;  i <remove_us_arr.size(); i++)
 	remove_dependency(remove_us_arr[i]);
 
+    status_ = BROKEN;
 }
 
 /*
@@ -463,31 +539,32 @@ Score_elem::handle_broken_dependencies()
 void
 Score_elem::handle_prebroken_dependencies()
 {
-    Link_array<Score_elem> remove_us_arr;
+    Link_array<Score_elem> old_arr, new_arr;
+    
     for (int i=0; i < dependency_size(); i++) {
 	Score_elem * elt = dependency(i);
 	Item *it_l = elt->item();
-	if (it_l && it_l->pcol_l_->breakable_b())
+	if (it_l && it_l->breakable_b_)
 	    if (item()) {
 		Score_elem *new_l = it_l->find_prebroken_piece(item()->pcol_l_);
 		if (new_l != elt ) {
-		    do_substitute_dependency( elt, new_l);
-		    remove_us_arr.push(elt);
-		    
-		    add_dependency(new_l);
+		    new_arr.push (new_l);
+		    old_arr.push(elt);
 		} 
 	    }else {
-		add_dependency(it_l->broken_to_a_[0]);
-		add_dependency(it_l->broken_to_a_[1]);		
+		new_arr.push(it_l->broken_to_a_[0]);
+		old_arr.push(0);
+		old_arr.push(0);		
+		new_arr.push(it_l->broken_to_a_[1]);		
 	    }
-
     }
     
-    remove_us_arr.default_sort();
-    remove_us_arr.uniq();
-    for (int i=0;  i <remove_us_arr.size(); i++)
-	remove_dependency(remove_us_arr[i]);
-
+    for (int i=0;  i < old_arr.size(); i++)
+	if (old_arr[i])
+	    substitute_dependency( old_arr[i], new_arr[i] );
+	
+	
+    status_ = PREBROKEN;
 }
 
 
@@ -497,14 +574,18 @@ Score_elem::unlink_all()
 {
     for (int i=0; i < dependency_size(); i++) 
 	dependency(i)->unlink_all();
+    Link_array<Score_elem> extra(get_extra_dependencies());
+    for (int i=0; i < extra.size(); i++)
+	extra[i]->unlink_all();
+    
     junk_links();
-    y_group_l_ = 0;
-    x_group_l_ = 0;
+    axis_group_l_a_[0] = axis_group_l_a_[1] =0;
 }
 
 void
 Score_elem::unlink()
 {
+    do_unlink();
     while ( dependency_size()) {
 	do_substitute_dependency(dependency(0),0);
 	remove_edge_out_idx(0);
@@ -512,9 +593,11 @@ Score_elem::unlink()
     while  ( dependent_size() ) {
 	dependent(0)->remove_dependency(this);
     }
+    for (int j=0; j < 2; j++)
+	if ( axis_group_l_a_[j])
+	    axis_group_l_a_[j]->remove_element(this);
+
 }
-
-
 
 void
 Score_elem::OK()const
@@ -524,4 +607,11 @@ Score_elem::OK()const
 	dependency(i)->OK();
     }
 #endif
+}
+
+Link_array<Score_elem>
+Score_elem::get_extra_dependencies()const
+{
+    Link_array<Score_elem> empty;
+    return empty;
 }
