@@ -51,7 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 ##./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --disable-optimising --enable-shared
 ## Add options if needed
 ./configure --disable-checking --prefix=%{_prefix} --enable-optimising
-make MAKE_PFA_FILES=1 all
+%make MAKE_PFA_FILES=1 all
 
 # make info
 make -C Documentation
@@ -68,7 +68,7 @@ rm -rf $RPM_DOC_ROOT
 mkdir -p $RPM_DOC_ROOT
 
 strip lily/out/lilypond 
-make prefix="$RPM_BUILD_ROOT%{_prefix}" infodir="$RPM_BUILD_ROOT%{_infodir}" MAKE_PFA_FILES=1 mandir="$RPM_BUILD_ROOT%{_mandir}" install
+%makeinstall MAKE_PFA_FILES=1
 
 %if %{info}
   rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
