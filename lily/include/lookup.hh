@@ -33,6 +33,9 @@ public:
   void add (String, Symtable*);
   Atom afm_find (String, bool warn=true) const;
   Atom ball (int) const;
+  //
+  Atom special_ball (int, String) const;
+  //
   Atom bar (String, Real height) const;
   Atom beam (Real, Real, Real) const;
   Atom clef (String) const;

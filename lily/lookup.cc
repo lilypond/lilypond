@@ -123,6 +123,15 @@ Lookup::ball (int j) const
 }
 
 Atom
+Lookup::special_ball (int j, String kind_of_ball) const
+{
+  if (j > 2)
+    j = 2;
+
+  return afm_find (String ("balls") + String ("-") + kind_of_ball);
+}
+
+Atom
 Lookup::bar (String str, Real h) const
 {
 

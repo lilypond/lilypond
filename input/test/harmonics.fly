@@ -1,0 +1,8 @@
+% this should be normal notes:
+c'1 | d2 d | e4 e 
+
+% and this should be harmonics:
+\property Voice.noteheadStyle = "harmonic"
+e8 e e16 e e e32 e
+
+

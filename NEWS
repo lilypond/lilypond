@@ -1,4 +1,13 @@
---- ../lilypond-1.1.23/NEWS	Tue Jan 19 16:29:41 1999
+--- ../lilypond-1.1.23.ms1/NEWS	Mon Jan 25 10:22:34 1999
+++ b/NEWS	Mon Jan 25 13:34:19 1999
+@@ -1,3 +1,7 @@
+pl 23.ms2
+	- property noteheadStyle
+	- first attempt to make harmonics : see input/test/harmonics.fly
+
+ pl 23.ms1
+         - sinfonia.ly: several fixes
+ 	- dynamics--- ../lilypond-1.1.23/NEWS	Tue Jan 19 16:29:41 1999
 ++ b/NEWS	Mon Jan 25 10:22:34 1999
 @@ -1,3 +1,13 @@
 pl 23.ms1
