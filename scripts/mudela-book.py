@@ -7,10 +7,6 @@
 #  help-gnu-music@gnu.org
 #
 #  TODO:
-# * Spacing before and after mudela blocks should be fixed. No empy lines
-#   before and after the mudela block should make just little space between
-#   music and text, one or more empy lines should make bigger space, like
-#   between paragraphs.
 # * center option (??)
 # * make mudela-book understand usepackage{geometry}
 # * check that linewidth set in \paper is not wider than actual linewidth?
@@ -396,21 +392,24 @@ class Tex_output:
     def write_outfile(self):
         file = open(self.output_fn+'.latex', 'w')
         file.write('% Created by mudela-book\n')
+        last_line = None
         for line in self.__lines:
             if type(line)==type([]):
-                if line[0] == 'tex':
-                    #\\def\\interscoreline{}
+                if last_line == '\n':
+                    file.write(r'\vspace{0.5cm}')
+                if line[0] == 'tex':                    
                     file.write('\\preMudelaExample \\input %s \\postMudelaExample\n'\
-			       # TeX applies the prefix of the main source automatically.
                                % (line[1]+'.tex'))
-#                               % (outdir+line[1]+'.tex'))
                 if line[0] == 'eps':
                     ps_dim = ps_dimention(outdir+line[1]+'.eps')
                     file.write('\\noindent\\parbox{%ipt}{\includegraphics{%s}}\n' \
                                % (ps_dim[0], line[1]+'.eps'))
-#                               % (ps_dim[0], outdir+line[1]+'.eps'))
             else:
                 file.write(line)
+            if type(last_line)==type([]):
+                if line=='\n':
+                    file.write(r'\vspace{0.5cm}')
+            last_line = line
         file.close()
 
 # given parameter s="\mudela[some options]{CODE} some text and commands"

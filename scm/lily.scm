@@ -253,7 +253,8 @@
     )
   (define (stop-line) 
     "}\\vss}\\interscoreline")
-
+  (define (stop-last-line)
+    "}\\vss}")
   (define (filledbox breapth width depth height) 
     (string-append 
      "\\kern" (number->dim (- breapth))
@@ -301,6 +302,7 @@
 	    (define select-font ,select-font)
 	    (define start-line ,start-line)
 	    (define stop-line ,stop-line)
+	    (define stop-last-line ,stop-last-line)
 	    (define text ,text)
 	    (define tuplet ,tuplet)
 	    (define volta ,volta)
@@ -328,6 +330,7 @@
 	((eq? action-name 'start-line) start-line)
 	((eq? action-name 'stem) stem)
 	((eq? action-name 'stop-line) stop-line)
+	((eq? action-name 'stop-last-line) stop-last-line)
 	((eq? action-name 'volta) volta)
 	(else (error "unknown tag -- PS-TEX " action-name))
 	)
@@ -520,6 +523,7 @@
 	    (define start-line ,start-line)
 	    (define stem ,stem)
 	    (define stop-line ,stop-line)
+	    (define stop-last-line ,stop-line)
 	    (define text ,text)
 	    ))
 	((eq? action-name 'tuplet) tuplet)

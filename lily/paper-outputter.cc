@@ -292,3 +292,10 @@ Paper_outputter::stop_line ()
   SCM scm = gh_list (ly_symbol ("stop-line"), SCM_UNDEFINED);
   output_scheme (scm);
 }
+
+void
+Paper_outputter::stop_last_line ()
+{
+  SCM scm = gh_list (ly_symbol ("stop-last-line"), SCM_UNDEFINED);
+  output_scheme (scm);
+}
