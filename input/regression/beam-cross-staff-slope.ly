@@ -1,7 +1,6 @@
 \version "1.7.18"
 \header {
-    texidoc = "Cross staff  (kneed) beams
-don't cause extreme slopes"
+    texidoc = "Cross staff  (kneed) beams don't cause extreme slopes."
 }
 
 \score {

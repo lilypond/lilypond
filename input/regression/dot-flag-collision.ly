@@ -1,6 +1,6 @@
 \version "1.7.18"
 \header {
-    texidoc = "Dots move to the right when a collision with the (up)flag happens"
+    texidoc = "Dots move to the right when a collision with the (up)flag happens."
 }
 
 \score {

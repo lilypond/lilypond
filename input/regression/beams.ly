@@ -1,6 +1,6 @@
 \version "1.7.18"
 \header {
-    texidoc = "beams (simple)"
+    texidoc = "Beams (simple)."
 }
 
     \paper { raggedright= ##t }

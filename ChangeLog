@@ -49,6 +49,8 @@
 
 	* buildscripts/mutopia-index.py: polish.
 
+	* input/regression/{ many }: polish texidocs.
+
 2003-07-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/convert-ly.py (FatalConversionError.conv): rule for pedal-style  

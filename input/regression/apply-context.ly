@@ -3,7 +3,7 @@
 
 \header {
 
-texidoc = "with \\applycontext, \\properties can be modified
+texidoc = "With \\applycontext, \\properties can be modified
 procedurally. Applications include: checking bar numbers, smart
 octavation.
 

@@ -3,7 +3,7 @@
 \header {
 
     texidoc = "Beam positions may be set by hand by overriding
-    positions.  No processing (quanting, damping) whatsoever is done "
+    positions.  No processing (quanting, damping) whatsoever is done."
 
 }
 

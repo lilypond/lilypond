@@ -2,7 +2,7 @@
 
 \header{
 texidoc="
-beams should look the same
+Beams should look the same.
 "
 }
     \paper { raggedright= ##t }

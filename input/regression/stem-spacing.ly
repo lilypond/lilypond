@@ -3,7 +3,7 @@
 \header{
 texidoc="
 In a limited number of cases, LilyPond corrects for optical spacing
-effects.  In this example, space for opposite pointed stems is adjuste
+effects.  In this example, space for opposite pointed stems is adjusted.
 "
 
 }

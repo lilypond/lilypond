@@ -1,7 +1,7 @@
 \version "1.7.18"
 \header
 {
-    texidoc = "melismata are triggered by manual beams." 
+    texidoc = "Melismata are triggered by manual beams." 
 }
 
 

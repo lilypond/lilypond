@@ -1,7 +1,7 @@
 \version "1.7.18"
 \header {
 
-    texidoc = "clef changes at the start of a line get much more space
+    texidoc = "Clef changes at the start of a line get much more space
 than clef changes halfway the line."
 
 }

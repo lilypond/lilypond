@@ -1,7 +1,10 @@
 \version "1.5.68"
 
-
-
+\header{
+texidoc="
+Different text styles are used for various purposes.
+"
+}
 
 \score {  \notes
 	\relative c'' \context Staff {

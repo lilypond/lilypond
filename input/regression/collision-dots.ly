@@ -1,7 +1,7 @@
 
 
 
-\header { texidoc = "collision resolution tries to put notes with dots
+\header { texidoc = "Collision resolution tries to put notes with dots
   on the right side."
 }
 

@@ -1,6 +1,6 @@
 \version "1.7.18"
 \header {
-texidoc= "Text spanners should not repeat start text when broken"
+texidoc= "Text spanners should not repeat start text when broken."
 }
 
 \score {

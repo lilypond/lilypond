@@ -1,6 +1,6 @@
 \version "1.7.18"
 \header {
-    texidoc = "partcombiner and grace notes can go together"
+    texidoc = "Partcombiner and grace notes can go together."
 }
     \paper { raggedright= ##t }
 

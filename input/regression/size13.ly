@@ -4,7 +4,7 @@ foollilypondbook = "
 "
 
 \header {
-    texidoc ="Staff height 13 pt"
+    texidoc ="Staff height 13 pt."
     }
 
 \include "paper13.ly"

@@ -1,6 +1,6 @@
 \header
 {
-texidoc = "ottava brackets are supported, through the
+texidoc = "Ottava brackets are supported, through the
 use of the scheme function @code{set-octavation}. 
 "
 

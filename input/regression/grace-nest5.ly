@@ -1,6 +1,6 @@
 \version "1.7.18"
 \header {
-    texidoc = "Another nested grace situation"
+    texidoc = "Another nested grace situation."
     }
 
 \score
