@@ -24,6 +24,7 @@
 static bool version_ignore_b = false;
 Sources* source_global_l = 0;
 bool no_paper_global_b = false;
+bool no_timestamps_global_b = false;
 
 bool experimental_features_global_b = false;
 bool postscript_global_b = true;
@@ -41,6 +42,7 @@ Long_option_init theopts[] = {
   {1, "include", 'I'},
   {0, "no-paper", 'M'},
   {0, "no-postscript", 'P'},
+  {0, "no-timestamps", 'T'},
   {0, "ignore-version", 'V'},
   {0,0,0}
 };
@@ -63,6 +65,7 @@ usage ()
     "  -M, --no-paper         produce midi output only\n"
     "  -V, --ignore-version   ignore mudela version\n"
     "  -P, --no-postscript    don't use PostScript\n"
+    "  -T, --no-timestamps    don't timestamp the output\n"
     "\n"
     "GNU LilyPond was compiled with the following settings:\n")
 #ifdef NDEBUG
@@ -216,6 +219,9 @@ main (int argc, char **argv)
 	  break;
 	case 'M':
 	  no_paper_global_b = true;
+	  break;
+	case 'T':
+	  no_timestamps_global_b = true;
 	  break;
 	default:
 	  assert (false);

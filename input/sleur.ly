@@ -27,10 +27,11 @@ complex = \melodic{
 }
 
 beum = \melodic{
+	\octave c'; 
 	[c8 c] c4 c4 c4 |
 }
 
-extend = {
+extend = \melodic{
 	  c8(( c c )c c c c )c |
 	  \[4/5c8( c c' c )c\]1/1 c c c c |
 	  \[4/5c8( c c c c'\]1/1 c c c )c |
@@ -41,19 +42,32 @@ extend = {
 	  \[4/5c8( c ''c c c\]1/1 c c c )c |
 }
 
+extendbug = \melodic{
+	\octave c'; 
+	c4( c' c' )c
+	\stemup c'4( \stemdown e e \stemboth )c'
+	[c'8( b g a] [c' d' e' c'] [c' d' e' )c']
+	c( c' c' )c
+	e( g' g' )e
+}
+
 \score{
 	\melodic{ 
 		\shortlong
 		\dirs
 		\complex
 		\beum
-		\stemup; 
-		\octave c''; 
-		\extend
-		\stemdown; 
 		\octave c'; 
+		\stemup; 
 		\extend
+		\octave c''; 
+		\stemdown; 
+		\extend
+		\stemboth;
+		\extendbug
 	}
-	\paper{ }
+	\paper{ 
+%		castingalgorithm = \Wordwrap;
+	}
 }
 

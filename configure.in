@@ -256,7 +256,8 @@ AC_OUTPUT(bin/Makefile flower/Makefile flower/include/Makefile
 	lily/Makefile lily/include/Makefile mf/Makefile mi2mu/Makefile
 	mi2mu/include/Makefile debian/Makefile Documentation/Makefile
 	init/Makefile input/Makefile tex/Makefile make/Makefile
-	mutopia/Makefile mutopia/J.S.Bach/Makefile Makefile 
+	mutopia/Makefile mutopia/J.S.Bach/Makefile mutopia/Coriolan/Makefile
+	test/Makefile Makefile 
 	bin/add-URLs bin/clean-diaper bin/clean-embeds bin/clean-fonts 
 	bin/conflily bin/convert-mudela bin/cvm bin/find-typenames bin/foo 
 	bin/genheader bin/ly2dvi bin/make-docxx bin/make-examples 

@@ -71,10 +71,20 @@ Mudela_stream::handle_pending_indent()
 void
 Mudela_stream::header()
 {
-  *os_p_ << _("% Creator: ") << mi2mu_version_str() << "\n";
-  *os_p_ << _("% Automatically generated, at ");
-  time_t t (time (0));
-  *os_p_ << ctime (&t);
+  *os_p_ << _("% Creator: ");
+  if (no_timestamps_b_g)
+    *os_p_ << "GNU LilyPond\n"; 
+  else
+    *os_p_ << mi2mu_version_str() << "\n";
+  *os_p_ << _("% Automatically generated");
+  if (no_timestamps_b_g)
+    *os_p_ << ".\n";
+  else
+    {
+      *os_p_ << _(", at ");
+      time_t t (time (0));
+      *os_p_ << ctime (&t) << "%\n";
+    }
   *os_p_ << _("% from input file: ");
   //  *os_p_ << midi_parser_l_g->filename_str_;
   // ugh

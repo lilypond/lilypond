@@ -12,8 +12,8 @@ copyright =	 "public domain";
 hoboonestart = \melodic{
 % ugh: can't copy: allegro/primo tempo
 	\octave c';
-	\textstyle "roman";
-	[es'16-.-"Allegro" es'-. es'-. es'-.] [es'8-. d'-.] |
+	\textstyle "large";
+	[es'16-.^"Allegro" es'-. es'-. es'-.] [es'8-. d'-.] |
 	\textstyle "italic";
 }
 
@@ -26,7 +26,7 @@ hobooneintro = \melodic{
 	[bes16( c' d' es'] [)d'8 c'-.] |
 	[bes-. as->~] [as16( g f g] |
 	[as bes c' d'] [)es'8 c'-.] |
-	[d'8-. c'16( bes] )a4 ~ |
+	[d'8-. c'16( bes] )as4 ~ |
 	[as16 g( f g] [as c' bes as] |
 %	[)g8 as16 g(] [)f8 g16( f] |
 	[)g8 as16 g(] [)f8 g16( f] |
@@ -75,28 +75,32 @@ hoboonemid = \melodic{
 	[f'8.-> f'16] [f'8 f'] |
 	[bes'8-. as'16( g'] )f'4 ~ |
 	[f'16 es'( d' es'] [f' as' g' )f'] |
-	[es'( g' f' es'] [d' g' es' d'] |
+	[es'( g' f' es'] [d' f' es' d'] |
 	[c' es' d' c'] [b d' c' b] |
 	[a c' bes a] [g bes a g] |
 	[fis a g fis] [e g fis )e] |
 	% `a deux
 	[d8 d'] [es'8.-> c'16] |
 	[a8 bes g es] |
-	[c' d' es8. bes16] |
+	[c' d' es'8. bes16] |
 	[g8 es bes c] |
 	[d16-. d-. d-. d-.] [d8.-. es16->] |
 	[d'16-.-"cresc." d'-. d'-. d'-.] [d'8.-. es'16->] |
 	[d'16-. d'-. d'-. d'-.] [d'8.-. es'16->] |
-	[d'16 d' d' d'] [d'8 es'16-.] r16-\fermata-"court"-"tr\\`es" |
+	[d'16 d' d' d'] [d'8 es'16-.] r16-\fermata^"court"^"tr\\`es" |
 	% Un peu plus lent.
-	\textstyle "roman";
+	\textstyle "bold";
 
 % ugh
 %	d'4(\<^"Un peu plus lent" \textstyle "italic; _"tr\\`es \\'el\\'egant"
-	d'4(\<^"Un peu plus lent"
+%	d'4(\<^"Un peu plus lent"
+	d'4(\<
 	\textstyle "italic"; 
 	[e'8_"tr\\`es \\'el\\'egant" \!f'8] |
-	[)b'-. a'-.] [g16( fis' e' )d'] |
+%	[)b'-. a'-.] [g16( fis' e' )d'] |
+	\textstyle "bold";
+	[)b'-.^"Un peu plus lent" a'-.] [g16( fis' e' )d'] |
+	\textstyle "italic"; 
 	[d'( c' b\< c'] [)\!f'8-. e'-.] |
 	d4-> ~ [d16 e( fis g] |
 	[a b\< d' fis] [)\!a'8-. g'-.] |
@@ -132,7 +136,7 @@ hoboonemid = \melodic{
 hoboonesecondstart = \melodic{
 	\octave c';
 % ugh: can't copy: allegro/primo tempo
-	\textstyle "roman";
+	\textstyle "large";
 	[es'16-.\ff^"Tempo 1$^o$" es'-. es'-. es'-.] [es'8-. d'-.] |
 	\textstyle "italic";
 	
@@ -171,7 +175,6 @@ hoboonelast = \melodic{
 	[bes16-.-"cresc." bes-. bes-. bes-.] [bes8-. ces'->] |
 	% same measure
 	[bes16-. bes-. bes-. bes-.] [bes8-. ces'->] |
-	\textstyle "roman";
 	[bes'16-.\ff bes'-. bes'-. bes'-.] [bes'8-. ces''16->] r16^"court"-\fermata |
 	% ugh: eight measures rest (ugh: r1 -> four beats...)
 	r2-"Un peu plus lent et \\'el\\'egant"
@@ -207,7 +210,7 @@ hoboonelast = \melodic{
 	g'8-. r f4-> ~ |
 	[f'8 es'-. ces'8.-. as16-.] |
 	% `a deux
-	\textstyle "roman";
+	\textstyle "large";
 	[ces'8.->^"Plus vite" bes16-.(] [a bes es' d'] |
 	\textstyle "italic";
 	[)c!8.-> bes16] [a( bes es' )d'] |
@@ -218,7 +221,9 @@ hoboonelast = \melodic{
 	[g' )f' d'( es'] [f' g' as' a'] |
 	[c'' )bes' bes( c'] [d' es' f' g'] |
 	[as' g' f' g'] [as' bes' c'' d''] |
+	\textstyle "large";
 	[)es''-.^"Tempo 1$^o$" g'-. g'-. g-.] [g'8-. g'-.] |
+	\textstyle "italic";
 	bes'4.-> g'8-. |
 	gis'2->( |
 	)as'! |
@@ -233,7 +238,7 @@ hoboonelast = \melodic{
 	g'4.-> g'8-. |
 	es'4.-> es'8-. |
 	bes4.-> bes8-. |
-	\textstyle "roman";
+	\textstyle "large";
 	g'4.->^"Presto" g'8-. |
 	\textstyle "italic";
 	es'4.-> es'8-. |
@@ -256,12 +261,14 @@ hoboone = \melodic {
 global = \melodic{
 	\key bes es as;
 	\meter 2/4;
-	\skip 4*106;
+	\skip 4*110;
+	\key fis; |
 	\bar "||";
-	\key fis;
-	\skip 4*60;
+	\skip 4*58;
+	\key bes es as; |
 	\bar "||";
-	\key bes es as;
+	\skip 4*206;
+	\bar "|.";
 }
 
 
@@ -280,7 +287,7 @@ a4 = \paper{
 	\$staff_hoboone
 	\paper{ \a4 }
 	\midi{
-		\tempo 4 = 120;
+		\tempo 4 = 80;
 	}
 }
 

@@ -70,8 +70,8 @@ one = \melodic{
 two = \melodic{
 	\octave c;
 	<
-		{ \voiceone; c1 ~ c ~ c }
-		{ \voicetwo; 'c1 ~ 'c ~ 'c }
+		{ \voiceone; c1 ~ | c ~ | c }
+		{ \voicetwo; 'c1 ~ | 'c ~ | 'c }
 	>
 	\onevoice; |
 	r8 [c-5( e-3 g-1] [e-3 c-5 c' e-4] |
@@ -79,13 +79,10 @@ two = \melodic{
 	)g2-3 r4 g-2( |
 	[)a8 'a-5( c-4 e-2] [c-4 'a-5 g e-3] |
 	)fis2 r4 d-4 |
-	% [g32-1( fis-2 g8.-1] ) 'g4 g( )'g\mr |
-	
-	% my edition has  mordents on every g here
-	[g32-1( fis-2 g8.-1] ) 'g4 g ~ 'g |
-	% 'g( )g\mr 'g( )g\mr |
-	g ~ 'g g ~ 'g |
-	g ~ 'g g ~ 'g |
+	g-\mordent-"(\\textsharp)" 'g4 g-\mordent 'g |
+	% mordents in brackets...
+	g-\mordent 'g g-\mordent 'g |
+	g-\mordent 'g g-\mordent 'g |
 	[g8 'g-5( 'b-4 d-2] ['b-4 'g-5 f!-1 d-3] |
 	[)e-2 c-4 e-2 g-1] [e-3 c-5 c' e-4] |
 	\textstyle "finger";

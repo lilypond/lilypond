@@ -24,28 +24,25 @@ one = \melodic{
 	< 
 		{
 			\voiceone;
-%			c'4\mr^"(\\textsharp)"\p r r |
-%			c'4\mr^"(\\textsharp)" r r
-			c'4^"(\\textsharp)"\p r r |
-			c'4^"(\\textsharp)" r r
+			c'4-\mordent-"(\\textsharp)"\p r r |
+			c'4-\mordent-"(\\textsharp)" r r
 		}
 		{ \voicetwo; a4 r r | a4 r r }
 	> |
 	\onevoice;
 	[a'8\mf( es'-3\> d' c' bes!-3 a] |
 	[g fis-3 e!-2 d-1 c'-4 \!a] |
-	[)bes32(\p a bes16] [d'8-5 bes-3 g-1] )g'4 |
-%	r8 [d'-5( c' bes a\pr g] |
-	r8 [d'-5( c' bes a g] |
+	[)bes8-\mordent\p( d'8-5 bes-3 g-1] )g'4 |
+	r8 [d'-5( c' bes a-\prall g] |
 	[)a-2 c'-4( a f] ) f'4 |
-%	r8 [c'-5 bes a g\tr f] |
-	r8 [c'-5 bes a g f] |
+	r8 [c'-5 bes a g-\prall f] |
 	[g-2 bes-4 a g f-1 e-2] |
 	[f-3 d-1 f-2 a-3 d'-5 g-2] |
 	< 
 		{ 
 			\voiceone;
-			[cis'32-4 bes cis'16 e'8-5-"poco cresc." cis'-3 a e' cis']
+			% ... textnatural
+			[cis'8-\prall e'8-5-"poco cresc." cis'-3 a e' cis']
 		}
 		{ \voicetwo; a4 }
 	>
@@ -99,10 +96,9 @@ two = \melodic{
 	\octave c;
 	[d32( cis )d8.] r4 r |
 	'd4 r r |
-%	d\mr r r |
-	d r r |
+	d-\mordent r r |
 	'd4 r r |
-%	d\mr r r |
+	d-\mordent r r |
 	d r r |
 	'd4 r r |
 	[d8-2 'a-5 d-2 f-1 d-4 f-2] |
@@ -113,11 +109,9 @@ two = \melodic{
 	[g!-5 es'-1 c'-1 g-5 es'-1 c'-1 ] |
 	fis4-5 r r 
 	d-4( ) fis d-5 |
-%	g\mr-"(\\textsharp)" r r f!8 |
-	g-"(\\textsharp)" r r8 f! |
-	[e32 f e8.] r4 r |
-%	f\pr r r8 e |
-	f r r8 e |
+	g4-\mordent-"(\\textsharp)" r r f!8 |
+	e4-\prall r r |
+	f4-\mordent r r8 e |
 	d4 r8 [f-1 e d] |
 	[e-2 d-3 cis-4 e-1 d-2 cis-3] |
 	d4-2( )c! 'bes-4 |

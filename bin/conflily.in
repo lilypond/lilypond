@@ -22,9 +22,6 @@ current=`basename \`pwd\``
 echo ln -s $lelie/$current $lelie/current
 ln -s $lelie/$current $lelie/current
 
-ln -sf $lelie/current/lily/lilypond bin/lilypond
-ln -sf $lelie/current/mi2mu/mi2mu bin/mi2mu
-
 if [ "x$LILYINCLUDE" = "x" ]; then
 	echo you should make add the following to your login script
 	echo "export LILYINCLUDE=$lelie/current/init:$lelie/current/mutopia:$lelie/current/input:$lelie/current/mutopia/J.S.Bach:"
@@ -32,7 +29,9 @@ if [ "x$LILYINCLUDE" = "x" ]; then
 	echo "export MFINPUTS=$MFINPUTS:$lelie/current/mf"
 fi
 
-mkdir -f ../build
+mkdir -p ../build
 (cd ../build; 
+ln -sf $lelie/build/lily/lilypond bin/lilypond
+ln -sf $lelie/build/mi2mu/mi2mu bin/mi2mu
 ../current/configure --prefix=/usr --enable-debugging --enable-printing --enable-checking)
 

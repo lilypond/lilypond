@@ -65,22 +65,19 @@ one = \melodic{
 two = \melodic{
 	\octave c;
 	\textstyle "roman";
-	c4-5 e-3 [g32-1 fis-2 g8.-1] 'g4 |
-	d-5 f-3 [a32-1 gis a8.] 'a4 |
-	% ugh grouping32: 4..4
- 	e-5 e'-1 a-4 [a32-3 b c' b] [c' b a b] |
- 	c'4 e-4 fis [a32-1 gis fis gis] [a gis fis gis] |
-	a4 c-4 d [d32 e f e] [f e d e] |
-	% ugh tril sign
-	% f4-1 e d-3\tr c |
-	f4-1 e d-3 c |
-	% g( )'g g\pr-"(#)"( )'g |
-	g ~ 'g g-"(\\textsharp)" ~ 'g |
-	% g\pr-"(\\textsharp)" ~ 'g g\pr-"(\\textsharp)" ~ 'g |
-	g-"(\\textsharp)" ~ 'g g-"(\\textsharp)" ~ 'g |
+	c4-5 e-3 g-\mordent-"(\\textsharp)" 'g4 |
+	d-\mordent-5 f-3 a-\mordent-"(\\textsharp)" 'a4 |
+ 	e-5 e'-\mordent-1 a-4 b-\upprall |
+ 	c'4 e-4 fis gis-\downprall |
+	a4 c-4 d e-\upprall |
+	f4-1 e d-3-\prall c |
+	g-\mordent-"(\\textsharp)" 'g g-\mordent 'g |
+	g-\mordent 'g g-\mordent 'g |
 	% ugh, f should be at upper staff
-	g r r16 ['g-5( 'b-4 d] )f-1 s s s |
-	s [g-5( b-4 d'-2] )f'-1 s s s s \clef violin; [g'-4 b'-2 d''-1] 
+	g-\mordent r r16 ['g-5( 'b-4 d] )f-1 s s s |
+%	s [g-5( b-4 d'-2] )f'-1 s s s s \clef violin; [g'-4 b'-2 d''-1] 
+	% huh, can't violin anymore (see BUGS)
+	s [g-5( b-4 d'-2] )f'-1 s s s s [g'-4 b'-2 d''-1] 
 	s s s s \clef bass; |
 	<
 		{ \voiceone; g1 ~ g ~ g ~ g ~ g ~ g ~ g }
