@@ -54,7 +54,7 @@
 		  (number->string resolution)
 		  "90 ")
 	      (if (ly:get-option 'verbose)
-		  "--verbose "
+		  " --verbose "
 		  " ")
 	      name)))
 

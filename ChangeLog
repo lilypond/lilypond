@@ -1,3 +1,8 @@
+2005-02-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/backend-library.scm (postscript->png): space before
+	--verbose.
+	
 2005-02-05  Werner Lemberg  <wl@gnu.org>
 
 	* mf/feta-autometric.mf (fet_beginchar): Check whether `feta_group'
@@ -38,6 +43,8 @@
 	* mf/feta-ital-*.mf: Removed.  Unused.
 
 2005-02-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION (PATCH_LEVEL): release 2.5.11
 
 	* input/regression/fill-line-test.ly: new file.
 

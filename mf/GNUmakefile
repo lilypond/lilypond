@@ -185,6 +185,13 @@ $(outdir)/lilypond.map: $(AFM_FILES)
 	>> $@
 	echo "aybabtu aybabtu <aybabtu.cff.ps" >> $@
 
+$(outdir)/Fontmap.lily: 
+	for i in $(FETA_FONTS); do echo "/$$i ($$i.pfa);" ; done > $@
+	for i in $(STAFF_SIZES); \
+		do echo "/emmentaler-$$i (emmentaler-$$i.cff.ps);" ; done \
+	>> $@
+	echo "/aybabtu (aybabtu.cff.ps);" >> $@
+
 
 local-clean:
 	rm -f mfplain.mem mfplain.log 
