@@ -421,7 +421,8 @@ def find_mudela_shorthands (b):
 
 	def mudela_file (match):
 		"Find \mudelafile, and substitute appropriate \begin / \end blocks."
-		str = find_file (match.group (2))
+		full_path = match.group (2)
+		str = find_file (full_path)
 		opts = match.group (1)
 		if opts:
 			opts = opts[1:-1]

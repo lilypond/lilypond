@@ -221,7 +221,7 @@ Yes. See @file{input/test/grace.ly}
 
 See @file{lilyponddefs.tex}, it has some comments.  Or use @file{ly2dvi}.
 
-subsubsection(How do I place lyrics under @emph{each} of the staves in a score, as choral music. I can work out how to put lyrics for each line all under the top line, or at the bottom but not between!) 
+@subsubsection How do I place lyrics under @emph{each} of the staves in a score, as choral music. I can work out how to put lyrics for each line all under the top line, or at the bottom but not between!
 
 You change the order lyrics and staves.  You have to name all
 staves (lyric and melodic), otherwise they will end up in the same
@@ -316,7 +316,7 @@ to get a bit less frivolous tagging.
 @node Development, Running, How do I -, FAQ - GNU LilyPond FAQs
 @section Development
 
-subsubsection(Could you implement feature XXXX? It is really easy, just extend the syntax to allow YYYY!) 
+@subsubsection Could you implement feature XXXX? It is really easy, just extend the syntax to allow YYYY!
 
 If it is reasonable, I'll add XXXX to the TODO list. In general
 finding a cute syntax (such as YYYY) isn't very hard. The complicated
@@ -466,7 +466,7 @@ output, use TeX and @code{dvips}.
 The beams and slurs are done in PostScript.  XDvi doesn't show
 PostScript in the magnifying glass.  Complain to the XDvi maintainers.
 
-@subsubsection I don't get midi-output, even if I use @strong{-M}!
+@subsubsection I don't get midi-output, even if I use @strong{-m}!
 
 Your \score should include a \midi block, eg.
 @example 
@@ -482,10 +482,10 @@ Your \score should include a \midi block, eg.
  
 @end example 
 
-The @strong{-M} option was added to LilyPond because processing the \paper
-block is so slow.
+The @strong{-m} option was added to LilyPond to suppress paper output,
+because processing the \paper block is so slow.
 
-subsubsection(A lot of musical stuff doesn't make it to the MIDI file, eg.  dynamics, articulation, etc.) 
+@subsubsection A lot of musical stuff doesn't make it to the MIDI file, eg.  dynamics, articulation, etc.
 
 The MIDI output was originally put in as a proof that MIDI could be
 done, and as a method of proof"reading" the input.  The MIDI support
@@ -531,7 +531,7 @@ signature changes, time compression (original in 4/1, playing edition
 in 4/4, for example, with all semibreves replaced with crotchets)
 Copyright is in the arranger/editor.
 
-subsubsection(How does copyright for sheet music work? Can I enter and spread my newly bought Bach urtext?) 
+@subsubsection How does copyright for sheet music work? Can I enter and spread my newly bought Bach urtext?
 
 Silas S. Brown <ssb22@@hermes.cam.ac.uk>:
 

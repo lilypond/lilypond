@@ -346,8 +346,8 @@ A Debian package is also available; contact Anthony Fok
 Separate instructions on building for W32 are available; See file
 README-W32, included with the sources.
 
-@section Problems
-
+@c I detest the use of euphemisms, esp. for BUGS
+@section Bugs and Problems
 
 For help and questions use @email{help-gnu-music@@gnu.org} and
 @email{gnu-music-discuss@@gnu.org}.  Please consult the faq before
