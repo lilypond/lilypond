@@ -11,7 +11,7 @@ void add_interface (const char * symbol,
 		    const char * vars)
 {
   SCM s = ly_symbol2scm (symbol);
-  SCM d = gh_str02scm (descr);
+  SCM d = ly_str02scm (descr);
   SCM l = parse_symbol_list (vars);
 
 

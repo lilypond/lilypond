@@ -508,7 +508,7 @@ Spacing_spanner::do_measure (Rational shortest, Grob*me, Link_array<Grob> *cols)
 
 
 /*
-  Generate the space between two musical columns LC and RC, given spacing parameters INCR and SHRTEST.
+  Generate the space between two musical columns LC and RC, given spacing parameters INCR and SHORTEST.
  */
 void
 Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real increment, Rational shortest)
@@ -730,6 +730,14 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
   Moment delta_t = rwhen - lwhen;
   Real dist = 0.0;
 
+  /*
+    In normal situations, the next column is at most
+    SHORTEST_PLAYING_LEN away. However chord-tremolos do funky faking stuff
+    with durations, invalidating this assumption. Here we kludge
+    around to get chord tremolos to behave properly.
+    
+   */
+  shortest_playing_len = shortest_playing_len >? delta_t;
   if (delta_t.main_part_ && !lwhen.grace_part_)
     {
       dist = get_duration_space (me, shortest_playing_len, shortest.main_part_, expand_only);

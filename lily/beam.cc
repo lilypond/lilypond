@@ -1253,8 +1253,9 @@ Beam::brew_molecule (SCM smob)
 		     "%.2f");
 
       SCM properties = Font_interface::font_alist_chain (me);
-  
-      Molecule tm = Text_item::text2molecule (me, gh_str02scm (str.ch_C ()), properties);
+
+      
+      Molecule tm = Text_item::text2molecule (me, ly_str02scm (str.ch_C ()), properties);
       mol.add_at_edge (Y_AXIS, UP, tm, 5.0);
     }
   

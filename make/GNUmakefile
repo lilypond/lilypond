@@ -1,4 +1,4 @@
-# file	   make/Makefile 
+# file make/Makefile 
 
 depth = ..
 STEPMAKE_TEMPLATES=makedir install
@@ -7,3 +7,4 @@ INSTALLATION_FILES=$(DIST_FILES)
 
 include $(depth)/make/stepmake.make 
 
+default: spec

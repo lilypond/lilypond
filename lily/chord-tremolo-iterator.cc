@@ -9,7 +9,8 @@
 
 
 /*
-  this is culled from various other iterators, but sharing code by subclassing proved to be too difficult.
+  this is culled from various other iterators, but sharing code by
+  subclassing proved to be too difficult.
  */
 
 #include "input.hh"
@@ -33,7 +34,7 @@ Chord_tremolo_iterator::Chord_tremolo_iterator ()
 Chord_tremolo_iterator::Chord_tremolo_iterator (Chord_tremolo_iterator const &src)
   : Music_iterator (src)
 {
-  child_iter_p_ = src.child_iter_p_? src.child_iter_p_->clone () : 0; 
+  child_iter_p_ = src.child_iter_p_ ? src.child_iter_p_->clone () : 0; 
 }
 
 void
