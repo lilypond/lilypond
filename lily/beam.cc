@@ -1382,5 +1382,5 @@ the ideal slope, how close the result is to the ideal stems, etc.). We
 take the best scoring combination.
 
 ",
-  "concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy direction damping flag-width-function neutral-direction positions thickness");
+  "concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy direction damping flag-width-function neutral-direction positions thickness");
 
