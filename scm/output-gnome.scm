@@ -21,9 +21,9 @@
 
 ;;; You need:
 ;;;
-;;;   * Rotty's g-wrap >= 1.9.1 (or TLA)
-;;;   * guile-gnome-platform >= 2.5.992 (or TLA)
-;;;   * pango >= 1.5.2 (or CVS)
+;;;   * Rotty's g-wrap >= 1.9.3 (or TLA)
+;;;   * guile-gnome-platform >= 2.7.95 (or TLA)
+;;;   * pango >= 1.6.0
 ;;;
 ;;; See also: guile-gtk-general@gnu.org
 
@@ -84,14 +84,8 @@ lilypond -fgnome input/simple-song.ly
  (ice-9 regex)
  (srfi srfi-13)
  (lily)
- (gnome gtk))
-
-
-;; The name of the module will change to `canvas' rsn
-(if (resolve-module '(gnome gw canvas))
-    (use-modules (gnome gw canvas))
-    (use-modules (gnome gw libgnomecanvas)))
-
+ (gnome gtk)
+ (gnome gw canvas))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Wrappers from guile-gnome TLA

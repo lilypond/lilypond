@@ -21,7 +21,7 @@ SLIB_PATH=`locate slib/require.scm | head -1 | sed -s 's/require.scm//g'`
 
 # What extra modules to pull (eg: EXTRA="libgnomecanvas libwnck")
 EXTRA=${EXTRA-libgnomecanvas}
-GGVERSION=2.7.94
+GGVERSION=2.7.96
 GWRAPVERSION=1.9.3
 
 download=$HOME/usr/src/releases

@@ -1,3 +1,7 @@
+2004-11-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/pangofc-afm-decoder.cc: Update test.
+
 2004-11-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/lily-library.scm (char->unicode-index): New function.
