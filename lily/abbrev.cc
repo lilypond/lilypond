@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
@@ -13,7 +13,7 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "stem.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 
 Abbreviation::Abbreviation ()
 {
@@ -30,63 +30,108 @@ Abbreviation::do_print () const
 Molecule*
 Abbreviation::brew_molecule_p () const
 {
-  Real dy = paper ()->interbeam_f (stem_l_->mult_i_);
-  Real w = 1.5 * paper ()->lookup_l ()->ball (2).dim_.x ().length ();
+  Real interbeam_f = paper ()->interbeam_f (stem_l_->mult_i_);
+  Real w = 1.5 * lookup_l ()->ball (2).dim_.x ().length ();
+  Real internote_f = paper ()->internote_f ();
   Real interline_f = paper ()->interline_f ();
+  Real beam_f = paper ()->beam_thickness_f ();
 
   int beams_i = 0;
-  Real slope_f = paper ()->internote_f () / 4;
+  Real slope_f = internote_f / 4 / internote_f;
 
   if (stem_l_ && stem_l_->beam_l_) {
-    // huh?
-    slope_f = 2 * stem_l_->beam_l_->slope_f_;
+    slope_f = stem_l_->beam_l_->slope_f_;
     // ugh, rather calc from Abbreviation_req
     beams_i = stem_l_->beams_right_i_ >? stem_l_->beams_left_i_;
-  }
-  paper ()->lookup_l ()->beam (slope_f, 20 PT, 1 PT);
+  } 
+  Real sl = slope_f * internote_f;
 
-  Atom a (paper ()->lookup_l ()->beam (slope_f, w, .48 * interline_f));
+  Atom a (lookup_l ()->beam (sl, w, beam_f));
   a.translate (Offset (-w/2, w / 2 * slope_f));
 
   Molecule *beams= new Molecule; 
   for (int i = 0; i < abbrev_flags_i_; i++)
     {
       Atom b (a);
-      b.translate_axis (dy * i, Y_AXIS);
-      beams->add (b);
+      b.translate_axis (interbeam_f * i, Y_AXIS);
+      beams->add_atom (b);
     }
+#define EGCS_ICE
+#ifndef EGCS_ICE
   beams->translate_axis (-beams->extent ()[Y_AXIS].center (), Y_AXIS);
+#else
+  beams->translate_axis (-(beams->extent ()[Y_AXIS].min () + 
+    beams->extent ()[Y_AXIS].max ()) / 2 , Y_AXIS);
+#endif
 
   if (stem_l_)
-    {
-      /* Try to be in the middle of the open part of the stem and
-	 between on the staff.
+    { 
+      if (stem_l_->beam_l_)
+        {
+	  beams->translate (Offset(stem_l_->hpos_f () - hpos_f (),
+	    stem_l_->stem_end_f () * internote_f - 
+	    stem_l_->beam_l_->dir_ * beams_i * interbeam_f));
+	}
+      else
+#if 1
+	{  
+	  /*
+	    Beams should intersect one beamthickness below staff end
+	   */
+	  Real dy = - beams->extent ()[Y_AXIS].length () / 2 * stem_l_->dir_;
+	  dy /= internote_f;
+	  dy += stem_l_->stem_end_f ();
+	  dy *= internote_f;
+// urg: can't: stem should be stetched first
+//	  dy -= paper ()->beam_thickness_f () * stem_l_->dir_;
+	  beams->translate (Offset(stem_l_->hpos_f () - hpos_f (), dy));
+	}
+#else
+	{
+	  /* 
+	     urg: this is wrong, even if coded correctly
 
-	 (urgh)
-      */
-      Direction sd  = stem_l_->dir_;
-      Interval empty_stem (stem_l_->chord_start_f () * sd ,
-			   (stem_l_->stem_end_f ()* sd) - beams_i * dy);
-      empty_stem *= sd;
-      
-      Interval instaff = empty_stem;
-      instaff.intersect (interline_f * Interval (-2,2));
-      if (instaff.empty_b ())
-	instaff = empty_stem;
+	     Try to be in the middle of the open part of the stem and
+	     between on the staff.
 
-      instaff.print (); 
-      beams->translate (Offset(stem_l_->hpos_f () - hpos_f (),
-			  instaff.center ()));
+	     (urgh)
+	  */
+	  Direction sd  = stem_l_->dir_;
+	  // watch out: chord_start_f is (the only one) not in dim(internote)
+	  Interval empty_stem (stem_l_->chord_start_f () / internote_f * sd
+	    + interline_f, (stem_l_->stem_end_f ()* sd));
+	  empty_stem *= sd;
+	  
+	  Interval instaff = empty_stem;
+	  /*
+	    huh? i don't understand, hw
+	    what about:
+	    .fly= \stemup d'''2:16
+	    instaff.intersect (Interval (-4,4));
+	    */
+	  // hmm, let's try
+	  if (stem_l_->get_default_dir () == stem_l_->dir_)
+	    instaff.intersect (Interval (-4,4));
+
+	  if (instaff.empty_b ())
+	    instaff = empty_stem;
+
+	  instaff.print (); 
+	  instaff *= internote_f;
+	  beams->translate (Offset(stem_l_->hpos_f () - hpos_f (),
+			      instaff.center ()));
+	}
+#endif
     }
   
   return beams;
 }
 
 void
-Abbreviation::do_substitute_dependent (Score_elem*o, Score_elem*n)
+Abbreviation::do_substitute_dependent (Score_element*o, Score_element*n)
 {
   if (stem_l_ == o)
-    stem_l_ = n ? (Stem*)n->item () : 0;
+    stem_l_ = n ? (Stem*)n->access_Item () : 0;
 }
 
 
