@@ -12,7 +12,8 @@ EXTRA_DIST_FILES = README.Debian $(CONF_FILES) \
 	control.foka control.potato \
 	lilypond.dirs lilypond.doc-base \
 	lilypond-doc.dirs lilypond-doc.doc-base lilypond-doc.README.Debian \
-	lilypond1.3.copyright
+	lilypond1.3.copyright \
+	lilypond1.7.dirs lilypond1.7-doc.dirs
 #OUTCONF_FILES = $(addprefix $(outdir)/, $(basename $(CONF_FILES))) $(OUTIN_FILES)
 OUTCONF_FILES = $(OUTIN_FILES)
 OUT_DIST_FILES = $(OUTIN_FILES)

@@ -1,5 +1,9 @@
 2003-06-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* debian/GNUmakefile (EXTRA_DIST_FILES): 
+	* debian/lilypond1.7.dirs: 
+	* debian/lilypond1.7-doc.dirs: New file.
+
 	* input/regression/chord-name-exceptions.ly: Add parameter for
 	ignatzekExceptions.  Quote hash in docstring.
 
