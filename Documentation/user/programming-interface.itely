@@ -150,7 +150,7 @@ follows the general form of
 @end example
 
 Such syntax can also be defined as user code. To do this, it is
-necessary to create a @em{music function}. This is a specially marked
+necessary to create a @emph{music function}. This is a specially marked
 Scheme function. For example, the music function @code{\applymusic} applies
 a user-defined function to a music expression.  Its syntax is
 

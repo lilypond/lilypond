@@ -481,8 +481,11 @@ Here are key signatures, accidentals and ties in action
 @}
 @end example
 
+@ignore
+FIXME
+ugr: removing the ignore block, leaving the comment line below
 @c TODO: use relative mode, verbatim, junk \transpose and above @example
-
+@end ignore
 
 
 @lilypond[quote,noindent,linewidth=50\staffspace]

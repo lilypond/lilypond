@@ -1,12 +1,6 @@
 #!@PYTHON@
 
 '''
-TODO:
-      ly-options: intertext, quote ?
-      --linewidth?
-      eps in latex?
-      check latex parameters, twocolumn, multicolumn?
-      
 Example usage:
 
 test:
@@ -18,10 +12,16 @@ convert-ly on book:
 classic lilypond-book:
      lilypond-book --process="lilypond-bin" BOOK.tely
 
-   must substitute:
-     @mbinclude foo.itely -> @include foo.itely
-     \mbinput -> \input
-     
+TODO:
+    *  ly-options: intertext ?
+    *  --linewidth?
+    *  eps in latex / eps by lilypond-bin -fps ?
+    *  check latex parameters, twocolumn, multicolumn?
+      
+    *  Converting from lilypond-book source, substitute:
+       @mbinclude foo.itely -> @include foo.itely
+       \mbinput -> \input
+
 '''
 
 import __main__
@@ -327,11 +327,11 @@ def classic_lilypond_book_compatibility (o):
 	m = re.match ('([0-9]+)pt', o)
 	if m:
 		return 'staffsize=%s' % m.group (1)
-	m = re.match ('indent=([-.0-9]+)(cm|in|mm|pt)', o)
+	m = re.match ('indent=([-.0-9]+)(cm|in|mm|pt|staffspace)', o)
 	if m:
 		f = float (m.group (1))
 		return 'indent=%f\\%s' % (f, m.group (2))
-	m = re.match ('linewidth=([-.0-9]+)(cm|in|mm|pt)', o)
+	m = re.match ('linewidth=([-.0-9]+)(cm|in|mm|pt|staffspace)', o)
 	if m:
 		f = float (m.group (1))
 		return 'linewidth=%f\\%s' % (f, m.group (2))
