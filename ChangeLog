@@ -1,3 +1,7 @@
+2003-08-27  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond.words: add \newcontext.
+
 2003-08-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/tie-performer.cc (stop_translation_timestep): only flush
