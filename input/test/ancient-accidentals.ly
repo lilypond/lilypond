@@ -8,48 +8,16 @@ are collected here.
 
 \version "2.3.8"
 
-\score { 
-  \context Voice \relative c {
-    \time 3/4
-	\override Staff.Accidental  #'style = #'default
-	cisis''^"Accidental style = \#'default" cisis! cisis? |
-	cis cis! cis? | 
-	c c! c? |
-	ces ces! ces? |
-	ceses ceses! ceses? |
-	\break
-	
-	\override Staff.Accidental  #'style = #'hufnagel
-	cisis^"Accidental style = \#'hufnagel" cisis! cisis? |
-	cis cis! cis? | 
-	c c! c? |
-	ces ces! ces? |
-	ceses ceses! ceses? |
-	\break
-	
-	\override Staff.Accidental  #'style = #'medicaea
-	cisis^"Accidental style = \#'medicaea" cisis! cisis? |
-	cis cis! cis? | 
-	c c! c? |
-	ces ces! ces? |
-	ceses ceses! ceses? |
-	\break
-	
-	\override Staff.Accidental  #'style = #'vaticana
-	cisis^"Accidental style = \#'vaticana" cisis! cisis? |
-	cis cis! cis? | 
-	c c! c? |
-	ces ces! ces? |
-	ceses ceses! ceses? |
-	\break
-	
-	\override Staff.Accidental  #'style = #'mensural
-	cisis^"Accidental style = \#'mensural" cisis! cisis? |
-	cis cis! cis? | 
-	c c! c? |
-	ces ces! ces? |
-	ceses ceses! ceses? |
-	
-  }
+\relative c'' {
+      \time 5/4
+      \override Staff.Accidental  #'style = #'default
+      cisis^\markup { \typewriter default } cis c ces ceses 
+      \override Staff.Accidental  #'style = #'hufnagel
+      cisis^\markup { \typewriter hufnagel } cis c ces ceses 
+      \override Staff.Accidental  #'style = #'medicaea
+      cisis^\markup { \typewriter medicaea } cis c ces ceses 
+      \override Staff.Accidental  #'style = #'vaticana
+      cisis^\markup { \typewriter vaticana } cis c ces ceses 
+      \override Staff.Accidental  #'style = #'mensural
+      cisis^\markup { \typewriter mensural } cis c ces ceses 
 }
-

@@ -8,7 +8,9 @@ two sets of four 32nds are joined, as if they were 8th notes.
 
 " }
 
-fragment =  {
+\paper { raggedright = ##t}  
+
+\relative {
   #(override-auto-beam-setting '(end * * * *)  1 4)
   f32 g a b b a g f
 
@@ -17,10 +19,3 @@ fragment =  {
   \set stemLeftBeamCount = #1 b
   a g f
 }
-
-
-\score {
-  \relative c \fragment
-  \paper { raggedright = ##t}  
-}
-

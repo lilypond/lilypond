@@ -80,13 +80,13 @@ else
 
 
 	# For direct ps output: ps/lilyponddefs.ps
-	GS_LIB="$datadir/ps:"${GS_LIB:=""}
-	export GS_LIB
+#	GS_LIB="$datadir/ps:"${GS_LIB:=""}
+#	export GS_LIB
 
 	# For direct ps output fonts. Add all available TeX Type1 fonts
-	tmppfadir=`kpsewhich ecrm10.pfa`
-	GS_FONTPATH=$datadir/pfa:`dirname $tmppfadir`:${GS_FONTPATH:=""}
-	export GS_FONTPATH
+#	tmppfadir=`kpsewhich ecrm10.pfa`
+#	GS_FONTPATH=$datadir/pfa:`dirname $tmppfadir`:${GS_FONTPATH:=""}
+#	export GS_FONTPATH
 
 fi # remove for zsh
  	

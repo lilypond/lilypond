@@ -131,41 +131,41 @@ gcdg =   {
     }
 }
 	
-\score {		
-      {
-	\time 6/8 \partial 4
-	\tieUp
-	\slurUp
-	\transpose a a' {
-	    #(add-grace-property 'Voice 'Stem 'length 6)
+\transpose a a' {
+    #(add-grace-property 'Voice 'Stem 'length 6)
+    \time 6/8 \partial 4
+    \tieUp
+    \slurUp
+    
+    f'4 |
+    \gg f'4 e'8 \thrd d'4. |
+    \eg a4.(a4) d'8 |
+    \gg d'4 f'8 \dble e'4. ( | \noBreak
+    e'8) d'4 \gg d'4 e'8 |
 
-	    f'4 |
-	    \gg f'4 e'8 \thrd d'4. |
-	    \eg a4.(a4) d'8 |
-	    \gg d'4 f'8 \dble e'4. ( | \noBreak
-	    e'8) d'4 \gg d'4 e'8 |
+%{
+    
+    \break
+    \time 9/8
+    \dblf f'2.( f'4) d'8 |
+    \time 6/8
+    \dblg g'4 a'8 \gg a'4. |
+    \thrd d'4.( d'4) \eg a8 |
+    \time 9/8
+    \dble e'4 \lag e'8 \gg  e'16[ d'8. e'8] \gg f'4 g'8 |
 
-	    \break
-	    \time 9/8
-	    \dblf f'2.( f'4) d'8 |
-	    \time 6/8
-	    \dblg g'4 a'8 \gg a'4. |
-	    \thrd d'4.( d'4) \eg a8 |
-	    \time 9/8
-	    \dble e'4 \lag e'8 \gg  e'16[ d'8. e'8] \gg f'4 g'8 |
+    \break
+    \time 6/8
+    \gg f'4 e'8 \thrd d'4. |
+    \eg a4.( a4) d'8 |
+    \dblg g'4 a'8 \gg a'4. |
+    \thrd d'4.( d'4) f'8 |
 
-	    \break
-	    \time 6/8
-	    \gg f'4 e'8 \thrd d'4. |
-	    \eg a4.( a4) d'8 |
-	    \dblg g'4 a'8 \gg a'4. |
-	    \thrd d'4.( d'4) f'8 |
-
-	    \break
-	    \dblg g'4 e'8( e'8) \dblf  f'8.[ e'16] |
-	    \thrd d'4.( d'4) \cg d'8 |
-	    \gg c'4 e'8 \thrd d'4.( |
-	    d'4.) \gdcg d'4.
-	}
-    }
+    \break
+    \dblg g'4 e'8( e'8) \dblf  f'8.[ e'16] |
+    \thrd d'4.( d'4) \cg d'8 |
+    \gg c'4 e'8 \thrd d'4.( |
+    d'4.) \gdcg d'4.
+    
+%}
 }
