@@ -98,9 +98,9 @@ LY_DEFINE (ly_input_location, "ly:input-location", 1, 0, 0, (SCM sip),
 {
   Input *ip = unsmob_input (sip);
   SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");
-  return scm_list3 (scm_makfrom0str (ip->file_string ().to_str0 ()),
-		    scm_int2num (ip->line_number ()),
-		    scm_int2num (ip->column_number ()));
+  return scm_list_3 (scm_makfrom0str (ip->file_string ().to_str0 ()),
+		     scm_int2num (ip->line_number ()),
+		     scm_int2num (ip->column_number ()));
 }
 
 ADD_SCM_INIT_FUNC (input, start_input_smobs);

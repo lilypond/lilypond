@@ -5,8 +5,11 @@
 
 texidoc = " Chord names are generated from a list pitches.  The
 functions which construct these names can be customised. Here are shown
-Jazz chords, following Ignatzek (pp. 17-18, 1995), Banter chords,
-and an alternative Jazz  chord notation.
+Jazz chords, following Ignatzek (pp. 17-18, 1995) and 
+an alternative Jazz  chord notation.
+
+Chords following Banter (1987) can also be printed from this file, but
+are turned off for brevity.
 
 "
 
@@ -95,17 +98,13 @@ epartialmusicJazzAlt = \notes{
 
 epartialJazzAlt = #(sequential-music-to-chord-exceptions epartialmusicJazzAlt #f)
 
-jazzAltProperties =
-
-\sequential { 
-	    \set majorSevenSymbol = #whiteTriangleMarkup
-	    \set chordNameSeparator = #(make-simple-markup  "/")
-	    \set chordNameExceptionsFull = #efullJazzAlt
-	    \set chordNameExceptionsPartial = #epartialJazzAlt
-	    \set chordNameFunction = #jazz-chord-names
+jazzAltProperties = \sequential { 
+    \set majorSevenSymbol = #whiteTriangleMarkup
+    \set chordNameSeparator = #(make-simple-markup  "/")
+    \set chordNameExceptionsFull = #efullJazzAlt
+    \set chordNameExceptionsPartial = #epartialJazzAlt
+    \set chordNameFunction = #jazz-chord-names
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 banterProperties = \sequential { 
 	    \set chordNameFunction = #banter-chord-names
@@ -116,26 +115,37 @@ banterProperties = \sequential {
 	\new ChordNames {
 	    \set instrument = #"Ignatzek (default)"
 	    \set instr = #"Def"
-	    \chs }
+	    \chs
+	}
+	
 	\new ChordNames {
+	    \jazzAltProperties
 	    \set instrument = #"Alternative"
 	    \set instr = #"Alt"
-	    \jazzAltProperties
-	    \chs }
-
-	% This is the banter style.
-	% it gives exceedingly verbose (wide) names
-	% making this file take up to 4 pages.
-	
-%{
-		\new ChordNames  {
-	    \banterProperties
 	    \chs
-	    }
+	}
+
+%{
+
+	%% This is the Banter (1987) style.  It gives exceedingly
+	%% verbose (wide) names, making the output file take up to 4 pages.
+	%% (FIXME: how big is is now?)
+	%% Turned off by default.
+
+	%% FIXME: use smaller font for Banter (or remove some esoteric
+	%% chords).
+	
+	\new ChordNames {
+	    \banterProperties
+	    \set instrument = #"Banter"
+	    \set instr = #"Ban"
+	    \chs
+	}
 %}
+	
 	\new Staff \notes \transpose c c' { \chs }
     >>
-    \paper{
+    \paper {
 	indent = 3.\cm
 	\translator { 
 	    \ChordNamesContext
