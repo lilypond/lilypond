@@ -32,10 +32,9 @@ AC_DEFUN(STEPMAKE_ADD_ENTRY, [
 ])
 
 # Check if tested program ($2) was found ($1).
-# If not, add etry to missing-list ($3, one of 'OPTIONAL', 'REQUIRED').
+# If not, add entry to missing-list ($3, one of 'OPTIONAL', 'REQUIRED').
 # We could abort here if a 'REQUIRED' program is not found
 AC_DEFUN(STEPMAKE_OPTIONAL_REQUIRED, [
-    #if test "`eval echo '$'"$1"`" = "no"; then
     STEPMAKE_CHECK_SEARCH_RESULT($1)
     if test $? -ne 0; then
 	STEPMAKE_ADD_ENTRY($3, $2)
@@ -65,6 +64,21 @@ AC_DEFUN(STEPMAKE_CHECK_SEARCH_RESULT, [
 ])
 
 
+# Check version of program ($1)
+# If version is smaller than requested ($3),
+# add entry to missing-list ($2, one of 'OPTIONAL', 'REQUIRED').
+AC_DEFUN(STEPMAKE_CHECK_VERSION, [
+    r="`eval echo '$'"$1"`"
+    AC_MSG_CHECKING("$r version")
+    exe=`STEPMAKE_GET_EXECUTABLE($r)`
+    ver=`STEPMAKE_GET_VERSION($exe)`
+    num=`STEPMAKE_NUMERIC_VERSION($ver)`
+    req=`STEPMAKE_NUMERIC_VERSION($3)`
+    AC_MSG_RESULT("$ver")
+    if test "$num" -lt "$req"; then
+	STEPMAKE_ADD_ENTRY($2, "$r $3 (installed: $ver)")
+    fi
+])
 
 ### Macros to build configure.in
 
@@ -89,16 +103,7 @@ AC_DEFUN(STEPMAKE_BISON, [
     
     # urg.  should test functionality rather than version.
     if test "$BISON" = "bison" -a -n "$2"; then
-#    if test $? -eq 0 -a -n "$2"; then
-        AC_MSG_CHECKING("bison version")
-        exe=`STEPMAKE_GET_EXECUTABLE(bison)`
-	ver=`STEPMAKE_GET_VERSION($exe)`
-	num=`STEPMAKE_NUMERIC_VERSION($ver)`
-	req=`STEPMAKE_NUMERIC_VERSION($2)`
-	AC_MSG_RESULT("$ver")
-	if test "$num" -lt "$req"; then
-	    STEPMAKE_ADD_ENTRY($1, "bison $2 (installed: $ver)")
-	fi
+	STEPMAKE_CHECK_VERSION(BISON, $1, $2)
     fi
 ])
     
@@ -372,16 +377,7 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     STEPMAKE_CHECK_SEARCH_RESULT(GUILE_CONFIG)
     # urg.  should test functionality rather than version.
     if test $? -eq 0 -a -n "$2"; then
-	AC_MSG_CHECKING("guile-config version")
-        exe=`STEPMAKE_GET_EXECUTABLE($guile_config)`
-	ver=`STEPMAKE_GET_VERSION($exe)`
-	set --
-	num=`STEPMAKE_NUMERIC_VERSION($ver)`
-	req=`STEPMAKE_NUMERIC_VERSION($2)`
-	AC_MSG_RESULT("$ver")
-	if test "$num" -lt "$req"; then
-	    STEPMAKE_ADD_ENTRY($1, "guile-config $2 (installed: $ver)")
-	fi
+	STEPMAKE_CHECK_VERSION(GUILE_CONFIG, $1, $2)
     fi
 
     AC_SUBST(GUILE_CONFIG)
@@ -740,18 +736,24 @@ AC_DEFUN(STEPMAKE_MSGFMT, [
 AC_DEFUN(STEPMAKE_PATH_PROG, [
     AC_CHECK_PROGS($1, $2, no)
     STEPMAKE_OPTIONAL_REQUIRED($1, $2, $3)
-#    if ! expr '`eval echo '$'"$1"`' : '.*\(echo\)' > /dev/null; then
-    if test $? -ne 0; then
+    if test $? -eq 0; then
 	AC_PATH_PROG($1, $2)
+	if test -n "$4"; then
+	    STEPMAKE_CHECK_VERSION($1, $3, $4)
+	fi
     fi
 ])
 
 
 # Check for program in set of names ($2), set result to ($1) .
 # If missing, add entry to missing-list ($3, one of 'OPTIONAL', 'REQUIRED')
+# If exists, and a minimal version ($4) is required
 AC_DEFUN(STEPMAKE_PROGS, [
     AC_CHECK_PROGS($1, $2, no)
     STEPMAKE_OPTIONAL_REQUIRED($1, $2, $3)
+    if test $? -eq 0 -a -n "$4"; then
+	STEPMAKE_CHECK_VERSION($1, $3, $4)
+    fi
 ])
 
 
