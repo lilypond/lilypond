@@ -1272,12 +1272,12 @@ connected between different staves of a @internalsref{StaffGroup}
 
 
 The command @code{\bar }@var{bartype} is a short cut for doing
-@code{\set Staff.whichBar = }@var{bartype}.  Whenever @code{whichBar}
+@code{\set Timing.whichBar = }@var{bartype}.  Whenever @code{whichBar}
 is set to a string, a bar line of that type is created.
 
 A bar line is created whenever the @code{whichBar} property is set.
 At the start of a measure it is set to the contents of
-@code{defaultBarType} (as defined in the Score context).  The contents of @code{repeatCommands} are used
+@code{Timing.defaultBarType}.  The contents of @code{repeatCommands} are used
 to override default measure bars.
 
 @cindex @code{whichBar}

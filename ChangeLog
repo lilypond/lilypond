@@ -1,8 +1,7 @@
 2004-10-08  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
-	* Documentation/user/notation.itely (Bar lines): Corrected how to
-	set whichBar. Also, added a note that defaultBarType is to be
-	changed in the Score context.
+	* Documentation/user/notation.itely (Bar lines): Added a note that
+	defaultBarType is to be changed in the Timing context.
 
 2004-10-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
