@@ -74,11 +74,11 @@ Bar_engraver::create_bar ()
 
 /**
    Make a barline.  If there are both |: and :| requested, merge them
-   to :|:
+   to :|:.
 
 */
 void
-Bar_engraver::request_bar (String type_str)
+Bar_engraver::request_bar (String requested_type)
 {
   Scalar prop = get_property ("barAtLineStart", 0);
   if (!now_mom ())
@@ -87,13 +87,17 @@ Bar_engraver::request_bar (String type_str)
       if (!prop.to_bool ())
 	return;
     }
+  bool  bar_existed = bar_p_;
   create_bar ();
-
-  if (((type_str == "|:") && (bar_p_->type_str_ == ":|"))
-    || ((type_str == ":|") && (bar_p_->type_str_ == "|:")))
+  if (bar_existed && requested_type == "")
+    {
+      return;
+    }
+  else if (((requested_type == "|:") && (bar_p_->type_str_ == ":|"))
+    || ((requested_type == ":|") && (bar_p_->type_str_ == "|:")))
     bar_p_->type_str_ = ":|:";
-  else if (type_str_.length_i ())
-    bar_p_->type_str_ = type_str;
+  else
+    bar_p_->type_str_ = requested_type;
 }
 
 void 

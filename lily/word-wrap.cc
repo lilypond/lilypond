@@ -66,13 +66,13 @@ Word_wrap::do_solve () const
 	  Paper_column* precol = dynamic_cast<Paper_column*>(pre);
 	  current.add_paper_column (precol);
 
-	  current.spacer_l_ = generate_spacing_problem (current.cols, 
+	  current.spacer_l_ = generate_spacing_problem (current.cols_, 
 	    pscore_l_->paper_l_->line_dimensions_int (line_no));
 
 	  // try to solve
-	  if (!feasible (current.cols))
+	  if (!feasible (current.cols_))
 	    {
-	      if (!minimum.cols.size ())
+	      if (!minimum.cols_.size ())
 		{
 		  warning (_ ("ugh, this measure is too long") 
 		    + ", " + _f ("breakpoint: %d", break_idx) 
@@ -116,7 +116,7 @@ Word_wrap::do_solve () const
 
 
 	  // add nobreak version of breakable column
-	  current.cols.top ()=breakpoints[break_idx];
+	  current.cols_.top ()=breakpoints[break_idx];
 	  curcol_idx ++;
 	  break_idx++;
 	}

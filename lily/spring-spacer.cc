@@ -54,8 +54,6 @@ Spring_spacer::OK() const
 #ifndef NDEBUG
   for (int i = 1; i < cols_.size(); i++)
     assert (cols_[i].rank_i_ > cols_[i-1].rank_i_);
-  for (int i = 1; i < loose_col_arr_.size(); i++)
-    assert (loose_col_arr_[i].rank_i_ > loose_col_arr_[i-1].rank_i_);
 #endif
 }
 
@@ -78,72 +76,17 @@ Spring_spacer::handle_loose_cols()
   for (int i=1; i < fixed.size(); i++)
     connected.connect (fixed[i-1], fixed[i]);
 
+  /*
+    connect unconnected columns with distances of 1.0; 
+   */
   for (int i = cols_.size(); i--;)
     {
       if (! connected.equiv (fixed[0], i))
 	{
-	  warning (_f ("unconnected column: %d", i));
-	  loosen_column (i);
+	  connected.connect (i-1, i);
+	  connect (i-1, i, 1.0, 1.0);
 	}
     }
-  OK();
-}
-
-
-/**
-  Guess a stupid position for loose columns.  Put loose columns at
-  regular distances from enclosing calced columns
-  */
-void
-Spring_spacer::position_loose_cols (Vector &sol_vec) const
-{
-  if (!loose_col_arr_.size())
-    return ;
-  assert (sol_vec.dim());
-  Array<bool> fix_b_arr;
-  fix_b_arr.set_size (cols_.size() + loose_col_arr_.size ());
-  Real utter_right_f=-infinity_f;
-  Real utter_left_f =infinity_f;
-  for (int i=0; i < loose_col_arr_.size(); i++)
-    {
-      fix_b_arr[loose_col_arr_[i].rank_i_] = false;
-    }
-  for (int i=0; i < cols_.size(); i++)
-    {
-      int r= cols_[i].rank_i_;
-      fix_b_arr[r] = true;
-      utter_right_f = utter_right_f >? sol_vec (i);
-      utter_left_f = utter_left_f <? sol_vec (i);
-    }
-  Vector v (fix_b_arr.size());
-  int j =0;
-  int k =0;
-  for (int i=0; i < v.dim(); i++)
-    {
-      if (fix_b_arr[i])
-	{
-	  assert (cols_[j].rank_i_ == i);
-	  v (i) = sol_vec (j++);
-	}
-      else
-	{
-	  Real left_pos_f =
-	    (j>0) ?sol_vec (j-1) : utter_left_f;
-	  Real right_pos_f =
-	    (j < sol_vec.dim()) ? sol_vec (j) : utter_right_f;
-	  int left_rank = (j>0) ? cols_[j-1].rank_i_ : 0;
-	  int right_rank = (j<sol_vec.dim()) ? cols_[j].rank_i_ : sol_vec.dim ();
-
-	  int d_r = right_rank - left_rank;
-	  Column_info loose=loose_col_arr_[k++];
-	  int r = loose.rank_i_ ;
-	  assert (r > left_rank && r < right_rank);
-
-	  v (i) =  (r - left_rank)*left_pos_f/ d_r +
-	    (right_rank - r) *right_pos_f /d_r;
-	}
-    }
-  sol_vec = v;
 }
 
 bool
@@ -318,7 +261,7 @@ Spring_spacer::lower_bound_solution (Column_x_positions*positions) const
 
   DOUT << "Lower bound sol: " << solution_vec;
   positions->energy_f_ = calculate_energy_f (solution_vec);
-  positions->config = solution_vec;
+  positions->config_ = solution_vec;
   positions->satisfies_constraints_b_ = check_constraints (solution_vec);
 }
 
@@ -350,10 +293,8 @@ Spring_spacer::solve (Column_x_positions*positions) const
 	{
 	  WARN << _ ("solution doesn't satisfy constraints") << '\n' ;
 	}
-      position_loose_cols (solution_vec);
       positions->energy_f_ = calculate_energy_f (solution_vec);
-      positions->config = solution_vec;
-      positions->error_col_l_arr_ = error_pcol_l_arr();
+      positions->config_ = solution_vec;
     }
   else
     {
@@ -402,66 +343,11 @@ Spring_spacer::add_column (Paper_column  *col, bool fixed, Real fixpos)
 	continue;
       
       if (cols_[idx].pcol_l_ != cr.other_l_)
-	    continue;
-      
-      Real d  = cr.distance_f_;
-      if (fabs (d) < EPS)
-	{
-	  connect (idx, this_rank, cr.distance_f_, cr.strength_f_); // large strength. 
-	}
-      else
-	connect (idx, this_rank, cr.distance_f_,
-		 cr.strength_f_ / cr.distance_f_);
+	continue;
+      connect (idx, this_rank, cr.distance_f_, cr.strength_f_);
     }
       
   cols_.push (c);
-}
-
-Line_of_cols
-Spring_spacer::error_pcol_l_arr() const
-{
-  Link_array<Paper_column> retval;
-  for (int i=0; i< cols_.size(); i++)
-    if (cols_[i].ugh_b_)
-      retval.push (cols_[i].pcol_l_);
-  for (int i=0;  i < loose_col_arr_.size(); i++)
-    {
-      retval.push (loose_col_arr_[i].pcol_l_);
-    }
-  return retval;
-}
-
-/*
-  Ugh. Should junk this.
- */
-void
-Spring_spacer::loosen_column (int idx)
-{
-  Column_info c=cols_.get (idx);
-
-  Cons<Idealspacing> **pp = &ideal_p_list_;
-
-  while (*pp)
-    {
-      Idealspacing *j = (*pp)->car_;
-      if (j->cols_drul_[LEFT] == idx|| j->cols_drul_[RIGHT] == idx)
-	{
-	  delete remove_cons (pp);
-	}
-      else
-	{
-	  pp = &(*pp)->next_;
-	}
-    }
-  c.ugh_b_ = true;
-
-  int j=0;
-  for (; j < loose_col_arr_.size(); j++)
-    {
-      if (loose_col_arr_[j].rank_i_ > c.rank_i_)
-	break;
-    }
-  loose_col_arr_.insert (c,j);
 }
 
 

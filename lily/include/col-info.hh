@@ -39,7 +39,7 @@ struct Column_info {
   bool ugh_b_;		
 
   Drul_array< Array<Spacer_rod> > rods_;
-  Drul_array< Array<Spacer_spring> > springs_;  
+  //  Drul_array< Array<Spacer_spring> > springs_;  
   
   Column_info();
   Column_info (Paper_column *,Real const *);

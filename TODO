@@ -20,12 +20,88 @@ typeface. ie. leading is vertical space  --hwn]
 . * junk delayed spanner breaking.
 . * check dangling_scm_sym working.
 . * revise pianobrace to put font stuff into Lookup
-. * standardise(d) switches: -v, --version; -d, --debug,
 . * spacing of accidentals
 . * restorations & repeats
-. * dotted rests?
-. * input/test/grace.ly spacing (triplet!)
+. * \score {
+  \context Staff \notes {
+c'2 fis'~
+% accidential after bar
+fis'4 % accidential should be here
+fis' g'2
+\repeat semi 2 {
+c' c'
+}
+\alternative {
+% no bars at the beginning of alternative 1 and at the end of alternative 2
+{
+d' d'
+}
+{
+c'1 c'
+}
+}
+d'4_"normal" d' \times 2/3 {e' e' e'}
+% no triplet bracket in \tiny
+\tiny d'4_"tiny" d' \times 2/3 {e' e' e'}
+  }
+}
+
+. * 
+So how do I do what I want to do?
+
+In Caro Mio Ben, bar 8, there's a syllable that starts on a note, and
+ends on a pair of grace notes.  Standard practice is to mark this with
+a slur starting on the main note and ending on the grace note, so a
+singer knows where to break the words.
+
+In bar 26, there's a \p marker that should appear below the grace
+note.
+
+In bar 27, there's a crescendo that's supposed to start at the start
+of the grace notes and extend to the note after the grace notes.
+
+How do I specify these?
+
+How can I control whether a grace note takes its time from the note
+before or the note after it (for the purposes of alignment with
+lyrics)?
+. *  / distance after 4/4 \key.
 . * spanners from grace to  normal ctxt
+. * Glen:
+1. I got a vertical line where I asked for a decrescendo.
+
+2. Slurs -- good to see some spacing between slurs and lyrics, but not
+there's several times too much space.
+
+3. Slurs with wrong slopes. Where a slur between two notes goes from the
+head of one to the stem of another it can have the wrong slope:
+         |   ___
+         |  /   \
+         | /    |
+        x|/     |
+                |
+               x|
+   The music goes down but the slur goes up (or vice versa). This looks
+wrong.
+
+4. Lyrics and \fermata collide. I know that the TODO has lyrics and scripts
+colliding; I'm just including it here because it's really an issue for me
+with fermata. Other scripts aren't a problem for me, but sometimes I need
+fermata on both sides of the staff (when sop and alto hold different notes,
+for example). In fact it's not just scripts and lyrics: In a choirstaff,
+scripts above the bass clef collide with scripts below the treble clef.
+
+5. Sometimes lyrics extend past the right end of the staff. I guess that
+this is a similar problem (if not another symptom of the same problem) as
+one of the spacing bugs mentioned in the TODO.
+
+6. The bar line at the beginning of an \alternative section has disappeared
+altogether.
+
+7. When it's a tight fit to get all the notes in the first line, the first
+note collides with the time signature. Is this the same as one of the
+spacing bugs mentioned in the TODO?
+
 .* 4.  Lyrics and grace sections don't go too well together.
         The words are aligned with the main note, not the start of the
         grace note.  This is usually wrong, but is sometimes right.
@@ -53,16 +129,12 @@ typeface. ie. leading is vertical space  --hwn]
 - The paper11/13/26 files have to be updated.
 . * Grace_slur_engraver.
 . * input/star-spangled-banner.ly: fold for lyrics?
+. * don't create $srcdir/share/
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * hangOnClef with non-breakable clefs.
-. * do scaled fonts generally 
+. * account for accidentals in spacing.
+. * collision of lyrics with span_bars. See star-spangled.
 . * fix partial measures in meaningful way.
-. * Michael
-
-- The two spacing bugs in the choral-1.ly I sent you earlier, small
-GIFs attached for easy reference: #1: time meter and first note on the
-line are too close; #2: last note on the line and next bar are too
-close.
 . * relative mode for midi2ly
 . * 
 Crescendi/diminuendi that cross a line break lose their vertical

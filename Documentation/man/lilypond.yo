@@ -26,12 +26,12 @@ manpageoptions()
 description(
 dit(-I,--include=)
     add file(FILE) to the search path for input files.
-dit(-M,--midi)
+dit(-m,--midi)
     Disable TeX output. If you have a \midi definition, it will do the 
     midi output only.
-dit(-d,--dependencies)
+dit(-M,--dependencies)
     Also output rules to be included in Makefile.
-dit(-D,--debug)
+dit(-d,--debug)
     Turn debugging info on.  GNU LilyPond reads the file file(.dstreamrc), 
     which lists what functions and classes may produce copious debugging
     output.

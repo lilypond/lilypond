@@ -8,8 +8,7 @@
 
 #ifndef LILY_GUILE_HH
 #define LILY_GUILE_HH
-// order of includes important?
-#include "config.hh"
+
 #include  "string.hh"
 
 #include <guile/gh.h>

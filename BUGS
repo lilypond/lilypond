@@ -31,6 +31,17 @@ Lilypond 1.1.35-1.1.51,...:  Wierd errors in guile scm_gc_mark ()
 
 Some bugs may be captured in input/bugs/*y
 
+[Linux i386, RedHat 5.2 with updates to 6.0]
+
+Compiling with 
+
+	configure --disable-checking --enable-printing --disable-optimise --disable-debugging
+
+results in core dumps, during parsing of init files. Cause unknown.
+Solution: use
+
+	--enable-checking and --enable-optimize
+
 [Linux libg++ 2.7]
 
 LilyPond occasionally crashes while parsing the initialisation files.

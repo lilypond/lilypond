@@ -105,8 +105,8 @@
    (("Clef_item"  "Span_bar") . (minimum_space 3.7))
    (("Time_signature" "Span_bar") . (minimum_space 2.0))
    (("Key_item"  "Span_bar") . (minimum_space 2.5))
-   (("Staff_bar" "Time_signature") . (minimum_space 2.0))
-   (("Time_signature" "begin-of-note") . (extra_space 1.0))	; Huh? see twinkle.ly
+   (("Staff_bar" "Time_signature") . (minimum_space 1.5)) ;double check this.
+   (("Time_signature" "begin-of-note") . (extra_space 2.0)) ;double check this.
    (("Key_item" "begin-of-note") . (extra_space 2.5))
    (("Staff_bar" "begin-of-note") . (extra_space 1.0))
    (("Clef_item" "begin-of-note") . (minimum_space 5.0))
@@ -118,8 +118,6 @@
    )
 )
  
- 
-
 (define (break-align-spacer this next)
   (let ((entry (assoc `(,this ,next) space-alist)))
     (if entry
@@ -220,7 +218,7 @@
   ; by executing a 0 0 moveto
        
   (define (embedded-ps s)
-    (string-append "\\special{ps: @beginspecial @setspecial " s " @endspecial}"))
+    (string-append "\\embeddedps{" s "}"))
 
   (define (end-output) 
     "\n\\EndLilyPondOutput")
@@ -238,17 +236,7 @@
 
   ;; UGH
    
-  (define (header-end) (string-append
-"\\special{!"
-"/stafflinethickness \\mudelapaperstaffline0 def " ;may we burn in hell.
-"/interline \\mudelapaperinterline0 %\n def "
-"interline 3 div /bracket_b exch def "
-"interline 2 mul /bracket_w exch def "
-"stafflinethickness 2 mul /bracket_t exch def "
-"interline 1.5 mul /bracket_v exch def "
-"bracket_v /bracket_u exch def "
-"50 /bracket_alpha exch def "
-"1 setlinecap}"))
+  (define (header-end) "\\turnOnPostScript")
 
   (define (header creator generate) 
     (string-append
@@ -448,7 +436,7 @@
 		  
   (define (beam width slope thick)
     (string-append
-     (numbers->string (list width slope thick)) " draw_beam " ))
+     (numbers->string (list width slope thick)) " draw_beam" ))
 
   (define (bracket h)
     (invoke-dim1 " draw_bracket" h))
@@ -470,7 +458,7 @@
      (number->string (* 2 thick))
      " ] 0 draw_dashed_slur"))
 
-  (define (decrescendo w h cont thick)
+  (define (decrescendo thick w h cont)
     (string-append 
      (numbers->string (list w h (inexact->exact cont) thick))
      " draw_decrescendo"))

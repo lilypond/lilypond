@@ -9,8 +9,10 @@ StaffContext=\translator {
 	voltaVisibility = "1";
 
 	\consists "Multi_measure_rest_engraver";
-	\consists "Repeat_engraver";
 	\consists "Bar_engraver";
+ % Bar_engraver must be first so default bars aren't overwritten
+% with empty ones.
+	\consists "Repeat_engraver";
 	\consists "Clef_engraver";
 	\consists "Key_engraver";
 	\consists "Time_signature_engraver";
