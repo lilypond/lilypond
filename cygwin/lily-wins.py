@@ -113,7 +113,7 @@ script = '/usr/bin/lilypond'
 if os.path.exists ('/usr/bin/ly2dvi'):
 	script = '/usr/bin/ly2dvi'
 
-stat = system ('%s -p %s > %s.log 2>&1' % (script, escape_shell (base),
+stat = system ('%s %s > %s.log 2>&1' % (script, escape_shell (base),
 				    escape_shell (stem)))
 
 if not os.path.exists (pdffile):
