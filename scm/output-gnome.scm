@@ -17,7 +17,13 @@
 ;;;      outside of LilyPond
 ;;;    - lilylib.
 ;;;  * Release schedule and packaging of dependencies.  This hack
-;;;    depends on several CVS and TLA development sources.
+;;;    depends on several CVS and TLA development sources.  In the works.
+;;;  * Maybe we need to have a unicode mapping somehow, we could
+;;;   - use OpenType instead of Type1
+;;;     http://lists.gnu.org/archive/html/lilypond-devel/2004-05/msg00098.html
+;;;   - or fix the pangofc-afm-decoder and add it to Pango (no chance?)
+;;;     or have fontconfig read AFM files
+;;;     http://lists.gnu.org/archive/html/lilypond-devel/2004-05/msg00103.html
 
 ;;; You need:
 ;;;
