@@ -45,8 +45,9 @@ ifeq ($(out),www)
 #info: $(INFO_FILES)
     # Cancel the special, non-image info generation rule that skips images:
     $(outdir)/%.info: $(outdir)/%.nexi
-local-install-info: info
-	(cd $(package_infodir) && ln -s $(local_package_docdir)/html/Documentation/user/out-www/*png .)
+local-install-info: install-info info
+	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
+	(cd $(package_infodir) && ln -sf $(local_package_docdir)/Documentation/user/out-www/*png .)
 local-uninstall-WWW:
 	rm -f $(package_infodir)/*.png
 else

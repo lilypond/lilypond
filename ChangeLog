@@ -22,6 +22,9 @@
 
 2004-02-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/user/introduction.itely (Introduction): Use @image
+	iso @html <img...>.  Add workaround for images in columns in info.
+
 	* stepmake/aclocal.m4: Store computed version in variable.
 
 	* configure.in: Export MAKEINFO_VERSION.

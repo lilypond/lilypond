@@ -6,8 +6,7 @@
 @end iftex
 
 @ignore
-@c FIXME: use `make install-info'
-Distributions will want to install lilypond.info doing:
+Distributions will want to install lilypond.info in postinstall, doing:
 
     install-info --info-dir=/usr/share/info out/lilypond.info
     
