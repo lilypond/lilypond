@@ -21,6 +21,8 @@
 \def\mdef#1#2{\def#1{\mchar{#2}}}
 \def\mchar#1{\musicfnt\char#1}
 \def\rationalmultiply#1*#2/#3{\multiply #1 by #2 \divide #1 by #3}
+
+
 \def\maccentraise#1#2{\dimen0=\noteheight
         \rationalmultiply\dimen0*#2%
         \raise\dimen0\hbox{#1}}
