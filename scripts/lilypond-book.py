@@ -27,8 +27,9 @@ classic lilypond-book:
      
 '''
 
-import string
 import __main__
+import glob
+import string
 
 ################################################################
 # Users of python modules should include this snippet
@@ -207,21 +208,22 @@ ly_options = {
 
 output = {
 	HTML : {
-	AFTER: '',
-	PRINTFILENAME:'<p><tt><a href="%(base)s.ly">%(filename)s</a></tt></p>',
-	BEFORE: '',
+	AFTER: r'''
+  </a>
+</p>''',
+	BEFORE: r'''
+<p>
+  <a href="%(base)s.ly">''',
 	OUTPUT: r'''
-<img align="center" valign="center"
-border="0" src="%(base)s.png" alt="[picture of music]">''',
+    <img align="center" valign="center"
+         border="0" src="%(picture)s" alt="[picture of music]">''',
+	PRINTFILENAME:'<p><tt><a href="%(base)s.ly">%(filename)s</a></tt></p>',
 	VERBATIM: r'''<pre>
 %(verb)s</pre>''',
 	},
 	
 	LATEX :	{
 	AFTER: '',
-	PRINTFILENAME: '''\\texttt{%(filename)s}
-
-	''',
 	BEFORE: '',
 	OUTPUT: r'''{\parindent 0pt
 \catcode`\@=12
@@ -230,17 +232,20 @@ border="0" src="%(base)s.png" alt="[picture of music]">''',
 \input %(base)s.tex
 \ifx\preLilyPondExample\postLilyPondExample\fi
 \catcode`\@=0}''',
+	PRINTFILENAME: '''\\texttt{%(filename)s}
+
+	''',
 	VERBATIM: r'''\begin{verbatim}
 %(verb)s\end{verbatim}
 ''',
 	},
 	
 	TEXINFO :	{
+	AFTER: '',
+	BEFORE: '',
 	PRINTFILENAME: '''@file{%(filename)s}
 
 	''',
-	BEFORE: '',
-	AFTER: '',
 	VERBATIM: r'''@example
 %(verb)s@end example
 ''',
@@ -379,6 +384,7 @@ def split_options (option_string):
 class Chunk:
 	def replacement_text (self):
 		return ''
+
 	def is_outdated (self):
 		return 0
 
@@ -387,6 +393,7 @@ class Substring (Chunk):
 		self.source = source
 		self.start = start
 		self.end = end
+
 	def replacement_text (self):
 		return self.source [self.start:self.end]
 	
@@ -397,13 +404,16 @@ class Snippet (Chunk):
 		self.hash = 0
 		self.options = []
 		self.format = format
+
 	def replacement_text (self):
 		return self.match.group (0)
 	
 	def substring (self, s):
 		return self.match.group (s)
+
 	def filter_code (self):
 		pass # todo
+
 	def __repr__(self):
 		return  `self.__class__`  +  " type =  " + self.type
 
@@ -424,7 +434,6 @@ class Lilypond_snippet (Snippet):
 		os = match.group ('options')
 		if os:
 			self.options = split_options (os)
-			
 
 	def ly (self):
 		if self.type == 'lilypond_file':
@@ -463,7 +472,6 @@ class Lilypond_snippet (Snippet):
 			# TODO: something smart with target formats
 			# (ps, png) and m/ctimes
 			return None
-		
 		return self
 	
 	def replacement_text (self):
@@ -472,30 +480,40 @@ class Lilypond_snippet (Snippet):
 	
 	def output_html (self):
 		base = self.basename ()
-		str = self.output_print_filename (HTML)
-		if VERBATIM in self.options and format == HTML:
-			verb = verbatim_html (self.substring ('code'))
-			str  += write (output[HTML][VERBATIM] % vars ())
-		str += (output[HTML][BEFORE] 
-			+ (output[HTML][OUTPUT] % vars ())
-			+ output[HTML][AFTER])
-
+		str = ''
+		if format == HTML:
+			str = self.output_print_filename (HTML)
+			if VERBATIM in self.options:
+				verb = verbatim_html (self.substring ('code'))
+				str += write (output[HTML][VERBATIM] % vars ())
+				
+		# URGUGHUGHUGUGHU
+		single = '%(base)s.png' % vars ()
+		multiple = '%(base)s-page1.png' % vars ()
+		pictures = (single,)
+		if os.path.exists (multiple) \
+		   and (not os.path.exists (single)\
+			or (os.stat (multiple)[stat.ST_MTIME] \
+			    > os.stat (single)[stat.ST_MTIME])):
+			pictures = glob.glob ('%(base)s-page*.png' % vars ())
+		
+		str += output[HTML][BEFORE] % vars ()
+		for picture in pictures:
+			str += output[HTML][OUTPUT] % vars ()
+		str += output[HTML][AFTER] % vars ()
 		return str
 			
 	def output_latex (self):
-		str = self.output_print_filename (LATEX)
-			
+		str = ''
 		base = self.basename ()
-		if  VERBATIM in self.options\
-		   and format == LATEX:
-			verb = self.substring ('code')
-			str += (output[LATEX][VERBATIM] % vars ())
-
+		if format == LATEX:
+			str = self.output_print_filename (LATEX)
+			if  VERBATIM in self.options:
+				verb = self.substring ('code')
+				str += (output[LATEX][VERBATIM] % vars ())
 		str +=  (output[LATEX][BEFORE]
 			 + (output[LATEX][OUTPUT] % vars ())
 			 + output[LATEX][AFTER])
-
-		
 		return str
 
 	def output_print_filename (self,format):
@@ -503,50 +521,36 @@ class Lilypond_snippet (Snippet):
 		if  PRINTFILENAME in self.options:
 			base = self.basename ()
 			filename = self.substring ('filename')
-			str += output[format][PRINTFILENAME] % vars ()
-
+			str = output[format][PRINTFILENAME] % vars ()
 		return str
 	
 	def output_texinfo (self):
-		str = ''
-
 		##  Ugh, this breaks texidoc.
-		str = self.output_print_filename (TEXINFO)
-
+		## str = self.output_print_filename (TEXINFO)
+		str = ''
 		base = self.basename ()
-
-		str = ""
 		if 'texidoc' in self.options :
 			texidoc = base + '.texidoc'
 			if os.path.exists (texidoc):
 				str += '@include %s\n' % texidoc
-		
-		str += '\n@tex\n'
-		str +=  (output[LATEX][BEFORE]
-			 + (output[LATEX][OUTPUT] % vars ())
-			 + output[LATEX][AFTER])
-		str += ('\n@end tex\n')
-		
-		str += ('\n\n@html\n')
-		str += (output[HTML][BEFORE] 
-			+ (output[HTML][OUTPUT] % vars ())
-			+ output[HTML][AFTER])
-		str += ('\n@end html\n\n') # need par after picture.
 
 		if  VERBATIM in self.options:
 			verb = verbatim_texinfo (self.substring ('code'))
 			str +=  (output[TEXINFO][VERBATIM] % vars ())
-		
+
+		str += ('@tex\n' + self.output_latex () + '\n@end tex\n')
+		str += ('@html\n' + self.output_html () + '\n@end html\n')
+		# need par after picture
+		str += '\n'
+
 		return str
 			
-
 snippet_type_to_class = {
 	'lilypond_file' : Lilypond_snippet,
 	'lilypond_block' : Lilypond_snippet,
 	'lilypond' : Lilypond_snippet,
 	'include' : Include_snippet
 	}
-	
 
 def find_toplevel_snippets (s, types):
         res = {}
@@ -555,17 +559,15 @@ def find_toplevel_snippets (s, types):
 
         snippets = []
         index = 0
-        found = dict ([(t, None) for t in types] )
+        found = dict (map (lambda x: (x, None), types))
 
-	#
-	# We want to search for multiple regexes,  
-	# without searching the string multiple times for one regex.
-	#
+	# We want to search for multiple regexes, without searching
+	# the string multiple times for one regex.
 	# Hence, we use earlier results to limit the string portion
 	# where we search.
 	# Since every part of the string is traversed at most once for
 	# every type of snippet, this is linear.
-	
+
         while 1:
                 first = None
                 endex = 1 << 30
@@ -583,9 +585,8 @@ def find_toplevel_snippets (s, types):
 				start = index + m.start (0)
 				found[type] = (start, snip)
 
-                        if found[type] and (first == None 
-					    or found[type][0] < found[first][0]):
-				
+                        if found[type] \
+			   and (not first or found[type][0] < found[first][0]):
                                 first = type
                                 endex = found[first][0]
 
@@ -599,7 +600,6 @@ def find_toplevel_snippets (s, types):
                 index = start + len (snip.match.group (0))
 
         return snippets
-
 
 def filter_pipe (input, cmd):
 	if verbose_p:
@@ -635,7 +635,7 @@ def run_filter (s):
 	return filter_pipe (s, filter_cmd)
 
 def process_snippets (cmd, snippets):
-	names = filter (lambda x:x, [y.basename () for y in  snippets])
+	names = filter (lambda x: x, map (Lilypond_snippet.basename, snippets))
 	if names:
 		ly.system (string.join ([cmd] + names))
 
@@ -758,7 +758,8 @@ def do_file (input_filename):
 	if LINEWIDTH not in default_ly_options.keys ():
 		if format == LATEX:
 			textwidth = get_latex_textwidth (source)
-			default_ly_options[LINEWIDTH] = '''%.0f\\pt''' % textwidth
+			default_ly_options[LINEWIDTH] = '''%.0f\\pt''' \
+							% textwidth
 		elif format == TEXINFO:
 			for (k,v) in texi_linewidths.items ():
 				s = chunks[0].replacement_text()
@@ -769,20 +770,22 @@ def do_file (input_filename):
 	if filter_cmd:
 		pass # todo
 	elif process_cmd:
-		outdated = filter (lambda x: x.__class__ == Lilypond_snippet and x.is_outdated (),
-				   chunks)
+		outdated = filter (lambda x: x.__class__ == Lilypond_snippet \
+				   and x.is_outdated (), chunks)
 		ly.progress (_ ("Writing snippets..."))
 		map (Lilypond_snippet.write_ly, outdated)
 		ly.progress ('\n')
-		
+
 		if outdated:
 			ly.progress (_ ("Processing..."))
 			process_snippets (process_cmd, outdated)
 		else:
 			ly.progress (_ ("All snippets are up to date..."))
 		ly.progress ('\n')
-		
+
 		ly.progress (_ ("Compiling %s...") % output_filename)
+		output_file.writelines ([s.replacement_text () \
+					 for s in chunks])
 		ly.progress ('\n')
 
 	def process_include (snippet):
@@ -791,28 +794,9 @@ def do_file (input_filename):
 		ly.progress (_ ('Processing include: %s') % name)
 		ly.progress ('\n')
 		do_file (name)
-
-	                
 		
-	output_file.writelines ([s.replacement_text () for s in chunks])
-
-
-	included_files = [input_filename]
-	def notice_include (target, snip):
-		included_files.append (snip.match.group ('filename'))
-		included_files.append (os.path.join (output_name, snip.processed_filename ()))
-
-	[notice_include (output_filename, x) for x in
-	 
-	 ## UGH. how do you do dynamic_cast/typecheck in Python?
-	 filter (lambda x: x.__class__ == Include_snippet, chunks)]
-
-	target = re.sub (r'^\./','', output_filename)
-	open (os.path.split (output_filename)[1] + '.dep', 'w').write ('%s: %s\n' % (target,
-										     string.join (included_files)))
-	
-	map (process_include, filter (lambda x: x.__class__ == Include_snippet, chunks))
-
+	map (process_include,
+	     filter (lambda x: x.__class__ == Include_snippet, chunks))
 
 def do_options ():
 	global format, output_name
@@ -866,7 +850,6 @@ def do_options ():
 	return files
 
 def main ():
-
 	files = do_options ()
 	global process_cmd
 	if process_cmd:
@@ -877,5 +860,6 @@ def main ():
 	ly.setup_environment ()
 	if files:
 		do_file (files[0])
+
 if __name__ == '__main__':
 	main ()
