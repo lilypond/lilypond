@@ -9,6 +9,19 @@ class of a documentnode (similar to how
 That is much cleaner: building the document, and dumping it to output
 is then separated.
 
+
+   foo = \score { ... }
+
+   #(as-xml foo)
+
+   <score>
+     <music></music>
+     <paperoutput>
+     </paperoutput>
+   </score>
+
+
+
 "
 
 
@@ -158,6 +171,9 @@ is then separated.
 	(ignore-props '(origin elements duration pitch element))
 	)
 
+     ;; As almost everything is music; <SequentialMusic> is
+     ;; probably better than <music type="SequentialMusic">?
+     
      (display (open-tag 'music (cons `(type . ,name) mprops) ignore-props)
 	      port)
      (if (duration? d)
