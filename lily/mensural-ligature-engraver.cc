@@ -448,7 +448,7 @@ Mensural_ligature_engraver::join_primitives (Array<Grob_info> primitives)
 	  if (output & MLP_ANY)
 	    {
 	      int delta_pitch = (pitch.steps () - last_pitch.steps ());
-	      primitive->set_grob_property ("join-left",
+	      primitive->set_grob_property ("join-left-amount",
 					    gh_int2scm (delta_pitch));
 	    }
 	}

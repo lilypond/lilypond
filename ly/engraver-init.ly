@@ -298,7 +298,7 @@ StaffGroupContext = \translator {
 LyricsVoiceContext= \translator{
 	\type "Engraver_group_engraver"
 	\consistsend "Hara_kiri_engraver"
-	minimumVerticalExtent = #'(-1.2 . 1.2)
+	minimumVerticalExtent = #'(-1.2 . 2.4)
 	extraVerticalExtent = ##f
 	verticalExtent = ##f
 

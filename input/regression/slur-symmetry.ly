@@ -1,4 +1,9 @@
 \version "1.7.18"
+\header
+{
+    texidoc = "Symmetric figures should lead to symmetric slurs."
+
+}
 
 \score{
 	\notes\relative c'<

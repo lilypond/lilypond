@@ -1,5 +1,19 @@
 2003-07-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/instrument-name-partial.ly: move from input/test.
+
+	* input/test/vertical-text.ly: remove
+
+	* ly/engraver-init.ly (LyricsVoiceContext): add more vertical
+	space above lyrics lines.
+
+	* input/test/uniform-breaking.ly: remove file.
+
+	* lily/gourlay-breaking.cc (combine_demerits): add comment about
+	uniform spacing density. 
+
+	* input/test/chords.ly (keys): remove file.
+
 	* scm/documentation-lib.scm (oop): use srfi-1 too.
 
 	* input/regression/*.ly: add \version

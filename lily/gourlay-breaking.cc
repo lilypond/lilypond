@@ -231,9 +231,19 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
 	  break_penalties += gh_scm2double (pen);
 	}
     }
+
   /*
-    Q: do want globally non-cramped lines, or locally equally cramped lines. 
+    Q: do we want globally non-cramped lines, or locally equally
+    cramped lines?
+
+    There used to be an example file input/test/uniform-breaking to
+    demonstrate problems with this approach. When music is gradually
+    becoming denser, the uniformity requirement makes lines go from
+    cramped to even more cramped (because going from cramped
+    3meas/line to relatively loose 2meas/line is such a big step.
+    
    */
+
   Real demerit = abs (this_one.force_) +  abs (prev.force_ - this_one.force_)
     + break_penalties;
   

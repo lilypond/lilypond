@@ -532,9 +532,11 @@ staff in a row more often, when the heights of the notes vary.
 (grob-property-description 'position-callbacks list? "list of
 functions set spanner positions.")
 (grob-property-description 'join-left boolean? "is this ligature head joined with the previous one?")
+(grob-property-description 'join-left-amount number? "DOCME")
+
 (grob-property-description 'delta-pitch number? "the interval between this and the neighbouring note, or, more precisely, their vertical distance; this is used in ligatures for calculation of the height of vertical joins flexa shapes")
 (grob-property-description 'head-width ly:dimension? "width of this ligature head")
-(grob-property-description 'primitive ly:grob? "Pointer to a ligature primitive, i.e. an item similar to a note head that is part of a ligature.")
+(grob-property-description 'primitive integer? "Pointer to a ligature primitive, i.e. an item similar to a note head that is part of a ligature. [TODO: change this]")
 (grob-property-description 'minimum-beam-collision-distance ly:dimension?
 "Minimum distance to beam for a rest collision.")
 

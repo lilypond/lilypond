@@ -16,6 +16,8 @@
   copyright = "public domain"
   enteredby = "jcn"
   source =  "urtext"
+
+  texidoc ="This test ly2dvi titling. process with ly2dvi, not lilypond-book." 
 }
 
 \score {
