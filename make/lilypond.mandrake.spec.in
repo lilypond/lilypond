@@ -101,8 +101,7 @@ local_lilypond_libdir=$RPM_BUILD_ROOT/%{_libdir}/%{name}/%{version}
 %endif
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/site-start.d
-install -m 644 lilypond-mode.el lilypond-font-lock.el lilypond-indent.el out/lilypond.words.el $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/
-install -m 644 lilypond-init.el $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/site-start.d
+install -m 644 elisp/lilypond-init.el $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/site-start.d
 
 bzip2 $RPM_BUILD_ROOT%{_mandir}/man1/*
 
