@@ -1,5 +1,7 @@
 2004-08-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/lily-parser.cc: rename my-lily* files.
+
 	* lily/my-lily-parser.cc (LY_DEFINE): plug memory leak: unprotect
 	parser.
 

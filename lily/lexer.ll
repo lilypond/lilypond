@@ -38,7 +38,7 @@ using namespace std;
 #include "lily-guile.hh"
 #include "string.hh"
 #include "string-convert.hh"
-#include "my-lily-lexer.hh"
+#include "lily-lexer.hh"
 #include "interval.hh"
 #include "lily-guile.hh"
 #include "parser.hh"
