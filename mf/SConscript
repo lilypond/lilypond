@@ -20,11 +20,10 @@ os.chdir (here)
 
 Import ('env')
 MFMODE = env['MFMODE']
-def tfm_log_enc_ly_tex (target, source, env):
+def add_log_enc_ly_tex_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	et = (map (lambda x: base + x, ['.log', '.enc', '.ly', '.tex']))
 	#es = (map (lambda x: base + '.mf', et))
-	#print `et`
 	#return (target + et, source + es)
 	return (target + et, source)
 
@@ -36,7 +35,37 @@ tfm = Builder (action = ('(cd ' + outdir + ' && ' \
 			 + ' | grep -v "@\|>>")') % vars (),
 	       suffix = '.tfm',
 	       src_suffix = '.mf',
-	       emitter = tfm_log_enc_ly_tex)
+	       emitter = add_log_enc_ly_tex_target)
+
+## How do do multiple targets?  Does emitter not take care of this?
+#log = Builder (action = ('(cd ' + outdir + ' && ' \
+#			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
+#			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
+#			 + ' input $$(basename $SOURCE);" ' \
+#			 + ' | grep -v "@\|>>")') % vars (),
+#	       suffix = '.log',
+#	       src_suffix = '.mf')
+#enc = Builder (action = ('(cd ' + outdir + ' && ' \
+#			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
+#			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
+#			 + ' input $$(basename $SOURCE);" ' \
+#			 + ' | grep -v "@\|>>")') % vars (),
+#	       suffix = '.enc',
+#	       src_suffix = '.mf')
+#ly = Builder (action = ('(cd ' + outdir + ' && ' \
+#			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
+#			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
+#			 + ' input $$(basename $SOURCE);" ' \
+#			 + ' | grep -v "@\|>>")') % vars (),
+#	       suffix = '.ly',
+#	       src_suffix = '.mf')
+#tex = Builder (action = ('(cd ' + outdir + ' && ' \
+#			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
+#			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
+#			 + ' input $$(basename $SOURCE);" ' \
+#			 + ' | grep -v "@\|>>")') % vars (),
+#	       suffix = '.tex',
+#	       src_suffix = '.mf')
 
 afm = Builder (action = (sys.executable
 			 + ' buildscripts/mf-to-table.py ' \
@@ -49,6 +78,17 @@ afm = Builder (action = (sys.executable
 	       suffix = '.afm',
 	       src_suffix = '.log')
 
+def add_enc_src (target, source, env):
+	base = os.path.splitext (str (target[0]))[0]
+	return (target, source + [base + '.enc'])
+
+def encoding_opt (target):
+	base = os.path.splitext (os.path.basename (str (target[0])))[0]
+	enc = os.path.join (outdir, base + '.enc')
+	if os.path.exists (enc):
+		return ' --encoding=' + enc
+	return ''
+
 # UGH, should fix --output option for mftrace
 pfa = Builder (action = ('MFINPUTS=.:' + str (Dir ('#/mf')) \
 			 + ' mftrace -I %(outdir)s --pfa' \
@@ -56,11 +96,30 @@ pfa = Builder (action = ('MFINPUTS=.:' + str (Dir ('#/mf')) \
 			 + ' $$(basename $SOURCE .mf) ' \
 			 + ' && mv $$(basename $TARGET) $TARGET') % vars (),
 	       suffix = '.pfa',
-	       src_suffix = '.mf')
+	       src_suffix = '.mf',
+	       emitter = add_enc_src)
+
+def run_mftrace (target, source, env):
+	TARGET = target[0]
+	SOURCE = source[0]
+	outdir = os.path.join (env['build'], reldir, env['out'])
+	command = ('MFINPUTS=.:' + str (Dir ('#/mf')) \
+		   + ' mftrace -I %(outdir)s --pfa' \
+		   + ' --simplify --keep-trying' \
+		   + ' $(basename %(SOURCE)s .mf) ' \
+		   + encoding_opt (target) \
+			   + ' && mv $(basename %(TARGET)s) %(TARGET)s') \
+			   % vars ()
+	return os.system (command)
+
+xpfa = Builder (action = run_mftrace,
+	       suffix = '.pfa',
+	       src_suffix = '.mf',
+	       emitter = add_enc_src)
 
 
 e = env.Copy (BUILDERS = {'Tfm' : tfm,
-			  #'Log' : log, 'Enc' : enc, 'Ly' : ly, 'Tex' : tex,
+#			  'Log' : log, 'Enc' : enc, 'Ly' : ly, 'Tex' : tex,
 			  'Afm' : afm, 'Pfa' : pfa},
 	      MFINPUTS = '#/mf')
 
@@ -71,11 +130,13 @@ t = map (e.Tfm, sources)
 a = map (e.Afm, sources)
 p = map (e.Pfa, sources)
 
+#map (lambda x: e.Depends (x + '.pfa', x + '.enc'), sources)
 map (lambda x: e.Depends (x + '.pfa', x + '.log'), sources)
 
 tfmdir = os.path.join (env['lilypondprefix'], 'fonts/tfm')
 afmdir = os.path.join (env['lilypondprefix'], 'afm')
 pfadir = os.path.join (env['lilypondprefix'], 'fonts/type1')
+#ti = map (lambda x: env.Install (tfmdir, x[0]), t)
 ti = map (lambda x: env.Install (tfmdir, x), t)
 ai = map (lambda x: env.Install (afmdir, x), a)
 pi = map (lambda x: env.Install (pfadir, x), p)
