@@ -8,7 +8,7 @@
 
 @itemize @bullet
 @item The @code{--safe} mode has been revisited: it makes the basic
-ly: interface available, and makes prevents Scheme or @TeX{} code.
+ly: interface available, and stops malicious @TeX{} code.
 
 @item Music syntax can now be extended seamlessly. As an example,
 here is the new implementation @code{\applymusic},
