@@ -1,11 +1,18 @@
-1.5.17.jcn3
+1.5.17.jcn4 - aka: `pgwit!  Ah, dacht dat-i zo wel aardig was.'
 ===========
 
-* Some more random hacking at midi2ly.py:
+* Some more hacking at midi2ly.py:
+   - options and stuff: moved to library for ly2dvi, midi2ly, mup2ly,
+	update-lily
    - handle keys and note names
    - simple quantising
-   - options and stuff: moved to library for ly2dvi, midi2ly, mup2ly,
-	update-lily.
+   - handle tuplets and silly durations
+   - guess clef
+   - don't include empty staffs in score
+   - print relative pitches by default
+   - don't repeat duration by default
+
+* Shorter MIDI creation texts.
 
 * Bugfix: Key_change_req::transpose: don't deliver reversed list.
 

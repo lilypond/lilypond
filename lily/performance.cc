@@ -81,9 +81,8 @@ Performance::output_header_track (Midi_stream& midi_stream)
   // perhaps multiple text events?
   String id_str;
   String str = String (_ ("Creator: "));
-  id_str = String_convert::pad_to (gnu_lilypond_version_str (), 40);
+  id_str = String_convert::pad_to (gnu_lilypond_version_str (), 30);
   str += id_str;
-  str += "\n";
 
   /*
     This seems silly, but in fact the audio elements should
@@ -96,20 +95,22 @@ Performance::output_header_track (Midi_stream& midi_stream)
   /* Better not translate this */
   str = "Generated automatically by: ";
   str += id_str;
-  str += _ (", at ");
-  time_t t (time (0));
-  str += ctime (&t);
-  str = str.left_str (str.length_i () - 1);
-
-  /*
-    Pad out time stamps to 120 chars.  */
-  
-  str = String_convert::pad_to (str, 120);
   
   Audio_text generate_a (Audio_text::TEXT, str);
   Midi_text generate (&generate_a);
   midi_track.add (Moment (0), &generate);
+  
+  str = _ ("at ");
+  time_t t (time (0));
+  str += ctime (&t);
+  str = str.left_str (str.length_i () - 1);
+  str = String_convert::pad_to (str, 60);
+  
+  Audio_text at_a (Audio_text::TEXT, str);
+  Midi_text at (&at_a);
+  midi_track.add (Moment (0), &at);
 
+  
   str = _f ("from musical definition: %s", origin_str_);
 
   Audio_text from_a (Audio_text::TEXT, str);
