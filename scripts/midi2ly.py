@@ -896,7 +896,7 @@ def dump_track (channels, n):
 				s = s + '\\relative c '
 		elif item and item.__class__ == Text:
 			skip = '" "'
-			s = s + '%s = \\lyrics ' % (track + channel)
+			s = s + '%s = \\lyricmode ' % (track + channel)
 		else:
 			skip = '\\skip '
 			# must be in \notes mode for parsing \skip

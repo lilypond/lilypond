@@ -210,7 +210,7 @@ def dump_slyrics (outf):
 			m = k
 		for i in range (len(slyrics[voice_idx_dict[k]])):
 			l=alphabet[i]
-			outf.write ("\nwords%sV%s = \\lyrics  {" % (m, l))
+			outf.write ("\nwords%sV%s =   {" % (m, l))
 			outf.write ("\n" + slyrics [voice_idx_dict[k]][i])
 			outf.write ("\n}")
 
@@ -223,7 +223,7 @@ def dump_voices (outf):
 			m = alphabet[string.atoi(k)]
 		else:
 			m = k
-		outf.write ("\nvoice%s = \\notes {" % m)
+		outf.write ("\nvoice%s =  {" % m)
 		dump_default_bar(outf)
 		if repeat_state[voice_idx_dict[k]]:
 			outf.write("\n\\repeat volta 2 {")
@@ -254,7 +254,7 @@ def try_parse_q(a):
         
 def dump_score (outf):
 	outf.write (r"""\score{
-        \notes <<
+         <<
 """)
 
 	ks = voice_idx_dict.keys ();
@@ -584,7 +584,7 @@ def repeat_prepend():
 def lyrics_append(a):
 	a = re.sub ( '#', '\\#', a)	# latex does not like naked #'s
 	a = re.sub ( '"', '\\"', a)	# latex does not like naked "'s
-	a = '\t{ \\lyrics "' + a + '" }\n'
+	a = '\t{  "' + a + '" }\n'
 	stuff_append (lyrics, current_lyric_idx, a)
 
 # break lyrics to words and put "'s around words containing numbers and '"'s
