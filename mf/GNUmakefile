@@ -51,3 +51,4 @@ $(outdir)/%.afm  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log
 
 localclean:
 	rm -f mfplain.mem mfplain.log mpout.log
+	rm -f *.tfm *.log
