@@ -1,3 +1,16 @@
+pl 47.jcn1
+	- bf: interstaff slurs (urg: more segfaults in scm_gc_mark ())
+
+pl 45.hwn3
+	- Abbreviation -> Stem_tremolo.
+	- bf: Stem_tremolo in Beam.
+	- bf: Stem_tremolo over whole note.
+	- spacing before clefs.
+	- Spacing_spanner is now on by default
+	- junked most of Spring_spacer
+	- Tunable space after barline. 
+
+*********
 pl 46.mb2
 	- Reintroduced the tupletVisibility property. Same values as
 	  the old version (pletvisibility), see the Reference Manual.
