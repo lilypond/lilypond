@@ -33,9 +33,12 @@
 /*
   TODO:
 
-  - avoid collision with staff line
-  - curve around flag/stem for x coordinate
+  - curve around flag for y coordinate
   - better scoring.
+  - short-cut: try a smaller region first.
+  - collisions with accidentals
+  - collisions with scripts (staccato!)
+  - 
   
 */
 struct Encompass_info {
@@ -61,7 +64,8 @@ struct Bound_info {
   Grob *stem_;
   Interval slur_head_extent_;
   Real neighbor_y_;
-
+  Real staff_space_ ;
+  
   Bound_info () {
     stem_ = 0;
     neighbor_y_ = 0;
@@ -152,10 +156,13 @@ public:
 			       Slur_score_parameters*,
 			       Drul_array<Bound_info>,
 			       Drul_array<Offset>, Array<Slur_score> * scores);
+  static Bezier avoid_staff_line (Grob * me,  Grob **common,
+			   Drul_array<Bound_info> extremes,
+			   Bezier bez);
 
-  static  Encompass_info get_encompass_info (Grob *me,
-					     Grob *col,
-					     Grob **common) ;
+  static Encompass_info get_encompass_info (Grob *me,
+					    Grob *col,
+					    Grob **common) ;
   static void set_interface (Grob*);
   static bool  has_interface (Grob*);
   static Bezier get_curve (Grob *me);
@@ -171,7 +178,11 @@ public:
   static Drul_array<Bound_info> get_bound_info (Spanner* me,
 						Grob **common);
 
-  static void generate_curves (Grob*me, Array<Slur_score> *scores);
+  static void generate_curves (Grob*me,
+			       Grob *common[],
+			       Drul_array<Bound_info> extremes,
+			       Drul_array<Offset> base_attach,
+			       Array<Slur_score> * scores);
   static Array<Slur_score> enumerate_attachments (Grob * me,  Grob *common[],
 						  Slur_score_parameters * score_param,
 						  Drul_array<Bound_info> extremes,
@@ -179,16 +190,16 @@ public:
   ;
   static  Drul_array<Offset> get_base_attachments (Spanner*sp,
 						   Grob **common,
-						 
 						   Drul_array<Bound_info> extremes);
-
   static  Drul_array<Real> get_y_attachment_range (Spanner*sp,
 						   Grob **common,
-						   
 						   Drul_array<Bound_info> extremes,
 						   Drul_array<Offset> base_attachment);
 };
 
+/*
+  HDIR indicates the direction for the slur.
+ */
 Real
 New_slur::broken_trend_y (Grob *me, Grob**common, Direction hdir)
 {
@@ -234,7 +245,8 @@ New_slur::broken_trend_y (Grob *me, Grob**common, Direction hdir)
 	Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
       
       Grob *extreme_col = (hdir == RIGHT) ? my_cols.top() : my_cols[0];
-      Real y = extreme_col->extent (common[Y_AXIS], Y_AXIS).linear_combination (vdir);
+      Real y = extreme_col->extent (common[Y_AXIS], Y_AXIS)
+	.linear_combination (int ((my_cols.size()==1) ? CENTER : vdir));
       
       by = (y*neighbor_cols.size() + neighbor_y*my_cols.size()) /
 	(my_cols.size() + neighbor_cols.size());
@@ -302,6 +314,7 @@ New_slur::get_encompass_info (Grob *me,
 	  ei.stem_ += stem_dir * 0.5  *Beam::get_thickness (b);
 	}
       
+      ei.x_  = stem->extent (common[X_AXIS], X_AXIS).center ();
     }
   else
     ei.stem_ = ei.head_;
@@ -385,6 +398,7 @@ New_slur::get_bound_info (Spanner* me,
 	extremes[d].slur_head_ = Stem::extremal_heads (extremes[d].stem_)[dir];
 	extremes[d].slur_head_extent_ = extremes[d].slur_head_->extent (common[X_AXIS], X_AXIS);
 	extremes[d].staff_ = Staff_symbol_referencer::get_staff_symbol (extremes[d].slur_head_);
+	extremes[d].staff_space_ = Staff_symbol_referencer::staff_space (extremes[d].slur_head_);
       }
     else
       {
@@ -420,16 +434,16 @@ New_slur::set_end_points (Grob *me)
 
 
   Drul_array<Bound_info> extremes = get_bound_info (sp, common);
-  Drul_array<Offset> base_attachment =  get_base_attachments (sp, common, extremes);
+  Drul_array<Offset> base_attachment = get_base_attachments (sp, common, extremes);
   Drul_array<Real> end_ys = get_y_attachment_range (sp, common, extremes, base_attachment);
   Array<Slur_score> scores = enumerate_attachments (me, common,
 						    &params, extremes, base_attachment, end_ys);
-  generate_curves (me, &scores);
-
+  
+  generate_curves (me, common, extremes, base_attachment, &scores);
   score_edges (me, common, &params,extremes, base_attachment, &scores);
   score_slopes (me, common, &params,extremes, base_attachment, &scores);
   score_encompass (me, common, &params,extremes, base_attachment, &scores);
-
+  
   Real opt = 1e6;
   int opt_idx = 0;
   for (int i = scores.size (); i--;)
@@ -464,7 +478,6 @@ New_slur::set_end_points (Grob *me)
 	programming_error ("Could not find quant.");
     }
   
-  
   scores[opt_idx].score_card_ += to_string ("i%d", opt_idx);
 
   // debug quanting
@@ -472,7 +485,8 @@ New_slur::set_end_points (Grob *me)
 		    scm_makfrom0str (scores[opt_idx].score_card_.to_str0 ()));
 #endif
   
-  Bezier const &b =  scores[opt_idx].curve_;
+  Bezier b =
+    avoid_staff_line  (me,common, extremes, scores[opt_idx].curve_);
   
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)
@@ -583,25 +597,69 @@ New_slur::get_base_attachments (Spanner*me,
 }
 
 
-
 void
-New_slur::generate_curves (Grob*me,   Array<Slur_score> *scores)
-
+New_slur::generate_curves (Grob * me,  Grob **common,
+			   Drul_array<Bound_info> extremes,
+			   Drul_array<Offset> ,
+			   Array<Slur_score> *scores)
 {
-
   Real staff_space = Staff_symbol_referencer::staff_space ((Grob*)me);
-
   Real r_0 = robust_scm2double (me->get_property ("ratio"), 0.33);
   Real h_inf = staff_space * ly_scm2double (me->get_property ("height-limit"));
-  for (int i = scores->size(); i-- ;)
+  
+  for (int i = 0; i < scores->size(); i++)
     {
-      (*scores)[i].curve_ = get_bezier (me, (*scores)[i].attachment_,
-					r_0, h_inf);
+      Bezier bez= get_bezier (me, (*scores)[i].attachment_,
+			      r_0, h_inf);
+      
+      (*scores)[i].curve_ = bez;
     }
 }
 
+
+
+Bezier
+New_slur::avoid_staff_line (Grob * me,  Grob **common,
+			    Drul_array<Bound_info> extremes,
+			    Bezier bez)
+{
+  Offset horiz (1,0);
+  Array<Real> ts  = bez.solve_derivative (horiz);
+  Real lt =  me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real thick = robust_scm2double (me->get_property ("thickness"), 1.0) *  lt;
+
+
+  /*
+    TODO: handle case of broken slur.
+  */
+  if (!ts.is_empty ()
+      && (extremes[LEFT].staff_ == extremes[RIGHT].staff_)
+      && extremes[LEFT].staff_ && extremes[RIGHT].staff_)
+    {
+      Real y = bez.curve_point (ts[0])[Y_AXIS];
+
+      Grob *staff = extremes[LEFT].staff_;
+
+      Real staff_space = extremes[LEFT].staff_space_;
+      Real p = 2 * (y - staff->relative_coordinate (common[Y_AXIS], Y_AXIS)) / staff_space;
+
+      Real distance = fabs (round (p) - p);	//  in halfspaces
+      if (distance < 4 * thick
+	  && (int) fabs (round (p)) <= 2* Staff_symbol_referencer::staff_radius (staff) + 0.1
+	  && (int (fabs (round (p))) % 2
+	      != Staff_symbol_referencer::line_count (staff) % 2))
+	{
+	  // TODO: parameter
+	  Real newp = round (p) + get_grob_direction (me) * 5 * thick;
+	  Real dy = (newp - p) * staff_space / 2.0;
+	  bez.translate (Offset (0,dy));
+	}
+    }
+  return bez;
+}
+
 Array<Slur_score>
-New_slur::enumerate_attachments (Grob * me,  Grob *common[],
+New_slur::enumerate_attachments (Grob * me,  Grob **,
 				 Slur_score_parameters * score_param,
 				 Drul_array<Bound_info> extremes,
 				 Drul_array<Offset> base_attachment,
@@ -648,9 +706,6 @@ New_slur::enumerate_attachments (Grob * me,  Grob *common[],
 	      }
 	  } while (flip (&d) != LEFT);
 
-	  
-
-
 	  Offset dz;	  
 	  dz = os[RIGHT] - os[LEFT];
 	  if (dz[X_AXIS] < minimum_length
@@ -674,9 +729,11 @@ New_slur::enumerate_attachments (Grob * me,  Grob *common[],
 		/*
 		  horizontally move tilted slurs a little. Move more
 		  for bigger tilts.
+
+		  TODO: parameter
 		 */
 		os[d][X_AXIS] -=
-		  dir * extremes[d].slur_head_extent_.length () * sin (dz.arg  ()) / 3;	// TODO: parameter
+		  dir * extremes[d].slur_head_extent_.length () * sin (dz.arg  ()) / 3;
 	      }
 	  } while (flip (&d) != LEFT);
 	  
@@ -697,8 +754,8 @@ void
 New_slur::score_encompass (Grob * me,  Grob *common[],
 			   Slur_score_parameters * score_param,
 
-			   Drul_array<Bound_info> extremes,
-			   Drul_array<Offset> base_attach,
+			   Drul_array<Bound_info> ,
+			   Drul_array<Offset> ,
 			   Array<Slur_score> * scores)
 {
   Link_array<Grob> encompasses =
@@ -718,13 +775,16 @@ New_slur::score_encompass (Grob * me,  Grob *common[],
 	{
 	  Real x = infos[j].x_;
 
+	  bool l_edge = j==0;
+	  bool r_edge = j==infos.size()-1;
+	  bool edge =  l_edge || r_edge;
+  
 	  if (!(x < scores->elem (i).attachment_[RIGHT][X_AXIS]
 		&& x > scores->elem (i).attachment_[LEFT][X_AXIS]))
 	    continue;
 	  
 	  Real y = bez.get_other_coordinate (X_AXIS, x);
-
-	  if (j && j < infos.size () -1)
+	  if (!edge)
 	    {
 	      Real head_dy = (y - infos[j].head_);
 	      if (dir * head_dy < 0)
@@ -741,9 +801,13 @@ New_slur::score_encompass (Grob * me,  Grob *common[],
 		  demerit += hd;	  
 		}
 	    }	  
-	  if (dir * (y - infos[j].stem_) < 0)
+
+	  if (edge
+	      && ((l_edge && dir == UP)
+		  || (r_edge && dir == DOWN))
+	      && (dir * (y - infos[j].stem_) < 0))
 	    demerit += score_param->STEM_ENCOMPASS_PENALTY;
-	  else if (j && j < encompasses.size () - 1)  
+	  else if (!edge)
 	    {
 	      Interval ext;
 	      ext.add_point (infos[j].stem_);
@@ -764,9 +828,8 @@ New_slur::score_encompass (Grob * me,  Grob *common[],
 
 
 void
-New_slur::score_edges (Grob * me,  Grob *common[],
+New_slur::score_edges (Grob * me,  Grob **,
 		       Slur_score_parameters * score_param,
-
 		       Drul_array<Bound_info> extremes,
 		       Drul_array<Offset> base_attach,
 		       Array<Slur_score> * scores)
@@ -783,9 +846,7 @@ New_slur::score_edges (Grob * me,  Grob *common[],
 	
 	Real factor = score_param->EDGE_ATTRACTION_FACTOR;
 
-	Real demerit =
- 	  score_param->EDGE_ATTRACTION_FACTOR
- 	  * fabs (scores->elem (i).attachment_[d][Y_AXIS] - base_attach[d][Y_AXIS]);
+	Real demerit = factor * dy;
  
  	if (extremes[d].stem_
  	    && extremes[d].stem_dir_ == dir
@@ -808,7 +869,6 @@ New_slur::score_slopes (Grob * me,  Grob *common[],
 			Drul_array<Offset> base_attach,
 			Array<Slur_score> * scores)
 {
-  Direction dir = get_grob_direction (me);
   Drul_array<Real> ys;
 
   Direction d = LEFT;
@@ -839,7 +899,7 @@ New_slur::score_slopes (Grob * me,  Grob *common[],
 	/*
 	  0.2: account for staffline offset.
 	*/
-	demerit += score_param->STEEPER_SLOPE_FACTOR *  (dir * (fabs (slur_dy) - fabs (dy + 0.2)) >? 0); 
+	demerit += score_param->STEEPER_SLOPE_FACTOR * ((fabs (slur_dy) - (fabs (dy) + 0.2)) >? 0); 
 
       demerit += ((fabs (slur_dy/slur_dz[X_AXIS]) - score_param->MAX_SLOPE)>?0)  * score_param->MAX_SLOPE_FACTOR;
       

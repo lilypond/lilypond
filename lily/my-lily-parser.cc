@@ -248,12 +248,16 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   SCM_ASSERT_TYPE (ly_c_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
   char const *file = SCM_STRING_CHARS (name);
   char const *extensions[] = {"ly", "", 0};
+
   String file_name = global_path.find (file, extensions);
-  
+
   /* By default, use base name of input file for output file name,
      write output to cwd; do not use root and directory parts of input
      file name.  */
   File_name out_file_name (file_name);
+
+  global_path.append (out_file_name.dir_);
+  
   out_file_name.ext_ = "";
   out_file_name.root_ = "";
   out_file_name.dir_ = "";

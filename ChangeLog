@@ -1,5 +1,11 @@
 2004-07-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/new-slur.cc (avoid_staff_line): new function: avoid
+	collisions with staff lines.
+
+	* lily/my-lily-parser.cc (LY_DEFINE): add directory of argument to
+	global_path
+
 	* scm/define-grobs.scm (all-grob-descriptions): set ratio
 	.25. This flattens short slurs.
 

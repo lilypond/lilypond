@@ -8,7 +8,6 @@
 
 #include "audio-element.hh"
 
-
 Audio_element::Audio_element ()
 {
 }
