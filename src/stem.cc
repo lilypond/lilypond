@@ -116,9 +116,11 @@ void
 Stem::set_noteheads()
 {
     heads.sort(Notehead::compare);
+    heads[0]->extremal = -1;
+    heads.last()->extremal = 1;
     int parity=1;
     int lastpos = heads[0]->position;
-    for (int i=1; i < heads.sz(); i ++) {
+    for (int i=1; i < heads.size(); i ++) {
 	int dy =abs(lastpos- heads[i]->position);
 	
 	if (dy <= 1) {
@@ -146,7 +148,7 @@ Stem::width()const
     if (!print_flag || abs(flag) <= 4)
 	return Interval(0,0);	// TODO!
     Paperdef*p= paper();
-    Interval r(p->lookup_->flag(flag).dim.x);
+    Interval r(p->lookup_p_->flag(flag).dim.x);
     r+= stem_xoffset;
     return r;
 }
@@ -154,20 +156,19 @@ Stem::width()const
 Molecule*
 Stem::brew_molecule()const return out;
 {
-    assert(pstaff_);
     assert(bot!=top);
  
     
     Paperdef *p =paper();
 
     Real dy = p->internote();
-    Symbol ss =p->lookup_->stem(bot*dy,top*dy);
+    Symbol ss =p->lookup_p_->stem(bot*dy,top*dy);
 
     
     out = new Molecule(Atom(ss));
 
     if (print_flag&&abs(flag) > 4){
-	Symbol fl = p->lookup_->flag(flag);
+	Symbol fl = p->lookup_p_->flag(flag);
 	Molecule m(fl);
 	if (flag < -4){		
 	    out->add_bottom(m);
@@ -183,7 +184,7 @@ Stem::brew_molecule()const return out;
 Real
 Stem::hpos()const
 {
-    return pcol_->hpos + stem_xoffset;
+    return pcol_l_->hpos + stem_xoffset;
 }
 
 

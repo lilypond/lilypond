@@ -1,7 +1,22 @@
 %%
 %% include file for LilyPond
 
-\def\mdef#1#2{\def#1{{\musicfnt\char#2}}}
+\def\mdef#1#2{\def#1{\mchar{#2}}}
+\def\mchar#1{\musicfnt\char#1}
+\def\rationalmultiply#1*#2/#3{\multiply #1 by #2 \divide #1 by #3}
+\def\maccentraise#1#2{\dimen0=\noteheight
+        \rationalmultiply\dimen0*#2%
+        \raise\dimen0\hbox{#1}}
+\def\maccentdef#1#2#3{\def#1{\maccentraise{\mchar{#2}}{#3}}}
+\def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
+
+\def\topalign#1{\vbox to 0pt{#1\vss}}
+\def\botalign#1{\vbox to 0pt{\vss #1}}
+
+\def\centeralign#1{\hbox to 0pt{\hss#1\hss}}
+\def\leftalign#1{\hbox to 0pt{#1\hss}}
+\def\rightalign#1{\hbox to 0pt{\hss#1}}
+
 
 %% musix defs
 \parindent=0pt
@@ -9,6 +24,7 @@
         \newcount\n
         \newdimen\balkhoog
         \newdimen\notewidth
+        \newdimen\noteheight
         \newdimen\notewidthhalf
         \newdimen\notewidthdouble
         \newdimen\staffrulethickness
@@ -27,10 +43,12 @@
         \font\italicfont=cmti10
         \balkhoog=20pt
         \notewidth=6pt
+        \noteheight=5pt
         \staffrulethickness=0.4pt
-
         \musixcalc
 }
+
+
 \def\musixsixteendefs{
         \font\textfont=cmr8
         \font\meterfont=cmbx12
@@ -45,6 +63,7 @@
         \balkhoog=16pt
         \staffrulethickness=0.4pt
         \notewidth=5pt
+        \noteheight=4pt
         \musixcalc
 }
 
@@ -55,12 +74,12 @@
         \advance\interstaffrule by -\staffrulethickness
         \notewidthhalf=\notewidth
         \notewidthdouble=\notewidth
-        \divide \notewidthhalf by 2
+        \rationalmultiply \notewidthhalf*1/2
         \multiply \notewidthdouble by 2
-        \balkhalf=\balkhoog
-        \divide \balkhalf by 2
+               \balkhalf=\balkhoog
+ \rationalmultiply\balkhalf*1/2 
 }
-
+\def\dyn{\italicfont}
 
 \def\slurcharh#1{{\slurhfont\char#1}}
 \def\slurcharu#1{{\slurufont\char#1}}
@@ -105,11 +124,17 @@
 
 \def\maatstreep{\vrule height\balkhoog}
 \def\finishbar{\vrule height\balkhoog  width 1pt}
+\maccentdef\repeatcolon{55}{2/1}
+
+\def\repeatbar{\rightalign{\repeatcolon\kern 2pt\finishbar}}
+\def\startrepeat{\hbox{\finishbar\kern 2pt\repeatcolon}}
+\def\repeatbarstartrepeat{\hbox{\repeatbar\kern 1pt\startrepeat}}
+
 \def\generalmeter#1#2{\botalign{\vbox to\balkhalf{\vss \meterfont#1}%
         \nointerlineskip
         \vbox to \balkhalf{\vss\meterfont #2}}}
-\def\lineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
-
+\def\defaultlineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
+\def\lineseparator{\defaultlineseparator}
 \def\beauty{%
         \par\vskip 10pt plus 30pt minus 10pt\par
         \hskip -5pt\lineseparator
@@ -157,22 +182,26 @@
 \def\ldoubledot{\kern-\notewidth\doubledot}
 \def\ltripledot{\kern-\notewidth\tripledot}
 
-\mdef\maccent{30}
+\maccentdef\sforzato{30}{-3/2}
+\maccentdef\marcato{20}{-1/1}
+\maccentdef\imarcato{21}{1/1}
+\maccentdef\staccato{24}{-1/1}
+\maccentdef\istaccato{25}{1/1}
+\maccentdef\staccatissimo{28}{-1/1}
+\maccentdef\istaccatissimo{29}{1/1}
+\maccentdef\portato{18}{-9/10}
+\maccentdef\iportato{19}{9/10}
+\maccentdef\tenuto{26}{0/1}
+\maccentdef\itenuto{27}{0/1}
 \mdef\fermata{80}
 \mdef\ifermata{81}
-\mdef\iaccent{31}
-\mdef\msxmarcato{20}
-\def\marcato{\botalign{\msxmarcato}}
-\mdef\msximarcato{21}
-\def\imarcato{\topalign{\msximarcato}}
-\mdef\staccato{24}
-\mdef\istaccato{25}
-\mdef\staccatissimo{16}
-\mdef\istaccatissimo{17}
+
+
+
 \mdef\spicato{28}
 \mdef\ispicato{29}
-\mdef\upbow{22}
-\mdef\downbow{23}
+\mdef\upbow{23}
+\mdef\downbow{22}
 \mdef\portato{26}
 
 \def\stem#1#2{\vrule height#2 depth-#1}
@@ -187,11 +216,3 @@
 
 \def\settext#1{\textfont #1}
 \def\setitalic#1{\italicfont #1}
-
-\def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
-
-\def\topalign#1{\vbox to 0pt{#1\vss}}
-\def\botalign#1{\vbox to 0pt{\vss #1}}
-
-\def\centeralign#1{\hbox to 0pt{\hss#1\hss}}
-\def\leftalign#1{\hbox to 0pt{#1\hss}}

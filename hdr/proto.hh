@@ -15,6 +15,7 @@
 struct Absdynamic_req;
 struct Accidental;
 struct Atom;
+struct Barcheck_req;
 struct Beam;
 struct Beam_req;
 struct Box;

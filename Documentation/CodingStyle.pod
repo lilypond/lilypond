@@ -6,8 +6,6 @@ CodingStyle - standards while programming for LilyPond
 
 Please use these standards while doing programming for LilyPond
 
-
-
 Functions and methods do not return errorcodes, but use assert for
 checking status. 
 
@@ -33,15 +31,15 @@ in emacs:
 
 =head2 DATA MEMBERS
 
-	Class::member
+	Class::member()
+	Class::member_type_()
 
-if the member's name resembles its type, then I use
-
-	class Fubular { ..}
-
-	Class::fubular_
+the C<type> is a Hungarian notation postfix
 
 =head2 COMMENTS
+
+The source is commented in the DOC++ style.  Check out doc++ at
+F<http://www.ZIB-Berlin.DE/VisPar/doc++/doc++.html>
 
 	/// short description
 	class Class {

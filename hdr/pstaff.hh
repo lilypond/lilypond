@@ -7,8 +7,8 @@
 
 /// items grouped horizontally
 struct PStaff {
-    Molecule * stafsym;
-    PScore * pscore_;
+    Molecule * stafsym_p_;
+    PScore * pscore_l_;
     
     
     PointerList<const Spanner*> spans;
@@ -19,6 +19,8 @@ struct PStaff {
     void add(Item*i);
     PStaff(PScore*);
     virtual ~PStaff();
+private:
+    PStaff(PStaff const&);
 };
 
 #endif

@@ -7,10 +7,21 @@
 String
 Staff_elem::TeXstring() const
 {
-    assert(output && !calc_children);
+    assert(!calc_children);
     Molecule m(*output);
     m.translate(offset_);	// ugh?
     return m.TeXstring();
+}
+
+Staff_elem::Staff_elem(Staff_elem const&s)
+    :    dependencies(s.dependencies)
+{
+    status = s.status;
+    assert(!s.output);
+    output = 0;
+    pstaff_l_ = s.pstaff_l_;
+    calc_children = false;
+    offset_ = Offset(0,0);
 }
 
 Staff_elem::~Staff_elem()
@@ -60,7 +71,7 @@ Staff_elem::print()const
 Staff_elem::Staff_elem()
 {
     calc_children = false;
-    pstaff_=0;
+    pstaff_l_=0;
     offset_ = Offset(0,0);
     output = 0;
     status = ORPHAN;
@@ -70,8 +81,8 @@ Staff_elem::Staff_elem()
 Paperdef*
 Staff_elem::paper()  const
 {
-    assert(pstaff_);
-    return pstaff_->pscore_->paper_;
+    assert(pstaff_l_);
+    return pstaff_l_->pscore_l_->paper_l_;
 }
 
 void
@@ -89,7 +100,7 @@ Staff_elem::pre_processing()
 {
     if (status >= PRECALCED )
 	return;
-    for (int i=0; i < dependencies.sz(); i++)
+    for (int i=0; i < dependencies.size(); i++)
 	if (dependencies[i])
 	    dependencies[i]->pre_processing();
     if (!calc_children)
@@ -101,7 +112,7 @@ Staff_elem::post_processing()
 {
     if (status > POSTCALCED)
 	return;
-    for (int i=0; i < dependencies.sz(); i++)
+    for (int i=0; i < dependencies.size(); i++)
 	if (dependencies[i])
 	    dependencies[i]->post_processing();
     if (!calc_children)
@@ -114,7 +125,7 @@ Staff_elem::molecule_processing()
 {
     if (status >= OUTPUT)
 	return;
-    for (int i=0; i < dependencies.sz(); i++)
+    for (int i=0; i < dependencies.size(); i++)
 	if (dependencies[i])
 	    dependencies[i]->molecule_processing();
     if (!calc_children)

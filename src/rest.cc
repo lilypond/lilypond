@@ -22,16 +22,14 @@ Rest::print()const
 Molecule*
 Rest::brew_molecule()const
 {
-    assert(pstaff_);
-
     Paperdef *p =paper();
 
     Symbol s;
-    s = p->lookup_->rest(balltype);
+    s = p->lookup_p_->rest(balltype);
     
     Molecule *m = new Molecule(Atom(s));
     if (dots) {
-	Symbol d =p->lookup_->dots(dots);
+	Symbol d =p->lookup_p_->dots(dots);
 	Molecule dm;
 	dm.add(Atom(d));
 	m->add_right(dm);

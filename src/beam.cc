@@ -50,7 +50,6 @@ Beam::center()const
 
 Beam::Beam()
 {
-    group = 0;
     slope = 0;
     left_pos = 0.0;
     dir =0;
@@ -85,7 +84,7 @@ Beam::set_default_dir()
 void
 Beam::solve_slope()
 {
-    svec<Stem_info> sinfo;
+    Array<Stem_info> sinfo;
     for (iter_top(stems,i); i.ok(); i++) {
 	i->set_default_extents();
 	Stem_info info(i);
@@ -93,14 +92,14 @@ Beam::solve_slope()
     }
     Real leftx = sinfo[0].x;
     Least_squares l;
-    for (int i=0; i < sinfo.sz(); i++) {
+    for (int i=0; i < sinfo.size(); i++) {
 	sinfo[i].x -= leftx;
 	l.input.add(Offset(sinfo[i].x, sinfo[i].idealy));
     }
 
     l.minimise(slope, left_pos);
     Real dy = 0.0;
-    for (int i=0; i < sinfo.sz(); i++) {
+    for (int i=0; i < sinfo.size(); i++) {
 	Real y = sinfo[i].x * slope + left_pos;
 	Real my = sinfo[i].miny;
 
@@ -113,7 +112,7 @@ Beam::solve_slope()
 
 				// URG
     Real sl = slope*paper()->internote();
-    paper()->lookup_->beam(sl, convert_dimen(20,"pt"));
+    paper()->lookup_p_->beam(sl, convert_dimen(20,"pt"));
     slope = sl /paper()->internote();
 }
 
@@ -141,28 +140,28 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 {
     def.OK();
     cur.OK();
-    assert(cur.children.sz() == stems.size());
+    assert(cur.children.size() == stems.size());
     
     cur.split(def);
-    group = new Rhythmic_grouping(cur);
-    svec<int> b;
+
+    Array<int> b;
     {
 	iter_top(stems,s);
-	svec<int> flags;
+	Array<int> flags;
 	for (; s.ok(); s++) {
 	    int f = intlog2(abs(s->flag))-2;
 	    assert(f>0);
 	    flags.add(f);
 	}
 	int fi =0;
-	b= group->generate_beams(flags, fi);
+	b= cur.generate_beams(flags, fi);
 	b.insert(0,0);
 	b.add(0);
-	assert(stems.size() == b.sz()/2);
+	assert(stems.size() == b.size()/2);
     }
 
     iter_top(stems,s);
-    for (int i=0; i < b.sz() && s.ok(); i+=2, s++) {
+    for (int i=0; i < b.size() && s.ok(); i+=2, s++) {
 	s->beams_left = b[i];
 	s->beams_right = b[i+1];
     }
@@ -179,8 +178,8 @@ Beam::do_break_at( PCol *, PCol *) const
 void
 Beam::do_pre_processing()
 {
-    left  = (*stems.top())   ->pcol_;
-    right = (*stems.bottom())->pcol_;    
+    left  = (*stems.top())   ->pcol_l_;
+    right = (*stems.bottom())->pcol_l_;    
     assert(stems.size()>1);
     if (!dir)
 	set_default_dir();
@@ -207,7 +206,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
     Real dy=paper()->internote()*2;
     Real stemdx = paper()->rule_thickness();
     Real sl = slope*paper()->internote();
-    paper()->lookup_->beam(sl, convert_dimen(20,"pt"));
+    paper()->lookup_p_->beam(sl, convert_dimen(20,"pt"));
 
     Molecule leftbeams;
     Molecule rightbeams;
@@ -217,7 +216,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	int lhalfs= lhalfs = here->beams_left - prev->beams_right ;
 	int lwholebeams= here->beams_left <? prev->beams_right ;
 	Real w = (here->hpos() - prev->hpos())/4;
-	Atom a =  paper()->lookup_->beam(sl, w);
+	Atom a =  paper()->lookup_p_->beam(sl, w);
 	a.translate(Offset (-w, -w * sl));
 	for (int j = 0; j  < lhalfs; j++) {
 	    Atom b(a);
@@ -231,7 +230,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	int rwholebeams = here->beams_right <? next->beams_left; 
 
 	Real w = next->hpos() - here->hpos();
-	Atom a = paper()->lookup_->beam(sl, w + stemdx);
+	Atom a = paper()->lookup_p_->beam(sl, w + stemdx);
 	
 	int j = 0;
 	for (; j  < rwholebeams; j++) {
@@ -240,7 +239,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	    rightbeams.add( b ); 
 	}
 	w /= 4;
-	a = paper()->lookup_->beam(sl, w);
+	a = paper()->lookup_p_->beam(sl, w);
 	
 	for (; j  < rwholebeams + rhalfs; j++) {
 	    Atom b(a);
@@ -257,7 +256,6 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 Molecule*
 Beam::brew_molecule() const return out;
 {
-    assert(left->line == right->line);
     Real inter=paper()->internote();
     out = new Molecule;
     Real x0 = stems.top()->hpos();
@@ -288,5 +286,5 @@ Beam::print()const
 
 Beam::~Beam()
 {
-    delete group;
+
 }

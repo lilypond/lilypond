@@ -12,7 +12,7 @@ Bar::Bar( String t)
 Molecule*
 Bar::brew_molecule()const
 {    
-    Symbol s = paper()->lookup_->bar(type);
+    Symbol s = paper()->lookup_p_->bar(type);
 Molecule*    output = new Molecule(Atom(s));
 return output;
     

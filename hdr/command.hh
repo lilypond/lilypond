@@ -2,7 +2,7 @@
 #define COMMAND_HH
 
 #include "glob.hh"
-#include "vray.hh"
+#include "varray.hh"
 #include "scalar.hh"
 
 enum Commandcode {
@@ -17,7 +17,7 @@ struct Command {
     Commandcode code;
 
     /// analogous to argv[]
-    svec<Scalar> args;
+    Array<Scalar> args;
 
     ///
     int priority;

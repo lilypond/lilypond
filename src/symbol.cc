@@ -1,5 +1,5 @@
 #include "symbol.hh"
-#include "vray.hh"
+#include "varray.hh"
 
 
 Symbol::Symbol()

@@ -7,25 +7,23 @@
 #ifndef SCCOL_HH
 #define SCCOL_HH
 #include "proto.hh"
-#include "vray.hh"
+#include "varray.hh"
 #include "moment.hh"
 
 
 struct Score_column {
 
     /// indirection to column
-    PCol * pcol_;
+    PCol * pcol_l_;
 
     /// length of notes/rests in this column
-    svec<Moment> durations;
+    Array<Moment> durations;
     
-    Moment when;
-
     /// 
-    bool musical;
+    bool musical_;
     
     /****************/
-    
+    Moment when() {  return when_; }
     Score_column(Moment when);       
     static int compare(Score_column & c1, Score_column &c2);
     void add_duration(Moment );
@@ -33,6 +31,9 @@ struct Score_column {
     void set_breakable();
     bool used();
     void print() const;
+
+private:
+    Moment when_;
 };
 /**
 

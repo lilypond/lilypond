@@ -5,7 +5,7 @@
 
 /// symbols, dimensions and constants
 struct Paperdef {
-    Lookup *lookup_;
+    Lookup *lookup_p_;
     String outfile;
 
     Real linewidth;
@@ -21,6 +21,7 @@ struct Paperdef {
     Paperdef(Lookup*);
     void set(Lookup*);
     ~Paperdef();
+    Paperdef(Paperdef const&);
     Real interline()const;
     Real internote()const;
     Real rule_thickness()const;

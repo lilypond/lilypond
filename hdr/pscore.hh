@@ -4,13 +4,13 @@
 #define PSCORE_HH
 
 #include "break.hh"
-#include "vray.hh"
+#include "varray.hh"
 #include "pcol.hh"
 #include "pstaff.hh"
 
 /// all stuff which goes onto paper
 struct PScore {
-    Paperdef *paper_;		// indirection.
+    Paperdef *paper_l_;
     
     /// the columns, ordered left to right
     IPointerList<PCol *> cols;
@@ -34,63 +34,62 @@ struct PScore {
     IPointerList<Spanner*> broken_spans;
 
     /****************/
-
-    void add_broken(Spanner*);
+    /* CONSTRUCTION */
     
-    svec<Item*> select_items(PStaff*, PCol*);
-
-    /// before calc_breaking
-    void preprocess();
-    
-    void calc_breaking();
-    /**
-      calculate where the lines are to be broken.
-
-      POST
-    
-      lines contain the broken lines.
-     */
-
-    /// after calc_breaking
-    void postprocess();
-    
+    PScore(Paperdef*);
     /// add a line to the broken stuff. Positions given in #config#
-    void set_breaking(svec< Col_configuration> );
+    void set_breaking(Array<Col_configuration>);
 
     void add(PStaff *);
     
     /// add item
     void typeset_item(Item *,  PCol *,PStaff*,int=1);
 
-    /// add an Spanner
+    /// add a Spanner
     void typeset_spanner(Spanner*, PStaff*);
  
     ///    add to bottom of pcols
     void add(PCol*);
-    /**
+    void add_broken(Spanner*);
 
-    */
-    void output(Tex_stream &ts);
-
-    Idealspacing* get_spacing(PCol *, PCol *);
-    /*
-    get the spacing between c1 and c2, create one if necessary.
-    */
+    /* INSPECTION */
+    Array<Item*> select_items(PStaff*, PCol*);
 
     /// return argument as a cursor.
-    PCursor<PCol *> find_col(PCol *)const;
+    PCursor<PCol *> find_col(const PCol *)const;
 
+    /* MAIN ROUTINES */
+    void process();
+
+    /// last deed of this struct
+    void output(Tex_stream &ts);
+
+    /* UTILITY ROUTINES */
+
+    /// get the spacing between c1 and c2, create one if necessary.
+    Idealspacing* get_spacing(PCol *c1, PCol *c2);
+
+    /// connect c1 and c2
+    void do_connect(PCol *c1, PCol *c2, Real distance_f, Real strength_f);
+
+    /// connect c1 and c2 and any children of c1 and c2
+    void connect(PCol* c1, PCol *c2, Real distance_f,Real  strength_f= 1.0);
+    
+    /* STANDARD ROUTINES */
+    void OK()const;
+    void print() const;
+private:
+    /// before calc_breaking
+    void preprocess();
+
+    /// calculate where the lines are to be broken, and use results
+    void calc_breaking();
+
+    /// after calc_breaking
+    void postprocess();
+    
     /// delete unused columns
     void clean_cols();
-
-    /// invarinants
-    void OK()const;
-
-    PScore(Paperdef*);
-    void print() const;
-
-        /// which is first (left, higher)
-    int compare_pcols( PCol*, PCol*)const;
 };
 /** notes, signs, symbols in a score can be grouped in two ways:
     horizontally (staffwise), and vertically (columns). #PScore#

@@ -39,9 +39,15 @@ Scalar
 void
 Simple_column::process_requests()
 {
-    for (int i = 0 ; i < v_elts.sz(); i ++)
+    for (int i = 0 ; i < v_elts.size(); i ++)
 	for (iter_top(v_elts[i]->reqs,j); j.ok(); j++) {
 	    Request *rq= j;
+	    if (rq->barcheck()) {
+		if (tdescription_->whole_in_measure) {
+		    error("Barcheck failed, " + tdescription_->str());
+		}
+	    }
+				   
 	    if (rq->rhythmic()){
 		notes.add(rq->rhythmic());
 	    }

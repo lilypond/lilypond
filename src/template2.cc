@@ -8,7 +8,7 @@
 #include "spanner.hh"
 
 #include "plist.tcc"
-
+#include "pcursor.tcc"
 
 IPL_instantiate(Request);
 IPL_instantiate(Score_column);

@@ -15,8 +15,8 @@ struct Script : Item{
     int symdir;
     int pos;
     int staffsize;
-    Script_def*specs;
-    Stem * stem_;
+    Script_def*specs_l_;
+    Stem * stem_l_;
     Item * support;
 
     /****************/
@@ -24,7 +24,7 @@ struct Script : Item{
     void    	set_symdir();
     void	set_default_dir();
     void	set_default_pos();
-
+    Symbol symbol()const;
     Molecule*	brew_molecule()const;
     virtual void do_post_processing();
     virtual void do_pre_processing();

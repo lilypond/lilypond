@@ -12,7 +12,7 @@ const Real COLFUDGE=1e-3;
 bool
 Spacing_problem::contains(const PCol *w)
 {
-    for (int i=0; i< cols.sz(); i++)
+    for (int i=0; i< cols.size(); i++)
 	if (cols[i].pcol_ == w)
 	    return true;
     return false;
@@ -21,7 +21,7 @@ Spacing_problem::contains(const PCol *w)
 int 
 Spacing_problem::col_id(const PCol *w)const
 {
-    for (int i=0; i< cols.sz(); i++)
+    for (int i=0; i< cols.size(); i++)
 	if (cols[i].pcol_ == w)
 	    return i;
     assert(false);
@@ -32,20 +32,20 @@ void
 Spacing_problem::OK() const
 {
 #ifndef NDEBUG
-    Union_find connected(cols.sz());
-    svec<int> fixed;
-    for (int i=0; i < ideals.sz(); i++) {
+    Union_find connected(cols.size());
+    Array<int> fixed;
+    for (int i=0; i < ideals.size(); i++) {
 	assert(ideals[i]->hooke > 0);
 	int l = col_id(ideals[i]->left);
 	int r = col_id(ideals[i]->right);
 	connected.connect(l,r);		
     }
-    for (int i = 0; i < cols.sz(); i++)
+    for (int i = 0; i < cols.size(); i++)
 	if (cols[i].fixed())
 	    fixed.add(i);
-    for (int i = 0; i < cols.sz(); i++) {
+    for (int i = 0; i < cols.size(); i++) {
 	bool c=false;
-	for (int j =0; j<fixed.sz(); j++)
+	for (int j =0; j<fixed.size(); j++)
 	    c |=  connected.equiv(j,i);
 	assert(c);
     }
@@ -101,7 +101,7 @@ Spacing_problem::check_feasible() const
 Vector
 Spacing_problem::try_initial_solution() const
 {
-    int dim=cols.sz();
+    int dim=cols.size();
     Vector initsol(dim);
     for (int i=0; i < dim; i++) {
 	if (cols[i].fixed()) {
@@ -135,7 +135,7 @@ Spacing_problem::make_matrices(Matrix &quad, Vector &lin, Real &c) const
     quad.fill(0);
     lin.fill(0);
     c = 0;
-    for (int j=0; j < ideals.sz(); j++){
+    for (int j=0; j < ideals.size(); j++){
 	Idealspacing const*i=ideals[j];
 	int l = col_id(i->left);
 	int r = col_id(i->right);
@@ -156,7 +156,7 @@ Spacing_problem::make_matrices(Matrix &quad, Vector &lin, Real &c) const
 void
 Spacing_problem::make_constraints(Mixed_qp& lp) const
 {    
-    int dim=cols.sz();
+    int dim=cols.size();
     for (int j=0; j < dim; j++) {
 	Colinfo *c=&(cols[j]);
 	if (c->fixed()) {
@@ -173,7 +173,7 @@ Spacing_problem::make_constraints(Mixed_qp& lp) const
     }
 }
 
-svec<Real>
+Array<Real>
 Spacing_problem::solve() const
 {
     print();
@@ -181,7 +181,7 @@ Spacing_problem::solve() const
     assert(check_feasible());
 
     /* optimalisatiefunctie */        
-    Mixed_qp lp(cols.sz());
+    Mixed_qp lp(cols.size());
     make_matrices(lp.quad,lp.lin, lp.const_term);
     make_constraints(lp);    
     Vector start=find_initial_solution();    
@@ -191,7 +191,7 @@ Spacing_problem::solve() const
     }
 	
 
-    svec<Real> posns(sol);
+    Array<Real> posns(sol);
     posns.add(lp.eval(sol));
     return posns;
 }
@@ -234,11 +234,11 @@ void
 Spacing_problem::print() const
 {
 #ifndef NPRINT
-    for (int i=0; i < cols.sz(); i++) {
+    for (int i=0; i < cols.size(); i++) {
 	mtor << "col " << i<<' ';
 	cols[i].print();
     }
-    for (int i=0; i < ideals.sz(); i++) {
+    for (int i=0; i < ideals.size(); i++) {
 	print_ideal(ideals[i]);
     }
 #endif

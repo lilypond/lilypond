@@ -7,14 +7,14 @@
 #ifndef CLEF_HH
 #define CLEF_HH
 #include "scalar.hh"
-#include "vray.hh"
+#include "varray.hh"
 
 struct Clef {
     int c0_pos;
     String clef_type;
 
     Clef();
-    void read(svec<Scalar> args);    
+    void read(Array<Scalar> args);    
 };
 #endif // CLEF_HH
 

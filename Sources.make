@@ -22,33 +22,21 @@ hdr=    qlp.hh linespace.hh qlpsolve.hh\
 	staffelem.hh idealspacing.hh break.hh\
 	scriptdef.hh script.hh textdef.hh textitem.hh
 
-mycc=   qlp.cc qlpsolve.cc leastsquares.cc\
-	inputcommands.cc inputmusic.cc	\
-	inputscore.cc inputstaff.cc inputcommand.cc\
-	timedescription.cc\
-	break.cc linespace.cc molecule.cc staffline.cc\
-	pscore.cc tex.cc item.cc pcol.cc staff.cc \
-	rhythmstaff.cc 	score.cc note.cc  main.cc misc.cc\
-	symbol.cc request.cc notename.cc  voice.cc\
-	keyword.cc linestaff.cc table.cc command.cc\
-	warn.cc debug.cc symtable.cc boxes.cc\
-	pstaff.cc  tstream.cc\
-	calcideal.cc scores.cc  \
-	dimen.cc paper.cc lookup.cc staffcommands.cc\
-	sccol.cc stcol.cc getcommands.cc simplestaff.cc\
-	melodicstaff.cc simpleprint.cc\
-	spanner.cc textspanner.cc directionalspanner.cc \
-	notehead.cc  stem.cc \
-	rest.cc bar.cc meter.cc keyitem.cc localkeyitem.cc clefitem.cc\
-	swalker.cc scoreline.cc\
-	simplewalker.cc scriptdef.cc script.cc\
-	texbeam.cc texslur.cc clef.cc key.cc slur.cc beam.cc\
-	idealspacing.cc  grouping.cc identifier.cc\
-	lexerinit.cc mylexer.cc textdef.cc textitem.cc\
-	staffelem.cc wordwrap.cc\
+mycc=bar.cc beam.cc boxes.cc break.cc calcideal.cc clef.cc\
+	clefitem.cc command.cc debug.cc dimen.cc directionalspanner.cc\
+	getcommands.cc grouping.cc idealspacing.cc identifier.cc\
+	inputcommand.cc inputcommands.cc inputmusic.cc inputscore.cc\
+	inputstaff.cc item.cc key.cc keyitem.cc keyword.cc\
+	leastsquares.cc lexerinit.cc linespace.cc linestaff.cc\
+	localkeyitem.cc lookup.cc main.cc melodicstaff.cc meter.cc\
+	misc.cc molecule.cc mylexer.cc note.cc notehead.cc notename.cc\
+	paper.cc pcol.cc pscore.cc pstaff.cc qlp.cc qlpsolve.cc\
+	request.cc rest.cc rhythmstaff.cc sccol.cc score.cc\
+	scoreline.cc scores.cc script.cc scriptdef.cc simpleprint.cc\
+	simplestaff.cc simplewalker.cc slur.cc spanner.cc staff.cc\
+	staffcommands.cc staffelem.cc staffline.cc stcol.cc stem.cc\
+	swalker.cc symbol.cc symtable.cc table.cc tex.cc texbeam.cc\
+	texslur.cc textdef.cc textitem.cc textspanner.cc\
+	timedescription.cc tstream.cc voice.cc warn.cc wordwrap.cc\
 	template1.cc template2.cc template3.cc template4.cc\
-	template5.cc\
-	version.cc
-
-
-
+	template5.cc version.cc

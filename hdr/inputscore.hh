@@ -1,6 +1,6 @@
 #ifndef ISCORE_HH
 #define ISCORE_HH
-#include "vray.hh"
+#include "varray.hh"
 #include "proto.hh"
 #include "plist.hh"
 
@@ -14,8 +14,8 @@ struct Input_score {
     
     /****************************************************************/
     Input_score();
-    Input_score(Input_score&);
-    void add(svec<Input_command*> &s);
+    Input_score(Input_score const&);
+    void add(Array<Input_command*> &s);
     void add(Input_staff*);
     ~Input_score();
     /// construction

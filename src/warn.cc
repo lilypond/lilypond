@@ -1,10 +1,9 @@
 #include "debug.hh"
 #include "lexer.hh"
+#include "moment.hh"
 
 ostream &warnout (cerr);
 ostream *mlog(&cerr);
-
-
 
 void
 warning(String s)
@@ -25,9 +24,9 @@ error(String s)
 }
 
 void
-error_t(String s, Real r)
+error_t(const String& s, Moment r)
 {
-    String e=s+ "(t = " + r + ")";
+    String e=s+ "(t = " + String(r) + ")";
     error(e);
     exit(1);
 }

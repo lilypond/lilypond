@@ -21,9 +21,9 @@ Command::print() const
     mtor << "Command " << "code " << code << " prio " << priority;
     if ( isbreak())
 	mtor << "(break separator)";
-    if (args.sz()) {
+    if (args.size()) {
 	mtor<< " args: ";
-	for (int i = 0; i<args.sz(); i++)
+	for (int i = 0; i<args.size(); i++)
 	    mtor << "`"<<args[i] <<"',";
     }
     mtor << "\n";

@@ -6,11 +6,11 @@
 
 #ifndef LEASTSQUARE_HH
 #define LEASTSQUARE_HH
-#include "vray.hh"
+#include "varray.hh"
 #include "offset.hh"
 
 struct Least_squares {
-    svec<Offset> input;
+    Array<Offset> input;
     void minimise(Real &coef, Real &offset);
 };
 

@@ -7,8 +7,8 @@ class Active_constraints {
     
 
     Matrix A,H;
-    svec<int> active;
-    svec<int> inactive;		// actually this is a set, not an array.
+    Array<int> active;
+    Array<int> inactive;		// actually this is a set, not an array.
     const Ineq_constrained_qp *opt;
 
 public:
@@ -71,7 +71,7 @@ public:
     int constraint_id() const { return ac->inactive[j]; }
     Vector vec() const { return ac->vec(constraint_id()); }
     Real rhs() const { return ac->rhs(constraint_id()); }
-    bool ok() const { return j < ac->inactive.sz(); }
+    bool ok() const { return j < ac->inactive.size(); }
 };
 /**
     loop through the inactive constraints.

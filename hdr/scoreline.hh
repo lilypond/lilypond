@@ -8,7 +8,7 @@
 #define SCORELINE_HH
 #include "plist.hh"
 #include "proto.hh"
-#include "vray.hh"
+#include "varray.hh"
 
 /// the columns of a score that form one line.
 struct
@@ -17,11 +17,11 @@ Line_of_score {
 
     // need to store height of each staff.
     IPointerList<Line_of_staff*> staffs;
-    PScore * pscore_;	// needed to generate staffs
+    PScore * pscore_l_;	// needed to generate staffs
 
     /****************/
     void process() ;
-    Line_of_score(svec<PCol *> sv,  PScore *);
+    Line_of_score(Array<PCol *> sv,  PScore *);
 
     String TeXstring() const;
 

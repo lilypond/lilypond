@@ -9,12 +9,12 @@ String
 Active_constraints::status() const
 {
     String s("Active|Inactive [");
-    for (int i=0; i< active.sz(); i++) {
+    for (int i=0; i< active.size(); i++) {
 	s += String(active[i]) + " ";
     }
 
     s+="| ";
-    for (int i=0; i< inactive.sz(); i++) {
+    for (int i=0; i< inactive.size(); i++) {
 	s += String(inactive[i]) + " ";
     }
     s+="]";
@@ -23,26 +23,29 @@ Active_constraints::status() const
 }
 
 void
-Active_constraints::OK() {
+Active_constraints::OK()
+{
+    #ifndef NDEBUG
     H.OK();
     A.OK();
-    assert(active.sz() +inactive.sz() == opt->cons.sz());
+    assert(active.size() +inactive.size() == opt->cons.size());
     assert(H.dim() == opt->dim());
-    assert(active.sz() == A.rows());
-    svec<int> allcons;
+    assert(active.size() == A.rows());
+    Array<int> allcons;
 
-    for (int i=0; i < opt->cons.sz(); i++)
+    for (int i=0; i < opt->cons.size(); i++)
 	allcons.add(0);
-    for (int i=0; i < active.sz(); i++) {
+    for (int i=0; i < active.size(); i++) {
 	int j = active[i];
 	allcons[j]++;
     }
-    for (int i=0; i < inactive.sz(); i++) {
+    for (int i=0; i < inactive.size(); i++) {
 	int j = inactive[i];
 	allcons[j]++;
     }
-    for (int i=0; i < allcons.sz(); i++)
+    for (int i=0; i < allcons.size(); i++)
 	assert(allcons[i] == 1);
+#endif
 }
 
 Vector
@@ -60,7 +63,7 @@ Active_constraints::add(int k)
     int cidx=inactive[k];
     active.add(cidx);
 
-    inactive.swap(k,inactive.sz()-1);
+    inactive.swap(k,inactive.size()-1);
     inactive.pop();
 
     Vector a( opt->cons[cidx] );
@@ -92,7 +95,7 @@ Active_constraints::add(int k)
 void
 Active_constraints::drop(int k)
 {
-    int q=active.sz()-1;
+    int q=active.size()-1;
 
         // drop indices
     inactive.add(active[k]);
@@ -124,7 +127,7 @@ Active_constraints::Active_constraints(Ineq_constrained_qp const *op)
 	    H(op->dim()),
 	    opt(op)
 {
-    for (int i=0; i < op->cons.sz(); i++)
+    for (int i=0; i < op->cons.size(); i++)
 	inactive.add(i);
     Choleski_decomposition chol(op->quad);
     H=chol.inverse();

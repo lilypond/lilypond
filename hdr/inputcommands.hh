@@ -53,7 +53,7 @@ struct Input_commands : public IPointerList<Commands_at*> {
 
     void reset();
     void print()const;
-    Staff_commands *parse() const;
+    void parse(Staff *) const;
 };
 
 #endif // INPUTCOMMANDS_HH

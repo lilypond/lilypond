@@ -18,6 +18,8 @@ struct Tex_stream {
 
     /// close the file
     ~Tex_stream();
+private:
+    Tex_stream(Tex_stream const&);
 };
 /**
   Use this class for writing to a TeX file.

@@ -31,7 +31,7 @@ Lookup::add(String s, Symtable*p)
 Symbol
 Lookup::text( String style, String text , int dir)
 {
-    svec<String> a;
+    Array<String> a;
  
     a.add(text);
     Symbol tsym =  (*symtables_)("style")->lookup(style);
@@ -129,7 +129,7 @@ Lookup::streepjes(int i)
     }
     Symbol ret = (*symtables_)("streepjes")->lookup(idx);
     
-    svec<String> a;
+    Array<String> a;
     a.add(arg);
     ret.tex = substitute_args(ret.tex, a);
 
@@ -146,7 +146,7 @@ Lookup::linestaff(int lines, Real wid)
     Real dy=(lines-1)*internote()*2;
     s.dim.y = Interval(0,dy);
 
-    svec<String> a;
+    Array<String> a;
     a.add(lines);
     a.add(print_dimen(wid));
 
@@ -158,7 +158,7 @@ Lookup::linestaff(int lines, Real wid)
 
 
 Symbol
-Lookup::meter(svec<Scalar> a)
+Lookup::meter(Array<Scalar> a)
 {
     Symbol s;
     s.dim.x = Interval( convert_dimen(0,"pt"),
@@ -179,7 +179,7 @@ Lookup::stem(Real y1,Real y2)
     s.dim.x = Interval(0,0);
     s.dim.y = Interval(y1,y2);
     
-    svec<String> a;
+    Array<String> a;
     a.add(print_dimen(y1));
     a.add(print_dimen(y2));
 	

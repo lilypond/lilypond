@@ -8,13 +8,13 @@
 #include "scoreline.hh" 
 #include "staffline.hh"
 
-
+#include "pcursor.tcc"
 #include "plist.tcc"
 
 
 #define IPLC_instantiate(a) IPL_instantiate(a); PL_instantiate(const a)
 
-IPLC_instantiate(Stem*);
+
 IPLC_instantiate(Line_of_score);
 IPLC_instantiate(Line_of_staff);
 IPLC_instantiate(Item);

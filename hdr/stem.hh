@@ -7,7 +7,7 @@
 #ifndef STEM_HH
 #define STEM_HH
 #include "item.hh"
-#include "vray.hh"
+#include "varray.hh"
 #include "moment.hh"
 
 /// the rule attached to the ball
@@ -46,7 +46,7 @@ struct Stem : public Item {
 
     Real stem_xoffset;
     
-    svec<Notehead*> heads;
+    Array<Notehead*> heads;
 
     /****************/
     Stem(int center, Moment duration);

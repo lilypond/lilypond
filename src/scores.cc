@@ -3,7 +3,7 @@
 #include "score.hh"
 #include "string.hh"
 
-static svec<Input_score*> sv;
+static Array<Input_score*> score_array_global;
 
 static String outfn="lelie.uit";
 
@@ -11,21 +11,21 @@ static String outfn="lelie.uit";
 void
 do_scores()
 {
-    for (int i=0; i < sv.sz(); i++) {
-	Score * s = sv[i]->parse();	
-	delete sv[i];
-	
-	s->process();
-	s->output(outfn);
-	delete s;
+    for (int i=0; i < score_array_global.size(); i++) {
+	Score * s_p = score_array_global[i]->parse();	
+	delete score_array_global[i];
+	s_p->print ();
+	s_p->process();
+	s_p->output(outfn);
+	delete s_p;
     }
-    sv.set_size(0);
+    score_array_global.set_size(0);
 }
 
 void
 add_score(Input_score * s)
 {
-    sv.add(s);
+    score_array_global.add(s);
 }
 
 

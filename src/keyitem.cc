@@ -12,9 +12,9 @@ Keyitem::Keyitem(int c)
 }
 
 void
-Keyitem::read(svec<int> s)
+Keyitem::read(Array<int> s)
 {
-    for (int i = 0 ; i< s.sz(); ) {
+    for (int i = 0 ; i< s.size(); ) {
 	int note = s[i++];
 	int acc = s[i++];
 	    
@@ -36,14 +36,14 @@ Keyitem::brew_molecule()const
     Molecule*output = new Molecule;
     Real inter = paper()->interline()/2;
     
-    for (int i =0; i < pitch.sz(); i++) {
-	Symbol s= paper()->lookup_->accidental(acc[i]);
+    for (int i =0; i < pitch.size(); i++) {
+	Symbol s= paper()->lookup_p_->accidental(acc[i]);
 	Atom a(s);
 	a.translate(Offset(0,(c_position + pitch[i]) * inter));
 	Molecule m(a);
 	output->add_right(m);	
     }
-    Molecule m(paper()->lookup_->fill(Box(
+    Molecule m(paper()->lookup_p_->fill(Box(
 	Interval(0, paper()->note_width()),
 	Interval(0,0))));
     output->add_right(m);

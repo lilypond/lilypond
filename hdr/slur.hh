@@ -9,11 +9,11 @@
 
 #include "directionalspanner.hh"
 #include "fproto.hh"
-#include "vray.hh"
+#include "varray.hh"
 
 struct Slur : Directional_spanner {
 
-    svec<Notehead*> encompass;
+    Array<Notehead*> encompass;
     //int dir;
 
     bool open_left,open_right;			

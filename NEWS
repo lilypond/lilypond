@@ -1,19 +1,34 @@
+pl 22:
+	- doco from mpp
+	- repeat signs
+	- | checks for bar in a voice (Barcheck_req)
+Internal changes:
+	- naming (Hungarian notation, svec vs. Array)
+	- huge memleak fixed; unearthed lots of bugs
+	- bug noteheadswap
+	- cleanup PScore, Score
+	- removed Staff_commands, plugging commands into Staff_column directly
+
 pl 21:
-	- Move breaking stuff into a separate class Break_algorithm
-	- dependencies for Staff_elem's
 	- scripts
 	- texts
 	- nplets (triplets!)
+Internal changes:
+	- Move breaking stuff into a separate class Break_algorithm
+	- dependencies for Staff_elem's
 
 pl 20:
-	- Rational for time measurement
 	- updated doco to .pod
+	- include files from .ly
+Internal changes:
+	- Rational for time measurement
 	- directionalspanner/textspanner
-	- include files
 
 pl 19:
-	- struct Moment
 	- grouping code: LilyPond can set advanced multibeams.
+Internal changes:
+	- struct Moment
+
 
 pl 18:
 	- robust Staff_commands

@@ -5,7 +5,7 @@
 #include "string.hh"
 #include "notename.hh"
 #include "lexer.hh"
-#include "vray.hh"
+#include "varray.hh"
 #include "parser.hh"
 #include "debug.hh"
 
@@ -31,7 +31,7 @@ AN		{AA}|{N}
 WORD		{A}{AN}*
 ALPHAWORD	{A}+
 INT		-?{N}+
-REAL		{INT}(\.{N}*)?
+REAL		{INT}?(\.{N}*)?
 
 OPTSIGN		!?
 PITCHMOD	['`]*{OPTSIGN}
@@ -95,8 +95,6 @@ DOTS		\.+
 	yylval.i = String(YYText()).value();
 	return INT;
 }
-<notes>\|		{
-}
 <notes>[%#].*\n		{ 
 
 }
@@ -110,21 +108,13 @@ DOTS		\.+
 	return YYText()[0];
 	
 }
-<notes>[\[)]	{ /* parens () are NO mistake */
-	yylval.c = YYText()[0];
-	return OPEN_REQUEST_PARENS;
-}
-<notes>[\](]	{ /* parens () are NO mistake */
-	yylval.c = YYText()[0];
-	return CLOSE_REQUEST_PARENS;
-}
 <notes>\"[^\"]*\" {
 	String s (YYText()+1);
 	s = s.left(s.len()-1);
 	yylval.string = new String(s);
 	return STRING;
 }
-<notes>[/.^>_-] {
+<notes>[()\[\]|/.^>_-] {
 	return yylval.c = YYText()[0];
 
 }

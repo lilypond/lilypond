@@ -42,8 +42,31 @@ PScore::clean_cols()
 void
 PScore::add(PStaff *s)
 {
-    assert(s->pscore_ == this);
+    assert(s->pscore_l_ == this);
     staffs.bottom().add(s);
+}
+
+
+void
+PScore::do_connect(PCol *c1, PCol *c2, Real d, Real h)
+{
+    if (!c1 || !c2 )
+	return;
+    Idealspacing*s_l=get_spacing(c1,c2);
+	
+    if (!s_l->hooke){
+	s_l->hooke = h;
+	s_l->space =d;
+    }
+}
+
+void
+PScore::connect(PCol* c1, PCol *c2, Real d, Real h)
+{
+    do_connect(c1,c2,d,h);
+    do_connect(c1->postbreak_p_, c2,d,h);
+    do_connect(c1, c2->prebreak_p_,d,h);
+    do_connect(c1->postbreak_p_, c2->prebreak_p_,d,h);
 }
 
 void
@@ -52,12 +75,12 @@ PScore::typeset_item(Item *i, PCol *c, PStaff *s, int breakstat)
     assert(c && i && s);
 //    assert(!breakstat != 4 || c->breakable() );
     if (breakstat == 0) {
-	typeset_item(i, c->prebreak, s);
+	typeset_item(i, c->prebreak_p_, s);
 	return;
     }
 
     if (breakstat == 2) {
-	typeset_item(i, c->postbreak, s);
+	typeset_item(i, c->postbreak_p_, s);
 	return;
     }
 
@@ -73,7 +96,7 @@ PScore::typeset_item(Item *i, PCol *c, PStaff *s, int breakstat)
 void
 PScore::typeset_spanner(Spanner*span_p, PStaff*ps)
 {
-    span_p->pstaff_ = ps;
+    span_p->pstaff_l_ = ps;
     spanners.bottom().add(span_p);
     ps->spans.bottom().add(span_p);
 
@@ -82,29 +105,20 @@ PScore::typeset_spanner(Spanner*span_p, PStaff*ps)
 }
 
 
-int
-PScore::compare_pcols(PCol*a,  PCol*b)const
-{
-    PCursor<PCol*> ac(find_col(a));
-    PCursor<PCol*> bc(find_col(b));
-    assert(ac.ok() && bc.ok());
-    return ac - bc;
-}
-
 void
 PScore::add(PCol *p)
 {
-    p->pscore_ = this;
+    p->pscore_l_ = this;
     if (p->breakable()){
-	p->prebreak->pscore_ = this;
-	p->postbreak->pscore_ = this;
+	p->prebreak_p_->pscore_l_ = this;
+	p->postbreak_p_->pscore_l_ = this;
     }
     cols.bottom().add(p);
 }
 
 PScore::PScore( Paperdef*p)
 {
-    paper_ = p;
+    paper_l_ = p;
 }
 
 void
@@ -112,7 +126,7 @@ PScore::output(Tex_stream &ts)
 {
     int l=1;
 
-    ts << "\n "<<  paper_->lookup_->texsetting << "%(Tex id)\n";
+    ts << "\n "<<  paper_l_->lookup_p_->texsetting << "%(Tex id)\n";
     for (iter_top(lines,lic); lic.ok(); lic++) {
 	ts << "% line of score no. " << l++ <<"\n";
 	ts << lic->TeXstring();
@@ -122,13 +136,13 @@ PScore::output(Tex_stream &ts)
 }
 
 
-svec<Item*>
-PScore::select_items(PStaff*ps , PCol*pc)
+Array<Item*>
+PScore::select_items(PStaff*ps, PCol*pc)
 {
-    svec<Item*> ret;
+    Array<Item*> ret;
     assert(ps && pc);
     for (iter_top(pc->its,i); i.ok(); i++){
-	if (i->pstaff_ == ps)
+	if (i->pstaff_l_ == ps)
 	    ret.add((Item*)(const Item*)i);
     }
     return ret;
@@ -150,7 +164,7 @@ PScore::print() const
 {    
 #ifndef NPRINT
     mtor << "PScore { ";
-    paper_->print();
+    paper_l_->print();
     mtor << "\ncolumns: ";
     for (iter_top(cols,cc); cc.ok(); cc++)
 	cc->print();
@@ -196,34 +210,34 @@ PScore::postprocess()
 }
 
 PCursor<PCol *>
-PScore::find_col(PCol *c)const
+PScore::find_col(const PCol *c)const
 {
-    PCol*what = (PCol*)c;
-    if (what->daddy )
-	what = what -> daddy;
+    const PCol*what = c;
+    if (what->daddy_l_ )
+	what = what->daddy_l_;
     
-    return cols.find(what);
+    return cols.find((PCol*)what);
 }
 
 void
 PScore::add_broken(Spanner*s)
 {
-    assert(s->left->line == s->right->line);
+    assert(s->left->line_l_ == s->right->line_l_);
     broken_spans.bottom().add(s);
     s->left->starters.bottom().add (s);
     s->right->stoppers.bottom().add (s);
 }
 
 void
-PScore::set_breaking(svec<Col_configuration> breaking)
+PScore::set_breaking(Array<Col_configuration> breaking)
 {
-    for (int j=0; j < breaking.sz(); j++) {
-	svec<PCol*> &curline(breaking[j].cols);
-	svec<Real> &config(breaking[j].config);
+    for (int j=0; j < breaking.size(); j++) {
+	Array<PCol*> &curline(breaking[j].cols);
+	Array<Real> &config(breaking[j].config);
 	
-	Line_of_score *p = new Line_of_score(curline,this);
-	lines.bottom().add(p);   	
-	for (int i=0; i < curline.sz(); i++){
+	Line_of_score *s_p = new Line_of_score(curline,this);
+	lines.bottom().add(s_p);   	
+	for (int i=0; i < curline.size(); i++){
 	    curline[i]->hpos = config[i];
 	}
     }
@@ -234,4 +248,16 @@ PScore::calc_breaking()
 {
     Word_wrap w(*this);
     set_breaking(w.solve());
+}
+
+void
+PScore::process()
+{
+    clean_cols();
+    *mlog << "Preprocessing ... ";
+    preprocess();
+    *mlog << "Calculating ... ";
+    calc_breaking();
+    *mlog << "Postprocessing ... ";
+    postprocess();
 }

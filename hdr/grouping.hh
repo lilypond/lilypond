@@ -9,19 +9,19 @@
 
 #include "moment.hh"
 #include "interval.hh"
-#include "vray.hh"
+#include "varray.hh"
 
 typedef Interval_t<Moment> MInterval;
 
 /// data structure which represents rhythmic units 
 struct Rhythmic_grouping {    
     
-    svec<Rhythmic_grouping*> children;
+    Array<Rhythmic_grouping*> children;
     MInterval *interval_;
     
     /****************/
 
-    svec<MInterval> intervals();
+    Array<MInterval> intervals();
     MInterval interval()const;
     Moment length() const;
     void intersect(MInterval);
@@ -30,19 +30,19 @@ struct Rhythmic_grouping {
     Rhythmic_grouping(Rhythmic_grouping const&);
     Rhythmic_grouping(MInterval, int n=1);
     Rhythmic_grouping();
-    Rhythmic_grouping(svec<Rhythmic_grouping*>);
+    Rhythmic_grouping(Array<Rhythmic_grouping*>);
     ~Rhythmic_grouping();
 
     void add_child(Moment start, Moment len);
 
     void split(Rhythmic_grouping r);
-    void split(svec<MInterval>);
+    void split(Array<MInterval>);
     void split(int n);
 
     void print() const;
     void OK() const;
 
-    svec<int> generate_beams(svec<int>, int&);
+    Array<int> generate_beams(Array<int>, int&);
 
 private:
     void init();

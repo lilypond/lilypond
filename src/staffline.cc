@@ -26,11 +26,11 @@ Line_of_staff::TeXstring() const
     // the staff itself: eg lines, accolades
     s += "\\hbox{";
     {				
-	((PStaff*)pstaff_)->
-	    brew_molecule(line_of_score_->pscore_->paper_->linewidth);
+	((PStaff*)pstaff_l_)->
+	    brew_molecule(line_of_score_l_->pscore_l_->paper_l_->linewidth);
 
-	s+=pstaff_->stafsym->TeXstring();
-	iter_top(line_of_score_->cols,cc);
+	s+=pstaff_l_->stafsym_p_->TeXstring();
+	iter_top(line_of_score_l_->cols,cc);
 	Real lastpos=cc->hpos;
 
 	// all items in the current line & staff.
@@ -45,12 +45,12 @@ Line_of_staff::TeXstring() const
 	    // now output the items.
 
 	    for (iter_top(cc->its,i); i.ok(); i++) {
-		if (i->pstaff_ == pstaff_)
+		if (i->pstaff_l_ == pstaff_l_)
 		    s += i->TeXstring();
 	    }
 	    // spanners.
 	    for (iter_top(cc->starters,i); i.ok(); i++)
-		if (i->pstaff_ == pstaff_)
+		if (i->pstaff_l_ == pstaff_l_)
 		    s += i->TeXstring();
 	}
     }
@@ -60,19 +60,19 @@ Line_of_staff::TeXstring() const
 
 Line_of_staff::Line_of_staff(Line_of_score * sc, PStaff*st)
 {
-    line_of_score_=sc;
-    pstaff_=st;
+    line_of_score_l_=sc;
+    pstaff_l_=st;
 
     PCol *linestart = sc->cols.top();
     PCol *linestop = sc->cols.bottom();
     
-    for (iter_top(pstaff_->spans,i); i.ok(); i++) {
+    for (iter_top(pstaff_l_->spans,i); i.ok(); i++) {
 
 	PCol *brokenstart = &max(*linestart, *i->left);
 	PCol *brokenstop = &min(*linestop, *i->right);
 	if ( *brokenstart < *brokenstop) {
 	    Spanner*span_p =i->broken_at(brokenstart,brokenstop);
-	    line_of_score_->pscore_-> // higghl
+	    line_of_score_l_->pscore_l_-> // higghl
 		add_broken(span_p);
 	}
     }
@@ -82,19 +82,19 @@ Line_of_staff::Line_of_staff(Line_of_score * sc, PStaff*st)
 Interval
 Line_of_staff::height() const
 {
-    Interval y = pstaff_->stafsym->extent().y;
-    iter_top(line_of_score_->cols,cc);
+    Interval y = pstaff_l_->stafsym_p_->extent().y;
+    iter_top(line_of_score_l_->cols,cc);
     
     // all items in the current line & staff.
     for (; cc.ok(); cc++) {
 	for (iter_top(cc->its,i); i.ok(); i++) {
-	    if (i->pstaff_ == pstaff_) 
+	    if (i->pstaff_l_ == pstaff_l_) 
 		y.unite(i->height());
 	    
 	}
 	// spanners.
 	for (iter_top(cc->starters,i); i.ok(); i++)
-	    if (i->pstaff_ == pstaff_) {
+	    if (i->pstaff_l_ == pstaff_l_) {
 		y.unite(i->height());
 	    }
     }
@@ -105,7 +105,7 @@ Line_of_staff::height() const
 void
 Line_of_staff::process()
 {
-    if (!pstaff_->stafsym)
-	pstaff_->brew_molecule(line_of_score_->pscore_->
-			       paper_->linewidth);
+    if (!pstaff_l_->stafsym_p_)
+	pstaff_l_->brew_molecule(line_of_score_l_->pscore_l_->
+			       paper_l_->linewidth);
 }

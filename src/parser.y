@@ -2,7 +2,6 @@
 #include <iostream.h>
 
 #include "lookup.hh"
-
 #include "misc.hh"
 #include "lexer.hh"
 #include "paper.hh"
@@ -19,7 +18,7 @@
 #define YYDEBUG 1
 #endif
 
-svec<Request*> pre_reqs, post_reqs;
+Array<Request*> pre_reqs, post_reqs;
 
 Paperdef*default_paper();
 %}
@@ -42,9 +41,9 @@ Paperdef*default_paper();
     char c;
     int ii[10];
 
-    svec<String> * strvec;
-    svec<Input_command*> *commandvec;
-    svec<int> *intvec;
+    Array<String> * strvec;
+    Array<Input_command*> *commandvec;
+    Array<int> *intvec;
 
     Input_staff *staff;    
     Input_score *score;
@@ -72,11 +71,11 @@ Paperdef*default_paper();
 %token <ii> NOTENAME 
 %token <real> REAL
 %token <string> STRING
-%token <c> OPEN_REQUEST_PARENS CLOSE_REQUEST_PARENS
+
 %token <i> DOTS INT
 %type <consstr> unit
 %type <intvec> pitch_list
-
+%type <c> open_request_parens close_request_parens
 %type <id> declaration
 %type <string> declarable_identifier
 %type <paper> paper_block paper_body
@@ -204,7 +203,7 @@ score_commands_block:
 	COMMANDS '{' score_commands_body '}' { $$ =$3;}
 	;
 
-score_commands_body:			{ $$ = new svec<Input_command*>; }
+score_commands_body:			{ $$ = new Array<Input_command*>; }
 	| score_commands_body score_command		{
 		$$->add($2);
 	}
@@ -215,7 +214,7 @@ staff_commands_block: COMMANDS '{' staff_commands_body '}'	{
 	;
 
 staff_commands_body:
-	/* empty */			{ $$ = new svec<Input_command*>; }
+	/* empty */			{ $$ = new Array<Input_command*>; }
 	| staff_commands_body staff_command	{
 		$$->add($2);
 	}
@@ -246,6 +245,10 @@ skipcommand:
 
 score_command:
 	skipcommand
+	| BAR STRING			{
+		$$ = get_bar_command(*$2);
+		delete $2;
+	}
 	| METER  int int		{
 		$$ = get_meterchange_command($2, $3);
 	}
@@ -377,9 +380,19 @@ post_requests:
 	;
 
 post_request:
-	CLOSE_REQUEST_PARENS		{ $$ = get_request($1); }
+	close_request_parens		{ $$ = get_request($1); }
 	| script_req
 	| textscript_req
+	;
+close_request_parens:
+	'('	{ $$='('; }
+	|']'	{ $$ = ']' }
+	;
+
+open_request_parens:
+	'|' 	{$$='|'}
+	|')'	{$$=')'}
+	|'['	{$$='['}
 	;
 
 script_definition:
@@ -434,7 +447,7 @@ pre_requests:
 	;
 
 pre_request: 
-	OPEN_REQUEST_PARENS		{ $$ = get_request($1); }
+	open_request_parens		{ $$ = get_request($1); }
 	;
 
 
@@ -489,7 +502,7 @@ voice_elt:
 	UTILITIES
 */
 pitch_list:			{
-		$$ = new svec<int>;
+		$$ = new Array<int>;
 	}
 	| pitch_list NOTENAME	{
 		$$->add($2[0]);
@@ -508,7 +521,7 @@ int:
 
 int_list:
 	/* */ 		{
-		$$ = new svec<int>;
+		$$ = new Array<int>;
 	}
 	| int_list int		{
 		$$->add($2);

@@ -1,5 +1,5 @@
 /*
-  UGR
+  UGR!! CHAOS RULEZ
   */
 #include "textspanner.hh"
 #include "script.hh"
@@ -23,15 +23,15 @@
 #include "textitem.hh"
 
 Rhythmic_grouping
-parse_grouping(svec<Scalar> a, Moment one_beat)
+parse_grouping(Array<Scalar> a, Moment one_beat)
 {
-    svec<int> r;
-    for (int i= 0 ; i < a.sz(); i++)
+    Array<int> r;
+    for (int i= 0 ; i < a.size(); i++)
 	r.add(a[i]);
     Moment here =0.0;
 
-    svec<Rhythmic_grouping*> children;
-    for (int i=0; i < r.sz(); i++) {
+    Array<Rhythmic_grouping*> children;
+    for (int i=0; i < r.size(); i++) {
 	
 	Moment last = here;
 	here += one_beat * r[i];
@@ -45,19 +45,19 @@ parse_grouping(svec<Scalar> a, Moment one_beat)
 void
 Simple_walker::do_INTERPRET_command(Command*com)
 {
-    svec<Scalar> args(com->args);
+    Array<Scalar> args(com->args);
     args.del(0);
     if (com->args[0] == "GROUPING") {	
 	default_grouping = parse_grouping(args,
 					  col()->tdescription_->one_beat);
-    }else if (com->args[0] == "BAR") {
+    }else if (com->args[0] == "NEWMEASURE") {
 	local_key_.reset(key_);
 
     } else if (com->args[0] == "KEY") {
 	
 	if (col()->when() > Moment(0)) {
 	    assert(!oldkey_undo);
-	    oldkey_undo = new svec<int>( key_.oldkey_undo(args));
+	    oldkey_undo = new Array<int>( key_.oldkey_undo(args));
 	}
 	
 	typesetkey = key_.read(args);
@@ -84,7 +84,13 @@ Simple_walker::do_TYPESET_command(Command*com)
 	if (processed_clef) 
 	    return;
     }
-    
+    if (com->args[0] == "BAR") {
+	
+	if (processed_bar_priority > com->priority)
+	    return;
+	else
+	    processed_bar_priority = com->priority;
+    }
 
     Item* i = staff()->get_TYPESET_item(com);
     if (!i)
@@ -132,11 +138,13 @@ Simple_walker::do_note(Note_info n)
     	Item*rhythmic=0;
     if (n.rq->note()) {
 	Note_req * req = n.rq->note() ;
-	const Voice *v = req->elt->voice_;
+	const Voice *v = req->elt_l_->voice_;
 
 	Notehead*n = s->get_notehead(req, clef_.c0_pos);
 	rhythmic=n;
-	stem_->add(n);
+	if (stem_)
+	    stem_->add(n);
+	
 	if (current_grouping) {
 	    current_grouping->add_child(
 		c->tdescription_->whole_in_measure, req->duration());
@@ -168,14 +176,15 @@ Simple_walker::process_requests()
 	    error("Too many beams (t = "
 			  +String(c->when())+")");
 	beam_ = new Beam;
+	assert(!current_grouping);
 	current_grouping = new Rhythmic_grouping;
     }
     
-    for (int i=0; i < c->slurs.sz(); i++) {
+    for (int i=0; i < c->slurs.size(); i++) {
 	Slur_req*sl = c->slurs[i];
 
 	if (sl->spantype == Span_req::START) {
-	    if  (find_slur(sl->elt->voice_ )>=0)
+	    if  (find_slur(sl->elt_l_->voice_ )>=0)
 		error_t("Too many slurs in voice", col()->when());
 	    pending_slur_reqs.add(sl);
 	    pending_slurs.add(new Slur);
@@ -190,7 +199,7 @@ Simple_walker::process_requests()
 	stem_ = s->get_stem(c->stem_->stem(), c->stem_requester_len);
     }
     
-    for (int i = 0; i <  c->notes.sz(); i ++)  {
+    for (int i = 0; i <  c->notes.size(); i ++)  {
 	do_note(c->notes[i]);
     }
     
@@ -208,6 +217,7 @@ Simple_walker::process_requests()
 	/* needed, otherwise placement of
 	   local_key fucks up */
     }
+
     if (c->beam_&& c->beam_->spantype == Span_req::STOP) {
 	beam_->set_grouping(default_grouping, *current_grouping);
 	pscore_->typeset_spanner(beam_, s->theline);
@@ -223,7 +233,7 @@ Simple_walker::process_requests()
 	delete current_grouping;
 	current_grouping =0;
     }
-    for (int i = 0; i < noteheads.sz(); i++) {
+    for (int i = 0; i < noteheads.size(); i++) {
 	c->typeset_item(noteheads[i]);
     }
     noteheads.set_size(0);
@@ -235,13 +245,13 @@ Simple_walker::process_requests()
     if (stem_) {
 	stem_ = 0;
     }
-    for (int i=0; i < c->slurs.sz(); i++) {
+    for (int i=0; i < c->slurs.size(); i++) {
 	Slur_req *sl = c->slurs[i];
 
 	if (sl->spantype == Span_req::STOP) {
-	    int idx = find_slur(sl->elt->voice_);
+	    int idx = find_slur(sl->elt_l_->voice_);
 	    if (idx < 0)
-		error("can't find slur to end");
+		error_t("can't find slur to end; ", c->when());
 	    
 	    pscore_->typeset_spanner(pending_slurs[idx],
 				     s->theline);
@@ -253,7 +263,7 @@ Simple_walker::process_requests()
 }
 
 Simple_walker::Simple_walker(Simple_staff*s)
-    : Staff_walker(s, s->theline->pscore_)
+    : Staff_walker(s, s->theline->pscore_l_)
 {
     stem_ = 0;
     beam_ =0;
@@ -285,13 +295,14 @@ Simple_walker::reset()
 {
     processed_clef =false;    
     processed_key = false;
+    processed_bar_priority = 0;
 }
 
 int
 Simple_walker::find_slur(const Voice *v)
 {
-    for (int i=0; i < pending_slur_reqs.sz(); i++) {
-	if (pending_slur_reqs[i]->elt->voice_ == v)
+    for (int i=0; i < pending_slur_reqs.size(); i++) {
+	if (pending_slur_reqs[i]->elt_l_->voice_ == v)
 	    return i;
     }
     return -1;

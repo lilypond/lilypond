@@ -19,7 +19,7 @@
 struct Simple_staff;
 struct Note_info {
     Rhythmic_req *rq;
-    svec<Script_req*> scripts;
+    Array<Script_req*> scripts;
     Note_info();
     Note_info(Rhythmic_req*);
 };
@@ -27,8 +27,8 @@ struct Note_info {
 /// column of Simple_staff: store one request
 struct Simple_column : Staff_column {
 
-    svec<Note_info> notes;
-    svec<Slur_req *> slurs;
+    Array<Note_info> notes;
+    Array<Slur_req *> slurs;
     Stem_req *stem_;
     Moment stem_requester_len;
     Beam_req *beam_;

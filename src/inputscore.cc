@@ -6,10 +6,10 @@
 #include "paper.hh"
 
 void
-Input_score::add(svec<Input_command*> &s)
+Input_score::add(Array<Input_command*> &s)
 {
     commands_.bottom().add(get_reset_command());
-    for (int i=0; i < s.sz(); i++)
+    for (int i=0; i < s.size(); i++)
 	commands_.bottom().add(s[i]);
 }
 
@@ -29,19 +29,20 @@ Input_score::set(Paperdef*p)
 Score*
 Input_score::parse()
 {
-    Paperdef* p=new Paperdef(*paper_);
-    Score *s = new Score(p);
+    Paperdef* paper_p=new Paperdef(*paper_);
+    Score *s_p = new Score(paper_p);
     
     for (iter_top(staffs_,i); i.ok(); i++) {
-	Staff* staf=i->parse(commands_);
-	s->add(staf);
+	Staff* staf_p=i->parse(commands_, s_p);
+	s_p->add(staf_p);
     }
-    return s;
+    return s_p;
 }
 
 Input_score::~Input_score()
 {
-    // should fix paper/symtabs to allow this deletion.
+    // TODO!
+//should fix paper/symtabs to allow this deletion.
 //    delete paper_;
 }
 

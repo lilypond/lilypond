@@ -13,32 +13,33 @@ struct PCol {
     
 
     /// prebreak is put before end of line.
-    PCol *prebreak;
+    PCol *prebreak_p_;
     /**
     if broken here, then (*this) column is discarded, and prebreak
     is put at end of line, owned by Col
     */
 
     /// postbreak at beginning of the new line
-    PCol *postbreak;
+    PCol *postbreak_p_;
     /**  \See{prebreak}
     */
     
-    PCol *daddy;
+    PCol *daddy_l_;
     /** if this column is pre or postbreak, then this field points to
      the parent.  */
     
     /// if lines are broken then this column is in #line#
-    const Line_of_score *line;
+    const Line_of_score *line_l_;
 
     /// if lines are broken then this column x-coord #hpos#
     Real hpos;
 
-    PScore * pscore_;
+    PScore * pscore_l_;
 
     /****************/
     /// which  one (left =0)
     int rank() const;
+
     /// does this column have items, does it have spacings attached?
     bool used() const;
     
@@ -62,6 +63,8 @@ struct PCol {
     void OK() const;
     void set_breakable();
     void print()const;
+private:
+    PCol(PCol const&){}
 };
 /**
     This is a class to address items vertically. It contains the data for:

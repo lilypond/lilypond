@@ -10,7 +10,7 @@
 /// a horizontally fixed size element of the score
 struct Item : Staff_elem {
     /// indirection to the column it is in
-    PCol * pcol_;
+    PCol * pcol_l_;
 
     /****************/
     

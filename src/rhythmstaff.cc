@@ -25,7 +25,7 @@ Rhythmic_staff::get_TYPESET_item(Command *com)
     Item *i = Simple_staff::get_TYPESET_item(com);
     if (!i) return 0;
     i->translate(Offset(0,
-			-score_->paper_->standard_height()/2));
+			-score_l_->paper_p_->standard_height()/2));
     return i;
 }
 

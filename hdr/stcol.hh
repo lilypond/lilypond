@@ -7,19 +7,19 @@
 #ifndef STCOL_HH
 #define STCOL_HH
 #include "proto.hh"
-#include "vray.hh"
+#include "varray.hh"
 #include "moment.hh"
 
 /// store simultaneous requests
 struct Staff_column {
-    /// indirection
-    Score_column *score_column;
+
+    Score_column *score_column_l_;
 
     /// fields to collect data vertically.
-    svec<Voice_element *> v_elts;
+    Array<Voice_element *> v_elts;
 
     /// idem
-    Staff_commands_at *s_commands;
+    Staff_commands_at *staff_commands_p_;
 
     Time_description *tdescription_;
     
@@ -29,7 +29,7 @@ struct Staff_column {
     bool mus() const;
     Moment when() const;
     void add(Voice_element*ve);
-
+    void OK() const;
     /****************************************************************
       VIRTUAL
     ****************************************************************/
@@ -37,6 +37,8 @@ struct Staff_column {
     virtual void process_requests()=0;
 
     virtual ~Staff_column();
+private:
+    Staff_column(Staff_column const&){}
 };
 
 

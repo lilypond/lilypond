@@ -4,6 +4,11 @@
 #include "sccol.hh"
 
 Staff_walker::~Staff_walker() {}
+Staff_walker::Staff_walker(Staff_walker const &s)
+    :PCursor<Staff_column*> (s)
+{
+    assert(false);
+}
 
 Staff_walker::Staff_walker(Staff * s, PScore*ps )
     : PCursor<Staff_column*> (s->cols)
@@ -23,8 +28,8 @@ void
 Staff_walker::process()
 {
     break_status = BREAK_END - BREAK_PRE;
-    if (ptr()->s_commands)
-	for (iter_top(*ptr()->s_commands,i); i.ok(); i++) {
+    if (ptr()->staff_commands_p_)
+	for (iter_top(*ptr()->staff_commands_p_,i); i.ok(); i++) {
 	    process_command(i);
     }
 
@@ -40,7 +45,7 @@ Staff_walker::process_command(Command*com)
     case BREAK_MIDDLE:
     case BREAK_POST:
     case BREAK_END:
-	(*this)->score_column->set_breakable();
+	(*this)->score_column_l_->set_breakable();
 	break_status = com->code- BREAK_PRE;
 	break;
     case INTERPRET:

@@ -16,7 +16,6 @@ ostream * nulldev = new ofstream("/dev/null");
 void
 mynewhandler()
 {
-    cerr << "Out of free store memory. Aborting.. "<< flush;
     assert(false);
 }
 
@@ -30,7 +29,9 @@ float_handler(int)
 void
 debug_init()
 {
+#ifndef NDEBUG
     set_new_handler(&mynewhandler);
+#endif
     set_matrix_debug(monitor);
     signal(SIGFPE, float_handler);
 }   
@@ -44,32 +45,3 @@ set_debug(bool b)
 }
 
 
-#if 0 // want to debug mem functions
-
-
-/// 
-static
-void foobulize(void *p , size_t s)
-{
-//    assert(s < 2000000);
-    memset(p, 0xf0, s);
-}
-/**
-  trash a portion of memory. Make sure access to deleted stuff is bogus.
-  */
-void *
-operator new (size_t s)
-{
-    void *p = malloc(s);
-    assert(p);
-//    foobulize(p,s);
-    return p;
-}
-
-void
-operator delete(void *p, size_t s)
-{
-    foobulize(p,s);
-    free(p);
-}
-#endif

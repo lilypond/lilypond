@@ -28,6 +28,8 @@ struct Identifier {
     IDACCESSOR(Music_general_chord, mchord)
     IDACCESSOR(Lookup,lookup)
     IDACCESSOR(Notename_tab, notename_tab)
+private:
+    Identifier(Identifier const&){}
 };
 #endif // IDENTPARENT_HH
 

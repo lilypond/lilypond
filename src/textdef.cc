@@ -13,7 +13,7 @@ Text_def::Text_def()
 Atom
 Text_def::create(Paperdef*p) const
 {
-    return p->lookup_->text(style, text, -align);
+    return p->lookup_p_->text(style, text, -align);
 }
 
 void

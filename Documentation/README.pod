@@ -9,25 +9,134 @@ Lilypond - a music typesetter
 =head1 DESCRIPTION
 
 LilyPond typesets music. It translates script files (mudela files or
-F<.ly>'s) into TeX input.
+F<.ly>'s) into TeX input.  Typesetting music is a complex task,
+whereas the message that printed music conveys is usually a simple
+one. LilyPond is a try at providing a simple interface for setting
+music LilyPond has these features:
+
+
+=over 5
+
+=item * ASCII script input, with identifiers (for music reuse),
+customizable notenames, customizable fontset
+
+=item *
+multiple staffs in one score
+
+=item *
+multiple stafftypes (melodic, rhythmic)
+
+=item *
+beams, slurs, chords, super/subscripts (accents and text),
+triplets, clef changes, meter changes, general n-plet (triplet,
+quadruplets, etc.)
+
+=item *
+multiple scores within one input file. Each score is output to
+a different file.
+
+=back
+
+=head1 DESIGN CONSIDERATIONS
+
+LilyPond was written with some
+considerations in mind:
+
+=over 5
+
+=item *
+Describing a well-defined language for defining music. We call this
+language (rather arrogantly) The Musical Definition Language (mudela
+for short). LilyPond reads a mudela sourcefile
+and outputs a TeX file.  This musical definition language should:
+
+=over 5
+
+=item 1
+define the musical message of the writer as unambigiously as
+possible.
+
+=item 2
+be easily readable. (as compared to, say, MusixTeX input)
+
+=item 3
+be writable in ASCII (with a simple texteditor).
+
+=back
+
+At this time, the language isn't yet defined precisely. It is evolving as
+LilyPond is getting more complex.
+
+=item *
+We want to provide an easy-to-use interface for typesetting music in
+its broadest sense. This interface should be intuitive from a musical
+point of view. By broadest sense we mean: it is designed for music
+printed left to right in staffs, using notes to designate rythm and
+pitch.
+
+=item *
+LilyPond uses MusiXTeX fonts and TeX for its output. This is not a key
+issue: in a future version, LilyPond might bypass TeX, but at the moment
+TeX is very convenient for producing output.
+
+=item  *
+ Generate high-quality output. Ideally it should be of a professional
+quality. We'd like to render Herbert Chlapiks words, "Fine music
+setting is not possible without a knowledgeable printer,"  untrue.
+
+=item *
+LilyPond does not display notes directly, nor will it be rehacked to be
+used interactively. LilyPond writes output to a file.  It will not be
+extended to play music, or to recognize music.
+
+We're thinking about adding MIDI output, though
+
+=item *
+LilyPond is intended to run on Unix platforms, but it should
+be portable to any platform which can run TeX and the GNU tools
+
+=item *
+LilyPond is free. Commercial windows packages for setting music are
+abundant. Free musicprinting software is scarce.
+
+=item *
+LilyPond is written in GNU C++. It will not be downgraded/ported to fit
+broken systems.
+
+=back
+
+
 
 =head1 OPTIONS
 
+=over 5
+
 =item 	B<-d,--debug>,
-debugging
+
+debugging. LilyPond will read the file F<.dstreamrc>, which tells for what functions to produce copious debugging output. 
 
 =item 	B<-w,--warranty>,
+
 warranty
 
 =item  B<-o,--output>,
+
 default output file
 
 =item 	B<-h,--help>,
+
 help
 
-=head1 LICENSE
+=back
 
-GNU GPL. See file COPYING
+=head1 
+DISCLAIMER & COPYING POLICY
+
+LilyPond is copyright 1996,97 by its authors. LilyPond is
+distributed under the terms of the GNU General Public
+License. LilyPond is provided without any warranty what so ever.
+LilyPond may be freely distributed.  For further information consult
+the GNU General Public License, which is in the file F<COPYING>
 
 =head1 PREREQUISITES
 
@@ -35,36 +144,45 @@ Compilation:
 
 =over 5
 
-=item	- Unix (any decent Linux distribution is fine)
+=item *
+ Unix. Any decent Linux distribution is fine. LilyPond is known to run
+on Linux and Solaris
 
-=item	- GNU C++ v2.7  or better (with libg++ )
+=item *
+ GNU C++ v2.7  or better (with libg++ )
 
-=item	- GNU make.
+=item *
+ GNU make.
 
-=item	- flex (2.5.1 or better)
+=item *
+ flex (2.5.1 or better)
 
-=item	- bison/yacc
+=item *
+bison/yacc
 
-=item	- The "flower" library,
+=item *
+The "flower" library,
 which should be available from the
 same source you got this from.
 
-=item	- perl
+=item *
+perl
 
 =back
+
+
+The Makefile uses  perl for trivial operations,  and you could  tinker
+with it to use sed or awk.
 
 Operation:
 
 =over 5
 
-=item	TeX
+=item *	TeX
 
-=item	the MusixTeX fonts
+=item *	the MusixTeX fonts
 
 =back
-
-The Makefile uses  perl for trivial operations,  and you could  tinker
-with it to use sed or awk.
 
 =head1 COMPILING
 
@@ -77,27 +195,48 @@ Do:
 	cd lilypond-1.2.13
 	make
 
+You might want to edit Variables.make to tailor the compilation flags.
 why G++ >= 2.7? LilyPond & flower lib uses:
 
 =over 5
 
-=item	builtin bool
+=item *
+builtin bool
 
-=item	typeof
+=item *
+typeof
 
-=item	operator <?, operator >?
+=item	 *
+operator <?, operator >?
 
-=item	the new for-scope
+=item	 *
+the new for-scope
 
-=item	class Rational (libg++)
+=item	 *
+class Rational (libg++)
 
-=item	named return values
+=item	 *
+named return values
 
 =back
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Han-Wen Nienhuys <hanwen@stack.nl>, <jan@digicash.com>
+=over 5
+
+=item *
+Han-Wen Nienhuys <hanwen@stack.nl>, Main author
+
+=item *
+Jan Nieuwenhuizen <jan@digicash.com>, bits of FlowerLib, general comments.
+
+=item *
+Mats Bengtsson <matsb@s3.kth.se>, bugfixes, testing.
+
+=back
+
+Your name could be here! If you want to help, then take a look at the
+SMALLISH PROJECTS section of LilyPond. Some do not involve coding C++
 
 =head1 EXAMPLES
 
@@ -133,8 +272,10 @@ Check out kortjakje.ly, it has some comments
 
 =head1 PROBLEMS
 
-If LilyPond bombs out, then please recompile using B<-g>, and send a gdb
-stacktrace of the crash. It also helps if you can print the values of the objects. So if you trace is
+If LilyPond bombs out, then please recompile using B<-g>, and send a
+copy of the input which causes the error and a gdb stacktrace of the
+crash. It also helps if you can print the values of the objects. So if
+you trace is
 
 	(gdb) backtrace 12
 	#0  Interval::operator+= (this=0x11fffec60..)
@@ -148,7 +289,7 @@ Than it would help if you send a dump of the Interval and the Item
 (use: 'print *this' or use LilyPond print() methods).
 
 This is a beta version of LilyPond. Please send your helpful comments
-and patches to me,
+and patches to me (see AUTHORS section)
 
 LilyPond is updated very frequently, the latest version is always available at:
 
@@ -160,16 +301,11 @@ F<ftp://pcnov095.win.tue.nl/pub/lilypond>
 F<symbol.ini> The initialisation file with symbol tables etc. It
 includes files from the directory F<init/>.
 
-=head1 HOW DOES IT WORK
+=head1 SEE ALSO
 
-=over 5
+lilygut(1), lilyinput(1)
 
-Use The Source, Luke. If you don't know C++, you can try editing
-the file F<.dstreamrc> for copious debugging output. (use B<-d>)
+=head1 REMARKS
 
-the subdir F<Documentation/> contains some more-in-depth matter on LilyPond
-
-The source is commented in the DOC++ style.  Check out doc++ at
-F<http://www.ZIB-Berlin.DE/VisPar/doc++/doc++.html>
-
-=back
+LilyPond has no connection with the music package RoseGarden, other
+than the names being similar.
