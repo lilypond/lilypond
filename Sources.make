@@ -39,7 +39,7 @@ mycc=   qlp.cc qlpsolve.cc leastsquares.cc\
 	swalker.cc scoreline.cc\
 	simplewalker.cc\
 	texbeam.cc texslur.cc clef.cc key.cc slur.cc beam.cc\
-	idealspacing.cc inputcommand.cc grouping.cc\
+	idealspacing.cc inputcommand.cc grouping.cc identifier.cc\
 	template1.cc template2.cc template3.cc template4.cc\
 	version.cc
 

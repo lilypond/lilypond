@@ -6,10 +6,11 @@
 OPTIFLAG=-DNDEBUG -DNPRINT -O2
 DEBUGFLAG=-g
 # turn off -pipe if linker doesn't support it
-EXTRACXXFLAGS=-pipe -Wall -W  -pedantic 
+EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes 
+#	-Woverloaded-virtual
 
 ####
-#### EN USER CONFIGURABLE part.
+#### END USER CONFIGURABLE part.
 ####
 
 ifdef PROFILEFLAG
@@ -28,8 +29,9 @@ endif
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=15
+PATCHLEVEL=16
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
+CXXVER=`$(CXX) --version`
 
 # directories
 TOPDIR  := $(shell if [ "$$PWD" != "" ]; then echo $$PWD; else pwd; fi)
