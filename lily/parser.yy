@@ -457,7 +457,6 @@ toplevel_expression:
 		   id = id ? id->clone () : new Paper_def;
 	
 		   default_rendering (sc->music_, id->self_scm (), head, outname);
-
  		   scm_gc_unprotect_object (id->self_scm ());
 		}
  		scm_gc_unprotect_object (sc->self_scm ());

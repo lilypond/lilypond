@@ -7,6 +7,7 @@
 */
 
 #include <stdio.h>
+#include <math.h>
 
 #include "ly-module.hh"
 #include "main.hh"
@@ -15,6 +16,9 @@
 #include "paper-outputter.hh"
 #include "paper-score.hh"
 #include "stencil.hh"
+
+static Real const MIN_COVERAGE = 0.66;
+static Real const MAX_CRAMP = 0.05;
 
 static SCM
 stencil2line (Stencil* stil)
@@ -121,6 +125,14 @@ Page::output (Paper_outputter *out, bool is_last)
   Offset o (left_margin_, top_margin_);
   Real vfill = line_count_ > 1 ? (text_height () - height_) / (line_count_ - 1)
     : 0;
+
+  Real coverage = height_ / text_height ();
+  if (coverage < MIN_COVERAGE)
+    /* Do not space out a badly filled page.  This is too simplistic
+       (ie broken), because this should not vary too much between
+       (subsequent?) pages in a book.  */
+    vfill = 0;
+
   if (get_header ())
     {
       out->output_line (stencil2line (get_header ()), &o, false);
@@ -138,8 +150,20 @@ Page::output (Paper_outputter *out, bool is_last)
       if (gh_pair_p (ly_cdr (s)) && ly_car (offset) != ly_symbol2scm ("title"))
 	o[Y_AXIS] += vfill; 
     }
+
+#if 0
   if (get_copyright () || get_tagline () || get_footer ())
     o[Y_AXIS] += foot_sep_;
+#else
+  o[Y_AXIS] = vsize_ - bottom_margin_;
+  if (get_copyright ())
+    o[Y_AXIS] -= get_copyright ()->extent (Y_AXIS).length ();
+  if (get_tagline ())
+    o[Y_AXIS] -= get_tagline ()->extent (Y_AXIS).length ();
+  if (get_footer ())
+    o[Y_AXIS] -= get_footer ()->extent (Y_AXIS).length ();
+#endif
+
   if (get_copyright ())
     out->output_line (stencil2line (get_copyright ()), &o,
 		      is_last && !get_tagline () && !get_footer ());
@@ -241,29 +265,26 @@ Paper_book::get_title (int i)
   return title;
 }
 
-/* Ideas:
-   - real page breaking algorithm (Gourlay?)
-   - override: # pages, or pageBreakLines= #'(3 3 4), ?  */
-Link_array<Page>*
-Paper_book::get_pages ()
+/* calculate book height, #lines, stencils.  */
+void
+Paper_book::init ()
 {
-  Link_array<Page> *pages = new Link_array<Page>;
   int score_count = scores_.size ();
 
   /* Calculate the full book height.  Hmm, can't we cache system
      heights while making stencils?  */
-  Real book_height = 0;
+  height_ = 0;
   for (int i = 0; i < score_count; i++)
     {
       Stencil *title = get_title (i);
       if (title)
-	book_height += title->extent (Y_AXIS).length ();
+	height_ += title->extent (Y_AXIS).length ();
 
       int line_count = SCM_VECTOR_LENGTH ((SCM) scores_[i]);
       for (int j = 0; j < line_count; j++)
 	{
 	  SCM line = scm_vector_ref ((SCM) scores_[i], scm_int2num (j));
-	  book_height += ly_scm2offset (ly_car (line))[Y_AXIS];
+	  height_ += ly_scm2offset (ly_car (line))[Y_AXIS];
 	}
     }
 
@@ -271,35 +292,104 @@ Paper_book::get_pages ()
   SCM scopes = get_scopes (0);
 
   SCM make_tagline = scm_primitive_eval (ly_symbol2scm ("make-tagline"));
-  SCM tagline = scm_call_2 (make_tagline, paper->smobbed_copy (), scopes);
+  tagline_ = scm_call_2 (make_tagline, paper->smobbed_copy (), scopes);
   Real tag_height = 0;
-  if (Stencil *s = unsmob_stencil (tagline))
+  if (Stencil *s = unsmob_stencil (tagline_))
     tag_height = s->extent (Y_AXIS).length ();
-  book_height += tag_height;
+  height_ += tag_height;
 
   SCM make_copyright = scm_primitive_eval (ly_symbol2scm ("make-copyright"));
-  SCM copyright = scm_call_2 (make_copyright, paper->smobbed_copy (), scopes);
+  copyright_ = scm_call_2 (make_copyright, paper->smobbed_copy (), scopes);
   Real copy_height = 0;
-  if (Stencil *s = unsmob_stencil (copyright))
+  if (Stencil *s = unsmob_stencil (copyright_))
     copy_height = s->extent (Y_AXIS).length ();
-  book_height += copy_height;
-  
-  Page::page_count_ = 0;
-  int page_number = 0;
-  Page *page = new Page (paper, ++page_number);
-  int page_count = int (book_height / page->text_height () + 0.5);
-  if (unsmob_stencil (copyright))
-    page->copyright_ = copyright;
-  if (unsmob_stencil (tagline) && page_number == page_count)
-    page->tagline_ = tagline;
-  
-#if 0  
-  fprintf (stderr, "book_height: %f\n", book_height);
-  fprintf (stderr, "vsize: %f\n", page->vsize_);
-  fprintf (stderr, "pages: %d\n", page_count);
-#endif
+  height_ += copy_height;
+}
 
-  /* Simplistic page breaking.  */
+/* Ideas:
+   - real page breaking algorithm (Gourlay?)
+     Hmmughr, Gourlay uses Grobs, columns etc -- looks like it needs serious
+     refactoring before it can be applied to Page breaking...
+   - override: # pages, or pageBreakLines= #'(3 3 4), ?  */
+Link_array<Page>*
+Paper_book::get_pages ()
+{
+  init ();
+  Page::page_count_ = 0;
+  Paper_def *paper = papers_[0];
+  Page *page = new Page (paper, 1);
+
+  Real text_height = page->text_height ();
+  Real page_frac = height_ / text_height;
+  int page_count = (int) ceil (page_frac);
+  if (unsmob_stencil (copyright_))
+    page->copyright_ = copyright_;
+  if (unsmob_stencil (tagline_) && page_count == 1)
+    page->tagline_ = tagline_;
+
+  /* Attempt to fill pages better using FUDGE kludge.  */
+  Real r = page_frac - (int) page_frac;
+  Real cramp_fudge = page_count > 1 ? (r / (page_count - 1)) * text_height : 0;
+  Real expand_fudge = - ((1 - r) / page_count) * text_height;
+  
+  Link_array<Page>* pages = 0;
+  if ((page_count > 1 && (r / (page_count - 1)) < MAX_CRAMP))
+    {
+      /* Just a little more space (<MAX_CRAMP) per page is needed,
+	 cramp onto one page less.  */
+      pages = fill_pages (page, page_count - 1, cramp_fudge);
+      if (pages->size () != page_count - 1)
+	{
+	  /* Cramping failed.  */
+	  page = pages->get (0);
+	  delete pages;
+	  pages = 0;
+	}
+    }      
+  if (!pages && ((1 - r) / page_count) < 1 - MIN_COVERAGE)
+    {
+      /* There is space left, but not so much that paged would have too
+	 little blackness (< MIN_COVERAGE), distribute evenly.  */
+      pages = fill_pages (page, page_count, expand_fudge);
+      bool badly_covered = false;
+      if (pages->size () == page_count)
+	for (int i = 0; i < page_count; i++)
+	  {
+	    Page *p = (*pages)[i];
+	    Real coverage = p ->height_ / p->text_height ();
+	    if (coverage < MIN_COVERAGE)
+	      {
+		badly_covered = true;
+		break;
+	      }
+	  }
+      if (pages->size () != page_count || badly_covered)
+	{
+	  /* expanding failed.  */
+	  page = pages->get (0);
+	  delete pages;
+	  pages = 0;
+	}
+    }
+  
+  if (!pages)
+    /* Fudging failed; just fill pages.  */
+    pages = fill_pages (page, page_count, 0);
+  return pages;
+}
+
+/* Simplistic page breaking:
+   add lines until HEIGHT > PAGE.TEXT_HEIGHT_ + FUDGE  */
+Link_array<Page>*
+Paper_book::fill_pages (Page *page, int page_count, Real fudge)
+{
+  int page_number = 1;
+  int score_count = scores_.size ();
+  Paper_def *paper = papers_[0];
+  Link_array<Page> *pages = new Link_array<Page>;
+  page->lines_ = SCM_EOL;
+  page->height_ = 0;
+  page->line_count_ = 0;
   Real text_height = page->text_height ();
   for (int i = 0; i < score_count; i++)
     {
@@ -313,27 +403,33 @@ Paper_book::get_pages ()
 	{
 	  SCM line = scm_vector_ref ((SCM) scores_[i], scm_int2num (j));
 	  h += ly_scm2offset (ly_car (line))[Y_AXIS];
-	  if (page->height_ + h > text_height)
+	  Real fill = (page->height_ - text_height) / text_height;
+	  // Real fill_h = (page->height_ + h - text_height) / text_height;
+	  Real fudged_fill = (page->height_ - (text_height + fudge))
+	    / (text_height + fudge);
+	  Real fudged_fill_h = ((page->height_ + h) - (text_height + fudge))
+	    / (text_height + fudge);
+	  if (fill > -MAX_CRAMP
+	      || (fudged_fill > -MAX_CRAMP
+		  && (fudge < 0
+		      || !(fudged_fill_h > 0
+			   && abs (fudged_fill_h) < 4 * abs (fudged_fill)))))
 	    {
 	      pages->push (page);
 	      page = new Page (paper, ++page_number);
-	      if (unsmob_stencil (tagline) && page_number == page_count)
-		page->tagline_ = tagline;
+	      if (unsmob_stencil (tagline_) && page_number == page_count)
+		page->tagline_ = tagline_;
 	      text_height = page->text_height ();
 	    }
-	  if (page->height_ + h <= text_height || page->height_ == 0)
-	    {
-	      if (j == 0 && title)
-		page->lines_
-		  = ly_snoc (title2line (title), page->lines_);
-	      page->lines_ = ly_snoc (line, page->lines_);
-	      page->line_count_++;
-	      page->height_ += h;
-	      h = 0;
-	    }
+	  if (j == 0 && title)
+	    page->lines_ = ly_snoc (title2line (title), page->lines_);
+	  page->lines_ = ly_snoc (line, page->lines_);
+	  page->line_count_++;
+	  page->height_ += h;
+	  h = 0;
 	}
     }
-  
+
   pages->push (page);
   return pages;
 }
