@@ -1,13 +1,13 @@
-%{MudelaHeader
-
- filename: standchen.ly
- title: St\"andchen (Serenade) "Leise flehen meine Lieder"
- opus:  D. 957 No. 4
- composers: Franz Schubert (1797-1828)
-	 Text by Ludwig Rellstab (1799-1860)
- entered-by:JCN
- copyright: public domain
-
+\header{
+filename	standchen.ly
+title		St\"andchen (Serenade) "Leise flehen meine Lieder"
+opus		D. 957 No. 4
+composers	Franz Schubert (1797-1828)
+		Text by Ludwig Rellstab (1799-1860)
+enteredby	JCN
+copyright	public domain
+}
+%{
  Tested Features: multivoice, accents, lyrics, chords, piano music
 
 EndMudelaHeader
@@ -480,11 +480,11 @@ tekstII = \lyric{
 		>
 	>
 	\paper{
-		linewidth= 195.\mm;
+		linewidth= 150.\mm;
 
+		gourlay_maxmeasures = 8.;
 		% on two pages...
 		unitspace= 9.\mm;
-		geometric= 1.2;
 		\output "standchen.out";
 	}
 	\midi{
