@@ -9,13 +9,16 @@
 
 #ifndef DIMENSION_CACHE_HH
 #define DIMENSION_CACHE_HH
+
 #include "interval.hh"
 #include "real.hh"
 #include "lily-proto.hh"
 #include "parray.hh"
 
 
-
+/**
+  Adminstration of offset  dimension info. 
+ */
 class Dimension_cache
 {
   bool valid_b_;
@@ -24,12 +27,18 @@ class Dimension_cache
    */
   bool empty_b_;
   Interval dim_;
+  /**
+    The offset wrt. to the center of #parent_l_#
+   */
   Real offset_;
   Graphical_element *elt_l_;
   friend class Graphical_element;
 
   void init ();
 public:
+  /** The #offset_# is defined with regard to this graphical_element/
+    dimension_cache.  */
+  
   Dimension_cache * parent_l_;
   Link_array<Dimension_cache> dependencies_l_arr_;
   
