@@ -19,7 +19,7 @@
 void
 Clef_item::do_pre_processing()
 {
-  translate_axis (y_position_i_ * staff_line_leading_f () / 2.0, Y_AXIS);
+  Staff_symbol_referencer::do_pre_processing();
   SCM style_sym =get_elt_property ("style");
   String style;
   if (style_sym != SCM_UNDEFINED)
@@ -42,7 +42,7 @@ Clef_item::Clef_item()
   set_elt_property ("breakable", SCM_BOOL_T);
 
   symbol_ = "treble";
-  y_position_i_ = -2;
+  set_position(-2);
 }
 
 void

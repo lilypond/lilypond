@@ -54,6 +54,9 @@ public:
   virtual ~Paper_def ();
 
   Array<Interval> shape_int_a_;
+  /*
+    JUNKME
+   */
   Real get_realvar (SCM symbol) const;
   Real get_var (String id) const;
 

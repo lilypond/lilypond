@@ -18,7 +18,6 @@ class Rhythmic_head : public Item, public Staff_symbol_referencer
 public:
   Stem * stem_l_;
   int balltype_i_;
-  int position_i_;
 
   Dots * dots_l_;
 
@@ -26,10 +25,9 @@ public:
   Rhythmic_head ();
 
   int dots_i ()const;
-  virtual Real position_f () const;
 protected:
   virtual void do_post_processing ();
-  virtual void do_pre_processing ();
+
   virtual void do_print () const;
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
 };

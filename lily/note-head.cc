@@ -33,7 +33,7 @@ Note_head::do_pre_processing ()
   if (balltype_i_ > 2)
     balltype_i_ = 2;
   if (dots_l_)			// move into Rhythmic_head?
-    dots_l_->position_i_ = int (position_f ());
+    dots_l_->set_position(int (position_f ()));
 }
 
 
@@ -67,7 +67,7 @@ Note_head::do_brew_molecule_p() const
 
 
   String type; 
-  SCM style  =get_elt_property ("style");
+  SCM style  = get_elt_property ("style");
   if (style != SCM_UNDEFINED)
     {
       type = ly_scm2string (style);

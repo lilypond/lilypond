@@ -23,7 +23,6 @@ protected:
   virtual void do_post_processing ();
 public:
   int dots_i_;
-  int position_i_;
   Direction resolve_dir_;
   
   Dots ();

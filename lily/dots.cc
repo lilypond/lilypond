@@ -14,7 +14,6 @@
 Dots::Dots ()
 {
   dots_i_ =0;
-  position_i_ =0;
   resolve_dir_ =CENTER;
 }
 
@@ -39,7 +38,7 @@ Dots::do_brew_molecule_p () const
 {
   Molecule *out = new Molecule;
   Molecule fill = lookup_l ()->fill (Box (Interval (0,0),
-					       Interval (0,0)));
+					  Interval (0,0)));
   out->add_molecule (fill);
 
   Molecule d = lookup_l ()->dots ();

@@ -15,7 +15,7 @@ Pitch_squash_engraver::acknowledge_element (Score_element_info i)
 {
   if (Note_head *nh = dynamic_cast<Note_head *> (i.elem_l_))
     {
-      nh->position_i_  =0;
+      nh->set_position(0);
     }
 }
 

@@ -14,6 +14,7 @@
 #include "spanner.hh"
 #include "item.hh"
 #include "staff-symbol-referencer.hh"
+#include "directional-element.hh"
 
 /**
    Position myself next to a set of elements.  Configurable in axis
@@ -25,15 +26,13 @@
 
     Amount of extra space to add.
 */
-class Staff_side_element :  public Staff_symbol_referencer
+class Staff_side_element :  public Staff_symbol_referencer,
+  public Directional_element
 {
   void position_self ();
-  Direction dir_;
+
 public:
   Score_element * to_position_l_;
-  
-  void set_direction (Direction d ) { dir_ =  d; }
-  Direction get_direction () const { return dir_; }
   
 
   Link_array<Score_element> support_l_arr_;

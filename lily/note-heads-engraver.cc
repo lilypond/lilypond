@@ -79,7 +79,7 @@ Note_heads_engraver::do_process_requests()
 	  announce_element (Score_element_info (d,0));
 	  dot_p_arr_.push (d);
 	}
-      note_p->position_i_  = note_req_l->pitch_.steps ();
+      note_p->set_position(note_req_l->pitch_.steps ());
 
       /*
 	TODO: transparent note heads.

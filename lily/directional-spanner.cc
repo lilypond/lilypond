@@ -13,10 +13,6 @@ Directional_spanner::do_pre_processing()
     set_direction (get_default_dir());
 }
 
-Directional_spanner::Directional_spanner()
-{
-  set_direction (CENTER);
-}
 
 Offset
 Directional_spanner::center () const

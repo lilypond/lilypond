@@ -39,7 +39,7 @@ Dot_column::do_substitute_element_pointer (Score_element*o,Score_element*n)
 int
 Dot_column::compare (Dots * const &d1, Dots * const &d2)
 {
-  return d1->position_i_ - d2->position_i_;
+  return int (d1->position_f () - d2->position_f ());
 }
 
 void
@@ -83,10 +83,11 @@ Dot_column::do_post_processing ()
   for (int i=0; i < dot_l_arr_.size (); i++)
     {
       for (int j=0; j < taken_posns.size (); j++)
-	if (taken_posns[j] == dot_l_arr_[i]->position_i_)
+	if (taken_posns[j] == (int) dot_l_arr_[i]->position_f ())
 	  conflicts++;
-      taken_posns.push (dot_l_arr_[i]->position_i_);
-      s.unite (Slice (dot_l_arr_[i]->position_i_,dot_l_arr_[i]->position_i_));      
+      taken_posns.push ((int)dot_l_arr_[i]->position_f ());
+      s.unite (Slice ((int)dot_l_arr_[i]->position_f (),
+		      (int)dot_l_arr_[i]->position_f ()));      
     }
 
   if (!conflicts)
@@ -102,6 +103,6 @@ Dot_column::do_post_processing ()
 
   for (int i=0; i  <dot_l_arr_.size (); pos += 2, i++)
     {
-      dot_l_arr_[i]->position_i_ = pos;
+      dot_l_arr_[i]->set_position(pos);
     }
 }

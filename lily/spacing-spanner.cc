@@ -269,7 +269,7 @@ Spacing_spanner::stem_dir_correction (Score_column*l, Score_column*r) const
 
   bool err = false;
   Real correction = 0.0;
-  Real ssc = paper_l ()->get_realvar(ly_symbol ("stemSpacingCorrection"));
+  Real ssc = paper_l ()->get_var("stemSpacingCorrection");
 
 
   if (d1 && d2)
