@@ -20,7 +20,14 @@ os.chdir (here)
 
 Import ('env')
 MFMODE = env['MFMODE']
-#ugh
+def tfm_log_enc_ly_tex (target, source, env):
+	base = os.path.splitext (str (target[0]))[0]
+	et = (map (lambda x: base + x, ['.log', '.enc', '.ly', '.tex']))
+	#es = (map (lambda x: base + '.mf', et))
+	#print `et`
+	#return (target + et, source + es)
+	return (target + et, source)
+
 outdir = os.path.join (env['build'], reldir, env['out'])
 tfm = Builder (action = ('(cd ' + outdir + ' && ' \
 			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
@@ -28,43 +35,8 @@ tfm = Builder (action = ('(cd ' + outdir + ' && ' \
 			 + ' input $$(basename $SOURCE);" ' \
 			 + ' | grep -v "@\|>>")') % vars (),
 	       suffix = '.tfm',
-	       src_suffix = '.mf')
-
-# How do do multiple targets?
-log = Builder (action = ('(cd ' + outdir + ' && ' \
-			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
-			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
-			 + ' input $$(basename $SOURCE);" ' \
-			 + ' | grep -v "@\|>>")') % vars (),
-	       suffix = '.log',
-	       src_suffix = '.mf')
-
-# How do do multiple targets?
-enc = Builder (action = ('(cd ' + outdir + ' && ' \
-			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
-			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
-			 + ' input $$(basename $SOURCE);" ' \
-			 + ' | grep -v "@\|>>")') % vars (),
-	       suffix = '.enc',
-	       src_suffix = '.mf')
-
-# How do do multiple targets?
-ly = Builder (action = ('(cd ' + outdir + ' && ' \
-			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
-			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
-			 + ' input $$(basename $SOURCE);" ' \
-			 + ' | grep -v "@\|>>")') % vars (),
-	       suffix = '.ly',
-	       src_suffix = '.mf')
-
-# How do do multiple targets?
-tex = Builder (action = ('(cd ' + outdir + ' && ' \
-			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
-			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
-			 + ' input $$(basename $SOURCE);" ' \
-			 + ' | grep -v "@\|>>")') % vars (),
-	       suffix = '.tex',
-	       src_suffix = '.mf')
+	       src_suffix = '.mf',
+	       emitter = tfm_log_enc_ly_tex)
 
 afm = Builder (action = (sys.executable
 			 + ' buildscripts/mf-to-table.py ' \
@@ -78,21 +50,17 @@ afm = Builder (action = (sys.executable
 	       src_suffix = '.log')
 
 # UGH, should fix --output option for mftrace
-pfa = Builder (action = ('mftrace -I%(outdir)s --pfa --simplify --keep-trying'\
+pfa = Builder (action = ('MFINPUTS=.:' + str (Dir ('#/mf')) \
+			 + ' mftrace -I %(outdir)s --pfa' \
+			 + ' --simplify --keep-trying' \
 			 + ' $$(basename $SOURCE .mf) ' \
 			 + ' && mv $$(basename $TARGET) $TARGET') % vars (),
 	       suffix = '.pfa',
 	       src_suffix = '.mf')
 
 
-xpfa = Builder (action = ('mftrace -I%(outdir)s --pfa --simplify --keep-trying'\
-			 + ' $$(basename $SOURCE .log) ' \
-			 + ' && mv $$(basename $TARGET) $TARGET') % vars (),
-	       suffix = '.pfa',
-	       src_suffix = '.log')
-
 e = env.Copy (BUILDERS = {'Tfm' : tfm,
-			  'Log' : log, 'Enc' : enc, 'Ly' : ly, 'Tex' : tex,
+			  #'Log' : log, 'Enc' : enc, 'Ly' : ly, 'Tex' : tex,
 			  'Afm' : afm, 'Pfa' : pfa},
 	      MFINPUTS = '#/mf')
 
@@ -103,22 +71,14 @@ t = map (e.Tfm, sources)
 a = map (e.Afm, sources)
 p = map (e.Pfa, sources)
 
-#ugh?
-w = map (e.Log, sources)
-x = map (e.Enc, sources)
-y = map (e.Ly, sources)
-z = map (e.Tex, sources)
-
-#map (lambda x: e.Depends (x + '.log', x + '.mf'), sources)
-#map (lambda x: e.Depends (x + '.afm', x + '.log'), sources)
-#map (lambda x: e.Depends (x + '.pfa', x + '.log'), sources)
+map (lambda x: e.Depends (x + '.pfa', x + '.log'), sources)
 
 tfmdir = os.path.join (env['lilypondprefix'], 'fonts/tfm')
 afmdir = os.path.join (env['lilypondprefix'], 'afm')
 pfadir = os.path.join (env['lilypondprefix'], 'fonts/type1')
-ti = env.Install (tfmdir, t)
-ai = env.Install (afmdir, a)
-pi = env.Install (pfadir, p)
+ti = map (lambda x: env.Install (tfmdir, x), t)
+ai = map (lambda x: env.Install (afmdir, x), a)
+pi = map (lambda x: env.Install (pfadir, x), p)
 env.Alias ('install', tfmdir)
 env.Alias ('install', afmdir)
 env.Alias ('install', pfadir)

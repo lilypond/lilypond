@@ -180,9 +180,41 @@ else:
 	env.Append (LIBPATH = ['#/flower/' + out,],
 		    CPPPATH = [outdir, '#',])
 
-#subdirs = ('mf',)
+def get_version (program):
+	command = '(%(program)s --version || %(program)s -V) 2>&1' % vars ()
+	output = os.popen (command).readline ()[:-1]
+	v = re.sub ('^.*[^-.0-9]([0-9][0-9]*\.[0-9][.0-9]*).*$', '\\1', output)
+	return string.split (v, '.')
+
+def assert_version (program, minimal, description, package):
+	global required
+	sys.stdout.write ('Checking %s version... ' % program)
+	actual = get_version (program)
+	sys.stdout.write (string.join (actual, '.'))
+	sys.stdout.write ('\n')
+	if actual < string.split (minimal, '.'):
+		required.append ((description, package,
+				  string.join (minimal, '.'),
+				  program,
+				  string.join (actual, '.')))
+
+required = []
+assert_version ('gcc', '3.0.5', 'GNU C compiler', 'gcc')
+assert_version ('makeinfo', '4.7, 'Makeinfo tool', 'texinfo')
+
+if required:
+	print
+	print '********************************'
+	print 'Please install required packages'
+for i in required:
+	print '%s:	%s-%s or newer (found: %s-%s)' % i
+
+sys.exit (1)
+	
+
+subdirs = ('mf',)
 #subdirs = ('flower', 'lily', 'parser', 'gui', 'main',)
-subdirs = ('flower', 'lily', 'mf')
+#subdirs = ('flower', 'lily', 'mf')
 for d in subdirs:
 	b = os.path.join (build, d, out)
 	# Support clean sourctree build (srcdir build)
