@@ -70,6 +70,7 @@ this and other documentation.
 @menu
 * Preface::                        Preface.
 * Tutorial::                       A tutorial introduction to LilyPond.
+* Toet::                           Stab at real simple tutorial.
 * Reference Manual::               Reference Manual.
 * Invoking LilyPond::              Operation.
 * Bug reports::                    Where to report bugs.
@@ -93,6 +94,7 @@ this and other documentation.
 @mbinclude macros.itexi
 @mbinclude preface.itely
 @mbinclude tutorial.itely
+@mbinclude toet.itely
 @mbinclude refman.itely
 @mbinclude internals.itely
 @mbinclude invoking.itexi

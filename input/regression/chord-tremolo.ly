@@ -12,14 +12,19 @@ stems.
   
 \score { 
   \context Voice \notes\relative c' {
-	\repeat "tremolo" 8 { c16 d16 }
-	\repeat "tremolo" 4 { c16 d16 }    
-	\repeat "tremolo" 2 { c16 d16 }    
+        % huh -> one beam missing!
+	\repeat "tremolo" 8 { d16 e }
+	\repeat "tremolo" 4 { d e }
+	\repeat "tremolo" 2 { d e }
+	\repeat "tremolo" 1 { d e }
+	\repeat "tremolo" 1 { d e }
+	\break
+	\repeat "tremolo" 4 { f'8 e }
+	\repeat "tremolo" 2 { f e }    
+	\repeat "tremolo" 1 { f e }
   }
   \paper {
-    % ugh, wide
-    %linewidth = -1.0
-    linewidth = 40*\staffspace
+    linewidth = 90*\staffspace
   }  
   \midi { }
 }

@@ -1,0 +1,319 @@
+@c -*-texinfo-*-
+
+@c TODO: LilyPond Lilypond lilypond
+
+@node Toet
+@chapter Toet
+
+The music is described in a text file, using a simple music language.
+LilyPond reads that text file and generates music that you can print or
+view.
+
+Therefore, creating music notation with LilyPond is done in two steps.
+Using a text editor, you write down the notes to print.  Then, you run
+LilyPond to get your printed output.
+
+
+This tutorial starts with a small introduction to the LilyPond music
+language.  After this first contact, we will show you how to produce
+printed output; you should then be able to create your first sheets of
+music.
+
+The tutorial continues with a bit more elaborate example of real music.
+This piece introduces and explains some finer details of LilyPond.
+Then, a number of more complex examples follow, that will help you to
+produce most complex music with LilyPond.
+
+
+@menu
+* Music language of LilyPond::	First contact
+* Running LilyPond toet::	
+@end menu
+
+
+
+@node Music language of LilyPond
+@section Music language of LilyPond
+
+This section shows how easy making music with LilyPond actually is.  If
+you have not used LilyPond before, this section is for you.
+
+
+You get a simple note by typing its name, from @code{a} through @code{g}:
+
+@lilypond[verbatim, relative 1]
+a b c d e f g
+@end lilypond
+
+@separate
+
+A are sharp is made by adding @code{is}, a flat by adding @code{es}:
+
+@lilypond[verbatim, relative 0]
+fis aes cisis beses
+@end lilypond
+
+@separate
+
+The length of a note is specified by adding a number, @code{1} for a
+whole note, @code{2} for a halve note:
+
+@lilypond[verbatim, relative 1]
+a1 a2 a8 a4 a16 a8. a16
+@end lilypond
+
+@separate
+
+Adding a high quote @code{'}, raises the pitch by one octave, adding a
+``low quote'' @code{,} (a comma), lowers the pitch one octave:
+
+@lilypond[verbatim, relative 1]
+c c' c,,
+@end lilypond
+
+@separate
+
+If you type no octaviation quotes, LilyPond chooses the note that is
+closest to the previous one, which is often just the one you need.  For
+example, @code{c f} goes up, and @code{c g} goes down:
+
+@lilypond[verbatim, relative 1]
+c f c g c
+@end lilypond
+
+@separate
+
+You can make a large interval by adding octaviation quotes.  For example,
+@code{c f,} goes down, and @code{c g'} goes up:
+
+@lilypond[verbatim, relative 1]
+c f, f c' c g' c, 
+@end lilypond
+
+@separate
+
+To get a rest you use note name @code{r}, to skip a note use note name
+@code{s}:
+
+@lilypond[verbatim, relative 1]
+r2 s4 r4
+@end lilypond
+
+@separate
+
+The meter can be specified using @code{\time}:
+
+@c \time -> \meter ?
+@lilypond[verbatim, relative 1]
+\time 3/4 c c c | R1 * 3/4
+@end lilypond
+
+@separate
+
+The key is specified using @code{\key}:
+
+@lilypond[verbatim, relative 0]
+\key f \major es as bes
+@end lilypond
+
+@separate
+
+Slurs are printed using parenthesis @code{()}, for phrasing slurs use
+@code{\(} and @code{\)}.  You get a tie using @code{~}:
+
+@lilypond[verbatim, relative 1]
+c\( ( ) d  ~ d \) c
+@end lilypond
+
+@separate
+
+A chord is made using angle brackets @code{<} and @code{>}:
+
+@lilypond[verbatim, relative 1]
+\oneVoice <a c> <b d> <c e>
+@end lilypond
+
+@separate
+
+suddenly lilypond bit really difficult:
+[explain about score -> \score and \notes]
+
+long chords; simultaneous music
+@lilypond[verbatim]
+\paper { linewidth = -1.0 }
+\score {
+  \context Staff \notes \relative c'' <
+    { \voiceOne a b c }
+    { \voiceTwo c d e }
+  >
+}
+@end lilypond
+
+@separate
+
+@lilypond[verbatim]
+\paper { linewidth = -1.0 }
+\score {
+  \context GrandStaff \notes \relative c' <
+    \context Staff=one { a' b c }
+    \context Staff=two { \clef bass c,, d e }
+  >
+}
+@end lilypond
+
+
+@node Running LilyPond toet
+@section Running LilyPond toet
+
+This section shows how to view and print music with LilyPond.  If you
+want to test your setup of LilyPond, or try to run an example file
+yourself, then read this section.
+
+The first step is to create an text file with some music.  Using your
+favorite text-editor, create @file{test.ly} containing
+
+@ignore
+
+NOTE: if you're reading this, ie, the Texinfo source itself, test.ly
+should of course contain:
+
+   \score{
+     \notes { c'4 e' g' }
+   }
+
+@end ignore
+
+@example
+\score @{
+  \notes @{ c'4 e' g' @}
+@} 
+@end example
+
+@unnumberedsubsec Running LilyPond on Unix
+@cindex Unix, Running lilypond on
+@cindex ly2dvi
+
+To run LilyPond, you invoke ly2dvi to compile your LilyPond source file:
+
+@quotation
+@example
+ly2dvi -P test.ly
+@end example
+@end quotation
+
+You will see the following on your screen:
+
+@quotation
+@example
+GNU LilyPond 1.4.0
+Now processing: `/home/fred/ly/test.ly'
+Parsing...
+Interpreting music...[1]
+ @emph{ ... some more text ... }
+PS output to test.ps...
+DVI output to test.dvi...
+@end example
+@end quotation
+
+The results are a ``DeVice Independent'' file
+(@file{test.dvi}) and a PostScript file (@file{test.ps}).
+
+@cindex DVI file
+
+@cindex Viewing music
+@cindex xdvi
+@cindex .dvi
+
+To view the @code{test.dvi} output, run Xdvi:
+
+@quotation
+@example
+xdvi test.dvi
+@end example
+@end quotation
+
+@c FIXME: should we say anything on xdvi-gs interaction?
+
+You should see the following in your main Xdvi window:
+@lilypond
+\score {
+  \notes { c'4 e' g' }
+} 
+@end lilypond
+
+When you're satisfied with the result, you can print the
+PostScript file:
+
+@quotation
+@example
+lpr test.ps
+@end example
+@end quotation
+If this does not make your printer produce a page of music, you should
+look into installing and configuring ghostscript.  Refer to
+GhostScript's website at @uref{http://www.ghostscript.com}.
+@cindex GhostScript
+@cindex @code{lpr}
+@cindex Printing output
+
+@cindex PostScript
+@cindex .ps
+
+
+@unnumberedsubsec Running LilyPond on Windows
+
+
+On windows, you open a LilyPond shell, and then you invoke ly2dvi
+compile your LilyPond source file, just like on Unix:
+
+@quotation
+@example
+ly2dvi -P test.ly
+@end example
+@end quotation
+You will see the following on your screen:
+
+@c FIXME: leave this out, just refer to unix section?
+@c FIXME: commands run in dos shell: we can't redirect output
+@quotation
+@example
+GNU LilyPond 1.3.150
+Now processing: `/home/tim/ly/test.ly'
+Parsing...
+Interpreting music...[1]
+ @emph{ ... some more text ... }
+PS output to test.ps...
+DVI output to test.dvi...
+@end example
+@end quotation
+
+To view the @code{test.dvi} output, run Yap
+
+@quotation
+@example
+yap test
+@end example
+@end quotation
+You should see the following in your Yap window
+@lilypond
+\score {
+  \notes { c'4 e' g' }
+} 
+@end lilypond
+
+@c FIXME: talk about newer Yap versions, proper gs installation?
+When you're satisfied with the result, you can print from within Yap
+(File/Print).  Note that Yap may not display embedded PostScript symbols
+such as beams and slurs.  Don't worry, they'll be printed anyway.
+
+You can also print the PostScript file directly from the
+command line using GSview:
+
+@quotation
+@example
+gsview32 /s test.ps
+@end example
+@end quotation
+
+
+

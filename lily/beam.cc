@@ -798,6 +798,10 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
 
   Direction dir = Directional_element_interface::get (me);
   
+  /* [Tremolo] beams on whole notes may not have direction set? */
+ if (dir == CENTER)
+    dir = Directional_element_interface::get (here);
+  
   /* half beams extending to the left. */
   if (prev)
     {
@@ -844,8 +848,10 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
 	      b.translate_axis (-dir  * bdy * j, Y_AXIS);
 	      rightbeams.add_molecule (b);
 	    }
-	  // TODO: notehead widths differ for different types
-	  gap_f = nw_f / 2;
+	  if (Stem::invisible_b (here))
+	    gap_f = nw_f;
+	  else
+	    gap_f = nw_f / 2;
 	  w -= 2 * gap_f;
 	  a = Lookup::beam (dydx, w + stemdx, thick);
 	}
@@ -853,7 +859,13 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
       for (; j  < rwholebeams; j++)
 	{
 	  Molecule b (a);
-	  b.translate (Offset (Stem::invisible_b (here) ? 0 : gap_f, -dir * bdy * j));
+	  Real tx = 0;
+	  if (Stem::invisible_b (here))
+	    // ugh, see chord-tremolo.ly
+	    tx = (-dir + 1) / 2 * nw_f * 1.5 + gap_f/4;
+	  else
+	    tx = gap_f;
+	  b.translate (Offset (tx, -dir * bdy * j));
 	  rightbeams.add_molecule (b);
 	}
 
