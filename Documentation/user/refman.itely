@@ -858,7 +858,8 @@ if you set the grob property @code{merge-differently-dotted}, they are:
 @lilypond[verbatim,fragment,singleline]
 \apply #voicify-music < {
      g'8 g'8 
-     \property Staff.NoteCollision \override #'merge-differently-dotted = ##t
+     \property Staff.NoteCollision \override
+        #'merge-differently-dotted = ##t
      g'8 g'8
   } \\ { [g'8. f16] [g'8. f'16] } 
   >
@@ -877,7 +878,7 @@ Similarly, you can merge half note heads with eighth notes, by setting
 LilyPond also vertically shifts rests that are opposite of a stem. 
 
 @lilypond[singleline,fragment,verbatim]
-\apply #voicify-music <
+\context Voice \apply #voicify-music <
  { c''4  } \\  { r4 }
 >
 @end lilypond
