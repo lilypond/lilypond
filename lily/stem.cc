@@ -563,7 +563,7 @@ Stem::calc_stem_info () const
   if (gh_number_p (s))
     info.idealy_f_ -= gh_double2scm (s);
 
-  Real interstaff_f =  beam_dir* calc_interstaff_dist (this, beam_l ());
+  Real interstaff_f =  -beam_dir* calc_interstaff_dist (this, beam_l ());
 
   info.idealy_f_ += interstaff_f;
   info.miny_f_ += interstaff_f;

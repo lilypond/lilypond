@@ -72,7 +72,8 @@ Chord_name_engraver::do_process_requests ()
   if (gh_boolean_p (chord_inversion))
     find_inversion_b = gh_scm2bool (chord_inversion);
 
-  chord_name_p_ = new Chord_name (to_chord (pitch_arr_, tonic_req_, inversion_req_, bass_req_, find_inversion_b));
+  chord_name_p_ = new Chord_name;
+  chord_name_p_->set (to_chord (pitch_arr_, tonic_req_, inversion_req_, bass_req_, find_inversion_b));
     
   announce_element (Score_element_info (chord_name_p_, 0));
 }

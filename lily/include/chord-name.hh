@@ -33,13 +33,7 @@ public:
   bool user_chord_name (Array<Musical_pitch> pitch_arr, Chord_mol* name_p) const;
   void banter (Array<Musical_pitch> pitch_arr, Chord_mol* name_p) const;
 
-  Chord_name (Chord const& c);
-
-  /*
-    ugh. Junkme, I must be elt property.
-   */
-  
-  Chord chord_;
+  void set (Chord const& c);
 
 protected:
   virtual Molecule* do_brew_molecule_p () const;
