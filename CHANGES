@@ -1,3 +1,46 @@
+1.5.17.jcn6 - aka: `pgwit!  Ah, dacht dat-i zo wel aardig was.'
+===========
+
+* Some more hacking at midi2ly.py:
+   - options and stuff: moved to library for ly2dvi, midi2ly, mup2ly,
+	update-lily
+   - handle keys and note names
+   - simple quantising
+   - handle tuplets and silly durations
+   - guess clef
+   - don't include empty staffs in score
+   - print relative pitches by default
+   - don't repeat duration by default
+   - bugfix: allow 8th notes too
+   - include new version of input/test/midi-scales.ly
+   - added barchecks + fix
+   - bugfix for relative mode
+
+* Shorter MIDI creation texts.
+
+* Bugfix: Key_change_req::transpose: don't deliver reversed list.
+
+* Bugfix: Key_performer::create_audio_elements: transpose list to
+`do', before determining tonality.
+
+1.4.8.moh1
+==========
+
+* new property "end-alignment" to control non-centered lyric alignment
+
+1.5.17.hwn1
+===========
+
+* Be quicker in Grob::handle_broken_dependencies().
+
+* --strict option for abc2ly, exit if an error is found.
+
+* GUILE 1.3.4 fix.
+
+
+1.5.17
+======
+
 1.5.16.hjj2
 ===========
 
