@@ -28,6 +28,7 @@ Notes:
 
 #include <math.h> // tanh.
 
+#include "interval-set.hh"
 #include "stencil.hh" 
 #include "directional-element-interface.hh"
 #include "beaming.hh"
@@ -596,65 +597,6 @@ Beam::set_stem_directions (Grob *me, Direction d)
 }
 
 /*
-  A union of intervals in the real line.
-
-  Abysmal performance (quadratic) for large N, hopefully we don't have
-  that large N. In any case, this should probably be rewritten to use
-  a balanced tree.
- */
-struct Int_set
-{
-  Array<Interval> allowed_regions_;
-
-  Int_set ()
-  {
-    set_full ();
-  }
-
-  void set_full ()
-  {
-    allowed_regions_.clear ();
-    Interval s;
-    s.set_full ();
-    allowed_regions_.push (s);
-  }
-
-  void remove_interval (Interval rm)
-  {
-    for (int i = 0; i < allowed_regions_.size (); )
-      {
-	Interval s = rm;
-
-	s.intersect (allowed_regions_[i]);
-
-	if (!s.is_empty ())
-	  {
-	    Interval before = allowed_regions_[i];
-	    Interval after = allowed_regions_[i];
-
-	    before[RIGHT] = s[LEFT];
-	    after[LEFT] = s[RIGHT];
-
-	    if (!before.is_empty () && before.length () > 0.0)
-	      {
-		allowed_regions_.insert (before, i);
-		i++;
-	      }
-	    allowed_regions_.del (i);
-	    if (!after.is_empty () && after.length () > 0.0)
-	      {
-		allowed_regions_.insert (after, i);
-		i++;
-	      }
-	  }
-	else
-	  i++;
-      }
-  }
-};
-
-
-/*
   Only try horizontal beams for knees.  No reliable detection of
   anything else is possible here, since we don't know funky-beaming
   settings, or X-distances (slopes!)  People that want sloped
@@ -669,7 +611,7 @@ Beam::consider_auto_knees (Grob* me)
 
   Real threshold = scm_to_double (scm);
   
-  Int_set gaps;
+  Interval_set gaps;
 
   gaps.set_full ();
 

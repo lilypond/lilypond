@@ -68,16 +68,29 @@ height   <indent>
   slurs.  For large slurs, this gives a certain hookiness at the end,
   so we increase the indent.
 
-  ind = G(w)
+  indent = G(w)
 
-  w -> 0,  G(w) -> .5 h
+  w -> 0,  G(w) -> .33 w
 
-  w -> inf, G(w) -> 2*h
+  
+  (due to derivative constraints, we cannot have indent > len/3)
 
-  eg.
+  w -> inf, G(w) -> 2*h_inf
+
+  i.e.
 
 
-  G(w) = h (w/(w+h_inf) 1.5 + .5 h 
+  G(0) = 0 , G'(0) 1/3, G(infty) = 2h_inf
+
+  solve from
+
+   G(w) = r  + p/(w+q)
+
+  yields
+
+   G(w) = 2 h_inf - max_fraction * q^2/ (w + q)
+
+  with q = 2 h_inf 
   
   
   */
@@ -86,8 +99,12 @@ void
 get_slur_indent_height (Real *indent, Real *height,
 			Real width, Real h_inf, Real r_0)
 {
+  Real max_fraction = 1.0 / 3.1;
   *height =  slur_height (width, h_inf, r_0);
-  *indent = (width / (h_inf + width) * 1.5 + 0.5) * (*height);
+
+  Real q = 2 * h_inf / max_fraction; 
+  *indent =
+    2 *h_inf - sqr (q) * max_fraction / (width + q);
 }
 
 Bezier

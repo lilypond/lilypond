@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-15 00:34+0200\n"
+"POT-Creation-Date: 2004-10-08 17:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,6 +126,14 @@ msgid ""
 "\n"
 msgstr ""
 
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
 #. Bug in option parser: --output=foe is taken as an abbreviation
 #. for --output-format.
 #. Bug in option parser: --output=foe is taken as an abbreviation
@@ -597,22 +605,25 @@ msgid "Continuing; crossing fingers"
 msgstr ""
 
 #: accidental-engraver.cc:194 lily/accidental-engraver.cc:201
+#: lily/accidental-engraver.cc:243
 #, c-format
 msgid "Accidental typesetting list must begin with context-name: %s"
 msgstr ""
 
 #: accidental-engraver.cc:222 lily/accidental-engraver.cc:229
+#: lily/accidental-engraver.cc:271
 #, c-format
 msgid "ignoring unknown accidental: %s"
 msgstr ""
 
 #: accidental-engraver.cc:239 lily/accidental-engraver.cc:246
+#: lily/accidental-engraver.cc:288
 #, c-format
 msgid "Accidental rule must be pair or context-name; Found %s"
 msgstr ""
 
 #: accidental.cc:221 key-signature-interface.cc:137 lily/accidental.cc:221
-#: lily/key-signature-interface.cc:137
+#: lily/key-signature-interface.cc:137 lily/accidental.cc:222
 #, c-format
 msgid "accidental `%s' not found"
 msgstr ""
@@ -622,6 +633,10 @@ msgstr ""
 msgid "Error parsing AFM file: `%s'"
 msgstr ""
 
+#. FIXME: broken sentence
+#. FIXME: broken sentence
+#. FIXME: broken sentence
+#. FIXME: broken sentence
 #. FIXME: broken sentence
 #. FIXME: broken sentence
 #. FIXME: broken sentence
@@ -722,7 +737,7 @@ msgstr ""
 msgid "removing beam with less than two stems"
 msgstr ""
 
-#: beam.cc:1038 lily/beam.cc:1038 lily/beam.cc:1063
+#: beam.cc:1038 lily/beam.cc:1038 lily/beam.cc:1063 lily/beam.cc:1065
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 
@@ -736,6 +751,30 @@ msgstr ""
 msgid "can't change `%s' to `%s'"
 msgstr ""
 
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
 #.
 #. We could change the current translator's id, but that would make
 #. errors hard to catch
@@ -810,12 +849,12 @@ msgstr ""
 msgid "can't find: `%s'"
 msgstr ""
 
-#: context.cc:164 lily/context.cc:164
+#: context.cc:164 lily/context.cc:164 lily/context.cc:163
 #, c-format
 msgid "Cannot find or create `%s' called `%s'"
 msgstr ""
 
-#: context.cc:201 lily/context.cc:201
+#: context.cc:201 lily/context.cc:201 lily/context.cc:200
 #, c-format
 msgid "can't find or create: `%s'"
 msgstr ""
@@ -831,22 +870,27 @@ msgstr ""
 
 #: dynamic-engraver.cc:186 span-dynamic-performer.cc:86
 #: lily/dynamic-engraver.cc:186 lily/span-dynamic-performer.cc:86
+#: lily/dynamic-engraver.cc:185
 msgid "can't find start of (de)crescendo"
 msgstr ""
 
 #: dynamic-engraver.cc:196 lily/dynamic-engraver.cc:196
+#: lily/dynamic-engraver.cc:195
 msgid "already have a decrescendo"
 msgstr ""
 
 #: dynamic-engraver.cc:198 lily/dynamic-engraver.cc:198
+#: lily/dynamic-engraver.cc:197
 msgid "already have a crescendo"
 msgstr ""
 
 #: dynamic-engraver.cc:201 lily/dynamic-engraver.cc:201
+#: lily/dynamic-engraver.cc:200
 msgid "Cresc started here"
 msgstr ""
 
 #: dynamic-engraver.cc:307 lily/dynamic-engraver.cc:317
+#: lily/dynamic-engraver.cc:321
 msgid "unterminated (de)crescendo"
 msgstr ""
 
@@ -856,18 +900,19 @@ msgstr ""
 msgid "Junking event: `%s'"
 msgstr ""
 
-#: event.cc:49 lily/event.cc:49
+#: event.cc:49 lily/event.cc:49 lily/music.cc:184
 #, c-format
 msgid "Transposition by %s makes alteration larger than two"
 msgstr ""
 
-#: event.cc:72 lily/event.cc:72
+#: event.cc:72 lily/event.cc:72 lily/event.cc:50
 #, c-format
 msgid "octave check failed; expected %s, found: %s"
 msgstr ""
 
 #: extender-engraver.cc:141 extender-engraver.cc:150
 #: lily/extender-engraver.cc:141 lily/extender-engraver.cc:150
+#: lily/extender-engraver.cc:140 lily/extender-engraver.cc:149
 msgid "unterminated extender"
 msgstr ""
 
@@ -879,7 +924,7 @@ msgstr ""
 msgid "Unterminated glissando."
 msgstr ""
 
-#: global-context.cc:150 lily/global-context.cc:150
+#: global-context.cc:150 lily/global-context.cc:150 lily/global-context.cc:157
 #, c-format
 msgid "can't find `%s' context"
 msgstr ""
@@ -913,11 +958,11 @@ msgstr ""
 msgid "Grob `%s' has no interface for property `%s'"
 msgstr ""
 
-#: hairpin.cc:92 lily/hairpin.cc:107
+#: hairpin.cc:92 lily/hairpin.cc:107 lily/hairpin.cc:106
 msgid "decrescendo too small"
 msgstr ""
 
-#: hairpin.cc:93 lily/hairpin.cc:108
+#: hairpin.cc:93 lily/hairpin.cc:108 lily/hairpin.cc:107
 msgid "crescendo too small"
 msgstr ""
 
@@ -997,20 +1042,20 @@ msgstr ""
 msgid "(load path: `%s')"
 msgstr ""
 
-#: lily-guile.cc:559 lily/lily-guile.cc:559
+#: lily-guile.cc:559 lily/lily-guile.cc:559 lily/lily-guile.cc:575
 #, c-format
 msgid "Can't find property type-check for `%s' (%s)."
 msgstr ""
 
-#: lily-guile.cc:562 lily/lily-guile.cc:562
+#: lily-guile.cc:562 lily/lily-guile.cc:562 lily/lily-guile.cc:578
 msgid "Perhaps you made a typing error?"
 msgstr ""
 
-#: lily-guile.cc:568 lily/lily-guile.cc:568
+#: lily-guile.cc:568 lily/lily-guile.cc:568 lily/lily-guile.cc:584
 msgid "Doing assignment anyway."
 msgstr ""
 
-#: lily-guile.cc:582 lily/lily-guile.cc:582
+#: lily-guile.cc:582 lily/lily-guile.cc:582 lily/lily-guile.cc:598
 #, c-format
 msgid "Type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
@@ -1135,6 +1180,10 @@ msgstr ""
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
 #: main.cc:192 lily/main.cc:192
 #, c-format
 msgid "Usage: %s [OPTIONS]... FILE..."
@@ -1155,12 +1204,12 @@ msgstr ""
 msgid "For more information, see %s"
 msgstr ""
 
-#: main.cc:410 lily/main.cc:410
+#: main.cc:410 lily/main.cc:410 lily/main.cc:412
 #, c-format
 msgid "This option is for developers only."
 msgstr ""
 
-#: main.cc:411 lily/main.cc:411
+#: main.cc:411 lily/main.cc:411 lily/main.cc:413
 #, c-format
 msgid "Read the sources for more information."
 msgstr ""
@@ -1223,6 +1272,18 @@ msgstr ""
 #.
 #. music for the softenon children?
 #.
+#.
+#. music for the softenon children?
+#.
+#.
+#. music for the softenon children?
+#.
+#.
+#. music for the softenon children?
+#.
+#.
+#. music for the softenon children?
+#.
 #: new-fingering-engraver.cc:155 lily/new-fingering-engraver.cc:155
 msgid "music for the martians."
 msgstr ""
@@ -1260,7 +1321,7 @@ msgstr ""
 msgid "Preprocessing graphical objects..."
 msgstr ""
 
-#: parse-scm.cc:77 lily/parse-scm.cc:77
+#: parse-scm.cc:77 lily/parse-scm.cc:77 lily/parse-scm.cc:84
 msgid "GUILE signaled an error for the expression beginning here"
 msgstr ""
 
@@ -1319,11 +1380,11 @@ msgstr ""
 msgid "Not a grob name, `%s'."
 msgstr ""
 
-#: quote-iterator.cc:108 lily/quote-iterator.cc:124
+#: quote-iterator.cc:108 lily/quote-iterator.cc:124 lily/quote-iterator.cc:125
 msgid "No events found for \\quote"
 msgstr ""
 
-#: quote-iterator.cc:183 lily/quote-iterator.cc:199
+#: quote-iterator.cc:183 lily/quote-iterator.cc:199 lily/quote-iterator.cc:204
 #, c-format
 msgid "In quotation: junking event %s"
 msgstr ""
@@ -1400,26 +1461,31 @@ msgid "Install the ec-mftraced package from %s. Aborting"
 msgstr ""
 
 #: score.cc:100 score.cc:126 lily/score.cc:100 lily/score.cc:126
+#: lily/score.cc:102 lily/score.cc:128
 msgid "Need music in a score"
 msgstr ""
 
-#: score.cc:116 lily/score.cc:116
+#: score.cc:116 lily/score.cc:116 lily/score.cc:118
 msgid "Interpreting music... "
 msgstr ""
 
-#: score.cc:137 lily/score.cc:137
+#: score.cc:137 lily/score.cc:137 lily/score.cc:139
 #, c-format
 msgid "elapsed time: %.2f seconds"
 msgstr ""
 
-#: score.cc:312 lily/score.cc:312
+#: score.cc:312 lily/score.cc:312 lily/score.cc:322
 msgid "Already have music in score"
 msgstr ""
 
-#: score.cc:313 lily/score.cc:313
+#: score.cc:313 lily/score.cc:313 lily/score.cc:323
 msgid "This is the previous music"
 msgstr ""
 
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#. FIXME:
 #. FIXME:
 #. FIXME:
 #. FIXME:
@@ -1434,12 +1500,16 @@ msgstr ""
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
 #: separation-item.cc:53 separation-item.cc:97 lily/separation-item.cc:53
 #: lily/separation-item.cc:97
 msgid "Separation_item:  I've been drinking too much"
 msgstr ""
 
-#: simple-spacer.cc:489 lily/simple-spacer.cc:489
+#: simple-spacer.cc:489 lily/simple-spacer.cc:489 lily/simple-spacer.cc:484
 #, c-format
 msgid "No spring between column %d and next one"
 msgstr ""
@@ -1470,6 +1540,10 @@ msgstr ""
 #. FIXME:
 #. FIXME:
 #. FIXME:
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#. FIXME:
 #: stem-engraver.cc:125 lily/stem-engraver.cc:125
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
@@ -1483,12 +1557,12 @@ msgstr ""
 msgid "Weird stem size; check for narrow beams"
 msgstr ""
 
-#: stem.cc:575 lily/stem.cc:575
+#: stem.cc:575 lily/stem.cc:575 lily/stem.cc:574
 #, c-format
 msgid "flag `%s' not found"
 msgstr ""
 
-#: stem.cc:586 lily/stem.cc:586
+#: stem.cc:586 lily/stem.cc:586 lily/stem.cc:585
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr ""
@@ -1519,6 +1593,14 @@ msgstr ""
 msgid "unterminated text spanner"
 msgstr ""
 
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
 #. Not using ngettext's plural feature here, as this message is
 #. more of a programming error.
 #. Not using ngettext's plural feature here, as this message is
@@ -1563,11 +1645,39 @@ msgstr ""
 #.
 #. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
 #.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
 #: time-signature-engraver.cc:57 lily/time-signature-engraver.cc:57
 #, c-format
 msgid "Found strange time signature %d/%d."
 msgstr ""
 
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
 #. If there is no such symbol, we default to the numbered style.
@@ -1768,4 +1878,16 @@ msgstr ""
 
 #: lily.scm:614
 msgid "error: failed files: "
+msgstr ""
+
+#: lily/includable-lexer.cc:50
+msgid "include files are not allowed in safe mode"
+msgstr ""
+
+#: lily/phrasing-slur-engraver.cc:116
+msgid "unterminated phrasing slur"
+msgstr ""
+
+#: lily/score.cc:328
+msgid "Error found in this music expression. Ignoring it"
 msgstr ""

@@ -82,6 +82,10 @@ Multi_measure_rest_engraver::process_music ()
     {
       mmrest_ = make_spanner ("MultiMeasureRest", rest_ev_->self_scm ());
 
+      Spanner *sp
+	= make_spanner ("MultiMeasureRestNumber", rest_ev_->self_scm () );
+      numbers_.push (sp);
+
       if (text_events_.size ())
 	{
 	  for (int i = 0; i < text_events_.size (); i++)
@@ -115,12 +119,6 @@ Multi_measure_rest_engraver::process_music ()
 		  }
 	      }
 	  } while (flip (&d) != DOWN);
-	}
-      else
-	{
-	  Spanner *sp
-	    = make_spanner ("MultiMeasureRestNumber", rest_ev_->self_scm () );
-	  numbers_.push (sp);
 	}
 
       for (int i =0 ; i < numbers_.size (); i++)
