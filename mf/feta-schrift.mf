@@ -827,13 +827,14 @@ fet_beginchar("Varied Coda", "varcoda", "varcoda")
 	y1 = y2 - thin;
 	x2 = 0;
 	y2 = codaheight;
-	draw_rounded_block(z1, z2, thick);
+	draw_rounded_block(z1, z2, blot_diameter);
 
 	x3 = x1;
 	y3 = -blot_diameter;
 	x4 = x1 + thick;
 	y4 = y2;
-	draw_rounded_block(z3, z4, thick);
+	draw_rounded_block(z3, z4, blot_diameter);
+	labels(1,2,3,4);
 
 	addto currentpicture also currentpicture xscaled -1;
 	addto currentpicture also currentpicture yscaled -1;
