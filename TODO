@@ -4,12 +4,17 @@
 Features you cannot find in the documentation as working, should be
 mentioned here.  This is an assorted collection of stuff that will be
 done, might be done, or is an idea that we want to think about.
-
+m
 Most of the items are marked in the code as well
 Grep -i for TODO, FIXME and ugh/ugr/urg.  
 
 .* TODO after 1.2
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
+. * HaraKiriStaffContext removes bar lines and doesn't remove
+    staff margin text on removed staff lines.
+. * make all Feta (including dynamics) available to the user in
+    textual scripts. Examples: "D.S. al \coda", "\mf espress.".
+ 
 . * ?  -Q, --find-old-relative show all changes in relative syntax
 What's old about absolute to relative conversion?  Could maybe use for
 abc2ly, midi2ly?
@@ -37,14 +42,62 @@ abc2ly, midi2ly?
 .* BUGS
 . * [c8. c16 c16 c16] in 6/8 timesig. 
 . * staffside spanner (crescendo!) along with staffswitch.
+. * --- 1, sometimes broken slurs start too early in the next line:
+
+\score {
+  \context Staff {
+    \clef "bass";
+    \notes \relative c' {
+      \time 4/4; \key g;
+      a4 g8 fis a d c d ~ \break | d e d b a b a fis \break
+    }
+  }
+}
+
+--- 2, margin notes don't work correctly for the pianostaff (in the
+following example, i expect the "piano" string to be centered
+vertically between the two staves):
+
+\score {
+  \notes \context PianoStaff <
+    \property PianoStaff.instrument = "Piano"
+    \context Staff = treble {
+	a b c
+    }
+    \context Staff = bass {
+	\clef bass;
+	a, b, c,
+    }
+  >
+  \paper {
+    \translator { \StaffContext \consists "Staff_margin_engraver"; }
+    \translator { \PianoStaffContext \consists "Staff_margin_engraver"; }
+  }
+}
 . * 
 > \context Staff <
 >   {\voiceone''4. r8}
 >  \voicetwo c,4 r4}
 > >
+. * sort out breve shapes.
+. * \time forces keysig?
 
 .* STUFF
 . * We need feta-din*.mf files for more sizes than 10.
+. *
+- It's clumsy to have to set Staff.instr = " " to get instrument name
+  on only the first line.
+
+- The syntax for chords looks clumsy with two different meanings of 
+  '-' and different syntax for separating modifiers from the tonic
+  and from other modifiers. Why not use for example ':' between
+  tonic and modifier and between the different modifiers?
+
+- Rests and beams don't work too well together. Example:
+   [ r8 g''16 des'] [r8 c16 a] 
+
+- The stemLength property should affect also beamed stems.
+
 . * align left edge of broken (de)cresc/slur/tie/tuplet/volta
 . * fix dynamics decently, ie. use kerning & ligatures.
 . * key restorations & repeats
