@@ -19,9 +19,24 @@ examples of what LilyPond can do: MIDI, PS, .gif and input.
 </a
 >
 
-=head2 Documentation
+=head2 Documentation: Introduction
 
 =over 4
+
+=item *
+<a href=ANNOUNCE.txt
+>
+The announce of 0.1
+</a
+>
+
+
+=item *
+<a href=DEDICATION.txt
+>
+DEDICATION
+</a
+>
 
 =item *
 <a href=faq.html
@@ -36,6 +51,51 @@ FAQs
 The installation instructions.
 </a
 >
+
+
+=head2 Why: Background Information 
+
+=over 4
+
+=item *
+<a href=MANIFESTO.html
+>
+Design criteria
+</a
+>
+
+=item *
+<a href=gnu-music.html
+>
+The GNU Music project
+</a
+>
+
+=item *
+<a href=mutopia.html
+>
+Mutopia -- Music To the People
+</a
+>
+
+=item *
+<a href=lelieblond.gif
+>
+The lilypond logo (Big, format: .gif)
+</a
+>
+
+=item *
+<a href=lelie_logo.gif
+>
+The lilypond logo (medium size, format: .gif)
+</a
+>
+
+
+=back
+
+=head2 Documentation: manpages, manuals
 
 =item *
 <a href=tex_manuals.html
@@ -70,64 +130,6 @@ The mudela convertor: convert-mudela
 <a href=mudela-book.html
 >
 mudela in TeX: mudela-book
-</a
->
-
-
-=back
-
-=head2 Background information
-
-=over 4
-
-=item *
-<a href=MANIFESTO.html
->
-Design criteria
-</a
->
-
-=item *
-<a href=lelieblond.gif
->
-The lilypond logo (Big, format: .gif)
-</a
->
-
-=item *
-<a href=lelie_logo.gif
->
-The lilypond logo (medium size, format: .gif)
-</a
->
-
-
-=item *
-<a href=gnu-music.html
->
-The GNU Music project
-</a
->
-
-=item *
-<a href=mutopia.html
->
-Mutopia -- Music To the People
-</a
->
-
-
-=item *
-<a href=ANNOUNCE.txt
->
-The announce of 0.1
-</a
->
-
-=item *
-<a href=DEDICATION.txt
->
-DEDICATION
 </a
 >
 
