@@ -18,7 +18,6 @@ Crescendo::Crescendo()
   grow_dir_ =0;
   dir_ = DOWN ;
   dyn_b_drul_[LEFT] = dyn_b_drul_[RIGHT] =false;
-  inside_staff_b_ = false;
 }
 
 Interval
@@ -62,7 +61,7 @@ Crescendo::brew_molecule_p() const
   m_p = new Molecule;
   Atom s (get_symbol());
   m_p->add (Atom (s));
-  m_p->translate (Offset (x_off_dim, pos_i_ * paper()->internote_f ()));
+  m_p->translate (Offset (x_off_dim, y_));
   return m_p;
 }
 

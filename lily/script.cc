@@ -86,7 +86,6 @@ Script::do_pre_processing()
 
   if (!dir_)
     set_default_dir();
-  inside_staff_b_ = specs_l_->inside_b();
 }
 
 Interval
@@ -98,11 +97,10 @@ Script::symbol_height() const
 Molecule*
 Script::brew_molecule_p() const
 {
-  Real dy = paper()->internote_f ();
   Real dx = paper()->note_width()/2;
 
   Molecule*out = new Molecule (specs_l_->get_atom (paper(), dir_));
-  out->translate_axis (dy * pos_i_, Y_AXIS);
+  out->translate_axis (y_, Y_AXIS);
   out->translate_axis (dx, X_AXIS);	// FIXME! ugh
   return out;
 }

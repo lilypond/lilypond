@@ -13,44 +13,37 @@
 #include "staff-sym.hh"
 #include "debug.hh"
 
-void
-Staff_side::set_staffsym (Staff_symbol* s_l)
-{
-  staff_sym_l_ = s_l;
-  add_dependency (s_l);
-}
 
 Staff_side::Staff_side()
 {
-  pos_i_ =0;
+   y_=0;
   sym_int_ = Interval (0,0);
-  staff_size_i_ = 0;
-  staff_sym_l_ = 0;
   dir_ = CENTER;
   inside_staff_b_ = false;
-}
-
-void
-Staff_side::read_staff_sym()
-{
-  if (! staff_sym_l_)
-    return ;
-  staff_size_i_ = staff_sym_l_->steps_i();
 }
 
 
 Interval
 Staff_side::support_height() const
 {
-  Interval r;
-
-  for (int i=0; i < support_l_arr_.size(); i++)
-    r.unite (support_l_arr_[i]->height());
-  if (r.empty_b())
+  Interval y_int;
+  for (int i=0; i < support_l_arr_.size(); i++) 
     {
-      r = Interval (0,0);
+      Axis_group_element *common = 
+	common_group (support_l_arr_[i], Y_AXIS);
+	
+      Real y = support_l_arr_[i]->relative_coordinate (common, Y_AXIS)  
+	-relative_coordinate (common,Y_AXIS);
+
+      y_int.unite (y + support_l_arr_[i]->height());
     }
-  return r;
+
+
+  if (y_int.empty_b())
+    {
+      y_int = Interval (0,0);
+    }
+  return y_int;
 }
 
 void
@@ -60,8 +53,8 @@ Staff_side::add_support (Score_elem*i)
   add_dependency (i);
 }
 
-int
-Staff_side::get_position_i() const
+Real
+Staff_side::get_position_f() const
 {
   if (!dir_)
     {
@@ -73,28 +66,11 @@ Staff_side::get_position_i() const
 
   Real y=0;
   Real inter_f = paper()-> internote_f ();
-  if (!inside_staff_b_)
-    {
-      y  = (staff_sym_l_) ? dir_ * (staff_sym_l_->steps_i()/2 + 2) : -2;
-      y *=inter_f;
 
-      Interval v= support_height();
+  Interval v= support_height();
+  y = v[dir_]  + 2*dir_*inter_f;	// ugh
 
-      if (dir_ > 0)
-	{
-	  y = y >? (v.max() + 2*inter_f);
-	}
-      else if (dir_ < 0)
-	{
-	  y = y <? (v.min() - 2*inter_f);
-	}
-    }
-  else
-    {
-      Interval v= support_height();
-      y = v[dir_]  + 2*dir_*inter_f;	// ugh
-    }
-  return int (rint (Real (y)/inter_f)); // should ret a float?
+  return y;
 }
 
 Interval
@@ -107,17 +83,15 @@ void
 Staff_side::do_post_processing()
 {
   sym_int_ = symbol_height();
-  pos_i_ = get_position_i();
+  y_ = get_position_f();
   if (dir_)
-    pos_i_ += int (rint (- sym_int_[-dir_] / paper()->internote_f ()));
+    y_ += - sym_int_[-dir_];
 }
 
 void
 Staff_side::do_substitute_dependency (Score_elem*o, Score_elem*n)
 {
   support_l_arr_.unordered_substitute (o,n);
-  if (staff_sym_l_ == o)
-    staff_sym_l_ = n ? (Staff_symbol*) n->spanner():0;
 }
 
 
