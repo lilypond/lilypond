@@ -1424,6 +1424,8 @@ if 1:
 	conversions.append (((1,9,1), conv, """Remove - before articulation"""))
 if 1:
 	def conv (str):
+		str = re.sub ('ly:set-context-property',
+			      'ly:set-context-property!', str)
 		str = re.sub ('\\\\newcontext', '\\\\new', str)
 		str = re.sub ('\\\\grace[\t\n ]*([^{ ]+)',
 			      r'\\grace { \1 }', str) 

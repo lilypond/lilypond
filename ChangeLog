@@ -1,5 +1,7 @@
 2003-08-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/translator-scheme.cc (LY_DEFINE): add !
+
 	* input/*/*.ly (vmus): use \new everywhere.
 
 	* lily/my-lily-lexer.cc: add \accacciatura and \appoggiatura

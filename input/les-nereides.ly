@@ -32,7 +32,7 @@ possibly more impressive to render without tweaks?
   (lambda (elt) (equal? text (ly:get-grob-property elt 'text))))
 
 
-treble = \context Voice=treble \notes\relative c''{
+treble = \new Voice \notes\relative c''{
     \key a \major
     r2
     | %2
@@ -96,7 +96,7 @@ treble = \context Voice=treble \notes\relative c''{
     \bar "||"
 }
 
-trebleTwo =  \context Voice=trebleTwo \notes\relative c''{
+trebleTwo =  \new Voice \notes\relative c''{
     \stemDown
     \slurDown
     % \fingerDown
@@ -121,7 +121,7 @@ trebleTwo =  \context Voice=trebleTwo \notes\relative c''{
     <<a cis,>>)]
 }
 
-bass =  \context Voice=bass \notes\relative c{
+bass =  \new Voice \notes\relative c{
     \partial 2
     \key a \major
     
@@ -211,7 +211,7 @@ bass =  \context Voice=bass \notes\relative c{
     a)]
 }
 
-bassTwo =  \context Voice=bassTwo \notes\relative c{
+bassTwo =  \new Voice \notes\relative c{
     \skip 2
     \skip 1*2
     \skip 2
@@ -222,7 +222,7 @@ bassTwo =  \context Voice=bassTwo \notes\relative c{
     cis'4( bis)
 }
 
-middleDynamics =  \context Dynamics=middle \notes{
+middleDynamics = \notes{
     \property Dynamics.TextScript \set #'padding = #-1 %tweak
     s2
     s1*2
@@ -248,7 +248,7 @@ middleDynamics =  \context Dynamics=middle \notes{
     s8\!
 }
 
-lowerDynamics = \context Dynamics=lower \notes{
+lowerDynamics = \notes{
     s2
     | %2
     s2\sustainDown s8. s16\sustainUp s4
@@ -305,7 +305,7 @@ lowerDynamics = \context Dynamics=lower \notes{
 	    \treble
 	    \trebleTwo
         >
-	\context Dynamics=middle <
+	\new Dynamics <
 	    \middleDynamics
 	>
         \context Staff=bass <
@@ -313,7 +313,7 @@ lowerDynamics = \context Dynamics=lower \notes{
 	    \bass
 	    \bassTwo
         >
-	\context Dynamics=lower <
+	\new Dynamics <
 	    \lowerDynamics
 	>
     >

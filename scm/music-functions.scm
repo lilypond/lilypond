@@ -626,7 +626,8 @@ Rest can contain a list of beat groupings
   
   (let*
       ((props (ly:get-context-property context 'graceSettings)))
-    (vector-map execute-1 props)))
+    (if (vector? props)
+	(vector-map execute-1 props))))
 
 (define-public (set-stop-grace-properties context)
   (define (execute-1 x)
@@ -638,8 +639,8 @@ Rest can contain a list of beat groupings
   
   (let*
       ((props (ly:get-context-property context 'graceSettings)))
-    
-    (vector-reverse-map execute-1 props)))
+    (if (vector? props)
+	(vector-reverse-map execute-1 props))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; switch it on here, so parsing and init isn't checked (too slow!)

@@ -6,13 +6,13 @@ You can move around @code{Bar_engraver} and
 
 \score {
 \notes \relative c' \context ChoirStaff <
- \newcontext Staff { c1 c1 c1}
+ \new Staff { c1 c1 c1}
  \context Lyrics \lyrics <
   { bla1 die bla }
   { foo bar foo }
   { foo bar foo }  
  >
- \newcontext Staff { c1 c1 c1} 
+ \new Staff { c1 c1 c1} 
  >
 
 
