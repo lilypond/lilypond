@@ -1179,11 +1179,11 @@ MIDI (Musical Instrument Digital Interface) is a standard for
 connecting and controlling digital instruments.  A MIDI file is like a
 tape recording of a MIDI instrument.
 
-To create a MIDI from a music piece of music, add a 
-@code{\midi} block causes LilyPond to create a MIDI file, so you
-can listen to the music you entered.  It is great for checking the
-music: octaves that are off or accidentals that were mistyped stand
-out very much when listening to the musical transcription.
+To create a MIDI from a music piece of music, add a @code{\midi}
+block. This causes LilyPond to create a MIDI file, so you can listen
+to what you just entered.  It is great for checking the music.
+Octaves that are off or accidentals that were mistyped stand out very
+much when listening to the musical transcription.
 
 The @code{\midi} block is added to @code{\score}, for example,
 
@@ -1311,7 +1311,7 @@ More information on titling can be found in @ref{Invoking lilypond}.
 @cindex multiple voices
 @cindex voices, more -- on a staff
 When different melodic lines are combined on a single staff they are
-printed as polyphonic voices: each voice has its own stems, slurs and
+printed as polyphonic voices; each voice has its own stems, slurs and
 beams, and the top voice has the stems up, while the bottom voice has
 them down.
 
@@ -1324,7 +1324,7 @@ voices with @code{\\}
    { r4 g4 f2 f4 } >>
 @end lilypond
 
-For polyphonic music typesetting, spacer rests can also be convenient: these
+For polyphonic music typesetting, spacer rests can also be convenient; these
 are rests that do not print.  It is useful for filling up voices that
 temporarily do not play.  Here is the same example with a spacer rest
 instead of a normal rest---just use @samp{s} instead of @samp{r}
@@ -1450,9 +1450,9 @@ technical manual, in TODO.
 @node An orchestral part
 @section An orchestral part
 
-In orchestral music, all notes are printed twice: in a part for
+In orchestral music, all notes are printed twice; in a part for
 the musicians, and in a full score for the conductor.  Identifiers can
-be used to avoid double work: the music is entered once, and stored in
+be used to avoid double work. The music is entered once, and stored in
 a variable.  The contents of that variable is then used to generate
 both the part and the score.
 
@@ -1490,7 +1490,7 @@ The line
 substitutes the contents of @file{horn-music.ly} at this position in
 the file, so @code{hornNotes} is defined afterwards.  The command
 @code{\transpose f@tie{}c'} indicates that the argument, being
-@code{\hornNotes}, should be transposed by a fifth downwards: sounding
+@code{\hornNotes}, should be transposed by a fifth downwards. Sounding
 @samp{f} is denoted by notated @code{c'}, which corresponds with
 tuning of a normal French Horn in@tie{}F.  The transposition can be seen
 in the following output
@@ -1619,7 +1619,7 @@ If there is no \verb+\score+ block in the fragment,
 \end@{lilypond@}
 
 \noindent
-In this example two things happened: a
+In this example two things happened. A
 \verb+\score+ block was added, and the line width was set to natural
 length.
 
@@ -1691,7 +1691,7 @@ c'4
 @end lilypond
 
 @noindent
-In this example two things happened: a
+In this example two things happened. A
 @code{score} block was added, and the line width was set to natural
 length.
 
