@@ -70,7 +70,7 @@ Score_element::Score_element (Score_element const&s)
 
 Score_element::~Score_element()
 {
-  delete output_p_; 
+  assert (!output_p_);
   assert (status_i_ >=0);
   status_i_  = -1;
 }
@@ -435,30 +435,6 @@ Score_element::find_broken_piece (Line_of_score*) const
   return 0;
 }
 
-static scm_smobfuns score_elt_funs = {
- Score_element::mark_smob, Score_element::free_smob,
- Score_element::print_smob, 0,
-};
-
-
-SCM
-Score_element::smobify_self ()
-{
-  if (self_scm_ != SCM_EOL)
-    return self_scm_;
-  
-  SCM s;
-  SCM_NEWCELL(s);
-  SCM_SETCAR(s,smob_tag);
-  void * me_p = this; 
-  SCM_SETCDR(s,me_p);
-  scm_protect_object (s);
-  self_scm_ = s;
-
-  scm_unprotect_object (element_property_alist_); // ugh
-  return s;
-}
-
 SCM
 Score_element::mark_smob (SCM ses)
 {
@@ -469,13 +445,6 @@ Score_element::mark_smob (SCM ses)
   return s->element_property_alist_;
 }
 
-scm_sizet
-Score_element::free_smob (SCM ses)
-{
-  Score_element * s = (Score_element*) SCM_CDR(ses);
-  delete s;
-  return 0;
-}
 
 int
 Score_element::print_smob (SCM s, SCM port, scm_print_state *)
@@ -488,16 +457,10 @@ Score_element::print_smob (SCM s, SCM port, scm_print_state *)
   return 1;
 }
 
-long Score_element::smob_tag;
-
 void
-Score_element::init_smobs ()
+Score_element::do_smobify_self ()
 {
-  smob_tag = scm_newsmob (&score_elt_funs);
+  scm_unprotect_object (element_property_alist_); // ugh
 }
-
-void
-init_smobs()
-{
-  Score_element::init_smobs ();
-}
+#include "ly-smobs.icc"
+IMPLEMENT_SMOBS(Score_element);
