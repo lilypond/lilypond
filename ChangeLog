@@ -1,5 +1,9 @@
 2004-04-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/part-combiner.scm (analyse-spanner-states): use split-index,
+	not voice-state index for tie state. This fixes a partcombine
+	problem with ties.
+
 	* Documentation/user/tutorial.itely (Commenting input files): add
 	note about convert-ly.
 

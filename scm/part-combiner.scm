@@ -118,7 +118,8 @@ Voice-state objects
     
     (define (analyse-tie-start active ev)
       (if (equal? (ly:music-property ev 'name) 'TieEvent)
-	  (acons 'tie index active)
+	  (acons 'tie (split-index (vector-ref voice-state-vec index))
+		 active)
 	  active))
     
     (define (analyse-tie-end active ev)
@@ -289,6 +290,8 @@ Only set if not set previously.
 	  (let* ((now-state (vector-ref result ri))
 		 (vs1 (car (voice-states now-state)))
 		 (vs2 (cdr (voice-states now-state))))
+
+	    
 	    (cond ((not vs1) (put 'apart))
 		  ((not vs2) (put 'apart))
 		  (else
