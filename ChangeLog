@@ -1,3 +1,8 @@
+2002-05-26  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/non-empty-text.ly: Update example with outdated
+	comment.
+
 2002-05-25  Han-Wen  <hanwen@cs.uu.nl>
 
 	* scripts/convert-ly.py:  add textNonEmpty rule
@@ -6,7 +11,7 @@
 
 2002-05-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* lily/text-item.cc (markup_text2molecule): Junk ugly lookahead by
+d	* lily/text-item.cc (markup_text2molecule): Junk ugly lookahead by
 	using translate-robust add_molecule instead of add_at_edge.
 	Bugfix for #(lines (finger "" "1")).
 
