@@ -1,22 +1,22 @@
 
 
 
-\version "1.0.14";
+\version "1.0.16";
 
-onestaff =	\type Staff = foo\notes  {
+onestaff =	\context Staff = foo\notes  {
 		\property Staff.instr = instr
 		\property Staff.instrument = instrument \mark "B"; c1 \mark "A"; \break c2  c2 \break }
 
-grstaff =	\notes \type GrandStaff <
-	\type Staff = bar	{
+grstaff =	\notes \context GrandStaff <
+	\context Staff = bar	{
 
 	\property Staff.instr = instr
 	
 	 \mark "B"; \break c1 \mark "A"; c2  }
-	\type Staff = bufl	  { c1 c2  } >
+	\context Staff = bufl	  { c1 c2  } >
 
 scpaper =  \paper {Score = \translator {
-	\type Score_engraver;
+	\context Score_engraver;
 	barScriptPadding = "2.0";	% dimension \pt
 	markScriptPadding = "4.0";
 	barColumnPriority = "-4";
@@ -42,7 +42,7 @@ scpaper =  \paper {Score = \translator {
 
 stpaper =\paper{
 Staff = \translator {
-	\type "Line_group_engraver_group";
+	\context "Line_group_engraver_group";
 	defaultclef = violin;
 	barColumnPriority = "0";
 

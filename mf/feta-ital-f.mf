@@ -11,7 +11,7 @@
 
 % cmchar "Italic letter f";
 % beginchar("f",max(1.5u#,stem#)+max(3.5u#,2flare#),asc_height#,desc_depth#);
-\"Dynamic letter f";
+"Dynamic letter f";
 beginchar(fcode ,max(1.5u#,stem#)+max(3.5u#,2flare#),asc_height#,desc_depth#);
 
 italcorr asc_height#*slant+.75u#;

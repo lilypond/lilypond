@@ -64,26 +64,26 @@ fet_endchar;
 % should use ledgerline thickness?
 %
 fet_beginchar( "whole rest (outside staff)", "0o", "outsidewholerest");
-	set_char_box(block_rest_y#, block_rest_x# + block_rest_y#, 
+	set_char_box(0, block_rest_x#,
 		block_rest_y#, ledgerlinethickness#/2);
 	block_rest;
 	currentpicture := currentpicture shifted (0, - block_rest_y);
 	pickup pencircle scaled ledgerlinethickness;
 
 	y5 = y6 = 0;
-	lft x5 = - b; 
-	rt x6 = w;
+	lft x5 = - b - block_rest_y;
+	rt x6 = w + block_rest_y;
 	draw z5 .. z6;
 fet_endchar;
 
 fet_beginchar("half rest (outside staff)", "1o", "outsidehalfrest");
-	set_char_box(block_rest_y#, block_rest_x#+ block_rest_y#, 
+	set_char_box(0, block_rest_x#,
 		ledgerlinethickness#/2, block_rest_y#);
 	block_rest;
 	pickup pencircle scaled ledgerlinethickness;
 	y5 = y6 = 0;
-	lft x5 = - b; 
-	rt x6 = w;
+	lft x5 = - b - block_rest_y ;  
+	rt x6 = w + block_rest_y;
 	draw z5 .. z6;
 fet_endchar;
 

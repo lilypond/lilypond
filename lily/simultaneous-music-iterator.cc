@@ -32,8 +32,11 @@ Simultaneous_music_iterator::construct_children()
       Music_iterator * mi = get_iterator_p (i->car_);
       if (mi->ok()) 
 	{
+#if 0
 	  if  (sim->translator_type_str_.empty_b ())
 	    set_translator (mi->report_to_l()->ancestor_l (0));	// huh?
+#endif
+
 	  children_p_list_.append (new Killing_cons<Music_iterator> (mi,0));
 	}
       else

@@ -4,7 +4,7 @@ composer = "Johann Christoph Faber";
 piece = "1.  Overture";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 global=\notes{
 	\time 2/2;
@@ -221,18 +221,18 @@ bass=\notes\relative c' {
 	
 
 \score{
-	\type StaffGroup <
-	      \type Staff =treble \notes {
+	\context StaffGroup <
+	      \context Staff =treble \notes {
 		    \property Staff.Instrument = "Treble" 
 		    \global \treble 
 	      }
 
-	      \type Staff =tenor \notes {
+	      \context Staff =tenor \notes {
 	      	      \property Staff.Instrument = "Tenor"
 		      \global \tenor 
 	      }
 
-	      \type Staff =bass \notes {
+	      \context Staff =bass \notes {
 	      	      \property Staff.Instrument = "Bass"
 		      \global \clef "bass"; \bass
 	      }

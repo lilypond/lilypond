@@ -7,7 +7,7 @@ TestedFeatures = "This file tests silly line shapes";
 
 \include "paper20.ly"
 
-\version "1.0.14";
+\version "1.0.16";
 
 oden = \lyrics{ 
 	O8 |
@@ -62,7 +62,7 @@ melody = \notes{
 	\oboom
 }
 
-$melody_staff = \type Staff = melody <
+$melody_staff = \context Staff = melody <
 	\global
 	\melody
 >
@@ -74,7 +74,7 @@ $verse_one = \notes{
 	\oden
 }
 
-$verse_one_staff = \type Lyrics = one <
+$verse_one_staff = \context Lyrics = one <
 	\global
 	\$verse_one
 >
@@ -86,7 +86,7 @@ $verse_two = \notes{
 	\oden
 }
 
-$verse_two_staff = \type Lyrics = two <
+$verse_two_staff = \context Lyrics = two <
 	\global
 	\$verse_two
 >

@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "prelude-urtext.ly";
 
@@ -30,7 +30,7 @@ prelude_viola_global = \notes{
 prelude_viola_scripts = \notes{
 }
 
-prelude_viola_staff = \type Staff <
+prelude_viola_staff = \context Staff <
 	\notes \transpose c' \$prelude
 	\$prelude_viola_global
 	\$prelude_viola_scripts

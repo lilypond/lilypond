@@ -39,8 +39,10 @@ Music::print() const
   if (! check_debug)
     return ;
   DOUT << classname(this) << "{";
+  /*
   if  (translator_type_str_.length_i ())
     DOUT << translator_type_str_ << " = " << translator_id_str_;
+  */
   do_print();
   DOUT << "}\n";
 #endif

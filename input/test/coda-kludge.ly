@@ -28,7 +28,7 @@ Hi,
 
 \score{
 	<
-		\type Staff \notes\relative c''{
+		\context Staff \notes\relative c''{
 			c c c c
 			% coda-klugde: let volta span only one bar
 			\property Staff.voltaSpannerDuration = "1"
@@ -36,7 +36,7 @@ Hi,
 				\alternative { { e e e e f f f f }
 			{ g g g g } }
 		}
-		\type Lyrics \lyrics{
+		\context Lyrics \lyrics{
 			intro1
 			\repeat 5 {}
 			\alternative <
@@ -50,3 +50,5 @@ Hi,
 	>
 }
 
+
+\version "1.0.16"; 

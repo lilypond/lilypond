@@ -4,7 +4,7 @@
 	piece = "Allemande";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 global = \notes{
 	\time 4/4;
@@ -27,7 +27,7 @@ hoyreEn = \notes\relative c'''{
 	[c16 d es8][f,16 es' d c][d es f8][g,16 f' es d] |
 	[es16 f g8][as,16 g' f es][f g as8][b,16  as' g f] |
 %5
-	\type Staff < { 
+	\context Staff < { 
 		\stemup es4~ [es8. c16] d4~ [d8. b16] |
 		c4.~ [c16 b] c4~ [c16 c bes as] |
 		\stemboth [g c32 d es16 c][g8 as] \stemup bes4~ [bes8 g'~] |
@@ -49,7 +49,7 @@ hoyreEn = \notes\relative c'''{
 	[bes d g bes~][bes fis g bes,][c es g bes~][bes fis g c,] |
 	[d fis g bes~][bes fis g d][es fis g bes~][bes fis g bes] |
 	[e a, bes fis][g bes a g][fis d es bes][c es d c] |
-	\type Staff <
+	\context Staff <
 		{ \stemup [bes8 d'][bes a16 g] g4~ g16 }
 		{ \stemup s2 s16 d8.~ d16 }
 		{ \stemdown r8 <g d> <[g d><fis c>] r16 [d16 b8~] b16 }
@@ -73,7 +73,7 @@ hoyreEn = \notes\relative c'''{
 	[c8 es'( as, )g][d f'( as, )g] |
 	[es g'( as, )g][f as'16( g][as g fis )g] |
 	fis4.~ [fis16 e32 fis][g16 d f es][d c b a] |
-	\type Staff <
+	\context Staff <
 		{ \stemup [g8 g'][es d16 c] c4. }
 		{ \stemdown r8 <g c es> <[g c> <f b>] <es4. g> } 
 	>	s8
@@ -90,7 +90,7 @@ venstreEn = \notes\relative c{
 %5
 	[c8 es][f, as][b, d][es, g] |
 	[as f][g g'][c, g']
-	\type Staff <
+	\context Staff <
 		{ \stemup [c8 d] | es4 }
 		{ \stemdown c4 ~ | [c8. g32 f] }
 	>
@@ -107,7 +107,7 @@ venstreEn = \notes\relative c{
 	<cis4 cis,> r8 cis8 [d a][fis d] |
 %16
 	[g16 a bes c][d8 d,]
-	\type Staff <
+	\context Staff <
 		{ \stemup r8 r16 d' g }
 		{ \stemdown g,4~ g16 }
 	>
@@ -134,12 +134,12 @@ venstreEn = \notes\relative c{
 }
 
 \score{
-	\type GrandStaff <
-		\type Staff = treble <
+	\context GrandStaff <
+		\context Staff = treble <
 			\global
 			\hoyreEn
 		>
-		\type Staff = bass <
+		\context Staff = bass <
 			\global
 			\venstreEn
 		>

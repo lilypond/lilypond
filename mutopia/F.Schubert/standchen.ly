@@ -16,7 +16,7 @@ multiple \paper{}s in one \score
 Note: Original key F.
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 $vocal_verse1 = \notes\relative c''{
 	% ugh: treble/bass
@@ -239,7 +239,7 @@ $treble_through = \notes \relative c'{
 % ugh ugh: connecting chords
 	%65
 	< { d,2.\f a'2} { e2. ~ e2 } { b'2. c,2 }> r4 |
-	\type Staff < 
+	\context Staff < 
 		{
 			\voiceone 
 			[a8. b16] c4-> ~ a8 r |
@@ -394,7 +394,7 @@ allLyrics = {
 	\$lyric_through
 }
 
-$lyric_staff = \type Lyrics = lyric<
+$lyric_staff = \context Lyrics = lyric<
 	\allLyrics
 >
 		
@@ -407,7 +407,7 @@ vocals = \notes{
 	\$vocal_through
 }
 
-$vocal_staff = \type Staff = vocal<
+$vocal_staff = \context Staff = vocal<
 	\property Staff.instrument = "alto sax"
 	\global
 	\$vocals
@@ -421,7 +421,7 @@ treble = {
 	\$treble_through
 }
 
-$treble_staff = \type Staff = treble< 
+$treble_staff = \context Staff = treble< 
 	\global
 	\treble
 >
@@ -434,12 +434,12 @@ bass = {
 	\$bass_through
 }
 
-$bass_staff = \type Staff = bass<
+$bass_staff = \context Staff = bass<
 	\global
 	\bass
 >
 
-$grand_staff = \type GrandStaff<
+$grand_staff = \context GrandStaff<
 	\$treble_staff
 	\$bass_staff
 >

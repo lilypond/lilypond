@@ -32,6 +32,8 @@ struct Audio_staff;
 struct Audio_tempo;
 struct Auto_beam_engraver;
 struct Axis_group_element;
+struct Axis_group_spanner;
+struct Axis_group_item;
 struct Axis_group;
 struct Bar;
 struct Bar_column_engraver;

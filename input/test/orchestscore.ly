@@ -1,81 +1,81 @@
-\version "1.0.14";
+\version "1.0.16";
 
 m = \notes \relative c''{
 c1 | c2 c | c c | c c | c c | c c | c c | c c | 
 }
 
 \score{ <
-  \type StaffGroup = wood <
-    \type Staff = flauto <
+  \context StaffGroup = wood <
+    \context Staff = flauto <
       \property Staff.instrument = "Flauto"
       \property Staff.instr = "Fl."
       \m
     >
-    \type Staff = oboe <
+    \context Staff = oboe <
       \property Staff.instrument = "Oboe"
       \property Staff.instr = "Ob."
       \m
     >
-    \type Staff = clarI <
+    \context Staff = clarI <
       \property Staff.instrument = "Clarinetto I"
       \property Staff.instr = "Cl. I"
       \m
     >
-    \type Staff = clarII <
+    \context Staff = clarII <
       \property Staff.instrument = "Clarinetto II"
       \property Staff.instr = "Cl. II"
       \m
     >
-    \type Staff = fagotto <
+    \context Staff = fagotto <
       \property Staff.instrument = "Fagotto"
       \property Staff.instr = "Fg."
       \m
     >
   >
-  \type StaffGroup = brass <
-    \type Staff = cor <
+  \context StaffGroup = brass <
+    \context Staff = cor <
       \property Staff.instrument = "2 Corni in F"
       \property Staff.instr = "Cor."
-      \type Voice = corI { \stemup \m }
-      \type Voice = corII { \stemdown \m }
+      \context Voice = corI { \stemup \m }
+      \context Voice = corII { \stemdown \m }
     >
-    \type Staff = trp <
+    \context Staff = trp <
       \property Staff.instrument = "2 Trp. in B\\textflat  "
       \property Staff.instr = "Trp."
-      \type Voice = trpI { \stemup \m }
-      \type Voice = trpII { \stemdown \m }
+      \context Voice = trpI { \stemup \m }
+      \context Voice = trpII { \stemdown \m }
     >
   >
-    \type StaffGroup = percussion <\type Staff = timpani <
+    \context StaffGroup = percussion <\context Staff = timpani <
       \property Staff.instrument = "Timpani"
       \property Staff.instr = "Timp."
       \m
     >
   >
-  \type StaffGroup = strings <
-%    \type GrandStaff = violins <
-      \type Staff = viI <
+  \context StaffGroup = strings <
+%    \context GrandStaff = violins <
+      \context Staff = viI <
         \property Staff.instrument = "Violin I"
         \property Staff.instr = "Vi. I"
         \m
       >
-      \type Staff = viII <
+      \context Staff = viII <
         \property Staff.instrument = "Violin II"
         \property Staff.instr = "Vi. II"
         \m
       >
 %    >
-    \type Staff = vla <
+    \context Staff = vla <
       \property Staff.instrument = "Viola"
       \property Staff.instr = "Vla."
       \m
     >
-    \type Staff = vlc <
+    \context Staff = vlc <
       \property Staff.instrument = "Violoncello"
       \property Staff.instr = "Vlc"
       \m
     >
-    \type Staff = cb <
+    \context Staff = cb <
       \property Staff.instrument = "Contrabasso"
       \property Staff.instr = "C.B."
       \m

@@ -11,7 +11,7 @@
 
 % cmchar "Italic letter s";
 % beginchar("s",5.25u#+max(1.75u#,flare#),x_height#,0);
-\"Dynamic letter s";
+"Dynamic letter s";
 beginchar(115 ,5.25u#+max(1.75u#,flare#),x_height#,0);
 italcorr x_height#*slant-.5u#;
 adjust_fit(0,0); pickup fine.nib;

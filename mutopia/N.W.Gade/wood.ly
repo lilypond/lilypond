@@ -1,4 +1,4 @@
-\version "1.0.14";
+\version "1.0.16";
 
 oboe=\notes\relative c'' {
 \clef "treble";
@@ -429,7 +429,7 @@ b4 a |
 b2 ~ |
 [b8_"dim." a g ) e ] |
 <{[cis ( a  ) b a-. ] | } 
-  \type Voice = x {s8.. \tiny cis8 } >
+  \context Voice = x {s8.. \tiny cis8 } >
 [fis''-. f-. f-. e-. ] |
 [e-. \< dis-. dis-. \! d-. ] |
 d r b4 \f ~ |

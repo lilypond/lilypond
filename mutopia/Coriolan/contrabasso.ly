@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 contrabasso = \notes \relative c {
 %	\translator Staff=violoncello
@@ -139,12 +139,12 @@ contrabasso = \notes \relative c {
 	c4 r r2 |
 }
 
-$contrabasso_staff = \type Staff = contrabasso <
+$contrabasso_staff = \context Staff = contrabasso <
 	\property Staff.midi_instrument = "contrabass"
 	\property Staff.instrument = "Contrabasso"
 	\property Staff.instr = "Cb."
 	\clef "bass";
-	\notes \type Voice=one< 
+	\notes \context Voice=one< 
 		\global
 		\$contrabasso
 	>

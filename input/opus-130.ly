@@ -8,7 +8,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-% \version "1.0.14";
+% \version "1.0.16";
 
 tempi = \notes {
 	\property Voice.textstyle = "large"
@@ -53,13 +53,13 @@ cello = \notes\relative c'{
 }
 
 \score{
-	\type StaffGroup <
+	\context StaffGroup <
 % broken, 1.1.23
-%		\type Staff = i < \tempi \global \violinei >
-		\type Staff = i < \global \violinei >
-		\type Staff = ii < \global \violineii >
-		\type Staff = iii < \global \viola >
-		\type Staff = iv  < \global \cello >
+%		\context Staff = i < \tempi \global \violinei >
+		\context Staff = i < \global \violinei >
+		\context Staff = ii < \global \violineii >
+		\context Staff = iii < \global \viola >
+		\context Staff = iv  < \global \cello >
 	>
 	\paper{
 		\translator { \OrchestralScoreContext }

@@ -22,7 +22,7 @@ copyright =	 "public domain";
 }
 
 
-\version "1.0.14";
+\version "1.0.16";
 
 vOne = \notes \relative c''{
         \clef"violin";
@@ -51,7 +51,7 @@ vThree = \notes \relative c''{
 vFour = \notes \transpose d' \vThree
 
 \score {
-  \type StaffGroup <
+  \context StaffGroup <
          \vOne
          \vTwo
          \vThree

@@ -3,7 +3,9 @@
 % {\voicetwo c}>
 
 % now we need:
-\type Staff
+\context Staff
 <{\voiceone e}
 {\voicetwo c}>
 
+
+\version "1.0.16"; 

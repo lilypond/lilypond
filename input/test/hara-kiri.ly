@@ -1,36 +1,40 @@
-\version "1.0.14";
+\version "1.0.16";
 
-toeter_i = \notes\relative c {
-	\property Staff.instrument = "Toeters"
-	\property Staff.instr = "Ttr."
+toeter_i = \notes\relative c <{
+		\property Staff.instrument = "Toeters"
+		\property Staff.instr = "Ttr." }
+	\context Voice = lower { \stemdown s1*6 }
+	\context Voice = upper { \stemup s1*6 }
+	\context Voice = together  { 
+
 	c'''4 c c c \break
 	d d d d \break
-	R1 \break
-	\voiceone
-	e4 e e e \break
-	\onevoice
+	R1 \break 
+	\context Voice = upper {
+		e4 e e e \break }
 	f f f f \break
-	g g g g
-}
+	g g g g 
+}>
 
-toeter_ii = \notes \relative c {
+toeter_ii = \notes \relative c \context Voice = together { 
 	c''4 c c c \break
 	d d d d \break
 	R1 \break
-	\voicetwo
-	e4 e e e \break
-	\onevoice
+	\context Voice = lower {
+		\stemdown 
+		e4 e e e \break
+        }
 	f f f f \break
 	g g g g
 }
 
-toeters = \type Staff = toeters <
+toeters = \context Staff = toeters <
 	\toeter_i
 	\toeter_ii
 >
  
-zager = \type Staff = zager \notes \relative c'' {
-	\clef bass;
+zager = \context Staff = zager \notes \relative c'' {
+	\clef treble;
 	\property Staff.instrument = "Zager"
 	\property Staff.instr = "Zag."
 	c4 d e f \break
@@ -38,47 +42,46 @@ zager = \type Staff = zager \notes \relative c'' {
 	f e d c \break
 	c d e f \break
 	\property Staff.instr = "Zag."
-	\voiceone
+	\stemup
 	f e d c \break
-	\onevoice
 	c d e f \break
 	f e d c
 }
 
-zoger = \type Staff = zoger \notes \relative c'' {
-	\clef bass;
+zoger = \context Staff = zoger \notes \relative c'' {
+	\clef treble;
 	\property Staff.instrument = "Zoger"
 	\property Staff.instr = "Zog."
 	c4 d e f \break
 	\skip 1*2;
-%	\staffone
+
 	\translator Staff=zager
-	\voicetwo
-	c2 g2\break
-	\onevoice
+	\stemdown 
+	c2 g2
+	
 	a4 b c d \break
 	\skip 1*1;
 }
 
-zagers = \type GrandStaff <
+zagers = \context GrandStaff <
 	\zager
 	\zoger
 >
  
 \score{
 	<
-		\type StaffGroup = toeters <
+		\context StaffGroup = toeters <
 			\toeters
 		>
-		\type StaffGroup = zagers <
+		\context StaffGroup = zagers <
 			\zagers
 		>
 	>
 	\paper{
 		linewidth = 40.0\mm;
-%		\translator { \HaraKiriStaffContext }
+		\translator { \HaraKiriStaffContext }
 %uh?
-%		\translator { \OrchestralScoreContext }
+		\translator { \OrchestralScoreContext }
 %		\translator { \OrchestralPartStaffContext }
 	}
 }

@@ -7,14 +7,14 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 viola2 = \notes \relative c {
 	% starts on (actualy, most part is on) same staff as viola1
 	%urg, parse error
 %urg	\translator Staff=viola1
 	\translator Staff=violai
-	\type Voice=one
+	\context Voice=one
 	c1 ~ | c | s1*2 |
 	% copied 3 bars from three back...
 	c ~ | c | s1*2 % |
@@ -30,13 +30,13 @@ viola2 = \notes \relative c {
 	[as'16\ff as a as][as as as as]as2:16 |
 }
 
-% $viola2_staff = \type Staff = viola_2 <
-$viola2_staff = \type Staff = violaii <
+% $viola2_staff = \context Staff = viola_2 <
+$viola2_staff = \context Staff = violaii <
 	\property Staff.midi_instrument = "viola"
 	\property Staff.instrument = "Viola II"
 	\property Staff.instr = "Vla. II"
 	\clef "alto";
-	\notes \type Voice=one< 
+	\notes \context Voice=one< 
 		\global
 		\$viola2
 	>

@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "global.ly"
 
@@ -25,39 +25,39 @@ copyright =	 "public domain";
 \include "violino-2.ly"
 \include "violoncello.ly"
 
-legno = \type StaffGroup = legno_group <
+legno = \context StaffGroup = legno_group <
 	\$flauti_staff
 	\$oboi_staff
 	\$clarinetti_staff
 	\$fagotti_staff
 >
 
-koper = \type StaffGroup = koper_group <
+koper = \context StaffGroup = koper_group <
 	\$corni_staff
 	\$trombe_staff
 >
 
-$timpani_g = \type StaffGroup = timpani_group <
+$timpani_g = \context StaffGroup = timpani_group <
 	\$timpani_staff
-	\type Staff = urgtimpany \notes{ \skip 1*34; }
+	\context Staff = urgtimpany \notes{ \skip 1*34; }
 >
 
-$violini = \type GrandStaff = violini_group <
+$violini = \context GrandStaff = violini_group <
 	\$violino1_staff
 	\$violino2_staff
 >
 
-$violi = \type GrandStaff = violi_group <
+$violi = \context GrandStaff = violi_group <
 	\$viola1_staff
 	\$viola2_staff
 >
 
-$bassi = \type GrandStaff = bassi_group <
+$bassi = \context GrandStaff = bassi_group <
 	\$violoncello_staff
 	\$contrabasso_staff
 >
 
-strijkers = \type StaffGroup = strijkers_group <
+strijkers = \context StaffGroup = strijkers_group <
 	\$violini
 	\$violi
 	\$bassi

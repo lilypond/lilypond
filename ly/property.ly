@@ -103,8 +103,7 @@ chordInversion		0/1	Find and display chord with inversion?
 %hmm, (these) abbrevs suck, imo
 % i guess they're meant as some form of doco
 % that's what i use them for...
-stemup = 
-	\property Voice.ydirection = \up 
+stemup =        \property Voice.ydirection = \up 
 stemboth= 	\property Voice.ydirection = \center
 stemdown = 	\property Voice.ydirection = \down
 
@@ -128,24 +127,24 @@ onevoice = {
 	\stemboth \shiftoff	
 }
 
-voiceone = { 	
-	\type Voice = one 
+voiceone = 
+	\context Voice = one  {
 	\stemup
 }
 
-voicetwo = { 	
-	\type Voice = two
+voicetwo = 
+	\context Voice = two {
 	\stemdown
 }
 
-voicethree = { 	
-	\type Voice = three
+voicethree = 
+	\context Voice = three {
 	\stemup
 
 }
 
-voicefour = { 	
-	\type Voice = four
+voicefour = 
+	\context Voice = four {
 	\stemdown
 	\shifton
 }
@@ -179,6 +178,8 @@ stafffour = {
 }
 
 % ugh, cluttering global namespace...
+
+% ugh2. 
 none=0
 free=0
 normal=1

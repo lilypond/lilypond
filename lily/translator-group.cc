@@ -19,6 +19,7 @@ Translator_group::Translator_group (Translator_group const&s)
   : Translator(s)
 {
   consists_str_arr_ = s.consists_str_arr_;
+  consists_end_str_arr_ = s.consists_end_str_arr_;
   accepts_str_arr_ = s.accepts_str_arr_;
   iterator_count_ =0;
   properties_dict_ = s.properties_dict_;
@@ -75,6 +76,19 @@ Translator_group::set_acceptor (String accepts, bool add)
 }
 
 void
+Translator_group::add_last_element (String s)
+{
+  if (!get_translator_l (s))
+    error ("Program has no such type");
+
+  for (int i=consists_end_str_arr_.size (); i--; )
+    if (consists_end_str_arr_[i] == s)
+      warning (_f("Already contains a `%s\'", s));
+      
+  consists_end_str_arr_.push (s);
+}
+
+void
 Translator_group::set_element (String s, bool add)
 {
   if (!get_translator_l (s))
@@ -89,11 +103,15 @@ Translator_group::set_element (String s, bool add)
       consists_str_arr_.push (s);
     }
   else
-    for (int i=consists_str_arr_.size (); i--; )
-      if (consists_str_arr_[i] == s)
-	consists_str_arr_.del (i);
+    {
+      for (int i=consists_str_arr_.size (); i--; )
+	if (consists_str_arr_[i] == s)
+	  consists_str_arr_.del (i);
+      for (int i=consists_end_str_arr_.size (); i--; )
+	if (consists_end_str_arr_[i] == s)
+	  consists_end_str_arr_.del (i);
+    }
 }
-
 bool
 Translator_group::removable_b() const
 {
@@ -410,11 +428,21 @@ Translator_group::do_add_processing ()
 {
    for (int i=0; i < consists_str_arr_.size(); i++)
     {
-      Translator * t = output_def_l ()->find_translator_l (consists_str_arr_[i]);
+      String s = consists_str_arr_[i];
+      Translator * t = output_def_l ()->find_translator_l (s);
       if (!t)
-	warning (_f ("can't find `%s\'", consists_str_arr_[i]));
+	warning (_f ("can't find `%s\'", s));
       else
 	add_translator (t->clone ());
+    }
+   for (int i=0; i-- < consists_end_str_arr_.size (); i++)
+     {
+       String s = consists_end_str_arr_[i];
+       Translator * t = output_def_l ()->find_translator_l (s);
+       if (!t)
+	 warning (_f ("can't find `%s\'", s));
+       else
+	 add_translator (t->clone ());
     }
 }
 
@@ -428,10 +456,12 @@ Translator_group::get_property (String id,
 	*where_l = (Translator_group*) this; // ugh
       return properties_dict_[id];
     }
-  
+
+#if 0
   if (daddy_trans_l_)
     return daddy_trans_l_->get_property (id, where_l);
-
+#endif
+  
   if (where_l)
     *where_l = 0;
   return "";

@@ -6,13 +6,13 @@
  % vOne is right hand outside part, vTwo r.h. inside part,
  % vThree left hand outside, vFour l.h. inside.
  \notes {
-   \type Staff=staffOne <
+   \context Staff=staffOne <
     \property Staff.nolines=11
     \property Voice.pletvisibility=0
     \keysignature fis;
     \time 3/8;
     \clef alto;
-    \type Voice=vOne <{
+    \context Voice=vOne <{
 %1
 \stemup [g''8 g' g'] |
 % 2
@@ -173,7 +173,7 @@ g'4. |}
 %6
 d4
      }>
-    \type Voice=vThree <{
+    \context Voice=vThree <{
 % 1
 \stemdown s4. |
 % 2
@@ -336,3 +336,4 @@ g,4. |
 Bar_number_engraver;}}
 }
 
+\version "1.0.16";

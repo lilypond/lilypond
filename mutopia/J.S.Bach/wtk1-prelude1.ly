@@ -8,7 +8,7 @@ enteredby =	 "Shay Rojansky";
 copyright =	 "Public Domain";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 global = 
     \notes {
@@ -22,7 +22,7 @@ soprane =
     \notes \transpose c'' {
         \clef "violin";
 
-	\type Staff <
+	\context Staff <
 	% Real soprane
 	{\stemup
 	r8 [g16 c'] [e' g c' e'] r8 [g16 c'] [e' g c' e'] |
@@ -93,7 +93,7 @@ bass =
 	b b |
 	a a |	
 %% 10
-	\type Staff <
+	\context Staff <
 	% Alt
 	{\stemup
 	r16 a8. ~ a4 r16 a8. ~ a4 |
@@ -161,7 +161,7 @@ bass =
 
         
 \score {
-    \notes \type GrandStaff < 
+    \notes \context GrandStaff < 
                   <
                        \global 
                        \soprane

@@ -12,7 +12,7 @@ copyright =	 "Public Domain";
 \include "viola-i.ly";
 
 \score{
-	\type GrandStaff <
+	\context GrandStaff <
 		\$violino_i_staff
 		\$viola_i_staff
 	>
@@ -30,3 +30,4 @@ copyright =	 "Public Domain";
 	}
 }
 
+\version "1.0.16";

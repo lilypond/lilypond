@@ -38,6 +38,7 @@ DECLARE_LY_SYMBOL(interbeam);
 DECLARE_LY_SYMBOL(interbeam4);
 DECLARE_LY_SYMBOL(interline);
 DECLARE_LY_SYMBOL(linewidth);
+DECLARE_LY_SYMBOL(molecule);
 DECLARE_LY_SYMBOL(notewidth);
 DECLARE_LY_SYMBOL(non_default);
 DECLARE_LY_SYMBOL(octave_dir);

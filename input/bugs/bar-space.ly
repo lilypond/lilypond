@@ -1,4 +1,4 @@
-\version "1.0.14";
+\version "1.0.16";
 
 scales = \notes\transpose c''{
 		f2 f f f f f f f f f\break 
@@ -10,7 +10,7 @@ keys = \notes{
 
 \score{
 	<
-		\type ChordNames \scales
-		\type Staff < \scales \keys >
+		\context ChordNames \scales
+		\context Staff < \scales \keys >
 	>
 }

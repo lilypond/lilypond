@@ -8,7 +8,7 @@ But merging melodic and scripts doen't work too well yet see viola_scripts .
 %}
 
 prelude_notes = \notes \relative c {
-	\type Voice=i
+	\context Voice=i
 	d8 f a4 ~ a16 f e d |
 	cis e g a bes4 ~ bes16 a g f |
 	e g bes cis e8. bes16 a16 g f e |
@@ -89,7 +89,7 @@ prelude_notes = \notes \relative c {
 }
 
 prelude_b = \notes \relative c {
-	\type Voice=ii
+	\context Voice=ii
 	\stemdown
 	s2.*47
 	%48
@@ -118,7 +118,7 @@ fig5 = \notes{ \slurnormal s8.()s16 }
 
 % of course, i just type fig1, and add the \ and the silly $ later
 prelude_slurs = \notes{
-	\type Voice=i
+	\context Voice=i
 	s4 s4 \$fig3 |
 	\$fig1 s4 \$fig3 |
 	\$fig1 s4 \$fig3 |
@@ -200,7 +200,7 @@ fig5 = \notes{ \slurdotted s8.()s16 }
 fig6 = \notes{ \slurdotted s16()s \slurdotted s()s }
 
 prelude_suggested_slurs = \notes{
-	\type Voice=i
+	\context Voice=i
 	\slurdotted
 	s2. |
 	s2. |
@@ -275,8 +275,9 @@ prelude_a = \notes<
 	\$prelude_suggested_slurs
 >
 
-prelude = \type Staff \notes<
+prelude = \context Staff \notes<
 	\$prelude_a
 	\$prelude_b
 >
 
+\version "1.0.16";

@@ -202,7 +202,7 @@ file is a definition of a python dictionary:
     'mudelaRhythm': r"""
 \begin{mudela}[eps \fontoptions]
 \score{
-    \type RhythmicStaff{
+    \context RhythmicStaff{
         \notes{\stemup \maininput}
     }
     \paper{linewidth = -1.\cm;}
@@ -217,7 +217,7 @@ send fontsize options to the defined commands.
 \verb|\mudelaRhythm[11pt]{c4 c8 [c16 c] c4 c}| produce this music:
 \begin{mudela}[eps, 11pt]
 \score{
-  \type RhythmicStaff{
+  \context RhythmicStaff{
     \notes{ \stemup c4 r8 [c16 c] c4 c }
   }
   \paper{linewidth = -1.\cm;}

@@ -11,7 +11,7 @@
 
 % cmchar "Italic letter r";
 % beginchar("r",5.5u#+max(1.75u#,flare#),x_height#,0);
-\"Dynamic letter r";
+"Dynamic letter r";
 beginchar( 114 ,5.5u#+max(1.75u#,flare#),x_height#,0);
 
 italcorr x_height#*slant;

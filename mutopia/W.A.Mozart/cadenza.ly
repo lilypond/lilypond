@@ -13,12 +13,12 @@ Tested Features: cadenza mode
 Ugh.. Wish we had grace notes....  It adds another dimension to this
 piece of music.  %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 
 cad = \notes  \relative c' {
 	\property Score.instrument = "french horn"
-	\type Staff {
+	\context Staff {
 	\cadenza 1;
 	\grouping 1*4;
 

@@ -1,19 +1,19 @@
 
-\version "1.0.14";
+\version "1.0.16";
 
-onestaff = \type Staff = foo\notes  {
+onestaff = \context Staff = foo\notes  {
 	\property Staff.instr = instr
 	\property Staff.instrument = instrument \mark "B";
 	 c1 \mark "A"; \break c2  c2 \break
 }
 
-grstaff = \notes \type GrandStaff <
-	\type Staff = bar {
+grstaff = \notes \context GrandStaff <
+	\context Staff = bar {
 
 	\property Staff.instr = instr
 	
 	 \mark "B"; \break c1 \mark "A"; c2  }
-	\type Staff = bufl { c1 c2  }
+	\context Staff = bufl { c1 c2  }
 >
 
 scpaper = \paper {\translator {\OrchestralScoreContext}}

@@ -1,9 +1,9 @@
 % -*-LaTeX-*-
 \documentclass{article}
 
-\begin{document}
 \title{LilyPond feature test}
 \author{Han-Wen Nienhuys}
+\begin{document}
 \maketitle
 
 This document tries give an brief overview of LilyPond features. When
@@ -61,8 +61,8 @@ cases.
 
 \mudelafile{rest-collision.ly}
 
-Normal collisions. We have limited support for four voice polyphony,
-where the middle voices are horizontally shifted, sometimes.
+Normal collisions. We have support for four voice polyphony, where the
+middle voices are horizontally shifted in a limited number of cases.
 
 \mudelafile{collisions.ly}
 
@@ -79,13 +79,21 @@ knowing it.  Consequently, they fall over quite often.
 
 \mudelafile{bar-scripts.ly}
 
+Staff margins are also markings attached to barlines.  They should be
+left otf the staff, and be centered vertically wrt the staff.  They
+may be on normal staffs, but also on compound staffs, like the
+PianoStaff
+
+\mudelafile{staff-margin.ly}
+
 
 \section{Clefs and Time Signatures}
 
-For octaviated clefs, the ``8'' should appear closely above or below
-the clef respectively. The transparent clef should not occupy any space
-and with style \texttt{fullSizeChanges}, the changing clef should be
-typeset in full size.
+The transparent clef should not occupy any space and with style
+\texttt{fullSizeChanges}, the changing clef should be typeset in full
+size. For octaviated clefs, the ``8'' should appear closely above or
+below the clef respectively.  The ``8'' is processed in a rather
+convoluted way, so this is fragile as well.
 
 \mudelafile{clefs.ly}
 

@@ -1,5 +1,5 @@
 	
-\version "1.0.14";
+\version "1.0.16";
 
 
 blah = 	\notes{ \transpose c'' {
@@ -49,8 +49,8 @@ blah = 	\notes{ \transpose c'' {
 	[c-^ \< d-^ e-^ \! f-^][d'-^ \> e'-^ f'-^ \! g'-^] 
 	[c-. \< d-. e-. \! f-.][d'-. \> e'-. f'-. \! g'-.]
 	[c-- \< d-- e-- \! f--][d'-- \> e'-- f'-- \! g'--] 
-	[c-\portato \< d-\portato e-\portato \! f-\portato]
-		[d'-\portato \> e'-\portato f'-\portato \! g'-\portato]
+	[c-\tenuto \< d-\tenuto e-\tenuto \! f-\tenuto]
+		[d'-\tenuto \> e'-\tenuto f'-\tenuto \! g'-\tenuto]
 	[c-\upbow \< d-\upbow e-\upbow \! f-\upbow]
 		[d'-\upbow \> e'-\upbow f'-\upbow \! g'-\upbow] 
 	[c-| \< d-| e-| \! f-|][d'-| \> e'-| f'-| \! g'-|]

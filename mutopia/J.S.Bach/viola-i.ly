@@ -11,8 +11,9 @@ copyright =	 "Public Domain";
 \include "global-i.ly"
 \include "violoncello-i.ly";
 
-$viola_i_staff = \type Staff = viola <
+$viola_i_staff = \context Staff = viola <
 	\notes\transpose c'' \$violoncello_i
 	\clef alto;
 	\$global_i
 >
+\version "1.0.16";

@@ -27,3 +27,9 @@ message (String m)
 {
   cerr << m<<endl;
 }
+void
+programming_error (String s)
+{
+  cerr << _("Programming error: ") << s << _(" (continuing; cross thumbs)") << '\n';
+
+}

@@ -10,7 +10,7 @@ title = "An Sylvia";
 }
 
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "paper16.ly";
 \include "paper13.ly";
@@ -210,7 +210,7 @@ tune=\notes  \relative c''  {
 %5
 		b2. g4 |
 %6
-		g( )fis \type Staff < {\voiceone r2}{\voicetwo r4 a4}> |
+		g( )fis \context Staff < {\voiceone r2}{\voicetwo r4 a4}> |
 %7
 		g2. e4 |
 %8
@@ -236,15 +236,15 @@ tune=\notes  \relative c''  {
 %18
 		r1 |
 %19
-		d2. \type Staff < {\voiceone b8 ~ g8} {\voicetwo [b8 g8]} > |
+		d2. \context Staff < {\voiceone b8 ~ g8} {\voicetwo [b8 g8]} > |
 %20
 		\property Voice.slurdash = 2
 		fis4( )e		\property Voice.slurdash = ""
-		 \type Staff < {\voiceone r2}{\voicetwo r4 e4} > |
+		 \context Staff < {\voiceone r2}{\voicetwo r4 e4} > |
 %21
 		c'2. [b16( a g )fis] |
 %22
-		e4( )d \type Staff <{\voiceone r2} {\voicetwo r4 d4}> |
+		e4( )d \context Staff <{\voiceone r2} {\voicetwo r4 d4}> |
 %23
 		d2 d'2 |
 %24
@@ -350,11 +350,11 @@ global=\notes {
 		\property Staff.timeSignatureStyle = "C"
 }
 
-Piano=\type GrandStaff = piano {
+Piano=\context GrandStaff = piano {
 	    \property GrandStaff.instrument="Piano"
 	    < 
-	     \type Staff=RH {\global \pianoRH }
- 	     \type Staff=LH {\global \pianoLH }
+	     \context Staff=RH {\global \pianoRH }
+ 	     \context Staff=LH {\global \pianoLH }
 	    >
 }
 
@@ -373,10 +373,10 @@ GermanWords = \lyrics<
 >
 
 Vocals= <
-	\type Staff = vocal < 
+	\context Staff = vocal < 
 	       \notes \transpose c {\clef "F"; \global\tune}
-%	       {\type  Lyrics = vocal \EnglishWords}
-	       {\type  Lyrics = vocal \GermanWords}
+%	       {\context  Lyrics = vocal \EnglishWords}
+	       {\context  Lyrics = vocal \GermanWords}
 	     >
 >
 

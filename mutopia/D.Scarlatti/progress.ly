@@ -48,12 +48,12 @@ John
  % vOne is right hand outside part, vTwo r.h. inside part,
  % vThree left hand outside, vFour l.h. inside.
  \notes {
-   \type Staff=staffOne <
+   \context Staff=staffOne <
     \property Staff.nolines=11
     \property Voice.pletvisibility=0
     \time 2/2;
     \clef alto;
-    \type Voice=vOne <{
+    \context Voice=vOne <{
 % 1
 \stemup s1
 % 2
@@ -285,11 +285,11 @@ s2. f'4 |
 % 94
 e'2 e'2
      }>
-    \type Voice=vTwo <
+    \context Voice=vTwo <
      {
      %- right hand unchorded notes -
      }>
-    \type Voice=vThree <{
+    \context Voice=vThree <{
 % 1
 \stemdown s2.  [e''16 d'' c'' b'] |
 % 2
@@ -481,7 +481,7 @@ s1 s s s s s s s s s s s s s s s s s s s s s s s s s s s s
 % 90
 b2 a4 
      } >
-    \type Voice=vFour <
+    \context Voice=vFour <
      {
      %- left hand unchorded notes -
      }
@@ -498,12 +498,12 @@ Bar_number_engraver;}}
  % vOne is right hand outside part, vTwo r.h. inside part,
  % vThree left hand outside, vFour l.h. inside.
  \notes {
-   \type Staff=staffOne <
+   \context Staff=staffOne <
    \property Staff.nolines=11
     \keysignature bes;
     \time 4/4;
     \clef alto;
-    \type Voice=vOne <
+    \context Voice=vOne <
 {
 % 1
 \stemup \skip 4..*15/7; g'16 |
@@ -622,7 +622,7 @@ s1 s s
 s4. c'8 s4 ees'16
 }
     >
-    \type Voice=vTwo <
+    \context Voice=vTwo <
  {
 s1 s s s s s s s s s
 % 11
@@ -658,7 +658,7 @@ fis'4~fis'16 \skip 4..*27/7; |
 % 40
 [fis'16 a' bes' g']~[g' c'' a'd'] <g'4 bes'>
 }   >
-    \type Voice=vThree <
+    \context Voice=vThree <
 {
 % 1
 \stemdown \skip 4..*23/7;
@@ -768,7 +768,7 @@ s4. g'8}
 % 29
 b'16}
     >
-    \type Voice=vFour <
+    \context Voice=vFour <
      {
 \stemdown \skip 4..*74/7;
 % 5
@@ -807,3 +807,4 @@ Bar_number_engraver;}}
 
 ----------------------------------------------------
 
+\version "1.0.16";

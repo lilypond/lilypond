@@ -83,6 +83,11 @@ Score_engraver::announce_element (Score_element_info info)
 {
   announce_info_arr_.push (info);
   info.origin_grav_l_arr_.push (this);
+
+  if (Spanner *s = dynamic_cast <Spanner *> (info.elem_l_))
+    pscore_p_->typeset_unbroken_spanner (s);
+  else if (Item *i = dynamic_cast<Item*> (info.elem_l_))
+    pscore_p_->typeset_element (i);
 }
 
 /* All elements are propagated to the top upon announcement. If
@@ -111,10 +116,9 @@ Score_engraver::typeset_all()
   for  (int i =0; i < elem_p_arr_.size(); i++) 
     {
       Score_element * elem_p = elem_p_arr_[i];
+      elem_p->add_processing ();
       if (Spanner *s = dynamic_cast <Spanner *> (elem_p))
 	{
-	  pscore_p_->typeset_unbroken_spanner (s);
-
 	    /*
 	    do something sensible if spanner not 
 	    spanned on 2 items.
@@ -131,7 +135,7 @@ Score_engraver::typeset_all()
       else 
 	{
 	  Item *item_p = dynamic_cast <Item *> (elem_p);
-	  pscore_p_->typeset_element (item_p);
+
 	  if (!item_p->parent_l (X_AXIS))
 	    {
 	      bool br = (item_p->remove_elt_property (breakable_scm_sym) != SCM_BOOL_F);

@@ -26,7 +26,7 @@ Staff_margin_engraver::Staff_margin_engraver ()
 /*
     TODO
 
-    should be able to set whole paragraph (multiple lines, centre) to
+    should be able to set whole paragraph (multiple lines, center) to
     left (right?) of staff, e.g.:
                     ______
                    |_______
@@ -54,6 +54,12 @@ Staff_margin_engraver::acknowledge_element (Score_element_info inf)
   text_p_->text_str_ = long_str;
   staff_side_p_->dir_ = LEFT;
   Bar_script_engraver::do_acknowledge_element (i);
+
+  /*
+    UGH. ignores font size settings.
+   */
+  Interval iv(text_p_->extent (Y_AXIS));
+  text_p_->translate_axis (- iv.center (),  Y_AXIS);
 }
 
 

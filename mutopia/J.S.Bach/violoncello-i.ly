@@ -23,8 +23,9 @@ $violoncello_i = \notes\relative c{
 
 \include "global-i.ly"
 
-$violoncello_i_staff = \type Staff = violoncello <
+$violoncello_i_staff = \context Staff = violoncello <
 	\$violoncello_i
 	\clef bass;
 	\$global_i
 >
+\version "1.0.16";

@@ -55,11 +55,6 @@ Line_group_engraver_group::create_line_spanner ()
   staffline_p_->set_axes (Y_AXIS,Y_AXIS);
 }
 
-void
-Line_group_engraver_group::do_announces ()
-{
-  Engraver_group_engraver::do_announces ();
-}
 
 
 

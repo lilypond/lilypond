@@ -7,7 +7,7 @@ title = "Ode to Joy";
 metre = "8 7 8 7 D";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 sop=\notes \relative c'' {
 	b4 b c d | d c b a | g g a b | b4. a8 a2 \bar "||";
@@ -44,20 +44,20 @@ global=\notes{
 	\key G;
 }
 
-$upper_staff = \type Staff = upper \notes {
+$upper_staff = \context Staff = upper \notes {
 	\global
 	\clef "G";
-	\type Staff <
+	\context Staff <
 	    {\voiceone \sop}
 	    {\voicetwo \alto}
 	>
 	\bar "|.";
 }
 
-$lower_staff = \type Staff = lower \notes {
+$lower_staff = \context Staff = lower \notes {
 	\global
 	\clef "F";
-	\type Staff <
+	\context Staff <
 	    {\voiceone \tenor}
 	    {\voicetwo \bass }
 	>

@@ -138,7 +138,7 @@ Slur::do_post_processing ()
    [OSU]: slur and tie placement
 
    slurs:
-   * x = centre of head (upside-down: inner raakpunt stem) - d * gap
+   * x = center of head (upside-down: inner raakpunt stem) - d * gap
 
    * y = length < 5ss : horizontal raakpunt + d * 0.25 ss
      y = length >= 5ss : y next interline - d * 0.25 ss

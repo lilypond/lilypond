@@ -1,6 +1,6 @@
 \score{
 	<
-		  \type Staff \notes\relative c'{ 
+		  \context Staff \notes\relative c'{ 
 			  c4 d e f
 			  \repeat 3 { g a b c }
 %			  \alternative { { c b a g } { f e d c } } c c c c
@@ -12,3 +12,5 @@
 		  }
 	>
 }
+
+\version "1.0.16"; 

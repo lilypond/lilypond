@@ -9,25 +9,14 @@ Most of the items are marked in the code as well
 Grep for TODO and ugh/ugr/urg.  
 
 .* BUGS
-. * header for PS enteredby = "bla <bla@bar.com>"
-. * Hash_table::remove ().
-. * 1.  With "lilypond -f ps": The black notes with ledger lines seem to
-> have extra "blobs" over and to the left of them and all the ledger
-> lines from the staff to the note will have a blob too.  For example,
-> with the note "a4" there will be a black note at the ledger line where
-> "c" would be too.  However, only the "a4" will have the extra blob.
-. * clefs.ly
-. * ps/lily.ps
+. * rewrite context defs using Scheme
+. * PostScript
+.  * header for PS enteredby = "bla <bla@bar.com>"
+.  * ps/lily.ps see comments.
 . * devise standard for functioning of Vertical_align_element.
-. * fix interstaff slurs & beams.
 . * staff size for post/prebreaks
 . * .ly files
 .  * input/star-spangled-banner
-.  * input/scripts.ly
-.  * mutopia/J.S.Bach/wtk1-fugue2.ly
-.  * input/test/grace
-.  * fix: text on rests: ridiculous dims
-.  * clefs.ly
 . * m=\notes\relative c'''{
   \time 2/4;
 
@@ -56,9 +45,10 @@ Grep for TODO and ugh/ugr/urg.
   }
 }
 . * midi key.
-. * P.P.S. It can be cool in mudela-book to distinguish in pre,postMudelaExample,
-whether MudelaExample is epsed or not: ( if this fragment is floating eps, than 1,
-otherwise 2). say preMudelaExample[eps]{}, and change it in document body sometimes.
+. * P.P.S. It can be cool in mudela-book to distinguish in
+pre,postMudelaExample, whether MudelaExample is epsed or not: ( if
+this fragment is floating eps, than 1, otherwise 2). say
+preMudelaExample[eps]{}, and change it in document body sometimes.
 . * fix singleStaffBracket
 . * declare performers in \midi
 . * fix MIDI
@@ -66,18 +56,33 @@ otherwise 2). say preMudelaExample[eps]{}, and change it in document body someti
 . * turn slope-damping on/off
 . * tremolo stuff
 . * fix height of / collisions with lyrics (chords), 
-    see input/test/vertical-text.ly; input/test/repeat.ly
+see input/test/vertical-text.ly; input/test/repeat.ly
 . * We need feta-din*.mf files for more sizes than 10.
-. * latex bla.tex broken (titles / \lilyfooter stuff?
 . * fix dynamics decently, ie. use kerning & ligatures.  
 . * dots & rest collisions?
 . * mudela-book.py
-.  * \mudelafile{} to have decent functionality
+.  * fix \mudelafile{} to have decent functionality
 .  * use less RE's
 . * support_l_arr_ empty in staff-margin's G_staff_side_item
 . * slurs colllide with lyrics.
-. * minVerticalAlign for StaffGroups.
-. * fix OrchestralScore and Hara-kiri (i.e., fix Coriolan)
+. * Is there any reasonable way to do this: I would like to have one file
+that can generate the same tune in two different modes without having
+to go through and rewrite all the music in the other mode.
+
+Long lyrics don't get a space at the end.  They just run right up
+against the next lyric.  (I don't think this used to be the case.)
+
+Lyrics and scripts collide.
+
+\key b; \time 4/4; looks bad.  The clef and time signature are too close.
+
+I noticed that ledger lines in the previewer looked like they had a
+double line (of different lengths).  On printed output, I think I can
+see a slight thickening of the ledger lines in the middle.  Is this
+supposed to happen?
+
+restStyle=mensural doesn't seem to work (lots of characters not found
+for rests.fly)
 . * Phrasing:  Indicating the textual underlay of a piece, or
 otherwise dividing a piece into phrases.
 
@@ -85,25 +90,20 @@ There are distinct ways of specifying the first two (although at
 present, they're not properly distinguished) but no distinct way to
 specify the third.  Should there be?
 . * spacing of mmrests.
-. * mem leak: redo p-score object deletion.
 . * rest collision minimum dist.
 . * Matanya's tips: 
 .  * spacing for prefatory matter
-.  * Score does not use points to describe musical sizes. I think becaue the music
-> symbols are not part of any PostScript font. The line length is 7.5 inch (19.05
+.  * The line length is 7.5 inch (19.05
 > cm) and the height of normal size is equivalent to the traditional raster 1
 > size. (The Schott company sells Letraset sheets of musical symbols which are
 > measured in raster sizes). It is agreed among most engravers I know that the
 > standard size for adult readers in solo music should 70% of raster 1.  Jeff's
-> example was 75%, so I had to modify my file to match. Of course, the amount of
+> example was 75%, so I had to modify my file to match. 
 
 So that makes for a staff space of 4 2/3 point. I'll add the
 dimensions to the TODO file.
-
 .  * accidentals closer to note head
-.  * ledger line for rest dim less
 .  * heavier beams?
-
 
 .* Cleanups needed
 . * Beam
@@ -122,6 +122,7 @@ dimensions to the TODO file.
 .  * Remove mutopia ramblings.
 .  * Remove non-free software links.
 .  * Remove meta article LilyPond.
+. * generic rest ledgers
 . * TODO: merge atom & molecule; make  tree from molecule.
 . * break priority setting from SCM.
 . * Gade score
@@ -239,6 +240,7 @@ and do y_direction?
 . * zip target for binary windows dist (JBR)
 . * junking \skip req in lyrics
 . * mi2mu empty staffs.
+. * use Fourier transformation for rhythmic quantisation.
 . * horizontal centering of dynamics 
 . * $DEPENDENCIES_OUTPUT support
 . * Xdvi zooming ?! Try to understand GS garbage collection.
@@ -246,13 +248,6 @@ gs: Error: /undefined in draw_beam
 gs: Operand stack:
 . * fix vertical alignment and stafflines
 . * declaring Performers
-. * GrandStaff needs more work -- I want a single word
-	`harpsichord' to the left of the grandstaff, not one on each
-	stave.  (Organ staff -- with separate pedal -- but common
-	properties may be something to think about.  Of course for
-	organ you want to be able to give stop indications on the way
-	through, so the \property Voice.Instrument would be a stop,
-	and \property GrandStaff.instrument would be PipeOrgan...)
 . * *.yo: fix pod manpage layout legacy
 . * text-items clash with stems/beams
 . * --include, -I option for ly2dvi (pass on to lily)
@@ -306,6 +301,7 @@ touching it.
 .* FONT
 . * the bracket is ugly (wings are too parabolic, should be more circular)
 . * versioning for Feta
+. * rewrite dynamic signs.  They're kind of spaghetti now. 
 . * The `3' in the meter key is a one or two pixels too thin (at 600dpi)
 	in the middle:
 . * design macro for penstroke with rounded endings
@@ -323,7 +319,6 @@ touching it.
 .  * coda signs: Segno, O+
 .  * glissando, arpeggio
 .  * lengthened trill
-. * 128th flags
 . * include important spacing dims in fetalog 
 .* 3RD PARTY BUGS
 . * GNU diff 2.7: diff -rN does not see a new directory with empty file
@@ -341,7 +336,6 @@ touching it.
 	    thing is fixed
 .* PROJECTS
 . * Scripts:
-.  * fix position of bar number
 .  * stack scripts in chords:
 	  % fingering:        footing:
 	    < a-4 c-2 g-1 >   < c-\ltoe e-\lheel >
@@ -385,7 +379,7 @@ touching it.
 .  * output header info to MIDI too.
 
 . * a musical dictionary. See Documentation/vocabulary-*, other
-	languages:
+languages:
 .  * explanations
 .  * italian
 .  * german
@@ -561,7 +555,6 @@ hesitate to ask.
 .* INPUTLANGUAGE
 . * \rhythms 4 16 16 16 16; c c c c c -> c4 c16 etc. 
 . * Language:
-.  * \type -> \context ?
 .  * \translator -> ?
 .  * fix \partial 
 .  * \bla {} vs \bla ; 
@@ -736,13 +729,6 @@ When writing new primitives, now just check foo_live_p().
 
 I hope the above helps,
 
--russ
-
-
---
-"Even if you are on the right track, you'll get run over 
-if you just sit there."  
-             --Will Rogers (1879-1935)
 
 * OUTLINE SETUP
 .* .EMACS

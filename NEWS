@@ -1,3 +1,45 @@
+pl 40.uu2
+	- rest ledger lines are dimensionless.
+	- Score_elements are added to the Paper_score directly when
+announce_element () is called.  This makes it possible to init
+molecules from within engravers.
+	- changed \type to \context
+	- \context Contextname = ID Music is now a real separate production
+	  * you can do
+		\context C1 \context C2
+
+	and C1 won't overwrite C2
+
+	  * you need some extra explicit context specs, eg. if you start a
+voice with a chord.
+
+		\score { \notes { <c e g> }  }
+
+	should be
+
+		\score { \notes \context Voice { <c e g > }
+
+	- set staff margins on grandstaffs too. Center staffmargins vertically.
+	- \property values are not inherited anymore, i.e. setting
+Score.minVerticalAlign does not set GrandStaff.minVerticalAlign, Staff.minVerticalAlign and Voice.minVerticalAlign as well.
+	- {Axis_spanner, Hara_kiri}_engraver which can be added at wish.
+Hara_kiri should be working again.
+	- boilerplate for accordion stuff.
+	- some more paper writing.
+	- bf: substitute vertical refpoint as well for broken items.
+(fixes clef^8)
+	- bf: translating molecule without elts but with dims. (bf: accidental
+spacing.)
+	
+pl 40.mb1
+       - bf: ly2dvi set MFINPUTS so standard tree is found before lilypond
+       - bf: lilypond-regtest.doc, ls-latex.py; now finds author/title
+
+pl 40.uu1
+	- large documentation patch by Adrian Mariano
+
+********
+pl 40
 pl 39.mb2
 	- added more mensural style time signatures, old3/4, old6/8, old9/8
 	- redesigned old6/4, old9/4

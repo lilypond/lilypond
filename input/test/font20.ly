@@ -11,9 +11,11 @@ TestedFeatures =
 \include "font-body.ly"
 
 \score{
-	\type Staff { \FontBody}
+	\context Staff { \FontBody}
 	\paper{
 	    linewidth = 17.5 \cm;
 	    gourlay_maxmeasures =5.;
 	}
 }
+\version "1.0.16"; 
+

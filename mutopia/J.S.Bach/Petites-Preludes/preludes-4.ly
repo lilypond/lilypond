@@ -8,10 +8,10 @@ composer =	"Johann Sebastian Bach (1685-1750)";
 enteredby =	"jcn";
 copyright =	"public domain";
 }
-\version "1.0.14";
+\version "1.0.16";
 
-one = \type Staff \notes\relative c {
-	\type Voice=i
+one = \context Staff \notes\relative c {
+	\context Voice=i
 	\property Voice . textstyle = "italic"
 %	r16\p_"legato" 
 	r16\p
@@ -69,8 +69,8 @@ one = \type Staff \notes\relative c {
 	\bar "|.";
 }
 
-two = \type Staff \notes\relative c{
-	\type Voice=ii
+two = \context Staff \notes\relative c{
+	\context Voice=ii
 	\stemup
 	\property Voice . textstyle = "finger"
 	fis4-1( e8-2 a4 a4 gis8-2 | 
@@ -116,7 +116,7 @@ two = \type Staff \notes\relative c{
 	\translator Staff=lower \stemup
 	<
 		{ \stemup  d8-2 a~ a4 }
-		\type Voice=ii { \stemdown  a8-1 g  fis16-2 e-1 fis-2 d-1 }
+		\context Voice=ii { \stemdown  a8-1 g  fis16-2 e-1 fis-2 d-1 }
 	>
 	\stemup 
 	g-1 fis-2 g-1 a-2  g-1 b-3 a-2 g-1 ~ |
@@ -125,7 +125,7 @@ two = \type Staff \notes\relative c{
 }
 
 three = \notes\relative c{
-   	\type Voice=iii
+   	\context Voice=iii
 	\stemdown 
 	d4-3 c-4 b e-3 |
 	a16 a,-5\mf( cis-3 a-5  d-2 e-1 fis-2 d-4 
@@ -161,9 +161,9 @@ three = \notes\relative c{
 	d a-2~  a16 a-2 b cis-2 d2 |
 }
 
-four = \type Staff \notes\relative c{
+four = \context Staff \notes\relative c{
 	\skip 1*9;
-	\type Voice=iv
+	\context Voice=iv
 	\stemup
 	\property Voice.hshift = 1 
 	%10
@@ -189,13 +189,13 @@ global = \notes{
 
 \score{
 	% Allegretto
-	\type GrandStaff <
-		\type Staff = upper <
+	\context GrandStaff <
+		\context Staff = upper <
 			\global
 			\one
 			\four
 		>
-		\type Staff = lower <
+		\context Staff = lower <
 			\global
 			\clef "bass";
 			\two

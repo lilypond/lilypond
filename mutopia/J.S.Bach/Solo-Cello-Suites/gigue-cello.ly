@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "gigue-urtext.ly";
 
@@ -41,7 +41,7 @@ gigue_cello_global = \notes{
 gigue_cello_scripts = \notes{
 }
 
-gigue_cello_staff = \type Staff <
+gigue_cello_staff = \context Staff <
 	\$gigue
 	\$gigue_cello_global
 	\$gigue_cello_scripts

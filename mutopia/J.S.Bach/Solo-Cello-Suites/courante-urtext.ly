@@ -10,8 +10,8 @@ But merging melodic and scripts doen't work too well yet (see viola_scripts).
 n = { \slurnormal }
 d = { \slurdotted }
 
-courante_a = \type Staff \notes \relative c {
-	\type Voice=i
+courante_a = \context Staff \notes \relative c {
+	\context Voice=i
 	d'16 |
 	d a f a d, f g a \d bes()a bes()g |
 	\stemup <g4 a> s4 \stemboth \d g16()f g()e |
@@ -62,7 +62,7 @@ courante_a = \type Staff \notes \relative c {
 }
 
 courante_b = \notes \relative c {
-	\type Voice=ii
+	\context Voice=ii
 	\stemdown
 	s16 |
 	s2. |
@@ -86,8 +86,9 @@ courante_b = \notes \relative c {
 	s2 s8.
 }
 
-courante = \type Staff \notes<
+courante = \context Staff \notes<
  \$courante_a
  \$courante_b
 >
 
+\version "1.0.16";

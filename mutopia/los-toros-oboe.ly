@@ -8,7 +8,7 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 latexheaders=    "headers";
 } 
-\version "1.0.14";
+\version "1.0.16";
 
 %{
 Silly latex file dropped; use ly2dvi
@@ -295,7 +295,7 @@ global = \notes{
 }
 
 
-$staff_hoboone = \type Staff = hoboonestaff <
+$staff_hoboone = \context Staff = hoboonestaff <
 	\global
 	\property Staff.instrument = "oboe"
 	% don't expand multi-bar rest

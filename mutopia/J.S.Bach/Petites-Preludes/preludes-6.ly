@@ -8,11 +8,11 @@ composer =	"Johann Sebastian Bach (1685-1750)";
 enteredby =	"jcn";
 copyright =	"public domain";
 }
-\version "1.0.14";
+\version "1.0.16";
 
 
-one = \type Staff \notes\relative c{
-	\type Voice=i
+one = \context Staff \notes\relative c{
+	\context Voice=i
 	\skip 1; |
 	\stemup
 	r4 d''2-5( cis4-4 |
@@ -33,8 +33,8 @@ one = \type Staff \notes\relative c{
 	\bar "|.";
 }
 
-two = \type Staff \notes\relative c{
-	\type Voice=ii
+two = \context Staff \notes\relative c{
+	\context Voice=ii
 	r16\p d''-5( c-4 bes-3  a-2 bes-3 f-1 g-2 
 	a8.-\mordent bes16-1  g8.-\prall f16-1 |
 	\stemdown
@@ -53,8 +53,8 @@ two = \type Staff \notes\relative c{
 	fis1-2
 }
 
-three = \type Staff \notes\relative c{
-	\type Voice=iii
+three = \context Staff \notes\relative c{
+	\context Voice=iii
 	\stemup
 	f2-1( e-2 |
 	\stemboth
@@ -76,8 +76,8 @@ three = \type Staff \notes\relative c{
 	\bar "|.";
 }
 
-four = \type Staff \notes\relative c{
-	\type Voice=iv
+four = \context Staff \notes\relative c{
+	\context Voice=iv
 	\stemdown 
 	d2-3 cis-4 |
 	\skip 1*3; |
@@ -103,13 +103,13 @@ global = \notes{
 
 \score{
 	% Allegretto
-	\type GrandStaff <
-		\type Staff = upper <
+	\context GrandStaff <
+		\context Staff = upper <
 			\global
 			\one
 			\two
 		>
-		\type Staff = lower <
+		\context Staff = lower <
 			\global
 			\clef "bass";
 			\three

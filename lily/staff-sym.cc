@@ -42,8 +42,10 @@ Staff_symbol::do_brew_molecule_p() const
 {
   Real w = extent (X_AXIS).length ();
   Paper_def * p = paper_l ();
-  Molecule rule  = lookup_l ()->rule_symbol (p->get_var ("rulethickness"),
-					     w);
+  Real t = p->get_var ("rulethickness");
+  Molecule rule  = lookup_l ()->filledbox (Box (Interval (0,w),
+						Interval (-t/2, t/2)));
+
   Real height = (no_lines_i_-1) * staff_line_leading_f_ /2;
   Molecule * m = new Molecule;
   for (int i=0; i < no_lines_i_; i++)

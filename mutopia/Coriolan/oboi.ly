@@ -9,16 +9,16 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "oboe-1.ly"
 \include "oboe-2.ly"
 
-$oboi_staff = \type Staff = oboi <
+$oboi_staff = \context Staff = oboi <
 	\property Staff.midi_instrument = "oboe"
 	\property Staff.instrument = "2 Oboi"
 	\property Staff.instr = "Ob."
-	\notes \type Voice=oboi < 
+	\notes \context Voice=oboi < 
 		\global
 		\$oboe1
 		\$oboe2

@@ -1,4 +1,4 @@
-\version "1.0.14";
+\version "1.0.16";
 
 %{
 Would this be acceptable/good enough/convenient for entry?
@@ -54,7 +54,7 @@ keys = \notes{
 
 \score{
 	<
-		\type ChordNames \scales
-		\type Staff < \scales \keys >
+		\context ChordNames \scales
+		\context Staff < \scales \keys >
 	>
 }

@@ -65,7 +65,7 @@ public:
       while (j <= sz/2) {
 	if (dict_arr_[i].free_b_)
 	  return i;
-	    
+
 	if (dict_arr_[i].key_ == s)
 	  return i;
 
@@ -73,41 +73,15 @@ public:
 	i = (i + j*j) % sz;
       }
 
+      
       return -1;
     }
 
   /// remove #s# from the hash table.  
   V remove (K s, unsigned int initial_hash)
     {
-      int sz =dict_arr_.size ();
-      int i = initial_hash % sz;
-      int j = 0;
-      V retval;
-
-      /*
-	duplicate with lookup, but we need value of j
-       */
-      
-      while (j <= sz/2 && dict_arr_[i].key_ != s)
-	{
-	  assert (!dict_arr_[i].free_b_);
-
-	  j ++;
-	  i = (i + j*j) % sz;
-	}
-
-      j++;
-      int nexti = (i + j*j) % sz;
-
-      while (j <= sz/2 && !dict_arr_[i].free_b_)
-	{
-	  dict_arr_[i] = dict_arr_[nexti];
-	  j++;
-	  i = nexti;
-	  nexti = (nexti + j*j)%sz;
-	}
-      
-      return retval;
+      // TODO
+      assert (false);
     }
 };
 

@@ -9,8 +9,6 @@
 
   TODO
       Glissando
-
-      merge rulesym and filledbox.
 */
 
 #include <ctype.h>
@@ -30,17 +28,6 @@
 #include "atom.hh"
 #include "lily-guile.hh"
 
-SCM
-array_to_list (SCM *a , int l)
-{
-  SCM list = SCM_EOL;
-  for (int i= l; i--;  )
-    {
-      list =  gh_cons (a[i], list);
-    }
-  return list;
-}
-
 
 Lookup::Lookup ()
 {
@@ -56,24 +43,37 @@ Lookup::Lookup (Lookup const& s)
 }
 
 
+/*
+  build a ledger line for small pieces.
+ */
 Molecule
 Lookup::ledger_line (Interval xwid) const
 {
-  Molecule end (afm_find ("noteheads-ledgerending"));
-  Interval ed = end.dim_[X_AXIS];
-  xwid = Interval (xwid[LEFT] - ed[LEFT],
-		   xwid[RIGHT] - ed[RIGHT]);
-  Molecule mid = filledbox (Box (xwid, end.dim_[Y_AXIS]));
-  Molecule l (mid);
+  Drul_array<Molecule> endings;
+  endings[LEFT] = afm_find ("noteheads-ledgerending");
+  Molecule * e = &endings[LEFT];
+  endings[RIGHT] = *e;
+  
+  Real thick = e->dim_[Y_AXIS].length();
+  Real len = e->dim_[X_AXIS].length () - thick;
 
-  Molecule e2 = end;
-  Molecule e1 = end;
-  e1.translate_axis (xwid[RIGHT], X_AXIS);
-  e2.translate_axis (xwid[LEFT], X_AXIS);
+  Molecule total;
+  Direction d = LEFT;
+  do {
+    endings[d].translate_axis (xwid[d] - endings[d].dim_[X_AXIS][d], X_AXIS);
+    total.add_molecule (endings[d]);    
+  } while ((flip(&d)) != LEFT);
 
-  l.add_molecule (e1);
-  l.add_molecule (e2);
-  return l;
+  Real xpos = xwid [LEFT] + len;
+
+  while (xpos + len + thick /2 <= xwid[RIGHT])
+    {
+      e->translate_axis (len, X_AXIS);
+      total.add_molecule (*e);
+      xpos += len;
+    }
+
+  return total;
 }
 
 
@@ -318,22 +318,6 @@ Lookup::rest (int j, bool o, String style) const
   return afm_find (String ("rests-") + to_str (j) + (o ? "o" : "") + style);
 }
 
-Molecule
-Lookup::rule_symbol (Real height, Real width) const
-{
-  Atom at  (gh_list (rulesym_scm_sym,
-		     gh_double2scm (height),
-		     gh_double2scm (width),
-		     SCM_UNDEFINED));
-
-  Molecule m;
-  m.dim_.x () = Interval (0, width);
-  m.dim_.y () = Interval (0, height);
-  
-  m.add_atom (&at);
-
-  return m;
-}
 
 Molecule
 Lookup::special_time_signature (String s, int n, int d) const
@@ -612,4 +596,14 @@ Lookup::volta (Real w, bool last_b) const
   return m;
 }
 
+Molecule
+Lookup::accordion (SCM s) const
+{
+  Molecule m;
 
+  /*
+    Tom: go ahead.
+   */
+  return m;
+  
+}

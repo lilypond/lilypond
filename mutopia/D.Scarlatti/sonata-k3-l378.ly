@@ -16,8 +16,8 @@ LHtoL = { \tolower \stemdown }
 
 \score {
  \notes 
-   \type PianoStaff  <
-    \type Staff = upper <\type Voice = mainV <{
+   \context PianoStaff  <
+    \context Staff = upper <\context Voice = mainV <{
     % 1
 	\stemup s1
 	s4 [e'16 d' c' b] a4 s |
@@ -75,14 +75,14 @@ LHtoL = { \tolower \stemdown }
 	s4 c'' g'
 	<
 	  { f''4 e'' c'' d'' b' c''2. }
-	  \type Voice = anotherV { a'4 g'2 f'2 e'2. }
+	  \context Voice = anotherV { a'4 g'2 f'2 e'2. }
 	> s4 |
 
 
 	s4 [g'16 f' e' d'] c'4 s |
 	s4 c'' g' ees'' ~
 	< { ees'' d''2 c''4 }
-	  \type Voice = anotherV { \stemdown g'2 fis'2 }
+	  \context Voice = anotherV { \stemdown g'2 fis'2 }
 	> 
 	  |
 	bes'4 s2 [d'16 c' bes a] |
@@ -93,7 +93,7 @@ LHtoL = { \tolower \stemdown }
 	s4 d'' a' f'' |
 	<
 	   { f''4 e'' e'' d'' }
-	   \type Voice = anotherV { \stemdown bes'2 bes'2 }
+	   \context Voice = anotherV { \stemdown bes'2 bes'2 }
 	> |
 	< a'4 cis''> s2. |
 	\RHtoL s4 a' gis' g' |
@@ -120,16 +120,16 @@ LHtoL = { \tolower \stemdown }
 	f'4 gis' a' b' |
 	c''4 d'' e'' f'' |
 	gis'4 [a'8 b'] e'4 d'' |
-	< \type Voice = mainV { c''4 d'' s2 }
-	  \type Voice = anotherV { \stemdown a'2 <b'2 gis'> } 
+	< \context Voice = mainV { c''4 d'' s2 }
+	  \context Voice = anotherV { \stemdown a'2 <b'2 gis'> } 
 	> 
 	a'4 a'' gis'' g'' |
 	fis''4 f''2 e''4~e''
 	d''2 c''4~c''
 	b'2 a'4~a'
 	gis'4 a' d'' |
-	< \type Voice = mainV { c''4 d'' s2 }
-	  \type Voice = anotherV { \stemdown <a'2 e'> <gis' b'> }  |
+	< \context Voice = mainV { c''4 d'' s2 }
+	  \context Voice = anotherV { \stemdown <a'2 e'> <gis' b'> }  |
 	>
 	a'4 s2 [e'16 d' c' b] |
 	a4 s2 <f'4 a' d''4> | %% added some chording.
@@ -138,7 +138,7 @@ LHtoL = { \tolower \stemdown }
 	}>>
 
 
-     \type Staff = lower <{
+     \context Staff = lower <{
 
 	\stemdown s2.  [e''16 d'' c'' b'] |
 
@@ -251,3 +251,4 @@ LHtoL = { \tolower \stemdown }
  
 
 }
+\version "1.0.16";

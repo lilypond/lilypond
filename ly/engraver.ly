@@ -3,19 +3,10 @@
 %
 
 StaffContext=\translator {
-	\type "Line_group_engraver_group";
+	\type "Engraver_group_engraver";
 	\name Staff ;
 	barAuto = "1";
 	voltaVisibility = "1";
-
-%{
-	The Hara_kiri_line_group_engraver is a Line_group_engraver 
-	that will not typeset an empty line of staff, i.e., a line 
-	of staff with only rests in it.  This is needed for orchestral
-	scores.  Comment-out Line_group_engraver_group, and uncomment 
-	Hara_kiri_line_group_engraver.
-%}
-%	\type "Hara_kiri_line_group_engraver";
 
 	\consists "Multi_measure_rest_engraver";
 	\consists "Repeat_engraver";
@@ -27,6 +18,7 @@ StaffContext=\translator {
 	\consists "Staff_symbol_engraver";
 	\consists "Collision_engraver";
 	\consists "Rest_collision_engraver";
+	\consistsend "Axis_group_engraver";
 
 %{
 	Uncomment to get bar numbers on single staff systems:
@@ -43,18 +35,20 @@ StaffContext=\translator {
 %{
 	\consists "Bar_number_engraver";
 %}
+
 %{
 	The Staff_margin_engraver puts the name of the instrument
 	(\property Staff.instrument; Staff.instr for subsequent lines)
 	to the left of a staff.
 %}
+%{
+	\consists "Staff_margin_engraver";
+%}
 	defaultClef = treble;
 
 	marginBreakPriority = "-5";
 
-%{
-	\consists "Staff_margin_engraver";
-%}
+
 	\consists "Separating_line_group_engraver";
 	  
 	\accepts "Voice";
@@ -63,11 +57,12 @@ StaffContext=\translator {
 
 \translator{\StaffContext }
 \translator {
-	\type "Line_group_engraver_group";
+	\type "Engraver_group_engraver";
 	\name ChoirStaff;
 	\consists "Vertical_align_engraver";
 	alignmentReference = \center;	
 	\consists "Staff_group_bar_engraver";
+	\consistsend "Axis_group_engraver";
 	\accepts "Staff";
 	\accepts "RhythmicStaff";
 	\accepts "GrandStaff";
@@ -79,7 +74,7 @@ StaffContext=\translator {
 
 
 RhythmicStaffContext=\translator{
-	\type "Line_group_engraver_group";
+	\type "Engraver_group_engraver";
 	numberOfStaffLines  = "1";
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
@@ -89,6 +84,7 @@ RhythmicStaffContext=\translator{
 	\consists "Bar_engraver";
 	\consists "Time_signature_engraver";
 	\consists "Staff_symbol_engraver";
+	\consistsend "Axis_group_engraver";
 	\accepts "Voice";
 };
 \translator{\RhythmicStaffContext}
@@ -123,7 +119,7 @@ VoiceContext = \translator {
 \translator {\VoiceContext}
 
 GrandStaffContext=\translator{
-	\type "Line_group_engraver_group";
+	\type "Engraver_group_engraver";
 	\name GrandStaff;
 	\consists "Span_bar_engraver";
 	\consists "Vertical_align_engraver";
@@ -131,20 +127,21 @@ GrandStaffContext=\translator{
 	alignmentReference = \center;
 	minVerticalAlign = 1.5*\staffheight;
 
+	\consistsend "Axis_group_engraver";
 	\accepts "Staff";
+
 };
 \translator{\GrandStaffContext}
-\translator{\GrandStaffContext
+
+PianoStaffContext = \translator{\GrandStaffContext
 	minVerticalAlign = 3.0*\staffheight;
 	maxVerticalAlign = 3.0*\staffheight;
 
 	\name "PianoStaff";
 	
-}
-
+};
+\translator{\PianoStaffContext}
 StaffGroupContext= \translator {
-%	\type "Hara_kiri_line_group_engraver";
-%	\type "Line_group_engraver_group";
 	\type "Engraver_group_engraver";
 	\consists "Span_bar_engraver";
 	\consists "Vertical_align_engraver";
@@ -159,11 +156,14 @@ StaffGroupContext= \translator {
 	
 	\accepts "Lyrics";
 	\accepts "ChordNames";
+	\consistsend "Axis_group_engraver";
+
 };
 \translator { \StaffGroupContext }
 
 \translator{
-	\type "Line_group_engraver_group";
+	\type "Engraver_group_engraver";
+	\consistsend "Axis_group_engraver";
 
 	\name LyricVoice ;
 	\consists "Separating_line_group_engraver";
@@ -173,15 +173,18 @@ StaffGroupContext= \translator {
 }
 
 \translator {
-	\type "Line_group_engraver_group";
+	\type "Engraver_group_engraver";
 	\name Lyrics;
 	\consists "Vertical_align_engraver";
+	\consistsend "Axis_group_engraver";
+	
 	\accepts "LyricVoice";
 }
 
 \translator{
-	\type "Line_group_engraver_group";
+	\type "Engraver_group_engraver";
 
+	\consistsend "Axis_group_engraver";
 	\name ChordNameVoice ;
 	\consists "Separating_line_group_engraver";
 	\consists "Chord_name_engraver";
@@ -189,11 +192,12 @@ StaffGroupContext= \translator {
 
 
 ChordNameContext = \translator {
-	\type "Line_group_engraver_group";
+	\type "Engraver_group_engraver";
 	\name ChordNames;
 	\consists "Vertical_align_engraver";
 	\accepts "ChordNameVoice";
-};
+	\consistsend "Axis_group_engraver";
+	};
 \translator { \ChordNameContext }
 
 
@@ -202,7 +206,6 @@ ScoreWithNumbers = \translator {
 
 	% uncomment to bar numbers on a whole system.
 	\consists "Bar_number_engraver";
-
 };
 
 StupidScore = \translator {
@@ -219,27 +222,12 @@ BarNumberingStaffContext = \translator {
 	marginBreakPriority = "-4";
 	\consists "Mark_engraver";
 	\consists "Bar_number_engraver";
-
 };
 
 HaraKiriStaffContext = \translator {
-	\type "Hara_kiri_line_group_engraver";
-	\name Staff;
-	barColumnPriority = "0";
-	marginBreakPriority = "-4";
-
-	\consists "Repeat_engraver";
-	\consists "Bar_engraver";
-	\consists "Clef_engraver";
-	\consists "Key_engraver";
-	\consists "Time_signature_engraver";
-	\consists "Local_key_engraver";
-	\consists "Staff_symbol_engraver";
-	\consists "Collision_engraver";
-	\consists "Rest_collision_engraver";
-	\consists "Staff_margin_engraver";
-	\consists "Separating_line_group_engraver";
-	  
+	\StaffContext
+	\remove "Axis_group_engraver";
+	\consistsend "Hara_kiri_engraver";	  
 	\accepts "Voice";
 };
 
@@ -251,13 +239,11 @@ OrchestralPartStaffContext = \translator {
 	\consists "Bar_number_engraver";
 };
 
-
 ScoreContext = \translator {
 	\type Score_engraver;
 	\name Score;
 
 	\consists "Timing_engraver";
-
 	\consists "Span_score_bar_engraver";
 	\consists "Score_priority_engraver";
 	\consists "Spacing_engraver";
@@ -282,8 +268,6 @@ OrchestralScoreContext= \translator {
 
 	barScriptPadding = "2.0";	% dimension \pt
 	markScriptPadding = "4.0";
-	
-
 
 	\consists "Bar_number_engraver";
 	\consists "Mark_engraver";

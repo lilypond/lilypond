@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "courante-urtext.ly";
 
@@ -43,7 +43,7 @@ courante_cello_global = \notes{
 courante_cello_scripts = \notes{
 }
 
-courante_cello_staff = \type Staff <
+courante_cello_staff = \context Staff <
 	\$courante
 	\$courante_cello_global
 	\$courante_cello_scripts

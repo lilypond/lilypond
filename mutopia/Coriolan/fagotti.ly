@@ -9,17 +9,17 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "fagotto-1.ly"
 \include "fagotto-2.ly"
 
-$fagotti_staff = \type Staff = fagotti <
+$fagotti_staff = \context Staff = fagotti <
 	\property Staff.midi_instrument = "bassoon"
 	\property Staff.instrument = "2 Fagotti"
 	\property Staff.instr = "Fg."
 	\clef "bass";
-	\notes \type Voice=fagotti < 
+	\notes \context Voice=fagotti < 
 		\global
 		\$fagotto1
 		\$fagotto2

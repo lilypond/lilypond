@@ -11,8 +11,8 @@ n = { \slurnormal }
 d = { \slurdotted }
 comma = "\\sethuge\\ \\ ,"
 
-allemande_a = \type Staff \notes \relative c {
-	\type Voice=i
+allemande_a = \context Staff \notes \relative c {
+	\context Voice=i
 	\stemup
 	a'16 | 
 	a8 bes16()a \stemboth
@@ -70,7 +70,7 @@ allemande_a = \type Staff \notes \relative c {
 }
 
 allemande_b = \notes \relative c {
-	\type Voice=ii
+	\context Voice=ii
 	\stemdown
 	s16 |
 	% <d'8 g' f'> s8 s2. |
@@ -98,9 +98,10 @@ allemande_b = \notes \relative c {
 %	}
 }
 
-allemande = \type Staff \notes<
+allemande = \context Staff \notes<
 	\$allemande_a
 	\$allemande_b
 >
 
 
+\version "1.0.16";

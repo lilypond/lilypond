@@ -1,11 +1,15 @@
+
+%{
+What's supposed to be demonstrated here?
+%}
 \score{
-	\type Staff \notes\relative c'''{
-		< \type Voice = one {
+	\context Staff \notes\relative c'''{
+		< \context Voice = one {
 		\stemup
 		\voiceone
 		[g8 a g f]
 		}
-		\type Voice=two
+		\context Voice=two
 		{
 		\stemdown
 		\voicetwo
@@ -16,3 +20,5 @@
 		linewidth=-1.;
 	}
 }
+
+\version "1.0.16"; 

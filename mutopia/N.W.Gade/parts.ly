@@ -8,7 +8,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 		"Statens Musikbibliotek, Stockholm, Sweden";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "global.ly"
 \include "wood.ly"
@@ -35,7 +35,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \global
     \marks
     \oboe
@@ -54,7 +54,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \global
     \marks
     \flauto
@@ -73,7 +73,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \globalNoKey
     \marks
     \clarI
@@ -91,7 +91,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \globalNoKey
     \marks
     \clarII
@@ -109,7 +109,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \global
     \marks
     \fagotto
@@ -127,7 +127,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \globalNoKey
     \marks
     \corI
@@ -146,7 +146,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \globalNoKey
     \marks
     \corII
@@ -165,7 +165,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \globalNoKey
     \marks
     \trpI
@@ -184,7 +184,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \globalNoKey
     \marks
     \trpII
@@ -203,7 +203,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \globalNoKey
     \marks
     \timpani
@@ -222,7 +222,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \global
     \marks
     \viI
@@ -240,7 +240,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \global
     \marks
     \viII
@@ -258,7 +258,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \global
     \marks
     \notes{s2.*32 s2*142 \break}
@@ -277,7 +277,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \global
     \marks
     \vlc
@@ -295,7 +295,7 @@ my_paper = \paper {
 }
 
 \score{
-  \type Staff <
+  \context Staff <
     \global
     \marks
     \cb

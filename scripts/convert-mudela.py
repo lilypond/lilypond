@@ -282,6 +282,17 @@ if 1:
 	conversions.append ((1,0,14), conv, '<[a b> <a b]>c -> [<a b> <a b>]')
 
 
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('\\\\type','\\\\context', x)
+			newlines.append (x)
+		return newlines
+	
+	conversions.append ((1,0,16), conv, '\\type -> \\context')
+
+
 
 ############################
 	

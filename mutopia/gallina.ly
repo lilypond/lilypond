@@ -45,7 +45,7 @@ Voice engraver by uncommenting the lines in the paper
 definition below. --MB
 %} 
 
-\version "1.0.14";
+\version "1.0.16";
 
 global = \notes {
   \property StaffGroup.timeSignatureStyle = "old"
@@ -61,7 +61,7 @@ global = \notes {
   \tempo 4=80;
 }
 
-vi1=\type Staff = vi1 <
+vi1=\context Staff = vi1 <
 \global
 \notes \relative c'' {
 
@@ -133,7 +133,7 @@ vi1=\type Staff = vi1 <
   }
 }>
 
-vi2=\type Staff = vi2 <
+vi2=\context Staff = vi2 <
 \global
 \notes \relative c'' {
 
@@ -203,7 +203,7 @@ vi2=\type Staff = vi2 <
 }>
 
 
-bc=\type Staff = bc <
+bc=\context Staff = bc <
 \global
 \notes\transpose c'{
   \clef "bass";
@@ -250,7 +250,7 @@ bc=\type Staff = bc <
 }>
 
 \score{
-  \type StaffGroup <
+  \context StaffGroup <
     \vi1
     \vi2
     \bc

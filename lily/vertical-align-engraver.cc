@@ -5,7 +5,8 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
+#include "translator-group.hh"
+#include "axis-group-engraver.hh"
 #include "p-col.hh"
 #include "vertical-align-engraver.hh"
 #include "axis-align-spanner.hh"
@@ -52,12 +53,21 @@ Vertical_align_engraver::do_removal_processing()
   valign_p_ =0;
 }
 
+
+bool
+Vertical_align_engraver::qualifies_b (Score_element_info i) const
+{
+  Translator * t =   i.origin_grav_l_arr_[0];
+  int sz = i.origin_grav_l_arr_.size()  ;
+
+  return (sz == 1 && dynamic_cast<Translator_group*> (t))
+    || (sz == 2 && dynamic_cast<Axis_group_engraver*> (t));
+}
+
 void
 Vertical_align_engraver::acknowledge_element (Score_element_info i)
 {
-  if (i.origin_grav_l_arr_.size() == 1 &&
-      dynamic_cast<Axis_group_spanner *> (i.elem_l_)
-      && !i.elem_l_->parent_l (Y_AXIS))
+  if (qualifies_b (i))
     {
       valign_p_->add_element (i.elem_l_);
     }

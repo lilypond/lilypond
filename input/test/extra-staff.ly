@@ -24,11 +24,11 @@ extra-staff.ly:
 
 \score {
 	<
-		\type Staff=i \notes\relative c''{ c1 c c c c }
-		\type StaffGroup=ii \notes\relative c''{ 
-			\type Staff=ii
+		\context Staff=i \notes\relative c''{ c1 c c c c }
+		\context StaffGroup=ii \notes\relative c''{ 
+			\context Staff=ii
 			c1 c
-			< \type Staff=ii { c1 } \type Staff=iii { c1 } >
+			< \context Staff=ii { c1 } \context Staff=iii { c1 } >
 			c
 		}
 	>
@@ -36,9 +36,10 @@ extra-staff.ly:
 		linewidth = -1.;
 		\translator{
 			\ScoreContext
-			minVerticalAlign = 2.0*\staffheight;
-			maxVerticalAlign = 2.0*\staffheight;
+
 		}
 	}
 }
 
+
+\version "1.0.16"; 

@@ -6,7 +6,7 @@ date = "1868";
 title = "Diademata";
 metre = "6 6. 8 6. D";
 }
-\version "1.0.14";
+\version "1.0.16";
 
 sop=\notes \transpose c''{
 	ees2  | ees4 ees4 g2 g2 |  c'1.  \bar "||";
@@ -60,26 +60,26 @@ global = \notes{
 	\key ees;
 }
 
-$upper_staff = \type Staff = upper {
+$upper_staff = \context Staff = upper {
 	\global
 	\clef "treble";
-	\type Staff <
+	\context Staff <
 		{ \voiceone \sop }
 		{ \voicetwo \alt }
 	>
 }
 
-$lower_staff = \type Staff = lower {
+$lower_staff = \context Staff = lower {
 	\global
 	\clef "bass";
-	\type Staff <
+	\context Staff <
 		{ \voiceone \ten }
 		{ \voicetwo \bass }
 	>
 }
 
 \score{
-	\type ChoirStaff\notes	<
+	\context ChoirStaff\notes	<
 		\$upper_staff
 		\$lower_staff
 	>

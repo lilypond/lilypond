@@ -92,7 +92,7 @@ Local_key_item::do_brew_molecule_p() const
   
  if (accidental_arr_.size()) 
     {
-      Box b(Interval (0, note_distance), Interval (0,0));
+      Box b(Interval (0, 0.6 * note_distance), Interval (0,0));
       Molecule m (lookup_l ()->fill (b));
       output->add_at_edge (X_AXIS, RIGHT, m, 0);
     }
@@ -108,6 +108,7 @@ Local_key_item::do_brew_molecule_p() const
 
       x_int.unite (x + support_items_[i]->extent (X_AXIS));
     }
+
   if (x_int.empty_b ())
     x_int = Interval(0,0);
   

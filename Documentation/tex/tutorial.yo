@@ -546,7 +546,7 @@ COMMENT(
 
 )mudela(verbatim,center)(
 \score{
-  \type ChordNames {
+  \context ChordNames {
     \chords
       { c1 d-min e-maj5+.9 }
     \notes\relative c
@@ -581,7 +581,7 @@ following example: COMMENT(
 )mudela()(
 \score{ <
         \property Score.textstyle = typewriter
-        \type Staff \notes {
+        \context Staff \notes {
         	c''4-.
         	c''4--
         	c''4-+
@@ -589,7 +589,7 @@ following example: COMMENT(
         	c''4->
         	c''4-^
         	}
-        \type Lyrics\lyrics {
+        \context Lyrics\lyrics {
               "."4 "-" "+" "|" ">" "\^{ }" }
         >
         \paper { linewidth = -1.\cm; }
@@ -948,7 +948,7 @@ We see that a staff forms context, and that context is needed to
 convert between notation and music.  In LilyPond we turn around this
 reasoning: LilyPond has a notion of notation context, and the staff is
 just one example of a notation context.  In fact, the arguments of the
-code(\type) command (Staff, GrandStaff) were all names of different
+code(\context) command (Staff, GrandStaff) were all names of different
 contexts.  A notation context is a conversion between music and
 notation.
 
@@ -1034,7 +1034,7 @@ Now we explain how to typeset music that runs in multiple staffs.
 Consider the following---somewhat unrealistic---example:
 
 mudela(fragment)(
- \type GrandStaff <e'4 {\clef bass; g4^""} >
+ \context GrandStaff <e'4 {\clef bass; g4^""} >
 )
 
 In this example the music consists of two notes.  The above would
@@ -1052,32 +1052,32 @@ does not represent notes stacked together, but staffs stacked
 together.
 
 If a piece of music is to be interpreted as a staff, then this can be
-expressed with the code(\type) construct.  The following input says
+expressed with the code(\context) construct.  The following input says
 ``the quarter note with pitch e should be put on a staff.''
 
 verb(
-  \type Staff e'4 
+  \context Staff e'4 
 )COMMENT(
 
 ) The same can be done for the other note, i.e.,
 
 verb(
-  \type Staff g4 
+  \context Staff g4 
 ) COMMENT(
 
 ) If you want to stack these staffs, you must create a chord of both:
 
 verb(
-  < \type Staff e'4
-    \type Staff g4 
+  < \context Staff e'4
+    \context Staff g4 
   >
 )
 
 This looks reasonable, but the effect of this input is not what you
 might expect:
 mudela(fragment)(
-  < \type Staff e'4
-    \type Staff g4 
+  < \context Staff e'4
+    \context Staff g4 
   >
 )COMMENT(
 
@@ -1089,8 +1089,8 @@ code(bassStaff).  This makes LilyPond distinguish between them, and
 create two staffs:
 
 mudela(verbatim,fragment)(
-  < \type Staff = trebleStaff e'4
-    \type Staff = bassStaff  g4 
+  < \context Staff = trebleStaff e'4
+    \context Staff = bassStaff  g4 
   >
 )COMMENT(
 
@@ -1098,13 +1098,13 @@ mudela(verbatim,fragment)(
 different.  This is almost right, except for the brace at the left and
 the clef of the second staff.  If you want a brace, then you have to
 tell LilyPond that the chord you just formed is to be interpreted as a
-so-called grand staff.  This is also done with the code(\type)
+so-called grand staff.  This is also done with the code(\context)
 command.  The bass clef is made with a clef command:  COMMENT(
 
 ) mudela(verbatim,fragment)(
-  \type GrandStaff <
-        \type Staff = treblestaff e'4
-        \type Staff = bassstaff { \clef "bass"; g4 }
+  \context GrandStaff <
+        \context Staff = treblestaff e'4
+        \context Staff = bassstaff { \clef "bass"; g4 }
   >)COMMENT(
 
 )
@@ -1127,9 +1127,9 @@ staffs stacked together.  This suggests that the template to follow is
 this:COMMENT(
 
 )verb(
-  \type Staff <
-    \type Voice = one  ...
-    \type Voice = two  ...
+  \context Staff <
+    \context Voice = one  ...
+    \context Voice = two  ...
   >
 ) COMMENT(
 
@@ -1137,9 +1137,9 @@ this:COMMENT(
 other words, notes enclosed in braces.  Let us try the following counterpoint:COMMENT(
 
 )mudela(fragment,verbatim)(
-\type "Staff" <
-  \type "Voice" = "one" { r4 as'4 () as'4 g'4 }
-  \type "Voice" = "two" { g'2 f'4 e'4 }
+\context "Staff" <
+  \context "Voice" = "one" { r4 as'4 () as'4 g'4 }
+  \context "Voice" = "two" { g'2 f'4 e'4 }
 >)
 
 As you can see the result is not quite perfect.  The notes on the last
@@ -1171,11 +1171,11 @@ bind(Figure)ref(tutorial:multi-voice-fig).
 
 latexcommand(\begin{figure}[h])
 mudela(fragment,verbatim,center)(
-  \type "Staff" <
-    \type "Voice" =  "one"  {
+  \context "Staff" <
+    \context "Voice" =  "one"  {
       \property Voice.ydirection = "1"
       r4 as'4 () as'4 g'4 }
-    \type "Voice" =  "two"  {
+    \context "Voice" =  "two"  {
       \property Voice.ydirection = "-1"
       g'2 f'4 e'4 }
   >
@@ -1212,7 +1212,7 @@ Lyrics consist of syllables, which are strings together with
 durations.  For entering lyrics we have to instruct LilyPond that what
 we enter are not note names but strings.  This instruction is the
 keyword code(\lyrics).  After entering this keyword you can enter a
-musical construct---sequential music, simultaneous music, code(\type)
+musical construct---sequential music, simultaneous music, code(\context)
 entries, etc.--- but with syllables instead of pitches.  For example:
 COMMENT(
 
@@ -1222,24 +1222,24 @@ COMMENT(
 out that lyrics need different treatment than notes.  As a result, the
 default conversion will try to put the text you entered as note heads
 onto a staff, and this will fail.  This default must be overridden
-with a code(\type) keyword.  Printing syllables of text in a line is
+with a code(\context) keyword.  Printing syllables of text in a line is
 done by a context called code(Lyrics).  You can select this context
-with the code(\type) keyword.  Here is a simple example with output:
+with the code(\context) keyword.  Here is a simple example with output:
 COMMENT(
 
 )mudela(fragment,verbatim)(
-\type Lyrics \lyrics { 'got8 me on my knees,4 Le-8 lie! })COMMENT(
+\context Lyrics \lyrics { 'got8 me on my knees,4 Le-8 lie! })COMMENT(
 
 )The result is technically correct, but it needs a melody to make it
 perfor0mable: COMMENT(
 
 )mudela(fragment,verbatim)(
   <
-    \type Staff  { 
+    \context Staff  { 
       \property Voice.beamAuto = "0" % no beams in melody
       c''8. c''16 bes'8. a'16 g'4 f'8 g'4. 
     }
-    \type Lyrics \lyrics { 'got8. me16 on8. my16 knees,4 Le-8 lie!4. }
+    \context Lyrics \lyrics { 'got8. me16 on8. my16 knees,4 Le-8 lie!4. }
   >
 ) COMMENT(
 
@@ -1253,16 +1253,16 @@ These tricks are demonstrated in the following example:
 COMMENT(
 
 urg
-\type Lyrics \lyrics { 'got8 m\textbf{e}8 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
-\type Lyrics \lyrics { 'got8 m{\bf e}4 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
+\context Lyrics \lyrics { 'got8 m\textbf{e}8 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
+\context Lyrics \lyrics { 'got8 m{\bf e}4 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
 )COMMENT(
 
 )mudela(fragment,verbatim)(<
-  \type Staff  { 
+  \context Staff  { 
     \property Voice.beamAuto = "0" % no beams in melody
     c''8. c''16 bes'8. a'16 g'4 f'8 g'4. 
   }
-  \type Lyrics \lyrics { 'got8 me8 on8. m$\cal_Y$16 "3s,"4 Le-8 lie!4.}
+  \context Lyrics \lyrics { 'got8 me8 on8. m$\cal_Y$16 "3s,"4 Le-8 lie!4.}
 >
 )COMMENT(
 
@@ -1303,7 +1303,7 @@ with a backslash, i.e., code(\identifierName).  For example:
 mudela(verbatim)(
   czerny = \notes { [c16 g e g] }
   \score {
-    \notes \type GrandStaff <
+    \notes \context GrandStaff <
       { c''2 g''2 }
       { \clef bass; \czerny \czerny \czerny \czerny}
     >
@@ -1332,10 +1332,10 @@ stemup = \property Voice.ydirection = "1"
 stemdown = \property Voice.ydirection = "-1"
 shift = \property Voice.hshift = "1"
 \score {
-  \type "Staff" \notes <
-    \type "Voice" =  "one"  { \stemup r4 as'4 () as'4 g'4 }
-    \type "Voice" =  "two"  { \stemup \shift g'2 f'4 e'4 }
-    \type "Voice" = "three" { \stemdown [d'8 dis'] [d' cis'] [c' b] c'4 } >
+  \context "Staff" \notes <
+    \context "Voice" =  "one"  { \stemup r4 as'4 () as'4 g'4 }
+    \context "Voice" =  "two"  { \stemup \shift g'2 f'4 e'4 }
+    \context "Voice" = "three" { \stemdown [d'8 dis'] [d' cis'] [c' b] c'4 } >
   \paper{  linewidth = -1.0\pt; }
 })
 
@@ -1419,7 +1419,7 @@ The following definition shows a simplified Staff context: COMMENT(
 )verb(
 \translator
 {
-        \type "Line_group_engraver_group";
+        \context "Line_group_engraver_group";
         \name Staff ;
 
         \consists "Bar_engraver";
@@ -1464,8 +1464,8 @@ of code(\consists).
 mudela(verbatim)(
   \score {
    \notes <
-     \type Staff = one { \time 2/4; c'4 c'4 c'4 c'4 c'4 c'4 }
-     \type Staff = two { \time 3/4; c'4 c'4 c'4 c'4 c'4 c'4 }
+     \context Staff = one { \time 2/4; c'4 c'4 c'4 c'4 c'4 c'4 }
+     \context Staff = two { \time 3/4; c'4 c'4 c'4 c'4 c'4 c'4 }
    >
    \paper { 
      linewidth = -1.;
@@ -1502,8 +1502,8 @@ COMMENT(
 
 ) mudela(fragment,verbatim)(
   <
-    \type Staff = one { c''4 \type Staff = two { c4 c4 } c''4 }
-    \type Staff = two { \clef bass; g,4 g,4 g,4 g,4  }    
+    \context Staff = one { c''4 \context Staff = two { c4 c4 } c''4 }
+    \context Staff = two { \clef bass; g,4 g,4 g,4 g,4  }    
   >
 )
 
@@ -1537,14 +1537,14 @@ mudela(verbatim)(
 
     
     { < 
-        \type Voice = celloVoice { \bach \bach}
-        \type Voice = celloVoice < { \slursOne \slursOne }
+        \context Voice = celloVoice { \bach \bach}
+        \context Voice = celloVoice < { \slursOne \slursOne }
 	      { \bachBeams \bachBeams } >	
         \staffStuff
       >
       <
-        \type Voice = celloVoice { \bach \bach }
-        \type Voice = celloVoice < { \slursTwo \slursTwo }
+        \context Voice = celloVoice { \bach \bach }
+        \context Voice = celloVoice < { \slursTwo \slursTwo }
 	      { \bachBeams \bachBeams } >
         \staffStuff
       >
@@ -1567,7 +1567,7 @@ One of the things that you can do with music is em(transposing) it.
 If you want to transpose a piece of music, then you should prefix it
 with the keyword code(\transpose) along with the pitch (relative to
 the central C, i.e., code(c')) for the transposition.footnote(the
-code(\type Staff) is to make sure that no separate staffs are created
+code(\context Staff) is to make sure that no separate staffs are created
 for the code(\scale) and code(\transpose cis' \scale) part.)
 
 
@@ -1575,7 +1575,7 @@ mudela(verbatim)(
 scale = \notes \relative c' { [c8 d e f] }
 \score {
   \notes {
-    \type Staff { \scale \transpose cis'  \scale }
+    \context Staff { \scale \transpose cis'  \scale }
     }
   \paper { linewidth = -1.0; }
 })
@@ -1598,17 +1598,17 @@ which staff the music is printed.  For example:
 mudela(verbatim)(
 
 % real music
-aVoice = \type Voice = voiceA \notes { c''4 c4 c4 c''4 }
-bVoice = \type Voice = voiceB \notes { g,4 g,4 g,4 g,4  }    
+aVoice = \context Voice = voiceA \notes { c''4 c4 c4 c''4 }
+bVoice = \context Voice = voiceB \notes { g,4 g,4 g,4 g,4  }    
 
 % staff switching stuff
-switch = \type Voice = voiceA \notes { s4 \translator Staff = staffB s4
+switch = \context Voice = voiceA \notes { s4 \translator Staff = staffB s4
     		   s4 \translator Staff = staffA s4 }
 
 \score {
   <
-    \type Staff = staffA < \aVoice \switch >
-    \type Staff = staffB < \bVoice \clef bass; >
+    \context Staff = staffA < \aVoice \switch >
+    \context Staff = staffB < \bVoice \clef bass; >
   >
   \paper { linewidth = -1.; }
 }
@@ -1619,9 +1619,9 @@ beam, you should take special precautions.  In the paper block,
 you must tell how far the staffs will be apart:
 mudela(verbatim,center)(
 \score{
-  \type GrandStaff <
-    \type Staff=one \notes{ s2 }
-    \type Staff=two \notes\relative c{
+  \context GrandStaff <
+    \context Staff=one \notes{ s2 }
+    \context Staff=two \notes\relative c{
       \time 4/8;
       \clef "bass";
       \stemup [c8( e
@@ -1651,12 +1651,12 @@ for triplet in LilyPond reflects this.  To make a triplet, you enter
 COMMENT(
 
 )mudela(verbatim,fragment,center)(
-	\type Voice \times 2/3 { c''4 c''4 c''4 }
+	\context Voice \times 2/3 { c''4 c''4 c''4 }
 )COMMENT(
 
 )Since tuplet brackets are printed by the Voice context, a Voice
 context must exist before code(\times) is interpreted.  To ensure this,
-a context is instantiated explicitly with code(\type Voice).  You
+a context is instantiated explicitly with code(\context Voice).  You
 don't need this, if a Voice context is already instantiated, like in
 the following example:
 COMMENT(
@@ -1674,7 +1674,7 @@ COMMENT( BROKEN
 lilypond: score-element.cc:134: class Paper_def * Score_element::paper() const: Assertion `pscore_l_' failed.
 
 mudela(fragment)(
-	\type Voice \times 4/5 { [c''8 c''16 c''16] r8 [g'8 g'8] }
+	\context Voice \times 4/5 { [c''8 c''16 c''16] r8 [g'8 g'8] }
 )
 )
 If you make a tuplet of  beamed notes, where the beam is as wide as
@@ -1704,7 +1704,7 @@ a couple alternatives, but nothing is repeated.  The code(\repeat) command
 must be present, but it may specify an empty music list:
 COMMENT(
 )mudela(verbatim,fragment,center)(
-    \type Lyrics \lyrics {
+    \context Lyrics \lyrics {
 	\repeat 2 { }
 	\alternative < 
 	    { Let's not sing 

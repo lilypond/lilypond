@@ -19,7 +19,7 @@
    * auto beaming
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "nederlands.ly"                 % for correct parsing of note names
 
@@ -31,7 +31,7 @@ global = \notes {
   \bar "|."; |
 }
   
-dux = \type Voice=two \notes \relative c''{
+dux = \context Voice=two \notes \relative c''{
   \voicetwo
   \clef violin;
 
@@ -83,7 +83,7 @@ dux = \type Voice=two \notes \relative c''{
 }
 
 
-comes = \type Voice=one \notes \relative c'' {
+comes = \context Voice=one \notes \relative c'' {
   \voiceone
   R1 |
   R1 |
@@ -124,7 +124,7 @@ comes = \type Voice=one \notes \relative c'' {
   f,16 g as4 g16 f e2 |
 }
 
-bassdux = \type Voice=three \notes \relative c' {
+bassdux = \context Voice=three \notes \relative c' {
   \clef bass;
   R1 |
   R |
@@ -163,21 +163,21 @@ bassdux = \type Voice=three \notes \relative c' {
   f,16 g as4 g16 f es4 r8 es' |
   d c g' g, 
 %%30
-  \type Staff=bass <
+  \context Staff=bass <
     {\stemup c2 ~ | c1 ~ | c1 }
-    \type Voice=four {\stemdown c,2 ~ | c1 ~ | c1 }
+    \context Voice=four {\stemdown c,2 ~ | c1 ~ | c1 }
   >
 }
 
 \score {
  
-    \type PianoStaff < 
-	\type Staff = treble < 
+    \context PianoStaff < 
+	\context Staff = treble < 
 	    \global 
 	    \dux
 	    \comes 
 	  >
-	\type Staff = bass <
+	\context Staff = bass <
 	    \global
 	    \bassdux
 	>

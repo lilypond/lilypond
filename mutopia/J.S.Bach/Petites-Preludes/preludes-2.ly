@@ -10,37 +10,37 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "1.0.14";
-upper = \type Staff \notes\relative c{
-	\type Voice=i
+\version "1.0.16";
+upper = \context Staff \notes\relative c{
+	\context Voice=i
 	\property Voice . textstyle = "italic"
 	r8\mf c'-1( e-2 g-4  e-2 c-1 bes'-5 g-3 |
 	)a-4\< c,-1( f-2 a-4  f c c'-5 a-3 |
 	)b-4 g-1( b-2 d-4  b-2 g f'-5 \!d-3 |
 	<
 		{\stemup )e2-4\f r4 e-5 }
-		\type Voice = ii {\stemdown <c2 g > r4 <c g > }
+		\context Voice = ii {\stemdown <c2 g > r4 <c g > }
 	>
 	\stemboth |
 	< 
 		 { \stemup d2-4 r4 d-4 }
-		 \type Voice = ii { \stemdown <c2 a > r4 <c a > }
+		 \context Voice = ii { \stemdown <c2 a > r4 <c a > }
 	>
 	\stemboth |
 	< 
 		 { \stemup d8 }
-		 \type Voice = ii { \stemdown <b 8 g > }
+		 \context Voice = ii { \stemdown <b 8 g > }
 	>
 	\stemboth 
 	g, 8-1\mf( b-2 d-4 
 	<
 		{ \stemup )b 4 e-5 }
-		\type Voice = ii { \stemdown g, 4 b }
+		\context Voice = ii { \stemdown g, 4 b }
 	>
 	\stemboth |
 	<
 		{ \stemup c2 r4 < {c-5 ~ c8} {a 4 ~ a 8} > }
-		\type Voice=ii { \stemdown c2 r4 e, 4 ~ e 8 }
+		\context Voice=ii { \stemdown c2 r4 e, 4 ~ e 8 }
 	>
 	\stemboth 
 	d,-1\p( fis-2 a-4  fis-2 d-1 c'-5 a-3 |
@@ -49,7 +49,7 @@ upper = \type Staff \notes\relative c{
 	)fis-4 a,-1( c-2 fis-4  c a a'-5 \!fis-3 |
 	<
 		{ \stemup )g2-5\f }
-		\type Voice = ii { \stemdown <d2 b > }
+		\context Voice = ii { \stemdown <d2 b > }
 	>
 	\stemboth 
 	r4 b4-2( |
@@ -59,22 +59,22 @@ upper = \type Staff \notes\relative c{
 	g4-5\ff
 	<
 		{ \stemup c,2-5 b 4-4 }
-		\type Voice=ii { \stemdown g 2-2 d 4-1 }
+		\context Voice=ii { \stemdown g 2-2 d 4-1 }
 	>
 	\stemboth 
 	<
 		{ \stemup c1^5 }
-		\type Voice=ii { \stemdown e, 1_1}
+		\context Voice=ii { \stemdown e, 1_1}
 	>
 	\stemboth 
 	\bar "|.";
 }
 
-lower = \type Staff \notes\relative c{
-	\type Voice=i
+lower = \context Staff \notes\relative c{
+	\context Voice=i
 	<
 		{ \stemup c1 ~ | c ~ | c }
-		\type Voice=ii { \stemdown c,1 ~ | c ~ | c }
+		\context Voice=ii { \stemdown c,1 ~ | c ~ | c }
 	>
 	\stemboth |
 	r8 c-5( e-3 g-1  e-3 c-5 c' e,-4 |
@@ -100,12 +100,12 @@ global = \notes{
 }
 
 \score{
-	\type GrandStaff <
-		\type Staff = upper <
+	\context GrandStaff <
+		\context Staff = upper <
 			\global
 			\upper
 		>
-		\type Staff = lower <
+		\context Staff = lower <
 			\global
 			\clef "bass";
 			\lower

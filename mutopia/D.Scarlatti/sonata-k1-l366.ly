@@ -31,12 +31,12 @@ John
 % vOne is right hand outside part, vTwo r.h. inside part,
 % vThree left hand outside, vFour l.h. inside.
 \notes {
-\type Staff = staffOne <
+\context Staff = staffOne <
 \property Staff.nolines=11
 \keysignature bes;
 \time 4/4;
 \clef alto;
-\type Voice = vOne <
+\context Voice = vOne <
 {
 % 1
 \stemup [d''16 e'' f'' g''] [a'' a' cis'' a'] d''4. e''8 |
@@ -142,7 +142,7 @@ s8 f'' s e'' s2 |
 % 29
 s8 f'' s cis''
 } >
-\type Voice = vTwo <
+\context Voice = vTwo <
 {s1 s s s s
 %6
 \stemdown  s2 d'16 s s4. |
@@ -155,7 +155,7 @@ s1
 %29
 s2 d''8}
 >
-\type Voice = vThree <
+\context Voice = vThree <
 {
 % 1
 \stemdown s2 [d'16 e' f' g'] [a' a cis' a] |
@@ -244,7 +244,7 @@ s1
 % 28
 s2 s8 f'' s cis'' |
 } >
-\type Voice = vFour <
+\context Voice = vFour <
 {s1 s s s s s s s s
 %10
 \stemdown d''16 s s4. a'16 s s4. |
@@ -266,3 +266,4 @@ s1
 \paper{barsize=50.0; \translator {\StaffContext \consists
 Bar_number_engraver;}}
 }
+\version "1.0.16";
