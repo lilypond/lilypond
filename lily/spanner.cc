@@ -10,15 +10,14 @@
 
 #include <math.h>
 
-#include < libc - extension.hh>
-
-#include "warn.hh"
+#include "group-interface.hh"
+#include "libc-extension.hh"
+#include "paper-column.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "stencil.hh"
-#include "paper-column.hh"
 #include "system.hh"
-#include "group-interface.hh"
+#include "warn.hh"
 
 Grob *
 Spanner::clone (int count) const
