@@ -105,6 +105,24 @@ episemFinis = #(make-span-event 'TextSpanEvent STOP)
 % shortcut music functions for Liber Hymnarius neumes table
 % (experimental)
 %
+
+#(define (make-ligature music)
+   (make-music 'SequentialMusic
+	       'elements (append
+			  (cons
+			   (make-music 'EventChord
+				       'elements (list
+						  (make-span-event 'LigatureEvent START)))
+			   (ly:music-property music 'elements))
+			  (list
+			   (make-music 'EventChord
+				       'elements (list
+						  (make-span-event 'LigatureEvent STOP)))))))
+
+ligature = #(def-music-function
+	      (location music) (ly:music?)
+	      (make-ligature music))
+
 %#(define (make-script x)
 %   (make-music 'ArticulationEvent
 %               'articulation-type x))

@@ -1,3 +1,18 @@
+2005-02-19  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/examples.itely: small
+	simplification/beautification
+
+	* Documentation/user/notation.ietly: bugfix: fixed many artefacts
+	from the "x-y-z"->"x.y.z" renaming of glyphs throughout the whole
+	notation manual.
+
+	* lily/mensural-ligature.cc: bugfix: another few victims of the
+	"x-y-z"->"x.y.s-z" symetrical notehead glyph renaming.
+
+	* ly/gregorian-init.ly: commit some experimental code for hi-level
+	ligature input language lying around here for several months.
+
 2005-02-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/framework-pdf.scm (scm): new file
