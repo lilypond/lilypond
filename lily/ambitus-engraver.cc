@@ -43,7 +43,17 @@ private:
 void
 Ambitus_engraver::create_ambitus ()
 {
-  ambitus_ = make_item ("Ambitus",SCM_EOL);
+  ambitus_ = make_item ("AmbitusLine",SCM_EOL);
+  Direction d = DOWN;
+  do
+    {
+      heads_[d] = make_item ("AmbitusNoteHead", SCM_EOL);
+      accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
+      heads_[d]->set_property ("accidental-grob", accidentals_[d]->self_scm ());
+      Side_position_interface::add_support (accidentals_[d], heads_[d]);
+    }
+  while (flip (&d) != DOWN);
+  ambitus_->set_parent (heads_[DOWN], X_AXIS);
   is_typeset_ = false;		
 }
 
@@ -83,16 +93,7 @@ Ambitus_engraver::stop_translation_timestep ()
       start_c0_ = robust_scm2int (get_property ("middleCPosition"), 0);
       start_key_sig_ = get_property ("keySignature");
 
-      Direction d = DOWN;
-      do
-	{
-	  heads_[d] = make_item ("AmbitusNoteHead", SCM_EOL);
-	  accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
-	  heads_[d]->set_property ("accidental-grob", accidentals_[d]->self_scm ());
-	  Side_position_interface::add_support (accidentals_[d], heads_[d]);
-	}
-      while (flip (&d) != DOWN);
-      ambitus_->set_parent (heads_[DOWN], X_AXIS);
+
       is_typeset_ = true;
     }
 }
