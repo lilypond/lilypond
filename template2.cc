@@ -1,4 +1,5 @@
 #include "line.hh"
+#include "symbol.hh"
 #include "voice.hh"
 #include "molecule.hh"
 #include "staff.hh"

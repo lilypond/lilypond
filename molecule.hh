@@ -15,11 +15,7 @@ struct Atom {
     }
     
     /// how big is #this#?
-    Box extent() const {
-	Box b( sym->dim);
-	b.translate(off);
-	return b;
-    }
+    Box extent() const;
     Atom(const Symbol*s) {
 	sym=s;
     }

@@ -1,4 +1,6 @@
+
 #include "tex.hh"
+#include "symbol.hh"
 #include "const.hh"
 /*
     #TeXstring# should generate a TeX string to typeset the object in
