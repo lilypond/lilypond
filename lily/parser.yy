@@ -1127,6 +1127,26 @@ command_element:
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
 	}
+	| E_LEFTSQUARE {
+		Span_req *l = new Span_req;
+		l->set_span_dir (START);
+		l->set_mus_property ("span-type", ly_str02scm ("ligature"));
+		l->set_spot (THIS->here_input ());
+
+		$$ = new Request_chord (SCM_EOL);
+		$$->set_mus_property ("elements", gh_cons (l->self_scm (), SCM_EOL));
+		$$->set_spot (THIS->here_input ());
+	}
+	| E_RIGHTSQUARE {
+		Span_req *l = new Span_req;
+		l->set_span_dir (STOP);
+		l->set_mus_property ("span-type", ly_str02scm ("ligature"));
+		l->set_spot (THIS->here_input ());
+
+		$$ = new Request_chord (SCM_EOL);
+		$$->set_mus_property ("elements", gh_cons (l->self_scm (), SCM_EOL));
+		$$->set_spot (THIS->here_input ());
+	}
 	| E_BACKSLASH {
 		$$ = new Music (gh_list (gh_cons (ly_symbol2scm ("name"), ly_symbol2scm ("separator")), SCM_UNDEFINED));
 		$$->set_spot (THIS->here_input ());
@@ -1247,19 +1267,6 @@ shorthand_command_req:
 		Span_req*b= new Span_req;
 		b->set_span_dir ( STOP);
 		b->set_mus_property ("span-type", ly_str02scm ("beam"));
-		$$ = b;
-	}
-	| E_LEFTSQUARE {
-		Span_req *b = new Span_req;
-		b->set_span_dir (START);
-		b->set_mus_property ("span-type", ly_str02scm ("ligature-bracket"));
-		$$ = b;
-		THIS->last_ligature_start_ = b->self_scm ();
-	}
-	| E_RIGHTSQUARE {
-		Span_req *b = new Span_req;
-		b->set_span_dir (STOP);
-		b->set_mus_property ("span-type", ly_str02scm ("ligature-bracket"));
 		$$ = b;
 	}
 	| BREATHE {
