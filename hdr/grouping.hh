@@ -14,8 +14,7 @@
 typedef Interval_t<Moment> MInterval;
 
 /// data structure which represents rhythmic units 
-struct Rhythmic_grouping {    
-    
+struct Rhythmic_grouping {
     Array<Rhythmic_grouping*> children;
     MInterval *interval_;
     
@@ -34,7 +33,7 @@ struct Rhythmic_grouping {
     ~Rhythmic_grouping();
 
     void add_child(Moment start, Moment len);
-
+    bool child_fit_query(Moment start);
     void split(Rhythmic_grouping r);
     void split(Array<MInterval>);
     void split(int n);
