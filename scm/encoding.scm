@@ -92,10 +92,10 @@ vector of symbols."
 	 ("latin1" . "cork.enc")
 	 
 	 ;; LilyPond.
-	 ("feta braces" . "feta-braces-a.enc")
-	 ("feta number" . "feta-nummer10.enc")
-	 ("feta music" . "feta20.enc")
-	 ("parmesan music" . "parmesan20.enc"))
+	 ("fetaBraces" . "feta-braces-a.enc")
+	 ("fetaNumber" . "feta-nummer10.enc")
+	 ("fetaMusic" . "feta20.enc")
+	 ("parmesanMusic" . "parmesan20.enc"))
        ))
 
 (define (get-coding coding-name)

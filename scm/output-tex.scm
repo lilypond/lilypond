@@ -311,32 +311,16 @@
   (embedded-ps (list 'round-filled-box  x y width height blotdiam)))
 
 (define (text font s)
-  (let* ((encoding (ly:font-encoding font))
-	 (names (car encoding))
-	 (table (cadr encoding))
-	 (permutation (caddr encoding)))
-    (if (ly:get-option 'verbose)
-	(begin
-	  (format (current-error-port) "TEXT: ~S\n" s)
-	  ;;(format (current-error-port) "encoding: ~S\n" encoding)
-	  ;;(format (current-error-port) "table: ~S\n" table)
-	  ;;(format (current-error-port) "permutation: ~S\n" permutation)
-	  (map (lambda (x)
-	       (let ((name (vector-ref names x)))
-		 (format
-		  (current-error-port)
-		  "number:~S\nname:~S\ntable:~S\npermutation:~S\npnum:~S\n\n"
-			 x name
-			 (hash-ref table x)
-			 (vector-ref permutation x)
-			 (char->integer (vector-ref permutation x)))))
-		  (map char->integer (plain-string->list s)))))
+  (let*
+      ((perm (vector-ref (ly:font-encoding font) 4)))
     
-    (string-append
-     "\\hbox{\\" (font-command font) "{}"
-     (output-tex-string (if (vector? permutation)
-			    (reencode-string permutation s) s))
-     "}")))
+    (string-append "\\hbox{\\" (font-command font) "{}"
+		   (output-tex-string
+		    (if (vector? perm)
+			(reencode-string perm s)
+			s))
+		   "}")))
+
 
 (define (tuplet ht gapx dx dy thick dir)
   (embedded-ps (list 'tuplet  ht gapx dx dy thick dir)))

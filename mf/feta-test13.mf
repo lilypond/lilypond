@@ -2,8 +2,7 @@
 % part of LilyPond's pretty-but-neat music font
 
 input feta-autometric;
-fet_beginfont("feta-test", 13);
-staffsize#:=13pt#;
+design_size := 13;
 test:=1;
 
 % smoked cheese
@@ -15,7 +14,6 @@ test:=1;
 
 input feta-generic;
 
-fet_endfont("feta");
 
 end.
 

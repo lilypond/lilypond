@@ -13,16 +13,17 @@ if test = -1:
 	mode := smoke;
 fi
 
+staffsize# := design_size * pt#;
+
 mode_setup;
-%
 
 input feta-macros;
 
 input feta-params;
 
 font_x_height  staff_space#;
-font_coding_scheme "feta music";
 
+fet_beginfont("feta", design_size, "fetaMusic");
 if test = 0: 
 	input feta-eindelijk;
 	input feta-toevallig;
@@ -39,3 +40,6 @@ else:
 	input feta-test-generic.mf;
 
 fi
+
+fet_endfont;
+

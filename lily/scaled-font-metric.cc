@@ -19,7 +19,7 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
   coding_vector_ = SCM_EOL;
   coding_permutation_ = SCM_EOL;
   coding_table_ = SCM_EOL;
-  
+  coding_permutation_ = SCM_EOL;
   coding_scheme_ = coding;
   magnification_ = magn;
   SCM desc = m->description_;
@@ -29,6 +29,40 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
   
   description_ = gh_cons (ly_car (desc), gh_double2scm (total_mag));
   orig_ = m;
+
+  if (coding_scheme_ != "TeX"
+      && coding_scheme_ != "ASCII"
+      && coding_scheme_ !=  orig_->coding_scheme ())
+    {
+      coding_vector_ = scm_call_1 (ly_scheme_function ("get-coding-vector"),
+				   scm_makfrom0str (coding_scheme_.to_str0 ()));
+
+      if (!gh_vector_p (coding_vector_))
+	{
+	  programming_error ("get-coding-vector  should return vector");
+	  coding_vector_ = scm_c_make_vector (256, ly_symbol2scm (".notdef"));
+	}
+
+      
+      coding_table_ = scm_call_1 (ly_scheme_function ("get-coding-table"),
+				  scm_makfrom0str (orig_->coding_scheme ().to_str0 ()));
+	  
+      coding_permutation_  = scm_call_2 (ly_scheme_function ("make-encoding-permutation"),
+					 coding_vector_,
+					 coding_table_);
+
+      coding_description_= scm_list_5 (scm_makfrom0str (coding_scheme_.to_str0 ()),
+				       coding_vector_,
+				       scm_makfrom0str (orig_->coding_scheme ().to_str0 ()),
+				       coding_table_,
+				       coding_permutation_);
+
+      /*
+	TODO: use alist
+       */
+      coding_permutation_ = scm_vector (coding_description_);
+    } 
+  
 }
 
 SCM
@@ -99,6 +133,7 @@ void
 Modified_font_metric::derived_mark ()
 {
   scm_gc_mark (coding_vector_);
+  scm_gc_mark (coding_description_);
   scm_gc_mark (coding_table_);
   scm_gc_mark (coding_permutation_);
 }
@@ -192,28 +227,6 @@ Modified_font_metric::text_dimension (String text)
     }
   else
     {
-      if (!gh_vector_p (coding_vector_))
-	{
-	  coding_vector_
-	    = scm_call_1 (ly_scheme_function ("get-coding-vector"),
-			  scm_makfrom0str (coding_scheme_.to_str0 ()));
-
-	  if (!gh_vector_p (coding_vector_))
-	    {
-	      programming_error ("get-coding-vector  should return vector");
-	      coding_vector_ = scm_c_make_vector (256,
-						  ly_symbol2scm (".notdef"));
-	    }
-
-	  coding_table_
-	    = scm_call_1 (ly_scheme_function ("get-coding-table"),
-			  scm_makfrom0str (orig_->coding_scheme ().to_str0 ()));
-	  
-	  coding_permutation_
-	    = scm_call_2 (ly_scheme_function ("make-encoding-permutation"),
-			  coding_vector_, coding_table_);
-	}
-	  
       Interval ydims;
       Real w = 0.0;
 
@@ -224,12 +237,10 @@ Modified_font_metric::text_dimension (String text)
 
 	  Box char_box;
 
-	  if (!gh_symbol_p (sym) && !gh_string_p (sym))
+	  if (!gh_symbol_p (sym))
 	    continue;
 
-	  char const * chars = gh_symbol_p (sym)
-	    ? SCM_SYMBOL_CHARS(sym) : SCM_STRING_CHARS(sym); 
-	    
+	  char const * chars =  SCM_SYMBOL_CHARS(sym);
 	  
 	  int idx = orig_->name_to_index (chars);
 	  if (idx >= 0)
@@ -258,15 +269,14 @@ LY_DEFINE (ly_font_encoding, "ly:font-encoding",
 	   1, 0, 0,
 	   (SCM font),
 	   "Given the Modified_font_metric @var{font}, return a "
-	   "list containing (input-coding, output-coding, permutation).")
+	   "vector containing (input-coding-name, input-coding, "
+	   "output-coding-name, output-coding, permutation).")
 {
   Modified_font_metric *fm
     = dynamic_cast<Modified_font_metric*> (unsmob_metrics (font));
   
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "Modified_font_metric");
-  return scm_list_3 (fm->coding_vector_,
-		     fm->coding_table_,
-		     fm->coding_permutation_);
+  return fm->coding_description_;
 }
 
 LY_DEFINE (ly_font_coding_name, "ly:font-coding-name",

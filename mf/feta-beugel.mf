@@ -8,8 +8,6 @@ staffsize#  := 20 pt#;  %% arbitrary.
 
 input feta-params;
 
-font_coding_scheme "feta braces";
-
 
 def abc_encode_int (expr i) =
 	if i > 0:
@@ -22,7 +20,8 @@ enddef ;
 % we must let the design increase for each
 % font to make sure that mftrace doesn't jack up the resolution too highly
 % for the longer braces.
-fet_beginfont("feta-braces-" &char(97 + font_count), (font_count + 1)* 15);
+fet_beginfont("feta-braces-" &char(97 + font_count), (font_count + 1)* 15,
+		"fetaBraces");
 
 mode_setup;
 

@@ -3,8 +3,7 @@
 
 
 input feta-autometric;
-fet_beginfont("feta-test", 23);
-staffsize#:=23pt#;
+design_size := 23;
 test:=1;
 
 % smoked cheese
@@ -16,7 +15,6 @@ test:=1;
 
 input feta-generic;
 
-fet_endfont("feta");
 
 end.
 

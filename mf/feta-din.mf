@@ -25,7 +25,7 @@ font_normal_space horizontal_space#;
 
 define_pixels (staffspace, linethickness, stafflinethickness, ex, descender, ascender);
 
-fet_beginfont("feta-din", design_size);
+fet_beginfont("feta-din", design_size, "TeX text");
 
 input feta-din-code;
 

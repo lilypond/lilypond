@@ -4,14 +4,12 @@
 input feta-autometric;
 
 % todo change file name
-fet_beginfont("feta", 22.5);
-staffsize#:=22.45pt#;
+design_size := 22.45;
 test:=0;
 
 
 input feta-generic;
 
-fet_endfont("feta");
 
 end.
 

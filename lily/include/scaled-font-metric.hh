@@ -25,13 +25,15 @@ public:
   virtual int name_to_index (String) const;
   virtual String coding_scheme () const;
 
-  /*should be protected?
-   */
+
+protected:
+  
   SCM coding_vector_;
   SCM coding_table_;
   SCM coding_permutation_;
-  
-protected:
+  SCM coding_description_;
+  friend SCM ly_font_encoding(SCM);
+    
   virtual Real design_size () const;
   virtual void derived_mark (); 
   virtual Box get_indexed_char (int) const;
