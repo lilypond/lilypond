@@ -144,3 +144,6 @@ Ligature_bracket::brew_molecule (SCM smob)
   return bracket.smobbed_copy ();
 }
 
+ADD_INTERFACE(Ligature_bracket, "ligature-bracket-interface",
+	      "",
+	      "width height");
