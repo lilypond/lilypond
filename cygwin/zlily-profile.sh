@@ -29,7 +29,9 @@ export WINDOWS_TEXINPUTS WINDOWS_TFMFONTS WINDOWS_MFINPUTS
 # PATH="/usr/lilypond/bin:$PATH"
 # PATH="@prefix@/bin:$PATH"
 
-cat <<EOF
+# Can't do this in Cygwin :-(
+
+cat > /dev/null <<EOF
 Congratulations and welcome to GNU LilyPond.
 
 To get started, visit:

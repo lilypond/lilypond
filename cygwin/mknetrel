@@ -11,8 +11,8 @@
 cat >/dev/null <<EOC
 
    wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.5/lilypond-1.5.68.tar.gz
-   rm -rf /home/mknetrel/netrel/src/lilypond-*
-   mkdir -p /home/mknetrel/netrel/src && cd /home/mknetrel/netrel/src
+   rm -rf /home/netrel/src/lilypond-*
+   mkdir -p /home/netrel/src && cd /home/netrel/src
    ## TODO: look at pimport
    tar xzf /var/tmp/lilypond-*
    mv lilypond-* $(echo lilypond-*)-1
@@ -301,8 +301,11 @@ prebuild () {
 	cp -pv $i $(dirname $(dirname $i))/$(basename $i)
     done
 
-    addmakeflags LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll"
+    addmakeflags LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll" " " 'target=i686-pc-cygwin'
+}
 
+preinstall () {
+    addmakeflags LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll" " " 'target=i686-pc-cygwin'
 }
 
 postinstall () {
@@ -316,18 +319,18 @@ postinstall () {
     ## copy READMEs etc
 
     cd $src || exit 1
-    
-    mkdir -p $inst/$docdir
+    install -d -m755 $inst/$docdir
 
     ## Generic READMEs
     find . -maxdepth 1 -type f -exec cp -pv \{\} $inst/$docdir \;
 
-    ## Windows readmes
-    cd cygwin || exit 1
-    cp -p README $inst/$docdir/README.Cygwin
-    cp -p changelog $inst/$docdir/changelog.Cygwin
-    mkdir -p $inst/$prefix/doc/Cygwin
-    cp -p README $inst/$prefix/doc/Cygwin/$base-$ver.README
+    ## Cygwin readmes
+    cygwin=cygwin
+    cd $src || exit 1
+    install -m644 $cygwin/README $inst/$docdir/README.Cygwin
+    install -m644 $cygwin/changelog $inst/$docdir/changelog.Cygwin
+    install -d -m755 $inst/$prefix/doc/Cygwin
+    install -m644 $cygwin/README $inst/$prefix/doc/Cygwin/$package.README
 
     ## copy examples
     cd $src || exit 1
