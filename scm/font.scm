@@ -137,130 +137,186 @@
 ; The vector should be sorted according to ascending design size.
 ;
 
-(define-public (make-font-tree factor)
-  (let*
-      ((n (make-font-tree-node 'font-encoding 'music))
-       )
-    
-    (for-each
-     (lambda (x)
-       (add-font n
-		 (list (cons 'font-encoding (car x)))
-		 (cons (* factor (cadr x))
-		       (caddr x))))
-     `((number 10
-	       #(,(delay (ly:font-load "feta-nummer4"))
-		 ,(delay (ly:font-load "feta-nummer6"))
-		 ,(delay (ly:font-load "feta-nummer8"))
-		 ,(delay (ly:font-load "feta-nummer10"))
-		 ,(delay (ly:font-load "feta-nummer12"))
-		 ,(delay (ly:font-load "feta-nummer16"))))
-       (dynamic 14.0  #(,(delay (ly:font-load "feta-din6"))
-			,(delay (ly:font-load "feta-din8"))
-			,(delay (ly:font-load "feta-din10"))
-			,(delay (ly:font-load "feta-din12"))
-			,(delay (ly:font-load "feta-din14"))
-			,(delay (ly:font-load "feta-din17"))
-			))
-       (math 10 #(,(delay (ly:font-load "msam10"))))
-       (music 20.0
-	      #(,(delay (ly:make-virtual-font
-			 (ly:font-load "feta11")
-			 (ly:font-load "parmesan11")))
-		,(delay (ly:make-virtual-font
-			 (ly:font-load "feta13")
-			 (ly:font-load "parmesan13")))
-		,(delay (ly:make-virtual-font
-			 (ly:font-load "feta14")
-			 (ly:font-load "parmesan14")))
-		,(delay (ly:make-virtual-font
-			 (ly:font-load "feta16")
-			 (ly:font-load "parmesan16")))
-		,(delay (ly:make-virtual-font
-			 (ly:font-load "feta18")
-			 (ly:font-load "parmesan18")))
-		,(delay (ly:make-virtual-font
-			 (ly:font-load "feta20")
-			 (ly:font-load "parmesan20")))
-		,(delay (ly:make-virtual-font
-			 (ly:font-load "feta23")
-			 (ly:font-load "parmesan23")))
-		,(delay (ly:make-virtual-font
-			 (ly:font-load "feta26")
-			 (ly:font-load "parmesan26")))
-		))
+(define-public (add-music-fonts node factor)
+  (for-each
+   (lambda (x)
+     (add-font node
+	       (list (cons 'font-encoding (car x)))
+	       (cons (* factor (cadr x))
+		     (caddr x))))
+   `((number 10
+	     #(,(delay (ly:font-load "feta-nummer4"))
+	       ,(delay (ly:font-load "feta-nummer6"))
+	       ,(delay (ly:font-load "feta-nummer8"))
+	       ,(delay (ly:font-load "feta-nummer10"))
+	       ,(delay (ly:font-load "feta-nummer12"))
+	       ,(delay (ly:font-load "feta-nummer16"))))
+     (dynamic 14.0  #(,(delay (ly:font-load "feta-din6"))
+		      ,(delay (ly:font-load "feta-din8"))
+		      ,(delay (ly:font-load "feta-din10"))
+		      ,(delay (ly:font-load "feta-din12"))
+		      ,(delay (ly:font-load "feta-din14"))
+		      ,(delay (ly:font-load "feta-din17"))
+		      ))
+     (music 20.0
+	    #(,(delay (ly:make-virtual-font
+		       (ly:font-load "feta11")
+		       (ly:font-load "parmesan11")))
+	      ,(delay (ly:make-virtual-font
+		       (ly:font-load "feta13")
+		       (ly:font-load "parmesan13")))
+	      ,(delay (ly:make-virtual-font
+		       (ly:font-load "feta14")
+		       (ly:font-load "parmesan14")))
+	      ,(delay (ly:make-virtual-font
+		       (ly:font-load "feta16")
+		       (ly:font-load "parmesan16")))
+	      ,(delay (ly:make-virtual-font
+		       (ly:font-load "feta18")
+		       (ly:font-load "parmesan18")))
+	      ,(delay (ly:make-virtual-font
+		       (ly:font-load "feta20")
+		       (ly:font-load "parmesan20")))
+	      ,(delay (ly:make-virtual-font
+		       (ly:font-load "feta23")
+		       (ly:font-load "parmesan23")))
+	      ,(delay (ly:make-virtual-font
+		       (ly:font-load "feta26")
+		       (ly:font-load "parmesan26")))
+	      ))
+     
+     (braces 15 #(,(delay
+		     (ly:make-virtual-font
+		      (ly:font-load "feta-braces-a")
+		      (ly:font-load "feta-braces-b")
+		      (ly:font-load "feta-braces-c")
+		      (ly:font-load "feta-braces-d")
+		      (ly:font-load "feta-braces-e")
+		      (ly:font-load "feta-braces-f")
+		      (ly:font-load "feta-braces-g")
+		      (ly:font-load "feta-braces-h")
+		      (ly:font-load "feta-braces-i"))
+		     ))))))
        
-       (braces 15 #(,(delay
-		       (ly:make-virtual-font
-			(ly:font-load "feta-braces-a")
-			(ly:font-load "feta-braces-b")
-			(ly:font-load "feta-braces-c")
-			(ly:font-load "feta-braces-d")
-			(ly:font-load "feta-braces-e")
-			(ly:font-load "feta-braces-f")
-			(ly:font-load "feta-braces-g")
-			(ly:font-load "feta-braces-h")
-			(ly:font-load "feta-braces-i"))
-		       )))))
 
-    (for-each
-     (lambda (x)
-       (add-font
-	n
-	`((font-encoding . text)
-	  (font-series . ,(vector-ref (car x) 2))
-	  (font-shape . ,(vector-ref (car x) 1))
-	  (font-family . ,(vector-ref (car x) 0)))
-	(cons (* factor (cadr x))
-	      (cddr x))
-	))
-     `((#(roman upright medium) .
-	(10.0 . #(,(delay (ly:font-load "cmr6"))
-		  ,(delay (ly:font-load "cmr8")) 
-		  ,(delay (ly:font-load "cmr10"))
-		  ,(delay (ly:font-load "cmr17"))
-		  )))
+(define-public (add-cmr-fonts node factor)
+  (add-font
+   node
+   '((font-encoding . math))
+   `((* factor 10) . #(,(delay (ly:font-load "msam10")))))
+  
+  (for-each
+   (lambda (x)
+     (add-font
+      node
+      `((font-encoding . text)
+	(font-series . ,(vector-ref (car x) 2))
+	(font-shape . ,(vector-ref (car x) 1))
+	(font-family . ,(vector-ref (car x) 0)))
+      (cons (* factor (cadr x))
+	    (cddr x))
+      ))
+   `((#(roman upright medium) .
+      (10.0 . #(,(delay (ly:font-load "cmr6"))
+		,(delay (ly:font-load "cmr8")) 
+		,(delay (ly:font-load "cmr10"))
+		,(delay (ly:font-load "cmr17"))
+		)))
 
-       (#(roman upright bold) .
-	(10.0 . #(,(delay (ly:font-load "cmbx6"))
-		  ,(delay (ly:font-load "cmbx8"))
-		  ,(delay (ly:font-load "cmbx10"))
-		  ,(delay (ly:font-load "cmbx12"))
-		  )))
-       
-       (#(roman italic medium) .
-	(10.0 . #(,(delay (ly:font-load "cmti7"))
-		  ,(delay (ly:font-load "cmti10"))
-		  ,(delay (ly:font-load "cmti12"))
-		  )))
-       (#(roman italic bold) .
-	(10.0 . #(,(delay (ly:font-load "cmbxti8"))
-		  ,(delay (ly:font-load "cmbxti10"))
-		  ,(delay (ly:font-load "cmbxti14"))
-		  )))
-       
-       (#(roman caps medium) .
-	(10.0 . #(,(delay (ly:font-load "cmcsc10")))))
+     (#(roman upright bold) .
+      (10.0 . #(,(delay (ly:font-load "cmbx6"))
+		,(delay (ly:font-load "cmbx8"))
+		,(delay (ly:font-load "cmbx10"))
+		,(delay (ly:font-load "cmbx12"))
+		)))
+     
+     (#(roman italic medium) .
+      (10.0 . #(,(delay (ly:font-load "cmti7"))
+		,(delay (ly:font-load "cmti10"))
+		,(delay (ly:font-load "cmti12"))
+		)))
+     (#(roman italic bold) .
+      (10.0 . #(,(delay (ly:font-load "cmbxti8"))
+		,(delay (ly:font-load "cmbxti10"))
+		,(delay (ly:font-load "cmbxti14"))
+		)))
+     
+     (#(roman caps medium) .
+      (10.0 . #(,(delay (ly:font-load "cmcsc10")))))
 
-       (#(roman upright bold-narrow ) .
-	(10.0 . #(,(delay (ly:font-load "cmb10"))
-		  )))
-       
-       (#(sans upright medium) .
-	(10.0  . #(,(delay (ly:font-load "cmss8"))
-		   ,(delay (ly:font-load "cmss10"))
-		   ,(delay (ly:font-load "cmss12"))
-		   ,(delay (ly:font-load "cmss17"))
-		   )))
-       (#(typewriter upright medium) .
-	(10.0 . #(,(delay (ly:font-load "cmtt8"))
-		  ,(delay (ly:font-load "cmtt10"))
-		  ,(delay (ly:font-load "cmtt12"))
-		  )))
-       ))
-    n))
+     (#(roman upright bold-narrow ) .
+      (10.0 . #(,(delay (ly:font-load "cmb10"))
+		)))
+     
+     (#(sans upright medium) .
+      (10.0  . #(,(delay (ly:font-load "cmss8"))
+		 ,(delay (ly:font-load "cmss10"))
+		 ,(delay (ly:font-load "cmss12"))
+		 ,(delay (ly:font-load "cmss17"))
+		 )))
+     (#(typewriter upright medium) .
+      (10.0 . #(,(delay (ly:font-load "cmtt8"))
+		,(delay (ly:font-load "cmtt10"))
+		,(delay (ly:font-load "cmtt12"))
+		)))
+     )))
 
 ; (display (make-font-tree 1.0))
+
+(define-public (add-utopia-fonts node factor)
+  
+  (add-font node
+	    '((font-family . roman)
+	      (font-shape . upright)
+	      (font-series . medium)
+	      (font-encoding . text))
+	    `(10.0 . #(,(delay (ly:font-load "putr8a")))))
+  
+  (add-font node
+	    '((font-family . roman)
+	      (font-shape . italic)
+	      (font-series . medium)
+	      (font-encoding . text))
+	    `(10.0 . #(,(delay (ly:font-load "putri8a")))))
+  
+  (add-font node
+	    '((font-family . roman)
+	      (font-shape . upright)
+	      (font-series . bold)
+	      (font-encoding . text))
+	    `(10.0 . #(,(delay (ly:font-load "putb8a")))))
+  
+  (add-font node
+	    '((font-family . roman)
+	      (font-shape . italic)
+	      (font-series . bold)
+	      (font-encoding . text))
+	    `(10.0 . #(,(delay (ly:font-load "putbi8a")))))
+  )
+
+
+(define-public (make-cmr-tree factor)
+
+  (let
+      ((n (make-font-tree-node 'font-encoding 'music)))
+
+    (add-music-fonts n factor)
+    (add-cmr-fonts n factor)
+    n
+  ))
+
+
+(define-public (make-utopia-tree factor)
+
+  (let
+      ((n (make-font-tree-node 'font-encoding 'music)))
+
+    (add-music-fonts n factor)
+    (add-utopia-fonts n factor)
+    n
+  ))
+
+
 
 (define-public (magstep x)
   (exp (* (/ x 6) (log 2))))

@@ -164,7 +164,7 @@
    " ] 0 draw_dashed_slur"))
 
 (define (font-command font . override-coding-command)
-  (let* ((name (ly:font-name font))
+  (let* ((name (ly:font-filename font))
 	 (magnify (ly:font-magnification font))
 	 (coding-alist (ly:font-encoding-alist font))
 	 (input-encoding (assoc-get 'input-name coding-alist))
@@ -207,7 +207,7 @@
      (else basename)))
 
   (define (font-load-command paper font)
-    (let* ((basename (ly:font-name font))
+    (let* ((basename (ly:font-filename font))
 	   (fontname (guess-ps-fontname basename))
 	   (coding-alist (ly:font-encoding-alist font))
 	   (input-encoding (assoc-get 'input-name coding-alist))
