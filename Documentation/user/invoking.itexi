@@ -270,9 +270,9 @@ through @code{ps2pdf} producing a PDF file.
 @cindex Scalable fonts
     
     If you use lilypond-book or your own wrapper files, don't use
-\use   package[[T1]{fontenc} in the file header but don't forget
-\usepackage[[latin1]{inputenc} if you use any other non-anglosaxian
-characters.
+@code{\usepackage[[T1]@{fontenc@}} in the file header but don't forget
+@code{\usepackage[latin1]@{inputenc@}} if you use any other
+non-anglosaxian characters.
 
     @item --preview
     Also generate a picture of the first system of the score.
