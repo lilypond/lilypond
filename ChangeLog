@@ -1,3 +1,8 @@
+2005-02-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-grob-properties.scm (all-user-grob-properties):
+	removed 'dashed property.
+
 2005-02-13  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/lily.scm (define-safe-public): new macro for defining
