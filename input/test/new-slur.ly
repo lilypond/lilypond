@@ -12,5 +12,7 @@
     <c g>_( f <g b>)
     <g b>_( g  <b d>)
     <g b>_( \stemDown g \stemBoth  <b d>)
-    
+    c,^( c'' c) 
+    c,,^( c'')
+    c,,^( c')
 }

@@ -828,15 +828,15 @@
 
     (Slur
      . (
-	(print-function . ,Slur::print)
+	(print-function . ,New_slur::print)
 	(thickness . 1.2)		
 	(spacing-procedure . ,Spanner::set_spacing_rods)		
 	(minimum-length . 1.5)
-	(after-line-breaking-callback . ,Slur::after_line_breaking)
+	(after-line-breaking-callback . ,New_slur::after_line_breaking)
 	(extremity-function . ,calc-slur-extremity)
 	(extremity-offset-alist . ,default-slur-extremity-offset-alist)
 	(de-uglify-parameters . (1.5  0.8  -2.0))
-	(Y-extent-callback . ,Slur::height)
+	(Y-extent-callback . ,#f) ; Slur::height
 	(height-limit . 2.0)
 	(ratio . 0.333)
 	(beautiful . 0.5)

@@ -154,7 +154,11 @@ Stem::last_head (Grob *me)
   return 0;  
 }
 
-/* START is part where stem reaches `last' head.  */
+/* START is part where stem reaches `last' head.
+
+This function returns a drul with (bottom-head, top-head). 
+
+*/
 Drul_array<Grob*>
 Stem::extremal_heads (Grob *me)
 {

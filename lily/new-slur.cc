@@ -10,6 +10,9 @@
 
 #include <math.h>
 
+#include "font-interface.hh"
+#include "text-item.hh"
+
 #include "directional-element-interface.hh"
 #include "group-interface.hh"
 #include "group-interface.hh"
@@ -141,7 +144,14 @@ New_slur::get_encompass_info (Grob *me,
   else
     ei.x_ = col->extent (common[X_AXIS], X_AXIS).center ();
 
-  ei.head_ = Stem::extremal_heads (stem)[Direction (stem_dir * dir)]->extent (common[Y_AXIS], Y_AXIS)[dir];
+  Grob * h = Stem::extremal_heads (stem)[Direction (dir)];
+  if (!h)
+    {
+      ei.head_ = ei.stem_ = col->relative_coordinate (common[Y_AXIS], Y_AXIS);
+      return ei;  
+    }
+  
+  ei.head_ = h->extent (common[Y_AXIS], Y_AXIS)[dir];
   
   if ((stem_dir == dir)
       && !stem->extent (stem, Y_AXIS).is_empty ())
@@ -224,7 +234,11 @@ New_slur::set_end_points (Grob *me)
   Link_array<Grob> columns =
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
   
-
+  if (columns.is_empty ())
+    {
+      me->suicide ();
+      return ; 
+    }
   Real staff_space = Staff_symbol_referencer::staff_space ((Grob*)me);
   Drul_array<Grob *> extremes (columns[0], columns.top ());
   Direction dir = get_grob_direction (me);
@@ -245,8 +259,7 @@ New_slur::set_end_points (Grob *me)
   
   do {
     Grob *stem = Note_column::get_stem (extremes[d]);
-    Direction stemdir = get_grob_direction (stem);
-    Grob * h = Stem::extremal_heads (stem)[Direction (dir * stemdir)];
+    Grob * h = Stem::extremal_heads (stem)[Direction (dir)];
     staves[d] = Staff_symbol_referencer::get_staff_symbol (h);
 
     common[Y_AXIS] = common[Y_AXIS]->common_refpoint (staves[d], Y_AXIS);
@@ -256,8 +269,7 @@ New_slur::set_end_points (Grob *me)
     {
       // c&p
       Grob *stem = Note_column::get_stem (extremes[d]);
-      Direction stemdir = get_grob_direction (stem);
-      Grob * h = Stem::extremal_heads (stem)[Direction (dir * stemdir)];
+      Grob * h = Stem::extremal_heads (stem)[dir];
      
       Real y = h->extent (common[Y_AXIS], Y_AXIS)[dir];
 
@@ -351,11 +363,11 @@ New_slur::set_end_points (Grob *me)
   me->set_property ("control-points", controls);
 
 #if DEBUG_SLUR_QUANTING
-      qscores[opt_idx].score_card_ += to_string ("i%d", best_idx);
+ scores[opt_idx].score_card_ += to_string ("i%d", opt_idx);
       
-      // debug quanting
-      me->set_property ("quant-score",
-			scm_makfrom0str (scores[opt_idx].score_card_.to_str0 ()));
+ // debug quanting
+ me->set_property ("quant-score",
+		   scm_makfrom0str (scores[opt_idx].score_card_.to_str0 ()));
 #endif
   
 }
@@ -404,8 +416,8 @@ New_slur::score_encompass (Grob * me,  Grob *common[], Drul_array<Offset> base_a
 	      demerit += - CLOSENESS_FACTOR * (dir * (y - (ext[dir] + dir * HEAD_FREE_SPACE)) <? 0) ;
 	    }
 	}
-
-      demerit /= infos.size ();
+      if (infos.size())
+	demerit /= infos.size ();
       Direction d = LEFT;
       do {
 	demerit +=
@@ -414,7 +426,7 @@ New_slur::score_encompass (Grob * me,  Grob *common[], Drul_array<Offset> base_a
       } while (flip (&d) != LEFT);
 
 #if DEBUG_SLUR_QUANTING
-      (*qscores)[i].score_card_ += to_string ("E%.2f",d);
+      (*scores)[i].score_card_ += to_string ("E%.2f", demerit);
 #endif
       
       (*scores)[i].score_ += demerit;
@@ -437,8 +449,7 @@ New_slur::score_slopes (Grob * me,  Grob *common[], Drul_array<Offset> base_atta
   Direction d = LEFT;
   do {
     Grob *stem = Note_column::get_stem (extremes [d]);
-    Direction sd = get_grob_direction (stem);
-    ys[d] = Stem::extremal_heads (stem)[Direction (dir * sd)]
+    ys[d] = Stem::extremal_heads (stem)[Direction (dir)]
       ->relative_coordinate (common[Y_AXIS], Y_AXIS);
   } while (flip (&d) != LEFT);
 
@@ -464,7 +475,7 @@ New_slur::score_slopes (Grob * me,  Grob *common[], Drul_array<Offset> base_atta
 	demerit += SAME_SLOPE_PENALTY;
       
 #if DEBUG_SLUR_QUANTING
-      (*qscores)[i].score_card_ += to_string ("E%.2f",d);
+      (*scores)[i].score_card_ += to_string ("S%.2f",d);
 #endif
       (*scores)[i].score_ += demerit;
     }
@@ -551,8 +562,6 @@ New_slur::print (SCM smob)
       String str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
-      Direction stem_dir = stems.size() ? to_dir (stems[0]->get_property ("direction")) : UP;
-    
       Stencil tm = *unsmob_stencil (Text_item::interpret_markup
 	 (me->get_paper ()->self_scm (), properties, quant_score));
       a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0, 0);
