@@ -19,7 +19,8 @@ operator op(type t1, type t2)\
      return (t1 opp t2) ? t1 :  t2;\
 }\
 
-#ifdef __GNUC__
+
+#if defined (__GNUG__) && ! defined (__STRICT_ANSI__)
 #define gpp_minmax(type, prefix)\
        prefix gpp_minmax_operator(type, <?, <)\
        prefix gpp_minmax_operator(type, >?, >)
