@@ -22,6 +22,8 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
   rest_moments_[START] =
     rest_moments_[STOP] =0;
   multi_measure_req_l_ = 0;
+
+  lastrest_p_ =0;
   mmrest_p_ = 0;
 }
 
