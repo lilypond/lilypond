@@ -127,8 +127,6 @@
 (if (not (defined? 'standalone))
     (begin
 
-;      (debug-enable 'backtrace)
-
       (load "standalone.scm")
 
       (define (number-pair?  x)

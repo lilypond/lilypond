@@ -304,7 +304,7 @@ Translator_def::default_child_context_name ()
 }
 
 SCM
-Translator_def::to_alist ()const
+Translator_def::to_alist () const
 {
   SCM l = SCM_EOL;
   

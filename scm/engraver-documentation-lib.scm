@@ -104,6 +104,46 @@
  	)
     ))
 
+(define (document-property-operation op)
+  (let
+      ((tag (car op))
+       (body (cdr op))
+       (sym (cadr op))
+       )
+
+  (cond
+   ((equal?  tag 'push)
+    (string-append
+     "@item "
+     (if (null? (cddr body))
+	 "Revert "
+	 "Set "
+	 )
+     "grob-property "
+     (symbol->string (cadr body))
+     " in " (symbol->string sym)
+     (if (not (null? (cddr body)))
+	 (string-append " to " (scm->texi (cadr (cdr body))))
+	 )
+    "\n"
+     )
+
+    )
+   ((equal? (object-property sym 'is-grob?) #t) "")
+   ((equal? (car op) 'assign)
+    (string-append
+     "@item Set translator property "
+     (symbol->string (car body))
+     " to "
+     (scm->texi (cadr body))
+     "\n"
+     )
+     )
+   )
+  ))
+
+
+
 (define (context-doc-string context-desc)
   (let*
       (
@@ -117,6 +157,7 @@
 		  (cdr (assoc 'consists context-desc))
 		  (cdr (assoc 'end-consists  context-desc))
 		  ))
+       (props (cdr (assoc 'property-ops context-desc)))
        (grobs  (context-grobs context-desc))
        (grob-refs (map (lambda (x) (ref-ify x)) grobs))
        )
@@ -126,9 +167,18 @@
      "\n\nThis context creates the following grobs: \n\n"
      (human-listify (uniq-list (sort grob-refs string<? )))
      "."
+     (if (pair? props)
+	 (string-append
+	  "\n\nThis context sets the following properties:\n"
+	  "@itemize @bullet\n"
+	  (apply string-append (map document-property-operation props))
+	  "@end itemize\n"
+	 )
+	 ""
+	 )
      
      (if (null? accepts)
-	 "This context is a `bottom' context; it can not contain other contexts."
+	 "\n\nThis context is a `bottom' context; it can not contain other contexts."
 	 (string-append
 	  "\n\nContext "
 	  name " can contain \n"
