@@ -3,6 +3,8 @@
 #include "voice.hh"
 
 #include "staff.hh"
+#include "sccol.hh"
+#include "stcol.hh"
 
 #include "list.cc"
 #include "cursor.cc"
