@@ -4228,9 +4228,9 @@ slightly too wide.
 @section Global layout
 
 The global layout determined by three factors: the page layout, the
-iline breaks and the spacing. These all influence each other: The
+line breaks and the spacing. These all influence each other: The
 choice of spacing determines how densely each system of music is set,
-whree line breaks breaks are chosen, and thus ultimately how many
+where line breaks breaks are chosen, and thus ultimately how many
 pages a piece of music takes. In this section we will explain how the
 lilypond spacing engine works, and how you can tune its results.
 
