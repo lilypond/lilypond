@@ -23,7 +23,7 @@ struct Hyphen_spanner // interface
 public:
   Spanner* elt_l_;
   Hyphen_spanner  (Spanner*);
-  void set_textitem (Direction, Item*);
+  void set_textitem (Direction, Score_element*);
   static SCM brew_molecule (SCM);
 };
 
