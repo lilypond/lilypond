@@ -97,13 +97,8 @@
 
       (string-append
        (define-font plain fontname scaling)
-       (if (or (equal? input-encoding font-encoding)
-	       ;; guh
-	       (equal? font-encoding "fetaBraces")
-	       (equal? font-encoding "fetaNumber")
-	       (equal? font-encoding "fetaMusic")
-	       (equal? font-encoding "parmesanMusic"))
-	       ""
+       (if (not (equal? input-encoding font-encoding))
+	   ""
 	   (reencode-font plain input-encoding command)))))
 
   (define (font-load-encoding encoding)

@@ -1,5 +1,7 @@
 2004-07-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/GNUmakefile: use symlinks to save space.
+
 	* VERSION: 2.3.9 released.
 
 	* scripts/convert-ly.py (conv): remove \lyrics from \lyricsto.
