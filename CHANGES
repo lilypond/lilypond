@@ -1,3 +1,39 @@
+
+1.3.41.jcn3
+===========
+
+* Lots of fixes to windows distribution scripts.
+
+* Added configuration features --program-prefix, --program suffix.
+
+* lily/my-lily-parser.cc (get_chord): Bugfix, don't use deleted pitch.
+This fixes inversions c/g and bass additions d/+c on chords.
+
+1.3.41.mb1
+==========
+
+* Avoid that xxxXXXVerticalExtent is used for empty HaraKiriStaff
+  lines.
+
+1.3.41.hwn1
+===========
+
+* Debian patches (thanks Anthony!)
+
+* Use symbols for prefatory matter spacing. Do not use the typename
+for looking up item pairs in the table, but read element property
+break-align-symbol
+
+* Instrument_name_engraver, uses break alignment instead of
+side-position.
+
+* System_start_delimiter_engraver, System_start_delimiter, uses a
+spanner for the braces/brackets at the left of the system. Remove all
+old Span_score_bar engravers.
+
+* Removed Base_span_bar_engraver::use_prority_b_, and moved
+Base_span_bar_engraver into Span_bar_engraver.
+
 1.3.40.jcn3
 ===========
 
@@ -5,7 +41,7 @@
 
 * input/test: Removed stale AutoStaffSwitch examples.
 
-* mutopia/E.Saite: Fixed gnossiene-4, doing \autochange.  Removed
+* mutopia/E.Satie: Fixed gnossiene-4, doing \autochange.  Removed
 stale copy of gnossiene-4.
 
 * buildscripts/make-cygwin-cross.sh: Made some small .zip package fixes.

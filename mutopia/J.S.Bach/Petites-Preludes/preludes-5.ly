@@ -201,7 +201,7 @@ lower = \context Staff \notes\relative c{
 
 global = \notes{
 	\time 3/4;
-	\key F;
+	\key f;
 }
 
 \score{

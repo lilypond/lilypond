@@ -4,14 +4,14 @@
 \score {
 	\context StaffGroup <
 		\context Staff=upper \notes\relative c{
-			\key F;
+			\key f;
 			\time 3/4;
 			r8^"Moderato" %\pp 
 			<g'-. c-.> <c-. es-.> <g-. c-.> <c-. es-.> <g-. c-.> |
 			r8 <as-. c-.> <c-. es-.>
 		}
 		\context Staff=lower \notes\relative c{
-			\key F;
+			\key f;
 			\time 3/4;
 			\clef "bass";
 			<c,2 c'> r4 

@@ -24,7 +24,7 @@ $clarinetti_staff = \context Staff = clarinetti <
 	%\notes \context Voice=clarinetti < 
 	\notes \context Staff=clarinetti < 
 		\time 4/4;
-		\key F;
+		\key f;
 		\skip 1*341; \bar "|.";
 		\context VoiceOne=clarinettoi
 			\$clarinetto1

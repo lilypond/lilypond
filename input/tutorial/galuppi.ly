@@ -21,10 +21,10 @@ tenor = \notes \relative c' {
 
 \score {
 	\context PianoStaff \notes <
-		\context Staff = top { \key D; \time 4/4;
+		\context Staff = top { \key d; \time 4/4;
 			\soprano
 		}
-		\context Staff = bottom < \key D; \time 4/4; \clef bass;
+		\context Staff = bottom < \key d; \time 4/4; \clef bass;
 			\context Voice = up  { \tenor } 
 			\context Voice = down  { \bass }
 		>

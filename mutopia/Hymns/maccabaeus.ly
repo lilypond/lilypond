@@ -78,7 +78,7 @@ bass=\notes \relative c {
 global = \notes {
 	\time 2/2;
 	\property Staff.timeSignatureStyle = "C"
-	\key E;
+	\key e;
 }
 
 $upper_staff = \context Staff = upper {
