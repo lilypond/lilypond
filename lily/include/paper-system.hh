@@ -32,8 +32,7 @@ public:
   int number_;
 
   Paper_system (Stencil, bool);
-
-  Offset dim () const;
+  
   Stencil to_stencil () const;
   SCM stencils () const;
   bool is_title () const;

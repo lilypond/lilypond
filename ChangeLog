@@ -1,4 +1,34 @@
+2004-09-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/simple-spacer.cc (LY_DEFINE): return something sensible for
+	0 springs
+
+	* lily/system.cc (post_processing): 
+
+	* scm/page-layout.scm (ly:optimal-page-breaks): implement uniform
+	density for vertical spacing by means of force penalty.
+	
+	* scm/paper.scm (paper-set-staff-size): add betweensystemspace as
+	dimension-variables
+
+	* Documentation/user/changing-defaults.itely (Page layout): add
+	betweensystemspace variable.
+
+	* ly/book-paper-defaults.ly: set betweensystemspace: 20 mm
+
+	* scm/page-layout.scm (space-systems): new function. Use spring
+	and rod approach for vertically spacing systems.
+
+	* ly/engraver-init.ly: tune down minimumVerticalExtent.
+
+	* scm/define-grobs.scm (all-grob-descriptions): set threshold for
+	vertical alignment.
+
+	* lily/slur-engraver.cc (process_music): add warning for slur.
+
 2004-09-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/include/lily-guile.hh (scm_is_number): add scm_is_number
 
 	* lily/simple-spacer.cc (LY_DEFINE): ly_solve_spring_rod_problem:
 	export spacing routine to SCM.

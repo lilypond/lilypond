@@ -26,6 +26,7 @@ Paper_system::Paper_system (Stencil s, bool is_title)
   penalty_ = 0;
   smobify_self ();
   stencil_ = s;
+  staff_refpoints_ = Interval(0,0);
 }
 
 Paper_system::~Paper_system ()
@@ -67,13 +68,6 @@ Paper_system::penalty () const
   return penalty_;
 }
 
-Offset
-Paper_system::dim () const
-{
-  return Offset (stencil_.extent (X_AXIS).length (),
-		 stencil_.extent (Y_AXIS).length ());
-}
-
 Stencil
 Paper_system::to_stencil () const
 {
@@ -88,8 +82,10 @@ LY_DEFINE (ly_paper_system_height, "ly:paper-system-extent",
   SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
   Axis ax = (Axis)ly_scm2int (axis);
-  return scm_make_real (ps->dim ()[ax]);
+  return ly_interval2scm (ps->to_stencil().extent (ax));
 }
+
+
 
 LY_DEFINE (ly_paper_system_title_p, "ly:paper-system-title?",
 	   1, 0, 0, (SCM system),

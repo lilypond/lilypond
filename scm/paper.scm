@@ -39,6 +39,7 @@
 
     (module-define! m 'dimension-variables
 		    '(pt mm cm in staffheight staff-space
+			 betweensystemspace betweensystempadding
 			 linewidth indent hsize vsize
 			 staffspace linethickness ledgerlinethickness
 			 blotdiameter interscoreline leftmargin rightmargin))

@@ -1,6 +1,14 @@
 \version "2.3.8"
 
 \bookpaper {
+
+    %%%%%%%%%%%%%%
+    %%%%
+    %%%% WARNING
+
+    %%% if you  add any new dimensions, don't forget to update
+    %%% the dimension-variables variable. see paper.scm
+    
     unit = #(ly:unit)
     mm = 1.0
     in = 25.4
@@ -11,14 +19,13 @@
     %% input encoding in EMACS? -- jcn
     %%%%inputencoding = #"TeX"
     inputencoding = #"latin1"
-
     printpagenumber = ##t
 
     %%
     %% 20pt staff, 5 pt = 1.75 mm
     %%
 
-   outputscale = #1.7573
+    outputscale = #1.7573
     
     #(define-public score-title default-score-title)
     #(define-public user-title default-user-title)
@@ -30,8 +37,22 @@
     
     #(paper-set-staff-size (* 20.0 pt))
 
+    %
+    % this dimension includes the extent of the
+    % staves themselves.
+    %
+    betweensystemspace = #(* 20 mm)
 
-  papersize = "a4"
+    %
+    % fixed space between systems.
+    %
+    betweensystempadding = #(* 4 mm)
+
+
+    raggedbottom = ##f
+    raggedlastbottom= ##f
+
+    papersize = "a4"
 
     #(define font-defaults
       '((font-encoding . fetaMusic)))

@@ -40,7 +40,7 @@
 	\consists "String_number_engraver"
 	\consists "Axis_group_engraver"
 
-	minimumVerticalExtent = #'(-5 . 5)
+	minimumVerticalExtent = #'(-3 . 3)
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 
 	localKeySignature = #'()
