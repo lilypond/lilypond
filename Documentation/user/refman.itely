@@ -1339,12 +1339,29 @@ automatic beaming. This is done by setting @code{Voice.autoBeaming} to
 It is not possible to specify beaming parameters for beams with mixed
 durations, that differ from the beaming parameters of all separate
 durations, i.e., you'll have to specify manual beams to get:
-@lilypond[fragment,singleline,relative]
+@c FIXME: lily wants symbol for no good reason.
+@c lilypond: music.cc:189: void Music::internal_set_mus_property(scm_unused_struct *, scm_unused_struct *): Assertion `type_check_assignment (s, v, ly_symbol2scm ("music-type?"))' failed.
+@c @lily pond[fragment,singleline,relative]
+@c   \property Voice.autoBeamSettings
+@c  \override #'(end * * * *) = #(make-moment 3 8)
+@c  \time 12/8 c'8 c c c16 c c c c c [c c c c] c8 c c4
+@c @end lily pond
+@quotation
+@example
   \property Voice.autoBeamSettings
   \override #'(end * * * *) = #(make-moment 3 8)
   \time 12/8 c'8 c c c16 c c c c c [c c c c] c8 c c4
-@end lilypond
-
+@end example
+@end quotation
+@lilypond[singleline,relative,noverbatim]
+#(ly-set-option 'internal-type-checking #f)
+\score{
+  \notes\relative c{
+    \property Voice.autoBeamSettings
+    \override #'(end * * * *) = #(make-moment 3 8)
+    \time 12/8 c'8 c c c16 c c c c c [c c c c] c8 c c4
+  }  
+}
 It is not possible to specify beaming parameters that act differently in
 different parts of a measure. This means that it is not possible to use
 automatic beaming in irregular meters such as @code{5/8}.
