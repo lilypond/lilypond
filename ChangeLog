@@ -1,5 +1,13 @@
 2004-08-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/system.cc (get_line): add System stencil to exprs. Fixes
+	system-extents.ly.
+
+	* ly/engraver-init.ly: decrease minimumVerticalExtent to (-5,5).
+
+	* scm/define-grobs.scm (all-grob-descriptions): decrease padding
+	for MultiMeasureRestNumber
+
 	* VERSION (PACKAGE_NAME): release 2.3.13
 
 2004-08-29  Nicolas Sceaux  <nicolas.sceaux@free.fr>
