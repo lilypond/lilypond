@@ -14,6 +14,7 @@
 #include "p-score.hh"
 #include "score-elem.hh"
 #include "input-translator.hh"
+
 Engraver* get_engraver_p(String);
 
 Engraver_group_engraver::~Engraver_group_engraver()
@@ -31,7 +32,6 @@ Engraver_group_engraver::check_removal()
 	else 
 	    i++;
     }
-    
 }
 
 bool
@@ -42,7 +42,7 @@ Engraver_group_engraver::removable_b()const
 
 Engraver_group_engraver::Engraver_group_engraver()
 {
-    itrans_l_ =0;
+    itrans_l_ = 0;
 }
 
 void
