@@ -126,10 +126,17 @@ Paper_book::get_title (int i)
 
   SCM s = ly_modules_lookup (get_scopes (i), field); 
   if (s != SCM_UNDEFINED && scm_variable_bound_p (s) == SCM_BOOL_T)
-    return unsmob_stencil (gh_call2 (make_title,
-				     // papers_[i]->self_scm (),
-				     papers_[0]->self_scm (),
-				     scm_variable_ref (s)));
+    {
+      Stencil *title = unsmob_stencil (gh_call2 (make_title,
+						 papers_[0]->self_scm (),
+						 scm_variable_ref (s)));
+      
+      /* match systems, which are also aligned to center */
+      //(ly:stencil-align-to! header-stencil Y CENTER)
+      title->align_to (Y_AXIS, CENTER);
+      return title;
+    }
+  
   return 0;
 }
 
