@@ -180,8 +180,11 @@
   (define (define-origin file line col)
     ; use this for column positions
     (if point-and-click
-     (string-append "\\special{src:" (ly-number->string line) ":"
-        (ly-number->string col) " " file "}"
+	; ly-number->string breaks point-and-click
+	(string-append "\\special{src:"
+		       (number->string line) ":"
+		       (number->string col) " "
+		       file "}"
 	 ;; arg, the clueless take over the mailing list...
 ;	 "\\special{-****-These-warnings-are-harmless-***}"
 ;	 "\\special{-****-PLEASE-read-http://appel.lilypond.org/wiki/index.php3?PostProcessing-****}"

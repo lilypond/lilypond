@@ -1,3 +1,4 @@
+#(set! point-and-click #t)
 \header{
 filename = 	 "violino-viola.ly";
 title = 	 	 "Vier Duette";
