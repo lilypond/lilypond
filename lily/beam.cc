@@ -867,11 +867,8 @@ Beam::shift_region_to_valid (SCM grob)
       Direction d = Stem::get_direction (s);
 
 
-      /*
-	TODO: use real beam space function 
-      */
       Real left_y = Stem::calc_stem_info (s).shortest_y_
-	- dydx * (x_posns [i] - x0);
+	- dydx * x_posns [i];
 
       Interval flp ;
       flp.set_full ();

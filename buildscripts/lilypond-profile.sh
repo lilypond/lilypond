@@ -7,19 +7,20 @@
 # If run by hand or from you .profile, run as follows
 #   . lilypond-profile
 
-datadir=`echo "@datadir@" | sed 's!//!/!g'`
 
+
+if [ "$LILYPONDPREFIX" == "" ] ; then
+    datadir=`echo "@datadir@" | sed 's!//!/!g'`
+else
+
+## to support development from ~/usr/src/lilypon.
+    datadir=$LILYPONDPREFIX
+fi
 
 # For direct ps output: ps/lilyponddefs.ps
 GS_LIB="$datadir/ps:"${GS_LIB:=""}
 export GS_LIB
 
-# bit silly. for ly2dvi, overrules compiled-in datadir...
-# Better comment this out.  Compiled-in datadir serves exactly the
-# same purpose, but is more likely to be correct (think multiple
-# versions of lilypond).
-# LILYPONDPREFIX="$datadir"
-# export LILYPONDPREFIX
 
 # Add the installation directory to the teTeX system tree, 
 # see Documentation/misc/fontinstallation
