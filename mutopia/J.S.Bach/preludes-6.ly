@@ -22,7 +22,7 @@ one = \melodic{
 	[a16 a-5 \stemup g! f] g4-4\< ~ g f-3 ~ |
 	[\!f16 a g f] [e16 g8.-5 ~] [g16 g-5 f-4 e-3] [d-1 f8.-4 ~] |
 	[f16 f-3 e d] b4 a-5 g-5 |
-	fis4-4 g r8\<-"rall." [g16-1( bes-2] \!e'4-5\> |
+	fis4-4 g r8\<-"rall." [g16-1( bes-2] \!e'4-5 |
 	\!)d'1-5
 	\bar "|.";
 }
@@ -41,7 +41,7 @@ two = \melodic{
 	s4 [e32 d e8.~] e4 d4 ~ |
 	d4. [cis16-2 d-1] cis4 d-1 ~ |
 	d8 r r16 [e-2 f d] r16 [e-2 f d] r [d-1 e-3 cis] |
-	r16 [e-3 d-1 c!-2] ['bes! d8.] s4 r16 [bes-2 a-2 \!g-1] |
+	r16 [e-3 d-1 c!-2] ['bes! d8.] s4 r16\> [bes-2 a-2 \!g-1] |
 	fis1-2
 }
 
@@ -79,65 +79,45 @@ four = \melodic{
 	b2-1 a-1 |
 	g a4. [gis16 a] |
 	gis2 <[g8 cis> <f-3 d-1]> e4-2 |
-	d4. [fis16-3 g-2] r16 b8.-1 ~ b4 |
+	d4. [fis16-3 g-2] r16 bes8.-1 ~ bes4 |
 	\stemdown
 	d1-5
 }
 
-rh = \melodic{
-	\one
-	\multi 2 < 
-		\one
-		\two
-	>
-	\bar "|.";
-}
-
-
-lh = \melodic{
-	\clef "bass";
-	\multi 2 <
-	      \three
-	      \four
-	>
-	\bar "|.";
-}
-
-
-global  = \melodic{
+global = \melodic{
 	\meter 4/4;
 	\key bes;
 }
 
-\score{
-	% Allegretto
-	% it would be nice to shut-off fingering...
-	\melodic \type Grandstaff < 
-		\type Staff=treble  < 
-			\global 
-% huh? try these iso directly!
-%			\lh
-			\multi 2 < 
-				  \one
-				  \two
-			>
-		>
-		\type Staff=bass  < 
-			\global 
-%			\rh
-% or try \two having here, iso above!
-			\clef "bass";
-			\multi 2 <
-				  \three
-				  \four
-			>
-		>
-	>
-	\paper{
-		\paper_twenty
-		linewidth= 195.\mm;
-	}
-	\midi{
-		\tempo 4 = 40;
-	}
+
+treble_staff = \type Staff = treble <
+	\global
+	\one
+	\two
+>
+
+bass_staff = \type Staff = bass <
+% bass = Staff <
+	\clef "bass";
+	\global
+	\three
+	\four
+>
+
+grand_staff = \type Grandstaff <
+	\treble_staff
+	\bass_staff
+>
+
+a4 = \paper{
+	\paper_twenty
+	linewidth = 195.\mm;
 }
+
+\score{
+        % Allegretto
+	\grand_staff
+	\paper{ \a4 }
+	\midi{ \tempo 4 = 40; }
+}
+

@@ -35,7 +35,7 @@
 IMPLEMENT_IS_TYPE_B1 (Beam, Spanner);
 
 // ugh, hardcoded
-const int MINIMUM_STEMLEN[] = {
+const Real MINIMUM_STEMLEN[] = {
   0, // just in case
   5, 
   4,
@@ -451,7 +451,7 @@ Beam::set_stemlens ()
 	  int mult = max (stems_[j]->beams_left_i_, stems_[j]->beams_right_i_);
 	  if (mult > 1)
 	      // dim(y) = internote
-	      y -= (mult - 1) * interbeam_f / internote_f;
+	      y -= (Real)(mult - 1) * interbeam_f / internote_f;
 	  if (y < MINIMUM_STEMLEN[mult])
 	    dy = dy >? (MINIMUM_STEMLEN[mult] - y);
 	}

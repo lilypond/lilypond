@@ -45,7 +45,7 @@ void
 Key_item::set_c_position (int c0)
 {
   int from_bottom_pos = c0 + 4;	// ugh
-  int octaves =(abs (from_bottom_pos) / 7) +1 ;
+  int octaves =(from_bottom_pos / 7) +1 ;
   from_bottom_pos =(from_bottom_pos + 7*octaves)%7;
   c_position  = from_bottom_pos - 4;
 }
@@ -54,8 +54,9 @@ Key_item::set_c_position (int c0)
 void
 Key_item::add (int p, int a)
 {
-  if ((a<0 && p>FLAT_TOP_PITCH) ||
-      (a>0 && p>SHARP_TOP_PITCH)) 
+  if ((a<0 && ((p>FLAT_TOP_PITCH) || (p+c_position>4)) && (p+c_position>1)) 
+      ||
+      (a>0 && ((p>SHARP_TOP_PITCH) || (p+c_position>5)) && (p+c_position>2))) 
     {
       p -= 7; /* Typeset below c_position */
     }

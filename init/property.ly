@@ -63,6 +63,37 @@ stemdown = {
 	\property Voice.ydirection = \down
 }
 
+onevoice = { 	
+	\property Voice.ydirection = \center
+	\property Voice.hshift = 0
+}
+
+voiceone = { 	
+	\type Voice = one 
+	\skip 1*0;
+	\property Voice.ydirection = \up
+}
+
+voicetwo = { 	
+	\type Voice = two
+	\skip 1*0;
+	\property Voice.ydirection = \down
+}
+
+voicethree = { 	
+	\type Voice = three
+	\skip 1*0;
+	\property Voice.ydirection = \up
+	\property Voice.hshift = 1
+}
+
+voicefour = { 	
+	\type Voice = four
+	\skip 1*0;
+	\property Voice.ydirection = \down
+	\property Voice.hshift = 1
+}
+
 % ugh, cluttering global namespace...
 none=0
 free=0

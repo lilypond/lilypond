@@ -28,14 +28,15 @@ paper_sixteen = \paper {
         arithmetic_multiplier = 4.8\pt;
    
 	% three beams span two interlines, including stafflines:
-	% 2 interbeam + beam_thickness = 2 interline - staffline_thickness
-	% ( beam_thickness = 0.48 interline for now...)
-	% interbeam = interline - (beam_thickness + staffline_thickness) / 2
-	% interbeam = 2.84;
-	% ugh: interline *in fact* is rule_thickness + "interline"? --jcn
-
-	% No --hwn
-	interbeam = 3.14;
+	% 2ib + bt = 2 il - st
+	% bt = 0.48(il - st) for now.
+	% 2ib + 0.48il - 0.48 st = 2il - st
+	% 2ib = 1.52il - 0.52 st
+	% ib = 0.76il - 0.26st = 2.94 --jcn
+	% now, it seams rather ib = 0.76il + 0.26st = 3.14
+	% interbeam = 2.94\pt;
+	% No -- hwn
+	interbeam = 3.14\pt;
 
 	gourlay_energybound = 100000.;
 	gourlay_maxmeasures = 14.;

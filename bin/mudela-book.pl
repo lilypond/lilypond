@@ -47,12 +47,19 @@ sub close_mudela
 {
     $mudela_b = 0;
     if ($fragment_b) {
-	print MUDELA "}\n \\paper { linewidth = -1.0\\cm; castingalgorithm = \\Wordwrap; } }\n";
+	print MUDELA "}\n \\paper { linewidth = -1.0\\cm;";
+	print MUDELA "castingalgorithm = \\Wordwrap; } }\n";
 	$fragment_b =0;
     }
-    if ( $verbatim_b)  {
-	print BOOK "\\end{verbatim}\n\\interexample";
-	$verbatim_b =0;
+    if ($verbatim_b)  {
+	print BOOK "\\end{verbatim}";
+    }
+    if ($center_b) {
+	print BOOK "\\end{minipage}";
+    }
+    if ($verbatim_b)  {
+	print BOOK "\\interexample";
+	$verbatim_b = 0;
     }
     close MUDELA;
     my $status =0;
@@ -70,8 +77,16 @@ sub close_mudela
 	my_system "lilypond ". gen_mufile;
 	rename gen_texbase, gen_texfile;
     }
-    print BOOK "\\preexample\\input " . gen_texfile . "\n\\postexample\n";
-	
+
+    if ($center_b) {
+	print BOOK "\\begin{minipage}[c]{.5\\textwidth}\n";
+    }
+    print BOOK "\\input " . gen_texfile . "%\n";
+    if ($center_b) {
+	print BOOK "\\end{minipage}";
+	$center_b = 0;
+    }
+    print BOOK "\\postexample%\n";
 }
 
 sub open_mudela
@@ -79,11 +94,18 @@ sub open_mudela
     $mudcount++;
     $mudela_b = 1	;
     open MUDELA, ">$outdir/book-mudela.ly";
+    print BOOK "\\preexample%\n";
+    if ($center_b) {
+	print BOOK "\\begin{minipage}[c]{.5\\textwidth}\n";
+    }
     if ($verbatim_b) {
 	print BOOK "\\begin{verbatim}\n";
     }
     if ($fragment_b) {
 	print MUDELA "\\score { \\melodic {\\octave c';";
+    } else {
+	print MUDELA "default_paper = \\paper { \\paper_sixteen ";
+	print MUDELA "linewidth = 7.\\cm;}";
     }
 
 }
@@ -106,6 +128,7 @@ sub parse_mudela_opts
 
    $verbatim_b =1 if ($s =~ /verbatim/ );
    $fragment_b = 1 if ($s =~ /fragment/ );
+   $center_b = 1 if ($s =~ /center/ );
 }   
 
 sub help
@@ -122,7 +145,10 @@ options:
 sub main
 {
     GetOptions( 'outdir=s', 'outname=s', 'help');
-    help    if ( $opt_help ) ;
+    if ( $opt_help ) {
+	help();
+	$opt_help = 0;	# to extinguish typo check. brr, what a language
+    }
 
     if  (defined ($opt_outdir)) {
 	$outdir = $opt_outdir .  "/";
