@@ -31,6 +31,8 @@
 
     A ly_B2A (B b);
  */
+
+SCM ly_last (SCM list);
 SCM ly_str02scm (char const*c);
 SCM ly_deep_copy (SCM);
 SCM ly_symbol2scm (char const *);

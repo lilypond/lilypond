@@ -159,6 +159,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token DURATION
 %token EXTENDER
 %token FONT
+%token GLISSANDO
 %token GRACE
 %token HEADER
 %token HYPHEN
@@ -1170,6 +1171,11 @@ verbose_request:
 		a->set_spot (THIS->here_input ());
 		$$ = a;
 	}
+	| GLISSANDO {
+		Glissando_req *g = new Glissando_req;
+		g->set_spot /* No pun intended */ (THIS->here_input ());
+		$$ = g;
+	}	
 	;
 
 sup_quotes:

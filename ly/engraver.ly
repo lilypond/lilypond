@@ -181,6 +181,7 @@ ThreadContext = \translator{
 	\type Engraver_group_engraver;
 	\consists "Thread_devnull_engraver";
 	\consists "Note_heads_engraver";
+	\consists "Note_head_line_engraver";
 	\consists "Output_property_engraver";	
 	Generic_property_list = #generic-thread-properties
 	\consists "Property_engraver";

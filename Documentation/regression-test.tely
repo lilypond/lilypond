@@ -119,9 +119,13 @@ linked with (de)crescendi, they should be on the same line.
 @lilypondfile{dyn-line.ly}
 
 
-Arpeggios are supported, both cross-staff and one-staff. 
+Arpeggios are supported, both cross-staff and broken single staff. 
 
 @lilypondfile{arpeggio.ly}
+
+Simple glissando lines between notes are supported.
+
+@lilypondfile{glissando.ly}
 
 
 

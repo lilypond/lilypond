@@ -3,7 +3,7 @@
 a1\fff\> \!a\pp
 a\< \!a
 \property Voice.crescendoText = "cresc."
-\property Voice.crescendoSpanner = "dashed-line"
+\property Voice.crescendoSpanner = #'dashed-line
 a\mf\< a \!a 
 a\< \!a
 }

@@ -164,7 +164,7 @@
 
 (define generic-notename-properties
   (cons 'note-name-interface
-	(list (list 'noteNaemStyle symbol? 'style))))
+	(list (list 'noteNameStyle symbol? 'style))))
 
 
 (define generic-rest-properties
