@@ -63,8 +63,6 @@ parse_pitch( const char *a, int &j, int &oct, bool & overide_acc,
 	}
 
     
-    mtor << "ov " << overide_acc;
-    
     // notename.
     String nm;
     while (isalpha(a[j])) 
@@ -78,8 +76,9 @@ parse_pitch( const char *a, int &j, int &oct, bool & overide_acc,
 	}
         
 
-    lookup_notename(large,small,nm);    
-    mtor << "int "<< large <<" "<<small<<" ";    
+    lookup_notename(large,small,nm);
+    mtor << "override: " << overide_acc;    
+    mtor << "pitch "<< large <<", "<<small<<"\n";    
 }
 
 
@@ -98,13 +97,18 @@ get_note_element(String pitch, String durstr)
     int oct, pit, acc;
     bool forceacc;
     parse_pitch(pitch, i, oct, forceacc, pit, acc);
-
+    char nm =  pit + 'c';
+    if (nm > 'g')
+	nm += 'a' - 'h';
+    rq->name =nm;
+    
     rq->octave = oct;
     rq->accidental = acc;
     rq->forceacc = forceacc;
     rq->balltype = dur;
     rq->dots = dots;
     
+    rq->print();
 
     v->add(rq);
     return v;
@@ -124,7 +128,7 @@ get_rest_element(String, String durstr)
   
     rq->balltype = dur;
     rq->dots = dots;    
-
+    rq->print();
     v->add(rq);
     return v;
 }
