@@ -43,7 +43,7 @@ FETA_LIST_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%list.ly)
 
 
 ENCODING_FILE=$(findstring $(<:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
-MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),)
+MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),) --no-afm
 
 # only for fonts which
 #
