@@ -463,6 +463,7 @@ Must be the car of an entry in `LilyPond-command-alist'."
 (defun LilyPond-command-master ()
   "Run command on the current document."
   (interactive)
+  (LilyPond-command-select-master)
   (LilyPond-command (LilyPond-command-query (LilyPond-master-file))
 		    'LilyPond-master-file))
 
@@ -528,16 +529,20 @@ Must be the car of an entry in `LilyPond-command-alist'."
 (defun LilyPond-command-region (begin end)
   "Run LilyPond on the current region."
   (interactive "r")
+  (if (or (> begin (point-min)) (< end (point-max)))
+      (LilyPond-command-select-region))
   (write-region begin end (LilyPond-region-file begin end) nil 'nomsg)
   (LilyPond-command (LilyPond-command-query
 		     (LilyPond-region-file begin end))
 		    '(lambda () (LilyPond-region-file begin end)))
   ;; Region may deactivate even if buffer was intact, reactivate?
+  ;; Currently, also deactived regions are used.
   )
 
 (defun LilyPond-command-buffer ()
   "Run LilyPond on buffer."
   (interactive)
+  (LilyPond-command-select-buffer)
   (LilyPond-command-region (point-min) (point-max)))
 
 (defun LilyPond-command-expand (string file)
@@ -1023,7 +1028,13 @@ command."
 (defun LilyPond-command-menu (name)
   ;; Execute LilyPond-command-alist NAME from a menu.
   (let ((LilyPond-command-force name))
-    (funcall LilyPond-command-current)))
+    (if (eq LilyPond-command-current 'LilyPond-command-region)
+	(if (eq (mark t) nil)
+	    (progn (message "The mark is not set now") (sit-for 0 500))
+	  (progn (if (not (not (and transient-mark-mode mark-active)))
+		     (progn (message "Region is not active, using region between inactive mark and current point.") (sit-for 0 500)))
+		 (LilyPond-command-region (mark t) (point))))
+      (funcall LilyPond-command-current))))
 
 (defun LilyPond-mode ()
   "Major mode for editing LilyPond music files.
@@ -1095,6 +1106,9 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   ;; In XEmacs one needs to use 'easy-menu-add' (, not in Emacs).
   (easy-menu-add LilyPond-mode-menu)
   (easy-menu-add LilyPond-command-menu)
+
+  ;; Use Command on Region even for deactivated regions.
+  (setq mark-even-if-inactive t)
 
   ;; run the mode hook. LilyPond-mode-hook use is deprecated
   (run-hooks 'LilyPond-mode-hook))
