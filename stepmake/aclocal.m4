@@ -421,7 +421,7 @@ AC_DEFUN([STEPMAKE_GUILE_FLAGS], [
 AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     ## First, let's just see if we can find Guile at all.
     AC_MSG_CHECKING([for guile-config])
-    for guile_config in guile-config $target-guile-config $build-guile-config; do
+    for guile_config in $GUILE_CONFIG guile-config $target-guile-config $build-guile-config; do
 	AC_MSG_RESULT([$guile_config])
 	if ! $guile_config --version > /dev/null 2>&1 ; then
 	    AC_MSG_WARN([cannot execute $guile_config])
