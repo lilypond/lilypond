@@ -35,6 +35,8 @@ ps: $(PS_FILES)
 
 info: $(INFO_FILES)
 
+xml: $(outdir)/lilypond/lilypond.xml $(outdir)/lilypond-internals/lilypond-internals.xml
+
 # There are two modes for info: with and without images.
 ifeq ($(out),www)
 
@@ -83,6 +85,7 @@ extra-local-help:
   dvi         update dvi documents\n\
   info        update info pages\n\
   ps          update PostScript documents\n\
+  xml	      update Docbook xml documentation\n\
 "
 
 # Generic rule using % twice not possible?
@@ -104,6 +107,15 @@ $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-interna
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond-internals --css-include=$(abs-srcdir)/Documentation/texinfo.css --html $<
 	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(abs-srcdir)/Documentation/texinfo.css --html --no-split --no-headers $<
+
+$(outdir)/lilypond/lilypond.xml: $(outdir)/lilypond.texi 
+	mkdir -p $(dir $@)
+	$(MAKEINFO) -I$(outdir) --output=$@ --docbook $<
+	perl -i~ -pe 's!../lilypond-internals!lilypond-internals/!g' $(outdir)/lilypond.xml
+
+$(outdir)/lilypond-internals/lilypond-internals.xml: $(outdir)/lilypond-internals.texi
+	mkdir -p $(dir $@)
+	$(MAKEINFO) --output=$(outdir)/lilypond-internals --docbook $<
 
 ifeq ($(SPLITTING_MAKEINFO),yes)
 

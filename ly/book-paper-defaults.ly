@@ -60,6 +60,8 @@
     %
     raggedlastbottom= ##t
 
+    %% ugh.  Should use /etc/papersize and set explicitely for
+    %% documentation.
     papersize = "a4"
 
     #(define font-defaults

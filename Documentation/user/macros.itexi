@@ -61,7 +61,6 @@
 
 
 @c dup?
-
 @ifhtml
 
  @c ***** HTML *****
@@ -86,6 +85,32 @@
  @end macro
 
 @end ifhtml
+
+@c dup?
+@ifdocbook
+
+ @c ***** DOCBOOK-XML *****
+
+ @macro internalsref{NAME}
+ @c makeinfo-4.7 encodes html names
+ @c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
+ @inforef{\NAME\,,lilypond-internals}@c
+ @c should we do this? 
+ @cindex @code{\NAME\}
+ @end macro
+
+ @macro hyphenatedinternalsref{NAME,NODENAME}
+ @c @uref{../lilypond-internals/\NODENAME\.html,\NAME\}@c
+ @inforef{\NODENAME\,,lilypond-internals}@c
+ @c should we do this? 
+ @cindex @code{\NAME\}
+ @end macro
+
+ @macro inputfileref{DIR,NAME}
+ @uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+ @end macro
+
+@end ifdocbook
 
 @ifinfo
 
