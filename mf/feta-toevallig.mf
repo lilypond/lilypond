@@ -26,7 +26,7 @@ fet_begingroup("accidentals");
 % a square pen).  [Wanske] does not mention this, so we'll just ignore 
 % this fact
 %
-fet_beginchar("Sharp" , "1", "sharp");
+fet_beginchar("Default Sharp" , "1", "sharp");
 	set_char_box(0, 1.1 staff_space#, 1.5 staff_space#, 
 		1.5 staff_space#);
 
@@ -82,7 +82,7 @@ fet_beginchar("Sharp" , "1", "sharp");
 	labels(1,2,3,4);
 	fet_endchar;
 
-fet_beginchar( "Natural", "0", "natural")
+fet_beginchar( "Default Natural", "0", "natural")
 	set_char_box(0, 8/12 staff_space#, 1.5 staff_space#, 1.5 staff_space#);
 
 	save interbeam, interstem, beamheight, beamwidth, 
@@ -203,13 +203,13 @@ enddef;
 %
 % unfortunately, 600dpi is not enough to show the brush of the stem.
 %
-fet_beginchar("Flat", "-1", "flat")
+fet_beginchar("Default Flat", "-1", "flat")
 	set_char_box(1.2 stafflinethickness#, .8 staff_space#, .5 staff_space#, 2 staff_space#);
 	draw_meta_flat(0, w, 1/3 staff_space);
 	fet_endchar;
 
 
-fet_beginchar("Double flat", "-2", "flatflat")
+fet_beginchar("Default Double Flat", "-2", "flatflat")
 	save left_wid, overlap, right_wid;
 	left_wid = .7;
 	right_wid = .8;
@@ -220,7 +220,7 @@ fet_beginchar("Double flat", "-2", "flatflat")
 		right_wid *staff_space, 1/3 staff_space);
 	fet_endchar;
 
-fet_beginchar("Double sharp", "2", "sharpsharp")
+fet_beginchar("Default Double Sharp", "2", "sharpsharp")
 	set_char_box(0, staff_space#, .5 staff_space#, .5 staff_space#);
 	save klaverblad, klaversteel;
 
@@ -270,16 +270,179 @@ def draw_paren =
 	.. simple_serif(z1r, z1l, 90) .. z2l{down} -- cycle;
 enddef;
   
-fet_beginchar("Right parenthesis", ")", "rightparen")
+fet_beginchar("Right Parenthesis", ")", "rightparen")
 	draw_paren;
 fet_endchar;
 
-fet_beginchar("Left parenthesis", "(", "leftparen")
+fet_beginchar("Left Parenthesis", "(", "leftparen")
 	draw_paren;
         currentpicture := currentpicture xscaled -1;
         set_char_box(charwd, charbp, chardp, charht);
 fet_endchar;
 
+%%%%%%%%
+%
+%
+%
+% EDITIO MEDICAEA
+%
+%
+%
+fet_beginchar("Ed. Med. Flat" , "medicaea-1", "medicaeaflat");
+	set_char_box(0, 0.8 staff_space#, 0.6 staff_space#, 
+	  2.0 staff_space#);
+
+	pickup pencircle
+		xscaled 0.50 stafflinethickness
+		yscaled 0.22 staff_space;
+
+	save za, zb;
+	pair za, zb;
+
+	za = (0.00 staff_space, +0.90 staff_space);
+	zb = (0.00 staff_space, -0.50 staff_space);
+	draw za -- zb;
+
+	pickup pencircle
+		xscaled 0.50 stafflinethickness
+		yscaled 0.22 staff_space
+		rotated -63;
+
+	save zc, zd, ze;
+	pair zc, zd, ze;
+
+	zc = (0.10 staff_space, -0.50 staff_space);
+	zd = (0.40 staff_space, +0.40 staff_space);
+	ze = (0.10 staff_space, +0.40 staff_space);
+
+	draw zc{(1,2)} .. zd .. ze{(-1,-1)};
+
+	fet_endchar;
+
+%%%%%%%%
+%
+%
+%
+% EDITIO VATICANA
+%
+%
+%
+fet_beginchar("Ed. Vat. Flat" , "vaticana-1", "vaticanaflat");
+        set_char_box(0, 0.8 staff_space#, 0.6 staff_space#, 
+                2.0 staff_space#);
+        define_pixels (stafflinethickness, staff_space);
+
+        save za, zb, zc, zd, ze, zf, zg;
+        pair za, zb, zc, zd, ze, zf, zg;
+        za = (0.00 staff_space, +0.80 staff_space);
+        zb = (0.00 staff_space, -0.03 staff_space);
+        zc = (0.25 staff_space, -0.23 staff_space);
+        zd = (0.50 staff_space, -0.23 staff_space);
+        ze = (0.50 staff_space, +0.00 staff_space);
+        zf = (0.25 staff_space, +0.20 staff_space);
+        zg = (0.15 staff_space, +0.26 staff_space);
+
+        pickup pencircle
+                xscaled 0.50 stafflinethickness
+                yscaled 0.22 staff_space;
+        draw za{down} .. {down}zb .. zc .. zd{up} .. {up}ze .. zf .. zg;
+        fet_endchar;
+
+fet_beginchar("Ed. Vat. Natural" , "vaticana0", "vaticananatural");
+	set_char_box(0, 0.7 staff_space#, 0.6 staff_space#, 
+		2.0 staff_space#);
+	define_pixels (stafflinethickness, staff_space);
+
+	save za, zb, zc, zd;
+	pair za, zb, zc, zd;
+	pickup pencircle
+		xscaled 0.80 stafflinethickness
+		yscaled 0.22 staff_space;
+	za = (0.00 staff_space, +0.65 staff_space);
+	zb = (0.00 staff_space, -0.35 staff_space);
+	zc = (0.00 staff_space, -0.30 staff_space);
+	zd = (0.40 staff_space, -0.08 staff_space);
+	draw za -- zb;
+	draw zc -- zd;
+
+	addto currentpicture also currentpicture
+		xscaled -1
+		yscaled -1
+		shifted (0.40 staff_space, 0.0 staff_space);
+
+	fet_endchar;
+
+%%%%%%%%
+%
+%
+%
+% MENSURAL NOTATION
+%
+%
+%
+fet_beginchar("Mensural Sharp" , "mensural1", "mensuralsharp");
+	set_char_box(0, 0.7 staff_space#, 0.5 staff_space#, 
+		0.5 staff_space#);
+	save stemthick;
+	define_pixels (stemthick, staff_space);
+	stemthick# = stafflinethickness#;
+
+	save za, zb;
+	pair za, zb;
+	pickup pencircle scaled 0.8 stemthick;
+	za = 0.4 * staff_space * (0.8, 1);
+	za = -zb;
+	draw za .. zb;
+
+	addto currentpicture also currentpicture xscaled -1;
+	addto currentpicture also currentpicture shifted (0.20 staff_space, 0);
+
+	fet_endchar;
+
+fet_beginchar("Mensural Flat" , "mensural-1", "mensuralflat");
+	set_char_box(0, 0.7 staff_space#, 0.4 staff_space#, 
+		1.8 staff_space#);
+	save stemthick;
+	define_pixels (stemthick, staff_space);
+	stemthick# = stafflinethickness#;
+
+	save za, zb, zc, zd, ze;
+	pair za, zb, zc, zd, ze;
+	pickup pencircle
+		xscaled 1.4 stemthick
+		yscaled 0.6 stemthick
+		rotated 45;
+
+	za = (0.00 staff_space, +1.80 staff_space);
+	zb = (0.00 staff_space, -0.25 staff_space);
+	zc = (0.35 staff_space, -0.25 staff_space);
+	zd = (0.35 staff_space, +0.25 staff_space);
+	ze = (0.00 staff_space, +0.25 staff_space);
+	draw za -- zb .. zc .. zd .. ze;
+	fet_endchar;
+
+fet_beginchar("Hufnagel Flat" , "hufnagel-1", "hufnagelflat");
+	set_char_box(0, 0.7 staff_space#, 0.4 staff_space#, 
+		1.8 staff_space#);
+	save stemthick;
+	define_pixels (stemthick, staff_space);
+	stemthick# = stafflinethickness#;
+
+	save za, zb, zc, zd, ze, zf;
+	pair za, zb, zc, zd, ze, zf;
+	pickup pencircle
+		xscaled 2.4 stemthick
+		yscaled 0.4 stemthick
+		rotated 45;
+
+	za = (0.00 staff_space, +1.80 staff_space);
+	zb = (0.00 staff_space, -0.15 staff_space);
+	zc = (0.25 staff_space, -0.30 staff_space);
+	zd = (0.50 staff_space, +0.00 staff_space);
+	ze = (0.30 staff_space, +0.30 staff_space);
+	zf = (0.00 staff_space, +0.15 staff_space);
+	draw za -- zb -- zc .. zd .. ze -- zf;
+	fet_endchar;
 
 fet_endgroup("accidentals");
 

@@ -25,6 +25,7 @@
 (define (default-break-barline glyph dir)
    (let ((result (assoc glyph 
 			'((":|:" . (":|" . "|:"))
+			  ("||:" . ("||" . "|:"))
 			  ("|" . ("|" . ""))
 			  ("|s" . (nil . "|"))
 			  ("|:" . ("|" . "|:"))

@@ -104,7 +104,7 @@ find_runs (Grob*me, Link_array<Grob> cols)
   
  */
 void
-Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols) 
+Spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols) 
 {
   Moment shortest;
   Moment mean_shortest;
@@ -140,6 +140,7 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
     }
   mean_shortest /= n;
 
+  Array<Spring> springs;
   for (int i= 0; i < cols.size () - 1; i++)
     {
       Item * l = dynamic_cast<Item*> (cols[i]);
@@ -265,10 +266,134 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
 	  else
 	    s.strength_f_ /= stretch_dist;
 	  
-	  s.add_to_cols ();
+	  springs.push (s);
 	}
     }
+
+  Spacing_spanner::stretch_to_regularity (me, &springs, cols);
+  for (int i=springs.size (); i --;)
+    springs[i].add_to_cols ();
+}
+
+/*
+  Look at COLS, searching for columns that have 'regular-distance-to
+  set. A sequence of columns that have this property set should have
+  an equal distance (an equispaced run). Extract the projected
+  distance from SPRINGS, and scale SPRINGS for the equispaced run, to the
+  widest space necessary.
+
+
+  TODO:
   
+  -- inefficient code; maybe it is easier to twiddle with the springs
+  after they've become grob properties (ie. have their
+  minimum-distances set)
+
+  -- does not adjust strength field of the springs very well: result
+  awkward spacing at the start of a line. (?)
+
+  -- will be confused when there are multiple equispaced runs in a measure.
+
+  -- dealing with springs for line breaks is a little tricky; in any
+  case, we will only space per measure.
+
+  -- we scale to actual distances, not to optical effects. Eg. if the
+  equispaced run contains optical corrections, then the scaling will
+  cancel those.
+
+  -- Regular_spacing_engraver doesn't mark the first column of the
+  next bar, making the space before a barline too short, in this case
+
+
+       x<- 16ths--> x(8th)
+       x(8th)       x(8th)      <- equispaced run.      
+  
+*/
+
+void
+Spacing_spanner::stretch_to_regularity (Grob *me,
+					Array<Spring> * springs,
+					Link_array<Grob> const & cols)
+{
+  /*
+    Find the starting column of the run. REGULAR-DISTANCE-TO points
+    back to a previous column, so we look ahead to find a column
+    pointing back to the first one.
+    
+   */
+  Grob    * first_regular_spaced_col = 0;
+  for (int i = 0 ;  i <  cols.size () && !first_regular_spaced_col; i++)
+    {
+      SCM rdt = cols[i]->get_grob_property ("regular-distance-to");
+      if (cols.find_l (unsmob_grob (rdt)))
+	first_regular_spaced_col = unsmob_grob (rdt);
+    }
+  for (int i = springs->size ();  i-- ;)
+    springs->elem (i).set_to_cols ();
+  
+  int i;
+  for (i = 0; i < springs->size ()
+	 && springs->elem (i).item_l_drul_[RIGHT] != first_regular_spaced_col;
+       i++)
+    ;
+
+
+  if (i==springs->size ())
+    return ;
+    
+  Real maxdist = 0.0;
+  Real dist  =0.0;
+  Grob *last_col = first_regular_spaced_col;
+  Grob *last_regular_spaced_col = first_regular_spaced_col;
+  
+
+  /*
+    find the max distance for this run. 
+   */
+  for (int j = i;  j < springs->size (); j++)
+    {
+      Spring *s = &(springs->elem_ref (j));
+      if (s->item_l_drul_[LEFT] != last_col)
+	continue;
+      
+      dist += s->distance_f_;
+
+      last_col = s->item_l_drul_[RIGHT];
+      SCM rdt = last_col->get_grob_property ("regular-distance-to");
+      if (unsmob_grob (rdt) == last_regular_spaced_col)
+	{
+	  maxdist = maxdist >? dist;
+	  dist = 0.0;
+	  last_regular_spaced_col = last_col;
+	}
+
+    }
+
+  /*
+    Scale the springs
+   */
+  dist =0.0;
+  last_col =  first_regular_spaced_col;
+  last_regular_spaced_col = first_regular_spaced_col;
+  for (int j = i;   j < springs->size (); j++)
+    {
+      Spring *s = &springs->elem_ref (j);
+      if (s->item_l_drul_[LEFT] != last_col)
+	continue;
+      dist += s->distance_f_;
+
+      last_col = s->item_l_drul_[RIGHT];
+      SCM rdt = last_col->get_grob_property ("regular-distance-to");
+      if (unsmob_grob (rdt) == last_regular_spaced_col)
+	{
+	  do {
+	    springs->elem_ref (i).distance_f_ *= maxdist / dist;
+	    springs->elem_ref (i).strength_f_ *= dist / maxdist;	    
+	  } while (i++ < j);
+	  last_regular_spaced_col = last_col;
+	  dist =0.0;
+	}
+    }
 }
 
 /**

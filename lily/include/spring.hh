@@ -34,6 +34,7 @@ struct Spring{
   */
   Real strength_f_;
   void add_to_cols ();
+  void set_to_cols ();
   Spring ();
 };
 

@@ -126,6 +126,20 @@ Local_key_item::brew_molecule (SCM smob)
   bool oct_b = false;
   int lastoct = -100;
 
+  SCM scm_style = me->get_grob_property ("style");
+  String style;
+  if (gh_symbol_p (scm_style))
+    {
+      style = ly_scm2string (scm_symbol_to_string (scm_style));
+    }
+  else
+    {
+      /*
+	preferably no name for the default style.
+       */
+      style = "";
+    }
+
   SCM accs = me->get_grob_property ("accidentals");
   for (SCM s = accs;
 	gh_pair_p (s); s = gh_cdr (s))
@@ -154,13 +168,16 @@ Local_key_item::brew_molecule (SCM smob)
       SCM c0 =  me->get_grob_property ("c0-position");
       Real dy = (gh_number_p (c0) ? gh_scm2int (c0) : 0 + p.notename_i_)
 	* note_distance;
-      
-      Molecule acc (Font_interface::get_default_font (me)->find_by_name (String ("accidentals-")
-					       + to_str (p.alteration_i_)));
+
+      Molecule acc (Font_interface::get_default_font (me)->
+		    find_by_name (String ("accidentals-") +
+				  style +
+				  to_str (p.alteration_i_)));
       
       if (scm_memq (ly_symbol2scm ("natural"), opts) != SCM_BOOL_F)
 	{
-	  Molecule prefix = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-0"));
+	  Molecule prefix = Font_interface::get_default_font (me)->
+	      find_by_name (String ("accidentals-") + style + String ("0"));
 	  acc.add_at_edge (X_AXIS, LEFT, Molecule (prefix), 0);
 	}
 

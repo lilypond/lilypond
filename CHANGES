@@ -1,3 +1,20 @@
+1.5.2.hwn1
+==========
+
+* Starting pagenumber (Mark Hindley)
+
+* Ancient font patch (Juergen Reuter) [WARNING: FONT UPDATE!]
+
+* Bugfix: don't  put grace beams on non grace notes, and vice versa.
+
+* etf2ly:
+  - miserable try at importing repeatbars and volta brackets;
+  - import articulation defs (IX tag)
+  - revamped file reading logic. Now much cleaner.
+
+* Experimental regular-spacing support: try to space regular runs of
+notes equidistantly.
+
 1.5.2.jcn2
 ==========
 
