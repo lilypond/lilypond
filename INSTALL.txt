@@ -120,7 +120,7 @@ Website
    The website is the most convenient form to use for reading the
 documentation on-line documentation. It is made by entering
 
-       make website
+       make htmldoc
    This does require a  functioning  LilyPond. The binary doesn't have
 to be installed.
 

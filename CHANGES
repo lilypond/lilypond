@@ -1,7 +1,3 @@
-pl 14.hwn1jcn1
-	- chord-name uses scm members
-	- bfs: knee with different mults, interstaff knee, auto-knee
-
 pl 14.hwn1
 	- specialize duration.cc for lily, move out of lib/
 	- stem cleanup

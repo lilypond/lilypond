@@ -207,9 +207,9 @@ Beam::auto_knee (String gap_str, bool interstaff_b)
         {
 	  bool is_b = (bool)(calc_interstaff_dist (stem (i), this) 
 	    - calc_interstaff_dist (stem (i-1), this));
-	  int l_y = (int)(stem (i-1)->head_positions()[get_direction ()])
+	  int l_y = (int)(stem (i-1)->chord_start_f ())
 	    + (int)calc_interstaff_dist (stem (i-1), this);
-	  int r_y = (int)(stem (i)->head_positions()[get_direction ()])
+	  int r_y = (int)(stem (i)->chord_start_f ())
 	    + (int)calc_interstaff_dist (stem (i), this);
 	  int gap_i = r_y - l_y;
 
@@ -225,7 +225,7 @@ Beam::auto_knee (String gap_str, bool interstaff_b)
     {
       for (int i=0; i < stem_count (); i++)
         {
-	  int y = (int)(stem (i)->head_positions()[get_direction ()])
+	  int y = (int)(stem (i)->chord_start_f ())
 	    + (int)calc_interstaff_dist (stem (i), this);
 	  stem (i)->set_direction (y < knee_y ? UP : DOWN);
 	  stem (i)->set_elt_property ("dir-forced", SCM_BOOL_T);
@@ -317,9 +317,8 @@ Beam::do_post_processing ()
       set_stem_length (y, dy);
       y_shift = check_stem_length_f (y, dy);
 
-      Staff_symbol_referencer_interface st (this);
-      Real half_space = st.staff_space () / 2;
-      if (y_shift > half_space / 4)
+      Real internote_f = paper_l ()->get_var ("interline") / 2;
+      if (y_shift > internote_f / 4)
 	{
 	  y += y_shift;
 
@@ -328,7 +327,7 @@ Beam::do_post_processing ()
 	    request quanting the other way.
 	  */
 	  int quant_dir = 0;
-	  if (abs (y_shift) > half_space / 2)
+	  if (abs (y_shift) > internote_f / 2)
 	    quant_dir = sign (y_shift) * get_direction ();
 	  y = quantise_y_f (y, dy, quant_dir);
 	  set_stem_length (y, dy);
@@ -422,11 +421,11 @@ Beam::calc_slope_damping_f (Real dy) const
 Real
 Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
 {
-  Real thick = gh_scm2double (get_elt_property ("beam-thickness"));
-  int beam_multiplicity = get_multiplicity ();
-  int stem_multiplicity = (s->flag_i () - 2) >? 0;
+  Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));
+  int   multiplicity = get_multiplicity ();
 
-  Real interbeam_f = paper_l ()->interbeam_f (beam_multiplicity);
+
+  Real interbeam_f = paper_l ()->interbeam_f (multiplicity);
   Real x0 = first_visible_stem ()->hpos_f ();
   Real dx = last_visible_stem ()->hpos_f () - x0;
   Real stem_y = (s->hpos_f () - x0) / dx * dy + y;
@@ -434,9 +433,8 @@ Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
   /* knee */
   if (get_direction () != s->get_direction ())
     {
-      stem_y -= get_direction ()
-	* (thick / 2 + (beam_multiplicity - 1 - stem_multiplicity))
-	* interbeam_f;
+      stem_y -= get_direction () * (beam_f / 2
+	+ (multiplicity - 1) * interbeam_f);
 
       Staff_symbol_referencer_interface me (s);
       Staff_symbol_referencer_interface last (last_visible_stem ());
@@ -444,7 +442,7 @@ Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
       if ((s != first_visible_stem ())
 	  && me.staff_symbol_l () != last.staff_symbol_l ())
 	stem_y += get_direction () 
-	          * (beam_multiplicity - stem_multiplicity) * interbeam_f;
+	          * (multiplicity - (s->flag_i () - 2) >? 0) * interbeam_f;
     }
   return stem_y;
 }
@@ -485,8 +483,7 @@ Beam::check_stem_length_f (Real y, Real dy) const
 void
 Beam::set_stem_length (Real y, Real dy)
 {
-  Staff_symbol_referencer_interface st (this);
-  Real half_space = st.staff_space ()/2;
+  Real internote_f = paper_l ()->get_var ("interline") / 2;
   for (int i=0; i < stem_count (); i++)
     {
       Stem* s = stem (i);
@@ -496,7 +493,7 @@ Beam::set_stem_length (Real y, Real dy)
       Real stem_y = calc_stem_y_f (s, y, dy);
 
       /* caution: stem measures in staff-positions */
-      s->set_stemend ((stem_y + calc_interstaff_dist (s, this)) / half_space);
+      s->set_stemend ((stem_y - calc_interstaff_dist (s, this)) / internote_f);
     }
 }
 
@@ -504,9 +501,9 @@ Beam::set_stem_length (Real y, Real dy)
   [Ross] (simplification of)
   Try to set dy complying with:
     - zero
-    - thick / 2 + staffline_f / 2
-    - thick + staffline_f
-  + n * staff_space
+    - beam_f / 2 + staffline_f / 2
+    - beam_f + staffline_f
+  + n * interline
 
   TODO: get allowed-positions as scm list (aarg: from paper block)
 */
@@ -519,17 +516,17 @@ Beam::quantise_dy_f (Real dy) const
     return dy;
 
   Staff_symbol_referencer_interface st (this);
-  Real staff_space = st.staff_space ();
+  Real interline_f = st.staff_space ();
   
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
-  Real thick = gh_scm2double (get_elt_property ("beam-thickness"));;
+  Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
   Array<Real> allowed_fraction (3);
   allowed_fraction[0] = 0;
-  allowed_fraction[1] = (thick / 2 + staffline_f / 2);
-  allowed_fraction[2] = (thick + staffline_f);
+  allowed_fraction[1] = (beam_f / 2 + staffline_f / 2);
+  allowed_fraction[2] = (beam_f + staffline_f);
 
-  allowed_fraction.push (staff_space);
+  allowed_fraction.push (interline_f);
   Interval iv = quantise_iv (allowed_fraction,  abs (dy));
   Real q = (abs (dy) - iv[SMALLER] <= iv[BIGGER] - abs (dy))
     ? iv[SMALLER]
@@ -567,14 +564,14 @@ Beam::quantise_y_f (Real y, Real dy, int quant_dir)
        hang       straddle   sit        inter      hang
    */
 
-  Staff_symbol_referencer_interface st (this);
-  Real staff_space = st.staff_space ();
+  Staff_symbol_referencer_interface sinf (this);
+  Real space = sinf.staff_space ();
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
-  Real thick = gh_scm2double (get_elt_property ("beam-thickness"));;
+  Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
   Real straddle = 0;
-  Real sit = thick / 2 - staffline_f / 2;
-  Real hang = staff_space - thick / 2 + staffline_f / 2;
+  Real sit = beam_f / 2 - staffline_f / 2;
+  Real hang = space - beam_f / 2 + staffline_f / 2;
 
   /*
     Put all allowed positions into an array.
@@ -608,7 +605,7 @@ Beam::quantise_y_f (Real y, Real dy, int quant_dir)
 	allowed_position.push (hang);
     }
 
-  allowed_position.push (staff_space);
+  allowed_position.push (space);
   Real up_y = get_direction () * y;
   Interval iv = quantise_iv (allowed_position, up_y);
 
@@ -655,7 +652,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
 
   Real interbeam_f = paper_l ()->interbeam_f (multiplicity);
-  Real thick = gh_scm2double (get_elt_property ("beam-thickness"));;
+  Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
   Real dy = interbeam_f;
   Real stemdx = staffline_f;
@@ -690,7 +687,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       w = w/2 <? nw_f;
       Molecule a;
       if (lhalfs)		// generates warnings if not
-	a =  lookup_l ()->beam (dydx, w, thick);
+	a =  lookup_l ()->beam (dydx, w, beam_f);
       a.translate (Offset (-w, -w * dydx));
       for (int j = 0; j  < lhalfs; j++)
 	{
@@ -706,7 +703,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       int rwholebeams= here->beam_count (RIGHT) <? next->beam_count (LEFT) ;
 
       Real w = next->hpos_f () - here->hpos_f ();
-      Molecule a = lookup_l ()->beam (dydx, w + stemdx, thick);
+      Molecule a = lookup_l ()->beam (dydx, w + stemdx, beam_f);
       a.translate_axis( - stemdx/2, X_AXIS);
       int j = 0;
       Real gap_f = 0;
@@ -726,7 +723,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 	  // TODO: notehead widths differ for different types
 	  gap_f = nw_f / 2;
 	  w -= 2 * gap_f;
-	  a = lookup_l ()->beam (dydx, w + stemdx, thick);
+	  a = lookup_l ()->beam (dydx, w + stemdx, beam_f);
 	}
 
       for (; j  < rwholebeams; j++)
@@ -741,7 +738,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
       w = w/2 <? nw_f;
       if (rhalfs)
-	a = lookup_l ()->beam (dydx, w, thick);
+	a = lookup_l ()->beam (dydx, w, beam_f);
 
       for (; j  < rwholebeams + rhalfs; j++)
 	{

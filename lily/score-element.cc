@@ -367,6 +367,9 @@ Score_element::add_dependency (Score_element*e)
 SCM
 Score_element::handle_broken_smobs (SCM s, SCM criterion)
 {
+ again:
+
+  
   Score_element *sc = unsmob_element ( s);
   if (sc)
     {
@@ -402,16 +405,25 @@ Score_element::handle_broken_smobs (SCM s, SCM criterion)
       /*
 	UGH! breaks on circular lists.
       */
-      gh_set_car_x (s, handle_broken_smobs (gh_car (s), criterion));
-      gh_set_cdr_x (s, handle_broken_smobs (gh_cdr (s), criterion));
-
-      SCM c = gh_cdr(s);
-
-      // gh_list_p () is linear, this is O(1)  
-      bool list = gh_pair_p (c) || c == SCM_EOL;
+      SCM car = handle_broken_smobs (gh_car (s), criterion);
+      SCM cdr = gh_cdr (s);
       
-      if (gh_car (s) == SCM_UNDEFINED && list)
-	return c;
+      if (car == SCM_UNDEFINED
+	  && (gh_pair_p (cdr) || cdr == SCM_EOL))
+	{
+	  /*
+	    This is tail-recursion, ie. 
+	    
+	    return handle_broken_smobs (cdr, criterion);
+
+	    We don't want to rely on the compiler to do this.  */
+	  s =  cdr;	
+	  goto again;
+	}
+
+      gh_set_car_x (s, car);
+      gh_set_cdr_x (s, handle_broken_smobs (cdr, criterion));
+      return s;
     }
   return s;
 }

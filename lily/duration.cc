@@ -26,8 +26,8 @@ Duration::Duration ()
 void
 Duration::compress (Rational m)
 {
-  tuplet_type_i_ *= m.num_i ();
- tuplet_iso_i_ *= m.den_i (); 
+  tuplet_iso_i_  *= m.num_i ();
+  tuplet_type_i_ *= m.den_i (); 
 }
 
 Rational

@@ -197,7 +197,6 @@ index_set_cell (SCM s, Direction d, SCM v)
   return s;
 }
   
-#if 0
 SCM
 array_to_list (SCM *a , int l)
 {
@@ -208,7 +207,6 @@ array_to_list (SCM *a , int l)
     }
   return list;
 }
-#endif
 
 SCM
 ly_warning (SCM str)
