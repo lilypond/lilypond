@@ -523,10 +523,10 @@ def find_toplevel_snippets (infile, outfile, types):
 	# without searching the string multiple times for one regex.
 	#
 	# Hence, we use earlier results to limit the string portion
-	# where we search. We're hosed if the first type only occurs
-	# at the end of the string, since it  will then use quadratic
-	# time.
-	#
+	# where we search.
+	# Since every part of the string is traversed at most once for
+	# every type of snippet, this is linear.
+	
 	
         while 1:
                 first = None
@@ -551,14 +551,11 @@ def find_toplevel_snippets (infile, outfile, types):
                 snippets.append (found[first])
 
 		outfile.write (s[index:index + found[first].start (0)])
-		outfile.write (found[first].replacement_text ())
+		outfile.write (found[first].replacement_text (format))
 		
                 index += found[first].end (0)
 
         return snippets
-
-
-
 
 
 def filter_pipe (input, cmd):
