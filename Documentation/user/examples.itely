@@ -40,7 +40,7 @@ problems:
 
 @itemize @bullet
 @item Include @code{\version} numbers in every file.  Note that all
-templates contain a @code{\version "2.3.22"} string.  We
+templates contain a @code{\version "2.4.0"} string.  We
 highly recommend that you always include the @code{\version}, no matter
 how small your file is.  Speaking from personal experience, it's
 quite frustrating to try to remember which version of LilyPond you were
@@ -76,7 +76,7 @@ instrument or a melodic fragment.  Cut and paste this into a file,
 add notes, and you're finished!
 
 @lilypond[quote,verbatim,raggedright]
-\version "2.3.22"
+\version "2.4.0"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -101,7 +101,7 @@ automatic beaming, you'll have to change or comment out the relevant
 line.
 
 @lilypond[quote,verbatim,raggedright]
-\version "2.3.22"
+\version "2.4.0"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -132,7 +132,7 @@ text = \lyricmode {
 Want to prepare a lead sheet with a melody and chords?  Look no further!
 
 @lilypond[quote,verbatim,raggedright]
-\version "2.3.22"
+\version "2.4.0"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -165,7 +165,7 @@ harmonies = \chordmode {
 This template allows you to prepare a song with melody, words, and chords.
 
 @lilypond[quote,verbatim,raggedright]
-\version "2.3.22"
+\version "2.4.0"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -206,7 +206,7 @@ harmonies = \chordmode {
 Here is a simple piano staff.
 
 @lilypond[quote,verbatim,raggedright]
-\version "2.3.22"
+\version "2.4.0"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -240,7 +240,7 @@ Here is a typical song format: one staff with the melody and lyrics, with
 piano accompaniment underneath.
 
 @lilypond[quote,verbatim,raggedright]
-\version "2.3.22"
+\version "2.4.0"
 melody = \relative c'' {
    \clef treble
    \key c \major
@@ -296,7 +296,7 @@ Instead of having a full staff for the melody and lyrics, you can place
 the lyrics between the piano staff (and omit the separate melody staff).
 
 @lilypond[quote,verbatim,raggedright]
-\version "2.3.22"
+\version "2.4.0"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -344,7 +344,7 @@ since the template is right here, you don't have to do the
 tweaking yourself.
 
 @lilypond[quote,verbatim,raggedright]
-\version "2.3.22"
+\version "2.4.0"
 upper = \relative c'' {
   \clef treble
   \key c \major
@@ -436,7 +436,7 @@ This template demonstrates a string quartet.  It also uses a @code{\global}
 section for time and key signatures.
 
 @lilypond[quote,verbatim,raggedright]
-\version "2.3.22"
+\version "2.4.0"
 global = {
    \time 4/4
    \key c \major
@@ -492,7 +492,7 @@ parts.  For example, the time signature and key signatures are almost
 always the same for all parts.
 
 @lilypond[quote,verbatim,raggedright]
-\version "2.3.22"
+\version "2.4.0"
 global = {
    \key c \major
    \time 4/4
@@ -577,7 +577,7 @@ notes.  As a compromise, bar lines are often printed between the
 staves rather than on the staves.
 
 @lilypond[quote,verbatim,linewidth=11.0\cm]
-\version "2.3.22"
+\version "2.4.0"
 
 global = {
   % incipit
@@ -817,7 +817,7 @@ is within a @code{\transpose} section.
 @c The `linewidth' argument is for the \header.
 
 @lilypond[quote,verbatim,raggedright,linewidth]
-\version "2.3.22"
+\version "2.4.0"
 \header {
   title = "Song"
   subtitle = "(tune)"
@@ -1083,7 +1083,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 @ The `linewidth' is for \header.
 @lilypond[quote,verbatim,raggedright,linewidth]
-\version "2.3.22"
+\version "2.4.0"
 \header {
   dedication = "dedication"
   title = "Title"

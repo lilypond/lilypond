@@ -19,6 +19,9 @@
 
 	* Documentation/user/converters.itely: add examples for convert-ly.
 
+	* Documentation/user/examples.itely: change version string in templates
+	to 2.4.0.
+
 2004-11-12  Karl Hammar  <karl@aspodata.se>
 
 	* GNUmakefile.in (local-WWW-post): `find ...` overflows the
