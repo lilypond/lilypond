@@ -7,10 +7,10 @@ but was merged back into the lilypond package
 as of Mon, 16 Apr 2001 21:58:42 -0600
 
 It was downloaded from
-      ftp://ftp.lilypond.org/pub/LilyPond/v1.3/
+      ftp://ftp.lilypond.org/pub/LilyPond/v1.4/
 
 It is also available at: 
-      ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/v1.3/
+      ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/v1.4/
 
 For more information about GNU LilyPond, please visit:
       http://www.cs.uu.nl/~hanwen/lilypond/
@@ -24,7 +24,7 @@ Authors:
  
 Copyright:
 
-  GNU LilyPond is Copyright (C) 1996-2000
+  GNU LilyPond is Copyright (C) 1996-2001
   Jan Nieuwenhuizen & Han-Wen Nienhuys
 
     This program is free software; you can redistribute it and/or modify

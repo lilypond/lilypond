@@ -1,0 +1,4 @@
+usr/share/lilypond/tex	usr/share/texmf/tex/lilypond
+usr/share/lilypond/mf	usr/share/texmf/fonts/source/public/lilypond
+usr/share/lilypond/afm	usr/share/texmf/fonts/afm/public/lilypond
+usr/share/lilypond/tfm	usr/share/texmf/fonts/tfm/public/lilypond

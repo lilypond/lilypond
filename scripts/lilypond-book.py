@@ -401,7 +401,7 @@ output_dict= {
 @end tex
 @html
 <p>
-<img src=%(fn)s.png>
+<img src="%(fn)s.png" alt="">
 @end html
 """,
 		}

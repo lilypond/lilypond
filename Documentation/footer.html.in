@@ -6,7 +6,7 @@ which substitutes some @AT_VARIABLES@ as well.
 
 !-->
 
-<! Layout shamelessly inspired by Franc,ois Pinard's TP pages >
+<!-- Layout shamelessly inspired by Franc,ois Pinard's TP pages -->
 
     </td>
   </tr>
@@ -33,7 +33,7 @@ Copyright (c) 1997--2001 Han-Wen Nienhuys and Jan Nieuwenhuizen.
 <p>
 
 Verbatim copying and distribution of this entire article is 
-permitted in any medium, provided this notice is preserved.<p>
+permitted in any medium, provided this notice is preserved.</p>
 
    </td>
   </tr>

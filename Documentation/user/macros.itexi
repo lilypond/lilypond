@@ -1,6 +1,6 @@
 @ifnottex
 @macro reng {word}
-@ref{ (lilypond-internals)\word\, \word\ },
+@ref{ (lilypond-internals)\word\, \word\ }
 
 @end macro
 @end ifnottex
@@ -8,14 +8,13 @@
 @iftex
 @macro reng {word}
 \word\
-
 @end macro
 @end iftex
 
 
 @ifnottex
 @macro rgrob {word}
-@ref{ (lilypond-internals)\word\, \word\ },
+@ref{ (lilypond-internals)\word\, \word\ }
 
 @end macro
 @end ifnottex
@@ -23,14 +22,13 @@
 @iftex
 @macro rgrob {word}
 \word\
-
 @end macro
 @end iftex
 
 
 @ifnottex
 @macro rint {word}
-@ref{ (lilypond-internals)\word\, \word\ },
+@ref{ (lilypond-internals)\word\, \word\ }
 
 @end macro
 @end ifnottex
@@ -38,7 +36,34 @@
 @iftex
 @macro rint {word}
 \word\
+@end macro
+@end iftex
 
+@ifnottex
+@macro texisharp {word}
+#
+@end macro
+@end ifnottex
+
+@iftex
+@macro texisharp {word}
+@tex
+$\\sharp$
+@end tex
+@end macro
+@end iftex
+
+@ifnottex
+@macro texiflat {word}
+b
+@end macro
+@end ifnottex
+
+@iftex
+@macro texiflat {word}
+@tex
+$\\flat$
+@end tex
 @end macro
 @end iftex
 
@@ -80,14 +105,14 @@
 @ifhtml
 @macro separate
 @html
-<p></p><center>*<font size=+1>*</font>*</center><br>
+<p></p><center>*<font size="+1">*</font>*</center><br>
 @end html
 @end macro
 @end ifhtml
 
 @c netscape 4.x doesn't handle html chars 4.0 :-(
 @c <p></p><center>&hearts;</center><br>
-@c <p></p><center><font size=-1>*</font><font size=0>*</font><font size=-1>*</font></center><br>
+@c <p></p><center><font size="-1">*</font><font size="0">*</font><font size="-1">*</font></center><br>
 
 @ignore
 

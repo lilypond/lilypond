@@ -1,0 +1,7 @@
+lilypond-doc for Debian
+-----------------------
+
+The HTML, PostScript and DVI documentation files are installed under
+`/usr/share/doc/lilypond', not `/usr/share/doc/lilypond-doc'.
+
+Anthony Fok <foka@debian.org>, Wed, 16 May 2001 01:37:00 -0600

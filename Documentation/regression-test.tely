@@ -143,6 +143,7 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{tuplet-staffline-collision.ly}
 
+@lilypondfile[printfilename]{tuplet-nest.ly}
 
 
 @section Property details
@@ -178,6 +179,7 @@ and documenting bugfixes.
 @lilypondfile[printfilename]{rest-collision.ly}
 
 @lilypondfile[printfilename]{collisions.ly}
+@lilypondfile[printfilename]{collision-dots.ly}
 
 @lilypondfile[printfilename]{number-staff-lines.ly}
 

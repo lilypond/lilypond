@@ -152,7 +152,11 @@
 	
 
 	(DotColumn . (
-		(axes 0 )
+		(axes 0)
+		(direction . 1)
+		(X-extent-callback . ,Axis_group_interface::group_extent_callback)
+		
+		(X-offset-callbacks . (,Dot_column::side_position))
 		(meta . ,(grob-description "DotColumn" dot-column-interface  axis-group-interface))
 	))
 
@@ -703,6 +707,7 @@
 
 	(UnaCordaPedal . (
 		(molecule-callback . ,Text_item::brew_molecule)
+                (font-family . roman)
                 (font-shape . italic)
 		(no-spacing-rods . #t)
 		(self-alignment-X . 0)
