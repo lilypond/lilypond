@@ -23,7 +23,7 @@ Beaming_info::Beaming_info(Moment m, int i)
   beams_i_drul_[RIGHT] = i;  
 }
 
-const int infinity_i = 1000;	// guh.
+const int infinity_i = INT_MAX;	// guh.
 
 int
 Beaming_info_list::min_denominator_index () const
