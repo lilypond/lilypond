@@ -3,7 +3,7 @@
 
 Item::Item()
 {
-    pcol_ = 0;
+    pcol_l_ = 0;
 }
 
 void
