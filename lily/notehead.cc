@@ -114,6 +114,7 @@ Note_head::brew_molecule_p() const
 	s = p->lookup_l()->rest(balltype_i_, streepjes_b);
     }
     out = new Molecule(Atom(s));
+    out->translate_x( x_dir_i_ * s.dim.x.length() );
     if (dots_i_) {
 	Symbol d = p->lookup_l()->dots(dots_i_ );
 	Molecule dm;
