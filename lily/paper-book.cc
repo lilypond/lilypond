@@ -15,6 +15,9 @@
 #include "stencil.hh"
 #include "paper-outputter.hh"
 
+// -- this simply adds one Page per \score
+// #define ONE_SCORE_PER_PAGE
+ 
 // WIP -- simplistic page interface
 // Do we need this at all?  SCM, smob?
 class Page
@@ -114,7 +117,7 @@ Paper_book::output ()
 }
 
 /*
-  WIP -- this simply adds one Page per \score
+  WIP
 
   FIXME: titling is broken.
   
