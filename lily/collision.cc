@@ -36,8 +36,8 @@ int idx (int dir, bool h_shift_b)
   return j;
 }
 
-/** This complicated routine moves note columns around horizontally
-  (and rests vertically) to ensure that notes don't clash.
+/** This complicated routine moves note columns around horizontally to
+  ensure that notes don't clash.
 
   This should be done better, probably.
 

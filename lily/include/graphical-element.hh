@@ -62,6 +62,7 @@ public:
   Graphical_element *parent_l (Axis a) const;
   
   virtual void do_print () const;
+  virtual void print () const;  
 };
 
 #endif // GRAPHICAL_ELEMENT_HH

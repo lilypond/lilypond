@@ -51,5 +51,5 @@ G_stem_staff_side_item::do_pre_processing ()
 			gh_double2scm(stem_l_->staff_line_leading_f ()
 				      * gh_scm2double (p)));
     }
-  G_staff_side_item :: do_pre_processing ();
+  G_staff_side_item::do_pre_processing ();
 }

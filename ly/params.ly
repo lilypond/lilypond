@@ -135,6 +135,10 @@ extender_height = 0.8*\staffline;
 % Multi-measure rests
 mmrest_x_minimum = 2.0*\staffheight;
 
+
+% chop off this much when next to pp / ff sign.
+crescendo_shorten = 4.0 * \interline;
+
 % in internote.
 restcollision_minimum_dist = 3.0;
 restcollision_minimum_beamdist = 1.5;

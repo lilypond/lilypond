@@ -171,6 +171,13 @@ Text_script_req::do_print () const
        << ", style = " << style_str_;
 }
 
+bool
+Text_script_req::do_equal_b (Request *r) const
+{
+  Text_script_req * t  = dynamic_cast<Text_script_req*>(r);
+  return t && t->text_str_ == text_str_ && t->style_str_ == style_str_;
+}
+
 void
 Articulation_req::do_print () const
 {

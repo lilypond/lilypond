@@ -17,22 +17,17 @@
 Crescendo::Crescendo ()
 {
   grow_dir_ =0;
-  dir_ = DOWN;
   dyn_b_drul_[LEFT] = dyn_b_drul_[RIGHT] =false;
 }
 
-Interval
-Crescendo::symbol_height () const
-{
-  return get_symbol ().dim_[Y_AXIS];
-}
 
-static Real absdyn_dim = 10 PT;	// ugh
+
 
 Molecule
 Crescendo::get_symbol () const
 {
   Real w_dim = extent (X_AXIS).length ();
+  Real absdyn_dim = paper_l ()-> get_realvar (ly_symbol ("crescendo_shorten"));
   if (dyn_b_drul_[LEFT])
     {
       w_dim -= absdyn_dim;
@@ -64,6 +59,7 @@ Molecule*
 Crescendo::do_brew_molecule_p () const
 {
   Molecule* m_p =0;
+  Real absdyn_dim = paper_l ()-> get_realvar (ly_symbol ("crescendo_shorten"));
   Real x_off_dim=0.0;
   if (dyn_b_drul_[LEFT])
     x_off_dim += absdyn_dim;
@@ -71,9 +67,8 @@ Crescendo::do_brew_molecule_p () const
   m_p = new Molecule;
   Molecule s (get_symbol ());
   m_p->add_molecule (s);
-  m_p->translate (Offset (x_off_dim, coordinate_offset_f_));
+  m_p->translate_axis (x_off_dim, X_AXIS);
   return m_p;
 }
-
 
 

@@ -36,6 +36,12 @@ Bar_script_engraver::do_creation_processing ()
     }
 }
 
+/*
+  Some interesting item came across.  Lets attach the text and the
+  positioner to the item.
+
+*/
+ 
 void
 Bar_script_engraver::do_acknowledge_element (Item *i)
 {
@@ -47,6 +53,8 @@ Bar_script_engraver::do_acknowledge_element (Item *i)
       staff_side_p_->dim_cache_[axis_]->parent_l_
 	=  i->dim_cache_[axis_];	  
 
+      if (!text_p_->dim_cache_[other_axis]->parent_l_)
+	text_p_->dim_cache_[other_axis]->parent_l_ = i->dim_cache_[other_axis];
       staff_side_p_->add_support (i);
 
       /*
