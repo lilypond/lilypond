@@ -176,4 +176,11 @@ class Melisma_playing_req : public Request
 public:
   VIRTUAL_COPY_CONS (Music);
 };
+
+class Arpeggio_req : public Request
+{
+public:
+  VIRTUAL_COPY_CONS (Music);
+};
+
 #endif // MUSICALREQUESTS_HH

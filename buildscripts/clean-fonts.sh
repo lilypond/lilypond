@@ -9,17 +9,27 @@ esac
 
 # should use kpsepath 
 
+TEXDIRS=.
 if [ -d /var/lib/texmf ]; then
-    TEXDIR=/var/lib/texmf
-elif [ -d /var/texfonts ]; then
-    TEXDIR=/var/texfonts
+    TEXDIRS="$TEXDIRS /var/lib/texmf"
+fi
+if [ -d /var/spool/texmf ]; then
+    TEXDIRS="$TEXDIRS /var/tmp/texmf"
+fi
+if [ -d /var/tmp/texfonts ]; then
+    TEXDIRS="$TEXDIRS /var/spool/texfonts"
+fi
+if [ -d /var/texfonts ]; then
+    TEXDIRS="$TEXDIRS /var/texfonts"
+fi
+if [ -z $TEXDIR ]; then
+    TEXDIRS=". /var"
 else
-    TEXDIR=/var/
+    TEXDIRS=". $TEXDIRS"
 fi
 
 # remove possibly stale .pk/.tfm files 
-echo> /tmp/cleaning-font-dummy
-FILES=`find .  $TEXDIR -name "feta*$WHAT*tfm" -or -name "feta*$WHAT*pk"`
+FILES=`find $TEXDIRS -name "feta*$WHAT*tfm" -or -name "feta*$WHAT*pk"`
 
 echo removing $FILES
 rm  -f $FILES /tmp/cleaning-font-dummy
