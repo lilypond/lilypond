@@ -4785,8 +4785,8 @@ in the context, with the following arguments:
 @item the context where @code{\applyoutput} is processed.
 @end itemize
 
-The cause of the grob, i.e.  the music expression or object that was
-responsible for creating the object, is in the object property
+In addition, the cause of the grob, i.e.  the music expression or object
+that was responsible for creating the object, is in the object property
 @code{cause}.  For example, for a note head, this is a
 @internalsref{NoteHead} event, and for a @internalsref{Stem} object,
 this is a @internalsref{NoteHead} object.

@@ -1,3 +1,8 @@
+2003-05-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mf/parmesan-custodes.mf (dir_down): remove underscores from
+	glyph names. Underscores are not allowed .ps encoding files.
+
 2003-04-30  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/spacing-spanner.cc, ly/paper-init.ly: introduced paper

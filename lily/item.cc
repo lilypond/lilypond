@@ -6,7 +6,6 @@
   (c)  1997--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #include "paper-score.hh"
 #include "warn.hh"
 #include "item.hh"
