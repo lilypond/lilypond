@@ -1,6 +1,8 @@
 \header{
 filename =	"preludes-5.ly";
-% blz 2
+%
+% page 2
+%
 % Clavierb"uchlein f"ur W. Fr. Bach
 % Clav. W. Fr. Bach: 4-Praeludium 2
 % ca 1720
@@ -87,7 +89,7 @@ upper = \context Staff \notes\relative c{
 	%40
 	s4 s16 [d16-1-"m.d." f-2 a-4] \stemdown [d,-2-"m.g." f a] \stemup d-1 |
 	\stemboth
-	f a-4 f d  f-4 d b d-5  gis-2 b a gis, |
+	f a-4 f d  f-4 d b d-5  gis,-2 b a gis |
 	<g'!4.-5\f e a,> a8-5 
 	<
 		{
@@ -198,8 +200,6 @@ global = \notes{
 		>
 	>
 	\paper{
-		\include "preludes-paper.ly";
-		gourlay_maxmeasures = 5.0;
 	}
 	\midi{ \tempo 4 = 90; }
 	\header{

@@ -1,19 +1,5 @@
-\header{
-filename =	 "prelude-viola.ly";
-title =	 "Solo Cello Suites";
-subtitle = "Suite II";
-% piece = "Pr\\'elude";		% duh
-opus =	 "BWV 1008";
-% opus =	 "";
-composer =	 "Johann Sebastian Bach (1685-1750)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
-}
 
-%{
- Tested Features:breaking algorithm, chords, multivoice, accents, 
- dotted slurs
-%}
+
 
 \version "1.2.0";
 
@@ -38,11 +24,10 @@ prelude_viola_staff = \context Staff <
 
 \score{
 	\$prelude_viola_staff
-	\paper{
-		\include "scs-paper.ly";
-		gourlay_maxmeasures = 7.0;
-	}
+	\paper{ }
 	\midi{ \tempo 4 = 40; }
-	\header{ piece = "Pr\\'elude"; }
+	\header{
+	opus= "" ; 
+	piece ="Pr\\'elude"; }
 }
 

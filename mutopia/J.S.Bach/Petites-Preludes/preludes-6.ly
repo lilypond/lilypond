@@ -1,6 +1,8 @@
 \header{
 filename =	"preludes-6.ly";
-% blz 11
+%
+% page 11
+%
 % Six Petits Preludes
 % Collection Johann Peter Kellner
 % ca 1703 - 1707
@@ -20,9 +22,9 @@ one = \context Staff \notes\relative c{
 	)d16-5\mf a'-4( g f  e f-4 cis-2 d-1 
 	e8.-\mordent f16  d8.-\prall-1 cis16-3 |
 	\stemup
-	)cis4\> ~ cis16 a \!d8 ~ d4 c-5 |
+	)cis4\> ~ cis16 a \!d8 ~ d4 a( |
 	%5
-	b2-4 ~ b4 a-5 ~ |
+	)b2-4 ~ b4 a-5 ~ |
 	a16 a-5 \stemup g! f g4-4\< ~ g f-3 ~ |
 	\!f16 a g f  e16 g8.-5 ~  g16 g-5 f-4 e-3  d-1 f8.-4 ~ |
 	f16 f-3 e d b'4 a-5 g-5 |
@@ -80,10 +82,12 @@ four = \context Staff \notes\relative c{
 	\context Voice=iv
 	\stemdown 
 	d2-3 cis-4 |
-	\skip 1*3; |
-	%5
+	\skip 1*2; |
+	\skip 4*3;
 	\translator Staff=upper \stemup \property Voice.horizontalNoteShift = 1 
-	a'4 gis-2 ~ gis16 gis-3 fis e 
+	c''4-5 |
+	%5
+	a gis-2 ~ gis16 gis-3 fis e 
 	\skip 4*1;
 	\translator Staff=lower \stemdown \property Voice.horizontalNoteShift = 0 
 	\stemup
@@ -117,8 +121,6 @@ global = \notes{
 		>
 	>
 	\paper{
-		\include "preludes-paper.ly";
-		gourlay_maxmeasures = 3.0;
 	}
 	\midi{ \tempo 4 = 40; }
 	\header{

@@ -12,6 +12,8 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * use Rhythmic_head::position_i () for all Staff_referenced 
 . * .po -> .pot.
 . * setting indent to 0 with \shape fails
+. * ly2dvi : don't repeat opus if same.
+. * breaks before mmrests are favored.
 . * hara kiri _8 clef.
 . * junk -M ?
 . * mudela-book doco

@@ -7,7 +7,7 @@
 */
 
 #include "score-column.hh"
-#include "break.hh"
+#include "break-algorithm.hh"
 #include "paper-def.hh"
 #include "debug.hh"
 #include "line-of-score.hh"
@@ -57,12 +57,13 @@ Break_algorithm::find_breaks () const
 }
 
 
-Line_spacer*
+Simple_spacer*
 Break_algorithm::generate_spacing_problem (Line_of_cols curline, Interval line) const
 {
-  Line_spacer * sp =  new Simple_spacer;
-  
-  sp->default_space_f_ = pscore_l_->paper_l_->get_var ("loose_column_distance");
+  Simple_spacer * sp =  new Simple_spacer;
+  Paper_def * d = pscore_l_->paper_l_;
+  sp->compression_energy_factor_f_ = d->get_var ("compression_energy_factor");
+  sp->default_space_f_ = d->get_var ("loose_column_distance");
 
   sp->indent_f_ = line[LEFT];
 
@@ -77,7 +78,7 @@ Break_algorithm::generate_spacing_problem (Line_of_cols curline, Interval line) 
     sp->line_len_f_ = line.length ();
   
   sp->add_columns (curline);
-  sp->prepare ();
+
 
   return sp;
 }
@@ -85,7 +86,6 @@ Break_algorithm::generate_spacing_problem (Line_of_cols curline, Interval line) 
 Break_algorithm::Break_algorithm ()
 {
   pscore_l_ = 0;
-  get_line_spacer =0;
   linelength = 0;
 }
 

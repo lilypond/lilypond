@@ -1,21 +1,5 @@
-\header{
-filename =	 "menuetto-viola.ly";
-title =	 "Solo Cello Suites";
-subtitle = "Suite II";
-% piece = "Menuetto I";
-description =	 "Transcribed for Viola";
-source =	 "?";
-% opus =	 "BWV 1008 no. 5";
-opus =	 "";
-composer =	 "Johann Sebastian Bach (1685-1750)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
-}
 
-%{
- Tested Features:breaking algorithm, chords, multivoice, accents, 
- dotted slurs
-%}
+
 
 \version "1.2.0";
 
@@ -72,7 +56,9 @@ menuetto_i_viola_staff = \context Staff <
 		}
 	}
 	\midi{ \tempo 4 = 110; }
-	\header{ piece = "Menuetto I"; }
+	\header{
+	opus= "" ; 
+	piece ="Menuetto I"; }
 }
 
 menuetto_ii_viola_global = \notes{
@@ -99,14 +85,14 @@ menuetto_ii_viola_staff = \context Staff <
 \score{
 	\$menuetto_ii_viola_staff
 	\paper{
-		\include "scs-paper.ly";
-		gourlay_maxmeasures = 7.0;
 		\translator{
 			\VoiceContext
 			beamAutoEnd_8 = "3/4";
 		}
 	}
 	\midi{ \tempo 4 = 130; }
-	\header{ piece = "Menuetto II"; }
+	\header{
+	opus= "" ; 
+	piece ="Menuetto II"; }
 }
 

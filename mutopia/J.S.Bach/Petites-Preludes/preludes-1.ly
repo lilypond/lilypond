@@ -1,9 +1,8 @@
 \header{
 filename =	 "preludes-1.ly";
-% urg?
-%opus = "BWV 924";
-% piece = "1";
-% blz 1
+%
+% page 1
+%
 % Clavierb"uchlein f"ur W. Fr. Bach
 % Clav. W. Fr. Bach: 2-Praeambulum I
 % ca 1720
@@ -124,10 +123,8 @@ global = \notes{
 		>
 	>
 	\paper{
-		\include "preludes-paper.ly";
 		% no slur damping
 		slur_slope_damping = 10.0;
-		gourlay_maxmeasures = 4.0;
 	}
 	\midi{ \tempo 4 = 80; }
 	\header {

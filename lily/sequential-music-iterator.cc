@@ -79,7 +79,8 @@ Sequential_music_iterator::~Sequential_music_iterator()
 {
   if (iter_p_)
     {
-      music_l_->warning (_ ("Must stop before this music ends"));
+      if (iter_p_->ok ())
+	music_l_->warning (_ ("Must stop before this music ends"));
       delete iter_p_;
       iter_p_ = 0;
     }

@@ -1,8 +1,9 @@
 \header{
 filename =	 "preludes-2.ly";
-% blz 10
+%
+% page 10
 % 
-% Six Petits Pr eludes
+% Six Petits Preludes
 % Collection Johann Peter Kellner
 % ca 1703- 1707
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -112,8 +113,6 @@ global = \notes{
 		>
 	>
 	\paper{
-		\include "preludes-paper.ly";
-		gourlay_maxmeasures = 4.0;
 	}
 	\midi{ \tempo 4 = 100; }
 	\header {

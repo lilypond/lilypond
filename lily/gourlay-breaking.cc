@@ -12,7 +12,7 @@
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "paper-def.hh"
-#include "line-spacer.hh"
+#include "simple-spacer.hh"
 
 #include "killing-cons.tcc"
 
@@ -33,7 +33,7 @@ struct Break_node {
    */
   int line_i_;
 
-  Real energy_f_;
+  Real demerits_f_;
   Column_x_positions line_config_;
   
   Break_node () 
@@ -57,7 +57,8 @@ Gourlay_breaking::do_solve () const
 
   Break_node first_node ;
   first_node.prev_break_i_ = -1;
-  first_node.line_config_.energy_f_ = 0;
+  first_node.line_config_.force_f_ = 0;
+  first_node.line_config_.energy_f_ = 0;  
   first_node.line_i_ = 0;
   
   optimal_paths[0] = first_node; 
@@ -65,19 +66,21 @@ Gourlay_breaking::do_solve () const
 
   for (; break_idx< breaks.size (); break_idx++) 
     {
-      Array<int> candidates;
-      Array<Column_x_positions> candidate_lines;
-      Cons_list<Line_spacer> spacer_p_list;
-	
       /*
 	start with a short line, add measures. At some point 
 	the line becomes infeasible. Then we don't try to add more 
 	*/
+      int minimal_start_idx = -1;
+      Column_x_positions minimal_sol;
+      Real minimal_demerits = infinity_f;
+
       for (int start_idx = break_idx; start_idx--;)
 	{
+#if 0
 	  if  (break_idx - start_idx > max_measures_i_) 
 	    break;
-
+#endif
+	  
 	  if (optimal_paths[start_idx].prev_break_i_ < 0
 	      && optimal_paths[start_idx].line_config_.energy_f_)
 	    continue;
@@ -92,78 +95,55 @@ Gourlay_breaking::do_solve () const
 	  if (!feasible (line))
 	    break;
 	    
-	  Column_x_positions approx;
-	  approx.cols_ = line;
-	    
-	  approx.spacer_l_ = generate_spacing_problem (line, 
-	    pscore_l_->paper_l_->line_dimensions_int (optimal_paths[start_idx].line_i_));
-	  spacer_p_list.append (new Killing_cons<Line_spacer> (approx.spacer_l_,0));
+	  Column_x_positions cp;
+	  cp.cols_ = line;
 
-	  approx.approximate_solve_line ();
-	    
-	  if  (approx.energy_f_  > energy_bound_f_)
-	    {
-	      continue;
-	    }
-	    
-	  // this is a likely candidate. Store it.
-	  candidate_lines.push (approx);
-	  candidates.push (start_idx);
-	}
+	  Interval line_dims
+	    = pscore_l_->paper_l_->line_dimensions_int (optimal_paths[start_idx].line_i_);
+	  Simple_spacer * sp = generate_spacing_problem (line, line_dims);
+	  sp->solve (&cp);
+	  delete sp;
+	  
+	  if (!cp.satisfies_constraints_b_)
+	    break;
 
-	    
-      int minimal_j = -1;
-      Real minimal_energy = infinity_f;
-      for (int j=0; j < candidates.size (); j++) 
-	{
-	  int start = candidates[j];
-	  if (optimal_paths[start].line_config_.energy_f_
-	       + candidate_lines[j].energy_f_  > minimal_energy)
-		
-	    continue;
+	  Real this_demerits 
+	    = combine_demerits (optimal_paths[start_idx].line_config_, cp)
+	    + optimal_paths[start_idx].demerits_f_;
 
-	  if (!candidate_lines[j].satisfies_constraints_b_) 
+	  if (this_demerits < minimal_demerits) 
 	    {
-	      candidate_lines[j].solve_line ();
-	    }
-	    
-	  Real this_energy 
-	    = optimal_paths[start].line_config_.energy_f_ 
-	    + candidate_lines[j].energy_f_ ;
-	    
-	  if (this_energy < minimal_energy) 
-	    {
-	      minimal_j = j;
-	      minimal_energy = this_energy;
+	      minimal_start_idx = start_idx;
+	      minimal_sol = cp;
+	      minimal_demerits = this_demerits;
 	    }
 	}
 
-      if (minimal_j < 0) 
+      if (minimal_start_idx < 0) 
 	{
 	  optimal_paths[break_idx].prev_break_i_ = -1;
 	  optimal_paths[break_idx].line_config_.energy_f_ = infinity_f;
 	}
       else 
 	{
-	  optimal_paths[break_idx].prev_break_i_ = candidates[minimal_j];
-	  optimal_paths[break_idx].line_config_ = candidate_lines[minimal_j];
-	  optimal_paths[break_idx].line_i_ = 
-	    optimal_paths[optimal_paths[break_idx].prev_break_i_].line_i_ + 1;
+	  optimal_paths[break_idx].prev_break_i_ = minimal_start_idx;
+	  optimal_paths[break_idx].line_config_ = minimal_sol;
+	  optimal_paths[break_idx].demerits_f_ = minimal_demerits;
+	  optimal_paths[break_idx].line_i_ =
+	    optimal_paths[minimal_start_idx].line_i_ + 1;
 	}
 
       if (! (break_idx % HAPPY_DOTS_I))
 	*mlog << "[" << break_idx << "]" << flush;
-
-      spacer_p_list.junk ();
     }
 
+  /* do the last one */
   if  (break_idx % HAPPY_DOTS_I) 
     *mlog << "[" << break_idx << "]";
 
   *mlog << endl;
 
   Array<int> final_breaks;
-
   Array<Column_x_positions> lines;
 
   /* skip 0-th element, since it is a "dummy" elt*/
@@ -197,7 +177,16 @@ Gourlay_breaking::Gourlay_breaking ()
 void
 Gourlay_breaking::do_set_pscore ()
 {
-  energy_bound_f_ = pscore_l_->paper_l_->get_var ("gourlay_energybound");
   max_measures_i_ =int (rint (pscore_l_->paper_l_->get_var ("gourlay_maxmeasures")));
 }
 
+
+/*
+  TODO: uniformity parameter to control rel. importance of spacing differences.
+ */
+Real
+Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
+				    Column_x_positions const &this_one) const
+{
+  return abs (this_one.force_f_) + abs (prev.force_f_ - this_one.force_f_);
+}

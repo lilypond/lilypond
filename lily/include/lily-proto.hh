@@ -113,7 +113,7 @@ struct Lily_stream;
 struct Line_group_engraver;
 struct Line_of_score;
 struct Line_of_staff;
-struct Line_spacer;
+struct Simple_spacer;
 struct Linestaff;
 struct Local_key;
 struct Local_key_engraver;

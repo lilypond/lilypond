@@ -1,19 +1,3 @@
-\header{
-filename =	 "allemande-viola.ly";
-title =	 "Solo Cello Suites";
-subtitle = "Suite II";
-% piece = "Allemande";
-% opus =	 "BWV 1008";
-opus =	 "";
-composer =	 "Johann Sebastian Bach (1685-1750)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
-}
-
-%{
- Tested Features:breaking algorithm, chords, multivoice, accents, 
- dotted slurs
-%}
 
 \version "1.2.0";
 
@@ -46,11 +30,10 @@ allemande_viola_staff = \context Staff <
 
 \score{
 	\$allemande_viola_staff
-	\paper{
-		\include "scs-paper.ly";
-		gourlay_maxmeasures = 3.0;
-	}
+	\paper{ }
 	\midi{ \tempo 4 = 45; }
-	\header{ piece = "Allemande"; }
+	\header{ piece = "Allemande";
+	  opus = "";
+	}
 }
 

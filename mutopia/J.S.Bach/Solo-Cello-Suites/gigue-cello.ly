@@ -1,19 +1,5 @@
-\header{
-filename =	 "gigue-cello.ly";
-title =	 "Solo Cello Suites";
-subtitle = "Suite II";
-% piece = "Gigue";
-% opus =	 "BWV 1008";
-opus =	 "";
-composer =	 "Johann Sebastian Bach (1685-1750)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
-}
 
-%{
- Tested Features:breaking algorithm, chords, multivoice, accents, 
- dotted slurs
-%}
+
 
 \version "1.2.0";
 
@@ -51,8 +37,6 @@ gigue_cello_staff = \context Staff <
 \score{
 	\$gigue_cello_staff
 	\paper{
-		\include "scs-paper.ly";
-		gourlay_maxmeasures = 7.0;
 		\translator{
 			\VoiceContext
 			beamAutoEnd_8 = "3/4";
@@ -60,6 +44,8 @@ gigue_cello_staff = \context Staff <
 		}
 	}
 	\midi{ \tempo 4 = 60; }
-	\header{ piece = "Gigue"; }
+	\header{
+	opus= "" ; 
+piece ="Gigue"; }
 }
 
