@@ -7,8 +7,7 @@
 This page documents the NT port of LilyPond.  It reflects  the latest
 version of lilypond that was ported.
 
-@section Windows NT/95 Binary Distribution
-
+@section Introduction
 
 This page is dedicated to the distribution of precompiled and
 preformatted LilyPond binaries for Windows NT 4.0 .  This package is
@@ -24,8 +23,7 @@ in various formats is also available.
 using a high level description file as input.  LilyPond is part of 
 the GNU Project.
 
-
-
+@section News
 
 @table @samp
  @item BUG FIXES
@@ -104,7 +102,7 @@ found to be operational.  If you have any troubles and or comments
 please do not hesitate to drop me a line 
 @uref{mailto:daboys@@austin.rr.com,Jeffrey B. Reed}.
 
-
+@section Bugs
 
 @itemize @bullet
 
@@ -115,8 +113,7 @@ please do not hesitate to drop me a line
        foo.tex". 
 @end itemize
 
-
-
+@section Required Packages
 
 LilyPond uses the @code{TeX} package as its rendering engine. @code{TeX}
 represents the state-of-the-art in computer typesetting. It is used to
@@ -132,26 +129,27 @@ Gsview is used to display and print the music scores created by
 LilyPond.
 
 @itemize @bullet
-    @item @uref{http://www.snafu.de/~cschenk/miktex/,code(MiKTeX)}. Versions
+    @item 
+        @uref{http://www.snafu.de/~cschenk/miktex/,MiKTeX}. Versions
         1.10b, 1.11, and 1.20b are known to work.
-    @item @uref{http://www.python.org,code(Python)}. Version 1.5.1 and
+    @item 
+        @uref{http://www.python.org,Python}. Version 1.5.1 and
 	possibly 1.5 work.
-    @item @uref{http://www.cs.wisc.edu/~ghost/gsview/index.html,code(gsview)}. 
+    @item 
+        @uref{http://www.cs.wisc.edu/~ghost/gsview/index.html,gsview}. 
 	Version 5.10 is known to work.
 @end itemize
 
-
-
+@section Download
 
 @itemize @bullet
     @item Windows 95
-        @uref{lilypond-VERSION-95.exe,lilypond-VERSION-95}
+        @uref{lilypond-TOPLEVEL_VERSION-95.exe,lilypond-TOPLEVEL_VERSION-95}
     @item Windows NT 4.0
-        @uref{lilypond-VERSION-nt.exe,lilypond-VERSION-nt}
+        @uref{lilypond-TOPLEVEL_VERSION-nt.exe,lilypond-TOPLEVEL_VERSION-nt}
 @end itemize
 
-
-
+@section Installation
 
 @itemize @bullet
  the distribution.
@@ -161,7 +159,8 @@ LilyPond.
      @table @samp
        @item LaTeX geometry package
        @itemize @bullet
-         @item @uref{ftp://ctan.tug.org/tex-archive/macros/latex/contrib/supported/geometry.zip,download} the zip file to @code{\Temp}.
+         @item 
+          @uref{ftp://ctan.tug.org/tex-archive/macros/latex/contrib/supported/geometry.zip,download} the zip file to @code{\Temp}.
          @item Extract the zip file into the LaTeX package area of
              @code{MiKTeX}. This will be @strong{@emph{MiKTeX-dir}\tex\latex}
          @item From a Command Prompt change directory into geometry
@@ -185,8 +184,7 @@ LilyPond.
  instructions below
 @end itemize
 
-
-
+@section Running LilyPond
 
 @itemize @bullet
   @item Take a look at @uref{angels.ly,angels.ly}
@@ -198,13 +196,15 @@ LilyPond.
   @strong{start angels.ps}  
 @end itemize
 
-
-
+@section LilyPond Resources
 
 @itemize @bullet
-  @item @uref{http://www.cs.ruu.nl/people/hanwen/lilypond/index.html,LilyPond Homepage}
-  @item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/,LilyPond Ftp Site}
-  @item @uref{http://jab.org/mail/gnu-music-discuss@@gnu.org/,gnu-music-discuss mail archive}
+  @item 
+        @uref{http://www.cs.ruu.nl/people/hanwen/lilypond/index.html,LilyPond Homepage}
+  @item 
+        @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/,LilyPond Ftp Site}
+  @item 
+        @uref{http://jab.org/mail/gnu-music-discuss@@gnu.org/,gnu-music-discuss mail archive}
   @item Please feel free to mail us at @uref{mailto:gnu-music-discuss@@gnu.org,gnu-music-discuss}
 @end itemize
 
