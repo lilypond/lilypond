@@ -19,6 +19,11 @@
 
 #include "killing-cons.tcc"
 
+#define PITCH_WHEEL_TOP    0x3FFF
+#define PITCH_WHEEL_CENTER 0x2000
+#define PITCH_WHEEL_BOTTOM 0x0000
+#define PITCH_WHEEL_RANGE  (PITCH_WHEEL_TOP - PITCH_WHEEL_BOTTOM)
+
 Midi_item*
 Midi_item::get_midi (Audio_item* a)
 {
@@ -259,18 +264,30 @@ String
 Midi_note::to_string () const
 {
   Byte status_byte = (char) (0x90 + channel_);
+  String str = "";
+  int finetune;
 
   // print warning if fine tuning was needed, HJJ
   if (get_fine_tuning () != 0)
     {
-      warning (_f ("Omitting fine tuning (of %d cents) a note.", 
+      warning (_f ("Experimental: temporarily fine tuning (of %d cents) a channel.", 
 	    get_fine_tuning ()));
+
+      finetune = PITCH_WHEEL_CENTER;
+      // Move pitch wheel to a shifted position.
+      // The pitch wheel range (of 4 semitones) is multiplied by the cents.
+      finetune += (PITCH_WHEEL_RANGE * get_fine_tuning ()) / (4 * 100);
+
+      str += ::to_string ((char) (0xE0 + channel_));
+      str += ::to_string ((char) (finetune & 0x7F));
+      str += ::to_string ((char) (finetune >> 7));
+      str += ::to_string ((char) (0x00));
     }
 
-  String str = ::to_string ((char)status_byte);
+  str += ::to_string ((char)status_byte);
   str += ::to_string ((char) (get_pitch () + c0_pitch_i_));
-
   str += ::to_string ((char)dynamic_byte_);
+
   return str;
 }
 
@@ -295,6 +312,16 @@ Midi_note_off::to_string () const
   String str = ::to_string ((char)status_byte);
   str += ::to_string ((char) (get_pitch () + Midi_note::c0_pitch_i_));
   str += ::to_string ((char)aftertouch_byte_);
+
+  if (get_fine_tuning () != 0)
+    {
+      // Move pitch wheel back to the central position.
+      str += ::to_string ((char) 0x00);
+      str += ::to_string ((char) (0xE0 + channel_));
+      str += ::to_string ((char) (PITCH_WHEEL_CENTER & 0x7F));
+      str += ::to_string ((char) (PITCH_WHEEL_CENTER >> 7));
+    }
+
   return str;
 }
 

@@ -1,3 +1,7 @@
+2003-11-04  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lily/midi-item.cc: fine tune quarter tones.
+
 2003-11-03  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lily/midi-item.cc lily/include/midi-item.hh (get_fine_tuning):
