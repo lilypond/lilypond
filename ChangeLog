@@ -1,5 +1,11 @@
 2005-02-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/bin/add-html-footer.py (i18n): don't strip .PNG /
+	.HTML. This should be done for specific servers only.
+
+	* Documentation/topdocs/NEWS.tely (Top): move to .tely. Add some
+	.ly image examples.
+
 	* scm/define-grobs.scm (all-grob-descriptions): put ledger lines
 	in layer 0 too.
 
