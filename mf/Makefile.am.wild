@@ -12,7 +12,7 @@ outdir = .
 TEXFILES = $(wildcard *.tex)
 MFFILES = $(wildcard *.mf)
 MFDEPS = $(outdir)/mf.dep
-EXTRA_DIST = Makefile.am.wild GNUmakefile Rules.make $(MFFILES) $(TEXFILES) TODO README
+EXTRA_DIST = Makefile.am.wild GNUmakefile Rules.make $(MFFILES) $(TEXFILES) TODO 
 
 FONT_FILES = $(wildcard *[0-9].mf)
 FET_FILES = $(wildcard feta[0-9]*.mf)
