@@ -175,7 +175,11 @@
        (ly-gulp-file "music-drawing-routines.ps"))
    (if (defined? 'ps-testing) "/testing true def%\n" "")
    "}"
-   "\\input lilyponddefs \\outputscale=\\lilypondpaperoutputscale pt\\turnOnPostScript"))
+   "\\input lilyponddefs \\outputscale=\\lilypondpaperoutputscale "
+   ;; "pt"
+   "mm"
+
+   "\\turnOnPostScript"))
 
 ;; Note: this string must match the string in ly2dvi.py!!!
 (define (header creator generate) 
@@ -185,12 +189,6 @@
 (define (invoke-char s i)
   (string-append 
    "\n\\" s "{" (inexact->string i 10) "}" ))
-
-(define (invoke-dim1 s d)
-  (string-append
-   "\n\\" s "{" (number->dim d) "}"))
-(define (pt->sp x)
-  (* 65536 x))
 
 ;;
 ;; need to do something to make this really safe.

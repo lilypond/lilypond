@@ -234,9 +234,6 @@ layer('Layer 1',1,1,0,0,(0,0,0))
 (define (invoke-char s i)
   "")
 
-(define (invoke-dim1 s d) 
-  (string-append
-   (ly-number->string (* d  (/ 72.27 72))) " " s ))
 
 (define (bezier-sandwich x y l thick)
   (apply

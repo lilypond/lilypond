@@ -35,6 +35,7 @@ footify:
 	$(footify) --index=./ `$(FIND) . -maxdepth 1 -name '*.html' -print`
 	$(footify-all-command)
 
+
 fonts:
 	$(MAKE) -C $(depth)/mf
 
@@ -60,21 +61,24 @@ TOP_HTMLS = index.html short-examples.html long-examples.html
 
 index: web-doc
 
-short-examples:
+short-examples: pfa-fonts
 	$(MAKE) out=www -C input WWW
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o short-examples.html input/
 
 
-long-examples:
+long-examples: pfa-fonts
 	$(MAKE) out=www -C mutopia WWW
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o long-examples.html mutopia/
+
+pfa-fonts:
+	$(MAKE) MAKE_PFA_FILES=1 -C mf
 
 lily: lily/$(outdir)/lilypond
 
 lily/$(outdir)/lilypond:
 	$(MAKE) -C lily
 
-local-web: fonts lily $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
+local-web: fontpaths fonts lily $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
 
 top-web:
 	rm -f `find . -name \*.html~ -print`
@@ -109,3 +113,11 @@ top-WWW-clean:
 
 
 WWW:
+
+fontpaths:
+	-ln -s $(depth)/mf/out dvips
+	-mkdir -p fonts
+	-ln -s ../$(depth)/mf fonts/source
+	-ln -s ../$(depth)/mf/out fonts/afm
+	-ln -s ../$(depth)/mf/out fonts/tfm
+	-ln -s ../$(depth)/mf/out fonts/type1

@@ -129,11 +129,11 @@
 
 (define (dashed-line thick on off dx dy)
   (string-append 
-   (ly-number->string (* dx (/ 72 72.27)))
+   (ly-number->string dx)
    " "
    (ly-number->string dy)
    " "
-   (ly-number->string (* thick (/ 72 72.27))) 
+   (ly-number->string thick)
    " [ "
    (ly-number->string on)
    " "
@@ -192,9 +192,6 @@
   (string-append 
    "(\\" (inexact->string i 8) ") " s " " ))
 
-(define (invoke-dim1 s d) 
-  (string-append
-   (ly-number->string (* d  (/ 72.27 72))) " " s ))
 
 (define (placebox x y s) 
   (string-append 
@@ -222,12 +219,15 @@
      " draw_dot")))
 
 					; TODO: use HEIGHT argument
+
+  
 (define (start-line height)
   (string-append
    "\n"
    (ly-number->string height)
    " start-line {
-lilypondpaperoutputscale lilypondpaperoutputscale scale
+set-ps-scale-to-lily-scale
+
 "))
 
 (define (stem breapth width depth height) 

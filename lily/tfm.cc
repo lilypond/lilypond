@@ -14,6 +14,7 @@
 #include "string-convert.hh"
 #include "debug.hh"
 #include "warn.hh"
+#include "dimensions.hh"
 
 Box
 Tex_font_char_metric::dimensions () const
@@ -26,7 +27,12 @@ Tex_font_char_metric::dimensions () const
     }
   
   Real d = -depth_;
-  return Box (Interval (0, width_),Interval (d <? height_, d >? height_));
+
+  Real point_constant = 1 PT;
+  
+  return Box (Interval (0, width_*point_constant ),
+	      Interval ((d <? height_)*point_constant,
+			(d >? height_)*point_constant));
 }
 
 Tex_font_char_metric::Tex_font_char_metric ()

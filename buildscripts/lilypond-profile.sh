@@ -23,7 +23,7 @@ GS_LIB="$datadir/ps:"${GS_LIB:=""}
 
 # Add the installation directory to the teTeX system tree, 
 # see Documentation/misc/fontinstallation
-TEXMF="{$DATADIR,"`kpsexpand  \\$TEXMF`"}"
+TEXMF="{$datadir,"`kpsexpand  \\$TEXMF`"}"
 
 # LILYPONDPREFIX="$datadir"
 # export LILYPONDPREFIX
