@@ -11,6 +11,8 @@
 
 2002-08-19  janneke  <janneke@blauw.xs4all.nl>
 
+	* lily/stem.cc (calc_stem_info): Fix [a8 a32].
+
 	* Documentation/index.texi (Top): Templates url fix, small url
 	name changes.
 
