@@ -287,10 +287,6 @@ lilypond -fgnome input/simple-song.ly
 ;;design:20.0
 
 (define (text font string)
-  (stderr "TEXT:~S\n" string)
-  (if (string? string)
-      (stderr "CHARS:~S\n" (map char->integer (string->list string)))
-      (stderr "CHAR:~S\n" (char->integer (car string))))
   (make <gnome-canvas-text>
     #:parent (canvas-root)
 
