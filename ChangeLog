@@ -1,5 +1,8 @@
 2004-04-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* ly/engraver-init.ly (Score:graceSettings): Increase
+	beamed-lengths, especially for 32nd notes.
+
 	* Documentation/user/notation.itely (Grace notes): Correct the
 	syntax for add-grace-property example.
 
