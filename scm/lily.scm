@@ -141,6 +141,7 @@ predicates. Print a message at LOCATION if any predicate failed."
     round-filled-box
     text
     url-link
+    utf8-string
     white-dot
     white-text
     embedded-ps
@@ -193,7 +194,7 @@ The syntax is the same as `define*-public'."
 	    "chord-entry.scm"
 	    "chord-generic-names.scm"
 	    "stencil.scm"
-	    "new-markup.scm"
+	    "markup.scm"
 	    "bass-figure.scm"
 	    "music-functions.scm"
 	    "part-combiner.scm"

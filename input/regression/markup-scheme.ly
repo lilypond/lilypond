@@ -47,8 +47,12 @@
               #:combine "o" "/"
               #:box #:column ("string 1" "string 2")
               "$\\emptyset$"
+	      #:draw-circle 1 0.3
+	      " "
               #:italic "Norsk"
               #:super "2"
+	      #:circle #:dynamic "p"
+	      " "
               #:dynamic "sfzp"
               #:huge #:line ("A" #:smaller "A" #:smaller #:smaller "A" 
                              #:smaller #:smaller #:smaller "A")

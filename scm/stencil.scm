@@ -24,10 +24,7 @@
 
 (define-public (centered-stencil stencil)
   "Center stencil @var{stencil} in both the X and Y directions"
-
-  (ly:stencil-aligned-to
-   (ly:stencil-aligned-to stencil X CENTER)
-   Y CENTER))
+  (ly:stencil-aligned-to (ly:stencil-aligned-to stencil X CENTER) Y CENTER))
 
 (define-public (stack-lines dir padding baseline stils)
   "Stack vertically with a baseline-skip."
@@ -60,6 +57,13 @@
                        (- (car yext)) (cdr yext))
       xext yext))
 
+(define-public (make-circle-stencil radius thickness)
+  "Make a circle of radius @var{radius} and thickness @var{thickness}"
+  (ly:make-stencil
+   (list 'circle radius thickness)
+   (cons (- radius) radius)
+   (cons (- radius) radius)))
+
 (define-public (box-grob-stencil grob)
   "Make a box of exactly the extents of the grob.  The box precisely
 encloses the contents.
@@ -70,25 +74,33 @@ encloses the contents.
     
     (ly:stencil-add
      (make-filled-box-stencil xext (cons (- (car yext) thick) (car yext)))
-     (make-filled-box-stencil xext (cons  (cdr yext) (+ (cdr yext) thick)))
+     (make-filled-box-stencil xext (cons (cdr yext) (+ (cdr yext) thick)))
      (make-filled-box-stencil (cons (cdr xext) (+ (cdr xext) thick)) yext)
      (make-filled-box-stencil (cons (- (car xext) thick) (car xext)) yext))))
 
 ;; TODO merge this and prev function. 
-(define-public (box-stencil stil thick padding)
-  "Add a box around STIL, producing a new stencil."
-  (let* ((x-ext (interval-widen (ly:stencil-extent stil 0) padding))
-	 (y-ext (interval-widen (ly:stencil-extent stil 1) padding))
+(define-public (box-stencil stencil thick padding)
+  "Add a box around STENCIL, producing a new stencil."
+  (let* ((x-ext (interval-widen (ly:stencil-extent stencil 0) padding))
+	 (y-ext (interval-widen (ly:stencil-extent stencil 1) padding))
 	 (y-rule (make-filled-box-stencil (cons 0 thick) y-ext))
-	 (x-rule (make-filled-box-stencil (interval-widen x-ext thick)
-					   (cons 0 thick))))
-    
-    (set! stil (ly:stencil-combine-at-edge stil X 1 y-rule padding))
-    (set! stil (ly:stencil-combine-at-edge stil X -1 y-rule padding))
-    (set! stil (ly:stencil-combine-at-edge stil Y 1 x-rule 0.0))  
-    (set! stil (ly:stencil-combine-at-edge stil Y -1 x-rule 0.0))
-    
-    stil))
+	 (x-rule (make-filled-box-stencil
+		  (interval-widen x-ext thick) (cons 0 thick))))
+    (set! stencil (ly:stencil-combine-at-edge stencil X 1 y-rule padding))
+    (set! stencil (ly:stencil-combine-at-edge stencil X -1 y-rule padding))
+    (set! stencil (ly:stencil-combine-at-edge stencil Y 1 x-rule 0.0))  
+    (set! stencil (ly:stencil-combine-at-edge stencil Y -1 x-rule 0.0))
+    stencil))
+
+(define-public (circle-stencil stencil thickness padding)
+  "Add a circle around STENCIL, producing a new stencil."
+  (let* ((x-ext (ly:stencil-extent stencil 0))
+	 (y-ext (ly:stencil-extent stencil 1))
+	 (diameter (max (- (cdr x-ext) (car x-ext))
+			(- (cdr y-ext) (car y-ext))))
+	 (radius (+ (/ diameter 2) padding)))
+    (ly:stencil-add
+     (centered-stencil stencil) (make-circle-stencil radius thickness))))
 
 (define-public (fontify-text font-metric text)
   "Set TEXT with font FONT-METRIC, returning a stencil."

@@ -24,6 +24,7 @@
   ;; JUNK this -- see lily.scm: ly:all-output-backend-commands
   #:export (unknown
 	    blank
+	    circle
 	    dot
 	    white-dot
 	    beam
@@ -72,16 +73,14 @@
 (define (url-link url x y)
   "")
 
-
 (define (blank)
   "")
-
-(define (dot x y radius)
-  (embedded-ps (list 'dot x y radius)))
 
 (define (circle radius thick)
   (embedded-ps (list 'circle radius thick)))
 
+(define (dot x y radius)
+  (embedded-ps (list 'dot x y radius)))
 
 (define (embedded-ps string)
   (embedded-ps (list 'embedded-ps string)))
