@@ -128,15 +128,13 @@ My_lily_lexer::LexerError(char const *s)
     if (include_stack_.empty()) {
 	*mlog << "error at EOF" << s << '\n';
     } else {
-	char const* ch_C = here_ch_C();
-	if ( ch_C ) {
-	    ch_C--;
-	    while (isspace(*ch_C == ' ' ))
-		    ch_C--;
-	    ch_C++;
-	}
 	errorlevel_i_ |= 1;
-	error( s, ch_C );
+	error(String(s));
+	// FIXME.
+/*Input spot(source_l_g = here_spot();
+
+	spot.error( s );
+	*/
     }
 }
 

@@ -1,9 +1,7 @@
 before 0.1
+	* fix mi2mu
+
 	* update 20 pt table
-
-	* remove spurious/outdated comments in .ly, debug .ly
-
-	* pushgroup, popgroup.
 
 	* decent TeX page layout
 
@@ -74,6 +72,8 @@ SMALLISH PROJECTS
 
 	* bugreport to doc++ devel: struct not in class hier; public
 	virtual baseclasses
+
+	* rpm package buildroot
 
 	* indentable stream for TeX stream, lily stream, Dstream.
 
