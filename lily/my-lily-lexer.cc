@@ -39,7 +39,7 @@ static Keyword_ent the_key_tab[]={
   {"lyric", LYRIC},
   {"key", KEY},
   {"melodic" , MELODIC},
-  {"melodic_request", MELODIC_REQUEST},
+  {"musical_pitch", MUSICAL_PITCH},
   {"meter", METER},
   {"midi", MIDI},
   {"mm", MM_T},
@@ -53,6 +53,7 @@ static Keyword_ent the_key_tab[]={
   {"penalty", PENALTY},
   {"property", PROPERTY},
   {"pt", PT_T},
+  {"relative", RELATIVE},
   {"score", SCORE},
   {"script", SCRIPT},
   {"shape", SHAPE},
@@ -154,16 +155,22 @@ My_lily_lexer::LexerError (char const *s)
     }
 }
 
-Melodic_req*
-My_lily_lexer::lookup_melodic_req_l (String s)
+Musical_pitch
+My_lily_lexer::lookup_pitch (String s)
 {
-  return note_tab_p_->get_l (s);
+  return (*note_tab_p_)[s];
+}
+
+bool
+My_lily_lexer::notename_b (String s) const
+{
+  return note_tab_p_->elt_b (s);
 }
 
 void
-My_lily_lexer::add_notename (String s, Melodic_req *p)
+My_lily_lexer::add_notename (String s, Musical_pitch p)
 {
-  note_tab_p_->add (s,p);
+  (*note_tab_p_)[s] = p;
 }
 
 void

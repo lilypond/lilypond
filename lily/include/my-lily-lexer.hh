@@ -11,6 +11,7 @@
 
 #include <FlexLexer.h>
 
+#include "dictionary.hh"
 #include "lily-proto.hh"
 #include "lily-proto.hh"
 #include "fproto.hh"
@@ -18,6 +19,7 @@
 #include "string.hh"
 #include "includable-lexer.hh"
 #include "duration.hh"
+#include "musical-pitch.hh"
 
 bool busy_parsing();
 void kill_lexer();
@@ -36,7 +38,7 @@ public:
   void * lexval_l;
   Scope * toplevel_scope_p_;
   
-  Notename_table  *note_tab_p_;
+  Notename_table *note_tab_p_;
   Array<Scope*> scope_l_arr_;
   Keyword_table * keytable_p_;
   int errorlevel_i_;
@@ -45,8 +47,9 @@ public:
 
   void start_main_input ();
   void clear_notenames();
+  bool notename_b(String) const;
   Identifier*lookup_identifier (String s);
-  Melodic_req* lookup_melodic_req_l (String s);
+  Musical_pitch lookup_pitch (String s);
   void push_note_state();
   void push_lyric_state();
   void pop_state();
@@ -56,7 +59,7 @@ public:
   ~My_lily_lexer();
   int yylex();
   void print_declarations (bool init_b) const;
-  void add_notename (String, Melodic_req*);
+  void add_notename (String, Musical_pitch);
   bool note_state_b() const;
   bool lyric_state_b() const;
 };

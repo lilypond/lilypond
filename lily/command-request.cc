@@ -207,13 +207,9 @@ Measure_grouping_req::do_equal_b (Request*) const
 /* *************** */
 
 void
-Key_change_req::transpose (Melodic_req const * d) const
+Key_change_req::transpose (Musical_pitch  d) const
 {
-  WARN << _("don't know how to transpose a key. \n");
-  for (int i=0; i < melodic_p_arr_.size(); i++)
-    {
-      melodic_p_arr_[i]->transpose (d);
-    }
+  WARN << _("don't know how to transpose a key. \n"); //  TODO!
 }
 
 
@@ -221,9 +217,9 @@ IMPLEMENT_IS_TYPE_B1(Key_change_req,Command_req);
 void
 Key_change_req::squash_octaves()
 {
-  for (int i=0; i < melodic_p_arr_.size(); i++)
+  for (int i=0; i < pitch_arr_.size(); i++)
     {
-      melodic_p_arr_[i]->octave_i_ = 0;
+      pitch_arr_[i].octave_i_ = 0;
     }
 }
 
@@ -231,9 +227,9 @@ void
 Key_change_req::do_print() const
 {
 #ifndef NPRINT
-  for (int i=0; i < melodic_p_arr_.size(); i++)
+  for (int i=0; i < pitch_arr_.size(); i++)
     {
-      melodic_p_arr_[i]->print();
+      pitch_arr_[i].print();
     }
 #endif
 }
@@ -256,31 +252,14 @@ Break_req::do_print () const
 {
 }
 
-Key_change_req::Key_change_req (Key_change_req const&c)
-  : Command_req (c)
-{
-  for (int i=0; i < c.melodic_p_arr_.size(); i++)
-    melodic_p_arr_.push (c.melodic_p_arr_[i]->clone()->musical ()->melodic ());
-  minor_b_ = c.minor_b_;
-  multi_octave_b_ = c.multi_octave_b_;
-}
-
-Key_change_req::~Key_change_req()
-{
-  for (int i=0; i < melodic_p_arr_.size(); i++)
-    delete melodic_p_arr_[i];
-}
-
 int
 Key_change_req::flats_i()
 {
   int flats_i = 0;
-  for (int i = 0; i < melodic_p_arr_.size(); i++)
+  for (int i = 0; i < pitch_arr_.size(); i++)
     {
-      Melodic_req* mel_l = melodic_p_arr_[i]->melodic();
-      assert (mel_l);
-      if (mel_l->accidental_i_ < 0)
-	flats_i -= mel_l->accidental_i_;
+      if (pitch_arr_[i].accidental_i_ < 0)
+	flats_i -= pitch_arr_[i].accidental_i_;
     }
   return flats_i;
 }
@@ -295,12 +274,10 @@ int
 Key_change_req::sharps_i()
 {
   int sharps_i = 0;
-  for (int i = 0; i < melodic_p_arr_.size(); i++)
+  for (int i = 0; i < pitch_arr_.size(); i++)
     {
-      Melodic_req* mel_l = melodic_p_arr_[i]->melodic();
-      assert (mel_l);
-      if (mel_l->accidental_i_ > 0)
-	sharps_i+= mel_l->accidental_i_;
+      if (pitch_arr_[i].accidental_i_ < 0)
+	sharps_i += pitch_arr_[i].accidental_i_;
     }
   return sharps_i;
 }

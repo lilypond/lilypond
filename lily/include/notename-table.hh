@@ -14,11 +14,11 @@
 #include "string.hh"
 #include "lily-proto.hh"
 #include "dictionary.hh"
+#include "musical-pitch.hh"
 
-class Notename_table :   Dictionary< P<Melodic_req> >{
+class Notename_table :   public Dictionary< Musical_pitch >{
 public:
-    void add (String, Melodic_req*);
-    Melodic_req*get_l (String);
+  String get_name (Musical_pitch) const;
 };
   
 #endif // NOTENAME_TABLE_HH

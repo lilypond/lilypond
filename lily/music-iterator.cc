@@ -17,6 +17,10 @@
 #include "change-iterator.hh"
 #include "change-translator.hh"
 
+#include "music-wrapper.hh"
+#include "music-wrapper-iterator.hh"
+
+
 IMPLEMENT_IS_TYPE_B(Music_iterator);
 
 
@@ -134,6 +138,9 @@ Music_iterator::static_get_iterator_p (Music *m,
     p = new Property_iterator((Translation_property *) m);
   else if (m->is_type_b (Change_translator::static_name ()))
     p = new Change_iterator((Change_translator*) m);
+  else if (m->is_type_b (Music_wrapper::static_name ()))
+    p = new Music_wrapper_iterator ((Music_wrapper *)m);
+	   
   
   if (m -> translator_type_str_.length_i ())
     {
@@ -162,4 +169,5 @@ Music_iterator::Music_iterator()
   daddy_iter_l_ =0;
   first_b_ = true;
 }
+
 

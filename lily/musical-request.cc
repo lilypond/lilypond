@@ -81,31 +81,16 @@ Blank_req::do_print () const
 
 Melodic_req::Melodic_req ()
 {
-  notename_i_ = 0;
-  octave_i_ = 0;
-  accidental_i_ = 0;
 }
 
 void
-Melodic_req::transpose (Melodic_req const * delta)
+Melodic_req::transpose (Musical_pitch delta)
 {
-  int old_pitch = pitch ();
-  int delta_pitch = delta->pitch ();
-  octave_i_ += delta->octave_i_;
-  notename_i_ += delta->notename_i_;
-  while  (notename_i_ >= 7)
+  pitch_.transpose (delta);
+  
+  if (abs (pitch_.accidental_i_) > 2)
     {
-	notename_i_ -= 7;
-	octave_i_ ++;
-    }
-
-  int new_pitch = pitch ();
-  int delta_acc = new_pitch - old_pitch - delta_pitch;
-
-  accidental_i_ -= delta_acc;
-  if (abs (accidental_i_) > 2)
-    {
-	delta->warning (_ ("transposition makes accidental larger than 2"));
+	warning (_ ("transposition by ") + delta.str () + _(" makes accidental larger than 2"));
     }
 }
 
@@ -121,43 +106,13 @@ Melodic_req::do_equal_b (Request*r) const
 int
 Melodic_req::compare (Melodic_req const &m1 , Melodic_req const&m2)
 {
-  int o=  m1.octave_i_ - m2.octave_i_;
-  int n = m1.notename_i_ - m2.notename_i_;
-  int a = m1.accidental_i_ - m2.accidental_i_;
-
-  if (o)
-	return o;
-  if (n)
-	return n;
-  if (a)
-	return a;
-  return 0;
+  return Musical_pitch::compare (m1.pitch_, m2.pitch_);
 }
 
 void
 Melodic_req::do_print () const
 {
-#ifndef NPRINT
-  DOUT << "notename: " << notename_i_
-	 << " acc: " <<accidental_i_<<" oct: "<< octave_i_;
-#endif
-}
-
-int
-Melodic_req::height () const
-{
-  return  notename_i_ + octave_i_*7;
-}
-
-/*
-  should be settable from input to allow "viola"-mode
- */
-static Byte pitch_byte_a[  ] = { 0, 2, 4, 5, 7, 9, 11 };
-
-int
-Melodic_req::pitch () const
-{
-  return  pitch_byte_a[ notename_i_ % 7 ] + accidental_i_ + octave_i_ * 12;
+pitch_.print ();
 }
 
 /* *************** */

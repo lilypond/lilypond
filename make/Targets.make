@@ -164,7 +164,7 @@ endif
 TAGS:$(all-tag-sources)
 ifdef all-tag-sources
 	-etags -CT $(all-tag-sources) $(ERROR_LOG)
-	-ctags -CT $(all-tag-sources) $(ERROR_LOG)
+	-ctags -h ".h.hh.tcc.icc" $(all-tag-sources) $(ERROR_LOG)
 endif
 	$(LOOP)
 

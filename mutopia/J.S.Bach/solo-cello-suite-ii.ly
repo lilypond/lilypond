@@ -3,7 +3,7 @@ filename =	 "solo-cello-suite-ii.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
 opus =	 "BWV 1008";
-composer =	 "Johann Sebastian Bach(1685-1750)";
+composer =	 "Johann Sebastian Bach (1685-1750)";
 }
 
 % urg

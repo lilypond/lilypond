@@ -11,13 +11,16 @@
 #include "music.hh"
 #include "debug.hh"
 #include "music-list.hh"
+#include "musical-pitch.hh"
+#include "request.hh"
+#include "musical-request.hh"
 
 Music_list::Music_list (Music_list const&s)
   : Music (s)
 {
   multi_level_i_ = s.multi_level_i_;   
   for (iter (s.music_p_list_.top(), i); i.ok (); i++)
-	add (i->clone());
+    add (i->clone());
 }
 
 IMPLEMENT_IS_TYPE_B1(Music_list, Music);
@@ -29,7 +32,7 @@ Chord::time_int() const
 {
   MInterval m;
   for (iter (music_p_list_.top(), i); i.ok (); i++)
-	m.unite (i->time_int());
+    m.unite (i->time_int());
 
   return m;
 }
@@ -38,7 +41,7 @@ void
 Chord::translate (Moment m)
 {
   for (iter (music_p_list_.top(), i); i.ok (); i++)
-	i->translate (m); 
+    i->translate (m); 
 }
 
 Chord::Chord()
@@ -57,15 +60,27 @@ Voice::time_int() const
   Moment last=0;
   for (iter (music_p_list_.top(), i); i.ok (); i++) 
     {
-	MInterval interval = i->time_int();
+      MInterval interval = i->time_int();
 	
       /*
-	  c4 <> c4
+	c4 <> c4
       */
-	if (!interval.empty_b())
-	    last += interval.length();
+      if (!interval.empty_b())
+	last += interval.length();
     }
   return  offset_mom_ + MInterval (0,last);
+}
+
+Musical_pitch
+Voice::to_relative_octave (Musical_pitch p)
+{
+  return do_relative_octave (p, false);
+}
+
+Musical_pitch
+Chord::to_relative_octave (Musical_pitch p)
+{
+  return do_relative_octave (p, true);
 }
 
 void
@@ -84,17 +99,17 @@ void
 Music_list::add (Music*m_p)
 {
   if (!m_p)
-	return;
+    return;
 
   m_p->parent_music_l_ = this;
   music_p_list_.bottom().add (m_p);
 }
 
 void
-Music_list::transpose (Melodic_req const*rq)
+Music_list::transpose (Musical_pitch rq)
 {
   for (iter (music_p_list_.top(),i); i.ok (); i++)
-	i->transpose (rq);    
+    i->transpose (rq);    
 }
 
 void
@@ -102,7 +117,7 @@ Music_list::do_print() const
 {
 #ifndef NPRINT
   for (iter (music_p_list_.top(),i); i.ok (); i++)
-	i->print();
+    i->print();
 #endif 
 }
 
@@ -113,3 +128,39 @@ Request_chord::Request_chord()
 {
   multi_level_i_ =0;
 }
+
+
+Musical_pitch 
+Music_list::do_relative_octave (Musical_pitch last, bool ret_first)
+{
+
+  Musical_pitch retval;
+  int count=0;
+  for (iter (music_p_list_.top(),i); i.ok (); i++)
+    {
+      last = i->to_relative_octave (last);
+      if (!count ++ )
+	retval = last;
+    }
+  if (!ret_first)
+    retval = last;
+  return retval;
+}
+
+Musical_pitch
+Request_chord::to_relative_octave (Musical_pitch last)
+{
+  for (iter (music_p_list_.top(),i); i.ok (); i++)
+    {
+      Musical_req *m =((Request*)i.ptr ())->musical ();
+      if (m && m->melodic ())
+	{	  
+	  Musical_pitch &pit = m->melodic()->pitch_;
+	  pit.to_relative_octave (last);
+	  return pit;
+	}
+    }
+  return last;
+}
+
+

@@ -13,7 +13,7 @@
 #include "lily-proto.hh"
 #include "request.hh"
 #include "duration.hh"
-
+#include "musical-pitch.hh"
 
 /**
   A request which is coupled to a #Request_chord#
@@ -112,24 +112,14 @@ public:
   REQUESTMETHODS(Lyric_req, lreq_l);
 };
 
+
+
 /// request which has some kind of pitch
 struct Melodic_req :virtual Musical_req
 {
-  /// 0 is c, 6 is b
-  int notename_i_;
-  /// 0 is central c
-  int octave_i_;
-
-    /// 0 natural, 1 sharp, etc
-  int accidental_i_;
-
-  /// return height from central c (in halflines)
-  int height() const;
-
+  Musical_pitch pitch_;
   /// transpose. #delta# is relative to central c.
-  virtual void transpose (Melodic_req const *delta);
-  /// return pitch from central c (in halfnotes)
-  int pitch() const; 
+  virtual void transpose (Musical_pitch delta);
   Melodic_req();
   bool do_equal_b (Request*) const;
   static int compare (Melodic_req const&,Melodic_req const&);

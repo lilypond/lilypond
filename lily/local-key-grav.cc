@@ -54,9 +54,8 @@ Local_key_engraver::process_acknowledged ()
 	      !note_l->forceacc_b_)
 	    continue;
 	    
-	  if (!note_l->forceacc_b_ &&
-	      local_key_.oct (note_l->octave_i_).acc (note_l->notename_i_)
-	      == note_l->accidental_i_) 
+	  if (!note_l->forceacc_b_
+	      && local_key_.different_acc (note_l->pitch_))
 	    continue;
 	  if (!key_item_p_) 
 	    {
@@ -69,11 +68,10 @@ Local_key_engraver::process_acknowledged ()
 	      key_item_p_ = new Local_key_item (c0_i);
 	      announce_element (Score_elem_info (key_item_p_, 0));	      
 	    }
-	  key_item_p_->add (note_l);
+	  key_item_p_->add (note_l->pitch_);
 	  key_item_p_->add_support (support_l);
-	  local_key_.oct (note_l->octave_i_)
-	    .set (note_l->notename_i_, note_l->accidental_i_);
-	}
+	  local_key_.set (note_l->pitch_);
+	  }
 	
     }
 }

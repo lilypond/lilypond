@@ -3,8 +3,8 @@ filename =	 "prelude-cello.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
 piece = "Pr\\'elude";		% duh
-opus =	 "BWV 1008";
-composer =	 "Johann Sebastian Bach(1685-1750)";
+% opus =	 "BWV 1008";
+composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
 }

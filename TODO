@@ -7,6 +7,8 @@ Most of the items are marked in the code as well, with full explanation.
 grep for TODO and ugh/ugr/urg
 
 0.2:
+	* junk My_lily_parser::abbrev_beam_type_i_ 
+
 	* w32 blurb
 
 	* make sure all ex's have a mudela-version
@@ -28,8 +30,6 @@ grep for TODO and ugh/ugr/urg
 
 	* document use of ly2dvi more prominently
 
-	* deprecate \duration
-
 	* clean up abbrev/plet/beam/abbrevbeam/duration mess in parser.
 
  	* minimum length second part broken tie
@@ -40,9 +40,6 @@ grep for TODO and ugh/ugr/urg
 
 	* multibar rest
 	  - symbol(s)
-
-	* move all hard-coded constants and staffheight dependent to runtime,
-	  i.e. init/params.ly.  e.g.: stem length params, beam positions
 
 	* fix variable define/lookup parser global<->paper
 
@@ -63,7 +60,6 @@ grep for TODO and ugh/ugr/urg
 	  - abbreviation-beam -> (measured/unmeasured) tremolo
 
 	* libtoolize flowerlib
-
 	* shared lib
 
 	* robustify Beam (in case of no stems, 32nd notes)
@@ -120,7 +116,6 @@ STUFF
 
         * clefs (AG): The "8" should appear closer to the actual clef,
           touching it.
-
 
 	* give Items/Spanners access to unbroken originals	
 

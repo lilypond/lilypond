@@ -100,23 +100,21 @@ Key_engraver::do_pre_move_processing()
 
   
 void
-Key_engraver::read_req (Key_change_req * r)
+Key_engraver::read_req (Key_change_req const * r)
 {
   key_.clear ();
   key_.multi_octave_b_ = r->multi_octave_b_;
   accidental_idx_arr_.clear();
 
-  for (int i = 0; i < r->melodic_p_arr_.size(); i ++) 
+  for (int i = 0; i < r->pitch_arr_.size(); i ++) 
     {
-      Melodic_req *  m_l =r->melodic_p_arr_[i];
-      int n_i =m_l->notename_i_;
-      int a_i = m_l->accidental_i_;
-      int o_i = m_l->octave_i_;
+      Musical_pitch m_l =r->pitch_arr_[i];
       if (r->multi_octave_b_)
-	key_.set (o_i, n_i, a_i);
+	key_.set (m_l);
       else
-	key_.set (n_i, a_i);
-      accidental_idx_arr_.push (n_i);
+	key_.set (m_l.notename_i_, m_l.accidental_i_);
+
+      accidental_idx_arr_.push (m_l.notename_i_);
     }
 }
 

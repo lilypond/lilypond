@@ -18,6 +18,7 @@
 #include "scoreline.hh"
 #include "item.hh"
 #include "p-col.hh"
+#include "molecule.hh"
 
 Score_elem::Score_elem()
 {
@@ -158,7 +159,7 @@ void
 Score_elem::do_brew_molecule () 
 {
   if (transparent_b_)
-    return ;
+    return;
   Molecule *output= brew_molecule_p ();
   pscore_l_->outputter_l_->output_molecule (output, absolute_offset ());
 }

@@ -34,7 +34,6 @@ public:
     VIRTUAL_COPY_CONS(Request,Music);
     
     virtual MInterval time_int() const;
-    virtual void transpose (Melodic_req const &){}
     virtual Moment duration() const { return 0; }
 
     /*  accessors for children

@@ -9,6 +9,7 @@
 
 #include "varray.hh"
 #include "scalar.hh"
+#include "lily-proto.hh"
 
 /// administration of current key in one octave.
 class Octave_key {
@@ -33,9 +34,12 @@ public:
   bool multi_octave_b_;
   
   void clear ();
-  Octave_key&oct (int);
+  Octave_key const& oct (int) const;
   void set (int name, int acc);
-  void set (int oct, int name, int acc);
+  void set (Musical_pitch);
+
+  bool different_acc (Musical_pitch) const;
+  
   Key();
   void print () const;  
 };

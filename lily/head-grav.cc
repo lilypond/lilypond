@@ -47,7 +47,7 @@ Note_head_engraver::do_process_requests()
       announce_element (Score_elem_info (dot_p_,0));
     }
   
-  note_p_->position_i_ = note_req_l_->note()->height ();
+  note_p_->position_i_ = note_req_l_->note()->pitch_.steps ();
 
   Staff_info inf = get_staff_info();
   if (inf.c0_position_i_l_)

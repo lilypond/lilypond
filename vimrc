@@ -1,4 +1,7 @@
 :version 4.0
+set autoindent
+set shiftwidth=2
+set tags=$LILYPOND_SOURCEDIR/flower/tags,$LILYPOND_SOURCEDIR/flower/include/tags,$LILYPOND_SOURCEDIR/lib/tags,$LILYPOND_SOURCEDIR/lib/include/tags,$LILYPOND_SOURCEDIR/lily/tags,$LILYPOND_SOURCEDIR/lily/include/tags
 "
 " some handy key mappings
 "

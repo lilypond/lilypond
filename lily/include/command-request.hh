@@ -13,6 +13,7 @@
 #include "request.hh"
 #include "varray.hh"
 #include "duration.hh"
+#include "musical-pitch.hh"
 
 /** Request which are  assumed to be "happening" before the
   musical requests. */
@@ -134,14 +135,12 @@ public:
 */
 class Key_change_req  : public Command_req  {
 public:
-  Array<Melodic_req*> melodic_p_arr_;
+  Array<Musical_pitch> pitch_arr_;
   bool minor_b_;
 
   /// don't ignore the  octaves in #melodic_p_arr_#?
   bool multi_octave_b_;
   Key_change_req();
-  Key_change_req (Key_change_req const&);
-  ~Key_change_req();
   REQUESTMETHODS(Key_change_req, keychange);
 
   /// squash the octaves to 1
@@ -152,7 +151,7 @@ public:
   /// return number of sharps in key
   int sharps_i();
 
-  void transpose (Melodic_req const * d) const;
+  void transpose (Musical_pitch  d) const;
   /// is minor key?
   int minor_b();
 };

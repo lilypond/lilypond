@@ -277,7 +277,11 @@ Beam::solve_slope ()
 	*/
 	{
 	  Real dx = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
-	  left_y_ = sinfo[0].idealy_f_ >? sinfo.top ().idealy_f_ - slope_f_ * dx; 
+	  if (sinfo[0].dir_ == sinfo.top ().dir_)
+	    left_y_ = sinfo[0].idealy_f_ >? sinfo.top ().idealy_f_ - slope_f_ * dx; 
+	  // knee
+	  else
+	    left_y_ = sinfo[0].idealy_f_;
 	}
     }
 

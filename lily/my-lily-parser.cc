@@ -30,16 +30,8 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   default_octave_i_ = 0;
   textstyle_str_="roman";		// in lexer?
   error_level_i_ = 0;
-  last_duration_mode_b_ = true;
   fatal_error_i_ = 0;
   default_header_p_ =0;
-
-  relative_octave_mode_b_ = false;
-
-  last_melodic_ = new Melodic_req;
-  last_melodic_->octave_i_ = 0; // -1; // huh?
-  last_melodic_->notename_i_ = 0;
-  last_melodic_->accidental_i_ = 0;
 }
 
 My_lily_parser::~My_lily_parser()
@@ -108,160 +100,23 @@ My_lily_parser::parser_error (String s)
 }
 
 void
-My_lily_parser::set_duration_mode (String s)
-{
-  s = s.upper_str();
-  last_duration_mode_b_ = (s== "LAST");
-}
-
-void
-My_lily_parser::set_octave_mode (String s)
-{
-  s = s.upper_str();
-  if (s == "RELATIVE")
-    {
-      relative_octave_mode_b_ = true;
-      // must reset these
-      last_melodic_ = new Melodic_req;
-      last_melodic_->octave_i_ = 0; // -1; // huh?
-      last_melodic_->notename_i_ = 0;
-      last_melodic_->accidental_i_ = 0;
-    }
-  else
-    relative_octave_mode_b_ = false;
-}
-
-void
 My_lily_parser::set_abbrev_beam (int type_i)
 {
   abbrev_beam_type_i_ = type_i;
-}
-
-void
-My_lily_parser::set_default_duration (Duration const *d)
-{
-  last_duration_mode_b_ = false;
-  default_duration_ = *d;
 }
 
 
 void
 My_lily_parser::set_last_duration (Duration const *d)
 {
-  if (last_duration_mode_b_)
-    {
-      default_duration_ = *d;
+  default_duration_ = *d;
       /* 
-        forget plet part,
-        sticky plet factor only within plet brackets
-       */  
-      default_duration_.set_plet (1, 1);
-    }
+	 forget plet part,
+	 sticky plet factor only within plet brackets
+      */  
+  default_duration_.set_plet (1, 1);
 }
 
-String
-My_lily_parser::notename_str (Melodic_req* melodic)
-{
-  // ugh
-  String str ((char)('a' + ((melodic->notename_i_ + 2) % 7)));
-  int i = melodic->accidental_i_;
-  while (i-- > 0) 
-    str += "is";
-  i++;
-  while (i++ < 0)
-    str += "es";
-  return str;
-}
-
-Melodic_req* 
-My_lily_parser::get_melodic_req (Melodic_req* melodic, int quotes)
-{
-  if (relative_octave_mode_b_)
-    {
-      set_nearest (melodic);
-      int d = melodic->pitch () - last_melodic_->pitch ();
-      int shift = 0;
-      if (quotes && (sign (d) == sign (quotes)))
-	shift -= sign (quotes);
-      if (!quotes && (abs (d) == 6))
-	{
-	  String str = _("Octave ambiguity; assuming ");
-	  /*
-	    [TODO]
-	    figure this out.
-
-	    If the distance is exactly*) half an octave, there is 
-	    no nearest pitch.  In that case, we'll try to guess what 
-	    composer/ typist meant.
-	    Firstly, we'll do this by comparing the 'notename distance':
-		
-	      f b'   % name-distance: f g a b: 3
-
-	    is surely a shorter notename distance than
-
-	      f 'b  % name-distance: b c d e f: 4
-
-	  (should we give a warning at all, or can we safely assume
-	  this is a positive interval up?)
-
-	  *) It is conceivable that, musically speaking, the interval
-	     with the greater pitch-distance is thought to be smaller?
-
-	  */
-
-	  int name_delta = melodic->notename_i_ - last_melodic_->notename_i_;
-	  int name_near = abs (name_delta) % 7;
-	  int name_wrap = (7 - abs (name_delta)) % 7;
-	  if (name_near != name_wrap)
-	    shift = name_near < name_wrap ? sign (name_delta) : -sign (name_delta);
-	  else if (sign (last_melodic_->accidental_i_) 
-	    != sign (melodic->accidental_i_))
-	    shift = last_melodic_->accidental_i_ - melodic->accidental_i_;
-	  else
-	    shift = -1;
-	  String name_str = notename_str (melodic);
-	  str += shift > 0 ? name_str + "'" : "'" + name_str;
-	  if (sign (d) == sign (shift))
-	    shift = 0;
-	  melodic->warning (str);
-	}
-      melodic->octave_i_ += quotes + shift;
-    }
-  else
-    {
-      Melodic_req nearest (*melodic);
-      set_nearest (&nearest);
-      melodic->octave_i_ += quotes;
-
-      if (find_quarts_global_b)
-	{
-	  int e = melodic->pitch () - nearest.pitch ();
-	  if (e)
-	    {
-	      int d = melodic->pitch () - last_melodic_->pitch ();
-	      String str = _("Interval greater than quart");
-	      int n = 1 + (abs (d) - 1) / 12;
-	      String quote_str ('\'', n);
-	      str += _(", relative: ");
-	      String name_str = notename_str (melodic);
-	      str += d < 0 ? quote_str + name_str : name_str + quote_str;
-	      melodic->warning (str);
-	    }
-	}
-    }
-  delete last_melodic_;
-  last_melodic_ = melodic->clone ()->musical ()->melodic ();
-  return melodic;
-}
-
-void
-My_lily_parser::set_nearest (Melodic_req* melodic)
-{
-  melodic->octave_i_ = last_melodic_->octave_i_;
-  int d = melodic->pitch () - last_melodic_->pitch ();
-  if (abs (d) > 6)
-    melodic->octave_i_ -= sign (d);
-}
 
 Chord*
 My_lily_parser::get_word_element (Text_def* tdef_p, Duration * duration_p)
@@ -454,22 +309,23 @@ My_lily_parser::here_input() const
 }
 
 void
-My_lily_parser::add_notename (String s, Melodic_req * m_p)
+My_lily_parser::add_notename (String s, Musical_pitch p)
 {
-  lexer_p_->add_notename (s, m_p);
+  lexer_p_->add_notename (s, p);
+
 }
 
 Paper_def*
 My_lily_parser::default_paper_p ()
 {
-	Identifier *id = lexer_p_->lookup_identifier ("default_paper");
-	return id ? id->paperdef () : new Paper_def ;
+  Identifier *id = lexer_p_->lookup_identifier ("default_paper");
+  return id ? id->paperdef () : new Paper_def ;
 }
 
 Midi_def*
 My_lily_parser::default_midi_p ()
 {
-	Identifier *id = lexer_p_->lookup_identifier ("default_midi");
-	return id ? id->mididef () : new Midi_def ;
+  Identifier *id = lexer_p_->lookup_identifier ("default_midi");
+  return id ? id->mididef () : new Midi_def ;
 }
 

@@ -8,7 +8,7 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 latexheaders=    "headers";
 } 
-\version "0.1.14";
+\version "0.1.15";
 
 %{
 Silly latex file dropped; use ly2dvi
@@ -27,16 +27,16 @@ Converted to relative octave from los-toros-oboe.ly:
 
 \include "paper16.ly"
 
-hoboonestart = \melodic{
+hoboonestart = \melodic
+  \relative c'{
 % ugh: cant copy: allegro/primo tempo
-	\octave relative;
 	\textstyle "large";
 	[es''16-.^"Allegro" es-. es-. es-.] [es8-. d-.] |
 	\textstyle "italic";
 }
 
-hobooneintro = \melodic{
-	\octave relative;
+hobooneintro = \melodic  \relative c'{
+
 %	\textstyle "roman";
 %	[es''16-.-"Allegro" es-. es-. es-.] [es8-. d-.] |
 %	\textstyle "italic";
@@ -60,8 +60,8 @@ hobooneintro = \melodic{
 	[)g8  r d'] r |
 }
 
-hoboonemid = \melodic{
-	\octave relative;
+hoboonemid = \melodic	\relative c'{
+
 	[g'16-. g-. g-. g-.] [g8-. f-.] |
 	as2-> |
 	[as16-. as-. as-. as-.] [as8-. g-.] |
@@ -151,8 +151,8 @@ hoboonemid = \melodic{
 }
 
 
-hoboonesecondstart = \melodic{
-	\octave relative;
+hoboonesecondstart = \melodic   \relative c'{
+
 % ugh: cant copy: allegro/primo tempo
 	\textstyle "large";
 	[es''16-.\ff^"Tempo 1$^o$" es-. es-. es-.] [es8-. d-.] |
@@ -160,8 +160,7 @@ hoboonesecondstart = \melodic{
 	
 }
 	
-hoboonelast = \melodic{
-	\octave relative;
+hoboonelast = \melodic   \relative c'{
 	% could transpose/copy from measure 19...
 	[d''16-.\p  d-. d-. d-.] [d8-. c-.] |
 	es2-> |

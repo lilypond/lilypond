@@ -107,7 +107,8 @@ conversion tools.
 
 =item *
 
-Xpmtoppm (from the libgr-progs package).
+xpmtoppm (from the Portable Bitmap Utilities) (included within the
+RedHat package libgr-progs).
 
 =item *
 

@@ -18,7 +18,7 @@
  */
 class Key_engraver : public Engraver {
   void create_key();
-  void read_req (Key_change_req * r);
+  void read_req (Key_change_req const * r);
 
 public:
   Key_engraver();

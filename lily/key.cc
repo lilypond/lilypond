@@ -11,6 +11,7 @@
 
 #include "key.hh"
 #include "debug.hh"
+#include "musical-pitch.hh"
 
 const int NUMBER_OF_OCTAVES=14;		// ugh..
 const int ZEROOCTAVE=7;
@@ -61,10 +62,9 @@ Key::octave_to_index (int o) const
   return i;
 }
 
-Octave_key&
-Key::oct (int i)
+Octave_key const&
+Key::oct (int i) const
 {
-
   return octaves_[octave_to_index (i)];    
 }
 
@@ -86,10 +86,10 @@ Octave_key::set (int i, int a)
 }
 
 void
-Key::set (int o, int n , int a)
+Key::set (Musical_pitch p)
 {
-  int   i = octave_to_index (o);
-  octaves_[i].set (n,a);
+  int   i = octave_to_index (p.octave_i_);
+  octaves_[i].set (p.notename_i_,p.accidental_i_);
 }
 
 void
@@ -113,4 +113,10 @@ Key::print () const
       octaves_[i].print ();
       DOUT << "}\n";
     }
+}
+
+bool
+Key::different_acc (Musical_pitch p)const
+{
+  return oct (p.octave_i_).acc (p.notename_i_) == p.accidental_i_;
 }

@@ -1,4 +1,10 @@
 #!@PYTHON@
+
+"""
+Print a nice footer.  add the top of the NEWS file (up to the ********)
+"""
+
+
 import os
 import sys
 import getopt
@@ -17,14 +23,12 @@ sys.path.append(lilypath)
 from lilypython import *
 
 lilyversion= ''
-mailaddress = "unknown"
 fullname = "unknown"
 news_file = ''
 
 def set_vars():
     __main__.lilyversion =  version_tuple_to_str(lilydirs.version_tuple())
     os.environ["CONFIGSUFFIX"] = 'www';
-    __main__.mailaddress= os.environ['MAILADDRESS']
     pw = pwd.getpwuid (os.getuid());
 
     __main__.fullname= pw[4];
@@ -33,9 +37,10 @@ def set_vars():
 backstr = '\n<hr>Please take me <a href=%s>back to the index</a>\n\
 of LilyPond -- The GNU Project Music typesetter\n\
 <hr><font size=-1>\n\
-This page was built using from lilypond-%s by <p>\n\
+This page was built  from lilypond-%s by <p>\n\
 <address><br>%s <a href=mailto:%s>&lt<!bla>%s</a>&gt</address>\n\
 <p></font>' 
+
 set_vars ()
 banner_file = ''
 news_file=''
@@ -49,7 +54,7 @@ for opt in options:
 	news_file = a
 
 def footstr(index):
-     return backstr % (index, lilyversion, fullname, mailaddress, mailaddress)
+     return backstr % (index, lilyversion, fullname, mailaddress (), mailaddress)
 
 index_file='../../out-www/index.html'
 banner = footstr (index_file)

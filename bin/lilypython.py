@@ -24,6 +24,12 @@ version_re = regex.compile('\\version *\"\(.*\)\"')
 # make_assign_re = regex.compile('^\([A-Z_]*\) *= *\(.*\)$')
 make_assign_re = regex.compile('^\([A-Z_]*\)=\(.*\)$')
 
+def mailaddress():
+    try:
+	return os.environ['MAILADDRESS']
+    except KeyError:
+	return '(address unknown)'
+
 def version_tuple(file):
     lines = file.readlines()
 
