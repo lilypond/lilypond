@@ -2525,6 +2525,7 @@ If you just want the splitting of Threads and setting of directions, and
 not the textual markings, you may set the property @var{soloADue} to false:
 
 @lilypond[verbatim,singleline]
+\score {
   \context Staff <
     \context Voice=one \partcombine Voice
       \context Thread=one \notes\relative c'' {
@@ -2540,6 +2541,7 @@ not the textual markings, you may set the property @var{soloADue} to false:
       soloADue = ##f
     }
   }
+}
 @end lilypond
 
 There are a number of other properties that you can use to tweak the

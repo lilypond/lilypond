@@ -35,7 +35,7 @@
 	    (ly-warn (string-append
 		      "Programming error: No such font known "
 		      (car name-mag-pair) " "
-		      (number->string (cdr name-mag-pair))
+		      (ly-number->string (cdr name-mag-pair))
 		      ))
 	    
 	    "") ; issue no command	  
@@ -48,7 +48,7 @@
        " { /"
        (car name-mag)
        " findfont "
-       "12 " (number->string (cdr name-mag)) " mul "
+       "12 " (ly-number->string (cdr name-mag)) " mul "
        "lilypondpaperoutputscale div scalefont setfont } bind def "
        "\n"))
 
@@ -76,24 +76,24 @@
   (define (dashed-slur thick dash l)
     (string-append 
      (apply string-append (map control->string l)) 
-     (number->string thick) 
+     (ly-number->string thick) 
      " [ "
-     (number->string dash)
+     (ly-number->string dash)
      " "
-     (number->string (* 10 thick))	;UGH.  10 ?
+     (ly-number->string (* 10 thick))	;UGH.  10 ?
      " ] 0 draw_dashed_slur"))
 
   (define (dashed-line thick on off dx dy)
     (string-append 
-     (number->string dx)
+     (ly-number->string dx)
      " "
-     (number->string dy)
+     (ly-number->string dy)
      " "
-     (number->string thick) 
+     (ly-number->string thick) 
      " [ "
-     (number->string on)
+     (ly-number->string on)
      " "
-     (number->string off)
+     (ly-number->string off)
      " ] 0 draw_dashed_line"))
 
   (define (decrescendo thick w h cont)
@@ -149,16 +149,16 @@
   
   (define (invoke-dim1 s d) 
     (string-append
-     (number->string (* d  (/ 72.27 72))) " " s ))
+     (ly-number->string (* d  (/ 72.27 72))) " " s ))
 
   (define (placebox x y s) 
     (string-append 
-     (number->string x) " " (number->string y) " {" s "} placebox "))
+     (ly-number->string x) " " (ly-number->string y) " {" s "} placebox\n"))
 
   (define (bezier-sandwich l thick)
     (string-append 
      (apply string-append (map control->string l))
-     (number->string  thick)
+     (ly-number->string  thick)
      " draw_bezier_sandwich"))
 
   (define (start-line height)
@@ -191,26 +191,12 @@ lilypondpaperoutputscale lilypondpaperoutputscale scale
   (define (unknown) 
     "\n unknown\n")
 
-;; note heads with letters.
   (define (ez-ball ch letter-col ball-col)
-    (string-append "
-/Helvetica-Bold findfont
-0.7 scalefont 
-setfont 
-0.1 setlinewidth  
- 0 0 moveto
-0 setgray
-0.5 0 0.5 0 360  arc
-closepath "
-		   (if (equal? ball-col 0) " fill " " stroke ")
-		   (number->string letter-col)
-		   "
-setgray
-% 0.25 is empiric centering. Change to taste
-0.25 -0.25 moveto
- (" ch ") show
-showpage ")
-    )
+    (string-append
+     " (" ch ") "
+     (numbers->string (list letter-col ball-col))
+     " /Helvetica-Bold " ;; ugh
+     " draw_ez_ball"))
 
   (define (define-origin a b c ) "")
   (define (no-origin) "")

@@ -323,8 +323,18 @@ Line_of_score::post_processing (bool last_line)
   
   /*
     all elements.
-   */ 
+   */
+#if 0
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+#else
+    /*
+      Output the staff-symbol (the last element in this list) first,
+      this fixes easy-play.
+      Maybe scm_reverse () is too inefficient, we could cache/remove
+      last element from list traversal above.
+     */
+  for (SCM s = scm_reverse (get_grob_property ("all-elements")); gh_pair_p (s); s = gh_cdr (s))
+#endif
     {
       Grob *sc = unsmob_grob (gh_car (s));
       Molecule *m = sc->get_molecule ();
