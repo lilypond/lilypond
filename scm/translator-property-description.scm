@@ -100,6 +100,7 @@ key signatures after the bar lines:
 @end example
 ")
 (translator-property-description 'centralCPosition number? "Place of the central C. Usually determined by looking at clefPosition and clefGlyph.")
+(translator-property-description 'changeMoment moment? "duration that voices are examined for differences, when part-combining.  Usually unset or zero when combining threads into one voice, and 1 (or the duration of one measure) when combining voices into one staff.")
 (translator-property-description 'chordChanges boolean? "Only show changes in chords scheme?")
 (translator-property-description 'clefGlyph string? "Name of the symbol within the music font")
 (translator-property-description 'clefOctavation integer? "Add
@@ -241,7 +242,8 @@ r1 r1*3 R1*3  \\\\property Score.skipBars= ##t r1*3 R1*3
 (translator-property-description 'soloIIText string? "text for begin of solo for voice ``two'' when part-combining.")
 (translator-property-description 'soloText string? "text for begin of solo when part-combining.")
 (translator-property-description 'sparseTies boolean? "only create one tie per chord.")
-(translator-property-description 'split-interval number-pair? "always split into two voices for contained intervals when part-combining.")
+(translator-property-description 'splitInterval number-pair? "part-combiner will separate its two voices (or threads) when interval between the two voices is contained in this range.")
+(translator-property-description 'split-interval boolean? "set if part-combiner separated voices based on splitInterval.")
 (translator-property-description 'squashedPosition integer? " Vertical position of
 squashing for Pitch_squash_engraver.")
 (translator-property-description 'staffsFound list? "list of all staff-symbols found.")

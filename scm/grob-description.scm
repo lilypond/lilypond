@@ -57,6 +57,13 @@
 		 ;; todo: clean this up a bit: the list is getting
 		 ;; rather long.
 		 (molecule-callback . ,Beam::brew_molecule)
+		 (y-dy-callbacks . (,Beam::least_squares
+				    ,Beam::cancel_suspect_slope
+				    ,Beam::slope_damping
+				    ,Beam::quantise_dy
+				    ,Beam::user_override
+				    ,Beam::do_quantise_y))
+							 
 		 (thickness . 0.48) ; in staff-space
 		 (before-line-breaking-callback . ,Beam::before_line_breaking)
 		 (after-line-breaking-callback . ,Beam::after_line_breaking)

@@ -41,11 +41,8 @@ This procedure is called (using dependency resolution) after line breaking. Retu
 '(LEFT-offset . RIGHT-offset).  This offset is added to the
 attachments to prevent ugly slurs.  [fixme: we need more documentation here].
 .")
-(grob-property-description 'auto-interstaff-knee-gap number? ".")
-(grob-property-description 'auto-knee-gap number? ".")
-
+(grob-property-description 'auto-knee-gap number-or-boolean? "the minimal smallest gap between two adjacent beamed chords for which beam will create auto-knees.  Set to false for no auto knees." )
 (grob-property-description 'axes list? "list of axis numbers.
-
 In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'bar-size number? "size of a bar line.")
 (grob-property-description 'bars list? "list of barline pointers.")

@@ -5,6 +5,21 @@
 @c to automagically fill in these menus
 @c before saving changes
 
+
+@ignore
+ TODO:
+
+   fix all FIXMEs
+
+   Rhythm staff (clef, x-notehead)
+   Piano pedals
+   \addlyrics, \autochange, \partcombine: music (re)grouping
+   markup text
+   postscript, scheme output?
+   (links to?) using/existance of ly2dvi, lilypond-book
+@end ignore
+
+
 @c.{Reference Manual}
 
 @node Reference Manual
@@ -1002,10 +1017,12 @@ See the documentation of @code{measurePosition}.
 * Ottava::                      
 * Span requests::               
 @end menu
+
 @c.   {Beam}
 @node Beam
 @subsubsection Beam
 @cindex Beam
+
 @c.    {Automatic beams}
 @unnumberedsubsubsec Automatic beams
 
@@ -1014,10 +1031,12 @@ See the documentation of @code{measurePosition}.
 
 @cindex @code{Voice.noAutoBeaming}
 
-By default, LilyPond will generate beams automatically.  This feature
-can be disabled by setting the @code{Voice.noAutoBeaming} property to
-true.  It can be overridden for specific cases by specifying explicit
-beams.
+LilyPond will group flagged notes and generate beams autmatically, where
+appropriate.  This feature can be disabled by setting the
+@code{Voice.noAutoBeaming} property to true, which you may find
+necessary for the melody that goes with lyrics, eg.  Automatic beaming
+can easily be overridden for specific cases by specifying explicit
+beams, see @ref{Manual beams}.
 
 @cindex @code{Voice.autoBeamSettings}
 @cindex @code{(end * * * *)}
@@ -1027,15 +1046,11 @@ A large number of Voice properties are used to decide how to generate
 beams.  Their default values appear in @file{scm/auto-beam.scm}.  In
 general, beams can begin anywhere, but their ending location is
 significant.  Beams can end on a beat, or at durations specified by the
-properties in
-@code{Voice.autoBeamSettings}.
-To end beams every quarter note, for example, you could set the property
-@code{(end * * * *)}  to @code{(make-moment 1
-4)}.  To end beams at every three eighth notes you would set
-it to @code{(make-moment 1 8)}.
-The same syntax can be used to specify beam
-starting points using
-@code{(begin * * * *)}, eg:
+properties in @code{Voice.autoBeamSettings}.  To end beams every quarter
+note, for example, you could set the property @code{(end * * * *)} to
+@code{(make-moment 1 4)}.  To end beams at every three eighth notes you
+would set it to @code{(make-moment 1 8)}.  The same syntax can be used
+to specify beam starting points using @code{(begin * * * *)}, eg:
 @quotation
 @example
 \property Voice.autoBeamSettings \override
@@ -1064,16 +1079,19 @@ you would use @code{(end * * 1 32)}.
 @c.    {Manual beams}
 @cindex Automatic beams
 @unnumberedsubsubsec Manual beams
-
 @cindex beams, manual
 @cindex @code{]}
 @cindex @code{[}
 
-FIXME
-Beaming can be generated automatically; see section @ref{Automatic Beaming}.
+For most situations, beaming can be generated automatically; see section
+@ref{Automatic Beaming}.  In certain cases it may be necessary to
+override the automatic beaming decisions that LilyPond makes.  You can
+do this by specifying beams explicitely.
 
-A beam is specified by surrounding the beamed notes with brackets
-`@code{[}' and `@code{]}'.  
+A manual beam is specified by surrounding the notes that should make up
+the beam, with brackets `@code{[}' and `@code{]}'.
+
+FIXME: example.  (or tell: why would the auto-beamer fail here?)
 
 @lilypond[fragment,verbatim,center]
   [a'8 a'] [a'16 a' a' a']
@@ -1082,13 +1100,12 @@ A beam is specified by surrounding the beamed notes with brackets
 @end lilypond
 
 
-@cindex @code{-}@code{-}
-
 
 @c.    {Adjusting beams}
 @unnumberedsubsubsec Adjusting beams
 @cindex Adjusting beams
 
+FIXME
 
 @c.   {Slur}
 
