@@ -1,5 +1,12 @@
 2004-09-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/framework-tex.scm (dump-page): take with-extents?
+	argument. If true, output Y extents. Used for lilypond-book
+	documents.
+
+	* scripts/lilypond-book.py (PREAMBLE_LY): set dump-extents for
+	\bookpaper.
+
 	* lily/slur.cc (outside_slur_callback): epsilon-delta management
 	for slur edges.
  

@@ -323,7 +323,8 @@ L1 is copied, L2 not.
   "Length of the number-pair X, when an interval"
   (max 0 (- (cdr x) (car x)))
   )
-  
+(define-public interval-start car)
+(define-public interval-end cdr)
 
 (define (other-axis a)
   (remainder (+ a 1) 2))
