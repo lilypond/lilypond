@@ -63,16 +63,31 @@ Hairpin::print (SCM smob)
 	{
 	  if (dynamic_cast<Paper_column*> (b))
 	    {
+	      bool neighbor_found = false;
+	      for (SCM  adj = me->get_property ("adjacent-hairpins");
+		   ly_c_pair_p (adj); adj = ly_cdr (adj))
+		{
+		  /*
+		   FIXME: this will fuck up in case of polyphonic
+		   notes in other voices. Need to look at note-columns
+		   in the current staff/voice.
+		  */
+		  
+		  Spanner *pin = unsmob_spanner (ly_car (adj));
+		  if (pin
+		      && (pin->get_bound (LEFT)->get_column() == b
+			  || pin->get_bound (RIGHT)->get_column() == b))
+		    neighbor_found = true; 
+		}
+	      
 	      /*
 		If we're hung on a paper column, that means we're not
 		adjacent to a text-dynamic, and we may move closer. We
 		make the padding a little smaller, here.
 	      */
-	      Interval e = b->extent (common, X_AXIS);
-	      if (e.is_empty ())
-		e = Interval (0,0) + b->relative_coordinate (common, X_AXIS);
-	      
-	      x_points[d] = e.center () - d  * padding / 3; // ugh.
+	      Interval e = robust_relative_extent (b, common, X_AXIS);
+	      x_points[d] =
+		neighbor_found ? e.center() - d * padding / 3 : e[d];
 	    }
 	  else
 	    {
@@ -130,5 +145,5 @@ Hairpin::print (SCM smob)
 
 ADD_INTERFACE (Hairpin, "hairpin-interface",
   "A hairpin (de)crescendo.",
-  "grow-direction height bound-padding");
+  "grow-direction height bound-padding adjacent-hairpins");
 
