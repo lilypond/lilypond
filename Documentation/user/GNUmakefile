@@ -85,7 +85,7 @@ ifeq ($(SPLITTING_MAKEINFO),yes)
 $(outdir)/lilypond.dvi: $(OUT_EPS_IMAGES) $(OUT_PNG_IMAGES)
 
 $(outdir)/%.png: %.png
-	cp $< $@
+	convert -resize 50x50% $< $@
 
 $(outdir)/%.eps: %.png
 	convert $< $@

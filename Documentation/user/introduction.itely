@@ -100,7 +100,7 @@ are also much thicker than Henle's lines.
 @html
 <p>
 <a href=henle-flat-bw.png>
-<img width=300 src=henle-flat-bw.png>
+<img src=henle-flat-bw.png>
 </a>
 
 @end html
@@ -111,7 +111,7 @@ are also much thicker than Henle's lines.
 @end iftex
 @html
 <a href=baer-flat-bw.png>
-<img width=300 src=baer-flat-bw.png></a>
+<img  src=baer-flat-bw.png></a>
 @end html
 
 @tab
@@ -120,7 +120,7 @@ are also much thicker than Henle's lines.
 @end iftex
 @html
 <a href="lily-flat-bw.png">
-<img width=300 src=lily-flat-bw.png>
+<img src=lily-flat-bw.png>
 </a>
 @end html
 
