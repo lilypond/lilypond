@@ -10,10 +10,10 @@
 ;;
 
 
-(define-public (read-encoding-file filename)
+(define-public (read-encoding-file file-name)
   "Read .enc file, return (COMMAND-NAME . VECTOR-OF-SYMBOLS)."
-  (let* ((path (ly:kpathsea-expand-path filename))
-	 (unused (if (string? path) #t (ly:warn "can't find ~s" filename)))
+  (let* ((path (ly:kpathsea-expand-path file-name))
+	 (unused (if (string? path) #t (ly:warn "can't find ~s" file-name)))
 	 (raw (ly:gulp-file path))
 	 (string (regexp-substitute/global #f "%[^\n]*" raw 'pre "" 'post))
 	 (command (match:substring
@@ -60,15 +60,15 @@ vector of symbols."
     (iota 256))))
 
 
-(define (get-coding-from-file filename)
-  "Read FILENAME, return a list containing encoding vector and table"
-   (let* ((coding (read-encoding-file filename))
+(define (get-coding-from-file file-name)
+  "Read FILE-NAME, return a list containing encoding vector and table"
+   (let* ((coding (read-encoding-file file-name))
 	  (com (car coding))
 	  (vec (cdr coding))
 	  (tab (make-encoding-table vec)))
     (list com vec tab)))
 
-;; coding-alist maps NAME -> (list FILENAME COMMAND VECTOR TAB)
+;; coding-alist maps NAME -> (list FILE-NAME COMMAND VECTOR TAB)
 (define coding-alist
   
   (map (lambda (x)
@@ -114,7 +114,7 @@ vector of symbols."
 	      (ly:programming-error "programming error: cross thumbs, using: ~S:" fallback)
 	      (get-coding fallback))))))
 
-(define-public (get-coding-filename coding-name)
+(define-public (get-coding-file-name coding-name)
   (car (get-coding coding-name)))
 
 (define-public (get-coding-command coding-name)

@@ -11,7 +11,7 @@
 class Binary_source_file : public Source_file
 {
 public:
-  Binary_source_file (String& filename_string );
+  Binary_source_file (String& file_name_string );
   virtual ~Binary_source_file ();
 
   U8 get_U8 (); 

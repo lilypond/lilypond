@@ -62,7 +62,7 @@ Includable_lexer::new_input (String name, Sources *sources)
       LexerError (msg.to_str0 ());
       return;
     }
-  filename_strings_.push (file->name_string ());
+  file_name_strings_.push (file->name_string ());
 
   char_count_stack_.push (0);
   if (yy_current_buffer)
@@ -85,7 +85,7 @@ Includable_lexer::new_input (String name, String data, Sources *sources)
 {
   Source_file *file = new Source_file (name, data);
   sources->add (file);
-  filename_strings_.push (name);
+  file_name_strings_.push (name);
 
   char_count_stack_.push (0);
   if (yy_current_buffer)

@@ -47,7 +47,6 @@
 struct _PangoFcAfmDecoderPrivate
 {
   GString encoding[256];
-  //GString file_name;
   char const *file_name;
   PangoFcFont *fc_font;
 };
@@ -65,39 +64,7 @@ static void pango_fc_afm_decoder_set_file_name (PangoFcAfmDecoder *self,
 
 static PangoFcDecoderClass *parent_class;
 
-#if 0
-/* ugly warning */
 G_DEFINE_TYPE (PangoFcAfmDecoder, pango_fc_afm_decoder, PANGO_TYPE_FC_DECODER);
-#else
-GType
-pango_fc_afm_decoder_get_type (void)
-{
-  static GType object_type = 0;
-
-  if (!object_type)
-    {
-      static const GTypeInfo object_info =
-      {
-        sizeof (PangoFcAfmDecoderClass),
-        (GBaseInitFunc) 0,
-        (GBaseFinalizeFunc) 0,
-        (GClassInitFunc) pango_fc_afm_decoder_class_init,
-        0,           /* class_finalize */
-        0,           /* class_data */
-        sizeof (PangoFcAfmDecoder),
-        0,              /* n_preallocs */
-        (GInstanceInitFunc) pango_fc_afm_decoder_init,
-	0, /* value table */
-      };
-      
-      object_type = g_type_register_static (PANGO_TYPE_FC_DECODER,
-                                            "PangoFcAfmDecoder",
-                                            &object_info, (GTypeFlags)0);
-    }
-  
-  return object_type;
-}
-#endif
 
 static void 
 pango_fc_afm_decoder_init (PangoFcAfmDecoder *fcafmdecoder)
@@ -107,9 +74,6 @@ pango_fc_afm_decoder_init (PangoFcAfmDecoder *fcafmdecoder)
     = G_TYPE_INSTANCE_GET_PRIVATE (fcafmdecoder,
 				   PANGO_TYPE_FC_AFM_DECODER,
 				   PangoFcAfmDecoderPrivate);
-  /*
-    init members
-   */
 }
 
 static void
@@ -127,14 +91,6 @@ pango_fc_afm_decoder_class_init (PangoFcAfmDecoderClass *clss)
 static void
 pango_fc_afm_decoder_finalize (GObject *object)
 {
-#if 0  
-  PangoFcAfmDecoder *fcafmdecoder = PANGO_FC_AFM_DECODER (object);
-  PangoFcAfmDecoderPrivate *priv = fcafmdecoder->priv;
-#endif
-
-  /*
-    destroy members
-   */
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -142,17 +98,15 @@ static FcCharSet *
 pango_fc_afm_get_charset (PangoFcDecoder *decoder, PangoFcFont *fcfont)
 {
   (void) decoder;
-  //dprintf ("get charset: %s\n", fcfont->font_pattern);
   dprintf ("get charset: \n");
 #if 0  
   FcCharSet *charset = 0;
   FcPatternGetCharSet (fcfont->font_pattern, FC_CHARSET, 0, &charset);
 #else
   /* Return plain, undecoded charset.
-     TODO:
-       - actually read AFM?
-       - caching?
-       - PUA mapping ? */
+     FIXME:
+       - actually read AFM
+       - caching  */
   (void) fcfont;
   int i;
   FcChar32 chr = 0;
@@ -177,15 +131,11 @@ pango_fc_afm_get_glyph (PangoFcDecoder *decoder, PangoFcFont *fcfont,
   dprintf ("get glyph! 0x%x --> 0x%x\n", wc, (unsigned)g);
 #else
   (void) fcfont;
-  /* TODO:
-       - PUA mapping?
-       
-     Shortcut PUA mapping/AFM reading: The Feta charsets are encoded
-     without any gaps, starting at 0x21.  *grin*
-
-     FIXME: +1 what has changed? -- jcn
-  */
-  return wc - 0x21 + 1;
+  /* FIXME
+     Use direct privat usage area (PUA) mapping as shortcut for
+     actual AFM reading.  The Feta charsets are encoded without any
+     gaps, and mappend onto PUA.  */
+  return wc - 0xe000;
 #endif  
 }
 

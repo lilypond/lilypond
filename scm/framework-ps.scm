@@ -25,7 +25,7 @@
   (/ 72 25.4))
 
 (define-public (ps-font-command font . override-coding)
-  (let* ((name (ly:font-filename font))
+  (let* ((name (ly:font-file-name font))
 	 (magnify (ly:font-magnification font))
 	 (coding-alist (ly:font-encoding-alist font))
 	 (input-encoding (assoc-get 'input-name coding-alist))
@@ -47,7 +47,7 @@
 
 (define (load-fonts paper)
   (let* ((fonts (ly:paper-fonts paper))
-	 (font-names (uniq-list (sort (map ly:font-filename fonts) string<?)))
+	 (font-names (uniq-list (sort (map ly:font-file-name fonts) string<?)))
 	 (pfas (map
 		(lambda (x)
 		
@@ -90,7 +90,7 @@
     (let* ((specced-font-name (ly:font-name font))
 	   (fontname (if specced-font-name
 			 specced-font-name
-			 (ly:font-filename font)))
+			 (ly:font-file-name font)))
 	
 	   (coding-alist (ly:font-encoding-alist font))
 	   (input-encoding (assoc-get 'input-name coding-alist))
@@ -124,8 +124,8 @@
 	   (reencode-font fontname input-encoding scaling command)))))
 
   (define (font-load-encoding encoding)
-    (let ((filename (get-coding-filename encoding)))
-      (ly:gulp-file (ly:kpathsea-expand-path filename))))
+    (let ((file-name (get-coding-file-name encoding)))
+      (ly:gulp-file (ly:kpathsea-expand-path file-name))))
 
   (let* ((encoding-list (map (lambda (x)
 			       (assoc-get 'input-name

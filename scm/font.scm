@@ -361,7 +361,7 @@
 
 ;; (display (make-font-tree 1.0))
 
-;; Century Schoolbook fonts filenames on Debian/Sid
+;; Century Schoolbook fonts file names on Debian/Sid
 (define-public (add-century-schoolbook-fonts node factor)
   
   (add-font node

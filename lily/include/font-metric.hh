@@ -20,7 +20,7 @@ struct Font_metric
 {
 public:
   SCM description_;
-  String filename_;
+  String file_name_;
   
   virtual int count () const;
   virtual Offset get_indexed_wxwy (int) const;

@@ -17,10 +17,10 @@
 #include "warn.hh"
 #include "scm-option.hh"
 
-Midi_stream::Midi_stream (String filename)
+Midi_stream::Midi_stream (String file_name)
 {
-  filename_string_ = filename;
-  out_file_ = fopen (filename.to_str0(), "wb");
+  file_name_string_ = file_name;
+  out_file_ = fopen (file_name.to_str0(), "wb");
 }
 
 Midi_stream::~Midi_stream ()

@@ -92,10 +92,10 @@ Tex_font_metric::get_ascii_char (int a) const
 }
 
 SCM
-Tex_font_metric::make_tfm (String filename)
+Tex_font_metric::make_tfm (String file_name)
 {
   Tex_font_metric *tfm = new Tex_font_metric;
-  Tex_font_metric_reader reader (filename);
+  Tex_font_metric_reader reader (file_name);
 
   tfm->info_ = reader.info_;
   tfm->header_ = reader.header_;

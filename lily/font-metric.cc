@@ -178,7 +178,7 @@ LY_DEFINE (ly_text_dimension,"ly:text-dimension",
   return scm_cons (ly_interval2scm (b[X_AXIS]), ly_interval2scm (b[Y_AXIS]));
 }
 
-LY_DEFINE (ly_font_filename,"ly:font-filename",
+LY_DEFINE (ly_font_file_name,"ly:font-file-name",
 	   1, 0, 0,
 	   (SCM font),
 	   "Given the font metric @var{font}, "

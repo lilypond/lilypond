@@ -166,17 +166,13 @@ lilypond -fgnome input/simple-song.ly
 		 (+ #x80 (modulo y #x40))))))
    (else FIXME)))
   
-(define (custom-utf8 i)
-  (if (< i #x80)
-      (utf8 i)
-      (utf8 (+ #xee00 i))))
-
-(define (string->utf8-string string)
-  (list->string
-   (apply append (map utf8 (map char->integer (string->list string))))))
-
-(define (char->utf8-string char)
-  (list->string (utf8 (char->integer char))))
+(define (char->utf8-string font char)
+  (list->string (utf8 (char->unicode-index font char))))
+  
+(define (string->utf8-string font string)
+  (apply
+   string-append
+   (map (lambda (x) (char->utf8-string font x)) (string->list string))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stencil outputters
@@ -239,7 +235,6 @@ lilypond -fgnome input/simple-song.ly
     (set-path-def props def)
     props))
     
-
 ;; two beziers
 (define (bezier-sandwich lst thick)
   (let* ((def (make <gnome-canvas-path-def>))
@@ -360,33 +355,23 @@ lilypond -fgnome input/simple-song.ly
       #:width-units blot-diameter
       #:join-style 'round)))
 
-(define (text font string)
+(define (text font s)
   (define (pango-font-name font)
-    (let ((name (ly:font-name font)))
-      (if name
-	  (regexp-substitute/global #f "^GNU-(.*)-[.0-9]*$" name 'pre 1 'post)
-	  (begin
-	    (stderr "font-name: ~S\n" (ly:font-name font))
-	    ;; TODO s/filename/file-name/
-	    (stderr "font-filename: ~S\n" (ly:font-filename font))
-	    (stderr "pango-font-size: ~S\n" (pango-font-size font))
-	    ;;"ecrm12"))))
-	    (ly:font-filename font)))))
+    (font-family font))
   
   (define (pango-font-size font)
     (let* ((designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
 	   
-
 	   ;;font-name: "GNU-LilyPond-feta-20"
-	   ;;font-filename: "feta20"
+	   ;;font-file-name: "feta20"
 	   ;;pango-font-name: "lilypond-feta, regular 32"
 	   ;;OPS:2.61
 	   ;;scaling:29.7046771653543
 	   ;;magnification:0.569055118110236
 	   ;;design:20.0
   
-	   ;; experimental sizing:
+	   ;; ugh, experimental sizing
 	   ;; where does factor ops come from?
 	   ;; Hmm, design size: 26/20 
 	   (ops 2.60)
@@ -399,24 +384,17 @@ lilypond -fgnome input/simple-song.ly
       
       scaling))
 
-  (make <gnome-canvas-text>
-    #:parent (canvas-root)
+  (let ((encoding (ly:font-encoding font)))
+    (make <gnome-canvas-text>
+      #:parent (canvas-root)
+      ;; ugh, experimental placement corections
+      ;; #:x 0.0 #:y 0.0
+      #:x 0.0 #:y (if (memq encoding '(fetaMusic fetaBraces)) 0.15 0.69)
 
-    #:anchor 'west
-    #:x 0.0 #:y 0.15
-    
-    #:font (pango-font-name font)
-    
-    #:size-points (pango-font-size font)
-    ;;#:size ...
-    #:size-set #t
-    
-    ;;apparently no effect :-(
-    ;;#:scale 1.0
-    ;;#:scale-set #t
-    
-    #:fill-color "black"
-    #:text (if (string? string)
-	       (string->utf8-string string)
-	       (char->utf8-string string))))
-
+      #:anchor (if (memq encoding '(fetaMusic fetaBraces)) 'west 'south-west)
+      #:font (pango-font-name font)
+      #:size-points (pango-font-size font)
+      #:size-set #t
+      #:text (if (char? s)
+		 (char->utf8-string font s)
+		 (string->utf8-string font s)))))

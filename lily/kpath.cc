@@ -65,9 +65,9 @@ kpathsea_find_afm (char const * name)
 String
 kpathsea_find_tfm (char const *name)
 {
-  String filename = global_path.find (String (name) + ".tfm");
+  String file_name = global_path.find (String (name) + ".tfm");
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
-  if (filename.is_empty ())
+  if (file_name.is_empty ())
     {
       /* If invoked for a TeX font, we could do TRUE (must exist).
 	 We could also do:
@@ -82,10 +82,10 @@ kpathsea_find_tfm (char const *name)
       if (!p)
 	warning (_f ("kpathsea can not find TFM file: `%s'", name));
       else
-	filename = p;
+	file_name = p;
     }
 #endif
-  return filename;
+  return file_name;
 }
 
 #if KPATHSEA
@@ -116,28 +116,28 @@ kpathsea_find_format (String name)
 String
 kpathsea_gulp_file_to_string (String name)
 {
-  String filename = global_path.find (name);
+  String file_name = global_path.find (name);
 
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
-  if (filename.is_empty ())
+  if (file_name.is_empty ())
     {
       char *p = kpse_find_file (name.to_str0 (), kpathsea_find_format (name),
 	true);
       if (p)
-	filename = p;
+	file_name = p;
       else
 	warning (_f ("kpathsea can not find file: `%s'", name));
     }
 #endif
 
-  if (filename.is_empty ())
+  if (file_name.is_empty ())
     error (_f ("can't find file: `%s'", name));
 
   if (verbose_global_b)
-    progress_indication ("[" + filename);
+    progress_indication ("[" + file_name);
 
   int filesize;
-  char *str = gulp_file (filename, &filesize);
+  char *str = gulp_file (file_name, &filesize);
   String string (str);
   delete[] str;
   
@@ -157,8 +157,8 @@ LY_DEFINE (ly_kpathsea_expand_path, "ly:kpathsea-expand-path",
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
 
   String nm = ly_scm2string (name);
-  String filename = global_path.find (nm);
-  if (filename.is_empty ())
+  String file_name = global_path.find (nm);
+  if (file_name.is_empty ())
     {
       char *p = kpse_find_file (nm.to_str0 (), kpathsea_find_format (nm),
 	true);
@@ -167,7 +167,7 @@ LY_DEFINE (ly_kpathsea_expand_path, "ly:kpathsea-expand-path",
       else
 	return SCM_BOOL_F;
     }
-  return scm_makfrom0str (filename.to_str0 ());
+  return scm_makfrom0str (file_name.to_str0 ());
 }
 
 

@@ -49,25 +49,25 @@ All_font_metrics::find_afm (String name)
   SCM val;
   if (!afm_p_dict_->try_retrieve (sname, &val))
     {
-      String filename;
+      String file_name;
 
-      if (filename.is_empty ())
-	filename = search_path_.find (name  + ".afm");
+      if (file_name.is_empty ())
+	file_name = search_path_.find (name  + ".afm");
 
-      if (filename.is_empty ())
+      if (file_name.is_empty ())
 	{
 	  String p = kpathsea_find_afm (name.to_str0 ());
 	  if (p.length ())
-	    filename = p;
+	    file_name = p;
 	}
 
-      if (filename.is_empty ())
+      if (file_name.is_empty ())
 	return 0;
       
       if (verbose_global_b)
-	progress_indication ("[" + filename);
-      val = read_afm_file (filename);
-      unsmob_metrics (val)->filename_ = filename;
+	progress_indication ("[" + file_name);
+      val = read_afm_file (file_name);
+      unsmob_metrics (val)->file_name_ = file_name;
       
       unsmob_metrics (val)->description_ = scm_cons (name_string, 
 						     scm_make_real (1.0));
@@ -93,9 +93,9 @@ All_font_metrics::find_afm (String name)
 	    {
 	      // FIXME: broken sentence
 	      String s = _f ("checksum mismatch for font file: `%s'",
-			     filename.to_str0 ());
+			     file_name.to_str0 ());
 	      s += " " + _f ("does not match: `%s'",
-			     tfm->filename_.to_str0 ());
+			     tfm->file_name_.to_str0 ());
 	      s += "\n";
 	      s += " TFM: " + to_string ((int) tfm->info_.checksum);
 	      s += " AFM: " + to_string ((int) afm->checksum_);
@@ -124,29 +124,29 @@ All_font_metrics::find_tfm (String name)
   SCM val;
   if (!tfm_p_dict_->try_retrieve (sname, &val))
     {
-      String filename;
+      String file_name;
       
-      if (filename.is_empty ())
+      if (file_name.is_empty ())
 	{
 	  String p = kpathsea_find_tfm (name.to_str0 ());
 	  if (p.length ())
-	    filename = p;
+	    file_name = p;
 	}
 
-      if (filename.is_empty ())
-	filename = search_path_.find (name  + ".tfm");
-      if (filename.is_empty ())
+      if (file_name.is_empty ())
+	file_name = search_path_.find (name  + ".tfm");
+      if (file_name.is_empty ())
 	return 0;
 
       if (verbose_global_b)
-	progress_indication ("[" + filename);
+	progress_indication ("[" + file_name);
       
-      val = Tex_font_metric::make_tfm (filename);
+      val = Tex_font_metric::make_tfm (file_name);
 
       if (verbose_global_b)
 	progress_indication ("]");
 
-      unsmob_metrics (val)->filename_ = filename;
+      unsmob_metrics (val)->file_name_ = file_name;
       unsmob_metrics (val)->description_ = scm_cons (name_string,
 						     scm_make_real (1.0));
       tfm_p_dict_->set (sname, val);

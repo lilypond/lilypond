@@ -29,7 +29,6 @@
 ;; GLobals
 ;; FIXME: 2?
 (define output-scale (* 2 scale-to-unit))
-(define line-thickness 0)
 
 (define (stderr string . rest)
   (apply format (cons (current-error-port) (cons string rest)))
@@ -77,41 +76,25 @@
 (define (control-flip-y c)
   (cons (car c) (* -1 (cdr c))))
 
-(define (ly:numbers->string l)
+(define (ly:numbers->string lst)
   (string-append
-   (number->string (car l))
-   (if (null? (cdr l))
+   (number->string (car lst))
+   (if (null? (cdr lst))
        ""
-       (string-append "," (ly:numbers->string (cdr l))))))
+       (string-append "," (ly:numbers->string (cdr lst))))))
 
-(define (svg-bezier l close)
-  (let* ((c0 (car (list-tail l 3)))
-	 (c123 (list-head l 3)))
+(define (svg-bezier lst close)
+  (let* ((c0 (car (list-tail lst 3)))
+	 (c123 (list-head lst 3)))
     (string-append
      (if (not close) "M " "L ")
      (control->string c0)
      "C " (apply string-append (map control->string c123))
      (if (not close) "" (string-append
-			 "L " (control->string close))))));; " Z")))))
-
+			 "L " (control->string close))))))
 
 (define (sqr x)
   (* x x))
-
-(define (fontify font expr)
-   (tagify "text" expr (cons 'style (svg-font font))))
-;;	   (cons 'unicode-range "U+EE00-EEFF"))))
-
-(define (font-family font)
-  (let ((name (ly:font-name font)))
-    (if name
-	(regexp-substitute/global #f "^GNU-(.*)-[.0-9]*$" name 'pre 1 'post)
-	(begin
-	  (stderr "font-name: ~S\n" (ly:font-name font))
-	  ;; TODO s/filename/file-name/
-	  (stderr "font-filename: ~S\n" (ly:font-filename font))
-	  (stderr "font-size: ~S\n" (font-size font))
-	  "ecrm12"))))
 
 (define (font-size font)
   (let* ((designsize (ly:font-design-size font))
@@ -123,30 +106,21 @@
     (debugf "design:~S\n" designsize)
     scaling))
 
-(define (integer->entity i)
-  (format #f "&#x~x;" i))
-
-(define (char->entity font c)
-  (define font-name-base-alist
-    `(("LilyPond-feta" . ,(- #xe000 #x20))
-      ("LilyPond-feta-braces-a" . ,(- #xe000 #x40))
-      ("LilyPond-feta-braces-b" . ,(- #xe000 #x40))
-      ("LilyPond-feta-braces-c" . ,(- #xe000 #x40))
-      ("LilyPond-feta-braces-d" . ,(- #xe000 #x40))
-      ("LilyPond-feta-braces-d" . ,(- #xe000 #x40))
-      ("LilyPond-feta-braces-e" . ,(- #xe000 #x40))
-      ("LilyPond-feta-braces-f" . ,(- #xe000 #x40))
-      ("LilyPond-feta-braces-g" . ,(- #xe000 #x40))
-      ("LilyPond-feta-braces-h" . ,(- #xe000 #x40))
-      ("LilyPond-feta-braces-i" . ,(- #xe000 #x40))
-      ("LilyPond-parmesan" . ,(- #xe000 #x20))))
-
-  (integer->entity (+ (assoc-get (font-family font) font-name-base-alist 0)
-		      (char->integer c))))
-
+(define (char->entity font char)
+  (format #f "&#x~x;" (char->unicode-index font char)))
+		   
 (define (string->entities font string)
   (apply string-append
 	 (map (lambda (x) (char->entity font x)) (string->list string))))
+
+(define (svg-font font)
+  (let* ((encoding (ly:font-encoding font))
+	 (anchor (if (memq encoding '(fetaMusic fetaBraces)) 'start 'middle)))
+   (format #f "font-family:~a;font-size:~a;text-anchor:~S;"
+	   (font-family font) (font-size font) anchor)))
+
+(define (fontify font expr)
+   (tagify "text" expr (cons 'style (svg-font font))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -168,27 +142,24 @@
 	 (y (* slope width))
 	 (z (sqrt (+ (sqr x) (sqr y)))))
     (tagify "rect" ""
-	    `(style . ,(format "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-opacity:1;stroke-width:~f;stroke-linejoin:round;stroke-linecap:round;" line-thickness))
+	    `(style . ,(format "stroke-linejoin:round;stroke-linecap:round;stroke-width:~f;" blot))
 	    `(x . "0")
 	    `(y . ,(number->string (* output-scale (- 0 (/ thick 2)))))
 	    `(width . ,(number->string (* output-scale width)))
 	    `(height . ,(number->string (* output-scale thick)))
-	    ;;`(ry . ,(number->string (* output-scale half-lt)))
-	    `(ry . ,(number->string (* output-scale (/ line-thickness 2))))
+	    `(ry . ,(number->string (* output-scale (/ blot 2))))
 	    `(transform .
 			,(format #f "matrix (~f, ~f, 0, 1, 0, 0) scale (~f, ~f)"
 				 (/ x z)
 				 (* -1 (/ y z))
 				 1 1)))))
 
-(define (bezier-sandwich l thick)
-  (let* (;;(l (eval urg-l this-module))
-	 (first (list-tail l 4))
+(define (bezier-sandwich lst thick)
+  (let* ((first (list-tail lst 4))
 	 (first-c0 (car (list-tail first 3)))
-	 (second (list-head l 4)))
+	 (second (list-head lst 4)))
     (tagify "path" ""
-	    `(stroke . "#000000")
-	    `(stroke-width . ,(number->string line-thickness))
+	    `(style . ,(format "stroke-linejoin:round;stroke-linecap:round;stroke-width:~f;" thick))
 	    `(transform . ,(format #f "scale (~f, ~f)"
 				   output-scale output-scale))
 	    `(d . ,(string-append (svg-bezier first #f)
@@ -202,19 +173,7 @@
   (string-append "<!-- " s " !-->\n"))
 
 (define (filledbox breapth width depth height)
-  (round-filled-box breapth width depth height line-thickness))
-
-(define (lily-def key val)
-  (cond
-   ((equal? key "lilypondpaperoutputscale")
-    ;; ugr
-    ;; If we just use transform scale (output-scale),
-    ;; all fonts come out scaled too (ie, much too big)
-    ;; So, we manually scale all other stuff.
-    (set! output-scale (* scale-to-unit (string->number val))))
-   ((equal? key "lilypondpaperlinethickness")
-    (set! line-thickness (* scale-to-unit (string->number val)))))
-  "")
+  (round-filled-box breapth width depth height 0))
 
 (define (placebox x y expr)
   (tagify "g"
@@ -227,17 +186,12 @@
 
 (define (round-filled-box breapth width depth height blot-diameter)
   (tagify "rect" ""
-	    `(style . ,(format "fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-opacity:1;stroke-width:~f;stroke-linejoin:miter;stroke-linecap:butt;" line-thickness))
+	  `(style . ,(format "stroke-linejoin:round;stroke-linecap:round;stroke-width:~f;" blot-diameter))
 	  `(x . ,(number->string (* output-scale (- 0 breapth))))
 	  `(y . ,(number->string (* output-scale (- 0 height))))
 	  `(width . ,(number->string (* output-scale (+ breapth width))))
 	  `(height . ,(number->string (* output-scale (+ depth height))))
-	  ;;`(ry . ,(number->string (* output-scale half-lt)))
 	  `(ry . ,(number->string (/ blot-diameter 2)))))
-
-(define (svg-font font)
-   (format #f "font-family:~a;font-size:~a;fill:black;text-anchor:start;"
-	   (font-family font) (font-size font)))
 
 (define (text font string)
   (dispatch `(fontify ,font ,(tagify "tspan" (string->entities font string)))))

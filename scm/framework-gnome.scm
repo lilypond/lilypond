@@ -209,8 +209,6 @@
 	   "lilypond-feta-braces-g"
 	   "lilypond-feta-braces-h"
 	   "lilypond-feta-braces-i"
-	   ;; is this necessary?
-	   "lilypond-feta-din"
 	   "lilypond-parmesan"))
 
     (dump-page go 0)

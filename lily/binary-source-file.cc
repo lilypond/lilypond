@@ -16,8 +16,8 @@
 #include "binary-source-file.hh"
 #include "string-convert.hh"
 
-Binary_source_file::Binary_source_file (String& filename_string)
-  : Source_file (filename_string)
+Binary_source_file::Binary_source_file (String& file_name_string)
+  : Source_file (file_name_string)
 {
 }
 
