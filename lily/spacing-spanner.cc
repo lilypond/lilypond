@@ -14,6 +14,7 @@
 #include "warn.hh"
 #include "paper-score.hh"
 #include "line-of-score.hh"
+#include "misc.hh"
 
 Spacing_spanner::Spacing_spanner ()
 {
@@ -41,16 +42,25 @@ Array<Spring>
 Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
 {
   Moment shortest;
+  Moment mean_shortest;
   shortest.set_infinite (1);
+
+  int n = 0;
   for (int i =0 ; i < cols.size (); i++)  
     {
       if (cols[i]->musical_b ())
 	{
-	  SCM  st = cols[i]->get_elt_property ("shortest-starter");
-	  
-	  shortest = shortest <? (*SMOB_TO_TYPE(Moment, st));
+	  SCM  st = cols[i]->get_elt_property ("shortest-starter-duration");
+	  Moment this_shortest = (*SMOB_TO_TYPE(Moment, st));
+	  shortest = shortest <? this_shortest;
+	  if (!mean_shortest.infty_b ())
+	    {
+	      n++;
+	      mean_shortest += this_shortest;
+	    }
 	}
     }
+  mean_shortest /= n;
 
   Array<Spring> meas_springs;
 
@@ -184,11 +194,30 @@ Spacing_spanner::default_bar_spacing (Paper_column *lc, Paper_column *rc,
   */
   if (delta_t)
     {
-      Real k=  paper_l()->arithmetic_constant (shortest);
-      durational_distance =  paper_l()->length_mom_to_dist (delta_t,k);
+      durational_distance =  get_duration_space (delta_t, shortest);
     }
 
   return  symbol_distance >? durational_distance;
+}
+
+
+/**
+  Get the measure wide constant for arithmetic spacing.
+
+  @see
+  John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
+  OSU-CISRC-10/87-TR35, Department of Computer and Information Science,
+  The Ohio State University, 1987.
+
+  */
+Real
+Spacing_spanner::get_duration_space (Moment d, Moment shortest) const
+{
+  Real log = log_2 (Moment (1,8) <? shortest);
+  Real k=   paper_l ()->get_var ("arithmetic_basicspace")
+    - log;
+  
+  return (log_2 (d) + k) * paper_l ()->get_var ("arithmetic_multiplier");
 }
 
 
@@ -196,7 +225,8 @@ Real
 Spacing_spanner::note_spacing (Paper_column *lc, Paper_column *rc, Moment shortest) const
 {
   Moment shortest_playing_len = 0;
-  SCM s = lc->get_elt_property ("shortest-playing");
+  SCM s = lc->get_elt_property ("shortest-playing-duration");
+  //  SCM s = lc->get_elt_property ("mean-playing-duration");  
   if (SMOB_IS_TYPE_B(Moment, s))
     shortest_playing_len = *SMOB_TO_TYPE (Moment, s);
 
@@ -213,8 +243,7 @@ Spacing_spanner::note_spacing (Paper_column *lc, Paper_column *rc, Moment shorte
       shortest = 1;
     }
   Moment delta_t = rc->when_mom () - lc->when_mom ();
-  Real k=  paper_l()->arithmetic_constant(shortest);
-  Real dist = paper_l()->length_mom_to_dist (shortest_playing_len, k);
+  Real dist = get_duration_space (shortest_playing_len, shortest);
   dist *= (double)(delta_t / shortest_playing_len);
 
   dist += stem_dir_correction (lc,rc);
