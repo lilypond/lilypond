@@ -3,6 +3,7 @@
 ;;; Heikki Junes <hjunes@cc.hut.fi>
 ;;; * redefine Emacs' show-paren-function and XEmacs' paren-highlight
 ;;; * match two-char slurs '\( ... \)' and '\[ ... \]' separately.
+;;; * adopt Emacs' f90-comment-region
 
 ;;; Chris Jackson <chris@fluffhouse.org.uk>
 ;;; some code is taken from ESS (Emacs Speaks Statistics) S-mode by A.J.Rossini <rossini@biostat.washington.edu>
@@ -51,6 +52,28 @@ Compares with other text in same context.")
 (defcustom LilyPond-fancy-comments t
   "*Non-nil means distiguish between %, %%, and %%% for indentation.")
 
+(defcustom LilyPond-comment-region "%%$"
+  "*String inserted by \\[LilyPond-comment-region]\
+ at start of each line in region.")
+
+(defun LilyPond-comment-region (beg-region end-region)
+  "Comment/uncomment every line in the region.
+Insert LilyPond-comment-region at the beginning of every line in the region
+or, if already present, remove it."
+  (interactive "*r")
+  (let ((end (make-marker)))
+    (set-marker end end-region)
+    (goto-char beg-region)
+    (beginning-of-line)
+    (if (looking-at (regexp-quote LilyPond-comment-region))
+	(delete-region (point) (match-end 0))
+      (insert LilyPond-comment-region))
+    (while (and  (zerop (forward-line 1))
+		 (< (point) (marker-position end)))
+      (if (looking-at (regexp-quote LilyPond-comment-region))
+	  (delete-region (point) (match-end 0))
+	(insert LilyPond-comment-region)))
+    (set-marker end nil)))
 
 (defun LilyPond-calculate-indent ()
   "Return appropriate indentation for current line as lilypond code.
@@ -127,7 +150,6 @@ Returns nil if line starts inside a string"
 		 (progn
 		   (skip-chars-backward " \t")
 		   (current-indentation)))))))))
-
 
 
 (defun LilyPond-indent-line ()

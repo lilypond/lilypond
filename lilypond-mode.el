@@ -513,12 +513,6 @@ Must be the car of an entry in `LilyPond-command-alist'."
   (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file)
 )
 
-;;; Refer to syntax-table (in lilypond-font-lock.el) for comment characters.
-(defun LilyPond-un-comment-region (start end level)
-  "Remove up to LEVEL comment characters from each line in the region."
-  (interactive "*r\np") 
-  (comment-region start end (- level)))
-
 ;; FIXME, this is broken
 (defun LilyPond-region-file (begin end)
   (let (
@@ -686,8 +680,7 @@ command."
   (define-key LilyPond-mode-map "\C-ci" 'LilyPond-quick-note-insert)
   (define-key LilyPond-mode-map "\C-cn" 'LilyPond-insert-tag-notes)
   (define-key LilyPond-mode-map "\C-cs" 'LilyPond-insert-tag-score)
-  (define-key LilyPond-mode-map "\C-c:" 'LilyPond-un-comment-region)
-  (define-key LilyPond-mode-map "\C-c;" 'comment-region)
+  (define-key LilyPond-mode-map "\C-c;" 'LilyPond-comment-region)
   (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
@@ -999,8 +992,7 @@ command."
 	     ["Autocompletion"   LilyPond-autocompletion t]
 	     ))
 	  '(("Miscellaneous"
-	     ["Uncomment Region" LilyPond-un-comment-region t]
-	     ["Comment Region" comment-region t]
+	     ["(Un)comment Region" LilyPond-comment-region t]
 	     ["Refontify buffer" font-lock-fontify-buffer t]
  	     ))
 	  '(("Info"

@@ -1,3 +1,11 @@
+2003-06-17  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el (LilyPond-un-comment-region): removed.
+	Use one command for both commenting and uncommenting.
+
+	* lilypond-indent.el (LilyPond-comment-region): new function,
+	(un)comments each line separately.
+	
 2003-06-16  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: Set show-paren-mode local; minor-mode
@@ -9,7 +17,7 @@
 	XEmacs' paren-highlight and make minimal changes;
 	add comments about locality. 
 	Fix matching first open-paren-char in '<< .. >>'.
-	
+
 2003-06-16  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/g*: added texidoc index.
