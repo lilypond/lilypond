@@ -29,7 +29,7 @@ Header::tex_string () const
   s+= "\\def\\LilyIdString{"  + lily_id_str_ + "}";
   
   for (Dictionary_iter<String> i (*this); i.ok (); i++) 
-    s += "\\def\\mudela" + i.key () + "{" + i.val () + "}";
+    s += "\\def\\mudela" + i.key () + "{" + i.val () + "}\n";
   return s;
 }
 
@@ -41,7 +41,7 @@ Header::ps_string () const
   s+= "/lily_id_string\n{" + lily_id_str_ + "} bind def\n";
   
   for (Dictionary_iter<String> i (*this); i.ok (); i++) 
-    s += "/mudela" + i.key () + "{" + i.val () + "} bind def";
+    s += "/mudela" + i.key () + "{" + i.val () + "} bind def\n";
   return s;
 }
 

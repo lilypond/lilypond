@@ -7,7 +7,6 @@
 */
 
 #include "misc.hh"
-#include "dimension.hh"
 #include "debug.hh"
 #include "real.hh"
 #include "atom.hh"

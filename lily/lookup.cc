@@ -14,9 +14,8 @@
 
 #include "lookup.hh"
 #include "debug.hh"
+#include "dimensions.hh"
 #include "symtable.hh"
-#include "dimension.hh"
-#include "tex.hh"
 #include "scalar.hh"
 #include "paper-def.hh"
 #include "string-convert.hh"
@@ -78,7 +77,7 @@ Lookup::afm_find (String s, String str) const
   Adobe_font_char_metric m = afm_p_->find_char (s);
 
   Atom a;
-  if (m.width () ==0)
+  if (m.code () < 0)
     return a;
   
   a.dim_ = m.B_;
@@ -110,6 +109,22 @@ Lookup::bar (String str, Real h) const
   return s;
 }
 
+String
+Lookup::base_output_str () const
+{
+  assert (paper_l_);
+  String str = paper_l_->get_default_output ();
+
+  if (str.empty_b ())
+    {
+      str = default_outname_base_global;
+      int def = paper_l_->get_next_default_count ();
+      if (def)
+	str += "-" + to_str (def);
+    }
+  return str;
+}
+
 Atom 
 Lookup::beam (Real slope, Real width, Real thick) const
 {
@@ -121,6 +136,12 @@ Lookup::beam (Real slope, Real width, Real thick) const
   a.dim_[X_AXIS] = Interval (0, width);
   a.dim_[Y_AXIS] = Interval (min_y, max_y);
   return a;
+}
+
+String
+Lookup::character_str (int i) const
+{
+  return to_str (i);
 }
 
 Atom
@@ -166,6 +187,18 @@ Lookup::print () const
 #endif
 }
 
+String
+Lookup::print_dimen (Real r) const
+{
+  String s = to_str (r, "%.3f");
+  if (s.index_i ("NaN") != -1)
+    {
+      warning (_ ("NaN"));
+      s = "0.0";
+    }
+  return s;
+}
+
 Atom
 Lookup::rest (int j, bool o) const
 {
@@ -180,9 +213,9 @@ Lookup::rule_symbol (Real height, Real width) const
   Array<String> args;
   args.push (print_dimen (height));
   args.push (print_dimen (width));
-  bs.str_ = substitute_args (bs.str_,args);
-  bs.dim_.x () = Interval (0,width);
-  bs.dim_.y () = Interval (0,height);
+  bs.str_ = substitute_args (bs.str_, args);
+  bs.dim_.x () = Interval (0, width);
+  bs.dim_.y () = Interval (0, height);
   return bs;
 }
 
@@ -195,16 +228,44 @@ Lookup::script (String str) const
 Atom
 Lookup::special_time_signature (String s, Array<Scalar> arr) const
 {
-  String symbolname="timesig-"+s+"%/%";
-  Atom a (afm_find (substitute_args(symbolname,arr)));
-  if (!a.empty()) 
+  String symbolname = "timesig-"+s+"%/%";
+  Atom a (afm_find (substitute_args (symbolname, arr)));
+  if (!a.empty ()) 
     return a;
   // Try if the full name was given
-  a=afm_find ("timesig-"+s);
-  if (!a.empty()) 
+  a = afm_find ("timesig-"+s);
+  if (!a.empty ()) 
     return a;
   // Resort to default layout with numbers
-  return time_signature(arr);
+  return time_signature (arr);
+}
+
+static void
+substitute_arg (String& r, String arg)
+{
+  int p = r.index_i ('%');
+  if (p < 0)
+	return ;
+
+  r = r.left_str (p) + arg + r.right_str (r.length_i () - p - 1);
+}
+
+String
+Lookup::substitute_args (String source, Array<String> args) const
+{
+  String str (source);
+  for (int i = 0 ; i < args.size (); i++)
+    substitute_arg (str, args[i]);
+  return str;
+}
+
+String
+Lookup::substitute_args (String source, Array<Scalar> args) const
+{
+  Array<String> sv;
+  for (int i = 0 ; i < args.size (); i++)
+    sv.push (args[i]);
+  return substitute_args (source, sv);
 }
 
 Atom
@@ -295,7 +356,7 @@ Lookup::vbrace (Real &y) const
   
   {
     Array<String> a;
-    a.push (to_str (idx));
+    a.push (character_str (idx));
     brace.str_ = substitute_args (brace.str_,a);
     brace.dim_[Y_AXIS] = Interval (-y/2,y/2);
   }

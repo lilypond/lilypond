@@ -20,7 +20,7 @@ paper_twenty = \paper {
 	arithmetic_basicspace = 2.;
         arithmetic_multiplier = 6.\pt;
 	texsetting = "\\input lilyponddefs \\musixtwentydefs ";
-
+	pssetting = "(lilyponddefs.ps) findlibfile {exch pop //systemdict /run get exec} { /undefinedfilename signalerror } ifelse\n";
 
 	-2 = \symboltables { \table_thirteen }	
 	-1 = \symboltables { \table_sixteen }

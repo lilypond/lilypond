@@ -8,12 +8,12 @@
 
 
 #include "atom.hh"
-#include "tex.hh"
 #include "interval.hh"
-#include "dimension.hh"
 #include "string.hh"
 #include "array.hh"
 #include "debug.hh"
+#include "dimensions.hh"
+#include "lookup.hh"
 #include "main.hh"
 
 inline bool
@@ -29,7 +29,7 @@ Atom::check_infinity_b ()const
       if (abs (off_[ax]) >= 100 CM)
 	{
 	  warning (_f ("ridiculous dimension: %s, %s", axis_name_str (ax),
-		   print_dimen (off_[ax])));
+		   global_lookup_l->print_dimen (off_[ax])));
 	  
 	  if (experimental_features_global_b)
 	    assert (false);
@@ -76,7 +76,7 @@ Atom::Atom ()
     But Atom is used as a simple type *everywhere*,
     and we don't have virtual contructors.
    */
-  str_ = ps_output_global_b ? "unknown" : "\\unknown";
+  str_ = global_lookup_l->unknown_str ();
 }
 
 Atom::Atom (String s, Box b)

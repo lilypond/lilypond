@@ -11,8 +11,8 @@
 #include "misc.hh"
 
 #ifndef STANDALONE
+#include "dimensions.hh"
 #include "direction.hh"
-#include "dimension.hh"
 #include "paper-def.hh"
 #include "debug.hh"
 #include "main.hh"

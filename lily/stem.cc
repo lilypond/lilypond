@@ -9,7 +9,6 @@
 */
 
 #include "stem.hh"
-#include "dimension.hh"
 #include "debug.hh"
 #include "paper-def.hh"
 #include "note-head.hh"

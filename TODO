@@ -10,6 +10,39 @@ grep for TODO and ugh/ugr/urg
 
 BUGS:
 
+	+
+	>      \notes{ a \< b \cr }
+	> 
+	> work but
+	>    
+	>      \notes{ a \< b \! }
+	> 
+	> give a parse error?  
+
+
+	* if possible, it might be nice for a warning to appear if someone does
+	> \translator with no name and without assigning it to an
+identifier.  possible, it might be nice for a warning to appear if
+someone does
+	> \translator with no name and without assigning it to an
+identifier.
+
+	* space after bars?
+
+	* [/3 c8 c16 c c c]/1
+  
+	* I see that  \prallprall and \prallmordent are identical. I think this is a 
+	mistake, that \prallprall should not have the vertical line.
+	This can be fixex by removing  the line
+	> draw_mordent(twidth-0.5toverlap);
+	from the definition of \prallprall in mf/feta-slag.mf (see below)
+
+	* fix singleStaffBracket
+  
+  	* repeat bars: need distance after ":|" and before "|:"
+
+	- The time signature warnings still remain, will be fixed later.
+
 	* fix \n after proccing
 
  Summary of minor spelling irregularities:
@@ -26,6 +59,29 @@ BUGS:
 
 ****
 
+ > lbheel = \script { "bheel" 0 0 -1  0 0 }
+> rbheel = \script { "bheel" 0 0 1 0 0 }
+> lbtoe = \script { "btoe" 0 0 -1 0 0 }
+> rbtoe = \script { "btoe" 0 0 1 0 0 }
+> lfheel = \script { "fheel" 0 0 -1  0 0 }
+> rfheel = \script { "fheel" 0 0 1 0 0 }
+> lftoe = \script { "ftoe" 0 0 -1 0 0 }
+> rftoe = \script { "ftoe" 0 0 1 0 0 }
+> 
+> and also
+> 
+> portato= \script { "portato" 0 -1 0 1 0 }
+
+	* MIDI spelling.
+
+	* foo = 1
+
+	 \score{
+	   \notes { a }
+	   \paper{ foo = \translator{ \StaffContext}; }
+	 }
+
+	* Align_element::padding  ?
 
 	* uniformise property names.
 

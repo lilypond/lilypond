@@ -7,12 +7,10 @@
 */
 
 #include "interval.hh"
-#include "dimension.hh"
 #include "string.hh"
 #include "molecule.hh"
 #include "atom.hh"
 #include "debug.hh"
-#include "tex.hh"
 
 Box
 Molecule::extent() const

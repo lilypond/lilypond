@@ -12,8 +12,6 @@
 #include "molecule.hh"
 #include "atom.hh"
 #include "array.hh"
-#include "dimension.hh"
-#include "tex.hh"
 #include "string-convert.hh"
 #include "debug.hh"
 
@@ -32,7 +30,9 @@ Ps_outputter::~Ps_outputter ()
 static String
 ps_font_command(int i)
 {
-  return "\\font"  +String_convert::form_str ("%c",  'A' + i) ;
+// urg
+//  return "%\\font" + String_convert::form_str ("%c",  'A' + i) + "\n";
+  return "\n/feta20 findfont 12 scalefont setfont ";
 }
 
 void
@@ -52,8 +52,8 @@ Ps_outputter::switch_to_font (String fontname)
 
   
   font_arr_.push (fontname);
-  *outstream_l_ << "\\font"  + ps_font_command (i) << "=" + fontname << "\n";
-  *outstream_l_<< ps_font_command (i);
+  *outstream_l_ << "%\\font"  + ps_font_command (i) << "% =" + fontname << "\n";
+  *outstream_l_<< ps_font_command (i) << "\n";
 }
 
 void
@@ -62,20 +62,19 @@ Ps_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
   if (check_debug)
     *outstream_l_ << String ("\n%start: ") << nm << "\n";
 
-  Paper_outputter::output_molecule (m, o, nm, "% % % placebox");
+  Paper_outputter::output_molecule (m, o, nm, "% % {%}placebox \n");
 }
 
 void
 Ps_outputter::start_line ()
 {
-  *outstream_l_ << "\\hbox{%\n";
+  *outstream_l_ << "\nstart_line {\n";
 }
 
 void
 Ps_outputter::stop_line ()
 {
-  *outstream_l_ << "}";
-  *outstream_l_ << "\\interscoreline";
+  *outstream_l_ << "}\nstop_line\n";
   current_font_ = "";
   font_arr_.clear ();
 }

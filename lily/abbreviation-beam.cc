@@ -10,7 +10,6 @@
 #include "p-col.hh"
 #include "array.hh"
 #include "proto.hh"
-#include "dimension.hh"
 #include "abbreviation-beam.hh"
 #include "misc.hh"
 #include "debug.hh"

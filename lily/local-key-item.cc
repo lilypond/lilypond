@@ -5,7 +5,6 @@
 
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include "dimension.hh"
 #include "local-key-item.hh"
 #include "molecule.hh"
 #include "scalar.hh"

@@ -28,13 +28,13 @@ int
 _Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b)
 {
   if (a.left == b.left && a.right == b.right)
-	return 0;
+    return 0;
   
   if (a.left <= b.left && a.right >= b.right)
-	return 1;
+    return 1;
 
   if (a.left >= b.left && a.right <= b.right)
-	return -1;
+    return -1;
 
   return -2;
 }
@@ -45,7 +45,7 @@ Interval_t<T>::contains_b (Interval_t<T> const& a) const
 {
   int c_i= _Interval__compare (*this, a);
   if (c_i == -2)
-	return false;
+    return false;
   return c_i >= 0;
 }
 
@@ -55,7 +55,7 @@ Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b)
 {
   int i = _Interval__compare (a,b);
   if (i < -1)
-	assert (false);
+    assert (false);
   return i;
 }
 
@@ -82,9 +82,9 @@ void
 Interval_t<T>::unite (Interval_t<T> h)
 {
   if (h.left<left)
-	left = h.left;
+    left = h.left;
   if (h.right>right)
-	right = h.right;
+    right = h.right;
 }
 
 /**
@@ -117,7 +117,7 @@ String
 Interval_t<T>::str() const
 {
   if (empty_b())
-	return "[empty]";
+    return "[empty]";
   String s ("[");
  
   return s + T_to_str (left) + String ("," ) + T_to_str (right ) + String ("]" );
@@ -132,6 +132,6 @@ Interval_t<T>::elem_b (T r)
 
 
 #define INTERVAL__INSTANTIATE(T) struct Interval_t<T>;\
-  template  int Interval__compare(const Interval_t<T>&,Interval_t<T> const&)
+template  int Interval__compare(const Interval_t<T>&,Interval_t<T> const&)
 
 #endif // INTERVAL_TCC

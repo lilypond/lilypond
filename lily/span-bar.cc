@@ -6,9 +6,9 @@
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "dimension.hh"
 #include "span-bar.hh"
 #include "lookup.hh"
+#include "dimensions.hh"
 #include "atom.hh"
 #include "paper-def.hh"
 #include "molecule.hh"

@@ -2,9 +2,10 @@
 
 depth = ..
 
-STEPMAKE_TEMPLATES=metafont
+STEPMAKE_TEMPLATES=metafont metapost
 
-EXTRA_DIST_FILES += TODO README
+EXTRA_DIST_FILES += TODO README feta.mp mfmp.ini
+
 
 FET_FILES = $(wildcard feta[0-9]*.mf)
 

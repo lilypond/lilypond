@@ -9,7 +9,6 @@
 #include <fstream.h>
 #include <time.h>
 
-//#include "tex.hh"
 #include "main.hh"
 #include "paper-stream.hh"
 #include "debug.hh"
@@ -79,6 +78,11 @@ Paper_stream::operator << (Scalar s)
 		    delete os;	// we want to see the remains.
 		    assert (nest_level>=0);
 		  }
+
+		/* don't break line if not nested; very ugly for ps */
+		if (nest_level == 0)
+		  break;
+
 		/* FALLTHROUGH */
 
 	    case '\n':

@@ -15,7 +15,6 @@
 #include "lookup.hh"
 #include "ps-lookup.hh"
 #include "tex-lookup.hh"
-#include "dimension.hh"
 #include "assoc-iter.hh"
 #include "score-engraver.hh"
 #include "p-score.hh"
@@ -47,8 +46,7 @@ Paper_def::Paper_def (Paper_def const&s)
   lookup_p_assoc_p_ = new Assoc<int, Lookup*>;
   for (Assoc_iter<int, Lookup*> ai(*s.lookup_p_assoc_p_); ai.ok (); ai++)
     {
-      Lookup * l = ps_output_global_b ? new Ps_lookup (*ai.val ())
-	: new Tex_lookup (*ai.val ());
+      Lookup * l = global_lookup_l->lookup_p (*ai.val ());
       l->paper_l_ = this;
       set_lookup (ai.key(), l);
     }
@@ -219,7 +217,7 @@ Paper_def::ps_output_settings_str () const
   for (Assoc_iter<String,Identifier*> i (*scope_p_); i.ok (); i++)
     s += String ("/mudelapaper") + i.key () 
       + "{" + i.val ()->str () + "} bind def\n";
-  s +=  *scope_p_->elem ("texsetting")->access_String ();
+  s +=  *scope_p_->elem ("pssetting")->access_String ();
   return s;
 }
 

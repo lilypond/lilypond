@@ -11,7 +11,6 @@
 #include "paper-def.hh"
 #include "molecule.hh"
 #include "text-def.hh"
-#include "dimension.hh"
 #include <ctype.h>
 
 Direction
