@@ -348,7 +348,7 @@ Real
 Stem::note_delta_f () const
 {
   Real r=0;
-  if (head_l_arr_.size())
+  if (head_l_arr_.size() && stem_xdir_ != CENTER)
     {
       Interval head_wid(0,  head_l_arr_[0]->width ().length ());
       Real rule_thick(paper ()->rule_thickness ());

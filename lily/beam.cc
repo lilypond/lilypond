@@ -239,6 +239,9 @@ Beam::solve_slope()
 void
 Beam::set_stemlens()
 {
+  /* 
+     should check for visibility of stem..
+   */
   Real x0 = stems[0]->hpos_f();
   for (int j=0; j <stems.size(); j++)
     {
