@@ -124,6 +124,16 @@ Measure_grouping_req::do_print() const
     }
 }
 /* *************** */
+
+void
+Key_change_req::transpose(Melodic_req const & d)const
+{
+    WARN << "don't know how to transpose a key. \n";
+    for (int i=0; i < melodic_p_arr_.size(); i++) {
+	melodic_p_arr_[i]->transpose(d);
+    }
+}
+
 void
 Key_change_req::do_print() const
 {

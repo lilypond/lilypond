@@ -1,7 +1,7 @@
 #include "proto.hh"
 #include "plist.hh"
 #include "debug.hh"
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 #include "moment.hh"
 #include "time-description.hh"
 #include "source-file.hh"

@@ -18,9 +18,12 @@
 struct Identifier {
     void *data;
     String name;
+    bool init_b_;
+    bool accessed_b_;
     int token_code_i_;
-
-    Identifier(String n, int code) : name(n) { token_code_i_ = code; }
+    char const *defined_ch_C_;
+    
+    Identifier(String n, int code) ;
     virtual ~Identifier() {}
 
     void print()const;

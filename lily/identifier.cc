@@ -9,7 +9,7 @@
 #include <assert.h>
 
 #include "identifier.hh"
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 #include "debug.hh"
 
 #include "input-score.hh" 
@@ -26,6 +26,16 @@ Identifier::error(String expect)
     String e("Wrong identifier type: ");
     e += String(classname()) + "(expected " + expect + ")";
     ::error(e);
+}
+
+Identifier::Identifier(String n, int code)
+    : name(n) 
+{
+    token_code_i_ = code; 
+    data = 0;
+    accessed_b_ = 0;
+    init_b_ = 0;
+    defined_ch_C_ = 0;
 }
 
 void
@@ -65,9 +75,10 @@ char const * Idclass::classname() const\
 }\
 Class*\
 Idclass::accessor(bool copy) {\
-	if (copy)\
+	if (copy){ \
+	    accessed_b_ = true;\
 	    return new Class(* (Class*) data);\
-	else\
+        }else\
 	    return (Class*) data;\
     }\
 Idclass::~Idclass() { delete accessor(false); }\

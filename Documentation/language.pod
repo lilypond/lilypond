@@ -133,6 +133,95 @@ it will make things easier.
 =head1 CONCRETE PROPOSALS
 
 
+=head1 Decisions (Sat 1997-3-15, dommelpijpje no21)
+
+=over 4
+
+=item *
+
+\keyword, bo difference notes vs. notenames,
+
+=item *
+
+{} hierachical, nest.,
+
+=item *
+
+<> chords,
+
+=item *
+
+drop staff (NOT)?,
+
+=item *
+
+melody = \melodic{ } vs. \melodic melody = { }
+
+=item *
+
+lexer mode switch by types: \lyric{ }, \melodic{ }, etc.,
+
+=item *
+
+octaves: low 'C C c c' c'' high; 'c' == c === "c-klein", comment: a '
+' a . Which ' for which a? Now using a!'`.
+
+=over 4
+
+=item *
+
+\meter{ 2/4 },
+
+=item *
+
+\grouping{ 2*8 3*8 },
+
+=item *
+
+\skip{ 2: 2*8 3*32 },
+
+=item *
+
+abbrev: [c2 c2]\noplet{1/2} (wat bout [c2 c2]1/2\noplet?),
+
+=item *
+
+abbrev: c4=16 (heu, =?),
+
+=item *
+
+plet === midi-note: c4*2/3; c4*385/384,
+
+=back
+
+=item *
+
+drop \music,
+
+=item *
+
+\meter compulsory in Simple mudela,
+
+=item *
+
+++ concat
+
+=item *
+
+C<+> is  merge
+
+=item *
+
+	\transpose{ \from c \to g \melodic{ c d e } }
+	\transpose{ \from c \to g melody } %!?
+
+=item *
+
+	\extract{ \from 2:3*4 \to 5 oboe }
+
+=back
+
+
 
 =head1 THOUGHTS
 

@@ -27,7 +27,6 @@ struct Duration {
 	void set_ticks( int ticks_i );
 
 	static int division_1_i_s;
-//	    int i_;	// balltype -> type!
 	int type_i_;
 	int dots_i_;
 	Plet* plet_p_;
@@ -37,10 +36,8 @@ struct Duration {
 /// (plet)
 struct Plet {
 	Plet( int replace_i, int type_i );
-	Plet( Plet const& plet_c_r );
-
-//	    int i_;
-	int iso_i_;  // 2/3; 2 is not duration, maar of count!
+	
+    int iso_i_;  // 2/3; 2 is not duration, maar of count!
 	int type_i_;
 };
 

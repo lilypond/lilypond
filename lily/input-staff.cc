@@ -14,7 +14,7 @@
 #include "complex-staff.hh"
 #include "lyric-staff.hh"
 
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 
 
 Input_staff::Input_staff(String s)

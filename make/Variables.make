@@ -53,6 +53,9 @@ BUILD = $(shell cat $(build))
 INCREASE_BUILD = echo `expr \`cat $(build)\` + 1` > .b; mv .b $(build)
 #
 
+# ugh, for win32 make
+export CXX
+
 # the version:
 #
 VERSION=$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_LEVEL)$(MY_PATCH_LEVEL)

@@ -1,5 +1,5 @@
 /*
-  lexer.hh -- declare My_flex_lexer
+  lexer.hh -- declare My_lily_lexer
 
   source file of the LilyPond music typesetter
 
@@ -38,7 +38,13 @@ struct Lexer_prefs {
 };
 
 /// lexer with provisions for include files.
-struct My_flex_lexer : yyFlexLexer {
+class My_lily_lexer : public yyFlexLexer {
+    int lookup_keyword(String);
+    void lookup_notename(int &large, int &small, String s);
+    int scan_bare_word(String);
+    int scan_escaped_word(String);
+
+public:
     Lexer_prefs prefs;
     
     Array<Input_file*> include_stack_;
@@ -48,25 +54,26 @@ struct My_flex_lexer : yyFlexLexer {
 
     /* *************** */
 
+    Identifier*lookup_identifier(String s);
     char const* here_ch_c_l();
-    int lookup_keyword(String);
-    void lookup_notename(int &large, int &small, String s);
-
+ 
     void push_note_state();
     void push_lyric_state();
     void pop_state();
     void LexerError(char const *);
     String spot() const;
-    Identifier*lookup_identifier(String s);
-    My_flex_lexer();
+    My_lily_lexer();
     void add_identifier(Identifier*i);
-    ~My_flex_lexer();
+    ~My_lily_lexer();
     void new_input(String s);
     bool  close_input();
     int yylex();
-    void print_declarations() const;
+    void print_init_declarations() const;
+    void print_user_declarations() const;
+    bool note_state_b() const;
+    bool lyric_state_b() const;
 };
 
-extern My_flex_lexer *lexer;
+extern My_lily_lexer *lexer;
 
 #endif

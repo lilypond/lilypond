@@ -1,5 +1,5 @@
 /*
-  voiceelt.cc -- implement Voice_element
+  voice-elt.cc -- implement Voice_element
 
   source file of the LilyPond music typesetter
 
@@ -14,6 +14,14 @@
 #include "musical-request.hh"
 #include "command-request.hh"
 
+
+void
+Voice_element::transpose(Melodic_req const&d)const
+{
+    for (iter_top(reqs,i); i.ok(); i++) {
+	i->transpose(d);
+      }
+}
 
 void
 Voice_element::print() const

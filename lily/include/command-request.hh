@@ -101,7 +101,7 @@ struct Group_feature_req : Command_req {
 
 struct Key_change_req : Command_req {
     Array<Melodic_req*> melodic_p_arr_;
-
+    virtual void transpose(Melodic_req const &)const;
     Key_change_req();
     Key_change_req(Key_change_req const&);
     ~Key_change_req();

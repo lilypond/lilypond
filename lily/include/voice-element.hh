@@ -23,7 +23,7 @@ struct Voice_element {
     IPointerList<Request*> reqs;
 
     /* *************** */
-    
+    void transpose(Melodic_req const &)const;
     Voice_element();
     Voice_element(Voice_element const & src );
 

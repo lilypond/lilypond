@@ -35,7 +35,7 @@ begeleiding = \music {
 globalmusic=\music{
 		\meter {2 / 4}
 		\skip {24*2}
-		\bar "||"
+%		\bar "||"
 	}
 tekst = \lyrics { 
  	Al- tijd is Kort- jak- je ziek,2
@@ -61,7 +61,7 @@ texte = \lyrics {
  	Ah! vous dir- ai_- je ma man2
 	Ce qui cau- se mon tour- ment2
 	Pa- pa veut que je rai- sonne2
-	Co\mme un- e grand- e per- sonne2
+	Comme un- e grand- e per- sonne2
 	Moi je dis que les bon- bons2
 	Val- ent mieux que la rai- son2
 	
@@ -76,11 +76,9 @@ textI = \lyrics {
 	Like a dia- mond in the sky.2
 	Twin- kle, twin- kle, lit- tle star,2
 	How I won- der what you are!2
-	
 }
 
-textII = \music {
-	
+textII = \lyrics {
 	\textstyle "roman"
 	When the bla- zing sun is gone,2
 	When he no- thing shines up- on,2

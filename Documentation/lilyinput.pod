@@ -42,7 +42,7 @@ Other considerations were (and will be):
 =item *
 
 be able to edit the layout 
-without danger of changing the original music (Urtekst),
+without danger of changing the original music (Urtext),
 
 =item *
 
@@ -105,21 +105,41 @@ has a logical structure,
 making use of typing and naming (using identifiers),
 that allows for flexible input, and definition reuse.
 
+The below included for explanatory
+purposes only (i.e., for a complete and up-to-date definition, see
+F<lily/parser.y> and F<lily/lexer.l>):
+
+=head2 Files
+
+The de-facto extension of Mudela is F<.ly>. Files may be included by
+entering C<include> at the start of a line:
+
+	include "a_file.ly"
+
 =head2 Comments
 
 Line comments are introduced by a C<%>
 
-=head2 Keywords
+=head2 Words
 
-Keywords are preceded by a backslash "\".
+Keywords are preceded by a backslash "\". They contain alphabetic
+characters only. 
 
-The actual musical part of Mudela that defines a melody, is known as 
-I<simple mudela>. 
+Identifiers in their normal form consist start with a alpha character,
+followed by alpha-numerics. Identifiers can contain any characters
+(except whitespace, C<$> and C<%>), if you use this construct:
+
+	$Id_with###@weird92chars = 
+
+=head2 Nesting characters
 
 Mudela uses the brace (C<{> and C<}>) for hierarchical structures. To
-aid the eye in reading, for chords we have used the C<<> and the C<>>
-as nesting braces. 
+aid the eye in reading, for chords the C<<> and the C<>> are used as
+nesting braces.
 
+=head2 Identifiers
+
+=head2 Hierarchical structures
 
 The general structure consists of declarations:
 
@@ -141,36 +161,84 @@ Most instantiations that use an IDENTIFIER are specified as follows:
 Some exceptions on this rule have been made to prevent inputting
 Mudela becoming tedious
 
-=head1 Music
 
 =head2 Simple mudela
 
+The actual musical part of Mudela that defines a melody, is known as 
+I<simple mudela>. 
+
 Simple mudela is the most common type of music.  It consists of a list
-of notes, chords, and commands.  The below included for explanatory
-purposes only (i.e., for a complete and up-to-date definition, see
-F<lily/parser.y> and F<lily/lexer.l>):
+of notes or lyrics, chords, and commands.
+
+=head2 Modes:
+
+To simplify different aspects of music definition (entering the notes
+and manipulating them) Mudela has a number of different input "modes":
+
+=over 4
+
+=item Normal mode
+
+At the start of parsing, Mudela assumes normal mode.
+In Normal mode, a word is looked up in the following order:
+
+	word	identifier, string
+	\word	keyword, string
+
+In normalmode, a word is assumed to start with an alphabetic
+character, followed by alpha-numeric characters.
+
+=item Note mode
+
+Note mode (and thus Simple mudela) is introduced by the keyword C<\music>.
+In Note mode, a word is looked up in the following order:
+
+	word	identifier, string
+	\word	keyword, string
+
+In Note mode a word is considered to have alphabetic characters only.
+
+=item Lyric mode
+
+Lyrics mode (and thus Simple mudela)  is introduced by the keyword C<\lyrics>.
+
+In Lyrics mode, a word is looked up in the following order:
+
+	word	string
+	\word	keyword, string
+
+In Lyric mode every sequence of non-digit and non-white characters
+starting with an alphabetic character is considered a word.
+
+=back
+
+These modes are of a lexical nature. Normal and Note mode largely
+resemble each other, save the possibility of entering Reals, and
+meaning of C<_>
+
+=head2 Notes
 
 Simple mudela basically is a sequence of the notes you want to
 enter. 
 
 	a'4	% dutch names
 
-is a A-1 pitched quaver. The ' signifies an octave change.
+is a A-1 pitched quaver. The ' as well as the ` signify an octave change.
 A-1 is 440 Hz concert-pitch. C<c'> is also known as the central
 c. More examples:
 
-	a`	% 110
+	`a	% 110
 	a	% 220
 	a'	% 440
 	a''	% 880
 
 another example:
 
-	as`4.*2/3
+	`as4.*2/3
 
 This is an A flat, (just below 110 Hz concert-pitch). The C<*2/3>
 signifies that this note is part of a triplet (3 in stead of 2). The
-duration is one and a half quaver times 2/3. 
+duration is one and a half quaver (C<4.>) times 2/3. 
 
 The default language for notenames is defined to be dutch,
 
@@ -192,6 +260,11 @@ down:
 	A	% 110
 	'A	% 55
 	A'	% 220
+	Cisis
+
+The rest is named 
+
+	r
 
 These notenames along with duration is enough material to construct
 simple melodies:
@@ -212,7 +285,7 @@ example:
 
 	[c8 () d8 () e8 ]
 
-Please note that these two parentheses do I<not> necesarrily nest, eg:
+Please note that these two characters do I<not> necessarrily nest, eg:
 
 	[c8 e8(] [)g8 c'8]
 
@@ -239,15 +312,21 @@ The general form of a note is:
 Notenames are just identifiers, and can be declared for any
 language appropriate (see F<dutch.ini>). 
 
-
 =head2 Lyrics
 
-Lyrics in Mudela resemble Simple mudela a lot, 
-with notes substituted by text.
-All syllables are entered separately, separated by whitespace
-("Twin-4 kle4 twin-4 kle4 ... ").
-Two syllables or words that compose a single duration entry
-are bound together using an underscore ("He_could4 not4").
+Lyrics in Mudela resemble Simple mudela a lot, with notes substituted
+by text. 
+
+All syllables are entered separately, separated by whitespace 
+
+	Twin-4 kle4 twin-4 kle4 ... 
+
+Two syllables or words that compose a single
+duration entry are bound together using an underscore 
+
+	He_could4 not4
+
+
 
 =head2 Rhythms
 
@@ -281,92 +360,3 @@ maintenance no long examples are included in this document.
 
 LilyPond first reads F<symbol.ini>, which contains declarations crucial
 to proper operation of LilyPond (symbol tables, note names).
-
-=head1 Decisions (Sat 1997-3-15, dommelpijpje no21)
-
-=over 4
-
-=item *
-
-\keyword, bo difference notes vs. notenames,
-
-=item *
-
-{} hierachical, nest.,
-
-=item *
-
-<> chords,
-
-=item *
-
-drop staff (NOT)?,
-
-=item *
-
-melody = \melodic{ } vs. \melodic melody = { }
-
-=item *
-
-lexer mode switch by types: \lyric{ }, \melodic{ }, etc.,
-
-=item *
-
-octaves: low 'C C c c' c'' high; 'c' == c === "c-klein", comment: a '
-' a . Which ' for which a? Now using a!'`.
-
-=over 4
-
-=item *
-
-\meter{ 2/4 },
-
-=item *
-
-\grouping{ 2*8 3*8 },
-
-=item *
-
-\skip{ 2: 2*8 3*32 },
-
-=item *
-
-abbrev: [c2 c2]\noplet{1/2} (wat bout [c2 c2]1/2\noplet?),
-
-=item *
-
-abbrev: c4=16 (heu, =?),
-
-=item *
-
-plet === midi-note: c4*2/3; c4*385/384,
-
-=back
-
-=item *
-
-drop \music,
-
-=item *
-
-\meter compulsory in Simple mudela,
-
-=item *
-
-++ concat
-
-=item *
-
-C<+> is  merge
-
-=item *
-
-	\transpose{ \from c \to g \melodic{ c d e } }
-	\transpose{ \from c \to g melody } %!?
-
-=item *
-
-	\extract{ \from 2:3*4 \to 5 oboe }
-
-=back
-

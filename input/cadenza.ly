@@ -5,10 +5,11 @@
 %
 
 cad = \music { 
-	\duration { 8}
+		\cadenza {1}
+		\grouping{1*4}\duration { 8}
 	\textstyle "italic"
 	\clef \violin 
-	c'4.\mf g8
+	c'4.mf g8
  	\textstyle  "roman" 
 
 	[e'^"accel" ()d' c' b]
@@ -45,14 +46,11 @@ cad = \music {
 	c4
 	}
 
-score {
+\score {
 	\staff { \melodic
 		\music { cad }
 	}
-	\co\mmands {
-		\cadenza {1}
-		grouping{1*4}
-	}
+	
 	\paper {}
-	\midi { \tempo 4:80 }
+	\midi { \tempo 4:90 }
 }

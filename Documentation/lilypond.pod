@@ -88,8 +88,8 @@ multiple stafftypes (melodic, rhythmic) [broken from  pl28 on]
 
 =item *
 
-beams, slurs, chords, super/subscripts (accents and text),
-triplets, general n-plet (triplet, quadruplets, etc.), lyrics
+beams, slurs, chords, super/subscripts (accents and text), triplets,
+general n-plet (triplet, quadruplets, etc.), lyrics, transposition
 
 =item *
 

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #include "glob.hh"
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 //#include "mudobs.hh"
 //#include "gram.hh"
 

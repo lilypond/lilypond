@@ -5,7 +5,7 @@ mwa = \music {
 	[ a8 a8 a8 a8 a8 ]	% 
 	[ a8 ]	% 
 %       segfault
-	{ \\music{ [ bes^"1"( )a bes-. g-. ] a4-.^"4" } \\music{ [ e ] } \\music{ [ c ] } } |
+	< { [ bes^"1"( )a bes-. g-. ] a4-.^"4" } { [ e ] } { [ c ] } > |
 	a ) b ] c 	% warning
 	&   		% ok; error
 	a b ) ] 	% ok; error

@@ -3,9 +3,19 @@
 % COPYRIGHT: GPL
 %
 %
+globals=\music{
+		\meter {4/ 4}
+		\partial {8}
+		\skip {1*8}
+		\skip {3*2 }
+		\bar ":|:"
+		\skip {1*2}
+		\meter {2/4}
+}
 
 ritme = \staff {
 	rhythmic
+	\music{globals}
 	\music {
 	c8
 	|[a8() a8. a8 a16 a16 a16] c4.
@@ -25,6 +35,7 @@ ritme = \staff {
 melody=
 \staff {
 	\melodic
+	\music { globals }
 	\music{
 	c8\key{fis cis gis}
 	|r4 r4 r4 r4
@@ -32,15 +43,15 @@ melody=
 	| r4 r8 r16 r32 r32 
 
 	\duration {4}
-	{
-		\\music { c () `bes [c8 c8] }
-		\\music { fis' ()gisis' fis8 fis8 }
-		\\music { d () d dis8 dis8 }
-		\\music {  a  () bes eis8 eis8 }
-		\\music { fis () g gis8 gis8 }
-	}
+	<
+		 { c () `bes [c8 c8] }
+		 { fis' ()gisis' fis8 fis8 }
+		 { d () d dis8 dis8 }
+		 {  a  () bes eis8 eis8 }
+		 { fis () g gis8 gis8 }
+	>
 	\clef\tenor
-	{ c4 c'4 }
+	< c4 c'4 >
 
 	[d8 e8 f'8 g8]  d8 e8 f8 g8
 	|fis''2
@@ -53,24 +64,16 @@ melody=
 
 }
 
-score {
+\score {
 	\paper {
 		\geometric 1.4
 		\unitspace 3.0 \cm
 	}
 %	\staff { ritme } % broken for now
 	\staff { melody }
-	\co\mmands {
-		\meter {4* 4}
-		\partial {8}
-		\skip {1*8}
-		\skip {3*2 }
-		\bar ":|:"
-		\skip {1*2}
-		\meter {2*4}
-
-	}
+	
 }
+
 
 
 

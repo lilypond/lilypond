@@ -3,14 +3,12 @@
 #include "interval.hh"
 #include "identifier.hh"
 #include "assoc-iter.hh"
-#include "lexer.hh"
 #include "input-file.hh"
 #include "out/parser.hh"
 #include "keyword.hh"
 #include "assoc.hh"
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 #include "debug.hh"
-
 #include "source-file.hh"
 #include "parseconstruct.hh"
 
@@ -19,12 +17,9 @@ static Keyword_ent the_key_tab[]={
     "cadenza", CADENZA,
     "clef", CLEF,
     "cm", CM_T,
-    "command", COMMAND,
-    "commands", COMMANDS,    
     "duration", DURATIONCOMMAND,
     "dynamic", DYNAMIC,
     "geometric", GEOMETRIC,
-    "goto", GOTO,
     "in", IN_T,
     "lyrics", LYRICS,
     "key", KEY,
@@ -50,16 +45,15 @@ static Keyword_ent the_key_tab[]={
     "tempo", TEMPO,
     "texid", TEXID,
     "textstyle", TEXTSTYLE,
+    "transpose", TRANSPOSE,
     "unitspace", UNITSPACE,
-    "voice", VOICE,
-    "voices", VOICES,
     "width", WIDTH,
     "music", MUSIC,
     "grouping", GROUPING,
     0,0
 };
 
-My_flex_lexer::My_flex_lexer()
+My_lily_lexer::My_lily_lexer()
 {
     keytable_p_ = new Keyword_table(the_key_tab);
     identifier_assoc_p_ = new Assoc<String, Identifier*>;
@@ -67,13 +61,13 @@ My_flex_lexer::My_flex_lexer()
 }
 
 int
-My_flex_lexer::lookup_keyword(String s)
+My_lily_lexer::lookup_keyword(String s)
 {
     return keytable_p_->lookup(s);
 }
 
 Identifier*
-My_flex_lexer::lookup_identifier(String s)
+My_lily_lexer::lookup_identifier(String s)
 {
     if (!identifier_assoc_p_->elt_query(s))
 	return 0;
@@ -82,45 +76,59 @@ My_flex_lexer::lookup_identifier(String s)
 }
 
 char const*
-My_flex_lexer::here_ch_c_l()
+My_lily_lexer::here_ch_c_l()
 {
     return include_stack_.top()->sourcefile_l_->ch_c_l() + yyin->tellg();
 }
 
 void
-My_flex_lexer::add_identifier(Identifier*i)
+My_lily_lexer::add_identifier(Identifier*i)
 {
     delete lookup_identifier(i->name);
     (*identifier_assoc_p_)[i->name] = i;
 }
 
-My_flex_lexer::~My_flex_lexer()
+My_lily_lexer::~My_lily_lexer()
 {
     delete keytable_p_;
 
     for (Assoc_iter<String,Identifier*>
 	     ai(*identifier_assoc_p_); ai.ok(); ai++) {
 	mtor << "deleting: " << ai.key()<<'\n';
+	Identifier *i_p = ai.val();
+	if (!i_p->accessed_b_ && !i_p->init_b_)
+	    warning("Variable not used", i_p->defined_ch_C_);
+	
 	delete ai.val();
     }
     delete identifier_assoc_p_;
 }
 void
-My_flex_lexer::print_declarations()const
+My_lily_lexer::print_init_declarations()const
+{
+    for (Assoc_iter<String,Identifier*> ai(*identifier_assoc_p_); ai.ok(); 
+	 ai++) {
+	if (ai.val()->init_b_)
+	    ai.val()->print();
+    }
+}
+void
+My_lily_lexer::print_user_declarations()const
 {
     for (Assoc_iter<String,Identifier*> ai(*identifier_assoc_p_); ai.ok(); ai++) {
-	ai.val()->print();
+	if (!ai.val()->init_b_)
+	    ai.val()->print();
     }
 }
 
 String
-My_flex_lexer::spot()const
+My_lily_lexer::spot()const
 {
     return include_stack_.top()->name +  ": " + String( lineno() );
 }
 
 void
-My_flex_lexer::LexerError(char const *s)
+My_lily_lexer::LexerError(char const *s)
 {
     if (lexer->include_stack_.empty()) {
 	*mlog << "error at EOF" << s << '\n';
@@ -139,7 +147,7 @@ My_flex_lexer::LexerError(char const *s)
 
 // set the  new input to s, remember old file.
 void
-My_flex_lexer::new_input(String s)
+My_lily_lexer::new_input(String s)
 {    
    if (!include_stack_.empty()) {
 	include_stack_.top()->line = lineno();
@@ -156,7 +164,7 @@ My_flex_lexer::new_input(String s)
 
 // pop the inputstack.
 bool
-My_flex_lexer::close_input()
+My_lily_lexer::close_input()
 {
     Input_file *old = include_stack_.pop();
      bool ok = 	true;

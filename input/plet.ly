@@ -6,7 +6,7 @@ melanie = \music {
 	[ c d ] [ e { d g } c ]2/3 |
 	[ c d ] [ c16 d16 e'16 e'16 d16 c16 ]4/6 |
 	[ c d e e d c ]4/6 |
-	[c d ] { \\music{ [ c d e ]2/3 } \\music{ [ f g a ]2/3 } } |
+	[c d ] { \music{ [ c d e ]2/3 } \music{ [ f g a ]2/3 } } |
 	[ c d ] [ d c ] |
         
 }

@@ -1,5 +1,4 @@
 before 0.1
-	* fix Lyric mode
 
 	* remove spurious/outdated comments in .ly, debug .ly
 
@@ -7,16 +6,19 @@ before 0.1
 
 	* basic dynamics
 
-	* basic syntax & parser/lexer cleanup.
-
 	* decent TeX page layout
-	
-	* avoid unnecessary confusing constructs from .ly
+
+	* remove unnecessary or confusing constructs from .ly
 
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
+PARSER
+	* Duration
+
 MAKE-STUFF
+
+	* flower config: separate optiflags.
 
 	* sort out headers, see m2m
 
@@ -32,7 +34,7 @@ BUGS
 
 	* [c8. c32 c32]
 
-	* $cis ( | ) cis$
+	* cis ( | ) cis
 
 	* Group_feature at start of music. 
 
@@ -54,7 +56,11 @@ FURTHER FOR ORCHESTRAL SCORE:
 
 INPUTLANGUAGE
 
-	* read ENV for include path 
+	* read ENV for include /init path 
+
+	* configure pitch_byte
+
+	* special key.
 
 	* figured bass?
 
@@ -62,8 +68,15 @@ INPUTLANGUAGE
 
 	* rest name configurable
 
+	* uniformate: \clef\violin, \clef"violin", \geometric 1.4, 
+	  \meter{ 2/4 }, etc.
+
 SMALLISH PROJECTS
 
+	* key transposition
+
+	* key { C } 
+	
 	* use dstream feature in mi2mu
 
         * qtor, btor, mtor-> tor( QUIET_ver ), tor( DEBUG_ver ), etc.
@@ -76,13 +89,11 @@ SMALLISH PROJECTS
 
 	* parshape
 
-	* a pure parser.
-
-	* bar numbers/repetition marks
+	* a pure parser?
 
 	* read from mmap directly: study yy_scan_buffer
 
-	* binsearch/hash for notenames, id. for identifiers
+	* binsearch/hash for identifiers
 
 	* stafftypes: voice names/ instrument names.
 
@@ -101,8 +112,6 @@ SMALLISH PROJECTS
 
 	* Brackets
 
-	* space rest.
-	
 	* caching of Register_group_register hierarchies.
 
 
@@ -113,9 +122,11 @@ SMALLISH PROJECTS
 
 	* collision Request_register.
 
-	* make install (gnu dir names)
+	* add (good guess of) width to lyric items
 
-	* LilyPond .rpm and .deb
+	* midi output: eat-up dynamic, key/meter/tempo changes, and write them neatly
+
+	* LilyPond .deb
 
 DOC
 
@@ -129,7 +140,7 @@ DOC
 
 FUTURE
 
-	* Register_container baseclass
+	* mixed  fontsizes
 
 	* put scripts on bars
 
@@ -137,7 +148,7 @@ FUTURE
 
 	* guitar chord
 
-	* better beamslope calculation
+	* better beamslope calculation:	QLP for beams?
 
 	* implement better breaking algorithm
 
@@ -146,8 +157,6 @@ FUTURE
 	* clean solution for staffsize in items.
 
 	* merge key{item} & localkey{item}?
-
-	* QLP for beams?
 
 	* revise calcideal
 
@@ -159,15 +168,13 @@ IDEAS
 
 	* integrate Register/Midi stuff
 
-	* create libmudela,  or liblily_frontend
+	* create libmudela, or liblily_frontend
 
 	* Horizontal_align_item, Vertical_align_item.
 
 	* move MIDI io to a ANSI C libmidi library.
 
 	* fold indentifiers and notenames?
-
-	* enter Requests directly
 
 	* itemcolumns: Use dummy items.
 

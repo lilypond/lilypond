@@ -101,7 +101,7 @@ violinI = \music {
 %39
 	[ e'8 c' c' ] [ c'8 d' c' ] |
 %40
-	c'4 { b4 d'4 } |
+	c'4 < b4 d'4 > |
 %41
 	\textstyle "italic"
 	\duration{8}

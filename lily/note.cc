@@ -2,7 +2,7 @@
   could use cleanup
  */
 #include <ctype.h>
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 #include "string.hh"
 #include "real.hh"
 #include "debug.hh"

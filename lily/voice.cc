@@ -17,6 +17,13 @@
 #include "voice-element.hh"
 
 void
+Voice::transpose(Melodic_req const & d)const
+{
+     for (iter_bot(elts, i); i.ok(); i--)
+	i->transpose(d); 
+}
+
+void
 Voice::set_default_group(String s)
 {
     elts.top()->set_default_group(s);

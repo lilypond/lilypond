@@ -34,7 +34,7 @@ melodie = \music {
 				% more of this.
 begeleiding =
 %	\clef bass		% bass-\clef
-%	\\music { 		% as you can see, the  sign obliges 
+%	\music { 		% as you can see, the  sign obliges 
 				% you to precede \keyword by a backslash: \
 	\music { 
 	\clef "bass"

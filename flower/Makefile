@@ -31,7 +31,7 @@ include ./$(depth)/make/Files.make
 CXXFLAGS+=-O2
 # descent order into subdirectories:
 #
-SUBDIRS = test include
+SUBDIRS = include test 
 #
 
 # list of distribution files:

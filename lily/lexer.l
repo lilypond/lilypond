@@ -4,7 +4,7 @@
 
 #include "string.hh"
 #include "string-convert.hh"
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 #include "varray.hh"
 #include "parser.hh"
 #include "debug.hh"
@@ -25,13 +25,13 @@
 %option nodefault
 %option yylineno
 %option debug
-%option yyclass="My_flex_lexer"
+%option yyclass="My_lily_lexer"
 %option stack
 
-%x notes
 %x incl
-%x quote
 %x lyrics
+%x notes
+%x quote
 
 
 
@@ -48,23 +48,27 @@ WORD		{A}{AN}*
 ALPHAWORD	{A}+
 INT		-?{N}+
 REAL		{INT}?(\.{N}*)?
-
-RESTNAME	r|s|p
+KEYWORD		\\{WORD}
+WHITE		[ \n\t\f]
+BLACK		[^ \n\t\f]
+RESTNAME	r
 NOTECOMMAND	\\{WORD}
 DOTS		\.+
-LYRICS		{TEX}+
+LYRICS		{AA}[^0-9 \t\n\f]*
 COMMENT		%.*\n
 
 %%
 
+<lyrics,INITIAL,notes>{COMMENT}	{
+}
 
 
 
-include           {
+^include           {
 	yy_push_state(incl);
 }
-<incl>[ \t]*      { /* eat the whitespace */ }
-<incl>\"[^"]*\"+   { /* got the include file name */
+<incl>{WHITE}*      { /* eat the whitespace */ }
+<incl>\"[^"]*\"   { /* got the include file name */
    String s (YYText()+1);
    s = s.left_str(s.length_i()-1);
    defined_ch_c_l = here_ch_c_l() - String( YYText() ).length_i() - 1;
@@ -78,28 +82,23 @@ include           {
 	mtor << "rest:"<< yylval.string;
 	return RESTNAME;
 }
-<notes,INITIAL>{ALPHAWORD}	{
-	String str = YYText();
-	mtor << "word: `" << str<< "'\n";
-	Identifier * id = lookup_identifier(str);
-	if (id) {		
-		yylval.id = id;
-		return id->token_code_i_;
-	}
-
-	yylval.string=new String( str );
-	return STRING;
+<INITIAL,lyrics,notes>\$\\{BLACK}*{WHITE}	{
+	String s=YYText() + 2;
+	s=s.left_str(s.length_i() - 1);
+	return scan_escaped_word(s);
 }
-<notes,INITIAL>{NOTECOMMAND}	{
-	String c = YYText() +1;
-	mtor << "\\word: `" << YYText()+1<<"'\n";
-	int l = lookup_keyword(c);
-	if (l != -1)
-		return l;
-	
-	String *sp = new String( c);
-	yylval.string=sp;
-	return STRING;
+<INITIAL,lyrics,notes>\${BLACK}*{WHITE}		{
+	String s=YYText() + 1;
+	s=s.left_str(s.length_i() - 1);
+	return scan_bare_word(s);
+}
+<notes>{ALPHAWORD}	{
+	return scan_bare_word(YYText());
+
+}
+
+<notes>{NOTECOMMAND}	{
+	return scan_escaped_word(YYText()+1);
 }
 
 <notes>{DOTS}		{
@@ -109,8 +108,6 @@ include           {
 <notes>{INT}		{
 	yylval.i = String_convert::dec2_i( String( YYText() ) );
 	return INT;
-}
-<notes>{COMMENT}	{
 }
 <notes>[ \t\n]+		{
 
@@ -128,6 +125,9 @@ include           {
 
 \"		{
 	start_quote();
+}
+<quote>\\\"	{
+	*yylval.string +='\"';
 }
 <quote>[^"]+	{
 	*yylval.string += YYText();
@@ -150,30 +150,7 @@ include           {
 	return INT;
 }
 <lyrics>{NOTECOMMAND}	{
-	String c = YYText() +1;
-	mtor << "\\word: `" << YYText()+1<<"'\n";
-	int l = lookup_keyword(c);
-	if (l != -1)
-		return l;
-
-/* let's try passing tex's typesetting macros like \ss \alpha \c */
-	String* str_p = new String(YYText());
-	yylval.string=str_p;
-	mtor << "\\word: `" << *str_p << "'\n";
-	return STRING;	
-
-/* and skip identifiers...
-	Identifier * id = lookup_identifier(c);
-	if (id) {		
-		yylval.id = id;
-		return IDENTIFIER;
-	}
-	String *sp = new String( c);
-
-	yylval.string=sp;
-
-	return STRING;
-*/
+	return scan_escaped_word(YYText()+1);
 }
 <lyrics>{LYRICS} {
 	/* ugr. This sux. */
@@ -193,9 +170,6 @@ include           {
 <lyrics>\|	{
 	return YYText()[0];
 }
-<lyrics>{COMMENT}		{ 
-
-}
 <lyrics>[{}]	{
 	return YYText()[0];
 }
@@ -210,6 +184,12 @@ include           {
 
 	if (! close_input())
  	  yyterminate(); // can't move this, since it actually rets a YY_NULL
+}
+{WORD}	{
+	return scan_bare_word(YYText());
+}
+{KEYWORD}	{
+	return scan_escaped_word(YYText()+1);
 }
 {REAL}		{
 	Real r;
@@ -245,18 +225,58 @@ include           {
 %%
 
 void
-My_flex_lexer::push_note_state()
+My_lily_lexer::push_note_state()
 {
 	yy_push_state(notes);
 }
 
 void
-My_flex_lexer::push_lyric_state()
+My_lily_lexer::push_lyric_state()
 {
 	yy_push_state(lyrics);
 }
 void
-My_flex_lexer::pop_state()
+My_lily_lexer::pop_state()
 {
 	yy_pop_state();
+}
+
+int
+My_lily_lexer::scan_escaped_word(String str)
+{	
+	mtor << "\\word: `" << str<<"'\n";
+	int l = lookup_keyword(str);
+	if (l != -1) {
+		mtor << "(keyword)\n";
+		return l;
+	}
+	String *sp = new String( str);
+	yylval.string=sp;
+	return STRING;
+}
+int
+My_lily_lexer::scan_bare_word(String str)
+{
+	mtor << "word: `" << str<< "'\n";	
+	Identifier * id = lookup_identifier(str);
+	if (id) {
+		mtor << "(identifier)\n";
+		yylval.id = id;
+		return id->token_code_i_;
+	}
+
+	yylval.string=new String( str );
+	return STRING;
+}
+
+bool
+My_lily_lexer::note_state_b() const
+{
+	return YY_START == notes;
+}
+
+bool
+My_lily_lexer::lyric_state_b() const
+{
+	return YY_START == lyrics;
 }

@@ -70,10 +70,10 @@ alto = \music {
 	
 }
 
-score {
+\score {
 	\staff { \melodic \music { alto }}
 
-	}
+	
 	\paper { 
 		\unitspace 14\mm
 		\geometric 1.4

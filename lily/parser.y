@@ -4,7 +4,7 @@
 #include "symtable.hh"
 #include "lookup.hh"
 #include "misc.hh"
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 #include "paper-def.hh"
 #include "midi-def.hh"
 #include "main.hh"
@@ -30,7 +30,7 @@ Paper_def*default_paper();
 char const* defined_ch_c_l;
 char const* req_defined_ch_c_l;
 int fatal_error_i = 0;
-
+bool init_parse_b;
 %}
 
 
@@ -72,14 +72,11 @@ int fatal_error_i = 0;
 %token CADENZA
 %token CLEF
 %token CM_T
-%token COMMAND
-%token COMMANDS
 %token CONCAT
 %token DURATIONCOMMAND
 %token DYNAMIC
 %token END
 %token GEOMETRIC
-%token GOTO
 %token GROUPING
 %token IN_T
 %token LYRICS
@@ -104,14 +101,12 @@ int fatal_error_i = 0;
 %token STEM
 %token SYMBOLTABLES
 %token TABLE
-%token TABLE
+%token TRANSPOSE
 %token TEMPO
 %token TEXID
 %token TEXTSTYLE
 %token TITLE
 %token UNITSPACE
-%token VOICE
-%token VOICES
 %token WIDTH
 
 %token <i>	DOTS
@@ -143,14 +138,14 @@ int fatal_error_i = 0;
 %type <interval>	dinterval
 %type <intvec>	intastint_list
 %type <lookup>	symtables symtables_body
-%type <melreq>	melodic_request
+%type <melreq>	melodic_request steno_melodic_req
 %type <notereq>	steno_note_req
 %type <melreqvec>	pitch_list 
 %type <midi>	midi_block midi_body
 %type <moment>	duration_length
-%type <music>	music init_music
-%type <mvoice>	 music_voice_body music_voice  init_music_voice init_lyrics_voice
-
+%type <music>	init_music
+%type <mvoice>	 transposed_music_voice init_lyrics_voice
+%type <mvoice>	music_voice_body music_voice  init_music_voice 
 %type <paper>	paper_block paper_body
 %type <real>	dim real
 %type <real>	unit
@@ -167,7 +162,7 @@ int fatal_error_i = 0;
 
 %left PRIORITY
 
-%expect 2	/* have to fix this. */
+%expect 1	/* have to fix this. */
 
 %%
 
@@ -184,16 +179,23 @@ mudela:	/* empty */
 */
 add_declaration: declaration	{
 		lexer->add_identifier($1);
+		$1->init_b_ = init_parse_b;
+		$1->defined_ch_C_ = define_spots.pop();
 	}
 	;
 
 declarable_identifier:
-	STRING { $$ = $1;
-	   if (lexer->lookup_identifier(*$1))
+	STRING {
+		define_spots.push(lexer->here_ch_c_l());
+	    $$ = $1;
+	    if (lexer->lookup_identifier(*$1))
 		warning("redeclaration of `" + *$1 + "'",
 			lexer->here_ch_c_l());
 	}
-	| IDENTIFIER { $$ = new String($1->name); }
+	| IDENTIFIER { 
+		define_spots.push(lexer->here_ch_c_l());
+		$$ = new String($1->name); 
+	}
 	;
 
 declaration:
@@ -257,7 +259,6 @@ score_block:
 		/* handle error levels. */
 		$$->errorlevel_i_ = lexer->errorlevel_i_;
 		lexer->errorlevel_i_ = 0;
-
 	}
 	;
 
@@ -392,12 +393,21 @@ init_music_chord:
 /*
 	MUSIC
 */
-music:
-	music_voice	{ $$ = $1; }
-	| music_chord	{ $$ = $1; }
+
+
+
+transposed_music_voice:
+	steno_melodic_req music_voice { 
+		$$ = $2;
+		$$->transpose(*$1);
+		delete $1;
+	}
 	;
 
 music_voice:  '{' music_voice_body '}'	{ $$ = $2; }
+	| TRANSPOSE '{' transposed_music_voice '}' {
+		$$ = $3;
+	}
 	;
 
 music_voice_body:
@@ -412,13 +422,17 @@ music_voice_body:
 	}
 	| music_voice_body voice_command {
 	}
-	| music_voice_body music	{
+	| music_voice_body music_chord	{
 		$$->add($2);
+	}
+	| music_voice_body CONCAT music_voice	{
+		$$->add($3);/* niet echt */
 	}
 	| music_voice_body error {
 	}
 	| music_voice_body '>' {
-		error("Confused by earlier errors: bailing out");
+		fatal_error_i = 1;
+		yyerror("Confused by errors: bailing out");
 	};
 
 music_chord:  '<' music_chord_body '>'	{ $$ = $2; }
@@ -434,14 +448,15 @@ music_chord_body:
 	| MULTIVOICE {
 		$$ = new Multi_voice_chord;
 	}
-	| music_chord_body music {
+	| music_chord_body music_voice {
 		$$->add($2);
 	}
 	| music_chord_body full_element {
 		$$ ->add_elt($2);
 	}
 	| music_chord_body '}' {
-		error("Confused by earlier errors: bailing out");
+		fatal_error_i = 1;
+		yyerror("Confused by errors: bailing out");
 	}
 	| music_chord_body error {
 	}
@@ -571,23 +586,30 @@ octave_quotes:
 /*
 	URG!!
 */
-steno_note_req:
+steno_melodic_req:
 	MELODIC_REQUEST_IDENTIFIER	{
-		$$ = new Note_req;
-		* (Melodic_req *) $$ = *$1->request(false)->melodic();
+		$$ = $1->request(false)->clone()->melodic();
 		$$->octave_i_ += lexer->prefs.default_octave_i_;
 	}
-	| steno_note_req '\'' 	{  
+	| steno_melodic_req '\'' 	{  
 		$$-> octave_i_ ++;
 	}
-	| '`' steno_note_req	 {  
+	| '`' steno_melodic_req	 {  
 		$$ = $2;
 		$2-> octave_i_ --;
 	}
-	
+	;
+
+steno_note_req:
+	steno_melodic_req	{
+		$$ = new Note_req;
+		* (Melodic_req *) $$ = *$1;
+		delete $1;
+	}
 	| steno_note_req   '!' 		{
 		$$->forceacc_b_ = ! $$->forceacc_b_;
 	} 
+	/* have to duration here. */
 	;
 
 melodic_request:
@@ -781,6 +803,8 @@ default_duration:
 
 voice_elt:
 	steno_note_req notemode_duration 		{
+		if (!lexer->note_state_b())
+			yyerror("have to be in Note mode for notes");
 		$$ = get_note_element($1, $2);
 	}
 	| RESTNAME notemode_duration		{
@@ -791,7 +815,10 @@ voice_elt:
 
 lyrics_elt:
 	mudela_text notemode_duration 			{
+		if (!lexer->lyric_state_b())
+			yyerror("Have to be in Lyric mode for lyrics");
 		$$ = get_word_element($1, $2);
+
 	};
 
 /*
@@ -809,7 +836,7 @@ int:
 	real			{
 		$$ = int($1);
 		if ( distance($1,Real(int($$)) ) > 1e-8)
-			error( "integer expected", lexer->here_ch_c_l() );
+			yyerror( "integer expected" );
 	}
 	;
 
@@ -916,29 +943,30 @@ void
 parse_file(String init, String s)
 {
    *mlog << "Parsing ... ";
-   lexer = new My_flex_lexer;
+   lexer = new My_lily_lexer;
 
 #ifndef NPRINT
    yydebug = !monitor->silence("InitParser") && check_debug;
    lexer->set_debug( !monitor->silence("InitLexer") && check_debug);
 #endif
-
+	init_parse_b = true;
    lexer->new_input(init);
    yyparse();
 
 #ifndef NPRINT
    if (!monitor->silence("InitDeclarations") && check_debug)
-	lexer->print_declarations();
+	lexer->print_init_declarations();
 
    yydebug = !monitor->silence("Parser") && check_debug;
    lexer->set_debug( !monitor->silence("Lexer") && check_debug);
 #endif
-
+	init_parse_b = false;
    lexer->new_input(s);
    yyparse();
+
 #ifdef NPRINT
    if (!monitor->silence("Declarations") && check_debug)
-	lexer->print_declarations();
+	lexer->print_user_declarations();
 #endif
    delete lexer;
    lexer = 0;
@@ -951,7 +979,7 @@ Paper_def*
 default_paper()
 {
     return new Paper_def(
-	lexer->lookup_identifier("defaulttable")->lookup(true));
+	lexer->lookup_identifier("default_table")->lookup(true));
 }
 
 

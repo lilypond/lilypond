@@ -92,6 +92,22 @@ Melodic_req::Melodic_req()
 }
 
 void
+Melodic_req::transpose(Melodic_req const & delta)
+{
+    octave_i_ += delta.octave_i_;
+    notename_i_ += delta.notename_i_;
+    while  (notename_i_ >= 7 ) {
+	notename_i_ -= 7;
+	octave_i_ ++;
+    }
+    accidental_i_ += delta.accidental_i_;
+    if (abs(accidental_i_) > 2) {
+	warning("transposition makes accidental larger than 2", 
+		delta.defined_ch_c_l_);
+    }
+}
+
+void
 Melodic_req::do_print() const
 {
 #ifndef NPRINT
