@@ -1,3 +1,10 @@
+2004-08-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/slur-quanting.cc (enumerate_attachments): apply center on
+	stem-X in more cases. 
+
+	* lily/stem.cc (dim_callback): solve todo.
+
 2004-08-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* input/test/README: new file.

@@ -631,11 +631,15 @@ Stem::dim_callback (SCM e, SCM ax)
       r.set_empty ();
     }    
   else if (unsmob_grob (me->get_property ("beam")) || abs (duration_log (me)) <= 2)
-    ;	// TODO!
+    {
+      r = Interval (-1,1);
+      r *= thickness (me)/2; 
+    }
   else
-    r = flag (me).extent (X_AXIS)
-      + thickness (me)/2;
-  
+    {
+      r = flag (me).extent (X_AXIS)
+	+ thickness (me)/2;
+    }  
   return ly_interval2scm (r);
 }
 

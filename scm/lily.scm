@@ -594,7 +594,7 @@ L1 is copied, L2 not.
     (for-each
      (lambda (f)
        (catch 'ly-file-failed (lambda () (ly:parse-file f)) handler)
-       (dump-gc-protects)
+;       (dump-gc-protects)
        )
      files)
 
