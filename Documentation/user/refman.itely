@@ -16,11 +16,11 @@
 
 
 This document describes GNU LilyPond and its input format. The last
-revision of this document was made for LilyPond 1.7.10.  It assumes
-that you already know a little bit about LilyPond input (how to
-make an input file, how to create sheet music from that input file,
-etc).  New users are encouraged to study the tutorial before reading
-this manual.
+revision of this document was made for LilyPond 1.7.11.  It assumes
+that you already know a little bit about LilyPond input (how to make
+an input file, how to create sheet music from that input file, etc).
+New users are encouraged to study the tutorial before reading this
+manual.
 
 @menu
 * Note entry::                  
@@ -939,11 +939,7 @@ You are encouraged to use @code{\repeat} for repetitions.  See
 
 @seealso
 
-@ref{Repeats}, @internalsref{RepeatedMusic},
-@internalsref{VoltaRepeatedMusic},
-@internalsref{UnfoldedRepeatedMusic}
-@internalsref{TremoloRepeteadMusic},
-@internalsref{FoldedRepeatedMusic}.
+@ref{Repeats}.
 
 
 The bar line objects that are created at @internalsref{Staff} level
@@ -2175,18 +2171,6 @@ With alternative endings:
   \alternative { {d'2 d'} {f' f} }
 @end lilypond
 
-@ignore
-Folded repeats look like this:
-
-
-@li lypond[fragment,verbatim]
-  c'1
-  \repeat fold 2 {c'4 d' e' f'} 
-  \alternative { {d'2 d'} {f' f} }
-
-@end lilypond
-@end ignore
-
 
 @lilypond[fragment,verbatim]
 \context Staff {
@@ -2197,6 +2181,23 @@ Folded repeats look like this:
   }
 }
 @end lilypond
+
+@refbugs
+
+ If you do a nested repeat like
+
+@example 
+\repeat @dots{}
+\repeat @dots{}
+\alternative 
+@end example 
+
+@noindent
+then it is ambiguous to which @code{\repeat} the @code{\alternative}
+belongs. This ambiguity is resolved by always having the
+@code{\alternative} belong to the inner @code{\repeat}.  This
+ambiguity may also be resolved by using braces.
+@cindex ambiguity
 
 @node Repeats and MIDI
 @subsection Repeats and MIDI
@@ -2249,7 +2250,10 @@ alphabetic characters.
 
 @seealso
 
-@internalsref{VoltaBracket}
+@internalsref{VoltaBracket}, @internalsref{RepeatedMusic},
+@internalsref{VoltaRepeatedMusic},
+@internalsref{UnfoldedRepeatedMusic}
+@internalsref{FoldedRepeatedMusic}.
 
 @node Tremolo repeats
 @subsection Tremolo repeats
@@ -2905,6 +2909,27 @@ For entering quotes in Lyrics mode, use the following
 You can use empty syllables, e.g. @code{_4} or @code{" "4} to enter
 lyrics. This can confuse the LilyPond -- for example, this might put
 (empty) lyrics under rests. To remedy this, use @code{\skip}.
+
+
+@refbugs
+
+@cindex ambiguity
+
+Input for lyrics introduces a syntactical ambiguity:
+ 
+@example 
+foo = bar 
+@end example 
+
+@noindent
+is interpreted as the string identifier assignment.  However,
+it can also be interpreted as making a string identifier @code{\foo}
+containing @code{"bar"}, or a music identifier @code{\foo} containing
+the syllable `bar'.  The former interpretation is chosen. The latter
+can be specified using
+@example
+  foo = \lyrics bar
+@end example
 
 
 @menu

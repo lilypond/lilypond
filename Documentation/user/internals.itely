@@ -21,7 +21,6 @@ the embedded Scheme interpreter.
 * Interpretation context::      
 * Scheme integration::          
 * Music storage format::        
-* Syntactic details::           
 * Lexical details::             
 * Output details::              
 @end menu
@@ -531,7 +530,7 @@ not yet user-accessible.
 Many functions are defined to manipulate these data structures. They
 are all listed and documented in @internalsref{All scheme functions}.
 
-@c .   {Assignments}
+
 @node Assignments
 @subsection Assignments
 @cindex Assignments
@@ -581,6 +580,7 @@ first item in a block.
 
 @menu
 * Music expressions::           
+* Internal music representation::  
 * Manipulating music expressions::  
 @end menu
 
@@ -657,163 +657,153 @@ Other compound music expressions include
 \times @var{fraction} @var{expr}
 @end example
 
+@node Internal music representation
+@subsection Internal music representation
 
-@c . {Manipulating music expressions}
+
+
+
+
+
 @node Manipulating music expressions
 @subsection Manipulating music expressions
 
-The @code{\apply} mechanism gives you access to the internal
-representation of music.  You can write Scheme-functions that operate
-directly on it.  The syntax is 
+When a music expression is parsed, it is converted into a set of
+Scheme music objects. The defining property of a music object is that
+it takes up time. Time is a rational number that measures the length
+of a piece of music, in whole notes.
 
+A music object has three kinds of types
+@itemize @bullet
+@item
+  Music name: each music expression has a name, for example, a note
+leads to a @internalsref{NoteEvent}, and @code{\simultaneous} leads to
+a @internalsref{SimultaneousMusic}. A list of all expressions
+available is in the internals manual, under @internalsref{Music
+expressions}.
+
+@item
+  Each music name has several `types' or interface. For example, a
+  note is an @code{event}, but it is also a @code{note-event}, a
+  @code{rhythmic-event} and a @code{melodic-event}.
+
+  All classes of music are listed in the internals manual, under
+  @internalsref{Music classes}. 
+@item
+Each music object is represented by a C++ object.  may be represented
+by different C++ classes.  For technical reasons, different music
+objects may be represented by different C++ object types. For example,
+a note is @code{Event} object, while @code{\grace} creates a
+@code{Grace_music} object.
+
+ The distinctions between different C++ types will disappear in the
+future.
+@end itemize
+
+The actual information of a music expression is stored in properties.
+For example, a @internalsref{NoteEvent} has @code{pitch} and
+@code{duration} properties that store the pitch and duration of that
+note.  A list of all properties available is in the internals manual,
+under @internalsref{Music properties}.
+
+A compound music expresssion is a music object that contains other
+music objects in its properties. A list of objects can be stored in
+the @code{elements} property of a music object, or a single `child'
+music object is stored in the @code{element} object. For example,
+@internalsref{SequentialMusic} has its children in @code{elements},
+and @internalsref{GraceMusic} has its single argument in
+@code{element}. The body of a repeat is in @code{element} property of
+@internalsref{RepeatedMusic}, and the alternatives in @code{elements}.
+
+These properties and objects can be directly accessed and manipulated,
+through the @code{\apply} mechanism.  Scheme functions can read and
+write properties using the functions @code{ly:get-music-property} and
+@code{ly:set-music-property!}.
+
+The syntax for @code{\apply} 
 @example
 \apply #@var{func} @var{music}
 @end example
 
 @noindent
-This means that @var{func} is applied to @var{music}.  The function
-@var{func} should return a music expression.
+This means that the scheme function @var{func} is called with
+@var{music} as its argument.  The return value of @var{func} is the
+result of the entire expresssion.
 
-This example replaces the text string of a script.  It also shows a dump
-of the music it processes, which is useful if you want to know more
-about how music is stored.
+An example is a function that reverses the order of elements in
+its argument:
+@example
+  #(define (rev-music-1 m)
+     (ly:set-music-property! 'elements (reverse
+       (ly:get-music-property mus 'elements)))
+   )
+  \apply #rev-music-1 @{ c4 d4 @}
+@end example
 
-@lilypond[verbatim,singleline]
-#(define (testfunc x)
-  (if (equal? (ly:get-mus-property x 'text) (make-simple-markup "foo"))
-      (ly:set-mus-property! x 'text (make-simple-markup "bar")))
-  ;; recurse
-  (ly:set-mus-property! x 'elements
-    (map testfunc (ly:get-mus-property x 'elements)))
-  (display x)
-  x)
-
-\score {
-  \notes
-  \apply #testfunc { c'4_"foo" }
-} 
-@end lilypond
-
-A final example is a function that reverses a piece of music in time:
-
-@lilypond[verbatim,singleline]
-#(define (reverse-music music)
-  (let* ((elements (ly:get-mus-property music 'elements))
-         (reversed (reverse elements))
-         (span-dir (ly:get-mus-property music 'span-direction)))
-    (ly:set-mus-property! music 'elements reversed)
-    (if (ly:dir? span-dir)
-        (ly:set-mus-property! music 'span-direction (- span-dir)))
-    (map reverse-music reversed)
-    music))
-
-music = \notes { c'4 d'4( e'4 f'4 }
-
-\score {
-  \context Voice {
-    \music
-    \apply #reverse-music \music
-  }
-}
-@end lilypond
-
-@seealso
-
-More examples are given in the distributed example files in
-@code{input/test/}.
-
-
-@refbugs
-
-Directly accessing internal representations is dangerous: The
-implementation is subject to changes, so you should avoid this feature
-if possible.
-
-
-@node Syntactic details
-@section Syntactic details
-@cindex Syntactic details
-
-This section describes details that were too boring to be put elsewhere.
-
-@menu
-* Lexical modes::               
-* Ambiguities::                 
-@end menu
-
-
-@c .  {Lexical modes}
-@node Lexical modes
-@subsection Lexical modes
-@cindex Lexical modes
-@cindex input mode
-@cindex mode, input 
-@cindex @code{\notes}
-@cindex @code{\chords}
-@cindex @code{\lyrics}
-
-To simplify entering notes, lyrics, and chords, LilyPond has three
-special input modes in addition to the default mode: note, lyrics, and
-chords mode.  These input modes change the way that normal, unquoted
-words are interpreted: For example, the word @code{cis} may be
-interpreted as a C-sharp, as a lyric syllable `cis' or as a C-sharp
-major triad respectively.
-
-A mode switch is entered as a compound music expression
+The use of such a function is very limited. The effect of this
+function is void,  when it is applied to an argument which is does not
+have multiple  children, for example
 
 @example
-@code{\notes} @var{musicexpr}
-@code{\chords} @var{musicexpr}
-@code{\lyrics} @var{musicexpr}
-@code{\figures} @var{musicexpr}
-@code{\markup} @var{markupexpr}
+  \apply #rev-music-1 \grace @{ c4 d4 @}
 @end example
 
 @noindent
-In each of these cases, these expressions do not add anything to the
-meaning of their arguments.  They just instruct the parser in what mode
-to parse their arguments.
+does not do anything: @code{\grace} is stored as
+@internalsref{GraceMusic}, which has no @code{elements}, only a single
+@code{element}. Every generally applicable function for @code{\apply}
+must --like music expressions themselves-- be recursive.
 
-Different input modes for music expressions may be nested.
+The following example is such a recursive function: it first extracts
+the @code{elements} of an expression, reverses them and puts them
+back. Then it recurses, both on @code{elements} and @code{element}.
+@example
+#(define (reverse-music music)
+  (let* ((elements (ly:get-mus-property music 'elements))
+         (child (ly:get-mus-property music 'element))
+         (reversed (reverse elements)))
 
+    ; set children
+    (ly:set-mus-property! music 'elements reversed)
 
-@c .  {Ambiguities}
-@node Ambiguities
-@subsection Ambiguities
-@cindex ambiguities
-@cindex grammar
+    ; recurse
+    (if (ly:music? child) (reverse-music child))
+    (map reverse-music reversed)
+    
+    music))
+@end example
 
-The grammar contains two ambiguities.
+A slightly more elaborate example is in
+@inputfileref{input/test,reverse-music.ly}.
 
-@itemize @bullet
-@item The assignment
-
-@example 
-foo = bar 
-@end example 
-
-@noindent
-is interpreted as the string identifier assignment.  However,
-it can also be interpreted as making a string identifier @code{\foo}
-containing @code{"bar"}, or a music identifier @code{\foo} containing
-the syllable `bar'.  The former interpretation is chosen.
-
-@item If you do a nested repeat like
-
-@example 
-\repeat @dots{}
-\repeat @dots{}
-\alternative 
-@end example 
+Some of the input syntax is also implemented as recursive music
+functions. For example, the syntax for polyphony
+@example
+  < a \\ b>
+@end example
 
 @noindent
-then it is ambiguous to which @code{\repeat} the
-@code{\alternative} belongs.  This is the classic if-then-else
-dilemma.  It may be solved by using braces.
-@end itemize
+is actually  implemented as a recursive function that replaces the
+above by the internal equivalent of
+@example
+  < \context Voice = "1" @{ \voiceOne a @}
+    \context Voice = "2" @{ \voiceTwo a @} >
+@end example
 
+Other applications of @code{\apply} are writing out repeats
+automatically (@inputfileref{input/test,unfold-all-repeats.ly}),
+saving keystrokes (@inputfileref{input/test,music-box.ly}) and
+exporting
+LilyPond input to other formats  (@inputfileref{input/test,to-xml.ly})
 
-@c .  {Lexical details}
+@seealso
+
+@file{scm/music-functions.scm}, @file{scm/music-types.scm},
+@inputfileref{input/test,add-staccato.ly},
+@inputfileref{input/test,duration-check.ly}.
+@inputfileref{input/test,unfold-all-repeats.ly},
+@inputfileref{input/test,music-box.ly}.
+
 @node Lexical details
 @section Lexical details
 
@@ -833,7 +823,7 @@ that contains no spaces can be written without the quotes.  Strings can
 be concatenated with the @code{+} operator.
 
 
-@c .  {Output details}
+
 @node Output details
 @section Output details
 
