@@ -1,18 +1,18 @@
 \header{
-filename = 	"violoncello-i.ly";
-title = 		"Vier Duette";
-description = 	"Four duets for Violino and Violoncello (Viola)";
-opus =  		"BWV";
-composer = 	"Johann Sebastian Bach (1685-1750)";
-enteredby = 	"jcn";
-copyright = 	"Public Domain";
+filename = 	"violoncello-i.ly"
+title = 		"Vier Duette"
+description = 	"Four duets for Violino and Violoncello (Viola)"
+opus =  		"BWV"
+composer = 	"Johann Sebastian Bach (1685-1750)"
+enteredby = 	"jcn"
+copyright = 	"Public Domain"
 }
 
-\version "1.3.122";
+\version "1.3.146"
 
 violoncelloI =  \notes\relative c{
   \property Voice.autoBeamSettings \override #'(end * * * *) = #(make-moment 3 8)
-  % too many [c8 c c] stuff here; some manual beaming
+  % too many [c8 c c] stuff here some manual beaming
   %\property Voice.autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 1 16)
 
   g8()a d, g b()g d()fis a d a()fis |
@@ -62,7 +62,7 @@ violoncelloI =  \notes\relative c{
   % FIXME?
   fis [a(g)fis e d] g8()e c g'8 b, e c d d, |
   g1.|
-  \bar "|.";
+  \bar "|."
 }
 
 \include "global-i.ly"
@@ -70,6 +70,6 @@ violoncelloI =  \notes\relative c{
 violoncelloIStaff =  \context Staff = violoncello <
   \property Staff.instrument = "cello"
   \violoncelloI
-  \clef bass;
+  \clef bass
   \globalI
 >

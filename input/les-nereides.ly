@@ -35,8 +35,8 @@ cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
 %% cpp: don't start on first column
  #(define (make-text-checker text)
   (lambda (elt)
-      huh, string-match undefined?
-      (string-match text (ly-get-grob-property elt 'text))
+      ;; huh, string-match undefined?
+      ;; (string-match text (ly-get-grob-property elt 'text))
      (equal? text (ly-get-grob-property elt 'text))
     ))
 

@@ -3,7 +3,7 @@
 opus = "BWV 925"
 piece = "4"
 
-\version "1.3.98"
+\version "1.3.146"
 
 %{
 
@@ -43,7 +43,7 @@ one = \context Staff \notes\relative c {
 	g fis g a  g b a g |
 	\stemUp\tieUp
 	fis4 
-	\skip 4*7; |
+	\skip 4*7 |
 	%10
 	\property Voice.TextScript \set #'font-style = #'finger
 %	d'4. cis8-"4\\_5" ~ cis b4 a8-"4\\_5" ~ |
@@ -67,7 +67,7 @@ one = \context Staff \notes\relative c {
 	fis8 e~  e d~ d4 cis |
 
 	d2 ~ d16 a b cis d4 |
-	\bar "|.";
+	\bar "|."
 }
 
 two = \context Staff \notes\relative c{
@@ -103,7 +103,7 @@ two = \context Staff \notes\relative c{
 	a4
 	\translator Staff=lower \stemUp
 	r16 b fis a g4 r16 a e g |
-	\skip 1*1; 
+	\skip 1*1 
 	s16
 	\translator Staff=upper \stemDown\tieDown
 	d'8. ~ d8 c d4 a8 g |
@@ -131,7 +131,7 @@ two = \context Staff \notes\relative c{
 	\stemUp\tieUp
 	g fis g a  g b a g ~ |
 	g g fis e fis4 ~ fis2
-	\bar "|.";
+	\bar "|."
 }
 
 three = \notes\relative c{
@@ -172,14 +172,14 @@ three = \notes\relative c{
 }
 
 four = \context Staff \notes\relative c{
-	\skip 1*9;
+	\skip 1*9
 	\context Voice=iv
 	\stemUp
 	\property Voice.NoteColumn \override #'horizontal-shift = #1
 	%10
 	a''2 fis |
 	d s |
-	\skip 1*2; |
+	\skip 1*2 |
 	s4
 	\translator Staff=lower \stemUp\tieUp
 	a4 ~ a16 d, g8  fis e |
@@ -194,8 +194,8 @@ four = \context Staff \notes\relative c{
 }
 
 global = \notes{
-	\time 4/4;
-	\key d \major;
+	\time 4/4
+	\key d \major
 }
 
 \score{
@@ -208,22 +208,22 @@ global = \notes{
 		>
 		\context Staff = lower <
 			\global
-			\clef "bass";
+			\clef "bass"
 			\two
 			\three
 		>
 	>
 	\paper{
-		linewidth = 18.0 \cm;
+		linewidth = 18.0 \cm
 		\translator{
 		        \VoiceContext
 			% consider ending beam at every 1 2 note
 			autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 1 4)
 		}
 	}
-	\midi{ \tempo 4 = 70; }
+	\midi{ \tempo 4 = 70 }
 	\header{
-		opus = \opus;
-		piece = \piece;
+		opus = \opus
+		piece = \piece
 	}
 }

@@ -1,19 +1,19 @@
 #(set! point-and-click line-column-location)
 \header{
-filename = 	 "violino-viola.ly";
-title = 	 	 "Vier Duette";
-description = 	 "Four duets for Violino and Violoncello (Viola)";
-opus =            "BWV";
-composer = 	 "Johann Sebastian Bach (1685-1750)";
-enteredby = 	 "jcn";
-copyright = 	 "Public Domain";
+filename = 	 "violino-viola.ly"
+title = 	 	 "Vier Duette"
+description = 	 "Four duets for Violino and Violoncello (Viola)"
+opus =            "BWV"
+composer = 	 "Johann Sebastian Bach (1685-1750)"
+enteredby = 	 "jcn"
+copyright = 	 "Public Domain"
 }
 
-\version "1.3.122";
+\version "1.3.146"
 
 % { 
-\include "violino-i.ly";
-\include "viola-i.ly";
+\include "violino-i.ly"
+\include "viola-i.ly"
 
 \score{
   \context GrandStaff <
@@ -27,15 +27,15 @@ copyright = 	 "Public Domain";
   }
   \midi{
 %urg real/duration
-%    \tempo 4. = 69;
-    \tempo 4 . = 50;
+%    \tempo 4. = 69
+    \tempo 4 . = 50
   }
 }
 
 % }
 
-\include "violino-ii.ly";
-\include "viola-ii.ly";
+\include "violino-ii.ly"
+\include "viola-ii.ly"
 
 \score{
   \context GrandStaff <
@@ -48,8 +48,8 @@ copyright = 	 "Public Domain";
     }
   }
   \midi{
-%    \tempo 2 = 96;
-    \tempo 2 = 75;
+%    \tempo 2 = 96
+    \tempo 2 = 75
   }
 }
 

@@ -8,21 +8,24 @@ Beam.auto-knee-gap was set to false.
 "
 }
 
-\score{
-	\notes\relative c''{
-		[g8 c c,]
-		[c16 c'' a f]
-		\stemUp 
-		[c,,32 c'' a f]
-
-	}
-	\paper{
-		linewidth=-1.
-		\translator {
-		        \VoiceContext
-			% If we want to test extreme beams,
-			% we should not have them auto-kneed
-			Beam \override #'auto-knee-gap = ##f
-		}
-	}
+extreme = \notes\relative c'' {
+  \stemBoth
+  [g8 c c,]
+  [c16 c'' a f]
+  \stemUp 
+  [c,,32 c'' a f]
+  r4
+}
+\score {
+  {
+    % If we want to test extreme beams,
+    % we should not have them auto-kneed
+    \property Voice.Beam \override #'auto-knee-gap = ##f
+    \extreme
+    \property Voice.Beam \override #'slope-limit = #1000
+    \extreme
+  }
+  \paper{
+    linewidth=-1.
+  }
 }

@@ -3,7 +3,7 @@
 piece = "5"
 opus = "BWV 926"
 
-\version "1.3.98";
+\version "1.3.146"
 
 upper =  \context Staff \notes\relative c
 	\context Voice=i {
@@ -178,8 +178,8 @@ lower =  \context Staff \notes\relative c{
 }
 
 global =  \notes{
-	\time 3/4;
-	\key f \major;
+	\time 3/4
+	\key f \major
 }
 
 \score{
@@ -187,22 +187,22 @@ global =  \notes{
 	\context PianoStaff <
 		\context Staff = upper <
 			\global
-			{ \upper \bar "|."; }
+			{ \upper \bar "|." }
 		>
 		\context Staff = lower <
 			\global
-			\clef "bass";
+			\clef "bass"
 			\lower
 		>
 	>
 	\paper{
-		linewidth = 18.0 \cm;  
+		linewidth = 18.0 \cm  
 
 	}
-	\midi{ \tempo 4 = 90; }
+	\midi{ \tempo 4 = 90 }
 	\header{
-		piece = \piece;
-		opus = \opus;
+		piece = \piece
+		opus = \opus
 	}
 }
 

@@ -1,14 +1,14 @@
 \header{
-filename = 	 "violino-part.ly";
-title = 	 	 "Vier Duette";
-description = 	 "Four duets for Violino and Violoncello (Viola)";
-opus =            "BWV";
-composer = 	 "Johann Sebastian Bach (1685-1750)";
-enteredby = 	 "jcn";
-copyright = 	 "Public Domain";
+filename = 	 "violino-part.ly"
+title = 	 	 "Vier Duette"
+description = 	 "Four duets for Violino and Violoncello (Viola)"
+opus =            "BWV"
+composer = 	 "Johann Sebastian Bach (1685-1750)"
+enteredby = 	 "jcn"
+copyright = 	 "Public Domain"
 }
 
-\version "1.3.122";
+\version "1.3.146"
 
 % {
 
@@ -21,8 +21,8 @@ copyright = 	 "Public Domain";
     %\translator { \BarNumberingStaffContext }
   }
   \midi{
-%    \tempo 4. = 69;
-    \tempo 4 . = 50;
+%    \tempo 4. = 69
+    \tempo 4 . = 50
   }
 }
 
@@ -35,11 +35,11 @@ copyright = 	 "Public Domain";
   \violinoIiStaff
   \paper{
     %\translator { \BarNumberingStaffContext }
-%    castingalgorith=0;
+%    castingalgorith=0
   }
   \midi{
-%    \tempo 2 = 96;
-    \tempo 2 = 75;
+%    \tempo 2 = 96
+    \tempo 2 = 75
   }
 }
 

@@ -2,7 +2,7 @@
 
 depth = ../..
 examples=  font20  
-LOCALSTEPMAKE_TEMPLATES=mutopia
+LOCALSTEPMAKE_TEMPLATES=ly mutopia
 
 EXTRA_DISTFILES=features.abc
 

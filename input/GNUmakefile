@@ -7,7 +7,7 @@ SUBDIRS=bugs test regression tutorial no-notation ascii-art
 examples=trip  star-spangled-banner paddy scarlatti-test
 flexamples=
 
-LOCALSTEPMAKE_TEMPLATES=mutopia
+LOCALSTEPMAKE_TEMPLATES=ly mutopia
 EXTRA_DIST_FILES=paddy.abc
 
 include $(depth)/make/stepmake.make 

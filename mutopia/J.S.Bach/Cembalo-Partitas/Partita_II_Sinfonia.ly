@@ -1,26 +1,26 @@
 \header {
-  filename =    "";
-  title =       "Partita II";
-  piece =       "Sinfonia";
-  description = "6 Partite per il clavicembalo, Partita II (c-minor)";
-  opus =        "BWV 826";
-  source =      "Editio Musica Budapest (Urtext)";
-  composer =    "Johann Sebastian Bach (1685-1750)";
-  enteredby =   "Tom Cato Amundsen";
-  copyright =   "Public Domain";
+  filename =    ""
+  title =       "Partita II"
+  piece =       "Sinfonia"
+  description = "6 Partite per il clavicembalo, Partita II (c-minor)"
+  opus =        "BWV 826"
+  source =      "Editio Musica Budapest (Urtext)"
+  composer =    "Johann Sebastian Bach (1685-1750)"
+  enteredby =   "Tom Cato Amundsen"
+  copyright =   "Public Domain"
 }
 
-\version "1.3.117";
+\version "1.3.146"
 
 global =  \notes {
-	\time 4/4;
-	\key es \major;
-	\skip 1*7;
-	\bar "||";
-	\skip 1*22;
-	\time 3/4;
-	\skip 2.*62;
-	\bar "|.";
+	\time 4/4
+	\key es \major
+	\skip 1*7
+	\bar "||"
+	\skip 1*22
+	\time 3/4
+	\skip 2.*62
+	\bar "|."
 }
   
 hoyreOpp =  \notes\relative c''  {
@@ -45,7 +45,7 @@ hoyreOpp =  \notes\relative c''  {
 }
 
 hoyreNed =  \notes\relative c'' {
-	\clef violin;
+	\clef violin
 	\stemDown
 	<c4 g> r16 [c b16. c32] d4 r16 [d d16. es32] |
 	[f8. f16] f8 r <c4 g> r16 [es16 es16. f32] |
@@ -58,7 +58,7 @@ hoyreNed =  \notes\relative c'' {
 }
 
 venstreOpp =  \notes\relative c' {
-	\clef bass;
+	\clef bass
 	\stemUp
 	<c4 g es> r <b as f d> r |
 	r <b f d> <c g es> r |
@@ -254,19 +254,19 @@ allegroEn =  \notes\relative c''{
 	>
 }
 allegroTo =  \notes\relative c'{
-	\clef bass;
+	\clef bass
 %30
 	\context Staff <
 		{ \stemUp <b8 g> r r4 r }
 		{ \stemDown g,8 r8 r4 r }
 	>
 	r2. | r2. | 	
-	\clef treble; r8 [c16 d] [es8 f] [g as] |
+	\clef treble r8 [c16 d] [es8 f] [g as] |
 	[bes16 as g as][bes8 c] [des g,]  
 	[bes e,][g c,][c'16 bes as g] | [as8 f g as][bes as] | 
 	[g es f g as g] | [f es f d es f] | [g g,16 a] [b8 c] [d es] |
 	[f16 es d es][f8 g][as d,] |
-	[f b,][d g,][g'16 f es d] | \clef bass;
+	[f b,][d g,][g'16 f es d] | \clef bass
 	[es d c8~][c16 es d c][bes a g f] |
 %43
 	[d' c bes8~][bes16 d c bes][a g fis g] |

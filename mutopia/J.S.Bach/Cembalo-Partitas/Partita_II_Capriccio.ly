@@ -1,7 +1,7 @@
 \header{
-	enteredby = "Tom Cato Amundsen";
-	copyright = "Public Domain";
-	piece = "Capriccio";
+	enteredby = "Tom Cato Amundsen"
+	copyright = "Public Domain"
+	piece = "Capriccio"
 }
 
 %% I takt 22 foretar jeg et stemmekryss mellom stemme en og to, pga at den 
@@ -10,15 +10,15 @@
 %% 
 %% Noe liknende skjer også i mellom andre og tredje stemme i takt 28
 
-\version "1.3.117";
+\version "1.3.146"
 
 global =  \notes{
-	\time 2/4;
-	\key es \major;
+	\time 2/4
+	\key es \major
 	s2*48
-	\bar ":|:";
+	\bar ":|:"
 	s2*48
-	\bar "|.";
+	\bar "|."
 }
 
 vOne =  \context Voice = voiceOne \notes\relative c''{
@@ -484,7 +484,7 @@ vThreeSwitch =  \context Voice = voiceThree \notes{
 			\vOne
 		>
 		\context Staff = bass <			
-			\clef bass;
+			\clef bass
 			\global
 			\vTwoSwitch
 			\vTwo
@@ -494,5 +494,5 @@ vThreeSwitch =  \context Voice = voiceThree \notes{
 	>
 	\paper{
 	}
-	\midi{\tempo 4 =60;}
+	\midi{\tempo 4 =60}
 }
