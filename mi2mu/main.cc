@@ -15,7 +15,7 @@
 #include "midi-score-parser.hh"
 #include "mudela-item.hh"
 #include "mudela-score.hh"
-#include "version.hh"
+//#include "version.hh"
 
 // ugh
 String filename_str_g;
