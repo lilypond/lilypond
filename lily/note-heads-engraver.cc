@@ -12,7 +12,7 @@
 #include "dot-column.hh"
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
-#include "score-engraver.hh"
+#include "engraver.hh"
 #include "warn.hh"
 
 /**
@@ -136,6 +136,8 @@ Note_heads_engraver::stop_translation_timestep ()
 void
 Note_heads_engraver::start_translation_timestep ()
 {
+
+
 }
 
 

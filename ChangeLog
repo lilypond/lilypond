@@ -1,5 +1,9 @@
 2002-06-17  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/forbid-break-engraver.cc (class
+	Forbid_line_break_engraver): new engraver: forbid linebreaks
+	during playing notes
+
 	* lily/spacing-spanner.cc (loose_column): add another check: don't
 	move around bar lines as loose columns.
 

@@ -31,7 +31,7 @@ StaffContext=\translator {
 	\consists "Piano_pedal_engraver"
 	\consists "Instrument_name_engraver"
 	\consists "Grob_pq_engraver"
-
+	\consists "Forbid_line_break_engraver"
 	\consistsend "Axis_group_engraver"
 
 
