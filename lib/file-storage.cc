@@ -55,10 +55,11 @@ Mapped_file_storage::open(String name_str)
 {
     fildes_i_ = ::open( name_str, O_RDONLY );	
 	    
-    if ( fildes_i_ == -1 ) {
+    if ( fildes_i_ == -1 ) 
+      {
 	warning( String( "can't open: " ) + name_str + String( ": " ) + strerror( errno )); 
         return;
-    }
+      }
 
     struct stat file_stat;
     fstat( fildes_i_, &file_stat );
@@ -69,21 +70,23 @@ Mapped_file_storage::open(String name_str)
 void
 Mapped_file_storage::unmap()
 {
-    if ( data_caddr_ ) {
+    if ( data_caddr_ ) 
+      {
 	munmap( data_caddr_, size_off_ );
     	data_caddr_ = 0;
 	size_off_ = 0;
-    }
+      }
 }
 
 void
 Mapped_file_storage::close()
 {
     unmap();
-    if ( fildes_i_ ) {
+    if ( fildes_i_ ) 
+      {
 	::close( fildes_i_ );
 	fildes_i_ = 0;
-    }
+      }
 }
 
 int

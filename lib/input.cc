@@ -40,15 +40,17 @@ Input::message(String message_str)const
 {
     String str = "";
     
-    if ( source_file_l_ ) {
+    if ( source_file_l_ ) 
+      {
 	str += location_str() + String(": ");
-    }
+      }
     
     str += message_str;
-    if ( source_file_l_ ) {
+    if ( source_file_l_ ) 
+      {
 	str += ":\n";
 	str += source_file_l_->error_str( defined_ch_C_);
-    }
+      }
     cerr << str << endl;
 }
 

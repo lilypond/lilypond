@@ -34,12 +34,13 @@ Sources::set_path(File_path *f_C)
 Source_file*
 Sources::get_file_l(String &file_str ) //UGH
 {
-    if (path_C_){
+    if (path_C_)
+      {
 	String file_str_o = path_C_->find(file_str); 
 	if ( ( file_str_o == "" ) && ( file_str != "" ) )
 	    return 0;
 	file_str = file_str_o;
-    }
+      }
     Source_file * f_p= (!binary_b_) ?
 	new Source_file(file_str) : new Binary_source_file(file_str);
     add(f_p);
