@@ -224,7 +224,7 @@ these 25%, 10% or 5% of the cases that are not handled
 automatically. In these cases, a user must be able to override
 formatting decisions. A way to accomplish this, is to store decisions
 in generic variables, and let the user manipulate these variables.
-For example, consider the following fragment of notation.
+For example, consider the following fragment of notation:
 
 @lilypond
 \score { \notes \relative c'' {
@@ -239,7 +239,7 @@ For example, consider the following fragment of notation.
 The position of the forte symbol is slightly awkward, because it is
 next to the low note, whereas dynamics should be below notes in
 general. This may be remedied by inserting extra space between the
-high note and the `f', as shown in this example
+high note and the `f', as shown in this example:
 
 @lilypond
 \score { \notes \relative c'' {
@@ -251,7 +251,7 @@ high note and the `f', as shown in this example
      }
 @end lilypond
 
-This was achieved with the following input statement.
+This was achieved with the following input statement:
 @example
    \once \property Voice. DynamicLineSpanner  \override #'padding = #4.0 
 @end example
@@ -298,7 +298,7 @@ function made available as a Scheme function), and it is also stored
 in a variable.  For example, the placement of the forte symbol in the
 example above is calculated by the function
 @code{Side_position_interface::aligned_side}.  If we want to replace
-this function by a more advanced one, we could issue
+this function by a more advanced one, we could issue:
 @example
     \property Voice.DynamicLineSpanner \override #'Y-offset-callbacks
        = #`(,gee-whiz-gadget)
@@ -353,16 +353,16 @@ friendly syntax: a quarter note C is entered as @code{c4}, the code
 @code{r8.}  signifies a dotted eighth rest. Notes and rests form the
 simplest musical expressions in the input syntax.  More complex
 constructs are produced by combining them into compound
-structures. This is done s in much the same way that complex
+structures. This is done in much the same way that complex
 mathematical formulas are built from simple expressions such as
 numbers and operators.
 
 In effect, the input format is a language, and the rules of that
 language can be specified succinctly with a so-called context-free
 grammar.  The grammar formally specificies what types of input form
-valid `sentences.'  Reading such languages, and splitting them into
+valid `sentences'.  Reading such languages, and splitting them into
 grammatical structures is a problem with standard solutions.
-Moreover, they make the format easier to understand: a a concise
+Moreover, they make the format easier to understand: a concise
 formal definition permits a simple informal description.
 
 The user-interface of LilyPond is its syntax.  That part is what users
@@ -371,7 +371,7 @@ a very important or interesting problem. In reality, less than 10% of
 the source code of the program handles reading and representing the
 input, and they form the easy bits of the program.  In our opinion,
 producing music notation, and formatting it prettily are much more
-interesting and important than music music representation: solving
+interesting and important than music representation: solving
 these problems takes up most of the bulk of the code, and they are the
 most difficult things to get right.
 
@@ -381,7 +381,7 @@ most difficult things to get right.
 We have written LilyPond as an experiment of how to condense the art
 of music engraving into a computer program. Thanks to all that hard
 work, the program can now be used to perform useful tasks.  The
-simplest application is printing notes.
+simplest application is printing notes:
 
 @lilypond[relative=1]
   \time 2/4 c4 c g'4 g a4 a g2  
@@ -397,7 +397,7 @@ By adding chord names and lyrics we obtain a lead sheet:
 @end lilypond
 
 Polyphonic notation and piano music can also be printed. The following
-example combines some more exotic constructs.
+example combines some more exotic constructs:
 
 @lilypondfile{screech-boink.ly}
 
@@ -420,7 +420,7 @@ mix music and text in documents.
 @node About this manual
 @section About this manual
 
-The manual is divided into the following chapters
+The manual is divided into the following chapters:
 @itemize @bullet
 @item
 @ifhtml The 
@@ -479,7 +479,7 @@ If you are not familiar with music notation, or music terminology
 advisable to consult the glossary as well. The glossary explains
 musical terms, and includes translations to various languages. It is a
 @ifhtml
-@uref{../glossary.html,separate document}
+@uref{../glossary.html,separate document}.
 @end ifhtml
 @ifnothtml
 separate document, available in HTML and PDF.
@@ -493,13 +493,13 @@ separate document, available in HTML and PDF.
 
 This manual is not complete without a number of other documents. They
 are not available in print, but should be included with the
-documentation package for your platform
+documentation package for your platform:
 
 @itemize @bullet
 @item
 Program reference
 @ifhtml
-available @uref{../lilypond-internals/lilypond-internals.html,here}
+(available @uref{../lilypond-internals/lilypond-internals.html,here})
 @end ifhtml
 
 The program reference is a set of heavily crosslinked HTML pages,
@@ -532,7 +532,7 @@ appropriate places.
 @item
   Various input examples
 @ifhtml
-available @uref{../../../input/test/out-www/collated-files.html,here}
+(available @uref{../../../input/test/out-www/collated-files.html,here})
 @end ifhtml
 @cindex snippets
 
@@ -543,7 +543,7 @@ big HTML document, with pictures and explanatory texts included.
 @item
   The regression test
 @ifhtml
-available @uref{../../../input/regression/out-www/collated-files.html,here}
+(available @uref{../../../input/regression/out-www/collated-files.html,here})
 @end ifhtml
 
 This collection of files tests each notation and engraving feature of
