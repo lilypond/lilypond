@@ -2,23 +2,24 @@
 
 %define name lilypond
 %define version @TOPLEVEL_VERSION@
-%define release 1mdk
+%define release 3mdk
 
 Summary:	A program for printing sheet music.
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
 License:	GPL
-Group:		Applications/Publishing
+Group:		Publishing
 URL:		http://www.lilypond.org/
-Source0:	ftp.lilypond.org:/pub/LilyPond/development/lilypond-%{version}.tar.gz
+Source0:	ftp.lilypond.org:/pub/LilyPond/development/lilypond-%{version}.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-buildroot
-BuildRequires:	t1utils bison flex texinfo 
-#There is not a recent rpm provided for the following; compile LilyPond anyway:
-#BuildRequires:	mftrace
-Requires:	tetex tetex-latex python chkfontpath info-install XFree86
-#There is not a recent rpm provided for the following: install LilyPond anyway:
-#Requires: 	guile >= 1.6.4-7
+BuildRequires:	t1utils bison texinfo t1lib1-devel libstdc++5-devel libguile12-devel >= 1.6.4
+BuildRequires:	gcc-c++ glibc-devel flex >= 2.5.4a-22mdk groff netpbm autotrace
+BuildRequires:  ImageMagick >= 5.5.4.4 libMagick5.5.4-devel >= 5.5.4.4
+BuildRequires:	ghostscript >= 7.05-53.2mdk mftrace >= 1.0.19 pfaedit >= 030822
+Requires:	tetex tetex-latex chkfontpath XFree86 info-install
+PreReq:		chkfontpath
+ 
 
 %description
 LilyPond is a music typesetter.  It produces beautiful sheet music using a
@@ -33,10 +34,19 @@ http://www.mutopiaproject.org for details).
  
 If you are new to lilypond, you will almost certainly want to install the
 "lilypond-documentation" package in addition to the "lilypond" package.
+
+%package -n liblilypond
+Summary: LilyPond libraries.
+License: GPL
+Group: System/Libraries
+Requires: lilypond >= %{version}
+
+%description -n liblilypond
+LilyPond libs
  
 %package documentation
 Summary: LilyPond documentation, examples and Mutopia files.
-Group: Applications/Publishing
+Group: Publishing
 Requires: %{name}
 
 %description documentation
@@ -55,7 +65,10 @@ rm -rf $RPM_BUILD_ROOT
 ##./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --disable-optimising --enable-shared
 ## Add options if needed
 
-./configure --disable-checking --prefix=%{_prefix} --enable-optimising
+#Fix conflicting php variable out=/dev/vc/
+unset out
+
+./configure --disable-checking --prefix=%{_prefix} --libdir=%{_libdir} --enable-optimising
 
 %make MAKE_PFA_FILES=1 all
 make -C mf/ pfa
@@ -64,10 +77,13 @@ make -C mf/ pfa
 make -C Documentation
 
 # make  html
-make web 
+make web
 make -C Documentation/user omf
 
 %install
+
+#Fix conflicting php variable out=/dev/vc/
+unset out
 
 # Create installation root folders
 rm -rf $RPM_BUILD_ROOT
@@ -77,6 +93,7 @@ mkdir -p $RPM_DOC_ROOT
 
 strip lily/out/lilypond 
 %makeinstall MAKE_PFA_FILES=1
+local_lilypond_libdir=$RPM_BUILD_ROOT/%{_libdir}/%{name}/%{version}
 
 %if %{info}
   rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
@@ -93,45 +110,41 @@ mkdir -p $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d
 cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.sh
 cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.csh
 
-make prefix="$RPM_BUILD_ROOT%{_prefix}" webdir="$RPM_BUILD_ROOT%{_prefix}/share/doc/lilypond/" out=www web-install
+make prefix="$RPM_BUILD_ROOT%{_prefix}" webdir="$RPM_BUILD_ROOT%{_prefix}/share/doc/%{name}-documentation-%{version}/" out=www web-install
 
-# Menu is not used.
 # Menu
 # Every entry must be changed according package specifications
 # Pay attention to "section" "command" and "longtitle"
-#
-# mkdir -p $RPM_BUILD_ROOT%{_menudir}
-# cat >$RPM_BUILD_ROOT%{_menudir}/%{name} <<EOF
-# ?package(%name):\
-  # command="info %{name}"\
-  # needs="text"\
-  # icon="%{name}.xpm"\
-  # section="Documentation"\
-  # title="%{name}-info"\
-  # longtitle="%{name} Info"
-# EOF
+
+mkdir -p $RPM_BUILD_ROOT%{_menudir}
+cat >$RPM_BUILD_ROOT%{_menudir}/%{name} <<EOF
+?package(%name):\
+  command="info %{name}"\
+  needs="text"\
+  icon="%{name}.png"\
+  section="Documentation"\
+  title="%{name}-info"\
+  longtitle="%{name} Info"
+EOF
   
-# cat >$RPM_BUILD_ROOT%{_menudir}/%{name}-documentation <<EOF
-# ?package(%name):\
-  # command="\$BROWSER %{_docdir}/%{name}-documentation-%{version}/web/index.html"\
-  # needs="X11"\
-  # icon="%{name}.xpm"\
-  # section="Documentation"\
-  # title="%{name}-documentation"\
-  # longtitle="%{name} Documentation"
-# EOF
-# # 
-# # icon
-# install -d $RPM_BUILD_ROOT/%{_miconsdir}
-# install -d $RPM_BUILD_ROOT/%{_iconsdir}
-# install -d $RPM_BUILD_ROOT/%{_liconsdir}
-# install -m 644 Documentation/pictures/%{name}-16x16.xpm $RPM_BUILD_ROOT/%{_miconsdir}/%{name}.xpm
-# install -m 644 Documentation/pictures/%{name}-32x32.xpm $RPM_BUILD_ROOT/%{_iconsdir}/%{name}.xpm
-# install -m 644 Documentation/pictures/%{name}-48x48.xpm $RPM_BUILD_ROOT/%{_liconsdir}/%{name}.xpm
+cat >$RPM_BUILD_ROOT%{_menudir}/%{name}-documentation <<EOF
+?package(%name):\
+  command="\$BROWSER %{_docdir}/%{name}-documentation-%{version}/index.html"\
+  needs="X11"\
+  icon="%{name}.png"\
+  section="Documentation"\
+  title="%{name}-documentation"\
+  longtitle="%{name} Documentation"
+EOF
+
+# icon
+install -d $RPM_BUILD_ROOT/%{_iconsdir}
+install -m 644 Documentation/pictures/out-www/lelie-logo.png $RPM_BUILD_ROOT/%{_iconsdir}/%{name}.png
+
+%{find_lang} %{name}
 
 %post
-# Menu is not used.
-# %{update_menus}
+%{update_menus}
 
 touch /tmp/.lilypond-install
 rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan*pk' -or -name 'parmesan*tfm' -print` /tmp/.lilypond-install
@@ -143,7 +156,9 @@ rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan
 /usr/X11R6/bin/mkfontdir %{_datadir}/lilypond/%{version}/fonts/type1/
 chkfontpath --add=%{_datadir}/lilypond/%{version}/fonts/type1/
 
-echo 'Please logout first before using LilyPond.'
+%post documentation
+%{update_menus}
+scrollkeeper-update
 
 %preun
 
@@ -156,20 +171,17 @@ echo 'Please logout first before using LilyPond.'
 rm -f %{_datadir}/lilypond/%{version}/fonts/type1/fonts.dir
 chkfontpath --remove=%{_datadir}/lilypond/%{version}/fonts/type1/
 
-%post documentation
-scrollkeeper-update
+%postun
+%{clean_menus}
 
 %postun documentation
+%{clean_menus}
 scrollkeeper-update
-
-%postun
-# Menu is not used.
-# %{clean_menus}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(-, root, root)
 %doc COPYING README.txt INSTALL.txt DEDICATION NEWS.txt AUTHORS.txt THANKS
 
@@ -185,26 +197,40 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/../etc/profile.d/lilypond.*
 %_bindir/*
 %_mandir/*
-# Menu is not used.
-# %_menudir/*
-# %_iconsdir/*
+%_menudir/*
+%_iconsdir/%{name}.*
 
-%{_libdir}/lilypond/
-
-%doc 
+%files -n liblilypond
+%defattr(-,root,root)
+%{_libdir}/%{name}/%{version}/python/*.so
 
 %files documentation
 %defattr(-, root, root)
 
 %{_docdir}/*
 %{_datadir}/omf/lilypond/%{version}
+%{_menudir}/%{name}-documentation
 
 %changelog
+* Sun Aug 25 2003 Torbjorn Turpeinen <tobbe@nyvalls.se> 1.8.1-3mdk
+- Fixed doc-path in menu.
+
+* Thu Aug 23 2003 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.8.1-1mdk
+* Sun Aug 24 2003 Torbjorn Turpeinen <tobbe@nyvalls.se> 1.8.1-2mdk
+- Added Heikki Johannes Junes fix for confilcting PHP variable
+  out=/dev/vc/ by adding unset out before compiling
+- Compiled with recent guile = 1.6.4 and mftrace = 1.0.19
+- Changed icon to lilypond.png
+- Added menu and icons again
+
 * Thu Aug 07 2003 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.8.0-1mdk
 - removed menu and icons, sync with redhat-spec
 
-* Thu Jun 12 2003 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.7.20-1mdk
+* Thu Jun 12 2003 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.7.23-1mdk
 - refreshed dependencies and file list.
+
+* Sat Feb 01 2003 Torbjorn Turpeinen <tobbe@nyvalls.se> 1.7.12-1mdk
+- Built for Mandrake 9.1
 
 * Fri Dec 01 2002 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.7.9-1mdk
 - set menu-items to lilypond-info and lilypond-documentation.
