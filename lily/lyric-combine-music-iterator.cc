@@ -32,8 +32,7 @@ protected:
   virtual void derived_mark () const;
 private:
   bool get_busy_status ()const ;
-  bool  melisma_busy (); 
-  
+  bool melisma_busy (); 
 
   Music_iterator * music_iter_;
   Music_iterator * lyric_iter_;
@@ -49,6 +48,9 @@ Music *melisma_playing_req;
 
 Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 {
+  music_iter_ =0;
+  lyric_iter_ =0;
+
   if (!busy_req)
     {
       busy_req
@@ -56,9 +58,6 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
       melisma_playing_req
 	= make_music_by_name (ly_symbol2scm ("MelismaPlayingEvent"));
     }
-  
-  music_iter_ =0;
-  lyric_iter_ =0;
 }
 
 Moment
