@@ -96,6 +96,9 @@ prebuild () {
 	
 	mkdir -p mf/out
 	cp -pv mf/out-for-build/* mf/out
+
+	mkdir -p Documentation/user/out
+	cp -pv Documentation/user/out-for-build/*{tely,texi} Documentation/user/out
     fi
 
     # set LDFLAGS to find the python library

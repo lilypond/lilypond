@@ -1,8 +1,6 @@
 sdesc: "A program for printing sheet music"
-#test: 1.9.8-1
-#curr: 1.8.2-1
 category: Publishing
-requires: bash cygwin fileutils findutils ghostscript libguile12abi13 libguile12 libiconv2 libintl2 libkpathsea3 libkpathsea3abi13 python tetex-bin tetex-tiny _update-info-dir
+requires: bash cygwin fileutils findutils ghostscript libguile12 libiconv2 libintl2 libkpathsea3 python tetex-bin tetex-tiny _update-info-dir
 #requires: tetex-bin, tetex-tiny | tetex-base
 #suggests: emacs gsview lilypond-doc rxvt tetex-x11 XFree86-serv
 ldesc: "A program for printing sheet music.
