@@ -1,0 +1,23 @@
+% 
+% feta-beum.mf --  implement runtime MF beams
+% 
+% source file of LilyPond's pretty-but-neat music font
+% 
+% (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+% 
+mode_setup;
+
+def drawbeam(expr widths,slope,thicks) =
+	beginchar(0,0,0,0) "Embedded mf";
+		width#:=widths*1pt#;
+		thick#:=thicks*1pt#;
+		height#:=slope*width#;
+		% do separately, to identify "value too large"
+		define_pixels(height);
+		define_pixels(thick);
+		define_pixels(width);
+		fill (0, - thick/2)--(width,height - thick/2)--(width,height+thick/2)--(0,thick/2)
+			-- cycle;
+		endchar;
+	enddef;
+

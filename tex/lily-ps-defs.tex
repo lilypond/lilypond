@@ -37,14 +37,14 @@
 1 setlinecap
 /draw_beam
 {
-        /beam_thick exch def
+        2 div /beam_thick exch def
         /beam_slope exch def
         /beam_wd exch def
         beam_slope beam_wd mul /beam_ht exch def
-        0 0 moveto 
+        0 beam_thick neg moveto 
         beam_wd beam_ht rlineto 
-        0 beam_thick rlineto
-        0 beam_thick  lineto
+        0 beam_thick 2 mul rlineto
+        0 beam_thick lineto
         closepath fill
 } bind def
 % PS helper: convert (0.2pt) to the token 0.2
@@ -125,7 +125,6 @@ def
         slur_indent slur_ht
         slur_b slur_indent sub slur_ht
         slur_b 0
- %      pstack
         rcurveto        
  %
         slur_indent neg slur_ht slur_dir slur_thick mul  sub
