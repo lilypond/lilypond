@@ -6,7 +6,7 @@
 % /setgray { 1 add } bind def
 
 % To let gs load fonts from builddir, do:
-% export GS_LIB=$(pwd)/mf/out:
+% export GS_LIB=$(pwd)/mf/out:/usr/share/texmf/fonts/type1/bluesky/cm
 
 /staff-line-thickness lilypondpaperlinethickness def
 /staff-height lilypondpaperstaffheight def
@@ -220,7 +220,8 @@ staff-height init-paper
 /line-x left-margin output-scale div def
 /line-y vsize top-margin sub def
 
-make-lilypond-title
+% FIXME: testing \markup titles
+% make-lilypond-title
 
 % see if we're there...
 % 10 setlinewidth 0 0 moveto 400 800 lineto stroke

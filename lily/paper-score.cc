@@ -115,19 +115,8 @@ Paper_score::process (String outname)
     ->output_scheme (scm_list_2 (ly_symbol2scm ("define-fonts"),
 				 ly_quote_scm (paper_->font_descriptions ())));
 
-#if 0
-  // huh? does not work, stack overflow
   outputter_->output_scheme (scm_list_2 (ly_symbol2scm ("make-title"),
-					 outputter_->file_));
-#else
-#if 0
-  // uhuh?? does not work, stack overflow
-  outputter_->output_scheme (scm_list_2 (ly_symbol2scm ("set-port"),
-  					 outputter_->file_));
-#endif
-  outputter_->output_scheme (scm_list_1 (ly_symbol2scm ("make-title")));
-#endif
-
+					 ly_quote_scm (outputter_->file_)));
   system_->output_lines ();
   outputter_->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
 

@@ -5,6 +5,11 @@
 ;;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
+;; TODO:
+;;   * testbed for titles with markup
+;;   * font size and designsize
+;;   * FIXME: breaks when outputting strings with parentheses.
+
 
 (debug-enable 'backtrace)
 
@@ -17,14 +22,12 @@
  (lily))
 
 
-
-;;; Lily output interface --- cleanup and docme
-
-;; TODO: fucks up if outputting strings with parentheses.
+;;; Lily output interface, PostScript implementation --- cleanup and docme
 
 ;; Module entry
 (define-public (ps-output-expression expr port)
   (display (expression->string expr) port))
+
 
 (define (expression->string expr)
   (eval expr this-module))
@@ -34,6 +37,8 @@
 ;; alist containing fontname -> fontcommand assoc (both strings)
 (define font-name-alist '())
 
+;; WIP -- stencils from markup? values of output-scopes
+(define header-stencil #f)
 
 ;; Interface functions
 (define (beam width slope thick blot)
@@ -364,65 +369,63 @@
 		  (font-series . medium)
 		  (font-style . roman)
 		  (font-shape . upright)
-		  (font-size . 0)))))
-  
+		  (font-size . 0))))
+	(stencils '())
+	(baseline-skip 2))
+
+    (define (output-scope-entry sym var)
+      (let ((val (variable-ref var))
+	    (tex-key (symbol->string sym)))
+	
+	(if (memq sym fields)
+	    (header-to-file basename sym val))
+	
+	(cond
+	 ((eq? sym 'font)
+	  BARF
+	  (format (current-error-port) "PROPS:~S\n" val)
+	  (set! props (cons val props))
+	  "")
+	 
+	 ;; define strings, for /make-lilypond-title to pick up
+	 ((string? val) (ps-string-def "lilypond" sym val))
+	 
+	 ;; generate stencil from markup
+	 ((markup? val) (set! stencils
+			      (append
+			       stencils
+			       (list
+				(interpret-markup paper props val))))
+	  "")
+	 ((number? val) (ps-number-def
+			 "lilypond" sym (if (integer? val)
+					    (number->string val)
+					    (number->string
+					     (exact->inexact val)))))
+	 (else ""))))
+    
     (define (output-scope scope)
-      (apply
-       string-append
-       (module-map
-	(lambda (sym var)
-	  (let ((val (variable-ref var))
-		(tex-key (symbol->string sym)))
-	    
-	    (if (memq sym fields)
-		(header-to-file basename sym val))
-	    
-	    (cond
-	     ((eq? sym 'font)
-	      BARF
-	      (format (current-error-port) "PROPS:~S\n" val)
-	      (set! props (cons val props))
-	      "")
-	     
-	     ;; define strings, for /make-lilypond-title to pick up
-	     ((string? val) (ps-string-def "lilypond" sym val))
+      (apply string-append (module-map output-scope-entry scope)))
 
-	     ;; generate stencil from markup
-	     ((markup? val) (set! header-stencils
-				  (append header-stencils
-				     (list
-				      (ly:stencil-get-expr
-				       (interpret-markup paper props val)))))
-	      
-	      "")
-	     ((number? val) (ps-number-def
-			     "lilypond" sym (if (integer? val)
-						(number->string val)
-						(number->string
-						 (exact->inexact val)))))
-	     (else ""))))
-	scope)))
-
-    (string-append
-     (apply string-append (map output-scope scopes)))))
+    (let ((s (string-append (apply string-append (map output-scope scopes)))))
+      (set! header-stencil (stack-lines DOWN 0 baseline-skip stencils))
+      
+      ;; trigger font load
+      (ly:stencil-get-expr header-stencil)
+      s)))
 
 (define (offset-add a b)
   (cons (+ (car a) (car b))
 	(+ (cdr a) (cdr b))))
 
-(define header-stencils '())
-
-(define output-port (current-error-port))
-
-;; just calling this from paper-score gives Stack overflow.
-(define (set-port p)
-  (set! output-port p)
-  "")
-
-(define (make-title)
-  (if (pair? header-stencils)
-      (map (lambda (x) (output-stencil output-port x '(10 . -10)))
-	   header-stencils))
+(define (make-title port)
+  (if header-stencil
+      (let ((x-ext (ly:stencil-get-extent header-stencil Y))
+	    (y-ext (ly:stencil-get-extent header-stencil X)))
+	(display (start-system (interval-length x-ext) (interval-length y-ext))
+		 port)
+	(output-stencil port (ly:stencil-get-expr header-stencil) '(0 . 0))
+	(display (stop-system) port)))
   "")
 
 ;; hmm, looks like recursing call is always last statement, does guile
