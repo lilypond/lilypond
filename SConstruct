@@ -75,7 +75,7 @@ FOOSUMS = 1
 subdirs = ['flower', 'lily', 'mf', 'scm', 'ly', 'Documentation',
 	   'Documentation/user', 'Documentation/topdocs',
 	   'input', 'scripts', 'elisp',
-	   'buildscripts', 'cygwin', 'debian']
+	   'buildscripts', 'cygwin', 'debian', 'po']
 
 usage = r'''Usage:
 scons [KEY=VALUE].. [TARGET]..
@@ -184,6 +184,7 @@ env.Append (
 	bindir = bindir,
 	sharedir = sharedir,
 	lilypond_datadir = sharedir_package,
+	localedir = localedir,
 	local_lilypond_datadir = sharedir_package_version,
 	lilypondprefix = lilypondprefix,
 	sharedir_package = sharedir_package,
@@ -595,7 +596,6 @@ patch_name = os.path.join (outdir, tar_base + '.diff.gz')
 patch = env.PATCH (patch_name, tar_ball)
 env.Depends (patch_name, dist_ball)
 env.Alias ('release', patch)
-
 
 for d in subdirs:
 	if os.path.exists (os.path.join (d, 'SConscript')):

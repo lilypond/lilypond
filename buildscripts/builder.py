@@ -215,3 +215,20 @@ def at_copy (target, source, env):
 AT_COPY = Builder (action = at_copy)
 env.Append (BUILDERS = {'AT_COPY': AT_COPY})
 
+MO = Builder (action = '$MSGFMT -o $TARGET $SOURCE',
+	      suffix = '.mo', src_suffix = '.po')
+env.Append (BUILDERS = {'MO': MO})
+
+a = 'xgettext --default-domain=lilypond --join \
+--output-dir=${TARGET.dir} --add-comments \
+--keyword=_ --keyword=_f --keyword=_i $SOURCES'
+POT = Builder (action = a, suffix = '.pot')
+#env.Append (BUILDERS = {'POT': POT})
+#env.Command(env['absbuild'] + '/po/' + env['out'] + '/lilypond.pot',
+env['pottarget'] = os.path.join (env['absbuild'], 'po', env['out'],
+			       'lilypond.pot')
+env['potcommand'] = a
+
+a = 'msgmerge ${SOURCE} ${TARGET.dir}/lilypond.pot -o ${TARGET}'
+POMERGE = Builder (action = a, suffix = '.pom', src_suffix = '.po')
+env.Append (BUILDERS = {'POMERGE': POMERGE})

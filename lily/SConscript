@@ -21,4 +21,5 @@ lily = e.Program (name, sources)
 env.Install (env['bindir'], lily)
 env.Alias ('install', env['bindir'])
 
-env.Alias ('lily', lily)
+#po = e.PO (sources + includes)
+#env.Alias ('po', po)
