@@ -5,7 +5,7 @@
 depth = ../..
 #
 
-EXTRA_DISTFILES=preludes.tex
+EXTRA_DISTFILES=
 
 # descent order into subdirectories:
 #
@@ -17,8 +17,6 @@ SUBDIRS =
 include ./$(depth)/make/Mutopia.make
 #
 
-examples=prelude-cello  menuetto-alto wtk1-fugue2 
-#menuetto-cello -> broken
-#preludes-2 -> broken
+examples=scsii-cello wtk1-fugue2 preludes-2
 
 include $(depth)/make/WWW.make
