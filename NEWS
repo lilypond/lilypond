@@ -1,3 +1,15 @@
+pl 16.jcn1
+	- dashed-slur through scheme
+
+pl 15.jcn4
+	- more scheme hacks
+
+pl 15.jcn3
+	- try at scheme in Atom
+
+pl 15.jcn2 # rest of
+	- graphical-lisp-element + silly half hook-up with autuplet
+
 pl 16
 	- read property ydirection and tieYDirection for tie direction.
 	- bf: slur over rest.

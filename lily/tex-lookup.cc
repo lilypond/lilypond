@@ -64,12 +64,6 @@ Tex_lookup::character_str (int i) const
 }
 
 Atom
-Tex_lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
-{
-  return embed (Ps_lookup::dashed_slur (controls, thick, dash));
-}
-
-Atom
 Tex_lookup::embed (Atom a) const
 {
   a.str_ = "\\embeddedps{\n" + a.str_ + "}";

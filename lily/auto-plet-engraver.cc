@@ -9,7 +9,7 @@
 
 #include "auto-plet-engraver.hh"
 #include "command-request.hh"
-#include "slur.hh"
+#include "graphical-lisp-element.hh"
 #include "note-column.hh"
 
 bool
@@ -27,12 +27,11 @@ Tuplet_engraver::do_try_request (Request *r)
   return true;
 }
 
-
 void
 Tuplet_engraver::do_process_requests ()
 {
   int stopcount =0;
-  Link_array<Slur> start_arr;
+  Link_array<Graphical_lisp_element> start_arr;
   
   for (int i=0; i < bracket_req_arr_.size (); i++)
     {
@@ -40,16 +39,17 @@ Tuplet_engraver::do_process_requests ()
 	stopcount++;
       if (bracket_req_arr_[i]->spantype == Span_req::START)
 	{
-	  Slur *sp =new Slur;
-	  start_arr.push  (sp);
-	  announce_element (Score_element_info (sp, bracket_req_arr_[i]));
+	  Graphical_lisp_element* glep = new Graphical_lisp_element ("tuplet");
+	  start_arr.push  (glep);
+// lots of stuff does info->elem_l_->is_type ()
+//	  announce_element (Score_element_info (glep, bracket_req_arr_[i]));
 	}
     }
 
   for (; stopcount--; )
     {
-      Slur *sp = started_span_p_arr_.pop ();
-      stop_now_span_p_arr_.push (sp);
+      Graphical_lisp_element* glep = started_span_p_arr_.pop ();
+      stop_now_span_p_arr_.push (glep);
     }
 
   for (int i=0; i < start_arr.size (); i++)
@@ -63,7 +63,8 @@ Tuplet_engraver::acknowledge_element (Score_element_info i)
     {
       Note_column *nc = (Note_column*)i.elem_l_->access_Item ();
       for (int j =0; j  <started_span_p_arr_.size (); j++)
-	started_span_p_arr_[j]->add_column (nc);
+//	started_span_p_arr_[j]->add_column (nc);
+	started_span_p_arr_[j]->call ("add-column", (void*)nc);
     }
 }
 

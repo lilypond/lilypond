@@ -14,6 +14,8 @@
 #include "array.hh"
 #include "string-convert.hh"
 #include "debug.hh"
+#include "lookup.hh"
+#include "main.hh"
 
 Ps_outputter::Ps_outputter (Paper_stream *s)
   :Paper_outputter (s)
@@ -62,7 +64,7 @@ Ps_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
   if (check_debug)
     *outstream_l_ << String ("\n%start: ") << nm << "\n";
 
-  Paper_outputter::output_molecule (m, o, nm, "% % {%}placebox \n");
+  Paper_outputter::output_molecule (m, o, nm, "% % {%}placebox \n", "'ps");
 }
 
 void

@@ -42,7 +42,7 @@ AC_STEPMAKE_MSGFMT
 AC_STEPMAKE_TEXMF
 # AC_STEPMAKE_TEXMF_DIRS
 AC_STEPMAKE_YODL
-
+AC_CHECK_LIB(guile, scm_shell)
 
 dnl should check out -print
 dnl huh?

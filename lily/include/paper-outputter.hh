@@ -24,7 +24,7 @@ public:
   virtual ~Paper_outputter ();
 
   virtual void output_molecule (Molecule const *, Offset, char const *)=0;
-  void output_molecule (Molecule const *, Offset, char const *, String);
+  void output_molecule (Molecule const *, Offset, char const *, String, String);
   virtual void start_line ()=0;
   virtual void stop_line ()=0;
   virtual void switch_to_font (String fontname)=0;

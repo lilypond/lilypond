@@ -60,7 +60,7 @@ Tex_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
   if (check_debug)
     *outstream_l_ << String ("\n%start: ") << nm << "\n";
 
-  Paper_outputter::output_molecule (m, o, nm, "\\placebox{%}{%}{%}");
+  Paper_outputter::output_molecule (m, o, nm, "\\placebox{%}{%}{%}", "'tex");
 }
 
 void

@@ -20,6 +20,7 @@
 #include "paper-def.hh"
 #include "string-convert.hh"
 #include "main.hh"
+#include "lily-guile.hh"
 
 Lookup::Lookup ()
 {
@@ -148,6 +149,58 @@ Atom
 Lookup::clef (String st) const
 {
   return afm_find (String ("clefs") + String ("-") + st);
+}
+
+Atom
+Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
+{
+  assert (controls.size () == 8);
+
+  Real dx = controls[3].x () - controls[0].x ();
+  Real dy = controls[3].y () - controls[0].y ();
+
+  Atom a;
+  a.font_ = font_;
+  a.dim_[X_AXIS] = Interval (0, dx);
+  a.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
+
+#ifndef HAVE_LIBGUILE
+
+  String ps;
+  for (int i = 1; i < 4; i++)
+    ps += String_convert::double_str (controls[i].x ()) + " "
+      + String_convert::double_str (controls[i].y ()) + " ";
+
+  ps += String_convert::double_str (controls[0].x ()) + " "
+    + String_convert::double_str (controls[0].y ()) + " ";
+
+  ps += String_convert::double_str (thick) + " ";
+  Real on = dash > 1? thick * dash - thick : 0;
+  Real off = 2 * thick;
+  ps += "[" + String_convert::double_str (on) + " ";
+  ps += String_convert::double_str (off) + "] ";
+  ps += String_convert::int_str (0) + " ";
+  ps += "draw_dashed_slur ";
+
+  a.str_ = ps;
+
+#else // HAVE_LIBGUILE
+
+  // (lambda (o) (dashed-slur o '((0.1 0.2) (1.1 1.2) (2.1 2.2) (3.1 3.2))))
+  a.lambda_ = 
+    gh_append (gh_lambda_o (), 
+    gh_list1 (gh_append (gh_func_o ("dashed-slur"),
+    gh_cons (gh_double2scm (thick), gh_cons (gh_double2scm (dash),
+    gh_list1 (gh_list2 (gh_quote (),
+    gh_cons (gh_list2 (gh_double2scm (controls[0].x ()), gh_double2scm (controls[0].y ())),
+    gh_cons (gh_list2 (gh_double2scm (controls[1].x ()), gh_double2scm (controls[1].y ())),
+    gh_cons (gh_list2 (gh_double2scm (controls[2].x ()), gh_double2scm (controls[2].y ())),
+    gh_cons (gh_list2 (gh_double2scm (controls[3].x ()), gh_double2scm (controls[3].y ())),
+    SCM_EOL)))))))))));
+
+#endif // HAVE_LIBGUILE
+
+  return a;
 }
 
 Atom

@@ -10,6 +10,8 @@
 #include <iostream.h>
 #include <assert.h>
 #include <locale.h>
+#include "lily-guile.hh"
+
 #include "proto.hh"
 #include "dimensions.hh"
 #include "plist.hh"
@@ -186,19 +188,9 @@ identify ()
   *mlog << get_version_str () << endl;
 }
 
-void 
-guile_init ()
-{
-#ifdef   HAVE_LIBGUILE
-   gh_eval_str ("(define (add-column p) (display \"adding column (in guile): \") (display p) (newline))");
-#endif
-}
-
-int
+void
 main_prog (int argc, char **argv)
 {
-  guile_init ();
-  
   // facilitate binary distributions
   char const *env_lily = getenv ("LILYPONDPREFIX");
   String prefix_directory;
@@ -251,6 +243,7 @@ main_prog (int argc, char **argv)
 	case 't':
 	  experimental_features_global_b = true;
 	  global_lookup_l = &ps_lookup;
+	  *mlog << "*** enabling experimental features, you're on your own now ***\n";
 	  break;
 	case 'o':
 	  outname_str = oparser.optional_argument_ch_C_;
@@ -336,8 +329,18 @@ main_prog (int argc, char **argv)
 	default_outname_base_global = outname_str;
       do_one_file (i, default_outname_base_global);
     }
+}
 
+int
+main (int argc, char **argv)
+{
+#ifdef HAVE_LIBGUILE
+  gh_enter (argc, argv, (void(*)())main_prog);
   return exit_status_i_;
+#else
+  main_prog (argc, argv);
+  return exit_status_i_;
+#endif
 }
 
 /*
@@ -377,19 +380,3 @@ distill_inname_str (String name_str, String& ext_r)
   return str;
 }
 
-
-#ifdef HAVE_LIBGUILE
-int
-main (int argc, char **argv)
-{
-  gh_enter (argc, argv, (void(*)())main_prog);
-  return exit_status_i_;
-}
-
-#else
-int main (int argc, char **argv)
-{
-  return main_prog (argc, argv);
-}
-
-#endif
