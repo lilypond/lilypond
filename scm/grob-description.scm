@@ -330,7 +330,7 @@
 			(staff-bar . (extra-space . 0.0))
 			(breathing-sign . (minimum-space  . 0.0))
 			(clef . (extra-space . 1.0))
-			(first-note . (extra-space . 0.0))
+			(first-note . (extra-space . 1.0))
 			(key-signature . (extra-space . 0.0))
 			))
 	(meta . ((interfaces . (break-aligned-interface item-interface ))))

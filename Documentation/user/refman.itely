@@ -2019,6 +2019,8 @@ is to put the grace notes before a phantom ``space note'', e.g.
 
 @refbugs
 
+Grace notes can not be used in the smallest size (@file{paper11.ly}).
+
 Grace note synchronization can also lead to surprises. Staff notation,
 such as key signatures, barlines, etc. are also synchronized. Take
 care when you mix staffs with grace notes and staffs without.
@@ -2033,14 +2035,7 @@ expressions.  Nesting, juxtaposing, or ending sequential music with a
 grace section is not supported, and might produce crashes or other
 errors.
 
-@menu
-* Glissando ::                  
-* Dynamics::                    
-@end menu
 
-
-
-@c .   {Glissando}
 @node Glissando 
 @subsection Glissando
 @cindex Glissando 

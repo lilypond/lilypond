@@ -198,7 +198,6 @@ fugaIIPedal =  \notes \relative c {
   %13
     \property Staff.PhrasingSlur \override #'dashed = #5.0
     c4 \( ( d ) e\) f
-
 %    r4 fis,4-\ltoe e4.-\lheel e'8-\rheel | 
 
 % tie accs: 2nd should get no acc
@@ -219,20 +218,7 @@ fis8-\rtoe fis4-\rtoe [e8-\ltoe a-\rtoe] |
       
     >
   >
-
-  \paper {
-
-	\translator {
-		\OrchestralScoreContext
-	}
-	\translator { \PianoStaffContext
-		\consists "Instrument_name_engraver"
-	}
-	\translator { \StaffContext
-		\consists "Instrument_name_engraver"
-	}
-  }
-
+\paper {}
   \midi {
     \tempo 4 =96 }
 }

@@ -1,3 +1,17 @@
+2002-09-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/clef-end-of-line.ly: new file.
+
+	* lily/stem-engraver.cc (acknowledge_grob): warn about too long
+	tremolos. Thanks to Erik Sandberg
+
+	* input/trip.ly (fugaIIPedal): small cleanups.
+
+	* lily/grob-pq-engraver.cc: more helpful message.
+	(stop_translation_timestep): use scm_merge_x for merging the lists.
+
+	* Documentation/user/appendices.itely: switch off parmesan listing
+
 2002-09-01  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* input/test/ancient-font.ly, input/test/ancient-time.ly,

@@ -79,7 +79,11 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 		the first and last (quarter) note bothe get one tremolo flag.
 	       */
 	      int requested_type = gh_scm2int (tremolo_req_->get_mus_property ("tremolo-type"));
-	      
+	      if (requested_type <= 8)
+		{
+		  tremolo_req_->origin()->warning (_("tremolo duration is too long"));
+		  requested_type = 0;
+		}
 	      SCM f = get_property ("tremoloFlags");
 	      if (!requested_type && gh_number_p (f))
 		requested_type = gh_scm2int (f);
