@@ -10,12 +10,26 @@
 (define-class <Voice-state> ()
   (event-list #:init-value '() #:accessor events #:init-keyword #:events)
   (when-moment #:accessor when #:init-keyword #:when)
-  (split-idx #:accessor split-idx)
+  (split-index #:accessor split-index)
   (vector-index)
   (state-vector)
+
+
+  ;;;
+  ; spanner-state is an alist
+  ; of (SYMBOL . RESULT-INDEX), which indicates where
+  ; said spanner was started.
   (spanner-state #:init-value '() #:accessor span-state)
   )
   
+(define-method (write (x <Voice-state> ) file)
+  (display (when x) file)
+  (display " evs = " file)
+  (display (events x) file)
+  (display " active = " file)
+  (display (span-state x) file)
+  (display "\n" file)
+  )
 
 (define-method (note-events (vs <Voice-state>))
   (define (f? x)
@@ -28,6 +42,8 @@
   (is #:init-keyword #:voice-states #:accessor voice-states)
   (synced  #:init-keyword #:synced #:init-value  #f #:getter synced?)
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-method (previous-voice-state (vs <Voice-state>))
   (let* ((i (slot-ref vs 'vector-index))
@@ -46,14 +62,6 @@
 	       '())
 	 ))
 
-(define-method (write (x <Voice-state> ) file)
-  (display (when x) file)
-  (display " evs = " file)
-  (display (events x) file)
-  (display " active = " file)
-  (display (span-state x) file)
-  (display "\n" file)
-  )
 
 (define-method (write (x <Split-state> ) f)
   (display (when x) f)
@@ -115,9 +123,9 @@ Voice-state objects
 		) #f))
 	 )
       (if s1
-	  (set! (split-idx s1) ss-idx))
+	  (set! (split-index s1) ss-idx))
       (if s2
-	  (set! (split-idx s2) ss-idx))
+	  (set! (split-index s2) ss-idx))
       
       (if min
 	  (helper (1+ ss-idx)
@@ -182,7 +190,9 @@ Voice-state objects
 	(if (and (symbol? key) (ly:dir? sp))
 	    (if (= sp STOP)
 		(assoc-remove! active key)
-		(acons key index active))
+		(acons key
+		       (split-index (vector-ref voice-state-vec index))
+		       active))
 	    active)
 	))
 
@@ -209,9 +219,12 @@ Voice-state objects
 
        ;; todo: use fold or somesuch.
        (run-analyzers
-	(list analyse-span-event
-	      ;; note: tie-start comes after tie-end.
-	      analyse-tie-end analyse-tie-start analyse-absdyn-end)
+	(list
+	 analyse-absdyn-end
+	 analyse-span-event
+	      
+	 ;; note: tie-start/span comes after tie-end/absdyn.
+	 analyse-tie-end analyse-tie-start)
 
 	 active evs)
        
@@ -307,8 +320,7 @@ Only set if not set previously.
       (define (copy-one-state key-idx)
 	(let*
 	    ((idx (cdr key-idx))
-	     (start-vs (vector-ref state-vec idx))
-	     (prev-ss (vector-ref result (split-idx start-vs)))
+	     (prev-ss (vector-ref result idx))
 	     (prev (configuration prev-ss))
 	     )
 	  (if (symbol? prev)
@@ -448,7 +460,7 @@ Only set if not set previously.
     
      (define (previous-config vs)
        (let*  ((pvs (previous-voice-state vs))
-	       (spi (if pvs (split-idx pvs) #f))
+	       (spi (if pvs (split-index pvs) #f))
 	       (prev-split (if spi (vector-ref result spi) #f))
 	       )
 	 
@@ -499,9 +511,8 @@ Only set if not set previously.
 	   ((now-state (vector-ref result ri))
 	    (vs1 (car (voice-states now-state)))
 	    (vs2 (cdr (voice-states now-state)))
-	    
-	    (notes1 (note-events vs1))
-	    (notes2 (note-events vs2))
+	    (notes1 (if vs1 (note-events vs1) '()))
+	    (notes2 (if vs2 (note-events vs2) '()))
 	    (n1 (length notes1))
 	    (n2 (length notes2))
 	    )

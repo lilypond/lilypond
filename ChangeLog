@@ -1,5 +1,14 @@
 2004-02-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+
+	
+	* lily/multi-measure-rest-engraver.cc (process_music): extra check
+	to allow 0-length mmrest events.
+
+	* scm/part-combiner.scm (determine-split-list): many bugfixes.
+
+	* lily/new-part-combine-iterator.cc (kill_mmrest): new function.
+
 	* lily/spacing-engraver.cc (finalize): robustifications.
 
 	* input/regression/new-part-combine-solo-global.ly: new file.

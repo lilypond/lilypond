@@ -77,7 +77,8 @@ Multi_measure_rest_engraver::try_music (Music* req)
 void
 Multi_measure_rest_engraver::process_music ()
 {
-  if (rest_ev_ && !mmrest_)
+  if (rest_ev_ && !mmrest_
+      && stop_moment_ > now_mom ())
     {
       mmrest_ = make_spanner ("MultiMeasureRest");
 

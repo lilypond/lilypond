@@ -589,6 +589,11 @@ EasyNotation = \translator {
 \translator {
     \name "Devnull"
     \type "Engraver_group_engraver"
+
+    %% don't want to route anything out of here: 
+    \alias "Staff"
+    \alias "Timing"
+    \alias "Voice"
     \consists "Swallow_engraver"
     \description "Silently discards all musical information given to this context. "
     }

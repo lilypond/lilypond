@@ -56,6 +56,7 @@ private:
   Interpretation_context_handle null_;
   Interpretation_context_handle shared_;
 
+  void kill_mmrest (Translator_group*);
   void chords_together ();
   void solo1 ();
   void solo2 ();
@@ -161,6 +162,19 @@ New_pc_iterator::chords_together ()
 
 
 void
+New_pc_iterator::kill_mmrest (Translator_group * tg)
+{
+  static Music * mmrest;
+  if (!mmrest)
+    {
+      mmrest = make_music_by_name (ly_symbol2scm ("MultiMeasureRestEvent"));
+      mmrest->set_mus_property ("duration", SCM_EOL);
+    }
+
+  tg->try_music (mmrest);
+}
+
+void
 New_pc_iterator::solo1 ()
 {
   if (state_ == SOLO1)
@@ -173,6 +187,8 @@ New_pc_iterator::solo1 ()
 
       second_iter_->substitute_outlet (two_.report_to (), null_.report_to ());
       second_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
+      kill_mmrest (two_.report_to ());
+      kill_mmrest (shared_.report_to ());
 
       if (playing_state_ != SOLO1)
 	{
@@ -200,6 +216,8 @@ New_pc_iterator::unisono (bool silent)
 
       second_iter_->substitute_outlet (two_.report_to (), null_.report_to ());
       second_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
+      kill_mmrest (two_.report_to ());
+      kill_mmrest (shared_.report_to ());
 
       if (playing_state_ != UNISONO
 	  && newstate == UNISONO)
@@ -229,7 +247,9 @@ New_pc_iterator::solo2 ()
 
       first_iter_->substitute_outlet (one_.report_to (), null_.report_to ());
       first_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
-
+      kill_mmrest (one_.report_to ());
+      kill_mmrest (shared_.report_to ());
+      
       if (playing_state_ != SOLO2)
 	{
 	  static Music* event;
