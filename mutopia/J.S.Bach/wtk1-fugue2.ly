@@ -21,9 +21,6 @@
 
 \version "1.3.4";
 
-global = \notes {
-  \key c \minor;
-}
   
 dux = \context Voice=two \notes \relative c''{
   \voicetwo
@@ -163,15 +160,16 @@ bassdux = \context Voice=three \notes \relative c' {
 
 \score {
  
-    \context PianoStaff < 
-	\context Staff = treble < 
+    \notes \context PianoStaff < 
+	\context Staff = treble <
+	    \key C \minor;
 	    \dux
 	    { \comes \bar "|."; }
 	      \time 4/4;
 	      \property Score.timeSignatureStyle = "C"
 	  >
 	\context Staff = bass <
-	    \global
+	    \key C \minor;
 	    \bassdux
 	>
     >

@@ -62,7 +62,8 @@ public:
    */
   Beam* beam_l () const;
   Note_head * first_head () const;
-    
+  Score_element * support_head () const;
+  Stem ();
   /// ensure that this Stem also encompasses the Notehead #n#
   void add_head (Rhythmic_head*n);
 

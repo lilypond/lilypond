@@ -22,12 +22,13 @@ Clef_item::do_pre_processing()
 {
   SCM style_sym =get_elt_property ("style");
   String style;
-  if (style_sym != SCM_UNDEFINED)
+  if (gh_string_p (style_sym))
     style = ly_scm2string (style_sym);
   
   if (break_status_dir() != RIGHT && style != "fullSizeChanges")
     symbol_ += "_change";
-  if (style == "transparent")
+  
+  if (style == "transparent")	// UGH. JUNKME
     {
       set_elt_property ("transparent", SCM_BOOL_T);
       set_empty (X_AXIS);
@@ -35,12 +36,10 @@ Clef_item::do_pre_processing()
 }
 
 /*
-  FIXME
+  JUNKME
 */
 Clef_item::Clef_item()
 {
-  set_elt_property ("breakable", SCM_BOOL_T);
-
   symbol_ = "treble";
 }
 

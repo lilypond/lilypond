@@ -31,8 +31,10 @@ Stem::set_beaming (int i,  Direction d )
   SCM pair = get_elt_property ("beaming");
   
   if (!gh_pair_p (pair))
-    pair = gh_cons (gh_int2scm (0),gh_int2scm (0));
-
+    {
+      pair = gh_cons (gh_int2scm (0),gh_int2scm (0));
+      set_elt_property ("beaming", pair);
+    }
   index_set_cell (pair, d, gh_int2scm (i));
 }
 
@@ -110,16 +112,47 @@ Stem::type_i () const
   return first_head () ?  first_head ()->balltype_i () : 2;
 }
 
+
+
+/*
+  Note head that determines hshift for upstems
+ */ 
+Score_element*
+Stem::support_head ()const
+{
+  SCM h = get_elt_property ("support-head");
+  Score_element * nh = unsmob_element (h);
+  if (nh)
+    return nh;
+  else
+    return first_head ();
+}
+
+
+/*
+  The note head which forms one end of the stem.  
+ */
 Note_head*
 Stem::first_head () const
 {
-  SCM h =get_elt_property ("heads");
-  if (!gh_pair_p (h))
-    return 0;
+  const int inf = 1000000;
+  int pos = -inf;		
+  Direction dir = get_direction ();
 
-  Score_element * sc = unsmob_element (gh_car (h));
 
-  return dynamic_cast<Note_head*> (sc);
+  Note_head *nh =0;
+  for (SCM s = get_elt_property ("heads"); gh_pair_p (s); s = gh_cdr (s))
+    {
+      Note_head * n = dynamic_cast<Note_head*> (unsmob_element (gh_car (s)));
+      Staff_symbol_referencer_interface si (n);
+      int p = dir * int(si.position_f ());
+      if (p > pos)
+	{
+	  nh = n;
+	}
+    }
+
+  return nh;
 }
 
 void
@@ -136,6 +169,12 @@ Stem::add_head (Rhythmic_head *n)
     gi.name_ = "rests";
 
   gi.add_element (n);
+}
+
+Stem::Stem ()
+{
+  set_elt_property ("heads", SCM_EOL);
+  set_elt_property ("rests", SCM_EOL);
 }
 
 bool
@@ -181,6 +220,9 @@ Stem::set_default_stemlen ()
 
   Real shorten_f = paper_l ()->get_var (type_str + "forced_stem_shorten0");
 
+  /* URGURGURG
+     'set-default-stemlen' sets direction too
+   */ 
   if (!get_direction ())
     set_direction (get_default_dir ());
 
@@ -226,31 +268,35 @@ Stem::set_noteheads ()
   if (!first_head ())
     return;
   
-  Link_array<Score_element> head_l_arr =
+  Link_array<Score_element> heads =
     Group_interface__extract_elements (this, (Score_element*)0, "heads");
 
-  head_l_arr.sort (compare_position);
-  if (get_direction () < 0)
-    head_l_arr.reverse ();
+  heads.sort (compare_position);
+  Direction dir =get_direction ();
+  
+  if (dir < 0)
+    heads.reverse ();
 
-  Score_element * beginhead =   head_l_arr[0];
-  beginhead->set_elt_property ("extremal", SCM_BOOL_T);
-  if  (beginhead !=   head_l_arr.top ())
-    head_l_arr.top ()->set_elt_property ("extremal", SCM_BOOL_T);
+
+  Real w = support_head ()->extent (X_AXIS)[dir];
+  for (int i=0; i < heads.size (); i++)
+    {
+      heads[i]->translate_axis (w - heads[i]->extent (X_AXIS)[dir], X_AXIS);
+    }
   
   bool parity= true;
-  int lastpos = int (Staff_symbol_referencer_interface (beginhead).position_f ());
-  for (int i=1; i < head_l_arr.size (); i ++)
+  int lastpos = int (Staff_symbol_referencer_interface (heads[0]).position_f ());
+  for (int i=1; i < heads.size (); i ++)
     {
-      Real p = Staff_symbol_referencer_interface (head_l_arr[i]).position_f ();
+      Real p = Staff_symbol_referencer_interface (heads[i]).position_f ();
       int dy =abs (lastpos- (int)p);
 
       if (dy <= 1)
 	{
 	  if (parity)
 	    {
-	      Real l  = head_l_arr[i]->extent (X_AXIS).length ();
-	      head_l_arr[i]->translate_axis (l * get_direction (), X_AXIS);
+	      Real l  = heads[i]->extent (X_AXIS).length ();
+	      heads[i]->translate_axis (l * get_direction (), X_AXIS);
 	    }
 	  parity = !parity;
 	}
@@ -352,8 +398,8 @@ Stem::do_brew_molecule_p () const
     .staff_line_leading_f ()/2.0;
 
   Real head_wid = 0;
-  if (first_head ())
-    head_wid = first_head ()->extent (X_AXIS).length ();
+  if (support_head ())
+    head_wid = support_head ()->extent (X_AXIS).length ();
   stem_y[Direction(-get_direction ())] += get_direction () * head_wid * tan(ANGLE)/(2*dy);
   
   if (!invisible_b ())
@@ -417,24 +463,17 @@ Stem::calc_stem_info () const
 {
   assert (beam_l ());
 
-  SCM bd = get_elt_property ("beam-dir");
-  Real internote_f
-    = staff_symbol_referencer_interface (this).staff_line_leading_f ()/2;
-  
-  Direction beam_dir;
+  Direction beam_dir = beam_l ()->get_direction ();
+  if (!beam_dir)
+    {
+      programming_error ("Beam dir not set.");
+      beam_dir = UP;
+    }
+    
   Stem_info info; 
-
-  if (isdir_b (bd))
-    {
-      beam_dir = to_dir (bd);
-    }
-  else
-    {
-      programming_error ("Beam direction not set."); 
-      beam_dir = UP;		//  GURAUGRNAGURAGU! urg !
-    }
-  
-  Real interbeam_f = paper_l ()->interbeam_f (beam_l ()->multiplicity_i ());
+  Real internote_f
+     = staff_symbol_referencer_interface (this).staff_line_leading_f ()/2;
+   Real interbeam_f = paper_l ()->interbeam_f (beam_l ()->get_multiplicity ());
   Real beam_f = gh_scm2double (beam_l ()->get_elt_property ("beam-thickness"));
          
   info.idealy_f_ = chord_start_f ();
@@ -448,17 +487,17 @@ Stem::calc_stem_info () const
   int stem_max = (int)rint(paper_l ()->get_var ("stem_max"));
   String type_str = grace_b ? "grace_" : "";
   Real min_stem_f = paper_l ()->get_var (type_str + "minimum_stem_length"
-    + to_str (beam_l ()->multiplicity_i () <? stem_max)) * internote_f;
+    + to_str (beam_l ()->get_multiplicity () <? stem_max)) * internote_f;
   Real stem_f = paper_l ()->get_var (type_str + "stem_length"
-    + to_str (beam_l ()->multiplicity_i () <? stem_max)) * internote_f;
+    + to_str (beam_l ()->get_multiplicity () <? stem_max)) * internote_f;
 
   if (!beam_dir || (beam_dir == get_direction ()))
     /* normal beamed stem */
     {
-      if (beam_l ()->multiplicity_i ())
+      if (beam_l ()->get_multiplicity ())
 	{
 	  info.idealy_f_ += beam_f;
-	  info.idealy_f_ += (beam_l ()->multiplicity_i () - 1) * interbeam_f;
+	  info.idealy_f_ += (beam_l ()->get_multiplicity () - 1) * interbeam_f;
 	}
       info.miny_f_ = info.idealy_f_;
       info.maxy_f_ = INT_MAX;
@@ -482,7 +521,7 @@ Stem::calc_stem_info () const
 	  info.miny_f_ = info.miny_f_ >? 0;
 	  //lowest beam of (UP) beam must never be lower than second staffline
 	  info.miny_f_ = info.miny_f_ >? (- 2 * internote_f - beam_f
-				+ (beam_l ()->multiplicity_i () > 0) * beam_f + interbeam_f * (beam_l ()->multiplicity_i () - 1));
+				+ (beam_l ()->get_multiplicity () > 0) * beam_f + interbeam_f * (beam_l ()->get_multiplicity () - 1));
 	}
     }
   else
@@ -500,11 +539,12 @@ Stem::calc_stem_info () const
   info.idealy_f_ = info.miny_f_ >? info.idealy_f_;
 
   Real interstaff_f = calc_interstaff_dist (this, beam_l ());
-  info.idealy_f_ += interstaff_f * beam_dir;
 
-  SCM s = get_elt_property ("shorten");
+  SCM s = beam_l ()->get_elt_property ("shorten");
   if (s != SCM_UNDEFINED)
     info.idealy_f_ -= gh_double2scm (s);
+
+  info.idealy_f_ += interstaff_f * beam_dir;
   info.miny_f_ += interstaff_f * beam_dir;
   info.maxy_f_ += interstaff_f * beam_dir;
 

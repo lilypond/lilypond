@@ -13,6 +13,8 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * agressive type-checking for SCM stuff.
 . * use  "staff-space" and "half-space" iso interline,
     staff_line_leading () etc.
+. * why does Voice.beamQuantisation = #'none not work?
+    overriding in ly/params.ly works fine
 
 . * TODO^2:
 .  * make  a TODO.texi, like http://www.gnu.org/software/guile/ideas.html

@@ -30,7 +30,6 @@ protected:
   virtual Molecule* do_brew_molecule_p() const;
   virtual void do_add_processing ();
 public:
-  
   String symbol_;
 
   VIRTUAL_COPY_CONS(Score_element);

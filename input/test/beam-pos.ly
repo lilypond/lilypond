@@ -2,7 +2,7 @@
 
 \score{
 	\notes\transpose c''{
-		\property Score.beamQuantisation = 'test
+		% \property Score.beamQuantisation = 'test
 
 		[c8 c] [c c] [c c] [c c]
 		[a' a'] [a' a'] [a' a'] [a' a']

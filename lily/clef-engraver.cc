@@ -178,6 +178,7 @@ Clef_engraver::create_clef()
   if (!clef_p_)
     {
       Clef_item *c= new Clef_item;
+      c->set_elt_property ("breakable", SCM_BOOL_T);
       c->set_elt_property ("break-aligned", SCM_BOOL_T);
       announce_element (Score_element_info (c, clef_req_l_));
 

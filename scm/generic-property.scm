@@ -7,6 +7,8 @@
 	 (list 'autoInterstaffKneeGap number? 'auto-interstaff-knee-gap)
 	 (list 'beamQuantisation symbol? 'slope-quantisation)
 	 (list 'beamDirAlgorithm symbol? 'beam-dir-algorithm)
+	 (list 'beamSlope number? 'height)
+	 (list 'beamVerticalPosition number? 'y-position)
 	 )
 	)
   )
@@ -20,6 +22,7 @@
 	 (list 'stemLength number? 'length)
 	 (list 'stemStyle string? 'style)
 	 (list 'noStemExtend boolean? 'no-stem-extend)
+	 (list 'stemShorten number? 'shorten)
 	 ))
   )
 
