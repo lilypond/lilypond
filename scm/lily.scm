@@ -380,12 +380,9 @@ L1 is copied, L2 not.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  output
-(use-modules
-	     ;(scm output-sketch)
-	     ;(scm output-sodipodi)
-	     ;(scm output-pdftex)
-
+(use-modules (scm framework-tex)
 	     )
+
 
 
 (define output-tex-module

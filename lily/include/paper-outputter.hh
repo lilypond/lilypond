@@ -16,37 +16,28 @@
 #include "lily-guile.hh"
 #include "protected-scm.hh"
 
-/**
-   Interface for a Grob to output itself; The Paper_score contains a
-   pointer to a Paper_outputter, and this enables every grob to output
-   itself.
-
-   The Paper_outputter contains a reference to an output stream
- (Paper_stream).  */
-
+/*
+  Glue between the backend (grobs, systems, pages) and the output file.
+  proxy for Scheme backends.
+*/
 class Paper_outputter
 {
-  bool verbatim_scheme_b_;
   SCM output_module_;
-  Protected_scm file_;
+  SCM file_;
   String filename_;
-  
-  void output_expr (SCM expr, Offset o);
-  void output_metadata (Output_def *, SCM);
-  void output_music_output_def (Output_def* odef);
 
 public:
-  Paper_outputter (String nm, String format);
-  ~Paper_outputter ();
+  DECLARE_SMOBS(Paper_outputter,);
 
-  void dump_scheme (SCM);
+public:
+  SCM dump_string (SCM);
   void output_scheme (SCM scm);
+  Paper_outputter (String nm, String format);
+  SCM scheme_to_string (SCM);
   void output_stencil (Stencil);
-  void output_header (Output_def*, SCM, int, bool);
-  void output_line (SCM, Offset*, bool);
-  void output_page (Page*, bool);
 };
 
 Paper_outputter* get_paper_outputter (String,String);
+DECLARE_UNSMOB(Paper_outputter, outputter);
 
 #endif /* PAPER_OUTPUTTER_HH */

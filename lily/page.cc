@@ -16,7 +16,6 @@
 #include "warn.hh"
 
 
-int Page::page_count_ = 0;
 Real Page::MIN_COVERAGE_ = 0.66;
 
 Page::Page (Output_def *paper, int number)
@@ -32,9 +31,7 @@ Page::Page (Output_def *paper, int number)
 
   height_ = 0;
   line_count_ = 0;
-  
-  page_count_++;
-
+  is_last_ = false;
   header_ = scm_call_2 (paper_->c_variable ("make-header"),
 			paper_->self_scm (),
 			scm_int2num (number_));
@@ -207,9 +204,28 @@ Page::text_height () const
 
 LY_DEFINE (ly_page_paper_lines, "ly:page-paper-lines",
 	   1, 0, 0, (SCM page),
-	   "Return paper-lines from PAGE.")
+	   "Return paper-lines from @var{page}.")
 {
   Page *p = unsmob_page (page);
   SCM_ASSERT_TYPE (p, page, SCM_ARG1, __FUNCTION__, "page");
   return p->lines_;
+}
+
+LY_DEFINE (ly_page_stencil, "ly:page-stencil",
+	   1, 0, 0, (SCM page),
+	   "Return stencil for @var{page}.")
+{
+  Page *p = unsmob_page (page);
+  SCM_ASSERT_TYPE (p, page, SCM_ARG1, __FUNCTION__, "page");
+  return p->to_stencil ().smobbed_copy ();
+}
+
+
+LY_DEFINE (ly_page_last_p, "ly:page-last?",
+	   1, 0, 0, (SCM page),
+	   "Is @var{page} the last one?")
+{
+  Page *p = unsmob_page (page);
+  SCM_ASSERT_TYPE (p, page, SCM_ARG1, __FUNCTION__, "page");
+  return ly_bool2scm (p->is_last_);
 }

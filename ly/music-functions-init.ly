@@ -1,14 +1,5 @@
 \version "2.3.2"
 
-#(defmacro-public def-music-function (args signature . body)
-  "Helper macro for `ly:make-music-function'.
-Syntax:
-  (def-music-function (location arg1 arg2 ...) (arg1-type? arg2-type? ...)
-    ...function body...)
-"
-  `(ly:make-music-function (list ,@signature)
-      (lambda (,@args)
-        ,@body)))
 
 applymusic = #(def-music-function (location func music) (procedure? ly:music?)
                (func music))
@@ -18,14 +9,6 @@ addlyrics = #(def-music-function (location music lyrics) (ly:music? ly:music?)
                           'origin location
                           'elements (list music lyrics)))
 
-#(defmacro def-grace-function (start stop)
-  `(def-music-function (location music) (ly:music?)
-     (make-music 'GraceMusic
-       'origin location
-       'element (make-music 'SequentialMusic
-                  'elements (list (ly:music-deep-copy ,start)
-                                  music
-                                  (ly:music-deep-copy ,stop))))))
 grace = #(def-grace-function startGraceMusic stopGraceMusic)
 acciaccatura = #(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic)
 appoggiatura = #(def-grace-function startAppoggiaturaMusic stopAppoggiaturaMusic)

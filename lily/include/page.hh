@@ -20,8 +20,9 @@ class Page
 public:
   Output_def *paper_;		// todo: make private? 
   Output_def * bookpaper () const;
-  static int page_count_;
+
   static Real MIN_COVERAGE_;
+
   int number_;
   int line_count_;
   SCM lines_;
@@ -30,6 +31,7 @@ public:
   SCM copyright_;
   SCM tagline_;
 
+  bool is_last_;
   /* actual height filled with text.  */
   Real height_;
   

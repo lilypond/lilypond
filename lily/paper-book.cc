@@ -37,6 +37,8 @@ stencil2line (Stencil stil, bool is_title = false)
 
 Paper_book::Paper_book ()
 {
+  pages_ = SCM_EOL;
+  lines_ = SCM_EOL;
   copyright_ = SCM_EOL;
   tagline_ = SCM_EOL;
   header_ = SCM_EOL;
@@ -66,6 +68,8 @@ Paper_book::mark_smob (SCM smob)
   if (b->bookpaper_)
     scm_gc_mark (b->bookpaper_->self_scm ());
   scm_gc_mark (b->header_);
+  scm_gc_mark (b->pages_);
+  scm_gc_mark (b->lines_);
   return b->tagline_;
 }
 
@@ -105,8 +109,17 @@ split_string (String s, char c)
 
   return rv;
 }
-  
 
+SCM
+dump_fields ()
+{
+  SCM fields = SCM_EOL;
+  for (int i = dump_header_fieldnames_global.size (); i--; )
+    fields
+      = scm_cons (ly_symbol2scm (dump_header_fieldnames_global[i].to_str0 ()),
+		  fields);
+  return fields;
+}
 
 /*
   TODO: there is too much code dup, and the interface is not
@@ -120,7 +133,7 @@ Paper_book::output (String outname)
     return;
     
   /* Generate all stencils to trigger font loads.  */
-  SCM pages = this->pages ();
+  pages ();
 
   Array<String> output_formats = split_string (output_format_global, ',');
 
@@ -128,25 +141,92 @@ Paper_book::output (String outname)
     {
       String format = output_formats[i];
       Paper_outputter *out = get_paper_outputter (outname + "." + output_formats[i], format);
-      int page_count = scm_ilength (pages);
+      
+      
 
+  
       SCM scopes = SCM_EOL;
       if (ly_c_module_p (header_))
 	scopes = scm_cons (header_, scopes);
   
-      out->output_header (bookpaper_, scopes, page_count, false);
+      String func_nm = output_format_global;
+      func_nm = "output-framework-" + func_nm;
+	
+      SCM func = ly_scheme_function (func_nm.to_str0 ());
+      scm_apply_0 (func, scm_list_n (out->self_scm (),
+				     self_scm (),
+				     scopes,
+				     dump_fields (),
+				     scm_makfrom0str (outname.to_str0 ()),
+				     SCM_UNDEFINED
+				     )) ;
 
-      for (SCM s = pages; s != SCM_EOL; s = ly_cdr (s))
-	{
-	  Page *p = unsmob_page (ly_car (s));
-	  progress_indication ("[" + to_string (p->number_));
-	  out->output_page (p, ly_cdr (s) == SCM_EOL);
-	  progress_indication ("]");
-	}
-
-      out->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
-      progress_indication ("\n");
+      scm_gc_unprotect_object (out->self_scm ());
     }
+}
+
+
+void
+Paper_book::classic_output (String outname)
+{
+  String format = "tex";
+  Paper_outputter *out = get_paper_outputter (outname + "." + format, format);
+
+  /* Generate all stencils to trigger font loads.  */
+  lines ();
+
+
+  // ugh code dup
+  SCM scopes = SCM_EOL;
+  if (ly_c_module_p (header_))
+    scopes = scm_cons (header_, scopes);
+
+  if (ly_c_module_p (score_lines_[0].header_))
+    scopes = scm_cons (score_lines_[0].header_, scopes);
+  //end ugh
+  
+  String func_nm = output_format_global;
+  func_nm = "output-classic-framework-" + func_nm;
+      
+  SCM func = ly_scheme_function (func_nm.to_str0 ());
+  scm_apply_0 (func, scm_list_n (out->self_scm (),
+				 self_scm (),
+				 scopes,
+				 dump_fields (),
+				 scm_makfrom0str (outname.to_str0 ()),
+				 SCM_UNDEFINED
+				 )) ;
+
+  progress_indication ("\n");
+}
+
+
+
+
+LY_DEFINE(ly_paper_book_pages, "ly:paper-book-pages",
+	  1,0,0,
+	  (SCM pb),
+	  "Return pages in book PB.")
+{
+  return unsmob_paper_book(pb)->pages ();
+}
+
+
+LY_DEFINE(ly_paper_book_lines, "ly:paper-book-lines",
+	  1,0,0,
+	  (SCM pb),
+	  "Return lines in book PB.")
+{
+  return unsmob_paper_book (pb)->lines ();
+}
+
+
+LY_DEFINE(ly_paper_book_book_paper, "ly:paper-book-book-paper",
+	  1,0,0,
+	  (SCM pb),
+	  "Return pages in book PB.")
+{
+  return unsmob_paper_book(pb)->bookpaper_->self_scm ();
 }
 
 Stencil
@@ -182,51 +262,6 @@ Paper_book::title (int i)
     title.align_to (Y_AXIS, UP);
   
   return title;
-}
-
-void
-Paper_book::classic_output (String outname)
-{
-  String format = "tex";
-  Paper_outputter *out = get_paper_outputter (outname + "." + format, format);
-
-  Output_def * p = bookpaper_;
-  while (p && p->parent_)
-    p = p->parent_;
-
-  // ugh code dup
-  SCM scopes = SCM_EOL;
-  if (ly_c_module_p (header_))
-    scopes = scm_cons (header_, scopes);
-
-  if (ly_c_module_p (score_lines_[0].header_))
-    scopes = scm_cons (score_lines_[0].header_, scopes);
-  //end ugh
-  
-  out->output_header (p, scopes, 0, true);
-
-  SCM top_lines = score_lines_.top ().lines_;
-  Paper_line *first = unsmob_paper_line (scm_vector_ref (top_lines,
-							 scm_int2num (0)));
-  Offset o (0, -0.5 * first->dim ()[Y_AXIS]);
-  int line_count = SCM_VECTOR_LENGTH (top_lines);
-  for (int i = 0; i < line_count; i++)
-    {
-      /* In classic compatibility TeX tracks how large things are, and
-	 advances the Y pos for us.  If we advance it too, we get too
-	 much space.
-
-	 FIXME: vague... why is TeX is different from other ouput
-	        backends, why not fix the TeX backend? -- jcn */
-      if (format == "tex")
-	o = Offset (0, 0);
-
-      out->output_line (scm_vector_ref (top_lines, scm_int2num (i)),
-			&o, i == line_count - 1);
-    }
-  
-  out->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
-  progress_indication ("\n");
 }
 
 /* calculate book height, #lines, stencils.  */
@@ -276,29 +311,34 @@ Paper_book::init ()
 SCM
 Paper_book::lines ()
 {
+  if (ly_c_pair_p (lines_))
+    return lines_;
+      
   int score_count = score_lines_.size ();
-  SCM lines = SCM_EOL;
   for (int i = 0; i < score_count; i++)
     {
       Stencil title = this->title (i);      
       if (!title.is_empty ())
-	lines = ly_snoc (stencil2line (title, true), lines);
-      lines = scm_append (scm_list_2 (lines, scm_vector_to_list (score_lines_[i].lines_)));
+	lines_ = scm_cons (stencil2line (title, true), lines_);
+
+      lines_ = scm_append (scm_list_2 (scm_vector_to_list (score_lines_[i].lines_), lines_));
     }
   
-  //debug helper; ughr
+  lines_ = scm_reverse (lines_);
+
   int i = 0;
-  for (SCM s = lines; s != SCM_EOL; s = ly_cdr (s))
+  for (SCM s = lines_; s != SCM_EOL; s = ly_cdr (s))
     unsmob_paper_line (ly_car (s))->number_ = ++i;
-  return lines;
+  return lines_;
 }
 
 SCM
 Paper_book::pages ()
 {
-  init ();
-  Page::page_count_ = 0;
+  if (ly_c_pair_p (pages_))
+    return pages_;
 
+  init ();
   Output_def *paper = bookpaper_;
   Page *page = new Page (paper, 1);
 
@@ -324,7 +364,6 @@ Paper_book::pages ()
   if (unsmob_stencil (copyright_))
     page->copyright_ = copyright_;
 
-  SCM pages = SCM_EOL;
   int page_count = SCM_VECTOR_LENGTH ((SCM) breaks);
   int line = 1;
 
@@ -344,14 +383,18 @@ Paper_book::pages ()
 	  all = ly_cdr (all);
 	  line++;
 	}
-      pages = scm_cons (page->self_scm (), pages);
+      if (i == page_count-1)
+	page->is_last_ = true;
+      
+      pages_ = scm_cons (page->self_scm (), pages_);
     }
 
   /* Tagline on last page.  */
   if (unsmob_stencil (tagline_))
     page->tagline_ = tagline_;
 
-  return scm_reverse (pages);
+  pages_ =  scm_reverse (pages_);
+  return pages_;
 }
 
 static SCM
