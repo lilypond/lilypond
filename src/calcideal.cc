@@ -31,13 +31,15 @@ Score::calc_idealspacing()
 		while (j->when() < d + i->when())
 		    j++;
 		assert( j->when()== d+i->when());
-
+		
 		pscore_p_->connect(i->pcol_l_, j->pcol_l_, dist);
+#if 0		
 		if (!j->musical_ && (j+1).ok() 
-		    && (j+1)->when() == j->when()) {
+		    && ) {
 		    j++;
 		    pscore_p_->connect(i->pcol_l_, j->pcol_l_,  dist);
 		}
+#endif	
 	    }
 	} else if (j.ok()) {
 	    
