@@ -1,5 +1,3 @@
-// list.hh
-
 #ifndef __LIST_HH
 #define __LIST_HH
 
@@ -7,7 +5,7 @@ class ostream;
 template<class T> class Cursor;
 template<class T> class Link;
 
-/// all purpose list
+/// all-purpose doubly linked list
 template<class T>
 class List
 {
@@ -15,11 +13,7 @@ class List
     List(List const&src);
 
     /// construct empty list                
-    List();
-    
-    /// construct list from first item.  
-    List( const T& thing );
-    
+    List();    
     virtual ~List();
 	
     Cursor<T> bottom();
@@ -30,6 +24,10 @@ class List
  protected:
     friend class Cursor<T>;
     friend class Link<T>;
+
+    void concatenate(List<T> const &s);
+    
+
     /// make *this empty
     void set_empty();
     /**
@@ -37,10 +35,10 @@ class List
       */
     
     /// add after after_me
-    void add( const T& thing, Cursor<T> after_me );
+    void add( const T& thing, Cursor<T> &after_me );
 
     /// put thing before #before_me#
-    void insert( const T& thing, Cursor<T> before_me );
+    void insert( const T& thing, Cursor<T> &before_me );
     virtual void remove( Cursor<T> me );
     /**
       Remove link pointed to by me.
