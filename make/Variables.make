@@ -2,7 +2,8 @@
 # project  LilyPond -- the musical typesetter
 # title	   generic variables
 # file	   make/Variables.make
-# abstract do not change this file; edit settings in User.make
+# abstract do not change this file for site-wide extensions;
+# please edit settings in User.make 
 #
 # Copyright (c) 1997 by    
 #   	Jan Nieuwenhuizen <jan@digicash.com>
@@ -12,11 +13,17 @@
 #
 include ./$(depth)/.version
 #
+include ./$(depth)/make/out/Configure_variables.make
+
+ifeq (0,${MAKELEVEL})
+MAKE:=$(MAKE) --no-builtin-rules
+endif
+
 
 # directory names:
 #
 outdir = out# "objects" won-t do, used for libs and deps as well
-bindir = ./$(depth)/bin
+lily_bindir = ./$(depth)/bin
 distdir = ./$(depth)/$(DIST_NAME)
 module-distdir = ./$(depth)/$(MODULE_DIST_NAME)
 depdir = $(outdir)
@@ -39,24 +46,11 @@ include-flower = ./$(depth)/flower/lib/include
 #
 include ./$(depth)/make/User.make
 #
-
-ifdef PROFILEFLAG
-	DEFINES+=$(OPTIFLAG) $(PROFILEFLAG)
-	EXTRA_LIBES+=-pg
-endif
-
-ifndef DEBUGFLAG
-	DEFINES+=$(OPTIFLAG)
-else
-	DEFINES+=$(DEBUGFLAG)
-endif
-
-# build no:
 #
 # need to be defined in local Makefiles:
-# build = ./$(depth)/lily/.build
+# build = ./$(depth)/lily/$(outdir)/.build ######## UGR!
 BUILD = $(shell cat $(build))
-INCREASE_BUILD = @echo `expr \`cat $(build)\` + 1` > .b; mv .b $(build)
+INCREASE_BUILD = echo `expr \`cat $(build)\` + 1` > .b; mv .b $(build)
 #
 
 # the version:
@@ -65,10 +59,6 @@ VERSION=$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_LEVEL)$(MY_PATCH_LEVEL)
 TOPLEVEL_VERSION=$(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_PATCH_LEVEL)$(TOPLEVEL_MY_PATCH_LEVEL)
 #
 
-# compiler version:
-#
-CXXVER=`$(CXX) --version`
-#
 
 # module and top level dist:
 #
@@ -100,27 +90,17 @@ DUMMYDEPS=\
 # clean file lists:
 #
 ERROR_LOG = 2> /dev/null
-allexe = $(bindir)/lilypond $(bindir)/mi2mu
-allcc = $(shell find -name "*.cc" $(ERROR_LOG))
-allobs = $(shell find $(outdir) -name "*.o" $(ERROR_LOG))
-allibs = $(shell find $(libdir) -name "*.lib" $(ERROR_LOG))
-alldeps = $(shell find $(outdir) -name "*.dep" $(ERROR_LOG))
-allout = $(shell find . -name "$(outdir)" $(ERROR_LOG))
-allgen = $(shell find . -name $(genout) -o -name .build $(ERROR_LOG))
-#
-
-# config stuff:
-#
-# cannot let targets depend upon (out)directory -> will always be out of date!
-genout = .GENERATE
-flower-config = $(flowerout)/flower-config.hh
-lily-config = $(libout)/config.hh
-#
+SILENT_LOG = >& /dev/null
+allexe = $(lily_bindir)/lilypond $(lily_bindir)/mi2mu
+allcc := $(shell $(FIND) -name "*.cc" $(ERROR_LOG))
+allobs := $(shell $(FIND) $(outdir) -name "*.o" $(ERROR_LOG))
+allibs := $(shell $(FIND) $(libdir) -name "*.lib" $(ERROR_LOG))
+alldeps := $(shell $(FIND) $(outdir) -name "*.dep" $(ERROR_LOG))
 
 # version stuff:
 #
-flower-version = $(flowerout)/fversion.hh
 lily-version = $(lilyout)/version.hh
+flower-version = $(flowerout)/version.hh
 mi2mu-version = $(mi2muout)/version.hh
 #
 
@@ -146,7 +126,7 @@ LOADLIBES = $(EXTRA_LIBES) $(CUSTOMLIBES) -lg++
 AR = ar
 AR_COMMAND = $(AR) $(ARFLAGS) $@
 #
-
+RANLIB_COMMAND=$(RANLIB) $@
 # compiler:
 #
 # "CC = $(CC)"
@@ -167,8 +147,8 @@ DODEP=rm -f $(depfile); DEPENDENCIES_OUTPUT="$(depfile) $(outdir)/$(notdir $@)"
 
 # utils:
 #
-FLEX = flex
-BISON = bison
+#FLEX = flex
+#BISON = bison
 #
 
 # generic target names:

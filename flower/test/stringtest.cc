@@ -72,12 +72,12 @@ kutenpeer()
     }
     str = "blonde haren";
     cout << str<<endl;
-    cout << "mid(2,6)="<<str.mid_str(2,3)<<endl;
-    cout << "nomid(2,6)="<<str.nomid_str(2,3)<<endl;
+    cout << "mid(2,6)="<<str.mid_str(2,6)<<endl;
+    cout << "nomid(2,6)="<<str.nomid_str(2,6)<<endl;
 }
 
 bool
-test_empty_bo( String str )
+test_empty_b( String str )
 {
     cout << "`" << str << "' is ";
 
@@ -103,16 +103,17 @@ main()
     str += " daar";
     cout << str << endl;
 
-    str = String( "Hallo" ) + " daaR" + '!';
+//    str = String( "Hallo" ) + " daaR" + '!'; // no go on doze-s gcc2.7.2?
+    str = String( "Hallo" ) + " daaR" + "!";
     cout << str << endl;
 
     cout << "up: " << str.upper_str() << " down: " << str.lower_str()<<endl;
     
-    if ( test_empty_bo( str ) )
+    if ( test_empty_b( str ) )
     	return 1;
     
     String fn = "";
-    if ( !test_empty_bo( fn ) )
+    if ( !test_empty_b( fn ) )
     	return 1;
     
     fn = "";

@@ -30,6 +30,7 @@ public:
     void do_pre_processing();
     Text_item(Text_def*,int);
     Text_item(Text_req*,int);
+    ~Text_item();
 };
 
 

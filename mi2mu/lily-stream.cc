@@ -50,7 +50,7 @@ Lily_stream::operator <<( String str )
 				if ( column_i_ > 8 * indent_i_ ) {
 					newline();
 					if ( comment_mode_bo_ && ( str[ 0 ] != '%' ) )
-						str = '%' + str;
+						str = "%" + str;
 					continue;
 				}
 				else { // cannot break neatly...
@@ -100,7 +100,7 @@ Lily_stream::check_comment( String str )
 void
 Lily_stream::header()
 {
-	*os_p_ << "% Creator: " << version_str() << "\n";
+	*os_p_ << "% Creator: " << mi2mu_version_str() << "\n";
 	*os_p_ << "% Automatically generated, at ";
 	time_t t( time( 0 ) );
 	*os_p_ << ctime( &t );
