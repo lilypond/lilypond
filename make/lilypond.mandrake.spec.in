@@ -182,11 +182,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %{_libdir}/lilypond/
 
+%doc 
+# % {_docdir}/lilypond-@TOPLEVEL_VERSION@
+
 %files documentation
 %defattr(-, root, root)
 
-%{_docdir}/lilypond-@TOPLEVEL_VERSION@/*
-%{_datadir}/omf/lilypond/@TOPLEVEL_VERSION@/*
+%doc web 
+# % {_docdir}/lilypond-documentation-@TOPLEVEL_VERSION@
+%{_datadir}/omf/lilypond/@TOPLEVEL_VERSION@
 
 %changelog
 * Thu Jun 12 2003 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.7.20-1mdk

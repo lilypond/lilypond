@@ -1,3 +1,7 @@
+2003-06-12  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* make/lilypond.mandrake.spec.in: fix docdirs.
+
 2003-06-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/(various).ly: add raggedright = #t.
