@@ -25,7 +25,7 @@ Balloon_interface::brew_molecule (SCM smob)
 {
   Grob *me= unsmob_grob (smob);
 
-  SCM cb = me->get_grob_property ("original-callback");
+  SCM cb = me->get_grob_property ("balloon-original-callback");
   SCM scm_mol  =  SCM_EOL;
 
   if (gh_procedure_p (cb))

@@ -98,7 +98,7 @@ for balloon text.")
 (grob-property-description 'balloon-text-offset number-pair?
 			   "Where to put text relative to balloon.")
 (grob-property-description 'balloon-padding ly:dimension? "Text to add to help balloon")
-(grob-property-description 'original-callback procedure? "The
+(grob-property-description 'balloon-original-callback procedure? "The
 original molecule drawer to draw the balloon around.")
 
 
