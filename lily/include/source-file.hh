@@ -1,3 +1,10 @@
+/*   
+  source-file.hh -- declare Source_file
+  
+  source file of the GNU LilyPond music typesetter
+  
+  (c) 1999--2004 Jan Nieuwenhuizen <janneke@gnu.org>
+*/
 
 #ifndef SOURCE_FILE_HH
 #define SOURCE_FILE_HH
@@ -71,7 +78,7 @@ private:
   Protected_scm str_port_;
 };
 
-char * gulp_file (String fn, int *len);
+char *gulp_file (String fn, int *len);
 
-#endif // SOURCE_FILE_HH //
+#endif /* SOURCE_FILE_HH */
 

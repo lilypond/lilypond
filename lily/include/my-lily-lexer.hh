@@ -30,7 +30,8 @@ class My_lily_lexer : public Includable_lexer
   Protected_scm scopes_;
 public:
   String main_input_name_;
-  void * lexval;
+  String encoding_;
+  void *lexval;
   bool main_input_b_;
 
   /*
@@ -63,6 +64,7 @@ public:
   void push_lyric_state ();
   void pop_state ();
   void LexerError (char const *);
+  void set_encoding (String);
   void set_identifier (SCM name_string, SCM);
   bool is_note_state () const;
   bool is_chord_state () const;

@@ -107,8 +107,15 @@ SCM
 make_simple_markup (SCM a)
 {
 	SCM simple = ly_scheme_function ("simple-markup");
-
-	return scm_list_2 (simple, a);
+	SCM markup = scm_list_2 (simple, a);
+#if 0
+	if (THIS->lexer_->encoding_ != "")
+		return scm_list_2
+			(scm_cons (ly_scheme_function ("encoding"),
+			 scm_makfrom0str (THIS->lexer_->encoding_.to_str0 ())),
+			markup);
+#endif
+return markup;
 }
 
 
@@ -122,9 +129,7 @@ void
 set_music_properties (Music *p, SCM a)
 {
   for (SCM k = a; gh_pair_p (k); k = ly_cdr (k))
-	{
-	p->internal_set_property (ly_caar (k), ly_cdar (k));
-	}
+ 	p->internal_set_property (ly_caar (k), ly_cdar (k));
 }
 
 SCM
@@ -186,7 +191,7 @@ of the parse stack onto the heap. */
 int
 yylex (YYSTYPE *s, void *v)
 {
-	My_lily_parser	 *pars = (My_lily_parser*) v;
+	My_lily_parser *pars = (My_lily_parser*) v;
 	My_lily_lexer *lex = pars->lexer_;
 
 	lex->lexval = (void*) s;

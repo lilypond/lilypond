@@ -59,12 +59,8 @@ void strip_trailing_white (String&);
 void strip_leading_white (String&);
 String lyric_fudge (String s);
 
-SCM
-lookup_markup_command (String s);
-
-bool
-is_valid_version (String s);
-
+SCM lookup_markup_command (String s);
+bool is_valid_version (String s);
 
 
 #define start_quote()	\
@@ -98,6 +94,7 @@ SCM (* scm_parse_error_handler) (void *);
 %option never-interactive 
 %option warn
 
+%x encoding
 %x renameinput
 %x version
 %x chords
@@ -160,21 +157,30 @@ HYPHEN		--
   }
 }
 
+<INITIAL>\\encoding{WHITE}*	{
+	yy_push_state (encoding);
+}
 <INITIAL,chords,lyrics,notes,figures>\\version{WHITE}*	{
 	yy_push_state (version);
 }
 <INITIAL,chords,lyrics,notes,figures>\\renameinput{WHITE}*	{
 	yy_push_state (renameinput);
 }
+<encoding>\"[^"]*\"     {
+	String s (YYText () + 1);
+	s = s.left_string (s.index_last ('\"'));
+	set_encoding (s);
+	yy_pop_state ();
+}
 <version>\"[^"]*\"     { /* got the version number */
-	String s (YYText ()+1);
+	String s (YYText () + 1);
 	s = s.left_string (s.index_last ('\"'));
 
-	yy_pop_state();
-	 if (!is_valid_version (s))
+	yy_pop_state ();
+	if (!is_valid_version (s))
 		return INVALID;
 }
-<renameinput>\"[^"]*\"     { /* got the version number */
+<renameinput>\"[^"]*\"     {
 	String s (YYText ()+1);
 	s = s.left_string (s.index_last ('\"'));
 
@@ -188,13 +194,16 @@ HYPHEN		--
 		     scm_makfrom0str (s.to_str0()));
 
 }
-
+<encoding>. 	{
+	LexerError (_ ("No quoted string found after \\encoding").to_str0 ());
+	yy_pop_state ();
+}
 <version>. 	{
-	LexerError ("No quoted string found after \\version");
+	LexerError (_ ("No quoted string found after \\version").to_str0 ());
 	yy_pop_state ();
 }
 <renameinput>. 	{
-	LexerError ("No quoted string found after \\renameinput");
+	LexerError (_ ("No quoted string found after \\renameinput").to_str0 ());
 	yy_pop_state ();
 }
 <longcomment>{
@@ -457,7 +466,7 @@ HYPHEN		--
 		return '>';
 	}
 	{MARKUPCOMMAND} {
-		String str (YYText() + 1);
+		String str (YYText () + 1);
 		SCM s = lookup_markup_command (str);
 
 		if (gh_pair_p (s) && gh_symbol_p (gh_cdr (s)) ) {
@@ -479,7 +488,7 @@ HYPHEN		--
 				return MARKUP_HEAD_SCM0_MARKUP1;
 			else if (tag == ly_symbol2scm ("scheme0-scheme1-markup2"))
 				return MARKUP_HEAD_SCM0_SCM1_MARKUP2;
-			else if (tag == ly_symbol2scm ("scheme0-scheme1-scheme2"))
+			else if (tag ==4 ly_symbol2scm ("scheme0-scheme1-scheme2"))
 				return MARKUP_HEAD_SCM0_SCM1_SCM2;
 			else {
 				programming_error ("No parser tag defined for this signature. Abort"); 
@@ -490,13 +499,14 @@ HYPHEN		--
 			return scan_escaped_word (str);
 	}
 	[{}]	{
-		return YYText()[0];
+		return YYText ()[0];
 	}
 	[^#{}"\\ \t\n\r\f]+ {
 		String s (YYText ()); 
 
 		char c = s[s.length () - 1];
-		if (c == '{' ||  c == '}') // brace open is for not confusing dumb tools.
+		/* brace open is for not confusing dumb tools.  */
+		if (c == '{' ||  c == '}')
 			here_input ().warning (
 				_ ("Brace found at end of markup.  Did you forget a space?"));
 		yylval.scm = scm_makfrom0str (s.to_str0 ());
@@ -826,6 +836,5 @@ SCM
 lookup_markup_command (String s)
 {
 	SCM proc = ly_scheme_function ("lookup-markup-command");
-
 	return scm_call_1 (proc, scm_makfrom0str (s.to_str0 ()));
 }
