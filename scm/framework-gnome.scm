@@ -8,8 +8,7 @@
 
 (use-modules
  (guile)
- (lily)
- (scm output-gnome))
+ (lily))
 
 ;; dump?
 (define (dump-page outputter page page-number page-count)
@@ -21,13 +20,19 @@
 	 (page-number 0)
 	 (page-count (length pages)))
 
+    ;;(header)
+    ;; FIXME: should output command, not stencil?
+    ;;(ly:outputter-dump-string outputter '(header))
+    ;; hmm, probably need (ly:outputter-command but its too late for that
+    ;; kind of elegancy now :-)
+    (ly:outputter-dump-stencil outputter (ly:make-stencil '(header)
+							  '(0 . 0) '(0 . 0)))
+
     (for-each
      (lambda (page)
        (set! page-number (1+ page-number))
        (dump-page outputter page page-number page-count))
-     pages)))
+     pages)
 
-
-
-
-
+    (ly:outputter-dump-stencil outputter (ly:make-stencil '(end-output)
+							  '(0 . 0) '(0 . 0)))))

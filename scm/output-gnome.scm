@@ -45,7 +45,7 @@ export LD_LIBRARY_PATH=$HOME/usr/pkg/g-wrap/lib:$HOME/usr/pkg/guile-gnome/lib
 ;;;
 ;;;
 ;;;      todo: hmm --output-base broken?
-;;;   ### cd mf && mftrace --encoding=$(kpsewhich cork.enc) --autotrace --output-base=feta-cork-20 feta20.mf && mf feta20.pfa out
+;;;   ### cd mf && mftrace --encoding=$(kpsewhich cork.enc) --autotrace --output-base=feta-cork-20 feta20.mf && mv feta20.pfa out
 
 ;;; TODO:
 ;;;  * pango+feta font (see archives gtk-i18n-list@gnome.org and
@@ -146,7 +146,9 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
 
 (debug-enable 'backtrace)
 
-(define-module (scm output-gnome))
+(define-module (scm output-gnome)
+  #:export (header))
+
 (define this-module (current-module))
 
 (use-modules
@@ -368,8 +370,11 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
   (text font (utf8 i)))
 
 (define (placebox x y expr)
+  (stderr "item: ~S\n" expr)
   (let ((item expr))
-    (if item
+    ;;(if item
+    ;; FIXME ugly hack to skip #unspecified ...
+    (if (and item (not (eq? item (if #f #f))))
 	(begin
 	  (move item
 		(* output-scale (+ (car system-origin) x))
@@ -386,7 +391,7 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
   ;; FIXME: no rounded corners on rectangle
   (make <gnome-canvas-rect>
     #:parent canvas-root
-    #:x1 (- breapth) #:y1 (- depth) #:x2 width #:y2 height
+    #:x1 (- breapth) #:y1 depth #:x2 width #:y2 (- height)
     #:fill-color "black" #:width-units blot-diameter))
 
 (define (fontify font expr)
@@ -446,6 +451,9 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
   (stderr "font-name: ~S\n" (ly:font-name font))
   ;; TODO s/filename/file-name/
   (stderr "font-filename: ~S\n" (ly:font-filename font))
+  
+  (stderr "pango-font-name: ~S\n" (pango-font-name font))
+  (stderr "pango-font-size: ~S\n" (pango-font-size font))
   (set!
    text-items
    (cons
@@ -464,7 +472,8 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
       ;;#:scale-set #t
       
       #:fill-color "black"
-      #:text string)
+      #:text string
+      #:anchor 'west)
     text-items))
   (car text-items))
 
