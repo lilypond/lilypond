@@ -27,6 +27,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
   int i = 0;
 
   SCM pango_description_string = SCM_EOL;
+  SCM last_pango_description_string = SCM_EOL;
   for (; i < n; i++)
     {
       SCM entry = scm_c_vector_ref (font_vector, i);
@@ -50,6 +51,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
       if (size > requested)
 	break;
       last_size = size;
+      last_pango_description_string = pango_description_string;
     }
 
   if (i == n)
@@ -60,6 +62,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
 	{
 	  i--;
 	  size = last_size;
+	  pango_description_string = last_pango_description_string;
 	}
     }
   

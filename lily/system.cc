@@ -230,9 +230,8 @@ set_loose_columns (System* which, Column_x_positions const *posns)
     }
 }
 
-// const?
 void
-System::break_into_pieces (Array<Column_x_positions> const &breaking)
+System::break_into_pieces (Array<Column_x_positions> const &breaking) 
 {
   for (int i = 0; i < breaking.size (); i++)
     {
