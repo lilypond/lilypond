@@ -324,6 +324,7 @@ to flip the direction of custos stem.")
 
      (new-accidentals ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs.")
+     (next ,ly:grob? "Object that is next relation (eg. the lyric syllable following an extender.")
      (note-names ,vector? "Vector of strings containing names for
 easy-notation note heads.")
      (no-ledgers ,boolean? "If set, don't draw ledger lines on this object.")

@@ -58,32 +58,6 @@ Note_head::print (SCM smob)
   return internal_print (me).smobbed_copy ();
 }
 
-/*
-  Compute the width the head without ledgers.
-
-  -- there used to be some code from the time that ledgers
-  did take space. Nowadays, we can simply take the standard extent.
- */
-Interval
-Note_head::head_extent (Grob *me, Axis a)
-{
-  SCM brewer = me->get_property ("print-function");
-  if (brewer == Note_head::print_proc)
-    {
-      Stencil mol = internal_print (me);
-  
-      if (!mol.is_empty ())
-	return mol.extent (a);
-    }
-  else
-    {
-      Stencil * mol = me->get_stencil ();
-      if (mol)
-	return  mol->extent (a) ;
-    }
-  
-  return Interval (0,0);
-}
 
 MAKE_SCHEME_CALLBACK (Note_head,brew_ez_stencil,1);
 SCM
