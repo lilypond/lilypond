@@ -91,15 +91,28 @@ Voice_devnull_engraver::acknowledge_grob (Grob_info i)
     return;
 #endif
 
-  if (s == ly_symbol2scm ("allways")
+#if 0  /* We used to have have this until 1.5.68.  Not sure about
+	  soloADue requirement */
+  if (s == ly_symbol2scm ("always")
       || (s == SCM_EOL
 	  && daddy_trans_l_->id_str_.left_str (3) == "two"
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))))
+#else
+    if (s == ly_symbol2scm ("always")
+	|| (s == SCM_EOL
+	    && to_boolean (get_property ("soloADue"))
+	    && ((daddy_trans_l_->id_str_.left_str (3) == "two"
+		 && (to_boolean (get_property ("unison"))
+		     || to_boolean (get_property ("unisilence"))))
+		
+		/* Maybe this should be optional? */
+	      || to_boolean (get_property ("othersolo")))))
+#endif
+    
     for (char const **p = junk_interfaces; *p; p++)
       if (i.grob_l_->internal_has_interface (ly_symbol2scm (*p)))
 	{
-	  /* Ugh, we can suicide them, but they remain living */
 	  i.grob_l_->suicide ();
 	  return;
 	}

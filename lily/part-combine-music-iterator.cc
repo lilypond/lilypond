@@ -337,7 +337,8 @@ Part_combine_music_iterator::process (Moment m)
    */
  
   if (suffix_.empty_b ())
-    suffix_ = first_iter_p_->report_to_l ()->daddy_trans_l_->id_str_.cut_str (3, INT_MAX);
+    suffix_ = first_iter_p_->report_to_l ()
+      ->daddy_trans_l_->id_str_.cut_str (3, INT_MAX);
 
   int state = get_state (m);
   if (state)
@@ -345,7 +346,8 @@ Part_combine_music_iterator::process (Moment m)
   else
     state = state_;
   
-  Part_combine_music const *p = dynamic_cast<Part_combine_music const* > (music_l ());
+  Part_combine_music const *p =
+    dynamic_cast<Part_combine_music const* > (music_l ());
 
 
   bool previously_combined_b = first_iter_p_->report_to_l ()->daddy_trans_l_
@@ -412,6 +414,10 @@ Part_combine_music_iterator::process (Moment m)
   SCM b2 = (state & SOLO2) ? SCM_BOOL_T : SCM_BOOL_F;
   first_translator->set_property ("solo", b1);
   second_translator->set_property ("solo", b2);
+
+  /* Can't these be computed? */
+  first_translator->set_property ("othersolo", b2);
+  second_translator->set_property ("othersolo", b1);
 
   if (first_iter_p_->ok ())
     first_iter_p_->process (m);

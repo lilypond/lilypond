@@ -35,12 +35,14 @@ Thread_devnull_engraver::acknowledge_grob (Grob_info i)
 
   if (s == ly_symbol2scm ("always")
       || (s == SCM_EOL
-	  && daddy_trans_l_->id_str_.left_str (3) == "two"
-	  && (to_boolean (get_property ("unison"))
-	      || to_boolean (get_property ("unisilence")))
-	  && to_boolean (get_property ("soloADue"))))
+	  && to_boolean (get_property ("soloADue"))
+	  && ((daddy_trans_l_->id_str_.left_str (3) == "two"
+	       && (to_boolean (get_property ("unison"))
+		   || to_boolean (get_property ("unisilence"))))
+
+	      /* Maybe this should be optional? */
+	      || to_boolean (get_property ("othersolo")))))
     {
-      /* Ugh, we can suicide them, but they remain living */
       i.grob_l_->suicide ();
     }
 }

@@ -137,45 +137,50 @@ A2_engraver::acknowledge_grob (Grob_info i)
     d = DOWN;
 
   /* Must only set direction for VoiceCombines, not for StaffCombines:
-     we can't detect that here, so, ugh, yet another property */
+     we can't detect that here, so we use yet another property */
   if (!to_boolean (get_property ("noDirection"))
       && (Stem::has_interface (i.grob_l_)
 	  || Slur::has_interface (i.grob_l_)
 	  || Tie::has_interface (i.grob_l_)
-	  /*
-	    Usually, dynamics are removed by *_devnull_engravers for the
-	    second voice.  On the one hand, we don't want all dynamics for
-	    the first voice to be placed above the staff.  On the other
-	    hand, colliding of scripts may be worse.
-	    So, we don't set directions for these when we're playing solo.
-	  */
-	  || (i.grob_l_->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
+	  /* Usually, dynamics are removed by *_devnull_engravers for
+	     the second voice.  On the one hand, we don't want all
+	     dynamics for the first voice to be placed above the
+	     staff.  On the other hand, colliding of scripts may be
+	     worse.  So, we don't set directions for these when we're
+	     playing solo. */
+	  || (i.grob_l_->internal_has_interface (ly_symbol2scm
+						 ("dynamic-interface"))
 	      && state_ != SOLO)
-	  || (i.grob_l_->internal_has_interface (ly_symbol2scm ("text-interface"))
+	  || (i.grob_l_->internal_has_interface (ly_symbol2scm
+						 ("text-interface"))
 	      && state_ != SOLO)
 	  ))
     {
-      /*
-	Hmm.  We must set dir when solo, in order to get
-	the rests collided to the right position
-      */
-      if ((unirhythm != SCM_BOOL_T) || (solo == SCM_BOOL_T)
-	  || ((unisilence == SCM_BOOL_T && previous_state != UNISON))
-	  || (unirhythm == SCM_BOOL_T && split_interval == SCM_BOOL_T
-	      && (unison != SCM_BOOL_T || solo_adue != SCM_BOOL_T)))
+      /* When in solo a due mode, and we have solo, every grob in
+	 other thread gets annihilated, so we don't set dir.
+
+	 Maybe that should be optional? */
+      if ((solo != SCM_BOOL_T && solo_adue == SCM_BOOL_T)
+
+	  /* When not same rhythm, we set dir */
+	  && (unirhythm != SCM_BOOL_T
+	      /* When both have rests, but previously played something
+		 different, we set dir */
+	      || ((unisilence == SCM_BOOL_T && previous_state != UNISON))
+	      /* When same rhythm, and split stems, but not same pitch
+	         or not solo a du mode, we set dir */
+	      || (unirhythm == SCM_BOOL_T && split_interval == SCM_BOOL_T
+		  && (unison != SCM_BOOL_T || solo_adue != SCM_BOOL_T))))
 	{
 	
-	  /*
-	    Blunt axe method: every grob gets a propertysetting.
-	   */
+	  /* Blunt axe method: every grob gets a propertysetting. */
 	  i.grob_l_->set_grob_property ("direction", gh_int2scm (d));
 	}
     }
 
-  /*
-    todo: should we have separate state variable for being "rest while
-    other has solo?"  */
-  if ( Multi_measure_rest::has_interface (i.grob_l_) && d )
+  /* Should we have separate state variable for being "rest
+     while other has solo?"  */
+  if (Multi_measure_rest::has_interface (i.grob_l_) && d)
     if (state_ == UNIRHYTHM
 	&& unisilence != SCM_BOOL_T)
     {
