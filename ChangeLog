@@ -1,5 +1,11 @@
 2002-11-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/beam-postfix-notation.ly (texidoc): new file.
+
+	* lily/parser.yy (event_that_take_dir): allows c8-[ for beams.
+
+	* lily/beam-engraver.cc (try_music): accept new-beam-events
+
 	* input/regression/chord-scripts.ly (texidoc): new file
 
 	* lily/new-fingering-engraver.cc (acknowledge_grob):  also handle
@@ -11,7 +17,7 @@
 
 	* lily/lyric-combine-music-iterator.cc
 	(Lyric_combine_music_iterator): remove superfluous events.
-	(melisma_busy): new function.
+	(melisma_busy): new function. Fix broken melismas.
 
 2002-10-31  Heikki Junes  <hjunes@cc.hut.fi>
 

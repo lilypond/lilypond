@@ -912,7 +912,6 @@ def chop_chunks (chunks, re_name, func, use_match=0):
 def determine_format (str):
 	global format
 	if format == '':
-
 		html = re.search ('(?i)<[dh]tml', str[:200])
 		latex = re.search (r'''\\document''', str[:200])
 		texi = re.search ('@node|@setfilename', str[:200])
