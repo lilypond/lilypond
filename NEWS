@@ -1,3 +1,16 @@
+pl 22
+	- bf: lyric 's- Zondags
+	- bf: colliding accidentals: renamed translate(Real,Axis) to translate_axis()
+	- renaming of scripts
+	- strings with escaped characters.
+	- bf "string_with_\"_embedded"
+	- bf: mf/Makefile
+	- feta changes (trill, organ pedals)
+	- updated mf-to-table for new feta conventions
+	- changed header format to something sensible.
+	- moved staff to centerline == 0;
+
+********
 pl 21
 	- shrinking uses more energy  than stretching
 	- check IO error on writing (disk full?)

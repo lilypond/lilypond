@@ -6,15 +6,15 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
-	* accidental placement
+	* todo key-sig placement.
+	
+	* put errorlevel in Input
 
 	* AFM for font input?
 
 	* Make general "spanning"-elements and "placer"-elements
 
-	* Unicode support?
-
-	- naming Mozarella, Madeira, Muella, Fontaigna, Feta?
+	- naming Mozarella, Madeira, Muella, Feta?
 	- bf: abbrevs over whole note
 	- scoping for properties
 
@@ -53,12 +53,13 @@ grep for TODO and ugh/ugr
 
 	* Fix profiling. gprof bugreport?
 
-	* read from mmap directly: bugreport to flex developers->
-	yy_scan_buffer in C++..
-
-	* (where are the) gcc compile warnings on linux
-
 PROJECTS
+
+	* Unicode support?
+	- 16 bit Strings
+	- -u switch
+	- detect of 16/8 bit files
+	- examples to go with it.
 
 	* Spring_spacer:
 	- write a faster Spring_spacer ( without matrices if possible )
@@ -66,7 +67,6 @@ PROJECTS
 	- used fixed point fp
 
 	* \header
-	- revise lexer mode
 	- write perl script for handling it into databases
 	- write TeX macros to generate titles
 
@@ -102,16 +102,13 @@ languages:
 	- derive lily_stream, Dstream, texstream from ostream?
 	- indentable stream as baseclass for TeX stream, lily stream, Dstream.
 	- use dstream feature in mi2mu
+	- integrate IO checking into stream class
 
 	* input converters
 	- NIFF?
 	- ABC? 
 	- SMDL?
 
-	* robustification
-	- check write errors
-	- check read errors
-	
 	* placement of bar-numbers
 
 ******************

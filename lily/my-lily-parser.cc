@@ -129,6 +129,7 @@ My_lily_parser::parser_error (String s)
   if (fatal_error_i_)
     exit (fatal_error_i_);
   error_level_i_ = 1;
+  exit_status_i_ = 1;
 }
 
 void
