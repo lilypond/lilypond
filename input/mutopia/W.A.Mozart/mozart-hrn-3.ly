@@ -20,17 +20,17 @@
   footer = "Mutopia-2002/05/21-25"
 
   tagline = \markup { \smaller
-      \column <
-	   \fill-line < \footer "" >
-	   \fill-line < { "This music is part of the Mutopia project,"
+      \column {
+	   \fill-line { \footer "" }
+	   \fill-line { { "This music is part of the Mutopia project,"
 			  \typewriter { "http://sca.uwaterloo.ca/Mutopia/" }
-			 } >
-	   \fill-line < #(ly:export (string-append "It has been typeset and placed in the public "
-			  "domain by "  maintainer  "."))  >
-	   \fill-line < #(ly:export (string-append "Unrestricted modification and redistribution"
+			 } }
+	   \fill-line { #(ly:export (string-append "It has been typeset and placed in the public "
+			  "domain by "  maintainer  "."))  }
+	   \fill-line { #(ly:export (string-append "Unrestricted modification and redistribution"
 			  " is permitted and encouraged---copy this music"
-			  " and share it!")) >
-	   >
+			  " and share it!")) }
+	   }
        }
 }
 %{
@@ -41,7 +41,7 @@ virtuoso that taught in Geneva.
 
 %}
 
-\version "2.4.0"
+\version "2.5.2"
 
 \include "mozart-hrn3-defs.ily"
 \include "mozart-hrn3-allegro.ily"

@@ -5,7 +5,7 @@
 
 #(set-global-staff-size 16)
 
-\version "2.4.0"
+\version "2.5.2"
 
 \header {
   title = "Romanzen"
@@ -259,7 +259,7 @@ leftb =  \transpose c cis {
     \override Staff.InstrumentName #'font-magnification = #1
     \override Staff.InstrumentName #'extra-offset = #'(0 . 6)
    % \set Staff.instrument = "\\begin{turn}{-90}{Rechte Hand}\\end{turn}"
-    \set Staff.instrument = \markup { \column < Rechte Hand >  \hspace #2 }
+    \set Staff.instrument = \markup { \column { Rechte Hand }  \hspace #2 }
       \clef F <<\global \context Voice = "midv" \rightb>>
     }
       \context Staff = "down" {

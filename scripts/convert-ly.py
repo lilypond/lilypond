@@ -2280,7 +2280,18 @@ conversions.append (((2, 5, 1),
 		     conv,
 		     'ly:import-module -> ly:module-copy'))
 
+def conv (str):
+	str = re.sub (r'\\(column|fill-line|dir-column|center-align|right-align|left-align|bracketed-y-column)\s*<([^<]*)>',
+		      r'\\\1 {\2}', str)
+	str = re.sub (r'\\(column|fill-line|dir-column|center-align|right-align|left-align|bracketed-y-column)\s*<([^<]*)>',
+		      r'\\\1 {\2}', str)
+	str = re.sub (r'\\(column|fill-line|dir-column|center-align|right-align|left-align|bracketed-y-column)\s*<([^<]*)>',
+		      r'\\\1 {\2}', str)
+	return str
 
+conversions.append (((2, 5, 2),
+		     conv,
+		     '\markup .. < .. > .. -> \markup .. { .. } ..'))
 
 ################################
 #	END OF CONVERSIONS	

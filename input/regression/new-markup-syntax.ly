@@ -2,7 +2,7 @@
 texidoc = "With the new markup syntax, text may be written in various manners."
 }
 
-\version "2.4.0"
+\version "2.5.2"
 
 
 \score {
@@ -13,7 +13,7 @@ texidoc = "With the new markup syntax, text may be written in various manners."
 		\raise #0.2 \hbracket \bold bar
 		\override #'(baseline-skip . 4)
 
-		\bracket \column < baz bazr bla >
+		\bracket \column { baz bazr bla }
 		\hspace #2.0
 		\override #'(font-family . music) {
 			\lookup #"noteheads-0"
@@ -26,7 +26,7 @@ texidoc = "With the new markup syntax, text may be written in various manners."
 		\combine "X" "+"   
 		\combine "o" "/"
 %		\char-number #"abc1234abc"
-		\box \column < { "string 1" } { "string 2" } >
+		\box \column { { "string 1" } { "string 2" } }
 		"$\\emptyset$"
 		\italic Norsk
 		\super "2"

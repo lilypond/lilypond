@@ -1,58 +1,58 @@
 bookTitleMarkup = \markup {
-  \column <
-    \fill-line < \fromproperty #'header:dedication >
-    \fill-line <
+  \column {
+    \fill-line { \fromproperty #'header:dedication }
+    \fill-line {
       \huge \bigger \bigger \bigger \bold \fromproperty #'header:title
-    >
-    \fill-line <
+    }
+    \fill-line {
       \override #'(baseline-skip . 3)
-      \column <
-	\fill-line <
+      \column {
+	\fill-line {
 	  \huge \bigger \bigger
 	  \bold \fromproperty #'header:subtitle
-	>
-	\fill-line <
+	}
+	\fill-line {
 	  \huge \bigger
 	  \bold \fromproperty #'header:subsubtitle
-	>
-      >
-    >
-    \fill-line <
+	}
+      }
+    }
+    \fill-line {
       \fromproperty #'header:poet
       \fromproperty #'header:instrument 
-      \column <
+      \column {
 	\fromproperty #'header:composer
 	\fromproperty #'header:arranger
-      >
-    >
-  >
+      }
+    }
+  }
 }
 
 scoreTitleMarkup = \markup {
-  \fill-line <
+  \fill-line {
     \fromproperty #'header:piece
     \fromproperty #'header:opus
-  >
+  }
 }
 
 
 oddHeaderMarkup = \markup
-\fill-line <
+\fill-line {
   ""
   \fromproperty #'header:instrument
   \fromproperty #'page:page-number-string
->
+}
 
 evenHeaderMarkup = \markup
-\fill-line <
+\fill-line {
   \fromproperty #'page:page-number-string
   \fromproperty #'header:instrument
   ""
->
+}
 
 oddFooterMarkup = \markup {
-  \column <
-    \fill-line <
+  \column {
+    \fill-line {
 
       % put copyright only on pagenr. 1 
       \on-the-fly #(lambda (layout props arg)
@@ -61,8 +61,8 @@ oddFooterMarkup = \markup {
 		     empty-stencil
 		   ))
       \fromproperty #'header:copyright
-    >
-    \fill-line <
+    }
+    \fill-line {
       % put tagline only on last page
       \on-the-fly #(lambda (layout props arg)
 		    (if (chain-assoc-get 'page:last?  props #f)
@@ -70,7 +70,7 @@ oddFooterMarkup = \markup {
 		     empty-stencil
 		   ))
       \fromproperty #'header:tagline
-    >
-  >
+    }
+  }
 }
 

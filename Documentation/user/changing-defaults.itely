@@ -1461,14 +1461,14 @@ For clarity, you can also do this for single arguments, e.g.,
 In markup mode you can compose expressions, similar to mathematical
 expressions, XML documents, and music expressions.  The braces group
 notes into horizontal lines.  Other types of lists also exist: you can
-stack expressions grouped with @code{<} and @code{>} vertically with
+stack expressions grouped vertically with
 the command @code{\column}.  Similarly, @code{\center-align} aligns
 texts by their center lines:
 
 @lilypond[quote,verbatim,fragment,relative=1]
-c1^\markup { \column < a bbbb c > }
-c1^\markup { \center-align < a bbbb c > }
-c1^\markup { \line < a b c > }
+c1^\markup { \column { a bbbb c } }
+c1^\markup { \center-align { a bbbb c } }
+c1^\markup { \line { a b c } }
 @end lilypond
 
 

@@ -17,17 +17,17 @@
     footer = "Mutopia-2002/08/19-6"
 
     tagline = \markup { \smaller
-			\column <
-			    \fill-line < \footer "" >
-			    \fill-line < { "This music is part of the Mutopia project, "
+			\column {
+			    \fill-line { \footer "" }
+			    \fill-line { { "This music is part of the Mutopia project, "
 					   \typewriter { "http://sca.uwaterloo.ca/Mutopia/" }
-					   "." } >
-			    \fill-line < { "It has been typeset and placed in the public "
-					   "domain by "  \maintainer  "." } >
-			    \fill-line < { "Unrestricted modification and redistribution "
+					   "." } }
+			    \fill-line { { "It has been typeset and placed in the public "
+					   "domain by "  \maintainer  "." } }
+			    \fill-line { { "Unrestricted modification and redistribution "
 					   "is permitted and encouraged---copy this music "
-					   "and share it!" } >
-			>
+					   "and share it!" } }
+			}
 		    }
     lastupdated = "2002/August/19"
 }
@@ -44,7 +44,7 @@ to match up.
 %}
 
 
-\version "2.4.0"
+\version "2.5.2"
 
 
 

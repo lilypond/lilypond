@@ -332,6 +332,24 @@ Also set markup-signature and markup-keyword object properties."
     (and proc (cons proc (markup-command-keyword proc)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;
+;;; used in parser.yy to map a list of markup commands on markup arguments
+(define-public (map-markup-command-list commands markups)
+  "`markups' being a list of markups, eg (markup1 markup2 markup3),
+and `commands' a list of commands with their scheme arguments, in reverse order,
+eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
+ ((bold (raise 4 (italic markup1)))
+  (bold (raise 4 (italic markup2)))
+  (bold (raise 4 (italic markup3))))
+"
+  (map-in-order (lambda (arg)
+                  (let ((result arg))
+                    (for-each (lambda (cmd)
+                                (set! result (append cmd (list result))))
+                              commands)
+                    result))
+                markups))
+
+;;;;;;;;;;;;;;;;;;;;;;
 ;;; markup type predicates
 
 (define (markup-function? x)

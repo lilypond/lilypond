@@ -2,7 +2,7 @@
     texidoc = "Use \\score block as markup command."
 }
 
-\version "2.4.0"
+\version "2.5.2"
 
 tuning = \markup {
     \score {
@@ -19,7 +19,7 @@ tuning = \markup {
 \header {
     title = "Solo Cello Suites"
     subtitle = "Suite IV"
-    subsubtitle = \markup { \fill-line < { "Originalstimmung: " \tuning } > }
+    subsubtitle = \markup { \fill-line { { "Originalstimmung: " \tuning } } }
 }
 
 \relative {

@@ -1,3 +1,33 @@
+2004-11-28  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/new-markup.scm (map-markup-command-list): helper function
+	used in parser.yy to map markup commands on a markup list.
+
+	* lily/parser.yy: get rid off < > in markups by treating { } as
+	real lists.
+
+	* lily/lexer.ll: remove < > from markup lexer mode.
+
+	* scripts/convert-ly.py (conv): add rule for converting 
+	\markup < > to \markup { }
+
+	* ly/titling-init.ly: 
+	* input/test/coriolan-margin.ly: 
+	* input/regression/new-markup-syntax.ly: 
+	* input/regression/new-markup-scheme.ly: 
+	* input/regression/multi-measure-rest-text.ly: 
+	* input/regression/markup-stack.ly: 
+	* input/regression/markup-score.ly: 
+	* input/regression/instrument-name-markup.ly: 
+	* input/mutopia/W.A.Mozart/mozart-hrn-3.ly: 
+	* input/mutopia/R.Schumann/romanze-op28-2.ly: 
+	* input/mutopia/J.S.Bach/wtk1-fugue2.ly: 
+	* input/wilhelmus.ly: 
+	* Documentation/user/notation.itely: 
+	* Documentation/user/music-glossary.tely: 
+	* Documentation/user/changing-defaults.itely: change < > to { } in
+	markups
+
 2004-11-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/accidental-placement.cc (position_accidentals): shortcut if

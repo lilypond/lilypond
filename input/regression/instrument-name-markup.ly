@@ -7,14 +7,14 @@ including alterations. "
 }
 
 
-\version "2.4.0"
+\version "2.5.2"
 
 
 textFlat = \markup {\smaller \flat}
 
 \score {
    \new Staff {
-    \set Staff.instrument = \markup { \column < "Clarinetti" { "in B" \textFlat } > }
+    \set Staff.instrument = \markup { \column { "Clarinetti" { "in B" \textFlat } } }
     \set Staff.instr = \markup { \smaller  { "Cl(B" \textFlat ")" } }
 
     { c''1 \break c'' }
