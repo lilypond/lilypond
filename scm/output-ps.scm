@@ -391,7 +391,7 @@
 	     ;; define strings, for /make-lilypond-title to pick up
 	     ((string? val) (ps-string-def "lilypond" sym val))
 
-	     ;; output markups ourselves
+	     ;; generate stencil from markup
 	     ((markup? val) (set! header-stencils
 				  (append header-stencils
 				     (list
@@ -410,46 +410,33 @@
     (string-append
      (apply string-append (map output-scope scopes)))))
 
-(define (add-offsets a b)
+(define (offset-add a b)
   (cons (+ (car a) (car b))
 	(+ (cdr a) (cdr b))))
-
-(define (input? foe)
-  #f)
 
 (define header-stencils '())
 
 (define (output-stencils lst)
-  (apply string-append (map (lambda (x) (output-stencil x '(10 . -10))) lst)))
+  (apply string-append
+	 (map (lambda (x) (stencil->string x '(10 . -10))) lst)))
 
-;; TODO:
-;; de-urg me
-;; implement ly:input stuff
-;; replace C++ variant
-;; stencil->string?
-(define (output-stencil expr o)
-  (let ((s ""))
-    (while
-     (pair? expr)
-     (let ((head (car expr)))
-       (cond ((input? head)
-	      (set! s (string-append
-		       s (define-origin (ly:input-file-string head))))
-	      (set! expr (cadr expr)))
-	     ((eq? head 'no-origin)
-	      (set! s (string-append s (expression->string head)))
-	      (set! expr (cadr expr)))
-	     ((eq? head 'translate-stencil)
-	      (set! o (add-offsets o (cadr expr)))
-	      (set! expr (caddr expr)))
-	     ((eq? head 'combine-stencil)
-	      (set! s (string-append s (output-stencil (cadr expr) o)))
-	      (set! expr (caddr expr)))
-	     (else
-	      (set!
-	       s (string-append
-		  s
-		       (placebox (car o) (cdr o)
-				 (expression->string expr))))
-	      (set! expr #f)))))
-  s))
+;; hmm, looks like recursing call is always last statement, does guile
+;; think so too?
+(define (stencil->string expr o)
+  (if (pair? expr)
+      (let ((head (car expr)))
+	(cond
+	 ((ly:input-location? head)
+	  (string-append (apply define-origin (ly:input-location head))
+			 (stencil->string (cadr expr) o)))
+	 ((eq? head 'no-origin)
+	  (string-append (expression->string head)
+			 (stencil->string (cadr expr) o)))
+	 ((eq? head 'translate-stencil)
+	  (stencil->string (caddr expr) (offset-add o (cadr expr))))
+	 ((eq? head 'combine-stencil)
+	  (string-append (stencil->string (cadr expr) o)
+			 (stencil->string (caddr expr) o)))
+	 (else
+	  (placebox (car o) (cdr o) (expression->string expr)))))
+      ""))

@@ -12,6 +12,9 @@
 #include "string.hh"
 #include "ly-smobs.icc"
 
+/* Dummy input location for use if real one is missing.  */
+Input dummy_input_global;
+
 static long input_tag;
 
 static
@@ -35,33 +38,6 @@ free_smob (SCM s)
   return 0;
 }
 
-/*
-  We don't use IMPLEMENT_TYPE_P, since the smobification part is
-  implemented separately from the class.
- */
-LY_DEFINE(ly_input, "ly:input-location?", 1, 0, 0,
-	  (SCM x),
-	  "Return whether @var{x} is an input location")
-{
-  return unsmob_input (x) ? SCM_BOOL_T : SCM_BOOL_F ;
-}
-
-LY_DEFINE(ly_input_message,  "ly:input-message", 2, 0, 0, (SCM sip, SCM msg),
-	  "Print @var{msg} as a GNU compliant error message, pointing to the\n"
-	  "location in @var{sip}.\n"
-	  )
-{
-  Input *ip  = unsmob_input(sip);
-  
-  SCM_ASSERT_TYPE(ip, sip, SCM_ARG1, __FUNCTION__, "input location");
-  SCM_ASSERT_TYPE(gh_string_p (msg), msg, SCM_ARG2, __FUNCTION__, "string");
-
-  String m = ly_scm2string (msg);
-
-  ip->message (m);
-  return SCM_UNDEFINED;
-}
-
 
 static void
 start_input_smobs ()
@@ -76,7 +52,7 @@ start_input_smobs ()
 SCM
 make_input (Input ip)
 {
-  Input * nip =  new Input (ip);
+  Input *nip = new Input (ip);
   SCM z;
   
   SCM_NEWSMOB (z, input_tag, nip);
@@ -94,9 +70,38 @@ unsmob_input (SCM s)
     return 0;					
 }
 
+/* We don't use IMPLEMENT_TYPE_P, since the smobification part is
+   implemented separately from the class.  */
+LY_DEFINE (ly_input, "ly:input-location?", 1, 0, 0,
+	   (SCM x),
+	   "Return #t if @var{x} is an input location.")
+{
+  return unsmob_input (x) ? SCM_BOOL_T : SCM_BOOL_F;
+}
+
+LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 0, (SCM sip, SCM msg),
+	  "Print @var{msg} as a GNU compliant error message, pointing to the"
+	   "location in @var{sip}.\n")
+{
+  Input *ip = unsmob_input(sip);
+  SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");
+  SCM_ASSERT_TYPE (gh_string_p (msg), msg, SCM_ARG2, __FUNCTION__, "string");
+
+  String m = ly_scm2string (msg);
+  ip->message (m);
+
+  return SCM_UNDEFINED;
+}
+
+LY_DEFINE (ly_input_location, "ly:input-location", 1, 0, 0, (SCM sip),
+	  "Return input location in @var{sip} as (filename line column).")
+{
+  Input *ip = unsmob_input (sip);
+  SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");
+  return scm_list3 (scm_makfrom0str (ip->file_string ().to_str0 ()),
+		    scm_int2num (ip->line_number ()),
+		    scm_int2num (ip->column_number ()));
+}
 
 ADD_SCM_INIT_FUNC (input, start_input_smobs);
-
-
-Input dummy_input_global;
 
