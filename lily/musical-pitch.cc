@@ -107,11 +107,8 @@ Musical_pitch::str () const
       while (o--)
 	s += to_str (',');
     }
-#if 0  
-  if (octave_i_)
-    s  += String ((octave_i_> 0)? "^": "_") + to_str (octave_i_);
-#endif
-  
+
+
   return s;
 }
 

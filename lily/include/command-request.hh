@@ -55,16 +55,6 @@ protected:
   bool do_equal_b (Request const *) const;
 };
 
-class Partial_measure_req  : public Timing_req  {
-public:
-  Moment length_mom_;
-
-  Partial_measure_req (Moment);
-protected:
-  VIRTUAL_COPY_CONS(Music);
-  virtual void do_print () const;
-  bool do_equal_b (Request const *) const;
-};
 
 /**
   todo: allow C time_signature
@@ -81,18 +71,6 @@ protected:
   VIRTUAL_COPY_CONS(Music);
 };
 
-/// toggle Cadenza mode
-class Cadenza_req  : public Timing_req  {
-public:
-  /// turn on?
-  bool on_b_;
-  Cadenza_req (bool);
-protected:
-  virtual void do_print () const;
-  
-  bool do_equal_b (Request const *) const;
-  VIRTUAL_COPY_CONS(Music);
-};
 
 /// check if we're at start of a  measure.
 class Barcheck_req  : public Timing_req  {

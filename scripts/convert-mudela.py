@@ -377,6 +377,16 @@ if 1:
 	conversions.append ((1,2,1), conv,
 			    'dynamicDir -> dynamicDirection')
 
+if 1:
+	def conv(str):
+		str =  re.sub ('\\\\cadenza *0 *;', '\\\\cadenzaOff', str)
+		str =  re.sub ('\\\\cadenza *1 *;', '\\\\cadenzaOn', str)		
+			
+		return str
+
+	conversions.append ((1,3,4), conv,
+			    '\\cadenza -> \cadenza{On|Off}')
+
 ############################
 	
 

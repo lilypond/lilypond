@@ -1,0 +1,820 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename README-W32.info
+@settitle LilyPond on W32
+
+
+@node Top, , , (dir)
+
+@chapter LilyPond on W32
+
+FIXME: remove yodl refs. 
+
+[FIXME: THIS DOCUMENTED IS OUTDATED]
+
+No, there's no reason to be concered, Lily should work in
+Windows-NT(/95/98?) too.  The setup may not be easy or smooth.  This
+document will help you getting started.
+
+
+@section DISCLAIMER
+
+If you have the Cygnus gnu-windows32 port of the GNU utils, LilyPond
+will work in Windows-NT (/95/98?).
+
+We still recommend you use Unix.  In particular, use GNU/Linux: We've
+been there, and we've seen it happen several times.  It is @strong{much}
+easier and quicker to install RedHat Linux and LilyPond than to
+obtain, compile and install all the necessary tools to compile and run
+LilyPond on Windows.
+
+``Ok, thanks for the suggestions.  I can't run Linux or I don't want
+to run Unix.  What can I expect?''
+
+@itemize @bullet
+@item LilyPond development is moving quite fast, and all developers use Unix.  
+    Newly added features may require some attention to get them to work.
+@item LilyPond depends on a number of other packages that usually are
+    available on Unix boxes, but are not installed by default on Windows.
+@end itemize
+
+
+LilyPond will now install/extract in a unix-like tree:
+@example 
+
+    usr/[local/]bin/
+    usr/[local/]share/lilypond/*
+ 
+@end example 
+
+etc.
+
+Lily runs in a the unix-like Cygnus gnu-windows environment;
+hopefully Cygnus will adopt the @file{/usr/[local/]} tree too.
+
+@* 
+If you really don't want usr/ in your root directory, but rather scatter
+your programs and packages all over your harddisk, do something like:    
+@example 
+
+    md lilypond
+    cd lilypond
+    unzip ../lilypond-0.1.77.exe.zip
+ 
+@end example 
+
+and add @file{lilypond/usr/bin} to your @file{PATH} and 
+@file{lilypond/usr/share/lilypond} to your @file{LILYINCLUDE}.
+
+
+If you've received a binary release of LilyPond (@file{.exe.zip}),
+you may skip the following sections.
+
+
+It can be done!  Occasionally, the Cygnus b19.1 cross compiler and
+utilities under GNU/Linux are used to make the binary @file{.exe.zip}
+releases (some makefile hacking was needed to build this stuff).  Jeffrey
+Reed tries to keep-up with LilyPond development, and is doing quite
+well.  His latest release is available on
+@uref{http://home.austin.rr.com/jbr/jeff/lilypond/}.
+
+
+I have heard of such tools that think they're probably much smarter than the
+packager and thus decide for themselves that they don't need to unpack certain
+files (e.g., empty directories such as bin/out).
+
+To unpack the lilypond sources, you should do something like: @example 
+ 
+    tar zxf releases/lilypond-x.y.z.tar.gz
+ 
+@end example 
+
+
+If you're familiar with the GNU/Cygnus development package, you may skip
+this.
+
+Don't forget to set
+@example 
+
+    /start/settings/control-panel/system/environment/system-variables:
+    GCC_EXEC_PREFIX=/Cygnus/b19/H-i386-cygwin32/lib/gcc-lib/
+    MAKE_MODE=UNIX
+ 
+@end example 
+
+You want to run bash, while building Lily:
+@example 
+
+    c:\bash
+    bash-2.01$ 
+ 
+@end example 
+
+The install instructions mention something like:
+@example 
+
+    configure
+    make
+    make install
+ 
+@end example 
+
+Now for a small UNIX lesson:  The current working directory (cwd) is 
+by default not in your PATH, like it is under DOS (for security reasons).
+Check this by looking at the output of:
+@example 
+
+    echo $PATH
+ 
+@end example 
+
+The cwd looks like @code{'::'} or @code{':.'}.  If it's not there, you may 
+add the cwd to your path:
+@example 
+
+    PATH=$PATH:. 
+ 
+@end example 
+
+or you must use './' when issuing a command in th cwd, try: 
+@example 
+ 
+    ./configure
+    make
+ 
+@end example 
+
+My point of reference comes from 15 odd years working with a variety
+of @code{UNIX} platforms.  I am relatively new to Windows-NT and, even
+though I am a card carrying @code{UNIX} bigot, I am excited about the
+NT OS.  My goals for lilypond are to give back to the Free Software
+Foundation a little of what they have given me over the years and to
+contribute to the lilypond project by supporting a Windows-NT port.  I
+hope that someday we can distribute and run lilypond on the NT OS in a
+much more native fashion.
+
+@itemize @bullet
+
+@item Building lilypond on Windows-NT
+@item Maintaining lilypond on Windows-NT
+@item Running lilypond on Windows-NT
+
+@end itemize
+
+
+Currently as stated above lilypond is primarily a @code{UNIX} thing.
+The Windows-NT port is based on the @code{UNIX} environment provided by
+@uref{http://www.cygnus.com,Cygnus}. Therefore the first step is to
+download and install the Cygnus development kit:
+
+@uref{http://www.cygnus.com/misc/gnu-win32/}
+
+Please follow the documentation Cygnus has on there web site for
+downloading and installing.  The important part is that you down load
+the entire development kit.  I believe it is @file{full.exe}.  The
+installation will ask you where you want to install it.  I will refer
+to Cygnus installation directory as @file{/gnuwin32/cygwin-b20}.  There
+should be a @file{README} file that contains installation instructions.
+After the installation is complete you should have a @emph{Cygnus}
+shortcut in your @emph{Program} section of your @emph{Start Menu}.  This
+shortcut is your door to the @code{UNIX} world and I will refer to the
+resulting window as a @file{bash} shell.
+
+The shortcut points to @file{/gnuwin32/cygwin-b20/cygnus.bat}.  The
+following is my @file{cygnus.bat} file.
+
+@example 
+
+@@ECHO OFF
+rem default environment
+
+rem GNU cygnus installation
+
+SET CYGREL=B19.1
+SET MAKE_MODE=unix
+SET LOCAL_ROOT=d:\gnuwin32
+SET LOCAL_FS=d:/gnuwin32
+SET LOCAL_DIR=d:/gnuwin32/cygwin-b20
+SET CYGROOT=%LOCAL_ROOT%\cygwin-b20
+SET CYGFS=%LOCAL_FS%/cygwin-b20
+SET TCL_LIBRARY=%CYGROOT%\share\tcl8.0
+rem
+rem This was not in the original but is needed by lots of packages
+rem
+SET BISON_SIMPLE=%CYGFS%/share/bison.simple
+
+rem
+rem I place the cygnus stuff in front of /WINNT 
+rem
+
+SET PATH=d:\bin;%LOCAL_ROOT%\bin;%CYGROOT%\H-i586-cygwin32\bin;%PATH%
+SET MANPATH=%LOCAL_ROOT%\man;%LOCAL_ROOT%\cygwin-b20\full-man\man
+SET INFOPATH=%LOCAL_FS%/cygwin-b20/full-man/info;%LOCAL_FS%/cygwin-b20/info;%LOCAL_DIR%/info
+
+rem General tools not included with Cygnus Development Kit
+
+rem CVS
+
+SET PATH=%PATH%;%LOCAL_ROOT%\cvs-1.9.28\bin
+SET INFOPATH=%INFOPATH%;%LOCAL_FS%/cvs-1.9.28/info
+SET MANPATH=%MANPATH%;%LOCAL_ROOT%\cvs-1.9.28\man
+
+rem EMACS
+
+SET PATH=%PATH%;%LOCAL_ROOT%\emacs-19.34\bin
+SET INFOPATH=%INFOPATH%;%LOCAL_FS%/emacs-19.34/info
+
+rem VIM
+
+SET VIM=%LOCAL_ROOT%\vim-4.6\doc
+SET PATH=%PATH%;%LOCAL_ROOT%\vim-4.6
+
+rem TeX
+
+SET PATH=%PATH%;%LOCAL_ROOT%\texmf\miktex\bin
+
+rem a2ps
+
+SET PATH=%PATH%;%LOCAL_ROOT%\a2ps-4.10\bin
+SET INFOPATH=%INFOPATH%;%LOCAL_FS%/a2ps-4.10/info
+SET MANPATH=%MANPATH%;%LOCAL_ROOT%\a2ps-4.10\man
+
+rem python
+
+SET PATH=%PATH%;\Program Files\Python
+
+rem perl
+
+SET PATH=%PATH%;\qub
+
+rem yodl
+
+uname -sv
+bash -login
+ 
+@end example 
+
+Please look over this carefully. Be careful with the forward and
+backward slash notations.  The paths specified were done for good
+reasons.  Maybe someday we will all be using @code{UNC}.  Note the
+@code{BISON} entry and the @code{PATH} ordering in particular. Also note
+that the generic @file{cygnus.bat} you will be looking at does not
+include alot of the packages listed.  We will be installing some of
+these.
+
+The installation also suggests that you create a directory @file{/bin}
+and copy @file{/gnuwin32/cygwin-b20/H-i586-cygwin32/bin/sh.exe} to
+@file{/bin}.  The @file{sh.exe} shell provided by Cygnus is a descendant
+of the @file{ash} shell.  The @file{sh.exe} shell has improved greatly
+and is much faster than the @file{bash} shell for script invocations.
+So this is my recommendation for post installation steps.  From a
+@file{bash} shell:
+
+@itemize @bullet
+@item @code{cd /}
+@item @code{mkdir bin}
+@item @code{cd /bin}
+@item @code{cp /gnuwin32/cygwin-b20/H-i586-cygwin32/bin/sh.exe sh.exe}
+@item @code{cp /gnuwin32/cygwin-b20/H-i586-cygwin32/bin/bash.exe bash.exe}
+@item @code{cd /}
+@item @code{mkdir /tmp}
+@item @code{chmod a+rwx tmp}
+@item @code{mkdir /etc}
+@item @code{cd /etc}
+@item @code{mkpasswd -l > passwd}
+@item @code{mkgroup -l > group}
+@end itemize
+
+
+There is also some discussion of how you want to @emph{mount} the Cygnus
+development kit.  @emph{mount} is a @code{UNIX} term that refers to the
+mechanism used to provide a disk resource to the filesystem.  Cygnus
+supplies a mechinism for @emph{mounting} a filesystem as a @code{DOS} like
+resource or a @code{UNIX} like resource.  Among other things this
+attempts to deal with the text file carriage return line feed on
+@code{DOS} versus the line feed on @code{UNIX} and the issue that @code{DOS}
+has two file types, text and binary.  Where @code{UNIX} deals with a
+single streams type.  My opinion on this matter currently is to use
+binary mounts only.  This can be accomplished by:
+
+@itemize @bullet
+@item  From a bash shell, umount /
+@item  mount -b d: /
+@end itemize
+
+If you have other disks that you intend to use for data generated by
+cygnus tools you will have to mount those devices with the @emph{-b}
+switch. 
+
+
+@uref{http://www.xraylith.wisc.edu/~khan/software/gnu-win32/egcs.html}
+
+Cygnus now distributes the ecgs compiler with cygwin-b20.
+
+ 
+@uref{http://www.gnu.org/order/ftp.html}
+
+Considering the origin of the major contributors of lilypond, this is a
+must.  However before we actually do a @strong{GNU} build we have to
+discuss some caveats of the Windows-NT OS in particular the naming of
+executable files.  @code{Windows-NT} uses a .exe extension where @code{UNIX}
+does not use an extension.  This causes a problem during the
+installation portion of a @strong{GNU} build.  The following script can be
+used to help alleviate this problem.
+
+@example 
+
+#!/bin/sh
+
+realinstall=/gnuwin32/cygwin-b20/H-i586-cygwin32/bin/install.exe
+args=''
+while [ $# -ne 0 ] 
+do
+    case $1 in
+        -*) args="$args $1"
+            ;;
+
+         *) if [ -f $1.exe ]; then
+                args="$args $1.exe"
+            else
+                args="$args $1"
+            fi
+            ;;
+    esac
+    shift
+done
+
+$realinstall $args
+ 
+@end example 
+
+I place this in script @file{~/bin}.  The LilyPond configure, build,
+and install process handles this with it's own install script.  In
+addition there are patches to the cygnus install command that also
+deals with this problem.  Having said that, here is how one
+might build the @emph{gettext} package. 
+
+@itemize @bullet
+@item  download the package from one of the ftp sites.
+@item  From a bash shell, cd ~/usr/src.
+@item  tar zxf gettext-0.10.tar.gz
+@item  cd gettext-0.10
+@item  ./configure --prefix=$CYGFS/H-i586-cygwin32
+@item  make
+@item  make install
+@end itemize
+
+ 
+@uref{http://www.gnu.org/order/ftp.html}
+
+Following the instructions for @emph{gettext} package to download, build,
+and install the @emph{groff} package.
+
+ 
+@uref{http://www.python.org}
+
+Python is the scripting language of choice for a lilypond build.
+There is a native @code{Windows-NT} self extracting binary distribution
+available.  I recommend installing Python in a directory that does
+@strong{not} have spaces.  And then place it in the bash shell path by
+editing $CYGFS/cygnus.bat.
+
+ 
+@uref{http://www.cpan.org}
+
+I believe perl is used in some legacy scripts to date.  There is a
+native @code{Windows-NT} self extracting binary distribution available.
+I recommend installing Perl in a directory that does @strong{not} have
+spaces.  And then place it in the bash shell path by editing
+$CYGFS/cygnus.bat.
+
+The development methodology of @emph{LilyPond} relies on a the following
+directory structure:
+
+
+@example 
+
+$HOME/usr/src/
+       |-releases/
+       |-patches/
+       |-test/
+ 
+@end example 
+
+@table @samp
+
+@item releases/ Downloaded and generated releases live here.  For
+example @file{lilypond-1.1.17.tar.gz}.
+
+@item patches/ Downloaded and generated patches live here.  For
+example @file{lilypond-1.1.17.diff.gz}.
+
+@item test/ This directory is used to generate releases and patches.
+
+@end table
+
+I strongly recommend using this file structure to build @emph{yodl} and
+@emph{lilypond}.
+                                   
+@itemize @bullet
+@item  download the package from
+@uref{http://www.xs4all.nl/~jantien/yodl/} to
+@file{$HOME/usr/src/releases}.
+@item  From a bash shell, cd @file{$HOME/usr/src}.
+@item  tar zxf releases/yodl-@emph{<version>}.tar.gz 
+@item  cd yodl-@emph{<version>}
+@item  ./configure --prefix=/gnuwin32/yodl-@emph{<version>} --srcdir=.
+Since @emph{yodl} is under development I choose to install it in a
+version rooted directory.  This allows me to test newly released
+versions without losing a known working version.
+
+@item  make
+@item  make install
+@item  place it in the bash shell path by editing $CYGFS/cygnus.bat.
+For example:
+@example 
+rem yodl
+
+SET PATH=%PATH%;%LOCAL_ROOT%\yodl-1.31.7\bin
+
+ 
+@end example 
+
+@end itemize
+
+ 
+
+GUILE, GNU's Ubiquitous Intelligent Language for Extension, is a
+library that implements the Scheme language plus various convenient
+facilities. It's designed so that you can link it into an application
+or utility to make it extensible. GNU's plan is to link this library
+into all GNU programs that call for extensibility.
+
+@itemize @bullet
+@item  download guile-1.3 patch from
+@uref{http://home.austin.rr.com/jbr/jeff/lilypond/guile.patch} and save it
+to @file{/tmp/guile.patch}.
+@item  download guile-1.3 from one of GNU's ftp sites.  
+@item  From a bash shell, tar zxf guile-1.3.tar.gz
+@item  cd guile-1.3
+@item  patch -p2 < /tmp/guile.patch
+@item  LD=/gnuwin32/cygwin-b20/H-i586-cygwin32/bin/ld \ @*  
+        ./configure --prefix=$CYGFS/H-i586-cygwin32
+@item  make sure bin_PROGRAMS macro in libguile/Makefile does @emph{not} have the
+.exe extension during the build
+@item  make
+@item  make sure bin_PROGRAMS in libguile/Makefile @emph{does} have the
+.exe extension during the install. Yuck. 
+@item  make install
+@end itemize
+
+
+@itemize @bullet
+@item  download the package from
+@uref{http://www.cs.uu.nl/people/hanwen/lilypond/} to
+@file{$HOME/usr/src/releases}.
+@item  From a bash shell, cd @file{$HOME/usr/src}.
+@item  tar zxf releases/lilypond-@emph{<version>}.tar.gz 
+@item  cd lilypond-@emph{<version>}
+@item  ./configure --prefix=/gnuwin32/lilypond-@emph{<version>} \ @* 
+        --srcdir=. @* 
+Since @emph{lilypond} is under development I choose to install it in a
+version rooted directory.  This allows me to test newly released
+versions without losing a known working version.
+@item  make
+@item  make install
+@item  place it in the bash shell path by editing $CYGFS/cygnus.bat.
+For example:
+@example 
+rem lilypond
+
+SET PATH=%PATH%;%LOCAL_ROOT%\lilypond-1.1.17\bin
+
+ 
+@end example 
+
+@end itemize
+
+
+If you have built @emph{lilypond} on @code{Windows-NT} using the directory
+ and the process described
+in section FIXME, then you are ready to maintain
+@emph{lilypond}.  It can not be that easy!?  Well, there is one caveat.
+Currently to use the @file{stepmake/bin/release.py} and
+@file{stepmake/bin/package-diff.py} scripts you need to obtain/build a
+version of @emph{python} that was built with @strong{Cygnus} development kit.
+The process I used is as follows:
+
+@itemize @bullet
+@item  obtain python source from @uref{http://www.python.org}
+@item  tar zxf /tmp/python-@emph{<version>}.tar.gz 
+@item  cd python-@emph{<version>}
+@item  configure --prefix=/gnuwin32/Python-@emph{<version>}
+@item  edit toplevel @file{Makefile} @code{EXE} macro so it reads @code{EXE=.exe}
+@item  make
+@item  make install
+@item  place it in the bash shell path by editing $CYGFS/cygnus.bat.
+For example:
+@example 
+rem python
+
+SET PATH=%PATH%;%LOCAL_ROOT%\python-1.5.1\bin
+
+ 
+@end example 
+
+@end itemize
+
+I choose to build @emph{lilypond} with the standard @code{Windows-NT}
+@emph{python} and use the @strong{Cygnus} version for using the release
+scripts.  This way I can make sure the @code{Windows-NT} @emph{python}
+version is able to build @emph{lilypond}.  Currently there are several
+issues with the release scripts.  Using @code{os.link} and
+@code{os.system(set -x;...)} are to name a few.
+
+To generate a new release and patch you must use the directory
+.  And follow the
+instructions found in @file{PATCH.txt}.  Editing
+@file{Documentation/AUTHORS.yo}, @file{VERSION}, and @file{NEWS} is also
+required.  When my edits are complete and tested I:
+
+@itemize @bullet
+@item  Edit @file{config.make} and change @emph{python} path to the
+@strong{Cygnus} version: @code{PYTHON=/gnuwin32/Python-1.5.1/bin/python}.
+@item  make release
+@end itemize
+
+The new release is placed in @file{releases} directory and the patch is
+placed in the @file{patches} directory.  I email the new patch to
+@email{gnu-music-discuss@@gnu.org}.  More than one patch a day can be
+generated by:
+
+@itemize @bullet
+@item  cd $HOME/usr/src 
+@item  tar zxf releases/lilypond-@emph{<version>}.@emph{<patchlevel>}
+@item  use your normal configure
+@item  make edits
+@item  Change @file{VERSION} to increment @emph{<patchlevel>}
+@item  Change @file{NEWS}
+@item  make release
+@end itemize
+
+
+We are now distributing a formated binary distribution for
+Windows-NT.  Please refer to
+@uref{http://home.austin.rr.com/jbr/jeff/lilypond/} for current news,
+download, installation, and running information.
+
+Jeffrey B. Reed @email{daboys@@austin.rr.com}
+
+@section RUNNING LILYPOND -- by Dominique Cretel
+
+You may want to refer to section FIXME, for more current
+information about downloading, installing, and running the Windows-NT
+binary distribution. 
+
+@enumerate i
+@item  First, I have download tha 0.1.64 version of LilyPond music software.
+
+@item  Then I extract it in a temp directory, and I move the directory
+"lilypond-0.1.64" to the root directory of my D drive.
+
+@item  I go to the D:\Lilypond-0.1.64\tex directory to modify the
+lilyponddefs.tex file (lines 75 and 84), and comment all
+cmbx15 ans cmbx14, and replace them by cmbx12.
+
+@item  build a command file like this:
+Note: I use MiKTeX to process the tex file generated.
+
+@example 
+
+---begin ly2dvi.bat
+echo off
+set ver=0.1.64
+set path=%path%;d:\lilypond-%ver%\bin
+lilypond -I d:\lilypond-%ver%\init %1
+rem *** pause
+
+set path=c:\texmf\miktex\bin;%path%
+set TEXINPUTS=%TEXINPUTS%;d:\lilypond-%ver%\tex
+set MFINPUTS=%MFINPUTS%;d:\lilypond-%ver%\mf
+tex %1.tex
+rem *** pause
+
+dvips %1.dvi
+rem *** pause
+
+set path=%path%;d:\gstools\gsview
+gsview32 %1.ps
+---end ly2dvi.bat
+ 
+@end example 
+
+@item  execute lilypond by doing:
+@example 
+
+ly2ps silly <Enter>
+ 
+@end example 
+
+@end enumerate
+
+Note:
+@* 
+You'll better have to put the SET commands lines in a separate command
+file to avoid consumming each time environnment ressources.
+
+Bye,@* 
+Dominique Cretel @email{dominique.cretel@@cfwb.be}
+
+@section PROBLEMS AND ANWSWERS
+
+This is all to confusing.  I have:
+@enumerate i
+@item  downloaded @file{/tmp/lilypond-0.1.78.tar.gz}
+@item  @example 
+
+    cd ~/usr/src
+ 
+@end example 
+
+@item  @example 
+
+    tar zxf /tmp/lilypond-0.1.78.tar.gz
+ 
+@end example 
+
+@item  @example 
+
+    ./configure --prefix=/users/jeff/lilypond-0.1.78 \--enable-tex-prefix=/users/jeff/lilypond-0.1.78/texmf \--enable-tex-dir=/users/jeff/lilypond-0.1.78/texmf/tex \--enable-mf-dir=/users/jeff/lilypond-0.1.78/texmf/mf
+ 
+@end example 
+
+@item  @example 
+
+    make
+ 
+@end example 
+
+@item  @example 
+
+    make install
+ 
+@end example 
+
+@end enumerate
+
+I did have a problem with lilypond.info.  And I will look into this
+further.  After mending lilypond.info issue, it compiled and install
+with no problems.
+
+I have 64 Meg of physical memory and 64 Meg of swap.  Actually I need
+to increase the swap space.  If a memory problem is occuring it most
+likely is during the link process of lilypond.  There is a boat load
+of objects to link.
+
+Jan the mount -b stuff is confussing to me.  I have the entire system
+mounted _without_ -b and only use -b on certain paths for programs
+that create binary files that do not use O_BINARY open option.  By the
+way the midi file open is one of these cases, I need to look into
+that.  I have had no problems with this methodology.
+
+
+The windows multiroot filesystem is an utterly broken concept.  Please
+do everything on one (urg) drive, C:.
+
+@example 
+
+> configure
+> creating cache ./config.cache
+> [..]
+> creating config.make
+> creating config.hh
+> cd: lstat /d failed
+ 
+@end example 
+
+Ok, this looks like another stupid windows problem.
+You're working on 'drive D:', right?
+
+I can think of some solutions, but i don't know if they work;
+i just had to do some work in windows some time ago.  If you
+have problems with this, please ask @email{gnu-win32@@cygnus.com}.
+I'll start with the simplest:
+@itemize @bullet
+  @item  do everything on drive C:, or
+  @item  explicitely mount drive d:, work from there:
+  @example 
+
+      mkdir -p /mnt/d
+      mount d: /mnt/d
+      cd /mnt/d/lilypond-x.y.z/
+   
+@end example 
+
+  @item  make d:/ the root of cygnus, in cmd.exe/command.exe do:
+  @example 
+    
+      umount /
+      mount d: /
+   
+@end example 
+
+@end itemize
+
+
+> - First I have installed Python (for win32) "Pyth151.exe" and "Configure
+@* 
+> don't find it. I had to put it in the path for configure find it?
+@* 
+
+Yes, of course.  It should be possible to have different versions of tools 
+installed (e.g. perl 4 and perl 5).  The best way to tell people (or tools 
+like configure) which one to use is to put it in the path?
+  
+Another small unix lesson: Where under dos each program installs itself
+into a nice directory
+@example 
+
+    c:\DosProgram\*
+ 
+@end example 
+
+under unix, installation is handled centrally.  Executables go in
+@file{/usr/bin} (or @file{/usr/local/bin}), and are always in your path.
+
+
+@example 
+
+> 4. make -C lily don't work. I get an error (see below). I get several
+> object files in the ./lily/out directory (34 files: 17 *.dep, 16 *.o,
+> and 1 *.hh):
+>    [...]
+>    include/engraver-group.hh:35: virtual memory exhausted
+>    make: *** [out/bar-grav.o] Error 1
+>    bash-2.01$
+
+ 
+@end example 
+
+Ok, so everything works now, there's only some error with one of the
+source files.  Lets see which one (and now the cc's now why they're
+reading this :-)
+
+It looks like you've run out of memory.  You should compile without
+optimisation, gcc/egcs need a lot of memory for optimising.
+Reconfigure without optimisation:
+@example 
+
+    configure --disable-optimise
+ 
+@end example 
+
+or edit @file{config.make}:
+@example 
+
+    ## USER_CXXFLAGS = -g # -O  no optimise!
+    USER_CXXFLAGS = -g
+ 
+@end example 
+
+There are some other things to look at: how much RAM do you have
+(please say something > 8Mb :-)?  Although it might be an egcs bug,
+you should have a look at the size of your swap file.
+For an US version of windows, you should find it here:
+@example 
+
+    /start/settings/control-panel/system/performance/virtual-memory
+ 
+@end example 
+
+you see, amongst others, these entries:
+@example 
+
+    paging file size for selected drive:
+
+        space-available: xx
+        initial-size: xx
+        maximum-size: xx
+
+    total paging file size for all drives
+
+        currently allocated: xx
+ 
+@end example 
+
+Try to set:
+@example 
+
+    initial-size: 64
+    maximum-size: 128
+ 
+@end example 
+
+Make sure that:
+@itemize @bullet
+@item  maximum-size >= 128 Mb
+@item  urrently-allocated + space-available >= 128 Mb
+@end itemize
+
+
+@bye

@@ -17,7 +17,6 @@
     JUNKME.
  */
 struct Staff_info {
-  Time_description const *time_C_;
   Score_column *musical_l_;
   Score_column *command_l_;
 

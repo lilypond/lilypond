@@ -12,11 +12,6 @@
 #include "score-element-info.hh"
 #include "multi-measure-rest.hh"
 
-void
-Timing_engraver::fill_staff_info (Staff_info &inf)
-{
-  inf.time_C_ = &time_;
-}
 
 
 ADD_THIS_TRANSLATOR(Timing_engraver);
@@ -57,7 +52,8 @@ Timing_engraver::which_bar ()
       if (!gh_boolean_p (nonauto) && gh_scm2bool (nonauto))
 	{
 	  SCM always = get_property ("barAlways", 0);
-	  if (!time_.whole_in_measure_ || gh_boolean_p (always) && gh_scm2bool (always))
+	  if (!measure_position ()
+	      || (gh_boolean_p (always) && gh_scm2bool (always)))
 	    {
 	      SCM def=get_property ("defaultBarType" ,0);
 	      return (gh_string_p (def))? ly_scm2string (def) : "";

@@ -40,13 +40,11 @@
 	(list
 	 (list 'breathingSignVerticalDirection dir? 'direction)
 	 (list 'verticalDirection dir? 'direction)
-	 (list 'breathingSignBreakPriority number? 'break-priority
-	  ))))
+	 )))
 
 (define generic-clef-properties
   (cons "Clef_item"
 	(list
-	 (list 'clefBreakPriority number? 'break-priority)
 	 (list 'clefStyle string? 'style))
 	)
   )

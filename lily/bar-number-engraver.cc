@@ -8,7 +8,7 @@
 
 
 #include "bar-number-engraver.hh"
-#include "time-description.hh"
+#include "timing-translator.hh"
 #include "timing-engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "text-item.hh"
@@ -25,14 +25,14 @@ void
 Bar_number_engraver::do_process_requests ()
 {
   Translator *tr = daddy_grav_l ()->get_simple_translator ("Timing_engraver");
-  Timing_translator *timer = dynamic_cast<Timing_translator*>(tr);
-  Time_description *time = &timer->time_;
+  Timing_translator *time = dynamic_cast<Timing_translator*>(tr);
 
-  if (!time->whole_in_measure_ && !time->cadenza_b_ && now_mom () > Moment (0))
+  // todo include (&&!time->cadenza_b_ )
+  if (!time->measure_position () && now_mom () > Moment (0))
     {
       create_items (0);
 	
-      text_p_->text_str_ = to_str (time->bars_i_);
+      text_p_->text_str_ = to_str (time->bars_i ());
     }
 }
 

@@ -13,7 +13,7 @@
 #include "beam.hh"
 #include "stem.hh"
 #include "warn.hh"
-#include "time-description.hh"
+#include "timing-translator.hh"
 #include "beaming.hh"
 #include "score-engraver.hh"
 
@@ -93,7 +93,7 @@ Beam_engraver::do_process_requests ()
 
       Translator * t  = daddy_grav_l  ()->get_simple_translator ("Timing_engraver");
       Timing_engraver *timer = dynamic_cast<Timing_engraver*> (t);
-      beam_start_location_ = (t) ?  timer->time_.whole_in_measure_ : Moment (0);
+      beam_start_location_ = (t) ?  timer->measure_position () : Moment (0);
       beam_start_mom_ = now_mom();
       beam_info_p_ = new Beaming_info_list;
       

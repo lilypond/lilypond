@@ -122,6 +122,9 @@ Score_element::remove_elt_property (String key)
   return s;
 }
 
+/*
+  UGH. assoc vs. assq
+ */
 void
 Score_element::set_elt_property (String k, SCM v)
 {

@@ -18,6 +18,32 @@
 %   end beams with 16th notes each 1/4 note
 %   end beams with 32th notes each 1/8 note
 
+
+%{
+
+UGH UGH. 
+
+Fixme: should use an alist
+
+autoBeamSettings = (list
+  (cons (list (make-moment MEASURE) TIME-SIGNATURE) (make-moment INTERVAL)
+  ..
+
+  )
+
+
+
+%}
+
+
+
+
+
+
+
+
+
+
 time3_2beamAutoEnd = #(make-moment 1 2)
 %time3_2beamAutoEnd_16 = #(make-moment 1 4)
 time3_2beamAutoEnd_16 = #(make-moment 1 4)

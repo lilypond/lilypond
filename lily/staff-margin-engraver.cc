@@ -8,7 +8,7 @@
 
 #include "staff-margin-engraver.hh"
 #include "bar.hh"
-#include "time-description.hh"
+#include "timing-translator.hh"
 #include "text-item.hh"
 #include "staff-side.hh"
 

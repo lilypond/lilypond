@@ -13,7 +13,7 @@
 #include "key-item.hh"
 #include "tie.hh"
 #include "note-head.hh"
-#include "time-description.hh"
+#include "timing-translator.hh"
 #include "engraver-group-engraver.hh"
 #include "grace-align-item.hh"
 
@@ -153,8 +153,10 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
 void
 Local_key_engraver::do_process_requests()
 {
-  Time_description const * time_C_ = get_staff_info().time_C_;
-  if (time_C_ && !time_C_->whole_in_measure_)
+  Translator * tr = daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
+  Timing_translator * time_C_  = dynamic_cast<Timing_translator*> (tr);
+  
+  if (time_C_ && !time_C_->measure_position ())
     {
       SCM n =  get_property ("noResetKey",0);
       bool no_res = gh_boolean_p (n) && gh_scm2bool (n);

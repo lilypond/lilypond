@@ -13,7 +13,7 @@
 #include "musical-request.hh"
 #include "local-key-item.hh"
 #include "bar.hh"
-#include "time-description.hh"
+#include "timing-translator.hh"
 
 Key_engraver::Key_engraver ()
 {
@@ -33,7 +33,8 @@ Key_engraver::create_key ()
   if (!item_p_) 
     {
       item_p_ = new Key_item;
-      item_p_->set_elt_property ("break-priority", gh_int2scm(-1)); // ugh
+      item_p_->set_elt_property ("break-aligned", SCM_BOOL_T); // ugh
+      
       item_p_->multi_octave_b_ = key_.multi_octave_b_;
       announce_element (Score_element_info (item_p_,keyreq_l_));
       

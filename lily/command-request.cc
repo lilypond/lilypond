@@ -10,27 +10,6 @@
 #include "debug.hh"
 #include "musical-request.hh"
 
-void
-Cadenza_req::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << (int)on_b_;
-#endif
-}
-
-bool
-Cadenza_req::do_equal_b (Request const *r) const
-{
-  Cadenza_req const*cad =  dynamic_cast <Cadenza_req const *> (r);
-  return cad && cad->on_b_ == on_b_;
-}
-
-Cadenza_req::Cadenza_req (bool b)
-{
-  on_b_ =b;
-}
-
-
 
 bool
 Bar_req::do_equal_b (Request const *r) const
@@ -52,18 +31,7 @@ Bar_req::Bar_req (String s)
   type_str_ = s;
 }
 
-Partial_measure_req::Partial_measure_req (Moment m)
-{
-  length_mom_ =m;
-}
 
-bool
-Partial_measure_req::do_equal_b (Request const* r) const
-{
-  Partial_measure_req  const*p = dynamic_cast <Partial_measure_req  const*> (r);
-
-  return p&& p->length_mom_ == length_mom_;
-}
 
 bool
 Barcheck_req::do_equal_b (Request const *r) const
@@ -85,11 +53,6 @@ Clef_change_req::Clef_change_req (String s)
   clef_str_ = s;
 }
 
-void
-Partial_measure_req::do_print () const
-{
-  DEBUG_OUT << length_mom_;
-}
 
 void
 Time_signature_change_req::do_print () const
