@@ -38,7 +38,7 @@ righta = \notes \transpose c cis' {
   \property Voice.TextScript \override #'extra-offset = #'(-8.0 . 2.5)
   \m  a,16[^\p( \u c^\markup {
       \large "Einfach ("
-      \note #3 #0 #1
+      \note #"8" #1
       \large " = 100)" }
   a c ] \m  g,[ \u c^3 ] \m  b,[ \u c^2 b c] \m  a,[ \u c^3]) | 
   \property Voice.TextScript \revert #'extra-offset
