@@ -76,7 +76,7 @@ accidental.
 
 @
 
-@lilypond[13pt,eps[]]
+@lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
 \property Voice.TextScript \set #'font-style = #'large
 \notes\relative c'' {
@@ -131,7 +131,7 @@ mode hell@'enique D: reines Moll, NL: , DK: ren mol, S: ren mollskala, N: .
 
 @
 
-@lilypond[13pt,eps[]]
+@lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
 \notes\relative c'' {
 a1 b c d e f g a }
@@ -155,7 +155,7 @@ the duration of the long a. is proportionate to that of the main note.
 
 @
 
-@lilypond[13pt,eps[]]
+@lilypond[13pt,eps]
 \context Voice\notes\relative c'' {
 \key d \major
 \time 4/4
@@ -180,7 +180,7 @@ An appoggiatura may have more notes preceding the main note.
 
 @
 
-@lilypond[13pt,eps[]]
+@lilypond[13pt,eps]
 \notes\relative c'' {
   \key as \major
   \time 2/4
@@ -201,7 +201,7 @@ Akkord, NL: gebroken akoord, DK: arpeggio, akkordbrydning, S: arpeggio, N:
 
 @
 
-@lilypond[13pt,eps[]]
+@lilypond[13pt,eps]
   \notes \context PianoStaff <
   \context Staff = SA \relative c'' { 
     \time 4/4
