@@ -493,7 +493,7 @@ without context specification. Called  from parser."
     (cond ((equal? name "Context_specced_music") #t)
 	  ((equal? name "Simultaneous_music")
 	   (if (has-request-chord es)
-	       (ly:music-message music "Starting score with a chord.\nPlease insert an explicit \\context before chord")
+	       (ly:music-message music "Starting score with a chord.\nInsert an explicit \\context before chord")
 	       (map check-start-chords es)))
 	  ((equal? name "SequentialMusic")
 	   (if (pair? es)

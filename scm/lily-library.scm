@@ -343,7 +343,7 @@ possibly turned off."
 (define-public (version-not-seen-message)
   (ly:warn
    (format #f
-	   (_ "No \\version statement found.  Please add~afor future compatibility.")
+	   (_ "No \\version statement found.  Add~afor future compatibility.")
 	   (format #f "\n\n\\version ~s\n\n" (lilypond-version))))
   (newline (current-error-port)))
   
