@@ -467,7 +467,7 @@ ly_version ()
 SCM
 ly_unit ()
 {
-  return gh_str02scm (INTERNAL_UNIT);
+  return ly_str02scm (INTERNAL_UNIT);
 }
 
 static void

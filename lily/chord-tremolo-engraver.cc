@@ -168,17 +168,6 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 	  Stem::set_beaming (s, f, LEFT);
 	  Stem::set_beaming (s, f, RIGHT);
 	  
-	  /*
-	    URG: this sets the direction of the Stem s.
-	    It's amazing Mike:
-	    
-	      Stem:: type_i () ->first_head ()->get_direction () ->
-	              Directional_element_interface::set (me, d);
-
-
-	      don't understand this comment.
-		      --hwn.
-	   */
  	  SCM d = s->get_grob_property ("direction");
 	  if (Stem::type_i (s) != 1)
 	    {
@@ -221,7 +210,6 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 
           d->set_parent (info.grob_l_, Y_AXIS);
           announce_grob (d, SCM_EOL);
-	  
 	}
     }
 }

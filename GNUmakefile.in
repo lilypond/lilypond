@@ -42,7 +42,7 @@ fonts:
 doc: lily fonts
 	$(MAKE) -C Documentation
 
-web-doc:  pfa-fonts
+web-doc: pfa-fonts
 	$(MAKE) out=www -C Documentation WWW
 	$(MAKE) footify
 
