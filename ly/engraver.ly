@@ -324,7 +324,6 @@ StupidScore = \translator {
 BarNumberingStaffContext = \translator {
 	\StaffContext
 	\consists "Mark_engraver";
-	\consists "Bar_number_engraver";
 };
 
 HaraKiriStaffContext = \translator {
@@ -344,7 +343,6 @@ HaraKiriStaffContext = \translator {
 OrchestralPartStaffContext = \translator {
 	\StaffContext
 	\consists "Mark_engraver";
-	\consists "Bar_number_engraver";
 };
 
 ScoreContext = \translator {
@@ -374,6 +372,7 @@ ScoreContext = \translator {
 	\consists "Spacing_engraver";
 
 	\consists "Vertical_align_engraver";
+	\consists "Bar_number_engraver";
 	alignmentReference = \down;
 	defaultClef = #"treble"
 	defaultBarType = #"|"
@@ -387,6 +386,7 @@ ScoreContext = \translator {
 	\accepts "PianoStaff";
 	\accepts "NoteNames";
 
+
 	markVisibilityFunction = #end-of-line-invisible
 	barNumberVisibilityFunction = #begin-of-line-visible
 };
@@ -399,7 +399,6 @@ OrchestralScoreContext= \translator {
 	barScriptPadding = #2.0		% dimension \pt
 	markScriptPadding = #4.0
 
-	\consists "Bar_number_engraver";
 	\consists "Mark_engraver";
 };
 
