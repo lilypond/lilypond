@@ -1,3 +1,9 @@
+2002-11-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/lyric-combine-music-iterator.cc
+	(Lyric_combine_music_iterator): remove superfluous events.
+	(melisma_busy): new function.
+
 2002-10-31  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* vimrc: Add shortcuts for compiling, midi-playing and PS-viewing.
@@ -54,6 +60,8 @@
 	Use default paths. Refresh description.
 
 2002-10-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.7.5 released
 
 	* input/regression/finger-chords.ly (texidoc): new file.
 

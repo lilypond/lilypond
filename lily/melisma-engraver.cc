@@ -62,4 +62,4 @@ ENTER_DESCRIPTION(Melisma_engraver,
 /* accepts */     "melisma-playing-event",
 /* acks  */      "",
 /* reads */       "melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy",
-/* write */       "");
+/* write */       "melismaEngraverBusy");
