@@ -209,7 +209,7 @@ global = \notes{
 	\context PianoStaff <
 		\context Staff = upper <
 			\global
-			{ \upper \bar "|." }
+			{ \upper \bar "|."; }
 		>
 		\context Staff = lower <
 			\global

@@ -7,6 +7,7 @@ subtitle = "Clavierbuechlein";
 composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";
+maintainer = "Jan Nieuwenhuizen";
 
   % mutopia headers.
   mutopiatitle = "Petites Pr&aigueludes";
