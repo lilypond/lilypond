@@ -1,25 +1,25 @@
-\version "2.2.0"
+\version "2.3.4"
 
 \header {
   texidoc ="Polyphonic piano music."
 }
 
-upperOne = \notes\relative c'' {
+upperOne = \relative c'' {
   \voiceOne
   a b c d
 }
 
-upperTwo = \notes\relative c' {
+upperTwo = \relative c' {
   \voiceTwo
   a2 c
 }
 
-lowerOne = \notes\relative c {
+lowerOne = \relative c {
   \voiceOne
   a2 c
 }
 
-lowerTwo = \notes\relative c {
+lowerTwo = \relative c {
   \voiceTwo
   a1
 }

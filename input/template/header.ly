@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 \header {
   dedication = "dedication"
   title = "Title"
@@ -21,7 +21,7 @@
 
 % insert a score otherwise lilypond-book gets confused. 
 \score {
-  \notes {
+   {
   c'4
   }
 } 

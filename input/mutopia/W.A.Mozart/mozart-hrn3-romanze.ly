@@ -1,7 +1,7 @@
-\version "2.2.0"
+\version "2.3.4"
 \include  "mozart-hrn3-defs.ly"
 
-romanze = \notes \relative c' {
+romanze =  \relative c' {
 	\key f \major
 	\time 2/2
 	\set Score.skipBars =  ##t

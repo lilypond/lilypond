@@ -7,11 +7,11 @@
   copyright = "Public Domain"
 }
 
-\version "2.3.2"
+\version "2.3.4"
 
 \include "nederlands.ly"
 
-global = \notes {
+global =  {
   \key a \minor
   \time 2/4
   s2*10
@@ -32,7 +32,7 @@ global = \notes {
   \bar "|."
 }
   
-i = \context Staff \notes\relative c''{
+i = \context Staff \relative c''{
   \context Voice=i
   \voiceOne
 
@@ -60,7 +60,7 @@ i = \context Staff \notes\relative c''{
   
 }
 
-ii = \context Staff \notes\relative c'{
+ii = \context Staff \relative c'{
   \context Voice=ii
   \voiceTwo
 
@@ -98,7 +98,7 @@ ii = \context Staff \notes\relative c'{
  
 }
 
-lower = \context Staff \notes \relative c{
+lower = \context Staff  \relative c{
   \context Voice=iii
 
   <as as'>4 <es es'> | r <as as'> | <des, des'> <f f'> | <c c'> r |

@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.3.2"
+\version "2.3.4"
 manuscriptBreak = { \break }
 
 
@@ -46,7 +46,7 @@ modernAccidentals = {
 }
 
 
-melody = \notes   \relative c'' \repeat volta 2 \context Voice = singer {
+melody =    \relative c'' \repeat volta 2 \context Voice = singer {
     \time 6/8
     \autoBeamOff
     s1*0^\markup { \bold \large\bigger\bigger { \hspace #-3.0 Lieblich, etwas geschwind } }
@@ -102,7 +102,7 @@ secondVerse = \lyrics {
     zieht mich him -- mel -- wärts, Sehn -- sucht zieht mich him -- mel -- wärts.
     }
 
-pianoRH = \notes \relative c''' \repeat volta 2 {
+pianoRH =  \relative c''' \repeat volta 2 {
     #(set-accidental-style 'modern)
     g16(_\p fis a g fis g f e d c b a ) | 
     <g e>8( <es fis a> <d f b> <c e c'>) r8 r | 
@@ -123,7 +123,7 @@ pianoRH = \notes \relative c''' \repeat volta 2 {
     <c c'>8 r r <c, g e>8 r r\fermata |  
 }
 
-pianoLH = \notes \relative c'' \repeat volta 2 {
+pianoLH =  \relative c'' \repeat volta 2 {
     #(set-accidental-style 'modern)
     g16( fis a g fis g f e d c b a) | 
     \clef bass g4.( c,8) r r

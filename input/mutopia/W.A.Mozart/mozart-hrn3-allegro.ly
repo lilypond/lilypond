@@ -1,8 +1,8 @@
-\version "2.2.0"
+\version "2.3.4"
 \include  "mozart-hrn3-defs.ly"
 
 allegro =
-	\notes
+	
 	\relative c'
 {
 	\time 4/4

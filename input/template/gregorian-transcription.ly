@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.4"
 
 
 \header {
@@ -9,15 +9,15 @@ indicating a breath mark."
 }
 
 
-barOne = \notes { \once \override Staff.BarLine  #'bar-size = #2
+barOne =  { \once \override Staff.BarLine  #'bar-size = #2
 	\bar "|" }
-barTwo = \notes { \once \override Staff.BarLine  #'extra-offset = #'(0 . 2)
+barTwo =  { \once \override Staff.BarLine  #'extra-offset = #'(0 . 2)
 
 		\once \override Staff.BarLine  #'bar-size = #2
 	\bar "|" }
 \score {
 
-\notes \relative c' {
+ \relative c' {
 	\set Score.timing = ##f
 	\override Staff.Stem  #'transparent = ##t
 	f4 a2 \barTwo g4 a2  f2 \barOne g4( f) f(

@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.4"
 \header {
         title = "Song"
         subtitle = "(tune)"
@@ -32,15 +32,15 @@ jzchords = { }
 
 %%%%%%%%%%%% Keys'n'thangs %%%%%%%%%%%%%%%%%
 
-global = \notes {
+global =  {
     \time 4/4
 }
 
-Key = \notes { \key c \major }
+Key =  { \key c \major }
 
 % ############ Horns ############
 % ------ Trumpet ------
-trpt = \notes \transpose c d \relative c'' {
+trpt =  \transpose c d \relative c'' {
     \Key
     c1 c c
 }
@@ -87,7 +87,7 @@ barisax = {
         >>
 }
 % ------ Trombone ------
-tbone = \notes \relative c {
+tbone =  \relative c {
 	\Key
         c1 c c
 }
@@ -103,7 +103,7 @@ trombone = {
 }
 % ############ Rhythm Section #############
 % ------ Guitar ------
-gtr = \notes \relative c'' {
+gtr =  \relative c'' {
 	\Key
         c1 \sl b4 b b b \nsl c1
 }
@@ -122,25 +122,25 @@ guitar = {
 }
 
 %% ------ Piano ------
-rhUpper = \notes \relative c'' {
+rhUpper =  \relative c'' {
         \voiceOne
 	\Key
         c1 c c
 }
 
-rhLower = \notes \relative c' {
+rhLower =  \relative c' {
         \voiceTwo
 	\Key
         e1 e e
 }
 
-lhUpper = \notes \relative c' {
+lhUpper =  \relative c' {
         \voiceOne
 	\Key
         g1 g g
 }
 
-lhLower = \notes \relative c {
+lhLower =  \relative c {
         \voiceTwo
 	\Key
         c1 c c
@@ -175,7 +175,7 @@ piano = {
 }
 
 % ------ Bass Guitar ------
-bass = \notes \relative c {
+bass =  \relative c {
 	\Key
         c1 c c
 }
