@@ -44,14 +44,14 @@ public:
   void set_mus_pointer (const char*, SCM val);
   SCM remove_mus_property (const char* nm);
 
-  virtual Musical_pitch to_relative_octave (Musical_pitch);
+  virtual Pitch to_relative_octave (Pitch);
 
   /// The duration of this piece of music
   virtual Moment length_mom () const;
 
   void print() const;
   /// Transpose, with the interval central C to #p#
-  virtual void transpose (Musical_pitch p);
+  virtual void transpose (Pitch p);
 
   /// Scale the music in time by #factor#.
   virtual void compress (Moment factor);

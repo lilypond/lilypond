@@ -11,7 +11,7 @@
 #define MUSIC_WRAPPER_HH
 
 #include "music.hh"
-#include "musical-pitch.hh"
+#include "pitch.hh"
 
 /** A Music that modifies an existing Music.  This data structure
   corresponds to a production that takes a single Music argument,
@@ -24,12 +24,12 @@ class Music_wrapper : public Music
 public:
   Music_wrapper (Music*);
   Music * element () const;
-  virtual void transpose (Musical_pitch);
+  virtual void transpose (Pitch);
 
   
   VIRTUAL_COPY_CONS(Music);
   virtual Moment length_mom () const;
-  virtual Musical_pitch to_relative_octave (Musical_pitch);
+  virtual Pitch to_relative_octave (Pitch);
   virtual void compress (Moment);
 };
 

@@ -13,7 +13,7 @@
 #include "lily-proto.hh"
 #include "request.hh"
 #include "duration.hh"
-#include "musical-pitch.hh"
+#include "pitch.hh"
 #include "array.hh"
 
 /** a request with a duration.
@@ -75,7 +75,7 @@ struct Melodic_req :virtual Request
 {
 protected:
   /// transpose. #delta# is relative to central c.
-  virtual void transpose (Musical_pitch delta);
+  virtual void transpose (Pitch delta);
   virtual bool do_equal_b (Request const*) const;
 
   VIRTUAL_COPY_CONS(Music);

@@ -74,7 +74,7 @@ Tie_performer::process_acknowledged ()
       while  ( i < now_notes_.size () && j < stopped_notes_.size ())
 	{
 	  int comp
-	    = Musical_pitch::compare (*unsmob_pitch (now_notes_[i].req_l_->get_mus_property ("pitch") ),
+	    = Pitch::compare (*unsmob_pitch (now_notes_[i].req_l_->get_mus_property ("pitch") ),
 				      *unsmob_pitch (stopped_notes_[j].req_l_->get_mus_property ("pitch")));
 
 	  if (comp)
@@ -159,7 +159,7 @@ CNote_melodic_tuple::pitch_compare (CNote_melodic_tuple const&h1,
 {
   SCM p1  = h1.req_l_->get_mus_property ("pitch");
   SCM p2  = h2.req_l_->get_mus_property ("pitch");  
-  return Musical_pitch::compare (*unsmob_pitch (p1),
+  return Pitch::compare (*unsmob_pitch (p1),
 			       *unsmob_pitch (p2));
 }
 

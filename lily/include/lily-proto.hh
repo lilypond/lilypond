@@ -116,7 +116,7 @@ class Music_output_def;
 class Music_sequence;
 class Music_wrapper;
 class Music_wrapper_iterator;
-class Musical_pitch;
+class Pitch;
 class Musical_req;
 class My_lily_lexer;
 class Note_performer;

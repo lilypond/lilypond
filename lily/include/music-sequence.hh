@@ -24,8 +24,8 @@ public:
   void append_music (Music *);
   VIRTUAL_COPY_CONS(Music);
 
-  Musical_pitch do_relative_octave (Musical_pitch p, bool b);
-  virtual void transpose (Musical_pitch );
+  Pitch do_relative_octave (Pitch p, bool b);
+  virtual void transpose (Pitch );
   void truncate (int k);
   virtual void compress (Moment);
   int length_i () const;
@@ -33,7 +33,7 @@ public:
   Moment maximum_length () const;
   
 protected:
-  virtual Musical_pitch to_relative_octave (Musical_pitch);
+  virtual Pitch to_relative_octave (Pitch);
 
 
 };

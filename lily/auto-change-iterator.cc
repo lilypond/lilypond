@@ -77,11 +77,11 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
 
   PRECONDITION: this->ok() holds.
 */
-Array<Musical_pitch>
+Array<Pitch>
 Auto_change_iterator::pending_pitch (Moment m) const
 {
   Music_iterator * iter = child_iter_p_ ->clone ();
-  Array<Musical_pitch> ps;
+  Array<Pitch> ps;
   while (1)
     {
       SCM muses = iter->get_music (m);
@@ -112,12 +112,12 @@ Auto_change_iterator::process (Moment m)
     first we get the pitches, then we do the real work.
     Music_wrapper_iterator::process() might process (and throw away)
     pitches we need.  */
-  Array<Musical_pitch> ps = pending_pitch (m);
+  Array<Pitch> ps = pending_pitch (m);
 
   Music_wrapper_iterator::process (m);
   if (ps.size ())
     {
-      Musical_pitch p = ps[0];
+      Pitch p = ps[0];
       Direction s = Direction (sign(p.steps ()));
       if (s != where_dir_)
 	{

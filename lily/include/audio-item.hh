@@ -12,7 +12,7 @@
 #include "string.hh"
 #include "audio-element.hh"
 
-#include "musical-pitch.hh"
+#include "pitch.hh"
 #include "moment.hh"
 #include "drul-array.hh"
 
@@ -61,11 +61,11 @@ public:
 class Audio_note : public Audio_item
 {
 public:  
-  Audio_note (Musical_pitch p, Moment m, int transposing_i = 0);
+  Audio_note (Pitch p, Moment m, int transposing_i = 0);
 
   void tie_to (Audio_note*);
 
-  Musical_pitch pitch_;
+  Pitch pitch_;
   Moment length_mom_;
   Moment delayed_mom_;
   Moment delayed_until_mom_;

@@ -49,7 +49,7 @@ Key_change_req::do_equal_b (Request const * req) const
 
 
 void
-Key_change_req::transpose (Musical_pitch p)
+Key_change_req::transpose (Pitch p)
 {
   SCM newlist = SCM_EOL;
   SCM pa = get_mus_property ("pitch-alist");
@@ -59,7 +59,7 @@ Key_change_req::transpose (Musical_pitch p)
       SCM alter = gh_cdar (s);
       if (gh_pair_p (key))
 	{
-	  Musical_pitch orig (gh_scm2int (gh_car (key)),
+	  Pitch orig (gh_scm2int (gh_car (key)),
 			      gh_scm2int (gh_cdr (key)),
 			      gh_scm2int (alter));
 
@@ -73,7 +73,7 @@ Key_change_req::transpose (Musical_pitch p)
 	}
       else if (gh_number_p (key))
 	{
-	  Musical_pitch orig (0, gh_scm2int (key), gh_scm2int (alter));
+	  Pitch orig (0, gh_scm2int (key), gh_scm2int (alter));
 	  orig.transpose (p);
 
 	  key =gh_int2scm (orig.notename_i_);

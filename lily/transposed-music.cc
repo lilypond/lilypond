@@ -10,7 +10,7 @@
 #include "transposed-music.hh"
 #include "debug.hh"
 
-Transposed_music::Transposed_music (Music *p, Musical_pitch pit)
+Transposed_music::Transposed_music (Music *p, Pitch pit)
   : Music_wrapper (p)
 {
   transpose_to_pitch_ = pit;
@@ -19,8 +19,8 @@ Transposed_music::Transposed_music (Music *p, Musical_pitch pit)
 }
 
 
-Musical_pitch
-Transposed_music::to_relative_octave (Musical_pitch p)
+Pitch
+Transposed_music::to_relative_octave (Pitch p)
 {
   return p;
 }

@@ -9,7 +9,7 @@
 
 #include "lyric-combine-music.hh"
 #include "lyric-combine-music-iterator.hh"
-#include "musical-pitch.hh"
+#include "pitch.hh"
 
 Lyric_combine_music::Lyric_combine_music (Music * m, Music * l)
 {
@@ -22,7 +22,7 @@ Lyric_combine_music::Lyric_combine_music (Music * m, Music * l)
 
 
 void
-Lyric_combine_music::transpose (Musical_pitch p)
+Lyric_combine_music::transpose (Pitch p)
 {
   music_l ()->transpose (p);
   lyrics_l () ->transpose (p);
@@ -35,8 +35,8 @@ Lyric_combine_music::length_mom () const
   return music_l ()->length_mom ();
 }
 
-Musical_pitch
-Lyric_combine_music::to_relative_octave (  Musical_pitch p )
+Pitch
+Lyric_combine_music::to_relative_octave (  Pitch p )
 {
   p = music_l ()->to_relative_octave (p);
   return lyrics_l () ->to_relative_octave (p);

@@ -21,7 +21,7 @@ class Simultaneous_music : public Music_sequence
 public:
   VIRTUAL_COPY_CONS(Music);
   Simultaneous_music(SCM);
-  virtual Musical_pitch to_relative_octave (Musical_pitch);
+  virtual Pitch to_relative_octave (Pitch);
   virtual Moment length_mom () const;
 };
 
@@ -33,7 +33,7 @@ class Request_chord : public Simultaneous_music
 {
 public:
   VIRTUAL_COPY_CONS(Music);
-  virtual Musical_pitch to_relative_octave (Musical_pitch);
+  virtual Pitch to_relative_octave (Pitch);
   Request_chord(SCM list);
 };
 

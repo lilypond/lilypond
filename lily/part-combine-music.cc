@@ -9,7 +9,7 @@
 
 #include "part-combine-music.hh"
 #include "part-combine-music-iterator.hh"
-#include "musical-pitch.hh"
+#include "pitch.hh"
 
 Part_combine_music::Part_combine_music (SCM  what, Music * f, Music * s)
 {
@@ -26,7 +26,7 @@ Part_combine_music::Part_combine_music (SCM  what, Music * f, Music * s)
 }
 
 void
-Part_combine_music::transpose (Musical_pitch p)
+Part_combine_music::transpose (Pitch p)
 {
   first_l ()->transpose (p);
   second_l () ->transpose (p);
@@ -40,8 +40,8 @@ Part_combine_music::length_mom () const
   return first_l ()->length_mom ();
 }
 
-Musical_pitch
-Part_combine_music::to_relative_octave (Musical_pitch p)
+Pitch
+Part_combine_music::to_relative_octave (Pitch p)
 {
   p = first_l ()->to_relative_octave (p);
   return second_l ()->to_relative_octave (p);

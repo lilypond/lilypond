@@ -19,11 +19,11 @@ public:
   Music * lyrics_l () const;
   
   Lyric_combine_music (Music*, Music*);
-  virtual void transpose (Musical_pitch);
+  virtual void transpose (Pitch);
 
   VIRTUAL_COPY_CONS(Music);
   virtual Moment length_mom () const;
-  virtual Musical_pitch to_relative_octave (Musical_pitch);
+  virtual Pitch to_relative_octave (Pitch);
   virtual void compress (Moment);
 };
 #endif /* LYRIC_COMBINE_MUSIC_HH */

@@ -15,7 +15,7 @@
 #include "staff-symbol-referencer.hh"
 #include "translator-group.hh"
 #include "engraver.hh"
-#include "musical-pitch.hh"
+#include "pitch.hh"
 #include "protected-scm.hh"
 #include "clef.hh"
 

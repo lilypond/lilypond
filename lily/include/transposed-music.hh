@@ -16,13 +16,13 @@
 class Transposed_music : public Music_wrapper
 {
 public:
-  Musical_pitch transpose_to_pitch_;
+  Pitch transpose_to_pitch_;
 
 
-  Transposed_music (Music*, Musical_pitch);
+  Transposed_music (Music*, Pitch);
   
   VIRTUAL_COPY_CONS(Music);
-  virtual Musical_pitch to_relative_octave (Musical_pitch);
+  virtual Pitch to_relative_octave (Pitch);
 };
 
 #endif /* TRANSPOSED_MUSIC_HH */

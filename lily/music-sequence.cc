@@ -8,7 +8,7 @@
  */
 #include "music-list.hh"
 #include "debug.hh"
-#include "musical-pitch.hh"
+#include "pitch.hh"
 
 
 void
@@ -57,7 +57,7 @@ Music_sequence::Music_sequence(SCM h)
 }
 
 void
-Music_sequence::transpose (Musical_pitch rq)
+Music_sequence::transpose (Pitch rq)
 {
   for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
     unsmob_music (gh_car (s))->transpose (rq);    
@@ -75,8 +75,8 @@ Music_sequence::cumulative_length () const
   return  last;
 }
 
-Musical_pitch
-Music_sequence::to_relative_octave (Musical_pitch p)
+Pitch
+Music_sequence::to_relative_octave (Pitch p)
 {
   return do_relative_octave (p, false);
 }
@@ -97,13 +97,13 @@ Music_sequence::length_i () const
   return scm_ilength (music_list ());
 }
 
-Musical_pitch
-Music_sequence::do_relative_octave (Musical_pitch p, bool ret_first)
+Pitch
+Music_sequence::do_relative_octave (Pitch p, bool ret_first)
 {
-  Musical_pitch retval;
+  Pitch retval;
   int count=0;
 
-  Musical_pitch last = p;
+  Pitch last = p;
   for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
     {
       last = unsmob_music (gh_car (s))->to_relative_octave (last);

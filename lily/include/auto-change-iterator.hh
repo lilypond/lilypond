@@ -25,7 +25,7 @@ protected:
   virtual void process (Moment);  
 
 
-  Array<Musical_pitch> pending_pitch (Moment)const;
+  Array<Pitch> pending_pitch (Moment)const;
 private:
 
   

@@ -20,7 +20,7 @@ Audio_item::Audio_item ()
   audio_column_l_ = 0;
 }
 
-Audio_note::Audio_note (Musical_pitch p, Moment m, int transposing_i)
+Audio_note::Audio_note (Pitch p, Moment m, int transposing_i)
 {
   pitch_ = p;
   length_mom_ = m;

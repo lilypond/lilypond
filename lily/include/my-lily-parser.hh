@@ -16,7 +16,7 @@
 #include "lily-proto.hh"
 #include "lily-proto.hh"
 #include "duration.hh"
-#include "musical-pitch.hh"
+#include "pitch.hh"
 #include "string.hh"
 #include "array.hh"
 #include "input.hh"
@@ -66,13 +66,13 @@ private:
 
   char const* here_ch_C() const;
 
-  Simultaneous_music * get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
-				  Array<Musical_pitch>* sub_arr_p, Musical_pitch* inversion_p,
-				  Musical_pitch* bass_p, Duration d);
+  Simultaneous_music * get_chord (Pitch tonic, Array<Pitch>* add_arr_p,
+				  Array<Pitch>* sub_arr_p, Pitch* inversion_p,
+				  Pitch* bass_p, Duration d);
   
   void set_chord_tremolo (int type_i);
   void set_last_duration (Duration const *);
-  void set_last_pitch (Musical_pitch const *);
+  void set_last_pitch (Pitch const *);
   friend int yyparse (void*);
 };
 
