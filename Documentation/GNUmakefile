@@ -12,15 +12,6 @@ include $(depth)/make/stepmake.make
 
 default: local-doc
 
-test-reg:
-	rm -f out-www/regression-test.html out-www/regression-test.texi 
-	$(MAKE) out=www out-www/regression-test.html
-
-PS_FILES=$(outdir)/regression-test.ps
-PDF_FILES=$(PS_FILES:.ps=.pdf)
-PS_GZ_FILES=$(addsuffix  .gz, $(PS_FILES))
-
-
 wiki-dump = $(outdir)/wiki-dump/LilyPond.html
 wiki-slurp: $(wiki-dump)
 
@@ -31,8 +22,7 @@ foe:
 	mkdir -p $(outdir)/wiki-dump/images
 	ln -f $(builddir)/Documentation/pictures/$(outbase)/lelie-icon.png $(outdir)/wiki-dump/images/wikibase.png
 
-local-WWW: copy-for-me txt-to-html $(PS_GZ_FILES) $(PDF_FILES) $(outdir)/regression-test.html wiki-slurp footify
-
+local-WWW: copy-for-me txt-to-html $(PS_GZ_FILES) $(PDF_FILES) wiki-slurp footify
 copy-for-me:
 	$(foreach a, $(README_TOP_FILES), cp ../$(a) $(outdir)/$(a).txt && ) true
 

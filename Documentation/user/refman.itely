@@ -1824,8 +1824,8 @@ c4^"longtext" \fatText c4_"longlongtext" c4 }
 It is possible to use @TeX{} commands in the strings, but this should be
 avoided because it makes it impossible for LilyPond to compute the
 exact length of the string, which may lead to collisions.  Also, @TeX{}
-commands won't work with direct PostScript output (see @ref{PostScript
-output}).
+commands won't work with direct PostScript output.
+@c (see @ref{PostScript output}).
 
 Text scripts are created in form of @internalsref{TextScript} grobs, in
 @internalsref{Voice} context. 
