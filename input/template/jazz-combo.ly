@@ -45,7 +45,7 @@ trpt = \notes \transpose c d \relative c'' {
     c1 c c
 }
 
-trpharmony = \chords \transpose c' d { \jzchords }
+trpharmony = \transpose c' d { \jzchords }
 trumpet = {
     \global 
     \set Staff.instrument = #"Trumpet"
@@ -56,12 +56,12 @@ trumpet = {
 }
 
 % ------ Alto Saxophone ------
-alto = \notes \transpose c a \relative c' {
+alto = \transpose c a \relative c' {
 	\Key
         c1 c c
 }
 
-altoharmony = \chords \transpose c' a { \jzchords }
+altoharmony = \transpose c' a { \jzchords }
 altosax = {
         \global
         \set Staff.instrument = #"Alto Sax"
@@ -72,12 +72,12 @@ altosax = {
 }
 
 % ------ Baritone Saxophone ------
-bari = \notes \transpose c a' \relative c {
+bari = \transpose c a' \relative c {
 	\Key
         c1 c \sl d4^"Solo" d d d \nsl
 }
 
-bariharmony = \chords \transpose c' a { \jzchords s1 s d2:maj e:m7 }
+bariharmony = \transpose c' a \chords { \jzchords s1 s d2:maj e:m7 }
 barisax = {
         \global
         \set Staff.instrument = #"Bari Sax"
@@ -249,4 +249,3 @@ drumContents = {
         }
         \midi { \tempo 4 = 75 }
 }
-

@@ -34,6 +34,13 @@
 # \breve and \longa supported.
 # M:none doesn't crash lily.
 
+# Enhancements (Guy Gascoigne-Piggford)
+#
+# Add support for maintaining ABC's notion of beaming, this is selectable
+# from the command line with a -b or --beam option.
+# Fixd a problem where on cygwin empty lines weren't being correctly identifed
+# and so were complaining, but still generating the correct output.
+
 # Limitations
 #
 # Multiple tunes in single file not supported
@@ -76,6 +83,7 @@ import os
 UNDEF = 255
 state = UNDEF
 strict = 0
+preserve_beams = 0
 voice_idx_dict = {}
 header = {}
 header['footnotes'] = ''
@@ -106,65 +114,61 @@ def error (msg):
 	
 	
 def check_clef(s):
-      if not s:
-              return ''
-      if re.match('-8va', s) or re.match('treble8', s):
-	      # treble8 is used by abctab2ps; -8va is used by barfly,
-	      # and by my patch to abc2ps. If there's ever a standard
-	      # about this we'll support that.
-	      s = s[4:]
-	      state.base_octave = -1
-	      voices_append("\\clef \"G_8\"\n")
-      elif re.match('^treble', s):
-              s = s[6:]
-              if re.match ('^-8', s):
-                      s = s[2:]
-                      state.base_octave = -2
-                      voices_append("\\clef \"G_8\"\n")
-              else:
-                      state.base_octave = 0
-                      voices_append("\\clef treble\n")
-      elif re.match('^alto', s):
-              s = s[4:]
-              state.base_octave = -1
-              voices_append ("\\clef alto\n" )
-      elif re.match('^bass',s ):
-              s = s[4:]
-              state.base_octave = -2
-              voices_append ("\\clef bass\n" )
-      return s
+	if not s:
+		return ''
+	if re.match('-8va', s) or re.match('treble8', s):
+		# treble8 is used by abctab2ps; -8va is used by barfly,
+		# and by my patch to abc2ps. If there's ever a standard
+		# about this we'll support that.
+		s = s[4:]
+		state.base_octave = -1
+		voices_append("\\clef \"G_8\"\n")
+	elif re.match('^treble', s):
+		s = s[6:]
+		if re.match ('^-8', s):
+			s = s[2:]
+			state.base_octave = -2
+			voices_append("\\clef \"G_8\"\n")
+		else:
+			state.base_octave = 0
+			voices_append("\\clef treble\n")
+	elif re.match('^alto', s):
+		s = s[4:]
+		state.base_octave = -1
+		voices_append ("\\clef alto\n" )
+	elif re.match('^bass',s ):
+		s = s[4:]
+		state.base_octave = -2
+		voices_append ("\\clef bass\n" )
+		return s
 
 def select_voice (name, rol):
 	if not voice_idx_dict.has_key (name):
-	      state_list.append(Parser_state())
-	      voices.append ('')
-	      slyrics.append ([])
-	      voice_idx_dict[name] = len (voices) -1
+		state_list.append(Parser_state())
+		voices.append ('')
+		slyrics.append ([])
+		voice_idx_dict[name] = len (voices) -1
 	__main__.current_voice_idx =  voice_idx_dict[name]
 	__main__.state = state_list[current_voice_idx]
 	while rol != '':
-	      m = re.match ('^([^ \t=]*)=(.*)$', rol) # find keywork
-	      if m:
-		      keyword = m.group(1)
-		      rol = m.group (2)
-		      a = re.match ('^("[^"]*"|[^ \t]*) *(.*)$', rol)
-		      if a:
-			      value = a.group (1)
-			      rol = a.group ( 2)
-			      if keyword == 'clef':
-				      check_clef(value)
-			      elif keyword == "name":
-				      value = re.sub ('\\\\','\\\\\\\\', value)
-				      voices_append ("\\set Staff.instrument = %s\n" % value )
-				      __main__.part_names = 1
-			      elif keyword == "sname" or keyword == "snm":
-				      voices_append ("\\set Staff.instr = %s\n" % value )
-
-	      else:
-		      break
-
-	return
-
+		m = re.match ('^([^ \t=]*)=(.*)$', rol) # find keywork
+		if m:
+			keyword = m.group(1)
+			rol = m.group (2)
+			a = re.match ('^("[^"]*"|[^ \t]*) *(.*)$', rol)
+			if a:
+				value = a.group (1)
+				rol = a.group ( 2)
+				if keyword == 'clef':
+					check_clef(value)
+				elif keyword == "name":
+					value = re.sub ('\\\\','\\\\\\\\', value)
+					voices_append ("\\property Staff.instrument = %s\n" % value )
+					__main__.part_names = 1
+				elif keyword == "sname" or keyword == "snm":
+					voices_append ("\\property Staff.instr = %s\n" % value )
+		else:
+			break
 
 def dump_header (outf,hdr):
 	outf.write ('\\header {\n')
@@ -187,7 +191,7 @@ def dump_default_bar (outf):
 	"""
 	Nowadays abc2ly outputs explicits barlines (?)
 	"""
- 	outf.write ("\n\\set Score.defaultBarType=\"empty\"\n")
+	outf.write ("\n\\property Score.defaultBarType=\"empty\"\n")
 
 
 def dump_slyrics (outf):
@@ -247,7 +251,7 @@ def dump_score (outf):
         \notes <<
 """)
 
-	ks  = voice_idx_dict.keys ();
+	ks = voice_idx_dict.keys ();
 	ks.sort ()
 	for k in  ks:
 		if re.match('[1-9]', k):
@@ -416,19 +420,19 @@ def lily_key (k):
 		return 0
 	return ("%s \\%s" % ( key, key_lookup[type]))
 
-def shift_key (note, acc , shift):
-        s = semitone_pitch((note, acc))
-        s = (s + shift + 12) % 12
-        if s <= 4:
-                n = s / 2
-                a = s % 2
-        else:
-                n = (s + 1) / 2
-                a = (s + 1) % 2
-        if a:
-                n = n + 1
-                a = -1
-        return (n,a)
+def shift_key (note, acc, shift):
+	s = semitone_pitch((note, acc))
+	s = (s + shift + 12) % 12
+	if s <= 4:
+		n = s / 2
+		a = s % 2
+	else:
+		n = (s + 1) / 2
+		a = (s + 1) % 2
+	if a:
+		n = n + 1
+		a = -1
+	return (n,a)
 
 key_shift = { # semitone shifts for key mode names
 	'm'   : 3,
@@ -517,6 +521,7 @@ def try_parse_tuplet_begin (str, state):
 def  try_parse_group_end (str, state):
 	if str and str[0] in HSPACE:
 		str = str[1:]
+		close_beam_state(state)
 	return str
 	
 def header_append (key, a):
@@ -537,12 +542,30 @@ def stuff_append (stuff, idx, a):
 	else:
 		stuff [idx] = wordwrap(a, stuff[idx])
 
-
+# ignore wordwrap since we are adding to the previous word
+def stuff_append_back(stuff, idx, a):
+	if not stuff:
+		stuff.append (a)
+	else:
+		point = len(stuff[idx])-1
+		while stuff[idx][point] is ' ':
+			point = point - 1
+		point = point +1
+		stuff[idx] = stuff[idx][:point] + a + stuff[idx][point:]
 
 def voices_append(a):
 	if current_voice_idx < 0:
 		select_voice ('default', '')
 	stuff_append (voices, current_voice_idx, a)
+
+# word wrap really makes it hard to bind beams to the end of notes since it
+# pushes out whitespace on every call. The _back functions do an append
+# prior to the last space, effectively tagging whatever they are given
+# onto the last note
+def voices_append_back(a):
+	if current_voice_idx < 0:
+		select_voice ('default', '')
+	stuff_append_back(voices, current_voice_idx, a)
 
 def repeat_prepend():
 	global repeat_state
@@ -615,12 +638,12 @@ def try_parse_header_line (ln, state):
 			if a == 'C':
 				if not state.common_time:
 					state.common_time = 1
-					voices_append ("\\override Staff.TimeSignature #\'style = #'C\n")
+					voices_append ("\\property Staff.TimeSignature \\override #\'style = #'C\n")
 				a = '4/4'
 			if a == 'C|':
 				if not state.common_time:
 					state.common_time = 1
-					voices_append ("\\override Staff.TimeSignature #\'style = #'C\n")
+					voices_append ("\\property Staff.TimeSignature \\override #\'style = #'C\n")
 				a = '2/2'
 			if not length_specified:
 				set_default_len_from_time_sig (a)
@@ -758,6 +781,7 @@ class Parser_state:
 		self.plus_chord = 0
 		self.base_octave = 0
 		self.common_time = 0
+		self.parsing_beam = 0
 
 
 
@@ -894,6 +918,12 @@ def clear_bar_acc(state):
 		del state.in_acc[k]
 	
 
+# if we are parsing a beam, close it off
+def close_beam_state(state):
+	if state.parsing_beam and preserve_beams:
+		state.parsing_beam = 0
+		voices_append_back( ']' )
+
 		
 # WAT IS ABC EEN ONTZETTENDE PROGRAMMEERPOEP  !
 def try_parse_note (str, parser_state):
@@ -915,7 +945,7 @@ def try_parse_note (str, parser_state):
 		if c == '_':
 			acc = -1
 
-        octave = parser_state.base_octave
+	octave = parser_state.base_octave
 	if str[0] in "ABCDEFG":
 		str = string.lower (str[0]) + str[1:]
 		octave = octave - 1
@@ -980,13 +1010,19 @@ def try_parse_note (str, parser_state):
 	if slur_end:
 		voices_append ('-)' *slur_end )
 
-
-
+	if preserve_beams and \
+	   str[0] in '^=_ABCDEFGabcdefg' and \
+	   not parser_state.parsing_beam and \
+	   not parser_state.parsing_tuplet:
+		parser_state.parsing_beam = 1
+		voices_append_back( '[' )
+		
 	return str
 
-def junk_space (str):
-	while str and str[0] in '\t\n ':
+def junk_space (str,state):
+	while str and str[0] in '\t\n\r ':
 		str = str[1:]
+		close_beam_state(state)
 
 	return str
 
@@ -1007,7 +1043,8 @@ def try_parse_guitar_chord (str, state):
 		if str:
 			str = str[1:]
 		gc = re.sub('#', '\\#', gc)	# escape '#'s
-		state.next_articulation = ("%c\"%s\"" % (position ,gc)) + state.next_articulation
+		state.next_articulation = ("%c\"%s\"" % (position, gc)) \
+					  + state.next_articulation
 	return str
 
 def try_parse_escape (str):
@@ -1109,6 +1146,7 @@ def try_parse_bar (str,state):
 		state.next_bar = '|\n'
 		str = str[1:]
 		clear_bar_acc(state)
+		close_beam_state(state)
 	
 	if bs <> None or state.next_bar != '':
 		if state.parsing_tuplet:
@@ -1117,6 +1155,7 @@ def try_parse_bar (str,state):
 		
 	if bs <> None:
 		clear_bar_acc(state)
+		close_beam_state(state)
 		voices_append (bs)
 		if do_curly != '':
 			voices_append("} }")
@@ -1265,7 +1304,7 @@ def parse_file (fn):
 			ln = try_parse_tuplet_begin (ln, state)
 			ln = try_parse_group_end (ln, state)
 			ln = try_parse_grace_delims (ln, state)
-			ln = junk_space (ln)
+			ln = junk_space (ln, state)
 
 		if ln:
 			error ("%s: %d: Huh?  Don't understand\n" % (fn, lineno))
@@ -1288,6 +1327,7 @@ Options:
   -o, --output=FILE   set output filename to FILE
   -v, --version       show version information
   -s, --strict        be strict about succes
+  -b, --beams         preserve ABC's notion of beams
   
 This program converts ABC music files (see
 http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) to LilyPond input.
@@ -1304,7 +1344,7 @@ def print_version ():
 
 
 
-(options, files) = getopt.getopt (sys.argv[1:], 'vo:hs', ['help','version', 'output=', 'strict'])
+(options, files) = getopt.getopt (sys.argv[1:], 'vo:hsb', ['help','version', 'output=', 'strict', 'beams'])
 out_filename = ''
 
 for opt in options:
@@ -1320,6 +1360,8 @@ for opt in options:
 		strict = 1
 	elif o == '--output' or o == '-o':
 		out_filename = a
+	elif o == '--beams' or o == '-b':
+		preserve_beams = 1
 	else:
 		print o
 		raise getopt.error
@@ -1340,7 +1382,7 @@ for f in files:
 	outf = open (out_filename, 'w')
 
 #	dump_global (outf)
-	dump_header (outf ,header)
+	dump_header (outf, header)
 	dump_slyrics (outf)
 	dump_voices (outf)
 	dump_score (outf)
