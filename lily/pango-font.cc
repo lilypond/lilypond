@@ -91,10 +91,10 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 						   PangoFcFont);
       
   FT_Face ftface = pango_fc_font_lock_face (fcfont);
-  Box b (Interval (PANGO_LBEARING(logical_rect),
-		   PANGO_RBEARING(logical_rect)),
-	 Interval (-PANGO_DESCENT(logical_rect),
-		   PANGO_ASCENT(logical_rect)));
+  Box b (Interval (PANGO_LBEARING(ink_rect),
+		   PANGO_RBEARING(ink_rect)),
+	 Interval (-PANGO_DESCENT(ink_rect),
+		   PANGO_ASCENT(ink_rect)));
 	     
   b.scale (scale_);
 
@@ -178,6 +178,7 @@ Pango_font::text_stencil (String str) const
     }
   
 #if 0
+  // check extents.
   if (!dest.extent_box ()[X_AXIS].is_empty ())
     {
       Stencil frame = Lookup::frame (dest.extent_box(), 0.1, 0.1);
