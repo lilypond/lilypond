@@ -150,9 +150,15 @@ Rest_collision::do_shift (Grob *me)
 	ordered_rests[d].sort (Note_column::shift_compare);
       } while (flip (&d) != LEFT);
       
-      if (ordered_rests[UP].size () < 1
-	  || ordered_rests[DOWN].size () < 1)
-	return SCM_UNSPECIFIED;
+      do {
+	if (ordered_rests[d].size () < 1)
+	  {
+	    if (ordered_rests[-d].size() > 1)
+	      ordered_rests[-d][0]->warning (_("Too many colliding rests."));
+	  
+	    return SCM_UNSPECIFIED;
+	  }
+      } while (flip (&d) != LEFT);
 
       Grob *common = common_refpoint_of_array (ordered_rests[DOWN], me, Y_AXIS);
       common =  common_refpoint_of_array (ordered_rests[UP], common, Y_AXIS);
@@ -245,7 +251,7 @@ Rest_collision::do_shift (Grob *me)
 
 
 ADD_INTERFACE (Rest_collision,"rest-collision-interface",
-  "Move around ordinary rests (not multi-measure-rests) to avoid "
-"conflicts.",
-  "minimum-distance positioning-done elements");
+	       "Move around ordinary rests (not multi-measure-rests) to avoid "
+	       "conflicts.",
+	       "minimum-distance positioning-done elements");
 

@@ -115,7 +115,6 @@
     ))
 
 ;; Second level, part of Context description
-
 (define name->engraver-table (make-vector 61 '()))
 (map
  (lambda (x)

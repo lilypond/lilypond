@@ -8,6 +8,17 @@
 
 @itemize @bullet
 
+@item Context definitions are now stored in identifiers that match the
+context name, in other words, to modify a @code{Staff} context, the
+following code may be used.
+
+@example
+	\context @{
+	  \Staff
+	  .. 
+	  @}
+@end example
+
 @item A new block, @code{\bookpaper} has been introduced to
 hold settings for paper size and output scaling.
 
@@ -95,10 +106,9 @@ block at toplevel is encapsulated in a @code{book} block.  A
 The default value is one octave below middle C.
 
 @c update-me?  formal definition of newaddlyrics, once it works
-@item Combining lyrics with music can be @code{\newlyrics}
+@item Combining lyrics with music can be done with @code{\newlyrics}
 
 @example
-<<
     \relative @{
 	\clef bass
 	d2 d c4 bes a2 \break
@@ -109,7 +119,6 @@ The default value is one octave below middle C.
     \newlyrics @{
 	Not much can go wrong!
     @}
->>
 @end example
 
 Syntactically, @code{\newlyrics} acts like an infix operator.

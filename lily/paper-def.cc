@@ -44,13 +44,6 @@ Paper_def::~Paper_def ()
 {
 }
 
-void
-Paper_def::derived_mark ()
-{
-  if (bookpaper_)
-    scm_gc_mark (bookpaper_->self_scm ());
-}
-
 Real
 Paper_def::get_dimension (SCM s) const
 {

@@ -3924,7 +3924,7 @@ Modifiers can be mixed with additions
 @cindex @code{m}
 
 Since an unaltered 11 does not sound good when combined with an
-unaltered 13, the 11 is removed in this case (unless it is added
+unaltered 3, the 11 is removed in this case (unless it is added
 explicitly)
 @c
 @lilypond[quote,fragment,verbatim]

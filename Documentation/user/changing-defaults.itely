@@ -693,7 +693,7 @@ from the music, in the @code{\paper} block,
   \paper @{
      @dots{}
      \context @{
-        \StaffContext
+        \Staff
 
         \set fontSize = #-2
         \override Stem #'thickness
@@ -704,13 +704,12 @@ from the music, in the @code{\paper} block,
 
 Here
 @example
-  \StaffContext
+  \Staff
 @end example
 
 @noindent
 takes the existing definition @context{Staff} from the identifier
-@code{StaffContext}. This works analogously to other contexts, so that
-the existing definition  of @code{Voice} is in @code{\VoiceContext}.
+@code{Staff}. This works analogously to other contexts.
 
 The statements
 @example
@@ -764,7 +763,7 @@ to indicate improvisation in Jazz pieces,
     \override Stem #'transparent = ##t
     \alias Voice
   }
-  \context { \StaffContext
+  \context { \Staff
     \accepts "ImproVoice"
   }}
   \score { \notes \relative c'' {
@@ -1874,8 +1873,13 @@ changes its character (measured in durations) halfway during the
 score, the part containing the longer durations will be spaced too
 widely.
 
-There is no convenient mechanism to manually override spacing.
+There is no convenient mechanism to manually override spacing.  The
+following work-around may be used to insert extra space into a score.
+@example
+ \once \override Score.SeparationItem #'padding = #1
+@end example
 
+No work-around exists for decreasing the amount of space.
 
 
 @menu
