@@ -1,5 +1,32 @@
-1.3.112.jcn3
+1.3.113.jcn2
 ============
+
+* Moved all documentation from regtest to individual example files.
+
+* Added feature to lilypond-book to write out \header texidoc string.
+
+* Reincluded simple FAQ in tarball.
+
+* Fixed lyrics with bar-enrgaver example.
+
+* Renamed LyricVoice to LyricsVoice.
+
+1.3.113.uu1
+===========
+
+* Checksums for AFM fonts: make sure that TFM and AFM files match.
+One FAQ less to be asked.
+
+* Made point-and-click switchable, default: off 
+
+* Bugfix: don't make multimeasure rests from failed span-requests.
+
+* Bugfix: mark with string arguments, eg. letters..
+
+* Bugfix: direction of staccato dots. 
+
+1.3.113
+=======
 
 * Added stems to font for use in markup text.
 

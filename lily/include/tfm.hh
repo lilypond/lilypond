@@ -155,13 +155,14 @@ public:
 
   String str () const;
 
-private:
-  Tex_font_metric ();
+
   
   Tfm_info info_;
   Tfm_header header_;
   Array<Tex_font_char_metric> char_metrics_;
   Array<int> ascii_to_metric_idx_;
+private:
+  Tex_font_metric ();
 };
 
 

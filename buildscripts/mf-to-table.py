@@ -43,6 +43,19 @@ class Char_metric:
 		pass
 
 
+def tfm_checksum (fn):
+	s = open (fn).read ()
+	s = s[ 12 * 2 : ]
+	cs_bytes = s[:4]
+
+	shift = 24
+	cs = 0
+	for b in cs_bytes:
+		cs = cs  + (ord (b) << shift)
+		shift = shift - 8
+
+	return cs
+  
 def parse_logfile (fn):
 	(autolines, deps) = read_log_file (fn)
 	charmetrics = []
@@ -163,7 +176,11 @@ for opt in options:
 
 for filenm in files:
 	(g,m, deps) =  parse_logfile (filenm)
+	cs = tfm_checksum (re.sub ('.log$', '.tfm', filenm))
 	afm = open (afmfile_nm, 'w')
+
+	afm.write ("TfmCheckSum %u\n" % cs) 
+	
 	write_afm_metric (afm, g,m)
 	write_tex_defs (open (texfile_nm, 'w'), g, m)
 	write_deps (open (depfile_nm, 'wb'), deps, [texfile_nm, afmfile_nm])

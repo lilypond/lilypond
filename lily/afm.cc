@@ -12,6 +12,7 @@
 
 Adobe_font_metric::Adobe_font_metric (AFM_Font_info * fi)
 {
+  checksum_ = 0;
   font_inf_ = fi;
 
   for (int i= 256; i--;)
@@ -28,10 +29,10 @@ Adobe_font_metric::Adobe_font_metric (AFM_Font_info * fi)
 
 
 SCM
-Adobe_font_metric::make_afm (AFM_Font_info *fi)
+Adobe_font_metric::make_afm (AFM_Font_info *fi, unsigned int checksum)
 {
   Adobe_font_metric * fm = new Adobe_font_metric (fi);
-
+  fm->checksum_ = checksum;
   return fm->self_scm();    
 }
 
@@ -89,7 +90,21 @@ SCM
 read_afm_file (String nm)
 {
   FILE *f = fopen (nm.ch_C() , "r");
+  char s[2048];
+  char *check_key = "TfmCheckSum"; 
+  fgets (s, sizeof (s), f);
 
+  unsigned int cs = 0;  
+  if (strncmp (s, check_key, strlen (check_key)) == 0)
+    {
+      sscanf (s + strlen (check_key), "%ud", &cs);
+    }
+  else
+    {
+      rewind (f);
+    }
+
+    
   AFM_Font_info * fi;
   int ok = AFM_parseFile (f, &fi, ~1);
 
@@ -100,7 +115,7 @@ read_afm_file (String nm)
     }
   fclose (f);
 
-  return Adobe_font_metric::make_afm (fi);
+  return Adobe_font_metric::make_afm (fi, cs);
 }
 
   
