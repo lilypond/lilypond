@@ -66,35 +66,40 @@ Now|Cancel} windows all the time.
 Install
 @uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/aladdin/gs550/gsv27550.exe,GSView-2.7}
 (GhostView for Windows), or visit
-@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
+@uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/ghostgum,ftp://mirror.cs.wisc.edu/}.
 
 @c check/update versions
-You can also use the newer versions GSView-3.6 and GhostScript-6.50,
-which can also display PDFs.  You get annoying @emph{Register
-Now|Cancel} popups, though.
+If you need to view PDFs, or want to create PDFs using GSView, you can
+install the newer versions GSView-3.6 and GhostScript-6.50.  You get
+annoying @emph{Register Now|Cancel} popups, though.
 
 Install
-@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv36w32.exe,GSview-3.6}
+@uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/ghostgum/gsv36w32.exe,GSview-3.6}
 and
 @uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs650/gs650w32.exe,
 GhostScript-6.50}, or visit the @uref{http://www.cs.wisc.edu/~ghost/,
 Ghostview and GSview site}.
 @end table
 
+Note: @uref{ftp://ftp.cs.wisc.edu/pub/ghost/README,ftp.cs.wisc.edu}
+has moved the ghostscript/ghostview distribution to a
+@uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/,rather unreliable
+server}.
+
 @section Testing LilyPond
 
 Open a LilyPond shell (To open a a lilypond shell, click the "GNU
 LilyPond" or "Cygwin" icon), and type
 
-@quotation
+
 @example
 lilypond --help
 @end example
-@end quotation
+
 
 You should see something similar to
 
-@quotation
+
 @example
 GNU LilyPond 1.6.0
 Usage: lilypond [OPTION]... FILE...
@@ -109,55 +114,54 @@ Options:
   -h,--help             this help
 [..]
 @end example
-@end quotation
+
 
 Then, prepare a file called @file{foo.ly}, by issuing
-@quotation
+
 @example
 notepad foo.ly
 @end example
-@end quotation
+
 Enter the following into the file
-@quotation
+
 @example
 
 \score @{ \notes @{ c4 ( ) c4 @} @}
 
 @end example
-@end quotation
+
 Close the editor and save the file.  Then run the following command.
-@quotation
+
 @example
 ly2dvi -p foo
 @end example
-@end quotation
+
 At the end, it should say
-@quotation
+
 @example
 DVI output to `foo.dvi'...
 PS output to `foo.ps'...
 PDF output to `foo.pdf'...
 @end example
-@end quotation
+
 If you install the Cygwin's XFree86 X11 window system, tetex-x11 and
 ghostscript-x11 packages too, you can view the @code{dvi} output doing
 @code{xdvi test.dvi}.  If you have installed a PostScript/PDF viewer,
 such as @code{GSView} from @uref{http://www.cs.wisc.edu/~ghost},
 viewing the PS file can be done with:
-@quotation
+
 @example
 gsview32 foo.ps
 @end example
-@end quotation
+
 
 If this works, then you can head to the
 @uref{../../user/out-www/lilypond/Tutorial.html,Tutorial}
-@ignore
-Hmm, this only works for 1.5.73-1 installs.
-Cygwin does not yet have an html documentation index, such as dwww.
-(@uref{file:///c/cygwin/usr/doc/lilypond-1.5.73-1/html/Documentation/user/out-www/Tutorial.html,
+@c Hmm, this only works for 1.6.5-1 installs.
+@c Cygwin does not have a proper html documentation index such as dwww
+@c Should add for debian and red hat packages too.
+(@uref{file:///c/cygwin/usr/doc/lilypond-1.6.5-1/html/Documentation/user/out-www/Tutorial.html,
 local copy})
-@end ignore
 to start using LilyPond.
 
 @section Removing LilyPond
@@ -219,28 +223,28 @@ have dowloaded a buggy version.
 @quotation
 @emph{I don't seem to be able to either change this "default" or to point
 Lilypond to another directory which does not have the space.}
-@quotation
+
 @example
 ly2dvi:error: filename should not contain spaces: `/usr/bin/Ralph Whedon/foo'
 @end example
-@end quotation
+
 @emph{Any ideas what I should do?}
 @end quotation
 Best is to create a new home directory.  Start the Cygwin or LilyPond
 shell, and do:
-@quotation
+
 @example
 HOME=/home/ralph
 mkdir -p $HOME
 cd
 @end example
-@end quotation
+
 To go there automatically, each time you log in, edit the file
-@quotation
+
 @example
 /etc/passwd   # windows name: c:\cygwin\etc\passwd
 @end example
-@end quotation
+
 
 using vim or wordpad, and change the `/usr/bin/Ralph Whedon/' to
 `/home/ralph'.
@@ -262,34 +266,34 @@ Here are some commands you'll definitely be needing.
 
 To change folders, the usual @code{cd}
 
-@quotation
+
 @example
 cd ../..    # If you type this at startup, you should be in the root
             # directory.  Better do:
 cd /            
 @end example
-@end quotation
+
 
 You'll notice that file names in Bash are written with the slash (/),
 and not the backslash (\) bar as in MS-DOS and Windows.
 
-@quotation
+
 @example
 C:\Win98\Bureau\  ---> /cygdrive/c/Win98/Bureau
 @end example
-@end quotation
+
 The equivalent of the MS-DOS dir command is ls -l :
-@quotation
+
 @example
 ls -l       #You'll get the listing of the current folder.
 @end example
-@end quotation
+
 To copy a file, use the cp command:
-@quotation
+
 @example
 cp srcfile destfile
 @end example
-@end quotation
+
 For more information, see the
 @uref{http://www.linuxdoc.org/HOWTO/DOS-Win-to-Linux-HOWTO.html,DOS/Windows
 to Linux HOWTO}.
@@ -307,13 +311,13 @@ seems, they sometimes do not get selected automagically.
   sed termcap zlib
   
 @item LilyPond
-  requires: bash libguile14 libiconv2 libintl2 libkpathsea3 python
+  requires: bash libguile12 libiconv2 libintl2 libkpathsea3 python
   tetex-bin, tetex-tiny or tetex-base
 @end itemize
 
 @multitable @columnfractions .40 .40
 @item DLL              @tab Package
-@item cygguile-14.dll  @tab libguile14 
+@item cygguile-12.dll  @tab libguile12
 @item cygintl-2.dll    @tab libintl2
 @item cygiconv-2.dll   @tab libiconv2
 @item cygltdl-3.dll    @tab libltdl3
@@ -335,13 +339,13 @@ Well, we've tried several times, but we can't reproduce the problem
 invited to help us find the bug and fix it.  You can install the
 binutils package, and use objdump to find which executable depends on
 the missing dll.
-@quotation
+
 @example
 objdump -x <path to download dir>/setup.exe | grep -i dll
 objdump -x /usr/bin/awk.exe | grep -i dll
 objdump -x /usr/bin/python.exe | grep -i dll
 @end example
-@end quotation
+
 Of course, you should check what version of the offending package you
 have installed (see @file{/var/log/setup.log} and
 @file{/var/log/setup.log.full)}.
@@ -349,18 +353,18 @@ have installed (see @file{/var/log/setup.log} and
 @subsection Check your TeX installation
 
 Start a LilyPond shell and run
-@quotation
+
 @example
 latex sample2e
 @end example
-@end quotation
+
 This should print a few lines of information and produce a file
 @file{sample2e.dvi}. Then run
-@quotation
+
 @example
 dvips sample2e
 @end example
-@end quotation
+
 
 which produces a sample2e.ps, which you can view using @code{gsview32}.
 
@@ -387,11 +391,11 @@ bugreport. A bugreport includes
 system)
 @item All version numbers of relevant software you run.
       The best way to this is to run
-      @quotation
+      
       @example
       sh -x /usr/bin/bug-lilypond-cygwin >& bug.txt
       @end example
-      @end quotation
+      
       and include the file @file{bug.txt}.  (If you are running
       lilypond 1.5.73 or earlier, download
       @uref{http://lilypond.org/cygwin/bug-lilypond-cygwin,
@@ -403,20 +407,20 @@ information by hand.  Specifically, we want to see the output of the
 following commands:
 @itemize @bullet
 @item Version info
-@quotation
+
 @example
   python -V
   lilypond --version
   ly2dvi --version
 @end example
-@end quotation
+
 @item If ly2dvi fails, then please run it as follows and include the
   output in the 
-@quotation
+
 @example
   ly2dvi --verbose MY-FILE
 @end example
-@end quotation
+
 @end itemize
 
 The file @file{bug.txt} should contain information on your system
@@ -430,12 +434,12 @@ default.
 If you are using Microsoft Outlook (Express), you can send normal
 plain text messages by clicking through the menus
 Tools/Options/Send/Mail Sending Format/Plain Text, with options:
-@quotation
+
 @example
 Set Message format as MIME, set "Encode text using:" to None.  Set
 Automatically wrap text at 70, and > is used to indent original text.
 @end example
-@end quotation
+
 Easy instructions for various email clients can be found at
 @uref{http://helpdesk.rootsweb.com/listadmins/plaintext.html,
 helpdesk.rootsweb.com}.
