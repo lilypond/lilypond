@@ -213,9 +213,13 @@ Side_position_interface::out_of_staff (SCM element_smob, SCM axis)
   if (!st)
     return gh_int2scm (0);
 
+  SCM scm_padding = me->get_grob_property ("staff-padding");
+  if (!gh_number_p (scm_padding))
+    return gh_int2scm (0);
+  
   Real padding=
     Staff_symbol_referencer::staff_space (me)
-    * robust_scm2double (me->get_grob_property ("staff-padding"), 0);
+    * gh_scm2double (scm_padding);
   
   Grob *common = me->common_refpoint (st, Y_AXIS);
   Direction d = Side_position_interface::get_direction (me);
@@ -285,8 +289,11 @@ Side_position_interface::supported_b (Grob*me)
 
 
 ADD_INTERFACE (Side_position_interface,"side-position-interface",
-  "Position a victim object (this one) next to other objects (the "
-"support).  In this case, the property @code{direction} signifies where to put the  "
-"victim object relative to the support (left or right, up or down?) "
-,
-  "staff-padding side-support-elements direction-source direction side-relative-direction minimum-space padding");
+	       "Position a victim object (this one) next to other objects (the "
+	       "support).  In this case, the property @code{direction} signifies where to put the  "
+	       "victim object relative to the support (left or right, up or down?)\n\n "
+	       "The @code{out_of_staff} routine puts objects at a distance of the staff. If the property "
+	       "@code{staff-padding} is not defined, the routine doesn't do anything." 
+	       ,
+	       "staff-padding side-support-elements direction-source "
+	       "direction side-relative-direction minimum-space padding");

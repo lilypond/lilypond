@@ -370,6 +370,7 @@
      . (
 	(molecule-callback . ,Text_item::brew_molecule)
 	(padding . 0.6)
+	(staff-padding . 0.5)
 	(self-alignment-X . 0)
 	(self-alignment-Y . 0)
 	(script-priority . 100)
