@@ -220,11 +220,12 @@
 ; titling.
 (define-public (default-book-title paper scopes)
   "Generate book title from header strings."
+
   
   (define (get sym)
     (let ((x (ly:modules-lookup scopes sym)))
-      (if (and x (not (unspecified? x))) x "")))
-  
+      (if (markup? x) x "")))
+
   (let ((props (page-properties paper)))
     
     (interpret-markup

@@ -47,7 +47,8 @@ public:
 
   SCM lines ();
   SCM pages ();
-  Stencil title (int);
+  Stencil book_title ();
+  Stencil score_title (int);
   void classic_output (String);
   void init ();
   void output (String);

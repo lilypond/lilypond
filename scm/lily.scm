@@ -381,6 +381,7 @@ L1 is copied, L2 not.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  output
 (use-modules (scm framework-tex)
+	     (scm framework-ps)
 	     )
 
 

@@ -25,39 +25,48 @@
 	       (ly:bookpaper-fonts bookpaper)
 	       ))))
 
+(define-public (header-to-file fn key val)
+  (set! key (symbol->string key))
+  (if (not (equal? "-" fn))
+      (set! fn (string-append fn "." key))
+      )
+  (display
+   (format "Writing header field `~a' to `~a'..."
+	   key
+	   (if (equal? "-" fn) "<stdout>" fn)
+	   )
+   (current-error-port))
+  (if (equal? fn "-")
+      (display val)
+      (display val (open-file fn "w"))
+  )
+  (display "\n" (current-error-port))
+  "" )
+
+
 (define (output-scopes  scopes fields basename)
   (define (output-scope scope)
     (apply
      string-append
      (module-map
-     (lambda (sym var)
-       (let (;;(val (variable-ref var))
-	     (val (if (variable-bound? var) (variable-ref var) '""))
-	     (tex-key (symbol->string sym)))
+      (lambda (sym var)
+       (let ((val (if (variable-bound? var) (variable-ref var) ""))
+	     )
 	 
 	 (if (and (memq sym fields) (string? val))
 	     (header-to-file basename sym val))
-
-	 (cond
-	  ((string? val)
-	   (tex-string-def "lilypond" sym val))
-	  
-	  ((number? val)		;why? 
-	   (tex-number-def "lilypond" sym
-			   (if (integer? val)
-			       (number->string val)
-			       (number->string (exact->inexact val)))))
-	  
-	  (else ""))))
+	 ""))
      scope)))
   
   (apply string-append
 	 (map output-scope scopes)))
+
+
 (define (tex-string-def prefix key str)
-  (if (equal? "" (sans-surrounding-whitespace (output-tex-string str)))
+  (if (equal? "" (sans-surrounding-whitespace (sanitize-tex-string str)))
       (string-append "\\let\\" prefix (symbol->tex-key key) "\\undefined%\n")
       (string-append "\\def\\" prefix (symbol->tex-key key)
-		     "{" (output-tex-string str) "}%\n")))
+		     "{" (sanitize-tex-string str) "}%\n")))
 
 (define (header creator time-stamp bookpaper page-count classic?)
   (string-append
@@ -123,7 +132,6 @@
 	"}%\n"))
    )
 
-;; todo: only pass BOOK, FIELDS arguments
 (define-public (output-framework-tex outputter book scopes fields basename)
   (let*
       ((bookpaper  (ly:paper-book-book-paper book))
@@ -140,7 +148,6 @@
 	     #f
 	     )
    
-   (output-scopes scopes fields basename)
    (define-fonts bookpaper)
    (header-end)))
 
