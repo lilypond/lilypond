@@ -5,6 +5,7 @@
 ;;;; (c)  2002--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;;; http://www.w3.org/TR/SVG11
+;;;; http://www.w3.org/TR/SVG12/ -- page, pageSet in draft
 
 ;;;; TODO:
 ;;;;  * inkscape page/pageSet support
