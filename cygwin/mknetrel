@@ -89,7 +89,7 @@ preconfig () {
     # for cross-compiling LilyPond, fake a guile-config
     if ! iscygwin; then
 	cd $build || exit 1
-	GUILE=1.6.4
+	GUILE=1.6.5
 	cat > guile-config <<EOF
 [ "\$1" == "--version" ] && echo "guile-config - Guile version $GUILE"
 [ "\$1" == "compile" ] && echo "-I$cygwin_root/usr/include"

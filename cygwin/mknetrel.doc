@@ -24,5 +24,9 @@ fixdoc () {
 	    rm -rf $inst/$prefix/$i
 	fi
     done
+    if [-f $inst/$docprefix/$base ]; then
+	mkdir -p $packagedocdir
+	tar -C $inst/$docprefix/$base -cf - . | tar -C $inst/$packagedocdir -xf -
+    fi
     true
 }

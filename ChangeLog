@@ -1,3 +1,7 @@
+2004-10-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* cygwin/lilypond.hint: Update.
+
 2004-10-18  Carl Sorensen  <carldsorensen@comcast.net>
 
 	* scm/fret-diagrams.scm (fret-diagram-terse): Fix mistake in internal

@@ -6,19 +6,19 @@ For more information, tutorial, documentation, packaging instructions, visit:
   http://lilypond.org
 
 Runtime requirements:
-  cygwin-1.5.2 or newer
-  libguile12-1.6.4-12 or newer
+  cygwin-1.5.11 or newer
+  libguile12-1.6.5-1 or newer
   bash
   ghostscript
   libiconv2
   libintl2
-  libkpathsea3-2.0.2-12 or newer
+  libkpathsea3-2.0.2-15 or newer
   python
-  tetex-bin-2.0.2-12 or newer
+  tetex-bin-2.0.2-15 or newer
   tetex-tiny or tetex-base
 
 Suggested:
-  XFree86-serv
+  xorg-x11-base
   emacs or vim
   ghostscript-x11
   rxvt
@@ -26,20 +26,20 @@ Suggested:
   gv
 
 Build requirements:
-  cygwin-1.5.2 or newer
-  binutils-20011102 or newer
+  cygwin-1.5.11 or newer
+  binutils-20040725-2 or newer
   gcc-2.95.3-5 or newer
   bison-1.35 or newer
-  guile-devel-1.6.4-11 or newer
+  guile-devel-1.6.5-1 or newer
   fileutils
   flex-2.5.4 or newer
-  libguile12-1.6.4-12 or newer
-  libkpathsea3-2.0.2-12 or newer
-  python-2.2 or newer
-  sed-3.02 or newer
+  libguile12-1.6.5-1 or newer
+  libkpathsea3-2.0.2-15 or newer
+  python
+  sed
   sh-utils
-  tetex-devel-2.0.2-12 or newer
-  texinfo-4.2 or newer
+  tetex-devel-2.0.2-15 or newer
+  texinfo-4.7 or newer
 
 Website/documentation build requirements (lilypond-doc package):
   tetex-bin
@@ -47,18 +47,18 @@ Website/documentation build requirements (lilypond-doc package):
   ghostscript or ghostscript-x11
 
   mftrace, http://www.cs.uu.nl/people/hanwen/mftrace
-  autotrace, http://autotrace.sourceforge.net
+  potrace, http://potrace.sourceforge.net
   netpbm, http://netpbm.sourceforge.net
   t1utils, http://www.lcdf.org/~eddietwo/type/
 
 Recommended website/documentation build requirements:
-  pfaedit 020215 or newer, http://pfaedit.sourceforge.net
+  fontforge, http://fontforge.sourceforge.net
 
 Canonical homepage:
-  http://www.lilypond.org/development
+  http:/lilypond.org
 
 Canonical download:
-  ftp://ftp.lilypond.org/pub/LilyPond
+  http://lilypond.org/download
   
 ------------------------------------
 
@@ -74,7 +74,7 @@ Build instructions:
   # Get mknetrel from:
      cvs -d:pserver:anoncvs@sources.redhat.com:/cvs/cygwin-apps co mknetrel
 
-  # Copy the extra mknetrel script for LilyPond to mknetrel:
+  # Copy the extra mknetrel script to mknetrel/extra:
      cp lilypond-@TOPLEVEL_VERSION@-1/cygwin/mknetrel mknetrel/extra/lilypond
 
   # Build the package:
@@ -90,16 +90,13 @@ This will create:
 
 Port notes:
 
-  These packages were built on GNU/Linux using mknetrel.
+  LilyPond builds ootb with cygwin/mknetrel.
 
-  Jan Nieuwenhuizen
-  janneke@gnu.org
-
-Cygwin port maintained by: Jan Nieuwenhuizen  <janneke@gnu.org> 
+  Cygwin port maintained by: Bertalan Fodor
 
 ------------------
 
-Please send questions or comments on the LilyPond Cygwin package or
+Please send questions or comments on this Cygwin package or
 installation to the Cygwin mailing list at: cygwin@cygwin.com.
 However, if you're having problems related to LilyPond, please write
 to lilypond-user@gnu.org.  Please do not email the authors directly.
