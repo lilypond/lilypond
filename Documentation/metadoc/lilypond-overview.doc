@@ -90,7 +90,7 @@ input along with output in Figure~\ref{fig:intro-fig}.
 %
 \begin{figure}[htbp]
   \begin{center}
-\begin{mudela}[verbatim]
+\begin[verbatim]{mudela}
       \score {
         \notes
           \context GrandStaff <
