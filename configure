@@ -2846,6 +2846,14 @@ test -n "$MAKEINFO" || MAKEINFO="error"
 
 
 
+echo $ac_n "checking Checking TFM directory""... $ac_c" 1>&6
+echo "configure:2851: checking Checking TFM directory" >&5
+CMR10=`kpsewhich tfm cmr10.tfm`
+TEX_TFMDIR=`dirname $CMR10`
+echo "$ac_t""$TEX_TFMDIR" 1>&6
+
+
+
     trap '' 1 2 15
 cat > confcache <<\EOF
 # This file is a shell script that caches the results of configure
@@ -3037,6 +3045,7 @@ s%@GUILE_CFLAGS@%$GUILE_CFLAGS%g
 s%@GUILE_LDFLAGS@%$GUILE_LDFLAGS%g
 s%@LIBOBJS@%$LIBOBJS%g
 s%@MAKEINFO@%$MAKEINFO%g
+s%@TEX_TFMDIR@%$TEX_TFMDIR%g
 
 CEOF
 EOF
@@ -3348,5 +3357,6 @@ fi
     rm -f GNUmakefile
     cp make/toplevel.make.in ./GNUmakefile
     chmod 444 GNUmakefile
+
 
 
