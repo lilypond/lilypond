@@ -69,20 +69,20 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
 	   "notes, and @var{g} the timing for grace notes.  "
 	   "In absence of grace notes, @var{g} is zero.\n")
 {
-  SCM_ASSERT_TYPE (SCM_INUMP (n), n, SCM_ARG1, __FUNCTION__, "integer");
-  SCM_ASSERT_TYPE (SCM_INUMP (d), d, SCM_ARG2, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (scm_is_integer (n), n, SCM_ARG1, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (scm_is_integer (d), d, SCM_ARG2, __FUNCTION__, "integer");
 
   int grace_num = 0;
   if (gn != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (SCM_INUMP (gn), gn, SCM_ARG3, __FUNCTION__, "integer");
+      SCM_ASSERT_TYPE (scm_is_integer (gn), gn, SCM_ARG3, __FUNCTION__, "integer");
       grace_num = ly_scm2int (gn);
     }
 
   int grace_den = 1;
   if (gd != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (SCM_INUMP (gd), gd, SCM_ARG4, __FUNCTION__, "integer");
+      SCM_ASSERT_TYPE (scm_is_integer (gd), gd, SCM_ARG4, __FUNCTION__, "integer");
       grace_den = ly_scm2int (gd);
     }
 

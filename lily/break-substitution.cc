@@ -19,7 +19,7 @@ set_break_subsititution (SCM criterion)
 SCM
 substitute_grob (Grob *sc)
 {
-  if (SCM_INUMP (break_criterion))
+  if (scm_is_integer (break_criterion))
     {
       Item * i = dynamic_cast<Item*> (sc);
       Direction d = to_dir (break_criterion);

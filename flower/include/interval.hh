@@ -19,6 +19,7 @@ template<class T>
 struct Interval_t : public Drul_array<T>
 {
   Drul_array<T>::elem;
+  Drul_array<T>::elem_ref;
 
   static T infinity ();
   static String T_to_string (T arg);
