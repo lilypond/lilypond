@@ -1,6 +1,7 @@
 2003-04-22  Heikki Junes <hjunes@cc.hut.fi>
 
-	* lilypond.words: added words for chant notation
+	* lilypond.words: added words for chant notation, sorted
+	alphabetically through "sort lilypond.words"
 
 2003-04-22  Juergen Reuter  <reuter@ipd.uka.de>
 
