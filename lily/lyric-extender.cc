@@ -3,13 +3,9 @@
   source file of the GNU LilyPond music typesetter
 
   (c)  1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
+  Han-Wen Nienhuys
 */
 
-/*
-  TODO: too complicated implementation.  Why the dx_drul?.
- */
-
-#
 #include "dimension-cache.hh"
 #include "box.hh"
 #include "debug.hh"
@@ -19,62 +15,32 @@
 #include "paper-def.hh"
 #include "extender-spanner.hh"
 
-Lyric_extender::Lyric_extender (SCM s)
-  : Spanner (s)
 
+MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Lyric_extender)
+SCM 
+Lyric_extender::scheme_molecule (SCM smob) 
 {
-  dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
-  set_extent_callback (Score_element::point_dimension_callback, Y_AXIS);
-}
-
-
-
-
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Lyric_extender)
-Molecule 
-Lyric_extender::do_brew_molecule () const
-{
-  Molecule  mol;
-
-  Real w = spanner_length ();
+  Spanner *sp = dynamic_cast<Spanner*> (unsmob_element (smob));
   
-  w += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
-  Real h = paper_l ()->get_var ("extender_height");
-  Molecule a = lookup_l ()->filledbox ( Box (Interval (0,w), Interval (0,h)));
-  a.translate (Offset (dx_f_drul_[LEFT], 0));
-
-  mol.add_molecule (a);
-
-  return mol;
-}
-
-
-
-void
-Lyric_extender::after_line_breaking ()
-{
-  // UGH
-  Real gap = paper_l ()->get_var ("interline");
-
-  Direction d = LEFT;
-  do
-    {
-      Item* t = get_bound (d)
-	? get_bound (d) : get_bound ((Direction)-d);
-      if (d == LEFT)
-        dx_f_drul_[d] += t->extent (X_AXIS).length ();
-      else
-	dx_f_drul_[d] -= d * gap / 2;
-    }
-  while (flip(&d) != LEFT);
-}
-
+  Real leftext = sp->get_bound (LEFT)->extent (X_AXIS).length ();
+  Real ss = sp->paper_l ()->get_var ("staffspace");
+  Real w = sp->spanner_length () - leftext - ss/2;
   
+  Real h = sp->paper_l ()->get_var ("extender_height");
+  Molecule  mol (sp->lookup_l ()->filledbox ( Box (Interval (0,w), Interval (0,h))));
+  mol.translate (Offset (leftext, 0));
+  return mol.create_scheme();
+}
+
 void
 Lyric_extender::set_textitem (Direction d, Item* textitem_l)
 {
-  set_bound (d, textitem_l);
-  add_dependency (textitem_l);
+  elt_l_->set_bound (d, textitem_l);
+  elt_l_->add_dependency (textitem_l);
 }
 
+Lyric_extender::Lyric_extender (Spanner*s)
+{
+  elt_l_ = s;
+}
 

@@ -31,7 +31,7 @@ public:
 
 private:
   Lyric_req * req_l_;
-  Text_item* text_p_;
+  Item* text_p_;
 };
 
 

@@ -136,6 +136,7 @@
    )
 )
 
+;; silly, use alist? 
 (define (find-notehead-symbol duration style)
   (case style
    ((cross) "2cross")

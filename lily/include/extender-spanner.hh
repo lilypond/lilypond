@@ -27,21 +27,13 @@
   extend beond, lasting the whole duration of the melissima
   (as in MUP, urg).
   */
-class Lyric_extender : public Spanner
+class Lyric_extender // interface
 {
 public:
-  Lyric_extender (SCM);
+  Spanner*elt_l_;
+  Lyric_extender (Spanner*);
   void set_textitem (Direction, Item*);
- static SCM scheme_molecule (SCM);
-  
-
-protected:
-  Molecule do_brew_molecule () const;
-  void after_line_breaking ();
- 
-  VIRTUAL_COPY_CONS (Score_element);
-
-  Drul_array<Real> dx_f_drul_;
+  static SCM scheme_molecule (SCM);
 };
 
 #endif // EXTENDER_SPANNER_HH

@@ -90,25 +90,26 @@ Tuplet_spanner::do_brew_molecule () const
 	  mol.add_molecule (num);
 	}
       
-      Real thick = paper_l ()->get_var ("tuplet_thick");
       if (bracket_visibility)      
 	{
-	  Real gap = paper_l () -> get_var ("tuplet_spanner_gap");
-	  Real height = staff_space;
+	  SCM ss = paper_l ()->get_scmvar ("staffspace");
+	  SCM lt =  paper_l ()->get_scmvar ("stafflinethickness");
+	  
+	  SCM thick = get_elt_property ("thick");
+	  SCM gap = get_elt_property ("number-gap");
+	  
 	  SCM at =gh_list(ly_symbol2scm ("tuplet"),
-				       gh_double2scm (height),
-				       gh_double2scm (gap),
-				       gh_double2scm (w),
-				       gh_double2scm (dy),
-				       gh_double2scm (thick),
-				       gh_int2scm (dir),
-				       SCM_UNDEFINED);
+			  ss,
+			  scm_product (gap, ss),
+			  gh_double2scm (w),
+			  gh_double2scm (dy),
+			  scm_product (thick, lt),
+			  gh_int2scm (dir),
+			  SCM_UNDEFINED);
 
 	  Box b;
 	  mol.add_molecule (Molecule (b, at));
 	}
-
-      //mol.translate_axis (dir * staff_space, Y_AXIS);
     }
   return mol;
 }

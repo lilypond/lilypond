@@ -1519,7 +1519,7 @@ note value: double length of @w{@ar{}@strong{brevis}}. @w{@ar{}@strong{note valu
 @mudela[13pt,eps] 
 \property Score.barNonAuto = ##t 
 \notes\relative c'' { 
-  \property Voice.noteHeadStyle = "mensural"
+  \property Voice.noteHeadStyle = #'mensural
   g\longa 
 } 
 @end mudela
@@ -1768,9 +1768,9 @@ but sometimes (mostly in pre baroque music) the double length note value
 \property Voice.textStyle = "large"
 \property Score.barNonAuto = ##t
 \notes\relative c'' { 
-  \property Voice.noteHeadStyle = "mensural"
+  \property Voice.noteHeadStyle = #'mensural
   g\longa_"longa" g\breve_"breve" 
-  \property Voice.noteHeadStyle = ""
+  \property Voice.noteHeadStyle = ##f
   g1_"1/1" g2_"1/2" g4_"1/4" s16 g8_"1/8" s16
   g16_"1/16" s16 g32_"1/32" s16 g64_"1/64" s32 }
 @end mudela

@@ -310,7 +310,7 @@ def lily_key (k):
 		key = key + 'es'
 		k = k[1:]
 	if not k:
-		return(key)
+		return '%s \\major' % key
 
 	type = k[0:3]
 	if key_lookup.has_key(type):
@@ -512,11 +512,11 @@ def try_parse_header_line (ln, state):
 				m = re.match ('^([^ \t]*) *(.*)$', a) # seperate clef info
 				if m:
 					__main__.global_key  =compute_key (m.group(1))# ugh.
-					voices_append ('\\key %s \\major;' % lily_key(m.group(1)))
+					voices_append ('\\key %s;' % lily_key(m.group(1)))
 					check_clef(m.group(2))
 				else:
 					__main__.global_key  =compute_key (a)# ugh.
-					voices_append ('\\key %s \\major;' % lily_key(a))
+					voices_append ('\\key %s;' % lily_key(a))
 		if g == 'O': # Origin
 			header ['origin'] = a
 		if g == 'X': # Reference Number

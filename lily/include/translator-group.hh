@@ -29,7 +29,7 @@ typedef void (Translator::*Const_method_pointer)(void) const;
 class Translator_group : public virtual Translator {
   Array<String> consists_str_arr_;
   Array<String> accepts_str_arr_;
-    Array<String> consists_end_str_arr_;
+  Array<String> consists_end_str_arr_;
   Scheme_hash_table properties_dict_;
 
   int iterator_count_;

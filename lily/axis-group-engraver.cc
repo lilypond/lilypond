@@ -42,7 +42,7 @@ void
 Axis_group_engraver::do_removal_processing ()
 {
   String type = daddy_grav_l ()->type_str_ ;
-  SCM dims = get_property (type  + "VerticalExtent");
+  SCM dims = get_property ((type  + "VerticalExtent").ch_C());
   
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
@@ -51,12 +51,12 @@ Axis_group_engraver::do_removal_processing ()
       staffline_p_->set_elt_property ("extent-Y", dims);
     }
 
-  dims = get_property (type + "MinimumVerticalExtent");
+  dims = get_property ((type + "MinimumVerticalExtent").ch_C());
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
     staffline_p_->set_elt_property ("minimum-extent-Y", dims);
 
-  dims = get_property (type + "ExtraVerticalExtent");
+  dims = get_property ((type + "ExtraVerticalExtent").ch_C());
   if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
       && gh_number_p (gh_cdr (dims)))
     staffline_p_->set_elt_property ("extra-extent-Y", dims);

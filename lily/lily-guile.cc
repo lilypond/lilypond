@@ -353,7 +353,7 @@ ly_number2string (SCM s)
 
   char str[100];			// ugh.
 
-  if (scm_integer_p (s))
+  if (scm_integer_p (s) == SCM_BOOL_F)
     {
       Real r (gh_scm2double (s));
 

@@ -10,7 +10,7 @@
 #include "musical-request.hh"
 #include "extender-spanner.hh"
 #include "paper-column.hh"
-#include "text-item.hh"
+#include "item.hh"
 #include "engraver.hh"
 #include "drul-array.hh"
 #include "extender-spanner.hh"
@@ -22,16 +22,16 @@
   typesets a nice centred extender of varying length depending on the
   gap between syllables.
 
-  We remember the last Text_item that come across. When we get a
+  We remember the last Item that come across. When we get a
   request, we create the spanner, and attach the left point to the
   last lyrics, and the right point to any lyrics we receive by
   then.  */
 class Extender_engraver : public Engraver
 {
-  Text_item *  last_lyric_l_;
-  Text_item * current_lyric_l_;
+  Item *  last_lyric_l_;
+  Item * current_lyric_l_;
   Extender_req* req_l_;
-  Lyric_extender* extender_spanner_p_;
+  Spanner* extender_p_;
 public:
   Extender_engraver ();
   VIRTUAL_COPY_CONS (Translator);
@@ -54,21 +54,22 @@ Extender_engraver::Extender_engraver ()
 {
   current_lyric_l_ = 0;
   last_lyric_l_ = 0;
-  extender_spanner_p_ = 0;
+  extender_p_ = 0;
   req_l_ = 0;
 }
 
 void
 Extender_engraver::acknowledge_element (Score_element_info i)
 {
-  if (Text_item* t = dynamic_cast<Text_item*> (i.elem_l_))
+  // -> text_item
+  if (Item* t = dynamic_cast<Item*> (i.elem_l_))
     {
       current_lyric_l_ = t;
-      if (extender_spanner_p_
-	  && !extender_spanner_p_->get_bound (RIGHT)
+      if (extender_p_
+	  && !extender_p_->get_bound (RIGHT)
 	    )
 	  {
-	    extender_spanner_p_->set_textitem (RIGHT, t);
+	    Lyric_extender(extender_p_).set_textitem (RIGHT, t);
 	  }
     }
 }
@@ -91,10 +92,10 @@ Extender_engraver::do_try_music (Music* r)
 void
 Extender_engraver::do_removal_processing ()
 {
-  if (extender_spanner_p_)
+  if (extender_p_)
     {
       req_l_->warning (_ ("unterminated extender"));
-      extender_spanner_p_->set_bound(RIGHT, get_staff_info ().command_pcol_l ());
+      extender_p_->set_bound(RIGHT, get_staff_info ().command_pcol_l ());
     }
 }
 
@@ -109,9 +110,11 @@ Extender_engraver::do_process_music ()
 	  return;
 	}
       
-      extender_spanner_p_ = new Lyric_extender (get_property ("basicLyricExtenderProperties"));
-      extender_spanner_p_->set_textitem  (LEFT, last_lyric_l_);
-      announce_element (Score_element_info (extender_spanner_p_, req_l_));
+      extender_p_ = new Spanner (get_property ("basicLyricExtenderProperties"));
+      extender_p_->set_extent_callback (Score_element::point_dimension_callback, Y_AXIS);
+
+      Lyric_extender (extender_p_).set_textitem  (LEFT, last_lyric_l_);
+      announce_element (Score_element_info (extender_p_, req_l_));
     }
 }
 
@@ -119,10 +122,10 @@ Extender_engraver::do_process_music ()
 void
 Extender_engraver::do_pre_move_processing ()
 {
-  if (extender_spanner_p_)
+  if (extender_p_)
     {
-      typeset_element (extender_spanner_p_);
-      extender_spanner_p_ = 0;
+      typeset_element (extender_p_);
+      extender_p_ = 0;
     }
 
   if (current_lyric_l_)

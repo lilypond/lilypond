@@ -395,11 +395,25 @@ ScoreContext = \translator {
 	% in alphabetical order
 	% TODO: uniform naming.;  
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	basicBarlineProperties = #`(
+
+	%
+	% distances are given in stafflinethickness (thicknesses) and staffspace (distances)
+	%
+	
+	
+	basicBarProperties = #`(
 		(break-align-symbol . Staff_bar)
 		(molecule-callback . ,Bar::scheme_molecule)	   
 		(visibility-lambda . ,begin-of-line-invisible)
 		(breakable . #t)
+
+		;;
+		;; Ross. page 151 lists other values, we opt for a leaner look
+		;; 
+		(kern . 3.0)
+		(thin-kern . 3.0)
+		(hair-thickness . 1.6)
+		(thick-thickness . 6.0)
 	)
 
 	basicBarNumberProperties = #`(
@@ -444,6 +458,7 @@ ScoreContext = \translator {
 	)
 	basicDotsProperties = #`(
 		(molecule-callback . ,Dots::scheme_molecule)
+		(dot-count . 1) 
 	)
 	basicDynamicLineSpannerProperties = #`(
 
@@ -459,6 +474,9 @@ ScoreContext = \translator {
 	  (breakable . #t)
 	)
 	basicHyphenSpannerProperties = #`(
+	(thickness . 1.0)
+	(height . 0.4)
+	(minimum-length .  0.5) 
 		(molecule-callback . ,Hyphen_spanner::scheme_molecule)
 	)
 	basicKeyProperties = #`(
@@ -530,6 +548,13 @@ ScoreContext = \translator {
 	basicSystemStartDelimiterProperties = #`(
 		(molecule-callback . ,System_start_delimiter::scheme_molecule)
 		(collapse-height . 1.0)
+		(thickness . 1.6)
+		(arch-height . 1.5)
+		(arch-angle . 50.0)
+		(arch-thick . 0.25)
+		(arch-width . 1.5)
+		(bracket-thick . 0.25)
+		(bracket-width . 2.0)
 	)
 	basicStemProperties = #`(
 		(molecule-callback . ,Stem::scheme_molecule)
@@ -556,6 +581,8 @@ ScoreContext = \translator {
 		
 	)
 	basicTupletSpannerProperties = #`(
+		(number-gap . 2.0)   
+		(thick . 1.0) 
 		(molecule-callback . ,Tuplet_spanner::scheme_molecule)
 	)	
 	basicStemTremoloProperties = #`(

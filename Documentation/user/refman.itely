@@ -19,7 +19,7 @@
 * Note specification::                      notedesc
 * barlines::                      barlines
 * Manual beams::                  Manual beam
-* tremolo::                       tremolo
+* stem tremolo::                       tremolo
 * Compound music expressions::    Compound music expressions
 * relative::                      relative
 * Repeats::                   	  Repeats	

@@ -14,7 +14,7 @@
 #include "paper-score.hh"
 #include "staff-symbol-referencer.hh"
 
-
+// -> offset callback
 void
 Rest::after_line_breaking ()
 {
@@ -36,29 +36,35 @@ Rest::after_line_breaking ()
 }
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Rest)
-Molecule 
-Rest::do_brew_molecule () const
+MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Rest)
+
+SCM 
+Rest::scheme_molecule (SCM smob) 
 {
+  Score_element* sc = unsmob_element (smob);
+  
   bool ledger_b =false;
 
-  if (balltype_i () == 0 || balltype_i () == 1)
+  SCM balltype = sc->get_elt_property ("duration-log");
+  
+  if (balltype == gh_int2scm (0) || balltype == gh_int2scm (1))
     {
-      Staff_symbol_referencer_interface si(this);
-      ledger_b = abs(si.position_f ()  - (2* balltype_i () - 1))
+      Staff_symbol_referencer_interface si(sc);
+      ledger_b = abs(si.position_f ()  - (2* gh_scm2int (balltype) - 1))
 	> si.line_count (); 
     }
   
   String style; 
-  SCM style_sym =get_elt_property ("style");
-  if (balltype_i () >= 2 &&gh_string_p ( style_sym))
+  SCM style_sym =sc->get_elt_property ("style");
+  if (gh_scm2int (balltype) >= 2 && gh_string_p (style_sym))
     {
       style = ly_scm2string (style_sym);
     }
 
-  String idx =  ("rests-") + to_str (balltype_i ()) + (ledger_b ? "o" : "") + style;
+  String idx =  ("rests-") + to_str (gh_scm2int (balltype))
+    + (ledger_b ? "o" : "") + style;
 
-  return lookup_l ()->afm_find (idx);
+  return sc-> lookup_l ()->afm_find (idx).create_scheme();
 }
 
 

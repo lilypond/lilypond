@@ -623,7 +623,7 @@ Stem::calc_stem_info () const
 
   s = beam_l ()->get_elt_property ("shorten");
   if (gh_number_p (s))
-    info.idealy_f_ -= gh_double2scm (s);
+    info.idealy_f_ -= gh_scm2double (s);
 
   Real interstaff_f = -beam_dir* calc_interstaff_dist (this, beam_l ());
 

@@ -79,7 +79,11 @@ Note_heads_engraver::do_process_music()
 	  sd.set_interface ();
 	  
 	  note_p->add_dots (d);
-	  d->set_elt_property ("dot-count", gh_int2scm (note_req_l->duration_.dots_i_));
+	  
+	  if (note_req_l->duration_.dots_i_
+	      != gh_scm2int (d->get_elt_property ("dot-count")))
+	    d->set_elt_property ("dot-count", gh_int2scm (note_req_l->duration_.dots_i_));
+	  
 	  announce_element (Score_element_info (d,0));
 	  dot_p_arr_.push (d);
 	}

@@ -18,23 +18,13 @@
   The length of the hyphen line should stretch based on the
   size of the gap between syllables.
   */
-class Hyphen_spanner : public Spanner
+struct Hyphen_spanner // interface
 {
 public:
-  Hyphen_spanner (SCM);
+  Spanner* elt_l_;
+  Hyphen_spanner  (Spanner*);
   void set_textitem (Direction, Item*);
- static SCM scheme_molecule (SCM);
-  
-
-protected:
-  Molecule do_brew_molecule () const;
-  Interval do_height () const;
-
-  void after_line_breaking ();
- 
-  VIRTUAL_COPY_CONS (Score_element);
-
-  Drul_array<Real> dx_f_drul_;
+  static SCM scheme_molecule (SCM);
 };
 
 #endif // HYPHEN_SPANNER_HH

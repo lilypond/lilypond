@@ -16,7 +16,6 @@
 Dots::Dots (SCM s)
   : Item (s)
 {
-  set_elt_property ("dot-count", gh_int2scm (0));
 }
 
 void
@@ -35,17 +34,19 @@ Dots::after_line_breaking ()
     }
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Dots);
-Molecule  
-Dots::do_brew_molecule () const
+MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Dots);
+
+SCM  
+Dots::scheme_molecule (SCM d)
 {
-  Molecule mol (lookup_l ()->blank (Box (Interval (0,0),
+  Score_element *sc = unsmob_element (d);
+  Molecule mol (sc->lookup_l ()->blank (Box (Interval (0,0),
 					 Interval (0,0))));
 
-  SCM c = get_elt_property ("dot-count");
+  SCM c = sc->get_elt_property ("dot-count");
   if (gh_number_p (c))
     {
-      Molecule d = lookup_l ()->afm_find (String ("dots-dot"));
+      Molecule d = sc->lookup_l ()->afm_find (String ("dots-dot"));
 
       Real dw = d.extent (X_AXIS).length ();
       d.translate_axis (-dw, X_AXIS);
@@ -57,7 +58,7 @@ Dots::do_brew_molecule () const
 	  mol.add_molecule (d);
 	}
     }
-  return mol;
+  return mol.create_scheme ();
 }
 
 

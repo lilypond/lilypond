@@ -36,43 +36,42 @@ const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 int
 Key_item::calculate_position(SCM pair) const
 {
-  SCM note = gh_car (pair);
-  if (gh_pair_p (note))
-    {
-      int o = gh_scm2int (gh_car (note));
-      int p = gh_scm2int (gh_cdr (note));
-      return p + o*7 + gh_scm2int (get_elt_property ("c0-position"));
-    }
-  int p = gh_scm2int (note);
+  int p = gh_scm2int (gh_car (pair));
   int a = gh_scm2int (gh_cdr (pair));  
   
-  // Find the c in the range -4 through 2
-  int from_bottom_pos = gh_scm2int (get_elt_property ("c0-position")) + 4;
-  from_bottom_pos = from_bottom_pos%7;
-  from_bottom_pos = (from_bottom_pos + 7)%7; // Precaution to get positive.
-  int c0 = from_bottom_pos - 4;
-  
-  
-  if ((a<0 && ((p>FLAT_TOP_PITCH) || (p+c0>4)) && (p+c0>1)) 
-      ||
-      (a>0 && ((p>SHARP_TOP_PITCH) || (p+c0>5)) && (p+c0>2))) 
+  if (to_boolean (get_elt_property ("multi-octave")))
     {
-      p -= 7; /* Typeset below c_position */
+      return p + gh_scm2int (get_elt_property ("c0-position"));
     }
-  /* Provide for the four cases in which there's a glitch 
-     it's a hack, but probably not worth  
-     the effort of finding a nicer solution.
-     --dl. */
-  if (c0==2 && a>0 && p==3)
-    p -= 7;
-  if (c0==-3 && a>0 && p==-1)
-    p += 7;
-  if (c0==-4 && a<0 && p==-1)
-    p += 7;
-  if (c0==-2 && a<0 && p==-3)
-    p += 7;
-  
-  return p + c0;
+  else {
+    // Find the c in the range -4 through 2
+    int from_bottom_pos = gh_scm2int (get_elt_property ("c0-position")) + 4;
+    from_bottom_pos = from_bottom_pos%7;
+    from_bottom_pos = (from_bottom_pos + 7)%7; // Precaution to get positive.
+    int c0 = from_bottom_pos - 4;
+
+    
+    if ((a<0 && ((p>FLAT_TOP_PITCH) || (p+c0>4)) && (p+c0>1)) 
+	||
+	(a>0 && ((p>SHARP_TOP_PITCH) || (p+c0>5)) && (p+c0>2))) 
+      {
+	p -= 7; /* Typeset below c_position */
+      }
+    /* Provide for the four cases in which there's a glitch 
+       it's a hack, but probably not worth  
+       the effort of finding a nicer solution.
+       --dl. */
+    if (c0==2 && a>0 && p==3)
+      p -= 7;
+    if (c0==-3 && a>0 && p==-1)
+      p += 7;
+    if (c0==-4 && a<0 && p==-1)
+      p += 7;
+    if (c0==-2 && a<0 && p==-3)
+      p += 7;
+    
+    return p + c0;
+  }
 }
 
 MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Key_item)

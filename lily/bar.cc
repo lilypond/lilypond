@@ -32,28 +32,39 @@ Bar::get_bar_size () const
 }
 
 
-Molecule 
-Bar::do_brew_molecule () const
+SCM 
+Bar::scheme_molecule (SCM smob) 
 {
-  SCM s = get_elt_property ("glyph");
+  Score_element * self = unsmob_element (smob);
+  Bar * fly = dynamic_cast<Bar*> (self);
+  SCM s = self->get_elt_property ("glyph");
   if (gh_string_p (s))
     {
       String str  =ly_scm2string (s);
-      return compound_barline (str, get_bar_size ());
+      return fly->compound_barline (str, fly->get_bar_size ()).create_scheme ();
     }
-  return Molecule ();
+  return SCM_EOL;
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Bar);
+MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Bar);
 
 Molecule
 Bar::compound_barline (String str, Real h) const
 {
-  Real kern = paper_l()->get_var ("bar_kern");
-  Real thinkern = paper_l()->get_var ("bar_thinkern");
+  Real kern = gh_scm2double (get_elt_property ("kern"));
+  Real thinkern = gh_scm2double (get_elt_property ("thin-kern"));
+  Real hair = gh_scm2double (get_elt_property ("hair-thickness"));
+  Real fatline = gh_scm2double (get_elt_property ("thick-thickness"));
 
-  Molecule thin = simple_barline (paper_l()->get_var ("barthick_thin"), h);
-  Molecule thick = simple_barline (paper_l()->get_var ("barthick_thick"), h);
+  Real staffline = paper_l ()->get_var ("stafflinethickness");
+
+  kern *= staffline;
+  thinkern *= staffline;
+  hair *= staffline;
+  fatline *= staffline;
+  
+  Molecule thin = simple_barline (hair, h);
+  Molecule thick = simple_barline (fatline, h);
   Molecule colon = lookup_l ()->afm_find ("dots-repeatcolon");  
 
   Molecule m;

@@ -13,6 +13,8 @@
 #include "debug.hh"
 #include "item.hh"
 
+/*
+ */
 Hara_kiri_group_spanner::Hara_kiri_group_spanner(SCM s)
   : Spanner (s)
 {
@@ -24,12 +26,16 @@ Hara_kiri_group_spanner::add_interesting_item (Item* n)
 {
   add_dependency (n);
   Pointer_group_interface (this, "items-worth-living").add_element (n);
+
 }
 
 void 
 Hara_kiri_group_spanner::after_line_breaking ()
 {
   SCM worth = get_elt_pointer ("items-worth-living");
+  /*
+    worth == self_scm  is a stupid way to signal that we're done.
+   */
   if (gh_pair_p (worth))
     return;
 
@@ -42,9 +48,31 @@ Hara_kiri_group_spanner::after_line_breaking ()
 	programming_error ("Killing other children too");
       s->suicide ();
     }
-  set_extent_callback (0, X_AXIS);
-  set_extent_callback (0, Y_AXIS);  
+
+  /*
+    very appropriate name here :-)
+   */
+  suicide ();
 }
 
 
 
+/*
+  We can't rely on offsets and dimensions of elements in a hara-kiri
+  group. Use a callback to make sure that hara-kiri has been done
+  before asking for offsets.  */
+Real
+Hara_kiri_group_spanner::force_hara_kiri_callback (Score_element const  *elt, Axis a)
+{
+  while (elt && !dynamic_cast<Hara_kiri_group_spanner const*> (elt))
+    elt = elt->parent_l(a);
+
+  if (elt)
+    {
+      Hara_kiri_group_spanner const  * seppuku = dynamic_cast<Hara_kiri_group_spanner const*> (elt);
+
+      ((Hara_kiri_group_spanner*)seppuku)->after_line_breaking ();
+    }
+
+  return 0.0;
+}

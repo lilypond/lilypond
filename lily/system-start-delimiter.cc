@@ -19,20 +19,22 @@ Molecule
 System_start_delimiter::staff_bracket (Real height) const 
 {
   Paper_def* p= paper_l ();
-  Real arc_height = p->get_var("bracket_arch_height");
+  SCM scmss = p->get_scmvar ("staffspace");
+  Real ss = gh_scm2double (scmss);
+  Real arc_height = gh_scm2double (get_elt_property("arch-height")) * ss ;
+  
   SCM at = gh_list (ly_symbol2scm ("bracket"),
-		    gh_double2scm (p->get_var("bracket_arch_angle")),
-		    gh_double2scm (p->get_var("bracket_arch_width")),
+		    scm_product (get_elt_property ("arch-angle"), scmss),
+		    scm_product (get_elt_property ("arch-width"), scmss),
 		    gh_double2scm (arc_height),
-		    gh_double2scm (p->get_var("bracket_width")),
+		    scm_product (get_elt_property ("bracket-width"),scmss),
 		    gh_double2scm (height),
-		    gh_double2scm (p->get_var("bracket_arch_thick")),
-		    gh_double2scm (p->get_var("bracket_thick")),
+		    scm_product (get_elt_property ("arch-thick"),scmss),
+		    scm_product (get_elt_property ("bracket-thick"),scmss),
 		    SCM_UNDEFINED);
 
-  Real staff_space = p->get_var ("interline");
   Real h = height + 2 * arc_height;
-  Box b (Interval (0, 1.5 * staff_space), Interval (-h/2, h/2));
+  Box b (Interval (0, 1.5 * ss), Interval (-h/2, h/2));
   Molecule mol (b, at);
   mol.align_to (X_AXIS, CENTER);
   return mol;
@@ -48,7 +50,8 @@ System_start_delimiter::System_start_delimiter (SCM s)
 Molecule
 System_start_delimiter::simple_bar (Real h) const
 {
-  Real w = paper_l ()->get_var ("barthick_score");
+  Real w = paper_l ()->get_var ("stafflinethickness") *
+    gh_scm2double (get_elt_property ("thickness"));
   return lookup_l ()->filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 
@@ -63,41 +66,44 @@ System_start_delimiter::after_line_breaking ()
     }
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(System_start_delimiter);
-Molecule
-System_start_delimiter::do_brew_molecule ()const
+MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(System_start_delimiter);
+
+SCM
+System_start_delimiter::scheme_molecule (SCM smob)
 {
-  Interval ext = Axis_group_interface::group_extent_callback (this, Y_AXIS);
+  Score_element * sc = unsmob_element (smob);
+
+  System_start_delimiter * ssd= dynamic_cast<System_start_delimiter*> (sc);
+  
+  Interval ext = Axis_group_interface::group_extent_callback (sc, Y_AXIS);
   Real l = ext.length (); 
   Molecule m;
 
-  SCM s = get_elt_property ("collapse-height");
+  SCM s = sc->get_elt_property ("collapse-height");
   if (gh_number_p (s) && l < gh_scm2double (s))
     {
-      System_start_delimiter * me = (System_start_delimiter*)this;
-      me->suicide ();
-      return m;
+      sc->suicide();
+      return SCM_EOL;
     }
 
-  
-  s = get_elt_property ("glyph");
+  s = sc->get_elt_property ("glyph");
   if (!gh_symbol_p(s))
-    return m;
+    return SCM_EOL;
   
   if (s == ly_symbol2scm ("bracket"))
-    m = staff_bracket (l);
-  else if ( s == ly_symbol2scm ("brace"))
-    m =  staff_brace (l);
+    m = ssd->staff_bracket (l);
+  else if (s == ly_symbol2scm ("brace"))
+    m = ssd-> staff_brace (l);
   else if (s == ly_symbol2scm ("bar-line"))
-    m = simple_bar (l);
+    m = ssd->simple_bar (l);
   
   
   m.translate_axis (ext.center (), Y_AXIS);
-  return m;
+  return m.create_scheme ();
 }
 
 /*
-  ugh. Suck me plenty.
+  Ugh. Suck me plenty.
  */
 Molecule
 System_start_delimiter::staff_brace (Real y)  const

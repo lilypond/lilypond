@@ -12,7 +12,7 @@
 #include "paper-def.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol.hh"
-#include "text-item.hh"
+#include "item.hh"
 #include "moment.hh"
 #include "engraver.hh"
 #include "protected-scm.hh"
@@ -20,7 +20,7 @@
 class Bar_number_engraver : public Engraver
 {
 protected:
-  Text_item* text_p_;
+  Item* text_p_;
 
   Protected_scm staffs_;
 
@@ -107,7 +107,7 @@ Bar_number_engraver::create_items ()
     return;
 
   SCM b = get_property ("basicBarNumberProperties");
-  text_p_ = new Text_item (b);
+  text_p_ = new Item (b);
   Side_position_interface staffside(text_p_);
   staffside.set_axis (Y_AXIS);
 

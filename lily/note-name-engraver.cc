@@ -9,14 +9,14 @@
 
 #include "engraver.hh"
 #include "musical-request.hh"
-#include "text-item.hh"
+#include "item.hh"
 
 class Note_name_engraver : public Engraver
 {
 public:
   VIRTUAL_COPY_CONS(Translator);
   Link_array<Note_req> req_l_arr_;
-  Link_array<Text_item> texts_;
+  Link_array<Item> texts_;
   virtual bool  do_try_music (Music*m);
   virtual void do_process_music ();
   virtual void do_pre_move_processing ();
@@ -46,7 +46,7 @@ Note_name_engraver::do_process_music ()
     }
   if (s.length_i())
     {
-      Text_item * t = new Text_item (SCM_EOL);
+      Item * t = new Item (SCM_EOL);
       t->set_elt_property ("text", ly_str02scm ( s.ch_C()));
       announce_element (Score_element_info (t, req_l_arr_[0]));
       texts_.push (t);

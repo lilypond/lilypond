@@ -1,35 +1,30 @@
-%
-% URG: this file was named 'scales.ly' but now that we have a
-%      ly/scales.ly, that name doesn't compile anymore.
-%
-
 \score { 
   \context Voice \notes\relative c {
     % sharp-major 
 	% c g d a e b fis cis
 	
-	\key c \major;
+	\key c;
 	c' d e f g a b c
 	
-	\key g\major;
+	\key g;
 	g a b c d e fis g
 	
-	\key d\major;
+	\key d;
 	d, e fis g a b cis d
 	
-	\key a\major;
+	\key a;
 	a b cis d e fis gis a
 	
-	\key e\major;
+	\key e;
 	e, fis gis a b cis dis e
 	
-	\key b\major;
+	\key b;
 	b cis dis e fis gis ais b
 	
-	\key fis\major;
+	\key fis;
 	fis, gis ais b cis dis eis fis
 	
-	\key cis\major;
+	\key cis;
 	cis, dis eis fis gis ais bis cis
 	
 	% sharp-minor
@@ -62,25 +57,25 @@
 	% flat-major 
 	% c f bes es as des ges ces
 	
-	\key f\major;
+	\key f;
 	f, g a bes c d e f
 	
-	\key bes\major;
+	\key bes;
 	bes, c d es f g a bes
 	
-	\key es\major;
+	\key es;
 	es,, f g as bes c d es 
 	
-	\key as\major;
+	\key as;
 	as, bes c des es f g as
 	
-	\key des\major;
+	\key des;
 	des,, es f ges as bes c des
 	
-	\key ges\major;
+	\key ges;
 	ges, as bes ces des es f ges
 	
-	\key ces\major;
+	\key ces;
 	ces,, des es fes ges as bes ces
 	
 	% flat-minor 

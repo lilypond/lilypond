@@ -14,12 +14,6 @@
 #include "score-performer.hh"
 #include "debug.hh"
 
-// classes, alphasorted
-//     statics
-//     constructors
-//     destructor
-//     routines, alphasorted
-
 Midi_def::Midi_def()
 {
   // ugh

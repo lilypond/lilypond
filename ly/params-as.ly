@@ -44,12 +44,6 @@ arithmetic_basicspace = 2.;
 arithmetic_multiplier = 0.9 * \quartwidth ;
 
 
-#'Stem_tremolo::beam-width = 1.5 * \quartwidth ; 
-
-#'Clef_item::visibility-lambda = #postbreak-only-visibility
-#'Key_item::visibility-lambda = #postbreak-only-visibility
-#'Breathing_sign::visibility-lambda = #non-postbreak-visibility
-
 % catch suspect beam slopes, set slope to zero if
 % outer stem is lengthened more than
 beam_lengthened = 0.2 * \staffspace;

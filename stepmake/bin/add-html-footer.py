@@ -10,9 +10,8 @@ import time
 import string 
 import getopt
 
-gcos = "unknown"
-index_url=''
-top_url=''
+fullname = "unknown"
+index_file=''
 changelog_file=''
 package_name = ''
 package_version = ''
@@ -34,14 +33,15 @@ footer_file = ''
 default_header = r"""
 """
 
-default_footer = r"""<hr>Please take me <a href=@INDEX@>back to the index</a>
-of @PACKAGE_NAME@
+default_footer = r"""<hr>Please take me <a href=%s>back to the index</a>
+of %s
+<!-- package name %s>
+ <!-- webmaster fields. %s %s>
 """
 
-built = r"""<hr><font size=-1>
-This page was built from @PACKAGE_NAME@-@PACKAGE_VERSION@ by 
-<address><br>@GCOS@ &lt<a href="mailto:%s">@MAIL_ADDRESS@</a>&gt,
-@LOCALTIME@.</address><p></font>"""
+builtstr = r"""<hr><font size=-1>
+This page was built from %s-%s by 
+<address><br>%s &lt<a href="mailto:%s">%s</a>&gt,  %s.</address><p></font>"""
 
 
 def gulp_file (f):
@@ -89,9 +89,8 @@ for opt in options:
 		header_file = a
 	elif o == '-h' or o == '--help':
 		help ()
-	# urg, this is top!
 	elif o == '--index':
-		index_url = a
+		index_file = a
 	elif o == '--name':
 		package_name = a
 	elif o == '--version':
@@ -99,9 +98,8 @@ for opt in options:
 	else:
 		raise 'unknown opt ', o
 
-#burp?
-def set_gcos ():
-	global gcos
+def set_vars ():
+	global fullname
 	os.environ["CONFIGSUFFIX"] = 'www';
 	if os.name == 'nt':
 		import ntpwd
@@ -112,29 +110,36 @@ def set_gcos ():
 
 	f = pw[4]
 	f = string.split (f, ',')[0]
-	gcos = f 
+	fullname = f 
 
-def compose (default, file):
-	s = default
-	if file:
-		s = gulp_file (file)
+#burp
+def compose_header ():
+	global default_header
+	head = default_header
+	if header_file:
+		head = gulp_file (header_file)
+	return head
+
+def compose_footer (index):
+	global default_footer
+	foot = default_footer
+
+	if footer_file:
+		foot = gulp_file (footer_file)
+
+	s = foot % (index, package_name, package_name, webmaster, webmaster)
+	s = s + builtstr % (package_name, package_version, fullname,
+			    mail_address, mail_address, 
+			    time.strftime ('%c %Z', time.localtime (time.time ())))
 	return s
 
-set_gcos ()
-localtime = time.strftime ('%c %Z', time.localtime (time.time ()))
-
-if os.path.basename (index_url) != "index.html":
-	index_url = index_url + "/index.html"
-top_url = os.path.dirname (index_url) + "/"
-
-header = compose (default_header, header_file)
-footer = compose (default_footer, footer_file) + built
+set_vars ()
+header = compose_header ()
+footer = compose_footer (index_file)
 header_tag = '<! header_tag >'
 footer_tag = '<! footer_tag >'
 
-def do_file (f):
-	s = gulp_file (f)
-
+def do_file (s):
 	if changelog_file:
 		changes = gulp_file (changelog_file)
 		# urg?
@@ -145,12 +150,12 @@ def do_file (f):
 		s = re.sub ('top_of_ChangeLog', '<XMP>\n'+ changes  + '\n</XMP>\n', s)
 
 	if re.search (header_tag, s) == None:
-		body = '<BODY BGCOLOR=WHITE><FONT COLOR=BLACK>'
+		body='<BODY BGCOLOR=WHITE><FONT COLOR=BLACK>'
 		s = re.sub ('(?i)<body>', body, s)
 		if re.search ('(?i)<BODY', s):
-			s = re.sub ('(?i)<body[^>]*>', body + header, s, 1)
+			s = re.sub ('(?i)<body[^>]*>', body + header, s)
 		elif re.search ('(?i)<html', s):		
-			s = re.sub ('(?i)<html>', '<HTML>' + header, s, 1)
+			s = re.sub ('(?i)<html>', '<HTML>' + header, s)
 		else:
 			s = header + s
 
@@ -160,33 +165,31 @@ def do_file (f):
 		s = s + footer_tag
 
 		if re.search ('(?i)</body', s):
-			s = re.sub ('(?i)</body>', footer + '</BODY>', s, 1)
+			s = re.sub ('(?i)</body>', footer + '</BODY>', s)
 		elif re.search ('(?i)</html', s):		
-			s = re.sub ('(?i)</html>', footer + '</HTML>', s, 1)
+			s = re.sub ('(?i)</html>', footer + '</HTML>', s)
 		else:
 			s = s + footer
 
-	#URUGRGOUSNGUOUNRIU
-	index = index_url
-	top = top_url
-	if os.path.basename (f) == "index.html":
-		cwd = os.getcwd ()
-		if os.path.basename (cwd) == "topdocs":
-			index = "./index.html"
-			top = "./"
-
-	s = re.sub ('@INDEX@', index, s)
-	s = re.sub ('@TOP@', top, s)
-	s = re.sub ('@PACKAGE_NAME@', package_name, s)
-	s = re.sub ('@PACKAGE_VERSION@', package_version, s)
-	s = re.sub ('@WEBMASTER@', webmaster, s)
-	s = re.sub ('@GCOS@', gcos, s)
-	s = re.sub ('@LOCALTIME@', localtime, s)
-	s = re.sub ('@MAIL_ADDRESS@', mail_address, s)
-
-	open (f, 'w').write (s)
+	return s
 
 
 for f in files:
-	do_file (f)
+	s = gulp_file (f)
+	s = do_file (s)
+	open (f, 'w').write (s)
+
+if 0:
+	title = '<HEAD><TITLE>' \
+		+ package_name + ' -- ' + os.path.basename (os.path.splitext(f)[0]) \
+		+ '</TITLE></HEAD>'
+	s = check_tag ('<title>', title, s, 0)
+
+	s = check_tag ('<html', '', s, 0)
+	if regex.search ('<HTML', s) == -1:
+		s = '<HTML>\n' + s
+	s = check_tag ('</html>', '</HTML>', s, 1)
+
+	dump_file (f, s)
+
 

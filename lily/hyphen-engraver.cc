@@ -6,10 +6,40 @@
 
 #include "proto.hh"
 #include "musical-request.hh"
-#include "hyphen-engraver.hh"
 #include "hyphen-spanner.hh"
 #include "paper-column.hh"
-#include "text-item.hh"
+#include "item.hh"
+#include "engraver.hh"
+
+/**
+  Generate an centred hyphen.  Should make a Hyphen_spanner that
+  typesets a nice centred hyphen of varying length depending on the
+  gap between syllables.
+
+  We remember the last Item that come across. When we get a
+  request, we create the spanner, and attach the left point to the
+  last lyrics, and the right point to any lyrics we receive by
+  then.  */
+class Hyphen_engraver : public Engraver
+{
+  Item *last_lyric_l_;
+  Item *current_lyric_l_;
+  Hyphen_req* req_l_;
+  Spanner* hyphen_p_;
+public:
+  Hyphen_engraver ();
+  VIRTUAL_COPY_CONS (Translator);
+
+protected:
+  virtual void acknowledge_element (Score_element_info);
+  virtual void do_removal_processing();
+  virtual void do_process_music();
+  virtual bool do_try_music (Music*);
+  virtual void do_pre_move_processing();
+  virtual void do_post_move_processing ();
+private:
+
+};
 
 ADD_THIS_TRANSLATOR (Hyphen_engraver);
 
@@ -17,21 +47,23 @@ Hyphen_engraver::Hyphen_engraver ()
 {
   current_lyric_l_ = 0;
   last_lyric_l_ = 0;
-  hyphen_spanner_p_ = 0;
+  hyphen_p_ = 0;
   req_l_ = 0;
 }
 
 void
 Hyphen_engraver::acknowledge_element (Score_element_info i)
 {
-  if (Text_item* t = dynamic_cast<Text_item*> (i.elem_l_))
+
+  // -> text-item
+  if (Item* t = dynamic_cast<Item*> (i.elem_l_))
     {
       current_lyric_l_ = t;
-      if (hyphen_spanner_p_
-	  && !hyphen_spanner_p_->get_bound (RIGHT)
+      if (hyphen_p_
+	  && !hyphen_p_->get_bound (RIGHT)
 	    )
 	  {
-	    hyphen_spanner_p_->set_textitem (RIGHT, t);
+	    Hyphen_spanner (hyphen_p_).set_textitem (RIGHT, t);
 	  }
     }
 }
@@ -54,10 +86,10 @@ Hyphen_engraver::do_try_music (Music* r)
 void
 Hyphen_engraver::do_removal_processing ()
 {
-  if (hyphen_spanner_p_)
+  if (hyphen_p_)
     {
       req_l_->warning (_ ("unterminated hyphen"));
-      hyphen_spanner_p_->set_bound(RIGHT, get_staff_info ().command_pcol_l ());
+      hyphen_p_->set_bound(RIGHT, get_staff_info ().command_pcol_l ());
     }
 }
 
@@ -72,9 +104,10 @@ Hyphen_engraver::do_process_music ()
 	  return;
 	}
       
-      hyphen_spanner_p_ = new Hyphen_spanner (get_property ("basicHyphenSpannerProperties"));
-      hyphen_spanner_p_->set_textitem  (LEFT, last_lyric_l_);
-      announce_element (Score_element_info (hyphen_spanner_p_, req_l_));
+      hyphen_p_ = new Spanner (get_property ("basicHyphenSpannerProperties"));
+      hyphen_p_->set_extent_callback (Score_element::point_dimension_callback,Y_AXIS);
+      Hyphen_spanner (hyphen_p_).set_textitem  (LEFT, last_lyric_l_);
+      announce_element (Score_element_info (hyphen_p_, req_l_));
     }
 }
 
@@ -82,10 +115,10 @@ Hyphen_engraver::do_process_music ()
 void
 Hyphen_engraver::do_pre_move_processing ()
 {
-  if (hyphen_spanner_p_)
+  if (hyphen_p_)
     {
-      typeset_element (hyphen_spanner_p_);
-      hyphen_spanner_p_ = 0;
+      typeset_element (hyphen_p_);
+      hyphen_p_ = 0;
     }
 
   if (current_lyric_l_)

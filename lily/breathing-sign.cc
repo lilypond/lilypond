@@ -28,12 +28,13 @@ Breathing_sign::Breathing_sign (SCM  s)
 
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Breathing_sign);
+MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Breathing_sign);
 
-Molecule 
-Breathing_sign::do_brew_molecule () const
+SCM 
+Breathing_sign::scheme_molecule (SCM smob)
 {
-  Staff_symbol_referencer_interface si (this);
+  Score_element * sc = unsmob_element (smob);
+  Staff_symbol_referencer_interface si (sc);
   
   Real space = si.staff_space();
 
@@ -41,7 +42,7 @@ Breathing_sign::do_brew_molecule () const
   Interval i1(0, space / 6), i2(-space / 2, space / 2);
   Box b(i1, i2);
 
-  return lookup_l()->filledbox(b);
+  return sc->lookup_l()->filledbox(b).create_scheme ();
 }
 
 void

@@ -50,7 +50,7 @@ is_duration_b (int t)
 
 
 // mmm JUNKME ?
-Mudela_version oldest_version ("1.3.42");
+Mudela_version oldest_version ("1.3.59");
 
 void
 print_mudela_versions (ostream &os)
@@ -82,7 +82,6 @@ print_mudela_versions (ostream &os)
 %union {
     Array<Musical_pitch> *pitch_arr;
     Link_array<Request> *reqvec;
-    Array<int> *intvec;
     Duration *duration;
     Identifier *id;
     String * string;
@@ -96,13 +95,13 @@ print_mudela_versions (ostream &os)
     Musical_pitch * pitch;
     Midi_def* midi;
     Moment *moment;
-    Paper_def *paper;
     Real real;
     Request * request;
 
     /* We use SCMs to do strings, because it saves us the trouble of
 deleting them.  Let's hope that a stack overflow doesnt trigger a move
 of the parse stack onto the heap. */
+
     SCM scm;
 
     Tempo_req *tempo;
@@ -197,20 +196,18 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <id>	IDENTIFIER
 %token <id>	MUSIC_IDENTIFIER
 %token <id>	REQUEST_IDENTIFIER
-%token <id>	REAL_IDENTIFIER
 %token <id>	TRANS_IDENTIFIER
-%token <id>	INT_IDENTIFIER
-%token <id>	SCORE_IDENTIFIER
-%token <id>	MIDI_IDENTIFIER
-%token <id>	PAPER_IDENTIFIER
-%token <real>	REAL
+%token <scm>	NUMBER_IDENTIFIER
 
-%token <scm>	STRING_IDENTIFIER SCM_IDENTIFIER
+%token <id>	SCORE_IDENTIFIER
+%token <id>	MUSIC_OUTPUT_DEF_IDENTIFIER
+
+%token <scm>	STRING_IDENTIFIER SCM_IDENTIFIER 
 %token <scm>	DURATION RESTNAME
-%token <scm>	STRING
+%token <scm>	STRING 
 %token <scm>	SCM_T
 %token <i>	UNSIGNED
-
+%token <real>   REAL
 
 %type <outputdef> output_def
 %type <scope> 	mudela_header mudela_header_body
@@ -220,14 +217,14 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <music>	simple_element  request_chord command_element Simple_music  Composite_music 
 %type <music>	Alternative_music Repeated_music
 %type <i>	tremolo_type
-%type <i>	int unsigned
+%type <i>	bare_int  bare_unsigned
 %type <i>	script_dir
 
-%type <scm>	identifier_init
+%type <scm>	identifier_init 
 
 %type <duration> steno_duration optional_notemode_duration
 %type <duration> entered_notemode_duration explicit_duration
-%type <intvec>	 int_list
+	
 %type <reqvec>  pre_requests post_requests
 %type <request> gen_text_def
 %type <pitch>   steno_musical_pitch musical_pitch absolute_musical_pitch
@@ -236,7 +233,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <pitch_arr>	chord_additions chord_subtractions chord_notes chord_step
 %type <music>	chord
 %type <pitch>	chord_note chord_inversion chord_bass
-%type <midi>	midi_block midi_body
 %type <duration>	duration_length
 
 %type <scm>  embedded_scm scalar
@@ -244,14 +240,13 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <music>	relative_music re_rhythmed_music
 %type <music>	property_def translator_change
 %type <music_list> Music_list
-%type <paper>	paper_block paper_def_body
-%type <real>	real real_with_dimension
+%type <outputdef>  music_output_def_body
 %type <request> shorthand_command_req
 %type <request>	post_request 
 %type <request> command_req verbose_command_req
 %type <request>	extender_req
 %type <request> hyphen_req
-%type <scm>	string
+%type <scm>	string bare_number number_expression
 %type <score>	score_block score_body
 
 %type <trans>	translator_spec_block translator_spec_body
@@ -290,15 +285,13 @@ toplevel_expression:
 	| score_block {
 		score_global_array.push ($1);
 	}
-	| paper_block {
+	| output_def {
 		Identifier * id = new
-			Paper_def_identifier ($1, PAPER_IDENTIFIER);
-		THIS->lexer_p_->set_identifier ("$defaultpaper", smobify (id))
-	}
-	| midi_block {
-		Identifier * id = new
-			Midi_def_identifier ($1, MIDI_IDENTIFIER);
-		THIS->lexer_p_->set_identifier ("$defaultmidi", smobify (id))
+			Music_output_def_identifier ($1, MUSIC_OUTPUT_DEF_IDENTIFIER);
+		if (dynamic_cast<Paper_def*> ($1))
+			THIS->lexer_p_->set_identifier ("$defaultpaper", smobify (id));
+		else if (dynamic_cast<Midi_def*> ($1))
+			THIS->lexer_p_->set_identifier ("$defaultmidi", smobify (id));
 	}
 	| embedded_scm {
 		// junk value
@@ -377,14 +370,9 @@ assignment:
 identifier_init:
 	score_block {
 		$$ = smobify (new Score_identifier ($1, SCORE_IDENTIFIER));
-		
 	}
-	| paper_block {
-		$$ = smobify (new Paper_def_identifier ($1, PAPER_IDENTIFIER));
-	}
-	| midi_block {
-		$$ = smobify (new Midi_def_identifier ($1, MIDI_IDENTIFIER));
-
+	| output_def {
+		$$ = smobify (new Music_output_def_identifier ($1, MUSIC_OUTPUT_DEF_IDENTIFIER));
 	}
 	| translator_spec_block {
 		$$ = smobify (new Translator_group_identifier ($1, TRANS_IDENTIFIER));
@@ -399,14 +387,11 @@ identifier_init:
 	| explicit_duration {
 		$$ = smobify (new Duration_identifier ($1, DURATION_IDENTIFIER));
 	}
-	| real {
-		$$ = smobify (new Real_identifier (new Real ($1), REAL_IDENTIFIER));
+	| number_expression {
+		$$ = $1;
 	}
 	| string {
 		$$ = $1;
-	}
-	| int	{
-		$$ = smobify (new int_identifier (new int ($1), INT_IDENTIFIER));
 	}
 	| embedded_scm	{
 		$$ = $1;
@@ -441,21 +426,12 @@ translator_spec_body:
 		tg->set_property (ly_scm2string ($2), $4);
 	}
 	| translator_spec_body STRING '=' identifier_init semicolon	{ 
-		Identifier* id = unsmob_identifier ($4);
-
-		Real_identifier *r= dynamic_cast<Real_identifier*>(id);
-		int_identifier *i = dynamic_cast<int_identifier*> (id);
-
-		SCM v;
-		if (gh_string_p ($4))
+		SCM v = gh_int2scm (0);
+		if (gh_string_p ($4) || gh_number_p ($4))
 			v = $4;
-		else if (i) v = gh_int2scm (*i->access_content_int (false));
-		else if (r) v = gh_double2scm (*r->access_content_Real (false));
 		else 
 			THIS->parser_error (_("Wrong type for property value"));
 
-		if (id)
-			delete id;
 		/* ugh*/
 		Translator_group* tg = dynamic_cast<Translator_group*> ($$);
 		
@@ -490,7 +466,7 @@ score_block:
 		{
 		  Identifier *id =
 			unsmob_identifier (THIS->lexer_p_->lookup_identifier ("$defaultpaper"));
-		  $$->add_output (id ? id->access_content_Paper_def (true) : new Paper_def );
+		  $$->add_output (id ? id->access_content_Music_output_def (true) : new Paper_def );
 		}
 	}
 	;
@@ -515,148 +491,77 @@ score_body:
 	}
 	;
 
+
+/*
+	MIDI
+*/
 output_def:
-	paper_block {
+	music_output_def_body '}' {
 		$$ = $1;
-	}
-	|  midi_block		{
-		$$= $1;
-	}
-	;
-
-
-/*
-	PAPER
-*/
-paper_block:
-	PAPER '{' paper_def_body '}' 	{ 
-		$$ = $3;
-		THIS-> lexer_p_->scope_l_arr_.pop ();
-	}
-	;
-
-
-paper_def_body:
-	/* empty */		 	{
-		  Identifier *id = unsmob_identifier (THIS->lexer_p_->lookup_identifier ("$defaultpaper"));
-		  Paper_def *p = id ? id->access_content_Paper_def (true) : new Paper_def;
-		THIS-> lexer_p_-> scope_l_arr_.push (p->scope_p_);
-		$$ = p;
-	}
-	| PAPER_IDENTIFIER 	{
-		Paper_def *p = $1->access_content_Paper_def (true);
-		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
-		$$ = p;
-	}
-	| paper_def_body int '=' FONT STRING		{ // ugh, what a syntax
-		Lookup * l = new Lookup;
-		l->font_name_ = ly_scm2string ($5);
-		$$->set_lookup ($2, l);
-	}
-	| paper_def_body assignment semicolon {
-		
-	}
-	| paper_def_body translator_spec_block {
-		$$->assign_translator ($2);
-	}
-	| paper_def_body error {
-
-	}
-	;
-
-
-
-real_with_dimension:
-	REAL CM_T	{
-		$$ = $1 CM;
-	}
-	| REAL PT_T	{
-		$$ = $1 PT;
-	}
-	| REAL IN_T	{
-		$$ = $1 INCH;
-	}
-	| REAL MM_T	{
-		$$ = $1 MM;
-	}
-	| REAL CHAR_T	{
-		$$ = $1 CHAR;
-	}
-	;
-
-real:
-	REAL		{
-		$$ = $1;
-	}
-	| real_with_dimension
-	| REAL_IDENTIFIER		{
-		$$= *$1->access_content_Real (false);
-	}
-	| '-'  real %prec UNARY_MINUS {
-		$$ = -$2;
-	}
-	| real '*' real {
-		$$ = $1 * $3;
-	}
-	| real '/' real {
-		$$ = $1 / $3;
-	}
-	| real '+' real {
-		$$ = $1  + $3;
-	}
-	| real '-' real {
-		$$ = $1 - $3;
-	}
-	| '(' real ')'	{
-		$$ = $2;
-	}
-	;
-		
-/*
-	MIDI
-*/
-midi_block:
-	MIDI
-	'{' midi_body '}' 	{
-		$$ = $3;
 		THIS-> lexer_p_-> scope_l_arr_.pop();
 	}
 	;
 
-midi_body: /* empty */ 		{
+music_output_def_body:
+	MIDI '{'    {
 	 Identifier *id = unsmob_identifier (THIS->lexer_p_->lookup_identifier ("$defaultmidi"));
-	 Midi_def* p = id
-		? id->access_content_Midi_def (true) : new Midi_def ;
+
+		
+	 Midi_def* p =0;
+	if (id)
+		p = dynamic_cast<Midi_def*> (id->access_content_Music_output_def (true));
+	else
+		p = new Midi_def;
 
 	 $$ = p;
 	 THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 	}
-	| MIDI_IDENTIFIER	{
-		Midi_def * p =$1-> access_content_Midi_def (true);
+	| PAPER '{' 	{
+		  Identifier *id = unsmob_identifier (THIS->lexer_p_->lookup_identifier ("$defaultpaper"));
+		  Paper_def *p = 0;
+		if (id)
+			p = dynamic_cast<Paper_def*> (id->access_content_Music_output_def (true));
+		else
+			p = new Paper_def;
+		THIS-> lexer_p_-> scope_l_arr_.push (p->scope_p_);
 		$$ = p;
-		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 	}
-	| midi_body assignment semicolon {
+	| PAPER '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
+		Music_output_def *p = $3->access_content_Music_output_def (true);
+		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
+		$$ = p;
+	}
+	| MIDI '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
+		Music_output_def *p = $3->access_content_Music_output_def (true);
+		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
+		$$ = p;
+	}
+	| music_output_def_body assignment semicolon {
 
 	}
-	| midi_body translator_spec_block	{
+	| music_output_def_body translator_spec_block	{
 		$$-> assign_translator ($2);
 	}
-	| midi_body tempo_request semicolon {
+	| music_output_def_body tempo_request semicolon {
 		/*
 			junk this ? there already is tempo stuff in
 			music.
 		*/
-		$$->set_tempo ($2->dur_.length_mom (), $2->metronome_i_);
+		dynamic_cast<Midi_def*> ($$)->set_tempo ($2->dur_.length_mom (), $2->metronome_i_);
 		delete $2;
 	}
-	| midi_body error {
+	| music_output_def_body bare_int '=' FONT STRING		{ // ugh, what a syntax
+		Lookup * l = new Lookup;
+		l->font_name_ = ly_scm2string ($5);
+		dynamic_cast<Paper_def*> ($$)->set_lookup ($2, l);
+	}
+	| music_output_def_body error {
 
 	}
 	;
 
 tempo_request:
-	TEMPO steno_duration '=' unsigned	{
+	TEMPO steno_duration '=' bare_unsigned	{
 		$$ = new Tempo_req;
 		$$->dur_ = *$2;
 		delete $2;
@@ -695,7 +600,7 @@ Alternative_music:
 
 
 Repeated_music:
-	REPEAT STRING unsigned Music Alternative_music
+	REPEAT STRING bare_unsigned Music Alternative_music
 	{
 		Music_sequence* m = dynamic_cast <Music_sequence*> ($5);
 		if (m && $3 < m->length_i ())
@@ -757,11 +662,11 @@ Simple_music:
 	| MUSIC_IDENTIFIER { $$ = $1->access_content_Music (true); }
 	| property_def
 	| translator_change
-	| Simple_music '*' unsigned '/' unsigned 	{
+	| Simple_music '*' bare_unsigned '/' bare_unsigned 	{
 		$$ = $1;
 		$$->compress (Moment($3, $5 ));
 	}
-	| Simple_music '*' unsigned		 {
+	| Simple_music '*' bare_unsigned		 {
 		$$ = $1;
 		$$->compress (Moment ($3, 1));
 	}
@@ -799,7 +704,7 @@ Composite_music:
 		THIS->remember_spot ();
 	}
 	/* CONTINUED */ 
-		unsigned '/' unsigned Music 	
+		bare_unsigned '/' bare_unsigned Music 	
 
 	{
 		$$ = new Time_scaled_music ($3, $5, $6);
@@ -882,7 +787,7 @@ property_def:
 
 scalar:
 	string		{ $$ = $1; }
-	| int		{ $$ = gh_int2scm ($1); }
+	| bare_int	{ $$ = gh_int2scm ($1); }
 	| embedded_scm 	{ $$ = $1; }
 	;
 
@@ -963,7 +868,7 @@ verbose_command_req:
 	BAR STRING 			{
 		$$ = new Bar_req (ly_scm2string ($2));
 	}
-	| COMMANDSPANREQUEST int STRING {
+	| COMMANDSPANREQUEST bare_int STRING {
 		Span_req * sp_p = new Span_req;
 		sp_p-> span_dir_  = Direction($2);
 		sp_p->span_type_str_ = ly_scm2string ($3);
@@ -980,19 +885,19 @@ verbose_command_req:
 		$$ = m;
 
 	}
-	| MARK unsigned {
+	| MARK bare_unsigned {
 		Mark_req *m = new Mark_req;
 		m->mark_label_ =  gh_int2scm ($2);
 		$$ = m;
 	}
 
-	| TIME_T unsigned '/' unsigned 	{
+	| TIME_T bare_unsigned '/' bare_unsigned 	{
 		Time_signature_change_req *m = new Time_signature_change_req;
 		m->beats_i_ = $2;
 		m->one_beat_i_=$4;
 		$$ = m;
 	}
-	| PENALTY int 	{
+	| PENALTY bare_int 	{
 		Break_req * b = new Break_req;
 		b->penalty_f_ = $2 / 100.0;
 		b->set_spot (THIS->here_input ());
@@ -1015,19 +920,6 @@ verbose_command_req:
 		Key_change_req *key_p= new Key_change_req;
 		$$ = key_p;
 	}
-/*
-TODO: Support for minor/major keys; make `major-scale' settable.
-
-FIXME: force modality.
-*/
-/*
-	| KEY NOTENAME_PITCH 	{
-		Key_change_req *key_p= new Key_change_req;
-		
-		key_p->pitch_alist_ = scm_eval (ly_symbol2scm ("major-scale"));
-		$$ = key_p; 
-	}
-*/
 	| KEY NOTENAME_PITCH SCM_IDENTIFIER 	{
 		Key_change_req *key_p= new Key_change_req;
 		
@@ -1090,9 +982,9 @@ verbose_request:
 
 		$$ = ts_p;
 	}
-	| SPANREQUEST int STRING {
+	| SPANREQUEST bare_int STRING {
 		Span_req * sp_p = new Span_req;
-		sp_p-> span_dir_  = Direction($2);
+		sp_p->span_dir_  = Direction($2);
 		sp_p->span_type_str_ = ly_scm2string ($3);
 		sp_p->set_spot (THIS->here_input ());
 		$$ = sp_p;
@@ -1172,15 +1064,15 @@ musical_pitch:
 	;
 
 explicit_duration:
-	DURATION '{' int_list '}'	{
+	DURATION embedded_scm 	{
 		$$ = new Duration;
-		Array<int> &a = *$3;
-		ARRAY_SIZE(a,2);
-			
-		$$-> durlog_i_ = a[0];
-		$$-> dots_i_ = a[1];
-
-		delete &a;		
+		if (scm_ilength ($2) == 2)
+			{
+			$$-> durlog_i_ = gh_scm2int (gh_car($2));
+			$$-> dots_i_ = gh_scm2int (gh_cadr($2));
+			}
+		else
+			THIS->parser_error (_("Must have 2 arguments for duration"));
 	}
 	;
 
@@ -1309,10 +1201,10 @@ duration_length:
 	steno_duration {
 		$$ = $1;
 	}
-	| duration_length '*' unsigned {
+	| duration_length '*' bare_unsigned {
 		$$->tuplet_iso_i_ *= $3;
 	}
-	| duration_length '/' unsigned {
+	| duration_length '/' bare_unsigned {
 		$$->tuplet_type_i_ *= $3;
 	}
 	;
@@ -1333,7 +1225,7 @@ optional_notemode_duration:
 	;
 
 steno_duration:
-	unsigned		{
+	bare_unsigned		{
 		$$ = new Duration;
 		if (!is_duration_b ($1))
 			THIS->parser_error (_f ("not a duration: %d", $1));
@@ -1354,7 +1246,7 @@ tremolo_type:
 	':'	{
 		$$ =0;
 	}
-	| ':' unsigned {
+	| ':' bare_unsigned {
 		if (!is_duration_b ($2))
 			THIS->parser_error (_f ("not a duration: %d", $2));
 		$$ = $2;
@@ -1386,7 +1278,6 @@ simple_element:
 
 		delete $1;
 		delete $4;
-
 	}
 	| RESTNAME optional_notemode_duration		{
 		  Simultaneous_music* velt_p = new Request_chord;
@@ -1438,16 +1329,16 @@ simple_element:
 	| STRING optional_notemode_duration 	{
 		if (!THIS->lexer_p_->lyric_state_b ())
 			THIS->parser_error (_ ("Have to be in Lyric mode for lyrics"));
-		  Simultaneous_music* velt_p = new Request_chord;
+		Simultaneous_music* velt_p = new Request_chord;
 
-		  Lyric_req* lreq_p = new Lyric_req;
-		  lreq_p ->text_str_ = ly_scm2string ($1);
-		  lreq_p->duration_ = *$2;
-		  lreq_p->set_spot (THIS->here_input());
+		Lyric_req* lreq_p = new Lyric_req;
+		lreq_p ->text_str_ = ly_scm2string ($1);
+		lreq_p->duration_ = *$2;
+		lreq_p->set_spot (THIS->here_input());
 
-		  velt_p->add_music (lreq_p);
+		velt_p->add_music (lreq_p);
 
-		  delete  $2;
+		delete  $2;
 		$$= velt_p;
 
 	}
@@ -1457,6 +1348,7 @@ simple_element:
 		$$ = $1;
 	}
 	;
+
 
 chord:
 	steno_tonic_pitch optional_notemode_duration chord_additions chord_subtractions chord_inversion chord_bass {
@@ -1529,19 +1421,19 @@ chord_step:
 	;
 
 chord_note:
-	unsigned {
+	bare_unsigned {
 		$$ = new Musical_pitch;
 		$$->notename_i_ = ($1 - 1) % 7;
 		$$->octave_i_ = $1 > 7 ? 1 : 0;
 		$$->accidental_i_ = 0;
         } 
-	| unsigned '+' {
+	| bare_unsigned '+' {
 		$$ = new Musical_pitch;
 		$$->notename_i_ = ($1 - 1) % 7;
 		$$->octave_i_ = $1 > 7 ? 1 : 0;
 		$$->accidental_i_ = 1;
 	}
-	| unsigned CHORD_MINUS {
+	| bare_unsigned CHORD_MINUS {
 		$$ = new Musical_pitch;
 		$$->notename_i_ = ($1 - 1) % 7;
 		$$->octave_i_ = $1 > 7 ? 1 : 0;
@@ -1552,48 +1444,91 @@ chord_note:
 /*
 	UTILITIES
  */
-
-/*
-  FIXME: use scm.
-*/
-/*
-pitch_list:			{
-		$$ = new Array<Musical_pitch>;
-	}
-	| pitch_list musical_pitch	{
-		$$->push (*$2);
-		delete $2;
-	}
-	;
-*/
-
-int_list:
-	/**/			{
-		$$ = new Array<int>
-	}
-	| int_list int 		{
-		$$->push ($2);		
-	}
-	;
-
-unsigned:
-	UNSIGNED	{
+number_expression:
+	bare_number {
 		$$ = $1;
+	}
+	| '-'  number_expression %prec UNARY_MINUS {
+		$$ = scm_difference ($2, SCM_UNDEFINED);
+	}
+	| number_expression '*' number_expression {
+		$$ = scm_product ($1, $3);
+	}
+	| number_expression '/' number_expression {
+		$$ = scm_divide ($1, $3);
+	}
+	| number_expression '+' number_expression {
+		$$ = scm_sum ($1, $3);
+	}
+	| number_expression '-' number_expression {
+		$$ = scm_difference ($1, $3);
+	}
+	| '(' number_expression ')'	{
+		$$ = $2;
+	}
+	;
+
+bare_number:
+	UNSIGNED	{
+		$$ = gh_int2scm ($1);
 	}
 	| DIGIT		{
+		$$ = gh_int2scm ($1);
+	}
+	| REAL		{
+		$$ = gh_double2scm ($1);
+	}
+	| NUMBER_IDENTIFIER		{
 		$$ = $1;
+	}
+	| REAL CM_T	{
+		$$ = gh_double2scm ($1 CM);
+	}
+	| REAL PT_T	{
+		$$ = gh_double2scm ($1 PT);
+	}
+	| REAL IN_T	{
+		$$ = gh_double2scm ($1 INCH);
+	}
+	| REAL MM_T	{
+		$$ = gh_double2scm ($1 MM);
+	}
+	| REAL CHAR_T	{
+		$$ = gh_double2scm ($1 CHAR);
 	}
 	;
 
-int:
-	unsigned {
-		$$ = $1;
+
+bare_unsigned:
+	bare_number {
+		if (scm_integer_p ($1) == SCM_BOOL_T) {
+			$$ = gh_scm2int ($1);
+
+		} else {
+			THIS->parser_error (_("need integer number arg"));
+			$$ = 0;
+		}
+		if ($$ < 0) {
+			THIS->parser_error (_("Must be positive integer"));
+			$$ = -$$;
+			}
+
 	}
-	| '-' unsigned {
+	;
+bare_int:
+	bare_number {
+		if (scm_integer_p ($1) == SCM_BOOL_T)
+		{
+			int k = gh_scm2int ($1);
+			$$ = k;
+		} else
+		{
+			THIS->parser_error (_("need integer number arg"));
+			$$ = 0;
+		}
+	}
+	| '-' bare_int {
 		$$ = -$2;
-	}
-	| INT_IDENTIFIER	{
-		$$ = *$1->access_content_int (false);
 	}
 	;
 
@@ -1625,6 +1560,7 @@ questions:
 semicolon:
 	';'
 	;
+
 %%
 
 void

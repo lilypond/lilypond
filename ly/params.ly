@@ -158,35 +158,9 @@ method.
 %}
 gourlay_maxmeasures = 10.;
 
-
+% vertical space between lines.
 line_kern = \staffspace;
 
-%{ Ross. page 151 lists these values, but we think that thick lines
-and kernings are too thick.
-
-bar_kern = 0.5 * \staffspace;
-bar_thinkern = 0.75 * \staffspace;
-barthick_thick = 0.5* \staffspace;
-barthick_score = 0.13333* \staffspace;
-barthick_thin = 0.1*\staffspace;
-
-%}
-
-bar_kern = 3.0 * \stafflinethickness;
-bar_thinkern = 3.0 * \stafflinethickness;
-barthick_thick = 6.0* \stafflinethickness;
-barthick_thin = 1.6*\stafflinethickness;
-barthick_score = 1.6*\stafflinethickness;
-
-bracket_arch_thick = \staffspace / 4.0;
-bracket_width = 2.0 * \staffspace;
-bracket_thick = \staffspace / 4.0;
-bracket_arch_height = 1.5 * \staffspace;
-bracket_arch_width = \bracket_arch_height;
-bracket_arch_angle = 50.0;
-
-tuplet_spanner_gap = 2.0 * \staffspace;
-tuplet_thick = 1.0*\stafflinethickness;
 volta_thick = 1.6*\stafflinethickness;
 volta_spanner_height = 2.0 *\staffspace;
 
@@ -197,9 +171,6 @@ rulethickness = \stafflinethickness;
 
 extender_height = 0.8*\stafflinethickness;
 
-hyphen_thickness = 0.05*\font_normal;
-hyphen_height = 0.2*\font_normal;
-hyphen_minimum_length = 0.25*\font_normal;
 
 % Multi-measure rests
 multi_measure_rest_x_minimum = 2.5*\staffheight;
@@ -220,9 +191,6 @@ restcollision_minimum_beamdist = 1.5;
 
 % unit for note collision resolving
 collision_note_width = \notewidth;	%ugh.
-
-% deprecated!
-postBreakPadding = 0.0;
 
 % optical correction amount.
 stemSpacingCorrection = 0.5*\staffspace;
@@ -268,9 +236,6 @@ stem_default_neutral_direction = 1.0;
 % in staffspace
 articulation_script_padding_default = 1.0;
 
-% Backward compatibility -- has no function; 
-Gourlay = 0.0;
-Wordwrap =0.0;
 
 \include "engraver.ly";
 

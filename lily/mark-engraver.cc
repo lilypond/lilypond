@@ -20,7 +20,7 @@
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
-#include "text-item.hh"
+#include "item.hh"
 #include "group-interface.hh"
 
 /**
@@ -33,7 +33,7 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   Mark_engraver ();
 protected:
-  Text_item* text_p_;
+  Item* text_p_;
   Protected_scm staffs_;
   
 protected:
@@ -77,7 +77,7 @@ Mark_engraver::acknowledge_element (Score_element_info inf)
     {
       /*
 	Ugh. Figure out how to do this right at beginning of line, (without
-	creating class Bar_script : public Text_item).
+	creating class Bar_script : public Item).
       */
       text_p_->set_parent (s, X_AXIS);
     }
@@ -102,7 +102,7 @@ Mark_engraver::create_items (Request *rq)
     return;
 
   SCM s = get_property ("basicMarkProperties");
-  text_p_ = new Text_item (s);
+  text_p_ = new Item (s);
 
   Group_interface (text_p_, "interfaces").add_thing (ly_symbol2scm ("Mark"));
   Side_position_interface staffside(text_p_);

@@ -14,7 +14,7 @@
 #include "paper-def.hh"
 #include "main.hh"
 #include "dimensions.hh"
-#include "text-item.hh"
+#include "item.hh"
 
 
 ADD_THIS_TRANSLATOR (Chord_name_engraver);

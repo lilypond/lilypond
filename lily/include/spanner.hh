@@ -44,6 +44,7 @@ public:
   Spanner (Spanner const &);
   bool broken_b () const;
   void do_break ();
+  Real spanner_length () const;
 
   static int compare (Spanner * const &,Spanner * const &);
   virtual Array<Rod> get_rods () const;
@@ -57,7 +58,6 @@ protected:
 
   virtual void do_space_processing ();
   virtual void do_break_processing ();
-  Real spanner_length () const;
   virtual Line_of_score*line_l () const;
 };
 #endif

@@ -20,6 +20,9 @@ void
 Hara_kiri_engraver::acknowledge_element (Score_element_info i)
 {
   Axis_group_engraver::acknowledge_element (i);
+
+  i.elem_l_->add_offset_callback (Hara_kiri_group_spanner::force_hara_kiri_callback, Y_AXIS);
+  
   if (Rhythmic_head *h = dynamic_cast<Rhythmic_head *> (i.elem_l_))
     {
       dynamic_cast<Hara_kiri_group_spanner*> (staffline_p_)

@@ -10,9 +10,7 @@
   JUNKTHIS!
  */
 #include <assert.h>
-
-#include "midi-def.hh"
-#include "paper-def.hh"
+#include "music-output-def.hh"
 #include "score.hh"
 #include "identifier.hh"
 #include "my-lily-lexer.hh"
@@ -86,8 +84,7 @@ DEFAULT_PRINT(Translator_group);
 DEFAULT_PRINT(Music);
 DEFAULT_PRINT(Request);
 DEFAULT_PRINT(Score);
-DEFAULT_PRINT(Midi_def);
-DEFAULT_PRINT(Paper_def);
+DEFAULT_PRINT(Music_output_def);
 
 /* ugh. */
 #define DUMMY_STR(Class) \
@@ -101,8 +98,7 @@ DUMMY_STR(Translator_group);
 DUMMY_STR(Music);
 DUMMY_STR(Request);
 DUMMY_STR(Score);
-DUMMY_STR(Midi_def);
-DUMMY_STR(Paper_def);
+DUMMY_STR(Music_output_def);
 DUMMY_STR(Duration);
 
 #define STRING_PRINT(Class) \
@@ -114,8 +110,6 @@ Class ## _identifier::do_print () const\
 
 
 STRING_PRINT(Duration);
-STRING_PRINT(Real);
-STRING_PRINT(int);
   
 #define DEFAULT_STR(Class) \
 String \
@@ -123,9 +117,6 @@ Class ## _identifier::do_str () const\
 {\
   return to_str (*data_p_);\
 }
-
-DEFAULT_STR(int);
-DEFAULT_STR(Real);
 
   
 
@@ -163,22 +154,17 @@ Class ## _identifier::Class ## _identifier (Class ## _identifier const &s) \
 
 IMPLEMENT_ID_CLASS(Duration);
 IMPLEMENT_ID_CLASS(Translator_group);
-IMPLEMENT_ID_CLASS(int);
-IMPLEMENT_ID_CLASS(Real);
 IMPLEMENT_ID_CLASS(Music);
 IMPLEMENT_ID_CLASS(Score);
 IMPLEMENT_ID_CLASS(Request);
-IMPLEMENT_ID_CLASS(Midi_def);
-IMPLEMENT_ID_CLASS(Paper_def);
+IMPLEMENT_ID_CLASS(Music_output_def);
 VIRTUAL_ACCESSOR(Music);
 VIRTUAL_ACCESSOR(Request);
 VIRTUAL_ACCESSOR(Translator_group);
+VIRTUAL_ACCESSOR(Music_output_def);
 DEFAULT_ACCESSOR(Duration);
-DEFAULT_ACCESSOR(int);
-DEFAULT_ACCESSOR(Real);
 DEFAULT_ACCESSOR(Score);
-DEFAULT_ACCESSOR(Midi_def);
-DEFAULT_ACCESSOR(Paper_def);
+
 
 int
 Identifier::print_smob (SCM s, SCM p, scm_print_state*)

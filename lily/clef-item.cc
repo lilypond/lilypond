@@ -10,7 +10,7 @@
 #include "clef-item.hh"
 #include "string.hh"
 #include "molecule.hh"
-#include "text-item.hh"
+#include "item.hh"
 
 Clef_item::Clef_item (SCM s)
   : Item (s)
@@ -52,7 +52,8 @@ Clef_item::before_line_breaking ()
       return;
     }
 
-  // ugh. 
+  // ugh.
+  /* why not suicide? */
   if (style == "transparent")	// UGH. JUNKME
     {
       set_elt_property ("molecule-callback", SCM_BOOL_T);

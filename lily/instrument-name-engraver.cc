@@ -9,14 +9,14 @@
  */
 
 #include "engraver.hh"
-#include "text-item.hh"
+#include "item.hh"
 #include "bar.hh"
 #include "system-start-delimiter.hh"
 #include "side-position-interface.hh"
 
 class Instrument_name_engraver : public Engraver
 {
-  Text_item *text_;
+  Item *text_;
   System_start_delimiter * delim_ ;
 
   void create_text (SCM s);
@@ -55,7 +55,7 @@ Instrument_name_engraver::create_text (SCM txt)
 {
   if(!text_)
     {
-      text_ = new Text_item (get_property ("basicInstrumentNameProperties"));
+      text_ = new Item (get_property ("basicInstrumentNameProperties"));
       text_->set_elt_property ("text", txt);
 
       /*
