@@ -422,7 +422,7 @@ type_check_assignment (SCM val, SCM sym,  SCM type_symbol)
 	{
 	  SCM errport = scm_current_error_port ();
 	  ok = false;
-	  SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
+	  SCM typefunc = scm_primitive_eval (ly_symbol2scm ("type-name"));
 	  SCM type_name = gh_call1 (typefunc, type_p);
 
 	  scm_puts (_f ("Type check for `%s' failed; value `%s' must be of type `%s'",

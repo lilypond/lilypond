@@ -25,8 +25,8 @@ print_smob (SCM, SCM port, scm_print_state *)
   return 1;
 }
 
-static
-scm_sizet free_smob (SCM)
+static size_t
+free_smob (SCM)
 {
   return 0;
 }

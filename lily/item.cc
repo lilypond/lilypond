@@ -160,7 +160,7 @@ Item::handle_prebroken_dependencies ()
   SCM vis = get_grob_property ("visibility-lambda");
   if (gh_procedure_p (vis))
     {
-      SCM args = scm_listify (gh_int2scm (break_status_dir ()), SCM_UNDEFINED);
+      SCM args = scm_list_n (gh_int2scm (break_status_dir ()), SCM_UNDEFINED);
       SCM result = gh_apply (vis, args);
       bool trans = gh_scm2bool (gh_car (result));
       bool empty = gh_scm2bool (gh_cdr (result));

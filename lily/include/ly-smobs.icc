@@ -50,15 +50,17 @@ CL::smob_p (SCM s)						\
 void								\
 CL::init_smobs ()						\
 {								\
-  smob_tag_ = scm_make_smob_type_mfpe (				\
-     #CL, 0, CL::mark_smob, CL::free_smob, CL::print_smob,	\
-     CL::equal_p);                                              \
+  smob_tag_ = scm_make_smob_type (#CL, 0);                      \
+  scm_set_smob_mark (smob_tag_, CL::mark_smob);                 \
+  scm_set_smob_free (smob_tag_, CL::free_smob);                 \
+  scm_set_smob_print (smob_tag_, CL::print_smob);               \
+  scm_set_smob_equalp (smob_tag_, CL::equal_p);                 \
 }								\
 SCM CL::smobbed_self () const					\
 {								\
   SCM s;							\
   s = gh_cons (SCM_PACK (CL::smob_tag_), SCM_PACK (this));	\
-  scm_done_malloc (sizeof (CL));					\
+  scm_done_malloc (sizeof (CL));				\
 								\
   return s;							\
 }								\
@@ -70,7 +72,7 @@ CL::unsmob (SCM s)						\
   else								\
     return 0;							\
 }								\
-scm_sizet							\
+size_t  							\
 CL::free_smob (SCM ses)						\
 {								\
   CL * s = (CL*) SCM_CDR (ses);					\

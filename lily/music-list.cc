@@ -1,8 +1,6 @@
 /*
   music-list.cc -- implement Music_sequence, Simultaneous_music, Sequential_music
-
   source file of the GNU LilyPond music typesetter
-
   (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 

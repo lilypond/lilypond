@@ -258,4 +258,4 @@ lilypondpaperoutputscale lilypondpaperoutputscale scale
   )
 
 (define (scm-ps-output)
-  (ly-eval (ps-scm 'all-definitions)))
+  (primitive-eval (ps-scm 'all-definitions)))

@@ -269,4 +269,4 @@
   )
 
 (define (scm-as-output)
-  (ly-eval (as-scm 'all-definitions)))
+  (primitive-eval (as-scm 'all-definitions)))

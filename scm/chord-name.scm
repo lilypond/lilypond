@@ -349,7 +349,7 @@
 			      bass-and-inversion steps)))
 
 (define (chord::restyle name style)
-  (ly-eval (string->symbol
+  (primitive-eval (string->symbol
 	    (string-append (symbol->string name)
 			   (symbol->string style)))))
 

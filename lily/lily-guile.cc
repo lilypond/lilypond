@@ -45,7 +45,7 @@ ly_write2scm (SCM s)
 			    SCM_OPN | SCM_WRTNG,
 			    "ly_write2string");
   //  SCM write = scm_eval_3 (ly_symbol2scm ("write"), s, SCM_EOL);
-  SCM write = scm_eval2 (ly_symbol2scm ("write"), SCM_EOL);
+  SCM write = scm_primitive_eval (ly_symbol2scm ("write"));
   
   // scm_apply (write, port, SCM_EOL);
   gh_call2 (write, s, port);
@@ -74,8 +74,8 @@ ly_parse_scm (char const* s, int* n)
 
   /* Read expression from port */
   if (!SCM_EOF_OBJECT_P (form = scm_read (port)))
-    answer = scm_eval_3 (form, 1, SCM_EOL); // guh?
-
+    answer = scm_primitive_eval (form);
+ 
   /*
    After parsing
 
@@ -126,7 +126,7 @@ String
 ly_symbol2string (SCM s)
 {
   assert (gh_symbol_p (s));
-  return String ((Byte*)SCM_CHARS (s), (int) SCM_LENGTH (s));
+  return String ((Byte*)SCM_STRING_CHARS (s), (int) SCM_STRING_LENGTH (s));
 }
 
 
