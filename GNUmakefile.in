@@ -107,7 +107,14 @@ web-clean:
 	$(MAKE) $(builddir)/share/lilypond-force
 
 
-default: $(config_h) builddir-setup
+default: $(config_h) builddir-setup $(outdir)/VERSION
+
+
+$(outdir)/VERSION: $(config_make)
+	echo 'MAJOR_VERSION=$(MAJOR_VERSION)' > $@
+	echo 'MINOR_VERSION=$(MINOR_VERSION)' >> $@
+	echo 'PATCH_LEVEL=$(PATCH_LEVEL)' >> $@
+	echo 'MY_PATCH_LEVEL=$(MY_PATCH_LEVEL)' >> $@
 
 builddir-setup: $(builddir)/share/lilypond-force
 
