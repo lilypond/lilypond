@@ -1,5 +1,12 @@
 2002-09-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/simultaneous-music-iterator.cc
+	(Simultaneous_music_iterator): init children_list_ before
+	triggering GC.
+
+	* lily/*-iterator.cc: be even more careful with smobbed copy
+	constructors. 
+
 	* lily/break-align-engraver.cc (acknowledge_grob): also typeset
 	LeftEdge item.
 

@@ -66,10 +66,13 @@ Sequential_iterator::Sequential_iterator (Sequential_iterator const &src)
   cursor_ = src.cursor_;
   list_ = src.cursor_;
   here_mom_ = src.here_mom_;
-  iter_ = (src.iter_) ? src.iter_->clone () : 0;
+  iter_ = 0;
 
-  if (iter_)
-    scm_gc_unprotect_object (iter_->self_scm());
+  if (src.iter_)
+    {
+      iter_ = src.iter_->clone ();
+      scm_gc_unprotect_object (iter_->self_scm());
+    }
 }
 
 void

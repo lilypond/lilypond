@@ -329,7 +329,7 @@ this is not an override
 ;; switch it on here, so parsing and init isn't checked (too slow!)
 
 (define (switch-on-debugging m)
-  (set-debug-cell-accesses! 15000)
+  (set-debug-cell-accesses! 4000)
   m
   )
 
