@@ -46,10 +46,10 @@ texidoc = "
 	\column <
 	    { "<-LEFT" \hspace #30 "centre" \hspace #30 "RIGHT->" }
             " "
-	    \center < { \huge \bold \title } >
+	    \center < { \huge \bigger \bold \title } >
             " "
             \center <
-                \center < { \large \bold \subtitle } >
+                \center < { \normalsize \bold \subtitle } >
             >
             " "
             " "
