@@ -13,46 +13,26 @@ copyright =	 "public domain";
 \include "violoncello.ly"
 \include "contrabasso.ly"
 
-bassiGroup = \context GrandStaff = bassi_group <
-	\context Staff=one { 
+bassiGroup = \context PianoStaff = bassi_group <
+	\context StaffCombineStaff=one {
 		\clef "bass"; 
-		\context Voice
-		\property Voice.soloADue = ##f 
 		\skip 1*314; 
 		\bar "|."; 
 	}
-	\context Staff=two { 
+	\context StaffCombineStaff=two {
 		\clef "bass"; 
-		\context Voice
-		\property Voice.soloADue = ##f 
 		\skip 1*314; 
 		\bar "|."; 
 	}
-	\context Staff=one \partcombine Staff
-		\context Thread=one \violoncello
-		\context Thread=two \contrabasso
->
 
-%\include "coriolan-part-paper.ly"
-\include "coriolan-part-combine-paper.ly"
+	\context StaffCombineStaff=one \partcombine StaffCombineStaff
+		\context StaffCombineThread=one \violoncello
+		\context StaffCombineThread=two \contrabasso
+>
 
 \score{
 	\bassiGroup
-	\paper{
-		\translator { \HaraKiriStaffContext }
-		\translator {
-			\StaffContext
-			\consists "Slur_engraver";
-			\consists "Rest_engraver";
-			\consists "Tie_engraver";
-		}
-		\translator{
-			\VoiceContext
-			\remove "Rest_engraver";
-			\remove "Slur_engraver";
-			\remove "Tie_engraver";
-		}
-	}
+	\include "coriolan-part-combine-paper.ly"
 	\include "coriolan-midi.ly"
 }
 

@@ -35,13 +35,13 @@ VoiceContext = \translator {
 };
 \translator { \VoiceContext }
 
-GraceContext = \translator {
+ThreadContext = \translator {
 	\type "Performer_group_performer";
 	\name Thread;
 	\consists "Note_performer";
 	\consists "Tie_performer";
 };
-\translator { \GraceContext }
+\translator { \ThreadContext }
 
 \translator {
 	\type "Grace_performer_group";

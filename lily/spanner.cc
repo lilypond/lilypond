@@ -104,12 +104,38 @@ Spanner::do_break_processing ()
 	  span_p->set_bound(LEFT,bounds[LEFT]);
 	  span_p->set_bound(RIGHT,bounds[RIGHT]);
 
-
+#if 0
 	  assert (bounds[LEFT]->line_l () ==
 		  bounds[RIGHT]->line_l ());
 
 	  bounds[LEFT]->line_l ()->typeset_element (span_p);
 	  broken_into_l_arr_.push (span_p);
+#else
+
+	  if (bounds[LEFT]->line_l () != bounds[RIGHT]->line_l ())
+	    {
+	      programming_error ("bounds[LEFT]->line_l () != bounds[RIGHT]->line_l ()");
+#if 0
+	      /*
+		lily crashes upon displaying this ...
+		
+	       */
+	      
+	      gh_display (ly_str02scm ("\nspanner:mutable_property_alist_\n"));
+	      gh_display (mutable_property_alist_);
+	      gh_display (ly_str02scm ("\nspanner:immutable_property_alist_\n"));
+	      gh_display (immutable_property_alist_);
+	      gh_newline ();
+#endif
+	      span_p->suicide ();
+	    }
+	  else
+	    {
+	      bounds[LEFT]->line_l ()->typeset_element (span_p);
+	      broken_into_l_arr_.push (span_p);
+	    }
+#endif
+	  
 	}
     }
   broken_into_l_arr_.sort (Spanner::compare);

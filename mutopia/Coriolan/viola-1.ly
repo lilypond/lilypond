@@ -413,7 +413,6 @@ violaI = \notes \relative c {
 	c4\pp r r2 |
 	c4 r r2 |
 	c4 r r2 |
-	\skip 1*10;
 }
 
 %%% urg

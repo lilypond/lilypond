@@ -40,6 +40,7 @@ static Keyword_ent the_key_tab[]={
   {"consists", CONSISTS},
   {"consistsend", CONSISTSEND},
   {"context", CONTEXT},
+  {"denies", DENIES},
   {"duration", DURATION},
   {"font", FONT},
   {"grace", GRACE},

@@ -147,7 +147,6 @@ VoiceContext = \translator {
 	\consists "Text_engraver";
 	\consists "A2_engraver";
 
-
 	startSustain = #"Ped."
 	stopSustain = #"*"
 	stopStartSustain = #"*Ped."

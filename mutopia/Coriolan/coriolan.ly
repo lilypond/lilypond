@@ -51,45 +51,40 @@ violiniGroup = \context GrandStaff = violini_group <
 	\violinoIIStaff
 >
 
-violiGroup = \context GrandStaff = violi_group <
-	\context Staff=one { 
+violiGroup = \context PianoStaff = violi_group <
+	\context StaffCombineStaff=one {
 		\clef "alto"; 
-		\context Voice
-		\property Voice.soloADue = ##f 
 		\skip 1*314; 
 		\bar "|."; 
 	}
-	\context Staff=two { 
+	\context StaffCombineStaff=two {
 		\clef "alto"; 
-		\context Voice
-		\property Voice.soloADue = ##f 
 		\skip 1*314; 
 		\bar "|."; 
 	}
-	\context Staff=one \partcombine Staff
-		\context Thread=one \violaI
-		\context Thread=two \violaII
+
+	\context StaffCombineStaff=one \partcombine StaffCombineStaff
+		\context StaffCombineThread=one \violaI
+		\context StaffCombineThread=two \violaII
 >
 
-bassiGroup = \context GrandStaff = bassi_group <
-	\context Staff=one { 
+bassiGroup = \context PianoStaff = bassi_group <
+	\context StaffCombineStaff=one {
 		\clef "bass"; 
-		\context Voice
-		\property Voice.soloADue = ##f 
 		\skip 1*314; 
 		\bar "|."; 
 	}
-	\context Staff=two { 
+	\context StaffCombineStaff=two {
 		\clef "bass"; 
-		\context Voice
-		\property Voice.soloADue = ##f 
 		\skip 1*314; 
 		\bar "|."; 
 	}
-	\context Staff=one \partcombine Staff
-		\context Thread=one \violoncello
-		\context Thread=two \contrabasso
+
+	\context StaffCombineStaff=one \partcombine StaffCombineStaff
+		\context StaffCombineThread=one \violoncello
+		\context StaffCombineThread=two \contrabasso
 >
+
 
 archiGroup = \context StaffGroup = archi_group <
 	\violiniGroup

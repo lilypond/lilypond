@@ -218,7 +218,8 @@ Slur::get_attachment (Score_element*me,Direction dir,
 
 	  if (str == "head")
 	    {
-	      o = Offset (0, Stem::chord_start_f (stem));
+	      o = Offset (0, Stem::head_positions (stem)
+			  [Directional_element_interface (me).get ()] * hs);
 	      /*
 		Default position is centered in X, on outer side of head Y
 	       */

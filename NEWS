@@ -5,9 +5,10 @@
 * Improved design and implementation: Complete rewrite of the
 internals: LilyPond is smaller, cleaner, more flexible, etc.
 
- - More pervasive GUILE integration resulting in 
+ - More pervasive GUILE integration resulting in:
 
- - Improved speed, with comparable memory footprint
+ - Improved speed (undone for now, by .73 + .74), 
+   with comparable memory footprint
 
  - Improved robustness: Lily almost never crashes.
 
@@ -16,6 +17,11 @@ internals: LilyPond is smaller, cleaner, more flexible, etc.
 * MIDI: dynamics, tempo changes
 
 * Typography: More elegant slurs, aligned dynamics, text crescendos,
+
+* Nice lyrics placement: Automagical phrasing and melisma alignment.
+
+* Part combining for orchestral scores and hymns: Automagical combining
+  and separating of two voices, with Solo/`a2 indications as appropriate.
 
 * Chordnames are now configurable in every respect
 
