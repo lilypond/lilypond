@@ -16,5 +16,5 @@ include $(depth)/make/stepmake.make
 
 default: do-doc
 
-texinfo: $(outdir)/$(package).info
+info: $(outdir)/$(package).info
 

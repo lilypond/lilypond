@@ -1,3 +1,11 @@
+pl 8.jcn3
+	- gif -> png
+	    * ps-to-pngs.sh
+	    * stepmake
+	    * website
+	    * yodl-1.31.4 (to be released)
+	- target 'texinfo' -> 'info'
+
 pl 8.jcn2
 	- more doco in texinfo (with yodl pl3)
 	- bf's: package-diff

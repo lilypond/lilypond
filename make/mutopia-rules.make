@@ -5,6 +5,11 @@ $(outdir)/%.gif: $(outdir)/%.ps
 	-mv $(name-stem)-page*.gif $(outdir)/
 	touch $@
 
+$(outdir)/%.png: $(outdir)/%.ps
+	sh $(buildscripts)/ps-to-pngs.sh $<
+	-mv $(name-stem)-page*.png $(outdir)/
+	touch $@
+
 $(outdir)/%.ly.txt: %.ly
 	ln -f $< $@
 

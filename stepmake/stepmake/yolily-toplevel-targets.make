@@ -19,7 +19,7 @@ htmldoc:
 	find `find Documentation -type d -name 'out-www'` -not -name '*dvi' -not -name '*ly' -not -name '*tex' -not -name '*.ps' -not -name 'out-www' > wwwlist
 	-ln -f $(patch-dir)/$(distname).diff.gz out-www
 	-ln -f $(depth)/$(distname).diff.gz out-www
-	tar cfz $(outdir)/htmldoc.tar.gz  `cat wwwlist` `ls *.gif out-www/$(distname).diff.gz $(ERRORLOG)`  index.html
+	tar cfz $(outdir)/htmldoc.tar.gz  `cat wwwlist` `ls *.png out-www/$(distname).diff.gz $(ERRORLOG)`  index.html
 
 
 # if you fix this, please fix yodl too!

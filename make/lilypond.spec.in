@@ -19,7 +19,7 @@ Prereq: tetex
 %build
 ./configure --disable-checking --disable-debugging --enable-printing --prefix=/usr --enable-optimise --enable-shared --enable-tex-dir='${prefix}/lib/texmf/texmf/tex/generic' --enable-mf-dir='${prefix}/lib/texmf/texmf/fonts/source/'
 make all
-make -C Documentation texinfo || true
+make -C Documentation info || true
 make htmldoc
 
 %install

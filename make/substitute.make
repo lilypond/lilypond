@@ -11,6 +11,7 @@ ATVARIABLES = \
   DIR_DATADIR\
   PACKAGE\
   package\
+  PATHSEP\
   PERL\
   PYTHON\
   SHELL\

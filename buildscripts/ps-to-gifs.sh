@@ -1,14 +1,16 @@
 #!/bin/sh
-# ps-to-gifs, convert PS to multiple gifs
-  
+# ps-to-gifs, convert PS to multiple gifs or other bitmaps
+
 usage()
 {
     cat <<EOF
+Convert PS to multiple gifs or other bitmaps
 Usage: ps-to-gifs.sh [OPTION]... [FILE]
 Options:
   -h, --help         this help
   -c, --crop         crop output
   -o, --output=NAME  set output base
+  -p, --png          convert to png
   -t, --transparent  change white to transparent
 EOF
 }
@@ -18,6 +20,8 @@ if [ $# -lt 1 ]; then
     exit 2;
 fi
 CROP=cat
+GIF=gif
+PNMTOGIF=ppmtogif
 
 while [ $# -gt 0 ]; do
 opt=$1
@@ -37,6 +41,10 @@ shift
         ;;
     --o*=*) OUTFILE=`echo $opt | sed -e s/"^.*="//`
         ;;
+    -p|--p*)
+	GIF=png
+	PNMTOGIF=pnmtopng
+	;;
     -*)
         echo "ps-to-gifs: unknown option: \`$opt'"
 	exit 1
@@ -54,24 +62,24 @@ fi
 if [ "x$OUTFILE" = "x" ]; then
 	BASE=`dirname $FILE`/`basename $FILE .ps`
 else
-	BASE=`dirname $OUTFILE`/`basename $OUTFILE .gif`
+	BASE=`dirname $OUTFILE`/`basename $OUTFILE .$GIF`
 fi
 
 # urg, pipe breaks
-rm -f $BASE{.ppm,.gif} $BASE-page*{.ppm,.gif}
+rm -f $BASE{.ppm,.$GIF} $BASE-page*{.ppm,.$GIF}
 
 # generate the pixmap at twice the size, then rescale (for antialiasing)
 cat $FILE | gs -sDEVICE=ppmraw -sOutputFile="$BASE-page%d.ppm" -r200 -dNOPAUSE - -c quit $FILE
 # quant is soo slow
-# cat $PPMFILE | ppmquant 2 | pnmscale 0.3333 | pnmcrop | ppmtogif $color > $OUTFILE
+# cat $PPMFILE | ppmquant 2 | pnmscale 0.3333 | pnmcrop | $PNMTOGIF $color > $OUTFILE
 PPMS=`ls $BASE*ppm`
 for i in $PPMS; do
-    o=`dirname $i`/`basename $i .ppm`.gif
-    cat $i | pnmscale 0.5 | $CROP | ppmtogif $color > $o
+    o=`dirname $i`/`basename $i .ppm`.$GIF
+    cat $i | pnmscale 0.5 | $CROP | $PNMTOGIF $color > $o
     rm $i
 done
 
 if [ "x$OUTFILE" != "x" ]; then
-	mv $BASE-page1.gif $BASE.gif
+	mv $BASE-page1.$GIF $BASE.$GIF
 fi
 

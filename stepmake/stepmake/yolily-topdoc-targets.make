@@ -10,7 +10,7 @@ $(outdir)/%.html: %.yo
 	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) --index=index.html --news=$(depth)/NEWS $@
 
 local-WWW:
-	-cp $(outdir)/*gif $(outdir)/index.html $(depth)  # don't fail if not making website
+	-cp $(outdir)/*png $(outdir)/index.html $(depth)  # don't fail if not making website
 
 
 copy-to-top: 

@@ -1,3 +1,7 @@
+pl 50
+	- bf's: PATHSEP
+	- png
+
 pl 49
 	- use yodl2ms and striproff for txt conversion
 	- bf: chmod fail
