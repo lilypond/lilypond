@@ -600,8 +600,9 @@ debugging")
      (position-callbacks ,list? "list of
 functions set spanner positions.")
 
-;;; Junk me, replace it by add-join.
-     (join-left-amount ,number? "")
+;;; add-join would be enough if in Mensural_ligature::brew_ligature_primitive
+;;; the next note could be seen
+     (join-right-amount ,number? "")
 
      (delta-pitch ,number? "the interval between this and the next note, or, more precisely, their vertical distance; this is used in ligatures for calculation of the height of vertical joins flexa shapes")
      (head-width ,ly:dimension? "width of this ligature head")
@@ -642,7 +643,6 @@ than a whole rest.")
   
  
      (add-stem ,boolean? "is this ligature head a virga and therefore needs an additional stem on the right side?")
-     (join-left ,boolean? "is this ligature head joined with the previous one by a vertical line?")
      (context-info ,integer? "DOCME")
      (inclinatum ,boolean? "is this neume an inclinatum?")
      (oriscus ,boolean? "is this neume an oriscus?")

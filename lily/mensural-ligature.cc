@@ -3,7 +3,8 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>,
+		 Pal Benko <benkop@freestart.hu>
 */
 
 #include "mensural-ligature.hh"
@@ -28,40 +29,11 @@ brew_flexa (Grob *me,
 	    Real interval,
 	    bool solid,
 	    Real width,
-	    Real thickness,
-	    bool add_cauda,
-	    Direction cauda_direction)
+	    Real thickness)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real height = 0.6 * staff_space;
   Stencil stencil;
-
-  if (add_cauda)
-    {
-      bool consider_interval =
-	cauda_direction * interval > 0.0;
-
-      Interval cauda_box_x (0, thickness);
-      Interval cauda_box_y;
-
-      if (consider_interval)
-        {
-	  Real y_length = max (interval/2.0*staff_space, 1.2*staff_space);
-	  cauda_box_y = Interval (0, y_length);
-	}
-      else
-	cauda_box_y = Interval (0, staff_space);
-
-      Real y_correction =
-	(cauda_direction == UP) ?
-	+0.5*height :
-	-0.5*height - cauda_box_y.length ();
-
-      Box cauda_box (cauda_box_x, cauda_box_y);
-      Stencil cauda = Lookup::filled_box (cauda_box);
-      cauda.translate_axis (y_correction, Y_AXIS);
-      stencil.add_stencil (cauda);
-    }
 
   Real slope = (interval / 2.0 * staff_space) / width;
 
@@ -71,7 +43,7 @@ brew_flexa (Grob *me,
   Real slope_correction = 0.2*staff_space * sign (slope);
   Real corrected_slope = slope + slope_correction/width;
 
-  if (solid)
+  if (solid) // this will come handy for colorated flexae
     {
       Stencil solid_head =
 	Lookup::beam (corrected_slope, width, height, 0.0);
@@ -109,83 +81,118 @@ internal_brew_primitive (Grob *me)
   SCM primitive_scm = me->get_property ("primitive");
   if (primitive_scm == SCM_EOL)
     {
-      programming_error ("Mensural_ligature:"
+      programming_error ("Mensural_ligature: "
 			 "undefined primitive -> ignoring grob");
       return Stencil ();
     }
+  int primitive = scm_to_int (primitive_scm);
 
   Stencil out;
-  int primitive = scm_to_int (primitive_scm);
   int delta_pitch = 0;
   Real thickness = 0.0;
-  Real flexa_width = 0.0;
+  Real width = 0.0;
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   if (primitive & MLP_ANY)
     {
-      thickness = robust_scm2double ( me->get_property ("thickness"), .14);
+      thickness = robust_scm2double (me->get_property ("thickness"), .14);
     }
 
   if (primitive & MLP_FLEXA)
     {
       delta_pitch = robust_scm2int (me->get_property ("delta-pitch"),
 				    0);
-
-      flexa_width = robust_scm2double (me->get_property ("flexa-width"), 2.0 * staff_space);
+      width =
+	robust_scm2double (me->get_property ("flexa-width"), 2.0 * staff_space);
+    }
+  if (primitive & MLP_SINGLE_HEAD)
+    {
+      width = robust_scm2double (me->get_property ("head-width"), staff_space);
     }
 
-  switch (primitive)
+  switch (primitive & MLP_ANY)
     {
-      case MLP_NONE:
-	return Stencil ();
-      case MLP_BB:
-	out = brew_flexa (me, delta_pitch, false,
-			  flexa_width, thickness, true, DOWN);
-	break;
-      case MLP_sc: // mensural brevis head with right cauda
-	out = Font_interface::get_default_font (me)->find_by_name ("noteheads.s-2mensural");
-	break;
-      case MLP_ss: // mensural brevis head
-	out = Font_interface::get_default_font (me)->find_by_name ("noteheads.s-1mensural");
-	break;
-      case MLP_cs: // mensural brevis head with left cauda
-	out = Font_interface::get_default_font (me)->find_by_name ("noteheads.slmensural");
-	break;
-      case MLP_SS:
-	out = brew_flexa (me, delta_pitch, false,
-			  flexa_width, thickness, true, UP);
-	break;
-      case MLP_LB:
-	out = brew_flexa (me, delta_pitch, false,
-			  flexa_width, thickness, false, CENTER);
-	break;
-      default:
-	programming_error (_f ("Mensural_ligature:"
-			       "unexpected case fall-through"));
-	return Stencil ();
+    case MLP_NONE:
+      return Stencil ();
+    case MLP_LONGA: // mensural brevis head with right cauda
+      out = Font_interface::get_default_font (me)->find_by_name
+	("noteheads.s-2mensural");
+      break;
+    case MLP_BREVIS: // mensural brevis head
+      out = Font_interface::get_default_font (me)->find_by_name
+	("noteheads.s-1mensural");
+      break;
+    case MLP_MAXIMA: // should be mensural maxima head without stem
+      out = Font_interface::get_default_font (me)->find_by_name
+	("noteheads.s-1neomensural");
+      break;
+    case MLP_FLEXA:
+      out = brew_flexa (me, delta_pitch, false, width, thickness);
+      break;
+    default:
+      programming_error (_f ("Mensural_ligature: "
+			     "unexpected case fall-through"));
+      return Stencil ();
     }
 
-  SCM join_left_scm = me->get_property ("join-left-amount");
-  if (join_left_scm != SCM_EOL)
+  Real blotdiameter =
+    (me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter")));
+
+  if (primitive & MLP_STEM)
     {
-      int join_left = scm_to_int (join_left_scm);
-      if (!join_left)
-	programming_error (_f ("Mensural_ligature: (join_left == 0)"));
-      Real blotdiameter = (me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter")));
-      Interval x_extent = Interval (0, thickness);
-      Interval y_extent = (join_left > 0) ?
-	Interval (-join_left * 0.5 * staff_space, 0) :
-	Interval (0, -join_left * 0.5 * staff_space);
+      // assume MLP_UP
+      Real y_bottom = 0.0, y_top = 3.0 * staff_space;
+
+      if (primitive & MLP_DOWN)
+	{
+	  y_bottom = -y_top;
+	  y_top = 0.0;
+	}
+
+      Interval x_extent (0, thickness);
+      Interval y_extent (y_bottom, y_top);
       Box join_box (x_extent, y_extent);
 
       Stencil join = Lookup::round_filled_box (join_box, blotdiameter);
       out.add_stencil (join);
     }
 
+  SCM join_right_scm = me->get_property ("join-right-amount");
+
+  if (join_right_scm != SCM_EOL)
+    {
+      int join_right = scm_to_int (join_right_scm);
+      if (join_right)
+	{
+	  Real y_top = join_right * 0.5 * staff_space;
+	  Real y_bottom = 0.0;
+
+	  if (y_top < 0.0)
+	    {
+	      y_bottom = y_top;
+	      y_top = 0.0;
+	    }
+
+	  Interval x_extent (width - thickness, width);
+	  Interval y_extent (y_bottom, y_top);
+	  Box join_box (x_extent, y_extent);
+	  Stencil join = Lookup::round_filled_box (join_box, blotdiameter);
+
+	  out.add_stencil (join);
+	}
+      else
+	{
+	  programming_error (_f ("Mensural_ligature: (join_right == 0)"));
+	}
+    }
+
+#if 0 // what happend with the ledger lines?
   int pos = Staff_symbol_referencer::get_rounded_position (me);
   if (primitive & MLP_FLEXA)
     {
       pos += delta_pitch;
+      add_ledger_lines(me, &out, pos, 0.5*delta_pitch, ledger_take_space);
     }
+#endif
 
   return out;
 }
@@ -207,5 +214,5 @@ Mensural_ligature::print (SCM)
 
 ADD_INTERFACE (Mensural_ligature, "mensural-ligature-interface",
 	       "A mensural ligature",
-	       "delta-pitch flexa-width head-width join-left join-left-amount "
+	       "delta-pitch flexa-width head-width join-right-amount " // "add-join "
 	       "ligature-primitive-callback primitive thickness");

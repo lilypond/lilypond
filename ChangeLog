@@ -1,3 +1,12 @@
+2005-02-21  Pal Benko  <benkop@freestart.hu>
+
+	* lily/mensural-ligature-engraver.cc:
+	* lily/mensural-ligature.cc:
+	* lily/include/mensural-ligature.hh: new algorithm implemented
+
+	* scm/define-grob-properties.scm: join-left killed (add-join may
+	be used); join-left-amount changed to join-right-amount
+
 2005-02-21  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/notation.itely: small but urgent fix.
