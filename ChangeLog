@@ -1,5 +1,11 @@
 2003-08-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* python/lilylib.py (command_name): robustification
+
+	* scripts/lilypond-book.py: idem.
+
+	* scripts/ly2dvi.py: backport latex redirect fix.
+
 	* Documentation/bibliography/engraving.bib (year): typos.
 
 2003-08-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>

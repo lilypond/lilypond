@@ -219,7 +219,7 @@ class LatexPaper:
 		cmd = "latex '\\nonstopmode \input %s'" % fname
 	        # Ugh.  (La)TeX writes progress and error messages on stdout
 		# Redirect to stderr
-		cmd += ' 1>/dev/stderr'
+		cmd = '(( %s  >&2 ) >&- )' % cmd
 		status = ly.system (cmd, ignore_error = 1)
 		signal = 0xf & status
 		exit_status = status >> 8
@@ -690,6 +690,7 @@ def compose_full_body (body, opts):
 }
 '''
 
+	orig_name = ''
 	for o in opts:
 		m= re.search ('relative(.*)', o)
 		v = 0
@@ -707,7 +708,10 @@ def compose_full_body (body, opts):
 				pitch = pitch + '\'' * v
 
 			body = '\\relative %s { %s }' % (pitch, body)
-
+		m =re.search ("filename=(.*)", o)
+		if m:
+			orig_name = m.group (1)
+		
 	if is_fragment:
 		body = r'''
 \score {
@@ -730,6 +734,10 @@ def compose_full_body (body, opts):
   %s
 }
 ''' % (optstring, music_size, linewidth, indent, notime) + body
+
+	if orig_name:
+		body = '\\renameinput \"%s\"\n%s' % (orig_name, body)
+	
 
 	# ughUGH not original options
 	return body
@@ -1398,7 +1406,8 @@ def compile_all_files (chunks):
 		cmd = r"latex '\nonstopmode \input %s'" % file
 	        # Ugh.  (La)TeX writes progress and error messages on stdout
 		# Redirect to stderr
-		cmd += ' 1>/dev/stderr'
+		cmd = '(( %s  >&2 ) >&- )' % cmd
+		
 		ly.system (cmd)
 		ly.system ("dvips -E -o %s.eps %s" % (file, file))
 	map (to_eps, eps)
