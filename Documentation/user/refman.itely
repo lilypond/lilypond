@@ -427,10 +427,9 @@ during a lilypond run.
   @item Molecule: device-independent page output object,
     including dimensions.  Produced by some Grob functions
     See @ref{Molecules}
-  @item Translator: object that produces audio objects or Grobs.
-  @item Font_metric: object representing a font. (Not yet user
-accessible.)
-
+  @item Translator: object that produces audio objects or Grobs. This is
+not yet user accessible.
+  @item Font_metric: object representing a font. (See @ref{Font metrics})
 @c  @item Audio_element: (todo,  smobme)
 @end itemize
 
@@ -1972,7 +1971,7 @@ The chord names that LilyPond should print are fully customisable.  The
 default code can be found in @file{scm/chord-name.scm}.  Chord names are
 based on Banter style naming, which is unambiguous and has a logical
 structure.  Typical American style chord names are implemented as a
-variation on Banter names, they can be selected by setting poperty
+variation on Banter names, they can be selected by setting property
 @code{ChordName.style} to @code{american}:
 
 @quotation

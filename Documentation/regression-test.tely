@@ -17,162 +17,162 @@ the text correspond with the shown notation, we consider LilyPond
 Officially BugFree (tm).  This document is intended for finding bugs,
 and documenting bugfixes.
 
-[TODO: revise and completize this. ]
-
-
-
 @section Notes and rests
 
-@lilypondfile{rest.ly}
+@lilypondfile[printfilename]{rest.ly}
 
-@lilypondfile{noteheadstyle.ly}
+@lilypondfile[printfilename]{noteheadstyle.ly}
 
-@lilypondfile{dots.ly}
+@lilypondfile[printfilename]{dots.ly}
 
-@lilypondfile{accidental.ly}
+@lilypondfile[printfilename]{accidental.ly}
 
-@lilypondfile{multi-measure-rest.ly}
+@lilypondfile[printfilename]{multi-measure-rest.ly}
 
-@lilypondfile{mm-rests2.ly}
+@lilypondfile[printfilename]{mm-rests2.ly}
 
-@lilypondfile{accidental-single-double.ly}
+@lilypondfile[printfilename]{accidental-single-double.ly}
 
 
 
 @section Stems
 
-@lilypondfile{stem-tremolo.ly}
+@lilypondfile[printfilename]{stem-tremolo.ly}
 
-@lilypondfile{chord-tremolo.ly}
+@lilypondfile[printfilename]{chord-tremolo.ly}
 
-@lilypondfile{stem-direction.ly}
+@lilypondfile[printfilename]{stem-direction.ly}
 
-@lilypondfile{stem-direction-down.ly}
+@lilypondfile[printfilename]{stem-direction-down.ly}
 
 
 
 @section Scripts
 
-@lilypondfile{staccato-pos.ly}
+@lilypondfile[printfilename]{staccato-pos.ly}
 
-@lilypondfile{dyn-line.ly}
+@lilypondfile[printfilename]{dyn-line.ly}
 
-@lilypondfile{arpeggio.ly}
+@lilypondfile[printfilename]{arpeggio.ly}
 
-@lilypondfile{glissando.ly}
+@lilypondfile[printfilename]{glissando.ly}
 
-@lilypondfile{follow-thread.ly}
+@lilypondfile[printfilename]{follow-thread.ly}
 
 
 
 @section Chord names
 
-@lilypondfile{chord-names.ly}
+@lilypondfile[printfilename]{chord-names.ly}
 
 
 
 @section Grace notes
 
-@lilypondfile{grace.ly}
+@lilypondfile[printfilename]{grace.ly}
 
 
 
 @section Beams, slurs and other spanners
 
-@lilypondfile{beaming.ly}
+@lilypondfile[printfilename]{beaming.ly}
 
-@lilypondfile{beam-extreme.ly}
+@lilypondfile[printfilename]{beam-extreme.ly}
 
-@lilypondfile{beam-position.ly}
+@lilypondfile[printfilename]{beam-position.ly}
 
-@lilypondfile{auto-beam-bar.ly}
+@lilypondfile[printfilename]{auto-beam-bar.ly}
 
-@lilypondfile{beam-rest.ly}
+@lilypondfile[printfilename]{beam-rest.ly}
 
-@lilypondfile{beam-length.ly}
+@lilypondfile[printfilename]{beam-length.ly}
 
-@lilypondfile{beam-dir-function.ly}
+@lilypondfile[printfilename]{beam-dir-function.ly}
 
-@lilypondfile{triplets.ly}
+@lilypondfile[printfilename]{auto-knee.ly}
+
+@lilypondfile[printfilename]{auto-isknee.ly}
+
+@lilypondfile[printfilename]{triplets.ly}
 
 
-@lilypondfile{slur-nice.ly}
-@lilypondfile{slur-symmetry.ly}
-@lilypondfile{slur-symmetry-1.ly}
+@lilypondfile[printfilename]{slur-nice.ly}
+@lilypondfile[printfilename]{slur-symmetry.ly}
+@lilypondfile[printfilename]{slur-symmetry-1.ly}
 
-@lilypondfile{slur-broken-trend.ly}
+@lilypondfile[printfilename]{slur-broken-trend.ly}
 
-@lilypondfile{slur-attachment.ly}
+@lilypondfile[printfilename]{slur-attachment.ly}
 
-@lilypondfile{slur-attachment-override.ly}
+@lilypondfile[printfilename]{slur-attachment-override.ly}
 
-@lilypondfile{ophee-slurs.ly}
+@lilypondfile[printfilename]{ophee-slurs.ly}
 
-@lilypondfile{tie.ly}
+@lilypondfile[printfilename]{tie.ly}
 
-@lilypondfile{tie-chord.ly}
+@lilypondfile[printfilename]{tie-chord.ly}
 
-@lilypondfile{tie-accidental.ly}
+@lilypondfile[printfilename]{tie-accidental.ly}
 
-@lilypondfile{beam-cross-staff.ly}
+@lilypondfile[printfilename]{beam-cross-staff.ly}
 
-@lilypondfile{slur-cross-staff.ly}
+@lilypondfile[printfilename]{slur-cross-staff.ly}
 
-@lilypondfile{tup.ly}
+@lilypondfile[printfilename]{tup.ly}
 
 
 
 @section Property details
 
-@lilypondfile{generic-property-override.ly}
+@lilypondfile[printfilename]{generic-property-override.ly}
 
 
 
 @section Repeats
 
-@lilypondfile{repeat-unfold.ly}
+@lilypondfile[printfilename]{repeat-unfold.ly}
 
-@lilypondfile{repeat-volta.ly}
+@lilypondfile[printfilename]{repeat-volta.ly}
 
-@lilypondfile{repeat-fold.ly}
+@lilypondfile[printfilename]{repeat-fold.ly}
 
-@lilypondfile{repeat-line-break.ly}
+@lilypondfile[printfilename]{repeat-line-break.ly}
 
-@lilypondfile{auto-change.ly}
+@lilypondfile[printfilename]{auto-change.ly}
 
 
 
 @section Lyrics
 
-@lilypondfile{lyric-combine.ly}
+@lilypondfile[printfilename]{lyric-combine.ly}
 
-@lilypondfile{lyrics-multi-stanza.ly}
+@lilypondfile[printfilename]{lyrics-multi-stanza.ly}
 
 
 
 @section Multiple notes
 
-@lilypondfile{rest-collision.ly}
+@lilypondfile[printfilename]{rest-collision.ly}
 
-@lilypondfile{collisions.ly}
+@lilypondfile[printfilename]{collisions.ly}
 
-@lilypondfile{number-staff-lines.ly}
+@lilypondfile[printfilename]{number-staff-lines.ly}
 
 
 
 @section Spacing
 
-@lilypondfile{stem-spacing.ly}
+@lilypondfile[printfilename]{stem-spacing.ly}
 
-@lilypondfile{spacing-tight.ly}
+@lilypondfile[printfilename]{spacing-tight.ly}
 
-@lilypondfile{spacing-natural.ly}
+@lilypondfile[printfilename]{spacing-natural.ly}
 
-@lilypondfile{spacing-loose.ly}
+@lilypondfile[printfilename]{spacing-loose.ly}
 
-@lilypondfile{lyrics-bar.ly}
+@lilypondfile[printfilename]{lyrics-bar.ly}
 
-@lilypondfile{non-empty-text.ly}
+@lilypondfile[printfilename]{non-empty-text.ly}
 
 
 
@@ -182,38 +182,38 @@ and documenting bugfixes.
 
 @section Global stuff
 
-@lilypondfile{break.ly}
+@lilypondfile[printfilename]{break.ly}
 
-@lilypondfile{bar-scripts.ly}
+@lilypondfile[printfilename]{bar-scripts.ly}
 
-@lilypondfile{staff-margin.ly}
+@lilypondfile[printfilename]{staff-margin.ly}
 
-@lilypondfile{breathing-sign.ly}
+@lilypondfile[printfilename]{breathing-sign.ly}
 
-@lilypondfile{hara-kiri-short.ly}
+@lilypondfile[printfilename]{hara-kiri-short.ly}
 
-@lilypondfile{part-combine.ly}
+@lilypondfile[printfilename]{part-combine.ly}
 
 
-@lilypondfile[nonfragment]{size11.ly}
+@lilypondfile[printfilename,nonfragment]{size11.ly}
 
-@lilypondfile[nonfragment]{size13.ly}
+@lilypondfile[printfilename,nonfragment]{size13.ly}
 
-@lilypondfile[nonfragment]{size16.ly}
+@lilypondfile[printfilename,nonfragment]{size16.ly}
 
-@lilypondfile[nonfragment]{size20.ly}
+@lilypondfile[printfilename,nonfragment]{size20.ly}
 
-@lilypondfile[nonfragment]{size23.ly}
+@lilypondfile[printfilename,nonfragment]{size23.ly}
 
-@lilypondfile[nonfragment]{size26.ly}
+@lilypondfile[printfilename,nonfragment]{size26.ly}
 
 
 
 @section Clefs and Time Signatures
 
-@lilypondfile{clefs.ly}
+@lilypondfile[printfilename]{clefs.ly}
 
-@lilypondfile{keys.ly}
+@lilypondfile[printfilename]{keys.ly}
 
 
 @ignore
@@ -235,9 +235,11 @@ signatures.
 
 @section Hacks and Features
 
-@lilypondfile{generic-output-property.ly}
+@lilypondfile[printfilename]{generic-output-property.ly}
 
-@lilypondfile{between-systems.ly}
+@lilypondfile[printfilename]{between-systems.ly}
+
+@lilypondfile{molecule-hacking.ly}
 
 @bye
 
