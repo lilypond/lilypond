@@ -670,6 +670,9 @@ book_body:
 		$$->add_score (s);
 		scm_gc_unprotect_object (s);
 	}
+	| book_body full_markup {
+		$$->add_score ($2);
+	}
 	| book_body lilypond_header {
 		$$->header_ = $2;
 	}
