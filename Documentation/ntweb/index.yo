@@ -18,12 +18,67 @@ clearpage()
 
 subsect(NEWS) label(news)
 
-I have made my first attempt at distributing lilypond as a self
-extracting executable for Windows NT 4.0 and Windows 95.  The
-executable will extract the distribution in the directory specified by
-the user and create em(lilypond-@TOPLEVEL_VERSION@\lily.bat).  This
-batch file initializes the LilyPond environment and fires up a Command
-Prompt.  From this Command Prompt you may run:
+The FAT16, FAT32, and NTFS file system problems have been corrected.
+I have tested various installations that are known to be operational.
+The following configurations that have been tested. 
+
+description(
+ dit(Windows NT)
+ description(
+  dit(Installed on NTFS)
+  itemize(
+    it()Runs from NTFS partion
+    it()Runs from FAT16 partion
+  )
+  dit(Installed on FAT16)
+  itemize(
+    it()Runs from NTFS partion
+    it()Runs from FAT16 partion
+  )
+ )
+)
+
+description(
+ dit(Windows 95)
+ description(
+  dit(Installed on FAT16)
+  itemize(
+    it()Runs from FAT16 partion
+    it()Runs from FAT32 partion
+  )
+  dit(Installed on FAT32)
+  itemize(
+    it()Runs from FAT16 partion
+    it()Runs from FAT32 partion
+  )
+ )
+)
+  
+The installer was created with
+url(CreateInstall)(http://www.gentee.com/).  This is a shareware
+application that has capabilities close to the high dollar installers
+bf(InstallShield), bf(Install Vise), and bf(WiseInstaller).
+bf(CreateInstall) does cost $38 to register which is probably going to
+be frowned upon, but I was unable to find a freeware install builder
+that was suitable.  The self extracting distribution currently:
+
+itemize(
+ it() Installs the lilypond distribution on any valid file system.
+ it() Optionally creates a em(Lilypond) shortcut group on your start
+      menu with the following shortcuts.
+  itemize(
+   it() bf(lilyshell)
+   it() bf(uninstall)
+  )
+ it() Allows unistall through the Add/Remove Program interface on the
+      control panel.
+ it() The bf(lilyshell) uses the /E and /K switches to extend the
+      environment size and initialize the shell environment.
+ it() It has the look and feel of a real Windows installer
+)
+
+The bf(lilyshell) shortcut initializes the environment so you can
+generate music from a MSDOS prompt with commands like:
 
 itemize(
     it()ly2dvi
@@ -32,6 +87,13 @@ itemize(
     it()lilypond
     it()mi2mu
 )
+
+If you are upgrading from a previous version of lilypond you will most
+likely need to flush your font cache.  I generally just toss
+file(D:\localtexmf\fonts\tfm\public\ehrhardt) and
+file(D:\localtexmf\fonts\pk\ljfour\public\ehrhardt) in the Recyle
+Bin. Your local font directory may be different, please refer to your
+local installation of code(TeX).
 
 I have also converted the Manual Pages for the above tools to HTML for
 easy browsing.  This release has been tested on Windows NT 4.0sp3 and
@@ -77,7 +139,10 @@ clearpage()
 subsect(Download) label(download)
 
 itemize(
-    it()url(lilypond-@TOPLEVEL_VERSION@)(lily1123jbr1.exe)
+    it()Windows 95
+        url(lilypond-@TOPLEVEL_VERSION@-95)(lilypond-@TOPLEVEL_VERSION@-95.exe)
+    it()Windows NT 4.0
+        url(lilypond-@TOPLEVEL_VERSION@-nt)(lilypond-@TOPLEVEL_VERSION@-nt.exe)
 )
 
 link(Back to top)(contents)
@@ -127,11 +192,7 @@ subsect(Running LilyPond) label(running)
 itemize(
   it()Take a look at url(angels.ly)(angels.ly)
   it()Save angels.ly to your local disk
-  it()Execute lilypond-@TOPLEVEL_VERSION@\lily.bat nl()
-NOTE: If you get an em(out of environment memory error), simply increase
-the environment memory by selecting
-em(lilypond-@TOPLEVEL_VERSION@\lily.bat) Properties/Memory and increase
-the available environment memory to 1024.
+  it()Select the bf(lilyshell) shortcut from the em(Lilypond) group nl()
   it() From a LilyPond Command Prompt run: nl()
   bf(ly2dvi angels.ly) nl()
   bf(dvips angels.dvi) nl()

@@ -9,12 +9,16 @@ Most of the items are marked in the code as well
 Grep for TODO and ugh/ugr/urg.  
 
 .* BUGS
+. * sane strategy for extensions (assume .ly):
+02:22:24 appel ~/usr/src/lilypond$ lilypond foo
+GNU LilyPond 1.1.54.
+[/home/fred/usr/src/lilypond/scm/lily.scm]
+warning: can't find file: `init'
 . * indent = 0.0 with linewidth=-1.0
 . * music ending in grace notes.
 . * PostScript
-.  * ps/lily.ps see comments.
+.  * half notes in pfa
 . * didot / big point.
-. * fix singleStaffBracket
 . * check EGCS version
 . * input/test/stem-spacing.ly: 12/4 touches first note
 . * \shape 1st dim skipped? 
@@ -38,6 +42,8 @@ Grep for TODO and ugh/ugr/urg.
 . * tuplets that are written as "number : note", for example
    "3 : [image of a half note here]".  possible?
 
+. * filenames : junk lily.x 
+
 . * Matanya's tips: 
 .  * don't  shorten stems/staffs closer to each other.
 .  * accidentals closer to note head
@@ -46,6 +52,7 @@ Grep for TODO and ugh/ugr/urg.
 
 .* Cleanups needed
 . * \$ and $ identifier syntax in examples.
+. * bracket ps code.
 . * Key_engraver, Local_key_item
 . * Think of comprehensive solution for "if (grace_b == self_grace_b_)"
 . * Y dimension units: staffspace vs. Point
@@ -58,6 +65,7 @@ Grep for TODO and ugh/ugr/urg.
 . * parser
 
 .* TODO before 1.2
+. * rename midi2ly, abc2ly mup2ly
 . * Grace_slur_engraver.
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * Morally pure LilyPond.
@@ -244,6 +252,7 @@ touching it.
       Reading 4 bytes from 0xefffeca8 on the stack.
       Address 0xefffeca8 is 728 bytes below frame pointer in function 
 . * GNU diff 2.7: diff -rN does not see a new directory with empty file
+. * patch: don't touch timestamp if all patches fail.
 . * mf-to-table -> add space before ; in AFM output.  (-> check AFM
     spec. Is this a bug in afm2tfm?)
 . * check out GCC signatures?
