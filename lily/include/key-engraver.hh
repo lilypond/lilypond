@@ -11,8 +11,11 @@
 #define KEYGRAV_HH
 
 #include "engraver.hh"
-#include "key.hh"
+
 #include "musical-pitch.hh"
+#include "protected-scm.hh"
+#include "newkey.hh"
+
 
 /**
   Make the key signature.
@@ -29,13 +32,12 @@ public:
   /*
     TODO: move these into properties.
    */
-  Key key_;
+  Newkey key_;
   Key_change_req * keyreq_l_;
   Key_item * item_p_;
 
-  Array<Musical_pitch> accidental_idx_arr_;
-  Array<Musical_pitch> old_accidental_idx_arr_;
-
+  Protected_scm old_accs_;
+  Protected_scm new_accs_;  
 
   bool key_changed_b() const;
     
