@@ -34,7 +34,7 @@ alto = \music {
 		}
 %30:2
 	  	{ 
-			\octave{ ` }
+			\octave{ -1 }
 			\textstyle "italic"
 			% this should be a \dynamic, rather than text
 	  		[ c c_"cresc. \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \
@@ -61,7 +61,7 @@ alto = \music {
 		< \multivoice
 		{ \stem{ 1 }[ c16^"div." c16 c16 c16 ] c4 c2 }
 	  	  { 
-			\octave{ ` }
+			\octave{ -1 }
 			\textstyle "italic"
 			\stem{ -1 } [ as16_"\ff" as16 as16 as16 ] as4_"simile" as2
 			\textstyle "roman"

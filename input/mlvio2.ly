@@ -19,7 +19,7 @@ violinII = \music {
 %1
 	d2 |
 %2
-	[ `b8. `a16 ] `g4 |
+	[ 'b8. 'a16 ] 'g4 |
 %3
 	[ g8 e8 ] fis |
 %4
@@ -27,17 +27,17 @@ violinII = \music {
 %5=1
 	e2 |
 %6=2
-	[ `b8. `a16 ] `g4 |
+	[ 'b8. 'a16 ] 'g4 |
 %7
-	`g `a |
+	'g 'a |
 %8
-	`b `a |
+	'b 'a |
 %9=1
 	d2 |
 %10
-	`b `g |
+	'b 'g |
 %11=4
-	`g2 |
+	'g2 |
 %12
 	[ d8 e16 fis16 ] g |
 %13
@@ -54,7 +54,7 @@ violinII = \music {
 %17=1
 	d2 |
 %18=2
-	[ `b8. `a16 ] `g4 |
+	[ 'b8. 'a16 ] 'g4 |
 %19=3
 	[ g8 e8 ] fis |
 %20=4
@@ -62,9 +62,9 @@ violinII = \music {
 %21=5=1
 	e2 |
 %22=6=2
-	[ `b8. `a16 ] `g4 |
+	[ 'b8. 'a16 ] 'g4 |
 %23=4
-	`g2 |
+	'g2 |
 %24
 	cis e |
 %25
@@ -107,9 +107,9 @@ violinII = \music {
 	\textstyle "italic"
 	r_"pizz"
 	\textstyle "roman"
-	`b r `b |
+	'b r 'b |
 %42
-	r `b `g4 |
+	r 'b 'g4 |
 %43
 	r fis r fis |
 %44
@@ -144,9 +144,9 @@ violinII = \music {
 	f4 e4 \key{bes es as}|
 % \key\Es ||
 %57
-	d r `b r |
+	d r 'b r |
 %58
-	`g r es r |
+	'g r es r |
 %59
 	g r g r |
 %60
@@ -156,7 +156,7 @@ violinII = \music {
 %62
 	es2 |
 %63
-	`b d4.  |
+	'b d4.  |
 %64
 	es2 |
 % \meter{6/8} ||
@@ -164,9 +164,9 @@ violinII = \music {
 	\duration{8}
 	[ c c c ] c4.  |
 %66
-	[ `g `g `g ] `g4.  |
+	[ 'g 'g 'g ] 'g4.  |
 %67
-	[ `b8 `b `b ] `b4.  |
+	[ 'b8 'b 'b ] 'b4.  |
 %68
 	[ g g g ] g4.  |
 %69
@@ -179,9 +179,9 @@ violinII = \music {
 	es r4 r4. |
 %73
 % \meter{2/4} ||
-	d r `b r |
+	d r 'b r |
 %74
-	`g r es r |
+	'g r es r |
 %75
 	g r g r |
 %76
@@ -192,7 +192,7 @@ violinII = \music {
 %78
 	es |
 %79
-	`b8 d4.  |
+	'b8 d4.  |
 %80
 	es |
 %81

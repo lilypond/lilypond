@@ -11,7 +11,7 @@ melodie = \music {
 begeleiding = \music {
 	
 	\clef \bass
-	\octave{`}
+	\octave{-1}
 	c c' | e' c' | f' c' | e' c' 
 	d' b | c' a | f g | c2 | 
 	
