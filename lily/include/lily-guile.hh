@@ -67,8 +67,6 @@ inline SCM ly_assoc_front_x(SCM alist, SCM key, SCM val)
 {
   return scm_acons(key, val, scm_assoc_remove_x (alist, key));
 }
-inline bool ly_c_char_p (SCM x) { return SCM_CHARP (x); }
-inline bool ly_c_vector_p (SCM x) { return SCM_VECTORP (x); }
 inline bool ly_c_list_p (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }
 inline bool ly_c_procedure_p (SCM x) { return SCM_NFALSEP (scm_procedure_p (x)); }
 inline bool ly_c_equal_p (SCM x, SCM y) {
