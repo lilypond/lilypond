@@ -71,6 +71,7 @@ Spacing_req::do_print()const
 {
     mtor << "next " << next << "dist " << distance << "strength\n";
 }
+
 void
 Blank_req::do_print()const
 {
@@ -88,13 +89,37 @@ Melodic_req::Melodic_req()
 void
 Melodic_req::do_print() const
 {
-    mtor << "notename: " << notename_i_ << " oct: "<< octave_i_;
+    mtor << "notename: " << notename_i_ << " acc: " <<accidental_i_<<" oct: "<< octave_i_;
 }
 
 int
 Melodic_req::height() const
 {
     return  notename_i_ + octave_i_*7;
+}
+
+/*
+ should be settable from input to allow "viola"-mode
+ */
+static Byte pitch_by_a[ 7 ] = { 0, 2, 4, 5, 7, 9, 11 };	
+
+int
+Melodic_req::pitch() const
+{
+    return  pitch_by_a[ notename_i_ % 7 ] + accidental_i_ + octave_i_ * 12;
+}
+
+Plet_req::Plet_req()
+{
+    type_c_ = ']';
+    dur_i_ = 1;
+    type_i_ = 1;
+}
+
+void
+Plet_req::do_print() const
+{
+    mtor << "plet: " << type_c_ << ": " << dur_i_ << "/" << type_i_;
 }
 
 /* *************** */
@@ -138,7 +163,7 @@ Rhythmic_req::duration() const {
 Lyric_req::Lyric_req(Text_def* def_p)
     :Text_req(0, def_p)
 {
-    def_p->align_i_ = 1;	// raggedright
+    def_p->align_i_ = 0;	// centre
     dir_i_ = -1;		// lyrics below (invisible) staff
 }
 
