@@ -187,18 +187,8 @@ bassdux = \notes \relative c' {
 
     %hmm
 %    \translator { \BarNumberingScoreContext }
-    \translator { \BarNumberingStaffContext }
-
-    % Breitkopf; unlike B\"arenreiter rule
-    % really looks a lot better?
-    % should have an array of min/ideal lengths (scheme)
-    % and check B\"arenreiter rules again -- make testcase
-
-    % beam_multiple_break = 2.0;
-    % beam_minimum_stem1 = 1.5 * \interline;
-    % beam_ideal_stem1 = 2.0 * \interline;
-    % beam_minimum_stem2 = 1.25 * \interline;
-    % beam_ideal_stem2 = 1.75 * \interline;
+%    \translator { \BarNumberingStaffContext }
+  \translator{ \OrchestralScoreContext }
   }
   \header{
 	  opus = "BWV 847";

@@ -233,7 +233,8 @@ Beam::solve_slope (Array<Stem_info>& sinfo)
       l.input.push (Offset (sinfo[i].x_, sinfo[i].idealy_f_));
     }
 
-  l.input[0].y () += left_y_;
+  // l.input[0].y () += left_y_;
+  l.input[0].y () += left_y_ / 2;
   l.minimise (slope_f_, left_y_);
 
   solved_slope_f_ = dir_ * slope_f_;
@@ -328,7 +329,9 @@ Beam::calculate_slope ()
     {
       Real y;
       Real s;
-      for (int i = 0; i < 3; i++)
+      Array <Stem_info> local_sinfo;
+      local_sinfo = sinfo;
+      for (int i = 0; i < 5; i++)
         {
 	  y = left_y_;
 	  solve_slope (sinfo);
@@ -346,6 +349,7 @@ Beam::calculate_slope ()
 	    {
 	      left_y_ = 0;
 	      slope_f_ = 0;
+	      sinfo = local_sinfo;
 	      Real dy = check_stemlengths_f (sinfo);
 	      left_y_ += dy;
 	      break;
@@ -354,6 +358,7 @@ Beam::calculate_slope ()
 	  else if (abs (slope_f_) > abs (s))
 	    {
 	      slope_f_ = s;
+	      sinfo = local_sinfo;
 	      Real dy = check_stemlengths_f (sinfo);
 	      left_y_ += dy;
 	      break;

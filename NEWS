@@ -1,3 +1,7 @@
+pl 18.jcn5
+	- bf: beamtrend
+	- bf: vv-duet
+
 pl 18.jcn4
 	- beam length adjustments
 	- ugly beamtrend fix: input/test/beam-trend.ly
