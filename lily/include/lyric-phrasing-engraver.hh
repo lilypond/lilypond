@@ -23,7 +23,6 @@ class Syllable_group;
    right aligning end of phrases, centering others under their notes.
  */
 
-
 /* 
 * Build an engraver that catches noteheads and lyrics.
 
