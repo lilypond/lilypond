@@ -1,3 +1,12 @@
+1.3.63.jcn1
+============
+ 
+* Started grand redo of slur endings, interstaff slurs are broken for now.
+
+* Fixed download url.
+
+* Moved direction.cc to flower.
+
 1.3.63.uu1
 ==========
 

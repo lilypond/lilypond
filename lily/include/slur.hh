@@ -26,17 +26,12 @@ public:
   virtual Array<Offset> get_encompass_offset_arr () const;
   Bezier get_curve () const;
 
-  /*
-    JUNKME
-   */
-  Drul_array<Real> dy_f_drul_;
-  Drul_array<Real> dx_f_drul_;
-
   virtual Direction get_default_dir () const;
   SCM member_after_line_breaking ();
   static SCM after_line_breaking (SCM);
   virtual void do_add_processing ();
   Array<Rod> get_rods () const;
+  Offset get_attachment (Direction dir) const;
 
 private:  
   void de_uglyfy (Slur_bezier_bow* bb, Real default_height);

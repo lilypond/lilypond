@@ -6,6 +6,9 @@ maxima = \duration #'( -3 0 )
 
 #(eval-string (ly-gulp-file "generic-property.scm"))
 
+% urg, move to basic property?
+#(eval-string (ly-gulp-file "slur.scm"))
+
 \include "nederlands.ly"		% dutch
 \include "chord-modifiers.ly"
 \include "script.ly"
