@@ -138,7 +138,6 @@ def gen_list(inputs, filename):
 		ext = ext2 + ext
 		
 		header = read_lilypond_header(ex)
-		print header
 		def read_dict(s, default, h =header):
 				try:
 					ret = h[s]

@@ -275,7 +275,6 @@ yylex (YYSTYPE *s,  void * v)
 %token NOTES
 %token OCTAVE
 %token ONCE
-%token OUTPUTPROPERTY
 %token OVERRIDE SET REVERT 
 %token PAPER
 %token PARTCOMBINE
@@ -886,25 +885,6 @@ Simple_music:
 		$$ = MY_MAKE_MUSIC ("ApplyContext");
 		$$->set_mus_property ("procedure", $2);
 		$$->set_spot (THIS->here_input());
-	}
-	| OUTPUTPROPERTY embedded_scm embedded_scm '=' embedded_scm	{
-		SCM pred = $2;
-		if (!gh_symbol_p ($3))
-		{
-			THIS->parser_error (_ ("Second argument must be a symbol")); 
-		}
-		/* Should check # args */
-		if (!gh_procedure_p (pred))
-		{
-			THIS->parser_error (_ ("First argument must be a procedure taking one argument"));
-		}
-
-		Music*m = MY_MAKE_MUSIC("OutputPropertySetMusic");
-		m->set_mus_property ("predicate", pred);
-		m->set_mus_property ("grob-property", $3);
-		m->set_mus_property ("grob-value",  $5);
-
-		$$ = m;
 	}
 	| MUSIC_IDENTIFIER {
 		$$ = unsmob_music ($1);

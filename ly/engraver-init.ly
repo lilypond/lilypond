@@ -521,9 +521,14 @@ ScoreContext = \translator {
 	bassFigureFormatFunction = #make-bass-figure-markup
 	metronomeMarkFormatter = #make-metronome-markup
 
+
 	graceSettings = #`#(
 		 (Voice Stem direction 1)
-		 (Voice Stem lengths ,(map (lambda (x) (* 0.8 x)) '(2.5 2.5 3.0 4.0 5.0)))
+
+		 ;; TODO: should take from existing definition.
+		 ;; c&p from define-grobs.scm
+		 
+		 (Voice Stem lengths ,(map (lambda (x) (* 0.8 x)) '(3.5 3.5 3.5 4.5 5.0)))
 		 (Voice Stem stem-shorten (0.4 0))
 		 (Voice Stem font-relative-size -1)
 		 (Voice NoteHead font-relative-size -1)

@@ -40,6 +40,7 @@ else
   outroot=$(builddir)/$(patsubst $(shell cd $(depth); pwd)%,%,$(pwd))
 endif
 
+include $(depth)/VERSION
 include $(config_make)
 
 outdir=$(outroot)/$(outbase)

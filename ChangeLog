@@ -1,3 +1,18 @@
+2003-09-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/ambitus-mixed.ly (texidoc): new file.
+
+	* buildscripts/mutopia-index.py (find): prune debugging
+
+	* lily/side-position-interface.cc: doc updates
+
+	* Documentation/user/refman.itely: updates, tweaks.
+
+	* lily/parser.yy (Simple_music): remove outputproperty
+
+	* make/stepmake.make: use VERSION again; importing VERSION via
+	autoconf dependencies is too hairy.
+
 2003-09-17  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: allow `-' for keywords and identifiers.
