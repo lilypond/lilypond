@@ -5,7 +5,7 @@
 StaffContext=\translator {
 	\type "Engraver_group_engraver";
 	\name Staff ;
-	
+	\consists "Output_property_engraver";	
 	barAuto = ##t
 	voltaVisibility = ##t
 	Generic_property_list = #generic-staff-properties
@@ -92,7 +92,8 @@ RhythmicStaffContext=\translator{
 	\type "Engraver_group_engraver";
 	numberOfStaffLines  = #1
 	\consists "Property_engraver";
-	
+	\consists "Output_property_engraver";	
+
 	Generic_property_list = #generic-staff-properties
 	
 	barSize = #'staff-height
@@ -113,6 +114,7 @@ VoiceContext = \translator {
 	\type "Engraver_group_engraver";
 	dynamicPadding = #5.0
 	Generic_property_list = #generic-voice-properties
+	\consists "Output_property_engraver";	
 
 	\consists "Dynamic_engraver";   % must come before text_engraver.
 	\name Voice ;
@@ -145,6 +147,7 @@ VoiceContext = \translator {
 GraceContext=\translator {
 	\type "Grace_engraver_group";
 	\name "Grace";
+	\consists "Output_property_engraver";	
 
 	Generic_property_list = #generic-grace-properties
 	
@@ -170,7 +173,7 @@ GraceContext=\translator {
 	
 	stemLength = #6.0
 	verticalDirection = \up ;
-	graceAccidentalSpace= 1.5 * \interline;
+	graceAccidentalSpace= 1.5 * \staffspace;
 };
 
 \translator{\GraceContext}
@@ -179,6 +182,7 @@ GraceContext=\translator {
 ThreadContext = \translator{
 	\type Engraver_group_engraver;
 	\consists "Note_heads_engraver" ;
+	\consists "Output_property_engraver";	
 	Generic_property_list = #generic-thread-properties
 	\consists "Property_engraver";
 	\name Thread;
@@ -211,6 +215,7 @@ PianoStaffContext = \translator{\GrandStaffContext
 StaffGroupContext= \translator {
 	\type "Engraver_group_engraver";
 	\consists "Span_bar_engraver";
+	\consists "Output_property_engraver";	
 	
 	\consists "Staff_group_bar_engraver";
 	\name StaffGroup;
@@ -251,6 +256,7 @@ LyricsContext = \translator {
 
 \translator{
 	\type "Engraver_group_engraver";
+	\consists "Output_property_engraver";	
 
 	\consistsend "Axis_group_engraver";
 	\name ChordNameVoice ;
@@ -311,6 +317,7 @@ ScoreContext = \translator {
 	\name Score;
 
 	\consists "Timing_engraver";
+	\consists "Output_property_engraver";	
 
 	\consists "Span_score_bar_engraver";
 %	\consists "Score_priority_engraver";

@@ -4,7 +4,7 @@
 % 
 % source file of the Feta (Font-En-Tja) music font
 % 
-% (c) 1997, 1998 Han-Wen Nienhuys <hanwen@stack.nl>
+% (c) 1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 % 
 
 font_identifier:="feta-braces16";

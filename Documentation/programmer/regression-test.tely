@@ -131,9 +131,10 @@ Stems may be short, but noteheads should never touch the beam.
 
 @mudelafile{beam-extreme.ly}
 
-Beams should always reach the middle staff line, the second beam
+Beams should always reach the middle staff line.  The second beam
 counting from the note head side, should never be lower than the
 second staff line.  This does not hold for grace note beams.
+Override with @code{noStemExtend}.
 
 @mudelafile{beam-position.sly}
 

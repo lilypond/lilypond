@@ -5,7 +5,7 @@
 @node Top, , , (dir)
 @top
 
-@unnumberedsubsec Introduction
+@unnumberedsubsec Info
 
 @itemize @bullet 
 @item @uref{DEDICATION.txt,Dedication}
@@ -15,13 +15,13 @@
 @end itemize
 
 
-@unnumberedsubsec Documentation
+@unnumberedsubsec Manuals
 
 @itemize @bullet
-@item @uref{faq.html,Frequently asked questions}, with answers
+@item @uref{faq.html,FAQ: Frequently asked questions}, with answers
 @item @uref{programs.html,`Manual pages'}
 @item @uref{../user/out-www/index.html,User documentation}
-@item @uref{../programmer/out-www/index.html,Programmer's documentation}
+@item @uref{../programmer/out-www/index.html,Programmer documentation}
 @item @uref{../bibliography/out-www/index.html,Bibliography}
 @item @uref{../misc/out-www/index.html,Miscellaneous texts}
 @end itemize
@@ -35,7 +35,7 @@
 @end itemize
 
 
-@unnumberedsubsec Logo:
+@unnumberedsubsec Logo
 @itemize @bullet
 @item @uref{../pictures/out-www/lelieblond.png,  logo} in large size
 @item @uref{../pictures/out-www/lelie-logo.png, logo} in medium size

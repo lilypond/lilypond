@@ -1,1 +1,3 @@
-[f8 f] \grace { [f8 e8] } [f64 f]
+[f8 f]  [f64 f] \grace { [f8 e8] }
+\property Voice.noStemExtend = ##t
+[f8 f]

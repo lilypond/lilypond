@@ -12,7 +12,7 @@
 	StartFontMetrics 2.0
 	FontName as 5
 	FontFamily as
-	StartCharMetrics 56
+	StartCharMetrics 59
 
 	Comment BBox: (llx lly urx ury) * 1000
  C 0; WX 7; N rests-0; B 0 0 1000 1000;
@@ -51,11 +51,18 @@ x
 :
  C 31; WX 5; N noteheads-ledgerending; B -1500 -500 1500 500;
 -
- C 33; WX 9; N noteheads-0; B 0 -500 1000 500;
+ C 33; WX 1; N noteheads-0; B 0 -500 1000 500;
 O
- C 34; WX 6; N noteheads-1; B -1000 -500 0 500;
+ C 33.5; WX 1; N noteheads-0; B -1000 -500 1000 2000;
+,-,
+`-'
+ C 34; WX 1; N noteheads-1; B -1000 -500 0 500;
 o
- C 35; WX 6; N noteheads-2; B -1000 0 0 1000;
+ C 34.5; WX 1; N noteheads-1; B -1000 -500 0 500;
+°
+ C 35; WX 1; N noteheads-2; B -1000 0 0 1000;
+x
+ C 35.5; WX 1; N noteheads-2.5; B -1000 0 0 1000;
 *
  C 36; WX 9; N noteheads-0diamond; B 0 -2750 9900 2750;
 V

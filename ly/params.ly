@@ -8,19 +8,21 @@ paperfile = \papersize + ".ly";
 \include \paperfile;
 \include "paper.ly";
 
-interline = \staffheight / 4.0;
+staffspace = \staffheight / 4.0;
+stafflinethickness = \staffspace / 10.0;
 
+% deprecated
+interline = \staffspace;
 
-stafflinethickness = \interline / 10.0;
 
 % urg, need grace_ versions of these too?
-beam_thickness = 0.52 * (\interline - \stafflinethickness);
+beam_thickness = 0.52 * (\staffspace - \stafflinethickness);
 
 #'beam-thickness = \beam_thickness;  %% UGR
 
 
-interbeam = (2.0 * \interline + \stafflinethickness - \beam_thickness) / 2.0;
-interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
+interbeam = (2.0 * \staffspace + \stafflinethickness - \beam_thickness) / 2.0;
+interbeam4 = (3.0 * \staffspace - \beam_thickness) / 3.0;
 
 %{
 The space taken by a note is determined by the formula 
@@ -45,20 +47,20 @@ arithmetic_multiplier = 0.9 * \quartwidth ;
 
 % catch suspect beam slopes, set slope to zero if
 % outer stem is lengthened more than
-beam_lengthened = 0.2 * \interline;
+beam_lengthened = 0.2 * \staffspace;
 % and slope is running away steeper than
 beam_steep_slope = 0.2 / 1.0;
 
 %{
 dit(code(slur_x_gap)) Horizontal space between note and slur.  Set to
-code(\interline / 5) by default.  
+code(\staffspace / 5) by default.  
 
 %}
 % OSU: suggested gap = ss / 5;
-slur_x_gap = \interline / 5.0;
-slur_y_gap = 0.25 * \interline;
-slur_y_free = 0.75 * \interline;
-slur_x_minimum = 1.5 * \interline;
+slur_x_gap = \staffspace / 5.0;
+slur_y_gap = 0.25 * \staffspace;
+slur_y_free = 0.75 * \staffspace;
+slur_x_minimum = 1.5 * \staffspace;
 
 %{
 Like beams, slurs often aren't as steep as the notes they encompass.
@@ -71,8 +73,8 @@ slur_interstaff_slope_damping = 0.6;
 slur_height_damping = 0.4;
 slur_interstaff_height_damping = 0.5;
 % snap to stem if slur ends closer to stem than
-slur_snap_to_stem = 1.75 * \interline;
-slur_interstaff_snap_to_stem = 2.5 * \interline;
+slur_snap_to_stem = 1.75 * \staffspace;
+slur_interstaff_snap_to_stem = 2.5 * \staffspace;
 % maximum dy change allowed by snapping
 slur_snap_max_slope_change = 0.5;
 slur_interstaff_snap_max_slope_change = 0.5;
@@ -80,12 +82,12 @@ slur_thickness = 1.2 * \stafflinethickness;
 
 
 
-tie_x_minimum = \interline + \slur_x_minimum;
+tie_x_minimum = \staffspace + \slur_x_minimum;
 % OSU: tie gap == slur gap
 tie_x_gap = \slur_x_gap;
-tie_y_gap = 0.25 * \interline;
+tie_y_gap = 0.25 * \staffspace;
 % length of a tie that's a staffspace high
-tie_staffspace_length = 4.0 * \interline;
+tie_staffspace_length = 4.0 * \staffspace;
 
 % ugh: rename to bow (in bezier.cc and fonts.doc too...)
 
@@ -125,11 +127,11 @@ gourlay_maxmeasures = 10.;
 %{ Ross. page 151 lists these values, but we think that thick lines
 and kernings are too thick.
 
-bar_kern = 0.5 * \interline;
-bar_thinkern = 0.75 * \interline;
-barthick_thick = 0.5* \interline;
-barthick_score = 0.13333* \interline;
-barthick_thin = 0.1*\interline;
+bar_kern = 0.5 * \staffspace;
+bar_thinkern = 0.75 * \staffspace;
+barthick_thick = 0.5* \staffspace;
+barthick_score = 0.13333* \staffspace;
+barthick_thin = 0.1*\staffspace;
 
 %}
 
@@ -139,17 +141,17 @@ barthick_thick = 6.0* \stafflinethickness;
 barthick_thin = 1.6*\stafflinethickness;
 barthick_score = 1.6*\stafflinethickness;
 
-bracket_arch_thick = \interline / 3.0;
-bracket_width = 2.0 * \interline;
+bracket_arch_thick = \staffspace / 3.0;
+bracket_width = 2.0 * \staffspace;
 bracket_thick = 2.0 * \stafflinethickness;
-bracket_arch_height = 1.5 * \interline;
+bracket_arch_height = 1.5 * \staffspace;
 bracket_arch_width = \bracket_arch_height;
 bracket_arch_angle = 50.0;
 
-tuplet_spanner_gap = 2.0 * \interline;
+tuplet_spanner_gap = 2.0 * \staffspace;
 tuplet_thick = 1.0*\stafflinethickness;
 volta_thick = 1.6*\stafflinethickness;
-volta_spanner_height = 2.0 *\interline;
+volta_spanner_height = 2.0 *\staffspace;
 
 % relative thickness of thin lines  1.6 : 1 : 0.8
 stemthickness = 0.8*\stafflinethickness;
@@ -164,13 +166,13 @@ hyphen_minimum_length = 0.25*\font_normal;
 
 % Multi-measure rests
 multi_measure_rest_x_minimum = 2.5*\staffheight;
-multi_measure_rest_padding = 2.0 *\interline;
+multi_measure_rest_padding = 2.0 *\staffspace;
 multi_measure_rest_expand_limit = 10.0;
 
 % chop off this much when next to pp / ff sign.
-crescendo_shorten = 4.0 * \interline;
+crescendo_shorten = 4.0 * \staffspace;
 crescendo_thickness   = \stafflinethickness;
-crescendo_height = 0.666 * \interline;
+crescendo_height = 0.666 * \staffspace;
 
 % in internote.
 restcollision_minimum_dist = 3.0;
@@ -184,7 +186,7 @@ collision_note_width = \notewidth;	%ugh.
 postBreakPadding = 0.0;
 
 % optical correction amount.
-stemSpacingCorrection = 0.5*\interline;
+stemSpacingCorrection = 0.5*\staffspace;
 
 
 %{
@@ -211,7 +213,7 @@ before_grace_spacing_factor = 1.2;
 %{
 If columns do not have spacing information set, set it to this much
 %}
-loose_column_distance = 2.0 * \interline;
+loose_column_distance = 2.0 * \staffspace;
 
 %{
 Relative cost of compressing (vs. stretching).  Increasing this
@@ -224,7 +226,7 @@ compression_energy_factor = 0.6;
 % if stem is on middle line, choose this direction.
 stem_default_neutral_direction = 1.0;
 
-% in interline
+% in staffspace
 articulation_script_padding_default = 1.0;
 
 % Backward compatibility -- has no function; 
@@ -241,6 +243,6 @@ Wordwrap =0.0;
 #'Local_key_item::left-padding = #'0.2
 #'Local_key_item::right-padding = #'0.4
 
-#'Staff_symbol::staff-space = \interline ;
+#'Staff_symbol::staff-space = \staffspace ;
 #'Staff_symbol::line-count = #5
 
