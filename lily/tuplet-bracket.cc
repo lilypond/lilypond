@@ -293,6 +293,11 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   SCM cols = me->get_grob_property ("note-columns");
   Grob * commony = common_refpoint_of_list (cols, me, Y_AXIS);
   Grob * commonx = common_refpoint_of_list (cols, me, X_AXIS);  
+
+  Interval staff;
+
+  if (Grob * st = Staff_symbol_referencer::get_staff_symbol (me))
+    staff = st->extent (commony, Y_AXIS);
   
   Direction dir = get_grob_direction (me);
 
@@ -309,8 +314,12 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   
   if (l < r)
     {
-      *dy = columns[r]->extent (commony, Y_AXIS) [dir]
-	- columns[l]->extent (commony, Y_AXIS) [dir] ;
+      Interval rv =columns[r]->extent (commony, Y_AXIS);
+      Interval lv =columns[l]->extent (commony, Y_AXIS);
+      rv.unite (staff);
+      lv.unite (staff);
+      
+      *dy =  rv[dir] - lv[dir];
     }
   else
     * dy = 0;
@@ -329,15 +338,16 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   Real x1 = rgr->extent (commonx,X_AXIS)[RIGHT];
 
 
-    /*
-      Slope.
-    */
+  /*
+    Slope.
+  */
   Real factor = columns.size () > 1 ? 1/ (x1 - x0) : 1.0;
   
   for (int i = 0; i < columns.size ();  i++)
     {
-      Real notey = columns[i]->extent (commony, Y_AXIS)[dir] 
-	- me->relative_coordinate (commony, Y_AXIS);
+      Interval note_ext =columns[i]->extent (commony, Y_AXIS);
+      note_ext.unite (staff);
+      Real notey = note_ext[dir] - me->relative_coordinate (commony, Y_AXIS);
       
       Real x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
       Real tuplety =  *dy * x * factor;
@@ -425,7 +435,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
     }
   if (dynamic_cast<Spanner*> (me)->broken_b ())
     {
-      me->warning ("Tuplet_bracket was across linebreak. Farewell cruel world.");
+      me->warning (_("Killing tuplet bracket across linebreak."));
       me->suicide();
       return SCM_UNSPECIFIED;
     }

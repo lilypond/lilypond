@@ -1,3 +1,14 @@
+2004-01-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/define-grobs.scm (all-grob-descriptions): larger font for
+	ChordName
+
+	* scm/new-markup.scm (sub-markup): sup & super: make smaller in
+	relation to surroundings.
+
+	* lily/tuplet-bracket.cc (calc_position_and_height): add staff
+	Y-extent to the note-extents: stay clear of the staff.
+
 2004-01-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* Documentation/user/GNUmakefile

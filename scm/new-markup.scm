@@ -378,7 +378,8 @@ for DIR, you can obtain longer or shorter stems."
   "Syntax: \\super MARKUP. "
   (ly:molecule-translate-axis (interpret-markup
 			       paper
-			       (cons '((font-size . -3)) props) (car rest))
+			       (cons `((font-size .
+						  ,(- (chain-assoc-get 'font-size props 0) 3))) props) (car rest))
 			      (* 0.5 (cdr (chain-assoc 'baseline-skip props)))
 			      Y)
   )
@@ -392,21 +393,22 @@ for DIR, you can obtain longer or shorter stems."
 
 (define-public (sub-markup paper props  . rest)
   "Syntax: \\sub MARKUP."
-  (ly:molecule-translate-axis (interpret-markup
-			       paper
-			       (cons '((font-size . -3)) props)
-			       (car rest))
-			      (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
-			      Y)
-  )
+  (ly:molecule-translate-axis
+   (interpret-markup
+    paper
+    (cons `((font-size .
+		       ,(- (chain-assoc-get 'font-size props 0) 3))) props)
+    (car rest))
+   (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
+   Y) )
 
 (define-public (normal-size-sub-markup paper props . rest)
-  (ly:molecule-translate-axis (interpret-markup
-			       paper
-			       props (car rest))
-			      (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
-			      Y)
-  )
+  (ly:molecule-translate-axis
+   (interpret-markup
+    paper
+    props (car rest))
+   (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
+   Y) )
 
 (define-public (hbracket-markup paper props . rest)
   "Horizontal brackets around its single argument. Syntax \\hbracket MARKUP."  

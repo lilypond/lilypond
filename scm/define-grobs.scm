@@ -262,6 +262,7 @@
 	(after-line-breaking-callback . ,Chord_name::after_line_breaking)
 	(word-space . 0.0)
 	(font-family . sans)
+	(font-size . 1.5)
 	(meta . ((interfaces . (font-interface 							rhythmic-grob-interface
 												text-interface chord-name-interface item-interface ))))
 	))
@@ -1153,7 +1154,7 @@
     (TupletBracket
      . (
 	(gap . 2.0)
-	(padding . 0.9)
+	(padding . 1.1)
 	(thickness . 1.6)
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
