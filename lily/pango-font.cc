@@ -155,9 +155,7 @@ Pango_font::physical_font_tab () const
   return physical_font_tab_;
 }
 
-
 Stencil
-
 Pango_font::text_stencil (String str) const
 {
   GList *items = pango_itemize (context_,
