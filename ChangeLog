@@ -1,5 +1,7 @@
 2004-08-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/test/lyrics-skip-notes.ly: remove
+
 	* input/test/stem-cross-staff.ly (noFlag): fold into manual
 
 	* input/test/{spacing-2,staff-space,tablature,textscript}.ly:

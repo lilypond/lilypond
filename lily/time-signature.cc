@@ -147,7 +147,7 @@ ADD_INTERFACE (Time_signature, "time-signature-interface",
 "        typeset with mensural style mensuration marks.  All other time\n"
 "        signatures are written with two digits.\n"
 "\n"
-"      @item @code{single-digit"
+"      @item @code{single-digit}\n"
 "        All time signatures are typeset with a single\n"
 "        digit, e.g. 3/2 is written as 3.\n"
 "    @end table\n"
