@@ -1,3 +1,10 @@
+2002-06-25  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* input/test/ambitus.ly, lily/ambitus-engraver.cc,
+	lily/ambitus.cc, lily/include/ambitus.hh, ly/engraver-init.ly,
+	scm/basic-properties.scm, scm/grob-description.scm,
+	scm/grob-property-description.scm: added support for ambitus
+
 2002-06-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/text-spanner.cc: add some props to interface (patch

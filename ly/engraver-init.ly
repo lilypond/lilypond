@@ -414,6 +414,7 @@ ScoreContext = \translator {
 	breakAlignOrder = #'(
 	  instrument-name
 	  left-edge
+	  ambitus
 	  span-bar
 	  breathing-sign
 	  clef

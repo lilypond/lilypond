@@ -62,6 +62,7 @@
  '(
    ((none Instrument_name) . (extra-space 1.0))
    ((none Left_edge_item) . (extra-space 0.0))
+   ((none Ambitus) . (extra-space 1.0))
    ((none Clef_item) . (minimum-space-pair  1.0))
    ((none Staff_bar) . (minimum-space-pair  0.0))
    ((none Clef_item) . (minimum-space-pair  1.0))
