@@ -242,6 +242,12 @@ is what have collected so far, and has ascending page numbers."
     (let*
 	((inter-system-space
 	  (ly:output-def-lookup bookpaper 'betweensystemspace))
+	 (system-vector (list->vector
+	   (append lines
+		   (if (= (length lines) 1)
+		       '(#f)
+			'()))
+	   ))
 
 	 (staff-extents
 	  (list->vector
@@ -282,7 +288,21 @@ is what have collected so far, and has ascending page numbers."
 		 (fixed (max 0  (- (+ (cdr next-system-ext)
 				      fixed-dist)
 				   (car this-system-ext))))
-		 (ideal (+ inter-system-space fixed))
+		 (title1? (and (vector-ref system-vector idx)
+			       (ly:paper-system-title? (vector-ref system-vector idx))))
+		 (title2? (and
+			    (vector-ref system-vector (1+ idx))
+			    (ly:paper-system-title? (vector-ref system-vector (1+ idx)))))
+		 (ideal (+
+			 (cond
+			  ((and title2? title1?)
+			   (ly:output-def-lookup bookpaper 'betweentitlespace)))
+			  (title1?
+			   (ly:output-def-lookup bookpaper 'aftertitlespace))
+			  (title2?
+			   (ly:output-def-lookup bookpaper 'beforetitlespace))
+			  (else inter-system-space))
+			 fixed))
 		 (hooke (/ 1 (- ideal fixed)))
 		 )
 	      (list ideal hooke))
@@ -315,7 +335,7 @@ is what have collected so far, and has ascending page numbers."
 	       (cdr  result)))
 	 )
 
-     (if #t ;; debug.
+     (if #f ;; debug.
 	 (begin
 	   (display (list "\n# systems: " no-systems
 			  "\nreal-ext" real-extents "\nstaff-ext" staff-extents
