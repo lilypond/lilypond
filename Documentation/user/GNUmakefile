@@ -80,7 +80,7 @@ deep-symlinks:
 	cd $(outdir) && rm -f lilypond && ln -s . lilypond
 	cd $(outdir) && rm -f lilypond-internals && ln -s . lilypond-internals
 	cd $(outdir) && $(foreach i, $(LILYPOND_LINKS),\
-		rm -f $(i) && ln -s $(i) lilypond.html &&) true
+		rm -f $(i) && ln -s lilypond.html $(i) &&) true
 endif
 
 
