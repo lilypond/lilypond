@@ -1,3 +1,8 @@
+2004-10-11  Werner Lemberg  <wl@gnu.org>
+
+	* tex/lilyponddefs.tex (\lyitem): Don't use \topalign to make
+	\raise work with positive values.
+
 2004-10-11  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/notation.itely (Multi measure rests): Update
