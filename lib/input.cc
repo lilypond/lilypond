@@ -61,7 +61,6 @@ void
 Input::error(String s)const
 {
     message("error: "+ s);
-    exit (1);
 }
 
 String
