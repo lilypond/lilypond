@@ -18,7 +18,6 @@ public:
     DECLARE_MY_RUNTIME_TYPEINFO;
 
     Note_performer();
-    ~Note_performer();
 
 protected:
     virtual void process_requests();
@@ -28,7 +27,6 @@ protected:
 
 private:
     Melodic_req * note_req_l_;
-    Moment off_mom_;
 };
 
 #endif // NOTE_PERFORMER_HH

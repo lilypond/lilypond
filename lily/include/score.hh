@@ -26,7 +26,8 @@ public:
     Paper_def *paper_p_;
     Midi_def *midi_p_;
     Music * music_p_;
-    PScore *pscore_p_;
+    Paper_score *pscore_p_;
+    Audio_score* audio_score_p_;
 
     int errorlevel_i_;
     
@@ -34,6 +35,7 @@ public:
 
     /// construction
     Score();
+    Score(Score const&);
     ~Score();    
 
     /// do everything except outputting to file
@@ -42,7 +44,6 @@ public:
     /// output to file
     void output(String fn);
 
-    
     ///
     void set(Midi_def* midi_p);
     ///
@@ -50,11 +51,7 @@ public:
 
     void print() const;
 
-    Score(Score const&);
 private:
-
-
-
     void run_translator(Global_translator*);
     void midi_output();
     void paper_output();
@@ -67,7 +64,6 @@ private:
 
     // utils:
     PCursor<Score_column*> create_cols(Moment, PCursor<Score_column*> &last);
-
 
     /**
       make the pcol_l_ fields of each Score_column point to the correct PCol,
