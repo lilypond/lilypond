@@ -379,7 +379,7 @@ Place generated files in @var{dir}.
 
 @item @option{-P @var{process}}, @option{--process=@var{COMMAND}}
 Process lilypond snippets using @var{command}.  The default command is
-@var{lilypond-bin}.
+@code{lilypond}.
 
 @item @option{--verbose}
 Be verbose.

@@ -42,5 +42,5 @@ LILYPOND_BOOK_FLAGS = --process="lilypond-bin -f tex --header=texidoc -I $(srcdi
 
 #texi-html for www only:
 LILYPOND_BOOK_FORMAT=$(if $(subst out-www,,$(notdir $(outdir))),texi,texi-html)
-LY2DVI = $(script-dir)/lilypond.py
+LY2DVI = $(LILYPOND)
 LYS_TO_TELY = $(buildscript-dir)/lys-to-tely.py
