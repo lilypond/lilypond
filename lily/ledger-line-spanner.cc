@@ -7,7 +7,6 @@
 */
 
 #include <map>
-#include <set>
 
 #include "item.hh"
 #include "note-head.hh"
@@ -77,9 +76,6 @@ Ledger_line_spanner::brew_ledger_lines (Grob *staff,
   return stencil;
 }
 
-typedef std::map < int, Drul_array<Interval> > Head_extents_map;
-typedef std::map < int, Grob *> Column_map;
-
 MAKE_SCHEME_CALLBACK (Ledger_line_spanner, set_spacing_rods, 1);
 SCM
 Ledger_line_spanner::set_spacing_rods (SCM smob)
@@ -91,81 +87,76 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
   if (!staff)
     return SCM_EOL;
 
-  Link_array<Grob> heads (extract_grob_array (me, ly_symbol2scm ("note-heads")));
+  SCM heads = me->get_property ("note-heads");
 
-  if (heads.is_empty ())
-    return SCM_EOL;
 
   Real min_length_fraction
     = robust_scm2double (me->get_property ("minimum-length-fraction"), 0.15);
 
-  Head_extents_map head_extents;
-  Column_map columns;
 
+  Drul_array<Interval> current_extents;
+  Drul_array<Interval> previous_extents;
+  Item *previous_column = 0;
+  Item *current_column = 0;
+
+  /*
+    Run through heads using a loop. Since Legder_line_spanner can
+    contain a lot of noteheads, we don't use an STL map or set.
+  */
   int interspaces = Staff_symbol::line_count (staff) - 1;
-  for (int i = heads.size (); i--;)
+  for (SCM hp = heads; scm_is_pair (hp); hp = scm_cdr (hp))
     {
-      Item *h = dynamic_cast<Item *> (heads[i]);
-
+      Item *h = dynamic_cast<Item *> (unsmob_grob (scm_car (hp)));
+      
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      if (pos
-	  && abs (pos) > interspaces)
+      if (abs (pos) <= interspaces)
+	continue;
+      
+      Item *column = h->get_column ();
+      if (current_column != column)
 	{
-	  Grob *column = h->get_column ();
-	  int rank = Paper_column::get_rank (column);
-
-	  Interval head_extent = h->extent (column, X_AXIS);
-	  Direction vdir = Direction (sign (pos));
-	  if (!vdir)
-	    continue;
-
-	  Interval prev_extent;
-
-	  Head_extents_map::iterator j = head_extents.find (rank);
-	  if (j != head_extents.end ())
-	    prev_extent = (*j).second[vdir];
-	  else
-	    columns[rank] = column;
-
-	  prev_extent.unite (head_extent);
-	  head_extents[rank][vdir] = prev_extent;
-	}
-    }
-
-  for (Column_map::const_iterator c (columns.begin ()); c != columns.end (); c++)
-    {
-      Grob *column = (*c).second;
-      int rank = (*c).first;
-
-      int next_rank = rank + 2;
-
-      if (head_extents.find (next_rank) != head_extents.end ())
-	{
-	  Drul_array<Interval> extents_left = head_extents[rank];
-	  Drul_array<Interval> extents_right = head_extents[next_rank];
-
-	  Direction d = DOWN;
+	  Direction d = UP;
 	  do
 	    {
-	      if (!extents_left[d].is_empty () && !extents_right[d].is_empty ())
+	      if (!current_extents[d].is_empty ()
+		  && !previous_extents[d].is_empty ())
 		{
-		  Real l1 = extents_right[d].length () * min_length_fraction;
-		  Real l2 = extents_left[d].length () * min_length_fraction;
+		  Real total_head_length = previous_extents[d].length ()
+		    + current_extents[d].length ();
 
 		  Rod rod;
-		  rod.distance_ = l1 + l2 + (l1+ l2) / 2.0
-		    + extents_left[d][RIGHT]
-		    - extents_right[d][LEFT];
+		  rod.distance_ = total_head_length
+		    * (3/2 * min_length_fraction)
+		    /*
+		      we go from right to left.
+		     */
+		    - previous_extents[d][LEFT]
+		    + current_extents[d][RIGHT];
 
-		  rod.item_drul_[LEFT] = dynamic_cast<Item *> (column);
-		  rod.item_drul_[RIGHT] = dynamic_cast<Item *> (columns[next_rank]);
+		  rod.item_drul_[LEFT] = current_column;
+		  rod.item_drul_[RIGHT] = previous_column;
 		  rod.add_to_cols ();
 		}
 	    }
 	  while (flip (&d) != DOWN);
-	}
-    }
 
+	  previous_column = current_column;
+	  current_column = column;
+	  previous_extents = current_extents;
+	  
+	  current_extents[DOWN].set_empty();
+	  current_extents[UP].set_empty();
+	}
+      
+      
+      Interval head_extent = h->extent (column, X_AXIS);
+      Direction vdir = Direction (sign (pos));
+      if (!vdir)
+	continue;
+
+      current_extents[vdir].unite (head_extent);
+    }
+  
   return SCM_UNSPECIFIED;
 }
 
@@ -186,8 +177,9 @@ struct Ledger_request
 typedef std::map < int, Drul_array<Ledger_request> > Ledger_requests;
 
 /*
-  TODO: ledger share a lot of info. Lots of room to optimize away common
-  use of objects/variables.
+  TODO: ledger share a lot of info. Lots of room to optimize away
+  common use of objects/variables.
+
 */
 MAKE_SCHEME_CALLBACK (Ledger_line_spanner, print, 1);
 SCM
