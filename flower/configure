@@ -15,6 +15,8 @@ ac_help="$ac_help
   enable-shared       shared flower library"
 ac_help="$ac_help
   disable-optimise    optimisations off"
+ac_help="$ac_help
+  out-dir			set the directory for machine generated files. Default out or out-HOST"
 
 # Initialize some variables set by options.
 # The variables have the same names as the options, with
@@ -534,16 +536,18 @@ optimise_b=yes
 shared_b=no
 LIB_SUFFIX=.a
 
-# if given here, these vars are initted at the checking point.
 if test x$host = xNONE; then
-    flowerbuildprefix=.
+    OUTDIR_NAME=${OUTDIR_NAME-"out"}
 else
-    flowerbuildprefix="../$host-build-dir/Flower"
-    mkdir $flowerbuildprefix;
-    for a in `find -type d -and -not -name '*-build-dir'`; do
-	mkdir $flowerbuildprefix/$a;
-    done
+    OUTDIR_NAME=${OUTDIR_NAME-"out-$host"}
 fi
+
+for a in `find -type d -and -not -name 'out'`; do
+	if test ! -d  $a/$OUTDIR_NAME; then
+		mkdir $a/$OUTDIR_NAME;
+	fi
+done
+
     
 # Check whether --enable-shared or --disable-shared was given.
 if test "${enable_shared+set}" = set; then
@@ -556,6 +560,14 @@ fi
 if test "${enable_optimise+set}" = set; then
   enableval="$enable_optimise"
   optimise_b=$enableval
+fi
+
+
+# Check whether --enable-out-dir or --disable-out-dir was given.
+if test "${enable_out_dir+set}" = set; then
+  enableval="$enable_out_dir"
+  OUTDIR_NAME=$enableval
+    
 fi
 
 
@@ -578,7 +590,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:582: checking for $ac_word" >&5
+echo "configure:594: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_CXX'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -609,7 +621,7 @@ test -n "$CXX" || CXX="gcc"
 
 
 echo $ac_n "checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works""... $ac_c" 1>&6
-echo "configure:613: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works" >&5
+echo "configure:625: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works" >&5
 
 ac_ext=C
 # CXXFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.
@@ -619,11 +631,11 @@ ac_link='${CXX-g++} -o conftest $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $L
 cross_compiling=$ac_cv_prog_cxx_cross
 
 cat > conftest.$ac_ext <<EOF
-#line 623 "configure"
+#line 635 "configure"
 #include "confdefs.h"
 main(){return(0);}
 EOF
-if { (eval echo configure:627: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
+if { (eval echo configure:639: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
   ac_cv_prog_cxx_works=yes
   # If we can't run a trivial program, we are probably using a cross compiler.
   if (./conftest; exit) 2>/dev/null; then
@@ -643,12 +655,12 @@ if test $ac_cv_prog_cxx_works = no; then
   { echo "configure: error: installation or configuration problem: C++ compiler cannot create executables." 1>&2; exit 1; }
 fi
 echo $ac_n "checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) is a cross-compiler""... $ac_c" 1>&6
-echo "configure:647: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) is a cross-compiler" >&5
+echo "configure:659: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) is a cross-compiler" >&5
 echo "$ac_t""$ac_cv_prog_cxx_cross" 1>&6
 cross_compiling=$ac_cv_prog_cxx_cross
 
 echo $ac_n "checking whether we are using GNU C++""... $ac_c" 1>&6
-echo "configure:652: checking whether we are using GNU C++" >&5
+echo "configure:664: checking whether we are using GNU C++" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_gxx'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -657,7 +669,7 @@ else
   yes;
 #endif
 EOF
-if { ac_try='${CXX-g++} -E conftest.C'; { (eval echo configure:661: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
+if { ac_try='${CXX-g++} -E conftest.C'; { (eval echo configure:673: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
   ac_cv_prog_gxx=yes
 else
   ac_cv_prog_gxx=no
@@ -672,7 +684,7 @@ if test $ac_cv_prog_gxx = yes; then
   ac_save_CXXFLAGS="$CXXFLAGS"
   CXXFLAGS=
   echo $ac_n "checking whether ${CXX-g++} accepts -g""... $ac_c" 1>&6
-echo "configure:676: checking whether ${CXX-g++} accepts -g" >&5
+echo "configure:688: checking whether ${CXX-g++} accepts -g" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_cxx_g'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -700,7 +712,7 @@ else
 fi
 
 echo $ac_n "checking for 8-bit clean memcmp""... $ac_c" 1>&6
-echo "configure:704: checking for 8-bit clean memcmp" >&5
+echo "configure:716: checking for 8-bit clean memcmp" >&5
 if eval "test \"`echo '$''{'ac_cv_func_memcmp_clean'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -708,7 +720,7 @@ else
   ac_cv_func_memcmp_clean=no
 else
   cat > conftest.$ac_ext <<EOF
-#line 712 "configure"
+#line 724 "configure"
 #include "confdefs.h"
 #ifdef __cplusplus
 extern "C" void exit(int);
@@ -721,7 +733,7 @@ main()
 }
 
 EOF
-if { (eval echo configure:725: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest && (./conftest; exit) 2>/dev/null
+if { (eval echo configure:737: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest && (./conftest; exit) 2>/dev/null
 then
   ac_cv_func_memcmp_clean=yes
 else
@@ -739,12 +751,12 @@ echo "$ac_t""$ac_cv_func_memcmp_clean" 1>&6
 test $ac_cv_func_memcmp_clean = no && LIBOBJS="$LIBOBJS memcmp.o"
 
 echo $ac_n "checking for vprintf""... $ac_c" 1>&6
-echo "configure:743: checking for vprintf" >&5
+echo "configure:755: checking for vprintf" >&5
 if eval "test \"`echo '$''{'ac_cv_func_vprintf'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 748 "configure"
+#line 760 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char vprintf(); below.  */
@@ -770,7 +782,7 @@ vprintf();
 
 ; return 0; }
 EOF
-if { (eval echo configure:774: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
+if { (eval echo configure:786: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
   rm -rf conftest*
   eval "ac_cv_func_vprintf=yes"
 else
@@ -794,12 +806,12 @@ fi
 
 if test "$ac_cv_func_vprintf" != yes; then
 echo $ac_n "checking for _doprnt""... $ac_c" 1>&6
-echo "configure:798: checking for _doprnt" >&5
+echo "configure:810: checking for _doprnt" >&5
 if eval "test \"`echo '$''{'ac_cv_func__doprnt'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 803 "configure"
+#line 815 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char _doprnt(); below.  */
@@ -825,7 +837,7 @@ _doprnt();
 
 ; return 0; }
 EOF
-if { (eval echo configure:829: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
+if { (eval echo configure:841: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
   rm -rf conftest*
   eval "ac_cv_func__doprnt=yes"
 else
@@ -852,12 +864,12 @@ fi
 for ac_func in memmem snprintf 
 do
 echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
-echo "configure:856: checking for $ac_func" >&5
+echo "configure:868: checking for $ac_func" >&5
 if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 861 "configure"
+#line 873 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char $ac_func(); below.  */
@@ -883,7 +895,7 @@ $ac_func();
 
 ; return 0; }
 EOF
-if { (eval echo configure:887: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
+if { (eval echo configure:899: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
   rm -rf conftest*
   eval "ac_cv_func_$ac_func=yes"
 else
@@ -908,8 +920,10 @@ fi
 done
 
 
+if test ! -d $OUTDIR_NAME ; then
+    mkdir $OUTDIR_NAME
+fi
 
-CXX="$ac_cv_prog_CXX" ../bin/make-version > $flowerbuildprefix/out/version.hh
 
 trap '' 1 2 15
 cat > confcache <<\EOF
@@ -1011,7 +1025,7 @@ done
 
 ac_given_srcdir=$srcdir
 
-trap 'rm -fr `echo "$flowerbuildprefix/out/Flower-flags.make:Flower-flags.make.in $flowerbuildprefix/out/config.hh:config.hh.in" | sed "s/:[^ ]*//g"` conftest*; exit 1' 1 2 15
+trap 'rm -fr `echo "$OUTDIR_NAME/Flower-flags.make:Flower-flags.make.in $OUTDIR_NAME/config.hh:config.hh.in" | sed "s/:[^ ]*//g"` conftest*; exit 1' 1 2 15
 EOF
 cat >> $CONFIG_STATUS <<EOF
 
@@ -1087,7 +1101,7 @@ EOF
 
 cat >> $CONFIG_STATUS <<EOF
 
-CONFIG_FILES=\${CONFIG_FILES-"$flowerbuildprefix/out/Flower-flags.make:Flower-flags.make.in"}
+CONFIG_FILES=\${CONFIG_FILES-"$OUTDIR_NAME/Flower-flags.make:Flower-flags.make.in"}
 EOF
 cat >> $CONFIG_STATUS <<\EOF
 for ac_file in .. $CONFIG_FILES; do if test "x$ac_file" != x..; then
@@ -1163,7 +1177,7 @@ ac_eD='%g'
 if test "${CONFIG_HEADERS+set}" != set; then
 EOF
 cat >> $CONFIG_STATUS <<EOF
-  CONFIG_HEADERS="$flowerbuildprefix/out/config.hh:config.hh.in"
+  CONFIG_HEADERS="$OUTDIR_NAME/config.hh:config.hh.in"
 EOF
 cat >> $CONFIG_STATUS <<\EOF
 fi
