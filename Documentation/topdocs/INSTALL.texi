@@ -210,10 +210,11 @@ following software
 @itemize @bullet
 @item @TeX{}.
 @item Xdvi and Ghostscript
-@item GUILE 1.4, or newer, --without-threads.  Check out
-@uref{http://www.gnu.org/software/guile.html,the GUILE webpage}
+@item GUILE 1.4, or newer, --without-threads.
 Using guile, ./configure'd --with-threads may give nasty memory
 corruption errors on large scores.
+Check out
+@uref{http://www.gnu.org/software/guile.html,the GUILE webpage}
 @end itemize
 
 For running LilyPond successfully you have to help @TeX{} and MetaFont find
