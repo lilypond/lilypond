@@ -966,6 +966,16 @@ if 1:
 	conversions.append (((1,5,72), conv, 'set! point-and-click -> set-point-and-click!'))
 
 
+if 1:
+	def conv (str):
+		str = re.sub ('flag-style', 'stroke-style', str)
+		str = re.sub (r"""Stem([ ]+)\\override #'style""", r"""Stem \\override #'flag-style""", str);
+		str = re.sub (r"""Stem([ ]+)\\set([ ]+)#'style""", r"""Stem \\set #'flag-style""", str);
+		return str
+	
+	conversions.append (((1,6,5), conv, 'Stems: flag-style -> stroke-style; style -> flag-style'))
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################
