@@ -252,7 +252,6 @@ main_with_guile (void *, int, char **)
       prepend_load_path (String (prefix_directory[i]) + "/scm");
     }
 
-
   if (verbose_global_b)
     dir_info (stderr);
 
@@ -271,11 +270,10 @@ main_with_guile (void *, int, char **)
 
   SCM files = SCM_EOL;
   SCM *tail = &files;
-  bool first = true;
   while (char const *arg = option_parser->get_next_arg ())
     {
       *tail = scm_cons (scm_makfrom0str (arg), SCM_EOL);
-      tail = SCM_CDRLOC(*tail);
+      tail = SCM_CDRLOC (*tail);
     }
   delete option_parser;
   option_parser = 0;
@@ -283,19 +281,17 @@ main_with_guile (void *, int, char **)
   if (files == SCM_EOL)
     {
       /* No FILE arguments is now a usage error to help newbies.  If you
-     want a filter, you're not a newbie and should know to use file
-     argument `-'.  */
+	 want a filter, you're not a newbie and should know to use file
+	 argument `-'.  */
       usage ();
       exit (2);
     }
 
-  SCM result = scm_call_1 (ly_scheme_function ("lilypond-main"),
-			   files);
+  SCM result = scm_call_1 (ly_scheme_function ("lilypond-main"), files);
+  (void) result;
 
 
-  /*
-    unreachable.
-   */
+  /* Unreachable.  */
   exit (0);
 }
 
