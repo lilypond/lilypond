@@ -105,3 +105,4 @@ Clef_register::post_move_processing()
 	set_type("violin");
     }
 }
+IMPLEMENT_STATIC_NAME(Clef_register);
