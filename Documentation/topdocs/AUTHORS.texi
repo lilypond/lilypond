@@ -35,8 +35,6 @@ list is alphabetically ordered.
     Debian package: debian/*
 @item  David Gonz@'alez
   Spanish glossary translations.
-@item @email{jlhamm@@pacificnet.net, James Hammons},
-    American chord names, gnu-windows testing
 @item @email{bjoern.jacke@@gmx.de, Bjoern Jacke}
     German glossary stuff.
 @item @email{chris@@fluffhouse.org.uk, Chris Jackson},
@@ -61,9 +59,6 @@ list is alphabetically ordered.
 @item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
     @uref{http://www.xs4all.nl/~jantien/}
     Main author (initials: JCN).
-@item @email{oliva@@dcc.unicamp.br, Alexandre Oliva}, 
-    @uref{http://sunsite.unicamp.br/~oliva/}
-    testing
 @item @email{pinard@@iro.umontreal.ca, Francois Pinard},
     @uref{http://www.iro.umontreal.ca/~pinard/}
     parts of Documentation/user/glossary*, started internationalization stuff
