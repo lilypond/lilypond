@@ -1,3 +1,7 @@
+2005-02-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/convert-ly.py: new slur dash patch by Bertalan Fodor.
+
 2005-02-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-grob-properties.scm (all-user-grob-properties):

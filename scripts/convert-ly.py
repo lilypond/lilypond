@@ -2323,6 +2323,15 @@ conversions.append (((2, 5, 2),
 		     conv,
 		     'ly:find-glyph-by-name -> ly:font-get-glyph, remove - from glyphnames.'))
 
+def conv (str):
+	str = re.sub (r"\\override\s+(Voice\.)?Slur #'dashed\s*=\s*#\d*(\.\d+)?",
+		      r"\\slurDashed", str)		      
+	return str
+
+conversions.append (((2, 5, 12),
+		     conv,
+		     '\set Slur #\'dashed = #X -> \slurDashed'))
+
 
 ################################
 #	END OF CONVERSIONS	
