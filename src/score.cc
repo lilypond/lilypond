@@ -10,37 +10,26 @@
 void
 Score::process()
 {
-    *mlog << "\nProcessing ... ";
+    *mlog << "\nProcessing music ... ";
     
-    assert (paper_);
+    assert (paper_p_);
     
     /// distribute commands to disciples
-    pscore_ = new PScore(paper_);
+    pscore_p_ = new PScore(paper_p_);
     for (iter_top(staffs_,i); i.ok(); i++) {
-	i->process_commands(last());
-	i->set_output(pscore_);
+	i->truncate_cols(last());
+	i->set_output(pscore_p_);
 	i->process();
     }
 
     // do this after processing, staffs first have to generate PCols.
-    do_pcols();
-
-    clean_cols();    // can't move this farther up.
-
+    find_col(last(), false)->set_breakable();
+    do_cols();
     calc_idealspacing();
 
     // debugging
-    print ();
     OK();
-
-    pscore_->preprocess();
-    *mlog << "Calculating ... ";
-    pscore_->calc_breaking();
-    *mlog << "Postprocessing ... ";
-    pscore_->postprocess();
-
-    // TODO: calculate vertical structs?
-    // TODO: calculate mixed structs.?
+    pscore_p_->process();    
     *mlog << "\n";
 }
 
@@ -52,15 +41,13 @@ Score::clean_cols()
 	i->clean_cols();
     
     for (iter_top(cols_,c); c.ok(); ) {
-	if (!c->pcol_->used()) {
+	if (!c->pcol_l_->used()) {
 	    c.del();
 	} else {
 	    c->preprocess();
 	    c++;
 	}
     }
-    
-    pscore_->clean_cols();
 }
 /*
   this sux.  We should have Score_column create the appropriate PCol.
@@ -73,14 +60,14 @@ Score::create_cols(Moment w)
     Score_column* c1 = new Score_column(w);
     Score_column* c2 = new Score_column(w);
     
-    c1->musical = false;
-    c2->musical = true;
+    c1->musical_ = false;
+    c2->musical_ = true;
     
     iter_top(cols_,i);
 
     for (; i.ok(); i++) {
-	assert(i->when != w);
-	if (i->when > w)
+	assert(i->when() != w);
+	if (i->when() > w)
 	    break;
     }
 
@@ -102,9 +89,9 @@ Score::find_col(Moment w,bool mus)
 {
     iter_top(cols_,i);
     for (; i.ok(); i++) {
-	if (i->when == w && i->musical == mus)
+	if (i->when() == w && i->musical_ == mus)
 	    return i;
-	if (i->when > w)
+	if (i->when() > w)
 	    break;
     }
     i = create_cols(w);
@@ -114,12 +101,13 @@ Score::find_col(Moment w,bool mus)
 }
 
 void
-Score::do_pcols()
+Score::do_cols()
 {
     iter_top(cols_,i);
     for (; i.ok(); i++) {
-	pscore_->add(i->pcol_);
+	pscore_p_->add(i->pcol_l_);
     }
+    clean_cols();    // can't move clean_cols() farther up.
 }
 Moment
 Score::last() const
@@ -137,12 +125,12 @@ Score::OK() const
 #ifndef NDEBUG
     for (iter_top(staffs_,i); i.ok(); i++) {
 	i->OK();
-	assert(i->score_ == this);
+	assert(i->score_l_ == this);
     }
     staffs_.OK();
     cols_.OK();
     for (iter_top(cols_,cc); cc.ok() && (cc+1).ok(); cc++) {
-	assert(cc->when <= (cc+1)->when);
+	assert(cc->when() <= (cc+1)->when());
     }
 #endif    
 }
@@ -159,8 +147,8 @@ Score::print() const
     for (iter_top(cols_,i); i.ok(); i++) {
 	i->print();
     }
-    if (pscore_)
-	pscore_->print();
+    if (pscore_p_)
+	pscore_p_->print();
     
     mtor << "}\n";
 #endif
@@ -168,25 +156,26 @@ Score::print() const
 
 Score::Score(Paperdef*p)
 {
-    pscore_=0;
-    paper_ = p;
+    pscore_p_=0;
+    paper_p_ = p;		// ?? safe?
 }
 
 Score::~Score()
 {
-    delete pscore_;
+    delete pscore_p_;
+    delete paper_p_;
 }
 
 void
 Score::output(String s)
 {
     OK();
-    if (paper_->outfile=="")
-	paper_->outfile = s;
+    if (paper_p_->outfile=="")
+	paper_p_->outfile = s;
     
-    *mlog << "output to " << paper_->outfile << "...\n";
-    Tex_stream the_output(paper_->outfile);    
-    pscore_->output(the_output);
+    *mlog << "output to " << paper_p_->outfile << "...\n";
+    Tex_stream the_output(paper_p_->outfile);    
+    pscore_p_->output(the_output);
 }
 
 
@@ -194,7 +183,7 @@ Score::output(String s)
 void
 Score::add(Staff*s)
 {
-    s->score_ = this;
+    s->score_l_ = this;
     staffs_.bottom().add(s);
 }
 
