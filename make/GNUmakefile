@@ -7,3 +7,4 @@ INSTALLATION_FILES=$(DIST_FILES)
 include $(depth)/make/stepmake.make 
 
 default: spec
+

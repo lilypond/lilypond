@@ -64,7 +64,7 @@ In the following example, we see how we start out with a note head
 engraver.
 
 @lilypond[notexidoc]
-\include "engraver-example.ly"
+\include "engraver-example.lyinc"
 
 \score { \topVoice
 \paper {
@@ -94,7 +94,7 @@ engraver.
 Then a @code{Staff_symbol_engraver} adds the staff:
 
 @lilypond[notexidoc]
-\include "engraver-example.ly"
+\include "engraver-example.lyinc"
 
 \score { \topVoice
 \paper {
@@ -123,7 +123,7 @@ Then a @code{Staff_symbol_engraver} adds the staff:
  The @code{Clef_engraver} defines a reference point for the staff:
 
 @lilypond[notexidoc]
-\include "engraver-example.ly"
+\include "engraver-example.lyinc"
 
 \score { \topVoice
 \paper {
@@ -149,7 +149,7 @@ Then a @code{Staff_symbol_engraver} adds the staff:
 And the @code{Stem_engraver} adds stems:
 
 @lilypond[notexidoc]
-\include "engraver-example.ly"
+\include "engraver-example.lyinc"
 
 \score { \topVoice
 \paper {
@@ -179,7 +179,7 @@ time signature, and key signature, we get a complete piece of
 notation.
 
 @lilypond[notexidoc]
-\include "engraver-example.ly"
+\include "engraver-example.lyinc"
 
 \score { \topVoice }
 @end lilypond
@@ -190,7 +190,7 @@ This system works well for monophonic music, but what about
 polyphony? In polyphonic notation, many voices can share a staff.
 
 @lilypond[notexidoc]
-\include "engraver-example.ly"
+\include "engraver-example.lyinc"
 \score { \context Staff << \topVoice \\ \botVoice >> }
 @end lilypond
 
@@ -204,7 +204,7 @@ context.  In polyphonic notation, many voices can share a staff:
 Similarly, more Staff contexts can be put into a single Score context.
 
 @lilypond[notexidoc]
-\include "engraver-example.ly"
+\include "engraver-example.lyinc"
 \score {
 << \new Staff << \topVoice \\ \botVoice >>
 \new Staff << \pah \\ \hoom >>

@@ -107,7 +107,7 @@ web-clean:
 	$(MAKE) $(builddir)/share/lilypond-force
 
 
-default: $(config_h) builddir-setup $(outdir)/VERSION
+default: $(config_h) builddir-setup 
 
 builddir-setup: $(builddir)/share/lilypond-force
 

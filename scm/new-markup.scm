@@ -188,9 +188,11 @@ A=1 is right, values in between vary alignment accordingly."
 
 (define-public (musicglyph-markup paper props . rest)
   (ly:find-glyph-by-name
-   (ly:paper-get-font paper (cons '((font-name . ()) (font-family . music)) props))
-   (car rest))
-  )
+   (ly:paper-get-font paper (cons '((font-name . ())
+				    (font-shape . *)
+				    (font-series . *)
+				    (font-family . music)) props))
+   (car rest)))
 
 
 (define-public (lookup-markup paper props . rest)
