@@ -35,7 +35,7 @@ protected:
     virtual bool removable_b()const;
 
 public:
-    Input_engraver * igrav_l_;
+    Input_translator * itrans_l_;
     void check_removal();
     Engraver_group_engraver();
     ~Engraver_group_engraver();
