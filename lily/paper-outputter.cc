@@ -13,7 +13,6 @@
 #include <iostream.h>
 
 #include "dimensions.hh"
-#include "dictionary-iter.hh"
 #include "virtual-methods.hh"
 #include "paper-outputter.hh"
 #include "paper-stream.hh"
@@ -149,25 +148,32 @@ Paper_outputter::dump_scheme (SCM s)
 void
 Paper_outputter::output_scope (Scope *scope, String prefix)
 {
-  for (Scope_iter i (*scope); i.ok (); i++)
+  SCM al = scope->to_alist ();
+  for (SCM s = al ; gh_pair_p (s); s = gh_cdr (s))
     {
-      if (dynamic_cast<String_identifier*> (i.val ()))
-	{
-	  String val = *i.val()->access_content_String (false);
+      SCM k = gh_caar (s);
+      SCM v = gh_cdar (s);
+      String s = ly_symbol2string (k);
 
-	  output_String_def (prefix + i.key (), val);
-	}
-      else if(dynamic_cast<Real_identifier*> (i.val ()))
+      
+      if (gh_string_p (v))
 	{
-	  Real val  = *i.val ()->access_content_Real (false);
+	  output_String_def (prefix + s, ly_scm2string (v));
+	}
+      
+      Identifier * id = unsmob_identifier (v);
+      
+      if(dynamic_cast<Real_identifier*> (id))
+	{
+	  Real val  = *id->access_content_Real (false);
 
-	  output_Real_def (prefix + i.key (), val);	  
+	  output_Real_def (prefix + s, val);	  
 	}
-      else if (dynamic_cast<int_identifier*> (i.val ()))
+      else if (dynamic_cast<int_identifier*> (id))
 	{
-	  int val  = *i.val ()->access_content_int (false);	  
+	  int val  = *id->access_content_int (false);	  
 	  
-	  output_int_def (prefix + i.key (), val);	  
+	  output_int_def (prefix + s, val);	  
 	}
     }
 }

@@ -19,10 +19,14 @@
 #include "debug.hh"
 #include "request.hh"
 #include "translator-group.hh"
+#include "ly-smobs.icc"
 
+IMPLEMENT_UNSMOB(Identifier, identifier);
+IMPLEMENT_SMOBS(Identifier);
 
 Identifier::Identifier (int code)
 {
+  self_scm_ = SCM_EOL;
   token_code_i_ = code;
   accessed_b_ = 0;
 }
@@ -30,6 +34,7 @@ Identifier::Identifier (int code)
 Identifier::Identifier (Identifier const&s)
   : Input (s)
 {
+  self_scm_ = SCM_EOL;
   token_code_i_ = s.token_code_i_;
   accessed_b_ = s.accessed_b_;
 }
@@ -111,7 +116,6 @@ Class ## _identifier::do_print () const\
 STRING_PRINT(Duration);
 STRING_PRINT(Real);
 STRING_PRINT(int);
-STRING_PRINT(String);
   
 #define DEFAULT_STR(Class) \
 String \
@@ -122,7 +126,7 @@ Class ## _identifier::do_str () const\
 
 DEFAULT_STR(int);
 DEFAULT_STR(Real);
-DEFAULT_STR(String);
+
   
 
 /*
@@ -161,7 +165,6 @@ IMPLEMENT_ID_CLASS(Duration);
 IMPLEMENT_ID_CLASS(Translator_group);
 IMPLEMENT_ID_CLASS(int);
 IMPLEMENT_ID_CLASS(Real);
-IMPLEMENT_ID_CLASS(String);
 IMPLEMENT_ID_CLASS(Music);
 IMPLEMENT_ID_CLASS(Score);
 IMPLEMENT_ID_CLASS(Request);
@@ -173,8 +176,26 @@ VIRTUAL_ACCESSOR(Translator_group);
 DEFAULT_ACCESSOR(Duration);
 DEFAULT_ACCESSOR(int);
 DEFAULT_ACCESSOR(Real);
-DEFAULT_ACCESSOR(String);
 DEFAULT_ACCESSOR(Score);
 DEFAULT_ACCESSOR(Midi_def);
 DEFAULT_ACCESSOR(Paper_def);
 
+int
+Identifier::print_smob (SCM s, SCM p, scm_print_state*)
+{
+ return 1;  
+}
+
+SCM
+Identifier::mark_smob (SCM s)
+{
+  return SCM_EOL;
+}
+
+
+
+void
+Identifier::do_smobify_self ()
+{
+  
+}

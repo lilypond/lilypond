@@ -13,31 +13,26 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 
-class Protected_scm;
+class Scheme_hash_table;
 class Scope {
-  Hash_table<Protected_scm,Identifier*> *id_dict_;
+  Scheme_hash_table *id_dict_;
 public:
+  SCM to_alist () const; 
   bool elem_b (String ) const;
   bool elem_b (SCM s) const;
-  Identifier *&elem (String);
-  Identifier *&elem (SCM s);  
+  Identifier *elem (String) const;
+  Identifier *elem (SCM) const;
+
+  SCM scm_elem (String) const;
+  SCM scm_elem (SCM) const;
+
+  void set (String, Identifier *);
+  void set (String, SCM);  
   Scope ();
   
   Scope (Scope const &);
   ~Scope ();
   friend class Scope_iter;
 };
-
-class Scope_iter {
-  Hash_table_iter<Protected_scm,Identifier*> * iter_;
-public:
-  void operator ++(int);
-  bool ok ()const;
-  Scope_iter(Scope const&);
-  String key () const;
-  Identifier* val () const;
-  SCM scm_key () const;
-};
-
 #endif /* SCOPE_HH */
 

@@ -10,7 +10,7 @@
 #include "debug.hh"
 #include "music-output-def.hh"
 #include "global-translator.hh"
-#include "dictionary-iter.hh"
+
 #include "identifier.hh"
 #include "main.hh"
 #include "lily-guile.hh"
@@ -39,13 +39,6 @@ Music_output_def::Music_output_def (Music_output_def const &s)
 {
   scope_p_ = new Scope (*s.scope_p_);
   translator_p_dict_p_ = new Scope (*s.translator_p_dict_p_);
-  //  default_properties_ = s.default_properties_;
-  
-  for (Scope_iter i (*translator_p_dict_p_);  i.ok (); i++)
-    {
-      Translator * t = i.val ()->access_content_Translator_group (false);
-      t-> output_def_l_ = this;
-    }
 }
 
 void
@@ -56,11 +49,8 @@ Music_output_def::assign_translator (Translator_group*tp)
     {
       tp->warning (_("Interpretation context with empty type"));
     }
-  if (translator_p_dict_p_->elem_b (s))
-    delete translator_p_dict_p_->elem (s);
-  
-  translator_p_dict_p_->elem (s) = new Translator_group_identifier (tp, 0);
-  tp ->output_def_l_ = this;
+ 
+  translator_p_dict_p_->set (s, new Translator_group_identifier (tp, 0));
 }
 
 Translator*
@@ -86,6 +76,7 @@ Music_output_def::get_global_translator_p ()
   if (!t)
     error (_f ("can't find `%s' context", "Score"));
   t = t->clone ();
+  t->output_def_l_ = this;
   Global_translator *g = dynamic_cast <Global_translator *> (t);
   t->add_processing ();
   
@@ -102,9 +93,10 @@ Music_output_def::get_default_output () const
 {
   if (safe_global_b || !scope_p_->elem_b ("output"))
     return "";
-  Identifier * id = scope_p_->elem ("output");
+  SCM s =  scope_p_->scm_elem ("output");
 
-  String *p = id->access_content_String (false);
-  return p ? *p : String ("");
+  
+  
+  return gh_string_p (s) ? ly_scm2string (s) : String ("");
 }
 

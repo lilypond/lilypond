@@ -8,9 +8,11 @@
 #define IDENTIFIER_HH
 
 #include "lily-proto.hh"
+#include "lily-guile.hh"
 #include "string.hh"
 #include "input.hh"
 #include "virtual-methods.hh"
+#include "smobs.hh"
 
 
 #define DECLARE_TYPE_NAME(Class)
@@ -22,7 +24,6 @@ class Midi_def_identifier;
 class Paper_def_identifier;
 class Real_identifier;
 class int_identifier;
-class String_identifier;
 class Request_identifier;
 class Score_identifier;
 class Duration_identifier;
@@ -39,13 +40,15 @@ virtual Class *  access_content_ ## Class (bool) const { error (#Class  + String
    TODO: use SMOBS for the union type, and junk all derived classes.
    */
 struct Identifier : public Input {
+
+  DECLARE_SMOBS;
   bool init_b_;
   bool accessed_b_;
   int token_code_i_;
   Identifier (Identifier const&);    
   Identifier (int code) ;
   virtual ~Identifier() ;
-
+  
 
   void print() const;
   
@@ -56,7 +59,6 @@ struct Identifier : public Input {
   IDACCESSOR(Midi_def)
   IDACCESSOR(Paper_def)
   IDACCESSOR(Real)
-  IDACCESSOR(String)
   IDACCESSOR(Request)
   IDACCESSOR(Score)
   IDACCESSOR(int)
@@ -85,7 +87,6 @@ struct Class ## _identifier : Identifier {\
 DECLARE_ID_CLASS(Translator_group);
 DECLARE_ID_CLASS(Duration);
 DECLARE_ID_CLASS(Real);
-DECLARE_ID_CLASS(String);
 DECLARE_ID_CLASS(General_script_def);
 DECLARE_ID_CLASS(Music);
 DECLARE_ID_CLASS(int);
@@ -93,6 +94,9 @@ DECLARE_ID_CLASS(Score);
 DECLARE_ID_CLASS(Request);
 DECLARE_ID_CLASS(Paper_def);
 DECLARE_ID_CLASS(Midi_def);
+
+Identifier * unsmob_identifier (SCM);
+SCM smobify (Identifier*);
 
 #endif // IDENTIFIER_HH
 
