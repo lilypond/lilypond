@@ -38,10 +38,10 @@ Rhythmic_req::length_mom () const
   if (!d)
     {
       Moment m ;
-      programming_error("Rhythmic_req has no duration");
+      //programming_error("Rhythmic_req has no duration");
+      origin ()->warning ("programming error: Rhythmic_req has no duration");
       return m;
     }
-  
   return d->length_mom ();
 }
 

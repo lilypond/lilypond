@@ -25,8 +25,9 @@ export WINDOWS_TEXINPUTS WINDOWS_TFMFONTS WINDOWS_MFINPUTS
 GS_FONTPATH="$WINDOWS_GS_FONTPATH"
 GS_LIB="$WINDOWS_GS_LIB"
 
-PATH="/usr/lilypond/bin:$PATH"
-PATH="@prefix@/bin:$PATH"
+# needed for prefix=lilypond-x.y.z 
+# PATH="/usr/lilypond/bin:$PATH"
+# PATH="@prefix@/bin:$PATH"
 
 cat <<EOF
 Congratulations and welcome to GNU LilyPond.
