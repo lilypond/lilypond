@@ -4,20 +4,25 @@
 #include <iostream.h>
 #include "dstream.hh"
 
+void error(String s);		// errors
 
-
+// warnings
+void warning(String s);
 #define WARN warnout << "warning: "<<__FUNCTION__ << "(): "
 extern ostream &warnout ;
-extern ostream *mlog;  
-extern ostream *nulldev;  
+
+// progress
+extern ostream *mlog;
+
+// debugging
 extern Dstream monitor; // monitor
 
 #ifdef NPRINT
-#define mtor *nulldev
+#define mtor if (0) monitor	// clever hack 
 #else
 #define mtor monitor.identify_as(__PRETTY_FUNCTION__)
 #endif
-void error(String s);
-void warning(String s);
+
+
 
 #endif

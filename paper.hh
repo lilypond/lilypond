@@ -1,13 +1,20 @@
-
-
+#include "proto.hh"
 #include "real.hh"
 #include "string.hh"
+
 struct Paperdef {
-    Paperdef();
+    Lookup *lookup_;
     String outfile;
-    Real width;
+    Real linewidth;
     /// how much space does a whole note take (ideally?)
     Real whole_width;
-    // maybe add pointsize?
-    // symbol init?
+    
+    /****************/
+    void parse();
+    Paperdef();
+    ~Paperdef();
+    Real interline()const;
+    Real standard_height()const;
+    void print() const;
 };
+
