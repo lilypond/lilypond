@@ -1,3 +1,7 @@
+2003-01-23  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-font-lock.el: Fontify post-notated slurs [-^_][()].
+	
 2003-01-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/ambitus.ly:  move file.	
