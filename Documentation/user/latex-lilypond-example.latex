@@ -26,7 +26,7 @@ A simple scale:
 
 \begin{lilypond}
 \score{
- \notes\relative c'{c d e f g a b c}
+  \relative c'{c d e f g a b c}
 }
 \end{lilypond}
 
@@ -38,43 +38,45 @@ to use \verb|fragment| option, because the comment confuses lilypond-book.
 c d e % \score
 \end{lilypond}
 
-There is also a shorthand version \verb|\lilypond{c' e' g'}|:
+There is also a shorthand version \verb|\lilypond[fragment]{c' e' g'}|:
 
-\lilypond{c' e' g'}
+\lilypond[fragment]{c' e' g'}
 
 that is the same as writing
 \begin{verbatim}
-\begin[eps]{lilypond}
+\begin[fragment]{lilypond}
 c' e' g'
 \end{lilypond}
 \end{verbatim}
 
 This C major
-\begin[eps, 11pt]{lilypond}
-c' e' g'
+%%\begin[staffsize=11\pt,fragment]{lilypond}
+\begin[11pt,fragment]{lilypond}
+\context Voice <<c' e' g'>>
 \end{lilypond}
-and C minor \lilypond[11pt]{c' es' g'}  chords are floating inside the text.
+and C minor
+\lilypond[fragment,11pt]{\context Voice <<c' es' g'>>}  chords are floating inside the text.
 
 \subsection{verb and verbatim}
 
 As you see, the begin/end verbatim command inside 
 does not confuse lilypond-book:
 
-\verb|\begin{lilypond}c d e\end{lilypond}|
+\verb|\begin[fragment]{lilypond}c d e\end{lilypond}|
 
 Neither does a verbatim inside verb:
 
-\verb|\begin{verbatim}\begin{lilypond}c d e\end{lilypond}\end{verbatim}|
+\verb|\begin{verbatim}\begin[fragment]{lilypond}c d e\end{lilypond}\end{verbatim}|
 
 or verb inside verbatim:
 
 \begin{verbatim}
-\verb|\begin{lilypond}c d e\end{lilypond}|
+\verb|\begin[fragment]{lilypond}c d e\end{lilypond}|
 \end{verbatim}
 
 But this is just to stress \verb|lilypond-book|. What you need is:
 
-\verb|\lilypond{c' d' e'}|
+\verb|\lilypond[fragment]{c' d' e'}|
 
 and
 
@@ -86,27 +88,28 @@ c d e
 
 \subsection{The 'verbatim' and 'intertext' option}
 This shows the verbatim option:
-\begin[verbatim, intertext="gives this music:"]{lilypond}
+\begin[fragment,verbatim, intertext="gives this music:"]{lilypond}
 c' d' e'
 \end{lilypond}
 
 \subsection{LaTeX comments}
-This is a line with lilypond code after the comment char % \lilypond{<c' e' g'>}
-% \lilypond{<c' e' g'>}
+This is a line with lilypond code
+after the comment char % \lilypond{\context Voice <<c' e' g'>>}
+% \lilypond{\context Voice <<c' e' g'>>}
 
 If you do not see any music from the heading 'LaTeX comments' and until
 this line, then lilypond-book is handling latex comments pretty well :-)
 
 \subsection{To float or not to float}
 This music
-\begin[eps]{lilypond}
+\begin[fragment]{lilypond}
 c' e' 
 \end{lilypond}
 should be floating inside the text by using the \verb|eps| options.
 
 This music
 
-\begin[eps]{lilypond}
+\begin[fragment]{lilypond}
 c' e'
 \end{lilypond}
 
@@ -120,25 +123,31 @@ is not necessary when you want the music in a paragraph on its own.
 
 Itemize environment:
 \begin{itemize}
-\item \lilypond[11pt]{ c'} do
-\item \lilypond[11pt]{d'} re
-\item \lilypond[11pt]{e'} mi
-\item \lilypond[11pt]{f'} fa
-\item \lilypond[11pt]{g'} sol
+\item
+\lilypond[11pt,fragment]{ c'} do
+\item
+\lilypond[11pt,fragment]{d'} re
+\item
+\lilypond[11pt,fragment]{e'} mi
+\item
+\lilypond[11pt,fragment]{f'} fa
+\item
+\lilypond[11pt,fragment]{g'} sol
 \end{itemize}
 
-Tables\footnote{ and footnote: \lilypond[eps,11pt]{c' e' g'} }:
+Tables\footnote{ and footnote:
+\lilypond[11pt,fragment]{c' e' g'} }:
 \marginpar{ Yes, even as marginpar
-\lilypond[eps,11pt]{c' d' e'} }
+\lilypond[11pt,fragment]{c' d' e'} }
 
 \begin{tabular}{|l|l|r|}
 \hline
 \em Notes & \em Name \\
 \hline
-\lilypond[11pt, filename="cdur"]{<c' e' g'>} & major \\
-\lilypond[11pt]{<c' es' g'>} & minor \\
-\lilypond[11pt]{<c' es' ges'>} & diminished \\
-\lilypond[11pt]{<c' e' gis'>} & augmented \\
+\lilypond[11pt,fragment,filename="cdur"]{\context Voice <<c' e' g'>>} & major \\
+\lilypond[11pt,fragment]{\context Voice <<c' es' g'>>} & minor \\
+\lilypond[11pt,fragment]{\context Voice <<c' es' ges'>>} & diminished \\
+\lilypond[11pt,fragment]{\context Voice <<c' e' gis'>>} & augmented \\
 \hline
 \end{tabular}
 
@@ -149,7 +158,7 @@ text text text text text text text text text text text text
 text text text text text text text text text text text text 
 
 \begin{lilypond}
-\score{ \notes\relative c'{ c d e f g a b c} }
+\score{ \relative c'{ c d e f g a b c} }
 \end{lilypond}
 
 text text text text text text text text text text text text 
@@ -161,7 +170,7 @@ text text text text text text text text text text text text
 text text text text text text text text text text text text 
 text text text text text text text text text text text text 
 \begin{lilypond}
-\score{ \notes\relative c'{ c d e f g a b c} }
+\score{ \relative c'{ c d e f g a b c} }
 \end{lilypond}
 text text text text text text text text text text text text 
 text text text text text text text text text text text text 

@@ -1,7 +1,5 @@
 \documentclass[a4paper]{article}
 
-
-
 %\def\preLilyPondExample{}}
 %\def\postLilyPondExample{}
 
@@ -9,9 +7,7 @@
 \begin{document}
 
 \begin{lilypond}
-\score {
- \notes\relative c' { c d e f g a b c }
-}
+\relative { c' d e f g a b c }
 \end{lilypond}
 
 
@@ -20,6 +16,9 @@ c d e
 \end{lilypond}
 
 
+% show interaction of margins lilypond+verses
+
+% outdated
 % generate standard lilypond titles
 \input titledefs.tex
 \def\preLilyPondExample{\def\mustmakelilypondtitle{}}
@@ -36,9 +35,7 @@ c d e
   instrument = "instrument"
 }
 \paper { linewidth = -1. }
-\score {
-  \notes \relative c'' { a b c d }
-}
+\relative c'' { a b c d }
 \end{lilypond}
 
 \begin{enumerate}
