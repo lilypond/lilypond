@@ -57,12 +57,15 @@ Stem_info::Stem_info (Stem*s, int mult)
 
   // for simplicity, we calculate as if dir == UP
   idealy_f_ *= beam_dir_;
-  
+
+  bool grace_b = stem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+
   int stem_max = (int)rint(paper_l->get_var ("stem_max"));
-  Real min_stem_f = paper_l->get_var (String ("minimum_stem_length")
-				     + to_str (mult_i_ <? stem_max));
-  Real stem_f = paper_l->get_var (String ("stem_length")
-				 + to_str (mult_i_ <? stem_max))* internote_f;
+  String type_str = grace_b ? "grace_" : "";
+  Real min_stem_f = paper_l->get_var (type_str + "minimum_stem_length"
+				      + to_str (mult_i_ <? stem_max));
+  Real stem_f = paper_l->get_var (type_str + "stem_length"
+				  + to_str (mult_i_ <? stem_max))* internote_f;
 
   if (!beam_dir_ || (beam_dir_ == dir_))
     /* normal beamed stem */
@@ -78,9 +81,24 @@ Stem_info::Stem_info (Stem*s, int mult)
       idealy_f_ += stem_f;
       miny_f_ += min_stem_f;
 
-      // lowest beam of (UP) beam must never be lower than second staffline
-      miny_f_ = miny_f_ >? (- 2 * internote_f - beam_f
-	+ (mult_i_ > 0) * beam_f + interbeam_f * (mult_i_ - 1));
+      /*
+	lowest beam of (UP) beam must never be lower than second staffline
+
+	Hmm, reference (Wanske?)
+
+	Although this (additional) rule is probably correct,
+	I expect that highest beam (UP) should also never be lower
+	than middle staffline, just as normal stems.
+	
+      */
+      if (!grace_b)
+	{
+	  //highest beam of (UP) beam must never be lower than middle staffline
+	  miny_f_ = miny_f_ >? 0;
+	  //lowest beam of (UP) beam must never be lower than second staffline
+	  miny_f_ = miny_f_ >? (- 2 * internote_f - beam_f
+				+ (mult_i_ > 0) * beam_f + interbeam_f * (mult_i_ - 1));
+	}
     }
   else
     /* knee */

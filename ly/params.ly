@@ -12,6 +12,7 @@ interline = \staffheight / 4.0;
 % thickness of stafflines
 staffline = \interline / 10.0;
 
+% urg, need grace_ versions of these too?
 beam_thickness = 0.52 * (\interline - \staffline);
 interbeam = (2.0 * \interline + \staffline - \beam_thickness) / 2.0;
 interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
@@ -27,11 +28,25 @@ stem_length1 = 5.;
 stem_length2 = 4.;
 stem_length3 = 3.;
 
+% urg.
+% if only these ugly arrays were scm,
+% we could override them in the Grace context
+grace_factor = 0.8;
+grace_stem_length0 = \stem_length0 * \grace_factor;
+grace_stem_length1 = \stem_length1 * \grace_factor;
+grace_stem_length2 = \stem_length2 * \grace_factor;
+grace_stem_length3 = \stem_length3 * \grace_factor;
+
 % only used for beams
 minimum_stem_length0 = 0.0 ; % not used
 minimum_stem_length1 = 3. ;
 minimum_stem_length2 = 2.5;
 minimum_stem_length3 = 2.0;
+
+grace_minimum_stem_length0 = 0.0 ; % not used
+grace_minimum_stem_length1 = \minimum_stem_length1 * \grace_factor;
+grace_minimum_stem_length2 = \minimum_stem_length2 * \grace_factor;
+grace_minimum_stem_length3 = \minimum_stem_length3 * \grace_factor;
 
 % stems in unnatural (forced) direction should be shortened,
 % according to [Roush & Gourlay].  Their suggestion to knock off
@@ -41,6 +56,12 @@ forced_stem_shorten0 = 1.0;
 forced_stem_shorten1 = \forced_stem_shorten0;
 forced_stem_shorten2 = \forced_stem_shorten1;
 forced_stem_shorten3 = \forced_stem_shorten2;
+
+% don't shorten grace stems, always up
+grace_forced_stem_shorten0 = 0.;
+grace_forced_stem_shorten1 = \grace_forced_stem_shorten0;
+grace_forced_stem_shorten2 = \grace_forced_stem_shorten1;
+grace_forced_stem_shorten3 = \grace_forced_stem_shorten2;
 
 % there are several ways to calculate the direction of a beam
 % 

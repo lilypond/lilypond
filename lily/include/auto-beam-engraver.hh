@@ -32,6 +32,7 @@ private:
   Beam* create_beam_p ();
   void end_beam ();
   void junk_beam ();
+  bool same_grace_state_b (Score_element* e);
   void typeset_beam ();
 
   Moment shortest_mom_;
