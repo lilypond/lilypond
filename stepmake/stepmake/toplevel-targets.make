@@ -66,6 +66,7 @@ local-help:
   doc         update all documentation\n\
   release     roll tarball and generate patch\n\
   rpm         build rpm (Red Hat) package\n\
+  rpm-mandrake build rpm (Mandrake) packages\n\
   po          make new translation Portable Object database\n\
   po-replace  do po-update and replace catalogs with msgmerged versions\n\
   po-update   update translation Portable Object database\n\
