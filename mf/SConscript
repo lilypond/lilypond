@@ -5,10 +5,13 @@ import os
 import string
 import sys
 
+Import ('env')
 here = os.getcwd ()
 reldir = str (Dir ('.').srcnode ())
 os.chdir (reldir)
 sources = glob.glob ('*.mf')
+outdir = os.path.join (env['build'], reldir, env['out'])
+
 #mf_sources = reduce (+,
 mf_sources = reduce (lambda x, y: x + y,
 		     map (glob.glob,
@@ -19,7 +22,6 @@ mf_sources = reduce (lambda x, y: x + y,
 			   'parmesan[0-9]*.mf',)))
 os.chdir (here)
 
-Import ('env')
 #mf_sources = ('feta16.mf',)
 #mf_sources = ('feta-braces-a.mf',)
 font_stems = map (lambda x: os.path.splitext (x)[0], mf_sources)
@@ -43,10 +45,8 @@ env.Alias ('install', afmdir)
 env.Alias ('install', pfadir)
 
 map (lambda x: env.Alias ('fonts', x), t + a + p)
-outcmr = os.path.join (env['absbuild'], reldir, env['out'], 'cmr.enc')
-env.Command (outcmr, os.path.join (reldir, 'cmr.enc'), 'cp $SOURCE $TARGET')
-env.Alias ('fonts', outcmr)
-env.Alias ('mf', 'fonts')
+env.Command ('cmr.enc', 'cmr.enc.in', 'cp $SOURCE $TARGET')
+env.Alias ('fonts', 'cmr.enc')
 
 #testing
 all_sources = ['SConscript',] + sources

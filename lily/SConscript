@@ -3,16 +3,17 @@
 import glob
 import os
 
+Import ('env')
 here = os.getcwd ()
 reldir = str (Dir ('.').srcnode ())
 os.chdir (reldir)
 sources = glob.glob ('*.cc') + ['parser.yy', 'lexer.ll']
 includes = glob.glob ('include/*.hh')
 os.chdir (here)
+outdir = os.path.join (env['build'], reldir, env['out'])
 
 name = 'lyparser'
 
-Import ('env')
 e = env.Copy ()
 
 #let's do this after the split
@@ -26,7 +27,6 @@ e = env.Copy ()
 #e.Object ('pangofc-afm-decoder.o', 'foo-pangofc-afm-deocder.o')
 
 e.Append (YACCFLAGS = '-d')
-outdir = os.path.join (env['build'], reldir, env['out'])
 e.Append (CPPPATH = [outdir, '#/lily/include', '#/flower/include'])
 e.Depends ('lexer.cc', 'parser.cc')
 e.Depends ('my-lily-lexer.o', 'parser.cc')

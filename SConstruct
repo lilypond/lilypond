@@ -281,18 +281,20 @@ if env['gui']:
 
 env = conf.Finish ()
 
+##Import ('env')
 here = os.getcwd ()
 reldir = str (Dir ('.').srcnode ())
 os.chdir (reldir)
 srcdir = os.getcwd ()
 os.chdir (here)
-env['srcdir'] = srcdir
+##outdir = os.path.join (env['build'], reldir, env['out'])
+outdir = os.path.join (env['build'], env['out'])
 
+env['srcdir'] = srcdir
 build = env['build']
 out = env['out']
-##reldir = str (Dir ('.').srcnode ())
-reldir = os.getcwd ()
-outdir = os.path.join (env['build'], reldir, env['out'])
+
+
 if not os.path.exists (outdir):
 	os.mkdir (outdir)
 

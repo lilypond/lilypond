@@ -3,15 +3,14 @@
 import glob
 import os
 
+Import ('env')
 here = os.getcwd ()
 reldir = str (Dir ('.').srcnode ())
 os.chdir (reldir)
 sources = glob.glob ('*.scm')
 os.chdir (here)
-
-Import ('env')
-e = env.Copy ()
 outdir = os.path.join (env['build'], reldir, env['out'])
+
 scmdir = os.path.join (env['sharedir_package_version'], 'scm')
 env.Install (scmdir, sources)
 env.Alias ('install', scmdir)
