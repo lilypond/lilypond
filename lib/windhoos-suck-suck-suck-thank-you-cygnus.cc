@@ -1,7 +1,9 @@
 //
 // windhoos.cc
 //
-#ifdef _WIN32
+// mmap() should work now (cygnus beta 18), but let's keep it here
+// for people using old cygnus releases
+#if 0 // def _WINDOWS32
 
 #include <sys/types.h>
 #include <sys/mman.h>
@@ -100,4 +102,4 @@ munmap(caddr_t addr, size_t len)
 #endif // !HAVE_GET_OSFHANDLE //
 
 
-#endif // _WIN32 //
+#endif // _WINDOWS32 //
