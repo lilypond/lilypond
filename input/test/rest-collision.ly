@@ -6,6 +6,17 @@ scale = \notes \relative c' {
 rests = \notes             {
   r r r  r r r r r r r r r r r r r
 } 
+different =< \context Voice = one {
+      \stemup
+      \notes \relative c'' {
+        r8 a e4 a e
+      }
+    }
+    \context Voice = two {
+      \stemdown
+      \notes \relative c'' {
+        r1
+      }} >
 
 scales = \context Staff \notes <
 	\context Voice=i { \stemup r1 r2 r2   \scale    c''1 c'2 a'2 \rests  }
@@ -27,7 +38,7 @@ restsII = \context Staff \notes {
 	[c8 r8 c8 c8]
 	[c''8 r8 c''8 c''8]
 	[c'8 r8 r8 c'''8]
-	
+	\different	
 	}
 }
 

@@ -33,6 +33,8 @@
 
    self-alignment-X -- real number: -1 = left aligned, 0 = center, 1
      right-aligned in X direction.
+
+     Set to an element pointer, if you want that element to be the center. 
      
    self-alignment-Y -- like self-alignment-X but for Y axis
    

@@ -7,6 +7,12 @@
   
  */
 
+
+/*
+   Folded repeats are a stupid idea at this point, so we refrain from
+   implementing get_music () and skip ().
+*/
+
 #include "folded-repeat-iterator.hh"
 #include "repeated-music.hh"
 #include "music-list.hh"

@@ -49,7 +49,7 @@ SCM
 Request_chord_iterator::get_music (Moment) const
 {
   SCM s = SCM_EOL;
-  if (music_l_)
+  if (last_processed_mom_ < Moment (0))
     {
       Music_sequence * ms = dynamic_cast<Music_sequence*> (music_l_);
      
@@ -64,7 +64,7 @@ Request_chord_iterator::get_music (Moment) const
 void
 Request_chord_iterator::process (Moment m)
 {
-  if (music_l_)
+  if (last_processed_mom_ < Moment (0))
     {
       for (SCM s = dynamic_cast<Music_sequence *> (music_l_)->music_list ();
 	   gh_pair_p (s);  s = gh_cdr (s))

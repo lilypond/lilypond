@@ -480,7 +480,7 @@ My_lily_lexer::scan_escaped_word (String str)
 	} else if (gh_number_p (sid)) {
 		yylval.scm = sid;
 		return NUMBER_IDENTIFIER;
-	} else if (Translator_def* tr = unsmob_translator_def (sid)) {
+	} else if (unsmob_translator_def (sid)) {
 		yylval.scm = sid;
 		return TRANSLATOR_IDENTIFIER;
 	} else if (Music * mus =unsmob_music (sid)) {

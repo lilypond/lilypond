@@ -51,6 +51,10 @@ Rest_collision::add_column (Score_element*me,Score_element *p)
   p->set_elt_property ("rest-collision", me->self_scm ());
 }
 
+
+/*
+  Combination of dot-count and duration-log.
+ */
 static SCM
 head_characteristic (Score_element * col)
 {
@@ -105,11 +109,6 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
   // meisjes met meisjes
   if (!notes.size()) 
     {
-
-      /*
-	FIXME: col2rhythmic_head and rhythmic_head2mom sucks bigtime.
-	
-      */
       SCM characteristic = head_characteristic  (rests[0]);
       int i = 1;
       for (; i < rests.size (); i++)
@@ -142,13 +141,29 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
 	display_count = rests.size ();
       
       /*
-	UGH.  Should get dims from table.  Should have minimum dist.
+	Ugh. Should have minimum dist.
+
+	Ugh. What do we do if we have three different rests?
+	
        */
-      int dy = display_count > 2 ? 6 : 4;
+      int dy = display_count > 2 ? 6 : 4; // FIXME Should get dims from table.
       if (display_count > 1)
 	{
-	  Note_column::translate_rests (rests[0],dy);	
-	  Note_column::translate_rests (rests[1], -dy);
+	  Direction d0 = Note_column::dir (rests[0]);
+	  Direction d1 = Note_column::dir (rests[1]);	  
+
+	  if (!d0 && !d1)
+	    {
+	      d0= UP;
+	      d1 = DOWN;
+	    }
+	  else if (!d0)
+	    d0 = - d1;
+	  else if (!d1)
+	    d1 = -d0;
+		
+	  Note_column::translate_rests (rests[0],d0 *dy);	
+	  Note_column::translate_rests (rests[1], d1 *dy);
 	}
     }
   // meisjes met jongetjes

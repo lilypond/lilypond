@@ -25,6 +25,13 @@
 void
 Stem_tremolo::set_interface (Score_element *me)
 {
+  me->set_interface (ly_symbol2scm ("stem-tremolo"));
+}
+
+bool
+Stem_tremolo::has_interface (Score_element *me)
+{
+  return me->has_interface (ly_symbol2scm ("stem-tremolo"));
 }
 
 

@@ -37,7 +37,7 @@ void
 Break_align_engraver::add_column (SCM smob)
 {
   Score_element * e = unsmob_element (smob);
-  Break_align_item::add_element (align_l_,e);
+  Break_align_interface::add_element (align_l_,e);
   typeset_element (e);
 }
 
@@ -104,11 +104,18 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
       if (!align_l_)
 	{
 	  align_l_ = new Item (get_property ("basicBreakAlignProperties"));
-	  Break_align_item::set_interface (align_l_);
+	  Break_align_interface::set_interface (align_l_);
 	  announce_element (align_l_,0);
 
 	  SCM edge_sym = ly_symbol2scm ("Left_edge_item");
 	  Item * edge = new Item (get_property ("leftEdgeBasicProperties"));
+
+	  /*
+	    We must have left-edge in the middle.  Instrument-names
+	    are left to left-edge, so they don't enter the staff.
+	  */
+	  align_l_->set_elt_property ("self-alignment-X", edge->self_scm ());
+	  
 
 	  /*
 	    If the element is empty, it will be ignored in the break
@@ -144,6 +151,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 	  group->set_parent (align_l_, Y_AXIS);
 	  announce_element (group, 0);
 	  column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
+
 	}
       Axis_group_interface::add_element (group, item_l);
     }

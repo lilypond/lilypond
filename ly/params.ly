@@ -10,6 +10,9 @@ TODO:
 
 %}
 
+
+papersizename = \papersize ;
+
 paperfile = \papersize + ".ly";
 % paperfile = "a4.ly";
 \include \paperfile;

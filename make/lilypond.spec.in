@@ -1,7 +1,7 @@
 Name: lilypond
 Version: @TOPLEVEL_VERSION@
 Release: 1
-Copyright: GPL
+License: GPL
 Group: Applications/Publishing
 Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
 Summary: A program for printing sheet music.
@@ -29,17 +29,24 @@ The documentation of LilyPond, both in HTML and PostScript.
 
 %build
 
-%{configure} --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --disable-optimise --enable-shared
+#
+
+# DO NOT use % { configure } , it hardcodes all paths, runs libtool,
+# so we can't do make prefix=/tmp/ install.
+
+# In fact, do not take out the spaces between % and { , because RPM will gladly
+# do a substitution anyway.
+
+./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --disable-optimise --enable-shared
 
 make all
-
-ln -s %{_prefix}/share/texmf/fonts/tfm/public/cm/ tfm
 
 # urg
 # %build documentation
 # line 42: second %build
 # ok, now make sure that lilypond package will succeed,
 # even if documentation fails to build
+
 make -C Documentation  || true
 make htmldoc || true
 
@@ -90,23 +97,30 @@ fi
 
 %ifnos cygwin
 %{_prefix}/bin/abc2ly
+%{_prefix}/bin/as2text
+%{_prefix}/bin/convert-mudela
 %{_prefix}/bin/etf2ly
+%{_prefix}/bin/lilypond
+%{_prefix}/bin/ly2dvi
+%{_prefix}/bin/midi2ly
+%{_prefix}/bin/mudela-book
 %{_prefix}/bin/musedata2ly
 %{_prefix}/bin/pmx2ly
-%{_prefix}/bin/convert-mudela
-%{_prefix}/bin/mudela-book
-%{_prefix}/bin/ly2dvi
-%{_prefix}/bin/lilypond
-%{_prefix}/bin/midi2ly
 %else
 %{_prefix}/bin
 %endif
 
-%{_prefix}/man/man1/midi2ly.1
-%{_prefix}/man/man1/lilypond.1
-%{_prefix}/man/man1/mudela-book.1
-%{_prefix}/man/man1/ly2dvi.1
-%{_prefix}/man/man1/convert-mudela.1
+%{_prefix}/man/man1/abc2ly.1.gz
+%{_prefix}/man/man1/as2text.1.gz
+%{_prefix}/man/man1/convert-mudela.1.gz
+%{_prefix}/man/man1/etf2ly.1.gz
+%{_prefix}/man/man1/lilypond.1.gz
+%{_prefix}/man/man1/ly2dvi.1.gz
+%{_prefix}/man/man1/midi2ly.1.gz
+%{_prefix}/man/man1/mudela-book.1.gz
+%{_prefix}/man/man1/musedata2ly.1.gz
+%{_prefix}/man/man1/pmx2ly.1.gz
+
 %{_prefix}/share/lilypond/
 %{_prefix}/share/locale/*/LC_MESSAGES/lilypond.mo
 # urg?

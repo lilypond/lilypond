@@ -724,11 +724,16 @@ appearance of note heads or rests.
 
 
 Rests are entered like notes, with note name `@code{r}@indexcode{r}',
-or `@code{R}@indexcode{R}'.  There is also a note name `@code{s}@indexcode{s}',
-which produces a space of the specified duration. 
-`@code{R}' is specifically meant for entering parts: the @code{R} rest
-can expand to fill a score with rests, or it can be printed as a
-single multimeasure rest.
+or `@code{R}@indexcode{R}'.  There is also a note name
+`@code{s}@indexcode{s}', which produces a space of the specified
+duration.  `@code{R}' is specifically meant for entering parts: the
+@code{R} rest can expand to fill a score with rests, or it can be
+printed as a single multimeasure rest.
+
+You can control the expansion by setting the property
+@code{Score.skipBars}. If this is set to true, Lily will not expand
+empty measures, and the multimeasure rests automatically adds the
+appropriate number.
 
 
 @cindex lyrics expressions

@@ -3,16 +3,6 @@
 INSTALL - compiling and installing GNU LilyPond
 ***********************************************
 
-Abstract
-========
-
-   This document explains what you need to install LilyPond, and what
-you should do.  If you are going to compile and install LilyPond often,
-e.g. when doing development, you might want to check out the
-`buildscripts/set-lily.sh' script.  It sets some environment variables
-and symlinks, which comes in handy when you have to compile LilyPond
-more often.
-
 Obtaining
 =========
 
@@ -39,7 +29,7 @@ Prerequisites
 
    * A GNU system: GNU LilyPond is known to run on these GNU systems:
      Linux     (PPC, intel), FreeBSD, AIX, NeXTStep, IRIX, Digital Unix
-     and Solaris.
+     and     Solaris.
 
    * Lots of disk space: LilyPond takes between 30 and 100 mb to
      compile if you use debugging information.  If you are short on
@@ -61,7 +51,7 @@ Prerequisites
    * GNU Make.  Check out ftp://ftp.gnu.org/gnu/make/
      (ftp://ftp.gnu.org/gnu/make/).
 
-   * Flex (version 2.5.4 or newer).  Check out
+   * Flex (version 2.5.4a or newer).  Check out
      ftp://ftp.gnu.org/gnu/flex/ (ftp://ftp.gnu.org/gnu/flex/).
 
    * Bison (version 1.25 or newer).  Check out
@@ -86,7 +76,8 @@ Prerequisites
      `mfplain.mp', which is needed for producing the scalable font
      files.
 
-     If you do not want to use PostScript output, edit `mf/GNUmakefile'.
+     If you do not want to use PostScript output, edit `mf/GNUmakefile',
+     removing the line saying `PFA_FILES='
 
    * kpathsea, a library for searching (TeX) files.  `kpathsea' is
      usually included with your installation of TeX.
@@ -109,18 +100,17 @@ following software
 
    For running LilyPond successfully you have to help TeX and MetaFont
 find various files.  The recommended way of doing so is adjusting the
-environment variables in the start-up scripts of your shell.  An
-example is given here for the Bourne shell:
-     export MFINPUTS="/usr/local/share/lilypond/mf:"
-     export TEXINPUTS="/usr/local/share/lilypond/tex:/usr/local/share/lilypond/ps:"
+environment variables in the start-up scripts of your shell. Appropriate
+Csh and sh scripts are left in `buildscripts/out/lilypond-profile' and
+`buildscripts/out/lilypond-login' after compilation.
 
-   The empty path component represents TeX and MetaFont's default
-search paths.  Scripts with the proper paths for the bourne and C-shell
+   The empty path component represents TeX and MetaFont's default search
+paths.  Scripts with the proper paths for the bourne and C-shell
 respectively are generated in `buildscripts/out/lilypond-profile' and
 `buildscripts/out/lilypond-login' during compilation.
 
-   LilyPond is a hiddeously big, slow and bloated program.  A fast CPU
-and plenty of RAM is recommended for comfortable use.
+   LilyPond is a big and slow program.  A fast CPU and plenty of RAM is
+recommended for comfortable use.
 
 Website
 =======
@@ -148,18 +138,7 @@ additional conversion tools.
 
      The version of `pnmtopng' that is distributed with RedHat 5.1 and
      5.2 contains a bug: pnmtopng is dynamically linked to the wrong
-     version of libpng, which results in cropped images.  Recompile it
-     from source, and make sure that the pnmtopng binary is linked
-     statically to the libpng that is included in libgr.  RedHat 6.0
-     does not have this problem.
-
-           tar xzf libgr-2.0.13.tar.gz
-                make
-                cd png
-                rm libpng.so*
-                make pnmtopng
-
-     You can then install the new pnmtopng into `/usr/local/bin/'
+     version of libpng.
 
    * Bib2html (http://pertsserver.cs.uiuc.edu/~hull/bib2html).
      Which, in turn depends on man2html for proper installation.
@@ -175,7 +154,6 @@ Configuring and compiling
 =========================
 
    to install GNU LilyPond, simply type:
-
      	gunzip -c lilypond-x.y.z | tar xf -
      	cd lilypond-x.y.z
      	./configure		# fill in your standard prefix with --prefix

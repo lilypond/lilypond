@@ -157,7 +157,8 @@ void
 Hara_kiri_engraver::acknowledge_element (Score_element_info i)
 {
   Axis_group_engraver::acknowledge_element (i);
-  if (Rhythmic_head::has_interface (i.elem_l_))
+  if (Rhythmic_head::has_interface (i.elem_l_)
+      || i.elem_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
       Hara_kiri_group_spanner::add_interesting_item (staffline_p_, i.elem_l_);
     }

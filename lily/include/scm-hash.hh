@@ -28,7 +28,7 @@ struct SCM_less
 typedef map<SCM,SCM, SCM_less> Scm_stl_map;
 
 /**
-   auto resizing hash table. This should come from GUILE.
+   auto resizing hash table. 
 
    1. ALWAYS USE THIS AS VIA A POINTER, i.e.
 
@@ -46,6 +46,15 @@ typedef map<SCM,SCM, SCM_less> Scm_stl_map;
    2. UPON DESTRUCTION, DO
 
    scm_unprotect_object (tab->self_scm_);
+
+
+
+
+   TODO:
+
+   This should come from GUILE. We're typically doing double work,
+   because KEY already is a symbol, and is looked up in a symbol
+   hashtable.
    
  */
 class Scheme_hash_table :  private Scm_stl_map
@@ -66,7 +75,6 @@ public:
 
   SCM to_alist () const;
   DECLARE_SMOBS(Scheme_hash_table,foo);
-
 };
 
 #endif /* SCM_HASH_HH */

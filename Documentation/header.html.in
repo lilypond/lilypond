@@ -50,7 +50,7 @@ which substitutes some @AT_VARIABLES@ as well.
       <tr><td><font size=-1>
     	<a href="@TOP@Documentation/out-www/NEWS.html">NEWS</a><br>
     	<a href="@TOP@Documentation/out-www/CHANGES.html">Change Log</a><br>
-    	<a href="@TOP@Documentation/out-www/faq.html">FAQ</a><br>
+    	<a href="http://appel.lilypond.org/wiki/index.php3?LilyPondFaqs">FAQ</a><br>
     	<a href="@TOP@Documentation/user/out-www/lilypond.html">User manual</a><br>
     	<a href="@TOP@Documentation/out-www/regression-test.html">Features</a><br>
     	<a href="http://appel.lilypond.org/lilypond/todo.html">Todo</a><br>

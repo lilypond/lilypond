@@ -21,21 +21,21 @@ internals: LilyPond is smaller, cleaner, more flexible, etc.
 
 * Typography: More elegant slurs, aligned dynamics, text crescendos,
 
-* Better lyrics placement: Automagical phrasing, melisma alignment,
-  stanza numbering.
+* Better lyrics placement: Automatical phrasing, melisma alignment,
+  and stanza numbering.
 
 * Part combining for orchestral scores and hymns: two voices are
-  combined automatic into a staff automatically, including Solo/`a2
+  combined into a staff automatically, including Solo/`a2
   indications as appropriate.
 
 * Chordnames are now configurable in every respect
 
-* Included extensive glossary
+* Includes an extensive glossary of musical terms.
 
 * Many bugfixes.
 
 * Finished ouverture Coriolan as full orchestral score example.
 
-* AsciiScript
+* AsciiScript: ASCII-art output 
 
-* Translations into Japanese and Russian
+* Translations into Japanese, French and Russian

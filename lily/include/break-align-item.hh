@@ -20,11 +20,8 @@
    break-align-symbol -- the index in the spacing table (symbol) of
    the to be aligned item.
 
-
-   TODO: remove this as a class, and make interface.
- */
-
-class Break_align_item
+*/
+class Break_align_interface
 {
 public:
   static SCM before_line_breaking (SCM);
@@ -33,5 +30,6 @@ public:
   static bool has_interface (Score_element*);
   static void add_element (Score_element*me, Score_element*add);
   static Real alignment_callback (Score_element*, Axis);
+  static Real self_align_callback (Score_element*, Axis);
 };
 #endif // BREAK_ALIGN_ITEM_HH

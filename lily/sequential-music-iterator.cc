@@ -12,10 +12,28 @@
 #include "music-list.hh"
 #include "request-chord-iterator.hh"
 
+/*
+  Invariant for the data structure.
+
+
+  if (gh_pair_p (cursor_))
+    iter_p_->music_l_ == unsmob_music (gh_car (cursor_))
+  else
+    iter_p_ == 0;
+
+  The length of musiclist from start to up to cursor_ (cursor_ not
+  including), is summed
+
+  here_mom_  = sum (length (musiclist [start ... cursor> ))  %)  
+  
+ */
+
+
 Sequential_music_iterator::Sequential_music_iterator ()
 {
-  cursor_ = 0;
-  here_mom_ = 0;
+  cursor_ = SCM_EOL;
+  here_mom_ = Moment (0);
+
   iter_p_ =0;
 }
 
@@ -39,23 +57,40 @@ void
 Sequential_music_iterator::construct_children()
 {
   cursor_ = dynamic_cast<Music_sequence const*> (music_l_)->music_list ();
-  
-  while (gh_pair_p (cursor_ ))
-    {
-      iter_p_ =  get_iterator_p (unsmob_music (gh_car (cursor_)));
-      
-      if (iter_p_->ok()) 
-	{
-	  descend_to_child ();
-	  return;
-	}
 
-      delete iter_p_ ;
-      iter_p_ =0;
-      cursor_ = gh_cdr (cursor_);
+  iter_p_ = gh_pair_p (cursor_) ?  get_iterator_p (unsmob_music (gh_car (cursor_))) : 0;
+  while (iter_p_ && !iter_p_->ok ())
+    {
+      next_element ();
     }
+
+  /*
+    iter_p_->ok () is tautology, but what the heck.
+   */
+  if (iter_p_ && iter_p_->ok()) 
+    descend_to_child ();
+
 }
- /*
+
+
+/*
+  maintain invariants: change cursor, iter and here_mom_ in one fell
+  swoop.
+*/
+void
+Sequential_music_iterator::next_element ()
+{
+  here_mom_ += iter_p_->music_length_mom ();
+  delete iter_p_;
+  cursor_ = gh_cdr (cursor_);
+
+  if (gh_pair_p (cursor_))
+    iter_p_ = get_iterator_p (unsmob_music (gh_car (cursor_)));
+  else
+    iter_p_ = 0;
+}
+
+/*
   move to context of child iterator if it is deeper down in the
   hierarchy.
   */
@@ -63,7 +98,6 @@ Sequential_music_iterator::construct_children()
 void
 Sequential_music_iterator::descend_to_child ()
 {
-       
   Translator_group  * child_report = child_report = iter_p_->report_to_l ();
   if (dynamic_cast<Grace_iterator*> (iter_p_))
     child_report = child_report->daddy_trans_l_;
@@ -96,28 +130,24 @@ Sequential_music_iterator::get_music (Moment until)const
   if (until <  pending_moment ())
     return s;
 
-  SCM curs = cursor_;
-  Music_iterator * iter = iter_p_->clone ();
-  while (1)
+  Sequential_music_iterator * me =
+    dynamic_cast<Sequential_music_iterator*> (clone ());
+  while (me->ok ())
     {
-      SCM nm = iter->get_music (until - here_mom_);
+      SCM nm = me->iter_p_->get_music (until - me->here_mom_);
       s = gh_append2 (nm, s);
       
       Moment m = 0;
       for (SCM i = nm; gh_pair_p(i); i = gh_cdr (i))
 	m = m >? unsmob_music (gh_car (i))->length_mom ();
 
-      delete iter;
-
-      curs = gh_cdr (curs);
-
-      if (!gh_pair_p (curs) ||  m > Moment (0))
-	return s;
+      if (m > Moment (0))
+	break ;
       else
-	{
-	  iter = get_iterator_p (unsmob_music (gh_car (curs)));
-	}      
+	me->next_element ();
     }
+  delete me;
+  
   return s;
 }
 /*
@@ -129,7 +159,7 @@ Sequential_music_iterator::get_music (Moment until)const
 void
 Sequential_music_iterator::skip (Moment until)
 {
-  while (1)
+  while (ok ())
     {
       Moment l =iter_p_->music_length_mom ();
       if (l >= until - here_mom_)
@@ -137,24 +167,15 @@ Sequential_music_iterator::skip (Moment until)
 
       if (iter_p_->ok ())
 	return ; 
-      
-      here_mom_ = here_mom_ + l;
-      delete iter_p_;
-      iter_p_ =0;
 
-      cursor_ = gh_cdr (cursor_);
-
-      if (!gh_pair_p (cursor_))
-	return ;
-      else
-	iter_p_ = get_iterator_p (unsmob_music (gh_car (cursor_)));
+      next_element ();
     }
 }
 
 void
 Sequential_music_iterator::process (Moment until)
 {
-  while (1)
+  while (iter_p_)
     {
       iter_p_->process (until - here_mom_);
 
@@ -167,23 +188,9 @@ Sequential_music_iterator::process (Moment until)
       if (iter_p_->ok ())
 	return ;
 
-      here_mom_ += iter_p_->music_length_mom ();
-
       descend_to_child ();
-      delete iter_p_;
-      iter_p_ =0;
-
-      cursor_ = gh_cdr (cursor_);
-
-      if (!gh_pair_p (cursor_))
-	return ;
-      else
-	{
-	  delete iter_p_;
-	  iter_p_ = get_iterator_p (unsmob_music (gh_car (cursor_)));
-	}      
+      next_element ();
     }
-
 }
 
 Moment

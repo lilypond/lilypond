@@ -5,6 +5,7 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <iostream.h>
 
 #include "translator-group.hh"
 #include "command-request.hh"
@@ -23,8 +24,8 @@ protected:
   virtual bool do_try_music (Music * );
   virtual void do_post_move_processing ();
   virtual void do_process_music ();
+  virtual void do_pre_move_processing ();
 public:
-  String which_bar (); 
   VIRTUAL_COPY_CONS(Translator);
 };
 
@@ -37,9 +38,12 @@ Timing_engraver::do_post_move_processing( )
   Timing_translator::do_post_move_processing ();
 
   SCM nonauto = get_property ("barNonAuto");
-  SCM which = now_mom () ? SCM_UNDEFINED : ly_str02scm ("|");
+
+  SCM which = get_property ("whichBar");
+  if (!gh_string_p (which))
+    which = now_mom () ? SCM_EOL : ly_str02scm ("|");
   
-  if (which == SCM_UNDEFINED && !to_boolean (nonauto))
+  if (!gh_string_p (which) && !to_boolean (nonauto))
     {
       SCM always = get_property ("barAlways");
       if (!measure_position ()
@@ -50,6 +54,13 @@ Timing_engraver::do_post_move_processing( )
     }
 
   daddy_trans_l_->set_property ("whichBar", which);
+}
+
+void
+Timing_engraver::do_pre_move_processing ()
+{
+  Timing_translator::do_pre_move_processing ();
+  daddy_trans_l_->set_property ("whichBar", SCM_EOL);  
 }
 
 bool

@@ -5,7 +5,7 @@ SUBDIRS=user bibliography pictures topdocs ntweb misc
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond mudela
 
-README_TOP_FILES=NEWS DEDICATION CHANGES TODO
+README_TOP_FILES=NEWS DEDICATION CHANGES 
 EXTRA_DIST_FILES=
 
 include $(depth)/make/stepmake.make 
