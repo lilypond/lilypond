@@ -9,7 +9,7 @@
 #include "pscore.hh"
 #include "main.hh"
 
-Lyric_column::Lyric_column(Score_column*s, Lyric_staff* lstaff_l)
+Lyric_column::Lyric_column(Score_column* s, Lyric_staff* lstaff_l)
     : Staff_column(s)
 {
     lstaff_l_ = lstaff_l;
@@ -33,28 +33,11 @@ Lyric_column::setup_requests()
     }
 }
 
-Interval itemlist_width(const Array<Item*> &its);
-
 void
-Lyric_column::typeset_item(Item *i, int breakst)
-{
-    assert(i);
-    
+Lyric_column::typeset_item(Item *i)
+{    
     lstaff_l_->pscore_l_->typeset_item(i, score_column_l_->pcol_l_,
-				  lstaff_l_->line_pstaff_p_,breakst);
-    
-    if (breakst == BREAK_PRE - BREAK_PRE) {
-	
-        Array<Item*> to_move(
-	    lstaff_l_->pscore_l_->select_items(lstaff_l_->line_pstaff_p_,
-					  score_column_l_->pcol_l_->prebreak_p_));
-	Interval column_wid = itemlist_width(to_move);
-	assert(!column_wid.empty());
-
-	for (int j=0; j < to_move.size(); j++) {
-	    to_move[j]->translate(Offset(-column_wid.right, 0));
-	}
-    }
+				  lstaff_l_->pstaff_l_);
 }    
 
 Word_info::Word_info()

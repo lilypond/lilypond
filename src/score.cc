@@ -12,17 +12,18 @@
 void
 Score::process()
 {
-    *mlog << "\nProcessing music" << endl;
+    *mlog << "\nProcessing music ..." << flush;
     
     assert (paper_p_);
     if (last() == Moment(0)) {
 	warning("Need to have music in a score.", defined_ch_c_l_);
     }
+
     // distribute commands to disciples
     pscore_p_ = new PScore(paper_p_);
     for (iter_top(staffs_,i); i.ok(); i++) {
-	i->truncate_cols(last());
 	i->set_output(pscore_p_);
+	i->truncate_cols(last());
 	i->process();
     }
 
@@ -34,6 +35,7 @@ Score::process()
 
     // debugging
     OK();
+    *mlog << endl;
     pscore_p_->process();    
 }
 
@@ -88,9 +90,10 @@ Score::create_cols(Moment w)
 }
 
 PCursor<Score_column*>
-Score::find_col(Moment w,bool mus)
-{
-    iter_top(cols_,i);
+Score::find_col(Moment w, bool mus)
+{   iter_top( cols_,i);
+	
+    
     for (; i.ok(); i++) {
 	if (i->when() == w && i->musical_ == mus)
 	    return i;
@@ -112,6 +115,7 @@ Score::do_cols()
     }
     clean_cols();    // can't move clean_cols() farther up.
 }
+
 Moment
 Score::last() const
 {    
@@ -157,10 +161,10 @@ Score::print() const
 #endif
 }
 
-Score::Score(Paperdef*p)
+Score::Score(Paperdef*paper_p)
 {
     pscore_p_=0;
-    paper_p_ = p;		// ?? safe?
+    paper_p_ = paper_p;
     errorlevel_i_ = 0;
     defined_ch_c_l_ = 0;
 }

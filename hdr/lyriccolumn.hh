@@ -26,10 +26,10 @@ struct Lyric_column : Staff_column {
     Array<Word_info> winfo_array_;
     Lyric_staff* lstaff_l_;
     
-    void typeset_item(Item *, int=1);
+    void typeset_item(Item *);
     virtual void setup_requests();
 
-    Lyric_column(Score_column*s,Lyric_staff*rs);
+    Lyric_column(Score_column* s,Lyric_staff*rs);
 };
 
 #endif // LYRICSTAFF_HH

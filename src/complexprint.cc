@@ -6,7 +6,7 @@
 #include "complexstaff.hh"
 #include "sccol.hh"
 #include "debug.hh"
-#include "linepstaff.hh"
+
 #include "clefitem.hh"
 #include "bar.hh"
 #include "meter.hh"
@@ -38,7 +38,7 @@ Complex_staff::get_TYPESET_item(Command *com)
 
 
 Interval
-citemlist_width(const Array<Item*> &its)
+itemlist_width(const Array<Item*> &its)
 {
     Interval iv ;
     iv.set_empty();
@@ -56,14 +56,14 @@ Complex_column::typeset_item(Item *i, int breakst)
     assert(i);
     
     staff_l_->pscore_l_->typeset_item(i, score_column_l_->pcol_l_,
-				  staff_l_->theline_l_,breakst);
+				  staff_l_->pstaff_l_,breakst);
     
     if (breakst == BREAK_PRE - BREAK_PRE) {
 	
         Array<Item*> to_move(
-	    staff_l_->pscore_l_->select_items(staff_l_->theline_l_,
+	    staff_l_->pscore_l_->select_items(staff_l_->pstaff_l_,
 					  score_column_l_->pcol_l_->prebreak_p_));
-	Interval column_wid = citemlist_width(to_move);
+	Interval column_wid = itemlist_width(to_move);
 	assert(!column_wid.empty());
 
 	for (int j=0; j < to_move.size(); j++) {
@@ -84,22 +84,22 @@ Complex_column::typeset_item_directional(Item *i, int dir, int breakst) // UGH!
     else if (breakst == 2)
 	c = c->postbreak_p_;
     
-    Array<Item*> to_move(staff_l_->pscore_l_->select_items(staff_l_->theline_l_,
+    Array<Item*> to_move(staff_l_->pscore_l_->select_items(staff_l_->pstaff_l_,
 						      c));    
     typeset_item(i, breakst);
 
-    Interval column_wid = citemlist_width(to_move);
+    Interval column_wid = itemlist_width(to_move);
     if (column_wid.empty())
 	column_wid = Interval(0,0);
     i->translate(Offset(column_wid[dir] - i->width()[-dir], 0));
 }
 
 void
-Complex_staff::set_output(PScore* ps )
+Complex_staff::set_output(PScore* pscore_l )
 {
-    theline_l_ = new Linestaff(NO_LINES,ps); // theline_l_ is added to pscore later.
-    pscore_l_ = ps;
-    pscore_l_->add(theline_l_);
+    pstaff_l_ = new PStaff(pscore_l); // pstaff_l_ is added to pscore later.
+    pscore_l_ = pscore_l;
+    pscore_l_->add(pstaff_l_);
 }
 
 
