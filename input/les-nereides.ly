@@ -15,7 +15,7 @@ http://www.orphee.com/comparison/study.html, see
 http://www.orphee.com/comparison/gray.pdf
 
 
-lines that contain tweaks (22 currently, not counting reverts) are
+lines that contain tweaks (14 currently, not counting reverts) are
 marked with %tweak
 
 possibly more impressive to render without tweaks?
@@ -81,7 +81,7 @@ treble = \new Voice \relative c''{
     \override Fingering  #'direction = #1
     
     % Manual fix for collision with slur
-    \override Fingering  #'inside-slur = ##f
+    \override Fingering  #'inside-slur = ##f %tweak
     <gis gis,> <fis fis,> e)-1-4-5 r
 
     | %6
@@ -106,8 +106,8 @@ trebleTwo = \new Voice \relative c''{
     <e, gis, e d!>2
     | %5
     s8 cis4. d4
-    \override Fingering #'add-stem-support = ##t
-    \override Fingering #'padding = #0.1
+    \override Fingering #'add-stem-support = ##t %tweak
+    \override Fingering #'padding = #0.1 %tweak
     <cis e,>8[( <d,_3 b'_1>
     | %6
     <cis_1 a'_2>)] cis'4. d4 
@@ -125,7 +125,7 @@ bass = \new Voice \relative c{
 
     r8. e,16(\f_2 <a a,>8[ <b b,>]
     | %2
-    \override Staff.SustainPedalLineSpanner #'staff-padding = #5
+    \override Staff.SustainPedalLineSpanner #'staff-padding = #5 %tweak
 			   
     <cis cis,>4\sustainDown
     \change Staff=treble
@@ -181,7 +181,7 @@ bass = \new Voice \relative c{
     \override Fingering  #'direction = #-1
 
 			   
-    \override Staff.SustainPedalLineSpanner #'staff-padding = #3.5
+    \override Staff.SustainPedalLineSpanner #'staff-padding = #3.5 %tweak
     \set Staff.pedalSustainStyle = #'mixed
     %%a,8 e'[-5(<a-2 cis-3>])
 
