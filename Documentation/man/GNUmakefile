@@ -7,17 +7,11 @@ SECTION=1
 MANTXT = $(addprefix $(outdir)/, $(addsuffix .txt,$(basename $(TEXINFO_FILES) .texinfo)))
 MANGROFF = $(addprefix $(outdir)/, $(addsuffix .$(SECTION),$(basename $(YO_FILES) .yo)))
 
-OUTTEXINFO_FILES= $(addprefix $(outdir)/, $(addsuffix .texinfo,$(basename $(YO_FILES) .yo)))
-
 OUT_DIST_FILES += $(MANGROFF)
 
 include $(depth)/make/stepmake.make 
 
 default: $(MANGROFF)
-
-texinfo: $(OUTTEXINFO_FILES)
-
-
 
 INSTALLATION_OUT_FILES=$(MANGROFF)
 INSTALLATION_OUT_DIR=$(mandir)/man$(SECTION)
