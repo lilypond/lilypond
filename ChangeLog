@@ -1,5 +1,10 @@
 2004-05-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/test/markup-score.ly: Remove \notes.
+
+	* lily/parser.yy (book_body): Grok Composite_music and \header.
+	(markup): Push NOTES mode before score_block.
+
 	* mf/feta-klef.mf: 
 	* mf/feta-bolletjes.mf: Oops.  Comment-out canvast test code.
 

@@ -4,8 +4,15 @@
     
 }
 
-%%\new PianoStaff <<
- <<
+%% FIXME:
+%% THIS does not parse:
+%\new PianoStaff <<
+
+%% and THIS: gives incorrect results (all lyrics below pianostaff)
+%\context PianoStaff <<
+
+%% only this works as advertised...
+<<
     \new Staff \relative {
 	d'2 d c4 bes a2 \break
 	c2 c d4 f g2
@@ -28,8 +35,8 @@
 	NOT MUCH CAN GO WRONG!
     }
     \newlyrics {
-	My next Li -- ly verse
-	Not much can go wrong!
+	MY NEXT LI -- LY VERSE
+	NOT MUCH CAN GO WRONG!
     }
 >>
 

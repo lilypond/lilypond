@@ -6,8 +6,6 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
-
 #ifndef MUSIC_HH
 #define MUSIC_HH
 
@@ -73,5 +71,6 @@ DECLARE_UNSMOB(Music,music);
 
 Music* make_music_by_name (SCM sym);
 SCM ly_deep_mus_copy (SCM);
+SCM ly_music_scorify (SCM);
 
-#endif // MUSIC_HH
+#endif /* MUSIC_HH */

@@ -157,6 +157,7 @@ Score_engraver::announce_grob (Grob_info info)
 void
 Score_engraver::typeset_grob (Grob *elem)
 {
+  (void) elem;
   //  elems_.push (elem);
 }
 

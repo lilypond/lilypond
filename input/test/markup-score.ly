@@ -1,9 +1,13 @@
 \header {
-    %% WIP
 
-    %% this would be more useful as a footnote, but we don't have
-    %% (sensible) header/footer+footnotes yet (2.3.1).
+    %% When vertical dimension and stacking works properly, this
+    %% should be broken up into a few regression tests.
+
+    %% Too bad that '{' is overloaded, we need something (the bit arbitrary
+    %% `\score' now, to introduce to-markup-stencil-rendered music.
+    
     texidoc = "Use \\score block as markup command."
+    
 }
 
 \version "2.3.1"
@@ -77,7 +81,7 @@ noCruftInBed = \paper {
 }
 
 tuning = \markup {
-    \score { \notes { \clef bass  <c, g, d g>1 } \paper{ \inBed }}
+    \score { { \clef bass  <c, g, d g>1 } \paper{ \inBed }}
 }
 
 #(define-public (my-footer paper page-number)
@@ -89,9 +93,9 @@ tempoChange = \markup {
     %% wtf, no horizontal shift?
     "" %%\kern #-10 
     \translate #'(-15 . 0)
-    \score { \notes \times 2/3 { c'8 c' c' } \paper { \noCruftInBed }}
+    \score { \times 2/3 { c'8 c' c' } \paper { \noCruftInBed }}
     " ="
-    \score { \notes { c'8[ c'] } \paper { \noCruftInBed } }
+    \score { { c'8[ c'] } \paper { \noCruftInBed } }
 }
 
 \header {

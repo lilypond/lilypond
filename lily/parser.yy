@@ -624,14 +624,28 @@ book_block:
 	}
 	;
 
+/* FIXME:
+   * Use 'handlers' like for toplevel-* stuff?
+   * grok \paper and \midi?  */
 book_body:
 	{
 		$$ = new Book;
 		$$->set_spot (THIS->here_input ());
 	}
 	| book_body score_block {
-		$$->scores_.push ($2);
-		scm_gc_unprotect_object ($2->self_scm ());
+		Score *score = $2;
+		$$->scores_.push (score);
+		scm_gc_unprotect_object (score->self_scm ());
+	}
+	| book_body Composite_music {
+		Music *music = $2;
+		Score *score
+			= unsmob_score (ly_music_scorify (music->self_scm ()));
+		$$->scores_.push (score);
+		scm_gc_unprotect_object (music->self_scm ());
+	}
+	| lilypond_header {
+		THIS->header_ = $1;
 	}
 	| book_body error {
 	}
@@ -2520,12 +2534,18 @@ markup:
 	| STRING_IDENTIFIER {
 		$$ = $1;
 	}
-	| score_block {
+	| {
+		SCM nn = THIS->lexer_->lookup_identifier ("pitchnames");
+		THIS->lexer_->push_note_state (alist_to_hashq (nn));
+	}
+	/* cont */ score_block {
 		/* WIP this is a bit arbitrary,
 		   we should also allow \book or Composite_music.
 		   However, you'd typically want to change paper
 		   settings, and need a \score block anyway.  */
- 		Score *score = $1;
+
+		THIS->lexer_->pop_state ();
+ 		Score *score = $2;
  		Book *book = new Book;
 		book->scores_.push (score);
 
