@@ -9,7 +9,8 @@
 #include "change-iterator.hh"
 #include "translator-group.hh"
 #include "music.hh"
-#include "debug.hh"
+#include "warn.hh"
+
 
 
 void

@@ -8,7 +8,7 @@
  */
 
 #include "spring.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "ly-smobs.icc"
 
 Spring_smob::Spring_smob()

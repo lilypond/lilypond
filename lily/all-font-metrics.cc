@@ -10,7 +10,7 @@
 #include "config.h"
 #include "main.hh"
 #include "all-font-metrics.hh"
-#include "debug.hh"
+
 #include "warn.hh"
 #include "afm.hh"
 #include "tfm.hh"

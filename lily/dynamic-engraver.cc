@@ -5,7 +5,7 @@
 
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include "debug.hh"
+#include "warn.hh"
 #include "dimensions.hh"
 #include "hairpin.hh"
 #include "musical-request.hh"

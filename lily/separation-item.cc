@@ -9,7 +9,7 @@
 
 #include "separation-item.hh"
 #include "paper-column.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "group-interface.hh"
 
 

@@ -8,7 +8,7 @@
 
 #include "column-x-positions.hh"
 #include "real.hh"
-#include "debug.hh"
+
 
 Column_x_positions::Column_x_positions ()
 {

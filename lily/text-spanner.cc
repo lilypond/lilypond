@@ -15,7 +15,7 @@ source file of the GNU LilyPond music typesetter
 #include "font-interface.hh"
 #include "dimensions.hh"
 #include "paper-def.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "paper-column.hh"
 #include "staff-symbol-referencer.hh"
 

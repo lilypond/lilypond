@@ -9,7 +9,8 @@
 
 #include "gourlay-breaking.hh"
 #include "column-x-positions.hh"
-#include "debug.hh"
+#include "warn.hh"
+#include "main.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "paper-def.hh"

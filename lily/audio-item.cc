@@ -5,7 +5,7 @@
 
   (c)  1997--2002 Jan Nieuwenhuizen <janneke@gnu.org>
 */
-#include "debug.hh"
+
 #include "audio-item.hh"
 #include "midi-item.hh"
 #include "audio-column.hh"

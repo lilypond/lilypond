@@ -10,7 +10,7 @@
 #include "dimensions.hh"
 #include "paper-def.hh"
 #include "molecule.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "item.hh"
 #include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"

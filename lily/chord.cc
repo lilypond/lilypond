@@ -9,7 +9,7 @@
 #include "chord.hh"
 #include "musical-request.hh"
 #include "warn.hh"
-#include "debug.hh"
+
 #include "music-list.hh"
 #include "musical-request.hh"
 

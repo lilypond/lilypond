@@ -22,7 +22,7 @@
 #include "score.hh"
 #include "string.hh"
 #include "paper-def.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "parray.hh"
 #include "file-path.hh"
 #include "file-results.hh"

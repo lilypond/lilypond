@@ -10,7 +10,7 @@
 #include "performer-group-performer.hh"
 
 #include "audio-element.hh"
-#include "debug.hh"
+#include "warn.hh"
 
 
 ENTER_DESCRIPTION(Performer_group_performer,

@@ -16,7 +16,7 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-#include "debug.hh"
+
 #include "dimensions.hh"
 #include "direction.hh"
 

@@ -8,7 +8,7 @@
  */
 #include <math.h>
 
-#include "debug.hh"
+#include "warn.hh"
 #include "text-item.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"

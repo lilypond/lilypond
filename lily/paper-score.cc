@@ -7,7 +7,7 @@
 */
 
 #include "main.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "font-metric.hh"
 #include "spanner.hh"
 #include "paper-def.hh"

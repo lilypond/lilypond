@@ -7,7 +7,7 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "debug.hh"
+#include "warn.hh"
 #include "note-collision.hh"
 #include "note-column.hh"
 #include "note-head.hh"

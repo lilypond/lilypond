@@ -8,7 +8,7 @@
  */
 
 #include "transposed-music.hh"
-#include "debug.hh"
+#include "warn.hh"
 
 Transposed_music::Transposed_music (SCM l)
   : Music_wrapper (l)

@@ -7,7 +7,7 @@
 */
 
 #include <time.h>
-#include "debug.hh"
+#include "warn.hh"
 #include "string.hh"
 #include "string-convert.hh"
 #include "main.hh"

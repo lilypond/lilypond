@@ -30,7 +30,7 @@
 #include "stem.hh"
 #include "paper-column.hh"
 #include "molecule.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "slur-bezier-bow.hh"
 #include "main.hh"
 #include "group-interface.hh"

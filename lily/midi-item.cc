@@ -6,7 +6,7 @@
   (c)  1997--2002 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
-#include "debug.hh"
+#include "warn.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "string.hh"

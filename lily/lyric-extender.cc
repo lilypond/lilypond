@@ -8,7 +8,7 @@
 
 
 #include "box.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "lookup.hh"
 #include "molecule.hh"
 #include "paper-column.hh"

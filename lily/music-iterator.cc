@@ -9,7 +9,7 @@
 /*
   UGH. too many includes.
  */
-#include "debug.hh"
+#include "warn.hh"
 #include "music-iterator.hh"
 #include "translator-group.hh"
 #include "music-wrapper.hh"

@@ -20,6 +20,7 @@ String find_file (String);
 void call_constructors ();
 extern Array<String> get_inclusion_names ();
 extern void set_inclusion_names (Array<String>);
+void progress_indication (String);
 
 /* options */
 extern bool dependency_global_b;

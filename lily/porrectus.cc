@@ -14,7 +14,7 @@
 #include "molecule.hh"
 #include "pitch.hh"
 #include "lookup.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "dimensions.hh"
 #include "direction.hh"
 #include "bezier.hh"

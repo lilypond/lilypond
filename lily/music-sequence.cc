@@ -7,7 +7,7 @@
   
  */
 #include "music-list.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "pitch.hh"
 
 

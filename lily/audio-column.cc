@@ -10,7 +10,7 @@
 #include "audio-item.hh"
 #include "performance.hh"
 
-#include "debug.hh"
+
 
 Audio_column::Audio_column (Moment at_mom)
 {

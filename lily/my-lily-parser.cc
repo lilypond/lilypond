@@ -9,7 +9,7 @@
 
 #include "my-lily-parser.hh"
 #include "my-lily-lexer.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "main.hh"
 #include "parser.hh"
 #include "file-results.hh"

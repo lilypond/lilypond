@@ -16,7 +16,7 @@
 #include "molecule.hh"
 #include "array.hh"
 #include "string-convert.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "font-metric.hh"
 #include "main.hh"
 #include "scm-hash.hh"

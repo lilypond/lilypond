@@ -10,7 +10,7 @@
 #include "repeated-music.hh"
 #include "music-list.hh"
 #include "pitch.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "music-sequence.hh"
 
 Music *

@@ -9,7 +9,7 @@
 #include "moment.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "axis-group-interface.hh"
 #include "spaceable-grob.hh"
 #include "molecule.hh"
@@ -166,4 +166,5 @@ Paper_column::before_line_breaking (SCM grob)
     }
 
   me->set_grob_property ("bounded-by-me", c);
+  return SCM_UNSPECIFIED;
 }

@@ -11,7 +11,7 @@
 #include "ly-smobs.icc"
 
 #include "score.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "music-output-def.hh"
 #include "music-output.hh"
 #include "music-iterator.hh"

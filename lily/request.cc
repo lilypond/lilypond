@@ -7,7 +7,7 @@
 */
 
 #include "request.hh"
-#include "debug.hh"
+#include "warn.hh"
 
 bool
 Request::equal_b (Request const* r) const

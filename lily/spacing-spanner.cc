@@ -10,7 +10,9 @@
 #include <math.h>
 #include <stdio.h>
 
+#include "main.hh"
 #include "system.hh"
+#include "warn.hh"
 #include "paper-def.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"
@@ -373,8 +375,13 @@ Spacing_spanner::set_springs (SCM smob)
       global_shortest = unsmob_moment (preset_shortest)->main_part_;
     }
   else
-    global_shortest = find_shortest (me, all);
-  
+    {
+      global_shortest = find_shortest (me, all);
+      if (verbose_global_b)
+	{
+	  progress_indication (_f("Global shortest duration is %s\n", global_shortest.str())); 
+	}
+    }
   prune_loose_colunms (me, &all, global_shortest);
   set_implicit_neighbor_columns (all);
 

@@ -15,7 +15,7 @@
 #include "rhythmic-head.hh"
 #include "bezier.hh"
 #include "paper-column.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
 #include "molecule.hh"

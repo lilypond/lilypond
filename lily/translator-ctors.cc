@@ -8,7 +8,7 @@
 
 #include "translator.hh"
 #include "dictionary.hh"
-#include "debug.hh"
+#include "warn.hh"
 
 /*
   should delete these after exit.

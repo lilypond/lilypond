@@ -15,7 +15,7 @@
 #include "music-iterator.hh"
 #include "repeated-music.hh"
 #include "music-list.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "translator-group.hh"
 
 /**

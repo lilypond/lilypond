@@ -13,7 +13,7 @@
 #include "includable-lexer.hh"
 #include "source-file.hh"
 #include "source.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "main.hh"
 
 #ifndef YY_BUF_SIZE

@@ -8,7 +8,7 @@
  */
 
 #include "stem-tremolo.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "beam.hh"
 #include "paper-def.hh"
 #include "lookup.hh"

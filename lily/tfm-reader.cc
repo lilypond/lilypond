@@ -11,7 +11,7 @@
 
 #include "tfm-reader.hh"
 #include "string-convert.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "warn.hh"
 
 #define format_str String_convert::form_str

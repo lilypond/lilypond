@@ -6,8 +6,8 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "debug.hh"
-
+#include "warn.hh"
+#include "main.hh"
 #include "system.hh"
 #include "item.hh"
 #include "score-engraver.hh"

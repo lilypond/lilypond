@@ -13,7 +13,7 @@
 #include "audio-staff.hh"
 #include "midi-item.hh"
 #include "midi-stream.hh"
-#include "debug.hh"
+#include "warn.hh"
 
 Midi_note_event::Midi_note_event () 
 { 

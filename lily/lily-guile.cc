@@ -18,7 +18,7 @@
 #include "main.hh"
 #include "simple-file-storage.hh"
 #include "file-path.hh"
-#include "debug.hh"
+#include "warn.hh"
 #include "direction.hh"
 #include "offset.hh"
 #include "interval.hh"
