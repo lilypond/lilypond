@@ -1366,9 +1366,11 @@ To save typing work, some shorthands are available:
 
 @cindex fingering
 
-Fingering instructions can also be entered in  this shorthand.
+Fingering instructions can also be entered in  this shorthand. For
+changes, some markup texts would be needed:
 @lilypond[verbatim, singleline, fragment]
       c'4-1 c'4-2 c'4-3 c'4-4
+      c^#'(finger "2-3")
 @end lilypond
 
 
@@ -2873,24 +2875,7 @@ block:
 
 @cindex Basso continuo
 
-Figured bass is printed by @internalsref{FiguredBass} context.  This
-context will print notes (relative to the central C) as figures.  To
-ease entering these notes, the special @code{\figures} mode is
-available which allows you to type numbers, like @code{<4 6+>}.
-
-@lilypond[verbatim,fragment]
-< \context FiguredBass \transpose c'' {
-   <e! g >
-   <f8 ais >
-   \figures {
-     r8
-     <1 3 5>4 <3- 5+ 6!> <5>
-   } 
- }
- \context Voice {
-   c g8 g f4 d c
-  } >
-@end lilypond
+TODO. see figured-bass.ly
 
 @c . {Tuning output}
 @node Tuning output

@@ -1,3 +1,63 @@
+2002-02-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION (PATCH_LEVEL): 1.5.35 released.
+
+	* lily/lookup.cc (ly_bracket): Scheme function ly-bracket
+	(bracket): New function.
+
+	* lily/stem-engraver.cc (stop_translation_timestep): bugfix, unset
+	stemLeftBeamCount, stemRightBeamCount in stead of using #<undefined> 
+
+	* lily/third-try.cc (set_implicit_neighbor_columns): type checking
+	bugfix.
+
+	* lily/span-arpeggio-engraver.cc (stop_translation_timestep):
+	typecheck bugfix. 
+
+	* lily/grob.cc (ly_get_grob_property): be anal about types.
+	(ly_set_grob_property): idem
+
+	* lily/figured-bass-engraver.cc (process_music): move molecule
+	building completely to Scheme
+
+	* lily/include/musical-request.hh (class Bass_figure_req): Add
+	class. 
+
+	* lily/parser.yy (bass_figure): add support for space figure.
+
+	* lily/molecule.cc (ly_molecule_combined_at_edge): be anal about types 
+
+	* lily/font-metric.cc (ly_text_dimension): Scheme function ly-text-dimension
+
+	* lily/molecule.cc (ly_fontify_atom): new function ly-fontify-atom
+	(ly_align_to_x): new function ly-align-to!
+
+	* lily/font-interface.cc (ly_font_interface_get_font): new Scheme
+	function ly-get-font
+
+	* mf/feta-nummer.mf: include normal-space dimension. 
+
+	* lily/collision.cc (check_meshing_chords): don't merge collisions
+	with whole notes.
+	
+	* lily/system-start-delimiter.cc (after_line_breaking): Bugfix:
+	glyph is string.
+
+2002-02-28  Mats Bengtsson  <matsb@matsb@s3.kth.se>
+
+	* scm/tex.scm, scm/ps.scm (or): Bugfix, ps output with Guile 3.4
+
+2002-02-28  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* mf/parmesan-heads.mf: bugfix: mensural note heads  (WARNING:
+	font changed)
+
+	* scm/output-lib.scm: bugfix: resort to neo_mensural chars rather
+	than mensural chars
+
+	* mf/parmesan-scripts.mf, mf/parmesan-generic.mf,
+	scm/grob-description.scm: added mensural fermata symbol
+
 2002-02-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION: 1.5.34 released.
@@ -440,6 +500,7 @@
 	Changed property:   localKeySignature.
 	Added properties:   extraNatural, autoAccidentals,
 	                    autoCautionaries.
+
 	(BUGFIX: broken-tie-support destroyed in 1.5.16)
 	
 	* ly/property-init.ly: added commands

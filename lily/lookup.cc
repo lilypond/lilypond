@@ -46,7 +46,6 @@ Lookup::beam (Real slope, Real width, Real thick)
 }
 
 
-
 Molecule
 Lookup::dashed_slur (Bezier b, Real thick, Real dash)
 {
@@ -66,9 +65,6 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash)
   Box box (Interval (0,0),Interval (0,0));
   return   Molecule (box, at);
 }
-
-
-
 
 Molecule
 Lookup::blank (Box b) 
@@ -90,6 +86,7 @@ Lookup::filledbox (Box b)
   return Molecule (b,at);
 }
 
+
 Molecule
 Lookup::frame (Box b, Real thick)
 {
@@ -106,7 +103,6 @@ Lookup::frame (Box b, Real thick)
 	  edges[a] = b[a][d] + 0.5 * thick * Interval (-1, 1);
 	  edges[o][DOWN] = b[o][DOWN] - thick/2;
 	  edges[o][UP] = b[o][UP] + thick/2;	  
-	  
 	  
 	  m.add_molecule (filledbox (edges));
 	}
@@ -164,6 +160,9 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
   return Molecule (b, at);
 }
 
+/*
+  TODO: junk me.
+ */
 Molecule
 Lookup::accordion (SCM s, Real staff_space, Font_metric *fm) 
 {
@@ -380,3 +379,49 @@ Lookup::repeat_slash (Real w, Real s, Real t)
 
   return Molecule (b, slashnodot); //  http://slashnodot.org
 }
+
+
+
+Molecule
+Lookup::bracket (Axis a, Interval iv, Direction d, Real thick, Real protude)
+{
+  Box b;
+  Axis other = Axis((a+1)%2);
+  b[a] = iv;
+  b[other] = Interval(-1, 1) * thick * 0.5;
+  
+  Molecule m =  filledbox (b);
+
+  b[a] = Interval (iv[UP] - thick, iv[UP]);
+  Interval oi = Interval (-thick/2, thick/2 + protude) ;
+  oi *=  d;
+  b[other] = oi;
+  m.add_molecule (filledbox (b));
+  b[a] = Interval (iv[DOWN], iv[DOWN]  +thick);
+  m.add_molecule (filledbox(b));
+
+  return m;
+}
+
+SCM
+ly_bracket (SCM a, SCM iv, SCM d, SCM t, SCM p)
+{
+  SCM_ASSERT_TYPE(ly_axis_p (a), a, SCM_ARG1, __FUNCTION__, "axis") ;
+  SCM_ASSERT_TYPE(ly_number_pair_p (iv), iv, SCM_ARG1, __FUNCTION__, "number pair") ;
+  SCM_ASSERT_TYPE(isdir_b (d), a, SCM_ARG1, __FUNCTION__, "direction") ;
+  SCM_ASSERT_TYPE(gh_number_p (t), a, SCM_ARG1, __FUNCTION__, "number") ;
+  SCM_ASSERT_TYPE(gh_number_p(p), a, SCM_ARG1, __FUNCTION__, "number") ;
+
+
+  return Lookup::bracket ((Axis)gh_scm2int (a), ly_scm2interval (iv),
+		  (Direction)gh_scm2int (d), gh_scm2double (t), gh_scm2double (p)).smobbed_copy ();
+}
+  
+static void
+lookup_init ()
+{
+  scm_c_define_gsubr ("ly-bracket", 5, 0, 0, (Scheme_function_unknown) ly_bracket);
+}
+
+ADD_SCM_INIT_FUNC (lookup,lookup_init);
+
