@@ -1581,6 +1581,8 @@ emptymusic = {
 @cindex Invisible notes
 @cindex Transparent notes
 
+@cindex @code{\hideNotes}
+@cindex @code{\unHideNotes}
 Hidden (or invisible or transparent) notes can be useful in preparing theory
 or composition exercises.
 
