@@ -228,3 +228,10 @@ LY_DEFINE (ly_wchar_to_utf_8, "ly:wide-char->utf-8",
   return scm_makfrom0str (buf);
 }
 	  
+LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
+	   0, 0, 0, (),
+	   "Return effective prefix.")
+{
+  return scm_makfrom0str (prefix_directory.to_str0 ());
+}
+

@@ -45,7 +45,8 @@
     (ly:system cmd)))
 
 (define-public (postscript->png resolution papersizename name)
-  (let* ((prefix (getenv "LILYPONDPREFIX"))
+  (let* ((prefix (ly:effective-prefix))
+	 ;; FIXME: should scripts/ps2png.py be installed in PREFIX?
 	 (ps2png-source (if prefix
 			   (format "~a/scripts/ps2png.py" prefix)
 			   "ps2png"))

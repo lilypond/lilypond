@@ -704,6 +704,7 @@ def symlink_tree (target, source, env):
 	      ('mf',         'share/lilypond/%(ver)s/tex/mf-out'),
 	      ('#ly',        'share/lilypond/%(ver)s/ly'),
 	      ('#scm',       'share/lilypond/%(ver)s/scm'),
+	      ('#scripts',   'share/lilypond/%(ver)s/scripts'),
 	      ('#ps',        'share/lilypond/%(ver)s/ps'),
 	      ('po/@/nl.mo', 'share/locale/nl/LC_MESSAGES/lilypond.mo'),
 	      ('elisp',      'share/lilypond/%(ver)s/elisp')))
