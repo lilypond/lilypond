@@ -335,6 +335,9 @@ TODO: revise typing.")
 (grob-property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis.")
 (grob-property-description 'shorten number? "the amount of space that a stem should be shortened (DOCME!)")
 (grob-property-description 'shorten-pair number-pair? "the length on each side to shorten a text-spanner, for example a pedal bracket")
+(grob-property-description 'common-shortest-duration moment?
+			   "The most common shortest note length.
+This is used in spacing. Making this larger will make the score tighter.")
 (grob-property-description 'shortest-duration-space number? "Start
 with this much space for the shortest duration. This is explessed in @code{spacing-increment} as unit. See also
 @ref{spacing-spanner-interface}.")

@@ -366,7 +366,15 @@ Spacing_spanner::set_springs (SCM smob)
 
   set_explicit_neighbor_columns (all);
 
-  Rational global_shortest = find_shortest (me, all);
+  SCM preset_shortest = me->get_grob_property ("common-shortest-duration");
+  Rational global_shortest;
+  if (unsmob_moment (preset_shortest))
+    {
+      global_shortest = unsmob_moment (preset_shortest)->main_part_;
+    }
+  else
+    global_shortest = find_shortest (me, all);
+  
   prune_loose_colunms (me, &all, global_shortest);
   set_implicit_neighbor_columns (all);
 
@@ -590,9 +598,25 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
     Maybe it should be continuous?
   */
   max_fixed_note_space = max_fixed_note_space <?  max_note_space;
-  
+#if 0
+  /*
+    This doesn't make sense. For ragged right we want to have the same
+    spacing. Otherwise  the option should be called differently.
+
+    ragged-righted-and-weird-spacing. Whatever.
+
+  */
   Real strength = (ragged) ? 1.0 : 1 / (max_note_space - max_fixed_note_space);
   Real distance = (ragged) ? max_fixed_note_space : max_note_space;
+#else
+
+  /*
+        TODO: make sure that the space doesn't exceed the right margin.
+   */
+  Real strength = 1 / (max_note_space - max_fixed_note_space);
+  Real distance = max_note_space;
+#endif
+
   //  Spaceable_grob::add_spring (lc, rc, distance, strength, expand_only);
 
   Spaceable_grob::add_spring (lc, rc, distance, strength, false);  
@@ -751,8 +775,10 @@ Spacing_spanner::get_duration_space (Grob*me, Moment d, Rational shortest, bool 
 
        */
       Rational ratio = d.main_part_ / shortest;
-      
+
+#if 0
       *expand_only = true;
+#endif
       return ((k-1) + double (ratio)) * incr;
     }
   else
@@ -840,7 +866,7 @@ gets 2 note heads width (i.e. the space following a note is 1 note
 head width) A 16th note is followed by 0.5 note head width. The
 quarter note is followed by  3 NHW, the half by 4 NHW, etc.
 ",
-  "grace-space-factor spacing-increment base-shortest-duration shortest-duration-space");
+  "grace-space-factor spacing-increment base-shortest-duration shortest-duration-space common-shortest-duration");
 
 
 

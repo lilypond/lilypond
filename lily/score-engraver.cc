@@ -66,11 +66,15 @@ Score_engraver::prepare (Moment w)
 {
   Global_translator::prepare (w);
 
+  /*
+    TODO: don't make columns when skipTypesetting is true.
+   */
   make_columns ();
-
+  
   command_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
   musical_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
 
+  
   Translator_group::start_translation_timestep();
 }
 
@@ -140,10 +144,14 @@ Score_engraver::one_time_step ()
   for (int i = announce_info_arr_.size(); i--;)
     {
       Grob *g = announce_info_arr_[i].grob_l_;
-      String msg= "Grob "
-	+ g->name()
-	+ " was created too late!";
-      g->programming_error (msg);
+      if (!dynamic_cast<Paper_column*> (g)) // ugh.
+	{
+      
+	  String msg= "Grob "
+	    + g->name()
+	    + " was created too late!";
+	  g->programming_error (msg);
+	}
     }
   announce_info_arr_.clear ();
 }
@@ -301,7 +309,8 @@ Score_engraver::forbid_breaks ()
   /*
     result is junked.
    */
-  command_column_l_->remove_grob_property ("breakable");
+  if (command_column_l_)
+    command_column_l_->remove_grob_property ("breakable");
 }
   
 void

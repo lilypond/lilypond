@@ -2,7 +2,7 @@
 
 depth = ../..
 
-SUBDIRS = Petites-Preludes Cembalo-Partitas 
+SUBDIRS = Petites-Preludes 
 EXTRA_DIST_FILES=
 
 

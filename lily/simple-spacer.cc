@@ -365,6 +365,9 @@ Simple_spacer::solve (Column_x_positions *positions, bool ragged) const
 
   positions->satisfies_constraints_b_ =
     positions->satisfies_constraints_b_ && break_satisfy;
+
+  if (ragged && force_f_ < 0)
+    positions->satisfies_constraints_b_ = false;
 }
 
 /****************************************************************/
