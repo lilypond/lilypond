@@ -126,9 +126,13 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   "The file is looked up using the search path.")
 {
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
-  return scm_makfrom0str (gulp_file_to_string (ly_scm2string (name),
-					       true).to_str0 ());
-					       
+  String contents = gulp_file_to_string (ly_scm2string (name), true);
+
+  char * data ;
+  SCM scm_str = scm_i_make_string (contents.length(), &data);
+  memcpy (data, contents.get_bytes(),  contents.length());
+  
+  return scm_str;
 }
 
 
