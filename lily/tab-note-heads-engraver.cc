@@ -25,9 +25,7 @@ class Tab_note_heads_engraver : public Engraver
   
   Link_array<Item> dot_p_arr_;
   Link_array<Note_req> note_req_l_arr_;
-  
   Link_array<Text_script_req> tabstring_req_arr_;
-
 public:
   TRANSLATOR_DECLARATIONS(Tab_note_heads_engraver);
 
