@@ -135,7 +135,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
       return s;
     }
 
-  SCM alist_chain = Font_interface::text_font_alist_chain (me);
+  SCM alist_chain = Font_interface::music_font_alist_chain (me);
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Font_metric *musfont

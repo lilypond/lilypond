@@ -63,8 +63,12 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
   Stencil thin = simple_barline (me, hair, h);
   Stencil thick = simple_barline (me, fatline, h);
   Stencil dot = Font_interface::get_default_font (me)->find_by_name ("dots-dot");
-  Real dist = ( Staff_symbol_referencer::line_count (me) & 1 ? 1 :
-		(staff_space<2 ? 2 : .5) ) * staff_space;
+
+  int lines =Staff_symbol_referencer::line_count (me);
+  Real dist 
+    = ((lines & 1 || lines == 0)
+       ? 1
+       : (staff_space < 2 ? 2 : .5) ) * staff_space;
   Stencil colon (dot);
   colon.translate_axis (dist,Y_AXIS);
   colon.add_stencil (dot);
