@@ -423,7 +423,8 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 	{
 	  Grob *other = unsmob_grob (scm_caar (s));
 	  int oi = binsearch_links (cols, other, &compare_paper_column_rank);
-	  if (oi >= 0)
+	  if (oi >= 0
+	      && cols[oi] == other)
 	    {
 	      spacer_->add_rod (i, oi, scm_to_double (scm_cdar (s)));
 	    }
