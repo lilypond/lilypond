@@ -39,8 +39,8 @@ Axis_group_item::do_breakable_col_processing()
       do 
 	{
 	  Axis_group_item * my_brok
-	    = dynamic_cast<Axis_group_item*> (find_prebroken_piece(j));
-	  Item *new_l = it_l->find_prebroken_piece (j);
+	    = dynamic_cast<Axis_group_item*> (find_broken_piece(j));
+	  Item *new_l = it_l->find_broken_piece (j);
 	  my_brok->add_element (new_l);
 	}
       while (flip(&j)!=LEFT);

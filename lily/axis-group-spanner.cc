@@ -30,15 +30,15 @@ Axis_group_spanner::do_break_processing_if_unbroken()
 	       && item_l->break_status_dir() == 0) 
 	    {
 	      // last two checks are paranoia
-	      Item * broken_item_l = 
-		item_l->find_prebroken_piece (my_line);
+	      Score_element * broken_item_l = 
+		item_l->find_broken_piece (my_line);
 	      add_element (broken_item_l);
 	    }
 
 	  Spanner *spanner_l = dynamic_cast<Spanner*> (elems[i]);
 	  if (spanner_l)
 	    {
-	      Spanner *broken_spanner_l =
+	      Score_element *broken_spanner_l =
 		spanner_l->find_broken_piece (my_line);
 	      add_element (broken_spanner_l);
 	    }
@@ -62,18 +62,42 @@ Axis_group_spanner::do_break_processing()
 
   break_into_pieces ();
   Link_array<Score_element> loose_elems = elem_l_arr ();
+
+  Array<int> axeses;
+
+  for (int i=0; i < loose_elems.size (); i++)
+    {
+      Score_element* elt = loose_elems[i];
+      /*
+	    with which axes do we have to meddle?
+      */
+      int j =0;
+      int as [2];
+      for (int a = X_AXIS; a < NO_AXES; ++a)
+	if (elt->parent_l (Axis (a)) == this)
+	  as[j++] = a;
+      if (j == 1)
+	as[j++] = as[0];
+
+      axeses.push (as[0]);
+      axeses.push (as[1]);
+    }
+
   remove_all();
   
   for (int i=0; i < loose_elems.size(); i++) 
     {
       Score_element * elt = loose_elems[i];
       Line_of_score *elt_line = elt->line_l();
-	
+
+      Axis a1= (Axis)axeses[2*i];	// ugh.
+      Axis a2= (Axis)axeses[2*i+1];	// ugh.      
       if (! elt_line)
 	{
 	  /* this piece doesn't know where it belongs.
 	     Find out if it was broken, and use the broken remains
 	     */
+
 
 	  Item *it = dynamic_cast <Item *> (elt) ;	  
 	  if (Spanner * sp =dynamic_cast <Spanner *> (elt))
@@ -85,11 +109,11 @@ Axis_group_spanner::do_break_processing()
 		  Axis_group_spanner * my_broken_l
 		    = dynamic_cast<Axis_group_spanner*>(find_broken_piece (l));
 		  
-		  Spanner * broken_span_l 
+		  Score_element * broken_span_l 
 		    = sp->find_broken_piece (l);
-		    
+
 		  if (broken_span_l) 
-		    my_broken_l->add_element (broken_span_l);
+		    my_broken_l->add_element (broken_span_l, a1, a2);
 		}
 	    }
 	  else if (it && it->broken_original_b ())
@@ -98,7 +122,7 @@ Axis_group_spanner::do_break_processing()
 	      Direction  j=LEFT;
 	      do 
 		{
-		  Item * broken_item = it->find_prebroken_piece (j);
+		  Item * broken_item = it->find_broken_piece (j);
 		  Line_of_score * item_line_l = broken_item->line_l() ;
 		  if (! item_line_l) 
 		    continue;
@@ -106,7 +130,7 @@ Axis_group_spanner::do_break_processing()
 		  Axis_group_spanner * v
 		    = dynamic_cast<Axis_group_spanner*>(find_broken_piece (item_line_l));
 		  if (v)
-		    v->add_element (broken_item);
+		    v->add_element (broken_item, a1, a2);
 		  else
 		    {
 		      broken_item->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
@@ -124,7 +148,7 @@ Axis_group_spanner::do_break_processing()
 	     */
 	  Axis_group_spanner * my_broken_l
 	    = dynamic_cast<Axis_group_spanner*> (find_broken_piece (elt->line_l()));
-	  my_broken_l->add_element (elt);
+	  my_broken_l->add_element (elt, a1, a2);
 	}
     }
   

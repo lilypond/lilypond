@@ -499,7 +499,7 @@ def advance_counters (counter, opts, str):
 			opts.append ('twocolumn')
 		elif g  == 'onecolumn':
 			try:
-				current_opts.remove ('twocolumn')
+				opts.remove ('twocolumn')
 			except IndexError:
 				pass
 		elif g == 'chapter':
@@ -534,7 +534,7 @@ def schedule_mudela_block (base, chunk, extra_opts):
 	file_body = compose_full_body (body, opts)
 	basename = base
 	if __main__.use_hash:
-		basename = `hash (file_body)`
+		basename = `abs(hash (file_body))`
 	updated = update_file (file_body, basename + '.ly')
 	todo = [basename]			# UGH.
 

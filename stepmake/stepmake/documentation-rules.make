@@ -15,6 +15,5 @@ $(outdir)/%.png: %.xpm
 $(outdir)/%.txt: $(outdir)/%.1
 	troff -man -Tascii $< | grotty -b -u -o > $@
 
-include $(stepdir)/yodl-rules.make
 include $(stepdir)/texinfo-rules.make
 

@@ -91,7 +91,7 @@ read_lily_scm_file (String fn)
   Simple_file_storage f(s);
   
   ly_ch_C_eval_scm ((char *) f.ch_C());
-  *mlog << ']' << flush;  
+  *mlog << "]" << flush;  
 }
 
 

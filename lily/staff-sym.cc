@@ -40,10 +40,24 @@ Staff_symbol::do_height() const
 Molecule*
 Staff_symbol::do_brew_molecule_p() const
 {
-  Real w = extent (X_AXIS).length ();
-  Paper_def * p = paper_l ();
-  Real t = p->get_var ("rulethickness");
-  Molecule rule  = lookup_l ()->filledbox (Box (Interval (0,w),
+  Graphical_element * common
+    = spanned_drul_[LEFT]->common_refpoint (spanned_drul_[RIGHT], X_AXIS);
+
+#if 0
+  Interval r =  spanned_drul_[RIGHT]->extent (X_AXIS);
+  Interval l =  spanned_drul_[LEFT]->extent (X_AXIS);
+  
+  Real left_shift =l.empty_b () ? 0.0: l[LEFT];
+  Real right_shift =r.empty_b () ? 0.0: r[RIGHT];  
+#endif
+  Real width =
+    // right_shift     - left_shift
+    + spanned_drul_[RIGHT]->relative_coordinate (common , X_AXIS)
+    - spanned_drul_[LEFT]->relative_coordinate (common, X_AXIS)
+    ;
+
+  Real t = paper_l ()->get_var ("rulethickness");
+  Molecule rule  = lookup_l ()->filledbox (Box (Interval (0,width),
 						Interval (-t/2, t/2)));
 
   Real height = (no_lines_i_-1) * staff_line_leading_f_ /2;
@@ -55,6 +69,7 @@ Staff_symbol::do_brew_molecule_p() const
       m->add_molecule (a);
     }
 
+  //  m->translate_axis (left_shift, X_AXIS);
   return m;
 }
 

@@ -282,22 +282,6 @@ Score_element::line_l() const
   return 0;
 }
 
-/*
-  
-  DEPENDENCIES
-
-  */
-
-void
-Score_element::remove_dependency (Score_element*e)
-{
-  int i;
-  while ((i = dependency_arr_.find_i (e)) >=0 )
-    dependency_arr_.unordered_del (i);
-
-  substitute_dependency (e, 0);
-}
-
 void
 Score_element::add_dependency (Score_element*e)
 {
@@ -324,37 +308,26 @@ Score_element::handle_broken_dependencies()
   if (!line)
     return;
 
-  Link_array<Score_element> remove_us_arr;
+  do_substitute_arrays ();
+
+  Link_array<Score_element> new_deps;
+
   for (int i=0; i < dependency_size(); i++) 
     {
       Score_element * elt = dependency (i);
       if (elt->line_l() != line)
 	{
-	  if (Spanner *sp = dynamic_cast<Spanner *> (elt)) 
-	    {
-	      Spanner * broken = sp->find_broken_piece (line);
-	      substitute_dependency (sp, broken);
-
-	      if (broken)
-		add_dependency (broken);
-	    }
-	  else if (Item *original = dynamic_cast <Item *> (elt))
-	    {
-	      Item * my_item = original->find_prebroken_piece (line);
-		
-	      substitute_dependency (elt, my_item);
-	      if (my_item)
-		add_dependency (my_item);
-	    }
-	  remove_us_arr.push (elt);
+	  Score_element * broken = elt->find_broken_piece (line);
+	  substitute_dependency (elt, broken);
+	  elt  = broken ;
 	}
+      if (elt)
+	new_deps.push (elt);
     }
+  dependency_arr_ = new_deps;
 
-  remove_us_arr.default_sort();
-  remove_us_arr.uniq();
-  for (int i=0;  i <remove_us_arr.size(); i++)
-    remove_dependency (remove_us_arr[i]);
 }
+
 
 /*
   This sux.
@@ -368,6 +341,9 @@ Score_element::handle_broken_dependencies()
   span: item1 item2 item3
 
   How to let span (a derived class) know that this happened?
+
+
+  TODO: cleanify.
  */
 void
 Score_element::handle_prebroken_dependencies()
@@ -385,7 +361,7 @@ Score_element::handle_prebroken_dependencies()
       if (it_l && it_l->broken_original_b ())
 	if (Item *me = dynamic_cast<Item*> (this) )
 	  {
-	    Score_element *new_l = it_l->find_prebroken_piece (me->break_status_dir ());
+	    Score_element *new_l = it_l->find_broken_piece (me->break_status_dir ());
 	    if (new_l != elt) 
 	      {
 		new_arr.push (new_l);
@@ -397,7 +373,7 @@ Score_element::handle_prebroken_dependencies()
 	    Direction d = LEFT;
 	    do {
 	      old_arr.push (0);
-	      new_arr.push (it_l->find_prebroken_piece (d));
+	      new_arr.push (it_l->find_broken_piece (d));
 	    } while (flip(&d)!= LEFT);
 	  }
     }
@@ -435,4 +411,16 @@ Score_element::linked_b() const
 void
 Score_element::do_print () const
 {
+}
+
+void
+Score_element::do_substitute_arrays ()
+{
+}
+
+
+Score_element*
+Score_element::find_broken_piece (Line_of_score*) const
+{
+  return 0;
 }

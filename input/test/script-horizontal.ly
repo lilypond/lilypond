@@ -1,8 +1,13 @@
 
 \score {
-\notes {\property Thread.scriptHorizontal = "1"
-	c4-4
-	}
+
+	\notes \context Voice <
+		\context Thread = TA { c'4_1 }
+		\context Thread = TB { \property Thread.scriptHorizontal = "1"
+		e'4-2-\trill }
+		\context Thread = TC { g'4^4 }
+	>
+	
 	\paper { \translator {
 		\VoiceContext
 		\remove Script_engraver;

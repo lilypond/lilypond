@@ -43,7 +43,7 @@ Word_wrap::do_solve () const
 
       // do  another line
 
-      Item *post = breakpoints[break_idx]->find_prebroken_piece (RIGHT);
+      Item *post = breakpoints[break_idx]->find_broken_piece (RIGHT);
       Paper_column *postcol =dynamic_cast<Paper_column*>(post);
       
       int start_break_idx = break_idx;
@@ -60,7 +60,7 @@ Word_wrap::do_solve () const
 	      curcol_idx++;
 	    }
 
-	  Item * pre = breakpoints[break_idx]->find_prebroken_piece (LEFT);
+	  Item * pre = breakpoints[break_idx]->find_broken_piece (LEFT);
 	  Paper_column* precol = dynamic_cast<Paper_column*>(pre);
 	  current.add_paper_column (precol);
 
@@ -122,6 +122,7 @@ Word_wrap::do_solve () const
       *mlog << "[" << break_idx << "]" << flush;
       breaking.push (minimum);
     }
+  *mlog << endl;
   return breaking;
 }
 

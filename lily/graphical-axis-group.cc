@@ -42,25 +42,35 @@ Graphical_axis_group::extent (Axis axis) const
 }
 
 void
-Graphical_axis_group::add_element (Graphical_element*e)
+Graphical_axis_group::add_element (Graphical_element*e, Axis a1 , Axis a2)
 {
   used_b_ =true;
   e->used_b_ = true;
+
+  Axis as[2] = {
+    (a1 == NO_AXES) ? axes_[0] : a1,
+    (a2 == NO_AXES) ? axes_[1] : a2,    
+  };
+
+    
+  
   for (int i = 0; i < 2; i++)
     {
-      Axis a = axes_[i];
-      assert (a>=0);
-      assert (!e->parent_l (a)  || this  == e->parent_l (a));
-      e->set_parent (this, a);
+      if (e->parent_l (as[i]))
+	continue;
+      
+      e->set_parent (this, as[i]);
 
-      e->dim_cache_[a]->dependencies_l_arr_.push (dim_cache_[a]);
+      e->dim_cache_[as[i]]->dependencies_l_arr_.push (dim_cache_[as[i]]);
     }
-
+  assert (e->parent_l(Y_AXIS) == this || e->parent_l (X_AXIS) == this);
   elem_l_arr_.push (e);
 }
 
 
-
+/**
+   ugr. duplication of functionality with remove_all ()
+ */
 void
 Graphical_axis_group::remove_element (Graphical_element*e)
 {
@@ -69,13 +79,20 @@ Graphical_axis_group::remove_element (Graphical_element*e)
     elem_l_arr_.substitute (e,0);
   else
     elem_l_arr_.unordered_substitute (e,0);
-  
+
+  do_remove (e);
+}
+
+void
+Graphical_axis_group::do_remove (Graphical_element *e)
+{
   for (int i=0; i<  2; i++)
     {
       Axis a=axes_[i];
-      Dimension_cache * d = e->dim_cache_[a];
-      d->parent_l_ = 0;
-      d->dependencies_l_arr_.unordered_substitute (dim_cache_[a], 0);
+      if (e->parent_l (a) != this)
+	continue;
+      e->set_parent (0, a);
+      e->dim_cache_[a]->dependencies_l_arr_.clear ();
     }
 }
 
@@ -83,17 +100,8 @@ void
 Graphical_axis_group::remove_all ()
 {
   for (int i=0; i < elem_l_arr_.size(); i++) 
-    {
-      Graphical_element*e=elem_l_arr_[i];
-      for (int i=0; i<  2; i++)
-	{
-	  Axis a=axes_[i];
-	  Dimension_cache * d = e->dim_cache_[a];
-	  d->parent_l_ = 0;
-	  d->dependencies_l_arr_.clear ();
-	}
-      
-    }
+    do_remove (elem_l_arr_[i]);
+
   elem_l_arr_.clear ();
 }
 

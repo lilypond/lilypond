@@ -86,8 +86,8 @@ Gourlay_breaking::do_solve () const
 	  
 	  Line_of_cols line = all.slice (breaks[start_idx], breaks[break_idx]+1);
   
-	  line[0] = dynamic_cast<Paper_column*>(line[0]->find_prebroken_piece (RIGHT));
-	  line.top () =  dynamic_cast<Paper_column*>(line.top ()->find_prebroken_piece (LEFT));
+	  line[0] = dynamic_cast<Paper_column*>(line[0]->find_broken_piece (RIGHT));
+	  line.top () =  dynamic_cast<Paper_column*>(line.top ()->find_broken_piece (LEFT));
 	    
 	  if (!feasible (line))
 	    break;
@@ -99,14 +99,12 @@ Gourlay_breaking::do_solve () const
 	    pscore_l_->paper_l_->line_dimensions_int (optimal_paths[start_idx].line_i_));
 	  spacer_p_list.append (new Killing_cons<Line_spacer> (approx.spacer_l_,0));
 
-	  ( (Break_algorithm*)this)->approx_stats_.add (approx.cols_);
 	  approx.approximate_solve_line ();
 	    
 	  if  (approx.energy_f_  > energy_bound_f_)
 	    {
 	      continue;
 	    }
-
 	    
 	  // this is a likely candidate. Store it.
 	  candidate_lines.push (approx);
@@ -127,7 +125,6 @@ Gourlay_breaking::do_solve () const
 	  if (!candidate_lines[j].satisfies_constraints_b_) 
 	    {
 	      candidate_lines[j].solve_line ();
-	      ( (Break_algorithm*)this)->exact_stats_.add (candidate_lines[j].cols_);
 	    }
 	    
 	  Real this_energy 
@@ -161,7 +158,9 @@ Gourlay_breaking::do_solve () const
     }
 
   if  (break_idx % HAPPY_DOTS_I) 
-    *mlog << "[" << break_idx << "]" << flush;
+    *mlog << "[" << break_idx << "]";
+
+  *mlog << endl;
 
   Array<int> final_breaks;
 

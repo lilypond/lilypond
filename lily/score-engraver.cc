@@ -55,7 +55,9 @@ void
 Score_engraver::do_creation_processing ()
 {
   scoreline_l_ = pscore_p_->line_l_;
-  scoreline_l_->set_bounds(LEFT,command_column_l_);
+
+  scoreline_l_->set_bounds(LEFT, command_column_l_);
+  
   command_column_l_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
 
   Engraver_group_engraver::do_creation_processing();

@@ -105,6 +105,8 @@ public:
    */
   void calculate_dependencies (int final, int busy, Score_element_method_pointer funcptr);
 
+
+  virtual Score_element *find_broken_piece (Line_of_score*) const;
 protected:
   Score_element* dependency (int) const;
   int dependency_size () const;
@@ -112,7 +114,8 @@ protected:
   virtual void output_processing ();
   virtual Interval do_height () const;
   virtual Interval do_width () const;
-    
+
+
   /// do printing of derived info.
   virtual void do_print () const;
   /// generate the molecule    
@@ -124,6 +127,9 @@ protected:
 
   /// generate rods & springs
   virtual void do_space_processing ();
+
+  /// do postbreak substs on array of pointers.
+  virtual void do_substitute_arrays ();
 
   virtual void do_breakable_col_processing ();
   /// do calculations after determining horizontal spacing
@@ -139,6 +145,27 @@ protected:
 
   static Interval dim_cache_callback (Dimension_cache*);
 };
+
+
+template<class T>
+void
+substitute_element_array (Link_array<T> &arr, Line_of_score * to)
+{
+  Link_array<T> newarr;
+  for (int i =0; i < arr.size (); i++)
+    {
+      T * t = arr[i];
+      if (t->line_l () != to)
+	{
+	  t = dynamic_cast<T*> (t->find_broken_piece (to));
+	}
+      
+      if (t)
+	newarr.push (t);
+    }
+  arr = newarr;
+}
+
 
 
 #endif // STAFFELEM_HH

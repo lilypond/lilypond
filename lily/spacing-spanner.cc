@@ -74,8 +74,8 @@ Spacing_spanner::do_measure (int col1, int col2) const
     {
       Item * l = scol(i);
       Item * r = scol(i+1);
-      Item * lb = l->find_prebroken_piece (RIGHT);
-      Item * rb = r->find_prebroken_piece (LEFT);      
+      Item * lb = l->find_broken_piece (RIGHT);
+      Item * rb = r->find_broken_piece (LEFT);      
 
       Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
 

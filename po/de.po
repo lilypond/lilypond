@@ -1,0 +1,1208 @@
+# German translations for LilyPond.
+# Copyright (C) 1999 Free Software Foundation, Inc.
+# Erwin Dieterich <bamse@gmx.de>, 1999.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Lilypond 1.2.8\n"
+"POT-Creation-Date: 1999-09-15 23:21+0200\n"
+"PO-Revision-Date: 1999-09-18 01:30+0200\n"
+"Last-Translator: Erwin Dieterich <bamse@gmx.de>\n"
+"Language-Team: LANGUAGE <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: data-file.cc:52
+msgid "EOF in a string"
+msgstr "Dateiende in Zeichenkette"
+
+#: data-file.cc:116 input.cc:86 midi-parser.cc:100 warn.cc:21
+msgid "warning: "
+msgstr "Warnung: "
+
+#: dstream.cc:158
+msgid "Not enough fields in Dstream init."
+msgstr "Nicht genug Felder in der Dstream Inititalisierung"
+
+#: flower-debug.cc:17
+msgid "Debug output disabled.  Compiled with NPRINT."
+msgstr "Debug-Ausgabe außer Betrieb. Übersetzt mit NPRINT."
+
+#: getopt-long.cc:141
+#, c-format
+msgid "option `%s' requires an argument"
+msgstr "Option `%s' erwartet ein Argument"
+
+#: getopt-long.cc:145
+#, c-format
+msgid "option `%s' doesn't allow an argument"
+msgstr "Option `%s' erlaubt kein Argument"
+
+#: getopt-long.cc:149
+#, c-format
+msgid "unrecognized option: `%s'"
+msgstr "Unbekannte Option: `%s'"
+
+#: getopt-long.cc:156
+#, c-format
+msgid "invalid argument `%s' to option `%s'"
+msgstr "Argument `%s' für Optione '%s' ist nicht erlaubt"
+
+#: text-stream.cc:8
+msgid "<stdin>"
+msgstr "<stdin>"
+
+#: mapped-file-storage.cc:87 midi-stream.cc:77 mudela-stream.cc:103
+#: paper-stream.cc:25 scores.cc:38 simple-file-storage.cc:44 text-stream.cc:21
+#, c-format
+msgid "can't open file: `%s'"
+msgstr "Kann die Datei %s nicht öffnen"
+
+#: input.cc:91 warn.cc:7 warn.cc:15
+msgid "error: "
+msgstr "Fehler: "
+
+#: input.cc:97
+msgid "Non fatal error: "
+msgstr "Undramatische Fehler: "
+
+#: input.cc:105 source-file.cc:63 source-file.cc:156
+msgid "position unknown"
+msgstr "Position unbekannt"
+
+#: mapped-file-storage.cc:74
+msgid "can't map file"
+msgstr "Kann die Datei nicht mappen"
+
+#: simple-file-storage.cc:56
+#, c-format
+msgid "Huh? got %d, expected %d characters"
+msgstr "Was? Ich habe %d erhalten, erwartete aber %d Zeichen"
+
+#: warn.cc:33
+msgid "Programming error: "
+msgstr "Programmierfehler: "
+
+#: warn.cc:33
+msgid " (continuing; cross thumbs)"
+msgstr " (Ich mache weiter: Drück´ mir die Daumen!)"
+
+#: afm.cc:129
+#, c-format
+msgid "can't find character called `%s'"
+msgstr "Ich kann das Zeichen `%s' nicht finden"
+
+#: afm.cc:154
+#, c-format
+msgid "can't find character number %d"
+msgstr "ich kann das Zeichen nummer %d nicht finden"
+
+#: all-font-metrics.cc:69
+#, c-format
+msgid "Can't find font `%s', loading default font."
+msgstr "Kann die Schrift %s nicht finden, lade die Standardschrift."
+
+#: all-font-metrics.cc:74
+#, c-format
+msgid "Can't find default font `%s', giving up."
+msgstr "Kann die Standardschrift %s nicht finden. Ich gebe auf."
+
+#: all-font-metrics.cc:75
+#, c-format
+msgid "(search path: `%s)'"
+msgstr "(Suchpfad: `%s)'"
+
+#: beam-engraver.cc:42
+msgid "No Beam to end"
+msgstr "Kein Balken vorhanden, der beendet werden könnte"
+
+#: beam-engraver.cc:58
+msgid "No beam to end"
+msgstr "Kein Balken vorhanden, der beendet werden könnte "
+
+#: beam-engraver.cc:87
+msgid "Already have a Beam"
+msgstr "Habe schon einen Balken"
+
+#: beam-engraver.cc:149
+msgid "Unfinished beam"
+msgstr "Unfertiger Balken"
+
+#: beam-engraver.cc:174
+msgid "Stem must have Rhythmic structure."
+msgstr "Ein Notenhals muss rhythmische Struktur haben."
+
+#: beam-engraver.cc:185
+msgid "stem doesn't fit in beam"
+msgstr "Notenhals passt nicht in den Balken"
+
+#: beam-engraver.cc:186
+msgid "beam was started here"
+msgstr "Der Balken bagann hier"
+
+#: beam.cc:147
+msgid "beam with less than two stems"
+msgstr "Balken mit weniger als zwei Hälsen"
+
+#: beam.cc:312
+msgid "weird beam shift, check your knees"
+msgstr "Dubiose vertikale Position eines Balkens: Sieh´ Dich vor"
+
+#: break-algorithm.cc:25
+msgid "0 lines"
+msgstr "0 Zeilen"
+
+#: break-algorithm.cc:27
+#, c-format
+msgid "1 line (of %.0f columns)"
+msgstr "Eine Zeile (von %.0f Spalten)"
+
+#: break-algorithm.cc:29
+#, c-format
+msgid "%d lines (with an average of %.1f columns)"
+msgstr "%d Zeilen (mit einem Mittel von %.1f Spalten)"
+
+#: break-algorithm.cc:148
+msgid "score does not have any columns"
+msgstr "Partitur hat keine Spalten"
+
+#: break-algorithm.cc:165
+#, c-format
+msgid "approximated %s"
+msgstr "ungefähr %s"
+
+#: break-algorithm.cc:167
+#, c-format
+msgid "calculated %s exactly"
+msgstr "%s exakt berechnet"
+
+#: break-algorithm.cc:168
+#, c-format
+msgid "elapsed time %.2f seconds"
+msgstr "verstrichene Zeit %.2f Sekunden"
+
+#: change-iterator.cc:22
+#, c-format
+msgid "can't change `%s' to `%s'"
+msgstr "Kann `%s' nicht zu `%s' ändern"
+
+#: chord-tremolo-engraver.cc:41 chord-tremolo-engraver.cc:58
+msgid "No abbreviation beam to end"
+msgstr "Kein Tremolo-Balken da, der beendet werden könnte"
+
+#: chord-tremolo-engraver.cc:83
+msgid "Already have an abbreviation beam"
+msgstr "Habe schon einen Tremolobalken"
+
+#: chord-tremolo-engraver.cc:124
+msgid "Unfinished abbreviation beam"
+msgstr "Unfertiger Tremolobalken"
+
+#: chord.cc:231
+#, c-format
+msgid "invalid subtraction: not part of chord: %s"
+msgstr "Unerlaubte Subtraktion: nicht Teil eines Akkords: %s"
+
+#: chord.cc:245
+#, c-format
+msgid "invalid inversion pitch: not part of chord: %s"
+msgstr "Unerlaubter Baßton: gehört nicht zum Akkord: %s"
+
+#: clef-engraver.cc:178
+msgid "unknown clef type "
+msgstr "Unbekannter Notenschlüssel"
+
+#: collision.cc:95
+msgid "Too many clashing notecolumns.  Ignoring them."
+msgstr "Zu viele aneinanderstoßende Notenspalten. Ich ignoriere sie."
+
+#: crescendo.cc:42
+msgid "crescendo"
+msgstr "Crescendo"
+
+#: crescendo.cc:42
+msgid "too small"
+msgstr "zu klein"
+
+#: debug.cc:56
+msgid "Floating point exception"
+msgstr "Ausnahmefehler in einer Fließpunktberechnung"
+
+#: debug.cc:139
+msgid "can't set mem-checking"
+msgstr "Kann die Speicherüberprüfung nicht setzen"
+
+#: dimensions.cc:13
+msgid "NaN"
+msgstr "NaN"
+
+#: dynamic-engraver.cc:109
+msgid "Got a dynamic already.  Continuing dazed and confused"
+msgstr "Habe bereits eine Dynamik. Ich mache benommen und verwirrt weiter"
+
+#: dynamic-engraver.cc:162
+msgid "can't find (de)crescendo to end"
+msgstr "Ich kann kein (De)crescendo bis zum Ende finden"
+
+#: dynamic-engraver.cc:216
+msgid "Too many crescendi here"
+msgstr "Zu viele Crescendi"
+
+#: dynamic-engraver.cc:254
+msgid "unended crescendo"
+msgstr "Nichtbeendetes Crescendo"
+
+#: encompass-info.cc:32
+msgid "Slur over rest?"
+msgstr "Bindebogen übe den Rest?"
+
+#: encompass-info.cc:67 stem-info.cc:140
+msgid ""
+"minVerticalAlign != maxVerticalAlign: interstaff beams/slurs may be broken"
+msgstr ""
+"minVerticalAlign != maxVerticalAlign: Balken/Bindebögen zwischen den "
+"Systemen sind möglichischerweise unvollständig"
+
+#: extender-engraver.cc:62
+msgid "unterminated extender"
+msgstr "Unbeendete Linienfortführung"
+
+#: folded-repeat-iterator.cc:64
+msgid "No one to print a repeat brace"
+msgstr "Keiner darf eine Wiederholungsklammer drucken"
+
+#: grace-iterator.cc:43
+msgid "No Grace context available!"
+msgstr "Kein Verzierungskontext vorhanden!"
+
+#: grace-position-engraver.cc:89
+msgid "Unattached grace notes.  Attaching to last musical column."
+msgstr "Unverknüpfte Verzierungsnoten. Ich verknüpfe sie mit der letzten musikalischen Spalte."
+
+#: hyphen-engraver.cc:60
+msgid "unterminated hyphen"
+msgstr "Unbeendeter Bindestrich"
+
+#: identifier.cc:46
+msgid "Wrong identifier type: "
+msgstr "Falscher Typ von Identifier: "
+
+#: identifier.cc:47
+#, c-format
+msgid "%s expected"
+msgstr "Erwarte %s"
+
+#: includable-lexer.cc:47 lily-guile.cc:82 lily-guile.cc:105
+#: midi-score-parser.cc:24 scores.cc:108 scores.cc:114
+#, c-format
+msgid "can't find file: `%s'"
+msgstr "Kann Datei `%s' nicht finden"
+
+#: includable-lexer.cc:49 lookup.cc:104 scores.cc:109
+#, c-format
+msgid "(search path: `%s')"
+msgstr "(Suchpfad: `%s')"
+
+#: ineq-constrained-qp.cc:169
+#, c-format
+msgid "Ineq_constrained_qp::solve (): Constraint off by %f"
+msgstr "Ineq_constrained_qp::solve (): Constraint um %f verfehlt"
+
+#: ineq-constrained-qp.cc:233
+msgid "didn't converge!"
+msgstr "Keine Konvergenz!"
+
+#: ineq-constrained-qp.cc:235
+msgid "Too much degeneracy. "
+msgstr "Zu viel Verkommenheit."
+
+#: key-def.cc:31
+msgid "No key name: assuming `C'"
+msgstr "Keine Tonart: ich nehme `C' an"
+
+#: key-def.cc:92
+msgid "don't know how handle empty keys"
+msgstr "Weiß nicht, wie ich eine fehlende Tonart behandeln soll"
+
+#: lily-guile.cc:84 lily-guile.cc:107
+#, c-format
+msgid "(load path: `%s')"
+msgstr "(Ladepfad ist `%s')"
+
+#: local-key-engraver.cc:42
+msgid "out of tune"
+msgstr "Verstimmt"
+
+#: local-key-engraver.cc:42 time-signature-engraver.cc:28
+msgid "can't find"
+msgstr "Kann nicht finden"
+
+#: lookup.cc:103
+#, c-format
+msgid "can't find font: `%s'"
+msgstr "Kann Schrift `%s' nicht finden"
+
+#: lookup.cc:105
+msgid "Aborting"
+msgstr "Ich breche nieder"
+
+#: lookup.cc:436
+#, c-format
+msgid "Non-matching braces in text `%s', adding braces."
+msgstr "Nicht zusammenpassende Klammern im Text `%s', füge Klammern hinzu."
+
+#: main.cc:68
+msgid "BASENAME"
+msgstr "BASENAME"
+
+#: main.cc:68
+msgid "write output to BASENAME[-x].extension"
+msgstr "Schreibe die Ausgabe in BASENAME[-x].Erweiterung"
+
+#: main.cc:69 main.cc:101
+msgid "show warranty and copyright"
+msgstr "Zeige Garantie und Urheberrechte"
+
+#: main.cc:70 main.cc:92
+msgid "this help"
+msgstr "Diese Hilfe"
+
+#: main.cc:71
+msgid "switch on experimental features"
+msgstr "Schalte experimentelle Möglichkeiten an"
+
+#: main.cc:72 main.cc:91
+msgid "enable debugging output"
+msgstr "Debugger Ausgabe an"
+
+#: main.cc:73 main.cc:95
+msgid "FILE"
+msgstr "DATEI"
+
+#: main.cc:73
+msgid "use FILE as init file"
+msgstr "Verwende FILE als Initialisierungsdatei"
+
+#: main.cc:74
+msgid "DIR"
+msgstr "DIR"
+
+#: main.cc:74
+msgid "add DIR to search path"
+msgstr "Hänge DIR an den Suchpfad an"
+
+#: main.cc:75
+msgid "produce midi output only"
+msgstr "Nur Midiausgabe"
+
+#: main.cc:76
+msgid "write Makefile dependencies for every input file"
+msgstr "Schreibe Makefile-Abhängigkeiten für jede Eingabedatei"
+
+#: main.cc:77 main.cc:99
+msgid "don't timestamp the output"
+msgstr "Keine Datumsangabe auf der Ausgabe"
+
+#: main.cc:78
+msgid "show all changes in relative syntax"
+msgstr "Zeige alle Veränderungen in relativer Syntax"
+
+#: main.cc:79
+msgid "ignore mudela version"
+msgstr "Ignoriere Version von Mudela"
+
+#: main.cc:80 main.cc:103
+msgid "print version number"
+msgstr "Zeige die Versionsnummer"
+
+#: main.cc:81
+msgid "EXT"
+msgstr "EXT"
+
+#: main.cc:81
+msgid "use output format EXT"
+msgstr "Benutze das Ausgabeformat EXT"
+
+#: main.cc:82
+msgid "inhibit file output naming and exporting"
+msgstr "Unterdrücke die automatische Benennung von Ausgabedateien und Export"
+
+#: main.cc:89
+#, c-format
+msgid "Usage: %s [OPTION]... [FILE]..."
+msgstr "Benutzung: %s [OPTIONEN] ... [DATEI] ..."
+
+#: main.cc:91
+msgid "Typeset music and or play MIDI from FILE."
+msgstr "Setze Musik oder spiele MIDI von DATEI"
+
+#: main.cc:97 main.cc:115
+msgid "Options:"
+msgstr "Optionen:"
+
+#: main.cc:101
+msgid "This binary was compiled with the following options:"
+msgstr "Diese Programm wurde mit den folgenden Optionen übersetzt:"
+
+#: main.cc:119
+msgid "Report bugs to"
+msgstr "Melde Fehler an"
+
+#: main.cc:52 main.cc:135
+#, c-format
+msgid ""
+"This is free software.  It is covered by the GNU General Public License,\n"
+"and you are welcome to change it and/or distribute copies of it under\n"
+"certain conditions.  Invoke as `%s --warranty' for more information.\n"
+msgstr ""
+"Diese ist freie Software (Open Software).  Sie wird von der GNU General\n"
+"Public License geschützt. Sie sind herzlich eingeladen, die Software zu\n"
+"verändern und/oder Kopien zu vertreiben, solange Sie bestimmt Bedingungen\n"
+"einhalten. Wenn Sie das Programm mit `%s --warranty starten, bekommen\n"
+"Sie mehr Informationen.\n"
+
+#: main.cc:59 main.cc:142 main.cc:154
+#, c-format
+msgid "Copyright (c) %s by"
+msgstr "Urheberrechte (Copyright) (c) %s bei"
+
+#. GNU GNU?
+#: main.cc:152
+msgid "GNU LilyPond -- The GNU Project music typesetter"
+msgstr "GNU LilyPond -- Der Notensatz des GNU-Projekts"
+
+#: main.cc:68 main.cc:160
+msgid ""
+"    This program is free software; you can redistribute it and/or\n"
+"modify it under the terms of the GNU General Public License version 2\n"
+"as published by the Free Software Foundation.\n"
+"\n"
+"    This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+"General Public License for more details.\n"
+"\n"
+"    You should have received a copy (refer to the file COPYING) of the\n"
+"GNU General Public License along with this program; if not, write to\n"
+"the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
+"USA.\n"
+msgstr ""
+"    This program is free software; you can redistribute it and/or\n"
+"modify it under the terms of the GNU General Public License version 2\n"
+"as published by the Free Software Foundation.\n"
+"\n"
+"    This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+"General Public License for more details.\n"
+"\n"
+"    You should have received a copy (refer to the file COPYING) of the\n"
+"GNU General Public License along with this program; if not, write to\n"
+"the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
+"USA.\n"
+
+#: midi-item.cc:303
+#, c-format
+msgid "No such instrument: `%s'"
+msgstr "Kein solches instrument: `%s'"
+
+#: midi-item.cc:357
+#, c-format
+msgid "unconventional key: flats: %d, sharps: %d"
+msgstr "Ungewöhnliche Tonart: Bes: %d, Kreuze: %d"
+
+#: midi-item.cc:402
+msgid "silly duration"
+msgstr "Unsinnige Dauer"
+
+#: midi-item.cc:415
+msgid "silly pitch"
+msgstr "unsinnige Tonhöhe"
+
+#: midi-stream.cc:29 paper-stream.cc:36
+msgid "error syncing file (disk full?)"
+msgstr "Fehler beim Abspeichern der Datei (Platte voll?)"
+
+#: music-output-def.cc:56
+msgid "Interpretation context with empty type"
+msgstr "Interpretationskontext mit leerer Typangabe"
+
+#: music-output-def.cc:83
+msgid "can't find Score context"
+msgstr "Kann Partiturkontext nicht finden"
+
+#: musical-request.cc:42
+#, c-format
+msgid "transposition by %s makes accidental larger than two"
+msgstr "Transponieren um %s macht Vorzecihen größer als zwei"
+
+#: my-lily-lexer.cc:137
+#, c-format
+msgid "redeclaration of `\\%s'"
+msgstr "Neudefinition von `\\%s'"
+
+#: my-lily-lexer.cc:143
+#, c-format
+msgid "Identifier name is a keyword (`%s')"
+msgstr "name ist ein Schlüsselbegriff (keyword) (`%s')"
+
+#: my-lily-lexer.cc:172
+#, c-format
+msgid "error at EOF: %s"
+msgstr "Fehler am Dateiende(EOF): %s"
+
+#: my-lily-parser.cc:60
+msgid "Parsing..."
+msgstr "Verarbeite..."
+
+#: my-lily-parser.cc:69
+msgid "braces don't match"
+msgstr "Klammern passen nicht zusammen"
+
+#: paper-def.cc:95
+#, c-format
+msgid "unknown paper variable: `%s'"
+msgstr "Unbekannte papier-Variable: `%s'"
+
+#: paper-def.cc:99
+msgid "not a real variable"
+msgstr "Keine echte Variable"
+
+#. for now; breaks -fscm output
+#: paper-def.cc:251
+msgid "outputting Score, defined at: "
+msgstr "Gebe Partitur aus, definiert bei: "
+
+#: paper-def.cc:280
+#, c-format
+msgid "Paper output to %s..."
+msgstr "Ausgabe auf Papier auf %s..."
+
+#: mudela-stream.cc:85 paper-outputter.cc:76 performance.cc:97
+msgid ", at "
+msgstr ", bei "
+
+#: paper-outputter.cc:130
+#, c-format
+msgid "Improbable offset for object type `%s'"
+msgstr "Diese Verschiebung ist nicht möglich für Objekte vom Typ `%s'"
+
+#: paper-score.cc:131
+msgid "Can't solve this casting problem exactly; revert to Word_wrap"
+msgstr ""
+"Ich kann dieses Berechungsproblem nicht exakt lösen; greife auf Word_Wrap "
+"zurück"
+
+#: paper-score.cc:156
+msgid "Preprocessing elements..."
+msgstr "Verarbeite Element vor..."
+
+#: paper-score.cc:160
+msgid "Calculating column positions..."
+msgstr "Berechne Position der Spalten..."
+
+#: paper-score.cc:179
+msgid " elements. "
+msgstr " Elemente. "
+
+#: paper-score.cc:182
+msgid "Line ... "
+msgstr "Linie ... "
+
+#: performance.cc:50
+msgid "Track ... "
+msgstr "Stück ... "
+
+#. perhaps multiple text events?
+#: performance.cc:77
+msgid "Creator: "
+msgstr "Erstellt von: "
+
+#: performance.cc:92
+msgid "Automatically generated"
+msgstr "Automatisch generiert"
+
+#: performance.cc:106
+#, c-format
+msgid "from musical definition: %s"
+msgstr "von der musiaklischen Definition: %s"
+
+#: performance.cc:174
+#, c-format
+msgid "MIDI output to %s..."
+msgstr "MIDI-Ausgabe nach %s..."
+
+#: qlpsolve.cc:88 qlpsolve.cc:139
+msgid "degenerate constraints"
+msgstr "Degenerierte Zwangsbedingungen"
+
+#: request-chord-iterator.cc:73
+#, c-format
+msgid "junking request: `%s'"
+msgstr "Uralt-Bitte: `%s'"
+
+#: request-chord-iterator.cc:76
+#, c-format
+msgid "Huh?  Not a Request: `%s'"
+msgstr "Wie? Keine Anforderung: `%s'"
+
+#: rest-collision.cc:64
+msgid "Too many colliding rests."
+msgstr "Zu viele kollidierende Pausen."
+
+#: rest-collision.cc:68
+msgid "Too many notes for rest collision."
+msgstr "Zu viele Noten für kollidierende Pausen."
+
+#: score-engraver.cc:149
+#, c-format
+msgid "Unbound spanner `%s'"
+msgstr "Unbeschränkter Abstand `%s'"
+
+#: score.cc:56
+msgid "no toplevel translator"
+msgstr "Kein Übersetzer für den obersten Level"
+
+#: score.cc:59
+msgid "Interpreting music..."
+msgstr "Interpretiere die Noten..."
+
+#: score.cc:70
+msgid "need music in a score"
+msgstr "Ich brauche Noten in einer Partitur"
+
+#. should we? hampers debugging.
+#: score.cc:83
+msgid "errors found, /*not processing score*/"
+msgstr "Habe Fehler gefunden, /* die Partitur wird nicht verarbeitet */"
+
+#: score.cc:88
+#, c-format
+msgid "time: %.2f seconds"
+msgstr "Zeit: %.2f Sekunden"
+
+#: scores.cc:35
+#, c-format
+msgid "writing dependency file: `%s'..."
+msgstr "Schreibe Datei mit Abhängigkeiten: `%s'..."
+
+#: scores.cc:79
+msgid "score contains errors; will not process it"
+msgstr "Partitur enthält Fehler; ich werde sie nicht weiterverarbeiten"
+
+#: script-engraver.cc:49
+#, c-format
+msgid "don't know how to interpret articulation `%s'\n"
+msgstr "Ich weiß nicht, wie ich die Artikulation `%s' interpretieren soll\n"
+
+#. this shouldn't happen, but let's continue anyway.
+#: single-malt-grouping-item.cc:43
+msgid "Single_malt_grouping_item: I've been drinking too much"
+msgstr "Single_malt_grouping_item: Ich saufe zu viel"
+
+#: slur-engraver.cc:64
+msgid "unterminated slur"
+msgstr "Unbeendeter Bindebogen"
+
+#: slur-engraver.cc:80
+#, c-format
+msgid "can't find both ends of %s"
+msgstr "Kann nicht beide Enden von %s finden"
+
+#: slur-engraver.cc:80
+msgid "slur"
+msgstr "Bindebogen"
+
+#: slur.cc:38
+msgid "Putting slur over rest. Ignoring"
+msgstr "Setze Bindebogen über Pause. Wird ignoriert"
+
+#: spacing-spanner.cc:218
+#, c-format
+msgid "can't find a ruling note at %s"
+msgstr "Kann keine kürzeste Note bei %s finden"
+
+#: spacing-spanner.cc:224
+#, c-format
+msgid "no minimum in measure at %s"
+msgstr "Kein Minimum im Takt bei %s"
+
+#: spanner.cc:41
+msgid "left spanpoint is right spanpoint\n"
+msgstr "Linker Bogenpunkt ist identisch zum rechten Bogenpunkt\n"
+
+#: spanner.cc:111
+#, c-format
+msgid "Spanner `%s' with equal left and right spanpoints"
+msgstr "Bogen `%s' mit gleichen linken und rechten Bogenpunkten"
+
+#: spring-spacer.cc:134
+msgid "I'm too fat; call Oprah"
+msgstr "Ich bin zu dick; rufe Oprah an"
+
+#: spring-spacer.cc:295
+msgid "solution doesn't satisfy constraints"
+msgstr "Die Lösung erfüllt die Zwangsbedingungen nicht"
+
+#: spring-spacer.cc:378
+#, c-format
+msgid "Improbable distance: %f point, setting to 10 mm"
+msgstr "Unwahrscheinlicher Abstand: %f Punkte, ich setze es auf 10 mm"
+
+#: spring-spacer.cc:383
+msgid "Negative distance. Setting to 10 mm"
+msgstr "Negativer Abstend. ich setze ihn auf 10 mm"
+
+#: stem-engraver.cc:80
+#, c-format
+msgid "Adding note head to incompatible stem (type = %d)"
+msgstr "Setze Note auf unpassenden Hals (Typ = %d)"
+
+#: stem.cc:106
+msgid "weird stem size; check for narrow beams"
+msgstr ""
+"Dubiose Größe des Notenhalses: Überprüfe die Eingabe auf schmale Balken"
+
+#: tfm-reader.cc:108
+#, c-format
+msgid "TFM header of `%s' has only %u word(s)"
+msgstr "TFM header von `%s' hat nur %u Wort(e)"
+
+#: tfm-reader.cc:146
+#, c-format
+msgid "%s: TFM file has %u parameters, which is more than the"
+msgstr "%s: TFM-Datei hat %u Parameter. Das ist mehr als die"
+
+#: tfm.cc:64
+#, c-format
+msgid "can't find ascii character `%d'"
+msgstr "Kann ASCII-Zeichen `%d' nicht finden"
+
+#: tie-engraver.cc:155 tie-performer.cc:106
+msgid "No ties were created!"
+msgstr "Es wurden keine Haltebögen erzeugt!"
+
+#: tie.cc:55
+msgid "lonely tie"
+msgstr "Einsamer Haltebogen"
+
+#: time-description.cc:17
+msgid "cadenza"
+msgstr "Kadenz"
+
+#: time-description.cc:106
+msgid "partial measure must be non-negative"
+msgstr "Takt-Teil darf nicht kleiner Null sein"
+
+#: time-description.cc:108
+msgid "partial measure too large"
+msgstr "Takt-Teil zu lang"
+
+#: time-scaled-music-iterator.cc:25
+msgid "No one to print a tuplet start bracket"
+msgstr "Niemand schreibt eine mehrfahce Anfangsklammer"
+
+#: time-signature-engraver.cc:28
+msgid "lost in time"
+msgstr "Verloren in der Zeit"
+
+#: timing-translator.cc:26
+msgid "conflicting timing request"
+msgstr "Widersprechende Zeitangaben"
+
+#: timing-translator.cc:62
+msgid "time signature change not allowed here"
+msgstr "Taktänderung hier nicht erlaubt"
+
+#: timing-translator.cc:83
+#, c-format
+msgid "barcheck failed by: %s"
+msgstr "Überprüfung der Takte is fehlgeschlagen bei: %s"
+
+#: translator-ctors.cc:39
+#, c-format
+msgid "unknown translator `%s'"
+msgstr "unbekannter Übersetzer `%s'"
+
+#: translator-group.cc:82 translator-group.cc:97
+#, c-format
+msgid "Already contains a `%s'"
+msgstr "Enthält schon ein `%s'"
+
+#: translator-group.cc:207
+#, c-format
+msgid "can't find or create `%s' called `%s'"
+msgstr "Kann ein `%s', genannt `%s' weder finden noch erzeugen"
+
+#: translator-group.cc:341
+#, c-format
+msgid "can't find or create `%s'"
+msgstr "Kann ein `%s' weder finden noch erzeugen"
+
+#: translator-group.cc:437 translator-group.cc:446
+#, c-format
+msgid "can't find `%s'"
+msgstr "Kann `%s' nicht finden"
+
+#: transposed-music.cc:31
+msgid "Will ignore \\relative for transposed music"
+msgstr "Ich werde \\\\relative für transponierte Musik ignorieren"
+
+#: unfolded-repeat-iterator.cc:145
+msgid "No one to print a volta bracket"
+msgstr "Niemand schreibt eine Volta-Klammer"
+
+#: word-wrap.cc:75
+msgid "ugh, this measure is too long"
+msgstr "Hmm, dieser Takt ist zu lang"
+
+#: word-wrap.cc:76
+#, c-format
+msgid "breakpoint: %d"
+msgstr "Haltepunkt: %d"
+
+#: word-wrap.cc:77
+msgid "generating stupido solution"
+msgstr "Generiere eine stupido-Lösung"
+
+#: word-wrap.cc:95
+msgid "I don't fit; put me on Montignac"
+msgstr "Ich passe nicht; setze mich auf Montignac"
+
+#: parser.yy:55
+#, c-format
+msgid "Oldest supported input version: %s"
+msgstr "Älteste noch unterstütze Version der Eingabe: %s"
+
+#: parser.yy:313
+msgid "Cannot evaluate Scheme in safe mode"
+msgstr "Kann Scheme nicht interpretieren, wenn ich im sicheren Modus bin"
+
+#: parser.yy:433 parser.yy:441 parser.yy:465
+msgid "Need a translator group for a context"
+msgstr "Ich brauche eine Übersetzer-Gruppe für den Kontext"
+
+#: parser.yy:459
+msgid "Wrong type for property value"
+msgstr "Falsche Type für Besitz-Wert"
+
+#: parser.yy:515
+msgid "More than one music block"
+msgstr "Mehr als ein Musik-Block"
+
+#: parser.yy:946 parser.yy:1360 parser.yy:1380
+#, c-format
+msgid "not a duration: %d"
+msgstr "Keine Dauer: %d"
+
+#: parser.yy:948 parser.yy:1382
+msgid "can't abbreviate"
+msgstr "Kann ich nicht abkürzen"
+
+#: parser.yy:1211 parser.yy:1219 parser.yy:1444
+msgid "have to be in Lyric mode for lyrics"
+msgstr "Um Text zu verarbeiten, muß ich im Text-(Lyrics)-Modus sein"
+
+#: parser.yy:1391
+msgid "have to be in Note mode for notes"
+msgstr "Für Noten muß ich im Noten-(Note)-Modus sein"
+
+#: parser.yy:1403
+msgid "can't abbreviate tuplet"
+msgstr "Kann Tupel nicht abkürzen"
+
+#: parser.yy:1450
+msgid "have to be in Chord mode for chords"
+msgstr "Für Akkorde muß ich im Akkord-(Chord)-Modus sein"
+
+#: lexer.ll:155
+msgid "EOF found inside a comment"
+msgstr "Während eines Kommentar war die Datei zu Ende (EOF gefunden)"
+
+#: lexer.ll:199
+#, c-format
+msgid "undefined identifier: `%s'"
+msgstr "Unbekannter Identifier: `%s'"
+
+#. backup rule
+#: lexer.ll:204
+msgid "missing end quote"
+msgstr "Endnote fehlt"
+
+#. backup rule
+#: lexer.ll:227 lexer.ll:231
+msgid "white expected"
+msgstr "Erwarte Weiß"
+
+#: lexer.ll:401
+#, c-format
+msgid "invalid character: `%c'"
+msgstr "Ungültiger Buchstabe `%c'"
+
+#: lexer.ll:457
+#, c-format
+msgid "unknown escaped string: `\\%s'"
+msgstr "Unbekannte Sonder-Zeichenkette"
+
+#: lexer.ll:543
+#, c-format
+msgid "incorrect mudela version: %s (%s, %s)"
+msgstr "Falsche Version von Mudela: (s /%s, %s)"
+
+#: out/BLURB.hh:2
+msgid ""
+"LilyPond is a music typesetter.  It produces beautiful sheet music\n"
+"using a high level description file as input.  LilyPond is part of \n"
+"the GNU Project.\n"
+msgstr ""
+"LilyPond ist ein Notensatzprogramm. Mit ihm lassen sich wunderschöne\n"
+"Notenblätter erzeugen. Dazu verwendet es eine eigene Beschreibungssprache.\n"
+"lilyPond ist Teil des GNU-Projekts\n"
+
+#: main.cc:90
+msgid "write exact durations, e.g.: a4*385/384"
+msgstr "Schreibe genaue Dauer, z.B.: a4*385/384"
+
+#: main.cc:93
+msgid "ACC[:MINOR]"
+msgstr "ACC[:MOLL]"
+
+#: main.cc:93
+msgid "set key: ACC +sharps/-flats; :1 minor"
+msgstr "Setze Tonart: ACC +Kreuze/-Bes; :1 Moll"
+
+#: main.cc:94
+msgid "assume no tuplets or double dots, smallest is 32"
+msgstr ""
+"Nimm an, dass keine -olen (Triolen, Quintolen etc.) oder Doppelpunkte \n"
+"vorliegen. Kleinste Teilung sind 32igstel"
+
+#: main.cc:95
+msgid "set FILE as default output"
+msgstr "Ausgabe standardmäßig in Datei FILE"
+
+#: main.cc:96
+msgid "assume no tuplets"
+msgstr "Nimm an, daß keine -olen (Triolen, Quintolen etc.) vorliegen"
+
+#: main.cc:97
+msgid "be quiet"
+msgstr "Sei ruhig"
+
+#: main.cc:98
+msgid "DUR"
+msgstr "DUR"
+
+#: main.cc:98
+msgid "Set smallest duration (?)"
+msgstr "Setze kürzeste Dauer (?)"
+
+#: main.cc:100
+msgid "be verbose"
+msgstr "Sei geschwätzig"
+
+#: main.cc:102
+msgid "assume no double dotted notes"
+msgstr "Keine Noten mit Doppelpunkt"
+
+#: main.cc:110
+#, c-format
+msgid "Usage: %s [OPTION]... [FILE]"
+msgstr "Verwendung: %s [OPTIONEN] ... [DATEI]"
+
+#: main.cc:112
+msgid "Translate midi-file to mudela"
+msgstr "Übersetze MIDI in mudela"
+
+#: midi-parser.cc:64
+msgid "zero length string encountered"
+msgstr "Zeichenkette der Länge 0 gefunden"
+
+#: midi-score-parser.cc:44
+msgid "MIDI header expected"
+msgstr "Erwarte MIDI-Kopf"
+
+#: midi-score-parser.cc:49
+msgid "Invalid header length"
+msgstr "Ungültige Kopfteil-Länge"
+
+#: midi-score-parser.cc:52
+msgid "Invalid midi format"
+msgstr "Ungültiges MIDI-Format"
+
+#: midi-score-parser.cc:55
+msgid "Invalid number of tracks"
+msgstr "Ungültige Anzahl an Spuren"
+
+#: midi-score-parser.cc:58
+#, c-format
+msgid "can't handle %s"
+msgstr "Kann %s nicht verarbeiten"
+
+#: midi-score-parser.cc:58
+msgid "non-metrical time"
+msgstr "Nicht-Metrischer Takt"
+
+#: midi-score-parser.cc:94
+msgid "Parsing...\n"
+msgstr "Verarbeite...\n"
+
+#: midi-track-parser.cc:68
+#, c-format
+msgid "junking note-end event: channel = %d, pitch = %d"
+msgstr "Ich vernachlässige einen Event \"note-end\": Kanal = %d, Tonhöhe = %d"
+
+#: midi-track-parser.cc:124
+msgid "invalid running status"
+msgstr "Ungültiger Laufzeit-Status"
+
+#: midi-track-parser.cc:328
+msgid "unimplemented MIDI meta-event"
+msgstr "MIDI Meta-event nicht implementiert"
+
+#: midi-track-parser.cc:333
+msgid "invalid MIDI event"
+msgstr "Ungültiges MIDI evant"
+
+#: midi-track-parser.cc:348
+msgid "MIDI track expected"
+msgstr "Erwarte MIDI-Stück"
+
+#: midi-track-parser.cc:353
+msgid "invalid track length"
+msgstr "Unzulässige Länge für ein Stück"
+
+#: mudela-item.cc:160
+#, c-format
+msgid "#32 in quarter: %d"
+msgstr "#32 in Vierteln: %d"
+
+#: mudela-score.cc:108
+#, c-format
+msgid "Lily output to %s..."
+msgstr "Lily-Ausgabe nach %s..."
+
+#: mudela-score.cc:119 mudela-score.cc:168
+msgid "track "
+msgstr "Spur "
+
+#: mudela-score.cc:155
+msgid "Processing..."
+msgstr "Verarbeite..."
+
+#: mudela-score.cc:164
+msgid "Creating voices..."
+msgstr "Erzeuge Stimmen..."
+
+#: mudela-score.cc:177
+msgid "NOT Filtering tempo..."
+msgstr "Ich filtere das Tempo NICHT..."
+
+#: mudela-score.cc:186
+msgid "NOT Quantifying columns..."
+msgstr "ich quantifiziere die Spalten NICHT..."
+
+#: mudela-score.cc:190
+msgid "Quantifying columns..."
+msgstr "Quantifiziere Spalten..."
+
+#: mudela-score.cc:223
+msgid "Settling columns..."
+msgstr "Erledige Spalten..."
+
+#: mudela-staff.cc:111
+#, c-format
+msgid "% midi copyright:"
+msgstr "% Midi Urheberrecht:"
+
+#: mudela-staff.cc:112
+#, c-format
+msgid "% instrument:"
+msgstr "% Instrument:"
+
+#: mudela-stream.cc:37
+#, c-format
+msgid "lily indent level: %d"
+msgstr "lily Einrücklevel: %d"
+
+#: mudela-stream.cc:75
+msgid "% Creator: "
+msgstr "% erstellt von: "
+
+#: mudela-stream.cc:80
+msgid "% Automatically generated"
+msgstr "% Automatisch generiert"
+
+#: mudela-stream.cc:89
+#, c-format
+msgid "% from input file: "
+msgstr "% aus Eingabedatei: "
+
+#~ msgid "%c"
+#~ msgstr "%c"
+
+#~ msgid "map_fd: "
+#~ msgstr "map_fd: "
+
+#~ msgid "vm_deallocate: "
+#~ msgstr "vm_deallocate: "
+
+#~ msgid "search path = %s"
+#~ msgstr "Suchpfad = %s"
+
+#~ msgid ""
+#~ "\n"
+#~ "Search path is `%s'\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Suchpfad ist `%s'\n"
+
+#~ msgid "Can not find file `%s'"
+#~ msgstr "Kann die Datei `%s' nicht finden"
+
+#~ msgid "Can't open `%s'\n"
+#~ msgstr "Kann `%s' nicht öffnen"
+
+#~ msgid "Search path %s\n"
+#~ msgstr "Suchpfad %s\n"
+
+#~ msgid "  -a, --about            about LilyPond\n"
+#~ msgstr "  -a, --about            über LilyPond\n"
+
+#~ msgid "  -h, --help             this help\n"
+#~ msgstr "  -h, --help             Diese Hilfe\n"
+
+#~ msgid "  -f, --output-format=X  use output format X\n"
+#~ msgstr "  -f, --output-format=X  Benutze Ausgabeformat X\n"
+
+#~ msgid "  -o, --output=FILE      set FILE as default output base\n"
+#~ msgstr "  -o, --output=FILE      Setze FILE als Standard-Ausgabe\n"
+
+#~ msgid "  -V, --ignore-version   ignore mudela version\n"
+#~ msgstr "  -V, --ignore-version   Scher´ Dich nicht um die Mudela-Version"
+
+#~ msgid "GNU LilyPond is Free software, see --warranty"
+#~ msgstr "GNU LilyPond ist Freie Software, siehe --warranty"
+
+#~ msgid "Han-Wen Nienhuys <hanwen@cs.uu.nl>"
+#~ msgstr "Han-Wen Nienhuys <hanwen@cs.uu.nl>"
+
+#~ msgid "Jan Nieuwenhuizen <janneke@gnu.org>"
+#~ msgstr "Jan Nieuwenhuizen <janneke@gnu.org>"
+
+#~ msgid "  -D, --debug            enable debugging output\n"
+#~ msgstr "  -D, --debug            Debugger an"
+
+#~ msgid "  -q, --quiet            be quiet\n"
+#~ msgstr "  -q, --quiet            sei ruhig\n"
+
+#~ msgid "  -v, --verbose          be verbose\n"
+#~ msgstr "  -v, --verbose          sei geschwätzig\n"
+
+#~ msgid "Midi2ly, translate midi to mudela"
+#~ msgstr "Midi2ly, übersetze midi nach mudela"
+
+#~ msgid "of"
+#~ msgstr "von"
+

@@ -21,6 +21,10 @@
   Treat a group of graphical elements as an aggegrate.
  */
 class Graphical_axis_group : public virtual Graphical_element {
+private:
+
+  /// modify fields of E for removal.
+  void do_remove (Graphical_element*e);
 public:
   // keep array in order.
   bool ordered_b_;		
@@ -35,7 +39,7 @@ public:
   void remove_all ();
 
   bool contains_b (Graphical_element const *) const;
-  void add_element (Graphical_element*);
+  void add_element (Graphical_element*, Axis = NO_AXES, Axis = NO_AXES);
   void remove_element (Graphical_element*);
 };
 

@@ -118,8 +118,9 @@ Item::do_breakable_col_processing()
   else
     try_visibility_lambda ();
 }
-Item*
-Item::find_prebroken_piece (Line_of_score*l) const
+
+Score_element*
+Item::find_broken_piece (Line_of_score*l) const
 {
   if (line_l() == l) 
     return (Item*)(this);
@@ -132,7 +133,7 @@ Item::find_prebroken_piece (Line_of_score*l) const
 }
 
 Item*
-Item::find_prebroken_piece (Direction d) const
+Item::find_broken_piece (Direction d) const
 {
   if (!d)
     return (Item *) (this);	// ugh
@@ -186,8 +187,8 @@ Item::handle_prebroken_dependents ()
       Direction d = LEFT;
       do
 	{
-	  Item * broken_self = find_prebroken_piece (d);
-	  Item * broken_parent = parent->find_prebroken_piece (d);
+	  Item * broken_self = find_broken_piece (d);
+	  Item * broken_parent = parent->find_broken_piece (d);
 
 	  broken_self->set_parent (broken_parent, X_AXIS);
 
@@ -199,7 +200,7 @@ Item::handle_prebroken_dependents ()
 	      Score_element * yparent =dynamic_cast<Score_element*>(parent_l (Y_AXIS));
 	      Item *yparenti = dynamic_cast<Item*> (yparent);
 	      Item *broken_yparent = yparenti ?
-		yparenti->find_prebroken_piece (d) : 0;
+		yparenti->find_broken_piece (d) : 0;
 	      
 	      if (!yparent)
 		programming_error ("Vertical refpoint lost!");
@@ -225,3 +226,4 @@ Item::break_status_dir () const
   else
     return CENTER;
 }
+

@@ -2,39 +2,22 @@
 @setfilename reference-manual.info
 @settitle LilyPond 1-2-0 Reference Manual
 
-@c ls-latex
-@ignore
-@author Adrian Mariano, Han-Wen Nienhuys and Jan Nieuwenhuizen
-@title LilyPond Regression test
-@end ignore
-
-
-@ifinfo
-
-This is the reference documentation to LilyPond.  It is not a tutorial.
-It was written by Han-Wen Nienhuys, Adrian Mariano and Jan Nieuwenhuizen
-
-
-Copyright 1999 by its authors.
-@end ifinfo
-
-@titlepage
-@sp 10
-@comment The title is printed in a large font.
-@center @titlefont{LilyPond Reference manual}
-@vskip 20pt
-@center @titlefont{Han-Wen Nienhuys, Adrian Mariano, Jan Nieuwenhuizen}
-
-@vskip 0pt plus 1filll
-Copyright @copyright{} 1999 by its authors
-@end titlepage
-
-
 @node Top, , Running LilyPond, (dir)
 @top
 @menu
 * LilyPond 1-2-0 Reference Manual::LilyPond 1-2-0 Reference Manual
 @end menu
+
+@macro keyindex {word}
+@cindex \word\
+
+@end macro
+
+@macro indexcode {word}
+@cindex \word\
+
+@end macro
+
 
 
 @node LilyPond 1-2-0 Reference Manual, Overview, , Top
@@ -79,6 +62,7 @@ Copyright @copyright{} 1999 by its authors
 @chapter LilyPond 1.2.0 Reference Manual
 
 
+
 @node Overview, Top level, LilyPond 1-2-0 Reference Manual, LilyPond 1-2-0 Reference Manual
 @section Overview
 
@@ -121,30 +105,28 @@ definition.  A score block has the following syntax:
 
 @quotation
 
-  @code{\score @{}   @code{@}}
+  @code{\score @{} @var{musicexpr} @var{outputdefs} @code{@}}
 @end quotation
 
- are zero or more output definitions.  If no output
+@var{outputdefs} are zero or more output definitions.  If no output
 definition is supplied, the default @code{\paper} block will be added.
 
 
 
 @cindex header
 
-@cindex header@@@code{\header}
+@keyindex{header}
 
 The syntax is
 
 @quotation
 
-  @code{\header} @code{@{}  = ;
-                         = ; ... @code{@}}
+  @code{\header} @code{@{} @var{key1} = @var{val1};
+                        @var{key2} = @var{val2}; ... @code{@}}
 @end quotation
 
 A header describes the file's contents.  It can also appear in a
-@code{\score} block.  Tools like @code{ly2dvi}
-@cindex ly2dvi@@@code{ly2dvi}
- can use this
+@code{\score} block.  Tools like @code{ly2dvi}@indexcode{ly2dvi} can use this
 information for generating titles.  Key values that are used by
 @code{ly2dvi} are: title, subtitle, composer, opus, poet, instrument,
 metre, arranger, piece and tagline.
@@ -158,23 +140,19 @@ Note name tables can be specified using
 
 @quotation
 
-  @code{\notenames}
-@cindex notenames@@@code{\notenames}
-
-    @code{@{}  @code{@}}
+  @code{\notenames}@keyindex{notenames}
+    @code{@{} @var{assignmentlist} @code{@}}
 @end quotation
 
- is a list of definitions of the form
+@var{assignmentlist} is a list of definitions of the form
 
 @quotation
 
-   = 
+  @var{name} = @var{pitch}
 @end quotation
 
 Chord modifiers can be set analogously, with
-@code{\chordmodifiers}
-@cindex chordmodifiers@@@code{\chordmodifiers}
-.
+@code{\chordmodifiers}@keyindex{chordmodifiers}.
 
 
 
@@ -189,18 +167,14 @@ directly.
 
 @quotation
 
-  @code{\scm}
-@cindex scm@@@code{\scm}
-  @code{;}
+  @code{\scm}@keyindex{scm} @var{scheme} @code{;}
 @end quotation
 
 Evaluates the specified Scheme code.  The result is discarded.
 
 @quotation
 
-  @code{\scmfile}
-@cindex scmfile@@@code{\scmfile}
-  @code{;}
+  @code{\scmfile}@keyindex{scmfile} @var{filename} @code{;}
 @end quotation
 
 Reads Scheme code from the specified file.  The result is discarded.
@@ -221,7 +195,7 @@ forbidden after top level assignments.
 
 @cindex comment
 
-@cindex %@@@code{%}
+@indexcode{%}
 
 
 A one line comment is introduced by a `@code{%}' character. 
@@ -309,31 +283,15 @@ with reals.
 Formed from an optional minus sign and a sequence of digits followed
 by a @emph{required} decimal point and an optional exponent such as
 @code{-1.2e3}.  Reals can be built up using the usual operations:
-`@code{+}
-@cindex +@@@code{+}
-', `@code{-}
-@cindex -@@@code{-}
-', `@code{*}
-@cindex *@@@code{*}
-', and
-`@code{/}
-@cindex /@@@code{/}
-', with parentheses for grouping.
+`@code{+}@indexcode{+}', `@code{-}@indexcode{-}', `@code{*}@indexcode{*}', and
+`@code{/}@indexcode{/}', with parentheses for grouping.
 
 A real constant can be followed by one of the dimension
 keywords:
 @cindex dimensions
- @code{\mm}
-@cindex mm@@@code{\mm}
-,
-@code{\pt}
-@cindex pt@@@code{\pt}
-, @code{\in}
-@cindex in@@@code{\in}
-, or
-@code{\cm}
-@cindex cm@@@code{\cm}
-, for millimeters, points, inches and
+ @code{\mm}@keyindex{mm},
+@code{\pt}@keyindex{pt}, @code{\in}@keyindex{in}, or
+@code{\cm}@keyindex{cm}, for millimeters, points, inches and
 centimeters, respectively.  This converts the number to a real that
 is the internal representation of dimensions.
 
@@ -357,9 +315,7 @@ anywhere.
 
 @quotation
 
-  @code{\maininput}
-@cindex maininput@@@code{\maininput}
-
+  @code{\maininput}@keyindex{maininput}
 @end quotation
 
 This command is used in init files to signal that the user file must
@@ -367,20 +323,16 @@ be read. This command cannot be used in a user file.
 
 @quotation
 
-  @code{\include}
-@cindex include@@@code{\include}
- 
+  @code{\include}@keyindex{include} @var{file}
 @end quotation
 
-Include .  The argument  may be a quoted string (an
+Include @var{file}.  The argument @var{file} may be a quoted string (an
 unquoted string will not work here!) or a string identifier.  The full
 filename including the @file{.ly} extension must be given,
 
 @quotation
 
-  @code{\version}
-@cindex version@@@code{\version}
-  @code{;}
+  @code{\version}@keyindex{version} @var{string} @code{;}
 @end quotation
 
 Specify the version of LilyPond that a file was written for.  The
@@ -416,9 +368,7 @@ catalan.ly     do  re  mi  fa  sol la  sid si  -d/-s       -b
 @end quotation
 
 Pitch names can be redefined using the
-@code{\notenames}
-@cindex notenames@@@code{\notenames}
- command, see
+@code{\notenames}@keyindex{notenames} command, see
 subsection @xref{notenames}.
 
 
@@ -450,9 +400,7 @@ different modes have different rules for deciding what is a word.
 @cindex mode!note
 
     Note mode is introduced by the keyword
-    @code{\notes}
-@cindex notes@@@code{\notes}
-.  In Note mode, words can only
+    @code{\notes}@keyindex{notes}.  In Note mode, words can only
     contain alphabetic characters.  If @code{word} is encountered,
     LilyPond first checks for a notename of @code{word}.  If no
     notename is found, then @code{word} is treated as a string.
@@ -464,9 +412,7 @@ different modes have different rules for deciding what is a word.
 @cindex mode!chord
 
     Chord mode is introduced by the keyword
-    @code{\chords}
-@cindex chords@@@code{\chords}
-.  It is similar to Note mode, but
+    @code{\chords}@keyindex{chords}.  It is similar to Note mode, but
     words are also looked up in a chord modifier table (containing
     @code{maj}, @code{dim}, etc).
 
@@ -479,9 +425,7 @@ different modes have different rules for deciding what is a word.
 @cindex mode!lyric
 
     Lyrics mode is introduced by the keyword
-    @code{\lyrics}
-@cindex lyrics@@@code{\lyrics}
-.  This mode has rules that make it
+    @code{\lyrics}@keyindex{lyrics}.  This mode has rules that make it
     easy to include punctuation and diacritical marks in words.  A
     word in Lyrics mode begins with: an alphabetic character,
     `@code{_}', `@code{?}', `@code{!}', `@code{:}', `@code{'}', the
@@ -525,9 +469,7 @@ _ _ _ _         % 4 words, each one a space
 @end table
 
 It is possible to create words that break the rules by prefixing them
-with the dollar sign `@code{$}
-@cindex $@@@code{$}
-'.  Regardless of the context, a
+with the dollar sign `@code{$}@indexcode{$}'.  Regardless of the context, a
 word beginning with `@code{$}' extends until the next white space
 character.  Such words can contain numbers (even in Note mode), or
 other forbidden characters.  The dollar sign can be used to create
@@ -550,21 +492,13 @@ versions, thus the use of the dollar sign is discouraged.}
   @item  strings
   @item  music expressions
   @item  durations of notes and rests (specified with
-       @code{\notenames}
-@cindex notenames@@@code{\notenames}
-)
+       @code{\notenames}@keyindex{notenames})
   @item  note name tables
   @item  context definitions, part of output definitions.  See
        section @xref{contextdefs} for more information
-  @item  output definitions (like @code{\paper}
-@cindex paper@@@code{\paper}
- blocks
-       and @code{\midi}
-@cindex midi@@@code{\midi}
- blocks)
-  @item  score definitions (@code{\score}
-@cindex score@@@code{\score}
- blocks)
+  @item  output definitions (like @code{\paper}@keyindex{paper} blocks
+       and @code{\midi}@keyindex{midi} blocks)
+  @item  score definitions (@code{\score}@keyindex{score} blocks)
 @end itemize
 
 Type is a syntactical property: @emph{Mudela} has no real type system,
@@ -574,20 +508,18 @@ and integers in arithmetic expressions, and ``type
 errors''
 @cindex type error
  (e.g., using a string identifier to
-initialize a @code{\paper}
-@cindex paper@@@code{\paper}
- block) will yield a ``parse
+initialize a @code{\paper}@keyindex{paper} block) will yield a ``parse
 error''.
 
 Identifiers allow objects to be assigned to names.  To assign an
-identifier, you use `=' and to refer to an
+identifier, you use `@var{name}=@var{value}' and to refer to an
 identifier, you preceed its name with a backslash:
-`@code{\}'.  Identifier assignments must appear at top level
+`@code{\}@var{name}'.  Identifier assignments must appear at top level
 in the @emph{Mudela} file.  Semicolons are forbidden after assignments
 appearing at top level but they are obligatory after assignments
 appearing in the @code{\paper} block, see Section @xref{paper}.
 
- is any of the types listed above.
+@var{value} is any of the types listed above.
 
 An identifier can be created with any string for its name, but you
 will only be able to refer to identifiers whose names begin with a
@@ -605,9 +537,7 @@ identifier in terms of its old value, e.g.
 
 When an identifier is referenced, the information it points to is
 copied.  Therefore it only makes sense to put identifiers for
-translators, output definitions, and @code{\score}
-@cindex score@@@code{\score}
-
+translators, output definitions, and @code{\score}@keyindex{score}
 blocks as the first item in a block.  For this reason, if you
 reference a @code{\foo} variable in a @code{\foo} block, it must be the
 first item in the list following @code{\foo}.@footnote{@code{\paper@{\one
@@ -664,14 +594,12 @@ The syntax for pitch specification is
 
 @quotation
 
-  @code{\musicalpitch}
-@cindex musicalpitch@@@code{\musicalpitch}
-
-    @code{@{}    @code{@}}
+  @code{\musicalpitch}@keyindex{musicalpitch}
+    @code{@{} @var{octave} @var{note} @var{shift} @code{@}}
 @end quotation
 
- is specified by an integer, zero for the octave
-containing middle C.   is a number from 0 to 7, with 0
+@var{octave} is specified by an integer, zero for the octave
+containing middle C.  @var{note} is a number from 0 to 7, with 0
 corresponding to C and 7 corresponding to B.  The shift is zero for a
 natural, negative to add flats, or positive to add sharps.
 
@@ -682,16 +610,14 @@ The syntax for duration specification is
 
 @quotation
 
-  @code{\duration}
-@cindex duration@@@code{\duration}
-
-    @code{@{}   @code{@}}
+  @code{\duration}@keyindex{duration}
+    @code{@{} @var{length} @var{dotcount} @code{@}}
 @end quotation
 
- is the negative logarithm (base 2) of the duration:
+@var{length} is the negative logarithm (base 2) of the duration:
 1 is a half note, 2 is a quarter note, 3 is an eighth
 note, etc.  The number of dots after the note is given by
-.
+@var{dotcount}.
 
 In Note, Chord, and Lyrics mode, durations may be designated by
 numbers and dots.  See Section @xref{notelang} for details.
@@ -709,7 +635,7 @@ A note specification has the form
 
 @quotation
 
-  [][@code{!}][@code{?}][]
+  @var{pitch}[@var{octavespec}][@code{!}][@code{?}][@var{duration}]
 @end quotation
 
 The pitch of the note is specified by the note's name.
@@ -730,12 +656,8 @@ section @xref{notelang} for details.
 
 
 The optional octave specification takes the form of a series of
-single quote (`@code{'}
-@cindex '@@@code{'}
-') characters or a series of comma
-(`@code{,}
-@cindex ,@@@code{,}
-') characters.  Each @code{'} raises the pitch by one
+single quote (`@code{'}@indexcode{'}') characters or a series of comma
+(`@code{,}@indexcode{,}') characters.  Each @code{'} raises the pitch by one
 octave; each @code{,} lowers the pitch by an octave.
 
 @mudela[fragment,verbatim,center]
@@ -768,9 +690,7 @@ cautionary accidental,
 @cindex cautionary accidental
  i.e., an
 accidental within parentheses can be obtained by adding the question
-mark `@code{?}
-@cindex ?@@@code{?}
-' after the pitch.
+mark `@code{?}@indexcode{?}' after the pitch.
 
 @mudela[fragment,verbatim,center]
   cis' d' e' cis'  c'? d' e' c'!
@@ -848,9 +768,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
 
 If the duration is omitted then it is set equal to the previous
 duration.  If there is no previous duration, a quarter note is
-assumed.  The duration can be followed by a dot (`@code{.}
-@cindex .@@@code{.}
-')
+assumed.  The duration can be followed by a dot (`@code{.}@indexcode{.}')
 to obtain dotted note lengths.
 
 @mudela[fragment,verbatim,center]
@@ -858,18 +776,12 @@ to obtain dotted note lengths.
 @end mudela
 
 You can alter the length of duration by writing
-`@code{*}' after it.  This will not affect the
+`@code{*}@var{fraction}' after it.  This will not affect the
 appearance of note heads or rests.
 
 
-Rests are entered like notes, with note name `@code{r}
-@cindex r@@@code{r}
-',
-or `@code{R}
-@cindex R@@@code{R}
-'.  There is also a note name `@code{s}
-@cindex s@@@code{s}
-',
+Rests are entered like notes, with note name `@code{r}@indexcode{r}',
+or `@code{R}@indexcode{R}'.  There is also a note name `@code{s}@indexcode{s}',
 which produces a space of the specified duration. 
 `@code{R}' is specifically meant for entering parts: the @code{R} rest
 can expand to fill a score with rests, or it can be printed as a
@@ -896,14 +808,12 @@ lyrics is discussed in section @xref{lyricprint}.
 
 @quotation
 
-  @code{\property}
-@cindex property@@@code{\property}
-
-    @code{.} @code{=} 
+  @code{\property}@keyindex{property}
+    @var{contextname}@code{.}@var{propname} @code{=} @var{value}
 @end quotation
 
-Sets the  property of the context  to
-the specified .  All three arguments are strings. 
+Sets the @var{propname} property of the context @var{contextname} to
+the specified @var{value}.  All three arguments are strings. 
 Depending on the context, it may be necessary to quote the strings or
 to leave space on both sides of the dot.
 
@@ -913,21 +823,19 @@ to leave space on both sides of the dot.
 
 @quotation
 
-  @code{\translator}
-@cindex translator@@@code{\translator}
-
-     = 
+  @code{\translator}@keyindex{translator}
+    @var{contexttype} = @var{name}
 @end quotation
 
 A music expression indicating that the context which is a direct
-child of the a context of type  should be shifted to
-a context of type  and the specified name.
+child of the a context of type @var{contexttype} should be shifted to
+a context of type @var{contexttype} and the specified name.
 
 Usually this is used to switch staffs in Piano music, e.g.
 
 @quotation
 
-  @code{\translator Staff = top} 
+  @code{\translator Staff = top} @var{Music}
 @end quotation
 
 
@@ -939,88 +847,54 @@ Commands are music expressions that have no duration.
 
 @quotation
 
-  @code{\key}
-@cindex key@@@code{\key}
-   @code{;}
+  @code{\key}@keyindex{key} @var{pitch} @var{type} @code{;}
 @end quotation
 
-Change the key signature.   should be
-@code{\major}
-@cindex major@@@code{\major}
- or @code{\minor}
-@cindex minor@@@code{\minor}
- to get
--major or -minor, respectively.  The second
-argument is optional; the default is major keys.  The 
+Change the key signature.  @var{type} should be
+@code{\major}@keyindex{major} or @code{\minor}@keyindex{minor} to get
+@var{pitch}-major or @var{pitch}-minor, respectively.  The second
+argument is optional; the default is major keys.  The @var{\context}
 argument can also be given as an integer, which tells the number of
 semitones that should be added to the pitch given in the subsequent
-@code{\key}
-@cindex key@@@code{\key}
- commands to get the corresponding major key,
-e.g., @code{\minor}
-@cindex minor@@@code{\minor}
- is defined as 3.  The standard
-mode names @code{\ionian}
-@cindex ionian@@@code{\ionian}
-,
-@code{\locrian}
-@cindex locrian@@@code{\locrian}
-, @code{\aeolian}
-@cindex aeolian@@@code{\aeolian}
-,
-@code{\mixolydian}
-@cindex mixolydian@@@code{\mixolydian}
-, @code{\lydian}
-@cindex lydian@@@code{\lydian}
-,
-@code{\phrygian}
-@cindex phrygian@@@code{\phrygian}
-, and @code{\dorian}
-@cindex dorian@@@code{\dorian}
-
+@code{\key}@keyindex{key} commands to get the corresponding major key,
+e.g., @code{\minor}@keyindex{minor} is defined as 3.  The standard
+mode names @code{\ionian}@keyindex{ionian},
+@code{\locrian}@keyindex{locrian}, @code{\aeolian}@keyindex{aeolian},
+@code{\mixolydian}@keyindex{mixolydian}, @code{\lydian}@keyindex{lydian},
+@code{\phrygian}@keyindex{phrygian}, and @code{\dorian}@keyindex{dorian}
 are also defined.
 
 @quotation
 
-  @code{\keysignature}
-@cindex keysignature@@@code{\keysignature}
-  @code{;}
+  @code{\keysignature}@keyindex{keysignature} @var{pitchseq} @code{;}
 @end quotation
 
-Specify an arbitrary key signature.  The pitches from  will
+Specify an arbitrary key signature.  The pitches from @var{pitch} will
 be printed in the key signature in the order that they appear on the
 list.
 
         
 @quotation
 
-  @code{\mark}
-@cindex mark@@@code{\mark}
-  @code{;} @* 
-  @code{\mark}  @code{;}
+  @code{\mark}@keyindex{mark} @var{unsigned} @code{;} @* 
+  @code{\mark} @var{string} @code{;}
 @end quotation
 
 Prints a mark over or under (depending on the
-@code{markDirection}
-@cindex markDirection@@@code{markDirection}
- property) the staff.  You must add
-@code{Mark_engraver}
-@cindex Mark_engraver@@@code{Mark_engraver}
- to either the Score or Staff context for
+@code{markDirection}@indexcode{markDirection} property) the staff.  You must add
+@code{Mark_engraver}@indexcode{Mark_engraver} to either the Score or Staff context for
 this to work.
 
 @node barlines, manualbeam, notedesc, LilyPond 1-2-0 Reference Manual
 
 @quotation
 
-  @code{\bar}
-@cindex bar@@@code{\bar}
-  @code{;}
+  @code{\bar}@keyindex{bar} @var{bartype} @code{;}
 @end quotation
 
 This is a request to print a special bar symbol. It replaces the 
 regular bar symbol with a special
-symbol.  The argument  is a string which specifies the
+symbol.  The argument @var{bartype} is a string which specifies the
 kind of bar to print.  Options are @code{":|"}
 @cindex "|A@@@code{:|}
 ,
@@ -1041,7 +915,7 @@ kind of bar to print.  Options are @code{":|"}
 . 
 These produce, respectively, a right repeat, a left repeat, a double
 repeat, a double bar, a start bar, an end bar, and a thick double
-bar.  If  is set to @code{"empty"} then nothing is
+bar.  If @var{bartype} is set to @code{"empty"} then nothing is
 printed, but a line break is allowed at that spot.
 
 You are encouraged to use @code{\repeat} for repetitions.
@@ -1051,21 +925,17 @@ See section @xref{sec-repeats}.
 
 @quotation
 
-  @code{\cadenza}
-@cindex cadenza@@@code{\cadenza}
-  @code{;}
+  @code{\cadenza}@keyindex{cadenza} @var{togglevalue} @code{;}
 @end quotation
 
 Music expression that toggles the automatic generation of bar lines. 
-If  is 1, bar line generation is turned off.  If
- is 0, a bar line is immediately printed and 
+If @var{togglevalue} is 1, bar line generation is turned off.  If
+@var{togglevalue} is 0, a bar line is immediately printed and 
 automatic bar generation is turned on.
 
 @quotation
 
-  @code{\time}
-@cindex time@@@code{\time}
- @code{/} @code{;}
+  @code{\time}@keyindex{time} @var{numerator}@code{/}@var{denominator} @code{;}
 @end quotation
 
 Change the time signature.  The default time signature is 4/4. 
@@ -1073,9 +943,7 @@ The time signature is used to generate bar lines.
 
 @quotation
 
-  @code{\tempo}
-@cindex tempo@@@code{\tempo}
-  =  @code{;}
+  @code{\tempo}@keyindex{tempo} @var{duration} = @var{perminute} @code{;}
 @end quotation
 
 Used to specify the tempo.  For example, `@code{\tempo 4 = 76;}'
@@ -1083,9 +951,7 @@ requests output with 76 quarter notes per minute.
 
 @quotation
 
-  @code{\partial}
-@cindex partial@@@code{\partial}
-  @code{;}
+  @code{\partial}@keyindex{partial} @var{duration} @code{;}
 @end quotation
 
 @cindex anacrusis
@@ -1098,9 +964,7 @@ lasting two eighth notes.
 
 @quotation
 
-  @code{|}
-@cindex |@@@code{|}
-
+  @code{|}@indexcode{|}
 @cindex bar check
 
 @end quotation
@@ -1118,24 +982,16 @@ be used to shorten measures.
 
 @quotation
 
-  @code{\penalty}
-@cindex penalty@@@code{\penalty}
-  @code{;}
+  @code{\penalty}@keyindex{penalty} @var{int} @code{;}
 @end quotation
 
 Discourage or encourage line breaks.  See identifiers
-@code{\break}
-@cindex break@@@code{\break}
- and @code{\nobreak}
-@cindex nobreak@@@code{\nobreak}
- in
+@code{\break}@keyindex{break} and @code{\nobreak}@keyindex{nobreak} in
 section @xref{ident}.
 
 @quotation
 
-  @code{\clef}
-@cindex clef@@@code{\clef}
-  @code{;}
+  @code{\clef}@keyindex{clef} @var{clefname} @code{;}
 @end quotation
 
 Music expression that sets the current clef.  The argument is a
@@ -1192,12 +1048,10 @@ indicates at which note line the clef is located. An as example, the
 
 @quotation
 
-  @code{\skip}
-@cindex skip@@@code{\skip}
-  @code{;}
+  @code{\skip}@keyindex{skip} @var{duration} @code{;}
 @end quotation
 
-Skips the amount of time specified by .  If no other
+Skips the amount of time specified by @var{duration}.  If no other
 music is played, a gap will be left for the skipped time with no
 notes printed.  It works in Note Mode or Lyrics Mode.  In Note mode,
 this has the same effect as the space rest `@code{s}'.
@@ -1208,11 +1062,7 @@ this has the same effect as the space rest `@code{s}'.
 @node manualbeam, tremolo, barlines, LilyPond 1-2-0 Reference Manual
 
 A beam is specified by surrounding the beamed notes with brackets
-`@code{[}
-@cindex [@@@code{[}
-' and `@code{]}
-@cindex ]@@@code{]}
-'.  
+`@code{[}@indexcode{[}' and `@code{]}@indexcode{]}'.  
 
 @mudela[fragment,verbatim,center]
   [a'8 a'] [a'16 a' a' a']
@@ -1230,10 +1080,10 @@ Beaming can be generated automatically; see section @xref{autobeam}.
 To place tremolo marks 
 @cindex tremolo beams
  between two notes, begin
-with `@code{[:}' and end with `@code{]}'.  Tremolo marks
+with `@code{[:}@var{length}' and end with `@code{]}'.  Tremolo marks
 will appear instead of beams.  Putting more than two notes in such a
 construction will produce odd effects.  To create tremolo beams on a
-single note, simply attach `@code{:}' to the note itself
+single note, simply attach `@code{:}@var{length}' to the note itself
 (see also section @xref{tremolo}).
   
 @mudela[fragment,verbatim,center]
@@ -1247,7 +1097,7 @@ single note, simply attach `@code{:}' to the note itself
 
 @cindex --@@@code{-}@code{-}
 
-@cindex __@@@code{__}
+@indexcode{__}
 
 @cindex extender
 
@@ -1263,9 +1113,7 @@ a hyphen that will be printed between two lyric syllables) is
 
 A tie connects two adjacent note heads of the same pitch.  When used
 with chords, it connects all of the note heads whose pitches match.
-Ties are indicated using the tilde symbol `@code{~}
-@cindex ~@@@code{~}
-'.
+Ties are indicated using the tilde symbol `@code{~}@indexcode{~}'.
 If you try to tie together chords which have no common pitches, a
 warning message will appear and no ties will be created.
 
@@ -1286,10 +1134,10 @@ warning message will appear and no ties will be created.
 
 A variety of symbols can appear above and below notes to indicate
 different characteristics of the performance.  These symbols can be
-added to a note with `@code{-\}'.  Numerous symbols
+added to a note with `@var{note}@code{-\}@var{name}'.  Numerous symbols
 are defined in @file{script.ly} and @file{script.scm}.  Symbols can be
 forced to appear above or below the note by writing
-`@code{^\}' and `@code{_\}'
+`@var{note}@code{^\}@var{name}' and `@var{note}@code{_\}@var{name}'
 respectively.  Here is a chart showing symbols above notes, with the
 name of the corresponding symbol appearing underneath.
 
@@ -1363,56 +1211,22 @@ common symbols
 Dynamic marks are specified by using an identifier after a note:
 `@code{c4-\ff}' (the dash is optional for dynamics: `@code{c4 \ff})'.  
 The available dynamic marks are:
-@code{\ppp}
-@cindex ppp@@@code{\ppp}
-,
-@code{\pp}
-@cindex pp@@@code{\pp}
-, @code{\p}
-@cindex p@@@code{\p}
-, @code{\mp}
-@cindex mp@@@code{\mp}
-,
-@code{\mf}
-@cindex mf@@@code{\mf}
-, @code{\f}
-@cindex f@@@code{\f}
-, @code{\ff}
-@cindex ff@@@code{\ff}
-,
-@code{\fff}
-@cindex fff@@@code{\fff}
-, @code{\fff}
-@cindex ffff@@@code{\ffff}
-,
-@code{\fp}
-@cindex fp@@@code{\fp}
-, @code{\sf}
-@cindex sf@@@code{\sf}
-,
-@code{\sff}
-@cindex sff@@@code{\sff}
-, @code{\sp}
-@cindex sp@@@code{\sp}
-,
-@code{\spp}
-@cindex spp@@@code{\spp}
-, @code{\sfz}
-@cindex sfz@@@code{\sfz}
-, and
-@code{\rfz}
-@cindex rfz@@@code{\rfz}
-.
+@code{\ppp}@keyindex{ppp},
+@code{\pp}@keyindex{pp}, @code{\p}@keyindex{p}, @code{\mp}@keyindex{mp},
+@code{\mf}@keyindex{mf}, @code{\f}@keyindex{f}, @code{\ff}@keyindex{ff},
+@code{\fff}@keyindex{fff}, @code{\fff}@keyindex{ffff},
+@code{\fp}@keyindex{fp}, @code{\sf}@keyindex{sf},
+@code{\sff}@keyindex{sff}, @code{\sp}@keyindex{sp},
+@code{\spp}@keyindex{spp}, @code{\sfz}@keyindex{sfz}, and
+@code{\rfz}@keyindex{rfz}.
 
 
 @quotation
 
-  @code{\textscript}
-@cindex textscript@@@code{\textscript}
-  
+  @code{\textscript}@keyindex{textscript} @var{text} @var{style}
 @end quotation
 
-Defines a text to be printed over or under a note.   is a
+Defines a text to be printed over or under a note.  @var{style} is a
 string that may be one of @code{roman}, @code{italic}, @code{typewriter}, 
 @code{bold}, @code{Large}, @code{large}, @code{dynamic} or @code{finger}.
 
@@ -1434,9 +1248,7 @@ This is equivalent to `@code{c4-6 c4-"foo"}'.
 
 @quotation
 
-  @code{\script}
-@cindex script@@@code{\script}
- 
+  @code{\script}@keyindex{script} @var{alias}
 @end quotation
 
 Prints a symbol above or below a note.  The argument is a string
@@ -1444,9 +1256,7 @@ which points into the script-alias table defined in @file{script.scm}.
 The scheme definitions specify whether the symbol follows notes into
 the staff, dependence of symbol placement on staff direction, and a
 priority for placing several symbols over one note.  Usually the
-@code{\script}
-@cindex script@@@code{\script}
- keyword is not used directly.  Various
+@code{\script}@keyindex{script} keyword is not used directly.  Various
 helpful identifier definitions appear in @file{script.ly}.
 
 
@@ -1466,27 +1276,13 @@ slurs from both sides:
 
 @cindex crescendo
 
-A crescendo mark is started with @code{\cr}
-@cindex cr@@@code{\cr}
- and terminated
-with @code{\rc}
-@cindex rc@@@code{\rc}
-.  A decrescendo mark is started with
-@code{\decr}
-@cindex decr@@@code{\decr}
- and terminated with
-@code{\rced}
-@cindex rced@@@code{\rced}
-.  There are also shorthands for these
-marks.  A crescendo can be started with @code{\<}
-@cindex <@@@code{\<}
- and a
-decrescendo can be started with @code{\>}
-@cindex >@@@code{\>}
-.  Either one can
-be terminated with @code{\!}
-@cindex "!@@@code{\"!}
-.  Note that @code{\!}
+A crescendo mark is started with @code{\cr}@keyindex{cr} and terminated
+with @code{\rc}@keyindex{rc}.  A decrescendo mark is started with
+@code{\decr}@keyindex{decr} and terminated with
+@code{\rced}@keyindex{rced}.  There are also shorthands for these
+marks.  A crescendo can be started with @code{\<}@keyindex{<} and a
+decrescendo can be started with @code{\>}@keyindex{>}.  Either one can
+be terminated with @code{\!}@keyindex{"!}.  Note that @code{\!}
 must go before the last note of the dynamic mark whereas @code{\rc}
 and @code{\rced} go after the last note.  Because these marks are
 bound to notes, if you want to get several marks during one note, you
@@ -1500,18 +1296,12 @@ must use spacer notes.
 
 @quotation
 
-  @code{\spanrequest}
-@cindex spanrequest@@@code{\spanrequest}
-  
+  @code{\spanrequest}@keyindex{spanrequest} @var{startstop} @var{type}
 @end quotation
 
-Define a spanning request. The  parameter is either -1
-(@code{\start}
-@cindex start@@@code{\start}
-) or 1 (@code{\stop}
-@cindex stop@@@code{\stop}
-) and
- is a string that describes what should be started.
+Define a spanning request. The @var{startstop} parameter is either -1
+(@code{\start}@keyindex{start}) or 1 (@code{\stop}@keyindex{stop}) and
+@var{type} is a string that describes what should be started.
 Supported types are @code{crescendo}, @code{decrescendo},
 @code{beam}, @code{slur}.  This is an internal command.  Users should
 use the shorthands which are defined in the initialization file
@@ -1533,12 +1323,10 @@ The slur syntax with parentheses is a shorthand for this.
 @node tremolo, Compound music expressions, manualbeam, LilyPond 1-2-0 Reference Manual
 
 Tremolo marks can be printed on a single note by adding
-`@code{:}[]' after the note.  The length must be at
-least 8.  A  value of 8 gives one line across
+`@code{:}[@var{length}]' after the note.  The length must be at
+least 8.  A @var{length} value of 8 gives one line across
 the note stem.  If the length is omitted, then the last value is
-used, or the value of the @code{abbrev}
-@cindex abbrev@@@code{abbrev}
- property if there was
+used, or the value of the @code{abbrev}@indexcode{abbrev} property if there was
 no last value.
 
 @mudela[verbatim,fragment,center]
@@ -1572,13 +1360,11 @@ chords can be expressed in two different ways:
 
 @quotation
 
-  @code{\context}
-@cindex context@@@code{\context}
-
-     [@code{=} ] 
+  @code{\context}@keyindex{context}
+    @var{contexttype} [@code{=} @var{contextname}] @var{musicexpr}
 @end quotation
 
-Interpret  within a context of type . 
+Interpret @var{musicexpr} within a context of type @var{contexttype}. 
 If the context does not exist, it will be created.  The new context
 can optionally be given a name.  See
 section @xref{contextselection} and @xref{contextdefs} for more
@@ -1591,14 +1377,8 @@ information on interpretation contexts.
 @cindex mode switch
 
 Mode switching keywords form compound music expressions: @code{\notes}
-
-@cindex notes@@@code{\notes}
- , @code{\chords} 
-@cindex chords@@@code{\chords}
-
-, and @code{\lyrics} 
-@cindex lyrics@@@code{\lyrics}
- . 
+@keyindex{notes} @var{musicexpr}, @code{\chords} @keyindex{chords}
+@var{musicexpr}, and @code{\lyrics} @keyindex{lyrics} @var{musicexpr}. 
 These expressions do not add anything to the meaning of their
 arguments.  They are just a way to indicate that the arguments should
 be parsed in indicated mode.  See section @xref{modes} for more
@@ -1615,10 +1395,8 @@ section @xref{contextselection}.
 
 @quotation
 
-  @code{\sequential}
-@cindex sequential@@@code{\sequential}
-
-    @code{@{}  @code{@}}
+  @code{\sequential}@keyindex{sequential}
+    @code{@{} @var{musicexprlist} @code{@}}
 @end quotation
 
 This means that list should be played or written in sequence, i.e.,
@@ -1628,23 +1406,20 @@ There is a shorthand, which leaves out the keyword:
 
 @quotation
 
-  @code{@{}  @code{@}}
+  @code{@{} @var{musicexprlist} @code{@}}
 @end quotation
 
 
 
 @cindex simultaneous music
 
-@cindex <@@@code{<}
-
-@cindex >@@@code{>}
+@indexcode{<}
+@indexcode{>}
 
 @quotation
 
-  @code{\simultaneous}
-@cindex simultaneous@@@code{\simultaneous}
-
-    @code{@{}  @code{@}}
+  @code{\simultaneous}@keyindex{simultaneous}
+    @code{@{} @var{musicexprlist} @code{@}}
 @end quotation
 
 It constructs a music expression where all of its arguments start at
@@ -1653,7 +1428,7 @@ elements.  The following shorthand is a common idiom:
 
 @quotation
 
-  @code{<}  @code{>}
+  @code{<} @var{musicexprlist} @code{>}
 @end quotation
 
 If you try to use a chord as the first thing in your score, you might
@@ -1694,12 +1469,10 @@ note's octave is `the relative octave' mode.
 
 @quotation
 
-  @code{\relative}
-@cindex relative@@@code{\relative}
-  
+  @code{\relative}@keyindex{relative} @var{startpitch} @var{musicexpr}
 @end quotation
 
-The octave of notes that appear in  are calculated as
+The octave of notes that appear in @var{musicexpr} are calculated as
 follows: If no octave changing marks are used, the basic interval
 between this and the last note is always taken to be a fourth or
 less.@footnote{The interval is determined without regarding
@@ -1708,7 +1481,7 @@ the @code{ceses}.}  The octave changing marks `@code{'}' and `@code{,}'
 can then be added to raise or lower the pitch by an extra octave. 
 Upon entering relative mode, an absolute starting pitch must be
 specified that will act as the predecessor of the first note of
-.
+@var{musicexpr}.
 
 Entering scales is straightforward in relative mode.
 
@@ -1740,9 +1513,7 @@ preceding note.
 
 The pitch after the @code{\relative} contains a notename.  To parse
 the pitch as a notename, you have to be in note mode, so there must
-be a surrounding @code{\notes}
-@cindex notes@@@code{\notes}
- keyword (which is not
+be a surrounding @code{\notes}@keyindex{notes} keyword (which is not
 shown here).
 
 The relative conversion will not affect @code{\transpose} or
@@ -1761,10 +1532,10 @@ Chord mode (see section @xref{modes}).
 
 @quotation
 
-  [][@code{-}][@code{^}][@code{/}].
+  @var{tonic}[@var{duration}][@code{-}@var{modifiers}][@code{^}@var{subtractions}][@code{/}@var{inversion}].
 @end quotation
 
- should be the tonic note of the chord, and 
+@var{tonic} should be the tonic note of the chord, and @var{duration}
 is the chord duration in the usual notation.  There are two kinds of
 modifiers.  One type is @emph{chord additions}, which are obtained by
 listing intervals separated by dots.  An interval is written by its
@@ -1790,17 +1561,9 @@ must be separated by a dot (`@code{.}').
 The second type of modifier that may appear after the `@code{-}' is a
 named modifier.  Named modifiers are listed in the file
 @file{chord-modifiers.ly}.  The available modifiers are `@code{m}' and
-`@code{min}' which lower the 3rd half a step, `@code{aug}
-@cindex aug@@@code{aug}
-' which
-raises the 5th, `@code{dim}
-@cindex dim@@@code{dim}
-' which lowers the 5th,
-`@code{maj}
-@cindex maj@@@code{maj}
-' which adds a raised 7th, and `@code{sus}
-@cindex sus@@@code{sus}
-'
+`@code{min}' which lower the 3rd half a step, `@code{aug}@indexcode{aug}' which
+raises the 5th, `@code{dim}@indexcode{dim}' which lowers the 5th,
+`@code{maj}@indexcode{maj}' which adds a raised 7th, and `@code{sus}@indexcode{sus}'
 which replaces the 5th with a 4th.
 
 @quotation
@@ -1828,9 +1591,7 @@ separated by dots.
   }
 @end mudela 
 
-Chord inversions can be specified by appending `@code{/}
-@cindex /@@@code{/}
-' and
+Chord inversions can be specified by appending `@code{/}@indexcode{/}' and
 the name of a single note to a chord.  This has the effect of
 lowering the specified note by an octave so it becomes the lowest
 note in the chord.  If the specified note is not in the chord, a
@@ -1859,12 +1620,10 @@ duration with a fraction.
 
 @quotation
 
-  @code{\times}
-@cindex times@@@code{\times}
-  
+  @code{\times}@keyindex{times} @var{fraction} @var{musicexpr}
 @end quotation
 
-The duration of  will be multiplied by the fraction. 
+The duration of @var{musicexpr} will be multiplied by the fraction. 
 In print, the fraction's denominator will be printed over the notes,
 optionally with a bracket.  The most common tuplet is the triplet in
 which 3 notes have the length of 2, so the notes are 2/3 of
@@ -1880,9 +1639,7 @@ their written length:
 
 @quotation
 
-  @code{\grace}
-@cindex grace@@@code{\grace}
- 
+  @code{\grace}@keyindex{grace} @var{musicexpr}
 @end quotation
 
 A grace note expression has duration 0; the next real note is
@@ -1891,19 +1648,15 @@ assumed to be the main note.
 You cannot have the grace note after the main note, in terms of
 duration, and main notes, but you can typeset the grace notes to the
 right of the main note using the property
-@code{graceAlignPosition}
-@cindex graceAlignPosition@@@code{graceAlignPosition}
-.
+@code{graceAlignPosition}@indexcode{graceAlignPosition}.
 
 When grace music is interpreted, a score-within-a-score is set up:
- has its own time bookkeeping, and you could (for
+@var{musicexpr} has its own time bookkeeping, and you could (for
 example) have a separate time signature within grace notes.  While in
 this score-within-a-score, you can create notes, beams, slurs, etc.
 Unbeamed eighth notes and shorter by default have a slash through the
 stem.  This behavior can be controlled with the
-@code{stemStyle}
-@cindex stemStyle@@@code{stemStyle}
- property.
+@code{stemStyle}@indexcode{stemStyle} property.
 
 @quotation
 
@@ -1916,9 +1669,7 @@ stem.  This behavior can be controlled with the
 @end mudela
 @end quotation
 
-At present, nesting @code{\grace}
-@cindex grace@@@code{\grace}
- notes, e.g.
+At present, nesting @code{\grace}@keyindex{grace} notes, e.g.
 
 @quotation
 
@@ -1939,9 +1690,7 @@ error, since there will be no main note to attach the grace notes to.
 
 @node sec-repeats, transpose, relative, LilyPond 1-2-0 Reference Manual
 
-In order to specify repeats, use the @code{\repeat}
-@cindex repeat@@@code{\repeat}
-
+In order to specify repeats, use the @code{\repeat}@keyindex{repeat}
 keyword.  Since repeats look and sound differently when played or
 printed, there are a few different variants of repeats.
 
@@ -1963,22 +1712,20 @@ The syntax for repeats is
 
 @quotation
 
-  @code{\repeat}   
+  @code{\repeat} @var{variant} @var{repeatcount} @var{repeatbody}
 @end quotation
 
 If you have alternative endings, you may add
 
 @quotation
 
-  @code{\alternative}
-@cindex alternative@@@code{\alternative}
-
-    @code{@{} 
-            
-             ... @code{@}}
+  @code{\alternative}@keyindex{alternative}
+    @code{@{} @var{alternative1}
+            @var{alternative2}
+            @var{alternative3} ... @code{@}}
 @end quotation
 
-where each  is a Music expression.
+where each @var{alternative} is a Music expression.
 
 Normal notation repeats are used like this:
 
@@ -2063,17 +1810,15 @@ bars will not.
 @node transpose, Ambiguities, sec-repeats, LilyPond 1-2-0 Reference Manual
 
 A music expression can be transposed with
-@code{\transpose}
-@cindex transpose@@@code{\transpose}
-.  The syntax is
+@code{\transpose}@keyindex{transpose}.  The syntax is
 
 @quotation
 
-  @code{\transpose}  
+  @code{\transpose} @var{pitch} @var{musicexpr}
 @end quotation
 
-This means that middle C in  is transposed to
-.
+This means that middle C in @var{musicexpr} is transposed to
+@var{pitch}.
 
 @code{\transpose} distinguishes between enharmonic pitches: both
 @code{\transpose cis'} or @code{\transpose des'} will transpose up half
@@ -2104,24 +1849,20 @@ effect music that appears inside a @code{\transpose}.
 
 If you have lyrics that are set to a melody, you can import the
 rhythm of that melody into the lyrics using @code{\addlyrics}.
-
-@cindex addlyrics@@@code{\addlyrics}
- The syntax for this is
+@keyindex{addlyrics} The syntax for this is
 
 @quotation
 
-  @code{\addlyrics} 
+  @code{\addlyrics} @var{musicexpr1 musicexpr2}
 @end quotation
 
-This means that both  and  are
+This means that both @var{musicexpr1} and @var{musicexpr2} are
 interpreted, but that every non-command atomic music expression
-(``every syllable'') in  is interpreted using timing
-of .
+(``every syllable'') in @var{musicexpr2} is interpreted using timing
+of @var{musicexpr1}.
 
-If the property @code{automaticMelismata}
-@cindex automaticMelismata@@@code{automaticMelismata}
- is set in the
-context of , no lyrics will be put on slurred or tied
+If the property @code{automaticMelismata}@indexcode{automaticMelismata} is set in the
+context of @var{musicexpr1}, no lyrics will be put on slurred or tied
 notes.
 
 @quotation
@@ -2157,7 +1898,7 @@ undesired effects when using multiple stanzas:
 @end quotation
 
 It is valid (but probably not very useful) to use notes instead of
-lyrics for .
+lyrics for @var{musicexpr2}.
 
 
 
@@ -2230,9 +1971,7 @@ foo = -6
 @node autobeam, lyricprint, Notation conversion specifics, LilyPond 1-2-0 Reference Manual
 
 By default, LilyPond will generate beams automatically.  This feature
-can be disabled by setting the @code{Voice.noAutoBeaming}
-@cindex Voice.noAutoBeaming@@@code{Voice.noAutoBeaming}
-
+can be disabled by setting the @code{Voice.noAutoBeaming}@indexcode{Voice.noAutoBeaming}
 property to 1.  It can be overridden for specific cases by
 specifying explicit beams as described in
 section @xref{manualbeam}.
@@ -2241,22 +1980,16 @@ A large number of Voice properties are used to decide how to generate
 beams.  Their default values appear in @file{auto-beam-settings.ly}.
 In general, beams can begin anywhere, but their ending location is
 significant.  Beams can end on a beat, or at durations specified by
-the @code{Voice.beamAutoEnd}
-@cindex Voice.beamAutoEnd@@@code{Voice.beamAutoEnd}
- property.  To end beams every
+the @code{Voice.beamAutoEnd}@indexcode{Voice.beamAutoEnd} property.  To end beams every
 quarter note, for example, you could set
-@code{Voice.beamAutoEnd}
-@cindex Voice.beamAutoEnd@@@code{Voice.beamAutoEnd}
- equal to `@code{"1/4"}'.  To end beams
+@code{Voice.beamAutoEnd}@indexcode{Voice.beamAutoEnd} equal to `@code{"1/4"}'.  To end beams
 at every three eighth notes you would set it to `@code{"3/8"}'.  The
 same syntax can be used to specify beam starting points using
-@code{Voice.beamAutoBegin}
-@cindex Voice.beamAutoBegin@@@code{Voice.beamAutoBegin}
-.
+@code{Voice.beamAutoBegin}@indexcode{Voice.beamAutoBegin}.
 
 To allow different settings for different time signatures, these
-property names can start with `@code{time}@code{_}' to
-restrict the definition to `@code{/}' time.  For example,
+property names can start with `@code{time}@var{N}@code{_}@var{M}' to
+restrict the definition to `@var{N}@code{/}@var{M}' time.  For example,
 to specify beams ending only for 6/8 time you would use the
 property @code{Voice.time6_8beamAutoEnd}.  To allow different endings
 for notes of different durations, the duration can be tacked onto the
@@ -2271,12 +2004,8 @@ end of the property.  To specify beam endings for beams that contain
 
 @cindex printing!chord names
 
-For displaying printed chord names, use the @code{ChordNames}
-@cindex ChordNames@@@code{ChordNames}
-
-and @code{ChordNameVoice}
-@cindex ChordNameVoice@@@code{ChordNameVoice}
- contexts.  The chords may be entered
+For displaying printed chord names, use the @code{ChordNames}@indexcode{ChordNames}
+and @code{ChordNameVoice}@indexcode{ChordNameVoice} contexts.  The chords may be entered
 either using the notation described above, or directly using
 simultaneous music.
 
@@ -2311,9 +2040,7 @@ identify chord inversions:
 @end mudela
 
 If you want inversions to be recognized, you must set the property
-@code{ChordNames.chordInversion}
-@cindex ChordNames.chordInversion@@@code{ChordNames.chordInversion}
-:
+@code{ChordNames.chordInversion}@indexcode{ChordNames.chordInversion}:
 
 @mudela[fragment,verbatim,center]
   <
@@ -2473,9 +2200,9 @@ these contexts results in the staff being printed.
 
 You can also create contexts manually, and you probably have to do so
 if you want to typeset complicated multiple part material.  If a
-`@code{\context}  ' expression is encountered
-during the interpretation phase, the  argument will be
-interpreted with a context of type .  If you specify a name,
+`@code{\context} @var{name} @var{musicexpr}' expression is encountered
+during the interpretation phase, the @var{musicexpr} argument will be
+interpreted with a context of type @var{name}.  If you specify a name,
 the specific context with that name is searched.
 
 If a context of the specified type and name can not be found, a new
@@ -2507,11 +2234,11 @@ music expression is
 
 @quotation
 
-  @code{\keyword}   ...
+  @code{\keyword} @var{musicexpr1} @var{musicexpr2} ...
 @end quotation
 
 When the interpretation of this music expression starts, the context
-for , , etc. is that of the total
+for @var{musicexpr1}, @var{musicexpr2}, etc. is that of the total
 expression.
 
 Lastly, you may wonder, why this:
@@ -2556,31 +2283,23 @@ These are the contexts supplied with the package.  They are defined
 in the initialization file @file{ly/engraver.ly}.
 
 @table @samp
-  @item @code{Grace}
-@cindex Grace@@@code{Grace}
- @* 
+  @item @code{Grace}@indexcode{Grace} @* 
     The context for handling grace notes.  It is instantiated
     automatically when you use @code{\grace}.  Basically, it is an
     `embedded' miniature of the Score context.  Since this context
     needs special interaction with the rest of LilyPond, you should
     not explicitly instantiate it.
 
-  @item @code{LyricVoice}
-@cindex LyricVoice@@@code{LyricVoice}
- @* 
+  @item @code{LyricVoice}@indexcode{LyricVoice} @* 
     Corresponds to a voice with lyrics.  Handles the printing of a
     single line of lyrics.
 
-  @item @code{Thread}
-@cindex Thread@@@code{Thread}
- @* 
+  @item @code{Thread}@indexcode{Thread} @* 
     Handles note heads, and is contained in the Voice context.  You
     have to instantiate this explicitly if you want to adjust the
     style of individual note heads.
 
-  @item @code{Voice}
-@cindex Voice@@@code{Voice}
- @* 
+  @item @code{Voice}@indexcode{Voice} @* 
     Corresponds to a voice on a staff.  This context handles the
     conversion of dynamic signs, stems, beams, super- and subscripts,
     slurs, ties, and rests.
@@ -2588,69 +2307,49 @@ in the initialization file @file{ly/engraver.ly}.
     You have to instantiate this explicitly if you want to have
     multiple voices on the same staff.
 
-  @item @code{ChordNamesVoice}
-@cindex ChordNamesVoice@@@code{ChordNamesVoice}
- @* 
+  @item @code{ChordNamesVoice}@indexcode{ChordNamesVoice} @* 
     A voice with chord names.  Handles printing of a line of chord
     names.
 
-  @item @code{ChordNames}
-@cindex ChordNames@@@code{ChordNames}
- @* 
+  @item @code{ChordNames}@indexcode{ChordNames} @* 
     Typesets chord names.  Can contain @code{ChordNamesVoice}
     contexts.
 
-  @item @code{Lyrics}
-@cindex Lyrics@@@code{Lyrics}
- @* 
+  @item @code{Lyrics}@indexcode{Lyrics} @* 
     Typesets lyrics.  It can contain @code{LyricVoice} contexts.
 
-  @item @code{Staff}
-@cindex Staff@@@code{Staff}
- @* 
+  @item @code{Staff}@indexcode{Staff} @* 
     Handles clefs, bar lines, keys, accidentals.  It can contain
     @code{Voice} contexts.
 
-  @item @code{RhythmicStaff}
-@cindex RhythmicStaff@@@code{RhythmicStaff}
- @* 
+  @item @code{RhythmicStaff}@indexcode{RhythmicStaff} @* 
     A context like @code{Staff} but for printing rhythms.  Pitches are
     ignored; the notes are printed on one line.  It can contain
     @code{Voice} contexts.
 
-  @item @code{GrandStaff}
-@cindex GrandStaff@@@code{GrandStaff}
- @* 
+  @item @code{GrandStaff}@indexcode{GrandStaff} @* 
     Contains @code{Staff} or @code{RhythmicStaff} contexts.  It adds a
     brace on the left side, grouping the staffs together.  The bar
     lines of the contained staffs are connected vertically.  It can
     contain @code{Staff} contexts.
 
-  @item @code{PianoStaff}
-@cindex PianoStaff@@@code{PianoStaff}
- @* 
+  @item @code{PianoStaff}@indexcode{PianoStaff} @* 
     Just like @code{GrandStaff} but with @code{minVerticalAlign} set
     equal to @code{maxVerticalAlign} so that interstaff beaming and
     slurring can be used.
 
-  @item @code{StaffGroup}
-@cindex StaffGroup@@@code{StaffGroup}
- @* 
+  @item @code{StaffGroup}@indexcode{StaffGroup} @* 
     Contains @code{Staff} or @code{RhythmicStaff} contexts.  Adds a
     bracket on the left side, grouping the staffs together.  The bar
     lines of the contained staffs are connected vertically.  It can
     contain @code{Staff}, @code{RhythmicStaff}, @code{GrandStaff}, or
     @code{Lyrics} contexts.
 
-  @item @code{ChoirStaff}
-@cindex ChoirStaff@@@code{ChoirStaff}
- @* 
+  @item @code{ChoirStaff}@indexcode{ChoirStaff} @* 
     Identical to @code{StaffGroup} except that the contained staffs
     are not connected vertically.
 
-  @item @code{Score}
-@cindex Score@@@code{Score}
- @* 
+  @item @code{Score}@indexcode{Score} @* 
     This is the top level notation context.  No other context can
     contain a @code{Score} context.  This context handles the
     administration of time signatures.  It also makes sure that items
@@ -2678,7 +2377,7 @@ is
 
 @quotation
 
-   @code{=} 
+  @var{propname} @code{=} @var{value}
 @end quotation
 
 This assignment happens before interpretation starts, so a
@@ -2708,9 +2407,7 @@ available properties.
 @cindex properties!Lyrics
 
 @table @samp
-  @item @code{textStyle}
-@cindex textStyle@@@code{textStyle}
- @* 
+  @item @code{textStyle}@indexcode{textStyle} @* 
     Set the font for lyrics.  The available font choices are
     @code{roman}, @code{italic}, @code{bold}, @code{large}, @code{Large},
     @code{typewriter}, and @code{finger}.  The @code{finger} font can
@@ -2725,9 +2422,7 @@ available properties.
 @cindex properties!Thread
 
 @table @samp
-  @item @code{noteheadStyle}
-@cindex noteheadStyle@@@code{noteheadStyle}
- @* 
+  @item @code{noteheadStyle}@indexcode{noteheadStyle} @* 
     Selects type of note head.  Choices are @code{cross},
     @code{diamond}, @code{harmonic}, @code{transparent}, and @code{""}. 
     They are shown in that order below.
@@ -2762,9 +2457,7 @@ available properties.
 
  
 @table @samp  
-  @item @code{stemStyle}
-@cindex stemStyle@@@code{stemStyle}
- @* 
+  @item @code{stemStyle}@indexcode{stemStyle} @* 
     By default set to @code{"grace"} meaning that all unbeamed 
     notes with flags are typeset with a slash through the flag. 
     Setting to @code{""} gives standard flags.
@@ -2774,267 +2467,208 @@ available properties.
 @cindex properties!Voice
 
 @table @samp  
-  @item @code{abbrev}
-@cindex abbrev@@@code{abbrev}
- @* 
+  @item @code{abbrev}@indexcode{abbrev} @* 
     Set length for tremolo to be used if no length is explicitly
     specified. 
 
-  @item @code{articulationScriptPadding}
-@cindex articulationScriptPadding@@@code{articulationScriptPadding}
-
+  @item @code{articulationScriptPadding}@indexcode{articulationScriptPadding}
     @* 
     Determines the extra space added between articulation marks, such
     as staccato, tenuto, trill, up/down bow or fermata, and the
     closest staff line or note.
 
   @item @code{articulationScriptVerticalDirection}
-    
-@cindex articulationScriptVerticalDirection@@@code{articulationScriptVerticalDirection}
- @* 
+    @indexcode{articulationScriptVerticalDirection} @* 
     Determines the location of articulation marks.  Set to @code{\up}
     to print marks above the staff; set to @code{\down} to print marks
     below the staff.  This property does not override explicit
     directions marked with `@code{^}' or `@code{_}' in the mudela file.
     
-  @item @code{noAutoBeaming}
-@cindex beamAuto@@@code{beamAuto}
- @* 
+  @item @code{noAutoBeaming}@indexcode{beamAuto} @* 
     If set to 1 then beams are not generated automatically.
 
-  @item @code{beamAutoEnd}
-@cindex beamAutoEnd@@@code{beamAutoEnd}
- @* 
+  @item @code{beamAutoEnd}@indexcode{beamAutoEnd} @* 
     Specifies when automatically generated beams can end.  See
     section @xref{autobeam}.
 
-  @item @code{beamAutoBegin}
-@cindex beamAutoBegin@@@code{beamAutoBegin}
- @* 
+  @item @code{beamAutoBegin}@indexcode{beamAutoBegin} @* 
     Specifies when automatically generated beams can start.  See
     section @xref{autobeam}.
 
-  @item @code{beamquantisation}
-@cindex beamquantisation@@@code{beamquantisation}
- @* 
+  @item @code{beamquantisation}@indexcode{beamquantisation} @* 
     Set to @code{\none} for no quantization.  Set to @code{\normal} to
     quantize position and slope.  Set to @code{\traditional} to avoid
     wedges.  These three settings are available via
-    @code{\beamposfree}
-@cindex beamposfree@@@code{\beamposfree}
-,
-    @code{\beamposnormal}
-@cindex beamposnormal@@@code{\beamposnormal}
-, and
-    @code{\beampostraditional}
-@cindex beampostraditional@@@code{\beampostraditional}
-.
+    @code{\beamposfree}@keyindex{beamposfree},
+    @code{\beamposnormal}@keyindex{beamposnormal}, and
+    @code{\beampostraditional}@keyindex{beampostraditional}.
 
-  @item @code{beamslopedamping}
-@cindex beamslopedamping@@@code{beamslopedamping}
- @* 
+  @item @code{beamslopedamping}@indexcode{beamslopedamping} @* 
     Set to @code{\none} for undamped beams.  Set to @code{\normal} for
     damped beams.  Set to @code{\infinity} for beams with zero slope. 
     The identifiers
-    @code{\beamslopeproportional}
-@cindex beamslopeproportional@@@code{\beamslopeproportional}
-,
-    @code{\beamslopedamped}
-@cindex beamslopedamped@@@code{\beamslopedamped}
-, and
-    @code{\beamslopezero}
-@cindex beamslopezero@@@code{\beamslopezero}
- each set the
+    @code{\beamslopeproportional}@keyindex{beamslopeproportional},
+    @code{\beamslopedamped}@keyindex{beamslopedamped}, and
+    @code{\beamslopezero}@keyindex{beamslopezero} each set the
     corresponding value.
 
-  @item @code{dynamicDirection}
-@cindex dynamicDirection@@@code{dynamicDirection}
- @* 
+  @item @code{dynamicDirection}@indexcode{dynamicDirection} @* 
     Determines location of dynamic marks.  Set to @code{\up} to print
     marks above the staff; set to @code{\down} to print marks below
     the staff.
 
-  @item @code{dynamicStyle}
-@cindex dynamicStyle@@@code{dynamicStyle}
- @* 
+  @item @code{dynamicStyle}@indexcode{dynamicStyle} @* 
     Set the text style for dynamics.  
 
-  @item @code{fontSize}
-@cindex fontSize@@@code{fontSize}
- @* 
+  @item @code{fontSize}@indexcode{fontSize} @* 
     Can be used to select smaller font sizes for music.  The normal
     font size is 0, and the two smaller sizes are -1
     and -2.
 
-   @item @code{forceHorizontalShift}
-@cindex forceHorizontalShift@@@code{forceHorizontalShift}
- @* 
+   @item @code{forceHorizontalShift}@indexcode{forceHorizontalShift} @* 
     Force horizontal shift for collision resolution.  It overrides
     automatic collision resolution.  The value is the shift amount
     expressed in @code{note_width}, as set in the paper section.
-    
 
-  @item @code{horizontalNoteShift}
-@cindex horizontalNoteShift@@@code{horizontalNoteShift}
- @* 
+@ignore
+
+TODO: explain this in refman.
+
+horizontalNoteShift does not set shifting itself.
+
+Notes that are likely to collide, are grouped into a Collision
+object.  Colliding notes within the collision are then grouped based
+on their stem direction and horizontalNoteShift setting, like this:
+
+			 |
+			 | | 
+			0u |  |
+			  1u  |
+			     2u
+
+
+		2d
+		|  1d
+		|  |  0d
+		   |  |
+		      |
+
+(0,1,2, ..  = horizontalNoteShift value.  u,d = stem up / stem down)
+
+Only then the seperate groups are shifted horizontally.  When
+collision is done with this shifting, any forceHorizontalShift
+settings will override the default shifts.
+
+
+This scheme makes sense, because you only have to set
+horizontalNoteShift once in each voice.  (Otherwise you'd have to set
+and unset it for each collision in a score.)
+@end ignore
+
+
+  @item @code{horizontalNoteShift}@indexcode{horizontalNoteShift} @* 
     Enable LilyPond to shift notes horizontally if they collide with
     other notes.  This is useful when typesetting many voices on one
-    staff.  The identifier @code{\shift}
-@cindex shift@@@code{\shift}
- is defined to
+    staff.  The identifier @code{\shift}@keyindex{shift} is defined to
     enable this.  Traditionally, the outer chords (the upmost and
     downmost voices), should have no @code{horizontalNoteShift}.
 
-  @item @code{markScriptPadding}
-@cindex markScriptPadding@@@code{markScriptPadding}
- @* 
+  @item @code{markScriptPadding}@indexcode{markScriptPadding} @* 
     Determines the extra space added between the mark and the closest
     staff line or note.
 
-  @item @code{markDirection}
-@cindex markDirection@@@code{markDirection}
- @* 
+  @item @code{markDirection}@indexcode{markDirection} @* 
     Determines if marks should be printed above or below the staff.
     Set to @code{\up} to print marks above the staff; set to
     @code{\down} to print marks below the staff.
 
-  @item @code{midiInstrument}
-@cindex midiInstrument@@@code{midiInstrument}
- @* 
+  @item @code{midiInstrument}@indexcode{midiInstrument} @* 
     Sets the instrument for MIDI output.  If this property is not set
     then LilyPond will use the @code{instrument} property.  This must
     be set to one of the strings on the list of MIDI instruments that
     appears in section @xref{midilist}.  If you use a string which
     is not listed, LilyPond will silently substitute piano.
 
-  @item @code{oldTieBehavior}
-@cindex oldTieBehavior@@@code{oldTieBehavior}
- @* 
+  @item @code{oldTieBehavior}@indexcode{oldTieBehavior} @* 
     Set to 1 in order to get old tie behavior where ties would
     connect unequal pitches.  This property is deprecated, and its
     use is not recommended.
 
-  @item @code{restStyle}
-@cindex restStyle@@@code{restStyle}
- @* 
+  @item @code{restStyle}@indexcode{restStyle} @* 
     Change the layout of rests shorter than quarter notes. 
     Currently, the standard layout @code{""} and mensural notation
     @code{"mensural"} are available. Mensural rests of duration
     32 or shorter are not available.
     
-  @item @code{scriptHorizontal}
-@cindex scriptHorizontal@@@code{scriptHorizontal}
- @* 
+  @item @code{scriptHorizontal}@indexcode{scriptHorizontal} @* 
     Put scripts left or right of note heads.  Support for this is
     limited.  Accidentals will collide with scripts.
     
-  @item @code{slurVerticalDirection}
-@cindex slurVerticalDirection@@@code{slurVerticalDirection}
- @* 
+  @item @code{slurVerticalDirection}@indexcode{slurVerticalDirection} @* 
     Set to @code{\free} for free choice of slur direction, set to
     @code{\up} to force slurs up, set to @code{\down} to force slurs
-    down.  The shorthands @code{\slurup}
-@cindex slurup@@@code{\slurup}
-,
-    @code{\slurdown}
-@cindex slurdown@@@code{\slurdown}
-, and
-    @code{\slurboth}
-@cindex slurboth@@@code{\slurboth}
- are available.
+    down.  The shorthands @code{\slurup}@keyindex{slurup},
+    @code{\slurdown}@keyindex{slurdown}, and
+    @code{\slurboth}@keyindex{slurboth} are available.
 
-  @item @code{slurDash}
-@cindex slurDash@@@code{slurDash}
- @* 
+  @item @code{slurDash}@indexcode{slurDash} @* 
     Set to 0 for normal slurs, 1 for dotted slurs, and a
     larger value for dashed slurs.  Identifiers
-    @code{\slurnormal}
-@cindex slurnormal@@@code{\slurnormal}
- and
-    @code{\slurdotted}
-@cindex slurdotted@@@code{\slurdotted}
- are predefined to set the
+    @code{\slurnormal}@keyindex{slurnormal} and
+    @code{\slurdotted}@keyindex{slurdotted} are predefined to set the
     first two settings.
 
-@item @code{stemLength}
-@cindex stemLength@@@code{stemLength}
- @* 
+@item @code{stemLength}@indexcode{stemLength} @* 
     Set length of stems.  Unit is `@code{interline}/2', so
     @code{stemLength} defaults to 7.
 
-  @item @code{stemLeftBeamCount}
-@cindex stemLeftBeamCount@@@code{stemLeftBeamCount}
- @* 
+  @item @code{stemLeftBeamCount}@indexcode{stemLeftBeamCount} @* 
     Specify the number of beams to draw on the left side of the next
     note.  Overrides automatic beaming.  The value is only used once,
     and then it is erased.
 
-  @item @code{stemRightBeamCount}
-@cindex stemRightBeamCount@@@code{stemRightBeamCount}
- @* 
+  @item @code{stemRightBeamCount}@indexcode{stemRightBeamCount} @* 
     Specify the number of beams to draw on the right side of the next
     note.  Overrides automatic beaming.  The value is only used once,
     and then it is erased.
-  @item @code{tieVerticalDirection}
-@cindex tieVerticalDirection@@@code{tieVerticalDirection}
- @* 
+  @item @code{tieVerticalDirection}@indexcode{tieVerticalDirection} @* 
     Set to @code{\free} for free choice of tie direction, set to
     @code{\up} to force ties up, set to @code{\down} to force ties
     down.
 
-  @item @code{transposing}
-@cindex transposing@@@code{transposing}
- @* 
+  @item @code{transposing}@indexcode{transposing} @* 
     Transpose the MIDI output.  Set this property to the number of
     half-steps to transpose by.
 
   
-  @item @code{textEmptyDimension}
-@cindex textEmptyDimension@@@code{textEmptyDimension}
- @* 
+  @item @code{textEmptyDimension}@indexcode{textEmptyDimension} @* 
     If set to 1 then text placed above or below the staff is
     assumed to have zero width.
   
-  @item @code{textStyle}
-@cindex textStyle@@@code{textStyle}
- @* 
+  @item @code{textStyle}@indexcode{textStyle} @* 
     Set the text style for superscripts and subscripts.  See above
     for list of text styles.
 
-  @item @code{textScriptPadding}
-@cindex textScriptPadding@@@code{textScriptPadding}
- @* 
+  @item @code{textScriptPadding}@indexcode{textScriptPadding} @* 
     Determines the extra space added between superscripted resp.
     subscripted text and the closest staff line or note.
 
-  @item @code{verticalDirection}
-@cindex verticalDirection@@@code{verticalDirection}
- @* 
+  @item @code{verticalDirection}@indexcode{verticalDirection} @* 
     Determines the direction of stems, subscripts, beams, slurs, and
     ties.  Set to @code{\down} to force them down, @code{\up} to force
     them up, or @code{\free} to let LilyPond decide.  This can be used
     to distinguish between voices on the same staff.  The
-    @code{\stemdown}
-@cindex stemdown@@@code{\stemdown}
-, @code{\stemup}
-@cindex stemup@@@code{\stemup}
-,
-    and @code{\stemboth}
-@cindex stemboth@@@code{\stemboth}
- identifiers set this
+    @code{\stemdown}@keyindex{stemdown}, @code{\stemup}@keyindex{stemup},
+    and @code{\stemboth}@keyindex{stemboth} identifiers set this
     property.
     
 
-  @item @code{tupletDirection}
-@cindex tupletDirection@@@code{tupletDirection}
- @* 
+  @item @code{tupletDirection}@indexcode{tupletDirection} @* 
     Determines the direction of triplets and other tuplets.  Set to
     @code{\down} to force them below the staff, @code{\up} to force
     them above, or @code{\free} to let LilyPond decide.
 
-  @item @code{tupletVisibility}
-@cindex tupletVisibility@@@code{tupletVisibility}
- @* 
+  @item @code{tupletVisibility}@indexcode{tupletVisibility} @* 
     Determines whether tuplets of notes are labelled.  Setting
     to 0 shows nothing; setting to 1 shows a number;
     setting to 2 shows a number and a bracket if there is no
@@ -3050,146 +2684,98 @@ available properties.
 
 @table @samp
  
-  @item @code{barNonAuto}
-@cindex barNonAuto@@@code{barNonAuto}
- @* 
+  @item @code{barNonAuto}@indexcode{barNonAuto} @* 
     If set to 1 then bar lines will not be printed
     automatically; they must be explicitly created with @code{\bar}
     keywords.  Unlike with the @code{\cadenza} keyword, measures are
     still counted.  Bar generation will resume according to that
     count if this property is set to zero.
 
-  @item @code{barNumberDirection}
-@cindex barNumberDirection@@@code{barNumberDirection}
- @* 
+  @item @code{barNumberDirection}@indexcode{barNumberDirection} @* 
     Set to @code{\up} or @code{\down} to put bar numbers above or below
     the staff.
 
-  @item @code{barNumberHangOnClef}
-@cindex barNumberHangOnClef@@@code{barNumberHangOnClef}
- @* 
+  @item @code{barNumberHangOnClef}@indexcode{barNumberHangOnClef} @* 
     Set to 1 to cause bar numbers to appear above or below the
     clef instead of on the bar line.  This property is deprecated. 
     Do not use.
 
-  @item @code{barNumberScriptPadding}
-@cindex barNumberScriptPadding@@@code{barNumberScriptPadding}
- @* 
+  @item @code{barNumberScriptPadding}@indexcode{barNumberScriptPadding} @* 
     Sets extra space between the bar number and the bar it labels.
 
-  @item @code{barSize}
-@cindex barSize@@@code{barSize}
- @* 
+  @item @code{barSize}@indexcode{barSize} @* 
     Specify the height of the bar lines if it should be different
     than the staff height.
 
-  @item @code{barAtLineStart}
-@cindex barAtLineStart@@@code{barAtLineStart}
- @* 
+  @item @code{barAtLineStart}@indexcode{barAtLineStart} @* 
     Set to 1 to produce a bar line after the clef at the start
     of each line (but not at the beginning of the music).
 
-  @item @code{clefStyle}
-@cindex clefStyle@@@code{clefStyle}
- @* 
+  @item @code{clefStyle}@indexcode{clefStyle} @* 
     Determines how clefs are typeset.  If set to @code{transparent},
     the clefs are not printed at all, if set to
     @code{fullSizeChanges}, clef changes in the middle of a line are
     typeset with a full size clef.  By default, clef changes are
     typeset in smaller size.
 
-  @item @code{createKeyOnClefChange}
-@cindex createKeyOnClefChange@@@code{createKeyOnClefChange}
- @* 
+  @item @code{createKeyOnClefChange}@indexcode{createKeyOnClefChange} @* 
     Set to a nonempty string if you want key signatures to be printed
     when the clef changes.  Set to the empty string if you do not
     want key signatures printed.
 
-  @item @code{createInitdefaultClef}
-@cindex createInitdefaultClef@@@code{createInitdefaultClef}
- @* 
+  @item @code{createInitdefaultClef}@indexcode{createInitdefaultClef} @* 
     Specify whether clefs are created on default?  (Doesn't seem to
     do anything.)
 
-  @item @code{defaultClef}
-@cindex defaultClef@@@code{defaultClef}
- @* 
+  @item @code{defaultClef}@indexcode{defaultClef} @* 
     Determines the default clef.  See @code{\clef} keyword.
 
-  @item @code{markHangOnClef}
-@cindex markHangOnClef@@@code{markHangOnClef}
- @* 
+  @item @code{markHangOnClef}@indexcode{markHangOnClef} @* 
     Set to 1 to cause marks to appear by clefs instead of by bar
     lines.  Deprecated, use is not recommended.
 
-  @item @code{marginDirection}
-@cindex marginDirection@@@code{marginDirection}
- @* 
+  @item @code{marginDirection}@indexcode{marginDirection} @* 
     Set to @code{\left} or @code{\right} to specify location of
     marginal scripts.
 
-  @item @code{marginScriptPadding}
-@cindex marginScriptPadding@@@code{marginScriptPadding}
- @* 
+  @item @code{marginScriptPadding}@indexcode{marginScriptPadding} @* 
     Specify extra space for marginal scripts.
 
-  @item @code{forgetAccidentals}
-@cindex forgetAccidentals@@@code{forgetAccidentals}
- @* 
+  @item @code{forgetAccidentals}@indexcode{forgetAccidentals} @* 
     Causes accidentals to be printed at every note instead of
     remembered for the duration of a measure.
 
-  @item @code{noResetKey}
-@cindex noResetKey@@@code{noResetKey}
- @* 
+  @item @code{noResetKey}@indexcode{noResetKey} @* 
     Do not reset the key at the start of a measure.  Accidentals will
     be printed only once and are in effect until overridden, possibly
     many measures later.
 
-  @item @code{staffLineLeading}
-@cindex staffLineLeading@@@code{staffLineLeading}
- @* 
+  @item @code{staffLineLeading}@indexcode{staffLineLeading} @* 
     Specifies the distance (in points) between lines of the staff.
 
-  @item @code{numberOfStaffLines}
-@cindex numberOfStaffLines@@@code{numberOfStaffLines}
- @* 
+  @item @code{numberOfStaffLines}@indexcode{numberOfStaffLines} @* 
     Specifies the number of staff lines.  The default is 5.
 
-  @item @code{postBreakPadding}
-@cindex postBreakPadding@@@code{postBreakPadding}
- @* 
+  @item @code{postBreakPadding}@indexcode{postBreakPadding} @* 
     Extra space in points to be added after the clef, time signature
     and key signature on the staff.  Deprecated, do not use.
 
-  @item @code{noVoltaBraces}
-@cindex noVoltaBraces@@@code{noVoltaBraces}
- @* 
+  @item @code{noVoltaBraces}@indexcode{noVoltaBraces} @* 
     Set to true to suppress the printing of brackets over alternate
     endings specified by the command @code{\alternative}.
 
-  @item @code{numberOfStaffLines}
-@cindex numberOfStaffLines@@@code{numberOfStaffLines}
- @* 
+  @item @code{numberOfStaffLines}@indexcode{numberOfStaffLines} @* 
     Sets the number of lines that the staff has.
  
-  @item @code{barAlways}
-@cindex barAlways@@@code{barAlways}
- @* 
+  @item @code{barAlways}@indexcode{barAlways} @* 
     If set to 1 a bar line is drawn after each note.
 
-  @item @code{defaultBarType}
-@cindex defaultBarType@@@code{defaultBarType}
- @* 
+  @item @code{defaultBarType}@indexcode{defaultBarType} @* 
     Sets the default type of bar line. See Section @xref{barlines} 
     for a list of available bar types.
 
   @item @code{instrument}, @code{instr}
-    
-@cindex instrument@@@code{instrument}
-
-@cindex instr@@@code{instr}
- @* 
+    @indexcode{instrument}@indexcode{instr} @* 
     If @code{Staff_margin_engraver}
 @cindex Staff_margin_engraver
  is
@@ -3199,9 +2785,7 @@ available properties.
     @code{midiInstrument} property is not set, then @code{instrument}
     is used to determine the instrument for MIDI output.
 
-  @item @code{keyOctaviation}
-@cindex keyOctaviation@@@code{keyOctaviation}
- @* 
+  @item @code{keyOctaviation}@indexcode{keyOctaviation} @* 
     If set to 1, then keys are the same in all octaves.  If set
     to 0 then the key signature for different octaves can be
     different and is specified independently:
@@ -3214,41 +2798,27 @@ available properties.
     The default value is 1.  Can be set to zero with
     @code{\specialkey} or reset to 1 with @code{\normalkey}.
 
-  @item @code{timeSignatureStyle}
-@cindex timeSignatureStyle@@@code{timeSignatureStyle}
- @* 
+  @item @code{timeSignatureStyle}@indexcode{timeSignatureStyle} @* 
     Changes the default two-digit layout for time signatures.  The
     following values are recognized:
 
     @table @samp
-      @item @code{C}
-@cindex C@@@code{C}
- @* 
+      @item @code{C}@indexcode{C} @* 
         4/4 and 2/2 are typeset as C and struck C, respectively.  All
         other time signatures are written with two digits.
 
-      @item @code{old}
-@cindex old@@@code{old}
- @* 
+      @item @code{old}@indexcode{old} @* 
         2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and 9/8 are
         typeset with old-style mensuration marks.  All other time
         signatures are written with two digits.
 
-      @item @code{1}
-@cindex 1@@@code{1}
- @* 
+      @item @code{1}@indexcode{1} @* 
         All time signatures are typeset with a single
         digit, e.g. 3/2 is written as 3.
 
-      @item 
-@cindex CM/N@@@code{CM/N}
-@code{C}@code{/}, 
-      
-@cindex oldM/N@@@code{oldM/N}
-@code{old}@code{/} or
-      @code{old6/8alt}
-@cindex old6/8alt@@@code{old6/8alt}
- @* 
+      @item @indexcode{CM/N}@code{C}@var{M}@code{/}@var{N}, 
+      @indexcode{oldM/N}@code{old}@var{M}@code{/}@var{N} or
+      @code{old6/8alt}@indexcode{old6/8alt} @* 
         Tells LilyPond to use a specific symbol as time signature.
     @end table
 
@@ -3292,9 +2862,7 @@ available properties.
     
 @end mudela
 
-  @item @code{voltaSpannerDuration}
-@cindex voltaSpannerDuration@@@code{voltaSpannerDuration}
- @* 
+  @item @code{voltaSpannerDuration}@indexcode{voltaSpannerDuration} @* 
     Set to an integer to control the size of the brackets printed by
     @code{\alternative}.  The integer specifies the number of whole
     notes duration to use for the brackets.  It is rounded to the
@@ -3308,21 +2876,15 @@ available properties.
 @cindex properties!GrandStaff
 
 @table @samp 
-  @item @code{alignmentReference}
-@cindex alignmentReference@@@code{alignmentReference}
- @* 
+  @item @code{alignmentReference}@indexcode{alignmentReference} @* 
     Set to @code{\center} for vertical alignment reference point to be
     in the center of the vertical group.  Set to @code{\up} to put the
     reference point at the top of the group.
 
-  @item @code{maxVerticalAlign}
-@cindex maxVerticalAlign@@@code{maxVerticalAlign}
- @* 
+  @item @code{maxVerticalAlign}@indexcode{maxVerticalAlign} @* 
     Set the maximum vertical distance between staffs.
 
-  @item @code{minVerticalAlign}
-@cindex minVerticalAlign@@@code{minVerticalAlign}
- @* 
+  @item @code{minVerticalAlign}@indexcode{minVerticalAlign} @* 
     Set the minimum vertical distance between staffs.  
 @end table
 
@@ -3330,9 +2892,7 @@ available properties.
 @cindex properties!Score
 
 @table @samp
-  @item @code{skipBars}
-@cindex skipBars@@@code{skipBars}
- @* 
+  @item @code{skipBars}@indexcode{skipBars} @* 
     Set to 1 to skip the empty bars that are produced by
     multimeasure notes and rests.  These bars will not appear on the
     printed output.  Set to zero (the default) to expand multimeasure
@@ -3354,9 +2914,7 @@ r1 r1*3 R1*3\property Score.skipBars=1 r1*3 R1*3
 @cindex properties!ChordNamesVoice
 
 @table @samp
-  @item @code{chordInversion}
-@cindex chordInversion@@@code{chordInversion}
- @* 
+  @item @code{chordInversion}@indexcode{chordInversion} @* 
     Determines whether LilyPond should look for chord inversions when
     translating from notes to chord names.  Set to 1 to find
     inversions.  The default is 0 which does not look for
@@ -3383,7 +2941,7 @@ music notation.  The syntax is
 
 @quotation
 
-  @code{\paper @{} []  @code{@}}
+  @code{\paper @{} [@var{paperidentifier}] @var{items} @code{@}}
 @end quotation
 
 where each of the items is one of
@@ -3400,14 +2958,13 @@ where each of the items is one of
 
        @quotation
 
-         @code{\shape} @code{,} @code{,}
-                      @code{,}  ... @code{;}
+         @code{\shape} @var{indent1}@code{,} @var{width1}@code{,}
+                      @var{indent2}@code{,} @var{width2} ... @code{;}
        @end quotation
 
-       
-@cindex shape@@@code{\shape}
+       @keyindex{shape}
 
-       Each pair of  and  values is a dimension
+       Each pair of @var{indent} and @var{width} values is a dimension
        specifying how far to indent and how wide to make the line. 
        The indentation and width of successive lines are specified by
        the successive pairs of dimensions.  The last pair of
@@ -3418,13 +2975,11 @@ where each of the items is one of
 
        @quotation
 
-          @code{=} @code{\font}
-@cindex font@@@code{\font}
- 
+         @var{fontsize} @code{=} @code{\font}@keyindex{font} @var{fontname}
        @end quotation
 
-        is an integer describing the font to be used. 
-       0 is the default font.   is the basename of
+       @var{fontsize} is an integer describing the font to be used. 
+       0 is the default font.  @var{fontname} is the basename of
        a font (usually a member of the Feta family).
 @end itemize
 
@@ -3445,9 +3000,7 @@ any of these files, the identifiers @code{paper_eleven},
 respectively.  The default @code{\paper} block is also set.
 
 To change the paper size, you must first set the
-@code{papersize}
-@cindex papersize@@@code{papersize}
- variable at top level.  Set it to the strings
+@code{papersize}@indexcode{papersize} variable at top level.  Set it to the strings
 @code{a4}, @code{letter}, or @code{legal}.  After this specification,
 you must set the font as described above.  If you want the default
 font, then use the 20 point font.  The new paper size will not
@@ -3474,46 +3027,30 @@ height in points.
 Nevertheless, here are some variables you may want to use or change:
 
 @table @samp
-  @item @code{indent}
-@cindex indent@@@code{indent}
- @* 
+  @item @code{indent}@indexcode{indent} @* 
     The indentation of the first line of music.
 
-  @item @code{interline}
-@cindex interline@@@code{interline}
- @* 
+  @item @code{interline}@indexcode{interline} @* 
     The distance between two staff lines, calculated from the center
     of the lines.  You should use either this or @code{rulethickness}
     as a unit for distances you modify.
   
-  @item @code{linewidth}
-@cindex linewidth@@@code{linewidth}
- @* 
+  @item @code{linewidth}@indexcode{linewidth} @* 
     Sets the width of the lines.  If set to -1.0, a single
     unjustified line is produced.
 
-  @item @code{output}
-@cindex output@@@code{output}
- @* 
+  @item @code{output}@indexcode{output} @* 
     Specifies an alternate name for the the output @file{s}.
     A @file{.tex}, @file{.midi} or @file{.ps} extension will be 
     added to the string you specify.
 
-  @item @code{rulethickness}
-@cindex rulethickness@@@code{rulethickness}
- @* 
+  @item @code{rulethickness}@indexcode{rulethickness} @* 
     Determines the thickness of staff and bar lines. 
 
-  @item @code{castingalgorithm}
-@cindex castingalgorithm@@@code{castingalgorithm}
- @* 
+  @item @code{castingalgorithm}@indexcode{castingalgorithm} @* 
     The algorithm to use for breaking lines.  Choices are
-    @code{\Gourlay}
-@cindex Gourlay@@@code{\Gourlay}
- for a TeX-like dynamic
-    programming algorithm, and @code{\Wordwrap}
-@cindex Wordwrap@@@code{\Wordwrap}
- for
+    @code{\Gourlay}@keyindex{Gourlay} for a TeX-like dynamic
+    programming algorithm, and @code{\Wordwrap}@keyindex{Wordwrap} for
     a simple algorithm.  Gourlay breaking looks much better, but
     takes a lot more resources.  Wordwrap leaves loosely spaced lines
     at the end.
@@ -3549,51 +3086,45 @@ A context definition has this syntax:
 @quotation
 
   @code{\translator} @code{@{}
-                       
+                      @var{translatorinit} @var{translatormodifierlist}
                     @code{@}}
 @end quotation
 
- can be an identifier or of the form
+@var{translatorinit} can be an identifier or of the form
 
 @quotation
 
-  @code{\type}  @code{;}
+  @code{\type} @var{typename} @code{;}
 @end quotation
 
- is one of
+@var{typename} is one of
 
 @table @samp
-  @item @code{Engraver_group_engraver}
-@cindex Engraver_group_engraver@@@code{Engraver_group_engraver}
- @* 
+  @item @code{Engraver_group_engraver}@indexcode{Engraver_group_engraver} @* 
     The standard cooperation engraver.
 
-  @item @code{Score_engraver}
-@cindex Score_engraver@@@code{Score_engraver}
- @* 
+  @item @code{Score_engraver}@indexcode{Score_engraver} @* 
     This is cooperation module that should be in the top level context.
 
-  @item @code{Grace_engraver_group}
-@cindex Grace_engraver_group@@@code{Grace_engraver_group}
- @* 
+  @item @code{Grace_engraver_group}@indexcode{Grace_engraver_group} @* 
     This is a special cooperation module (resembling
     @code{Score_engraver}) that is used to created an embedded
     `miniscore'.
 @end table 
 
- is a list of items where each item is
+@var{translatormodifierlist} is a list of items where each item is
 one of
 
 @itemize @bullet
-  @item  @code{\consists}  @code{;} @* 
-    Add  to the list of modules in this context. 
+  @item  @code{\consists} @var{engravername} @code{;} @* 
+    Add @var{engravername} to the list of modules in this context. 
     Section @xref{engravers} contains an overview of the engravers
     available.  The order of engravers added with @code{\consists} is
     significant.
   
-  @item  @code{\consistsend}  @code{;} @* 
+  @item  @code{\consistsend} @var{engravername} @code{;} @* 
     Analogous to @code{\consists}, but makes sure that
-     is always added to the end of the list of
+    @var{engravername} is always added to the end of the list of
     engravers.
 
     Some engraver types need to be at the end of the list; this
@@ -3601,21 +3132,21 @@ one of
     removes engravers.  This command is usually not needed for
     end-users.
     
-  @item  @code{\accepts}  @code{;} @* 
-    Add  to the list of  context this context can
+  @item  @code{\accepts} @var{contextname} @code{;} @* 
+    Add @var{contextname} to the list of  context this context can
     contain.  The first listed context the context to create by
     default.
   
-  @item  @code{\remove}  @code{;} @* 
+  @item  @code{\remove} @var{engravername} @code{;} @* 
     Remove a previously added (with @code{\consists}) engraver.
   
-  @item  @code{\name}  @code{;} @* 
+  @item  @code{\name} @var{contextname} @code{;} @* 
     This sets name of the context, e.g. @code{Staff}, @code{Voice}.  If
     the name is not specified, the translator won't do anything.
 
-  @item   @code{=}  @code{;} @* 
+  @item  @var{propname} @code{=} @var{value} @code{;} @* 
     A property assignment.  It is allowed to use reals for
-    .
+    @var{value}.
 @end itemize
 
 In the @code{\paper} block, it is also possible to define translator
@@ -3648,49 +3179,32 @@ Some pre-defined identifiers can simplify modification of
 translators.  The pre-defined identifiers are:
 
 @table @samp
-  @item @code{StaffContext}
-@cindex StaffContext@@@code{StaffContext}
- @* 
+  @item @code{StaffContext}@indexcode{StaffContext} @* 
     Default Staff context. 
 
-  @item @code{RhythmicStaffContext}
-@cindex RhythmicStaffContext@@@code{RhythmicStaffContext}
- @* 
+  @item @code{RhythmicStaffContext}@indexcode{RhythmicStaffContext} @* 
     Default RhythmicStaff context. 
 
-  @item @code{VoiceContext}
-@cindex VoiceContext@@@code{VoiceContext}
- @* 
+  @item @code{VoiceContext}@indexcode{VoiceContext} @* 
     Default Voice context.  
 
-  @item @code{ScoreContext}
-@cindex ScoreContext@@@code{ScoreContext}
- @* 
+  @item @code{ScoreContext}@indexcode{ScoreContext} @* 
     Default Score context. 
 
-  @item @code{ScoreWithNumbers}
-@cindex ScoreWithNumbers@@@code{ScoreWithNumbers}
- @* 
+  @item @code{ScoreWithNumbers}@indexcode{ScoreWithNumbers} @* 
     Score context with numbering at the Score level.
 
-  @item @code{BarNumberingStaffContext}
-@cindex BarNumberingStaffContext@@@code{BarNumberingStaffContext}
- @* 
+  @item @code{BarNumberingStaffContext}@indexcode{BarNumberingStaffContext} @* 
     Staff context with numbering at the Staff level.
 
-  @item @code{HaraKiriStaffContext}
-@cindex HaraKiriStaffContext@@@code{HaraKiriStaffContext}
- @* 
+  @item @code{HaraKiriStaffContext}@indexcode{HaraKiriStaffContext} @* 
     Staff context that does not print if it only contains rests. 
     Useful for orchestral scores.@footnote{Harakiri, also called
     Seppuku, is the ritual suicide of the Samourai.}
 
-  @item @code{OrchestralPartStaffContext}
-@cindex OrchestralPartStaffContext@@@code{OrchestralPartStaffContext}
+  @item @code{OrchestralPartStaffContext}@indexcode{OrchestralPartStaffContext}
 
-  @item @code{OrchestralScoreContext}
-@cindex OrchestralScoreContext@@@code{OrchestralScoreContext}
-
+  @item @code{OrchestralScoreContext}@indexcode{OrchestralScoreContext}
 @end table
 
 Using these pre-defined values, you can remove or add items to the
@@ -3719,193 +3233,130 @@ The engravers for paper output are:
 [incomplete, FIXME]
 
 @table @samp
-  @item @code{Bar_engraver}
-@cindex Bar_engraver@@@code{Bar_engraver}
- @* 
+  @item @code{Bar_engraver}@indexcode{Bar_engraver} @* 
     Engraves bar lines.  Normally in @code{Staff} and
     @code{RhythmicStaff}.
 
-  @item @code{Bar_number_engraver}
-@cindex Bar_number_engraver@@@code{Bar_number_engraver}
- @* 
+  @item @code{Bar_number_engraver}@indexcode{Bar_number_engraver} @* 
     Engrave bar numbers.  These numbers appear at the start of each
     line.  Not normally in any translator.  Can be added to
     @code{Score} for score-wide numbering or to @code{Staff} for
     numbering on each staff.
 
-  @item @code{Beam_engraver}
-@cindex Beam_engraver@@@code{Beam_engraver}
- @* 
+  @item @code{Beam_engraver}@indexcode{Beam_engraver} @* 
     Handles beam requests by engraving beams.  Normally appears in
     the @code{Voice} translator.  If omitted, then notes will be
     printed with flags instead of beams.
 
   @item @code{Beam_req_swallow_translator}
-    
-@cindex Beam_req_swallow_translator@@@code{Beam_req_swallow_translator}
- @* 
+    @indexcode{Beam_req_swallow_translator} @* 
     Swallows beam requests.  In @code{LyricVoice}.  
 
-  @item @code{Chord_name_engraver}
-@cindex Chord_name_engraver@@@code{Chord_name_engraver}
- @* 
+  @item @code{Chord_name_engraver}@indexcode{Chord_name_engraver} @* 
     Engraves chord names.  Normally in @code{ChordNameVoice} .
 
-  @item @code{Chord_tremolo_engraver}
-@cindex Chord_tremolo_engraver@@@code{Chord_tremolo_engraver}
+  @item @code{Chord_tremolo_engraver}@indexcode{Chord_tremolo_engraver}
 
-  @item @code{Clef_engraver}
-@cindex Clef_engraver@@@code{Clef_engraver}
- @* 
+  @item @code{Clef_engraver}@indexcode{Clef_engraver} @* 
     Engraves the clef symbol.  Normally in @code{Staff}.
 
-  @item @code{Collision_engraver}
-@cindex Collision_engraver@@@code{Collision_engraver}
+  @item @code{Collision_engraver}@indexcode{Collision_engraver}
 
-  @item @code{Dot_column_engraver}
-@cindex Dot_column_engraver@@@code{Dot_column_engraver}
- @* 
+  @item @code{Dot_column_engraver}@indexcode{Dot_column_engraver} @* 
     Engraves dots on dotted notes shifted to the right of the note. 
     Normally in @code{Voice}.  If omitted, then dots appear on top of
     the notes.
 
-  @item @code{Dynamic_engraver}
-@cindex Dynamic_engraver@@@code{Dynamic_engraver}
- @* 
+  @item @code{Dynamic_engraver}@indexcode{Dynamic_engraver} @* 
     Engraves dynamics symbols.  Normally in @code{Voice}.
 
-  @item @code{Font_size_engraver}
-@cindex Font_size_engraver@@@code{Font_size_engraver}
+  @item @code{Font_size_engraver}@indexcode{Font_size_engraver}
 
-  @item @code{Key_engraver}
-@cindex Key_engraver@@@code{Key_engraver}
- @* 
+  @item @code{Key_engraver}@indexcode{Key_engraver} @* 
     Engraves the key signature.  Normally in @code{Staff}.
 
-  @item @code{Local_key_engraver}
-@cindex Local_key_engraver@@@code{Local_key_engraver}
+  @item @code{Local_key_engraver}@indexcode{Local_key_engraver}
 
-  @item @code{Lyric_engraver}
-@cindex Lyric_engraver@@@code{Lyric_engraver}
- @* 
+  @item @code{Lyric_engraver}@indexcode{Lyric_engraver} @* 
     Engraves lyrics.  Normally in @code{LyricVoice}.
 
   @item @code{Multi_measure_rest_engraver}
-    
-@cindex Multi_measure_rest_engraver@@@code{Multi_measure_rest_engraver}
- @* 
+    @indexcode{Multi_measure_rest_engraver} @* 
     Engraves multi-measure rests that are produced with @code{R}. 
     Normally in @code{Voice}.
 
-  @item @code{Piano_bar_engraver}
-@cindex Piano_bar_engraver@@@code{Piano_bar_engraver}
+  @item @code{Piano_bar_engraver}@indexcode{Piano_bar_engraver}
 
-  @item @code{Pitch_squash_engraver}
-@cindex Pitch_squash_engraver@@@code{Pitch_squash_engraver}
- @* 
+  @item @code{Pitch_squash_engraver}@indexcode{Pitch_squash_engraver} @* 
     Treat all pitches as middle C.  Used in @code{RhythmicStaff}. 
     Note that the notes move, but the locations of accidentals stay
     the same.
 
   @item @code{Priority_horizontal_align_engraver}
-    
-@cindex Priority_horizontal_align_engraver@@@code{Priority_horizontal_align_engraver}
+    @indexcode{Priority_horizontal_align_engraver}
 
-  @item @code{Repeat_engraver}
-@cindex Repeat_engraver@@@code{Repeat_engraver}
- @* 
+  @item @code{Repeat_engraver}@indexcode{Repeat_engraver} @* 
     Handles repeats?  In @code{Staff} and @code{RhythmicStaff}.
 
-  @item @code{Rest_collision_engraver}
-@cindex Rest_collision_engraver@@@code{Rest_collision_engraver}
- @* 
+  @item @code{Rest_collision_engraver}@indexcode{Rest_collision_engraver} @* 
     Handles collisions of rests.  In @code{Staff}.
 
-  @item @code{Rest_engraver}
-@cindex Rest_engraver@@@code{Rest_engraver}
- @* 
+  @item @code{Rest_engraver}@indexcode{Rest_engraver} @* 
     Engraves rests.  Normally in @code{Voice}.
 
-  @item @code{Rhythmic_column_engraver}
-@cindex Rhythmic_column_engraver@@@code{Rhythmic_column_engraver}
+  @item @code{Rhythmic_column_engraver}@indexcode{Rhythmic_column_engraver}
 
-  @item @code{Score_priority_engraver}
-@cindex Score_priority_engraver@@@code{Score_priority_engraver}
+  @item @code{Score_priority_engraver}@indexcode{Score_priority_engraver}
 
-  @item @code{Script_engraver}
-@cindex Script_engraver@@@code{Script_engraver}
- @* 
+  @item @code{Script_engraver}@indexcode{Script_engraver} @* 
     Handles note ornaments generated by @code{\script}.  Normally in
     @code{Voice}.
 
   @item @code{Separating_line_group_engraver}
-    
-@cindex Separating_line_group_engraver@@@code{Separating_line_group_engraver}
+    @indexcode{Separating_line_group_engraver}
 
   @item @code{Skip_req_swallow_translator}
-    
-@cindex Skip_req_swallow_translator@@@code{Skip_req_swallow_translator}
+    @indexcode{Skip_req_swallow_translator}
 
-  @item @code{Slur_engraver}
-@cindex Slur_engraver@@@code{Slur_engraver}
- @* 
+  @item @code{Slur_engraver}@indexcode{Slur_engraver} @* 
     Engraves slurs.  Normally in @code{Voice}.
 
-  @item @code{Span_bar_engraver}
-@cindex Span_bar_engraver@@@code{Span_bar_engraver}
- @* 
+  @item @code{Span_bar_engraver}@indexcode{Span_bar_engraver} @* 
     Engraves lines across multiple staffs.  Normally in
     @code{Staffgroup} and @code{GrandStaff}.  Removing this from
     @code{StaffGroup} gives the definition of @code{ChoirStaff}.
 
-  @item @code{Span_score_bar_engraver}
-@cindex Span_score_bar_engraver@@@code{Span_score_bar_engraver}
+  @item @code{Span_score_bar_engraver}@indexcode{Span_score_bar_engraver}
 
-  @item @code{Staff_group_bar_engraver}
-@cindex Staff_group_bar_engraver@@@code{Staff_group_bar_engraver}
+  @item @code{Staff_group_bar_engraver}@indexcode{Staff_group_bar_engraver}
 
-  @item @code{Staff_margin_engraver}
-@cindex Staff_margin_engraver@@@code{Staff_margin_engraver}
- @* 
+  @item @code{Staff_margin_engraver}@indexcode{Staff_margin_engraver} @* 
     Prints the name of the instrument (specified by
     @code{Staff.instrument} and @code{Staff.instr}) at the left of the
     staff.
 
-  @item @code{Staff_sym_engraver}
-@cindex Staff_sym_engraver@@@code{Staff_sym_engraver}
+  @item @code{Staff_sym_engraver}@indexcode{Staff_sym_engraver}
 
-  @item @code{Stem_engraver}
-@cindex Stem_engraver@@@code{Stem_engraver}
- @* 
+  @item @code{Stem_engraver}@indexcode{Stem_engraver} @* 
     Engraves stems.  Normally in @code{Voice}.
 
-  @item @code{Ties_engraver}
-@cindex Ties_engraver@@@code{Ties_engraver}
- @* 
+  @item @code{Ties_engraver}@indexcode{Ties_engraver} @* 
     Engraves ties.  Normally in @code{Voice}.
 
-  @item @code{Time_signature_engraver}
-@cindex Time_signature_engraver@@@code{Time_signature_engraver}
- @* 
+  @item @code{Time_signature_engraver}@indexcode{Time_signature_engraver} @* 
     Engraves the time signature.  Normally in @code{Staff} and
     @code{RhythmicStaff}.
 
-  @item @code{Timing_engraver}
-@cindex Timing_engraver@@@code{Timing_engraver}
- @* 
+  @item @code{Timing_engraver}@indexcode{Timing_engraver} @* 
     Responsible for synchronizing timing information from staffs. 
     Normally in @code{Score}.  In order to create polyrhythmic music,
     this engraver should be removed from @code{Score} and placed in
     @code{Staff}.
 
-  @item @code{Tuplet_engraver}
-@cindex Tuplet_engraver@@@code{Tuplet_engraver}
- @* 
+  @item @code{Tuplet_engraver}@indexcode{Tuplet_engraver} @* 
     Engraves tuplet brackets?  In @code{Staff}.
 
-  @item @code{Vertical_align_engraver}
-@cindex Vertical_align_engraver@@@code{Vertical_align_engraver}
- 
+  @item @code{Vertical_align_engraver}@indexcode{Vertical_align_engraver} 
 @end table
 
 
@@ -3941,12 +3392,8 @@ The contexts for MIDI output are defined in @file{ly/performer.ly}.
 @node midilist, Pre-defined Identifiers, Sound output, LilyPond 1-2-0 Reference Manual
 
 The MIDI instrument name is set by the
-@code{Staff.midiInstrument}
-@cindex Staff.midiInstrument@@@code{Staff.midiInstrument}
- property or, if that property is
-not set, the @code{Staff.instrument}
-@cindex Staff.instrument@@@code{Staff.instrument}
- property.  The instrument
+@code{Staff.midiInstrument}@indexcode{Staff.midiInstrument} property or, if that property is
+not set, the @code{Staff.instrument}@indexcode{Staff.instrument} property.  The instrument
 name should be chosen from the following list.  If the selected
 string does not exactly match, then LilyPond uses the default piano.
 
@@ -4007,35 +3454,19 @@ string does not exactly match, then LilyPond uses the default piano.
 The types available for  MIDI translators are:
 
 @table @samp
-  @item @code{Performer_group_performer}
-@cindex Performer_group_performer@@@code{Performer_group_performer}
-
-  @item @code{Score_performer}
-@cindex Score_performer@@@code{Score_performer}
-
-  @item @code{Staff_performer}
-@cindex Staff_performer@@@code{Staff_performer}
-
+  @item @code{Performer_group_performer}@indexcode{Performer_group_performer}
+  @item @code{Score_performer}@indexcode{Score_performer}
+  @item @code{Staff_performer}@indexcode{Staff_performer}
 @end table
 
 The performers for MIDI translators are:
 
 @table @samp
-  @item @code{Key_performer}
-@cindex Key_performer@@@code{Key_performer}
-
-  @item @code{Time_signature_performer}
-@cindex Time_signature_performer@@@code{Time_signature_performer}
-
-  @item @code{Note_performer}
-@cindex Note_performer@@@code{Note_performer}
-
-  @item @code{Lyric_performer}
-@cindex Lyric_performer@@@code{Lyric_performer}
-
-  @item @code{Swallow_performer}
-@cindex Swallow_performer@@@code{Swallow_performer}
-
+  @item @code{Key_performer}@indexcode{Key_performer}
+  @item @code{Time_signature_performer}@indexcode{Time_signature_performer}
+  @item @code{Note_performer}@indexcode{Note_performer}
+  @item @code{Lyric_performer}@indexcode{Lyric_performer}
+  @item @code{Swallow_performer}@indexcode{Swallow_performer}
 @end table
 
 
@@ -4052,128 +3483,86 @@ provide shorthands for some settings.  Most of them are in
 @file{ly/declarations.ly}.
 
 @table @samp
-  @item @code{\break}
-@cindex break@@@code{\break}
- @* 
+  @item @code{\break}@keyindex{break} @* 
     Force a line break in music by using a large argument for the
     keyword @code{\penalty}.
 
-  @item @code{\center}
-@cindex center@@@code{\center}
- @* 
+  @item @code{\center}@keyindex{center} @* 
     Used for setting direction  properties.  Equals 0.
 
-  @item @code{\down}
-@cindex down@@@code{\down}
- @* 
+  @item @code{\down}@keyindex{down} @* 
     Used for setting direction setting properties.  Is equal
     to -1.
 
-  @item @code{\free}
-@cindex free@@@code{\free}
- @* 
+  @item @code{\free}@keyindex{free} @* 
     Used for setting direction setting properties.  Is equal
     to 0.
 
-  @item @code{\left}
-@cindex left@@@code{\left}
- @* 
+  @item @code{\left}@keyindex{left} @* 
     Used for setting text alignment property.  Is equal to -1.
 
-  @item @code{\nobreak}
-@cindex nobreak@@@code{\nobreak}
- @* 
+  @item @code{\nobreak}@keyindex{nobreak} @* 
     Prevent a line break in music by using a large negative argument
     for the keyword @code{\penalty}.
 
-  @item @code{\none}
-@cindex none@@@code{\none}
- @* 
+  @item @code{\none}@keyindex{none} @* 
     Used for setting @code{Score.beamslopedamping} and
     @code{Score.beamquantisation} properties.  Is equal to 0.
 
-  @item @code{\normal}
-@cindex normal@@@code{\normal}
- @* 
+  @item @code{\normal}@keyindex{normal} @* 
     Used for setting @code{Score.beamslopedamping} and
     @code{Score.beamquantisation} properties.  Is equal to 1.
 
-  @item @code{\normalkey}
-@cindex normalkey@@@code{\normalkey}
- @* 
+  @item @code{\normalkey}@keyindex{normalkey} @* 
     Select normal key signatures where each octave has the same key
     signature.  This sets the @code{Staff.keyoctaviation} property.
 
-  @item @code{\right}
-@cindex right@@@code{\right}
- @* 
+  @item @code{\right}@keyindex{right} @* 
     Used for setting text alignment property.  Is set to 1.
 
-  @item @code{\shiftoff}
-@cindex shiftoff@@@code{\shiftoff}
- @* 
+  @item @code{\shiftoff}@keyindex{shiftoff} @* 
     Disable horizontal shifting of note heads that collide.  Sets the
     @code{Voice.horizontalNoteShift} property.
 
-  @item @code{\shifton}
-@cindex shifton@@@code{\shifton}
- @* 
+  @item @code{\shifton}@keyindex{shifton} @* 
     Enable note heads that collide with other note heads to be
     shifted horiztonally.  Sets the @code{Voice.horizontalNoteShift}
     property.
 
-  @item @code{\slurboth}
-@cindex slurboth@@@code{\slurboth}
- @* 
+  @item @code{\slurboth}@keyindex{slurboth} @* 
     Allow slurs to be above or below notes.  This sets the
     @code{Voice.slurVerticalDirection} property.
 
-  @item @code{\slurdown}
-@cindex slurdown@@@code{\slurdown}
- @* 
+  @item @code{\slurdown}@keyindex{slurdown} @* 
     Force slurs to be below notes.  This sets the
     @code{Voice.slurVerticalDirection} property.
 
-  @item @code{\slurup}
-@cindex slurup@@@code{\slurup}
- @* 
+  @item @code{\slurup}@keyindex{slurup} @* 
     Force slurs to be above notes.  This sets the
     @code{Voice.slurVerticalDirection} property.
 
-  @item @code{\specialkey}
-@cindex specialkey@@@code{\specialkey}
- @* 
+  @item @code{\specialkey}@keyindex{specialkey} @* 
     Allow key signatures do differ in different octaves.  This sets
     the @code{Staff.keyoctaviation} property.
 
-  @item @code{\stemboth}
-@cindex stemboth@@@code{\stemboth}
- @* 
+  @item @code{\stemboth}@keyindex{stemboth} @* 
     Allow stems, beams, and slurs to point either upwards or
     downwards, decided automatically by LilyPond.  This sets the
     @code{Voice.verticalDirection} property.
 
-  @item @code{\stemdown}
-@cindex stemdown@@@code{\stemdown}
- @* 
+  @item @code{\stemdown}@keyindex{stemdown} @* 
     Force stems, beams, and slurs to point down.  This sets the
     @code{Voice.verticalDirection} property.
 
-  @item @code{\stemup}
-@cindex stemup@@@code{\stemup}
- @* 
+  @item @code{\stemup}@keyindex{stemup} @* 
     Force stems, beams and slurs to point up.  This sets the
     @code{Voice.verticalDirection} property.
 
-  @item @code{\traditional}
-@cindex traditional@@@code{\traditional}
- @* 
+  @item @code{\traditional}@keyindex{traditional} @* 
     Used for setting the @code{Score.beamquantisation} property.  Is
     equal to 2.
 
-  @item @code{\up}
-@cindex up@@@code{\up}
- @* 
+  @item @code{\up}@keyindex{up} @* 
     Used for setting various direction properties.  Is equal
     to 1.
 @end table
@@ -4209,10 +3598,10 @@ finally `@file{.sly}' extension.  If the filename ends with
 The result of `@file{.sly}' is similar except that a single unjustified
 line is produced.
 
-If you invoke LilyPond with a file `@file{foo.}' that doesn't
+If you invoke LilyPond with a file `@file{foo.}@var{ext}' that doesn't
 have the `@file{.ly}' extension, then LilyPond will look for a file
-called `@file{init.}' and process this file.  The file
-`@file{init.}' must contain the @code{\maininput} keyword or
+called `@file{init.}@var{ext}' and process this file.  The file
+`@file{init.}@var{ext}' must contain the @code{\maininput} keyword or
 LilyPond will not read the user specified file.
 
 When LilyPond processes @file{filename.ly} it will produce
