@@ -103,13 +103,14 @@ prebuild () {
 	cp -pv mf/out-for-build/* mf/out
     fi
 
-    EXTRABUILDARGS="LDFLAGS=$cygwin_root/usr/bin/libpython2.3.dll"
-
     # set LDFLAGS to find the python library
-    # addmakeflags LDFLAGS="$cygwin_root/usr/bin/libpython2.3.dll" ' ' "target=i686-pc-cygwin" ' '
+    # EXTRABUILDARGS="LDFLAGS=$cygwin_root/usr/bin/libpython2.3.dll"
+
+    addmakeflags LDFLAGS="$cygwin_root/usr/bin/libpython2.3.dll" ' ' "target=i686-pc-cygwin" ' '
 
     if iscygwin; then
-	EXTRABUILDARGS="$EXTRABUILDARGS all doc web"
+	# EXTRABUILDARGS="$EXTRABUILDARGS all doc web"
+	addmakeflags all ' ' doc ' ' web ' '
     fi
 }
 
@@ -121,7 +122,8 @@ preinstall () {
 #	EXTRAINSTALLARGS="target=i686-pc-cygwin"
 #    else
     if iscygwin; then
-	EXTRAINSTALLARGS="web-install target=i686-pc-cygwin"
+	#EXTRAINSTALLARGS="web-install target=i686-pc-cygwin"
+	addmakeflags web-install
     fi
 }
 

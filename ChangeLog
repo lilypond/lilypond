@@ -1,5 +1,13 @@
 2003-09-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* cygwin/mknetrel: Next try in building doc on Cygwin natively;
+	use addmakeflags again.
+
+	* cygwin/lily-wins.py (escape_shell): New function; use it.
+
+	* scripts/lilypond.py (escape_shell): Escape quotes and other
+	spaces too.  Do not escape escaping backslashes.
+
 	* make/srcdir.make.in (web-install): Must call install-WWW now.
 
 	* mf/GNUmakefile: resolve conflict: %list.ly is a target, not a

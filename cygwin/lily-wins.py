@@ -29,6 +29,10 @@ def strip_extension (f, ext):
 		e = ''
 	return p + e
 
+def escape_shell (x):
+	return re.sub (r'''([^\\])([`'"\\\s])''', r'\1\\\2', x)
+	# help emacs'" broken python mode
+	
 debug (`sys.argv`)
 
 if len (sys.argv) != 2 \
@@ -38,7 +42,7 @@ if len (sys.argv) != 2 \
 	
 native_file = sys.argv[1]
 	
-file = read_pipe ("/usr/bin/cygpath -au '%(native_file)s'" % vars ())
+file = read_pipe ('/usr/bin/cygpath -au %s' % escape_shell (native_file))
 if not file:
 	file = native_file
 
@@ -51,12 +55,14 @@ base = os.path.basename (file)
 stem = strip_extension (base, '.ly')
 print `vars ()`
 
-native_base = read_pipe ('/usr/bin/cygpath -aw %(dir)s/%(stem)s' % vars ())
+native_base = '%(dir)s/%(stem)s' % vars ()
+native_base = read_pipe ('/usr/bin/cygpath -aw %s' % escape_shell (native_base))
+			 
 if not native_base:
 	native_base = '%(dir)s/%(stem)s' % vars ()
 
 pdfname = read_pipe ('/usr/bin/regtool get /root/.pdf/')
-pdfopencommand = read_pipe ("/usr/bin/regtool get '/root/%(pdfname)s/shell/open/command/'" % vars ())
+pdfopencommand = read_pipe ('/usr/bin/regtool get /root/%s/shell/open/command/' % escape_shell (pdfname))
 
 # hmm
 native_view = re.sub ('"([^"]*).*"', '\\1', pdfopencommand)
@@ -64,16 +70,17 @@ if not native_view:
 	native_view = 'acrobat'
 	
 if native_view:
-	pdfview = read_pipe ("/usr/bin/cygpath -au '%(native_view)s'" % vars ())
+	pdfview = read_pipe ('/usr/bin/cygpath -au %s' % escape_shell (native_view))
 if not pdfview:
 	# message box?
 	sys.stderr.write ('no pdf viewer found\n')
 	pdfview = 'xpdf'
 
 os.chdir (dir)
-system ("/usr/bin/lilypond '%(base)s' > '%(stem)s.log' 2>&1" % vars ())
+system ('/usr/bin/lilypond %s > %s.log 2>&1' % (escape_shell (base),
+						escape_shell (stem)))
 if not os.path.exists ('%(stem)s.pdf' % vars ()):
 	# message box?
 	sys.stderr.write ('pdf output not found\n')
 
-system ("'%(pdfview)s' '%(native_base)s.pdf'" % vars ())
+system ('%s %s.pdf' % (escape_shell (pdfview), escape_shell (native_base)))
