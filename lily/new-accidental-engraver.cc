@@ -552,6 +552,7 @@ events.  Due to interaction with ties (which don't come together
 with note heads), this needs to be in a context higher than Tie_engraver.",
 		   
 	       "Accidental",
+/* accepts */     "general-music",
 	       "rhythmic-head-interface tie-interface arpeggio-interface",
 	       "localKeySignature localKeySignatureChanges extraNatural autoAccidentals autoCautionaries",
 		   "localKeySignature localKeySignatureChanges");
