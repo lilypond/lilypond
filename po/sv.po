@@ -1,26 +1,23 @@
 # Swedish translation of lilypond
-# Copyright (C) 2001 Free Software Foundation, Inc.
-# Martin Norbäck <d95mback@dtek.chalmers.se>, 2001.
+# Copyright (C) 2001, 2002 Free Software Foundation, Inc.
+# Martin Norbäck <d95mback@dtek.chalmers.se>, 2001, 2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 1.4.8\n"
+"Project-Id-Version: lilypond 1.4.12\n"
 "POT-Creation-Date: 2002-01-29 23:12+0100\n"
-"PO-Revision-Date: 2001-09-29 11:20+0200\n"
+"PO-Revision-Date: 2002-06-04 09:26+0200\n"
 "Last-Translator: Martin Norbäck <d95mback@dtek.chalmers.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data-file.cc:118 input.cc:85 ly2dvi.py:112 midi-parser.cc:100 mup2ly.py:93
-#: update-lily.py:118 warn.cc:23
+#: data-file.cc:118 input.cc:85 ly2dvi.py:112 midi-parser.cc:100 mup2ly.py:93 update-lily.py:118 warn.cc:23
 msgid "warning: "
 msgstr "varning: "
 
-#: input.cc:90 ly2dvi.py:115 ly2dvi.py:131 ly2dvi.py:682 ly2dvi.py:700
-#: mup2ly.py:98 mup2ly.py:188 update-lily.py:123 update-lily.py:211 warn.cc:9
-#: warn.cc:17
+#: input.cc:90 ly2dvi.py:115 ly2dvi.py:131 ly2dvi.py:682 ly2dvi.py:700 mup2ly.py:98 mup2ly.py:188 update-lily.py:123 update-lily.py:211 warn.cc:9 warn.cc:17
 msgid "error: "
 msgstr "fel: "
 
@@ -172,9 +169,9 @@ msgid "getopt says: `%s'"
 msgstr "getopt säger: \"%s\""
 
 #: ly2dvi.py:811
-#, fuzzy, c-format
+#, c-format
 msgid "filename should not contain spaces: `%s'"
-msgstr "Innehåller redan: \"%s\""
+msgstr "filnamnet får inte innehålla mellanslag: \"%s\""
 
 # här är det fråga om skrivning till en fil
 #: ly2dvi.py:876 scores.cc:44
@@ -189,8 +186,7 @@ msgstr "beroenden skrivna till \"%s\"..."
 msgid "%s output to `%s'..."
 msgstr "%s skrivet till \"%s\"..."
 
-#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:889
-#: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:889 midi-score-parser.cc:24 scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "kan inte hitta fil: \"%s\""
@@ -359,8 +355,7 @@ msgstr "okänd position"
 msgid "can't map file"
 msgstr "kan inte göra \"mmap\" på filen"
 
-#: lilypond-stream.cc:112 mapped-file-storage.cc:87 paper-stream.cc:45
-#: scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
+#: lilypond-stream.cc:112 mapped-file-storage.cc:87 paper-stream.cc:45 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
 #, c-format
 msgid "can't open file: `%s'"
 msgstr "kan inte öppna fil: \"%s\""
@@ -408,12 +403,8 @@ msgid "does not match: `%s'"
 msgstr "matchar inte: \"%s\""
 
 #: all-font-metrics.cc:102
-msgid ""
-" Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V "
-"to show font paths."
-msgstr ""
-" Bygg om alla .afm-filer, och ta bort alla .pk- och .tfm-filer. Kör igen med "
-"-V för att visa typsnittssökvägar."
+msgid " Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V to show font paths."
+msgstr " Bygg om alla .afm-filer, och ta bort alla .pk- och .tfm-filer. Kör igen med -V för att visa typsnittssökvägar."
 
 #: all-font-metrics.cc:167
 #, c-format
@@ -438,8 +429,7 @@ msgstr "(sökväg: \"%s\")"
 msgid "Giving up"
 msgstr "Ger upp"
 
-#: auto-change-iterator.cc:43 change-iterator.cc:59
-#: part-combine-music-iterator.cc:97
+#: auto-change-iterator.cc:43 change-iterator.cc:59 part-combine-music-iterator.cc:97
 msgid "Can't switch translators, I'm there already"
 msgstr "Kan inte byta översättare, jag är redan där"
 
@@ -553,9 +543,7 @@ msgstr "oavslutad utökare"
 
 #: extender-engraver.cc:109
 msgid "Nothing to connect extender to on the left.  Ignoring extender request."
-msgstr ""
-"Det finns inget att koppla utökaren mot till vänster. Ignorerar "
-"utökarförfrågan"
+msgstr "Det finns inget att koppla utökaren mot till vänster. Ignorerar utökarförfrågan"
 
 #: folded-repeat-iterator.cc:78
 msgid "no one to print a repeat brace"
@@ -591,9 +579,7 @@ msgstr "oavslutat bindestreck"
 
 #: hyphen-engraver.cc:102
 msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen request."
-msgstr ""
-"Det finns inget att koppla bindestrecket mot till vänster. Ignorerar "
-"bindestrecksförfrågan."
+msgstr "Det finns inget att koppla bindestrecket mot till vänster. Ignorerar bindestrecksförfrågan."
 
 #: key-engraver.cc:99
 msgid "Conflicting key signatures found."
@@ -900,8 +886,7 @@ msgstr "oavslutad fraseringsbåge"
 msgid "can't find start of phrasing slur"
 msgstr "kan inte hitta start på fraseringsbåge"
 
-#: piano-pedal-engraver.cc:142 piano-pedal-engraver.cc:154
-#: piano-pedal-performer.cc:86
+#: piano-pedal-engraver.cc:142 piano-pedal-engraver.cc:154 piano-pedal-performer.cc:86
 #, c-format
 msgid "can't find start of piano pedal: `%s'"
 msgstr "kan inte hitta start på pianopedal: \"%s\""
@@ -1086,18 +1071,13 @@ msgstr "kan inte hitta eller skapa: \"%s\""
 
 #: translator-group.cc:414
 #, c-format
-msgid ""
-"Can't find property type-check for `%s'.  Perhaps you made a typing error? "
-"Doing assignment anyway."
-msgstr ""
-"Kan inte hitta egenskapstypkontroll för \"%s\". Kanske har du gjort ett "
-"typfel? Gör tilldelning i alla fall."
+msgid "Can't find property type-check for `%s'.  Perhaps you made a typing error? Doing assignment anyway."
+msgstr "Kan inte hitta egenskapstypkontroll för \"%s\". Kanske har du gjort ett typfel? Gör tilldelning i alla fall."
 
 #: translator-group.cc:428
 #, c-format
 msgid "Type check for `%s' failed; value `%s' must be of type `%s'"
-msgstr ""
-"Typkontroll för \"%s\" misslyckades. Värde \"%s\" måste ha typen \"%s\""
+msgstr "Typkontroll för \"%s\" misslyckades. Värde \"%s\" måste ha typen \"%s\""
 
 #. programming_error?
 #: translator-group.cc:447

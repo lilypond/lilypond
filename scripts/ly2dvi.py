@@ -9,12 +9,6 @@
 #
 
 
-# 
-# TODO: should allow to set a central pk cache directory from the command line.
-# TODO: should allow to switch off pk cache.
-#
-
-
 # Note: gettext work best if we use ' for docstrings and "
 #       for gettextable strings.
 #       --> DO NOT USE """ for docstrings.
@@ -357,9 +351,6 @@ fields = layout_fields + extra_fields
 include_path = ['.']
 lily_p = 1
 paper_p = 1
-cache_pks_p = 1
-
-PK_PATTERN='feta.*\.[0-9]+pk'
 
 output_name = ''
 targets = {
@@ -373,27 +364,39 @@ track_dependencies_p = 0
 dependency_files = []
 
 
-#
-# Try to cater for bad installations of LilyPond, that have
-# broken TeX setup.  Just hope this doesn't hurt good TeX
-# setups.  Maybe we should check if kpsewhich can find
-# feta16.{afm,mf,tex,tfm}, and only set env upon failure.
-#
+
+kpse = os.popen ('kpsexpand \$TEXMF').read()
+kpse = re.sub('[ \t\n]+$','', kpse)
+type1_paths = os.popen ('kpsewhich -expand-path=\$T1FONTS').read ()
+
 environment = {
-	'MFINPUTS' : datadir + '/mf' + ':',
-	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:' + '.:'
-		+ os.getcwd() + ':',
-	'TFMFONTS' : datadir + '/tfm' + ':',
-	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
+	## todo: prevent multiple addition.
+	'TEXMF' : "{%s,%s}" % (datadir, kpse) ,
+	'GS_FONTPATH' : type1_paths,
 	'GS_LIB' : datadir + '/ps',
 }
 
+# tex needs lots of memory, more than it gets by default on Debian
+non_path_environment = {
+	'extra_mem_top' : '1000000',
+	'extra_mem_bottom' : '1000000',
+	'pool_size' : '250000',
+}
 
 def setup_environment ():
+	# $TEXMF is special, previous value is already taken care of
+	if os.environ.has_key ('TEXMF'):
+		del os.environ['TEXMF']
+ 
+
 	for key in environment.keys ():
 		val = environment[key]
 		if os.environ.has_key (key):
 			val = os.environ[key] + os.pathsep + val 
+		os.environ[key] = val
+
+	for key in non_path_environment.keys ():
+		val = non_path_environment[key]
 		os.environ[key] = val
 
 #what a name.
@@ -834,9 +837,6 @@ if files and files[0] != '-':
 
 	setup_environment ()
 	tmpdir = setup_temp ()
-	if cache_pks_p :
-		os.chdir (outdir)
-		cp_to_dir (PK_PATTERN, tmpdir)
 
 	# to be sure, add tmpdir *in front* of inclusion path.
 	#os.environ['TEXINPUTS'] =  tmpdir + ':' + os.environ['TEXINPUTS']
@@ -901,9 +901,6 @@ if files and files[0] != '-':
 		elif verbose_p:
 			warning (_ ("can't find file: `%s'") % outname)
 			
-		if cache_pks_p:
-			cp_to_dir (PK_PATTERN, outdir)
-		
 	os.chdir (original_dir)
 	cleanup_temp ()
 	

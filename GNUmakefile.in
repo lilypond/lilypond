@@ -16,11 +16,11 @@ SUBDIRS = buildscripts scripts flower lily \
 	mutopia ports
 #
 
-SCRIPTS = configure aclocal.m4
+SCRIPTS = configure aclocal.m4 autogen.sh
 README_FILES =  DEDICATION COPYING NEWS CHANGES ROADMAP
 README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt FAQ.txt
 IN_FILES := $(wildcard *.in)
-EXTRA_DIST_FILES = lilypond-font-lock.el lilypond-mode.el lilypond-init.el vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES)  emacsclient.patch mktexnam.patch lexer-gcc-3.0.patch darwin.patch .cvsignore
+EXTRA_DIST_FILES = lilypond-font-lock.el lilypond-mode.el  lilypond-indent.el lilypond-init.el vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES)  emacsclient.patch mktexnam.patch lexer-gcc-3.0.patch darwin.patch .cvsignore
 NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
 INSTALLATION_DIR=$(datadir)
 INSTALLATION_FILES=$(configuration) VERSION

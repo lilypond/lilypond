@@ -4,39 +4,38 @@
 # 
 # Red Hat-like systems should install this in /etc/profile.d/
 
+# If run by hand or from you .login, run as follows
+#   source lilypond-profile
+
+
+
 # strange shell, this C
 set datadir="@datadir@"
 
-setenv GS_FONTPATH "$datadir/afm:@datadir@/pfa:$GS_FONTPATH"
-setenv GS_LIB "$datadir/ps:$GS_LIB"
+ if ( $?GS_LIB ) then
+       setenv GS_LIB "$datadir/ps:$GS_LIB"
+ else
+       setenv GS_LIB "$datadir/ps"
+ endif
+
+
 # setenv LILYPONDPREFIX "$datadir"
 
 # bit silly. for ly2dvi, overrules compiled-in datadir...
 # setenv LILYPONDPREFIX "@datadir@"
 
-# include an empty path component for the system wide includes.
-if ($?MFINPUTS) then
-        setenv MFINPUTS "$datadir/mf:${MFINPUTS}::"
-else
-        setenv MFINPUTS "$datadir/mf::"
-endif
-if ($?TEXINPUTS) then
-        setenv TEXINPUTS "$datadir/tex:${TEXINPUTS}::"
-else
-        setenv TEXINPUTS "$datadir/tex::"
-endif
-if ($?TFMFONTS) then
-        setenv TFMFONTS "$datadir/tfm:$TFMFONTS"
-else
-        setenv TFMFONTS "$datadir/tfm::"
-endif
+# Add the installation directory to the teTeX system tree, 
+# see Documentation/misc/fontinstallation
 
-if ($?DVIPSHEADERS) then
-        setenv DVIPSHEADERS "$datadir/pfa:$DVIPSHEADERS"
-else
-        setenv DVIPSHEADERS "$datadir/pfa::"
-endif
+set noglob
+setenv TEXMF "{$datadir,"`kpsexpand  \$TEXMF`"}"
+unset noglob
 
-
+# Add all available TeX Type1 fonts (including Feta) to Ghostscript:
+if ( $?GS_FONTPATH ) then
+       setenv GS_FONTPATH `kpsewhich -expand-path=\$T1FONTS`:$GS_FONTPATH"
+ else
+       setenv GS_FONTPATH `kpsewhich -expand-path=\$T1FONTS`
+ endif
 
 

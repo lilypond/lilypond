@@ -215,6 +215,7 @@ touch var/adm/SuSEconfig/run-texhash
 # hairy to hook it in (possibly non-existing) emacs
 %doc lilypond-mode.el
 %doc lilypond-font-lock.el
+%doc lilypond-indent.el
 
 %config /etc/profile.d/*
 

@@ -1,5 +1,65 @@
-lilypond_1_4
-============
+* backport stepmake/aclocal.m4: Fix for ash as /bin/sh.
+
+* backport stepmake/aclocal.m4: Append $FULL_VERSION to datadir.
+
+* backport lilypond-mode.el (LilyPond-xdvi-command): Default to plain xdvi.
+
+1.4.13.mb2
+==========
+
+* Backport feta font symbol documentation in the manual.
+
+* Backport Python 2.2 compatibility in lilypond-book.
+
+* Backport new font installation strategy and its documentation.
+
+* Include lilypond-indent.el in Redhat, SUSE and Debian distr.
+
+* Include input/, mutopia/ for Redhat RPM.
+
+
+1.4.13.jcn
+==========
+
+* Backport: stepmake/autogen.sh: Check for autoconf2.13, and abort if not
+  found.
+
+* Backport: stepmake/aclocal.m4: Bugfix: complain if program not found.
+
+* Backport: Documentation/topdocs/INSTALL.texi: Update GCC, Flex and
+  GUILE info. Add info about CVS.
+
+* autogen.sh: Generate.
+
+* stepmake/configure:
+* configure: Regenerate.
+	
+* Backport: stepmake/stepmake/automatically-generated.sub.make: Keep
+  original first line.
+
+* Backport: stepmake/stepmake/toplevel-targets.make (autogen.sh): Add rule.
+
+* Backport: stepmake/stepmake/generic-targets.make (configure): Generate
+  using autogen.sh.
+
+* Backport: GNUmakefile.in (SCRIPTS):
+* Backport: stepmake/GNUmakefile.in (SCRIPTS): Add autogen.sh
+
+* Backport: stepmake/autogen.sh: New file.
+
+* Backport: configure: Check for g++ >= 2.95.
+
+* Backport: stepmake/aclocal.m4: Fixes for FlexLexer.h, Python headers.  GNU
+  c/c++ version checking.
+
+* Backport: Documentation/windows/GNUmakefile: Avoid collapsed directory
+  constructs '//'.
+
+* Backport: stepmake/bin/install-dot-exe.sh: Filter collapsed directory
+  constructs '//' from arguments.
+
+1.4.13
+======
 
 * Backport feta-nummer and feta-din.
 

@@ -76,9 +76,7 @@ Enter the following into the file
 
 @end example
 @end quotation
-Close the file and save it. Run the following command a few times (at
-least three times) until it says @code{PS output to `foo.ps', DVI output
-to `foo.dvi'}.
+Close the file and save it. Run the following command
 @quotation
 @example
 
@@ -86,6 +84,7 @@ ly2dvi -P foo
 
 @end example
 @end quotation
+It should say @code{PS output to `foo.ps', DVI output to `foo.dvi'}.
 You can now view the file using the following command
 @quotation
 @example

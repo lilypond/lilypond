@@ -137,7 +137,7 @@ in LilyPond-include-path."
 ;; variable instead of quering the user. 
 (defvar LilyPond-command-force nil)
 
-(defcustom LilyPond-xdvi-command "xdvik"
+(defcustom LilyPond-xdvi-command "xdvi"
   "Command used to display DVI files."
 
   :group 'LilyPond

@@ -1964,7 +1964,7 @@ questions:
 void
 My_lily_parser::set_yydebug (bool b)
 {
-#ifdef YYDEBUG
+#if 0 
 	yydebug = b;
 #endif
 }

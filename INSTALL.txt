@@ -9,6 +9,7 @@ Table of Contents
 INSTALL - compiling and installing GNU LilyPond
   Downloading
     source code
+      Anonymous CVS access
     Binaries
     Upgrading
   Requirements
@@ -46,10 +47,10 @@ Downloading
 ===========
 
    Even numbered versions are `stable'. The webpages for the stable
-version (1.2) reside on the GNU servers
-(http://www.gnu.org/software/lilypond). Big enhancements go into the
-latest odd numbered version (1.3), whose webpages are on the lilypond
-site (http://www.lilypond.org/).
+version (1.4) reside the lilypond users site
+(http://www.lilypond.org/stable). Big enhancements go into the latest
+odd numbered version (1.5), whose webpages are on the lilypond
+development site (http://www.lilypond.org/development).
 
 source code
 -----------
@@ -63,6 +64,17 @@ source code
 
    * at `lilypond.org' `ftp://ftp.lilypond.org/pub/LilyPond/' by FTP and
      `http://www.lilypond.org/ftp/' by HTTP.
+
+Anonymous CVS access
+....................
+
+   Short version:
+
+          cvs -d :pserver:anoncvs@lilypond.org:/home/lilypond login
+          cvs -d :pserver:anoncvs@lilypond.org:/home/lilypond co -P \
+              -rlilypond_1_4 -d lilypond-1.4 lilypond
+
+   See `http://lilypond.org/wiki/?CVS' for more information.
 
 Binaries
 --------
@@ -108,21 +120,30 @@ Compilation
 
    You need the following packages to compile Lilypond.
 
-   * A reasonably new C++ compiler:  EGCS 1.1, GCC 2.95.2 or newer.
-     Check out the gcc site (ftp://ftp.gnu.org/gnu/gcc/).
+   * The GNU c++ compiler (version 2.95.2 or newer).  EGCS 1.1 may
+     work, but is no longer supported.  Check out the gcc site
+     (ftp://ftp.gnu.org/gnu/gcc/).
+
+     WARNING: if you choose to upgrade to GCC 3.x, enquire if your
+     distribution supports g++ 3.x and flex.
 
    * Python 1.5 or 2.1 Check out the python website
      (http://www.python.org/).
 
-   * GUILE 1.3.4 or newer,  check out the GUILE webpage
-     (http://www.gnu.org/software/guile/guile.html).  Version 1.4 is
-     recommended for better performance.
+   * GUILE 1.4 or newer GUILE-1.3.4 may work but is no longer
+     supported.  Check out the GUILE webpage
+     (http://www.gnu.org/software/guile/guile.html).
 
    * GNU Make.  Check out the GNU make FTP directory
      (ftp://ftp.gnu.org/gnu/make/).
 
    * Flex (version 2.5.4a or newer).  Check out the Flex webpage
      (http://www.gnu.org/software/flex/).
+
+     WARNING: plain Flex 2.5.4(a) generates invalid C++ code.  GCC 3.x
+     chokes on this.  If you wish to use GCC 3.x, make sure that your
+     distribution supports g++ 3.x and flex.  For a workaround, see
+     lexer-gcc-3.0 below.
 
    * Bison (version 1.25 or newer).  Check out the bison webpage
      (http://www.gnu.org/software/bison/)
@@ -145,15 +166,6 @@ Compilation
      (ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry).
      This package is normally included with the TeX distribution.
 
-   * MetaPost, needed for generating PostScript fonts. Please note that
-     tetex-0.4pl8 (included with Red Hat 5.x) does not include
-     `mfplain.mp', which is needed for producing the scalable font
-     files.
-
-     If you don't have MetaPost and don't want to use PostScript
-     output, then edit `mf/GNUmakefile', removing the line saying
-     `PFA_FILES='.
-
    * kpathsea, a library for searching (TeX) files.  `kpathsea' is
      usually included with your installation of TeX.  You may need to
      install a tetex-devel or tetex-dev package too.
@@ -164,7 +176,7 @@ Compilation
      case, you'll probably have to indicate where TeX's tfm files live.
      Invoke configure something like:
 
-          ./configure --without-kpathsea --enable-tfm-path=/usr/share/texmf/fonts/tfm/public/cm/:/usr/share/texmf/fonts/tfm/ams/symbols
+               ./configure --without-kpathsea --enable-tfm-path=/usr/share/texmf/fonts/tfm/public/cm/:/usr/share/texmf/fonts/tfm/ams/symbols
 
 
 Running requirements
@@ -177,7 +189,7 @@ following software
 
    * Xdvi and Ghostscript
 
-   * GUILE 1.3.4, or newer.  Check out the GUILE webpage
+   * GUILE 1.4, or newer.  Check out the GUILE webpage
      (http://www.gnu.org/software/guile.html)
 
    For running LilyPond successfully you have to help TeX and MetaFont
@@ -292,7 +304,7 @@ Compiling for distributions
 Red Hat Linux
 -------------
 
-   Red Hat 7.0 i386 RPMS are available from
+   Red Hat 7.x i386 RPMS are available from
 `ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/'.
 
    You can also compile them yourself.  A spec file is in

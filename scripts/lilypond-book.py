@@ -50,15 +50,28 @@ import operator
 # Handle bug in Python 1.6-2.1
 #
 # there are recursion limits for some patterns in Python 1.6 til 2.1. 
-# fix this by importing pre instead. Fix by Mats.
+# fix this by importing the 1.5.2 implementation pre instead. Fix by Mats.
 
-# todo: should check Python version first.
+if float (sys.version[0:3]) < 2.2:
+        try:
+                import pre
+                re = pre
+                del pre
+        except ImportError:
+                import re
+else:
+        import re
+
+# Attempt to fix problems with limited stack size set by Python!
+# Sets unlimited stack size. Note that the resource module only
+# is available on UNIX.
 try:
-	import pre
-	re = pre
-	del pre
-except ImportError:
-	import re
+       import resource
+       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
+except:
+       pass
+
+
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
@@ -1070,7 +1083,7 @@ def make_pixmap (name):
 	x = (2* margin + bbox[2] - bbox[0]) * res / 72.
 	y = (2* margin + bbox[3] - bbox[1]) * res / 72.
 
-	cmd = r"""gs -g%dx%d -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit | pnmtopng > %s"""
+	cmd = r"""gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit  > %s"""
 	
 	cmd = cmd % (x, y, res, name + '.trans.eps', name + '.eps',name + '.png')
 	try:

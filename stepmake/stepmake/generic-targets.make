@@ -103,9 +103,8 @@ $(outdir)/version.hh: $(outdir)/VERSION
 $(outdir)/config.h: $(config_h)
 	cp -p $< $@
 
-# should this be in Rules?
 configure: configure.in aclocal.m4
-	autoconf 
+	NOCONFIGURE=yes $(srcdir)/autogen.sh
 	chmod +x configure
 
 local-clean:

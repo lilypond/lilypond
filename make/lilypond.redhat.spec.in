@@ -62,7 +62,7 @@ gzip -9fn $RPM_BUILD_ROOT%{_prefix}/info/*
 %endif
 
 mkdir -p $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/site-start.d
-install -m 644 lilypond-mode.el lilypond-font-lock.el $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/
+install -m 644 lilypond-mode.el lilypond-font-lock.el lilypond-indent.el $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/
 install -m 644 lilypond-init.el $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/site-start.d
 
 gzip -9fn $RPM_BUILD_ROOT%{_prefix}/man/man1/*
@@ -86,6 +86,10 @@ rm `find /var/lib/texmf -name 'feta*pk -print' -or -name 'feta*tfm -print'` /tmp
 /sbin/install-info %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir 
 %endif
 
+/usr/X11R6/bin/mkfontdir  /usr/share/lilypond/pfa/
+/usr/sbin/chkfontpath --add=/usr/share/lilypond/pfa/
+
+
 
 echo 'Please logout first before using LilyPond.'
 
@@ -96,6 +100,9 @@ if [ $1 = 0 ]; then
     /sbin/install-info --delete %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir 
 fi
 %endif
+rm -f /usr/share/lilypond/pfa/fonts.dir
+/usr/sbin/chkfontpath --remove=/usr/share/lilypond/pfa/
+
 
 
 %files
@@ -138,3 +145,5 @@ fi
 
 %files documentation
 %doc web/
+%doc input/
+%doc mutopia/

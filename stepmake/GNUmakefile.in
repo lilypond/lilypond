@@ -17,7 +17,7 @@ endif
 
 # list of distribution files:
 #
-SCRIPTS = configure aclocal.m4
+SCRIPTS = configure aclocal.m4 autogen.sh
 README_FILES = CHANGES README TODO
 README_TXT_FILES =
 EXTRA_DIST_FILES = $(IN_FILES) VERSION $(README_FILES)  $(SCRIPTS) INSTALL.texi
