@@ -3,9 +3,6 @@
 /* Hmm */
 #define PACKAGE "@package@"
 
-/* we don't set DIR_SHAREDSTATEDIR anymore */
-#define DIR_SHAREDSTATEDIR "@DIR_SHAREDSTATEDIR@"
-
 /* default lilypond init and input dir */
 #define  DIR_DATADIR "@DIR_DATADIR@"
 

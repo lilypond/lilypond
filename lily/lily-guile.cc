@@ -162,7 +162,10 @@ file is looked up using the lilypond search path.
 /**
    Read a file, and shove it down GUILE.  GUILE also has file read
    functions, but you can't fiddle with the path of those.
- */
+
+
+   TODO: JUNKME.
+*/
 void
 read_lily_scm_file (String fn)
 {
