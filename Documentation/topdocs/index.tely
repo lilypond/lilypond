@@ -62,8 +62,6 @@ project.  The webpages for the stable version reside at GNU.
 
 @item @uref{http://www.cs.uu.nl/~hanwen/lilypond/} Han-Wen's site
 has the development pages.
-@item @uref{http://sca.uwaterloo.ca/lilypond/} Eric's mirror
-@item @uref{http://home.austin.rr.com/jbr/jeff/lilypond/} Jeff's Windows NT Distribution site
 @end itemize
 
 @ignore
@@ -81,33 +79,29 @@ top_of_NEWS
 @unnumberedsec Download
 
 @itemize @bullet
-@item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/}
-@item @uref{http://sca.uwaterloo.ca/lilypond/}
-    Eric Praetzel was kind enough to provide a mirror of both the website
-    and the ftp site.
-@item  @uref{ftp://ftp.lilypond.org/pub/LilyPond/}
-	A mirror of the FTP site.  Updated at 0:00 MET daily. 
-@item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/} RedHat binary
-@item @uref{ftp://ftp.debian.org/pub/debian/dists/unstable/main/binary-i386/tex} Debian binary
-@item @uref{http://home.austin.rr.com/jbr/jeff/lilypond/} Windows NT binary
-@item @uref{http://linux.umbc.edu/software/lilypond/rpms/} i386 RPM.
-@item @uref{ftp://ftp.freshmeat.net/pub/rpms/lilypond/} i386 RPM.
+@item
+    Download development releases at
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/}
+
+@item Canadian mirror   @uref{http://sca.uwaterloo.ca/lilypond/} and @uref{ftp://sca.uwaterloo.ca/pub/} 
+
+@item Another site in Europe  @uref{ftp://ftp.lilypond.org/pub/LilyPond/}
+@item RedHat i386
+binary RPMs:  @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/}  
+
+@item Debian binary @uref{ftp://ftp.debian.org/pub/debian/dists/unstable/main/binary-i386/tex} 
+@item Windows NT:  @uref{http://home.austin.rr.com/jbr/jeff/lilypond/} 
+@item i386 RPM: @uref{http://linux.umbc.edu/software/lilypond/rpms/} 
+@item i386 RPM: @uref{ftp://ftp.freshmeat.net/pub/rpms/lilypond/} 
+@item Windows NT: @uref{http://home.austin.rr.com/jbr/jeff/lilypond/}
 @end itemize
 
 @unnumberedsubsec Webmaster's Disclaimer
 
-These pages were entirely created from the LilyPond package-sources.
-Sorry for poor look they have: we want to be hacking at LilyPond, and
-not at the webpages.  If you want to volunteer for making shazzy
-webpages, then please mail us!
-
-Note: These pages are created from a @strong{development snapshots} of
-LilyPond, and it might even be created even from an unreleased
-development version.  The version of this webpage is printed at the
-bottom.
-
-
-
+These pages were entirely created from a @strong{development snapshots}
+of the LilyPond package.  The version of this webpage is printed at the
+bottom. If you want to volunteer for making more beautiful webpages,
+then please mail us!
 
 
 @bye
