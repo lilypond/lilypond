@@ -24,7 +24,7 @@ Axis_group_spanner::do_break_processing_if_unbroken()
     {
       if (!elems[i]->line_l()) 
 	{
-	  Item * item_l = elems[i]->access_Item ();
+	  Item * item_l = dynamic_cast<Item*> (elems[i]);
 	  if  (item_l
 	       && item_l->breakable_b_ 
 	       && item_l->break_status_dir() == 0) 
@@ -65,9 +65,9 @@ Axis_group_spanner::do_break_processing()
 	  /* this piece doesn't know where it belongs.
 	     Find out if it was broken, and use the broken remains
 	     */
-	  if (elt->access_Spanner ()) 
+	  if (dynamic_cast <Spanner *> (elt)) 
 	    {
-	      Spanner * sp = elt->access_Spanner ();
+	      Spanner * sp = dynamic_cast <Spanner *> (elt);
 		
 	      for (int j =0; j < broken_into_l_arr_.size(); j++) 
 		{
@@ -83,15 +83,15 @@ Axis_group_spanner::do_break_processing()
 		    
 		}
 	    }
-	  else if (elt->access_Item () 
-		   && elt->access_Item ()->breakable_b_ 
-		   && elt->access_Item ()->break_status_dir () == 0) 
+	  else if (dynamic_cast <Item *> (elt) 
+		   && dynamic_cast <Item *> (elt)->breakable_b_ 
+		   && dynamic_cast <Item *> (elt)->break_status_dir () == 0) 
 	    {
 	      // broken items
 	      Direction  j=LEFT;
 	      do 
 		{
-		  Item * my_item = elt->access_Item ()->broken_to_drul_[j];
+		  Item * my_item = dynamic_cast <Item *> (elt)->broken_to_drul_[j];
 		  Line_of_score * item_line_l = my_item->line_l() ;
 		  if (! item_line_l) 
 		    continue;

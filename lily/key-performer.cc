@@ -47,11 +47,11 @@ Key_performer::do_try_request (Request* req_l)
   if (key_req_l_)
 	return false;
 
-  if (req_l->access_Command_req ())
-	key_req_l_ = req_l->access_Command_req ()->access_Key_change_req ();
-
-  if (key_req_l_)
-	return true;
+  if (dynamic_cast <Key_change_req *> (req_l))
+    {
+      key_req_l_ = dynamic_cast <Key_change_req*> (req_l);
+      return true;
+    }
 
   return false;
 }

@@ -20,8 +20,8 @@ Timing_translator::Timing_translator ()
 bool
 Timing_translator::do_try_request(Request*r)
 {
-  Command_req * c = r->access_Command_req ();
-  if (!(c && c->access_Timing_req ()))
+  Command_req * c = dynamic_cast <Command_req *> (r);
+  if (!(c && dynamic_cast <Timing_req *> (c)))
     return false;
   for (int i=0; i < timing_req_l_arr_.size (); i++)
     {
@@ -34,7 +34,7 @@ Timing_translator::do_try_request(Request*r)
 	}
     }
 
-  timing_req_l_arr_.push(c->access_Timing_req ());
+  timing_req_l_arr_.push(dynamic_cast <Timing_req *> (c));
   return true;
 }
 
@@ -44,7 +44,7 @@ Timing_translator::time_signature_req_l() const
   Time_signature_change_req *m_l=0;
   for (int i=0; !m_l && i < timing_req_l_arr_.size (); i++)
     {
-      m_l=timing_req_l_arr_[i]->access_Time_signature_change_req ();
+      m_l=dynamic_cast<Time_signature_change_req*> (timing_req_l_arr_[i]);
     }
   return m_l;
 }
@@ -55,7 +55,7 @@ Timing_translator::do_process_requests()
   for (int i=0; i < timing_req_l_arr_.size (); i++)
     {
       Timing_req * tr_l = timing_req_l_arr_[i];
-      Time_signature_change_req *m_l = tr_l->access_Time_signature_change_req ();
+      Time_signature_change_req *m_l = dynamic_cast <Time_signature_change_req *> (tr_l);
       if (m_l)
 	{
 	  int b_i= m_l->beats_i_;
@@ -69,9 +69,9 @@ Timing_translator::do_process_requests()
 		Rhythmic_grouping (MInterval (0,Moment (b_i, o_i)), b_i);
 	    }
 	}
-      else if (tr_l->access_Partial_measure_req ())
+      else if (dynamic_cast <Partial_measure_req *> (tr_l))
 	{
-	  Moment m = tr_l->access_Partial_measure_req ()->duration_;
+	  Moment m = dynamic_cast <Partial_measure_req *> (tr_l)->duration_;
 	  String error = time_.try_set_partial_str (m);
 	  if (error.length_i ())
 	    {
@@ -80,7 +80,7 @@ Timing_translator::do_process_requests()
 	  else
 	    time_.setpartial (m);
 	}
-      else if (tr_l->access_Barcheck_req())
+      else if (dynamic_cast <Barcheck_req *> (tr_l))
 	{
 	  if (time_.whole_in_measure_)
 	    {
@@ -92,15 +92,15 @@ Timing_translator::do_process_requests()
 	    }
 
 	}
-      else if (tr_l->access_Cadenza_req ())
+      else if (dynamic_cast <Cadenza_req *> (tr_l))
 	{
-	  time_.set_cadenza (tr_l->access_Cadenza_req ()->on_b_);
+	  time_.set_cadenza (dynamic_cast <Cadenza_req *> (tr_l)->on_b_);
 	}
-      else if (tr_l->access_Measure_grouping_req ())
+      else if (dynamic_cast <Measure_grouping_req *> (tr_l))
 	{
 	  default_grouping_ =
-	    parse_grouping (tr_l->access_Measure_grouping_req ()->beat_i_arr_,
-			    tr_l->access_Measure_grouping_req ()->elt_length_arr_);
+	    parse_grouping (dynamic_cast <Measure_grouping_req *> (tr_l)->beat_i_arr_,
+			    dynamic_cast <Measure_grouping_req *> (tr_l)->elt_length_arr_);
 
 	}
     }

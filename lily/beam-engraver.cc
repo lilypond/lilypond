@@ -25,11 +25,11 @@ Beam_engraver::Beam_engraver()
 bool
 Beam_engraver::do_try_request(Request*r)
 {
-  Musical_req* mus_l = r->access_Musical_req ();
+  Musical_req* mus_l = dynamic_cast <Musical_req *> (r);
   if (!mus_l)
     return false;
 
-  Beam_req* b = mus_l->access_Beam_req ();
+  Beam_req* b = dynamic_cast <Beam_req *> (mus_l);
   if (!b)
     return false;
 
@@ -100,14 +100,14 @@ Beam_engraver::acknowledge_element (Score_element_info i)
   if (!beam_p_ || !i.elem_l_->is_type_b (Stem::static_name ()))
     return;
 
-  Stem* s = (Stem*)i.elem_l_->access_Item ();
-  if (!i.req_l_ || !i.req_l_->access_Musical_req () || !i.req_l_->access_Musical_req ()->access_Rhythmic_req ())
+  Stem* s = (Stem*)dynamic_cast <Item *> (i.elem_l_);
+  if (!dynamic_cast <Rhythmic_req *> (i.req_l_))
     {
       ::warning ( _("Stem must have Rhythmic structure."));
       return;
     }
 
-  Rhythmic_req *rhythmic_req = i.req_l_->access_Musical_req ()->access_Rhythmic_req ();
+  Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (i.req_l_);
   if (rhythmic_req->duration_.durlog_i_<= 2)
     {
       rhythmic_req->warning (_ ("stem doesn't fit in beam"));
