@@ -1,5 +1,7 @@
 2003-04-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/ly2dvi.py (extra_init): add compat2 to latex options.
+
 	* lily/new-chord-name-engraver.cc (process_music): use octavation
 	(a number) instead of original-pitch to store inversions. This
 	fixes a problem with transposed chords with inversions.  
