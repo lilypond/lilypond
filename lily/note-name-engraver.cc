@@ -16,10 +16,10 @@ class Note_name_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS(Note_name_engraver);
 
-  Link_array<Music> reqs_;
+  Link_array<Music> events_;
   Link_array<Item> texts_;
   virtual bool  try_music (Music*m);
-  virtual void process_acknowledged_grobs ();
+  virtual void process_music ();
   virtual void stop_translation_timestep ();
 };
 
@@ -28,29 +28,32 @@ Note_name_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("note-event"))
     {
-      reqs_.push (m);
+      events_.push (m);
       return true;
     }
   return false;
 }
 
 void
-Note_name_engraver::process_acknowledged_grobs ()
+Note_name_engraver::process_music ()
 {
-  if (texts_.size ())
-    return;
   String s ;
-  for (int i=0; i < reqs_.size (); i++)
+  for (int i=0; i < events_.size (); i++)
     {
       if (i)
 	s += " ";
-      s += unsmob_pitch (reqs_[i]->get_mus_property ("pitch"))->to_string ();
+      Pitch p = *unsmob_pitch (events_[i]->get_mus_property ("pitch"));
+
+      if (!to_boolean (get_property ("printOctaveNames")))
+	  p = Pitch (-1, p.get_notename (), p.get_alteration ());
+	  
+      s += p.to_string ();
     }
   if (s.length ())
     {
       Item * t = make_item ("NoteName");
       t->set_grob_property ("text", scm_makfrom0str (s.to_str0 ()));
-      announce_grob(t, reqs_[0]->self_scm());
+      announce_grob (t, events_[0]->self_scm());
       texts_.push (t);
     }
 }
@@ -63,7 +66,7 @@ Note_name_engraver::stop_translation_timestep ()
       typeset_grob (texts_[i]);
     }
   texts_.clear () ;
-  reqs_.clear ();
+  events_.clear ();
 }
 
 
@@ -76,5 +79,5 @@ ENTER_DESCRIPTION(Note_name_engraver,
 /* creats*/       "NoteName",
 /* accepts */     "note-event",
 /* acks  */      "",
-/* reads */       "",
+/* reads */       "printOctaveNames",
 /* write */       "");

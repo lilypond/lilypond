@@ -789,3 +789,112 @@ Rest can contain a list of beat groupings
      ))))
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; accidentals
+
+(define-public (set-accidentals-properties
+		extra-natural
+		auto-accs auto-cauts
+		context)
+  (context-spec-music
+   (make-sequential-music
+    (append
+     (if (boolean? extra-natural) (list (make-property-set 'extraNatural extra-natural)) '())
+     (list
+      (make-property-set 'autoAccidentals auto-accs)
+      (make-property-set 'autoCautionaries auto-cauts)
+     )))
+   context))
+
+(define-public (set-accidental-style style . rest)
+  "Set accidental style to STYLE. Optionally takes a context argument,
+eg. 'Staff or 'Voice. The context defaults to Voice, except for piano styles, which
+use PianoStaff as a context. "
+
+  (let
+      ((context (if (pair? rest)
+		    (car rest) 'Staff))
+       (pcontext (if (pair? rest)
+		     (car rest) 'PianoStaff))
+       )
+       
+  (ly:export
+   
+   (cond
+    ; accidentals as they were common in the 18th century.
+    ((equal? style 'default) (set-accidentals-properties #t '(Staff (same-octave . 0)) '() context))
+
+    ; accidentals from one voice do NOT get cancelled in other voices
+    ((equal? style 'voice) (set-accidentals-properties #t '(Voice (same-octave . 0)) '() context))
+
+    ; accidentals as suggested by Kurt Stone, Music Notation in the 20th century.
+    ; This includes all the default accidentals, but accidentals also needs cancelling
+    ; in other octaves and in the next measure.
+    ((equal? style 'modern) (set-accidentals-properties #f '(Staff (same-octave . 0) (any-octave . 0) (same-octave . 1)) '()  context))
+
+    ; the accidentals that Stone adds to the old standard as cautionaries
+    ((equal? style 'modern-cautionary)
+     (set-accidentals-properties #f '(Staff (same-octave . 0))
+		     '(Staff (any-octave . 0) (same-octave . 1))
+		     context))
+
+    ; Multivoice accidentals to be read both by musicians playing one voice
+    ; and musicians playing all voices.
+    ; Accidentals are typeset for each voice, but they ARE cancelled across voices.
+    ((equal? style 'modern-voice)
+     (set-accidentals-properties  #f
+		      '(Voice (same-octave . 0) (any-octave . 0) (same-octave . 1)
+			      Staff (same-octave . 0) (any-octave . 0) (same-octave . 1))
+		      '()
+		      context))
+
+    ; same as modernVoiceAccidental eccept that all special accidentals are typeset
+    ; as cautionaries
+
+    ((equal? style 'modern-voice-cautionary)
+     (set-accidentals-properties #f
+		     '(Voice (same-octave . 0) )
+		     '(Voice (any-octave . 0) (same-octave . 1)
+			     Staff (same-octave . 0) (any-octave . 0) (same-octave . 1))
+		     context))
+
+    ; stone's suggestions for accidentals on grand staff.
+    ; Accidentals are cancelled across the staves in the same grand staff as well
+    ((equal? style 'piano)
+     (set-accidentals-properties #f
+		     '( Staff (same-octave . 0) (any-octave . 0) (same-octave . 1)
+			      PianoStaff (any-octave . 0) (same-octave . 1))
+		     '()
+		     pcontext))
+    ((equal? style 'piano-cautionary)
+     (set-accidentals-properties #f
+		     '(Staff (same-octave . 0))
+		     '(Staff (any-octave . 0) (same-octave . 1)
+			      PianoStaff (any-octave . 0) (same-octave . 1))
+		     pcontext))
+
+     ; do not set localKeySignature when a note alterated differently from
+     ; localKeySignature is found.
+     ; Causes accidentals to be printed at every note instead of
+     ; remembered for the duration of a measure.
+     ; accidentals not being remembered, causing accidentals always to be typeset relative to the time signature
+     ((equal? style 'forget)
+     (set-accidentals-properties '()
+		     '(Staff (same-octave . -1))
+		     '() context))
+
+    ; Do not reset the key at the start of a measure.  Accidentals will be
+    ; printed only once and are in effect until overridden, possibly many
+    ; measures later.
+    ((equal? style 'no-reset)
+     (set-accidentals-properties '()
+		     '(Staff (same-octave . #t))
+		     '()
+		     context))
+    (else
+     (ly:warn (string-append "Unknown accidental style: " (symbol->string style)))
+     (make-sequential-music '())
+     ))
+   )))
+

@@ -13,6 +13,12 @@
 #(ly:set-point-and-click #f)
 
 \maininput
+% there is a problem at the end of the input file
+
+
+%%
+%% above message is to compensate for look ahead of the parser.
+%%
 
 #(if (and (ly:get-option 'old-relative)
       (not (ly:get-option 'old-relative-used)))

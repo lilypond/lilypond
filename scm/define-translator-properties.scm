@@ -247,6 +247,7 @@ the string to print when this is done with the pedal.")
 sustain pedals: text, bracket or mixed (both).")
      (pedalUnaCordaStyle ,symbol? "see pedalSustainStyle.")
      (pedalSostenutoStyle ,symbol? "see pedalSustainStyle.")
+     (printOctaveNames ,boolean? "Print octave marks for the NoteNames context.")
      (rehearsalMark ,integer? "The last rehearsal mark printed.")
      (repeatCommands ,list? "This property is read to find any command of the form (volta . X), where X is a string or #f")
 

@@ -10,34 +10,6 @@ This shows how accidentals in different octaves are handled.
 
 }
 
-#(define  (lo-octave p)
-  (let* ((a (ly:pitch-alteration p))
-         (n (ly:pitch-notename p)))
-    (ly:make-pitch -1 n a)))
-
-#(define (no-octaves music)
-  (let* ((es (ly:get-mus-property music 'elements))
-         (e (ly:get-mus-property music 'element))
-         (p (ly:get-mus-property music 'pitch)))
-
-    (if (pair? es)
-        (ly:set-mus-property!
-         music 'elements
-         (map no-octaves es)))
-
-    (if (ly:music? e)
-        (ly:set-mus-property!
-         music 'element
-         (no-octaves e)))
-
-    (if (ly:pitch? p)
-        (begin
-          (set! p (lo-octave p))
-          (ly:set-mus-property! music 'pitch p)))
-
-
-    music))
-
 
 
 mel = \notes \transpose c c' {
@@ -49,7 +21,10 @@ mel = \notes \transpose c c' {
 
 \score {
   << \context Staff \mel
-     \context NoteNames \apply #no-octaves \mel
+     \context NoteNames{
+	 \set printOctaveNames= ##f
+	 \mel
+	 }
   >>
 }
 

@@ -1,5 +1,24 @@
 2004-02-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/define-translator-properties.scm
+	(all-user-translation-properties): add printOctaveNames
+
+	* ly/engraver-init.ly: remove Note_event_swallower.
+
+	* lily/note-name-engraver.cc (process_music): new property
+	printOctaveNames
+
+	* lily/context.cc (find_existing_context): remove support for
+	Current.
+
+	* scm/music-functions.scm (set-accidental-style): new function;
+	duplicate accidental macros.
+
+	* ly/property-init.ly (hideStaffSwitch): remove accidental macros.
+
+	* lily/note-name-engraver.cc (process_music):
+	process_acknowledged_grobs () -> process_music ()
+
 	* scm/part-combiner.scm (determine-split-list): robustification.
 
 2004-02-17  Han-Wen Nienhuys   <hanwen@xs4all.nl>
@@ -27,8 +46,8 @@
 2004-02-17  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/accidental-engraver.cc (process_acknowledged_grobs): use
-	properties from Voice context. This fixes staff-switches during
-	grace contexts.
+	properties from Voice context. This fixes accidental size for
+	staff-switches during grace contexts.
 
 	* lily/note-collision.cc (check_meshing_chords): only wipe heads
 	if necessary. Else, simply wipe dots.

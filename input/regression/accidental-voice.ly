@@ -9,33 +9,7 @@ The last f gets cautionary natural because fis was only in the other voice.
 "
 }
 
-#(define  (lo-octave p)
-  (let* ((a (ly:pitch-alteration p))
-         (n (ly:pitch-notename p)))
-    (ly:make-pitch -1 n a)))
 
-#(define (no-octaves music)
-  (let* ((es (ly:get-mus-property music 'elements))
-         (e (ly:get-mus-property music 'element))
-         (p (ly:get-mus-property music 'pitch)))
-
-    (if (pair? es)
-        (ly:set-mus-property!
-         music 'elements
-         (map no-octaves es)))
-
-    (if (ly:music? e)
-        (ly:set-mus-property!
-         music 'element
-         (no-octaves e)))
-
-    (if (ly:pitch? p)
-        (begin
-          (set! p (lo-octave p))
-          (ly:set-mus-property! music 'pitch p)))
-
-
-    music))
 
 voicea = \notes \transpose c c' {
     \stemUp
@@ -49,13 +23,20 @@ voiceb = \notes \transpose c c' {
 \score {
     <<
 	\notes
-	\new NoteNames \apply #no-octaves \voicea
+	\new NoteNames {
+	    \set printOctaveNames = ##f
+	     \voicea
+	     }
 	\context Staff << 
-	    \modernVoiceCautionaries
+	    #(set-accidental-style 'modern-voice-cautionary)
 	    \new Voice \voicea
 	    \new Voice \voiceb
 	>>
-	\new NoteNames \apply #no-octaves \voiceb
+	\new NoteNames {
+	    \set printOctaveNames = ##f
+	    \voiceb
+
+			 }
     >>
 \paper { raggedright = ##t }
 }
