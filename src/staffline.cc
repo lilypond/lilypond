@@ -30,7 +30,7 @@ Line_of_staff::TeXstring() const
 	    brew_molecule(line_of_score_->pscore_->paper_->linewidth);
 
 	s+=pstaff_->stafsym->TeXstring();
-	PCursor<const PCol *> cc(line_of_score_->cols);
+	iter_top(line_of_score_->cols,cc);
 	Real lastpos=cc->hpos;
 
 	// all items in the current line & staff.
@@ -44,14 +44,14 @@ Line_of_staff::TeXstring() const
 
 	    // now output the items.
 
-	    for (PCursor<const Item *> ic(cc->its); ic.ok(); ic++) {
-		if (ic->pstaff_ == pstaff_)
-		    s += ic->TeXstring();
+	    for (iter_top(cc->its,i); i.ok(); i++) {
+		if (i->pstaff_ == pstaff_)
+		    s += i->TeXstring();
 	    }
 	    // spanners.
-	    for (PCursor<const Spanner *> sc(cc->starters); sc.ok(); sc++)
-		if (sc->pstaff_ == pstaff_)
-		    s += sc->TeXstring();
+	    for (iter_top(cc->starters,i); i.ok(); i++)
+		if (i->pstaff_ == pstaff_)
+		    s += i->TeXstring();
 	}
     }
     s+="\\hss}\\vss}";
@@ -66,13 +66,14 @@ Line_of_staff::Line_of_staff(Line_of_score * sc, PStaff*st)
     PCol *linestart = sc->cols.top();
     PCol *linestop = sc->cols.bottom();
     
-    for (PCursor<const Spanner*> sp(pstaff_->spans); sp.ok(); sp++) {
+    for (iter_top(pstaff_->spans,i); i.ok(); i++) {
 
-	PCol *brokenstart = &max(*linestart, *sp->left);
-	PCol *brokenstop = &min(*linestop, *sp->right);
+	PCol *brokenstart = &max(*linestart, *i->left);
+	PCol *brokenstop = &min(*linestop, *i->right);
 	if ( *brokenstart < *brokenstop) {
+	    Spanner*span_p =i->broken_at(brokenstart,brokenstop);
 	    line_of_score_->pscore_-> // higghl
-		add_broken(sp->broken_at(brokenstart,brokenstop));
+		add_broken(span_p);
 	}
     }
 }
@@ -81,26 +82,23 @@ Line_of_staff::Line_of_staff(Line_of_score * sc, PStaff*st)
 Interval
 Line_of_staff::height() const
 {
-    Interval y;
-    {
-	y = pstaff_->stafsym->extent().y;
-    }
-    PCursor<const PCol *> cc(line_of_score_->cols);
+    Interval y = pstaff_->stafsym->extent().y;
+    iter_top(line_of_score_->cols,cc);
     
     // all items in the current line & staff.
     for (; cc.ok(); cc++) {
-	for (PCursor<const Item *> ic(cc->its); ic.ok(); ic++) {
-	    if (ic->pstaff_ == pstaff_) {
-		y.unite(ic->height());
-	}
+	for (iter_top(cc->its,i); i.ok(); i++) {
+	    if (i->pstaff_ == pstaff_) 
+		y.unite(i->height());
 	    
-	// spanners.
-	for (PCursor<const Spanner *> sc(cc->starters); sc.ok(); sc++)
-	    if (sc->pstaff_ == pstaff_) {
-		y.unite(sc->height());
-	    }
 	}
+	// spanners.
+	for (iter_top(cc->starters,i); i.ok(); i++)
+	    if (i->pstaff_ == pstaff_) {
+		y.unite(i->height());
+	    }
     }
+    
     return y;
 }
 
