@@ -1199,7 +1199,7 @@ music_property_def:
 	| UNSET context_prop_spec {
 		$$ = property_op_to_music (scm_list_n (
 			ly_symbol2scm ("unset"),
-			gh_cadr ($2)));
+			gh_cadr ($2), SCM_UNDEFINED));
 		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
 	| ONCE music_property_def {

@@ -1,5 +1,8 @@
 2004-02-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/parser.yy (music_property_def): oops. SCM_UNDEFINED
+	forgotten with scm_list_n. Fixes spurious coredumps.
+
 	* lily/accidental-engraver.cc (stop_translation_timestep): move
 	update of localKeySignature to stop_translation_timestep (). This
 	makes sure that all ties are noticed at the right moment.
