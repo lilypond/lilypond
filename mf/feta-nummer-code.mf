@@ -343,7 +343,8 @@ fet_beginchar("Numeral 3", "3", "three")
 	x6r= 37/80 w;
 	y6r = 0;
 	penpos7(3/2thin,90);
-	z7=(x5,y3);
+	x7 = .83 w ;
+	y7 = y3;
 	penlabels(1,2,3,4,5,6,7);
 	save alpha; alpha=25;
 	save t; t=tense;

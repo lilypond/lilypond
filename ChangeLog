@@ -1,5 +1,7 @@
 2002-04-25  Han-Wen  <hanwen@cs.uu.nl>
 
+	* mf/feta-nummer.mf: scalability fixes.
+
 	* mf/feta-nummer-code.mf: fixes for 5, 8. 
 
 	* mf/feta-klef.mf: G clef fixes.
