@@ -23,7 +23,7 @@ class Lyric_engraver : public Engraver
 protected:
   virtual void stop_translation_timestep ();
   virtual bool try_music (Music *);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void start_translation_timestep ();
   
 public:
@@ -56,7 +56,7 @@ Lyric_engraver::try_music (Music*r)
 }
 
 void
-Lyric_engraver::create_grobs ()
+Lyric_engraver::process_acknowledged_grobs ()
 {
   if (req_l_)
     {

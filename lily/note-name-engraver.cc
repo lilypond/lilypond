@@ -19,7 +19,7 @@ public:
   Link_array<Note_req> req_l_arr_;
   Link_array<Item> texts_;
   virtual bool  try_music (Music*m);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
 };
 
@@ -35,7 +35,7 @@ Note_name_engraver::try_music (Music *m)
 }
 
 void
-Note_name_engraver::create_grobs ()
+Note_name_engraver::process_acknowledged_grobs ()
 {
   if (texts_.size ())
     return;

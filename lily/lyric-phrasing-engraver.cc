@@ -272,7 +272,7 @@ trim_suffix (String &id)
 
 
 void
-Lyric_phrasing_engraver::create_grobs () 
+Lyric_phrasing_engraver::process_acknowledged_grobs () 
 {
   SCM p = get_property ("automaticPhrasing");
   if (!to_boolean (p))

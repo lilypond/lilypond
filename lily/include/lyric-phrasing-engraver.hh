@@ -64,7 +64,7 @@ class Lyric_phrasing_engraver : public Engraver
 {
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
   virtual void finalize ();  
 private:

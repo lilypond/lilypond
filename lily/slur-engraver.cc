@@ -28,7 +28,7 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void finalize ();
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
 
 public:
   TRANSLATOR_DECLARATIONS(Slur_engraver);
@@ -126,7 +126,7 @@ Slur_engraver::finalize ()
 }
 
 void
-Slur_engraver::create_grobs ()
+Slur_engraver::process_acknowledged_grobs ()
 {
   Link_array<Grob> start_slur_l_arr;
   for (int i=0; i< new_slur_req_l_arr_.size (); i++)

@@ -28,7 +28,7 @@ public:
   
 protected:
   virtual bool try_music (Music *req_l);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
 
@@ -56,7 +56,7 @@ Breathing_sign_engraver::try_music (Music*r_l)
 }
 
 void
-Breathing_sign_engraver::create_grobs ()
+Breathing_sign_engraver::process_acknowledged_grobs ()
 {
   if (breathing_sign_req_l_ && ! breathing_sign_p_)
     {

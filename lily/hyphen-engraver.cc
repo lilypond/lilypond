@@ -35,7 +35,7 @@ protected:
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
 private:
 
 };
@@ -92,7 +92,7 @@ Hyphen_engraver::finalize ()
 }
 
 void
-Hyphen_engraver::create_grobs ()
+Hyphen_engraver::process_acknowledged_grobs ()
 {
   if (req_l_ &&! hyphen_p_)
     {

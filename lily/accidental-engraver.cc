@@ -55,7 +55,7 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual void initialize ();
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void finalize ();
 public:
 
@@ -222,7 +222,7 @@ number_accidentals (Note_req * note_l, Pitch *pitch, Translator_group * origin_l
 }
 
 void
-Accidental_engraver::create_grobs ()
+Accidental_engraver::process_acknowledged_grobs ()
 {
   if (accidental_arr_.size () && !accidental_arr_.top().done_)
     {

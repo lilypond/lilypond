@@ -21,7 +21,7 @@ class Collision_engraver : public Engraver {
 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
 public:
   TRANSLATOR_DECLARATIONS(Collision_engraver);
@@ -29,7 +29,7 @@ public:
 
 
 void
-Collision_engraver::create_grobs ()
+Collision_engraver::process_acknowledged_grobs ()
 {
   if (col_p_ || note_column_l_arr_.size () < 2)
     return ;

@@ -29,7 +29,7 @@ protected:
   virtual bool try_music (Music* m);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void acknowledge_grob (Grob_info);
 };
 
@@ -78,7 +78,7 @@ Text_engraver::acknowledge_grob (Grob_info inf)
 }
 
 void
-Text_engraver::create_grobs ()
+Text_engraver::process_acknowledged_grobs ()
 {
   if (texts_.size ())
     return;

@@ -1,5 +1,8 @@
 2002-06-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/engraver-group-engraver.cc (do_announces): rename
+	create_grobs () to process_acknowledged_grobs().
+
 	* lily/grob.cc (programming_error): add programming_error with
 	origin location.  
 

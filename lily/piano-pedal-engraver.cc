@@ -52,7 +52,7 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
 
 private:
 
@@ -175,7 +175,7 @@ Piano_pedal_engraver::try_music (Music *m)
 }
 
 void
-Piano_pedal_engraver::create_grobs ()
+Piano_pedal_engraver::process_acknowledged_grobs ()
 {
   for (Pedal_info*p = info_list_; p && p->name_; p ++)
     {

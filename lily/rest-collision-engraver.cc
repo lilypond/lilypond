@@ -19,7 +19,7 @@ class Rest_collision_engraver : public Engraver
   Link_array<Grob> note_column_l_arr_;
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
 public:
   TRANSLATOR_DECLARATIONS(Rest_collision_engraver);  
@@ -33,7 +33,7 @@ Rest_collision_engraver::Rest_collision_engraver ()
 }
 
 void
-Rest_collision_engraver::create_grobs ()
+Rest_collision_engraver::process_acknowledged_grobs ()
 {
   if (rest_collision_p_ || note_column_l_arr_.size () < 2)
     return;

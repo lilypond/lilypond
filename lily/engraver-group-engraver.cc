@@ -22,14 +22,14 @@ Engraver_group_engraver::announce_grob (Grob_info info)
 
 
 void
-Engraver_group_engraver::create_grobs_in_simple_children ()
+Engraver_group_engraver::process_acknowledged_grobs_in_simple_children ()
 {
   for (SCM p = simple_trans_list_; gh_pair_p (p); p = ly_cdr (p))
     {
       Translator * t = unsmob_translator (ly_car (p));
       Engraver * eng = dynamic_cast<Engraver*> (t);
       if (eng)
-	eng->create_grobs ();
+	eng->process_acknowledged_grobs ();
     }
 }
 
@@ -125,14 +125,15 @@ Engraver_group_engraver::do_announces ()
       dynamic_cast<Engraver_group_engraver*> (t)->do_announces ();
     }
 
-  //  create_grobs_in_simple_children ();
+   process_acknowledged_grobs_in_simple_children ();
     
-  while (announce_info_arr_.size ())
+   do
     {
       acknowledge_grobs ();
       announce_info_arr_.clear ();
-      create_grobs_in_simple_children ();
+      process_acknowledged_grobs_in_simple_children ();
     }
+   while (announce_info_arr_.size ());
 }
 
 

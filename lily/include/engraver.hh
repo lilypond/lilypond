@@ -41,7 +41,7 @@ protected:
      be looped with acknowledge_grob.
      
    */
-  virtual void create_grobs () {}
+  virtual void process_acknowledged_grobs () {}
   /**
     Announce element. Default: pass on to daddy. Utility
     */

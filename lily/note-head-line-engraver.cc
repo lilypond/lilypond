@@ -33,7 +33,7 @@ public:
 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
+  virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
   virtual bool try_music (Music *);
 
@@ -96,7 +96,7 @@ Note_head_line_engraver::acknowledge_grob (Grob_info info)
 
 
 void
-Note_head_line_engraver::create_grobs ()
+Note_head_line_engraver::process_acknowledged_grobs ()
 {
   if (!line_ && (follow_ || last_req_) && last_head_ && head_
       && (last_head_ != head_))
