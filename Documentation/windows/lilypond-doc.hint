@@ -1,0 +1,5 @@
+sdesc: "LilyPond documentation."
+category: Publishing
+ldesc: "LilyPond Documentation in HTML, PS and DVI formats.
+This package contains the HTML, PostScript and DVI documentation for the
+LilyPond music typesetting software."
