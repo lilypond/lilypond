@@ -216,7 +216,7 @@ real root filesystem.  The entire content of the LilyPond installation
 (e.g., @file{/usr/share/lilypond}), and the content of the @file{fonts},
 @file{dvips} and @file{web2c} directories of the @TeX{} installation
 (usually under @file{/usr/share/texmf}) should be copied, too.  If your
-@Tex{} installation uses @file{ls-R} caches, copy also the cache inside the root
+@TeX{} installation uses @file{ls-R} caches, copy also the cache inside the root
 of the installation.
 
 If problems arise, the simplest way to trace them down is to run
