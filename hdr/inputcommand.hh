@@ -24,8 +24,11 @@ Input_command* get_key_interpret_command(svec<int >);
 Input_command* get_clef_interpret_command(String w);
 Input_command *get_reset_command();
 Input_command *get_partial_command(Real u);
-Input_command* get_skip_command( int,Real);
-Input_command* get_grouping_command( svec<int>);
+Input_command *get_skip_command(int,Real);
+Input_command *get_grouping_command(Real,svec<int>);
+Input_command *get_grouping_command(svec<int>);
 Input_command *get_bar_command( );
+
+svec<int> get_default_grouping(int count);
 #endif // INPUTCOMMAND_HH
 
