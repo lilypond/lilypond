@@ -113,7 +113,7 @@ void
 Phrasing_slur_engraver::finalize ()
 {
   if (slurs_.size ())
-    slurs_[0]->warning (_("unterminated slur"));
+    slurs_[0]->warning (_ ("unterminated phrasing slur"));
 }
 
 void

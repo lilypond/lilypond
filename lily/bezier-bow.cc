@@ -83,15 +83,12 @@ height   <indent>
   */
 
 void
-get_slur_indent_height (Real * indent, Real *height,
+get_slur_indent_height (Real *indent, Real *height,
 			Real width, Real h_inf, Real r_0)
 {
   *height =  slur_height (width, h_inf, r_0);
-  *indent = (width/(h_inf+ width)*1.5 + 0.5) * (*height);
+  *indent = (width / (h_inf + width) * 1.5 + 0.5) * (*height);
 }
-
-
-
 
 Bezier
 slur_shape (Real width, Real h_inf, Real r_0)
