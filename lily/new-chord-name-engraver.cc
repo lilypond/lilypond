@@ -87,7 +87,7 @@ New_chord_name_engraver::process_music ()
   chord_name_->set_grob_property("text", markup);
   announce_grob(chord_name_, SCM_EOL);
   SCM s = get_property ("chordChanges");
-  if (to_boolean (s) && ly_car (last_chord_) != SCM_EOL
+  if (to_boolean (s) && gh_pair_p (last_chord_) 
       && gh_equal_p (chord_as_scm, last_chord_))
     chord_name_->set_grob_property ("begin-of-line-visible", SCM_BOOL_T);
 
