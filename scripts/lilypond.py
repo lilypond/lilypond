@@ -126,30 +126,33 @@ option_definitions = [
 	 _ ("write Makefile dependencies for every input file")),
 	('', 'h', 'help', _ ("print this help")),
 	('', '', 'debug', _ ("print even more output")),
+	(_ ("FILE"), 'f', 'find-pfa', _ ("find pfa fonts used in FILE")),
+	('','', 'html', _("make HTML file with links to all output")),
 	(_ ("DIR"), 'I', 'include', _ ("add DIR to LilyPond's search path")),
 	('', 'k', 'keep',
 	 _ ("keep all output, output to directory %s.dir") % program_name),
 	('', '', 'no-lily', _ ("don't run LilyPond")),
 	('', 'm', 'no-paper', _ ("produce MIDI output only")),
 	(_ ("FILE"), 'o', 'output', _ ("write output to FILE")),
-	(_ ("FILE"), 'f', 'find-pfa', _ ("find pfa fonts used in FILE")),
 	(_ ('RES'), '', 'preview-resolution',
 	 _ ("set the resolution of the preview to RES")),
+	('', '', 'no-pdf', _ ("do not generate PDF output")),
+	('', '', 'no-ps', _ ("do not generate PostScript outpug")),
+	('', 'p', 'pdf', _ ("generate PDF output")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
-	('', '', 'png', _("generate PNG page images")),
-	('', '', 'psgz', _("generate PS.GZ")),
-	# separate options for PDF  / PS / DVI ?  
 	('', '', 'pdftex', _ ("use pdflatex to generate a PDF output")),
-	# FIXME: preview, picture; to indicate creation of a PNG?
+	('', '', 'png', _("generate PNG page images")),
 	('', '', 'preview', _ ("make a picture of the first system")),
-	('','', 'html', _("make HTML file with links to all output")),
-	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),
+	('', '', 'psgz', _ ("generate PS.GZ")),
+	('', 's', 'safe-mode', _ ("run in safe-mode")),
+	(_ ("KEY=VAL"), 'S', 'set', _ ("change global setting KEY to VAL")),
 	('', 'V', 'verbose', _ ("be verbose")),
 	('', 'v', 'version', _ ("print version number")),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
 	]
 
 # other globals
+safe_mode_p = 0
 preview_p = 0
 page_images_p = 0
 lilypond_error_p = 0
@@ -252,6 +255,9 @@ def run_lilypond (files, dep_prefix):
 
 	if pdftex_p:
 		opts = opts + ' -f pdftex'		
+
+	if safe_mode_p:
+		opts = opts + ' --safe-mode'
 
 	if track_dependencies_p:
 		opts = opts + " --dependencies"
@@ -395,15 +401,17 @@ def global_latex_preamble (extra):
 
 	options = ''
 
-
 	if extra['latexoptions']:
 		options = options + ',' + extra['latexoptions'][-1]
 
 	s = s + '\\documentclass[%s]{article}\n' % options
 
-	if extra['language']:
-		s = s + r'\usepackage[%s]{babel}' % extra['language'][-1] + '\n'
+	if safe_mode_p:
+		s = s + '\\nofiles\n'
 
+	if extra['language']:
+		s = s + r'\usepackage[%s]{babel}' \
+		    % extra['language'][-1] + '\n'
 
 	s = s + '\\usepackage{%s}\n' \
 		% string.join (extra['latexpackages'], ',')
@@ -704,10 +712,21 @@ for opt in options:
 	elif o == '--include' or o == '-I':
 		include_path.append (a)
 	elif o == '--postscript' or o == '-P':
-		targets.append ('PS')
+		if 'PDF' in targets:
+			targets.remove ('PDF')
+		if 'PS' not in targets:
+			targets.append ('PS')
+	elif o == '--pdf' or o == '-p':
+		if 'PDF' not in targets:
+			targets.append ('PDF')
+	elif o == '--no-pdf':
+		if 'PDF' in targets:
+			targets.remove ('PDF')
 	elif o == '--no-ps':
-		targets.remove ('PS')
-		targets.remove ('PDF')
+		if 'PS' in targets:
+			targets.remove ('PS')
+		if 'PDF' in targets:
+			targets.remove ('PDF')
 	elif o == '--keep' or o == '-k':
 		keep_temp_dir_p = 1
 	elif o == '--debug':
@@ -726,7 +745,9 @@ for opt in options:
 		paper_p = 0
 	elif o == '--output' or o == '-o':
 		output_name = a
-	elif o == '--set' or o == '-s':
+	elif o == '--safe-mode' or o == '-s':
+		safe_mode_p = 1
+	elif o == '--set' or o == '-S':
 		ss = string.split (a, '=')
 		set_setting (extra_init, ss[0], ss[1])
 	elif o == '--dependencies' or o == '-d':
@@ -738,8 +759,8 @@ for opt in options:
 		sys.exit (0)
 	elif o == '--pdftex':
 		latex_cmd = 'pdflatex'
-		targets.remove('DVI')
-		targets.append('PDFTEX')
+		targets.remove ('DVI')
+		targets.append ('PDFTEX')
 		pdftex_p = 1
 		tex_extension = '.pdftex'
 	elif o == '--warranty' or o == '-w':
@@ -755,6 +776,8 @@ for opt in options:
 			targets.append ('PNG')
 	elif o == '--psgz':
 		targets.append ('PS.GZ')
+		if 'PS' not in targets:
+			targets.append ('PS')
 	else:
 		unimplemented_option () # signal programming error
 
@@ -830,6 +853,8 @@ if 1:
 
 	tmpdir = ly.setup_temp ()
 	ly.setup_environment ()
+	if safe_mode_p:
+		os.environ['openout_any'] = 'p'
 
 	# to be sure, add tmpdir *in front* of inclusion path.
 	#os.environ['TEXINPUTS'] =  tmpdir + ':' + os.environ['TEXINPUTS']
