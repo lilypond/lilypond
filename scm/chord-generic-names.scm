@@ -196,15 +196,15 @@ input/test/dpncnt.ly).
        ;;    + steps:altered + (highest all -- if not altered)
        ;;    + subs:missing
        
-       (let* ((root->markup (assoc-get-default
+       (let* ((root->markup (assoc-get
 			      'root->markup options note-name->markup))
-	      (step->markup (assoc-get-default
+	      (step->markup (assoc-get
 			     'step->markup options step->markup-plusminus))
-	      (sub->markup (assoc-get-default
+	      (sub->markup (assoc-get
 			    'sub->markup options
 			    (lambda (x)
 			      (step-based-sub->markup step->markup x))))
-	      (sep (assoc-get-default
+	      (sep (assoc-get
 		    'separator options (make-simple-markup "/"))))
 	 
 	 (if
@@ -234,16 +234,16 @@ input/test/dpncnt.ly).
        ;;    + steps:(highest base) + cons-alt
        ;;    + 'add'
        ;;    + steps:rest
-       (let* ((root->markup (assoc-get-default
+       (let* ((root->markup (assoc-get
 			      'root->markup options note-name->markup))
 	      (step->markup
-	       (assoc-get-default
+	       (assoc-get
 		;; FIXME: ignatzek
 		;;'step->markup options step->markup-accidental))
 		'step->markup options step->markup-ignatzek))
-	      (sep (assoc-get-default
+	      (sep (assoc-get
 		    'separator options (make-simple-markup " ")))
-	      (add-prefix (assoc-get-default 'add-prefix options
+	      (add-prefix (assoc-get 'add-prefix options
 					     (make-simple-markup " add"))))
 	 
 	 (if

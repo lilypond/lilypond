@@ -106,16 +106,13 @@
 	  (uniqued-alist (cdr alist) (cons (car alist) acc)))))
 
 
-(define-public (assoc-get key alist)
-  "Return value if KEY in ALIST, else #f."
+(define-public (assoc-get key alist . default)
+  "Return value if KEY in ALIST, else DEFAULT (or #f if not specified)."
   (let ((entry (assoc key alist)))
-    (if entry (cdr entry) #f)))
-  
-(define-public (assoc-get-default key alist default)
-  "Return value if KEY in ALIST, else DEFAULT."
-  (let ((entry (assoc key alist)))
-    (if entry (cdr entry) default)))
-
+    (if (pair? entry)
+	(cdr entry)
+	(if (pair? default) (car default) #f)
+	)))
 
 (define-public (uniqued-alist  alist acc)
   (if (null? alist) acc
@@ -137,14 +134,16 @@
 	    handle
 	    (chain-assoc x (cdr alist-list))))))
 
-(define (chain-assoc-get x alist-list default)
+
+(define (chain-assoc-get x alist-list . default)
+  "Return ALIST entry for X. Return DEFAULT (optional, else #f) if not
+found."
   (if (null? alist-list)
-      default
+      (if (pair? default) (car default) #f)
       (let* ((handle (assoc x (car alist-list))))
 	(if (pair? handle)
 	    (cdr handle)
 	    (chain-assoc-get x (cdr alist-list) default)))))
-
 
 (define (map-alist-vals func list)
   "map FUNC over the vals of  LIST, leaving the keys."
@@ -397,7 +396,7 @@ L1 is copied, L2 not.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
 
-(map ly:load
+(for-each ly:load
      ;; load-from-path
      '("define-music-types.scm"
        "output-lib.scm"
@@ -423,6 +422,7 @@ L1 is copied, L2 not.
        "clef.scm"
        "slur.scm"
        "font.scm"
+       "new-font.scm"
        
        "define-markup-commands.scm"
        "define-grob-properties.scm"

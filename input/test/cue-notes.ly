@@ -15,9 +15,8 @@ Cue notes are typeset in a smaller font. "
        R1*21
     <<
 	{
-	    \override Staff.MultiMeasureRest  #'staff-position = #-6
+	    \once \override Staff.MultiMeasureRest  #'staff-position = #-6
 	    R1
-	    \revert MultiMeasureRest #'staff-position
 	}
      \new Voice { s2
        \clef tenor

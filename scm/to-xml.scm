@@ -50,13 +50,8 @@ is then separated.
     (step . step)
     ))
 
-(define (assoc-get-default key alist default)
-  "Return value if KEY in ALIST, else DEFAULT."
-  (let ((entry (assoc key alist)))
-    (if entry (cdr entry) default)))
-
 (define (musicxml-node->string node)
-  (let ((xml-name (assoc-get-default (node-name node) node-names #f)))
+  (let ((xml-name (assoc-get (node-name node) node-names #f)))
   (string-append
    (if xml-name (open-tag xml-name '() '()) "")
    (if (equal? (node-value node) "")
