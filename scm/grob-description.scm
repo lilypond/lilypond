@@ -123,7 +123,9 @@
 	(padding . 0.1)
 	(kern . 0.2)
 	(thickness . 1.0)
-	(meta . ((interfaces . (text-interface bass-figure-interface item-interface self-alignment-interface font-interface))))
+	(meta . ((interfaces . (text-interface 							rhythmic-grob-interface
+												bass-figure-interface item-interface
+												self-alignment-interface font-interface))))
 	))
     (Beam
      . (
@@ -247,7 +249,8 @@
 	(after-line-breaking-callback . ,Chord_name::after_line_breaking)
 	(word-space . 1.0)
 	(font-family . roman)
-	(meta . ((interfaces . (font-interface text-interface chord-name-interface item-interface ))))
+	(meta . ((interfaces . (font-interface 							rhythmic-grob-interface
+												text-interface chord-name-interface item-interface ))))
 	))
 
     (Custos
@@ -462,6 +465,7 @@
 	(style . default)
 	(glyph-name-procedure . ,find-notehead-symbol)
 	(meta . ((interfaces . (ligature-head-interface rhythmic-head-interface
+							rhythmic-grob-interface
 							font-interface
 							note-head-interface staff-symbol-referencer-interface))))
 	))
@@ -500,7 +504,7 @@
 	(font-shape . upright)
 	
 	;; duh, side-position-interface?
-	(meta . ((interfaces . (lyric-syllable-interface self-alignment-interface text-interface font-interface item-interface ))))
+	(meta . ((interfaces . (rhythmic-grob-interface lyric-syllable-interface self-alignment-interface text-interface font-interface item-interface ))))
 	))
 
     (MensuralLigature
@@ -606,7 +610,7 @@
 	(glyph-name-procedure . ,find-notehead-symbol)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
 	(stem-attachment-function . ,note-head-style->attachment-coordinates)
-	(meta . ((interfaces . (rhythmic-head-interface font-interface note-head-interface staff-symbol-referencer-interface item-interface ))))
+	(meta . ((interfaces . (rhythmic-grob-interface rhythmic-head-interface font-interface note-head-interface staff-symbol-referencer-interface item-interface ))))
 	))
 
     (Glissando
@@ -746,6 +750,8 @@
 	(meta . (
 		 (interfaces . (font-interface
 				rhythmic-head-interface
+											rhythmic-grob-interface
+
 				staff-symbol-referencer-interface
 				rest-interface item-interface ))
 		))))

@@ -154,15 +154,15 @@ void
 Hara_kiri_engraver::acknowledge_grob (Grob_info i)
 {
   Axis_group_engraver::acknowledge_grob (i);
-  if (Rhythmic_head::has_interface (i.grob_)
-      || i.grob_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface"))
-      )
+  if (i.grob_->internal_has_interface (ly_symbol2scm ("rhythmic-grob-interface")))
     {
       Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob_);
     }
 }
 
-Hara_kiri_engraver::Hara_kiri_engraver(){}
+Hara_kiri_engraver::Hara_kiri_engraver()
+{
+}
 
 ENTER_DESCRIPTION(Hara_kiri_engraver,
 /* descr */       "Like Axis_group_engraver, but make a hara kiri spanner, and add "

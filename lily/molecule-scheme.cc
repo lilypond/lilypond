@@ -60,7 +60,7 @@ LY_DEFINE(ly_translate_molecule,"ly:molecule-translate", 2, 0, 0,
   return q.smobbed_copy();
 }
 
-LY_DEFINE(ly_get_molecule_extent,
+LY_DEFINE(ly_molecule_get_extent,
 	  "ly:molecule-get-extent", 2 , 0, 0,  (SCM mol, SCM axis),
 	  "Return a pair of numbers signifying the extent of @var{mol} in "
 "@var{axis} direction (0 or 1 for x and y axis respectively)."

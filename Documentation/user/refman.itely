@@ -1291,13 +1291,14 @@ the object property @code{auto-knee-gap}.
 @cindex beams, kneed
 @cindex kneed beams
 @cindex auto-knee-gap
-@cindex hara kiri
 
 
 @c TODO -> why this ref? Document? 
 @cindex @code{neutral-direction}
 
 @refbugs
+
+@cindex hara kiri
 
 Auto knee beams can not be used together with hara kiri staves.
 
@@ -4025,6 +4026,10 @@ example disappears in the second line.
 }
 @end lilypond
 
+For @internalsref{Lyrics}, @internalsref{LyricsVoice},
+@internalsref{ChordNames} and @internalsref{FiguredBass}, hara-kiri is
+switched on by default.
+
 
 @node Sound output for transposing instruments
 @subsection Sound output for transposing instruments
@@ -5036,6 +5041,9 @@ measured in (global) staff spaces.
 Other commands taking  single arguments include
 @table @code
 
+@item \bracket, \hbracket
+ Bracket the argument markup.
+
 @item \musicglyph
 @cindex \musicglyph
   This is converted to a musical symbol, e.g. @code{\musicglyph
@@ -5060,6 +5068,7 @@ This sets the relative font size, eg.
 @example
 A \fontsize #2 @{ B C @} D
 @end example
+
 
 This will enlarge the B and the C by two steps.
 @item  \translate #(cons @var{x} @var{y})
