@@ -238,76 +238,86 @@ fi;
 %
 
 fet_beginchar ("Natural", "0");
-	save beam_shift;
-	save interbeam, interstem;
-	save beamheight, beamwidth;
 	save stemwidth, top_stem_thick;
+	save ne, pat_top, pat_bottom;
+	pair ne;
+	path pat_top, pat_bottom;
 
-	beamheight# = 0.35 staff_space# + .5 stafflinethickness#;
 	top_stem_thick# = stafflinethickness# + .09 staff_space#;
 	stemwidth# = 0.08 staff_space# + .5 stafflinethickness#;
-	define_whole_vertical_blacker_pixels (beamheight);
 	define_whole_blacker_pixels (top_stem_thick, stemwidth);
 
 	set_char_box (0, 2/3 staff_space#,
 		      1.5 staff_space#, 1.5 staff_space#);
 
-	interstem + stemwidth = w;
-
-	z2 - z1 = (interstem, slope * interstem);
-	xpart .5 [z2, z1] = w / 2;
-
 	d := d - feta_space_shift;
 
-	pickup penrazor scaled beamheight rotated 90;
-	top y2 = vround (staff_space - 3/2 stafflinethickness);
-	slope = stafflinethickness / interstem;
-
-	x1 := round x1;
-	y1 := round y1;
-	x2 := round x2;
-	y2 := round y2;
-
-	x1' = x1;
-	bot y1' = -d + (h - top y2);
-	z1 - z1' = z2 - z2';
-
-	draw z1
-	     -- z2;
-	draw z1'
-	     -- z2';
-
-	beamtop = top y2;
-
 	pickup pencircle scaled stemwidth;
-	x3 = x1;
-	x4 = x2;
 
+	penpos1 (top_stem_thick, 0);
 	penpos3 (top_stem_thick, 0);
-	penpos5 (top_stem_thick, 0);
+	penpos2 (stemwidth, 0);
 	penpos4 (stemwidth, 0);
-	penpos6 (stemwidth, 0);
 
-	y3 = h;
-	top y4 = beamtop;
-	x5 = x4;
-	x6 = x3;
-	y6 = -y4 + feta_space_shift;
-	y5 = -d;
+	x2r = w;
+	x4l = 0;
+	x3 = x2;
+	x1 = x4;
 
-	fill simple_serif (z3l, z3r, -30)
-	     -- z6r
-	     .. bot z6
-	     .. z6l
-	     -- cycle;
-	fill simple_serif (z5l, z5r, 30)
-	     -- z4r
-	     .. top z4
-	     .. z4l
+	y1 = h;
+	y3 = -d;
+	top y2 = vround (staff_space - 3/2 stafflinethickness);
+	y4 = -y2 + feta_space_shift;
+
+	pat_bottom := z4r{z4r - z1r}
+		      .. bot z4
+		      .. z4l{z1l - z4l};
+	fill simple_serif (z1l, z1r, -30)
+	     -- pat_bottom
 	     -- cycle;
 
-	penlabels (3, 4, 5, 6);
-	labels (1, 1', 2, 2');
+	pat_top := z2r{z2r - z3r}
+		   .. top z2
+		   .. z2l{z3l - z2l};
+	fill simple_serif (z3l, z3r, 30)
+	     -- pat_top
+	     -- cycle;
+
+	ne = (x2 - x4, stafflinethickness);
+
+	z11' = z3l + whatever * (z2l - z3l);
+	y11' = vround (.5 (staff_space - stafflinethickness));
+	z11 = z11' + whatever * ne;
+	x11 = x12;
+	z12 = directionpoint -ne of pat_top;
+	z13 = z12 + whatever * ne;
+	x13 = x1;
+	z14 = z11 + whatever * ne;
+	x14 = x1;
+
+	z21' = z4r + whatever * (z1r - z4r);
+	y21' = -y11' + feta_space_shift;
+	z21 = z21' + whatever * ne;
+	x21 = x22;
+	z22 = directionpoint -ne of pat_bottom;
+	z23 = z22 + whatever * ne;
+	x23 = x3;
+	z24 = z21 + whatever * ne;
+	x24 = x3;
+
+	fill z11
+	     -- z12
+	     -- z13
+	     -- z14
+	     -- cycle;
+	fill z21
+	     -- z22
+	     -- z23
+	     -- z24
+	     -- cycle;
+
+	penlabels (1, 2, 3, 4);
+	labels (11, 11', 12, 13, 14, 21, 21', 22, 23, 24);
 
 	remember_pic := currentpicture;
 
