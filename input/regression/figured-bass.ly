@@ -1,6 +1,6 @@
 \version "2.3.16"
 \header {
-texidoc = "
+    texidoc = "
 Figured bass is created by the FiguredBass context which eats
 figured bass requests and  rest-requests.  You must enter these using
 the special @code{\figuremode @{ @}} mode, which allows you to type
@@ -10,12 +10,11 @@ You can also type letters by entering quoted strings, which is shown in the
 last bass figure.
 
 " }
-
-\score {   <<
- \context FiguredBass {
-   \figuremode { 
+\paper  { raggedright = ##t }  
+<<
+    \figures { 
 	<3 [5 7]>
-\once \override FiguredBass.BassFigure  #'direction = #-1
+	\once \override BassFigure  #'direction = #-1
 	<3 [5 7]>
 	<3 [5] 7 [9 11]>
 	<3+ 5- 7!>
@@ -24,16 +23,12 @@ last bass figure.
 	<"V7" ["bla" 6] 7>
 	
     }
- }
-
- \context Voice { \clef bass
-   c 4
-   c c c c c 
-   g8
-  }
- 
+    \context Voice {
+	\clef bass
+	c 4
+	c c c c c 
+	g8
+    }
 >>
-	\paper  { raggedright = ##t }  
- }
 
 
