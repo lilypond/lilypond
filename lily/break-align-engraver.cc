@@ -78,7 +78,7 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
       if (item->get_parent (X_AXIS))
 	return;
 
-      SCM bp=item->get_property ("breakable");
+      SCM bp = item->get_property ("breakable");
       bool breakable = (to_boolean (bp));
       if (!breakable)
 	return ;

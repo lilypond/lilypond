@@ -26,8 +26,8 @@ struct Key_signature_interface
 /*
   FIXME: too much hardcoding here.
  */
-const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
-const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
+const int FLAT_TOP_PITCH =2; /* fes,ges,as and bes typeset in lower octave */
+const int SHARP_TOP_PITCH =4; /*  ais and bis typeset in lower octave */
 
 /*
   TODO: look this up. I'm not sure where the naturals ought to go. 
@@ -72,13 +72,13 @@ alteration_pos  (SCM what, int alter, int c0p)
        it's a hack, but probably not worth  
        the effort of finding a nicer solution.
        --dl. */
-  if (c0==2 && alter >0 && p==3)
+  if (c0==2 && alter >0 && p ==3)
     p -= 7;
-  if (c0==-3 && alter>0 && p==-1)
+  if (c0==-3 && alter>0 && p ==-1)
     p += 7;
-  if (c0==-4 && alter<0 && p==-1)
+  if (c0==-4 && alter<0 && p ==-1)
     p += 7;
-  if (c0==-2 && alter<0 && p==-3)
+  if (c0==-2 && alter<0 && p ==-3)
     p += 7;
     
   return p + c0;
@@ -92,7 +92,7 @@ MAKE_SCHEME_CALLBACK (Key_signature_interface,print,1);
 SCM
 Key_signature_interface::print (SCM smob)
 {
-  Grob*me =unsmob_grob (smob);
+  Grob*me = unsmob_grob (smob);
 
   Real inter = Staff_symbol_referencer::staff_space (me)/2.0;
 
@@ -148,7 +148,7 @@ Key_signature_interface::print (SCM smob)
       
       Stencil natural;
       if (scm_is_pair (old))
-	natural=Font_interface::get_default_font (me)->
+	natural = Font_interface::get_default_font (me)->
 	    find_by_name (String ("accidentals-") + style + String ("0"));
       
 

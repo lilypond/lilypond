@@ -14,7 +14,7 @@
   should delete these after exit.
 */
 
-Scheme_hash_table *global_translator_dict= 0;
+Scheme_hash_table *global_translator_dict = 0;
 
 LY_DEFINE (get_all_translators,"ly:get-all-translators", 0, 0, 0,  (),
 	  "Return a list of all translator objects that may be instantiated. "
@@ -22,7 +22,7 @@ LY_DEFINE (get_all_translators,"ly:get-all-translators", 0, 0, 0,  (),
 {
   SCM l = global_translator_dict ?  global_translator_dict->to_alist () : SCM_EOL;
 
-  for (SCM s =l; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {
       scm_set_car_x (s, scm_cdar (s));
     }
@@ -36,7 +36,7 @@ add_translator (Translator *t)
   if (!global_translator_dict)
     global_translator_dict = new Scheme_hash_table;
 
-  SCM k= ly_symbol2scm  (classname (t));
+  SCM k = ly_symbol2scm  (classname (t));
   global_translator_dict->set (k, t->self_scm ());
 
   scm_gc_unprotect_object (t->self_scm ());

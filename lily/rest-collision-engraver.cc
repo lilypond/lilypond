@@ -43,7 +43,7 @@ Rest_collision_engraver::process_acknowledged_grobs ()
   rest_collision_ = make_item ("RestCollision", SCM_EOL);
 
   
-  for (int i= 0; i < note_columns_.size (); i++)
+  for (int i = 0; i < note_columns_.size (); i++)
     Rest_collision::add_column (rest_collision_,note_columns_[i]);
 }
 

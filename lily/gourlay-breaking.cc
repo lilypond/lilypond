@@ -204,7 +204,7 @@ Gourlay_breaking::do_solve () const
   if (optimal_paths.top ().demerits_ >= infinity_f)
     warning (_ ("No feasible line breaking found"));
   
-  for (int i= final_breaks.size (); i--;)
+  for (int i = final_breaks.size (); i--;)
     {
       Column_x_positions cp (optimal_paths[final_breaks[i]].line_config_);
       

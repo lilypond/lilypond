@@ -59,7 +59,7 @@ Volta_engraver::Volta_engraver ()
 bool
 Volta_engraver::staff_eligible ()
 {
-  SCM doit =get_property ("voltaOnThisStaff");
+  SCM doit = get_property ("voltaOnThisStaff");
   if (scm_is_bool (doit))
     {
       return to_boolean (doit);

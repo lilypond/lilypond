@@ -43,8 +43,8 @@ Audio_note::tie_to (Audio_note* t)
 		    
 Audio_key::Audio_key (int acc, bool major)
 {
-  accidentals_=acc;
-  major_=major;
+  accidentals_ = acc;
+  major_ = major;
 }
 
 Audio_dynamic::Audio_dynamic (Real volume)

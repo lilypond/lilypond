@@ -94,7 +94,7 @@ ly_module_symbols (SCM mod)
 {
   SCM_VALIDATE_MODULE (1, mod);
   
-  SCM obarr= SCM_MODULE_OBARRAY (mod);
+  SCM obarr = SCM_MODULE_OBARRAY (mod);
   return scm_internal_hash_fold ((Hash_cl_func) &accumulate_symbol,
 				 NULL, SCM_EOL, obarr); 
 }
@@ -119,7 +119,7 @@ LY_DEFINE (ly_module2alist, "ly:module->alist",
 	   "Dump the contents of  module @var{mod} as an alist.")
 {
   SCM_VALIDATE_MODULE (1, mod);
-  SCM obarr= SCM_MODULE_OBARRAY (mod);
+  SCM obarr = SCM_MODULE_OBARRAY (mod);
 
   return scm_internal_hash_fold ((Hash_cl_func) &entry_to_alist, NULL, SCM_EOL, obarr); 
 }

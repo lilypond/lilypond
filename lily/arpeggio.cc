@@ -46,7 +46,7 @@ Arpeggio::print (SCM smob)
     {
       Grob * stem = unsmob_grob (scm_car (s));
       Grob * ss = Staff_symbol_referencer::get_staff_symbol (stem);
-      Interval iv =Stem::head_positions (stem);
+      Interval iv = Stem::head_positions (stem);
       iv *= Staff_symbol::staff_space (ss)/2.0;
       
       heads.unite (iv + ss->relative_coordinate (common, Y_AXIS)
@@ -72,7 +72,7 @@ Arpeggio::print (SCM smob)
     }
   
   Stencil mol;
-  Font_metric *fm =Font_interface::get_default_font (me);
+  Font_metric *fm = Font_interface::get_default_font (me);
   Stencil squiggle = fm->find_by_name ("scripts-arpeggio");
 
   Stencil arrow ;  
@@ -82,7 +82,7 @@ Arpeggio::print (SCM smob)
       heads[dir] -= dir * arrow.extent (Y_AXIS).length ();
     }
   
-  for (Real  y= heads[LEFT] ; y < heads[RIGHT];
+  for (Real  y = heads[LEFT] ; y < heads[RIGHT];
        y+= squiggle. extent (Y_AXIS).length ())
       mol.add_at_edge (Y_AXIS, UP,squiggle, 0.0, 0);
 

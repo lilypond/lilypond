@@ -12,7 +12,7 @@
 Direction
 get_grob_direction (Grob*me) 
 {
-  SCM d= me->get_property ("direction");
+  SCM d = me->get_property ("direction");
   if (!is_direction (d))
     return CENTER;
       

@@ -33,7 +33,7 @@ Staff_spacing::next_note_correction (Grob * me,
   if (!g || !Note_column::has_interface (g))
     return 0.0;
 
-  Item *col =dynamic_cast<Item*> (g)->get_column ();
+  Item *col = dynamic_cast<Item*> (g)->get_column ();
   Real max_corr = 0. >? (- g->extent (col, X_AXIS)[LEFT]);
 
   /*
@@ -148,7 +148,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   *space = 1.0;
   *fixed = 1.0;
 
-  Grob * separation_item= 0;
+  Grob * separation_item = 0;
   Item * me_item  = dynamic_cast<Item*> (me);
     
   for (SCM s = me->get_property ("left-items");

@@ -123,7 +123,7 @@ static Long_option_init options_static[] =
   {
     {_i ("EXPR"), "evaluate", 'e',
      _i ("set option, use -e '(ly:option-usage)' for help")},
-    /* Bug in option parser: --output=foe is taken as an abbreviation
+    /* Bug in option parser: --output =foe is taken as an abbreviation
        for --output-format.  */
     {_i ("EXT"), "format", 'f', _i ("select back-end to use")},
     {0, "help", 'h',  _i ("print this help")},
@@ -150,12 +150,12 @@ static void
 dir_info (FILE *out)
 {
   fputs ("\n", out);
-  fprintf (out, "LILYPOND_DATADIR=\"%s\"\n", LILYPOND_DATADIR);
-  fprintf (out, "LOCAL_LILYPOND_DATADIR=\"\%s\"\n", LOCAL_LILYPOND_DATADIR);
-  fprintf (out, "LOCALEDIR=\"%s\"\n", LOCALEDIR);
+  fprintf (out, "LILYPOND_DATADIR =\"%s\"\n", LILYPOND_DATADIR);
+  fprintf (out, "LOCAL_LILYPOND_DATADIR =\"\%s\"\n", LOCAL_LILYPOND_DATADIR);
+  fprintf (out, "LOCALEDIR =\"%s\"\n", LOCALEDIR);
 
   char *lilypond_prefix = getenv ("LILYPONDPREFIX");
-  fprintf (out, "LILYPONDPREFIX=\"%s\"\n",
+  fprintf (out, "LILYPONDPREFIX =\"%s\"\n",
 	   (lilypond_prefix ? lilypond_prefix : ""));
 }
 

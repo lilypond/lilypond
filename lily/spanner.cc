@@ -90,7 +90,7 @@ Spanner::do_break_processing ()
       break_points.insert (left,0);
       break_points.push (right);
 
-      for (int i=1; i < break_points.size (); i++) 
+      for (int i =1; i < break_points.size (); i++) 
 	{
 	  Drul_array<Item*> bounds;
 	  bounds[LEFT] = break_points[i-1];
@@ -129,7 +129,7 @@ Spanner::do_break_processing ()
 	}
     }
   broken_intos_.sort (Spanner::compare);
-  for (int i= broken_intos_.size ();i--;)
+  for (int i = broken_intos_.size ();i--;)
     broken_intos_[i]->break_index_ = i;
 }
 
@@ -184,12 +184,12 @@ Spanner::set_bound (Direction d, Grob*s)
       return;
     }
   
-  spanned_drul_[d] =i;
+  spanned_drul_[d] = i;
 
   /**
      We check for System to prevent the column -> line_of_score
      -> column -> line_of_score -> etc situation */
-  if (d== LEFT && !dynamic_cast<System*> (this))
+  if (d == LEFT && !dynamic_cast<System*> (this))
     {
       set_parent (i, X_AXIS);
     }
@@ -313,7 +313,7 @@ Spanner::do_derived_mark () const
       scm_gc_mark (spanned_drul_[d]->self_scm ());
   while (flip (&d) != LEFT);
 
-  for (int i= broken_intos_.size () ; i--;)
+  for (int i = broken_intos_.size () ; i--;)
     scm_gc_mark (broken_intos_[i]->self_scm ());
 
   return SCM_EOL;

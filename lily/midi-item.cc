@@ -458,7 +458,7 @@ Midi_track::data_string () const
   String str = Midi_chunk::data_string ();
   if (midi_debug_global_b)
     str += "\n";
-  for (Cons<Midi_event> *i=event_p_list_.head_; i; i = i->next_) 
+  for (Cons<Midi_event> *i = event_p_list_.head_; i; i = i->next_) 
     {
       str += i->car_->to_string ();
       if (midi_debug_global_b)

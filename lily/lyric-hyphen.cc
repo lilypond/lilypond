@@ -97,7 +97,7 @@ Hyphen_spanner::set_spacing_rods (SCM smob)
   r.distance_ =
     robust_scm2double (me->get_property ("minimum-length"), 0);
 
-  Direction d=LEFT;
+  Direction d = LEFT;
   do
     {
       r.item_l_drul_[d] = sp->get_bound (d);

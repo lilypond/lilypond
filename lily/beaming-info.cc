@@ -33,7 +33,7 @@ Beaming_info_list::best_splitpoint_index (Moment &beat_length,bool subdivide) co
   int minidx = -1;
   Moment beat_pos;
 
-  for (int i=1; i < infos_.size (); i++)
+  for (int i =1; i < infos_.size (); i++)
     {
       beat_pos = infos_[i].start_mom_ / beat_length;
       int den = beat_pos.den ();
@@ -46,7 +46,7 @@ Beaming_info_list::best_splitpoint_index (Moment &beat_length,bool subdivide) co
 	}
     }
 
-  return minidx|(minden==1 && subdivide ? at_beat : 0);
+  return minidx|(minden ==1 && subdivide ? at_beat : 0);
 }
 
 int

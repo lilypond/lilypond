@@ -38,7 +38,7 @@ public:
 
 Phrasing_slur_engraver::Phrasing_slur_engraver ()
 {
-  events_[START] =events_[STOP] = 0;
+  events_[START] = events_[STOP] = 0;
 }
 
 bool
@@ -71,7 +71,7 @@ Phrasing_slur_engraver::try_music (Music *m)
 void
 Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
 {
-  Grob *e =info.grob_;
+  Grob *e = info.grob_;
   if (Note_column::has_interface (info.grob_))
     {
       for (int i = slurs_.size (); i--; )

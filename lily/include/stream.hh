@@ -17,9 +17,9 @@ source file of the GNU LilyPond music typesetter
 
 #if __GNUC__ > 2
 std::ostream *open_file_stream (String file_name,
-				std::ios_base::openmode mode=std::ios::out);
+				std::ios_base::openmode mode = std::ios::out);
 #else
-std::ostream *open_file_stream (String file_name, int mode=ios::out);
+std::ostream *open_file_stream (String file_name, int mode = ios::out);
 #endif
 void close_file_stream (std::ostream *os);
 

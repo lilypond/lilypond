@@ -72,7 +72,7 @@ MAKE_SCHEME_CALLBACK (Script_interface, print, 1);
 SCM
 Script_interface::print (SCM smob)
 {
-  Grob *me= unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
 
   Direction dir = Side_position_interface::get_direction (me);
   if (!dir)

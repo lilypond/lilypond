@@ -130,7 +130,7 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
 		      scm_to_int (scm_cdr (key)),
 		      scm_to_int (alter));
 
-	  orig =orig.transposed (*p);
+	  orig = orig.transposed (*p);
 
 	  SCM key = scm_cons (scm_int2num (orig.get_octave ()),
 			     scm_int2num (orig.get_notename ()));
@@ -143,7 +143,7 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
 	  Pitch orig (0, scm_to_int (key), scm_to_int (alter));
 	  orig = orig.transposed (*p);
 
-	  key =scm_int2num (orig.get_notename ());
+	  key = scm_int2num (orig.get_notename ());
 	  alter = scm_int2num (orig.get_alteration ());
 	  newlist = scm_cons (scm_cons (key, alter), newlist);
 	}

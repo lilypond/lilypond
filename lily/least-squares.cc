@@ -20,9 +20,9 @@ minimise_least_squares (Real * coef, Real * offset,
   Real sqx = 0.0;
   Real sxy = 0.0;
 
-  for (int i= 0; i < input.size ();i++) 
+  for (int i = 0; i < input.size ();i++) 
     {
-      Real x=input[i][X_AXIS];
+      Real x = input[i][X_AXIS];
       Real y = input[i][Y_AXIS];
       sx += x;
       sy += y;

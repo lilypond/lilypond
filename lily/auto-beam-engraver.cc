@@ -113,7 +113,7 @@ Auto_beam_engraver::try_music (Music*m)
 
 /*
   Determine end moment for auto beaming (or begin moment, but mostly
-  0==anywhere) In order of increasing priority:
+  0== anywhere) In order of increasing priority:
   
   i.   begin anywhere, end at every beat
   ii.  end   *    <num> <den>
@@ -364,7 +364,7 @@ Auto_beam_engraver::typeset_beam ()
       finished_beam_ = 0;
     
       delete finished_grouping_;
-      finished_grouping_= 0;
+      finished_grouping_ = 0;
     }
 }
 

@@ -439,12 +439,12 @@ Slur_score_state::get_closest_index (SCM inspect_quants) const
   Real mindist = 1e6;
   for (int i = 0; i < configurations_.size (); i ++)
     {
-      Real d =fabs (configurations_[i]->attachment_[LEFT][Y_AXIS] - ins[LEFT])
+      Real d = fabs (configurations_[i]->attachment_[LEFT][Y_AXIS] - ins[LEFT])
 	+ fabs (configurations_[i]->attachment_[RIGHT][Y_AXIS] - ins[RIGHT]);
       if (d < mindist)
 	{
 	  opt_idx = i;
-	  mindist= d;
+	  mindist = d;
 	}
     }
   if (mindist > 1e5)

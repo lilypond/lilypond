@@ -47,14 +47,14 @@ Fingering_engraver::acknowledge_grob (Grob_info inf)
 {
   if (Stem::has_interface (inf.grob_))
     {
-      for (int i= 0; i < fingerings_.size (); i++)
+      for (int i = 0; i < fingerings_.size (); i++)
 	{
 	  Side_position_interface::add_support (fingerings_[i], inf.grob_);
 	}
     }
   else if (Rhythmic_head::has_interface (inf.grob_))
     {
-      for (int i= 0; i < fingerings_.size (); i++)
+      for (int i = 0; i < fingerings_.size (); i++)
 	{
 	  Grob*t = fingerings_[i];
 	  Side_position_interface::add_support (t,inf.grob_);
@@ -67,7 +67,7 @@ Fingering_engraver::acknowledge_grob (Grob_info inf)
 void
 Fingering_engraver::process_music ()
 {
-  for (int i= reqs_.size (); i--;)
+  for (int i = reqs_.size (); i--;)
     {
       SCM dir = reqs_[i]->get_property ("direction");
       make_script (to_dir (dir), reqs_[i], i);

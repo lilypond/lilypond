@@ -90,7 +90,7 @@ Separating_line_group_engraver::finalize ()
   sep_span_->set_bound (RIGHT, unsmob_grob (ccol));
   sep_span_ = 0;
 
-  for  (int i= 0 ; i < last_spacings_.note_spacings_.size (); i++)
+  for  (int i = 0 ; i < last_spacings_.note_spacings_.size (); i++)
     {
       Pointer_group_interface::add_grob (last_spacings_.note_spacings_[i],
 					 ly_symbol2scm ("right-items" ),
@@ -125,7 +125,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
       return ;
     }
   
-  bool ib =Item::is_breakable (it);
+  bool ib = Item::is_breakable (it);
   Item *&p_ref_ (ib ? break_item_
 		 : musical_item_);
 

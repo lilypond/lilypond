@@ -54,7 +54,7 @@ void
 Drum_notes_engraver::process_music ()
 {
   SCM tab = 0;
-  for (int i= 0; i < events_.size (); i++)
+  for (int i = 0; i < events_.size (); i++)
     {
       if (!tab)
 	tab = get_property ("drumStyleTable");
@@ -90,7 +90,7 @@ Drum_notes_engraver::process_music ()
       if (scm_is_pair (defn))
 	{
 	  SCM pos = scm_caddr (defn);
-	  SCM style =scm_car (defn);
+	  SCM style = scm_car (defn);
 	  SCM script = scm_cadr (defn);
 	  
 	  if (scm_integer_p (pos) == SCM_BOOL_T)
@@ -125,7 +125,7 @@ Drum_notes_engraver::acknowledge_grob (Grob_info inf)
 {
   if (Stem::has_interface (inf.grob_))
     {
-      for (int i= 0; i < scripts_.size (); i++)
+      for (int i = 0; i < scripts_.size (); i++)
 	{
 	  Grob*e = scripts_[i];
 
@@ -141,7 +141,7 @@ Drum_notes_engraver::acknowledge_grob (Grob_info inf)
     }
    else if (Note_column::has_interface (inf.grob_))
     {
-      for (int i= 0; i < scripts_.size (); i++)
+      for (int i = 0; i < scripts_.size (); i++)
 	{
 	  Grob *e = scripts_[i];
 	  

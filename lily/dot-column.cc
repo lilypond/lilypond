@@ -273,7 +273,7 @@ Dot_column::do_shifts (Grob*me)
 	}
       
       int p = Staff_symbol_referencer::get_rounded_position (dp.dot_);
-      dp.pos_= p;
+      dp.pos_ = p;
 
       if (dp.extremal_head_)
 	dp.dir_ = to_dir (dp.dot_->get_property  ("direction"));

@@ -84,7 +84,7 @@ Beam_engraver::Beam_engraver ()
 {
   beam_ = 0;
   finished_beam_ = 0;
-  finished_beam_info_= 0;
+  finished_beam_info_ = 0;
   beam_info_ = 0;
   now_stop_ev_ = 0;
   start_ev_ = 0;
@@ -106,7 +106,7 @@ Beam_engraver::try_music (Music *m)
 	{
 	  start_ev_ = m;
 	}
-      else if (d==STOP)
+      else if (d == STOP)
 	{
 	  now_stop_ev_ = m;
 	}

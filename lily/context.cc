@@ -127,7 +127,7 @@ Context::create_unique_context (SCM n, SCM operations)
       Context * current = this;
 
       // start at 1.  The first one (index 0) will be us.
-      for (int i= 0; i < path.size (); i++)
+      for (int i = 0; i < path.size (); i++)
 	{
 	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
 
@@ -186,7 +186,7 @@ Context::find_create_context (SCM n, String id, SCM operations)
       Context * current = this;
 
       // start at 1.  The first one (index 0) will be us.
-      for (int i= 0; i < path.size (); i++)
+      for (int i = 0; i < path.size (); i++)
 	{
 	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
 
@@ -493,7 +493,7 @@ Context::print_smob (SCM s, SCM port, scm_print_state *)
       scm_display (d->get_context_name (), port);
     }
 
-  if (Context *td=dynamic_cast<Context *> (sc))
+  if (Context *td = dynamic_cast<Context *> (sc))
     {
       scm_puts ("=", port);
       scm_puts (td->id_string_.to_str0 (), port);

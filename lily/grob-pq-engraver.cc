@@ -69,7 +69,7 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
 			 gi.grob_->self_scm (),
 			 SCM_EOL);
 
-      SCM busy= get_property ("busyGrobs");
+      SCM busy = get_property ("busyGrobs");
       busy = scm_merge_x (lst, busy, ly_grob_pq_less_p_proc);
       context ()->set_property ("busyGrobs", busy);
     }

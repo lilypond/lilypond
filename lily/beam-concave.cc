@@ -112,7 +112,7 @@ Beam::check_concave (SCM smob)
 
   Array<int> close_positions;
   Array<int> far_positions;
-  for (int i= 0; i < stems.size (); i++)
+  for (int i = 0; i < stems.size (); i++)
     {
       /*
 	For chords, we take the note head that is closest to the beam.

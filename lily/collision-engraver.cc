@@ -37,7 +37,7 @@ Collision_engraver::process_acknowledged_grobs ()
       
     }
   
-  for (int i= 0; i< note_columns_.size (); i++)
+  for (int i = 0; i< note_columns_.size (); i++)
     Note_collision_interface::add_column (col_,note_columns_[i]);
 }
 

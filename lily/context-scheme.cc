@@ -69,7 +69,7 @@ LY_DEFINE (ly_context_property, "ly:context-property",
 	  "Return the value of @var{name} from context @var{c}")
 {
   Context *t = unsmob_context (c);
-  Context * tr= (t);
+  Context * tr = (t);
   SCM_ASSERT_TYPE (tr, c, SCM_ARG1, __FUNCTION__, "Translator group");
   SCM_ASSERT_TYPE (scm_is_symbol (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 

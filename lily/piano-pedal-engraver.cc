@@ -310,7 +310,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 {
   if (!p->bracket_ && p->event_drul_[STOP])
     {
-      String msg =_f ("can't find start of piano pedal bracket: `%s'", p->name_);
+      String msg = _f ("can't find start of piano pedal bracket: `%s'", p->name_);
       p->event_drul_[STOP]->origin ()->warning (msg);
       p->event_drul_[STOP] =  0;
     }

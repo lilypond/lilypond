@@ -159,7 +159,7 @@ Note_column::accidentals (Grob *me)
 {
   SCM heads = me->get_property ("note-heads");
   Grob * acc = 0;
-  for (;scm_is_pair (heads); heads =scm_cdr (heads))
+  for (;scm_is_pair (heads); heads = scm_cdr (heads))
     {
       Grob * h = unsmob_grob (scm_car (heads));
       acc = h ? unsmob_grob (h->get_property ("accidental-grob")) : 0;

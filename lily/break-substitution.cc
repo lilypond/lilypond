@@ -142,7 +142,7 @@ substitute_grob_list (SCM grob_list)
 
   for (SCM s = grob_list; scm_is_pair (s); s =  scm_cdr (s))
     {
-      SCM n= substitute_grob (unsmob_grob (scm_car (s)));
+      SCM n = substitute_grob (unsmob_grob (scm_car (s)));
 
       if (n != SCM_UNDEFINED)
 	{
@@ -228,7 +228,7 @@ spanner_system_range (Spanner* sp)
 Slice
 item_system_range (Item* it)
 {
-  if (System*st= it->get_system ())
+  if (System*st = it->get_system ())
     return Slice (st->rank_, st->rank_);
 
   Slice sr;
@@ -239,7 +239,7 @@ item_system_range (Item* it)
       if (bi && bi->get_system ())
 	sr.add_point (bi->get_system ()->rank_);
     }
-  while (flip (&d)!=LEFT);
+  while (flip (&d)!= LEFT);
   
   return sr;
 }
@@ -407,7 +407,7 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
      for (int k = 0; k < 2;k++)
 	for (int j = (*arrs[k])[i][LEFT]; j <= (*arrs[k])[i][RIGHT]; j++)
 	  {
-	    SCM subs =substitute_grob (vec[j].grob_);
+	    SCM subs = substitute_grob (vec[j].grob_);
 	    if (subs!= SCM_UNDEFINED)
 	      {
 		*tail = scm_cons (subs, SCM_EOL);
@@ -424,7 +424,7 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
 	      sp_indices[i].length () , len -sp_index);
 	      
       {
-	SCM l1 =substitute_grob_list (grob_list);
+	SCM l1 = substitute_grob_list (grob_list);
 	assert (scm_ilength (l1) == scm_ilength (newval));
       }
 #endif

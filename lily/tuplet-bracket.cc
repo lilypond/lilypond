@@ -68,7 +68,7 @@ Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equ
   
   Spanner*sp = dynamic_cast<Spanner*> (me);  
 
-  *equally_long= false;
+  *equally_long = false;
   if (! (b1 && (b1 == b2) && !sp->is_broken ()))
       return 0;
 
@@ -98,9 +98,9 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket,print,1);
 SCM
 Tuplet_bracket::print (SCM smob) 
 {
-  Grob *me= unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
   Stencil  mol;
-  Link_array<Grob> columns=
+  Link_array<Grob> columns =
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
 
   if (!columns.size ())
@@ -197,7 +197,7 @@ Tuplet_bracket::print (SCM smob)
   if (bracket_visibility)      
     {
       Real ss =   Staff_symbol_referencer::staff_space (me);
-      Real gap= 0.;
+      Real gap = 0.;
 
       if (!num.extent (X_AXIS).is_empty ())
 	gap = num.extent (X_AXIS).length () + 1.0;
@@ -299,7 +299,7 @@ Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
 void
 Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy) 
 {
-  Link_array<Grob> columns=
+  Link_array<Grob> columns =
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
 
 
@@ -326,8 +326,8 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   
   if (l < r)
     {
-      Interval rv =columns[r]->extent (commony, Y_AXIS);
-      Interval lv =columns[l]->extent (commony, Y_AXIS);
+      Interval rv = columns[r]->extent (commony, Y_AXIS);
+      Interval lv = columns[l]->extent (commony, Y_AXIS);
       rv.unite (staff);
       lv.unite (staff);
       Real graphical_dy =  rv[dir] - lv[dir];
@@ -368,7 +368,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   
   for (int i = 0; i < columns.size ();  i++)
     {
-      Interval note_ext =columns[i]->extent (commony, Y_AXIS);
+      Interval note_ext = columns[i]->extent (commony, Y_AXIS);
       note_ext.unite (staff);
       Real notey = note_ext[dir] - me->relative_coordinate (commony, Y_AXIS);
       
@@ -387,7 +387,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
     horizontal brackets should not collide with staff lines.
     
    */
-  Real ss= Staff_symbol_referencer::staff_space (me);
+  Real ss = Staff_symbol_referencer::staff_space (me);
   if (*dy == 0 && fabs (*offset) <  ss * Staff_symbol_referencer::staff_radius (me))
     {
       // quantize, then do collision check.
@@ -412,13 +412,13 @@ SCM
 Tuplet_bracket::before_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Link_array<Grob> columns=
+  Link_array<Grob> columns =
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
 
 
   for (int i = columns.size (); i--;)
     {
-      Grob * s =Note_column::get_stem (columns[i]);
+      Grob * s = Note_column::get_stem (columns[i]);
       Grob * b = s ? Stem::get_beam (s): 0;
       if (b)
 	me->add_dependency (b);
@@ -432,7 +432,7 @@ SCM
 Tuplet_bracket::after_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
-  Link_array<Grob> columns=
+  Link_array<Grob> columns =
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
 
   if (!columns.size ())

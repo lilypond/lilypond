@@ -24,7 +24,7 @@ Tex_font_metric_reader::Tex_font_metric_reader (String name)
   : input_ (name)
 {
   
-  for (int i= 0; i < TFM_SIZE; i++)
+  for (int i = 0; i < TFM_SIZE; i++)
     ascii_to_metric_idx_.push (-1);
 
   read_header ();

@@ -25,7 +25,7 @@ Property_iterator::process (Moment m)
   if (scm_is_symbol (sym))
     {
       SCM val = get_music ()->get_property ("value");
-      bool ok= true;
+      bool ok = true;
       if (val != SCM_EOL)
 	ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
       if (ok)
@@ -140,7 +140,7 @@ Push_property_iterator::do_quit ()
       SCM trans = get_outlet ()->self_scm ();
       SCM music = get_music ()->self_scm ();
 
-      Global_context * tg=  get_outlet ()->get_global_context ();
+      Global_context * tg =  get_outlet ()->get_global_context ();
       tg->add_finalization (scm_list_n (once_finalization_proc,
 					trans, music, SCM_UNDEFINED));
     }

@@ -90,7 +90,7 @@ Slash_repeat_engraver::try_music (Music * m)
       else
 	return false;
       
-      Global_context *global =get_global_context ();
+      Global_context *global = get_global_context ();
       for (int i = 0; i < count; i++)  
 	global->add_moment_to_process (next_moment_ + Moment (i) * body_length_);
   

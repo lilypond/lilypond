@@ -77,7 +77,7 @@ Beam_performer::try_music (Music *m)
 	{
 	  start_ev_ = m;
 	}
-      else if (d==STOP)
+      else if (d == STOP)
 	{
 	  now_stop_ev_ = m;
 	}

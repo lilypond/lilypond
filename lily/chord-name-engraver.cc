@@ -98,7 +98,7 @@ Chord_name_engraver::process_music ()
 	  int octavation =  scm_to_int (oct);
 	  Pitch orig = p->transposed (Pitch (-octavation, 0,0));
 	  
-	  pitches= scm_cons (orig.smobbed_copy (), pitches);
+	  pitches = scm_cons (orig.smobbed_copy (), pitches);
 	}
       else
 	programming_error ("Inversion does not have original pitch.");

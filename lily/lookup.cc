@@ -49,7 +49,7 @@ Lookup::dot (Offset p, Real radius)
  *        /    |   v
  *       |    /
  *       |   /
- * (0,0) x  /slope=dy/dx
+ * (0,0) x  /slope = dy/dx
  *       | /
  *       |/
  *
@@ -80,7 +80,7 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash)
 {
   SCM l = SCM_EOL;
 
-  for (int i= 4; i -- ;)
+  for (int i = 4; i -- ;)
     {
       l = scm_cons (ly_offset2scm (b.control_[i]), l);
     }
@@ -363,9 +363,9 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
   
   SCM scontrols[8];
 
-  for (int i=4; i--;)
+  for (int i =4; i--;)
     scontrols[ i ] = ly_offset2scm (back.control_[i]);
-  for (int i=4 ; i--;)
+  for (int i =4 ; i--;)
     scontrols[i+4] = ly_offset2scm (curve.control_[i]);
 
   /*
@@ -373,7 +373,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
    */
   int indices[]= {5, 6, 7, 4, 1, 2, 3, 0};
   SCM list = SCM_EOL;
-  for (int i= 8; i--;)
+  for (int i = 8; i--;)
     {
       list = scm_cons (scontrols[indices[i]], list);
     }

@@ -180,7 +180,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 Stencil
 Multi_measure_rest::big_rest (Grob *me, Real width)
 {
-  Real thick_thick =robust_scm2double (me->get_property ("thick-thickness"), 1.0);
+  Real thick_thick = robust_scm2double (me->get_property ("thick-thickness"), 1.0);
   Real hair_thick = robust_scm2double (me->get_property ("hair-thickness"), .1);
 
 
@@ -319,7 +319,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 
   Real sym_width = symbol_stencil (me, 0.0).extent (X_AXIS).length ();
   
-  for (int i= 0; i < 4; i++)
+  for (int i = 0; i < 4; i++)
     {
       Item *li = combinations[i][0];
       Item *ri = combinations[i][1];

@@ -28,7 +28,7 @@ Bar_line::print (SCM smob)
   SCM barsiz_proc = me->get_property ("bar-size-procedure");
   if (scm_is_string (s) && ly_c_procedure_p (barsiz_proc))
     {
-      String str  =ly_scm2string (s);
+      String str  = ly_scm2string (s);
       SCM siz = scm_call_1 (barsiz_proc, me->self_scm ());
       Real sz = robust_scm2double (siz, 0);
       if (sz <= 0)
@@ -60,7 +60,7 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
   Stencil thick = simple_barline (me, fatline, h);
   Stencil dot = Font_interface::get_default_font (me)->find_by_name ("dots-dot");
 
-  int lines =Staff_symbol_referencer::line_count (me);
+  int lines = Staff_symbol_referencer::line_count (me);
   Real dist 
     = ((lines & 1 || lines == 0)
        ? 1
@@ -156,7 +156,7 @@ MAKE_SCHEME_CALLBACK (Bar_line,before_line_breaking ,1);
 SCM
 Bar_line::before_line_breaking (SCM smob)
 {
-  Grob*me=unsmob_grob (smob);
+  Grob*me = unsmob_grob (smob);
   Item * item = dynamic_cast<Item*> (me);
   
   SCM g = me->get_property ("glyph");

@@ -96,7 +96,7 @@ Timing_translator::measure_position () const
 void
 Timing_translator::start_translation_timestep ()
 {
-  Global_context *global =get_global_context ();
+  Global_context *global = get_global_context ();
 
   Moment now = global->now_mom ();
   Moment dt = now  - global->previous_moment ();
@@ -138,7 +138,7 @@ Timing_translator::start_translation_timestep ()
     }
 
   SCM cad = get_property ("timing");
-  bool c= to_boolean (cad);
+  bool c = to_boolean (cad);
 
   Rational len = measure_length ();
   while (c && measposp.main_part_ >= len)

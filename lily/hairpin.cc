@@ -24,7 +24,7 @@ MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
 SCM
 Hairpin::print (SCM smob) 
 {
-  Grob *me= unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
 
   SCM s = me->get_property ("grow-direction");

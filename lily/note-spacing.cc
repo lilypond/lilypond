@@ -41,7 +41,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
     {
       for (SCM  s = props[d]; scm_is_pair (s); s = scm_cdr (s))
 	{
-	  Item * it= dynamic_cast<Item*> (unsmob_grob (scm_car (s)));
+	  Item * it = dynamic_cast<Item*> (unsmob_grob (scm_car (s)));
 	  
 	  if (d == RIGHT && it->break_status_dir () != col_dir)
 	    {
@@ -206,7 +206,7 @@ Note_spacing::right_column (Grob*me)
     {
       // I'm a lazy bum. We could do this in-place.
       SCM newright  = SCM_EOL;
-      for (SCM s = right ; scm_is_pair (s) ; s =scm_cdr (s))
+      for (SCM s = right ; scm_is_pair (s) ; s = scm_cdr (s))
 	{
 	  if (unsmob_item (scm_car (s))->get_column () == mincol)
 	    newright = scm_cons (scm_car (s), newright);
@@ -263,7 +263,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
     {
       for (SCM  s = props[d]; scm_is_pair (s); s = scm_cdr (s))
 	{
-	  Item * it= dynamic_cast<Item*> (unsmob_grob (scm_car (s)));
+	  Item * it = dynamic_cast<Item*> (unsmob_grob (scm_car (s)));
 
 	  if (d == RIGHT)
 	    acc_right = acc_right || Note_column::accidentals (it);
@@ -382,7 +382,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 
 	  if (correct_stem_dirs)
 	    {
-	      correction =abs (intersect.length ());
+	      correction = abs (intersect.length ());
 
       
 	      /*
@@ -434,7 +434,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
       Real corr = robust_scm2double (me->get_property ("stem-spacing-correction"), 0);
       corr =  (delta <= 1) ? 0.0 : 0.25;
       
-      correction=  -lowest * corr ;
+      correction =  -lowest * corr ;
     }
 
   *space += correction;

@@ -204,7 +204,7 @@ get_default_dir (Grob*me)
     = Pointer_group_interface__extract_grobs (me, (Grob*) 0, "note-columns");
 
   Direction d = DOWN;
-  for (int i= 0; i < encompasses.size (); i ++)
+  for (int i = 0; i < encompasses.size (); i ++)
     {
       if (Note_column::dir (encompasses[i]) < 0)
 	{

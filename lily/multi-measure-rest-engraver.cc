@@ -106,7 +106,7 @@ Multi_measure_rest_engraver::process_music ()
 	  Direction d = DOWN; 
 	  do {
 	    Grob *last = 0;
-	    for (int i= 0; i <numbers_.size (); i++)
+	    for (int i = 0; i <numbers_.size (); i++)
 	      {
 		if (scm_int2num (d) == numbers_[i]->get_property ("direction"))
 		  {

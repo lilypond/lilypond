@@ -39,15 +39,15 @@ Bar_check_iterator::process (Moment m)
       Context *tr = get_outlet ();
 
       SCM mp = tr->get_property ("measurePosition");
-      SCM sync= tr->get_property ("barCheckSynchronize");
+      SCM sync = tr->get_property ("barCheckSynchronize");
 
-      Moment * where =unsmob_moment (mp);
+      Moment * where = unsmob_moment (mp);
       if (!where)
 	return;
       
       if (where->main_part_)
 	{
-	  bool warn =true;
+	  bool warn = true;
 	  if (to_boolean (sync))
 	    {
 	      tr = tr->where_defined (ly_symbol2scm ("measurePosition"));

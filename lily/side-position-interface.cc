@@ -225,7 +225,7 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
   if (st && a == Y_AXIS
       && scm_is_number (me->get_property ("staff-padding")))
     {
-      Real padding=
+      Real padding =
       Staff_symbol_referencer::staff_space (me)
       * scm_to_double (me->get_property ("staff-padding"));
   

@@ -65,7 +65,7 @@ Script_column_engraver::process_acknowledged_grobs ()
 
   if (scol_)
     {
-      for (int i= 0; i < scripts_.size (); i++)
+      for (int i = 0; i < scripts_.size (); i++)
 	Script_column::add_staff_sided (scol_, scripts_[i]);
       scripts_.clear ();
     }

@@ -32,7 +32,7 @@ Pitch::Pitch ()
 int
 Pitch::compare (Pitch const &m1, Pitch const &m2)
 {
-  int o=  m1.octave_ - m2.octave_;
+  int o =  m1.octave_ - m2.octave_;
   int n = m1.notename_ - m2.notename_;
   int a = m1.alteration_ - m2.alteration_;
 

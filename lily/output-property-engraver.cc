@@ -37,7 +37,7 @@ Output_property_engraver::try_music (Music* m)
 void
 Output_property_engraver::acknowledge_grob (Grob_info inf)
 {
-  for (int i=props_.size (); i--;)
+  for (int i = props_.size (); i--;)
     {
       Music * o = props_[i];
       SCM pred = o->get_property ("predicate");
@@ -49,7 +49,7 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 	  /*
 	    should typecheck pred. 
 	  */
-	  SCM result=scm_call_1 (pred, inf.grob_->self_scm ());
+	  SCM result = scm_call_1 (pred, inf.grob_->self_scm ());
 	  if (to_boolean (result))
 	    {
 	      SCM sym = o->get_property ("grob-property");

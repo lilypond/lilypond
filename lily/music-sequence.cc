@@ -81,7 +81,7 @@ Pitch
 music_list_to_relative (SCM l,Pitch p, bool ret_first)
 {
   Pitch first = p;
-  int count= 0;
+  int count = 0;
 
   Pitch last = p;
   for (SCM s = l; scm_is_pair (s);  s = scm_cdr (s))

@@ -134,7 +134,7 @@ Percent_repeat_engraver::process_music ()
 	  finished_perc_ = perc_;
 	  typeset_perc ();
 	  perc_ = make_spanner ("PercentRepeat", repeat_->self_scm ());
-	  SCM col =get_property ("currentCommandColumn");
+	  SCM col = get_property ("currentCommandColumn");
 	  perc_->set_bound (LEFT, unsmob_grob (col));
 	}
       else if (repeat_sign_type_ == DOUBLE_MEASURE)
@@ -168,7 +168,7 @@ Percent_repeat_engraver::typeset_perc ()
 {
   if (finished_perc_)
     {
-      SCM col =get_property ("currentCommandColumn");
+      SCM col = get_property ("currentCommandColumn");
       finished_perc_->set_bound (RIGHT, unsmob_grob (col));
       finished_perc_ = 0;
     }

@@ -249,7 +249,7 @@ Source_file::get_line (char const* pos_str0) const
   if (!newline_locations_.size ())
     return 1;
   
-  int lo= 0;
+  int lo = 0;
   int hi = newline_locations_.size ();
 
   if (newline_locations_[lo] > pos_str0)

@@ -199,11 +199,11 @@ Span_bar::evaluate_glyph (Grob*me)
     {
       type = ".|";
     }
-  else if (type== ":|")
+  else if (type == ":|")
     {
       type = "|.";
     }
-  else if (type== ":|:")
+  else if (type == ":|:")
     {
       type = ".|.";
     }

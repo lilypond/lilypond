@@ -129,7 +129,7 @@ New_lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 {
   if (lyric_iter_)
     lyric_iter_->substitute_outlet (f,t);
-  if (lyrics_context_ && lyrics_context_==f)
+  if (lyrics_context_ && lyrics_context_ == f)
     lyrics_context_ = t;
   if (music_context_ && music_context_ == f)
     music_context_ = t; 
@@ -223,7 +223,7 @@ New_lyric_combine_music_iterator::process (Moment )
   if (music_context_
       && start_new_syllable () && lyric_iter_->ok ())
     {
-      Moment m= lyric_iter_->pending_moment ();
+      Moment m = lyric_iter_->pending_moment ();
       lyric_iter_->process (m);
 
       music_found_ = true; 

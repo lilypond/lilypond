@@ -71,7 +71,7 @@ Clef_engraver::set_glyph ()
 void
 Clef_engraver::acknowledge_grob (Grob_info info)
 {
-  Item * item =dynamic_cast <Item *> (info.grob_);
+  Item * item = dynamic_cast <Item *> (info.grob_);
   if (item)
     {
       if (Bar_line::has_interface (info.grob_)

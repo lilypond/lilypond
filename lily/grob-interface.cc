@@ -65,7 +65,7 @@ check_interfaces_for_property (Grob const *me, SCM sym)
   SCM ifs = me->get_property ("interfaces");
 
   bool found = false;
-  for (; !found && scm_is_pair (ifs); ifs =scm_cdr (ifs))
+  for (; !found && scm_is_pair (ifs); ifs = scm_cdr (ifs))
     {
       SCM iface = scm_hashq_ref (all_ifaces , scm_car (ifs), SCM_BOOL_F);
       if (iface == SCM_BOOL_F)
@@ -76,7 +76,7 @@ check_interfaces_for_property (Grob const *me, SCM sym)
 	  continue;
 	}
 
-      found= found || (scm_c_memq (sym, scm_caddr (iface)) != SCM_BOOL_F);
+      found = found || (scm_c_memq (sym, scm_caddr (iface)) != SCM_BOOL_F);
     }
 
   if (!found)

@@ -73,7 +73,7 @@ Interpretation_context_handle::operator = (Interpretation_context_handle const &
 void
 Interpretation_context_handle::set_context (Context *trans)
 {
-  if (outlet_ ==trans)
+  if (outlet_ == trans)
     return;
   if (outlet_)
     down ();

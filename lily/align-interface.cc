@@ -60,13 +60,13 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
   Link_array<Grob> elems
     = Pointer_group_interface__extract_grobs (me, (Grob*) 0, "elements");
 
-  Real where_f= 0;
+  Real where_f = 0;
 
   Interval v;
   v.set_empty ();
   Array<Real> translates;
   
-  for (int j= elems.size (); j--; ) 
+  for (int j = elems.size (); j--; ) 
     {
       /*
 	This is not very elegant, in that we need special support for
@@ -135,12 +135,12 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   Link_array<Grob> elems;
   Link_array<Grob> all_grobs
     = Pointer_group_interface__extract_grobs (me, (Grob*) 0, "elements");
-  for (int i= 0; i < all_grobs.size (); i++) 
+  for (int i = 0; i < all_grobs.size (); i++) 
     {
       Interval y = all_grobs[i]->extent (me, a);
       if (!y.is_empty ())
 	{
-	  Grob *e =dynamic_cast<Grob*> (all_grobs[i]);
+	  Grob *e = dynamic_cast<Grob*> (all_grobs[i]);
 
 	  elems.push (e);
 	  dims.push (y);	  
@@ -166,9 +166,9 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   
   Array<Real> translates ;
   Interval total;
-  Real where_f= 0;
+  Real where_f = 0;
   
-  for (int j= 0 ;  j < elems.size (); j++) 
+  for (int j = 0 ;  j < elems.size (); j++) 
     {
       Real dy = -  dims[j][-stacking_dir];
       if (j)

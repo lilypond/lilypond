@@ -32,7 +32,7 @@ Measure_grouping_engraver::finalize ()
     {
       grouping_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
       grouping_->suicide ();
-      grouping_= 0;
+      grouping_ = 0;
     }
 }
 

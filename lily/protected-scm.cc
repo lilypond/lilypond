@@ -47,7 +47,7 @@ Protected_scm::operator = (SCM s)
 Protected_scm&
 Protected_scm::operator = (Protected_scm const &s)
 {
-  return operator= (s.object_);
+  return operator = (s.object_);
 }
 
 Protected_scm::operator SCM () const

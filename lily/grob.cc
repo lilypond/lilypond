@@ -48,7 +48,7 @@ Grob::Grob (SCM basicprops,
   key_ = key;
   /* FIXME: default should be no callback.  */
   self_scm_ = SCM_EOL;
-  pscore_= 0;
+  pscore_ = 0;
   status_ = 0;
   original_ = 0;
   immutable_property_alist_ =  basicprops;
@@ -414,7 +414,7 @@ Grob::extent (Grob *refp, Axis a) const
     ;
   else if (ly_c_procedure_p (d->dimension_))
     /* FIXME: add doco on types, and should typecheck maybe?  */
-    d->dimension_= scm_call_2 (d->dimension_, self_scm (), scm_int2num (a));
+    d->dimension_ = scm_call_2 (d->dimension_, self_scm (), scm_int2num (a));
   else
     return ext;
 

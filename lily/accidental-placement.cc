@@ -52,7 +52,7 @@ Accidental_placement::add_accidental (Grob* me, Grob* a)
       return; 
     }
 
-  Pitch *p= unsmob_pitch (mcause->get_property ("pitch"));
+  Pitch *p = unsmob_pitch (mcause->get_property ("pitch"));
 
   int n = p->get_notename ();
 
@@ -81,8 +81,8 @@ Accidental_placement::split_accidentals (Grob * accs,
 					 Link_array<Grob> *break_reminder,
 					 Link_array<Grob> *real_acc)
 {
-  for (SCM acs =accs->get_property ("accidental-grobs"); scm_is_pair (acs);
-       acs =scm_cdr (acs))
+  for (SCM acs = accs->get_property ("accidental-grobs"); scm_is_pair (acs);
+       acs = scm_cdr (acs))
     for (SCM s = scm_cdar (acs); scm_is_pair (s); s = scm_cdr (s))
       {
 	Grob *a = unsmob_grob (scm_car (s));
@@ -262,12 +262,12 @@ Accidental_placement::position_accidentals (Grob * me)
     Y-position, they share an Ape, and will be printed in overstrike.
    */
   Link_array<Accidental_placement_entry> apes;
-  for (SCM s = accs; scm_is_pair (s); s =scm_cdr (s))
+  for (SCM s = accs; scm_is_pair (s); s = scm_cdr (s))
     {
       Accidental_placement_entry *ape = new Accidental_placement_entry;
       ape->notename_ = scm_to_int (scm_caar (s));
       
-      for (SCM t = scm_cdar (s); scm_is_pair (t); t =scm_cdr (t))
+      for (SCM t = scm_cdar (s); scm_is_pair (t); t = scm_cdr (t))
 	ape->grobs_.push (unsmob_grob (scm_car (t)));
 
       apes.push (ape);
@@ -280,7 +280,7 @@ Accidental_placement::position_accidentals (Grob * me)
     extents if we're sure that we've found the right common refpoint
    */
   Link_array<Grob> note_cols, heads;
-  for (int i= apes.size (); i--;)
+  for (int i = apes.size (); i--;)
     { 
       Accidental_placement_entry * ape = apes[i];
       for (int j = ape->grobs_.size (); j--;)
@@ -330,7 +330,7 @@ Accidental_placement::position_accidentals (Grob * me)
   common[Y_AXIS] = common_refpoint_of_array (heads, common[Y_AXIS], Y_AXIS);
 
   
-  for (int i= apes.size (); i--;)
+  for (int i = apes.size (); i--;)
     {
       Accidental_placement_entry * ape = apes[i];
       ape->left_skyline_ = empty_skyline (LEFT);
@@ -390,7 +390,7 @@ Accidental_placement::position_accidentals (Grob * me)
   /*
     Add accs entries right-to-left.
    */
-  for (int i= apes.size (); i-- > 0;)
+  for (int i = apes.size (); i-- > 0;)
     {
       Real offset =
 	-skyline_meshing_distance (apes[i]->right_skyline_, left_skyline);
