@@ -18,6 +18,7 @@ struct Voice_list : public PointerList<Voice*> {
 
 /**
 
+  A set voices.
   Input_music is anything that can simply be regarded as/converted to
   a set of voices "cooperating" or independant. It has some basic
   characteristics that real music has too:
@@ -26,8 +27,6 @@ struct Voice_list : public PointerList<Voice*> {
   - a pitch (it can be transposed)
 
   */
-
-
 struct Input_music {
     virtual Voice_list convert()const=0;
     virtual Moment length()const=0;
@@ -75,7 +74,7 @@ struct Complex_music : Input_music {
 
 
 /**
-  voice like.
+  A voice like list of music.
 
   different music forms which start after each other ( concatenated,
   stacked "horizontally )

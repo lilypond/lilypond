@@ -13,6 +13,6 @@ Molecule*
 Meter::brew_molecule_p()const
 {
     Symbol s = paper()->lookup_p_->meter(args);
-return new Molecule(Atom(s));
+    return new Molecule(Atom(s));
 }
 
