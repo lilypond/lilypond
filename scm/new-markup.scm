@@ -386,7 +386,7 @@ Also set markup-signature and markup-keyword object properties."
             (ly:stencil-add head
                              (ly:stencil-translate-axis tail xoff X)))
           (car stencils))
-      '()))
+      (ly:make-stencil '() '(0 . 0) '(0 . 0))))
 
 
 
