@@ -1,5 +1,7 @@
 2004-04-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* po/fr.po: update.
+
 	* po/nl.po: new po file.
 
 	* mf/feta-beugel.mf: document why design size is not fixed.
