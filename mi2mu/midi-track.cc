@@ -481,7 +481,8 @@ Midi_track::tcol_l( Moment mom )
 #ifdef TCOL_LIST
 	for ( PCursor<Track_column*> i( tcol_p_list_.top() ); i.ok(); i++ ) {
 		if ( i->mom() > mom ) { //not used, let's use array!
-			assert( 0 );
+//			assert( 0 );
+// 97-07-21; it's used now! cannot use array
 			Track_column* tcol_p = new Track_column( mom );
 			i.insert( tcol_p );
 			return tcol_p;

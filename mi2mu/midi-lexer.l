@@ -26,6 +26,7 @@
 #include "midi-parser.hh"
 
 #define YY_USER_ACTION char_count_ += YYLeng(); // ugh
+
 %}
 
 %option c++
@@ -65,7 +66,6 @@ BACKUP_TOP_0	MT
 BACKUP_TOP_1	MTh
 BACKUP_TOP_2	MTr
 
-XRUNNING_STATUS	[\x30-\x4f]
 RUNNING_STATUS	[\x00-\x5f]
 DATA_ENTRY	[\x60-\x79]
 ALL_NOTES_OFF	[\x7a-\x7f]
@@ -100,7 +100,7 @@ SSME		[\0x7f][\x03]
 
 %%
 
-{HEADER} { // huh? using {HEADER}/{INT32}; longer match than {INT32}
+{HEADER} {
 	tor( DEBUG_ver ) << "lex: header" << endl;
 	yy_push_state( int16 ); 
 	yy_push_state( int16 ); 
@@ -109,7 +109,7 @@ SSME		[\0x7f][\x03]
 	return HEADER;
 }
 
-{TRACK} { // huh? using {TRACK}/{INT32}; longer match than {INT32}
+{TRACK} {
 	tor( DEBUG_ver ) << "lex: track" << endl;
 	yy_push_state( track ); 
 	yy_push_state( int32 ); 
@@ -219,11 +219,16 @@ SSME		[\0x7f][\x03]
 }
 <event>{RUNNING_STATUS}	{
 //	yylval.byte = *(Byte*)YYText();
-	yylval.i = *(Byte*)YYText();
+//	yylval.i = *(Byte*)YYText();
+	yylval.i = running_status_i_;
 	tor( DEBUG_ver ) << String ( "lex: running status: " ) + String( yylval.i ) << endl;
-	yy_pop_state(); 
-//	yy_push_state( u8 );
-	yy_push_state( u8 );
+	/*
+	 'running status' rather means 'missing status'.
+	 we'll put the running status data back, prepend (unput) 
+	 the running status, and try again.
+	 */
+	yyless( 0 );
+	unput( running_status_i_ );
 	return RUNNING_STATUS;
 }
 <event>{DATA_ENTRY}	{
@@ -248,6 +253,7 @@ SSME		[\0x7f][\x03]
 	tor( DEBUG_ver ) << "lex: note off" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
+	running_status_i_ = yylval.i;
 	yy_pop_state(); 
 	yy_push_state( u8 );
 	yy_push_state( u8 );
@@ -257,6 +263,7 @@ SSME		[\0x7f][\x03]
 	tor( DEBUG_ver ) << "lex: note on" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
+	running_status_i_ = yylval.i;
 	yy_pop_state(); 
 	yy_push_state( u8 );
 	yy_push_state( u8 );
@@ -266,6 +273,7 @@ SSME		[\0x7f][\x03]
 	tor( DEBUG_ver ) << "lex: polyphonic aftertouch" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
+	running_status_i_ = yylval.i;
 	yy_pop_state(); 
 	yy_push_state( u8 );
 	yy_push_state( u8 );
@@ -275,6 +283,7 @@ SSME		[\0x7f][\x03]
 	tor( DEBUG_ver ) << "lex: controlmode change" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
+	running_status_i_ = yylval.i;
 	yy_pop_state(); 
 	yy_push_state( u8 );
 	yy_push_state( u8 );
@@ -284,6 +293,7 @@ SSME		[\0x7f][\x03]
 	tor( DEBUG_ver ) << "lex: program change" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
+	running_status_i_ = yylval.i;
 	yy_pop_state(); 
 	yy_push_state( u8 );
 	return PROGRAM_CHANGE;
@@ -292,6 +302,7 @@ SSME		[\0x7f][\x03]
 	tor( DEBUG_ver ) << "lex: channel aftertouch" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
+	running_status_i_ = yylval.i;
 	yy_pop_state(); 
 	yy_push_state( u8 );
 	yy_push_state( u8 );
@@ -301,6 +312,7 @@ SSME		[\0x7f][\x03]
 	tor( DEBUG_ver ) << "lex: pitchwheel range" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
+	running_status_i_ = yylval.i;
 	yy_pop_state(); 
 	yy_push_state( u8 );
 	yy_push_state( u8 );

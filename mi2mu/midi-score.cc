@@ -42,21 +42,26 @@ Midi_score::output_mudela( String filename_str )
 
 	lily_stream << "\\score{";
 	lily_stream.indent();
-		for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ ) {
-			if ( ( midi_track_p_list_.size() != 1 ) 
-				&& ( i == midi_track_p_list_.top() ) )
-				continue;
-			lily_stream << "\\staff{ melodicregs ";
-			lily_stream << i->name_str();
-			lily_stream << " }";
-			lily_stream.newline();
-		}
+		lily_stream << " < \\multi 3;";
+		lily_stream.indent();
+			for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ ) {
+				if ( ( midi_track_p_list_.size() != 1 ) 
+					&& ( i == midi_track_p_list_.top() ) )
+					continue;
+				lily_stream << "\\melodic{ ";
+				lily_stream << "\\$" << i->name_str();
+				lily_stream << " }";
+				lily_stream.newline();
+			}
+			lily_stream.tnedni();
+			lily_stream << ">";
 		lily_stream.newline();
 		lily_stream << "\\paper{";
 			lily_stream.indent();
-			lily_stream << "\\unitspace 20\\mm";
+			lily_stream << "unitspace = 20.0\\mm;";
 			lily_stream.tnedni();
 		lily_stream << "}";
+		lily_stream.newline();
 		lily_stream << "\\midi{";
 			lily_stream.indent();
 			// not use silly 0 track
