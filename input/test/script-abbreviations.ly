@@ -19,8 +19,8 @@ Some articulations may be entered using an abbreviation.
       c''4-+_"c-+"      s4
       c''4-|_"c-|"      s4
       c''4->_"c->"      s4
-      c''4-^_"c\\^{ }" s4
-      c''4-__"c\_" s4      
+      c''4-^_"c-\\^{ }" s4
+      c''4-__"c-\_" s4      
     }
   }
 
