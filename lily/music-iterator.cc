@@ -223,8 +223,3 @@ Music_iterator::try_music_in_children (Music  *  ) const
   return 0;
 }
 
-Music*
-Music_iterator::get_next_music ()
-{
-  return 0;
-}

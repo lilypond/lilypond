@@ -67,7 +67,7 @@ A sharp sign after a double sharp sign, as well as a flat sign
 after a double flat sign is automatically prepended with a
 natural sign.
 
-@mudelafile{double-single-acc.ly}
+@mudelafile{accidental-single-double.ly}
 
 @section Stems
 

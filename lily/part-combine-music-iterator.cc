@@ -8,7 +8,6 @@
 
 #include "part-combine-music.hh"
 #include "part-combine-music-iterator.hh"
-#include "sequential-music-iterator.hh"
 #include "translator-group.hh"
 #include "musical-request.hh"
 #include "warn.hh"
@@ -102,7 +101,7 @@ Part_combine_music_iterator::change_to (Music_iterator *it, String to_type,
 	Translator_group * dest = 
 	  it->report_to_l ()->find_create_translator_l (to_type, to_id);
 	current->remove_translator_p (last);
-	dest->add_translator (last);
+	dest->add_group_translator (last);
       }
     else
       {
@@ -124,8 +123,6 @@ Pitch_interrogate_req* second_spanish_inquisition; // won't strike twice
 Rhythm_interrogate_req* first_rhythmic_inquisition;
 Rhythm_interrogate_req* second_rhythmic_inquisition;
 
-#include <iostream.h>
-
 void
 Part_combine_music_iterator::do_process_and_next (Moment m)
 {
@@ -133,23 +130,14 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
 
   now_ = next_moment ();
 
-  Music* first_music = 0;
-  Music* second_music = 0;
-
   /*
     Hmm, shouldn't we check per iterator if next_moment < m?
    */
   if (first_iter_p_->ok ())
-    {
-      first_music = first_iter_p_->get_next_music ();
-      first_iter_p_->process_and_next (m);
-    }
+    first_iter_p_->process_and_next (m);
   
   if (second_iter_p_->ok ())
-    {
-      second_music = second_iter_p_->get_next_music ();
-      second_iter_p_->process_and_next (m);
-    }
+    second_iter_p_->process_and_next (m);
 
   Music_iterator::do_process_and_next (m);
 
@@ -198,13 +186,6 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
 
   Array<Duration>* first_durations = &first_rhythmic_inquisition->duration_arr_;
   Array<Duration>* second_durations = &second_rhythmic_inquisition->duration_arr_;
-
-  if (!first_durations->empty ())
-    cout << "first_durations: " << first_durations->top ().length_mom ().str () << endl;
-  
-  //  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req*> (first_music))
-  if (first_music)
-    cout << "first_music: " << first_music->length_mom ().str ();
 
   SCM interval = SCM_BOOL_F;
   if (first_pitches->size () && second_pitches->size ())

@@ -15,7 +15,7 @@
 #include "lily-guile.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
-#include "protected-scm.hh"
+
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
@@ -32,7 +32,6 @@ public:
   Mark_engraver ();
 protected:
   Item* text_p_;
-  Protected_scm staffs_;
   
 protected:
   virtual void do_pre_move_processing ();
@@ -41,6 +40,8 @@ protected:
   virtual bool do_try_music (Music *req_l);
   virtual void do_process_music ();
   virtual void do_post_move_processing ();
+  virtual void do_creation_processing ();
+  
 private:
   Mark_req * mark_req_l_;
 };
@@ -53,9 +54,13 @@ Mark_engraver::Mark_engraver ()
 {
   text_p_ =0;
   mark_req_l_ = 0;
-  staffs_ = SCM_EOL;
 }
 
+void
+Mark_engraver::do_creation_processing ()
+{
+  daddy_trans_l_->set_property ("staffsFound", SCM_EOL); // ugh: sharing with barnumber grav.
+}
 
 
 void
@@ -64,7 +69,10 @@ Mark_engraver::acknowledge_element (Score_element_info inf)
   Score_element * s = inf.elem_l_;
   if (Staff_symbol::has_interface (s))
     {
-      staffs_ = gh_cons (inf.elem_l_->self_scm (), staffs_);
+      SCM sts = get_property ("staffsFound");
+      SCM thisstaff = inf.elem_l_->self_scm ();
+      if (scm_memq (thisstaff, sts) == SCM_BOOL_F)
+	daddy_trans_l_->set_property ("staffsFound", gh_cons (thisstaff, sts));
     }
   else if (text_p_ && Bar::has_interface (s))
     {
@@ -81,7 +89,7 @@ Mark_engraver::do_pre_move_processing ()
 {
   if (text_p_)
     {
-      text_p_->set_elt_property("side-support-elements" , staffs_);
+      text_p_->set_elt_property("side-support-elements" , get_property ("staffsFound"));
       typeset_element (text_p_);
       text_p_ =0;
     }

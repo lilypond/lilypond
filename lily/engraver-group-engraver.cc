@@ -27,38 +27,33 @@ Engraver_group_engraver::announce_element (Score_element_info info)
 void
 Engraver_group_engraver::do_announces()
 {
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
+  for (SCM p = trans_group_list_; gh_pair_p (p); p =gh_cdr ( p))
     {
-      if (Engraver_group_engraver *trg =  dynamic_cast <Engraver_group_engraver *> (p->car_))
-	trg->do_announces ();
+      Translator * t = unsmob_translator (gh_car (p));
+      dynamic_cast<Engraver_group_engraver*> (t)->do_announces ();
     }
-
+  
   while (announce_info_arr_.size ())
     {
       for (int j =0; j < announce_info_arr_.size(); j++)
 	{
 	  Score_element_info info = announce_info_arr_[j];
 	  
-	  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
+	  for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr (p))
 	    {
-	      if (!dynamic_cast <Engraver_group_engraver *> (p->car_))
-		{
-		  Engraver * eng = dynamic_cast<Engraver*> (p->car_);
-		  if (eng && eng!= info.origin_trans_l_arr (this)[0])
-		    eng->acknowledge_element (info);
-		}		  
+	      Translator * t = unsmob_translator (gh_car (p));
+	      Engraver * eng = dynamic_cast<Engraver*> (t);
+	      if (eng && eng!= info.origin_trans_l_)
+		eng->acknowledge_element (info);
 	    }
 	}
-      
       announce_info_arr_.clear ();
-      for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
+      for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr ( p))
 	{
-	  if (!dynamic_cast <Engraver_group_engraver *> (p->car_))
-	    {
-	      Engraver * eng = dynamic_cast<Engraver*> (p->car_);
-	      if (eng)
-		eng->process_acknowledged ();
-	    }
+	  Translator * t = unsmob_translator (gh_car (p));
+	  Engraver * eng = dynamic_cast<Engraver*> (t);
+	  if (eng)
+	    eng->process_acknowledged ();
 	}
     }
 }

@@ -19,6 +19,7 @@ class Break_align_engraver : public Engraver
   Item *align_l_;
   Protected_scm column_alist_;
 protected:
+  virtual void do_removal_processing ();
   virtual void acknowledge_element(Score_element_info i);
   virtual void do_pre_move_processing ();
   void add_column (SCM);
@@ -38,6 +39,12 @@ Break_align_engraver::add_column (SCM smob)
   Score_element * e = unsmob_element (smob);
   Break_align_item::add_element (align_l_,e);
   typeset_element (e);
+}
+
+void
+Break_align_engraver::do_removal_processing ()
+{
+  column_alist_ = SCM_EOL;
 }
 
 void

@@ -45,6 +45,7 @@ Performer::process_acknowledged ()
 void
 Performer::announce_element (Audio_element_info i)
 {
-  i.origin_trans_l_arr_.push (this);
+  if (!i.origin_trans_l_)
+    i.origin_trans_l_= this;
   daddy_perf_l()->announce_element (i);
 }

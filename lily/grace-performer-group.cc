@@ -87,12 +87,7 @@ Grace_performer_group::each (Method_pointer method)
 }
 
 
-void
-Grace_performer_group::each (Const_method_pointer method) const
-{
- if (calling_self_b_)
-    Performer_group_performer::each (method);
-}
+
 
 /*
   don't let the commands trickle up.

@@ -13,6 +13,9 @@ gis g ges g |
 }
 
 \score { < \context Staff \thenotes
-	\context NoteNames \thenotes
+	\context NoteNames  {
+		\pushproperty #'basicNoteNameProperties #'no-spacing-rods ##f 
+		\thenotes
+	}
 	>
 }

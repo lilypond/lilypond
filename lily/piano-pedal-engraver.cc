@@ -182,15 +182,8 @@ Piano_pedal_engraver::do_process_music ()
 
       if (gh_string_p (s))
 	{
-	  if (p->name_ == String ("Sustain"))
-	    {
-	      // fixme: Item should be sufficient.
-	      p->item_p_ = new Item (get_property ("basicSustainPedalProperties"));
-	    }
-	  else
-	    {
-	      p->item_p_ = new Item (get_property ("basicPedalProperties"));
-	    }
+	  String propname = String ("basic")+  p->name_ + "PedalProperties";
+	  p->item_p_ = new Item (get_property (propname.ch_C()));
 	  p->item_p_->set_elt_property ("text", s);
 	  // guh
 

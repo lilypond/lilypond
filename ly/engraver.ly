@@ -6,8 +6,6 @@ StaffContext=\translator {
 	\type "Engraver_group_engraver";
 	\name Staff ;
 	\consists "Output_property_engraver";	
-	barAuto = ##t
-	voltaVisibility = ##t
 	Generic_property_list = #generic-staff-properties
 	\consists "Property_engraver";
 	
@@ -16,36 +14,11 @@ StaffContext=\translator {
  % Bar_engraver must be first so default bars aren't overwritten
 % with empty ones.
 
-	voltaPadding = #5  % urg, in \pt
-	voltaMinimumSpace = #25  % urg, in \pt
-
-	StaffMinimumVerticalExtent = #(cons -4.0 4.0)
 
 	\consists "Repeat_engraver";
 
 
-	%  name, glyph id, c0 position
-	supportedClefTypes = #'(
-	  ("treble" . ("clefs-G" -2))
-	  ("violin" . ("clefs-G" -2))
-	  ("G" . ("clefs-G" -2))
-	  ("G2" . ("clefs-G" -2))
-	  ("french" . ("clefs-G" -4 ))
-	  ("soprano" . ("clefs-C" -4 ))
-	  ("mezzosoprano" . ("clefs-C" -2 ))
-	  ("alto" . ("clefs-C" 0 ))
-	  ("tenor" . ("clefs-C" 2 ))
-	  ("baritone" . ("clefs-C" 4 ))
-	  ("varbaritone"  . ("clefs-F" 0))
-	  ("bass" . ("clefs-F" 2 ))
-	  ("F" . ( "clefs-F" 2))
-	  ("subbass" . ("clefs-F" 4))
-	)
-	% where is c0 in this clef?
-	clefPitches = #'(("clefs-G" . -4)
-	  ("clefs-C" . 0)
-	  ("clefs-F" . 4))
-	  
+
 	\consists "Clef_engraver";
 	\consists "Key_engraver";
 	\consists "Time_signature_engraver";
@@ -56,23 +29,19 @@ StaffContext=\translator {
 
 	\consistsend "Axis_group_engraver";
 
-
-
 %{
 	The Instrument_name_engraver puts the name of the instrument
 	(\property Staff.instrument; Staff.instr for subsequent lines)
 	to the left of a staff.
-	Usually, you only want this in the full score, not in the parts.
 
+	This is commented out, so you don't get funny things on the
+	PianoStaff	
 	\consists "Instrument_name_engraver";
 %}
 
-	defaultClef = #"treble"
 
-	\consists "Separating_line_group_engraver";
 	  
 	\accepts "Voice";
-	dynamicStyle = #"dynamic"
 };
 
 \translator{\StaffContext }
@@ -83,14 +52,10 @@ StaffContext=\translator {
 	\consists "System_start_delimiter_engraver";
 	systemStartDelimiterGlyph = #'bracket
 
-
-
 	\accepts "Staff";
 	\accepts "RhythmicStaff";
 	\accepts "GrandStaff";
 	\accepts "PianoStaff";
-
-		
 	\accepts "Lyrics";
 	\accepts "ChordNames";
 }
@@ -104,13 +69,17 @@ RhythmicStaffContext=\translator{
 
 	Generic_property_list = #generic-staff-properties
 	
-	barSize =   4.0 * \staffspace ; 
+	barSize =   4.0 * \staffspace ; % urg: pt
+
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
 	\name RhythmicStaff;
 
-	voltaPadding = #5  % urg, in \pt
-	voltaMinimumSpace = #15  % urg, in \pt
+	\pushproperty #'basicVoltaSpannerProperties #'minimum-space #15  % urg, in \pt
+	\pushproperty #'basicVoltaSpannerProperties #'padding #5  % urg, in \pt
+
+
+
 	\consists "Repeat_engraver";
 	\consists "Bar_engraver";
 	\consists "Time_signature_engraver";
@@ -124,10 +93,8 @@ VoiceContext = \translator {
 	\type "Engraver_group_engraver";
 	\name Voice;
 
-	dynamicPadding = #3  % urg, in \pt
-	dynamicMinimumSpace = #6  % urg, in \pt
-
 	Generic_property_list = #generic-voice-properties
+	
 	\consists "Output_property_engraver";	
 
 	\consists "Dynamic_engraver";   % must come before text_engraver.
@@ -143,24 +110,18 @@ VoiceContext = \translator {
 
 	\consists "Chord_tremolo_engraver";
 	\consists "Melisma_engraver";
-	textScriptPadding = #3.0
 	\consists "Text_engraver";
 	\consists "A2_engraver";
 	\consists "Voice_devnull_engraver";
 
-	% ugh :  set these in Score context, please.
+
 	startSustain = #"Ped."
 	stopSustain = #"*"
 	stopStartSustain = #"*Ped."
 	startUnaChorda = #"una chorda"
 	stopUnaChorda = #"tre chorde"
-
-	soloText = #"Solo"
-	soloIIText = #"Solo II"
-	aDueText = #"\\`a2"
-	soloADue = ##t
-	splitInterval = #'(0 . 1)
-
+	% should make separate lists for stopsustain and startsustain 
+	
 	\consists "Piano_pedal_engraver";
 	\consists "Script_engraver";
 	\consists "Script_column_engraver";
@@ -192,18 +153,19 @@ GraceContext=\translator {
 	\consists "Align_note_column_engraver";
 
 	\consists "Rhythmic_column_engraver";
-	\consists "Dynamic_engraver";
-	\consists "Text_engraver";
+
+	\consists "Dynamic_engraver";% in Grace ???
+	\consists "Text_engraver"; % in Grace ???
 
 	\consists "Property_engraver";
 
-	stemStyle = #"grace"
-	flagStyle = #"grace" 
+	\pushproperty #'basicStemProperties #'style #"grace"
+	\pushproperty #'basicStemProperties #'flag-style #"grace"
+	\pushproperty #'basicStemProperties #'stem-length #6.0
+	\pushproperty #'basicStemProperties #'direction #1
+	\pushproperty #'(basicNoteHeadProperties basicStemProperties basicBeamProperties basicTextScriptProperties basicSlurProperties basicLocalKeyProperties) #'font-size #-1
+		
 	weAreGraceContext = ##t 
-	fontSize = #-1
-	
-	stemLength = #6.0
-	verticalDirection = \up ;
 	graceAccidentalSpace= 1.5 * \staffspace;
 };
 
@@ -365,17 +327,81 @@ OrchestralPartStaffContext = \translator {
 ScoreContext = \translator {
 	\type Score_engraver;
 	\name Score;
-
-	marginScriptPadding = #10  % urg, in \pt
+	
 
 	\consists "Timing_engraver";
 	\consists "Output_property_engraver";	
-
-	%bracketCollapseHeight = #10  % \pt
 	\consists "System_start_delimiter_engraver";
-	
-%	\consists "Score_priority_engraver";
+	\consists "Mark_engraver";	
 	\consists "Break_align_engraver";
+	\consists "Spacing_engraver";
+
+	\consists "Vertical_align_engraver";
+
+	\consists "Lyric_phrasing_engraver";
+	\consists "Bar_number_engraver";
+
+	
+	\accepts "Staff";
+	\accepts "StaffGroup";
+	\accepts "RhythmicStaff";	
+	\accepts "Lyrics";
+	\accepts "ChordNames";
+	\accepts "GrandStaff";
+	\accepts "ChoirStaff";
+	\accepts "PianoStaff";
+	\accepts "NoteNames";
+
+	soloText = #"Solo"
+	soloIIText = #"Solo II"
+	aDueText = #"\\`a2"
+	soloADue = ##t
+	splitInterval = #'(0 . 1)
+
+	defaultClef = #"treble"
+
+	StaffMinimumVerticalExtent = #(cons -4.0 4.0)
+
+	barAuto = ##t
+	voltaVisibility = ##t
+	%  name, glyph id, c0 position
+	supportedClefTypes = #'(
+	  ("treble" . ("clefs-G" -2))
+	  ("violin" . ("clefs-G" -2))
+	  ("G" . ("clefs-G" -2))
+	  ("G2" . ("clefs-G" -2))
+	  ("french" . ("clefs-G" -4 ))
+	  ("soprano" . ("clefs-C" -4 ))
+	  ("mezzosoprano" . ("clefs-C" -2 ))
+	  ("alto" . ("clefs-C" 0 ))
+	  ("tenor" . ("clefs-C" 2 ))
+	  ("baritone" . ("clefs-C" 4 ))
+	  ("varbaritone"  . ("clefs-F" 0))
+	  ("bass" . ("clefs-F" 2 ))
+	  ("F" . ( "clefs-F" 2))
+	  ("subbass" . ("clefs-F" 4))
+	)
+	% where is c0 in this clef?
+	clefPitches = #'(("clefs-G" . -4)
+	  ("clefs-C" . 0)
+	  ("clefs-F" . 4))
+	  	
+
+        automaticPhrasing = ##t;
+	alignmentReference = \down;
+	defaultClef = #"treble"
+	defaultBarType = #"|"
+	systemStartDelimiterGlyph = #'bar-line
+
+       %
+       % what order to print accs.  We could compute this, 
+       % but computing is more work than putting it here.
+       %
+       % Flats come first, then sharps.
+       keyAccidentalOrder = #'(
+         (6 . -1) (2  . -1) (5 . -1 ) (1  . -1) (4  . -1) (0  . -1) (3  . -1)
+	 (3  . 1) (0 . 1) (4 . 1) (1 . 1) (5 . 1) (2 . 1) (6 . 1)
+       )
 	breakAlignOrder = #'(
 	  Instrument_name
 	  Left_edge_item
@@ -387,39 +413,16 @@ ScoreContext = \translator {
 	  Time_signature
 	  Stanza_number
 	)
-	\consists "Spacing_engraver";
-
-	\consists "Vertical_align_engraver";
-
-	\consists "Lyric_phrasing_engraver";
-        automaticPhrasing = ##t;
-
-	\consists "Bar_number_engraver";
-	alignmentReference = \down;
-	defaultClef = #"treble"
-	defaultBarType = #"|"
-       systemStartDelimiterGlyph = #'bar-line
-
-       %
-       % what order to print accs.  We could compute this, 
-       % but computing is more work than putting it here.
-       %
-       % Flats come first, then sharps.
-       keyAccidentalOrder = #'(
-         (6 . -1) (2  . -1) (5 . -1 ) (1  . -1) (4  . -1) (0  . -1) (3  . -1)
-	 (3  . 1) (0 . 1) (4 . 1) (1 . 1) (5 . 1) (2 . 1) (6 . 1)
-       )
+       
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	% default settings, mainly for breakable items
-	% in alphabetical order
 	% TODO: uniform naming.;  
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 	%
-	% distances are given in stafflinethickness (thicknesses) and staffspace (distances)
+	% distances are given in stafflinethickness (thicknesses) and
+	% staffspace (distances)
 	%
-	
-	
 	basicBarProperties = #`(
 		(break-align-symbol . Staff_bar)
 		(barsize-procedure . ,Bar::get_staff_bar_size)
@@ -501,16 +504,19 @@ ScoreContext = \translator {
 		(dot-count . 1)
 		(interfaces . (dot-interface))
 	)
-	basicDynamicLineSpannerProperties = #`(
-		(interfaces . (dynamic-interface axis-group-interface))
-		(axes . ( 1))
-	)
-	basicDynamicTextProperties	 = # `(
+	basicDynamicTextProperties = # `(
 		(style . "dynamic")
 		(interfaces . (dynamic-interface))
 		(molecule-callback . ,Text_item::brew_molecule)
 		(script-priority . 100)
 		(self-alignment-Y . 0)
+	)
+	
+	basicDynamicLineSpannerProperties = #`(
+		(interfaces . (dynamic-interface axis-group-interface))
+		(axes . ( 1))
+		(padding . 3)
+		(minimum-space . 6)
 	)
 	leftEdgeBasicProperties = #`(
 		(break-align-symbol . Left_edge_item)
@@ -530,6 +536,13 @@ ScoreContext = \translator {
 		(height . 0.4)
 		(minimum-length .  0.5) 
 		(molecule-callback . ,Hyphen_spanner::brew_molecule)
+	)
+	
+	basicInstrumentNameProperties = #`(
+		(breakable . #t)
+		(molecule-callback . ,Text_item::brew_molecule)		
+		(break-align-symbol . Instrument_name)
+		(visibility-lambda . ,begin-of-line-visible)
 	)
 	basicKeyProperties = #`(
   	  (molecule-callback . ,Key_item::brew_molecule)
@@ -565,6 +578,7 @@ ScoreContext = \translator {
 	  (breakable . #t)
 	  (interfaces . (mark-interface))
 	  (visibility-lambda . ,end-of-line-invisible)
+	  (padding . 4.0)
 	)
 	basicMultiMeasureRestProperties = #`(
 		(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)		
@@ -593,13 +607,6 @@ ScoreContext = \translator {
 		(interfaces . (paper-column-interface axis-group-interface))
 		(axes 0)
 		(rank . -1)
-	)
-	basicPedalProperties = #`(
-		(molecule-callback . ,Text_item::brew_molecule)
-		(style . "italic")
-		(no-spacing-rods . #t)
-		(self-alignment-X . 0)
-				
 	)
 	basicTextProperties = #`( )
 	basicRestProperties = #`(
@@ -658,20 +665,6 @@ ScoreContext = \translator {
 		(break-align-symbol . Clef_item)
 		(visibility-lambda . ,begin-of-line-visible)
 	)
-	basicStemProperties = #`(
-		(before-line-breaking-callback . ,Stem::before_line_breaking)
-		(molecule-callback . ,Stem::brew_molecule)
-
-		; if stem is on middle line, choose this direction.
-		(default-neutral-direction . 1)
-		(interfaces . (stem-interface))
-	)
-	basicSustainPedalProperties = #`(
-		(no-spacing-rods . #t)
-		(molecule-callback . ,Sustain_pedal::brew_molecule)
-		(self-alignment-X . 0)
-		(interfaces . (sustain-pedal-interface))
-	)	
 	staffSymbolBasicProperties = #`(
 		(molecule-callback . ,Staff_symbol::brew_molecule)
 		(staff-space . 1.0)
@@ -692,10 +685,9 @@ ScoreContext = \translator {
 	)
 	basicTextScriptProperties = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
-
-: -- don't set, because property-engraver will not override it.  
-;		(no-spacing-rods . #t)
+		(no-spacing-rods . #t)
 		(interfaces . (text-script-interface text-item-interface))
+		(padding . 	3.0)		
 	)
 	basicTieProperties = #`(
 		(molecule-callback . ,Tie::brew_molecule)
@@ -723,12 +715,26 @@ ScoreContext = \translator {
 		(molecule-callback . ,Tuplet_spanner::brew_molecule)
 		(interfaces . (tuplet-spanner-interface))
 	)	
+	basicSostenutoPedalProperties = #`(
+		(molecule-callback . ,Text_item::brew_molecule)
+		(style . "italic")
+		(no-spacing-rods . #t)
+		(self-alignment-X . 0)
+				
+	)
 	basicStemTremoloProperties = #`(
 	   	(molecule-callback . ,Stem_tremolo::brew_molecule)
 		(beam-width . 2.0) ; staff-space
 		(beam-thickness . 0.42) ; staff-space
 	)
+	basicStemProperties = #`(
+		(before-line-breaking-callback . ,Stem::before_line_breaking)
+		(molecule-callback . ,Stem::brew_molecule)
 
+		; if stem is on middle line, choose this direction.
+		(default-neutral-direction . 1)
+		(interfaces . (stem-interface))
+	)
    	basicSeparationItemProperties = #`(
 		(interfaces . (separation-item-interface))
 	)
@@ -736,33 +742,29 @@ ScoreContext = \translator {
 		(interfaces . (separation-spanner-interface))
 		(spacing-procedure . ,Separating_group_spanner::set_spacing_rods)
 	)
-	basicInstrumentNameProperties = #`(
-		(breakable . #t)
-		(molecule-callback . ,Text_item::brew_molecule)		
-		(break-align-symbol . Instrument_name)
-		(visibility-lambda . ,begin-of-line-visible)
+	basicSustainPedalProperties = #`(
+		(no-spacing-rods . #t)
+		(molecule-callback . ,Sustain_pedal::brew_molecule)
+		(self-alignment-X . 0)
+		(interfaces . (sustain-pedal-interface))
+	)	
+	basicUnaChordaPdealProperties = #`(
+		(molecule-callback . ,Text_item::brew_molecule)
+		(style . "italic")
+		(no-spacing-rods . #t)
+		(self-alignment-X . 0)
 	)
+	
+	basicVoltaSpannerProperties = #`(
+		(molecule-callback . ,Volta_spanner::brew_molecule)
+		(interfaces . (volta-spanner-interface))
+		(padding . 5)
+		(minimum-space . 25)
+	)	
 	basicVerticalAxisGroupProperties = #`(
 		(axes 1)
 		(interfaces . (axis-group-interface))
 	)
-	basicVoltaSpannerProperties = #`(
-		(molecule-callback . ,Volta_spanner::brew_molecule)
-		(interfaces . (volta-spanner-interface))
-	)
-	
-	\accepts "Staff";
-	\accepts "StaffGroup";
-	\accepts "RhythmicStaff";	
-	\accepts "Lyrics";
-	\accepts "ChordNames";
-	\accepts "GrandStaff";
-	\accepts "ChoirStaff";
-	\accepts "PianoStaff";
-	\accepts "NoteNames";
-
-
-	markVisibilityFunction = #end-of-line-invisible
 };
 
 \translator { \ScoreContext }
@@ -770,10 +772,6 @@ ScoreContext = \translator {
 OrchestralScoreContext= \translator {
 	\ScoreContext
 
-	barScriptPadding = #2.0		% dimension \pt
-	markScriptPadding = #4.0
-
-	\consists "Mark_engraver";
 };
 
 \translator {
@@ -781,4 +779,5 @@ OrchestralScoreContext= \translator {
 	\name NoteNames;
 	\consistsend "Axis_group_engraver";
 	\consists "Note_name_engraver";
+	\consists "Separating_line_group_engraver";
 }

@@ -22,7 +22,8 @@
 /**
   Make the key signature.
  */
-class Key_engraver : public Engraver {
+class Key_engraver : public Engraver
+{
   void create_key(bool);
   void read_req (Key_change_req const * r);
 
@@ -37,6 +38,7 @@ public:
     
 protected:
   virtual void do_creation_processing();
+  virtual void do_removal_processing ();
   virtual bool do_try_music (Music *req_l);
   virtual void do_process_music();
   virtual void do_pre_move_processing();
@@ -44,6 +46,12 @@ protected:
   virtual void acknowledge_element (Score_element_info);
 };
 
+
+void
+Key_engraver::do_removal_processing ()
+{
+  old_accs_ = SCM_EOL;		// unprotect can be called from dtor.
+}
 
 Key_engraver::Key_engraver ()
 {

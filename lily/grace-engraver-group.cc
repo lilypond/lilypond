@@ -85,12 +85,6 @@ Grace_engraver_group::each (Method_pointer method)
 }
 
 
-void
-Grace_engraver_group::each (Const_method_pointer method) const
-{
- if (calling_self_b_)
-    Engraver_group_engraver::each (method);
-}
 ADD_THIS_TRANSLATOR(Grace_engraver_group);
 
 

@@ -17,12 +17,13 @@
 #include "lily-guile.hh"
 #include "parray.hh"
 #include "input.hh"
-
+#include "smobs.hh"
 
 /** Make some kind of #Element#s from Requests. Elements are made by
   hierarchically grouped #Translator#s
   */
 class Translator : public Input {
+  void init ();
 public:
   Music_output_def * output_def_l_;
   String type_str_;
@@ -33,7 +34,6 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   Translator (Translator const &);
   Translator ();
-  virtual ~Translator ();
   
   Translator_group * daddy_trans_l_ ;
  
@@ -65,7 +65,19 @@ public:
   
   virtual Moment now_mom () const;  
 
-protected:
+  /*
+    ugh: bubbled up from Translator_group. 
+   */
+  SCM consists_name_list_;
+  SCM end_consists_name_list_;
+  SCM accepts_name_list_;
+  SCM simple_trans_list_;
+  SCM trans_group_list_;
+  SCM properties_scm_;
+  SCM property_pushes_;
+  DECLARE_SMOBS(Translator, dummy);
+
+public:
   /*
     UGH. Clean this up.
    */
@@ -78,7 +90,8 @@ protected:
     PROCESSED_REQS,
     ACKED_REQS,
     MOVE_DONE
-  } status;
+  } status_;			// junkme
+protected:
 
   /*    
 	@see{try_request}
@@ -112,5 +125,5 @@ extern Dictionary<Translator*> *global_translator_dict_p;
 void add_translator (Translator*trans_p);
 
 Translator*get_translator_l (String s);
-
+Translator *unsmob_translator (SCM);
 #endif // TRANSLATOR_HH

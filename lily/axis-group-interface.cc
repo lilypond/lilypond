@@ -77,11 +77,11 @@ Axis_group_interface::set_axes (Score_element*me,Axis a1, Axis a2)
   SCM sa1= gh_int2scm (a1);
   SCM sa2 = gh_int2scm (a2);
 
-  SCM prop = me->get_elt_property ("axes");
+  SCM axes = me->get_elt_property ("axes");
   
-  if (!gh_pair_p (prop)
-      || scm_memq (sa1, prop) == SCM_BOOL_F
-      || scm_memq (sa2, prop) == SCM_BOOL_F)
+  if (!gh_pair_p (axes)
+      || scm_memq (sa1, axes) == SCM_BOOL_F
+      || scm_memq (sa2, axes) == SCM_BOOL_F)
     {
       SCM ax = gh_cons (sa1, SCM_EOL);
       if (a1 != a2)

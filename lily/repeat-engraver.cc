@@ -208,7 +208,7 @@ Repeat_engraver::do_process_music ()
     return;
 
   Bar_engraver* bar_engraver_l = dynamic_cast <Bar_engraver*>
-    (daddy_grav_l ()->get_simple_translator ("Bar_engraver"));
+    (daddy_grav_l ()->get_simple_translator ("Bar_engraver")); // UGH
 
   /*
     Do all the events that need to be done now.

@@ -12,6 +12,7 @@
 #include "translator-group.hh"
 
 #include "moment.hh"
+#include "ly-smobs.icc"
 
 char const*
 Translator::name() const
@@ -23,20 +24,42 @@ Translator::~Translator ()
 {
 }
 
+void
+Translator::init ()
+{
+  status_ = ORPHAN;
+  simple_trans_list_ = SCM_EOL;
+  trans_group_list_ = SCM_EOL;
+  properties_scm_ = SCM_EOL;
+  accepts_name_list_ = SCM_EOL;   
+  consists_name_list_ = SCM_EOL;
+  end_consists_name_list_ = SCM_EOL;
+  property_pushes_ = SCM_EOL;
+  daddy_trans_l_ =0;
+}
+
 Translator::Translator ()
 {
-  status = ORPHAN;
-  daddy_trans_l_ = 0;
+  init ();
   output_def_l_ = 0;
+  smobify_self ();
+
 }
 
 Translator::Translator (Translator const &s)
   : Input (s)
 {
-  status = ORPHAN;
-  daddy_trans_l_ =0;
+  init ();
+  
+  consists_name_list_ = scm_list_copy (s.consists_name_list_);
+  end_consists_name_list_ = scm_list_copy (s.end_consists_name_list_);
+  accepts_name_list_ = scm_list_copy (s.accepts_name_list_);
+  property_pushes_ = scm_list_copy (s.property_pushes_);
+  
   output_def_l_ = s.output_def_l_;
   type_str_ = s.type_str_;
+
+  smobify_self ();
 }
 
 bool
@@ -62,11 +85,11 @@ Translator::now_mom () const
 void
 Translator::add_processing ()
 {
-  if (status > ORPHAN)
+  if (status_ > ORPHAN)
     return;
   
   do_add_processing ();
-  status = VIRGIN;
+  status_ = VIRGIN;
 }
 
 void
@@ -97,40 +120,40 @@ Translator::do_print () const
 void
 Translator::creation_processing ()
 {
-  if (status >= CREATION_INITED)
+  if (status_ >= CREATION_INITED)
     return ;
   
   do_creation_processing ();
-  status = CREATION_INITED;
+  status_ = CREATION_INITED;
 }
 
 void
 Translator::post_move_processing ()
 {
-  if (status >= MOVE_INITED)
+  if (status_ >= MOVE_INITED)
     return;
 
   creation_processing ();
   do_post_move_processing ();
-  status = MOVE_INITED;
+  status_ = MOVE_INITED;
 }
 
 void
 Translator::removal_processing ()
 {
-  if (status == ORPHAN)
+  if (status_ == ORPHAN)
     return;
   creation_processing ();
   do_removal_processing ();
   // elegancy ...
-  // status = ORPHAN;
+  // status_ = ORPHAN;
 }
 
 
 bool
 Translator::try_music (Music * r)
 {
-  if (status < MOVE_INITED)
+  if (status_ < MOVE_INITED)
     post_move_processing ();
 
   return do_try_music (r);
@@ -139,12 +162,12 @@ Translator::try_music (Music * r)
 void
 Translator::process_music ()
 {
-  if (status < PROCESSED_REQS)
+  if (status_ < PROCESSED_REQS)
     post_move_processing ();
-  else if (status >= PROCESSED_REQS)
+  else if (status_ >= PROCESSED_REQS)
     return; 
   
-  status = PROCESSED_REQS;
+  status_ = PROCESSED_REQS;
   do_process_music ();
 }
 
@@ -152,7 +175,7 @@ void
 Translator::pre_move_processing ()
 {
   do_pre_move_processing ();
-  status = CREATION_INITED;
+  status_ = CREATION_INITED;
 }
 
 
@@ -199,3 +222,47 @@ void
 Translator::do_removal_processing ()
 {
 }
+
+
+/*
+
+  SMOBS
+
+*/
+SCM
+Translator::mark_smob (SCM sm)
+{
+  Translator * me = (Translator*) SCM_CELL_WORD_1(sm);
+  scm_gc_mark (me->consists_name_list_);
+  scm_gc_mark (me->accepts_name_list_);
+  scm_gc_mark (me->end_consists_name_list_);
+  scm_gc_mark (me->simple_trans_list_);
+  scm_gc_mark (me->trans_group_list_);
+  scm_gc_mark (me->property_pushes_);
+  return me->properties_scm_;
+}
+
+
+int
+Translator::print_smob (SCM s, SCM port, scm_print_state *)
+{
+  Translator *sc = (Translator *) gh_cdr (s);
+     
+  scm_puts ("#<Translator ", port);
+  scm_puts ((char *)sc->name (), port);
+  scm_display (sc->simple_trans_list_, port);
+  /*
+    don't try to print properties, that is too much hassle.
+   */
+  scm_puts (" >", port);
+
+  
+  
+  return 1;
+}
+
+
+
+IMPLEMENT_UNSMOB(Translator, translator);
+IMPLEMENT_SMOBS(Translator);
+IMPLEMENT_DEFAULT_EQUAL_P(Translator);

@@ -66,7 +66,7 @@ protected:
   virtual void acknowledge_element(Score_element_info);
   virtual void process_acknowledged ();
   virtual void do_pre_move_processing();
-  
+  virtual void do_removal_processing ();  
 private:
   void record_notehead(const String &context_id, Score_element * notehead);
   void record_lyric(const String &context_id, Score_element * lyric);
