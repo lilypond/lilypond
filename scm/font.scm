@@ -346,7 +346,7 @@
      (#(roman caps medium) .
       (10.0 . #(,(delay (ly:font-load "ecsc10")))))
      (#(roman upright bold-narrow ) .
-      (10.0 . #(,(delay (ly:font-load "ecb10")))))
+      (10.0 . #(,(delay (ly:font-load "ecrb10")))))
      (#(sans upright medium) .
       (10.0  . #(,(delay (ly:font-load "ecss8"))
 		 ,(delay (ly:font-load "ecss10"))
