@@ -2183,6 +2183,17 @@ The following paper sizes are supported.
 @item tabloid
 @end table 
 
+@cindex orientation
+@cindex landscape
+
+If the symbol @code{landscape} is supplied as argument to
+@code{set-default-paper-size}, the pages will be rotated 90 degrees,
+and line widths will be set longer correspondingly.
+
+@example
+#(set-default-paper-size "a6" 'landscape)
+@end example 
+
 @node Page layout
 @subsection Page layout
 

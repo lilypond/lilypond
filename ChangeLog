@@ -1,3 +1,14 @@
+2004-09-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/changing-defaults.itely (Paper size): doc
+	landscape
+	
+
+	* scm/framework-ps.scm (eps-header): bugfixes. 
+
+	* scm/titling.scm (default-score-title): remove opus from the
+	\score title.
+
 2004-09-08  Pedro Kroger  <kroeger@pedrokroeger.net>
 
 	* scripts/convert-ly.py (program_name): changed to sys.argv[0]

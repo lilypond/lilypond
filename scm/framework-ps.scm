@@ -192,7 +192,7 @@
 		 "%%Creator: creator time-stamp\n"
 		 "%%BoundingBox: "
 		 (string-join (map number->string bbox) " ") "\n"
-		 "%% Orientation: "
+		 "%%Orientation: "
 		 (if (eq? (ly:output-def-lookup bookpaper 'landscape) #t)
 		     "Landscape\n"
 		     "Portrait\n")
@@ -203,6 +203,10 @@
 		 "%%Creator: creator time-stamp\n"
 		 "%%Pages: " (number->string page-count) "\n"
 		 "%%PageOrder: Ascend\n"
+		 "%%Orientation: "
+		 (if (eq? (ly:output-def-lookup bookpaper 'landscape) #t)
+		     "Landscape\n"
+		     "Portrait\n")
 		 "%%DocumentPaperSizes: "
 		 (ly:output-def-lookup bookpaper 'papersize) "\n"))
 
@@ -220,7 +224,7 @@
 (define-public (output-framework outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (pages (ly:paper-book-pages book))
-	 (landscape? (eq? (ly:output-def-lookup bookpaper 'landscape?) #t))
+	 (landscape? (eq? (ly:output-def-lookup bookpaper 'landscape) #t))
 	 (page-number (1- (ly:output-def-lookup bookpaper 'firstpagenumber)))
 	 (page-count (length pages)))
     

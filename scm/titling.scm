@@ -119,7 +119,10 @@
        (append
 	(if (has 'opus)
 	    ;; opus, again?
-	    (list (markup #:fill-line ("" (get 'opus))))
+	    '()
+
+	    ;; todo: figure out if and what should be here? 
+	    ;;(list (markup #:fill-line ("" (get 'opus))))
 	    '())
 	(if (has 'piece)
 	    (list
