@@ -1,3 +1,45 @@
+1.3.34
+======
+1.3.33.hwn2
+===========
+
+* Print key without setting key, syntax "\key ;". General cleanups of
+key-item.
+
+* Add paragraph tags in HTML output of mudela-book.  Music fragment
+don't run into the text anymore.
+
+* Bugfix: don't align the first line of text. (Lookup::text ()).
+
+* Abstract away data members of Axis_group_element, Align_element
+
+
+1.3.33.jcn3
+===========
+
+* Added helpful properties instrumentScriptPadding/instrScriptPadding for
+  Staff_margin_engraver.
+
+* Removed some empty files, substituted (c) 1999 occurrences.
+
+* Added \property maximumRestCount.  It will prevent showing (or actually:
+  moving in case of a collision) more than maximumRestCount similar rests.
+  WIP!
+
+* Rewrote Staff_margin_engraver.  Staff margin texts now hang on a new
+  breakable item: Left_edge_item.
+
+* Fixed vertical alignment for dynamic elements.  Orphaned dynamic items
+  (not supported by a Dynamic_line_spanner) still collide with Staff,
+  although they now have staff support, which was supposed to fix this.
+
+* Fixed Staff_margin_engraver for "instrument", "instr" is still broken.
+
+* Dynamic elements are only put in a Dynamic_line_spanner if there
+  actually is more than one adjacent note-column with a dynamic.
+  This breaks the fine looks of all dynamics, again :-)
+
+
 1.3.33
 ======
 
