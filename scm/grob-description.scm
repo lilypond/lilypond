@@ -710,7 +710,7 @@
 	(shortest-duration-space . 2.0)
 	(spacing-increment . 1.2)
 	(base-shortest-duration . ,(make-moment 1 8))
-	(meta . ((interfaces . (spacing-spanner-interface))))
+	(meta . ((interfaces . (spacing-interface spacing-spanner-interface))))
 	))
 
     (SpanBar
@@ -750,12 +750,12 @@
      . (
 	(breakable . #t)
 	(stem-spacing-correction . 0.4)
-	(meta . ((interfaces . (staff-spacing-interface))))
+	(meta . ((interfaces . (spacing-interface staff-spacing-interface))))
 	))
     (NoteSpacing
      . (
 	(stem-spacing-correction . 0.5)
-	(meta . ((interfaces . (note-spacing-interface))))
+	(meta . ((interfaces . (spacing-interface note-spacing-interface))))
 	))
 
     (StaffSymbol
@@ -834,13 +834,13 @@
 
     (SeparationItem
      . (
-	(meta . ((interfaces . (separation-item-interface))))
+	(meta . ((interfaces . (spacing-interface separation-item-interface))))
 	))
 
     (SeparatingGroupSpanner
      . (
 	(spacing-procedure . ,Separating_group_spanner::set_spacing_rods)
-	(meta . ((interfaces . (separation-spanner-interface))))
+	(meta . ((interfaces . (spacing-interface separation-spanner-interface))))
 	))
 
     (SustainPedal

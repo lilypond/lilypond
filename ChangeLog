@@ -1,3 +1,7 @@
+2002-06-20  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/system.cc (output_lines): kill grobs that are only for spacing.
+
 2002-06-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* aclocal.m4: Regenerate.
@@ -7,7 +11,7 @@
 	* config.hh.in: Only set GUILE_MAJOR_VERSION if necessary.
 	* lily/include/lily-guile.hh: Only include config.h if necessary.
 
-	* Changlog: cvs changes ml archive test #8.
+	* Changelog: cvs changes ml archive test #8.
 	
 	* lily/slur-engraver.cc: Layout fix.
 

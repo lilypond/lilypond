@@ -24,9 +24,7 @@
 #include "paper-column.hh"
 #include "spaceable-grob.hh"
 #include "break-align-interface.hh"
-
-
-
+#include "spacing-interface.hh"
 
 /*
   paper-column:
@@ -833,4 +831,10 @@ head width) A 16th note is followed by 0.5 note head width. The
 quarter note is followed by  3 NHW, the half by 4 NHW, etc.
 ",
   "grace-space-factor spacing-increment base-shortest-duration shortest-duration-space");
+
+
+
+ADD_INTERFACE (Spacing_interface,"spacing-interface",
+  "Something to do with line breaking and spacing. Kill this one after determining line breaks.",
+  "");
 
