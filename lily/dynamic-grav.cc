@@ -103,13 +103,6 @@ void
 Dynamic_engraver::do_pre_move_processing()
 {
   Staff_symbol* s_l = get_staff_info().staff_sym_l_;
-  if (dynamic_p_)
-    {
-      
-      dynamic_p_->add_support (s_l);
-      typeset_element (dynamic_p_);
-      dynamic_p_ = 0;
-    }
   if (to_end_cresc_p_)
     {
       if (dynamic_p_)
@@ -119,6 +112,13 @@ Dynamic_engraver::do_pre_move_processing()
       to_end_cresc_p_->add_support (s_l);
       typeset_element (to_end_cresc_p_);
       to_end_cresc_p_ = 0;
+    }
+  if (dynamic_p_)
+    {
+      
+      dynamic_p_->add_support (s_l);
+      typeset_element (dynamic_p_);
+      dynamic_p_ = 0;
     }
 }
 

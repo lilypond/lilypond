@@ -3,7 +3,7 @@
 
 size:=10;
 
-input feta-nummer-generic.mf
+input feta-nummer-generic;
 
 end.
 

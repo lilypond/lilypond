@@ -24,11 +24,10 @@ public:
   VIRTUAL_COPY_CONS(Midi_def, Music_output_def);
   DECLARE_MY_RUNTIME_TYPEINFO;
 
-  /// duration of whole note
-  Real whole_seconds_f_;
+  /// duration of whole note measured in seconds.
+  Moment whole_in_seconds_mom_;
 
   Midi_def();
-  Midi_def (Midi_def const& midi_c_r);
   ~Midi_def();
 
   Real duration_to_seconds_f (Moment);

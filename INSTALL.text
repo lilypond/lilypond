@@ -61,7 +61,7 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 
 
 
-2/Dec/97                 LilyPond 0.1.37                        1
+24/Dec/97                LilyPond 0.1.38                        1
 
 
 
@@ -127,7 +127,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 
 
-2/Dec/97                 LilyPond 0.1.37                        2
+24/Dec/97                LilyPond 0.1.38                        2
 
 
 
@@ -193,7 +193,7 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
 
-2/Dec/97                 LilyPond 0.1.37                        3
+24/Dec/97                LilyPond 0.1.38                        3
 
 
 
@@ -259,7 +259,7 @@ IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
 
 
 
-2/Dec/97                 LilyPond 0.1.37                        4
+24/Dec/97                LilyPond 0.1.38                        4
 
 
 
@@ -325,7 +325,7 @@ RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
 
 
 
-2/Dec/97                 LilyPond 0.1.37                        5
+24/Dec/97                LilyPond 0.1.38                        5
 
 
 
@@ -349,13 +349,10 @@ WWWWIIIINNNNDDDDOOOOWWWWSSSS NNNNTTTT////99995
                bash configure
                make
 
-       Note: If you rely on broken DOS/Windows tools such as
-       pkzip/WinZIP
-             to unpack the distribution, make sure the eeeennnnttttiiiirrrreeee
-       source tree
-             is unpacked correctly, in particular the empty out
-       directories
-             (_f_l_o_w_e_r_/_o_u_t, _l_i_b_/_o_u_t et. al.)
+       NNNNooootttteeee If you rely on broken DOS/Windows tools such as
+       pkzip/WinZIP to unpack the distribution, make sure the
+       eeeennnnttttiiiirrrreeee source tree is unpacked correctly, in particular
+       the empty out directories (_f_l_o_w_e_r_/_o_u_t, _l_i_b_/_o_u_t et. al.)
 
 AAAAUUUUTTTTHHHHOOOORRRRSSSS
        Han-Wen Nienhuys <hanwen@stack.nl>
@@ -391,6 +388,9 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-2/Dec/97                 LilyPond 0.1.37                        6
+
+
+
+24/Dec/97                LilyPond 0.1.38                        6
 
 

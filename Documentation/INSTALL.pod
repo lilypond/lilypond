@@ -328,10 +328,10 @@ simply type:
 	bash configure
 	make
 
-Note: If you rely on broken DOS/Windows tools such as pkzip/WinZIP 
-      to unpack the distribution, make sure the B<entire> source tree 
-      is unpacked correctly, in particular the empty out directories 
-      (F<flower/out>, F<lib/out> et. al.)
+B<Note> If you rely on broken DOS/Windows tools such as pkzip/WinZIP 
+to unpack the distribution, make sure the B<entire> source tree 
+is unpacked correctly, in particular the empty out directories 
+(F<flower/out>, F<lib/out> et. al.)
 
 =head1 AUTHORS
 

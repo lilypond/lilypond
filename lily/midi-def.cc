@@ -28,13 +28,6 @@ Midi_def::Midi_def()
   set_tempo (Moment (1, 4), 60);
 }
 
-Midi_def::Midi_def (Midi_def const& s)
-  : Music_output_def (s)
-{
-  whole_seconds_f_ = s.whole_seconds_f_;
-  outfile_str_ = s.outfile_str_;
-}
-
 Midi_def::~Midi_def()
 {
 }
@@ -43,17 +36,25 @@ Real
 Midi_def::duration_to_seconds_f (Moment mom)
 {
   if (!mom)
-	return 0;
+    return 0;
   
-  return Moment (whole_seconds_f_) * mom;
+  return Moment (whole_in_seconds_mom_) * mom;
 }
 
 
-
 int
-Midi_def::get_tempo_i (Moment moment)
+Midi_def::get_tempo_i (Moment one_beat_mom)
 {
-  return Moment (whole_seconds_f_) * Moment (60) * moment;
+  Moment wholes_per_min = Moment(60) /Moment(whole_in_seconds_mom_);
+  int beats_per_min = wholes_per_min / one_beat_mom;
+  return int (beats_per_min);
+}
+
+void
+Midi_def::set_tempo (Moment one_beat_mom, int beats_per_minute_i)
+{
+  Moment beats_per_second = Moment (beats_per_minute_i) / Moment (60);
+  whole_in_seconds_mom_ = 1/(beats_per_second * one_beat_mom);
 }
 
 void
@@ -61,17 +62,11 @@ Midi_def::print() const
 {
 #ifndef NPRINT
   DOUT << "Midi {";
-  DOUT << "4/min: " << Real (60) / (whole_seconds_f_ * 4);
+  DOUT << "4/min: " << Real (60) / (whole_in_seconds_mom_ * 4);
   DOUT << "out: " << outfile_str_;
   DOUT << "}\n";
 #endif
 }
 
 
-void
-Midi_def::set_tempo (Moment moment, int count_per_minute_i)
-{
-  whole_seconds_f_ = Moment (count_per_minute_i) / Moment (60) / moment;
-}
-
-IMPLEMENT_IS_TYPE_B1( Midi_def, Music_output_def);
+IMPLEMENT_IS_TYPE_B1(Midi_def, Music_output_def);

@@ -1,15 +1,13 @@
 
 \header{
 filename =	 "beams.ly";
-title =	 "";
-description =	 "";
 composer =	 "heu";
 enteredby =	 "jcn";
 copyright =	 "PD";
 
 TestedFeatures =	 "beams and beamflags";
 }
-\version "0.1.7"
+\version "0.1.7";
 
 \score{
 	\melodic \multi 3 < 

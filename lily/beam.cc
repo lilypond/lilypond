@@ -420,7 +420,7 @@ Beam::set_stemlens ()
 	  if (y < MINIMUM_STEMLEN)
 	    dy = dy >? (MINIMUM_STEMLEN - y);
 	}
-    } while (abs (dy) > EPSILON)
+    } while (abs (dy) > EPSILON);
 }
 
 void
