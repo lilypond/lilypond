@@ -1,8 +1,16 @@
-1.3.65.mb1
-==========
+1.3.66.hwn1
+===========
 
-* Corrected text sizes in paper*.ly
+* Use callbacks for augmentation dot positioning.
 
+* Removed types Note_head and Rest
+
+* Cleanup of slur.cc: use common reference points in a sane manner.
+
+1.3.66
+======
+
+* Corrected text sizes in paper*.ly (Mats Bengtsson)
 
 1.3.65.uu1
 ==========
