@@ -71,6 +71,6 @@ Generate("%(name)s%(design_size)d.cff");''' % vars()
 
 	deps = r'''%(name)s%(design_size)d.otf: $(outdir)/feta%(design_size)d.pfa \
   $(outdir)/parmesan%(design_size)d.pfa  \
-  $(outdir)/feta-alphabet%(design_size)d.pfa 
+  $(outdir)/feta-alphabet%(design_size)d.pfa feta%(design_size)d.otf-table
 ''' % vars()
 	open (path, 'w').write (deps)
