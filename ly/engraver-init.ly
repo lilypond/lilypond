@@ -362,7 +362,7 @@ ChordNamesContext = \translator {
 }
 
 
-HaraKiriStaffContext = \translator {
+FrenchStaffContext = \translator {
 	\StaffContext
 	\remove "Axis_group_engraver"
 	\consistsend "Hara_kiri_engraver"
@@ -373,15 +373,7 @@ HaraKiriStaffContext = \translator {
 	Beam \override #'auto-knee-gap = #'()
 }
 
-%{
-  The HaraKiriStaffContexts doesn't override \name,
-  so it is still named `Staff'.
-
-  %\translator { \HaraKiriStaffContext }
-%}
-
-
-
+HaraKiriStaffContext = \translator { \FrenchStaffContext }
 
 ScoreContext = \translator {
 	\type Score_engraver

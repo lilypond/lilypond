@@ -1,3 +1,10 @@
+2003-05-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* ly/engraver-init.ly (HaraKiriStaffContext): use
+	FrenchStaffContext instead.
+
+	* Documentation/user/refman.itely: updates
+
 2003-05-23  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/refman.itely: added solesmes neumes table;
@@ -23,6 +30,8 @@
 	libkpathsea (Maurizio Tomasi).
 
 2003-05-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/repeat-slash.ly (texidoc): new file
 
 	* lily/slash-repeat-engraver.cc (try_music): new file, handle
 	slash repeats separately. Slash repeats and %

@@ -3,9 +3,9 @@
 
 If you need to know more about music notation, here are some
 interesting titles to read. The source archive includes a more
-elaborate BibTeX bibliography of over 100 entries in
+elaborate Bib@TeX{} bibliography of over 100 entries in
 @file{Documentation/bibliography/}. It is also available online from
-the lilypond website.
+the website.
 
 @table @cite
 @item Banter 1987
@@ -58,7 +58,7 @@ Hansen House, Miami, Florida 	 1987
 
 This book is about music engraving, i.e.  professional typesetting.
 It contains directions on stamping, use of pens and notational
-conventions.  The sections on reproduction technicalities, and history
+conventions.  The sections on reproduction technicalities and history
 are also interesting.
 
 @item Schirmer 2001
@@ -86,12 +86,11 @@ Helene Wanske, Musiknotation --- Von der Syntax des Notenstichs zum
 EDV-gesteuerten Notensatz.  Schott-Verlag, Mainz 1988.  ISBN
 3-7957-2886-x
 
-A book in two parts: 
-1. A very thorough overview of engraving practices of various
-craftsmen. It includes detailed specs of characters, dimensions
-etc. 2. a thorough overview of a anonymous (by now antiquated)
-automated system. EDV means E(lektronischen) D(aten)v(erarbeitung),
-electronic data processing.
+A book in two parts: 1. A very thorough overview of engraving
+practices of various craftsmen. It includes detailed specs of
+characters, dimensions etc. 2. a thorough overview of a anonymous
+automated system, which must be antiquated by now. EDV means
+E(lektronischen) D(aten)v(erarbeitung), electronic data processing.
 
 
 @end table

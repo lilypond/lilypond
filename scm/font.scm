@@ -90,9 +90,9 @@
     ((3 medium italic roman 12) . "cmti12")
     ((2 medium italic roman 12) . "cmti12")
     ((1 medium italic roman 12) . "cmti12") ;;; ugh. Should add magnification here! 
-    ((0 medium italic roman 10) . "cmti12")
-    ((-1 medium italic roman 8) . "cmti10")    
-    ((-2 medium italic roman 7) . "cmti8")
+    ((0 medium italic roman 10) . "cmti10")
+    ((-1 medium italic roman 8) . "cmti8")    
+    ((-2 medium italic roman 7) . "cmti7")
     ((-3 medium italic roman 7) . "cmti7")    
 
     ;;; cmbx17 is sauter, not commonly available as Type1.
