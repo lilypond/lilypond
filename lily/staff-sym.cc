@@ -3,14 +3,15 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include "staff-sym.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "molecule.hh"
 #include "debug.hh"
-#include "dimen.hh"
+#include "dimension.hh"
+#include "item.hh"
 
 
 Staff_symbol::Staff_symbol ()
@@ -42,18 +43,25 @@ Staff_symbol::do_height() const
 Molecule*
 Staff_symbol::brew_molecule_p() const
 {
+  Real w = width ().length ();
+  Real left_dx = -spanned_drul_[LEFT]->extent (X_AXIS)[LEFT];
+  Real right_dx = spanned_drul_[RIGHT]->extent (X_AXIS)[RIGHT];
+  //  w += right_dx+ left_dx;
+
+  
   Paper_def * p = paper();
-  Atom rule  = p->lookup_l ()->rule_symbol (p->get_var ("rulethickness"), 
-					    width ().length ());
+  Atom rule  = lookup_l ()->rule_symbol (p->get_var ("rulethickness"),
+					 w);
   Real height = (no_lines_i_-1) * inter_note_f();
   Molecule * m = new Molecule;
   for (int i=0; i < no_lines_i_; i++)
     {
       Atom a (rule);
       a.translate_axis (height - i * inter_note_f()*2, Y_AXIS);
-      m->add (a);
+      m->add_molecule (a);
     }
 
+  //  m->translate_axis (-left_dx, X_AXIS);
   return m;
 }
 
