@@ -10,10 +10,12 @@ stems.
 
 In this example, each tremolo lasts exactly one measure.
 
-(To ensure that the spacing engine is not confused we add some regular notes as well.) 
+(To ensure that the spacing engine is not confused we add some regular
+notes as well.)
+
 "
 }
-  
+
 \score { 
   \context Voice \notes\relative c' {
 	\time 4/4
@@ -39,5 +41,6 @@ In this example, each tremolo lasts exactly one measure.
   }
 
   \midi { }
+  \paper {} 
 }
 %% new-chords-done %%

@@ -1,3 +1,10 @@
+2003-07-03  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/chord-tremolo-engraver.cc (acknowledge_grob): only set
+	inside pointing beaming for chord tremolo.
+
+	* Documentation/user/lilypond-book.itely: minor editing
+
 2003-07-03  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* NEWS: added news for 1.8 regarding ancient notation
