@@ -922,13 +922,6 @@ Accidentals and key signatures often confuse new users, because
 unaltered notes get natural signs depending on the key signature.  For
 more information, see @ref{More about pitches}.
 
-@c   FIXME FIXME: check CVS logs to see what was supposed to happen to this
-@c   part; CVS merge conflict occurred.
-@c @refbugs
-
-@c The ordering of a key cancellation is wrong when it is combined with
-@c repeat bar lines.  The cancellation is also printed after a line break.
-
 @seealso
 
 Program reference: @internalsref{KeyChangeEvent},
