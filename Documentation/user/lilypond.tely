@@ -164,6 +164,7 @@ this and other documentation.
 * Example templates::              Larger examples
 * Notation manual::                All notation supported, and how to
                                    produce it.
+* Sound::                          Producing MIDI output
 * Changing defaults::              Tuning output.
 * Interfaces for programmers::
 * Invoking LilyPond::              Operation.

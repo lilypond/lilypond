@@ -2234,6 +2234,64 @@ that line. The result is similar to formatting paragraphs. In a
 paragraph, the last line simply takes its natural length.
 
 
+@node Multiple movements
+@subsection Multiple movements
+
+@cindex bibliographic information
+@cindex titles
+@cindex composer
+@cindex Engraved by LilyPond
+
+A document may contains multiple pieces of music. Examples of these
+are an etude book, or an orchestral part with multiple movements.
+Each movement is entered with a @code{\score} block,
+
+@example
+  \score @{
+     @var{..music..}
+  @}
+@end example
+
+The movements are combined together to  
+@code{\book} block is used to group the individual movements.
+
+@example
+\book @{
+  \score @{
+     @var{..}
+  @}
+  \score @{
+     @var{..}
+  @}
+@}
+@end example
+
+
+The header for each piece of music can be put inside the @code{\score}
+block.  The @code{piece} name from the header will be printed before
+each movement.  The title for the entire book can be put inside the
+@code{\book}, but if it is not present, the @code{\header} which is at
+the top of the file is inserted.
+
+@cindex Engraved by LilyPond
+@cindex signature line
+
+@example 
+\book @{
+  \header @{
+    title = "Eight miniatures" 
+    composer = "Igor Stravinsky"
+  @}
+  \score @{
+    @dots{}
+    \header @{ piece = "Romanze" @}
+  @}
+  \score @{
+    @dots{}
+    \header @{ piece = "Menuetto" @}
+  @}
+@}
+
 @node Titling
 @subsection Titling
 
@@ -2439,7 +2497,9 @@ field from the @code{\header} block on a line.
 The default footer is empty, except for the first page, where it the
 @code{copyright} field from @code{\header} is inserted, and the last
 page, where @code{tagline} from @code{\header} is added. The default
-tagline is ``Engraved by LilyPond (@var{version})''.
+tagline is ``Engraved by LilyPond (@var{version})''.@footnote{Nicely
+printed parts are good PR for us, so please leave the tagline if you
+can.}
 
 The header and footer are created by the functions @code{make-footer}
 and @code{make-header}, defined in @code{\bookpaper}. The default

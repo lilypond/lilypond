@@ -440,7 +440,10 @@
 	(script-priority . 100)
 	(font-encoding . fetaNumber)
 	(font-size . -5) 		; don't overlap when next to heads.
-	(meta . ((interfaces . (finger-interface font-interface text-script-interface text-interface side-position-interface self-alignment-interface item-interface ))))
+	(meta . ((interfaces . (finger-interface
+				font-interface text-script-interface text-interface
+				side-position-interface self-alignment-interface
+				item-interface))))
 	))
 
     (Glissando

@@ -109,7 +109,7 @@ Half-flats and half-sharps are formed by adding @code{-eh} and
 @cindex quarter tones
 @cindex semi-flats, semi-sharps
 
-@lilypond[fragment,quote,verbatim,relative=3]
+@lilypond[fragment,quote,verbatim,relative=2]
 ceses4
 ceseh
 ces
@@ -256,7 +256,7 @@ Program reference: @internalsref{RestEvent}, and @internalsref{Rest}.
 An invisible rest (also called a `skip') can be entered like a note
 with note name `@code{s}' or with @code{\skip @var{duration}}
 
-@lilypond[fragment,quote,raggedright,verbatim]
+@lilypond[fragment,quote,raggedright,verbatim,relative=2]
 a2 s4 a4 \skip 1 a4 
 @end lilypond
 
@@ -353,7 +353,7 @@ will not affect the appearance of the notes or rests produced.
 
 In the following example, the first three notes take up exactly two
 beats, but no triplet bracket is printed.
-@lilypond[quote,fragment,relative=3,verbatim]
+@lilypond[quote,fragment,relative=2,verbatim]
 \time 2/4
 a4*2/3 gis4*2/3 a4*2/3
 a4
@@ -1277,7 +1277,7 @@ shortened by 1/8, by setting @code{measurePosition} to -3/8 at 2/4 in
 the measure, so the next bar line will fall at 2/4 + 3/8. 
 
 @lilypond[verbatim]
-{
+\relative {
   \set Score.measureLength = #(ly:make-moment 5 4)
   c1 c4
   c1 c4 
@@ -2131,7 +2131,7 @@ Other symbols can be added using the syntax
 can be forced up or down using @code{^} and @code{_},
 e.g.
 
-@lilypond[quote,verbatim,fragment,relative=3]
+@lilypond[quote,verbatim,fragment,relative=2]
 c\fermata c^\fermata c_\fermata
 @end lilypond
 
@@ -2179,7 +2179,7 @@ inside. When two objects have the same priority, the order in which
 they are entered decides which one comes first.
 
 
-@lilypond[verbatim]
+@lilypond[verbatim,raggedright]
 \relative g''{
     \once \override TextScript #'script-priority = #-100
     a4^\prall^\markup { \sharp }
@@ -2218,7 +2218,7 @@ Long running trills are made with @code{\startTrillSpan} and
 @code{\stopTrillSpan},
 
 
-@lilypond[verbatim]
+@lilypond[verbatim,raggedright]
 \relative \new Voice {
     << { c1 \startTrillSpan }
        { s2. \grace { d16[\stopTrillSpan e] } } >>
@@ -2404,7 +2404,7 @@ every eighth grace note
 
 @lilypond[quote,relative=2,verbatim,fragment] 
 << \new Staff { e4 \grace { c16[ d e f] } e4 }
-   \new Staff { c'4 \grace { g8[ b] } c4 } >>
+   \new Staff { c4 \grace { g8[ b] } c4 } >>
 @end lilypond
 
 
@@ -2925,8 +2925,10 @@ Patterns of a one and two measures are replaced by percent-like signs,
 patterns that divide the measure length are replaced by slashes
 
 @lilypond[quote,verbatim,raggedright]
-\repeat  "percent" 4  { c'4 }
-\repeat "percent" 2 { c'2 es'2 f'4 fis'4 g'4 c''4 }
+\new Voice {
+  \repeat  "percent" 4  { c'4 }
+  \repeat "percent" 2 { c'2 es'2 f'4 fis'4 g'4 c''4 }
+}
 @end lilypond
 
 @seealso
@@ -3981,8 +3983,8 @@ The underlay is switched back to the starting situation by assigning
 
 Stanza numbers can be added by setting @code{stanza}, e.g.
 
-@lilypond[quote,verbatim,relative=2]
-\context Voice {
+@lilypond[quote,verbatim,relative=2,fragment]
+\new Voice {
     \time 3/4 g2 e4 a2 f4 g2.
 } \addlyrics {
      \set stanza = "1. "
@@ -4000,8 +4002,8 @@ the line, just like instrument names.  They are created by setting
 @code{vocalName}. A short version may be entered as @code{vocNam}.
 
 
-@lilypond[quote,verbatim,relative=2]
-\context Voice {
+@lilypond[fragment,quote,verbatim,relative=2]
+\new Voice {
     \time 3/4 g2 e4 a2 f4 g2.
 } \addlyrics {
      \set vocalName = "Bert "
@@ -7461,85 +7463,3 @@ correct result.
 @cindex @code{\setEasyHeads}
 @code{\setEasyHeads}
 
-@node Sound
-@section Sound
-@cindex Sound
-
-Entered music can also be converted to MIDI output.  The performance
-is intended for proof-hearing the music for errors.
-
-Ties, dynamics and tempo changes are interpreted.  Dynamic marks,
-crescendi and decrescendi translate into MIDI volume levels.  Dynamic
-marks translate to a fixed fraction of the available MIDI volume
-range, crescendi and decrescendi make the volume vary linearly between
-their two extremities.  The fractions can be adjusted by
-@code{dynamicAbsoluteVolumeFunction} in @internalsref{Voice} context.
-For each type of MIDI instrument, a volume range can be defined.  This
-gives a basic equalizer control, which can enhance the quality of
-the MIDI output remarkably.  The equalizer can be controlled by
-setting @code{instrumentEqualizer}.
-
-@refbugs
-
-Many musically interesting effects, such as swing, articulation,
-slurring, etc., are not translated to MIDI.
-
-The MIDI output allocates a channel for each Staff, and one for global
-settings.  Hence, the MIDI file should not have more than 15 staves
-(or 14 if you do not use drums). Other staves will remain silent.
-
-Not all MIDI players correctly handle tempo change in the MIDI
-output. Players that are known to work include
-@uref{http://timidity.sourceforge.net/,timidity}
-
-
-@menu
-* MIDI block::                  
-* MIDI instrument names::       
-@end menu
-
-
-@node MIDI block
-@subsection MIDI block
-@cindex MIDI block
-
-
-The MIDI block is analogous to the paper block, but it is somewhat
-simpler.  The @code{\midi} block can contain
-@cindex MIDI block
-
-@itemize @bullet
-  @item a @code{\tempo} definition, and
-  @item context definitions.
-@end itemize
-
-A number followed by a period is interpreted as a real number, so
-for setting the tempo for dotted notes, an extra space should be
-inserted, for example
-
-@example
-  \midi @{ \tempo 4 . = 120 @} 
-@end example
-
-
-@cindex context definition
-
-Context definitions follow precisely the same syntax as within the
-\paper block.  Translation modules for sound are called performers.
-The contexts for MIDI output are defined in @file{ly/performer-init.ly}.
-
-
-@node MIDI instrument names
-@subsection MIDI instrument names
-
-@cindex instrument names
-@cindex @code{Staff.midiInstrument}
-
-The MIDI instrument name is set by the @code{Staff.midiInstrument}
-property.  The instrument name should be chosen from the list in
-@ref{MIDI instruments}.
-
-@refbugs
-
-If the selected string does not exactly match, the default is used,
-which is the Grand Piano.

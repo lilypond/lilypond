@@ -4,11 +4,6 @@
 @node Introduction
 @chapter Introduction
 
-LilyPond is a system for formatting music prettily.  This chapter
-discusses the backgrounds of LilyPond.  It explains the problem of
-printing music with computers, and our approach to solving those
-problems.
-
 
 @menu
 * Engraving::
@@ -37,11 +32,11 @@ be a master engraver, and another five years of experience were
 necessary to become truly skilled.
 
 Nowadays, all newly printed music is produced with computers.  This
-has obvious advantages; prints are cheaper to make, editorial work can
-be delivered by email.  Unfortunately, the pervasive use of computers
-has also decreased the graphical quality of scores.  Computer
-printouts have a bland, mechanical look, which makes them unpleasant
-to play from.
+has obvious advantages; prints are cheaper to make, and editorial work
+can be delivered by email.  Unfortunately, the pervasive use of
+computers has also decreased the graphical quality of scores.
+Computer printouts have a bland, mechanical look, which makes them
+unpleasant to play from.
 
 
 @c introduce illustrating aspects of engraving, font...
@@ -142,11 +137,11 @@ in the last two measures form down-stem/up-stem clumps of notes.
 @cindex typography
 
 Musicians are usually more absorbed with performing than with studying
-the looks of piece of music; nitpicking about typographical details
+the looks of piece of music, so nitpicking about typographical details
 may seem academical.  But it is not.  In larger pieces with monotonous
 rhythms, spacing corrections lead to subtle variations in the layout
 of every line, giving each one a distinct visual signature.  Without
-this signature all lines would look the same, they become like a
+this signature all lines would look the same, and they become like a
 labyrinth.  If the musician looks away once or has a lapse in his
 concentration, he will be lost on the page.
 @c he/she
@@ -165,14 +160,14 @@ less attention they need for reading, the more they can focus on
 playing itself.  In other words, better typography translates to better
 performances.
 
-Hopefully, these examples also demonstrate that music typography is an
-art that is subtle and complex, and to produce it requires
-considerable expertise, which musicians usually do not have.  LilyPond
-is our effort to bring the graphical excellence of hand-engraved music
-to the computer age, and make it available to normal musicians.  We
-have tuned our algorithms, font-designs, and program settings to
-produce prints that match the quality of the old editions we love to
-see and love to play from.
+These examples demonstrate that music typography is an art that is
+subtle and complex, and that producing it requires considerable
+expertise, which musicians usually do not have.  LilyPond is our
+effort to bring the graphical excellence of hand-engraved music to the
+computer age, and make it available to normal musicians.  We have
+tuned our algorithms, font-designs, and program settings to produce
+prints that match the quality of the old editions we love to see and
+love to play from.
 
 
 
@@ -185,7 +180,7 @@ ten years to become true masters, how could we simple hackers ever
 write a program to take over their jobs?
 
 The answer is: we cannot.  Typography relies on human judgment of
-appearance, so people cannot be replaced ultimately.  However, much of
+appearance, so people cannot be replaced completely.  However, much of
 the dull work can be automated.  If LilyPond solves most of the common
 situations correctly, this will be a huge improvement over existing
 software.  The remaining cases can be tuned by hand.  Over the course
@@ -215,9 +210,9 @@ method of grouping rules that do not match well with how music
 notation works.
 @end itemize
 
-These problems have been addressed by integrating the GUILE
-interpreter for the Scheme programming language and rewriting parts of
-LilyPond in Scheme.  The new, flexible formatting is built around the
+These problems have been addressed by integrating an interpreter for
+the Scheme programming language and rewriting parts of LilyPond in
+Scheme.  The current formatting architecture is built around the
 notion of graphical objects, described by Scheme variables and
 functions.  This architecture encompasses formatting rules,
 typographical style and individual formatting decisions.  The user has
@@ -230,7 +225,7 @@ with accents and arpeggio.  In the first chord, the graphical objects
 have all directions down (or left).  The second chord has all
 directions up (right).
 
-@lilypond[quote,raggedright,relative=1]
+@lilypond[quote,raggedright,relative=1,fragment]
 \new Score \with {
   \override SpacingSpanner #'spacing-increment = #3
   \override TimeSignature #'transparent = ##t
@@ -241,12 +236,14 @@ directions up (right).
 }
 @end lilypond
 
+@noindent
 The process of formatting a score consists of reading and writing the
 variables of graphical objects.
 
-Some variables have a preset value.  For example, the thickness of many
-lines---a characteristic of typographical style---are preset
-variables.  Changing them gives a different typographical impression.
+Some variables have a preset value.  For example, the thickness of
+many lines---a characteristic of typographical style---are not fixed.
+They are variables, and altering them gives a different typographical
+impression.
 
 @lilypond[quote,raggedright]
 fragment =  {
@@ -268,10 +265,11 @@ fragment =  {
 @end lilypond
 
 Formatting rules are also preset variables: each object has variables
-containing procedures.  These procedures perform the actual formatting,
-and by substituting different ones, we can change behavior.  In the
-following example, the rule which note head objects use to produce
-their symbol is changed during the music fragment.
+containing procedures.  These procedures perform the actual
+formatting, and by substituting different ones, we can change the
+appearance of objects.  In the following example, the rule which note
+head objects use to produce their symbol is changed during the music
+fragment.
 
 @lilypond[quote,raggedright]
 #(define (mc-squared grob orig current)
@@ -318,12 +316,12 @@ their symbol is changed during the music fragment.
 @cindex engraving
 @cindex typography
 
-The formatting process in LilyPond decides where to place
+The formatting process decides where to place
 symbols.  However, this can only be done once it is decided @emph{what}
 symbols should be printed, in other words what notation to use.
 
 Common music notation is a system of recording music that has evolved
-over the past 1000 years.  The form that is now in common use, dates
+over the past 1000 years.  The form that is now in common use dates
 from the early renaissance.  Although the basic form (i.e., note heads on a
 5-line staff) has not changed, the details still change to express the
 innovations of contemporary notation.  Hence, it encompasses some 500
@@ -331,13 +329,13 @@ years of music.  Its applications range from monophonic melodies to
 monstrous counterpoint for large orchestras.
 
 How can we get a grip on such a many-headed beast, and force it into
-the confines of a computer program?  We have broken up the problem of
-notation (as opposed to engraving, i.e., typography) into digestible
-and programmable chunks: every type of symbol is handled by a separate
-module, a so-called plug-in.  Each plug-in is completely modular and
-independent, so each can be developed and improved separately.  People
-who translate musical ideas to graphic symbols are called copyists or
-engravers, so by analogy, each plug-in is called @code{engraver}.
+the confines of a computer program?  Our solution is break up the
+problem of notation (as opposed to engraving, i.e., typography) into
+digestible and programmable chunks: every type of symbol is handled by
+a separate module, a so-called plug-in.  Each plug-in is completely
+modular and independent, so each can be developed and improved
+separately.  Such plug-ins are called @code{engraver}, by analogy with
+craftsmen who translate musical ideas to graphic symbols.
 
 In the following example, we see how we start out with a plug-in for
 note heads, the @code{Note_heads_engraver}.
@@ -485,7 +483,7 @@ should be grouped.  The engravers for note heads, stems, slurs, etc., go
 into a group called `Voice context,' while the engravers for key,
 accidental, bar, etc., go into a group called `Staff context.'  In the
 case of polyphony, a single Staff context contains more than one Voice
-context.  In polyphonic notation, many voices can share a staff.
+context.  
 Similarly, more Staff contexts can be put into a single Score context.
 
 @lilypond[quote,raggedright]
@@ -536,14 +534,17 @@ c4
 @end lilypond
 
 @noindent
-Chords can be constructed with < and > enclosing the notes
+Chords can be constructed with @code{<<} and @code{>>} enclosing the notes
 
+@c < > is not a music expression, 
+@c so we use <<>> iso. <> to drive home the point of
+@c expressions. Don't change this back --hwn.
 @example
-<c d e>4
+<<c4 d4 e4>>
 @end example
 
 @lilypond[quote,fragment,relative=1]
-\new Voice { <c d e>4 }
+\new Voice { <<c4 d4 e>> }
 @end lilypond
 
 @noindent
@@ -551,23 +552,24 @@ This expression is put in sequence by enclosing it in curly braces
 @code{@{@tie{}@dots{}@tie{}@}}
 
 @example
-@{ <c d e>4 f4 @}
+@{ f4 <<c4 d4 e4>>  @}
 @end example
 
-@lilypond[quote,relative=1]
-\new Voice { <c d e>4 f4 }
+@lilypond[quote,relative=1,fragment]
+{ f4 <<c d e4>> }
 @end lilypond
 
-@noindent	
-The above is an expression also, and thus it may be combined again with
-another simultaneous expression (a half note) using <<, @code{\\}, and >>
+@noindent
+The above is also an expression, and so it may be combined
+again with another simultaneous expression (a half note) using <<,
+@code{\\}, and >>
 
 @example
-<< g2 \\ @{ <c d e>4 f4 @} >>
+<< g2 \\ @{ f4 <<c4 d4 e4>> @} >>
 @end example
 
 @lilypond[quote,fragment,relative=2]
-\new Voice { << g2 \\ { <c d e>4 f4 } >> }
+\new Voice { << g2 \\ { f4 <<c d e>> } >> }
 @end lilypond
 	
 Such recursive structures can be specified neatly and formally in a
@@ -579,10 +581,10 @@ User-interfaces and syntax are what people see and deal with
 most.  They are partly a matter of taste, and also subject of much
 discussion.  Although discussions on taste do have their merit, they
 are not very productive.  In the larger picture of LilyPond, the
-importance of input syntax is small: inventing neat syntax is easy,
+importance of input syntax is small: inventing neat syntax is easy, while
 writing decent formatting code is much harder.  This is also
 illustrated by the line-counts for the respective components: parsing
-and representation take up less than 10% of the code.
+and representation take up less than 10% of the source code.
 
 
 @node Example applications
@@ -624,7 +626,7 @@ This manual also shows an application: the input format is text, and
 can therefore be easily embedded in other text-based formats such as
 La@TeX{}, HTML, or in the case of this manual, Texinfo.  By means of a
 special program, the input fragments can be replaced by music images
-in the resulting PostScript or HTML output files.  This makes it easy
+in the resulting PDF or HTML output files.  This makes it easy
 to mix music and text in documents.
 
 
@@ -688,7 +690,7 @@ how to upgrade input files from previous versions of LilyPond.
 The
 @end ifhtml
 @emph{@ref{Literature list}}
-contains a set of useful reference books, for those who wish to know
+contains a set of useful reference books for those who wish to know
 more  on notation and engraving.
 @end itemize
 
@@ -747,7 +749,7 @@ Almost all formatting functionality that is used internally, is
 available directly to the user.  For example, all variables that
 control thickness values, distances, etc., can be changed in input
 files.  There are a huge number of formatting options, and all of them
-are described in the generated documentation.  Each section of the
+are described in this document.  Each section of the
 notation manual has a @b{See also} subsection, which refers to the
 the generated documentation.  In the HTML document, these subsections
 have clickable links.
