@@ -16,15 +16,8 @@ depth = .
 # identify module:
 #
 NAME = lilypond
-
-# edit in .version only!
-MAJOR_VERSION = $(TOPLEVEL_MAJOR_VERSION)
-MINOR_VERSION = $(TOPLEVEL_MINOR_VERSION)
-PATCH_LEVEL = $(TOPLEVEL_PATCH_LEVEL)
-# use to send patches, always empty for released version:
-MY_PATCH_LEVEL = $(TOPLEVEL_MY_PATCH_LEVEL)
-build = ./$(depth)/lily/$(outdir)/.build
-#
+include .version
+include ./$(depth)/make/Version.make
 
 # generic variables:
 #
@@ -42,7 +35,7 @@ SUBDIRS = flower lib lily mi2mu \
 # SYMLINKS = # naah, configure
 SCRIPTS = configure configure.in install-sh
 README_FILES = ANNOUNCE COPYING NEWS README TODO INSTALL.text
-DISTFILES= Makefile .dstreamrc .version $(README_FILES) $(SCRIPTS) $(SYMLINKS)
+EXTRA_DISTFILES=  .dstreamrc .version $(README_FILES) $(SCRIPTS) $(SYMLINKS)
 #
 
 
@@ -55,9 +48,8 @@ include ./$(depth)/make/Rules.make
 localdist: configure
 
 # ugh. I know dep is not quite what is really needed.
-INSTALL.text: Documentation
+INSTALL.text: check-doc-deps
 	rm -f INSTALL.text
-	$(MAKE) -C Documentation
 	ln `find -name INSTALL.text|head -1` .
 
 localclean:

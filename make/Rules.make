@@ -22,8 +22,10 @@
 # compile rules:
 #
 $(outdir)/%.o: %.cc
-	$(DODEP)\
-	$(CXX) -c $(CXXFLAGS) $(CXX_OUTPUT_OPTION) 
+	$(DO_CXX_COMPILE)
+
+$(outdir)/%.o: $(outdir)/%.cc
+	$(DO_CXX_COMPILE)
 
 $(outdir)/%.cc: %.y
 #	$(BISON) -d $<
@@ -67,13 +69,15 @@ $(outdir)/%.1: %.pod
 # specific stuff:
 #
 $(LIBFLOWER): check-flower-deps
-	$(MAKE) ./$(outdir)/$(@F) -C $(depth)/flower/lib
 
 check-flower-deps:
-	$(MAKE)  -C $(depth)/flower/lib
+	$(MAKE)  -C $(depth)/flower/ $(outdir)/$(notdir $(LIBFLOWER))
 
 check-lily-deps: check-flower-deps
 	$(MAKE)  -C $(depth)/lib
+
+check-doc-deps:
+	$(MAKE) -C $(depth)/Documentation
 
 $(LIBLILY): dummy
 	$(MAKE) ./$(outdir)/$(@F) -C $(depth)/lib
