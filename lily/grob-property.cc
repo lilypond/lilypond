@@ -143,7 +143,11 @@ extern void check_interfaces_for_property (Grob const *me, SCM sym);
 void
 Grob::internal_set_grob_property (SCM s, SCM v)
 {
-  assert (live());
+  /*
+    Perhaps we simply do the assq_set, but what the heck.
+   */
+  if (!live())
+    return ; 
 
 #ifndef NDEBUG
   if (internal_type_checking_global_b)
