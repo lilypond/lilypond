@@ -15,6 +15,7 @@ bool Duration_convert::no_quantify_b_s = false;
 bool Duration_convert::no_double_dots_b_s = false;
 bool Duration_convert::no_triplets_b_s = false;
 int Duration_convert::no_smaller_than_i_s = 0;
+Array<Duration> Duration_convert::dur_array_s;
 	
 String 
 Duration_convert::dur2_str( Duration dur )
@@ -84,53 +85,66 @@ Duration_convert::i2_mom( int time_i, int division_1_i )
 Duration
 Duration_convert::mom2_dur( Moment mom )
 {
-	/* this is cute, 
-	   but filling an array using Duration_iterator
-	   might speed things up, a little
-	   */
-  	Duration_iterator iter_dur;
-  	assert( iter_dur );
-  	while ( iter_dur ) {
-		Duration dur = iter_dur++;
-		if ( mom == dur2_mom( dur ) )
-			return dur;
-	}
-	if ( midi_as_plet_b_s ) {
-		Moment mom_4 = mom / Moment( 4 );
-		long num = mom_4.numerator().as_long();
-		long den = mom_4.denominator().as_long();
-		Duration dur( 4, 0 );
-		dur.set_plet( num, den );
+    if (!mom) {
+	Duration dur;
+	dur.set_plet(0,1);
+	return dur;
+    }
+	
+
+	Duration dur = mom2standardised_dur( mom );
+//	if ( dur.mom() == mom )
+	if ( dur.length() == mom )
 		return dur;
-	}
-	assert( 0 );
-	// no can do
-	Duration dur( 0 );
+	assert( midi_as_plet_b_s );
+
+//	dur.set_plet( type_mom, Duration::division_1_i_s / 4 ); 
+
+//	Moment as_plet_mom = mom / dur.mom();
+	Moment as_plet_mom = mom / dur.length();
+	as_plet_mom *= dur.plet_.mom();
+	long num = as_plet_mom.numerator().as_long();
+	long den = as_plet_mom.denominator().as_long();
+	dur.set_plet( num, den );
 	return dur;
 }
 
 Duration
 Duration_convert::mom2standardised_dur( Moment mom )
 {
-	/* this is cute, 
-	   but filling an array using Duration_iterator
-	   might speed things up, a little
-	   */
+//	if ( !dur_array_s.length_i() )
+	if ( !dur_array_s.size() )
+		set_array();
+//	assert( dur_array_s.length_i() );
+	assert( dur_array_s.size() );
+//	for ( int i = 0; i < dur_array_s.length_i() - 1; i++ ) {
+	for ( int i = 0; i < dur_array_s.size() - 1; i++ ) {
+  		Moment lower_mom = dur2_mom( dur_array_s[ i ] );
+		if ( mom <= lower_mom ) {
+			if ( i || ( mom / lower_mom > Moment( 3, 4 ) ) )
+				return dur_array_s[ i ];
+			else
+				return Duration( 0 );
+		}
+  		Moment upper_mom = dur2_mom( dur_array_s[ i + 1 ] );
+		if ( ( mom < upper_mom )
+			 && ( ( mom - lower_mom ) / mom
+				< ( upper_mom - mom ) / mom ) )
+			return dur_array_s[ i ];
+	}
+//	return dur_array_s[ dur_array_s.length_i() ];
+	return dur_array_s[ dur_array_s.size() - 1 ];
+}
+
+void
+Duration_convert::set_array()
+{
+	dur_array_s.clear();
+
 	Duration_iterator iter_dur;
 	assert( iter_dur );
-	while ( iter_dur ) {
-  		Duration lower_dur = iter_dur++;
-  		Duration upper_dur( 0 );
-  		if ( iter_dur )
-  			upper_dur = iter_dur();
-  		Moment lower_mom = dur2_mom( lower_dur );
-  		Moment upper_mom = dur2_mom( upper_dur );
-		if ( mom < lower_mom )
-			return lower_dur;
-  		if ( mom == lower_mom )
-  			return lower_dur;
-	}
-	return iter_dur();
+	while ( iter_dur )
+		dur_array_s.push( iter_dur++ );
 }
 
 
@@ -149,64 +163,40 @@ Duration_convert::sync_f( Duration dur, Moment mom )
 Duration
 Duration_convert::ticks2_dur( int ticks_i )
 {
-	/* this is cute, 
-	   but filling an array using Duration_iterator
-	   might speed things up, a little
-	   */
-	// should use mom2_dur
+//		Duration dur( 4, 0 );
+//		dur.set_plet( ticks_i, Duration::division_1_i_s / 4 ); 
+
 	Moment mom( ticks_i, Duration::division_1_i_s );
-	Duration_iterator iter_dur;
-	assert( iter_dur );
-	while ( iter_dur ) {
-		Duration dur = iter_dur++;
-		if ( mom == dur2_mom( dur ) )
-			return dur;
-	}
-	if ( midi_as_plet_b_s ) {
-		Duration dur( 4, 0 );
-		dur.set_plet( ticks_i, Duration::division_1_i_s / 4 ); 
+	if ( midi_as_plet_b_s )
+		return mom2_dur( mom );
+
+	Duration dur = mom2standardised_dur( mom );
+
+//	if ( dur.mom() == mom )
+	if ( dur.length() == mom )
 		return dur;
-	}
-	Duration dur( 0 );
+		
+// huh?
+#if 0
+	dur.type_i_ = 0;
+	dur.dots_i_ = 0;
 	dur.set_ticks( ticks_i );
 	return dur;
+#else
+	return mom2_dur( mom );
+#endif
 }
 
 Duration
 Duration_convert::ticks2standardised_dur( int ticks_i )
 {
-	/* this is cute, 
-	   but filling an array using Duration_iterator
-	   might speed things up, a little
-	   */
-	// should use mom2standardised_dur
 	Moment mom( ticks_i, Duration::division_1_i_s );
-	Duration_iterator iter_dur;
-	assert( iter_dur );
-	while ( iter_dur ) {
-		Duration lower_dur = iter_dur++;
-//		Duration upper_dur( 0 );
-		Duration upper_dur( 1, 1 );
-		if ( iter_dur )
-			upper_dur = iter_dur();
-		Moment lower_mom = dur2_mom( lower_dur );
-		Moment upper_mom = dur2_mom( upper_dur );
-		if ( mom < lower_mom )
-			return lower_dur;
-		if ( mom == lower_mom )
-			return lower_dur;
-		if ( mom == upper_mom ) // don-t miss last (sic)
-			return upper_dur;
-		if ( ( mom >= lower_mom ) && ( mom <= upper_mom ) ) {
-			warning( String( "duration not exact: " ) + String( (Real)mom ) );
-			if ( abs( mom - lower_mom ) < abs( mom - upper_mom ) )
-				return lower_dur;
-			else
-				return upper_dur;
-		}
-		lower_dur = upper_dur;
-	}
-	return iter_dur();
+	Duration dur = mom2standardised_dur( mom );
+
+//	if ( dur.mom() != mom )
+	if ( dur.length() != mom )
+		warning( String( "duration not exact: " ) + String( (Real)mom ) );
+	return dur;
 }
 
 Duration_iterator::Duration_iterator()
