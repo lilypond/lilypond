@@ -5,6 +5,8 @@
 @c     M-x texinfo-all-menus-update
 @c to automagically fill in these menus before saving changes
 
+@c FIXME: singular vs. plural:  Beams/Beam
+
 
 @macro refbugs
 @strong{BUGS}
@@ -103,6 +105,7 @@ These threemanship of tasks (parsing, translating, typesetting) and
 data-structures (music, context, graphical objects) permeates the entire
 design of the program.
 
+@c FIXME: Note entry vs Music entry at top level menu is confusing.
 @c . {Note entry}
 @node Note entry
 @section Note entry
@@ -118,7 +121,7 @@ brevity we omit obligatory lint such as @code{\score} blocks and
 * Notes::                       
 * Pitches::                     
 * Rests::                       
-* Skips::                       
+* Skips::
 * Durations::                   
 * Ties::                        
 * Tuplets::                     
@@ -220,26 +223,57 @@ octave; each @code{,} lowers the pitch by an octave.
 @subsection Rests
 @cindex Rests
 
-Rests are entered like notes, with note name `@code{r}'. The grob is
-@code{Rest}. Whole bar rests centered in the bar are specified using
-@code{R}, see @ref{Multi measure rests}.
+A rest is entered like a note, with note name `@code{r}':
+
+@lilypond[singleline,verbatim]
+r1 r2 r4 r8
+@end lilypond
+
+The grob is @code{Rest}. Whole bar rests centered in the bar are
+specified using @code{R}, see @ref{Multi measure rests}.
 
 
 @c .  {Skips}
+@c FIXME: naming.
 @node Skips
 @subsection Skips
 @cindex Skip
+@cindex Invisible rest
+@cindex Space note
+
+An invisible rest, or skip, can be entered like a note with note name
+`@code{s}':
+
+@lilypond[singleline,verbatim]
+a2 s4 a4 s1 a4
+@end lilypond
+
+Actually, this is a shorthand for the @code{\skip} command, and it is
+only available in Note mode and Chord mode.
+
+@c FIXME: in lyrics mode, we have " " and _
+
+In Lyrics mode, you can use `@code{" "}' and `@code{_}':
+@lilypond[singleline,verbatim]
+<
+  \context Lyrics \lyrics { lah2 di4 " " dah2 _4 di }
+  \notes\relative c'' { a2 a4 a a2 a4 a }
+>
+@end lilypond
+
+The unabbreviated `@code{\skip} @var{duration}' also works outside of
+note mode:
+
+@lilypond[singleline,verbatim]
+\score {
+  \context Staff <
+    { \time 4/8 \skip 2 \time 4/4 } 
+    \notes\relative c'' { a2 a1 }
+  >
+}
+@end lilypond
 
 
-@example
-  \skip @var{duration} 
-  s@var{duration}
-@end example
-@cindex @code{\skip}
-
-Skips the amount of time specified by @var{duration}.  If no other music
-is played, a gap will be left for the skipped time without any notes
-printed.  The shorthand is only available in Note and Chord mode.
 
 @c .  {Durations}
 @node Durations
@@ -460,8 +494,8 @@ Hal-Leonard Inc.  music publishers.
 @lilypond[singleline,verbatim]
 \include "paper23.ly"
 \score {
-        \notes { c'2 e'4 f' | g'1 }
-        \paper { \translator { \EasyNotation } } 
+  \notes { c'2 e'4 f' | g'1 }
+  \paper { \translator { \EasyNotation } } 
 }
 @end lilypond
 
@@ -3758,7 +3792,7 @@ number.
 
 
 
-
+@c FIXME: Note entry vs Music entry at top level menu is confusing.
 @c . {Music entry}
 @node Music entry
 @section Music entry

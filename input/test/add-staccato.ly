@@ -1,7 +1,8 @@
 \header {
 
 texidoc= "Using make-music, you can add various stuff to notes. Here
-is an example how to add staccato dots."
+is an example how to add staccato dots.  Note: for this simple case
+one would not use scm constructs.  See separate-staccato.ly first."
 
 } 
 

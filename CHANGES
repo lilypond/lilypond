@@ -1,5 +1,9 @@
-1.5.14.jcn3
+1.5.14.jcn4
 ===========
+
+* Slightly better doco for r, s and \skip, with examples.
+
+* Bugfixes: add-html-footer.py and @MAILADDRESS@.
 
 * Some website related fixes (thanks Tiggr).
 
