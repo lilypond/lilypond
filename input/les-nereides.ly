@@ -3,7 +3,7 @@
 
 \header {
     composer =   "ARTHUR GRAY"
-    title =      "LES N\\'ER\\'EIDES"
+    title =      "LES NÉRÉIDES"
     subtitle =   "THE NEREIDS"
     enteredby =  "JCN"
     piece =      "Allegretto scherzando"

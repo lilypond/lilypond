@@ -1,3 +1,9 @@
+2004-01-05  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/mutopia/E.Satie/petite-ouverture-a-danser.ly: 
+	* input/les-nereides.ly: Use latin1 characters for title, like
+	Morgenlied.
+
 2004-01-05  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
 	* scm/font.scm (paper20-font-vector): add bold-narrow series (only

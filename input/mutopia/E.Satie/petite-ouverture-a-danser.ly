@@ -1,6 +1,6 @@
 #(ly:set-option 'old-relative)
 \header {
-  title =       "Petite Ouverture \\`a danser"
+  title =       "Petite Ouverture à danser"
   subtitle =	"4"
   source =      ""
   composer =    "Erik Satie (1866-1925)"
