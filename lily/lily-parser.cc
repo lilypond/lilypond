@@ -10,8 +10,6 @@
 
 #include "book.hh"
 #include "lilypond-key.hh"
-#include "context-selector.hh"
-#include "grob-selector.hh"
 #include "file-name.hh"
 #include "file-path.hh"
 #include "lily-version.hh"

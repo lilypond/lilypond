@@ -121,7 +121,7 @@ Tweak_registry  * global_registry_;
 void
 init_global_tweak_registry()
 {
-  global_registry_ = new Tweak_registry();
+  //  global_registry_ = new Tweak_registry();
 }
 
 ADD_SCM_INIT_FUNC(init_global_tweak_registry,init_global_tweak_registry);
