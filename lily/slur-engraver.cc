@@ -12,6 +12,8 @@
 #include "note-column.hh"
 #include "translator-group.hh"
 
+ADD_THIS_TRANSLATOR (Slur_engraver);
+
 bool
 Slur_engraver::do_try_music (Music *req_l)
 {
@@ -122,5 +124,3 @@ Slur_engraver::do_post_move_processing()
     }
 }
 
-
-ADD_THIS_TRANSLATOR(Slur_engraver);

@@ -1,5 +1,5 @@
 /*   
-  ctie-engraver.cc --  implement Tie_engraver
+  tie-engraver.cc --  implement Tie_engraver
   
   source file of the GNU LilyPond music typesetter
   
@@ -13,6 +13,8 @@
 #include "musical-request.hh"
 #include "tie.hh"
 #include "translator-group.hh"
+
+ADD_THIS_TRANSLATOR (Tie_engraver);
 
 Tie_engraver::Tie_engraver()
 {
@@ -179,9 +181,6 @@ Tie_engraver::do_post_move_processing ()
   while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
     past_notes_pq_.delmin ();
 }
-
-ADD_THIS_TRANSLATOR(Tie_engraver);
-
 
 CHead_melodic_tuple::CHead_melodic_tuple ()
 {

@@ -9,6 +9,7 @@
 #include "type-swallow-translator.hh"
 #include "musical-request.hh"
 
+DECLARE_REQUEST_SWALLOWER (Skip_req);
 
 bool
 Type_swallow_translator::do_try_music (Music*r)
@@ -17,7 +18,3 @@ Type_swallow_translator::do_try_music (Music*r)
       return true;
   return false;
 }
-
-
-
-DECLARE_REQUEST_SWALLOWER(Skip_req);

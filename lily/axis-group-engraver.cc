@@ -10,6 +10,8 @@
 #include "axis-group-spanner.hh"
 #include "paper-column.hh"
 
+ADD_THIS_TRANSLATOR (Axis_group_engraver);
+
 Axis_group_engraver::Axis_group_engraver ()
 {
   staffline_p_ = 0;
@@ -63,4 +65,3 @@ Axis_group_engraver::process_acknowledged ()
   elts_.clear ();
 }
 
-ADD_THIS_TRANSLATOR(Axis_group_engraver);

@@ -5,12 +5,10 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "swallow-engraver.hh"
 
-
-
-ADD_THIS_TRANSLATOR(Swallow_engraver);
-
+ADD_THIS_TRANSLATOR (Swallow_engraver);
 
 bool
 Swallow_engraver::do_try_music (Music*) 

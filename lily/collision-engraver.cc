@@ -11,6 +11,8 @@
 #include "collision.hh"
 #include "dimension-cache.hh"
 
+ADD_THIS_TRANSLATOR (Collision_engraver);
+
 void
 Collision_engraver::process_acknowledged ()
 {
@@ -54,7 +56,3 @@ Collision_engraver::Collision_engraver()
 {
   col_p_ =0;
 }
-
-
-
-ADD_THIS_TRANSLATOR(Collision_engraver);

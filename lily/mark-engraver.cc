@@ -5,11 +5,11 @@
 
  (c) 1998--1999 Jan Nieuwenhuizen <janneke@gnu.org>
 */
+
 #include "command-request.hh"
 #include "mark-engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "text-item.hh"
-
 
 ADD_THIS_TRANSLATOR (Mark_engraver);
 

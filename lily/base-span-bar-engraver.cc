@@ -12,6 +12,8 @@
 #include "base-span-bar-engraver.hh"
 #include "axis-align-spanner.hh"
 
+ADD_THIS_TRANSLATOR (Base_span_bar_engraver);
+
 Base_span_bar_engraver::Base_span_bar_engraver()
 {
   spanbar_p_ =0;
@@ -86,7 +88,4 @@ Base_span_bar_engraver::do_pre_move_processing()
   bar_l_arr_.set_size (0);
 }
 
-
-
-ADD_THIS_TRANSLATOR(Base_span_bar_engraver);
 

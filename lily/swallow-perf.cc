@@ -8,6 +8,4 @@
 
 #include "swallow-perf.hh"
 
-
-
-ADD_THIS_TRANSLATOR(Swallow_performer);
+ADD_THIS_TRANSLATOR (Swallow_performer);

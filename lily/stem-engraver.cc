@@ -16,6 +16,8 @@
 #include "staff-info.hh"
 #include "translator-group.hh"
 
+ADD_THIS_TRANSLATOR (Stem_engraver);
+
 Stem_engraver::Stem_engraver()
 {
   abbrev_req_l_ = 0;
@@ -137,7 +139,4 @@ Stem_engraver::do_try_music (Music* r)
     }
   return false;
 }
-
-
-ADD_THIS_TRANSLATOR(Stem_engraver);
 

@@ -17,6 +17,8 @@
 #include "engraver-group-engraver.hh"
 #include "warn.hh"
 
+ADD_THIS_TRANSLATOR (Bar_engraver);
+
 Bar_engraver::Bar_engraver()
 {
   bar_p_ =0;
@@ -142,8 +144,4 @@ Bar_engraver::do_pre_move_processing()
       bar_p_ =0;
     }
 }
-
-ADD_THIS_TRANSLATOR(Bar_engraver);
-
-
 

@@ -22,6 +22,8 @@ public:
   virtual void do_pre_move_processing ();
 };
 
+ADD_THIS_TRANSLATOR (Note_name_engraver);
+
 bool
 Note_name_engraver::do_try_music (Music *m)
 {
@@ -63,5 +65,3 @@ Note_name_engraver::do_pre_move_processing ()
   texts_.clear() ;
   req_l_arr_.clear ();
 }
-
-ADD_THIS_TRANSLATOR(Note_name_engraver);

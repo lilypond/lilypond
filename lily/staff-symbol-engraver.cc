@@ -32,6 +32,7 @@ protected:
 	
 };
 
+ADD_THIS_TRANSLATOR (Staff_symbol_engraver);
 
 Staff_symbol_engraver::~Staff_symbol_engraver()
 {
@@ -73,7 +74,4 @@ Staff_symbol_engraver::acknowledge_element (Score_element_info s)
 	si.add_support (span_p_);
     }
 }
-
-
-ADD_THIS_TRANSLATOR(Staff_symbol_engraver);
 

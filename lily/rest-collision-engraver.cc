@@ -12,11 +12,9 @@
 #include "collision.hh"
 #include "note-column.hh"
 
+ADD_THIS_TRANSLATOR (Rest_collision_engraver);
 
-
-ADD_THIS_TRANSLATOR(Rest_collision_engraver);
-
-Rest_collision_engraver::Rest_collision_engraver()
+Rest_collision_engraver::Rest_collision_engraver ()
 {
   rest_collision_p_ =0;
 }

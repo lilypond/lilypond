@@ -12,6 +12,8 @@
 #include "timing-engraver.hh"
 #include "engraver-group-engraver.hh"
 
+ADD_THIS_TRANSLATOR (Time_signature_engraver);
+ 
 Time_signature_engraver::Time_signature_engraver()
 { 
   time_signature_p_ =0;
@@ -59,7 +61,4 @@ Time_signature_engraver::do_pre_move_processing()
     }
 }
 
-
-ADD_THIS_TRANSLATOR(Time_signature_engraver);
- 
 

@@ -15,7 +15,6 @@
 #include "bar.hh"
 #include "staff-symbol-referencer.hh"
 
-
 ADD_THIS_TRANSLATOR (Multi_measure_rest_engraver);
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()

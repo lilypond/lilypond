@@ -33,7 +33,8 @@ Crescendo::do_brew_molecule_p () const
 
   if (!isdir_b (dir) || !gh_pair_p (dyns))
     {
-      set_elt_property ("transparent", SCM_BOOL_T);
+      Crescendo* urg= (Crescendo*)this;
+      urg->set_elt_property ("transparent", SCM_BOOL_T);
       return new Molecule;
     }
   

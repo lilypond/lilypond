@@ -6,11 +6,9 @@
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #include "translator.hh"
 #include "debug.hh"
 #include "translator-group.hh"
-
 #include "moment.hh"
 
 char const*

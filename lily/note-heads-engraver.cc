@@ -12,6 +12,8 @@
 #include "dot-column.hh"
 #include "staff-symbol-referencer.hh"
 
+ADD_THIS_TRANSLATOR (Note_heads_engraver);
+
 Note_heads_engraver::Note_heads_engraver()
 {
 }
@@ -117,9 +119,4 @@ Note_heads_engraver::do_pre_move_processing()
   
   note_req_l_arr_.clear ();
 }
-
-
-
-
-ADD_THIS_TRANSLATOR(Note_heads_engraver);
 

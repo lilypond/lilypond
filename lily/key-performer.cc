@@ -10,9 +10,6 @@
 #include "command-request.hh"
 #include "audio-item.hh"
 
-
-
-
 ADD_THIS_TRANSLATOR (Key_performer);
 
 Key_performer::Key_performer ()

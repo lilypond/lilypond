@@ -13,7 +13,6 @@
 #include "global-translator.hh"
 #include "debug.hh"
 
-
 ADD_THIS_TRANSLATOR (Note_performer);
 
 Note_performer::Note_performer ()

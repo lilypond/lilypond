@@ -12,6 +12,8 @@
 #include "spacing-engraver.hh"
 #include "spacing-spanner.hh"
 
+ADD_THIS_TRANSLATOR (Spacing_engraver);
+
 inline int
 compare (Rhythmic_tuple const &a, Rhythmic_tuple const &b)
 {
@@ -110,7 +112,5 @@ Spacing_engraver::do_post_move_processing ()
   while (playing_durations_.size () && playing_durations_.front ().end_ == now)
     stopped_durations_.push (playing_durations_.get ());
 }
-
-ADD_THIS_TRANSLATOR(Spacing_engraver);
 
 

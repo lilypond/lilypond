@@ -6,6 +6,7 @@
   (c) 1998--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
 #include "timing-engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "beam-engraver.hh"
@@ -16,6 +17,8 @@
 #include "timing-translator.hh"
 #include "beaming.hh"
 #include "score-engraver.hh"
+
+ADD_THIS_TRANSLATOR (Beam_engraver);
 
 Beam_engraver::Beam_engraver ()
 {
@@ -190,8 +193,4 @@ Beam_engraver::acknowledge_element (Score_element_info info)
       beam_p_->add_stem (stem_l);
     }
 }
-
-
-
-ADD_THIS_TRANSLATOR(Beam_engraver);
 

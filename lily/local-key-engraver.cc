@@ -19,6 +19,8 @@
 #include "grace-align-item.hh"
 #include "staff-symbol-referencer.hh"
 
+ADD_THIS_TRANSLATOR (Local_key_engraver);
+
 Local_key_engraver::Local_key_engraver()
 {
   key_grav_l_ = 0;
@@ -193,8 +195,4 @@ Local_key_engraver::do_process_requests()
       local_key_ = key_grav_l_->key_;
     }
 }
-
-
-
-ADD_THIS_TRANSLATOR(Local_key_engraver);
 

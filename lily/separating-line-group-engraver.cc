@@ -13,6 +13,8 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 
+ADD_THIS_TRANSLATOR (Separating_line_group_engraver);
+
 Separating_line_group_engraver::Separating_line_group_engraver ()
 {
   sep_span_p_ = 0;
@@ -74,8 +76,4 @@ Separating_line_group_engraver::do_pre_move_processing ()
       nobreak_malt_p_ =0;
     }
 }
-
-
-
-ADD_THIS_TRANSLATOR( Separating_line_group_engraver);
 

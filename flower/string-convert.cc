@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <limits.h>
+#include <string.h>
 #include "libc-extension.hh"
 #include "string.hh"
 #include "string-convert.hh"

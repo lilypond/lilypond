@@ -14,6 +14,8 @@
 #include "line-group-group-engraver.hh"
 #include "paper-column.hh"
 
+ADD_THIS_TRANSLATOR (Line_group_engraver_group);
+
 Line_group_engraver_group::Line_group_engraver_group()
 {
   staffline_p_ =0;
@@ -54,9 +56,4 @@ Line_group_engraver_group::create_line_spanner ()
   staffline_p_ = new Axis_group_spanner ;
   staffline_p_->set_axes (Y_AXIS,Y_AXIS);
 }
-
-
-
-
-ADD_THIS_TRANSLATOR(Line_group_engraver_group);
 

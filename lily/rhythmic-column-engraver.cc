@@ -15,6 +15,8 @@
 #include "dot-column.hh"
 #include "musical-request.hh"
 
+ADD_THIS_TRANSLATOR (Rhythmic_column_engraver);
+
 Rhythmic_column_engraver::Rhythmic_column_engraver()
 {
   stem_l_ =0;
@@ -119,6 +121,4 @@ Rhythmic_column_engraver::do_post_move_processing()
   dotcol_l_ =0;
   stem_l_ =0;
 }
-
-ADD_THIS_TRANSLATOR(Rhythmic_column_engraver);
 

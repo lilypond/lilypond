@@ -5,11 +5,15 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "staff-symbol-referencer.hh"
 #include "rest-engraver.hh"
 #include "musical-request.hh"
 #include "dots.hh"
 #include "rest.hh"
+
+ADD_THIS_TRANSLATOR (Rest_engraver);
+
 /*
   Should merge with Note_head_engraver
  */
@@ -80,6 +84,3 @@ Rest_engraver::do_try_music (Music *req)
     }  
   return false;
 }
-
-
-ADD_THIS_TRANSLATOR(Rest_engraver);

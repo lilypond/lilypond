@@ -12,6 +12,10 @@
 #include "paper-def.hh"
 #include "dimension-cache.hh"
 
+ADD_THIS_TRANSLATOR (Piano_bar_engraver);
+ADD_THIS_TRANSLATOR (Staff_group_bar_engraver);
+ADD_THIS_TRANSLATOR (Span_score_bar_engraver);
+
 Span_bar*
 Span_score_bar_engraver::get_span_bar_p () const
 {
@@ -58,9 +62,5 @@ Staff_group_bar_engraver::acknowledge_element (Score_element_info i)
 			    X_AXIS); // ugh
     }
 }
-
-ADD_THIS_TRANSLATOR (Piano_bar_engraver);
-ADD_THIS_TRANSLATOR (Staff_group_bar_engraver);
-ADD_THIS_TRANSLATOR (Span_score_bar_engraver);
 
 

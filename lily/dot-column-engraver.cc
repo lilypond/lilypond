@@ -11,6 +11,8 @@
 #include "rhythmic-head.hh"
 #include "dot-column.hh"
 
+ADD_THIS_TRANSLATOR (Dot_column_engraver);
+
 Dot_column_engraver::Dot_column_engraver ()
 {
   dotcol_p_ =0;
@@ -45,7 +47,4 @@ Dot_column_engraver::acknowledge_element (Score_element_info info)
 
   dotcol_p_->add_head (h);
 }
-
-
-ADD_THIS_TRANSLATOR(Dot_column_engraver);
 

@@ -13,8 +13,7 @@
 #include "paper-score.hh"
 #include "score-element.hh"
 
-
-ADD_THIS_TRANSLATOR(Engraver_group_engraver);
+ADD_THIS_TRANSLATOR (Engraver_group_engraver);
 
 void
 Engraver_group_engraver::announce_element (Score_element_info info)

@@ -6,8 +6,8 @@
   (c) 1998--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-#include "dimension-cache.hh"
 
+#include "dimension-cache.hh"
 #include "engraver.hh"
 #include "side-position-interface.hh"
 #include "text-item.hh"
@@ -34,6 +34,7 @@ protected:
   virtual void acknowledge_element (Score_element_info);
 };
 
+ADD_THIS_TRANSLATOR (Text_engraver);
 
 bool
 Text_engraver::do_try_music (Music *m)
@@ -128,6 +129,4 @@ Text_engraver::do_post_move_processing ()
 {
   reqs_.clear ();
 }
-
-ADD_THIS_TRANSLATOR(Text_engraver);
 

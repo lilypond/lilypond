@@ -12,7 +12,6 @@
 #include "audio-item.hh"
 #include "musical-request.hh"
 
-
 ADD_THIS_TRANSLATOR (Tie_performer);
 
 Tie_performer::Tie_performer()

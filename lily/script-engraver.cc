@@ -13,9 +13,11 @@
 #include "rhythmic-head.hh"
 #include "dimension-cache.hh"
 
-Script_engraver::Script_engraver()
+ADD_THIS_TRANSLATOR (Script_engraver);
+
+Script_engraver::Script_engraver ()
 {
-  do_post_move_processing();
+  do_post_move_processing ();
 }
 
 bool
@@ -142,7 +144,5 @@ Script_engraver::do_post_move_processing()
 {
   script_req_l_arr_.clear();
 }
-
-ADD_THIS_TRANSLATOR(Script_engraver);
 
 

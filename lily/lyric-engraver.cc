@@ -15,7 +15,6 @@
 
 ADD_THIS_TRANSLATOR (Lyric_engraver);
 
-
 Lyric_engraver::Lyric_engraver()
 {
   text_p_ =0;

@@ -8,12 +8,9 @@
  */
 
 #include "performer-group-performer.hh"
-
 #include "debug.hh"
 
-
-ADD_THIS_TRANSLATOR(Performer_group_performer);
-
+ADD_THIS_TRANSLATOR (Performer_group_performer);
 
 void
 Performer_group_performer::announce_element (Audio_element_info info)

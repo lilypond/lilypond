@@ -31,6 +31,8 @@ protected:
 };
 
 
+ADD_THIS_TRANSLATOR (Script_column_engraver);
+
 Script_column_engraver::Script_column_engraver()
 {
   scol_p_ =0;
@@ -85,4 +87,3 @@ Script_column_engraver::process_acknowledged ()
       script_l_arr_.clear ();
     }
 }
-ADD_THIS_TRANSLATOR(Script_column_engraver);

@@ -10,7 +10,6 @@
 #include "hara-kiri-vertical-group-spanner.hh"
 #include "hara-kiri-line-group-engraver.hh"
 
-
 ADD_THIS_TRANSLATOR (Hara_kiri_line_group_engraver);
 
 void

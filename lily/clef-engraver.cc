@@ -47,6 +47,8 @@ public:
 };
 
 
+ADD_THIS_TRANSLATOR (Clef_engraver);
+
 Clef_engraver::Clef_engraver()
 {
   clef_glyph_ = SCM_EOL;
@@ -211,9 +213,4 @@ Clef_engraver::do_post_move_processing()
 {
   clef_req_l_ = 0;
 }
-
-
-
-
-ADD_THIS_TRANSLATOR(Clef_engraver);
 

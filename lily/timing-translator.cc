@@ -14,6 +14,8 @@
 #include "global-translator.hh"
 #include "multi-measure-rest.hh"
 
+ADD_THIS_TRANSLATOR (Timing_translator);
+
 bool
 Timing_translator::do_try_music (Music*r)
 {
@@ -106,9 +108,6 @@ Timing_translator::do_pre_move_processing()
 	global_l->add_moment_to_process (now_mom () + barleft);
     }
 }
-
-
-ADD_THIS_TRANSLATOR(Timing_translator);
 
 void
 Timing_translator::do_creation_processing()

@@ -19,9 +19,7 @@
 #include "source.hh"
 #include "audio-staff.hh"
 
-
 ADD_THIS_TRANSLATOR (Score_performer);
-
 
 Score_performer::Score_performer ()
 {

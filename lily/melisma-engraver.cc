@@ -20,7 +20,7 @@ public:
   bool do_try_music (Music *);
 };
 
-ADD_THIS_TRANSLATOR(Melisma_engraver);
+ADD_THIS_TRANSLATOR (Melisma_engraver);
 
 bool
 Melisma_engraver::do_try_music (Music *m ) 
