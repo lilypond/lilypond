@@ -1,3 +1,8 @@
+2005-03-31  Erlend Aasland  <erlenda@gmail.com>
+
+	* scm/output-tex.scm: implement {re,}setcolor
+	* tex/lilyponddefs.tex: use color package
+
 2005-03-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/macros.itexi: Fix @usermanref html links in
