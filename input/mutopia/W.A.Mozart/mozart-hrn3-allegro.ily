@@ -175,7 +175,7 @@ allegro =
 	g4 \times 2/3 {  r8  c8[( g)] } \times 2/3 {  e[ ( g) e-. ] } \times 2/3 {  c[ ( e) c-.] }|
 	g4 r8 g'\f  a[ b c d]|
 
-	<< d1(\trill
+	<< d1_(\trill
 	  { s2 \grace {
   \override Stem   #'stroke-style = #"grace"
     c16[ d] 

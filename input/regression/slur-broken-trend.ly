@@ -9,17 +9,28 @@ staff.  A slur should follow the same vertical direction it would have
 in unbroken state.
 "
 }
-\score{
-	 \relative c''{
-		e1( \break a,)
-		\time 2/4
-		e'2( \break a,)(\break
-		a2\break
-		 e'2)
-	}
-	\paper {
-		linewidth=40.\mm
-		indent=0.
-	}
+\paper {
+    linewidth=40.\mm
+    indent=0.
+}
+
+\relative c''{
+    \override Slur #'after-line-breaking-callback = #New_slur::after_line_breaking
+    \override Slur #'print-function = #New_slur::print     
+    \override Slur #'height = ##f
+    
+    e1( \break a,)
+    \time 2/4
+    e'2( \break a,)(\break
+    a2\break
+    e'2)
+    \time 4/4
+    << d1_(\trill
+       { s2 \grace {
+	   c16[ d] 
+       } }
+     >>
+    \break 
+    c4)
 }
 
