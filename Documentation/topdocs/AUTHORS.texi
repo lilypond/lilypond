@@ -29,7 +29,7 @@ list is alphabetically ordered.
     accidental transposition.
 @item Laura Conrad (lconrad@@world.std.com)
     fixes to abc2ly
-@item @email{Jan.A.Fagertun@@energy.sintef.no, Jan Arne Fagertun},
+@item @email{Jan.A.Fagertun@@trondheim.online.no, Jan Arne Fagertun},
     @TeX{} titling and lytodvi.sh
 @item @email{foka@@debian.org, Anthony Fok}, 
     Debian package: debian/*
@@ -37,6 +37,8 @@ list is alphabetically ordered.
     American chord names, gnu-windows testing
 @item @email{bjoern.jacke@@gmx.de, Bjoern Jacke}
     German glossary stuff.
+@item @email{chris@@fluffhouse.org.uk, Chris Jackson},
+    Emacs mode indentation, directed arpeggios.
 @item @email{nj104@@cus.cam.ac.uk, Neil Jerram}. 
     parts of Documentation/Vocab*
 @item @email{heikki.junes@@hut.fi, Heikki Junes}. 
