@@ -11,9 +11,6 @@ either up or down stems.
 "
 }
 
-
-\include "paper23.ly"
-
 \score { \notes \relative c''{
 % \property Voice.Stem \override #'thickness = #5.0
 \property Voice.NoteHead \set #'style = #'default
