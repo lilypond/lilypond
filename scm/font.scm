@@ -67,6 +67,17 @@
     ((-4 medium upright roman 5) . "cmr5" )
     ((-5 medium upright roman 5) . "cmr5" )
 
+    ((4 medium upright sans 17) . "cmss17")
+    ((3 medium upright sans 17) . "cmss17")
+    ((2 medium upright sans 14) . "cmss14")
+    ((1 medium upright sans 12) . "cmss12")
+    ((0 medium upright sans 10) . "cmss10")
+    ((-1 medium upright sans 9) . "cmss9" )
+    ((-2 medium upright sans 8) . "cmss8" )
+    ((-3 medium upright sans 7) . "cmss7" )
+    ((-3 medium upright sans 6) . "cmss6" )
+    ((-4 medium upright sans 5) . "cmss5" )
+    
     ((3 medium italic roman 12) . "cmti12")
     ((2 medium italic roman 12) . "cmti12")
     ((1 medium italic roman 12) . "cmti12") ;;; ugh. Should add magnification here! 

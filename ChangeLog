@@ -1,6 +1,12 @@
 2003-09-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/font.scm (paper20-style-sheet-alist): add cmss entries.
+
+	* scm/define-grobs.scm (all-grob-descriptions): use sans family
+	for chord names.
+
 	* mf/GNUmakefile: always trace pfa fonts.
+	(SAUTER_FONTS): add cmss[567] too fonts
 
 	* configure.in: require mftrace. 
 
