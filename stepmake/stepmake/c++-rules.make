@@ -18,7 +18,8 @@ $(outdir)/%.cc: %.yy
 
 $(outdir)/%.hh: %.yy
 	$(BISON) -o$(outdir)/$(*F).cc -d $<
-	-mv -f $(*F).yy.tab.h $@  # bison < 1.30
+	-mv -f $(*F).yy.tab.h $@  # bison < 1.30 ???
+	-mv -f $(outdir)/$(*F).cc.h $@  # bison < 1.30
 	-mv $(*F).tab.hh $@
 	rm -f $(*F).tab.c $(*F).tab.cc # bison < 1.30
 	rm -f $(outdir)/$(*F).cc # avoid recompiling the .cc file 
