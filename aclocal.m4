@@ -1,4 +1,7 @@
 dnl aclocal.m4   -*-shell-script-*-
+dnl WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from /home/fred/lily/stepmake/aclocal.m4
+dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
 
@@ -602,8 +605,8 @@ AC_DEFUN(STEPMAKE_INIT, [
     AC_SUBST(LN)
     AC_SUBST(LN_S)
     AC_SUBST(INSTALL)
-    AC_DEFINE_UNQUOTED(DIRSEP, ["${DIRSEP}"])
-    AC_DEFINE_UNQUOTED(PATHSEP, ["${PATHSEP}"])
+    AC_DEFINE_UNQUOTED(DIRSEP, ['${DIRSEP}'])
+    AC_DEFINE_UNQUOTED(PATHSEP, ['${PATHSEP}'])
     AC_SUBST(DIRSEP)
     AC_SUBST(PATHSEP)
     AC_SUBST(ROOTSEP)
