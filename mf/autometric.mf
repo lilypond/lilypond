@@ -1,13 +1,32 @@
-% metric.mf
+% autometric.mf
 % part of LilyPond's pretty-but-neat music font
 
+% font or database?
 def fet_beginfont(expr name,size) =
+	font_identifier:=name&decimal size;
+	font_size size;
 	message "@@font:"&name&":"&decimal size&"@@";
 	message "";
 	enddef;
+
+def fet_endfont(expr name) =
+	message "@@tnof:"&name&"@@";
+	message "";
+	enddef;
+
+% group or table?
+def fet_begingroup(expr name) =
+	message "@@group:"&name&"@@";
+	message "";
+	enddef;
+
+def fet_endgroup(expr name) =
+	message "@@puorg:"&name&"@@";
+	message "";
+	enddef;
 	
-def fet_beginchar(expr code,w,h,d,name) =
-	message "@@char:"&name&":"&decimal code&":"&decimal w&":"&decimal h&":"&decimal d&"@@";
+def fet_beginchar(expr code,w,h,d,name,id,texstr) =
+	message "@@char:"&name&":"&decimal code&":"&decimal w&":"&decimal h&":"&decimal d&":"&id&":"&texstr&"@@";
 	beginchar(code,w,h,d) name;
 	enddef;
 

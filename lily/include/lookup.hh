@@ -36,7 +36,7 @@ struct Lookup {
 
       pos == -3: below staff
       */
-    Atom streepjes (int pos) const;
+    Atom streepjes (int type, int pos) const;
 
     Atom vbrace (Real &dy) const;
     Atom meter (Array<Scalar>) const;

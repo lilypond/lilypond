@@ -1,0 +1,127 @@
+#!@PERL@ -w
+# -*-perl-*-
+
+=head1 TODO
+
+rename me!
+
+Ugh . Perl sux. Anybody for Python?
+    
+=cut    
+
+$mf_to_table_version = 0.1;
+
+use Getopt::Long;
+
+sub last_conversion
+{
+    my @v = &versions;
+    return pop @v;
+}
+sub identify
+{
+    
+    print STDERR "This is mf-to-table " . $mf_to_table_version . "\n";
+}
+  
+sub usage
+{
+    print STDERR "Usage: mf-to-table [options] LOG..\n"
+    . "Generate mozarella metrics table from preparated metafont log\n\n"
+    . "Options:\n"
+    . "  -h, --help             print this help\n"
+    . "  -o, --output=FILE      name output file\n"
+}
+
+sub make_table
+{
+    my $line;
+    my $indent = 0;
+    while ($line = <IN>) {
+	if ($line =~ /^@@/) {
+	    $line =~ s/^@@(.*)@@/$1/;
+	    chop ($line);
+	    my @fields = split (/:/,$line);
+	    my $label = $fields [0];
+	    my $name = $fields [1];
+	    print OUT "\t" x $indent;
+	    if ($label eq "font") {
+		print OUT "% $name=\\symboltables {\n";
+		$indent++;
+	    } elsif ($label eq "group") {
+		print OUT "\"$name\" = \\table {\n";
+		$indent++;
+	    } elsif ($label eq "puorg") {
+		print OUT "}\n";
+		$indent--;
+	    } elsif ($label eq "tnof") {
+		print OUT "%  } % $name\n";
+		$indent--;
+	    } elsif ($label eq "char") {
+		my $c = $fields [2];
+		my $w = $fields [3];
+		my $h = $fields [4];
+		my $d = $fields [5];
+		my $id = $fields [6];
+		my $texstr = $fields [7];
+		print OUT sprintf( "\"%s\"\t\"\\%s\"\t%.2f\\pt\t%.2f\\pt\t%.2f\\pt\t%.2f\\pt\n", $id, $texstr, 0, $w, $h, $d );
+	    } else {
+	    	print STDERR "mf-to-table: unknown label: \`$label\'\n";
+	    }
+	}
+    }
+}
+      
+sub  set_files 
+{
+    $infile = "-";
+    $outfile = "-";
+    $outfile = $opt_output if (defined($opt_output));
+
+    if ($ARGV [0])  {
+	$infile = $ARGV[0];
+    } 
+    if (( ! -f $infile) && (! $infile =~ /\\.log$/s ) ){
+	$infile .= ".log";
+    }
+    print STDERR "Input ", (($infile eq "-") ?"STDIN" : $infile), " .. \n";
+}
+
+sub do_one_arg
+{
+    set_files;
+
+    die "can't open \`$infile\'" unless open IN,$infile ;
+    die "can't open \`$outfile\'" unless open OUT, ">$outfile";
+    print OUT "% generated at " . localtime() . " from $infile\n";
+    print OUT "% changes will be lost\n";
+    
+    make_table;
+
+    close IN;
+    close OUT;
+}
+
+## "main"
+
+identify;
+
+#GetOptions ("help", "output=s", "from=i", "to=i", "minor=i", "edit", "show-rules");
+GetOptions ("help", "output=s");
+
+if ($opt_help) {
+    usage();
+    $opt_help = 0;	# to extinguish typo check.
+    exit 0;
+}
+
+local ($infile,$outfile);
+my $processed_one=0;
+
+while (defined($ARGV[0])) {
+    do_one_arg;
+    shift @ARGV;
+    $processed_one = 1;
+}
+do_one_arg unless ($processed_one);
+

@@ -74,7 +74,7 @@ Note_head::brew_molecule_p() const
 	? -((-position_i_)/2)
 	: (position_i_-staff_size_i_)/2;
 	
-      Atom str = p->lookup_l()->streepjes (s);
+      Atom str = p->lookup_l()->streepjes (balltype_i_, s);
       Molecule sm;
       sm.add (Atom (str));
       if (position_i_ % 2)

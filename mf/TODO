@@ -1,5 +1,4 @@
 
-	- add r to dynfont
 	- move to OpusTeX fonts
 	- make own font-en-tja{10,11,13,16,20} files
 	- opustex/lilypond fonts from the same generic driver files
