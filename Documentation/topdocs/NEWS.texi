@@ -8,6 +8,29 @@
 
 @itemize @bullet
 
+@item LilyPond expressions can be embedded into Scheme, thanks to the
+@code{#@{ ... #@}} syntax. Within such a block, Scheme forms, for
+instance variable names, can be introduced thanks to a @code{$}
+character (@code{$$} has to be used to issue a single `$' character).
+These forms are then 'printed' in the pattern, as if they were called
+by (display).
+
+@example
+#(define (textoffset dx dy)
+   (ly:export
+     #@{ \override Voice.TextScript #'extra-offset = #(cons $dx $dy) #@}))
+
+\score @{
+  \notes @{
+    c'^"normal text"
+    %% the following statement is the same as
+    %% \override Voice.TextScript #'extra-offset = #(cons 2 -3)
+    #(textoffset 2 -3)
+    c'^"text with offset" 
+  @}
+@}
+@end example
+
 @c FIXME: un-geekify
 @item Music lists are allowed at toplevel, and are handled by
 @code{default-toplevel-music-handler}.  Similarly, a @code{score} block
