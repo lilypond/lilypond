@@ -15,7 +15,7 @@
 
 /// one broken line of staff.
 struct Line_of_staff {
-    PointerList<Spanner *> brokenspans;    
+    IPointerList<Spanner *> brokenspans;    
     Line_of_score const * scor;
     const PStaff *pstaff_;
 

@@ -9,11 +9,11 @@
 struct Score {
     /// paper_, staffs_ and commands_ form the problem definition.
     Paperdef *paper_;
-    PointerList<Staff *> staffs_;
+    IPointerList<Staff*> staffs_;
     Score_commands *commands_;
     
     /// "runtime" fields for setting up spacing    
-    PointerList<Score_column*> cols_;
+    IPointerList<Score_column*> cols_;
     PScore *pscore_;
 
     /****************************************************************/

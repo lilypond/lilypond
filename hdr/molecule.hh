@@ -25,7 +25,7 @@ struct Atom {
 
 /// a group of #Atom#s
 struct Molecule {
-    PointerList<Atom*> ats;
+    IPointerList<Atom*> ats;
 
     Molecule() { }
     Molecule(Atom a) { add(a) ; }
