@@ -41,10 +41,10 @@ Paper_score::Paper_score (Paper_score const &s)
 
 Paper_score::~Paper_score ()
 {
-  /*  for (int i=0; i < span_p_arr_.size (); i++)
+  for (int i=0; i < span_p_arr_.size (); i++)
     delete span_p_arr_[i];
   for (int i=0; i < elem_p_arr_.size (); i++)
-  delete elem_p_arr_[i];*/
+    delete elem_p_arr_[i];
 }
 
 void
@@ -160,6 +160,9 @@ delete_array_contents (Link_array<Score_element> &to_remove, Dictionary<int> &ty
       else if (dynamic_cast<Spanner*>(e))
 	type_stats["Spanner"] ++;
       type_stats["Total"] ++;
+      /*
+       */
+      
  //      delete e; //TODO!
     }
 
