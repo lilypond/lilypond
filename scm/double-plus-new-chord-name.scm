@@ -138,13 +138,15 @@ input/test/dpncnt.ly).
      (list
       (accidental->markup (step-alteration pitch))
       (make-simple-markup (number->string (step-nr pitch))))))
-  
-  (define (sub->markup pitch)
-    ;;(make-line-markup (list (make-simple-markup "no") (step->markup pitch))))
-    ;; urg
-    (make-line-markup (list (make-simple-markup "no")
-			    (step->markup-plusminus pitch))))
-    
+
+  ;; tja, kennok
+  (define (make-sub->markup step->markup)
+    (lambda (pitch)
+      (make-line-markup (list (make-simple-markup "no")
+			      (step->markup pitch)))))
+			 
+  (define (step-based-sub->markup step->markup pitch)
+    (make-line-markup (list (make-simple-markup "no") (step->markup pitch))))
 			 
   (define (get-full-list pitch)
     (if (< (step-nr pitch) (step-nr (tail pitches)))
@@ -190,6 +192,10 @@ input/test/dpncnt.ly).
 	       (assoc-default 'tonic->markup options pitch->markup))
 	      (step->markup
 	       (assoc-default 'step->markup options step->markup-plusminus))
+	      (sub->markup
+	       (assoc-default
+		'sub->markup options
+		(lambda (x) (step-based-sub->markup step->markup x))))
 	      (sep
 	       (assoc-default 'separator options (make-simple-markup "/"))))
 	 
