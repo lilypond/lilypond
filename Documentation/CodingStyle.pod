@@ -32,9 +32,10 @@ in emacs:
 =head2 DATA MEMBERS
 
 	Class::member()
-	Class::member_type_()
+	Type Class::member_type_
 
-the C<type> is a Hungarian notation postfix
+the C<type> is a Hungarian notation postfix for $C<Type>$.
+
 
 =head2 COMMENTS
 
@@ -62,6 +63,7 @@ F<http://www.ZIB-Berlin.DE/VisPar/doc++/doc++.html>
 	*/
 
 Unfortunately most of the code isn't really documented that good.
+
 
 =head2 CLASSNAMES (2)
 
