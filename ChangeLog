@@ -1,3 +1,10 @@
+2004-05-02  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* cygwin/mknetrel: Install image links (backportme).
+
+	* Documentation/user/GNUmakefile (local-install-info): Activate
+	actual installing of image links (backportme).
+
 2004-04-30  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/notation.itely (Measure repeats): Removed

@@ -43,8 +43,10 @@ ifeq ($(out),www)
 # Viewawble with a recent Emacs, doing: M-x info out-www/lilypond.info
 
 #info: $(INFO_FILES)
-    # Cancel the special, non-image info generation rule that skips images:
-    $(outdir)/%.info: $(outdir)/%.nexi
+
+# Cancel the special, non-image info generation rule that skips images:
+$(outdir)/%.info: $(outdir)/%.nexi
+
 local-install-info: install-info info
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
@@ -53,11 +55,11 @@ ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 ## builder or packager.
 	@echo "***"
 	@echo "For images in the INFO docs to work, do: "
-	@echo "    (cd $(package_infodir) && ln -sf ../../doc/lilypond/$(TOPLEVEL_VERSION)/Documentation/user/out-www/*png .)"
+	@echo "    (cd $(package_infodir) && ln -sf ../../doc/lilypond/Documentation/user/out-www/*png .)"
 	@echo "or add something like that to the postinstall script."
 	@echo "***"
 else
-	@echo "    (cd $(package_infodir) && ln -sf $(local_package_docdir)/Documentation/user/out-www/*png .)"
+	(cd $(package_infodir) && ln -sf $(local_package_docdir)/Documentation/user/out-www/*png .)
 endif
 
 local-uninstall-WWW:
