@@ -8,15 +8,21 @@
 
 @itemize @bullet
 
+@item A experimental GNOME output backend is available for developers.
+It depends on several unreleased softwares such as gnome-guile TLA and
+Pango CVS.  The output interface coverage is sparse, but it already
+does support point-and-click on the GNOME Canvas.  See also
+@file{scm/output-gnome.scm}.
+
 @item Context definitions are now stored in identifiers that match the
 context name, in other words, to modify a @code{Staff} context, the
 following code may be used.
 
 @example
-	\context @{
-	  \Staff
-	  .. 
-	  @}
+\context @{
+  \Staff
+  .. 
+@}
 @end example
 
 @item A new block, @code{\bookpaper} has been introduced to
@@ -25,8 +31,12 @@ hold settings for paper size and output scaling.
 @item Support for fret diagrams  has been contributed by Carl
 D. Sorensen. @file{input/test/fret-diagram.ly} contains an example.
  
-@item The @code{--safe} mode has been revisited: it makes the basic
-@code{ly:} interface available, and stops malicious @TeX{} code.
+@item The @code{--safe-mode} has been revisited: GUILE evaluation
+is done in the R5RS safe module, with only the basic @code{ly:}
+interface available and malicious @TeX{} code is stopped.  However, to
+be reasonably safe, you are advised to use the PostScript backend
+rather than the @TeX{} backend anyway; and if possible use an UML
+sandbox to run gs or latex.
 
 @item Music syntax can now be extended seamlessly. As an example,
 here is the new implementation @code{\applymusic},
