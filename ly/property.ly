@@ -48,8 +48,8 @@ voiceFour = {
 	\shiftOn
 }
 
-slurDotted = \property Voice.Slur \push #'dash = #1
-slurNoDots = \property Voice.Slur \pop #'dash
+slurDotted = \property Voice.Slur \push #'dashed = #1
+slurNoDots = \property Voice.Slur \pop #'dashed
 
 	
 tiny  = 
