@@ -3,6 +3,7 @@
 @node Introduction
 @chapter Introduction
 
+
 LilyPond is a program to print sheet music. If you have used notation
 programs before, then the way to use this program might be surprising
 at first sight. To print music with lilypond, you have to enter
@@ -24,6 +25,21 @@ never have to remember how you made the program do something
 complicated: it's all in the input code, and you only have to read the
 file to see how it works. Moreover, when you use LilyPond, you are
 rewarded with very nicely looking output.
+
+In this Chapter, we will try to explain what we are trying to do with
+LilyPond, how this lead to its current form, and how this approach
+affects you as a user.
+
+
+@menu
+* Batch processing::            
+* Music engraving::             
+* Music representation::        
+* About this manual::           
+@end menu
+
+@node Batch processing
+@section Batch processing
 
 @cindex GUI
 @cindex Batch
@@ -50,6 +66,12 @@ Software Foundation, whose GNU project aimed to replace closed and
 proprietary computing solutions with free (as in ``Libre'')
 variants. We jumped on that bandwagon, and that is the reason that you
 can still get LilyPond at no cost without any strings attached.
+
+
+@node Music engraving
+@section Music engraving
+
+
 
 @cindex engraving
 @cindex typography
@@ -165,7 +187,12 @@ We hope that these examples serve to show that music typography is a
 subtle business, and that it requires skill and knowledge to produce
 good engraving.  It was our challenge to see if we could put such
 knowledge into a computer program.
- 
+
+
+@node Music representation
+@section Music representation
+
+
 One of the first questions that pop up when you design such a program,
 is what kind of input the program should expect. Many music notation
 programs offer a graphical interface that shows notation, and allow
@@ -223,6 +250,12 @@ then it interprets the music---reading it `left-to-right', and
 translating the musical information to a layout specification. When
 the layout is computed, the resulting symbols are written to an output
 file.
+
+
+@node About this manual
+@section About this manual
+
+
 
 As you will notice in the coming pages, and the examples, in a lot of
 case, the program makes good decisions, and what comes out of lilypond
@@ -297,78 +330,3 @@ a bugreport}
 
 
 
-
-
-
-
-
-@ignore
-
-
-
-Nowadays, we still don't know everything about music notation, and we
-are still trying to use
-
-
-LilyPond is a free program that produces high quality sheet music.
-
-The features that set LilyPond apart from other music printing
-programs are
-
-@itemize
-@item Freely available under terms of the GNU GPL
-@item Carefully designed music font
-@item Lots of music formatting knowledge
-@item Sophisticated formatting functions
-@item Output is  configurable using Scheme
-@item Highly modular design
-@item Semantic input format
-*@item Input can be generated, inspected and modified via builtin Scheme
- interpreter.
-@item Runs on both Unix and MS Windows
-@item Multiple output formats
-@item Easily embed musical fragments in LaTeX, Texinfo and HTML documents.
-@item Works as a compiler: edit input in your favorite text editor
-@end itemize
-
-If you need to print out existing arrangements, composition, new
-editions, or musical excercises, then LilyPond will suit you.
-LilyPond is not interactive, and is probably not suited for creating
-new compositions.
-
-@menu
-* Why LilyPond::		
-* The Feta Font::		
-* Engraving::			
-* Semantic input format::	
-* A programming approach::	
-* About this manual::		
-* Bug reports::			
-* Web site::			
-@end menu
-
-
-@node Why LilyPond
-@section Why LilyPond
-
-LilyPond originally started out as an interesting hobby
-project. Intrigued by music notation we set out to write a program to
-produce high-quality music printouts, with minimal user intervention.
-
-Engraving, the art of printing music is a very complex craftmanship,
-that tries to make a typographically beautiful rendering of a piece of
-music.  The purpose of nicely engraved music is to ease the way music
-is read.  The typographical decisions have underlying logic, and to us
-scientists, this begs the question: what is this logic, and can we
-cast this logic into the more concrete form a computer program.
-
-LilyPond is our concrete answer to this question, but besides being an
-interesting hobby project, it also allows people that don't know much
-about notation and engraving to print fine sheet music.
-
-With LilyPond, we hope to give back a little to the Free Software
-Community that gave us so much, and if possible, give people the
-opportunity to publish sheet music with high quality layout.  In our
-utopic vision, some day LilyPond will help create more beautiful music.
-
-@end ignore
