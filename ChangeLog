@@ -1,3 +1,10 @@
+2005-01-20  Erlend Aasland  <erlenda@gmail.com>
+
+	* scm/define-markup-commands.scm: Document right-align and
+	larger markup commands. Remove "TODO" from the topmost comment
+	"each markup function should have a doc string." More consistent
+	use of new-lines.
+
 2005-01-22  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/changing-defaults: removed info about
