@@ -8,6 +8,42 @@
 
 #include "skyline.hh" 
 
+
+/*
+  A skyline is a shape of the form:
+
+
+		   ----
+		   |  |
+	  ---------|  |
+	  |	      |
+          |	      |
+          |	      |______
+  --------|		     |___
+  
+
+
+  This file deals with building such skyline structure, and computing
+  the minimum distance between two opposing skylines.
+  
+  
+  Invariants for a skyline:
+
+  skyline[...].width_ forms a partition of the real interval, where
+  the segments are adjacent, and ascending. Hence we have
+  
+  skyline.top().width_[RIGHT] = inf
+  skyline[0].width_[LEFT] = -inf
+  
+ */
+
+
+/*
+  TODO: avoid unnecessary fragmentation.
+
+  This is O(n^2), searching and insertion.  Could be O(n log n) with
+  binsearch.
+*/
 void
 insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
 			    Direction d)
@@ -45,8 +81,9 @@ insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
     }
 }
 
+
 Array<Skyline_entry>
-extents_to_skyline (Array<Box> extents, Axis a, Direction d)
+empty_skyline (Direction d)
 {
   Array<Skyline_entry> skyline;
 
@@ -57,10 +94,21 @@ extents_to_skyline (Array<Box> extents, Axis a, Direction d)
   e.width_ = i;
   e.height_ = -d * infinity_f; 
   skyline.push (e);
+  return skyline;
+}
+
+Array<Skyline_entry>
+extents_to_skyline (Array<Box> const &extents, Axis a, Direction d)
+{
+
+  Array<Skyline_entry> skyline = empty_skyline(d);
 
   /*
-    This makes a quadratic algorithm -- we could do better (n log (n) ) but that
-    seems overkill for now.
+    This makes a cubic algorithm (array  insertion is O(n),
+    searching the array dumbly is O(n), and for n items, we get O(n^3).)
+
+    We could do a lot better (n log (n), using a balanced tree) but
+    that seems overkill for now.
    */
   for (int j = extents.size(); j--; )
     insert_extent_into_skyline (&skyline, extents[j], a, d);
@@ -72,10 +120,12 @@ extents_to_skyline (Array<Box> extents, Axis a, Direction d)
 /*
   minimum distance that can be achieved between baselines. "Clouds" is
   a skyline pointing down.
+
+  This is an O(n) algorithm.
  */
 Real
-skyline_meshing_distance (Array<Skyline_entry> buildings,
-			  Array<Skyline_entry> clouds)
+skyline_meshing_distance (Array<Skyline_entry> const &buildings,
+			  Array<Skyline_entry> const &clouds)
 {
   int i = buildings.size () -1;
   int j  = clouds.size() -1;

@@ -216,8 +216,10 @@ Simple_spacer::my_solve_natural_len ()
 }
 
 void
-Simple_spacer::add_columns (Link_array<Grob> cols)
+Simple_spacer::add_columns (Link_array<Grob> const &icols)
 {
+  Link_array<Grob> cols(icols);
+  
   for (int i =  cols.size (); i--;)
     if (gh_pair_p (cols[i]->get_grob_property ("between-cols")))
       {

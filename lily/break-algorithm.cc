@@ -56,7 +56,8 @@ Break_algorithm::find_breaks () const
 
 
 Simple_spacer*
-Break_algorithm::generate_spacing_problem (Link_array<Grob> curline, Interval line) const
+Break_algorithm::generate_spacing_problem (Link_array<Grob> const &curline,
+					   Interval line) const
 {
   Simple_spacer * sp =  new Simple_spacer;
 

@@ -508,8 +508,8 @@ Grob::suicide ()
   mutable_property_alist_ = SCM_EOL;
   immutable_property_alist_ = SCM_EOL;
 
-  set_extent_callback (SCM_EOL, Y_AXIS);
-  set_extent_callback (SCM_EOL, X_AXIS);
+  set_extent (SCM_EOL, Y_AXIS);
+  set_extent (SCM_EOL, X_AXIS);
 
   for (int a= X_AXIS; a <= Y_AXIS; a++)
     {
@@ -662,14 +662,37 @@ Grob::common_refpoint (Grob const* s, Axis a) const
 
 
 Grob *
-Grob::common_refpoint (SCM elist, Axis a) const
+common_refpoint_of_list (SCM elist, Grob *common, Axis a) 
 {
-  Grob * common = (Grob*) this;
   for (; gh_pair_p (elist); elist = ly_cdr (elist))
     {
       Grob * s = unsmob_grob (ly_car (elist));
-      if (s)
+      if (!s)
+	continue;
+      if (common)
 	common = common->common_refpoint (s, a);
+      else
+	common = s;
+    }
+
+  return common;
+}
+
+
+
+Grob *
+common_refpoint_of_array (Link_array<Grob> const &arr, Grob *common, Axis a) 
+{
+  for (int i = arr.size() ; i--; )
+    {
+      Grob * s = arr[i];
+      if (!s)
+	continue;
+
+      if (common)
+	common = common->common_refpoint (s, a);
+      else
+	common = s;
     }
 
   return common;
@@ -702,19 +725,13 @@ Grob::has_extent_callback_b (SCM cb, Axis a)const
 
 
 bool
-Grob::has_extent_callback_b (Axis a) const
-{
-  return gh_procedure_p (dim_cache_[a].dimension_);
-}
-
-bool
 Grob::has_offset_callback_b (SCM cb, Axis a)const
 {
   return scm_memq (cb, dim_cache_[a].offset_callbacks_) != SCM_BOOL_F;
 }
 
 void
-Grob::set_extent_callback (SCM dc, Axis a)
+Grob::set_extent (SCM dc, Axis a)
 {
   dim_cache_[a].dimension_ =dc;
 }

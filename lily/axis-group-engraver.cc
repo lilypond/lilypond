@@ -65,7 +65,7 @@ Axis_group_engraver::finalize ()
   if (gh_pair_p (dims) && gh_number_p (ly_car (dims))
       && gh_number_p (ly_cdr (dims)))
     {
-      staffline_p_->set_extent_callback (Grob::preset_extent_proc, Y_AXIS);
+      staffline_p_->set_extent (Grob::preset_extent_proc, Y_AXIS);
       staffline_p_->set_grob_property ("extent-Y", dims);
     }
 

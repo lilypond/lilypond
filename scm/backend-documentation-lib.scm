@@ -127,7 +127,7 @@
 (if (not (defined? 'standalone))
     (begin
 
-      (debug-enable 'backtrace)
+;      (debug-enable 'backtrace)
 
       (load "standalone.scm")
 
@@ -187,7 +187,8 @@
 ))
 
 ;(write  (map car  interface-description-alist) (current-error-port))
-;(display  (lookup-interface 'volta-bracket-interface))
+;(display  (lookup-interface 'accidental-placement-interface))
+;(display  (document-all-grobs "OO" ))
 
 (define (document-all-interfaces name)
   (string-append

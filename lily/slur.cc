@@ -448,8 +448,8 @@ Slur::get_encompass_offset_arr (Grob *me)
 {
   Spanner*sp = dynamic_cast<Spanner*> (me);
   SCM eltlist = me->get_grob_property ("note-columns");
-  Grob *common[] = {me->common_refpoint (eltlist, X_AXIS),
-			     me->common_refpoint (eltlist, Y_AXIS)};
+  Grob *common[] = {common_refpoint_of_list (eltlist, me, X_AXIS),
+		    common_refpoint_of_list (eltlist, me, Y_AXIS)};
 
 
   common[X_AXIS] = common[X_AXIS]->common_refpoint (sp->get_bound (RIGHT), X_AXIS);

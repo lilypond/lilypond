@@ -139,6 +139,7 @@ public:
   Dimension_cache dim_cache_[NO_AXES];
 
 public:
+  
   bool empty_b (Axis a) const;
 
   Interval extent (Grob * refpoint, Axis) const;
@@ -160,14 +161,13 @@ public:
     Find the group-element which has both #this# and #s#
    */
   Grob*common_refpoint (Grob const* s, Axis a) const;
-  Grob*common_refpoint (SCM elt_list, Axis a) const;
+
 
   // duh. slim down interface here. (todo)
   bool has_offset_callback_b (SCM callback, Axis)const;
   void add_offset_callback (SCM callback, Axis);
   bool has_extent_callback_b (SCM, Axis)const;  
-  void set_extent_callback (SCM , Axis);
-  bool has_extent_callback_b (Axis) const;
+  void set_extent (SCM , Axis);
 
   
   /**
@@ -187,6 +187,8 @@ DECLARE_UNSMOB(Grob,grob);
 Spanner* unsmob_spanner (SCM );
 Item* unsmob_item (SCM );
 
+Grob*common_refpoint_of_list (SCM elt_list, Grob * , Axis a);
+Grob*common_refpoint_of_array (Link_array<Grob> const&, Grob * , Axis a);
 
 #endif // STAFFELEM_HH
 

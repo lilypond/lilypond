@@ -13,7 +13,7 @@
 
 void
 minimise_least_squares (Real * coef, Real * offset,
-			Array<Offset> input)
+			Array<Offset> const &input)
 {
   Real sx = 0.0;
   Real sy = 0.0;

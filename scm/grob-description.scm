@@ -29,19 +29,14 @@
     (Accidental
      . (
 	(molecule-callback . ,Accidental_interface::brew_molecule)
-	(X-offset-callbacks . (,Side_position_interface::aligned_side))
-;	(after-line-breaking-callback . ,Local_key_item::after_line_breaking)
-	(direction . -1)
-	(left-padding . 0.2)
-	(right-padding . 0.5)
-	(paren-cautionaries . #t)
 	(font-family . music)
-	(meta . ((interfaces . (accidental-interface staff-symbol-referencer-interface font-interface side-position-interface))))
+	(meta . ((interfaces . (accidental-interface font-interface))))
 	))
     (AccidentalPlacement
      . (
-	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
-;	(after-line-breaking-callback . ,Local_key_item::after_line_breaking)
+	(X-extent-callback . ,Accidental_placement::extent_callback)
+	(left-padding . 0.2)
+	(right-padding . 0.5)
 	(meta . ((interfaces . (accidental-placement-interface))))
 	))
 

@@ -16,6 +16,7 @@
 #include "staff-symbol-referencer.hh"
 #include "rest.hh"
 #include "note-head.hh"
+#include "accidental-placement.hh"
 
 bool
 Note_column::rest_b (Grob*me) 
@@ -134,15 +135,23 @@ Grob*
 Note_column::accidentals (Grob *me)
 {
   SCM heads = me->get_grob_property ("note-heads");
+  Grob * acc = 0;
   for (;gh_pair_p (heads); heads =gh_cdr (heads))
     {
       Grob * h = unsmob_grob (gh_car (heads));
-      Grob *a = h ? unsmob_grob(h->get_grob_property ("accidentals-grob")) : 0;
-      if (a)
-	return a;
+      acc = h ? unsmob_grob (h->get_grob_property ("accidental-grob")) : 0;
+      if (acc)
+	break;
     }
 
-  return 0;
+  if (!acc)
+    return 0;
+  
+  if (Accidental_placement::has_interface (acc->get_parent (X_AXIS)))
+    return acc->get_parent (X_AXIS);
+
+  /* compatibility. */
+  return  acc;
 }
 
 

@@ -50,9 +50,10 @@ documenting bugfixes.
 
 @section Accidentals
 
-Accidentals are currently in a development stage.
 
 @lilypondfile[printfilename]{accidental.ly}
+
+@lilypondfile[printfilename]{accidental-placement.ly}
 
 @lilypondfile[printfilename]{accidental-single-double.ly}
 

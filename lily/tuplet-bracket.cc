@@ -55,7 +55,7 @@ get_x_bound_grob (Grob *g, Direction my_dir)
 
 
 Grob*
-Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> cols, bool *equally_long)
+Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equally_long)
 {
   /*
     ugh: code dup. 
@@ -251,8 +251,9 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
 
 
-  Grob * commony = me->common_refpoint (me->get_grob_property ("note-columns"), Y_AXIS);
-  Grob * commonx = me->common_refpoint (me->get_grob_property ("note-columns"), X_AXIS);  
+  SCM cols = me->get_grob_property ("note-columns");
+  Grob * commony = common_refpoint_of_list (cols, me, Y_AXIS);
+  Grob * commonx = common_refpoint_of_list (cols, me, X_AXIS);  
   
   Direction dir = Directional_element_interface::get (me);
 

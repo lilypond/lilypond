@@ -58,13 +58,7 @@ Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (scm_axis);
 
-  Grob * common = (Grob*) me;
-
-  for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s); s = ly_cdr (s))
-    {
-      Grob * se = unsmob_grob (ly_car (s));
-      common = se->common_refpoint (common, a);
-    }
+  Grob * common = common_refpoint_of_list (me->get_grob_property ("elements"), me, a);
 
   Real my_coord = me->relative_coordinate (common, a);
   Interval r (relative_group_extent (a, common, me->get_grob_property ("elements")));
@@ -91,17 +85,17 @@ Axis_group_interface::set_axes (Grob*me,Axis a1, Axis a2)
     }
 
   if (a1 != X_AXIS && a2 != X_AXIS)
-    me->set_extent_callback (SCM_EOL, X_AXIS);
+    me->set_extent (SCM_EOL, X_AXIS);
   if (a1 != Y_AXIS && a2 != Y_AXIS)
-    me->set_extent_callback (SCM_EOL, Y_AXIS);
+    me->set_extent (SCM_EOL, Y_AXIS);
 
   /*
     why so convoluted ? (fixme/documentme?) 
    */
   if (me->has_extent_callback_b (Grob::molecule_extent_proc, a1))
-    me->set_extent_callback (Axis_group_interface::group_extent_callback_proc,a1);
+    me->set_extent (Axis_group_interface::group_extent_callback_proc,a1);
   if (me->has_extent_callback_b (Grob::molecule_extent_proc, a2))
-    me->set_extent_callback (Axis_group_interface::group_extent_callback_proc,a2);
+    me->set_extent (Axis_group_interface::group_extent_callback_proc,a2);
 }
 
 Link_array<Grob> 

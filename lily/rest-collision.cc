@@ -90,19 +90,10 @@ Rest_collision::do_shift (Grob *me, SCM elts)
    */
   Link_array<Grob> rests;
   Link_array<Grob> notes;
-  Grob * commony = 0;
+
   for (SCM s = elts; gh_pair_p (s); s = ly_cdr (s))
     {
-      
       Grob * e = unsmob_grob (ly_car (s));
-      if (!e)
-	continue;
-      
-      if (!commony)
-	commony = e;
-      else
-	commony= commony->common_refpoint (e, Y_AXIS);
-      
       if (unsmob_grob (e->get_grob_property ("rest")))
 	rests.push (e);
       else
@@ -213,9 +204,7 @@ Rest_collision::do_shift (Grob *me, SCM elts)
       Real minimum_dist = gh_scm2double (me->get_grob_property ("minimum-distance")) * staff_space;
 
 
-      Grob *common = rcol;
-      for (int i = 0; i < notes.size (); i++)
-	common = common->common_refpoint (notes[i], Y_AXIS);
+      Grob *common = common_refpoint_of_array (notes, rcol, Y_AXIS);
 
       Interval notedim;
       for (int i = 0; i < notes.size (); i++) 
