@@ -12,9 +12,7 @@ include $(depth)/make/stepmake.make
 
 default: local-doc
 
-local-WWW: copy-for-me $(outdir)/regression-test.ps.gz $(outdir)/regression-test.html
-# we want footers even if website builds (or is built) partly
-	$(MAKE) footify
+local-WWW: copy-for-me $(outdir)/regression-test.ps.gz $(outdir)/regression-test.html footify
 
 copy-for-me:
 	$(foreach a, $(README_TOP_FILES),cp ../$(a) $(outdir)/$(a).txt && ) true
