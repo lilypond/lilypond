@@ -4,12 +4,15 @@ NAME = cygwin
 
 EXTRA_DIST_FILES = changelog mknetrel $(wildcard *.sh *.hint)
 
+SEXECUTABLES=bug-lilypond-cygwin
+STEPMAKE_TEMPLATES = install install-out script
+
 include $(depth)/make/stepmake.make
 
-# For cygwin builds only
-ifneq ($(CYGWIN_BUILD),)
+# For Cygwin builds only
+infeq ($(CYGWIN_BUILD),)
 
-STEPMAKE_TEMPLATES = install install-out
+include $(stepdir)/executable-targets.make
 
 POST_INSTALLS=$(wildcard post-*.sh)
 OUT_POST_INSTALLS=$(POST_INSTALLS:%=$(outdir)/%)
@@ -27,17 +30,11 @@ $(outdir)/lilypond-profile.sh: $(outdir)/../$(depth)/buildscripts/$(outconfbase)
 	cp $< $@
 	chmod 755 $@
 
-default: $(OUT_POST_INSTALLS) $(OUT_PROFILES) $(OUTIN_FILES)
+default: $(OUT_POST_INSTALLS) $(OUT_PROFILES) $(OUTIN_FILES) 
 
 INSTALLATION_OUT_SUFFIXES=1 2
 
-# URG.
-# By popular demand,
-# LilyPond on windows is configured with --prefix=/usr/lilypond-x.y.x
-# The cygwin profile.d dir, however, is in /etc
-
-# avoid collapsed directory constructs '//'
-#etc=$(dir $(patsubst %/, %, $(dir $(prefix)/)))etc
+# Avoid collapsed directory constructs '//'
 etc=$(patsubst %/, %, $(dir $(prefix)))/etc
 INSTALLATION_DIR=$(etc)/postinstall
 INSTALLATION_FILES=$(OUT_POST_INSTALLS)
