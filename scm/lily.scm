@@ -146,6 +146,16 @@
 	       '(minimum-space 0.0)))))
   
 
+(define (noteheadsymbol duration style)
+  (cond
+   ((equal? style "cross") "2cross")
+   ((equal? style "harmonic") "0mensural")
+   ((equal? style "baroque")
+    (string-append (number->string duration)
+		   (if (< duration 0) "mensural" "")))
+   (else
+    (string-append (number->string duration) style))))
+
 
 ;;;;;;;; TeX
 

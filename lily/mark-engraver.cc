@@ -21,7 +21,7 @@
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "text-item.hh"
-
+#include <ctype.h>
 /**
   put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
   rehearsal marks.
@@ -206,8 +206,17 @@ Mark_engraver::do_process_music ()
       
       text_p_->set_elt_property ("text",
 				 ly_str02scm ( t.ch_C()));
-      SCM st = ly_str02scm ((t.index_any_i ("0123456789")  >= 0 )
-			    ? "mark" : "large");
+
+      String style = "mark";
+      for (int i=0; i < t.length_i(); i++)
+	{
+	  if (!isdigit(t[i])) 
+	    {
+	      style = "large";
+	      break;
+	    }
+	}
+      SCM st = ly_str02scm (style.ch_C());
       text_p_->set_elt_property ("style",  st);
     }
 }

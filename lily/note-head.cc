@@ -56,15 +56,8 @@ void
 Note_head::before_line_breaking ()
 {
   // 8 ball looks the same as 4 ball:
-  String type; 
-  SCM style  = get_elt_property ("style");
-  if (gh_string_p (style))
-    {
-      type = ly_scm2string (style);
-    }
   
-  
-  if (balltype_i () > 2 || type == "harmonic" || type == "cross")
+  if (balltype_i () > 2)
     set_elt_property ("duration-log", gh_int2scm (2));
 
   if (Dots *d = dots_l ())
@@ -91,14 +84,17 @@ Note_head::do_brew_molecule() const
     ? 0
     : (abs((int)p) - sz) /2;
 
- String type; 
   SCM style  = get_elt_property ("style");
-  if (gh_string_p (style))
+  if (style == SCM_UNDEFINED)
     {
-      type = ly_scm2string (style);
+      style = ly_str02scm("");
     }
   
-  Molecule   out = lookup_l()->afm_find (String ("noteheads-") + to_str (balltype_i ()) + type);
+  Molecule out = lookup_l()->afm_find (String ("noteheads-") + 
+		ly_scm2string (scm_eval (gh_list (ly_symbol2scm("noteheadsymbol"),
+						  gh_int2scm(balltype_i ()),
+						  style,
+						  SCM_UNDEFINED))));
 
   Box ledgerless = out.dim_;
 

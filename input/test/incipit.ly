@@ -15,6 +15,7 @@ incipit = \notes\relative c'{
 violin = \notes\relative c''{
   \specialkey \keysignature f' fis'' g' gis'';
   \time 2/2;
+  \clef "treble";
 
   \key;
   a4. b8 c4 fis |

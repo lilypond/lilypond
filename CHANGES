@@ -1,3 +1,31 @@
+1.3.47.mb2
+===========
+
+* Corrected glossary.tely
+
+* Corrected \mark font handling. feta-nummer font only of the 
+  string is all numeric.
+
+* Implemented noteHeadStyle lookup in Guile. Reintroduced the style
+  "harmonic" and added "baroque" (normal note shapes except for 
+  brevis and longa which are square).
+
+1.3.47.mb1
+===========
+
+* Simplified ly2dvi using the power of the geometry package.
+
+* Improved heuristic size calculation of TeX macros. Handles e.g.
+  "\\u{a}", "\\"{o}" and "\\^{u}" correctly.
+
+1.3.47.hwn1
+===========
+
+* Bugfix: don't hang on zero-duration.
+
+1.3.47
+======
+
 1.3.46.jcn2
 ===========
 
@@ -9,7 +37,7 @@
 * Added Bar_number_engraver to standard Score context
 
 * Construct octavation scripts in the clef-engraver; this fixes the
-hara + clef8 problem
+hara-kiri + clef8 problem
 
 1.3.46
 ======
