@@ -16,7 +16,7 @@ c4
 \bar ".|" c
 \bar ".|." c
 \bar "|"  c
+\bar ":" c
 } 
 \paper{raggedright = ##t}
 }
-

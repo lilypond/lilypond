@@ -62,14 +62,13 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
   
   Molecule thin = simple_barline (me, hair, h);
   Molecule thick = simple_barline (me, fatline, h);
-  Molecule colon;
   Molecule dot = Font_interface::get_default_font (me)->find_by_name ("dots-dot");
   Real dist = ( Staff_symbol_referencer::line_count (me) & 1 ? 1 :
 		(staff_space<2 ? 2 : .5) ) * staff_space;
-  dot.translate_axis(dist/2,Y_AXIS);
+  Molecule colon (dot);
+  colon.translate_axis(dist,Y_AXIS);
   colon.add_molecule(dot);
-  dot.translate_axis(-dist,Y_AXIS);
-  colon.add_molecule(dot);
+  colon.translate_axis(-dist/2,Y_AXIS);
 
   Molecule m;
   
@@ -124,7 +123,19 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
       m.add_at_edge (X_AXIS, RIGHT, thin, 0, 0);
       m.add_at_edge (X_AXIS, RIGHT, thin, thinkern, 0);
     }
+  else if (str == ":")
+    {
+      int c = (Staff_symbol_referencer::line_count (me));
+      
+      for (int i = 0 ; i < c - 1; i++)
+	{
+	  Real y = (- (c-1.0) / 2 + 0.5  +   i * staff_space);
+	  Molecule d (dot);
 
+	  d. translate_axis (y,Y_AXIS);
+	  m.add_molecule (d);
+	}
+    }
   return m;
 }
 

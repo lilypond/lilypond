@@ -262,7 +262,7 @@ Context_def::instantiate (Music_output_def* md, SCM ops)
   tg->definition_ = self_scm ();
 
   SCM trans_names = get_translator_names (ops); 
-  tg->simple_trans_list_ = names_to_translators (trans_names);
+  tg->simple_trans_list_ = names_to_translators (trans_names, tg);
 
   return tg;
 }

@@ -589,7 +589,7 @@ translator_spec_block:
 
 translator_spec_body:
 	/**/ {
-		$$ = Translator_def::make_scm ();
+		$$ = Context_def::make_scm ();
 		unsmob_context_def ($$)->set_spot (THIS->here_input ());
 	}
 	| TRANSLATOR_IDENTIFIER	{
@@ -597,7 +597,7 @@ translator_spec_body:
 		unsmob_context_def ($$)->set_spot (THIS->here_input ());
 	}
 	| translator_spec_body GROBDESCRIPTIONS embedded_scm {
-		Translator_def*td = unsmob_context_def($$);
+		Context_def*td = unsmob_context_def($$);
 
 		for (SCM p = $3; gh_pair_p (p); p = ly_cdr (p)) {
 			SCM tag = gh_caar (p);
