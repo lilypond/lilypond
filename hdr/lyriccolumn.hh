@@ -1,5 +1,5 @@
 //
-// lyriccolumn.hh -- part of LilyPond
+// lyriccolumn.hh -- declare Lyric_column
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.nl>
 
@@ -11,25 +11,16 @@
 #include "stcol.hh"
 #include "staff.hh"
 
-struct Lyric_staff;
-
-/// (winfo)
-struct Word_info {
-    Lyric_req* lreq_l_;
-    Word_info();
-    Word_info(Lyric_req* lreq_l);
-};
-
 /// (lcol)
 struct Lyric_column : Staff_column {
 
-    Array<Word_info> winfo_array_;
+    Array<Lyric_req*> lreq_l_array_;
     Lyric_staff* lstaff_l_;
     
     void typeset_item(Item *);
-    virtual void setup_requests();
+    virtual void setup_one_request(Request*);
 
-    Lyric_column(Score_column* s,Lyric_staff*rs);
+    Lyric_column(Lyric_staff*rs);
 };
 
 #endif // LYRICSTAFF_HH
