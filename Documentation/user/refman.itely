@@ -4427,6 +4427,19 @@ will point downwards.  If set to @code{1}, the appendage will point
 upwards.  Other values such as @code{0} are reserved for future
 extensions and should not be used.
 
+Example:
+
+@example
+\notes @{
+    \property Staff.Custos \set #'neutral-position = #4
+    \property Staff.Custos \set #'neutral-direction = #-1
+    \property Staff.Custos \set #'adjust-if-on-staffline = ##t
+
+    ...
+
+@}
+@end example
+
 @node Divisiones
 @subsection Divisiones
 
