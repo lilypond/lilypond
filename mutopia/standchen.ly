@@ -16,7 +16,7 @@ multiple \paper{}s in one \score
 Note: Original key F.
 %}
 
-\version "1.0.6";
+\version "1.0.7";
 
 $vocal_verse1 = \notes\relative c{
 	% ugh: treble/bass
@@ -81,7 +81,7 @@ $vocal_through = \notes\relative c{
 	e2 r4 |
 }
 
-$lyric_verse1 = \lyric{
+$lyric_verse1 = \lyrics{
 % 5
 	\[/3 Lei-4 se8 \] fleh-4. en8 |
 	\[/3 mei-4 ne8 \] Lie-4 der8 _8 |
@@ -112,7 +112,7 @@ $lyric_verse1 = \lyric{
 	nicht.2. |
 }
 	
-$lyric_verse2 = \lyric{
+$lyric_verse2 = \lyrics{
 % 5
 	\[/3 H\"orst4 die8 \] Nach-4. ti-8 
 	\[/3 gal-4 len8 \] schla-4 gen?8 _8
@@ -146,7 +146,7 @@ $lyric_verse2 = \lyric{
 	Herz.2.
 }
 
-$lyric_through = \lyric{
+$lyric_through = \lyrics{
 % 37
 	La\ss8. auch16 dir8. die16 Brust8. be-16 |
 	we-4 gen _ |
@@ -369,14 +369,14 @@ global = \notes{
 }
 
 
-$lyric_four = \lyric{ 
+$lyric_four = \lyrics{ 
 	_4 _ _
 	_ _ _
 	_ _ _
 	_ _ _
 }
-
-lyrics = {
+ 
+allLyrics = {
 	\time 3/4; 
 %	\skip 4 * 12; 
 	\$lyric_four
@@ -389,7 +389,7 @@ lyrics = {
 }
 
 $lyric_staff = \type Lyrics = lyric<
-	\$lyrics
+	\allLyrics
 >
 		
 vocals = \notes{
