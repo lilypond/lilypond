@@ -41,7 +41,7 @@ public:
   static Rational find_shortest (Grob *, Link_array<Grob> const &);  
   static void breakable_column_spacing (Grob*, Item* l, Item *r, Moment);
   static void find_loose_columns () {}
-  static void prune_loose_colunms (Grob*,Link_array<Grob> *cols, Rational);
+  static void prune_loose_columns (Grob*,Link_array<Grob> *cols, Rational);
   static void find_loose_columns (Link_array<Grob> cols);
   static void set_explicit_neighbor_columns (Link_array<Grob> cols);
   static void set_implicit_neighbor_columns (Link_array<Grob> cols);
@@ -154,7 +154,7 @@ loose_column (Grob *l, Grob *c, Grob *r)
   between.
 */
 void
-Spacing_spanner::prune_loose_colunms (Grob*me,Link_array<Grob> *cols, Rational shortest)
+Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational shortest)
 {
   Link_array<Grob> newcols;
   Real increment = gh_scm2double (me->get_grob_property ("spacing-increment"));
@@ -379,7 +379,7 @@ Spacing_spanner::set_springs (SCM smob)
 	  progress_indication (_f("Global shortest duration is %s\n", global_shortest.to_string ())); 
 	}
     }
-  prune_loose_colunms (me, &all, global_shortest);
+  prune_loose_columns (me, &all, global_shortest);
   set_implicit_neighbor_columns (all);
 
   
@@ -601,8 +601,6 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
       max_fixed_note_space =  increment;
     }
 
-  bool ragged = to_boolean (me->get_paper ()->get_scmvar ("raggedright"));
-
   /*
     Whatever we do, the fixed space is smaller than the real
     space.
@@ -610,8 +608,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
     TODO: this criterion is discontinuous in the derivative.
     Maybe it should be continuous?
   */
-  max_fixed_note_space = max_fixed_note_space <?  max_note_space;
-
+  max_fixed_note_space = max_fixed_note_space <? max_note_space;
 
 #if 0
   /*
@@ -626,7 +623,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
 #else
 
   /*
-        TODO: make sure that the space doesn't exceed the right margin.
+    TODO: make sure that the space doesn't exceed the right margin.
    */
   Real strength = 1 / (max_note_space - max_fixed_note_space);
   Real distance = max_note_space;

@@ -1,5 +1,8 @@
 2003-04-30  Juergen Reuter  <reuter@ipd.uka.de>
 
+	* lily/spacing-spanner.cc: fixed typo: colunm -> column; removed
+	unused variable ragged; fixed indentation
+
 	* Documentation/user/refman.itely: tiny cleanups in ancient
 	clef and custos section
 
