@@ -93,7 +93,7 @@ Stem_info::Stem_info (Stem const *s)
       if (((int)s->chord_start_f ()) && (s->dir_ != s->get_default_dir ()))
  	{
 	  idealy_f_ -= shorten_f;
-	  miny_f_ = miny_f_ <? idealy_f_ + internote_f;
+//	  miny_f_ = miny_f_ <? idealy_f_ + internote_f;
 	}
 
       // lowest beam of (UP) beam must never be lower than second staffline

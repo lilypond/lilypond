@@ -77,8 +77,8 @@ dux = \notes \relative c''{
 
 comes = \notes \relative c''  {
   \voiceone
-  r1 |
-  r1 |
+  R1 |
+  R1 |
   r8 [g'16 fis] [g8 c,] [es g16 fis] [g8 a] |
   [d,8 g16 fis] [g8 a] [c,16 d] es4 [d16 c] |
 %%5
@@ -120,13 +120,13 @@ comes = \notes \relative c''  {
 bassdux = \notes \relative c' {
   \clef bass;
 
-  r1 |
-  r |
-  r |
-  r |
+  R1 |
+  R |
+  R |
+  R |
 %%5
-  r |
-  r1 |
+  R |
+  R1 |
   r8 [c16 b] [c8 g] [as c16 b] [c8 d] |
   [g, c16 b] [c8 d] [f,16 g] as4 [g16 f] | 
  [es c'  b a] [g f es d] [c d es d] [c bes! as! g] |

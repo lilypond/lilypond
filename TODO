@@ -30,6 +30,9 @@ grep for TODO and ugh/ugr/urg
 	* update mi2mu for lilypond 1.1
 
 BUGS:
+	* collisions/voices \voiceone \voicetwo are broken; see 
+ 	  input/praeludium-fuga-E.ly
+ 	  mutopia/J.S.Bach/wtk1-fugue2.ly
 
 	* fix: standchen.
 
@@ -573,7 +576,9 @@ SMALLISH PROJECTS
 
 	* handle EOF graciously in error messages.
 
-	* centered whole rest
+	* really centered whole rest
+
+	* centered multi-bar-rest
 
 	* declare notenametab?
 

@@ -9,11 +9,11 @@
 
 #include "text-def.hh"
 #include "pointer.hh"
-#include "directional-spanner.hh"
+#include "spanner.hh"
 
 /** Volta bracket with number */
 
-class Volta_spanner : public Directional_spanner
+class Volta_spanner : public Spanner
 {
 public:
   Volta_spanner ();
@@ -29,7 +29,7 @@ public:
  
 protected:
   virtual Molecule* do_brew_molecule_p () const;
-  VIRTUAL_COPY_CONS(Score_element);
+  VIRTUAL_COPY_CONS (Score_element);
 
   virtual void do_add_processing ();
   virtual void do_post_processing ();

@@ -11,7 +11,12 @@
 #include "multi-measure-rest-engraver.hh"
 #include "score-column.hh"
 #include "time-description.hh"
-#include "p-score.hh"
+//#include "paper-score.hh"
+//#include "p-score.hh"
+//#include "paper-def.hh"
+//#include "main.hh"
+//#include "global-translator.hh"
+#include "bar.hh"
 
 
 ADD_THIS_TRANSLATOR (Multi_measure_rest_engraver);
@@ -19,9 +24,22 @@ ADD_THIS_TRANSLATOR (Multi_measure_rest_engraver);
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 {
   start_measure_i_ = 0;
-  rest_item_creation_mom_ = rest_req_stop_mom_ =0;
+  rest_stop_mom_ =0;
+  // rest_item_creation_mom_ = 0;
   multi_measure_req_l_ = 0;
   mmrest_p_ = 0;
+}
+
+void
+Multi_measure_rest_engraver::acknowledge_element (Score_element_info i)
+{
+  if (Bar *c = dynamic_cast<Bar*> (i.elem_l_))
+    {
+      if (mmrest_p_) 
+	mmrest_p_->add_column (c);
+      if (lastrest_p_)
+	lastrest_p_->add_column (c);
+    }
 }
 
 bool
@@ -31,13 +49,13 @@ Multi_measure_rest_engraver::do_try_music (Music* req_l)
    {
      if (multi_measure_req_l_)
        if (!multi_measure_req_l_->equal_b (mr)
-	   || req_start_mom_ != now_moment ())
+	   || rest_start_mom_ != now_moment ())
 	 return false;
   
      multi_measure_req_l_ = mr;
-     req_start_mom_ = now_moment ();
+     rest_start_mom_ = now_moment ();
      
-     rest_req_stop_mom_ = req_start_mom_ + multi_measure_req_l_->duration_.length ();
+     rest_stop_mom_ = rest_start_mom_ + multi_measure_req_l_->duration_.length ();
      return true;
    }
  return false;
@@ -50,15 +68,7 @@ Multi_measure_rest_engraver::do_process_requests ()
     {
       Time_description const *time = get_staff_info().time_C_;
       mmrest_p_ = new Multi_measure_rest;
-      rest_item_creation_mom_ = time->when_mom ();
-
-      rest_item_creation_mom_ += time->whole_per_measure_ / Moment (2);
-#if 0
-      // core dump because of missing column?
-      mmrest_p_->pscore_l_->add_column (new Score_column (rest_item_creation_mom_));
-      mmrest_p_->pscore_l_->add_column (new Score_column (rest_item_creation_mom_, true));
-#endif
-
+      // rest_item_creation_mom_ = time->when_mom ();
       announce_element (Score_element_info (mmrest_p_, multi_measure_req_l_));
       start_measure_i_ = time->bars_i_;
     }
@@ -68,9 +78,17 @@ void
 Multi_measure_rest_engraver::do_pre_move_processing ()
 {
   Moment now (now_moment ());
-  if (mmrest_p_ && rest_item_creation_mom_ == now)
+  //urg lily dumps core if i want to let her print all (SkipBars=0) rests...
+#if 0
+  if (mmrest_p_ && (now >= rest_start_mom_) && (mmrest_p_->column_arr_.size () >= 2))
     {
       typeset_element (mmrest_p_);
+    }
+#endif
+  if (lastrest_p_)
+    {
+      typeset_element (lastrest_p_);
+      lastrest_p_ = 0;
     }
 }
 
@@ -79,12 +97,24 @@ Multi_measure_rest_engraver::do_post_move_processing ()
 {
   Time_description const *time = get_staff_info().time_C_;
   Moment now (now_moment ());
-  if (rest_req_stop_mom_ <= now)
-    multi_measure_req_l_ = 0;
 
-  if (mmrest_p_ && (!time->whole_in_measure_ || !multi_measure_req_l_))
+  /*
+   when our time's up, calculate the number of bars rest and
+   make way for new request
+   however, linger around a bit to catch this last column when
+   its announced
+   */
+  if (mmrest_p_ && (now >= rest_stop_mom_)) //&& (!time->whole_in_measure_))
     {
-      assert (rest_item_creation_mom_ < now);
+      lastrest_p_ = mmrest_p_;
+      lastrest_p_->measures_i_ = time->bars_i_ - start_measure_i_;
+      //urg lily dumps core if i want to let her print all (SkipBars=0) rests...
+#if 0
+      if (lastrest_p_->column_arr_.size () >= 2)
+        lastrest_p_ = 0;
+#endif
+      multi_measure_req_l_ = 0;
       mmrest_p_ = 0;
     }
 }
+

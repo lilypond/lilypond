@@ -15,6 +15,7 @@ StaffContext=\translator {
 %}
 %	\type "Hara_kiri_line_group_engraver";
 
+	\consists "Multi_measure_rest_engraver";
 	\consists "Repeat_engraver";
 	\consists "Bar_engraver";
 	\consists "Clef_engraver";
@@ -97,7 +98,7 @@ VoiceContext = \translator {
 	\consists "Stem_engraver";
 	\consists "Beam_engraver";
 	\consists "Abbreviation_beam_engraver";
-	\consists "Multi_measure_rest_engraver";
+%	\consists "Multi_measure_rest_engraver";
 
 	% ugh.  Order matters here.
 	\consists "Text_engraver";

@@ -16,7 +16,6 @@
 #include "score-column.hh"
 #include "command-request.hh"
 #include "paper-def.hh"
-#include "p-score.hh"
 
 
 
