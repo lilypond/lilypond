@@ -36,6 +36,7 @@ Key_engraver::create_key()
 	    c0_i = *get_staff_info().c0_position_i_l_;	
 	
 	kit_p_ = new Key_item (c0_i);
+	kit_p_->break_priority_i_ = -1; // ugh
 	announce_element (Score_elem_info (kit_p_,keyreq_l_));
   	kit_p_->read (*this);
     }

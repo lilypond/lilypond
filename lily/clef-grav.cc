@@ -107,6 +107,7 @@ Clef_engraver::create_clef()
   if (!clef_p_)
     {
       clef_p_ = new Clef_item;
+      clef_p_->break_priority_i_ = -2; // ugh
       announce_element (Score_elem_info (clef_p_,clef_req_l_));
     }
   clef_p_->read (*this);

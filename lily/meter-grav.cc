@@ -32,6 +32,7 @@ Meter_engraver::do_process_requests()
       args.push (req->one_beat_i_);
 	
       meter_p_ = new Meter (args);
+      meter_p_->break_priority_i_ = 1; // ugh
     }
 
   if (meter_p_)
