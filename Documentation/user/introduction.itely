@@ -648,7 +648,7 @@ First time users should start here.
 @item
 @ifhtml
 The
-@endifhtml
+@end ifhtml
 @emph{@ref{Example templates}}
 provides templates of LilyPond pieces.  Just cut and paste a
 template into a file, add notes, and you're done!
