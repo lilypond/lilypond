@@ -21,8 +21,10 @@ public:
   /// if lines are broken then this column is in #line#
   System *system_;
 
-  Paper_column (SCM);
-  VIRTUAL_COPY_CONSTRUCTOR (Grob, Paper_column);
+  Paper_column (SCM, Object_key const*);
+  Paper_column (Paper_column const&, int count);
+  
+  virtual Grob *clone (int count) const;
 
   static bool has_interface (Grob*);
   virtual void do_break_processing ();

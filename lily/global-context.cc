@@ -16,10 +16,15 @@
 #include "score-context.hh"
 #include "context-def.hh"
 #include "output-def.hh"
-#include "grace-fixup.hh"
+#include "lilypond-key.hh"
 
 Global_context::Global_context (Output_def *o, Moment final)
+  : Context (new Lilypond_context_key(0,
+				      Moment(0),
+				      "Global", ""))
 {
+  scm_gc_unprotect_object (key_->self_scm());
+  
   output_def_ = o;
   final_mom_ = final;
   definition_ = find_context_def (o, ly_symbol2scm ("Global"));
@@ -151,13 +156,16 @@ Global_context::run_iterator_on_me (Music_iterator * iter)
 
       if (!get_score_context ()) 
 	{
-	  SCM key = ly_symbol2scm ("Score");
-	  Context_def * t = unsmob_context_def (find_context_def (get_output_def (), key));
+	  SCM sym = ly_symbol2scm ("Score");
+	  Context_def * t = unsmob_context_def (find_context_def (get_output_def (), sym));
 	  if (!t)
 	    error (_f ("can't find `%s' context", "Score"));
 
-	  Context *c = t->instantiate (SCM_EOL);
+	  Object_key *key = new Lilypond_context_key (get_key(), now_mom(),
+						      "Score", "");
+	  Context *c = t->instantiate (SCM_EOL, key);
 	  add_context (c);
+	  scm_gc_unprotect_object (key->self_scm());
 
 	  Score_context *sc = dynamic_cast<Score_context*> (c);
 	  sc->prepare (w);

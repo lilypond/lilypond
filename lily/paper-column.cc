@@ -21,6 +21,13 @@
 
 
 
+Grob * 
+Paper_column::clone (int count) const
+{
+  return new Paper_column (*this, count);
+}
+
+
 ADD_INTERFACE (Paper_column, "paper-column-interface",
 	       "@code{Paper_column} objects form the top-most X-parents for items. "
 	       "  The are two types of columns: musical columns, where are attached to, and "
@@ -64,12 +71,21 @@ Paper_column::get_column () const
   return (Paper_column*) (this);
 }
 
-Paper_column::Paper_column (SCM l)
-  : Item (l)		// guh.?
+Paper_column::Paper_column (SCM l, Object_key const*key)
+  : Item (l, key)		// guh.?
 {
   system_ = 0;
   rank_ = -1;
 }
+
+
+Paper_column::Paper_column (Paper_column const& src, int count)
+  : Item (src, count)
+{
+  system_ = 0;
+  rank_ = count;
+}
+
 
 Moment
 Paper_column::when_mom (Grob *me)

@@ -16,10 +16,11 @@
 #include "smobs.hh"
 #include "dimension-cache.hh"
 #include "grob-interface.hh"
+#include "object-key.hh"
 
 /**
-    for administration of what was done already
-    */
+   for administration of what was done already
+*/
 enum Grob_status {
   ORPHAN=0,			// not yet added to Paper_score
   PRECALCING,
@@ -43,8 +44,8 @@ class Grob
 private:  
   DECLARE_SMOBS (Grob, foo);
   void init ();
-
 protected:
+  Object_key const * key_;
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
   
@@ -57,6 +58,8 @@ protected:
   char status_;
   
 public:
+  Object_key const *get_key () const;
+  
   Grob *original_;
 
   /* TODO: junk this member. */
@@ -64,9 +67,10 @@ public:
 
   Dimension_cache dim_cache_[NO_AXES];
 
-  Grob (SCM basic_props);
-  Grob (Grob const&);
-  VIRTUAL_COPY_CONSTRUCTOR (Grob, Grob);
+  Grob (SCM basic_props, Object_key const *);
+  Grob (Grob const&, int copy_count);
+
+  virtual Grob *clone (int count) const;
   DECLARE_SCHEME_CALLBACK (stencil_extent, (SCM smob, SCM axis));
  
   String name () const;

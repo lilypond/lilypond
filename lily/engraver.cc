@@ -16,6 +16,7 @@
 #include "item.hh"
 #include "context.hh"
 #include "score-context.hh"
+#include "lilypond-key.hh"
 
 Engraver_group_engraver*
 Engraver::get_daddy_engraver () const
@@ -63,6 +64,17 @@ Score_engraver*
 Engraver::get_score_engraver () const
 {
   return dynamic_cast<Score_engraver*> (get_score_context ()->implementation ());
+}
+
+
+Object_key const*
+Engraver::get_grob_key (String name) const
+{
+  Object_key * k = new Lilypond_grob_key (context()->get_key(),
+					  now_mom(),
+					  name);
+
+  return k;					  
 }
 
 

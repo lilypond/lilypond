@@ -19,6 +19,14 @@
 #include "system.hh"
 #include "group-interface.hh"
 
+
+
+Grob * 
+Spanner::clone (int count) const
+{
+  return new Spanner (*this, count);
+}
+
 void
 Spanner::do_break_processing ()
 {
@@ -62,7 +70,7 @@ Spanner::do_break_processing ()
 	    programming_error ("no broken bound");
 	  else if (bound->get_system ())
 	    {
-	      Spanner * span = dynamic_cast<Spanner*> (clone ());
+	      Spanner * span = dynamic_cast<Spanner*> (clone (broken_intos_.size ()));
 	      span->set_bound (LEFT, bound);
 	      span->set_bound (RIGHT, bound);
 
@@ -99,7 +107,7 @@ Spanner::do_break_processing ()
 	      continue; 
 	    }
 
-	  Spanner *span = dynamic_cast<Spanner*> (clone ());
+	  Spanner *span = dynamic_cast<Spanner*> (clone (broken_intos_.size ()));
 	  span->set_bound (LEFT,bounds[LEFT]);
 	  span->set_bound (RIGHT,bounds[RIGHT]);
 
@@ -198,8 +206,8 @@ Spanner::set_bound (Direction d, Grob*s)
     }
 }
 
-Spanner::Spanner (SCM s)
-  : Grob (s)
+Spanner::Spanner (SCM s, Object_key const*key)
+  : Grob (s, key)
 {
   break_index_ = 0;
   spanned_drul_[LEFT]=0;
@@ -208,8 +216,8 @@ Spanner::Spanner (SCM s)
   Group_interface::add_thing (this, ly_symbol2scm ("interfaces"), ly_symbol2scm ("spanner-interface"));
 }
 
-Spanner::Spanner (Spanner const &s)
-  : Grob (s)
+Spanner::Spanner (Spanner const &s, int count)
+  : Grob (s, count)
 {
   spanned_drul_[LEFT] = spanned_drul_[RIGHT] =0;
 }

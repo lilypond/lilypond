@@ -48,8 +48,8 @@ public:
   void set_bound (Direction d, Grob*);
   Item *get_bound (Direction d) const;
   
-  Spanner (SCM);
-  Spanner (Spanner const &);
+  Spanner (SCM, Object_key const*);
+  Spanner (Spanner const &, int copy_count);
   bool is_broken () const;
   void do_break ();
   Real spanner_length () const;
@@ -62,8 +62,7 @@ public:
 
 protected:
   void set_my_columns ();
-
-  VIRTUAL_COPY_CONSTRUCTOR (Grob, Spanner);
+  virtual Grob *clone (int count) const;
   virtual void do_break_processing ();
 };
 

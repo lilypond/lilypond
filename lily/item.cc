@@ -15,8 +15,16 @@
 #include "system.hh"
 #include "group-interface.hh"
 
-Item::Item (SCM s)
-  : Grob (s)
+
+Grob * 
+Item::clone (int count) const
+{
+  return new Item (*this, count);
+}
+
+
+Item::Item (SCM s, Object_key const *key)
+  : Grob (s, key)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
   Group_interface::add_thing (this, ly_symbol2scm ("interfaces"), ly_symbol2scm ("item-interface"));
@@ -25,8 +33,8 @@ Item::Item (SCM s)
 /**
    Item copy ctor.  Copy nothing: everything should be a elt property
    or a special purpose pointer (such as broken_to_drul_[]) */
-Item::Item (Item const &s)
-  : Grob (s)
+Item::Item (Item const &s, int copy_count)
+  : Grob (s, copy_count)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] =0;
 }
@@ -64,10 +72,11 @@ void
 Item::copy_breakable_items ()
 {
   Drul_array<Item *> new_copies;
-  Direction  i=LEFT;
+  Direction i = LEFT;
+  int count = 0;
   do 
     {
-      Grob * dolly = clone ();
+      Grob * dolly = clone (count ++);
       Item * item = dynamic_cast<Item*> (dolly);
       pscore_->system_->typeset_grob (item);
       new_copies[i] =item;

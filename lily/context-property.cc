@@ -196,12 +196,16 @@ updated_grob_properties (Context * tg, SCM sym)
 }
 
 Item *
-make_item_from_properties (Translator *tr, SCM x, SCM cause)
+make_item_from_properties (Engraver *tr, SCM x, SCM cause, const char * name)
 {
   Context *context = tr->context ();
   
   SCM props = updated_grob_properties (context, x);
-  Item *it = new Item (props);
+
+  Object_key const*key = tr->get_grob_key (name);
+  Item *it = new Item (props, key);
+  scm_gc_unprotect_object (key->self_scm ());
+
 #ifdef TWEAK 
   Grob_selector::register_grob (context, it);
 #endif
@@ -211,12 +215,12 @@ make_item_from_properties (Translator *tr, SCM x, SCM cause)
 }
 
 Spanner*
-make_spanner_from_properties (Translator *tr, SCM x, SCM cause)
+make_spanner_from_properties (Engraver *tr, SCM x, SCM cause, const char *name)
 {
   Context *tg = tr->context ();
 
   SCM props = updated_grob_properties (tg, x);
-  Spanner *it = new Spanner (props);
+  Spanner *it = new Spanner (props, tr->get_grob_key (name));
 
   dynamic_cast<Engraver*>(tr)->announce_grob (it, cause);
 
