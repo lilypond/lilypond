@@ -1,1 +1,2 @@
-\rhythm { 4. 8 8. 16 } { c'' d e f }
+%\rhythm { 4. 8 8. 16 } { c'' d e f }
+\rhythm { c4. c8 c8. c16 } { c'' d e f }

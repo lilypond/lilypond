@@ -35,11 +35,15 @@ Tie::Tie()
   ugh: direction of the Tie is more complicated.  See [Ross] p136 and further
  */
 Direction
-Tie::get_default_dir() const
+Tie::get_default_dir () const
 {
-  int m= (head_l_drul_[LEFT]->position_i_ 
+  int m = (head_l_drul_[LEFT]->position_i_ 
 	  + head_l_drul_[RIGHT]->position_i_) /2;
-  return(m < 0)? DOWN : UP;
+  /*
+    If dir is not determined: inverse of stem: down
+    (see stem::get_default_dir ())
+   */
+  return (m <= 0)? DOWN : UP;
 }
 
 void
@@ -60,91 +64,116 @@ Tie::do_add_processing()
 void
 Tie::do_post_processing()
 {
-  // URG: share code with slur!
   assert (head_l_drul_[LEFT] || head_l_drul_[RIGHT]);
 
-  // URG
-  Real notewidth = paper_l ()->note_width () * 0.8;
   Real interline_f = paper_l ()->get_realvar (interline_scm_sym);
+  Real internote_f = interline_f / 2;
+  Real x_gap_f = paper_l ()->get_var ("tie_x_gap");
+  Real y_gap_f = paper_l ()->get_var ("tie_y_gap");
 
   /* 
-   [OSU]: slur and tie placement
+   Slur and tie placement [OSU]
 
-   ties:
-   * x = inner raakpunt - d * gap
+   Ties:
 
-   * y = length < 5ss : horizontal raakpunt
-     y = length >= 5ss : y next interline - d * 0.25 ss
-     --> height <= 5 length ?? we use <= 3 length, now...
+       * x = inner vertical tangent - d * gap
+
    */
 
-  Real gap_f = paper_l ()->get_var ("slur_x_gap");
 
+  /*
+    OSU: not different for outer notes, so why all this code?
+    ie,  can we drop this, or should it be made switchable.
+   */
+#if 0
   Direction d = LEFT;
   do
     {
-      dy_f_drul_[d] = .5 * interline_f * (head_l_drul_[d] 
-		       ? head_l_drul_[d]->position_i_
-		       : head_l_drul_[(Direction)-d]->position_i_);
-    }
-  while (flip(&d) != LEFT);
-
-  do
-    {
-      // tie attached to outer notehead
+      Real head_width_f = head_l_drul_[d]
+	? head_l_drul_[d]->extent (X_AXIS).length ()
+	: 0;
+      /*
+	side attached to outer (upper or lower) notehead of chord
+      */
       if (head_l_drul_[d]
-	  && head_l_drul_[d]->remove_elt_property (extremal_scm_sym) != SCM_BOOL_F)
+	  /*
+	    && head_l_drul_[d]->remove_elt_property (extremal_scm_sym) != SCM_BOOL_F)
+	    ugh, ugh:
+
+	        a~a~a;
+
+	    to second tie, middle notehead seems not extremal
+
+	    Getting scared a bit by score-element's comment:
+	    // is this a good idea?
+	  */
+	  && (head_l_drul_[d]->get_elt_property (extremal_scm_sym)
+	      != SCM_BOOL_F))
 	{
-	  if (d == LEFT)
-	    dx_f_drul_[d] += notewidth;
-	  dx_f_drul_[d] += -d * gap_f;
-	  /* attach to outer 3/4 end of head */
-	  dy_f_drul_[d] += dir_ * 0.25 * interline_f;
+	if (d == LEFT)
+	    dx_f_drul_[d] += head_width_f;
+	  dx_f_drul_[d] += -d * x_gap_f;
 	}
-      // tie attached to inner notehead
-      else if (head_l_drul_[d] && d == LEFT)
-	{
-	  dx_f_drul_[d] += -d * notewidth;
-	}
-      // uhm? loose end of tie // tie attached to stem
+      /*
+	side attached to inner notehead
+      */
       else
 	{
-	  dx_f_drul_[d] = -d * (spanned_drul_[d]->extent (X_AXIS).length () 
-			        -0.5 * notewidth);
+	  dx_f_drul_[d] += -d * head_width_f;
 	}
-    }
-  while (flip(&d) != LEFT);
+    } while (flip (&d) != LEFT);
 
-  // now that both are set, do dependent
-  do
-    {
-      // tie attached to outer notehead
-      if (!head_l_drul_[d])
-	{
-	  dy_f_drul_[d] = dy_f_drul_[(Direction) -d];
-	}
-    }
-  while (flip(&d) != LEFT);
+#else
 
-  /*
-    Avoid too steep ties
-      * slur from notehead to stemend: c''()b''
+  if (head_l_drul_[LEFT])
+    dx_f_drul_[LEFT] = head_l_drul_[LEFT]->extent (X_AXIS).length ();
+  dx_f_drul_[LEFT] += x_gap_f;
+  dx_f_drul_[RIGHT] -= x_gap_f;
+
+#endif
+
+  /* 
+   Slur and tie placement [OSU]  -- check this
+
+   Ties:
+
+       * y = dx <  5ss: horizontal tangent
+	 y = dx >= 5ss: y next interline - d * 0.25 ss
+
+	 which probably means that OSU assumes that
+
+	    dy <= 5 dx
+
+	 for smal slurs
    */
-  Real damp_f = paper_l ()->get_var ("tie_slope_damping");
-  Offset d_off = Offset (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
-    dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
-  d_off.x () += extent (X_AXIS).length ();
 
-  Real ratio_f = abs (d_off.y () / d_off.x ());
-  if (ratio_f > damp_f)
-    dy_f_drul_[(Direction)(- dir_ * sign (d_off.y ()))] +=
-      dir_ * (ratio_f - damp_f) * d_off.x ();
+  int ypos_i = head_l_drul_[LEFT] ? head_l_drul_[LEFT]->position_i_
+    : head_l_drul_[RIGHT]->position_i_;
+
+  Real y_f = internote_f * ypos_i; 
+
+  Real dx_f = extent (X_AXIS).length () + dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
+  if (dx_f < paper_l ()->get_var ("tie_staffspace_length"))
+    {
+      if (abs (ypos_i) % 2)
+	y_f += dir_ * internote_f;
+      y_f += dir_ * y_gap_f;
+    }
+  else
+    {
+      if (! (abs (ypos_i) % 2))
+	y_f += dir_ * internote_f;
+      y_f += dir_ * internote_f;
+      y_f -= dir_ * y_gap_f;
+    }
+  
+  dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = y_f;
 }
 
 void
 Tie::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
-  Note_head *new_l =n?dynamic_cast<Note_head *> (n):0;
+  Note_head *new_l = n ? dynamic_cast<Note_head *> (n) : 0;
   if (dynamic_cast <Item *> (o) == head_l_drul_[LEFT])
     head_l_drul_[LEFT] = new_l;
   else if (dynamic_cast <Item *> (o) == head_l_drul_[RIGHT])

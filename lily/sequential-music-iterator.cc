@@ -10,6 +10,9 @@
 #include "debug.hh"
 #include "sequential-music-iterator.hh"
 #include "music-list.hh"
+// hmm
+//#include "request-chord-iterator.hh"
+#include "request-iterator.hh"
 
 void
 Sequential_music_iterator::do_print() const
@@ -141,9 +144,10 @@ Sequential_music_iterator::next_music_l ()
 	}
       else
 	{
-	  // urg FIXME: grace-iterator::next_music_l () fools me!
-	  if (dynamic_cast<Grace_iterator*> (iter_p_))
-	    iter_p_ = 0;
+	  // urg FIXME: sequential children should be iterated to finish
+	  if (dynamic_cast<Request_chord_iterator*> (iter_p_))
+	    delete iter_p_;
+	  iter_p_ = 0;
 	  leave_element ();
 	  
 	  if (cursor_)

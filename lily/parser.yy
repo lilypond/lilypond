@@ -241,7 +241,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <pitch_arr>	pitch_list
 %type <music>	chord
 %type <pitch_arr>	chord_additions chord_subtractions chord_notes
-%type <pitch>	chord_addsub chord_note chord_inversion
+%type <pitch>	chord_note chord_inversion
 %type <midi>	midi_block midi_body
 %type <duration>	duration_length
 
@@ -1451,14 +1451,22 @@ chord_additions:
 	| '-' chord_notes {
 		$$ = $2;
 	}
+	| '-' CHORDMODIFIER_PITCH {
+		$$ = new Array<Musical_pitch>;
+		$$->push (*$2);
+	}
+	| '-' CHORDMODIFIER_PITCH chord_notes {
+		$$ = $3;
+		$$->push (*$2);
+	}
 	;
 
 chord_notes:
-	chord_addsub {
+	chord_note {
 		$$ = new Array<Musical_pitch>;
 		$$->push (*$1);
 	}
-	| chord_notes '.' chord_addsub {
+	| chord_notes '.' chord_note {
 		$$ = $1;
 		$$->push (*$3);
 	}
@@ -1477,12 +1485,6 @@ chord_subtractions:
 /*
 	forevery : X : optional_X sucks. Devise  a solution.
 */
-
-
-chord_addsub:
-	chord_note
-	| CHORDMODIFIER_PITCH
-	;
 
 chord_inversion:
 	{

@@ -1,16 +1,14 @@
-\header{
-% should look the same
-title="symmetry";
-}
 \score{
-	\notes\relative c'{
-		[g'8( e )c' g,]
-		[d'( f' )a, a]
-		[d( f )a, d']
-		[g,( e, )c' c]
-	}
+	\notes\relative c'<
+		\time 6/8;
+		\context Staff{
+			e8(e)e e(d)e e(c)e e(b)e
+		}
+		\context Staff=x{
+			f'8(f)f f(g)f f(a)f f(b)f
+		}
+	>
 	\paper{
-		castingalgorithm = \Wordwrap;
-		linewidth = 50.0\mm;
+		linewidth=-1.;
 	}
 }
