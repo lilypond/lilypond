@@ -1,5 +1,7 @@
 2005-03-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/GNUmakefile: prune example list.
+
 	* scm/framework-tex.scm (convert-to-ps): add -ofoo.ps to dvips
 	options.
 
