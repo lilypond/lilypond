@@ -15,7 +15,7 @@ inline void arrcpy(T*dest, T*src, int count) {
 	*dest++ = *src++;
 }
 
-///scaleable array template, for T with def ctor.
+///scaleable array/stack template, for T with def ctor.
 template<class T>
 class Array {
 protected:
@@ -99,17 +99,23 @@ public:
 	// vars
 	thearray[size_++] = x;
     }
-
-    /// junk last entry.
-    void pop() { size_ -- ; }
-
-    /// return last entry
-    T& last(int j=0) {
+    /// remove and return last entry 
+    T pop() {
+	assert(!empty());
+	T l = top(0);
+	set_size(size()-1);
+	return l;
+    }
+    /// access last entry
+    T& top(int j=0) {
 	return (*this)[size_-j-1];
     }
-    T last(int j=0) const {
+     /// return last entry
+    T top (int j=0) const {
 	return (*this)[size_-j-1];
     }
+
+
     void swap (int i,int j) {
 	T t((*this)[i]);
 	(*this)[i]=(*this)[j];
@@ -167,6 +173,7 @@ public:
   destructors. The type T should have a default constructor. It is
   best suited for simple types, such as int, double or String
 
+  It uses stack terminology, (push, pop, top), and  can be used as a stack.
   */
 
 #endif
