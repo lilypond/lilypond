@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header{
   texidoc="Simple beams on middle line should be allowed to have a slope."
 }

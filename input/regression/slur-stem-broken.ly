@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 texidoc="Trend of broken slur with user-overridden stem attachment should also
 follow the same vertical direction it would have had in unbroken state."

@@ -1,3 +1,4 @@
+\version "1.5.68"
 \score{
     \notes\relative c'{
 	[a8 b'' a,, b'']

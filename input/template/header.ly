@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
   dedication = "dedication"
   title = "Title"

@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
   texidoc="Jazz chord names, but with lower case names for minor chords"
 }

@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 texidoc="MIDI and midi2ly test file.  Diff between this and midi2ly.py (experimental, 1.5.17) should be minimal"
 }

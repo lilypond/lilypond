@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 
 texidoc = "Tie engraver uses @code{busyGrobs} to keep track of

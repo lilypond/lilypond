@@ -1,3 +1,4 @@
+\version "1.5.68"
 #(define (duration-check music)
   "Check all rest durations in MUSIC"
 

@@ -815,11 +815,11 @@ Stem::calc_stem_info (Grob*me)
   SCM grace_prop = me->get_grob_property ("grace");
   
   bool grace_b = to_boolean (grace_prop);
-  SCM bml = robust_list_ref ( beam_count ,
+  SCM bml = robust_list_ref ( beam_count - 1,
 			      me->get_grob_property ("beamed-minimum-lengths"));
 
   Real minimum_length = gh_scm2double(bml)*staff_space;
-  SCM bl =  robust_list_ref ( beam_count ,
+  SCM bl =  robust_list_ref ( beam_count - 1,
 			      me->get_grob_property ("beamed-lengths"));
   Real stem_length =  gh_scm2double(bl) * staff_space;
 
@@ -828,7 +828,7 @@ Stem::calc_stem_info (Grob*me)
     stem goes to center of beam, hence 0.5
    */
   Real beam_lengthen = beam_translation* (beam_count - 1)
-    + ((beam_count > 0) ? thick : 0) - 0.5 * thick;
+    + 0.5 * thick;
 
   Real shortest_y = note_start + minimum_length + beam_lengthen;
   Real ideal_y = stem_length + note_start + beam_lengthen;

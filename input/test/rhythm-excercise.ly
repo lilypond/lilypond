@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 
     texidoc = " a way to generate rhythm exercises with lilypond

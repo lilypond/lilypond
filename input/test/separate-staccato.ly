@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 
 texidoc="You can enter notes and articulations separately, and merge

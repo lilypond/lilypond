@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 texidoc = "Downstem notes following a barline are
 printed with some extra space. This is an optical correction similar

@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header  {
   texidoc = "grace notes in different voices/staves are synchronized."
 }

@@ -1,6 +1,14 @@
 2002-08-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* input: some fixes.
+	* lily/stem.cc (get_default_stem_end_position): use beam_count - 1
+	as index; this fixes too short forced stem directions.
+	(calc_stem_info): various minute bugfixes.  
+
+	* lily/gourlay-breaking.cc (combine_demerits): set uniform
+	tightness constraint back to one. This fixes Baerenreiter
+	sarabande layout.
+
+	* input: some fixes. Add \version to all files.
 	
 	* lily/stem.cc (calc_stem_info): Use get_direction_beam_count.
 

@@ -1,3 +1,4 @@
+\version "1.5.68"
 \header {
 
     texidoc = "Kneed beams (often happens with cross-staff beams)

@@ -1,3 +1,4 @@
+\version "1.5.68"
   
 #(define (voicify-list lst number)
    "Make a list of Musics.
@@ -23,7 +24,7 @@
    (let* ((es (ly-get-mus-property ch 'elements)))
 
 
-     (ly-set-mus-property! ch 'elements
+     (ly-set-mus-property!! ch 'elements
        (voicify-list (split-list es music-separator?) 0))
      ch
    ))
@@ -46,9 +47,9 @@
       (voicify-chord m)
       (begin
 	(if (pair? es)
-	    (ly-set-mus-property! m 'elements (map voicify-music es)))
+	    (ly-set-mus-property!! m 'elements (map voicify-music es)))
 	(if (music? e)
-	    (ly-set-mus-property! m 'element  (voicify-music e)))
+	    (ly-set-mus-property!! m 'element  (voicify-music e)))
 	    
 	m)
       
