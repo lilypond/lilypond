@@ -1,0 +1,21 @@
+
+\def\fetsixteendefs{
+        \font\fontentja=font-en-tja16
+}
+\def\fettwentydefs{
+  \font\fontentja=font-en-tja20
+}
+
+
+% \def\fetdef#1#2{\def#1{\fetchar{#2}}}
+% ugh, linewidth, ugh, tablexx.ly balldims not used!
+\def\fetdef#1#2{\def#1{\lower.5\staffrulethickness\hbox{\fetchar{#2}}}}
+\def\fetchar#1{\fontentja\char#1}
+\fetdef\quartball{'002}
+\fetdef\halfball{'001}
+\fetdef\wholeball{'000}
+% \fetdef\breveball{'003}
+% \fetdef\longaball{'004}
+% \musicdef\quartball{'007}
+% \musicdef\halfball{'010}
+% \musicdef\wholeball{'011}
