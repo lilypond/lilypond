@@ -17,9 +17,6 @@ struct Beam:  public Directional_spanner {
     Real left_pos;
     /// dir: -1 below heads, +1 above heads.
 
-
-    Rhythmic_grouping *group;
-
     /****************/
     
     virtual Interval width()const;    
