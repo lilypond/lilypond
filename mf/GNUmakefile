@@ -26,7 +26,7 @@ OTF_TABLES = $(addsuffix .otf-table, $(addprefix $(outdir)/feta, $(STAFF_SIZES))
  $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
-COMMONFF_FILES = $(OTF_FILES:%.otf=%.commonff)
+CFF_FILES = $(OTF_FILES:%.otf=%.cff)
 CFF_PS_FILES = $(OTF_FILES:%.otf=%.cff.ps)
 
 
@@ -59,22 +59,22 @@ foe:
 	echo $(TEXMF)
 	kpsewhich exbase.mf
 
-$(outdir)/%.commonff $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
-	(cd $(outdir) && fontforge -script $(notdir $<) \
-	 && mv $(notdir $(basename $<)).cff $(notdir $(basename $<)).commonff)
+$(outdir)/%.cff.ps $(outdir)/%.cff $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
+	(cd $(outdir) && fontforge -script $(notdir $<))
+	$(PYTHON) $(buildscript-dir)/ps-embed-cff.py $(basename $<).cff `cat $(basename $<).fontname` $(basename $<).cff.ps
 
-$(CFF_PS_FILES): $(COMMONFF_FILES)
-	cd $(outdir) && $(builddir)/lily/$(outconfbase)/lilypond --verbose $(abs-srcdir)/ly/generate-embedded-cff
 
 $(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) 
 	cat $< \
 		$(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) \
 		$(if $(findstring brace,$<),,$(subst feta,feta-alphabet,$<)) > $@
 
-$(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable
+$(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts  $(outdir)/aybabtu.fontname $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable
 
+$(outdir)/aybabtu.fontname:
+	echo -n 'aybabtu' > $@ 
 $(outdir)/aybabtu.subfonts: 
-	 echo $(subst .mf,,$(wildcard feta-braces-[a-z].mf)) > $@
+	echo $(subst .mf,,$(wildcard feta-braces-[a-z].mf)) > $@
 
 $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts.py
 	$(PYTHON) $< --dir=$(outdir)
@@ -85,13 +85,13 @@ PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(outdir)/lilypond.map $(OTF_FILES) $(SVG_FILES) $(CFF_PS_FILES)
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(outdir)/lilypond.map $(OTF_FILES) $(SVG_FILES) $(CFF_PS_FILES) $(CFF_FILES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
 INSTALLATION_FILES=$(MF_FILES) $(AF_FILES)
 
-INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6 7 9
+INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6 7 8 9
 
 INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/tex
 INSTALLATION_OUT_FILES1=$(TEXTABLES)
@@ -111,6 +111,9 @@ INSTALLATION_OUT_FILES5=$(PFA_FILES)
 
 INSTALLATION_OUT_DIR6=$(local_lilypond_datadir)/fonts/map
 INSTALLATION_OUT_FILES6=$(outdir)/lilypond.map
+
+INSTALLATION_OUT_DIR7=$(local_lilypond_datadir)/cff/
+INSTALLATION_OUT_FILES7=$(CFF_FILES)
 
 INSTALLATION_OUT_DIR7=$(local_lilypond_datadir)/ps/
 INSTALLATION_OUT_FILES7=$(ENC_FILES)

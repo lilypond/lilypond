@@ -130,21 +130,30 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
   FcPatternGetString(fcpat, FC_FILE, 0, (FcChar8 **) &filename);
   char const *ps_name_str0 = FT_Get_Postscript_Name (ftface);
   
+  if (!ps_name_str0)
+    warning (_f ("No PS font name for font `%s'", filename)); 
 
-  /*
-    UGH: kludge a PS name for OTF fonts.
-   */
   String ps_name;
   if (!ps_name_str0
       && filename
-      && String (filename).index (".otf") >= 0)
+      && (String (filename).index (".otf") >= 0
+	  || String (filename).index (".cff") >= 0))
     {
+
+      /*
+	UGH: kludge a PS name for OTF/CFF fonts.
+    
+      */
+
       String name = filename;
-      name = name.left_string (name.length () - name.index (".otf"));
+      int idx = String (filename).index (".otf")
+	>? String (filename).index (".cff");
+
+      name = name.left_string (idx);
 
       int slash_idx = name.index_last ('/');	// UGh. What's happens on windows?  
       if (slash_idx >=  0)
-	name = name.right_string (name.length() - slash_idx);
+	name = name.right_string (name.length() - slash_idx - 1);
 
       String initial = name.cut_string (0,1);
       initial.to_upper();
