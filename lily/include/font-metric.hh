@@ -31,7 +31,7 @@ public:
 private:
   Font_metric (Font_metric const&); // no copy.
 protected:
-  virtual void derived_mark();
+  virtual void derived_mark () const;
 
   Font_metric ();
 };

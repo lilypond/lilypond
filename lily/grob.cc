@@ -751,7 +751,7 @@ Grob::print_smob (SCM s, SCM port, scm_print_state *)
 }
 
 SCM
-Grob::do_derived_mark ()
+Grob::do_derived_mark () const
 {
   return SCM_EOL;
 }

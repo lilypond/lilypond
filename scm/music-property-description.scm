@@ -21,7 +21,7 @@
 
 
 
-(music-property-description 'iterator-ctor c++-function? "Function to construct music-event-iterator object for this Music")
+(music-property-description 'iterator-ctor procedure? "Function to construct music-event-iterator object for this Music")
 (music-property-description 'duration duration? "Duration of this note/lyric.")
 (music-property-description 'metronome-count number? "How many beats in a minute?")
 (music-property-description 'span-type string? "What kind of spanner should be created?

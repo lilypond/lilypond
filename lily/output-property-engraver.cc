@@ -40,7 +40,7 @@ bool
 Output_property_engraver::try_music (Music* m)
 {
   if (m->get_mus_property ("iterator-ctor") ==
-      Output_property_music_iterator::constructor_cxx_function)
+      Output_property_music_iterator::constructor_proc)
     {
       props_.push (m);
       return true;

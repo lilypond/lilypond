@@ -33,10 +33,9 @@ Virtual_font_metric::Virtual_font_metric (SCM name_list,
 }
 
 void
-Virtual_font_metric::derived_mark()
+Virtual_font_metric::derived_mark()const
 {
   scm_gc_mark (font_list_);
-
 }
 
 int

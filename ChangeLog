@@ -1,3 +1,24 @@
+2002-09-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/include/simultaneous-music-iterator.hh (class
+	Simultaneous_music_iterator): use SCM list for list of iterators.
+	
+	* lily/cxx-function-smob.cc: remove file.
+
+	* lily/include/cxx-function-smob.hh: remove file.
+
+	* lily/include/music-iterator.hh (class Music_iterator): smobify
+	music-iterator; many changes throughout. They are now constructed
+	through procedures that return the smobbed iterator. 
+
+	* lily/include/*.hh: all derived_mark() functions are now const.
+
+	* lily/syllable-group.cc (set_lyric_align): remove conditional
+	again.
+
+	* Documentation/bibliography/computer-notation.bib (note): add
+	Beyond MIDI and The Virtual Score.
+
 2002-09-07  Rune Zedeler  <rune@zedeler.dk>
 
 	* input/sondag-morgen/*.ly: Tablature fixes
@@ -8,14 +29,17 @@
 	
 	* lily/musical-request.cc (String_number_req): Added
 
-	* lily/tab-note-heads-engraver.cc: Use String_number_req instead of Text_script_req;
-	read properties stringOneTopmost and highStringOne.
+	* lily/tab-note-heads-engraver.cc: Use String_number_req instead
+	of Text_script_req; read properties stringOneTopmost and
+	highStringOne.
 	
 	* ly/engraver-init.ly (tabStaffContext): Bugfix: remove Key_engraver
 	set stringOneTopmost and highStringOne to #t
 	
 	* scm/output-lib.scm (tablature-stem-attachment-function): Changed
 	(guitar-tunings): List added
+	((every-nth-bar-number-visible n) barnum): Instead of
+	default-bar-number-visibility
 	((every-nth-bar-number-visible n) barnum): added
 
 	* scm/grob-description.scm (TabNoteHead): Extra-offset added (UGH!)

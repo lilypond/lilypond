@@ -26,7 +26,7 @@ public:
   virtual Molecule find_by_name (String) const;
 
 protected:
-  virtual void derived_mark();
+  virtual void derived_mark () const;
 };
 
 

@@ -16,6 +16,7 @@
 #include "virtual-methods.hh"
 #include "interpretation-context-handle.hh"
 #include "cxx-function-smob.hh"
+#include "smobs.hh"
 
 /**
    ---
@@ -62,14 +63,15 @@ class Music_iterator
 protected:
   Moment music_length_;
   Moment start_mom_;
+
+  DECLARE_SMOBS (Music_iterator,dummy);
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
-
+  
   Moment music_length_mom () const;
   Moment music_start_mom () const;
   Music_iterator ();
   Music_iterator (Music_iterator const&);
-  virtual ~Music_iterator ();
 
   /**
      Do the reporting.  Will try MUSIC_L_ in its own translator first,
@@ -87,7 +89,7 @@ public:
   /** Get an iterator matching the type of MUS, and use TRANS to find
     an accompanying translation unit
    */
-  static Music_iterator* get_static_get_iterator (Music * mus);
+  static SCM get_static_get_iterator (Music * mus);
   void init_translator (Music  *, Translator_group *); 
 
   virtual Moment pending_moment () const;
@@ -95,18 +97,19 @@ public:
   virtual SCM get_pending_events (Moment until)const;
   virtual void process (Moment until);
   virtual void skip (Moment until);
-
+  virtual void derived_mark ()const;
+  
   /**
     Construct sub-iterators, and set the translator to 
     report to.
    */
   virtual void construct_children ();
-  static SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
   
   /**
     Get an iterator for MUS, inheriting the translation unit from THIS.
    */
-  Music_iterator* get_iterator (Music *) const;
+  SCM get_iterator (Music *) const;
 
   virtual Music_iterator* try_music_in_children (Music *) const;
 
@@ -117,31 +120,17 @@ private:
 };
 
 
-/*
-  implement Class::constructor, a SCM function that
-  returns an encapsulated factory function.
- */
 #define IMPLEMENT_CTOR_CALLBACK(Class)		\
-static void *						\
-Class ## _ctor (SCM)				\
+LY_DEFINE_MEMBER_FUNCTION(Class,constructor, #Class "::constructor",\
+	  0,0,0,\
+	  (),\
+	  "Construct a " #Class " music iterator")\
 {						\
-  return new Class ;				\
+  SCM val = (new Class)->self_scm();   \
+  scm_gc_unprotect_object (val);\
+  return val ;				\
 }						\
-SCM Class :: constructor_cxx_function;\
-void						\
-Class ## _constructor_init ()				\
-{						\
-  SCM s = smobify_cxx_function (& Class ## _ctor);	\
-  scm_permanent_object (s);\
-  gh_define (#Class "::constructor", s);\
-  Class :: constructor_cxx_function = s;\
-}\
-ADD_SCM_INIT_FUNC (Class ## _ctor_init, Class ## _constructor_init); 
 
- 
-
-
-
-
+DECLARE_UNSMOB(Music_iterator, iterator);
 
 #endif // MUSIC_ITERATOR_HH

@@ -104,7 +104,7 @@ Font_metric::get_char (int)const
 
 
 void
-Font_metric::derived_mark ()
+Font_metric::derived_mark ()const
 {
   
 }

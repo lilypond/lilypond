@@ -16,11 +16,11 @@ class Percent_repeat_iterator : public Music_iterator
 {
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
-  static SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
   Percent_repeat_iterator ();
   Percent_repeat_iterator (Percent_repeat_iterator const & );
 protected:
-  virtual ~Percent_repeat_iterator ();
+  virtual void derived_mark () const;
   virtual Moment pending_moment () const;
   virtual void construct_children () ;
   virtual bool ok () const;

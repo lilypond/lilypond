@@ -23,7 +23,7 @@ protected:
   Moment last_processed_mom_;
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
-  static SCM constructor_cxx_function; 
+  DECLARE_SCHEME_CALLBACK(constructor, ()); 
   Simple_music_iterator ();
   Simple_music_iterator (Simple_music_iterator const &);
   virtual void process (Moment);

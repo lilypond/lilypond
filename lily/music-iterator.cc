@@ -17,8 +17,11 @@
 #include "simple-music-iterator.hh"
 #include "context-specced-music.hh"
 
+#include "ly-smobs.icc"
+
 Music_iterator::Music_iterator ()
 {
+  smobify_self ();
 }
 
 Music_iterator::Music_iterator (Music_iterator const& src)
@@ -27,6 +30,7 @@ Music_iterator::Music_iterator (Music_iterator const& src)
   music_ = src.music_;
   music_length_ = src.music_length_;
   start_mom_ = src.start_mom_;
+  smobify_self ();
 }
 
 Music_iterator::~Music_iterator ()
@@ -41,7 +45,6 @@ Music_iterator::report_to () const
 {
   return handle_.report_to ();
 }
-
 
 void
 Music_iterator::set_translator (Translator_group *trans)
@@ -82,30 +85,34 @@ Music_iterator::get_pending_events (Moment)const
   return SCM_EOL;
 }
 
-Music_iterator*
+SCM
 Music_iterator::get_static_get_iterator (Music *m)
 {
   Music_iterator * p =0;
 
   SCM ctor = m->get_mus_property ("iterator-ctor") ;
-  if (unsmob_cxx_function (ctor))
+  SCM iter = SCM_EOL;
+  if (gh_procedure_p (ctor))
     {
-      Cxx_function f =  unsmob_cxx_function (ctor);
-      
-      p = (Music_iterator*) (*f) (SCM_EOL);
+      iter = gh_call0 (ctor);
+      p = unsmob_iterator (iter);
     }
-  else if (dynamic_cast<Music_wrapper   *> (m))
-    p = new Music_wrapper_iterator;
   else
     {
-      p = new Simple_music_iterator ;
+      if (dynamic_cast<Music_wrapper *> (m))
+	p = new Music_wrapper_iterator;
+      else
+	p = new Simple_music_iterator;
+
+      iter = p->self_scm();
+      scm_gc_unprotect_object (iter);
     }
 
   p->music_ = m;
   assert (m);
   p->music_length_ = m->length_mom ();
   p->start_mom_ = m->start_mom ();
-  return p;
+  return iter;
 }
 
 
@@ -113,7 +120,6 @@ Moment
 Music_iterator::music_length_mom () const
 {
   return music_length_;
-
 }
 
 Moment
@@ -151,14 +157,16 @@ Music_iterator::init_translator (Music *m, Translator_group *report)
 }
 
 
-Music_iterator*
+SCM
 Music_iterator::get_iterator (Music *m) const
 {
-  Music_iterator*p = get_static_get_iterator (m);
+  SCM ip = get_static_get_iterator (m);
+  Music_iterator*p = unsmob_iterator (ip);
+  
   p->init_translator (m, report_to ());
   
   p->construct_children ();
-  return p;
+  return ip;
 }
 
 /*
@@ -166,7 +174,6 @@ Music_iterator::get_iterator (Music *m) const
   Iterator::try_music
   
  */
-
 Music_iterator*
 Music_iterator::try_music (Music *m) const
 {
@@ -189,4 +196,30 @@ Music *
 Music_iterator::get_music () const
 {
   return music_;
+}
+
+/****************************************************************/
+
+IMPLEMENT_TYPE_P (Music_iterator, "ly-iterator?");
+IMPLEMENT_SMOBS(Music_iterator);
+IMPLEMENT_DEFAULT_EQUAL_P(Music_iterator);
+
+SCM
+Music_iterator::mark_smob (SCM smob)
+{
+  Music_iterator * mus = (Music_iterator *)SCM_CELL_WORD_1 (smob);
+  mus->derived_mark ();
+  return SCM_EOL;
+}
+
+int
+Music_iterator::print_smob (SCM , SCM port, scm_print_state*)
+{
+  scm_puts ("#<Music iterator>", port);
+  return 1;
+}
+
+void
+Music_iterator::derived_mark()const
+{
 }

@@ -289,7 +289,7 @@ Spanner::get_broken_left_end_align () const
 }
 
 SCM
-Spanner::do_derived_mark ()
+Spanner::do_derived_mark () const
 {
   /*
     We'd be fucked if this is called before spanned_drul_[] is inited.  */

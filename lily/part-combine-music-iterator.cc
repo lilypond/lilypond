@@ -22,10 +22,13 @@ Part_combine_music_iterator::Part_combine_music_iterator ()
   second_until_ = 0;
 }
 
-Part_combine_music_iterator::~Part_combine_music_iterator ()
+void
+Part_combine_music_iterator::derived_mark () const
 {
-  delete second_iter_;
-  delete first_iter_;
+  if (first_iter_)
+    scm_gc_mark (first_iter_->self_scm());
+  if (second_iter_)
+    scm_gc_mark(second_iter_->self_scm());
 }
 
 Part_combine_music_iterator::Part_combine_music_iterator (Part_combine_music_iterator const &src)
@@ -38,6 +41,11 @@ Part_combine_music_iterator::Part_combine_music_iterator (Part_combine_music_ite
   second_until_ = src.second_until_;
   state_ = src.state_;
   suffix_ = src.suffix_;
+
+  if (first_iter_)
+    scm_gc_unprotect_object (first_iter_->self_scm());
+  if (second_iter_)
+    scm_gc_unprotect_object (second_iter_->self_scm());
 }
 
 Moment
@@ -64,8 +72,8 @@ Part_combine_music_iterator::construct_children ()
 {
   Part_combine_music const * m = dynamic_cast<Part_combine_music const*> (get_music ());
   
-  first_iter_ = get_iterator (m->get_first ());
-  second_iter_ = get_iterator (m->get_second ());
+  first_iter_ = unsmob_iterator (get_iterator (m->get_first ()));
+  second_iter_ = unsmob_iterator (get_iterator (m->get_second ()));
 }
 
 void
@@ -311,8 +319,8 @@ Part_combine_music_iterator::get_state (Moment)
 	    second_iter->skip (pending);
 	  now = pending;
 	}
-      delete first_iter;
-      delete second_iter;
+      scm_gc_unprotect_object ( first_iter->self_scm());
+      scm_gc_unprotect_object( second_iter->self_scm());
     }
   return state;
 }

@@ -22,25 +22,35 @@ Simultaneous_music_iterator::Simultaneous_music_iterator (Simultaneous_music_ite
   : Music_iterator (src)
 {
   separate_contexts_b_ = src.separate_contexts_b_;
-  for (Cons<Music_iterator> *p = src.children_p_list_.head_; p; p = p->next_)
+  
+  SCM children_list = SCM_EOL;
+  SCM *tail  = &children_list_; 
+  for (SCM s = src.children_list_; gh_pair_p (s); s = gh_cdr(s))
     {
-      Music_iterator *i = p->car_;
-      children_p_list_.append (new Killing_cons<Music_iterator> (i->clone (), 0));
+      Music_iterator *i = unsmob_iterator (gh_car (s));
+      SCM cl = i->clone ()->self_scm();
+      *tail = scm_cons (cl, *tail);
+      tail = SCM_CDRLOC (*tail);
+      scm_gc_unprotect_object (cl);
     }
+
+  children_list_ = children_list;
+  scm_remember_upto_here_1 (children_list);
 }
 
-Simultaneous_music_iterator::~Simultaneous_music_iterator ()
+void
+Simultaneous_music_iterator::derived_mark()const
 {
-  children_p_list_.junk ();
+  scm_gc_mark (children_list_);
 }
 
 SCM
 Simultaneous_music_iterator::get_pending_events (Moment m)const
 {
   SCM s = SCM_EOL;
-  for (Cons<Music_iterator> *p = children_p_list_.head_; p; p = p->next_)
+  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
     {
-      s = gh_append2 (p->car_->get_pending_events (m), s);
+      s = gh_append2 (unsmob_iterator (gh_car (s))->get_pending_events (m), s);
     }
   return s;
 }
@@ -51,10 +61,15 @@ Simultaneous_music_iterator::construct_children ()
   int j = 0;
 
   SCM i = get_music ()->get_mus_property ("elements");
+
+  children_list_ = SCM_EOL;
+  SCM * tail = &children_list_;
   for (; gh_pair_p (i); i = ly_cdr (i), j++)
     {
       Music *mus = unsmob_music (ly_car (i));
-      Music_iterator * mi = get_static_get_iterator (mus);
+
+      SCM scm_iter = get_static_get_iterator (mus);
+      Music_iterator * mi = unsmob_iterator (scm_iter);
 
       /* if separate_contexts_b_ is set, create a new context with the
 	 number number as name */
@@ -69,13 +84,12 @@ Simultaneous_music_iterator::construct_children ()
 
       mi->init_translator (mus, t);
       mi->construct_children ();
-      
+
       if (mi->ok ()) 
 	{
-	  children_p_list_.append (new Killing_cons<Music_iterator> (mi,0));
+	  *tail = scm_cons (scm_iter, *tail);
+	  tail = SCM_CDRLOC (*tail);
 	}
-      else
-	delete mi;
     }
 }
 
@@ -83,34 +97,44 @@ Simultaneous_music_iterator::construct_children ()
 void
 Simultaneous_music_iterator::process (Moment until)
 {
-  for (Cons<Music_iterator> **pp = &children_p_list_.head_; *pp;)
+  SCM *proc = &children_list_; 
+  while(gh_pair_p (*proc))
     {
-      Music_iterator * i = (*pp)->car_;
+      Music_iterator * i = unsmob_iterator (gh_car (*proc));
       if (i->pending_moment () == until) 
 	{
 	  i->process (until);
 	}
       if (!i->ok ())
-	delete children_p_list_.remove_cons (pp);
+	{
+	  *proc = gh_cdr (*proc);
+	}
       else
-	pp = & (*pp)->next_;
+	{
+	  proc = SCM_CDRLOC(*proc);
+	}
     }
 }
 
 void
 Simultaneous_music_iterator::skip (Moment until)
 {
-  for (Cons<Music_iterator> **pp = &children_p_list_.head_; *pp;)
+  SCM *proc = &children_list_; 
+  while(gh_pair_p (*proc))
     {
-      Music_iterator * i = (*pp)->car_;
+      Music_iterator * i = unsmob_iterator (gh_car (*proc));
       if (i->pending_moment () <= until) 
 	{
 	  i->skip (until);
 	}
       if (!i->ok ())
-	delete children_p_list_.remove_cons (pp);
+	{
+	  *proc = gh_cdr (*proc);
+	}
       else
-	pp = & (*pp)->next_;
+	{
+	  proc = SCM_CDRLOC(*proc);
+	}
     }
 }
 
@@ -120,8 +144,8 @@ Simultaneous_music_iterator::pending_moment () const
   Moment next;
   next.set_infinite (1);
   
-  for (Cons<Music_iterator> *p = children_p_list_.head_; p; p = p->next_)
-    next = next <? p->car_->pending_moment () ;
+  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
+    next = next <? unsmob_iterator (gh_car (s))->pending_moment () ;
   return next;
 }
 
@@ -130,15 +154,15 @@ Simultaneous_music_iterator::pending_moment () const
 bool
 Simultaneous_music_iterator::ok () const
 {
-  return children_p_list_.head_;
+  return gh_pair_p (children_list_);
 }
 
 Music_iterator*
 Simultaneous_music_iterator::try_music_in_children (Music *m) const
 {
   Music_iterator * b=0;
-  for (Cons<Music_iterator> *p = children_p_list_.head_; !b && p; p = p->next_)
-    b =p->car_->try_music (m);
+  for (SCM s = children_list_; !b && gh_pair_p (s); s = gh_cdr(s))
+    b =unsmob_iterator (gh_car (s))->try_music (m);
   return b;
 }
 

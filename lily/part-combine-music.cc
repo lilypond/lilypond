@@ -15,7 +15,7 @@ Part_combine_music::Part_combine_music (SCM l)
   : Music (l)
 {
   set_mus_property ("iterator-ctor",
-		    Part_combine_music_iterator::constructor_cxx_function);
+		    Part_combine_music_iterator::constructor_proc);
 }
 
 void

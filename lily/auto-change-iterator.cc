@@ -101,7 +101,6 @@ Auto_change_iterator::pending_pitch (Moment m) const
       m = iter->pending_moment ();
     }
 
-  delete iter;
   return ps;
 }
 

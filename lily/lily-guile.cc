@@ -193,8 +193,6 @@ void add_scm_init_func (void (*f) ())
   scm_init_funcs_->push (f);
 }
 
-extern void init_cxx_function_smobs ();
-
 
 void
 ly_init_guile ()
@@ -202,7 +200,6 @@ ly_init_guile ()
   SCM last_mod = scm_current_module ();
   scm_set_current_module (scm_c_resolve_module ("guile"));
   
-  init_cxx_function_smobs ();
   for (int i=scm_init_funcs_->size () ; i--;)
     (scm_init_funcs_->elem (i)) ();
 

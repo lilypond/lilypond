@@ -83,7 +83,7 @@ set_property_music (SCM sym, SCM value)
 	Music * p = new Music (SCM_EOL);
 	p->set_mus_property ("symbol", sym);
 	p->set_mus_property ("iterator-ctor",
-	Property_iterator::constructor_cxx_function);
+	Property_iterator::constructor_proc);
 
 	p->set_mus_property ("value", value);
 	return p;
@@ -811,7 +811,7 @@ Simple_music:
 		m->set_mus_property ("grob-property", $3);
 		m->set_mus_property ("grob-value",  $5);
 		m->set_mus_property ("iterator-ctor",
-		Output_property_music_iterator::constructor_cxx_function);
+		Output_property_music_iterator::constructor_proc);
 
 		$$ = m;
 	}
@@ -839,7 +839,7 @@ Composite_music:
 	| AUTOCHANGE STRING Music	{
 		Music * chm = new Music_wrapper (SCM_EOL);
 		chm->set_mus_property ("element", $3->self_scm ());
-		chm->set_mus_property ("iterator-ctor", Auto_change_iterator::constructor_cxx_function);
+		chm->set_mus_property ("iterator-ctor", Auto_change_iterator::constructor_proc);
 
 		scm_gc_unprotect_object ($3->self_scm ());
 		chm->set_mus_property ("what", $2); 
@@ -1028,7 +1028,7 @@ translator_change:
 	TRANSLATOR STRING '=' STRING  {
 		Music * t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
-			Change_iterator::constructor_cxx_function);
+			Change_iterator::constructor_proc);
 		t-> set_mus_property ("change-to-type", $2);
 		t-> set_mus_property ("change-to-id", $4);
 
@@ -1055,7 +1055,7 @@ property_def:
 		Music *t = new Music (SCM_EOL);
 
 		t->set_mus_property ("iterator-ctor",
-			Property_unset_iterator::constructor_cxx_function);
+			Property_unset_iterator::constructor_proc);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 
 		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
@@ -1073,7 +1073,7 @@ property_def:
 		bool itc = internal_type_checking_global_b;
 		Music *t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
-			Push_property_iterator::constructor_cxx_function);
+			Push_property_iterator::constructor_proc);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 		t->set_mus_property ("pop-first", SCM_BOOL_T);
 		if (autobeam)
@@ -1100,7 +1100,7 @@ property_def:
 
 		Music *t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
-			Push_property_iterator::constructor_cxx_function);
+			Push_property_iterator::constructor_proc);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 
 		if (autobeam)
@@ -1126,7 +1126,7 @@ property_def:
 		bool itc = internal_type_checking_global_b;
 
 		t->set_mus_property ("iterator-ctor",
-			Pop_property_iterator::constructor_cxx_function);
+			Pop_property_iterator::constructor_proc);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 		if (autobeam)
 			internal_type_checking_global_b = false;

@@ -14,13 +14,6 @@
 #include "global-translator.hh"
 #include "warn.hh"
 
-
-Grace_iterator::~Grace_iterator () 
-{
-  //  child_iter_ = 0;
-}
-
-
 void
 Grace_iterator::process (Moment m)
 {

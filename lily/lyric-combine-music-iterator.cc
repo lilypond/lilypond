@@ -52,14 +52,25 @@ Lyric_combine_music_iterator::ok () const
   return music_iter_->ok ();
 }
 
+void
+Lyric_combine_music_iterator::derived_mark()const
+{
+  if (music_iter_)
+  scm_gc_mark (music_iter_->self_scm());
+  if (lyric_iter_)
+    scm_gc_mark (lyric_iter_->self_scm());
+}
 
 void
 Lyric_combine_music_iterator::construct_children ()
 {
   Lyric_combine_music const * m = dynamic_cast<Lyric_combine_music const*> (get_music ());
   
-  music_iter_ = get_iterator (m->get_music ());
-  lyric_iter_ = get_iterator (m->get_lyrics ());
+  music_iter_ = unsmob_iterator (get_iterator (m->get_music ()));
+  lyric_iter_ = unsmob_iterator (get_iterator (m->get_lyrics ()));
+
+  scm_gc_unprotect_object (music_iter_->self_scm());
+  scm_gc_unprotect_object (lyric_iter_->self_scm());
 }
 
 bool
@@ -117,17 +128,15 @@ Lyric_combine_music_iterator::process (Moment m)
   
 }
 
-Lyric_combine_music_iterator::~Lyric_combine_music_iterator ()
-{
-  delete lyric_iter_;
-  delete music_iter_;
-}
 
 Lyric_combine_music_iterator::Lyric_combine_music_iterator (Lyric_combine_music_iterator const & src)
     : Music_iterator (src)
 {
   lyric_iter_ = src.lyric_iter_ ? src.lyric_iter_->clone () : 0;
   music_iter_ = src.music_iter_ ? src.music_iter_->clone () : 0;  
+
+  scm_gc_unprotect_object (music_iter_->self_scm());
+  scm_gc_unprotect_object (lyric_iter_->self_scm());
 }
 
 Music_iterator*

@@ -19,9 +19,9 @@ public:
   Part_combine_music_iterator ();
 
   enum State { UNKNOWN, UNRELATED=1, SOLO1=2, SOLO2=4, UNIRHYTHM=8, UNISON=16, UNISILENCE=32, SPLIT_INTERVAL=64 };
-  static SCM constructor_cxx_function; 
+  DECLARE_SCHEME_CALLBACK(constructor, ()); 
 protected:
-  virtual ~Part_combine_music_iterator ();
+  virtual void derived_mark () const;
   Part_combine_music_iterator (Part_combine_music_iterator const &);
   virtual void construct_children ();
   virtual Moment pending_moment () const;

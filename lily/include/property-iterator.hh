@@ -22,7 +22,7 @@ class Property_iterator : public Simple_music_iterator
 {
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
-  static SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
   /* construction */
 protected:
   virtual void process (Moment);
@@ -38,7 +38,7 @@ class Property_unset_iterator : public Simple_music_iterator
 {
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
-  static SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
   /* construction */
 protected:
   virtual void process (Moment);
@@ -48,7 +48,7 @@ class Push_property_iterator : public Simple_music_iterator
 {
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
-  static SCM constructor_cxx_function;  
+  DECLARE_SCHEME_CALLBACK(constructor, ());  
 protected:
   /* construction */
   virtual void process (Moment);
@@ -57,7 +57,7 @@ protected:
 class Pop_property_iterator : public Simple_music_iterator
 {
 public:
-  static SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
   VIRTUAL_COPY_CONS (Music_iterator);
 protected:
   /* construction */

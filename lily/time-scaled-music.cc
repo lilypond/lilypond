@@ -14,7 +14,7 @@ Time_scaled_music::Time_scaled_music (SCM l)
   : Music_wrapper (l)
 {
   set_mus_property ("iterator-ctor",
-		    Time_scaled_music_iterator::constructor_cxx_function);
+		    Time_scaled_music_iterator::constructor_proc);
   
 }
 

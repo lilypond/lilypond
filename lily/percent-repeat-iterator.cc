@@ -24,6 +24,9 @@ Percent_repeat_iterator::Percent_repeat_iterator (Percent_repeat_iterator const 
 {
   child_iter_ = p.child_iter_ ? p.child_iter_->clone (): 0;
   finish_mom_ = p.finish_mom_ ;
+
+  if(child_iter_)
+    scm_gc_unprotect_object (child_iter_->self_scm());
 }
 
 bool
@@ -37,7 +40,7 @@ Percent_repeat_iterator::construct_children ()
 {
   Repeated_music * mus =dynamic_cast<Repeated_music *> (get_music ());
   finish_mom_ = mus->length_mom ();
-  child_iter_ = get_iterator (mus->body ());
+  child_iter_ = unsmob_iterator (get_iterator (mus->body ()));
 }
 
 
@@ -58,7 +61,6 @@ Percent_repeat_iterator::process (Moment m)
 
   if (finish_mom_ <= m )
     {
-      delete child_iter_;
       child_iter_ = 0;
     }
 }
@@ -78,8 +80,9 @@ Percent_repeat_iterator::try_music_in_children (Music *m) const
   return child_iter_->try_music (m);
 }
 
-
-Percent_repeat_iterator::~Percent_repeat_iterator ()
+void
+Percent_repeat_iterator::derived_mark()const
 {
-  delete child_iter_;
+  if (child_iter_)
+    scm_gc_mark (child_iter_->self_scm());
 }

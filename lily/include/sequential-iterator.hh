@@ -54,10 +54,10 @@ public:
   Grace_fixup * grace_fixups_;
   
   VIRTUAL_COPY_CONS (Music_iterator);
-  static SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
   Sequential_iterator ();
   Sequential_iterator (Sequential_iterator const&);
-  virtual ~Sequential_iterator ();
+  virtual void derived_mark () const;
 
   virtual void construct_children ();
   virtual Moment pending_moment () const;

@@ -19,7 +19,7 @@ public:
   VIRTUAL_COPY_CONS (Music_iterator);
   Lyric_combine_music_iterator ();
   Lyric_combine_music_iterator (Lyric_combine_music_iterator const&src);
-  static SCM constructor_cxx_function;
+  DECLARE_SCHEME_CALLBACK(constructor, ());
 protected:
   virtual void construct_children ();
   virtual Moment pending_moment () const;
@@ -27,8 +27,7 @@ protected:
   virtual Music_iterator *try_music_in_children (Music *) const;
   
   virtual bool ok () const;
-  virtual ~Lyric_combine_music_iterator ();
-
+  virtual void derived_mark () const;
 private:
   bool get_busy_status ()const ;
   Music_iterator * music_iter_;

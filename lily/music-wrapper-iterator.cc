@@ -18,23 +18,24 @@ Music_wrapper_iterator::Music_wrapper_iterator ()
 Music_wrapper_iterator::Music_wrapper_iterator (Music_wrapper_iterator const &src)
   : Music_iterator (src)
 {
+  child_iter_ = (src.child_iter_) ? src.child_iter_->clone () : 0;
   if (src.child_iter_)
-    child_iter_ = src.child_iter_->clone ();
-  else
-    child_iter_ = 0;
+    scm_gc_unprotect_object (child_iter_->self_scm());
 }
 
-Music_wrapper_iterator::~Music_wrapper_iterator ()
+void
+Music_wrapper_iterator::derived_mark()const
 {
-  delete child_iter_;
+  if (child_iter_)
+    scm_gc_mark (child_iter_->self_scm());
 }
 
 
 void
 Music_wrapper_iterator::construct_children ()
 {
-  child_iter_ =
-    get_iterator (dynamic_cast<Music_wrapper const*> (get_music ())->element ());
+  Music * m =  dynamic_cast<Music_wrapper const*> (get_music ())-> element();  
+  child_iter_ = unsmob_iterator (get_iterator (m));
 }
 
 bool
