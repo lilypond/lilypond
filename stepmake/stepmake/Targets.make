@@ -24,35 +24,8 @@ maintainerclean:
 	$(MAKE)	local-maintainerclean
 	$(MAKE) local-distclean
 
-new-po:
-	if test -r $(po-dir); then \
-	  rm -f $(po-dir)/$(outdir)/$(package).po; \
-	  touch $(po-dir)/$(outdir)/$(package).po; \
-	fi
+include $(stepdir)/Po.make
 
-ifeq ($(strip $(depth)),.)
-po: new-po
-	$(LOOP)
-localpo:
-	@true
-else
-po: localpo
-	$(LOOP)
-ALL_PO_SOURCES = $(ALL_C_SOURCES) $(wildcard $(outdir)/*.hh) $(wildcard $(outdir)/*.cc)
-localpo:
-ifneq ($(strip $(ALL_PO_SOURCES)),)
-	@echo $(ALL_PO_SOURCES)
-	xgettext --c++ --default-domain=$(package) --join \
-	 --output-dir=$(po-dir)/$(outdir) --add-comments \
-	 --keyword=_ --keyword=_f $(ALL_PO_SOURCES)
-endif
-endif
-
-po-update: po
-	$(MAKE) -C $(po-dir) po-update
-
-show-po-changes:
-	$(MAKE) -C $(po-dir) show-po-changes
 
 # configure:
 #
@@ -120,7 +93,8 @@ check-state-vector:
 	fi
 
 
-localdist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
+local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
+	mkdir $(distdir)/$(localdir)
 	$(LN) $(DIST_FILES) $(distdir)/$(localdir)
 
 #UGH UGH . make ifdef doesn't mix with string substitution semantics (late expansion vs. early expansion)
@@ -132,8 +106,7 @@ localdist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
 		mkdir $(distdir)/$(localdir)/out; \
 		$(LN) $(OUT_DIST_FILES) $(distdir)/$(localdir)/out; \
 	fi
-	$(foreach i, $(SUBDIRS), mkdir $(distdir)/$(localdir)/$(i); \
-	    $(MAKE) distdir=../$(distdir) localdir=$(localdir)/$(i) -C $(i) localdist &&) true
+	$(foreach i, $(SUBDIRS), $(MAKE) distdir=../$(distdir) localdir=$(localdir)/$(i) -C $(i) local-dist &&) true
 
 
 
@@ -176,7 +149,7 @@ uninstall: localuninstall
 localuninstall:
 
 installextradoc:
-	$(INSTALL) -d $(prefix)/doc/$(package)
+	-$(INSTALL) -d $(prefix)/doc/$(package)
 	$(foreach i, $(EXTRA_DOC_FILES),\
 		cp -r $(i) $(prefix)/doc/$(package) &&) true
 
@@ -192,3 +165,8 @@ $(outdir)/dummy.dep:
 	-mkdir $(outdir)
 	touch $(outdir)/dummy.dep
 
+
+check: local-check
+	$(LOOP)
+
+local-check:

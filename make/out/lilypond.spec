@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.0.1
+Version: 1.0.2
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: pcnov095.win.tue.nl:/pub/lilypond/development/lilypond-1.0.1.tar.gz
+Source0: pcnov095.win.tue.nl:/pub/lilypond/development/lilypond-1.0.2.tar.gz
 Summary: A program for typesetting music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>

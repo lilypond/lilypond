@@ -6,12 +6,24 @@ done, or is an idea that I want to think about
 
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
-       * fix plain tex footer line.
 
-      * portable libs for flowerlib/lilylib
+	* fix plain tex footer line.
 
-       * install TeX stuff into tex/generic directory.
+	* portable libs for flowerlib/lilylib
 
+	* install TeX stuff into tex/generic directory.
+
+	* preformatted .info stuff.
+
+	* percussion note heads
+
+	* mi2mu empty staffs.
+
+	* include MIDI list 
+
+	* make separate translation property list.
+
+	* key undo.
 
 	* make GNU style webpages.
 
@@ -20,13 +32,6 @@ grep for TODO and ugh/ugr/urg
 	/usr/local/share/lilypond directory.  The files installed are of
 	the form feta*.ly.  In particular init.ly doesn't get installed.
 	I installed the files by hand and then the system seems to work.
-
-	* I things it's more than appropriate for an GNU project to ship Info
-	files (and manpages) with the source package.  The "Standard" tells to
-	do so (ftp://ftp.gnu.org/pub/gnu/standards/standards.text):
-
-
-	* a `make check' target (without installing stuff!)
 
 	* midi_instrument -> midiInstrument
 

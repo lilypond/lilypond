@@ -39,7 +39,7 @@ $(outdir)/$(package).info: check-texinfo-deps $(OUTTEXINFO_FILES)
 	$(MAKEINFO) -o $@ $(outdir)/topinfo.texinfo
 
 localinstall: # $(INFO_FILES)
-	$(INSTALL) -d $(infodir)
+	-$(INSTALL) -d $(infodir)
 	$(INFOINSTALL)
 localuninstall:
 	$(INFOINSTALL)

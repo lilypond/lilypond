@@ -4,11 +4,11 @@
 #
 
 Name: lilypond-docs
-Version: 1.0.1
+Version: 1.0.2
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: pcnov095.win.tue.nl:/pub/lilypond/development/lilypond-1.0.1.tar.gz
+Source0: pcnov095.win.tue.nl:/pub/lilypond/development/lilypond-1.0.2.tar.gz
 Summary: A program for typesetting music (documentation)
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -29,7 +29,7 @@ a nice font of musical symbols.
 This package contains the documentation in HTML and PS format.
 
 %prep
-%setup  -T -n lilypond-1.0.1 -b0
+%setup  -T -n lilypond-1.0.2 -b0
 %build
 
 #
@@ -42,11 +42,11 @@ make htmldocs
 %install
 
 # ln /home/hanwen/usr/src/lilypond/out/htmldoc.tar.gz out/
-mkdir -p $RPM_BUILD_ROOT/usr/doc/lilypond-1.0.1 
-tar -C $RPM_BUILD_ROOT/usr/doc/lilypond-1.0.1 -xzf out/htmldoc.tar.gz 
+mkdir -p $RPM_BUILD_ROOT/usr/doc/lilypond-1.0.2 
+tar -C $RPM_BUILD_ROOT/usr/doc/lilypond-1.0.2 -xzf out/htmldoc.tar.gz 
 
 %files
 
-%doc /usr/doc/lilypond-1.0.1
+%doc /usr/doc/lilypond-1.0.2
 
 %post

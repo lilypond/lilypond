@@ -18,9 +18,9 @@ localinstall: installexe
 localuninstall: uninstallexe
 
 installexe: all
-	$(INSTALL) -d $(bindir)
+	-$(INSTALL) -d $(bindir)
 	$(foreach a, $(EXECUTABLES), \
-		$(INSTALL) -m 755 $(outdir)/$(a) $(bindir)/$(a)$(DOTEXE) && \
+		$(INSTALL) -m 755 $(outdir)/$(a)$(DOTEXE) $(bindir)/$(a)$(DOTEXE) && \
 		strip $(bindir)/$(a)$(DOTEXE) && ) true
 	$(foreach a, $(SEXECUTABLES), \
 		$(INSTALL) -m 755 $(outdir)/$(a) $(bindir) &&) true

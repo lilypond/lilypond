@@ -31,8 +31,8 @@ For your convenience, a formatted copy of the INSTALL instructions are
 in the toplevel directory, as INSTALL.txt
 
 The process is fairly straightforward, but chances are that you have
-to specify directories for TeX to configure (--enable-tex-dir,
---enable-mf-dir)
+to specify directories for TeX to configure: this is done with
+the options --enable-tex-dir and --enable-mf-dir
 
 4: DOCUMENTATION
 
@@ -45,9 +45,7 @@ and then do this:
 
 You can also simply read the .yo sources.  They are ASCII text.
 The complete documentation is accessible in formatted form at the 
-website
-
-        http://www.cs.uu.nl/people/hanwen/lilypond/index.html
+website http://www.cs.uu.nl/people/hanwen/lilypond/index.html
 
 5: COMMENTS
 
@@ -63,8 +61,7 @@ and not to us personally.  See Documentation/links.yo for more info.
 If you have received this file as part of a DOS/Window32 distribution
 (lilypond-*.zip), then it is advisable to also download the source
 package, since it might contain more documentation
-
-	ftp://pcnov095.win.tue.nl/pub/lilypond/ (Europe)
+ftp://pcnov095.win.tue.nl/pub/lilypond/
 
 If you decide to build LilyPond from source, please read the INSTALL.txt
 document first, especially the Windows NT/95 section.
@@ -76,8 +73,7 @@ Linux-Intel unix users.
 
 * If you have installed a previous version, be sure to remove old font
 files, eg
-
-        rm `find /var/lib/texmf/fonts -name 'feta*'`
+rm `find /var/lib/texmf/fonts -name 'feta*'`
 
 a script to do this for you is in bin/cleanfonts.sh
 

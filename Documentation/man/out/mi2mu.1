@@ -1,0 +1,68 @@
+.TH "LilyPond" "1" "1998" "Mi2mu" "The LilyPond package" 
+.PP 
+.PP 
+.PP 
+.SH "NAME" 
+Mi2mu \- convert MIDI to \fBmudela\fP(5)
+.PP 
+.PP 
+.SH "DESCRIPTION" 
+Mi2mu translates a MIDI input file to Mudela (GNU LilyPond source
+format)\&.  Mi2mu is part of the GNU LilyPond music typesetting package\&.
+.PP 
+manpagessynopsis()
+.PP 
+mi2mu [options] midi-file
+.PP 
+.SH "OPTIONS" 
+.PP 
+.IP "-b, --no-quantify," 
+Write exact durations, e\&.g\&.: `a4*385/384\'\&.
+.IP "-D, --debug," 
+Print lots of debugging stuff\&.
+.IP "-h, --help," 
+Show a summary of usage\&.
+.IP "-I, --include=\fBDIR\fP," 
+Add DIR to search path\&.
+.IP "-k, --key=ACC[:MINOR]," 
+Set default key\&.  ACC > 0 sets number of sharps; ACC < 0 sets number 
+of flats\&.  A minor key is indicated by ":1"\&.
+.IP "-n, --no-silly," 
+Assume no plets or double dots, assume smallest (reciprocal) duration 16\&.
+.IP "-o, --output=\fBFILE\fP," 
+Set \fBFILE\fP as default output\&.
+.IP "-p, --no-plets," 
+Assume no plets\&.
+.IP "-q, --quiet," 
+Be quiet\&.
+.IP "-s, --smallest=N," 
+Assume no shorter (reciprocal) durations than N\&.
+.IP "-v, --verbose," 
+Be verbose\&.
+.IP "-w, --warranty," 
+Show the warranty with which mi2mu comes\&. (It comes with \fBNO WARRANTY\fP!)
+.IP "-x, --no-double-dots," 
+Assume no double dotted notes\&.
+.PP 
+.SH "DISCLAIMER" 
+.PP 
+Mi2mu is copyright 1996, 1997 by its authors\&. Mi2mu is distributed 
+as part of GNU LilyPond, under the terms of the GNU General Public
+License\&.  Mi2mu is provided without any warranty what so ever\&.
+Mi2mu may be freely distributed\&.  For further information consult
+the GNU General Public License, from the file \fBCOPYING\fP\&.
+.PP 
+.SH "SEE ALSO" 
+.PP 
+.IP "\fBlilypond\fP(1)" 
+The GNU LilyPond music typesetter\&.
+.IP "mudela-man" 
+On the input format\&. This is a LilyPond-enhanced LaTeX document\&.
+.PP 
+.SH "AUTHOR" 
+.PP 
+Please consult the documentation file \fBAUTHORS\fP for more detailed
+information, and small contributions\&. 
+.PP 
+Jan Nieuwenhuizen <janneke@gnu\&.org>, http://www\&.xs4all\&.nl/~jantien
+.PP 

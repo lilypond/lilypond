@@ -33,7 +33,7 @@ def program_id ():
 	return '%s version %s' %(program_name,  version);
 
 def identify ():
-	sys.stdout.write (program_id () + '\n')
+	sys.stderr.write (program_id () + '\n')
 
 def gulp_file(f):
 	try:

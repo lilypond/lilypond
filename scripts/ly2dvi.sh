@@ -618,9 +618,6 @@ if [ "$SOURCEDIR" != "" ]; then
 	export TEXINPUTS="$SOURCEDIR/tex:$TEXINPUTS:"
 	export MFINPUTS="$SOURCEDIR/mf:$MFINPUTS:"
 	export LILYPOND_EXECUTABLE="$SOURCEDIR/lily/out/lilypond"
-
-	set|grep MF
-	set|grep TEXIN
 fi
 
 #

@@ -13,7 +13,9 @@ MANGROFF = $(addprefix $(outdir)/, $(addsuffix .$(SECTION),$(basename $(YO_FILES
 
 OUTTEXINFO_FILES= $(addprefix $(outdir)/, $(addsuffix .texinfo,$(basename $(YO_FILES) .yo)))
 
-default: $(MANTXT) $(MANGROFF)
+OUT_DIST_FILES += $(MANGROFF)
+
+default: $(MANGROFF)
 
 texinfo: $(OUTTEXINFO_FILES)
 

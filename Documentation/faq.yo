@@ -253,15 +253,19 @@ doubt if a simple-minded approach (dragging and dropping notes) is any
 easier or quicker to use than mudela.  But for composing a graphical
 environment probably is indispensable.
 
-In any case email(Derek Wyatt)(wyatt@?.edu) is working on embryonal GTK
-based editor.  There also a GUI package RoseGarden that could be
-extended to output mudela.
+In any case email(Derek Wyatt)(wyatt@scar.utoronto.edu) is working on
+GTK based editor, but that is still in an embryonal stage (see
+lurl(http://harmonia.scar.utoronto.ca).  There is also a GUI package
+RoseGarden that could be extended to output mudela.
+
+If you want to work on this, please send e-mail to the mailing list
+email(gnu-misc-discuss@gnu.org).
 
 
 question(I want to implement XXXX!  How should I do this?)
 
-Your best bet of getting me to include code, is to present it as a
-"fait accompli", i.e., to send me a patch.
+Your best bet of getting us to include code, is to present it as a
+"fait accompli", i.e., to send a patch to the mailing list.
 
 
 question(I made some code, how do I get you to include it?)

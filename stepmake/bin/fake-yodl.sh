@@ -30,4 +30,5 @@ fi
 echo Faking Yodl: copying $1 to $OUTPUT
 
 
-cp $1 $OUTPUT
+echo THIS IS A SURROGATE. Please install YODL for a formatted document  > $OUTPUT
+cat $1 >> $OUTPUT

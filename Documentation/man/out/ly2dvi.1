@@ -1,0 +1,168 @@
+.TH "LilyPond" "1" "1998" "The LilyPond package" "Ly2dvi" 
+.PP 
+.PP 
+.SH "NAME" 
+Ly2dvi \- convert mudela to DVI
+.PP 
+.PP 
+.SH "DESCRIPTION" 
+ly2dvi is a shell script which creates input file for LaTeX,
+based on information from the output files from lilypond\&.
+The script handles multiple files\&. If a mudela file name is
+specified lilypond is run to make an output (TeX) file\&.
+.PP 
+One or more LaTeX files are created, based on information found
+in the output (TeX) files, and latex is finally run to create
+one or more DVI files\&.
+.PP 
+.SH "SYNOPSIS" 
+.PP 
+ly2dvi [options] inputfile[\&.ly] [\&.\&.\&.\&.]
+.PP 
+.SH "OPTIONS" 
+.PP 
+.IP "-D,--debug" 
+Set debug mode\&. There are two levels - in level one some debug
+info is written, in level two the command \fBset -x\fP is run, which
+echoes every command in the ly2dvi script\&.
+.IP "-F,--headers=" 
+Name of additional LaTeX headers file\&. This is included in the
+tex file at the end of the headers, last line before \f(CW\ebegin{document}\fP
+.IP "-H,--Heigth=" 
+Set paper heigth (points)\&. Used together with width and LaTeX name of
+papersize in case of papersize unknown to ly2dvi\&.
+.IP "-F,--headers=" 
+Name of additional LaTeX headers file\&. This is included in the
+tex file at the end of the headers, last line before \f(CW\ebegin{document}\fP
+.IP "-K,--keeplilypond" 
+Keep LilyPond output after the run\&.
+.IP "-L,--landscape" 
+Set landscape orientation - portrait is the default\&.
+(\fB-L\fP produces \f(CW\eusepackage[landscape]{article}\fP)
+.IP "-N,--nonumber" 
+Switch off page numbering\&.
+.IP "-O,--orientation=" 
+Set orientation landscape - obsolete, use \fB-L\fP instead\&.
+.IP "-W,--Width=" 
+Set paper width (points)\&. Used together with heigth and LaTeX name of
+papersize in case of papersize unknown to ly2dvi\&.
+.IP "-d,--dependencies" 
+Tell lilypond to make dependencies file\&.
+.IP "-h,--help" 
+Print help\&.
+.IP "-k,--keeply2dvi" 
+Keep the LaTeX file after the run\&.
+.IP "-l,--language=" 
+Specify LaTeX language\&.
+(\fB-l norsk\fP produces \f(CW\eusepackage[norsk]{babel}\fP)\&.
+.IP "-o,--output=" 
+Set output directory\&.
+.IP "-p,--papersize=" 
+Specify papersize\&.
+(\fB-p a4\fP produces \f(CW\eusepackage[a4paper]{article}\fP)
+.IP "-s,--separate" 
+Normally all output files are included into one LaTeX file\&.
+With this switch all files are run separately, to produce one
+DVI file for each\&.
+.PP 
+.SH "Features" 
+.PP 
+ly2dvi responds to several parameters specified in the mudela
+file\&. They are overridden by corresponding command line options\&.
+.PP 
+.IP "language="";" 
+Specify LaTeX language
+.IP "latexheaders="";" 
+Specify additional LaTeX headers file
+.IP "orientation="";" 
+Set orientation\&.
+.IP "paperlinewidth="";" 
+Specify the width (pt, mm or cm) of the printed lines\&.
+.IP "papersize="";" 
+Specify name of papersize\&.
+.PP 
+.SH "Environment" 
+.PP 
+.IP "LILYINCLUDE" 
+Additional directories for input files\&.
+.IP "TMP" 
+Temporary directory name\&. Default is /tmp
+.PP 
+.SH "Files" 
+.PP 
+\fBtitledefs\&.tex\fP is inspected for definitions used to extract
+additional text definitions from the mudela file\&. In the current
+version the following are defined:
+.PP 
+.IP "title" 
+The title of the music\&. Centered on top of the first page\&.
+.IP "subtitle" 
+Subtitle, centered below the title\&.
+.IP "composer" 
+Name of the composer, rightflushed below the subtitle\&.
+.IP "arranger" 
+Name of the arranger, rightflushed below the composer\&.
+.IP "instrument" 
+Name of the instrument, leftflushed at same level as the composer\&.
+.PP 
+\fB/usr/local/share/lilyrc /etc/lilyrc $HOME/\&.lilyrc \&./\&.lilyrc\fP
+are files to set up default running conditions/variables, Bourne shell
+syntax\&. All files are parsed, in the shown sequence\&. The variables are
+overridden by variables in the mudela file, and by command line options\&.
+In the current version the following are allowed:
+.PP 
+.IP "LANGUAGE=" 
+Specify LaTeX language\&.
+.IP "LATEXHF=" 
+Specify additional LaTeX headers file
+.IP "LILYINCLUDE=" 
+Additional directories for input files\&.
+.IP "ORIENTATION=" 
+Set orientation - portrait is the default\&.
+.IP "OUTPUTDIR=" 
+Set output directory\&.
+.IP "PAPERSIZE=" 
+Specify name of papersize\&.
+.IP "PHEIGTH=" 
+Specify paperheight (points - an inch is 72\&.27, a cm is 28\&.453 points)\&.
+.IP "TMP=" 
+Temporary directory name\&.
+.IP "PWIDTH=" 
+Specify paperwidth (points - an inch is 72\&.27, a cm is 28\&.453 points)\&.
+.PP 
+.SH "See Also" 
+.PP 
+lilypond(1), tex(1), latex(1)
+.PP 
+.SH "Bugs" 
+.PP 
+If you have found a bug, you should send a bugreport\&.
+.PP 
+.IP o 
+Send a copy of the input which causes the error\&.
+.IP o 
+Send a description of the platform you use\&.
+.IP o 
+Send a description of the LilyPond and ly2dvi version you use\&.
+.IP o 
+Send a description of the bug itself\&.
+.IP o 
+Send it to bug-gnu-music@gnu\&.org <bug-gnu-music@gnu\&.org> (you don\'t have to subscribe
+to this mailinglist)\&.
+.PP 
+.SH "Remarks" 
+.PP 
+Many papersizes are now supported\&. Information on other sizes
+(LaTeX names, horizontal and vertical sizes) should be mailed to
+the author or to the mailing list\&.
+.PP 
+Supported papersizes are:
+.PP 
+a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, archA, archB, archC, archD,
+archE, b0, b1, b2, b3, b4, b5, flsa, flse, halfletter, ledger, legal,
+letter, note
+.PP 
+.SH "AUTHOR" 
+.PP 
+Jan Arne Fagertun <Jan\&.A\&.Fagertun@energy\&.sintef\&.no>, http://www\&.termo\&.unit\&.no/mtf/people/janaf/
+.PP 

@@ -3,7 +3,7 @@
 MANGROFF = $(addprefix $(outdir)/, $(addsuffix .$(SECTION)))
 
 localinstall: $(MANGROFFS)
-	$(INSTALL) -d $(mandir)/man$(SECTION)
+	-$(INSTALL) -d $(mandir)/man$(SECTION)
 	$(INSTALL) -m 644 $(MANGROFFS) $(mandir)/man$(SECTION)
 
 

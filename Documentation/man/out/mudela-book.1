@@ -1,0 +1,59 @@
+.TH "LilyPond" "1" "1998" "The LilyPond package" "mudela-book" 
+.PP 
+.PP 
+.PP 
+.SH "NAME" 
+mudela-book \- integrate LaTeX and mudela
+.PP 
+.PP 
+.SH "DESCRIPTION" 
+\fBmudela-book\fP is a script that helps
+integrating mudela and \&.  mudela-book runs LilyPond on
+fragments of mudela in your source file, and includes the results into
+document that can be processed with \&.  The result is a text
+document with formatted music integrated\&.
+.PP 
+If the file contains the ``block\'\'
+.PP 
+
+.DS 
+ 
+
+        \ebegin{mudela}
+        CONTENTS
+        \eend{mudela}
+
+.DE 
+ 
+
+.PP 
+then LilyPond is run on CONTENTS\&.  mudela-book puts the result back,
+surrounded by \f(CW\epreMudelaExample\fP and \f(CW\epostMudelaExample\fP
+commands\&. The \f(CW\ebegin\fP takes the following options:
+.PP 
+.IP "fragment" 
+mudela-book adds some redtape\&. You
+can substitute voice-contents for CONTENTS in this case\&.
+.IP "verbatim" 
+CONTENTS is copied into the TeX source enclosed in a verbatim block\&.
+.PP 
+.SH "Synopsis" 
+.PP 
+.IP "--outname" 
+The name of  file to output\&. If this option  is not given,
+the output name derived from the input name\&.  The extension \fB\&.doc\fP
+is stripped, and \f(CW\&.mudtex\fP appended\&.
+.IP "--outdir" 
+The directory to output lilypond output and input to\&.
+.IP "--help" 
+print a short help message
+.PP 
+.SH "BUGS" 
+.PP 
+Doesn\'t handle incorrect input sanely\&.   mudela-book is written in
+python, so you have install python\&.
+.PP 
+.SH "AUTHOR" 
+.PP 
+Han-Wen Nienhuys <hanwen@cs\&.uu\&.nl>, http://www\&.cs\&.uu\&.nl/people/hanwen
+.PP 
