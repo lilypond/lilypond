@@ -47,7 +47,7 @@ else:
 sys.path.append (os.path.join (datadir, 'python'))
 sys.path.append (os.path.join (datadir, 'python/out'))
 
-program_name = 'mup2ly'
+program_name = sys.argv[0]
 program_version = '@TOPLEVEL_VERSION@'
 original_dir = os.getcwd ()
 temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)

@@ -1,3 +1,21 @@
+2004-09-08  Pedro Kroger  <kroeger@pedrokroeger.net>
+
+	* scripts/convert-ly.py (program_name): changed to sys.argv[0]
+
+	* scripts/abc2ly.py (program_name): changed to sys.argv[0]
+
+	* scripts/etf2ly.py (program_name): changed to sys.argv[0]
+
+	* scripts/lilypond-book.py (program_name): changed to sys.argv[0]
+
+	* scripts/lilypond-latex.py (program_name): changed to sys.argv[0]
+
+	* scripts/midi2ly.py (program_name): changed to sys.argv[0]
+
+	* scripts/mup2ly.py (program_name): changed to sys.argv[0]
+
+	* scripts/ps2png.py (program_name): changed to sys.argv[0]
+
 2004-09-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-gnome.scm (placebox): Shield affine-relative.
