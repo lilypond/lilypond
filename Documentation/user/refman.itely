@@ -4388,6 +4388,10 @@ you can force an invisible bar line by entering @code{\bar
 ""}. Similarly, @code{\noBreak} forbids a line break at a certain
 point.
 
+
+@cindex regular line breaks
+@cindex four bar music. 
+
 If you want linebreaks at regular intervals, you can use the following:
 @example
 <  \repeat 7 unfold @{ s1 * 4 \break  @}

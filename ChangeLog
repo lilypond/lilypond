@@ -1,3 +1,13 @@
+2002-08-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/rhythm-excercise.ly: new file
+
+	* input/test/blank-notes.ly: new file
+
+	* lily/note-head.cc (head_extent): robustness fix.
+	
+	* Documentation/user/preface.itely: add some more.
+
 2002-08-04  Rune Zedeler <rune@zedeler.dk>
 
 	* Documentation/user/refman.itely
