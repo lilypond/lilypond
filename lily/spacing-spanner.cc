@@ -57,6 +57,13 @@ public:
 /*
   Return whether COL is fixed to its neighbors by some kind of spacing
   constraint.
+
+  
+  If in doubt, then we're not loose; the spacing engine should space
+  for it, risking suboptimal spacing.
+  
+  (Otherwise, we might risk core dumps, and other weird stuff.)
+
 */
 static bool
 loose_column (Grob *l, Grob *c, Grob *r) 
@@ -104,6 +111,19 @@ loose_column (Grob *l, Grob *c, Grob *r)
     return false;
 
 
+  
+  /*
+    Only declare loose if the bounds make a little sense.  This means
+    some cases (two isolated, consecutive clef changes) won't be
+    nicely folded, but hey, then don't do that.
+  */
+  if(!  ((Paper_column::musical_b (l_neighbor) || Item::breakable_b (l_neighbor))
+	 && (Paper_column::musical_b (r_neighbor) || Item::breakable_b (r_neighbor))) )
+    {
+      return false;
+    }
+
+
   /*
     A rather hairy check, but we really only want to move around clefs. (anything else?)
 
@@ -119,32 +139,16 @@ loose_column (Grob *l, Grob *c, Grob *r)
 	    {
 	      Grob *h = unsmob_grob (gh_car (s));
 
-	      if (h  && h->get_grob_property ("break-align-symbol") == ly_symbol2scm ("bar-line"))
+	      /*
+		ugh. -- fix staff-bar name? 
+	       */
+	      if (h  && h->get_grob_property ("break-align-symbol") == ly_symbol2scm ("staff-bar"))
 		return false;
 	    }
 	}
     }
   
-  /*
-    Only declare loose if the bounds make a little sense.  This means
-    some cases (two isolated, consecutive clef changes) won't be
-    nicely folded, but hey, then don't do that.
-  */
-  if ((Paper_column::musical_b (l_neighbor) || Item::breakable_b (l_neighbor))
-      && (Paper_column::musical_b (r_neighbor) || Item::breakable_b (r_neighbor)))
-    {
-      return true;
-    }
-
-
-  /*
-    If in doubt: we're not loose; the spacing engine should space for
-    it, risking suboptimal spacing.
-
-    (Otherwise, we might risk core dumps, and other weird stuff.)
-
-  */
-  return false;
+  return true;
 }
 
 /*
