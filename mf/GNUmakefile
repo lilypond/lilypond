@@ -10,7 +10,7 @@ EXTRA_DIST_FILES += README feta.tex
 
 # We don't use $(MF_FILES), because there's more .mf cruft here
 FETA_MF_FILES = $(wildcard feta[0-9]*.mf)\
-	$(wildcard feta-braces*[0-9].mf)\
+	$(wildcard feta-braces-[a-z].mf)\
 	$(wildcard feta-din*[0-9].mf)\
 	$(wildcard feta-nummer*[0-9].mf)\
 	$(wildcard parmesan[0-9]*.mf)

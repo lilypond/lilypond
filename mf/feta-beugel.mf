@@ -3,24 +3,12 @@
 input feta-autometric;
 input feta-macros;
 
-staffsize# := 20 pt#;  %% arbitrary.
+staffsize#  := 20 pt#;  %% arbitrary.
 
 
 input feta-params;
 
 font_coding_scheme "feta braces";
-
-% we set the designsize arbitrarily at 10
-% if the * 10 is left out, pktrace gets confused  over the proper magnification,
-% and makes it too large.
-fet_beginfont("feta-braces", font_count * 10);
-
-mode_setup;
-
-
-
-save code;
-code := -1;
 
 
 def abc_encode_int (expr i) =
@@ -30,6 +18,20 @@ def abc_encode_int (expr i) =
 		"A"
 	fi
 enddef ;
+
+% we set the designsize arbitrarily at 10
+
+design_size := 10;
+
+fet_beginfont("feta-braces-" &char(97 + font_count), design_size);
+
+mode_setup;
+
+
+
+save code;
+code := -1;
+
 
 def draw_brace (expr height_sharp, width_sharp, slt_sharp) =
 
