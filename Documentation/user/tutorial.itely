@@ -1280,7 +1280,7 @@ put into the @code{\score} block as follows; in this case, the name of
 each piece will be printed before each movement:
 
 
-@cindex Lily was here
+@cindex Engraved by LilyPond
 @cindex signature line
 @cindex tag line
 
