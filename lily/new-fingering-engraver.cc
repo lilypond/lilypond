@@ -197,7 +197,7 @@ New_fingering_engraver::position_scripts ()
     {
       if (!up.size())
 	up.push (fingerings_.pop());
-      if (!down.size())
+      if (fingerings_.size () && !down.size())
 	{
 	  down.push (fingerings_[0]);
 	  fingerings_.del(0);
@@ -222,7 +222,7 @@ New_fingering_engraver::position_scripts ()
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, Y_AXIS);
       f->add_offset_callback (Side_position_interface::aligned_side_proc, X_AXIS);
 
-      f->set_grob_property( "direction", fhd);
+      f->set_grob_property ("direction", fhd);
       typeset_grob (f);
     }
 

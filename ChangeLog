@@ -1,5 +1,8 @@
 2003-08-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/new-fingering-engraver.cc (position_scripts): don't crash
+	for borderline cases (e.g. 1 fingering.)
+
 	* scm/document-translation.scm (context-doc): add aliases to
 	automated documentation.
 
@@ -37,7 +40,7 @@
 
 	* input/regression/breathing-sign.ly: changed ancient examples to
 	be relevant (by request of Han-Wen); updated BreathingSign text
-	property according to new syntax
+	property according to new syntax.
 
 	* ly/gregorian-init.ly: updated BreathingSign text property
 	according to new syntax

@@ -792,12 +792,17 @@ such as keys, clefs and time signatures.
 
 @cindex adjusting staff symbol
 @cindex StaffSymbol, using \property
-@cindex staff lines, setting number of
 
 Notes, dynamic signs, etc. are grouped
 with a set of horizontal lines, into a staff (plural `staves'). In our
 system, these lines are drawn using a separate layout object called
 staff symbol.  
+
+
+@cindex staff lines, setting number of
+@cindex staff lines, setting thickness of
+@cindex thickness of staff lines, setting 
+@cindex number of staff lines, setting 
 
 This object is created whenever a @internalsref{Staff} context is
 created.  The appearance of the staff symbol cannot be changed by
