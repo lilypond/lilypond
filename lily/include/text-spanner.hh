@@ -15,15 +15,16 @@
   triplets, eentweetjes, ottava, etc.  */
 class Text_spanner : public Spanner {
 public:
-    Directional_spanner * support;
+    Directional_spanner * support_span_l_;
     General_script_def * spec_p_;
     Offset text_off_;
     NAME_MEMBERS();
 
     void set_support(Directional_spanner*);
     Text_spanner();
+    Text_spanner(Text_spanner const&);
 protected:
-    SCORE_ELEM_CLONE(Text_spanner)
+    SCORE_ELEM_CLONE(Text_spanner);
     ~Text_spanner();
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);
     virtual void do_pre_processing();
