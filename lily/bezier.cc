@@ -33,7 +33,7 @@
 
 
 /*
-  UGH. Clean up debugging junk.
+  UGH. Remove debugging junk.
   */
 
 
@@ -232,7 +232,6 @@ Bezier_bow::calc_f (Real height)
 {
   transform ();
   calc_default (height);
-
   calc_bezier ();
 
   Real dy = check_fit_f ();

@@ -59,7 +59,9 @@ Score::run_translator (Music_output_def *odef_l)
   *mlog << '\n' << _("Interpreting music...") << flush;
   trans_p->last_mom_ = music_p_->length_mom ();
 
-  Music_iterator * iter = Music_iterator::static_get_iterator_p (music_p_);
+
+  bool playing  =  odef_l->scope_p_->elem_b ("unfold_all");
+  Music_iterator * iter = Music_iterator::static_get_iterator_p (music_p_, playing);
   iter->init_translator(music_p_, trans_p);
 
   iter->construct_children();

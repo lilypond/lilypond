@@ -8,13 +8,7 @@
 % note the ! sign.  See dvips.info for details.
 %
 
-% Use of 
-% /foo { operatorname } bind def
-%
-% ``compiles'' operatorname binding in the body of foo, making
-% the code faster, and more reliable (less flexible)
-
-
+% ARG. Fix brackets
 \def\turnOnPostScript{%
         % This sets CTM so that you get to the currentpoint
         % by executing a 0 0 moveto
@@ -23,7 +17,7 @@
         }
         %
         \special{! 
-/stafflinethickness \mudelapaperstaffline\space def
+/stafflinethickness \mudelapaperstafflinethickness\space def
 /interline \mudelapaperinterline\space def
 interline 3 div /bracket_b exch def
 interline 2 mul /bracket_w exch def

@@ -566,7 +566,7 @@ vla=\notes\relative c' {
 \property Staff."midiInstrument" = "viola"
 
 [c8. \f ( d16 ] ) c2_"dim." |
-\context Staff <{\voiceone s4 c2 |
+\context Staff <{\voiceone [c8. d16 ] c2 |
   c2. ~ |
   c2. ~ |
   c2. ~ |

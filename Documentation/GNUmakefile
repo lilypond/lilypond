@@ -1,24 +1,15 @@
-# Documentation/Makefile
-
 depth = ..
 
 NAME = documentation
-SUBDIRS= user metadoc bibliography pictures topdocs ntweb
+SUBDIRS= user metadoc bibliography pictures topdocs ntweb misc
 STEPMAKE_TEMPLATES=documentation  texinfo
 
-README_TOP_FILES=NEWS DEDICATION TODO AIMS CHANGES
-INFO_FILES = $(wildcard $(outdir)/$(package).info*)
-EXTRA_DIST_FILES = COPYRIGHT 
-
-
-
-BLURBS=BLURB 
+README_TOP_FILES=NEWS DEDICATION CHANGES
+EXTRA_DIST_FILES = 
 
 include $(depth)/make/stepmake.make 
 
 default: do-doc
-
-info: $(outdir)/$(package).info
 
 local-WWW: copy-for-me
 

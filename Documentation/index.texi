@@ -8,33 +8,29 @@
 @unnumberedsubsec Introduction
 
 @itemize 
-@item @uref{../topdocs/out-www/README.html, README}
-@item @uref{../topdocs/out-www/INSTALL.html, Installation Instructions}
-@item @uref{../topdocs/out-www/AUTHORS.html,The Authors}
+@item @uref{DEDICATION.txt,Dedication}
+@item @uref{../topdocs/out-www/AUTHORS.html, Authors}
+@item @uref{../topdocs/out-www/README.html, Readme file}
+@item @uref{../topdocs/out-www/INSTALL.html, Installation instructions}
 @end itemize
-
-
 
 
 @unnumberedsubsec Documentation
 
 @itemize @bullet
-@item @uref{faq.html,FAQs}
+@item @uref{faq.html,Frequently asked questions}, with answers
 @item @uref{programs.html,`Manual pages'}
 @item @uref{../user/out-www/index.html,User documentation}
 @item @uref{../metadoc/out-www/index.html,Hacker documentation}
 @item @uref{../bibliography/out-www/,Bibliography}
+@item @uref{../misc/out-www/index.html,Miscellaneous texts}
 @end itemize
 
 
-@unnumberedsubsec Miscellaneous blurbs
-
-
-@itemize @bullet
-@item @uref{TODO.txt, TODO list}
-@item @uref{CHANGES.txt,Change log}
-@item @uref{DEDICATION.html,DEDICATION}
-@item @uref{AIMS.txt,Why?}
+@unnumberedsubsec{Status}
+@itemize
+@item @uref{TODO.txt, Thing to do}
+@item @uref{CHANGES.txt, Things recently done}
 @end itemize
 
 

@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.2.14
+Version: 1.2.15
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.2.14.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.2.15.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -13,19 +13,14 @@ Prereq: tetex
 
 %description 
 
-LilyPond is a music typesetter.  It produces beautiful sheet music
-using a high level description file as input.  LilyPond is part of 
-the GNU Project.
 
 %package documentation
 Summary: Prebuilt website containing all LilyPond documentation.
 Group: Applications/Publishing
+# BuildArchitectures: noarch
 
 %description documentation
 
-LilyPond is a music typesetter.  It produces beautiful sheet music
-using a high level description file as input.  LilyPond is part of 
-the GNU Project.
 
 The documentation package is rather big, due to the many pictures and
 different documentation formats.  It is really a rip-off from the
@@ -63,10 +58,10 @@ cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 #%install documentation
 #line 63: second %install
 # again, make sure that main package installs even if doco fails
-mkdir -p htmldocs
-tar -C htmldocs -xzf out/htmldoc.tar.gz
+mkdir -p htmldocs/out
+tar -C htmldocs -xzf out/htmldoc.tar.gz || true
 mkdir -p out/examples/
-tar -cf - input/  | tar -C out/examples/ -xf-
+tar -cf - input/  | tar -C out/examples/ -xf- || true
 
 %post
 

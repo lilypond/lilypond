@@ -139,8 +139,6 @@ Break_align_item::do_pre_processing()
 				 
 }
 
-
-
 Break_align_item::Break_align_item ()
 {
   stacking_dir_ = RIGHT;

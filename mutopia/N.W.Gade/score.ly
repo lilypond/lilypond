@@ -135,8 +135,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
         markScriptPadding = "20.0";
     }
     \translator { 
-%        \HaraKiriStaffContext % Gives lost bar lines and misplaced marks!!
-        \StaffContext
+        \HaraKiriStaffContext 
 	\consists "Staff_margin_engraver";
         marginScriptPadding = "15.0";
         dynamicPadding = 3.0;

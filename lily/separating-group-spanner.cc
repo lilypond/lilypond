@@ -90,6 +90,5 @@ Separating_group_spanner::do_substitute_element_pointer (Score_element*o,
 
 Separating_group_spanner::Separating_group_spanner()
 {
-  set_elt_property (break_helper_only_scm_sym, SCM_BOOL_T);
   padding_f_ =0.0;
 }

@@ -267,7 +267,10 @@
 
   (define (lily-def key val)
     (string-append
-     "\\def\\" (output-tex-string key) "{" (output-tex-string val) "}\n"))
+     "\\def\\"
+;     (regexp-substitute/global #f "_" (output-tex-string key) 'pre "X" 'post)
+     (output-tex-string key)
+     "{" (output-tex-string val) "}\n"))
 
   (define (number->dim x)
     (string-append 

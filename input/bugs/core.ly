@@ -15,9 +15,6 @@ global = \notes {
 	\paper {
 		\translator{ 
 			\StaffContext
-
-			% other core dump when this is removed?
-			\remove "Time_signature_engraver";
 		}
 	}
 }

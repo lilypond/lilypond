@@ -424,8 +424,12 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
 	    brace_count ++;
 	  else if (text[i] == '}')
 	    brace_count --;
-          Character_metric *c = (Character_metric*)afm_l->get_char ((unsigned char)text[i],false);
+          Character_metric *c = (Character_metric*)afm_l->
+	    get_char ((unsigned char)text[i],false);
 
+	  // Ugh, use the width of 'x' for unknown characters
+	  if (c->dimensions()[X_AXIS].length () == 0) 
+	    c = (Character_metric*)afm_l->get_char ((unsigned char)'x',false);
 	  w += c->dimensions()[X_AXIS].length ();
 	  ydims.unite (c->dimensions()[Y_AXIS]);
 	}

@@ -24,12 +24,11 @@
 
 Paper_score::Paper_score ()
 {
-  protected_scms_ = scm_protect_object (gh_cons (SCM_BOOL_T, SCM_EOL));
   paper_l_ =0;
   outputter_l_ =0;
   Line_of_score * line_p = new Line_of_score;
-  typeset_unbroken_spanner (line_p);
-
+  line_p->pscore_l_ = this;
+  element_smob_list_ = scm_protect_object (gh_cons (line_p->self_scm_, SCM_EOL));
   line_l_ = line_p;
 }
 
@@ -41,40 +40,17 @@ Paper_score::Paper_score (Paper_score const &s)
 
 Paper_score::~Paper_score ()
 {
-  for (int i=span_p_arr_.size (); --i >=0 ; )
-    delete span_p_arr_[i];
-  for (int i=elem_p_arr_.size (); --i >=0 ; )
-    delete elem_p_arr_[i];
-
-  scm_unprotect_object (protected_scms_);
+  scm_unprotect_object (element_smob_list_);
 }
 
 void
 Paper_score::typeset_element (Score_element * elem_p)
 {
-  elem_p_arr_.push (elem_p);
   elem_p->pscore_l_ = this;
 
-  // take over protection.
-  SCM_CDR(protected_scms_) = gh_cons (elem_p->element_property_alist_,
-				      SCM_CDR (protected_scms_));
-  scm_unprotect_object (elem_p->element_property_alist_);
-  
-  SCM p =  elem_p->remove_elt_property (break_helper_only_scm_sym);
-  if (p != SCM_BOOL_F)
-    break_helpers_arr_.push (elem_p);
-}
-
-
-void
-Paper_score::typeset_unbroken_spanner (Spanner*span_p)
-{
-  span_p_arr_.push (span_p);
-  span_p->pscore_l_=this;
-
-  SCM p =  span_p->remove_elt_property (break_helper_only_scm_sym);
-  if (p != SCM_BOOL_F)
-    break_helpers_arr_.push (span_p);
+  SCM_CDR(element_smob_list_) = gh_cons (elem_p->self_scm_,
+					 SCM_CDR (element_smob_list_));
+  scm_unprotect_object (elem_p->self_scm_);
 }
 
 void
@@ -85,21 +61,20 @@ Paper_score::add_column (Paper_column *p)
   typeset_element(p);
 }
 
-
-
 void
 Paper_score::print () const
 {
 #ifndef NPRINT
   if (!flower_dstream)
     return ;
+
   DEBUG_OUT << "Paper_score { ";
   DEBUG_OUT << "\n elements: ";
-  for (int i=0; i < span_p_arr_.size (); i++)
-    span_p_arr_[i]->print ();
-  for (int i=0; i < elem_p_arr_.size (); i++)
-    elem_p_arr_[i]->print();
-  
+
+  for (SCM p = SCM_CDR (element_smob_list_);
+       p != SCM_EOL;
+       p = SCM_CDR(p))
+    gh_display (SCM_CAR(p));
   DEBUG_OUT << "}\n";
 #endif
 }
@@ -159,8 +134,6 @@ Paper_score::process ()
 	typeset_element (line_l);
     }
 
-  if (experimental_features_global_b)
-    *mlog << _f ("%s elements", elem_p_arr_.size () + span_p_arr_.size ());
 
   *mlog << "\n";
   *mlog << _ ("Line ... ");
@@ -174,9 +147,6 @@ Paper_score::process ()
       line_l->post_processing ();
       *mlog << i << flush;
       line_l->output_all (i + 1 == lines.size());
-      if (experimental_features_global_b)
-	*mlog << '(' << elem_p_arr_.size () + span_p_arr_.size () << ')';
-      
       *mlog << ']' << flush;
      }
   

@@ -162,10 +162,10 @@ Unfolded behavior:
 
 @mudelafile{repeat-unfold.ly}
 
-Semi (un)folded behavior.  Voltas can start on non-barline moments.
+Volta (Semi folded) behavior.  Voltas can start on non-barline moments.
 If they don't barlines should still be shown.
 
-@mudelafile{repeat-semifold.ly}
+@mudelafile{repeat-volta.ly}
 
 Folded.  This doesn't make sense without alternatives, but it works.
 
@@ -237,8 +237,18 @@ Loose:
 
 @mudelafile{spacing-loose.ly}
 
+Adding a @code{Bar_engraver} to the LyricsVoice context makes sure that
+lyrics don't collide with barlines.
+
+@mudelafile{lyrics-bar.ly}
 
 @section Global stuff
+
+Breaks can be encouraged and discouraged using @code{\break} and
+@code{\nobreak}.  They are abbrevs for @code{\penalty} commands.
+
+@mudelafile{break.ly}
+
 
 Markings that are attached to (invisible) barlines are 
 delicate: the are attached to the rest of the score without the score

@@ -43,7 +43,7 @@ my_paper = \paper {
       \marks
       \flauto
     >
-    \context Voice = help \flautohelp
+    \context Voice = cue \flautocue
   >
   \header{
     instrument = "Flauto";
@@ -64,7 +64,7 @@ my_paper = \paper {
       \marks
       \oboe
     >
-    \context Voice = help \oboehelp
+    \context Voice = cue \oboecue
   >
   \header{
     instrument = "Oboe";
@@ -139,7 +139,7 @@ my_paper = \paper {
       \marks
       \corI
     >
-    \context Voice = help \corIhelp
+    \context Voice = cue \corIcue
   >
   \header{
     instrument = "Corno I in F";
@@ -160,7 +160,7 @@ my_paper = \paper {
       \marks
       \corII
     >
-    \context Voice = help \corIIhelp
+    \context Voice = cue \corIIcue
   >
   \header{
     instrument = "Corno II in F";
@@ -181,7 +181,7 @@ my_paper = \paper {
       \marks
       \trpI
       >
-    \context Voice = help \trpIhelp
+    \context Voice = cue \trpIcue
   >
   \header{
     instrument = "Tromba I in B\\textflat";
@@ -202,7 +202,7 @@ my_paper = \paper {
       \marks
       \trpII
     >
-    \context Voice = help \trpIIhelp
+    \context Voice = cue \trpIIcue
   >
   \header{
     instrument = "Tromba II in B\\textflat";
@@ -223,7 +223,7 @@ my_paper = \paper {
       \marks
       \timpani
     >
-    \context Voice = help \timphelp
+    \context Voice = cue \timpcue
   >
   \header{
     instrument = "Timpani \& Triangolo";

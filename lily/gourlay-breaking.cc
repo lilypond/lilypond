@@ -72,28 +72,16 @@ Gourlay_breaking::do_solve () const
 	*/
       int minimal_start_idx = -1;
       Column_x_positions minimal_sol;
+      Column_x_positions backup_sol;
+      
       Real minimal_demerits = infinity_f;
 
       for (int start_idx = break_idx; start_idx--;)
 	{
-#if 0
-	  if  (break_idx - start_idx > max_measures_i_) 
-	    break;
-#endif
-	  
-	  if (optimal_paths[start_idx].prev_break_i_ < 0
-	      && optimal_paths[start_idx].line_config_.energy_f_)
-	    continue;
-
-
-	  
 	  Line_of_cols line = all.slice (breaks[start_idx], breaks[break_idx]+1);
   
 	  line[0] = dynamic_cast<Paper_column*>(line[0]->find_broken_piece (RIGHT));
 	  line.top () =  dynamic_cast<Paper_column*>(line.top ()->find_broken_piece (LEFT));
-	    
-	  if (!feasible (line))
-	    break;
 	    
 	  Column_x_positions cp;
 	  cp.cols_ = line;
@@ -103,13 +91,19 @@ Gourlay_breaking::do_solve () const
 	  Simple_spacer * sp = generate_spacing_problem (line, line_dims);
 	  sp->solve (&cp);
 	  delete sp;
-	  
+
+	  if (start_idx == break_idx - 1)
+	    backup_sol = cp;	// in case everything fucks up
 	  if (!cp.satisfies_constraints_b_)
 	    break;
 
-	  Real this_demerits 
-	    = combine_demerits (optimal_paths[start_idx].line_config_, cp)
-	    + optimal_paths[start_idx].demerits_f_;
+	  
+	  Real this_demerits;
+	  if (optimal_paths[start_idx].demerits_f_ >= infinity_f)
+	    this_demerits = infinity_f;
+	  else
+	    this_demerits = combine_demerits (optimal_paths[start_idx].line_config_, cp)
+	      + optimal_paths[start_idx].demerits_f_;
 
 	  if (this_demerits < minimal_demerits) 
 	    {
@@ -119,19 +113,20 @@ Gourlay_breaking::do_solve () const
 	    }
 	}
 
+      int prev =break_idx - 1;
       if (minimal_start_idx < 0) 
 	{
-	  optimal_paths[break_idx].prev_break_i_ = -1;
-	  optimal_paths[break_idx].line_config_.energy_f_ = infinity_f;
+	  optimal_paths[break_idx].demerits_f_ = infinity_f;
+	  optimal_paths[break_idx].line_config_ = backup_sol;	  
 	}
       else 
 	{
-	  optimal_paths[break_idx].prev_break_i_ = minimal_start_idx;
+	  prev = minimal_start_idx;
 	  optimal_paths[break_idx].line_config_ = minimal_sol;
 	  optimal_paths[break_idx].demerits_f_ = minimal_demerits;
-	  optimal_paths[break_idx].line_i_ =
-	    optimal_paths[minimal_start_idx].line_i_ + 1;
 	}
+      optimal_paths[break_idx].prev_break_i_ = prev;
+      optimal_paths[break_idx].line_i_ = optimal_paths[prev].line_i_ + 1;
 
       if (! (break_idx % HAPPY_DOTS_I))
 	*mlog << "[" << break_idx << "]" << flush;
@@ -150,17 +145,14 @@ Gourlay_breaking::do_solve () const
   for (int i = optimal_paths.size ()-1; i> 0;) 
     {
       final_breaks.push (i);
-      assert (i > optimal_paths[i].prev_break_i_);
-
-      // there was no "feasible path"
-      if (!optimal_paths[i].line_config_.config_.size ()) {
-	final_breaks.set_size (0);
-	break;
-      }
-      i = optimal_paths[i].prev_break_i_;
+      int prev = optimal_paths[i].prev_break_i_;
+      assert (i > prev);
+      i = prev;
     }
 
-
+  if (optimal_paths.top ().demerits_f_ >= infinity_f)
+    warning (_ ("No feasible line breaking found"));
+  
   for (int i= final_breaks.size (); i--;) 
     lines.push (optimal_paths[final_breaks[i]].line_config_);
   
@@ -188,5 +180,17 @@ Real
 Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
 				    Column_x_positions const &this_one) const
 {
-  return abs (this_one.force_f_) + abs (prev.force_f_ - this_one.force_f_);
+  Real break_penalties = 0.0;
+  Paper_column * pc = this_one.cols_.top ();
+  if (pc->original_l_)
+    {
+      SCM pen = pc->get_elt_property (penalty_scm_sym);
+      if (pen != SCM_BOOL_F)
+	{
+	  break_penalties += gh_scm2double (SCM_CDR(pen));
+	}
+    }
+
+  return abs (this_one.force_f_) + abs (prev.force_f_ - this_one.force_f_)
+    + break_penalties;
 }

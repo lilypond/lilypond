@@ -31,7 +31,7 @@ Break_algorithm::find_break_indices () const
     if (all[i]->breakable_b ())
       retval.push (i);
 
-  if (linelength <=0)
+  if (linewidth_f_ <=0)
     while (retval.size () >2)
       retval.del (1);
 
@@ -49,7 +49,7 @@ Break_algorithm::find_breaks () const
     if (all[i]->breakable_b ())
       retval.push (all[i]);
 
-  if (linelength <=0)
+  if (linewidth_f_ <=0)
     while (retval.size () >2)
       retval.del (1);
 
@@ -86,31 +86,18 @@ Break_algorithm::generate_spacing_problem (Line_of_cols curline, Interval line) 
 Break_algorithm::Break_algorithm ()
 {
   pscore_l_ = 0;
-  linelength = 0;
+  linewidth_f_ = 0;
 }
 
 void
 Break_algorithm::set_pscore (Paper_score*s)
 {
   pscore_l_ = s;
-  linelength = s->paper_l_->linewidth_f ();
+  linewidth_f_ = s->paper_l_->get_var("linewidth");
   do_set_pscore ();
 }
 
-bool
-Break_algorithm::feasible (Line_of_cols curline) const
-{
-  if (linelength <=  0)
-    return true;
 
-  for (int i=0; i < curline.size (); i++)
-    {
-      if (i && i < curline.size () -1
-	  && ((dynamic_cast<Score_column*>(curline[i]))->break_penalty_i () >= Break_req::FORCE))
-	return false;
-    }
-  return true;
-}
 
 void
 Break_algorithm::problem_OK () const

@@ -44,13 +44,18 @@ Score_element::Score_element()
   pscore_l_=0;
   lookup_l_ =0;
   status_i_ = 0;
+  self_scm_ = SCM_EOL;
   original_l_ = 0;
   element_property_alist_ = scm_protect_object (gh_cons (gh_cons (void_scm_sym, SCM_BOOL_T) , SCM_EOL));
+
+  smobify_self ();
 }
 
 Score_element::Score_element (Score_element const&s)
   : Graphical_element (s)
 {
+  
+  self_scm_ = SCM_EOL;
   used_b_ = true;
   original_l_ =(Score_element*) &s;
   element_property_alist_ = scm_protect_object (scm_list_copy (s.element_property_alist_));
@@ -59,6 +64,8 @@ Score_element::Score_element (Score_element const&s)
   status_i_ = s.status_i_;
   lookup_l_ = s.lookup_l_;
   pscore_l_ = s.pscore_l_;
+
+  smobify_self ();
 }
 
 Score_element::~Score_element()
@@ -223,6 +230,9 @@ Score_element::output_processing ()
   pscore_l_->outputter_l_->output_molecule (output_p_,
 					    o,
 					    classname(this));
+
+  delete output_p_;
+  output_p_ =0;
 }
 
 /*
@@ -423,4 +433,71 @@ Score_element*
 Score_element::find_broken_piece (Line_of_score*) const
 {
   return 0;
+}
+
+static scm_smobfuns score_elt_funs = {
+ Score_element::mark_smob, Score_element::free_smob,
+ Score_element::print_smob, 0,
+};
+
+
+SCM
+Score_element::smobify_self ()
+{
+  if (self_scm_ != SCM_EOL)
+    return self_scm_;
+  
+  SCM s;
+  SCM_NEWCELL(s);
+  SCM_SETCAR(s,smob_tag);
+  void * me_p = this; 
+  SCM_SETCDR(s,me_p);
+  scm_protect_object (s);
+  self_scm_ = s;
+
+  scm_unprotect_object (element_property_alist_); // ugh
+  return s;
+}
+
+SCM
+Score_element::mark_smob (SCM ses)
+{
+  void * mp = (void*) SCM_CDR(ses);
+  Score_element * s = (Score_element*) mp;
+
+  assert (s->self_scm_ == ses);
+  return s->element_property_alist_;
+}
+
+scm_sizet
+Score_element::free_smob (SCM ses)
+{
+  Score_element * s = (Score_element*) SCM_CDR(ses);
+  delete s;
+  return 0;
+}
+
+int
+Score_element::print_smob (SCM s, SCM port, scm_print_state *)
+{
+  Score_element *sc = (Score_element *) SCM_CDR (s);
+     
+  scm_puts ("#<Score_element ", port);
+  scm_puts ((char *)sc->name (), port);
+  scm_puts (" >", port);
+  return 1;
+}
+
+long Score_element::smob_tag;
+
+void
+Score_element::init_smobs ()
+{
+  smob_tag = scm_newsmob (&score_elt_funs);
+}
+
+void
+init_smobs()
+{
+  Score_element::init_smobs ();
 }

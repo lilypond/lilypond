@@ -194,7 +194,6 @@ Auto_beam_engraver::create_beam_p ()
        */
       if ((*stem_l_arr_p_)[i]->beam_l_)
 	{
-	  delete beam_p;
 	  return 0;
 	}
       beam_p->add_stem ((*stem_l_arr_p_)[i]);

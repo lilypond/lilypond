@@ -8,5 +8,10 @@
 
 % more alts than body
 \repeat volta 2 { c^"2$\\times$ 3alt" d } \alternative { e f g } 
-}}
+}
+
+	\midi{}
+	\paper{}
+
+}
 

@@ -652,15 +652,21 @@ real_array:
 */
 midi_block:
 	MIDI
-
-	'{' midi_body '}' 	{ $$ = $3; }
+	'{' midi_body '}' 	{
+		$$ = $3;
+		THIS-> lexer_p_-> scope_l_arr_.pop();
+	}
 	;
 
 midi_body: /* empty */ 		{
-		$$ = THIS->default_midi_p ();
+		Midi_def * p =THIS->default_midi_p ();
+		$$ = p;
+		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 	}
 	| MIDI_IDENTIFIER	{
-		$$ = $1-> access_content_Midi_def (true);
+		Midi_def * p =$1-> access_content_Midi_def (true);
+		$$ = p;
+		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 	}
 	| midi_body assignment semicolon {
 
@@ -1002,10 +1008,10 @@ verbose_command_req:
 		m->one_beat_i_=$4;
 		$$ = m;
 	}
-	| PENALTY int	{
+	| PENALTY int 	{
 		Break_req * b = new Break_req;
-		b->penalty_i_ = $2;
-		b-> set_spot (THIS->here_input ());
+		b->penalty_f_ = $2 / 100.0;
+		b->set_spot (THIS->here_input ());
 		$$ = b;
 	}
 	| SKIP duration_length {

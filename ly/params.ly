@@ -9,12 +9,11 @@ paperfile = \papersize + ".ly";
 interline = \staffheight / 4.0;
 
 
-% thickness of stafflines
-staffline = \interline / 10.0;
+stafflinethickness = \interline / 10.0;
 
 % urg, need grace_ versions of these too?
-beam_thickness = 0.52 * (\interline - \staffline);
-interbeam = (2.0 * \interline + \staffline - \beam_thickness) / 2.0;
+beam_thickness = 0.52 * (\interline - \stafflinethickness);
+interbeam = (2.0 * \interline + \stafflinethickness - \beam_thickness) / 2.0;
 interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
 
 % stems and beams
@@ -153,8 +152,8 @@ tie_y_gap = 0.25 * \interline;
 tie_staffspace_length = 4.0 * \interline;
 
 % ugh: rename to bow (in bezier.cc and fonts.doc too...)
-% slur_thickness = 1.8 * \staffline;
-slur_thickness = 1.4 * \staffline;
+% slur_thickness = 1.8 * \stafflinethickness;
+slur_thickness = 1.4 * \stafflinethickness;
 
 %{
  Specifies the maximum height of slurs.
@@ -178,9 +177,6 @@ slur_rc_factor = 2.4;
 % ugh
 notewidth = (\quartwidth + \wholewidth) / 2.0;
 
-% ugh
-rulethickness = \staffline;
-
 gourlay_energybound = 100000.;
 %{
 Maximum number of measures per line to try when using Gourlay
@@ -200,23 +196,23 @@ barthick_thin = 0.1*\interline;
 
 %}
 
-bar_kern = 3.0 * \staffline;
-bar_thinkern = 3.0 * \staffline;
-barthick_thick = 6.0* \staffline;
-barthick_thin = 1.6*\staffline;
-barthick_score = 1.6*\staffline;
+bar_kern = 3.0 * \stafflinethickness;
+bar_thinkern = 3.0 * \stafflinethickness;
+barthick_thick = 6.0* \stafflinethickness;
+barthick_thin = 1.6*\stafflinethickness;
+barthick_score = 1.6*\stafflinethickness;
 
 tuplet_spanner_gap = 2.0 * \interline;
-tuplet_thick = 1.0*\staffline;
-volta_thick = 1.6*\staffline;
+tuplet_thick = 1.0*\stafflinethickness;
+volta_thick = 1.6*\stafflinethickness;
 volta_spanner_height = 2.0 *\interline;
 
 % relative thickness of thin lines  1.6 : 1 : 0.8
-stemthickness = 0.8*\staffline;
-rulethickness = \staffline;
+stemthickness = 0.8*\stafflinethickness;
+rulethickness = \stafflinethickness;
 
 
-extender_height = 0.8*\staffline;
+extender_height = 0.8*\stafflinethickness;
 
 hyphen_thickness = 0.05*\font_normal;
 hyphen_height = 0.2*\font_normal;
@@ -228,11 +224,16 @@ mmrest_x_minimum = 1.4*\staffheight;
 
 % chop off this much when next to pp / ff sign.
 crescendo_shorten = 4.0 * \interline;
-crescendo_thickness   = \staffline;
+crescendo_thickness   = \stafflinethickness;
+crescendo_height = 1.5 * \interline;
 
 % in internote.
 restcollision_minimum_dist = 3.0;
 restcollision_minimum_beamdist = 1.5;
+
+
+% unit for note collision resolving
+collision_note_width = \notewidth;	%ugh.
 
 % deprecated!
 postBreakPadding = 0.0;

@@ -203,13 +203,13 @@ R2 |
 e4 \fz r
 }
 
-corIhelp=\notes\relative c''' {
+corIcue=\notes\relative c''' {
 \key c;
 \tiny
 
 s2.*32 |
 s2*33 | \stemup
-r4 r8 [g16^"oboe" \p ( a ] |
+r4 r8 [g16^"oboe" ( a ] |
 [ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] |
 [ ) f8-. e16 ( f ] ) e8-. s | \stemboth
 s2*66 |
@@ -219,7 +219,7 @@ s2*66 |
 ) e4 r |
 }
 
-corIIhelp=\notes\relative c'' {
+corIIcue=\notes\relative c'' {
 \key c;
 \tiny
 
@@ -517,7 +517,7 @@ R2 |
 g4 \fz r
 }
 
-trpIhelp=\notes\relative c'' {
+trpIcue=\notes\relative c'' {
 \tiny
 
 s2.*32 |
@@ -545,7 +545,7 @@ r4^"Flauto" r8 [c'16 ( d] |
 )bes8 [a16 ( bes ] ) a8 
 }
 
-trpIIhelp=\notes\relative c'' {
+trpIIcue=\notes\relative c'' {
 \tiny
 
 [c8.^"Oboe" ( d16] ) c2 |
@@ -845,7 +845,7 @@ r2 |
 f4 \fz r 
 }
 
-timphelp=\notes\relative c' {
+timpcue=\notes\relative c' {
 \tiny
 
 [c8.^"Oboe, \\okt" ( d16] ) c2 |

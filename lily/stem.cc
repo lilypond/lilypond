@@ -370,7 +370,8 @@ Stem::note_delta_f () const
   if (head_l_arr_.size())
     {
       Interval head_wid(0,  head_l_arr_[0]->extent (X_AXIS).length ());
-      Real rule_thick(paper_l ()->rule_thickness ());
+         Real rule_thick = paper_l ()->get_var ("stemthickness");
+
       Interval stem_wid(-rule_thick/2, rule_thick/2);
       if (dir_ == CENTER)
 	r = head_wid.center ();

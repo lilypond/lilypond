@@ -30,12 +30,10 @@
   
   add support for multiple fontsizes 
 
-
+  remove all utility funcs 
   
 
   add support for other len->wid conversions.
-
-  Input_engraver should be in here.
 
 
   Interesting variables:
@@ -43,7 +41,7 @@
   /// The distance between lines
   interline
   
- */
+*/
 class Paper_def : public Music_output_def 
 {
   Hash_table<int, Lookup *> *lookup_p_tab_p_;
@@ -54,7 +52,6 @@ protected:
 
 public:    
   virtual ~Paper_def ();
-  
 
   Array<Interval> shape_int_a_;
   Real get_realvar (SCM symbol) const;
@@ -67,26 +64,13 @@ public:
   void set_lookup (int, Lookup*);
 
   Paper_def (Paper_def const&);
-  /// The distance between beams of multiplicity_i
+  /** The distance between beams of multiplicity_i
+      JUNKME
+  */
   Real interbeam_f (int multiplicity_i) const;
 
-  /// The thickness of a beam
-  Real beam_thickness_f () const;
-
-  /// thickness of the standard line 
-  Real rule_thickness () const;
-
-  /// thickness of the staff line
-  Real staffline_f () const;
-
   Interval line_dimensions_int (int) const;
-  Real linewidth_f () const;
 
-  /// height of the staff
-  Real staffheight_f () const;
-
-  /// width of a crotchet ball
-  Real note_width () const;
   void print () const;
 
   Lookup const * lookup_l (int sz) const;	// TODO naming
@@ -95,9 +79,10 @@ public:
     influence using the geometric_ and  paratime_signatures.
     */
   Real length_mom_to_dist (Moment, Real) const;
-  Real geometric_spacing (Moment) const;
+  
   Real arithmetic_constant (Moment minimal_mom) const;
   Real arithmetic_spacing (Moment mom,Real constant) const;
+
   virtual int get_next_default_count () const;
   static void reset_default_count();
 

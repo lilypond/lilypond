@@ -13,7 +13,7 @@
 typedef Link_array<Paper_column>  Line_of_cols;
 
 struct Column_x_positions {
-  Simple_spacer * spacer_l_;
+
   Line_of_cols cols_;
   Array<Real> config_;
   
@@ -23,7 +23,6 @@ struct Column_x_positions {
 
   ~Column_x_positions();
   Column_x_positions();
-  void add_paper_column (Paper_column*c);
   void print() const;
 };
 

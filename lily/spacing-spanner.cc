@@ -17,7 +17,6 @@
 
 Spacing_spanner::Spacing_spanner ()
 {
-  set_elt_property (break_helper_only_scm_sym, SCM_BOOL_T);
   set_elt_property (transparent_scm_sym, SCM_BOOL_T);
 }
 

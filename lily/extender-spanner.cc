@@ -61,7 +61,7 @@ void
 Extender_spanner::do_post_processing ()
 {
   // UGH
-  Real nw_f = paper_l ()->note_width () * 0.8;
+  Real gap = paper_l ()->get_realvar (interline_scm_sym);
 
   Direction d = LEFT;
   do
@@ -71,7 +71,7 @@ Extender_spanner::do_post_processing ()
       if (d == LEFT)
         dx_f_drul_[d] += t->extent (X_AXIS).length ();
       else
-	dx_f_drul_[d] -= d * nw_f / 2;
+	dx_f_drul_[d] -= d * gap / 2;
     }
   while (flip(&d) != LEFT);
 }

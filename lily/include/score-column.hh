@@ -26,16 +26,11 @@
   */
 
 class Score_column : public Paper_column {
-  friend class Score;
-  friend class Score_engraver;
-
-  int break_penalty_i_;
   Moment when_;
 public:
   Moment shortest_playing_mom_;
   Moment shortest_starter_mom_;
 
-  int break_penalty_i () { return break_penalty_i_; }
   
   VIRTUAL_COPY_CONS(Score_element);
 

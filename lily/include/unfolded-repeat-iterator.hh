@@ -24,6 +24,9 @@ public:
    */
   int done_count_;
 
+
+  /// unfold everything, or do volta?
+  bool full_unfold_b_;
   
   /// are we busy doing the body?
   bool do_main_b_;

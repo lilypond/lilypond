@@ -54,7 +54,7 @@ Stem_tremolo::do_brew_molecule_p () const
   Real space = stem_l_->staff_line_leading_f ();
   Real internote_f = space/2;
   
-  Real beam_f = paper_l ()->beam_thickness_f ();
+  Real beam_f = paper_l ()->get_realvar (beam_thickness_scm_sym);
 
   int beams_i = 0;
   Real slope_f = internote_f / 4 / internote_f;	// HUH?

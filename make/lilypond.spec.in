@@ -17,7 +17,7 @@ Prereq: tetex
 %package documentation
 Summary: Prebuilt website containing all LilyPond documentation.
 Group: Applications/Publishing
-BuildArchitectures: noarch
+# BuildArchitectures: noarch
 
 %description documentation
 @BLURB@

@@ -471,7 +471,7 @@ fis \> ~ | % cresc. added
 \! fis4 r | % dim. added
 R2*4 |
 e'2 \fz \> ( |
-) \! fis,4 r |
+) fis,4 \! r |
 b2 \> ( |
 ) \! ais4 r |
 fis2 \pp \< ~ |
@@ -480,7 +480,7 @@ fis \> ~ |
 \! fis4 r |
 R2*4 |
 e'2 \fz \> ( |
-) \! fis,4 r |
+) fis,4 \! r |
 e'2 \p ( |
 ) ais, |
 R2*2 |
@@ -902,7 +902,7 @@ e2 \p \< ~ |
 \! e \< ~ |
 \! e \> |
 \grace d'8 ( )  \! f2 \fz \> ( |
-) \! e4. r8 |
+) e4. \! r8 |
 f,2 \> ( ( |
 [ ) \! e8 d c ) b ] | 
 a2 \pp \< ~ |
@@ -914,7 +914,7 @@ e ~ |
 e ~ |
 e |
 \grace d'8 ( ) f2 \fz \> ( |
-) \! e4. r8 |
+) e4. \! r8 |
 f,2 \p ( |
 ) e4 r |
 f'2-> ( |
@@ -1033,7 +1033,7 @@ f ( |
 ) c'4 \fz r
 }
 
-oboehelp=\notes\relative c'' {
+oboecue=\notes\relative c'' {
 \tiny
 
 s2.*32 |
@@ -1045,7 +1045,7 @@ s2*106 |
 [e c ) d] s |
 }
 
-flautohelp=\notes\relative c'' {
+flautocue=\notes\relative c'' {
 \tiny
 
 s2.*32 |
