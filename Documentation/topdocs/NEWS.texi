@@ -8,6 +8,8 @@
 @chapter New features in 1.9 since 1.8
 
 @itemize
+@item
+Markup text (ie. general text formatting) may now be used for lyrics too. 
 
 @item
 Two new commands for grace notes have been added, @code{\accacciatura}
@@ -18,7 +20,7 @@ and @code{\appoggiatura},
   \accacciatura g8 f4
 @end example
 
-Both reflect the traditional meanings of accacciatura and appogiatura,
+Both reflect the traditional meanings of acciaccatura and appogiatura,
 and both insert insert a slur from the first grace note to the main
 note.
 

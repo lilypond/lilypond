@@ -170,6 +170,23 @@ for the reader.
      mols)
     ))
 
+(define-public (right-align-markup grob props . rest)
+  (let* ((m (interpret-markup grob props (car rest))))
+    (ly:molecule-align-to! m X RIGHT)
+    m))
+
+(define-public (halign-markup grob props . rest)
+  "Set horizontal alignment. Syntax: haling A MARKUP. A=-1 is LEFT,
+A=1 is right, values in between vary alignment accordingly."
+  (let* ((m (interpret-markup grob props (cadr rest))))
+    (ly:molecule-align-to! m X (car rest))
+    m))
+
+(define-public (left-align-markup grob props . rest)
+  (let* ((m (interpret-markup grob props (car rest))))
+    (ly:molecule-align-to! m X RIGHT)
+    m))
+
 (define-public (musicglyph-markup grob props . rest)
   (ly:find-glyph-by-name
    (ly:get-font grob (cons '((font-family . music)) props))
@@ -342,6 +359,8 @@ Syntax: \\fraction MARKUP1 MARKUP2."
   )
 
 (define-public (hbracket-markup grob props . rest)
+  "Horizontal brackets around its single argument. Syntax \\hbracket MARKUP."  
+  
   (let*
       (
        (th 0.1) ;; todo: take from GROB.
@@ -352,6 +371,7 @@ Syntax: \\fraction MARKUP1 MARKUP2."
 ))
 
 (define-public (bracket-markup grob props . rest)
+  "Vertical brackets around its single argument. Syntax \\bracket MARKUP."  
   (let*
       (
        (th 0.1) ;; todo: take from GROB.
@@ -581,6 +601,10 @@ Syntax: \\fraction MARKUP1 MARKUP2."
    (cons center-markup (list markup-list?))
    (cons line-markup  (list markup-list?))
 
+   (cons right-align-markup (list markup?))
+   (cons left-align-markup (list markup?))   
+   (cons halign-markup (list number? markup?))
+   
    (cons combine-markup (list markup? markup?))
    (cons simple-markup (list string?))
    (cons musicglyph-markup (list scheme?))

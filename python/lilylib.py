@@ -260,6 +260,7 @@ def read_pipe (cmd, mode = 'r'):
 	signal = 0x0f & status
 	exit_status = status >> 8
 
+	print 'errorlog', error_log_file 
 	if status:
 		error (_ ("`%s\' failed (%d)") % (cmd, exit_status))
 		
@@ -279,7 +280,9 @@ def read_pipe (cmd, mode = 'r'):
 		progress ('\n')
 
 	if error_log_file:
+		print 'unlinking errorlog', error_log_file 
 		os.unlink (error_log_file)
+	print 'reachin end', error_log_file 
 		
 	return output
 
@@ -293,7 +296,8 @@ RETURN VALUE
 Exit status of CMD '''
 
 	name = command_name (cmd)
-
+	error_log_file = ''
+	
 	if __main__.verbose_p:
 		progress_p = 1
 		progress (_ ("Invoking `%s\'") % cmd)
@@ -302,10 +306,11 @@ Exit status of CMD '''
 
 	redirect = ''
 	if not progress_p:
-		redirect = ' 1>/dev/null 2>' + error_log (name)
+		error_log_file = error_log (name)
+		redirect = ' 1>/dev/null 2>' + error_log_file
 	elif __main__.pseudo_filter_p:
 		redirect = ' 1>/dev/null'
-			
+
 	status = os.system (cmd + redirect)
 	signal = 0x0f & status
 	exit_status = status >> 8
@@ -322,11 +327,15 @@ Exit status of CMD '''
 				warning (msg + ' ' + _ ("(ignored)"))
 		else:
 			error (msg)
-			if not progress_p:
+			if not progress_p and error_log_file:
 				error (_ ("The error log is as follows:"))
-				sys.stderr.write (open (error_log (name)).read ())
+				sys.stderr.write (error_log_file).read ()
+			if error_log_file:
+				os.unlink (error_log_file)
 			exit (status)
 
+	if error_log_file:
+		os.unlink (error_log_file)
 	progress ('\n')
 	return status
 

@@ -1199,8 +1199,8 @@ example,
 
 When the file is processed by @code{ly2dvi}, the title and composer
 specified are printed above the music. The `tagline' is a short line
-printed at bottom of the last page, which normally says ``Lily was
-here, version @dots{}''. In the example above, it is replaced by the
+printed at bottom of the last page, which normally says ``Engraved
+by LilyPond, version @dots{}''. In the example above, it is replaced by the
 line ``small is beautiful''.
 
 Normally, the @code{\header} is put at the top of the file. However,

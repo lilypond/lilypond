@@ -1440,6 +1440,14 @@ if 1:
 	
 	conversions.append (((1,9,2), conv, """\newcontext -> \new"""))
 
+if 1:
+	def conv (str):
+		str = re.sub ('accacciatura',
+			      'acciaccatura', str)
+		return str
+	
+	conversions.append (((1,9,3), conv, """\acciaccatura misspelling"""))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

@@ -20,13 +20,13 @@ stopAppoggiaturaMusic = \notes {
     s1*0)
 }
 
-startAccacciaturaMusic = \notes {
+startAcciaccaturaMusic = \notes {
     \context Voice \applycontext #set-start-grace-properties
     s1*0(
     \property Voice.Stem \override #'stroke-style = #"grace"
 }
 
-stopAccacciaturaMusic = \notes {
+stopAcciaccaturaMusic = \notes {
     \property Voice.Stem \revert #'stroke-style
     \context Voice \applycontext #set-stop-grace-properties
     s1*0)
