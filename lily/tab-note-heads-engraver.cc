@@ -80,7 +80,7 @@ Tab_note_heads_engraver::process_music ()
       
       Music * tabstring_event=0;
 
-      for (SCM s =event->get_mus_property ("articulations");
+      for (SCM s =event->get_property ("articulations");
 	   !tabstring_event && gh_pair_p (s); s = gh_cdr (s))
 	{
 	  Music * art = unsmob_music (gh_car (s));
@@ -100,7 +100,7 @@ Tab_note_heads_engraver::process_music ()
       bool string_found;
       if (tabstring_event)
 	{
-	  tab_string = gh_scm2int(tabstring_event->get_mus_property ("string-number"));
+	  tab_string = gh_scm2int(tabstring_event->get_property ("string-number"));
 	  string_found = true;
 	}
       else
@@ -109,8 +109,8 @@ Tab_note_heads_engraver::process_music ()
 	  string_found = false;
 	}
       
-      Duration dur = *unsmob_duration (event->get_mus_property ("duration"));
-      note->set_grob_property ("duration-log",
+      Duration dur = *unsmob_duration (event->get_property ("duration"));
+      note->set_property ("duration-log",
 			       gh_int2scm (dur.duration_log ()));
 
       if (dur.dot_count ())
@@ -119,8 +119,8 @@ Tab_note_heads_engraver::process_music ()
 	  Rhythmic_head::set_dots (note, d);
 	  
 	  if (dur.dot_count ()
-	      != gh_scm2int (d->get_grob_property ("dot-count")))
-	    d->set_grob_property ("dot-count", gh_int2scm (dur.dot_count ()));
+	      != gh_scm2int (d->get_property ("dot-count")))
+	    d->set_property ("dot-count", gh_int2scm (dur.dot_count ()));
 
 	  d->set_parent (note, Y_AXIS);
 	  announce_grob (d, SCM_EOL);
@@ -128,7 +128,7 @@ Tab_note_heads_engraver::process_music ()
 	}
       
       
-      SCM scm_pitch = event->get_mus_property ("pitch");
+      SCM scm_pitch = event->get_property ("pitch");
       SCM proc      = get_property ("tablatureFormat");
       SCM min_fret_scm = get_property ("minimumFret");
       int min_fret = gh_number_p(min_fret_scm) ? gh_scm2int(min_fret_scm) : 0;
@@ -149,9 +149,9 @@ Tab_note_heads_engraver::process_music ()
       if(to_boolean(get_property("stringOneTopmost")))
 	pos = -pos;
       
-      note->set_grob_property ("text", text);      
+      note->set_property ("text", text);      
       
-      note->set_grob_property ("staff-position", gh_int2scm (pos));
+      note->set_property ("staff-position", gh_int2scm (pos));
       announce_grob (note, event->self_scm());
       notes_.push (note);
     }

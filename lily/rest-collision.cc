@@ -28,11 +28,11 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
 
-  Grob * rc = unsmob_grob (them->get_grob_property ("rest-collision"));
+  Grob * rc = unsmob_grob (them->get_property ("rest-collision"));
 
-  if (rc && !to_boolean (rc->get_grob_property ("positioning-done")))
+  if (rc && !to_boolean (rc->get_property ("positioning-done")))
     {
-      rc->set_grob_property ("positioning-done", SCM_BOOL_T);
+      rc->set_property ("positioning-done", SCM_BOOL_T);
 
       do_shift (rc);
     }
@@ -55,7 +55,7 @@ Rest_collision::add_column (Grob*me,Grob *p)
     (not?)
   */
   p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
-  p->set_grob_property ("rest-collision", me->self_scm ());
+  p->set_property ("rest-collision", me->self_scm ());
 }
 
 
@@ -65,12 +65,12 @@ Rest_collision::add_column (Grob*me,Grob *p)
 static SCM
 head_characteristic (Grob * col)
 {
-  Grob * s = unsmob_grob (col->get_grob_property ("rest"));
+  Grob * s = unsmob_grob (col->get_property ("rest"));
 
   if (!s)
     return SCM_BOOL_F;
   else
-    return gh_cons (s->get_grob_property ("duration-log"),
+    return gh_cons (s->get_property ("duration-log"),
 		    gh_int2scm (Rhythmic_head::dot_count (s)));
 }
 
@@ -85,7 +85,7 @@ head_characteristic (Grob * col)
 SCM
 Rest_collision::do_shift (Grob *me)
 {
-  SCM elts = me->get_grob_property ("elements");
+  SCM elts = me->get_property ("elements");
 
   Link_array<Grob> rests;
   Link_array<Grob> notes;
@@ -93,13 +93,13 @@ Rest_collision::do_shift (Grob *me)
   for (SCM s = elts; gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * e = unsmob_grob (ly_car (s));
-      if (unsmob_grob (e->get_grob_property ("rest")))
+      if (unsmob_grob (e->get_property ("rest")))
 	{
 	  /*
 	    Ignore rests under beam.
 	   */
-	  Grob* st = unsmob_grob (e->get_grob_property ("stem"));
-	  if (st && unsmob_grob (st->get_grob_property ("beam")))
+	  Grob* st = unsmob_grob (e->get_property ("stem"));
+	  if (st && unsmob_grob (st->get_property ("beam")))
 	    continue;
 	  
 	  rests.push (e);
@@ -215,7 +215,7 @@ Rest_collision::do_shift (Grob *me)
 	return SCM_UNSPECIFIED;
       
       Real staff_space = Staff_symbol_referencer::staff_space (rcol);
-      Real minimum_dist = robust_scm2double (me->get_grob_property ("minimum-distance"), 1.0) * staff_space;
+      Real minimum_dist = robust_scm2double (me->get_property ("minimum-distance"), 1.0) * staff_space;
 
       Interval notedim;
       for (int i = 0; i < notes.size (); i++) 

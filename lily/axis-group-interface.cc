@@ -13,7 +13,7 @@
 void
 Axis_group_interface::add_element (Grob*me,Grob *e)
 {
-  for (SCM ax = me->get_grob_property ("axes"); ax != SCM_EOL ; ax = ly_cdr (ax))
+  for (SCM ax = me->get_property ("axes"); ax != SCM_EOL ; ax = ly_cdr (ax))
     {
       Axis a = (Axis) gh_scm2int (ly_car (ax));
       
@@ -58,7 +58,7 @@ Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (scm_axis);
 
-  SCM elts = me->get_grob_property ("elements");
+  SCM elts = me->get_property ("elements");
   Grob * common = common_refpoint_of_list (elts, me, a);
 
   Real my_coord = me->relative_coordinate (common, a);
@@ -73,7 +73,7 @@ Axis_group_interface::set_axes (Grob*me,Axis a1, Axis a2)
   SCM sa1= scm_int2num (a1);
   SCM sa2 = scm_int2num (a2);
 
-  SCM axes = me->get_grob_property ("axes");
+  SCM axes = me->get_property ("axes");
   
   if (!gh_pair_p (axes)
       || scm_memq (sa1, axes) == SCM_BOOL_F
@@ -82,7 +82,7 @@ Axis_group_interface::set_axes (Grob*me,Axis a1, Axis a2)
       SCM ax = gh_cons (sa1, SCM_EOL);
       if (a1 != a2)
 	ax= gh_cons (sa2, ax);
-      me->set_grob_property ("axes", ax);
+      me->set_property ("axes", ax);
     }
 
   if (a1 != X_AXIS && a2 != X_AXIS)
@@ -108,7 +108,7 @@ Axis_group_interface::get_children (Grob*me)
   if (!has_interface (me))
     return childs;
   
-  for (SCM ep = me->get_grob_property ("elements"); gh_pair_p (ep); ep = ly_cdr (ep))
+  for (SCM ep = me->get_property ("elements"); gh_pair_p (ep); ep = ly_cdr (ep))
     {
       Grob* e = unsmob_grob (ly_car (ep));
       if (e)

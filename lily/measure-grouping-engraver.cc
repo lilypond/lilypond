@@ -96,9 +96,9 @@ Measure_grouping_engraver::process_music ()
 	      get_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));
 
 	      if (grouplen == 3)
-		grouping_->set_grob_property ("style", ly_symbol2scm ("triangle"));
+		grouping_->set_property ("style", ly_symbol2scm ("triangle"));
 	      else
-		grouping_->set_grob_property ("style", ly_symbol2scm ("bracket"));
+		grouping_->set_property ("style", ly_symbol2scm ("bracket"));
 	      
 	      break ; 
 	    }

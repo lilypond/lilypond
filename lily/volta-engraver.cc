@@ -168,7 +168,7 @@ Volta_engraver::process_music ()
       volta_span_ = make_spanner ("VoltaBracket");
 
       announce_grob (volta_span_, SCM_EOL);
-      volta_span_->set_grob_property ("text", start_string_);
+      volta_span_->set_property ("text", start_string_);
     }
 }
 

@@ -41,7 +41,7 @@ void
 Tie::set_head (Grob*me,Direction d, Grob * h)
 {
   assert (!head (me,d));
-  index_set_cell (me->get_grob_property ("head-pair"), d, h->self_scm ());
+  index_set_cell (me->get_property ("head-pair"), d, h->self_scm ());
   
   dynamic_cast<Spanner*> (me)->set_bound (d, h);
   me->add_dependency (h);
@@ -50,14 +50,14 @@ Tie::set_head (Grob*me,Direction d, Grob * h)
 void
 Tie::set_interface (Grob*me)
 {
-  me->set_grob_property ("head-pair", gh_cons (SCM_EOL, SCM_EOL));
+  me->set_property ("head-pair", gh_cons (SCM_EOL, SCM_EOL));
 }
 
 
 Grob*
 Tie::head (Grob*me, Direction d) 
 {
-  SCM c = me->get_grob_property ("head-pair");
+  SCM c = me->get_property ("head-pair");
 
   if (gh_pair_p (c))
     return unsmob_grob (index_get_cell (c, d));
@@ -145,7 +145,7 @@ Tie::get_control_points (SCM smob)
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  Real x_gap_f = robust_scm2double (me->get_grob_property ("x-gap"), 0);
+  Real x_gap_f = robust_scm2double (me->get_property ("x-gap"), 0);
 
   Grob* l = me->get_bound (LEFT);
   Grob* r = me->get_bound (RIGHT);  
@@ -201,7 +201,7 @@ Tie::get_control_points (SCM smob)
   
 
 
-  SCM details = me->get_grob_property ("details");
+  SCM details = me->get_property ("details");
 
   SCM lim // groetjes aan de chirurgendochter.
     = scm_assq (ly_symbol2scm ("height-limit"),details);
@@ -220,7 +220,7 @@ Tie::get_control_points (SCM smob)
   */
 
   Real ypos = Tie::get_position (me) * staff_space/2
-    + dir * gh_scm2double (me->get_grob_property ("y-offset"));;
+    + dir * gh_scm2double (me->get_property ("y-offset"));;
 
   /*
     Make sure we don't start on a dots
@@ -268,7 +268,7 @@ Tie::get_control_points (SCM smob)
       Real diff = ry - y;
       Real newy = y;
 
-      Real clear = staff_space * gh_scm2double (me->get_grob_property ("staffline-clearance"));
+      Real clear = staff_space * gh_scm2double (me->get_property ("staffline-clearance"));
 
       if (fabs (y) <=
 	  Staff_symbol_referencer::staff_radius (me) * staff_space + clear
@@ -325,11 +325,11 @@ Tie::print (SCM smob)
 {
   Grob*me = unsmob_grob (smob);
 
-  SCM cp = me->get_grob_property ("control-points");
+  SCM cp = me->get_property ("control-points");
   if (!gh_pair_p (cp))		// list is more accurate
     {
       cp = get_control_points (smob);
-      me->set_grob_property ("control-points", cp);
+      me->set_property ("control-points", cp);
     }
 
   if (!gh_pair_p (cp))
@@ -337,7 +337,7 @@ Tie::print (SCM smob)
   
   Real thick
     = Staff_symbol_referencer::line_thickness (me)
-    *  robust_scm2double (me->get_grob_property ("thickness"), 1);
+    *  robust_scm2double (me->get_property ("thickness"), 1);
 
   Bezier b;
   int i = 0;

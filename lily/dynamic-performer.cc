@@ -49,7 +49,7 @@ Dynamic_performer::create_audio_elements ()
       if (gh_procedure_p (proc))
 	{
 	  // urg
-	  svolume = gh_call1 (proc, script_req_->get_mus_property ("text"));
+	  svolume = gh_call1 (proc, script_req_->get_property ("text"));
 	}
 
       Real volume = robust_scm2double (svolume, 0.5); 

@@ -21,13 +21,13 @@ public:
 void
 Context_specced_music_iterator::construct_children ()
 {
-  SCM ct = get_music ()->get_mus_property ("context-type");
+  SCM ct = get_music ()->get_property ("context-type");
 
   String c_id;
-  SCM ci = get_music ()->get_mus_property ("context-id");
+  SCM ci = get_music ()->get_property ("context-id");
   if (gh_string_p (ci))
     c_id = ly_scm2string (ci);
-  SCM ops = get_music ()->get_mus_property ("property-operations");
+  SCM ops = get_music ()->get_property ("property-operations");
   
   Context * a
     = get_outlet ()->find_create_context (ct, c_id, ops);

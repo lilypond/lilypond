@@ -79,7 +79,7 @@ binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a,SCM b))
 void
 Quote_iterator::construct_children ()
 {
-  SCM dur = get_music ()->get_mus_property ("duration");
+  SCM dur = get_music ()->get_property ("duration");
   if (!unsmob_duration (dur))
     return ;
 
@@ -89,7 +89,7 @@ Quote_iterator::construct_children ()
   Moment stop = now + unsmob_duration (dur)->get_length ();
 
   start_moment_ = now;
-  event_vector_ = get_music ()->get_mus_property ("quoted-events");
+  event_vector_ = get_music ()->get_property ("quoted-events");
 
   if (scm_vector_p (event_vector_) == SCM_BOOL_T)
     {

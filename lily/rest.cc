@@ -21,7 +21,7 @@ SCM
 Rest::after_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  int bt = gh_scm2int (me->get_grob_property ("duration-log"));
+  int bt = gh_scm2int (me->get_property ("duration-log"));
   int lc = Staff_symbol_referencer::line_count (me);
   Real ss = Staff_symbol_referencer::staff_space (me);
   if(lc % 2)
@@ -36,15 +36,15 @@ Rest::after_line_breaking (SCM smob)
       me->translate_axis (ss/2 , Y_AXIS);
     }
 
-  Grob * d = unsmob_grob (me->get_grob_property ("dot"));
+  Grob * d = unsmob_grob (me->get_property ("dot"));
   if (d && bt > 4) // UGH.
     {
-      d->set_grob_property ("staff-position",
+      d->set_property ("staff-position",
 			    gh_int2scm ((bt == 7) ? 4 : 3));
     }
   if (d && bt >= -1 && bt <= 1) // UGH again.
     {
-      d->set_grob_property ("staff-position",
+      d->set_property ("staff-position",
       			    gh_int2scm ((bt == 0) ? -1 : 1));
     }
   return SCM_UNSPECIFIED;
@@ -119,14 +119,14 @@ Rest::brew_internal_stencil (SCM smob)
 {
   Grob* me = unsmob_grob (smob);
 
-  SCM balltype_scm = me->get_grob_property ("duration-log");
+  SCM balltype_scm = me->get_property ("duration-log");
   if (!gh_number_p (balltype_scm))
     return Stencil ().smobbed_copy ();
 
   int balltype = gh_scm2int (balltype_scm);
   
   String style; 
-  SCM style_scm = me->get_grob_property ("style");
+  SCM style_scm = me->get_property ("style");
   if (gh_symbol_p (style_scm))
     {
       style = ly_scm2string (scm_symbol_to_string (style_scm));

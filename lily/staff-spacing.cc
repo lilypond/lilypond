@@ -51,7 +51,7 @@ Staff_spacing::next_note_correction (Grob * me,
       
       max_corr = max_corr >? (- v[LEFT]);
     }
-  if (Grob* a = unsmob_grob (g->get_grob_property ("arpeggio")))
+  if (Grob* a = unsmob_grob (g->get_property ("arpeggio")))
     {
       max_corr = max_corr >? (- a->extent (col, X_AXIS)[LEFT]);
     }
@@ -78,7 +78,7 @@ Staff_spacing::next_note_correction (Grob * me,
 
 	    Real corr = abs (stem_posns.length ()/7.) <? 1.0;
 	    corr *=
-	      robust_scm2double (me->get_grob_property ("stem-spacing-correction"), 1);
+	      robust_scm2double (me->get_property ("stem-spacing-correction"), 1);
 
 	    if (d != DOWN)
 	      corr = 0.0;
@@ -99,7 +99,7 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
   bar_size.set_empty();
   if (Bar_line::has_interface (bar_grob))
     {
-      SCM glyph = bar_grob->get_grob_property ("glyph");
+      SCM glyph = bar_grob->get_property ("glyph");
       
       String glyph_string = gh_string_p (glyph) ? ly_scm2string (glyph) : "";
       if (glyph_string.left_string (1) == "|" || glyph_string.left_string (1) == ".")
@@ -127,13 +127,13 @@ Staff_spacing::next_notes_correction (Grob *me, Grob * last_grob)
   Interval bar_size = bar_y_positions (last_grob);
   Real max_corr =0.0;
 
-  for (SCM s = me->get_grob_property ("right-items");
+  for (SCM s = me->get_property ("right-items");
        gh_pair_p (s);  s = gh_cdr (s))
     {
       Grob * g = unsmob_grob (gh_car (s));
 
       max_corr = max_corr >?  next_note_correction (me, g,  bar_size);
-      for (SCM t = g->get_grob_property ("elements");
+      for (SCM t = g->get_property ("elements");
 	   gh_pair_p (t); t  = gh_cdr (t))
 	max_corr = max_corr >? next_note_correction (me, unsmob_grob (gh_car (t)), bar_size);
       
@@ -151,7 +151,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   Grob * separation_item=0;
   Item * me_item  = dynamic_cast<Item*> (me);
     
-  for (SCM s = me->get_grob_property ("left-items");
+  for (SCM s = me->get_property ("left-items");
        gh_pair_p (s); s = gh_cdr(s))
     {
       Grob * cand = unsmob_grob(gh_car (s));
@@ -189,7 +189,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   *fixed = last_ext[RIGHT];
   *space = *fixed + 1.0;
   
-  SCM alist = last_grob->get_grob_property ("space-alist");
+  SCM alist = last_grob->get_property ("space-alist");
   if (!scm_list_p (alist))
     return ;
   

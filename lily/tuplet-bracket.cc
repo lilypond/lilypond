@@ -111,15 +111,15 @@ Tuplet_bracket::print (SCM smob)
   
 
   {
-    SCM lp = me->get_grob_property ("left-position");
-    SCM rp = me->get_grob_property ("right-position");  
+    SCM lp = me->get_property ("left-position");
+    SCM rp = me->get_property ("right-position");  
 
     if (!gh_number_p (rp) || !gh_number_p (lp))
       after_line_breaking (smob);
   }
   
-  Real ly = robust_scm2double (me->get_grob_property ("left-position"), 0);
-  Real ry = robust_scm2double (me->get_grob_property ("right-position"), 0);  
+  Real ly = robust_scm2double (me->get_property ("left-position"), 0);
+  Real ry = robust_scm2double (me->get_property ("right-position"), 0);  
   
   bool equally_long = false;
   Grob * par_beam = parallel_beam (me, columns, &equally_long);
@@ -132,7 +132,7 @@ Tuplet_bracket::print (SCM smob)
   /*
     Fixme: the type of this prop is sucky.
    */
-  SCM bracket = me->get_grob_property ("bracket-visibility");
+  SCM bracket = me->get_property ("bracket-visibility");
   if (gh_boolean_p (bracket))
     {
       bracket_visibility = gh_scm2bool (bracket);
@@ -140,7 +140,7 @@ Tuplet_bracket::print (SCM smob)
   else if (bracket == ly_symbol2scm ("if-no-beam"))
     bracket_visibility = !par_beam;
 
-  SCM numb = me->get_grob_property ("number-visibility");  
+  SCM numb = me->get_property ("number-visibility");  
   if (gh_boolean_p (numb))
     {
       number_visibility = gh_scm2bool (numb);
@@ -166,7 +166,7 @@ Tuplet_bracket::print (SCM smob)
 
   Real w = x1 -x0;
   
-  SCM number = me->get_grob_property ("text");
+  SCM number = me->get_property ("text");
 
   Paper_def *pap = me->get_paper ();
   if (gh_string_p (number) && number_visibility)
@@ -198,12 +198,12 @@ Tuplet_bracket::print (SCM smob)
   if (bracket_visibility)      
     {
       Real ss =   Staff_symbol_referencer::staff_space (me);
-      Real gap = robust_scm2double (me->get_grob_property ("gap"), 1.0)
+      Real gap = robust_scm2double (me->get_property ("gap"), 1.0)
 	* ss;
       
-      SCM fl = me->get_grob_property ("bracket-flare");
-      SCM eh = me->get_grob_property ("edge-height");
-      SCM sp = me->get_grob_property ("shorten-pair");
+      SCM fl = me->get_property ("bracket-flare");
+      SCM eh = me->get_property ("edge-height");
+      SCM sp = me->get_property ("shorten-pair");
       
       Direction d = LEFT;
       Drul_array<Real> height, flare, shorten;
@@ -300,7 +300,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
 
 
-  SCM cols = me->get_grob_property ("note-columns");
+  SCM cols = me->get_property ("note-columns");
   Grob * commony = common_refpoint_of_list (cols, me, Y_AXIS);
   Grob * commonx = common_refpoint_of_list (cols, me, X_AXIS);  
 
@@ -378,7 +378,7 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
     }
 
   // padding
-  *offset +=  gh_scm2double (me->get_grob_property ("padding")) *dir;
+  *offset +=  gh_scm2double (me->get_property ("padding")) *dir;
 
   
   /*
@@ -466,7 +466,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
     }
   else
     {
-      SCM ps =  par_beam->get_grob_property ("positions"); 
+      SCM ps =  par_beam->get_property ("positions"); 
 
       Real lp = gh_scm2double (gh_car (ps));
       Real rp = gh_scm2double (gh_cdr (ps));
@@ -474,13 +474,13 @@ Tuplet_bracket::after_line_breaking (SCM smob)
       /*
 	duh. magic.
        */
-      offset = lp + dir * (0.5 + gh_scm2double (me->get_grob_property ("padding")));
+      offset = lp + dir * (0.5 + gh_scm2double (me->get_property ("padding")));
       dy = rp- lp;
     }
   
   
-  SCM lp =  me->get_grob_property ("left-position");
-  SCM rp = me->get_grob_property ("right-position");  
+  SCM lp =  me->get_property ("left-position");
+  SCM rp = me->get_property ("right-position");  
   
   if (gh_number_p (lp) && !gh_number_p (rp))
     {
@@ -496,8 +496,8 @@ Tuplet_bracket::after_line_breaking (SCM smob)
       rp = gh_double2scm (offset +dy);
     }
 
-  me->set_grob_property ("left-position", lp);
-  me->set_grob_property ("right-position", rp);
+  me->set_property ("left-position", lp);
+  me->set_property ("right-position", rp);
 
   return SCM_UNSPECIFIED;
 }
@@ -510,7 +510,7 @@ Direction
 Tuplet_bracket::get_default_dir (Grob*me)
 {
   Drul_array<int> dirs(0,0);  
-  for (SCM s = me->get_grob_property ("note-columns"); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("note-columns"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * nc = unsmob_grob (ly_car (s));
       Direction d = Note_column::dir (nc);

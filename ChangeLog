@@ -1,3 +1,9 @@
+2004-02-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/context-scheme.cc (LY_DEFINE): use Scheme style naming for
+	music/context/grob property functions. Internally, use
+	get_property() and set_property() for both.
+
 2004-02-22  Heikki Junes <hjunes@cc.hut.fi>
 
 	* elisp/lilypond-mode.el (get-buffer-size): define new function,

@@ -46,7 +46,7 @@ Note_performer::create_audio_elements ()
       while (note_evs_.size ())
 	{
 	  Music* n = note_evs_.pop ();
-	  SCM pit =  n->get_mus_property ("pitch");
+	  SCM pit =  n->get_property ("pitch");
 
 	  if (Pitch * pitp = unsmob_pitch (pit))
 	    {

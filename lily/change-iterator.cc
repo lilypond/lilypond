@@ -16,8 +16,8 @@
 void
 Change_iterator::error (String reason)
 {
-  String to_type = ly_symbol2string (get_music ()->get_mus_property ("change-to-type"));
-  String to_id = ly_scm2string (get_music ()->get_mus_property ("change-to-id"));
+  String to_type = ly_symbol2string (get_music ()->get_property ("change-to-type"));
+  String to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));
 
   String warn1 = _f ("can't change `%s' to `%s'", to_type, to_id) 
     + ": " + reason;
@@ -41,8 +41,8 @@ Change_iterator::process (Moment m)
   Context * current = get_outlet ();
   Context * last = 0;
 
-  SCM to_type = get_music ()->get_mus_property ("change-to-type");
-  String to_id =  ly_scm2string (get_music ()->get_mus_property ("change-to-id"));
+  SCM to_type = get_music ()->get_property ("change-to-type");
+  String to_id =  ly_scm2string (get_music ()->get_property ("change-to-id"));
 
 
   /* find the type  of translator that we're changing.

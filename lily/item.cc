@@ -42,7 +42,7 @@ Item::is_breakable (Grob*me)
     me->programming_error ("only items can be breakable.");
   
   Item * i  =dynamic_cast<Item*> (me->get_parent (X_AXIS));
-  return (i) ?  Item::is_breakable (i) : to_boolean (me->get_grob_property ("breakable"));
+  return (i) ?  Item::is_breakable (i) : to_boolean (me->get_property ("breakable"));
 }
 
 Paper_column *
@@ -152,7 +152,7 @@ Item::handle_prebroken_dependencies ()
     give the item to break-visibility itself, so the function can do
     more complicated things.
   */
-  SCM vis = get_grob_property ("break-visibility");
+  SCM vis = get_property ("break-visibility");
   if (gh_procedure_p (vis))
     {
       SCM args = scm_list_n (gh_int2scm (break_status_dir ()), SCM_UNDEFINED);
@@ -168,7 +168,7 @@ Item::handle_prebroken_dependencies ()
 	  set_extent (SCM_EOL, Y_AXIS);
 	}
       else if (trans)
-	set_grob_property ("print-function", SCM_EOL);
+	set_property ("print-function", SCM_EOL);
     }
 }
 

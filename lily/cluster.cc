@@ -32,13 +32,13 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 {
   Real blotdiameter = Staff_symbol_referencer::staff_space (me)/2;
 
-  Real padding =robust_scm2double ( me->get_grob_property ("padding"), 0.0);
+  Real padding =robust_scm2double ( me->get_property ("padding"), 0.0);
 
   Offset vpadding = Offset (0, padding);
   Offset hpadding = Offset (0.5 * blotdiameter, 0);
   Offset hvpadding = 0.5 * hpadding + vpadding;
 
-  SCM shape_scm = me->get_grob_property ("style");
+  SCM shape_scm = me->get_property ("style");
   String shape;
 
   if (gh_symbol_p (shape_scm))
@@ -142,7 +142,7 @@ Cluster::print (SCM smob)
   Item *right_bound = spanner->get_bound (RIGHT);
 
   Grob *common = left_bound->common_refpoint (right_bound, X_AXIS);
-  SCM cols  =me->get_grob_property ("columns");
+  SCM cols  =me->get_property ("columns");
 
   if (!gh_pair_p (cols))
     {
@@ -169,7 +169,7 @@ Cluster::print (SCM smob)
     {
       Grob * col = unsmob_grob (ly_car (s));
 
-      SCM posns = col->get_grob_property ("positions");
+      SCM posns = col->get_property ("positions");
       
       Slice s (0,0);
       if (is_number_pair (posns))
@@ -191,11 +191,11 @@ Cluster::print (SCM smob)
       if (spanner->get_break_index () < orig->broken_intos_.size()-1)
 	{
 	  Spanner * next = orig->broken_intos_[spanner->get_break_index () + 1];
-	  SCM cols = next->get_grob_property ("columns");
+	  SCM cols = next->get_property ("columns");
 	  if (gh_pair_p (cols))
 	    {
 	      Grob * col = unsmob_grob (ly_car (scm_last_pair (cols)));
-	      SCM posns = col->get_grob_property ("positions");
+	      SCM posns = col->get_property ("positions");
       
 	      Slice s (0,0);
 	      if (is_number_pair (posns))

@@ -54,7 +54,7 @@ Horizontal_bracket::print (SCM smob)
   Direction d = get_grob_direction (me);
 
   Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (me->get_grob_property ("thickness"), 1.0);
+  thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
   
   Stencil b = Lookup::bracket (X_AXIS, ext, thickness, - d* 1.0, thickness/2); 
   

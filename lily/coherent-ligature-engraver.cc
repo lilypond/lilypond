@@ -78,7 +78,7 @@
  * add it to the spacing spanner code.
  */
 #if 0 // experimental code to collapse spacing after ligature
-      SCM incr_scm = lc->get_grob_property ("forced-spacing");
+      SCM incr_scm = lc->get_property ("forced-spacing");
       if (incr_scm != SCM_EOL) /* (Paper_column::is_musical (l)) */
 	{
 	  me->warning (_f ("gotcha: ptr=%ul", lc));//debug
@@ -126,7 +126,7 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
       // Change column not only for targeted item (NoteColumn), but
       // also for all associated grobs (NoteSpacing, SeparationItem).
       Grob *sl = Staff_symbol_referencer::get_staff_symbol (item);
-      for (SCM tail = parent->get_grob_property ("elements");
+      for (SCM tail = parent->get_property ("elements");
 	   gh_pair_p (tail);
 	   tail = ly_cdr (tail))
 	{
@@ -139,7 +139,7 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
 	      sibling_parent->warning (_f ("Coherent_ligature_engraver: "
 					   "setting `spacing-increment = "
 					   "0.01': ptr=%ul", parent));
-	      sibling_parent->set_grob_property("forced-spacing",
+	      sibling_parent->set_property("forced-spacing",
 					      gh_double2scm (0.01));
 #endif
 	      sibling->set_parent (column, X_AXIS);
@@ -179,17 +179,17 @@ compute_delta_pitches (Array<Grob_info> primitives)
     primitive = dynamic_cast<Item*> (primitives[i].grob_);
     Music *music_cause = primitives[i].music_cause ();
     int pitch =
-      unsmob_pitch (music_cause->get_mus_property ("pitch"))->steps ();
+      unsmob_pitch (music_cause->get_property ("pitch"))->steps ();
     if (prev_primitive)
       {
 	delta_pitch = pitch - prev_pitch;
-	prev_primitive->set_grob_property ("delta-pitch",
+	prev_primitive->set_property ("delta-pitch",
 					   gh_int2scm (delta_pitch));
       }
     prev_pitch = pitch;
     prev_primitive = primitive;
   }
-  primitive->set_grob_property ("delta-pitch", gh_int2scm (0));
+  primitive->set_property ("delta-pitch", gh_int2scm (0));
 }
 
 void

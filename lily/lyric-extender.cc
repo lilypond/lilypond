@@ -23,7 +23,7 @@ Lyric_extender::is_visible (Grob *gr)
 {
   Spanner*me = dynamic_cast<Spanner*> (gr);
 
-  SCM heads = me->get_grob_property ("heads");
+  SCM heads = me->get_property ("heads");
   int l = scm_ilength (heads);
   if (l == 0)
     return false;
@@ -65,7 +65,7 @@ Lyric_extender::print (SCM smob)
     note head, but haven't found a pattern in it yet. --hwn 1/1/04
     
    */
-  SCM minlen =  me->get_grob_property ("minimum-length");
+  SCM minlen =  me->get_property ("minimum-length");
   Real right_point
     = left_point + (robust_scm2double  (minlen,0));
 
@@ -78,7 +78,7 @@ Lyric_extender::print (SCM smob)
   if (heads.size ())
     right_point = right_point >? heads.top ()->extent (common, X_AXIS)[RIGHT];
 
-  Real h = sl * robust_scm2double (me->get_grob_property ("thickness"), 0);
+  Real h = sl * robust_scm2double (me->get_property ("thickness"), 0);
   Real pad = 2* h;
 
   if (r->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))

@@ -13,7 +13,7 @@
 Moment
 Event::get_length () const
 {
-  Duration *d = unsmob_duration (get_mus_property ("duration"));
+  Duration *d = unsmob_duration (get_property ("duration"));
   if (!d)
     {
       Moment m ;
@@ -25,9 +25,9 @@ Event::get_length () const
 void
 Event::compress (Moment m)
 {
-  Duration *d =  unsmob_duration (get_mus_property ("duration"));
+  Duration *d =  unsmob_duration (get_property ("duration"));
   if (d)
-    set_mus_property ("duration", d ->compressed (m.main_part_).smobbed_copy ());
+    set_property ("duration", d ->compressed (m.main_part_).smobbed_copy ());
 }
 
 void
@@ -38,7 +38,7 @@ Event::transpose (Pitch delta)
     _all_ pitch values are transposed automatically.
    */
   
-  Pitch *p = unsmob_pitch (get_mus_property ("pitch"));
+  Pitch *p = unsmob_pitch (get_property ("pitch"));
   if (!p)
     return ;
 
@@ -50,19 +50,19 @@ Event::transpose (Pitch delta)
 	  delta.to_string ()));
     }
 
-  set_mus_property ("pitch", np.smobbed_copy ());
+  set_property ("pitch", np.smobbed_copy ());
 }
 
 Pitch
 Event::to_relative_octave (Pitch last)
 {
-  Pitch *old_pit = unsmob_pitch (get_mus_property ("pitch"));
+  Pitch *old_pit = unsmob_pitch (get_property ("pitch"));
   if (old_pit)
     {
       Pitch new_pit = *old_pit;
       new_pit = new_pit.to_relative_octave (last);
 
-      SCM check = get_mus_property ("absolute-octave");
+      SCM check = get_property ("absolute-octave");
       if (gh_number_p (check) &&
 	  new_pit.get_octave () != gh_scm2int (check))
 	{
@@ -77,7 +77,7 @@ Event::to_relative_octave (Pitch last)
 	  origin ()->warning (s);
 	}
       
-      set_mus_property ("pitch", new_pit.smobbed_copy ());
+      set_property ("pitch", new_pit.smobbed_copy ());
   
       return new_pit;
     }
@@ -97,7 +97,7 @@ LY_DEFINE(ly_music_duration_length, "ly:music-duration-length", 1, 0,0,
   Music* m =   unsmob_music(mus);
   SCM_ASSERT_TYPE(m, mus, SCM_ARG1, __FUNCTION__, "Music");
   
-  Duration *d = unsmob_duration (m->get_mus_property ("duration"));
+  Duration *d = unsmob_duration (m->get_property ("duration"));
 
   Moment l ;
   
@@ -121,9 +121,9 @@ LY_DEFINE(ly_music_duration_compress, "ly:music-duration-compress", 2, 0,0,
   SCM_ASSERT_TYPE(m, mus, SCM_ARG1, __FUNCTION__, "Music");
   SCM_ASSERT_TYPE(f, factor, SCM_ARG2, __FUNCTION__, "Moment");
   
-  Duration *d = unsmob_duration (m->get_mus_property ("duration"));
+  Duration *d = unsmob_duration (m->get_property ("duration"));
   if (d)
-    m->set_mus_property ("duration", d->compressed (f->main_part_).smobbed_copy());
+    m->set_property ("duration", d->compressed (f->main_part_).smobbed_copy());
   return SCM_UNSPECIFIED;
 }
 
@@ -177,11 +177,11 @@ LY_DEFINE(ly_transpose_key_alist, "ly:transpose-key-alist",
 void
 Key_change_ev::transpose (Pitch p)
 {
-  SCM pa = get_mus_property ("pitch-alist");
+  SCM pa = get_property ("pitch-alist");
 
-  set_mus_property ("pitch-alist", ly_transpose_key_alist (pa, p.smobbed_copy()));
-  Pitch tonic = *unsmob_pitch (get_mus_property ("tonic"));
-  set_mus_property ("tonic",
+  set_property ("pitch-alist", ly_transpose_key_alist (pa, p.smobbed_copy()));
+  Pitch tonic = *unsmob_pitch (get_property ("tonic"));
+  set_property ("tonic",
 		    tonic.smobbed_copy ());
 }
 

@@ -74,7 +74,7 @@ Paper_column::Paper_column (SCM l)
 Moment
 Paper_column::when_mom (Grob*me)
 {
-  SCM m = me->get_grob_property ("when");
+  SCM m = me->get_property ("when");
   Moment s (0);
   if (unsmob_moment (m))
     {
@@ -86,7 +86,7 @@ Paper_column::when_mom (Grob*me)
 bool
 Paper_column::is_musical (Grob *me)
 {
-  SCM m = me->get_grob_property ("shortest-starter-duration");
+  SCM m = me->get_property ("shortest-starter-duration");
   Moment s (0);
   if (unsmob_moment (m))
     {
@@ -99,8 +99,8 @@ Paper_column::is_musical (Grob *me)
 bool
 Paper_column::is_used (Grob*me)
 {
-  return gh_pair_p (me->get_grob_property ("elements")) ||  Item::is_breakable (me)
-    || gh_pair_p (me->get_grob_property ("bounded-by-me"))
+  return gh_pair_p (me->get_property ("elements")) ||  Item::is_breakable (me)
+    || gh_pair_p (me->get_property ("bounded-by-me"))
     ;
 }
 
@@ -144,7 +144,7 @@ Paper_column::before_line_breaking (SCM grob)
 {
   Grob *me = unsmob_grob (grob);
 
-  SCM c = me->get_grob_property ("bounded-by-me");
+  SCM c = me->get_property ("bounded-by-me");
   SCM *ptrptr = &c;
 
   while (gh_pair_p (*ptrptr))
@@ -161,6 +161,6 @@ Paper_column::before_line_breaking (SCM grob)
 	}
     }
 
-  me->set_grob_property ("bounded-by-me", c);
+  me->set_property ("bounded-by-me", c);
   return SCM_UNSPECIFIED;
 }

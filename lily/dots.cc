@@ -22,7 +22,7 @@ Dots::print (SCM d)
   Grob *sc = unsmob_grob (d);
   Stencil mol;
   
-  SCM c = sc->get_grob_property ("dot-count");
+  SCM c = sc->get_property ("dot-count");
 
   if (gh_number_p (c))
     {

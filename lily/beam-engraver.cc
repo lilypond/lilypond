@@ -97,7 +97,7 @@ Beam_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("beam-event"))
     {
-      Direction d = to_dir (m->get_mus_property ("span-direction"));
+      Direction d = to_dir (m->get_property ("span-direction"));
       if (d == START && !valid_start_point ())
 	return false;
       if (d == STOP && !valid_end_point ())
@@ -253,7 +253,7 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 
 
 	  last_stem_added_at_ = now;
-	  int durlog  = unsmob_duration (m->get_mus_property ("duration"))-> duration_log ();
+	  int durlog  = unsmob_duration (m->get_property ("duration"))-> duration_log ();
 	  if (durlog <= 2)
 	    {
 	      m->origin ()->warning (_ ("stem doesn't fit in beam"));
@@ -265,7 +265,7 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	      */
 	    }
 
-	  stem->set_grob_property ("duration-log",
+	  stem->set_property ("duration-log",
 				    scm_int2num (durlog));
 	  Moment stem_location = now - beam_start_mom_ + beam_start_location_;
 	  beam_info_->add_stem (stem_location,

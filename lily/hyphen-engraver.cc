@@ -72,7 +72,7 @@ completize_hyphen (Spanner* sp)
 {
   if (!sp->get_bound (RIGHT))
     {
-      SCM heads = sp->get_grob_property ("heads");
+      SCM heads = sp->get_property ("heads");
       if (gh_pair_p (heads))
 	{
 	  Item* it = dynamic_cast<Item*> (unsmob_grob (gh_car (heads)));

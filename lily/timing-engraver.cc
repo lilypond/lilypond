@@ -59,7 +59,7 @@ Timing_engraver::start_translation_timestep ()
     {
       Moment mlen = Moment (measure_length ());
       unsmob_grob (get_property ("currentCommandColumn"))
-	->set_grob_property ("measure-length", mlen.smobbed_copy ()); 
+	->set_property ("measure-length", mlen.smobbed_copy ()); 
     }
   
   if (!gh_string_p (which) && to_boolean (automatic_bars))

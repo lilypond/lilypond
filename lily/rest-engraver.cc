@@ -67,12 +67,12 @@ Rest_engraver::process_music ()
     {
       rest_ = make_item ("Rest");
 
-      int durlog  = unsmob_duration (rest_req_->get_mus_property ("duration"))-> duration_log ();
+      int durlog  = unsmob_duration (rest_req_->get_property ("duration"))-> duration_log ();
       
-      rest_->set_grob_property ("duration-log",
+      rest_->set_property ("duration-log",
 				  gh_int2scm (durlog));
 
-      int dots =unsmob_duration (rest_req_->get_mus_property ("duration"))->dot_count ();
+      int dots =unsmob_duration (rest_req_->get_property ("duration"))->dot_count ();
       
       if (dots)
 	{
@@ -80,11 +80,11 @@ Rest_engraver::process_music ()
 
 	  Rhythmic_head::set_dots (rest_, dot_);
 	  dot_->set_parent (rest_, Y_AXIS);
-	  dot_->set_grob_property ("dot-count", gh_int2scm (dots));
+	  dot_->set_property ("dot-count", gh_int2scm (dots));
 	  announce_grob (dot_, SCM_EOL);
 	}
 
-      Pitch *p = unsmob_pitch (rest_req_->get_mus_property ("pitch"));
+      Pitch *p = unsmob_pitch (rest_req_->get_property ("pitch"));
 
       /*
 	This is ridiculous -- rests don't have pitch, but we act as if
@@ -97,7 +97,7 @@ Rest_engraver::process_music ()
 	  if (gh_number_p (c0))
 	    pos += gh_scm2int (c0);
 	  
-	  rest_->set_grob_property ("staff-position", gh_int2scm (pos));
+	  rest_->set_property ("staff-position", gh_int2scm (pos));
 	}
       
       announce_grob(rest_, rest_req_->self_scm());

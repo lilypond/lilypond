@@ -32,7 +32,7 @@ Custos::print (SCM smob)
 {
   Item *me = (Item *)unsmob_grob (smob);
 
-  SCM scm_style = me->get_grob_property ("style");
+  SCM scm_style = me->get_property ("style");
   String style;
   if (gh_symbol_p (scm_style))
     {
@@ -49,17 +49,17 @@ Custos::print (SCM smob)
    * for both cases?
    */
   bool adjust
-    = to_boolean (me->get_grob_property ("adjust-if-on-staffline"));
+    = to_boolean (me->get_property ("adjust-if-on-staffline"));
 
   int neutral_pos;
-  SCM ntr_pos = me->get_grob_property ("neutral-position");
+  SCM ntr_pos = me->get_property ("neutral-position");
   if (gh_number_p (ntr_pos))
     neutral_pos = gh_scm2int (ntr_pos);
   else
     neutral_pos = 0;
 
   Direction neutral_direction =
-    to_dir (me->get_grob_property ("neutral-direction"));
+    to_dir (me->get_property ("neutral-direction"));
 
   int pos = (int)rint (Staff_symbol_referencer::get_position (me));
   int sz = Staff_symbol_referencer::line_count (me)-1;

@@ -50,8 +50,8 @@ Script_engraver::try_music (Music *r)
 	This is necessary for part-combining.
        */
       for (int j = 0; j < scripts_.size (); j++)
-	if (gh_equal_p (scripts_[j]. event_->get_mus_property ("articulation-type"),
-			r->get_mus_property ("articulation-type")
+	if (gh_equal_p (scripts_[j]. event_->get_property ("articulation-type"),
+			r->get_property ("articulation-type")
 			))
 	  return true;
 	  
@@ -67,12 +67,12 @@ Script_engraver::try_music (Music *r)
 void
 copy_property (Grob * g , SCM sym, SCM alist)
 {
-  if (g->internal_get_grob_property (sym) == SCM_EOL)
+  if (g->internal_get_property (sym) == SCM_EOL)
     {
       SCM entry = scm_assoc (sym,alist);
       if (gh_pair_p (entry))
 	{
-	  g->internal_set_grob_property (sym, gh_cdr (entry));
+	  g->internal_set_property (sym, gh_cdr (entry));
 	}
     }
 }
@@ -122,7 +122,7 @@ void make_script_from_event (Grob *p,
   prio += index;
 
   Side_position_interface::set_axis (p, Y_AXIS);
-  p->set_grob_property ("script-priority", gh_int2scm (prio));
+  p->set_property ("script-priority", gh_int2scm (prio));
 }
 
 void
@@ -135,15 +135,15 @@ Script_engraver::process_music ()
       Grob * p = make_item ("Script");
 
       make_script_from_event (p, &scripts_[i].description_, daddy_context_,
-			      l->get_mus_property ("articulation-type"),
+			      l->get_property ("articulation-type"),
 			      i);
 
       scripts_[i].script_ = p;
 
       
-      SCM force_dir = l->get_mus_property ("direction");
+      SCM force_dir = l->get_property ("direction");
       if (is_direction (force_dir) && to_dir (force_dir))
-	p->set_grob_property ("direction", force_dir);
+	p->set_property ("direction", force_dir);
       
       if (p)
 	announce_grob (p, l->self_scm());
@@ -159,8 +159,8 @@ Script_engraver::acknowledge_grob (Grob_info inf)
 	{
 	  Grob*e = scripts_[i].script_;
 
-	  if (to_dir (e->get_grob_property ("side-relative-direction")))
-	    e->set_grob_property ("direction-source", inf.grob_->self_scm ());
+	  if (to_dir (e->get_property ("side-relative-direction")))
+	    e->set_property ("direction-source", inf.grob_->self_scm ());
 
 	  /*
 	    add dep ? 
@@ -222,7 +222,7 @@ Script_engraver::stop_translation_timestep ()
       if (gh_pair_p (follow) && to_boolean (gh_cdr (follow)))
 	{
 	  sc->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
-	  sc->set_grob_property ("staff-padding", SCM_EOL);
+	  sc->set_property ("staff-padding", SCM_EOL);
 	}
       typeset_grob (sc);
     }

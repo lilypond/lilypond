@@ -55,7 +55,7 @@ Phrasing_slur_engraver::try_music (Music *ev)
 	Let's not start more than one phrasing slur per moment.
       */
       
-      Direction d = to_dir (ev->get_mus_property ("span-direction"));
+      Direction d = to_dir (ev->get_property ("span-direction"));
  	  
       if (d == START)
 	{
@@ -115,7 +115,7 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
       Music* phrasing_slur_ev = new_phrasing_slur_evs_[i];
       // end phrasing slur: move the phrasing slur to other array
 
-      Direction d = to_dir (phrasing_slur_ev->get_mus_property ("span-direction"));
+      Direction d = to_dir (phrasing_slur_ev->get_property ("span-direction"));
       
       if (d == STOP)
 	{
@@ -136,9 +136,9 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 	  Slur::set_interface (phrasing_slur); // can't remove.
 
 
-	  if (Direction updown = to_dir (phrasing_slur_ev->get_mus_property ("direction")))
+	  if (Direction updown = to_dir (phrasing_slur_ev->get_property ("direction")))
 	    {
-	      phrasing_slur->set_grob_property ("direction", gh_int2scm (updown));
+	      phrasing_slur->set_property ("direction", gh_int2scm (updown));
 	    }
 
 	  start_phrasing_slurs.push (phrasing_slur);

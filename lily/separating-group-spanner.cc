@@ -81,9 +81,9 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
   /*
     Ugh: padding is added doubly, also for SeparationItem
    */
-  Real padding = robust_scm2double (me->get_grob_property ("padding"), 0.1);
+  Real padding = robust_scm2double (me->get_property ("padding"), 0.1);
   
-  for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s) && gh_pair_p (ly_cdr (s)); s = ly_cdr (s))
+  for (SCM s = me->get_property ("elements"); gh_pair_p (s) && gh_pair_p (ly_cdr (s)); s = ly_cdr (s))
     {
       /*
 	Order of elements is reversed!

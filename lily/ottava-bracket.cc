@@ -61,19 +61,19 @@ Ottava_bracket::print (SCM smob)
 
       if (Note_column::has_interface (b))
 	{
-	  common = common_refpoint_of_list (b->get_grob_property ("heads"), common, X_AXIS);
+	  common = common_refpoint_of_list (b->get_property ("heads"), common, X_AXIS);
 	}
     }
   while (flip (&d) != LEFT);
 
   SCM properties = Font_interface::font_alist_chain (me);
-  SCM markup = me->get_grob_property ("text");
+  SCM markup = me->get_property ("text");
   Stencil text;
   if (Text_item::markup_p (markup)) 
     text = *unsmob_stencil (Text_item::interpret_markup (paper->self_scm (), properties, markup));
 
 
-  Drul_array<Real> shorten = robust_scm2interval (me->get_grob_property ("shorten-pair"),
+  Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
 						  Interval (0,0));
 
 
@@ -88,7 +88,7 @@ Ottava_bracket::print (SCM smob)
       Interval ext;
       if (Note_column::has_interface (b))
 	{
-	  for (SCM s = b->get_grob_property ("note-heads"); gh_pair_p (s); s =gh_cdr (s))
+	  for (SCM s = b->get_property ("note-heads"); gh_pair_p (s); s =gh_cdr (s))
 	    ext.unite (unsmob_grob (gh_car (s))->extent (common, X_AXIS));
 	}
 
@@ -111,16 +111,16 @@ Ottava_bracket::print (SCM smob)
   
   span_points[LEFT] = span_points[LEFT]
     <? (span_points[RIGHT] - text_size
-	- robust_scm2double (me->get_grob_property ("minimum-length"), -1.0)); 
+	- robust_scm2double (me->get_property ("minimum-length"), -1.0)); 
   
   Interval bracket_span_points = span_points;
   bracket_span_points[LEFT] += text_size;
   
-  Drul_array<Real> edge_height = robust_scm2interval (me->get_grob_property ("edge-height"),
+  Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
 						      Interval (1.0, 1.0));
 
   
-  Drul_array<Real> flare = robust_scm2interval (me->get_grob_property ("bracket-flare"),
+  Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
 						Interval (0,0));
 
 

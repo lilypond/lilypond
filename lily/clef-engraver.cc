@@ -104,14 +104,14 @@ Clef_engraver::create_clef ()
 	  int dir = sign (abs_oct);
 	  abs_oct = abs (abs_oct)  + 1;
 	    
-	  g->set_grob_property ("text",
+	  g->set_property ("text",
 				scm_number_to_string (gh_int2scm (abs_oct),
 						      SCM_MAKINUM (10)));
 	  Side_position_interface::add_support (g,clef_);      
 
 	  g->set_parent (clef_, Y_AXIS);
 	  g->set_parent (clef_, X_AXIS);
-	  g->set_grob_property ("direction", scm_int2num (dir));
+	  g->set_property ("direction", scm_int2num (dir));
 	  octavate_ = g;
 	  announce_grob(octavate_, SCM_EOL);
 	}
@@ -140,7 +140,7 @@ Clef_engraver::inspect_clef_properties ()
       set_glyph ();
       create_clef ();
 
-      clef_->set_grob_property ("non-default", SCM_BOOL_T);
+      clef_->set_property ("non-default", SCM_BOOL_T);
 
       prev_cpos_ = clefpos;
       prev_glyph_ = glyph;
@@ -161,17 +161,17 @@ Clef_engraver::stop_translation_timestep ()
   if (clef_)
     {
       SCM vis = 0; 
-      if (to_boolean (clef_->get_grob_property ("non-default")))
+      if (to_boolean (clef_->get_property ("non-default")))
 	{
 	  vis = get_property ("explicitClefVisibility");
 	}
 
       if (vis)
 	{
-	  clef_->set_grob_property ("break-visibility", vis);
+	  clef_->set_property ("break-visibility", vis);
 	  if (octavate_)
 	    {
-	      octavate_->set_grob_property ("break-visibility", vis);
+	      octavate_->set_property ("break-visibility", vis);
 
 	    }
 	}

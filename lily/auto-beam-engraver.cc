@@ -440,7 +440,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 	  return ;
 	}
 	      
-      int durlog  = unsmob_duration (m->get_mus_property ("duration"))->duration_log ();
+      int durlog  = unsmob_duration (m->get_property ("duration"))->duration_log ();
       
       if (durlog <= 2)
 	{
@@ -457,7 +457,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 	return ;
 	
       
-      Moment dur = unsmob_duration (m->get_mus_property ("duration"))->get_length ();
+      Moment dur = unsmob_duration (m->get_property ("duration"))->get_length ();
       /* FIXME:
 
 	This comment has been here since long:

@@ -90,11 +90,11 @@ Multi_measure_rest_engraver::process_music ()
 		= make_spanner ("MultiMeasureRestText");
 
 	      Music* e = text_events_[i];
-	      SCM t = e->get_mus_property ("text");
-	      SCM dir = e->get_mus_property ("direction");
-	      sp->set_grob_property ("text",t);
+	      SCM t = e->get_property ("text");
+	      SCM dir = e->get_property ("direction");
+	      sp->set_property ("text",t);
 	      if (is_direction (dir))
-		sp->set_grob_property ("direction",dir);
+		sp->set_property ("direction",dir);
 	      
 	      numbers_.push (sp);
 	      announce_grob (sp, e->self_scm());
@@ -108,7 +108,7 @@ Multi_measure_rest_engraver::process_music ()
 	    Grob *last =0;
 	    for (int i=0; i <numbers_.size(); i++)
 	      {
-		if (gh_int2scm (d) == numbers_[i]->get_grob_property ("direction"))
+		if (gh_int2scm (d) == numbers_[i]->get_property ("direction"))
 		  {
 		    if (last)
 		      Side_position_interface::add_support (numbers_[i], last);
@@ -236,20 +236,20 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 	We can't plug a markup directly into the grob, since the
 	measure-count determines the formatting of the mmrest.
       */
-      last_rest_->set_grob_property ("measure-count", gh_int2scm (num));
+      last_rest_->set_property ("measure-count", gh_int2scm (num));
 
       SCM sml = get_property ("measureLength");
       Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_ : Rational (1);
       if (ml >= Rational (2))
 	{
-	  last_rest_->set_grob_property ("use-breve-rest", SCM_BOOL_T);
+	  last_rest_->set_property ("use-breve-rest", SCM_BOOL_T);
 	}
 
       mmrest_ = 0;
       numbers_.clear ();
       
       Grob * last = last_numbers_.size() ? last_numbers_[0] : 0;
-      if (last && last->get_grob_property ("text") == SCM_EOL)
+      if (last && last->get_property ("text") == SCM_EOL)
 	{
 	  SCM thres = get_property ("restNumberThreshold");
 	  int t = 1;
@@ -262,7 +262,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 	    {
 	      SCM text
 		= scm_number_to_string (gh_int2scm (num), SCM_MAKINUM (10));
-	      last->set_grob_property ("text", text);
+	      last->set_property ("text", text);
 	    }
 	}
     }

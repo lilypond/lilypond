@@ -22,7 +22,7 @@
 Stencil
 Script_interface::get_stencil (Grob * me, Direction d)
 {
-  SCM s = me->get_grob_property ("script-stencil");
+  SCM s = me->get_property ("script-stencil");
   assert (gh_pair_p (s));
 
   SCM key = ly_car (s);

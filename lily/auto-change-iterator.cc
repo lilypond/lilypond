@@ -120,7 +120,7 @@ void
 Auto_change_iterator::construct_children ()
 {
   Music_wrapper_iterator::construct_children ();
-  split_list_ =  get_music ()->get_mus_property ("split-list");
+  split_list_ =  get_music ()->get_property ("split-list");
 }
 
 IMPLEMENT_CTOR_CALLBACK (Auto_change_iterator);

@@ -21,12 +21,12 @@
 Font_metric *
 Font_interface::get_default_font (Grob*me)
 {
-  Font_metric * fm =  unsmob_metrics (me->get_grob_property ("font"));
+  Font_metric * fm =  unsmob_metrics (me->get_property ("font"));
   if (fm)
     return fm;
 
   fm = select_font (me->get_paper (),  font_alist_chain (me));
-  me->set_grob_property ("font", fm->self_scm ());
+  me->set_property ("font", fm->self_scm ());
   return fm;
 }
 

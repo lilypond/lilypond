@@ -64,7 +64,7 @@ Grob::Grob (SCM basicprops)
   mutable_property_alist_ = scm_c_make_hash_table (HASH_SIZE);
 #endif
   
-  SCM meta = get_grob_property ("meta");
+  SCM meta = get_property ("meta");
   if (gh_pair_p (meta))
     {
       SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);
@@ -74,7 +74,7 @@ Grob::Grob (SCM basicprops)
        */
       bool itc = internal_type_checking_global_b;
       internal_type_checking_global_b = false;
-      internal_set_grob_property (ly_symbol2scm ("interfaces"), gh_cdr(ifs));
+      internal_set_property (ly_symbol2scm ("interfaces"), gh_cdr(ifs));
       internal_type_checking_global_b = itc;
     }
   
@@ -91,7 +91,7 @@ Grob::Grob (SCM basicprops)
   
   for (int a = X_AXIS; a <= Y_AXIS; a++)
     {
-      SCM l = get_grob_property (onames[a]);
+      SCM l = get_property (onames[a]);
 
       if (scm_ilength (l) >=0)
 	{
@@ -103,8 +103,8 @@ Grob::Grob (SCM basicprops)
 	  programming_error ("[XY]-offset-callbacks must be a list");
 	}
 
-      SCM cb = get_grob_property (enames[a]);
-      SCM xt = get_grob_property (xnames[a]);
+      SCM cb = get_property (enames[a]);
+      SCM xt = get_property (xnames[a]);
       
       /*
 	Should change default to empty? 
@@ -113,7 +113,7 @@ Grob::Grob (SCM basicprops)
 	cb = xt;
       else if (cb != SCM_BOOL_F
 	  && !gh_procedure_p (cb) && !gh_pair_p (cb)
-	  && gh_procedure_p (get_grob_property ("print-function")))
+	  && gh_procedure_p (get_property ("print-function")))
 	cb = stencil_extent_proc;
     
       dim_cache_[a].dimension_ = cb;
@@ -186,7 +186,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
   
   status_= busy;
 
-  for (SCM d = get_grob_property ("dependencies"); gh_pair_p (d);
+  for (SCM d = get_property ("dependencies"); gh_pair_p (d);
        d = ly_cdr (d))
     {
       unsmob_grob (ly_car (d))
@@ -194,7 +194,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
     }
 
   
-  SCM proc = internal_get_grob_property (funcname);
+  SCM proc = internal_get_property (funcname);
   if (gh_procedure_p (proc))
     gh_call1 (proc, this->self_scm ());
  
@@ -209,7 +209,7 @@ Grob::get_stencil ()  const
       return 0;
     }
   
-  SCM mol = get_grob_property ("stencil");
+  SCM mol = get_property ("stencil");
   if (unsmob_stencil (mol))
     return unsmob_stencil (mol);
 
@@ -218,7 +218,7 @@ Grob::get_stencil ()  const
   if (live ())
     {
       Grob *me = (Grob*)this;
-      me->set_grob_property ("stencil", mol);
+      me->set_property ("stencil", mol);
     }
   
   return unsmob_stencil (mol);  
@@ -227,7 +227,7 @@ Grob::get_stencil ()  const
 SCM
 Grob::get_uncached_stencil ()const
 {
-  SCM proc = get_grob_property ("print-function");
+  SCM proc = get_property ("print-function");
 
   SCM  mol = SCM_EOL;
   if (gh_procedure_p (proc)) 
@@ -241,10 +241,10 @@ Grob::get_uncached_stencil ()const
       
       if (store_locations_global_b)
 	{
-	  SCM cause = get_grob_property ("cause");
+	  SCM cause = get_property ("cause");
 	  if (Music*m = unsmob_music (cause))
 	    {
-	      SCM music_origin = m->get_mus_property ("origin");
+	      SCM music_origin = m->get_property ("origin");
 	      if (unsmob_input (music_origin))
 		origin = music_origin;
 	    }
@@ -262,7 +262,7 @@ Grob::get_uncached_stencil ()const
   /*
     transparent retains dimensions of element.
    */
-  if (m && to_boolean (get_grob_property ("transparent")))
+  if (m && to_boolean (get_property ("transparent")))
     mol = Stencil (m->extent_box (), SCM_EOL).smobbed_copy ();
 
   return mol;
@@ -504,7 +504,7 @@ Grob::extent (Grob * refp, Axis a) const
   
   ext = ly_scm2interval (d->dimension_);
 
-  SCM extra = get_grob_property (a == X_AXIS
+  SCM extra = get_property (a == X_AXIS
 				? "extra-X-extent"
 				: "extra-Y-extent");
 
@@ -517,7 +517,7 @@ Grob::extent (Grob * refp, Axis a) const
       ext[SMALLER] +=   gh_scm2double (ly_car (extra));
     }
   
-  extra = get_grob_property (a == X_AXIS
+  extra = get_property (a == X_AXIS
 				? "minimum-X-extent"
 				: "minimum-Y-extent");
   if (gh_pair_p (extra))
@@ -590,7 +590,7 @@ common_refpoint_of_array (Link_array<Grob> const &arr, Grob *common, Axis a)
 String
 Grob::name () const
 {
-  SCM meta = get_grob_property ("meta");
+  SCM meta = get_property ("meta");
   SCM nm = scm_assoc (ly_symbol2scm ("name"), meta);
   nm = (gh_pair_p (nm)) ? ly_cdr (nm) : SCM_EOL;
   return  gh_symbol_p (nm) ? ly_symbol2string (nm) :  classname (this);  
@@ -674,7 +674,7 @@ Grob::warning (String s)const
   SCM cause = self_scm();
   while (Grob * g = unsmob_grob (cause))
     {
-      cause = g->get_grob_property ("cause");
+      cause = g->get_property ("cause");
     }
 
   if (Music *m = unsmob_music (cause))
@@ -761,7 +761,7 @@ Grob::discretionary_processing ()
 bool
 Grob::internal_has_interface (SCM k)
 {
-  SCM ifs = get_grob_property ("interfaces");
+  SCM ifs = get_property ("interfaces");
 
   return scm_memq (k, ifs) != SCM_BOOL_F;
 }

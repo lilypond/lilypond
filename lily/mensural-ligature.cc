@@ -127,7 +127,7 @@ add_ledger_lines (Grob *me, Stencil *out, int pos, Real offs,
 Stencil
 internal_brew_primitive (Grob *me, bool ledger_take_space)
 {
-  SCM primitive_scm = me->get_grob_property ("primitive");
+  SCM primitive_scm = me->get_property ("primitive");
   if (primitive_scm == SCM_EOL)
     {
       programming_error ("Mensural_ligature:"
@@ -143,15 +143,15 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   if (primitive & MLP_ANY)
     {
-      thickness = robust_scm2double ( me->get_grob_property ("thickness"), .14);
+      thickness = robust_scm2double ( me->get_property ("thickness"), .14);
     }
 
   if (primitive & MLP_FLEXA)
     {
-      delta_pitch = robust_scm2int (me->get_grob_property ("delta-pitch"),
+      delta_pitch = robust_scm2int (me->get_property ("delta-pitch"),
 				    0);
 
-      flexa_width = robust_scm2double (me->get_grob_property ("flexa-width"), 2.0 * staff_space);
+      flexa_width = robust_scm2double (me->get_property ("flexa-width"), 2.0 * staff_space);
     }
 
   switch (primitive)
@@ -185,7 +185,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
 	return Stencil ();
     }
 
-  SCM join_left_scm = me->get_grob_property ("join-left-amount");
+  SCM join_left_scm = me->get_property ("join-left-amount");
   if (join_left_scm != SCM_EOL)
     {
       int join_left = gh_scm2int (join_left_scm);

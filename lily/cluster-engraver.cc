@@ -88,7 +88,7 @@ Cluster_spanner_engraver::process_music ()
       
       for (int i = 0; i <cluster_notes_.size (); i++)
 	{
-	  Pitch *pit =unsmob_pitch (cluster_notes_[i]->get_mus_property ("pitch"));
+	  Pitch *pit =unsmob_pitch (cluster_notes_[i]->get_property ("pitch"));
 
 	  int p =( pit ? pit->steps () : 0) + c0;
 
@@ -97,7 +97,7 @@ Cluster_spanner_engraver::process_music ()
 	}
       
       beacon_ = make_item ("ClusterSpannerBeacon");
-      beacon_->set_grob_property ("positions",
+      beacon_->set_property ("positions",
 				  scm_cons (gh_int2scm (pmin),
 					    gh_int2scm (pmax)));
       announce_grob (beacon_, cluster_notes_[0]->self_scm ());

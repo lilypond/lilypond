@@ -26,7 +26,7 @@ Self_alignment_interface::aligned_on_parent (SCM element_smob, SCM axis)
   Interval he = him->extent (him,a);
   
   SCM sym= (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X"): ly_symbol2scm ("self-alignment-Y");
-  SCM align_prop (me->internal_get_grob_property (sym));
+  SCM align_prop (me->internal_get_property (sym));
 
   if (!gh_number_p (align_prop))
     return gh_int2scm (0);
@@ -85,7 +85,7 @@ Self_alignment_interface::aligned_on_self (SCM element_smob, SCM axis)
 
   SCM sym= (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X"): ly_symbol2scm ("self-alignment-Y");
   
-  SCM align (me->internal_get_grob_property (sym));
+  SCM align (me->internal_get_property (sym));
   if (gh_number_p (align))
     {
       Interval ext (me->extent (me,a));

@@ -21,7 +21,7 @@ Grob_info::Grob_info ()
 Music*
 Grob_info::music_cause ()
 {
-  SCM cause = grob_->get_grob_property ("cause"); 
+  SCM cause = grob_->get_property ("cause"); 
   return unsmob_music (cause);
 }
 

@@ -77,11 +77,11 @@ Axis_group_engraver::finalize ()
 
   dims = get_property ("minimumVerticalExtent");
   if (is_number_pair (dims) )
-    staffline_->set_grob_property ("minimum-Y-extent", dims);
+    staffline_->set_property ("minimum-Y-extent", dims);
 
   dims = get_property ("extraVerticalExtent");
   if (is_number_pair (dims))
-    staffline_->set_grob_property ("extra-Y-extent", dims);
+    staffline_->set_property ("extra-Y-extent", dims);
 
   Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));
 

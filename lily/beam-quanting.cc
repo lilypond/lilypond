@@ -97,7 +97,7 @@ Beam::quanting (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  SCM s = me->get_grob_property ("positions");
+  SCM s = me->get_property ("positions");
   Real yl = gh_scm2double (gh_car (s));
   Real yr = gh_scm2double (gh_cdr (s));
 
@@ -111,7 +111,7 @@ Beam::quanting (SCM smob)
   Real thickness = Beam::get_thickness (me) / ss ;
   Real slt = Staff_symbol_referencer::line_thickness (me) / ss;
 
-  SCM sdy = me->get_grob_property ("least-squares-dy");
+  SCM sdy = me->get_property ("least-squares-dy");
   Real dy_mus = gh_number_p (sdy) ? gh_scm2double (sdy) : 0.0;
   
   Real straddle = 0.0;
@@ -172,7 +172,7 @@ Beam::quanting (SCM smob)
       stem_infos.push (si);
       dirs_found[stem_infos.top ().dir_] = true;
 
-      bool f = to_boolean (s->get_grob_property ("french-beaming"))
+      bool f = to_boolean (s->get_property ("french-beaming"))
 	 && s != lvs && s != fvs;
 
       base_lengths.push (calc_stem_y (me, s, common, xl, xr,
@@ -276,7 +276,7 @@ Beam::quanting (SCM smob)
 
 
 #if DEBUG_QUANTING
-  SCM inspect_quants = me->get_grob_property ("inspect-quants");
+  SCM inspect_quants = me->get_property ("inspect-quants");
   if (debug_beam_quanting_flag
       && gh_pair_p (inspect_quants))
     {
@@ -299,7 +299,7 @@ Beam::quanting (SCM smob)
     }
 #endif
   
-  me->set_grob_property ("positions",
+  me->set_property ("positions",
 			 ly_interval2scm (Drul_array<Real> (qscores[best_idx].yl,
 					  qscores[best_idx].yr)));
 #if DEBUG_QUANTING
@@ -308,7 +308,7 @@ Beam::quanting (SCM smob)
       qscores[best_idx].score_card_ += to_string ("i%d", best_idx);
       
       // debug quanting
-      me->set_grob_property ("quant-score",
+      me->set_property ("quant-score",
 			     scm_makfrom0str (qscores[best_idx].score_card_.to_str0 ()));
     }
 #endif

@@ -137,7 +137,7 @@ New_lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 void
 New_lyric_combine_music_iterator::construct_children ()
 {
-  Music *m = unsmob_music (get_music ()->get_mus_property ("element"));
+  Music *m = unsmob_music (get_music ()->get_property ("element"));
   lyric_iter_ = unsmob_iterator (get_iterator (m));
 
   find_voice ();
@@ -158,7 +158,7 @@ New_lyric_combine_music_iterator::find_voice ()
 {
   if (!music_context_)
     {
-      SCM voice_name = get_music ()->get_mus_property ("associated-context");
+      SCM voice_name = get_music ()->get_property ("associated-context");
   
       if (gh_string_p (voice_name))
 	{

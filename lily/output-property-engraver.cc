@@ -41,7 +41,7 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
   for (int i=props_.size (); i--;)
     {
       Music * o = props_[i];
-      SCM pred = o->get_mus_property ("predicate");
+      SCM pred = o->get_property ("predicate");
 
 
 
@@ -53,9 +53,9 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 	  SCM result=scm_call_1 (pred, inf.grob_->self_scm ());
 	  if (to_boolean (result))
 	    {
-	      SCM sym = o->get_mus_property ("grob-property");
-	      SCM val = o->get_mus_property ("grob-value");
-	      inf.grob_->internal_set_grob_property (sym, val);
+	      SCM sym = o->get_property ("grob-property");
+	      SCM val = o->get_property ("grob-value");
+	      inf.grob_->internal_set_property (sym, val);
 	    }
 	}
       else
@@ -66,7 +66,7 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 	  if (!d)
 	    d = dynamic_cast<Context *> (inf.origin_trans_->daddy_context_);
 	  
-	  SCM proc = o->get_mus_property ("procedure");
+	  SCM proc = o->get_property ("procedure");
 	  scm_call_3 (proc,
 		      inf.grob_->self_scm(),
 		      d->self_scm(), 

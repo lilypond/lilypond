@@ -29,7 +29,7 @@ MAKE_SCHEME_CALLBACK (Span_bar,print,1);
 
 /* Limitations/Bugs:
 
-   (1) Elements from 'me->get_grob_property ("elements")' must be
+   (1) Elements from 'me->get_property ("elements")' must be
    ordered according to their y coordinates relative to their common
    axis group parent.  Otherwise, the computation goes mad.
 
@@ -49,7 +49,7 @@ SCM
 Span_bar::print (SCM smobbed_me) 
 {
   Grob *me = unsmob_grob (smobbed_me);
-  SCM first_elt = me->get_grob_property ("elements");
+  SCM first_elt = me->get_property ("elements");
 
   /* compute common refpoint of elements */
   Grob *refp = me;
@@ -61,7 +61,7 @@ Span_bar::print (SCM smobbed_me)
     }
 
   Span_bar::evaluate_glyph (me);
-  SCM glyph = me->get_grob_property ("glyph");
+  SCM glyph = me->get_property ("glyph");
 
   /* glyph may not be a string, when ME is killed by Hara Kiri in
     between. */
@@ -116,7 +116,7 @@ Span_bar::width_callback (SCM element_smob, SCM scm_axis)
   Grob *se = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (scm_axis);
   assert (a == X_AXIS);
-  String gl = ly_scm2string (se->get_grob_property ("glyph"));
+  String gl = ly_scm2string (se->get_property ("glyph"));
 
   /*
     urg.
@@ -167,7 +167,7 @@ Span_bar::evaluate_empty (Grob*me)
   /* TODO: filter all hara-kiried out of ELEMENS list, and then
      optionally do suicide. Call this cleanage function from
      center_on_spanned_callback () as well. */
-  if (!gh_pair_p (me->get_grob_property ("elements")))
+  if (!gh_pair_p (me->get_property ("elements")))
     {
       me->suicide ();
     }
@@ -176,16 +176,16 @@ Span_bar::evaluate_empty (Grob*me)
 void
 Span_bar::evaluate_glyph (Grob*me)
 {
-  SCM gl = me->get_grob_property ("glyph");
+  SCM gl = me->get_property ("glyph");
 
   if (gh_string_p (gl))
     return ;
   
-  for (SCM s = me->get_grob_property ("elements");
+  for (SCM s = me->get_property ("elements");
        !gh_string_p (gl) && gh_pair_p (s); s = gh_cdr (s))
     {
       gl = unsmob_grob (gh_car (s))
-	->get_grob_property ("glyph");
+	->get_property ("glyph");
     }
 
   if (!gh_string_p (gl))
@@ -209,9 +209,9 @@ Span_bar::evaluate_glyph (Grob*me)
     }
 
   gl = scm_makfrom0str (type.to_str0 ());
-  if (scm_equal_p (me->get_grob_property ("glyph"), gl)
+  if (scm_equal_p (me->get_property ("glyph"), gl)
       != SCM_BOOL_T)
-    me->set_grob_property ("glyph", gl);
+    me->set_property ("glyph", gl);
 }
 
 Interval

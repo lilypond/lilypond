@@ -6,7 +6,7 @@
 #include "system.hh"
 
 
-LY_DEFINE (ly_set_grob_property,"ly:set-grob-property!", 3, 0, 0,
+LY_DEFINE (ly_grob_set_property,"ly:grob-set-property!", 3, 0, 0,
   (SCM grob, SCM sym, SCM val),
   "Set @var{sym} in grob @var{grob} to value @var{val}")
 {
@@ -17,12 +17,12 @@ LY_DEFINE (ly_set_grob_property,"ly:set-grob-property!", 3, 0, 0,
   if (!type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
     error ("typecheck failed");
       
-  sc->internal_set_grob_property (sym, val);
+  sc->internal_set_property (sym, val);
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_get_grob_property,
-	  "ly:get-grob-property", 2, 0, 0, (SCM grob, SCM sym),
+LY_DEFINE (ly_get_property,
+	  "ly:grob-property", 2, 0, 0, (SCM grob, SCM sym),
 	  "Get the value of a value in grob @var{g} of property @var{sym}. It\n"
 "will return @code{'()} (end-of-list) if @var{g} doesn't have @var{sym} set.\n"
 "\n"
@@ -35,7 +35,7 @@ LY_DEFINE (ly_get_grob_property,
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
-  return sc->internal_get_grob_property (sym);
+  return sc->internal_get_property (sym);
 }
 
 LY_DEFINE (spanner_get_bound, "ly:spanner-get-bound", 2 , 0, 0,

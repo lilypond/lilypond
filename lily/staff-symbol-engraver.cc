@@ -68,7 +68,7 @@ Staff_symbol_engraver::finalize ()
 void
 Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 {
-  s.grob_->set_grob_property ("staff-symbol", span_->self_scm ());
+  s.grob_->set_property ("staff-symbol", span_->self_scm ());
 
   // remove this. probly not necessary?
   s.grob_->add_dependency (span_); // UGH. UGH. UGH
@@ -106,7 +106,7 @@ Tab_staff_symbol_engraver::process_music ()
     {
       int k = scm_ilength (get_property ("stringTunings"));
       if (k>=0)
-	span_->set_grob_property ("line-count", gh_int2scm (k));
+	span_->set_property ("line-count", gh_int2scm (k));
     }
 }
 

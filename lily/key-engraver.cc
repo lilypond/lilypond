@@ -66,12 +66,12 @@ Key_engraver::create_key (bool def)
     {
       item_ = make_item ("KeySignature");
 
-      item_->set_grob_property ("c0-position",
+      item_->set_property ("c0-position",
 				get_property ("centralCPosition"));
       
       // todo: put this in basic props.
-      item_->set_grob_property ("old-accidentals", get_property ("lastKeySignature"));
-      item_->set_grob_property ("new-accidentals", get_property ("keySignature"));
+      item_->set_property ("old-accidentals", get_property ("lastKeySignature"));
+      item_->set_property ("new-accidentals", get_property ("keySignature"));
 
       announce_grob(item_, key_ev_ ? key_ev_->self_scm() : SCM_EOL);
     }
@@ -80,7 +80,7 @@ Key_engraver::create_key (bool def)
     {
       SCM vis = get_property ("explicitKeySignatureVisibility"); 
       if (gh_procedure_p (vis))
-	item_->set_grob_property ("break-visibility",vis);
+	item_->set_property ("break-visibility",vis);
     }
 }      
 
@@ -148,7 +148,7 @@ Key_engraver::stop_translation_timestep ()
 void
 Key_engraver::read_ev (Key_change_ev const * r)
 {
-  SCM p = r->get_mus_property ("pitch-alist");
+  SCM p = r->get_property ("pitch-alist");
   if (!gh_pair_p (p))
     return;
 
@@ -170,7 +170,7 @@ Key_engraver::read_ev (Key_change_ev const * r)
 
   daddy_context_->set_property ("keySignature", accs);
   daddy_context_->set_property ("tonic" ,
-			      r->get_mus_property ("tonic"));
+			      r->get_property ("tonic"));
 }
 
 

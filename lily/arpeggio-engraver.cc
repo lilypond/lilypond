@@ -71,7 +71,7 @@ Arpeggio_engraver::acknowledge_grob (Grob_info info)
 	}
       else if (Note_column::has_interface (info.grob_ ))
 	{
-	  info.grob_->set_grob_property ("arpeggio", arpeggio_->self_scm ());
+	  info.grob_->set_property ("arpeggio", arpeggio_->self_scm ());
 	}
     }
 }

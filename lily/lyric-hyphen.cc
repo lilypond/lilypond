@@ -45,13 +45,13 @@ Hyphen_spanner::print (SCM smob)
   while (flip (&d) != LEFT);
   
   Real lt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-  Real th = robust_scm2double (me->get_grob_property ("thickness"), 1) * lt ;
-  Real h = robust_scm2double (me->get_grob_property ("height"), 0.5);
+  Real th = robust_scm2double (me->get_property ("thickness"), 1) * lt ;
+  Real h = robust_scm2double (me->get_property ("height"), 0.5);
 
   // interval?
   
-  Real dp = robust_scm2double (me->get_grob_property ("dash-period"), 1.0);
-  Real dl = robust_scm2double (me->get_grob_property ("length"), .5 );
+  Real dp = robust_scm2double (me->get_property ("dash-period"), 1.0);
+  Real dl = robust_scm2double (me->get_property ("length"), .5 );
 
   if (dp < dl)
     dp = 1.5 * dl;
@@ -98,7 +98,7 @@ Hyphen_spanner::set_spacing_rods (SCM smob)
   Rod r;
   Spanner*sp = dynamic_cast<Spanner*> (me);
   r.distance_ =
-    robust_scm2double (me->get_grob_property ("minimum-length"), 0);
+    robust_scm2double (me->get_property ("minimum-length"), 0);
 
   Direction d=LEFT;
   do

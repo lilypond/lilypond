@@ -68,11 +68,11 @@ Stencil
 Line_interface::line (Grob *me, Offset from, Offset to)
 {
   Real thick = Staff_symbol_referencer::line_thickness (me)
-    * robust_scm2double (me->get_grob_property ("thickness"),1);
+    * robust_scm2double (me->get_property ("thickness"),1);
   
-  SCM type = me->get_grob_property ("style");
+  SCM type = me->get_property ("style");
 
-  SCM dash_fraction = me->get_grob_property ("dash-fraction");
+  SCM dash_fraction = me->get_property ("dash-fraction");
   if (gh_number_p (dash_fraction) || type == ly_symbol2scm ("dotted-line"))
     {
       
@@ -83,7 +83,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
       
       fraction = (fraction >? 0) <? 1.0;
       Real period = Staff_symbol_referencer::staff_space (me)
-	* robust_scm2double (me->get_grob_property ("dash-period"), 1.0);
+	* robust_scm2double (me->get_property ("dash-period"), 1.0);
 
       if (period < 0)
 	return Stencil ();

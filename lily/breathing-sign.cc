@@ -47,7 +47,7 @@ Breathing_sign::divisio_minima (SCM smob)
   Real staff_size;
 
   Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (me->get_grob_property ("thickness"), 1.0);
+  thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
   if (Staff_symbol_referencer::get_staff_symbol (me))
     {
       staff_size = (Staff_symbol_referencer::line_count (me) - 1) * staff_space;
@@ -79,7 +79,7 @@ Breathing_sign::divisio_maior (SCM smob)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real staff_size;
   Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (me->get_grob_property ("thickness"), 1.0);
+  thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
 
   if (Staff_symbol_referencer::get_staff_symbol (me))
     {
@@ -119,7 +119,7 @@ Breathing_sign::divisio_maxima (SCM smob)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real staff_size;
   Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (me->get_grob_property ("thickness"), 1.0);
+  thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
 
   if (Staff_symbol_referencer::get_staff_symbol (me))
     {
@@ -149,7 +149,7 @@ Breathing_sign::finalis (SCM smob)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real staff_size;
   Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (me->get_grob_property ("thickness"), 1.0);
+  thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
 
   if (Staff_symbol_referencer::get_staff_symbol (me))
     {

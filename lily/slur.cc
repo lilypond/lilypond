@@ -42,8 +42,8 @@ void
 Slur::set_interface (Grob*me)
 {
   /* Copy to mutable list. */
-  me->set_grob_property ("attachment",
-			 ly_deep_copy (me->get_grob_property ("attachment")));
+  me->set_property ("attachment",
+			 ly_deep_copy (me->get_property ("attachment")));
 }
 
 void
@@ -67,7 +67,7 @@ Slur::de_uglyfy (Grob*me, Slur_bezier_bow* bb, Real default_height)
       Real h = bb->curve_.control_[i][Y_AXIS] * ff / length;
 
       Real f = default_height / length;
-      SCM up = me->get_grob_property ("de-uglify-parameters");
+      SCM up = me->get_property ("de-uglify-parameters");
       
       Real c1 = gh_scm2double (ly_car (up));
       Real c2 = gh_scm2double (ly_cadr (up));
@@ -114,13 +114,13 @@ SCM
 Slur::after_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  if (!scm_ilength (me->get_grob_property ("note-columns")))
+  if (!scm_ilength (me->get_property ("note-columns")))
     {
       me->suicide ();
       return SCM_UNSPECIFIED;
     }
   set_extremities (me);
-  if (!gh_pair_p (me->get_grob_property ("control-points")))
+  if (!gh_pair_p (me->get_property ("control-points")))
     set_control_points (me);
   return SCM_UNSPECIFIED;
 } 
@@ -132,7 +132,7 @@ Slur::check_slope (Grob *me)
   /*
     Avoid too steep slurs.
    */
-  SCM s = me->get_grob_property ("slope-limit");
+  SCM s = me->get_property ("slope-limit");
   if (gh_number_p (s))
     {
       Array<Offset> encompass = get_encompass_offsets (me);
@@ -152,9 +152,9 @@ Slur::check_slope (Grob *me)
       if (slope > limit)
 	{
 	  Real staff_space = Staff_symbol_referencer::staff_space ((Grob*)me);
-	  Direction dir = (Direction)gh_scm2int (me->get_grob_property ("direction"));
+	  Direction dir = (Direction)gh_scm2int (me->get_property ("direction"));
 	  Direction d = (Direction) (- dir * (sign (dy)));
-	  SCM a = me->get_grob_property ("attachment-offset");
+	  SCM a = me->get_property ("attachment-offset");
 	  Drul_array<Offset> o;
 	  o[LEFT] = ly_scm2offset (index_get_cell (a, LEFT));
 	  o[RIGHT] = ly_scm2offset (index_get_cell (a, RIGHT));
@@ -162,7 +162,7 @@ Slur::check_slope (Grob *me)
 
 	  o[d][Y_AXIS] *= get_grob_direction (me);
 
-	  me->set_grob_property ("attachment-offset",
+	  me->set_property ("attachment-offset",
 				gh_cons (ly_offset2scm (o[LEFT]),
 					 ly_offset2scm (o[RIGHT])));
 	}
@@ -179,14 +179,14 @@ Slur::set_extremities (Grob *me)
   if (!get_grob_direction (me))
     set_grob_direction (me, get_default_dir (me));
 
-  SCM att = me->get_grob_property ("attachment");
+  SCM att = me->get_property ("attachment");
       /*
        */
       if (!gh_pair_p (att))
 	{
 	  programming_error ("attachment is not a cons?!");
 	  att = gh_cons (SCM_EOL, SCM_EOL);
-	  me->set_grob_property ("attachment", att);
+	  me->set_property ("attachment", att);
 	}
       
   Direction dir = LEFT;
@@ -195,7 +195,7 @@ Slur::set_extremities (Grob *me)
     
       if (!gh_symbol_p (index_get_cell (att, dir)))
 	{
-	  SCM p = me->get_grob_property ("extremity-function");
+	  SCM p = me->get_property ("extremity-function");
 	  SCM res = ly_symbol2scm ("head");
 	  
 	  if (gh_procedure_p (p))
@@ -216,7 +216,7 @@ Slur::set_extremities (Grob *me)
 Real
 Slur::get_boundary_notecolumn_y (Grob *me, Direction dir)
 {
-  SCM cols = me->get_grob_property ("note-columns");
+  SCM cols = me->get_property ("note-columns");
 
   if(!gh_pair_p (cols))
     {
@@ -264,12 +264,12 @@ Slur::broken_trend_offset (Grob *me, Direction dir)
       
       Grob *neighbour = mother->broken_intos_[j];      
       if (dir == RIGHT)
-	neighbour->set_grob_property ("direction",
-				      me->get_grob_property ("direction"));
+	neighbour->set_property ("direction",
+				      me->get_property ("direction"));
       Real neighbour_y = get_boundary_notecolumn_y (neighbour, dir);
       Real y = get_boundary_notecolumn_y (me, -dir);
-      int neighbour_cols = scm_ilength (neighbour->get_grob_property ("note-columns"));
-      int cols = scm_ilength (me->get_grob_property ("note-columns"));
+      int neighbour_cols = scm_ilength (neighbour->get_property ("note-columns"));
+      int cols = scm_ilength (me->get_property ("note-columns"));
       o = Offset (0, (y*neighbour_cols + neighbour_y*cols) /
 		  (cols + neighbour_cols));
     }
@@ -287,7 +287,7 @@ Offset
 Slur::get_attachment (Grob *me, Direction dir,
 		      Grob **common) 
 {
-  SCM s = me->get_grob_property ("attachment");
+  SCM s = me->get_property ("attachment");
   if (!gh_pair_p (s) || !gh_symbol_p (index_get_cell (s, dir)))
     {
       s = set_extremities (me);
@@ -301,7 +301,7 @@ Slur::get_attachment (Grob *me, Direction dir,
   Real hs = staff_space / 2.0;
   Offset o;
   
-  Direction slurdir = to_dir (me->get_grob_property ("direction"));
+  Direction slurdir = to_dir (me->get_property ("direction"));
   
   Grob *stem = 0;
   if (Note_column::has_interface (sp->get_bound (dir)))
@@ -370,7 +370,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 	o = broken_trend_offset (me, dir);
     }
 
-  SCM alist = me->get_grob_property ("extremity-offset-alist");
+  SCM alist = me->get_property ("extremity-offset-alist");
   int stemdir = stem ? Stem::get_direction (stem) : 1;
   SCM l = scm_assoc
     (scm_list_n (a,
@@ -396,7 +396,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 	- me->relative_coordinate (common[Y_AXIS], Y_AXIS);
     }
 
-  Offset off = ly_scm2offset (index_get_cell (me->get_grob_property
+  Offset off = ly_scm2offset (index_get_cell (me->get_property
 					  ("attachment-offset"),
 					  dir)) * staff_space;
 
@@ -411,7 +411,7 @@ Slur::encompass_offset (Grob*me,
 			Grob **common) 
 {
   Offset o;
-  Grob* stem = unsmob_grob (col->get_grob_property ("stem"));
+  Grob* stem = unsmob_grob (col->get_property ("stem"));
   
   Direction dir = get_grob_direction (me);
   
@@ -448,7 +448,7 @@ Slur::encompass_offset (Grob*me,
   /*
    leave a gap: slur mustn't touch head/stem
    */
-  o[Y_AXIS] += dir * robust_scm2double (me->get_grob_property ("y-free"), 0) *
+  o[Y_AXIS] += dir * robust_scm2double (me->get_property ("y-free"), 0) *
     1.0;
   return o;
 }
@@ -457,7 +457,7 @@ Array<Offset>
 Slur::get_encompass_offsets (Grob *me)
 {
   Spanner*sp = dynamic_cast<Spanner*> (me);
-  SCM eltlist = me->get_grob_property ("note-columns");
+  SCM eltlist = me->get_property ("note-columns");
   Grob *common[] = {common_refpoint_of_list (eltlist, me, X_AXIS),
 		    common_refpoint_of_list (eltlist, me, Y_AXIS)};
 
@@ -543,20 +543,20 @@ SCM
 Slur::print (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
-  if (!scm_ilength (me->get_grob_property ("note-columns")))
+  if (!scm_ilength (me->get_property ("note-columns")))
     {
       me->suicide ();
       return SCM_EOL;
     }
 
-  Real base_thick = robust_scm2double (me->get_grob_property ("thickness"), 1);
+  Real base_thick = robust_scm2double (me->get_property ("thickness"), 1);
   Real thick = base_thick * Staff_symbol_referencer::line_thickness (me);
 
   Real ss = Staff_symbol_referencer::staff_space (me);
   Bezier one = get_curve (me);
 
   // get_curve may suicide
-  if (!scm_ilength (me->get_grob_property ("note-columns")))
+  if (!scm_ilength (me->get_property ("note-columns")))
     return SCM_EOL;
 
   Stencil a;
@@ -564,7 +564,7 @@ Slur::print (SCM smob)
   /*
     TODO: replace dashed with generic property.
    */
-  SCM d =  me->get_grob_property ("dashed");
+  SCM d =  me->get_property ("dashed");
   if (gh_number_p (d))
     a = Lookup::dashed_slur (one, thick, thick * robust_scm2double (d, 0));
   else
@@ -579,9 +579,9 @@ Slur::set_control_points (Grob*me)
 {
   Real staff_space = Staff_symbol_referencer::staff_space ((Grob*)me);
 
-  SCM details = me->get_grob_property ("details");
-  SCM h_inf_scm = me->get_grob_property ("height-limit");
-  SCM r_0_scm = me->get_grob_property ("ratio");
+  SCM details = me->get_property ("details");
+  SCM h_inf_scm = me->get_property ("height-limit");
+  SCM r_0_scm = me->get_property ("ratio");
 
   Real r_0 = robust_scm2double (r_0_scm, 1);
   Real h_inf = staff_space * gh_scm2double (h_inf_scm);
@@ -596,7 +596,7 @@ Slur::set_control_points (Grob*me)
       Real length = bb.curve_.control_[3][X_AXIS]; 
       Real default_height = slur_height (length, h_inf, r_0);
 
-      SCM ssb = me->get_grob_property ("beautiful");
+      SCM ssb = me->get_property ("beautiful");
       Real sb = 0;
       if (gh_number_p (ssb))
 	sb = gh_scm2double (ssb);
@@ -640,7 +640,7 @@ Slur::set_control_points (Grob*me)
 	}
     }
 
-  me->set_grob_property ("control-points", controls);
+  me->set_property ("control-points", controls);
 }
   
 Bezier
@@ -649,7 +649,7 @@ Slur::get_curve (Grob*me)
   Bezier b;
   int i = 0;
 
-  SCM attach = me->get_grob_property ("attachment");
+  SCM attach = me->get_property ("attachment");
   if (!gh_pair_p (attach))
     attach = set_extremities(me);
 
@@ -659,14 +659,14 @@ Slur::get_curve (Grob*me)
       || ! gh_symbol_p (index_get_cell (attach, RIGHT)))
     set_extremities (me);
   
-  if (!gh_pair_p (me->get_grob_property ("control-points")))
+  if (!gh_pair_p (me->get_property ("control-points")))
     set_control_points (me);
 
   // set_control_points may suicide
-  if (!scm_ilength (me->get_grob_property ("note-columns")))
+  if (!scm_ilength (me->get_property ("note-columns")))
     return b;
 
-  for (SCM s= me->get_grob_property ("control-points"); s != SCM_EOL; s = ly_cdr (s))
+  for (SCM s= me->get_property ("control-points"); s != SCM_EOL; s = ly_cdr (s))
     {
       b.control_[i] = ly_scm2offset (ly_car (s));
       i++;

@@ -102,7 +102,7 @@ Key_signature_interface::print (SCM smob)
 
   Real inter = Staff_symbol_referencer::staff_space (me)/2.0;
 
-  SCM scm_style = me->get_grob_property ("style");
+  SCM scm_style = me->get_property ("style");
   String style;
   if (gh_symbol_p (scm_style))
     {
@@ -113,10 +113,10 @@ Key_signature_interface::print (SCM smob)
       style = "";
     }
 
-  SCM newas = me->get_grob_property ("new-accidentals");  
+  SCM newas = me->get_property ("new-accidentals");  
   Stencil mol;
 
-  SCM c0s = me->get_grob_property ("c0-position");
+  SCM c0s = me->get_property ("c0-position");
   int c0p = 0;
   if (gh_number_p (c0s))
     c0p = gh_scm2int (c0s);
@@ -150,7 +150,7 @@ Key_signature_interface::print (SCM smob)
   Item *it = dynamic_cast<Item*> (me) ;
   if (it->break_status_dir () != RIGHT)
     {
-      SCM old = me->get_grob_property ("old-accidentals");
+      SCM old = me->get_property ("old-accidentals");
       
       /*
 	Add half a space between  cancellation and key sig.

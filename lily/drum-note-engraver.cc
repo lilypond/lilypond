@@ -65,9 +65,9 @@ Drum_notes_engraver::process_music ()
       Item *note = make_item ("NoteHead");
       Music * ev = events_[i];
       
-      Duration dur = *unsmob_duration (ev->get_mus_property ("duration"));
+      Duration dur = *unsmob_duration (ev->get_property ("duration"));
 
-      note->set_grob_property ("duration-log", gh_int2scm (dur.duration_log ()));
+      note->set_property ("duration-log", gh_int2scm (dur.duration_log ()));
 
       if (dur.dot_count ())
 	{
@@ -75,15 +75,15 @@ Drum_notes_engraver::process_music ()
 	  Rhythmic_head::set_dots (note, d);
 	  
 	  if (dur.dot_count ()
-	      != robust_scm2int (d->get_grob_property ("dot-count"), 0))
-	    d->set_grob_property ("dot-count", gh_int2scm (dur.dot_count ()));
+	      != robust_scm2int (d->get_property ("dot-count"), 0))
+	    d->set_property ("dot-count", gh_int2scm (dur.dot_count ()));
 
 	  d->set_parent (note, Y_AXIS);
 	  announce_grob (d, SCM_EOL);
 	  dots_.push (d);
 	}
 
-      SCM drum_type =  ev->get_mus_property ("drum-type");
+      SCM drum_type =  ev->get_property ("drum-type");
 
       SCM defn = SCM_EOL;
 
@@ -97,9 +97,9 @@ Drum_notes_engraver::process_music ()
 	  SCM script = gh_cadr (defn);
 	  
 	  if (scm_integer_p (pos) == SCM_BOOL_T)
-	    note->set_grob_property ("staff-position", pos);
+	    note->set_property ("staff-position", pos);
 	  if (gh_symbol_p (style))
-	    note->set_grob_property ("style", style);
+	    note->set_property ("style", style);
 
 	  if (gh_string_p (script))
 	    {
@@ -109,8 +109,8 @@ Drum_notes_engraver::process_music ()
 				      daddy_context_, script,
 				      0);
 
-	      if (p->get_grob_property ("follow-into-staff"))
-		p->set_grob_property ("staff-padding", SCM_EOL);
+	      if (p->get_property ("follow-into-staff"))
+		p->set_property ("staff-padding", SCM_EOL);
 	      
 	      announce_grob (p, ev->self_scm ());
 
@@ -136,8 +136,8 @@ Drum_notes_engraver::acknowledge_grob (Grob_info inf)
 	{
 	  Grob*e = scripts_[i];
 
-	  if (to_dir (e->get_grob_property ("side-relative-direction")))
-	    e->set_grob_property ("direction-source", inf.grob_->self_scm ());
+	  if (to_dir (e->get_property ("side-relative-direction")))
+	    e->set_property ("direction-source", inf.grob_->self_scm ());
 
 	  /*
 	    add dep ? 

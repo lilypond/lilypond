@@ -50,7 +50,7 @@ Part_combine_engraver::process_music ()
   if (event_
       && to_boolean (get_property ("soloADue")))
     {
-      SCM what = event_->get_mus_property ("part-combine-status");
+      SCM what = event_->get_property ("part-combine-status");
       SCM text = SCM_EOL;
       if (what == ly_symbol2scm ("solo1"))
 	text = get_property ("soloText");
@@ -62,7 +62,7 @@ Part_combine_engraver::process_music ()
       if (Text_item::markup_p (text))
 	{
 	  text_ =  make_item ("CombineTextScript");
-	  text_->set_grob_property ("text", text);
+	  text_->set_property ("text", text);
 	  announce_grob (text_, event_->self_scm ());
 	}
     }

@@ -25,7 +25,7 @@ Pitch_squash_engraver::acknowledge_grob (Grob_info i)
   if (gh_number_p (newpos)
       && Note_head::has_interface (i.grob_))
     {
-      i.grob_->set_grob_property ("staff-position", newpos);
+      i.grob_->set_property ("staff-position", newpos);
     }
 }
 

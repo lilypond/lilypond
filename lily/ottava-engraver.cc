@@ -49,13 +49,13 @@ Ottava_spanner_engraver::process_music ()
       if (gh_string_p (ott))
 	{
 	  span_  = make_spanner ("OttavaBracket");
-	  span_->set_grob_property ("text", ott);
+	  span_->set_property ("text", ott);
 	  announce_grob (span_, SCM_EOL);
 
 	  SCM c0 (get_property ("centralCPosition"));
 	  SCM oc0 (get_property ("originalCentralCPosition"));
 	  if (scm_less_p (oc0, c0) == SCM_BOOL_T)
-	    span_->set_grob_property ("direction", gh_int2scm (DOWN));
+	    span_->set_property ("direction", gh_int2scm (DOWN));
 	}
     }
   last_ottavation_ = ott;

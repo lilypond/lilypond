@@ -68,16 +68,16 @@ Chord_name_engraver::process_music ()
   for (int i =0 ; i < notes_.size (); i++)
     {
       Music *n = notes_[i];
-      SCM p = n->get_mus_property ("pitch");
+      SCM p = n->get_property ("pitch");
       if (!unsmob_pitch (p))
 	continue;
       
-      if (n->get_mus_property ("inversion") == SCM_BOOL_T)
+      if (n->get_property ("inversion") == SCM_BOOL_T)
 	{
 	  inversion_event = n;
 	  inversion = p;
 	}
-      else if (n->get_mus_property ("bass") == SCM_BOOL_T)
+      else if (n->get_property ("bass") == SCM_BOOL_T)
 	bass = p;
       else
 	pitches = gh_cons (p, pitches);
@@ -85,10 +85,10 @@ Chord_name_engraver::process_music ()
 
   if (inversion_event)
     {
-      SCM oct = inversion_event->get_mus_property ("octavation");
+      SCM oct = inversion_event->get_property ("octavation");
       if (gh_number_p (oct))
 	{
-	  Pitch *p = unsmob_pitch (inversion_event->get_mus_property ("pitch"));
+	  Pitch *p = unsmob_pitch (inversion_event->get_property ("pitch"));
 	  int octavation =  gh_scm2int (oct);
 	  Pitch orig = p->transposed (Pitch (-octavation, 0,0));
 	  
@@ -110,12 +110,12 @@ Chord_name_engraver::process_music ()
   SCM chord_as_scm = gh_cons (pitches, gh_cons (bass, inversion));
   
   chord_name_ = make_item ("ChordName");
-  chord_name_->set_grob_property("text", markup);
+  chord_name_->set_property("text", markup);
   announce_grob(chord_name_, notes_[0]->self_scm ());
   SCM s = get_property ("chordChanges");
   if (to_boolean (s) && gh_pair_p (last_chord_) 
       && gh_equal_p (chord_as_scm, last_chord_))
-    chord_name_->set_grob_property ("begin-of-line-visible", SCM_BOOL_T);
+    chord_name_->set_property ("begin-of-line-visible", SCM_BOOL_T);
 
   last_chord_ = chord_as_scm;
 }

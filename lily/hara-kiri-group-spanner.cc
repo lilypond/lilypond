@@ -31,11 +31,11 @@ void
 Hara_kiri_group_spanner::consider_suicide (Grob*me)
 {
   Spanner*sp = dynamic_cast<Spanner*> (me);
-  SCM worth = me->get_grob_property ("items-worth-living");
+  SCM worth = me->get_property ("items-worth-living");
   if (gh_pair_p (worth))
     return ;
 
-  if (!to_boolean (me->get_grob_property ("remove-first"))
+  if (!to_boolean (me->get_property ("remove-first"))
       && broken_spanner_index (sp) == 0)
     {
       return ;

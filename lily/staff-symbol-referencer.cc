@@ -37,7 +37,7 @@ Staff_symbol_referencer::on_staffline (Grob*me, int pos)
 Grob*
 Staff_symbol_referencer::get_staff_symbol (Grob*me) 
 {
-  SCM st = me->get_grob_property ("staff-symbol");
+  SCM st = me->get_property ("staff-symbol");
   return unsmob_grob (st);
 }
 
@@ -76,7 +76,7 @@ Staff_symbol_referencer::get_position (Grob*me)
       return p;
     }
 
-  return robust_scm2double ( me->get_grob_property ("staff-position"), p);
+  return robust_scm2double ( me->get_property ("staff-position"), p);
 }
 
 
@@ -106,13 +106,13 @@ Staff_symbol_referencer::callback (SCM element_smob, SCM)
 {
   Grob *me = unsmob_grob (element_smob);
 
-  SCM pos = me->get_grob_property ("staff-position");
+  SCM pos = me->get_property ("staff-position");
   Real off =0.0;
   if (gh_number_p (pos))
     {
       Real space = Staff_symbol_referencer::staff_space (me);
       off = gh_scm2double (pos) * space/2.0;
-      me->set_grob_property ("staff-position", gh_int2scm (0));
+      me->set_property ("staff-position", gh_int2scm (0));
     }
 
   return gh_double2scm (off);
@@ -140,11 +140,11 @@ Staff_symbol_referencer::set_position (Grob*me,Real p)
   if (st && me->common_refpoint (st, Y_AXIS))
     {
       Real oldpos = get_position (me);
-      me->set_grob_property ("staff-position", gh_double2scm (p - oldpos));
+      me->set_property ("staff-position", gh_double2scm (p - oldpos));
     }
   else
     {
-      me->set_grob_property ("staff-position",
+      me->set_property ("staff-position",
 			    gh_double2scm (p));
 
     }

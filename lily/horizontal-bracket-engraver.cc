@@ -48,7 +48,7 @@ Horizontal_bracket_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("note-grouping-event"))
     {
-      Direction d = to_dir (m->get_mus_property ("span-direction"));
+      Direction d = to_dir (m->get_property ("span-direction"));
       
       if (d == STOP)
 	{

@@ -21,18 +21,18 @@ Clef::before_line_breaking (SCM smob)
 {
   Item *s = unsmob_item (smob);
 
-  SCM glyph = s->get_grob_property ("glyph-name");
+  SCM glyph = s->get_property ("glyph-name");
   
   if (gh_string_p (glyph))
     {
       String str = ly_scm2string (glyph);
 
-      if (to_boolean (s->get_grob_property ("non-default"))
+      if (to_boolean (s->get_property ("non-default"))
 	  && s->break_status_dir () != RIGHT
-	  && !to_boolean (s->get_grob_property ("full-size-change")))
+	  && !to_boolean (s->get_property ("full-size-change")))
 	{
 	  str += "_change";
-	  s->set_grob_property ("glyph-name", scm_makfrom0str (str.to_str0 ()));	  
+	  s->set_property ("glyph-name", scm_makfrom0str (str.to_str0 ()));	  
 	}
     }
   else
@@ -52,7 +52,7 @@ SCM
 Clef::print (SCM smob) 
 {
   Grob *me = unsmob_grob (smob);
-  SCM glyph_scm = me->get_grob_property ("glyph-name");
+  SCM glyph_scm = me->get_property ("glyph-name");
   if (!gh_string_p (glyph_scm))
     return SCM_EOL;
 

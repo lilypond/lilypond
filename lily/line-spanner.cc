@@ -31,12 +31,12 @@ zigzag_stencil (Grob *me,
   Real dy = dz[Y_AXIS];
 
   Real thick = Staff_symbol_referencer::line_thickness (me);
-  thick *= robust_scm2double (me->get_grob_property ("thickness"), 1.0); // todo: staff sym referencer? 
+  thick *= robust_scm2double (me->get_property ("thickness"), 1.0); // todo: staff sym referencer? 
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  double w = robust_scm2double (me->get_grob_property ("zigzag-width"), 1)*staff_space;
-  double l = robust_scm2double ( me->get_grob_property ("zigzag-length"), 1)* w;
+  double w = robust_scm2double (me->get_property ("zigzag-width"), 1)*staff_space;
+  double l = robust_scm2double ( me->get_property ("zigzag-length"), 1)* w;
   double h = l>w/2 ? sqrt(l*l-w*w/4) : 0;
   
   SCM list = scm_list_n (ly_symbol2scm ("zigzag-line"),
@@ -84,7 +84,7 @@ Line_spanner::after_line_breaking (SCM  g)
       /*
 	Can't do suicide, since this mucks up finding the trend.
        */
-      me->set_grob_property ("print-function", SCM_EOL);
+      me->set_property ("print-function", SCM_EOL);
       
     }
   return SCM_EOL;
@@ -97,7 +97,7 @@ Line_spanner::line_stencil (Grob *me,
 			     Offset to)
 {
   Offset dz = to -from ; 
-  SCM type = me->get_grob_property ("style");
+  SCM type = me->get_property ("style");
   if (gh_symbol_p (type)
       && (type == ly_symbol2scm ("line")
 	  || type == ly_symbol2scm ("dashed-line")
@@ -182,7 +182,7 @@ Line_spanner::print (SCM smob)
 			    me->get_bound (RIGHT));
   
   
-  Real gap = robust_scm2double (me->get_grob_property ("gap"), 0.0);
+  Real gap = robust_scm2double (me->get_property ("gap"), 0.0);
 
   Offset ofxy (gap, 0); /*offset from start point to start of line*/
   Offset dxy ;

@@ -47,7 +47,7 @@ Dot_column_engraver::stop_translation_timestep ()
 	See [Ross, p 171]
        */
       if (stem_)
-	dotcol_->set_grob_property ("stem", stem_->self_scm ());
+	dotcol_->set_property ("stem", stem_->self_scm ());
       
       typeset_grob (dotcol_);
       dotcol_ =0;
@@ -59,7 +59,7 @@ Dot_column_engraver::stop_translation_timestep ()
 void
 Dot_column_engraver::acknowledge_grob (Grob_info info)
 {
-  Grob *d = unsmob_grob (info.grob_->get_grob_property ("dot"));
+  Grob *d = unsmob_grob (info.grob_->get_property ("dot"));
   if (d)
     {
       if (!dotcol_)

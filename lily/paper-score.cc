@@ -87,8 +87,8 @@ Paper_score::process (String outname)
   { /* doubly, also done in Score_engraver */
     Link_array<Grob> pc (system_->columns ());
   
-    pc[0]->set_grob_property ("breakable", SCM_BOOL_T);
-    pc.top ()->set_grob_property ("breakable", SCM_BOOL_T);
+    pc[0]->set_property ("breakable", SCM_BOOL_T);
+    pc.top ()->set_property ("breakable", SCM_BOOL_T);
   }
 
   system_->pre_processing ();

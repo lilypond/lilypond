@@ -42,7 +42,7 @@ Engraver::announce_grob (Grob* e, SCM cause)
     `causes' generically.
   */
   if (unsmob_music (cause) || unsmob_grob (cause))
-    e->set_grob_property ("cause", cause);
+    e->set_property ("cause", cause);
 
   Grob_info i;
   i.grob_ = e;

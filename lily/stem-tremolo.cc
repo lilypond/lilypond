@@ -58,14 +58,14 @@ Stem_tremolo::height (SCM smob, SCM ax)
 Stencil
 Stem_tremolo::raw_stencil (Grob *me)
 {
-  Grob *stem = unsmob_grob (me->get_grob_property ("stem"));
+  Grob *stem = unsmob_grob (me->get_property ("stem"));
   Grob *beam = Stem::get_beam (stem);
   
   Real dydx;
   if (beam)
     {
       Real dy = 0;
-      SCM s = beam->get_grob_property ("positions");
+      SCM s = beam->get_property ("positions");
       if (is_number_pair (s))
 	{
 	  dy = -gh_scm2double (gh_car (s)) +gh_scm2double (gh_cdr (s));
@@ -80,8 +80,8 @@ Stem_tremolo::raw_stencil (Grob *me)
     dydx = 0.25;
 
   Real ss = Staff_symbol_referencer::staff_space (me);
-  Real thick = robust_scm2double (me->get_grob_property ("beam-thickness"),1);
-  Real width = robust_scm2double (me->get_grob_property ("beam-width"),1);
+  Real thick = robust_scm2double (me->get_property ("beam-thickness"),1);
+  Real width = robust_scm2double (me->get_property ("beam-width"),1);
   Real blot = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
 
   width *= ss;
@@ -91,7 +91,7 @@ Stem_tremolo::raw_stencil (Grob *me)
   a.translate (Offset (-width/2, width / 2 * dydx));
   
   int tremolo_flags = 0;
-  SCM s = me->get_grob_property ("flag-count");
+  SCM s = me->get_property ("flag-count");
   if (gh_number_p (s))
     tremolo_flags = gh_scm2int (s);
 
@@ -126,7 +126,7 @@ SCM
 Stem_tremolo::print (SCM grob) 
 {
   Grob *me = unsmob_grob (grob);
-  Grob *stem = unsmob_grob (me->get_grob_property ("stem"));
+  Grob *stem = unsmob_grob (me->get_property ("stem"));
   Grob *beam = Stem::get_beam (stem);
   Direction stemdir = Stem::get_direction (stem);
   Real beam_translation
@@ -147,7 +147,7 @@ Stem_tremolo::print (SCM grob)
 
 
   Real beamthickness = 0.0;
-  SCM sbt = (beam) ? beam->get_grob_property ("thickness") : SCM_EOL ;
+  SCM sbt = (beam) ? beam->get_property ("thickness") : SCM_EOL ;
   if (gh_number_p (sbt))
     {
       beamthickness = gh_scm2double (sbt) * ss;
@@ -194,7 +194,7 @@ Stem_tremolo::print (SCM grob)
 void
 Stem_tremolo::set_stem (Grob*me,Grob *s)
 {
-  me->set_grob_property ("stem", s->self_scm ());
+  me->set_property ("stem", s->self_scm ());
 }
 
 

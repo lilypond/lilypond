@@ -65,7 +65,7 @@ Metronome_mark_engraver::stop_translation_timestep ()
       if (bar_line_ && !text_->get_parent (X_AXIS))
 	text_->set_parent (bar_line_, X_AXIS);
       
-      text_->set_grob_property ("side-support-elements" , get_property ("stavesFound"));
+      text_->set_property ("side-support-elements" , get_property ("stavesFound"));
       typeset_grob (text_);
       text_ =0;
     }
@@ -103,7 +103,7 @@ Metronome_mark_engraver::process_music ()
       SCM result= scm_call_2 (proc, mark_ev_->self_scm (),
 			      daddy_context_->self_scm()); 
       
-      text_->set_grob_property ("text", result);
+      text_->set_property ("text", result);
     }
 }
 
