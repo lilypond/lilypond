@@ -104,17 +104,17 @@ Object_key_undumper::parse_contents (SCM contents)
       SCM *tail = &new_key;
       for (SCM t = skey; scm_is_pair (t); t = scm_cdr (t))
 	{
-	  SCM entry = scm_car (t);
-	  if (scm_is_pair (entry)
-	      && scm_car (entry) == ly_symbol2scm ("key"))
+	  SCM item = scm_car (t);
+	  if (scm_is_pair (item)
+	      && scm_car (item) == ly_symbol2scm ("key"))
 	    {
-	      int index = scm_to_int (scm_cadr (entry));
+	      int index = scm_to_int (scm_cadr (item));
 	      Object_key const *key = get_key (index);
 	      *tail = scm_cons (key->self_scm(), SCM_EOL);
 	    }
 	  else
 	    {
-	      *tail = scm_cons (entry, SCM_EOL);
+	      *tail = scm_cons (item, SCM_EOL);
 	    }
 	  tail = SCM_CDRLOC(*tail);
 	}

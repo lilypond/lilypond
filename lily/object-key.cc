@@ -107,9 +107,9 @@ struct {
 } undumpers[] = {
   {BASE_KEY, Object_key::from_scheme},
   {COPIED_KEY, Copied_key::from_scheme},
+  {GENERAL_KEY, Lilypond_general_key::from_scheme},
   {GROB_KEY, Lilypond_grob_key::from_scheme},
   {CONTEXT_KEY, Lilypond_context_key::from_scheme},
-  {GENERAL_KEY, Lilypond_general_key::from_scheme},
   {KEY_COUNT,0},
 };
 

@@ -51,8 +51,8 @@ Object_key_dumper::Object_key_dumper ()
 SCM
 Object_key_dumper::key_serial (int k)
 {
-  return scm_cons (ly_symbol2scm ("key"),
-		   scm_from_int (k));
+  return scm_list_2 (ly_symbol2scm ("key"),
+		     scm_from_int (k));
 }
 
 SCM

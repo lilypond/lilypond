@@ -26,7 +26,7 @@ SCM
 Spring_smob::mark_smob (SCM) { return SCM_UNSPECIFIED; }
 
 int
-Spring_smob::print_smob (SCM s, SCM p, scm_print_state *)
+Spring_smob::print_smob (SCM, SCM p, scm_print_state *)
 {
   scm_puts ("#<Spring smob>", p);
   return 1;

@@ -110,6 +110,8 @@ class Music_wrapper_iterator;
 class Note_performer;
 class Output_def;
 class Object_key;
+class Object_key_dumper;
+class Object_key_undumper;
 class Output_property;
 class Page;
 class Paper_book;

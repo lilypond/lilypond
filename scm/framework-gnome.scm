@@ -114,7 +114,6 @@
   (text-items #:init-value '() #:accessor text-items)
   (grob #:init-value #f #:accessor grob)
   (item-grobs #:init-value (make-hash-table 31) #:accessor item-grobs)
-  (grob-tweaks #:init-value (make-hash-table 31) #:accessor grob-tweaks)
   (window-width #:init-keyword #:window-width #:accessor window-width)
   (window-height #:init-keyword #:window-height #:accessor window-height)
   (canvas-width #:init-keyword #:canvas-width #:accessor canvas-width)
@@ -297,6 +296,7 @@
 		(ly:input-location music-origin)
 		#f)))
 
+
 (define-method (tweak (go <gnome-outputter>) item offset)
   (let* ((grob (hashq-ref (item-grobs go) item #f))
 	 (extra-offset (ly:grob-property grob 'extra-offset))
@@ -305,41 +305,32 @@
 			   (- 0 (cdr extra-offset))))))
     
     (if grob
-	(hashq-set! (grob-tweaks go) grob
-		    (cons
-		     'extra-offset
-		     (list
-		      (cons (+ (car origin) (car offset))
-			    (- 0 (+ (cdr origin) (cdr offset))))))))))
+	(ly:insert-tweak grob  (list tweak-grob-property
+				     'extra-offset
+				     (offset-add origin offset))))))
 
-;; FIXME: this only saves new tweaks, old tweaks are lost.
 (define-method (save-tweaks (go <gnome-outputter>))
   (let*
       ((dumper (ly:make-dumper))
-       (tweaks (hash-fold
-		(lambda (grob value seed)
-		  (cons
-		   (list 'set-property
-			 (list
-			  'key
-			  (ly:dumper-key-serial dumper (ly:grob-key grob)))
-			 value)
-		   seed))
-		'() (grob-tweaks go))))
-    
-    (if (not (null? tweaks))
+       (tweaks (ly:all-tweaks))
+       (serialized-tweaks (map
+			   (lambda (tweak)
+			     (append 
+			      (list
+			       (ly:dumper-key-serial dumper (car tweak))
+			       (list 'unquote (procedure-name (cadr tweak))))
+			      (cddr tweak)))
+			  tweaks)))
+
+    (if (not (null? serialized-tweaks))
 	(let ((file (open-file (string-append (name go) ".twy") "w")))
 	  (format file
 		  ";;;tweaks. Generated file. Do not edit. 
-;;; KEYS
-(ly:clear-keys)
-(ly:define-keys `~S)
-;;; TWEAKS \n
-(ly:clear-twbeaks)
-(ly:define-tweaks `~S)"
-
+(ly:tweak-clear-registry)
+(ly:tweak-define-keys `~S)
+(ly:tweak-define-tweaks `~S)"
 		  (ly:dumper-definitions dumper)
-		  tweaks)))))
+		  serialized-tweaks)))))
 
 ;;;(define (item-event go grob item event)
 (define (item-event go item event)
@@ -394,7 +385,6 @@
 	  
 	  (let ((properties (ly:grob-properties grob))
 		(basic-properties (ly:grob-basic-properties grob))
-		(id (ly:grob-id grob))
 		(x (inexact->exact (gdk-event-button:x-root event)))
 		(y (inexact->exact (gdk-event-button:y-root event))))
 	       

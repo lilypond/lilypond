@@ -163,10 +163,11 @@ Lilypond_context_key::as_scheme () const
 Object_key *
 Lilypond_context_key::from_scheme (SCM a) 
 {
-  return new Lilypond_grob_key (unsmob_key (scm_car (a)),
-				*unsmob_moment (scm_cadr (a)),
-				ly_scm2string  (scm_list_ref (a, scm_from_int (2))),
-				scm_to_int  (scm_list_ref (a, scm_from_int (3))));
+  return new Lilypond_context_key (unsmob_key (scm_car (a)),
+				   *unsmob_moment (scm_cadr (a)),
+				   ly_scm2string  (scm_list_ref (a, scm_from_int (2))),
+				   ly_scm2string  (scm_list_ref (a, scm_from_int (3))),
+				   scm_to_int  (scm_list_ref (a, scm_from_int (4))));
 }
 
 

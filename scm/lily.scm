@@ -351,3 +351,5 @@ predicates. Print a message at LOCATION if any predicate failed."
 	(exit 0))))
 
 
+(define-public (tweak-grob-property grob sym val)
+    (set! (ly:grob-property grob sym) val))

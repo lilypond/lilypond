@@ -28,11 +28,14 @@ class Tweak_registry
 public:
   Object_key_undumper *undumper() const;
   void clear ();
-  void insert_tweak (SCM);
+  void insert_grob_tweak (Grob*, SCM);
   SCM get_tweaks (Grob *);
   SCM list_tweaks ();
+  void insert_tweak_from_file (SCM);
   Tweak_registry ();
 };
+
+extern Tweak_registry *global_registry_;
 
 DECLARE_UNSMOB(Tweak_registry, tweak_registry);
 
