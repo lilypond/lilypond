@@ -182,13 +182,14 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
   Paper_column * pc = this_one.cols_.top ();
   if (pc->original_l_)
     {
-      SCM pen = pc->get_elt_property (penalty_scm_sym);
-      if (pen != SCM_BOOL_F)
+      SCM pen = pc->get_elt_property ("penalty");
+      if (pen != SCM_UNDEFINED)
 	{
-	  break_penalties += gh_scm2double (SCM_CDR(pen));
+	  break_penalties += gh_scm2double (pen);
 	}
     }
 
   return abs (this_one.force_f_) + abs (prev.force_f_ - this_one.force_f_)
     + break_penalties;
 }
+

@@ -47,7 +47,7 @@ Staff_symbol_engraver::do_removal_processing()
     }
   else
     {
-      span_p_->staff_line_leading_f_ = paper_l ()->get_realvar (interline_scm_sym);
+      span_p_->staff_line_leading_f_ = paper_l ()->get_var ("interline");
     }
   span_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (span_p_);
@@ -65,3 +65,4 @@ Staff_symbol_engraver::acknowledge_element (Score_element_info s)
 
 
 ADD_THIS_TRANSLATOR(Staff_symbol_engraver);
+

@@ -36,19 +36,18 @@ Script::do_substitute_element_pointer (Score_element*o, Score_element*n)
 Molecule
 Script::get_molecule(Direction d) const
 {
-  SCM s = get_elt_property (molecule_scm_sym);
-  assert  (s != SCM_BOOL_F);
+  SCM s = get_elt_property ("molecule");
+  assert (s != SCM_UNDEFINED);
 
-  s = SCM_CDR(s);
   SCM key = SCM_CAR (s);
   if (key == ly_symbol ("feta"))
     {
       return lookup_l ()->afm_find ("scripts-" +
-				    ly_scm2string (index_cell (SCM_CDR (s), d)));
+				    ly_scm2string (index_cell (gh_cdr (s), d)));
     }
   else if (key == ly_symbol ("accordion"))
     {
-      return lookup_l ()->accordion (SCM_CDR(s), paper_l()->get_realvar(interline_scm_sym));
+      return lookup_l ()->accordion (s, paper_l()->get_var("interline"));
     }
 
   else assert (false);
@@ -76,7 +75,7 @@ Script::do_post_processing ()
   /*
     UGH UGH UGH
    */
-  if (staff_side_l_->get_elt_property (no_staff_support_scm_sym) == SCM_BOOL_F) 
+  if (staff_side_l_->get_elt_property ("no-staff-support") == SCM_UNDEFINED) 
     translate_axis (- m.dim_[Y_AXIS][Direction (-d)], Y_AXIS);
 }
 
@@ -99,3 +98,4 @@ Script::do_print () const
 {
 
 }
+

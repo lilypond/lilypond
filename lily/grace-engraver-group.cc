@@ -8,7 +8,7 @@
  */
 #include "grace-engraver-group.hh"
 #include "lily-guile.hh"
-#include "ly-symbols.hh"
+
 #include "score-element.hh"
 #include "musical-request.hh"
 
@@ -50,7 +50,7 @@ Grace_engraver_group::announce_element (Score_element_info inf)
   // do not propagate to top
   announce_to_top_.push (inf);
 
-  inf.elem_l_->set_elt_property (grace_scm_sym, SCM_BOOL_T);
+  inf.elem_l_->set_elt_property ("grace", SCM_BOOL_T);
 }
 
 void
@@ -121,3 +121,4 @@ Grace_engraver_group::pass_to_top_b (Music *m) const
     }
   return false;
 }
+

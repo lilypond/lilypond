@@ -93,7 +93,7 @@ Align_note_column_engraver::process_acknowledged ()
 	  */
 	  Real extra_space = gh_scm2double(grsp);
 	  SCM e = gh_cons (gh_double2scm (-extra_space), gh_double2scm (0.0));
-	  now_column_l_->set_elt_property (extra_space_scm_sym, e);
+	  now_column_l_->set_elt_property ("extra-space", e);
 	}
     }
 
@@ -112,3 +112,4 @@ Align_note_column_engraver::do_post_move_processing ()
 }
 
 ADD_THIS_TRANSLATOR(Align_note_column_engraver);
+

@@ -29,7 +29,7 @@ Dots::do_post_processing ()
 
   if (!dots_i_)
     {
-      set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+      set_elt_property ("transparent", SCM_BOOL_T);
       set_empty (true, X_AXIS, Y_AXIS);
     }
 }
@@ -54,5 +54,6 @@ Dots::do_brew_molecule_p () const
   out->translate_axis (staff_line_leading_f () * position_i_ /2., Y_AXIS);
   return out;
 }
+
 
 

@@ -558,6 +558,12 @@ paper_def_body:
 		else
 			$$->default_properties_[$2] = $4;
 	}
+	| paper_def_body SCM_T '=' real semicolon {
+		if (!gh_symbol_p ($2))
+			THIS->parser_error ("expect a symbol as lvalue");
+		else
+			$$->default_properties_[$2] = gh_double2scm ($4);
+	}
 	| paper_def_body translator_spec_block {
 		$$->assign_translator ($2);
 	}

@@ -210,6 +210,7 @@ Auto_beam_engraver::create_beam_p ()
       beam_p->add_stem ((*stem_l_arr_p_)[i]);
     }
   
+  announce_element (Score_element_info (beam_p, 0));
 
   return beam_p;
 }
@@ -283,7 +284,7 @@ Auto_beam_engraver::do_removal_processing ()
 bool
 Auto_beam_engraver::same_grace_state_b (Score_element* e)
 {
-  bool gr = e->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+  bool gr = e->get_elt_property ("grace") == SCM_BOOL_T;
   SCM wg =get_property ("weAreGraceContext",0);
   return (gh_boolean_p (wg) && gh_scm2bool (wg)) == gr;
 }
@@ -406,3 +407,4 @@ Auto_beam_engraver::process_acknowledged ()
 	}
     }
 }
+

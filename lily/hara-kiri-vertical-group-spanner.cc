@@ -37,7 +37,7 @@ Hara_kiri_group_spanner::do_post_processing ()
 
       if ( line_l () != s->line_l ())
 	programming_error ("Killing other children too");
-      s->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+      s->set_elt_property ("transparent", SCM_BOOL_T);
       s->set_empty (true, X_AXIS, Y_AXIS);
 
     }
@@ -58,3 +58,4 @@ Hara_kiri_group_spanner::do_print () const
 {
   Axis_group_spanner::do_print ();
 }
+

@@ -3,10 +3,10 @@
   (cons "Beam"
 	(list
 	 (list 'beamslopedamping number? 'damping)
-	 (list 'autoKneeGap number? 'auto_knee_gap)
-	 (list 'autoInterstaffKneeGap number? 'auto_interstaff_knee_gap)
-	 (list 'beamQuantisation symbol? 'slope_quantisation)
-	 (list 'beamDirAlgorithm symbol? 'beam_dir_algorithm)
+	 (list 'autoKneeGap number? 'auto-knee-gap)
+	 (list 'autoInterstaffKneeGap number? 'auto-interstaff-knee-gap)
+	 (list 'beamQuantisation symbol? 'slope-quantisation)
+	 (list 'beamDirAlgorithm symbol? 'beam-dir-algorithm)
 	 )
 	)
   )
@@ -17,7 +17,7 @@
 	(list
 	 (list 'stemLength number? 'length)
 	 (list 'stemStyle string? 'style)
-	 (list 'noStemExtend boolean? 'no_stem_extend)
+	 (list 'noStemExtend boolean? 'no-stem-extend)
 	 ))
   )
 
@@ -30,19 +30,19 @@
 
 (define generic-bar-properties
   (cons "Staff_bar" (list
-		     (list 'barSize number? 'bar_size))
+		     (list 'barSize number? 'bar-size))
 	)
   )	
 (define generic-breathing-sign-properties
   (cons "Breathing_sign"
 	(list
-	 (list 'breathingSignBreakPriority number? 'break_priority
+	 (list 'breathingSignBreakPriority number? 'break-priority
 	  ))))
 
 (define generic-clef-properties
   (cons "Clef_item"
 	(list
-	 (list 'clefBreakPriority number? 'break_priority)
+	 (list 'clefBreakPriority number? 'break-priority)
 	 (list 'clefStyle string? 'style))
 	)
   )
@@ -56,8 +56,8 @@
 (define generic-note-column-properties
   (cons "Note_column"
 	(list
-	 (list 'horizontalNoteShift number? 'horizontal_shift)
-	 (list 'forceHorizontalShift number? 'force_hshift)
+	 (list 'horizontalNoteShift number? 'horizontal-shift)
+	 (list 'forceHorizontalShift number? 'force-hshift)
 	 )))
 
 (define generic-slur-properties

@@ -91,7 +91,7 @@ Paper_outputter::output_header ()
     }
 #endif
 
-  SCM scm = gh_cons (header_scm_sym, args_scm);
+  SCM scm = gh_cons (gh_symbol2scm ("header"), args_scm);
   output_scheme (scm);
 }
 
@@ -146,7 +146,7 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
 	}
 
       SCM box_scm
-	= gh_list (placebox_scm_sym,
+	= gh_list (gh_symbol2scm ("placebox"),
 		   gh_double2scm (a_off.x ()),
 		   gh_double2scm (a_off.y ()),
 		   SCM(i->func_),
@@ -300,3 +300,4 @@ Paper_outputter::stop_last_line ()
   SCM scm = gh_list (ly_symbol ("stop-last-line"), SCM_UNDEFINED);
   output_scheme (scm);
 }
+

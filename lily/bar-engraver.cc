@@ -32,7 +32,7 @@ Bar_engraver::create_bar ()
   if (!bar_p_)
     {
       bar_p_ = new Staff_bar;
-      bar_p_->set_elt_property (break_priority_scm_sym, gh_int2scm (0));
+      bar_p_->set_elt_property ("break-priority", gh_int2scm (0));
 
       // urg: "" != empty...
       SCM default_type = get_property ("defaultBarType", 0);
@@ -47,7 +47,7 @@ Bar_engraver::create_bar ()
       SCM prop = get_property ("barAtLineStart", 0);
       if (gh_boolean_p (prop) && gh_scm2bool (prop))
 	{
-	  bar_p_->set_elt_property (at_line_start_scm_sym, SCM_BOOL_T);
+	  bar_p_->set_elt_property ("at-line-start", SCM_BOOL_T);
 	}
       announce_element (Score_element_info (bar_p_, 0));
     }
@@ -137,5 +137,6 @@ Bar_engraver::do_pre_move_processing()
 }
 
 ADD_THIS_TRANSLATOR(Bar_engraver);
+
 
 

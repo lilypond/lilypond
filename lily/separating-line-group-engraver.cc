@@ -60,7 +60,7 @@ Separating_line_group_engraver::acknowledge_element (Score_element_info i)
 	{
 	  p_ref_ = new Single_malt_grouping_item;
 	  if (ib)
-	    p_ref_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
+	    p_ref_->set_elt_property ("breakable", SCM_BOOL_T);
 	  announce_element (Score_element_info (p_ref_, 0));
 	}
       p_ref_->add_item (it);
@@ -88,3 +88,4 @@ Separating_line_group_engraver::do_pre_move_processing ()
 
 
 ADD_THIS_TRANSLATOR( Separating_line_group_engraver);
+

@@ -49,10 +49,10 @@ Tuplet_engraver::do_process_requests ()
       Tuplet_spanner* glep = new Tuplet_spanner;
       started_span_p_arr_.push (glep);
       glep->number_str_ = to_str (time_scaled_music_arr_[i]->den_i_);
-      glep->set_elt_property(tuplet_visibility_scm_sym,
+      glep->set_elt_property("tuplet-visibility",
                              gh_int2scm (visibility));
       if (dir != 0)
-	glep->set_elt_property(dir_forced_scm_sym, gh_int2scm (dir));
+	glep->set_elt_property("dir-forced", gh_int2scm (dir));
       announce_element (Score_element_info (glep, time_scaled_music_arr_ [i]));
     }
 }
@@ -60,7 +60,7 @@ Tuplet_engraver::do_process_requests ()
 void
 Tuplet_engraver::acknowledge_element (Score_element_info i)
 {
-  bool grace= (i.elem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F);
+  bool grace= (i.elem_l_->get_elt_property ("grace") != SCM_UNDEFINED);
   SCM wg = get_property ("weAreGraceContext",0);
   bool wgb = gh_boolean_p (wg) && gh_scm2bool (wg);
   if (grace != wgb)
@@ -104,4 +104,5 @@ Tuplet_engraver::do_removal_processing ()
 }
 
 ADD_THIS_TRANSLATOR(Tuplet_engraver);
+
 

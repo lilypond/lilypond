@@ -23,11 +23,11 @@ Note_column::rest_b () const
 int
 Note_column::shift_compare (Note_column *const &p1, Note_column*const&p2)
 {
-  SCM s1 = p1->get_elt_property (horizontal_shift_scm_sym);
-  SCM s2 = p2->get_elt_property (horizontal_shift_scm_sym);
+  SCM s1 = p1->get_elt_property ("horizontal-shift");
+  SCM s2 = p2->get_elt_property ("horizontal-shift");
 
-  int h1 = (s1 == SCM_BOOL_F) ? 0 : gh_scm2int (SCM_CDR(s1));
-  int h2 = (s2 == SCM_BOOL_F) ? 0 : gh_scm2int (SCM_CDR(s2));
+  int h1 = (s1 == SCM_UNDEFINED) ? 0 : gh_scm2int (s1);
+  int h2 = (s2 == SCM_UNDEFINED) ? 0 : gh_scm2int (s2);
   return h1 - h2;
 }
 
@@ -184,3 +184,4 @@ Note_column::do_post_processing ()
 
   translate_rests (-d *  discrete_dist);
 }
+

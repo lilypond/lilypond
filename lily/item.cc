@@ -26,7 +26,7 @@ Item::breakable_b () const
     return false;
   
   Item * i  =dynamic_cast<Item*> (parent_l (X_AXIS));
-  return (i) ?  i->breakable_b () : get_elt_property( breakable_scm_sym) != SCM_BOOL_F;
+  return (i) ?  i->breakable_b () : get_elt_property( "breakable") != SCM_UNDEFINED;
 }
 
 void
@@ -82,18 +82,18 @@ Item::copy_breakable_items()
 void
 Item::try_visibility_lambda ()
 {
-  SCM vis = remove_elt_property (visibility_lambda_scm_sym);
-  if (vis != SCM_BOOL_F)
+  SCM vis = remove_elt_property ("visibility-lambda");
+  if (vis != SCM_UNDEFINED)
     {
       SCM args = scm_listify (gh_int2scm (break_status_dir ()), SCM_UNDEFINED);
-      SCM result = gh_apply ( SCM_CDR(vis), args);
+      SCM result = gh_apply (vis, args);
       int trans = gh_scm2bool (gh_car (result));
       int empty = gh_scm2bool (gh_cdr (result));
 
       if (empty)
 	set_empty (true, X_AXIS, Y_AXIS);
       if (trans)
-	set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+	set_elt_property ("transparent", SCM_BOOL_T);
     }
 }
 
@@ -226,4 +226,5 @@ Item::break_status_dir () const
   else
     return CENTER;
 }
+
 

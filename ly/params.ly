@@ -16,6 +16,9 @@ beam_thickness = 0.52 * (\interline - \stafflinethickness);
 interbeam = (2.0 * \interline + \stafflinethickness - \beam_thickness) / 2.0;
 interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
 
+#'beam-thickness = \beam_thickness ;  % ARG.
+
+
 % stems and beams
 %
 % poor man's array size
@@ -97,8 +100,8 @@ MAJORITY = 2.0;
 MEAN = 3.0;
 MEDIAN = 4.0;
 
-#'beam_dir_algorithm = #'majority
-#'slope_quantisation = #'normal
+#'Beam::beam-dir-algorithm = #'majority
+#'Beam::slope-quantisation = #'normal
 
 
 %{
@@ -109,8 +112,6 @@ used based on the mean center distance.  If set to 4.0 then median
 selection is used, based on the median center distance.
 %}
 
-% [Ross]: majority
-beam_dir_algorithm = \MAJORITY;
 
 % catch suspect beam slopes, set slope to zero if
 % outer stem is lengthened more than

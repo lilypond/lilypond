@@ -18,7 +18,7 @@ Staff_side_element::Staff_side_element ()
 {
   dir_ = CENTER;
   to_position_l_ = 0;
-  set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+  set_elt_property ("transparent", SCM_BOOL_T);
   axis_ = Y_AXIS;
 }
 
@@ -69,7 +69,7 @@ void
 Staff_side_element::position_self ()
 {
   if (to_position_l_ &&
-      to_position_l_->get_elt_property (transparent_scm_sym) != SCM_BOOL_F)
+      to_position_l_->get_elt_property ("transparent") != SCM_UNDEFINED)
     return;
 
   Axis other = Axis ((axis_ + 1) % NO_AXES);
@@ -78,7 +78,7 @@ Staff_side_element::position_self ()
     {
       warning (_("No support; erasing script"));
       to_position_l_->set_empty (X_AXIS,Y_AXIS);
-      to_position_l_->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+      to_position_l_->set_elt_property ("transparent", SCM_BOOL_T);
       set_empty (X_AXIS, Y_AXIS);
       return ;
     }
@@ -114,17 +114,17 @@ Staff_side_element::position_self ()
 
   Real off =  relative_coordinate (common, axis_);
 
-  SCM pad = remove_elt_property (padding_scm_sym);
-  if (pad != SCM_BOOL_F)
+  SCM pad = remove_elt_property ("padding");
+  if (pad != SCM_UNDEFINED)
     {
-      off += gh_scm2double (SCM_CDR(pad)) * dir_;
+      off += gh_scm2double (pad) * dir_;
     }
   Real total_off = dim[dir_] + off;
 
   /*
-    no_staff_support_scm_sym is ugh bugfix to get staccato dots right.
+    "no-staff-support" is ugh bugfix to get staccato dots right.
    */
-  if (to_position_l_ && to_position_l_->get_elt_property (no_staff_support_scm_sym) == SCM_BOOL_F)
+  if (to_position_l_ && to_position_l_->get_elt_property ("no-staff-support") == SCM_UNDEFINED)
      total_off += - sym_dim[-dir_];
   
   dim_cache_[axis_]->set_offset (total_off);
@@ -143,7 +143,7 @@ Staff_side_element::do_post_processing ()
 void
 Staff_side_element::do_add_processing ()
 {
-  if (get_elt_property (no_staff_support_scm_sym) == SCM_BOOL_F
+  if (get_elt_property ("no-staff-support") == SCM_UNDEFINED
       && axis_ == Y_AXIS && staff_symbol_l ())
     {
       add_support (staff_symbol_l ());
@@ -192,3 +192,4 @@ Staff_side_spanner::do_print () const
 {
   Staff_side_element::do_print ();
 }
+

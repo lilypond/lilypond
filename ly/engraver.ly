@@ -41,7 +41,6 @@ StaffContext=\translator {
 	marginBreakPriority = #-5
 
 	\consists "Separating_line_group_engraver";
-	\consists "Font_size_engraver";
 	  
 	\accepts "Voice";
 	dynamicStyle = #"dynamic"
@@ -112,7 +111,6 @@ VoiceContext = \translator {
 	\consists "Script_engraver";
 	\consists "Script_column_engraver";
 	\consists "Rhythmic_column_engraver";
-	\consists "Font_size_engraver";
 	\consists "Slur_engraver";
 	\consists "Tie_engraver";
 	\consists "Tuplet_engraver";

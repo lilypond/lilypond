@@ -16,8 +16,8 @@
 Molecule*
 Text_item::do_brew_molecule_p () const
 {
-  SCM style = get_elt_property (style_scm_sym);
-  String st = (style == SCM_BOOL_F) ? "" : ly_scm2string (gh_cdr (style));
+  SCM style = get_elt_property ("style");
+  String st = (style == SCM_UNDEFINED) ? "" : ly_scm2string (style);
   
   Molecule a= paper_l ()->lookup_l(0)->text (st, text_str_, paper_l ());
 
@@ -29,3 +29,4 @@ Text_item::do_print () const
 {
   DEBUG_OUT <<  "text= " << text_str_;
 }
+

@@ -21,8 +21,8 @@ get_Staff_side (Item *i)
 void
 Script_column::add_staff_sided (Item *i)
 {
-  SCM p = get_Staff_side (i)->get_elt_property (script_priority_scm_sym);
-  if (p == SCM_BOOL_F)
+  SCM p = get_Staff_side (i)->get_elt_property ("script-priority");
+  if (p == SCM_UNDEFINED)
     return;
   
   staff_sided_item_l_arr_.push (i);
@@ -36,10 +36,10 @@ staff_side_compare (Item * const &i1,
   Score_element *e1 = get_Staff_side (i1);
   Score_element *e2 = get_Staff_side (i2);
 
-  SCM p1 = e1->get_elt_property (script_priority_scm_sym);
-  SCM p2 = e2->get_elt_property (script_priority_scm_sym);
+  SCM p1 = e1->get_elt_property ("script-priority");
+  SCM p2 = e2->get_elt_property ("script-priority");
 
-  return gh_scm2int (SCM_CDR(p1)) - gh_scm2int (SCM_CDR(p2));
+  return gh_scm2int (p1) - gh_scm2int (p2);
 }
 
 void
@@ -69,9 +69,10 @@ Script_column::do_pre_processing ()
 	    gs->add_support (get_Staff_side (last));
 	  }
 	    
-	gs->remove_elt_property (script_priority_scm_sym);
+	gs->remove_elt_property ("script-priority");
 	last = arr[i];
       }
     
   } while (flip (&d) != DOWN);
 }
+

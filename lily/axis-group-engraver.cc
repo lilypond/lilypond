@@ -46,13 +46,12 @@ Axis_group_engraver::acknowledge_element (Score_element_info i)
 void
 Axis_group_engraver::process_acknowledged ()
 {
+  /* UGH UGH UGH */
   for (int i=0; i < elts_.size (); i++)
     {
       if (!elts_[i]->parent_l (Y_AXIS))
 	staffline_p_->add_element (elts_[i]);
-
-      /* UGH UGH UGH */
-      else if (elts_[i]->get_elt_property (ly_symbol ("Axis_group_element::add_extra_element")) == SCM_BOOL_F
+      else if (elts_[i]->get_elt_property ("Axis_group_element::add_extra_element") == SCM_UNDEFINED
 	       && ! dynamic_cast<Axis_group_element*> (elts_[i]->parent_l (Y_AXIS)))
 	       
 	{

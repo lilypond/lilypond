@@ -148,13 +148,13 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info i)
 	  if (s->type_i () != 1)
 	    {
 	      int gap_i =s->flag_i_ - ((s->type_i () >? 2) - 2);
-	      s->set_elt_property (beam_gap_scm_sym, gh_int2scm(gap_i));
+	      s->set_elt_property ("beam-gap", gh_int2scm(gap_i));
 	    }
 #else
 	  if (s->type_i () != 1)
 	    {
 	      int gap_i =s->flag_i_ - ((s->type_i () >? 2) - 2);
-	      abeam_p_->set_elt_property (beam_gap_scm_sym, gh_int2scm(gap_i));
+	      abeam_p_->set_elt_property ("beam-gap", gh_int2scm(gap_i));
 	    }
 #endif
 	  
@@ -162,3 +162,4 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info i)
 	}
     }
 }
+

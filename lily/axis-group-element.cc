@@ -57,7 +57,7 @@ Axis_group_element::do_print() const
 
 Axis_group_element::Axis_group_element()
 {
-  set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+  set_elt_property ("transparent", SCM_BOOL_T);
 }
 
 void
@@ -134,7 +134,7 @@ Axis_group_element::add_extra_element (Score_element *e)
 	{
 	  extra_elems_.push (se[i]);
 	  add_dependency (se[i]);
-	  se[i]->set_elt_property (ly_symbol ("Axis_group_element::add_extra_element"), SCM_BOOL_T); // UGH GUH.
+	  se[i]->set_elt_property (("Axis_group_element::add_extra_element"), SCM_BOOL_T); // UGH GUH.
 	}
       
     }
@@ -166,3 +166,4 @@ Axis_group_element::extent (Axis a) const
   return Graphical_element::extent (a);
 }
   
+

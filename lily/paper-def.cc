@@ -81,7 +81,7 @@ Paper_def::line_dimensions_int (int n) const
 {
   if (!shape_int_a_.size ())
     {
-      Real lw =  get_realvar (linewidth_scm_sym);
+      Real lw =  get_var ("linewidth");
       Real ind = n? 0.0:get_var ("indent");
 
       return Interval (ind, lw);
@@ -137,9 +137,9 @@ Real
 Paper_def::interbeam_f (int multiplicity_i) const
 {
   if (multiplicity_i <= 3)
-    return get_realvar (interbeam_scm_sym);
+    return get_var ("interbeam");
   else
-    return get_realvar (interbeam4_scm_sym);
+    return get_var ("interbeam4");
 }
 
 
@@ -238,4 +238,5 @@ Paper_def::base_output_str () const
     }
   return str;
 }
+
 

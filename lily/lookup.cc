@@ -116,7 +116,7 @@ Lookup::afm_find (String s, bool warn) const
       return m;
     }
   
-  Atom at (gh_list (char_scm_sym,
+  Atom at (gh_list (gh_symbol2scm ("char"),
 		    gh_int2scm (cm.code ()),
 		    SCM_UNDEFINED));
   at.font_ = ly_symbol (font_name_.ch_C());
@@ -241,7 +241,7 @@ Lookup::beam (Real slope, Real width, Real thick) const
   
   Molecule m;
   Atom at
-     (gh_list (beam_scm_sym,
+     (gh_list (gh_symbol2scm ("beam"),
 				gh_double2scm (width),
 				gh_double2scm (slope),
 				gh_double2scm (thick),
@@ -288,7 +288,7 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
     }
 
   Atom at
-    (gh_list (ly_symbol ("dashed-slur"),
+    (gh_list (gh_symbol2scm ("dashed-slur"),
 	      gh_double2scm (thick), 
 	      gh_double2scm (dash),
 	      ly_quote_scm (array_to_list (sc, 4)),
@@ -346,7 +346,7 @@ Lookup::filledbox (Box b ) const
 {
   Molecule m;
   
-  Atom at  (gh_list (filledbox_scm_sym,
+  Atom at  (gh_list (gh_symbol2scm ("filledbox"),
 		     gh_double2scm (-b[X_AXIS][LEFT]),
 		     gh_double2scm (b[X_AXIS][RIGHT]),		       
 		     gh_double2scm (-b[Y_AXIS][DOWN]),
@@ -398,7 +398,7 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
   SCM l = ly_ch_C_eval_scm (("(style-to-cmr \"" + style + "\")").ch_C());
   if (l != SCM_BOOL_F)
     {
-      style = ly_scm2string (SCM_CDR(l)) +to_str  ((int)font_h);
+      style = ly_scm2string (gh_cdr(l)) +to_str  ((int)font_h);
     }
 
   Real w = 0;
@@ -454,7 +454,7 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
   m.dim_.y () = ydims;
 
   
-  Atom at  (gh_list (text_scm_sym,
+  Atom at  (gh_list (gh_symbol2scm ("text"),
 		     ly_ch_C_to_scm (text.ch_C()),
 		     SCM_UNDEFINED));
   at.font_ = ly_symbol (style);
@@ -511,7 +511,7 @@ Lookup::staff_brace (Real y, int staff_size) const
   idx = idx >? 0;
   
   SCM f =  ly_symbol (String ("feta-braces" + to_str (staff_size)));
-  SCM e =gh_list (char_scm_sym, gh_int2scm (idx), SCM_UNDEFINED);
+  SCM e =gh_list (gh_symbol2scm ("char"), gh_int2scm (idx), SCM_UNDEFINED);
   Atom at  (e);
   at.font_ = f;
   
@@ -527,7 +527,7 @@ Lookup::hairpin (Real width, Real height, Real thick, bool decresc, bool continu
   Molecule m;   
 
   String hairpin = String (decresc ? "de" : "") + "crescendo";
-  Atom at  (gh_list (ly_symbol (hairpin),
+  Atom at  (gh_list (ly_symbol ("hairpin"),
 		     gh_double2scm (thick),
 		     gh_double2scm (width),
 		     gh_double2scm (height),
@@ -545,7 +545,7 @@ Lookup::tuplet_bracket (Real dy , Real dx, Real thick, Real gap, Real interline_
 {
   Molecule m;
 
-  Atom at  (gh_list(tuplet_scm_sym,
+  Atom at  (gh_list(gh_symbol2scm ("tuplet"),
 		    gh_double2scm (interline_f),
 		    gh_double2scm (gap),
 		    gh_double2scm (dx),
@@ -589,7 +589,7 @@ Molecule
 Lookup::staff_bracket (Real y) const
 {
   Molecule m; 
-  Atom at  ( gh_list (bracket_scm_sym,
+  Atom at  ( gh_list (gh_symbol2scm ("bracket"),
 		      gh_double2scm (y),
 		      SCM_UNDEFINED));
   m.add_atom (&at);				 
@@ -605,7 +605,7 @@ Lookup::volta (Real h, Real w, Real thick, bool vert_start, bool vert_end) const
 {
   Molecule m; 
 
-  Atom at  (gh_list (volta_scm_sym,
+  Atom at  (gh_list (gh_symbol2scm ("volta"),
 		     gh_double2scm (h),
 		     gh_double2scm (w),
 		     gh_double2scm (thick),
@@ -817,3 +817,4 @@ Lookup::accordion (SCM s, Real interline_f) const
     }
   return m;  
 }
+

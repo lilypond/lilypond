@@ -22,8 +22,8 @@ TODO: --> see breathing-sign-engraver.cc
 Breathing_sign::Breathing_sign ()
 {
   dir_ = UP;
-  set_elt_property (breakable_scm_sym, SCM_BOOL_T);
-  set_elt_property (visibility_lambda_scm_sym,
+  set_elt_property ("breakable", SCM_BOOL_T);
+  set_elt_property ("visibility-lambda",
 		    ly_ch_C_eval_scm ("non_postbreak_visibility"));
 }
 
@@ -55,3 +55,4 @@ Breathing_sign::do_post_processing()
 
   translate_axis(2.0 * dl * dir_, Y_AXIS);
 }
+

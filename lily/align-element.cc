@@ -98,18 +98,16 @@ Align_element::do_side_processing ()
 	  Score_element *e =dynamic_cast<Score_element*>(elem_l_arr_[i]);
 
 	  // todo: fucks up if item both in Halign & Valign. 
-	  SCM min_dims = e->remove_elt_property (minimum_space_scm_sym);
-	  if (min_dims != SCM_BOOL_F)
+	  SCM min_dims = e->remove_elt_property ("minimum-space");
+	  if (min_dims != SCM_UNDEFINED)
 	    {
-	      min_dims = SCM_CDR (min_dims);
 	      y.unite (Interval (gh_scm2double (SCM_CAR (min_dims)),
 				 gh_scm2double (SCM_CDR (min_dims))));
 	    }
 	  
-	  SCM extra_dims = e->remove_elt_property (extra_space_scm_sym);
-	  if (extra_dims != SCM_BOOL_F)
+	  SCM extra_dims = e->remove_elt_property ("extra-space");
+	  if (extra_dims != SCM_UNDEFINED)
 	    {
-	      extra_dims = SCM_CDR (extra_dims);
 	      y[LEFT] += gh_scm2double (SCM_CAR (extra_dims));
 	      y[RIGHT] += gh_scm2double (SCM_CDR (extra_dims));
 	    }
@@ -236,3 +234,4 @@ Align_element::get_priority (Score_element const * e) const
   else
     return elem_l_arr_.find_i (nonconst);
 }
+

@@ -17,7 +17,7 @@
 
 Spacing_spanner::Spacing_spanner ()
 {
-  set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+  set_elt_property ("transparent", SCM_BOOL_T);
 }
 
 int
@@ -89,17 +89,15 @@ Spacing_spanner::do_measure (int col1, int col2) const
 	  s.item_l_drul_[LEFT] = lc;
 	  s.item_l_drul_[RIGHT] = rc;
 	  
-	  SCM hint = lc->get_elt_property (extra_space_scm_sym);
-	  SCM next_hint = rc->get_elt_property (extra_space_scm_sym);
-	  SCM stretch_hint = lc->get_elt_property (stretch_distance_scm_sym);
-	  SCM next_stretch_hint = rc->get_elt_property (stretch_distance_scm_sym);	  
+	  SCM hint = lc->get_elt_property ("extra-space");
+	  SCM next_hint = rc->get_elt_property ("extra-space");
+	  SCM stretch_hint = lc->get_elt_property ("stretch-distance");
+	  SCM next_stretch_hint = rc->get_elt_property ("stretch-distance");	  
 
 	  Real left_distance;
-	  if (hint != SCM_BOOL_F)
+	  if (hint != SCM_UNDEFINED)
 	    {
-	      hint = SCM_CDDR (hint);
-	      
-	      left_distance = gh_scm2double (hint); 
+	      left_distance = gh_scm2double (gh_cdr (hint)); 
 	    }
 	  else if (!lc->musical_b() && i+1 < col_count())
 	    {
@@ -126,10 +124,9 @@ Spacing_spanner::do_measure (int col1, int col2) const
 
 	  
 	  Real right_dist = 0.0;
-	  if (next_hint != SCM_BOOL_F)
+	  if (next_hint != SCM_UNDEFINED)
 	    {
-	      next_hint = SCM_CADR(next_hint);
-	      right_dist += - gh_scm2double (next_hint);
+	      right_dist += - gh_scm2double (gh_car (next_hint));
 	    }
 	  else
 	    {
@@ -142,25 +139,25 @@ Spacing_spanner::do_measure (int col1, int col2) const
 	  */
 	  if (lc->musical_b () && rc->musical_b ())
 	    {
-	      if (rc->get_elt_property (contains_grace_scm_sym) == SCM_BOOL_F)
+	      if (rc->get_elt_property ("contains-grace") == SCM_UNDEFINED)
 		right_dist *= paper_l ()->get_var ("musical_to_musical_left_spacing_factor");
 	    }
 
-	  if (rc->musical_b () && rc->get_elt_property (contains_grace_scm_sym) != SCM_BOOL_F)
+	  if (rc->musical_b () && rc->get_elt_property ("contains-grace") != SCM_UNDEFINED)
 	    right_dist *= paper_l ()->get_var ("before_grace_spacing_factor");
  
  
 	  s.distance_f_ = left_distance + right_dist;
 	    
 	  Real stretch_dist = 0.;
-	  if (stretch_hint != SCM_BOOL_F)
-	    stretch_dist += gh_scm2double (SCM_CDDR (stretch_hint));
+	  if (gh_number_p (stretch_hint))
+	    stretch_dist += gh_scm2double (stretch_hint);
 	  else
 	    stretch_dist += left_distance;
 	  
-	  if (next_stretch_hint != SCM_BOOL_F)
+	  if (next_stretch_hint != SCM_UNDEFINED)
 	    // see regtest spacing-tight
-	    stretch_dist += - gh_scm2double (SCM_CADR (next_stretch_hint));
+	    stretch_dist += - gh_scm2double (SCM_CAR (next_stretch_hint));
 	  else
 	    stretch_dist += right_dist;
 
@@ -251,13 +248,11 @@ Spacing_spanner::note_spacing (Score_column *lc, Score_column *rc, Moment shorte
 Real
 Spacing_spanner::stem_dir_correction (Score_column*l, Score_column*r) const
 {
-  SCM dl = l->get_elt_property (dir_list_scm_sym);
-  SCM dr = r->get_elt_property (dir_list_scm_sym);
-  if (dl == SCM_BOOL_F || dr == SCM_BOOL_F)
+  SCM dl = l->get_elt_property ("dir-list");
+  SCM dr = r->get_elt_property ("dir-list");
+  if (dl == SCM_UNDEFINED || dr == SCM_UNDEFINED)
     return 0.0;
 
-  dl = SCM_CDR (dl);
-  dr = SCM_CDR (dr);
 
   if (scm_ilength (dl) != 1 && scm_ilength (dr) != 1)
     return 0.;
@@ -311,6 +306,7 @@ Spacing_spanner::get_springs () const
     }
   return springs;
 }
+
 
 
 

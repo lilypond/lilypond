@@ -41,7 +41,7 @@ Time_signature_engraver::do_process_requests()
 	
       time_signature_p_ = new Time_signature ();
       time_signature_p_->args_ = args;
-      time_signature_p_->set_elt_property (break_priority_scm_sym, gh_int2scm (1)); // 1
+      time_signature_p_->set_elt_property ("break-priority", gh_int2scm (1)); // 1
     }
 
   
@@ -63,3 +63,4 @@ Time_signature_engraver::do_pre_move_processing()
 
 ADD_THIS_TRANSLATOR(Time_signature_engraver);
  
+

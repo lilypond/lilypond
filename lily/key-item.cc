@@ -22,7 +22,7 @@ const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 Key_item::Key_item ()
 {
   multi_octave_b_ = false;
-  set_elt_property (breakable_scm_sym, SCM_BOOL_T);
+  set_elt_property ("breakable", SCM_BOOL_T);
   set_c_position (0);
 }
 
@@ -128,6 +128,7 @@ Key_item::do_brew_molecule_p() const
 
   return output;
 }
+
 
 
 

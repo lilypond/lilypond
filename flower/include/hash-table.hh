@@ -166,6 +166,17 @@ public:
        fixed_p_->dict_arr_[l].key_ = s;
        return fixed_p_->dict_arr_[l].value_;
     }
+  bool try_retrieve (K k, V *v)
+  {
+    int l =  fixed_p_->lookup (k, (*hash_func_)(k));
+    if (l < 0 || fixed_p_->dict_arr_[l].free_b_)
+      return false;
+    else
+      {
+	*v = fixed_p_->dict_arr_[l].value_;
+	return true;
+      }
+  }
   V elem (K s) const
     {
       return const_elem (s);

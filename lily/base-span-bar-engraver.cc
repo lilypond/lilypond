@@ -54,12 +54,12 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);
 	  String visnam =  String(name()) + "_visibility";
 	  
-	  spanbar_p_->set_elt_property (visibility_lambda_scm_sym,
+	  spanbar_p_->set_elt_property ("visibility-lambda",
 					ly_ch_C_eval_scm (visnam.ch_C()));
 
 	  if (use_priority_b_)
 	    {
-	      spanbar_p_->set_elt_property (break_priority_scm_sym,
+	      spanbar_p_->set_elt_property ("break-priority",
 					    gh_int2scm (break_priority_i_));
 	    }
 	  else
@@ -90,3 +90,4 @@ Base_span_bar_engraver::do_pre_move_processing()
 
 
 ADD_THIS_TRANSLATOR(Base_span_bar_engraver);
+

@@ -70,9 +70,9 @@ public:
   /*
     properties
    */
-  SCM get_elt_property (SCM sym) const;
-  void set_elt_property (SCM sym, SCM val);
-  SCM remove_elt_property (SCM key);
+  SCM get_elt_property (String nm) const;
+  void set_elt_property (String, SCM val);
+  SCM remove_elt_property (String nm);
 
   /*
     related classes.

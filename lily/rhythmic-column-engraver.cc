@@ -74,7 +74,7 @@ Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
   SCM wg = get_property ("weAreGraceContext",0);
   bool wegrace = gh_boolean_p (wg) && gh_scm2bool (wg);
   if ((wegrace !=
-      (i.elem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F))
+      (i.elem_l_->get_elt_property ("grace") != SCM_UNDEFINED))
     && !dynamic_cast<Slur*> (i.elem_l_))
     return ;
   
@@ -97,7 +97,7 @@ Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
 	end slurs starting on grace notes
        */
       
-      if (s->get_elt_property (grace_scm_sym) != SCM_BOOL_F)
+      if (s->get_elt_property ("grace") != SCM_UNDEFINED)
 	grace_slur_endings_.push (s);
    }
 }
@@ -121,3 +121,4 @@ Rhythmic_column_engraver::do_post_move_processing()
 }
 
 ADD_THIS_TRANSLATOR(Rhythmic_column_engraver);
+

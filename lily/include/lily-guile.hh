@@ -36,7 +36,7 @@ SCM array_to_list (SCM *a , int l);
 void read_lily_scm_file (String);
 void init_lily_guile ();
 
-#include "ly-symbols.hh"
+
 
 void init_ly_protection ();
 unsigned int ly_scm_hash (SCM s);
