@@ -91,11 +91,34 @@ Vaticana_ligature_engraver::is_stacked_head (int prefix_set,
       return is_stacked_b;
 }
 
+inline int get_context_info (Item *primitive)
+{
+  SCM context_info_scm = primitive->get_grob_property ("context-info");
+  if (context_info_scm != SCM_EOL)
+    {
+      return gh_scm2int (context_info_scm);
+    }
+  else
+    {
+      primitive->programming_error ("Vaticana_ligature:"
+				    "context-info undefined -> "
+				    "ignoring grob");
+      return -1;
+    }
+}
+
 Real
 Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 					 Real flexa_width,
 					 Real join_thickness)
 {
+  if (!primitives.size ())
+    {
+      programming_error ("Vaticana_ligature: "
+			 "empty ligature [ignored]");
+      return 0.0;
+    }
+
   Item *first_primitive = dynamic_cast<Item*> (primitives[0].grob_);
   Real ligature_width = 0.0;
 
@@ -107,9 +130,38 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
    */
   Real extra_space = 2.0 * join_thickness;
 
-  for (int i = 0; i < primitives.size(); i++)
+  Item *prev_primitive, *primitive, *next_primitive;
+  int prev_context_info, context_info, next_context_info;
+
+  primitive = 0;
+  context_info = 0;
+
+  next_primitive = first_primitive;
+  if ((next_context_info = get_context_info (next_primitive)) < 0)
     {
-      Item *primitive = dynamic_cast<Item*> (primitives[i].grob_);
+      return 0.0;
+    }
+
+  for (int i = 0; i < primitives.size (); i++)
+    {
+      prev_primitive = primitive;
+      prev_context_info = context_info;
+      context_info = next_context_info;
+      primitive = next_primitive;
+
+      if (i+1 < primitives.size ())
+	{
+	  next_primitive = dynamic_cast<Item*> (primitives[i+1].grob_);
+	  if ((next_context_info = get_context_info (next_primitive)) < 0)
+	    {
+	      break;
+	    }
+	}
+      else
+	{
+	  next_primitive = 0;
+	  next_context_info = 0;
+	}
 
       /*
        * Get glyph_name, delta_pitch and context_info for this head.
@@ -121,7 +173,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	  primitive->programming_error ("Vaticana_ligature:"
 					"undefined glyph-name -> "
 					"ignoring grob");
-	  return 0.0;
+	  continue;
 	}
       String glyph_name = ly_scm2string (glyph_name_scm);
 
@@ -136,21 +188,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	  primitive->programming_error ("Vaticana_ligature:"
 					"delta-pitch undefined -> "
 					"ignoring grob");
-	  return 0.0;
-	}
-
-      int context_info;
-      SCM context_info_scm = primitive->get_grob_property ("context-info");
-      if (context_info_scm != SCM_EOL)
-	{
-	  context_info = gh_scm2int (context_info_scm);
-	}
-      else
-	{
-	  primitive->programming_error ("Vaticana_ligature:"
-					"context-info undefined -> "
-					"ignoring grob");
-	  return 0.0;
+	  continue;
 	}
 
       /*
@@ -224,12 +262,27 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	   * shape.
 	   */
 	}
-      else if (context_info & AFTER_VIRGA)
+
+      /* Sometimes, extra space is needed, e.g. to avoid clashing with
+	 the appendix of an adjacent notehead or with an adjacent
+	 notehead itself if it has the same pitch. */
+
+      if (context_info & AFTER_VIRGA)
 	{
 	  /*
 	   * After a virga, make a an additional small space such that
 	   * the appendix on the right side of the head does not touch
 	   * the following head.
+	   */
+	  ligature_width += extra_space;
+	}
+      else if ((context_info & FLEXA_LEFT) &&
+	       !(prev_context_info & PES_LOWER))
+	{
+	  /*
+	   * Before a flexa (but not within a torculus), make a an
+	   * additional small space such that the appendix on the left
+	   * side of the flexa does not touch the this head.
 	   */
 	  ligature_width += extra_space;
 	}
