@@ -304,9 +304,10 @@ music to be interpreted. The @var{context modifications} property
 settings and @code{\remove}, @code{\consists} and @code{\consistsend}
 commands. The syntax is similar to the @code{\translator} block.
 
-The following example shows how a staff is created with bigger spaces:
+The following example shows how a staff is created with bigger spaces,
+and without a @code{Clef_engraver}.
 
-@lilypond[relative=1,fragment]
+@lilypond[relative=1,fragment,verbatim]
 <<
   \new Staff { c4 es4 g2 }
   \new Staff \with {
@@ -320,8 +321,8 @@ The following example shows how a staff is created with bigger spaces:
 
 @refbugs
 
-@code{\with} has no effect on contexts that already exist. Neither can
-it be used for @internalsref{Score} contexts.
+The command @code{\with} has no effect on contexts that already
+exist. Neither can it be used for @internalsref{Score} contexts.
 
 
 @node Engravers and performers
