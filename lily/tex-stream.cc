@@ -5,11 +5,6 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
   
-  TODO
-
-  make an abstract interface to output, operations: 
-
-  move (x,y), put (symbol).
 */
 
 #include <fstream.h>
@@ -42,6 +37,12 @@ Tex_stream::header()
 }
 Tex_stream::~Tex_stream()
 {
+  *os << flush;
+  if (!*os)
+    {
+      warning("error syncing file (disk full?)");
+      exit_status_i_ = 1;
+    }
   delete os;
   assert (nest_level == 0);
 }
@@ -110,4 +111,3 @@ Tex_stream::break_line()
   line_len_i_ = 0;
 }
 
-/* *************************************************************** */

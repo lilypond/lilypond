@@ -1,3 +1,11 @@
+pl 21
+	- shrinking uses more energy  than stretching
+	- check IO error on writing (disk full?)
+
+
+*********
+
+oct 8
 pl 20
 	- don't swallow non lyric-stuff in lyrics
 	- x-position of Stem

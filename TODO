@@ -8,13 +8,11 @@ grep for TODO and ugh/ugr
 
 	* accidental placement
 
-	* bar-checking lyrics.
-
-	* check IO error on writing (disk full?)
-
 	* AFM for font input?
 
 	* Make general "spanning"-elements and "placer"-elements
+
+	* Unicode support?
 
 	- naming Mozarella, Madeira, Muella, Fontaigna, Feta?
 	- bf: abbrevs over whole note
@@ -22,8 +20,9 @@ grep for TODO and ugh/ugr
 
 	{	c4
 		\multi 2  < { \stemup .. } { \stemdown .. } >
-		c2 }
-	
+		c2 
+	}
+
 	this modifies \stem for the c2
 
 	* use properties for:
