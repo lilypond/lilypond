@@ -144,8 +144,8 @@
  */
 
 
-/* Bounding box definition. Used for the Font BBox as well as the 
- * Character BBox.
+/* Bounding box definition. Used for the Font AFM_BBox as well as the 
+ * Character AFM_BBox.
  */
 typedef struct
 { 
@@ -153,7 +153,7 @@ typedef struct
    int lly;	/* lower left y-position  */
    int urx;	/* upper right x-position */
    int ury;	/* upper right y-position */
-} BBox;
+} AFM_BBox;
 
 
 /* Global Font information.
@@ -170,7 +170,7 @@ typedef struct
    char *weight;		/* key: Weight */
    float italicAngle;		/* key: ItalicAngle */
    BOOL isFixedPitch;		/* key: IsFixedPitch */
-   BBox fontBBox;		/* key: FontBBox */
+   AFM_BBox fontBBox;		/* key: FontBBox */
    int underlinePosition;  	/* key: UnderlinePosition */
    int underlineThickness; 	/* key: UnderlineThickness */
    char *version;		/* key: Version */
@@ -190,7 +190,7 @@ typedef struct _t_ligature
 {
     char *succ, *lig;
     struct _t_ligature *next;
-} Ligature;
+} AFM_Ligature;
 
 
 /* Character Metric Information. This structure is used only if ALL 
@@ -209,8 +209,8 @@ typedef struct
         wx,		/* key: WX */
         wy;		/* together wx and wy are associated with key: W */
     char *name; 	/* key: N */
-    BBox charBBox;	/* key: B */
-    Ligature *ligs;	/* key: L (linked list; not a fixed number of Ls */
+    AFM_BBox charBBox;	/* key: B */
+    AFM_Ligature *ligs;	/* key: L (linked list; not a fixed number of Ls */
 } AFM_CharMetricInfo;
 
 
@@ -323,5 +323,5 @@ typedef struct
  *  The possible return codes from parseFile are defined above.
  */
 
-int parseFile (FILE *fp, AFM_Font_info **fi, FLAGS flags);
-void parseFileFree (AFM_Font_info *fi);
+int AFM_parseFile (FILE *fp, AFM_Font_info **fi, FLAGS flags);
+void AFM_free (AFM_Font_info *fi);

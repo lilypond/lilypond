@@ -50,6 +50,9 @@ Repeat_engraver::do_try_music (Music* m)
  Walk through repeat music, and generate events for appropriate times.
 
  UGH. Should use Music_iteration for this.
+
+ Should also queue some event to get timing information reset during
+ 2nd and following voltas.
 */
 void
 Repeat_engraver::queue_events ()

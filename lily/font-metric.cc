@@ -30,14 +30,14 @@ Font_metric::text_dimension (String text) const
 	}
       else
 	{
-	  Character_metric const *c = get_char ((unsigned char)text[i],false);
+	  Box b = get_char ((unsigned char)text[i],false);
 
 	  // Ugh, use the width of 'x' for unknown characters
-	  if (c->dimensions()[X_AXIS].length () == 0) 
-	    c = get_char ((unsigned char)'x',false);
+	  if (b[X_AXIS].length () == 0) 
+	    b = get_char ((unsigned char)'x',false);
 	  
-	  w += c->dimensions()[X_AXIS].length ();
-	  ydims.unite (c->dimensions()[Y_AXIS]);
+	  w += b[X_AXIS].length ();
+	  ydims.unite (b[Y_AXIS]);
 	}
     }
   if (ydims.empty_b ())
@@ -56,13 +56,6 @@ Scaled_font_metric::text_dimension (String t) const
   return Box(b[X_AXIS]* realmag, b[Y_AXIS]*realmag);
 }
 
-
-Box
-Character_metric::dimensions () const
-{
-  return Box(Interval(0,0), Interval(0,0));
-}
-
 Font_metric::~Font_metric ()
 {
   unsmobify_self ();
@@ -79,14 +72,12 @@ Font_metric::Font_metric (Font_metric const &)
 {
 }
 
-Character_metric::~Character_metric()
-{
-}
 
-Character_metric const *
+
+Box 
 Font_metric::get_char (int, bool)const
 {
-  return 0;
+  return Box (Interval(0,0),Interval (0,0));
 }
 
 Scaled_font_metric::Scaled_font_metric (Font_metric* m, int s)

@@ -2,6 +2,7 @@
 
 # musedata = musedata.stanford.edu
 # musedata = COBOL for musicians.
+# todo: rewrite this.
 
 import re
 import sys

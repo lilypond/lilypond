@@ -14,20 +14,13 @@
 #include "lily-guile.hh"
 #include "smobs.hh"
 
-struct Character_metric
-{
-  virtual Box dimensions () const;
-  virtual ~Character_metric ();
-};
-
-
 
 struct Font_metric
 {
   Font_metric ();
   SCM name_;
   virtual SCM description () const;
-  virtual Character_metric const *get_char (int ascii, bool warn) const; 
+  virtual Box get_char (int ascii, bool warn) const;
   virtual ~Font_metric ();
   virtual Box text_dimension (String) const;
 
