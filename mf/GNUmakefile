@@ -208,7 +208,7 @@ $(SAUTER_FONTS:%=$(outdir)/%.bla):
 	$(foreach i, $@, touch $i && ) true
 
 $(outdir)/%.pfa: $(outdir)/%.bla
-	$(MFTRACE) -I $(outdir)/ --pfa --simplify --keep-trying $(notdir $(basename $@))  && mv $(notdir $@) $(outdir)/
+	$(MFTRACE) -I $(outdir)/ --formats=pfa --simplify --keep-trying $(notdir $(basename $@))  && mv $(notdir $@) $(outdir)/
 
 $(outdir)/%.enc.in: %.enc
 	cp $< $@

@@ -20,8 +20,8 @@ public:
   static bool has_interface (Grob*);
   static void add_tie (Grob*me,Grob*);
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
+  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
   static void set_directions (Grob*me);
-  static void old_directions (Grob*me);
   static void werner_directions (Grob*me);
 };
 

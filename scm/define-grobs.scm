@@ -1244,6 +1244,7 @@
     (TieColumn
      . (
 	(after-line-breaking-callback . ,Tie_column::after_line_breaking)
+	(before-line-breaking-callback . ,Tie_column::before_line_breaking)
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)	
 	(meta . ((interfaces . (tie-column-interface spanner-interface))))

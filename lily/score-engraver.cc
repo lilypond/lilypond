@@ -117,8 +117,8 @@ Score_engraver::initialize ()
 
   pscore_->typeset_line (new System (props));
   
-  make_columns ();
   system_ = pscore_->system_;
+  make_columns ();
   system_->set_bound (LEFT, command_column_);
   command_column_->set_property ("breakable", SCM_BOOL_T);
 
@@ -201,9 +201,6 @@ Score_engraver::stop_translation_timestep ()
 	progress_indication ("[" + to_string (breaks_) + "]");
     }
 
-
-  system_->add_column (command_column_);
-  system_->add_column (musical_column_);
   
   command_column_ = 0;
   musical_column_ = 0;
@@ -226,6 +223,9 @@ Score_engraver::set_columns (Paper_column *new_command,
     {
       context ()->set_property ("currentMusicalColumn", new_musical->self_scm ());
     }
+
+  system_->add_column (command_column_);
+  system_->add_column (musical_column_);
 }
 
 Music_output*

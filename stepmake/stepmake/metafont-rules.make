@@ -30,11 +30,11 @@ $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 
 
 $(outdir)/%.pfa: %.mf
-	$(MFTRACE) $(MFTRACE_FLAGS) -I $(outdir)/ --pfa --simplify $(basename $(@F))
+	$(MFTRACE) $(MFTRACE_FLAGS) -I $(outdir)/ --formats=pfa --simplify $(basename $(@F))
 	mv $(basename $(@F)).pfa $(outdir)
 
 $(outdir)/%.pfb: %.mf
-	$(MFTRACE)  $(MFTRACE_FLAGS) -I $(outdir)/ --pfa --pfb --simplify  $(basename $(@F))
+	$(MFTRACE)  $(MFTRACE_FLAGS) -I $(outdir)/ --formats=pfa,pfb --simplify  $(basename $(@F))
 	-mv $(basename $(@F)).pfa $(outdir)
 	mv $(basename $(@F)).pfb $(outdir)
 

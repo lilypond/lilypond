@@ -29,14 +29,29 @@
    TODO: Remove the dependency on musical info. We should tie on the
    basis of position and duration-log of the heads (not of the events).
 */
+
+struct Head_event_tuple
+{
+  Grob *head_;
+  SCM tie_definition_;
+  Music *event_;
+  Head_event_tuple()
+  {
+  }
+  Head_event_tuple(Grob *h, Music *m, SCM def)
+  {
+    head_ = h;
+    event_ = m;
+    tie_definition_ = def;
+  }
+};
+
 class Tie_engraver : public Engraver
 {
   Music *event_;
-  Music *last_event_;
   Link_array<Grob> now_heads_;
-  Link_array<Grob> heads_to_tie_;
+  Array<Head_event_tuple> heads_to_tie_;
   Link_array<Grob> ties_;
-  SCM tie_start_definition_;
   
   Spanner * tie_column_;
   
@@ -53,19 +68,18 @@ public:
 };
 
 
+void
+Tie_engraver::derived_mark () const
+{
+  Engraver::derived_mark ();
+  for (int i = 0;  i < heads_to_tie_.size();  i++)
+    scm_gc_mark (heads_to_tie_[i].tie_definition_);
+}
 
 Tie_engraver::Tie_engraver ()
 {
   event_ = 0;
-  last_event_  = 0;
   tie_column_ = 0;
-  tie_start_definition_ = SCM_EOL;
-}
-
-void
-Tie_engraver::derived_mark () const
-{
-  scm_gc_mark (tie_start_definition_);
 }
 
 
@@ -98,33 +112,34 @@ Tie_engraver::acknowledge_grob (Grob_info i)
       now_heads_.push (h);
       for  (int i = heads_to_tie_.size (); i--;)
 	{
-	  Grob *th =  heads_to_tie_[i];
+	  Grob *th =  heads_to_tie_[i].head_;
 	  Music * right_mus = unsmob_music (h->get_property ("cause"));
 	  Music * left_mus = unsmob_music (th->get_property ("cause"));
 
 	  /*
 	    maybe should check positions too.
-	   */
+	  */
 	  if (right_mus && left_mus
 	      && ly_c_equal_p (right_mus->get_property ("pitch"),
-			     left_mus->get_property ("pitch")))
+			       left_mus->get_property ("pitch")))
 	    {
-	      Grob * p = new Spanner  (tie_start_definition_);
-	      announce_grob (p, last_event_->self_scm ());
+	      Grob * p = new Spanner  (heads_to_tie_[i].tie_definition_);
+	      announce_grob (p, heads_to_tie_[i].event_->self_scm ());
+  	    
 	      Tie::set_interface (p); // cannot remove yet!
 	  
 	      Tie::set_head (p, LEFT, th);
 	      Tie::set_head (p, RIGHT, h);
 	  
 	      ties_.push (p);
+	      heads_to_tie_.del (i);
 	    }
 	}
 
       if (ties_.size () && ! tie_column_)
 	{
-	  tie_column_ = make_spanner ("TieColumn", SCM_EOL);
-	  
-	}
+	  tie_column_ = make_spanner ("TieColumn", ties_[0]->self_scm ());
+  	}
 
       if (tie_column_)
 	for (int i = ties_.size (); i--;)
@@ -136,7 +151,7 @@ void
 Tie_engraver::start_translation_timestep ()
 {
   context ()->set_property ("tieMelismaBusy",
-			      ly_bool2scm (heads_to_tie_.size ()));
+			    ly_bool2scm (heads_to_tie_.size ()));
       
 }
 
@@ -145,22 +160,34 @@ Tie_engraver::stop_translation_timestep ()
 {
   if (ties_.size ())
     {
-      heads_to_tie_.clear ();
+     if (!to_boolean (get_property ("tieWaitForNote")))
+	{
+	  heads_to_tie_.clear ();
+	}
       for (int i=0; i<  ties_.size (); i++)
 	{
 	  typeset_tie (ties_[i]);
 	}
 
       ties_.clear ();
-      last_event_ = 0;
       tie_column_ =0;
     }
   
   if (event_)
     {
-      tie_start_definition_ = updated_grob_properties (context (), ly_symbol2scm ("Tie"));
-      heads_to_tie_ = now_heads_;
-      last_event_ = event_;
+      SCM start_definition
+	= updated_grob_properties (context (), ly_symbol2scm ("Tie"));
+
+      if (!to_boolean (get_property ("tieWaitForNote")))
+	heads_to_tie_.clear();
+
+      for  (int i = 0; i < now_heads_.size(); i++)
+	{
+	  heads_to_tie_.push (Head_event_tuple (now_heads_[i], event_,
+						start_definition
+						));
+	}      
+    
     }
   event_ = 0;
   now_heads_.clear ();

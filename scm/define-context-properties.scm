@@ -352,6 +352,8 @@ the system/staff? Set to @code{SystemStartBrace},
 takes a string number, a list of string tunings and Pitch object. It
 returns the text as a string.")
 
+     (tieWaitForNote ,boolean? "If true, tied notes do not have to follow each other directly.
+This can be used for writing out arpeggios")
      (timeSignatureFraction ,number-pair?
 			    "pair of numbers, signifying the time
 signature. For example @code{#'(4 . 4)} is a 4/4 time signature.")

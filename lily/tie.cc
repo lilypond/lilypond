@@ -65,6 +65,18 @@ Tie::head (Grob*me, Direction d)
     return 0;
 }
 
+int
+Tie::get_column_rank (Grob *me, Direction d)
+{
+  Spanner *span = dynamic_cast<Spanner*> (me); 
+  Grob * h = head (me, d);
+  if (!h)
+    h = span->get_bound (d);
+
+  Grob *col = dynamic_cast<Item*> (h)->get_column ();
+  return Paper_column::get_rank (col);
+}
+
 Real
 Tie::get_position (Grob*me) 
 {

@@ -463,6 +463,16 @@ automatic note splitting (see @ref{Automatic note splitting}).  This
 mechanism automatically splits long notes, and ties them across bar
 lines.
 
+Ties are sometimes used to write out arpeggios. In this case, two tied
+notes need not be consecutive.  This can be achieved by setting the
+@code{tieWaitForNote} property to true. For example,
+
+@lilypond[fragment,verbatim,relative=1,raggedright]
+\set tieWaitForNote = ##t
+\grace { c16[~ e~ g]~ } <c, e g>4   
+@end lilypond
+
+
 @refcommands
 
 
@@ -3528,11 +3538,11 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 @subsection Arpeggio
 @cindex Arpeggio
 
-@cindex broken arpeggio
+@cindex broken chord
 @cindex @code{\arpeggio}
 
-You can specify an arpeggio sign on a chord by attaching an
-@code{\arpeggio} to a chord
+You can specify an arpeggio sign (also known as broken chord) on a
+chord by attaching an @code{\arpeggio} to a chord
 
 
 @lilypond[quote,raggedright,fragment,relative=1,verbatim]
@@ -3588,8 +3598,12 @@ arpeggiate the chord
 
 @seealso
 
+Notation manual: @ref{Ties}, for writing out arpeggios.
+
 Program reference: @internalsref{ArpeggioEvent},
 @internalsref{Arpeggio}.
+
+
 
 @refbugs
 
