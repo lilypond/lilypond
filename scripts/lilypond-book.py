@@ -49,7 +49,7 @@ import operator
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.4.9'
+	program_version = '1.5.18'
 
 # if set, LILYPONDPREFIX must take prevalence
 # if datadir is not set, we're doing a build and LILYPONDPREFIX 
@@ -98,7 +98,7 @@ include_path = [os.getcwd()]
 
 
 # g_ is for global (?)
-
+g_extra_opts = ''
 g_here_dir = os.getcwd ()
 g_dep_prefix = ''
 g_outdir = ''
@@ -106,6 +106,7 @@ g_force_lilypond_fontsize = 0
 g_read_lys = 0
 g_do_pictures = 1
 g_num_cols = 1
+
 format = ''
 g_run_lilypond = 1
 no_match = 'a\ba'
@@ -368,6 +369,7 @@ option_definitions = [
   ('EXT', 'f', 'format', 'set format.  EXT is one of texi and latex.'),
   ('DIM',  '', 'default-music-fontsize', 'default fontsize for music.  DIM is assumed to be in points'),
   ('DIM',  '', 'default-lilypond-fontsize', 'deprecated, use --default-music-fontsize'),
+  ('OPT', '', 'extra-options' , 'Pass OPT quoted to the lilypond command line'),
   ('DIM', '', 'force-music-fontsize', 'force fontsize for all inline lilypond. DIM is assumed be to in points'),
   ('DIM', '', 'force-lilypond-fontsize', 'deprecated, use --force-music-fontsize'),
   ('DIR', 'I', 'include', 'include path'),
@@ -475,7 +477,9 @@ re_dict = {
 		  },
 
 
-	# why do we have distinction between @mbinclude and @include? 
+	# why do we have distinction between @mbinclude and @include?
+
+	
 	'texi': {
 		 'include':  '(?m)^[^%\n]*?(?P<match>@mbinclude[ \n\t]+(?P<filename>[^\t \n]*))',
 		 'input': no_match,
@@ -484,13 +488,9 @@ re_dict = {
 		 'landscape': no_match,
 		 'verbatim': r"""(?s)(?P<code>@example\s.*?@end example\s)""",
 		 'verb': r"""(?P<code>@code{.*?})""",
-		 'lilypond-file': '(?m)^(?!@c)(?P<match>@lilypondfile(\[(?P<options>.*?)\])?{(?P<filename>[^}]+)})',
-		 'lilypond' : '(?m)^(?!@c)(?P<match>@lilypond(\[(?P<options>.*?)\])?{(?P<code>.*?)})',
-# pyton2.2b2 barfs on this
-		 'lilypond-block': r"""(?m)^(?!@c)(?P<match>(?s)(?P<match>@lilypond(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end lilypond\s))""",
-
-# 1.5.2 barfs on this. 
-# 'lilypond-block': r"""(?m)^(?!@c)(?P<match>@lilypond(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end lilypond\s)""",
+		 'lilypond-file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
+		 'lilypond' : '(?m)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?{(?P<code>.*?)})',
+		 'lilypond-block': r"""(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end lilypond)\s""",
 		  'option-sep' : ',\s*',
 		  'intertext': r',?\s*intertext=\".*?\"',
 		  'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
@@ -504,7 +504,14 @@ for r in re_dict.keys ():
 	olddict = re_dict[r]
 	newdict = {}
 	for k in olddict.keys ():
-		newdict[k] = re.compile (olddict[k])
+		try:
+			newdict[k] = re.compile (olddict[k])
+		except:
+			print 'invalid regexp: %s' % olddict[k]
+
+			# we'd like to catch and reraise a more detailed  error, but
+			# alas, the exceptions changed across the 1.5/2.1 boundary.
+			raise "Invalid re"
 	re_dict[r] = newdict
 
 	
@@ -534,8 +541,10 @@ def bounding_box_dimensions(fname):
 	str = fd.read ()
 	s = re.search('%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', str)
 	if s:
-		return (int (s.group (3) - s.group (1) + 0.5),
-			int (s.group (4) - s.group (2) + 0.5))
+		
+		gs = map (lambda x: string.atoi (x), s.groups ())
+		return (int (gs[2] - gs[0] + 0.5),
+			int (gs[3] - gs[1] + 0.5))
 	else:
 		return (0,0)
 
@@ -977,20 +986,19 @@ def system (cmd):
 
 
 def get_bbox (filename):
-	f = open (filename)
+	system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1 ' % (filename, filename))
+
+	box = open (filename + '.bbox').read()
+	m = re.match ('^%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', box)
 	gr = []
-	while 1:
-		l =f.readline ()
-		m = re.match ('^%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', l)
-		if m:
-			gr = map (string.atoi, m.groups ())
-			break
+	if m:
+		gr = map (string.atoi, m.groups ())
 	
 	return gr
 
 def make_pixmap (name):
 	bbox = get_bbox (name + '.eps')
-	margin = 3
+	margin = 0
 	fo = open (name + '.trans.eps' , 'w')
 	fo.write ('%d %d translate\n' % (-bbox[0]+margin, -bbox[1]+margin))
 	fo.close ()
@@ -1046,7 +1054,7 @@ def compile_all_files (chunks):
 			if g_outdir:
 				lilyopts = lilyopts + '--dep-prefix=' + g_outdir + '/'
 		texfiles = string.join (tex, ' ')
-		system ('lilypond --header=texidoc %s %s' % (lilyopts, texfiles))
+		system ('lilypond --header=texidoc %s %s %s' % (lilyopts, g_extra_opts, texfiles))
 
 		#
 		# Ugh, fixing up dependencies for .tex generation
@@ -1329,6 +1337,8 @@ for opt in options:
 	elif o == '--default-lilypond-fontsize':
 		print "--default-lilypond-fontsize is deprecated, use --default-music-fontsize"
 		default_music_fontsize = string.atoi (a)
+	elif o == '--extra-options':
+		g_extra_opts = a
 	elif o == '--force-music-fontsize':
 		g_force_lilypond_fontsize = string.atoi(a)
 	elif o == '--force-lilypond-fontsize':

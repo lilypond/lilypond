@@ -81,11 +81,11 @@ use
 @uref{ftp://ftp.xcf.berkeley.edu/pub/xdelta/, xdelta}.
  This is much safer than using patches, and is the recommended way.
 
-The following command produces @file{lilypond-1.4.3.tar.gz} from
-@file{lilypond-1.4.2.tar.gz} identical (up to compression dates) to the .3
+The following command produces @file{lilypond-1.4.11.tar.gz} from
+@file{lilypond-1.4.10.tar.gz} identical (up to compression dates) to the .11
 on the FTP site.
 @example
-  xdelta patch lilypond-1.4.2-1.4.3.xd lilypond-1.4.2.tar.gz
+  xdelta patch lilypond-1.4.10-1.4.11.xd lilypond-1.4.10.tar.gz
 @end example
 @end itemize
 
@@ -99,8 +99,8 @@ You need the following packages to compile Lilypond.
 @item A reasonably new C++ compiler:  EGCS 1.1, GCC 2.95.2 or
 newer. Check out @uref{ftp://ftp.gnu.org/gnu/gcc/, the gcc site}.
 
-@item  Python 1.5,
-Check out @uref{http://www.python.org, the python website}.
+@item  Python 1.5 or 2.1
+Check out @uref{http://www.python.org/, the python website}.
 
 @item  GUILE 1.3.4 or newer,  check out
 @uref{http://www.gnu.org/software/guile/guile.html,the GUILE webpage}.
@@ -115,7 +115,7 @@ make FTP directory}.
 Check out @uref{http://www.gnu.org/software/flex/,the Flex webpage}.
 
 @item Bison (version 1.25 or newer).
-Check out @uref{http://www.gnu.org/software/bison/,the bison  webpage}
+Check out @uref{http://www.gnu.org/software/bison/,the bison webpage}
 
 @item @TeX{}.
 
@@ -224,7 +224,7 @@ texinfo-4.0b} or
 @uref{ftp://alpha.gnu.org/gnu/texinfo-4.0b.tar.gz,texinfo-4.0b}
 @end itemize
 
-@section Building  LilyPond
+@section Building LilyPond
 
 to install GNU LilyPond, type:
 @example 
@@ -340,10 +340,10 @@ A LinuxPPC RPM can be made using the @file{lilypond.redhat.spec} file.
 
 @subsection SuSE
 
-Some SUSE RPMS should available from
+Some SuSE RPMS should available from
 @uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/SuSE}.
 
-You can also compile a RPM for SUSE yourself.  A spec file is in
+You can also compile a RPM for SuSE yourself.  A spec file is in
 @file{make/out/lilypond.suse.spec}, see the instructions for building
 the Red Hat RPM.
 
@@ -356,7 +356,7 @@ gs_serv gs_lib gs_fonts guile
 No precompiled packages for Slackware are available.
 
 Problems have been reported with Slackware 7.0; apparently, it ships
-with a faulty compiler. Do not compile LilyPond with -O2 on this
+with a faulty compiler.  Do not compile LilyPond with -O2 on this
 platform.
 
 @subsection Mandrake
@@ -418,12 +418,12 @@ make the .deb by doing, for example:
 	$ su - root
 	# dpkg --purge lilypond lilypond1.3
 	# exit
-	$ tar xzf lilypond-1.4.3.tar.gz
-	$ cd lilypond-1.4.3
-	$ dch -p -v 1.4.3-0.local.1 "Local build."
+	$ tar xzf lilypond-1.4.11.tar.gz
+	$ cd lilypond-1.4.11
+	$ dch -p -v 1.4.11-0.local.1 "Local build."
 	$ debuild -B
 	$ su - root
-	# dpkg -i ../lilypond_1.4.3*.deb
+	# dpkg -i ../lilypond_1.4.11*.deb
 	# exit
 	$
 @end example
@@ -445,7 +445,7 @@ in addition to the those needed for running:
 @item tetex-base, tetex-bin, tetex-extra, libkpathsea-dev or tetex-dev
 @item dpkg-dev, debhelper, fakeroot
 @item gs, netpbm
-@item pnmtopng (only in Debian 2.2; pnmtopng has been merged with netpbm
+@item pnmtopng (only in Debian 2.2: pnmtopng has been merged with netpbm
   in Debian testing/unstable.)
 @end itemize
 
@@ -463,12 +463,12 @@ For Debian 2.2:
 		netpbm pnmtopng m4 gettext
 @end example
 
-For Debian in development ("unstable", the future 2.3 or 3.0):
+For Debian in development ("unstable", the future Debian 3.0):
 
 @example
 	apt-get install binutils cpp gcc libc6-dev \
         	g++ libstdc++2.10-dev \
-		python-base libguile-dev tetex-bin libkpathsea-dev \
+		python libguile-dev tetex-bin libkpathsea-dev \
 		tetex-extra flex bison texinfo bibtex2html groff gs \
 		netpbm m4 gettext
 @end example

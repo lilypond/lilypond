@@ -28,7 +28,7 @@ Description: A program for printing sheet music.
 Package: lilypond-doc
 Section: doc
 Architecture: all
-Suggests: lilypond (>= 1.4.8-1), postscript-viewer, www-browser
+Suggests: lilypond (>= 1.4.11-1), postscript-viewer, www-browser
 Description: LilyPond Documentation in HTML, PS and DVI formats
  This package contains the HTML, PostScript and DVI documentation for the
- LilyPond music typestting software.
+ LilyPond music typesetting software.

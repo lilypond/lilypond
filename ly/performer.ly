@@ -122,6 +122,8 @@ ScoreContext = \translator {
 	\accepts ChoirStaff
 	\accepts RhythmicStaff
 	\accepts ChordNames
+
+	\consists "Timing_translator"
 	\consists "Swallow_performer"
 
 	dynamicAbsoluteVolumeFunction = #default-dynamic-absolute-volume

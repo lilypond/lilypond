@@ -1,3 +1,24 @@
+lilypond_1_4
+============
+
+* Documentation/windows/gs-profile.sh:
+* Documentation/windows/gsview-profile.sh: Remove.
+
+* lilypond-indent.el: New file, from HEAD.  Fixes lilypond-mode.
+
+1.4.12.uu1
+==========
+
+* Make Timing_engraver instantiatable, add to Score_performer. Fixes bar checks
+in MIDI
+
+
+1.4.12.af1
+==========
+
+* Debian patches.
+
+
 1.4.12.jcn1
 ===========
 

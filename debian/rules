@@ -17,8 +17,11 @@ d = usr/share/doc/$(package)
 
 # "main_memory = 263000" in /etc/texmf/texmf.cnf isn't large enough
 # for latex to process standchen.dvi.latex, so adding extra_mem_* ...
-export extra_mem_top = 100000
-export extra_mem_bot = 100000
+# export extra_mem_top = 100000
+# export extra_mem_bot = 100000
+# But now, building lilypond.dvi requires increased pool_size (2002-02-18)
+# export pool_size = 500000
+# But now, it seems that none of the above is needed in 1.4.11  (2002-02-24)
 export MODE = ljfour
 export BDPI = 600
 export USER_CFLAGS = -DDEBIAN
@@ -107,7 +110,7 @@ binary-indep: build-doc install
 	dh_md5sums
 	dh_builddeb
 
-binary-arch: DH_OPTIONS=-a
+binary-arch: DH_OPTIONS=-s
 binary-arch: build install
 	dh_testdir
 	dh_testroot
