@@ -1,0 +1,16 @@
+% Toplevel initialisation file. 
+	
+\version "1.0.14";
+
+
+\include "declarations.ly"
+
+\score { 
+  \notes\relative c {
+    \maininput
+  }
+  \paper {
+    linewidth=-1.0;
+  }  
+  \midi{ }
+}
