@@ -21,10 +21,8 @@ SLIB_PATH=`locate slib/require.scm | head -1 | sed -s 's/require.scm//g'`
 
 # What extra modules to pull (eg: EXTRA="libgnomecanvas libwnck")
 EXTRA=${EXTRA-libgnomecanvas}
-GGVERSION=2.5.995
-#GGVERSION=2.5.991
-GWRAPVERSION=1.9.3rc1
-#GWRAPVERSION=1.9.1
+GGVERSION=2.7.91
+GWRAPVERSION=1.9.3
 
 download=$HOME/usr/src/releases
 [ -d $download ] || mkdir -p $download
@@ -111,8 +109,7 @@ if ! pkg-config --exact-version=1.9.1 g-wrap-2.0-guile; then
         ## ughr:
 	mkdir -p g-wrap/libffi
     else
-	#$WGET http://savannah.nongnu.org/download/g-wrap/g-wrap-$GWRAPVERSION.tar.gz
-	$WGET http://stud3.tuwien.ac.at/~e9926584/tmp/g-wrap-$GWRAPVERSION.tar.gz
+	$WGET http://savannah.nongnu.org/download/g-wrap/g-wrap-$GWRAPVERSION.tar.gz
 	tar xzf $download/g-wrap-$GWRAPVERSION.tar.gz
 	ln -s g-wrap-$GWRAPVERSION g-wrap
     fi
@@ -180,7 +177,7 @@ if ! pkg-config --atleast-version=$GGVERSION guile-gnome-glib; then
 	fi
 	cd ..
     else
-	$WGET http://ambient.2y.net/wingo/tmp/guile-gnome-platform-$GGVERSION.tar.gz
+ 	$WGET http://download.gna.org/guile-gnome/releases/guile-gnome-platform-$GGVERSION.tar.gz
 	tar xzf $download/guile-gnome-platform-$GGVERSION.tar.gz
 	ln -s guile-gnome-platform-$GGVERSION guile-gnome
 	cd guile-gnome
