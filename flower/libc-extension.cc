@@ -43,10 +43,10 @@ strnupr (char* start, int n)
 double
 my_round (double x)
 {
-  return  floor (x -0.5)+ 1.0 ;
+  return floor (x -0.5)+ 1.0 ;
 }
 
-
+#ifndef isinf
 #if !HAVE_ISINF
 int
 isinf (double x)
@@ -54,7 +54,7 @@ isinf (double x)
   return x && ( x == x/ 2) ;
 }
 #endif
-
+#endif
 
 #if !HAVE_MEMMEM
 
