@@ -9,9 +9,11 @@ LILYINCLUDE="@datadir@/ly:@datadir@/afm"
 # include an empty path component for the system wide includes.
 MFINPUTS="@datadir@/mf:"${MFINPUTS:=":"}
 TEXINPUTS="@datadir@/tex:"${TEXINPUTS:=":"}
+GUILE_LOAD_PATH="@datadir@/scm:$GUILE_LOAD_PATH"
 
-export LILYINCLUDE MFINPUTS TEXINPUTS GS_LIB GS_FONTPATH
+export GUILE_LOAD_PATH LILYINCLUDE MFINPUTS TEXINPUTS GS_LIB GS_FONTPATH
 
+ 	
 # echo  $LILYINCLUDE $MFINPUTS $TEXINPUTS $GS_LIB $GS_FONTPATH
 
 
