@@ -142,11 +142,7 @@ Slur_engraver::process_acknowledged_grobs ()
 	  else
 	    {
 	      Grob* slur = slur_l_stack_.pop ();
-	      SCM s = get_property ("slurEndAttachment");
-	      if (gh_symbol_p (s))
-		{
-		  index_set_cell (slur->get_grob_property ("attachment"), STOP, s);
-		}
+	    
 	      end_slur_l_arr_.push (slur);
 	      requests_arr_.pop ();
 	    }
@@ -157,11 +153,6 @@ Slur_engraver::process_acknowledged_grobs ()
 	  // (use temp. array to wait for all slur STOPs)
 	  Grob* slur = new Spanner (get_property ("Slur"));
 	  Slur::set_interface (slur); // cannot remove yet!
-	  SCM s = get_property ("slurBeginAttachment");
-	  if (gh_symbol_p (s))
-	    {
-	      index_set_cell (slur->get_grob_property ("attachment"), START, s);
-	    }
 	  start_slur_l_arr.push (slur);
 	  requests_arr_.push (slur_req_l);
 	  announce_grob (slur, slur_req_l->self_scm ());
@@ -199,5 +190,5 @@ ENTER_DESCRIPTION (Slur_engraver,
 /* descr */       "Build slurs from Slur_reqs",
 /* creats*/       "Slur",
 /* acks  */       "note-column-interface",
-/* reads */       "slurBeginAttachment slurEndAttachment slurMelismaBusy",
+/* reads */       "slurMelismaBusy",
 /* write */       "");

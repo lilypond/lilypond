@@ -104,6 +104,11 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
       ->has_extent_callback_b(Axis_group_interface::group_extent_callback_proc, X_AXIS))
     return;
 
+
+  
+  if (to_boolean (it->get_grob_property ("no-spacing-rods")))
+    return ;
+
   if (Note_spacing::has_interface (it)) 
     {
       current_spacings_.note_spacings_.push (it);
@@ -196,9 +201,6 @@ Separating_line_group_engraver::stop_translation_timestep ()
   
   musical_malt_p_ =0;
 }
-
-
-
 
 
 ENTER_DESCRIPTION(Separating_line_group_engraver,
