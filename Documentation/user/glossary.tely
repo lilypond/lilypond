@@ -47,7 +47,8 @@ The stress of one tone over others.
 
 @item accidental
 I: alterazione, accidente, F: alt@'eration accidentelle, D: Vorzeichen,
-Versetzungszeichen, NL: voorteken, DK: l@o{}st fortegn, S: f@"ortecken, N:
+Versetzungszeichen, NL: voorteken, DK: l@o{}st fortegn, S: tillf@"alligt 
+f@"ortecken, N:
 
 @c F: alt@'eration accidentelle,  D: Vorzeichen, Versetzungszeichen,
 @c Akzidenz, NL: toevallig teken, I: accidento.  
@@ -70,31 +71,31 @@ accidental.
   g!1_"natural" s2
 }
 @end mudela
+@item accelerando 
+I: accelerando, F: accelerando, en acc@'el@'erant, D: accelerando, Schneller,
+NL: accelerando, DK: accelerando, S: accelerando, N:
+
+Still faster tempo.
+
 
 @item adagio
-I: adagio, F: , D: Adagio, Langsam, NL: adagio, DK: adagio, S: adagio, N:
-adagio.
+I: adagio, F: adagio, lent, D: Adagio, Langsam, NL: adagio, DK: adagio, S:
+adagio, N: adagio.
 
 It. comfortable, easy. 1. Slow tempo, slower - especially in even meter - than
 @w{@ar{}@strong{andante}} and faster than @w{@ar{}@strong{largo}}. 2. A
 movement in slow tempo, esepecially the scond (slow) movement of
 @w{@ar{}@strong{sonata}s}, symphonies etc.
 
-@item accelerando 
-I: accelerando, F: , D: accelerando, Schneller, NL: accelerando, DK:
-accelerando, S: accelerando, N:
-
-Still faster tempo.
-
 @item allegro
-I: allegro, F: , D: Allegro, Schnell, Fr@"ohlich, Lustig, NL: allegro, DK:
-allegro, S: allegro, N: allegro.
+I: allegro, F: allegro, D: Allegro, Schnell, Fr@"ohlich, Lustig, NL: allegro,
+DK: allegro, S: allegro, N: allegro.
 
 It. cheerful. Quick tempo. Also used as a title for pieces in a quick tempo,
 especially the first and last movements of a @w{@ar{}@strong{sonata}}.
 
 @item alto
-I: contralto, F: alto,  D: Alt, NL: alt, DK: alt, S: alt, N: alt.
+I: contralto, F: alto, D: Alt, NL: alt, DK: alt, S: alt, N: alt.
 
 A female voice of low range (@emph{contralto}). Originally the alto was a high
 male voice (hence the name) which by the use of falsetto reached the height of
@@ -102,8 +103,8 @@ the female voice. This type of voice is also known as @w{@ar{}@strong{counter
 tenor}}.
 
 @item alto clef
-I: chiave di contralto, F: , D: Altschl@"ussel, Bratschenschl@"ussel, NL: alt
-sleutel, DK: altn@o{}gle, S: altklav, N:
+I: chiave di contralto, F: clef d'ut troisi@`eme ligne, D: Altschl@"ussel,
+Bratschenschl@"ussel, NL: alt sleutel, DK: altn@o{}gle, S: altklav, N:
 
 C clef setting central C on the middle line of the staff 
 @w{@ar{}@strong{C clef}}
@@ -216,8 +217,8 @@ Intervall, NL: overmatig interval, DK: forst@o{}rret interval, S:
 @w{@ar{}@strong{interval}}
 
 @item autograph	
-I: autografo, F: , D: Autograph, Handschrift, NL: , DK: h@aa{}ndskrift,
-autograf, S: handskrift, N: .
+I: autografo, F: manuscrit, D: Autograph, Handschrift, NL: manuscript, DK:
+h@aa{}ndskrift, autograf, S: handskrift, N: .
 
 1. A manuscript in the composer's own hand. 2.  Music prepared for
 photoreproduction by freehand drawing, with only the aid of a
@@ -245,15 +246,16 @@ The male voice intermediate between the @w{@ar{}@strong{bass}} and the
 @w{@ar{}@strong{tenor}}.
 
 @item baritone clef
-I: chiave di baritono, F: , D: Barytonschl@"ussel, NL: baritonsleutel, DK:
-barytonn@o{}gle, S: barytonklav, N: .
+I: chiave di baritono, F: clef de ut cinqui@`eme ligne, clef de troisi@`eme
+ligne, D: Barytonschl@"ussel, NL: baritonsleutel, DK: barytonn@o{}gle, S:
+barytonklav, N: .
 
 C or F clef setting central C on the upper staff line. @w{@ar{}@strong{c clef}}
 @w{@ar{}@strong{f clef}}
 
 @item bass clef
-I: chiave di basso, F: cl@'e de fa, D: Bass-Schl@"ussel, NL: bassleutel, DK:
-basn@o{}gle, S: basklav, N:
+I: chiave di basso, F: cl@'e de fa quatri@`eme ligne, D: Bass-Schl@"ussel, NL:
+bassleutel, DK: basn@o{}gle, S: basklav, N:
 
 A clef setting with central C on the first top ledger line. @w{@ar{}@strong{f
 clef}}
@@ -324,8 +326,8 @@ orchestral or choral score.
 @
 
 @mudela[13pt,eps] 
-\context StaffGroup < 
-% \context ChoirStaff < 
+%\context StaffGroup < 
+\context ChoirStaff < 
   \property StaffGroup.minVerticalAlign = 12
   \notes\relative c'' { \clef treble; g4 e c2 }
   \notes\relative c { \clef bass; c1 \bar "|."; } > 
@@ -404,12 +406,12 @@ the middle of the 19'th century, however, most cadences have been written down
 by the composer.
 
 @item canon
-I: canone, F: , D: Kanon, NL: canon, DK: kanon, S: kanon, N: .
+I: canone, F: canon, D: Kanon, NL: canon, DK: kanon, S: kanon, N: .
 
 @w{@ar{}@strong{counterpoint}}
 
 @item cent
-I: cent, F: , D: Cent, NL: cent, DK: cent, S: cent, N: .
+I: cent, F: cent, D: Cent, NL: cent, DK: cent, S: cent, N: .
 
 Logarithmic unit of measurement. 1 cent is 1/1200 of an octave (1/100 of an
 equally tempered @w{@ar{}@strong{semitone}}) @w{@ar{}@strong{equal temperament}}
@@ -460,8 +462,8 @@ A scale consisting of all 11 @w{@ar{}@strong{semitone}}s.
 @end mudela
 
 @item chromaticism
-I: cromatismo, F: , D: Chromatik, NL: chromatiek, DK: kromatik, S: kromatik,
-N:
+I: cromatismo, F: chromatisme, D: Chromatik, NL: chromatiek, DK: kromatik, S:
+kromatik, N:
 
 Use of tones extraneous to a @w{@ar{}@strong{diatonic scale}} (minor, major).
 
@@ -495,14 +497,15 @@ Intervals larger than an octave
 @w{@ar{}@strong{interval}}
 
 @item complement
-I: rivolto, F: , D: Komplement@"arintervall, NL: complementair interval, DK:
-komplement@ae{}rinterval, S: komplement@"arintervall (?), N:
+I: rivolto, F: intervalle compl@'ementaire, D: Komplement@"arintervall, NL:
+complementair interval, DK: komplement@ae{}rinterval, S:
+komplement@"arintervall (?), N:
 
 @w{@ar{}@strong{inverted interval}}
 
 @item conjunct movement
-I: moto congiunto, F: mouvement conjoint, D: enge Lage(?), NL: , DK: trinvis
-bev@ae{}gelse, S: stegvis r@"orelse, N:
+I: moto congiunto, F: mouvement conjoint, D: schrittweise/stufenweise
+Bewegung, NL: , DK: trinvis bev@ae{}gelse, S: stegvis r@"orelse, N:
 
 Melody moving in the narrow steps of the scale;
 
@@ -603,8 +606,8 @@ abbreviation "cresc.".
 @end mudela
 
 @item cue-notes
-I: notine, F: , D: Stichnoten, NL: stichnoten, DK: stiknoder, S:
-inprickningar, N:
+I: notine, F: petites notes pr@'ec@'edent l'entr@'ee d'in instrument,
+r@'eplique, D: Stichnoten, NL: stichnoten, DK: stiknoder, S: inprickningar, N:
 
 In a separate part notes belonging to another part with the purpose of hinting
 when to start playing.  Usually printed in a smaller type.
@@ -612,16 +615,16 @@ when to start playing.  Usually printed in a smaller type.
 @item D
 I: re, F: r@'e, D: D, d, NL: d, DK: d, S: d, N: d
 
-@item da capo
-I: da capo, F: , D: da capo, von Anfang, NL: da capo, DK: da capo, S: da capo,
-N: .
+@item da capo 
+I: da capo, F: da capo, depuis le commencement, D: da capo, von Anfang, NL: da
+capo, DK: da capo, S: da capo, N: .
 
 The term indicates repetition of the piece from the beginning to the end or to
 a certain place marked @emph{fine}. Mostly abbreviated D.C.
 
 @item dal segno
-I: dal segno, F: , D: dal segno, NL: dal segno, DK: dal segno, S: dal
-segno, N: .
+I: dal segno, F: dal segno, depuis le signe, D: dal segno, NL: dal segno, DK:
+dal segno, S: dal segno, N: .
 
 abbreviated d.s. Repetition, not from the beginning, but from another place
 frequently near the beginning marked by a sign:
@@ -847,8 +850,9 @@ S:@w{ }diminuendo, N:@w{ }diminuendo.
 @w{@ar{}@strong{decrescendo}}
 
 @item disjunct movement
-I: moto disgiunto, F: mouvement disjoint, D: , NL: , DK: springende
-bev@ae{}gelse, S: hoppande r@"orelse, N:
+I: moto disgiunto, F: mouvement disjoint, D:
+sprunghafte Bewegung, NL: , DK: springende bev@ae{}gelse, S: hoppande
+r@"orelse, N:
 
 Melody moving in steps greater than those of the
 scale. Opposite of @ar{}@strong{conjunct movement}.
@@ -892,7 +896,7 @@ The fifth @w{@ar{}@strong{scale degree}} @w{@ar{}@strong{functional harmony}}
 
 @item dorian mode
 I: modo dorico, F: mode dorien, D: Dorischer Kirchenton, NL: dorische
-toonladder, dorischer Kirchenton, DK: dorisk skala, S: dorisk skala, N:
+toonladder, dorischer Kirchenton, DK: dorisk skala, S: dorisk tonart, N:
 
 @w{@ar{}@strong{diatonic scale}}
 
@@ -1087,7 +1091,8 @@ a4 b c2^\fermata \bar "|."; }
 @end mudela
 
 @item fifth
-I: quinta, F: quinte, D: Quinte, NL: kwint, I: , DK: kvint, S: kvint, N: kvint.
+I: quinta, F: quinte, D: Quinte, NL: kwint, DK: kvint, S: kvint, N:
+kvint.
 
 @w{@ar{}@strong{interval}}
 
@@ -1145,8 +1150,8 @@ I: fuga, F: fugue, D: Fuge, NL: fuga, DK: fuga, S: fuga, N: .
 @w{@ar{}@strong{counterpoint}}
 
 @item functional harmony
-I: armonia funzionale, F: , D: Funktionslehre, NL: , DK: funktionsanalyse,
-funktionsharmonik, S: funktionsl@"ara, N:
+I: armonia funzionale, F: @'etude des functions, D: Funktionslehre, NL: , DK:
+funktionsanalyse, funktionsharmonik, S: funktionsl@"ara, N:
 
 A system of harmonic analysis. It is based on the idea that, in a given key,
 there are only three functionally different chords: tonic (T, the chord on the
@@ -1213,9 +1218,8 @@ glissando, N: glissando.
 Letting the pitch  slide fluently from one note to the other
 
 @item grace notes
-I: abbellimenti, F: fioriture, petite[s] note[s], D: Verzierungen,
-Vorschl@"age, Vorschlagsnoten, NL: versieringen, DK: forsiringer, S: ornament,
-N: .
+I: abbellimenti, F: fioriture, D: Verzierungen, Vorschl@"age, Vorschlagsnoten,
+NL: versieringen, DK: forsiringer, S: ornament, N: .
 
 Notes printed in small types to indicate that their time values are not
 counted in the rhythm of the bar. @w{@ar{}@strong{appoggiatura}}
@@ -1229,7 +1233,7 @@ S: ackolad, b@"ojd klammer, N: .
 A combination of two staffs with a brace.  Usually used for piano music.
 
 @item grave
-I: grave, F: grave, D: grave, langsam, traurig, NL: , DK: grave, S: grave, N:
+I: grave, F: grave, D: grave, langsam, traurig, NL: grave, ernstig, DK: grave, S: grave, N:
 .
 
 Slow, solemn.
@@ -1242,7 +1246,7 @@ halvnode, S: halvnot, N: .
 
 @item half rest
 I: pausa di minima, F: demi-pause, UK: minim rest, D: halbe Pause, NL: halve
-rust, DK: halvnodespause, S: halvnotspaus, N: .
+rust, DK: halvnodespause, S: halvpaus, N: .
 
 @w{@ar{}@strong{note value}}
 
@@ -1410,8 +1414,8 @@ The difference between an interval and an octave.
 @end mudela
 
 @item just intonation
-I: intonazione giusta, F: , D: reine Stimmung, NL: reine stemming, DK: ren
-stemning, S: ren st@"amning, N: .
+I: intonazione giusta, F: intonation juste, D: reine Stimmung, NL: reine
+stemming, DK: ren stemning, S: ren st@"amning, N: .
 
 Tuning system in which the notes are obtained by adding and subtracting
 @w{natural} fifths and thirds. @w{@ar{}@strong{temperament}}
@@ -1425,7 +1429,8 @@ keys, one on c, one on c-sharp etc. @w{@ar{}@strong{key signature}}
 
 @item key signature
 I: armatura di chiave, F: armure, armature [de la cl@'e], D: Vorzeichen,
-Tonart, NL: @w{ }toon@-soort (voortekens), DK: faste fortegn, S: largo, N: .
+Tonart, NL: @w{ }toon@-soort (voortekens), DK: faste fortegn, 
+S: tonartssignatur, N: .
 
 The sharps or flats appearing at the beginning of each staff indicating the
 key of the music. @w{@ar{}@strong{accidental}}
@@ -1448,7 +1453,7 @@ upwards) to the tonic scale degree.
 @item ledger line; leger line
 
 I: tagli addizionali, F: ligne suppl@'ementaire, D: Hilfslinie, NL:
-hulplijntje, DK: hj@ae{}lpelinie, S: hj@"alpstreck, N: .
+hulplijntje, DK: hj@ae{}lpelinie, S: hj@"alplinje, N: .
 
 A ledger line is an extension of the staff.
 
@@ -1738,8 +1743,8 @@ and @w{@ar{}@strong{note}} is strongly recommended. Briefly, one sees a note,
 and hears a tone.
 
 @item note head
-I: testa, F: , D: Notenkopf, NL: nootballetje, DK: nodehovede, S: nothuvud, N:
-.
+I: testa, testina, capocchia, F: t@^ete de la note, D: Notenkopf, NL:
+nootballetje, DK: nodehovede, S: nothuvud, N: .
 
 A head like sign which indicates pitch by its position on a
 @w{@ar{}@strong{staff}} provided with a @w{@ar{}@strong{clef}}, and duration
@@ -2065,7 +2070,7 @@ I: scala, F: gamme, D: Tonleiter, NL: toonladder, DK: Skala, S: skala, N: .
 
 @item scale degree
 I: grado della scala, F: degr@'e [de la gamme], D: Tonleiterstufe, NL: trap
-[van de toonladder], DK: skalatrin, S: skalatrin (?), N: .
+[van de toonladder], DK: skalatrin, S: skalsteg (?), N: .
 
 Names and symbols used in harmonic analysis to denote tones of the scale as
 roots of chords. The most important are degrees I = tonic (T), IV =
@@ -2186,8 +2191,8 @@ A slur above or below a group of notes indicates that they are to be played
 breath in singing.
 
 @item solmization
-I: solmisazione, F: , D: Solmisation, NL: solmizatie, DK: solmisation, S:
-solmisation, N: .
+I: solmisazione, F: solmisation, D: Solmisation, NL: solmizatie, DK:
+solmisation, S: solmisation, N: .
 
 General term for systems of designating the degrees of the
 @w{@ar{}@strong{scale}}, not by letters, but by syllables (@emph{do}
@@ -2295,8 +2300,8 @@ The fourth @w{@ar{}@strong{scale degree}}. @w{@ar{}@strong{functional
 harmony}}
 
 @item submediant
-I: sopratonica, F: , D: Submediant, NL: submediant, DK: Submediant, S:
-submediant, N: .
+I: sopratonica, F: sous-m@'ediante, D: Submediant, NL: submediant, DK:
+Submediant, S: submediant, N: .
 
 The sixth @w{@ar{}@strong{scale degree}}.
 
@@ -2398,9 +2403,8 @@ I: terza, F: tierce, D: Terz, NL: terts, DK: terts, S: ters, N: .
 @item thirty-second note
 
 I: biscroma, F: triple croche, UK: demisemiquaver, D:
-Zweiunddrei@ss{}igstel, Zweiunddrei@ss{}igstelnote, NL:
-twee-endertigste noot, DK: toogtredivtedelsnode, S:
-trettiotv@aa{}ondelsnot, N: .
+Zweiunddrei@ss{}igstel, Zweiunddrei@ss{}igstelnote, NL: twee-endertig@-ste
+noot, DK: toogtredivtedelsnode, S: trettiotv@aa{}ondelsnot, N: .
 
 @w{@ar{}@strong{note value}}
 
@@ -2531,12 +2535,15 @@ a @w{@ar{}@strong{chord}}, usually in the distance of a third
 \property Score.barNonAuto = ##t 
 \property Voice.textStyle = "large"
 \notes\relative c' {
-  e2:32_"a" f:32 [ e8:16 f:16 g:16 a:16 ] s4 \repeat "tremolo" 16 { e32_"b" g }
-}
+  % e2:32_"a" f:32 [ e8:16 f:16 g:16 a:16 ] s4 [:32 e1_"b" g]
+  % e2:32_"a" f:32 [ e8:16 f:16 g:16 a:16 ] s4 \repeat "tremolo" 16 { e32_"b" g }
+  e2:32_"a" f:32 [ e8:16 f:16 g:16 a:16 ] s4 \repeat "tremolo" 8 { e32_"b" g }
+} 
 @end mudela
 
 @item triad
-I: triade, F: , D: Dreiklang, NL: drieklank, DK: treklang, S: treklang, N:
+I: triade, F: triade, accord parfait, accord de trois sons, D: Dreiklang, NL:
+drieklank, DK: treklang, S: treklang, N:
 
 @w{@ar{}@strong{chord}}
 
@@ -2583,7 +2590,7 @@ or by the whole orchestra (choir), either at exactly the same pitch or in a
 different octave.
 
 @item upbeat
-I: anacrusi, F: anacrouse, D: Auftakt, NL: opmaat, I: , DK: optakt, S:
+I: anacrusi, F: anacrouse, D: Auftakt, NL: opmaat, DK: optakt, S:
 upptakt, N:
 
 Initial note(s) of a melody occurring before the first bar
@@ -2621,7 +2628,7 @@ DK: helnode, S: helnot, N: .
 
 @item whole rest
 I: pausa di semibreve, F: pause, UK: semibreve rest, D: Ganze Pause, NL: hele
-rust, DK: helnodespause, S: helnotspaus, N: .
+rust, DK: helnodespause, S: helpaus, N: .
 
 @w{@ar{}@strong{note value}}
 
@@ -2634,8 +2641,8 @@ tones on the piano keyboard with exactly one key between them - including
 black and white keys - is a whole tone.
 
 @item woodwind
-I: legni, F: , D: Holzbl@"aser, NL: houtblazers, DK tr@ae{}bl@ae{}sere, S:
-tr@"abl@aa{}sare, N: .
+I: legni, F: le bois, D: Holzbl@"aser, NL: houtblazers, DK tr@ae{}bl@ae{}sere,
+S: tr@"abl@aa{}sare, N: .
 
 A family of blown wooden musical instruments. Today some of these instruments
 are actually made from metal. The woodwind instruments commonly used in a
@@ -2693,8 +2700,8 @@ achtste @tab ottende@-del @tab @aa{}tton@-del @tab
 @item
 
 @item @strong{thirty-second} @tab demi@-semi@-quaver @tab bis@-croma @tab
-triple croche @tab Zwei@-und@-drei@-@ss{}ig@-stel @tab 32e @tab
-toog@-tredivte-del @tab trettio@-tv@aa{}on@-del @tab
+triple croche @tab Zwei@-und@-drei@-@ss{}ig@-stel @tab twee-en@-dertig@-ste
+@tab toog@-tredivte-del @tab trettio@-tv@aa{}on@-del @tab
 
 @item
 
@@ -2785,6 +2792,8 @@ quotes from its articles have been included into the item explanation texts.
 
 Hugo Riemans Musiklexicon, Berlin 1929
 
+
+Polyglottes W@"orterbuch der musikalisch Terminologie, Kassel 1980
 Oxford Advanced Learner's Dictionary of Current English, Third Edition 1974.
 
 @end table
