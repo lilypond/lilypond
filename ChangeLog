@@ -1,3 +1,12 @@
+2003-04-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/multi-measure-rest-grace.ly (texidoc): new file
+
+	* lily/multi-measure-rest-engraver.cc
+	(start_translation_timestep): use grace timing too for determining
+	when to make mmrest.
+	(start_translation_timestep): clear numbers too.
+
 2003-04-09  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* scm/music-types.scm: compile fix: escape braces
