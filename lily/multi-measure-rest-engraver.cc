@@ -32,21 +32,19 @@ protected:
   virtual void finalize ();
 
 private:
-  Music * new_req_;
-  Music * busy_span_req_;
-  Music * stop_req_;
+  Music * rest_ev_;
   Link_array<Music> text_events_;
   int start_measure_;
-  Moment start_moment_;
   Rational last_main_moment_;
-
+  Moment stop_moment_;
+  
   bool bar_seen_;
   
-  Spanner *mmrest_;
-  Link_array<Spanner> numbers_;
-
-  Link_array<Spanner> last_numbers_;
   Spanner *last_rest_;
+  Spanner *mmrest_;
+
+  Link_array<Spanner> numbers_;
+  Link_array<Spanner> last_numbers_;
 };
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
@@ -55,7 +53,7 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
   start_measure_ = 0;
   mmrest_ = 0;
   last_rest_ =0;
-  new_req_ = busy_span_req_ = stop_req_ =0;
+  rest_ev_ = 0;
 }
 
 bool
@@ -63,15 +61,9 @@ Multi_measure_rest_engraver::try_music (Music* req)
 {
   if (req->is_mus_type ("multi-measure-rest-event"))
     {
-      Direction d = to_dir (req->get_mus_property ("span-direction"));
-      if (d == STOP)
-	{
-	  stop_req_ = req;
-	}
-      else if (d == START&& !new_req_)
-	{
-	  new_req_ = req;
-	}
+      rest_ev_ = req;
+      stop_moment_ = now_mom () + rest_ev_->get_length ();
+      
       return true;
     }
   else if (req->is_mus_type ("multi-measure-text-event"))
@@ -85,26 +77,7 @@ Multi_measure_rest_engraver::try_music (Music* req)
 void
 Multi_measure_rest_engraver::process_music ()
 {
-  
-  if (new_req_ && stop_req_)
-    stop_req_ = 0;
-
-  if (new_req_)
-    start_moment_ = now_mom ();
-
-  if (stop_req_)
-    {
-      busy_span_req_ =0;
-      stop_req_ = 0;
-    }
-  
-  if (new_req_)
-    {
-      busy_span_req_ = new_req_;
-      new_req_ =0;
-    }
-
-  if (busy_span_req_ && !mmrest_)
+  if (rest_ev_ && !mmrest_)
     {
       mmrest_ = new Spanner (get_property ("MultiMeasureRest"));
 
@@ -148,7 +121,7 @@ Multi_measure_rest_engraver::process_music ()
 	  Spanner *sp
 	    = new Spanner (get_property ("MultiMeasureRestNumber"));
 	  numbers_.push (sp);
-	  announce_grob (sp, busy_span_req_->self_scm());
+	  announce_grob (sp, rest_ev_->self_scm());
 	}
 
       for (int i =0 ; i < numbers_.size(); i++)
@@ -157,7 +130,7 @@ Multi_measure_rest_engraver::process_music ()
 	  numbers_[i]->set_parent (mmrest_, Y_AXIS);
 	}
       
-      announce_grob (mmrest_, busy_span_req_->self_scm());
+      announce_grob (mmrest_, rest_ev_->self_scm());
       start_measure_
 	= gh_scm2int (get_property ("currentBarNumber"));
     }
@@ -199,7 +172,7 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
   SCM smp = get_property ("measurePosition");
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
-  if (mmrest_ && (now_mom () >= start_moment_) 
+  if (mmrest_
       && !mp.to_bool ()
       && mmrest_->get_bound (LEFT) && mmrest_->get_bound (RIGHT))
     {
@@ -234,18 +207,17 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
       last_numbers_.clear();
     }
 
-  if (new_req_)
-    {
-      busy_span_req_ = new_req_;
-      new_req_ =0;
-    }
-
   text_events_.clear ();
 }
 
 void
 Multi_measure_rest_engraver::start_translation_timestep ()
 {
+  if (now_mom ().main_part_ >= stop_moment_.main_part_)
+    {
+      rest_ev_ = 0;
+    }
+
   bar_seen_ = false;
 
   SCM smp = get_property ("measurePosition");

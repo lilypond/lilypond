@@ -6,7 +6,7 @@ independent on prefatory matter in other staves."
 
 \score {
 \notes    << \new Staff  { R1 } 
-     \new Staff { r1  \clef bass } 
+     \new Staff { f'1  \clef bass } 
 
     >>
 

@@ -296,24 +296,18 @@ i.e.  this is not an override"
   (let*
       (
        (start (make-music-by-name 'MultiMeasureRestEvent))
-       (stop  (make-music-by-name 'MultiMeasureRestEvent))
-       (skip ( make-music-by-name 'SkipEvent))
        (ch (make-music-by-name 'BarCheck))
        (ch2  (make-music-by-name 'BarCheck))
-       (seq  (make-music-by-name 'MultiMeasureRestMusicGroup))
+       (seq (make-music-by-name 'MultiMeasureRestMusicGroup))
        )
 
     (map (lambda (x) (ly:set-mus-property! x 'origin location))
-	 (list start stop skip ch ch2 seq))
-    (ly:set-mus-property! start 'span-direction START)
-    (ly:set-mus-property! stop 'span-direction STOP)    
-    (ly:set-mus-property! skip 'duration duration)
+	 (list start ch ch2 seq))
+    (ly:set-mus-property! start 'duration duration)
     (ly:set-mus-property! seq 'elements
      (list
       ch
       (make-event-chord (list start))
-      (make-event-chord (list skip))
-      (make-event-chord (list stop))
       ch2
       ))
 
