@@ -278,6 +278,14 @@ of the @code{#'direction} layout property."
     (ly:stencil-align-to! m X LEFT)
     m))
 
+(def-markup-command (general-align paper props axis dir arg)  (integer? number? markup?)
+  "Align @var{arg} in @var{axis} direction to the @var{dir} side."
+  (let* ((m (interpret-markup paper props arg)))
+
+    (ly:stencil-align-to! m axis dir)
+    m
+  ))
+
 (def-markup-command (halign paper props dir arg) (number? markup?)
   "Set horizontal alignment. If @var{dir} is -1, then it is
 left-aligned, while+1 is right. Values in between interpolate alignment
