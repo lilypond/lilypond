@@ -84,6 +84,8 @@ global re;re = ly.re
 # lilylib globals
 program_name = 'lilypond'
 program_version = '@TOPLEVEL_VERSION@'
+# input without \book, use classic latex definitions
+classic_p = 0
 verbose_p = 0
 pseudo_filter_p = 0
 original_dir = os.getcwd ()
@@ -161,6 +163,7 @@ extra_init = {
 	'latexheaders' : [],
 	'latexoptions' : [],
 	'latexpackages' :  [],
+	'linewidth' : [],
 	'orientation' : [],
 	'papersize' : [],
 	'unit' : ['pt'],
@@ -274,9 +277,14 @@ def analyse_lilypond_output (filename, extra):
 	# search only the first 10k
 	s = s[:10240]
 	for x in header_fields:
-		m = re.search (r'\\def\\lilypondpaper%s{([^}]*)}'%x, s)
+		m = re.search (r'\\def\\lilypondpaper%s{([^}]*)}' % x, s)
 		if m:
 			set_setting (extra, x, m.group (1))
+
+	global classic_p
+	if s.find ('\\def\\lilypondclassic{1}') >= 0:
+		classic_p = 1
+	
 	ly.progress ('\n')
 
 def find_tex_files_for_base (base, extra):
@@ -330,9 +338,37 @@ def one_latex_definition (defn, first):
 			s += r'''\let\lilypond%s\relax''' % k
 		s += '\n'
 
+	if classic_p and not first:
+		s += '\interscoreline'
+
 	s += '%%PREVIEW%%\n'
 	s += '\\input %s\n' % defn[0]
 	return s
+
+		
+## FIXME: copied from tex/lilyponddefs.tex
+LATEX_PREAMBLE = '''
+%% Nullify [La]TeX page layout settings, page layout by LilyPond.
+\\topmargin-1in
+\\headheight0pt\\headsep0pt
+\\oddsidemargin-1in
+\\evensidemargin\oddsidemargin
+\\parindent 0pt'''
+
+CLASSIC_LATEX_PREAMBLE = '''
+%% FIXME: cannot do this, dimens in header part of lilypond output
+%% Center staves horizontally on page
+\\ifdim\\lypylinewidth\\lypyunit > 0pt
+\\hsize\\lypylinewidth\\lypyunit
+\\newdimen\\lypytempdim
+\\lypytempdim\\paperwidth
+\\advance\\lypytempdim-\\the\\hsize
+\\lypytempdim0.5\\lypytempdim
+\\advance\\lypytempdim -1in
+\\oddsidemargin\\lypytempdim
+\\evensidemargin\\lypytempdim
+\\fi
+\\parindent 0pt'''
 
 def global_latex_preamble (extra):
 	'''construct preamble from EXTRA,'''
@@ -350,9 +386,16 @@ def global_latex_preamble (extra):
 	if safe_mode_p:
 		s += '\\nofiles\n'
 
+	if classic_p:
+		if extra['linewidth']:
+			s += '\\def\\lypylinewidth{%s}\n' \
+			     % extra['linewidth'][-1]
+		else:
+			s += '\\let\\lypylinewidth\\texwidth\n'
+		s += '\\def\\lypyunit{%s}\n' % extra['unit'][-1]
+
 	if extra['language']:
-		s += r'\usepackage[%s]{babel}' \
-		    % extra['language'][-1] + '\n'
+		s += '\\usepackage[%s]{babel}' % extra['language'][-1] + '\n'
 
 	s += '\\usepackage{%s}\n' \
 		% string.join (extra['latexpackages'], ',')
@@ -367,15 +410,12 @@ def global_latex_preamble (extra):
 	s += r'''
 \usepackage[latin1]{inputenc}
 \pagestyle{empty}
-%%PREVIEW%%
-%% Nullify [La]TeX page layout settings, page layout by LilyPond.
-\pagestyle{empty}
-\topmargin-1in
-\headheight0pt\headsep0pt
-\oddsidemargin-1in
-\evensidemargin\oddsidemargin
-\parindent 0pt
-'''
+%%PREVIEW%%'''
+	
+	if classic_p:
+		s += CLASSIC_LATEX_PREAMBLE
+	else:
+		s += LATEX_PREAMBLE
 	return s
 
 	

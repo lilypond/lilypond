@@ -433,6 +433,7 @@ def print_environment ():
 	for (k,v) in os.environ.items ():
 		sys.stderr.write ("%s=\"%s\"\n" % (k, v)) 
 
+BOUNDING_BOX_RE = '^%%BoundingBox: (-?[0-9]+) (-?[0-9]+) (-?[0-9]+) (-?[0-9]+)'
 def get_bbox (filename):
 	bbox = filename + '.bbox'
 	## -sOutputFile does not work with bbox?
@@ -440,8 +441,7 @@ def get_bbox (filename):
 	      (filename, bbox)
 	system (cmd, progress_p = 1)
 	box = open (bbox).read ()
-	m = re.match ('^%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)',
-		      box)
+	m = re.match (BOUNDING_BOX_RE, box)
 	gr = []
 	if m:
 		gr = map (string.atoi, m.groups ())

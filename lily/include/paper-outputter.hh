@@ -41,7 +41,7 @@ public:
   void output_music_output_def (Music_output_def* odef);
   void output_scheme (SCM scm);
   void output_expr (SCM expr, Offset o);
-  void output_header (Paper_def*, SCM, int);
+  void output_header (Paper_def*, SCM, int, bool);
   void output_line (SCM, Offset*, bool);
 };
 

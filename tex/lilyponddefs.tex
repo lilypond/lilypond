@@ -25,6 +25,7 @@
 %%   <font setup and note output>
 %%   \lilypondend
 
+\newdimen\lytempdim
 \newdimen\outputscale
 
 %% Handy macros from the LaTeX manual.
@@ -55,12 +56,27 @@
         \documentclass[a4paper]{article}
         %% safe-mode
         \nofiles
-        %% Nullify [La]TeX page layout settings, page layout by LilyPond.
         \pagestyle{empty}
-        \topmargin-1in
-        \headheight0pt\headsep0pt
-        \oddsidemargin-1in
-        \evensidemargin\oddsidemargin
+        \lilypondifundefined{lilypondclassic}
+        {
+          %% Nullify [La]TeX page layout settings, page layout by LilyPond.
+          \topmargin-1in
+          \headheight0pt\headsep0pt
+          \oddsidemargin-1in
+          \evensidemargin\oddsidemargin
+        }
+        {
+          %% Center staves horizontally on page
+          \ifdim\lilypondpaperlinewidth\lilypondpaperunit > 0pt
+          \hsize\lilypondpaperlinewidth\lilypondpaperunit
+          \lytempdim \paperwidth
+          \advance\lytempdim -\the\hsize
+          \lytempdim 0.5\lytempdim
+          \advance\lytempdim -1in
+          \oddsidemargin \lytempdim
+          \evensidemargin \lytempdim
+          \fi
+        }
         \parindent 0pt
         %% TEXINFO workaround: \begin is defined as \outer, use \csname.
         \csname begin\endcsname{document}}}
@@ -122,7 +138,6 @@
 \gdef\lyitem#1#2#3{
   \topalign{\raise#2\outputscale\leftalign{\kern#1\outputscale#3}}}
 
-\newdimen\lytempdim
 \gdef\lybox#1#2#3#4#5{
   \lytempdim\baselineskip
   \advance\lytempdim-#4\outputscale
@@ -142,7 +157,14 @@
 
 %% Allow overriding of interscoreline, e.g. for lilypond.py's --preview
 \lilypondifundefined{interscoreline}
-{\gdef\interscoreline{}}{}
+{
+  \lilypondifundefined{lilypondclassic}
+  {\gdef\interscoreline{}}
+  {\gdef\interscoreline{
+      \vskip\lilypondpaperinterscoreline\lilypondpaperunit
+      plus \lilypondpaperinterscorelinefill fill}}
+}
+{}
 
 %% Include postscript definitions unless using PDFTeX,
 %% in that case use pdf definitions.
