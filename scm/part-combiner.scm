@@ -430,7 +430,7 @@ the mark when there are no spanners active."
 
     (analyse-spanner-states voice-state-vec1)
     (analyse-spanner-states voice-state-vec2)
-    (if #t
+    (if #f
 	(begin
 	  (display voice-state-vec1)
 	  (display "***\n")

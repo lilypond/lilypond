@@ -45,12 +45,19 @@
     (ly:system cmd)))
 
 (define-public (postscript->png resolution papersizename name)
-  (let ((cmd (format #f
-	      "ps2png --resolution=~S --papersize=~a~a '~a'"
-	      resolution
-	      (sanitize-command-option papersizename)
-	      (if (ly:get-option 'verbose) " --verbose " "")
-	      name)))
+  (let* ((prefix (getenv "LILYPONDPREFIX"))
+	 (ps2png-source (if prefix
+			   (format "~a/scripts/ps2png.py" prefix)
+			   "ps2png"))
+	 (cmd (format #f
+		      "~a --resolution=~S --papersize=~a~a '~a'"
+		      (if (file-exists? ps2png-source)
+			  (format "python ~a" ps2png-source)
+			  "ps2png")
+		      resolution
+		      (sanitize-command-option papersizename)
+		      (if (ly:get-option 'verbose) " --verbose " "")
+		      name)))
     ;; Do not try to guess the name of the png file
     (format (current-error-port) (_ "Converting to `~a'...") "png")
     (ly:system cmd)))
