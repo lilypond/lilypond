@@ -1,5 +1,17 @@
 2005-02-08  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/general-scheme.cc: Compile fixes: include wchar.h, string.h.
+
+	Support for DESTDIR besides prefix=/foo
+
+	* vim/GNUmakefile (local-install): Use $(INSTALL) -d iso mkdir.
+
+	* stepmake/stepmake/*.make:
+	* */GNUmakefile:
+	* GNUmakefile.in: Prepend $(DESTDIR) to installation directory.
+
+	* config.make.in (prefix): Remove broken $(DESTDIR) hack.
+
 	* stepmake/aclocal.m4: Use %0.f iso %d to quiet gawk < 3.1.4 and
 	mawk in fontforge (date) test.
 

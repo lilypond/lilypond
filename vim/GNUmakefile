@@ -19,36 +19,36 @@ STEPMAKE_TEMPLATES=install-out
 include $(depth)/make/stepmake.make 
 
 local-install:
-	mkdir -p $(vimdir)/compiler
-	$(INSTALL) -m 644 lilypond-compiler.vim $(vimdir)/compiler/lilypond.vim
+	-$(INSTALL) -d $(DESTDIR)$(vimdir)/compiler
+	$(INSTALL) -m 644 lilypond-compiler.vim $(DESTDIR)$(vimdir)/compiler/lilypond.vim
 
-	mkdir -p $(vimdir)/ftdetect
-	$(INSTALL) -m 644 lilypond-ftdetect.vim $(vimdir)/ftdetect/lilypond.vim
+	-$(INSTALL) -d $(DESTDIR)$(vimdir)/ftdetect
+	$(INSTALL) -m 644 lilypond-ftdetect.vim $(DESTDIR)$(vimdir)/ftdetect/lilypond.vim
 
-	mkdir -p $(vimdir)/ftplugin
-	$(INSTALL) -m 644 lilypond-ftplugin.vim $(vimdir)/ftplugin/lilypond.vim
+	-$(INSTALL) -d $(DESTDIR)$(vimdir)/ftplugin
+	$(INSTALL) -m 644 lilypond-ftplugin.vim $(DESTDIR)$(vimdir)/ftplugin/lilypond.vim
 
-	mkdir -p $(vimdir)/indent
-	$(INSTALL) -m 644 lilypond-indent.vim $(vimdir)/indent/lilypond.vim
+	-$(INSTALL) -d $(DESTDIR)$(vimdir)/indent
+	$(INSTALL) -m 644 lilypond-indent.vim $(DESTDIR)$(vimdir)/indent/lilypond.vim
 
-	mkdir -p $(vimdir)/syntax
-	$(INSTALL) -m 644 lilypond-syntax.vim $(vimdir)/syntax/lilypond.vim
+	-$(INSTALL) -d $(DESTDIR)$(vimdir)/syntax
+	$(INSTALL) -m 644 lilypond-syntax.vim $(DESTDIR)$(vimdir)/syntax/lilypond.vim
 
 local-uninstall:
-	rm $(vimdir)/compiler/lilypond.vim
-	-rmdir -p $(vimdir)/compiler 
+	rm $(DESTDIR)$(vimdir)/compiler/lilypond.vim
+	-rmdir -p $(DESTDIR)$(vimdir)/compiler 
 
-	rm $(vimdir)/ftdetect/lilypond.vim
-	-rmdir -p $(vimdir)/ftdetect 
+	rm $(DESTDIR)$(vimdir)/ftdetect/lilypond.vim
+	-rmdir -p $(DESTDIR)$(vimdir)/ftdetect 
 
-	rm $(vimdir)/ftplugin/lilypond.vim
-	-rmdir -p $(vimdir)/ftplugin 
+	rm $(DESTDIR)$(vimdir)/ftplugin/lilypond.vim
+	-rmdir -p $(DESTDIR)$(vimdir)/ftplugin 
 
-	rm $(vimdir)/indent/lilypond.vim
-	-rmdir -p $(vimdir)/indent 
+	rm $(DESTDIR)$(vimdir)/indent/lilypond.vim
+	-rmdir -p $(DESTDIR)$(vimdir)/indent 
 
-	rm $(vimdir)/syntax/lilypond.vim
-	-rmdir -p $(vimdir)/syntax
+	rm $(DESTDIR)$(vimdir)/syntax/lilypond.vim
+	-rmdir -p $(DESTDIR)$(vimdir)/syntax
 
 $(LILYPOND_WORDS): 
 	cd $(topdir) && $(PYTHON) buildscripts/lilypond-words.py --words --vim --dir=$(builddir)/vim/$(outconfbase)

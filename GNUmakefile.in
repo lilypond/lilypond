@@ -41,7 +41,7 @@ doc:
 	$(MAKE) -C Documentation
 
 install-WWW:
-	-$(INSTALL) -m 755 -d $(webdir) 
+	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir) 
 	tar -C $(webdir)/ -xzf $(outdir)/web.tar.gz
 # install-WWW does not recurse; fake it visiting Documentation/user manually
 	$(MAKE) -C Documentation/user local-install-WWW
@@ -57,7 +57,7 @@ web-uninstall:
 	$(MAKE) out=www uninstall-WWW=
 
 local-install:
-	$(INSTALL) -d $(local_lilypond_datadir)
+	$(INSTALL) -d $(DESTDIR)$(local_lilypond_datadir)
 
 final-install:
 	@echo '*** Before using LilyPond, the contents of one of the login scripts'

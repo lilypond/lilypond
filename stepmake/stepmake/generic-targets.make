@@ -135,7 +135,7 @@ uninstall: local-uninstall
 local-uninstall:
 
 installextradoc:
-	-$(INSTALL) -d $(prefix)/doc/$(package)
+	-$(INSTALL) -d $(DESTDIR)$(prefix)/doc/$(package)
 	$(foreach i, $(EXTRA_DOC_FILES),\
 		cp -r $(i) $(prefix)/doc/$(package) &&) true
 

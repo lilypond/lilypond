@@ -9,9 +9,11 @@
 
 #include "config.hh"
 
-#include <math.h>   /* isinf */
+#include <libintl.h>  /* gettext on MacOS X */
+#include <math.h>  /* isinf */
 #include <stdio.h>
-#include <libintl.h> 		// gettext on macos x
+#include <string.h>  /* memset */
+#include <wchar.h>  /* wcrtomb */
 
 #include "libc-extension.hh"
 #include "lily-guile.hh"
@@ -102,7 +104,6 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
     return default_value;
 }
 
-
 LY_DEFINE (ly_number2string, "ly:number->string",
 	   1, 0, 0, (SCM s),
 	   "Convert @var{num} to a string without generating many decimals.")
@@ -132,9 +133,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
   return scm_makfrom0str (str);
 }
 
-
-
-LY_DEFINE (ly_version,  "ly:version", 0, 0, 0, (),
+LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
 	  "Return the current lilypond version as a list, e.g. @code{(1 3 127 uu1)}. ")
 {
   char const* vs = "\'(" MAJOR_VERSION " " MINOR_VERSION " "  PATCH_LEVEL " " MY_PATCH_LEVEL ")" ;
@@ -142,15 +141,13 @@ LY_DEFINE (ly_version,  "ly:version", 0, 0, 0, (),
   return scm_c_eval_string ((char*)vs);
 }
 
-LY_DEFINE (ly_unit,  "ly:unit", 0, 0, 0, (),
+LY_DEFINE (ly_unit, "ly:unit", 0, 0, 0, (),
 	  "Return the unit used for lengths as a string.")
 {
   return scm_makfrom0str (INTERNAL_UNIT);
 }
 
-
-
-LY_DEFINE (ly_dimension_p,  "ly:dimension?", 1, 0, 0, (SCM d),
+LY_DEFINE (ly_dimension_p, "ly:dimension?", 1, 0, 0, (SCM d),
 	  "Return @var{d} is a number. Used to distinguish length "
 	  "variables from normal numbers.")
 {
@@ -176,16 +173,12 @@ LY_DEFINE (ly_gettext, "ly:gettext",
   return scm_makfrom0str (gettext (scm_i_string_chars (string)));
 }
 
-
-
-
 LY_DEFINE (ly_output_backend, "ly:output-backend",
            0, 0, 0, (),
            "Return name of output backend.")
 {
   return scm_makfrom0str (output_backend_global.to_str0 ());
 }
-
 
 LY_DEFINE (ly_output_formats, "ly:output-formats",
            0, 0, 0, (),
@@ -202,13 +195,13 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
   return lst;
 }
 
-LY_DEFINE(ly_wchar_to_utf_8, "ly:wide-char->utf-8",
-	  1, 0, 0, (SCM wc),
-	  "Encode the Unicode codepoint @var{wc} as UTF-8")
+LY_DEFINE (ly_wchar_to_utf_8, "ly:wide-char->utf-8",
+	   1, 0, 0, (SCM wc),
+	   "Encode the Unicode codepoint @var{wc} as UTF-8")
 {
   char buf[100];
 
-  SCM_ASSERT_TYPE(scm_is_integer (wc), wc, SCM_ARG1, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (scm_is_integer (wc), wc, SCM_ARG1, __FUNCTION__, "integer");
   wchar_t wide_char = (wchar_t) scm_to_int (wc);
 
   mbstate_t state;
