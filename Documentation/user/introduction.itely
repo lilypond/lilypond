@@ -86,38 +86,53 @@ below shows the flat symbol. On the left, a scan from a Henle edition,
 which was made by a computer, and in the center is the flat from a
 B@"{a}renreiter edition of the same music. The symbols have noticeable
 differences: the left image is much lighter, the staff lines are
-thinner, and the glyph has straight layout with sharp corners. We have
-designed our flat symbol after this one, among others, and have tuned
-it to harmonize with the thickness of our staff lines.
+thinner, and the glyph has straight layout with sharp corners. By
+contrast, the B@"{a}renreiter has a bold and almost voluptuous rounded
+look.  Our flat symbol is designed after, among others, this one.  It
+is tuned it to harmonize with the thickness of our staff lines, which
+are also much thicker than Henle's lines.
 
-@iftex
 @multitable @columnfractions  .4 .3 .3
 @item 
+@iftex
 @image{henle-flat-bw,4cm}
-@tab
-@image{baer-flat-bw,4cm}
-@tab
-@image{lily-flat-bw,4cm}
-@end multitable
 @end iftex
-
-
-@ifhtml
 @html
 <p>
 <a href=henle-flat-bw.png>
 <img width=300 src=henle-flat-bw.png>
 </a>
 
+@end html
+
+@tab
+@iftex
+@image{baer-flat-bw,4cm}
+@end iftex
+@html
 <a href=baer-flat-bw.png>
 <img width=300 src=baer-flat-bw.png></a>
+@end html
 
+@tab
+@iftex
+@image{lily-flat-bw,4cm}
+@end iftex
+@html
 <a src=lily-flat-bw.png>
 <img width=300 src=lily-flat-bw.png>
 </a>
-<p>
 @end html
-@end ifhtml
+
+@item
+Henly (2000)
+@tab
+B@"{a}renreiter (1950)
+@tab
+LilyPond Feta font (2003)
+
+@end multitable
+
 
 @cindex musical symbols
 @cindex font
