@@ -2,6 +2,8 @@
 
 import glob
 import os
+import re
+import sys
 
 here = os.getcwd ()
 reldir = str (Dir ('.').srcnode ())
@@ -52,12 +54,20 @@ dvis = map (e.Texi2dvi, doc_stems)
 pss = map (e.PostScript, map (lambda x: x + '.dvi', doc_stems))
 pdfs = map (e.Dvi2pdf, doc_stems)
 
+
+def file_subst (file_name, find, subst):
+	find_re = re.compile (find, re.MULTILINE)
+	s = open (file_name).read ()
+	t = re.sub (find_re, subst, s)
+	if s != t:
+		os.rename (file_name, file_name + '~')
+		h = open (file_name, "w")
+		h.write (t)
+		h.close ()
+
 docdir = os.path.join (env['srcdir'], 'Documentation')
 out = env['out']
 srcdir = env['srcdir']
-##MAKEINFO_INCLUDES = join_path (env['MAKEINFO_PATH'], '', ' -I')
-##MAKEINFO = env['MAKEINFO']
-# TODO: purl (ugh?), symlinks
 verbose = verbose_opt (env, ' --verbose')
 a = ('makeinfo -I%(reldir)s -I${SOURCE.dir}'\
      + ' --output=${TARGET.dir}'\
@@ -69,7 +79,11 @@ a = ('makeinfo -I%(reldir)s -I${SOURCE.dir}'\
      + ' --css-include=%(docdir)s/texinfo.css' \
      + ' --html --no-split --no-headers %(verbose)s' \
      + ' $SOURCE') % vars ()
-e.Command ('lilypond/lilypond.html', 'lilypond.texi', a)
+def url_fixup (target, source, env):
+	file_subst (str (target[0]),
+		    '\.\./lilypond-internals', 'lilypond-internals/')
+c = 'pwd; ln -f %(userbuild)s/*.png %(userbuild)s/*.ly ${TARGET.dir}/' % vars ()
+e.Command ('lilypond/lilypond.html', 'lilypond.texi', [a, url_fixup, c])
 e.Command ('lilypond-internals/lilypond-internals.html',
 	   'lilypond-internals.texi', a)
 
