@@ -12,8 +12,9 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <assert.h>
-//#include "globals.hh"
+
 #include "string.hh"
+
 
 static char* strlwr( char* s )
 {
@@ -108,40 +109,13 @@ String::String( const int i, const int n, const char c )
     // String convd to const char *
 }
 
- const char*
-String::ptr() const
+const char*
+String::cptr() const
 {
     return data;
 }
 
 
-
-#ifdef CENTRAL_OBJECT // everything derived from Sortable object
-// comparisons.
-int
-String::operator ==( const Sortable& test ) const
-{
-    const String *s = (const String *) &test; 
-    return *this == *s;
-}
-
-int
-String::operator &&(const Object& test) const
-{
-    const String *s = (const String *) &test;
-    
-    int i = min( len(), s->len() );
-    return ( i > 0 ) ?
-        ( !strncmp( data, s->data, i ) ) : 0;
-}
-
-int
-String::operator >( const Sortable& test ) const
-{
-    const String *s = (const String *) &test;
-    return strcmp( data, s->data ) > 0;
-}
-#endif
 
 // signed comparison,  analogous to strcmp;
 int
@@ -385,17 +359,4 @@ String::reversed() const
     char  *s = retval.data.array_for_modify();
     strrev(s);
     return retval;    
-}
-bool
-String::to_bool() const
-{
-    if (!len())
-	return false;
-    if (*this == "0")
-	return false;
-    String u (*this);
-    u.upper();
-    if (u== "FALSE")
-	return false;
-    return true;
 }
