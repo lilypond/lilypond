@@ -114,6 +114,7 @@ Score::clean_cols()
 	i->clean_cols();
 
     for (iter_top(rcols_,i); i.ok(); i++) {
+	i->when();		// update cache, ugh
 	if (!i->command_column_l_->used_b()) {
 	    i->command_column_l_ = 0;
 	}

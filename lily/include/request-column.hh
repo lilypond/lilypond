@@ -18,12 +18,13 @@
  */
 class Request_column 
 {
-    IPointer_list<Staff_column*> staff_cols_;
+    Pointer_list<Staff_column*> staff_cols_;
     Array<Staff_column*> staff_col_l_arr_;
+    Moment when_;
     
 public:
     Score_column *musical_column_l_, *command_column_l_;
-    Request_column(Pointer_list<Staff*> const& );
+    Request_column(Link_list<Staff*> const& );
     bool used_b()const;
     Moment when();
     void add_reqs(int staff_idx, Array<Request*> const&);
