@@ -1,5 +1,10 @@
 2004-09-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/system-overstrike.ly: new file.
+
+	* scm/page-layout.scm (ly:optimal-page-breaks): add
+	betweensystempadding also to fixed distance for the spring.
+ 
 	* scm/define-grobs.scm (all-grob-descriptions): fix order of
 	key-cancellation.
 
