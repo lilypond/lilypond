@@ -120,12 +120,12 @@ c8-[ c c-] c8")
 	(internal-class-name . "Event")
 	(types . (general-music event busy-playing-event))
 	)) 
-    (ClusterEvent
+    (ClusterNoteEvent
      . (
-	(description .  "Begins or ends a cluster.")
+	(description .  "A note that is part of a cluster.")
 	(internal-class-name . "Event")
-	(types . (general-music cluster-event span-event event))
-	)) 
+	(types . (general-music note-event cluster-note-event melodic-event rhythmic-event event))
+	))
     (ContextSpeccedMusic
      . (
 	(description .  "Interpret the argument music within a specific context.")

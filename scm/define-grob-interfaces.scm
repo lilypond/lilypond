@@ -13,6 +13,17 @@
  "Note name"
  '(style))
 
+
+(ly:add-interface
+ 'cluster-beacon-interface
+
+ "A place holder for the cluster spanner to determine the vertical
+extents of a cluster spanner at this X position.
+
+ "
+ '(positions)
+ )
+
 (ly:add-interface
  'dynamic-interface
    "Any kind of loudness sign"
@@ -22,13 +33,6 @@
 (ly:add-interface
  'finger-interface
  "A fingering instruction"
- '()
- )
-
-(ly:add-interface
- 'rhythmic-grob-interface
- "Any object with a rhythmic basis. Used to determine which grobs 
-are interesting enough to maintain a hara-kiri staff."
  '()
  )
 
@@ -55,6 +59,12 @@ are interesting enough to maintain a hara-kiri staff."
  '(
    ))
 
+(ly:add-interface
+ 'rhythmic-grob-interface
+ "Any object with a rhythmic basis. Used to determine which grobs 
+are interesting enough to maintain a hara-kiri staff."
+ '()
+ )
 ;;; todo: this is not typesetting info. Move to interpretation.
 (ly:add-interface
  'tablature-interface

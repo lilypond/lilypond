@@ -46,7 +46,6 @@
 
 
 
-  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (shift-one-duration-log music shift dot)
@@ -78,7 +77,21 @@
 	     music))
   
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; clusters.
 
+(define-public (note-to-cluster music)
+  "Replace NoteEvents by ClusterNoteEvents."
+  (if (eq? (ly:get-mus-property music 'name) 'NoteEvent)
+      (let* ((cn (make-music-by-name 'ClusterNoteEvent)))
+
+	     (ly:set-mus-property! cn 'pitch (ly:get-mus-property music 'pitch))
+	     (ly:set-mus-property! cn 'duration (ly:get-mus-property music 'duration))
+	     cn)
+      music))
+
+(define-public (notes-to-cluster music)
+  (music-map note-to-cluster music))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; repeats.

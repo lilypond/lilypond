@@ -19,6 +19,9 @@
 
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/translator-scheme.cc (LY_DEFINE): bugfix: always return
+	something.
+
 	* make/lilypond.redhat.spec.in (Group): change ftp.cs.uu.nl to
 	ftp.lilypond.org everywhere.
 

@@ -186,7 +186,7 @@ VoiceContext = \translator {
 	\consists "Script_column_engraver"
 	\consists "Rhythmic_column_engraver"
 	\consists "Phrasing_slur_engraver"
-	\consists "Cluster_engraver"
+	\consists "Cluster_spanner_engraver"
 	\consists "Slur_engraver"
 	\consists "Tie_engraver"
 	\consists "New_tie_engraver"

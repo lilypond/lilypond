@@ -56,8 +56,11 @@ LY_DEFINE(ly_context_property_where_defined,
 
 
   tr = tr->where_defined (name);
+
   if (tr)
-    return tr?  tr->self_scm():  SCM_EOL;
+    return tr->self_scm();
+
+  return SCM_EOL;
 }
 
 LY_DEFINE(ly_unset_context_property,

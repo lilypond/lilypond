@@ -1,8 +1,5 @@
 \version "1.7.18"
 
-startCluster = #(make-span-event 'ClusterEvent START)
-stopCluster = #(make-span-event 'ClusterEvent STOP)
-
 startGroup = #(make-span-event 'NoteGroupingEvent START)
 stopGroup = #(make-span-event 'NoteGroupingEvent STOP)
 

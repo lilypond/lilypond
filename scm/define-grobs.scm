@@ -237,7 +237,13 @@
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback)) 
 	(meta . ((interfaces . (clef-interface staff-symbol-referencer-interface font-interface break-aligned-interface item-interface ))))
 	))
-
+    
+    (ClusterSpannerBeacon
+     . (
+	(molecule-callback . #f)
+	(meta . ((interfaces . (cluster-beacon-interface item-interface))))
+	))
+    
     (Cluster
      . (
 	(molecule-callback . ,Cluster::brew_molecule)

@@ -44,9 +44,9 @@ keep_temp_dir_p = 0
 verbose_p = 0
 remove_previous_p = 0
 
-url = 'file:/home/ftp/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
-url = 'ftp://appel.lilypond.org/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
-url = 'ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-*.tar.gz'
+#url = 'file:/home/ftp/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
+# url = 'ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-*.tar.gz'
+url = 'ftp://ftp.lilypond.org/pub/LilyPond/development/lilypond-*.tar.gz'
 
 
 build_root = os.path.join (os.environ ['HOME'], 'usr', 'src')

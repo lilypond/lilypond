@@ -147,6 +147,7 @@ Cluster::brew_molecule (SCM smob)
 
   Grob *common = left_bound->common_refpoint (right_bound, X_AXIS);
   SCM cols  =me->get_grob_property ("columns");
+
   if (!gh_pair_p (cols))
     {
       me->warning ("junking empty cluster");
@@ -164,10 +165,15 @@ Cluster::brew_molecule (SCM smob)
   for (SCM s = cols; gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * col = unsmob_grob (ly_car (s));
-      Slice s = Note_column::head_positions_interval (col);
-      Grob * h = Note_column::first_head (col);
 
-      Real x = h->relative_coordinate (common, X_AXIS) - left_coord;
+      SCM posns = col->get_grob_property ("positions");
+      
+      Slice s (0,0);
+      if (ly_number_pair_p (posns))
+	s = Slice (gh_scm2int (gh_car (posns)),
+		   gh_scm2int (gh_cdr (posns)));
+
+      Real x = col->relative_coordinate (common, X_AXIS) - left_coord;
       bottom_points.push (Offset (x, s[DOWN] *0.5));
       top_points.push (Offset (x, s[UP] * 0.5));
     }
@@ -186,7 +192,13 @@ Cluster::brew_molecule (SCM smob)
 	  if (gh_pair_p (cols))
 	    {
 	      Grob * col = unsmob_grob (ly_car (scm_last_pair (cols)));
-	      Slice s = Note_column::head_positions_interval (col);
+	      SCM posns = col->get_grob_property ("positions");
+      
+	      Slice s (0,0);
+	      if (ly_number_pair_p (posns))
+		s = Slice (gh_scm2int (gh_car (posns)),
+			   gh_scm2int (gh_cdr (posns)));
+
 	      Real x = right_bound->relative_coordinate (common,X_AXIS) - left_coord;
 	      
 	      bottom_points.insert (Offset (x, s[DOWN] * 0.5),0);
