@@ -23,12 +23,12 @@ class Single_malt_grouping_item : public Item
   Link_array<Item> item_l_arr_;
 public:
   Single_malt_grouping_item ();
-  Interval do_width () const;
+  Interval my_width () const;
   void add (Item*);
   DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
   virtual  void do_substitute_dependency (Score_elem*, Score_elem*);
-
+  virtual void do_print () const;
 };
 
 #endif /* SINGLE_MALT_GROUPING_ITEM_HH */
