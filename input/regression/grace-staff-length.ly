@@ -1,6 +1,6 @@
 \version "2.1.22"
 \header{
-texidoc = "Stripped version of trip.ly.  Staffs should be of correct length."
+texidoc = "Stripped version of trip.ly.  Staves should be of correct length."
 }
 
     \paper { raggedright= ##t }

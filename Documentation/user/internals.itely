@@ -376,7 +376,7 @@ and without a @code{Clef_engraver}.
 @refbugs
 
 The command @code{\with} has no effect on contexts that already
-exist. Neither can it be used for @internalsref{Score} contexts.
+exist. 
 
 
 @node Engravers and performers

@@ -29,6 +29,8 @@ it is possible to tweak @code{Score} as follows:
   @}
 @end example
 
+@item The number of staff lines  in Tablature notation is now
+automatically deduced from the @code{stringTunings} property.
 
 @item The program reference has been cleaned up and revised.
 

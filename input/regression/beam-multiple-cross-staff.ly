@@ -3,7 +3,7 @@
 
     texidoc = "Kneed beams (often happens with cross-staff beams)
 should look good when there are multiple beams: all the beams should
-go on continuously at the staff change. Stems in both staffs reach up
+go on continuously at the staff change. Stems in both staves reach up
 to the last beam.
 "
 }

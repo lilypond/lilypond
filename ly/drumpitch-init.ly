@@ -1,4 +1,6 @@
 
+\version "2.1.24"
+
 drumPitchNames =
 #'((acousticbassdrum . acousticbassdrum)
    (bassdrum . bassdrum)
