@@ -283,6 +283,7 @@ $staff_hoboone = \type Staff = hoboonestaff <
 a4 = \paper{
 	\paper_twenty
 	linewidth= 165.\mm;
+	gourlay_maxmeasures = 10.0;
 	Score = \translator {
 		\type Score_engraver;
 

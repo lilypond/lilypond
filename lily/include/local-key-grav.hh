@@ -13,13 +13,16 @@
 #include "parray.hh"
 
 struct Local_key_engraver : Engraver {
+    Local_key_item *key_item_p_;
 protected:
   TRANSLATOR_CLONE(Local_key_engraver);
   virtual void do_process_requests();
   virtual void acknowledge_element (Score_elem_info);
   virtual void do_pre_move_processing();
   virtual void do_creation_processing ();
+  virtual void process_acknowledged ();
 public:
+  
   Key local_key_;
   Key const *key_C_;
   Array<Note_req* > mel_l_arr_;

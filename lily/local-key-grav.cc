@@ -20,6 +20,7 @@
 Local_key_engraver::Local_key_engraver()
 {
   key_C_ = 0;
+  key_item_p_ =0;
 }
 
 void
@@ -40,10 +41,9 @@ Local_key_engraver::do_creation_processing ()
 }
 
 void
-Local_key_engraver::do_pre_move_processing()
+Local_key_engraver::process_acknowledged ()
 {
-  Local_key_item *key_item_p = 0;
-  if (mel_l_arr_.size()) 
+  if (!key_item_p_ && mel_l_arr_.size()) 
     {
       for (int i=0; i  < mel_l_arr_.size(); i++) 
 	{
@@ -58,7 +58,7 @@ Local_key_engraver::do_pre_move_processing()
 	      local_key_.oct (note_l->octave_i_).acc (note_l->notename_i_)
 	      == note_l->accidental_i_) 
 	    continue;
-	  if (!key_item_p) 
+	  if (!key_item_p_) 
 	    {
 	      int c0_i=0;
 
@@ -66,23 +66,28 @@ Local_key_engraver::do_pre_move_processing()
 	      if (inf.c0_position_i_l_)
 		c0_i = *get_staff_info().c0_position_i_l_;	
 		
-	      key_item_p = new Local_key_item (c0_i);
-
+	      key_item_p_ = new Local_key_item (c0_i);
+	      announce_element (Score_elem_info (key_item_p_, 0));	      
 	    }
-	  key_item_p->add (note_l);
-	  key_item_p->add_support (support_l);
+	  key_item_p_->add (note_l);
+	  key_item_p_->add_support (support_l);
 	  local_key_.oct (note_l->octave_i_)
 	    .set (note_l->notename_i_, note_l->accidental_i_);
 	}
 	
     }
-  if (key_item_p) 
+}
+
+void
+Local_key_engraver::do_pre_move_processing()
+{
+  if (key_item_p_)
     {
       for (int i=0; i < support_l_arr_.size(); i++)
-	key_item_p->add_support (support_l_arr_[i]);
-	
-      announce_element (Score_elem_info (key_item_p, 0)); // ugh ugh ugh
-      typeset_element (key_item_p);
+	key_item_p_->add_support (support_l_arr_[i]);
+
+      typeset_element (key_item_p_);
+      key_item_p_ =0;
     }
   
   mel_l_arr_.clear();
@@ -91,9 +96,6 @@ Local_key_engraver::do_pre_move_processing()
   forced_l_arr_.clear();	
 }
 
-/*
-  whoah .. this looks hairy!
- */
 void
 Local_key_engraver::acknowledge_element (Score_elem_info info)
 {    
@@ -107,7 +109,7 @@ Local_key_engraver::acknowledge_element (Score_elem_info info)
       support_l_arr_.push (item_l);
     }
   else if (info.req_l_->command()
-	   && info.req_l_->command()->keychange ()) 
+	   && info.req_l_->command()->keychange () && key_C_) 
     {
       local_key_ = *key_C_;
     }
