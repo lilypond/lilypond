@@ -3,7 +3,7 @@
   
   source file of the Flower Library
   
-  (c) 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1999--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 #include "string.hh"

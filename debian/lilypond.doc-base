@@ -2,8 +2,8 @@ Document: lilypond
 Title: GNU LilyPond, the music typesetter
 Author: Various
 Abstract: This documentation describes LilyPond (the GNU Project music
- typesetter), its language Mudela, and the Mutopia project, a.k.a.
- "Music To the People."
+ typesetter), the LilyPond music input language, and the Mutopia project,
+ a.k.a. "Music To the People."
 Section: Apps/Music
 
 Format: info

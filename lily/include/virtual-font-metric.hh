@@ -4,7 +4,7 @@ virtual-font-metric.hh -- declare Virtual_font_metric
 
 source file of the GNU LilyPond music typesetter
 
-(c) 2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+(c)  2002--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
 

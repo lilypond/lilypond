@@ -6,7 +6,7 @@
 # 
 # source file of the GNU LilyPond music typesetter
 # 
-# (c) 1998--2002  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+# (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 # This is the third incarnation of ly2dvi.

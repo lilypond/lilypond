@@ -1,7 +1,7 @@
 /*
   ligature-head.hh -- part of GNU LilyPond
 
-  (c) 2002 Juergen Reuter <reuter@ipd.uka.de>
+  (c)  2002--2003 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 #ifndef LIGATURE_HEAD_HH

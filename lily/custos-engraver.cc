@@ -3,10 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (C) 2000 Juergen Reuter <reuter@ipd.uka.de>,
-
-  Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
+  (c)  2000--2003 Juergen Reuter <reuter@ipd.uka.de>,
+                  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "engraver.hh"

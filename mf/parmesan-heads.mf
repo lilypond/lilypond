@@ -3,7 +3,7 @@
 % 
 % source file of LilyPond's pretty-but-neat music font
 % 
-% (c) 2001--2002 Juergen Reuter <reuter@ipd.uka.de>
+% (c)  2001--2003 Juergen Reuter <reuter@ipd.uka.de>
 % 
 % Neo-mensural heads originally by
 % Christian Mondrup and Mats Bengtsson
@@ -276,11 +276,11 @@ fet_endchar;
 %
 
 % parameterized punctum
-def punctum_char (expr verbose_name, internal_name, mudela_name,
+def punctum_char (expr verbose_name, internal_name, ly_name,
 		  left_stem, right_stem, linea, cavum,
 		  straight, auctum, direction_up, excentric, up_shift, mag) =
 
-	fet_beginchar(verbose_name, internal_name, mudela_name)
+	fet_beginchar(verbose_name, internal_name, ly_name)
 		save b_h, a_w;
 		a_b := 1.54; % b_h*a_b/a_w = wd/ht
 		b_h := 0.85;
@@ -434,10 +434,10 @@ def punctum_char (expr verbose_name, internal_name, mudela_name,
 enddef;
 
 % parameterized punctum inclinatum
-def inclinatum_char(expr verbose_name, internal_name, mudela_name,
+def inclinatum_char(expr verbose_name, internal_name, ly_name,
 		    small, stropha, auctum) =
 
-	fet_beginchar(verbose_name, internal_name, mudela_name)
+	fet_beginchar(verbose_name, internal_name, ly_name)
 		save ht, alpha;
 		alpha# = 35;
 		if small:
@@ -653,10 +653,10 @@ fet_beginchar("Ed. Med. inclinatum", "medicaea_inclinatum",
 fet_endchar;
 
 % parametrized punctum
-def punctum_char (expr verbose_name, internal_name, mudela_name,
+def punctum_char (expr verbose_name, internal_name, ly_name,
 	left_up_stem, left_down_stem) =
 
-	fet_beginchar(verbose_name, internal_name, mudela_name)
+	fet_beginchar(verbose_name, internal_name, ly_name)
 
 		save a, beta, ht, wd;
 		ht# = 2 staff_space#;
@@ -715,9 +715,9 @@ punctum_char("Ed. Med. virga", "medicaea_virga", "medvirgahead",
 
 % punctum
 % parametrized punctum
-def punctum_char (expr verbose_name, internal_name, mudela_name,
+def punctum_char (expr verbose_name, internal_name, ly_name,
 	down_stem) =
-	fet_beginchar(verbose_name, internal_name, mudela_name)
+	fet_beginchar(verbose_name, internal_name, ly_name)
 		save alpha;
 		alpha# = 55;
 		draw_diamond_head (staff_space#, 0, 0, alpha#, false);

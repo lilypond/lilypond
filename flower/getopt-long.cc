@@ -1,7 +1,7 @@
 /*
    process command line, GNU style.
 
-   this is (Copyleft) 1996, Han-Wen Nienhuys, <hanwen@cs.uu.nl>
+   this is Copyleft (c)  1996--2003 Han-Wen Nienhuys, <hanwen@cs.uu.nl>
  */
 
 #include <string.h>
