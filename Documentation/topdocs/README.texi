@@ -22,8 +22,16 @@ LilyPond uses a versioning scheme similar to the Linux kernel.  In a
 version "x.y.z", an even second number 'y' denotes a stable version.
 For development versions 'y' is odd.
 
-Version 1.4 is the latest stable release.
+Version 1.6 is the latest stable release.
 
+@section Downloading
+
+The primary download site for sourcecode is
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/}.
+
+If you have a slow connection, then you are advised to use
+@uref{xdelta,ftp://ftp.xcf.berkeley.edu/pub/xdelta/} for patching
+source archives; Xdelta (@file{.xd}) files are supplied on the website.
 
 @section Compilation
 

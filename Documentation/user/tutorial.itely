@@ -2736,6 +2736,11 @@ true.
 @node Integrating text and music
 @section Integrating text and music
 
+
+@cindex La@TeX{}, music in
+@cindex HTML, music in
+@cindex Texinfo, music in
+
 Sometimes, you might want to use music examples in a text that you are
 writing. For example, if you are writing a musicological treatise, a
 songbook, or (like us) the LilyPond manual.  You can make such texts by
@@ -2800,6 +2805,8 @@ The \texttt@{printfilename@} option adds the file name to the output.
 Under Unix, you can view the results as follows.
 @example
 $ cd input/tutorial
+$ mkdir out/
+@var{..may complain that @file{out/} already exists..}
 $ lilypond-book --outdir=out/ lilbook.tex
 lilypond-book (GNU LilyPond) 1.3.146
 Reading `input/tutorial/lilbook.tex'

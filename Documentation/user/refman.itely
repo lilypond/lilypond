@@ -513,6 +513,7 @@ Another option is to enter the music using your favorite MIDI
 sequencer, and then import it using midi2ly. midi2ly is described in
 @ref{Invoking midi2ly}.
 
+
 @c .  {Relative}
 @node Relative octaves
 @subsection Relative octaves
@@ -632,17 +633,45 @@ To use it, you need the following software
   are running, try @code{xdvi -version} or @code{xdvi.bin -version}.
 @item KDVI.  A dvi viewer for KDE.  You need KDVI from KDE 3.0 or
 newer.  Enablle the menu Settings -> Inverse search. 
+
+@cindex Xdvi
+@cindex KDVI
+@cindex KDE
+
 @end itemize
 @item An editor with a client/server interface (or a lightweight GUI editor).
 @itemize @bullet
 @item Emacs. Emacs is an extensible text-editor.  It is available from
 @uref{http://www.gnu.org/software/emacs/}.  You need version 21 to use
 column location.
+
+@c move this elsewhere?
+
+LilyPond also comes with support files for emacs: lilypond-mode for
+emacs provides indentation, syntax coloring and handy compile
+short-cuts. If lilypond-mode is not installed on your platform, then
+refer to the installation instructions for more information
+
+@cindex emacs
+@cindex emacs mode
+@cindex lilypond-mode for emacs
+@cindex syntax coloring
+
 @item XEmacs. Xemacs is very similar to emacs.
+
+@cindex XEmacs
+
 @item NEdit.  NEdit runs under Windows, and Unix.
   It is available from @uref{http://www.nedit.org}.
+
+@cindex NEdit
+
 @item GVim.  GVim is a GUI variant of VIM, the popular VI
 clone.  It is available from @uref{http://www.vim.org}.
+
+@cindex GVim
+@cindex Vim
+
 @end itemize
 @end itemize
 
