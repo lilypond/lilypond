@@ -16,7 +16,12 @@ if  [ -d $HOME/usr/pkg/libffi/ ]; then
 fi
 
 export AUTOMAKE=automake-1.8
-export AUTOCONF=autoconf2.50 
+export AUTOCONF=`which autoconf2.50 `
+
+if [ "" = "$AUTOCONF" ] ; then
+ unset AUTOCONF
+fi
+
 
 # test: the name of our download and build directory
 rm -rf test
