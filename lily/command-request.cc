@@ -14,6 +14,7 @@ void
 Command_script_req::do_print() const
 {}
 Command_script_req::Command_script_req(){}
+Command_script_req::~Command_script_req(){}
 
 IMPLEMENT_IS_TYPE_B1(Command_script_req,Command_req);
 

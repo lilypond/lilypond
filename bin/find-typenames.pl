@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!@PERL@
 
 open GREP, "egrep -h '^struct|^class' *.hh *.cc|";
 open OUT, "|sort | uniq";

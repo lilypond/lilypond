@@ -1,4 +1,4 @@
-#!@PERL@ -w		
+#!@PERL@ -w
 # -*-Perl-*-
 my $mudcount = 0;
 my $mudela_b = 0;

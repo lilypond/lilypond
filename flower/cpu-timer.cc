@@ -10,7 +10,13 @@
 
 // nextstep
 #ifndef CLOCKS_PER_SEC
+#ifdef CLK_TCK
 #define CLOCKS_PER_SEC  CLK_TCK
+#elif defined _SC_CLK_TCK
+#define CLOCKS_PER_SEC  sysconf(_SC_CLK_TCK)
+#else
+#error cannot determine CLOCKS_PER_SEC
+#endif
 #endif
 
 

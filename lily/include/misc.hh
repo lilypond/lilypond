@@ -10,10 +10,12 @@
 Moment wholes (int dur, int dots);
 double log_2(double x) ;
 int intlog2(int d);
+#if ! defined(_ABS_)
 inline int
 abs (int i){
     return (i < 0)?-i:i;
 }
+#endif
 inline int
 sign (int i) {
     if (i<0) return -1;
