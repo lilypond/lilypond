@@ -50,7 +50,7 @@ public:
   bool ignore_version_b_;
   
   Input here_input () const;
-  void remember_spot ();
+  void push_spot ();
   Input pop_spot ();
     
   void do_yyparse ();

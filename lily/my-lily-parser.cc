@@ -64,7 +64,7 @@ My_lily_parser::parse_file (String init, String s)
 }
 
 void
-My_lily_parser::remember_spot ()
+My_lily_parser::push_spot ()
 {
   define_spot_array_.push (here_input ());
 }
