@@ -1,4 +1,4 @@
- // cursor.inl
+ // cursor.inl -*-c++-*-
 #ifndef CURSOR_INL
 #define CURSOR_INL
 #include <assert.h>
@@ -10,7 +10,8 @@ Cursor<T>::Cursor( List<T>& list, Link<T>* pointer ) :
     list_( list )
 {
     if ( list.size() )
-        pointer_ = pointer ? pointer : list.top().pointer_;
+        pointer_ = pointer ? pointer : list.top_;
+    //list.top().pointer_; // ARGH! recursion.
     else
         pointer_ = pointer;
 }
@@ -56,10 +57,21 @@ Cursor<T>::insert( const T& thing )
 
 template<class T>
 inline void
-Cursor<T>::remove()
+Cursor<T>::backspace()
 {
-    assert( pointer_ );
+    Cursor<T> c(*this);
+    c--;        
     list_.remove( *this );
+}
+
+template<class T>
+inline void
+Cursor<T>::del()
+{
+    Cursor<T> c(*this);
+    c++;
+    list_.remove( *this );    
+    *this = c;
 }
 
 template<class T>
