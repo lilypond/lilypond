@@ -19,24 +19,47 @@ class Property_engraver : public Engraver
   /*
     UGH. Junk Dictionary
   */
-  Scheme_hash_table prop_dict_;	// junkme
+  Scheme_hash_table *prop_dict_;	// junkme
   void apply_properties (SCM, Score_element*);
 
 protected:
   virtual void acknowledge_element (Score_element_info ei);
   virtual void do_creation_processing ();
-
+  virtual void do_removal_processing ();
+public:
+  ~Property_engraver();
+  Property_engraver();
   VIRTUAL_COPY_CONS(Translator);
 };
+
+
+
+Property_engraver::Property_engraver()
+{
+  prop_dict_ = 0;
+}
+void
+Property_engraver::do_removal_processing()
+{
+  
+}
+
+Property_engraver::~Property_engraver ()
+{
+  if (prop_dict_)
+    scm_unprotect_object (prop_dict_->self_scm ());
+}
 
 void
 Property_engraver::do_creation_processing ()
 {
+  prop_dict_ = new Scheme_hash_table;
+
   SCM plist = get_property ("Generic_property_list");
   for (; gh_pair_p (plist); plist = gh_cdr (plist))
     {
       SCM elt_props = gh_car (plist);
-      prop_dict_.set (gh_car (elt_props), gh_cdr (elt_props));
+      prop_dict_->set (gh_car (elt_props), gh_cdr (elt_props));
     }
 }
 
@@ -47,13 +70,13 @@ Property_engraver::acknowledge_element (Score_element_info i)
   SCM props;
   for (; gh_pair_p (ifs); ifs = gh_cdr (ifs))
     {      
-      if (prop_dict_.try_retrieve (gh_car (ifs), &props))
+      if (prop_dict_->try_retrieve (gh_car (ifs), &props))
 	{
 	  apply_properties (props,i.elem_l_);
 	}
     }
 
-  if (prop_dict_.try_retrieve (ly_symbol2scm ("all"), &props))
+  if (prop_dict_->try_retrieve (ly_symbol2scm ("all"), &props))
     {
       apply_properties (props, i.elem_l_);
     }

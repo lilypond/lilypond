@@ -19,28 +19,18 @@
 static const Real fix_to_real (Fix f);
 
 
-Tex_font_metric_reader::Tex_font_metric_reader (Tex_font_metric* fp, String name)
+Tex_font_metric_reader::Tex_font_metric_reader (String name)
   : input_ (name)
 {
-  tfm_l_=fp;
-  tfm_l_->clear (TFM_SIZE);
+  
+  for (int i=0; i < TFM_SIZE; i++)
+    ascii_to_metric_idx_.push (-1);
+
   read_header ();
   read_params ();
   read_char_metrics ();
 
 }
-
-Tex_font_metric * 
-Tex_font_metric_reader::read_file (String name)
-{
-  Tex_font_metric * tfmp = new Tex_font_metric;
-  Tex_font_metric_reader tfm_reader (tfmp, name);
-
-  return tfmp;
-}
-
-
-
 
 static const Real
 fix_to_real (Fix f)
@@ -62,7 +52,7 @@ Tex_font_metric_reader::get_U32_fix_f ()
 Real
 Tex_font_metric_reader::get_U32_fix_scaled_f ()
 {
-  return get_U32_fix_f () * tfm_l_->info_.design_size;
+  return get_U32_fix_f () * info_.design_size;
 }
 
 String
@@ -83,8 +73,8 @@ Tex_font_metric_reader::read_header ()
   (void) file_length;
   U16 header_length = input_.get_U16 ();
 
-  tfm_l_->info_.first_charcode = input_.get_U16 ();
-  tfm_l_->info_.last_charcode = input_.get_U16 ();
+  info_.first_charcode = input_.get_U16 ();
+  info_.last_charcode = input_.get_U16 ();
   U16 width_word_count = input_.get_U16 ();
   U16 height_word_count = input_.get_U16 ();
   U16 depth_word_count = input_.get_U16 ();
@@ -95,38 +85,38 @@ Tex_font_metric_reader::read_header ()
   U16 extensible_word_count = input_.get_U16 ();
   (void)extensible_word_count;
   
-  tfm_l_->header_.param_word_count = input_.get_U16 ();
-  tfm_l_->info_.parameter_count = tfm_l_->header_.param_word_count;
+  header_.param_word_count = input_.get_U16 ();
+  info_.parameter_count = header_.param_word_count;
 
-  tfm_l_->header_.char_info_pos = (6 + header_length) * 4;
-  tfm_l_->header_.width_pos = tfm_l_->header_.char_info_pos
-                         + (tfm_l_->info_.last_charcode
-                            - tfm_l_->info_.first_charcode + 1) * 4;
-  tfm_l_->header_.height_pos = tfm_l_->header_.width_pos + width_word_count * 4;
-  tfm_l_->header_.depth_pos = tfm_l_->header_.height_pos + height_word_count * 4;
-  tfm_l_->header_.italic_correction_pos = tfm_l_->header_.depth_pos
+  header_.char_info_pos = (6 + header_length) * 4;
+  header_.width_pos = header_.char_info_pos
+                         + (info_.last_charcode
+                            - info_.first_charcode + 1) * 4;
+  header_.height_pos = header_.width_pos + width_word_count * 4;
+  header_.depth_pos = header_.height_pos + height_word_count * 4;
+  header_.italic_correction_pos = header_.depth_pos
                                      + depth_word_count * 4;
-  tfm_l_->header_.lig_kern_pos = tfm_l_->header_.italic_correction_pos
+  header_.lig_kern_pos = header_.italic_correction_pos
     + italic_correction_word_count * 4;
-  tfm_l_->header_.kern_pos = tfm_l_->header_.lig_kern_pos + lig_kern_word_count * 4;
+  header_.kern_pos = header_.lig_kern_pos + lig_kern_word_count * 4;
   /* We don't care about the extensible table.  */
 
   if (header_length < 2)
     error (_f ("TFM header of `%s' has only %u word(s)",
 	       input_.name_str ().ch_C (), header_length));
 
-  tfm_l_->info_.checksum = input_.get_U32 ();
-  tfm_l_->info_.design_size = get_U32_fix_f ();
+  info_.checksum = input_.get_U32 ();
+  info_.design_size = get_U32_fix_f ();
 
   /* Although the coding scheme might be interesting to the caller, the
      font family and face byte probably aren't.  So we don't read them.  */
-  tfm_l_->info_.coding_scheme = header_length > 2
+  info_.coding_scheme = header_length > 2
     ? get_bcpl_str () : "unspecified";
 
   DEBUG_OUT << format_str ("TFM checksum = %u, design_size = %fpt, coding scheme = `%s'.\n",
-		      tfm_l_->info_.checksum,
-		      tfm_l_->info_.design_size,
-		      tfm_l_->info_.coding_scheme.ch_C ());
+		      info_.checksum,
+		      info_.design_size,
+		      info_.coding_scheme.ch_C ());
 }
 
 /* Although TFM files are only usable by TeX if they have at least seven
@@ -139,34 +129,34 @@ void
 Tex_font_metric_reader::read_params ()
 {
   /* If we have no font parameters at all, we're done.  */
-  if (tfm_l_->header_.param_word_count == 0)
+  if (header_.param_word_count == 0)
     return;
 
   //brrr
   /* Move to the beginning of the parameter table in the file.  */
-  input_.seek_ch_C (-4 * tfm_l_->header_.param_word_count);
+  input_.seek_ch_C (-4 * header_.param_word_count);
 
   /* It's unlikely but possible that this TFM file has more fontdimens
      than we can deal with.  */
-  if (tfm_l_->header_.param_word_count > TFM_MAX_FONTDIMENS)
+  if (header_.param_word_count > TFM_MAX_FONTDIMENS)
     {
       warning (_f ("%s: TFM file has %u parameters, which is more than the %u I can handle",
 		   input_.name_str ().ch_C (),
-		   tfm_l_->header_.param_word_count,
+		   header_.param_word_count,
 		   TFM_MAX_FONTDIMENS));
-      tfm_l_->header_.param_word_count = TFM_MAX_FONTDIMENS;
+      header_.param_word_count = TFM_MAX_FONTDIMENS;
     }
 
   /* The first parameter is different than all the rest, because it
      isn't scaled by the design size.  */
-  tfm_l_->info_.parameters[(TFM_SLANT_PARAMETER) - 1] = get_U32_fix_f ();
+  info_.parameters[(TFM_SLANT_PARAMETER) - 1] = get_U32_fix_f ();
 
-  for (Char_code i = 2; i <= tfm_l_->header_.param_word_count; i++)
-    tfm_l_->info_.parameters[i - 1] = get_U32_fix_scaled_f ();
+  for (Char_code i = 2; i <= header_.param_word_count; i++)
+    info_.parameters[i - 1] = get_U32_fix_scaled_f ();
 
 #ifdef PRINT
-  for (Char_code i = 1; i <= tfm_l_->header_.param_word_count; i++)
-    DEBUG_OUT << format_str ("TFM parameter %d: %.3f", i, tfm_l_->info_.parameters[i - 1]);
+  for (Char_code i = 1; i <= header_.param_word_count; i++)
+    DEBUG_OUT << format_str ("TFM parameter %d: %.3f", i, info_.parameters[i - 1]);
 #endif
 }
 
@@ -176,12 +166,12 @@ Tex_font_metric_reader::read_params ()
 void
 Tex_font_metric_reader::read_char_metrics ()
 {
-  for (int i = tfm_l_->info_.first_charcode; i <= tfm_l_->info_.last_charcode; i++)
+  for (int i = info_.first_charcode; i <= info_.last_charcode; i++)
     {
       Tex_font_char_metric tfm_char = read_char_metric (i);
       if (tfm_char.exists_b_)
-	tfm_l_->ascii_to_metric_idx_[tfm_char.code_] = tfm_l_->char_metrics_.size ();
-      tfm_l_->char_metrics_.push (tfm_char);
+	ascii_to_metric_idx_[tfm_char.code_] = char_metrics_.size ();
+      char_metrics_.push (tfm_char);
     }
 }
 
@@ -196,12 +186,12 @@ Tex_font_metric_reader::read_char_metric (Char_code code)
 
   /* If the character is outside the declared bounds in the file, don't
      try to read it. */
-  if (code < tfm_l_->info_.first_charcode || code > tfm_l_->info_.last_charcode)
+  if (code < info_.first_charcode || code > info_.last_charcode)
     return tfm_char;
   
   //brr
   /* Move to the appropriate place in the `char_info' array.  */
-  input_.seek_ch_C (tfm_l_->header_.char_info_pos + (code - tfm_l_->info_.first_charcode) * 4);
+  input_.seek_ch_C (header_.char_info_pos + (code - info_.first_charcode) * 4);
 
   /* Read the character.  */
   tfm_char = read_char ();
@@ -239,10 +229,10 @@ Tex_font_metric_reader::read_char ()
 #define GET_CHAR_DIMEN(d) \
    if (d##_index != 0) \
      { \
-       input_.seek_ch_C (tfm_l_->header_.##d##_pos + d##_index*4); \
+       input_.seek_ch_C (header_.##d##_pos + d##_index*4); \
        tfm_char.d##_fix_ = input_.get_U32 (); \
        tfm_char.d##_ = fix_to_real (tfm_char.d##_fix_) \
-                      * tfm_l_->info_.design_size; \
+                      * info_.design_size; \
      }
 
   GET_CHAR_DIMEN (width);
@@ -265,7 +255,7 @@ Tex_font_metric_reader::read_char ()
 
   if (tag == 1)
     {
-      input_.seek_ch_C (tfm_l_->header_.lig_kern_pos + remainder * 4);
+      input_.seek_ch_C (header_.lig_kern_pos + remainder * 4);
       read_lig_kern_program (&tfm_char.ligature_arr_, &tfm_char.kern_arr_);
     }
 
@@ -303,7 +293,7 @@ Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligature_ar
 	  kern_element.character = next_char;
 
 	  char const* old_pos = input_.pos_ch_C ();
-	  input_.seek_ch_C (tfm_l_->header_.kern_pos + remainder * 4);
+	  input_.seek_ch_C (header_.kern_pos + remainder * 4);
 	  kern_element.kern = get_U32_fix_scaled_f ();
 	  input_.set_pos (old_pos);
 

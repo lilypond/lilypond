@@ -30,10 +30,6 @@
   */
 class Music {
 public:
-  DECLARE_SMOBS;
-  SCM immutable_property_alist_;
-  SCM mutable_property_alist_;
- 
   Input *origin () const; 
   void set_spot (Input);  
   
@@ -46,13 +42,11 @@ public:
   void set_mus_pointer (const char*, SCM val);
   SCM remove_mus_property (const char* nm);
 
-  virtual SCM do_derived_mark ();
   virtual Musical_pitch to_relative_octave (Musical_pitch);
 
   /// The duration of this piece of music
   virtual Moment length_mom () const;
 
-  virtual ~Music();
   void print() const;
   /// Transpose, with the interval central C to #p#
   virtual void transpose (Musical_pitch p);
@@ -64,6 +58,10 @@ public:
   Music();
 protected:
   virtual void do_print() const;
+  DECLARE_SMOBS(Music,);
+  SCM immutable_property_alist_;
+  SCM mutable_property_alist_;
+ 
 };
 
 
