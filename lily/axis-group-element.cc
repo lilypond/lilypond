@@ -7,8 +7,8 @@
 */
 
 #include "axis-group-element.hh"
-#include "axis-group-element.hh"
 #include "dimension-cache.hh"
+#include "group-interface.hh"
 
 Link_array<Score_element>
 Axis_group_element::get_extra_dependencies() const
@@ -20,17 +20,8 @@ Axis_group_element::get_extra_dependencies() const
 Link_array<Score_element>
 Axis_group_element::elem_l_arr () const
 {  
-  /*
-    ugh. I know
-  */
-  Link_array<Score_element> r;
-  for (SCM s = get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
-    {
-      SCM e=gh_car (s); 
-      r.push (unsmob_element (e));
-    }
-      
-  return r;
+  return
+    Group_interface__extract_elements (this, (Score_element*)0, "elements");
 }
 
 Link_array<Score_element> 
@@ -96,15 +87,6 @@ Axis_group_element::extent_callback (Dimension_cache const *c)
 }
 
 
-/*
-  UGH.
- */
-void
-Axis_group_element::add_extra_element (Score_element *e)
-{
-  add_element (e);
-}
-
 
 void
 Axis_group_element::add_element (Score_element *e)
@@ -117,16 +99,7 @@ Axis_group_element::add_element (Score_element *e)
       if (!e->parent_l (axes_[i]))
 	e->set_parent (this, axes_[i]);
     }
-  set_elt_property ("elements",
-		    gh_cons (e->self_scm_,
-			     get_elt_property ("elements")));
-			     
-  assert (e->parent_l(Y_AXIS) == this || e->parent_l (X_AXIS) == this);
+  Group_interface gi (this);
+  gi.add_element (e);
 }
-
-
-
-
-
-
 

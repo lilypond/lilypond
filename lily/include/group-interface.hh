@@ -23,7 +23,7 @@ public:
   Group_interface (Score_element const*);
   Group_interface (Score_element const*, String);
   int count ();
-  bool supports_interface_b ();
+  bool has_interface_b ();
   void set_interface ();
   void add_element (Score_element*);
 };

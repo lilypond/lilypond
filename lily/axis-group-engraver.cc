@@ -55,7 +55,7 @@ Axis_group_engraver::process_acknowledged ()
 	       && ! dynamic_cast<Axis_group_element*> (elts_[i]->parent_l (Y_AXIS)))
 	       
 	{
-	  staffline_p_->add_extra_element (elts_[i]);
+	  staffline_p_->add_element (elts_[i]);
 	}
     }
   elts_.clear ();

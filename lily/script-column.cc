@@ -7,7 +7,7 @@
   
  */
 #include "script-column.hh"
-#include "staff-side.hh"
+#include "side-position-interface.hh"
 #include "dimension-cache.hh"
 #include "group-interface.hh"
 

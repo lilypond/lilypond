@@ -30,6 +30,7 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "group-interface.hh"
+#include "staff-symbol-referencer.hh"
 #include "cross-staff.hh"
 
 Beam::Beam ()
@@ -266,14 +267,7 @@ Beam::do_post_processing ()
 }
 
 
-#if 0
-Interval
-Beam::do_width () const
-{
-  return Interval (stem (0)->hpos_f (),
-		   stems_.top ()->hpos_f ());
-}
-#endif 
+
 
 Direction
 Beam::get_default_dir () const
@@ -350,7 +344,7 @@ Beam::set_direction (Direction d)
       Stem *s = stem (i);
       s->set_elt_property ("beam-dir", gh_int2scm (d));
 
-      SCM force = s->remove_elt_property ("dir-forced");
+      SCM force = s->get_elt_property ("dir-forced"); // remove_prop?
       if (force == SCM_UNDEFINED)
 	s->set_direction ( d);
     }
@@ -372,7 +366,7 @@ Beam::solve_slope ()
       Stem* s = stem (i);
       if (s->invisible_b ())
         continue;
-      l.input.push (Offset (s->hpos_f () - x0, s->get_info ().idealy_f_));
+      l.input.push (Offset (s->hpos_f () - x0, s->calc_stem_info ().idealy_f_));
     }
   l.minimise (slope_f_, left_y_);
 }
@@ -397,16 +391,21 @@ Beam::check_stemlengths_f (bool set_b)
       if (s->invisible_b ())
 	continue;
       Real y = (s->hpos_f () - x0) * slope_f_ + left_y_;
-      Stem_info info = s->get_info ();
+      Stem_info info = s->calc_stem_info ();
 
       // correct for knee
       if (get_direction () != s->get_direction ())
 	{
 	  y -= get_direction () * (beam_f / 2
 	    + (multiplicity_i_ - 1) * interbeam_f);
+
+
+	  Staff_symbol_referencer_interface s1 (s);
+	  Staff_symbol_referencer_interface s2 (stem_top ());
+	  
 	  if (!i
-	    && s->staff_symbol_l () != stem_top ()->staff_symbol_l ())
-	    y += get_direction () * (multiplicity_i_ - (s->flag_i_ - 2) >? 0)
+	    && s1.staff_symbol_l () != s2.staff_symbol_l ())
+	    y += get_direction () * (multiplicity_i_ - (s->flag_i () - 2) >? 0)
 	      * interbeam_f;
 	}
 
@@ -486,10 +485,10 @@ Beam::calculate_slope ()
 {
   if (!stem_count ())
     slope_f_ = left_y_ = 0;
-  else if (first_visible_stem ()->get_info ().idealy_f_ == last_visible_stem ()->get_info ().idealy_f_)
+  else if (first_visible_stem ()->calc_stem_info ().idealy_f_ == last_visible_stem ()->calc_stem_info ().idealy_f_)
     {
       slope_f_ = 0;
-      left_y_ = first_visible_stem ()->get_info ().idealy_f_;
+      left_y_ = first_visible_stem ()->calc_stem_info ().idealy_f_;
       left_y_ *= get_direction ();
     }
   else
@@ -504,9 +503,9 @@ Beam::calculate_slope ()
 
       Real lengthened = paper_l ()->get_var ("beam_lengthened");
       Real steep = paper_l ()->get_var ("beam_steep_slope");
-      if (((left_y_ - first_visible_stem ()->get_info ().idealy_f_ > lengthened)
+      if (((left_y_ - first_visible_stem ()->calc_stem_info ().idealy_f_ > lengthened)
 	   && (slope_f_ > steep))
-	  || ((left_y_ + slope_f_ * dx_f - last_visible_stem ()->get_info ().idealy_f_ > lengthened)
+	  || ((left_y_ + slope_f_ * dx_f - last_visible_stem ()->calc_stem_info ().idealy_f_ > lengthened)
 	      && (slope_f_ < -steep)))
 	{
 	  slope_f_ = 0;
@@ -552,7 +551,9 @@ Beam::quantise_dy ()
   if (q == ly_symbol2scm ("none"))
     return;
 
-  Real interline_f = stem (0)->staff_line_leading_f ();
+  Staff_symbol_referencer_interface st (this);
+  Real interline_f = st.staff_line_leading_f ();
+  
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
@@ -601,7 +602,8 @@ Beam::quantise_left_y (bool extend_b)
        hang       straddle   sit        inter      hang
    */
 
-  Real space = stem (0)->staff_line_leading_f ();
+  Staff_symbol_referencer_interface sinf (this);
+  Real space = sinf.staff_line_leading_f ();
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
@@ -709,16 +711,6 @@ Beam::do_add_processing ()
       } while ((flip (&d)) != LEFT);
     }
 
-#if 0
-  /*
-    Why?
-   */
-  if (stem_count ())
-    {
-      stem (0)->beams_i_drul_[LEFT] =0;
-      stem (stem_count () -1)->beams_i_drul_[RIGHT] =0;
-    }
-#endif
 }
 
 

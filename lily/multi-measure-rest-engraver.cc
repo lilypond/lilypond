@@ -13,6 +13,7 @@
 #include "engraver-group-engraver.hh"
 #include "timing-translator.hh"
 #include "bar.hh"
+#include "staff-symbol-referencer.hh"
 
 
 ADD_THIS_TRANSLATOR (Multi_measure_rest_engraver);
@@ -77,6 +78,10 @@ Multi_measure_rest_engraver::do_process_requests ()
       Timing_translator * time = dynamic_cast<Timing_translator*> (tr);
 
       mmrest_p_ = new Multi_measure_rest;
+      Staff_symbol_referencer_interface si (mmrest_p_);
+      si.set_interface ();
+
+      
       if(dynamic_cast<Repetitions_req *> (multi_measure_req_l_))
 	mmrest_p_->set_elt_property ("alt-symbol", 
 				     ly_str02scm ("scripts-repeatsign"));

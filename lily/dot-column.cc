@@ -10,6 +10,7 @@
 #include "dot-column.hh"
 #include "rhythmic-head.hh"
 #include "group-interface.hh"
+#include "staff-symbol-referencer.hh"
 
 void
 Dot_column::add_dots (Dots *d)
@@ -35,7 +36,11 @@ Dot_column::add_head (Rhythmic_head *r)
 int
 Dot_column::compare (Dots * const &d1, Dots * const &d2)
 {
-  return int (d1->position_f () - d2->position_f ());
+  Staff_symbol_referencer_interface s1(d1);
+  Staff_symbol_referencer_interface s2(d2);  
+
+  
+  return int (s1.position_f () - s2.position_f ());
 }
 
 
@@ -78,12 +83,15 @@ Dot_column::do_post_processing ()
   int conflicts = 0;
   for (int i=0; i < dots.size (); i++)
     {
+      Real p = Staff_symbol_referencer_interface (dots[i]).position_f ();
       for (int j=0; j < taken_posns.size (); j++)
-	if (taken_posns[j] == (int) dots[i]->position_f ())
-	  conflicts++;
-      taken_posns.push ((int)dots[i]->position_f ());
-      s.unite (Slice ((int)dots[i]->position_f (),
-		      (int)dots[i]->position_f ()));      
+	{
+	  if (taken_posns[j] == (int) p)
+	    conflicts++;
+	}
+      taken_posns.push ((int)p);
+      s.unite (Slice ((int)p,
+		      (int)p));      
     }
 
   if (!conflicts)
@@ -99,6 +107,6 @@ Dot_column::do_post_processing ()
 
   for (int i=0; i  <dots.size (); pos += 2, i++)
     {
-      dots[i]->set_position(pos);
+      staff_symbol_referencer_interface (dots[i]).set_position(pos);
     }
 }

@@ -6,6 +6,7 @@
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "staff-symbol-referencer.hh"
 #include "stem-engraver.hh"
 #include "note-head.hh"
 #include "stem.hh"
@@ -48,7 +49,10 @@ Stem_engraver::acknowledge_element(Score_element_info i)
       if (!stem_p_) 
 	{
 	  stem_p_ = new Stem;
-	  stem_p_->flag_i_ = duration_log;
+	  Staff_symbol_referencer_interface st(stem_p_);
+	  st.set_interface ();
+	  
+	  stem_p_->set_elt_property ("duration-log", gh_int2scm (duration_log));
 
 	  if (abbrev_req_l_)
 	    {
@@ -75,9 +79,9 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 	  announce_element (Score_element_info (stem_p_, r));
 	}
 
-      if (stem_p_->flag_i_ != duration_log)
+      if (stem_p_->flag_i () != duration_log)
 	{
-	  r->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  stem_p_->flag_i_));
+	  r->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  stem_p_->flag_i ()));
 	}
 
       stem_p_->add_head (h);
@@ -112,7 +116,7 @@ Stem_engraver::do_pre_move_processing()
 
       // UGH. Should mark non-forced instead.
       SCM dir = stem_p_->get_elt_property ("direction");
-      if (gh_number_p (dir) && gh_int2scm (dir))
+      if (gh_number_p (dir) && to_dir(dir))
 	{
 	  stem_p_->set_elt_property ("dir-forced", SCM_BOOL_T);	  
 	}

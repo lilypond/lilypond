@@ -14,6 +14,7 @@
 #include "debug.hh"
 #include "paper-def.hh"
 #include "group-interface.hh"
+#include "staff-symbol-referencer.hh"
 
 bool
 Note_column::rest_b () const
@@ -61,8 +62,9 @@ Note_column::head_positions_interval() const
   for (; gh_pair_p (h); h = gh_cdr (h))
     {
       Score_element *se = unsmob_element (gh_car (h));
+      Staff_symbol_referencer_interface si (se); 
       
-      int j = int (dynamic_cast<Staff_symbol_referencer*> (se)->position_f ());
+      int j = int (si.position_f ());
       iv.unite (Slice (j,j));
     }
   return iv;
@@ -114,14 +116,15 @@ Note_column::add_head (Rhythmic_head *h)
 void
 Note_column::translate_rests (int dy_i)
 {
-  invalidate_cache (Y_AXIS);
+  //  invalidate_cache (Y_AXIS);
 
   SCM s = get_elt_property ("rests");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element * se = unsmob_element ( gh_car (s));
-      Staff_symbol_referencer *str = dynamic_cast<Staff_symbol_referencer*> (se);
-      se->translate_axis (dy_i * str->staff_line_leading_f ()/2.0, Y_AXIS);
+      Score_element * se = unsmob_element (gh_car (s));
+      Staff_symbol_referencer_interface si (se);
+
+      se->translate_axis (dy_i * si.staff_line_leading_f ()/2.0, Y_AXIS);
     }
 }
 
@@ -159,9 +162,9 @@ Note_column::do_post_processing ()
 
   SCM s = get_elt_property ("rests");
   Score_element * se = unsmob_element (gh_car (s));
-  Staff_symbol_referencer *str = dynamic_cast<Staff_symbol_referencer*> (se);
+  Staff_symbol_referencer_interface si (se);
 
-  Real staff_space = str->staff_line_leading_f ();      
+  Real staff_space = si.staff_line_leading_f ();      
   Real rest_dim = extent (Y_AXIS)[d]*2.0  /staff_space ;
 
   Real minimum_dist
@@ -169,7 +172,7 @@ Note_column::do_post_processing ()
   Real dist =
     minimum_dist +  -d  * (beamy - rest_dim) >? 0;
 
-  int stafflines = str->lines_i ();
+  int stafflines = si.lines_i ();
 
   // move discretely by half spaces.
   int discrete_dist = int (ceil (dist ));

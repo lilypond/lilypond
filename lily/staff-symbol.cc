@@ -72,3 +72,8 @@ Staff_symbol::steps_i() const
 {
   return no_lines_i_*2;
 }
+Real
+Staff_symbol::staff_line_leading_f ()
+{
+  return staff_line_leading_f_;
+}

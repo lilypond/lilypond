@@ -11,16 +11,15 @@
 #define STAFF_BAR_HH
 
 #include "bar.hh"
-#include "staff-symbol-referencer.hh"
+
 
 /**
    A bar that is on a staff.
    Ugh. Entita non multiplicandum  ... 
  */
-class Staff_bar : public Bar, public Staff_symbol_referencer
+class Staff_bar : public Bar
 {
 public:
-  virtual void do_pre_processing ();
   VIRTUAL_COPY_CONS(Score_element);
   virtual Real get_bar_size () const;
 };

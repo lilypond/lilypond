@@ -58,8 +58,6 @@ Spanner::break_into_pieces ()
       span_p->set_bounds(RIGHT,bounds[RIGHT]);
       
       pscore_l_->typeset_element (span_p);
-      span_p->handle_broken_dependencies();
-
       broken_into_l_arr_.push (span_p);
     }
 
@@ -106,7 +104,6 @@ void
 Spanner::do_break_processing()
 {
   break_into_pieces ();
-  handle_broken_dependencies();
 }
 
 Spanner::Spanner ()
@@ -149,7 +146,7 @@ Score_element*
 Spanner::find_broken_piece (Line_of_score*l) const
 {
   Spanner* me = (Spanner*) this;
-  break_into_pieces ();
+  me->break_into_pieces ();
   
   int idx = binsearch_link_array (broken_into_l_arr_,  (Spanner*)l, Spanner::compare);
   
@@ -217,24 +214,12 @@ Spanner::get_broken_left_end_align () const
   if(sc != NULL &&
      sc->break_status_dir () == RIGHT)
     {
-      // We could possibly return the right edge of the whole Score_column here,
-      // but we do a full search for the Break_align_item.
-
       /*
-	In fact that doesn't make a difference, since the Score_column
+	
+	We used to do a full search for the Break_align_item.
+	But that doesn't make a difference, since the Score_column
 	is likely to contain only a Break_align_item.
       */
-#if 0
-      for(SCM s = sc->get_elt_property ("elements"); gh_pair_p (s);
-	  s = gh_cdr (s))
-	{
-	  Score_element *e = SMOB_TO_TYPE (Score_element, gh_car (s));
-	  if(dynamic_cast<Break_align_item*> (e))
-	    {
-	      return e->extent (X_AXIS) [RIGHT];
-	    }
-	}
-#endif
       return sc->extent (X_AXIS)[RIGHT];
     }
 

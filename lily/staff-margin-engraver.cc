@@ -10,7 +10,7 @@
 #include "bar.hh"
 #include "timing-translator.hh"
 #include "text-item.hh"
-#include "staff-side.hh"
+#include "side-position-interface.hh"
 
 ADD_THIS_TRANSLATOR (Staff_margin_engraver);
 

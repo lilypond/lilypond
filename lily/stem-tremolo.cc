@@ -15,6 +15,8 @@
 #include "stem.hh"
 #include "offset.hh"
 #include "dimension-cache.hh"
+#include "staff-symbol-referencer.hh"
+
 
 Stem_tremolo::Stem_tremolo ()
 {
@@ -40,7 +42,8 @@ Interval
 Stem_tremolo::dim_callback (Dimension_cache const *c) 
 {
   Stem_tremolo * s = dynamic_cast<Stem_tremolo*> (c->element_l ());
-  Real space = s->stem_l ()->staff_line_leading_f ();
+  Real space = Staff_symbol_referencer_interface (s->stem_l ())
+    .staff_line_leading_f ();
   return Interval (-space, space);
 }
 
@@ -57,7 +60,7 @@ Stem_tremolo::do_brew_molecule_p () const
   
   Real interbeam_f = paper_l ()->interbeam_f (mult);
   Real w  = gh_scm2double (get_elt_property ("beam-width"));
-  Real space = st->staff_line_leading_f ();
+  Real space = Staff_symbol_referencer_interface (st).staff_line_leading_f ();
   Real internote_f = space / 2;
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));
 

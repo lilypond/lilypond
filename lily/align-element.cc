@@ -97,12 +97,13 @@ Align_element::do_side_processing ()
   if (center_f)
     translate_axis ( - center_f, axis ());
 
-  dim_cache_[axis ()]->invalidate ();
+
+  //  dim_cache_[axis ()]->invalidate ();
+
 }
 
 Align_element::Align_element()
 {
-  ordered_b_ = true;
   threshold_interval_ = Interval (0, Interval::infinity ());
   stacking_dir_ = DOWN;
   align_dir_ = CENTER;

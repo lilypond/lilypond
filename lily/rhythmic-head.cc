@@ -16,6 +16,7 @@
 #include "axis-group-element.hh"
 #include "paper-score.hh"
 #include "stem.hh"
+#include "staff-symbol-referencer.hh"
 
 
 Dots*
@@ -23,6 +24,14 @@ Rhythmic_head::dots_l () const
 {
   SCM s = get_elt_property ("dot");
   return dynamic_cast<Dots*> (unsmob_element (s));
+}
+
+int
+Rhythmic_head::balltype_i () const
+{
+  SCM s = get_elt_property ("duration-log");
+  
+  return gh_number_p (s) ? gh_scm2int (s) : 0;
 }
 
 Stem*
@@ -41,9 +50,11 @@ Rhythmic_head::dots_i () const
 void
 Rhythmic_head::do_post_processing ()
 {
-  if (dots_l ())
+  if (Dots *d = dots_l ())
     {
-      dots_l ()->set_position(int (position_f ()));
+      Staff_symbol_referencer_interface si (d);
+      Staff_symbol_referencer_interface me (d);      
+      si.set_position(int (me.position_f ()));
     }
 }
 
@@ -55,18 +66,4 @@ Rhythmic_head::add_dots (Dots *dot_l)
   dot_l->add_dependency (this);  
 }
 
-Rhythmic_head::Rhythmic_head ()
-{
-  balltype_i_ =0;
-}
-
-
-
-void
-Rhythmic_head::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "balltype = "<< balltype_i_ << "dots = " << dots_i ();
-#endif
-}
 

@@ -11,10 +11,7 @@
 #include "note-head.hh"
 #include "paper-column.hh"
 #include "debug.hh"
-#include "group-interface.hh"
-
-
-
+#include "staff-symbol-referencer.hh"
 
 void
 Tie::set_head (Direction d, Note_head * head_l)
@@ -22,7 +19,7 @@ Tie::set_head (Direction d, Note_head * head_l)
   assert (!head (d));
   if (d == LEFT)
     gh_set_car_x (get_elt_property ("heads"), head_l->self_scm_ );
-  else if (d == LEFT)
+  else if (d == RIGHT)
     gh_set_cdr_x (get_elt_property ("heads"), head_l->self_scm_ );
   
   set_bounds (d, head_l);
@@ -51,8 +48,10 @@ Tie::head (Direction d) const
 Direction
 Tie::get_default_dir () const
 {
-  int m = int (head (LEFT)->position_f () 
-	       + head (RIGHT)->position_f ()) /2;
+  Real p1 = Staff_symbol_referencer_interface (head (LEFT)).position_f () ;
+  Real p2 = Staff_symbol_referencer_interface (head (RIGHT)).position_f () ;  
+  
+  int m = int (p1  + p2);
 
   /*
     If dir is not determined: inverse of stem: down
@@ -84,7 +83,14 @@ Tie::do_add_processing()
 void
 Tie::do_post_processing()
 {
-  assert (head (LEFT) || head (RIGHT));
+  if (!head (LEFT) && !head (RIGHT))
+    {
+      programming_error ("Tie without heads.");
+      set_elt_property ("transparent", SCM_BOOL_T);
+      set_empty (X_AXIS);
+      set_empty (Y_AXIS);
+      return;
+    }
 
   Real interline_f = paper_l ()->get_var ("interline");
   Real internote_f = interline_f / 2;
@@ -167,8 +173,10 @@ Tie::do_post_processing()
 	 for smal slurs
    */
 
-  Real ypos = head (LEFT) ? head (LEFT)->position_f ()
-    : head (RIGHT)->position_f ();
+
+  Real ypos = head (LEFT)
+    ? Staff_symbol_referencer_interface (head (LEFT)).position_f ()
+    : Staff_symbol_referencer_interface (head (RIGHT)).position_f () ;  
 
   Real y_f = internote_f * ypos; 
   int ypos_i = int (ypos);

@@ -10,6 +10,7 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
+#include "staff-symbol-referencer.hh"
 
 Dots::Dots ()
 {
@@ -30,9 +31,10 @@ Dots::do_post_processing ()
       if (!get_direction ())
 	set_direction (UP);
 
-      int p = int (position_f ());
+      Staff_symbol_referencer_interface si (this);
+      int p = si.position_f ();
       if (!(p % 2))
-	set_position (p  + get_direction ());
+	si.set_position (p  + get_direction ());
     }
 }
 Molecule* 

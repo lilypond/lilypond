@@ -63,7 +63,6 @@ protected:
   friend Axis_group_spanner; // UGH
 
   virtual void do_space_processing ();
-  //  void handle_broken_dependents ();
   virtual void do_break_processing ();
   Real spanner_length () const;
   virtual Line_of_score*line_l () const;

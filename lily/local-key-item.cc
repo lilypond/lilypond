@@ -7,6 +7,7 @@
 */
 #include "local-key-item.hh"
 #include "molecule.hh"
+#include "staff-symbol-referencer.hh"
 
 #include "lookup.hh"
 #include "paper-def.hh"
@@ -67,7 +68,8 @@ Molecule*
 Local_key_item::do_brew_molecule_p() const
 {
   Molecule*output = new Molecule;
-  Real note_distance = staff_line_leading_f ()/2;
+  Staff_symbol_referencer_interface si (this);
+  Real note_distance = si.staff_line_leading_f ()/2;
   Molecule *octave_mol_p = 0;
   int lastoct = -100;
   

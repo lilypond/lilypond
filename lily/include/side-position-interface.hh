@@ -1,5 +1,5 @@
 /*   
-  staff-side.hh -- declare Staff_side_{element,spanner,item}
+  side-position-interface.hh -- declare Side_position_interface
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,20 +7,19 @@
   
  */
 
-#ifndef STAFF_SIDE_HH
-#define STAFF_SIDE_HH
-
+#ifndef SIDE_POSITION_INTERFACE_HH
+#define SIDE_POSITION_INTERFACE_HH
 
 #include "spanner.hh"
 #include "item.hh"
-#include "staff-symbol-referencer.hh"
+
 #include "directional-element.hh"
 
 struct Side_position_interface
 {
   Score_element * elt_l_;
 public:
-  Side_position_interface (Score_element*);
+  Side_position_interface (Score_element const*);
   static Real side_position (Dimension_cache const *);
   static Real self_alignment (Dimension_cache const *);
   static Real aligned_side (Dimension_cache const *);  
@@ -30,7 +29,7 @@ public:
   Axis get_axis () const;
   
   bool supported_b () const;
-  bool is_staff_side_b () const;
+  bool has_interface_b () const;
   void add_support (Score_element*);
   
   Direction get_direction () const;
@@ -38,6 +37,5 @@ public:
 };
 
 
-
-#endif /* STAFF_SIDE_HH */
+#endif /* SIDE_POSITION_INTERFACE_HH */
 

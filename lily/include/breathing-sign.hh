@@ -11,12 +11,10 @@
 #define BREATHING_SIGN_HH
 
 #include "item.hh"
-#include "staff-symbol-referencer.hh"
 #include "parray.hh"
 #include "directional-element.hh"
 
 class Breathing_sign : public Item,
-		       public Staff_symbol_referencer,
 		       public Directional_element
 {
 public:

@@ -14,6 +14,7 @@
 #include "molecule.hh"
 #include "musical-request.hh"
 #include "dimension-cache.hh"
+#include "staff-symbol-referencer.hh"
 
 void
 Note_head::flip_around_stem (Direction d)
@@ -37,8 +38,6 @@ Note_head::Note_head ()
 void
 Note_head::do_pre_processing ()
 {
-  Rhythmic_head::do_pre_processing ();
-
   // 8 ball looks the same as 4 ball:
   String type; 
   SCM style  = get_elt_property ("style");
@@ -48,24 +47,27 @@ Note_head::do_pre_processing ()
     }
   
   
-  if (balltype_i_ > 2 || type == "harmonic" || type == "cross")
-    balltype_i_ = 2;
+  if (balltype_i () > 2 || type == "harmonic" || type == "cross")
+    set_elt_property ("duration-log", gh_int2scm (2));
 
-  if (dots_l ())			// move into Rhythmic_head?
-    dots_l ()->set_position(int (position_f ()));
+  if (Dots *d = dots_l ())
+    { // move into Rhythmic_head?
 
- 
+      Staff_symbol_referencer_interface si (d);
+      Staff_symbol_referencer_interface me (this);      
+      
+      si.set_position(int (me.position_f ()));
+    }
 }
-
-
 
 int
 Note_head::compare (Note_head *const  &a, Note_head * const &b)
 {
-  return sign(a->position_f () - b->position_f ());
+  Staff_symbol_referencer_interface s1(a);
+  Staff_symbol_referencer_interface s2(b);      
+
+  return sign(s1.position_f () - s2.position_f ());
 }
-
-
 
 Molecule
 Note_head::make_molecule () const
@@ -78,18 +80,20 @@ Note_head::make_molecule () const
     }
   
   return lookup_l()->afm_find (String ("noteheads-")
-			       + to_str (balltype_i_) + type);
+			       + to_str (balltype_i ()) + type);
 }
 
 Molecule*
 Note_head::do_brew_molecule_p() const 
 {
-  Real inter_f = staff_line_leading_f ()/2;
-  int sz = lines_i ()-1;
-
-  int streepjes_i = abs (position_f ()) < sz 
+  Staff_symbol_referencer_interface si (this);
+  
+  Real inter_f = si.staff_line_leading_f ()/2;
+  int sz = si.lines_i ()-1;
+  Real p = si.position_f ();
+  int streepjes_i = abs (p) < sz 
     ? 0
-    : (abs((int)position_f ()) - sz) /2;
+    : (abs((int)p) - sz) /2;
 
   Molecule*  out =  new Molecule (make_molecule ());
 
@@ -97,7 +101,7 @@ Note_head::do_brew_molecule_p() const
 
   if (streepjes_i) 
     {
-      Direction dir = (Direction)sign (position_f ());
+      Direction dir = (Direction)sign (p);
       Interval hd = out->dim_[X_AXIS];
       Real hw = hd.length ()/4;
       
@@ -105,7 +109,7 @@ Note_head::do_brew_molecule_p() const
 	= lookup_l ()->ledger_line  (Interval (hd[LEFT] - hw,
 					       hd[RIGHT] + hw));
       
-      int parity =  abs(int (position_f ())) % 2;
+      int parity =  abs(int (p)) % 2;
       
       for (int i=0; i < streepjes_i; i++)
 	{

@@ -58,13 +58,6 @@ Line_of_score::break_into_pieces (Array<Column_x_positions> const &breaking)
       
       broken_into_l_arr_.push (line_l);
     }
-
-  for (int i=0; i < broken_into_l_arr_.size (); i++)
-    {
-      broken_into_l_arr_[i]->handle_broken_dependencies ();
-    }
-
-  handle_broken_dependencies ();
 }
 
 void

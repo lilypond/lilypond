@@ -21,12 +21,11 @@
 #include "rest.hh"
 #include "group-interface.hh"
 #include "cross-staff.hh"
+#include "staff-symbol-referencer.hh"
 
 Stem::Stem ()
 {
   beams_i_drul_[LEFT] = beams_i_drul_[RIGHT] = -1;
-  yextent_drul_[DOWN] = yextent_drul_[UP] = 0;
-  flag_i_ = 2;
 }
 
 Interval_t<int>
@@ -48,43 +47,38 @@ Stem::head_positions () const
   Interval_t<int> r;
   for (int i =0; i < head_l_arr.size (); i++)
     {
-      int p = (int)head_l_arr[i]->position_f ();
+      Staff_symbol_referencer_interface si (head_l_arr[i]);
+      int p = (int)si.position_f ();
       r[BIGGER] = r[BIGGER] >? p;
       r[SMALLER] = r[SMALLER] <? p;
     }
   return r;
 }
 
-void
-Stem::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "flag "<< flag_i_;
-#endif
-}
 
 Real
 Stem::stem_length_f () const
 {
-  return yextent_drul_[UP]-yextent_drul_[DOWN] ;
+  return yextent_.length();
 }
 
 Real
 Stem::stem_begin_f () const
 {
-  return yextent_drul_[Direction(-get_direction ())];
+  return yextent_[Direction(-get_direction ())];
 }
 
 Real
 Stem::chord_start_f () const
 {
-  return head_positions()[get_direction ()] * staff_line_leading_f ()/2.0;
+  return head_positions()[get_direction ()]
+    * Staff_symbol_referencer_interface (this).staff_line_leading_f ()/2.0;
 }
 
 Real
 Stem::stem_end_f () const
 {
-  return yextent_drul_[get_direction ()];
+  return yextent_[get_direction ()];
 }
 
 void
@@ -95,15 +89,14 @@ Stem::set_stemend (Real se)
     warning (_ ("Weird stem size; check for narrow beams"));
 
   
-  yextent_drul_[get_direction ()]  =  se;
-  yextent_drul_[Direction(-get_direction ())] = head_positions()[-get_direction ()];
+  yextent_[get_direction ()]  =  se;
+  yextent_[Direction(-get_direction ())] = head_positions()[-get_direction ()];
 }
 
 int
 Stem::type_i () const
 {
-  
-  return first_head ()->balltype_i_;
+  return first_head ()->balltype_i ();
 }
 
 Note_head*
@@ -137,7 +130,7 @@ Stem::add_head (Rhythmic_head *n)
 bool
 Stem::invisible_b () const
 {
-  return !(first_head () && first_head()->balltype_i_ >= 1);
+  return !(first_head () && first_head()->balltype_i () >= 1);
 }
 
 int
@@ -159,8 +152,6 @@ Stem::get_default_dir () const
 
   return Direction (int(paper_l ()->get_var ("stem_default_neutral_direction")));
 }
-
-
 
 void
 Stem::set_default_stemlen ()
@@ -189,10 +180,10 @@ Stem::set_default_stemlen ()
   if (((int)chord_start_f ())
       && (get_direction () != get_default_dir ()))
     length_f -= shorten_f;
-
-  if (flag_i_ >= 5)
+ 
+ if (flag_i () >= 5)
     length_f += 2.0;
-  if (flag_i_ >= 6)
+  if (flag_i () >= 6)
     length_f += 1.0;
   
   set_stemend ((get_direction () > 0) ? head_positions()[BIGGER] + length_f:
@@ -201,6 +192,13 @@ Stem::set_default_stemlen ()
   bool no_extend_b = get_elt_property ("no-stem-extend") != SCM_UNDEFINED;
   if (!grace_b && !no_extend_b && (get_direction () * stem_end_f () < 0))
     set_stemend (0);
+}
+
+int
+Stem::flag_i () const
+{
+  SCM s = get_elt_property ("duration-log");
+  return  (gh_number_p (s)) ? gh_scm2int (s) : 2;
 }
 
 //xxx
@@ -232,10 +230,11 @@ Stem::set_noteheads ()
     head_l_arr.top ()->set_elt_property ("extremal", SCM_BOOL_T);
   
   int parity=1;
-  int lastpos = int (beginhead->position_f ());
+  int lastpos = int (Staff_symbol_referencer_interface (beginhead).position_f ());
   for (int i=1; i < head_l_arr.size (); i ++)
     {
-      int dy =abs (lastpos- (int)head_l_arr[i]->position_f ());
+      Real p = Staff_symbol_referencer_interface (head_l_arr[i]).position_f ();
+      int dy =abs (lastpos- (int)p);
 
       if (dy <= 1)
 	{
@@ -245,14 +244,14 @@ Stem::set_noteheads ()
 	}
       else
 	parity = 1;
-      lastpos = int (head_l_arr[i]->position_f ());
+      lastpos = int (p);
     }
 }
 
 void
 Stem::do_pre_processing ()
 {
-  if (yextent_drul_[DOWN]== yextent_drul_[UP])
+  if (yextent_.empty_b ())
     set_default_extents ();
   set_noteheads ();
 
@@ -307,7 +306,7 @@ Stem::flag () const
 
   char c = (get_direction () == UP) ? 'u' : 'd';
   Molecule m = lookup_l ()->afm_find (String ("flags-") + to_str (c) + 
-				      to_str (flag_i_));
+				      to_str (flag_i ()));
   if (!style.empty_b ())
     m.add_molecule(lookup_l ()->afm_find (String ("flags-") + to_str (c) + style));
   return m;
@@ -319,7 +318,7 @@ Stem::dim_callback (Dimension_cache const* c)
   Stem * s = dynamic_cast<Stem*> (c->element_l ());
   
   Interval r (0, 0);
-  if (s->get_elt_property ("beam") != SCM_UNDEFINED || abs (s->flag_i_) <= 2)
+  if (s->get_elt_property ("beam") != SCM_UNDEFINED || abs (s->flag_i ()) <= 2)
     ;	// TODO!
   else
     {
@@ -338,8 +337,9 @@ Molecule*
 Stem::do_brew_molecule_p () const
 {
   Molecule *mol_p =new Molecule;
-  Drul_array<Real> stem_y = yextent_drul_;
-  Real dy = staff_line_leading_f ()/2.0;
+  Interval stem_y = yextent_;
+  Real dy = staff_symbol_referencer_interface (this)
+    .staff_line_leading_f ()/2.0;
 
   Real head_wid = 0;
   if (first_head ())
@@ -355,7 +355,7 @@ Stem::do_brew_molecule_p () const
     }
 
   if (get_elt_property ("beam") == SCM_UNDEFINED
-      && abs (flag_i_) > 2)
+      && abs (flag_i ()) > 2)
     {
       Molecule fl = flag ();
       fl.translate_axis(stem_y[get_direction ()]*dy, Y_AXIS);
@@ -403,19 +403,20 @@ Stem::beam_l ()const
 
 
 Stem_info
-Stem::get_info () const
+Stem::calc_stem_info () const
 {
   assert (beam_l ());
 
   SCM bd = get_elt_property ("beam-dir");
-  Real internote_f = staff_line_leading_f ()/2;
+  Real internote_f
+    = staff_symbol_referencer_interface (this).staff_line_leading_f ()/2;
   
   Direction beam_dir;
   Stem_info info; 
 
-  if (gh_number_p (bd))
+  if (isdir_b (bd))
     {
-      beam_dir = (Direction)gh_scm2int (bd);
+      beam_dir = to_dir (bd);
     }
   else
     {

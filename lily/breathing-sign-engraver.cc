@@ -13,6 +13,7 @@ TODO:
 
 */
 
+#include "staff-symbol-referencer.hh"
 #include "breathing-sign-engraver.hh"
 #include "breathing-sign.hh"
 #include "musical-request.hh"
@@ -44,6 +45,8 @@ Breathing_sign_engraver::do_process_requests()
 {
   if(breathing_sign_req_l_) {
     breathing_sign_p_ = new Breathing_sign;
+    Staff_symbol_referencer_interface st (breathing_sign_p_);
+    st.set_interface ();
 
     announce_element (Score_element_info (breathing_sign_p_, breathing_sign_req_l_));
   }

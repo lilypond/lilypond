@@ -10,7 +10,7 @@
 #include "bar-script-engraver.hh"
 #include "bar.hh"
 #include "clef-item.hh"
-#include "staff-side.hh"
+#include "side-position-interface.hh"
 #include "text-item.hh"
 #include "lily-guile.hh"
 #include "paper-column.hh"

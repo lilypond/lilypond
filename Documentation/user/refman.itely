@@ -1020,14 +1020,15 @@ construction will produce odd effects.  To create tremolo beams on a
 single note, simply attach `@code{:}@var{length}' to the note itself
 (see also section XREF-tremolo [FIXME]).
   
-@mudela[fragment,verbatim,center]
+@ignore
+@mu dela[fragment,verbatim,center]
   [:16 e'1 g'] [:8 e'4 f']
 @end mudela
   
-@mudela[fragment,verbatim,center]
+@mud ela[fragment,verbatim,center]
   c'4:32 [:16 c'8 d'8]
 @end mudela
-
+@end ignore
 
 @cindex --@@@code{-}@code{-}
 

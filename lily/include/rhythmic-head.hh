@@ -11,25 +11,19 @@
 #define RHYTHMIC_HEAD_HH
 
 #include "item.hh"
-#include "staff-symbol-referencer.hh"
 
-class Rhythmic_head : public Item, public Staff_symbol_referencer
+
+class Rhythmic_head : public Item
 {
-  Dots * dots_l_;
-  Stem * stem_l_;
 public:
-
-  int balltype_i_;
+  int balltype_i () const;
 
   void add_dots (Dots *);
-  Rhythmic_head ();
   Stem * stem_l ()const;
   Dots * dots_l ()const;
   int dots_i ()const;
 protected:
   virtual void do_post_processing ();
-
-  virtual void do_print () const;
 };
 
 #endif // RHYTHMIC_HEAD_HH

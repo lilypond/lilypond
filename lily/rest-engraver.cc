@@ -5,7 +5,7 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
+#include "staff-symbol-referencer.hh"
 #include "rest-engraver.hh"
 #include "musical-request.hh"
 #include "dots.hh"
@@ -47,11 +47,19 @@ Rest_engraver::do_process_requests ()
   if (rest_req_l_ && !rest_p_) 
     {
       rest_p_ = new Rest;
-      rest_p_->balltype_i_ = rest_req_l_->duration_.durlog_i_; 
-
+      Staff_symbol_referencer_interface si (rest_p_);
+      si.set_interface ();
+      
+      rest_p_->set_elt_property ("duration-log",
+				 gh_int2scm (rest_req_l_->duration_.durlog_i_)); 
+      
       if (rest_req_l_->duration_.dots_i_)
 	{
 	  dot_p_ = new Dots;
+
+	  Staff_symbol_referencer_interface si (dot_p_);
+	  si.set_interface ();
+	  
 	  rest_p_->add_dots (dot_p_);
 	  dot_p_->dots_i_ = rest_req_l_->duration_.dots_i_;	  
 	  announce_element (Score_element_info (dot_p_,0));

@@ -9,10 +9,11 @@
 
 #include "item.hh"
 #include "array.hh"
-#include "staff-symbol-referencer.hh"
+
 
 /// An item which places accidentals at the start of the line
-class Key_item :public  Item, public Staff_symbol_referencer {
+class Key_item :public  Item
+{
   Array<int> pitch_arr_;
   Array<int> acc_arr_;
   Array<int> old_pitch_arr_;

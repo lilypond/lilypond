@@ -14,12 +14,4 @@ Directional_spanner::do_pre_processing()
     set_direction (get_default_dir());
 }
 
-#if 0
-Offset
-Directional_spanner::center () const
-{
-  Real w= extent (X_AXIS).length ();
-  Offset o (w/2, 0);  
-  return o;
-}
-#endif
+

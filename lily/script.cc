@@ -10,7 +10,7 @@
 #include "debug.hh"
 #include "script.hh"
 #include "lookup.hh"
-#include "staff-side.hh"
+#include "side-position-interface.hh"
 #include "paper-def.hh"
 #include "dimension-cache.hh"
 

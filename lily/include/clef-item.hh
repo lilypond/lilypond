@@ -10,7 +10,7 @@
 
 #include "direction.hh"
 #include "pointer.hh"
-#include "staff-symbol-referencer.hh"
+
 /**
   Set a clef in a staff.
 
@@ -23,7 +23,8 @@
   change: is this a change clef (smaller size)?
   
  */
-class Clef_item : public Item, public Staff_symbol_referencer {
+class Clef_item : public Item
+{
 protected:
   virtual void do_pre_processing();
   virtual Molecule* do_brew_molecule_p() const;

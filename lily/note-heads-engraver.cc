@@ -10,6 +10,7 @@
 #include "musical-request.hh"
 #include "dots.hh"
 #include "dot-column.hh"
+#include "staff-symbol-referencer.hh"
 
 Note_heads_engraver::Note_heads_engraver()
 {
@@ -61,19 +62,29 @@ Note_heads_engraver::do_process_requests()
   for (int i=0; i < note_req_l_arr_.size (); i++)
     {
       Note_head *note_p  = new Note_head;
+      
+      Staff_symbol_referencer_interface si (note_p);
+      si.set_interface ();
+
+      
       Note_req * note_req_l = note_req_l_arr_[i];
       
-      note_p->balltype_i_ = note_req_l->duration_.durlog_i_ <? 2;
+      note_p->set_elt_property ("duration-log",
+				gh_int2scm (note_req_l->duration_.durlog_i_ <? 2));
 
       if (note_req_l->duration_.dots_i_)
 	{
 	  Dots * d = new Dots;
+
+	  Staff_symbol_referencer_interface sd (d);
+	  sd.set_interface ();
+	  
 	  note_p->add_dots (d);
 	  d->dots_i_ = note_req_l->duration_.dots_i_;
 	  announce_element (Score_element_info (d,0));
 	  dot_p_arr_.push (d);
 	}
-      note_p->set_position(note_req_l->pitch_.steps ());
+      si.set_position(note_req_l->pitch_.steps ());
 
       /*
 	TODO: transparent note heads.

@@ -13,6 +13,7 @@
  */
 
 #include <ctype.h>
+#include "staff-symbol-referencer.hh"
 #include "bar.hh"
 #include "clef-engraver.hh"
 #include "clef-item.hh"
@@ -126,7 +127,8 @@ Clef_engraver::acknowledge_element (Score_element_info info)
     {
       if (Note_head * h = dynamic_cast<Note_head*>(it_l))
 	{
-	  h->set_position (int (h->position_f ()) + c0_position_i_);
+	  Staff_symbol_referencer_interface si (h);
+	  si.set_position (int (si.position_f ()) + c0_position_i_);
 	}
       else if (Local_key_item *i = dynamic_cast<Local_key_item*> (it_l))
 	{
@@ -178,11 +180,15 @@ Clef_engraver::create_clef()
       Clef_item *c= new Clef_item;
       c->set_elt_property ("break-aligned", SCM_BOOL_T);
       announce_element (Score_element_info (c, clef_req_l_));
+
+      Staff_symbol_referencer_interface si(c);
+      si.set_interface ();
+      
       clef_p_ = c;
     }
-  
+  Staff_symbol_referencer_interface si(clef_p_);
   clef_p_->symbol_ = clef_type_str_;
-  clef_p_->set_position(clef_position_i_);
+  si.set_position (clef_position_i_);
   if (octave_dir_)
     {
       clef_p_->set_elt_property ("octave-dir", gh_int2scm (octave_dir_));

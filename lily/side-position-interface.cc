@@ -7,16 +7,17 @@
   
  */
 
-#include "staff-side.hh"
+#include "side-position-interface.hh"
 #include "staff-symbol.hh"
 #include "debug.hh"
 #include "warn.hh"
 #include "dimensions.hh"
 #include "dimension-cache.hh"
+#include "staff-symbol-referencer.hh"
 
-Side_position_interface::Side_position_interface (Score_element *e)
+Side_position_interface::Side_position_interface (Score_element const *e)
 {
-  elt_l_ = e;
+  elt_l_ = (Score_element*)e;
 }
 
 
@@ -48,7 +49,7 @@ Side_position_interface::get_direction () const
   Score_element * e = unsmob_element(other_elt);
   if (e)
     {
-      return relative_dir * Side_position_interface (e).get_direction ();
+      return (Direction)(relative_dir * Side_position_interface (e).get_direction ());
     }
   
   return DOWN;
@@ -132,7 +133,7 @@ Side_position_interface::self_alignment (Dimension_cache const *c)
 
 
 Real
-directed_round (Real f, Direction d )
+directed_round (Real f, Direction d)
 {
   if (d < 0)
     return floor (f);
@@ -146,21 +147,21 @@ Side_position_interface::quantised_position (Dimension_cache const *c)
   Score_element * me = dynamic_cast<Score_element*> (c->element_l ());
   Side_position_interface s(me);
   Direction d = s.get_direction ();
+  Staff_symbol_referencer_interface si (me);
 
-  Staff_symbol_referencer *ref = dynamic_cast<Staff_symbol_referencer*> (me);
-  if (ref)
+  if (si.has_interface_b ())
     {
-      Real p = ref->position_f ();
-      Real rp = directed_round (d, p);
+      Real p = si.position_f ();
+      Real rp = directed_round (p, d);
 
-      int ip = int  (p);
-      if (!(ip % 2))
+      int ip = int  (rp);
+      if ((ip % 2) == 0)
 	{
 	  ip += d;
 	  rp += d;
 	}
 
-      return (rp - p) * ref->staff_line_leading_f ();
+      return (rp - p) * si.staff_line_leading_f () / 2.0;
     }
   return 0.0;
 }
@@ -205,9 +206,7 @@ void
 Side_position_interface::set_quantised (Axis a)
 {
   Dimension_cache * c = elt_l_->dim_cache_[a];
-  for (int i=0; i <  c->off_callbacks_.size (); i++)
-    if (c->off_callbacks_[i] == aligned_side)
-      c->off_callbacks_[i] = side_position ;
+  
   c->off_callbacks_.push (quantised_position);
 }
 
@@ -231,7 +230,7 @@ Side_position_interface::set_direction (Direction d)
 }
 
 bool
-Side_position_interface::is_staff_side_b () const
+Side_position_interface::has_interface_b () const
 {
   return elt_l_->get_elt_property ("side-support") != SCM_UNDEFINED;
 }

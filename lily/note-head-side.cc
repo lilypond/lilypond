@@ -7,7 +7,7 @@
   
  */
 
-#include "staff-side.hh"
+#include "side-position-interface.hh"
 #include "note-head-side.hh"
 void
 Note_head_side::add_support (Item*head_l)

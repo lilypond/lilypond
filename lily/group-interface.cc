@@ -22,7 +22,7 @@ Group_interface::Group_interface (Score_element const *e, String s)
   name_ = s;
 } 
 bool
-Group_interface::supports_interface_b () 
+Group_interface::has_interface_b () 
 {
   SCM el = elt_l_->get_elt_property (name_);
 
@@ -33,6 +33,9 @@ Group_interface::supports_interface_b ()
 void
 Group_interface::add_element (Score_element*p) 
 {
+  p->used_b_ =  true;
+  elt_l_->used_b_ = true;
+  
   elt_l_->set_elt_property (name_,
 			    gh_cons (p->self_scm_, elt_l_->get_elt_property (name_)));
 }
@@ -46,7 +49,7 @@ Group_interface::count ()
 void
 Group_interface::set_interface ()
 {
-  if (!supports_interface_b ())
+  if (!has_interface_b ())
     {
       elt_l_->set_elt_property (name_, SCM_EOL);
     }

@@ -9,7 +9,7 @@
 
 #include "engraver.hh"
 #include "script-column.hh"
-#include "staff-side.hh"
+#include "side-position-interface.hh"
 #include "dimension-cache.hh"
 
 /**
@@ -60,7 +60,7 @@ Script_column_engraver::acknowledge_element( Score_element_info inf)
   if (!thing)
     return;
   
-  if (Side_position_interface (thing).is_staff_side_b ())
+  if (Side_position_interface (thing).has_interface_b ())
     {
       if (!thing->breakable_b () && Side_position_interface (thing).get_axis () == Y_AXIS)
 	{

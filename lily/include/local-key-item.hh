@@ -9,7 +9,7 @@
 #include "item.hh"
 #include "array.hh"
 #include "musical-pitch.hh"
-#include "staff-symbol-referencer.hh"
+
 #include "note-head-side.hh"
 
 struct Local_key_cautionary_tuple
@@ -40,7 +40,8 @@ struct Local_key_cautionary_tuple
   
  */
 
-class Local_key_item : public Note_head_side, public Staff_symbol_referencer {
+class Local_key_item : public Note_head_side
+{
   Array<Local_key_cautionary_tuple> accidental_arr_;
 
   Molecule accidental (int,bool,bool) const;

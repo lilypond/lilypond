@@ -6,8 +6,8 @@
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
       Jan Nieuwenhuizen <janneke@gnu.org>
 */
-#include "dimension-cache.hh"
 
+#include "dimension-cache.hh"
 #include "bow.hh"
 #include "debug.hh"
 #include "paper-def.hh"
