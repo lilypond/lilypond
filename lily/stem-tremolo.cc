@@ -105,7 +105,7 @@ Stem_tremolo::member_brew_molecule () const
       int beams_i = stem->beam_count(RIGHT) >? stem->beam_count (LEFT);
       mol.translate (Offset(stem->relative_coordinate (0, X_AXIS) - relative_coordinate (0, X_AXIS),
 			    stem->stem_end_position () * ss / 2 - 
-			    directional_element (beam).get () * beams_i * interbeam_f));
+			    Directional_element_interface (beam).get () * beams_i * interbeam_f));
     }
   else
     {  

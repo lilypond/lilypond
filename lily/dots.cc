@@ -25,13 +25,13 @@ Dots::member_after_line_breaking ()
   SCM d= get_elt_property ("dot-count");
   if (gh_number_p (d) && gh_scm2int (d))
     {
-      if (!directional_element (this).get ())
-	directional_element (this).set (UP);
+      if (!Directional_element_interface (this).get ())
+	Directional_element_interface (this).set (UP);
 
       Staff_symbol_referencer_interface si (this);
       int p = int (si.position_f ());
       if (!(p % 2))
-	si.set_position (p  + directional_element (this).get ());
+	si.set_position (p  + Directional_element_interface (this).get ());
     }
 
     return SCM_UNDEFINED;

@@ -55,37 +55,45 @@ tie_compare (Tie* const & s1,
 void
 Tie_column::set_directions ()
 {
-  Link_array<Tie> s =
+  Link_array<Tie> ties =
     Pointer_group_interface__extract_elements (this, (Tie*)0, "ties");
 
 
-  Direction d = directional_element (this).get ();
+  Direction d = Directional_element_interface (this).get ();
 
   if (d)
     {
-      for (int i = s.size (); i--;)
-	directional_element (s[i]).set (d);
+      for (int i = ties.size (); i--;)
+	{
+	  Tie * t = ties[i];
+	  Directional_element_interface (t).set (d);
+	}
       return;
     }
   
-  if (s.size () == 1)
+  if (ties.size () == 1)
     {
-      directional_element (s[0]).set (s[0]->get_default_dir ());
+      Tie * t = ties[0];      
+      Directional_element_interface (t).set (t->get_default_dir ());
       return;
     }
   
-  s.sort (tie_compare);
-  directional_element (s[0]).set (DOWN);
-  s.del (0);
-  directional_element (s.pop ()).set (UP);
+  ties.sort (tie_compare);
+  Directional_element_interface tie0(ties[0]);
+  tie0.set (DOWN);
+  ties.del (0);
+  
+  Directional_element_interface tietop(ties.pop ());
+  tietop.set (UP);
 
-  for (int i=s.size(); i--; )
+  for (int i=ties.size(); i--; )
     {
-      Real p = s[i]->position_f ();
+      Tie * t = ties[i];
+      Real p = t->position_f ();
       Direction d = (Direction) sign (p);
       if (!d)
 	d = UP;
-      directional_element (s[i]).set (d);
+      Directional_element_interface (t).set (d);
     }
   
 }
