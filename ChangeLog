@@ -1,3 +1,7 @@
+2004-06-21  Heikki Junes   <hjunes@cc.hut.fi>
+
+        * buildscripts/lilypond-words.py: add ly/portuques.ly.
+
 2004-06-20  Heikki Junes   <hjunes@cc.hut.fi>
  
 	* Documentation/user/GNUmakefile:
