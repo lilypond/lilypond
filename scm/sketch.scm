@@ -12,11 +12,26 @@
   )
 
 
+;; hmm, global is global
+(define (filled-rectangle a b c d)
+  (string-append
+   (sk-numbers->string
+    (quote ,(map  mul-scale (list a 0 0 b c d))))
+   "\n"))
+
+(define global-x 0.0)
+(define global-y 0.0)
+(define global-s "")
+(define breapth 0.0)
+(define width 0.0)
+(define depth 0.0)
+(define height 0.0)
+
+(define output-scale 1.0)
+(define (mul-scale  x) (* output-scale x))
+
+
 (define (sketch-scm action-name)
-  (define global-x 0.0)
-  (define global-y 0.0)
-  (define output-scale 1.0)
-  (define (mul-scale  x) (* output-scale x))
   
   ;; alist containing fontname -> fontcommand assoc (both strings)
   (define font-alist '())
@@ -29,6 +44,12 @@
      "lilyfont"
      (make-string 1 (integer->char (+ 65 i)))))
     
+
+  (define (filled-rectangle a b c d)
+    (string-append
+     (sk-numbers->string
+      (map  mul-scale (map primitive-eval (list a 0 0 b c d))))
+     "\n"))
 
   (define (select-font name-mag-pair)
     (let*
@@ -150,11 +171,16 @@ layer('Layer 1',1,1,0,0,(0,0,0))
     (string-append
      (ly-number->string (* d  (/ 72.27 72))) " " s ))
 
+  ;;  urg?
   (define (placebox x y s)
+    (display "placebox: ")
+    (display x)
+    (display ", ")
+    (display y)
+    (newline)
     (set! global-x (+ x 0))
     (set! global-y (+ y 100))
-    (eval s)
-    )
+    (primitive-eval global-s))
 
   (define (bezier-sandwich l thick)
     '(string-append 
@@ -168,16 +194,20 @@ layer('Layer 1',1,1,0,0,(0,0,0))
      )
   
   (define (filledbox breapth width depth height)
-    `(string-append
-      "lw(1)\nr("
-      (sk-numbers->string (quote ,(map  mul-scale (list (+ breapth width)
-						 0 0 
-						 (- (+ breapth depth))
-						 global-x
-						 (+ global-y height)))))
-		    ")\n")
-    )
-
+    
+    (set! global-s
+	  (list
+	   filled-rectangle
+	   (+ breapth width)
+	   (- (+ breapth depth))
+	   'global-x
+	   (+ 'global-y height))))
+  
+  ;  (set! breapth breapth)
+  ;  (set! width width)
+  ;  (set! depth depth)
+  ;  (set! height height))
+  
   (define (stem x y z w) (filledbox x y z w))
 
   

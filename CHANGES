@@ -1,3 +1,13 @@
+1.5.19.jcn1
+===========
+
+* Bugfix: sketch.scm: use primitive-eval.
+
+* Remove modules directory (again?).
+
+1.5.19
+======
+
 1.5.18.jcn1
 ===========
 
