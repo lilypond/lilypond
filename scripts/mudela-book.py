@@ -421,7 +421,8 @@ def find_mudela_shorthands (b):
 
 	def mudela_file (match):
 		"Find \mudelafile, and substitute appropriate \begin / \end blocks."
-		str = find_file (match.group (2))
+		fn = match.group (2)
+		str = find_file (fn)
 		opts = match.group (1)
 		if opts:
 			opts = opts[1:-1]
@@ -429,16 +430,16 @@ def find_mudela_shorthands (b):
 		else:
 			opts = []
 
-		if re.search ('.fly$', full_path):
+		if re.search ('.fly$', fn):
 			opts.append ('fly')
-		elif re.search ('.sly$', full_path):
+		elif re.search ('.sly$', fn):
 			opts = opts + [ 'fly','fragment']
-		elif re.search ('.ly$', full_path):
+		elif re.search ('.ly$', fn):
 			opts .append ('nofly')
 			
 		str_opts = string.join (opts, ',')
 
-		str = ("%% copied from file `%s'\n" % full_path) + str 
+		str = ("%% copied from file `%s'\n" % fn) + str 
 		return get_output ('output-mudela') % (str_opts, str)
   
 	b = get_re('mudela-file').sub (mudela_file, b)
