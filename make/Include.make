@@ -1,23 +1,15 @@
 #
 # project  LilyPond -- the musical typesetter
-# title	   top level makefile for LilyPond  
-# file	   Makefile 
+# title	   generic red tape for include/Makefile
+# file	   make/Include.make
 #
 # Copyright (c) 1997 by    
 #   	Jan Nieuwenhuizen <jan@digicash.com>
 #	Han-Wen Nienhuys <hanwen@stack.nl>
-#		...your sort order here, or how to comment-out a comment
-
-# subdir level:
-#
-depth = .
-#
 
 # identify module:
 #
-NAME = lilypond
-
-# edit in .version only!
+NAME = generic-include
 MAJOR_VERSION = $(TOPLEVEL_MAJOR_VERSION)
 MINOR_VERSION = $(TOPLEVEL_MINOR_VERSION)
 PATCH_LEVEL = $(TOPLEVEL_PATCH_LEVEL)
@@ -31,17 +23,24 @@ build = ./$(depth)/lily/.build
 include ./$(depth)/make/Variables.make 
 #
 
-# descent order into subdirectories:
+# list of c++ header files:
+# 
+HHFILES = $(shell ls *.hh)
 #
-SUBDIRS = flower lib lily m2m \
-	Documentation bin init input make tex
+
+# list of c++ inline files:
+# 
+INLFILES = $(shell ls *.inl)
+#
+
+# list of c++ template files:
+# 
+TCCFILES = $(shell ls *.tcc)
 #
 
 # list of distribution files:
 #
-SYMLINKS = configure
-README_FILES = ANNOUNCE COPYING INSTALL NEWS README TODO
-DISTFILES= Makefile .version $(README_FILES) $(SYMLINKS)
+DISTFILES = Makefile $(HHFILES) $(INLFILES) $(TCCFILES)
 #
 
 # generic targets and rules:
