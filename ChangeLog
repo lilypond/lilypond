@@ -15,6 +15,13 @@
 	inflections.
 	(draw_cross): Fix shape to have uniform thickness in corners.
 
+	* mf/feta-pendaal.mf (draw_pedal_P): Break shape into smaller pieces
+	to avoid an uneven number of self-intersections; this confuses
+	fontforge.
+	Fix a slight bug in the shape at left bottom (which is visible only
+	at high magnifications).
+	`Center' the stem horizontally to avoid overlapping.
+
 2005-01-24  Werner Lemberg  <wl@gnu.org>
 
 	* mf/feta-autometric.mf (fet_beginfont): Set font_coding_scheme
