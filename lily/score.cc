@@ -108,7 +108,7 @@ Score::run_translator (Music_output_def *odef)
   if (errorlevel_)
     {
       // should we? hampers debugging.
-      warning (_ ("Errors found/*, not processing score*/"));
+      warning (_ ("errors found."));
     }
 
   Music_output * output = trans->get_output ();

@@ -245,7 +245,7 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 
 	y10 = -1/10 staff_space;
 %	draw_staff (-2, 2, 0.5);
-%	draw_staff (-2, 2, 0.0);
+	draw_staff (-2, 2, 0.0);
 
 	unfill z3r{z3r-z10} .. z4r{right} .. z5r{down}
 

@@ -5,163 +5,62 @@
 @chapter Introduction
 
 There are a lot of programs that let you print sheet music with a
-computer. Unfortunately, most of them do not do good job.  If you
-regularly from both recent and old music, you can probably agree with
-us on that.  Most computer printouts have a bland, mechanical look,
-and are unpleasant to play from.  Musicians are usually more absorbed
-with performing the music than with studying its looks, so they
-usually cannot pinpoint what exactly is so disconcerting about
-computer prints.
-
-However, it only takes a little attention to see for yourself what is
-what the differences are. The procedure is easy. Find two editions of
-the same piece, an old edition a reputable publishing house, and one
-which is formatted with a computer. If you are unsure, both can be
-told apart easily. Traditional hand-work has slight variations in
-symbol placements, while computer programs repeat all their errors in
-placement with iron rigidity. To illustrate this, we show two scanned
-fragments of the same piece, the first Cello Suite by Johann Sebastian
-Bach. The top one was hand made (published in 1950 by
-B@"{a}renreiter), while the bottom one was computer made (published in
-2000 by Henle).
-
-@ignore
-@iftex
-@image{baer-suite1-line,15cm}
-
-@image{henle-suite1-line,15.3cm}
-@end iftex
-
-@ifhtml
-@html
-<img src="baer-suite1-line.png"> 
-<p>
-<img src="henle-suite1-line.png">
-<p>
-@end html
-@end ifhtml
-@end ignore
-
-
-The fragments come from different editions, so there are some
-editorial differences regarding the slurs. However, we want to compare
-the typography of both.  We can see that the Henle edition looks
-mechanical. This is caused by lack of variation in the spacing: the
-note heads in both systems are on the same horizontal positions, as is
-the bar line. A second difference is in the blackness of the page: the
-B@"{a}renreiter has a stronger look, simply because it uses a heavier
-font, and thicker staff lines. In the printed editions, the Henle
-version is 7 mm wider (approximately 4 %). Often, this difference is
-larger: computer scores tend to be spaced very widely, thus putting
-less information on a page, on average. Besides these global
-characteristics, software also make errors in the details.  Beams
-should normally completely cover staff lines. In this case, the
-programmers have tried to do so, but forgot to take into account the
-thickness of the staff lines. The result is that the endings of all
-sloped beams are wedge-formed. The effect is subtle, it may not show
-up in this reproduction due to limits of the resolution, but it is
-certainly noticeable in the original.
-
-Looking at such detail to the formatting of a score certainly is
-nitpicky.  However, all these details serve a purpose, and that is to
-help the musician perform better: variation in spacing give each line
-a unique, which helps you remember where you are when you look
-away. Boldly print notes stand out more clearly when viewed from a
-distance. Tightly spaced scores take up less pages, which reduces the
-frequency of page turns. Correctly formatted beams and slurs indicate
-the direction of music, and without distracting the reader with
-unnecessary clusters of ink. Clearly, good music typography is
-desirable.
-
-What is wrong with other computer printed scores?
-
-What is engraving?
-
-Music notation  vs. Engraving. (vs. composing)
-
-Why do you care about engraving?
-
-Why would I care about engraving?
-
-You say your program is special; you must be trying to sell it?
-
-Freedom
-
-Preserving/reinventing the art of engraving 
-
-Typography in LilyPond.
-
-Input format.  Issue is overrated.
-
-
-
-
-************
-
-
-LilyPond is a program to print sheet music.  If you have used notation
-programs before, then the way to use this program might be surprising
-at first sight: in order to print music you have to enter musical
-codes in a file.  Then you run the program on the file, and the music
-is produced without any further intervention.  For example, something
-like this:
-
-
-@lilypond[fragment,verbatim, relative 1, intertext="produces this:
-
-"]
-\key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
-@end lilypond
-
-@cindex encoding music
-
-Encoding music using letters and digits may appear strange,
-intimidating or even clumsy at first. Nevertheless, when you take the
-effort to learn the codes and the program you will find that it is
-easier than it seems.  Entering music can be done quickly, and you
-never have to remember how you made the program do something
-complicated: it is all in the input code, and you only have to read
-the file to see how it works. Moreover, you are rewarded with very
-nicely looking output.
-
-In this chapter, we will explain the reasoning behind this unusual
-design, and how this approach affects you as a user.
-
+computer. Unfortunately, most of them do not do good job.  Most
+computer printouts have a bland, mechanical look, and are unpleasant
+to play from.  If you agree with us on that, than you will like
+LilyPond: we have tried to capture the original look of hand-engraved
+music in a program: we have tuned our algorithms, font-designs, and
+program settings to make the output match that of the old editions
+that we love to see and love to play from.
 
 
 @menu
-* Music engraving::             
+* Music notation and  engraving::  
 * Computerized typography::     
 * Music representation::        
 * Example applications::        
 * About this manual::           
 @end menu
 
-@node Music engraving
-@section Music engraving
+@node Music notation and  engraving
+@section Music notation and engraving
 
 
 
 @cindex engraving
 @cindex typography
 
-Making sheet music may seem trivial at first (``you print 5 lines, and
-then put in the notes at different heights''),
+Making sheet music may seem trivial, ``you print 5 lines, and then put
+in the notes at different heights'', but as one learns more of it, the
+opposite turns out to be true. There are two problems when making
+sheet music. First, one has to master music notation: the science of
+knowing which symbols to use when what. Second, one has to master
+music engraving: the art of placing symbols such that they look
+elegant.
 
+Music notation was first started in the medieval centuries. In this
+time, monks started to write down hints that indicated how their
+sacred music was sung. These hints (neumes), gradually evolved, and at
+some point became the note heads.  Lines were added to the neumes, to
+indicate a reference pitch, which later became the staff.  Over many
+centuries, improvements and extensions were added. For example, the
+first notation did not have an explicit notion of rhythm, and
+polyphonic music only came into existence in the XXX. The graphic
+language of notation is still under development; the innovations of
+contemporary music require still newer and more complex notations. A
+system of notation encompasses such a wide scope of music inherently
+is complex: there are many rules, and for every rule there are
+exceptional situations where they do not apply.
 
-Hier over notatie.
-
-@emph{music engraving}, i.e. professional music typography, is in
-another ballpark.  The term `music engraving' derives from the
-traditional process of music printing.  Only a few decades ago, sheet
-music was made by cutting and stamping the music into zinc or pewter
-plates, mirrored. The plate would be inked, and the depressions caused
-by the cutting and stamping would hold ink.  An image was formed by
-pressing paper to the plate. Stamping and cutting was completely done
-by hand. Making corrections was cumbersome, so engraving had to be
-done correctly in one go. As you can imagine this was a highly
-specialized skill, much more so than the traditional process of
-printing books.
+The term music engraving derives from the traditional process of
+music printing.  Only a few decades ago, sheet music was made by
+cutting and stamping the music into zinc or pewter plates,
+mirrored. The plate would be inked, and the depressions caused by the
+cutting and stamping would hold ink.  An image was formed by pressing
+paper to the plate. The stamping and cutting was completely done by
+hand. Making corrections was cumbersome, so engraving had to be done
+correctly in one go. As you can imagine this was a highly specialized
+skill, much more so than the traditional process of printing books.
 @cindex craftsmanship
 @cindex master
 In the traditional German craftsmanship six years of full-time
@@ -172,63 +71,62 @@ engraver.  Even today, with the use of high-speed computers and
 advanced software, music requires lots of manual fine tuning before it
 is acceptable for publication.
 
-When we wanted to write a computer program to create music typography,
-we encountered the first problem: there were no sets of musical
-symbols available: either they were not available freely, or they did
-not look well to our taste. Not let down, we decided to try font
-design ourselves. We created a font of musical symbols, relying on
-nice printouts of hand-engraved music.  The experience helped develop
-a typographical taste, and it made us appreciate subtle design
-details. Without that experience, we would not have realized the
-shortcomings of the fonts were that we admired at first.
+Sheet music is performance material, hence everything is done to aid
+the musician in letting him perform better.  Music often is far away
+from its reader---it might be on a music stand. To make it clearly
+readable, traditionally printed sheet music always uses bold symbols,
+on heavy staff lines, and is printed on large sheets of paper.  This
+``strong'' look is also present in the horizontal spacing.  To
+minimize the number of page breaks, (hand-engraved) sheet music is
+spaced very tightly. Yet, by a careful distribution of white space,
+the feeling of balance is retained, and clutters of black are avoided.
+
+We have used these observations in designing LilyPond.  The images
+below shows the flat symbol. On the left, a scan from a Henle edition,
+which was made by a computer, and in the center is the flat from a
+B@"{a}renreiter edition of the same music. The symbols have noticeable
+differences: the left image is much lighter, the staff lines are
+thinner, and the glyph has straight layout with sharp corners. We have
+designed our flat symbol after this one, among others, and have tuned
+it to harmonize with the thickness of our staff lines.
+
+@iftex
+@multitable @columnfractions  .4 .3 .3
+@item 
+@image{henle-flat-bw,4cm}
+@tab
+@image{baer-flat-bw,4cm}
+@tab
+@image{lily-flat-bw,4cm}
+@end multitable
+@end iftex
 
 
-@lilypond[noindent]
-#(define magfact 3.0)
-\score {  \notes { as'2 r4 }
-          \paper {
-                 raggedright = ##t
-              \translator {
-                  \ScoreContext
-                  AccidentalPlacement \override #'right-padding = #3.0
-                  StaffSymbol \override #'transparent =   ##t
-                  Clef \override #'transparent = ##t
-                  TimeSignature \override #'transparent = ##t
-                  Accidental \override #'font-magnification = #magfact
-                  Rest \override #'font-magnification = #magfact
-                  NoteHead \override #'font-magnification = #magfact
-                  Stem \override #'transparent = ##t
-                  } } }
-@end lilypond
+@ifhtml
+@html
+
+<a href=henle-flat-bw.png>
+<img src=henle-flat-bw.png>
+</a>
+
+<a href=baer-flat-bw.png><img width=300 src=baer-flat-bw.png></a>
+
+<a src=lily-flat-bw.png>
+<img src=lily-flat-bw.png>
+<a/>
+@end html
+@end ifhtml
 
 @cindex musical symbols
 @cindex font
 @cindex blackness
 @cindex balance
 
-
-The figure above shows a few notable glyphs.  For example, the
-vertical stem of the flat symbol should be brushed slightly,
-i.e. becoming wider at the top. the half-notehead is not elliptic but
-slightly diamond shaped.  Fine endings, such as the one on the bottom
-of the quarter rest, should not end in sharp points, but rather in
-rounded shapes.  Taken together, the blackness of the font must be
-carefully tuned together with the thickness of lines, beams and slurs
-to give a strong yet balanced overall impression.
-
-Producing a strong and balanced look is the real challenge of music
-engraving. It is a recurring theme with many variations.  In spacing,
-strength and balance are in layout that is `heavy' enough---without
-big gaps of space--- and without big clusters of black.  The
-distribution of space should reflect the character of the music.
-
-Spacing is an example of a subtlety of formatting music. The distances
-between notes should reflect the durations between notes, but adhering
-with mathematical precision to the duration will lead to a poor
-result. Shown here is an example of a motive, printed twice. It is
-printed using exact mathematical spacing, and with some
-corrections. Can you spot which fragment is which?
-
+In spacing, the distribution of space should reflect the durations
+between notes.  However, adhering with mathematical precision to the
+duration will lead to a poor result. Shown here is an example of a
+motive, printed twice. It is printed using exact mathematical spacing,
+and with some corrections. Can you spot which fragment is which?
 
 @cindex optical spacing
 @lilypond[noindent]
@@ -237,6 +135,7 @@ corrections. Can you spot which fragment is which?
         = #0.6
       c'4 e''4 e'4 b'4 |
        \stemDown b'4 e''4 a'4 e''4| \stemBoth
+       \bar "||"
       \property Staff.NoteSpacing \override #'stem-spacing-correction
       = #0.0
       \property Staff.StaffSpacing \override #'stem-spacing-correction
@@ -254,7 +153,7 @@ The fragment that was printed uses only quarter notes: notes that are
 played in a constant rhythm. The spacing should reflect
 that. Unfortunately, the eye deceives us a little: the eye not only
 notices the distance between note heads, but also between consecutive
-stems. As a result, the notes of a up-stem/down-stem combination
+stems. As a result, the notes of an up-stem/down-stem combination
 should be put farther apart, and the notes of a down-up combination
 should be put closer together, all depending on the combined vertical
 positions of the notes. The first two measures are printed with this
@@ -264,17 +163,13 @@ measures form down-stem/up-stems clumps of notes.
 @node Computerized typography
 @section Computerized typography
 
-The example in the previous section is one illustration of how subtle
-music engraving can be is a subtle. Producing good engraving requires
-skill and knowledge.
-
-
-It was our challenge to see if we could put typographical knowledge
-into a computer program. Capturing that knowledge has two aspects:
-first, it has to be acquired. Then, it has to be encoded in
-data-structures and algorithms.  As the previous example shows, there
-is a lot of subtlety involved in music engraving, and unfortunately,
-only a small fraction of these tiny details are documented.
+Producing good engraving requires skill and knowledge.  It was our
+challenge to see if we could put such typographical knowledge into a
+computer program. Capturing that knowledge has two aspects: first, it
+has to be acquired. Then, it has to be encoded in data-structures and
+algorithms.  As the previous examples show, there is a lot of subtlety
+involved in music engraving, and unfortunately, only a small fraction
+of these details are documented.
 
 One reason for the time that it takes to become a master engraver, is
 that all these details must be learned either from experience or from
@@ -419,35 +314,42 @@ definition exactly the musical meaning of the score.
 
 There are also more practical concerns.  Our users have to key in the
 music into the file directly, so the input format should have a
-friendly syntax. As programmers and scientists, we want a
-clean formal definition. After all, producing music notation is a
-difficult problem, and in the scientific world, problems can only be
-solved if they are well-specified. Moreover, formally defined formats
-are easier to write programs for.
+friendly syntax: a quarter note C is entered as @code{c4}, the code
+@code{r8.}  signifies a dotted eighth rest.
 
-These ideas shaped our music representation: it is a compact format
-that can easily be typed by hand. It complex musical constructs from
-simple entities like notes and rests, in much the same way that one
-builds complex formulas from simple expressions such as numbers and
-mathematical operators.
+As programmers and scientists, we want a clean formal
+definition. After all, producing music notation is a difficult
+problem, and problems can only be solved if they are
+well-specified. Moreover, formally defined formats are easier to write
+programs for.  We have chosen for a format that is based on music
+expressions: complex musical constructs are built from simple entities
+like notes and rests in much the same way that complex formulas are
+built from simple expressions such as numbers and mathematical
+operators.  The language is described by a context-free
+grammar. Reading such languages robustly is a well studied problem,
+and we use a standard solution to do it.
+
+LilyPond is a batch program, so the syntax of the program is its
+user-interface.  It is the part that they see most, so it is easy to
+think that music representation is a very important or interesting
+problem. In reality, less than 10% of the source code of the program
+handles reading the input and representation, and they form the easy
+bits of the program. Converting the music to notation, and calculating
+a pretty layout is much more difficult.
 
 @node Example applications
 @section Example applications
 
-As programmers and hedonists we enjoy beauty in code, and code that
-produces beautiful typeset music, but nevertheless this program can
-applied to do useful things. In this section, we show a few small
-examples of what is possible.
-
-The simplest application is printing notes.
+We have written LilyPond as an experiment of how to condense the art
+of music engraving into a computer program. Thanks to all that hard
+work, the program can be used to perform useful tasks.  The simplest
+application is printing notes.
 
 @lilypond[relative=1]
   \time 2/4 c4 c g'4 g a4 a g2  
 @end lilypond
 
-To these notes, chord names and lyrics  may be added, yielding
-a lead sheet.
-
+By adding chord names and lyrics we obtain a lead sheet:
 @lilypond[raggedright]
 \score { <
   \context ChordNames \chords  { c2 c f2 c }
@@ -455,7 +357,8 @@ a lead sheet.
   \context Lyrics \lyrics  { twin4 kle twin kle lit tle star2 } > }
 @end lilypond
 
-The following example combines some more exotic uses of notation
+Polyphonic notation and piano music can also be printed. The following
+example combines some more exotic constructs.
 
 @lilypondfile{screech-boink.ly}
 
@@ -497,17 +400,17 @@ discusses topics grouped by notation construct.
  @end ifhtml
 @emph{@ref{Technical manual}}
 @c
-discusses the general design of the program, and how to extend 
+discusses the general design of the program, and how to extend its
 functionality.
 @item
 @ifhtml
- The chapter
+The chapter
 @end ifhtml
 @emph{@ref{Invoking LilyPond}}  explains how to run LilyPond and its helper
 programs.
 @end itemize
 
-Once you are experienced, you can simply use the manual as reference:
+Once you are an experienced user, you can use the manual as reference:
 there is an extensive index@footnote{If you are looking for something,
 and you cannot find it by using the index, that is considered a bug.
 In that case, please file a bug report.}, but the document is also
@@ -554,19 +457,19 @@ Generated internal documentation.
 available @uref{../lilypond-internals/lilypond-internals.html,here}
 @end ifhtml
 
+The generated internal documentation is a heavily crosslinked HTML
+document, produced directly from the formatting definitions used.  It
+documents the nit-gritty details of each and every LilyPond class,
+object and function.
+
 Almost all formatting functionality that is used internally, is
 available directly to the user. For example, all variables that
 control thicknesses, distances, etc, can be changed in input
-files. There are a huge number of formatting options, and it would be
-impossible to describe them all in a hand-written manual. The
-generated internal documentation is a heavily crosslinked HTML
-document, produced directly from the formatting definitions used.  It
-documents the nit-gritty details of each and every LilyPond class, object and
-function.
-
-Each section of the reference manual has a @b{See also}
-subsection, with links (in the HTML document, at least) to the
-generated documentation.
+files. There are a huge number of formatting options, and all of them
+are described in the generated documentation.  Each section of the
+reference manual has a @b{See also} subsection, which refers to the
+the generated documentation.  In the HTML document, these subsections
+have clickable links.
 
 @item
   Templates
@@ -574,10 +477,10 @@ generated documentation.
 (available @uref{../../../input/templates/out-www/collated-files.html,here})
 @end ifhtml
 
-When you have gone through the tutorial, in theory you are able to
-start writing input files. In practice, writing files from scratch
-turns out to be intimidating.  To give a headstart, we have collected
-a number of often-used formats in example files.  These files can be
+After you have gone through the tutorial, in theory you should be able
+to write input files. In practice, writing files from scratch turns
+out to be intimidating.  To give a headstart, we have collected a
+number of often-used formats in example files.  These files can be
 used as a start, by copying the template, and adding notes in the
 appropriate places.
 
@@ -598,9 +501,10 @@ big HTML document, with pictures and explanatory texts included.
 available @uref{../../../input/regression/out-www/collated-files.html,here}
 @end ifhtml
 
-We strive to test each feature in one test file. This collection of is
-primarily to help us debug problems, but it can be instructive to see
-how we excercise the program. The format is like the input examples.
+We strive to test each feature in one test file. This collection is
+primarilyt there to help us debug problems, but it can be instructive
+to see how we excercise the program. The format is like the tips and
+tricks document.
 
 @end itemize
 
@@ -627,8 +531,8 @@ usually found in the directory @file{/usr/share/lilypond/}.
 @cindex index
 
 Finally, this and all other manuals, are available online both as PDF
-files for print and HTML files for browsing. They are available from
-the web site, which can be found at @uref{http://www.lilypond.org/}.
+files and HTML from the web site, which can be found at
+@uref{http://www.lilypond.org/}.
 
 @cindex website 
 @cindex URL

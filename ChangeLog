@@ -1,3 +1,11 @@
+2003-07-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/index.texi (Top): cleanup.
+
+	* Documentation/user/introduction.itely (Introduction): rewrite
+	introduction, 
+	(Music notation and  engraving): about notation.
+
 2003-07-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* ly/engraver-init.ly (LyricsVoiceContext): add padding for
