@@ -223,7 +223,17 @@ and will have no effect.
 (grob-property-description 'measure-length moment? "Length of a
 measure. Used in some spacing situations.")
 (grob-property-description 'measure-count integer? "number of measures for a multimeasure rest.")
-(grob-property-description 'merge-differently-dotted boolean? " Merge noteheads in collisions, even if they have a different number of dots. This normal notation for some types of polyphonic music. The value of this setting is used by @ref{note-collision-interface} .")
+
+(grob-property-description 'merge-differently-headed boolean? "Merge
+noteheads in collisions, even if they have different note heads. The
+smaller of the two heads will be rendered invisible. This used
+polyphonic guitar notation. The value of this setting is used by
+@ref{note-collision-interface} .")
+
+(grob-property-description 'merge-differently-dotted boolean? " Merge
+noteheads in collisions, even if they have a different number of
+dots. This normal notation for some types of polyphonic music. The
+value of this setting is used by @ref{note-collision-interface} .")
 
 (grob-property-description 'meta list? "Alist of meta information of this grob.")
 (grob-property-description 'minimum-distance number? "minimum distance between notes and rests.")
@@ -254,7 +264,6 @@ FIXME: also pair? (cons LEFT RIGHT)
 (grob-property-description 'no-spacing-rods boolean? "read from grobs: boolean that makes Separation_item ignore this item (MOVE ME TO ITEM).")
 (grob-property-description 'no-stem-extend boolean? "should stem not be extended to middle staff line?.")
 (grob-property-description 'non-default boolean? "not set because of existence of a bar?.")
-(grob-property-description 'note-width number? "unit for horizontal translation, measured in staff-space.")
 (grob-property-description 'note-heads list? "List of note head grobs")
 (grob-property-description 'number-threshold number? "only put numbers bigger than this threshold over multi measuer rest.")
 (grob-property-description 'old-accidentals list? "list of (pitch, accidental) pairs.")

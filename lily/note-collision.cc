@@ -1,3 +1,4 @@
+
 /*
   collision.cc -- implement Collision
 
@@ -7,18 +8,19 @@
 */
 
 #include "debug.hh"
-#include "collision.hh"
+#include "note-collision.hh"
 #include "note-column.hh"
+#include "note-head.hh"
 #include "rhythmic-head.hh"
 #include "paper-def.hh"
 #include "axis-group-interface.hh"
 #include "item.hh"
 #include "stem.hh"
 
-MAKE_SCHEME_CALLBACK (Collision,force_shift_callback,2);
+MAKE_SCHEME_CALLBACK (Note_collision_interface,force_shift_callback,2);
 
 SCM
-Collision::force_shift_callback (SCM element_smob, SCM axis)
+Note_collision_interface::force_shift_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
@@ -106,18 +108,32 @@ check_meshing_chords (Grob*me,
   
   bool merge_possible = (ups[0] >= dps[0]) && (ups.top () >= dps.top ());
 
-  merge_possible = merge_possible &&
-    Rhythmic_head::balltype_i (nu_l) == Rhythmic_head::balltype_i (nd_l);
-
-
   /*
     don't merge whole notes (or longer, like breve, longa, maxima) 
    */
-  merge_possible = merge_possible && (Rhythmic_head::balltype_i (nu_l) > 0);
+
+  int upball_type = Note_head::balltype_i (nu_l);
+  int dnball_type = Note_head::balltype_i (nd_l);
+  
+  merge_possible = merge_possible && (upball_type > 0);
 
   if (!to_boolean (me->get_grob_property ("merge-differently-dotted")))
     merge_possible = merge_possible && Rhythmic_head::dot_count (nu_l) == Rhythmic_head::dot_count (nd_l);
+
   
+  if (!to_boolean (me->get_grob_property ("merge-differently-headed")))
+    merge_possible = merge_possible &&
+      upball_type == dnball_type;
+  else
+    /*
+      Can't merge quarter and half notes.
+     */
+    merge_possible = merge_possible &&
+      !((Rhythmic_head::duration_log (nu_l) == 1
+	 && Rhythmic_head::duration_log (nd_l) == 2)
+	||(Rhythmic_head::duration_log (nu_l) == 2
+	   && Rhythmic_head::duration_log (nd_l) == 1));
+
   int i = 0, j=0;
   while (i < ups.size () && j < dps.size ())
   {
@@ -170,7 +186,21 @@ check_meshing_chords (Grob*me,
     to tune this behavior.  */
   
   if (merge_possible)
-    shift_amount *= 0.0;
+    {
+      shift_amount *= 0.0;
+      Grob *wipe_ball = 0;
+      
+      if (upball_type  <  dnball_type)
+	wipe_ball = nd_l;
+      else if (upball_type > dnball_type)
+	wipe_ball = nu_l;
+
+      if (wipe_ball)
+	{
+	  wipe_ball->set_grob_property ("transparent", SCM_BOOL_T);
+	  wipe_ball->set_grob_property ("molecule", SCM_EOL);	  
+	}
+    }
   else if (close_half_collide && !touch)
     shift_amount *= 0.52;
   else if (distant_half_collide && !touch)
@@ -195,30 +225,31 @@ check_meshing_chords (Grob*me,
   while ((flip (&d))!= UP);
 }
 
+void
+Note_collision_interface::do_shifts (Grob* me)
+{
+  Drul_array< Link_array <Grob>  > cg = get_clash_groups (me);
 
-/*
-  TODO: make callback of this.
-
-  TODO:
-
-  note-width is hardcoded, making it difficult to handle all note
-  heads sanely. We should really look at the widths of the colliding
-  columns, and have a separate setting for "align stems".
+  SCM autos (automatic_shift (me, cg));
+  SCM hand (forced_shift (me));
 
   
- */
-void
-Collision::do_shifts (Grob* me)
-{
-  SCM autos (automatic_shift (me));
-  SCM hand (forced_shift (me));
+  
+  Direction d = UP;
+  Real wid = 0.0;
+  do
+    {
+      if(cg[d].size())
+	{
+	  Grob  *h = cg[d][0];
+	  wid = Note_column::first_head(h)->extent(h,X_AXIS).length() ;
+	}
+    }
+  
+  while (flip (&d) != UP);
+
   
   Link_array<Grob> done;
-
-
-  Real wid
-    = gh_scm2double (me->get_grob_property ("note-width"));
-  
   for (; gh_pair_p (hand); hand =ly_cdr (hand))
     {
       Grob * s = unsmob_grob (ly_caar (hand));
@@ -237,18 +268,11 @@ Collision::do_shifts (Grob* me)
     }
 }
 
-/** This complicated routine moves note columns around horizontally to
-  ensure that notes don't clash.
-
-  This should be put into Scheme.  
-  */
-SCM
-Collision::automatic_shift (Grob *me)
+Drul_array< Link_array <Grob>  >
+Note_collision_interface::get_clash_groups (Grob *me)
 {
   Drul_array<Link_array<Grob> > clash_groups;
-  Drul_array<Array<int> > shifts;
-  SCM  tups = SCM_EOL;
-
+ 
   SCM s = me->get_grob_property ("elements");
   for (; gh_pair_p (s); s = ly_cdr (s))
     {
@@ -258,6 +282,30 @@ Collision::automatic_shift (Grob *me)
       if (Note_column::has_interface (se))
 	clash_groups[Note_column::dir (se)].push (se);
     }
+  
+  Direction d = UP;
+  do
+    {
+      Link_array<Grob> & clashes (clash_groups[d]);
+      clashes.sort (Note_column::shift_compare);
+    }
+  while ((flip (&d))!= UP);
+
+  return clash_groups;
+}
+
+/** This complicated routine moves note columns around horizontally to
+  ensure that notes don't clash.
+
+  This should be put into Scheme.  
+  */
+SCM
+Note_collision_interface::automatic_shift (Grob *me,
+			    Drul_array< Link_array <Grob> > 
+			    clash_groups)
+{
+  Drul_array<Array<int> > shifts;
+  SCM  tups = SCM_EOL;
 
   
   Direction d = UP;
@@ -265,8 +313,6 @@ Collision::automatic_shift (Grob *me)
     {
       Array<int> & shift (shifts[d]);
       Link_array<Grob> & clashes (clash_groups[d]);
-
-      clashes.sort (Note_column::shift_compare);
 
       for (int i=0; i < clashes.size (); i++)
 	{
@@ -348,7 +394,7 @@ Collision::automatic_shift (Grob *me)
 
 
 SCM
-Collision::forced_shift (Grob *me)
+Note_collision_interface::forced_shift (Grob *me)
 {
   SCM tups = SCM_EOL;
   
@@ -368,16 +414,18 @@ Collision::forced_shift (Grob *me)
 }
 
 void
-Collision::add_column (Grob*me,Grob* ncol_l)
+Note_collision_interface::add_column (Grob*me,Grob* ncol_l)
 {
-  ncol_l->add_offset_callback (Collision::force_shift_callback_proc, X_AXIS);
+  ncol_l->add_offset_callback (Note_collision_interface::force_shift_callback_proc, X_AXIS);
   Axis_group_interface::add_element (me, ncol_l);
   me->add_dependency (ncol_l);
 }
 
 
-ADD_INTERFACE (Collision, "note-collision-interface",
-  "An object that handles collisions between notes with different
-stem directions and horizontal shifts. Most of the interesting
-properties are to be set in @ref{note-column-interface}",
-  "merge-differently-dotted note-width collision-done");
+ADD_INTERFACE (Note_collision_interface, "note-collision-interface",
+  "An object that handles collisions between notes with different stem
+directions and horizontal shifts. Most of the interesting properties
+are to be set in @ref{note-column-interface}: these are
+@code{force-hshift} and @{horizontal-shift}.
+",
+  "merge-differently-dotted merge-differently-headed collision-done");

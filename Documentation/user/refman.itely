@@ -1458,7 +1458,7 @@ Unbeamed eighth notes and shorter by default have a slash through the
 stem.
 
 @lilypond[fragment,verbatim]
-\relative c'' {
+\relative c'' \context Voice {
   \grace c8 c4 \grace { [c16 c16] } c4
   \grace { 
     \property Voice.Stem \override #'flag-style = #'() 

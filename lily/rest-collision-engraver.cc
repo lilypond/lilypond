@@ -9,7 +9,7 @@
 #include "debug.hh"
 #include "rest-collision.hh"
 #include "engraver.hh"
-#include "collision.hh"
+#include "note-collision.hh"
 #include "note-column.hh"
 
 class Rest_collision_engraver : public Engraver

@@ -16,7 +16,7 @@
 class Rhythmic_head
 {
 public:
-  static int balltype_i (Grob*) ;
+  static int duration_log (Grob*);
   static void set_dots (Grob*,Item *);
   static Item * stem_l (Grob*) ;
   static Item * dots_l (Grob*) ;

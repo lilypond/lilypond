@@ -17,7 +17,7 @@ source file of the GNU LilyPond music typesetter
 #include "accidental-placement.hh"
 #include "note-column.hh"
 #include "group-interface.hh"
-#include "collision.hh"
+#include "note-collision.hh"
 
 MAKE_SCHEME_CALLBACK(Accidental_placement,extent_callback, 2);
 SCM
@@ -206,7 +206,7 @@ Accidental_placement::position_accidentals (Grob * me)
   for (int i = note_cols.size() ; i--;)
     {
       Grob *c = note_cols[i]->get_parent (X_AXIS);
-      if (Collision::has_interface (c))
+      if (Note_collision_interface::has_interface (c))
 	{
 	  Link_array<Grob> gs =
 	    Pointer_group_interface__extract_grobs (c, (Grob*)0, "elements");
