@@ -1,7 +1,7 @@
 /*
   staff-column.cc -- implement Staff_column
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -96,8 +96,7 @@ Staff_column::typeset_musical_item(Item*i)
 {
     assert(i);
     Score_column * scorecolumn_l = req_col_l_->musical_column_l_;
-    scorecolumn_l->pcol_l_->pscore_l_->typeset_item(i, scorecolumn_l->pcol_l_,
-							staff_l_->pstaff_l_);
+    scorecolumn_l->pcol_l_->pscore_l_->typeset_item(i, scorecolumn_l->pcol_l_);
 }
 
 /**
@@ -128,9 +127,10 @@ translate_items(Real x,  Array<Item*> item_l_arr)
     for  (int i =0; i < item_l_arr.size(); i++) 
 	item_l_arr[i]->translate(Offset(x, 0));
 }
-/*
-  UGR
-  This still sux
+/**
+  TODO: 
+  Write a "horizontal align" item, which aligns the pres, nobreaks, posts, etc.
+  
   */
 void
 Staff_column::typeset_breakable_items(Array<Item *> &pre_p_arr,
@@ -142,23 +142,27 @@ Staff_column::typeset_breakable_items(Array<Item *> &pre_p_arr,
     PScore *ps_l=scol_l->pcol_l_->pscore_l_;
     
     if (!c->breakable_b()) {	  
-	for  (int i =0; i < pre_p_arr.size(); i++)
+	for  (int i =0; i < pre_p_arr.size(); i++) {
+	    pre_p_arr[i]->unlink();
 	    delete pre_p_arr[i];
+	}
 	pre_p_arr.set_size(0);
-	for  (int i =0; i < post_p_arr.size(); i++)
+	for  (int i =0; i < post_p_arr.size(); i++) {
+	    post_p_arr[i]->unlink();
 	    delete post_p_arr[i];
+	}
 	post_p_arr.set_size(0);
     }
 
       
     for  (int i =0; i < pre_p_arr.size(); i++) {
-	ps_l->typeset_item(pre_p_arr[i], c, staff_l_->pstaff_l_,0);
+	ps_l->typeset_item(pre_p_arr[i], c,0);
     }
     for  (int i =0; i < nobreak_p_arr.size(); i++) {
-	ps_l->typeset_item(nobreak_p_arr[i], c, staff_l_->pstaff_l_,1);
+	ps_l->typeset_item(nobreak_p_arr[i], c, 1);
     }
     for  (int i =0; i < post_p_arr.size(); i++) {
-	ps_l->typeset_item(post_p_arr[i], c, staff_l_->pstaff_l_,2);
+	ps_l->typeset_item(post_p_arr[i], c, 2);
     }
 
     Interval pre_wid= align_items(pre_p_arr);
