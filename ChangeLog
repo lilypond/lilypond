@@ -1,3 +1,7 @@
+2004-03-17  Heikki Junes <hjunes@cc.hut.fi>
+
+	* vim/lilypond-ftdetect.vim: new file.
+
 2004-03-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (compose_ly): bugfix for relative < 0. 
