@@ -34,7 +34,6 @@ StaffContext=\translator {
 	\consists "Forbid_line_break_engraver"
 	\consistsend "Axis_group_engraver"
 
-
 	minimumVerticalExtent = #'(-6 . 6)
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 
@@ -48,7 +47,6 @@ StaffContext=\translator {
 	instr = ##f
 	  
 	\accepts "Voice"
-	\alias "Current"
 }
 
 
@@ -62,7 +60,6 @@ StaffContainerContext = \translator {
 
 	\accepts Staff
 	\name StaffContainer
-	\alias "Current"
 }
 
 InnerChoirStaffContext = \translator {
@@ -79,7 +76,6 @@ InnerChoirStaffContext = \translator {
 	\accepts "PianoStaff"
 	\accepts "Lyrics"
 	\accepts "ChordNames"
-	\alias "Current"
 }
 ChoirStaffContext = \translator {
 	\InnerChoirStaffContext
@@ -121,7 +117,6 @@ RhythmicStaffContext=\translator{
 	\consists "Instrument_name_engraver"
 	\consistsend "Axis_group_engraver"
 	\accepts "Voice"
-	\alias "Current"
 }
 
 
@@ -172,7 +167,6 @@ VoiceContext = \translator {
 
 	\consists "Skip_req_swallow_translator"
 	\accepts Thread % bug if you leave out this!
-	\alias "Current"
 }
 
 ThreadContext = \translator{
@@ -187,7 +181,6 @@ ThreadContext = \translator{
 	\consists "Note_head_line_engraver"
 	\consists "Output_property_engraver"	
 
-	\alias "Current"
 }
 
 
@@ -202,7 +195,6 @@ GrandStaffContext=\translator{
 	systemStartDelimiter = #'SystemStartBrace
 
 	\accepts "Staff"
-	\alias "Current"
 }
 
 PianoStaffContext = \translator{
@@ -241,7 +233,6 @@ InnerStaffGroupContext= \translator {
 	\accepts "TabStaff"	
 	\accepts "Lyrics"
 	\accepts "ChordNames"
-	\alias "Current"
 }
 StaffGroupContext = \translator {
 	\InnerStaffGroupContext
@@ -269,7 +260,6 @@ LyricsVoiceContext= \translator{
 	\consists "Skip_req_swallow_translator"
 	phrasingPunctuation = #".,:!?\""
 	
-	\alias "Current"
 }
 NoteNamesContext = \translator {
 	\type "Engraver_group_engraver"
@@ -283,7 +273,6 @@ NoteNamesContext = \translator {
 	
 	\consists "Note_name_engraver"
 	\consists "Separating_line_group_engraver"
-	\alias "Current"
 }
 
 LyricsContext = \translator {
@@ -298,7 +287,6 @@ LyricsContext = \translator {
 	verticalExtent = ##f 
 	
 	\accepts "LyricsVoice"
-	\alias "Current"
 }
 
 
@@ -317,7 +305,6 @@ ChordNamesContext = \translator {
 	minimumVerticalExtent = ##f
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 
-	\alias "Current"
 }
 
 
@@ -326,7 +313,6 @@ StupidScore = \translator {
  	\type "Score_engraver"
 	\name Score
 	\consists "Note_heads_engraver"
-	\alias "Current"
 }
 
 
@@ -445,7 +431,6 @@ ScoreContext = \translator {
 	barCheckSynchronize = ##t
 
 	\grobdescriptions #all-grob-descriptions
-	\alias "Current"
 }
 
 OrchestralScoreContext= \translator {
@@ -459,7 +444,6 @@ EasyNotation =  \translator {
 % retain for compatibility reasons (FIXME: convert-ly)
 GraceContext = \translator {
 	\type "Engraver_group_engraver"
-	\alias "Current"
 }
 
 FiguredBassContext = \translator {
@@ -467,7 +451,6 @@ FiguredBassContext = \translator {
 	\name FiguredBass 
 	\consists "Figured_bass_engraver"	
 	\consistsend "Axis_group_engraver"
-	\alias "Current"
 }
 
 

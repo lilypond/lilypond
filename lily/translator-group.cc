@@ -106,7 +106,7 @@ Translator_group::removable_b () const
 Translator_group *
 Translator_group::find_existing_translator (String n, String id)
 {
-  if (is_alias_b (n) && (id_string_ == id || id.empty_b ()))
+  if ((is_alias_b (n) && (id_string_ == id || id.empty_b ())) || n == "Current")
     return this;
 
   Translator_group* r = 0;
