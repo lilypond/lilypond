@@ -39,16 +39,27 @@ LILYPOND_BOOK_INCLUDES = join_path (env['LILYPOND_BOOK_PATH'], '',
 				    ' --include=')
 LILYPONDPREFIX = env['LILYPONDPREFIX']
 
-env.Append (ENV = {'PATH' : os.environ['PATH']})
-if os.environ.has_key ('LD_LIBRARY_PATH'):
-	env.Append (ENV = {'LD_LIBRARY_PATH' : os.environ['LD_LIBRARY_PATH']})
-if os.environ.has_key ('GUILE_LOAD_PATH'):
-	env.Append (ENV = {'GUILE_LOAD_PATH' : os.environ['GUILE_LOAD_PATH']})
+# UGHR, lilypond.py uses lilypond-bin from PATH
+#env.Append (ENV = {'PATH' : os.environ['PATH']})
+env.PrependENVPath ('PATH',
+		    os.path.join (env['absbuild'], env['out'], 'usr/bin'))
 
 if os.environ.has_key ('TEXMF'):
 	env.Append (ENV = {'TEXMF' : os.environ['TEXMF']})
 env.Append (ENV = {'TEXMF' : '{' + LILYPONDPREFIX + ',' \
 		   + os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}' })
+
+if os.environ.has_key ('LD_LIBRARY_PATH'):
+	env.Append (ENV = {'LD_LIBRARY_PATH' : os.environ['LD_LIBRARY_PATH']})
+if os.environ.has_key ('GUILE_LOAD_PATH'):
+	env.Append (ENV = {'GUILE_LOAD_PATH' : os.environ['GUILE_LOAD_PATH']})
+
+env.Append (PYTHONPATH = [os.path.join (env['absbuild'], env['out'],
+					'usr/lib/python'),
+			  os.path.join (srcdir, 'buildscripts'),
+			  os.path.join (srcdir, 'python')])
+env.Append (ENV = { 'PYTHONPATH' : string.join (env['PYTHONPATH'],
+						os.pathsep) } )
 
 verbose = verbose_opt (env, ' --verbose')
 a = (r'''rm -f $$(grep -LF '\lilypondend' ${TARGET.dir}/lily-*.tex 2>/dev/null); ''' \
@@ -88,7 +99,8 @@ def add_ps_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	return (target + [base + '.ps'], source)
 
-a = ('LILYPONDPREFIX=%(LILYPONDPREFIX)s '\
+#a = ('echo "PATH=$$PATH"; echo "TEXMF=$$TEXMF"; which lilypond-bin;'\
+a = (' LILYPONDPREFIX=%(LILYPONDPREFIX)s '\
      + '%(PYTHON)s %(LILYPOND_PY)s%(verbose)s'\
      + ' --include=${TARGET.dir}'\
      + ' --output=${TARGET.base}'\
@@ -124,13 +136,8 @@ def add_suffixes (target, source, env, target_suffixes, src_suffixes):
 	return (target + map (lambda x: base + x, target_suffixes),
 		source + map (lambda x: base + x, src_suffixes))
 
-#outdir = os.path.join (env['build'], reldir, env['out'])
-outdir = '${TARGET.dir}'
 scrdir = env['srcdir']
-#MFINPUTS = '.:' + str (Dir ('#/mf'))
-#MFINPUTS = '.:${SOURCE.dir}'
 a = ('(cd ${TARGET.dir} &&'\
-#     + ' MFINPUTS=.:${SOURCE.dir}'\
      + ' MFINPUTS=.:${SOURCE.dir}:%(srcdir)s/${SOURCE.dir}'\
      + ' mf "\\mode:=%(MFMODE)s; nonstopmode;'\
      + ' input ${SOURCE.filebase};" ' \
@@ -180,24 +187,18 @@ pfa = Builder (action = a,
 	       suffix = '.pfa',
 	       src_suffix = '.mf',
 	       emitter = add_enc_src)
-
-def run_mftrace (target, source, env):
-	TARGET = target[0]
-	SOURCE = source[0]
-	mf = os.path.basename (str (source[0]))
-	base = os.path.splitext (os.path.basename (str (target[0])))[0]
-	enc = base + '.enc'
-	encoding = encoding_opt (target)
-	verbose = verbose_opt (env, ' --verbose')
-	command = ('(cd $$(dirname %(TARGET)s && '
-		   + ' MFINPUTS=.:$$(dirname %(TARGET)s):$$(dirname %(SOURCE)s'\
-		   + ' mftrace --pfa --simplify --keep-trying%(verbose)s'\
-		   + ' --include=${TARGET.dir}'\
-		   + ' %(encoding)s %(mf)s)') % vars ()
-	return os.system (command)
-
-xpfa = Builder (action = run_mftrace, suffix = '.pfa', src_suffix = '.mf',
-	       emitter = add_enc_src)
 env.Append (BUILDERS = {'PFA': pfa})
 
+# FIXMExo
+#verbose = verbose_opt (env, ' --verbose')
+verbose = ''
+DIFF_PY = os.path.join (srcdir, 'stepmake/bin/package-diff.py')
+verbose = ''
+a = ('%(PYTHON)s %(DIFF_PY)s%(verbose)s'\
+     + ' --outdir=${TARGET.dir}') % vars ()
+patch = Builder (action = a, suffix = '.diff', src_suffix = '.tar.gz')
+env.Append (BUILDERS = {'PATCH': patch})
 
+# Ugh, how to make a sane tarball with scons?
+ball = Builder (prefix = env['ballprefix'], action = 'ln $SOURCE $TARGET')
+env.Append (BUILDERS = {'BALL': ball})

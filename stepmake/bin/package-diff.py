@@ -40,7 +40,7 @@ def find(pattern, dir = os.curdir):
         return list
 
 
-topdir = ''
+topdir = os.getcwd ()
 def gulp_file(f):
 	try:
 		i = open(f)

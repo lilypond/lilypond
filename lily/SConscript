@@ -44,5 +44,5 @@ env.Alias ('lily', lily)
 
 
 #testing
-all_sources = ['SConscript',] + sources + includes 
+all_sources = ['SConscript',] + sources + includes
 x = env.Tar (env['tarball'], all_sources)

@@ -57,6 +57,15 @@ import os
 import sys
 import string
 
+subdirs = ['flower', 'lily', 'mf', 'scm', 'ly', 'Documentation',
+	   'Documentation/user', 'input']
+
+usage = r'''Usage:
+scons [KEY=VALUE].. [TARGET]..
+
+where TARGET is lily|all|fonts|doc|tar|dist|release
+'''
+      
 env = Environment ()
 
 # Without target arguments, build lily only
@@ -64,10 +73,12 @@ if not COMMAND_LINE_TARGETS:
 	env.Default ('lily')
 
 # Target 'all' builds everything
-if 'all' in COMMAND_LINE_TARGETS:
-	env.Default ('lily', 'fonts', 'doc')
+#if 'all' in COMMAND_LINE_TARGETS:
+#	env.Default (
 
-# put your favourite stuff in custom.py
+env.Alias ('all', ['lily', 'mf', 'input', 'Documentation'])
+
+# Put your favourite stuff in custom.py
 opts = Options ('custom.py', ARGUMENTS)
 #opts = Options (['config.cache', 'custom.py'], ARGUMENTS)
 opts.Add ('prefix', 'Install prefix', '/usr/')
@@ -90,7 +101,7 @@ opts.AddOptions (
 		    0),
 	)
 
-Help (opts.GenerateHelpText (env))
+Help (usage + opts.GenerateHelpText (env))
 
 env = Environment (options = opts)
 
@@ -321,19 +332,6 @@ if optional:
 	for i in optional:
 		print '%s:	%s-%s or newer (found: %s %s)' % i
 
-#env['tarball'] = os.path.join (outdir,
-#			       package.name + '-' + env['version'] + '.tar.gz')
-
-env['tarball'] = os.path.join (os.environ['HOME'], 'tmp',
-			       package.name + '-' + env['version'] + '.tar.gz')
-
-# huh?
-if 'tar' in COMMAND_LINE_TARGETS:
-	#env.Default (env['tarball'])
-	#env.Default (tar)
-	env.Default (env['tarball'])
-	#Default (tar)
-
 Export ('env')
 
 #ugr
@@ -368,23 +366,51 @@ env['MAKEINFO_PATH'] = ['.', '#/Documentation/user',
 
 ## TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 env['TEXINFO_PAPERSIZE_OPTION'] = '-t @afourpaper'
-env.Append (PYTHONPATH = [os.path.join (outdir, 'usr/lib/python'),
-			  os.path.join (srcdir, 'buildscripts'),
-			  os.path.join (srcdir, 'python')])
-# huh, aha?
-# GS_FONTPATH, GS_LIB?
-env.Append (ENV = { 'PYTHONPATH' : string.join (env['PYTHONPATH'],
-						os.pathsep) } )
-# UGHR, lilypond.py uses lilypond-bin from PATH
-env.Append (ENV = { 'PATH' : os.path.join (outdir, 'usr/bin') })
+
+tarbase = package.name + '-' + env['version']
+tarname = tarbase + '.tar.gz'
+tarball = os.path.join (outdir, tarname)
+env['tarball'] = tarball
+
+ballprefix = os.path.join (outdir, tarbase) + '/'
+env['ballprefix'] = ballprefix
 
 SConscript ('buildscripts/builder.py')
 
-#subdirs = ['mf',]
-#subdirs = ['flower', 'lily', 'parser', 'gui', 'main',]
-#subdirs = ['flower', 'lily', 'mf', 'scm', 'ly']
-subdirs = ['flower', 'lily', 'mf', 'scm', 'ly', 'Documentation',
-	   'Documentation/user', 'input']
+readme_files = ['ChangeLog', 'COPYING', 'DEDICATION', 'ROADMAP', 'THANKS']
+readme_txt = ['AUTHORS.txt', 'README.txt', 'INSTALL.txt', 'NEWS.txt']
+# to be [re]moved after spit
+patch_files = ['emacsclient.patch', 'server.el.patch', 'darwin.patch']
+
+#testing
+env.Append (TARFLAGS = '-z --owner=0 --group=0')
+env.Append (GZIPFLAGS = '-9')
+all_sources = ['SConstruct', 'VERSION', '.cvsignore']\
+	      + readme_files + readme_txt + patch_files
+
+map (lambda x: env.Texi2txt (x, os.path.join ('Documentation/topdocs',
+					      os.path.splitext (x)[0])),
+     readme_txt)
+
+#print `all_sources`
+#print `map (lambda x: env['ballprefix'] + x, all_sources)`
+#ballize = map (env.BALL, all_sources)
+#ballize = map (env.BALL, ['SConstruct', 'VERSION'])
+#tar = env.Tar (tarball, map (lambda x: env['ballprefix'] + x, all_sources))
+tar = env.Tar (env['tarball'], all_sources)
+env.Alias ('tar', tar)
+
+distball = os.path.join (package.release_dir, tarname)
+env.Command (distball, tarball,
+	     'if [ -e $SOURCE -a -e $TARGET ]; then rm $TARGET; fi;' \
+	     + 'ln $SOURCE $TARGET')
+env.Depends ('dist', distball)
+patchfile = os.path.join (outdir, tarbase + '.diff.gz')
+patch = env.PATCH (patchfile, tarball)
+env.Depends (patchfile, distball)
+env.Alias ('release', patch)
+
+
 for d in subdirs:
 	b = os.path.join (build, d, out)
 	# Support clean sourctree build (srcdir build)
@@ -394,24 +420,6 @@ for d in subdirs:
 	   or (out and out != '.'):
 		env.BuildDir (b, d, duplicate=0)
 	SConscript (os.path.join (b, 'SConscript'))
-
-readme_files = ['ChangeLog', 'COPYING', 'DEDICATION', 'ROADMAP', 'THANKS']
-readme_txt = ['AUTHORS.txt', 'README.txt', 'INSTALL.txt', 'NEWS.txt']
-# to be [re]moved after spit
-patch_files = ['emacsclient.patch', 'server.el.patch', 'darwin.patch']
-
-map (lambda x: env.Texi2txt (x, os.path.join ('Documentation/topdocs',
-					      os.path.splitext (x)[0])),
-     readme_txt)
-
-#testing
-env.Append (TARFLAGS = '-z --owner=0 --group=0')
-env.Append (GZIPFLAGS = '-9')
-all_sources = ['SConstruct',] + subdirs \
-	      + ['VERSION', '.cvsignore']\
-	      + readme_files + readme_txt + patch_files
-
-tar = env.Tar (env['tarball'], all_sources)
 
 # as a builder?
 def symlink_tree (prefix):
@@ -462,3 +470,4 @@ if env['debugging']:
 	prefix = os.path.join (out, 'usr')
 	if not os.path.exists (prefix):
 		symlink_tree (prefix)
+

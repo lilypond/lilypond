@@ -13,12 +13,7 @@ pngs = glob.glob ('*.png')
 os.chdir (here)
 
 Import ('env')
-e = env.Copy ()
 outdir = os.path.join (env['build'], reldir, env['out'])
-
-# Too late
-e.Append (LILYPOND_BOOK_PATH = [os.path.join (env['srcdir'], reldir, 'user')])
-e['LILYPOND_BOOK_PATH'].append (os.path.join (env['srcdir'], reldir, 'user'))
 
 def verbose_opt (env, opt):
 	if env['verbose']:
@@ -33,22 +28,25 @@ lilybuild = os.path.join (env['absbuild'], 'lily', env['out'])
 userbuild = os.path.join (env['absbuild'], 'Documentation/user', env['out'])
 
 # more of these? -- howto?
-e.Depends ('lilypond.texi', os.path.join (mfbuild, 'feta16list.ly'))
-e.Depends ('lilypond.texi', os.path.join (mfbuild, 'parmesan16list.ly'))
+env.Depends ('lilypond.texi', os.path.join (mfbuild, 'feta16list.ly'))
+env.Depends ('lilypond.texi', os.path.join (mfbuild, 'parmesan16list.ly'))
 # or these
-e.Depends ('doc', os.path.join (mfbuild, 'feta20.enc'))
-e.Depends ('doc', os.path.join (mfbuild, 'feta20.enc'))
+env.Depends ('doc', os.path.join (mfbuild, 'feta20.enc'))
+env.Depends ('doc', os.path.join (mfbuild, 'feta20.enc'))
 
-e.Depends ('lilypond.texi', LILYPOND_BIN)
-e.Depends ('lilypond.texi', 'lilypond-internals.texi')
+env.Depends ('lilypond.texi', LILYPOND_BIN)
+env.Depends ('lilypond.texi', 'lilypond-internals.texi')
 
-e.Depends ('lilypond.texi', 'fonts')
+##env.Depends ('lilypond.texi', 'fonts')
+
+# simple:
+env.Depends ('doc', mfbuild)
 
 png_stems = map (lambda x: os.path.splitext (x)[0], pngs)
-epss = map (e.Png2eps, png_stems)
-e.Depends ('lilypond.texi', epss)
+epss = map (env.Png2eps, png_stems)
+env.Depends ('lilypond.texi', epss)
 
-e.Command ('lilypond-internals.texi', LILYPOND_BIN,
+env.Command ('lilypond-internals.texi', LILYPOND_BIN,
 	   ('(cd ${TARGET.dir} && \
 	   LILYPONDPREFIX=%(LILYPONDPREFIX)s %(LILYPOND_BIN)s ' \
 	    + verbose_opt (env, ' --verbose') \
@@ -56,10 +54,10 @@ e.Command ('lilypond-internals.texi', LILYPOND_BIN,
 	    + ')') % vars ())
 
 doc_stems = map (lambda x: os.path.splitext (x)[0], sources)
-texis = map (e.Tely2texi, doc_stems)
-dvis = map (e.Texi2dvi, doc_stems)
-pss = map (e.PostScript, map (lambda x: x + '.dvi', doc_stems))
-pdfs = map (e.Dvi2pdf, doc_stems)
+texis = map (env.Tely2texi, doc_stems)
+dvis = map (env.Texi2dvi, doc_stems)
+pss = map (env.PostScript, map (lambda x: x + '.dvi', doc_stems))
+pdfs = map (env.Dvi2pdf, doc_stems)
 
 
 def file_subst (file_name, find, subst):
@@ -90,17 +88,18 @@ def url_fixup (target, source, env):
 	file_subst (str (target[0]),
 		    '\.\./lilypond-internals', 'lilypond-internals/')
 c = 'pwd; ln -f %(userbuild)s/*.png %(userbuild)s/*.ly ${TARGET.dir}/' % vars ()
+e = env.Copy ()
 e.Command ('lilypond/lilypond.html', 'lilypond.texi', [a, url_fixup, c])
 e.Command ('lilypond-internals/lilypond-internals.html',
 	   'lilypond-internals.texi', a)
 
-e.Alias ('doc', texis)
-e.Alias ('doc', dvis)
-e.Alias ('doc', pss)
-e.Alias ('doc', pdfs)
+env.Alias ('doc', texis)
+env.Alias ('doc', dvis)
+env.Alias ('doc', pss)
+env.Alias ('doc', pdfs)
 
-e.Alias ('doc', 'lilypond-internals/lilypond.html')
-e.Alias ('doc', 'lilypond-internals/lilypond-internals.html')
+env.Alias ('doc', 'lilypond-internals/lilypond.html')
+env.Alias ('doc', 'lilypond-internals/lilypond-internals.html')
 
 #testing
 all_sources = ['SConscript',] + sources + pngs
