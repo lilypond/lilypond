@@ -1,3 +1,9 @@
+;; implement Ignatzek chord naming
+;; 
+;;  source file of the GNU LilyPond music typesetter
+;;
+;; (c) 2003 Han-Wen Nienhuys
+
 (define (natural-chord-alteration p)
   "Return the natural alteration for step P."
   (if (= (ly:pitch-steps p) 6)

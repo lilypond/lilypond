@@ -80,27 +80,27 @@ def custos_hufnagel(expr verbose_name, internal_name, ly_name,
 enddef;
 
 % custos hufnagel, stem up, between staff lines
-custos_hufnagel("Custos Hufnagel", "hufnagel-u0", "hufnagel_u0",
+custos_hufnagel("Custos Hufnagel", "hufnagel-u0", "hufnagelu0",
 		dir_up, between_staff_lines);
 
 % custos hufnagel, stem up, on staff line
-custos_hufnagel("Custos Hufnagel", "hufnagel-u1", "hufnagel_u1",
+custos_hufnagel("Custos Hufnagel", "hufnagel-u1", "hufnagelu1",
 		dir_up, on_staff_line);
 
 % custos hufnagel, stem up, anywhere
-custos_hufnagel("Custos Hufnagel", "hufnagel-u2", "hufnagel_u2",
+custos_hufnagel("Custos Hufnagel", "hufnagel-u2", "hufnagelu2",
 		dir_up, anywhere);
 
 % custos hufnagel, stem down, between staff lines
-custos_hufnagel("Reverse Custos Hufnagel", "hufnagel-d0", "hufnagel_d0",
+custos_hufnagel("Reverse Custos Hufnagel", "hufnagel-d0", "hufnageld0",
 		dir_down, between_staff_lines);
 
 % custos hufnagel, stem down, on staff line
-custos_hufnagel("Reverse Custos Hufnagel", "hufnagel-d1", "hufnagel_d1",
+custos_hufnagel("Reverse Custos Hufnagel", "hufnagel-d1", "hufnageld1",
 		dir_down, on_staff_line);
 
 % custos hufnagel, stem down, anywhere
-custos_hufnagel("Reverse Custos Hufnagel", "hufnagel-d2", "hufnagel_d2",
+custos_hufnagel("Reverse Custos Hufnagel", "hufnagel-d2", "hufnageld2",
 		dir_down, anywhere);
 
 %%%%%%%%
@@ -166,15 +166,15 @@ custos_medicaea("Custos Med.", "medicaea-u2", "medicaea_u2",
 		dir_up, anywhere);
 
 % custos medicaea, stem down, between staff lines
-custos_medicaea("Reverse Custos Med.", "medicaea-d0", "medicaea_d0",
+custos_medicaea("Reverse Custos Med.", "medicaea-d0", "medicaead0",
 		dir_down, between_staff_lines);
 
 % custos medicaea, stem down, on staff line
-custos_medicaea("Reverse Custos Med.", "medicaea-d1", "medicaea_d1",
+custos_medicaea("Reverse Custos Med.", "medicaea-d1", "medicaead1",
 		dir_down, on_staff_line);
 
 % custos medicaea, stem down, anywhere
-custos_medicaea("Reverse Custos Med.", "medicaea-d2", "medicaea_d2",
+custos_medicaea("Reverse Custos Med.", "medicaea-d2", "medicaead2",
 		dir_down, anywhere);
 
 %%%%%%%%
@@ -241,15 +241,15 @@ custos_vaticana("Custos Ed. Vat.", "vaticana-u2", "vaticana_u2",
 		dir_up, anywhere);
 
 % custos vaticana, stem down, between staff lines
-custos_vaticana("Reverse Custos Ed. Vat.", "vaticana-d0", "vaticana_d0",
+custos_vaticana("Reverse Custos Ed. Vat.", "vaticana-d0", "vaticanad0",
 		dir_down, between_staff_lines);
 
 % custos vaticana, stem down, on_staff_line
-custos_vaticana("Reverse Custos Ed. Vat.", "vaticana-d1", "vaticana_d1",
+custos_vaticana("Reverse Custos Ed. Vat.", "vaticana-d1", "vaticanad1",
 		dir_down, on_staff_line);
 
 % custos vaticana, stem down, anywhere
-custos_vaticana("Reverse Custos Ed. Vat.", "vaticana-d2", "vaticana_d2",
+custos_vaticana("Reverse Custos Ed. Vat.", "vaticana-d2", "vaticanad2",
 		dir_down, anywhere);
 
 %%%%%%%%
@@ -303,27 +303,27 @@ def custos_mensural(expr verbose_name, internal_name, ly_name,
 enddef;
 
 % custos mensural, stem up, between staff lines
-custos_mensural("Custos Mensural", "mensural-u0", "mensural_u0",
+custos_mensural("Custos Mensural", "mensural-u0", "mensuralu0",
 		dir_up, between_staff_lines);
 
 % custos mensural, stem up, on staff line
-custos_mensural("Custos Mensural", "mensural-u1", "mensural_u1",
+custos_mensural("Custos Mensural", "mensural-u1", "mensuralu1",
 		dir_up, on_staff_line);
 
 % custos mensural, stem up, anywhere
-custos_mensural("Custos Mensural", "mensural-u2", "mensural_u2",
+custos_mensural("Custos Mensural", "mensural-u2", "mensuralu2",
 		dir_up, anywhere);
 
 % custos mensural, stem down, between staff lines
-custos_mensural("Reverse Custos Mensural", "mensural-d0", "mensural_d0",
+custos_mensural("Reverse Custos Mensural", "mensural-d0", "mensurald0",
 		dir_down, between_staff_lines);
 
 % custos mensural, stem down, on staff line
-custos_mensural("Reverse Custos Mensural", "mensural-d1", "mensural_d1",
+custos_mensural("Reverse Custos Mensural", "mensural-d1", "mensurald1",
 		dir_down, on_staff_line);
 
 % custos mensural, stem down, anywhere
-custos_mensural("Reverse Custos Mensural", "mensural-d2", "mensural_d2",
+custos_mensural("Reverse Custos Mensural", "mensural-d2", "mensurald2",
 		dir_down, anywhere);
 
 fet_endgroup ("custodes")

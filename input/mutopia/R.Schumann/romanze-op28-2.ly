@@ -236,7 +236,11 @@ leftb = \notes \transpose c cis {
     \property PianoStaff.connectArpeggios = ##t
     \property PianoStaff.Arpeggio \override #'molecule-callback = \arpeggioBracket
 
-    \property PianoStaff.instrument="\Huge\bf\it 2."
+    \property PianoStaff.InstrumentName \set #'font-relative-size   = #3
+    \property PianoStaff.InstrumentName \set #'font-shape   = #'italic
+    \property PianoStaff.InstrumentName \set #'font-magnification   = #3
+    
+    \property PianoStaff.instrument="2. "
     \context Staff = up {
       \property Staff.DynamicLineSpanner \override #'direction = #-1
       \clef G <\global \context Voice=upv \righta>
