@@ -40,8 +40,6 @@ private:
 };
 
 
-
-
 Text_spanner_engraver::Text_spanner_engraver ()
 {
   finished_ = 0;
@@ -142,11 +140,10 @@ Text_spanner_engraver::typeset_all ()
   if (finished_)
     {
       Side_position_interface::add_staff_support (finished_);
-
       if (!finished_->get_bound (RIGHT))
 	{
 	  Grob* e = unsmob_grob (get_property ("currentMusicalColumn"));
-	  span_->set_bound (RIGHT, e);
+	  finished_->set_bound (RIGHT, e);
 	}
       typeset_grob (finished_);
       finished_ = 0;

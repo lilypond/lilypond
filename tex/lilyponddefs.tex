@@ -1,43 +1,62 @@
-%%
-%% include file for LilyPond
-%%
-%% this file defines various macros to accomodate lilypond output
-%%
-%% let's not make par before endinput
+% lilyponddefs.tex
+%
+% Include file for LilyPond.
+%
+% This file defines various macros to accomodate lilypond output.
+%
+% Avoid \par while reading this file.
+\edef\lilyponddefsELC{\the\endlinechar}%
+\endlinechar -1\relax
 
 % TeXbook ex 7.7
-\def\ifundefined#1{\expandafter\ifx\csname#1\endcsname\relax}
+\def\ifundefined#1{
+  \expandafter\ifx\csname#1\endcsname\relax
+}
 
+% If we must make titles, do so, before we're skipped.
 
-% If we must make titles, do so, before we're Skipped.
-\ifx\mustmakelilypondtitle\undefined\else\makelilypondtitle\fi
-\ifx\mustmakelilypondpiecetitle\undefined\else\makelilypondpiecetitle\fi
-%
+\ifx\mustmakelilypondtitle\undefined
+\else
+  \makelilypondtitle
+\fi
+
+\ifx\mustmakelilypondpiecetitle\undefined
+\else
+  \makelilypondpiecetitle
+\fi
+
 % skip if included already
-\def\SkipLilydefs{\endinput}
+
+\def\SkipLilydefs{
+  \endlinechar \lilyponddefsELC
+  \endinput}
 \ifundefined{EndLilyPondOutput}
-        \def\EndLilyPondOutput{\csname bye\endcsname}
-        \def\SkipLilydefs{}
+  \def\EndLilyPondOutput{\csname bye\endcsname}
+  \def\SkipLilydefs{}
 \fi
 \SkipLilydefs
 
-% need to do some stuff to turn pagenumbering off
+% need to do some stuff to turn page numbering off
+
 \ifundefined{documentclass}
-        \input lilypond-plaintex
+  \input lilypond-plaintex
 \else
-        \input lilypond-latex
+  \input lilypond-latex
 \fi
 
 % The feta characters
-\input feta20.tex
+\input feta20
 
-\font\fetasixteen=feta16
+\font\fetasixteen = feta16
 \def\fetafont{\fetasixteen}
 \def\fetachar#1{\hbox{\fetasixteen#1}}
 
-
-\def\botalign#1{\vbox to 0pt{\vss #1}}
-\def\leftalign#1{\hbox to 0pt{#1\hss}}
+\def\botalign#1{
+  \vbox to 0pt{\vss #1}
+}
+\def\leftalign#1{
+  \hbox to 0pt{#1\hss}
+}
 
 % Attempt to keep lilypiecetitle together with the piece:
 
@@ -45,22 +64,28 @@
 % TODO: figure this out.
 %
 
-\def\myfilbreak{} %\par\vfil\penalty200\vfilneg}
+\def\myfilbreak{}%\par\vfil\penalty200\vfilneg}
 
 
 \ifundefined{lilypondpaperinterscorelinefill}
-        \def\lilypondpaperinterscorelinefill{0}
+  \def\lilypondpaperinterscorelinefill{0}
 \else
-        \def\lilypondpaperinterscorelinefill{1}
+  \def\lilypondpaperinterscorelinefill{1}
 \fi
 
-\def\interscoreline{\vskip \lilypondpaperinterscoreline \lilypondpaperunit plus \lilypondpaperinterscorelinefill fill}
+\def\interscoreline{
+  \vskip \lilypondpaperinterscoreline \lilypondpaperunit
+    plus \lilypondpaperinterscorelinefill fill
+}
 
-\def\placebox#1#2#3{%
-        \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}}%
+\def\placebox#1#2#3{
+  \botalign{
+    \hbox{\raise #1\leftalign{\kern #2{}#3}}
+  }
+}
 
 % Are we using PDFTeX?  If so, use pdf definitions.
-% MiKTeX checks \pdfoutput the wrong way, makes our
+% MiKTeX checks \pdfoutput the wrong way; this makes our
 % check more complicated.
 \ifx\pdfoutput\undefined  
   \input lily-ps-defs
@@ -68,30 +93,39 @@
   \ifx\pdfoutput\relax
     \input lily-ps-defs
   \else
-    \pdfoutput=1
+    \pdfoutput = 1
     \input lily-pdf-defs
   \fi
 \fi
 
-\def\EndLilyPondOutput{%
-\ifundefined{lilypondpaperlastpagefill}%
-  \vskip 0pt plus \lilypondpaperinterscorelinefill00 fill
-\fi
-\csname bye\endcsname}
+\def\EndLilyPondOutput{
+  \ifundefined{lilypondpaperlastpagefill}
+    \vskip 0pt plus \lilypondpaperinterscorelinefill00 fill
+  \fi
+  \csname bye\endcsname
+}
 
-% need to do some stuff to turn pagenumbering off
-% they seriously mess up  your fragments.
+% Need to do some stuff to turn page numbering off;
+% they seriously mess up your fragments.
 
 \ifx\csname nolilyfooter\endcsname\relax
-        \message{[footer defined]}%
-        \csname lilyfooter\texsuffix\endcsname%
+  \message{[footer defined]}
+  \csname lilyfooter\texsuffix\endcsname
 \else
-        \message{[footer empty]}
-        \csname%
-        nolilyfooter\texsuffix\endcsname
+  \message{[footer empty]}
+  \csname nolilyfooter\texsuffix\endcsname
 \fi
 
+% It is very bad that lilyponddefs.tex gets included in every lilypond
+% output snippet.  This is necessary because these output snippets
+% often get encapsulated, eg by texinfo. This should be fixed by
+% putting the variable parts in this file into a macro so that loading
+% the file multiple times can be avoided.
 \ifx\outputscale\undefined
-        \csname global\endcsname\csname newdimen\endcsname\outputscale
+  \csname global\endcsname\csname newdimen\endcsname\outputscale
+  \csname global\endcsname\csname newdimen\endcsname\scoreshift
 \fi
+
+% Restore newline functionality (disabled to avoid \par).
+\endlinechar \lilyponddefsELC
 \endinput

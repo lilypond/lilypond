@@ -40,9 +40,15 @@ Folded_repeat_iterator::do_quit()
 Folded_repeat_iterator::Folded_repeat_iterator (Folded_repeat_iterator const &src)
   : Music_iterator (src)
 {
-  main_iter_ = src.main_iter_ ? src.main_iter_->clone () : 0;
-  alternative_iter_ = src.alternative_iter_ ? src.alternative_iter_->clone () : 0;
+  main_iter_ = 0;
+  alternative_iter_ = 0;
   main_length_mom_ = src.main_length_mom_;
+
+  if (src.alternative_iter_)
+    alternative_iter_ = src.alternative_iter_->clone ();
+  if (src.main_iter_)
+    main_iter_ = src.main_iter_->clone ();
+  
   if (main_iter_)
     scm_gc_unprotect_object (main_iter_->self_scm());
   if (alternative_iter_)

@@ -267,14 +267,11 @@
 
 					; TODO: use HEIGHT argument
 
-  (define (start-system height)
-  (string-append
-   "\n"
-   (ly-number->string height)
-   " start-system {
-set-ps-scale-to-lily-scale
-
-"))
+(define (start-system width height)
+  (string-append "\n" (ly-number->string height)
+		 " start-system\n"
+		 "{\n"
+		 "set-ps-scale-to-lily-scale"))
 
 (define (stem breapth width depth height) 
   (string-append (numbers->string (list breapth width depth height))

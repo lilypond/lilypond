@@ -136,8 +136,13 @@ Lyric_combine_music_iterator::do_quit ()
 Lyric_combine_music_iterator::Lyric_combine_music_iterator (Lyric_combine_music_iterator const & src)
     : Music_iterator (src)
 {
-  lyric_iter_ = src.lyric_iter_ ? src.lyric_iter_->clone () : 0;
-  music_iter_ = src.music_iter_ ? src.music_iter_->clone () : 0;  
+  lyric_iter_ = 0;
+  music_iter_ = 0;
+
+  if (src.lyric_iter_)
+    lyric_iter_ =  src.lyric_iter_->clone ();
+  if (src.music_iter_)
+    music_iter_ =  src.music_iter_->clone ();
 
   if (lyric_iter_)
     scm_gc_unprotect_object (lyric_iter_->self_scm());

@@ -45,8 +45,13 @@ Part_combine_music_iterator::do_quit ()
 Part_combine_music_iterator::Part_combine_music_iterator (Part_combine_music_iterator const &src)
   : Music_iterator (src)
 {
-  first_iter_ = src.first_iter_ ? src.first_iter_->clone () : 0;
-  second_iter_ = src.second_iter_ ? src.second_iter_->clone () : 0;
+  first_iter_ = 0;
+  second_iter_ = 0;
+
+  if(src.first_iter_)
+    first_iter_ = src.first_iter_->clone ();
+  if (src.second_iter_)
+    second_iter_ = src.second_iter_->clone ();
 
   first_until_ = src.first_until_;
   second_until_ = src.second_until_;

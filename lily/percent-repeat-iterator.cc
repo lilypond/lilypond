@@ -17,7 +17,6 @@ IMPLEMENT_CTOR_CALLBACK (Percent_repeat_iterator);
 Percent_repeat_iterator::Percent_repeat_iterator ()
 {
   child_iter_ = 0;
-  
 }
 
 void
@@ -29,11 +28,14 @@ Percent_repeat_iterator::do_quit()
 Percent_repeat_iterator::Percent_repeat_iterator (Percent_repeat_iterator const & p)
   : Music_iterator (p)
 {
-  child_iter_ = p.child_iter_ ? p.child_iter_->clone (): 0;
-  finish_mom_ = p.finish_mom_ ;
-
-  if(child_iter_)
-    scm_gc_unprotect_object (child_iter_->self_scm());
+  child_iter_ = 0;
+ finish_mom_ = p.finish_mom_ ;
+ 
+  if (p.child_iter_)
+    {
+      child_iter_ =  p.child_iter_->clone ();
+      scm_gc_unprotect_object (child_iter_->self_scm());
+    }
 }
 
 bool

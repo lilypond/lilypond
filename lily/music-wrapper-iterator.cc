@@ -18,9 +18,12 @@ Music_wrapper_iterator::Music_wrapper_iterator ()
 Music_wrapper_iterator::Music_wrapper_iterator (Music_wrapper_iterator const &src)
   : Music_iterator (src)
 {
-  child_iter_ = (src.child_iter_) ? src.child_iter_->clone () : 0;
-  if (child_iter_)
+  child_iter_ = 0;
+  if  (src.child_iter_)
+  {
+    child_iter_ = src.child_iter_->clone () ;
     scm_gc_unprotect_object (child_iter_->self_scm());
+  }
 }
 
 void
@@ -30,7 +33,7 @@ Music_wrapper_iterator::do_quit()
 }
 
 void
-Music_wrapper_iterator::derived_mark()const
+Music_wrapper_iterator::derived_mark () const
 {
   if (child_iter_)
     scm_gc_mark (child_iter_->self_scm());
@@ -52,15 +55,6 @@ Music_wrapper_iterator::ok () const
 void
 Music_wrapper_iterator::skip (Moment m)
 {
-  /*
-    FIXME: should make sure that the initial try_music () is skipped as
-    well, if you would do
-
-    iter = get_iterator (Side_effect_music); // eg. property setting
-    iter->skip (1/2)
-    iter->process ()
-
-  */
   child_iter_->skip (m);
 }
 

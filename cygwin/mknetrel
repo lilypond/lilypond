@@ -1,16 +1,16 @@
 # -*- shell-script -*-
 
-# stable LilyPond releases: lilypond-1.4
-# archive=ftp://lilypond.org/pub/LilyPond/v1.4
+# stable LilyPond releases: lilypond-1.6
+# archive=ftp://lilypond.org/pub/LilyPond/v1.6
 
-# LilyPond development: lilypond-1.5
-# archive=ftp://lilypond.org/pub/LilyPond/v1.5
+# LilyPond development: lilypond-1.7
+# archive=ftp://lilypond.org/pub/LilyPond/v1.7
 
 # Guile specific mknetrel overrides
 # To use this, do something like:
 cat >/dev/null <<EOC
 
-   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.5/lilypond-1.5.72.tar.gz
+   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.6/lilypond-1.6.3.tar.gz
    rm -rf /home/netrel/src/lilypond-*
    mkdir -p /home/netrel/src && cd /home/netrel/src
    ## TODO: look at pimport
@@ -257,7 +257,7 @@ preconfig () { # aka libtool_woes ()
 
     cd $build || exit 1
 
-    GUILE=1.5.6
+    GUILE=1.6.0
     cat > guile-config <<EOF
 #!/bin/sh
 [ "\$1" == "--version" ] && echo "guile-config - Guile version $GUILE"
@@ -277,7 +277,7 @@ postconfig () {
     # Configure for build, for generating doc
     rm -f config.cache
     (PATH="$old_path" \
-	PATH="$HOME/usr/pkg/guile-1.5.6/bin:$PATH" \
+	PATH="$HOME/usr/pkg/guile-1.6.0/bin:$PATH" \
 	CFLAGS="-O2 -g" \
 	$src/configure --prefix=/usr --enable-config=for-build)
 }
