@@ -3,8 +3,12 @@ DEFINEMACRO(docdir)(0)(Documentation)
 DEFINEMACRO(pic)(1)(url(ARG1)(DOEXPAND(docdir)/pictures/DOEXPAND(outdir)/ARG1.png
 ))
 
+DEFINEMACRO(beginbold)(0)(whenhtml(htmlcommand(<font size=4><strong>)))
+DEFINEMACRO(endbold)(0)(whenhtml(htmlcommand(</strong><font size=3>)))
+redef(htmlnewfile)(0)()
+setchapterstring()
 
-nsect(LilyPond -- The GNU Project Music Typesetter)
+nchapter(LilyPond -- The GNU Project Music Typesetter)
 
 includefile(../BLURB.in)(url(italiano)(DOEXPAND(docdir)/DOEXPAND(outdir)/COPERTINA.html))(url(nederlands)(DOEXPAND(docdir)/DOEXPAND(outdir)/FLAPTEKST.html))
 nl()
@@ -14,20 +18,17 @@ center(mudela(fragment)(
 	\relative c'' { \key es; r8 [c16 b] [c8 g] [as c16 b] [c8 d] | g,4 }
 ))
 
-nsubsect()
+
+nsect()
 
 Hmm, this is what it said yesterday too.  I just want to know
 url(What's new)(DOEXPAND(docdir)/DOEXPAND(outdir)/NEWS.html) today and
-then COMMENT(
-url(Download)(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz)
-LilyPond.  perhaps lily/VERSION, i.e. without my-patch-level would be
-best...
-)url(Download)(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz)
+then url(Download)(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz)
 LilyPond.
+nl()
 Or get the latest url(patch)(DOEXPAND(depth)/DOEXPAND(outdir)/lilypond-@TOPLEVEL_VERSION@.diff.gz).
 
-nsubsect(Introduction)
-
+nsubsect(Webmaster's Disclaimer)
 
 These pages were entirely created from the LilyPond package-sources.
 Sorry for poor look they have: we want to be hacking at LilyPond, and
@@ -37,44 +38,61 @@ Note: These pages are created from the latest bf(development snapshots)
 of LilyPond, specifically, this page was made from LilyPond
 @TOPLEVEL_VERSION@.tar.gz
 
-nsect(Sites)
 
-description(
-dit(lurl(http://www.cs.uu.nl/people/hanwen/lilypond/))Han-Wen's site.
-dit(lurl(http://www.xs4all.nl/~jantien/lilypond/))Jan's site.
-dit(lurl(http://www.realtime.net/~daboys/lilypond/))Jeff's Windows NT Distribution site.
+nsect(Preview)
+
+itemize(
+beginbold()
+it()url(Examples)(DOEXPAND(depth)/input/DOEXPAND(outdir)/index.html):
+endbold()
+ simple pieces, tests and bugs.  MIDI, PNG (gif replacement), PostScript, and Source.
+beginbold()
+it()url(Music in Mutopia)(DOEXPAND(depth)/mutopia/DOEXPAND(outdir)/index.html):
+endbold()
+ LilyPond handling real music.  MIDI, view PNG (gif replacement), PostScript, and Source.
 )
 
+nsect(Documentation)
 
-nsubsubsect(Mirrors)
+itemize(
+it()url(Tutorial)(DOEXPAND(docdir)/tex/DOEXPAND(outdir)/tutorial.html)
+it()url(FAQ)(DOEXPAND(docdir)/DOEXPAND(outdir)/faq.html)
+it()url(Reference Manual)(DOEXPAND(docdir)/tex/DOEXPAND(outdir)/refman.html)
+it()url(Mailing Lists)(DOEXPAND(docdir)/DOEXPAND(outdir)/mail.html)
+it()url(All of the LilyPond documentation)(DOEXPAND(docdir)/DOEXPAND(outdir)/index.html)
+it()url(The DOC++ documentation of the C++ sources.)(DOEXPAND(depth)/docxx/index.html)
+)
+
+nsect(Sites)
+
+itemize(
+it()lurl(http://www.cs.uu.nl/people/hanwen/lilypond/) Han-Wen's site
+it()lurl(http://www.xs4all.nl/~jantien/lilypond/) Jan's site
+it()lurl(http://www.realtime.net/~daboys/lilypond/) Jeff's Windows NT Distribution site
+)
+
+nsubsect(Mirrors)
 description(
 dit(lurl(http://sca.uwaterloo.ca/lilypond/))
     Eric Praetzel was kind enough to provide a mirror of both the website
     and the ftp site.
 )
 
-nsubsect(Examples)
-
-itemize(
-it()url(short examples of what LilyPond can do: MIDI, PS, .png and input.)
-(DOEXPAND(depth)/input/DOEXPAND(outdir)/index.html)
-it()url(examples of what LilyPond can do with real music: MIDI, PS, .png and input)(DOEXPAND(depth)/mutopia/DOEXPAND(outdir)/index.html)
-)
-
-nsubsect(NEWS)
+nsect(NEWS)
 
 This is what the latest version brings:
 verb(
 top_of_NEWS
 )
 
-Go get it at lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/)
-
-nsubsect(Documentation)
-
+beginbold()
+Go get it at
 itemize(
-it()url(All of the LilyPond documentation.)(DOEXPAND(docdir)/DOEXPAND(outdir)/index.html)
-it()url(The DOC++ documentation of the C++ sources.)(DOEXPAND(depth)/docxx/index.html)
+it()lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/)
+endbold()
+it()lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/) RedHat binary
+it()lurl(ftp://ftp.debian.org/pub/debian/dists/unstable/main/binary-i386/tex) Debian binary
+it()lurl(http://www.realtime.net/~daboys/lilypond/) Windows NT binary
 )
 
 @COUNTER_REF@

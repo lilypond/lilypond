@@ -16,7 +16,7 @@ struct Audio_element {
   void print ()const;
   
   virtual ~Audio_element();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
   virtual void do_print () const;
 };

@@ -21,10 +21,10 @@ protected:
   virtual void do_process_requests();
   virtual void do_pre_move_processing();
 public:
-  TRANSLATOR_CLONE(Time_signature_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Time_signature * time_signature_p_;
 
   Time_signature_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 #endif // METERGRAV_HH

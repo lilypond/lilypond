@@ -17,7 +17,7 @@
 class Global_translator : public virtual Translator_group{
   PQueue<Moment> extra_mom_pq_;
 public:
-  TRANSLATOR_CLONE(Global_translator);
+  VIRTUAL_COPY_CONS(Translator);
   Moment last_mom_;
   Moment now_mom_;
   Global_translator();
@@ -32,7 +32,7 @@ public:
   virtual void finish() {}
   virtual void start() {}
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
   virtual Moment now_moment () const;
   virtual Global_translator *global_l() { return this; }

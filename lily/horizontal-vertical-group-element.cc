@@ -12,4 +12,4 @@ Horizontal_vertical_group_element::Horizontal_vertical_group_element()
 
 
 
-IMPLEMENT_IS_TYPE_B2(Horizontal_vertical_group_element, Horizontal_group_element, Vertical_group_element);
+

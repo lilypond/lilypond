@@ -83,7 +83,7 @@ public:
   /// ensure that this Stem also encompasses the Notehead #n#
   void add_head (Rhythmic_head*n);
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
   Real hpos_f () const;
   Real chord_start_f () const;

@@ -16,7 +16,7 @@ Note_heads_engraver::Note_heads_engraver()
 }
 
 bool
-Note_heads_engraver::do_try_request (Request *req_l) 
+Note_heads_engraver::do_try_music (Music *req_l) 
 {
   if (Note_req * n =dynamic_cast <Note_req *> (req_l))
     {
@@ -79,5 +79,5 @@ Note_heads_engraver::do_post_move_processing()
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Note_heads_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR(Note_heads_engraver);

@@ -17,9 +17,9 @@ class Dot_column_engraver : public Engraver
   Dot_column *dotcol_p_ ;
   Link_array<Rhythmic_head> head_l_arr_;
 public:
-  TRANSLATOR_CLONE(Dot_column_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Dot_column_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing ();  

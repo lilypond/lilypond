@@ -20,8 +20,8 @@
  */
 class General_script_def : public Input {
 public:
-  VIRTUAL_COPY_CONS(General_script_def,General_script_def);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(General_script_def);
+  
   virtual Direction staff_dir() const;
   void print() const;
   virtual Direction rel_stem_dir() const;

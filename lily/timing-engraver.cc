@@ -19,5 +19,5 @@ Timing_engraver::fill_staff_info (Staff_info &inf)
   inf.rhythmic_C_ = &default_grouping_;
 }
 
-IMPLEMENT_IS_TYPE_B1(Timing_engraver, Timing_translator);
+
 ADD_THIS_TRANSLATOR(Timing_engraver);

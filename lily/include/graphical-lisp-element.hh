@@ -21,7 +21,7 @@
 class Graphical_lisp_element 
 {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
   Graphical_lisp_element (String);
 

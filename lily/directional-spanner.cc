@@ -17,3 +17,11 @@ Directional_spanner::Directional_spanner()
 {
   dir_ = CENTER;
 }
+
+Offset
+Directional_spanner::center () const
+{
+  Real w= width ().length ();
+  Offset o (w/2, 0);  
+  return o;
+}

@@ -21,7 +21,7 @@ Lyric_engraver::Lyric_engraver()
 }
 
 bool
-Lyric_engraver::do_try_request (Request*r)
+Lyric_engraver::do_try_music (Music*r)
 {
   if (Lyric_req * lr = dynamic_cast <Lyric_req *> (r))
     {
@@ -75,5 +75,5 @@ Lyric_engraver::do_pre_move_processing()
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Lyric_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR(Lyric_engraver);

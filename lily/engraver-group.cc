@@ -14,7 +14,7 @@
 #include "p-score.hh"
 #include "score-element.hh"
 
-IMPLEMENT_IS_TYPE_B2(Engraver_group_engraver,Engraver, Translator_group);
+
 ADD_THIS_TRANSLATOR(Engraver_group_engraver);
 
 void

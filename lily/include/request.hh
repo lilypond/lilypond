@@ -30,8 +30,8 @@ public:
     
   virtual ~Request(){}
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  VIRTUAL_COPY_CONS(Request,Music);
+  
+  VIRTUAL_COPY_CONS(Music);
     
   bool equal_b (Request*) const;
 protected:
@@ -41,8 +41,8 @@ protected:
 
 
 #define REQUESTMETHODS(T)	\
-DECLARE_MY_RUNTIME_TYPEINFO;\
-VIRTUAL_COPY_CONS(T, Request);\
+\
+VIRTUAL_COPY_CONS(Request);\
 virtual void do_print() const
 
 

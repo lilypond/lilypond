@@ -12,7 +12,6 @@
 #include "directed-graph.hh"
 #include "graphical-element.hh"
 
-#define SCORE_ELEMENT_CLONE(T) VIRTUAL_COPY_CONS (T, Score_element)
 
 
 typedef void (Score_element::*Score_element_method_pointer) (void);
@@ -37,7 +36,7 @@ public:
   Lookup const *lookup_l () const;
 
   virtual ~Score_element ();
-  DECLARE_MY_RUNTIME_TYPEINFO;    
+      
 
   void add_processing ();
 
@@ -54,7 +53,7 @@ public:
 
   virtual Line_of_score * line_l () const;
   virtual bool linked_b () const;
-  SCORE_ELEMENT_CLONE (Score_element);
+  VIRTUAL_COPY_CONS(Score_element);
  
   /// do not print anything black
   bool transparent_b_;

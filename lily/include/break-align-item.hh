@@ -18,8 +18,8 @@ class Break_align_item : public Horizontal_align_item {
 protected:
     virtual void do_pre_processing();
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    SCORE_ELEMENT_CLONE(Break_align_item);
+    
+    VIRTUAL_COPY_CONS(Score_element);
 	
 };
 #endif // BREAK_ALIGN_ITEM_HH

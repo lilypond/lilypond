@@ -24,9 +24,9 @@ Span_score_bar_engraver::get_span_bar_p () const
 }
 
 
-IMPLEMENT_IS_TYPE_B1 (Span_score_bar_engraver, Span_bar_engraver);
-IMPLEMENT_IS_TYPE_B1 (Piano_bar_engraver, Span_score_bar_engraver);
-IMPLEMENT_IS_TYPE_B1 (Staff_group_bar_engraver, Span_score_bar_engraver);
+
+
+
 
 Span_bar*
 Piano_bar_engraver::get_span_bar_p () const

@@ -56,7 +56,7 @@ Key_engraver::create_key ()
 
 
 bool
-Key_engraver::do_try_request (Request * req_l)
+Key_engraver::do_try_music (Music * req_l)
 {
   if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req_l))
     {
@@ -205,6 +205,6 @@ Key_engraver::do_post_move_processing ()
 }
 
 
-IMPLEMENT_IS_TYPE_B1 (Key_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR (Key_engraver);
 

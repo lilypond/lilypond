@@ -57,7 +57,7 @@ Separating_group_spanner::add_spacing_unit (Single_malt_grouping_item*i)
   add_dependency (i);
 }
 
-IMPLEMENT_IS_TYPE_B1(Separating_group_spanner, Spanner);
+
 
 void
 Separating_group_spanner::do_substitute_dependency (Score_element*o, Score_element*n)

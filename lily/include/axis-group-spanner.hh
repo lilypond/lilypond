@@ -31,7 +31,7 @@ protected:
   virtual void do_print() const;
 
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 #endif // SPAN_AXIS_GROUP_HH

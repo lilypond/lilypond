@@ -77,4 +77,4 @@ Axis_group_element::Axis_group_element ()
 }
 
 
-IMPLEMENT_IS_TYPE_B2(Axis_group_element, Score_element, Graphical_axis_group);
+

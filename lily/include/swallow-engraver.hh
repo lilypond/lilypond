@@ -18,9 +18,9 @@
  */
 class Swallow_engraver : public Engraver {
 protected:
-  bool do_try_request (Request*) ;
+  bool do_try_music (Music*) ;
 public:
-  TRANSLATOR_CLONE(Swallow_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
 };
 #endif // SWALLOW_GRAV_HH

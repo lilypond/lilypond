@@ -4,7 +4,7 @@
 #include "debug.hh"
 
 
-IMPLEMENT_IS_TYPE_B1(Horizontal_group_element, Axis_group_element);
+
 
 Horizontal_group_element::Horizontal_group_element ()
   : Axis_group_element (X_AXIS,X_AXIS)

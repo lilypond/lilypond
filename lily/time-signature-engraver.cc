@@ -21,7 +21,7 @@ void
 Time_signature_engraver::do_process_requests()
 {
   Translator * result =
-    daddy_grav_l()->get_simple_translator (Timing_engraver::static_name ());	// ugh
+    daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
 
   if (!result)
     {
@@ -67,4 +67,4 @@ Time_signature_engraver::do_pre_move_processing()
 
 
 ADD_THIS_TRANSLATOR(Time_signature_engraver);
-IMPLEMENT_IS_TYPE_B1(Time_signature_engraver,Engraver); 
+ 

@@ -30,8 +30,8 @@
 
 class Paper_column : public Horizontal_group_item { 
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEMENT_CLONE(Paper_column);
+  
+  VIRTUAL_COPY_CONS(Score_element);
   Drul_array< Array<Column_rod> > minimal_dists_arr_drul_;
 
   void preprocess ();

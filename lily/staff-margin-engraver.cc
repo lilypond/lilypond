@@ -15,7 +15,7 @@
 #include "stem.hh"
 #include "time-description.hh"
 
-IMPLEMENT_IS_TYPE_B1 (Staff_margin_engraver, Engraver);
+
 ADD_THIS_TRANSLATOR (Staff_margin_engraver);
 
 Staff_margin_engraver::Staff_margin_engraver ()

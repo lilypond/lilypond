@@ -18,7 +18,6 @@
 #include "parray.hh"
 #include "input.hh"
 
-#define TRANSLATOR_CLONE(c)	VIRTUAL_COPY_CONS(c, Translator)
 
 /** Make some kind of #Element#s from Requests. Elements are made by
   hierarchically grouped #Translator#s
@@ -32,8 +31,8 @@ public:
   bool is_alias_b (String) const;
   
 
-  DECLARE_MY_RUNTIME_TYPEINFO;  
-  TRANSLATOR_CLONE(Translator);
+    
+  VIRTUAL_COPY_CONS(Translator);
   Translator (Translator const &);
   Translator ();
   virtual ~Translator ();
@@ -51,7 +50,7 @@ public:
     true: request swallowed. Don't try to put the request elsewhere.
 
     */
-  bool try_request (Request*);
+  bool try_music (Music*);
   void pre_move_processing();
   void add_processing ();
   void creation_processing ();
@@ -84,7 +83,7 @@ protected:
 	Default: always return false
 	*/
   virtual void do_add_processing ();
-  virtual bool do_try_request (Request *req_l);
+  virtual bool do_try_music (Music *req_l);
   virtual void do_print () const;
   virtual void do_pre_move_processing(){}
   virtual void do_post_move_processing(){}
@@ -100,8 +99,8 @@ class Translator_adder
 public:
   static Translator *ctor ()
     {
-      Translator *t = new T;
-      t->type_str_ = T::static_name ();
+      T *t = new T;
+      t->type_str_ = classname (t);
       return t;
     }
   Translator_adder () {	

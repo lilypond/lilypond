@@ -19,7 +19,7 @@
 #include "source.hh"
 #include "audio-staff.hh"
 
-IMPLEMENT_IS_TYPE_B1(Score_performer,Performer_group_performer);
+
 ADD_THIS_TRANSLATOR(Score_performer);
 
 

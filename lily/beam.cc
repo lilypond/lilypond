@@ -36,7 +36,7 @@
 #include "stem-info.hh"
 
 
-IMPLEMENT_IS_TYPE_B1 (Beam, Spanner);
+
 
 Beam::Beam ()
 {
@@ -641,6 +641,9 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   Molecule leftbeams;
   Molecule rightbeams;
 
+  // UGH
+  Real nw_f = paper ()->note_width () * 0.8;
+
   /* half beams extending to the left. */
   if (prev)
     {
@@ -651,7 +654,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
        but let's make sure two half-beams never touch
        */
       Real w = here->hpos_f () - prev->hpos_f ();
-      w = w/2 <? paper ()->note_width ();
+      w = w/2 <? nw_f;
       Atom a;
       if (lhalfs)		// generates warnings if not
 	a =  lookup_l ()->beam (sl, w, beam_f);
@@ -684,7 +687,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 	      rightbeams.add_atom (b);
 	    }
 	  // TODO: notehead widths differ for different types
-	  gap_f = paper ()->note_width () / 2;
+	  gap_f = nw_f / 2;
 	  w -= 2 * gap_f;
 	  a = lookup_l ()->beam (sl, w + stemdx, beam_f);
 	}
@@ -696,7 +699,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 	  rightbeams.add_atom (b);
 	}
 
-      w = w/2 <? paper ()->note_width ();
+      w = w/2 <? nw_f;
       if (rhalfs)
 	a = lookup_l ()->beam (sl, w, beam_f);
 

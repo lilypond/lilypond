@@ -14,10 +14,10 @@
 
 class Swallow_performer : public Performer {
 public:
-  TRANSLATOR_CLONE(Swallow_performer);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
 protected:
-  virtual bool do_try_request (Request*) { return true; }
+  virtual bool do_try_music (Music*) { return true; }
 };
 
 #endif // SWALLOW_PERF_HH

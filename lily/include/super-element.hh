@@ -27,7 +27,7 @@ public:
   void unlink_all ();
 
 protected:
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 #endif // Super_element_HH

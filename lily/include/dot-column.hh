@@ -21,7 +21,7 @@ class Dot_column : public Horizontal_group_item
   Link_array<Dots> dot_l_arr_;
 
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   void add_head (Rhythmic_head*);
   void add_dots (Dots*);
 

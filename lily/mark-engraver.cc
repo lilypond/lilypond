@@ -14,7 +14,7 @@
 #include "time-description.hh"
 #include "engraver-group.hh"
 
-IMPLEMENT_IS_TYPE_B1 (Mark_engraver, Engraver);
+
 ADD_THIS_TRANSLATOR (Mark_engraver);
 
 Mark_engraver::Mark_engraver ()
@@ -24,7 +24,7 @@ Mark_engraver::Mark_engraver ()
 }
 
 bool
-Mark_engraver::do_try_request (Request* r_l)
+Mark_engraver::do_try_music (Music* r_l)
 {
   if (Mark_req *mr = dynamic_cast <Mark_req *> (r_l))
     {

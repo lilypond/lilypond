@@ -22,8 +22,8 @@
 class Span_score_bar_engraver : public Span_bar_engraver 
 {
 public:
-  TRANSLATOR_CLONE (Span_score_bar_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS (Translator);
+  
   virtual Span_bar* get_span_bar_p () const;
 };
 
@@ -34,8 +34,8 @@ public:
 class Piano_bar_engraver :  public Span_score_bar_engraver
 {
 public:
-  TRANSLATOR_CLONE (Piano_bar_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS (Translator);
+  
   virtual Span_bar * get_span_bar_p () const;
 };
 
@@ -45,8 +45,8 @@ public:
 class Staff_group_bar_engraver :  public Span_score_bar_engraver
 {
 public:
-  TRANSLATOR_CLONE (Staff_group_bar_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS (Translator);
+  
   virtual Span_bar * get_span_bar_p () const;
   virtual void acknowledge_element (Score_element_info);
 };

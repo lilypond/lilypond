@@ -17,13 +17,13 @@
 class Multi_measure_rest_engraver : public Engraver
 {
 public:
-  TRANSLATOR_CLONE(Multi_measure_rest_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
   Multi_measure_rest_engraver ();
 
 protected:
   virtual void do_process_requests ();
-  virtual bool do_try_request (Request*);
+  virtual bool do_try_music (Music*);
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
 private:

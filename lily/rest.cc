@@ -47,4 +47,4 @@ Rest::brew_molecule_p () const
   return m;
 }
 
-IMPLEMENT_IS_TYPE_B1(Rest, Rhythmic_head);
+

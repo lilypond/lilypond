@@ -21,8 +21,8 @@
  */
 class Performer : public virtual Translator{
 public:
-  TRANSLATOR_CLONE(Performer);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
   Performer_group_performer* daddy_perf_l() const;
 protected:
   virtual int get_tempo_i() const;

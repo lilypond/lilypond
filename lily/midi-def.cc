@@ -68,7 +68,7 @@ Midi_def::print() const
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Midi_def, Music_output_def);
+
 
 int Midi_def::default_count_i_=0;
 int

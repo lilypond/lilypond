@@ -111,7 +111,7 @@ Local_key_item::brew_molecule_p() const
   return output;
 }
 
-IMPLEMENT_IS_TYPE_B1(Local_key_item,Item);
+
 
 void
 Local_key_item::do_substitute_dependency (Score_element*o,Score_element*n)

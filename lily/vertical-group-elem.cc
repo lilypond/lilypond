@@ -23,4 +23,4 @@ Vertical_group_element::do_height() const
   return Graphical_axis_group::extent (Y_AXIS);
 }
 
-IMPLEMENT_IS_TYPE_B1(Vertical_group_element, Axis_group_element);
+

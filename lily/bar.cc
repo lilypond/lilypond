@@ -13,7 +13,7 @@
 #include "lookup.hh"
 #include "debug.hh"
 
-IMPLEMENT_IS_TYPE_B1 (Bar,Item);
+
 
 Bar::Bar ()
 {

@@ -208,7 +208,7 @@ Paper_def::lookup_l (int i) const
   return (*lookup_p_assoc_p_)[i];
 }
 
-IMPLEMENT_IS_TYPE_B1 (Paper_def, Music_output_def);
+
 
 int Paper_def::default_count_i_ = 0;
 

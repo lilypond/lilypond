@@ -18,9 +18,9 @@
 class Staff_symbol_engraver : public Engraver { 
     Staff_symbol *span_p_;
 public:
-  TRANSLATOR_CLONE(Staff_symbol_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Staff_symbol_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
   virtual ~Staff_symbol_engraver();
   virtual void fill_staff_info (Staff_info&);

@@ -27,12 +27,12 @@ protected:
   virtual void do_creation_processing ();
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing ();
-  virtual bool do_try_request (Request*);
+  virtual bool do_try_music (Music*);
 
 public:
-  TRANSLATOR_CLONE(Stem_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Stem_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 #endif // STEM_GRAV_HH

@@ -13,14 +13,14 @@
 #include "molecule.hh"
 #include "paper-outputter.hh"
 
-IMPLEMENT_IS_TYPE_B1(Spanner,Score_element);
+
 
 void
 Spanner::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "Between " << spanned_drul_[LEFT]->name ()
-       << " and " << spanned_drul_[RIGHT]->name() << '\n';
+  DOUT << "Between " << classname (spanned_drul_[LEFT])
+       << " and " << classname (spanned_drul_[RIGHT]) << '\n';
   if (broken_into_l_arr_.size())
     {
       DOUT << "with broken pieces:\n";
@@ -98,7 +98,7 @@ Spanner::set_bounds(Direction d, Item*i)
 
   if  (spanned_drul_[Direction(-d)] == spanned_drul_[d]
        && i)
-    warning (_f ("Spanner `%s\' with equal left and right spanpoints", name ()));
+    warning (_f ("Spanner `%s\' with equal left and right spanpoints", classname (this)));
 }
 
 void
@@ -140,7 +140,7 @@ Spanner::do_brew_molecule ()
   Molecule *output= brew_molecule_p ();
   Offset left_off (spanned_drul_[LEFT]->absolute_coordinate(X_AXIS), 0);
   Offset o = absolute_offset() + left_off;
-  pscore_l_->outputter_l_->output_molecule (output, o, name ());
+  pscore_l_->outputter_l_->output_molecule (output, o, classname (this));
   delete output;
 }
 

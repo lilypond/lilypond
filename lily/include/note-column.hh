@@ -38,7 +38,7 @@ public:
 
   void translate_rests(int dy);
         
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Note_column ();
   void set_stem (Stem*);
   void set_dotcol (Dot_column*);

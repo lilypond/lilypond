@@ -15,15 +15,15 @@
 
 class Note_performer : public Performer {
 public:
-  TRANSLATOR_CLONE(Note_performer);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
 
   Note_performer();
 
 protected:
   virtual void do_process_requests();
 
-  virtual bool do_try_request (Request *req_l) ;
+  virtual bool do_try_music (Music *req_l) ;
   virtual void do_print() const;
 
 private:

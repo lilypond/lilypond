@@ -32,5 +32,5 @@ Bar_column::do_substitute_dependency (Score_element*o,Score_element*n)
     }
 }
 
-IMPLEMENT_IS_TYPE_B1(Bar_column, Script_column);
+
 

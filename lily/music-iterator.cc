@@ -23,7 +23,7 @@
 
 
 
-IMPLEMENT_IS_TYPE_B(Music_iterator);
+
 
 
 void
@@ -38,9 +38,9 @@ Music_iterator::print() const
 #ifndef NPRINT
   if (!check_debug)
     return ;
-  DOUT << name() << "{";
+  DOUT << classname(this) << "{";
   DOUT << "report to " << 
-    report_to_l() << " (" << report_to_l ()->name () << ")\n";
+    report_to_l() << " (" << classname (report_to_l ()) << ")\n";
   if (ok())
     DOUT << "next at " << next_moment() << " ";
   else

@@ -35,14 +35,14 @@ public:
   virtual int priority_i() const;
   virtual bool inside_b() const;
   virtual Atom get_atom (Paper_def* p, Direction dir_) const;
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
   virtual bool do_equal_b (General_script_def const *) const;
   virtual void do_print() const;
   Script_def();
   void set_from_input (String, bool, int, int ,bool,int);
 protected:
-  VIRTUAL_COPY_CONS(Script_def,General_script_def);
+  VIRTUAL_COPY_CONS(General_script_def);
 
 };
 

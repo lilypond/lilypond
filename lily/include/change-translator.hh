@@ -17,9 +17,9 @@ class Change_translator : public Music
 public:
   String change_to_type_str_;
   String change_to_id_str_;
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
-  VIRTUAL_COPY_CONS(Change_translator, Music);
+  VIRTUAL_COPY_CONS(Music);
   void do_print () const;
 };
 

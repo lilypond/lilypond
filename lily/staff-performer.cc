@@ -13,7 +13,7 @@
 #include "audio-item.hh"
 #include "audio-staff.hh"
 
-IMPLEMENT_IS_TYPE_B1 (Staff_performer,Performer_group_performer);
+
 ADD_THIS_TRANSLATOR (Staff_performer);
 
 Staff_performer::Staff_performer ()

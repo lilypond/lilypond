@@ -23,8 +23,8 @@ class Key_engraver : public Engraver {
 
 public:
   Key_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  TRANSLATOR_CLONE(Key_engraver);
+  
+  VIRTUAL_COPY_CONS(Translator);
   Key key_;
   Key_change_req * keyreq_l_;
   Key_item * kit_p_;
@@ -34,7 +34,7 @@ public:
   bool change_key_b_;
     
 protected:
-  virtual bool do_try_request (Request *req_l);
+  virtual bool do_try_music (Music *req_l);
   virtual void do_process_requests();
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();

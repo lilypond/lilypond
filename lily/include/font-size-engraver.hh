@@ -19,8 +19,8 @@ protected:
   virtual void  do_process_requests ();
 public:
   Font_size_engraver ();
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  TRANSLATOR_CLONE (Font_size_engraver);
+  
+  VIRTUAL_COPY_CONS (Translator);
 };
 
 #endif /* FONT_SIZE_GRAV_HH */

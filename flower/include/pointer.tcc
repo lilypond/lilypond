@@ -64,7 +64,7 @@ void
 P<T>::set_p (T * np) 
 {
   if (np == t_p)
-	return;
+    return;
   delete t_p;
   
   t_p = np;
@@ -77,7 +77,7 @@ void
 P<T>::set_l (T const * l_C) 
 {
   if (t_p == l_C)
-	return;
+    return;
   
   junk();
   copy (l_C);

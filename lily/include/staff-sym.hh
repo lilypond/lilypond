@@ -22,12 +22,12 @@ public:
   int no_lines_i_;
   Real interline_f_;
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Staff_symbol ();
   Real inter_note_f() const;
   int steps_i() const;
 protected:
-  SCORE_ELEMENT_CLONE(Staff_symbol);
+  VIRTUAL_COPY_CONS(Score_element);
   virtual Interval do_height () const;
   virtual Molecule* brew_molecule_p() const;
   virtual void do_print() const;

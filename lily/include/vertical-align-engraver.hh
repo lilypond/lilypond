@@ -16,8 +16,8 @@ class Vertical_align_engraver : public Engraver {
   Vertical_align_spanner * valign_p_;
     
 public:
-  TRANSLATOR_CLONE(Vertical_align_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
   Vertical_align_engraver();
 protected:
   virtual void acknowledge_element (Score_element_info);

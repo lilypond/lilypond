@@ -34,7 +34,7 @@ public:
   bool contains_b (Graphical_element const *) const;
   void add_element (Graphical_element*);
   void remove_element (Graphical_element*);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 #endif // Graphical_axis_group_HH

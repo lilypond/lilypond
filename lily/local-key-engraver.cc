@@ -32,7 +32,7 @@ Local_key_engraver::do_creation_processing ()
     Breaks if Key_engraver is removed from under us.
    */
   Translator * result =
-    daddy_grav_l()->get_simple_translator (Key_engraver::static_name());
+    daddy_grav_l()->get_simple_translator ("Key_engraver");
 
   if (!result)
     {
@@ -132,5 +132,5 @@ Local_key_engraver::do_process_requests()
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Local_key_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR(Local_key_engraver);

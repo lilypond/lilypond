@@ -42,7 +42,7 @@ Music_wrapper::Music_wrapper(Music*p)
   element_p_ = p;
 }
 
-IMPLEMENT_IS_TYPE_B1 (Music_wrapper, Music);
+
 
 Moment
 Music_wrapper::duration () const

@@ -37,6 +37,6 @@ Span_score_bar::do_pre_processing()
   //  Span_bar::do_pre_processing();
 }
 
-IMPLEMENT_IS_TYPE_B2(Span_score_bar, Span_bar, Score_bar);
+
 
   

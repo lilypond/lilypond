@@ -9,11 +9,11 @@
 #include "musical-request.hh"
 #include "plet-swallow-engraver.hh"
 
-IMPLEMENT_IS_TYPE_B1(Plet_swallow_engraver,Swallow_engraver);
+
 ADD_THIS_TRANSLATOR(Plet_swallow_engraver);
 
 bool
-Plet_swallow_engraver::do_try_request (Request* req_l)
+Plet_swallow_engraver::do_try_music (Music* req_l)
 {
   return dynamic_cast<Plet_req *> (req_l);
 }

@@ -125,7 +125,7 @@ $lyric_verse2 = \lyrics{
 	\[/3 Mit4 der8 \] T\"o-4. ne8
 	\[/3 s\"u-4 "\ss{}en"8 \] Kla-4. gen8
 	Fleh-4. en8 \[/3 sie4 f\"ur8 \]
-	mich.2 _4
+	mich2 _4
 	_4_ _ 
 	_4_ _
 
@@ -159,7 +159,7 @@ $lyric_through = \lyrics{
 	\[/3 Komm4 be-8 \] gl\"u4. cke8 |
 	mich!2. |
 	\[/3 Komm4 be-8 \] gl\"u4. cke8 |
-	mich!2. |
+	mich,2. __ |
 	_2 be-4 |
 	gl\"u-2. |
 	cke2. |
@@ -444,11 +444,19 @@ $grand_staff = \type GrandStaff<
 	% To get original, \transpose d'
 	% \transpose a gives a' to d'' (for basses, who sing an octave down)
 	<
-		{ \notes \transpose a { \$vocal_staff } }
+% kjoet, but i like the original better -- jcn
+%		{ \notes \transpose a { \$vocal_staff } }
+%		\$lyric_staff
+%		{ \notes \transpose a { \$grand_staff } }
+		{ \notes { \$vocal_staff } }
 		\$lyric_staff
-		{ \notes \transpose a { \$grand_staff } }
+		{ \notes { \$grand_staff } }
 	>
-	\paper { \translator { \OrchestralScoreContext }}
+	\paper { 
+%		\translator { \OrchestralScoreContext }
+%		\translator { \OrchestralPartStaffContext }
+		\translator { \HaraKiriStaffContext }
+	}
 	\midi{
 		\tempo 4 = 54;
 	}

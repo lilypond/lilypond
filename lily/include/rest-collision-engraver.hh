@@ -22,8 +22,8 @@ protected:
   virtual void process_acknowledged ();
   virtual void do_pre_move_processing();
 public:
-  TRANSLATOR_CLONE(Rest_collision_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Rest_collision_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 #endif // REST_COLLISION_GRAV_HH

@@ -13,7 +13,7 @@
 #include "note-column.hh"
 
 bool
-Slur_engraver::do_try_request (Request *req_l)
+Slur_engraver::do_try_music (Music *req_l)
 {
   Musical_req *mus_l = dynamic_cast <Musical_req *> (req_l);
   if (Slur_req *sl = dynamic_cast <Slur_req *> (mus_l))
@@ -113,5 +113,5 @@ Slur_engraver::do_post_move_processing()
   new_slur_req_l_arr_.clear();
 }
 
-IMPLEMENT_IS_TYPE_B1(Slur_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR(Slur_engraver);

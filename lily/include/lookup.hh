@@ -40,6 +40,7 @@ public:
   Atom dashed_slur (Array<Offset> controls, Real thick, Real dash) const;
   Atom dots () const;
   Atom dynamic (String) const;
+  Atom extender (Real) const;
   Atom fill (Box b) const;
   Atom flag (int, Direction) const;
   Atom hairpin (Real width, bool decresc, bool continued) const;

@@ -12,7 +12,7 @@
 #include "p-col.hh"
 #include "debug.hh"
 
-IMPLEMENT_IS_TYPE_B1(Tie,Bow);
+
 
 void
 Tie::set_head (Direction d, Note_head * head_l)

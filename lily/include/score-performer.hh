@@ -18,8 +18,8 @@ class Score_performer:
   public Performer_group_performer, public Global_translator 
 {
 public:
-  TRANSLATOR_CLONE(Score_performer);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
   Score_performer();
   ~Score_performer();
   Performance *performance_p_;

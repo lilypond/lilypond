@@ -68,6 +68,15 @@
 	grestore
 } bind def
 
+/extender % width
+{
+	gsave
+	0 0 moveto
+	stafflinethickness 0.8 mul setlinewidth
+	0 lineto stroke
+	grestore
+} bind def
+
 /widthbar % height width
 {
 	gsave

@@ -32,9 +32,9 @@ class Score_engraver :
   void typeset_all();
     
 public:
-  TRANSLATOR_CLONE(Score_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Paper_score * pscore_p_;
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
   Score_engraver();
   virtual Music_output *get_output_p ();  
@@ -47,7 +47,7 @@ protected:
 protected:
   /* Engraver_group_engraver interface */
   virtual Staff_info get_staff_info() const;
-  virtual bool do_try_request (Request*);
+  virtual bool do_try_music (Music*);
   virtual void do_creation_processing();
   virtual void do_removal_processing();
   virtual void announce_element (Score_element_info);

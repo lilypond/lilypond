@@ -135,7 +135,7 @@ usage ()
     "STRING_UTILS_INLINED "
 #endif
         "datadir=" DIR_DATADIR
-	" "
+	"\n"
         "localedir=" DIR_LOCALEDIR
 
     "\n";
@@ -225,12 +225,12 @@ setup_paths ()
     global_path.parse_path (env_sz);
 
 
-  char *suffixes[] = {"ly", "afm", "scm", 0};
+  char *suffixes[] = {"ly", "afm", "scm", "init", 0};
   for (char **s = suffixes; *s; s++){
       if (!prefix_directory.empty_b())
-	  global_path.add (prefix_directory + String (*s));
+	  global_path.add (prefix_directory + to_str ('/') + String (*s));
       else
-	  global_path.add (String (DIR_DATADIR) + String(*s));
+	  global_path.add (String (DIR_DATADIR) + to_str ('/') + String(*s));
   }
 }
 
@@ -304,12 +304,11 @@ main_prog (int argc, char **argv)
 
   default_outname_base_global = "lelie";
 
-  
-
   int p=0;
   const char *arg ;
   while ((arg= oparser.get_next_arg ()))
     {
+      
       if (outname_str == "")
 	{
 	  Midi_def::reset_default_count ();

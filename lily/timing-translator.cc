@@ -18,7 +18,7 @@ Timing_translator::Timing_translator ()
 }
 
 bool
-Timing_translator::do_try_request(Request*r)
+Timing_translator::do_try_music (Music*r)
 {
   if (Timing_req *t =  dynamic_cast <Timing_req *> (r))
     {
@@ -26,7 +26,7 @@ Timing_translator::do_try_request(Request*r)
 	{
 	  if (timing_req_l_arr_[i]->equal_b(t))
 	    return true;
-	  if (timing_req_l_arr_[i]->name() == r->name())
+	  if (String (classname (timing_req_l_arr_[i])) == classname (r))
 	    {
 	      r->warning (_ ("conflicting timing request"));
 	      return false;
@@ -126,7 +126,7 @@ Timing_translator::do_pre_move_processing()
     global_l->add_moment_to_process (time_.next_bar_moment ());
 }
 
-IMPLEMENT_IS_TYPE_B1(Timing_translator, Translator);
+
 ADD_THIS_TRANSLATOR(Timing_translator);
 
 void

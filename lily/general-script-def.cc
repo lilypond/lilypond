@@ -37,9 +37,6 @@ General_script_def::inside_b() const
 bool
 General_script_def::equal_b (General_script_def const&g) const
 {
-  if (name() != g.name ())
-    return false;
-
   return do_equal_b (&g);
 }
 
@@ -53,7 +50,7 @@ General_script_def::do_equal_b (General_script_def const*) const
 void
 General_script_def::print() const
 {
-  DOUT << name() << "{";
+  DOUT << classname(this) << "{";
   do_print();
   DOUT << "}";
 }
@@ -70,7 +67,7 @@ General_script_def::get_atom (Paper_def*, Direction) const
   return Atom (s);
 }
 
-IMPLEMENT_IS_TYPE_B(General_script_def);
+
 
 
 Interval

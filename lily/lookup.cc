@@ -204,6 +204,18 @@ Lookup::dynamic (String st) const
 }
 
 Atom
+Lookup::extender (Real width) const
+{
+  Atom a = (*symtables_p_) ("param")->lookup ("extender");
+  Array<Real> arr;
+  arr.push (width);
+  a.lambda_ = (lambda_scm (a.str_, arr));
+  a.str_ = "extender";
+  a.font_ = font_;
+  return a;
+}
+
+Atom
 Lookup::fill (Box b) const
 {
   Atom a;
@@ -437,12 +449,13 @@ Lookup::hairpin (Real width, bool decresc, bool continued) const
 {
   Atom a;  
   Real height = paper_l_->staffheight_f () / 6;
-  String ps;
-  ps += to_str (width) + " " 
-    + to_str (height) + " " 
-    + to_str (continued ? height/2 : 0) + 
-    + " draw_"  + String (decresc ? "de" : "") + "cresc\n";
-  a.str_ = ps;
+  Array<Real> arr;
+  arr.push (width);
+  arr.push (height);
+  arr.push (continued ? height/2 : 0);
+  String hairpin = String (decresc ? "de" : "") + "crescendo\n";
+  a.lambda_ = (lambda_scm (hairpin, arr));
+  a.str_ = "hairpin";
   a.dim_.x () = Interval (0, width);
   a.dim_.y () = Interval (-2*height, 2*height);
   a.font_ = font_;
@@ -452,15 +465,13 @@ Lookup::hairpin (Real width, bool decresc, bool continued) const
 Atom
 Lookup::plet (Real dy , Real dx, Direction dir) const
 {
-  String ps;
-    
-  ps += String_convert::double_str (dx) + " " 
-    + String_convert::double_str (dy) + " "
-    + String_convert::int_str ( (int)dir) +
-    " draw_plet ";
-
+  Array<Real> arr;
+  arr.push (dx);
+  arr.push (dy);
+  arr.push (dir);
   Atom a;
-  a.str_ = ps;
+  a.lambda_ = (lambda_scm ("tuplet", arr));
+  a.str_ = "plet";
   return a;
 }
 
@@ -469,8 +480,6 @@ Lookup::slur (Array<Offset> controls) const
 {
   assert (controls.size () == 8);
 
-  String ps;
-  
   Real dx = controls[3].x () - controls[0].x ();
   Real dy = controls[3].y () - controls[0].y ();
   Atom a;

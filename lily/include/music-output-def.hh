@@ -34,8 +34,8 @@ public:
   Music_output_def ();
   virtual ~Music_output_def ();
 
-  VIRTUAL_COPY_CONS(Music_output_def, Music_output_def);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Music_output_def);
+  
   virtual void print () const;
 
   Global_translator *get_global_translator_p ();

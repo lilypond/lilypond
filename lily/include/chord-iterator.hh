@@ -19,7 +19,7 @@ class Simultaneous_music_iterator : public Music_iterator
   Simultaneous_music *simultaneous_music_l() const;
   Pointer_list<Music_iterator*> children_p_list_;
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
   virtual void do_print() const;
   virtual void construct_children();

@@ -180,7 +180,7 @@ Clef_engraver::do_creation_processing()
 }
 
 bool
-Clef_engraver::do_try_request (Request * r_l)
+Clef_engraver::do_try_music (Music * r_l)
 {
   if (Clef_change_req *cl = dynamic_cast <Clef_change_req *> (r_l))
     {
@@ -267,5 +267,5 @@ Clef_engraver::do_removal_processing()
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Clef_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR(Clef_engraver);

@@ -9,7 +9,7 @@
 #include "vertical-align-spanner.hh"
 
 
-IMPLEMENT_IS_TYPE_B2(Vertical_align_spanner, Align_element, Spanner);
+
 
 Vertical_align_spanner::Vertical_align_spanner ()
 {

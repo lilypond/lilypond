@@ -26,7 +26,7 @@ protected:
     virtual void do_pre_processing();
 public:
     Link_array<Note_column> clash_l_arr_;
-    DECLARE_MY_RUNTIME_TYPEINFO;
+    
     void add_column (Note_column*ncol_l);
     Collision();
 };

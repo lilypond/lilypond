@@ -38,7 +38,7 @@ Audio_column::print() const
   DOUT << "Audio_column {";
   DOUT << "at: " << at_mom_ << ". Contains:";
   for (PCursor<Audio_item*> i (audio_item_l_list_.top ()); i.ok (); i++)
-    DOUT << i->name () << ", ";
+    DOUT << classname (i.ptr ()) << ", ";
   DOUT << "\n}\n";
 #endif 
 }

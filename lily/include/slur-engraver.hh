@@ -17,7 +17,7 @@ class Slur_engraver :public Engraver {
   Array<Slur*> end_slur_l_arr_;
 
 protected:
-  virtual bool do_try_request (Request*);
+  virtual bool do_try_music (Music*);
   virtual void do_process_requests();
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
@@ -25,8 +25,8 @@ protected:
   virtual void do_removal_processing ();
 
 public:
-  TRANSLATOR_CLONE(Slur_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
 };
 
 #endif // SLURGRAV_HH

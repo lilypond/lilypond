@@ -21,7 +21,7 @@ Staff_symbol::Staff_symbol ()
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Staff_symbol,Spanner);
+
 
 void
 Staff_symbol::do_print() const

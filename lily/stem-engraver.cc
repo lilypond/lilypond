@@ -101,7 +101,7 @@ Stem_engraver::do_pre_move_processing()
 }
 
 bool
-Stem_engraver::do_try_request (Request* r)
+Stem_engraver::do_try_music (Music* r)
 {
   Musical_req* mus_l = dynamic_cast <Musical_req *> (r);
   if (!mus_l)
@@ -116,5 +116,5 @@ Stem_engraver::do_try_request (Request* r)
   return true;
 }
 
-IMPLEMENT_IS_TYPE_B1(Stem_engraver, Engraver);
+
 ADD_THIS_TRANSLATOR(Stem_engraver);

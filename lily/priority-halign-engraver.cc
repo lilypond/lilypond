@@ -46,5 +46,5 @@ Priority_horizontal_align_engraver::acknowledge_element (Score_element_info i)
     }
 }
 
-IMPLEMENT_IS_TYPE_B1(Priority_horizontal_align_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR(Priority_horizontal_align_engraver);

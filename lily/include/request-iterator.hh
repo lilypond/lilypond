@@ -25,7 +25,7 @@ class Request_chord_iterator : public Music_iterator {
 
 public:
   Request_chord_iterator ();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
 protected:
   virtual void do_process_and_next (Moment);

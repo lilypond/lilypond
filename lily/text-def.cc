@@ -79,4 +79,4 @@ Text_def::print() const
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Text_def,General_script_def);
+

@@ -22,7 +22,7 @@ protected:
 
 public:
   Horizontal_group_element ();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 

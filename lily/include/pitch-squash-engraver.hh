@@ -14,8 +14,8 @@
 
 class Pitch_squash_engraver : public Engraver {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  TRANSLATOR_CLONE (Pitch_squash_engraver);
+  
+  VIRTUAL_COPY_CONS (Translator);
   virtual void acknowledge_element (Score_element_info);
   
 };

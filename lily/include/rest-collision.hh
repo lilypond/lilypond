@@ -18,7 +18,7 @@ class Rest_collision : public Item {
     Link_array<Note_column> ncol_l_arr_;
 public:
     void add_column (Note_column*);
-    DECLARE_MY_RUNTIME_TYPEINFO;
+    
     Rest_collision();
 protected:
     virtual void do_post_processing();

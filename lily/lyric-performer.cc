@@ -13,7 +13,7 @@
 
 
 
-IMPLEMENT_IS_TYPE_B1(Lyric_performer,Performer);
+
 ADD_THIS_TRANSLATOR(Lyric_performer);
 
 void 
@@ -34,7 +34,7 @@ Lyric_performer::do_process_requests()
 }
 
 bool
-Lyric_performer::do_try_request (Request* req_l)
+Lyric_performer::do_try_music (Music* req_l)
 {
   if (Lyric_req *lr = dynamic_cast <Lyric_req *> (req_l))
     {

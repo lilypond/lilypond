@@ -47,7 +47,7 @@ Translator_group::check_removal()
 
 
 
-IMPLEMENT_IS_TYPE_B1(Translator_group, Translator);
+
 
 void
 Translator_group::add_translator (Translator *trans_p)
@@ -187,16 +187,16 @@ Translator_group::find_create_translator_l (String n, String id)
 
 
 bool
-Translator_group::do_try_request (Request* req_l)
+Translator_group::do_try_music (Music* req_l)
 {
   bool hebbes_b =false;
 
   Link_array<Translator> nongroups (nongroup_l_arr ());
   
   for (int i =0; !hebbes_b && i < nongroups.size() ; i++)
-    hebbes_b =nongroups[i]->try_request (req_l);
+    hebbes_b =nongroups[i]->try_music (req_l);
   if (!hebbes_b && daddy_trans_l_)
-    hebbes_b = daddy_trans_l_->try_request (req_l);
+    hebbes_b = daddy_trans_l_->try_music (req_l);
   return hebbes_b ;
 }
 
@@ -242,7 +242,7 @@ Translator_group::nongroup_l_arr () const
 void
 Translator_group::terminate_translator (Translator*r_l)
 {
-  DOUT << "Removing " << r_l->name() << " at " << now_moment () << '\n';
+  DOUT << "Removing " << classname (r_l) << " at " << now_moment () << '\n';
   r_l->removal_processing();
   Translator * trans_p =remove_translator_p (r_l);
 
@@ -267,12 +267,12 @@ Translator_group::remove_translator_p (Translator*trans_l)
 
 
 Translator*
-Translator_group::get_simple_translator (char const *type) const
+Translator_group::get_simple_translator (String type) const
 {
   Link_array<Translator> nongroups (nongroup_l_arr ());
   for (int i=0; i < nongroups.size(); i++)
     {
-      if (nongroups[i]->name() == type)
+      if (classname (nongroups[i]) == type)
 	return nongroups[i];
     }
   if (daddy_trans_l_)

@@ -16,10 +16,10 @@ Command_script_req::do_print() const
 Command_script_req::Command_script_req(){}
 Command_script_req::~Command_script_req(){}
 
-IMPLEMENT_IS_TYPE_B1(Command_script_req,Command_req);
 
 
-IMPLEMENT_IS_TYPE_B1(Cadenza_req, Timing_req);
+
+
 
 void
 Cadenza_req::do_print() const
@@ -51,9 +51,9 @@ Bar_req::do_equal_b (Request*r) const
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Bar_req,Command_req);
 
-IMPLEMENT_IS_TYPE_B2(Bracket_req, Command_req, Span_req);
+
+
 
 void
 Bar_req::do_print() const
@@ -86,18 +86,18 @@ Partial_measure_req::do_equal_b (Request* r) const
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Timing_req,Command_req);
+
 
 void
 Timing_req::do_print() const{}
 
 
-IMPLEMENT_IS_TYPE_B1(Command_req,Request);
+
 
 void
 Command_req::do_print() const{}
 
-IMPLEMENT_IS_TYPE_B1(Barcheck_req,Timing_req);
+
 
 void
 Barcheck_req::do_print() const{}
@@ -110,7 +110,7 @@ Barcheck_req::do_equal_b (Request*r) const
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Clef_change_req,Command_req);
+
 
 void
 Clef_change_req::do_print() const
@@ -128,7 +128,7 @@ Clef_change_req::Clef_change_req (String s)
 
 
 
-IMPLEMENT_IS_TYPE_B1(Partial_measure_req,Timing_req);
+
 
 void
 Partial_measure_req::do_print() const
@@ -137,7 +137,7 @@ Partial_measure_req::do_print() const
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Time_signature_change_req,Timing_req);
+
 
 void
 Time_signature_change_req::do_print() const
@@ -174,7 +174,7 @@ Tempo_req::do_print() const
 {
   DOUT << dur_.str() << " = " << metronome_i_;
 }
-IMPLEMENT_IS_TYPE_B1(Tempo_req, Timing_req);
+
 
 bool
 Tempo_req::do_equal_b (Request *r) const
@@ -187,7 +187,7 @@ Tempo_req::do_equal_b (Request *r) const
 
 
 
-IMPLEMENT_IS_TYPE_B1(Measure_grouping_req,Timing_req);
+
 
 void
 Measure_grouping_req::do_print() const
@@ -299,7 +299,7 @@ Key_change_req::transpose (Musical_pitch d)
     }
 }
 
-IMPLEMENT_IS_TYPE_B1(Key_change_req,Command_req);
+
 void
 Key_change_req::squash_octaves()
 {
@@ -326,7 +326,7 @@ Key_change_req::Key_change_req()
   ordinary_key_b_= false;
 }
 
-IMPLEMENT_IS_TYPE_B1(Break_req, Command_req);
+
 
 Break_req::Break_req ()
 {
@@ -338,7 +338,7 @@ Break_req::do_print () const
 {
 }
 
-IMPLEMENT_IS_TYPE_B1 (Mark_req, Command_req);
+
 
 Mark_req::Mark_req (String s)
 {

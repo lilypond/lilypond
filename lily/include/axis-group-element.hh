@@ -31,7 +31,7 @@ public:
   Axis_group_element();  
   virtual Link_array<Score_element> get_children ();
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 #endif // AXIS_GROUP_ELEMENT_HH

@@ -31,6 +31,7 @@ static Keyword_ent the_key_tab[]={
   {"cm", CM_T},
   {"consists", CONSISTS},
   {"duration", DURATION},
+//  {"_", EXTENDER},
   {"font", FONT},
   {"grouping", GROUPING},
   {"header", HEADER},

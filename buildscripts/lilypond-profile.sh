@@ -8,7 +8,8 @@ LILYINCLUDE="@datadir@/ly:@datadir@/afm"
 
 # include an empty path component for the system wide includes.
 MFINPUTS="@datadir@/mf:"${MFINPUTS:=":"}
-TEXINPUTS="@datadir@/tex:"${TEXINPUTS:=":"}
+TEXINPUTS="@datadir@/tex:@datadir@/ps:"${TEXINPUTS:=":"}
+
 GUILE_LOAD_PATH="@datadir@/scm:$GUILE_LOAD_PATH"
 
 export GUILE_LOAD_PATH LILYINCLUDE MFINPUTS TEXINPUTS GS_LIB GS_FONTPATH

@@ -15,14 +15,14 @@ Type_swallow_translator::Type_swallow_translator ()
 }
 
 bool
-Type_swallow_translator::do_try_request (Request*r)
+Type_swallow_translator::do_try_music (Music*r)
 {
   //  if (type_ && type_->before (typeid( *r))) // 
   //  return true;
   return false;			// ugh. FIXME.
 }
 
-IMPLEMENT_IS_TYPE_B1(Type_swallow_translator, Translator);
+
 
 DECLARE_REQUEST_SWALLOWER(Skip_req);
 

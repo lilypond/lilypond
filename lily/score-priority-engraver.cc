@@ -75,5 +75,5 @@ Score_priority_engraver::acknowledge_element (Score_element_info inf)
     }
 }
 
-IMPLEMENT_IS_TYPE_B1(Score_priority_engraver, Engraver);
+
 ADD_THIS_TRANSLATOR(Score_priority_engraver);

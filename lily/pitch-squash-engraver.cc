@@ -20,5 +20,5 @@ Pitch_squash_engraver::acknowledge_element (Score_element_info i)
 }
 
 ADD_THIS_TRANSLATOR (Pitch_squash_engraver);
-IMPLEMENT_IS_TYPE_B1(Pitch_squash_engraver, Engraver);
+
 

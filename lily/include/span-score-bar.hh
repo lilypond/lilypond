@@ -16,8 +16,8 @@
 class Span_score_bar : public Span_bar, public Score_bar
 {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEMENT_CLONE(Span_score_bar);
+  
+  VIRTUAL_COPY_CONS(Score_element);
   Span_score_bar();
 
 protected:

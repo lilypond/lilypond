@@ -20,7 +20,7 @@
   Maybe use base classes for RIFF files?
  */
 struct Midi_item {
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Midi_item (Audio_item* audio_item_l); 
   virtual ~Midi_item ();
   static String i2varint_str (int i);
@@ -50,7 +50,7 @@ struct Midi_event
   variable sized MIDI data
  */
 struct Midi_chunk : Midi_item {
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Midi_chunk ();
 
   void set (String header_str, String data_str, String footer_str);
@@ -64,7 +64,7 @@ private:
 };
 
 struct Midi_duration : public Midi_item {
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Midi_duration (Real seconds_f);
 
   virtual String str () const;
@@ -72,7 +72,7 @@ struct Midi_duration : public Midi_item {
 };
 
 struct Midi_header : Midi_chunk {
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
   Midi_header (int format_i, int tracks_i, int clocks_per_4_i);
 };
@@ -81,7 +81,7 @@ struct Midi_header : Midi_chunk {
   Change instrument event
  */
 struct Midi_instrument : public Midi_item {
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Midi_instrument (int channel_i, String instrument_str);
 
   virtual String str () const;
@@ -90,7 +90,7 @@ struct Midi_instrument : public Midi_item {
                                       
 
 struct Midi_key : public Midi_item {
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Midi_key (Audio_item* audio_item_l);
 	
   virtual String str () const;
@@ -98,7 +98,7 @@ struct Midi_key : public Midi_item {
 
 struct Midi_time_signature : Midi_item {
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Midi_time_signature (Audio_item* audio_item_l); 
   
   virtual String str () const;
@@ -109,7 +109,7 @@ struct Midi_time_signature : Midi_item {
   Turn a note on (blond).
  */
 struct Midi_note : public Midi_item {
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Midi_note (Audio_item* audio_item_l); 
 
   Moment duration () const;
@@ -124,7 +124,7 @@ struct Midi_note : public Midi_item {
   Turn a note off (dark).
  */
 struct Midi_note_off : public Midi_item {
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Midi_note_off (Midi_note*); 
 
   int pitch_i () const;
@@ -134,7 +134,7 @@ struct Midi_note_off : public Midi_item {
 };
 
 struct Midi_text : Midi_item {
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
     
   enum Type { 
     TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC, 
@@ -150,7 +150,7 @@ struct Midi_text : Midi_item {
 };
 
 struct Midi_tempo : Midi_item {
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Midi_tempo (int per_minute_4_i);
   Midi_tempo (Audio_item* audio_item_l); 
   
@@ -160,7 +160,7 @@ struct Midi_tempo : Midi_item {
 };
 
 struct Midi_track : Midi_chunk {
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   int number_i_;
   Pointer_list<Midi_event*> event_p_list_;
     

@@ -17,10 +17,10 @@ class Type_swallow_translator : public virtual Translator
 {
 protected:
   const type_info * type_;
-  bool do_try_request (Request*);
+  bool do_try_music (Music*);
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  TRANSLATOR_CLONE(Type_swallow_translator);
+  
+  VIRTUAL_COPY_CONS(Translator);
   Type_swallow_translator ();
 };
 
@@ -29,10 +29,9 @@ struct TYPE ## _swallow_translator : public Type_swallow_translator {\
   TYPE ## _swallow_translator() { \
     type_ = &typeid (TYPE);\
   }\
-  DECLARE_MY_RUNTIME_TYPEINFO;\
-  TRANSLATOR_CLONE(TYPE ## _swallow_translator);\
+  \
+  VIRTUAL_COPY_CONS(Translator);\
 };\
-IMPLEMENT_IS_TYPE_B1(TYPE ## _swallow_translator, Type_swallow_translator);\
 ADD_THIS_TRANSLATOR(TYPE ## _swallow_translator);\
 
 #endif // TYPESWALLOW_GRAV_HH

@@ -35,8 +35,8 @@ class Score_column : public Paper_column {
 
 public:
   int break_penalty_i () { return break_penalty_i_; }
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEMENT_CLONE(Score_column);
+  
+  VIRTUAL_COPY_CONS(Score_element);
   /// length of notes/rests in this column
   Array<Moment> durations;
     

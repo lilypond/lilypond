@@ -20,6 +20,6 @@ two = \notes\relative c{
 \score{
 	< \global \one \two >
 	\paper {
-		\include "score-bar-numbering.ly";
+		\translator { \OrchestralPartStaffContext }
 	}
 }

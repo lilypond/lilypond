@@ -24,10 +24,10 @@ public:
 
   Crescendo();
 protected:
-  SCORE_ELEMENT_CLONE(Crescendo);
+  VIRTUAL_COPY_CONS(Score_element);
   virtual Molecule*brew_molecule_p() const;
   virtual Interval symbol_height() const;
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
     
 private:
   Atom get_symbol() const;

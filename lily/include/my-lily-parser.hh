@@ -39,6 +39,7 @@ public:
   int abbrev_beam_type_i_;
   int default_abbrev_i_;
   Duration default_duration_;
+  Extender_req* extender_req;
   Plet plet_;
   Scope *default_header_p_;
     

@@ -16,11 +16,11 @@ class Script_engraver : public Engraver {
   Array<Script_req *> script_req_l_arr_;
 
 public:
-  TRANSLATOR_CLONE(Script_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
   Script_engraver();
 protected:
-  virtual bool do_try_request (Request*);
+  virtual bool do_try_music (Music*);
   virtual void do_process_requests();
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();

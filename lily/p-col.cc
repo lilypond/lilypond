@@ -125,7 +125,7 @@ Paper_column::used_b() const
   return linked_b();
 }
 
-IMPLEMENT_IS_TYPE_B1(Paper_column, Horizontal_group_item);
+
 
 Paper_column*
 Paper_column::column_l () const

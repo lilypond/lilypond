@@ -140,7 +140,7 @@ Score_engraver::typeset_all()
 	    if (!s->spanned_drul_[d])
 	      {
 		s->set_bounds(d, command_column_l_);
-		::warning (_f ("Unbound spanner `%s\'", s->name ()));
+		::warning (_f ("Unbound spanner `%s\'", classname(s)));
 	      }
 	  } while (flip(&d) != LEFT);
 	}
@@ -235,9 +235,9 @@ Score_engraver::get_output_p ()
 }
 
 bool
-Score_engraver::do_try_request (Request*r)
+Score_engraver::do_try_music (Music*r)
 {
-  bool gotcha = Engraver_group_engraver::do_try_request (r);  
+  bool gotcha = Engraver_group_engraver::do_try_music (r);  
 
   if (!gotcha)
     {
@@ -256,7 +256,7 @@ Score_engraver::do_try_request (Request*r)
 
 }
 
-IMPLEMENT_IS_TYPE_B1(Score_engraver,Engraver_group_engraver);
+
 ADD_THIS_TRANSLATOR(Score_engraver);
 
 void

@@ -20,7 +20,7 @@ protected:
 
 public:
   Vertical_group_element () ;
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 #endif /* VERTICAL_GROUP_ELEM_HH */

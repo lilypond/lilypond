@@ -22,9 +22,9 @@ public:
     Bar_column();
     void set_bar (Bar*);
 protected:
-    SCORE_ELEMENT_CLONE(Bar_column);
+    VIRTUAL_COPY_CONS(Score_element);
     void do_substitute_dependency (Score_element*,Score_element*);
-    DECLARE_MY_RUNTIME_TYPEINFO;
+    
 };
 
 #endif // BAR_COLUMN_HH

@@ -8,7 +8,7 @@
 #include "axis-group-item.hh"
 #include "p-col.hh"
 
-IMPLEMENT_IS_TYPE_B2(Axis_group_item, Axis_group_element, Item);
+
 
 void
 Axis_group_item::OK() const

@@ -156,7 +156,7 @@ Align_element::contains_b (Score_element const *e) const
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Align_element, Score_element);
+
 
 void
 Align_element::sort_elements ()
@@ -182,6 +182,6 @@ Align_element::do_print () const
 #if 0
   DOUT << "contains: ";
   for (int i=0 ;  i < item_l_arr_.size(); i++) 
-    DOUT << item_l_arr_[i]->name () << ", ";
+    DOUT << classname (item_l_arr_[i]) << ", ";
 #endif
 }

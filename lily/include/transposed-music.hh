@@ -20,8 +20,8 @@ public:
 
   void do_print () const;
   Transposed_music (Music*, Musical_pitch);
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  VIRTUAL_COPY_CONS (Transposed_music, Music);
+  
+  VIRTUAL_COPY_CONS(Music);
   virtual Musical_pitch to_relative_octave (Musical_pitch);
 };
 

@@ -21,9 +21,9 @@
  */
 class Midi_def : public Music_output_def {
   static int default_count_i_;
+  int count_per_minute_i;  
 public:
-  VIRTUAL_COPY_CONS(Midi_def, Music_output_def);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Music_output_def);
 
   /// duration of whole note measured in seconds.
   Moment whole_in_seconds_mom_;

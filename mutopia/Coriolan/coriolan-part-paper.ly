@@ -1,9 +1,4 @@
-
-\paper { \translator {
-	\OrchestralPartStaffContext
-
-	}
-	\translator { \ScoreContext
-		skipBars = 1;	
-	}
+\paper { 
+	\translator { \OrchestralPartStaffContext }
+	\translator { \ScoreContext skipBars = 1; }
 }

@@ -48,7 +48,7 @@ struct Identifier : public Input {
 
 
   void print() const;
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   void error (String) const;
   String str () const;
   IDACCESSOR(Translator)
@@ -64,7 +64,7 @@ struct Identifier : public Input {
   IDACCESSOR(Score)
   IDACCESSOR(int)
   IDACCESSOR(Duration)
-  VIRTUAL_COPY_CONS (Identifier, Identifier);
+  VIRTUAL_COPY_CONS(Identifier);
 
 protected:
   virtual void do_print () const;
@@ -74,10 +74,10 @@ protected:
 #define DECLARE_ID_CLASS(Class)	\
 struct Class ## _identifier : Identifier {\
 			     Class *data_p_;		     \
-			     DECLARE_MY_RUNTIME_TYPEINFO; \
+			      \
 			     Class ## _identifier (Class ## _identifier const&);\
 			     Class ## _identifier (Class*st, int code);\
-			     VIRTUAL_COPY_CONS (Class ## _identifier, Identifier);\
+			     VIRTUAL_COPY_CONS(Identifier);\
 			     virtual Class* access_content_ ## Class (bool copy_b) const;\
 			     ~Class ## _identifier();\
 			     virtual void do_print () const; \

@@ -24,7 +24,7 @@ protected:
 public:
   Horizontal_vertical_group_element ();
   
-  DECLARE_MY_RUNTIME_TYPEINFO;    
+      
 };
 
 

@@ -20,8 +20,8 @@
   */
 class Horizontal_align_item : public Item , public Align_element {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEMENT_CLONE(Horizontal_align_item);
+  
+  VIRTUAL_COPY_CONS(Score_element);
   void add_item (Item*, int p);
   Horizontal_align_item();
   virtual void do_print() const;

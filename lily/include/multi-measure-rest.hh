@@ -18,7 +18,7 @@ public:
   Multi_measure_rest ();
   int measures_i_;
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
 protected:
   virtual void do_print () const;

@@ -19,8 +19,7 @@
 class Hara_kiri_line_group_engraver : public Line_group_engraver_group
 {
 public:
-  TRANSLATOR_CLONE (Hara_kiri_line_group_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS (Translator);
 
 protected:
   virtual void create_line_spanner ();

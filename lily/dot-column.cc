@@ -53,4 +53,4 @@ Dot_column::do_pre_processing ()
     translate_axis (w[RIGHT] - width() [LEFT],X_AXIS);
 }
 
-IMPLEMENT_IS_TYPE_B1(Dot_column, Horizontal_group_item);
+

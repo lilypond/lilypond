@@ -15,7 +15,7 @@
 #include "bezier.hh"
 #include "main.hh"
 
-IMPLEMENT_IS_TYPE_B1(Bow,Directional_spanner);
+
 
 Bow::Bow ()
 {

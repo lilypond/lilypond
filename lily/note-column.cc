@@ -13,7 +13,7 @@
 #include "rest.hh"
 #include "debug.hh"
 
-IMPLEMENT_IS_TYPE_B1(Note_column,Script_column);
+
 
 bool
 Note_column::rest_b () const

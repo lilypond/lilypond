@@ -21,8 +21,8 @@ public:
     Tie ();
     void set_head (Direction, Note_head*head_l);
 
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    SCORE_ELEMENT_CLONE(Tie);
+    
+    VIRTUAL_COPY_CONS(Score_element);
 
     bool same_pitch_b_;
     Drul_array<Note_head *> head_l_drul_;

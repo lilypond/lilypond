@@ -41,7 +41,7 @@ Single_malt_grouping_item::my_width () const
  // add this->offset_ ? this-> relative_coordinate ()? 
 }
 
-IMPLEMENT_IS_TYPE_B1(Single_malt_grouping_item, Item);
+
 
 void
 Single_malt_grouping_item::do_substitute_dependency (Score_element*o, Score_element*n)
@@ -59,7 +59,7 @@ Single_malt_grouping_item::do_print () const
 #ifndef NDEBUG
   for (int i=0; i < item_l_arr_.size (); i++)
     {
-      DOUT << item_l_arr_[i]->name () << ", ";
+      DOUT << classname (item_l_arr_[i]) << ", ";
     }
 #endif
 }

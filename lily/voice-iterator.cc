@@ -83,7 +83,7 @@ Sequential_music_iterator::~Sequential_music_iterator()
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Sequential_music_iterator,Music_iterator);
+
 
 void
 Sequential_music_iterator::do_process_and_next (Moment until)

@@ -73,5 +73,5 @@ Separating_line_group_engraver::do_pre_move_processing ()
 }
 
 
-IMPLEMENT_IS_TYPE_B1 (Separating_line_group_engraver, Engraver);
+
 ADD_THIS_TRANSLATOR( Separating_line_group_engraver);

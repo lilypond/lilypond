@@ -9,7 +9,7 @@
 #include "translation-property.hh"
 #include "debug.hh"
 
-IMPLEMENT_IS_TYPE_B1(Translation_property, Music);
+
 
 void
 Translation_property::do_print () const

@@ -12,7 +12,7 @@
 #include "note-head.hh"
 #include "bar.hh"
 
-IMPLEMENT_IS_TYPE_B1 (Hara_kiri_vertical_group_spanner, Vertical_group_spanner);
+
 
 Hara_kiri_vertical_group_spanner::Hara_kiri_vertical_group_spanner()
 {

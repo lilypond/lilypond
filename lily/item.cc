@@ -22,7 +22,7 @@ Item::Item ()
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
 }
 
-IMPLEMENT_IS_TYPE_B1(Item, Score_element);
+
 
 void
 Item::do_print() const

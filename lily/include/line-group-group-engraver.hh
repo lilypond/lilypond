@@ -27,8 +27,8 @@ protected:
 virtual void do_announces ();
 
 public:
-  TRANSLATOR_CLONE(Line_group_engraver_group);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
   Line_group_engraver_group();
 };
 

@@ -23,8 +23,8 @@ public:
 
   Slur ();
 
-  SCORE_ELEMENT_CLONE(Slur);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Score_element);
+  
 
 protected:
   virtual Array<Offset> get_encompass_offset_arr () const;

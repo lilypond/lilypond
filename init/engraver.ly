@@ -89,7 +89,7 @@ VoiceContext = \translator {
  	\consists "Rest_engraver";
 	\consists "Dot_column_engraver";
 	\consists "Stem_engraver";
-	\consists "Plet_engraver";
+%	\consists "Plet_engraver";
 	\consists "Beam_engraver";
 	\consists "Abbreviation_beam_engraver";
 	\consists "Multi_measure_rest_engraver";
@@ -135,6 +135,7 @@ GrandStaffContext=\translator{
 	\name LyricVoice ;
 	\consists "Separating_line_group_engraver";
 	\consists "Lyric_engraver";
+	\consists "Extender_engraver";
 	\consists "Beam_req_swallow_translator";
 	\consists "Plet_swallow_engraver";
 }
@@ -217,8 +218,10 @@ HaraKiriStaffContext = \translator {
 	\accepts "Voice";
 };
 
+% huh, Score should do HaraKiri, not Part yes?
 OrchestralPartStaffContext = \translator {
-	\HaraKiriStaffContext
+%	\HaraKiriStaffContext
+	\StaffContext
 	barColumnPriority = "0";
 	marginBreakPriority = "-4";
 	\consists "Mark_engraver";
@@ -226,6 +229,7 @@ OrchestralPartStaffContext = \translator {
 	\consists "Bar_number_engraver";
 };
 
+% where to put HaraKiri here?
 OrchestralScoreContext= \translator {
 	\type Score_engraver;
 	\name Score;

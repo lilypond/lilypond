@@ -34,8 +34,8 @@ public:
 
   Music_sequence (Music_sequence const&);
   Music_sequence (Music_list *l_p);
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  VIRTUAL_COPY_CONS(Music_sequence,Music);
+  
+  VIRTUAL_COPY_CONS(Music);
 
   virtual void transpose (Musical_pitch );
   virtual void compress (Moment);
@@ -50,8 +50,8 @@ protected:
 class Simultaneous_music : public Music_sequence
 {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  VIRTUAL_COPY_CONS(Simultaneous_music,Music);
+  
+  VIRTUAL_COPY_CONS(Music);
   
   Simultaneous_music(Music_list *);
   virtual Musical_pitch to_relative_octave (Musical_pitch);
@@ -65,8 +65,8 @@ public:
 class Request_chord : public Simultaneous_music
 {
 public:
-  VIRTUAL_COPY_CONS(Request_chord, Music);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Music);
+  
   virtual Musical_pitch to_relative_octave (Musical_pitch);
   Request_chord();
 };
@@ -76,8 +76,8 @@ public:
 class Sequential_music : public Music_sequence
 {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  VIRTUAL_COPY_CONS(Sequential_music, Music);
+  
+  VIRTUAL_COPY_CONS(Music);
 
   virtual Musical_pitch to_relative_octave (Musical_pitch);
   Sequential_music(Music_list*);

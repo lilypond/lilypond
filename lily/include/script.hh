@@ -24,7 +24,7 @@ protected:
   virtual Interval symbol_width () const;
   virtual void do_pre_processing();
   virtual Interval do_width() const;
-  SCORE_ELEMENT_CLONE(Script);
+  VIRTUAL_COPY_CONS(Score_element);
 private:
 
   void set_default_dir();
@@ -38,7 +38,7 @@ public:
   Script (Script const&);
    
   void set_stem (Stem*);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 

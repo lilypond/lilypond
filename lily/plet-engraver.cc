@@ -1,3 +1,4 @@
+#if 0
 /*
   plet-engraver.cc -- implement Plet_engraver
 
@@ -13,7 +14,7 @@
 #include "score-column.hh"
 #include "stem.hh"
 
-IMPLEMENT_IS_TYPE_B1 (Plet_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR (Plet_engraver);
 
 Plet_engraver::Plet_engraver ()
@@ -44,7 +45,7 @@ Plet_engraver::acknowledge_element (Score_element_info i)
 }
 
 bool
-Plet_engraver::do_try_request (Request* req_l)
+Plet_engraver::do_try_music (Music* req_l)
 {
   /*
     UGH! This is incorrect!
@@ -69,7 +70,7 @@ Plet_engraver::do_try_request (Request* req_l)
     return false;
 
   Direction d = (!plet_spanner_p_) ? LEFT : RIGHT;
-  if (span_reqs_drul_[d] && !span_reqs_drul_[d]->equal_b (req_l))
+  if (span_reqs_drul_[d] && !span_reqs_drul_[d]->equal_b (p))
     return false;
 
   span_reqs_drul_[d] = p;
@@ -128,3 +129,4 @@ Plet_engraver::do_pre_move_processing ()
   span_reqs_drul_[RIGHT] = span_reqs_drul_[LEFT] = 0;
 }
 
+#endif

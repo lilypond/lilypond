@@ -8,12 +8,12 @@
 #include "swallow-engraver.hh"
 
 
-IMPLEMENT_IS_TYPE_B1(Swallow_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR(Swallow_engraver);
 
 
 bool
-Swallow_engraver::do_try_request (Request*) 
+Swallow_engraver::do_try_music (Music*) 
 {
   return true;
 }

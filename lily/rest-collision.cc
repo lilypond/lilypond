@@ -15,7 +15,7 @@
 #include "paper-def.hh"
 
 
-IMPLEMENT_IS_TYPE_B1(Rest_collision,Item);
+
 
 void
 Rest_collision::add_column (Note_column *nc_l)

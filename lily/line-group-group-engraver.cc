@@ -61,6 +61,6 @@ Line_group_engraver_group::do_announces ()
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Line_group_engraver_group,Engraver_group_engraver);
+
 ADD_THIS_TRANSLATOR(Line_group_engraver_group);
 

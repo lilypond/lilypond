@@ -25,8 +25,8 @@ struct Key_item : Item {
   bool default_b_;
   bool multi_octave_b_;
     
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEMENT_CLONE(Key_item);
+  
+  VIRTUAL_COPY_CONS(Score_element);
 
   Key_item ();
   void add (int pitch, int acc);

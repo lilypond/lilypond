@@ -18,13 +18,13 @@ public:
   Directional_spanner * support_span_l_;
   General_script_def * spec_p_;
   Offset text_off_;
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
   void set_support (Directional_spanner*);
   Text_spanner();
   Text_spanner (Text_spanner const&);
 protected:
-  SCORE_ELEMENT_CLONE(Text_spanner);
+  VIRTUAL_COPY_CONS(Score_element);
   ~Text_spanner();
   virtual void do_add_processing ();
   virtual void do_substitute_dependency (Score_element*,Score_element*);

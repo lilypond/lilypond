@@ -124,7 +124,7 @@ Script::brew_molecule_p () const
 }
 
 
-IMPLEMENT_IS_TYPE_B2 (Script,Item,Staff_side);
+
 
 int
 Script::compare (Script  *const&l1, Script *const&l2)

@@ -15,7 +15,7 @@
 #include "musical-request.hh"
 #include "misc.hh"
 
-IMPLEMENT_IS_TYPE_B1(Abbreviation_beam_engraver, Engraver);
+
 ADD_THIS_TRANSLATOR(Abbreviation_beam_engraver);
 
 Abbreviation_beam_engraver::Abbreviation_beam_engraver ()
@@ -25,7 +25,7 @@ Abbreviation_beam_engraver::Abbreviation_beam_engraver ()
 }
 
 bool
-Abbreviation_beam_engraver::do_try_request (Request*r)
+Abbreviation_beam_engraver::do_try_music (Music*r)
 {
   Abbreviation_beam_req * b = dynamic_cast <Abbreviation_beam_req *> (r);
 

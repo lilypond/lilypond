@@ -63,14 +63,14 @@ protected:
   virtual void fill_staff_info (Staff_info&);
 
 public:
-  TRANSLATOR_CLONE(Engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Engraver_group_engraver * daddy_grav_l() const;
   /**
     override other ctor
    */
   Engraver () {}
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 

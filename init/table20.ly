@@ -67,6 +67,7 @@ table_twenty =
     % dims ignored for this table
     "param" = \table {
 	"bracket"	"staffbracket"	1	0.0\pt	0.0\pt	20.0\pt	160.0\pt
+	"extender"	"extender"	1	0.0\pt	0.0\pt	1.0\pt	160.0\pt
 	"rule" "rulesym"	2
 	"brace"    "pianobrace"	1	0.0\pt	0.0\pt	40.0\pt	100.0\pt	 
 	 "time_signature"	"generalmeter"	2	0.0\pt	10.0\pt	-5.0\pt	5.0\pt

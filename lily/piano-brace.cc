@@ -49,6 +49,6 @@ Piano_brace::do_post_processing ()
     }
 }
 
-IMPLEMENT_IS_TYPE_B1(Piano_brace, Span_score_bar);
+
 
   

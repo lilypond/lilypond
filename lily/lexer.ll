@@ -93,6 +93,7 @@ LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 ESCAPED		[nt\\'"]
 PLET		\\\[
 TELP		\\\]
+EXTENDER	[_][_]
 
 %%
 
@@ -262,6 +263,8 @@ TELP		\\\]
 	{LYRICS} {
 		/* ugr. This sux. */
 		String s (YYText ()); 
+		if (s == "__")
+			return yylval.i = EXTENDER;
 		int i = 0;
                	while ((i=s.index_i ("_")) != -1) // change word binding "_" to " "
 			*(s.ch_l () + i) = ' ';
@@ -286,6 +289,8 @@ TELP		\\\]
  	  yyterminate (); // can't move this, since it actually rets a YY_NULL
 	}
 }
+
+
 {WORD}	{
 	return scan_bare_word (YYText ());
 }

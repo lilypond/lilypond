@@ -23,7 +23,7 @@ protected:
 public:
     Link_array<Script> script_l_arr_;
     Link_array<Item> support_l_arr_;
-    DECLARE_MY_RUNTIME_TYPEINFO;
+    
    
     virtual void add_script (Script *);
     void add_support (Item*);

@@ -28,10 +28,10 @@ protected:
   virtual void do_removal_processing();
   virtual void do_creation_processing();
   virtual void do_post_move_processing();
-  virtual bool do_try_request (Request*);
+  virtual bool do_try_music (Music*);
   virtual void acknowledge_element (Score_element_info);
 public:
-  TRANSLATOR_CLONE(Clef_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   int c0_position_i_;
   int clef_position_i_;
   Direction octave_dir_;
@@ -39,7 +39,7 @@ public:
 
    
   Clef_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
    
 };
 #endif 
