@@ -16,20 +16,21 @@
 #include "staff-symbol-referencer.hh"
 #include "directional-element.hh"
 
-struct Staff_sidify
+struct Side_position_interface
 {
   Score_element * elt_l_;
 public:
-  Staff_sidify (Score_element*);
-  static Real position_self (Dimension_cache const *);
-
+  Side_position_interface (Score_element*);
+  static Real side_position (Dimension_cache const *);
+  static Real self_alignment (Dimension_cache const *);
+  static Real aligned_side (Dimension_cache const *);  
+  
   void set_axis (Axis);
   Axis get_axis () const;
   
-  bool is_staff_side_b ();
+  bool supported_b () const;
+  bool is_staff_side_b () const;
   void add_support (Score_element*);
-  Real aligned_position (Dimension_cache const*);
-
   
   Direction get_direction () const;
   void set_direction (Direction);

@@ -56,7 +56,7 @@ Script::do_pre_processing ()
 void
 Script::do_post_processing ()
 {
-  Direction d =  Staff_sidify (this).get_direction ();
+  Direction d =  Side_position_interface (this).get_direction ();
   Molecule m (get_molecule(d));
 
   /*

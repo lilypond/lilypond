@@ -54,7 +54,7 @@ Text_engraver::acknowledge_element (Score_element_info i)
     {
       for (int i=0; i < texts_.size (); i++)
 	{
-	  Staff_sidify st (texts_[i]);
+	  Side_position_interface st (texts_[i]);
 	  st.add_support (n);
 	  if (st.get_axis( ) == X_AXIS
 	      && !texts_[i]->parent_l (Y_AXIS))
@@ -65,7 +65,7 @@ Text_engraver::acknowledge_element (Score_element_info i)
     {
       for (int i=0; i < texts_.size (); i++)
 	{
-	  Staff_sidify st(texts_[i]);
+	  Side_position_interface st(texts_[i]);
 	  st.add_support (n);
 	}
     }
@@ -79,7 +79,7 @@ Text_engraver::do_process_requests ()
       Text_script_req * r = reqs_[i];
 
       Text_item *text = new Text_item;
-      Staff_sidify stafy (text);
+      Side_position_interface stafy (text);
 
       SCM axisprop = get_property ("scriptHorizontal",0);
       if (gh_boolean_p (axisprop) && gh_scm2bool (axisprop))

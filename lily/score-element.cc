@@ -24,7 +24,7 @@
 #include "misc.hh"
 #include "paper-outputter.hh"
 #include "dimension-cache.hh"
-
+#include "staff-side.hh"
 
 Interval
 Score_element::dim_cache_callback (Dimension_cache const*c)
@@ -34,30 +34,6 @@ Score_element::dim_cache_callback (Dimension_cache const*c)
     return e->do_width ();
   else
     return e->do_height ();
-}
-
-
-
-Real
-set_alignment_callback (Dimension_cache const *c)
-{
-  String s ("self-alignment-");
-  Axis ax = c->axis ();
-  s +=  (ax == X_AXIS) ? "X" : "Y";
-  Score_element *elm = dynamic_cast<Score_element*> (c->element_l ());
-  SCM align (elm->get_elt_property (s));
-  if (isdir_b (align))
-    {
-      Direction d = to_dir (align);
-      Interval ext(elm->extent (ax));
-      if (d)
-	{
-	  return - ext[d];
-	}
-      return - ext.center ();
-    }
-  else
-    return 0.0;
 }
 
 
@@ -231,14 +207,20 @@ Score_element::add_processing()
     return;
   status_i_ ++;
 
-  if (get_elt_property ("self-alignment-X") != SCM_UNDEFINED)
+  /*
+    UGH. UGH. UGH.
+   */
+  if (get_elt_property ("self-alignment-X") != SCM_UNDEFINED
+      && !dim_cache_[X_AXIS]->off_callback_l_)
     {
-      dim_cache_[X_AXIS]->set_offset_callback (set_alignment_callback);
+      dim_cache_[X_AXIS]->set_offset_callback (Side_position_interface::self_alignment);
     }
   
-  if (get_elt_property ("self-alignment-Y") != SCM_UNDEFINED)
+  if (get_elt_property ("self-alignment-Y") != SCM_UNDEFINED
+      && !dim_cache_[X_AXIS]->off_callback_l_)
+      
     {
-      dim_cache_[Y_AXIS]->set_offset_callback (set_alignment_callback);
+      dim_cache_[Y_AXIS]->set_offset_callback (Side_position_interface::self_alignment);
     }
   
   do_add_processing();
@@ -384,14 +366,12 @@ Score_element::handle_broken_smobs (SCM s, Line_of_score * line)
   if (SMOB_IS_TYPE_B (Score_element, s))
     {
       Score_element *sc = SMOB_TO_TYPE (Score_element, s);
-      Score_element * br =0;
       if (sc->line_l () != line)
 	{
-	  br = sc->find_broken_piece (line);
+	  sc= sc->find_broken_piece (line);
 	}
 
-      if (br)
-	return br->self_scm_;
+      return  sc ? sc->self_scm_ : SCM_UNDEFINED;
     }
   else if (gh_pair_p (s))
     {

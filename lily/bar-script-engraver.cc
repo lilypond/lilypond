@@ -55,7 +55,7 @@ Bar_script_engraver::attach_script_to_item (Item *i)
       if (!text_p_->parent_l(other_axis))
 	text_p_->set_parent (i,other_axis);
 
-      Staff_sidify (text_p_).add_support (i);
+      Side_position_interface (text_p_).add_support (i);
 
       /*
 	How do we make sure that text_p_ has a dependency from
@@ -129,7 +129,7 @@ Bar_script_engraver::create_items (Request *rq)
   
   text_p_ = new Text_item;
   text_p_->set_elt_property ("breakable", SCM_BOOL_T); // ugh
-  Staff_sidify staffside(text_p_);
+  Side_position_interface staffside(text_p_);
   staffside.set_axis (axis_);
 
   SCM prop = get_property (type_ + "Direction", 0);

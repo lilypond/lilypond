@@ -39,7 +39,7 @@ Script_column::do_pre_processing ()
 
   for (int i=0; i < staff_sided_item_l_arr_.size (); i++)
     {
-      Staff_sidify st (staff_sided_item_l_arr_[i]);
+      Side_position_interface st (staff_sided_item_l_arr_[i]);
       arrs[st.get_direction ()].push (staff_sided_item_l_arr_[i]);
     }
 
@@ -52,7 +52,7 @@ Script_column::do_pre_processing ()
     Item * last = 0;
     for (int i=0; i < arr.size (); i++)
       {
-	Staff_sidify s (arr[i]);
+	Side_position_interface s (arr[i]);
 	if (last)
 	  {
 	    s.add_support (last);

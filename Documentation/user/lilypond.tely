@@ -80,7 +80,7 @@ than the names being similar :-)"
 @contents
 
 @node Top, , , (dir)
-@top
+
 @menu
 * Tutorial::            a tutorial introduction to lilypond.
 * Invoking LilyPond::   Operation.

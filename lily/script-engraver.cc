@@ -50,7 +50,7 @@ Script_engraver::do_process_requests()
 	  continue;
 	}
       Script *p =new Script;
-      Staff_sidify stafy (p); 
+      Side_position_interface stafy (p); 
       
       list = gh_cdr (list);
       p->set_elt_property ("molecule",
@@ -98,7 +98,7 @@ Script_engraver::acknowledge_element (Score_element_info inf)
     {
       for (int i=0; i < script_p_arr_.size(); i++)
 	{
-	  Staff_sidify stafy (script_p_arr_[i]);
+	  Side_position_interface stafy (script_p_arr_[i]);
 	  stafy.elt_l_->set_elt_property ("direction-source", s->self_scm_);
 	  stafy.add_support (s);
 	}
@@ -107,7 +107,7 @@ Script_engraver::acknowledge_element (Score_element_info inf)
     {
       for (int i=0; i < script_p_arr_.size(); i++)
 	{
-	  Staff_sidify stafy(script_p_arr_[i]);
+	  Side_position_interface stafy(script_p_arr_[i]);
 	  
 	  if (!stafy.elt_l_->parent_l (X_AXIS))
 	    {

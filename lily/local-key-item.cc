@@ -44,9 +44,14 @@ Local_key_item::do_pre_processing()
 }
 
 Molecule
-Local_key_item::accidental (int j, bool cautionary) const
+Local_key_item::accidental (int j, bool cautionary, bool natural) const
 {
   Molecule m (lookup_l ()->afm_find (String ("accidentals-") + to_str (j)));
+  if (natural)
+    {
+	  Molecule prefix = lookup_l ()->afm_find (String ("accidentals-0"));
+	  m.add_at_edge(X_AXIS, LEFT, Molecule(prefix), 0);
+	}
   if (cautionary) 
     {
       Molecule open = lookup_l ()->afm_find (String ("accidentals-("));
@@ -87,7 +92,9 @@ Local_key_item::do_brew_molecule_p() const
 	(c0_position_i_ + p.notename_i_)
 	* note_distance;
       
-      Molecule m (accidental (p.accidental_i_, accidental_arr_[i].cautionary_b_));
+      Molecule m (accidental (p.accidental_i_,
+	                          accidental_arr_[i].cautionary_b_,
+	                          accidental_arr_[i].natural_b_));
 
       m.translate_axis (dy, Y_AXIS);
       octave_mol_p->add_at_edge (X_AXIS, RIGHT, m, 0);
