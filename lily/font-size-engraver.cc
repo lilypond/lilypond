@@ -35,7 +35,7 @@ Font_size_engraver::acknowledge_grob (Grob_info gi)
   SCM sz = get_property ("fontSize");
 
   if (gh_number_p (sz)
-      && gh_scm2int (sz)
+      && gh_scm2double (sz)
       && !gh_number_p (gi.grob_->get_grob_property ("font-relative-size")))
     {
       gi.grob_->set_grob_property ("font-relative-size", sz);

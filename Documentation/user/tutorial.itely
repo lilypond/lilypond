@@ -1910,7 +1910,7 @@ what to print between the \texttt@{verbatim@} code and the music.
 If you want to include large examples into the text, it may be more
 convenient to put the example in a separate file:
 
-\lilypondfile[printfilename]@{sammartini.ly@}
+\lilypondfile[printfilename]@{screech-boink.ly@}
 
 The \texttt@{printfilename@} option adds the file name to the output.
 
@@ -1924,7 +1924,7 @@ $ mkdir -p out/
 $ lilypond-book --outdir=out/ lilbook.tex
 lilypond-book (GNU LilyPond) 1.7.16
 Reading `input/tutorial/lilbook.tex'
-Reading `input/tutorial/sammartini.ly'
+Reading `input/screech-boink6.ly'
 @var{lots of stuff deleted}
 Writing `out/lilbook.latex'
 $ cd out
@@ -1984,7 +1984,7 @@ the default music size, @code{fragment} adds a score block,
 If you include large examples into the text, it may be more convenient
 to put the example in a separate file:
 
-@lilypondfile[printfilename]{sammartini.ly}
+@lilypondfile[printfilename]{screech-boink.ly}
 
 The @code{printfilename} option adds the file name to the output.
 

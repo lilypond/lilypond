@@ -1,5 +1,19 @@
 2003-06-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/spacing-knee.ly: docstring
+
+	* input/regression/spacing-multi-tuplet.ly (multipart): docstring
+
+	* input/tutorial/{gallupi,minuet,sammartini,singing-saw}.ly
+	input/tutorial/{test,solar,flowing}.ly: remove
+
+	* input/rhythm.ly: remove
+
+	* input/mutopia/F.Schubert/standchen.ly: update syntax.
+
+	* input/mutopia/E.Satie/petite-ouverture-a-danser.ly (global):
+	update syntax. 
+
 	* scm/define-grobs.scm (all-grob-descriptions): set
 	knee-spacing-correction to 1.0
 

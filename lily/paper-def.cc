@@ -130,8 +130,9 @@ Paper_def::find_font (SCM fn, Real m)
     }
   else
     {
-      SCM var =   ly_module_lookup (scope_, ly_symbol2scm ("outputscale"));
-      m /= gh_scm2double (scm_variable_ref (var));
+      SCM scale_var = ly_module_lookup (scope_, ly_symbol2scm ("outputscale"));
+
+      m /= gh_scm2double (scm_variable_ref (scale_var));
 
       f = all_fonts_global->find_font (ly_scm2string (fn));
       SCM val = Scaled_font_metric::make_scaled_font_metric (f, m);
