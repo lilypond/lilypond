@@ -45,6 +45,19 @@ extension ".cc".
 
 Inline definition files always have the file name extension ".icc".
 
+in emacs:
+
+	(setq auto-mode-alist
+	      (append '(("\\.make$" . makefile-mode)
+			("\\.cc$" . c++-mode)
+			("\\.icc$" . c++-mode)
+			("\\.tcc$" . c++-mode)
+			("\\.hh$" . c++-mode)
+			("\\.pod$" . text-mode)		
+			)
+		      auto-mode-alist))
+
+
 
 =head2 INDENTATION
 
@@ -59,6 +72,7 @@ in emacs:
 		  '(lambda() (c-set-style "Stroustrup")
 		     )
 		  )
+
 If you like using font-lock, you can also add this to your F<.emacs>:
 
 	(setq font-lock-maximum-decoration t)
@@ -398,3 +412,13 @@ Variable bar: an C<Int*> that you must not delete
 =back
 
 Generally default arguments are taboo, except for nil pointers.
+
+=head1 MISCELLANEOUS
+
+For some tasks, some scripts are supplied, notably creating patches, a
+mirror of the website, generating the header to put over cc and hh
+files, doing a release.
+
+Use them.
+
+
