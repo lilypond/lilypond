@@ -7,7 +7,7 @@
 #include "voice.hh"
 #include "notename.hh"
 #include "identparent.hh"
-#include "vray.hh"
+#include "varray.hh"
 #include "textdef.hh"
 
 int default_duration = 4, default_dots=0, default_octave=0;
@@ -149,6 +149,9 @@ get_request(char c)
 {
     Request* ret=0;
     switch (c) {
+    case '|':
+	ret = new Barcheck_req;
+	break;
     case '[':
     case ']':
     {
@@ -177,8 +180,9 @@ get_request(char c)
     case ']':
 	ret->span()->spantype = Span_req::STOP;
 	break;
+	
     default:
-	assert(false);
+
 	break;
     }
 
@@ -186,9 +190,9 @@ get_request(char c)
 }
 
 void
-add_requests(Voice_element *v, svec<Request*> &req)
+add_requests(Voice_element *v, Array<Request*> &req)
 {
-    for (int i = 0; i < req.sz(); i++) {
+    for (int i = 0; i < req.size(); i++) {
 	v->add(req[i]);
     }
     req.set_size(0);
@@ -203,7 +207,7 @@ get_scriptdef(char c)
 	break;
     case  '+' : s = "stopped";
 	break;
-    case '-' : s = "portato";
+    case '-' : s = "tenuto";
 	break;
     case  '|':  s = "staccatissimo";
 	break;

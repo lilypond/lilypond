@@ -1,23 +1,33 @@
 #include "timedescription.hh"
 #include "debug.hh"
+String
+Time_description::str()const
+{
+    String s( "Time_description { at ");
+    s+=when;
+    s+="\nmeter " + String(whole_per_measure/one_beat) +":" +(1/one_beat);
+    s+= "\nposition "+String( bars) + ":"+ whole_in_measure +"\n}\n";
+    return s;
+}
 
 void
 Time_description::print() const
 {    
-    mtor << "Time_description { at "<<when<<'\n'; 
-    mtor << "meter " << whole_per_measure << ":" << 1/one_beat 
-	 << "\nposition "<< bars << ":" << whole_in_measure <<"\n}\n";
+    mtor << str();
 }
 void
 Time_description::OK() const
 {
+#ifdef NDEBUG
     assert(whole_in_measure < whole_per_measure && 0 <= whole_in_measure);
     assert(one_beat);
+#endif
 }
+
 Time_description::Time_description(Moment dt, Time_description const *prev)
 {
     if (prev) {
-	assert(dt >0);
+	assert(dt >= 0);
 	*this = *prev;
 	when += + dt;
 	whole_in_measure += dt;
@@ -51,8 +61,24 @@ Time_description::setpartial(Moment p)
 	error_t ("Partial measure has incorrect size", when);
     whole_in_measure = whole_per_measure - p;
 }
+
 Moment
 Time_description::barleft()
 {
-return    whole_per_measure-whole_in_measure;
+    return whole_per_measure-whole_in_measure;
+}
+
+int
+Time_description::compare(Time_description &t1, Time_description&t2)
+{
+    int i = sign(t1.when-t2.when);
+
+    if (!i) {
+	assert(t1.bars==t2.bars);
+	assert(t1.one_beat == t2.one_beat);
+	assert(t1.whole_in_measure == t2.whole_in_measure);
+	assert(t1.whole_per_measure == t2.whole_per_measure);
+    }
+
+    return i;
 }
