@@ -1,5 +1,5 @@
 % test the Collision resolution 
-\version "0.0.54";
+\version "0.0.56";
 
 two_voice_steminvert = \melodic { 
 	< \multivoice 

@@ -7,7 +7,7 @@
 %
 % copyright: None
 %
-\version "0.0.54";
+\version "0.0.56";
 
 % declare melody (which will be in *one* staff ) for the lead voice
 melodie = \melodic {

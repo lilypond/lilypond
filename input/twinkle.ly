@@ -3,6 +3,9 @@
 %  "Twinkle twinkle little star"
 % 
 % Copyright: none
+\version "0.0.56";
+
+\version "0.0.55";
 
 melody = \melodic{
 	\clef\violin;
@@ -36,7 +39,7 @@ accompany = \melodic {
 global = \melodic {
 		\meter 2 / 4;
 		\skip 2*24;
-%		\bar "||";
+%		\bar "|.";
 	}
 
 tekst = \lyric{ 

@@ -1,4 +1,4 @@
-\version "0.0.54";
+\version "0.0.56";
 
 \include "this-is-hopefully-a-nonexisting-file"
 
@@ -15,7 +15,7 @@ mwa = \melodic{
 	a b ) ] 	% ok; error
 %        a.........	% fatal error -- assert
 	a b c
-	|||		% 
+	|.|		% 
 	abc		% ok; print error, no \output
 	\bla 		%  STRING, reduced to lyric_elt.
 	a [ b 		% warning, still \output

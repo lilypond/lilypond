@@ -8,7 +8,7 @@
 % Tested Features:stem direction, multivoice.
 %
 
-\version "0.0.54";
+\version "0.0.56";
 
 global = \melodic{
  	\meter 4/4 ;

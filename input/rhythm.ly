@@ -3,6 +3,8 @@
 %
 % add any impressive examples here, please
 
+\version "0.0.56";
+
 ritme = \staff {
 	melodicregs
 	\melodic{ %\octave ;
