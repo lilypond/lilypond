@@ -762,9 +762,15 @@ Grob::mark_smob (SCM ses)
     {
       scm_gc_mark (s->dim_cache_[a].offset_callbacks_);
       scm_gc_mark (s->dim_cache_[a].dimension_);
-      Grob *p = s->get_parent (Axis (a));
-      if (p)
-	scm_gc_mark (p->self_scm ());
+      
+      /*
+	don't mark the parents. The pointers in the mutable property
+	list form two tree like structures (one for X relations, one
+	for Y relations). Marking these can be done in limited stack
+	space.  If we add the parents, we will jump between X and Y in
+	an erratic manner, leading to much more recursion depth (and
+	core dumps if we link to pthreads.
+       */
     }
   
   if (s->original_l_)

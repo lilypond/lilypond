@@ -44,6 +44,15 @@ substitute_grob (Grob *sc)
       if (!line)
 	return sc->self_scm();
 
+      /*
+	We don't return SCM_UNDEFINED for
+	suicided grobs, for two reasons
+
+	- it doesn't work (strange disappearing objects)
+
+	- it forces us to mark the parents of a grob, leading to
+	a huge recursion in the GC routine.
+       */
 
       /*
 	This was introduced in 1.3.49 as a measure to prevent
