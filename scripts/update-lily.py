@@ -285,10 +285,10 @@ tar xzf %r/%t &&
 rm -f building &&
 ln -s %n-%v building &&
 cd %n-%v &&
-./configure --prefix=$HOME/usr && make all web
+./configure --prefix=$(pwd) && make all web
 ) >> %n-%v/log.txt 2>&1 &&
-rm -f %n &&
-ln -s %n-%v %n
+rm -f %s &&
+ln -s %n-%v %s
 '''
 
 ### URL lib
