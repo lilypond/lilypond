@@ -261,6 +261,7 @@ touch var/adm/SuSEconfig/run-texhash
 #%{_prefix}/../etc/profile.d/lilypond.*
 
 %files doc
+%defattr(-, root, root)
 # this gets too messy...
 
 

@@ -143,6 +143,7 @@ chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 /etc/profile.d/lilypond.*
 
 %files documentation
+%defattr(-, root, root)
 
 %doc web/
 

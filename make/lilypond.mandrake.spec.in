@@ -2,7 +2,7 @@
 
 %define name lilypond
 %define version @TOPLEVEL_VERSION@
-%define release 1mdk
+%define release 2mdk
 
 Summary:	A program for printing sheet music.
 Name:		%{name}
@@ -165,6 +165,7 @@ rm -rf $RPM_BUILD_ROOT
 # %_liconsdir/*
 
 %files documentation
+%defattr(-, root, root)
 
 %doc web/
 
