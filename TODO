@@ -17,7 +17,26 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * entangle ly/* paper-params papersize stuff
 . * fix tremolos.
 . * change ) c4  to c4-)
+. * 
+There's insufficient leading between lines of lyrics, so risers like
+`l' and 'b' collide with the bottom of the line above.
+
+Also the lines are unevenly spaced.
+
+. * write comments in the source code
 . * internationalize GUILE msgs.
+. * roy rankin:
+1> The volta brackets are on top of the lyrics. This problem existed in
+   1.2.x which I corrected by giving the brackets a vertical size. I
+   have not had the time to check what is going on in 1.3.
+
+2> Part names are being written on top of the staff and not in the
+   left margin.
+
+3> The tag at the end is spaced out clear across the page. (new problem
+   in 1.3.27)
+
+I also get the following error messages from ly2dvi.
 . * unbroken marks.
 . * chubb:
 -- Take a piece of early music, and typeset it as closely as possible to
