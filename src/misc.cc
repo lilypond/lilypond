@@ -3,12 +3,19 @@
 
 #include <math.h>
 
-int intlog2(int d) {
+int
+intlog2(int d) {
     int i=0;
     while (!(d&1)) {
-	d/= 2; i++;
+	d/= 2;
+	i++;
     }
     assert(!(d/2));
     return i;
+}
+
+double
+log2(double x) {
+    return log(x)  /log(2.0);
 }
 
