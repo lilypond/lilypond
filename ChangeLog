@@ -1,7 +1,8 @@
 2002-05-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/INSTALL.texi: Update GCC, Flex and GUILE info.
-	Add info about CVS.
+	Add info about CVS.  Stable/development are currently 1.4/1.5,
+	both at lilypond.org.
 
 	* autogen.sh: Generate.
 
