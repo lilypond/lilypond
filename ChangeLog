@@ -1,5 +1,17 @@
 2004-04-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/output-tex.scm: remove fontify; text and char take a font
+	argument.
+
+	* lily/tfm.cc (name_to_index): new function, use encoding_table_.
+
+	* lily/scaled-font-metric.cc (text_dimension): init
+	coding_{permutation,table}_ too 
+	(LY_DEFINE): ly:font-encoding, new function return
+
+	* lily/paper-def.cc (find_scaled_font): take input coding from
+	inputcoding paper var.
+
 	* lily/performance.cc (output): remap modulo 16.
 
 	* lily/text-item.cc (interpret_markup): whoops, variable

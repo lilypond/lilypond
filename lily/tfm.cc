@@ -125,12 +125,12 @@ Tex_font_metric::coding_scheme () const
 int
 Tex_font_metric::name_to_index (String s) const
 {
-  SCM sym = ly_symbol2scm (s.to_str0 ());
+  SCM sym = scm_makfrom0str (s.to_str0 ());
 
   SCM idx = scm_hash_ref (encoding_table_, sym, SCM_BOOL_F);
-  if (scm_integer_p (idx) == SCM_BOOL_T)
+  if (gh_char_p (idx))
     {
-      return gh_scm2int (idx);
+      return (unsigned char) gh_scm2char (idx);
     }
   else
     return -1;  

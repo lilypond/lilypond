@@ -313,7 +313,6 @@
 (define (text font s)
   (let*
       ((perm (caddr (ly:font-encoding font))))
-  (display (ly:font-encoding font))
   (string-append "\\hbox{\\" (font-command font) "{}"
 		 (output-tex-string
 		  (if (vector? perm)

@@ -185,6 +185,10 @@ Modified_font_metric::text_dimension (String text)
 	  w += b[X_AXIS].length ();
 	  ydims.unite (b[Y_AXIS]); 
 	}
+      if (ydims.is_empty ())
+	ydims = Interval (0, 0);
+
+      b = Box(Interval(0,w), ydims);
     }
   else
     {
@@ -217,20 +221,27 @@ Modified_font_metric::text_dimension (String text)
 
 	  Box char_box;
 
-	  if (!gh_symbol_p (sym))
+	  if (!gh_symbol_p (sym) && !gh_string_p (sym))
 	    continue;
-	  
-	  int idx = orig_->name_to_index (SCM_SYMBOL_CHARS(sym));
 
+	  char const * chars = gh_symbol_p (sym)
+	    ? SCM_SYMBOL_CHARS(sym) : SCM_STRING_CHARS(sym); 
+	    
+	  
+	  int idx = orig_->name_to_index (chars);
 	  if (idx >= 0)
 	    {
 	      char_box = orig_->get_indexed_char (idx);
 	    }
+	  
 	  if (!char_box[X_AXIS].is_empty ())
 	    w += char_box[X_AXIS][RIGHT]; // length ?
 
 	  ydims.unite (char_box[Y_AXIS]);
 	}
+
+      if (ydims.is_empty ())
+	ydims = Interval (0, 0);
 
 	  
       b = Box (Interval (0, w), ydims);
@@ -246,9 +257,10 @@ LY_DEFINE (ly_font_enccoding, "ly:font-encoding", 1 , 0, 0,
 	   "Given the Modified_font_metric @var{font}, return a "
 	   "list containing (input-coding, output-coding, permutation).")
 {
-  Modified_font_metric * fm = dynamic_cast<Modified_font_metric *> ( unsmob_metrics (font));
-  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "Modified_font_metric");
+  Modified_font_metric * fm
+    = dynamic_cast<Modified_font_metric*> (unsmob_metrics (font));
   
+  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "Modified_font_metric");
   return scm_list_3 (fm->coding_vector_,
 		     fm->coding_table_,
 		     fm->coding_permutation_);
