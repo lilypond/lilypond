@@ -24,18 +24,18 @@ beautiful printed scores!
 @node Suggestions for writing LilyPond files
 @section Suggestions for writing LilyPond files
 
-Now you're ready to begin writing bigger LilyPond files -- not just the
+Now you're ready to begin writing larger LilyPond files -- not just the
 little examples in the tutorial, but whole pieces.  But how should you
 go about doing it?
 
-The best answer is ``however you want to do it''.  As long as LilyPond
+The best answer is ``however you want to do it.''  As long as LilyPond
 can understand your files and produces the output that you want, it
 doesn't matter what your files look like.  That said, sometimes we
 make mistakes when writing files.  If LilyPond can't understand your
 files, or produces output that you don't like, how do you fix the
 problem?
 
-Here are a few suggestions that can help you in avoiding or fixing
+Here are a few suggestions that can help you to avoid or fix
 problems:
 
 @itemize @bullet
@@ -802,7 +802,7 @@ bassusLyrics = \lyricmode {
 @section Jazz combo
 
 This is a much more complicated template, for a jazz ensemble.  Note that all
-instruments are notated @code{\key c \major}.  This refers to the key in
+instruments are notated in @code{\key c \major}.  This refers to the key in
 concert pitch; LilyPond will automatically transpose the key if the music
 is within a @code{\transpose} section.
 
@@ -1163,9 +1163,9 @@ Here is an example of bagpipe music.  It demonstrates a big strength of
 LilyPond, compared to graphical score editors: in LilyPond, you can
 very easily reuse small segments of music without writing them out
 completely.  This template defines a large number of small segments
-(@code{taor, grip, thrd,} etc), which can be reused easily.
+(@code{taor}, @code{grip}, @code{thrd}, etc), which can be reused easily.
 
-TODO - replace Bagpipe template with Andrew McNabb's work?
+@c TODO - replace Bagpipe template with Andrew McNabb's work?
 
 @lilypond[quote,verbatim]
 taor = { \grace { g32[ d' g e'] } }
@@ -1263,8 +1263,8 @@ d4 c b a
 
 @subsection Texinfo
 
-You can include LilyPond fragments in texinfo; in fact, this entire manual
-is written in texinfo.
+You can include LilyPond fragments in Texinfo; in fact, this entire manual
+is written in Texinfo.
 
 @example
 \input texinfo
@@ -1276,7 +1276,7 @@ Texinfo text
 a4 b c d
 @@end lilypond
 
-More texinfo text
+More Texinfo text
 
 @@lilypond[verbatim,fragment,raggedright]
 d4 c b a
@@ -1284,4 +1284,3 @@ d4 c b a
 
 @@bye
 @end example
-

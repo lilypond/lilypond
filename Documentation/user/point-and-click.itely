@@ -36,7 +36,7 @@ editor):
 
 @itemize @minus
 @item
-Emacs.  Emacs is an extensible text editor.  It is available from
+Emacs.  Emacs is an extendable text editor.  It is available from
 @uref{http://@/www@/.gnu@/.org/@/software/@/emacs/}.  You need version 21
 to use column location.
 
@@ -120,7 +120,7 @@ use this argument with Xdvi's @code{-editor} option.
 For using NEdit, set @code{XEDITOR} to @code{nc -noask +%l %f}, or
 use this argument with Xdvi's @code{-editor} option.
 
-If can also make your editor jump to the exact location of the note
+It can also make your editor jump to the exact location of the note
 you clicked.  This is only supported on Emacs and VIM.  Users of Emacs version
 20 must apply the patch @file{emacsclient.patch}.  Users of version 21
 must apply @file{server.el.patch} (version 21.2 and earlier).  At the

@@ -24,12 +24,13 @@ sequencers and XML converters.  Refer to the
 @node Invoking convert-ly
 @section Invoking @command{convert-ly}
 
-The syntax is regularly changed to simplify it or improve it in
-different ways.  A side effect of this, is that LilyPond often is not
-compatible with older files.  To remedy this, the program
-@command{convert-ly} can be used to deal with most of the syntax changes.
+The LilyPond input syntax is routinely changed to simplify it or improve
+it in different ways.  As a side effect of this, the LilyPond interpreter
+often is no longer compatible with older input files.  To remedy this,
+the program @command{convert-ly} can be used to deal with most of the
+syntax changes between LilyPond versions.
 
-It uses @code{\version} statements in the file to detect the old
+It uses @code{\version} statements in the input files to detect the old
 version number.  For example, to upgrade all LilyPond files in the
 current directory and its subdirectories, enter the following on the
 command line.
@@ -52,7 +53,7 @@ The following options can be given:
 Do an inline edit of the input file.  Overrides @code{--output}.
 
 @item -f,--from=@var{from-patchlevel}
-Set the level to convert from.  If this is not set, @command{convert-ly}
+Set the version to convert from.  If this is not set, @command{convert-ly}
 will guess this, on the basis of @code{\version} strings in the file.
 
 @item -o,--output=@var{file}
@@ -94,7 +95,7 @@ MIDI (Music Instrument Digital Interface) is a standard for digital
 instruments: it specifies cabling, a serial protocol and a file
 format.  The MIDI file format is a de facto standard format for
 exporting music from other programs, so this capability may come in
-useful when importing files from a program that has convertor for a
+useful when importing files from a program that has a convertor for a
 direct format.
 
 @command{midi2ly} converts tracks into @internalsref{Staff} and
@@ -268,13 +269,11 @@ ABC synchronizes words and notes at the beginning of a line;
 
 Mup (Music Publisher) is a shareware music notation program by Arkkra
 Enterprises.  @command{mup2ly} will convert part of a Mup file to LilyPond
-format.  It is invoked as follows:
+format.  It is invoked from the command-line as follows:
 
 @cindex Music Publisher
 @cindex Mup
 @cindex Arkkra
-
-It is invoked from the command-line as follows.
 
 @example
 mup2ly [@var{option}]@dots{} @var{mup-file}
@@ -310,7 +309,7 @@ converted.
 @section Other formats
 
 LilyPond itself does not come with support for other formats, but
-there are some external tools that generate LilyPond files also.
+there are some external tools that also generate LilyPond files.
 
 These tools include
 

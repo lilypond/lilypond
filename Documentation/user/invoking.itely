@@ -21,7 +21,7 @@ This chapter details the technicalities of running LilyPond.
 @cindex switches
 
 
-The @code{lilypond} may be called as follows from the command line.
+The @code{lilypond} executable may be called as follows from the command line.
 
 @example
 lilypond [@var{option}]@dots{} @var{file}@dots{}
@@ -30,7 +30,7 @@ lilypond [@var{option}]@dots{} @var{file}@dots{}
 
 When invoked with a filename that has no extension, the @file{.ly}
 extension is tried first.  To read input from stdin, use a
-dash @code{-} for @var{file}.
+dash (@code{-}) for @var{file}.
 
 When @file{filename.ly} is processed it will produce
 @file{filename.tex} as output (or @file{filename.ps} for PostScript
@@ -38,7 +38,7 @@ output).  If @file{filename.ly} contains more than one @code{\score}
 block, then the rest of the scores will be output in numbered files,
 starting with @file{filename-1.tex}.  Several files can be specified;
 they will each be processed independently.  @footnote{The status of
-GUILE is not reset after processing a @code{.ly} files, so be careful
+GUILE is not reset after processing a @code{.ly} file, so be careful
 not to change any system defaults from within Scheme.}
 
 
@@ -51,20 +51,16 @@ The following options are supported:
 @item -e,--evaluate=@var{expr}
 Evaluate the Scheme @var{expr} before parsing any @file{.ly} files.
 Multiple @code{-e} options may be given, they will be evaluated
-sequentially.  The function @code{ly:set-option} allows for access to
+sequentially.  The function @code{ly:set-option} allows access to
 some internal variables.  Use @code{-e '(ly:option-usage)'} for more
 information.
 
 @item -f,--format=@var{format}
-@c
-@c
 A comma separated list of back-end output formats to use.  Choices are
-@code{tex} (for @TeX{} output, to be processed with La@TeX{}, and
+@code{tex} (for @TeX{} output, to be processed with La@TeX{}), and
 @code{ps} for PostScript.
 
 There are other output options, but they are intended for developers.
-
-
 @cindex output format, setting
 @cindex PostScript output
 @cindex Scheme dump
@@ -88,7 +84,7 @@ Generate PostScript.
 
 @item --dvi
 Generate DVI files.  In this case, the @TeX{} backend should be
-specified, i.e. @code{-f tex}.
+specified, i.e., @code{-f tex}.
 
 @item --png
 Generate pictures of each page, in PNG format.  This implies @code{--ps}.
@@ -133,11 +129,12 @@ into Scheme.
 @code{--safe} does @emph{not} detect resource overuse. It is still
 possible to make the program hang indefinitely, for example by feeding
 cyclic data structures into the backend.  Therefore, if using LilyPond
-on a publicly accessible webserver, the process should limited in
-both allowed CPU and memory usage.
+on a publicly accessible webserver, the process should be limited in
+both CPU and memory usage.
 
 @item -v,--version
 Show version information.
+
 @item -V,--verbose
 Be verbose: show full paths of all files read, and give timing
 information.
@@ -162,7 +159,7 @@ do this:
 
 They should normally be sourced as part of the login process.  If these
 scripts are not run from the system wide login process, then you must
-run it yourself.
+run them yourself.
 
 @cindex installing LilyPond
 
@@ -185,11 +182,11 @@ These scripts set the following variables:
 @table @code
 @item TEXMF
 To make sure that @TeX{} and lilypond find data files (among
-others @file{.tex}, @file{.mf} and @file{.tfm}),
+others @file{.tex}, @file{.mf}, and @file{.tfm}),
 you have to set @code{TEXMF} to point to the lilypond data
 file tree.  A typical setting would be
 @example
-@{/usr/share/lilypond/1.6.0,@{!!/usr/share/texmf@}@}
+@{/usr/share/lilypond/2.4.0,@{!!/usr/share/texmf@}@}
 @end example
 
 @end table
@@ -245,8 +242,8 @@ happens rarely.  The most usual cause is misinstalled fonts.
 @item Scheme error
 Errors that occur while executing Scheme code are caught by the Scheme
 interpreter.  If running with the verbose option (@code{-V} or
-@code{--verbose}) then a call trace is printed of the offending
-function call.
+@code{--verbose}) then a call trace of the offending
+function call is printed.
 
 @cindex Programming error
 @item Programming error
@@ -258,7 +255,7 @@ other output.  In this case, file a bug-report.
 @item Aborted (core dumped)
 This signals a serious programming error that caused the program to
 crash.  Such errors are considered critical.  If you stumble on one,
-send a bugreport.
+send a bug-report.
 
 
 @end table
@@ -273,7 +270,7 @@ following form
 @var{offending input line}
 @end example
 
-A line-break is inserted in offending line to indicate the column
+A line-break is inserted in the offending line to indicate the column
 where the error was found.  For example,
 
 @example
@@ -283,7 +280,7 @@ test.ly:2:19: error: not a duration: 5:
 @end example
 
 These locations are LilyPond's best guess about where the warning or
-error occured, but (by their very nature) warning and errors occur
+error occured, but (by their very nature) warnings and errors occur
 when something unexpected happens.  If you can't see an error in the
 indicated line of your input file, try checking one or two lines
 above the indicated position.
@@ -296,7 +293,7 @@ above the indicated position.
 @cindex reporting bugs
 
 If you have input that results in a crash or an erroneous output, then
-that is a bug.  We try respond to bug-reports promptly, and fix them as
+that is a bug.  We try to respond to bug-reports promptly, and fix them as
 soon as possible.  Help us by sending a defective input file, so we can
 reproduce the problem.  Make it small, so we can easily debug the
 problem.  Don't forget to tell which version of LilyPond you use!  Send
@@ -304,7 +301,7 @@ the report to @email{bug-lilypond@@gnu.org}.
 
 When you've found a bug, have a look at our
 @uref{http://@/lilypond@/.org/@/doc/@/v2.3/@/bugs/,bug database} to see if
-it has already been reported.  You could also try doing a few searches
+it has already been reported.  You could also try to do a few searches
 on the mailing list for the bug.  Sometimes the bug will have already
 been reported and a fix or workaround is already known.
 
@@ -377,7 +374,7 @@ Manager}, and selecting @code{LilyTool} from the @key{Install} tab.
 
 @end table
 
-All these editors can be made to jump in the input file to the source
+All these editors can be made to jump into the input file to the source
 of a symbol in the graphical output.  See @ref{Point and click}.
 
 
@@ -400,7 +397,7 @@ follows
 @code{lilypond-latex} [@var{option}]@dots{} @var{file}@dots{}
 @end example
 
-To have @code{lilypond-latex} read from stdin, use a dash @code{-} for
+To have @code{lilypond-latex} read from stdin, use a dash (@code{-}) for
 @var{file}.  The program supports the following options.
 
 @cindex stdin, reading
@@ -469,11 +466,11 @@ included.  Default: unset.
 Read from the @code{\header} block.
 
 @item latexheaders
-Specify additional La@TeX{} headers file.
+Specify additional La@TeX{} header files.
 Normally read from the @code{\header} block.  Default value: empty.
 
 @item latexpackages
-Specify additional La@TeX{} packages file.  This works cumulative,
+Specify additional La@TeX{} package files.  This works cumulative,
 so you can add multiple packages using multiple @code{-s=latexpackages} options.
 Normally read from the @code{\header} block.  Default value:
 @code{geometry}.
@@ -498,7 +495,7 @@ The music line width.  It is normally read from the @code{\layout}
 block.
 
 @item papersize
-The paper size (as a name, e.g. @code{a4}).  It is normally read from
+The paper size (as a name, e.g., @code{a4}).  It is normally read from
 the @code{\layout} block.
 
 @item fontenc

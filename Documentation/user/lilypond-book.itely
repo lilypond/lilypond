@@ -49,7 +49,7 @@ This procedure may be applied to La@TeX{}, HTML or Texinfo documents.
 @cindex HTML, music in
 @cindex Texinfo, music in
 Some texts contain music examples.  These texts are musicological
-treatises, songbooks or manuals like this.  Such texts can be made by
+treatises, songbooks, or manuals like this.  Such texts can be made by
 hand, simply by importing a PostScript figure into the word processor.
 However, there is an automated procedure to reduce the amount of work
 involved in HTML, La@TeX{}, and Texinfo documents.
@@ -256,14 +256,12 @@ PDF can then be produced with a PostScript to PDF translator like
 @cindex latin1
 
 LilyPond does not use the La@TeX{} font handling scheme for lyrics and text
-markups; it uses the EC font family and 
-
-
- so if you use characters in your @command{lilypond-book}
-documents that are not included in the standard US-ASCII character set,
+markups; it uses the EC font family, so if you use characters in your
+@command{lilypond-book} documents that are not included in the standard
+US-ASCII character set,
 include @code{\usepackage[latin1]@{inputenc@}} in the file 
 header but do not include @code{\usepackage[T1]@{fontenc@}}.  Character
-sets other than latin1 are not supported directly but may be handled by
+sets other than @code{latin1} are not supported directly but may be handled by
 explicitly specifying the @code{font-name} property in LilyPond and
 using the corresponding La@TeX{} packages.  Please consult the mailing list
 for more details.
@@ -273,8 +271,8 @@ for more details.
 @section Integrating Texinfo and music
 
 Texinfo is the standard format for documentation at the GNU
-project.  An example of a texinfo document is this manual.  The HTML,
-PDF and Info versions of the manual are made from the document.
+project.  An example of a Texinfo document is this manual.  The HTML,
+PDF, and Info versions of the manual are made from the Texinfo document.
 
 In the input file, music is specified like
 
@@ -286,12 +284,12 @@ In the input file, music is specified like
 @@lilypondfile[options,go,here]@{@var{filename}@}
 @end example
 
-When @command{lilypond-book} is run on it, this results in a texinfo file
+When @command{lilypond-book} is run on it, this results in a Texinfo file
 (with extension @file{.texi}) containing @code{@@image} tags for HTML and
 info.  For the printed edition, the raw @TeX{} output of LilyPond is
 included into the main document.
 
-We show two simple examples here.  A lilypond environment
+We show two simple examples here.  A @code{lilypond} environment
 
 @example
 @@lilypond[fragment]
@@ -317,7 +315,7 @@ produces
 
 @lilypond[fragment,staffsize=11]{<c' e' g'>}
 
-When producing texinfo, @command{lilypond-book} also generates bitmaps of
+When producing Texinfo, @command{lilypond-book} also generates bitmaps of
 the music (in PNG format), so you can make an HTML document with embedded
 music.
 
@@ -357,7 +355,7 @@ A special feature not (yet) available in other output formats, is the
 This runs @file{trip.ly} through @code{lilypond} (see also
 @ref{Invoking lilypond}), and substitutes a preview image in the
 output.  The image links to a separate HTML file, so clicking it will
-take the viewer to a menu, with links to images, midi and printouts.
+take the viewer to a menu, with links to images, midi output, and printouts.
 
 @cindex titling in THML
 @cindex preview image
@@ -395,7 +393,7 @@ sets linewidth to @var{size}, where @var{unit} = cm, mm, in, or pt.
 This option affects LilyPond output, not the text layout.
 
 @item notime
-prevents printing time signature.
+prevents printing the time signature.
 
 @item fragment
 adds some boilerplate code, so you can enter like
@@ -472,18 +470,18 @@ dvips -Ppdf -u+ec-mftrace.map -u+lilypond.map yourfile.dvi
 ps2pdf yourfile.ps
 @end example
 
-To produce a texinfo document (in any output format), follow the normal
-procedures for texinfo.
+To produce a Texinfo document (in any output format), follow the normal
+procedures for Texinfo.
 
 @command{lilypond-book} accepts the following command line options:
 
 @table @code
 @item @option{-f @var{format}}, @option{--format=@var{format}}
-Specify the document type to process: @code{html}, @code{latex} or
+Specify the document type to process: @code{html}, @code{latex}, or
 @code{texi} (the default).  @command{lilypond-book} figures this
 out automatically.
 
-The @code{texi} document type produces a texinfo file with music
+The @code{texi} document type produces a Texinfo file with music
 fragments in the DVI output only. For getting images in the HTML
 version, the format 
 @code{texi-html} must be used.
@@ -506,7 +504,7 @@ Add @var{DIR} to the include path.
 Place generated files in @var{dir}.
 
 @item @option{-P @var{process}}, @option{--process=@var{COMMAND}}
-Process lilypond snippets using @var{command}.  The default command is
+Process LilyPond snippets using @var{command}.  The default command is
 @code{lilypond}.
 
 @item @option{--verbose}
@@ -516,8 +514,8 @@ Be verbose.
 Print version information.
 @end table
 
-For La@TeX{} input, the file to give to La@TeX{} has extension
-@file{.latex}.  Texinfo input will be written to a file with extension
+For La@TeX{} input, the file to give to La@TeX{} has the extension
+@file{.latex}.  Texinfo input will be written to a file with the extension
 @file{.texi}.
 
 @refbugs

@@ -204,7 +204,7 @@ see @ref{Time signature}.
 
 @c cheesy title to avoid clash with chapter name.
 
-In the last section we explained what kind of things you could enter
+In the last section we explained what kind of things you can enter
 in a LilyPond file.  In this section we will explain what commands to
 run and how to view or print the output.  If you have not used
 LilyPond before, want to test your setup, or want to run an example
@@ -262,7 +262,7 @@ printing.
 @cindex dvips
 @cindex dvilj
 @cindex DVI driver
-} which you can print or with the standard facilities of your
+} which you can print or view with the standard facilities of your
 operating system.@footnote{If your system does not have any tools
 installed, you can try
 @uref{http://@/www@/.cs@/.wisc@/.edu/@/~ghost/,Ghostscript}, a freely
@@ -437,7 +437,7 @@ Here are key signatures, accidentals and ties in action
 There are some interesting points to note in this example.  Bar lines
 and beams are drawn automatically.  Line breaks are calculated
 automatically; it does not matter where the line breaks are in the
-source file.  Finally, the order in which time, key and clef changes
+source file.  Finally, the order in which time, key, and clef changes
 are entered is not relevant: in the printout, these are ordered
 according to standard notation conventions.
 
@@ -455,7 +455,7 @@ according to standard notation conventions.
 @c but we'd need to remove the ', from \key and tie 
 To raise a note by an octave, add a high quote @code{'} (apostrophe) to
 the note name, to lower a note one octave, add a `low quote' @code{,}
-(a comma).  Middle C is @code{c'}
+(comma).  Middle C is @code{c'}
 
 @lilypond[quote,notime,fragment,verbatim]
 c'4 c'' c''' \clef bass c c,
@@ -471,15 +471,15 @@ b'8. cis''16 b'8 d''4 d''8
 @end lilypond
 
 @noindent
-The last example shows that music in a high register needs lots of quotes.
+This example shows that music in a high register needs lots of quotes.
 This makes the input less readable, and it is a source of errors.  The
 solution is to use `relative octave' mode.   This is the
 most convenient way to copy existing music.
 
-In relative mode, a note without octavation quotes (i.e.  the @code{'}
-or @code{,} after a note) is chosen so it it is closest to the
+In relative mode, a note without octavation quotes (i.e. the @code{'}
+or @code{,} after a note) is chosen so that it is closest to the
 previous one.  For example, @samp{c f} goes up while @samp{c g} goes
-down
+down.
 
 To use relative mode, add @code{\relative} before the piece of
 music.  The first note is taken relative to the middle C
@@ -525,7 +525,7 @@ of a note in @code{\relative} mode.  Rather, the height of a note is
 relative to the previous one, and changing the octave of a single note
 shifts all following notes an octave up or down.
 
-For more information on Relative octaves see @ref{Relative octaves},
+For more information on relative octaves see @ref{Relative octaves},
 and @ref{Octave check}.
 
 
@@ -534,21 +534,21 @@ and @ref{Octave check}.
 
 
 In input files, music is represent by so-called @emph{music
-expression}.  We have already seen in the previous examples; 
+expression}s.  We have already seen some in the previous examples; 
 a single note is a music expression
 
 @lilypond[fragment,quote,verbatim,relative=3]
 a4
 @end lilypond
 
-Enclosing group of notes in braces creates a new music
+Enclosing a group of notes in braces creates a new music
 expression
 
 @lilypond[fragment,quote,verbatim,relative=3]
 { a4 g4 }
 @end lilypond
 
-Putting a bunch of music expressions (notes) in braces, means that
+Putting a bunch of music expressions (e.g., notes) in braces, means that
 they should be played in sequence.  The result again is a music
 expression, which can be grouped with other expressions sequentially.
 Here, the expression from the previous example is combined with two
@@ -564,7 +564,7 @@ parallel.  Two voices that should play at the same time, are entered
 as a simultaneous combination of two sequences.  A `simultaneous'
 music expression is formed by enclosing expressions in @code{<<} and
 @code{>>}.  In the following example, three sequences (all containing
-two other notes) are combined simultaneously
+two separate notes) are combined simultaneously
 
 @lilypond[fragment,quote,verbatim,relative=3]
 <<
@@ -599,7 +599,7 @@ music expressions can be nested arbitrarily deep, which is necessary
 for complex music like polyphonic scores.
 
 Note that this example only has one staff, whereas
-the previous example had three seperate staves.  That is because this
+the previous example had three separate staves.  That is because this
 example begins with a single note.  To determine the number of staves,
 LilyPond looks at the first element.  If it is a single note, there is one
 staff; if there is a simultaneous expression, there is more than one staff.
@@ -638,7 +638,7 @@ indenting source files.  See @ref{Editor support} for more information.
 
 To print more than one staff, each piece of music that makes up a
 staff is marked by adding @code{\new Staff} before it.  These
-@code{Staff} elements are then combined parallel with @code{<<} and
+@code{Staff} elements are then combined in parallel with @code{<<} and
 @code{>>}, as demonstrated here
 
 @lilypond[quote,fragment,verbatim]
@@ -686,7 +686,7 @@ We can now typeset a melody with two staves
 >>
 @end lilypond
 
-For more information on context see the description in
+For more information on contexts see the description in
 @ref{Interpretation contexts}.
 
 
@@ -715,8 +715,8 @@ c-3 e-5 b-2 a-1
 
 Articulations and fingerings are usually placed automatically, but you
 can specify a direction using @samp{^} (up) or @samp{_} (down).  You can
-also use multiple articulations on the same note.  In most cases, it is
-best to let LilyPond determine the articulation directions.
+also use multiple articulations on the same note.  In most cases, however,
+it is best to let LilyPond determine the articulation directions.
 
 @lilypond[fragment,quote,verbatim,relative=2]
 c_-^1 d^. f^4_2-> e^-_+
@@ -735,7 +735,7 @@ c\ff c\mf
 
 Crescendi and decrescendi are started with the commands @code{\<} and
 @code{\>}.  An ending dynamic, for example @code{\f}, will finish the
-crescendo, or the command @code{\!} can be used
+(de)crescendo, or the command @code{\!} can be used
 
 @lilypond[fragment,quote,verbatim,relative=2]
 c2\< c2\ff\> c2 c2\!
@@ -886,7 +886,7 @@ A comment is a remark for the human reader of the music input; it is
 ignored while parsing, so it has no effect on the printed output.
 There are two types of comments.  The percent symbol @samp{%}
 introduces a line comment; after @code{%} the rest of the line is
-ignored.  A block comments marks a whole section of music
+ignored.  A block comment marks a whole section of music
 input.  Anything that is enclosed in @code{%@{} and @code{%@}} is
 ignored.  The following fragment shows possible uses for comments
 
@@ -1030,7 +1030,7 @@ following example shows a few common modifiers
 @end lilypond
 
 For lead sheets, chords are not printed on staves, but as names on a
-line of themselves.  This is achieved by using @code{\chords} instead
+line for themselves.  This is achieved by using @code{\chords} instead
 of @code{\chordmode}.  This uses the same syntax as @code{\chordmode},
 but renders the notes in a @code{ChordNames} context, with the
 following result.
@@ -1086,7 +1086,7 @@ the top of the file.  For example,
 @end example
 
 
-When the file is processed the title and composer are printed above
+When the file is processed, the title and composer are printed above
 the music.  More information on titling can be found in @ref{Creating
 titles}.
 
@@ -1103,7 +1103,7 @@ beams, and the top voice has the stems up, while the bottom voice has
 them down.
 
 Entering such parts is done by entering each voice as a sequence (with
-@code{@{...@}}), and combining those simultaneously, separating the
+@code{@{...@}}), and combining these simultaneously, separating the
 voices with @code{\\}
 
 @lilypond[quote,verbatim,relative=2,fragment]
@@ -1138,8 +1138,8 @@ Again, these expressions can be nested arbitrarily
 >>
 @end lilypond
 
-More features of polyphonic typesetting in the notation manual are
-described in @ref{Polyphony}.
+More features of polyphonic typesetting are described in this manual
+in section @ref{Polyphony}.
 
 
 @node Piano staves
@@ -1173,7 +1173,7 @@ Here is a small example
 >>
 @end lilypond
 
-More information on formatting piano music is in @ref{Piano music}.  
+More information on formatting piano music is given in @ref{Piano music}.  
 
 
 @node Organizing larger pieces
@@ -1228,7 +1228,7 @@ places.  The following example uses the above variables
 @{ c4^\name @}
 @end example
 
-More information on the possible uses of identifiers is in the
+More information on the possible uses of identifiers is given in the
 technical manual, in @ref{Input variables and Scheme}.
 @c fixme: the ref is too technical.
 
@@ -1240,7 +1240,7 @@ In orchestral music, all notes are printed twice.  Once in a part for
 the musicians, and once in a full score for the conductor.  Identifiers can
 be used to avoid double work.  The music is entered once, and stored in
 a variable.  The contents of that variable is then used to generate
-both the part and the score.
+both the part and the full score.
 
 It is convenient to define the notes in a special file.  For example,
 suppose that the file @file{horn-music.ly} contains the following part
@@ -1278,7 +1278,7 @@ substitutes the contents of @file{horn-music.ly} at this position in
 the file, so @code{hornNotes} is defined afterwards.  The command
 @code{\transpose f@tie{}c'} indicates that the argument, being
 @code{\hornNotes}, should be transposed by a fifth downwards.  Sounding
-@samp{f} is denoted by notated @code{c'}, which corresponds with
+@samp{f} is denoted by notated @code{c'}, which corresponds with the
 tuning of a normal French Horn in@tie{}F.  The transposition can be seen
 in the following output
 

@@ -12,8 +12,8 @@
 @cindex LISP
 
 LilyPond uses the Scheme programming language, both as part of the
-input syntax, and as internal mechanism to glue together modules of
-the program.  This section is a very brief overview of entering data in
+input syntax, and as internal mechanism to glue modules of the program
+together .  This section is a very brief overview of entering data in
 Scheme.@footnote{If you want to know more about Scheme, see
 @uref{http://@/www@/.schemers@/.org}.}
 
@@ -127,7 +127,7 @@ number or a string.  It is entered as
 @cindex @code{#'symbol}
 @cindex quoting in Scheme
 
-The quote mark @code{'} prevents Scheme interpreter from substituting
+The quote mark @code{'} prevents the Scheme interpreter from substituting
 @code{24} for the @code{twentyFour}.  Instead, we get the name
 @code{twentyFour}.
 
@@ -140,7 +140,7 @@ example
 @end example
 
 This instruction adjusts the appearance of stems.  The value @code{2.6}
-is put into a the @code{thickness} variable of a @code{Stem}
+is put into the @code{thickness} variable of a @code{Stem}
 object.  This makes stems almost twice as thick as their normal size.
 To distinguish between variables defined in input files (like
 @code{twentyFour} in the example above) and variables of internal
@@ -181,11 +181,11 @@ a quote.  For example,
 #'(1 2 "string" #f)
 @end example
 
-We have been using lists all along.  A calculation, like @code{(+ 1
-2)} is also a list (containing the symbol @code{+} and the numbers 1
+We have been using lists all along.  A calculation, like @code{(+ 1 2)}
+is also a list (containing the symbol @code{+} and the numbers 1
 and@tie{}2).  Normally lists are interpreted as calculations, and the
 Scheme interpreter substitutes the outcome of the calculation.  To enter a
-list, we stop evaluation.  This is done by quoting the list with a
+list, we stop the evaluation.  This is done by quoting the list with a
 quote @code{'} symbol.  So, for calculations do not use a quote.
 
 Inside a quoted list or pair, there is no need to quote anymore.  The

@@ -5,7 +5,7 @@
 
 @dircategory GNU music project
 @direntry
-* Glossary: (lilypond/music-glossary).                  Glossary of music terms.
+* Glossary: (lilypond/music-glossary).  Glossary of music terms.
 @end direntry
 
 @ifhtml
@@ -278,7 +278,7 @@ S: alt,
 FI: altto, matala naisääni.
 
 A female voice of low range (@emph{contralto}).  Originally the alto was a
-high male voice (hence the name) which by the use of falsetto reached the
+high male voice (hence the name), which by the use of falsetto reached the
 height of the female voice.  This type of voice is also known as
 @aref{counter tenor}.
 
@@ -540,7 +540,7 @@ DK: bas,
 S: bas,
 FI: basso, matala miesääni.
 
-1.@tie{}The lowest of men's voices.
+1.@tie{}The lowest male voice.
 2.@tie{}Sometimes, especially in jazz music, used as
 an abbreviation for double bass.
 @aref{strings}.
@@ -555,7 +555,7 @@ S: balk,
 FI: palkki.
 
 Line connecting a series of notes (shorter than a quarter note).
-The number of beams determine the note value of the connected notes.
+The number of beams determines the note value of the connected notes.
 
 @lilypond[fragment,notime,linewidth=13.0\cm]
 \set Score.automaticBars = ##f
@@ -629,7 +629,7 @@ DK: messingblæsere,
 S: brassinstrument, mässingsinstrument,
 FI: vaskisoitin.
 
-A family of blown musical instruments made of brass all using a cup formed
+A family of blown musical instruments made of brass, all using a cup formed
 mouth piece.  The brass instruments commonly used in a symphony orchestra are
 trumpet, trombone, french horn, and tube.
 
@@ -727,7 +727,7 @@ FI: kadenssi, lopuke.
 
 An extended, improvisatory style section inserted near the end of
 movement.  The purpose of a cadenza is to give singers or players a chance
-to exhibit their technical skill and not the least their ability to
+to exhibit their technical skill and -- not last -- their ability to
 improvise.  Since the middle of the 19th century, however, most cadences have
 been written down by the composer.
 
@@ -878,7 +878,7 @@ geometrical shape of a cluster covers the area in which any single
 pitch contained in the cluster would be notated as an ordinary note.
 
 @lilypond[fragment,relative=2,verbatim,raggedright]
-\makeClusters { <c e > <b f'> <b g'> <c g> <f e> }
+\makeClusters { <c e> <b f'> <b g'> <c g> <f e> }
 @end lilypond
 
 @aitem{comma}@c
@@ -1022,7 +1022,7 @@ composition methods.
 ES: contratenor,
 I: controtenore,
 F: contre-tenor,
-D: Countertenor,
+D: Countertenor, Kontratenor,
 NL: contratenor,
 DK: kontratenor,
 S: kontratenor, counter tenor,
@@ -1128,7 +1128,7 @@ to a certain place marked @emph{fine}.  Mostly abbreviated as ``D.C.''.
 ES: dal segno,
 I: dal segno,
 F: dal segno, depuis le signe,
-D: dal segno,
+D: dal segno, ab dem Zeichen,
 NL: dal segno,
 DK: dal segno,
 S: dal segno,
@@ -1195,7 +1195,7 @@ A scale consisting of 5@w{ }@aref{whole tone}s and
 2@w{ }@aref{semitone}s (S).  Scales played on the white keys
 of a piano keybord are diatonic.
 
-The church modes are used in gregorial chant and in pre baroque early
+The church modes are used in gregorial chant and in pre-baroque early
 music but also to some extent in newer jazz music.
 
 @lilypond[fragment,notime,raggedright]
@@ -1890,7 +1890,7 @@ FI: harmoniajärjestelmä.
 A system of harmonic analysis.  It is based on the idea that, in a given key,
 there are only three functionally different chords: tonic (T, the chord on the
 first note of the scale), subdominant (S, the chord on the fourth note), and
-dominant (D, the chord on the fifth note).  Other are considered to be
+dominant (D, the chord on the fifth note).  Others are considered to be
 variants of the base chords.
 
 @lilypond[fragment,notime,linewidth=13.0\cm]
@@ -2136,7 +2136,7 @@ Difference in pitch between two notes.  Intervals may be perfect, minor, major,
 diminished, or augmented.  The augmented fourth and the diminished fifth are
 identical (@aref{enharmonic}) and are called @emph{tritonus}
 because they consist of three @aref{whole tone}s.  The addition
-of such two forms an octave.
+of such two intervals forms an octave.
 
 @lilypond[fragment,notime,linewidth=13.0\cm]
 \set Score.automaticBars = ##f
@@ -2413,7 +2413,7 @@ Note value: double length of @aref{breve}.
 ES: .,
 I: .,
 F: .,
-D: .,
+D: Liedtext,
 NL: liedtekst,
 DK: .,
 S: .,
@@ -2513,7 +2513,7 @@ The basic scheme of @aref{note value}s and
 or a section of it.  For instance, 3/4 meter means that the basic
 @aref{note value}s are quarter notes and that a
 @aref{measure} consists of three of those.  According to
-whether there are two, three or four units to the measure,
+whether there are two, three, or four units to the measure,
 one speaks of @emph{duple} (2/2, 2/4, 2/8), @emph{triple} (3/2, 3/4, 3/8), or
 @emph{quadruple} (4/2, 4/4, 4/8) meter.  4/4 is also called common meter.
 
@@ -2779,7 +2779,7 @@ DK: nodehovede,
 S: nothuvud,
 FI: nuotin pää.
 
-A head like sign which indicates pitch by its position on a
+A head-like sign which indicates pitch by its position on a
 @aref{staff} provided with a @aref{clef}, and duration
 by a variety of shapes such as hollow or black heads with or without
 @aref{stem}s, @aref{flag}s, etc.  For percussion
@@ -2798,7 +2798,7 @@ FI: nuotin aika-arvo.
 
 Note values (durations) are measured as fractions, normally 1/2, of the next
 higher note value.  The longest duration normally used is called @emph{brevis},
-but sometimes (mostly in pre baroque music) the double length note value
+but sometimes (mostly in pre-baroque music) the double length note value
 @emph{longa} is used.
 
 @lilypond[fragment,notime,linewidth=13.0\cm]
@@ -3046,7 +3046,7 @@ Play by plucking the strings.
 ES: polifonía,
 I: polifonia,
 F: polyphonie,
-D: Polyphonie,
+D: Polyphonie, Mehrstimmigkeit,
 NL: polyfonie,
 DK: polyfoni,
 S: polyfoni,
@@ -3227,7 +3227,7 @@ FI: rytmi.
 (a) Metrical rhythm in which every time value is a multiple or fraction of a
 fixed unit of time, called @aref{beat}, and in which the normal
 @aref{accent} recurs in regular intervals, called
-@aref{measure}.  The basic scheme scheme of time values is called
+@aref{measure}.  The basic scheme of time values is called
 @aref{meter}.  (b) Measured rhythm which lacks regularly recurrent
 accent.  In modern notation such music appears as a free alternation of
 different measures.  (c) Free rhythm, i.e., the use of temporal values having
@@ -3317,7 +3317,7 @@ other on different staves @aref{staff}.
 ES: segunda,
 I: secunda,
 F: seconde,
-D: Sekund,
+D: Sekund(a),
 NL: secunde,
 DK: sekund,
 S: sekund,
@@ -3507,15 +3507,14 @@ A form used frequently for single movements of the @aref{sonata},
 @aref{symphony}, quartet, etc.  A movement written in sonata form
 falls into three sections called @emph{exposition}, @emph{development} and
 @emph{recapitulation}.  In the exposition the composer introduces some musical
-ideas, consisting of a number of themes; in the development section the composer
-"develops" this material, and in the recapitulation the composer repeats the exposition,
-with certain modificationsr.  The exposition contains a number of themes
-which fall into two groups, often called first and second subject.  Other
-melodies occurring in each group are considered as continuations of these
-two.  The second theme is in another key, normally in the key of the
-@aref{dominant} if the @aref{tonic} is
-@aref{major}, and in the @aref{relative key} if the
-tonic is @aref{minor}.
+ideas, consisting of a number of themes; in the development section the
+composer `develops' this material, and in the recapitulation the composer
+repeats the exposition, with certain modifications.  The exposition contains a
+number of themes that fall into two groups, often called first and second
+subject.  Other melodies occurring in each group are considered as
+continuations of these two.  The second theme is in another key, normally in
+the key of the @aref{dominant} if the @aref{tonic} is @aref{major}, and in the
+@aref{relative key} if the tonic is @aref{minor}.
 
 @aitem{soprano}@c
 ES: soprano,
@@ -3533,7 +3532,7 @@ The highest female voice.
 ES: staccato,
 I: staccato,
 F: staccato, piqué, détaché,
-D: staccato,
+D: Staccato,
 NL: staccato,
 DK: staccato,
 S: staccato,
@@ -3562,7 +3561,7 @@ DK: nodesystem,
 S: notsystem,
 FI: nuottiviivasto.
 
-A series of (normally@w{ }5) horizontal lines upon and between
+A series of (normally five) horizontal lines upon and between
 which the musical notes are written, thus indicating (in connection
 with a @aref{clef}) their pitch.  Staves for
 @aref{percussion} instruments may have fewer lines.
@@ -3628,8 +3627,7 @@ DK: subdominant,
 S: subdominant,
 FI: subdominantti, alidominantti.
 
-The fourth @aref{scale degree}.  @aref{functional
-harmony}.
+The fourth @aref{scale degree}.  @aref{functional harmony}.
 
 @aitem{submediant}@c
 ES: superdominante,
@@ -3702,7 +3700,7 @@ S: synkop,
 FI: synkooppi.
 
 Any deliberate upsetting of the normal pulse of @aref{meter},
-@aref{accent} and @aref{rhythm}.  Our system of musical
+@aref{accent}, and @aref{rhythm}.  The occidental system of musical
 rhythm rests upon the grouping of equal beats into groups of two or three,
 with a regularly recurrent accent on the first beat of each group.  Any
 deviation from this scheme is felt as a disturbance or contradiction between
@@ -3752,8 +3750,7 @@ S: temperatur,
 FI: viritysjärjestelmä.
 
 Systems of tuning in which the intervals deviate from the acoustically pure
-intervals.  @aref{meantone temperament}, @aref{equal
-temperament}.
+intervals.  @aref{meantone temperament}, @aref{equal temperament}.
 
 @aitem{tempo indication}@c
 ES: indicación de tempo,
@@ -3780,7 +3777,7 @@ DK: tenor,
 S: tenor,
 FI: tenori, korkea miesääni.
 
-The highest voice of men (apart from @aref{counter tenor}).
+The highest male voice (apart from @aref{counter tenor}).
 
 @aitem{tenth}@c
 ES: décima,
@@ -3886,7 +3883,7 @@ FI: sitominen.
 
 A curved line, identical in appearance with the @aref{slur}, which
 connects two succesive notes of the same pitch, and which has the function of
-uniting them into a single sound equal to the combined durations.
+uniting them into a single sound (tone) equal to the combined durations.
 
 @lilypond[fragment,notime,raggedright]
 \set Score.automaticBars = ##f
@@ -3917,7 +3914,7 @@ FI: ääni.
 
 A sound of definite pitch and duration, as distinct from @emph{noise}.
 Tone is a primary building material of music.
-Music from the 20th century may be based on non tone related sounds.
+Music from the 20th century may be based on atonal sounds.
 
 @aitem{tonic}@c
 ES: tonica,
@@ -3988,7 +3985,7 @@ S: tremolo,
 FI: tremolo.
 
 On stringed instruments (@aref{strings}) the quick reiteration of
-the same tone, produced by a rapid up-and-down movement movement of the bow
+the same tone, produced by a rapid up-and-down movement of the bow
 (a).  The term is also used for the rapid alternation (b) between two notes of
 a @aref{chord}, usually in the distance of a third
 (@aref{interval}).
@@ -4074,7 +4071,7 @@ S: stämgaffel,
 FI: viritysavain.
 
 A two-pronged piece of steel used to indicate absolute pitch.  Tuning forks
-give the international pitch for the tone @emph{a} (440 vibrations per second.)
+give the international pitch for the tone @emph{a} (440 vibrations per second).
 
 @aitemii{turn,gruppetto}@c
 ES: grupo,
@@ -4134,8 +4131,7 @@ S: stämma,
 FI: ääni, lauluääni.
 
 1.@tie{}Human voices: @aref{soprano}, @aref{mezzo-soprano},
-@aref{contralto}, @aref{tenor},
-@aref{baritone}, @aref{bass}.
+@aref{contralto}, @aref{tenor}, @aref{baritone}, @aref{bass}.
 2.@tie{}A melodic layer or part of a polyphonic composition.
 
 @aitem{weak beat}@c
