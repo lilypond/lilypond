@@ -330,7 +330,7 @@ def i18n (file_name, page):
 
 	base_name = os.path.basename (file_name)
 
-	lang = ''
+	lang = 'site'
 	m = re.match ('.*[.]([^.]*).html', file_name)
 	if m:
 		lang = m.group (1)
