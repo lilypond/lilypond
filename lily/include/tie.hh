@@ -25,13 +25,13 @@ public:
 
   Note_head* head (Direction) const;
   Real position_f () const;
-   static SCM scheme_molecule (SCM);
+   static SCM brew_molecule (SCM);
   
 
   virtual Direction get_default_dir() const;
 
-protected:
-  Molecule do_brew_molecule () const;
+
+  SCM member_brew_molecule () const;
   virtual Array<Offset> get_encompass_offset_arr () const;
   Bezier get_curve () const;
 
@@ -42,7 +42,8 @@ protected:
   Drul_array<Real> dx_f_drul_;
 
   virtual void do_add_processing ();
-  virtual void after_line_breaking ();
+  SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
 
   virtual Array<Rod> get_rods () const;
 

@@ -23,11 +23,11 @@ class Time_signature: public Item
   Molecule special_time_signature (String,int,int) const;
   Molecule time_signature (int, int)const;
   
-protected:
-  Molecule do_brew_molecule() const;
 public:
+  SCM member_brew_molecule() const;
+
   Time_signature (SCM);
- static SCM scheme_molecule (SCM);
+ static SCM brew_molecule (SCM);
   
 
   /*
