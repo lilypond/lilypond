@@ -2207,6 +2207,14 @@ conversions.append (((2, 3, 17), conv,
 		     '''\foo -> \foomode (for chords, notes, etc.)
 fold \new FooContext \foomode into \foo.'''))
 
+
+def conv (str):
+	str = re.sub (r'Text_item', 'Text_interface', str)
+	return str
+
+conversions.append (((2, 3, 18), conv,
+		     '''Text_item -> Text_interface''' )
+
 ################################
 #	END OF CONVERSIONS	
 ################################
