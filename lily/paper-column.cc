@@ -149,21 +149,18 @@ Paper_column::before_line_breaking (SCM grob)
   SCM c = me->get_grob_property ("bounded-by-me");
   SCM *ptrptr = &c;
 
-  while (gh_pair_p (c))
+  while (gh_pair_p (*ptrptr))
     {
-      Grob * g = unsmob_grob (gh_car (c));
+      Grob * g = unsmob_grob (gh_car (*ptrptr));
 
       if (!g || !g->live ())
 	{
-	  *ptrptr = gh_cdr (c);
+	  *ptrptr = gh_cdr (*ptrptr);
 	}
       else
 	{
-	  ptrptr = SCM_CDRLOC (c);
+	  ptrptr = SCM_CDRLOC (*ptrptr);
 	}
-      
-      if (gh_pair_p(c))
-	c = gh_cdr (c);
     }
 
   me->set_grob_property ("bounded-by-me", c);

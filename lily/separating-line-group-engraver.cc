@@ -77,17 +77,21 @@ void
 Separating_line_group_engraver::finalize ()
 {
   SCM ccol = get_property ("currentCommandColumn");
+  Grob *column = unsmob_grob (ccol);
+  
   sep_span_p_->set_bound (RIGHT, unsmob_grob (ccol));
   typeset_grob (sep_span_p_);
   sep_span_p_ =0;
 
   for  (int i= 0 ; i < last_spacings_.note_spacings_.size(); i++)
     {
-      last_spacings_.note_spacings_[i]->set_grob_property ("right-items", gh_cons (ccol, SCM_EOL));
+      Pointer_group_interface::add_grob (last_spacings_.note_spacings_[i],
+					 ly_symbol2scm ("right-items" ),
+					 column);
     }
-
+   
   if(last_spacings_.staff_spacing_
-     && last_spacings_.staff_spacing_->column_l () == unsmob_grob (ccol))
+     && last_spacings_.staff_spacing_->column_l () == column)
     {
       last_spacings_.staff_spacing_->suicide ();
     }
