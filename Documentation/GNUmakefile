@@ -23,6 +23,12 @@ foe:
 	ln -f $(builddir)/Documentation/pictures/$(outbase)/lelie-icon.png $(outdir)/wiki-dump/images/wikibase.png
 
 local-WWW: copy-for-me txt-to-html $(PS_GZ_FILES) $(PDF_FILES) wiki-slurp footify
+
+local-WWW-clean: deep-WWW-clean
+
+deep-WWW-clean:
+	rm -rf $(outdir)/wiki-dump
+
 copy-for-me:
 	$(foreach a, $(README_TOP_FILES), cp ../$(a) $(outdir)/$(a).txt && ) true
 
