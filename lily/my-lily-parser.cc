@@ -83,11 +83,6 @@ My_lily_parser::parser_error (String s)
   exit_status_global = 1;
 }
 
-void
-My_lily_parser::set_last_duration (Duration const *d)
-{
-  default_duration_ = *d;
-}
 
 
 Input

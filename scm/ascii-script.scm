@@ -1,11 +1,9 @@
 (define-module (scm ascii-script)
-  :export (as-output-expression)
-  :no-backtrace
   )
 
 (define this-module (current-module))
 
-(define (as-output-expression expr port)
+(define-public (as-output-expression expr port)
   (display (eval expr this-module) port)
   )
 

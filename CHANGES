@@ -1,16 +1,20 @@
-1.5.22.jcn4
+1.5.22.jcn1
 ===========
-
-* Stanza number: allow markup texts.
-
-* Partial bugfix: ly2dvi: handle spaces in .ly file names (except for
-latex calls).
-
-* Bugfix: prepend DATADIR to %loadpath too.
 
 * Resurrected experimental sketch output, now with dispatch.
 
-* Documented Linux-2.4.0, Guile-1.4 --with-threads bug.
+* Bugfix: prefix directory defaults to DIR_DATADIR if not defined.
+
+* Rune: more reliable repeat dots (WARNING: FONT CHANGED)
+
+1.5.22.hwn1
+===========
+
+* Dashed slur bugfix. 
+
+* GUILE 1.4 compatibility.
+
+ 
 
 1.5.22
 ======

@@ -13,7 +13,7 @@ TestedFeatures = 	 "beams and beamflags"
 	<
 %		\property Score.beamQuantisation = #'none
 		\context GrandStaff < 
-		\notes\transpose c' { 
+\context Staff = SA		\notes\transpose c' { 
 
 			\time 8/4
 			\stemUp [c8 c'' a' f']
@@ -39,7 +39,7 @@ TestedFeatures = 	 "beams and beamflags"
 		}
 	>
 	<	
-		\notes { 
+\context Staff = SB		\notes { 
 \transpose c' {
 			\time 8/4
 			\stemDown [a'8 a, c e]

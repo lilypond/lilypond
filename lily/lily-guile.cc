@@ -261,18 +261,16 @@ prepend_load_path (String p )
 void
 init_lily_guile (String p )
 {
-  // very very ugh: LILYPONDPREFIX (a hack), if set, overrules DATADIR.
-  // DATADIR (the default) should work too!
-  prepend_load_path (DIR_DATADIR);
-  prepend_load_path (DIR_DATADIR "/scm");
-
   prepend_load_path (p);
 
   // todo: junk this. We should make real modules iso. just loading files.
   prepend_load_path (p + "/scm/");
 
+
+#if GUILE_MINOR_VERSION >= 5
   SCM last_mod = scm_current_module ();
   scm_set_current_module (scm_c_resolve_module ("guile"));
+#endif
   
   init_cxx_function_smobs ();
   for (int i=scm_init_funcs_->size () ; i--;)
@@ -281,7 +279,10 @@ init_lily_guile (String p )
   if (verbose_global_b)
     progress_indication ("\n");
   read_lily_scm_file ("lily.scm");
+
+#if GUILE_MINOR_VERSION >= 5
   scm_set_current_module (last_mod);
+#endif
 }
 
 unsigned int ly_scm_hash (SCM s)

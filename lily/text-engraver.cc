@@ -145,7 +145,8 @@ Text_engraver::stop_translation_timestep ()
   for (int i=0; i < texts_.size (); i++)
     {
       Item *ti = texts_[i];
-      Side_position_interface::add_staff_support (ti);
+      if (!to_boolean (get_property ("scriptHorizontal")))
+	Side_position_interface::add_staff_support (ti);
       typeset_grob (ti);
     }
   texts_.clear ();

@@ -91,7 +91,7 @@ Paper_outputter::output_comment (String str)
 void
 Paper_outputter::output_scheme (SCM scm)
 {
-  scm_apply_2 (output_func_, scm, file_, SCM_EOL);
+  gh_call2 (output_func_, scm, file_);
 }
 
 void

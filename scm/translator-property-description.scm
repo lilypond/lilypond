@@ -301,7 +301,7 @@ help with debugging large scores.")
 (translator-property-description 'squashedPosition integer? " Vertical position of
 squashing for Pitch_squash_engraver.")
 (translator-property-description 'stavesFound list? "list of all staff-symbols found.")
-(translator-property-description 'stanza markup? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
+(translator-property-description 'stanza string? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
 
 
 (translator-property-description 'stemLeftBeamCount integer? "

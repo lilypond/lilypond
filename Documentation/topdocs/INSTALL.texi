@@ -171,12 +171,10 @@ configure something like:
 
 
 @item pktrace, [OPTIONAL], needed for generating PostScript Type1
-fonts. Get it from
- @uref{http://www.cs.uu.nl/~hanwen/public/software/pktrace-0.1.tar.gz}
+fonts. Get it from  @uref{http://www.cs.uu.nl/~hanwen/pktrace/}
 
 @item autotrace-0.27a, [OPTIONAL], needed for generating PostScript Type1
-fonts. You must apply the patch included pktrace-0.1 first.
-@uref{http://autotrace.sourceforge.net}.
+fonts. @uref{http://autotrace.sourceforge.net}.
  
 @item MetaPost [OPTIONAL] needed for generating PostScript Type3 fonts. Please
 note that tetex-0.4pl8 (included with Red Hat 5.x) does not include
@@ -533,7 +531,7 @@ interfere with your build, you may want to do this before the build too:
 @end example
 
 
-@c Why isn't this in BUGS (where it belongs?)
+
 @section Problems
 
 For help and questions use @email{lilypond-user@@gnu.org}.  Please
@@ -548,7 +546,6 @@ Flex 2.5.4a does not produce g++-3.0 compliant C++ code.  To compile
 LilyPond with gcc-3.0 you may do:
 
 @example
-        rm -f config.cache
         CC=gcc-3.0 CXX=g++-3.0 ./configure --enable-config=gcc-3.0
         make conf=gcc-3.0 -C lily out-gcc-3.0/lexer.cc
         patch -p1 < lexer-gcc-3.0.patch
@@ -556,18 +553,6 @@ LilyPond with gcc-3.0 you may do:
 @end example
 
 Note that this is fixed in Debian/unstable for flex >= 2.5.4a-13.
-
-@unnumberedsubsec Linux-2.4.0, Guile-1.4 --with-threads
-
-There's a bug in certain kernels around version 2.4.0, that is
-triggered when using Guile 1.4 compiled with pthreads.  You'll see
-random segmentation fault craches of LilyPond.  Upgrade to a newer
-version of Linux.  If you can't do that, you may try to recompiling
-Guile without threads (YMMV):
-
-@example
-         guile-1.4$ ./configure --without-threads; make all install
-#end example
 
 @unnumberedsubsec NetBSD
 

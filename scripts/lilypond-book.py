@@ -12,6 +12,10 @@
 #       geometry.sty and article.cls. Give me a hint, and I'll
 #       fix it.)
 
+#
+# TODO: magnification support should also work for texinfo -> html: eg. add as option to dvips. 
+# 
+
 # This is was the idea for handling of comments:
 #	Multiline comments, @ignore .. @end ignore is scanned for
 #	in read_doc_file, and the chunks are marked as 'ignore', so
@@ -30,6 +34,8 @@
 #
 #	The the rest of the rexeces are searched for. They don't have to test
 #	if they are on a commented out line.
+
+
 
 import os
 import stat
@@ -927,16 +933,6 @@ def process_lilypond_blocks(outname, chunks):#ugh rename
 	return newchunks
 
 
-def find_eps_dims (match):
-	"Fill in dimensions of EPS files."
-	
-	fn =match.group (1)
-	dims = bounding_box_dimensions (fn)
-	if g_outdir:
-		fn = os.path.join(g_outdir, fn)
- 	
-	return '%ipt' % dims[0]
-
 
 def system (cmd):
 	sys.stderr.write ("invoking `%s'\n" % cmd)
@@ -955,19 +951,20 @@ def get_bbox (filename):
 		if m:
 			gr = map (string.atoi, m.groups ())
 			break
-
+	
 	return gr
 
 def make_pixmap (name):
 	bbox = get_bbox (name + '.eps')
-
+	margin = 3
 	fo = open (name + '.trans.eps' , 'w')
-	fo.write ('%d %d translate\n' % (-bbox[0], -bbox[1]))
+	fo.write ('%d %d translate\n' % (-bbox[0]+margin, -bbox[1]+margin))
 	fo.close ()
 	
 	res = 90
-	x = (bbox[2] - bbox[0]) * res / 72.
-	y = (bbox[3] - bbox[1]) * res / 72.
+
+	x = (2* margin + bbox[2] - bbox[0]) * res / 72.
+	y = (2* margin + bbox[3] - bbox[1]) * res / 72.
 
 	cmd = r"""gs -g%dx%d -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit | pnmtopng > %s"""
 	
@@ -1187,14 +1184,31 @@ def check_texidoc (chunks):
 		n.append (c)
 	return n
 
+
+## what's this? Docme --hwn
+##
 def fix_epswidth (chunks):
 	newchunks = []
 	for c in chunks:
-		if c[0] == 'lilypond' and 'eps' in c[2]:
-			body = re.sub (r"""\\lilypondepswidth{(.*?)}""", find_eps_dims, c[1])
-			newchunks.append(('lilypond', body, c[2], c[3], c[4]))
-		else:
+		if c[0] <> 'lilypond' or 'eps' not in c[2]:
 			newchunks.append (c)
+			continue
+
+		mag = 1.0
+		for o in c[2]:
+			m  = re.match ('magnification=([0-9.]+)', o)
+			if m:
+				mag = string.atof (m.group (1))
+
+		def replace_eps_dim (match, lmag = mag):
+			filename = match.group (1)
+			dims = bounding_box_dimensions (filename)
+
+			return '%fpt' % (dims[0] *lmag)
+ 	
+		body = re.sub (r"""\\lilypondepswidth{(.*?)}""", replace_eps_dim, c[1])
+		newchunks.append(('lilypond', body, c[2], c[3], c[4]))
+			
 	return newchunks
 
 

@@ -137,8 +137,6 @@
 ))
 
 
-
-
 (define (find-dumper format )
   (let*
       ((d (assoc format output-alist)))
@@ -156,7 +154,6 @@
 	   "sketch.scm"
 	   "pdf.scm"
 	   "pdftex.scm"
-	   "ascii-script.scm"
       	   "c++.scm"
 	   "grob-property-description.scm"
 	   "translator-property-description.scm"
@@ -180,3 +177,4 @@
 
 
 
+1

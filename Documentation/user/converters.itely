@@ -33,8 +33,10 @@ therefore not recommended to use midi2ly for human-generated midi
 files. Correcting the quantization mistakes of the human player takes a
 lot of time.
 
-Hackers who know about signal processing are invited to write  a more
-robust midi2ly.
+Hackers who know about signal processing are invited to write a more
+robust midi2ly.  midi2ly is written in Python, using a module written in
+C to parse the MIDI files.
+
 
 @subsection Invoking midi2ly
 
@@ -75,12 +77,6 @@ robust midi2ly.
 @end table
 
 
-Report bugs to @email{bug-lilypond@@gnu.org}.
-
-
-Written by @email{Jan Nieuwenhuizen, janneke@@gnu.org}.
-
-
 @node etf2ly
 @section etf2ly
 
@@ -111,11 +107,9 @@ version information
 
 @refbugs
 
-Known: articulation scripts are buggy.  Empty measures confuse etf2ly.
+The list of articulation scripts is incomplete.  Empty measures confuse
+etf2ly.
 
-Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
-
-Report bugs to @email{bug-lilypond@@gnu.org}.
 
 @node abc2ly
 @section abc2ly
@@ -172,18 +166,12 @@ not.
 
 abc2ly ignores the ABC beaming.
 
-Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
-@c How about Laura?   /MB
-
-Report bugs to @email{bug-lilypond@@gnu.org}.
-
 @node pmx2ly
 @section pmx2ly
 
 PMX is a MusiXTeX preprocessor written by Don Simons, see
 @uref{http://icking-music-archive.sunsite.dk/Misc/Music/musixtex/software/pmx/}.
 
-Report bugs to @email{bug-lilypond@@gnu.org}.
 
 @subsection Invoking pmx2ly
 
@@ -203,10 +191,6 @@ set output filename to FILE
 @item  -v,--version
 version information
 @end table
-
-Report bugs to @email{bug-lilypond@@gnu.org}.
-
-Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
 
 
 @node musedata2ly
@@ -241,10 +225,6 @@ version information
  read background information from ref-file
 @var{REFFILE}
 @end table
-
-Report bugs to @email{bug-lilypond@@gnu.org}.
-
-Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
 
 
 @node mup2ly
@@ -286,10 +266,6 @@ print warranty and copyright.  Mup2ly comes with absolutely @strong{NO WARRANTY}
 
 Currently, only plain notes (pitches, durations), voices and staves are
 converted.
-
-Written by @email{Jan Nieuwenhuizen,janneke@@gnu.org}, based on pmx2ly.
-
-Report bugs to @email{bug-lilypond@@gnu.org}.
 
 
 

@@ -91,7 +91,7 @@ praeludiumLeft =  \notes \relative c {
 
 
 
-
+    
 fugaIIRight =  \notes   \relative c''   {
   \key e \major              % E-major
   \clef violin
@@ -202,7 +202,11 @@ fugaIIPedal =  \notes \relative c {
   \clef bass
 
   %13
-  r4 fis,4-\ltoe e4.-\lheel e'8-\rheel | 
+    \property Staff.PhrasingSlur \override #'dashed = #5.0
+    c4 \( ( d ) e\) f
+
+%    r4 fis,4-\ltoe e4.-\lheel e'8-\rheel | 
+
 % tie accs: 2nd should get no acc
 f4-\rtoe~ f8
 fis8-\rtoe fis4-\rtoe [e8-\ltoe a-\rtoe] | 

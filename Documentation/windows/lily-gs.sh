@@ -14,12 +14,18 @@ gsview36="/usr/windows/Ghostgum/GSview"
 # "C:\GSTOOLS\GSVIEW\gsview32.exe" "%1"
 
 
+
+## we set GS_LIB although the registry keys have been set.
+##  
+
 if [ -e "$gs550/gswin32.exe" ]; then
 	PATH="$gs550:$PATH"
+    GS_LIB='C:\cygwin\usr\windows\gs\gs5.50\lib'
 fi
 
 if [ -e "$gs650/gswin32.exe" ]; then
 	PATH="$gs650:$PATH"
+    GS_LIB='C:\cygwin\usr\windows\gs\gs6.50\lib'
 fi
 
 if [ -e "$gsview26/gsview32.exe" ]; then
@@ -29,3 +35,9 @@ fi
 if [ -e "$gsview36/gsview32.exe" ]; then
 	PATH="$gsview36:$PATH"
 fi
+
+
+
+
+export GS_LIB 
+export PATH 
