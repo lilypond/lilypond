@@ -127,7 +127,7 @@ for name in [
 if sys.argv[1:] == []:
   out = open('lilypond.words', 'w')
 else:
-  out = open(sys.argv[1], 'w')
+  out = open(sys.argv[1]+'/lilypond.words', 'w')
 
 # the menu in lilypond-mode.el
 for line in [
