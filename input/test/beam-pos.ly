@@ -5,6 +5,7 @@ filename =	 "beam-pos.ly"
 composer =	 "jcn"
 enteredby =	 "jcn"
 copyright =	 "PD"
+title = "Beam quantization"
 
 TestedFeatures =	 "beam quant positions"
 }

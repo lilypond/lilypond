@@ -95,6 +95,8 @@
 (define (beam-dir-majority count total)
   (dir-compare (car count) (cdr count)))
 
+(beam-dir-majority '(0 . 0) '(0 . 0))
+
 (define (beam-dir-mean count total)
   (dir-compare (car total) (cdr total)))
 

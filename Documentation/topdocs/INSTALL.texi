@@ -531,7 +531,7 @@ interfere with your build, you may want to do this before the build too:
 @end example
 
 
-
+@c Why isn't this in BUGS (where it belongs?)
 @section Problems
 
 For help and questions use @email{lilypond-user@@gnu.org}.  Please
@@ -553,6 +553,21 @@ LilyPond with gcc-3.0 you may do:
 @end example
 
 Note that this is fixed in Debian/unstable for flex >= 2.5.4a-13.
+
+ 
+ 
+@unnumberedsubsec Linux-2.4.0, Guile-1.4 --with-threads
+
+There's a bug in certain kernels around version 2.4.0, that is
+triggered when using Guile 1.4 compiled with pthreads.  You'll see
+random segmentation fault crashes of LilyPond.  Upgrade to a newer
+version of Linux.  If you can't do that, you may try to recompiling
+Guile without threads (YMMV):
+
+@example
+         guile-1.4$ ./configure --without-threads; make all install
+@end example
+
 
 @unnumberedsubsec NetBSD
 
