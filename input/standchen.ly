@@ -466,8 +466,10 @@ tekstII = \lyric{
 
 \score{
 	<	
-		{ \id "Lyric" "1"; \tekstI } % ugh
-		{ \id "Lyric" "2"; \tekstII }
+		< 	\id "Lyric" "1";
+			\tekstI
+			 \tekstII
+		>
 		< \id "Piano" "";
 			\multi 2;
 			\melodic < \melodie \commands >
