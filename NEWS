@@ -26,7 +26,7 @@ for a beamed slurred pair of eighth notes.
 
 *NOTE* In version 2.0, this syntax will be changed to
 
-    < PITCHES >  for chords
+   < PITCHES >  for chords
 
 and
 
@@ -38,7 +38,7 @@ and
 
 ** XML music output.
 
-** Friendly  chord-name exception entry.
+** Friendly chord-name exception entry.
 
 * OUTPUT
 

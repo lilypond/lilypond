@@ -306,7 +306,7 @@ ChordNamesContext = \translator {
 	\consists "New_chord_name_engraver"
 	\consists "Skip_req_swallow_translator"
 	\consistsend "Axis_group_engraver"
-	minimumVerticalExtent = ##f
+	minimumVerticalExtent = #'(0 . 2.5)
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 
 }
