@@ -492,7 +492,7 @@ lilypond_header_body:
 
 lilypond_header:
 	HEADER '{' lilypond_header_body '}'	{
-		$$ = THIS->lexer_-> remove_scope ();
+		$$ = THIS->lexer_->remove_scope ();
 	}
 	;
 

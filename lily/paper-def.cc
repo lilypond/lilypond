@@ -150,4 +150,10 @@ unsmob_paper (SCM x)
   return dynamic_cast<Paper_def*> (unsmob_music_output_def (x));
 }
 
+SCM
+Paper_def::smobbed_copy () const
+{
+  Paper_def *p = new Paper_def (*this);
+  return p->smobbed_self ();
+}
   

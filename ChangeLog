@@ -1,5 +1,9 @@
 2004-03-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/score.cc (default_rendering): Protect paper-book members.
+
+	* lily/paper-def.cc (smobbed_copy): New method.
+
 	* lily/include/paper-book.hh (PAGE_LAYOUT): Define as "ps"; make
 	switch runtime.
 

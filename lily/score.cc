@@ -24,6 +24,7 @@
 #include "ly-module.hh"
 #include "paper-book.hh"
 #include "paper-score.hh"
+#include "input-file-results.hh"
 
 
 /*
@@ -174,10 +175,19 @@ default_rendering (SCM music, SCM outdef, SCM header, SCM outname)
       Music_output *output = g->get_output ();
       if (systems != SCM_UNDEFINED)
 	{
-	  paper_book->scores_.push (systems);
-	  paper_book->headers_.push (header);
 	  Paper_score *ps = dynamic_cast<Paper_score*> (output);
+	  // Hmmr
+	  paper_book->protect_ = scm_cons (systems, paper_book->protect_);
+	  paper_book->protect_ = scm_cons (global_input_file->header_,
+					   paper_book->protect_);
+	  paper_book->protect_ = scm_cons (header, paper_book->protect_);
+	  paper_book->protect_ = scm_cons (ps->paper_->smobbed_copy (),
+					   paper_book->protect_);
+
 	  paper_book->papers_.push (ps->paper_);
+	  paper_book->scores_.push (systems);
+	  paper_book->global_headers_.push (global_input_file->header_);
+	  paper_book->headers_.push (header);
 	  if (output_format_global != PAGE_LAYOUT)
 	    paper_book->classic_output (ly_scm2string (outname));
 	}
