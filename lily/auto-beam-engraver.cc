@@ -109,6 +109,13 @@ Auto_beam_engraver::Auto_beam_engraver ()
 bool
 Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
 {
+  Moment now = now_mom();
+  if (dir == START
+      && now.grace_part_)
+    {
+      return false;
+    }
+  
   SCM wild = scm_list_n (ly_symbol2scm ("*"), ly_symbol2scm ("*"), SCM_UNDEFINED);
   SCM function;
   if (dir == START)
@@ -186,6 +193,7 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
 	/* but ending is not */
 	r = 1;
     }
+
   return !r;
 }
 

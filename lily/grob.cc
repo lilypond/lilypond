@@ -12,21 +12,17 @@
 
 #include "main.hh"
 #include "input-smob.hh"
-
+#include "warn.hh"
 #include "group-interface.hh"
 #include "misc.hh"
 #include "paper-score.hh"
-#include "paper-def.hh"
 #include "molecule.hh"
 #include "grob.hh"
-#include "debug.hh"
 #include "spanner.hh"
 #include "system.hh"
 #include "item.hh"
-#include "paper-column.hh"
 #include "molecule.hh"
 #include "misc.hh"
-#include "paper-outputter.hh"
 #include "music.hh"
 #include "item.hh"
 

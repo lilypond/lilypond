@@ -145,6 +145,10 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{grace-bar-number.ly}
 
+@lilypondfile[printfilename]{grace-auto-beam.ly}
+
+@lilypondfile[printfilename]{grace-unfold-repeat.ly}
+
 
 @section Beams
 

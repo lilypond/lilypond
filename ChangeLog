@@ -1,3 +1,23 @@
+2002-07-12  Han-Wen  <hanwen@cs.uu.nl>
+
+	* input/regression/grace-auto-beam.ly: new file
+
+	* input/regression/grace-unfold-repeat.ly: new file
+
+	* lily/auto-beam-engraver.cc (test_moment): never start on grace moments.
+
+	* lily/forbid-break-engraver.cc (start_translation_timestep): skip
+	grace notes for break-forbidding. Breaks during grace notes are
+	handled by Bar_engraver.	
+
+	* lily/unfolded-repeat-iterator.cc: Reimplement
+	Unfolded_repeat_iterator, Volta_repeat_iterator using
+	Sequential_iterator. All grace functionality from {} carries over
+	to repeats as well.
+
+	* lily/sequential-iterator.cc: new file: form baseclass for
+	sequential music iterator and unfolded/volta repeat iterator.
+
 2002-07-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/include/debug.hh: deprecate.
