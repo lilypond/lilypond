@@ -798,7 +798,7 @@ Alternative_music:
 
 
 Repeated_music:
-	REPEAT string bare_unsigned Music Alternative_music
+	REPEAT simple_string bare_unsigned Music Alternative_music
 	{
 		Music *beg = $4;
 		int times = $3;
@@ -1012,14 +1012,14 @@ basic music objects too, since the meaning is different.
 		scm_gc_unprotect_object ($2->self_scm ());
 #endif
 	}
-	| CONTEXT string '=' string optional_context_mod Music {
+	| CONTEXT simple_string '=' simple_string optional_context_mod Music {
 		$$ = context_spec_music ($2, $4, $6, $5);
 
 	}
 	| CONTEXT simple_string optional_context_mod Music {
 		$$ = context_spec_music ($2, SCM_UNDEFINED, $4, $3);
 	}
-	| NEWCONTEXT string optional_context_mod Music {
+	| NEWCONTEXT simple_string optional_context_mod Music {
 		$$ = context_spec_music ($2, get_next_unique_context (), $4,
 			$3);
 	}
