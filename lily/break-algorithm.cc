@@ -62,7 +62,7 @@ Break_algorithm::generate_spacing_problem (Link_array<Grob> const &curline,
 
   /*
     this is hardcoded, but this shouldn't happen anyway.
-    used to be get_realvar (ly_symbol2scm ("loose_column_distance"));        
+    used to be get_dimension (ly_symbol2scm ("loose_column_distance"));        
    */
   sp->default_space_ = 1.0;
 
@@ -95,7 +95,7 @@ void
 Break_algorithm::set_pscore (Paper_score*s)
 {
   pscore_ = s;
-  linewidth_ = s->paper_->get_realvar (ly_symbol2scm ("linewidth"));
+  linewidth_ = s->paper_->get_dimension (ly_symbol2scm ("linewidth"));
 }
 
 Array<Column_x_positions>

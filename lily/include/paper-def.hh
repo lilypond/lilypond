@@ -47,23 +47,23 @@ class Paper_def : public Music_output_def
 {
 protected:
   VIRTUAL_COPY_CONSTRUCTOR (Music_output_def, Paper_def);
-
+  SCM scaled_fonts_;
+  
 public:    
   static int score_count_;
   
   Paper_def ();
   Paper_def (Paper_def const&);
   virtual ~Paper_def ();
+  virtual void derived_mark ();
   
   Paper_outputter* get_paper_outputter (String) const;
   SCM font_descriptions () const;
   void reinit ();
   Interval line_dimensions_int (int) const;
   void output_settings (Paper_outputter*) const;
-  Font_metric *find_font (SCM name, Real mag);
-  
-  /* JUNKME   */
-  Real get_realvar (SCM symbol) const;
+  Font_metric *find_scaled_font (Font_metric *fm, Real mag);
+  Real get_dimension (SCM symbol) const;
   
   friend int yyparse (void*);
 };

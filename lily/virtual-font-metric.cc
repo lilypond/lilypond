@@ -17,20 +17,41 @@ source file of the GNU LilyPond music typesetter
 /*
   passing DEF is ughish. Should move into paperdef?
   */
-Virtual_font_metric::Virtual_font_metric (SCM name_list, 
-					  Real mag,Paper_def*def)
+Virtual_font_metric::Virtual_font_metric (SCM font_list)
 {
   font_list_ = SCM_EOL;
   SCM *tail = &font_list_;
-  for (SCM s = name_list; gh_pair_p (s); s = gh_cdr (s))
-    {
-      SCM nm = gh_car (s);
 
-      Font_metric *fm = def->find_font (nm, mag);
-      *tail =  scm_cons (fm->self_scm (),SCM_EOL);
-      tail = SCM_CDRLOC (*tail);
+  SCM mag = SCM_EOL;
+  SCM name_list = SCM_EOL;
+  SCM *name_tail = &name_list;
+  
+  for (SCM s = font_list; gh_pair_p (s); s = gh_cdr (s))
+    {
+      if (Font_metric*fm = unsmob_metrics (gh_car (s)))
+	{
+	  *tail =  scm_cons (gh_car (s),SCM_EOL);
+	  tail = SCM_CDRLOC (*tail);
+
+	  if (!gh_number_p (mag))
+	    {
+	      mag = gh_cdr (fm->description_); // ugh.
+	    }
+
+	  *name_tail = scm_cons (gh_car (fm->description_), SCM_EOL);
+	  name_tail = SCM_CDRLOC (*name_tail);
+	}
     }
+
+  description_ = scm_cons (name_list, mag);
 }
+
+Real 
+Virtual_font_metric::design_size () const
+{
+  return unsmob_metrics (gh_car (font_list_))-> design_size ();
+}
+
 
 void
 Virtual_font_metric::derived_mark ()const
@@ -154,4 +175,19 @@ Virtual_font_metric::get_indexed_char_stencil (int code)  const
 
   return m;
 }
-  
+
+
+SCM
+Virtual_font_metric::get_font_list () const
+{
+  return font_list_;
+}
+
+LY_DEFINE (ly_make_virtual_font, "ly:make-virtual-font", 0, 0, 1,
+	   (SCM args),
+	   "Make a virtual font metric from @var{args}, a list of font objects.")
+{
+  Virtual_font_metric *fm = new  Virtual_font_metric (args);
+
+  return scm_gc_unprotect_object (fm->self_scm ());
+}

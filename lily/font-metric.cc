@@ -18,6 +18,12 @@
 #include "font-metric.hh"
 #include "string.hh"
 
+Real
+Font_metric::design_size () const
+{
+  return 1.0;
+}
+
 Box
 Font_metric::text_dimension (String text) const
 {
@@ -209,6 +215,36 @@ LY_DEFINE (ly_text_dimension,"ly:text-dimension", 2 , 0, 0,
   
   return gh_cons (ly_interval2scm (b[X_AXIS]), ly_interval2scm (b[Y_AXIS]));
 }
+
+LY_DEFINE (ly_font_name,"ly:font-name", 1 , 0, 0,
+	  (SCM font),
+	   "Given the font metric @var{font}, return the corresponding file name. ")
+{
+  Font_metric *fm = unsmob_metrics (font);
+  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
+  return gh_car (fm->description_);
+}
+
+LY_DEFINE (ly_font_magnification,"ly:font-magnification", 1 , 0, 0,
+	  (SCM font),
+	   "Given the font metric @var{font}, return the "
+	   "magnification, relative to the current outputscale.")
+{
+  Font_metric *fm = unsmob_metrics (font);
+  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
+  return gh_cdr (fm->description_);
+}
+
+LY_DEFINE (ly_font_design_size,"ly:font-design-size", 1 , 0, 0,
+	  (SCM font),
+	   "Given the font metric @var{font}, return the "
+	   "design size, relative to the current outputscale.")
+{
+  Font_metric *fm = unsmob_metrics (font);
+  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
+  return gh_cdr (fm->description_);
+}
+
 
 Stencil
 Font_metric::get_ascii_char_stencil (int code)  const

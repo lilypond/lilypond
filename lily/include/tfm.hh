@@ -145,13 +145,15 @@ struct Tex_font_char_metric
 };
 
 
-class Tex_font_metric : public Font_metric
+class Tex_font_metric : public Simple_font_metric
 {
 public:
   static  SCM make_tfm (String filename);
 
   virtual int count () const;
   virtual Box get_ascii_char (int) const;
+  virtual Real design_size () const;
+  
   Tex_font_char_metric const *find_ascii (int ascii, bool warn=true) const;
 
   String to_string () const;

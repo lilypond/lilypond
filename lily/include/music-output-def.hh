@@ -27,8 +27,8 @@ public:
   Input input_origin_;
   
   SCM scope_;
-  SCM scaled_fonts_;
-  
+
+  virtual void derived_mark ();
   Music_output_def (Music_output_def const&);
   Music_output_def ();
   VIRTUAL_COPY_CONSTRUCTOR (Music_output_def, Music_output_def);
@@ -37,7 +37,7 @@ public:
   void assign_context_def (SCM transdef);
   SCM find_context_def (SCM name) const;
   String outname_string () ;
-  SCM get_scmvar (String id)const;
+  SCM get_scmvar (String id) const;
   SCM lookup_variable (SCM sym) const;
   void set_variable (SCM, SCM sym);
   

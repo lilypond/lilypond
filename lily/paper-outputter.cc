@@ -155,7 +155,15 @@ Paper_outputter::output_header (Paper_def *paper, SCM scopes, int page_count)
   output_music_output_def (paper);
 
   output_scheme (scm_list_1 (ly_symbol2scm ("header-end")));
-  output_scheme (scm_list_2 (ly_symbol2scm ("define-fonts"),
+
+  /*
+    TODO: maybe have Scheme extract the fonts directly from \paper?
+
+    Alternatively, we could simply load the fonts on demand in the
+    output, and do away with this define-fonts step.
+   */
+  output_scheme (scm_list_3 (ly_symbol2scm ("define-fonts"),
+			     paper->self_scm (),
 			     ly_quote_scm (paper->font_descriptions ())));
 }
 

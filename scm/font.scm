@@ -146,41 +146,60 @@
 		 (list (cons 'font-encoding (car x)))
 		 (cons (* factor (cadr x))
 		       (caddr x))))
-     '((number 10
-	       #((3.82  . "feta-nummer4")
-		 (5.5  . "feta-nummer6")
-		 (8.0  . "feta-nummer8")
-		 (10.0  . "feta-nummer10")
-		 (12.0  . "feta-nummer12")
-		 (16.0  . "feta-nummer16")))
-       (dynamic 14.0  #((6.0 . "feta-din6")
-			(8.0 . "feta-din8")
-			(10.0 . "feta-din10")
-			(12.0 . "feta-din12")
-			(14.0 . "feta-din14")
-			(17.0 . "feta-din17")
+     `((number 10
+	       #(,(delay (ly:font-load "feta-nummer4"))
+		 ,(delay (ly:font-load "feta-nummer6"))
+		 ,(delay (ly:font-load "feta-nummer8"))
+		 ,(delay (ly:font-load "feta-nummer10"))
+		 ,(delay (ly:font-load "feta-nummer12"))
+		 ,(delay (ly:font-load "feta-nummer16"))))
+       (dynamic 14.0  #(,(delay (ly:font-load "feta-din6"))
+			,(delay (ly:font-load "feta-din8"))
+			,(delay (ly:font-load "feta-din10"))
+			,(delay (ly:font-load "feta-din12"))
+			,(delay (ly:font-load "feta-din14"))
+			,(delay (ly:font-load "feta-din17"))
 			))
-       (math 10 #((10.0 . "msam10")))
+       (math 10 #(,(delay (ly:font-load "msam10"))))
        (music 20.0
-	      #((11.22 . ("feta11" "parmesan11"))
-		(12.60 . ("feta13" "parmesan13"))
-		(14.14 . ("feta14" "parmesan14"))
-		(15.87 . ("feta16" "parmesan16"))
-		(17.82 . ("feta18" "parmesan18"))
-		(20.0 . ("feta20" "parmesan20"))
-		(22.45 . ("feta23" "parmesan23"))
-		(25.20 . ("feta26" "parmesan26"))
+	      #(,(delay (ly:make-virtual-font
+			 (ly:font-load "feta11")
+			 (ly:font-load "parmesan11")))
+		,(delay (ly:make-virtual-font
+			 (ly:font-load "feta13")
+			 (ly:font-load "parmesan13")))
+		,(delay (ly:make-virtual-font
+			 (ly:font-load "feta14")
+			 (ly:font-load "parmesan14")))
+		,(delay (ly:make-virtual-font
+			 (ly:font-load "feta16")
+			 (ly:font-load "parmesan16")))
+		,(delay (ly:make-virtual-font
+			 (ly:font-load "feta18")
+			 (ly:font-load "parmesan18")))
+		,(delay (ly:make-virtual-font
+			 (ly:font-load "feta20")
+			 (ly:font-load "parmesan20")))
+		,(delay (ly:make-virtual-font
+			 (ly:font-load "feta23")
+			 (ly:font-load "parmesan23")))
+		,(delay (ly:make-virtual-font
+			 (ly:font-load "feta26")
+			 (ly:font-load "parmesan26")))
 		))
-       (braces 10 #((10.0 . ("feta-braces00"
-			     "feta-braces10"
-			     "feta-braces20"
-			     "feta-braces30"
-			     "feta-braces40"
-			     "feta-braces50"
-			     "feta-braces60"
-			     "feta-braces70"
-			     "feta-braces80"))
-		    ))))
+       
+       (braces 10 #(,(delay
+		       (ly:make-virtual-font
+			(ly:font-load "feta-braces00")
+			(ly:font-load "feta-braces10")
+			(ly:font-load "feta-braces20")
+			(ly:font-load "feta-braces30")
+			(ly:font-load "feta-braces40")
+			(ly:font-load "feta-braces50")
+			(ly:font-load "feta-braces60")
+			(ly:font-load "feta-braces70")
+			(ly:font-load "feta-braces80"))
+		       )))))
 
     (for-each
      (lambda (x)
@@ -193,48 +212,48 @@
 	(cons (* factor (cadr x))
 	      (cddr x))
 	))
-     '((#(roman upright medium) .
-	(10.0 . #((6.0 . "cmr6")
-		  (8.0 . "cmr8") 
-		  (10.0 . "cmr10")
-		  (17.0 . "cmr17")
+     `((#(roman upright medium) .
+	(10.0 . #(,(delay (ly:font-load "cmr6"))
+		  ,(delay (ly:font-load "cmr8")) 
+		  ,(delay (ly:font-load "cmr10"))
+		  ,(delay (ly:font-load "cmr17"))
 		  )))
 
        (#(roman upright bold) .
-	(10.0 . #((6.0 . "cmbx6")
-		  (8.0 . "cmbx8")
-		  (10.0 . "cmbx10")
-		  (12.0 . "cmbx12")
+	(10.0 . #(,(delay (ly:font-load "cmbx6"))
+		  ,(delay (ly:font-load "cmbx8"))
+		  ,(delay (ly:font-load "cmbx10"))
+		  ,(delay (ly:font-load "cmbx12"))
 		  )))
        
        (#(roman italic medium) .
-	(10.0 . #((7.0 . "cmti7")
-		  (10.0 . "cmti10")
-		  (12.0 . "cmti12")
+	(10.0 . #(,(delay (ly:font-load "cmti7"))
+		  ,(delay (ly:font-load "cmti10"))
+		  ,(delay (ly:font-load "cmti12"))
 		  )))
        (#(roman italic bold) .
-	(10.0 . #((8.0 . "cmbxti8")
-		  (10.0 . "cmbxti10")
-		  (14.0 . "cmbxti14")
+	(10.0 . #(,(delay (ly:font-load "cmbxti8"))
+		  ,(delay (ly:font-load "cmbxti10"))
+		  ,(delay (ly:font-load "cmbxti14"))
 		  )))
        
        (#(roman caps medium) .
-	(10.0 . #((10.0 . "cmcsc10"))))
+	(10.0 . #(,(delay (ly:font-load "cmcsc10")))))
 
        (#(roman upright bold-narrow ) .
-	(10.0 . #((10.0 . "cmb10")
+	(10.0 . #(,(delay (ly:font-load "cmb10"))
 		  )))
        
        (#(sans upright medium) .
-	(10.0  . #((8.0 . "cmss8")
-		   (10.0 . "cmss10")
-		   (12.0 . "cmss12")
-		   (17.0 . "cmss17")
+	(10.0  . #(,(delay (ly:font-load "cmss8"))
+		   ,(delay (ly:font-load "cmss10"))
+		   ,(delay (ly:font-load "cmss12"))
+		   ,(delay (ly:font-load "cmss17"))
 		   )))
        (#(typewriter upright medium) .
-	(10.0 . #((8.0 .  "cmtt8")
-		  (10.0 . "cmtt10")
-		  (12.0 . "cmtt12")
+	(10.0 . #(,(delay (ly:font-load "cmtt8"))
+		  ,(delay (ly:font-load "cmtt10"))
+		  ,(delay (ly:font-load "cmtt12"))
 		  )))
        ))
     n))

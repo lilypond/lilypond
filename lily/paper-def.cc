@@ -30,6 +30,11 @@
 
 Paper_def::Paper_def ()
 {
+  scaled_fonts_ = SCM_EOL;
+  /*
+    don't remove above statement,  scm_make_hash_table may trigger GC.
+   */
+  scaled_fonts_ = scm_c_make_hash_table (11);
 }
 
 Paper_def::~Paper_def ()
@@ -39,10 +44,21 @@ Paper_def::~Paper_def ()
 Paper_def::Paper_def (Paper_def const&src)
   : Music_output_def (src)
 {
+  scaled_fonts_ = SCM_EOL;
+  /*
+    don't remove above statement,  scm_make_hash_table may trigger GC.
+   */
+  scaled_fonts_ = scm_c_make_hash_table (11);
+}
+
+void
+Paper_def::derived_mark ()
+{
+  scm_gc_mark (scaled_fonts_);
 }
 
 Real
-Paper_def::get_realvar (SCM s) const
+Paper_def::get_dimension (SCM s) const
 {
   SCM val = lookup_variable (s);
   SCM scale = lookup_variable (ly_symbol2scm ("outputscale"));
@@ -58,8 +74,8 @@ Paper_def::get_realvar (SCM s) const
 Interval
 Paper_def::line_dimensions_int (int n) const
 {
-  Real lw =  get_realvar (ly_symbol2scm ("linewidth"));
-  Real ind = n? 0.0:get_realvar (ly_symbol2scm ("indent"));
+  Real lw =  get_dimension (ly_symbol2scm ("linewidth"));
+  Real ind = n? 0.0:get_dimension (ly_symbol2scm ("indent"));
 
   return Interval (ind, lw);
 }
@@ -83,29 +99,53 @@ Paper_def::get_paper_outputter (String outname)  const
 }
 
 
-/*
-  Todo: use symbols and hashtable idx?
-*/
-Font_metric *
-Paper_def::find_font (SCM fn, Real m)
-{
-  SCM key = gh_cons (fn, gh_double2scm (m));
-  SCM met = scm_assoc (key, scaled_fonts_);
 
-  if (gh_pair_p (met))
-    return unsmob_metrics (ly_cdr (met));
+Font_metric *
+Paper_def::find_scaled_font (Font_metric *f, Real m)
+{
+  SCM sizes = scm_hashq_ref (scaled_fonts_, f->self_scm (), SCM_BOOL_F);
+  if (sizes != SCM_BOOL_F)
+    {
+      SCM met = scm_assoc (gh_double2scm (m), sizes);
+      if (gh_pair_p (met))
+	return unsmob_metrics (ly_cdr (met));
+    }
+  else
+    {
+      sizes = SCM_EOL;
+    }
+  
 
   /*
     Hmm. We're chaining font - metrics. Should consider wether to merge
     virtual-font and scaled_font.
-   */
-  Font_metric*  f=0;
-  if (gh_list_p (fn))
+  */
+  SCM val = SCM_EOL;
+  if (Virtual_font_metric * vf = dynamic_cast<Virtual_font_metric*> (f))
     {
-      f = new Virtual_font_metric (fn, m, this); // TODO: GC protection.
-      
-      scaled_fonts_ = scm_acons (key, f->self_scm (), scaled_fonts_);
-      scm_gc_unprotect_object (f->self_scm ());
+      /*
+	For fontify_atom (), the magnification and name must be known
+	at the same time. That's impossible for
+
+	  Scaled (Virtual_font (Font1,Font2))
+
+	so we replace by
+
+	  Virtual_font (Scaled (Font1), Scaled (Font2))
+	
+       */
+      SCM l = SCM_EOL;
+      SCM *t =  &l;
+      for (SCM s = vf->get_font_list (); gh_pair_p (s); s = gh_cdr (s))
+	{
+	  Font_metric*scaled
+	    = find_scaled_font (unsmob_metrics (gh_car (s)), m);
+	  *t = scm_cons (scaled->self_scm (), SCM_EOL);
+	  t = SCM_CDRLOC(*t);
+	}
+
+      vf = new Virtual_font_metric (l);
+      val = vf->self_scm ();
     }
   else
     {
@@ -113,34 +153,38 @@ Paper_def::find_font (SCM fn, Real m)
 
       m /= gh_scm2double (scm_variable_ref (scale_var));
 
-      f = all_fonts_global->find_font (ly_scm2string (fn));
-      SCM val = Scaled_font_metric::make_scaled_font_metric (f, m);
-      scaled_fonts_ = scm_acons (key, val, scaled_fonts_);
-      scm_gc_unprotect_object (val);
-      
-      f = unsmob_metrics (val);
+      val = Scaled_font_metric::make_scaled_font_metric (f, m);
     }
 
-  return f;
+  sizes = scm_acons (gh_double2scm (m), val, sizes);
+  scm_gc_unprotect_object (val);
+
+  scm_hashq_set_x (scaled_fonts_, f->self_scm (), sizes);
+  
+  return unsmob_metrics (val);
 }
+
 
 
 /*
   Return alist to translate internally used fonts back to real-world
   coordinates.  */
 SCM
-Paper_def::font_descriptions ()const
+Paper_def::font_descriptions () const
 {
+  SCM func = ly_scheme_function ("hash-table->alist");
+
   SCM l = SCM_EOL;
-  for (SCM s = scaled_fonts_; gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = scm_call_1 (func, scaled_fonts_); gh_pair_p (s); s = ly_cdr (s))
     {
-      SCM desc = ly_caar (s);
-      if (!gh_string_p (gh_car (desc)))
-	continue ;
+      SCM entry = gh_car (s);
+      for (SCM t = gh_cdr (entry); gh_pair_p (t); t  = gh_cdr (t))
+	{
+	  Font_metric *fm= unsmob_metrics (gh_cdar (t));
 
-      SCM mdesc = unsmob_metrics (ly_cdar (s))->description_;
-
-      l = gh_cons (gh_cons (mdesc, desc), l);
+	  if (dynamic_cast<Scaled_font_metric*> (fm))
+	    l = gh_cons (fm->self_scm (), l);
+	}
     }
   return l;
 }

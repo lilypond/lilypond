@@ -86,13 +86,13 @@ Page::Page (Paper_def *paper, int number)
   lines_ = SCM_EOL;
   line_count_ = 0;
 
-  hsize_ = paper->get_realvar (ly_symbol2scm ("hsize"));
-  vsize_ = paper->get_realvar (ly_symbol2scm ("vsize"));
-  top_margin_ = paper->get_realvar (ly_symbol2scm ("top-margin"));
-  bottom_margin_ = paper->get_realvar (ly_symbol2scm ("bottom-margin"));
-  head_sep_ = paper->get_realvar (ly_symbol2scm ("head-sep"));
-  foot_sep_ = paper->get_realvar (ly_symbol2scm ("foot-sep"));
-  text_width_ = paper->get_realvar (ly_symbol2scm ("linewidth"));
+  hsize_ = paper->get_dimension (ly_symbol2scm ("hsize"));
+  vsize_ = paper->get_dimension (ly_symbol2scm ("vsize"));
+  top_margin_ = paper->get_dimension (ly_symbol2scm ("top-margin"));
+  bottom_margin_ = paper->get_dimension (ly_symbol2scm ("bottom-margin"));
+  head_sep_ = paper->get_dimension (ly_symbol2scm ("head-sep"));
+  foot_sep_ = paper->get_dimension (ly_symbol2scm ("foot-sep"));
+  text_width_ = paper->get_dimension (ly_symbol2scm ("linewidth"));
   left_margin_ = (hsize_ - text_width_) / 2;
   
   copyright_ = SCM_EOL;

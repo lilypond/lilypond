@@ -20,7 +20,7 @@
       (list-ref tuning
                 (- string 1) ; remove 1 because list index starts at 0 and guitar string at 1.
                 )
-      ) ) ) 
+      ))) 
 
 (define-public (hammer-print-function grob)
   (let* ((note-collums (ly:grob-property grob 'note-columns))

@@ -28,7 +28,7 @@ public:
   virtual Box get_ascii_char (int ascii) const;
   virtual Box text_dimension (String)  const;
   virtual int name_to_index (String) const;
-
+  virtual Real design_size () const;
   virtual Stencil find_by_name (String) const;
   virtual Stencil get_indexed_char_stencil (int k) const;
   virtual Stencil get_ascii_char_stencil (int k) const;  
@@ -41,6 +41,13 @@ protected:
 
   Font_metric ();
 };
+
+struct Simple_font_metric : public Font_metric
+{
+public:
+  
+};
+  
 
 DECLARE_UNSMOB(Font_metric, metrics);
 

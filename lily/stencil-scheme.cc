@@ -217,7 +217,7 @@ fontify_atom (Font_metric const *met, SCM f)
     return f;
   else
     return  scm_list_n (ly_symbol2scm ("fontify"),
-			ly_quote_scm (met->description_), f, SCM_UNDEFINED);
+			met->self_scm (), f, SCM_UNDEFINED);
 }
 
 LY_DEFINE (ly_fontify_atom,"ly:fontify-atom",

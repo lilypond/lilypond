@@ -76,7 +76,6 @@ String init_scheme_code_string = "(begin #t ";
  * Miscellaneous global stuff.
  */
 
-All_font_metrics *all_fonts_global;
 int exit_status_global;
 File_path global_path;
 

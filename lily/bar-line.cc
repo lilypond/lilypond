@@ -52,7 +52,7 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
   Real hair = robust_scm2double (me->get_property ("hair-thickness"), 1);
   Real fatline = robust_scm2double (me->get_property ("thick-thickness"), 1);
 
-  Real staffline = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+  Real staffline = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   kern *= staffline;
@@ -142,7 +142,7 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
 Stencil
 Bar_line::simple_barline (Grob *me,Real w, Real h) 
 {
-  Real blot = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
+  Real blot = me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter"));
   return Lookup::round_filled_box (Box (Interval (0,w), Interval (-h/2, h/2)), blot);
 }
 

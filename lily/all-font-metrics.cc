@@ -212,4 +212,17 @@ All_font_metrics::find_font (String name)
   return 0;
 }
 
+All_font_metrics *all_fonts_global;
+
+
+LY_DEFINE (ly_font_load, "ly:font-load", 1, 0, 0,
+	   (SCM name),
+	   "Load the font @var{name}. ")
+{
+  SCM_ASSERT_TYPE (gh_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
+
+  Font_metric * fm = all_fonts_global->find_font (ly_scm2string (name));
+
+  return fm->self_scm ();
+}
 

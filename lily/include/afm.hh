@@ -19,7 +19,7 @@
 #include "font-metric.hh"
 #include "parse-afm.hh"
 
-struct Adobe_font_metric : Font_metric
+struct Adobe_font_metric : Simple_font_metric
 {
   AFM_Font_info * font_inf_;
 
@@ -35,6 +35,7 @@ struct Adobe_font_metric : Font_metric
   String to_string () const;
   ~Adobe_font_metric ();
   static SCM make_afm (AFM_Font_info*, unsigned, Real);
+  virtual Real design_size () const;
 
   unsigned int checksum_;
   Real design_size_;

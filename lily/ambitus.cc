@@ -213,8 +213,8 @@ Ambitus::print (SCM smob)
   if (to_boolean (me->get_property ("join-heads")) &&
       ((p_max - p_min) >= 3))
     {
-      Real linethickness = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-      Real blotdiameter = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
+      Real linethickness = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
+      Real blotdiameter = me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter"));
       Interval x_extent = 0.5 * Interval (-linethickness, +linethickness);
       Interval y_extent = 0.5 * Interval (p_min + 1.35, p_max - 1.35);
       Box line_box (x_extent, y_extent);

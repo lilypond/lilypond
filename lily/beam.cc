@@ -354,7 +354,7 @@ Beam::print (SCM grob)
   Real gap_length =robust_scm2double ( me->get_property ("gap"), 0.0);
   
   Stencil the_beam;
-  Real lt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+  Real lt = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
   
   for (int i = 0; i<= stems.size (); i++)
     {
@@ -416,7 +416,7 @@ Beam::print (SCM grob)
 	w += stem_width/ 2 ;
       
 
-      Real blot = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
+      Real blot = me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter"));
       Stencil whole = Lookup::beam (dydx, w, thick, blot);
       Stencil gapped;
 

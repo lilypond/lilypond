@@ -62,7 +62,7 @@ Will not fix it since I'm not sure.
 Stencil
 System_start_delimiter::simple_bar (Grob*me,Real h) 
 {
-  Real lt =me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness")) ;
+  Real lt =me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness")) ;
   Real w = lt * robust_scm2double (me->get_property ("thickness"), 1);
   return Lookup::round_filled_box (Box (Interval (0,w), Interval (-h/2, h/2)),
 				   lt);

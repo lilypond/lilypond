@@ -64,7 +64,7 @@ Staff_symbol::print (SCM smob)
   while (flip (&d) !=LEFT);
 
 
-  Real t = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+  Real t = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
   t *= robust_scm2double (me->get_property ("thickness"), 1.0);
   
   int l = Staff_symbol::line_count (me);
@@ -110,7 +110,7 @@ Staff_symbol::staff_space (Grob*me)
 Real
 Staff_symbol::get_line_thickness (Grob* me)
 {
-  Real lt =  me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+  Real lt =  me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
 
   return robust_scm2double (me->get_property ("thickness"), 1.0) * lt;
 }
