@@ -1,16 +1,18 @@
 /*   
-measure-grouping-spanner.cc --  implement Measure_grouping
+	measure-grouping-spanner.cc --  implement Measure_grouping
 
-source file of the GNU LilyPond music typesetter
+	source file of the GNU LilyPond music typesetter
 
-(c) 2002--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+	(c) 2002--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
+
 #include "paper-def.hh"
 #include "spanner.hh"
 #include "measure-grouping-spanner.hh"
 #include "lookup.hh" 
 #include "item.hh"
+#include "staff-symbol-referencer.hh"
 
 MAKE_SCHEME_CALLBACK (Measure_grouping, brew_molecule, 1);
 SCM 
@@ -22,9 +24,9 @@ Measure_grouping::brew_molecule (SCM grob)
     TODO: robustify.
    */
   SCM which = me->get_grob_property ("style");
-  SCM height = me->get_grob_property ("height");
+  Real height = robust_scm2double (me->get_grob_property ("height"), 1);
 
-  Real t = Staff_symbol_referencer::thickness (me) * robust_scm2double (me->get_grob_property ("thickness"));
+  Real t = Staff_symbol_referencer::line_thickness (me) * robust_scm2double (me->get_grob_property ("thickness"), 1);
   Grob *common = me->get_bound(LEFT)->common_refpoint (me->get_bound (RIGHT),
 						       X_AXIS);
 
@@ -45,11 +47,11 @@ Measure_grouping::brew_molecule (SCM grob)
    */
   if (which == ly_symbol2scm ("bracket"))
     {
-      m = Lookup::bracket (X_AXIS, iv, t,-gh_scm2double (height), t);
+      m = Lookup::bracket (X_AXIS, iv, t, -height, t);
     }
   else if (which == ly_symbol2scm ("triangle"))
     {
-      m = Lookup::triangle (iv, t, gh_scm2double (height));
+      m = Lookup::triangle (iv, t, height);
     }
 
   m.align_to (Y_AXIS, DOWN);

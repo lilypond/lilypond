@@ -30,7 +30,7 @@ zigzag_molecule (Grob *me,
   Real dx = dz[X_AXIS];
   Real dy = dz[Y_AXIS];
 
-  Real thick = Staff_symbol_referencer::thickness (me);
+  Real thick = Staff_symbol_referencer::line_thickness (me);
   thick *= robust_scm2double (me->get_grob_property ("thickness"), 1.0); // todo: staff sym referencer? 
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);

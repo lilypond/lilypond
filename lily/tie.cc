@@ -331,7 +331,7 @@ Tie::brew_molecule (SCM smob)
     }
   
   Real thick
-    = Staff_symbol_referencer::thickness (me)
+    = Staff_symbol_referencer::line_thickness (me)
     *  robust_scm2double (me->get_grob_property ("thickness"), 1);
 
   Bezier b;

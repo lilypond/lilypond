@@ -852,28 +852,39 @@ Rest can contain a list of beat groupings
 			  active1
 			  active2)
 
-    (define (analyse-span-event active ev)
-      (let*
-	  ((name (ly:get-mus-property ev 'name))
-	   (key (cond
-		 ((equal? name 'SlurEvent) 'slur)
-		 ((equal? name 'TieEvent) 'tie)
-		 ((equal? name 'Beam) 'beam)
-		 (else #f)))
-	   (sp (ly:get-mus-property ev 'span-direction)))
+    (define (analyse-span-events active evs)
+      (define (analyse-span-event active ev)
+	(let*
+	    ((name (ly:get-mus-property ev 'name))
+	     (key (cond
+		   ((equal? name 'SlurEvent) 'slur)
+		   ((equal? name 'TieEvent) 'tie)
+		   ((equal? name 'Beam) 'beam)
+		   (else #f)))
+	     (sp (ly:get-mus-property ev 'span-direction)))
 
-	(if (and (symbol? key) (ly:dir? sp))
-	    ((if (= sp STOP) delete! cons) key active))
-	))
+	   (if (and (symbol? key) (ly:dir? sp))
+	       ((if (= sp STOP) delete! cons) key active)
+	       active))
+	)
+
+      (if (pair? evs)
+	  (analyse-span-events
+	   (analyse-span-event active (car evs))
+	   (cdr evs))
+	  active
+	  ))
     
     (define (get-note-evs v i)
       (define (f? x)
 	(equal? (ly:get-mus-property  x 'name) 'NoteEvent))
       (filter f? (map car (what v i))))
     
-    (define (put x)
-      (set-cdr! (vector-ref result ri) x) )
+    (define (put x . index)
+      (set-cdr! (vector-ref result (if (pair? index)
+				       (car index) ri)) x) )
 
+    (display (list ri i1 i2 active1 active2 "\n"))
     (cond
      ((= ri (vector-length result)) '())
      ((= i1 (vector-length ev1)) (put 'apart))
@@ -881,8 +892,15 @@ Rest can contain a list of beat groupings
      (else
       (let*
 	  ((m1 (when ev1 i1))
-	   (m2 (when ev2 i2)))
-
+	   (m2 (when ev2 i2))
+	   (new-active1
+	    (sort
+	     (analyse-span-events active1 (map car (what ev1 i1)))
+	     symbol<?))
+	   (new-active2
+	    (sort (analyse-span-events active2 (map car (what ev2 i1)))
+		  symbol<?)))
+	
 	(if (not (or (equal? m1 (when result ri))
 		     (equal? m2 (when result ri))))
 	    (begin
@@ -890,24 +908,18 @@ Rest can contain a list of beat groupings
 	       (list "<? M1,M2 != result :"
 		     m1 m2 (when result ri)))
 	      (scm-error "boem")))
-
-	(set! active1
-	      (sort
-	       (map (lambda (x) (analyse-span-event active1  (car x)))
-		    (what ev1 i1)) symbol<?))
-	(set! active2
-	      (sort (map (lambda (x) (analyse-span-event active2 (car x)))
-			 (what ev2 i2)) symbol<?))
 	
 	(cond
 	 ((ly:moment<? m1 m2)
 	  (put 'apart)
-	  (analyse-events (1+ i1) i2 (1+ ri) active1 active2))
+	  (if (> ri 0) (put 'apart (1- ri)))
+	  (analyse-events (1+ i1) i2 (1+ ri) new-active1 new-active2))
 	 ((ly:moment<? m2 m1)
 	  (put 'apart)
-	  (analyse-events i1 (1+ i2) (1+ ri) active1 active2))
+	  (if (> ri 0) (put 'apart (1- ri)))
+	  (analyse-events i1 (1+ i2) (1+ ri) new-active1 new-active2))
 	 (else
-	  (if (not (equal? active1 active2))
+	  (if (or (not (equal? active1 active2)) (not (equal? new-active2 new-active1)))
 	      (put 'apart)
 
 	      (let*
@@ -923,18 +935,17 @@ Rest can contain a list of beat groupings
 		 ((> (length notes1) 1) (put 'apart))
 		 ((> (length notes2) 1) (put 'apart))
 		 (else
-		  (let* ((diff (ly:pitch-diff (car pitches1) (car pitches1))))
+		  (let* ((diff (ly:pitch-diff (car pitches1) (car pitches2))))
 		    (if (< (ly:pitch-steps diff) chord-threshold)
 			(put 'chords)
 			(put 'apart))
 		    ))))
 	      )
-	  (analyse-events (1+ i1) (1+ i2) (1+ ri) active1 active2))
+	  (analyse-events (1+ i1) (1+ i2) (1+ ri) new-active1 new-active2))
 	 )))))
 
 
    (analyse-events 0 0  0 '() '())
-   (display result)
    (vector->list result))
 
 
