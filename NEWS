@@ -1,10 +1,38 @@
+
+pl 18
+	- bf: Box[X_AXIS] = b
+	- sharp sign, natural sign
+	- linethickness parametric
+	- bin/mf-deps.py script
+	- split into size/generic mf-files
+	- moved beams out of font-en-tja into vette-beams.  
+	- Made corresponding .cc changes.
+	
+
+jcn patches
+	- egcs compile (no link yet)
+	- nicer 4rest
+	- beam font (je kunt wel tegen een grapje, eva?)
+	- mf-to-table: 
+	  * "breapth" (x-depth) feature
+	  * handle generic stuff such as beams
+	- polished noteheads
+	- fixed 8-128 rests
+	- 4rest
+	- mf-to-table generates tex defs
+	- bf:mf-to-table and conflily outname check
+	- 8-128 rests
+
+******
+sep 24
+ 
 pl 17
 	- bf: ledgerline width
 	- bf: toccata-fuga-E
 	- took out some hardwiring of tex-beam
 	
-pl 16.jcn2
-	- mf-to-table.in: generate mozarella metric info tables
+pl 16.jcn1
+  	- mf-to-table.in: generate mozarella metric info tables
 	- autometric.mf: write metric info to mf logfile
 	- ital-r.mf, smaller ital-m.mf
 	- variable streepjes length (top/bottomlines); fixed (for 20pt?)
