@@ -11,27 +11,28 @@
 
 
 /set-ps-scale-to-lily-scale {
-    lily-output-units output-scale mul
-    lily-output-units output-scale mul scale } bind def
-
-/init-paper {
- 	gsave
-  	.1 setlinewidth
-  	clippath pathbbox newpath
-  	/vsize exch def
-  	/hsize exch def pop pop pop
- 	% FIXME
- 	/top-margin 2 def
-	hsize line-width sub 2 div /left-margin exch def
- 	grestore
+	lily-output-units output-scale mul
+	lily-output-units output-scale mul scale
 } bind def
 
 
-/place-box
-{
+/init-paper {
+	gsave
+	.1 setlinewidth
+	clippath pathbbox newpath
+	/vsize exch def
+	/hsize exch def pop pop pop
+	% FIXME
+	/top-margin 2 def
+	hsize line-width sub 2 div /left-margin exch def
+	grestore
+} bind def
+
+
+/place-box {
 	/object exch def
 	gsave
-	%exch translate
+	% exch translate
 	translate
 	0 0 moveto
 	object
@@ -42,51 +43,54 @@
 
 %/FONTLENGTH 256 bind def
 
-%<font> <encoding> <name> reencode-font
+
 /reencode-dict 5 dict def
-/reencode-font
-{
-    reencode-dict
-    begin
-    /name exch def
-    /encoding exch def
-    /base-font exch def
-    % note: Needs ps level 2
-    /font base-font maxlength dict def
-    base-font {
-        exch dup dup /FID ne exch /Encoding ne and
-        { exch font 3 1 roll put }
-        { pop pop } ifelse
-    } forall
-    font /FontName name put
-    font /Encoding encoding put
-    name font definefont pop
-    end
+
+
+%<font> <encoding> <name> reencode-font
+/reencode-font {
+	reencode-dict begin
+		/name exch def
+		/encoding exch def
+		/base-font exch def
+		% note: Needs ps level 2
+		/font base-font maxlength dict def
+		base-font {
+			exch dup dup /FID ne exch /Encoding ne and
+			{ exch font 3 1 roll put }
+			{ pop pop } ifelse
+		} forall
+		font /FontName name put
+		font /Encoding encoding put
+		name font definefont pop
+	end
 } bind def
 
-/start-system % x y
-{
-    gsave
-    0
-    vsize translate
+
+% <x> <y> start-system
+/start-system {
+	gsave
+	0
+	vsize translate
 } bind def
 
-/stop-system
-{
-    /the-line exch def
-    the-line stroke grestore
+
+/stop-system {
+	/the-line exch def
+	the-line stroke grestore
 } bind def
 
-/end-lilypond-output
-{
-%    showpage
+
+/end-lilypond-output {
+%	showpage
 } bind def
 
-staff-line-thickness setlinewidth
 
+/init-lilypond-parameters {
+	staff-line-thickness setlinewidth
+	staff-height init-paper
+	pstack
+} bind def
 
-staff-height init-paper
-
-pstack
 
 % end lilyponddefs.ps

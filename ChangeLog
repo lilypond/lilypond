@@ -10,7 +10,12 @@
 
 	* scm/framework-ps.scm (ps-embed-cff): Fix DSC comments.
 	(procset): New function to define a procset resource.
-	(preamble): Use it.
+	(ps-embed-pfa): New function to define a font resource.
+	(setup): New function to define a `Setup' environment.
+	(preamble): Use new functions.
+
+	* ps/lilypond.defs (init-lilypond-parameters): New function to
+	get rid of directly executed PS code.  Used in scm/framework-ps.scm.
 
 2005-01-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
