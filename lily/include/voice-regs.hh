@@ -10,10 +10,9 @@
 #ifndef VOICEREGS_HH
 #define VOICEREGS_HH
 
-#include "registergroup.hh"
+#include "register-group.hh"
 
 class Voice_registers : public Register_group_register {
-
 
 public:
     Voice *voice_l_;
