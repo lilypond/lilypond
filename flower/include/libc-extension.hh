@@ -33,15 +33,10 @@ int snprintf (char *str, size_t n, char const *format, ...);
 int vsnprintf (char *str, size_t, char const *format, va_list args);
 #endif
 
-
+#ifndef isinf
 #if !HAVE_ISINF			// BSD extension 
 int isinf (double x);
-
 #endif
-
-
-#if ! HAVE_LRINT
-#define lrint(__x) ((long) (round (__x)))
 #endif
 
 
