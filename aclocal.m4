@@ -2,14 +2,17 @@ dnl WARNING WARNING WARNING WARNING
 dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl WARNING WARNING WARNING WARNING
 dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
+dnl WARNING WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
 AC_DEFUN(AC_STEPMAKE_COMPILE, [
     # -O is necessary to get inlining
     OPTIMIZE=""
-    CXXFLAGS=${CXXFLAGS:-""}
     CFLAGS=${CFLAGS:-""}
+    CXXFLAGS=${CXXFLAGS:-$CFLAGS}
+    LDFLAGS=${LDFLAGS:-""}
     checking_b=yes
     optimise_b=no
     profile_b=no
@@ -42,12 +45,6 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
     [MINGWPREFIX=$enableval],
     [MINGWPREFIX=no])
 
-    if test "$printing_b" = no; then
-	# ugh
-	AC_DEFINE(NPRINT)
-	DEFINES="$DEFINES -DNPRINT"
-    fi
-	
     if test "$checking_b" = no; then
 	# ugh
 	AC_DEFINE(NDEBUG)
@@ -101,7 +98,7 @@ AC_DEFUN(AC_STEPMAKE_CXX, [
 
     CPPFLAGS="$CPPFLAGS $DEFINES"
     CXXFLAGS="$CXXFLAGS $OPTIMIZE"
-    LDFLAGS=$EXTRA_LIBES
+    LDFLAGS="$LDFLAGS $EXTRA_LIBES"
 
     AC_SUBST(CXXFLAGS)
     AC_SUBST(CXX)
@@ -343,7 +340,6 @@ dnl    fi
     AC_SUBST(PATHSEP)
     AC_SUBST(DIRSEP)
   
-   
     AC_STEPMAKE_DATADIR
 ])
 
@@ -565,6 +561,13 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
 	    break;
 	fi
     done
+
+    #
+    # For now let people define these in their environments
+    #
+    : ${MFPLAIN_MP='/usr/share/texmf/metapost/base/mfplain.mp'}
+    : ${INIMETAPOST_FLAGS='-interaction=nonstopmode'}
+
     rm -f mfput.*
     AC_MSG_RESULT($MFMODE)
 
@@ -573,6 +576,8 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
     AC_SUBST(MFMODE)
     AC_SUBST(INIMETAFONT)
     AC_SUBST(INIMETAPOST)
+    AC_SUBST(MFPLAIN_MP)
+    AC_SUBST(INIMETAPOST_FLAGS)
 ])
 
 AC_DEFUN(AC_STEPMAKE_WARN, [
