@@ -4,6 +4,13 @@
 ;;;; 
 ;;;; (c)  2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
+(define-public (set-paper-dimension-variables mod)
+  (module-define! mod 'dimension-variables
+		  '(pt mm cm in staffheight staff-space
+		       betweensystemspace betweensystempadding
+		       linewidth indent hsize vsize
+		       staffspace linethickness ledgerlinethickness
+		       blotdiameter interscoreline leftmargin rightmargin)))
 
 (define-public (paper-set-staff-size sz)
   "Function to be called inside a \\paper{} block to set the staff size."
@@ -37,13 +44,7 @@
     (module-define! m 'blotdiameter (* 0.35 pt))
     (module-define! m 'interscoreline (* 4 mm))
 
-    (module-define! m 'dimension-variables
-		    '(pt mm cm in staffheight staff-space
-			 betweensystemspace betweensystempadding
-			 linewidth indent hsize vsize
-			 staffspace linethickness ledgerlinethickness
-			 blotdiameter interscoreline leftmargin rightmargin))
-    ))
+     ))
 
 (define-public (set-global-staff-size sz)
   "Set the default staff size, where SZ is thought to be in PT."
@@ -143,18 +144,22 @@
   (let*
       ((new-pap (ly:output-def-clone pap))
        (dim-vars (ly:output-def-lookup pap 'dimension-variables))
+       (old-scope (ly:output-def-scope pap))
        (scope (ly:output-def-scope new-pap)))
 
     (for-each
      (lambda (v)
-       (define val (ly:output-def-lookup pap v))
-       (if (number? val)
-	   (module-define! scope v
-			   (/ val scale))
+       (let*
+	   ((var (module-variable old-scope v))
+	    (val (if (variable? var) (variable-ref var) #f)))
+
+	 (if (number? val)
+	     (module-define! scope v
+			     (/ val scale))
 
 	   ;; spurious warnings, eg. for hsize, vsize. 
 ;	   (ly:warn "not a number, ~S = ~S " v  val)
-	   ))
+	   )))
      
      dim-vars)
 
