@@ -15,7 +15,7 @@
 #include "lily-proto.hh"
 #include "music-output.hh"
 #include "lily-guile.hh"
-
+#include "protected-scm.hh"
 
 /** all stuff which goes onto paper. notes, signs, symbols in a score
      #Paper_score# contains the items, the columns.
@@ -23,7 +23,7 @@
     */
 class Paper_score : public Music_output
 {
-  SCM main_smob_;
+  Protected_scm main_smob_;
 public:
   Paper_def *paper_;
 
