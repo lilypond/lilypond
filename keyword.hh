@@ -12,12 +12,3 @@ struct Keyword_table
     Keyword_table(Keyword_ent *);
     int     lookup(const char *s) const;
 };
-
-struct Identifier
-{
-    void *data;
-    int type;
-
-    Identifier();
-    ~Identifier();
-};
