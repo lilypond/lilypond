@@ -147,7 +147,7 @@ a = ('%(PYTHON)s %(MF_TO_TABLE_PY)s%(verbose)s'\
      + ' --outdir=${TARGET.dir}'\
      + ' --afm=${TARGET.base}.afm' \
      + ' --enc=${TARGET.base}.enc' \
-     + ' --tex=${TARGET.base}' \
+     + ' --tex=${TARGET.base}.tex' \
      + ' --ly=${TARGET.base}list.ly'\
      + ' ${TARGET.base}.log') % vars ()
 afm = Builder (action = a, suffix = '.afm', src_suffix = '.log',

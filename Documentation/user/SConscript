@@ -31,11 +31,18 @@ LILYPONDPREFIX = env['LILYPONDPREFIX']
 mfbuild = os.path.join (env['absbuild'], 'mf', env['out'])
 lilybuild = os.path.join (env['absbuild'], 'lily', env['out'])
 userbuild = os.path.join (env['absbuild'], 'Documentation/user', env['out'])
+
+# more of these? -- howto?
 e.Depends ('lilypond.texi', os.path.join (mfbuild, 'feta16list.ly'))
 e.Depends ('lilypond.texi', os.path.join (mfbuild, 'parmesan16list.ly'))
+# or these
+e.Depends ('doc', os.path.join (mfbuild, 'feta20.enc'))
+e.Depends ('doc', os.path.join (mfbuild, 'feta20.enc'))
+
 e.Depends ('lilypond.texi', LILYPOND_BIN)
 e.Depends ('lilypond.texi', 'lilypond-internals.texi')
-#e.Depends ('lilypond.texi', os.path.join (lilybuild, 'lilypond-bin'))
+
+e.Depends ('lilypond.texi', 'fonts')
 
 png_stems = map (lambda x: os.path.splitext (x)[0], pngs)
 epss = map (e.Png2eps, png_stems)
