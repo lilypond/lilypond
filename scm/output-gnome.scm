@@ -96,8 +96,6 @@ guile -s ../src/libgnoecanvas/examples/canvas.scm
 
 "
 
-
-
 (debug-enable 'backtrace)
 
 (define-module (scm output-gnome))
@@ -148,8 +146,7 @@ guile -s ../src/libgnoecanvas/examples/canvas.scm
 
 ;; minimal intercept list:
 (define output-interface-intercept
-  '(
-    comment
+  '(comment
     define-fonts
     end-output
     header
@@ -160,8 +157,7 @@ guile -s ../src/libgnoecanvas/examples/canvas.scm
     start-page
     stop-page
     start-system
-    stop-system
- ))
+    stop-system))
 
 (map (lambda (x) (module-define! this-module x dummy))
      output-interface-intercept)
@@ -289,6 +285,18 @@ guile -s ../src/libgnoecanvas/examples/canvas.scm
     ((2button-press) (gobject-set-property item 'fill-color "red")))
   #t)
 
+;; TODO: one list per-page
+(define text-items '())
+
+(define (scale-canvas factor)
+  (set! pixels-per-unit (* pixels-per-unit factor))
+  (set-pixels-per-unit main-canvas pixels-per-unit)
+  (for-each
+   (lambda (x)
+     (let ((scale gobject-get-property x 'scale))
+       (gobject-set-property x 'scale pixels-per-unit)))
+     text-items))
+
 (define (key-press-event item event . data)
   (let ((keyval (gdk-event-key:keyval event))
 	(mods (gdk-event-key:modifiers event)))
@@ -298,12 +306,10 @@ guile -s ../src/libgnoecanvas/examples/canvas.scm
 	   (gtk-main-quit))
 	  ((and #t ;;(null? mods)
 		(eq? keyval gdk:plus))
-	   (set! pixels-per-unit (* pixels-per-unit 2))
-	   (set-pixels-per-unit main-canvas pixels-per-unit))
+	   (scale-canvas 2))
 	  ((and #t ;; (null? mods)
 		(eq? keyval gdk:minus))
-	   (set! pixels-per-unit (/ pixels-per-unit 2))
-	   (set-pixels-per-unit main-canvas pixels-per-unit)))
+	   (scale-canvas 0.5)))
     #f))
 
 (define (char font i)
@@ -388,17 +394,24 @@ guile -s ../src/libgnoecanvas/examples/canvas.scm
   (stderr "font-name: ~S\n" (ly:font-name font))
   ;; TODO s/filename/file-name/
   (stderr "font-filename: ~S\n" (ly:font-filename font))
-  (make <gnome-canvas-text>
-    #:parent canvas-root
-    #:x 0 #:y 0
-    ;;    #:font "new century schoolbook, i bold 20"
-    #:font (pango-font-name font)
-    ;; #:size-points 12
-    #:size-points (pango-font-size font)
-    ;;#:size (pango-font-size font)
-    #:size-set #t
-    #:fill-color "black"
-    #:text string))
+  (set!
+   text-items
+   (cons
+    (make <gnome-canvas-text>
+      #:parent canvas-root
+      #:x 0 #:y 0
+      ;;    #:font "new century schoolbook, i bold 20"
+      #:font (pango-font-name font)
+      ;; #:size-points 12
+      #:size-points (pango-font-size font)
+      ;;#:size (pango-font-size font)
+      #:size-set #t
+      #:scale 1.0
+      #:scale-set #t
+      #:fill-color "black"
+      #:text string)
+    text-items))
+  (car text-items))
 
 (define (filledbox a b c d)
   (round-filled-box a b c d 0.001))
@@ -420,8 +433,3 @@ guile -s ../src/libgnoecanvas/examples/canvas.scm
 		     (list line col file)
 		     #f)))
 
-;; AARGH
-;;(define (define-fonts paper . rest)
-;;(define (define-fonts foebar paper)
-;;  ;; Ughr
-;;  (set! font-paper paper))

@@ -1,3 +1,20 @@
+2004-06-10  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/output-gnome.scm: Add font scaling.  Attempt to resurrect
+	gnome backend.
+
+	* scm/framework-gnome.scm: New file.
+
+	* scm/lily.scm: Use it.
+
+	* lily/paper-outputter.cc: Janitorial cleanups.
+	(ly:outputter-dump-string): Remove unreachable statement.
+
+	* scm/framework-ps.scm: Add header.  Janitorial cleanups.
+	(ice-9): Bugfix: Add srfi-1.
+
+	* scm/framework-tex.scm: Add header.  Janitorial cleanups.
+
 2004-06-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/new-lyric-combine-music-iterator.cc (do_quit): put warning

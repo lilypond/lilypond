@@ -1,3 +1,8 @@
+;;;; framework-ps.scm --
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;;
+;;;; (c)  2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-module (scm framework-ps))
 
@@ -5,6 +10,7 @@
 	     (ice-9 string-fun)
 	     (ice-9 format)
 	     (guile)
+	     (srfi srfi-1)
 	     (srfi srfi-13)
 	     (scm output-ps)
 	     (lily))
@@ -12,20 +18,14 @@
 (define (tex-font? fontname)
   (equal? (substring fontname 0 2) "cm"))
 
-
 (define (load-fonts bookpaper)
-  
-  (let*
-      ((fonts (ly:bookpaper-fonts bookpaper))
-       (font-names (uniq-list (sort (map ly:font-filename fonts) string<?)))
-       (pfas (map
-	      (lambda (x)
-		(ly:kpathsea-gulp-file (string-append x ".pfa")))
-	      
-	      (filter string? font-names))) )
-
+  (let* ((fonts (ly:bookpaper-fonts bookpaper))
+	 (font-names (uniq-list (sort (map ly:font-filename fonts) string<?)))
+	 (pfas (map
+		(lambda (x)
+		  (ly:kpathsea-gulp-file (string-append x ".pfa")))
+		(filter string? font-names))))
     (string-join pfas "\n")))
-
 
 (define (define-fonts bookpaper)
 
@@ -40,9 +40,9 @@
       (string-append
        plain " " coding-vector " /" command " reencode-font\n"
        "/" command "{ /" command " findfont 1 scalefont } bind def\n")))
-  
+
   (define (guess-ps-fontname basename)
-    
+
     "We do not have the FontName, try to guess is from basename."
     (cond
      (#t basename)
@@ -50,15 +50,14 @@
       ;; FIXME: we need proper Fontmap for the bluesky CM*, EC* fonts.
       ;; Only the fonts that we trace in mf/ are in our own FontMap.
       (string-append basename ".pfb"))
-     (else (string-append basename ".pfa"))
-     ))
+     (else (string-append basename ".pfa"))))
 
   (define (font-load-command font)
     (let* ((specced-font-name (ly:font-name font))
 	   (fontname (if specced-font-name
 			 specced-font-name
 			 (guess-ps-fontname (ly:font-filename font))))
-	   
+	
 	   (coding-alist (ly:font-encoding-alist font))
 	   (input-encoding (assoc-get 'input-name coding-alist))
 	   (font-encoding (assoc-get 'output-name coding-alist))
@@ -80,7 +79,7 @@
 	       (equal? font-encoding "parmesanMusic"))
 	       ""
 	   (reencode-font plain input-encoding command)))))
-  
+
   (define (font-load-encoding encoding)
     (let ((filename (get-coding-filename encoding)))
       (ly:kpathsea-gulp-file filename)))
@@ -107,11 +106,12 @@
      ((symbol? val) (symbol->string val))
      ((number? val) (number->string val))
      (else "")))
-  
+
   (define (output-entry ps-key ly-key)
     (string-append
-     "/" ps-key " " (value->string (ly:output-def-lookup paper ly-key)) " def \n"))
-  
+     "/" ps-key " "
+     (value->string (ly:output-def-lookup paper ly-key)) " def \n"))
+
   (string-append
    "/lily-output-units 2.83464  def  %% milimeter \n"
    "% /lily-output-units 0.996264  def  %% true points.\n"
@@ -121,34 +121,29 @@
    (output-entry "staff-height" 'staffheight)	;junkme.
    "/output-scale "
    (number->string (ly:output-def-lookup paper 'outputscale))
-   " lily-output-units mul def \n"
-    ))
-  
+   " lily-output-units mul def \n"))
+
 (define (header paper page-count classic?)
   (string-append
    "%!PS-Adobe-3.0\n"
-   "%%Creator: creator time-stamp \n"
-   ))
+   "%%Creator: creator time-stamp \n"))
 
 (define (dump-page outputter page page-number page-count)
   (ly:outputter-dump-string outputter
    (string-append
-    "%%Page: " (number->string page-number) " " (number->string page-count) "\n"
+    "%%Page: "
+    (number->string page-number) " " (number->string page-count) "\n"
     "0 0 start-system { "
     "set-ps-scale-to-lily-scale "
     "\n"))
   (ly:outputter-dump-stencil outputter (ly:page-stencil page))
-  (ly:outputter-dump-string outputter
-			    "} stop-system \nshowpage\n") )
-  
-  
+  (ly:outputter-dump-string outputter "} stop-system \nshowpage\n"))
+
 (define-public (output-framework-ps outputter book scopes fields basename)
-  (let*
-      ((bookpaper  (ly:paper-book-book-paper book))
-       (pages (ly:paper-book-pages book))
-       (pageno 0)
-       (page-count (length pages))
-       )
+  (let* ((bookpaper  (ly:paper-book-book-paper book))
+	 (pages (ly:paper-book-pages book))
+	 (page-number 0)
+	 (page-count (length pages)))
   (for-each
    (lambda (x)
      (ly:outputter-dump-string outputter x))
@@ -157,70 +152,65 @@
 	    (length pages)
 	    #f)
 
-   "%%Pages: " (number->string page-count) "\n"
-   "%%PageOrder: Ascend\n"
-   "%%DocumentPaperSizes: " (ly:output-def-lookup bookpaper 'papersize) "\n"
-    
+    "%%Pages: " (number->string page-count) "\n"
+    "%%PageOrder: Ascend\n"
+    "%%DocumentPaperSizes: " (ly:output-def-lookup bookpaper 'papersize) "\n"
+
     (output-variables bookpaper)
     (ly:gulp-file "music-drawing-routines.ps")
     (ly:gulp-file "lilyponddefs.ps")
     (load-fonts bookpaper)
-    (define-fonts bookpaper)
-    ))
+    (define-fonts bookpaper)))
 
   (for-each
    (lambda (page)
-     (set! pageno (1+ pageno))
-     (dump-page outputter page pageno page-count))
+     (set! page-number (1+ page-number))
+     (dump-page outputter page page-number page-count))
    pages)
-  (ly:outputter-dump-string outputter "%%Trailer\n%%EOF\n")
-  ))
+  (ly:outputter-dump-string outputter "%%Trailer\n%%EOF\n")))
 
+(define-public (output-classic-framework-ps outputter book scopes fields
+					    basename)
+  (let* ((bookpaper (ly:paper-book-book-paper book))
+	 (lines (ly:paper-book-lines book))
+	 (y 0.0)
+	 (scale (* 2.83464 (ly:output-def-lookup bookpaper 'outputscale)))
+	 (total-y
+	  (apply + (map (lambda (z) (ly:paper-line-extent z Y)) lines)))
+	 (x-ext '(-8 . 0))
+	 (lineno 0))
 
-
-  
-(define-public (output-classic-framework-ps outputter book scopes fields basename)
-  (let*
-      ((bookpaper  (ly:paper-book-book-paper book))
-       (lines (ly:paper-book-lines book))
-       (y 0.0)
-       (scale (* 2.83464 (ly:output-def-lookup bookpaper 'outputscale)))
-       (total-y (apply + (map (lambda (z) (ly:paper-line-extent z Y))  lines)))
-       (x-ext '(-8 . 0))
-       (lineno 0)
-       )
-    
     (define (dump-line outputter system)
-      (let*
-	  ((stil  (ly:paper-line-stencil  system)))
-	   
-      (ly:outputter-dump-string
-       outputter
-       (string-append
-	" 0.0 "
-	(ly:number->string y)
-	" start-system {\n set-ps-scale-to-lily-scale\n"))
-      (set! y (+ y (ly:paper-line-extent system Y)))
-      (ly:outputter-dump-stencil outputter stil)
-      (ly:outputter-dump-string
-       outputter
-       "} stop-system\n")))
+      (let ((stil (ly:paper-line-stencil system)))
+	
+	(ly:outputter-dump-string
+	 outputter
+	 (string-append
+	  " 0.0 "
+	  (ly:number->string y)
+	  " start-system {\n set-ps-scale-to-lily-scale\n"))
+	(set! y (+ y (ly:paper-line-extent system Y)))
+	(ly:outputter-dump-stencil outputter stil)
+	(ly:outputter-dump-string
+	 outputter
+	 "} stop-system\n")))
 
     (define (to-pt x)
       (inexact->exact (round (* scale x))))
-    
-    (define (bbox llx lly urx ury) 
+
+    (define (bbox llx lly urx ury)
       (string-append
        "%%BoundingBox: "
        (ly:number->string (to-pt llx)) " "
-       (ly:number->string (to-pt lly)) " " 
+       (ly:number->string (to-pt lly)) " "
        (ly:number->string (to-pt urx)) " "
        (ly:number->string (to-pt ury)) "\n"))
 
-    (for-each (lambda (l)
-		(set! x-ext (interval-union x-ext (cons 0.0 (ly:paper-line-extent l X))))
-		)
-		lines)
+    (for-each
+     (lambda (ell)
+       (set! x-ext (interval-union x-ext
+				   (cons 0.0 (ly:paper-line-extent ell X)))))
+     lines)
 
   (for-each
    (lambda (x)
@@ -236,14 +226,10 @@
     (ly:gulp-file "music-drawing-routines.ps")
     (ly:gulp-file "lilyponddefs.ps")
     (load-fonts bookpaper)
-    (define-fonts bookpaper)
-    ))
+    (define-fonts bookpaper)))
 
+;; ;   page-number page-count))
   (for-each
-   (lambda (line)
-     (set! lineno (1+ lineno))
-     (dump-line outputter line)) ;   pageno page-count))
+   (lambda (line) (set! lineno (1+ lineno)) (dump-line outputter line))
    lines)
-  (ly:outputter-dump-string outputter "\n")
-  ))
-
+  (ly:outputter-dump-string outputter "\n")))
