@@ -46,9 +46,7 @@ MODULE_LIBES= -llily -lflower
 
 # main target of this module:
 #
-MAINTARGET = $(lily_bindir)/$(EXECUTABLE)# huh?
-
-default: $(MAINTARGET)
+default: $(EXECUTABLE)
 #
 
 # generic targets and rules:
@@ -76,3 +74,8 @@ DEPFILES = $(wildcard $(depdir)/*.dep)
 
 localclean:
 	rm -f $(outdir)/parser.* $(outdir)/lexer.cc
+
+#should merge with mi2mu rule
+localinstall: installexe
+
+localuninstall: uninstallexe

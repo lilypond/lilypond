@@ -50,14 +50,9 @@ MODULE_LIBDEPS=check-flower-deps check-lily-deps
 MODULE_LIBES=-llily -lflower
 #
 
-# main target of this module:
-#
-# MAINTARGET = $(EXECUTABLE)
-# MAINTARGET = $(LIBRARY)
-MAINTARGET = $(lily_bindir)/$(EXECUTABLE)# huh?
-# MAINTARGET = $(libdir)/$(LIBRARY)# huh?
 
-default: $(MAINTARGET)
+default: $(EXECUTABLE)
+
 #
 
 # generic targets and rules:
@@ -82,3 +77,6 @@ DEPFILES = $(wildcard $(depdir)/*.dep)
 localclean:
 	rm -f $(outdir)/{midi-parser,midi-lexer}.*
 
+localinstall: installexe
+
+localuninstall: uninstallexe
