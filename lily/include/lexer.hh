@@ -20,9 +20,27 @@ bool busy_parsing();
 void kill_lexer();
 void set_lexer();
 
+
+struct Lexer_prefs {
+    int default_duration, default_dots, default_octave_i_;
+    int default_plet_type, default_plet_dur;
+    String textstyle_str_;
+    
+    bool last_duration_mode ;
+    
+    Lexer_prefs();
+    Moment plet_mom();
+    void set_default_duration(int *);
+    void set_last_duration(int n);
+    void set_duration_mode(String s);
+    void get_default_duration(int *);
+    void set_plet(int,int);
+};
+
 /// lexer with provisions for include files.
 struct My_flex_lexer : yyFlexLexer {
-
+    Lexer_prefs prefs;
+    
     Array<Input_file*> include_stack_;
     Assoc<String, Identifier*> *identifier_assoc_p_;
     Keyword_table * keytable_p_;
