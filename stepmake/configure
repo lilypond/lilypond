@@ -785,10 +785,11 @@ EOF
     # Check whether --enable-config or --disable-config was given.
 if test "${enable_config+set}" = set; then
   enableval="$enable_config"
-  CONFIGSUFFIX=-$enableval
+  CONFIGURATION=$enableval
 fi
 
 
+    test -n "$CONFIGURATION" && CONFIGSUFFIX="-$CONFIGURATION"
     CONFIGFILE=config$CONFIGSUFFIX
     
      
@@ -799,7 +800,7 @@ else { echo "configure: error: can not run $ac_config_sub" 1>&2; exit 1; }
 fi
 
 echo $ac_n "checking host system type""... $ac_c" 1>&6
-echo "configure:803: checking host system type" >&5
+echo "configure:804: checking host system type" >&5
 
 host_alias=$host
 case "$host_alias" in
@@ -824,7 +825,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:828: checking for $ac_word" >&5
+echo "configure:829: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKE'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -859,7 +860,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:863: checking for $ac_word" >&5
+echo "configure:864: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_FIND'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -896,7 +897,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:900: checking for $ac_word" >&5
+echo "configure:901: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_TAR'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -931,7 +932,7 @@ test -n "$TAR" || TAR="error"
 	# Extract the first word of "bash", so it can be a program name with args.
 set dummy bash; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:935: checking for $ac_word" >&5
+echo "configure:936: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_BASH'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -971,7 +972,7 @@ fi
 	# Extract the first word of "bash", so it can be a program name with args.
 set dummy bash; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:975: checking for $ac_word" >&5
+echo "configure:976: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_SHELL'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1008,7 +1009,7 @@ fi
 	# Extract the first word of "bash", so it can be a program name with args.
 set dummy bash; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1012: checking for $ac_word" >&5
+echo "configure:1013: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_BASH'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1049,7 +1050,7 @@ fi
     # Extract the first word of "${PYTHON:-python}", so it can be a program name with args.
 set dummy ${PYTHON:-python}; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1053: checking for $ac_word" >&5
+echo "configure:1054: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_PYTHON'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1222,7 +1223,7 @@ fi
 
 
     echo $ac_n "checking language""... $ac_c" 1>&6
-echo "configure:1226: checking language" >&5    
+echo "configure:1227: checking language" >&5    
     case "$language" in
       En* | en* | Am* | am* | US* | us*)
 	    lang=English;;
@@ -1257,7 +1258,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1261: checking for $ac_word" >&5
+echo "configure:1262: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKEINFO'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
