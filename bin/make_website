@@ -1,0 +1,41 @@
+#!/usr/bin/perl -w
+sub
+	set_hrefs
+{
+    while (<HTMLIN>) {
+	s#href=([A-Za-z.]+)#href=$base/$1#g;
+	print HTMLOUT $_;
+    }
+}
+
+local $base="lilypond/";
+local @examples=("wohltemperirt");
+
+system  'pod2html';
+
+print "resetting refs.\n";
+
+foreach $a (<*.html>)
+{
+    rename $a, "$a~";
+    open HTMLIN, "$a~";
+    open HTMLOUT, ">$a";
+    set_hrefs;
+}
+
+foreach $a (@examples) {
+    $texfile="test";
+    system "ln ../input/$a.ly ./$a.ly.txt";
+    system "cd ..; lilypond input/$a; tex $texfile;".
+	"dvips -o $texfile.ps $texfile;";
+
+    # generate the pixmap at twice the size, then rescale (for antialiasing)
+    if ( ! -f "$a.gif" ) {
+    system "mv ../$texfile.ps $a.ps; ".
+	"mv ../lelie.midi $a.midi; ".
+        "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif";
+    }   
+}
+
+system "cd out; tar hcf ../website.tar *.html *.gif lelie_logo.png *.ps *.ly.txt *.midi docxx/;" .
+    "gzip -f9 website.tar;"
