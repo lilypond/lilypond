@@ -8,6 +8,7 @@
  */
 
 #include "grace-align-item.hh"
+#include "align-interface.hh"
 #include "lookup.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
@@ -15,7 +16,8 @@
 Grace_align_item::Grace_align_item ()
 {
   set_elt_property ("stacking-dir", gh_int2scm (RIGHT));
-  set_axis (X_AXIS);
+  Align_interface (this).set_interface();
+  Align_interface (this).set_axis (X_AXIS);
 }
   
 void
@@ -28,10 +30,6 @@ Grace_align_item::before_line_breaking ()
 		    gh_cons (gh_double2scm (nhw* 1.5),
 			     gh_double2scm (infinity_f)));
   column_l ()->set_elt_property ("contains-grace", SCM_BOOL_T);
-
-  
-  Axis_align_item::before_line_breaking ();
-  //  translate_axis (-0.5* nhw, X_AXIS); // ugh.
 }
 
 
