@@ -38,7 +38,7 @@ cavum =
 % declare divisiones shortcuts
 %
 virgula = {
-  \once \override BreathingSign  #'text = #(make-musicglyph-markup "scripts-rcomma")
+  \once \override BreathingSign  #'text = #(make-musicglyph-markup "scripts.rcomma")
   \once \override BreathingSign  #'font-size = #-2
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
@@ -47,7 +47,7 @@ virgula = {
   \breathe
 }
 caesura = {
-  \once \override BreathingSign  #'text = #(make-musicglyph-markup "scripts-rvarcomma")
+  \once \override BreathingSign  #'text = #(make-musicglyph-markup "scripts.rvarcomma")
   \once \override BreathingSign  #'font-size = #-2
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
@@ -158,7 +158,7 @@ neumeDemoLayout = \layout {
 	\Voice
 	\remove Ligature_bracket_engraver
 	\consists Vaticana_ligature_engraver
-	\override NoteHead #'style = #'vaticana_punctum
+	\override NoteHead #'style = #'vaticana.punctum
 	\override Stem #'transparent = ##t
     }
 }
