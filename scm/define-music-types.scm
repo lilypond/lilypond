@@ -3,7 +3,7 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c)  1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;		     Jan Nieuwenhuizen <janneke@gnu.org>
 
 (define-public music-descriptions
   `(
@@ -40,9 +40,9 @@ arguments to func are 1. the grob, 2. the originating context,
 	))
     (ArpeggioEvent 
      . (
-	(description .  "Make an arpeggio on this note. Syntax:
+	(description .	"Make an arpeggio on this note. Syntax:
 @var{note}-@code{\\arpeggio}")
-	(internal-class-name .  "Event")
+	(internal-class-name .	"Event")
 	(types . (general-music arpeggio-event event))
 	))
 
@@ -61,7 +61,7 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 	)) 
     (AutoChangeMusic
      . (
-	(description .  "Used for making voices that switch between piano staves automatically.")
+	(description .	"Used for making voices that switch between piano staves automatically.")
 
 	(internal-class-name . "Music_wrapper")
 	(iterator-ctor . ,Auto_change_iterator::constructor)
@@ -77,7 +77,7 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 	))
     (BassFigureEvent
      . (
-	(description .  "Print a bass-figure text")
+	(description .	"Print a bass-figure text")
 
 	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event bass-figure-event))
@@ -98,7 +98,7 @@ c8-[ c c-] c8")
 	))
     (BreathingSignEvent
      . (
-	(description .  "Creates a `breath mark' or `comma'.  Syntax:
+	(description .	"Creates a `breath mark' or `comma'.  Syntax:
 @var{note}\\breathe.")
 
 	(internal-class-name . "Event")
@@ -106,14 +106,14 @@ c8-[ c c-] c8")
 	)) 
     (BusyPlayingEvent
      . (
-	(description .  "Used internally to signal beginning and ending of notes.")
+	(description .	"Used internally to signal beginning and ending of notes.")
 
 	(internal-class-name . "Event")
 	(types . (general-music event busy-playing-event))
 	))
     (StartPlayingEvent
      . (
-	(description .  "Used internally to signal beginning of notes.")
+	(description .	"Used internally to signal beginning of notes.")
 
 	(internal-class-name . "Event")
 	(types . (general-music event start-playing-event))
@@ -121,7 +121,7 @@ c8-[ c c-] c8")
     
     (ClusterNoteEvent
      . (
-	(description .  "A note that is part of a cluster.")
+	(description .	"A note that is part of a cluster.")
 	(internal-class-name . "Event")
 
 	; not a note-event, to ensure that Note_engraver doesn't eat it. 
@@ -130,7 +130,7 @@ c8-[ c c-] c8")
     
     (ContextSpeccedMusic
      . (
-	(description .  "Interpret the argument music within a specific context.")
+	(description .	"Interpret the argument music within a specific context.")
 	(iterator-ctor . ,Context_specced_music_iterator::constructor)
 	(internal-class-name . "Music_wrapper")
 	(types . (context-specification general-music music-wrapper-music))
@@ -138,7 +138,7 @@ c8-[ c c-] c8")
     
     (CrescendoEvent
      . (
-	(description .  "Begins or ends a crescendo.  Syntax: @var{note}\\cr
+	(description .	"Begins or ends a crescendo.  Syntax: @var{note}\\cr
 ... @var{note}\\rc (you can also use \\<, \\!, \\cresc, and
 \\endcresc.  See the user manual for details.).")
 
@@ -147,7 +147,7 @@ c8-[ c c-] c8")
 	)) 
     (DecrescendoEvent
      . (
-	(description .  "See @ref{CrescendoEvent}.")
+	(description .	"See @ref{CrescendoEvent}.")
 
 	(internal-class-name . "Event")
 	(types . (general-music dynamic-event decrescendo-event event))
@@ -155,7 +155,7 @@ c8-[ c c-] c8")
  
     (ExtenderEvent
      . (
-	(description .  "Extend lyrics.")
+	(description .	"Extend lyrics.")
 
 	(internal-class-name . "Event")
 	(types . (general-music extender-event event))
@@ -174,14 +174,14 @@ c8-[ c c-] c8")
 	))
     (GlissandoEvent
      . (
-	(description .  "Start  a glissando on this note.")
+	(description .	"Start	a glissando on this note.")
 	(internal-class-name . "Event")
 	(types . (general-music glissando-event event))
 	))
     
     (GraceMusic
      . (
-	(description .  "Interpret the argument as grace notes. ")
+	(description .	"Interpret the argument as grace notes. ")
 
 	(internal-class-name . "Grace_music")
 	(iterator-ctor . ,Grace_iterator::constructor)
@@ -201,7 +201,7 @@ c8-[ c c-] c8")
 	))
     (HyphenEvent
      . (
-	(description .  "A hyphen between lyric syllables.")
+	(description .	"A hyphen between lyric syllables.")
 
 	(internal-class-name . "Event")
 	(types . (general-music hyphen-event event))
@@ -209,7 +209,7 @@ c8-[ c c-] c8")
     
     (KeyChangeEvent
      . (
-	(description .  "Change the key signature. Syntax: @code{\\key } @var{name} @var{scale}.")
+	(description .	"Change the key signature. Syntax: @code{\\key } @var{name} @var{scale}.")
 
 	(internal-class-name . "Key_change_ev")
 	(types . (general-music key-change-event event))
@@ -217,7 +217,7 @@ c8-[ c c-] c8")
     
     (LigatureEvent
      . (
-	(description .  "(docme).")
+	(description .	"(docme).")
 
 	(internal-class-name . "Event")
 	(span-type . ligature)
@@ -226,7 +226,7 @@ c8-[ c c-] c8")
     
     (LyricCombineMusic
      . (
-	(description .  "Align lyrics to the start of notes.
+	(description .	"Align lyrics to the start of notes.
 Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
 
 	(internal-class-name . "Lyric_combine_music")
@@ -236,7 +236,7 @@ Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
     
     (NewLyricCombineMusic
      . (
-	(description .  "Align lyrics to the start of notes.
+	(description .	"Align lyrics to the start of notes.
 Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
 	(internal-class-name . "Music")
 	(length . ,(ly:make-moment 0 1))
@@ -246,7 +246,7 @@ Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
 
     (LyricEvent
      . (
-	(description .  "A lyric syllable. Must be entered in lyrics mode, i.e.
+	(description .	"A lyric syllable. Must be entered in lyrics mode, i.e.
 @code{\\lyrics @{ twinkle4 twinkle4 @} } .")
 
 	(internal-class-name . "Event")
@@ -254,7 +254,7 @@ Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
 	))
     (MarkEvent
      . (
-	(description .  "Insert a rehearsal mark. Syntax: @code{\\mark} @var{marker},
+	(description .	"Insert a rehearsal mark. Syntax: @code{\\mark} @var{marker},
 e.g. @code{\\mark \"A\"}.")
 
 	(internal-class-name . "Event")
@@ -262,13 +262,13 @@ e.g. @code{\\mark \"A\"}.")
 	))
     (MelismaPlayingEvent
      . (
-	(description .  "Used internally to signal melismas.")
+	(description .	"Used internally to signal melismas.")
 	(internal-class-name . "Event")
 	(types . (general-music melisma-playing-event event))
 	))
     (ManualMelismaEvent
      . (
-	(description .  "Start or stop a melisma.
+	(description .	"Start or stop a melisma.
 
 Syntax:@code{c4\\melisma d\\melismaEnd}.")
 	(internal-class-name . "Event")
@@ -293,14 +293,14 @@ Syntax:@code{c4\\melisma d\\melismaEnd}.")
 
     (Music
      . (
-	(description .  "Generic type for music expressions.")
+	(description .	"Generic type for music expressions.")
 
 	(internal-class-name . "Music")
 	(types . (general-music)) 
 	))
     (NoteEvent
      . (
-	(description .  "A note.")
+	(description .	"A note.")
 
 	(internal-class-name . "Event")
 	(types . (general-music event note-event rhythmic-event melodic-event))
@@ -308,7 +308,7 @@ Syntax:@code{c4\\melisma d\\melismaEnd}.")
     
     (OverrideProperty
      . (
-	(description .  "Extend the definition of a graphical object.
+	(description .	"Extend the definition of a graphical object.
 
 SYNTAX
 
@@ -322,7 +322,7 @@ SYNTAX
 	))
     (PartCombineMusic
      . (
-	(description .  "Combine two parts on a staff, either merged or
+	(description .	"Combine two parts on a staff, either merged or
 as separate voices.")
 
 	(internal-class-name . "Simultaneous_music")
@@ -338,7 +338,7 @@ as separate voices.")
     
     (PropertySet
      . (
-	(description .  "Set a context property.
+	(description .	"Set a context property.
 
 Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
 	(internal-class-name . "Music")
@@ -349,7 +349,7 @@ Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
     
     (PropertyUnset
      . (
-	(description .  "Remove the definition of a context @code{\\property}.")
+	(description .	"Remove the definition of a context @code{\\property}.")
 
 	(internal-class-name . "Music")
 	(types . (layout-instruction general-music))
@@ -359,7 +359,7 @@ Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
     
     (PesOrFlexaEvent
      . (
-	(description .  "Within a ligature, mark the previous and the
+	(description .	"Within a ligature, mark the previous and the
 following note to form a pes (if melody goes up) or a flexa (if melody
 goes down).")
 
@@ -383,15 +383,15 @@ goes down).")
     
     (RepeatedMusic
      . (
-	(description .  "Repeat music in different ways")
+	(description .	"Repeat music in different ways")
 
-	(type .  repeated-music)
+	(type .	 repeated-music)
 	(types . (general-music repeated-music))
 	))
     
     (Event
      . (
-	(description .  "Atomic music event.")
+	(description .	"Atomic music event.")
 
 	(internal-class-name . "Event")
 	(types . (general-music event))
@@ -399,14 +399,14 @@ goes down).")
     
     (RestEvent
      . (
-	(description .  "A Rest. Syntax @code{r4} for a quarter rest. ")
+	(description .	"A Rest. Syntax @code{r4} for a quarter rest. ")
 
 	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event rest-event))
 	)) 
     (SequentialMusic
      . (
-	(description .  "Music expressions concatenated. Syntax \\sequential @{..@} or simply @{..@} .")
+	(description .	"Music expressions concatenated. Syntax \\sequential @{..@} or simply @{..@} .")
 
 	(internal-class-name . "Sequential_music")
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
@@ -415,7 +415,7 @@ goes down).")
     
     (MultiMeasureRestMusicGroup
      . (
-	(description .  "Like sequential-music, but specifically intended
+	(description .	"Like sequential-music, but specifically intended
 to group start-mmrest, skip, stop-mmrest sequence. Syntax @code{R2.*5} for 5 measures in 3/4 time.")
 	(internal-class-name . "Sequential_music")
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
@@ -438,13 +438,13 @@ to group start-mmrest, skip, stop-mmrest sequence. Syntax @code{R2.*5} for 5 mea
 	))
     (UnisonoEvent
      . ((description . "Print a2")
-	(internal-class-name .  "Event")
+	(internal-class-name .	"Event")
 	(part-combine-status . unisono)
 	(types . (general-music event part-combine-event))))
     
     (SimultaneousMusic
      . (
-	(description .  "Music playing together.
+	(description .	"Music playing together.
 
 SYNTAX
 
@@ -458,14 +458,14 @@ SYNTAX
     
     (SlurEvent
      . (
-	(description . "Start or end slur. Syntax NOTE(  and )NOTE")
+	(description . "Start or end slur. Syntax NOTE(	 and )NOTE")
 	(internal-class-name . "Event")
 	(types . (general-music span-event slur-event))
 	))
 
     (RevertProperty
      . (
-	(description .  "The opposite of @ref{OverrideProperty}: remove a
+	(description .	"The opposite of @ref{OverrideProperty}: remove a
 previously added property from a graphical object definition
  ")
 
@@ -476,7 +476,7 @@ previously added property from a graphical object definition
 
     (OutputPropertySetMusic
      . (
-	(description .  "Set grob properties in objects
+	(description .	"Set grob properties in objects
 individually. Syntax @code{\\outputproperty @var{predicate} @var{prop}
 = @var{val}}.")
 
@@ -494,7 +494,7 @@ individually. Syntax @code{\\outputproperty @var{predicate} @var{prop}
     
     (TranslatorChange
      . (
-	(description .  "Change staffs in Piano staff. Syntax @code{\\translator Staff = @var{new-id}}.")
+	(description .	"Change staffs in Piano staff. Syntax @code{\\translator Staff = @var{new-id}}.")
 	(internal-class-name . "Music")
 	(iterator-ctor . , Change_iterator::constructor)
 	(types . (general-music translator-change-instruction))
@@ -502,7 +502,7 @@ individually. Syntax @code{\\outputproperty @var{predicate} @var{prop}
     
     (TimeScaledMusic
      . (
-	(description .  "Multiply durations, as in tuplets. Syntax @code{\\times @var{fraction} @var{music}}, e.g.
+	(description .	"Multiply durations, as in tuplets. Syntax @code{\\times @var{fraction} @var{music}}, e.g.
 @code{\\times 2/3 @{ ... @}} for triplets.
  ")
 	(internal-class-name . "Time_scaled_music")
@@ -512,14 +512,14 @@ individually. Syntax @code{\\outputproperty @var{predicate} @var{prop}
     
     (TransposedMusic
      . (
-	(description .  "Music that has been transposed.")
+	(description .	"Music that has been transposed.")
 	(internal-class-name . "Transposed_music")
 	(types . (music-wrapper-music general-music transposed-music))
 	))
 
     (UntransposableMusic
      . (
-	(description .  "Music that can not be transposed.")
+	(description .	"Music that can not be transposed.")
 
 	(internal-class-name . "Untransposable_music")
 	(types . (music-wrapper-music general-music untransposable-music)) 
@@ -527,7 +527,7 @@ individually. Syntax @code{\\outputproperty @var{predicate} @var{prop}
 
     (UnrelativableMusic
      . (
-	(description .  "Music that can not be converted from relative to absolute notation.
+	(description .	"Music that can not be converted from relative to absolute notation.
 For example, transposed music.")
 	(internal-class-name . "Un_relativable_music")
 	(types . (music-wrapper-music general-music unrelativable-music))
@@ -535,7 +535,7 @@ For example, transposed music.")
 
     (RelativeOctaveMusic
      . (
-	(description .  "Music that was entered in relative octave notation.")
+	(description .	"Music that was entered in relative octave notation.")
 
 	(internal-class-name . "Relative_octave_music")
 	(types . (music-wrapper-music general-music relative-octave-music))
@@ -543,7 +543,7 @@ For example, transposed music.")
     
     (EventChord
      . (
-	(description .  "Internally used to group a set of events.")
+	(description .	"Internally used to group a set of events.")
 	(internal-class-name . "Event_chord")
 	(iterator-ctor . ,Event_chord_iterator::constructor)
 	(types . (general-music event-chord simultaneous-music))
@@ -552,7 +552,7 @@ For example, transposed music.")
     
     (ScriptEvent
      . (
-	(description .  "Add an articulation mark to a note. ")
+	(description .	"Add an articulation mark to a note. ")
 
 	(internal-class-name . "Event")
 	(types . (general-music event))
@@ -560,7 +560,7 @@ For example, transposed music.")
 
     (SkipMusic
      . (
-	(description .  "Filler that takes up duration, does not print anything, and also
+	(description .	"Filler that takes up duration, does not print anything, and also
 does not create staffs or voices implicitly.
 
 Syntax: @code{\\skip }@var{duration}.")
@@ -572,7 +572,7 @@ Syntax: @code{\\skip }@var{duration}.")
      
     (SkipEvent
      . (
-	(description .  "Filler that takes up duration, but does not print anything.
+	(description .	"Filler that takes up duration, but does not print anything.
 
 Syntax: @code{s}@var{duration}")
 
@@ -581,7 +581,7 @@ Syntax: @code{s}@var{duration}")
 	))
     (SpanEvent
      . (
-	(description .  "Event for anything that is started at a different time than stopped.")
+	(description .	"Event for anything that is started at a different time than stopped.")
 
 	(internal-class-name . "Event")
 	(types . (general-music event))
@@ -610,7 +610,7 @@ Syntax: @code{s}@var{duration}")
     
     (StringNumberEvent
      . (
-	(description .  "Specify on which string to play this note. Syntax: @code{\\@var{number}}.")
+	(description .	"Specify on which string to play this note. Syntax: @code{\\@var{number}}.")
 
 	(internal-class-name . "Event")
 	(types . (general-music string-number-event event))
@@ -618,20 +618,20 @@ Syntax: @code{s}@var{duration}")
 
     (MetronomeChangeEvent
      . (
-	(description .  "Change tempo setting (in beats per minute).")
+	(description .	"Change tempo setting (in beats per minute).")
 	(internal-class-name . "Event")
 	(types . (general-music metronome-change-event tempo-event event))
 	))
     
     (TextScriptEvent
      . (
-	(description .  "")
+	(description .	"")
 	(internal-class-name . "Event")
 	(types . (general-music script-event text-script-event event))
 	)) 
     (TieEvent
      . (
-	(description .  "A tie.  Entered as @var{note}-~.")
+	(description .	"A tie.	 Entered as @var{note}-~.")
 	(internal-class-name . "Event")
 	(types . (general-music tie-event event))
 	))
@@ -644,7 +644,7 @@ Syntax: @code{s}@var{duration}")
     
     (VoiceSeparator
      . (
-	(description .  "Separate polyphonic voices in simultaneous music. Syntax: @code{\\\\}")
+	(description .	"Separate polyphonic voices in simultaneous music. Syntax: @code{\\\\}")
 
 	(internal-class-name . "Music")
 	(types . (separator general-music))
@@ -663,7 +663,7 @@ Syntax: @code{s}@var{duration}")
     (UnfoldedRepeatedMusic
      . (
 	(iterator-ctor . ,Unfolded_repeat_iterator::constructor)
-	(description .  "")
+	(description .	"")
 	(start-moment-function .  ,Repeated_music::first_start)
 	(internal-class-name . "Repeated_music")
 	(types . (general-music repeated-music unfolded-repeated-music))
@@ -672,7 +672,7 @@ Syntax: @code{s}@var{duration}")
     (PercentRepeatedMusic
      . (
 	(internal-class-name . "Repeated_music")
-	(description .  "Repeats encoded by percents.")
+	(description .	"Repeats encoded by percents.")
 	(iterator-ctor . ,Percent_repeat_iterator::constructor)
 	(start-moment-function .  ,Repeated_music::first_start)
 	(length . ,Repeated_music::unfolded_music_length)
@@ -682,7 +682,7 @@ Syntax: @code{s}@var{duration}")
     (TremoloRepeatedMusic
      . (
 	(iterator-ctor . ,Chord_tremolo_iterator::constructor)
-	(description .  "Repeated notes denoted by tremolo beams.")
+	(description .	"Repeated notes denoted by tremolo beams.")
 	(internal-class-name . "Repeated_music")
 	(start-moment-function .  ,Repeated_music::first_start)
 
@@ -695,8 +695,8 @@ Syntax: @code{s}@var{duration}")
     (FoldedRepeatedMusic
      . (
 	(internal-class-name . "Repeated_music")
-	(description .  "Repeats with alternatives placed in parallel. ")
-	(iterator-ctor  . ,Folded_repeat_iterator::constructor)
+	(description .	"Repeats with alternatives placed in parallel. ")
+	(iterator-ctor	. ,Folded_repeat_iterator::constructor)
 	(start-moment-function .  ,Repeated_music::minimum_start)
 	(length . ,Repeated_music::folded_music_length)
 	(types . (general-music repeated-music folded-repeated-music))
@@ -720,55 +720,52 @@ Syntax: @code{s}@var{duration}")
 	(let
 	    ((l (cdr x)))
 	  (set! l (assoc-set! l 'name (car x)))
-	  (set! l (assq-remove!  l 'description))
+	  (set! l (assq-remove!	 l 'description))
 	  (hashq-set! music-name-to-property-table (car x) l)
 	  (cons (car x) l)
 	  ))
       music-descriptions))
 
+(define-public (make-music name . music-properties)
+  "Create a music object of given name, and set its properties
+according to `music-properties', a list of alterning property symbols
+and values. E.g:
+  (make-music 'OverrideProperty 
+	      'symbol 'Stem
+	      'grob-property 'thickness
+	      'grob-value (* 2 1.5))"
+  (if (not (symbol? name))
+      (error (format "Not a symbol: ~a" name)))
+  (let ((props (hashq-ref music-name-to-property-table name '())))
+    (if (not (pair? props))
+	(error "Can not find music object" name))
+    (let ((m (ly:make-bare-music (cdr (assoc 'internal-class-name props)) props)))
+      (define (set-props mus-props)
+	(if (and (not (null? mus-props))
+		 (not (null? (cdr mus-props))))
+	    (begin
+	      (set! (ly:music-property m (car mus-props)) (cadr mus-props))
+	      (set-props (cddr mus-props)))))
+      (set-props music-properties)
+      m)))
 
-
+;; TODO remove make-music-by-name
 (define-public (make-music-by-name x)
-  (if (not (symbol? x))
-      (error (format "Not a symbol: ~a" x)))
-  (let*
-      (
-       (props (hashq-ref music-name-to-property-table x '()))
-       (name (if (pair? props)
-		 (cdr (assoc 'internal-class-name props))
-		 (error "Can not find music object" x)))
-       )
-
-    (if (eq? props '())
-	(ly:warn (format "Could not find music type `~a'" x)))  
-    (ly:make-bare-music name props)
-    ))
-
-
+  "Deprecated. See make-music."
+  (ly:warn "make-music-by-name is deprecated. Use make-music instead.")
+  (make-music x))
 
 (define-public (make-repeated-music name)
-  (let*
-      (
-       (handle (assoc
-		name
-		'(("volta" . VoltaRepeatedMusic)
-		  ("unfold" . UnfoldedRepeatedMusic)
-		  ("percent" . PercentRepeatedMusic)
-		  ("tremolo" . TremoloRepeatedMusic)
-		  ("fold" . FoldedRepeatedMusic)
-		  )))
-       (music-name
-	(if (pair? handle)
-	    (cdr handle)
-	    (begin
-	      (ly:warn
-	       (string-append "Unknown repeat type `" name
-			      "'\nSee music-types.scm for supported repeats"))
-	      'VoltaRepeatedMusic)
-	    )
-	)
-       )
-
-    (make-music-by-name music-name)
-    ))
+  (let* ((handle (assoc name '(("volta" . VoltaRepeatedMusic)
+			       ("unfold" . UnfoldedRepeatedMusic)
+			       ("percent" . PercentRepeatedMusic)
+			       ("tremolo" . TremoloRepeatedMusic)
+			       ("fold" . FoldedRepeatedMusic))))
+	 (music-name (if (pair? handle)
+			 (cdr handle)
+			 (begin
+			   (ly:warn (string-append "Unknown repeat type `" name
+						   "'\nSee music-types.scm for supported repeats"))
+			   'VoltaRepeatedMusic))))
+    (make-music music-name)))
 

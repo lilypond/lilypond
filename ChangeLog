@@ -1,5 +1,12 @@
 2004-02-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/*.scm: make-music-by-name is replaced by make-music, which
+	also accept music property settings, eg:
+	  (make-music 'TextScriptEvent 'direction DOWN 'text
+	      (make-simple-markup x))
+
+	Patch courtesy Nicolas Sceaux
+
 	* lily/beam-quanting.cc: cleanup, separate counts for left and
 	right beam ends.
 

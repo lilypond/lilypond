@@ -93,7 +93,7 @@
 (define-public (make-clef-set clef-name)
   "Generate the clef setting commands for a clef with name CL."
   (define (make-prop-set props)
-    (let ((m (make-music-by-name 'PropertySet)))
+    (let ((m (make-music 'PropertySet)))
       (map (lambda (x) (set! (ly:music-property m (car x)) (cdr x))) props)
       m))
   (let ((e '())
@@ -116,12 +116,12 @@
 					    (cdr (assoc (cadr e) c0-pitch-alist)))))
 			      ((symbol . clefPosition) (value . ,(caddr e)))
 			      ((symbol . clefOctavation) (value . ,(- oct))))))
-	       (seq (make-music-by-name 'SequentialMusic))
-	       (csp (make-music-by-name 'ContextSpeccedMusic)))
-	  (set! (ly:music-property seq 'elements) musics)
+	       (seq (make-music 'SequentialMusic
+				'elements musics))
+	       (csp (make-music 'ContextSpeccedMusic)))
 	  (context-spec-music seq 'Staff))
 	(begin
 	  (ly:warn (format "Unknown clef type `~a'
 See scm/lily.scm for supported clefs" clef-name))
-	  (make-music-by-name 'Music)))))
+	  (make-music 'Music)))))
 

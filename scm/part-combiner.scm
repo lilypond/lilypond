@@ -193,7 +193,7 @@ Voice-state objects
   (set! noticed (acons (ly:context-id context) lst noticed)))
 
 (define-public (make-part-combine-music music-list)
-  (let ((m (make-music-by-name 'PartCombineMusic))
+  (let ((m (make-music 'PartCombineMusic))
 	(m1 (context-spec-music (car music-list) 'Voice "one"))
 	(m2 (context-spec-music (cadr music-list) 'Voice "two")))
     (set! (ly:music-property m 'elements) (list m1 m2))
@@ -453,7 +453,7 @@ the mark when there are no spanners active."
 				   (cons (cons now (sign (ly:pitch-steps pitch))) acc))
 	      (generate-split-list (cdr event-list) acc)))))
   (set! noticed '())
-  (let* ((m (make-music-by-name 'AutoChangeMusic))
+  (let* ((m (make-music 'AutoChangeMusic))
 	 (context (ly:run-translator music part-combine-listener))
 	 (evs (last-pair noticed))
 	 (split (reverse! (generate-split-list (if (pair? evs)

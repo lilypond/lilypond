@@ -132,8 +132,8 @@ turnOff = #(cons '() '())
 % cross-staff brackets are desired. 
 
 arpeggioBracket = #Arpeggio::brew_chord_bracket
-arpeggio = #(make-music-by-name 'ArpeggioEvent)
-glissando = #(make-music-by-name 'GlissandoEvent)
+arpeggio = #(make-music 'ArpeggioEvent)
+glissando = #(make-music 'GlissandoEvent)
 
 fermataMarkup = \markup { \musicglyph #"scripts-ufermata" } 
 

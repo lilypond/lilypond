@@ -5,10 +5,8 @@
 %
 
 #(define (make-dynamic-script str)
-  (let* ((m (make-music-by-name  'AbsoluteDynamicEvent)))
-  (ly:music-set-property! m 'text str)
-  m
-  ))
+   (make-music 'AbsoluteDynamicEvent
+              'text str))
 ppppp = #(make-dynamic-script "pppp")
 pppp = #(make-dynamic-script "pppp")
 ppp = #(make-dynamic-script "ppp")
