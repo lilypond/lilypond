@@ -1,3 +1,8 @@
+2003-04-09  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* Documentation/topdocs/AUTHORS.texi (AUTHORS): Updated contact
+	information.
+
 2003-04-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/multi-measure-rest-engraver.cc (class
@@ -34,6 +39,7 @@
 	* buildscripts/lys-to-tely.py (name2line): add <NAME> tags for
 	each file. 
 
+>>>>>>> 1.821
 2003-04-04  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/include/custos.hh, make/lilypond.suse.spec.in,
