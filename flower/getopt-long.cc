@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <iostream.h>
 #include <assert.h>
-#include "config.hh"
+#include "config.h"
 #include "getopt-long.hh"
 #include "international.hh"
 #include "string-convert.hh"

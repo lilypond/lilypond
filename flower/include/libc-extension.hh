@@ -11,7 +11,7 @@
 #define LIBC_EXTENSION_HH
 
 #include "fproto.hh"
-#include "config.hh"
+#include "config.h"
 #include <cstddef>
 #include <stdarg.h>
 
