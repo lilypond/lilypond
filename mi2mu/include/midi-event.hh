@@ -56,6 +56,7 @@ public:
 
 	int get_tempo_i( Moment moment );
 	virtual String mudela_str( bool command_mode_bo );
+	int useconds_per_4_i();
 
 private:
 	int useconds_per_4_i_;
@@ -81,6 +82,8 @@ public:
 
 	Duration i2_dur( int time_i, int division_1_i );
 	int clocks_1_i();
+	int den_i();
+	int num_i();
 	virtual String mudela_str( bool command_mode_bo );
 	Moment bar_mom();
 
