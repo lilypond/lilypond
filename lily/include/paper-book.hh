@@ -9,11 +9,11 @@
 #ifndef PAPER_BOOK_HH
 #define PAPER_BOOK_HH
 
-// #define PAGE_LAYOUT 1
-
 #include "lily-guile.hh"
 #include "parray.hh"
 #include "protected-scm.hh"
+
+#define PAGE_LAYOUT "ps"
 
 class Paper_book
 {

@@ -424,18 +424,19 @@ System::get_line ()
 				   stil->smobbed_copy ()), line);
       }
 
-#ifndef PAGE_LAYOUT
-  SCM lastcol = ly_car (get_property ("columns"));
-  Grob *g = unsmob_grob (lastcol);
-  
-  SCM between = ly_symbol2scm ("between-system-string");
-  SCM inter = g->internal_get_property (between);
-  if (gh_string_p (inter))
+  if (output_format_global != PAGE_LAYOUT)
     {
-      Stencil *stil = new Stencil (Box (), scm_list_2 (between, inter));
-      line = scm_cons (scm_cons (between, stil->smobbed_copy ()), line);
+      SCM lastcol = ly_car (get_property ("columns"));
+      Grob *g = unsmob_grob (lastcol);
+      
+      SCM between = ly_symbol2scm ("between-system-string");
+      SCM inter = g->internal_get_property (between);
+      if (gh_string_p (inter))
+	{
+	  Stencil *stil = new Stencil (Box (), scm_list_2 (between, inter));
+	  line = scm_cons (scm_cons (between, stil->smobbed_copy ()), line);
+	}
     }
-#endif
 
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
