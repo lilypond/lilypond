@@ -62,7 +62,7 @@ public:
   Moment when_mom ()const;
 
   bool musical_b () const;
-
+  bool used_b () const;
   void set_rank (int);
 private:
     

@@ -30,14 +30,6 @@ Group_interface::has_interface_b ()
 }
 
 
-void
-Group_interface::add_element (Score_element*p) 
-{
-  p->used_b_ =  true;
-  elt_l_->used_b_ = true;
-
-  add_thing (p->self_scm_);
-}
 
 void
 Group_interface::add_thing (SCM s)
@@ -63,16 +55,3 @@ Group_interface::set_interface ()
     }
 }
 
-Group_interface
-group (Score_element*s,String n)
-{
-  Group_interface gi (s,n);
-  return gi;
-}
-
-Group_interface
-group (Score_element*s)
-{
-  Group_interface gi (s);
-  return gi;
-}

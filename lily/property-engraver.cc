@@ -76,7 +76,7 @@ Property_engraver::apply_properties (SCM p, Score_element *e)
       SCM type_p   = gh_cadr (entry);
       SCM elt_prop_sym = gh_caddr (entry);
 
-      SCM preset = scm_assq(elt_prop_sym, e->element_property_alist_);
+      SCM preset = scm_assq(elt_prop_sym, e->property_alist_);
       if (preset != SCM_BOOL_F)
 	continue;
   

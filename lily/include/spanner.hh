@@ -40,7 +40,7 @@ public:
   void set_bound (Direction d, Item*);
   Item *get_bound (Direction d) const;
   
-  Spanner ();
+  Spanner (SCM);
   Spanner (Spanner const &);
   bool broken_b () const;
   void do_break ();

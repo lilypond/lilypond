@@ -28,7 +28,7 @@ Staff_symbol_referencer_interface::set_interface ()
 bool
 Staff_symbol_referencer_interface::has_interface_b ()
 {
-  return unsmob_element (elt_l_->get_elt_property ("staff-symbol"))
+  return unsmob_element (elt_l_->get_elt_pointer ("staff-symbol"))
     || gh_number_p (elt_l_->get_elt_property ("staff-position"));
 }
 
@@ -43,7 +43,7 @@ Staff_symbol_referencer_interface::line_count () const
 Staff_symbol*
 Staff_symbol_referencer_interface::staff_symbol_l () const
 {
-  SCM st = elt_l_->get_elt_property ("staff-symbol");
+  SCM st = elt_l_->get_elt_pointer ("staff-symbol");
   return dynamic_cast<Staff_symbol* > (unsmob_element(st));
 }
 
@@ -91,6 +91,8 @@ Staff_symbol_referencer_interface::position_f () const
 Real
 Staff_symbol_referencer_interface::callback (Score_element const* sc,Axis )
 {
+  Score_element* me = (Score_element*)sc; // UGH.
+  
   SCM pos = sc->get_elt_property ("staff-position");
   Real off =0.0;
   if (gh_number_p (pos))
@@ -98,7 +100,8 @@ Staff_symbol_referencer_interface::callback (Score_element const* sc,Axis )
       Real space = staff_symbol_referencer (sc).staff_space ();
       off = gh_scm2double (pos) * space/2.0;
     }
-  sc->set_elt_property ("staff-position", gh_double2scm (0.0));
+
+  me->set_elt_property ("staff-position", gh_double2scm (0.0));
 
   return off;
 }

@@ -15,6 +15,7 @@
 #include "dimensions.hh"
 #include "dimension-cache.hh"
 #include "staff-symbol-referencer.hh"
+#include "group-interface.hh"
 
 Side_position_interface::Side_position_interface (Score_element const *e)
 {
@@ -24,9 +25,7 @@ Side_position_interface::Side_position_interface (Score_element const *e)
 void
 Side_position_interface::add_support (Score_element*e)
 {
-  SCM sup = elt_l_->get_elt_property ("side-support");
-  elt_l_->set_elt_property ("side-support",
-			    gh_cons (e->self_scm_,sup));
+  Pointer_group_interface (elt_l_, "side-support-elements").add_element (e);
 }
 
 
@@ -45,7 +44,7 @@ Side_position_interface::get_direction () const
       relative_dir = to_dir (reldir);
     }
   
-  SCM other_elt = elt_l_->get_elt_property ("direction-source");
+  SCM other_elt = elt_l_->get_elt_pointer ("direction-source");
   Score_element * e = unsmob_element(other_elt);
   if (e)
     {
@@ -64,7 +63,7 @@ Side_position_interface::side_position (Score_element const *cme, Axis axis)
 {
   Score_element* me = (Score_element*)cme;
   Score_element *common = me->parent_l (axis);
-  SCM support = me->get_elt_property ("side-support");
+  SCM support = me->get_elt_pointer ("side-support-elements");
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
     {
       Score_element * e  = unsmob_element (gh_car (s));
@@ -229,8 +228,8 @@ void
 Side_position_interface::set_axis (Axis a)
 {
   // prop transparent ? 
-  if (elt_l_->get_elt_property ("side-support") == SCM_UNDEFINED)
-    elt_l_->set_elt_property ("side-support" ,SCM_EOL);
+  if (elt_l_->get_elt_pointer ("side-support-elements") == SCM_UNDEFINED)
+    elt_l_->set_elt_pointer ("side-support-elements" ,SCM_EOL);
 
   if (!elt_l_->has_offset_callback_b (aligned_side, a))
     elt_l_->add_offset_callback (aligned_side, a);
@@ -275,13 +274,13 @@ Side_position_interface::set_padding (Real p)
 bool
 Side_position_interface::has_interface_b () const
 {
-  return elt_l_->get_elt_property ("side-support") != SCM_UNDEFINED;
+  return elt_l_->get_elt_pointer ("side-support-elements") != SCM_UNDEFINED;
 }
 
 bool
 Side_position_interface::supported_b () const
 {
-  SCM s =elt_l_->get_elt_property  ("side-support"); 
+  SCM s =elt_l_->get_elt_pointer  ("side-support-elements"); 
   return s != SCM_UNDEFINED && s != SCM_EOL;
 }
 
