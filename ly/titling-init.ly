@@ -21,31 +21,23 @@ tagline = \markup {
 }
 
 bookTitleMarkup = \markup {
-
+  \override #'(baseline-skip . 3)
   \column {
-      \override #'(baseline-skip . 3)
     \fill-line { \fromproperty #'header:dedication }
-    \fill-line {
-      \huge \bigger \bigger \bold \fromproperty #'header:title
-    }
-    \fill-line {
-      \override #'(baseline-skip . 6)
+    \override #'(baseline-skip . 3.5)
+    \huge \bigger \bold
       \column {
 	\fill-line {
-	  \huge \bigger \bigger
-	  \bold \fromproperty #'header:subtitle
+	  \bigger \fromproperty #'header:title
 	}
 	\fill-line {
-	  \huge \bigger
-	  \bold \fromproperty #'header:subsubtitle
+	  \bigger  \fromproperty #'header:subtitle
 	}
-%% From 2.4:
-%%	\column {
-%%	  \override #'(baseline-skip . 5)
-%%	  ""
-%%	}
+	\fill-line {
+	  \fromproperty #'header:subsubtitle
+	}
       }
-    }
+    
     \fill-line {
       \fromproperty #'header:poet
       \fromproperty #'header:instrument 
@@ -55,7 +47,6 @@ bookTitleMarkup = \markup {
       }
     }
   }
-
 }
 
 scoreTitleMarkup = \markup {
