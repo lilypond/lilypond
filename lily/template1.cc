@@ -7,6 +7,7 @@
 #include "spanner.hh"
 #include "scoreline.hh" 
 #include "staffline.hh"
+#include "vertical-spanner.hh"
 
 #include "pcursor.tcc"
 #include "plist.tcc"
@@ -19,6 +20,7 @@ IPLC_instantiate(Line_of_score);
 IPLC_instantiate(Line_of_staff);
 IPLC_instantiate(Item);
 IPLC_instantiate(Spanner);
+IPLC_instantiate(Vertical_spanner);
 IPLC_instantiate(PStaff);
 IPLC_instantiate(Idealspacing);
 IPLC_instantiate(PCol);
