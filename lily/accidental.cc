@@ -110,6 +110,6 @@ Accidental_interface::brew_molecule (SCM smob)
 
 
 
-ADD_INTERFACE(Accidental_interface, "accidental-interface",
+ADD_INTERFACE (Accidental_interface, "accidental-interface",
 	      "a single accidental",
-	      "style tie accidentals");
+	       "cautionary-style style tie accidentals");

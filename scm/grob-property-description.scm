@@ -45,9 +45,6 @@ This procedure is called (using dependency resolution) after line breaking. Retu
 (grob-property-description 'arch-height number? "height of the hook of a system brace.")
 (grob-property-description 'arch-thick number? "thickness of the hook of system brace.")
 (grob-property-description 'arch-width number? "width of the hook of a system brace.")
-(grob-property-description 'shortest-duration-space number? "Start
-with this much space for the shortest duration. This is explessed in @code{spacing-increment} as unit. See also
-@ref{spacing-spanner-interface}.")
 (grob-property-description 'arpeggio ly-grob? "pointer to arpeggio object.") 
 (grob-property-description 'arpeggio-direction dir? "If set, put an
 arrow on the arpeggio squiggly line.")
@@ -293,7 +290,9 @@ TODO: revise typing.")
 (grob-property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis.")
 (grob-property-description 'shorten number? "the amount of space that a stem should be shortened (DOCME!)")
 (grob-property-description 'shorten-pair number-pair? "the length on each side to shorten a text-spanner, for example a pedal bracket")
-
+(grob-property-description 'shortest-duration-space number? "Start
+with this much space for the shortest duration. This is explessed in @code{spacing-increment} as unit. See also
+@ref{spacing-spanner-interface}.")
 (grob-property-description 'shortest-playing-duration moment? "duration of the shortest playing in that column.")
 (grob-property-description 'shortest-starter-duration moment? "duration of the shortest notes that starts exactly in this column.")
 (grob-property-description 'side-relative-direction dir? "if set: get the direction from a different object, and multiply by this.")
