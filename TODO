@@ -41,6 +41,8 @@ BUGS:
 
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
 
+	* check/set minimum slur/tie length
+
 	* msgfmt -o check?
 
 	* \breathmark TeX macro 
@@ -58,6 +60,8 @@ BUGS:
 	identifier.  
 
 	* space after bars?
+
+	* 'hinterfleisch' before bar (e.g. wtk1-fugue2)?
 
 	* \type Voice \times 2/3 { [c8 c16 c16 c16 c16] }
 

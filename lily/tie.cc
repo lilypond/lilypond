@@ -121,12 +121,19 @@ Tie::do_post_processing()
       // tie attached to outer notehead
       if (!head_l_drul_[d])
 	{
+
+	/*
+	 urg, this is broken
+	 but who *is* going to assure that dx >= tie_min?
+	 */
+#if 0
 	  if (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT] < tie_min)
 	    {
-	      dx_f_drul_[d] -= d * tie_min 
-		- (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
+//	      dx_f_drul_[d] -= d * tie_min 
+//		- (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
 	      dx_f_drul_[d] = dx_f_drul_[(Direction)-d] + d * tie_min;
 	    }
+#endif
 
 	  dy_f_drul_[d] = dy_f_drul_[(Direction) -d];
 	}

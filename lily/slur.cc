@@ -191,13 +191,20 @@ Slur::do_post_processing ()
 
 	  dy_f_drul_[d] = dy_f_drul_[(Direction)-d];
 
-	  // pre and post
+	/*
+	 urg, this is broken
+	 but who *is* going to assure that dx >= slur_min?
+	 */
+#if 0
+
 	  if (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT] < slur_min)
 	    {
-	      dx_f_drul_[d] -= d * slur_min 
-		- (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
+	    // huh? what was this supposed to do?
+//	      dx_f_drul_[d] -= d * slur_min 
+//		- (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
 	      dx_f_drul_[d] = dx_f_drul_[(Direction)-d] + d * slur_min;
 	    }
+#endif
 	}
      }
   while (flip(&d) != LEFT);

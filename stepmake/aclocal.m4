@@ -1,3 +1,5 @@
+dnl WARNING WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -296,9 +298,32 @@ dnl    fi
 	LN_S=cp # symbolic link does not work for native nt
 	ZIP="zip -r -9" #
 	DOTEXE=.exe
-       DIRSEP='\\'
- 	PATHSEP=';'
-       INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
+	# urg
+        # DIRSEP='\\'
+ 	# PATHSEP=';'
+	#
+	# cygwin fixes all these things.  
+	# it seems these were used because of dos-style TEXINPUTS and
+	# MFINPUTS needed for miktex.
+	# but this breaks parsing of all other cygwin/unix style paths.
+	#
+	# if your (mik)tex breaks, make a:
+	#    /usr/local/bin/tex:
+	#    #!/bin/sh
+	#    TEXINPUTS=`cygpath -pw $TEXINPUTS` /texmf/miktex/bin/tex $*
+	#
+	# and
+	#
+	#    /usr/local/bin/mf:
+	#    #!/bin/sh
+	#    MFINPUTS=`cygpath -pw $MFINPUTS` /texmf/miktex/bin/mf $*
+	#
+	# this way, you may have buildscripts/out/lilypond-profile 
+	# 'automatically' sourced from /usr/etc/profile.d/ too.
+	#
+        DIRSEP='/'
+ 	PATHSEP=':'
+	INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
     else
 	DIRSEP='/'
 	PATHSEP=':'

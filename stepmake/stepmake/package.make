@@ -17,7 +17,7 @@ deb:
 	  dpkg-buildpackage -b; \
 	)'
 
-makeflags=$(patsubst %==, %, $(patsubst ----%,,$(MAKEFLAGS:%=--%)))
+makeflags=$(patsubst %==, %, $(patsubst ---%,,$(patsubst ----%,,$(MAKEFLAGS:%=--%))))
 
 diff:
 	$(PYTHON) $(step-bindir)/package-diff.py --package=$(topdir) $(makeflags)

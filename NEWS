@@ -1,3 +1,8 @@
+pl 18.jcn3
+	- bf: (beamed) forced stem shorten
+	- bf: broken slurs and ties; minimal slur/tie length setting ignored
+	- bf: separators on cygwin
+
 pl 18.jcn2
 	- bf: stem-length algorithm
 	- bf: beam direction algorithm
