@@ -15,7 +15,7 @@
 void
 Paper_column::do_break_processing ()
 {
-  Spaceable_element::remove_interface(this);
+  Spaceable_grob::remove_interface(this);
   Item::do_break_processing ();
 }
 
@@ -42,7 +42,7 @@ Paper_column::Paper_column (SCM l)
 {
   Axis_group_interface::set_interface (this);
   Axis_group_interface::set_axes (this, X_AXIS, X_AXIS);
-  Spaceable_element::set_interface (this);
+  Spaceable_grob::set_interface (this);
 
   line_l_=0;
   rank_i_ = -1;

@@ -8,7 +8,7 @@ of beams";
 	
 }
 
-\version "1.3.96";
+\version "1.3.110";
 
 beamintervals = \notes{
 		\time 7/4;

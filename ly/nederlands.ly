@@ -2,7 +2,7 @@
  common dutch names for notes. es means flat, is means sharp
 %}
 
-\notenames #`(
+\pitchnames #`(
 	(ceses . ,(make-pitch -1 0 -2))
 	(ces . ,(make-pitch  -1 0 -1 ))
 	(c . ,(make-pitch  -1 0 0 ))

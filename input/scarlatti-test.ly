@@ -1,4 +1,7 @@
 %K000.ly LilyPond 1.2.16
+
+\version "1.3.110"
+
 \include "scarlatti-properties.ly"
 \include "scarlatti-paper.ly"
 %sonata-specific settings
@@ -6,10 +9,10 @@
 \translator{\VoiceContext
   %% huh?
   %%beamAutoBegin=0;
-  autoBeamSettings \push #'(end 1 8 * *) = #(make-moment 3 8)
-  autoBeamSettings \push #'(end 1 16 * *) = #(make-moment 3 8)
-  autoBeamSettings \push #'(end 1 24 * *) = #(make-moment 1 8)
-  autoBeamSettings \push #'(end 1 32 * *) = #(make-moment 1 8)
+  autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 3 8)
+  autoBeamSettings \override #'(end 1 16 * *) = #(make-moment 3 8)
+  autoBeamSettings \override #'(end 1 24 * *) = #(make-moment 1 8)
+  autoBeamSettings \override #'(end 1 32 * *) = #(make-moment 1 8)
 }
 }
 

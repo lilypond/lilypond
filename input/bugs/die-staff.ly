@@ -1,7 +1,7 @@
 
 \score {
   {
-    \context Staff = i {
+    \context Staff = q {
       \notes { a' b' c' d' }
     }
 

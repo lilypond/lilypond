@@ -1,7 +1,7 @@
 
 
 
-\version "1.3.93";
+\version "1.3.110";
 
 \include "menuetto-urtext.ly";
 
@@ -52,7 +52,7 @@ menuetto_i_viola_staff = \context Staff <
 		gourlay_maxmeasures = 7.0;
 		\translator{
 			\VoiceContext
-			beamAutoEnd_8 = #(make-moment 3 4)
+			autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 3 4)
 
 		}
 	}
@@ -89,7 +89,7 @@ menuetto_ii_viola_staff = \context Staff <
 	\paper{
 		\translator{
 			\VoiceContext
-			beamAutoEnd_8 = #(make-moment 3 4)
+			autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 3 4)
 
 		}
 	}

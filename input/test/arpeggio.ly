@@ -1,8 +1,11 @@
+
+\version "1.3.110";
+
 \score{
     \context PianoStaff < 
 	 \context Staff=one \notes\relative c''{
 	    \context Voice < fis,-\arpeggio  d a >
-	     %%\property PianoStaff.SpanArpeggio \push #'connect = ##t
+	     %%\property PianoStaff.SpanArpeggio \override #'connect = ##t
 	     \property PianoStaff.connectArpeggios = ##t
 	     <fis,\arpeggio a c>
 	  }

@@ -1,4 +1,7 @@
 
+\version "1.3.110";
+
+
 \include "paper-as5.ly"
 
 \score {
@@ -27,7 +30,7 @@
 		\translator { 
 			\VoiceContext 
 			beamHeight = ##f 
-			autoBeamSettings \push (begin * * * *) = #(make-moment 0 1)
+			autoBeamSettings \override (begin * * * *) = #(make-moment 0 1)
 			textEmptyDimension = ##t
 		}
 	}

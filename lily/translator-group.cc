@@ -396,7 +396,7 @@ type_check_assignment (SCM val, SCM sym,  SCM type_symbol)
   SCM type_p = SCM_EOL;
   SCM errport = scm_current_error_port ();
 
-  if (SCM_IMP(sym))
+  if (gh_symbol_p(sym))
     type_p = scm_object_property (sym, type_symbol);
 
   if (type_p != SCM_EOL && !gh_procedure_p (type_p))

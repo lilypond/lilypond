@@ -5,22 +5,22 @@ composer = "J. S. Bach";
 enteredby = "Peter Chubb";
 }
 
-\version "1.0.16";
+\version "1.3.110";
 
 sop=\notes \transpose c'' {
-	\repeat 2 {
+	\repeat "volta" 2 {
 	\partial 2;
-	e2 | a g f e | d1 e2 ^"{\kern1em\Huge ,}" b | c' b4([c'8
+	e2 | a g f e | d1 e2 \breathe b | c' b4([c'8
 	)d'] c'2 b4( )a4 |
 	a1. }
-	c'2 | b4( )a4 g2 a b | c'1 c'2 ^"{\kern1em\Huge  ,}" g2 |
-	a g a4( )g f2 | e1. ^"{\kern3em\Huge ,}"
-	c'2 | b4( )c'4 d'2 c' b | a1 b2 ^"{\kern1em\Huge  ,}" 
+	c'2 | b4( )a4 g2 a b | c'1 c'2\breathe g2 |
+	a g a4( )g f2 | e1. \breathe
+	c'2 | b4( )c'4 d'2 c' b | a1 b2\breathe 
 	e2 | f e d g4( )f4 | e1. \bar "||";
 }
 
 alt=\notes \transpose c'' {
-	\repeat 2 { 
+	\repeat "volta" 2  { 
 	\partial 2;
 	c2 | c4( )d4 e2 a,4( )b,4 c2 |  c2( )b, c
 	e | e f e d4( )c4 |
@@ -34,7 +34,7 @@ alt=\notes \transpose c'' {
 
 
 ten=\notes{
-	\repeat 2 {
+	\repeat "volta" 2 {
 	\partial 2;
 	a2 | a4( )b c'2 d' g |  a( )g g b |
 	a a a gis |
@@ -46,7 +46,7 @@ ten=\notes{
 }
 
 bass=\notes{
-	\repeat 2 {	
+	\repeat "volta" 2 {	
 	\partial 2;
 	a4( )g | f2 e d c |  fis,( )g,	c
 	gis,2 | a, d e e | 
@@ -58,7 +58,7 @@ bass=\notes{
 }
 
 global=\notes{
-	\key c;
+	\key c \major;
 	\time 4/2;
 	\property Staff.timeSignatureStyle="none"
 }
@@ -68,12 +68,12 @@ global=\notes{
 		\context Staff = "top" {
 		\clef "treble";
 		\global
-		\context Staff <{\voiceone \sop}{\voicetwo \alt} >
+		\context Staff <{\voiceOne \sop}{\voiceTwo \alt} >
 		}
 		\context Staff = "bottom" {
 		\clef "bass";
 		\global
-		\context Staff <  {\voiceone \ten}{\voicetwo \bass} >
+		\context Staff <  {\voiceOne \ten}{\voiceTwo \bass} >
 		}
 	>
 

@@ -1,5 +1,5 @@
 
-\version "1.3.96"
+\version "1.3.110"
 	%
 % setup for Request->Element conversion. Guru-only
 %
@@ -55,7 +55,7 @@ ChoirStaffContext = \translator {
 	\name ChoirStaff;
 	alignmentReference = \center;
 	\consists "System_start_delimiter_engraver";
-	SystemStartDelimiter \push #'glyph = #'bracket
+	SystemStartDelimiter \override #'glyph = #'bracket
 
 	\accepts "Staff";
 	\accepts "RhythmicStaff";
@@ -77,10 +77,10 @@ RhythmicStaffContext=\translator{
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
 	\name RhythmicStaff;
-	Bar \push #'bar-size = #4
-	VoltaBracket \push #'minimum-space =  #15  % urg, in \pt
-	VoltaBracket \push #'padding =  #5  % urg, in \pt
-	StaffSymbol \push #'line-count = #1	
+	Bar \override #'bar-size = #4
+	VoltaBracket \override #'minimum-space =  #15  % urg, in \pt
+	VoltaBracket \override #'padding =  #5  % urg, in \pt
+	StaffSymbol \override #'line-count = #1	
 
 %	\consists "Repeat_engraver";
 	\consists "Volta_engraver";
@@ -153,25 +153,24 @@ GraceContext=\translator {
 
 	\consists "Property_engraver";
 
-	Stem \push  #'style = #"grace"
-	Stem \push  #'flag-style = #"grace"
-	Stem \push  #'stem-length = #6.0
-	Stem \push  #'direction = #1
+	Stem \override  #'flag-style = #"grace"
+	Stem \override  #'stem-length = #6.0
+	Stem \override  #'direction = #1
 
-	NoteHead \push #'font-relative-size = #-1
-	Stem \push #'font-relative-size = #-1
-	Stem \push #'stem-shorten = #'(0)
-	Beam \push #'font-relative-size = #-1
-	TextScript \push #'font-relative-size = #-1
-	Slur \push #'font-relative-size = #-1
-	Accidentals \push #'font-relative-size = #-1
-	Beam \push #'thickness = #0.3
-	Beam \push #'space-function = #(lambda (x) 0.5)
+	NoteHead \override #'font-relative-size = #-1
+	Stem \override #'font-relative-size = #-1
+	Stem \override #'stem-shorten = #'(0)
+	Beam \override #'font-relative-size = #-1
+	TextScript \override #'font-relative-size = #-1
+	Slur \override #'font-relative-size = #-1
+	Accidentals \override #'font-relative-size = #-1
+	Beam \override #'thickness = #0.3
+	Beam \override #'space-function = #(lambda (x) 0.5)
 
-	Stem \push #'lengths = #(map (lambda (x) (* 0.8 x)) '(3.5 3.5 3.5 4.5 5.0))
-	Stem \push #'beamed-lengths =
+	Stem \override #'lengths = #(map (lambda (x) (* 0.8 x)) '(3.5 3.5 3.5 4.5 5.0))
+	Stem \override #'beamed-lengths =
 		#'(0.0 2.5 2.0 1.5)
-	Stem \push #'beamed-minimum-lengths
+	Stem \override #'beamed-minimum-lengths
 		 = #(map (lambda (x) (* 0.8 x)) '(0.0 2.5 2.0 1.5))
 
 	weAreGraceContext = ##t   
@@ -194,7 +193,7 @@ GrandStaffContext=\translator{
 	\consists "Span_bar_engraver";
 	\consists "Span_arpeggio_engraver";
 	\consists "System_start_delimiter_engraver";
-	SystemStartDelimiter \push #'glyph = #'brace
+	SystemStartDelimiter \override #'glyph = #'brace
 	
 	\consists "Property_engraver";	
 	Generic_property_list = #generic-grand-staff-properties
@@ -208,7 +207,7 @@ PianoStaffContext = \translator{
 	\consists "Vertical_align_engraver";
 
 	alignmentReference = \center;
-	VerticalAlignment \push #'threshold = #'(12 . 12) 
+	VerticalAlignment \override #'threshold = #'(12 . 12) 
 
 %	\consistsend "Axis_group_engraver";
 }
@@ -220,7 +219,7 @@ StaffGroupContext= \translator {
 	\consists "Span_bar_engraver";
 	\consists "Span_arpeggio_engraver";
 	\consists "Output_property_engraver";	
-	SystemStartDelimiter \push #'glyph = #'bracket
+	SystemStartDelimiter \override #'glyph = #'bracket
 
 	\consists "System_start_delimiter_engraver";
 	\accepts "Staff";
@@ -286,7 +285,7 @@ ChordNamesContext = \translator {
 	\consists "Output_property_engraver";	
 	\accepts "ChordNamesVoice";
 
-	VerticalAxisGroup \push #'invisible-staff = ##t
+	VerticalAxisGroup \override #'invisible-staff = ##t
 	\consistsend "Axis_group_engraver";
 	}
 

@@ -27,14 +27,14 @@ Simultaneous_music::length_mom () const
 Simultaneous_music::Simultaneous_music(SCM head)
   : Music_sequence (head)
 {
-  set_mus_property ("type",
+  set_mus_property ("iterator-ctor",
 		    Simultaneous_music_iterator::constructor_cxx_function);
 }
 
 Sequential_music::Sequential_music(SCM head)
   : Music_sequence (head)
 {
-  set_mus_property ("type",
+  set_mus_property ("iterator-ctor",
 		    Sequential_music_iterator::constructor_cxx_function);
 }
 
@@ -54,7 +54,7 @@ Simultaneous_music::to_relative_octave (Pitch p)
 Request_chord::Request_chord(SCM s)
   : Simultaneous_music (s)
 {
-  set_mus_property ("type",
+  set_mus_property ("iterator-ctor",
 		    Request_chord_iterator::constructor_cxx_function);
 }
 

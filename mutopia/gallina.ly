@@ -45,7 +45,7 @@ Voice engraver by uncommenting the lines in the paper
 definition below. --MB
 %} 
 
-\version "1.3.93";
+\version "1.3.110";
 
 global = \notes {
   \property StaffGroup.timeSignatureStyle = "old"

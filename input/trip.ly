@@ -19,7 +19,7 @@ TODO:
 
 %}
 
-\version "1.3.96";
+\version "1.3.110";
 praeludiumRight =  \notes {
    \key e \major;
   \clef violin;
@@ -67,7 +67,7 @@ praeludiumLeft = \notes \relative c {
       dis2 cis4 r8 cis }
     \context Voice = one { \stemUp bis2 }
     \context Voice = three {
-    \property Voice.DynamicLineSpanner \push #'direction  = #-1
+    \property Voice.DynamicLineSpanner \override #'direction  = #-1
     \stemUp \shiftOn r4 gis ~ [gis8
       \<
 

@@ -17,7 +17,7 @@
 
 
 % For using "sostingut" notation, which is also correct
-\notenames #`(
+\pitchnames #`(
 	(dobb . ,(make-pitch -1 0 -2 ))
 	(dob . ,(make-pitch -1 0 -1 ))
 	(do . ,(make-pitch -1 0 0 ))
@@ -71,4 +71,4 @@
 
 
 
-\version "1.3.96";
+\version "1.3.110";

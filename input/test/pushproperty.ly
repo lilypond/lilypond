@@ -1,4 +1,4 @@
-\version "1.3.96";
+\version "1.3.110";
 
 %{
 
@@ -20,64 +20,64 @@ Generally, you can find interesting element properties associated with
 
 which means that setting \property stemVerticalDirection overrides
 setting \property verticalDirection, and that both have the effect of
-setting `direction' in Stem object. You can use \pushproperty for
+setting `direction' in Stem object. You can use \overrideproperty for
 setting stem directions by doing.
 
 
-	\pushproperty #'(Stem) #'direction #1
+	\overrideproperty #'(Stem) #'direction #1
 
 (#-1 if you want down).  
 
 A modest amount of memory is involved each time you do a
-\pushproperty. If you do \popproperty in the right order (reversed
-from \pushproperty), then \popproperty doesn't cost memory.
+\overrideproperty. If you do \revertproperty in the right order (reversed
+from \overrideproperty), then \revertproperty doesn't cost memory.
 
 Correct:
 
-	\pushproperty #'(  ... ) #'symbolA #valueA
-	\pushproperty #'(  ... ) #'symbolB #valueB
-	\popproperty #'(  ... ) #'symbolB 
-	\popproperty #'(  ... ) #'symbolA 
+	\overrideproperty #'(  ... ) #'symbolA #valueA
+	\overrideproperty #'(  ... ) #'symbolB #valueB
+	\revertproperty #'(  ... ) #'symbolB 
+	\revertproperty #'(  ... ) #'symbolA 
 
-Incorrect (\popproperty costs memory):
+Incorrect (\revertproperty costs memory):
 
-	\pushproperty #'(  ... ) #'symbolA #valueA
-	\pushproperty #'(  ... ) #'symbolB #valueB
-	\popproperty #'(  ... ) #'symbolA 
-	\popproperty #'(  ... ) #'symbolB 
+	\overrideproperty #'(  ... ) #'symbolA #valueA
+	\overrideproperty #'(  ... ) #'symbolB #valueB
+	\revertproperty #'(  ... ) #'symbolA 
+	\revertproperty #'(  ... ) #'symbolB 
 
 You can use identifiers, eg.
 
-    slursUp = \context Voice \pushproperty '(Slur)
+    slursUp = \context Voice \overrideproperty '(Slur)
 	    #'direction  #1
-    slursBoth = \context Voice \popproperty '(Slur)
+    slursBoth = \context Voice \revertproperty '(Slur)
 
 %}
 
 \score { \notes
 \relative c' {
 	c4-.(
-	\property Voice.Dots \push #'direction =  #-1
-	\property Voice.Stem \push #'direction =  #-1
-	\property Voice.noteColumnProperties \push #'direction =  #-1
-	\property Voice.Stem \push #'direction =  #-1		
+	\property Voice.Dots \override #'direction =  #-1
+	\property Voice.Stem \override #'direction =  #-1
+	\property Voice.noteColumnProperties \override #'direction =  #-1
+	\property Voice.Stem \override #'direction =  #-1		
 	
 	) c4-. (
 	) c4-. (	
-	 \property Voice.Slur \push #'direction =  #-1
+	 \property Voice.Slur \override #'direction =  #-1
 	) c4-. (
 
-	\property Dots \pop  #'direction
-	\property Stem \pop #'direction
-	\property Script \pop #'direction
-	\property Text \pop #'direction
+	\property Dots \revert  #'direction
+	\property Stem \revert #'direction
+	\property Script \revert #'direction
+	\property Text \revert #'direction
 
 	 ) c4-.  () c4-. 
 }
 
 \paper {
 \translator { \VoiceContext
-	NoteHead \push #'font-relative-size =  #-2
+	NoteHead \override #'font-relative-size =  #-2
 }
 }
 }

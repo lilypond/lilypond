@@ -25,6 +25,6 @@ Grace_music::length_mom () const
 Grace_music::Grace_music (Music *p)
   : Music_wrapper (p)
 {
-  set_mus_property ("type",
+  set_mus_property ("iterator-ctor",
 		    Grace_iterator::constructor_cxx_function);
 }

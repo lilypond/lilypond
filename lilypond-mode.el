@@ -99,7 +99,11 @@ in LilyPond-include-path."
 
 
 ;; Should check whether in command-alist?
-(defvar LilyPond-command-default "LilyPond")
+(defcustom LilyPond-command-default "LilyPond"
+  "Default command. Must identify a member of LilyPond-command-alist."
+
+  :group 'LilyPond
+  :type 'string)
 ;;;(make-variable-buffer-local 'LilyPond-command-last)
 
 (defvar LilyPond-command-current 'LilyPond-command-master)
@@ -110,14 +114,23 @@ in LilyPond-include-path."
 ;; variable instead of quering the user. 
 (defvar LilyPond-command-force nil)
 
-(defvar LilyPond-xdvi-command "xdvik")
+(defcustom LilyPond-xdvi-command "xdvik"
+  "Command used to display DVI files."
+
+  :group 'LilyPond
+  :type 'string)
 
 ;; This is the major configuration variable.
 (defcustom LilyPond-command-alist
   `(
     ("LilyPond" . ("lilypond %s" . "TeX"))
     ("TeX" . ("tex '\\nonstopmode\\input %t'" . "View"))
-    
+
+    ("2Dvi" . ("ly2dvi %s" . "View"))
+
+    ("Book" . ("lilypond-book %x" . "LaTeX"))
+    ("LaTeX" . ("latex '\\nonstopmode\\input %l'" . "View"))
+
     ;; point-n-click (arg: exits upop USR1)
     ("SmartView" . ("xdvi %d" . "LilyPond"))
     
@@ -134,15 +147,11 @@ success.  The expansion is done using the information found in
 LilyPond-expand-list.
 "
   :group 'LilyPond
-  :type '(repeat (group (string :tag "Name")
+  :type '(repeat (cons :tag "Command Item"
+		       (string :tag "Key")
+		       (cons :tag "How"
 			(string :tag "Command")
-			(choice :tag "How"
-				:value LilyPond-run-command
-				(function-item LilyPond-run-command)
-				(function-item LilyPond-run-LilyPond)
-				(function :tag "Other"))
-			(boolean :tag "Prompt")
-			(sexp :format "End\n"))))
+			(string :tag "Next Key")))))
 
 ;; drop this?
 (defcustom LilyPond-file-extensions '(".ly" ".sly" ".fly")
@@ -157,20 +166,20 @@ LilyPond-expand-list.
     ("%t" . ".tex")
     ("%d" . ".dvi")
     ("%p" . ".ps")
+    ("%l" . ".latex")
+    ("%x" . ".tely")
     )
     
   "Alist of expansion strings for LilyPond command names."
   :group 'LilyPond
-  :type '(repeat (group (string :tag "Key")
-			(sexp :tag "Expander")
-			(repeat :inline t
-				:tag "Arguments"
-				(sexp :format "%v")))))
+  :type '(repeat (cons :tag "Alist item"
+		  (string :tag "Symbol")
+		  (string :tag "Expansion")))) 
 
 
 (defcustom LilyPond-command-Show "View"
   "*The default command to show (view or print) a LilyPond file.
-Must be the car of an entry in LilyPond-command-alist."
+Must be the car of an entry in `LilyPond-command-alist'."
   :group 'LilyPond
   :type 'string)
   (make-variable-buffer-local 'LilyPond-command-Show)

@@ -170,7 +170,7 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
   for (int i=0; i < cols.size () - 1; i++)
     {
       SCM spring_params = SCM_UNDEFINED;
-      for (SCM s = Spaceable_element::get_ideal_distances (cols[i]);
+      for (SCM s = Spaceable_grob::get_ideal_distances (cols[i]);
 	   spring_params == SCM_UNDEFINED && gh_pair_p (s);
 	   s = gh_cdr (s))
 	{
@@ -207,7 +207,7 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
   
   for (int i=0; i < cols.size () - 1; i++)
     {
-      for (SCM s = Spaceable_element::get_minimum_distances (cols[i]);
+      for (SCM s = Spaceable_grob::get_minimum_distances (cols[i]);
 	   gh_pair_p (s); s = gh_cdr (s))
 	{
 	  Grob * other = unsmob_grob (gh_caar (s));

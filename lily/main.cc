@@ -70,7 +70,6 @@ String distill_inname_str (String name_str, String& ext_r);
        follow regular localisation guidelines).
  */
 Long_option_init theopts[] = {
-  {0, "debug", 'd',  _i ("enable debugging output")},
   {_i ("EXT"), "output-format", 'f',  _i ("use output format EXT (scm, ps, tex or as)")},
   {0, "help", 'h',  _i ("this help")},
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
@@ -227,7 +226,8 @@ setup_paths ()
    */
   char *suffixes[] = {"ly", "afm", "scm", "tfm", "ps", 0};
   String prefix = prefix_directory;
-  if (prefix.empty_b ()) prefix =  DIR_DATADIR;
+  if (prefix.empty_b ())
+    prefix =  DIR_DATADIR;
   for (char **s = suffixes; *s; s++)
     {
       String p =  prefix + to_str ('/') + String (*s);
@@ -380,9 +380,6 @@ main (int argc, char **argv)
 	case 'M':
 	  dependency_global_b = true;
 	  break; 
-	case 'd':
-	  set_debug (true);
-	  break;
 	case 'm':
 	  no_paper_global_b = true;
 	  break;

@@ -14,58 +14,56 @@
 @item -f,--format=
 	Output format for sheet music. Choices are tex (for @TeX{}
 	output), ps (for PostScript) and scm (for GUILE)
-@item -I,--include=
-    add @file{FILE} to the search path for input files.
-@item -m,--midi
+@item -h,--help
+ Show a summary of usage.
+@item --include, -I=DIRECTORY
+    Add @file{DIRECTORY} to the search path for input files.
+
+@item -i,--init=FILE
+    Set init file to @file{FILE} (default: @file{init.ly}).
+@item -m,--no-paper
     Disable @TeX{} output. If you have a \midi definition, it will do the 
     midi output only.
 @item -M,--dependencies
-    Also output rules to be included in Makefile.
-@item -d,--debug
-    Turn debugging info on.  GNU LilyPond reads the file @file{.dstreamrc}, 
-    which lists what functions and classes may produce copious debugging
-    output.
+     Output rules to be included in Makefile.
+@item -o,--output=FILE
+    Set the default output file to @file{FILE}.
+@item  -Q,--find-old-relative
+  show all changes needed to convert a file to  relative octave syntax.
+
 @item -s,--safe
     Disallow untrusted @code{\include} directives, backslashes in @TeX{}
 code and named output.
+
+WARNING: the --safe option has not been reviewed for over a year; do
+not rely on for automatic lily invocation (eg. over the
+web). Volunteers are welcome.
+
+@item -T,--no-timestamps
+  don't timestamp the output
 @item -t,--test
     Switch on any experimental features.  Not for general public use.
+@item -v,--version
+    Show version information 
+@item -V,--verbose
+  verbose
 @item -w,--warranty
     Show the warranty with which GNU LilyPond comes. (It comes with 
     @strong{NO WARRANTY}!)
-@item -o,--output=FILE
-    Set the default output file to @file{FILE}.
-@item -h,--help
-    Show a summary of usage.
-@item -i,--init=FILE
-    Set init file to @file{FILE} (default: @file{init.ly}).
-@item --include, -I=DIRECTORY
-    Add @file{DIRECTORY} to the search path for input files.
-@item --ignore-version, -V
-    Make the incompatible lilypond version warning non-fatal.
 @end table
-
 
 
 When invoked with a filename that has no extension, LilyPond will try
 adding `@file{.ly}' as an extension first.
 
-@c ****** Is the following on its way out?  /MB
-If you invoke LilyPond with a file `@file{foo.}@var{ext}' that doesn't
-have the `@file{.ly}' extension, then LilyPond will look for a file
-called `@file{init.}@var{ext}' and process this file.  The file
-`@file{init.}@var{ext}' must contain the @code{\maininput} keyword or
-LilyPond will not read the user specified file.
-
 When LilyPond processes @file{filename.ly} it will produce
-@file{filename.tex} as output.  If @file{filename.ly} contains a second
-@code{\paper} keyword, then LilyPond will produce @file{filename-1.tex}
-as well.  Subsequent @code{\paper} keywords will produce sequentially
-numbered file names.  Several files can be specified; they will each
-be processed independently.@footnote{Not entirely true: The status of
-GUILE is kept.}
-
-
+@file{filename.tex} as output (or @file{filename.ps} for
+PostScript output).  If @file{filename.ly} contains more than one
+@code{\score} block, then LilyPond will output the rest in numbered
+files, starting with @file{filename-1.tex}.  Several files can be
+specified; they will each be processed independently.  @footnote{The
+status of GUILE is not reset across invocations, so be careful not to
+ change defaults settings from within Scheme .}
 
 @section Environment variables
 
@@ -73,8 +71,11 @@ GUILE is kept.}
 @item LILYINCLUDE
     additional directories for finding lilypond data.  The
     format is like the format of @file{PATH}.
-@item LILYPREFIX
-	[FIXME]
+@item LILYPONDPREFIX
+ 	This specifies a directory where locale messages and
+data-files will be looked up by default. The directory should contain
+subdirectories called @file{ly/}, @file{ps/}, @file{tex/}, etc.
+
 @item LANG
     selects the language for the warning messages of LilyPond.
 @end table

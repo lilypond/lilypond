@@ -91,12 +91,18 @@ Grace_position_engraver::stop_translation_timestep ()
       if (elt)
 	return;
 
-      warning (_("Unattached grace notes.  Attaching to last musical column."));
+      if (last_musical_col_l_)
+	{
+	  warning (_("Unattached grace notes.  Attaching to last musical column."));
       
-      align_l_->set_parent (0, X_AXIS);
-      Axis_group_interface::add_element (last_musical_col_l_, align_l_);
+	  align_l_->set_parent (0, X_AXIS);
+	  Axis_group_interface::add_element (last_musical_col_l_, align_l_);
+	}
+      else
+	{
+	  // tja.
+	}
     }
-
   last_musical_col_l_ = dynamic_cast<Paper_column*>( unsmob_grob (get_property ("currentMusicalColumn")));
 }
 

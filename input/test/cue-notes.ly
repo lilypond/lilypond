@@ -1,15 +1,18 @@
 
+\version "1.3.110";
+
+
 % add cue notes context
 \paper {
 	CueVoiceContext = \translator {
             \VoiceContext
             \name CueVoice;
-            basicNoteHeadProperties \push #'font-relative-size = #-1
-            basicStemProperties \push #'font-relative-size = #-1
-            basicBeamProperties \push #'font-relative-size = #-1
-            basicTextScriptProperties \push #'font-relative-size = #-1
-            basicSlurProperties \push #'font-relative-size = #-1
-            basicLocalKeyProperties \push #'font-relative-size = #-1
+            basicNoteHeadProperties \override #'font-relative-size = #-1
+            basicStemProperties \override #'font-relative-size = #-1
+            basicBeamProperties \override #'font-relative-size = #-1
+            basicTextScriptProperties \override #'font-relative-size = #-1
+            basicSlurProperties \override #'font-relative-size = #-1
+            basicLocalKeyProperties \override #'font-relative-size = #-1
 	};
 	\translator{ \CueVoiceContext }
 	StaffContext = \translator{\StaffContext

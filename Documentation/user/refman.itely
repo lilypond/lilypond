@@ -12,10 +12,10 @@
 @menu
 * Overview::                       Overview
 * Top level::                      Top level
-* notenames::                      notenames
+* Pitch names::                    Pitch names
 * Lexical conventions::            Lexical conventions
-* Other languages::                notelang
-* modes::                          modes
+* Other languages::                Note names in various languages
+* Lexical modes::                          modes
 * Types::                          Types
 * Music expressions::              Music expressions
 * Atomic music expressions::       Atomic music expressions
@@ -39,6 +39,7 @@
 * contextdefs::                    contextdefs
 * Sound output::                   Sound output
 * midilist::                       midilist
+* Grobs::                          Graphical objects
 * Pre-defined Identifiers::        Pre-defined Identifiers
 @c May be fragile.  Better make single link to generated doco?
 * Interpretation contexts:(lilypond-internals)LilyPond interpretation contexts.
@@ -51,20 +52,21 @@
 @node Overview, , , Reference Manual
 @section Overview
 
-This document@footnote{This document has been revised for
-LilyPond 1.2.} describes the the GNU LilyPond input format
+This document@footnote{This document has been revised for LilyPond 1.2.}
+describes the the GNU LilyPond input format This format represents a
+piece of music in an elegant way, but contains enough information for
+both automatic typesetting and automatic performances.
 
-with @emph{Lilypond}-input you can
-
+LilyPond input can be classified  into three types:
 @itemize @bullet
-  @item  create musical expressions by combining pitches, durations 
-  @item  output those musical expressions to various formats
-  @item  give those musical expressions and output definitions names, so
-       you can enter them in manageable chunks.
-@end itemize
+  @item musical expressions: a musical expression is some combination of
+rest, notes, lyrics
+  @item output definitions: recipes for translating those musical
+expressions into performances (MIDI) or graphics (eg. PostScript).
 
-@emph{Lilypond} input aims to define a piece of music completely, both from
-typesetting and from a performance point of view.
+  @item declarations: by declaring and naming musical expressions, you
+can enter and edit them in manageable chunks.
+@end itemize
 
 
 
@@ -89,8 +91,6 @@ definition.  A score block has the following syntax:
 @var{outputdefs} are zero or more output definitions.  If no output
 definition is supplied, the default @code{\paper} block will be added.
 
-
-
 @cindex header
 
 @keyindex{header}
@@ -111,38 +111,24 @@ metre, arranger, piece and tagline.
 It is customary to put the @code{\header} at the top of the file.
 
 
-@node notenames, , ,  Reference Manual
+@node Pitch names, , ,  Reference Manual
 
-Note name tables can be specified using
-
+Note names and chord modifiers can be customised for nationalities.
+languages and conventions.  The syntax is as follows.
 @example
-   \notenames@keyindex{notenames}
-  @{ @var{assignmentlist} @}
+   \pitchnames @keyindex{pitchnames} @var{scheme-alist}
+   \chordmodifiers@keyindex{chordmodifiers} @var{scheme-alist}
 @end example
 
-@var{assignmentlist} is a list of definitions of the form
-
-@example
-  @var{name} = @var{pitch}
-@end example
-
-Chord modifiers can be set analogously, with
-@code{\chordmodifiers}@keyindex{chordmodifiers}.
+See @file{ly/nederlands.ly} and @file{ly/chord-modifiers.ly} for
+specific examples how to do this.  tables can be tailored specified
+using. Some national note names have been provided, see @ref{Other
+languages}.
 
 A @code{\paper} block at top level sets the default paper block.  A
 @code{\midi} block at top level works similarly.
 
 
-
-LilyPond contains a Scheme interpreter (the GUILE library) for
-internal use.  The following commands access the interpreter
-directly.
-
-@example
-  #@var{scheme}
-@end example
-
-Evaluates the specified Scheme code.  The result is discarded.
 
 Identifier assignments may appear at top level.  Semicolons are
 forbidden after top level assignments.
@@ -165,79 +151,50 @@ A one line comment is introduced by a `@code{%}' character.
 Block comments are started by `@code{%@{}' and ended by `@code{%@}}'. 
 They cannot be nested.
 
+@indexcode{#}
 
+LilyPond contains a Scheme interpreter (the GUILE library) for
+internal use. The interpreter is accessed by the pound sign:
+
+Whereever the syntax allows Scheme expressions, you may enter one as
+
+@example
+  #@var{scheme}
+@end example
+
+Evaluates the specified Scheme code. If this is used at toplevel, then
+the result is discarded. Example:
+@example
+  \property Staff.TestObject \override #'symbol =  #(+ 1 2)
+@end example
+
+(in this case, @code{\override} expects two Scheme expressions. 
+
+[refer appendix/ online intro on Scheme] 
 
 @cindex keyword
 
 Keywords start with a backslash, followed by a number of lower case
 alphabetic characters.  These are all the keywords.
 
-[FIXME]
-
 @example
-  \accepts
-  \addlyrics
-  \alternative
-  \bar
-  \breathe
-  \chordmodifiers
-  \chords
-  \clef
-  \cm
-  \consists
-  \consistsend
-  \context
-  \duration
-  \font
-  \grace
-  \header
-  \in
-  \key
-  \keysignature
-  \lyrics
-  \mark
-  \midi
-  \mm
-  \musicalpitch
-  \name
-  \notenames
-  \notes
-  \paper
-  \partial
-  \penalty
-  \property
-  \pt
-  \relative
-  \remove
-  \repeat
-  \repetitions
-  \scm
-  \scmfile
-  \score
-  \script
-  \sequential
-  \simultaneous
-  \skip
-  \spanrequest
-  \tempo
-  \textscript
-  \time
-  \times
-  \translator
-  \transpose
-  \type
+apply arpeggio autochange spanrequest commandspanrequest
+simultaneous sequential accepts alternative bar breathe
+char chordmodifiers chords clef cm consists consistsend
+context denies duration dynamicscript elementdescriptions
+font grace header in lyrics key mark musicalpitch
+time times midi mm name pitchnames notes outputproperty
+override set revert partial paper penalty property pt
+relative remove repeat addlyrics partcombine score
+script stylesheet skip textscript tempo translator
+transpose type
 @end example
-
-
-
 
 @cindex integer
 
 Formed from an optional minus sign followed by digits.  Arithmetic
 operations cannot be done with integers, and integers cannot be mixed
 with reals.
-
-
 
 @cindex real
  
@@ -264,15 +221,15 @@ is the internal representation of dimensions.
 
 Begins and ends with the `@code{"}' character.  To include a `@code{"}'
 character in a string write `@code{\"}'.  Various other backslash
-sequences have special interpretations as in the C language.  A
-string that contains no spaces can be written without the quotes. 
-See section XREF-modes [FIXME] for details on unquoted strings; their
-interpretation varies depending on the situation.  Strings can be
-concatenated with the `@code{+}' operator.
+sequences have special interpretations as in the C language.  A string
+that contains no spaces can be written without the quotes.  See
+@ref{Lexical modes} for details on unquoted strings; their interpretation varies
+depending on the situation.  Strings can be concatenated with the
+`@code{+}' operator.
 
 
-The tokenizer accepts the following commands.  They can appear
-anywhere.
+The tokenizer accepts the following commands. They have no grammatical
+function, hence they can appear anywhere in the input.
 
 @example
   \maininput@keyindex{maininput}
@@ -320,17 +277,14 @@ italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b
 catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b 
 @end example 
 
-Pitch names can be redefined using the
-@code{\notenames}@keyindex{notenames} command, see
-subsection XREF-notenames [FIXME].
+Pitch names can be redefined using the @code{\pitchnames} command, see
+@ref{Pitch names}.
 
-
-
-@cindex lexical modes
+@cindex Lexical Modes
 
 @cindex modes
 
-@node modes, , ,  Reference Manual
+@node Lexical modes, , ,  Reference Manual
 
 To simplify entering notes, lyrics, and chords, @emph{Lilypond} has three
 special input modes on top of the default mode.  In each mode, words
@@ -416,58 +370,61 @@ _ _ _ _         % 4 words, each one a space
     durations, you can not enter real numbers in this mode.
 @end table
 
-It is possible to create words that break the rules by prefixing them
-with the dollar sign `@code{$}@indexcode{$}'.  Regardless of the context, a
-word beginning with `@code{$}' extends until the next white space
-character.  Such words can contain numbers (even in Note mode), or
-other forbidden characters.  The dollar sign can be used to create
-and access identifiers that could not otherwise be used.@footnote{Use
-of `@code{$}' hampers readability and portability to future LilyPond
-versions, thus the use of the dollar sign is discouraged.}
-
-
+[todo: include short table showign differences] 
 
 @node Types, , ,  Reference Manual
 @section Types
 
-@cindex types and identifiers
+@cindex  Identifiers
 
-@emph{Lilypond} has a limited set of types:
+[say something about types]
+
+All of the information in a LilyPond input file, is represented as a
+Scheme value. In addition to normal Scheme data types (such as pair,
+number, boolean, etc.), LilyPond has a number of specialized data types,
 
 @itemize @bullet
-  @item  integers
-  @item  reals
-  @item  strings
-  @item  music expressions
-  @item  durations of notes and rests (specified with
-       @code{\notenames}@keyindex{notenames})
-  @item  note name tables
-  @item  context definitions, part of output definitions.  See
-       section XREF-contextdefs [FIXME] for more information
-  @item  output definitions (like @code{\paper}@keyindex{paper} blocks
-       and @code{\midi}@keyindex{midi} blocks)
-  @item  score definitions (@code{\score}@keyindex{score} blocks)
+  @item Input
+  @item c++-function
+  @item Music: see @ref{Music expressions}
+  @item Identifier
+  @item Translator_def:
+See       section @ref{contextdefs} for more information
+
+  @item Duration
+  @item Pitch
+  @item Score (TODO, smobme)
+@item  Music_output_def (TODO, smobme)
+
+  @item Moment (rational number)
 @end itemize
 
-Type is a syntactical property: @emph{Lilypond} has no real type system,
-so there is no support for generic expressions, functions, or user
-defined types.  For the same reason, it is not possible to mix reals
-and integers in arithmetic expressions, and ``type
-errors''
-@cindex type error
- (e.g., using a string identifier to
-initialize a @code{\paper}@keyindex{paper} block) will yield a ``parse
-error''.
+LilyPond also includes some transient object types. Objects of these
+types are built during a LilyPond run, and do not `exist' per se within
+your input file. These objects are created as a result of your input
+file, so you can include commands in the input to manipulate them,
+during a lilypond run .
 
-Identifiers allow objects to be assigned to names.  To assign an
-identifier, you use `@var{name}=@var{value}' and to refer to an
-identifier, you preceed its name with a backslash:
+@itemize @bullet
+  @item Grob: short for Graphical object. See @ref{Grobs}. 
+  @item Molecule: device-independent paper output object,
+    including dimensions.  Produced by some Grob functions 
+  @item Translator: object that  produces audio  objects or Grobs
+
+  @item Font_metric: object representing a font. (Not yet user accessible.)
+  @item Audio_element: (TODO, smobme)
+@end itemize
+
+Identifiers allow objects to be assigned to names during the parse
+stage.  To assign an identifier, you use `@var{name}=@var{value}' and to
+refer to an identifier, you preceed its name with a backslash:
 `@code{\}@var{name}'.  Identifier assignments must appear at top level
 in the @emph{Lilypond} file.  Semicolons are forbidden after assignments
 appearing at top level but they are obligatory after assignments
-appearing in the @code{\paper} block, see Section XREF-paper [FIXME].
+appearing in the @code{\paper} block, see Section @ref{paper}.
 
-@var{value} is any of the types listed above.
+@var{value} is any valid Scheme value or any of the input-types listed
+above.
 
 An identifier can be created with any string for its name, but you
 will only be able to refer to identifiers whose names begin with a
@@ -483,15 +440,19 @@ identifier in terms of its old value, e.g.
 @end example
 
 When an identifier is referenced, the information it points to is
-copied.  Therefore it only makes sense to put identifiers for
-translators, output definitions, and @code{\score}@keyindex{score}
-blocks as the first item in a block.  For this reason, if you
-reference a @code{\foo} variable in a @code{\foo} block, it must be the
-first item in the list following @code{\foo}.@footnote{@code{\paper@{\one
-\two@}} does not make sense, because the information of @code{\two}
-would overwrite the information of @code{\one}, thereby making the
-reference to the first identifier useless.}
+copied.  For this reason, an identifier reference must always be the
+ first item in a block.
+@example
+\paper  @{
+   foo = 1.0
+   \paperIdent % wrong and invalid
+@}
 
+\paper @{
+   \paperIdent % correct
+   foo = 1.0
+@}
+@end example
 
 
 @node Music expressions, , ,  Reference Manual
@@ -517,8 +478,8 @@ first, and then the `@code{d}' (as opposed to playing them
 simultaneously, for instance).
 
 Atomic music expression are discussed in
-subsection XREF-atomicmusic [FIXME].  Compound music expressions are
-discussed in subsection XREF-compoundmusic [FIXME].
+subsection @ref{Atomic music expressions}.  Compound music expressions are
+discussed in subsection @ref{Compound music expressions}.
 
 
 
@@ -546,7 +507,7 @@ corresponding to C and 7 corresponding to B.  The shift is zero for a
 natural, negative to add flats, or positive to add sharps.
 
 In Note and Chord mode, pitches may be designated by names.  See
-section XREF-notelang [FIXME] for pitch names in different languages.
+section @ref{Other languages} for pitch names in different languages.
 
 The syntax for duration specification is
 
@@ -561,7 +522,7 @@ note, etc.  The number of dots after the note is given by
 @var{dotcount}.
 
 In Note, Chord, and Lyrics mode, durations may be designated by
-numbers and dots.  See Section XREF-notelang [FIXME] for details.
+numbers and dots.  
 
 
 @node Note specification, , ,  Reference Manual
@@ -584,15 +545,17 @@ The pitch of the note is specified by the note's name.
 The default names are the Dutch note names.  The notes are specified
 by the letters `@code{c}' through `@code{b}', where `@code{c}' is an
 octave below middle C and the letters span the octave above that C. 
-In Dutchcindex(notenames!Dutch), a sharp is formed by adding
-`@code{-is}' to the end of a pitch name.  A flat is formed by adding
-`@code{-es}'. Double sharps and double flats are obtained by adding
-`@code{-isis}' or `@code{-eses}'.  `@code{aes}' and `@code{ees}' are
-contracted to `@code{as}' and `@code{es}' in Dutch, but both forms will
-be accepted.
+In Dutch,
+@cindex notenames!Dutch
+a sharp is formed by adding `@code{-is}' to the end of a pitch name.  A
+flat is formed by adding `@code{-es}'. Double sharps and double flats
+are obtained by adding `@code{-isis}' or `@code{-eses}'.  `@code{aes}'
+and `@code{ees}' are contracted to `@code{as}' and `@code{es}' in Dutch,
+but both forms will be accepted.
 
 LilyPond has predefined sets of notenames for various languages.  See
-section XREF-notelang [FIXME] for details.
+@ref{Other languages}.
+
 
 
 The optional octave specification takes the form of a series of
@@ -734,13 +697,13 @@ Syllables are entered like notes, with pitches replaced by text.  For
 example, `@code{Twin-4 kle4 twin-4 kle4}' enters four syllables, each
 with quarter note duration.  Note that the hyphen has no special
 meaning for lyrics, and does not introduce special symbols.  See
-section XREF-modes [FIXME] for a description of what is interpreted as
+section @ref{Lexical modes} for a description of what is interpreted as
 lyrics.
 
 Spaces can be introduced into a lyric either by using quotes
 (`@code{"}') or by using an underscore without quotes: `@code{He_could4
 not4}'.  All unquoted underscores are converted to spaces.  Printing
-lyrics is discussed in section XREF-lyricprint [FIXME].
+lyrics is discussed in section @ref{lyricprint}.
 
 
 
@@ -798,10 +761,8 @@ the extra-offset of those heads to (5,7.5), shifting them up and
 right.
 
 Use of this feature is entirely on your own risk: if you use this, the
-result will depend very heavily on the implentation of the backend,
-which we change unscrupulously.
-
-
+result will depend very heavily on the implementation of the backend,
+which we change regularly and unscrupulously.
 
 
 @cindex commands
@@ -829,23 +790,20 @@ mode names @code{\ionian}@keyindex{ionian},
 are also defined.
 
 @example
-
   @code{\keysignature}@keyindex{keysignature} @var{pitchseq} @code{;}
 @end example
 
 Specify an arbitrary key signature.  The pitches from @var{pitch} will
 be printed in the key signature in the order that they appear on the
 list.
-
         
 @example
   \mark@keyindex{mark} @var{unsigned};
   \mark @var{string};
 @end example
 
-Prints a mark over or under (depending on the
-@code{markDirection}@indexcode{markDirection} property) the staff.  You must add
-@code{Mark_engraver}@indexcode{Mark_engraver} to either the Score or Staff context for
+Prints a mark over or under the staff.  You must add
+@code{Mark_engraver}@indexcode{Mark_engraver} to the Score context for
 this to work.
 
 @node barlines, , ,  Reference Manual
@@ -854,45 +812,25 @@ this to work.
   \bar@keyindex{bar} @var{bartype};
 @end example
 
-This is a request to print a special bar symbol. It replaces the 
-regular bar symbol with a special
-symbol.  The argument @var{bartype} is a string which specifies the
-kind of bar to print.  Options are @code{":|"}
-@cindex "|A@@@code{:|}
-,
-@code{"|:"}
-@cindex "|B@@@code{|:}
-, @code{":|:"}
-@cindex "|C@@@code{:|:}
-,
-@code{"||"}
-@cindex "|D@@@code{||}
-, @code{"|."}
-@cindex "|E@@@code{|.}
-,
-@code{".|"}
-@cindex "|F@@@code{.|}
-, and @code{".|."}
-@cindex "|G@@@code{.|.}
-. 
-These produce, respectively, a right repeat, a left repeat, a double
-repeat, a double bar, a start bar, an end bar, and a thick double
-bar.  If @var{bartype} is set to @code{"empty"} then nothing is
-printed, but a line break is allowed at that spot.
+This is a short-cut for doing
+@example
+  \property Score.whichBar = @var{bartype} 
+@end example
 
-You are encouraged to use @code{\repeat} for repetitions.
-See section XREF-sec-repeats [FIXME].
-
- 
+You are encouraged to use @code{\repeat} for repetitions.  See 
+@ref{Repeats}, and the documentation of @code{whichBar}.
 
 
 @example
-
   \time@keyindex{time} @var{numerator}@code{/}@var{denominator} @code{;}
 @end example
 
-Change the time signature.  The default time signature is 4/4. 
-The time signature is used to generate bar lines.
+A short-cut for doing
+@example
+     \property Score.timeSignatureFraction = #'(@var{numerator} . @var{denominator})
+@end example
+
+See the documentation of @code{timeSignatureFraction}
 
 @example
 
@@ -903,17 +841,20 @@ Used to specify the tempo.  For example, `@code{\tempo 4 = 76;}'
 requests output with 76 quarter notes per minute.
 
 @example
-
   \partial@keyindex{partial} @var{duration} @code{;}
 @end example
+
+Short cut for 
+
+@example
+  \property Score.measurePosition = @var{length of duration}
+@end example
+
+See the documentation of @code{measurePosition}.
 
 @cindex anacrusis
 
 @cindex upstep
-
-This creates an incomplete measure (anacrusis, upbeat) at the start of 
-the music, e.g., `@code{\partial 8*2;}' creates a starting measure 
-lasting two eighth notes.
 
 @example
 
@@ -928,9 +869,10 @@ lasting two eighth notes.
 
 `@code{|}' is a bar check.  Whenever a bar check is encountered during
 interpretation, a warning message is issued if it doesn't fall at a
-measure boundary.  This can help you finding errors in the input. 
-The beginning of the measure will be relocated, so this can also
-be used to shorten measures.
+measure boundary.  This can help you finding errors in the input.
+Depending on the value of @code{barCheckNoSynchronize}
+@indexcode{barCheckNoSynchronize} The beginning of the measure will be
+relocated, so this can also be used to shorten measures.
 
 
 @example
@@ -943,61 +885,20 @@ Discourage or encourage line breaks.  See identifiers
 section [on identifiers] [FIXME].
 
 @example
-
   \clef@keyindex{clef} @var{clefname} @code{;}
 @end example
 
-Music expression that sets the current clef.  The argument is a
-string which specifies the name of the clef.  Several clef names are
-supported.  If `@code{_8}' or `@code{^8}' is added to the end of a clef
-name, then the clef lowered or raised an octave will be generated. 
-Here are the supported clef names with middle C shown in each
-clef:
+Short-cut for
 
-@quotation
+@example
+  \property Clef.clefGlyph = @var{symbol associated with clefname} 
+  \property Clef.clefPosition = @var{clef Y-position for clefname}
+  \property Clef.clefOctavation = @var{extra pitch of clefname}
+@end example
 
-@lilypond[]
-\score {
-  \notes {
-    \cadenzaOn
-    %\property Voice.textStyle = typewriter
-    \clef subbass;     c'4-"\kern -5mm subbass" 
-    \clef bass;        c'4^"\kern -2mm bass"
-    \clef baritone;    c'4_"\kern -5mm baritone"
-    \clef varbaritone; c'4^"\kern -6mm varbaritone"
-    \clef tenor;       c'4_"\kern -3mm tenor"
-    \clef "G_8";       c'4^"\kern -2mm G\\_8" 
-  }  
-  \paper {
-    linewidth = -1.0;
-  }
-}
-@end lilypond
-@end quotation
+Supported clef-names include 
 
-@quotation
-
-@lilypond[]
-\score {
-  \notes {
-	\cadenzaOn
-    \clef alto;         c'4_"\kern -2mm alto"
-    \clef mezzosoprano; c'4^"\kern -9mm mezzosoprano"
-    \clef soprano;      c'4_"\kern -6mm soprano"
-    \clef treble;       c'4^"\kern -4mm treble"
-    \clef french;       c'4_"\kern -4mm french"
-  }
-  \paper {
-    linewidth = 4.5 \in;
-  }
-}
-@end lilypond
-@end quotation
-
-The three clef symbols can also be obtained using the names `@code{G}', 
-`@code{C}' or `@code{F}', optionally followed by an integer which 
-indicates at which note line the clef is located. An as example, the 
-@code{mezzosoprano} clef can also be given as `@code{C2}'.
+[todo]
 
 @example
 
@@ -1028,17 +929,15 @@ Some more elaborate constructions:
   \times 2/3 { [e'8 f' g'] }
 @end lilypond
 
-Beaming can be generated automatically; see section XREF-autobeam [FIXME].
+Beaming can be generated automatically; see section @ref{autobeam}.
 
 [OUTDATED, FIXME]
 
 To place tremolo marks between notes, use @code{\repeat} with tremolo
 style.
 @cindex tremolo beams
-  To create tremolo beams on a single note, simply attach
-`@code{:}@var{length}' to the note itself (see also section
-XREF-tremolo [FIXME]).
-  
+To create tremolo beams on a single note, simply attach
+`@code{:}@var{length}' to the note itself.
 
 @lilypond[fragment,verbatim,center]
   \repeat "tremolo" 8 { c16 d16 }
@@ -1316,11 +1215,7 @@ chords can be expressed in two different ways:
 
 Interpret @var{musicexpr} within a context of type @var{contexttype}. 
 If the context does not exist, it will be created.  The new context
-can optionally be given a name.  See
-section XREF-contextselection [FIXME] and XREF-contextdefs [FIXME] for more
-information on interpretation contexts.
-
-
+can optionally be given a name.  
 
 @cindex input modes
 
@@ -1331,13 +1226,8 @@ Mode switching keywords form compound music expressions: @code{\notes}
 @var{musicexpr}, and @code{\lyrics} @keyindex{lyrics} @var{musicexpr}. 
 These expressions do not add anything to the meaning of their
 arguments.  They are just a way to indicate that the arguments should
-be parsed in indicated mode.  See section XREF-modes [FIXME] for more
+be parsed in indicated mode.  See @ref{Lexical modes} for more
 information on modes.
-
-More information on context selection can be found in
-section XREF-contextselection [FIXME].
-
-
 
 @cindex sequential music
 
@@ -1478,7 +1368,7 @@ less error-prone, and more readable.
 
 Chord names are a way to generate simultaneous music expressions that
 correspond with traditional chord names.  It can only be used in
-Chord mode (see section XREF-modes [FIXME]).
+Chord mode (see section @ref{Lexical modes}).
 
 @example
 
@@ -1929,8 +1819,8 @@ foo = -6
 By default, LilyPond will generate beams automatically.  This feature
 can be disabled by setting the @code{Voice.noAutoBeaming}@indexcode{Voice.noAutoBeaming}
 property to 1.  It can be overridden for specific cases by
-specifying explicit beams as described in
-section XREF-manualbeam [FIXME].
+specifying explicit beams.
+
 
 A large number of Voice properties are used to decide how to generate
 beams.  Their default values appear in @file{auto-beam-settings.ly}.
@@ -2303,10 +2193,9 @@ where each of the items is one of
 
 @itemize @bullet
   @item  An assignment.  The assignment must be terminated by a
-       semicolon.  See section XREF-papervars [FIXME] for information on
-       paper variables.
+       semicolon.  
 
-  @item  A context definition.  See section XREF-contextdefs [FIXME] for
+  @item  A context definition.  See section @ref{contextdefs} for
        more information on context definitions.
 
   @item
@@ -2474,8 +2363,7 @@ one of
 @itemize @bullet
   @item  @code{\consists} @var{engravername} @code{;}  
     Add @var{engravername} to the list of modules in this context. 
-    Section XREF-engravers [FIXME] contains an overview of the engravers
-    available.  The order of engravers added with @code{\consists} is
+  The order of engravers added with @code{\consists} is
     significant.
   
   @item  @code{\consistsend} @var{engravername} @code{;}  
@@ -2670,27 +2558,6 @@ piano.
 @c @end quotation
 
 
-@cindex MIDI types and performers
-
-The types available for  MIDI translators are:
-
-@table @samp
-  @item @code{Performer_group_performer}@indexcode{Performer_group_performer}
-  @item @code{Score_performer}@indexcode{Score_performer}
-  @item @code{Staff_performer}@indexcode{Staff_performer}
-@end table
-
-The performers for MIDI translators are:
-
-@table @samp
-  @item @code{Key_performer}@indexcode{Key_performer}
-  @item @code{Time_signature_performer}@indexcode{Time_signature_performer}
-  @item @code{Note_performer}@indexcode{Note_performer}
-  @item @code{Lyric_performer}@indexcode{Lyric_performer}
-  @item @code{Swallow_performer}@indexcode{Swallow_performer}
-@end table
-
-
 
 @node Pre-defined Identifiers, , ,  Reference Manual
 
@@ -2708,59 +2575,29 @@ provide shorthands for some settings.  Most of them are in
     Force a line break in music by using a large argument for the
     keyword @code{\penalty}.
 
-  @item @code{\center}@keyindex{center}  
-    Used for setting direction  properties.  Equals 0.
-
-  @item @code{\down}@keyindex{down}  
-    Used for setting direction setting properties.  Is equal
-    to -1.
-
-  @item @code{\free}@keyindex{free}  
-    Used for setting direction setting properties.  Is equal
-    to 0.
-
-  @item @code{\left}@keyindex{left}  
-    Used for setting text alignment property.  Is equal to -1.
-
   @item @code{\nobreak}@keyindex{nobreak}  
     Prevent a line break in music by using a large negative argument
     for the keyword @code{\penalty}.
-
-  @item @code{\none}@keyindex{none}  
-    Used for setting @code{Score.beamslopedamping} and
-    @code{Score.beamquantisation} properties.  Is equal to 0.
-
-  @item @code{\normal}@keyindex{normal}  
-    Used for setting @code{Score.beamslopedamping} and
-    @code{Score.beamquantisation} properties.  Is equal to 1.
 
   @item @code{\normalkey}@keyindex{normalkey}  
     Select normal key signatures where each octave has the same key
     signature.  This sets the @code{Staff.keyoctaviation} property.
 
-  @item @code{\right}@keyindex{right}  
-    Used for setting text alignment property.  Is set to 1.
-
   @item @code{\shiftoff}@keyindex{shiftOff}  
-    Disable horizontal shifting of note heads that collide.  Sets the
-    @code{Voice.horizontalNoteShift} property.
+    Disable horizontal shifting of note heads that collide. 
 
   @item @code{\shiftOn}@keyindex{shiftOn}  
     Enable note heads that collide with other note heads to be
-    shifted horiztonally.  Sets the @code{Voice.horizontalNoteShift}
-    property.
+    shifted horiztonally.
 
   @item @code{\slurBoth}@keyindex{slurBoth}  
-    Allow slurs to be above or below notes.  This sets the
-    @code{Voice.slurVerticalDirection} property.
+    Allow slurs to be above or below notes.
 
   @item @code{\slurDown}@keyindex{slurDown}  
-    Force slurs to be below notes.  This sets the
-    @code{Voice.slurVerticalDirection} property.
+    Force slurs to be below notes.
 
   @item @code{\slurUp}@keyindex{slurUp}  
-    Force slurs to be above notes.  This sets the
-    @code{Voice.slurVerticalDirection} property.
+    Force slurs to be above notes.
 
   @item @code{\specialkey}@keyindex{specialkey}  
     Allow key signatures do differ in different octaves.  This sets
@@ -2768,22 +2605,16 @@ provide shorthands for some settings.  Most of them are in
 
   @item @code{\stemBoth}@keyindex{stemBoth}  
     Allow stems, beams, and slurs to point either upwards or
-    downwards, decided automatically by LilyPond.  This sets the
-    @code{Voice.verticalDirection} property.
+    downwards, decided automatically by LilyPond.
 
   @item @code{\stemdown}@keyindex{stemdown}  
-    Force stems, beams, and slurs to point down.  This sets the
-    @code{Voice.verticalDirection} property.
+    Force stems, beams, and slurs to point down.
 
   @item @code{\stemUp}@keyindex{stemUp}  
-    Force stems, beams and slurs to point up.  This sets the
-    @code{Voice.verticalDirection} property.
+    Force stems, beams and slurs to point up.
 
-  @item @code{\traditional}@keyindex{traditional}  
-    Used for setting the @code{Score.beamquantisation} property.  Is
-    equal to 2.
-
-  @item @code{\up}@keyindex{up}  
-    Used for setting various direction properties.  Is equal
-    to 1.
 @end table
+
+@node  Grobs, , , Reference Manual
+
+

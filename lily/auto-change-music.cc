@@ -13,5 +13,6 @@
 Auto_change_music::Auto_change_music (Music * m)
   : Music_wrapper (m)
 {
-  set_mus_property ("type", Auto_change_iterator::constructor_cxx_function);
+  set_mus_property ("iterator-ctor", Auto_change_iterator::constructor_cxx_function);
+
 }

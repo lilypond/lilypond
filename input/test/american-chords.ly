@@ -1,4 +1,4 @@
-\version "1.3.98"
+\version "1.3.110"
 %{
   See scm/chord-names.scm: chord::names-alist-american
   James Hammons <jlhamm@pacificnet.net>
@@ -14,7 +14,7 @@
       chord::names-alist-american))
 
 chord = \notes\transpose c''\chords{
-	\property ChordNames.ChordNames \push #'style = #"american"
+	\property ChordNames.ChordNames \override #'style = #"american"
 c         % Major triad
 cs:m      % Minor triad
 df:m5-    % Diminished triad
@@ -50,7 +50,7 @@ c:m7.9    % Minor ninth
     {
         	\translator { 
 			\ChordNamesContext
-			ChordNames \push #'word-space = #1 
+			ChordNames \override #'word-space = #1 
 		}
     }
 }

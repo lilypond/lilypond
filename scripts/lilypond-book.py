@@ -1031,6 +1031,7 @@ def do_file(input_filename):
 	for c in chunks:
 		fout.write (c[1])
 	fout.close ()
+	# should chmod -w
 
 	if do_deps:
 		write_deps (my_depname, foutn)

@@ -1,4 +1,6 @@
 
+\version "1.3.110";
+
 
 thenotes = \notes \relative cis' { \time 4/4;
 gisis'4 gis gisis ges |
@@ -14,7 +16,7 @@ gis g ges g |
 
 \score { < \context Staff \thenotes
 	\context NoteNames  {
-		\property NoteNames.basicNoteNameProperties \push  #'no-spacing-rods  = ##f 
+		\property NoteNames.basicNoteNameProperties \override  #'no-spacing-rods  = ##f 
 		\thenotes
 	}
 	>

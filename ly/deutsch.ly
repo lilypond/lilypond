@@ -7,7 +7,7 @@
 %            added asas and marked ases as `unusual'
 
 
-\notenames  #'(
+\pitchnames  #`(
 	(ceses . ,(make-pitch -1 0 -2 ))
 	(ces . ,(make-pitch -1 0 -1 ))
 	(c . ,(make-pitch -1 0 0 ))
@@ -49,4 +49,4 @@
 
 
 
-\version "1.3.96";
+\version "1.3.110";

@@ -5,7 +5,7 @@ enteredby =	 "HWN,JCN";
 copyright =	 "public domain";
 Tested =	 "test the Collision resolution ";
 }
-\version "1.3.96";
+\version "1.3.110";
 
 twovoice = \context Staff \notes < 
 	\context Voice=i { \stemDown c4 d e f g2~  g4 a [c8 d e f] c2| }
@@ -20,7 +20,7 @@ twovoicesteminvert = \context Staff \notes <
 
 threevoice = \context Staff \notes <
 	\context Voice=i { \stemUp g4 f e f g a g2 }
-	\context Voice=ii { \stemUp \property Voice.NoteColumn \push #'horizontal-shift = #1
+	\context Voice=ii { \stemUp \property Voice.NoteColumn \override #'horizontal-shift = #1
 		e2  e2  e2  e2 }
 	\context Voice=iii { \stemDown c4 d e d c d es }
 >
@@ -36,19 +36,19 @@ chordstest = \context Staff \notes <
 
 hairyChord = \context Staff \notes\relative c' <
      \context Voice=one {
- \property Voice.NoteColumn \push #'horizontal-shift = #0
+ \property Voice.NoteColumn \override #'horizontal-shift = #0
 	\stemUp 
 	e4 
      }
      
      \context Voice=two {
 	\stemUp
- \property Voice.NoteColumn \push #'horizontal-shift = #1
+ \property Voice.NoteColumn \override #'horizontal-shift = #1
 	cis
      }
      
      \context Voice=three {
- \property Voice.NoteColumn \push #'horizontal-shift = #2
+ \property Voice.NoteColumn \override #'horizontal-shift = #2
 
 	\stemUp 
 	ais
@@ -56,7 +56,7 @@ hairyChord = \context Staff \notes\relative c' <
      
      \context Voice=four {
         \stemDown
- \property Voice.NoteColumn \push #'horizontal-shift = #1
+ \property Voice.NoteColumn \override #'horizontal-shift = #1
 
 	fis
      }

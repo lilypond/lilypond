@@ -10,7 +10,7 @@
 
 % contributed by Paolo Zuliani <zuliap@easynet.it>
 
-\notenames #'(
+\pitchnames #'(
 	(dobb . ,(make-pitch -1 0 -2 ))
 	(dob . ,(make-pitch -1 0 -1 ))
 	(do . ,(make-pitch -1 0 0 ))
@@ -48,4 +48,4 @@
 	(sidd . ,(make-pitch -1 6 2 ))
 )
 
-\version "1.3.96";
+\version "1.3.110";

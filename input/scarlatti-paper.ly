@@ -1,3 +1,4 @@
+\version "1.3.110";
 \paper{
 	%my standard paper block
 
@@ -20,7 +21,7 @@
 		minVerticalAlign=8.4;
 	}
 	\translator{\StaffContext
-		TimeSignature \push #'style = #"C"
+		TimeSignature \override #'style = #"C"
 	}
 	\translator{\VoiceContext
 		noStemExtend = ##t

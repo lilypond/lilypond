@@ -1,3 +1,6 @@
+
+\version "1.3.110";
+
 %
 % Test new font selection and scm text markup
 %
@@ -20,10 +23,10 @@
 		linewidth = -1.\mm;
 		\translator{
 			\ScoreContext
-			TextScript \push #'font-family = #'roman
-			TextScript \push #'font-shape = #'upright
-			TextScript \pop #'no-spacing-rods
-			TextScript \push #'direction = #1
+			TextScript \override #'font-family = #'roman
+			TextScript \override #'font-shape = #'upright
+			TextScript \revert #'no-spacing-rods
+			TextScript \override #'direction = #1
 		}
 	}
 }

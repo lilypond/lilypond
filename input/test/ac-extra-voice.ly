@@ -1,3 +1,6 @@
+
+\version "1.3.110";
+
 global = \notes {
 	\key a \minor;
 	\time 6/4;
@@ -62,7 +65,7 @@ accompany = \notes \relative c{
 
 			slurVerticalDirection = #1
 			verticalDirection = -1
-			autoBeamSettings \push (end * * * *)  = #(make-moment 1 2)
+			autoBeamSettings \override (end * * * *)  = #(make-moment 1 2)
 		}
 	}
 	\midi {

@@ -57,6 +57,7 @@ Span_bar::before_line_breaking (SCM smob)
 }
 
 MAKE_SCHEME_CALLBACK(Span_bar,center_on_spanned_callback,2);
+
 SCM
 Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
 {
@@ -69,7 +70,12 @@ Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
     Bar::brew_molecule delivers a barline of y-extent (-h/2,h/2), so
     we have to translate ourselves to be in the center of the 
     interval that we span.  */
-
+  if (i.empty_b ())
+    {
+      me->suicide();
+      return gh_double2scm (0.0);
+    }
+  
   return gh_double2scm (i.center ());
 }
 

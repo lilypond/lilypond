@@ -15,7 +15,7 @@ Time_scaled_music::Time_scaled_music (int n, int d,Music *mp)
 {
   set_mus_property ("numerator", gh_int2scm (n));
   set_mus_property ("denominator", gh_int2scm (d));
-  set_mus_property ("type",
+  set_mus_property ("iterator-ctor",
 		    Time_scaled_music_iterator::constructor_cxx_function);
   
   compress (Moment (n,d));
