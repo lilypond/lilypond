@@ -57,7 +57,7 @@ Paper_score			1
 Paper_def		1
 Performer		1
 Performer_group_performer	1
-Request			1
+Request			0
 Request_iterator	1
 Rest_collision		1
 Rest_collision_engraver 1
