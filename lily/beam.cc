@@ -522,7 +522,7 @@ Beam::print (SCM grob)
 
       Direction stem_dir = stems.size() ? to_dir (stems[0]->get_property ("direction")) : UP;
     
-      Stencil tm = *unsmob_stencil (Text_item::interpret_markup
+      Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
 	 (me->get_paper ()->self_scm (), properties, quant_score));
       the_beam.add_at_edge (Y_AXIS, stem_dir, tm, 1.0, 0);
     }

@@ -60,7 +60,7 @@ Balloon_interface::print (SCM smob)
   SCM chain = Font_interface::text_font_alist_chain (me);
   chain = scm_cons (me->get_property ("balloon-text-props"), chain);
 
-  SCM text = Text_item::interpret_markup (me->get_paper ()->self_scm (),
+  SCM text = Text_interface::interpret_markup (me->get_paper ()->self_scm (),
 					  chain, bt);
 
   Stencil *text_stil = unsmob_stencil (text);

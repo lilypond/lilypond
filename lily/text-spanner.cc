@@ -93,8 +93,8 @@ Text_spanner::print (SCM smob)
 	  
 	  SCM text = index_get_cell (edge_text, d);
 
-	  if (Text_item::markup_p (text)) 
-	    edge[d] = *unsmob_stencil (Text_item::interpret_markup (paper->self_scm (), properties, text));
+	  if (Text_interface::markup_p (text)) 
+	    edge[d] = *unsmob_stencil (Text_interface::interpret_markup (paper->self_scm (), properties, text));
 	  
 	  if (!edge[d].is_empty ())
 	    edge[d].align_to (Y_AXIS, CENTER);

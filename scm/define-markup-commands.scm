@@ -39,7 +39,7 @@
 (def-markup-command (encoded-simple paper props sym str) (symbol? string?)
   "A text string, encoded with encoding @var{sym}. See
 @usermanref{Text encoding} for more information."
-  (Text_item::interpret_string paper
+  (Text_interface::interpret_string paper
 			       props sym str))
 
 
@@ -622,7 +622,7 @@ around the markup."
   
   "Create a box of the same height as the space in the current font."
   
-  (let ((m (Text_item::interpret_markup paper props " ")))
+  (let ((m (Text_interface::interpret_markup paper props " ")))
     (ly:stencil-set-extent! m X '(1000 . -1000))
     m))
 
@@ -651,7 +651,7 @@ around the markup."
    "Make a markup letter for @var{num}.  The letters start with A to Z
  (skipping I), and continues with double letters."
  
-   (Text_item::interpret_markup paper props (number->markletter-string num)))
+   (Text_interface::interpret_markup paper props (number->markletter-string num)))
 
 
 

@@ -136,7 +136,6 @@ Dynamic_engraver::process_music ()
     Note: line-spanner must always have at least same duration
     as (de)crecsendo, b.o. line-breaking.
   */
-
   
 
   /*
@@ -267,13 +266,13 @@ Dynamic_engraver::process_music ()
 		}
 	    }
 
-	  cresc_->set_bound (LEFT, script_
-			     ? script_
-			     : unsmob_grob (get_property ("currentMusicalColumn")));
-
+	  if (script_)
+	    {
+	      cresc_->set_bound (LEFT, script_);
+	      add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
+	    }
+	  
 	  Axis_group_interface::add_element (line_spanner_, cresc_);
-
-	  add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
 	}
     }
 }
@@ -284,12 +283,17 @@ Dynamic_engraver::stop_translation_timestep ()
   typeset_all ();
   if (!current_cresc_ev_)
     {
-      
       finished_line_spanner_ = line_spanner_;
       line_spanner_ = 0;
       typeset_all ();
     }
 
+  if (cresc_ && !cresc_->get_bound (LEFT))
+    {
+      cresc_->set_bound (LEFT, unsmob_grob (get_property ("currentMusicalColumn")));
+      add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
+    }
+  
   script_ev_ = 0;
   accepted_spanreqs_drul_[START] = 0;
   accepted_spanreqs_drul_[STOP] = 0;
@@ -396,6 +400,15 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	  if (ly_c_pair_p (head))
 	    script_->set_parent (unsmob_grob (ly_car (head)),  X_AXIS);
 	}
+
+
+
+      if (cresc_ && !cresc_->get_bound (LEFT))
+	{
+	  cresc_->set_bound (LEFT, info.grob_);
+	  add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
+	}
+        
     }
   else if (Script_interface::has_interface (info.grob_) && script_)
     {

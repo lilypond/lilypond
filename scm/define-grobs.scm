@@ -136,7 +136,7 @@
     
     (BarNumber
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(breakable . #t)
 	(break-visibility . ,begin-of-line-visible)
 	(padding . 1.0)
@@ -159,7 +159,7 @@
 
     (BassFigure
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . 1)
 	(font-family . number)
@@ -267,7 +267,7 @@
 			(first-note . (fixed-space . 1.0)) ;huh? 
 			(right-edge . (extra-space . 0.1))
 			))
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(text . ,(make-musicglyph-markup "scripts-rcomma"))
 	(Y-offset-callbacks . (,Breathing_sign::offset_callback))
 	(break-visibility . ,begin-of-line-invisible)
@@ -314,7 +314,7 @@
 
     (ChordName
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(after-line-breaking-callback . ,Chord_name::after_line_breaking)
 	(word-space . 0.0)
 	(font-family . sans)
@@ -376,7 +376,7 @@
     (DynamicText
      . (
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_parent))
 	(self-alignment-X . 0)
@@ -442,7 +442,7 @@
 
     (Fingering
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 
 	; sync with TextScript (?)
 	(padding . 0.5)
@@ -510,7 +510,7 @@
 			))
 
 	(self-alignment-Y . 0)
-	(print-function . ,Text_item::print)		
+	(print-function . ,Text_interface::print)		
 	(break-align-symbol . instrument-name)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
@@ -525,7 +525,7 @@
 	(space-alist . ((left-edge . (extra-space . 1.0))
 			))
 	(break-align-symbol . instrument-name)
-	(print-function . ,Text_item::print)		
+	(print-function . ,Text_interface::print)		
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
@@ -616,7 +616,7 @@
 	))
 
     (LyricText
-     . ((print-function . ,Text_item::print)
+     . ((print-function . ,Text_interface::print)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_parent))
 	(self-alignment-X . 0)
 	(word-space . 0.6)
@@ -636,7 +636,7 @@
 
     (RehearsalMark
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(after-line-breaking-callback . ,shift-right-at-line-begin)
@@ -653,7 +653,7 @@
 	))
      (MetronomeMark
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))	
 	(direction . 1)
 	(padding . 0.8)
@@ -687,7 +687,7 @@
     
     (MultiMeasureRestNumber
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_other_axis_parent))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -700,7 +700,7 @@
 	))
     (MultiMeasureRestText
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_other_axis_parent))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -767,7 +767,7 @@
 
     (NoteName
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(meta . ((interfaces . (note-name-interface
 				text-interface font-interface item-interface ))))
 	))
@@ -778,7 +778,7 @@
 	(break-visibility . ,begin-of-line-visible)
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent ,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 
 	;; no Y dimensions, because of lyrics under tenor clef.
 	(Y-extent . (0 . 0))
@@ -958,7 +958,7 @@
 	))
 
     (StanzaNumber
-     . ((print-function . ,Text_item::print)		
+     . ((print-function . ,Text_interface::print)		
 	(font-series . bold)
 	(padding . 1.0)
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -976,7 +976,7 @@
 
     (SostenutoPedal
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(direction . 1)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(no-spacing-rods . #t)
@@ -1147,7 +1147,7 @@
 
     (TextScript
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(no-spacing-rods . #t)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . -1)
@@ -1161,7 +1161,7 @@
 	))
     (CombineTextScript
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(no-spacing-rods . #t)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
@@ -1219,7 +1219,7 @@
     (TabNoteHead
      . (
 	(style . default)
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
 	(extra-offset . (0 . -0.65)) ;; UGH! TODO: Clean this up!
 	(stem-attachment-function . ,tablature-stem-attachment-function)
@@ -1255,7 +1255,7 @@
     (TimeSignature
      . (
 	(print-function . ,Time_signature::print)
-;	(print-function . ,Text_item::print)	
+;	(print-function . ,Text_interface::print)	
 	(break-align-symbol . time-signature)
 	(break-visibility . ,all-visible)
 	(space-alist . (
@@ -1287,7 +1287,7 @@
 
     (UnaCordaPedal
      . (
-	(print-function . ,Text_item::print)
+	(print-function . ,Text_interface::print)
 	(font-shape . italic)
 	(no-spacing-rods . #t)
 	(self-alignment-X . 0)

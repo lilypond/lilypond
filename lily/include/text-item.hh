@@ -15,7 +15,7 @@
 #include "lily-guile.hh"
 #include "stencil.hh"
 
-class Text_item
+class Text_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
@@ -23,11 +23,6 @@ public:
   DECLARE_SCHEME_CALLBACK (interpret_string, (SCM, SCM, SCM, SCM));
   static bool has_interface (Grob*);
   static bool markup_p (SCM) ;
-
 };
-
-
-  
-
 
 #endif /* TEXT_ITEM */
