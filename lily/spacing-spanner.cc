@@ -244,8 +244,8 @@ Spacing_spanner::prune_loose_columns (Grob*me, Link_array<Grob> *cols, Rational 
 
 	  Rod r;
 	  r.distance_ = dists[LEFT] + dists[RIGHT];
-	  r.item_l_drul_[LEFT] = dynamic_cast<Item*> (cols->elem (i-1));
-	  r.item_l_drul_[RIGHT] = dynamic_cast<Item*> (cols->elem (i+1));
+	  r.item_drul_[LEFT] = dynamic_cast<Item*> (cols->elem (i-1));
+	  r.item_drul_[RIGHT] = dynamic_cast<Item*> (cols->elem (i+1));
 
 	  r.add_to_cols ();
 	}

@@ -28,7 +28,7 @@ DECLARE_UNSMOB(Spring_smob, spring);
 
 struct Spring
 {
-  Drul_array<Item*> item_l_drul_;
+  Drul_array<Item*> item_drul_;
   Real distance_;
   bool expand_only_b_;
 

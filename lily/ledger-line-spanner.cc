@@ -8,7 +8,9 @@
 */
 
 #include <map>
+#include <set>
 
+#include "item.hh"
 #include "note-head.hh" 
 #include "staff-symbol-referencer.hh" 
 #include "staff-symbol.hh" 
@@ -20,6 +22,7 @@
 struct Ledger_line_spanner
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM ));
+  DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));
   static Stencil brew_ledger_lines (Grob *me,
 				    int pos,
 				    int interspaces,
@@ -79,6 +82,99 @@ Ledger_line_spanner::brew_ledger_lines (Grob *staff,
 }
 
 
+typedef std::map<int, Drul_array<Interval> > Head_extents_map;
+typedef std::map<int, Grob*> Column_map;
+
+MAKE_SCHEME_CALLBACK (Ledger_line_spanner, set_spacing_rods, 1);
+SCM
+Ledger_line_spanner::set_spacing_rods (SCM smob)
+{
+  Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (smob));
+
+  // find size of note heads.
+  Grob * staff = Staff_symbol_referencer::get_staff_symbol (me);
+  if (!staff)
+    return SCM_EOL;
+
+  Link_array<Grob> heads (Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-heads"));
+  
+  if (heads.is_empty ())
+    return SCM_EOL;
+  
+  Real min_length_fraction
+    = robust_scm2double (me->get_property ("minimum-length-fraction"), 0.15);
+  
+  Head_extents_map head_extents;
+  Column_map columns;
+  
+  int interspaces = Staff_symbol::line_count (staff)-1;
+  for (int i = heads.size (); i--; )
+    {
+      Item *h = dynamic_cast<Item*> (heads[i]);
+      
+      int pos = Staff_symbol_referencer::get_rounded_position (h);
+      if (pos
+	  && abs (pos) > interspaces)
+	{
+	  Grob *column = h->get_column ();
+	  int rank = Paper_column::get_rank (column);
+
+	  Interval head_extent = h->extent (column, X_AXIS);
+	  Direction vdir = Direction (sign (pos));
+	  if (!vdir)
+	    continue;
+	  
+	  Interval prev_extent; 
+
+	  Head_extents_map::iterator j = head_extents.find (rank);
+	  if (j != head_extents.end ())
+	    prev_extent = (*j).second[vdir];
+	  else
+	    columns[rank] = column;
+	  
+	  prev_extent.unite (head_extent);
+	  head_extents[rank][vdir] = prev_extent;
+	}
+    }
+
+  for (Column_map::const_iterator c (columns.begin()); c != columns.end(); c++)
+    {
+      Grob *column = (*c).second;
+      int rank = (*c).first;
+
+      int next_rank = rank + 2;
+      
+      if (head_extents.find (next_rank) != head_extents.end ())
+	{
+	  Drul_array<Interval> extents_left = head_extents[rank]; 
+	  Drul_array<Interval> extents_right = head_extents[next_rank]; 
+
+	  Direction d = DOWN;
+	  do
+	    {
+	      if (!extents_right[d].is_empty () && !extents_right[d].is_empty ())
+		{
+		  Real l1 = extents_right[d].length() * min_length_fraction;
+		  Real l2 = extents_left[d].length() * min_length_fraction;
+
+		  Rod rod;
+		  rod.distance_ = l1 + l2 + (l1+ l2)/2.0
+		    + extents_left[d][RIGHT]
+		    - extents_right[d][LEFT];
+		  
+		  rod.item_drul_[LEFT] = dynamic_cast<Item*> (column);
+		  rod.item_drul_[RIGHT] = dynamic_cast<Item*> (columns[next_rank]);
+		  rod.add_to_cols ();
+		}
+	    }
+	  while (flip (&d) != DOWN);
+	}
+    }
+
+  return SCM_UNSPECIFIED;
+}
+
+
 struct Ledger_request
 {
   Interval ledger_extent_;
@@ -115,6 +211,9 @@ Ledger_line_spanner::print (SCM smob)
     return SCM_EOL;
   
     
+  Real length_fraction
+    = robust_scm2double (me->get_property ("length-fraction"), 0.25);
+
   Stencil ledgers;
   Stencil default_ledger;
 
@@ -131,7 +230,6 @@ Ledger_line_spanner::print (SCM smob)
 
   int interspaces = Staff_symbol::line_count (staff)-1;
   Ledger_requests reqs;
-  Real length_fraction = 0.25;
   for (int i = heads.size (); i--; )
     {
       Item *h = dynamic_cast<Item*> (heads[i]);
@@ -239,7 +337,6 @@ Ledger_line_spanner::print (SCM smob)
 	}
     }
 
-
   ledgers.translate_axis (-me->relative_coordinate (common[X_AXIS], X_AXIS),
 			  X_AXIS);
   
@@ -249,7 +346,7 @@ Ledger_line_spanner::print (SCM smob)
 ADD_INTERFACE (Ledger_line_spanner,
 	       "ledger-line-interface",
 	       "This spanner draws the ledger lines of a staff, for note heads that stick out. ",
-	       "note-heads thickness gap length minimum-length");
+	       "note-heads thickness minimum-length-fraction length-fraction gap");
 
 
 struct Ledgered_interface { 

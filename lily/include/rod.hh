@@ -15,7 +15,7 @@
 
 struct Rod
 {
-  Drul_array <Item*> item_l_drul_;
+  Drul_array <Item*> item_drul_;
   Real distance_;
 
   /**
