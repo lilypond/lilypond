@@ -1,19 +1,19 @@
 \header{
-filename	scsii-menuetto.ly
-title		Solo Cello Suites, Suite II part V, Menuetto I
-description	Cello suite transcribed for Viola
-source		?
-opus		BWV 1008 no. 5
-composers	Johann Sebastian Bach (1685-1750)
-enteredby	JCN
-copyright	public domain
+filename =	 "scsii-menuetto.ly";
+title =	 "Solo Cello Suites, Suite II part V, Menuetto I";
+description =	 "Cello suite transcribed for Viola";
+source =	 "?";
+opus =	 "BWV 1008 no. 5";
+composers =	 "Johann Sebastian Bach (1685-1750)";
+enteredby =	 "JCN";
+copyright =	 "public domain";
 }
 
 %{
  Tested Features:breaking algorithm, chords, multivoice, accents
 %}
 
-\version "0.1.6";
+\version "0.1.7";
 
 %% Stuff from MPP version
 % \lefttitle{Menuetto}

@@ -1,18 +1,18 @@
 \header{
-filename		wohltemperirt.ly
-title		Fuga a 3
-description		Das Wohltemperierte Clavier I, Fuga II (c-minor)
-opus		BWV 847-Fuga
-source		Henle's Urtext
-composer		Johann Sebastian Bach (1685-1750)
-enteredby		HWN and Werner Lemberg
-copyright		Public Domain
+filename =	 "wohltemperirt.ly";
+title =	 "Fuga a 3";
+description =	 "Das Wohltemperierte Clavier I, Fuga II (c-minor)";
+opus =	 "BWV 847-Fuga";
+source =	 "Henle's Urtext";
+composer =	 "Johann Sebastian Bach (1685-1750)";
+enteredby =	 "HWN and Werner Lemberg";
+copyright =	 "Public Domain";
 }
 %{
  Tested Features: stem direction, multivoice, forced accidentals.
 %}
 
-\version "0.1.6";
+\version "0.1.7";
 
                                     % should add \need{dutch.ini} for
                                     % correct parsing of note names

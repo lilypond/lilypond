@@ -1,14 +1,14 @@
 \header{
-filename		prelude1.ly
-title			Preludium
-description		Das Wohltemperierte Clavier I, Prelude I (c-major)
-opus			BWV 846
-composer		Johann Sebastian Bach (1685-1750)
-enteredby		Shay Rojansky
-copyright		Public Domain
+filename =	 "prelude1.ly";
+title =	 "Preludium";
+description =	 "Das Wohltemperierte Clavier I, Prelude I (c-major)";
+opus =	 "BWV 846";
+composer =	 "Johann Sebastian Bach (1685-1750)";
+enteredby =	 "Shay Rojansky";
+copyright =	 "Public Domain";
 }
 
-\version "0.1.6";
+\version "0.1.7";
 
 global = 
     \melodic {

@@ -1,8 +1,8 @@
 \header{
-filename	multi.ly
-description	stupid testfile for pl68 features.
-enteredby	HWN
-copyright	public domain
+filename =	 "multi.ly";
+description =	 "stupid testfile for pl68 features.";
+enteredby =	 "HWN";
+copyright =	 "public domain";
 }
 %{
 Tested Features: \multi
@@ -10,7 +10,7 @@ Tested Features: \multi
 %}
 
 
-\version "0.1.6";
+\version "0.1.7";
 
 \score{
 	\melodic 

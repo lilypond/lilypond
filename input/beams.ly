@@ -1,16 +1,15 @@
-%{MudelaHeader
 
- filename: beams.ly
- title: 
- description: 
- composer(s): heu
- entered-by: jcn
- copyright: PD
+\header{
+filename =	 "beams.ly";
+title =	 "";
+description =	 "";
+composer =	 "heu";
+enteredby =	 "jcn";
+copyright =	 "PD";
 
- Tested Features: beams and beamflags
-EndMudelaHeader
-%}
-\version "0.1.6"
+TestedFeatures =	 "beams and beamflags";
+}
+\version "0.1.7"
 
 \score{
 	\melodic \multi 3 < 
