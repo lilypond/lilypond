@@ -47,6 +47,8 @@ public:
   Link_array<Translator_def> path_to_acceptable_translator (SCM type_str, Music_output_def* odef) const;
   Translator_group * instantiate (Music_output_def*);
 
+  SCM to_alist () const;
+
   static SCM make_scm () ;
   static void apply_pushpop_property (Translator_group*, SCM syms, SCM eprop, SCM val);
 

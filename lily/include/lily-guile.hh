@@ -84,9 +84,11 @@ void add_scm_init_func (void (*)());
 typedef SCM(*Scheme_function_unknown)();
 
 #if __GNUC_MINOR__ >= 96
+typedef SCM(*Scheme_function_0)();
 typedef SCM(*Scheme_function_1)(SCM);
 typedef SCM(*Scheme_function_2)(SCM,SCM);	 
 #else
+typedef SCM(*Scheme_function_0)(...);
 typedef SCM(*Scheme_function_1)(...);
 typedef SCM(*Scheme_function_2)(...);
 #endif

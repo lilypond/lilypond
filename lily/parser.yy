@@ -1679,9 +1679,14 @@ My_lily_parser::set_yydebug (bool b)
 	yydebug = b;
 #endif
 }
+
+extern My_lily_parser * current_parser;
+
 void
 My_lily_parser::do_yyparse ()
 {
+
+	current_parser = this;;
 	yyparse ((void*)this);
 }
 

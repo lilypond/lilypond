@@ -27,11 +27,12 @@ class Engraver : public virtual Translator {
 protected:
   /// utility
   Paper_def * paper_l() const;
-  /**
-    Invoke walker method to typeset element. Default: pass on to daddy.
-    */
+
+  /*
+    Call this last thing.
+   */
   virtual void typeset_element (Score_element*elem_p);
-  /**
+  /*
     take note of item/spanner
     put item in spanner. Adjust local key; etc.
 

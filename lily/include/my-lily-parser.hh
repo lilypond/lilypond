@@ -9,6 +9,7 @@
 
 #ifndef MY_LILY_PARSER_HH
 #define MY_LILY_PARSER_HH
+
 #include "lily-proto.hh"
 #include "string.hh"
 #include "parray.hh"
@@ -25,7 +26,6 @@
    musical content here.  We still have to remove default_duration_.
 
    TODO: interface is too complicated
-
 */
 class My_lily_parser 
 {
@@ -57,14 +57,19 @@ public:
   void parser_error (String);
 
   void set_yydebug (bool);
+
+
+  DECLARE_SCHEME_CALLBACK(paper_description, ());
 private:
-  
+
   Array<Input> define_spot_array_;
 
   char const* here_ch_C() const;
 
-  Simultaneous_music * get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p, Musical_pitch* inversion_p, Musical_pitch* bass_p, Duration d);
-
+  Simultaneous_music * get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
+				  Array<Musical_pitch>* sub_arr_p, Musical_pitch* inversion_p,
+				  Musical_pitch* bass_p, Duration d);
+  
   void set_chord_tremolo (int type_i);
   void set_last_duration (Duration const *);
   void set_last_pitch (Musical_pitch const *);
