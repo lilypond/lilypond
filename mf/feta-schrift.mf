@@ -409,8 +409,8 @@ fet_beginchar("Trill (`tr')","trill","trill")
 
 	ascender_extra# = 1/2 ex#;
 	ascender# = ascender_extra# + ex#;
-	ex# = 1.5 staff_space#;
-	kerning# = .75 ex#;
+	ex# = 1.4 staff_space#;
+	kerning# = .60 ex#;
 	start_nib_angle = 20;
 	bulb_size = 0.47;
 	define_pixels(ex, ascender_extra, ascender, kerning);
@@ -447,7 +447,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	path t_p, krul_p, r_p;
 
 
-	t_p := z1l -- z2l{down} .. tension (1 + .5 slant)
+	t_p := simple_serif (z1r, z1l, -30) -- z2l {down} .. tension (1 + .5 slant)
 		.. z3l{right} 
 		
 		.. z4l{up} -- z4r{down} 
@@ -461,7 +461,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	z5 = (t_fatness/2, 2/3 ex);
 	
 	lft x6 = - uitschieter;
-	y6 =  y5 - 1/20 ex;
+	y6 =  y5 ; % - 1/20 ex;
 
 	z7 = z5 + whatever*dir krul_ang;
 	up_angle = krul_ang;
@@ -480,14 +480,14 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	penpos9(r_fatness, 0);
 
 	x10 = x9;
-	y10 = 0;
+	y10 =  -0.3 stafflinethickness;
 	penpos10(r_fatness, 0);
 
 	krul_p := z4{up} .. tension 1.1  .. z5 
-		.. tension 1 and .75 .. {down}z6
+		.. tension 1 and .75 .. z6
 		.. tension .85 and 1.1 .. z5 --- z7;
 	draw krul_p;
-	r_p := z7l{z7-z5} .. z8l{right} .. z9l{down} --- z10l -- z10r
+	r_p := z7l{z7-z5} .. z9l{down} --- simple_serif (z10l, z10r, -30)
 		--- z9r{up} 
 		..  z8r{left} ..  z7r{z5-z7} -- cycle;
 	fill r_p;
