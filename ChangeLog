@@ -1,3 +1,10 @@
+2004-11-14  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/output-gnome.scm: Add ec-fonts-mftraced to ~/.fonts.conf.
+	Grok ec-fonts, braces and dynamics.
+
+	* scm/framework-gnome.scm (gnome-main): Register braces with pango.
+
 2004-11-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/output-gnome.scm (text): comment dribble.
