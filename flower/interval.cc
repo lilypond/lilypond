@@ -31,6 +31,29 @@ Interval::intersect(Interval h)
     min = MAX(h.min, min);
     max = MIN(h.max, max);
 }
+Interval
+intersection(Interval a, Interval const&b)
+{
+    a.intersect(b);
+    return a;
+    
+}
+int
+Interval::compare(const Interval&a,Interval const&b)
+{
+    if (a.min == b.min && a.max == b.max)
+	return 0;
+    
+    if (a.min <= b.min && a.max >= b.max)
+	return 1;
+
+    if (a.min >= b.min && a.max <= b.max)
+	return -1;
+
+    assert(false);		// not comparable
+
+    return 0;
+}
 
 Interval
 intersect(Interval x, Interval const &y)
@@ -47,4 +70,9 @@ Interval::operator String() const
     String s("[");
  
     return s + min + "," + max +"]";
+}
+bool
+Interval::elt_q(Real r)
+{
+    return r >= min && r <= max;
 }

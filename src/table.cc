@@ -31,6 +31,8 @@ static Keyword_ent the_key_tab[]={
     "staff", STAFF,
     "start", START_T,
     "table", TABLE,
+    "symboltables", SYMBOLTABLES,
+    "texid", TEXID,
     "chord", CHORD,
     "multi", MULTI,
     "unitspace", UNITSPACE,
@@ -39,6 +41,7 @@ static Keyword_ent the_key_tab[]={
     "voices", VOICES,
     "width", WIDTH,
     "music", MUSIC,
+    "grouping", GROUPING,
     0,0
 };
 
@@ -69,8 +72,7 @@ add_identifier(Identifier*i)
 
 void
 delete_identifiers()
-{
-    
+{    
     for (Assoc_iter<String,Identifier*> ai(the_id_tab); ai.ok(); ai++) {
 	mtor << "deleting: " << ai.key()<<'\n';
 	delete ai.val();

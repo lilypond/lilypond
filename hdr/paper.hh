@@ -6,6 +6,7 @@
 struct Paperdef {
     Lookup *lookup_;
     String outfile;
+
     Real linewidth;
 
     /// how much space does a whole note take (ideally?)
@@ -15,8 +16,9 @@ struct Paperdef {
     Real geometric_;
     
     /****************/
-    void parse();
-    Paperdef();
+    void reinit();
+    Paperdef(Lookup*);
+    void set(Lookup*);
     ~Paperdef();
     Real interline()const;
     Real internote()const;

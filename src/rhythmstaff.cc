@@ -43,9 +43,9 @@ Rhythmic_staff::get_notehead(Note_req *rq, int)
 }
 
 Stem *
-Rhythmic_staff::get_stem(Stem_req*rq)
+Rhythmic_staff::get_stem(Stem_req*rq, Real l)
 {
-    Stem * s = new Stem(0);
+    Stem * s = new Stem(0,l);
     s->flag = rq->stem_number;
     return s;    
 }

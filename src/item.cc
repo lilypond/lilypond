@@ -60,8 +60,10 @@ Item::Item()
 void
 Item::print() const
 {
-    assert(output);
-    output->print();
+#ifndef NPRINT
+    if (output)
+	output->print();
+#endif
 }
 
 Paperdef*

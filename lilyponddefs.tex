@@ -4,8 +4,8 @@
 \def\mdef#1#2{\def#1{{\musicfnt\char#2}}}
 
 %% musix defs
-	\parindent=0pt
-	\newdimen\interlinedist
+\parindent=0pt
+\newdimen\interlinedist
 	\newcount\n
 	\newdimen\balkhoog
 	\newdimen\staffrulethickness
@@ -21,6 +21,21 @@
 	\font\musicfnt=musix20
 	\balkhoog=20pt
 	\staffrulethickness=0.4pt
+
+	\musixcalc
+}
+\def\musixsixteendefs{
+	\font\slurufont=xslu16
+	\font\slurdfont=xsld16
+	\font\slurhfont=xslz20 % sigh
+	\font\hslurufont=xslhu16
+	\font\hslurdfont=xslhd16
+	\font\hslurhfont=xslhz20
+	\font\musicfnt=musix16
+	\balkhoog=16pt
+	\staffrulethickness=0.4pt
+
+	\musixcalc
 }
 
 \def\musixcalc{
@@ -31,8 +46,6 @@
 }
 
 
-\musixtwentydefs
-\musixcalc
 \def\slurcharh#1{{\slurhfont\char#1}}
 \def\slurcharu#1{{\slurufont\char#1}}
 \def\slurchard#1{{\slurdfont\char#1}}
@@ -87,8 +100,6 @@
 
 \def\interstaffline{%
 	\vskip 10pt
-%	\nointerlineskip
-%	\vbox{\hbox to 0pt{\vrule width20pt height1pt\hss}}
 }
 \def\ugly{\nointerlineskip\par
 \vskip 40pt\par\vbox{\hbox to 0pt{\vrule width30pt height1pt\hss}}\par\vskip 40pt

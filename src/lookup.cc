@@ -5,26 +5,35 @@
 #include "tex.hh"
 #include "scalar.hh"
 
+
+Lookup::Lookup()
+{
+    texsetting = "\\unknowntexsetting";
+    symtables_ = new Symtables;
+}
+
+Lookup::Lookup(Lookup const &s)
+{
+    texsetting = s.texsetting;
+    symtables_ = new Symtables(*s.symtables_);
+}
+Lookup::~Lookup()
+{
+    delete symtables_;
+}
+
+void
+Lookup::add(String s, Symtable*p)
+{
+    symtables_->add(s, p);
+}
+
+/****************/
+
 Real
 Lookup::internote()
 {
     return ball(4).dim.y.length()/2;
-}
-
-void
-Lookup::parse(Text_db&t)
-{
-    symtables_->read(t) ;
-}
-
-Lookup::Lookup()
-{
-    symtables_ = new Symtables;
-}
-
-Lookup::~Lookup()
-{
-    delete symtables_;
 }
 
 Symbol
@@ -100,8 +109,6 @@ Lookup::streepjes(int i)
     return ret;
 }
 
-/****************************************************************/
-// bare bones.
 
 
 Symbol
@@ -121,9 +128,6 @@ Lookup::linestaff(int lines, Real wid)
     
     return s;
 }
-
-/****************************************************************/
-
 
 
 Symbol
@@ -156,5 +160,3 @@ Lookup::stem(Real y1,Real y2)
     s.tex = substitute_args(src,a);
     return s;
 }
-
-

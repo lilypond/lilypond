@@ -47,7 +47,7 @@ Input_score::~Input_score()
 
 Input_score::Input_score()
 {
-    paper_=new Paperdef;
+    paper_= 0;
 }
 
 void

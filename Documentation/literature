@@ -1,0 +1,76 @@
+\chapter{References \& Further reading}
+
+Herbert Chlapik, 
+
+Ren\'e Roelofs, ``Een Geautomatiseerd Systeem voor het Afdrukken van
+Muziek'' afstudeerscriptie Bestuurlijke informatica, no 45327, Erasmus
+universiteit Rotterdam, 1991.  (``An automated system for printing
+music'' Master's Thesis Management and Computer Science.)
+
+G. Read, ``Modern Rhythmic Notation.'' Indiana University Press, 1978.
+
+C. Roemer,  The Art of Music Copying. Roerick music co., Sherman Oaks (CA), 1973.
+
+Donemus, Uitgeven van muziek. Donemus Amsterdam, 1900
+
+W.A. Hegazy and J. S. Gourlay. Optimal line breaking in music. In
+``Document Manipulation and Typography'',J.C. van Vliet (ed) 1988.
+
+\begin{verbatim}
+Date: Thu, 03 Aug 1995 22:55:48 -0700
+From: Mark Basinski <basinski@arizona.edu>
+To: Han-Wen Nienhuys <hanwen@stack.urc.tue.nl>
+Newsgroups: comp.music, comp.text.tex
+Subject: Re: [WANTED] references on typesetting music
+ 
+(A copy of this message has also been posted to the following newsgroups:
+comp.music, comp.text.tex)
+ 
+In article <3vqr50$den@turtle.stack.urc.tue.nl>, hanwen@stack.urc.tue.nl
+(Han-Wen Nienhuys) wrote:
+ 
+> I am currently typesetting music with a preprocessor to the TeX package
+> MusiXTeX, and I want to enhance this preprocessor with an some sort of
+> algorithm to do spacing. Currently the output looks nice, but there are some
+> flaws in the spacing when I combine accidentals, slurs, triplets and strange
+> pitchjumps and so on. Therefore I am interested in all literature on
+> typesetting music.  The FAQS for comp.music did not have any references.
+> 
+Probably the best 2 reference books are:
+ 
+1) ``Teach yourself the art of music engraving and processing'' by Ted Ross   
+(3rd edition), published by Hansen House, Miami Beach, FL.
+ 
+Hansen House
+1820 West Ave.
+Miami, FL  33139
+(305) 532-5461
+ 
+This is about *engraving* i.e. professional music typesetting, and includes 
+some good spacing tables
+ 
+2) ``Music Notation'' by Gardner Read (2nd edition), published by Taplinger
+Publishing, New York.
+ 
+This is as close to the ``standard'' reference work for music notation issues
+as one is likely to get.
+ 
+Some others (of varying usefulness):
+ 
+Donato, Anthony. Preparing Music Manuscript. Englewood Cliffs:
+Prentice-Hall, 1963.
+ 
+Heussenstamm, George. The Norton Manual of Music Notation. New York:
+Norton, 1987.
+ 
+Karkoshka, Erdhard. Notation in New Music. Trans. Ruth Koenig. New York:
+Praeger    Publishers, 1972.  Out of print.
+ 
+Roemer, Clinton. The Art of Music Copying. Roerick Music. Sherman Oaks, 1973.
+ 
+Rosecrans, Glen. Music Notation Primer. New York: Passantino, 1979.
+ 
+Stone, Kurt. Music Notation in the Twentieth Century. New York: Norton, 1980.
+ 
+\end{verbatim}
+ 

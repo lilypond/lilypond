@@ -14,6 +14,7 @@
 Simple_column::Simple_column(Score_column*s, Simple_staff *rs)
     : Staff_column(s)
 {
+    stem_requester_len = 0;
     stem_ = 0;    
     staff_ = rs;
     beam_ = 0;
@@ -45,6 +46,7 @@ Simple_column::process_requests()
 	    }
 	    if (rq->stem()) {
 		stem_ = rq->stem();
+		stem_requester_len = v_elts[i]->duration;
 	    }
 
 	    if (rq->beam()) {

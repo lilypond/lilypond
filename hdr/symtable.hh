@@ -9,13 +9,17 @@
 
 struct  Symtable : public Assoc<String, Symbol> {
     Symbol lookup(String)const;
+    
 };
 
 
 struct Symtables : private Assoc<String, Symtable*> {
-    void read(Text_db&) ;
+    
     Symtable* operator()(String s);
-
+    ~Symtables();
+    Symtables();
+    Symtables(Symtables const&);
+    Assoc<String, Symtable*>::add;
 };
 
 

@@ -16,7 +16,7 @@ struct Rhythmic_staff : public Simple_staff
     /****************/
     
     virtual Item *get_TYPESET_item(Command*);    
-    virtual Stem *get_stem(Stem_req *rq);
+    virtual Stem *get_stem(Stem_req *rq,Real);
     virtual Notehead * get_notehead(Note_req *rq, int b);   
     virtual void set_output(PScore *);
 };

@@ -11,21 +11,21 @@
 
 /// cursor to go with PointerList
 template<class T>
-struct PCursor : public Cursor<void *> {
-
-    /// make cursor with #no# items back
-    PCursor<T> operator -( int no) const {
-	return PCursor<T> (Cursor<void*>::operator-(no));
-    }
-    int operator -(PCursor<T> op) const {
-	return Cursor<void*>::operator-(op);
-    }
-    /// make cursor with #no# items further
-    PCursor<T> operator +( int no) const {
-	return PCursor<T> (Cursor<void*>::operator+(no));
-    }
+struct PCursor : private Cursor<void *> {
+    friend class IPointerList<T>;
+public:
+    Cursor<void*>::ok;
+    Cursor<void*>::del;
+    Cursor<void*>::backspace;
     
-    PCursor(const PointerList<T> & l) : Cursor<void*> (l) {}
+    PointerList<T> &list() { return (PointerList<T>&)Cursor<void*>::list(); }
+    PCursor<T> operator++(int) { return Cursor<void*>::operator++(0);}
+    PCursor<T> operator--(int) { return Cursor<void*>::operator--(0); }
+    PCursor<T> operator+=(int i) { return Cursor<void*>::operator+=(i);}
+    PCursor<T> operator-=(int i) { return Cursor<void*>::operator-=(i); }    
+    PCursor<T> operator -(int no) const { return Cursor<void*>::operator-(no);}
+    int operator -(PCursor<T> op) const { return Cursor<void*>::operator-(op);}
+    PCursor<T> operator +( int no) const {return Cursor<void*>::operator+(no);}    PCursor(const PointerList<T> & l) : Cursor<void*> (l) {}
 
     PCursor( const Cursor<void*>& cursor ) : Cursor<void*>(cursor) { }
     void* vptr() const { return  * ((Cursor<void*> &) *this); }
@@ -36,11 +36,10 @@ struct PCursor : public Cursor<void *> {
     operator T() { return ptr(); }
     T operator *() { return ptr(); }
     void add(const T& p ) { Cursor<void*>::add((void*) p); }
-    void insert(const T& p ) { Cursor<void*>::insert((void*) p);}
-
-private:
-//    Cursor<void*>::operator void*;
-    // sigh
+    void insert(const T& p ) { Cursor<void*>::insert((void*) p);}    
+    static int compare(PCursor<T> a,PCursor<T>b) {
+	return Cursor<void*>::compare(a,b);
+    }
 };
 /**
   don't create PointerList<void*>'s.
@@ -49,13 +48,8 @@ private:
  */
 
 
-template<class T>
-inline  int pcursor_compare(PCursor<T> a,PCursor<T>b)
-{
-    return cursor_compare(Cursor<void*>(a),Cursor<void*> (b));
-}
 
 #include "compare.hh"
-template_instantiate_compare(PCursor<T>, pcursor_compare, template<class T>);
+template_instantiate_compare(PCursor<T>, PCursor<T>::compare, template<class T>);
 
 #endif

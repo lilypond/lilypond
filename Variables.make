@@ -2,12 +2,9 @@
 #### USER CONFIGURABLE
 ####
 
-# speedy
-#DEFINES=-DNDEBUG -DNPRINT -O2
-
-# lots of debugging info
-DEFINES=-g
-
+#PROFILEFLAG=-pg
+OPTIFLAG=-DNDEBUG -DNPRINT -O2
+DEBUGFLAG=-g
 # turn off -pipe if linker doesn't support it
 EXTRACXXFLAGS=-pipe -Wall -W  -pedantic 
 
@@ -15,10 +12,23 @@ EXTRACXXFLAGS=-pipe -Wall -W  -pedantic
 #### EN USER CONFIGURABLE part.
 ####
 
+ifdef PROFILEFLAG
+	DEFINES+=$(OPTIFLAG) $(PROFILEFLAG)
+	EXTRALIB+=-pg
+endif
+
+ifndef DEBUGFLAG
+	DEFINES+=$(OPTIFLAG)
+else
+	DEFINES+=$(DEBUGFLAG)
+endif
+
+
+
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=14
+PATCHLEVEL=15
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 
 # directories
@@ -59,7 +69,7 @@ OFILES=Makefile Variables.make Sources.make COPYING README
 DFILES=$(OFILES) $(IFILES) $(SCRIPTS)
 
 #compiling
-LOADLIBES=-L$(FLOWERDIR) -lflower
+LOADLIBES=-L$(FLOWERDIR) -lflower $(EXTRALIB)
 FLOWERDIR=../flower
 
 CXXFLAGS=$(DEFINES) -I$(HEADERDIR) -I$(FLOWERDIR) $(EXTRACXXFLAGS)

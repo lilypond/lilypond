@@ -5,7 +5,16 @@ ritme = staff {rhythmic
 	c2 c2
 	
 	[fis16 'dis16( fis16 'dis16 ][fis16) 'dis16 fis16 'dis16]
-	c2 r32 r32 r16 r8 r4 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 $}
+	c2 r32 r32 r16 r8 r4
+	[c8. c16]
+	[c16 c8.]
+	[c16 c16 c8]
+	[c16 c8 c16]
+
+	c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2
+
+
+	$}
 }
 
 melody=
@@ -29,6 +38,8 @@ staff { melodic
 	''fis2
 	a8 b8 'c8 'd8 ''c8 ```c8 c4 c4  c4 c4
 	\duration{ 16 } `b `a `g `f \duration{ 4}
+	
+
 	c `b `a `g `f `e `d `c ``b ``a ``g ``f ``e ``d ``c
 	$}
 
@@ -47,6 +58,7 @@ score {
 	paper {
 		geometric 1.4
 		unitspace 3.0 cm
+%		symboltables { table_sixteen}
 	}
 	staff { ritme }
 	staff { melody }

@@ -84,7 +84,7 @@ class Cursor
     /// access the list this came from
     List<T>& list() const ;
     Link<T>* pointer();
-
+    static   int compare(Cursor<T> a,Cursor<T>b) { return a-b; }
 private:
     List<T>& list_;
     Link<T>* pointer_;
@@ -104,13 +104,8 @@ private:
   */
 #include "compare.hh"
 
-template<class T>
-inline  int cursor_compare(Cursor<T> a,Cursor<T>b)
-{
-    return a-b;
-}
 
-template_instantiate_compare(Cursor<T>, cursor_compare, template<class T>);
+template_instantiate_compare(Cursor<T>, Cursor<T>::compare, template<class T>);
 
 #include "pcursor.hh"
 #include "list.hh"

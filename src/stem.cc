@@ -6,16 +6,15 @@
 #include "lookup.hh"
 #include "molecule.hh"
 #include "pcol.hh"
+#include "misc.hh"
 
 const int STEMLEN=7;
-static int
-ABS(int i) {
-    return (i < 0)?-i:i;
-}
 
-
-Stem::Stem(int c)
+Stem::Stem(int c, Real len)
 {
+    note_length = len;
+    beams_left = 0;
+    beams_right = 0;
     minnote = 1000;		// invalid values
     maxnote = -1000;
     bot = top = 0;
@@ -27,7 +26,19 @@ Stem::Stem(int c)
     stem_xoffset=0;
 }
 
+void
+Stem::print() const
+{
+#ifndef NPRINT
+    mtor << "{\n";
+    mtor << "flag "<< flag << " print_flag " << print_flag
+	 << "min,max [" << minnote << ", " << maxnote << "]";
+	
 
+    Item::print();
+    mtor << "}\n";
+#endif
+}
 void
 Stem::set_stemend(Real se)
 {
@@ -49,14 +60,9 @@ Stem::add(Notehead *n)
     if ( p < minnote)
 	minnote = p;
     if ( p> maxnote)
-	maxnote = p;
+	maxnote = p;    
 }
-void
-Stem::print()const
-{
-    mtor << "Stem minmax=["<< minnote<<","<<maxnote<<"], flag: "<<flag;
-    Item::print();
-}
+
 
 void
 Stem::set_default_dir()

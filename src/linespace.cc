@@ -22,6 +22,7 @@ Spacing_problem::col_id(const PCol *w)const
 	if (cols[i].pcol_ == w)
 	    return i;
     assert(false);
+    return -1;
 }
 
 void

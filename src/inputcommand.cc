@@ -21,7 +21,7 @@ Input_command::operator Command()
     c.code = INTERPRET;
     String s = args[0];
         
-    int p;
+    int p=0;
     if (s == "KEY")
 	p = 200;
     else if (s=="CLEF")
@@ -30,6 +30,8 @@ Input_command::operator Command()
 	p = 180;
     else if (s == "BAR")
 	p = 170;
+    else if (s == "GROUPING")
+	p = 160;
     
     c.priority = p;
     c.args = args;
@@ -44,6 +46,17 @@ get_partial_command(Real u)
     Input_command*c = new Input_command;
     c->args.add("PARTIAL");
     c->args.add(u);
+    return c;
+}
+
+Input_command*
+get_grouping_command(svec<int>a ) 
+{
+    Input_command*c = new Input_command;
+    c->args.add("GROUPING");
+    for (int i=0; i < a.sz(); i ++)
+	c->args.add(a[i]);
+
     return c;
 }
 

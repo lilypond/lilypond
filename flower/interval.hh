@@ -48,13 +48,23 @@ struct Interval {
 	max +=r;
 	return *this;
     }
-
+    bool elt_q(Real r);
     operator String() const;
-};
 
+    /// partial ordering
+    static compare(const Interval&,Interval const&);
+};
+/**
+  this represents the closed interval [min,max]
+  */
 
 Interval intersection(Interval, Interval const&);
 
+#include "compare.hh"
+
+instantiate_compare(Interval&, Interval::compare);
+
 #endif // INTERVAL_HH
+
 
 

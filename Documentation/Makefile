@@ -1,6 +1,6 @@
 
 DOCFILES=commands CodingStyle algorithms Makefile breaking\
-	slurfont pointers design
+	slurfont pointers design literature
 
 dist:
 	ln $(DOCFILES) $(DDIR)/Documentation/

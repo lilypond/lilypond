@@ -1,5 +1,6 @@
 // utility functions for PScore
 #include "debug.hh"
+#include "lookup.hh"
 #include "spanner.hh"
 #include "paper.hh"
 #include "molecule.hh"
@@ -147,6 +148,7 @@ PScore::output(Tex_stream &ts)
 {
     int l=1;
 
+    ts << "\n "<<  paper_->lookup_->texsetting << "%(Tex id)\n";
     for (PCursor<Line_of_score*> lic(lines); lic.ok(); lic++) {
 	ts << "% line of score no. " << l++ <<"\n";
 	ts << lic->TeXstring();

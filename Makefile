@@ -4,8 +4,8 @@ $(exe): $(obs)
 	$(CXX) -o $@ $^ $(LOADLIBES)
 
 clean:
-	$(MAKE) -C objects clean
-	rm -f $(exe) *.o $(DOCDIR)/* core  
+#	$(MAKE) -C objects clean
+	rm -f $(exe) objects/*.o $(DOCDIR)/* core  
 
 distclean: clean
 	rm -f  depend version.hh $(gencc) .GENERATE *~
@@ -37,9 +37,18 @@ realdepend: $(cc)
 
 include depend
 
+parsheadorig=$(CCDIR)/parser.tab.h
+parsheadnew=$(HEADERDIR)/parser.hh
+
+#
+# take some trouble to avoid overwriting the old y.tab.h
 $(CCDIR)/parser.cc: parser.y
 	$(BISON) -d $<
-	mv $(CCDIR)/parser.tab.h $(HEADERDIR)/parser.hh
+	(if diff -q $(parsheadorig) $(parsheadnew); then \
+		echo leaving $(parsheadnew);  \
+	else \
+		mv $(parsheadorig) $(parsheadnew); \
+	fi )
 	mv $(CCDIR)/parser.tab.c $@
 
 parser.hh: parser.cc

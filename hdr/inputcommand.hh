@@ -10,7 +10,6 @@
 #include "scalar.hh"
 #include "vray.hh"
 
-
 struct Input_command {
     Real when;
     
@@ -28,6 +27,7 @@ Input_command* get_clef_interpret_command(String w);
 Input_command *get_reset_command();
 Input_command *get_partial_command(Real u);
 Input_command* get_skip_command( int,Real);
+Input_command* get_grouping_command( svec<int>);
 
 void
 interpret_meter(Input_command *c, int &beats_per_meas, int& one_beat,

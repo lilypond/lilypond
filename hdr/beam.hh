@@ -34,6 +34,7 @@ struct Beam: public Spanner {
     
     void set_stemlens();
 private:
+    Molecule stem_beams(Stem *here, Stem *next, Stem *prev);
     void solve_slope();
     void brew_molecule();
 };
