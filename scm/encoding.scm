@@ -5,13 +5,16 @@
 ;;;; (c) 2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;; WIP
+;; cp /usr/share/texmf/dvips/base/*.enc mf/out
 ;; cp /usr/share/texmf/dvips/tetex/*.enc mf/out
 ;; encoding.ly:
+;;#(display (reencode-string "T1" "T1" "hellö"))
 ;;#(format (current-error-port) "a:~S\n"
 ;;  (encoded-index "TeX text" "TeX text" 65))
 ;;
 ;;#(format (current-error-port) "b:~S\n"
 ;;  (encoded-index "TeX text" "TeX extended ASCII" 176))
+;;
 
 (define coding-file-alist
   ;; teTeX
@@ -24,6 +27,9 @@
     ("TeX text without f-ligatures" . "0ef0afca.enc")
     ("Extended TeX Font Encoding - Latin" . "tex256.enc")
     
+    ("T1" . "tex256.enc")
+
+    
     ;; LilyPond.
     ("feta braces" . "feta-braces0.enc")
     ("feta number" . "feta-nummer10.enc")
@@ -33,8 +39,9 @@
 (define encoding-alist '())
 
 (define (read-coding-file coding)
-  (let* ((string (ly:gulp-file (assoc-get coding coding-file-alist)))
-	 ;;(string (ly:gulp-file "f7b6d320.enc"))
+  (let* ((raw (ly:gulp-file (assoc-get coding coding-file-alist)))
+	 ;;(raw (ly:gulp-file "f7b6d320.enc"))
+	 (string (regexp-substitute/global #f "%[^\n]*" raw 'pre "" 'post))
 	 (start (string-index string #\[))
 	 (end (string-index string #\]))
 	 (ps-lst (string-tokenize (substring string (+ start 1) end)))
@@ -59,8 +66,17 @@
 	(car (read-coding-file coding)))))
 
 (define-public (encoded-index font-coding input-coding code)
+  (format (current-error-port) "CODE: ~S\n" code)
   (let* ((font (get-coding-table font-coding))
 	 (in (get-coding-vector input-coding))
 	 (char (vector-ref in code)))
+    (format (current-error-port) "CHAR: ~S\ng" char)
     (hash-ref font char)))
+
+(define-public (reencode-string font-coding input-coding s)
+  ;; ughr?
+  (list->string
+   (map integer->char 
+	(map (lambda (x) (encoded-index font-coding input-coding x))
+	     (map char->integer (string->list s))))))
 
