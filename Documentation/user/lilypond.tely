@@ -6,7 +6,7 @@
 @dircategory GNU music project
 @direntry
 @c    ;; prepend GNU for dir, must be unique
-* GNU LilyPond (lilypond).           The GNU music typesetter.
+* GNU LilyPond: (lilypond).          The GNU music typesetter.
 @c * install-info: (texinfo)Invoking install-info. Update info/dir entries.
 @c * texi2dvi: (texinfo)Format with texi2dvi.      Print Texinfo documents.
 @end direntry

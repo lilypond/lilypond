@@ -20,7 +20,7 @@ violoncello =  \notes \relative c {
 	c4 r4 r2|
 	c4 r4 r2|
 	R1|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	c'4.\< c8 bes4. bes8|
 
@@ -34,7 +34,7 @@ violoncello =  \notes \relative c {
 
 	%25
 	[f-. bes-.][bes()a][a-. es'-.][es()des]|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	bes4.\< bes8 as4. as8|
 	g4 \!g4-.\f r2|
@@ -76,7 +76,7 @@ violoncello =  \notes \relative c {
 
 	%55
 	[bes(as'f as][bes as f)bes,~]|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	[bes\<(g'es g][bes g es)bes~]|
 	[bes(f'd f][bes f d)bes~]|
@@ -98,7 +98,7 @@ violoncello =  \notes \relative c {
 	%70
 	as2\ff g|
 	fis d|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	[g8\p\<(bes' g bes][d bes g)d~]|
 	[d8(a' fis a][d a fis)d]|
@@ -112,7 +112,7 @@ violoncello =  \notes \relative c {
 	r4 r8 d d4. d8|
 
 	%80
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	r4 r8 d d4.\< d8|
 	r4 r8 d d4. d8|
@@ -189,7 +189,7 @@ violoncello =  \notes \relative c {
 	[e g b c][des c g e]|
 	[f as c des][c des as f]|
 	[g bes d es][d es bes g]|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	[as\< c d es][f es c as]|
 
@@ -214,7 +214,7 @@ violoncello =  \notes \relative c {
 	[g,: bes: c: des:][f,: bes: c: des:]|
 	[e,: g: bes: des:][c: e: g: c:]|
 	%shared with cello from here on
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	[f,8\p\< as c des][es, g b c]|
 	[des, f a bes][c, es g as]|
@@ -275,7 +275,7 @@ violoncello =  \notes \relative c {
 	%180
 	[g(e' c d][g e c )g~]|
 	[g(f' d f][g f d )g,~]|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	[g\<(e' c d][g e c )g~]|
 	[g(d' b d][g d b )g~]|
@@ -295,7 +295,7 @@ violoncello =  \notes \relative c {
 	[a( g' e g][a g e )a,~]|
 
 	%195
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	[a8\<( f' d f][a f d )a~]|
 	[a( e' cis e][a e cis )g]|
@@ -315,7 +315,7 @@ violoncello =  \notes \relative c {
 	f r fis r|
 	g r g r|
 	g r g r|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	g r g\< r|
 	
@@ -377,7 +377,7 @@ violoncello =  \notes \relative c {
 	%250
 	)es4 r r r8 es(|
 	)b4 r r r8 b(|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	)c4\< r r r8 c(|
 	)f4 r r r8 f,(|
@@ -391,7 +391,7 @@ violoncello =  \notes \relative c {
 	bes\f|
 
 	%260
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	as4.\p\< as'8 g4. g8|
 	f4. f8 es4. es8|
@@ -435,7 +435,7 @@ violoncello =  \notes \relative c {
 	f,4-. g-. r2|
 
 	%290
-	\property Voice.decrescendoText = #"dim."
+	\property Voice.decrescendoText = #'(lines " " "dim." " ")
 	\property Voice.decrescendoSpanner = #'dashed-line
 	as4\> r b r|
 	R1|
@@ -448,7 +448,7 @@ violoncello =  \notes \relative c {
 	c4 r r2|
 	[c8-.-"arco" es-.][es()d][d-. as'-.][as()g]|
 	R1
-	\property Voice.decrescendoText = #"sempre pi\\`u piano"
+	\property Voice.decrescendoText = #'(lines " " "sempre pi\\`u piano" " ")
 	% urg, "" is assumed to be hairpin...
 	%\property Voice.decrescendoSpanner = #""
 	\property Voice.decrescendoSpanner = #'dashed-line

@@ -132,7 +132,7 @@ Add a ref if REF is set
    "\n@dircategory GNU music project"
    "\n@direntry"
    ;; prepend GNU for dir, must be unique
-   "\n* GNU " name " (" file-name ").           " name "."
+   "\n* GNU " name ": (" file-name ").          " name "."
    "\n@end direntry"
    (node "Top") ",(lilypond)Index,(lilypond)Development," top
    "\n@top"

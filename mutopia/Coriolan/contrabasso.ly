@@ -21,7 +21,7 @@ contrabasso =  \notes \relative c {
 	c4 r4 r2|
 	c4 r4 r2|
 	R1|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	c'4.\< c8 bes4. bes8|
 
@@ -37,7 +37,7 @@ contrabasso =  \notes \relative c {
 
 	% copied 14 from cello
 
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	bes'4.\< bes8 as4. as8|
 	g4 \!g4-.\f r2|
@@ -73,7 +73,7 @@ contrabasso =  \notes \relative c {
 	)as,4 r r r8 as(|
 	)g4 r r r8 g(|
 	)d'4 r r r8 d(|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	)es4\< r r r8 es(|
 	)as,4 r r r8 as(|
@@ -89,14 +89,14 @@ contrabasso =  \notes \relative c {
 	)bes4 r r r8 bes(|
 	)as4 r r r8 as(|
 	)e4 r r r8 e(|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	)f4\< r r r8 f(|
 	)bes4 r r r8 bes(|
 	%70
 	\!)as2\ff g|
 	fis d'|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	g,4\p\< r r r8 g(|
 	)c4 r r r8 c(|
@@ -110,7 +110,7 @@ contrabasso =  \notes \relative c {
 	d4\pp r d r|
 	d r d r|
 	%80
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	d r d\< r|
 	d r d r|
@@ -208,7 +208,7 @@ contrabasso =  \notes \relative c {
 	%180
 	)e4 r r r8 e(|
 	)b'4 r r r8 b(|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	)c4\< r r r8 c(|
 	)f,4 r r r8 f(|
@@ -224,7 +224,7 @@ contrabasso =  \notes \relative c {
 	)g,4 r r r8 g(|
 	)f4 r r r8 f(|
 	)cis'4 r r r8 cis(|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	)d4\< r r r8 d(|
 
@@ -247,7 +247,7 @@ contrabasso =  \notes \relative c {
 	%205
 	g r g r|
 	g r g r|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	g r g\< r|
 	g r g r|
@@ -307,7 +307,7 @@ contrabasso =  \notes \relative c {
 	%250
 	)es4 r r r8 es(|
 	)b4 r r r8 b(|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	)c4\< r r r8 c(|
 	)f4 r r r8 f,(|
@@ -321,7 +321,7 @@ contrabasso =  \notes \relative c {
 	bes\f|
 
 	%260
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	as4.\p\< as'8 g4. g8|
 	f4. f8 es4. es8|
@@ -365,7 +365,7 @@ contrabasso =  \notes \relative c {
 	f,4-. g-. r2|
 
 	%290
-	\property Voice.decrescendoText = #"dim."
+	\property Voice.decrescendoText = #'(lines " " "dim." " ")
 	\property Voice.decrescendoSpanner = #'dashed-line
 	as4\> r b r|
 	R1|

@@ -363,7 +363,7 @@ ScoreContext = \translator {
 
 	soloText = #"Solo"
 	soloIIText = #"Solo II"
-	aDueText = #"\\`a2"
+	aDueText = #"a2"
 	soloADue = ##t
 	splitInterval = #'(0 . 1)
 	changeMoment = #`(,(make-moment 0 0) . ,(make-moment 1 512))

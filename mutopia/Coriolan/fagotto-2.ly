@@ -40,7 +40,7 @@ fagottoII =  \notes \relative c {
 	%\property Staff.clefPosition = #2
 
 	
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	g''2.(as4 \p\<|
 	g f d)bes|
@@ -55,13 +55,13 @@ fagottoII =  \notes \relative c {
 	c~|
 	c~|
 	c~|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	c\<~|
 	c|
 	\!c2\ff g'|
 	fis d|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	g,4 \p\< r r r8 g(|
 	)c4 r r r8 c(|
@@ -70,7 +70,7 @@ fagottoII =  \notes \relative c {
 	R1*2|
 	r4 r8 fis\pp fis4. fis8|
 	r4 r8 fis fis4. fis8|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	r4 r8 g\< g4. g8|
 	r4 r8 g g4. g8|
@@ -130,7 +130,7 @@ fagottoII =  \notes \relative c {
 	e|
 	f|
 	g|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	as\<|
 	g|
@@ -191,7 +191,7 @@ fagottoII =  \notes \relative c {
 	g~|
 	g~|
 	g~|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	g\<~|
 	g~|
@@ -205,7 +205,7 @@ fagottoII =  \notes \relative c {
 	a~|
 	a~|
 	a~|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	a\<~|
 	a|
@@ -219,7 +219,7 @@ fagottoII =  \notes \relative c {
 	R1*3|
 	r4 r8 b'' b4. b8|
 	r4 r8 b b4. b8|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	r4 r8 c\< c4. c8|
 	r4 r8 c c4. c8|
@@ -277,7 +277,7 @@ fagottoII =  \notes \relative c {
 	g\p|
 	bes\f|
 	%a deux|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	as4.\p\< as8 g4. g8|
 	f4. f8 es4. es8|
@@ -315,7 +315,7 @@ fagottoII =  \notes \relative c {
 	R1|
 	es,4-. e-. r2|
 	f4-. g-. r2|
-	\property Voice.decrescendoText = #"dim."
+	\property Voice.decrescendoText = #'(lines " " "dim." " ")
 	\property Voice.decrescendoSpanner = #'dashed-line
 	as4\> r b r|
 	R1|

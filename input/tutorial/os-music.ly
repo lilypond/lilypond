@@ -26,6 +26,7 @@ tromboII = \notes\relative c'' {
 timpani = \notes\relative c, {
   \times 2/3 { f4 f f }
   \times 4/5 { as8 as as as as }
+  R1
 }
 corno = \notes\relative c' {
    bes4 d f, bes d f, bes d

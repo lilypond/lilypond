@@ -61,9 +61,13 @@
     \translator{
       \VoiceContext
       \remove "Rest_engraver";    
+      \consists "Multi_measure_rest_engraver";
+      \consists "Bar_engraver";
     }
     \translator{
       \HaraKiriStaffContext
+      \remove "Multi_measure_rest_engraver";
+      \remove "Bar_engraver";
     }
     \translator {
       \OrchestralScoreContext
@@ -74,4 +78,5 @@
     \tempo 4 = 75;
   }
 }
+
 

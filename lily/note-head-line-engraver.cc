@@ -79,7 +79,7 @@ Note_head_line_engraver::acknowledge_grob (Grob_info info)
   if (Rhythmic_head::has_interface (info.elem_l_))
     {
       head_ = info.elem_l_;
-      if (to_boolean (get_property ("followThread")))
+      if (to_boolean (get_property ("followVoice")))
 	{
 	  Translator_group  * tr = daddy_trans_l_;
 	  while (tr && tr->type_str_ != "Staff")
@@ -108,7 +108,7 @@ Note_head_line_engraver::create_grobs ()
 	 Should probably store follow_ in line_, and suicide at some
 	 later point */
       if (follow_)
-	line_ = new Spanner (get_property ("FollowThread"));
+	line_ = new Spanner (get_property ("VoiceFollower"));
       else
 	line_ = new Spanner (get_property ("Glissando"));
 	  

@@ -1,7 +1,7 @@
 
 
 
-% followThread: connect note heads with line when thread switches staff 
+% followVoice: connect note heads with line when thread switches staff 
 
 \score{
     \context PianoStaff <
@@ -18,7 +18,7 @@
         linewidth = 70.\mm;
 	\translator {
 	    \ScoreContext
-	    followThread = ##t
+	    followVoice = ##t
 	}
     }
 }

@@ -14,7 +14,7 @@
 #include "translator-group.hh"
 #include "side-position-interface.hh"
 #include "directional-element-interface.hh"
-
+#include "multi-measure-rest.hh"
 
 class A2_engraver : public Engraver
 {
@@ -130,6 +130,12 @@ A2_engraver::acknowledge_grob (Grob_info i)
   else if (unirhythm)
     state_ = UNIRHYTHM;
 
+  Direction d = CENTER;
+  if (daddy_trans_l_->id_str_.left_str (3) == "one")
+    d =  UP;
+  else if (daddy_trans_l_->id_str_.left_str (3) == "two")
+    d = DOWN;
+
   /* Must only set direction for VoiceCombines, not for StaffCombines:
      we can't detect that here, so, ugh, yet another property */
   if (!to_boolean (get_property ("noDirection"))
@@ -160,15 +166,22 @@ A2_engraver::acknowledge_grob (Grob_info i)
 	  || (unirhythm == SCM_BOOL_T && split_interval == SCM_BOOL_T
 	      && (unison != SCM_BOOL_T || solo_adue != SCM_BOOL_T)))
 	{
-	  if (daddy_trans_l_->id_str_.left_str (3) == "one")
-	    {
-	      i.elem_l_->set_grob_property ("direction", gh_int2scm (1));
-	    }
-	  else if (daddy_trans_l_->id_str_.left_str (3) == "two")
-	    {
-	      i.elem_l_->set_grob_property ("direction", gh_int2scm (-1));
-	    }
+	
+	  /*
+	    Blunt axe method: every grob gets a propertysetting.
+	   */
+	  i.elem_l_->set_grob_property ("direction", gh_int2scm (d));
 	}
+    }
+
+  /*
+    todo: should we have separate state variable for being "rest while
+    other has solo?"  */
+  if ( Multi_measure_rest::has_interface (i.elem_l_) && d )
+    if (state_ == UNIRHYTHM
+	&& unisilence != SCM_BOOL_T)
+    {
+      i.elem_l_->set_grob_property ("staff-position", gh_int2scm (d * 6));
     }
 }
 

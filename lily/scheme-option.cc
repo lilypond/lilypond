@@ -9,7 +9,18 @@
 
 #include "lily-guile.hh"
 
+/*
+  TODO: mooie onschuldige test, en koel om allerleide dingen te kunnen zetten,
+  maar is dit nou wel handig voor gebruikert?
 
+  -X, of -fps is hendiger dan
+
+          -e "(set-lily-option 'midi-debug #t)'
+
+  [niet voor niets tiepo in 139 announs..]
+
+*/
+/* Write midi as formatted ascii stream? */
 bool midi_debug_global_b;
 
 
@@ -62,6 +73,6 @@ init_functions ()
 }
 
 
-ADD_SCM_INIT_FUNC(init_functions_sopt, init_functions);
+ADD_SCM_INIT_FUNC (init_functions_sopt, init_functions);
 
 

@@ -71,7 +71,7 @@ oboeII =  \notes \relative c{
 	des4 r r r8 c|
 	bes4 r8 bes bes4 r8 bes|
 	bes4 r8 bes bes4 r8 bes|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	c1\p\< ~|
 	c~|
@@ -136,7 +136,7 @@ oboeII =  \notes \relative c{
 	d\f|
 	es\p|
 	e\f|
-	\property Voice.crescendoText = #"cresc."
+	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	c\p\< ~|
 	c~|
@@ -169,7 +169,7 @@ oboeII =  \notes \relative c{
 	R1|
 	c4-. c-. r2|
 	c4-. c-. r2|
-	\property Voice.decrescendoText = #"dim."
+	\property Voice.decrescendoText = #'(lines " " "dim." " ")
 	\property Voice.decrescendoSpanner = #'dashed-line
 	c4\> r d r|
 	R1|

@@ -36,6 +36,37 @@ Rest::after_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
+/*
+  make this function easily usable in C++
+ */
+
+String
+Rest::glyph_name (Grob * me, int balltype, String style)
+{
+  bool ledger_b =false;
+
+  if (balltype == 0 || balltype == 1)
+    {
+      Real rad = Staff_symbol_referencer::staff_radius (me) * 2.0;
+      Real pos = Staff_symbol_referencer::position_f (me);
+
+      /*
+	Figure out when the rest is far enough outside the staff. This
+	could bemore generic, but hey, we understand this even after
+	dinner.
+	
+       */
+      ledger_b = ledger_b || (balltype == 0 && (pos >= rad +2   || pos < -rad ));
+      ledger_b = ledger_b || (balltype == 1 &&
+			      (pos  <= -rad -2 || pos > rad));
+    }
+  
+  return ("rests-") + to_str (balltype)
+    + (ledger_b ? "o" : "") + style;
+}
+
+
+
 
 MAKE_SCHEME_CALLBACK (Rest,brew_molecule,1);
 
@@ -43,28 +74,20 @@ SCM
 Rest::brew_internal_molecule (SCM smob)
 {
   Grob* me = unsmob_grob (smob);
-  
-  bool ledger_b =false;
 
-  SCM balltype = me->get_grob_property ("duration-log");
-  
-  if (balltype == gh_int2scm (0) || balltype == gh_int2scm (1))
-    {
-      int sz = Staff_symbol_referencer::line_count (me);
-      Real dif = abs (Staff_symbol_referencer::position_f (me)  - (2* gh_scm2int (balltype) - 1)); 
-      ledger_b = dif > sz;
-    }
+  SCM balltype_scm = me->get_grob_property ("duration-log");
+  if (!gh_number_p (balltype_scm))
+    return Molecule ().smobbed_copy ();
+  int balltype = gh_scm2int (balltype_scm);
   
   String style; 
   SCM style_sym =me->get_grob_property ("style");
-  if (gh_scm2int (balltype) >= 2 && gh_symbol_p (style_sym))
+  if (balltype >= 2 && gh_symbol_p (style_sym))
     {
       style = ly_scm2string (scm_symbol_to_string (style_sym));
     }
 
-  String idx = ("rests-") + to_str (gh_scm2int (balltype))
-    + (ledger_b ? "o" : "") + style;
-
+  String idx = glyph_name (me, balltype, style);
   return Font_interface::get_default_font (me)->find_by_name (idx).smobbed_copy ();
 }
 

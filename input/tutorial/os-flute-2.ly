@@ -25,3 +25,7 @@
   }
 }
 
+
+% switch off settings of -score file, so the rest of the
+% tutorial isn't \special
+#(set! point-and-click #f)
