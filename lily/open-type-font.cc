@@ -215,7 +215,7 @@ Open_type_font::design_size () const
 
 			     /*
 			       Hmm. Design size is arbitrary for
-			       non-designe-size fonts. I vote for 1 -
+			       non-design-size fonts. I vote for 1 -
 			       which will trip errors more
 			       quickly. --hwn.
 			      */
