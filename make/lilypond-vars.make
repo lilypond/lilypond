@@ -8,6 +8,10 @@ export MFINPUTS:=$(topdir)/mf/:$(MFINPUTS)::
 export TEXINPUTS:=$(topdir)/mf/out/:$(topdir)/tex/:$(topdir)/ps/:$(TEXINPUTS):$(pwd)::
 export LILYINCLUDE:=$(topdir)/ps:$(topdir)/scm:$(topdir)/ly:$(topdir)/mf/out::$(TEX_TFMDIR):$(LILYINCLUDE)
 export TFMFONTS:=$(topdir)/mf/out:
+export extra_mem_top=1000000
+export extra_mem_bottom=1000000
+export pool_size=250000
+
 
 ifdef DEB_BUILD
 export PKFONTS := $(topdir)/mf/out

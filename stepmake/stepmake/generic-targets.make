@@ -163,6 +163,6 @@ release:
 rpm: $(depth)/$(package-icon) dist
 	@echo "Assuming Red Hat system"	#FIXME: check distro, then issue rpm
 	$(MAKE) -C $(depth)/make
-	cd $(depth) && rmp -bb make/$(outdir)/lilypond.redhat.spec
+	cd $(depth) && rpm -bb make/$(outdir)/lilypond.redhat.spec
 #	su -c 'rpm -tb $(depth)/$(outdir)/$(distname).tar.gz'
 

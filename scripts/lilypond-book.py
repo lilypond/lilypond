@@ -51,19 +51,35 @@ program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
 	program_version = '1.5.18'
 
-#
+# if set, LILYPONDPREFIX must take prevalence
+# if datadir is not set, we're doing a build and LILYPONDPREFIX 
+datadir = '@datadir@'
+
+if os.environ.has_key ('LILYPONDPREFIX') :
+	datadir = os.environ['LILYPONDPREFIX']
+else:
+	datadir = '@datadir@'
+
+while datadir[-1] == os.sep:
+	datadir= datadir[:-1]
+
 # Try to cater for bad installations of LilyPond, that have
 # broken TeX setup.  Just hope this doesn't hurt good TeX
 # setups.  Maybe we should check if kpsewhich can find
 # feta16.{afm,mf,tex,tfm}, and only set env upon failure.
-#
-datadir = '@datadir@'
 environment = {
 	'MFINPUTS' : datadir + '/mf:',
 	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:.:',
 	'TFMFONTS' : datadir + '/tfm:',
 	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
 	'GS_LIB' : datadir + '/ps',
+}
+
+# tex needs lots of memory, more than it gets by default on Debian
+non_path_environment = {
+	'extra_mem_top' : '1000000',
+	'extra_mem_bottom' : '1000000',
+	'pool_size' : '250000',
 }
 
 def setup_environment ():
@@ -73,7 +89,10 @@ def setup_environment ():
 			val = val + os.pathsep + os.environ[key]
 		os.environ[key] = val
 
-
+	for key in non_path_environment.keys ():
+		val = non_path_environment[key]
+		print '%s=%s' % (key,val)
+		os.environ[key] = val
 
 include_path = [os.getcwd()]
 
