@@ -106,9 +106,19 @@ $(outdir)/%.afm  $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.l
 
 fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd fonts.scale fonts.dir)
 
-$(outdir)/lilypond.map: 
-	echo $(notdir $(PFA_FILES:.pfa=)) | tr ' ' '\n' | \
-		sed 's/\(.*\)/\1 \1 <\1.pfa/' > $@
+## Urg
+mapentry=$(1) $(shell fgrep FontName $(outdir)/$(1).afm | sed -e 's/FontName *//') <$(1).pfaX
+
+map = $(foreach a,$(2),$(call $(1),$(a)))
+$(outdir)/lilypond.xmap:
+	echo '$(call map,mapentry,$(FONT_FILES:%.mf=%))' | \
+		tr 'X' '\n' | sed -e 's/^ *//'> $@
+
+# using shell for loop seems most robust
+$(outdir)/lilypond.map:
+	for i in $(FONT_FILES:%.mf=%); do echo $$i $$(fgrep FontName $(outdir)/$$i.afm | sed -e 's/FontName *//') '<'$$i.pfa; done > $@
+
+
 
 $(outdir)/fonts.scale: $(PFA_FILES)
 #	cd $(outdir) && echo $(FONT_FILES:.mf=.pfa) $(FONT_FILES:.mf=.pfb) | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $(@F)
