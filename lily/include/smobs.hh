@@ -45,20 +45,21 @@
    For example,
 
      Complex_smob::Complex_smob () {
-       scm_member_ =SCM_EOL;
+       scm_member_ = SCM_EOL;
        smobify_self ();
        scm_member_ = <..what you want to store..>
      }
    
-   after creation, the self_scm() field of a complex smob is protected
-   from Garbage Collection. This protection should be removed once the
-   object is put into another (reachable) Scheme data structure, ie.
+   after construction, the self_scm () field of a complex smob is
+   protected from Garbage Collection.  This protection should be
+   removed once the object is put into another (reachable) Scheme data
+   structure, i.e.
 
-      Complex_smob * p = new Complex_smob;
+      Complex_smob *p = new Complex_smob;
       list = scm_cons (p->self_scm (), list);
       scm_gc_unprotect_object (p->self_scm ());
 
-   Complex smobs are made with DECLARE_SMOBS(Classname,) in the class
+   Complex smobs are made with DECLARE_SMOBS (Classname,) in the class
    declaration.
 
    CALLING INTERFACE
@@ -75,7 +76,7 @@
    
    For implementating a class, the following should be provided
 
-   - an equal_p() function (a default is in the
+   - an equal_p () function (a default is in the
      IMPLEMENT_DEFAULT_EQUAL_P macro in ly-smobs.icc)
 
    - mark_smob () function, that calls scm_gc_mark () on all Scheme
@@ -84,20 +85,19 @@
    - a print_smob () function, that displays a representation for
      debugging purposes
 
-   - A call to one of the IMPLEMENT_SMOBS or  IMPLEMENT_SIMPLE_SMOBS macros
-   from file "ly-smobs.icc"
-   
+   - A call to one of the IMPLEMENT_SMOBS or IMPLEMENT_SIMPLE_SMOBS macros
+     from file "ly-smobs.icc"
 */
 
-#define DECLARE_SIMPLE_SMOBS(CL,dummy) \
+#define DECLARE_SIMPLE_SMOBS(CL, dummy) \
 public: \
 	SCM smobbed_copy () const; \
 DECLARE_BASE_SMOBS(CL)
 
 
 #define DECLARE_BASE_SMOBS(CL) \
-	friend class Non_existant_class ; \
-private:\
+	friend class Non_existent_class; \
+private: \
 	static scm_t_bits smob_tag_;		       		\
 	static SCM mark_smob (SCM);				\
 	static size_t free_smob (SCM s);		        \

@@ -11,13 +11,15 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 
-/* WIP -- moving toward flexible stencil based output.  */
+/* WIP -- moving toward flexible stencil based output.
+   Rename to Paper_page? */
 class Page
 {
   DECLARE_SMOBS (Page, );
 
 public:
   static int page_count_;
+  static Real MIN_COVERAGE_;
   Paper_def *paper_;
   int number_;
   int line_count_;
@@ -40,11 +42,11 @@ public:
   Real head_sep_;
   Real text_width_;
 
-  /* available area for text.  */
-  Real text_height ();
-
   Page (Paper_def*, int);
-  void output (Paper_outputter*, bool);
+
+  /* available area for text.  */
+  Real text_height () const;
+  SCM to_stencil () const;
 };
 
 DECLARE_UNSMOB (Page, page);

@@ -333,7 +333,7 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
   return SCM_UNSPECIFIED;
 }
 
-static Music_output_def*
+Music_output_def*
 get_paper (My_lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultpaper");

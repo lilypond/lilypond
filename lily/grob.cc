@@ -253,7 +253,7 @@ Grob::get_uncached_stencil ()const
       // ugr.
       
       mol = Stencil (m->extent_box (),
-		      scm_list_n (origin, m->get_expr (), SCM_UNDEFINED)
+		      scm_list_n (origin, m->expr (), SCM_UNDEFINED)
 		      ). smobbed_copy ();
 
       m = unsmob_stencil (mol);

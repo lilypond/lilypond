@@ -58,7 +58,7 @@ public:
   Stencil ();
   
   Offset origin () const;
-  SCM get_expr () const;
+  SCM expr () const;
 
   /**
      Set dimensions to empty, or to (Interval (0,0),Interval (0,0) */

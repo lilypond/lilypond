@@ -53,7 +53,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
     }
 
 
-  Stencil out = Stencil ();
+  Stencil out;
   Array<Offset> points;
   points.clear ();
   int size = bottom_points.size ();

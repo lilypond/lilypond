@@ -33,7 +33,7 @@ brew_flexa (Grob *me,
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real height = 0.6 * staff_space;
-  Stencil stencil = Stencil ();
+  Stencil stencil;
 
   if (add_cauda)
     {

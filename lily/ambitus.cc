@@ -144,8 +144,8 @@ MAKE_SCHEME_CALLBACK (Ambitus,print,1);
 SCM
 Ambitus::print (SCM smob)
 {
-  Item *me = (Item *)unsmob_grob (smob);
-  Stencil stencil = Stencil ();
+  Item *me = (Item*) unsmob_grob (smob);
+  Stencil stencil;
 
   SCM scm_note_head_style = me->get_property ("note-head-style");
   String note_head_style;

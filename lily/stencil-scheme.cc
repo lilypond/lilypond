@@ -66,13 +66,13 @@ LY_DEFINE (ly_translate_stencil, "ly:stencil-translate",
   return new_s;
 }
 
-LY_DEFINE (ly_stencil_get_expr, "ly:stencil-get-expr",
+LY_DEFINE (ly_stencil_expr, "ly:stencil-get-expr",
 	   1, 0, 0, (SCM stil),
 	   "Return the expression of @var{stil}.")
 {
   Stencil *s = unsmob_stencil (stil);
   SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
-  return s->get_expr ();
+  return s->expr ();
 }
 
 LY_DEFINE (ly_stencil_get_extent, "ly:stencil-extent",

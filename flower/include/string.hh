@@ -172,7 +172,7 @@ inline String to_string (String s) { return s; }
 /// "cccc"
 String to_string (char c, int n = 1);
 String to_string (int i, char const* format = 0);
-String to_string (double f , char const* format = 0);
+String to_string (double f, char const* format = 0);
 String to_string (long  b);
 String to_string (bool b);
 String to_string (char const* format, ... );

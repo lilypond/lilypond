@@ -55,6 +55,25 @@ Stencil::extent (Axis a) const
   return dim_[a];
 }
 
+/* Hmm... maybe this is not such a good idea ; stuff can be empty,
+   while expr_ == '()  */
+bool
+Stencil::is_empty () const
+{
+  return expr_ == SCM_EOL;
+}
+
+SCM
+Stencil::expr () const
+{
+  return expr_;
+}
+
+Box
+Stencil::extent_box () const
+{
+  return dim_;
+}
 Offset
 Stencil::origin () const
 {
@@ -125,14 +144,14 @@ Stencil::align_to (Axis a, Real x)
 }
 
 /* FIXME: unintuitive naming, you would expect *this to be moved.
-   Kept (keeping?) API for compat with add_at_edge ().  */
+   Kept (keeping?) API for compat with add_at_edge ().
+
+   What is PADDING, what is MINIMUM, exactly?  */
 Stencil
-Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s, Real padding,
-			Real minimum) const
+Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s,
+			Real padding, Real minimum) const
 {
-  Interval my_extent=  dim_[a];
-
-
+  Interval my_extent = dim_[a];
   Interval i (s.extent (a));
   Real his_extent;
   if (i.is_empty ())
@@ -143,17 +162,16 @@ Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s, Real padding,
   else
     his_extent = i[-d];
 
-  Real offset = (my_extent.  is_empty () ? 0.0 : my_extent[d] - his_extent)
+  Real offset = (my_extent.is_empty () ? 0.0 : my_extent[d] - his_extent)
     + d * padding;
 
   Stencil toadd (s);
   toadd.translate_axis (offset,a);
 
-  if (minimum > 0
-      && d *(- origin ()[a] + toadd.origin ()[a]) < minimum)
+  if (minimum > 0 && d * (-origin ()[a] + toadd.origin ()[a]) < minimum)
     toadd.translate_axis ( -toadd.origin ()[a]
-			   + origin ()[a] + d* minimum, a);
-    
+			   + origin ()[a] + d * minimum, a);
+
   return toadd;
 }
 
@@ -163,24 +181,4 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
 		      Real minimum)
 {
   add_stencil (moved_to_edge (a, d, s, padding, minimum));
-}
-
-/* Hmm... maybe this is not such a good idea ; stuff can be empty,
-   while expr_ == '()  */
-bool
-Stencil::is_empty () const
-{
-  return expr_ == SCM_EOL;
-}
-
-SCM
-Stencil::get_expr () const
-{
-  return expr_;
-}
-
-Box
-Stencil::extent_box () const
-{
-  return dim_;
 }

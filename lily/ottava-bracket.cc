@@ -156,7 +156,7 @@ Ottava_bracket::print (SCM smob)
   
   b = Stencil (Box (b.extent (X_AXIS),
 		     Interval (0.1,0.1)),
-		b.get_expr ());
+		b.expr ());
   
   b.translate_axis (bracket_span_points[LEFT], X_AXIS);
   text.translate_axis (span_points[LEFT], X_AXIS);
