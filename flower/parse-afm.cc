@@ -77,6 +77,9 @@ Morten Welinder <terra@diku.dk> September 1999.
 #include "parse-afm.hh"
 #include "warn.hh"
 
+#define METATYPE1_BUG   /* Parse Metatype1's (version unknown)
+			   'Generated' global tag as comment. */
+
 #define lineterm EOL	/* line terminating character */
 #define lineterm_alt '\r' /* alternative line terminating character */
 #define normalEOF 1	/* return code from parsing routines used only */
@@ -114,7 +117,11 @@ enum parseKey {
   ASCENDER, CHARBBOX, CODE, COMPCHAR, CAPHEIGHT, COMMENT, 
   DESCENDER, ENCODINGSCHEME, ENDCHARMETRICS, ENDCOMPOSITES, 
   ENDFONTMETRICS, ENDKERNDATA, ENDKERNPAIRS, ENDTRACKKERN, 
-  FAMILYNAME, FONTBBOX, FONTNAME, FULLNAME, ISFIXEDPITCH, 
+  FAMILYNAME, FONTBBOX, FONTNAME, FULLNAME,
+#ifdef METATYPE1_BUG 
+  GENERATED,
+#endif
+  ISFIXEDPITCH, 
   ITALICANGLE, KERNPAIR, KERNPAIRXAMT, LIGATURE, CHARNAME, 
   NOTICE, COMPCHARPIECE, STARTCHARMETRICS, STARTCOMPOSITES, 
   STARTFONTMETRICS, STARTKERNDATA, STARTKERNPAIRS, 
@@ -139,7 +146,11 @@ static char *keyStrings[] = {
   "Ascender", "B", "C", "CC", "CapHeight", "Comment",
   "Descender", "EncodingScheme", "EndCharMetrics", "EndComposites", 
   "EndFontMetrics", "EndKernData", "EndKernPairs", "EndTrackKern", 
-  "FamilyName", "FontBBox", "FontName", "FullName", "IsFixedPitch", 
+  "FamilyName", "FontBBox", "FontName", "FullName",
+#ifdef METATYPE1_BUG
+  "Generated",
+#endif  
+  "IsFixedPitch", 
   "ItalicAngle", "KP", "KPX", "L", "N", 
   "Notice", "PCC", "StartCharMetrics", "StartComposites", 
   "StartFontMetrics", "StartKernData", "StartKernPairs", 
@@ -157,7 +168,8 @@ static char *keyStrings[] = {
  *  reads all tokens until the next end-of-line.
  */
  
-static char *token (FILE *stream)
+static char*
+token (FILE *stream)
 {
   int ch, idx;
 
@@ -192,7 +204,8 @@ static char *token (FILE *stream)
  *  more than one word (like Comment lines and FullName).
  */
 
-static char *linetoken (FILE *stream)
+static char*
+linetoken (FILE *stream)
 {
   int ch, idx;
 
@@ -224,7 +237,8 @@ static char *linetoken (FILE *stream)
  *  The algorithm is a standard Knuth binary search.
  */
 
-static enum parseKey recognize (  register char *ident)
+static enum parseKey
+recognize (register char *ident)
 {
   int lower = 0,
     upper = (int) NOPE,
@@ -235,17 +249,23 @@ static enum parseKey recognize (  register char *ident)
   while ((upper >= lower) && !found)
     {
       midpoint = (lower + upper)/2;
-      if (keyStrings[midpoint] == NULL) break;
+      if (keyStrings[midpoint] == NULL)
+	break;
       cmpvalue = strncmp (ident, keyStrings[midpoint], MAX_NAME);
-      if (cmpvalue == 0) found = TRUE;
-      else if (cmpvalue < 0) upper = midpoint - 1;
-      else lower = midpoint + 1;
-    } /* while */
+      if (cmpvalue == 0)
+	found = TRUE;
+      else
+	if (cmpvalue < 0)
+	  upper = midpoint - 1;
+      else
+	lower = midpoint + 1;
+    }
 
-  if (found) return (enum parseKey) midpoint;
-  else return NOPE;
-    
-} /* recognize */
+  if (found)
+    return (enum parseKey) midpoint;
+  else
+    return NOPE;
+}
 
 
 /************************* parseGlobals *****************************/
@@ -269,7 +289,8 @@ static enum parseKey recognize (  register char *ident)
  *  parseFile to determine if there is more file to parse.
  */
  
-static BOOL parseGlobals (FILE *fp, register AFM_GlobalFontInfo *gfi)
+static BOOL
+parseGlobals (FILE *fp, register AFM_GlobalFontInfo *gfi)
 {  
   BOOL cont = TRUE, save = (gfi != NULL);
   int error = AFM_ok;
@@ -312,6 +333,9 @@ static BOOL parseGlobals (FILE *fp, register AFM_GlobalFontInfo *gfi)
 	    strcpy (gfi->afmVersion, keyword);
 	    break;
 	  case COMMENT:
+#ifdef METATYPE1_BUG	    
+	  case GENERATED:
+#endif	    
 	    keyword = linetoken (fp);
 	    break;
 	  case FONTNAME:
@@ -415,7 +439,7 @@ static BOOL parseGlobals (FILE *fp, register AFM_GlobalFontInfo *gfi)
 } /* parseGlobals */    
 
 
-
+#if 0
 /************************* initializeArray ************************/
 
 /*  Unmapped character codes are (at Adobe Systems) assigned the
@@ -434,7 +458,8 @@ static BOOL parseGlobals (FILE *fp, register AFM_GlobalFontInfo *gfi)
  *  file is reset to be where it was upon entering this function.
  */
  
-static int initializeArray (FILE *fp, register int *cwi)
+static int
+initializeArray (FILE *fp, register int *cwi)
 {  
   BOOL cont = TRUE, found = FALSE;
   long opos = ftell (fp);
@@ -493,7 +518,7 @@ static int initializeArray (FILE *fp, register int *cwi)
   return (error);
         
 } /* initializeArray */    
-
+#endif 
 
 /************************* parseCharWidths **************************/
 
@@ -515,7 +540,8 @@ static int initializeArray (FILE *fp, register int *cwi)
  *  parseFile to determine if there is more file to parse.
  */
  
-static int parseCharWidths (FILE *fp, register int *cwi)
+static int
+parseCharWidths (FILE *fp, register int *cwi)
 {  
   BOOL cont = TRUE, save = (cwi != NULL);
   int pos = 0, error = AFM_ok;
@@ -614,7 +640,8 @@ static int parseCharWidths (FILE *fp, register int *cwi)
  *  parseFile to determine if there is more file to parse.
  */
  
-static int parseCharMetrics (FILE *fp, register AFM_Font_info *fi)
+static int
+parseCharMetrics (FILE *fp, register AFM_Font_info *fi)
 {  
   BOOL cont = TRUE, firstTime = TRUE;
   int error = AFM_ok, count = 0;
@@ -733,7 +760,8 @@ static int parseCharMetrics (FILE *fp, register AFM_Font_info *fi)
  *  parseFile to determine if there is more file to parse.
  */
  
-static int parseAFM_TrackKernData (FILE *fp, register AFM_Font_info *fi)
+static int
+parseAFM_TrackKernData (FILE *fp, register AFM_Font_info *fi)
 {  
   BOOL cont = TRUE, save = (fi->tkd != NULL);
   int pos = 0, error = AFM_ok, tcount = 0;
@@ -770,6 +798,9 @@ static int parseAFM_TrackKernData (FILE *fp, register AFM_Font_info *fi)
 	switch (recognize (keyword))
 	  {
 	  case COMMENT:
+#ifdef METATYPE1_BUG	    
+	  case GENERATED:
+#endif	    
 	    keyword = linetoken (fp);
 	    break;
 	  case TRACKKERN:
@@ -835,7 +866,8 @@ static int parseAFM_TrackKernData (FILE *fp, register AFM_Font_info *fi)
  *  parseFile to determine if there is more file to parse.
  */
  
-static int parseAFM_PairKernData (FILE *fp, register AFM_Font_info *fi)
+static int
+parseAFM_PairKernData (FILE *fp, register AFM_Font_info *fi)
 {  
   BOOL cont = TRUE, save = (fi->pkd != NULL);
   int pos = 0, error = AFM_ok, pcount = 0;
@@ -959,7 +991,8 @@ static int parseAFM_PairKernData (FILE *fp, register AFM_Font_info *fi)
  *  parseFile to determine if there is more file to parse.
  */
  
-static int parseAFM_CompCharData (FILE *fp, register AFM_Font_info *fi)
+static int
+parseAFM_CompCharData (FILE *fp, register AFM_Font_info *fi)
 {  
   BOOL cont = TRUE, firstTime = TRUE, save = (fi->ccd != NULL);
   int pos = 0, j = 0, error = AFM_ok, ccount = 0, pcount = 0;
@@ -1153,7 +1186,8 @@ AFM_free (AFM_Font_info *fi)
  *  pointer upon return of this function is undefined.
  */
 
-extern int AFM_parseFile (FILE *fp, AFM_Font_info **fi, int flags)
+int
+AFM_parseFile (FILE *fp, AFM_Font_info **fi, int flags)
 {
     
   int code = AFM_ok; 	/* return code from each of the parsing routines */
@@ -1165,15 +1199,28 @@ extern int AFM_parseFile (FILE *fp, AFM_Font_info **fi, int flags)
   /* storage data for the global variable ident */			      
   if (!ident)
     ident = (char *) calloc (MAX_NAME, sizeof (char)); 
-  if (ident == NULL) {error = AFM_storageProblem; return (error);}      
-  
+  if (ident == NULL)
+    {
+      error = AFM_storageProblem;
+      return error;
+    }
+
   (*fi) = (AFM_Font_info *) calloc (1, sizeof (AFM_Font_info));
-  if ((*fi) == NULL) {error = AFM_storageProblem; return (error);}      
+  if ((*fi) == NULL)
+    {
+      error = AFM_storageProblem;
+      return error;
+    }      
   
   if (flags & P_G) 
     {
-      (*fi)->gfi = (AFM_GlobalFontInfo *) calloc (1, sizeof (AFM_GlobalFontInfo));
-      if ((*fi)->gfi == NULL) {error = AFM_storageProblem; return (error);}      
+      (*fi)->gfi = (AFM_GlobalFontInfo *) calloc (1,
+						  sizeof (AFM_GlobalFontInfo));
+      if ((*fi)->gfi == NULL)
+	{
+	  error = AFM_storageProblem;
+	  return error;
+	}      
     }
     
   /* The AFM File begins with Global Font Information. This section */
@@ -1198,11 +1245,11 @@ extern int AFM_parseFile (FILE *fp, AFM_Font_info **fi, int flags)
         {
 	  (*fi)->cmi = (AFM_CharMetricInfo *) 
 	    calloc ((*fi)->numOfChars, sizeof (AFM_CharMetricInfo));
-	  if ((*fi)->cmi == NULL) {
-	    error = AFM_storageProblem;
-	    return (error);
-
-	  }
+	  if ((*fi)->cmi == NULL)
+	    {
+	      error = AFM_storageProblem;
+	      return error;
+	    }
 	  code = parseCharMetrics (fp, *fi);             
         }
       else

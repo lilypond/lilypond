@@ -259,6 +259,10 @@
 		,(delay (ly:font-load "cmtt12"))
 		)))))
 
+  ;; lmodern: super-cm using metapost
+  ;; lm.map: Reencoding, at fontlevel for TeX ?:
+  ;; cork-lmb10 LMRomanDemi10-Regular "enccorklm ReEncodeFont" <cork-lm.enc <lmb10.pf
+  
   (for-each
    (lambda (x)
      (add-font
@@ -270,53 +274,90 @@
       (cons (* factor (cadr x))
 	    (cddr x))
       ))
+
+;;; super-cm, aka lmodern (on Debian) seems rather broken:
+;;; * no usable TFM files  (no lmr10.tfm, only cork-lmr10.tfm)
+;;; * broken AFM files:
+;;;    - invalid keyword 'Generated'
+;;;    - lists FontEncoding Fontspecific  -- duh
+;;; revert to ec-fonts-mftraced for now
+;;; make this easily switchable?
+   
+;;;    `((#(roman upright medium) .
+;;;       (10.0 . #(,(delay (ly:font-load "lmr6"))
+;;; 		,(delay (ly:font-load "lmr8")) 
+;;; 		,(delay (ly:font-load "lmr10"))
+;;; 		,(delay (ly:font-load "lmr17")))))
+
+;;;      (#(roman upright bold) .
+;;;       (10.0 . #(,(delay (ly:font-load "lmbx6"))
+;;; 		,(delay (ly:font-load "lmbx8"))
+;;; 		,(delay (ly:font-load "lmbx10"))
+;;; 		,(delay (ly:font-load "lmbx12")))))
+     
+;;;      (#(roman italic medium) .
+;;;       (10.0 . #(,(delay (ly:font-load "lmri7"))
+;;; 		,(delay (ly:font-load "lmri10"))
+;;; 		,(delay (ly:font-load "lmri12")))))
+;;;      (#(roman italic bold) .
+;;;       (10.0 . #(,(delay (ly:font-load "lmbi8"))
+;;; 		,(delay (ly:font-load "lmbi10"))
+;;; 		,(delay (ly:font-load "lmbi14")))))
+     
+;;;      (#(roman caps medium) .
+;;;       (10.0 . #(,(delay (ly:font-load "lmcs10")))))
+
+;;;      (#(roman upright bold-narrow ) .
+;;;       (10.0 . #(,(delay (ly:font-load "lmb10")))))
+     
+;;;      (#(sans upright medium) .
+;;;       (10.0  . #(,(delay (ly:font-load "lmss8"))
+;;; 		 ,(delay (ly:font-load "lmss10"))
+;;; 		 ,(delay (ly:font-load "lmss12"))
+;;; 		 ,(delay (ly:font-load "lmss17")))))
+;;;      (#(sans upright bold) .
+;;;       (10.0  . #(,(delay (ly:font-load "lmssbx10")))))
+     
+;;;      (#(typewriter upright medium) .
+;;;       (10.0 . #(,(delay (ly:font-load "lmtt8"))
+;;; 		,(delay (ly:font-load "lmtt10"))
+;;; 		,(delay (ly:font-load "lmtt12"))))))))
    `((#(roman upright medium) .
       (10.0 . #(,(delay (ly:font-load "ecrm6"))
 		,(delay (ly:font-load "ecrm8")) 
 		,(delay (ly:font-load "ecrm10"))
-		,(delay (ly:font-load "ecrm17"))
-		)))
-
+		,(delay (ly:font-load "ecrm17"))))) 
      (#(roman upright bold) .
       (10.0 . #(,(delay (ly:font-load "ecbx6"))
 		,(delay (ly:font-load "ecbx8"))
 		,(delay (ly:font-load "ecbx10"))
-		,(delay (ly:font-load "ecbx12"))
-		)))
-     
+		,(delay (ly:font-load "ecbx12"))))) 
      (#(roman italic medium) .
       (10.0 . #(,(delay (ly:font-load "ecti7"))
 		,(delay (ly:font-load "ecti10"))
-		,(delay (ly:font-load "ecti12"))
-		)))
+		,(delay (ly:font-load "ecti12")))))
      (#(roman italic bold) .
       (10.0 . #(,(delay (ly:font-load "ecbi8"))
 		,(delay (ly:font-load "ecbi10"))
-		,(delay (ly:font-load "ecbi14"))
-		)))
-     
-     (#(roman caps medium) .
-      (10.0 . #(,(delay (ly:font-load "eccc10")))))
-
+		,(delay (ly:font-load "ecbi14")))))
+     ;; duplicate entry?
+     ;;(#(roman caps medium) .
+     ;; (10.0 . #(,(delay (ly:font-load "eccc10")))))
      (#(roman caps medium) .
       (10.0 . #(,(delay (ly:font-load "ecsc10")))))
-
      (#(roman upright bold-narrow ) .
-      (10.0 . #(,(delay (ly:font-load "ecb10"))
-		)))
-     
+      (10.0 . #(,(delay (ly:font-load "ecb10")))))
      (#(sans upright medium) .
       (10.0  . #(,(delay (ly:font-load "ecss8"))
 		 ,(delay (ly:font-load "ecss10"))
 		 ,(delay (ly:font-load "ecss12"))
-		 ,(delay (ly:font-load "ecss17"))
-		 )))
+		 ,(delay (ly:font-load "ecss17")))))
      (#(typewriter upright medium) .
       (10.0 . #(,(delay (ly:font-load "ectt8"))
 		,(delay (ly:font-load "ectt10"))
-		,(delay (ly:font-load "ectt12"))
-		)))
-     )))
+		,(delay (ly:font-load "ectt12"))))))))
+
+
   
 
 ;; (display (make-font-tree 1.0))
