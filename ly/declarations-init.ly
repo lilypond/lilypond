@@ -77,7 +77,10 @@ partCombineListener = \paper {
 	\type "Recording_group_engraver"
 	recordEventSequence = #notice-the-events-for-pc
     }
-    \context { \Score skipTypesetting = ##t }
+    \context {
+	\Score
+	skipTypesetting = ##t
+    }
 }
 
 #(set-part-combine-listener partCombineListener)
