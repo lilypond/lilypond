@@ -16,14 +16,13 @@
   catch bars, and put a number over them.
  */
 class Bar_number_grav : public Engraver {
-    Script * script_p_;
-    int number_i_;
+  Script * script_p_;
 protected:
 
-    void acknowledge_element (Score_elem_info);
-    void do_pre_move_processing();
+  void acknowledge_element (Score_elem_info);
+  void do_pre_move_processing();
 public:
-    Bar_number_grav();
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  Bar_number_grav();
+  DECLARE_MY_RUNTIME_TYPEINFO;
 };
 #endif // BAR_NUMBER_GRAV_HH
