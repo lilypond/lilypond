@@ -7,14 +7,10 @@
 */
 
 #include "staff-sym.hh"
-#include "voice-group-gravs.hh"
-#include "voice-gravs.hh"
 #include "staff-gravs.hh"
 #include "command-request.hh"
 #include "bar.hh"
 #include "debug.hh"
-#include "input-engraver.hh"
-#include "meter-grav.hh"
 #include "staffline.hh"
 
 
@@ -60,7 +56,7 @@ Staff_engravers::do_removal_processing()
     group_staff_elems();
 
     staffline_p_->right_col_l_ = get_staff_info().command_pcol_l();
-    Request_engraver::typeset_element(staffline_p_);
+    Engraver::typeset_element(staffline_p_);
     staffline_p_ = 0;
 }
 
@@ -71,7 +67,7 @@ Staff_engravers::do_creation_processing()
     staffline_p_->left_col_l_ = get_staff_info().command_pcol_l();
 
     // don't broadcast to self.
-    Request_engraver::announce_element(Score_elem_info(staffline_p_,0));
+    Engraver::announce_element(Score_elem_info(staffline_p_,0));
     Engraver_group_engraver::do_creation_processing();
 }
 
