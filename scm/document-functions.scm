@@ -1,5 +1,6 @@
 (use-modules
- (ice-9 regex))
+ (ice-9 regex)
+ )
 
 (define (format-c-header c-h)
   (regexp-substitute/global
