@@ -193,9 +193,6 @@ Do nothing.
 @end table
 ")
 (translator-property-description 'decrescendoSpanner symbol? "Type of spanner to be used for decrescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
-
-(translator-property-description 'easyPlay boolean? "Copy note names into note head grob property")
-
 (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clef changes.")
 
 (translator-property-description 'explicitKeySignatureVisibility
