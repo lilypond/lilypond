@@ -20,7 +20,7 @@ public:
     /* ************** */
     virtual void process_request();
     virtual void do_pre_move_process();
-    virtual bool try_request(Nonmusical_req*);
+    virtual bool try_request(Request*);
     Clef_register(Complex_walker*);
     void read_req(Clef_change_req*);
     bool set_type(String);

@@ -7,7 +7,7 @@
 */
 #include "tstream.hh"
 #include "score.hh"
-#include "sccol.hh"
+#include "scorecolumn.hh"
 #include "pscore.hh"
 #include "staff.hh"
 #include "debug.hh"
@@ -159,15 +159,12 @@ Score::find_col(Moment w, bool mus)
 }
 
 void
-Score::do_cols()
-    
+Score::do_cols()    
 {
-
     iter_top(cols_,i);
     for (; i.ok(); i++) {
 	pscore_p_->add(i->pcol_l_);
     }
-
 }
 
 Moment

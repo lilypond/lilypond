@@ -24,6 +24,7 @@ struct Key_register : Request_register {
     virtual void process_request();
     virtual void do_pre_move_process();
     virtual void do_post_move_process();
+    virtual void acknowledge_element(Staff_elem_info);
     Key_register(Complex_walker*);
 private:
     

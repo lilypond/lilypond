@@ -21,6 +21,20 @@ StringConversion::bin2hex_str( String bin_str )
 }
 
 int
+StringConversion::bin2int_i( String bin_str )
+{
+    assert( bin_str.length_i() <= 4 );
+
+    int result_i = 0;
+    for ( int i = 0; i < bin_str.length_i(); i++ ) {
+	result_i <<= 8;
+	result_i |= bin_str[ i ];
+    }
+    return result_i;
+}
+
+
+int
 StringConversion::hex2bin_i( String hex_str, String& bin_str_r )
 {
     if ( hex_str.length_i() % 2 )

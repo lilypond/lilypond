@@ -13,7 +13,7 @@
 #include "commandrequest.hh"
 #include "timedescription.hh"
 #include "complexwalker.hh"
-#include "stcol.hh"
+#include "staffcolumn.hh"
 
 Clef_register::Clef_register(Complex_walker*w)
     : Request_register(w)
@@ -48,14 +48,16 @@ Clef_register::read_req(Clef_change_req*c_l)
 }
 
 bool
-Clef_register::try_request(Nonmusical_req* r_l)
+Clef_register::try_request(Request * r_l)
 {
-    if (!r_l->clefchange())
+    
+    Command_req* creq_l= r_l->command();
+    if (!creq_l || !creq_l->clefchange())
 	return false;
 
-    accepted_req_arr_.push(r_l);
+    accepted_req_arr_.push(creq_l);
     // do it now! Others have to read c0_pos.
-    read_req(r_l->clefchange()); 
+    read_req(creq_l->clefchange()); 
     return true;
 }
 

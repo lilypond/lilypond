@@ -1,11 +1,11 @@
 /*
-  stcol.hh -- declare Staff_column
+  staffcolumn.hh -- declare Staff_column
 
   (c) 1996,97 Han-Wen Nienhuys
 */
 
-#ifndef STCOL_HH
-#define STCOL_HH
+#ifndef STAFFCOLUMN_HH
+#define STAFFCOLUMN_HH
 #include "proto.hh"
 #include "varray.hh"
 #include "moment.hh"
@@ -42,5 +42,6 @@ protected:
 };
 
 
-#endif // STCOL_HH
+
+#endif // STAFFCOLUMN_HH
 

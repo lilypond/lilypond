@@ -92,7 +92,7 @@ String::String( char const* source )
 
 String::String( Byte const* byte_l, int length_i )
 {   
-    assert( !length_i || byte_l );
+//    assert( !length_i || byte_l );// ugh.  Storing null pointers? 
     strh_.set( byte_l, length_i );    
 }
 

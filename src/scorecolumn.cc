@@ -1,5 +1,5 @@
 /*
-  sccol.cc -- implement Score_column
+  scorecolumn.cc -- implement Score_column
 
   source file of the LilyPond music typesetter
 
@@ -8,7 +8,7 @@
 
 #include "debug.hh"
 #include "pcol.hh"
-#include "sccol.hh"
+#include "scorecolumn.hh"
 
 int
 Score_column::compare(Score_column & c1, Score_column &c2)

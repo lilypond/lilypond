@@ -1,9 +1,17 @@
+/*
+  template2.cc -- instantiate some list templates. 
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "symbol.hh"
 #include "voice.hh"
 #include "musicalrequest.hh"
 #include "staff.hh"
-#include "sccol.hh"
-#include "stcol.hh"
+#include "scorecolumn.hh"
+#include "staffcolumn.hh"
 #include "spanner.hh"
 #include "plist.tcc"
 #include "pcursor.tcc"

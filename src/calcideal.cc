@@ -2,7 +2,7 @@
 #include "score.hh"
 #include "pscore.hh"
 #include "paperdef.hh"
-#include "sccol.hh"
+#include "scorecolumn.hh"
 #include "dimen.hh"
 
 

@@ -11,7 +11,7 @@
 #include "score.hh"
 #include "staffwalker.hh"
 #include "staff.hh"
-#include "sccol.hh"
+#include "scorecolumn.hh"
 
 Score_walker::Score_walker(Score *s)
     :PCursor<Score_column *> (s->cols_)

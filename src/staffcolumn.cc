@@ -1,5 +1,5 @@
 /*
-  stcol.cc -- implement Staff_column
+  staffcolumn.cc -- implement Staff_column
 
   source file of the LilyPond music typesetter
 
@@ -8,8 +8,8 @@
 #include "staff.hh"
 #include "voice.hh"
 #include "timedescription.hh"
-#include "sccol.hh"
-#include "stcol.hh"
+#include "scorecolumn.hh"
+#include "staffcolumn.hh"
 #include "commandrequest.hh"
 #include "musicalrequest.hh"
 #include "interval.hh"
@@ -37,10 +37,10 @@ void
 Staff_column::add(Voice_element*ve)
 {
     for (iter_top(ve->reqs,j); j.ok(); j++) {
-	if (j->nonmus()) {
-	    Nonmusical_req * c_l = j->nonmus();
+	if (j->command()) {
+	    Command_req * c_l = j->command();
 	    if (c_l->timing()) {
-		timing_req_l_arr_.push(j->nonmus()->timing());
+		timing_req_l_arr_.push(j->command()->timing());
 	    }
 	    if (!c_l->barcheck() &&  !c_l->partial() &&
 		!c_l->measuregrouping())
@@ -79,7 +79,7 @@ Staff_column::set_cols(Score_column*c1, Score_column*c2)
 void
 Staff_column::setup_one_request(Request * j)
 {
-    if (j->nonmus()) // ugh
+    if (j->command()) // ugh
 	commandreq_l_arr_.push(j);
     else if (j->musical())
 	musicalreq_l_arr_.push(j);
@@ -89,13 +89,15 @@ void
 Staff_column::typeset_musical_item(Item*i)
 {
     assert(i);
-    Score_column * sccol_l = musical_column_l_;
-    musical_column_l_->pcol_l_->pscore_l_->typeset_item(i, sccol_l->pcol_l_,
+    Score_column * scorecolumn_l = musical_column_l_;
+    musical_column_l_->pcol_l_->pscore_l_->typeset_item(i, scorecolumn_l->pcol_l_,
 							staff_l_->pstaff_l_);
 }
 
 /**
-  align items in #item_l_arr#, return the width.
+  align items in #item_l_arr#,
+
+  @return the width of the items after aligning.
  */
 Interval
 align_items(Array<Item*> item_l_arr)
@@ -103,7 +105,9 @@ align_items(Array<Item*> item_l_arr)
     Interval wid(0,0);
     for  (int i =0; i < item_l_arr.size(); i++) {
 	Interval item_width= item_l_arr[i]->width();
-	item_l_arr[i]->translate(Offset( wid.right - item_width.left ,0));
+	Real dx =wid.right - item_width.left;
+	item_width += dx;
+	item_l_arr[i]->translate(Offset(dx ,0));
 	wid.unite(item_width);
     }
     return wid;

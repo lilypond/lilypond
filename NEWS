@@ -1,3 +1,8 @@
+pl 35
+	- Register_group
+Bugfix
+	- alignment of breakable items.
+
 *******
 pl 34
 	- better midi syntax.

@@ -2,8 +2,8 @@
 #include "score.hh"
 #include "voice.hh"
 #include "staffwalker.hh"
-#include "stcol.hh"
-#include "sccol.hh"
+#include "staffcolumn.hh"
+#include "scorecolumn.hh"
 
 #include "debug.hh"
 #include "musicalrequest.hh"
@@ -57,17 +57,17 @@ Staff::get_col(Moment w, PCursor<Staff_column*> *last)
     }
 
 
-    PCursor<Score_column*> sccols(score_l_->find_col(w, false));
-    Staff_column* stcol_p = new Staff_column;
-    stcol_p->staff_l_ = this;
-    Score_column* comcol_l  = sccols++;
-    stcol_p->set_cols(comcol_l, sccols);
+    PCursor<Score_column*> scorecolumns(score_l_->find_col(w, false));
+    Staff_column* staffcolumn_p = new Staff_column;
+    staffcolumn_p->staff_l_ = this;
+    Score_column* comcol_l  = scorecolumns++;
+    staffcolumn_p->set_cols(comcol_l, scorecolumns);
     
     if (!i.ok()) {
-	cols_.bottom().add(    stcol_p);
+	cols_.bottom().add(    staffcolumn_p);
 	i = cols_.bottom();
     } else {
-	i.insert(stcol_p);
+	i.insert(staffcolumn_p);
 	i--;
     }
     if (last)
@@ -117,7 +117,7 @@ Staff::OK() const
 Moment
 Staff::last() const
 {
-    Moment l = 0.0;
+    Moment l = 0;
     for (iter_top(voice_list_,i); i.ok(); i++) {
 	l = l >? i->last();
     }

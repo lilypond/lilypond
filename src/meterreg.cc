@@ -19,11 +19,11 @@ Meter_register::Meter_register(Complex_walker*w)
 bool
 Meter_register::try_request(Request*r_l)
 {
-    if (!r_l->nonmus()->meterchange()) 
+    if (!r_l->command()->meterchange()) 
 	return false;
 
     assert(!meter_req_l_);
-    meter_req_l_ = r_l->nonmus()->meterchange();
+    meter_req_l_ = r_l->command()->meterchange();
 
     return true;
 }

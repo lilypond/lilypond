@@ -17,18 +17,18 @@ $(m2m):	$(m2mobs)
 .PHONY: clean docxx
 
 clean:
-	rm -f $(allexe) $(DOCDIR)/* core $(allobs) $(ALLDEPS)
+	rm -f $(allexe) $(DOCDIR)/* core $(allobs) 
 	for SUBDIR in $(SUBDIRS); \
 	do \
 		$(MAKE) SUBDIR=$$SUBDIR -C $$SUBDIR clean;\
 	done
 
 distclean: clean
-	rm -f  version.hh $(gencc) .GENERATE *~ $(ALLDEPS)
+	rm -f  version.hh $(gencc) .GENERATE *~ $(ALLDEPS) 
 
 all: $(exe) $(m2m) doc
 
-# value of $(OSTYPE) on windhoos; "make $OSTYPE" if u use bash :-)
+# value of $(OSTYPE) on windhoos; "make $OSTYPE" if you use bash :-)
 win32: 
 	$(MAKE) -C . CXX=g++ 
 
@@ -39,12 +39,12 @@ doc:
 docxx: $(progdocs)	
 	doc++ -kp -d $(DOCDIR) $^
 
+
+include $(DEPDIR)/*.dep
+
 $(OBJECTDIR)/%.o: $(CCDIR)/%.cc
 	$(DODEP)\
 	$(CXX) -c $(CXXFLAGS) $(OUTPUT_OPTION) 
-
-
-include $(DEPDIR)/*.dep
 
 $(OBJECTDIR)/version.o: $(obs) $(HEADERDIR)/version.hh
 

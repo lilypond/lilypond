@@ -5,6 +5,7 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>, Jan Nieuwehuizen <jan@digicash.com> 
 */
+
 #include "plist.hh"
 #include "debug.hh"
 #include "score.hh"
@@ -14,7 +15,7 @@
 #include "midioutput.hh"
 #include "midiwalker.hh"
 #include "midiitem.hh"
-#include "stcol.hh"
+#include "staffcolumn.hh"
 #include "musicalrequest.hh"
 
 

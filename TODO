@@ -1,34 +1,35 @@
-
 before 0.1
 
-
-	* create libmudela, libmidi, or liblily_frontend
-
-	* Register_groups as a baseclass.
+	* remove spurious/outdated comments in .ly
+	
+	* more control in Register_groups
 
 	* pushgroup, popgroup.
 
 	* basic dynamics
 
+	* basic syntax
+
 	* decent TeX page layout
-	
-	* < .. > vs. { .. } syntax? ! 
+
+	* clean split for m2m of sources.
 
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
 BUGS
+
+	* key at clef change.
+
 	* key undo
 
-	* c8. c32 c32
+	* key at broken :||:
 
-	* key print if clef change.
+	* [c8. c32 c32]
 
 	* $cis ( | ) cis$
 
 	* Group_feature at start of music. 
-
-	* size of Key_item
 
 SEVERELY LACKING:
 
@@ -46,9 +47,13 @@ INPUTLANGUAGE
 
 	* rest name configurable
 
+	* < .. > vs. { .. } syntax? ! 
+
 	* '*' vs. '/'
 
 SMALLISH PROJECTS
+
+	* fix Staff_elem::width() derivs to use offset_
 
 	* parshape
 
@@ -56,7 +61,7 @@ SMALLISH PROJECTS
 
 	* read from mmap directly: study yy_scan_buffer
 
-	* binsearch/hash for notenames
+	* binsearch/hash for notenames, id. for identifiers
 
 	* stafftypes: voice names/ instrument names.
 
@@ -128,6 +133,12 @@ FUTURE
 
 IDEAS
 
+	* create libmudela,  or liblily_frontend
+
+	* move MIDI io to a ANSI C libmidi library.
+
+	* fold indentifiers and notenames?
+
 	* enter Requests directly
 
 	* itemcolumns: Use dummy items.
@@ -158,4 +169,4 @@ IDEAS
 
 	* caching breakpoints
 
-	* use exceptions?
+	* use exceptions iso assert?

@@ -8,12 +8,12 @@ Input_music::check_plet(Voice_element* velt_l)
 {
     for (iter_top(velt_l->reqs,i); i.ok(); i++)
 	if ( i->plet() ) {
-	    Moment start_moment = 0.0;
+	    Moment start_moment = 0;
 	    if ( !find_plet_start_bo( i->plet()->type_c_, start_moment ) ) {
 		error( "begin of plet not found", i->defined_ch_c_l_ );
 	        break;
 	    }
-	    Moment moment = 0.0;
+	    Moment moment = 0;
 	    set_plet_backwards( moment, start_moment, i->plet()->dur_i_, i->plet()->type_i_ );
 	    i.del();
 	    break;
@@ -209,7 +209,7 @@ Music_general_chord::translate_time(Moment t)
 Moment
 Music_general_chord::length()const
 {
-    Moment l =0.0;
+    Moment l =0;
     
     for (iter_top(elts,i); i.ok(); i++) 
 	l = l >? i->length();

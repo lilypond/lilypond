@@ -13,11 +13,10 @@
 #include "request.hh"
 #include "varray.hh"
 
-/**
-  Request assumed to be "happening" before the musical requests
- */
-struct Nonmusical_req : virtual Request {
-    REQUESTMETHODS(Nonmusical_req, nonmus);
+/** Request which are  assumed to be "happening" before the
+  musical requests. */
+struct Command_req : virtual Request {
+    REQUESTMETHODS(Command_req, command);
 
     virtual Measure_grouping_req * measuregrouping() { return 0; }
     virtual Clef_change_req * clefchange() { return 0; }
@@ -32,7 +31,7 @@ struct Nonmusical_req : virtual Request {
 
 /** Baseclass for meter/partial req. It has to be handled by
   Staff_{walker,column} baseclass.  */
-struct Timing_req : Nonmusical_req {
+struct Timing_req : Command_req {
     REQUESTMETHODS(Timing_req, timing);
 };
 
@@ -58,7 +57,7 @@ struct Meter_change_req : Timing_req {
 /// toggle Cadenza mode
 struct Cadenza_req : Timing_req {
     /// turn on?
-    bool on_b;
+    bool on_b_;
     Cadenza_req(bool);
     REQUESTMETHODS(Cadenza_req,cadenza);
 };
@@ -76,31 +75,31 @@ struct Measure_grouping_req: Timing_req {
     REQUESTMETHODS(Measure_grouping_req, measuregrouping);
 };
 
-struct Group_change_req : Nonmusical_req {
+struct Group_change_req : Command_req {
     String newgroup_str_;
     REQUESTMETHODS(Group_change_req, groupchange);
 };
 
 /** draw a (repeat)-bar. This something different than #Barcheck_req#,
   the latter should only happen at the start of a measure.  */
-struct Bar_req : Nonmusical_req {
+struct Bar_req : Command_req {
     String type_str_;
     Bar_req(String);
     int compare(const Bar_req&)const;
     REQUESTMETHODS(Bar_req,bar);
 };
-struct Terminate_voice_req : Nonmusical_req {
+struct Terminate_voice_req : Command_req {
     REQUESTMETHODS(Terminate_voice_req,terminate);
 };
 
-struct Group_feature_req : Nonmusical_req {
+struct Group_feature_req : Command_req {
     int stemdir_i_;
     Group_feature_req();
     REQUESTMETHODS(Group_feature_req, groupfeature);
 };
 
 
-struct Key_change_req : Nonmusical_req {
+struct Key_change_req : Command_req {
     Array<Melodic_req*> melodic_p_arr_;
 
     Key_change_req();
@@ -109,7 +108,7 @@ struct Key_change_req : Nonmusical_req {
     REQUESTMETHODS(Key_change_req, keychange);
 };
 
-struct Clef_change_req : Nonmusical_req {
+struct Clef_change_req : Command_req {
     String clef_str_;
     Clef_change_req(String);
     REQUESTMETHODS(Clef_change_req, clefchange);

@@ -56,7 +56,7 @@ struct Request {
     virtual Spacing_req * spacing() { return 0; }
     virtual Blank_req * blank() { return 0; }
     virtual Musical_req *musical() { return 0; }
-    virtual Nonmusical_req * nonmus() { return 0; }
+    virtual Command_req * command() { return 0; }
 protected:
     virtual void do_print()const ;
 };

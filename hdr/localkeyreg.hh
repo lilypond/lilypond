@@ -1,5 +1,5 @@
 /*
-  localkeyreg.hh -- part of LilyPond
+  localkeyreg.hh -- declare Local_key_register
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -13,8 +13,9 @@
 struct Local_key_register : Request_register {
     Local_key local_key_;
     Local_key_item* key_item_p_;
-
+    const Key *key_c_l_;
     /* *************** */
+    virtual void process_request();
     virtual void acknowledge_element(Staff_elem_info);
     virtual void do_pre_move_process();
     Local_key_register(Complex_walker*);
