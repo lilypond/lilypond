@@ -428,7 +428,7 @@ Beam::quanting (SCM smob)
 
   */
 
-  const int REGION_SIZE = 3;
+  const int REGION_SIZE = 2;
   for (int i  = -REGION_SIZE ; i < REGION_SIZE; i++)
     for (int j = 0; j < num_quants; j++)
       {
@@ -492,6 +492,9 @@ Beam::quanting (SCM smob)
   Array<Real> rbase_lengths;  
 
   Array<int> directions;
+  
+  Drul_array<bool> dirs_found(0,0);
+
   for (int i= 0; i < stems.size(); i++)
     {
       Grob*s = stems[i];
@@ -502,16 +505,20 @@ Beam::quanting (SCM smob)
 
       b = calc_stem_y (me, s, Interval (0,1));
       rbase_lengths.push (b);
-      directions.push( Directional_element_interface::get( s));
+
+      Direction d = Directional_element_interface::get( s);
+      directions.push( d);
+      dirs_found [d] = true;
     }
 
+  bool knee_b = dirs_found[LEFT] && dirs_found[RIGHT];
   for (int i = qscores.size (); i--;)
     if (qscores[i].demerits < 100)
       {
 	qscores[i].demerits
 	  += score_stem_lengths (stems, stem_infos,
 				 lbase_lengths, rbase_lengths,
-				 directions,
+				 directions, knee_b,
 				 me, qscores[i].yl, qscores[i].yr);
       }
 
@@ -550,6 +557,7 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
 			  Array<Real> left_factor,
 			  Array<Real> right_factor,
 			  Array<int> directions,
+			  bool knee, 
 			  Grob*me, Real yl, Real yr)
 {
   Real demerit_score = 0.0 ;
@@ -565,9 +573,13 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
 
       Stem_info info = stem_infos[i];
       Direction d = Direction (directions[i]);
+
+      Real pen = STEM_LENGTH_LIMIT_PENALTY;
+      if (knee)
+	pen = sqrt(pen);
       
-      demerit_score += STEM_LENGTH_LIMIT_PENALTY * ( 0 >? (info.min_y - d * current_y));
-      demerit_score += STEM_LENGTH_LIMIT_PENALTY * ( 0 >? (d * current_y  - info.max_y));
+      demerit_score += pen * ( 0 >? (info.min_y - d * current_y));
+      demerit_score += pen * ( 0 >? (d * current_y  - info.max_y));
 
       demerit_score += STEM_LENGTH_DEMERIT_FACTOR * shrink_extra_weight (d * current_y  - info.ideal_y);
     }

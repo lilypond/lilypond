@@ -40,7 +40,7 @@ public:
   static Real score_stem_lengths (Link_array<Grob>,
 				  Array<Stem_info>,
 				  Array<Real>, Array<Real>, Array<int>,
-				  Grob*,Real , Real);
+				  bool,Grob*,Real , Real);
   static Real score_forbidden_quants (Grob*, Real, Real,
 				      Real, Real, Real, Real,
 				      int);
