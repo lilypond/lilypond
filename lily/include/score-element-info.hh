@@ -10,7 +10,6 @@
 #ifndef STAFFELEMINFO_HH
 #define STAFFELEMINFO_HH
 
-#include "scalar.hh"
 #include "lily-proto.hh"
 #include "parray.hh"
 
@@ -20,7 +19,7 @@
 struct Score_element_info {
     Score_element * elem_l_;
     Music *req_l_;
-    Link_array<Engraver> origin_grav_l_arr_;
+    Link_array<Translator> origin_trans_l_arr_;
 
     Score_element_info (Score_element*, Music*);
     Score_element_info();

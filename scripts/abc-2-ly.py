@@ -14,13 +14,36 @@ import getopt
 import sys
 import re
 import string
+import mpz
 
 
 header = {}
 global_voice_stuff = []
 default_len = 4
 global_key = [0] * 7			# UGH
+DIGITS='0123456789'
 
+def gcd (a, b):
+	while  a % b:
+		a,b = b, a % b
+	return b
+	
+class Rational:
+	def __init__ (self, n, d = 1):
+		self.num = n
+		self.den = d
+
+	def simplify (self):
+		g = gcd (self.num, self.den)
+		self.num = self.num /  g
+		self.den = self.den /g
+		if self.den < 0:
+			self.den = - self.den
+			self.num = - self.num
+
+	def __sub__ (self, other):
+		pass
+	
 
 
 def dump_header (hdr):
@@ -205,7 +228,7 @@ def octave_to_mudela_quotes (o):
 
 def parse_num (str):
 	durstr = ''
-	while str[0] in "1234567890":
+	while str[0] in DIGITS:
 		durstr = durstr + str[0]
 		str = str[1:]
 
@@ -215,11 +238,24 @@ def parse_num (str):
 	return (str,n)
 
 
-def duration_to_mudela_duration  (multiply_tup, defaultlen):
+def duration_to_mudela_duration  (multiply_tup, defaultlen, dots):
 	base = 1
 
+	# (num /  den)  / defaultlen < 1/base
+	while base * multiply_tup[0] < defaultlen * multiply_tup[1]:
+		base = base * 2
+
+
+	return '%d%s' % ( base, '.'* dots)
+
+class Parser_state:
+	def __init__ (self):
+		self.next_dots = 0
+		self.next_den = 1
+
+
 # WAT IS ABC EEN ONTZETTENDE PROGRAMMEERPOEP  !
-def try_parse_note (str):
+def try_parse_note (str, parser_state):
 	mud = ''
 
 	slur_begin =0
@@ -259,21 +295,38 @@ def try_parse_note (str):
 		 str = str[1:]
 
 	num = 0
-	den = 0
+	den = parser_state.next_den
+	parser_state.next_den = 1
 
 	(str, num) = parse_num (str)
 	if not num:
 		num = 1
 	
 	if str[0] == '/':
-		divide =1
-		str = str[1:]
-		(str, den) =parse_num (str)
+		while str[0] == '/':
+			str= str[1:]
+			d = 2
+			if str[0] in DIGITS:
+				(str, d) =parse_num (str)
 
-	if not den: den = 1
+			den = den * d
+
+	current_dots = parser_state.next_dots
+	parser_state.next_dots = 0
+	while str[0] == '>':
+		str = str [1:]
+		current_dots = current_dots + 1;
+		parser_state.next_den = parser_state.next_den * 2
+	
+	while str[0] == '<':
+		str = str [1:]
+		den = den * 2
+		parser_state.next_dots = parser_state.next_dots + 1
+	
 		
-	print duration_to_mudela_duration ((num,den), default_len)
-	print '%s%s%d' %  (pitch_to_mudela_name(notename, acc + global_key[notename]) , octave_to_mudela_quotes (octave), duration_mult)
+	
+	print '%s%s%s' %  (pitch_to_mudela_name(notename, acc + global_key[notename]) , octave_to_mudela_quotes (octave),
+			   duration_to_mudela_duration ((num,den), default_len, current_dots))
 
 	slur_end =0
 	if str[0] == ')':
@@ -289,27 +342,46 @@ def junk_space (str):
 
 	return str
 
+def try_parse_escape (str):
+	if str [0] != '\\':
+		return str
+	
+	str = str[1:]
+	if str[0] == 'K':
+		compute_key ()
+
+	return str
+
+
 def try_parse_bar (str):
 	if str[0] == '|':
 		str = str[1:]
 	return str
 	
-def try_parse_body_line (ln):
+
+
+def try_parse_body_line (ln, state):
 	prev_ln = ''
 	while ln and  ln != prev_ln:
 		prev_ln = ln
-		ln = try_parse_note  (ln)
+		ln = try_parse_note  (ln, state)
 		ln = try_parse_bar (ln)
 		ln = junk_space (ln)
+		ln = try_parse_escape (ln)
 	if ln:
 		print 'Huh %s' % ln
 		
+
+
+	
+
 
 def parse_file (fn):
 	f = open (fn)
 	ls = f.readlines ()
 
 	head = 1
+	state = Parser_state ()
 	for l in ls:
 		if re.match ('^[\t ]*(%.*)?$', l):
 			continue
@@ -320,7 +392,7 @@ def parse_file (fn):
 				head = 0
 
 		if not head:
-			m = try_parse_body_line (l)
+			m = try_parse_body_line (l,state)
 
 
 def identify():

@@ -126,14 +126,6 @@ Key_item::do_brew_molecule_p() const
       output->add_at_edge (X_AXIS, RIGHT, m, 0);
     }
 
-  if (pitch_arr_.size()) 
-    {
-      Molecule m (lookup_l ()->fill (Box (
-					  Interval (0, paper_l ()->note_width ()),
-					  Interval (0,0))));
-      
-      output->add_at_edge (X_AXIS, RIGHT, m,0 );
-    }
   return output;
 }
 

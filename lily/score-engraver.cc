@@ -82,7 +82,7 @@ void
 Score_engraver::announce_element (Score_element_info info)
 {
   announce_info_arr_.push (info);
-  info.origin_grav_l_arr_.push (this);
+  info.origin_trans_l_arr_.push (this);
 
   if (Spanner *s = dynamic_cast <Spanner *> (info.elem_l_))
     pscore_p_->typeset_unbroken_spanner (s);

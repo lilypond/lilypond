@@ -56,6 +56,7 @@ void
 Score_performer::process()
 {
   process_requests();
+  do_announces ();
   pre_move_processing();
   check_removal();
 }

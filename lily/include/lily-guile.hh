@@ -34,11 +34,12 @@ SCM array_to_list (SCM *a , int l);
 
 
 void read_lily_scm_file (String);
-void init_symbols ();
+void init_lily_guile ();
+
 #include "ly-symbols.hh"
 
 /*
-  DIY gc protection.
+  Do It Yourself GC protection.
  */
 SCM ly_protect_scm (SCM s);
 SCM ly_unprotect_scm (SCM s);

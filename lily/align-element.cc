@@ -86,7 +86,6 @@ Align_element::do_pre_processing ()
 void
 Align_element::do_side_processing ()
 {
-  sort_elements ();
   Array<Interval> dims;
 
   Link_array<Score_element> elems;
@@ -103,7 +102,7 @@ Align_element::do_side_processing ()
 	    {
 	      extra_dims = SCM_CDR (extra_dims);
 	      dims.top ()[LEFT] -= gh_scm2double (SCM_CAR (extra_dims));
-	      dims.top ()[RIGHT] += gh_scm2double (SCM_CAR (extra_dims));
+	      dims.top ()[RIGHT] += gh_scm2double (SCM_CDR (extra_dims));
 	    }
 
 	  elems.push (e);

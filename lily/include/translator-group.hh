@@ -40,10 +40,8 @@ public:
 
   String id_str_;
 
-
   VIRTUAL_COPY_CONS(Translator);
   
-
   void set_acceptor (String accepts, bool add);
   void set_element (String elt, bool add);  
   void add_last_element (String elt);  
@@ -67,7 +65,6 @@ public:
   void check_removal ();
 
 
-  
   Translator *get_simple_translator (String) const;
   Translator_group *find_existing_translator_l (String n, String id);
   Translator_group *find_create_translator_l (String n, String id);

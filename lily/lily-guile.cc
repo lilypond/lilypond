@@ -121,3 +121,26 @@ array_to_list (SCM *a , int l)
   return list;
 }
 
+SCM
+ly_warning (SCM str)
+{
+  assert (gh_string_p (str));
+  warning ("scheme: " + ly_scm2string (str));
+  return SCM_BOOL_T;
+}
+
+void
+init_functions ()
+{
+  scm_make_gsubr ("ly-warn", 1, 0, 0, ly_warning);
+}
+
+
+extern void init_symbols ();
+
+void
+init_lily_guile ()
+{
+  init_symbols();
+  init_functions ();
+}

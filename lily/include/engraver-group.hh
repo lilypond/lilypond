@@ -28,8 +28,6 @@ protected:
   Array<Score_element_info> announce_info_arr_;
 public:
   VIRTUAL_COPY_CONS(Translator);
-  Engraver_group_engraver();
-  ~Engraver_group_engraver();
     
   virtual Staff_info get_staff_info() const;
   virtual void do_announces();

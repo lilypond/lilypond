@@ -22,6 +22,7 @@ struct All_font_metrics;
 struct Articulation_req;
 struct Atom;
 struct Audio_element;
+struct Audio_element_info;
 struct Audio_column;
 struct Audio_item;
 struct Audio_key;

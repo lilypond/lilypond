@@ -15,8 +15,8 @@ fet_begingroup("clefs");
 %
 def set_horizontal_spacing =
 	save left_space ,right_space;
-	left_space# = reduced_il#;
-	right_space# = reduced_il#;
+	left_space# = 0;
+	right_space# = 0;
 enddef;
 
 

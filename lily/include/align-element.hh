@@ -25,7 +25,6 @@
  */
 class Align_element : public virtual Axis_group_element {
   Hash_table<Score_element*,int> priority_i_hash_;
-  void sort_elements ();
 public:
   Interval threshold_interval_ ;
 
@@ -56,6 +55,7 @@ public:
   Score_element *get_elt_by_priority (int) const;
   int get_priority (Score_element*) const;
 protected:
+  void sort_elements ();
   virtual void do_print() const;
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual void do_post_processing() ;

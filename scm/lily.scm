@@ -80,8 +80,37 @@
 (define Piano_bar_engraver_visibility postbreak_only_visibility)
 (define Staff_group_bar_engraver_visibility postbreak_only_visibility)
 
+;; Spacing constants for prefatory matter.
+;;
+;; rules for this are complicated. See [Wanske] page 126 -- 134
+;;
+;;
+(define space-alist
+ '(
+   (("Clef_item" "Key_item") .  2.5)
+   (("Key_item" "Time_signature") . 2.5)
+   (("Clef_item"  "Time_signature") . 2.75)
+   (("Staff_bar" "Clef_item") .  1.0)
+   (("Clef_item"  "Staff_bar") . 3.7)
+   (("Time_signature" "Staff_bar") . 2.0)
+   (("Key_item"  "Staff_bar") . 2.5)
+   (("Span_bar" "Clef_item") .  1.0)
+   (("Clef_item"  "Span_bar") . 3.7)
+   (("Time_signature" "Span_bar") . 2.0)
+   (("Key_item"  "Span_bar") . 2.5)
+   (("Staff_bar" "Time_signature") . 1.0)
+   )
+ 
+ )
 
-
+(define (break-align-spacer this next)
+  (let ((entry (assoc `(,this ,next) space-alist)))
+    (if entry
+	(cdr entry)
+	(begin (ly-warn (string-append "Unknown spacing pair " this ", " next))
+	       0.0))))
+  
+	
 
 ;;;;;;;; TeX
 

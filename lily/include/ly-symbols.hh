@@ -43,6 +43,7 @@ DECLARE_LY_SYMBOL(molecule);
 DECLARE_LY_SYMBOL(notewidth);
 DECLARE_LY_SYMBOL(non_default);
 DECLARE_LY_SYMBOL(octave_dir);
+DECLARE_LY_SYMBOL(origin);
 DECLARE_LY_SYMBOL(output);
 DECLARE_LY_SYMBOL(padding);
 DECLARE_LY_SYMBOL(pianobrace);
