@@ -1,5 +1,8 @@
 2005-03-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* buildscripts/mutopia-index.py (headertext): add h1 header and
+	utf-8 charset meta field.
+
 	* input/GNUmakefile: prune example list.
 
 	* scm/framework-tex.scm (convert-to-ps): add -ofoo.ps to dvips

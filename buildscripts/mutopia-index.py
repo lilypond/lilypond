@@ -53,6 +53,9 @@ def file_exist_b (fn):
 
 headertext= r"""
 
+<h1>LilyPond samples</h1>
+ 
+
 <p>You're looking at a page with some LilyPond samples.  These files
 are also included in the distribution. The output is completely
 generated from the <tt>.ly</tt> source file, without any further touch
@@ -123,10 +126,12 @@ def gen_list(inputs, filename):
 		list = open(filename, 'w')
 	else:
 		list = sys.stdout
-	list.write ('<html><head><title>Rendered Examples</title>\n')
-	list.write ('<style type="text/css">\n')
-	list.write ('hr { border:0; height:1; color: #000000; background-color: #000000; }\n')
-	list.write ('</style></head>\n')
+	list.write ('''<html><head><title>Rendered Examples</title>
+<style type="text/css">
+hr { border:0; height:1; color: #000000; background-color: #000000; }\n
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>''')
 
 	list.write ('<body bgcolor=white>\n')
 	
