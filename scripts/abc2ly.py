@@ -1190,18 +1190,18 @@ def try_parse_chord_delims (str, state):
 		if state.next_bar:
 			voices_append(state.next_bar)
 			state.next_bar = ''
-		voices_append ('<')
+		voices_append ('<<')
 
 	if str[:1] == '+':
 		str = str[1:]
 		if state.plus_chord:
-			voices_append ('>')
+			voices_append ('>>')
 			state.plus_chord = 0
 		else:
 			if state.next_bar:
 				voices_append(state.next_bar)
 				state.next_bar = ''
-			voices_append ('<')
+			voices_append ('<<')
 			state.plus_chord = 1
 
 	ch = ''

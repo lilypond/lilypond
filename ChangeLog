@@ -1,3 +1,8 @@
+2004-07-01  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/abc2ly.py (try_parse_chord_delims): Bugfix: update to
+	2.0 chord syntax.  Ouch.  (thanks Dave Phillips).
+
 2004-07-01  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/output-gnome.scm: updated instructions for running gnome
