@@ -49,7 +49,7 @@ fullname = "unknown"
 footstr = ""
 lilyversion= ''
 
-include_path=[ 'input', 'mutopia' , 'mutopia/J.S.Bach', 
+include_path=[ 'input', 'mutopia' , 'mutopia/J.S.Bach', 'mutopia/Coriolan',
 	       'mutopia/J.S.Bach/out' ]
 
 def set_vars():
@@ -102,13 +102,15 @@ examples=["twinkle-pop",
 	  "font16",
 	  "font20",
 	  #"scales", 
-	  "rhythm", 
+	  "rhythm",
+	  "coriolan",
 	  "multi"]
 
 mutopia_examples = [ "wtk1-fugue2",
 		     "standje",
 		     "preludes-1",
 		     "preludes-2",
+		     
 		     "wtk1-prelude1",
 		     "gallina",	  
 		     "scsii-menuetto"]
@@ -214,7 +216,7 @@ def copy_files():
     
 #    my_system ("ln -s depth/out ./docxx" )
     my_system([ "cp %s/TODO ./TODO.txt" % depth,
-    "cp %s/ANNOUNCE-0.1 ./ANNOUNCE.txt" % depth,
+    "cp %s/ANNOUNCE-0.1 ./ANNOUNCE-0.1.txt" % depth,
     "cp %s/NEWS ./NEWS.txt" % depth,
     "cp %s/DEDICATION ./DEDICATION.txt" % depth]);
     my_system([ "make -C .. gifs"]);

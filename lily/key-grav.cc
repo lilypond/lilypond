@@ -29,16 +29,16 @@ Key_engraver::create_key()
 {
   if (!kit_p_) 
     {
-	int c0_i=0;
+      int c0_i=0;
 
-	Staff_info inf = get_staff_info();
-	if (inf.c0_position_i_l_)
-	    c0_i = *get_staff_info().c0_position_i_l_;	
+      Staff_info inf = get_staff_info();
+      if (inf.c0_position_i_l_)
+	c0_i = *get_staff_info().c0_position_i_l_;	
 	
-	kit_p_ = new Key_item (c0_i);
-	kit_p_->break_priority_i_ = -1; // ugh
-	announce_element (Score_elem_info (kit_p_,keyreq_l_));
-  	kit_p_->read (*this);
+      kit_p_ = new Key_item (c0_i);
+      kit_p_->break_priority_i_ = -1; // ugh
+      announce_element (Score_elem_info (kit_p_,keyreq_l_));
+      kit_p_->read (*this);
     }
 }
 
@@ -47,10 +47,10 @@ Key_engraver::do_try_request (Request * req_l)
 {
   Command_req* creq_l= req_l->command();
   if (!creq_l|| !creq_l->keychange())
-	return false;
+    return false;
    
   if (keyreq_l_)
-	return false;		// TODO
+    return false;		// TODO
   keyreq_l_ = creq_l->keychange();
   read_req (keyreq_l_);
   return true;
@@ -62,13 +62,13 @@ Key_engraver::acknowledge_element (Score_elem_info info)
   Command_req * r_l = info.req_l_->command() ;
   if (r_l && r_l->clefchange()) 
     {
-	create_key();
+      create_key();
     }
   else if (info.elem_l_->is_type_b (Bar::static_name ())) 
     {
-	if (!keyreq_l_)
-	    default_key_b_ = true;
-	create_key();
+      if (!keyreq_l_)
+	default_key_b_ = true;
+      create_key();
     }
 
 }
@@ -78,11 +78,11 @@ Key_engraver::do_process_requests()
 {
   if (key_.multi_octave_b_) 
     {
-	assert (false); // TODO . 
+      assert (false); // TODO . 
     }
   else if (keyreq_l_) 
     {
-	create_key();
+      create_key();
     }
 }
 
@@ -91,9 +91,9 @@ Key_engraver::do_pre_move_processing()
 { 
   if (kit_p_) 
     {
-	kit_p_->default_b_ = default_key_b_;
-	typeset_element (kit_p_);
-	kit_p_ = 0;
+      kit_p_->default_b_ = default_key_b_;
+      typeset_element (kit_p_);
+      kit_p_ = 0;
     }
 }
 
@@ -102,19 +102,21 @@ Key_engraver::do_pre_move_processing()
 void
 Key_engraver::read_req (Key_change_req * r)
 {
+  key_.clear ();
   key_.multi_octave_b_ = r->multi_octave_b_;
   accidental_idx_arr_.clear();
+
   for (int i = 0; i < r->melodic_p_arr_.size(); i ++) 
     {
-	Melodic_req *  m_l =r->melodic_p_arr_[i];
-	int n_i =m_l->notename_i_;
-	int a_i = m_l->accidental_i_;
-	int o_i = m_l->octave_i_;
-	if (r->multi_octave_b_)
-	    key_.set (o_i, n_i, a_i);
-	else
-	    key_.set (n_i, a_i);
-	accidental_idx_arr_.push (n_i);
+      Melodic_req *  m_l =r->melodic_p_arr_[i];
+      int n_i =m_l->notename_i_;
+      int a_i = m_l->accidental_i_;
+      int o_i = m_l->octave_i_;
+      if (r->multi_octave_b_)
+	key_.set (o_i, n_i, a_i);
+      else
+	key_.set (n_i, a_i);
+      accidental_idx_arr_.push (n_i);
     }
 }
 
