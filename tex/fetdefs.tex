@@ -1,39 +1,60 @@
 % fetdefs.tex
-% encapsulating tex backend for auto-generated font-en-tja definitions
+% encapsulating tex backend for auto-generated feta definitions
 
 \def\fetsixteendefs{
-        \font\fontentja=feta16
+        \font\feta=feta16
         \font\vetfont=feta-beams16
         \font\fetanummer=feta-nummer8
         \font\dynfont=feta-din10 scaled \magstep1
         \font\bracefont=feta-braces16
         \font\fingerfont=feta-nummer4
-        \interlinedist=4pt
 }
 \def\fettwentydefs{
-        \interlinedist=5pt
-        \font\fontentja=feta20
+        \font\feta=feta20
         \font\vetfont=feta-beams20
         \font\fetanummer=feta-nummer10
         \font\dynfont=feta-din10 scaled \magstep2
         \font\bracefont=feta-braces20
         \font\fingerfont=feta-nummer5
 }
+\def\fettwentysixdefs{
+        \font\feta=feta26
+        \font\vetfont=feta-beams26
+        \font\fetanummer=feta-nummer12
+        \font\dynfont=feta-din10 scaled \magstep3
+        \font\bracefont=feta-braces16
+        \font\fingerfont=feta-nummer7
+}
+\def\fetthirteendefs{
+      \font\feta=feta13
+        \font\vetfont=feta-beams26
+        \font\fetanummer=feta-nummer5
+        \font\dynfont=feta-din10 scaled \magstep0
+        \font\bracefont=feta-braces16
+        \font\fingerfont=feta-nummer3
+}
+\def\fetelevendefs{
+        \font\feta=feta11
+        \font\vetfont=feta-beams26
+        \font\fetanummer=feta-nummer5
+        \font\dynfont=feta-din10 %scaled \magstep-1
+        \font\bracefont=feta-braces16
+        \font\fingerfont=feta-nummer3
+}
+
 
 \def\sixteenfonts{\fetsixteendefs\cmrsixteen}
 \def\twentyfonts{\fettwentydefs\cmrtwenty}
-
+\def\twentysixfonts{\fettwentysixdefs\cmrtwenty}
+\def\elevenfonts{\fetelevendefs\cmreleven}
+\def\thirteenfonts{\fetthirteendefs\cmrthirteen}
 \def\fetdef#1#2{\def#1{%
         \hbox{\fetchar{#2}}}}
 
-\def\fetchar#1{\fontentja\char#1}
+\def\fetchar#1{\feta\char#1}
 
 %\input feta16
 \input feta20
-
-\def\beamslope#1#2{{\count0=#2\advance\count0 by#1
-        \advance\count0by128
-        {\vetfont\char\count0}}}
 
 % stacked numbers; overrules def in lilyponddefs
 % widest num should be .40 balkheight
@@ -47,62 +68,19 @@
 
 \def\pianobrace#1{{\bracefont\char #1}}
 
-\newcount\embedcount\embedcount=0
-\newwrite\checkexists
-\newwrite\embedfile
-\def\inputifexists#1{%
-        \openin\checkexists #1
-        \ifeof\checkexists
-                 \closein\checkexists
-        \else
-                \closein\checkexists
-                \input #1
-        \fi
-}
-\def\embedcountid{feta-embed}
-\inputifexists{\embedcountid.aux}
-%
-% let's not overwrite -- and be sure to create new
-\def\storeembedcount{%
-        \immediate\openout\embedfile=\embedcountid.aux
-        \immediate\write\embedfile{\embedcount=\the\embedcount}
-        \immediate\closeout\embedfile
-}
-
-
-
+\def\embeddedtex#1{}
+\def\embeddedps#1{}
+\def\embeddedmf#1#2{}
+\def\embedclose{}
 
 \input lily-ps-defs
-\def\embeddedtex#1{#1}
 
-\def\embeddedmf#1{
-        \edef\embedid{feta-sleur-\number\embedcount}
-        \immediate\openout\embedfile=\embedid.mf
-        \global\advance\embedcount by 1
-
-% should write ``automatically generated.''
-%        \immediate\write\embedfile{\def\
-%       
-%      }
-
-        \immediate\write\embedfile{#1}
-
-        \immediate\closeout\embedfile
-        \font\expandafter\embedid\expandafter=\embedid
-        \embedid\char0
-}
-
-\def\notex{\def\embeddedtex##1{}}
-\def\nopostscript{\def\embeddedps##1{}}
-\def\nometafont{\def\embeddedmf##1{}}
-
-% dat heb je handig gedaan, lieverd!
-\nometafont
-%\nopostscript
-\notex
+% uncomment to use runtime MF
+%
+% \input lily-mf-defs
 
 \def\EndLilyPondOutput{
-        \storeembedcount
+        \embedclose
         \csname bye\endcsname
 }
 

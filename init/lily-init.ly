@@ -14,7 +14,6 @@ Gourlay = 1.0
 Wordwrap = 0.0
 
 \include "paper16.ly"
-\include "paper20.ly"
 
 default_paper = \paper{
 	\paper_sixteen
