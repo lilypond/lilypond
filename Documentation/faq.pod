@@ -19,7 +19,8 @@ If the problem persists, then please mail me.
 
 Q: Some of your neat scripts fail, what directories do you use:
 
-A:
+A: [This only applies if you don't do C<make install>, and develop out
+of the source directory]
 	
 	~/something/
 
@@ -230,7 +231,7 @@ Q: I want a DOS/NT/W95 port.
 
 A.0: Reconsider.  Try Linux.  It's fun!
 
-A.1: Currently (patchlevel 27), GNU LilyPond (and flowerLib) compiles, 
+A.1: Currently (0.0.27), GNU LilyPond (and flowerLib) compiles, 
 links and runs on Windows-nt, using Cygnus' gnu port (release b17.1). 
 I (JCN) only had to make a minor workaround for missing library calls.  
 Have a look at http://www.cygnus.com/gnu-win32.  To make GNU LilyPond 

@@ -1,13 +1,13 @@
 % generated automatically by mf-to-table.py version 0.4
-% on Mon Oct 20 23:14:08 1997
+% on Mon Oct 27 02:45:24 1997
 % Do not edit
 % input from out/font-en-tja20.log
 % name=\symboltables {
     "rests"	 = \table {
-        "0"	"\\wholerest"	-0.00\pt	7.50\pt	1.88\pt	5.00\pt	
+        "0"	"\\wholerest"	-0.00\pt	7.50\pt	-3.13\pt	0.00\pt	
         "1"	"\\halfrest"	-0.00\pt	7.50\pt	-0.00\pt	3.13\pt	
-        "0o"	"\\outsidewholerest"	-3.13\pt	10.62\pt	1.88\pt	5.00\pt	
-        "1o"	"\\outsidehalfrest"	-3.13\pt	10.62\pt	-0.00\pt	3.13\pt	
+        "0o"	"\\outsidewholerest"	-3.13\pt	10.62\pt	-3.13\pt	0.50\pt	
+        "1o"	"\\outsidehalfrest"	-3.13\pt	10.62\pt	-0.50\pt	3.13\pt	
         "2"	"\\quartrest"	-0.00\pt	5.40\pt	3.75\pt	18.00\pt	
         "3"	"\\eighthrest"	-0.00\pt	6.67\pt	5.00\pt	14.33\pt	
         "4"	"\\sixteenthrest"	-0.00\pt	7.79\pt	-0.00\pt	14.33\pt	
@@ -52,13 +52,13 @@
         "pedaltoe"	"\\pedaltoe"	-2.50\pt	2.50\pt	-0.00\pt	7.50\pt	
         }
     "flags"	 = \table {
-        "u3"	"\\eighthflag"	-0.25\pt	5.20\pt	-15.33\pt	0.25\pt	
-        "d3"	"\\deighthflag"	-0.25\pt	5.75\pt	-0.25\pt	14.58\pt	
-        "u4"	"\\sixteenthflag"	-0.25\pt	5.20\pt	-17.50\pt	0.25\pt	
-        "d4"	"\\dsixteenthflag"	-0.25\pt	5.75\pt	-0.25\pt	15.00\pt	
-        "u5"	"\\thirtysecondflag"	-0.25\pt	5.20\pt	-21.25\pt	0.25\pt	
-        "d5"	"\\dthirtysecondflag"	-0.25\pt	5.20\pt	-0.25\pt	19.25\pt	
-        "u6"	"\\sixtyfourthflag"	-0.25\pt	5.20\pt	-26.25\pt	0.25\pt	
-        "d6"	"\\dsixtyfourthflag"	-0.25\pt	5.20\pt	-0.25\pt	21.75\pt	
+        "u3"	"\\eighthflag"	-0.25\pt	5.13\pt	-15.33\pt	0.25\pt	
+        "u4"	"\\sixteenthflag"	-0.25\pt	5.13\pt	-17.83\pt	0.25\pt	
+        "u5"	"\\thirtysecondflag"	-0.25\pt	5.13\pt	-21.58\pt	0.25\pt	
+        "u6"	"\\sixtyfourthflag"	-0.25\pt	5.13\pt	-26.58\pt	0.25\pt	
+        "d3"	"\\deighthflag"	-0.25\pt	5.68\pt	-0.25\pt	14.58\pt	
+        "d4"	"\\dsixteenthflag"	-0.25\pt	5.68\pt	-0.25\pt	15.33\pt	
+        "d5"	"\\dthirtysecondflag"	-0.25\pt	5.68\pt	-0.25\pt	19.58\pt	
+        "d6"	"\\dsixtyfourthflag"	-0.25\pt	5.68\pt	-0.25\pt	22.08\pt	
         }
     %  } % $name

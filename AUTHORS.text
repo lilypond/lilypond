@@ -15,20 +15,11 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
        +o   Han-Wen Nienhuys <hanwen@stack.nl>,
            http://www.stack.nl/~hanwen
 
-           Main author, all files files except mentioned below
+           Main author.
 
-       +o   Jan Nieuwenhuizen <jan@digicash.com>,
+       +o Jan Nieuwenhuizen <jan@digicash.com>,
            http://www.digicash.com/~jan
-
-           lily/midi-*, mi2mu/*, parts flower/string*.cc,
-           make/*.make, */Makefile parts of
-           Documentation/mudela.pod, lib/*source-file*,
-           lib/duration.cc, lib/source*, flower/*{list,cursor}*,
-           lily/rest-collision*, lily/*abbreviation*, conflily,
-           cygnus w32 stuff, lily/*perf*, some input files,
-           mf/*{bolletjes,wat-zie-ik,eindelijk}
-
-           and corresponding header files.
+           Main author
 
 CCCCOOOONNNNTTTTRRRRIIIIBBBBUUUUTTTTOOOORRRRSSSS
        +o   Mats Bengtsson <matsb@s3.kth.se>, parts of clef-
@@ -61,72 +52,15 @@ CCCCOOOONNNNTTTTRRRRIIIIBBBBUUUUTTTTOOOORRRRSS
 
 
 
-21/Oct/97                LilyPond 0.1.25                        1
 
 
 
 
 
-AUTHORS(1)            LilyPond documentation           AUTHORS(1)
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-21/Oct/97                LilyPond 0.1.25                        2
+27/Oct/97                LilyPond 0.1.26                        1
 
 

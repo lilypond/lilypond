@@ -237,7 +237,7 @@ LilyPond documentation
 GNU LilyPond is
 updated very frequently, the latest version is always available at:
 ftp://pcnov095.win.tue.nl/pub/lilypond and
-ftp://alpha.gnu.ai.mit.edu/gnu/lilypond/
+ftp://alpha.gnu.org/gnu/lilypond/
 
 
 For programs which are part of the GNU music project, the following

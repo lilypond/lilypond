@@ -61,7 +61,9 @@ D. Roush. ``Music Formatting Guidelines,'' Technical Report
 OSU-CISRC-3/88-TR10, Department of Computer and Information Science,
 The Ohio State University, 1988.
 
-[Rules on formatting music formulated for use in computers HWN]
+[Rules on formatting music formulated for use in computers. Mainly distilled
+from  [Ross] HWN]
+
 
 =head2 Notation with computers
 

@@ -4,10 +4,12 @@
 \def\fetsixteendefs{
         \font\fontentja=font-en-tja16
         \font\vetfont=vette-beams16
+	\font\fetanummer=feta-nummer8
 }
 \def\fettwentydefs{
         \font\fontentja=font-en-tja20
         \font\vetfont=vette-beams20
+	\font\fetanummer=feta-nummer10
 }
 
 % \def\fetdef#1#2{\def#1{\fetchar{#2}}}
@@ -21,3 +23,12 @@
 \def\beamslope#1#2{{\count0=#2\advance\count0 by#1
         \advance\count0by128
         {\vetfont\char\count0}}}
+
+% stacked numbers; overrules def in lilyponddefs
+% oeps: \meter 12/8;
+\def\generalmeter#1#2{%
+	\vbox to 0pt{\vss%
+	\hbox to0.42\balkheight{\hss\fetanummer\char#1\hss}%
+	\nointerlineskip%
+        \hbox to0.42\balkheight{\hss\fetanummer\char#2\hss}%
+	\vss}}

@@ -126,7 +126,7 @@ struct Melodic_req :virtual Musical_req
   int height() const;
 
   /// transpose. #delta# is relative to central c.
-  void transpose (Melodic_req const &delta);
+  virtual void transpose (Melodic_req const *delta);
   /// return pitch from central c (in halfnotes)
   int pitch() const; 
   Melodic_req();

@@ -1,10 +1,9 @@
 % flags 
 %
 
-
-fet_begingroup("flags")
-save outer_path;
-path outer_path;
+fet_begingroup("flagst")
+save bot_path;
+path bot_path;
 % Flags pointing down overlap with  the notehead (in x-direction), so 
 % the down-flag can be bigger
 upflag_width# = .750 black_notehead_width# + stemthickness#/2;
@@ -43,44 +42,40 @@ def draw_flag(expr center, flare,
 	z2r = center + (xpart dims, -ypart(dims) * hip_depth);
 	z3r = center + (xpart(dims) * foot_wid, -ypart dims);
 
-	outer_path := z3r{curl 0} .. z2r{up} .. {up}z1r;
+	bot_path := z3r{curl 0} .. z2r{up} .. {up}z1r;
 
 	penlabels(1, 2, 3);
 	fill z1l{curl 0}
 		..tension 1.1 .. z2l{down} .. 
 		{curl 0} simple_serif(z3l, z3r, 80) &
-		outer_path & z1r -- cycle;
+		bot_path & z1r -- cycle;
 enddef;
 
-%
-% TODO: calc intersectpoint
-% TODO: calc incision_depth
-% 
 def add_flag(expr yoff, flare, hip_wid_multiplier, 
 		hip_dep_multiplier,
 		intersectpoint, hip_thickness, foot_thickness) =
 	begingroup
 	save prev_center, prev_xextreme, prev_yextreme;
-	save rel_foot, ip, center, incision_depth;
+	save rel_foot, ip, center;
 	save prev_hipwid, prev_footdep, prev_hipdep, wid, dep, hip_dep;
 	save hip_dep_ratio, foot_wid_ratio;
 	pair prev_center, center, foot, prev_xextreme, prev_yextreme;
 	pair ip, rel_foot;
 	
-	incision_depth = 1.013;
-	prev_center = point 2 of outer_path;
-	prev_xextreme = point 1 of outer_path;
-	prev_yextreme = point 0 of outer_path;
+
+	prev_center = point 2 of bot_path;
+	prev_xextreme = point 1 of bot_path;
+	prev_yextreme = point 0 of bot_path;
 	prev_hipwid = xpart (prev_xextreme - prev_center);
 	prev_footdep = -ypart (prev_yextreme - prev_center);
 	prev_hipdep = -ypart(prev_xextreme - prev_center);
-	ip = point intersectpoint of outer_path;
+	ip = point intersectpoint of bot_path;
 
 	wid = prev_hipwid * hip_wid_multiplier;
 	hip_dep = prev_hipdep * hip_dep_multiplier;
 
 	center = prev_center + (0,yoff);
-	rel_foot = incision_depth [(wid, hip_dep), ip - center];
+	rel_foot = 1.013 [(wid, hip_dep), ip - center];
 	dep = -ypart(rel_foot);
 	foot_wid_ratio = xpart(rel_foot ) / wid;
 	hip_dep_ratio = hip_dep / dep;
@@ -371,7 +366,7 @@ fet_beginchar("64th (down)", "d6", "dsixtyfourthflag")
 		.97, 1.10, 1.175, hip_thickness, foot_thickness);  
 
 	add_flag(flagspace, flare,
-		.95, 1.03, 1.175, hip_thickness, foot_thickness);  
+		.9, 1.03, 1.175, hip_thickness, foot_thickness);  
 
 	
 

@@ -1,0 +1,68 @@
+
+fet_begingroup("klef");
+
+def draw_bass_clef(expr reduction, center) = 
+	save thinness, left_shoot, reduced_il;
+	save left_fat, right_fat, dot_size, dot_sep;
+	save hip_factor;
+
+	left_shoot = 0.3;
+	left_fat = .3;
+	right_fat = .5;
+	dot_size = .4;
+	dot_sep = 1.2;
+	hip_factor = 0.95;
+	thinness = stafflinethickness;
+	
+
+	reduced_il# = interline# * reduction;
+	define_pixels(reduced_il);
+	set_char_box(left_fat * reduced_il#, 
+		(1 + hip_factor + right_fat/2)* reduced_il# +
+		(dot_sep+ 1) * dot_size *reduced_il#
+		, 2.5 reduced_il#, 1.0 reduced_il#)
+
+	z2 - z1 = (1.1 reduced_il, reduced_il);
+	z3 = (x2 + hip_factor* reduced_il, y1);
+	z4 - z1 = (- left_shoot * reduced_il, -2.5 reduced_il);
+
+	z1extreme = z1l - ( thinness/2, 0);
+	penpos1(left_fat* reduced_il , 0);
+	z1r = (center, 0);
+	z5 = (x3l +  dot_sep * dot_size * interline, .5 interline);
+	
+	%
+	% [Wanske] says that the extreme x point should be exactly between 
+	% the dots, but her picture shows that the extreme is ~ 0.2 ss lower
+	% hence 170 (and not 180).  (.2 is  a big amount, but because of 
+	% the near vertical shape, it is not very clear.
+	%
+	penpos3(right_fat * reduced_il, 180);
+
+	penlabels(1,3);
+	labels(2,4);
+
+
+	pickup pencircle scaled thinness;
+	filldraw z1r{up} .. z2{right} .. z3r{down}  .. {curl 0} z4 {curl 0}
+		.. z3l{up} .. z2{left} .. z1l{down} -- cycle;
+
+	draw_bulb(1, z1r, z1extreme, 1.2 , 1.2);
+
+	pickup pencircle scaled (dot_size * interline);
+	draw z5;
+	draw z5 yscaled -1;
+
+enddef;
+
+
+fet_beginchar("F clef", "bass", "ughbassclef")
+	draw_bass_clef(1.0, .5 interline); % .5 -> silly hack to accomodate 
+	% motex 
+fet_endchar;
+
+fet_beginchar("reduced F clef", "bass_change", "ughcbassclef")
+	draw_bass_clef(.8, .5 interline);
+fet_endchar;
+
+fet_endgroup("klef");

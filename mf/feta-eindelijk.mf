@@ -52,7 +52,8 @@ def block_rest=
 	save p;
 	path p;
 	p:=z1 -- z2 -- z3 -- z4 -- cycle;
-	draw_rounded_path(p, blot_diameter);
+
+	filldraw p;
 enddef;
 
 fet_beginchar( "whole rest", "0", "wholerest");
@@ -147,10 +148,6 @@ fet_beginchar("8th rest","3","eighthrest");
 	% ugh
 	currentpicture:=currentpicture shifted (0,interline);
 	fet_endchar;
-
-def tand(expr alpha) = 
-	(sind alpha/cosd alpha);
-	enddef;
 
 fet_beginchar("16th rest","4","sixteenthrest");
 	save alpha,cw,h,w;

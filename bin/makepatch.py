@@ -118,7 +118,7 @@ def makepatch(fv, tv, patfile_nm):
 def main():
     sys.stderr.write('This is make-patch version %s\n' % mp_version)
     (cl_options, files) = getopt.getopt(sys.argv[1:], 
-					'hf:o:t:', ['output=', 'help=', 'from=', 'to='])
+					'hf:o:t:', ['output=', 'help', 'from=', 'to='])
     outfn = ''
     for opt in cl_options:
 	o = opt[0]

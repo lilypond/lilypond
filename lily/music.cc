@@ -22,10 +22,10 @@ Music::print() const
 {
 #ifndef NPRINT
   if (! check_debug)
-	return ;
+    return ;
   DOUT << name() << "{";
   if  (translator_type_str_.length_i ())
-	DOUT << translator_type_str_ << " = " << translator_id_str_;
+    DOUT << translator_type_str_ << " = " << translator_id_str_;
   do_print();
   DOUT << "}\n";
 #endif
@@ -60,3 +60,4 @@ Music::Music()
 
 IMPLEMENT_IS_TYPE_B1(Change_reg,Music)
 
+     
