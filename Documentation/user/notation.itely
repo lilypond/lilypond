@@ -2089,6 +2089,8 @@ be achieved in LilyPond by setting @code{doubleSlurs},
 @code{\slurDown},
 @cindex @code{\slurNeutral}
 @code{\slurNeutral},
+@cindex @code{\slurDashed}
+@code{\slurDashed},
 @cindex @code{\slurDotted}
 @code{\slurDotted},
 @cindex @code{\slurSolid}

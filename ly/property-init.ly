@@ -12,11 +12,11 @@ slurNeutral = \revert Slur #'direction
 
 % There's also dash, but setting dash period/length should be fixed.
 slurDashed = {
-	\override Slur #'dash-period = #1
+	\override Slur #'dash-period = #0.75
 	\override Slur #'dash-fraction = #0.4
 }
 slurDotted = {
-	\override Slur  #'dash-period = #1
+	\override Slur  #'dash-period = #0.75
 	\override Slur #'dash-fraction = #0.1
 }
 slurSolid = {
