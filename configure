@@ -1,58 +1,5 @@
 #! /bin/sh
 
-ac_help="$ac_help
-  --with-gtkmm-prefix=PREFIX
-                          Prefix where GTK-- is installed (optional)"
-# Check whether --with-gtkmm-prefix or --without-gtkmm-prefix was given.
-if test "${with_gtkmm_prefix+set}" = set; then
-  withval="$with_gtkmm_prefix"
-  gtkmm_config_prefix="$withval"
-else
-  gtkmm_config_prefix=""
-fi
-
-ac_help="$ac_help
-  --with-gtkmm-exec-prefix=PREFIX
-                          Exec prefix where GTK-- is installed (optional)"
-# Check whether --with-gtkmm-exec-prefix or --without-gtkmm-exec-prefix was given.
-if test "${with_gtkmm_exec_prefix+set}" = set; then
-  withval="$with_gtkmm_exec_prefix"
-  gtkmm_config_exec_prefix="$withval"
-else
-  gtkmm_config_exec_prefix=""
-fi
-
-ac_help="$ac_help
-  --disable-gtkmmtest     Do not try to compile and run a test GTK-- program"
-# Check whether --enable-gtkmmtest or --disable-gtkmmtest was given.
-if test "${enable_gtkmmtest+set}" = set; then
-  enableval="$enable_gtkmmtest"
-  :
-else
-  enable_gtkmmtest=yes
-fi
-
-
-  if test x$gtkmm_config_exec_prefix != x ; then
-     gtkmm_config_args="$gtkmm_config_args --exec-prefix=$gtkmm_config_exec_prefix"
-     if test x${GTKMM_CONFIG+set} != xset ; then
-        GTKMM_CONFIG=$gtkmm_config_exec_prefix/bin/gtkmm-config
-     fi
-  fi
-  if test x$gtkmm_config_prefix != x ; then
-     gtkmm_config_args="$gtkmm_config_args --prefix=$gtkmm_config_prefix"
-     if test x${GTKMM_CONFIG+set} != xset ; then
-        GTKMM_CONFIG=$gtkmm_config_prefix/bin/gtkmm-config
-     fi
-  fi
-
-
-
-
-# Configure paths for GTK--DRAW
-# Derek Quinn Wyatt   98-08-21  (adapted from Jan Nieuwenhuizen's code)
-
-
 # Guess values for system-dependent variables and create Makefiles.
 # Generated automatically using autoconf version 2.13 
 # Copyright (C) 1992, 93, 94, 95, 96 Free Software Foundation, Inc.
@@ -628,12 +575,12 @@ fi
     fi
 
     echo $ac_n "checking Package""... $ac_c" 1>&6
-echo "configure:632: checking Package" >&5
+echo "configure:579: checking Package" >&5
     if test "x$PACKAGE" = "xSTEPMAKE"; then
 	echo "$ac_t""Stepmake package!" 1>&6
 
 	echo $ac_n "checking builddir""... $ac_c" 1>&6
-echo "configure:637: checking builddir" >&5
+echo "configure:584: checking builddir" >&5
 	if test "$srcdir" = "."; then
 	    builddir=.
 	else
@@ -670,7 +617,7 @@ ac_configure=$ac_aux_dir/configure # This should be Cygnus configure.
         echo "$ac_t""$PACKAGE" 1>&6
 
 	echo $ac_n "checking builddir""... $ac_c" 1>&6
-echo "configure:674: checking builddir" >&5
+echo "configure:621: checking builddir" >&5
 	if test "$srcdir" = "."; then
 	    builddir=.
 	    srcdir_build=no
@@ -690,7 +637,7 @@ echo "configure:674: checking builddir" >&5
 	fi
 
 	echo $ac_n "checking for stepmake""... $ac_c" 1>&6
-echo "configure:694: checking for stepmake" >&5
+echo "configure:641: checking for stepmake" >&5
 	# Check for installed stepmake
 	if test -d $stepmake; then
 	    echo "$ac_t""$stepmake" 1>&6
@@ -801,6 +748,8 @@ if test "${enable_config+set}" = set; then
 fi
 
 
+    ##'
+
     test -n "$CONFIGURATION" && CONFIGSUFFIX="-$CONFIGURATION"
     CONFIGFILE=config$CONFIGSUFFIX
     
@@ -812,7 +761,7 @@ else { echo "configure: error: can not run $ac_config_sub" 1>&2; exit 1; }
 fi
 
 echo $ac_n "checking host system type""... $ac_c" 1>&6
-echo "configure:816: checking host system type" >&5
+echo "configure:765: checking host system type" >&5
 
 host_alias=$host
 case "$host_alias" in
@@ -832,12 +781,13 @@ host_vendor=`echo $host | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\2/'`
 host_os=`echo $host | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\3/'`
 echo "$ac_t""$host" 1>&6
 
+    
     for ac_prog in gmake make
 do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:841: checking for $ac_word" >&5
+echo "configure:791: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKE'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -865,14 +815,43 @@ fi
 
 test -n "$MAKE" && break
 done
-test -n "$MAKE" || MAKE="error"
+test -n "$MAKE" || MAKE="no"
 
+    
+    #if test "`eval echo '$'"MAKE"`" = "no"; then
+    
+    r="`eval echo '$'"MAKE"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"MAKE"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    if test $? -ne 0; then
+	
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"gmake make\"`\"
+
+	if test "REQUIRED" = "REQUIRED"; then
+	    command="echo ERROR: gmake make not found"
+	    # abort configure process here?
+	else
+	    command="- echo gmake make not found"
+	fi
+	eval "MAKE"='$command'
+	false
+    else
+	true
+    fi
+
+
+    
     for ac_prog in find
 do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:876: checking for $ac_word" >&5
+echo "configure:855: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_FIND'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -900,16 +879,44 @@ fi
 
 test -n "$FIND" && break
 done
-test -n "$FIND" || FIND="error"
+test -n "$FIND" || FIND="no"
+
+    
+    #if test "`eval echo '$'"FIND"`" = "no"; then
+    
+    r="`eval echo '$'"FIND"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"FIND"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    if test $? -ne 0; then
+	
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"find\"`\"
+
+	if test "REQUIRED" = "REQUIRED"; then
+	    command="echo ERROR: find not found"
+	    # abort configure process here?
+	else
+	    command="- echo find not found"
+	fi
+	eval "FIND"='$command'
+	false
+    else
+	true
+    fi
 
 
 
+    
     for ac_prog in tar
 do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:913: checking for $ac_word" >&5
+echo "configure:920: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_TAR'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -937,14 +944,42 @@ fi
 
 test -n "$TAR" && break
 done
-test -n "$TAR" || TAR="error"
+test -n "$TAR" || TAR="no"
+
+    
+    #if test "`eval echo '$'"TAR"`" = "no"; then
+    
+    r="`eval echo '$'"TAR"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"TAR"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    if test $? -ne 0; then
+	
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"tar\"`\"
+
+	if test "REQUIRED" = "REQUIRED"; then
+	    command="echo ERROR: tar not found"
+	    # abort configure process here?
+	else
+	    command="- echo tar not found"
+	fi
+	eval "TAR"='$command'
+	false
+    else
+	true
+    fi
+
 
 
     if test "x`uname`" = "xHP-UX"; then
 	# Extract the first word of "bash", so it can be a program name with args.
 set dummy bash; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:948: checking for $ac_word" >&5
+echo "configure:983: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_BASH'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -984,7 +1019,7 @@ fi
 	# Extract the first word of "bash", so it can be a program name with args.
 set dummy bash; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:988: checking for $ac_word" >&5
+echo "configure:1023: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_SHELL'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1021,7 +1056,7 @@ fi
 	# Extract the first word of "bash", so it can be a program name with args.
 set dummy bash; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1025: checking for $ac_word" >&5
+echo "configure:1060: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_BASH'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1058,11 +1093,75 @@ fi
 	
     fi
 
-
-    # Extract the first word of "${PYTHON:-python}", so it can be a program name with args.
-set dummy ${PYTHON:-python}; ac_word=$2
+    
+    for ac_prog in python
+do
+# Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1066: checking for $ac_word" >&5
+echo "configure:1103: checking for $ac_word" >&5
+if eval "test \"`echo '$''{'ac_cv_prog_PYTHON'+set}'`\" = set"; then
+  echo $ac_n "(cached) $ac_c" 1>&6
+else
+  if test -n "$PYTHON"; then
+  ac_cv_prog_PYTHON="$PYTHON" # Let the user override the test.
+else
+  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
+  ac_dummy="$PATH"
+  for ac_dir in $ac_dummy; do
+    test -z "$ac_dir" && ac_dir=.
+    if test -f $ac_dir/$ac_word; then
+      ac_cv_prog_PYTHON="$ac_prog"
+      break
+    fi
+  done
+  IFS="$ac_save_ifs"
+fi
+fi
+PYTHON="$ac_cv_prog_PYTHON"
+if test -n "$PYTHON"; then
+  echo "$ac_t""$PYTHON" 1>&6
+else
+  echo "$ac_t""no" 1>&6
+fi
+
+test -n "$PYTHON" && break
+done
+test -n "$PYTHON" || PYTHON="no"
+
+    
+    #if test "`eval echo '$'"PYTHON"`" = "no"; then
+    
+    r="`eval echo '$'"PYTHON"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"PYTHON"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    if test $? -ne 0; then
+	
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"python\"`\"
+
+	if test "REQUIRED" = "REQUIRED"; then
+	    command="echo ERROR: python not found"
+	    # abort configure process here?
+	else
+	    command="- echo python not found"
+	fi
+	eval "PYTHON"='$command'
+	false
+    else
+	true
+    fi
+
+#    if ! expr '`eval echo '$'"PYTHON"`' : '.*\(echo\)' > /dev/null; then
+    if test $? -ne 0; then
+	# Extract the first word of "python", so it can be a program name with args.
+set dummy python; ac_word=$2
+echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+echo "configure:1165: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_PYTHON'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1084,7 +1183,6 @@ else
     fi
   done
   IFS="$ac_save_ifs"
-  test -z "$ac_cv_path_PYTHON" && ac_cv_path_PYTHON="-echo no python"
   ;;
 esac
 fi
@@ -1095,58 +1193,28 @@ else
   echo "$ac_t""no" 1>&6
 fi
 
-    
+    fi
 
-    if test $MAKE != "error" ; then
-	$MAKE -v 2> /dev/null | grep GNU > /dev/null
-	if test "$?" = 1
-	then
-		
-    echo "configure: warning: Please install *GNU* make" 1>&2
+
+    if expr "$MAKE" : '.*\(echo\)' >/dev/null; then
+ 	$MAKE -v 2> /dev/null | grep GNU > /dev/null
+	if test "$?" = 1; then
+	    warn='make (Please install *GNU* make)'
+	    
+    echo "configure: warning: $warn" 1>&2
     warn_b=yes
- 
-	fi
+
+	    
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"$warn\"`\"
+
+        fi
     fi 
 
-    
-	result="`echo \"$PYTHON\" | grep echo`"
-	if test "x$PYTHON" = "xerror" -o "x$result" != "x"; then
-		
-    echo "configure: warning: can\'t find python. You should install Python" 1>&2
-    warn_b=yes
-
-	fi
-
-
-    if test "x$OSTYPE" = "xcygwin32" || test "x$OSTYPE" = "xWindows_NT"; then
+    if test "$OSTYPE" = "cygwin" -o "$OSTYPE" = "Windows_NT"; then
 	LN=cp # hard link does not work under cygnus-nt
 	LN_S='cp -r' # symbolic link does not work for native nt
 	ZIP="zip -r -9" #
 	program_suffix=.exe
-	# urg
-	# ROOTSEP=':'
-        # DIRSEP='\\'
- 	# PATHSEP=';'
-	#
-	# cygwin fixes all these things.  
-	# it seems these were used because of dos-style TEXINPUTS and
-	# MFINPUTS needed for miktex.
-	# but this breaks parsing of all other cygwin/unix style paths.
-	#
-	# if your (mik)tex breaks, make a:
-	#    /usr/local/bin/tex:
-	#    #!/bin/sh
-	#    TEXINPUTS=`cygpath -pw $TEXINPUTS` /texmf/miktex/bin/tex 
-	#
-	# and
-	#
-	#    /usr/local/bin/mf:
-	#    #!/bin/sh
-	#    MFINPUTS=`cygpath -pw $MFINPUTS` /texmf/miktex/bin/mf 
-	#
-	# this way, you may have buildscripts/out/lilypond-profile 
-	# 'automatically' sourced from /usr/etc/profile.d/ too.
-	#
  	ROOTSEP=':'
         DIRSEP='/'
  	PATHSEP=':'
@@ -1206,9 +1274,9 @@ subdirs="stepmake"
 # Uncomment the configuration options your package needs.
 
     # -O is necessary to get inlining
-    CFLAGS=${CFLAGS:-""}
-    CXXFLAGS=${CXXFLAGS:-$CFLAGS}
-    LDFLAGS=${LDFLAGS:-""}
+    CFLAGS=${CFLAGS-""}
+    CXXFLAGS=${CXXFLAGS-$CFLAGS}
+    LDFLAGS=${LDFLAGS-""}
     checking_b=yes
     optimise_b=yes
     profile_b=no
@@ -1270,7 +1338,7 @@ EOF
     # Extract the first word of "gcc", so it can be a program name with args.
 set dummy gcc; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1274: checking for $ac_word" >&5
+echo "configure:1342: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_CC'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1300,7 +1368,7 @@ if test -z "$CC"; then
   # Extract the first word of "cc", so it can be a program name with args.
 set dummy cc; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1304: checking for $ac_word" >&5
+echo "configure:1372: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_CC'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1351,7 +1419,7 @@ fi
       # Extract the first word of "cl", so it can be a program name with args.
 set dummy cl; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1355: checking for $ac_word" >&5
+echo "configure:1423: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_CC'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1383,7 +1451,7 @@ fi
 fi
 
 echo $ac_n "checking whether the C compiler ($CC $CFLAGS $LDFLAGS) works""... $ac_c" 1>&6
-echo "configure:1387: checking whether the C compiler ($CC $CFLAGS $LDFLAGS) works" >&5
+echo "configure:1455: checking whether the C compiler ($CC $CFLAGS $LDFLAGS) works" >&5
 
 ac_ext=c
 # CFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.
@@ -1394,12 +1462,12 @@ cross_compiling=$ac_cv_prog_cc_cross
 
 cat > conftest.$ac_ext << EOF
 
-#line 1398 "configure"
+#line 1466 "configure"
 #include "confdefs.h"
 
 main(){return(0);}
 EOF
-if { (eval echo configure:1403: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:1471: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   ac_cv_prog_cc_works=yes
   # If we can't run a trivial program, we are probably using a cross compiler.
   if (./conftest; exit) 2>/dev/null; then
@@ -1425,12 +1493,12 @@ if test $ac_cv_prog_cc_works = no; then
   { echo "configure: error: installation or configuration problem: C compiler cannot create executables." 1>&2; exit 1; }
 fi
 echo $ac_n "checking whether the C compiler ($CC $CFLAGS $LDFLAGS) is a cross-compiler""... $ac_c" 1>&6
-echo "configure:1429: checking whether the C compiler ($CC $CFLAGS $LDFLAGS) is a cross-compiler" >&5
+echo "configure:1497: checking whether the C compiler ($CC $CFLAGS $LDFLAGS) is a cross-compiler" >&5
 echo "$ac_t""$ac_cv_prog_cc_cross" 1>&6
 cross_compiling=$ac_cv_prog_cc_cross
 
 echo $ac_n "checking whether we are using GNU C""... $ac_c" 1>&6
-echo "configure:1434: checking whether we are using GNU C" >&5
+echo "configure:1502: checking whether we are using GNU C" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_gcc'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1439,7 +1507,7 @@ else
   yes;
 #endif
 EOF
-if { ac_try='${CC-cc} -E conftest.c'; { (eval echo configure:1443: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
+if { ac_try='${CC-cc} -E conftest.c'; { (eval echo configure:1511: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
   ac_cv_prog_gcc=yes
 else
   ac_cv_prog_gcc=no
@@ -1458,7 +1526,7 @@ ac_test_CFLAGS="${CFLAGS+set}"
 ac_save_CFLAGS="$CFLAGS"
 CFLAGS=
 echo $ac_n "checking whether ${CC-cc} accepts -g""... $ac_c" 1>&6
-echo "configure:1462: checking whether ${CC-cc} accepts -g" >&5
+echo "configure:1530: checking whether ${CC-cc} accepts -g" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_cc_g'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1489,14 +1557,41 @@ else
   fi
 fi
 
+    
+    #if test "`eval echo '$'"CC"`" = "no"; then
+    
+    r="`eval echo '$'"CC"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"CC"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    if test $? -ne 0; then
+	
+    eval ""=\"`eval echo \"'$'\" \"cc\"`\"
+
+	if test "" = "REQUIRED"; then
+	    command="echo ERROR: cc not found"
+	    # abort configure process here?
+	else
+	    command="- echo cc not found"
+	fi
+	eval "CC"='$command'
+	false
+    else
+	true
+    fi
+
     LD='$(CC)'
     
 
     CFLAGS="$CFLAGS $OPTIMIZE"
-    CPPFLAGS=${CPPFLAGS:-""}
+    CPPFLAGS=${CPPFLAGS-""}
 
     echo $ac_n "checking for IEEE-conformance compiler flags""... $ac_c" 1>&6
-echo "configure:1500: checking for IEEE-conformance compiler flags" >&5
+echo "configure:1595: checking for IEEE-conformance compiler flags" >&5
     save_cflags="$CFLAGS"
     case "$host" in
         alpha*-*-*)
@@ -1518,7 +1613,7 @@ echo "configure:1500: checking for IEEE-conformance compiler flags" >&5
 
 # AC_HAVE_HEADERS(limits.h malloc.h string.h unistd.h values.h)
 echo $ac_n "checking how to run the C preprocessor""... $ac_c" 1>&6
-echo "configure:1522: checking how to run the C preprocessor" >&5
+echo "configure:1617: checking how to run the C preprocessor" >&5
 # On Suns, sometimes $CPP names a directory.
 if test -n "$CPP" && test -d "$CPP"; then
   CPP=
@@ -1533,13 +1628,13 @@ else
   # On the NeXT, cc -E runs the code through the compiler's parser,
   # not just through cpp.
   cat > conftest.$ac_ext <<EOF
-#line 1537 "configure"
+#line 1632 "configure"
 #include "confdefs.h"
 #include <assert.h>
 Syntax Error
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1543: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1638: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   :
@@ -1550,13 +1645,13 @@ else
   rm -rf conftest*
   CPP="${CC-cc} -E -traditional-cpp"
   cat > conftest.$ac_ext <<EOF
-#line 1554 "configure"
+#line 1649 "configure"
 #include "confdefs.h"
 #include <assert.h>
 Syntax Error
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1560: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1655: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   :
@@ -1567,13 +1662,13 @@ else
   rm -rf conftest*
   CPP="${CC-cc} -nologo -E"
   cat > conftest.$ac_ext <<EOF
-#line 1571 "configure"
+#line 1666 "configure"
 #include "confdefs.h"
 #include <assert.h>
 Syntax Error
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1577: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1672: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   :
@@ -1601,17 +1696,17 @@ for ac_hdr in assert.h sys/stat.h
 do
 ac_safe=`echo "$ac_hdr" | sed 'y%./+-%__p_%'`
 echo $ac_n "checking for $ac_hdr""... $ac_c" 1>&6
-echo "configure:1605: checking for $ac_hdr" >&5
+echo "configure:1700: checking for $ac_hdr" >&5
 if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 1610 "configure"
+#line 1705 "configure"
 #include "confdefs.h"
 #include <$ac_hdr>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1615: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1710: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   rm -rf conftest*
@@ -1638,12 +1733,12 @@ fi
 done
 
 echo $ac_n "checking whether stat file-mode macros are broken""... $ac_c" 1>&6
-echo "configure:1642: checking whether stat file-mode macros are broken" >&5
+echo "configure:1737: checking whether stat file-mode macros are broken" >&5
 if eval "test \"`echo '$''{'ac_cv_header_stat_broken'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 1647 "configure"
+#line 1742 "configure"
 #include "confdefs.h"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -1695,7 +1790,7 @@ fi
 
 
 echo $ac_n "checking how to run the C++ preprocessor""... $ac_c" 1>&6
-echo "configure:1699: checking how to run the C++ preprocessor" >&5
+echo "configure:1794: checking how to run the C++ preprocessor" >&5
 if test -z "$CXXCPP"; then
 if eval "test \"`echo '$''{'ac_cv_prog_CXXCPP'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
@@ -1708,12 +1803,12 @@ ac_link='${CXX-g++} -o conftest${ac_exeext} $CXXFLAGS $CPPFLAGS $LDFLAGS conftes
 cross_compiling=$ac_cv_prog_cxx_cross
   CXXCPP="${CXX-g++} -E"
   cat > conftest.$ac_ext <<EOF
-#line 1712 "configure"
+#line 1807 "configure"
 #include "confdefs.h"
 #include <stdlib.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1717: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1812: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   :
@@ -1750,7 +1845,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1754: checking for $ac_word" >&5
+echo "configure:1849: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_CXX'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1782,7 +1877,7 @@ test -n "$CXX" || CXX="gcc"
 
 
 echo $ac_n "checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works""... $ac_c" 1>&6
-echo "configure:1786: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works" >&5
+echo "configure:1881: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works" >&5
 
 ac_ext=C
 # CXXFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.
@@ -1793,12 +1888,12 @@ cross_compiling=$ac_cv_prog_cxx_cross
 
 cat > conftest.$ac_ext << EOF
 
-#line 1797 "configure"
+#line 1892 "configure"
 #include "confdefs.h"
 
 int main(){return(0);}
 EOF
-if { (eval echo configure:1802: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:1897: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   ac_cv_prog_cxx_works=yes
   # If we can't run a trivial program, we are probably using a cross compiler.
   if (./conftest; exit) 2>/dev/null; then
@@ -1824,12 +1919,12 @@ if test $ac_cv_prog_cxx_works = no; then
   { echo "configure: error: installation or configuration problem: C++ compiler cannot create executables." 1>&2; exit 1; }
 fi
 echo $ac_n "checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) is a cross-compiler""... $ac_c" 1>&6
-echo "configure:1828: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) is a cross-compiler" >&5
+echo "configure:1923: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) is a cross-compiler" >&5
 echo "$ac_t""$ac_cv_prog_cxx_cross" 1>&6
 cross_compiling=$ac_cv_prog_cxx_cross
 
 echo $ac_n "checking whether we are using GNU C++""... $ac_c" 1>&6
-echo "configure:1833: checking whether we are using GNU C++" >&5
+echo "configure:1928: checking whether we are using GNU C++" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_gxx'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1838,7 +1933,7 @@ else
   yes;
 #endif
 EOF
-if { ac_try='${CXX-g++} -E conftest.C'; { (eval echo configure:1842: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
+if { ac_try='${CXX-g++} -E conftest.C'; { (eval echo configure:1937: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
   ac_cv_prog_gxx=yes
 else
   ac_cv_prog_gxx=no
@@ -1857,7 +1952,7 @@ ac_test_CXXFLAGS="${CXXFLAGS+set}"
 ac_save_CXXFLAGS="$CXXFLAGS"
 CXXFLAGS=
 echo $ac_n "checking whether ${CXX-g++} accepts -g""... $ac_c" 1>&6
-echo "configure:1861: checking whether ${CXX-g++} accepts -g" >&5
+echo "configure:1956: checking whether ${CXX-g++} accepts -g" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_cxx_g'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1888,71 +1983,47 @@ else
   fi
 fi
 
-for ac_declaration in \
-   ''\
-   '#include <stdlib.h>' \
-   'extern "C" void std::exit (int) throw (); using std::exit;' \
-   'extern "C" void std::exit (int); using std::exit;' \
-   'extern "C" void exit (int) throw ();' \
-   'extern "C" void exit (int);' \
-   'void exit (int);'
-do
-  cat > conftest.$ac_ext <<EOF
-#line 1902 "configure"
-#include "confdefs.h"
-#include <stdlib.h>
-$ac_declaration
-int main() {
-exit (42);
-; return 0; }
-EOF
-if { (eval echo configure:1910: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
-  :
-else
-  echo "configure: failed program was:" >&5
-  cat conftest.$ac_ext >&5
-  rm -rf conftest*
-  continue
-fi
-rm -f conftest*
-  cat > conftest.$ac_ext <<EOF
-#line 1920 "configure"
-#include "confdefs.h"
-$ac_declaration
-int main() {
-exit (42);
-; return 0; }
-EOF
-if { (eval echo configure:1927: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
-  rm -rf conftest*
-  break
-else
-  echo "configure: failed program was:" >&5
-  cat conftest.$ac_ext >&5
-fi
-rm -f conftest*
-done
-if test -n "$ac_declaration"; then
-  echo '#ifdef __cplusplus' >>confdefs.h
-  echo $ac_declaration      >>confdefs.h
-  echo '#endif'             >>confdefs.h
-fi
+    
+    #if test "`eval echo '$'"CXX"`" = "no"; then
+    
+    r="`eval echo '$'"CXX"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"CXX"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
 
+    if test $? -ne 0; then
+	
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"c++\"`\"
+
+	if test "REQUIRED" = "REQUIRED"; then
+	    command="echo ERROR: c++ not found"
+	    # abort configure process here?
+	else
+	    command="- echo c++ not found"
+	fi
+	eval "CXX"='$command'
+	false
+    else
+	true
+    fi
 
 
     ac_safe=`echo "FlexLexer.h" | sed 'y%./+-%__p_%'`
 echo $ac_n "checking for FlexLexer.h""... $ac_c" 1>&6
-echo "configure:1946: checking for FlexLexer.h" >&5
+echo "configure:2017: checking for FlexLexer.h" >&5
 if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 1951 "configure"
+#line 2022 "configure"
 #include "confdefs.h"
 #include <FlexLexer.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1956: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:2027: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   rm -rf conftest*
@@ -1972,7 +2043,7 @@ if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
 else
   echo "$ac_t""no" 1>&6
 
-    echo "configure: warning: can"\'"t find flex header. Please install Flex headers correctly" 1>&2
+    echo "configure: warning: cannot find flex header.  Please install Flex headers correctly" 1>&2
     warn_b=yes
 
 fi
@@ -1989,30 +2060,33 @@ fi
 
 
     echo $ac_n "checking "g++ version"""... $ac_c" 1>&6
-echo "configure:1993: checking "g++ version"" >&5
+echo "configure:2064: checking "g++ version"" >&5
     cxx_version=`$CXX --version`
     echo "$ac_t"""$cxx_version"" 1>&6
         # urg, egcs: how to check for egcs >= 1.1?
     if expr "$cxx_version" : '.*2\.[89]' > /dev/null ||
 	expr "$cxx_version" : '.*egcs' > /dev/null ||
-	expr "$cxx_version" : '3\.0' > /dev/null
+	expr "$cxx_version" : '3\.[0-9]' > /dev/null
         then
 	    true
     else
-	    
-    echo "configure: warning: can\'t find g++ 2.8" 1>&2
+	
+    echo "configure: warning: cannot find g++ 2.8" 1>&2
     warn_b=yes
+
+        
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"'g++ >= 2.95 (gcc package)'\"`\"
 
     fi
 
 
     echo $ac_n "checking whether explicit instantiation is needed""... $ac_c" 1>&6
-echo "configure:2011: checking whether explicit instantiation is needed" >&5
+echo "configure:2085: checking whether explicit instantiation is needed" >&5
 if eval "test \"`echo '$''{'lily_cv_need_explicit_instantiation'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 2016 "configure"
+#line 2090 "configure"
 #include "confdefs.h"
 
     template <class T> struct foo { static int baz; };
@@ -2022,7 +2096,7 @@ int main() {
  return foo<int>::baz; 
 ; return 0; }
 EOF
-if { (eval echo configure:2026: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:2100: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   lily_cv_need_explicit_instantiation=no
 else
@@ -2049,7 +2123,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2053: checking for $ac_word" >&5
+echo "configure:2127: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YACC'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2079,20 +2153,14 @@ test -n "$YACC" && break
 done
 test -n "$YACC" || YACC="yacc"
 
-    # ugh, automake: we want (and check for) flex
-    # AC_PROG_LEX
-    # urg: automake 1.3: hope this doesn't break 1.2 ac_cv_pro_lex_root hack...
-
-    # AC_DECL_YYTEXT
-    # ugh, ugh
-    ac_cv_prog_lex_root=lex.yy
-
+    
+    
     for ac_prog in bison
 do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2096: checking for $ac_word" >&5
+echo "configure:2164: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_BISON'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2120,14 +2188,87 @@ fi
 
 test -n "$BISON" && break
 done
-test -n "$BISON" || BISON="error"
+test -n "$BISON" || BISON="no"
 
+    
+    #if test "`eval echo '$'"BISON"`" = "no"; then
+    
+    r="`eval echo '$'"BISON"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"BISON"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    if test $? -ne 0; then
+	
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"bison\"`\"
+
+	if test "REQUIRED" = "REQUIRED"; then
+	    command="echo ERROR: bison not found"
+	    # abort configure process here?
+	else
+	    command="- echo bison not found"
+	fi
+	eval "BISON"='$command'
+	false
+    else
+	true
+    fi
+
+
+    
+    # urg.  should test functionality rather than version.
+    if test "$BISON" = "bison" -a -n "1.25"; then
+#    if test $? -eq 0 -a -n "1.25"; then
+        echo $ac_n "checking "bison version"""... $ac_c" 1>&6
+echo "configure:2227: checking "bison version"" >&5
+        exe=`
+    type -p "bison" 2>&1 | awk '{print $NF}'
+`
+	ver=`
+    "$exe" --version 2>&1 | grep -v '^$' | head -1 | awk '{print $NF}'
+`
+	num=`
+    echo "$ver" | awk -F. '
+    {
+      if ($3) {last = $3}
+      else {last =0}
+    }
+    {printf "%s%s%s\n",$1*100, $2*10,last}'
+`
+	req=`
+    echo "1.25" | awk -F. '
+    {
+      if ($3) {last = $3}
+      else {last =0}
+    }
+    {printf "%s%s%s\n",$1*100, $2*10,last}'
+`
+	echo "$ac_t"""$ver"" 1>&6
+	if test "$num" -lt "$req"; then
+	    
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \""bison 1.25 (installed: $ver)"\"`\"
+
+	fi
+    fi
+
+
+    # ugh, automake: we want (and check for) flex
+    # AC_PROG_LEX
+    # urg: automake 1.3: hope this doesn't break 1.2 ac_cv_pro_lex_root hack...
+
+    # AC_DECL_YYTEXT
+    # ugh, ugh
+    ac_cv_prog_lex_root=lex.yy
+    
     for ac_prog in flex
 do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2131: checking for $ac_word" >&5
+echo "configure:2272: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_FLEX'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2155,49 +2296,45 @@ fi
 
 test -n "$FLEX" && break
 done
-test -n "$FLEX" || FLEX="error"
+test -n "$FLEX" || FLEX="no"
 
     
-	result="`echo \"$BISON\" | grep echo`"
-	if test "x$BISON" = "xerror" -o "x$result" != "x"; then
-		
-    echo "configure: warning: can\'t find bison. Please install Bison" 1>&2
-    warn_b=yes
-
-	fi
-
+    #if test "`eval echo '$'"FLEX"`" = "no"; then
     
-	result="`echo \"$FLEX\" | grep echo`"
-	if test "x$FLEX" = "xerror" -o "x$result" != "x"; then
-		
-    echo "configure: warning: can\'t find flex. Please install Flex" 1>&2
-    warn_b=yes
-
-	fi
-
-
-
-## Urg. We should fix this configure test. -- so clumsy
-    if test $BISON != "error"; then
-	bison_version=`$BISON --version | head -1 | sed 's/^.* 1\.//g'`
-	if test $bison_version -lt 25; then
-	    
-    echo "configure: warning: The bison installed might be too old (1.$bison_version). You might have to install 1.25" 1>&2
-    warn_b=yes
-
-	fi	
+    r="`eval echo '$'"FLEX"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"FLEX"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
     fi
 
-    
-    
+    if test $? -ne 0; then
+	
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"flex\"`\"
+
+	if test "REQUIRED" = "REQUIRED"; then
+	    command="echo ERROR: flex not found"
+	    # abort configure process here?
+	else
+	    command="- echo flex not found"
+	fi
+	eval "FLEX"='$command'
+	false
+    else
+	true
+    fi
 
 
+
+
+    
     for ac_prog in ar
 do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2201: checking for $ac_word" >&5
+echo "configure:2338: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_AR'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2225,12 +2362,40 @@ fi
 
 test -n "$AR" && break
 done
-test -n "$AR" || AR="error"
+test -n "$AR" || AR="no"
+
+    
+    #if test "`eval echo '$'"AR"`" = "no"; then
+    
+    r="`eval echo '$'"AR"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"AR"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    if test $? -ne 0; then
+	
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"ar\"`\"
+
+	if test "REQUIRED" = "REQUIRED"; then
+	    command="echo ERROR: ar not found"
+	    # abort configure process here?
+	else
+	    command="- echo ar not found"
+	fi
+	eval "AR"='$command'
+	false
+    else
+	true
+    fi
+
 
     # Extract the first word of "ranlib", so it can be a program name with args.
 set dummy ranlib; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2234: checking for $ac_word" >&5
+echo "configure:2399: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_RANLIB'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2257,9 +2422,33 @@ else
   echo "$ac_t""no" 1>&6
 fi
 
+    
+    #if test "`eval echo '$'"RANLIB"`" = "no"; then
+    
+    r="`eval echo '$'"RANLIB"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"RANLIB"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
 
-    
-    
+    if test $? -ne 0; then
+	
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"ranlib\"`\"
+
+	if test "REQUIRED" = "REQUIRED"; then
+	    command="echo ERROR: ranlib not found"
+	    # abort configure process here?
+	else
+	    command="- echo ranlib not found"
+	fi
+	eval "RANLIB"='$command'
+	false
+    else
+	true
+    fi
+
 
 
     lang=English
@@ -2285,7 +2474,7 @@ fi
 
 
     echo $ac_n "checking language""... $ac_c" 1>&6
-echo "configure:2289: checking language" >&5    
+echo "configure:2478: checking language" >&5    
     case "$language" in
       En* | en* | Am* | am* | US* | us*)
 	    lang=English;;
@@ -2321,7 +2510,7 @@ EOF
 
 
     echo $ac_n "checking for gettext in -lintl""... $ac_c" 1>&6
-echo "configure:2325: checking for gettext in -lintl" >&5
+echo "configure:2514: checking for gettext in -lintl" >&5
 ac_lib_var=`echo intl'_'gettext | sed 'y%./+-%__p_%'`
 if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
@@ -2329,7 +2518,7 @@ else
   ac_save_LIBS="$LIBS"
 LIBS="-lintl  $LIBS"
 cat > conftest.$ac_ext <<EOF
-#line 2333 "configure"
+#line 2522 "configure"
 #include "confdefs.h"
 /* Override any gcc2 internal prototype to avoid an error.  */
 #ifdef __cplusplus
@@ -2343,7 +2532,7 @@ int main() {
 gettext()
 ; return 0; }
 EOF
-if { (eval echo configure:2347: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:2536: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   eval "ac_cv_lib_$ac_lib_var=yes"
 else
@@ -2373,12 +2562,12 @@ fi
     for ac_func in gettext
 do
 echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
-echo "configure:2377: checking for $ac_func" >&5
+echo "configure:2566: checking for $ac_func" >&5
 if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 2382 "configure"
+#line 2571 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char $ac_func(); below.  */
@@ -2404,7 +2593,7 @@ $ac_func();
 
 ; return 0; }
 EOF
-if { (eval echo configure:2408: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:2597: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   eval "ac_cv_func_$ac_func=yes"
 else
@@ -2430,13 +2619,13 @@ done
 
 
 
-    # AC_CHECK_PROGS(MSGFMT, msgfmt, -echo no msgfmt)
+    
     for ac_prog in msgfmt
 do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2440: checking for $ac_word" >&5
+echo "configure:2629: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MSGFMT'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2464,38 +2653,47 @@ fi
 
 test -n "$MSGFMT" && break
 done
-test -n "$MSGFMT" || MSGFMT="\$(SHELL) \$(step-bindir)/fake-msgfmt.sh "
+test -n "$MSGFMT" || MSGFMT="no"
 
-    echo $ac_n "checking whether msgfmt accepts -o""... $ac_c" 1>&6
-echo "configure:2471: checking whether msgfmt accepts -o" >&5
-    msgfmt_output="`msgfmt -o bla 2>&1 | grep usage`"
-    if test "$msgfmt_output" = ""; then
-	echo "$ac_t""yes" 1>&6
+    
+    #if test "`eval echo '$'"MSGFMT"`" = "no"; then
+    
+    r="`eval echo '$'"MSGFMT"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"MSGFMT"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
     else
-	# urg
-	MSGFMT="\$(SHELL) \$(step-bindir)/fake-msgfmt.sh"
-	echo "$ac_t""no" 1>&6
-	
-    echo "configure: warning: please install msgfmt from GNU gettext" 1>&2
-    warn_b=yes
-
+	true
     fi
-    if test ! -n "$MSGFMT"; then
-	
-    echo "configure: warning: please install msgfmt from GNU gettext" 1>&2
-    warn_b=yes
 
+    if test $? -ne 0; then
+	
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"msgfmt\"`\"
+
+	if test "REQUIRED" = "REQUIRED"; then
+	    command="echo ERROR: msgfmt not found"
+	    # abort configure process here?
+	else
+	    command="- echo msgfmt not found"
+	fi
+	eval "MSGFMT"='$command'
+	false
+    else
+	true
     fi
+
+
 
 
     # urg, never know what names these teTeX guys will think up
 
-    for ac_prog in mf
+    
+    for ac_prog in mf mfont
 do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2499: checking for $ac_word" >&5
+echo "configure:2697: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_METAFONT'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2525,51 +2723,41 @@ test -n "$METAFONT" && break
 done
 test -n "$METAFONT" || METAFONT="no"
 
-    if test "x$METAFONT" = "xno"; then
-	for ac_prog in mfont
+    
+    #if test "`eval echo '$'"METAFONT"`" = "no"; then
+    
+    r="`eval echo '$'"METAFONT"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"METAFONT"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    if test $? -ne 0; then
+	
+    eval ""=\"`eval echo \"'$'\" \"mf mfont\"`\"
+
+	if test "" = "REQUIRED"; then
+	    command="echo ERROR: mf mfont not found"
+	    # abort configure process here?
+	else
+	    command="- echo mf mfont not found"
+	fi
+	eval "METAFONT"='$command'
+	false
+    else
+	true
+    fi
+
+
+    
+    for ac_prog in inimf inimfont
 do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2535: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_prog_MFONT'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  if test -n "$MFONT"; then
-  ac_cv_prog_MFONT="$MFONT" # Let the user override the test.
-else
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_prog_MFONT="$ac_prog"
-      break
-    fi
-  done
-  IFS="$ac_save_ifs"
-fi
-fi
-MFONT="$ac_cv_prog_MFONT"
-if test -n "$MFONT"; then
-  echo "$ac_t""$MFONT" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
-
-test -n "$MFONT" && break
-done
-test -n "$MFONT" || MFONT="-echo no mf or mfont"
-
-	METAFONT=$MFONT
-    fi
-
-    for ac_prog in inimf
-do
-# Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2573: checking for $ac_word" >&5
+echo "configure:2761: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_INIMETAFONT'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2599,47 +2787,37 @@ test -n "$INIMETAFONT" && break
 done
 test -n "$INIMETAFONT" || INIMETAFONT="no"
 
-    if test "x$INIMETAFONT" = "xno"; then
-	for ac_prog in inimfont
-do
-# Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2609: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_prog_INIMFONT'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  if test -n "$INIMFONT"; then
-  ac_cv_prog_INIMFONT="$INIMFONT" # Let the user override the test.
-else
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_prog_INIMFONT="$ac_prog"
-      break
+    
+    #if test "`eval echo '$'"INIMETAFONT"`" = "no"; then
+    
+    r="`eval echo '$'"INIMETAFONT"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"INIMETAFONT"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
     fi
-  done
-  IFS="$ac_save_ifs"
-fi
-fi
-INIMFONT="$ac_cv_prog_INIMFONT"
-if test -n "$INIMFONT"; then
-  echo "$ac_t""$INIMFONT" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
 
-test -n "$INIMFONT" && break
-done
-test -n "$INIMFONT" || INIMFONT="-echo no inimf or inimfont"
+    if test $? -ne 0; then
+	
+    eval ""=\"`eval echo \"'$'\" \"inimf inimfont\"`\"
 
-	INIMETAFONT=$INIMFONT
+	if test "" = "REQUIRED"; then
+	    command="echo ERROR: inimf inimfont not found"
+	    # abort configure process here?
+	else
+	    command="- echo inimf inimfont not found"
+	fi
+	eval "INIMETAFONT"='$command'
+	false
+    else
+	true
     fi
+
+
 
     echo $ac_n "checking for working metafont mode""... $ac_c" 1>&6
-echo "configure:2643: checking for working metafont mode" >&5
+echo "configure:2821: checking for working metafont mode" >&5
     modelist='ljfour lj4 lj3 lj2 ljet laserjet'
     for MFMODE in $modelist; do
     	$METAFONT "\mode:=$MFMODE; mode_setup; end." > /dev/null 2>&1
@@ -2652,8 +2830,6 @@ echo "configure:2643: checking for working metafont mode" >&5
     rm -f mfput.*
 
     
-    
-    
 
 
     # Check whether --enable-tfm-path or --disable-tfm-path was given.
@@ -2665,12 +2841,14 @@ else
 fi
 
 
+    # ugh
+    
     for ac_prog in kpsewhich
 do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2674: checking for $ac_word" >&5
+echo "configure:2852: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_KPSEWHICH'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2700,8 +2878,36 @@ test -n "$KPSEWHICH" && break
 done
 test -n "$KPSEWHICH" || KPSEWHICH="no"
 
+    
+    #if test "`eval echo '$'"KPSEWHICH"`" = "no"; then
+    
+    r="`eval echo '$'"KPSEWHICH"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"KPSEWHICH"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    if test $? -ne 0; then
+	
+    eval "OPTIONAL"=\"`eval echo \"'$'OPTIONAL\" \"kpsewhich\"`\"
+
+	if test "OPTIONAL" = "REQUIRED"; then
+	    command="echo ERROR: kpsewhich not found"
+	    # abort configure process here?
+	else
+	    command="- echo kpsewhich not found"
+	fi
+	eval "KPSEWHICH"='$command'
+	false
+    else
+	true
+    fi
+
+
     echo $ac_n "checking for tfm path""... $ac_c" 1>&6
-echo "configure:2705: checking for tfm path" >&5
+echo "configure:2911: checking for tfm path" >&5
 
     TFM_FONTS="cmr msam"
 
@@ -2727,62 +2933,75 @@ echo "configure:2705: checking for tfm path" >&5
     
 
 
-    ## First, let's just see if we can find Guile at all.
-    echo $ac_n "checking "for guile-config"""... $ac_c" 1>&6
-echo "configure:2733: checking "for guile-config"" >&5
-    for guile_config in guile-config $target-guile-config $build-guile-config; do
-	echo "$ac_t"""$guile_config"" 1>&6
-	if ! $guile_config --version > /dev/null 2>&1 ; then
-	    echo "configure: warning: "cannot execute $guile_config"" 1>&2
-	    echo $ac_n "checking "if we are cross compiling"""... $ac_c" 1>&6
-echo "configure:2739: checking "if we are cross compiling"" >&5
-	    guile_config=error
+    
+    for ac_prog in guile
+do
+# Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
+echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+echo "configure:2943: checking for $ac_word" >&5
+if eval "test \"`echo '$''{'ac_cv_prog_GUILE'+set}'`\" = set"; then
+  echo $ac_n "(cached) $ac_c" 1>&6
+else
+  if test -n "$GUILE"; then
+  ac_cv_prog_GUILE="$GUILE" # Let the user override the test.
+else
+  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
+  ac_dummy="$PATH"
+  for ac_dir in $ac_dummy; do
+    test -z "$ac_dir" && ac_dir=.
+    if test -f $ac_dir/$ac_word; then
+      ac_cv_prog_GUILE="$ac_prog"
+      break
+    fi
+  done
+  IFS="$ac_save_ifs"
+fi
+fi
+GUILE="$ac_cv_prog_GUILE"
+if test -n "$GUILE"; then
+  echo "$ac_t""$GUILE" 1>&6
+else
+  echo "$ac_t""no" 1>&6
+fi
+
+test -n "$GUILE" && break
+done
+test -n "$GUILE" || GUILE="no"
+
+    
+    #if test "`eval echo '$'"GUILE"`" = "no"; then
+    
+    r="`eval echo '$'"GUILE"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"GUILE"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    if test $? -ne 0; then
+	
+    eval "OPTIONAL"=\"`eval echo \"'$'OPTIONAL\" \"guile\"`\"
+
+	if test "OPTIONAL" = "REQUIRED"; then
+	    command="echo ERROR: guile not found"
+	    # abort configure process here?
 	else
-	    break
+	    command="- echo guile not found"
 	fi
-    done
-    if test "$guile_config" = "error"; then
-	{ echo "configure: error: "cannot find guile-config; is Guile installed?"" 1>&2; exit 1; }
-	exit 1
+	eval "GUILE"='$command'
+	false
+    else
+	true
     fi
-    echo $ac_n "checking "Guile version"""... $ac_c" 1>&6
-echo "configure:2750: checking "Guile version"" >&5
-    need_guile_version="1.3.4"
-    need_guile_version_numeric=100304
-    guile_version=`$guile_config --version 2>&1 | awk '{print $NF}'`
-    guile_version_numeric=`echo $guile_version | awk -F. '
-{if ($3) {last = $3}
-else {last =0}}
-{printf "%s%s%s\n",$1*100, $2*10,last}'`
-    echo "$ac_t"""$guile_version"" 1>&6
-    if test $guile_version_numeric -lt $need_guile_version_numeric
-    then
-        
-    echo "configure: warning: "Guile version "$need_guile_version" or newer is needed"" 1>&2
-    warn_b=yes
 
-    fi
-        GUILE_MAJOR_VERSION=`expr $guile_version : '\([0-9]*\)'`
-    GUILE_MINOR_VERSION=`expr $guile_version : '[0-9]*\.\([0-9]*\)'`
-        
-## The GUILE_FLAGS macro.
-  echo $ac_n "checking for Guile""... $ac_c" 1>&6
-echo "configure:2771: checking for Guile" >&5
-  if ! $guile_config link > /dev/null ; then
-      echo "$ac_t"""cannot execute $guile_config"" 1>&6
-      { echo "configure: error: "cannot find guile-config; is Guile installed?"" 1>&2; exit 1; }
-      exit 1
-  fi
-  GUILE_CFLAGS="`$guile_config compile`"
-  GUILE_LDFLAGS="`$guile_config link`"
-  
-  
-  echo "$ac_t""yes" 1>&6
-
-    # Extract the first word of "guile", so it can be a program name with args.
+#    if ! expr '`eval echo '$'"GUILE"`' : '.*\(echo\)' > /dev/null; then
+    if test $? -ne 0; then
+	# Extract the first word of "guile", so it can be a program name with args.
 set dummy guile; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2786: checking for $ac_word" >&5
+echo "configure:3005: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_GUILE'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2804,7 +3023,6 @@ else
     fi
   done
   IFS="$ac_save_ifs"
-  test -z "$ac_cv_path_GUILE" && ac_cv_path_GUILE="error"
   ;;
 esac
 fi
@@ -2815,7 +3033,125 @@ else
   echo "$ac_t""no" 1>&6
 fi
 
+    fi
+
+
+
+    ## First, let's just see if we can find Guile at all.
+    echo $ac_n "checking "for guile-config"""... $ac_c" 1>&6
+echo "configure:3043: checking "for guile-config"" >&5
+    for guile_config in guile-config $target-guile-config $build-guile-config; do
+	echo "$ac_t"""$guile_config"" 1>&6
+	if ! $guile_config --version > /dev/null 2>&1 ; then
+	    echo "configure: warning: "cannot execute $guile_config"" 1>&2
+	    echo $ac_n "checking "if we are cross compiling"""... $ac_c" 1>&6
+echo "configure:3049: checking "if we are cross compiling"" >&5
+	    GUILE_CONFIG='echo no guile-config'
+	else
+	    GUILE_CONFIG=$guile_config
+	    break
+	fi
+    done
     
+    #if test "`eval echo '$'"GUILE_CONFIG"`" = "no"; then
+    
+    r="`eval echo '$'"GUILE_CONFIG"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"GUILE_CONFIG"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    if test $? -ne 0; then
+	
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"$guile_config\"`\"
+
+	if test "REQUIRED" = "REQUIRED"; then
+	    command="echo ERROR: $guile_config not found"
+	    # abort configure process here?
+	else
+	    command="- echo $guile_config not found"
+	fi
+	eval "GUILE_CONFIG"='$command'
+	false
+    else
+	true
+    fi
+
+    #if expr "$GUILE_CONFIG" : '.*\(echo\)' >/dev/null; then
+    if test $? -ne 0; then
+        
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"'guile-config (guile-devel, guile-dev or libguile-dev package)'\"`\"
+
+    fi 
+
+    
+    r="`eval echo '$'"GUILE_CONFIG"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"GUILE_CONFIG"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    # urg.  should test functionality rather than version.
+    if test $? -eq 0 -a -n "1.3.4"; then
+	echo $ac_n "checking "guile-config version"""... $ac_c" 1>&6
+echo "configure:3102: checking "guile-config version"" >&5
+        exe=`
+    type -p "$guile_config" 2>&1 | awk '{print $NF}'
+`
+	ver=`
+    "$exe" --version 2>&1 | grep -v '^$' | head -1 | awk '{print $NF}'
+`
+	set --
+	num=`
+    echo "$ver" | awk -F. '
+    {
+      if ($3) {last = $3}
+      else {last =0}
+    }
+    {printf "%s%s%s\n",$1*100, $2*10,last}'
+`
+	req=`
+    echo "1.3.4" | awk -F. '
+    {
+      if ($3) {last = $3}
+      else {last =0}
+    }
+    {printf "%s%s%s\n",$1*100, $2*10,last}'
+`
+	echo "$ac_t"""$ver"" 1>&6
+	if test "$num" -lt "$req"; then
+	    
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \""guile-config 1.3.4 (installed: $ver)"\"`\"
+
+	fi
+    fi
+
+    
+    
+    guile_version="$ver"
+        GUILE_MAJOR_VERSION=`expr $guile_version : '\([0-9]*\)'`
+    GUILE_MINOR_VERSION=`expr $guile_version : '[0-9]*\.\([0-9]*\)'`
+        
+    exe=`
+    type -p "$guile_config" 2>&1 | awk '{print $NF}'
+`
+    if test -x $exe; then
+	echo $ac_n "checking "guile compile flags"""... $ac_c" 1>&6
+echo "configure:3145: checking "guile compile flags"" >&5
+	GUILE_CFLAGS="`$guile_config compile`"
+	echo "$ac_t""$GUILE_CFLAGS" 1>&6
+	echo $ac_n "checking "guile link flags"""... $ac_c" 1>&6
+echo "configure:3149: checking "guile link flags"" >&5
+	GUILE_LDFLAGS="`$guile_config link`"
+	echo "$ac_t""$GUILE_LDFLAGS" 1>&6
+    fi
+    
+    
+
     cat >> confdefs.h <<EOF
 #define GUILE_MAJOR_VERSION $GUILE_MAJOR_VERSION
 EOF
@@ -2843,17 +3179,17 @@ fi
 do
 ac_safe=`echo "$ac_hdr" | sed 'y%./+-%__p_%'`
 echo $ac_n "checking for $ac_hdr""... $ac_c" 1>&6
-echo "configure:2847: checking for $ac_hdr" >&5
+echo "configure:3183: checking for $ac_hdr" >&5
 if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 2852 "configure"
+#line 3188 "configure"
 #include "confdefs.h"
 #include <$ac_hdr>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:2857: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:3193: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   rm -rf conftest*
@@ -2880,7 +3216,7 @@ fi
 done
 
 	echo $ac_n "checking for kpse_find_file in -lkpathsea""... $ac_c" 1>&6
-echo "configure:2884: checking for kpse_find_file in -lkpathsea" >&5
+echo "configure:3220: checking for kpse_find_file in -lkpathsea" >&5
 ac_lib_var=`echo kpathsea'_'kpse_find_file | sed 'y%./+-%__p_%'`
 if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
@@ -2888,7 +3224,7 @@ else
   ac_save_LIBS="$LIBS"
 LIBS="-lkpathsea  $LIBS"
 cat > conftest.$ac_ext <<EOF
-#line 2892 "configure"
+#line 3228 "configure"
 #include "confdefs.h"
 /* Override any gcc2 internal prototype to avoid an error.  */
 #ifdef __cplusplus
@@ -2902,7 +3238,7 @@ int main() {
 kpse_find_file()
 ; return 0; }
 EOF
-if { (eval echo configure:2906: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:3242: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   eval "ac_cv_lib_$ac_lib_var=yes"
 else
@@ -2932,12 +3268,12 @@ fi
 	for ac_func in kpse_find_file
 do
 echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
-echo "configure:2936: checking for $ac_func" >&5
+echo "configure:3272: checking for $ac_func" >&5
 if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 2941 "configure"
+#line 3277 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char $ac_func(); below.  */
@@ -2963,7 +3299,7 @@ $ac_func();
 
 ; return 0; }
 EOF
-if { (eval echo configure:2967: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:3303: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   eval "ac_cv_func_$ac_func=yes"
 else
@@ -2990,7 +3326,7 @@ done
 
     fi
     echo $ac_n "checking whether to use kpathsea""... $ac_c" 1>&6
-echo "configure:2994: checking whether to use kpathsea" >&5
+echo "configure:3330: checking whether to use kpathsea" >&5
     if test "$kpathsea_b" != no; then
         echo "$ac_t""yes" 1>&6
 	KPATHSEA=1
@@ -3006,6 +3342,250 @@ EOF
 
 
 
+    
+    for ac_prog in makeinfo
+do
+# Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
+echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+echo "configure:3352: checking for $ac_word" >&5
+if eval "test \"`echo '$''{'ac_cv_prog_MAKEINFO'+set}'`\" = set"; then
+  echo $ac_n "(cached) $ac_c" 1>&6
+else
+  if test -n "$MAKEINFO"; then
+  ac_cv_prog_MAKEINFO="$MAKEINFO" # Let the user override the test.
+else
+  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
+  ac_dummy="$PATH"
+  for ac_dir in $ac_dummy; do
+    test -z "$ac_dir" && ac_dir=.
+    if test -f $ac_dir/$ac_word; then
+      ac_cv_prog_MAKEINFO="$ac_prog"
+      break
+    fi
+  done
+  IFS="$ac_save_ifs"
+fi
+fi
+MAKEINFO="$ac_cv_prog_MAKEINFO"
+if test -n "$MAKEINFO"; then
+  echo "$ac_t""$MAKEINFO" 1>&6
+else
+  echo "$ac_t""no" 1>&6
+fi
+
+test -n "$MAKEINFO" && break
+done
+test -n "$MAKEINFO" || MAKEINFO="no"
+
+    
+    #if test "`eval echo '$'"MAKEINFO"`" = "no"; then
+    
+    r="`eval echo '$'"MAKEINFO"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"MAKEINFO"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    if test $? -ne 0; then
+	
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"makeinfo\"`\"
+
+	if test "REQUIRED" = "REQUIRED"; then
+	    command="echo ERROR: makeinfo not found"
+	    # abort configure process here?
+	else
+	    command="- echo makeinfo not found"
+	fi
+	eval "MAKEINFO"='$command'
+	false
+    else
+	true
+    fi
+
+
+    if test "$MAKEINFO" = "makeinfo"; then
+	echo $ac_n "checking whether makeinfo can split html by @node""... $ac_c" 1>&6
+echo "configure:3412: checking whether makeinfo can split html by @node" >&5
+	mkdir -p out
+	makeinfo --html --output=out/split <<EOF
+\input texinfo
+\input texinfo @c -*-texinfo-*-
+@setfilename split.info
+@settitle split.info
+@bye
+EOF
+	if test -d out/split; then
+	    SPLITTING_MAKEINFO=yes
+	    echo "$ac_t""yes" 1>&6
+	    rm -rf out/split
+	else
+	    echo "$ac_t""no" 1>&6
+	    
+    echo "configure: warning: your html documentation will be one large file" 1>&2
+    warn_b=yes
+
+	    rm -rf out/split
+	fi
+    fi
+    
+
+
+    for ac_hdr in python2.2/Python.h python2.1/Python.h python2.0/Python.h python2/Python.h python/Python.h python1.5/Python.h Python.h
+do
+ac_safe=`echo "$ac_hdr" | sed 'y%./+-%__p_%'`
+echo $ac_n "checking for $ac_hdr""... $ac_c" 1>&6
+echo "configure:3441: checking for $ac_hdr" >&5
+if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
+  echo $ac_n "(cached) $ac_c" 1>&6
+else
+  cat > conftest.$ac_ext <<EOF
+#line 3446 "configure"
+#include "confdefs.h"
+#include <$ac_hdr>
+EOF
+ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+{ (eval echo configure:3451: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+if test -z "$ac_err"; then
+  rm -rf conftest*
+  eval "ac_cv_header_$ac_safe=yes"
+else
+  echo "$ac_err" >&5
+  echo "configure: failed program was:" >&5
+  cat conftest.$ac_ext >&5
+  rm -rf conftest*
+  eval "ac_cv_header_$ac_safe=no"
+fi
+rm -f conftest*
+fi
+if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
+  echo "$ac_t""yes" 1>&6
+    ac_tr_hdr=HAVE_`echo $ac_hdr | sed 'y%abcdefghijklmnopqrstuvwxyz./-%ABCDEFGHIJKLMNOPQRSTUVWXYZ___%'`
+  cat >> confdefs.h <<EOF
+#define $ac_tr_hdr 1
+EOF
+ 
+else
+  echo "$ac_t""no" 1>&6
+fi
+done
+
+    if test $? -ne 0; then
+	
+    eval "REQUIRED"=\"`eval echo \"'$'REQUIRED\" \"'python.h (python-devel, python-dev or libpython-dev package)'\"`\"
+
+    fi
+
+
+##need perl for help2man.
+
+    
+    for ac_prog in perl
+do
+# Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
+echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+echo "configure:3492: checking for $ac_word" >&5
+if eval "test \"`echo '$''{'ac_cv_prog_PERL'+set}'`\" = set"; then
+  echo $ac_n "(cached) $ac_c" 1>&6
+else
+  if test -n "$PERL"; then
+  ac_cv_prog_PERL="$PERL" # Let the user override the test.
+else
+  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
+  ac_dummy="$PATH"
+  for ac_dir in $ac_dummy; do
+    test -z "$ac_dir" && ac_dir=.
+    if test -f $ac_dir/$ac_word; then
+      ac_cv_prog_PERL="$ac_prog"
+      break
+    fi
+  done
+  IFS="$ac_save_ifs"
+fi
+fi
+PERL="$ac_cv_prog_PERL"
+if test -n "$PERL"; then
+  echo "$ac_t""$PERL" 1>&6
+else
+  echo "$ac_t""no" 1>&6
+fi
+
+test -n "$PERL" && break
+done
+test -n "$PERL" || PERL="no"
+
+    
+    #if test "`eval echo '$'"PERL"`" = "no"; then
+    
+    r="`eval echo '$'"PERL"`"
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"PERL"`' : '.*\(echo\)' > /dev/null; then
+	##STEPMAKE_WARN(cannot find . )
+	false
+    else
+	true
+    fi
+
+    if test $? -ne 0; then
+	
+    eval "OPTIONAL"=\"`eval echo \"'$'OPTIONAL\" \"perl\"`\"
+
+	if test "OPTIONAL" = "REQUIRED"; then
+	    command="echo ERROR: perl not found"
+	    # abort configure process here?
+	else
+	    command="- echo perl not found"
+	fi
+	eval "PERL"='$command'
+	false
+    else
+	true
+    fi
+
+#    if ! expr '`eval echo '$'"PERL"`' : '.*\(echo\)' > /dev/null; then
+    if test $? -ne 0; then
+	# Extract the first word of "perl", so it can be a program name with args.
+set dummy perl; ac_word=$2
+echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+echo "configure:3554: checking for $ac_word" >&5
+if eval "test \"`echo '$''{'ac_cv_path_PERL'+set}'`\" = set"; then
+  echo $ac_n "(cached) $ac_c" 1>&6
+else
+  case "$PERL" in
+  /*)
+  ac_cv_path_PERL="$PERL" # Let the user override the test with a path.
+  ;;
+  ?:/*)			 
+  ac_cv_path_PERL="$PERL" # Let the user override the test with a dos path.
+  ;;
+  *)
+  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
+  ac_dummy="$PATH"
+  for ac_dir in $ac_dummy; do 
+    test -z "$ac_dir" && ac_dir=.
+    if test -f $ac_dir/$ac_word; then
+      ac_cv_path_PERL="$ac_dir/$ac_word"
+      break
+    fi
+  done
+  IFS="$ac_save_ifs"
+  ;;
+esac
+fi
+PERL="$ac_cv_path_PERL"
+if test -n "$PERL"; then
+  echo "$ac_t""$PERL" 1>&6
+else
+  echo "$ac_t""no" 1>&6
+fi
+
+    fi
+
+
+
 
 if test "$optimise_b" = yes; then
     DEFINES="$DEFINES -DSTRING_UTILS_INLINED"
@@ -3016,9 +3596,8 @@ EOF
 fi
 
 
-
 echo $ac_n "checking for 8-bit clean memcmp""... $ac_c" 1>&6
-echo "configure:3022: checking for 8-bit clean memcmp" >&5
+echo "configure:3601: checking for 8-bit clean memcmp" >&5
 if eval "test \"`echo '$''{'ac_cv_func_memcmp_clean'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -3026,8 +3605,11 @@ else
   ac_cv_func_memcmp_clean=no
 else
   cat > conftest.$ac_ext <<EOF
-#line 3030 "configure"
+#line 3609 "configure"
 #include "confdefs.h"
+#ifdef __cplusplus
+extern "C" void exit(int);
+#endif
 
 main()
 {
@@ -3036,7 +3618,7 @@ main()
 }
 
 EOF
-if { (eval echo configure:3040: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+if { (eval echo configure:3622: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
 then
   ac_cv_func_memcmp_clean=yes
 else
@@ -3054,12 +3636,12 @@ echo "$ac_t""$ac_cv_func_memcmp_clean" 1>&6
 test $ac_cv_func_memcmp_clean = no && LIBOBJS="$LIBOBJS memcmp.${ac_objext}"
 
 echo $ac_n "checking for vprintf""... $ac_c" 1>&6
-echo "configure:3058: checking for vprintf" >&5
+echo "configure:3640: checking for vprintf" >&5
 if eval "test \"`echo '$''{'ac_cv_func_vprintf'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 3063 "configure"
+#line 3645 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char vprintf(); below.  */
@@ -3085,7 +3667,7 @@ vprintf();
 
 ; return 0; }
 EOF
-if { (eval echo configure:3089: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:3671: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   eval "ac_cv_func_vprintf=yes"
 else
@@ -3109,12 +3691,12 @@ fi
 
 if test "$ac_cv_func_vprintf" != yes; then
 echo $ac_n "checking for _doprnt""... $ac_c" 1>&6
-echo "configure:3113: checking for _doprnt" >&5
+echo "configure:3695: checking for _doprnt" >&5
 if eval "test \"`echo '$''{'ac_cv_func__doprnt'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 3118 "configure"
+#line 3700 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char _doprnt(); below.  */
@@ -3140,7 +3722,7 @@ _doprnt();
 
 ; return 0; }
 EOF
-if { (eval echo configure:3144: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:3726: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   eval "ac_cv_func__doprnt=yes"
 else
@@ -3167,12 +3749,12 @@ fi
 for ac_func in memmem snprintf vsnprintf gettext isinf
 do
 echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
-echo "configure:3171: checking for $ac_func" >&5
+echo "configure:3753: checking for $ac_func" >&5
 if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 3176 "configure"
+#line 3758 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char $ac_func(); below.  */
@@ -3198,7 +3780,7 @@ $ac_func();
 
 ; return 0; }
 EOF
-if { (eval echo configure:3202: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:3784: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   eval "ac_cv_func_$ac_func=yes"
 else
@@ -3233,149 +3815,9 @@ EOF
 
 
 
-    for ac_prog in makeinfo
-do
-# Extract the first word of "$ac_prog", so it can be a program name with args.
-set dummy $ac_prog; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:3242: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_prog_MAKEINFO'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  if test -n "$MAKEINFO"; then
-  ac_cv_prog_MAKEINFO="$MAKEINFO" # Let the user override the test.
-else
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_prog_MAKEINFO="$ac_prog"
-      break
-    fi
-  done
-  IFS="$ac_save_ifs"
-fi
-fi
-MAKEINFO="$ac_cv_prog_MAKEINFO"
-if test -n "$MAKEINFO"; then
-  echo "$ac_t""$MAKEINFO" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
-
-test -n "$MAKEINFO" && break
-done
-test -n "$MAKEINFO" || MAKEINFO="error"
-
-    if test "$MAKEINFO" != "error"; then
-	echo $ac_n "checking whether makeinfo can split html by @node""... $ac_c" 1>&6
-echo "configure:3274: checking whether makeinfo can split html by @node" >&5
-	mkdir -p out
-	makeinfo --html --output=out/split <<EOF
-\input texinfo
-\input texinfo @c -*-texinfo-*-
-@setfilename split.info
-@settitle split.info
-@bye
-EOF
-	if test -d out/split; then
-	    SPLITTING_MAKEINFO=yes
-	    echo "$ac_t""yes" 1>&6
-	    rm -rf out/split
-	else
-	    echo "$ac_t""no" 1>&6
-	    
-    echo "configure: warning: your html documentation will be one large file" 1>&2
-    warn_b=yes
-
-	    rm -rf out/split
-	fi
-    fi
     
-
-
-
-# Extract the first word of "perl", so it can be a program name with args.
-set dummy perl; ac_word=$2
-echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:3303: checking for $ac_word" >&5
-if eval "test \"`echo '$''{'ac_cv_path_PERL'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  case "$PERL" in
-  /*)
-  ac_cv_path_PERL="$PERL" # Let the user override the test with a path.
-  ;;
-  ?:/*)			 
-  ac_cv_path_PERL="$PERL" # Let the user override the test with a dos path.
-  ;;
-  *)
-  IFS="${IFS= 	}"; ac_save_ifs="$IFS"; IFS=":"
-  ac_dummy="$PATH"
-  for ac_dir in $ac_dummy; do 
-    test -z "$ac_dir" && ac_dir=.
-    if test -f $ac_dir/$ac_word; then
-      ac_cv_path_PERL="$ac_dir/$ac_word"
-      break
-    fi
-  done
-  IFS="$ac_save_ifs"
-  test -z "$ac_cv_path_PERL" && ac_cv_path_PERL="error"
-  ;;
-esac
-fi
-PERL="$ac_cv_path_PERL"
-if test -n "$PERL"; then
-  echo "$ac_t""$PERL" 1>&6
-else
-  echo "$ac_t""no" 1>&6
-fi
-
-
-for ac_hdr in python2.2/Python.h python2.1/Python.h python2.0/Python.h python2/Python.h python/Python.h python1.5/Python.h Python.h
-do
-ac_safe=`echo "$ac_hdr" | sed 'y%./+-%__p_%'`
-echo $ac_n "checking for $ac_hdr""... $ac_c" 1>&6
-echo "configure:3341: checking for $ac_hdr" >&5
-if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
-  echo $ac_n "(cached) $ac_c" 1>&6
-else
-  cat > conftest.$ac_ext <<EOF
-#line 3346 "configure"
-#include "confdefs.h"
-#include <$ac_hdr>
-EOF
-ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:3351: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
-ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
-if test -z "$ac_err"; then
-  rm -rf conftest*
-  eval "ac_cv_header_$ac_safe=yes"
-else
-  echo "$ac_err" >&5
-  echo "configure: failed program was:" >&5
-  cat conftest.$ac_ext >&5
-  rm -rf conftest*
-  eval "ac_cv_header_$ac_safe=no"
-fi
-rm -f conftest*
-fi
-if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
-  echo "$ac_t""yes" 1>&6
-    ac_tr_hdr=HAVE_`echo $ac_hdr | sed 'y%abcdefghijklmnopqrstuvwxyz./-%ABCDEFGHIJKLMNOPQRSTUVWXYZ___%'`
-  cat >> confdefs.h <<EOF
-#define $ac_tr_hdr 1
-EOF
- 
-else
-  echo "$ac_t""no" 1>&6
-fi
-done
-
-
-
-
+    
+    
     trap '' 1 2 15
 cat > confcache <<\EOF
 # This file is a shell script that caches the results of configure
@@ -3555,20 +3997,21 @@ s%@localedir@%$localedir%g
 s%@DIR_LOCALEDIR@%$DIR_LOCALEDIR%g
 s%@MSGFMT@%$MSGFMT%g
 s%@METAFONT@%$METAFONT%g
-s%@MFONT@%$MFONT%g
 s%@INIMETAFONT@%$INIMETAFONT%g
-s%@INIMFONT@%$INIMFONT%g
 s%@MFMODE@%$MFMODE%g
 s%@KPSEWHICH@%$KPSEWHICH%g
 s%@TFM_PATH@%$TFM_PATH%g
+s%@GUILE@%$GUILE%g
+s%@GUILE_CONFIG@%$GUILE_CONFIG%g
 s%@GUILE_CFLAGS@%$GUILE_CFLAGS%g
 s%@GUILE_LDFLAGS@%$GUILE_LDFLAGS%g
-s%@GUILE@%$GUILE%g
 s%@KPATHSEA@%$KPATHSEA%g
-s%@LIBOBJS@%$LIBOBJS%g
 s%@MAKEINFO@%$MAKEINFO%g
 s%@SPLITTING_MAKEINFO@%$SPLITTING_MAKEINFO%g
 s%@PERL@%$PERL%g
+s%@LIBOBJS@%$LIBOBJS%g
+s%@OPTIONAL@%$OPTIONAL%g
+s%@REQUIRED@%$REQUIRED%g
 
 CEOF
 EOF
@@ -3876,6 +4319,28 @@ if test "$no_recursion" != yes; then
   done
 fi
 
+
+    
+    if test -n "$OPTIONAL"; then
+	echo
+        echo "WARNING: Please consider installing optional programs: $OPTIONAL"
+    fi
+
+    if test -n "$REQUIRED"; then
+	echo
+        echo "ERROR: Please install required programs: $REQUIRED"
+    fi
+    
+    if test -n "$OPTIONAL$REQUIRED"; then
+	echo
+	echo "See INSTALL.txt for more information on how to build $PACKAGE_NAME"
+	echo "Remove config.cache before rerunning ./configure"
+    fi
+    
+    if test -n "$REQUIRED"; then
+	rm -f $srcdir/GNUmakefile
+        exit 1
+    fi
 
     # regular in-place build
     # test for srcdir_build = yes ?

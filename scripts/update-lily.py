@@ -289,6 +289,7 @@ rm -f %n &&
 ln -s %n-%v %n
 '''
 
+### URL lib
 
 def list_file (user, passwd, host, dir, file):
 	match = []
@@ -328,31 +329,6 @@ def list_url (url):
 	s = "list_%s ('%s', '%s', '%s', '%s', '%s')" % split_url (url)
 	return eval (s)
 
-def version_tuple_to_str (t):
-	if t[3]:
-		my = '.%s%d' % (t[3], t[4])
-	else:
-		my = ''
-	return ('%d.%d.%d' % t[0:3]) + my
-
-def version_str_to_tuple (s):
-	t = string.split (s, '.')
-	if len (t) >= 4:
-		my_name = t[3][:-1]
-		my_number = string.atoi (t[3][-1])
-	else:
-		my_name = None
-		my_number = None
-	return (string.atoi (t[0]), string.atoi (t[1]), string.atoi (t[2]),
-		my_name, my_number)
-
-def split_package (p):
-	m = re.match ('(.*)-([0-9]*.*).tar.gz', p)
-	return (m.group (1), version_str_to_tuple (m.group (2)))
-
-def join_package (t):
-	return t[0] + '-' + version_tuple_to_str (t[1])
-
 def copy_file (user, passwd, host, dir, file):
 	os.system ('cp %s/%s .' % (dir, file))
 
@@ -385,13 +361,37 @@ def copy_ftp (user, passwd, host, dir, file):
 		ftp.close ()
 	return list
 	
-
-
 def copy_url (url, dir):
 	os.chdir (dir)
 	s = "copy_%s ('%s', '%s', '%s', '%s', '%s')" % split_url (url)
 	eval (s)
 
+### End URL lib
+
+def version_tuple_to_str (t):
+	if t[3]:
+		my = '.%s%d' % (t[3], t[4])
+	else:
+		my = ''
+	return ('%d.%d.%d' % t[0:3]) + my
+
+def version_str_to_tuple (s):
+	t = string.split (s, '.')
+	if len (t) >= 4:
+		my_name = t[3][:-1]
+		my_number = string.atoi (t[3][-1])
+	else:
+		my_name = None
+		my_number = None
+	return (string.atoi (t[0]), string.atoi (t[1]), string.atoi (t[2]),
+		my_name, my_number)
+
+def split_package (p):
+	m = re.match ('(.*)-([0-9]*.*).tar.gz', p)
+	return (m.group (1), version_str_to_tuple (m.group (2)))
+
+def join_package (t):
+	return t[0] + '-' + version_tuple_to_str (t[1])
 
 def find_latest (url):
 	progress (_ ("Listing `%s'...") % url)
