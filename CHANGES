@@ -1,3 +1,24 @@
+1.3.134.jcn2
+============
+
+* Bugfix: Pitch::transpose ().
+
+* Small doco update.
+
+* Silly build and website-build fixes.
+
+* convert-ly: added conversions, converted glossary, refman and examples.
+
+1.3.134.hwn1
+============
+
+* Rewrote ly2dvi, moved the old one to buildscripts/. The result is
+490 lines code in stead of 1230.
+
+* Modified kpathsea lookup so it will find system-installed feta TFMs first.
+Now lily doesn't clutter the CWD with .TFM files.  Kpathsea is fun if you like
+pasta.
+
 1.3.133.jcn5
 ============
 
