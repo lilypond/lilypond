@@ -7,6 +7,7 @@
                  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+//#include "config.hh"
 #include "config.h"
 #include <stdio.h>
 #include <errno.h>

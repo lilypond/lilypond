@@ -73,7 +73,8 @@ import shutil
 FOOSUMS = 1
 
 subdirs = ['flower', 'lily', 'mf', 'scm', 'ly', 'Documentation',
-	   'Documentation/user', 'input', 'scripts', 'elisp',
+	   'Documentation/user', 'Documentation/topdocs',
+	   'input', 'scripts', 'elisp',
 	   'buildscripts', 'cygwin', 'debian']
 
 usage = r'''Usage:
@@ -217,10 +218,16 @@ if env['verbose']:
 #						    os.pathsep), })
 
 outdir = os.path.join (Dir (env['build']).abspath, env['out'])
+
+# This is interesting, version.hh is generated automagically, just in
+# time.  Is this a .h /.hh issue?  It seems to be, using config.hh (in
+# flower/file-name.cc) works.  Bug report to SCons or rename to
+# config.hh or both?
+# config_h = os.path.join (outdir, 'config.hh')
 config_h = os.path.join (outdir, 'config.h')
 version_h = os.path.join (outdir, 'version.hh')
-config_h = os.path.join (outdir, 'config.h')
-env.Alias ('config', config_h)
+
+env.Alias ('config', config_cache)
 
 
 ## Explicit dependencies
@@ -234,6 +241,7 @@ env.Alias ('doc',
 	    'Documentation/user',
 	    'Documentation/topdocs'])
 
+env.Depends (['lily', 'flower', 'all', '.'], config_h)
 env.Depends ('doc', ['lily', 'mf'])
 env.Depends ('input', ['lily', 'mf'])
 env.Depends ('doc', ['lily', 'mf'])
@@ -304,6 +312,7 @@ def configure (target, source, env):
 		}
 		};""", '.cc')
 		context.Result (ret)
+		return ret
 
 	conf = Configure (env, custom_tests = { 'CheckYYCurrentBuffer'
 						: CheckYYCurrentBuffer })
@@ -409,12 +418,10 @@ if not os.path.exists (config_cache) \
 	# always out of date, and that triggers recompiles, even when
 	# using checksums?
 	if FOOSUMS: #not env['checksums']:
-
 		## FIXME: Is this smart, using option cache for saving
 		## config.cache?  I cannot seem to find the official method.
 		map (lambda x: opts.AddOptions ((x,)), config_vars)
 		opts.Save (config_cache, env)
-
 		env.Command (config_h, config_cache, config_header)
 
 # hmm?
