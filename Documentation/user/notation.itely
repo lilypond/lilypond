@@ -2208,7 +2208,7 @@ occurs, increase the padding of the metronome mark to place it
 further away from the staff.
 
 @example
-\Score \override MetronomeMark #'padding = #2.5
+\override Score.MetronomeMark #'padding = #2.5
 @end example
 
 

@@ -1,3 +1,7 @@
+2005-02-21  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/notation.itely: small but urgent fix.
+
 2005-02-21  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* lily/duration-scheme.cc: bugfix: correct parameters to
