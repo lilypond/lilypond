@@ -19,7 +19,10 @@ void
 Clef_item::do_pre_processing()
 {
   dim_cache_[Y_AXIS].translate (y_position_i_ * staff_line_leading_f () / 2.0);
-  change_b_ = (break_status_dir() != RIGHT);
+  if (break_status_dir() != RIGHT)
+    {
+      symbol_ += "_change";    
+    }
 }
 
 /*
@@ -28,9 +31,7 @@ Clef_item::do_pre_processing()
 Clef_item::Clef_item()
 {
   set_elt_property (breakable_scm_sym, SCM_BOOL_T);
-  default_b_ = false;
-  change_b_ = true;
-  octave_dir_ = CENTER;
+
   symbol_ = "treble";
   y_position_i_ = -2;
 }
@@ -40,10 +41,12 @@ Clef_item::do_add_processing ()
 {
   if (!break_status_dir ())	// broken stuff takes care of their own texts
     {
-      SCM defvis = gh_eval_str ("(lambda (d) (if (= d 1) '(#f . #f) '(#t . #t)))");
       G_text_item *g =0;
-      if (octave_dir_)
+
+      SCM octave_dir = remove_elt_property (octave_dir_scm_sym);
+      if (octave_dir != SCM_BOOL_F)
 	{
+	  Direction d = Direction (gh_int2scm (SCM_CDR(octave_dir)));
 	  g = new G_text_item;
 	  pscore_l_->typeset_element (g);
       
@@ -53,30 +56,19 @@ Clef_item::do_add_processing ()
 	  g->dim_cache_[X_AXIS].parent_l_ = &dim_cache_[X_AXIS];
 	  add_dependency (g);	// just to be sure.
 
-	  Real r = do_height ()[octave_dir_] + g->extent (Y_AXIS)[-octave_dir_];
+	  Real r = do_height ()[d] + g->extent (Y_AXIS)[-d];
 	  g->dim_cache_[Y_AXIS].set_offset (r);
+	  g->set_elt_property (visibility_lambda_scm_sym,
+			       get_elt_property (visibility_lambda_scm_sym));
 	}
-      
-      if (default_b_)
-	{
-	  set_elt_property (visibility_lambda_scm_sym,
-			    defvis);
 
-	  if (g)
-	    g->set_elt_property (visibility_lambda_scm_sym,
-				 defvis);
-	}
     }
 }
 
 Molecule*
 Clef_item::do_brew_molecule_p() const
 {
-  String t = symbol_;
-  if  (change_b_)
-    t += "_change";
-
-  Molecule*output = new Molecule (lookup_l ()->clef (t));
+  Molecule*output = new Molecule (lookup_l ()->clef (symbol_));
   return output;
 }
 

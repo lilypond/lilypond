@@ -16,11 +16,16 @@
 
 DECLARE_LY_SYMBOL(beam);
 DECLARE_LY_SYMBOL(beam_thickness);
+DECLARE_LY_SYMBOL(beam_dir);
 DECLARE_LY_SYMBOL(bracket);
 DECLARE_LY_SYMBOL(break_helper_only);
 DECLARE_LY_SYMBOL(break_priority);
 DECLARE_LY_SYMBOL(breakable);
 DECLARE_LY_SYMBOL(char);
+DECLARE_LY_SYMBOL(change);
+DECLARE_LY_SYMBOL(damping);
+DECLARE_LY_SYMBOL(dashed);
+DECLARE_LY_SYMBOL(dir_forced);
 DECLARE_LY_SYMBOL(extender_height);
 DECLARE_LY_SYMBOL(filledbox);
 DECLARE_LY_SYMBOL(fontsize);
@@ -31,6 +36,8 @@ DECLARE_LY_SYMBOL(interbeam4);
 DECLARE_LY_SYMBOL(interline);
 DECLARE_LY_SYMBOL(linewidth);
 DECLARE_LY_SYMBOL(notewidth);
+DECLARE_LY_SYMBOL(non_default);
+DECLARE_LY_SYMBOL(octave_dir);
 DECLARE_LY_SYMBOL(output);
 DECLARE_LY_SYMBOL(pianobrace);
 DECLARE_LY_SYMBOL(placebox);
