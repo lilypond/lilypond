@@ -67,13 +67,16 @@
  @c ***** HTML *****
 
  @macro internalsref{NAME}
- @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
+ @c makeinfo-4.7 encodes html names
+ @c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
+ @inforef{\NAME\,,lilypond-internals}@c
  @c should we do this? 
  @cindex @code{\NAME\}
  @end macro
 
  @macro hyphenatedinternalsref{NAME,NODENAME}
- @uref{../lilypond-internals/\NODENAME\.html,\NAME\}@c
+ @c @uref{../lilypond-internals/\NODENAME\.html,\NAME\}@c
+ @inforef{\NODENAME\,,lilypond-internals}@c
  @c should we do this? 
  @cindex @code{\NAME\}
  @end macro
@@ -93,6 +96,7 @@
 @end macro
 
 @macro hyphenatedinternalsref{NAME,NODENAME}
+@c FIXME: suspicious info file name?
 @inforef{\NODENAME\,,lilypond-internals}@c
 @c should we do this? 
 @cindex @code{\NAME\}
