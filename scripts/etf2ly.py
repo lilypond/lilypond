@@ -233,8 +233,9 @@ class Slur:
 			if not cs or not ce:
 				raise IndexError
 			
-			cs.note_suffix = '(' + cs.note_suffix 
-			ce.note_prefix = ce.note_prefix + ')'
+			cs.note_suffix = '-(' + cs.note_suffix 
+			ce.note_suffix = ce.note_suffix + '-)'
+			
 		except IndexError:
 			sys.stderr.write ("""\nHuh? Slur no %d between (%d,%d), with %d notes""" % (self.number,  startnote, endnote, len (chords)))
 					 
@@ -700,15 +701,18 @@ class Chord:
 			if rest:
 				nn = rest
 				
-			s = s + '%s%d%s' % (nn, self.duration[0], '.'* self.duration[1])
+			s = s + nn 
 
 		if not self.pitches:
-			s  = 'r%d%s' % (self.duration[0] , '.'* self.duration[1])
-		s = self.note_prefix + s + self.note_suffix
+			s  = 'r'
 		if len (self.pitches) > 1:
-			s = '<%s>' % s
+			s = '<< %s >>' % s
+
+		s = s + '%d%s' % (self.duration[0], '.'* self.duration[1])
+		s = self.note_prefix + s + self.note_suffix
 		
 		s = self.chord_prefix + s + self.chord_suffix
+
 		return s
 
 

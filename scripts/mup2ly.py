@@ -455,8 +455,8 @@ class Slur:
 		e= self.end_chord
 
 		if e and s:
-			s.note_suffix = s.note_suffix + '('
-			e.note_prefix = ')' + e.note_prefix
+			s.note_suffix = s.note_suffix + '-('
+			e.note_prefix = e.note_suffix + "-)"
 		else:
 			sys.stderr.write ("\nOrphaned slur")
 			
@@ -721,19 +721,21 @@ class Chord:
 		for p in self.pitches:
 			if str:
 				str = str + ' ' 
-			str = str + pitch_to_lily_string (p) + sd
+			str = str + pitch_to_lily_string (p)
 
-		for s in self.scripts:
-			str = str + '-' + s
 
 		str = self.note_prefix +str  + self.note_suffix
 		
 		if len (self.pitches) > 1:
-			str = '<%s>' % str
+			str = '<<%s>>' % str
 		elif self.multimeasure:
-			str = 'R' + sd
+			str = 'R'
 		elif len (self.pitches) == 0:
-			str = 'r' + sd
+			str = 'r'
+
+		str = str + sd
+		for s in self.scripts:
+			str = str + '-' + s
 
 		str = self.chord_prefix + str + self.chord_suffix
 		

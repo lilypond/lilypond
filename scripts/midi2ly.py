@@ -429,7 +429,7 @@ class Note:
 
 		return (o, n, a)
 		
-	def dump (self):
+	def dump (self, dump_dur = 1):
 		global reference_note
 		s = chr ((self.notename + 2)  % 7 + ord ('a'))
 		s = s + self.alteration_names[self.alteration + 2]
@@ -450,9 +450,9 @@ class Note:
 		elif commas < 0:
 			s = s + "," * -commas
 
-		if explicit_durations_p \
+		if and dump_dur (explicit_durations_p \
 		   or Duration.compare (self.duration,
-					reference_note.duration):
+					reference_note.duration)):
 			s = s + self.duration.dump ()
 
 		reference_note = self
@@ -788,12 +788,14 @@ def dump_chord (ch):
 		s = s + dump (notes[0])
 	elif len (notes) > 1:
 		global reference_note
-		s = s + '<'
-		s = s + notes[0].dump ()
+		s = s + '<<'
+		s = s + notes[0].dump (dump_dur = 0)
 		r = reference_note
 		for i in notes[1:]:
-			s = s + i.dump ()
-		s = s + '>'
+			s = s + i.dump (dump_dur = 0 )
+		s = s + '>>'
+
+		s = s + notes[0].duration.dump()
 		reference_note = r
 	return s
 
