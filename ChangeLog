@@ -1,3 +1,9 @@
+2004-02-13  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* Documentation/user/refman.itely: add dots after seealso refs.
+
+	* input/template/{many}.ly: harmonise descriptions.
+
 2004-02-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/NEWS.texi: Substitute Lyrics/LyricsVoice.

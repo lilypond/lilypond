@@ -746,9 +746,9 @@ represented exactly; the engraver will not insert tuplets.
 
 @seealso
 
-Examples: @inputfileref{input/regression,completion-heads.ly}
+Examples: @inputfileref{input/regression,completion-heads.ly}.
 
-Internals: @internalsref{Completion_heads_engraver}
+Internals: @internalsref{Completion_heads_engraver}.
 
 
 @node Staff notation
@@ -789,10 +789,10 @@ staff symbol.
 
 @seealso
 
-Internals: @internalsref{StaffSymbol},
+Internals: @internalsref{StaffSymbol}.
 
 Examples: @inputfileref{input/test,staff-lines.ly},
-@inputfileref{input/test,staff-size.ly}
+@inputfileref{input/test,staff-size.ly}.
 
 @refbugs
 
@@ -1937,7 +1937,7 @@ d4
 @seealso 
 
 Internals: @internalsref{BreathingSign},
-@internalsref{BreathingSignEvent}
+@internalsref{BreathingSignEvent}.
 
 Examples: @inputfileref{input/regression,breathing-sign.ly}.
 
@@ -2024,7 +2024,7 @@ To use this, add the @internalsref{Horizontal_bracket_engraver} to
 @seealso
 
 Internals: @internalsref{HorizontalBracket},
-@internalsref{NoteGroupingEvent}
+@internalsref{NoteGroupingEvent}.
 
 Examples: @inputfileref{input/regression,note-group-bracket.ly}. 
 
@@ -2170,7 +2170,7 @@ to note heads in monophonic music.
 
 Internals: @internalsref{FingerEvent}, and @internalsref{Fingering}.
 
-Examples: @inputfileref{input/regression,finger-chords.ly}
+Examples: @inputfileref{input/regression,finger-chords.ly}.
 
 @node Text scripts
 @subsection Text scripts
@@ -2202,7 +2202,7 @@ longer be computed.
 
 In this manual: @ref{Text markup}.
 
-Internals: @internalsref{TextScriptEvent}, @internalsref{TextScript}
+Internals: @internalsref{TextScriptEvent}, @internalsref{TextScript}.
 
 
 
@@ -2695,7 +2695,7 @@ In this manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
 
 Internals: tremolo beams are @internalsref{Beam} objects. Single stem
 tremolos are @internalsref{StemTremolo}s.  The music expression is
-@internalsref{TremoloEvent},
+@internalsref{TremoloEvent}.
 
 Example files: @inputfileref{input/regression,chord-tremolo.ly},
 @inputfileref{input/regression,stem-tremolo.ly}.
@@ -2806,7 +2806,7 @@ The complete list of drum names is in the init file
 
 @seealso
 
-Internals: @internalsref{DrumNoteEvent}
+Internals: @internalsref{DrumNoteEvent}.
 
 @node Percussion staves
 @subsection Percussion staves
@@ -2984,9 +2984,9 @@ down = \drums { bd4 sn bd toml8 toml }
 
 @seealso
 
-Init files: @file{ly/drumpitch-init.ly}
+Init files: @file{ly/drumpitch-init.ly}.
 
-Internals: @internalsref{DrumStaff}, @internalsref{DrumVoice} 
+Internals: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
 
 @refbugs
 
@@ -3070,7 +3070,7 @@ terminating too soon.
 
 @seealso
 
-In this manual: @ref{Manual staff switches} 
+In this manual: @ref{Manual staff switches}.
 
 Internals: @internalsref{AutoChangeMusic}.
 
@@ -3363,7 +3363,7 @@ next one. Such a line is called an extender line, and it is entered as
 Internals: @internalsref{LyricEvent}, @internalsref{HyphenEvent}, and
 @internalsref{ExtenderEvent}.
 
-Examples: @inputfileref{input/test,lyric-hyphen-retain.ly}
+Examples: @inputfileref{input/test,lyric-hyphen-retain.ly}.
 
 @refbugs
 
@@ -3659,7 +3659,7 @@ example is in @inputfileref{input/test,ambitus-mixed.ly}
 
 @seealso
 
-Internals: @internalsref{Ambitus}
+Internals: @internalsref{Ambitus}.
 
 Examples:  @inputfileref{input/regression,ambitus.ly},
 @inputfileref{input/test,ambitus-mixed.ly}.
@@ -4613,7 +4613,7 @@ of symbols, for example,
 
 @seealso
 
-Examples: @inputfileref{input/regression,tag-filter.ly}
+Examples: @inputfileref{input/regression,tag-filter.ly}.
 
 
 @node Sound output for transposing instruments
@@ -4817,7 +4817,7 @@ In this manual: @ref{Pitches}, @ref{Chromatic alterations} and
 accidentals.  @ref{Key signature} gives a general introduction into
 the use of key signatures.
 
-Internals: @internalsref{KeySignature}
+Internals: @internalsref{KeySignature}.
 
 Examples: @inputfileref{input/test,ancient-accidentals.ly}.
 
@@ -5347,7 +5347,7 @@ extensions and should not be used.
 
 @seealso
 
-Internals: @internalsref{Custos}
+Internals: @internalsref{Custos}.
 
 Examples: @inputfileref{input/regression,custos.ly}.
 
@@ -5399,9 +5399,9 @@ Therefore, @code{gregorian-init.ly} also defines @code{\virgula} and
 
 In this manual: @ref{Breath marks}.
 
-Internals: @internalsref{BreathingSign}, @internalsref{BreathingSignEvent},
+Internals: @internalsref{BreathingSign}, @internalsref{BreathingSignEvent}.
 
-Examples: @inputfileref{input/test,divisiones.ly} 
+Examples: @inputfileref{input/test,divisiones.ly}.
 
 @node Ligatures
 @subsection Ligatures
@@ -7486,9 +7486,9 @@ the `balloon.'
 
 @seealso
 
-Internals: @internalsref{text-balloon-interface}
+Internals: @internalsref{text-balloon-interface}.
 
-Examples: @inputfileref{input/regression,balloon.ly}
+Examples: @inputfileref{input/regression,balloon.ly}.
 
 @node Easy Notation note heads
 @subsection Easy Notation note heads
@@ -8731,9 +8731,9 @@ To change the paper size, use the following Scheme code:
 
 @seealso
 
-In this manual @ref{Invoking lilypond}
+In this manual: @ref{Invoking lilypond}.
 
-Examples: @inputfileref{input/regression,between-systems.ly}
+Examples: @inputfileref{input/regression,between-systems.ly}.
 
 Internals: @internalsref{NonMusicalPaperColumn}.
 

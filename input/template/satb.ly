@@ -2,7 +2,7 @@
 \header {
 
     texidoc = "
- Example template for a SATB vocal  score.
+ Four-part (SATB) vocal score.
 " 
 }
 

@@ -1,7 +1,7 @@
 \version "2.1.7"
 
 \header {
-  texidoc ="Polyphonic piano music"
+  texidoc ="Polyphonic piano music."
 }
 
 upperOne = \notes\relative c'' {
