@@ -24,45 +24,40 @@ sub all_refs
 }
 
 local $base="lilypond/";
-local @examples=("wohltemperirt" ,"standchen", "scsii-menuetto");
+local @examples=("wohltemperirt" ,"standchen", "scsii-menuetto", "rhythm", "martien");
 
 #mkdir "lilypond";
 sub
     gen_html
 {
-    print "generating HTML";
-    foreach $a (<*.pod>) {
-	$f = $a;
-	$f =~ s/.pod/.html/;
-
-	system "pod2html $a" 	if ( ! -f $f ) ;
-    }
+    print "generating HTML\n";
+    system "make -kC .. html";
 }
 
 sub
     gen_examples
 {
-    print "generating examples: ";
+    print "generating examples: \n";
     foreach $a (@examples) {
-	print "$a\n";
 	$texfile="test";
 	$tex = "tex $texfile";
-	if ($a eq "standchen" || $a eq "scsii-menuetto") {
-	    $tex = "latex input/$a";
+	if ($a eq "standchen" || $a eq "scsii-menuetto" || $a eq "martien") {
+	    $tex = "latex $a";
 	    $texfile = "$a";
 	}
+	
 	if ( ! -f "$a.ly.txt" ) {
-	    system "ln ../input/$a.ly ./$a.ly.txt";
+	    system "ln $depth/input/$a.ly ./$a.ly.txt";
 	}
 	if ( ! -f "$a.ps.gz" ) {
-	    system "cd ..; lilypond input/$a;$tex;".
+	    system "lilypond $a;$tex;".
 		"dvips -o $a.ps $texfile;";
+
 	}
 	# generate the pixmap at twice the size, then rescale (for antialiasing)
 	if ( ! -f "$a.gif" ) {
-	    system "mv ../$a.ps $a.ps; ".
-		"mv ../lelie.midi ../$a.midi $a.midi; ".
-		    "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif";
+	    system "mv lelie.midi $a.midi; ";
+	    system "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif";
 	    system "gzip $a.ps";
 	}   
     }
@@ -72,12 +67,13 @@ sub
 sub
     gen_list
 {
+    print "generating HTML list\n";
     open HTMLLIST, ">example_output.html";
     print HTMLLIST "<title>LilyPond examples</title>\n";
     foreach $a (@examples) {
 	$name=$a;
 	print HTMLLIST "<h1>example file: $name</h1>\n<XMP>\n";
-	$cmd= "head ../input/$a.ly | grep \^% \| sed \"s/^%/	/\"";
+	$cmd= "head $depth/input/$a.ly | grep \^% \| sed \"s/^%/	/\"";
 	$desc = `$cmd`;
 	print HTMLLIST "$desc\n</XMP>";
 
@@ -93,22 +89,30 @@ sub
 <li><a href=$midif>The output (MIDI)</a>
 </ul>";
     }
+	close HTMLLIST;
 }
 sub
     copy_files
 {  
-    print `ln -s ../out ./docxx` if ( ! -x "docxx" ) ;
-    system "cp ../TODO ./TODO.txt";
-    system "cp ../NEWS ./NEWS.txt";
+    print "copying files\n";
+    print `ln -s $depth/out ./docxx` if ( ! -x "docxx" ) ;
+    system "cp $depth/TODO ./TODO.txt";
+    system "cp $depth/NEWS ./NEWS.txt";
+    system "cp ../lelie*gif .";
 }
 
 sub
     do_tar
 {
-     system " tar hcf website.tar *.html *.gif lelie_logo.png *.ps.gz *.ly.txt *.midi docxx/*;" .
-    "gzip -f9 website.tar;" if ( ! -f "website.tar" ) ;
+     print "tarring.\n";
+     system " tar vhcf website.tar *.html *.gif *.ps.gz *.ly.txt *.midi docxx/*;";
+system	"gzip -f9 website.tar;";
 }
 
+$depth = "../../";
+$ENV{"TEXINPUTS"} .= ":$depth/input/:";
+$ENV{"LILYINCLUDE"} = "$depth/input/";
+chdir ("out");
 gen_html;
 gen_examples;
 gen_list;
