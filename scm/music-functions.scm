@@ -56,7 +56,9 @@ written by Rune Zedeler. "
 
     (if (equal? n "Repeated_music")
         (begin
-	  (if (equal? (ly-get-mus-property 'type music) 'tremolo)
+	  (if (equal?
+	       (ly-get-mus-property music 'iterator-ctor)
+	       Chord_tremolo_iterator::constructor)
 	      (shift-duration-log music (- (intlog2 (ly-get-mus-property 'repeat-count music))))
 	      )
           (ly-set-mus-property!
