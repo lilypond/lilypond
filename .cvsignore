@@ -26,6 +26,7 @@ afm
 autom4te.cache
 config.cache
 config.h
+config.hh
 config.log
 config.make
 config.status
