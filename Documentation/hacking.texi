@@ -18,7 +18,7 @@
 * Future work::
 * Coding standards::
 * Making patches::
-
+* Localisation::
 @end menu
 
 @node LilyPond internals,  , Top, Top
@@ -563,63 +563,6 @@ The source is commented in the DOC++ style.  Check out doc++ at
 	
 Unfortunately most of the code isn't really documented that good.
 
-@unnumberedsubsec Members (2)
-
-Standard methods:
-
-@example 
-
-	///check that *this satisfies its invariants, abort if not.
-	void OK () const
-
-	/// print *this (and substructures) to debugging log
-	void print () const
-
-	/**
-	protected member. Usually invoked by non-virtual XXXX ()
-	*/
-	virtual do_XXXX ()
-
-	/**add some data to *this.
-	Presence of these methods usually imply that it is not feasible to this
-	via  a constructor
-	*/
-	add (..)
-
-	/// replace some data of *this
-	set (..)
- 
-@end example 
-
-@unnumberedsubsec Constructor
-
-Every class should have a default constructor.  
-
-Don't use non-default constructors if this can be avoided:
-
-@example 
-
-	Foo f(1)
- 
-@end example 
-
-is less readable than
-
-@example 
-
-	Foo f;
-	f.x = 1
- 
-@end example 
-
-or 
-
-@example 
-
-	Foo f(Foo_convert::int_to_foo (1))
- 
-@end example 
-
 @unnumberedsec Hungarian notation naming convention
 
 Proposed is a naming convention derived from the so-called
@@ -849,6 +792,183 @@ and don't forget to make automatically generated files:
     configure
  
 @end example 
+
+@node Localisation, , , Top 
+
+@chapter Localisation - User messages in LilyPond
+
+@section Introduction
+
+This document provides some guidelines for uniformising user messages.
+In the absence of other standards, we'll be using these rules when coding
+for for LilyPond@footnote{
+In addition to the C++ coding standards that come with Lily
+}.  Hopefully, this can be replaced by general GNU
+guidelines in the future.  
+
+Not-preferred messages are marked with @code{+}.
+By convention, agrammatical examples are marked with @code{*}.
+
+
+@section Guidelines
+
+@itemize @bullet
+
+@item
+Every message to the user should be localised (and thus be marked
+for localisation).  This includes warning and error messages.
+
+@item
+Don't localise/gettextify:
+
+@itemize @minus
+@item @code{programming_error ()}s
+@item @code{programming_warning ()}s
+@item debug strings
+@item output strings (PostScript, TeX)@footnote{
+This may seem ridiculously obvious, however, makeinfo-3.12s localises
+output strings.  Sending bug report now ---jcn
+}
+@end itemize
+
+
+
+@item
+Messages to be localised must be encapsulated in @code{_ (STRING)}
+or @code{_f (FORMAT, ...)}.  Eg:
+
+@example
+warning (_ ("Need music in a score"));
+error (_f ("Can't open file: `%s'", file_name));
+@end example
+
+In some rare cases you may need to call @code{gettext ()} by hand.
+This happens when you pre-define (a list of) string constants for later
+use.  In that case, you'll probably also need to mark these string
+constants for translation, using @code{_i (STRING)}.  The @code{_i}
+macro is a no-op, it only serves as a marker for @file{xgettext}.
+
+@example
+char const* messages[] = @{
+  _i ("enable debugging output"),
+  _i ("ignore mudela version"),
+  0
+@};
+
+void
+foo (int i)
+@{
+  puts (gettext (messages [i]));
+@}
+@end example
+
+See also
+@file{flower/getopt-long.cc} and @file{lily/main.cc}.
+
+@item
+Don't use leading or trailing whitespace in messages.
+
+@item
+Messages containing a final verb, or a gerund (@code{-ing}-form)
+always start with a capital.  Other (simpler) messages start with
+a lowercase letter:
+
+@example
+The word `foo' is not declared.
+`foo': not declared.
+Not declaring: `foo'.
+@end example
+
+@item
+To avoid having a number of different messages for the same situation,
+we'll use quoting like this @code{"message: `%s'"} for all strings.
+Numbers are not quoted:
+
+@example
+_f ("Can't open file: `%s'", name_str)
+_f ("Can't find charater number: %d", i)
+@end example
+
+@item
+Think about translation issues.  
+In a lot of cases,it's better to translate a whole message.
+The english grammar mustn't be imposed on the translator.
+So, iso
+
+@example
+_ ("Stem at ") + moment.str () + _(" doen't fit in beam")
+@end example
+
+@noindent
+have
+
+@example
+_f ("Stem at %s doen't fit in beam", moment.str ())
+@end example
+
+@item
+Split up multi-sentence messages, whenever possible.  Instead of
+
+@example
+warning (_f ("out of tune!  Can't find: `%s', "Key_engraver"));
+
+warning (_f ("Can't find font `%s', loading default", 
+             font_name));
+@end example
+
+@noindent
+rather say:
+
+@example
+warning (_ ("out of tune:");
+warning (_f ("Can't find: `%s', "Key_engraver"));
+
+warning (_f ("Can't find font: `%s', font_name));
+warning (_f ("Loading default font"));
+@end example
+
+@item
+If you must have multiple-sentence messages, use full punctuation.
+Use two spaces after end of sentence punctuation.
+No punctuation (esp. period) is used at the end of simple messages.
+
+@example
+   _f ("Non-matching braces in text `%s', adding braces", text)
+   _ ("Debug output disabled.  Compiled with NPRINT.")
+   _f ("Huh?  Not a Request: `%s'.  Ignoring.", request)
+@end example
+
+@item
+Don't modularise too much; a lot of words cannot be translated
+without context.
+It's probably safe to treat most occurences of words like
+stem, beam, crescendo as separately translatable words.
+
+@item
+When translating, it is preferrable to put interesting information 
+at the end of the message, rather than embedded in the middle.
+This especially applies to frequently used messages, even if this
+would mean sacrificing a bit of eloquency.  This holds for original
+messages too, of course.
+
+@example
+    en: can't open: `foo.ly'
++   nl: kan `foo.ly' niet openen (1)
+    kan niet openen: `foo.ly'*   (2)
+    niet te openen: `foo.ly'*    (3)
+@end example
+
+The first nl message, although gramatically and stylishly correct,
+is not friendly for parsing by humans (even if they speak dutch).
+I guess we'd prefer something like (2) or (3).
+
+@item
+Please don't run make po/po-update with GNU gettext < 0.10.35
+
+@end itemize
+
+@bye
+
     
 
 @bye
