@@ -1,3 +1,20 @@
+pl 15
+
+pl 14.hwn1
+ 	- new beam syntax: { [<c e> <c e>] }, changed in lilypond,
+parser, lilypond (mudela 1.0.14), manual
+  	- new tie syntax:  { <c e > ~ <c e > } changed in manual,  
+parser, lilypond (Mudela 1.0.13)
+
+pl 14.jcn1
+        - bf: get_chord C-m5-
+        - typos: chord-name
+
+pl 14.tca2	
+	- move option proccing out of main
+
+**********
+
 pl 14
 
 pl 13.hwn1
