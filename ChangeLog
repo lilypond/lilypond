@@ -1,6 +1,7 @@
 2003-09-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/lilypond-book.py: resurrect 'eps' option. 
+	(TexiPaper.to_eps): use -Ppdf for EPS files.
 
 	* VERSION (PATCH_LEVEL): branch off 2.0, go to 2.1 in HEAD
 
