@@ -82,7 +82,7 @@ Commands_at::parse(Staff_commands_at*s)
 	}
     }
 }
-/****************/
+/* *************** */
 
 void
 Input_cursor::find_moment(Moment w)
@@ -118,7 +118,7 @@ Input_cursor::find_moment(Moment w)
 
 
 
-/****************/
+/* *************** */
 void
 Input_commands::find_moment(Moment m)
 {
@@ -225,7 +225,7 @@ Input_commands::print() const
     }
 #endif
 }
-/****************/
+/* *************** */
 
 Moment
 Input_cursor::when()const
