@@ -212,6 +212,9 @@ Paper_book::~Paper_book ()
 void
 Paper_book::output (String outname)
 {
+  if (!papers_.size ())
+    return;
+    
   /* Generate all stencils to trigger font loads.  */
   Link_array<Page> *pages = get_pages ();
 
