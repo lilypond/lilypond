@@ -49,7 +49,6 @@ enddef;
 
 
 
-% l is the increment.
 save stafflinethickness;
 save increment;
 
@@ -71,12 +70,12 @@ for i := 0 step 1 until font_count:
     y := min (y + increment, infinity/hppp - 1);
 
     % x should be about one staff space, taking brace to have
-    % default height of 3 staffs, this yields height / 3 / 4
+    % default height of 3 staffs, this yields height / 3 / 4 = 12
+    % but 15 looks better
     x := y / 15;
-    % l should be about one stafflinethickness
 
     increment := x / 10;
-    stafflinethickness :=  min (0.5pt#, y/120 );
+    stafflinethickness :=  min (0.5pt#, y/150);
     if i = font_count:
       draw_brace (y, x, stafflinethickness);
     fi

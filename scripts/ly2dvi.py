@@ -135,7 +135,8 @@ if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
 
 
 original_dir = os.getcwd ()
-temp_dir = '%s.dir' % program_name
+temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+
 keep_temp_dir_p = 0
 verbose_p = 0
 
@@ -282,7 +283,7 @@ def setup_temp ():
 		os.mkdir (temp_dir, 0777)
 	except OSError:
 		pass
-	
+
 	return temp_dir
 
 
@@ -297,6 +298,8 @@ def system (cmd, ignore_error = 0):
         if ( os.name != 'posix' ):
 		cmd = re.sub (r'''\\''', r'''\\\\\\''', cmd)
 		cmd = "sh -c \'%s\'" % cmd
+
+		
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)
 	st = os.system (cmd)
@@ -463,7 +466,7 @@ def one_latex_definition (defn, first):
 	else:
 		s = s + '\\def\\mustmakelilypondpiecetitle{}\n'
 		
-	s = s + '\\input %s' % defn[0]
+	s = s + '\\input %s\n' % defn[0] # The final \n seems important here. It ensures that the footers and taglines end up on the right page.
 	return s
 
 
@@ -521,7 +524,7 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 		linewidth = '597'
 	else:
 		linewidth = maxlw
-	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=0pt,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
+	s = s + '\geometry{width=%spt%s,headheight=2mm,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
 	if extra['latexoptions']:
 		s = s + '\geometry{twosideshift=4mm}\n'
@@ -561,7 +564,15 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 %% this again. -- jcn
 % the \mbox{} helps latex if people do stupid things in tagline
 \makeatletter
-\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
+\if@twoside
+  \ifodd\thepage
+   \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
+  \else
+   \renewcommand{\@evenfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
+  \fi
+ \else
+  \renewcommand{\@thefoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
+\fi
 \makeatother
 '''
 	s = s + '\\end{document}'
@@ -720,8 +731,15 @@ if files and files[0] != '-':
 
 	files = map (lambda x: strip_extension (x, '.ly'), files)
 
+	(outdir, outbase) = ('','')
 	if not output_name:
-		output_name = os.path.basename (files[0])
+		outbase = os.path.basename (files[0])
+		outdir = abspath('.')
+	elif output_name[-1] == os.sep:
+		outdir = abspath (output_name)
+		outbase = os.path.basename (files[0])
+	else:
+		(outdir, outbase) = os.path.split (abspath (output_name))
 
 	for i in ('.dvi', '.latex', '.ly', '.ps', '.tex'):
 		output_name = strip_extension (output_name, i)
@@ -734,8 +752,6 @@ if files and files[0] != '-':
 		dep_prefix = 0
 
 	reldir = os.path.dirname (output_name)
-	
-	(outdir, outbase) = os.path.split (abspath (output_name))
 	if outdir != '.' and (track_dependencies_p or targets.keys ()):
 		mkdir_p (outdir, 0777)
 

@@ -74,6 +74,8 @@ ln -s %n-%v %n
 url = 'file:/home/ftp/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
 url = 'ftp://appel.lilypond.org/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
 url = 'ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-*.tar.gz'
+#arg
+url = 'ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/v1.3/lilypond-*.tar.gz'
 
 remove_previous_p = 0
 
