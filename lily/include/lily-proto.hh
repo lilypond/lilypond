@@ -37,7 +37,7 @@ class Beaming_info_list;
 class Bezier;
 class Bezier_bow;
 class Book;
-class Book_output_def;
+class Output_def;
 class Break_algorithm;
 class Change_iterator;
 class Change_translator;

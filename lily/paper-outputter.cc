@@ -10,7 +10,7 @@
 #include <math.h>
 #include <time.h>
 
-#include "book-paper-def.hh"
+
 #include "array.hh"
 #include "dimensions.hh"
 #include "font-metric.hh"

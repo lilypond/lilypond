@@ -14,16 +14,10 @@
 #include "paper-line.hh"
 #include "stencil.hh"
 #include "warn.hh"
-#include "book-paper-def.hh"
+
 
 int Page::page_count_ = 0;
 Real Page::MIN_COVERAGE_ = 0.66;
-
-Book_output_def *
-Page::bookpaper () const
-{
-  return dynamic_cast<Book_output_def*> ( paper_->parent_);
-}
 
 Page::Page (Output_def *paper, int number)
 {
@@ -76,10 +70,6 @@ Page::mark_smob (SCM smob)
   if (p->paper_)
     {
       scm_gc_mark (p->paper_->self_scm ());
-      if (p->bookpaper ())
-	{
-	  scm_gc_mark (p->bookpaper ()->self_scm ());
-	}
     }
   
   scm_gc_mark (p->copyright_);

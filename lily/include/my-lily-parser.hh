@@ -81,6 +81,6 @@ SCM ly_parser_scorify (SCM, SCM);
 
 Output_def *get_paper (My_lily_parser *parser);
 Output_def *get_midi (My_lily_parser *parser);
-Book_output_def *get_bookpaper (My_lily_parser *parser);
+Output_def *get_bookpaper (My_lily_parser *parser);
 
 #endif /* MY_LILY_PARSER_HH */

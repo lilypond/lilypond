@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 
-#include "book-paper-def.hh"
+
 #include "ly-smobs.icc"
 #include "stencil.hh"
 #include "book.hh"
@@ -65,25 +65,32 @@ void
 Book::process (String outname, Output_def *default_def, SCM header)
 {
   Paper_book *paper_book = new Paper_book ();
-  paper_book->bookpaper_ = bookpaper_;
+
+        
+  Real scale = ly_scm2double (bookpaper_->c_variable ("outputscale"));
+  
+  Output_def * scaled_bookdef = scale_output_def (bookpaper_, scale);
+
+  paper_book->bookpaper_ = scaled_bookdef;
   int score_count = scores_.size ();
   for (int i = 0; i < score_count; i++)
     {
-      Output_def *paper = 0;
       SCM systems = scores_[i]->book_rendering (outname,
-						bookpaper_,
-						default_def, &paper);
+						paper_book->bookpaper_,
+						default_def);
       if (systems != SCM_UNDEFINED)
 	{
 	  Score_lines sc;
-	  sc.paper_ = paper;
 	  sc.lines_ = systems;
 	  sc.header_ = header;
 
 	  paper_book->score_lines_.push (sc);
 	}
     }
+
   paper_book->output (outname);
+  
+  scm_gc_unprotect_object (paper_book->bookpaper_->self_scm ());
   scm_gc_unprotect_object (paper_book->self_scm ());
 }
 
@@ -92,19 +99,22 @@ SCM
 Book::to_stencil (Output_def *default_def, SCM header)
 {
   Paper_book *paper_book = new Paper_book ();
-  paper_book->bookpaper_ = bookpaper_;
+  Real scale = ly_scm2double (bookpaper_->c_variable ("outputscale"));
+  
+  Output_def * scaled_bookdef = scale_output_def (bookpaper_, scale);
+
+  paper_book->bookpaper_ = scaled_bookdef;
+
   int score_count = scores_.size ();
   for (int i = 0; i < score_count; i++)
     {
-      Output_def *paper = 0;
       SCM systems = scores_[i]->book_rendering ("<markup>",
 						bookpaper_,
-						default_def,
-						&paper);
+						default_def);
+      
       if (systems != SCM_UNDEFINED)
 	{
 	  Score_lines sc;
-	  sc.paper_ = paper;
 	  sc.lines_ = systems;
 	  sc.header_ =header;
 
@@ -121,5 +131,8 @@ Book::to_stencil (Output_def *default_def, SCM header)
       progress_indication (_f ("paper output to `%s'...", "<markup>"));
       return (unsmob_page (ly_car (pages)))->to_stencil ().smobbed_copy ();
     }
+
+  scm_gc_unprotect_object (paper_book->bookpaper_->self_scm ());
+  
   return SCM_EOL;
 }

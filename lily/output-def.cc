@@ -6,7 +6,7 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "book-paper-def.hh"
+
 #include "context-def.hh"
 #include "file-path.hh"
 #include "global-context.hh"
@@ -39,8 +39,9 @@ Output_def::Output_def (Output_def const &s)
   parent_ = 0;
   smobify_self ();
 
+  input_origin_ = s.input_origin_;
   scope_= ly_make_anonymous_module (false);
-  if (is_module (s.scope_))
+  if (ly_c_module_p (s.scope_))
     ly_import_module (scope_, s.scope_);
 }
 
@@ -116,7 +117,7 @@ SCM
 Output_def::lookup_variable (SCM sym) const
 {
   SCM var = ly_module_lookup (scope_, sym);
-  if (SCM_VARIABLEP (var))
+  if (SCM_VARIABLEP (var) && SCM_VARIABLE_REF(var) != SCM_UNDEFINED)
     return SCM_VARIABLE_REF (var);
   
   if (parent_)
@@ -224,3 +225,26 @@ LY_DEFINE (ly_paper_def_p, "ly:paper-def?",
 {
   return ly_bool2scm (unsmob_output_def (def));
 }
+
+
+
+LY_DEFINE (ly_bookpaper_outputscale, "ly:bookpaper-outputscale",
+	  1, 0, 0,
+	  (SCM bp),
+	  "Get outputscale for BP.")
+{
+  Output_def *b = unsmob_output_def (bp);
+  SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "bookpaper");
+  return scm_make_real (output_scale (b));
+}
+
+
+
+LY_DEFINE (ly_make_output_def, "ly:make-output-def",
+	   0, 0, 0, (),
+	   "Make a output def.")
+{
+  Output_def *bp = new Output_def ;
+  return scm_gc_unprotect_object (bp->self_scm ());
+}
+

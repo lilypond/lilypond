@@ -19,7 +19,7 @@ class Page
 
 public:
   Output_def *paper_;		// todo: make private? 
-  Book_output_def * bookpaper () const;
+  Output_def * bookpaper () const;
   static int page_count_;
   static Real MIN_COVERAGE_;
   int number_;

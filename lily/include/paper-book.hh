@@ -17,12 +17,9 @@ struct Score_lines
 {
   SCM lines_;
   SCM header_;
-  SCM global_header_;
-  Output_def *paper_;
 
   Score_lines () ;
   void gc_mark ();
-  SCM scopes ();
 };
 
 class Paper_book
@@ -32,15 +29,15 @@ class Paper_book
   Real height_;
   SCM copyright_;
   SCM tagline_;
+  SCM global_header_;
 public:
   Array<Score_lines> score_lines_;
-  Book_output_def *bookpaper_;
-
+  Output_def *bookpaper_;
+  
   Paper_book ();
 
   SCM lines ();
   SCM pages ();
-  SCM scopes (int);
   Stencil title (int);
   void classic_output (String);
   void init ();

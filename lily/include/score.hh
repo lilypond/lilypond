@@ -27,7 +27,7 @@ public:
     
   Score ();
   Score (Score const&);
-  SCM book_rendering (String, Book_output_def*, Output_def*, Output_def**);
+  SCM book_rendering (String, Output_def*, Output_def*);
 };
 
 DECLARE_UNSMOB (Score, score);

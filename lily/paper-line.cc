@@ -16,6 +16,7 @@
 Paper_line::Paper_line (Offset o, SCM stencils, int penalty, bool is_title)
 {
   is_title_ = is_title;
+  number_ = 0;
   penalty_ = penalty;
   smobify_self ();
 
@@ -57,6 +58,7 @@ Paper_line::print_smob (SCM smob, SCM port, scm_print_state*)
   Paper_line *p = (Paper_line*) ly_cdr (smob);
   scm_puts ("#<", port);
   scm_puts (classname (p), port);
+  scm_puts (" ", port);
   scm_puts (to_string (p->number_).to_str0 (), port);
   if (p->is_title ())
     scm_puts (" t", port);
