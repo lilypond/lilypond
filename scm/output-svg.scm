@@ -97,12 +97,12 @@
 (define (integer->entity integer)
   (format #f "&#x~x;" integer))
 		   
-(define (char->entity font char)
-  (integer->entity (char->unicode-index font char)))
+(define (char->entity char)
+  (integer->entity (char->integer char)))
 		   
-(define (string->entities font string)
+(define (string->entities string)
   (apply string-append
-	 (map (lambda (x) (char->entity font x)) (string->list string))))
+	 (map (lambda (x) (char->entity x)) (string->list string))))
 
 (define (svg-font font)
   (let* ((encoding (ly:font-encoding font))
@@ -172,7 +172,7 @@
 
 (define (char font i)
   (dispatch
-   `(fontify ,font ,(tagify "tspan" (char->entity font (integer->char i))))))
+   `(fontify ,font ,(tagify "tspan" (char->entity (integer->char i))))))
 
 (define (comment s)
   (string-append "<!-- " s " !-->\n"))
@@ -205,7 +205,7 @@
 	  `(ry . ,(number->string (/ blot-diameter 2)))))
 
 (define (text font string)
-  (dispatch `(fontify ,font ,(tagify "tspan" (string->entities font string)))))
+  (dispatch `(fontify ,font ,(tagify "tspan" (string->entities string)))))
 
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)
