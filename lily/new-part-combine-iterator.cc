@@ -205,10 +205,6 @@ New_pc_iterator::construct_children ()
     =  report_to ()->find_create_translator (ly_symbol2scm ("Voice"),
 					     "shared",props);
 
-  tr->execute_pushpop_property (ly_symbol2scm ("NoteHead"),
-				ly_symbol2scm ("font-size"), gh_int2scm (3));
-
-  
   shared_ .set_translator (tr); 
   set_translator (tr);
   Translator_group *null

@@ -17,6 +17,18 @@ Version 2.1.13
 @end ignore
 
 @itemize @bullet
+@item A new part combiner which is more cleanly constructed, more
+robust and less buggy. The
+part-combiner can be used with
+@example
+  \newpartcombine @var{mus1} @var{mus2}
+@end example
+
+@noindent
+In this case, both musics are put into @code{Voice} contexts called
+@code{one} and @code{two} automatically. 
+
+(This feature is still experimental.)
 
 @item Formatting of rehearsal marks has been improved. The @code{\mark}
 command now only does automatic incrementing for marks specified as

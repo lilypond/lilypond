@@ -875,7 +875,7 @@
      . (
 	(molecule-callback . ,Staff_symbol::brew_molecule)
 	(line-count . 5)
-	(ledger-line-thickness  (1.0 . 0.1))
+	(ledger-line-thickness  . (1.0 . 0.1))
 	(layer . 0)
 	(meta . ((interfaces . (staff-symbol-interface spanner-interface))))
 	))
