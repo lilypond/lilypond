@@ -5,11 +5,11 @@
 
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
+  Jan Nieuwenhuizen <janneke@gnu.org>
+
   TODO
-  This doth suck. We should have PS output, and read spacing info from AFMs
-
-  Glissando, 
-
+      Read spacing info from AFMs
+      Glissando
 */
 
 #include "lookup.hh"
@@ -22,14 +22,14 @@
 #include "string-convert.hh"
 #include "main.hh"
 
-Lookup::Lookup()
+Lookup::Lookup ()
 {
   paper_l_ = 0;
   symtables_p_ = new Symtables;
   afm_p_ =0;
 }
 
-Lookup::Lookup (Lookup const &s)
+Lookup::Lookup (Lookup const& s)
 {
   font_ = s.font_;
   font_path_ = s.font_path_;
@@ -38,31 +38,25 @@ Lookup::Lookup (Lookup const &s)
   afm_p_ = 0;
 }
 
-Lookup::~Lookup()
+Lookup::Lookup (Symtables const& s)
+{
+  font_ = s.font_;
+  font_path_ = s.font_path_;
+  paper_l_ = 0;
+  symtables_p_ = new Symtables (s);
+  afm_p_ = 0;
+}
+
+Lookup::~Lookup ()
 {
   delete afm_p_;
   delete symtables_p_;
 }
 
 Atom
-Lookup::afm_find (String s) const
+Lookup::accidental (int j) const
 {
-  if (!afm_p_)
-    {
-      *mlog << "[" << font_path_;
-      ((Lookup*)this)->afm_p_ = new Adobe_font_metric (read_afm (font_path_));
-      *mlog << "]" << flush ;
-      DOUT << this->afm_p_->str ();
-    }
-  Adobe_font_char_metric m = afm_p_->find_char (s);
-
-  Atom a;
-  a.tex_ = String_convert::form_str ("\\char%d", m.code ());
-  a.dim_ = m.B_;
-  a.dim_[X_AXIS] *= 1 / 1000.0;
-  a.dim_[Y_AXIS] *= 1 / 1000.0;
-  a.font_ = font_;
-  return a;
+  return afm_find (String ("accidentals") + String ("-") + to_str (j));
 }
 
 void
@@ -71,30 +65,29 @@ Lookup::add (String s, Symtable*p)
   symtables_p_->add (s, p);
 }
 
-void
-Lookup::print() const
-{
-#ifndef NPRINT
-  DOUT << "Lookup {\n";
-  symtables_p_->print();
-  DOUT << "}\n";
-#endif
-}
-
 Atom
-Lookup::text (String style, String text) const
+Lookup::afm_find (String s, String str) const
 {
-  Array<String> a;
+  if (!afm_p_)
+    {
+      *mlog << "[" << font_path_;
+      ( (Lookup*)this)->afm_p_ = new Adobe_font_metric (read_afm (font_path_));
+      *mlog << "]" << flush ;
+      DOUT << this->afm_p_->str ();
+    }
+  Adobe_font_char_metric m = afm_p_->find_char (s);
 
-  a.push (text);
-  Atom tsym =  (*symtables_p_)("style")->lookup (style);
-  tsym.tex_ = substitute_args (tsym.tex_,a);
-  tsym.font_ = font_;
-
-  return tsym;
+  Atom a;
+  if (m.width () ==0)
+    return a;
+  
+  a.dim_ = m.B_;
+  a.dim_[X_AXIS] *= 1 / 1000.0;
+  a.dim_[Y_AXIS] *= 1 / 1000.0;
+  a.str_ = String_convert::form_str (str.ch_C (), m.code ());
+  a.font_ = font_;
+  return a;
 }
-
-
 
 Atom
 Lookup::ball (int j) const
@@ -102,55 +95,44 @@ Lookup::ball (int j) const
   if (j > 2)
     j = 2;
 
-  Atom s = afm_find (String ("balls") + String ("-") + to_str (j));
-  return s;
+  return afm_find (String ("balls") + String ("-") + to_str (j));
 }
 
 Atom
-Lookup::rest (int j, bool o) const
-{
-  Atom s =afm_find (String ("rests")
-		    + String ("-") + to_str (j) + (o ? "o" : ""));
-
-  return s;
-}
-
-Atom
-Lookup::fill (Box b) const
-{
-  Atom s;
-  s.tex_ = "";
-  s.dim_ = b;
-
-  return s;
-}
-
-Atom
-Lookup::accidental (int j) const
-{
-  Atom s= afm_find (String ("accidentals") + String ("-") + to_str (j));
-  return s;
-}
-
-
-Atom
-Lookup::bar (String s, Real h) const
+Lookup::bar (String str, Real h) const
 {
   Array<String> a;
   a.push (print_dimen (h));
-  Atom ret=(*symtables_p_)("bars")->lookup (s);
-  ret.tex_ = substitute_args (ret.tex_, a);
-  ret.dim_.y() = Interval (-h/2, h/2);
-  ret.font_ = font_;
-  return ret;
+  Atom s = (*symtables_p_) ("bars")->lookup (str);
+  s.str_ = substitute_args (s.str_, a);
+  s.dim_.y () = Interval (-h/2, h/2);
+  s.font_ = font_;
+  return s;
+}
+
+Atom 
+Lookup::beam (Real slope, Real width, Real thick) const
+{
+  Atom a (ps_beam (slope, width, thick));
+  Real height = slope * width; 
+  Real min_y = (0 <? height) - thick/2;
+  Real max_y = (0 >? height) + thick/2;
+  
+  a.dim_[X_AXIS] = Interval (0, width);
+  a.dim_[Y_AXIS] = Interval (min_y, max_y);
+  return a;
 }
 
 Atom
-Lookup::script (String st) const
+Lookup::clef (String st) const
 {
-  Atom s= afm_find (String ("scripts") + String ("-") + st);
+  return afm_find (String ("clefs") + String ("-") + st);
+}
 
-  return s;
+Atom
+Lookup::dots () const
+{
+  return afm_find (String ("dots") + String ("-") + String ("dot"));
 }
 
 Atom
@@ -160,151 +142,73 @@ Lookup::dynamic (String st) const
 }
 
 Atom
-Lookup::clef (String st) const
+Lookup::fill (Box b) const
 {
-  Atom s=afm_find (String ("clefs") + String ("-") + st);
-
-  return s;
-}
-
-Atom
-Lookup::dots () const
-{
-  Atom s=afm_find (String ("dots") + String ("-") + String("dot"));
-  
-    return s;
+  Atom a;
+  a.dim_ = b;
+  return a;
 }
 
 Atom
 Lookup::flag (int j, Direction d) const
 {
   char c = (d == UP) ? 'u' : 'd';
-  Atom s=afm_find (String ("flags") + String ("-") + to_str (c) + to_str (j));
-
-  return s;
+  return afm_find (String ("flags") + String ("-") + to_str (c) + to_str (j));
 }
 
-Atom
-Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
+void
+Lookup::print () const
 {
-  assert (controls.size () == 8);
-
-  String ps = "\\embeddedps{\n";
-  
-  Real dx = controls[3].x () - controls[0].x ();
-  Real dy = controls[3].y () - controls[0].y ();
-
-  for (int i = 1; i < 4; i++)
-    ps += String_convert::double_str (controls[i].x ()) + " "
-      + String_convert::double_str (controls[i].y ()) + " ";
-
-  ps += String_convert::double_str (controls[0].x ()) + " "
-    + String_convert::double_str (controls[0].y ()) + " ";
-
-  ps += String_convert::double_str (thick) + " ";
-  Real on = dash > 1? thick * dash - thick : 0;
-  Real off = 2 * thick;
-  ps += "[" + String_convert::double_str (on) + " ";
-  ps += String_convert::double_str (off) + "] ";
-  ps += String_convert::int_str (0) + " ";
-  ps += " draw_dashed_slur}";
-
-  Atom s;
-  s.tex_ = ps;
-  
-  s.dim_[X_AXIS] = Interval (0, dx);
-  s.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
-  s.font_ = font_;
-  return s;
+#ifndef NPRINT
+  DOUT << "Lookup {\n";
+  symtables_p_->print ();
+  DOUT << "}\n";
+#endif
 }
 
 Atom
-Lookup::slur (Array<Offset> controls) const
+Lookup::rest (int j, bool o) const
 {
-  assert (controls.size () == 8);
-
-  String ps = "\\embeddedps{\n";
-  
-  Real dx = controls[3].x () - controls[0].x ();
-  Real dy = controls[3].y () - controls[0].y ();
-
-  for (int i = 5; i < 8; i++)
-    ps += String_convert::double_str (controls[i].x ()) + " "
-      + String_convert::double_str (controls[i].y ()) + " ";
-
-  ps += String_convert::double_str (controls[4].x ()) + " "
-    + String_convert::double_str (controls[4].y ()) + " ";
-  
-  for (int i = 1; i < 4; i++)
-    ps += String_convert::double_str (controls[i].x ()) + " "
-      + String_convert::double_str (controls[i].y ()) + " ";
-
-  ps += String_convert::double_str (controls[0].x ()) + " "
-    + String_convert::double_str (controls[0].y ()) + " ";
-
-  ps += " draw_slur}";
-
-  Atom s;
-  s.tex_ = ps;
-  
-  s.dim_[X_AXIS] = Interval (0, dx);
-  s.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
-  s.font_ = font_;
-  return s;
-
+   return afm_find (String ("rests")
+		    + String ("-") + to_str (j) + (o ? "o" : ""));
 }
 
 Atom
-Lookup::streepje (int type) const
+Lookup::rule_symbol (Real height, Real width) const
 {
-  if (type > 2)
-    type = 2;
-
-  return  afm_find ("balls-" + to_str (type) + "l");
+  Atom bs= (*symtables_p_) ("param")->lookup ("rule");
+  Array<String> args;
+  args.push (print_dimen (height));
+  args.push (print_dimen (width));
+  bs.str_ = substitute_args (bs.str_,args);
+  bs.dim_.x () = Interval (0,width);
+  bs.dim_.y () = Interval (0,height);
+  return bs;
 }
 
 Atom
-Lookup::hairpin (Real width, bool decresc, bool continued) const
+Lookup::script (String str) const
 {
-  String embed;
-  Atom ret;  
-  Real height = paper_l_->staffheight_f () / 6;
-  embed = "\\embeddedps{\n" ;
-  embed += to_str (width) + " " 
-	+ to_str (height) + " " 
-    + to_str (continued ? height/2 : 0) + 
-    + " draw_"  + String(decresc ? "de" : "") + "cresc}\n";
-  ret.tex_ = embed;
-
-
-  ret.dim_.x () = Interval (0, width);
-  ret.dim_.y () = Interval (-2*height, 2*height);
-  ret.font_ = font_;
-  return ret;
+  return afm_find (String ("scripts") + String ("-") + str);
 }
 
 Atom
-Lookup::time_signature (Array<Scalar> a) const
+Lookup::special_time_signature (String s, Array<Scalar> arr) const
 {
-  Atom s((*symtables_p_)("param")->lookup ("time_signature"));
-  s.tex_ = substitute_args (s.tex_,a);
-
-  return s;
+  String symbolname="timesig-"+s+"%/%";
+  Atom a (afm_find (substitute_args(symbolname,arr)));
+  if (!a.empty()) 
+    return a;
+  // Try if the full name was given
+  a=afm_find ("timesig-"+s);
+  if (!a.empty()) 
+    return a;
+  // Resort to default layout with numbers
+  return time_signature(arr);
 }
 
-
-
 Atom
-Lookup::special_time_signature (String s) const
-{
-  Atom a (afm_find ("timesig-"+ s));
-  return a;
-}
-
-
-
-Atom
-Lookup::stem (Real y1,Real y2) const
+Lookup::stem (Real y1, Real y2, String str) const
 {
   if (y1 > y2)
     {
@@ -314,26 +218,55 @@ Lookup::stem (Real y1,Real y2) const
     }
   Atom s;
 
-  s.dim_.x() = Interval (0,0);
-  s.dim_.y() = Interval (y1,y2);
+  s.dim_.x () = Interval (0,0);
+  s.dim_.y () = Interval (y1,y2);
 
   Array<String> a;
 
-  
   Real stem_width = paper_l_->get_var ("stemthickness");
   a.push (print_dimen (-stem_width /2));
   a.push (print_dimen (stem_width));
   a.push (print_dimen (y2));
   a.push (print_dimen (-y1));
 
-  String src = "\\kern %\\vrule width % height % depth %";
-  s.tex_ = substitute_args (src,a);
+  s.str_ = substitute_args (str, a);
   s.font_ = font_;
   return s;
 }
 
+Atom
+Lookup::streepje (int type) const
+{
+  if (type > 2)
+    type = 2;
+
+  return  afm_find ("balls" + String ("-") +to_str (type) + "l");
+}
+
+Atom
+Lookup::text (String style, String text) const
+{
+  Array<String> a;
+
+  a.push (text);
+  Atom s =  (*symtables_p_) ("style")->lookup (style);
+  s.str_ = substitute_args (s.str_,a);
+  s.font_ = font_;
+
+  return s;
+}
+
+Atom
+Lookup::time_signature (Array<Scalar> a) const
+{
+  Atom s ((*symtables_p_) ("param")->lookup ("time_signature"));
+  s.str_ = substitute_args (s.str_, a);
+
+  return s;
+}
+
 /*
-  should be handled via Tex_ code and Lookup::bar()
+  should be handled via Tex_ code and Lookup::bar ()
  */
 Atom
 Lookup::vbrace (Real &y) const
@@ -358,12 +291,12 @@ Lookup::vbrace (Real &y) const
     }
 
   
-  int idx = int (rint ((y- min_y)/step)) + 1;
+  int idx = int (rint ( (y- min_y)/step)) + 1;
   
   {
     Array<String> a;
     a.push (to_str (idx));
-    brace.tex_ = substitute_args (brace.tex_,a);
+    brace.str_ = substitute_args (brace.str_,a);
     brace.dim_[Y_AXIS] = Interval (-y/2,y/2);
   }
 
@@ -372,53 +305,4 @@ Lookup::vbrace (Real &y) const
   return brace;
 }
 
-Atom
-Lookup::vbracket (Real &y) const
-{
-  Atom psbracket;
-  Real min_y = paper_l_->staffheight_f ();
-  if (y < min_y)
-    {
-      warning (_ ("bracket")
-	+ " " + _ ("too small") +  "(" + print_dimen (y) + ")");
-//      y = min_y;
-    }
-  psbracket.tex_ = String ("\\embeddedps{ ") + to_str (y) + " draw_bracket}";
-  psbracket.dim_[Y_AXIS] = Interval (-y/2,y/2);
-  psbracket.dim_[X_AXIS] = Interval (0,4 PT);
-  return psbracket;
-#if 0
-  Atom bracket = afm_find (String ("param") + "bracket");
-  Interval ydims = bracket.dim_[Y_AXIS];
-
-  Real min_y = ydims[LEFT];
-  Real max_y = ydims[RIGHT];
-  Real step = 1.0 PT;
- 
-  if (y < min_y)
-    {
-      warning (_ ("bracket")
-	+ " " + _ ("too small") +  " (" + print_dimen (y) + ")");
-      y = min_y;
-    }
-  if (y > max_y)
-    {
-      warning (_ ("bracket")
-       + " " + _ ("too big") + " (" + print_dimen (y) + ")");
-      y = max_y;
-    }
-
-  
-  int idx = int (rint ((y- min_y)/step)) + 1;
-  
-  {
-    Array<String> a;
-    a.push (to_str (idx));
-    bracket.tex_ = substitute_args (bracket.tex_,a);
-    bracket.dim_[Y_AXIS] = Interval (-y/2,y/2);
-  }
-
-  return bracket;
-#endif
-}
 
