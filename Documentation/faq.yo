@@ -321,6 +321,9 @@ Don't forget to put your name and e-mail address
 in the file(AUTHORS.pod) file, or you won't get credits :-]
 
 
+em(Please) always send a bf(-u) diff, even if it is larger than the
+whole file.
+
 question(How do I learn the C++ code?)
 
 The entry point is in code(main()). Good luck. :-)
@@ -410,15 +413,20 @@ older installations) afterwards, so that TeX will find the files.
 Also, don't forget to remove all old .tfm and .*pk files when the font
 is updated (as it will be in version 1.1.40, for example).
 
-question(How does PS output work?)
+question(Are there scalable versions of the font?)
 
-itemize(
- it()
-Generate the PostScript Type-3 fonts. In the file(mf/) 
+Yes, they are type-3 fonts.  In the file(mf/) 
 subdirectory, issue:
 verb(
 	make pfa
 ) in the mf/ subdirectory.  This will also  make file(mfplain) for metapost.
+The file(pfa)s will be in the subdirectory file(out/).
+
+question(How does PS output work?)
+
+itemize(
+ it()
+Generate the PostScript Type-3 fonts. 
 it()
 Run lilypond with option tt(-f ps):
 verb(
