@@ -1638,6 +1638,7 @@ Make beat or measure repeats. These look like percent signs.
 
 @menu
 * Repeat syntax::		
+* Repeats and MIDI::		
 * Manual repeat commands::	
 * Tremolo repeats::		
 * Tremolo subdivisions::	
@@ -1700,7 +1701,7 @@ the specified number of repeats.
 }
 @end lilypond
 
-@subsection Repeats and MIDI
+@node Repeats and MIDI
 @subsection Repeats and MIDI
 
 @cindex expanding repeats
@@ -1886,13 +1887,14 @@ Voices can switch automatically between the top and the bottom
 staff. The syntax for this is
 @example
         \autochange @var{contexttype} \context @var{childcontexttype}
-     		@var{musicexp} @end example This will switch the
-interpretation context of @var{musicexp} between a @var{contexttype}
-named @code{up} and @code{down}. Typically, you use
-@internalsref{Staff} for @var{contexttype}, and @internalsref{Voice}
-for @var{childcontexttype}. The autochanger switches on basis of pitch
-(central C is the turning point), and it looks ahead skipping over
-rests to switch rests in advance.
+     		@var{musicexp}
+@end example
+This will switch the interpretation context of @var{musicexp} between
+a @var{contexttype} named @code{up} and @code{down}. Typically, you
+use @internalsref{Staff} for @var{contexttype}, and
+@internalsref{Voice} for @var{childcontexttype}. The autochanger
+switches on basis of pitch (central C is the turning point), and it
+looks ahead skipping over rests to switch rests in advance.
         
 @lilypond[verbatim,singleline]
 \score { \notes \context PianoStaff <
