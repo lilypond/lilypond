@@ -1246,7 +1246,7 @@ def compile_all_files (chunks):
 		texfiles = string.join (tex, ' ')
 		cmd = 'lilypond --header=texidoc %s %s %s' \
 		      % (lilyopts, g_extra_opts, texfiles)
-		quiet_system (cmd, 'LilyPond')
+		system (cmd)
 
 		#
 		# Ugh, fixing up dependencies for .tex generation
