@@ -1,4 +1,4 @@
-\version "2.1.11"
+\version "2.1.13"
 \header {
         title = "Song"
         subtitle = "(tune)"
@@ -9,7 +9,7 @@
 	texidoc = "Jazz tune for combo (horns, piano, drums, bass, guitar)."
 }
 
-#(set-staff-size 16)
+#(set-global-staff-size 16)
 \include "english.ly"
 
 %%%%%%%%%%%% Some macros %%%%%%%%%%%%%%%%%%%

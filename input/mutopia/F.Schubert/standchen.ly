@@ -42,12 +42,12 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "2.1.11"
+\version "2.1.13"
 
 dynamicUp = \property Voice.DynamicLineSpanner \override #'direction = #1
 dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction
 
-#(set-staff-size 16)
+#(set-global-staff-size 16)
 
 vocalVerse =  \notes\relative c''{
 	\dynamicUp

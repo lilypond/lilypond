@@ -26,13 +26,13 @@
 
 }
 
-\version "2.1.10"
+\version "2.1.13"
 manuscriptBreak = { \break }
 
 
 
 \paper  {
-    #(set-staff-size (* 6.0 1 ))
+    #(set-global-staff-size(* 6.0 1 ))
     linewidth = #(* mm 160)
     indent = 8\mm
     interscoreline = 2.\mm

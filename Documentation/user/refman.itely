@@ -8585,7 +8585,7 @@ staffs. The size of individual staffs are relative to the global size,
 which can be set   in the following manner:
 
 @example
-  #(set-staff-size 14)
+  #(set-global-staff-size 14)
 @end example
 
 This sets the global default size to 14pt staff height, and scales all

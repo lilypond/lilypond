@@ -1,4 +1,4 @@
-\version "2.1.11"
+\version "2.1.13"
 \header{
 filename = 	 "denneboom.ly"
 enteredby = 	 "jcn"
@@ -6,7 +6,7 @@ copyright = 	 "public domain"
 }
 %{ file tests silly line shapes %}
 
-#(set-staff-size 20)
+#(set-global-staff-size 20)
 
 
 

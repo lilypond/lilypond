@@ -504,9 +504,9 @@ Tuplet_bracket::get_default_dir (Grob*me)
   for (SCM s = me->get_grob_property ("note-columns"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * nc = unsmob_grob (ly_car (s));
-
-      
-      dirs[Note_column::dir (nc)]++;
+      Direction d = Note_column::dir (nc);
+      if (d)
+	dirs[d]++;
     }
 
   return dirs[UP] >= dirs[DOWN] ? UP : DOWN;
