@@ -18,7 +18,7 @@ Requires:	tetex tetex-latex python chkfontpath info-install XFree86
 
 %description
 LilyPond is a music typesetter.  It produces beautiful sheet music using a
-high level description file as input.  Lilypond is part of the GNU project.
+high level description file as input.  LilyPond is part of the GNU project.
  
 LilyPond is split into two packages.  The package "lilypond" provides the
 core package, containing the utilities for converting the music source

@@ -1722,7 +1722,7 @@ msgstr ""
 
 #: main.cc:198
 msgid "GNU LilyPond -- The music typesetter"
-msgstr "GNU Lilypond -- Musiktypesætteren"
+msgstr "GNU LilyPond -- Musiktypesætteren"
 
 #: main.cc:206
 #, fuzzy

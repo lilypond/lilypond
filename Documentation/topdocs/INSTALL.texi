@@ -134,7 +134,7 @@ script automating this has been included, see
 
 @subsection Compilation
 
-You need the following packages to compile Lilypond:
+You need the following packages to compile LilyPond:
 
 @itemize
 @item The GNU c++ compiler (version 2.95.2 or newer).
@@ -551,7 +551,7 @@ LilyPond is available through fink, in the unstable cvs distribution.
 You need to:
 @itemize @bullet
 @item Get the Fink package manager from @uref{http://fink.sourceforge.net}.
-@item Get the Lilypond package description by enabling the "unstable" tree
+@item Get the LilyPond package description by enabling the "unstable" tree
 in fink and executing @command{fink selfupdate-cvs}.
 @end itemize
 

@@ -1,4 +1,4 @@
-# Spanish translation of GNU Lilypond - http://lilypond.org
+# Spanish translation of GNU LilyPond - http://lilypond.org
 # Copyright (C) 2002 Free Software Foundation, Inc.
 # Quique <quique@sindominio.net>, 2002.
 #

@@ -665,7 +665,7 @@ command."
 (if LilyPond-mode-map
     ()
   (setq LilyPond-mode-map (make-sparse-keymap))
-  ;; Put keys to Lilypond-command-alist and fetch them from there somehow.
+  ;; Put keys to LilyPond-command-alist and fetch them from there somehow.
   (define-key LilyPond-mode-map "\C-c\C-l" 'LilyPond-command-lilypond)
   (define-key LilyPond-mode-map "\C-c\C-r" 'LilyPond-command-region)
   (define-key LilyPond-mode-map "\C-c\C-b" 'LilyPond-command-buffer)
@@ -966,7 +966,7 @@ command."
 ;;;	  (let ((file 'LilyPond-command-on-current))
 ;;;	    (mapcar 'LilyPond-command-menu-entry LilyPond-command-alist))
 ;;; Some kind of mapping which includes :keys might be more elegant
-;;; Put keys to Lilypond-command-alist and fetch them from there somehow.
+;;; Put keys to LilyPond-command-alist and fetch them from there somehow.
 	  '([ "LilyPond" LilyPond-command-lilypond t])
 	  '([ "TeX" (LilyPond-command (LilyPond-command-menu "TeX") 'LilyPond-master-file) ])
 	  '([ "2Dvi" LilyPond-command-formatdvi t])
@@ -1127,7 +1127,7 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
       (setq zmacs-regions nil)
     (setq mark-even-if-inactive t))
 
-  ;; Context dependent syntax tables in Lilypond-mode
+  ;; Context dependent syntax tables in LilyPond-mode
   (make-local-hook 'post-command-hook) ; XEmacs requires
   (add-hook 'post-command-hook 'LilyPond-mode-context-set-syntax-table nil t)
 

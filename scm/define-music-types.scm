@@ -53,7 +53,7 @@ arguments to func are 1. the grob, 2. the originating context,
      . (
    (description .  "Adds an articulation marking to a note.  Syntax:
 @var{note}@code{X}@code{Y}, where X is a direction (up @code{^}, down
-@code{_}, or Lilypond's choice (no direction specified)), and where Y
+@code{_}, or LilyPond's choice (no direction specified)), and where Y
 is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 @code{\\downbow}).  See the user manual for details.")
 

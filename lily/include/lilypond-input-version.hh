@@ -1,5 +1,5 @@
 /*
-  lilypond-version.hh -- declare Lilypond_version
+  lilypond-version.hh -- declare LilyPond_version
 
   source file of the GNU LilyPond music typesetter
 
@@ -12,10 +12,10 @@
 
 #include "string.hh"
 
-struct Lilypond_version 
+struct LilyPond_version 
 {
-  Lilypond_version (int major, int minor, int patch);
-  Lilypond_version (String str);
+  LilyPond_version (int major, int minor, int patch);
+  LilyPond_version (String str);
 
   String to_string () const;
   operator int () const;
@@ -26,6 +26,6 @@ struct Lilypond_version
   String extra_patch_string_;
 };
 
-extern Lilypond_version oldest_version;
+extern LilyPond_version oldest_version;
 
 #endif // LILYPOND_VERSION_HH

@@ -402,20 +402,20 @@ output_dict= {
 		'output-small-verbatim': r'''{\small\begin{verbatim}
 %s\end{verbatim}}
 ''',
-		'output-default-post': "\\def\postLilypondExample{}\n",
-		'output-default-pre': "\\def\preLilypondExample{}\n",
+		'output-default-post': "\\def\postLilyPondExample{}\n",
+		'output-default-pre': "\\def\preLilyPondExample{}\n",
 		'usepackage-graphics': '\\usepackage{graphics}\n',
 		'output-eps': '\\noindent\\parbox{\\lilypondepswidth{%(fn)s.eps}}{\includegraphics{%(fn)s}}',
 		'output-noinline': r'''
 %% generated: %(fn)s.eps
 ''',
-		'output-latex-quoted': r'''{\preLilypondExample
+		'output-latex-quoted': r'''{\preLilyPondExample
 \input %(fn)s.tex
-\postLilypondExample}''',
+\postLilyPondExample}''',
 		'output-latex-noquote': r'''{\parindent 0pt
-\preLilypondExample
+\preLilyPondExample
 \input %(fn)s.tex
-\postLilypondExample}''',
+\postLilyPondExample}''',
 		'pagebreak': r'\pagebreak',
 		},
 
@@ -541,8 +541,8 @@ re_dict = {
 		'lilypond-file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile\s*(\[(?P<options>.*?)\])?\s*\{(?P<filename>.+)})',
 		'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond\s*(\[(?P<options>.*?)\])?\s*{(?P<code>.*?)})',
 		'lilypond-block': r"(?sm)^[^%\n]*?(?P<match>\\begin\s*(\[(?P<options>.*?)\])?\s*{lilypond}(?P<code>.*?)\\end{lilypond})",
-		'def-post-re': r"\\def\\postLilypondExample",
-		'def-pre-re': r"\\def\\preLilypondExample",
+		'def-post-re': r"\\def\\postLilyPondExample",
+		'def-pre-re': r"\\def\\preLilyPondExample",
 		'usepackage-graphics': r"\usepackage\s*{graphics}",
 		'intertext': r',?\s*intertext=\".*?\"',
 		'multiline-comment': no_match,
@@ -633,7 +633,7 @@ def error (str):
 
 
 def compose_full_body (body, opts):
-	'''Construct the lilypond code to send to Lilypond.
+	'''Construct the lilypond code to send to LilyPond.
 	Add stuff to BODY using OPTS as options.'''
 	music_size = default_music_fontsize
 	if g_force_music_fontsize:
@@ -1580,7 +1580,7 @@ for opt in options:
 	elif o == '--outname' or o == '-o':
 		if len (files) > 1:
 			#HACK
-			sys.stderr.write ("Lilypond-book is confused by --outname on multiple files")
+			sys.stderr.write ("lilypond-book is confused by --outname on multiple files")
 			sys.exit (1)
 		outname = a
 	elif o == '--help' or o == '-h':

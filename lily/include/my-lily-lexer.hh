@@ -25,7 +25,7 @@ bool busy_parsing ();
 void kill_lexer ();
 void set_lexer ();
 
-/// lexer for Lilypond
+/// lexer for LilyPond
 class My_lily_lexer : public Includable_lexer 
 {
   Protected_scm scopes_;
