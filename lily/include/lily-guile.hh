@@ -27,6 +27,9 @@
 #define scm_i_string_chars(x) SCM_STRING_CHARS(x)
 #define scm_i_string_length(x) SCM_STRING_LENGTH(x)
 #define scm_is_number(x) (scm_number_p(x)==SCM_BOOL_T)
+#define scm_to_int(x) (ly_scm2int(x))
+#define scm_to_double(x) (ly_scm2double(x))
+#define scm_from_double(x) (scm_make_real(x))
 #endif /* SCM_MINOR_VERSION < 7 */
 
 #ifndef SMOB_FREE_RETURN_VAL
