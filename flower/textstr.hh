@@ -3,10 +3,8 @@
 
 #include <stdio.h>
 #include <ctype.h>
-
-//#include "globals.hh"
 #include "string.hh"
-#include "vray.hh"
+#include "sstack.hh"
 
 /// line counting input stream.
 class Text_stream
