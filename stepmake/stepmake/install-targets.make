@@ -25,5 +25,5 @@ localuninstall-files:
 	rm -f $(foreach suff, $(INSTALLATION_SUFFIXES),  \
 		$(foreach i, $(INSTALLATION_FILES$(suff)),\
 			$(INSTALLATION_DIR$(suff)/$(i))))
-	rmdir $(INSTALLATION_DIR) $(foreach suff, $(INSTALLATION_SUFFIXES), $(INSTALLATION_DIR$(suff))/)
+	-rmdir $(INSTALLATION_DIR) $(foreach suff, $(INSTALLATION_SUFFIXES), $(INSTALLATION_DIR$(suff))/)
 

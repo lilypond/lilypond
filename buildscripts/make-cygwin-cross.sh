@@ -19,7 +19,6 @@
 #
 #          binutils/binutils-19990818-1-src.tar.gz
 #          bison/bison-src.tar.gz
-#          cygwin/cygwin-20000301-src.tar.gz
 #          cygwin/cygwin-20000301.tar.gz
 #          flex/flex-src.tar.gz
 #          gcc/gcc-2.95.2-1-src.tar.gz
@@ -39,20 +38,10 @@ ROOT=/usr/src/cygwin-net-485
 PREFIX=$ROOT/usr
 NATIVE_PREFIX=/Cygnus/usr
 
-# we want to install LilyPond under
-# /Cygnus/lilypond-x.y.z
-if [ ! -e $NATIVE_PREFIX ]; then
-	echo "$NATIVE_PREFIX: no such directory"
-	echo
-	echo "do:"
-	echo "        mkdir -p $ROOT/$NATIVE_PREFIX"
-	echo "        ln -s $ROOT/Cygnus /Cygnus"
-	exit 1
-fi
-
 # urg
 DEVEL=/home/fred
 WWW=$DEVEL/WWW/lilypond/gnu-windows
+#WWW=/tmp
 
 CYGWIN_SOURCE=$DEVEL/sourceware.cygnus.com/pub/cygwin/private/cygwin-net-485
 SOURCE_PATH=$DEVEL/usr/src/releases:$DEVEL/usr/src/patches:$DEVEL/usr/src/lilypond/Documentation/ntweb
@@ -66,32 +55,34 @@ CYGWIN_DLL=cygwin1-net-485.dll
 cross_packages="
 binutils-19990818
 gcc-2.95.2
-cygwin
 flex
 bison
 "
 
+not_yet_needed=cygwin-2000301
+
 cross_configure='--prefix=$PREFIX --target=$TARGET_ARCH'
-native_configure='--prefix=$PREFIX --target=$TARGET_ARCH'
 ##native_configure='--prefix=$NATIVE_PREFIX --target=$TARGET_ARCH'
 gcc_make='LANGUAGES="c++"'
+cygwin_make='-k || true'
 
-native_configure='--target=$TARGET_ARCH --build=$TARGET_ARCH --host=$HOST --oldincludedir=$PREFIX/include'
+native_configure='--target=$TARGET_ARCH --build=$TARGET_ARCH --host=$HOST --oldincludedir=$PREFIX/include --prefix=$NATIVE_PREFIX'
 
 guile_patch='guile-1.3.4-gnu-windows.patch'
-guile_configure='--prefix=$PREFIX --enable-sizeof-int=4 --enable-sizeof-long=4 --enable-restartable-syscalls=yes'
+guile_configure='--enable-sizeof-int=4 --enable-sizeof-long=4 --enable-restartable-syscalls=yes'
 guile_make='oldincludedir=$PREFIX/include'
 
 lilypond_version=@TOPLEVEL_VERSION@
-lilypond_prefix="$NATIVE_PREFIX/lilypond-$lilypond_version"
+#lilypond_prefix="$NATIVE_PREFIX/lilypond-$lilypond_version"
 lilypond_ldflags='-L$PREFIX/lib -lguile $PREFIX/bin/$CYGWIN_DLL'
-lilypond_configure='--prefix=$lilypond_prefix'
+#lilypond_configure='--prefix=$lilypond_prefix'
 ## URG, help2man: doesn't know about cross-compilation.
-#lilypond_make='-k && make -k && make -k'
+#lilypond_make='-k || make -k || true'
 lilypond_patch=lilypond-manpages.patch
+lilypond_install='--just-print'
 
 native_packages="
-guile
+guile-1.3.4
 lilypond-$lilypond_version
 "
 
@@ -145,42 +136,50 @@ untar ()
 )
 }
 
+expand ()
+{(
+
+	set -
+	string=`eval echo $\`eval echo ${1}${2}\``
+	eval echo $string
+)
+}
+
 build ()
 {(
-	set -
 	package=$1
-
+	set -
 	if [ -d $package ]; then
-		echo "./$package: directory exists"
+		echo "$package: directory exists"
 		echo "$package: skipping"
 		exit 0
 	fi
 
         name=`echo $package | sed 's/-.*//'`
-        name_patch=`eval echo $\`eval echo ${name}_patch\``
-        name_make=`eval echo $\`eval echo ${name}_make\``
-        name_configure=`eval echo $\`eval echo ${name}_configure\``
-        name_ldflags=`eval echo $\`eval echo ${name}_ldflags\``
-        type_configure=`eval echo $\`eval echo ${type}_configure\``
+        name_patch=`expand $name _patch`
+        name_ldflags=`expand $name _ldflags`
+        name_configure=`expand $name _configure`
+        type_configure=`expand $type _configure`
+        name_make=`expand $name _make`
+        name_install=`expand $name _install`
 
-	find_path $package*src.tar.gz
+	found=`find_path $package*src.tar.gz`
 	if [ "$found" = "" ]; then
-		find_path $package.tar.gz
+		found=`find_path $package.tar.gz`
 	fi
 	if [ "$found" = "" ]; then
-		find_path $name*tar.gz
+		found=`find_path $name*tar.gz`
 	fi
 	if [ "$found" = "" ]; then
 		echo "$package: no such tarball"
 		exit 1
 	fi
-
+	
 	untar $found $package
 	if [ "x$name_patch" != "x" ]; then
 		(
 		cd $package
-		find_path $name_patch
-		set -x
+		found=`find_path $name_patch`
 		if [ "$found" = "" ]; then
 			echo "$name_patch: no such file"
 			exit 1
@@ -193,23 +192,59 @@ build ()
 	cd $type-$package
 
 	rm -f config.cache
-	LDFLAGS="`eval echo $name_ldflags`" ../$package/configure `eval echo $type_configure $name_configure` &&
-	make `eval echo $name_make` && 
-	make install `eval echo $name_make`
+	LDFLAGS="$name_ldflags" ../$package/configure $type_configure $name_configure || exit 1
+	make $name_make || exit 1
+	make install $name_install || exit 1
+)
+}
+
+## urg, let's hope Cygnus uses rpm for packaging its next release
+pack ()
+{(
+	set -
+	package=$1
+        name=`echo $package | sed 's/-.*//'`
+        name_pack_install=`expand $name _pack_install`
+	install_root=/tmp/$package-install
+	install_prefix=$install_root/$NATIVE_PREFIX
+
+	set -x
+	rm -rf $install_root
+	mkdir -p $install_prefix
+
+	cd $PREFIX/src/$type-$package || exit 1
+	make install prefix=$install_prefix $name_pack_install
+
+        ## duh, rename executables,
+	## for people that use a dumb shell instead of bash
+	cd $install_prefix/bin &&
+	for i in `/bin/ls -d1 *`; do
+		base=`basename $i .exe`
+		if [ $base.exe != $i ]; then
+			type="`file $i`"
+			if expr "$type" : '.*Windows.*\(executable\).*'; then
+				mv -f $i $base.exe
+			fi
+		fi
+	done
+        rm -f $WWW/$package.zip
+        cd $install_root && zip -r $WWW/$package.zip .$NATIVE_PREFIX
 )
 }
 
 find_path ()
-{
+{(
 	set -
 	expr=$1
+	found=
 	for i in $source_path; do
 		found=`/bin/ls -d1 $i/$expr 2>/dev/null | head -1`
 		if [ -e "$found" ]; then
-			return
+			break
 		fi
 	done
-	found=
+	echo $found
+)
 }
 ##################
 # end of functions
@@ -223,12 +258,11 @@ set -x
 mkdir -p $ROOT
 if [ ! -d $PREFIX ]; then
 	cd $ROOT
-	find_path $cygwin_binary
+	found=`find_path $cygwin_binary`
 	if [ "$found" = "" ]; then
 		echo "$cygwin_binary: no such tarball"
 		exit 1
 	fi
-	set -x
 	tar xzf $found
 	# urg, bug in gcc's cross-make configuration
 	mkdir -p $PREFIX/lib/gcc-lib/$TARGET_ARCH/2.95.2
@@ -240,12 +274,16 @@ if [ ! -d $PREFIX ]; then
 		# not target-arch, but [i686-]pc-cygwin!
 		ln -s $PREFIX/i686-pc-cygwin/include .
 		# these necessary only for mingw32
-		ln -s $PREFIX/i686-pc-cygwin/include $TARGET_ARG
+		ln -s $PREFIX/i686-pc-cygwin/include $TARGET_ARCH
 		ln -s $PREFIX/include $PREFIX/$TARGET_ARCH/include
 	fi
 else
 	echo "$PREFIX: already exists"
 	echo "$cygwin_binary: skipping"
+fi
+
+if [ ! -e $NATIVE_PREFIX ]; then
+	ln -s $ROOT /Cygnus || exit 1
 fi
 
 mkdir -p $PREFIX/src
@@ -263,28 +301,25 @@ for i in $cross_packages; do
 done
 
 # urg, bug in gcc's cross-make install
-ln -f $PREFIX/bin/cygwin1.dll $PREFIX/bin/$CYGWIN_DLL
+mv -f $PREFIX/bin/cygwin1.dll $PREFIX/bin/$CYGWIN_DLL
 ln -f $PREFIX/bin/$TARGET_ARCH-gcc $PREFIX/$TARGET_ARCH/bin/cc 
 ln -f $PREFIX/bin/$TARGET_ARCH-c++ $PREFIX/$TARGET_ARCH/bin/c++
 ln -f $PREFIX/bin/$TARGET_ARCH-g++ $PREFIX/$TARGET_ARCH/bin/g++
 
 PATH=$PREFIX/$TARGET_ARCH/bin:$PREFIX/bin:$PATH 
 
-cd $PREFIX/src
 mkdir -p $PREFIX/src
+cd $PREFIX/src
 
+set -x
 type=native
 for i in $native_packages; do
 	if build $i; then
-		true
-	else
-		echo "$i: build failed"
-		exit 1
+		pack $i
+		continue
 	fi
+	exit 1
 done
 
-lilypond_name=lilypond-$lilypond_version
-rm -f $WWW/$lilypond_name.zip
-cd $lilypond_prefix/.. && zip -r $WWW/$lilypond_name.zip $lilypond_name
 rm -f $WWW/$CYGWIN_DLL.zip
 cd $PREFIX/bin && zip $WWW/$CYGWIN_DLL.zip $CYGWIN_DLL

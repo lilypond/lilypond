@@ -1,4 +1,14 @@
+1.3.38.jcn2
+===========
 
+* buildscripts/make-cygwin-cross.sh: made number of fixes:
+	- add `Cygnus/' prefix to directories in .zip-file too.
+	- package guile too.
+	- don't link to cygwin1.dll
+
+* stepmake/stepmake/install-targets.make: bugfix, don't fail if directory
+  is not emty when uninstalling.
+	
 1.3.38.jcn1
 ===========
 	
@@ -7,7 +17,9 @@
 * buildscripts/make-cygwin-cross.sh: new script for cross-building cygwin
   development tools and lilypond executable.
 
-* Documentation/ntweb/lilypond-manpages.patch: provide pre-built manpages.
+* Documentation/ntweb/lilypond-manpages.patch: provide pre-built
+  manpages, so that make doesn't fail on help2man trying to execute
+  a GNU/windows executable.	
 
 * Documentation/ntweb/guile-1.3.4-gnu-windows.patch: new patch for
   guile-1.3.4.  
