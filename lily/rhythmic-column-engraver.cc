@@ -13,7 +13,7 @@
 #include "stem.hh"
 #include "note-column.hh"
 #include "dot-column.hh"
-#include "request.hh"
+#include "event.hh"
 #include "item.hh"
 #include "group-interface.hh"
 

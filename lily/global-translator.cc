@@ -9,7 +9,7 @@
 
 #include "warn.hh"
 #include "music.hh"
-#include "request.hh"
+#include "event.hh"
 #include "music-list.hh"
 #include "music-iterator.hh"
 #include "global-translator.hh"

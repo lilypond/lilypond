@@ -45,7 +45,7 @@ Tuplet_engraver::try_music (Music *c)
   if (c->is_mus_type ("time-scaled-music"))
     {
       Music *el = unsmob_music (c->get_mus_property ("element"));
-      if (el && !el->is_mus_type ("request-chord"))
+      if (el && !el->is_mus_type ("event-chord"))
 	{
 	  time_scaled_musics_.push (c);
 	  Rational m = now_mom ().main_part_ + c->get_length ().main_part_;

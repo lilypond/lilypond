@@ -24,7 +24,7 @@ typedef void (Translator::*Method_pointer) (void);
 class Scheme_hash_table;
 
 
-/** Make some kind of Elements from Requests. Elements are made by
+/** Make some kind of Elements from Events. Elements are made by
   hierarchically grouped Translators
   */
 class Translator_group : public virtual Translator {

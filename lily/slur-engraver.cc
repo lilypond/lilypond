@@ -4,7 +4,7 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "request.hh"
+#include "event.hh"
 #include "slur.hh"
 #include "warn.hh"
 #include "note-column.hh"
@@ -17,7 +17,7 @@
  */
 class Slur_engraver : public Engraver
 {
-  Link_array<Music> requests_;
+  Link_array<Music> events_;
   Link_array<Music> new_slur_reqs_;
   Link_array<Grob> slur_stack_;
   Link_array<Grob> end_slurs_;
@@ -57,7 +57,7 @@ Slur_engraver::try_music (Music *req)
 	  end_slurs_[i]->suicide ();
 	}
       end_slurs_.clear ();
-      requests_.clear ();
+      events_.clear ();
       new_slur_reqs_.clear ();
     }
   else if (req->is_mus_type ("slur-event"))
@@ -75,7 +75,7 @@ Slur_engraver::try_music (Music *req)
 	    }
 
 	  /*
-	    But we swallow other slur requests.
+	    But we swallow other slur events.
 	  */
 	      
 	  return true;
@@ -84,7 +84,7 @@ Slur_engraver::try_music (Music *req)
       else if (d == STOP)
 	{
 	  /*
-	    Swallow other requests.
+	    Swallow other events.
 	  */
 	  for (int j = new_slur_reqs_.size(); j--;)
 	    {
@@ -136,9 +136,9 @@ Slur_engraver::finalize ()
     }
   slur_stack_.clear ();
 
-  for (int i=0; i < requests_.size (); i++)
+  for (int i=0; i < events_.size (); i++)
       {
-	requests_[i]->origin ()->warning (_ ("unterminated slur"));
+	events_[i]->origin ()->warning (_ ("unterminated slur"));
       }
 }
 
@@ -155,14 +155,14 @@ Slur_engraver::process_acknowledged_grobs ()
 	{
 	  if (slur_stack_.empty ())
 	    /* How to shut up this warning, when Voice_devnull_engraver has
-	       eaten start request? */
+	       eaten start event? */
 	    slur_req->origin ()->warning (_f ("can't find start of slur"));
 	  else
 	    {
 	      Grob* slur = slur_stack_.pop ();
 	    
 	      end_slurs_.push (slur);
-	      requests_.pop ();
+	      events_.pop ();
 	    }
 	}
       else  if (d == START)
@@ -172,7 +172,7 @@ Slur_engraver::process_acknowledged_grobs ()
 	  Grob* slur = new Spanner (get_property ("Slur"));
 	  Slur::set_interface (slur); // cannot remove yet!
 	  start_slurs.push (slur);
-	  requests_.push (slur_req);
+	  events_.push (slur_req);
 	  announce_grob (slur, slur_req->self_scm ());
 	}
     }

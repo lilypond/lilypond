@@ -27,16 +27,16 @@ public:
 };
 
 /**
-  The request is a collection of Requests. A note that you enter in lilypond is 
-  one Request_chord, one syllable of lyrics is one Request_chord
+  The event is a collection of Events. A note that you enter in lilypond is 
+  one Event_chord, one syllable of lyrics is one Event_chord
  */
-class Request_chord : public Simultaneous_music
+class Event_chord : public Simultaneous_music
 {
 public:
   VIRTUAL_COPY_CONS (Music);
   virtual Moment start_mom () const;
 
-  Request_chord ();
+  Event_chord ();
 };
 
 /**

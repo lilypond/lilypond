@@ -9,7 +9,7 @@
 
 
 #include "audio-item.hh"
-#include "request.hh"
+#include "event.hh"
 #include "pqueue.hh"
 #include "performer.hh"
 

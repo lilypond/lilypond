@@ -8,7 +8,7 @@
 
 #include "rhythmic-head.hh"
 #include "paper-def.hh"
-#include "request.hh"
+#include "event.hh"
 #include "dots.hh"
 #include "dot-column.hh"
 #include "staff-symbol-referencer.hh"
@@ -21,9 +21,9 @@
   How does this work?
 
   When we catch the note, we predict the end of the note. We keep the
-  requests living until we reach the predicted end-time.
+  events living until we reach the predicted end-time.
 
-  Every time process_music() is called and there are note requests, we
+  Every time process_music() is called and there are note events, we
   figure out how long the note to typeset should be. It should be no
   longer than what's specified, than what is left to do and it should
   not cross barlines.

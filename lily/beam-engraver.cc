@@ -8,7 +8,7 @@
  */
 #include "engraver-group-engraver.hh"
 #include "engraver.hh"
-#include "request.hh"
+#include "event.hh"
 #include "beam.hh"
 #include "stem.hh"
 #include "warn.hh"
@@ -296,7 +296,7 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 
 
 ENTER_DESCRIPTION(Beam_engraver,
-/* descr */       "Handles Beam_requests by engraving Beams.    If omitted, then notes will be
+/* descr */       "Handles Beam events by engraving Beams.    If omitted, then notes will be
 printed with flags instead of beams.",
 /* creats*/       "Beam",
 /* accepts */     "beam-event abort-event",
@@ -337,7 +337,7 @@ Grace_beam_engraver::valid_end_moment ()
 
 
 ENTER_DESCRIPTION(Grace_beam_engraver,
-/* descr */       "Handles Beam_requests by engraving Beams.  If omitted, then notes will
+/* descr */       "Handles Beam events by engraving Beams.  If omitted, then notes will
 be printed with flags instead of beams. Only engraves beams when we
 are at grace points in time.
 ",

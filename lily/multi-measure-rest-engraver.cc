@@ -5,7 +5,7 @@
        Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "request.hh"
+#include "event.hh"
 #include "multi-measure-rest.hh"
 #include "paper-column.hh"
 #include "engraver-group-engraver.hh"

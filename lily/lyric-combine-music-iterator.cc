@@ -10,7 +10,7 @@
 #include "translator-group.hh"
 #include "lyric-combine-music-iterator.hh"
 #include "lyric-combine-music.hh"
-#include "request.hh"
+#include "event.hh"
 #include "note-head.hh"
 #include "grob.hh"
 
@@ -79,7 +79,7 @@ bool
 Lyric_combine_music_iterator::get_busy_status () const
 {
   /*
-    We have to use both the request and the busyGrobs queue.  The
+    We have to use both the event and the busyGrobs queue.  The
     busyGrobs queue doesn't contain any notes that have started this
     instant.  */
   if (try_music (busy_req))

@@ -8,7 +8,7 @@
 #include "warn.hh"
 #include "dimensions.hh"
 #include "hairpin.hh"
-#include "request.hh"
+#include "event.hh"
 #include "paper-column.hh"
 #include "note-column.hh"
 #include "item.hh"
@@ -23,7 +23,7 @@
 /*
   TODO:
 
-  * direction of text-dynamic-request if not equal to direction of
+  * direction of text-dynamic-event if not equal to direction of
   line-spanner
 
   - TODO: this engraver is too complicated. We should split it into
@@ -145,9 +145,9 @@ Dynamic_engraver::process_music ()
     }
   
   /*
-    During a (de)crescendo, pending request will not be cleared,
+    During a (de)crescendo, pending event will not be cleared,
     and a line-spanner will always be created, as \< \! are already
-    two requests.
+    two events.
 
     Note: line-spanner must always have at least same duration
     as (de)crecsendo, b.o. line-breaking.

@@ -7,7 +7,7 @@
 */
 
 #include "translator.hh"
-#include "request.hh"
+#include "event.hh"
 
 class Skip_req_swallow_translator : public virtual Translator
 {

@@ -33,7 +33,7 @@ Simple_music_iterator::ok ()const
   TODO: remove last_processed_mom_, and the complete shit.  We should
   only process a simple-music once, and that is at its start.
 
-  Engravers can detect and request the end-moments to be processed as
+  Engravers can detect and event the end-moments to be processed as
   well.
 
 */

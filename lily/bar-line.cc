@@ -192,7 +192,7 @@ Bar_line::get_staff_bar_size (SCM smob)
 ADD_INTERFACE (Bar_line, "bar-line-interface",
   "Bar line.
 
-This is a request to print a special bar symbol. It replaces the 
+Print a special bar symbol. It replaces the 
 regular bar symbol with a special
 symbol.  The argument @var{bartype} is a string which specifies the
 kind of bar to print.  Options are @code{:|},

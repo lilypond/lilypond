@@ -70,15 +70,6 @@ public:
 public:
   Global_translator * top_translator () const;
   TRANSLATOR_DECLARATIONS(Translator);
-    /**
-    try to fit the request in this engraver
-
-    @return
-    false: not noted,  not taken.
-
-    true: request swallowed. Don't try to put the request elsewhere.
-
-    */
   virtual bool try_music (Music *req);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();

@@ -8,7 +8,7 @@
 
 #include "rhythmic-head.hh"
 #include "paper-def.hh"
-#include "request.hh"
+#include "event.hh"
 #include "dots.hh"
 #include "dot-column.hh"
 #include "staff-symbol-referencer.hh"

@@ -8,7 +8,7 @@
 */
 
 #include "engraver.hh"
-#include "request.hh"
+#include "event.hh"
 #include "item.hh"
 #include "paper-def.hh"
 #include "font-metric.hh"

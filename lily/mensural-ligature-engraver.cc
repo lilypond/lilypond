@@ -8,7 +8,7 @@
 
 #include "mensural-ligature.hh"
 #include "ligature-engraver.hh"
-#include "request.hh"
+#include "event.hh"
 #include "warn.hh"
 #include "item.hh"
 #include "spanner.hh"
@@ -61,7 +61,7 @@
  * bounding box around all primitives of the ligature.
  *
  * TODO: enhance robustness: in case of an illegal ligature (e.g. the
- * user requests for a ligature that contains a minima or STATE_ERROR
+ * user events for a ligature that contains a minima or STATE_ERROR
  * is reached), automatically break the ligature into smaller, valid
  * pieces.
  *
@@ -153,8 +153,8 @@ Mensural_ligature_engraver::get_set_column (Item *item, Paper_column *column)
 /*
  * The following lines implement a finite state automat.  Given a
  * sequence of durations (Longa, Brevis, Semibrevis) or
- * end-of-ligature-request as input, the automat outputs a sequence of
- * requests for grobs that form a proper ligature.
+ * end-of-ligature-event as input, the automat outputs a sequence of
+ * events for grobs that form a proper ligature.
  */
 
 /*
@@ -565,7 +565,7 @@ Mensural_ligature_engraver::acknowledge_grob (Grob_info info)
 }
 
 ENTER_DESCRIPTION (Mensural_ligature_engraver,
-/* descr */       "Handles Mensural_ligature_requests by glueing special ligature heads together.",
+/* descr */       "Handles Mensural_ligature_events by glueing special ligature heads together.",
 /* creats*/       "MensuralLigature",
 /* accepts */     "",
 /* acks  */      "ligature-head-interface note-head-interface rest-interface",

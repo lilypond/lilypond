@@ -8,7 +8,7 @@
 
 #include "engraver.hh"
 #include "item.hh"
-#include "request.hh"
+#include "event.hh"
 #include "translator-group.hh"
 
 class Voice_devnull_engraver : public Engraver
@@ -66,7 +66,7 @@ Voice_devnull_engraver::try_music (Music *m)
 		return true;
 	    }
 	}
-      /* Ugh.  Should eat other requests, script etc. too. */  
+      /* Ugh.  Should eat other events, script etc. too. */  
       else if (m->is_mus_type ("tie-event"))
 	return true;
     }

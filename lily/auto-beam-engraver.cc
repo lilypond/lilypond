@@ -8,7 +8,7 @@
  */
 
 #include "beaming.hh"
-#include "request.hh"
+#include "event.hh"
 #include "beam.hh"
 #include "stem.hh"
 #include "warn.hh"

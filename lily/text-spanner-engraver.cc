@@ -7,7 +7,7 @@
 */
 
 #include "dimensions.hh"
-#include "request.hh"
+#include "event.hh"
 #include "paper-column.hh"
 #include "note-column.hh"
 #include "item.hh"

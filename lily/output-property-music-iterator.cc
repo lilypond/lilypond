@@ -17,7 +17,7 @@ Output_property_music_iterator::process (Moment m)
     {
       bool accepted = try_music (get_music ());
       if (!accepted)
-	get_music ()->origin ()->warning (_f ("Junking request: `%s'",
+	get_music ()->origin ()->warning (_f ("Junking event: `%s'",
 					  classname (get_music ())));
     }
 

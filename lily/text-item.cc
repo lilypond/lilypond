@@ -183,7 +183,7 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
     }
   
   
-  /* Set extend to markup requested value. */
+  /* Set extend to markup evented value. */
   if (extent_b)
     {
       Box b = mol.extent_box ();

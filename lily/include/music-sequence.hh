@@ -1,7 +1,5 @@
-
-
 /*   
-  music-sequence.hh -- declare 
+  music-sequence.hh -- declare Music_sequence
   
   source file of the GNU LilyPond music typesetter
   

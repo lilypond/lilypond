@@ -13,7 +13,7 @@
 #include "stem.hh"
 #include "rhythmic-head.hh"
 #include "engraver-group-engraver.hh"
-#include "request.hh"
+#include "event.hh"
 #include "warn.hh"
 #include "misc.hh"
 #include "note-head.hh"

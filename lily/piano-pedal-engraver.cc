@@ -10,7 +10,7 @@
 */
 
 #include "engraver.hh"
-#include "request.hh"
+#include "event.hh"
 #include "grob.hh"
 #include "item.hh"
 #include "lily-guile.hh"
