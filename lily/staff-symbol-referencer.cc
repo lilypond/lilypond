@@ -31,7 +31,7 @@ bool
 Staff_symbol_referencer::on_staffline (Grob *me, int pos)
 {
   int sz = line_count (me) - 1;
-  return ((pos + sz) % 2) == 0;
+  return ((pos + sz) % 2) == 0 && abs (pos) <= sz;
 }
 
 Grob*

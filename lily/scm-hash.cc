@@ -19,7 +19,7 @@ copy_scm_hashes (SCM dest, SCM src)
 {
   int k = 0;
   for (int i = SCM_VECTOR_LENGTH (src); i--;)
-    for (SCM s = scm_vector_ref (src, SCM_MAKINUM (i)); ly_c_pair_p (s); s = ly_cdr (s))
+    for (SCM s = scm_vector_ref (src, scm_from_int (i)); ly_c_pair_p (s); s = ly_cdr (s))
       {
 	scm_hashq_set_x (dest, ly_caar (s), ly_cdar (s));
 	k++;
@@ -123,12 +123,12 @@ Scheme_hash_table::set (SCM k, SCM v)
 
 // UGH. 
 SCM
-Scheme_hash_table::get (SCM k)const
+Scheme_hash_table::get (SCM k) const
 {
   /*
     42 will stick out like a sore thumb, hopefully.
    */
-  return scm_hashq_ref (hash_tab_, k, SCM_MAKINUM (42));
+  return scm_hashq_ref (hash_tab_, k, scm_from_int (42));
 }
 
 void

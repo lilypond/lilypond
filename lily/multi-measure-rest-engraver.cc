@@ -241,7 +241,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 	  else 
 	    {
 	      SCM text
-		= scm_number_to_string (scm_int2num (num), SCM_MAKINUM (10));
+		= scm_number_to_string (scm_int2num (num), scm_from_int (10));
 	      last->set_property ("text", text);
 	    }
 	}
