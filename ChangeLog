@@ -1,3 +1,9 @@
+2003-08-12  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: split `Insert Tag' if it is long enough.
+
+	* lilypond.words: add new features: markup, column, center, \[ \].
+	
 2003-08-10  Heikki Junes <hjunes@cc.hut.fi>
 
 	* Documentation/topdocs/NEWS.texi, DEDICATION,
