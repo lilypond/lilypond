@@ -8,6 +8,18 @@
 
 @itemize @bullet
 
+@item The mode changing commands  (@code{\chords}, @code{\lyrics}, etc.)
+have been renamed to @code{\chordmode}, @code{\lyricmode}, etc. The
+command @code{\chords} is an abbreviation for
+
+@example
+  \new ChordNames \chordmode ... 
+@end example
+
+@noindent
+@code{\drums}, @code{\lyrics}, @code{\chords}, @code{\figures}
+function similarly.
+
 @item The types of events quoted with @code{\quote}  can  now be tuned
 with @code{quotedEventTypes}. By default, only notes and rests end up
 in quotes.
