@@ -63,22 +63,29 @@ kpathsea_find_afm (char const * name)
 }
 
 String
-kpathsea_find_tfm (char const * name)
+kpathsea_find_tfm (char const *name)
 {
-  String p = global_path.find (String (name) + ".tfm");
-
-  if (p.length ())
-    return p;
-  
+  String filename = global_path.find (String (name) + ".tfm");
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
-  char * name_ptr =  kpse_find_file (name, kpse_tfm_format, true);
-  if (!name_ptr)
-    warning (_f ("kpathsea can not find TFM file: `%s'", name));
-  else
-    return name_ptr;
-#endif
+  if (filename.is_empty ())
+    {
+      /* If invoked for a TeX font, we could do TRUE (must exist).
+	 We could also do:
+	   p = kpse_find_file (name, kpse_mf_format, false);
+	   if (p)
+	     p = kpse_find_file (name, kpse_mf_format, true);
 
-  return "";
+	 but we assume that if there is a .PFA, there is also a .TFM,
+	 and it's no use generating TFMs on the fly, because PFAs cannot
+	 be generated on the fly. */
+      char *p = kpse_find_file (name, kpse_tfm_format, false);
+      if (!p)
+	warning (_f ("kpathsea can not find TFM file: `%s'", name));
+      else
+	filename = p;
+    }
+#endif
+  return filename;
 }
 
 #if KPATHSEA
