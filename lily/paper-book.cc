@@ -56,17 +56,10 @@ SCM
 Paper_book::mark_smob (SCM smob)
 {
   Paper_book *b = (Paper_book*) SCM_CELL_WORD_1 (smob);
-  for (int i = 0; i < b->headers_.size (); i++)
-    scm_gc_mark (b->headers_[i]);
-  for (int i = 0; i < b->global_headers_.size (); i++)
-    scm_gc_mark (b->global_headers_[i]);
-  for (int i = 0; i < b->papers_.size (); i++)
-    scm_gc_mark (b->papers_[i]->self_scm ());
-  for (int i = 0; i < b->scores_.size (); i++)
-    scm_gc_mark (b->scores_[i]);
+  for (int i = 0; i < b->score_lines_.size (); i++)
+    b->score_lines_[i].gc_mark ();
 
   scm_gc_mark (b->copyright_);
-  
   return b->tagline_;
 }
 
@@ -86,30 +79,17 @@ Paper_book::print_smob (SCM smob, SCM port, scm_print_state*)
 void
 Paper_book::output (String outname)
 {
-  if (!papers_.size ())
+  if (!score_lines_.size ())
     // FIXME: no end-output?
     return;
     
   /* Generate all stencils to trigger font loads.  */
   SCM pages = this->pages ();
 
-  Paper_def *paper = papers_[0];
+  Paper_def *paper = score_lines_[0].paper_;
   Paper_outputter *out = paper->get_paper_outputter (outname);
   int page_count = scm_ilength (pages);
   out->output_header (paper, scopes (0), page_count, false);
-
-#if 0
-  /* Ugh; fixme.  */
-  int paper_count = papers_.size ();
-  for (int i = 1; i < paper_count; i ++)
-    {
-      SCM fonts = papers_[i]->font_descriptions ();
-      out->output_scheme (scm_list_3 (ly_symbol2scm ("define-fonts"),
-				      papers_[i]->self_scm (),
-				      //FIXME:
-				      ly_quote_scm (ly_list_qsort_uniq_x (fonts))));
-    }
-#endif
 
   for (SCM s = pages; s != SCM_EOL; s = ly_cdr (s))
     {
@@ -126,14 +106,9 @@ Paper_book::output (String outname)
 SCM
 Paper_book::scopes (int i)
 {
-  SCM scopes = SCM_EOL;
-  if (headers_[i])
-    scopes = scm_cons (headers_[i], scopes);
-  if (global_headers_.size ()
-      && global_headers_[i] && global_headers_[i] != headers_[i])
-    scopes = scm_cons (global_headers_[i], scopes);
-  return scopes;
+  return score_lines_[i].scopes ();
 }
+
 
 Stencil
 Paper_book::title (int i)
@@ -152,11 +127,11 @@ Paper_book::title (int i)
   SCM s = ly_modules_lookup (scopes, field);
   if (s != SCM_UNDEFINED && scm_variable_bound_p (s) == SCM_BOOL_T)
     title = *unsmob_stencil (scm_call_2 (user_title,
-					papers_[0]->self_scm (),
+					 score_lines_[0].paper_->self_scm (),
 					scm_variable_ref (s)));
   else
     title = *unsmob_stencil (scm_call_2 (i == 0 ? book_title : score_title,
-					papers_[0]->self_scm (),
+					 score_lines_[0].paper_->self_scm (),
 					scopes));
   if (!title.is_empty ())
     title.align_to (Y_AXIS, UP);
@@ -167,14 +142,16 @@ Paper_book::title (int i)
 void
 Paper_book::classic_output (String outname)
 {
-  int count = scores_.size ();
-  Paper_outputter *out = papers_.top ()->get_paper_outputter (outname);
-  out->output_header (papers_.top (), scopes (count - 1), 0, true);
+  int count = score_lines_.size ();
+  Paper_def * p = score_lines_.top ().paper_;
+  Paper_outputter *out = p->get_paper_outputter (outname);
+  out->output_header (p, scopes (count - 1), 0, true);
 
-  Paper_line *first = unsmob_paper_line (scm_vector_ref (scores_.top (),
+  SCM top_lines = score_lines_.top ().lines_;
+  Paper_line *first = unsmob_paper_line (scm_vector_ref (top_lines,
 							 scm_int2num (0)));
   Offset o (0, -0.5 * first->dim ()[Y_AXIS]);
-  int line_count = SCM_VECTOR_LENGTH ((SCM) scores_.top ());
+  int line_count = SCM_VECTOR_LENGTH (top_lines);
   for (int i = 0; i < line_count; i++)
     {
       /* In classic compatibility TeX tracks how large things are, and
@@ -186,7 +163,7 @@ Paper_book::classic_output (String outname)
       if (output_format_global == "tex")
 	o = Offset (0, 0);
 
-      out->output_line (scm_vector_ref ((SCM) scores_.top (), scm_int2num (i)),
+      out->output_line (scm_vector_ref (top_lines, scm_int2num (i)),
 			&o, i == line_count - 1);
     }
   
@@ -198,7 +175,7 @@ Paper_book::classic_output (String outname)
 void
 Paper_book::init ()
 {
-  int score_count = scores_.size ();
+  int score_count = score_lines_.size ();
 
   /* Calculate the full book height.  Hmm, can't we cache system
      heights while making stencils?  */
@@ -209,15 +186,15 @@ Paper_book::init ()
       if (!title.is_empty ())
 	height_ += title.extent (Y_AXIS).length ();
 
-      int line_count = SCM_VECTOR_LENGTH ((SCM) scores_[i]);
+      int line_count = SCM_VECTOR_LENGTH (score_lines_[i].lines_);
       for (int j = 0; j < line_count; j++)
 	{
-	  SCM s = scm_vector_ref ((SCM) scores_[i], scm_int2num (j));
+	  SCM s = scm_vector_ref ((SCM) score_lines_[i].lines_, scm_int2num (j));
 	  height_ += unsmob_paper_line (s)->dim ()[Y_AXIS];
 	}
     }
 
-  Paper_def *paper = papers_[0];
+  Paper_def *paper = score_lines_[0].paper_;
   SCM scopes = this->scopes (0);
 
   SCM make_tagline = paper->c_variable ("make-tagline");
@@ -238,15 +215,16 @@ Paper_book::init ()
 SCM
 Paper_book::lines ()
 {
-  int score_count = scores_.size ();
+  int score_count = score_lines_.size ();
   SCM lines = SCM_EOL;
   for (int i = 0; i < score_count; i++)
     {
       Stencil title = this->title (i);      
       if (!title.is_empty ())
 	lines = ly_snoc (stencil2line (title, true), lines);
-      lines = scm_append (scm_list_2 (lines, scm_vector_to_list (scores_[i])));
+      lines = scm_append (scm_list_2 (lines, scm_vector_to_list (score_lines_[i].lines_)));
     }
+  
   //debug helper; ughr
   int i = 0;
   for (SCM s = lines; s != SCM_EOL; s = ly_cdr (s))
@@ -259,7 +237,7 @@ Paper_book::pages ()
 {
   init ();
   Page::page_count_ = 0;
-  Paper_def *paper = papers_[0];
+  Paper_def *paper = score_lines_[0].paper_;
   Page *page = new Page (paper, 1);
 
   Real text_height = page->text_height ();
@@ -356,4 +334,38 @@ LY_DEFINE (ly_ragged_page_breaks, "ly:ragged-page-breaks",
   return c_ragged_page_breaks (lines,
 			       ly_scm2double (book), ly_scm2double (text),
 			       ly_scm2double (first), ly_scm2double (last));
+}
+
+/****************************************************************/
+
+Score_lines::Score_lines ()
+{
+  lines_ = SCM_EOL;
+  global_header_ = SCM_EOL;
+  header_ = SCM_EOL;
+  paper_ = 0;
+}
+
+void
+Score_lines::gc_mark ()
+{
+  scm_gc_mark (lines_);
+  scm_gc_mark (global_header_);
+  scm_gc_mark (header_);
+  if (paper_)
+    scm_gc_mark (paper_->self_scm ());
+}
+
+
+SCM 
+Score_lines::scopes ()
+{
+  SCM scopes = SCM_EOL;
+  if (header_)
+    scopes = scm_cons (header_, scopes);
+  if (SCM_MODULEP(global_header_)
+      && global_header_ != header_)
+    scopes = scm_cons (global_header_, scopes);
+
+  return scopes;
 }

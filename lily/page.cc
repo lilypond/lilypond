@@ -83,10 +83,10 @@ Page::print_smob (SCM smob, SCM port, scm_print_state*)
   return 1;
 }
 
-static void
-stack_stencils (Stencil &a, Stencil *b, Offset *origin)
+static Stencil
+stack_stencils (Stencil a, Stencil b, Offset *origin)
 {
-  Real height = b->extent (Y_AXIS).length ();
+  Real height = b.extent (Y_AXIS).length ();
   if (height > 50 CM)
     {
       programming_error (to_string ("Improbable stencil height: %f", height));
@@ -94,16 +94,17 @@ stack_stencils (Stencil &a, Stencil *b, Offset *origin)
     }
   Offset o = *origin;
   o.mirror (Y_AXIS);
-  b->translate (o);
-  a.add_stencil (*b);
+  b.translate (o);
+  a.add_stencil (b);
   (*origin)[Y_AXIS] += height;
+  return a;
 }
 
-SCM
+Stencil
 Page::to_stencil () const
 {
   SCM proc = paper_->lookup_variable (ly_symbol2scm ("page-to-stencil"));
-  return scm_call_1 (proc, self_scm ());
+  return *unsmob_stencil (scm_call_1 (proc, self_scm ()));
 }
 
 //urg
@@ -138,14 +139,14 @@ LY_DEFINE (ly_page_header_lines_footer_stencil, "ly:page-header-lines-footer-ste
 
   if (Stencil *s = unsmob_stencil (p->header_))
     {
-      stack_stencils (stencil, s, &o);
+      stencil = stack_stencils (stencil, *s, &o);
       o[Y_AXIS] += p->paper_->get_dimension (ly_symbol2scm ("head-sep"));
     }
 
   for (SCM s = p->lines_; s != SCM_EOL; s = ly_cdr (s))
     {
       Paper_line *p = unsmob_paper_line (ly_car (s));
-      stack_stencils (stencil, unsmob_stencil (p->to_stencil ()), &o);
+      stencil = stack_stencils (stencil, p->to_stencil (), &o);
       /* Do not put vfill between title and its music, */
       if (ly_cdr (s) != SCM_EOL
 	  && (!p->is_title () || vfill < 0))
@@ -166,11 +167,11 @@ LY_DEFINE (ly_page_header_lines_footer_stencil, "ly:page-header-lines-footer-ste
     o[Y_AXIS] -= unsmob_stencil (p->footer_)->extent (Y_AXIS).length ();
 
   if (Stencil *s = unsmob_stencil (p->copyright_))
-    stack_stencils (stencil, s, &o);
+    stencil = stack_stencils (stencil, *s, &o);
   if (Stencil *s = unsmob_stencil (p->tagline_))
-    stack_stencils (stencil, s, &o);
+    stencil = stack_stencils (stencil, *s, &o);
   if (Stencil *s = unsmob_stencil (p->footer_))
-    stack_stencils (stencil, s, &o);
+    stencil = stack_stencils (stencil, *s, &o);
 
   return stencil.smobbed_copy ();
 }

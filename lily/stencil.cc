@@ -9,7 +9,7 @@
 #include <math.h>
 #include <libc-extension.hh>	// isinf
 
-#include "input.hh"
+#include "input-smob.hh"
 #include "font-metric.hh" 
 #include "dimensions.hh"
 #include "interval.hh"
@@ -188,7 +188,7 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
 /****************************************************************/
 
 void
-interpret_stencil_expr (SCM expr,
+interpret_stencil_expression (SCM expr,
 			void (*func) (void*, SCM),
 			void *func_arg,
 			Offset o)
@@ -223,7 +223,7 @@ interpret_stencil_expr (SCM expr,
 	}
       else if (head == ly_symbol2scm ("combine-stencil"))
 	{
-	  interpret_stencil_expr (ly_cadr (expr), func, func_arg, o);
+	  interpret_stencil_expression (ly_cadr (expr), func, func_arg, o);
 	  expr = ly_caddr (expr);
 	}
       else
@@ -241,18 +241,18 @@ interpret_stencil_expr (SCM expr,
 
 struct Font_list
 {
-  SCM list_;
+  SCM fonts_;
 };
 
 static void
 find_font_function (void * fs, SCM x)
 {
-  Font_struct * me = (Font_struct*)fs;
+  Font_list * me = (Font_list*)fs;
   
   if (ly_car (x) == ly_symbol2scm ("placebox"))
     {
       SCM args = ly_cdr (x); 
-      SCM what = ly_caddr (x);
+      SCM what = ly_caddr (args);
 
       if (ly_c_pair_p (what))
 	{
@@ -265,18 +265,24 @@ find_font_function (void * fs, SCM x)
     }
 }
 
+SCM
+find_expression_fonts (SCM expr)
+{
+  Font_list fl;
+  
+  fl.fonts_ = SCM_EOL;
+  
+  interpret_stencil_expression (expr, &find_font_function, 
+			  (void*) &fl, Offset (0,0));
+
+  return fl.fonts_;
+}
+
 LY_DEFINE(ly_stencil_fonts, "ly:stencil-fonts",
-	  1,0,0, (s),
-	  "Analyse @var{s}, and return a list of fonts used in @var{s}."
+	  1, 0, 0, (SCM s),
+	  "Analyse @var{s}, and return a list of fonts used in @var{s}.")
 {
   Stencil *stil =unsmob_stencil (s);
   SCM_ASSERT_TYPE (stil, s, SCM_ARG1, __FUNCTION__, "Stencil");
-  Font_list fl;
-  
-  fl.list_ = SCM_EOL;
-  
-  interpret_stencil_expr (stil.expr (), &find_font_function, 
-			  (void*) &fl, Offset (0,0));
-
-  return fl.list_;
+  return find_expression_fonts (stil->expr ());
 }

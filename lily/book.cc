@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 #include "ly-smobs.icc"
-
+#include "stencil.hh"
 #include "book.hh"
 #include "global-context.hh"
 #include "ly-module.hh"
@@ -67,15 +67,12 @@ Book::process (String outname, Music_output_def *default_def, SCM header)
       SCM systems = scores_[i]->book_rendering (outname, default_def, &paper);
       if (systems != SCM_UNDEFINED)
 	{
-	  if (paper)
-	    paper_book->papers_.push (paper);
-	  
-	  paper_book->scores_.push (systems);
+	  Score_lines sc;
+	  sc.paper_ = paper;
+	  sc.lines_ = systems;
+	  sc.header_ =header;
 
-	  // fixme.
-	  //paper_book->global_headers_.push (global_input_file->header_);
-	  //paper_book->headers_.push (scores_[i]->header_);
-	  paper_book->headers_.push (header);
+	  paper_book->score_lines_.push (sc);
 	}
     }
   paper_book->output (outname);
@@ -95,10 +92,14 @@ Book::to_stencil (Music_output_def *default_def, SCM header)
 						&paper);
       if (systems != SCM_UNDEFINED)
 	{
-	  if (paper)
-	    paper_book->papers_.push (paper);
-	  paper_book->scores_.push (systems);
-	  paper_book->headers_.push (header);
+	  Score_lines sc;
+	  sc.paper_ = paper;
+	  sc.lines_ = systems;
+	  sc.header_ =header;
+
+	  paper_book->score_lines_.push (sc);
+
+	  // wtf: code dup.
 	}
     }
 
@@ -107,7 +108,7 @@ Book::to_stencil (Music_output_def *default_def, SCM header)
   if (pages != SCM_EOL)
     {
       progress_indication (_f ("paper output to `%s'...", "<markup>"));
-      return (unsmob_page (ly_car (pages)))->to_stencil ();
+      return (unsmob_page (ly_car (pages)))->to_stencil ().smobbed_copy ();
     }
   return SCM_EOL;
 }

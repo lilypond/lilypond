@@ -26,7 +26,7 @@ public:
   Paper_line (Offset, SCM, int penalty = 0, bool = false);
 
   Offset dim () const;
-  SCM to_stencil () const;
+  Stencil to_stencil () const;
   SCM stencils () const;
   bool is_title () const;
   int penalty () const;

@@ -168,9 +168,13 @@ default_rendering (SCM music, SCM outdef, SCM header, SCM outname)
 	{
 	  Paper_book *paper_book = new Paper_book ();
 	  Paper_score *ps = dynamic_cast<Paper_score*> (output);
-	  paper_book->papers_.push (ps->paper_);
-	  paper_book->scores_.push (systems);
-	  paper_book->headers_.push (header);
+
+	  Score_lines sc;
+	  sc.paper_ = ps->paper_;
+	  sc.lines_ = systems;
+	  sc.header_ = header;
+
+	  paper_book->score_lines_.push (sc);
 	  
 	  paper_book->classic_output (ly_scm2string (outname));
 	  scm_gc_unprotect_object (paper_book->self_scm ());

@@ -83,10 +83,10 @@ Paper_line::dim () const
 		 stencil_.extent (Y_AXIS).length ());
 }
 
-SCM
+Stencil
 Paper_line::to_stencil () const
 {
-  return stencil_.smobbed_copy ();
+  return stencil_;
 }
 
 LY_DEFINE (ly_paper_line_height, "ly:paper-line-height",
@@ -122,6 +122,6 @@ LY_DEFINE (ly_paper_line_stencil, "ly:paper-line-stencil",
 {
   Paper_line *pl = unsmob_paper_line (line);
   SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
-  return pl->to_stencil ();
+  return pl->to_stencil ().smobbed_copy ();
 }
 

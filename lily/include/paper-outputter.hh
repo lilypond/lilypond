@@ -30,7 +30,8 @@ class Paper_outputter
   SCM output_module_;
   Protected_scm file_;
   String filename_;
-
+  Paper_def * paper_ ;		// THIS IS BROKEN.
+  
   void output_expr (SCM expr, Offset o);
   void output_metadata (Paper_def*, SCM);
   void output_music_output_def (Music_output_def* odef);
