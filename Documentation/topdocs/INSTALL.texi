@@ -17,8 +17,8 @@
 
 @section Downloading
 
-Even numbered versions are `stable' (2.0, 1.8 etc), while odd version
-are development releases (2.1, 1.9, etc).  Building LilyPond is an
+Even numbered versions are `stable' (2.2, 2.4 etc), while odd version
+are development releases (2.3, 2.5, etc).  Building LilyPond is an
 involved process, so if possible, download a precompiled binary from
 @uref{http://lilypond.org/,the lilypond site}.
 
@@ -315,12 +315,12 @@ environment variables set during make.
 
 @unnumberedsubsec Gcc-3.0.4
 
-Gcc 3.0.4 is flaky;  upgrade GCC.
+Gcc 3.0.4 is flaky; upgrade GCC.
 
 @unnumberedsubsec Flex-2.5.4a and gcc-3.x
 
 Flex 2.5.4a does not produce g++-3.1.1 compliant C++ code.  To compile
-LilyPond with gcc-3.1.1 you may do
+LilyPond with gcc-3.1.1 or higher you may do
 
 @example
 	CONF=gcc-3.1 ./lexer-gcc-3.1.sh
