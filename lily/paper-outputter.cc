@@ -191,7 +191,7 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
     }
 
   SCM between = SCM_EOL;
-  for (SCM s = pl->stencils (); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = pl->stencils (); is_pair (s); s = ly_cdr (s))
     {
       Stencil *stil = unsmob_stencil (ly_car (s));
       if (stil)
@@ -224,7 +224,7 @@ Paper_outputter::output_expr (SCM expr, Offset o)
 {
   while (1)
     {
-      if (!ly_pair_p (expr))
+      if (!is_pair (expr))
 	return;
   
       SCM head =ly_car (expr);

@@ -251,7 +251,7 @@ HYPHEN		--
 	  s = s.left_string (s.length () - 1);
 
 	SCM sid = lookup_identifier (s);
-	if (ly_string_p (sid)) {
+	if (is_string (sid)) {
 		new_input (ly_scm2string (sid), &global_input_file->sources_);
 		yy_pop_state ();
 	} else { 
@@ -469,7 +469,7 @@ HYPHEN		--
 		String str (YYText () + 1);
 		SCM s = lookup_markup_command (str);
 
-		if (ly_pair_p (s) && ly_symbol_p (ly_cdr (s)) ) {
+		if (is_pair (s) && is_symbol (ly_cdr (s)) ) {
 			yylval.scm = ly_car(s);
 			SCM tag = ly_cdr(s);
 			if (tag == ly_symbol2scm("markup0"))
@@ -677,14 +677,14 @@ My_lily_lexer::scan_bare_word (String str)
 	SCM sym = ly_symbol2scm (str.to_str0 ());
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
 		SCM handle = SCM_BOOL_F;
-		if (ly_pair_p (pitchname_tab_stack_))
+		if (is_pair (pitchname_tab_stack_))
 			handle = scm_hashq_get_handle (ly_car (pitchname_tab_stack_), sym);
 		
-		if (ly_pair_p (handle)) {
+		if (is_pair (handle)) {
 			yylval.scm = ly_cdr (handle);
 			if (unsmob_pitch (yylval.scm)) 
 	                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
-			else if (ly_symbol_p (yylval.scm))
+			else if (is_symbol (yylval.scm))
 			    return DRUM_PITCH;
 		}
 		else if ((handle = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)

@@ -82,7 +82,7 @@ Note_heads_engraver::process_music ()
 
       int pos = pit ? pit->steps () : 0;
       SCM c0 = get_property ("middleCPosition");
-      if (ly_number_p (c0))
+      if (is_number (c0))
 	pos += ly_scm2int (c0);
 
       note->set_property ("staff-position",   scm_int2num (pos));

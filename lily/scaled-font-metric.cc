@@ -39,7 +39,7 @@ Modified_font_metric::Modified_font_metric (String coding, Font_metric* m, Real 
       coding_vector_ = scm_call_1 (ly_scheme_function ("get-coding-vector"),
 				   scm_makfrom0str (coding_scheme_.to_str0 ()));
 
-      if (!ly_vector_p (coding_vector_))
+      if (!is_vector (coding_vector_))
 	{
 	  programming_error ("get-coding-vector  should return vector");
 	  coding_vector_ = scm_c_make_vector (256, ly_symbol2scm (".notdef"));
@@ -262,7 +262,7 @@ Modified_font_metric::text_dimension (String text)
 
 	  Box char_box;
 
-	  if (!ly_symbol_p (sym))
+	  if (!is_symbol (sym))
 	    continue;
 
 	  char const * chars =  SCM_SYMBOL_CHARS(sym);

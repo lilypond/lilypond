@@ -94,7 +94,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 	    maybe should check positions too.
 	   */
 	  if (right_mus && left_mus
-	      && ly_equal_p (right_mus->get_property ("pitch"),
+	      && is_equal (right_mus->get_property ("pitch"),
 			     left_mus->get_property ("pitch")))
 	    {
 	      Grob * p = make_spanner ("Tie");

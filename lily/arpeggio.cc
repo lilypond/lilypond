@@ -25,7 +25,7 @@ Arpeggio::print (SCM smob)
   Grob *me = unsmob_grob (smob);
   
   Grob * common = me;
-  for (SCM s = me->get_property ("stems"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("stems"); is_pair (s); s = ly_cdr (s))
     {
       Grob * stem =  unsmob_grob (ly_car (s));
       common =  common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
@@ -43,7 +43,7 @@ Arpeggio::print (SCM smob)
   Interval heads;
   Real my_y = me->relative_coordinate (common, Y_AXIS);
       
-  for (SCM s = me->get_property ("stems"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("stems"); is_pair (s); s = ly_cdr (s))
     {
       Grob * stem = unsmob_grob (ly_car (s));
       Grob * ss = Staff_symbol_referencer::get_staff_symbol (stem);
@@ -104,7 +104,7 @@ Arpeggio::brew_chord_bracket (SCM smob)
   Grob *me = unsmob_grob (smob);
   
   Grob * common = me;
-  for (SCM s = me->get_property ("stems"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("stems"); is_pair (s); s = ly_cdr (s))
     {
       Grob * stem =  unsmob_grob (ly_car (s));
       common =  common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
@@ -114,7 +114,7 @@ Arpeggio::brew_chord_bracket (SCM smob)
   Interval heads;
   Real my_y = me->relative_coordinate (common, Y_AXIS);
       
-  for (SCM s = me->get_property ("stems"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("stems"); is_pair (s); s = ly_cdr (s))
     {
       Grob * stem = unsmob_grob (ly_car (s));
       Grob * ss = Staff_symbol_referencer::get_staff_symbol (stem);

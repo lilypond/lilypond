@@ -163,7 +163,7 @@ Piano_pedal_engraver::try_music (Music *m)
       for (Pedal_info*p = info_list_; p->name_; p ++)
 	{
 	  String nm = p->name_ + String ("Event");
-	  if (ly_equal_p (m->get_property ("name") ,
+	  if (is_equal (m->get_property ("name") ,
 			  scm_str2symbol(nm.to_str0())))
 	    {
 	      Direction d = to_dir (m->get_property ("span-direction"));
@@ -291,7 +291,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 	}
     }
       
-  if (ly_string_p (s))
+  if (is_string (s))
     {
       String propname = String (p->name_) + "Pedal";
 

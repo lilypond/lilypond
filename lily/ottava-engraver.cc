@@ -46,7 +46,7 @@ Ottava_spanner_engraver::process_music ()
     {
       finished_= span_;
       span_ = 0;
-      if (ly_string_p (ott))
+      if (is_string (ott))
 	{
 	  span_  = make_spanner ("OttavaBracket");
 	  span_->set_property ("text", ott);

@@ -136,7 +136,7 @@ Multi_measure_rest_engraver::process_music ()
 	= ly_scm2int (get_property ("currentBarNumber"));
     }
 
-  bar_seen_ = ly_string_p (get_property ("whichBar"));
+  bar_seen_ = is_string (get_property ("whichBar"));
 }
 
 void
@@ -263,7 +263,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 	{
 	  SCM thres = get_property ("restNumberThreshold");
 	  int t = 1;
-	  if (ly_number_p (thres))
+	  if (is_number (thres))
 	    t = ly_scm2int (thres);
       
 	  if (num <= t)

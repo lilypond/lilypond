@@ -60,13 +60,13 @@ Accidental_interface::accurate_boxes (Grob *a,Grob**common)
   if (to_boolean (a->get_property ("cautionary")))
     {
       SCM cstyle = a->get_property ("cautionary-style");
-      parens = ly_equal_p (cstyle, ly_symbol2scm ("parentheses"));
+      parens = is_equal (cstyle, ly_symbol2scm ("parentheses"));
 
     }
 
   SCM accs = a->get_property ("accidentals");
   SCM scm_style = a->get_property ("style");
-  if (!ly_symbol_p (scm_style)
+  if (!is_symbol (scm_style)
       && !parens
       && scm_ilength (accs) == 1)
     {
@@ -175,13 +175,13 @@ Accidental_interface::print (SCM smob)
   if (caut)
     {
       SCM cstyle = me->get_property ("cautionary-style");
-      parens = ly_equal_p (cstyle, ly_symbol2scm ("parentheses"));
-      smaller = ly_equal_p (cstyle, ly_symbol2scm ("smaller"));
+      parens = is_equal (cstyle, ly_symbol2scm ("parentheses"));
+      smaller = is_equal (cstyle, ly_symbol2scm ("smaller"));
     }
 
   SCM scm_style = me->get_property ("style");
   String style;
-  if (ly_symbol_p (scm_style))
+  if (is_symbol (scm_style))
     {
       style = ly_symbol2string (scm_style);
     }
@@ -208,7 +208,7 @@ Accidental_interface::print (SCM smob)
 
   Stencil mol;
   for (SCM s = me->get_property ("accidentals");
-       ly_pair_p (s); s = ly_cdr (s))
+       is_pair (s); s = ly_cdr (s))
     {
       int alteration = ly_scm2int (ly_car (s));
       String font_char = get_fontcharname (style, alteration);

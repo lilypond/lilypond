@@ -76,7 +76,7 @@ Break_align_interface::ordered_elements (Grob *grob)
   Item *me  = dynamic_cast<Item*> (grob);
   SCM elts = me->get_property ("elements");
   SCM order_vec = me->get_property ("break-align-orders");
-  if (!ly_vector_p (order_vec)
+  if (!is_vector (order_vec)
       || ly_vector_length (order_vec) < 3)
     return  Pointer_group_interface__extract_grobs (me, (Grob*)0,
 						    "elements");
@@ -88,11 +88,11 @@ Break_align_interface::ordered_elements (Grob *grob)
     Copy in order specified in BREAK-ALIGN-ORDER.
   */
   Link_array<Grob> new_elts;
-  for (; ly_pair_p (order); order = ly_cdr (order))
+  for (; is_pair (order); order = ly_cdr (order))
     {
       SCM sym = ly_car (order);
       
-      for (SCM s =elts; ly_pair_p (s); s = ly_cdr (s))
+      for (SCM s =elts; is_pair (s); s = ly_cdr (s))
 	{
 	  Grob *g = unsmob_grob (ly_car (s));
 	  if (g && sym == g->get_property ("break-align-symbol"))
@@ -161,7 +161,7 @@ Break_align_interface::do_alignment (Grob *grob)
 	Find the first grob with a space-alist entry.
        */
       for (SCM s = l->get_property ("elements");
-	   ly_pair_p (s) ; s = ly_cdr (s))
+	   is_pair (s) ; s = ly_cdr (s))
 	  {
 	    Grob *elt = unsmob_grob (ly_car (s));
 
@@ -171,7 +171,7 @@ Break_align_interface::do_alignment (Grob *grob)
 	      edge_idx = idx;
 	    
 	    SCM l =elt->get_property ("space-alist");
-	    if (ly_pair_p (l))
+	    if (is_pair (l))
 	      {
 		alist= l;
 		break;
@@ -186,7 +186,7 @@ Break_align_interface::do_alignment (Grob *grob)
 	reason.
       */
       for (SCM s = r ? r->get_property ("elements") : SCM_EOL;
-	   !ly_symbol_p (rsym) && ly_pair_p (s); s = ly_cdr (s))
+	   !is_symbol (rsym) && is_pair (s); s = ly_cdr (s))
 	{
 	  Grob * elt =unsmob_grob (ly_car (s));
 
@@ -197,14 +197,14 @@ Break_align_interface::do_alignment (Grob *grob)
 	edge_idx = next_idx;
 
       SCM entry = SCM_EOL;
-      if (ly_symbol_p (rsym))
+      if (is_symbol (rsym))
 	entry = scm_assq (rsym, alist);
 
-      bool entry_found = ly_pair_p (entry);
+      bool entry_found = is_pair (entry);
       if (!entry_found)
 	{
 	  String sym_string;
-	  if (ly_symbol_p (rsym))
+	  if (is_symbol (rsym))
 	    sym_string = ly_symbol2string (rsym);
 
 	  String orig_string ;

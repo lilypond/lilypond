@@ -50,7 +50,7 @@ Script_engraver::try_music (Music *r)
 	This is necessary for part-combining.
        */
       for (int j = 0; j < scripts_.size (); j++)
-	if (ly_equal_p (scripts_[j]. event_->get_property ("articulation-type"),
+	if (is_equal (scripts_[j]. event_->get_property ("articulation-type"),
 			r->get_property ("articulation-type")
 			))
 	  return true;
@@ -70,7 +70,7 @@ copy_property (Grob * g , SCM sym, SCM alist)
   if (g->internal_get_property (sym) == SCM_EOL)
     {
       SCM entry = scm_assoc (sym,alist);
-      if (ly_pair_p (entry))
+      if (is_pair (entry))
 	{
 	  g->internal_set_property (sym, ly_cdr (entry));
 	}
@@ -110,7 +110,7 @@ void make_script_from_event (Grob *p,
 
   int prio =0;
   SCM sprio = scm_assoc (ly_symbol2scm ("script-priority"), art);
-  if (ly_pair_p (sprio))
+  if (is_pair (sprio))
     prio = ly_scm2int (ly_cdr (sprio));
 
 
@@ -219,7 +219,7 @@ Script_engraver::stop_translation_timestep ()
       Grob * sc = scripts_[i].script_;
 
       SCM follow = scm_assoc (ly_symbol2scm ("follow-into-staff"), scripts_[i].description_);
-      if (ly_pair_p (follow) && to_boolean (ly_cdr (follow)))
+      if (is_pair (follow) && to_boolean (ly_cdr (follow)))
 	{
 	  sc->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
 	  sc->set_property ("staff-padding", SCM_EOL);

@@ -102,7 +102,7 @@ Multi_measure_rest::print (SCM smob)
 
   int measures = 0;
   SCM m (me->get_property ("measure-count"));
-  if (ly_number_p (m))
+  if (is_number (m))
     {
       measures = ly_scm2int (m);
     }
@@ -118,7 +118,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 {
   int measures = 0;
   SCM m (me->get_property ("measure-count"));
-  if (ly_number_p (m))
+  if (is_number (m))
     {
       measures = ly_scm2int (m);
     }
@@ -282,7 +282,7 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
     }
   
   Stencil mol; 
-  for (SCM  s = mols; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM  s = mols; is_pair (s); s = ly_cdr (s))
     {
       mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (ly_car (s)), inner_padding, 0);
     }

@@ -87,7 +87,7 @@ Rest_collision::do_shift (Grob *me)
   Link_array<Grob> rests;
   Link_array<Grob> notes;
 
-  for (SCM s = elts; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = elts; is_pair (s); s = ly_cdr (s))
     {
       Grob * e = unsmob_grob (ly_car (s));
       if (unsmob_grob (e->get_property ("rest")))

@@ -73,7 +73,7 @@ ly_quote_scm (SCM s)
 String
 ly_symbol2string (SCM s)
 {
-  assert (ly_symbol_p (s));
+  assert (is_symbol (s));
   return String ((Byte*)SCM_STRING_CHARS (s), (int) SCM_STRING_LENGTH (s));
 }
 
@@ -107,7 +107,7 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   "Read the file @var{name}, and return its contents in a string.  "
 	   "The file is looked up using the search path.")
 {
-  SCM_ASSERT_TYPE (ly_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
   return scm_makfrom0str (gulp_file_to_string (ly_scm2string (name)).to_str0 ());
 }
 
@@ -125,7 +125,7 @@ ly_display_scm (SCM s)
 String
 ly_scm2string (SCM s)
 {
-  assert (ly_string_p (s));
+  assert (is_string (s));
 
   char *p = SCM_STRING_CHARS (s);
   String r (p);
@@ -138,7 +138,7 @@ ly_scm2newstr (SCM str, size_t *lenp)
   char *new_str;
   size_t len;
 
-  SCM_ASSERT_TYPE (ly_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
 
   len = SCM_STRING_LENGTH (str);
   new_str = (char *) malloc ((len + 1) * sizeof (char));
@@ -176,18 +176,18 @@ index_set_cell (SCM s, Direction d, SCM v)
 LY_DEFINE (ly_warning,"ly:warn", 1, 0, 0,
   (SCM str), "Scheme callable function to issue the warning @code{msg}.")
 {
-  SCM_ASSERT_TYPE (ly_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
   progress_indication ("\n");
   warning ("lily-guile: " + ly_scm2string (str));
   return SCM_BOOL_T;
 }
 
-LY_DEFINE (ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
+LY_DEFINE (is_dir,  "ly:dir?", 1,0, 0,  (SCM s),
 	  "type predicate. A direction is @code{-1}, @code{0} or "
 	   "@code{1}, where @code{-1} represents "
 	  "left or down and @code{1} represents right or up.")
 {
-  if (ly_number_p (s))
+  if (is_number (s))
     {
       int i = ly_scm2int (s);
       return (i>= -1 && i <= 1)  ? SCM_BOOL_T : SCM_BOOL_F; 
@@ -198,7 +198,7 @@ LY_DEFINE (ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
 bool
 is_number_pair (SCM p)
 {
-  return ly_pair_p (p) && ly_number_p (ly_car (p)) && ly_number_p (ly_cdr (p));
+  return is_pair (p) && is_number (ly_car (p)) && is_number (ly_cdr (p));
 }
 
 typedef void (*Void_fptr) ();
@@ -245,7 +245,7 @@ unsigned int ly_scm_hash (SCM s)
 bool
 is_direction (SCM s)
 {
-  if (ly_number_p (s))
+  if (is_number (s))
     {
       int i = ly_scm2int (s);
       return i>= -1 && i <= 1; 
@@ -257,7 +257,7 @@ is_direction (SCM s)
 bool
 is_axis (SCM s)
 {
-  if (ly_number_p (s))
+  if (is_number (s))
     {
       int i = ly_scm2int (s);
       return i== 0 || i == 1;
@@ -293,7 +293,7 @@ ly_interval2scm (Drul_array<Real> i)
 bool
 to_boolean (SCM s)
 {
-  return ly_boolean_p (s) && ly_scm2bool (s);
+  return is_boolean (s) && ly_scm2bool (s);
 }
 
 /* Appendable list L: the cdr contains the list, the car the last cons
@@ -335,7 +335,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
 	   1, 0, 0, (SCM s),
 	   "Convert @var{num} to a string without generating many decimals.")
 {
-  SCM_ASSERT_TYPE (ly_number_p (s), s, SCM_ARG1, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE (is_number (s), s, SCM_ARG1, __FUNCTION__, "number");
 
   char str[400];			// ugh.
 
@@ -396,7 +396,7 @@ LY_DEFINE (ly_unit,  "ly:unit", 0, 0, 0, (),
 
 
 
-LY_DEFINE (ly_dimension_p,  "ly:dimension?", 1, 0, 0, (SCM d),
+LY_DEFINE (is_dimension,  "ly:dimension?", 1, 0, 0, (SCM d),
 	  "Return @var{d} is a number. Used to distinguish length "
 	  "variables from normal numbers.")
 {
@@ -417,9 +417,9 @@ ADD_SCM_INIT_FUNC (funcs, init_functions);
 SCM
 ly_deep_copy (SCM src)
 {
-  if (ly_pair_p (src))
+  if (is_pair (src))
     return scm_cons (ly_deep_copy (ly_car (src)), ly_deep_copy (ly_cdr (src)));
-  else if (ly_vector_p (src))
+  else if (is_vector (src))
     {
       int len = SCM_VECTOR_LENGTH (src);
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
@@ -438,10 +438,10 @@ ly_deep_copy (SCM src)
 SCM
 ly_assoc_chain (SCM key, SCM achain)
 {
-  if (ly_pair_p (achain))
+  if (is_pair (achain))
     {
       SCM handle = scm_assoc (key, ly_car (achain));
-      if (ly_pair_p (handle))
+      if (is_pair (handle))
 	return handle;
       else
 	return ly_assoc_chain (key, ly_cdr (achain));
@@ -472,10 +472,10 @@ corresponds to call
 SCM
 ly_assoc_cdr (SCM key, SCM alist)
 {
-  if (ly_pair_p (alist))
+  if (is_pair (alist))
     {
       SCM trykey = ly_caar (alist);
-      if (ly_pair_p (trykey) && to_boolean (scm_equal_p (key, ly_cdr (trykey))))
+      if (is_pair (trykey) && to_boolean (scm_equal_p (key, ly_cdr (trykey))))
 	return ly_car (alist);
       else
 	return ly_assoc_cdr (key, ly_cdr (alist));
@@ -526,10 +526,10 @@ ly_truncate_list (int k, SCM lst)
     {
       SCM s = lst;
       k--;
-      for (; ly_pair_p (s) && k--; s = ly_cdr (s))
+      for (; is_pair (s) && k--; s = ly_cdr (s))
 	;
 
-      if (ly_pair_p (s))
+      if (is_pair (s))
 	scm_set_cdr_x (s, SCM_EOL);
     }
   return lst;
@@ -560,7 +560,7 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
   if (val == SCM_EOL || val == SCM_BOOL_F)
     return ok;
 
-  if (!ly_symbol_p (sym))
+  if (!is_symbol (sym))
 #if 0
     return false;
 #else
@@ -577,7 +577,7 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
   
   SCM type = scm_object_property (sym, type_symbol);
 
-  if (type != SCM_EOL && !ly_procedure_p (type))
+  if (type != SCM_EOL && !is_procedure (type))
       {
 	warning (_f ("Can't find property type-check for `%s' (%s).",
 		     ly_symbol2string (sym).to_str0 (),
@@ -593,7 +593,7 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
   else
     {
       if (val != SCM_EOL
-	  && ly_procedure_p (type)
+	  && is_procedure (type)
 	  && scm_call_1 (type, val) == SCM_BOOL_F)
 	{
 	  SCM errport = scm_current_error_port ();
@@ -625,10 +625,10 @@ SCM
 ly_unique (SCM list)
 {
   SCM unique = SCM_EOL;
-  for (SCM i = list; ly_pair_p (i); i = ly_cdr (i))
+  for (SCM i = list; is_pair (i); i = ly_cdr (i))
     {
-      if (!ly_pair_p (ly_cdr (i))
-	  || !ly_equal_p (ly_car (i), ly_cadr (i)))
+      if (!is_pair (ly_cdr (i))
+	  || !is_equal (ly_car (i), ly_cadr (i)))
 	unique = scm_cons (ly_car (i), unique);
     }
   return scm_reverse_x (unique, SCM_EOL);
@@ -648,11 +648,11 @@ ly_split_list (SCM s, SCM list)
 {
   SCM before = SCM_EOL;
   SCM after = list;
-  for (; ly_pair_p (after);)
+  for (; is_pair (after);)
     {
       SCM i = ly_car (after);
       after = ly_cdr (after);
-      if (ly_equal_p (i, s))
+      if (is_equal (i, s))
 	break;
       before = scm_cons (i, before);
     }
@@ -678,7 +678,7 @@ display_list (SCM s)
   SCM p = scm_current_output_port ();
 
   scm_puts ("(", p);
-  for (; ly_pair_p (s); s =ly_cdr (s))
+  for (; is_pair (s); s =ly_cdr (s))
     {
       scm_display (ly_car (s), p);
       scm_puts (" ", p);      
@@ -692,8 +692,8 @@ int_list_to_slice (SCM l)
 {
   Slice s;
   s.set_empty ();
-  for (; ly_pair_p (l); l = ly_cdr (l))
-    if (ly_number_p (ly_car (l)))
+  for (; is_pair (l); l = ly_cdr (l))
+    if (is_number (ly_car (l)))
       s.add_point (ly_scm2int (ly_car (l))); 
   return s;
 }
@@ -705,7 +705,7 @@ int_list_to_slice (SCM l)
 SCM
 robust_list_ref (int i, SCM l)
 {
-  while (i-- > 0 && ly_pair_p (ly_cdr (l)))
+  while (i-- > 0 && is_pair (ly_cdr (l)))
     l = ly_cdr (l);
   return ly_car (l);
 }
@@ -713,7 +713,7 @@ robust_list_ref (int i, SCM l)
 Real
 robust_scm2double (SCM k, double x)
 {
-  if (ly_number_p (k))
+  if (is_number (k))
     x = ly_scm2double (k);
   return x;
 }
@@ -761,7 +761,7 @@ alist_to_hashq (SCM alist)
     return scm_make_vector (scm_int2num (0), SCM_EOL);
 	  
   SCM tab = scm_make_vector (scm_int2num (i), SCM_EOL);
-  for (SCM s = alist; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = alist; is_pair (s); s = ly_cdr (s))
     {
       SCM pt = ly_cdar (s);
       scm_hashq_set_x (tab, ly_caar (s), pt);

@@ -75,7 +75,7 @@ Figured_bass_engraver::process_music ()
   else if (figures_.size ())
     {
       SCM proc = get_property ("bassFigureFormatFunction");
-      if (ly_procedure_p (proc)) 
+      if (is_procedure (proc)) 
 	{
 	  SCM l = SCM_EOL;
 	  SCM * t = &l;

@@ -63,7 +63,7 @@ Event::to_relative_octave (Pitch last)
       new_pit = new_pit.to_relative_octave (last);
 
       SCM check = get_property ("absolute-octave");
-      if (ly_number_p (check) &&
+      if (is_number (check) &&
 	  new_pit.get_octave () != ly_scm2int (check))
 	{
 	  Pitch expected_pit (ly_scm2int (check),
@@ -142,11 +142,11 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
   SCM newlist = SCM_EOL;
   Pitch *p = unsmob_pitch (pit);
   
-  for (SCM s = l; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = l; is_pair (s); s = ly_cdr (s))
     {
       SCM key = ly_caar (s);
       SCM alter = ly_cdar (s);
-      if (ly_pair_p (key))
+      if (is_pair (key))
 	{
 	  Pitch orig (ly_scm2int (ly_car (key)),
 		      ly_scm2int (ly_cdr (key)),
@@ -160,7 +160,7 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
 	  newlist = scm_cons (scm_cons (key, scm_int2num (orig.get_alteration ())),
 			     newlist);
 	}
-      else if (ly_number_p (key))
+      else if (is_number (key))
 	{
 	  Pitch orig (0, ly_scm2int (key), ly_scm2int (alter));
 	  orig = orig.transposed (*p);
@@ -188,14 +188,14 @@ bool
 alist_equal_p (SCM a, SCM b)
 {
   for (SCM s = a;
-       ly_pair_p (s); s = ly_cdr (s))
+       is_pair (s); s = ly_cdr (s))
     {
       SCM key = ly_caar (s);
       SCM val = ly_cdar (s);
       SCM l = scm_assoc (key, b);
 
       if (l == SCM_BOOL_F
-	  || !ly_equal_p ( ly_cdr (l), val))
+	  || !is_equal ( ly_cdr (l), val))
 
 	return false;
     }

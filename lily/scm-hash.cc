@@ -19,7 +19,7 @@ copy_scm_hashes (SCM dest, SCM src)
 {
   int k = 0;
   for (int i = SCM_VECTOR_LENGTH (src); i--;)
-    for (SCM s = scm_vector_ref (src, SCM_MAKINUM (i)); ly_pair_p (s); s = ly_cdr (s))
+    for (SCM s = scm_vector_ref (src, SCM_MAKINUM (i)); is_pair (s); s = ly_cdr (s))
       {
 	scm_hashq_set_x (dest, ly_caar (s), ly_cdar (s));
 	k++;
@@ -82,7 +82,7 @@ bool
 Scheme_hash_table::try_retrieve (SCM k, SCM *v)
 {
   SCM handle = scm_hashq_get_handle (hash_tab_, k);
-  if (ly_pair_p (handle))
+  if (is_pair (handle))
     {
       *v = ly_cdr (handle);
       return true;
@@ -95,13 +95,13 @@ Scheme_hash_table::try_retrieve (SCM k, SCM *v)
 bool
 Scheme_hash_table::contains (SCM k) const
 {
-  return ly_pair_p (scm_hashq_get_handle (hash_tab_, k));
+  return is_pair (scm_hashq_get_handle (hash_tab_, k));
 }
 
 void
 Scheme_hash_table::set (SCM k, SCM v)
 {
-  assert (ly_symbol_p (k));
+  assert (is_symbol (k));
   SCM handle = scm_hashq_create_handle_x (hash_tab_, k, SCM_UNDEFINED);
   if (ly_cdr (handle) == SCM_UNDEFINED)
     {
@@ -150,7 +150,7 @@ Scheme_hash_table::to_alist () const
 {
   SCM l = SCM_EOL;
   for (int i = SCM_VECTOR_LENGTH (hash_tab_); i--;)
-    for (SCM s = scm_vector_ref (hash_tab_, scm_int2num (i)); ly_pair_p (s); s = ly_cdr (s))
+    for (SCM s = scm_vector_ref (hash_tab_, scm_int2num (i)); is_pair (s); s = ly_cdr (s))
       {
 	l = scm_acons (ly_caar (s), ly_cdar (s), l);
       }

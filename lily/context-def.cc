@@ -104,7 +104,7 @@ Context_def::add_context_mod (SCM mod)
     }
 
   SCM sym = ly_cadr (mod);
-  if (ly_string_p (sym))
+  if (is_string (sym))
     sym = scm_string_to_symbol (sym);
   
   if (ly_symbol2scm ("consists") == tag
@@ -161,7 +161,7 @@ Context_def::get_accepted (SCM user_mod) const
   SCM mods = scm_reverse_x (scm_list_copy (accept_mods_),
 			    user_mod);
   SCM acc = SCM_EOL;
-  for (SCM s = mods; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = mods; is_pair (s); s = ly_cdr (s))
     {
       SCM tag = ly_caar (s);
       SCM sym = ly_cadar (s);
@@ -177,12 +177,12 @@ Context_def::get_accepted (SCM user_mod) const
 Link_array<Context_def>
 Context_def::path_to_acceptable_context (SCM type_sym, Music_output_def* odef) const
 {
-  assert (ly_symbol_p (type_sym));
+  assert (is_symbol (type_sym));
   
   SCM accepted = get_accepted (SCM_EOL);
 
   Link_array<Context_def> accepteds;
-  for (SCM s = accepted; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = accepted; is_pair (s); s = ly_cdr (s))
     {
       Context_def *t = unsmob_context_def (odef->find_context_def (ly_car (s)));
       if (!t)
@@ -196,7 +196,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Music_output_def* odef) c
       /*
 	don't check aliases, because \context Staff should not create RhythmicStaff.
       */
-      if (ly_equal_p (accepteds[i]->get_context_name (), type_sym))
+      if (is_equal (accepteds[i]->get_context_name (), type_sym))
 	{
 	  best_result.push (accepteds[i]);
 	  return best_result;
@@ -239,12 +239,12 @@ Context_def::get_translator_names (SCM user_mod) const
   SCM mods = scm_reverse_x (scm_list_copy (translator_mods_),
 			    user_mod);
   
-  for (SCM s = mods; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = mods; is_pair (s); s = ly_cdr (s))
     {
       SCM tag = ly_caar (s);
       SCM arg = ly_cadar (s);
 
-      if (ly_string_p (arg))
+      if (is_string (arg))
 	arg = scm_string_to_symbol (arg);
       
       if (ly_symbol2scm ("consists") == tag)
@@ -265,7 +265,7 @@ Context_def::get_translator_names (SCM user_mod) const
 SCM
 filter_performers (SCM l)
 {
-  for (SCM *tail = &l; ly_pair_p (*tail); tail = SCM_CDRLOC (*tail))
+  for (SCM *tail = &l; is_pair (*tail); tail = SCM_CDRLOC (*tail))
     {
       if (dynamic_cast<Performer*> (unsmob_translator (ly_car (*tail))))
 	{
@@ -279,7 +279,7 @@ filter_performers (SCM l)
 SCM
 filter_engravers (SCM l)
 {
-  for (SCM *tail = &l; ly_pair_p (*tail) ; tail = SCM_CDRLOC (*tail))
+  for (SCM *tail = &l; is_pair (*tail) ; tail = SCM_CDRLOC (*tail))
     {
       if (dynamic_cast<Engraver*> (unsmob_translator (ly_car (*tail))))
 	{
@@ -364,7 +364,7 @@ Context_def::to_alist () const
   l = scm_cons (scm_cons (ly_symbol2scm ("property-ops"),  property_ops_), l);
   l = scm_cons (scm_cons (ly_symbol2scm ("context-name"),  context_name_), l);
 
-  if (ly_symbol_p (translator_group_type_))
+  if (is_symbol (translator_group_type_))
     l = scm_cons (scm_cons (ly_symbol2scm ("group-type"),  translator_group_type_), l);    
 
   return l;  

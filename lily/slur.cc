@@ -120,7 +120,7 @@ Slur::after_line_breaking (SCM smob)
       return SCM_UNSPECIFIED;
     }
   set_extremities (me);
-  if (!ly_pair_p (me->get_property ("control-points")))
+  if (!is_pair (me->get_property ("control-points")))
     set_control_points (me);
   return SCM_UNSPECIFIED;
 } 
@@ -133,7 +133,7 @@ Slur::check_slope (Grob *me)
     Avoid too steep slurs.
    */
   SCM s = me->get_property ("slope-limit");
-  if (ly_number_p (s))
+  if (is_number (s))
     {
       Array<Offset> encompass = get_encompass_offsets (me);
       Drul_array<Offset> attachment;
@@ -182,7 +182,7 @@ Slur::set_extremities (Grob *me)
   SCM att = me->get_property ("attachment");
       /*
        */
-      if (!ly_pair_p (att))
+      if (!is_pair (att))
 	{
 	  programming_error ("attachment is not a cons?!");
 	  att = scm_cons (SCM_EOL, SCM_EOL);
@@ -193,15 +193,15 @@ Slur::set_extremities (Grob *me)
   do 
     {
     
-      if (!ly_symbol_p (index_get_cell (att, dir)))
+      if (!is_symbol (index_get_cell (att, dir)))
 	{
 	  SCM p = me->get_property ("extremity-function");
 	  SCM res = ly_symbol2scm ("head");
 	  
-	  if (ly_procedure_p (p))
+	  if (is_procedure (p))
 	    res =  scm_call_2 (p, me->self_scm (), scm_int2num (dir));
 
-	  if (ly_symbol_p (res))
+	  if (is_symbol (res))
 	    index_set_cell (att, dir, res);
 	}
     }
@@ -218,7 +218,7 @@ Slur::get_boundary_notecolumn_y (Grob *me, Direction dir)
 {
   SCM cols = me->get_property ("note-columns");
 
-  if (!ly_pair_p (cols))
+  if (!is_pair (cols))
     {
       programming_error ("No note-columns in slur?");
       me->suicide ();
@@ -288,7 +288,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 		      Grob **common) 
 {
   SCM s = me->get_property ("attachment");
-  if (!ly_pair_p (s) || !ly_symbol_p (index_get_cell (s, dir)))
+  if (!is_pair (s) || !is_symbol (index_get_cell (s, dir)))
     {
       s = set_extremities (me);
     }
@@ -565,7 +565,7 @@ Slur::print (SCM smob)
     TODO: replace dashed with generic property.
    */
   SCM d =  me->get_property ("dashed");
-  if (ly_number_p (d))
+  if (is_number (d))
     a = Lookup::dashed_slur (one, thick, thick * robust_scm2double (d, 0));
   else
     a = Lookup::slur (one, get_grob_direction (me) * base_thick * ss / 10.0,
@@ -598,13 +598,13 @@ Slur::set_control_points (Grob*me)
 
       SCM ssb = me->get_property ("beautiful");
       Real sb = 0;
-      if (ly_number_p (ssb))
+      if (is_number (ssb))
 	sb = ly_scm2double (ssb);
 
       bb.minimise_enclosed_area (sb, details);
       SCM sbf = scm_assq (ly_symbol2scm ("force-blowfit"), details);
       Real bff = 1.0;
-      if (ly_pair_p (sbf) && ly_number_p (ly_cdr (sbf)))
+      if (is_pair (sbf) && is_number (ly_cdr (sbf)))
 	  bff = ly_scm2double (ly_cdr (sbf));
 
       bb.curve_.control_[1][Y_AXIS] *= bff;
@@ -650,16 +650,16 @@ Slur::get_curve (Grob*me)
   int i = 0;
 
   SCM attach = me->get_property ("attachment");
-  if (!ly_pair_p (attach))
+  if (!is_pair (attach))
     attach = set_extremities (me);
 
   
   if (!get_grob_direction (me)
-      || ! ly_symbol_p (index_get_cell (attach, LEFT))
-      || ! ly_symbol_p (index_get_cell (attach, RIGHT)))
+      || ! is_symbol (index_get_cell (attach, LEFT))
+      || ! is_symbol (index_get_cell (attach, RIGHT)))
     set_extremities (me);
   
-  if (!ly_pair_p (me->get_property ("control-points")))
+  if (!is_pair (me->get_property ("control-points")))
     set_control_points (me);
 
   // set_control_points may suicide

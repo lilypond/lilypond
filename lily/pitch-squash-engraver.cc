@@ -22,7 +22,7 @@ void
 Pitch_squash_engraver::acknowledge_grob (Grob_info i)
 {
   SCM newpos = get_property ("squashedPosition");
-  if (ly_number_p (newpos)
+  if (is_number (newpos)
       && Note_head::has_interface (i.grob_))
     {
       i.grob_->set_property ("staff-position", newpos);

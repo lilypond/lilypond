@@ -75,7 +75,7 @@ System_start_delimiter::after_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   SCM   gl = me->get_property ("glyph");
-  if (ly_equal_p (gl,scm_makfrom0str ("bar-line")))
+  if (is_equal (gl,scm_makfrom0str ("bar-line")))
     {
       int count = 0;
 
@@ -84,7 +84,7 @@ System_start_delimiter::after_line_breaking (SCM smob)
       */
       SCM elts = me->get_property ("elements");
       Grob *common = common_refpoint_of_list (elts, me, Y_AXIS);
-      for (SCM s = elts; ly_pair_p (s); s = ly_cdr (s))
+      for (SCM s = elts; is_pair (s); s = ly_cdr (s))
 	{
 	  Interval v = unsmob_grob (ly_car (s))->extent (common, Y_AXIS);
 
@@ -109,7 +109,7 @@ System_start_delimiter::print (SCM smob)
   Grob * me = unsmob_grob (smob);
 
   SCM s = me->get_property ("glyph");
-  if (!ly_string_p (s))
+  if (!is_string (s))
     return SCM_EOL;
   SCM gsym = scm_string_to_symbol (s) ;
   

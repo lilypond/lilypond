@@ -108,7 +108,7 @@ Staff_symbol_referencer::callback (SCM element_smob, SCM)
 
   SCM pos = me->get_property ("staff-position");
   Real off = 0.0;
-  if (ly_number_p (pos))
+  if (is_number (pos))
     {
       Real space = Staff_symbol_referencer::staff_space (me);
       off = ly_scm2double (pos) * space / 2.0;

@@ -114,7 +114,7 @@ Tuplet_bracket::print (SCM smob)
     SCM lp = me->get_property ("left-position");
     SCM rp = me->get_property ("right-position");  
 
-    if (!ly_number_p (rp) || !ly_number_p (lp))
+    if (!is_number (rp) || !is_number (lp))
       after_line_breaking (smob);
   }
   
@@ -133,7 +133,7 @@ Tuplet_bracket::print (SCM smob)
     Fixme: the type of this prop is sucky.
    */
   SCM bracket = me->get_property ("bracket-visibility");
-  if (ly_boolean_p (bracket))
+  if (is_boolean (bracket))
     {
       bracket_visibility = ly_scm2bool (bracket);
     }
@@ -141,7 +141,7 @@ Tuplet_bracket::print (SCM smob)
     bracket_visibility = !par_beam;
 
   SCM numb = me->get_property ("number-visibility");  
-  if (ly_boolean_p (numb))
+  if (is_boolean (numb))
     {
       number_visibility = ly_scm2bool (numb);
     }
@@ -170,7 +170,7 @@ Tuplet_bracket::print (SCM smob)
 
   Paper_def *pap = me->get_paper ();
   Stencil num;
- if (ly_string_p (number) && number_visibility)
+ if (is_string (number) && number_visibility)
     {
       SCM properties = Font_interface::text_font_alist_chain (me);
       SCM snum = Text_item::interpret_markup (pap->self_scm (), properties, number);
@@ -487,15 +487,15 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   SCM lp =  me->get_property ("left-position");
   SCM rp = me->get_property ("right-position");  
   
-  if (ly_number_p (lp) && !ly_number_p (rp))
+  if (is_number (lp) && !is_number (rp))
     {
       rp = scm_make_real (ly_scm2double (lp) + dy);
     }
-  else if (ly_number_p (rp) && !ly_number_p (lp))
+  else if (is_number (rp) && !is_number (lp))
     {
       lp = scm_make_real (ly_scm2double (rp) - dy);
     }
-  else if (!ly_number_p (rp) && !ly_number_p (lp))
+  else if (!is_number (rp) && !is_number (lp))
     {
       lp = scm_make_real (offset);
       rp = scm_make_real (offset +dy);
@@ -515,7 +515,7 @@ Direction
 Tuplet_bracket::get_default_dir (Grob*me)
 {
   Drul_array<int> dirs (0,0);  
-  for (SCM s = me->get_property ("note-columns"); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("note-columns"); is_pair (s); s = ly_cdr (s))
     {
       Grob * nc = unsmob_grob (ly_car (s));
       Direction d = Note_column::dir (nc);

@@ -98,7 +98,7 @@ Line_spanner::line_stencil (Grob *me,
 {
   Offset dz = to -from ; 
   SCM type = me->get_property ("style");
-  if (ly_symbol_p (type)
+  if (is_symbol (type)
       && (type == ly_symbol2scm ("line")
 	  || type == ly_symbol2scm ("dashed-line")
 	  || type == ly_symbol2scm ("dotted-line")
@@ -109,7 +109,7 @@ Line_spanner::line_stencil (Grob *me,
 	? zigzag_stencil (me, from, to)
 	: Line_interface::line (me, from, to);
     }
-  else if (ly_symbol_p (type)
+  else if (is_symbol (type)
 	   && type == ly_symbol2scm ("trill"))
     {
       SCM alist_chain = Font_interface::text_font_alist_chain (me);

@@ -93,7 +93,7 @@ Text_engraver::process_acknowledged_grobs ()
       // Hmm
       int priority = 200;
       SCM s = text->get_property ("script-priority");
-      if (ly_number_p (s))
+      if (is_number (s))
 	priority = ly_scm2int (s);
       
       /* see script-engraver.cc */

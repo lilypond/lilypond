@@ -101,13 +101,13 @@ Paper_def::get_paper_outputter (String outname)  const
 
 
 Font_metric *
-Paper_def::find_scaled_font (Font_metric *f, Real m)
+Paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
 {
   SCM sizes = scm_hashq_ref (scaled_fonts_, f->self_scm (), SCM_BOOL_F);
   if (sizes != SCM_BOOL_F)
     {
       SCM met = scm_assoc (scm_make_real (m), sizes);
-      if (ly_pair_p (met))
+      if (is_pair (met))
 	return unsmob_metrics (ly_cdr (met));
     }
   else
@@ -136,10 +136,10 @@ Paper_def::find_scaled_font (Font_metric *f, Real m)
        */
       SCM l = SCM_EOL;
       SCM *t =  &l;
-      for (SCM s = vf->get_font_list (); ly_pair_p (s); s = ly_cdr (s))
+      for (SCM s = vf->get_font_list (); is_pair (s); s = ly_cdr (s))
 	{
 	  Font_metric*scaled
-	    = find_scaled_font (unsmob_metrics (ly_car (s)), m);
+	    = find_scaled_font (unsmob_metrics (ly_car (s)), m, input_enc_name);
 	  *t = scm_cons (scaled->self_scm (), SCM_EOL);
 	  t = SCM_CDRLOC(*t);
 	}
@@ -150,11 +150,14 @@ Paper_def::find_scaled_font (Font_metric *f, Real m)
   else
     {
       SCM scale_var = ly_module_lookup (scope_, ly_symbol2scm ("outputscale"));
-      SCM coding_var = ly_module_lookup (scope_, ly_symbol2scm ("inputencoding"));
 
+      if (!is_symbol (input_enc_name))
+	{
+	  SCM var = ly_module_lookup (scope_, ly_symbol2scm ("inputencoding"));
+	  input_enc_name = scm_variable_ref (var);
+	}
       m /= ly_scm2double (scm_variable_ref (scale_var));
-      val = Modified_font_metric::make_scaled_font_metric (scm_variable_ref (coding_var),
-							   f, m);
+      val = Modified_font_metric::make_scaled_font_metric (input_enc_name, f, m);
     }
 
   sizes = scm_acons (scm_make_real (m), val, sizes);
@@ -176,10 +179,10 @@ Paper_def::font_descriptions () const
   SCM func = ly_scheme_function ("hash-table->alist");
 
   SCM l = SCM_EOL;
-  for (SCM s = scm_call_1 (func, scaled_fonts_); ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = scm_call_1 (func, scaled_fonts_); is_pair (s); s = ly_cdr (s))
     {
       SCM entry = ly_car (s);
-      for (SCM t = ly_cdr (entry); ly_pair_p (t); t  = ly_cdr (t))
+      for (SCM t = ly_cdr (entry); is_pair (t); t  = ly_cdr (t))
 	{
 	  Font_metric *fm= unsmob_metrics (ly_cdar (t));
 

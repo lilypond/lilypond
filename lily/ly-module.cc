@@ -40,7 +40,7 @@ ly_clear_anonymous_modules ()
   SCM s = anon_modules;
   anon_modules = SCM_EOL;
   
-  for (; ly_pair_p (s) ; s = ly_cdr (s))
+  for (; is_pair (s) ; s = ly_cdr (s))
     {
       SCM tab= scm_c_make_hash_table (2);
       /* UGH. */

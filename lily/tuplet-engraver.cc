@@ -79,7 +79,7 @@ Tuplet_engraver::process_acknowledged_grobs ()
       
 
       SCM proc = get_property ("tupletNumberFormatFunction");
-      if (ly_procedure_p (proc))
+      if (is_procedure (proc))
 	{
 	  SCM t = scm_apply_0 (proc, scm_list_n (time_scaled_musics_[i]->self_scm (), SCM_UNDEFINED));
 	  glep->set_property ("text", t);

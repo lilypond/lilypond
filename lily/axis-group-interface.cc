@@ -41,7 +41,7 @@ Interval
 Axis_group_interface::relative_group_extent (Axis a, Grob *common, SCM elts)
 {
   Interval r;
-  for (SCM s = elts; ly_pair_p (s); s = ly_cdr (s))
+  for (SCM s = elts; is_pair (s); s = ly_cdr (s))
     {
       Grob * se = unsmob_grob (ly_car (s));
       Interval dims = se->extent (common, a);
@@ -75,7 +75,7 @@ Axis_group_interface::set_axes (Grob*me,Axis a1, Axis a2)
 
   SCM axes = me->get_property ("axes");
   
-  if (!ly_pair_p (axes)
+  if (!is_pair (axes)
       || scm_c_memq (sa1, axes) == SCM_BOOL_F
       || scm_c_memq (sa2, axes) == SCM_BOOL_F)
     {
@@ -108,7 +108,7 @@ Axis_group_interface::get_children (Grob*me)
   if (!has_interface (me))
     return childs;
   
-  for (SCM ep = me->get_property ("elements"); ly_pair_p (ep); ep = ly_cdr (ep))
+  for (SCM ep = me->get_property ("elements"); is_pair (ep); ep = ly_cdr (ep))
     {
       Grob* e = unsmob_grob (ly_car (ep));
       if (e)

@@ -121,7 +121,7 @@ completize_extender (Spanner* sp)
   if (!sp->get_bound (RIGHT))
     {
       SCM heads = sp->get_property ("heads");
-      if (ly_pair_p (heads))
+      if (is_pair (heads))
 	{
 	  Item* it = dynamic_cast<Item*> (unsmob_grob (ly_car (heads)));
 	  if (it)
