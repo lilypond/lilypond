@@ -282,6 +282,13 @@
      Vaticana_ligature::brew_ligature_primitive
      Vaticana_ligature::print
      Volta_bracket_interface::print
+
+     begin-of-line-invisible
+     begin-of-line-visible
+     
+     end-of-line-invisible
+     end-of-line-visible
+     
      )))
 
 (define-public (make-safe-lilypond-module)

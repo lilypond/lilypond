@@ -134,6 +134,7 @@ NOQUOTE = 'noquote'
 NOTES = 'body'
 NOTIME = 'notime'
 OUTPUT = 'output'
+OUTPUTIMAGE = 'outputimage'
 PAPER = 'paper'
 PREAMBLE = 'preamble'
 PRINTFILENAME = 'printfilename'
@@ -486,11 +487,12 @@ output = {
 %(code)s
 @lilypond''',
 
-		OUTPUT: r'''@noindent
+		OUTPUT: r'''
 @iftex
 @include %(base)s-systems.texi
-@end iftex
+@end iftex''',
 
+		OUTPUTIMAGE: r'''@noindent
 @ifnottex
 @image{%(base)s,,,[image of music],%(ext)s}
 @end ifnottex
@@ -934,7 +936,10 @@ class Lilypond_snippet (Snippet):
 			# URG, makeinfo implicitly prepends dot to extension.
 			# Specifying no extension is most robust.
 			ext = ''
-			str += output[TEXINFO][OUTPUT] % vars ()
+			str += output[TEXINFO][OUTPUTIMAGE] % vars ()
+
+		base = self.basename()
+		str += output[format][OUTPUT] % vars()
 		return str
 
 	def output_latex (self):
@@ -957,6 +962,7 @@ class Lilypond_snippet (Snippet):
 			base = self.basename ()
 			filename = self.substring ('filename')
 			str = output[format][PRINTFILENAME] % vars ()
+
 		return str
 
 	def output_texinfo (self):
@@ -981,6 +987,7 @@ class Lilypond_snippet (Snippet):
 				str = output[TEXINFO][NOQUOTE] % vars()
 
 		str += self.output_info ()
+		
 #		str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
 #		str += ('@tex\n' + self.output_latex () + '\n@end tex\n')
 #		str += ('@html\n' + self.output_html () + '\n@end html\n')
@@ -1228,19 +1235,20 @@ def do_process_cmd (chunks):
 		ly.progress (_ ("All snippets are up to date..."))
 	ly.progress ('\n')
 
+def guess_format (input_filename):
+	format = None
+	e = os.path.splitext (input_filename)[1]
+	if e in ext2format.keys ():
+		# FIXME
+		format = ext2format[e]
+	else:
+		ly.error (_ ("cannot determine format for: %s" \
+			     % input_filename))
+		ly.exit (1)
+	return format
+	
 def do_file (input_filename):
 	# Ugh.
-	global format
-	if not format:
-		e = os.path.splitext (input_filename)[1]
-		if e in ext2format.keys ():
-			# FIXME
-			format = ext2format[e]
-		else:
-			ly.error (_ ("cannot determine format for: %s" \
-				     % input_filename))
-			ly.exit (1)
-
 	if not input_filename or input_filename == '-':
 		in_handle = sys.stdin
 		input_fullname = '<stdin>'
@@ -1412,13 +1420,19 @@ def do_options ():
 
 def main ():
 	files = do_options ()
-	global process_cmd
+	if not files:
+		ly.warning ("Need to have command line option")
+		ly.exit (2)
+
+	file = files[0]
+	global process_cmd, format
+	format = guess_format (files[0])
 
 	formats = "ps"
 	if format == TEXINFO:
-		formats += ",png" 
+		formats += ',png' 
 	if process_cmd == '':
-		process_cmd = lilypond_binary + ' --formats=%s  --backend ps ' % formats
+		process_cmd = lilypond_binary + ' --formats=%s --backend eps ' % formats
 
 	if process_cmd:
 		process_cmd += string.join ([(' -I %s' % p)
@@ -1426,11 +1440,12 @@ def main ():
 
 	ly.identify (sys.stderr)
 	ly.setup_environment ()
-	if files:
-		try:
-			do_file (files[0])
-		except Compile_error:
-			ly.exit (1)
+
+	try:
+		do_file (file)
+	except Compile_error:
+		ly.exit (1)
+
 
 if __name__ == '__main__':
 	main ()

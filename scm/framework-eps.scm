@@ -1,0 +1,86 @@
+;;;; framework-ps.scm --
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;;
+;;;; (c)  2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+
+(define-module (scm framework-eps))
+
+;;; this is still too big a mess.
+
+(use-modules (ice-9 regex)
+	     (ice-9 string-fun)
+	     (ice-9 format)
+	     (guile)
+	     (scm framework-ps)
+	     (scm output-ps)
+	     (srfi srfi-1)
+	     (srfi srfi-13)
+	     (lily))
+
+(define framework-eps-module (current-module))
+
+(define (dump-stencils-as-EPSes stencils book basename)
+  (define paper (ly:paper-book-paper book))
+  (define (dump-infinite-stack-EPS stencils)
+    (let*
+	((dump-me (stack-stencils Y DOWN 2.0 stencils)))
+      (dump-stencil-as-EPS paper dump-me basename #t)
+      ))
+
+  (define (dump-stencils-as-separate-EPS stencils count)
+    (if (pair? stencils)
+	(let*
+	    ((line (car stencils))
+	     (rest (cdr stencils)))
+	  (dump-stencil-as-EPS
+	   paper
+	   line (format "~a-~a" basename count)
+	   #f)
+
+	  (dump-stencils-as-separate-EPS rest (1+ count))
+	  )))
+  
+  (let* ((tex-system-name (format "~a-systems.tex" basename))
+	 (texi-system-name (format "~a-systems.texi" basename))
+	 (tex-system-port (open-output-file tex-system-name))
+	 (texi-system-port (open-output-file texi-system-name)))
+    
+    (display (format "Writing ~a\n" tex-system-name))
+    (display (format "Writing ~a\n" texi-system-name))
+    (dump-stencils-as-separate-EPS stencils 1)
+    (for-each (lambda (c)
+		(display (format "\\includegraphics{~a-~a.eps}%\n"
+				 basename (1+ c)) tex-system-port)
+		(display (format "@image{~a-~a}%\n"
+				 basename (1+ c)) texi-system-port))
+	      (iota (length stencils)))
+
+    (display "@c eof" texi-system-port)
+    (display "% eof" tex-system-port)
+    
+    (dump-infinite-stack-EPS stencils))
+    (postprocess-output book framework-eps-module
+			(format "~a.eps" basename) (ly:output-formats)))
+
+(define-public (output-classic-framework
+		basename book scopes fields)
+
+  (dump-stencils-as-EPSes
+   (map ly:paper-system-stencil (ly:paper-book-systems book))
+   book
+   basename))
+
+(define-public (output-framework basename book scopes fields)
+  (dump-stencils-as-EPSes (ly:paper-book-pages book)
+			  book
+			  basename))
+  
+
+; redefine to imports from framework-ps
+(define convert-to-pdf convert-to-pdf)
+(define convert-to-ps convert-to-ps)
+(define convert-to-png convert-to-png)
+(define convert-to-tex convert-to-tex)
+(define convert-to-dvi convert-to-dvi)
+

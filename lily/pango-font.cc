@@ -162,7 +162,12 @@ Pango_font::text_stencil (String str) const
       ptr = ptr->next;      
     }
 
-  if (output_backend_global != "ps")
+  /*
+    UGH. Should have flags per output format signifying supported
+    options.
+   */
+  if (output_backend_global != "ps"
+      && output_backend_global != "eps")
     {
       /*
 	For Pango based backends, we take a shortcut.

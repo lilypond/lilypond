@@ -236,8 +236,7 @@
 
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.ps" basename))
-	 (outputter  (ly:make-paper-outputter filename
-					      (ly:output-backend)))
+	 (outputter  (ly:make-paper-outputter filename "ps"))
 	 (paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
@@ -265,10 +264,43 @@
 (if (not (defined? 'inf?))
     (define (inf? x) #f))
 
+
+(define-public (dump-stencil-as-EPS paper dump-me filename load-fonts?)
+  (let*
+      ((outputter (ly:make-paper-outputter (format "~a.eps" filename)
+					   "ps"))
+       
+       (port (ly:outputter-port outputter))
+       (xext (ly:stencil-extent dump-me X))
+       (yext (ly:stencil-extent dump-me Y))
+       (scale  (ly:output-def-lookup paper 'outputscale))
+       (bbox
+	(map
+	 (lambda (x)
+	   (if (or (nan? x) (inf? x))
+	       0.0 x))
+	 (list (car xext) (car yext)
+	       (cdr xext) (cdr yext))))
+       (rounded-bbox
+	(map
+	 (lambda (x)
+	   (inexact->exact
+	    (round (* x scale mm-to-bigpoint)))) bbox))
+       (port (ly:outputter-port outputter))
+       (header (eps-header paper rounded-bbox load-fonts?)))
+
+    (display header port)
+    (write-preamble paper load-fonts? port)
+    (display "start-system { set-ps-scale-to-lily-scale \n" port)
+    (ly:outputter-dump-stencil outputter dump-me)
+    (display "} stop-system\n%%Trailer\n%%EOF\n" port)
+    (ly:outputter-close outputter)
+    ))
+
+
 (define-public (output-preview-framework basename book scopes fields )
-  (let* ((filename (format "~a.ps" basename))
-	 (outputter  (ly:make-paper-outputter filename
-					      (ly:output-backend)))
+  (let* ((outputter  (ly:make-paper-outputter filename
+					      "ps"))
 	 (paper (ly:paper-book-paper book))
 	 (systems (ly:paper-book-systems book))
 	 (scale  (ly:output-def-lookup paper 'outputscale ))
@@ -278,133 +310,10 @@
 	 (dump-me
 	  (stack-stencils Y DOWN 0.0
 			  (map ly:paper-system-stencil
-			       (append titles (list non-title)))))
-	 (xext (ly:stencil-extent dump-me X))
-	 (yext (ly:stencil-extent dump-me Y))
-	 (bbox
-	  (map
-	   (lambda (x)
-	     (if (or (nan? x) (inf? x))
-		 0.0 x))
-	   (list (car xext) (car yext)
-		 (cdr xext) (cdr yext))))
-	 (rounded-bbox
-	  (map
-	   (lambda (x)
-	     (inexact->exact
-	      (round (* x scale mm-to-bigpoint))))))
-	 (port (ly:outputter-port outputter))
-	  )
-    
-
-    (display (eps-header paper rounded-bbox #t) port)
-    (write-preamble paper #t port)
-    (display "start-system { set-ps-scale-to-lily-scale \n" port)
-    (ly:outputter-dump-stencil outputter dump-me)
-    (display outputter "} stop-system\n%%Trailer\n%%EOF\n" port)
-    (ly:outputter-close outputter)
-    (postprocess-output book framework-ps-module filename
-			(ly:output-formats))
-))
+			       (append titles (list non-title))))))
+    (dump-stencil-as-EPS paper dump-me basename #t)))
 
 
-(define-public (output-classic-framework
-		basename book scopes fields)
-  (define paper (ly:paper-book-paper book))
-  (define (dump-line outputter line)
-    (let*
-	((dump-me (ly:paper-system-stencil line))
-	 (xext (ly:stencil-extent dump-me X))
-	 (yext (ly:stencil-extent dump-me Y))
-	 (scale  (ly:output-def-lookup paper 'outputscale))
-	 (bbox
-	  (map
-	   (lambda (x)
-	     (if (or (nan? x) (inf? x))
-		 0.0 x))
-	   (list (car xext) (car yext)
-		 (cdr xext) (cdr yext))))
-	 (rounded-bbox
-	  (map
-	   (lambda (x)
-	     (inexact->exact
-	      (round (* x scale mm-to-bigpoint)))) bbox))
-	 (port (ly:outputter-port outputter))
-	 (header (eps-header paper rounded-bbox #f)))
-
-    (display header port)
-    (write-preamble paper #f port)
-    (display "start-system { set-ps-scale-to-lily-scale \n" port)
-    (ly:outputter-dump-stencil outputter dump-me)
-    (display "} stop-system\n%%Trailer\n%%EOF\n" port)
-    (ly:outputter-close outputter)))
-
-
-  (define (dump-infinite-page lines)
-    (let*
-	((outputter  (ly:make-paper-outputter (format "~a.eps" basename)
-					      (ly:output-backend)))
-	 (stencils (map ly:paper-system-stencil lines))
-	 (dump-me (stack-stencils Y DOWN 2.0 stencils))
-	 (xext (ly:stencil-extent dump-me X))
-	 (yext (ly:stencil-extent dump-me Y))
-	 (scale  (ly:output-def-lookup paper 'outputscale))
-	 (bbox
-	  (map
-	   (lambda (x)
-	     (if (or (nan? x) (inf? x))
-		 0.0 x))
-	   (list (car xext) (car yext)
-		 (cdr xext) (cdr yext))))
-	 (ps-bbox (map (lambda (x)
-			 (inexact->exact
-			  (round (* x scale mm-to-bigpoint))))
-		       bbox))
-	 
-	 (port (ly:outputter-port outputter))
-	 (header (eps-header paper ps-bbox #t)))
-
-      (display header port)
-      (write-preamble paper #t port)
-      (display "start-system { set-ps-scale-to-lily-scale \n" port)
-      (ly:outputter-dump-stencil outputter dump-me)
-      (display "} stop-system\n%%Trailer\n%%EOF\n" port)
-      (ly:outputter-close outputter)))
-
-  (define (dump-lines lines count)
-    (if (pair? lines)
-	(let*
-	    ((outputter  (ly:make-paper-outputter (format "~a-~a.eps" basename count)
-						  (ly:output-backend)))
-	     (line (car lines))
-	     (rest (cdr lines)))
-	  (dump-line outputter line)
-	  (dump-lines rest (1+ count))
-	  )))
-
-  (let* ((lines (ly:paper-book-systems book))
-	 (tex-system-name (format "~a-systems.tex" basename))
-	 (texi-system-name (format "~a-systems.texi" basename))
-	 (tex-system-port (open-output-file tex-system-name))
-	 (texi-system-port (open-output-file texi-system-name))
-	 (last-line (car (last-pair lines)))
-	 (pages (ly:paper-book-pages book))
-	 )
-
-    (display (format "Writing ~a\n" tex-system-name))
-    (display (format "Writing ~a\n" texi-system-name))
-    (dump-lines lines 1)
-    (for-each (lambda (c)
-		(display (format "\\includegraphics{~a-~a.eps}%\n"
-				 basename (1+ c)) tex-system-port)
-		(display (format "@image{~a-~a}%\n"
-				 basename (1+ c)) texi-system-port))
-	      (iota (length lines)))
-
-    (display "@c eof" texi-system-port)
-    (display "% eof" tex-system-port)
-    (dump-infinite-page lines))
-    (postprocess-output book framework-ps-module (format "~a.eps" basename) (ly:output-formats)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
