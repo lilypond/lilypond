@@ -394,7 +394,37 @@ this object as a reference point.")
    'text-interface
    "A scheme markup text"
    (list
-    (property-description 'text (lambda (x) (or (string? x) (list? x))) "the scheme markup text.  Either a string, or a list of which the CAR is a markup '(MARKUP text text ...).  MARKUP is either a CONS: an element property '(key . value) or a symbol: an abbreviation for a list of element properties.  These abbreviations are currently defined: rows lines roman music bold italic named super sub text, as well as all font-style's.")
+    (property-description 'text (lambda (x) (or (string? x) (list? x))) "
+Scheme markup text.  It is defined as follows:
+<p>
+
+TEXT : STRING | (MARKUP SENTENCE)<br>
+MARKUP: PROPERTY | ABBREV<br>
+SENTENCE: TEXT | SENTENCE TEXT<br>
+PROPERTY: (key . value)<br>
+ABBREV: rows lines roman music bold italic named super sub text, or any font-style
+<p>
+
+So, TEXT is either a string, or a list of which the CAR is a MARKUP.
+MARKUP is either a CONS: an element property '(key . value) or a symbol:
+a predefined abbreviation for a list of element properties.
+<p>
+
+The following abbreviations are currently defined:
+<dl>
+<dt>rows<dd> horizontal mode: set all text on one line (default)
+<dt>lines<dd> vertical mode: set every text on new line
+<dt>roman<dd> select roman font
+<dt>music<dd> select feta font
+<dt>bold<dd> select bold series
+<dt>italic<dd> select italic shape
+<dt>named<dd> lookup by character name
+<dt>text<dd> plain text lookup (by character value)
+<dt>super<dd> superscript
+<dt>sub<dd> subscript
+<dt> any font-style<dd> finger volta timesig mmrest mark script large Large dynamic
+</dl>
+" )
     (property-description 'font-style string? "font definition for a special purpose, one of: finger volta timesig mark script large Large dynamic")
     (property-description 'font-series string? "partial font definition: medium, bold")
     (property-description 'font-shape string?  "partial font definition: upright or italic")

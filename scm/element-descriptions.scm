@@ -41,7 +41,8 @@
                 (properties-to-font-name . ,properties-to-font-name)
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
-                (font-family . "roman")
+                (font-family . roman)
+		(font-size . "-1")
 		(meta . ,(element-description "BarNumber"
 			text-interface  break-aligned-interface))
 	))
@@ -140,7 +141,6 @@
                 (style-to-font-name . ,style-to-font-name)
                 (markup-to-properties . ,markup-to-properties)
 		(self-alignment-Y . 0)
-
 		(meta . ,(element-description "DynamicText" text-interface ))
 	))
 	
@@ -275,7 +275,7 @@
  		(properties-to-font-name . ,properties-to-font-name)
  		(style-to-font-name . ,style-to-font-name)
  		(markup-to-properties . ,markup-to-properties)
- 		(font-family . "number")
+		(font-style . mmrest)
 		(meta . ,(element-description "MultiMeasureRest" multi-measure-rest-interface ))
 	))
 	
