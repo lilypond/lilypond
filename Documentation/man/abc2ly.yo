@@ -20,7 +20,7 @@ lurl(http://www.gre.ac.uk/~c.walshaw/abc2mtex/)) input file to Mudela
 (GNU LilyPond source format).  abc2ly is part of the GNU LilyPond
 music typesetting package.
 
-manpagessynopsis()
+manpagesynopsis()
 
 	abc2ly [options] abc-file
 
