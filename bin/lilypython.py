@@ -1,4 +1,4 @@
-#!@PYTHON@
+#!/usr/bin/python
 
 # 
 # lily-python.py --  implement general LilyPond-wide python stuff
@@ -22,7 +22,9 @@ import getopt
 
 
 version_re = regex.compile('\\version *\"\(.*\)\"')
-make_assign_re = regex.compile('^\([A-Z_]*\) *= *\(.*\)$')
+# now used as shell script in configure too!
+# make_assign_re = regex.compile('^\([A-Z_]*\) *= *\(.*\)$')
+make_assign_re = regex.compile('^\([A-Z_]*\)=\(.*\)$')
 
 def version_tuple(file):
     lines = file.readlines()
@@ -34,13 +36,17 @@ def version_tuple(file):
 	if make_assign_re.search(l) <> -1:
 	    nm = make_assign_re.group(1)
 	    val = make_assign_re.group(2)
-	    if nm == 'TOPLEVEL_MAJOR_VERSION':
+#	    if nm == 'TOPLEVEL_MAJOR_VERSION':
+	    if nm == 'MAJOR_VERSION':
 		mj = atoi(val)
-	    elif nm == 'TOPLEVEL_MINOR_VERSION':
+#	    elif nm == 'TOPLEVEL_MINOR_VERSION':
+	    elif nm == 'MINOR_VERSION':
 		mi = atoi(val)
-	    elif nm == 'TOPLEVEL_PATCH_LEVEL':
+#	    elif nm == 'TOPLEVEL_PATCH_LEVEL':
+	    elif nm == 'PATCH_LEVEL':
 		pa = atoi(val)
-	    elif nm == 'TOPLEVEL_MY_PATCH_LEVEL':
+#	    elif nm == 'TOPLEVEL_MY_PATCH_LEVEL':
+	    elif nm == 'MY_PATCH_LEVEL':
 		mp = val
     return (mj,mi,pa,mp)
 
