@@ -35,16 +35,18 @@ sub get_version
 
 sub set_html_footer
 {
-    my $MAILADRESS=$ENV{MAILADRESS};
+    my $MAILADDRESS=$ENV{MAILADDRESS};
     my @pw=(getpwuid($<));
     my $username=$pw[6];
 
     $footstr = 
 	"\n<hr>Please take me <a href=index.html>back to the LilyPond index</a>\n<hr>
 <font size=-1>
-This page was built using <code>" . $id_str . "</code> from lilypond-$lily_version by
-<p>
-<address><br>$username <a href=mailto:$MAILADRESS>&lt<!bla>$MAILADRESS</a>&gt</address>
+This page was built using <code>" . $id_str . "</code> from lilypond-"
+    . $lily_version . 
+	" by<p>
+<address><br>$username <a href=mailto:" 
+    . $MAILADDRESS . ">&lt<!bla>" . $MAILADDRESS ."</a>&gt</address>
 <p></font>";
 }
     
@@ -76,7 +78,7 @@ sub my_system
 local $base="lilypond/";
 
 local @examples=("twinkle-pop", "twinkle", "multi", "wohltemperirt"
-		 ,"standchen", "toccata-fuga-E", "scsii-menuetto",
+		 ,"standchen-16", "standchen-20", "toccata-fuga-E", "scsii-menuetto",
 		 "cadenza", "scales", "rhythm", "gallina");
 
 # rhythm, scales, 
@@ -278,6 +280,7 @@ sub main
     chomp($cwd = `pwd`);
     die "need to be in directory Documentation\n" if ( ! ($cwd =~ /Documentation$/));
     get_version;
+    print "lily v. " . $lily_version . "\n";
     set_html_footer;
 
 
