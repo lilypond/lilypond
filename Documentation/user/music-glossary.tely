@@ -265,7 +265,7 @@ D: ambitus,
 NL: ambitus,
 DK: ambitus,
 S: ambitus,
-FI: ambitus, ‰‰niala, soitinala,
+FI: ambitus, @"a@"aniala, soitinala,
 N: ?.
 
 The term ambitus denotes a range of pitches for a given voice in a part of music. It also may denote the pitch range that a musical instrument is capable of playing.
@@ -2515,7 +2515,7 @@ harmony}, @aref{relative key}.
 @aitem{melisma}
 
 NL: melisma, 
-FI: melisma, laulettavan tavun s‰velkuvio, 
+FI: melisma, laulettavan tavun s@"avelkuvio, 
 
 A melisma (plural: melismata) is a group of notes or tones sung on one
 syllable in plainsong
