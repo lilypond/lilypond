@@ -156,13 +156,16 @@
 (define (embedded-ps string)
   string)
 
+;; FIXME. 
 (define (ez-ball ch letter-col ball-col)
   (string-append
    " (" ch ") "
    (ly:numbers->string (list letter-col ball-col))
    ;; FIXME: barf
    " /Helvetica-Bold "
-   " draw_ez_ball"))
+   " draw_ez_ball")
+  
+  "")
 
 ;; FIXME: use draw_round_box
 (define (filledbox breapth width depth height)
@@ -242,7 +245,7 @@
   (let* ((space-length (cdar (ly:text-dimension font " ")))
 	 (space-move (string-append (number->string space-length)
 				    " 0.0 rmoveto "))
-	 (input-enc 'latin1)
+	 (input-enc "latin1")
 	 (out-vec (decode-byte-string input-enc s)))
 
     (string-append
@@ -263,7 +266,12 @@
 		   "(" s  ") " (number->string scale)
 		   " /Helvetica-Bold "
 		   " draw_white_text")))
-    mystring))
+    mystring
+
+
+    ;; FIXME: broken with user install of GS 8.x
+    ""
+    ))
 
 (define (unknown) 
   "\n unknown\n")
