@@ -1,3 +1,34 @@
+pl 46.jcn1
+Bugfix
+	- reincluded {interval,pcursor,plist}.tcc
+	- renamed Interval::elt_q to elt_b, invoking of empty to empty_b
+	- readded second (0) arg to warning function (only lily exports
+	  a warning(String) function)
+	- fixed dist make/Files.make
+
+pl 46
+	- examples.pod
+	- LILYINCLUDE env var.
+	- push/popgroup
+	- website updated
+	- Swallow_register
+	- Lyric_register.
+	- Staff_sym_register
+	- user settable register config
+	- struct Input now used iso defined_ch_C_
+	- Walker_registers and Staff_registers separated
+	- dynamic-reg -> hairpins
+
+pl 44.jcn2
+	- doze configure/compile fixes
+	- doze make refixed
+	- faq
+	- install mudela manpage too
+	- RedHat spec lilypond.spec fixed
+	- target: rpm (make RedHat packages)
+
+******
+Mar 26
 pl 45
 	- Removing unused Voice_regs & Voice_groups
 	- -O2 bugfix
@@ -113,6 +144,7 @@ pl 41.hwn1
 pl 41.jn1
 Bugfix
 	- doze compile
+*******
 pl 41
 	- release
 pl 40.3
@@ -123,7 +155,6 @@ pl 40.3
 pl 40.hwn1
 	- hairpin dynamics
 	- notename now as identifier. Parser/lexer cleanup
-	- ''!a now a!'' (NOT!?)
 
 pl 40.2
 	- mi2mu --blonde-durations, --no-silly options.
@@ -147,6 +178,7 @@ Bugfix
 
 
 ******
+Mar 11
 pl 40
 	- release
 
@@ -285,6 +317,7 @@ Examples
 	- fixed midi.ly
 
 *******
+Feb 25
 pl 35
 	- Register_group
 Bugfix
@@ -394,6 +427,7 @@ Examples
 Bugfix
 	- calcideal assertion bugfix
 *******
+Feb 12 13:55
 pl 30
 
 Features
@@ -471,6 +505,7 @@ Internal:
 	- Voice_group_registers, Voice_registers, *_register
 	- Complex_staff
 *******
+ Jan 27 '97 
 pl 25
 	- other clefs added, keys typeset properly (MB)
 
@@ -519,7 +554,8 @@ Internal changes:
 	- dependencies for Staff_elem's
 
 *******
-pl 20:
+Dec 23 
+pl 20: 
 	- updated doco to .pod
 	- include files from .ly
 Internal changes:
@@ -560,6 +596,7 @@ pl 14
 	- Input_{score/staff}
 
 *******
+Dec  2 
 pl 13
 	- Horizontal/Vertical music
 	- Input_commands
