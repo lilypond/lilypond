@@ -1,3 +1,46 @@
+******
+pl 43
+	- transposition.
+	- $variable&@name 
+	- warnings if incorrect mode
+	- missing scsii measure
+	- declaration used check.
+	-
+
+pl 42.hwn3
+	- const naming change (T const <-> const T)
+	- Mudela 0.1
+
+pl 42.3
+	- moving towards Mudela 0.1:
+	    * (almost) all keywords must be preceded by backslash '\'
+	    * explicit lexer switches '$' and '@' dropped
+	    * keyword "music" dropped for horizontal music
+	    * keywords "\lyric" "\melodic" "\rhythmic" introduced, e.g.:
+		melody = \melodic { c c | g g }
+	    * staff initialisable with music identifier: 
+	    	\staff{ melody }
+	    * chords: < c e >
+	    * octavate ''c`` 
+	    * \meter{ 2/4 }
+	    * \octave{ ''`` }
+	 - configure sets CXX (to c++, commonly)
+Internal
+	- renamed lexer.hh, mylexer.cc My_flex_lexer to my.lily.lexer.*
+
+pl 42.2
+	- new lilyinput (Mudela 0.1) doc.
+Examples
+	- new-twinkle.ly (in Mudela 0.1, hopefully)
+
+pl 42.1
+	- further Makefile revamping.
+	- moved flowerlib
+
+*******
+pl 42
+
+
 pl 41.hwn3
 	- struct Lexer_prefs
 	- parser bug

@@ -66,34 +66,43 @@ add F<DIRECTORY> to the search path for input files.
 =over 5
 
 =item *
+
 ASCII script input, with identifiers (for music reuse),
 customizable notenames, customizable fontset
 
 =item *
+
 MIDI output lets you check if you have entered the correct notes.
 
 =item *
+
 MIDI to Mudela conversion through the mi2mu program.
 
 =item *
+
 Multiple staffs in one score. Each staff can have a different meters.
 
 =item *
+
 multiple stafftypes (melodic, rhythmic) [broken from  pl28 on]
 
 =item *
-beams, slurs, chords, super/subscripts (accents and text),
-triplets, general n-plet (triplet, quadruplets, etc.), lyrics
+
+beams, slurs, chords, super/subscripts (accents and text), triplets,
+general n-plet (triplet, quadruplets, etc.), lyrics, transposition
 
 =item *
+
 multiple voices within one staff; beams optionally shared
 between voices. (well, more than 2 voices won't look pretty --yet.)
 
 =item *
+
 multiple scores within one input file. Each score is output to
 a different file.
 
 =item *
+
 clef changes, meter changes, cadenza-mode, key changes, repeat bars
 
 =back
@@ -105,29 +114,14 @@ LilyPond was written with some considerations in mind:
 =over 5
 
 =item *
+
 Describing a well-defined language for defining music. We call
 this language (rather arrogantly) The Musical Definition Language
 (mudela for short). LilyPond reads a mudela sourcefile and outputs a
-TeX file.  This musical definition language should:
-
-=over 5
-
-=item 1.
-define the musical message of the writer as unambigiously as
-possible.
-
-=item 2.
-be easily readable. (as compared to, say, MusixTeX input)
-
-=item 3.
-be writable in ASCII (with a simple texteditor).
-
-=back
-
-At this time, the language isn't yet defined precisely. It is evolving as
-LilyPond is getting more complex.
+TeX file.  
 
 =item *
+
 We want to provide an easy-to-use interface for typesetting music in
 its broadest sense. This interface should be intuitive from a musical
 point of view. By broadest sense we mean: it is designed for music
@@ -135,35 +129,41 @@ printed left to right in staffs, using notes to designate rythm and
 pitch.
 
 =item *
+
 LilyPond uses MusiXTeX fonts and TeX for its output. This is not a key
 issue: in a future version, LilyPond might bypass TeX, but at the moment
 TeX is very convenient for producing output.
 
 =item  *
+
 Generate high-quality output. Ideally it should be of a professional
 quality. We'd like to render Herbert Chlapiks words, "Fine music
 setting is not possible without a knowledgeable printer,"  untrue.
 
 =item *
+
 LilyPond does not display notes directly, nor will it be rehacked to be
 used interactively. LilyPond writes output to a file.  It will not be
 extended to play music, or to recognize music.
 
 =item *
+
 LilyPond is intended to run on Unix platforms, but it should
 be portable to any platform which can run TeX and the GNU tools
 
 =item *
+
 LilyPond is free. Commercial windows packages for setting music are
 abundant. Free musicprinting software is scarce.
 
 =item *
+
 LilyPond is written in GNU C++. It will not be downgraded/ported to fit
 broken systems.
 
 =back
 
-=head1 
+=head1
 DISCLAIMER & COPYING POLICY
 
 LilyPond is copyright 1996,97 by its authors. LilyPond is
@@ -177,14 +177,17 @@ the GNU General Public License, which is in the file F<COPYING>
 =over 5
 
 =item *
+
 Han-Wen Nienhuys <hanwen@stack.nl>, Main author
 
 =item *
+
 Jan Nieuwenhuizen <jan@digicash.com>, Context errors, Lyrics,
 mi2mu, MIDI stuff, make structure, bits of FlowerLib, general
 comments.
 
 =item *
+
 Mats Bengtsson <matsb@s3.kth.se>, bugfixes, testing, general comments.
 
 =back
@@ -207,7 +210,7 @@ This is what the output looks like over here:
 	LilyPond 0.0.40 #0/FlowerLib 1.1.7 #2. Compile: Mar 11 1997, 22:58:47 (g++ 2.7.2)
 	Parsing ... [./init//symbol.ini[./init//dynamic.ini][./init//dutch.ini][./init//script.ini][./init//table_sixteen.ini]][./input/wohltemperirt.ly]
 	Setting up music ...Processing music ............
-	Preprocessing ... 
+	Preprocessing ...
 	Calculating column positions ... [3][6][9]
 	Postprocessing ...
 	TeX output to lelie.out ...
@@ -249,7 +252,7 @@ This is a beta version of LilyPond. Please send your helpful comments
 and patches to me (see AUTHORS section)
 
 LilyPond is updated very frequently, the latest version is always available at:
-ftp://pcnov095.win.tue.nl/pub/lilypond. 
+ftp://pcnov095.win.tue.nl/pub/lilypond.
 
 
 =head1 FILES
@@ -265,7 +268,7 @@ includes files from the directory F<init/>.
 =head1 SEE ALSO
 
 There are some documentation files  in the subdirectory F<Documentation/>,
-among others: lilygut, lilyinput, error, faq, 
+among others: lilygut, lilyinput, error, faq,
 
 =head1  REMARKS
 
