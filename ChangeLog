@@ -1,7 +1,21 @@
+2004-02-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* input/no-notation/midi-lyric-barcheck.ly: new file.
+
+	* input/regression/collision-dots-invert.ly: new file.
+
+	* lily/note-collision.cc (check_meshing_chords): add stem_to_stem
+	case.
+
+	* lily/new-lyric-combine-music-iterator.cc (process): let iterator
+	die if melody died too.
+
 2004-02-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* Documentation/user/refman.itely (More stanzas): document slur
-	deficiency.
+	* lily/source-file.cc (load_stdin): add trailing 0. Fixes problem
+	with reading from stdin.
+
+	* lily/slur-performer.cc (try_music): new file.
 
 	* lily/melisma-performer.cc (try_music): new file. Handle
 	melismata to help lyrics.
@@ -11,7 +25,6 @@
 
 	* lily/score-performer.cc (one_time_step): reinstate
 	process_music().
-	
 
 	* lily/performer.cc (process_music): add to interface.
 

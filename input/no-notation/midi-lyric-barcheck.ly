@@ -1,0 +1,20 @@
+\header {
+
+    texidoc = "Lyrics in MIDI are aligned to ties and beams:
+this examples causes no bar checks in MIDI.
+TODO: slurs.
+"
+
+
+    }
+\score {
+
+    <<\notes\relative c'' \context Voice = A {
+	\autoBeamOff
+	c8[ c] c2.
+	c1~c4 c2.  c1 }
+    \lyricsto "A" \lyrics\new LyricsVoice { bla bla | bla bla | bla }
+    >>
+    \paper {}
+      \midi {}
+    }

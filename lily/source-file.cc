@@ -34,6 +34,7 @@ Source_file::load_stdin ()
   while ((c = fgetc (stdin)) != EOF)
     chs.push (c);
 
+  chs.push (0);
   length_ = chs.size ();
   contents_str0_ = chs.remove_array ();
 }

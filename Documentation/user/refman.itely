@@ -3540,9 +3540,6 @@ making or a music identifier @code{\foo} containing the syllable
   foo = \lyrics bar4
 @end example
 
-The MIDI version of @code{\lyricsto} doesn't detect melismata caused
-by slurs.
-
 
 @node Ambitus
 @subsection Ambitus

@@ -1,5 +1,5 @@
 /*
-  beam-performer.cc -- implement Beam_performer
+  slur-performer.cc -- implement Slur_performer
 
   source file of the GNU LilyPond music typesetter
 
@@ -13,9 +13,13 @@
 #include "global-translator.hh"
 #include "warn.hh"
 
-class Beam_performer : public Performer {
+/*
+  this is C&P from beam_performer.
+ */
+
+class Slur_performer : public Performer {
 public:
-  TRANSLATOR_DECLARATIONS(Beam_performer);
+  TRANSLATOR_DECLARATIONS(Slur_performer);
   
 protected:
   virtual bool try_music (Music *ev) ;
@@ -25,37 +29,35 @@ protected:
 private:
   Music *start_ev_;
   Music *now_stop_ev_;
-  bool beam_;
+  bool slur_;
 };
 
 void 
-Beam_performer::process_music ()
+Slur_performer::process_music ()
 {
   if (now_stop_ev_)
     {
-      beam_ = false;
+      slur_ = false;
     }
 
   if (start_ev_)
     {
-      beam_ = true;
+      slur_ = true;
       set_melisma (true);
     }
 }
 
 
 void
-Beam_performer::set_melisma (bool ml)
+Slur_performer::set_melisma (bool ml)
 {
-  SCM b = get_property ("autoBeaming");
-  if (!to_boolean (b))
-    daddy_trans_->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
+  daddy_trans_->set_property ("slurMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 void
-Beam_performer::start_translation_timestep ()
+Slur_performer::start_translation_timestep ()
 {
-  if (beam_)
+  if (slur_)
     {
       set_melisma (true);
     }
@@ -65,9 +67,9 @@ Beam_performer::start_translation_timestep ()
 }
  
 bool
-Beam_performer::try_music (Music *m)
+Slur_performer::try_music (Music *m)
 {
-  if (m->is_mus_type ("beam-event"))
+  if (m->is_mus_type ("slur-event"))
     {
       Direction d = to_dir (m->get_mus_property ("span-direction"));
 
@@ -84,10 +86,10 @@ Beam_performer::try_music (Music *m)
   return false;
 }
 
-ENTER_DESCRIPTION(Beam_performer,"","",
-		  "beam-event","","","");
+ENTER_DESCRIPTION(Slur_performer,"","",
+		  "slur-event","","","");
 
-Beam_performer::Beam_performer()
+Slur_performer::Slur_performer()
 {
-  beam_ = false;
+  slur_ = false;
 }

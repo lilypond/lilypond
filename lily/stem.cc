@@ -215,6 +215,9 @@ icmp (int const &a, int const &b)
   return a-b;
 }
 
+/*
+  The positions, in ascending order.
+ */
 Array<int>
 Stem::note_head_positions (Grob *me)
 {
