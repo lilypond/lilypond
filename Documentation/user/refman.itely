@@ -2614,7 +2614,7 @@ staff are squashed, and the staff itself has a single line:
 
 @menu
 * Percussion staves::           
-* Percussion midi output::      
+* Percussion MIDI output::      
 @end menu
 
 @node Percussion staves

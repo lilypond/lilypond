@@ -69,7 +69,7 @@ Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equ
   Spanner*sp = dynamic_cast<Spanner*> (me);  
 
   *equally_long= false;
-  if (! ( b1 && (b1 == b2) && !sp->broken_b() ))
+  if (! (b1 && (b1 == b2) && !sp->broken_b()))
       return 0;
 
   Link_array<Grob> beam_stems = Pointer_group_interface__extract_grobs
@@ -177,19 +177,19 @@ Tuplet_bracket::brew_molecule (SCM smob)
 	lt *= gh_scm2double (thick);
       
       SCM gap = me->get_grob_property ("gap");
-      SCM ew = me->get_grob_property ("edge-widen");
+      SCM fl = me->get_grob_property ("bracket-flare");
       SCM eh = me->get_grob_property ("edge-height");
       SCM sp = me->get_grob_property ("shorten-pair");
       
       Direction d = LEFT;
-      Drul_array<Real> height, width, shorten;
+      Drul_array<Real> height, flare, shorten;
       do {
-	width[d] =  height[d] = shorten[d] = 0.0;
-	if ( ly_number_pair_p (ew) )
-	  width[d] +=  gh_scm2double (index_get_cell (ew, d));
-	if ( ly_number_pair_p (eh) )
+	flare[d] =  height[d] = shorten[d] = 0.0;
+	if (ly_number_pair_p (fl))
+	  flare[d] +=  gh_scm2double (index_get_cell (fl, d));
+	if (ly_number_pair_p (eh))
 	  height[d] += gh_scm2double (index_get_cell (eh, d)) * - dir;
-	if ( ly_number_pair_p (sp) )
+	if (ly_number_pair_p (sp))
 	  shorten[d] +=  gh_scm2double (index_get_cell (sp, d));
       }
       while (flip (&d) != LEFT);
@@ -198,7 +198,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
 				     w, ry - ly, lt,
 				     height,
 				     gh_scm2double (gap),
-				     width,
+				     flare,
 				     shorten);
       mol.add_molecule (brack);
     }
@@ -210,49 +210,50 @@ Tuplet_bracket::brew_molecule (SCM smob)
 
 /*
   should move to lookup?
+
+  TODO: this will fail for very short (shorter than the flare)
+  brackets.
  */
 Molecule
 Tuplet_bracket::make_bracket (Axis protusion_axis,
 			      Real dx, Real dy, Real thick, Drul_array<Real> height,
 			      Real gap,
-			      Drul_array<Real> widen,
+			      Drul_array<Real> flare,
 			      Drul_array<Real> shorten)
 {
-  Real len = Offset (dx,dy).length ();
-  Real gapx = dx * (gap /  len);
-  Real gapy = dy * (gap /  len);
-  Drul_array<Real> shortx, shorty;
+  Offset dz = Offset (dx,dy);
+  Drul_array<Offset> corners (Offset(0,0), dz);
+  
+  Real length = dz.length ();
+  Drul_array<Offset> gap_corners;
+
+  
+  Axis bracket_axis = other_axis (protusion_axis);
+
+  Drul_array<Offset> straight_corners = corners;
+
   Direction d = LEFT;
   do {
-    shortx[d] = dx * (shorten[d] /  len);
-    shorty[d] = dy * (shorten[d] /  len);
-  }
-  while (flip (&d) != LEFT);
-  Axis other = other_axis (protusion_axis);
-  
-  Molecule l1 = Lookup::line (thick, Offset(shortx[LEFT], shorty[LEFT]),
-			      Offset ( (dx - gapx)/2, (dy - gapy)/2 ));
+    straight_corners[d] += - d * shorten[d] /length * dz;
+    gap_corners[d] = (dz * 0.5) + d * gap / length * dz;
+  } while (flip (&d) != LEFT);
 
-  Molecule l2 = Lookup::line (thick, Offset((dx + gapx) / 2,(dy + gapy) / 2),
-			      Offset (dx - shortx[RIGHT], dy - shorty[RIGHT]));
-
-  Offset protusion;
-  protusion[other] = -widen[LEFT];
-  protusion[protusion_axis] = height[LEFT];
-  Molecule p1 = Lookup::line (thick, 
-			      Offset(shortx[LEFT], shorty[LEFT]), 
-			      Offset(shortx[LEFT], shorty[LEFT]) + protusion);
-  protusion[other] = widen[RIGHT];
-  protusion[protusion_axis] = height[RIGHT];
-  Molecule p2 = Lookup::line (thick, 
-			      Offset(dx - shortx[RIGHT], dy - shorty[RIGHT]), 
-			      Offset(dx - shortx[RIGHT], dy - shorty[RIGHT]) + protusion);  
+  Drul_array<Offset> flare_corners = straight_corners;
+  do {
+    flare_corners[d][bracket_axis] = straight_corners[d][bracket_axis];
+    flare_corners[d][protusion_axis] += height[d];
+    straight_corners[d][bracket_axis] += - d * flare[d];
+  } while (flip (&d) != LEFT);
 
   Molecule m;
-  m.add_molecule (p1);
-  m.add_molecule (p2);
-  m.add_molecule (l1);
-  m.add_molecule (l2);
+  do {
+
+    m.add_molecule (Lookup::line (thick, straight_corners[d],
+				  gap_corners[d]));
+    
+    m.add_molecule (Lookup::line (thick, straight_corners[d],
+				  flare_corners[d]));
+  } while (flip (&d) != LEFT);
 
   return m;  
 }
@@ -403,7 +404,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
     }
   if (dynamic_cast<Spanner*> (me)->broken_b ())
     {
-      me->warning ( "Tuplet_bracket was across linebreak. Farewell cruel world.");
+      me->warning ("Tuplet_bracket was across linebreak. Farewell cruel world.");
       me->suicide();
       return SCM_UNSPECIFIED;
     }
@@ -501,5 +502,5 @@ Tuplet_bracket::add_column (Grob*me, Item*n)
 
 ADD_INTERFACE (Tuplet_bracket,"tuplet-bracket-interface",
   "A bracket with a number in the middle, used for tuplets.",
-  "note-columns edge-widen edge-height shorten-pair padding gap left-position right-position bracket-visibility number-visibility thickness direction");
+  "note-columns bracket-flare edge-height shorten-pair padding gap left-position right-position bracket-visibility number-visibility thickness direction");
 

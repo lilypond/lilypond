@@ -81,19 +81,19 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash)
 }
 
 Molecule
-Lookup::line (Real th, Offset f, Offset t)
+Lookup::line (Real th, Offset from, Offset to)
 {
   SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
 			gh_double2scm (th), 
-			gh_double2scm (f[X_AXIS]),
-			gh_double2scm (f[Y_AXIS]),
-			gh_double2scm (t[X_AXIS]),
-			gh_double2scm (t[Y_AXIS]),
+			gh_double2scm (from[X_AXIS]),
+			gh_double2scm (from[Y_AXIS]),
+			gh_double2scm (to[X_AXIS]),
+			gh_double2scm (to[Y_AXIS]),
 			SCM_UNDEFINED);
 
   Box box;
-  box.add_point (f);
-  box.add_point (t);
+  box.add_point (from);
+  box.add_point (to);
 
   box[X_AXIS].widen (th/2);
   box[Y_AXIS].widen (th/2);  

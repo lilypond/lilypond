@@ -101,12 +101,8 @@ except:
 		return s
 underscore = _
 
-program_version = '@TOPLEVEL_VERSION@'
-if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.7.14'
-
 def identify (port):
-	port.write ('%s (GNU LilyPond) %s\n' % (__main__.program_name, program_version))
+	port.write ('%s (GNU LilyPond) %s\n' % (__main__.program_name, __main__.program_version))
 
 def warranty ():
 	identify (sys.stdout)
@@ -202,6 +198,25 @@ def help ():
 	      (_ ("Report bugs to %s") % 'bug-lilypond@gnu.org'),
 	      ('\n')]
 	map (sys.stdout.write, ls)
+
+def lilypond_version (binary):
+	p = read_pipe ('%s --version ' % binary)
+	x = []
+	def catch_version (match):
+		x.append (match.group (1))
+	re.sub ('GNU LilyPond ([^\n]+)\n', catch_version, p)
+	x.append ('not found')
+	
+	return x[0]
+	
+def lilypond_version_check (binary, req):
+	if req[0] <> '@' :
+		v = lilypond_version (binary)
+		if v <> req:
+			error (_("Binary %s has version %s, looking for version %s") % \
+			       (binary, v, req))
+			sys.exit (1)
+	
 	
 def setup_temp ():
 	

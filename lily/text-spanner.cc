@@ -75,13 +75,6 @@ Text_spanner::brew_molecule (SCM smob)
   while (flip (&d) != LEFT);
 
 
-#if 0
-  /*
-    FIXME. - this switch   sucks. --hwn
-   */
-  // FIXME: ecs tells us -- only for (de)cresc. spanners
-  width += gh_scm2double (me->get_grob_property ("width-correct"));
-#endif
 
   SCM properties = Font_interface::font_alist_chain (me);
   SCM edge_text = me->get_grob_property ("edge-text");
@@ -113,11 +106,17 @@ Text_spanner::brew_molecule (SCM smob)
   shorten[LEFT] = 0;
   shorten[RIGHT] = 0;
 
+  SCM ew = me->get_grob_property ("edge-flare");
   SCM s = me->get_grob_property ("shorten-pair");
   if (gh_pair_p (s))
     {
       span_points[LEFT] += gh_scm2double (ly_car (s));
       span_points[RIGHT] -= gh_scm2double (ly_cdr (s));
+    }
+  if (gh_pair_p (ew))
+    {
+      span_points[LEFT] += gh_scm2double (ly_car (ew));
+      span_points[RIGHT] -= gh_scm2double (ly_cdr (ew));
     }
   
   Real thick = me->get_paper ()->get_var ("linethickness");  
@@ -129,7 +128,6 @@ Text_spanner::brew_molecule (SCM smob)
   
   Drul_array<Molecule> edge_line;
   s = me->get_grob_property ("edge-height");
-  SCM ew = me->get_grob_property ("edge-widen");
   if (gh_pair_p (s))
     {
       Direction d = LEFT;
@@ -212,7 +210,6 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
   Drul_array<Real> height, width, shorten, r;
 
   SCM pa = me->get_grob_property ("if-text-padding");
-  SCM ew = me->get_grob_property ("edge-widen");
   SCM eh = me->get_grob_property ("edge-height");
   SCM sp = me->get_grob_property ("shorten-pair");
   
@@ -235,8 +232,6 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
       width[d]  =  0;
       height[d] =  0;
       shorten[d] = 0;
-      if (ly_number_pair_p (ew))
-	width[d] +=  gh_scm2double (index_get_cell (ew, d));
       if (!broken[d] && (ly_number_pair_p (eh)))
 	height[d] += gh_scm2double (index_get_cell (eh, d));
       if (ly_number_pair_p (sp))
@@ -245,6 +240,7 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
   while (flip (&d) != LEFT);
   
   Real extra_short = 0;
+  
   // For 'Mixed' style pedals, i.e.  a bracket preceded by text:  Ped._____|
   // need to shorten by the extent of the text grob
   if (to_boolean (me->get_grob_property ("text-start")))
@@ -286,7 +282,6 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
     }
 
   me->set_grob_property ("edge-height", ly_interval2scm (height));
-  me->set_grob_property ("edge-widen",  ly_interval2scm(width));
   me->set_grob_property ("shorten-pair", ly_interval2scm (shorten));
 }
 

@@ -6,8 +6,14 @@
 
 # If run by hand or from you .profile, run as follows
 #   . lilypond-profile
-
-
+if [ `basename "$0"` = "lilypond-profile" ] ; then
+    echo "This script must be sourced, i.e."
+    echo ""
+    echo "  . lilypond-profile"
+    echo ""
+    
+    exit 2 
+fi 
 if [ -z "$LILYPONDPREFIX" ]; then
     datadir=`echo "@local_lilypond_datadir@" | sed 's!//!/!g'`
 else
