@@ -61,10 +61,10 @@ Paperdef*default_paper();
 }
 
 %token VOICE STAFF SCORE TITLE  BAR NOTENAME OUTPUT
-%token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS
+%token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS COMMAND
 %token GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
 %token KEY CLEF VIOLIN BASS MULTI TABLE CHORD VOICES
-%token PARTIAL RHYTHMIC MELODIC MUSIC GROUPING CADENZA
+%token PARTIAL RHYTHMIC MELODIC MUSIC LYRIC GROUPING CADENZA
 %token END SYMBOLTABLES TEXID TABLE NOTENAMES SCRIPT TEXTSTYLE PLET
 %token MARK GOTO
 
@@ -85,8 +85,8 @@ Paperdef*default_paper();
 %type <real> dim
 %type <ii> duration
 %type <moment> duration_length
-%type <el> voice_elt full_element
-%type <command> score_command staff_command skipcommand
+%type <el> voice_elt full_element lyrics_elt
+%type <command> score_command staff_command position_command
 %type <score> score_block score_body
 %type <staff> staff_block staff_init staff_body
 %type <i> int
@@ -98,7 +98,7 @@ Paperdef*default_paper();
 %type <music> music 
 %type <chord> music_chord music_chord_body
 
-%type <mvoice>  music_voice_body music_voice
+%type <mvoice>  music_voice_body music_voice 
 
 %type <interval> dinterval
 %type <box> box
@@ -214,6 +214,9 @@ score_commands_body:			{ $$ = new Array<Input_command*>; }
 	| score_commands_body score_command		{
 		$$->add($2);
 	}
+	| score_commands_body position_command		{
+		$$->add($2);
+	}
 	;
 
 staff_commands_block: COMMANDS '{' staff_commands_body '}'	{	
@@ -225,11 +228,13 @@ staff_commands_body:
 	| staff_commands_body staff_command	{
 		$$->add($2);
 	}
+	| staff_commands_body position_command	{
+		$$->add($2);
+	}
 	;
 
 staff_command:
-	skipcommand
-	| KEY pitch_list 	{/*UGH*/
+	KEY pitch_list 	{/*UGH*/
 		$$ = get_key_interpret_command(*$2);
 		delete $2;
 	}
@@ -248,7 +253,7 @@ duration_length:
 	}
 	;
 
-skipcommand:
+position_command:
 	SKIP int ':' duration_length		{
 		$$ = get_skip_command($2, *$4);
 		delete $4;
@@ -257,10 +262,10 @@ skipcommand:
 		$$ = get_goto_command(*$2);
 		delete $2;
 	}
+	;
 
 score_command:
-	skipcommand
-	| BAR STRING			{
+	BAR STRING			{
 		$$ = get_bar_command(*$2);
 		delete $2;
 	}
@@ -325,6 +330,9 @@ staff_init:
 	| MELODIC		{
 		$$ = new Input_staff( "melodic");
 	}
+	| LYRIC			{
+		$$ = new Input_staff( "lyric");
+	}
 	;
 
 staff_body:
@@ -365,7 +373,6 @@ music_voice_body:			{
 	}
 	;
 
-
 music_chord:  '{' music_chord_body '}'	{ $$ = $2; }
 	;
 
@@ -393,8 +400,16 @@ full_element:	pre_requests voice_elt post_requests {
 		add_requests($2, post_reqs);
 		$$ = $2;
 	}
+	| MARK STRING	{
+		$$ = get_mark_element(*$2);
+		delete $2;
+	}
+	| COMMAND '{' staff_command '}'	{ $$=get_command_element($3); }
+	| COMMAND '{' score_command '}'	{ $$=get_command_element($3); }
+	| '|'				{ $$ = get_barcheck_element(); }
+	| lyrics_elt
 	;
-
+		
 post_requests:
 	{
 		assert(post_reqs.empty());
@@ -415,8 +430,7 @@ close_request_parens:
 	;
 
 open_request_parens:
-	'|' 	{$$='|'}
-	|')'	{$$=')'}
+	')'	{$$=')'}
 	|'['	{$$='['}
 	;
 
@@ -526,11 +540,12 @@ voice_elt:
 		delete $1;
 
 	}
-	| MARK STRING	{
-		$$ = get_mark_element(*$2);
-		delete $2;
-	}
 	;
+
+lyrics_elt:
+	mudela_text duration 			{
+		$$ = get_word_element($1, $2);
+	};
 
 /*
 	UTILITIES
@@ -648,12 +663,17 @@ parse_file(String s)
    *mlog << "Parsing ... ";
 
 #ifdef YYDEBUG
-   yydebug = !monitor.silence("Parser") && check_debug;
+   yydebug = !monitor.silence("InitParser") && check_debug;
 #endif
 
    set_lexer();
    lexer->new_input("symbol.ini");
    yyparse();
+
+#ifdef YYDEBUG
+   yydebug = !monitor.silence("Parser") && check_debug;
+#endif
+
    lexer->new_input(s);
    yyparse();
    kill_lexer();
@@ -666,3 +686,5 @@ default_paper()
     return new Paperdef(
 	lexer->lookup_identifier("default_table")->lookup(true));
 }
+
+

@@ -79,7 +79,7 @@ private:
   */
 
 #include "compare.hh"
-instantiate_compare(const PCol &, PCol::compare);
+instantiate_compare(PCol &, PCol::compare);
      
 
 #endif

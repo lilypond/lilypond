@@ -29,7 +29,7 @@ Lookup::add(String s, Symtable*p)
 }
 
 Symbol
-Lookup::text( String style, String text , int dir)
+Lookup::text(String style, String text, int dir)
 {
     Array<String> a;
  
@@ -66,6 +66,7 @@ Lookup::rest(int j)
 {
     return (*symtables_)("rests")->lookup(String(j));
 }
+
 Symbol
 Lookup::fill(Box b)
 {
@@ -73,6 +74,7 @@ Lookup::fill(Box b)
     s.dim = b;
     return s;
 }
+
 Symbol
 Lookup::accidental(int j)
 {
@@ -143,7 +145,7 @@ Lookup::linestaff(int lines, Real wid)
 {
     Symbol s;
     s.dim.x = Interval(0,wid);
-    Real dy=(lines-1)*internote()*2;
+    Real dy = (lines >0) ? (lines-1)*internote()*2 : 0;
     s.dim.y = Interval(0,dy);
 
     Array<String> a;
@@ -152,7 +154,7 @@ Lookup::linestaff(int lines, Real wid)
 
     s.tex = (*symtables_)("param")->lookup("linestaf").tex;
     s.tex = substitute_args(s.tex, a);
-    
+
     return s;
 }
 

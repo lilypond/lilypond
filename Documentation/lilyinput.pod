@@ -30,13 +30,18 @@ In musicmode, eg,
 
 	''!c8.-"text"_v
 
+and in lyricmode, eg,
+
+	Twink- le, twink- le litt- le star,2
+
 a lot of characters parse differently
 than in "command" mode, eg,
 
 	identifier = score { .. }
 
 So you have to signal that to the tokenizer. This is done with
-'$'. '$' is a delimiter, which used by the tokenizer only.
+'$'. '$' is a delimiter, which used by the tokenizer only. The same
+goes for lyrics, it has a '@' delimiter.
 
 =item *
 musicmode: The brace still is used to group grammatical groups.
