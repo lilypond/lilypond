@@ -296,6 +296,7 @@ bar line, this is the amount of space after a thick line.")
      (knee-spacing-correction ,number? "Factor for the optical
 correction amount for kneed beams. Set between 0 for no correction and
 1 for full correction.")
+     (label-dir ,ly:dir? "Side to which label is attached. @code{-1} for left, @code{1} for right.")
      (layer ,number? "The output layer [0..2]: layers define the order
 of printing objects. Objects in lower layers are overprinted by
 objects in higher layers.")
@@ -351,7 +352,9 @@ easy-notation note heads.")
 spacing constraints.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not
 get stems extending to the middle staff line.")
-
+     (number-type ,symbol? "Type of numbers to use in label.  Choices
+include @code{roman-lower}, @code{roman-upper}, and @code{arabic}."
+     
      (old-accidentals ,list? "List of @code{(@var{pitch} . @var{accidental})
 pairs.}")
 

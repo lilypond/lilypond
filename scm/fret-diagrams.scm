@@ -5,7 +5,7 @@
 ;;;; (c) 2004 Carl D. Sorensen <c_sorensen@byu.edu>
 
 (define ly:paper-lookup ly:output-def-lookup) ; compat for 2.3, remove  when using 2.2
-(define my-font-encoding 'TeX-text )
+(define my-font-encoding 'ec )
 
 (define (fret-parse-marking-list marking-list fret-count)
    (let* ((fret-range (list 1 fret-count))
@@ -152,10 +152,18 @@
          (extent (cons (- scale-dot-radius) scale-dot-radius))
          (finger (caddr mypair))
          (finger (if (number? finger) (number->string finger) finger))
-          (string-label-font (ly:paper-get-font paper `(((font-family . sans)(font-encoding . ,my-font-encoding)(font-series . medium) (font-shape . upright)
-                                        (font-size . ,(stepmag  string-label-font-mag))))))
-          (dot-label-font (ly:paper-get-font paper `(((font-family . sans)(font-encoding . ,my-font-encoding)(font-series . medium) (font-shape . upright)
-                                        (font-size . ,(stepmag  dot-label-font-mag))))))
+          (string-label-font 
+               (ly:paper-get-font paper `(((font-family . sans)
+                                           (font-encoding . ,my-font-encoding)
+                                           (font-series . medium) 
+                                           (font-shape . upright)
+                                           (font-size . ,(stepmag  string-label-font-mag))))))
+          (dot-label-font 
+               (ly:paper-get-font paper `(((font-family . sans)
+                                           (font-encoding . ,my-font-encoding)
+                                           (font-series . medium) 
+                                           (font-shape . upright)
+                                           (font-size . ,(stepmag  dot-label-font-mag))))))
          (dotstencil  (if (eq? dot-color 'white)
                           (begin
                           (ly:make-stencil (list 'white-dot 0 0 scale-dot-radius) extent extent))
@@ -276,11 +284,21 @@
           (label-font-mag 0.7)
 ;          (label-vertical-offset (chain-assoc-get 'fret-label-vertical-offset props -0.2))
           (label-vertical-offset -0.2)
+	  (number-type (chain-assoc-get 'number-type props 'roman-lower))
           (fret-count (+ (- (cadr fret-range) (car fret-range)) 1))
-          (font (ly:paper-get-font paper `(((font-encoding . ,my-font-encoding)(font-family . sans)
-                                            (font-series . medium) (font-shape . upright)
-                                            (font-size . ,(stepmag (* size label-font-mag))))))))
-       (ly:stencil-translate-axis (fontify-text font (format #f "~(~:@r~)" base-fret)) 
+          (font (ly:paper-get-font paper `(((font-encoding . ,my-font-encoding)
+                                            (font-family . sans)
+                                            (font-series . medium) 
+                                            (font-shape . upright)
+                                            (font-size . ,(stepmag (* size label-font-mag)))))))
+           (label-text 
+              (case number-type 
+                  ('roman-lower (format #f "~(~:@r~)" base-fret))
+                  ('roman-upper (format #f "~:@r" base-fret))
+                  ('arabic  (format #f "~d" base-fret))
+                  (else (format #f  "~(~:@r~)" base-fret)))))
+       (ly:stencil-translate-axis 
+           (fontify-text font label-text) 
                        (* size (+ fret-count label-vertical-offset)) Y)))
  
 (def-markup-command (fret-diagram-verbose paper props marking-list)
@@ -332,8 +350,8 @@ part of the place-fret element is present, @var{finger-value} will be displayed 
          (string-count (chain-assoc-get 'string-count props 6)) ; needed for everything
          (fret-count (chain-assoc-get 'fret-count props 4)) ; needed for everything
          (finger-code (chain-assoc-get 'finger-code props 'none))  ; needed for both draw-dots and draw-barre
-         (default-dot-radius (if (eq? finger-code 'in-dot) 0.45 0.25))  ; bigger dots if labeled
-         (default-dot-position (if (eq? finger-code 'in-dot) (- 1 default-dot-radius) 0.6))  ; move up to make room for bigger if labeled
+         (default-dot-radius (if (eq? finger-code 'in-dot) 0.425 0.25))  ; bigger dots if labeled
+         (default-dot-position (if (eq? finger-code 'in-dot) (- 0.95 default-dot-radius) 0.6))  ; move up to make room for bigger if labeled
          (dot-radius (chain-assoc-get 'dot-radius props default-dot-radius))  ; needed for both draw-dots and draw-barre
          (dot-position (chain-assoc-get 'dot-position props default-dot-position)) ; needed for both draw-dots and draw-barre
          (th (* (ly:paper-lookup paper 'linethickness)
@@ -341,8 +359,9 @@ part of the place-fret element is present, @var{finger-value} will be displayed 
                 
          (alignment (chain-assoc-get 'align-dir props -0.4)) ; needed only here
 ;         (xo-padding (* th (chain-assoc-get 'padding props 2))) ; needed only here
+         (label-space 0.25)
          (xo-padding (* th 2))
-
+         (label-dir (chain-assoc-get 'label-dir props RIGHT))
          (parameters (fret-parse-marking-list marking-list fret-count))
          (dot-list (cdr (assoc 'dot-list parameters)))
          (xo-list (cdr (assoc 'xo-list parameters)))
@@ -367,8 +386,8 @@ part of the place-fret element is present, @var{finger-value} will be displayed 
                                     (draw-xo paper props string-count fret-range size xo-list) xo-padding 0)))
          (if (> (car fret-range) 1) 
              (set! fret-diagram-stencil
-                   (ly:stencil-combine-at-edge fret-diagram-stencil X RIGHT
-                                              (label-fret paper props string-count fret-range size) 0 0)))
+                   (ly:stencil-combine-at-edge fret-diagram-stencil X label-dir
+                                              (label-fret paper props string-count fret-range size) label-space 0)))
          (ly:stencil-align-to! fret-diagram-stencil X alignment)
          fret-diagram-stencil))
          
