@@ -23,7 +23,7 @@ include ./$(depth)/make/Variables.make
 NAME = flower
 MODULE_NAME = flower
 include ./$(depth)/flower/.version
-build = ./$(depth)/flower/lib/.build
+build = ./$(depth)/flower/$(outdir)/.build
 #
 
 # descent order into subdirectories:
@@ -78,7 +78,7 @@ default: $(MAINTARGET)
 # # sic.
 # $(include-flower)/flower-config.hh:
 # 	touch $@
- 
+
 # generic targets and rules:
 #
 include ./$(depth)/make/Targets.make
@@ -92,6 +92,6 @@ DEPFILES = $(shell ls $(depdir)/*.dep $(ERROR_LOG))
 
 # auto dependencies:
 #
--include $(DEPFILES)
+-include /dev/null $(DEPFILES)
 #
 
