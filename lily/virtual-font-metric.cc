@@ -28,15 +28,14 @@ Virtual_font_metric::Virtual_font_metric (SCM font_list)
   
   for (SCM s = font_list; gh_pair_p (s); s = gh_cdr (s))
     {
-      if (Font_metric*fm = unsmob_metrics (gh_car (s)))
+      if (Font_metric *fm = unsmob_metrics (gh_car (s)))
 	{
 	  *tail =  scm_cons (gh_car (s),SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
 
 	  if (!gh_number_p (mag))
-	    {
-	      mag = gh_cdr (fm->description_); // ugh.
-	    }
+	    /* Ugh.  */
+	    mag = gh_cdr (fm->description_);
 
 	  *name_tail = scm_cons (gh_car (fm->description_), SCM_EOL);
 	  name_tail = SCM_CDRLOC (*name_tail);
@@ -52,7 +51,6 @@ Virtual_font_metric::design_size () const
   return unsmob_metrics (gh_car (font_list_))-> design_size ();
 }
 
-
 void
 Virtual_font_metric::derived_mark ()const
 {
@@ -64,10 +62,7 @@ Virtual_font_metric::count () const
 {
   int k = 0;
   for (SCM s = font_list_; gh_pair_p (s); s = gh_cdr (s))
-    {
-      k+= unsmob_metrics (gh_car (s))->count ();
-    }
-
+      k += unsmob_metrics (gh_car (s))->count ();
   return k;
 }
 
@@ -82,8 +77,6 @@ Virtual_font_metric::find_by_name (String glyph) const
 
   return m;
 }
-  
-  
 
 Box
 Virtual_font_metric::get_ascii_char (int)  const
@@ -99,22 +92,17 @@ Virtual_font_metric::get_ascii_char_stencil (int )  const
   return Stencil ();
 }
 
-
 Offset
 Virtual_font_metric::get_indexed_wxwy (int code)  const
 {
   int total = 0;
   for (SCM s = font_list_; gh_pair_p (s); s = gh_cdr (s))
     {
-      Font_metric* fm = unsmob_metrics (gh_car (s));
+      Font_metric *fm = unsmob_metrics (gh_car (s));
       if (code < total + fm->count ())
-	{
-	  return fm->get_indexed_wxwy (code - total);
-	}
+	return fm->get_indexed_wxwy (code - total);
       total += fm->count ();
     }
-
-  
   return Offset (0,0);
 }
 
@@ -124,18 +112,13 @@ Virtual_font_metric::get_indexed_char (int code)  const
   int total = 0;
   for (SCM s = font_list_; gh_pair_p (s); s = gh_cdr (s))
     {
-      Font_metric* fm = unsmob_metrics (gh_car (s));
+      Font_metric *fm = unsmob_metrics (gh_car (s));
       if (code < total + fm->count ())
-	{
-	  return fm->get_indexed_char (code - total);
-	}
+	return fm->get_indexed_char (code - total);
       total += fm->count ();
     }
-
-  
   return Box ();
 }
-
 
 int 
 Virtual_font_metric::name_to_index (String glyph) const
@@ -151,10 +134,8 @@ Virtual_font_metric::name_to_index (String glyph) const
 
       total += m->count ();
     }
-
   return -1;
 }
-
   
 Stencil
 Virtual_font_metric::get_indexed_char_stencil (int code)  const
@@ -164,15 +145,15 @@ Virtual_font_metric::get_indexed_char_stencil (int code)  const
   
   for (SCM s = font_list_; gh_pair_p (s); s = gh_cdr (s))
     {
-      Font_metric* fm = unsmob_metrics (gh_car (s));
+      Font_metric *fm = unsmob_metrics (gh_car (s));
       if (code < total + fm->count ())
 	{
-	  m = fm->get_indexed_char_stencil (code - total); // ugh.
+	  /* Ugh.  */
+	  m = fm->get_indexed_char_stencil (code - total);
 	  break; 
 	}
       total += fm->count ();
     }
-
   return m;
 }
 
@@ -190,4 +171,11 @@ LY_DEFINE (ly_make_virtual_font, "ly:make-virtual-font", 0, 0, 1,
   Virtual_font_metric *fm = new  Virtual_font_metric (args);
 
   return scm_gc_unprotect_object (fm->self_scm ());
+}
+
+String
+Virtual_font_metric::coding_scheme () const
+{
+  Font_metric *fm = unsmob_metrics (gh_car (font_list_));
+  return fm->coding_scheme ();
 }

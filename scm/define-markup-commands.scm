@@ -21,9 +21,9 @@
     (interpret-markup paper props
 		      (make-word-markup str)))
 
-; todo: use font recoding.
-;		      (make-line-markup
-;		       (map make-word-markup (string-tokenize str)))))
+;; TODO: use font recoding.
+;;		      (make-line-markup
+;;		       (map make-word-markup (string-tokenize str)))))
 
 (define-public empty-markup
   (make-simple-markup ""))

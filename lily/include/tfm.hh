@@ -131,7 +131,7 @@ struct Tfm_kern
 
 struct Tex_font_char_metric
 {
-  bool exists_b_;
+  bool exists_;
   Char_code code_;
   Real width_, height_, depth_, italic_correction_;
   Fix width_fix_, height_fix_, depth_fix_, italic_correction_fix_;
@@ -153,6 +153,7 @@ public:
   virtual int count () const;
   virtual Box get_ascii_char (int) const;
   virtual Real design_size () const;
+  virtual String coding_scheme () const;
   
   Tex_font_char_metric const *find_ascii (int ascii, bool warn=true) const;
 
@@ -162,6 +163,7 @@ public:
   Tfm_header header_;
   Array<Tex_font_char_metric> char_metrics_;
   Array<int> ascii_to_metric_idx_;
+
 private:
   Tex_font_metric ();
 };

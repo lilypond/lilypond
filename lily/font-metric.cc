@@ -24,6 +24,12 @@ Font_metric::design_size () const
   return 1.0;
 }
 
+String
+Font_metric::coding_scheme () const
+{
+  return "FontSpecific";
+}
+
 Box
 Font_metric::text_dimension (String text) const
 {
@@ -75,16 +81,11 @@ Font_metric::text_dimension (String text) const
 	}
     }
   if (ydims.is_empty ())
-    ydims = Interval (0,0);
+    ydims = Interval (0, 0);
 
   return Box (Interval (0, w), ydims);
 }
 
-
-
-Font_metric::~Font_metric ()
-{
-}
 
 Font_metric::Font_metric ()
 {
@@ -97,6 +98,11 @@ Font_metric::Font_metric (Font_metric const &)
 {
 }
 
+
+Font_metric::~Font_metric ()
+{
+}
+
 int
 Font_metric::count () const
 {
@@ -106,7 +112,7 @@ Font_metric::count () const
 Box 
 Font_metric::get_ascii_char (int) const
 {
-  return Box (Interval (0,0),Interval (0,0));
+  return Box (Interval (0, 0), Interval (0, 0));
 }
 
 Box 
@@ -114,7 +120,6 @@ Font_metric::get_indexed_char (int k) const
 {
   return get_ascii_char (k);
 }
-
 
 int
 Font_metric::name_to_index (String) const
@@ -125,20 +130,18 @@ Font_metric::name_to_index (String) const
 Offset
 Font_metric::get_indexed_wxwy (int )const
 {
-  return Offset (0,0);
+  return Offset (0, 0);
 }
 
 void
 Font_metric::derived_mark ()const
 {
-  
 }
 
 SCM
 Font_metric::mark_smob (SCM s)
 {
-  Font_metric * m = (Font_metric*) SCM_CELL_WORD_1 (s);
-
+  Font_metric *m = (Font_metric*) SCM_CELL_WORD_1 (s);
   m->derived_mark ();
   return m->description_;
 }
@@ -164,11 +167,12 @@ IMPLEMENT_TYPE_P (Font_metric, "ly:font-metric?");
 Stencil
 Font_metric::find_by_name (String) const
 {
-  Stencil m ;
+  Stencil m;
   return m;
 }
 
-LY_DEFINE (ly_find_glyph_by_name, "ly:find-glyph-by-name", 2 , 0, 0,
+LY_DEFINE (ly_find_glyph_by_name, "ly:find-glyph-by-name",
+	   2, 0, 0,
 	  (SCM font, SCM name),
 	  "This function retrieves a Stencil for the glyph named @var{name} "
 	   "in "
@@ -180,18 +184,17 @@ LY_DEFINE (ly_find_glyph_by_name, "ly:find-glyph-by-name", 2 , 0, 0,
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
   SCM_ASSERT_TYPE (gh_string_p (name), name, SCM_ARG2, __FUNCTION__, "string");
 
-  Stencil m =  fm->find_by_name (ly_scm2string (name));
+  Stencil m = fm->find_by_name (ly_scm2string (name));
 
-  /*
-    TODO: make optional argument for default if not found.
-   */
+  /* TODO: make optional argument for default if not found.  */
   return m.smobbed_copy ();
 }
 
-LY_DEFINE (ly_get_glyph, "ly:get-glyph", 2 , 0, 0,
+LY_DEFINE (ly_get_glyph, "ly:get-glyph",
+	   2, 0, 0,
 	  (SCM font, SCM index),
-	  "This function retrieves a Stencil for the glyph numbered @var{index} in "
-"@var{font}. ")
+	   "Retrieve a Stencil for the glyph numbered @var{index} "
+	   "in @var{font}.")
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
@@ -200,11 +203,12 @@ LY_DEFINE (ly_get_glyph, "ly:get-glyph", 2 , 0, 0,
   return fm->get_ascii_char_stencil (gh_scm2int (index)).smobbed_copy ();
 }
 
-LY_DEFINE (ly_text_dimension,"ly:text-dimension", 2 , 0, 0,
+LY_DEFINE (ly_text_dimension,"ly:text-dimension",
+	   2, 0, 0,
 	  (SCM font, SCM text),
-	  "Given the font metric in @var{font} and the string @var{text}, compute "
-"the extents of that text in that font. The return value is a pair of "
-"number-pairs.")
+	  "Given the font metric in @var{font} and the string @var{text}, "
+	   "compute the extents of that text in that font.  "
+	   "The return value is a pair of number-pairs.")
 {
   Box b;
   Font_metric *fm = unsmob_metrics (font);
@@ -216,9 +220,11 @@ LY_DEFINE (ly_text_dimension,"ly:text-dimension", 2 , 0, 0,
   return gh_cons (ly_interval2scm (b[X_AXIS]), ly_interval2scm (b[Y_AXIS]));
 }
 
-LY_DEFINE (ly_font_name,"ly:font-name", 1 , 0, 0,
-	  (SCM font),
-	   "Given the font metric @var{font}, return the corresponding file name. ")
+LY_DEFINE (ly_font_name,"ly:font-name",
+	   1, 0, 0,
+	   (SCM font),
+	   "Given the font metric @var{font}, "
+	   "return the corresponding file name.")
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
@@ -242,26 +248,37 @@ LY_DEFINE (ly_font_design_size,"ly:font-design-size", 1 , 0, 0,
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
-  return gh_double2scm  (fm->design_size ());
+  return gh_double2scm (fm->design_size ());
 }
 
-
 Stencil
-Font_metric::get_ascii_char_stencil (int code)  const
+Font_metric::get_ascii_char_stencil (int code) const
 {
-  SCM at = scm_list_n (ly_symbol2scm ("char"), gh_int2scm (code),
-		       SCM_UNDEFINED);
+  SCM at = scm_list_2 (ly_symbol2scm ("char"), gh_int2scm (code));
   at = fontify_atom (this, at);
   Box b = get_ascii_char (code);
   return Stencil (b, at);
 }
 
 Stencil
-Font_metric::get_indexed_char_stencil (int code)  const
+Font_metric::get_indexed_char_stencil (int code) const
 {
-  SCM at = scm_list_n (ly_symbol2scm ("char"), gh_int2scm (code),
-		       SCM_UNDEFINED);
+  SCM at = scm_list_2 (ly_symbol2scm ("char"), gh_int2scm (code));
   at = fontify_atom (this, at);
   Box b = get_indexed_char (code);
   return Stencil (b, at);
+}
+
+int
+/*Font_metric::*/
+get_encoded_index (Font_metric *m, String input_coding, int code)
+{
+  String font_coding = m->coding_scheme ();
+  if (font_coding == input_coding)
+    return code;
+  SCM s = scm_call_3 (ly_scheme_function ("encoded-index"),
+		      scm_makfrom0str (input_coding.to_str0 ()),
+		      scm_makfrom0str (font_coding.to_str0 ()),
+		      scm_int2num (code));
+  return gh_scm2int (s);
 }

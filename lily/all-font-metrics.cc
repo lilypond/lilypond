@@ -19,7 +19,7 @@
 #include "scm-hash.hh"
 #include "kpath.hh"
 
-static const char * default_font_str0_ = "cmr10";
+static const char *default_font_str0_ = "cmr10";
 
 All_font_metrics::All_font_metrics (String path)
 {
@@ -38,68 +38,65 @@ All_font_metrics::~All_font_metrics ()
 /*
   TODO: our AFM handling is broken: the units in an AFM file are
   relative to the design size (1000 units = 1 designsize). Hence we
-  should include design size when generating an AFM metric. 
+  should include design size when generating an AFM metric.
+
+  ugr: copied from find_tfm.
  */
 Adobe_font_metric *
 All_font_metrics::find_afm (String name)
 {
   SCM sname = ly_symbol2scm (name.to_str0 ());
-
   SCM name_string = scm_makfrom0str (name.to_str0 ());
-
   SCM val;
-  
   if (!afm_p_dict_->try_retrieve (sname, &val))
     {
-      String path;
+      String filename;
 
-      if (path.is_empty ())
-	path = search_path_.find (name  + ".afm");
+      if (filename.is_empty ())
+	filename = search_path_.find (name  + ".afm");
 
-      if (path.is_empty ())
+      if (filename.is_empty ())
 	{
 	  String p = kpathsea_find_afm (name.to_str0 ());
 	  if (p.length ())
-	    path = p;
+	    filename = p;
 	}
 
-      if (path.is_empty ())
+      if (filename.is_empty ())
 	return 0;
       
       if (verbose_global_b)
-	progress_indication ("[" + path);
-      val = read_afm_file (path);
-      unsmob_metrics (val)->path_ = path;
+	progress_indication ("[" + filename);
+      val = read_afm_file (filename);
+      unsmob_metrics (val)->filename_ = filename;
       
-      unsmob_metrics (val)->description_ = gh_cons (name_string, gh_double2scm (1.0));
+      unsmob_metrics (val)->description_ = gh_cons (name_string,
+						    gh_double2scm (1.0));
 
       if (verbose_global_b)
 	progress_indication ("]");
 
-      afm_p_dict_->set (sname,val);
-
+      afm_p_dict_->set (sname, val);
       scm_gc_unprotect_object (val);
-
 
       Adobe_font_metric *afm
 	= dynamic_cast<Adobe_font_metric*> (unsmob_metrics (val));
 
-      /*
-	only check checksums if there is one.  We take the risk that
-	some file has valid checksum 0
-      */
+      /* Only check checksums if there is one.  We take the risk that
+	 some file has valid checksum 0 */
       if (afm->checksum_)
 	{
 	  Tex_font_metric * tfm = find_tfm (name);
 	  
 	  /* FIXME: better warning message
-	     (maybe check upon startup for feta16.afm, feta16.tfm?)
-	  */
+	     (maybe check upon startup for feta16.afm, feta16.tfm?) */
 	  if (tfm && tfm->info_.checksum != afm->checksum_)
 	    {
+	      // FIXME: broken sentence
 	      String s = _f ("checksum mismatch for font file: `%s'",
-			     path.to_str0 ());
-	      s += " " + _f ("does not match: `%s'", tfm->path_.to_str0 ()); // FIXME
+			     filename.to_str0 ());
+	      s += " " + _f ("does not match: `%s'",
+			     tfm->filename_.to_str0 ());
 	      s += "\n";
 	      s += " TFM: " + to_string ((int) tfm->info_.checksum);
 	      s += " AFM: " + to_string ((int) afm->checksum_);
@@ -120,57 +117,53 @@ All_font_metrics::find_afm (String name)
 }
 
 
-Tex_font_metric *
+Tex_font_metric*
 All_font_metrics::find_tfm (String name)
 {
   SCM sname = ly_symbol2scm (name.to_str0 ());
   SCM name_string = scm_makfrom0str (name.to_str0 ());
-
   SCM val;
   if (!tfm_p_dict_->try_retrieve (sname, &val))
     {
-      String path;
+      String filename;
       
-      if (path.is_empty ())
+      if (filename.is_empty ())
 	{
 	  String p = kpathsea_find_tfm (name.to_str0 ());
 	  if (p.length ())
-	    path = p;
+	    filename = p;
 	}
 
-      if (path.is_empty ())
-	path = search_path_.find (name  + ".tfm");
-      if (path.is_empty ())
+      if (filename.is_empty ())
+	filename = search_path_.find (name  + ".tfm");
+      if (filename.is_empty ())
 	return 0;
 
       if (verbose_global_b)
-	progress_indication ("[" + path);
+	progress_indication ("[" + filename);
       
-      val = Tex_font_metric::make_tfm (path);
+      val = Tex_font_metric::make_tfm (filename);
 
       if (verbose_global_b)
 	progress_indication ("]");
 
-      unsmob_metrics (val)->path_ = path;
-      unsmob_metrics (val)->description_ = gh_cons (name_string, gh_double2scm (1.0));
+      unsmob_metrics (val)->filename_ = filename;
+      unsmob_metrics (val)->description_ = gh_cons (name_string,
+						    gh_double2scm (1.0));
       tfm_p_dict_->set (sname, val);
-
       scm_gc_unprotect_object (val);
     }
 
-  return
-    dynamic_cast<Tex_font_metric*> (unsmob_metrics (val));
+  return dynamic_cast<Tex_font_metric*> (unsmob_metrics (val));
 }
 
-
-
-Font_metric *
+Font_metric*
 All_font_metrics::find_font (String name)
 {
   if ((name.left_string (4) == "feta") ||
       (name.left_string (8) == "parmesan"))
     {
-      Font_metric * f = find_afm (name);
+      Font_metric *f = find_afm (name);
       if (f)
 	return f;
       else
@@ -184,9 +177,9 @@ All_font_metrics::find_font (String name)
       if (f)
 	return f;
       else
-      f =find_afm (name);
+      f = find_afm (name);
       if (f)
-	return f ;
+	return f;
     }
 
   warning (_f ("can't find font: `%s'", name.to_str0 ()));

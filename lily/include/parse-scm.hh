@@ -1,6 +1,14 @@
+/*
+  lily-guile.hh encapsulate guile
 
-#ifndef PARSE_SCM
-#define PARSE_SCM
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+
+*/
+
+#ifndef PARSE_SCM_HH
+#define PARSE_SCM_HH
 
 #include "input.hh"
 #include "lily-guile.hh"
@@ -16,7 +24,6 @@ struct Parse_start
 
 SCM catch_protected_parse_body (void *);
 SCM protected_ly_parse_scm (Parse_start *, bool);
-
 SCM ly_parse_scm (char const *, int *, Input, bool);
 
-#endif
+#endif /* PARSE_SCM_HH */

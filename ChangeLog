@@ -1,5 +1,11 @@
 2004-04-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/font-metric.cc (get_encoded_index): New function.
+
+	* lily/include/font-metric.hh (coding_scheme): New method.
+
+	* scm/encoding.scm: New file.
+
 	* mf/feta-beugel.mf: Better error message (WAS: `foobar').
 
 2004-04-05  Werner Lemberg  <wl@gnu.org>

@@ -1,5 +1,5 @@
-/*   
-     scaled-font-metric.cc -- declare Scaled_font_metric
+/*
+  scaled-font-metric.cc -- declare Scaled_font_metric
   
   source file of the GNU LilyPond music typesetter
   
@@ -25,9 +25,9 @@ Scaled_font_metric::Scaled_font_metric (Font_metric* m, Real magn)
 }
 
 SCM
-Scaled_font_metric::make_scaled_font_metric (Font_metric*m, Real s)
+Scaled_font_metric::make_scaled_font_metric (Font_metric *m, Real s)
 {
-  Scaled_font_metric *sfm = new Scaled_font_metric (m,s);
+  Scaled_font_metric *sfm = new Scaled_font_metric (m, s);
   return sfm->self_scm ();
 }
 
@@ -44,8 +44,7 @@ Scaled_font_metric::find_by_name (String s) const
   Box b = m.extent_box ();
   b.scale (magnification_);
   Stencil q (b,fontify_atom ((Font_metric*) this, m.get_expr ()));
-
-  return q ;
+  return q;
 }
 
 Box 
@@ -68,7 +67,6 @@ Box
 Scaled_font_metric::text_dimension (String t) const
 {
   Box b (orig_->text_dimension (t));
-
   b.scale (magnification_);
   return b;
 }
@@ -91,3 +89,10 @@ Scaled_font_metric::name_to_index (String s)const
 {
   return orig_->name_to_index (s);
 }
+
+String
+Scaled_font_metric::coding_scheme () const
+{
+  return orig_->coding_scheme ();
+}
+

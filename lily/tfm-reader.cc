@@ -164,7 +164,7 @@ Tex_font_metric_reader::read_char_metrics ()
   for (int i = info_.first_charcode; i <= info_.last_charcode; i++)
     {
       Tex_font_char_metric tfm_char = read_char_metric (i);
-      if (tfm_char.exists_b_)
+      if (tfm_char.exists_)
 	ascii_to_metric_idx_[tfm_char.code_] = char_metrics_.size ();
       char_metrics_.push (tfm_char);
     }
@@ -191,7 +191,7 @@ Tex_font_metric_reader::read_char_metric (Char_code code)
   /* Read the character.  */
   tfm_char = read_char ();
 
-  if (tfm_char.exists_b_)
+  if (tfm_char.exists_)
     tfm_char.code_ = code;
 
   return tfm_char;
@@ -239,7 +239,7 @@ Tex_font_metric_reader::read_char ()
      the first and last character codes given in the header.  We've
      already assumed that's true (or we couldn't be positioned at a
      `char_info_word').  */
-  tfm_char.exists_b_ = width_index != 0;
+  tfm_char.exists_ = width_index != 0;
 
   if (tag == 1)
     {
