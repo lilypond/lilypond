@@ -6,7 +6,9 @@
 
 	* Documentation/user/refman.itely: spelling fix.
 
-	* lilypond-mode.el, lilypond-indent.el: restrusture and comment.
+	* lilypond-mode.el, lilypond-indent.el: restrusture and comment
+	paren highlight function definitions. add todo for
+	Lilypond-show-paren-mode.
 
 2003-07-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
