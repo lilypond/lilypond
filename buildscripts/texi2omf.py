@@ -1,17 +1,19 @@
-import time
-import re
-import sys
+#!@PYTHON@
+
 import getopt
 import os
+import re
+import sys
+import time
 
 def usage ():
 	sys.stderr.write ('''
-texi2omf [options] texifile
+texi2omf [options] FILE.texi > FILE.omf
 
 Options:
 
---format=FORM         format is FORM. Supported: HTML, PS, PDF
---location=FILE       path to file on disk.
+--format=FORM         set format FORM  (HTML, PS, PDF, [XML]).
+--location=FILE       file name as installed on disk.
 --version=VERSION
 
 Use the following commands (enclose in @ignore)
@@ -33,8 +35,9 @@ location = ''
 version = ''
 email = os.getenv ('MAILADDRESS')
 name = os.getenv ('USERNAME')
+format = 'xml'
 
-for (o,a) in options:
+for (o, a) in options:
 	if o == '--format':
 		format = a
 	elif o == '--location':
@@ -46,7 +49,7 @@ for (o,a) in options:
 
 		
 if not files:
-	usage()
+	usage ()
 	sys.exit (2)
 
 
@@ -55,6 +58,7 @@ formats = {
 	'pdf' : 'application/pdf',
 	'ps.gz' : 'application/postscript',
 	'ps' : 'application/postscript',
+	'xml' : 'text/xml',
 	}
 
 if not formats.has_key (format):
@@ -62,27 +66,29 @@ if not formats.has_key (format):
 	sys.exit (1)
 
 
-infile =files[0]
+infile = files[0]
 
-today = time.localtime()
+today = time.localtime ()
 
-texi = open (infile).read()
+texi = open (infile).read ()
 
 if not location:
-	location = 'file:%s' % re.sub (r'\.*', '.html', infile)
-	
+	location = 'file:/%s' % re.sub (r'\..*', '.' + format, infile)
 
 omf_vars = {
 	'date': '%d-%d-%d' %  today[:3],
 	'mimeformat': formats[format],
 	'maintainer':  "%s (%s)" % (name, email),
 	'version' : version,
-	'location' : location, 
+	'location' : location,
+	'language' : 'C',
 	}
 
-for a in ['subject','creator', 'title', 'subtitle', 'version', 'category', 'type',
-	  'description',  'license']:
+omf_caterories = ['subject', 'creator', 'maintainer', 'contributor',
+		  'title', 'subtitle', 'version', 'category', 'type',
+		  'description', 'license', 'language',]
 	
+for a in omf_caterories:
 	m = re.search ('@omf%s (.*)\n'% a, texi)
 	if m:
 		omf_vars[a] = m.group (1)
@@ -138,7 +144,7 @@ print r'''<?xml version="1.0" encoding="UTF-8"?>
     </type>
     <format mime="%(mimeformat)s" />
     <identifier url="%(location)s"/>
-    <language code="C"/>
+    <language code="%(language)s"/>
     <rights type="%(license)s" />
   </resource>
 </omf>
