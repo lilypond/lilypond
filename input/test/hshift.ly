@@ -2,11 +2,11 @@
 
 
 
-shiftI \property Voice.NoteColumn \override #'horizontal-shift = #0
-shiftII \property Voice.NoteColumn \override #'horizontal-shift = #1
-shiftIII \property Voice.NoteColumn \override #'horizontal-shift = #2
-shiftIV \property Voice.NoteColumn \override #'horizontal-shift = #3
-shiftV \property Voice.NoteColumn \override #'horizontal-shift = #4
+shiftI = \property Voice.NoteColumn \override #'horizontal-shift = #0
+shiftII = \property Voice.NoteColumn \override #'horizontal-shift = #1
+shiftIII = \property Voice.NoteColumn \override #'horizontal-shift = #2
+shiftIV = \property Voice.NoteColumn \override #'horizontal-shift = #3
+shiftV = \property Voice.NoteColumn \override #'horizontal-shift = #4
 
 \score { 
   \context Voice \notes\relative c {

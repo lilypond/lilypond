@@ -24,6 +24,9 @@
    FIXME: should not compute vertical positioning of accidentals, but
    get them from the noteheads
 
+   The algorithm for accidentals should be documented, and made
+   tweakable.
+
 */
 
 
