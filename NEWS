@@ -1,3 +1,43 @@
+pl 39
+	- \property textstyle -> textStyle
+
+pl 38.tca1
+	- added scm/accordion-script.scm and update ly/accordion-defs.ly
+	- renamed some accordion symbols to make them more english and less
+	  norwenglish. 
+	- removed dot from \accBayanbase
+
+pl 37.script4
+	- bf: molecule
+	- bf: tuplet spanner appearance.
+	- bf: less spacing after clef.  Invisible bar has no dims. 
+	- included AIMS.  The why of Lily.
+	- warning if duplicate engraver.
+	- warning if no ties could be created.
+	- bf: \time1/4; .. beams ..
+	- bf: staff switching beams / slurs.
+	- tuplets on multiple beams.
+	- Documentation/tex/lilypond-regtest.doc
+	- bf: nested tuplets
+	- slur cleanups.
+	- bf: multi_measure_rest_engraver in Score_context.
+
+pl 38.uu1
+	- bf: clef_8
+	- bf: barnumbers.
+
+pl 37.script3
+	- fixes for spring_spacer, introduced
+Spacing_engraver
+	- cleanup for rest-collisions. 
+	- hacks for GUILE gc
+	- mudela-book \mudelafile
+	- Documentation/tex/lilypond-regtest.doc
+	- MF rest fixes
+
+
+********
+pl 38 (april 6)
 pl 37.script2
 	- bf: AFM for BlueSky AFM files.
 	- \penalty = 4278 -> \penalty 4278
