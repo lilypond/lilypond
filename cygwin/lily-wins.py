@@ -71,7 +71,7 @@ if not pdfview:
 	pdfview = 'xpdf'
 
 os.chdir (dir)
-system ('/usr/bin/lilypond %(base)s > %(stem)s.log 2>&1' % vars ())
+system ("/usr/bin/lilypond '%(base)s' > '%(stem)s.log' 2>&1" % vars ())
 if not os.path.exists ('%(stem)s.pdf' % vars ()):
 	# message box?
 	sys.stderr.write ('pdf output not found\n')
