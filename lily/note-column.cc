@@ -19,7 +19,7 @@
 #include "accidental-placement.hh"
 
 bool
-Note_column::rest_b (Grob*me) 
+Note_column::has_rests (Grob*me) 
 {
   return unsmob_grob (me->get_grob_property ("rest"));
 }

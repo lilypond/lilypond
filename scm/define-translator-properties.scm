@@ -368,7 +368,6 @@ with other voices is preserved.
 @example
 @@lilypond[fragment,verbatim,center]
 r1 r1*3 R1*3  \\\\property Score.skipBars= ##t r1*3 R1*3
-
 @@end lilypond
 @end example
 
@@ -379,7 +378,7 @@ this moment, causing  the interpretation phase to go a lot faster. This can
 help with debugging large scores.")
 (translator-property-description 'slurMelismaBusy boolean? "Signal if a slur is present.")
 (translator-property-description 'solo boolean? "set if solo is detected by the part combiner.")
-(translator-property-description 'soloADue boolean? "set Solo/A due texts in the part combiner?.")
+(translator-property-description 'soloADue boolean? "set Solo/A due texts in the part combiner?")
 (translator-property-description 'soloIIText string? "text for begin of solo for voice ``two'' when part-combining.")
 (translator-property-description 'soloText string? "text for begin of solo when part-combining.")
 (translator-property-description 'sparseTies boolean? "only create one tie per chord.")
@@ -429,12 +428,12 @@ uses less memory and time.")
 
 (translator-property-description 'tupletSpannerDuration ly:moment? "
 Normally a tuplet bracket is as wide as the
-@code{	imes} expression that gave rise to it. By setting this
+@code{\\times} expression that gave rise to it. By setting this
 property, you can make brackets last shorter. Example
 
 @example
 @@lilypond[verbatim,fragment]
-context Voice 	imes 2/3 @{
+context Voice \\times 2/3 @{
   property Voice.tupletSpannerDuration = #(ly:make-moment 1 4)
   c-[8 c c-] c-[ c c-]
 @}
@@ -450,7 +449,7 @@ coded vertical extent.  The format is a pair of dimensions, for
 example, this sets the sizes of a staff to 10 (5+5) staffspaces high.
 
 @example
-property Staff.verticalExtent = #(-5.0 . 5.0)
+property Staff.verticalExtent = #'(-5.0 . 5.0)
 @end example
 
 VerticalExtent, MinimumVerticalExtent and ExtraVerticalExtent are
@@ -495,9 +494,8 @@ If not set explicitly (by property or @code{\\bar}), this is set
 according to values of @code{defaultBarType}, @code{barAlways},
 @code{barNonAuto} and @code{measurePosition}.
 
-Valid values are described in @ref{(lilypond-internals)bar-line-interface}.
-
-.")
+Valid values are described in @ref{bar-line-interface}.
+")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

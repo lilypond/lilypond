@@ -437,8 +437,10 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
 	see below.
        */
       if (sym == ly_symbol2scm ("all-elements"))
-	sc->set_grob_property ("all-elements", SCM_EOL);
-
+	  sc->mutable_property_alist_
+	    = scm_assq_remove_x (sc->mutable_property_alist_,
+			     ly_symbol2scm ("all-elements"));
+      
       sc->mutable_property_alist_ = scm_acons (sym, newval,
 					       sc->mutable_property_alist_);
     }
@@ -524,7 +526,9 @@ Spanner::substitute_one_mutable_property (SCM sym,
 	  (hwn 4/2/04)
 	*/
 	if (sym == ly_symbol2scm ("all-elements"))
-	  sc->set_grob_property ("all-elements", SCM_EOL);
+	  sc->mutable_property_alist_
+	    = scm_assq_remove_x (sc->mutable_property_alist_,
+			     ly_symbol2scm ("all-elements"));
 	
 	sc->mutable_property_alist_ = scm_cons (scm_cons (sym, newval),
 						sc->mutable_property_alist_);

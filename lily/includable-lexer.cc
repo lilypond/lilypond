@@ -117,7 +117,7 @@ Includable_lexer::close_input ()
 #ifdef HAVE_FLEXLEXER_YY_CURRENT_BUFFER  
   yy_current_buffer = 0;
 #endif  
-  if (state_stack_.empty ())
+  if (state_stack_.is_empty ())
     {
 #ifdef HAVE_FLEXLEXER_YY_CURRENT_BUFFER  
       yy_current_buffer = 0;
@@ -134,14 +134,14 @@ Includable_lexer::close_input ()
 char const*
 Includable_lexer::here_str0 () const
 {
-  if (include_stack_.empty ())
+  if (include_stack_.is_empty ())
     return 0;
   return include_stack_.top ()->to_str0 () + char_count_stack_.top ();
 }
 
 Includable_lexer::~Includable_lexer ()
 {
-  while (!include_stack_.empty ())
+  while (!include_stack_.is_empty ())
     {
       close_input ();
     }
@@ -159,7 +159,7 @@ Includable_lexer::add_lexed_char (int count)
 Source_file*
 Includable_lexer::get_source_file () const
 {
-  if (include_stack_.empty ())
+  if (include_stack_.is_empty ())
     return 0;
   else
     return include_stack_.top ();

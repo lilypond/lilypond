@@ -113,8 +113,14 @@ Rest_collision::do_shift (Grob *me)
 
   // no partners to collide with
   if (rests.size () + notes.size () < 2)
-    return SCM_UNSPECIFIED;
-
+    {
+      if (rests.size () == 1
+	  && Note_column::dir (rests[0]))
+	{
+	  Note_column::translate_rests (rests[0],
+					4 * Note_column::dir (rests[0]));
+	}
+    }
   // meisjes met meisjes
   if (!notes.size ()) 
     {

@@ -200,7 +200,7 @@ My_lily_lexer::~My_lily_lexer ()
 void
 My_lily_lexer::LexerError (char const *s)
 {
-  if (include_stack_.empty ())
+  if (include_stack_.is_empty ())
     {
       progress_indication (_f ("error at EOF: %s", s)+ String ("\n"));
     }

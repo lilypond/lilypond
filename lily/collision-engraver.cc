@@ -50,7 +50,7 @@ Collision_engraver::acknowledge_grob (Grob_info i)
   if (Note_column::has_interface (i.grob_))
     {
       /*should check Y axis? */
-      if (Note_column::rest_b (i.grob_) || i.grob_->get_parent (X_AXIS))
+      if (Note_column::has_rests (i.grob_) || i.grob_->get_parent (X_AXIS))
 	return ;
 
       note_columns_.push (i.grob_);

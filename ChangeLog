@@ -1,3 +1,12 @@
+2004-02-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (simple_toplevel_snippets): new
+	function.
+
+2004-02-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (outname): fix typo
+
 2004-02-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/NEWS.texi: Add item about lilypond-book.
@@ -21,6 +30,16 @@
 	with @macros in @includes.
 
 2004-02-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/rest-collision-engraver.cc (process_acknowledged_grobs):
+	make rest-collision only.
+
+	* lily/break-substitution.cc (substitute_one_mutable_property):
+	clear all-elements using scm_assq_remove_x(). 
+
+	* lily/rest-collision.cc (do_shift): shift single rests
+
+	* flower/include/array.hh (class Array): rename to is_empty ()
 
 	* lily/drum-note-performer.cc: new file: perform drum notes.
 

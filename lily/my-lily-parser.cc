@@ -50,7 +50,7 @@ My_lily_parser::parse_file (String init, String in_file, String out_file)
 
   progress_indication ("\n");
   
-  if (!define_spots_.empty ())
+  if (!define_spots_.is_empty ())
     {
       define_spots_.top ().warning (_ ("Braces don't match"));
       error_level_ = 1;

@@ -29,7 +29,7 @@ struct Spacings
     staff_spacing_ = 0;
   }
 
-  bool empty( )const
+  bool is_empty () const
   {
     return !staff_spacing_ && !note_spacings_.size (); 
   }
@@ -205,7 +205,7 @@ Separating_line_group_engraver::stop_translation_timestep ()
     }
 
   
-  if (!current_spacings_.empty ())
+  if (!current_spacings_.is_empty ())
     {
       last_spacings_ = current_spacings_;
     }
