@@ -317,8 +317,14 @@ Paper_book::classic_output (String outname)
   Offset o (0, -0.5 * first->dim ()[Y_AXIS]);
   int line_count = SCM_VECTOR_LENGTH ((SCM) scores_.top ());
   for (int i = 0; i < line_count; i++)
-    out->output_line (scm_vector_ref ((SCM) scores_.top (), scm_int2num (i)),
-		      &o, i == line_count - 1);
+    {
+      if (output_format_global == "tex")
+	o = Offset (0,0);
+      
+      out->output_line (scm_vector_ref ((SCM) scores_.top (),
+						scm_int2num (i)),
+				&o, i == line_count - 1);
+    }
   
   out->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
   progress_indication ("\n");

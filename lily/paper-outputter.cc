@@ -182,6 +182,7 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
   (*origin)[Y_AXIS] += dim[Y_AXIS];
 }
 
+
 void
 Paper_outputter::output_music_output_def (Music_output_def* odef)
 {
