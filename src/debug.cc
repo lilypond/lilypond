@@ -1,4 +1,5 @@
 #include <fstream.h>
+#include <signal.h>
 #include <std/new.h>
 #include <stdlib.h>
 #include "debug.hh"
@@ -19,12 +20,19 @@ mynewhandler()
     assert(false);
 }
 
+void
+float_handler(int)
+{
+    cerr << "Floating point exception .. \n"<< flush;
+    assert(false);
+}
 
 void
 debug_init()
 {
     set_new_handler(&mynewhandler);
     set_matrix_debug(monitor);
+    signal(SIGFPE, float_handler);
 }   
 
 bool check_debug=false;
