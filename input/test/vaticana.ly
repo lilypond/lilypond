@@ -1,7 +1,6 @@
 \version "1.7.19"
 \header {
-    title	= "vaticana ligature test"
-    date	= "2003"
+    texidoc	= "vaticana ligature test"
 }
 
 \include "paper26.ly"

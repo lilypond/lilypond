@@ -1,7 +1,6 @@
 \version "1.7.19"
 \header {
     title	= "Gregorian Scripts"
-    date	= "2003"
     texidoc     = "
 
 Gregorian Scripts:

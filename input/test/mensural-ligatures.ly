@@ -1,7 +1,6 @@
 \version "1.7.19"
 \header {
     title	= "mensural ligature test"
-    date	= "2002"
 }
 
 \include "paper26.ly"

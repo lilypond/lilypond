@@ -1,7 +1,6 @@
 \version "1.7.18"
 
 \header {
- title="Flower of Scotland"
  texidoc = "@cindex Bagpipe Music
 Here's an example of bagpipe music.
 "

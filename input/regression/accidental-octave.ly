@@ -7,6 +7,8 @@ This shows how accidentals in different octaves are handled.
 FIXME: Shorten and docu
 
 "
+
+
 }
 
 #(define  (lo-octave p)
