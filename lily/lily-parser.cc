@@ -104,10 +104,11 @@ Lily_parser::parse_file (String init, String name, String out_name)
   set_yydebug (0);
 
   lexer_->new_input (init, sources_);
+
 #ifdef TWEAK
   File_name f (name);
   String s = global_path.find (f.base_ + ".twy");
-  if (s == "")
+  if (1 || s == "")
     Grob_selector::set_tweaks (SCM_EOL);
   else
     {

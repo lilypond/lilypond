@@ -108,7 +108,7 @@ Object_key_dumper::get_file_contents () const
 }
 
 LY_DEFINE(ly_make_dumper, "ly:make-dumper",
-	  1,0,0,
+	  0,0,0,
 	  (),
 	  "Create a key dumper. "
 	  )
