@@ -123,10 +123,10 @@ Example: tfm2afm `kpsewhich cmr10.tfm`
 ;; what am I doing wrong?
 ;;
 (define (do-file tfm-name output-name)
-  (let* ((font (basename tfm-name '.tfm))
-	 (afm-name (string-append font '.afm))
-	 (dit-name (string-append font '.dit))
-	 (chart-name (string-append font '.chart))
+  (let* ((font (basename tfm-name ".tfm"))
+	 (afm-name (string-append font ".afm"))
+	 (dit-name (string-append font ".dit"))
+	 (chart-name (string-append font ".chart"))
 	 (chart (let loop ((i 0) (s ""))
 		  (if (= i 256)
 		      s
@@ -136,7 +136,7 @@ Example: tfm2afm `kpsewhich cmr10.tfm`
     (dump-file chart-name chart)
     
     (if (= 0 (primitive-fork))
-	(execlp 'tfmtodit tfm-name tfm-name chart-name dit-name)
+	(execlp "tfmtodit" tfm-name tfm-name chart-name dit-name)
 	(waitpid 0))
     
     (let* ((dit (gulp-file dit-name))

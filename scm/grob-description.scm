@@ -334,7 +334,8 @@
 	))
 	(NoteCollision . (
 		(axes 0 1)
-		(note-width . 1.65)
+		;; Ugh, should not be hard-coded. 
+		(note-width . 1.321)
 		(meta . ,(grob-description "NoteCollision"
 		   note-collision-interface axis-group-interface
 		))
@@ -617,6 +618,7 @@
 
 	;; TODO: should split in 3
 	(SystemStartDelimiter . (
+                ;; (weird . 0)
 		(molecule-callback . ,System_start_delimiter::brew_molecule)
 		(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking)
 		;; really 4.0, but 5 to be on safe side.

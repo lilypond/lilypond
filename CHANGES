@@ -1,5 +1,43 @@
-1.3.151.jcn2
+1.3.153
+=======
+
+* Some small chord name fixes.
+
+* Added alternative introduction to tutorial; to be merged.
+
+* Reverted simple easy note head function, as some printers seem to
+choke on it (so there are printers that don't use ghostscript?).
+
+* Chord tremolo fixes: shift beams vertically on whole notes.  Center
+beams on whole notes.  'beam-gap' had been renamed to 'gap', but only
+for reading.
+
+1.3.152.jcn3
 ============
+
+* Fixed brace font selection: do pick bigger font when needed.
+
+* Increased number of brace fonts; made size step variable. 
+
+1.3.152.hwn1
+============
+
+* Add lilypond-init.el
+
+* Bugfix: flipped octaves on octaviated clefs _8 
+
+* Prevent dot/flag collisions by lengthening the stem.
+
+* Bugfix: horizontal shift amount for note collisions.
+
+* Prevent tuplet bracket/staff line collisions
+
+* Bugfix: remove tuplet brackets on automatic beaming.
+
+* Move development.texi to the WikiWiki.
+
+1.3.152
+=======
 
 * ly2dvi: changed headsep to 0pt, as old ly2dvi had.  Fixes mutopia
 textheight setting.

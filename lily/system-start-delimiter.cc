@@ -141,26 +141,31 @@ Molecule
 System_start_delimiter::staff_brace (Grob*me, Real y)
 {
   Font_metric *fm = Font_interface::get_default_font (me);
-  Box b;
-  int lo = 0;
-  int hi = 255; //arg, urg == 0: fm->count () >? 2;
+  SCM font_defaults = gh_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
+					 me->paper_l ()->style_sheet_));
 
-  int big = 1;
-  SCM bigger = gh_list (me->mutable_property_alist_,
-			me->immutable_property_alist_,
-			SCM_UNDEFINED);
+  Box b;
+#if 0
+  b = fm->get_char (0);
+  int count = fm->count () >? 2;
+#else 
+  int count = 255;
+#endif	    
+  int lo = 0;
+  int hi = count;
+  int relative_size = 0;
 
   /* do a binary search for each Y, not very efficient, but passable?  */
   do
   {
     int cmp = (lo + hi) / 2;
-
     b = fm->get_char (cmp);
     if (b[Y_AXIS].empty_b () || b[Y_AXIS].length () > y)
-      {
-	  hi = cmp;
-      }
+      hi = cmp;
     else
+      lo = cmp;
+
+    if (lo == count - 1 && b[Y_AXIS].length () < y && relative_size < 10)
       {
 	/*
 	  ugh: 7
@@ -168,27 +173,36 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
 	  
 	  In the style-sheet, all paper relative sizes need to start
 	  looking at the feta-braces0 font.
-
+	  
 	  The smallest paper size, feta11 or -3, has to make 5 steps
-	  to get to feta26 or +2.  Only after that, from +3 to +5 are
-	  the real bigger sizes, so worst case we need 8 steps to get
+	  to get to feta26 or +2.  Only after that, from +3 to +8 are
+	  the real bigger sizes, so worst case we need 11 steps to get
 	  to the font we need. */
-	if (big < 8)
-	  {
-	    bigger = gh_cons (gh_cons (ly_symbol2scm ("font-relative-size"),
-				       gh_int2scm (big++)),
-			      bigger);
-	    me->set_grob_property ("font", bigger);
-	    fm = Font_interface::get_default_font (me); 
-	    lo = 0;
-	    hi = 255; //fm->count () >? 2;
-	  }
-	else
-	  lo = cmp;
+	fm = Font_interface::get_font
+	  (me,
+	   gh_list (gh_list (gh_cons (ly_symbol2scm ("font-relative-size"),
+				      gh_int2scm (++relative_size)),
+			     SCM_UNDEFINED),
+		    me->mutable_property_alist_,
+		    me->immutable_property_alist_,
+		    font_defaults,
+		    SCM_UNDEFINED));
+#if 0
+	b = fm->get_char (0);
+	count = fm->count () >? 2;
+#else
+	count = 255;
+#endif	    
+	lo = 0;
+	hi = count;
       }
-    }
+  }
   while (hi - lo > 1);
 
+  // uRGURGU, why doesn't the height calculation work out??
+  SCM weird = me->get_grob_property ("weird");
+  if (gh_number_p (weird))
+    lo += gh_scm2int (weird);
   SCM at = gh_list (ly_symbol2scm ("char"), gh_int2scm (lo), SCM_UNDEFINED);
   at = fontify_atom (fm, at);
   

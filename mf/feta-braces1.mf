@@ -6,12 +6,6 @@
 % (c) 1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 % 
 
-font_identifier:="feta-braces1";
-font_size 16;
-mode_setup;
-
-staffsize#:=16pt#;
 font_count := 1;
 input feta-beugel;
 end.
-
