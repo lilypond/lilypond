@@ -1,3 +1,8 @@
+2004-10-18  Carl Sorensen  <carldsorensen@comcast.net>
+
+	* scm/fret-diagrams.scm (fret-diagram-terse): Fix mistake in internal
+	documentation for fret-diagram-terse
+
 2004-10-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/convert-ly.py (usage): Fix --help description.  Apply
