@@ -1,5 +1,4 @@
-Subject: LilyPond 0.1 released - GNU Project music typesetter
-
+Subject: LilyPond 0.1 released - The GNU Project music typesetter
 
 	BORN
 
@@ -12,12 +11,12 @@ Subject: LilyPond 0.1 released - GNU Project music typesetter
 	daughter to Jan 'Janneke' Nieuwenhuizen and Han-Wen 'Wendy'
 	Nienhuys
 
-Lily is a healthy, bouncing baby weighing 340 kilobytes
+Lily is a healthy, bouncing baby weighing 345 kilobytes
 
-Visiting hours: 24hrs a day at
+Visiting hours: 24 hours a day at
 
 	ftp://pcnov095.win.tue.nl/pub/lilypond/lilypond-0.1.0.tar.gz (Europe)
-	ftp://alpha.gnu.ai.mit.edu/pub/lilypond/lilypond-0.1.0.tar.gz (US)
+	ftp://alpha.gnu.ai.mit.edu/gnu/lilypond-0.1.0.tar.gz (US)
 
 You can see some babyfood, diapers and pictures at
 
@@ -26,63 +25,54 @@ You can see some babyfood, diapers and pictures at
 You can send your congratulations to Janneke (jan@digicash.com) and
 Wendy (hanwen@stack.nl)
 
-[ And now the serious part ]
 
-	Announcing
-			
-	GNU LilyPond
-
-	The Music Typesetter
-
-Do you pine for the nice days of Linux 0.95, when men were men and
-wrote their own applications? Are you without a nice project and just
-dying to cut your teeth into a bleeding edge application you can
-modify for your needs?  Do you find it frustrating that everything
-works in LaTeX?  No more all-nighters to get a nifty program working?
-Then this post might be just for you!
-
-I have been working very hard on a music typesetting system (called
-GNU LilyPond) the past half year, and I finally think it is ready to be
-used and hacked at by a larger public than me and my co-developer.
-
-Sources for this project are on:
-
-	ftp://pcnov095.win.tue.nl/pub/lilypond/
-
-detailed info and examples can be found on the webpage at:
-
-	http://www.stack.nl/~hanwen/lilypond/index.html
-
-It isn't flashy, but then I wasn't born to be a webartist.
+GNU LilyPond - The GNU Project Music Typesetter
 
 
-[DETAILED DESCRIPTION]
 
-WHAT IS GNU LilyPond?
+``WHAT IS GNU LilyPond?''
 
-GNU LilyPond is a program which converts music definition files into
-visual or auditive output: it can typeset formatted sheet music to a
-TeX file and and (mechanical) performances to MIDI files.
+Well Mike, GNU LilyPond is a program which converts music definition
+files into visual or auditive output: it can typeset formatted sheet
+music to a TeX file and (mechanical) performances to MIDI files.
 
-WHY?
 
-We want to create tools which can produce production quality scores
-and parts of public music. We haven't quite reached that goal:
+We have been working very hard on this system for the past year, and
+we finally think that it is ready to be used and hacked at by a larger
+public than us. 
 
-* The quality of the output isn't good enough yet due to
-some (still) unsophisticated algorithms
 
-* A number of features haven't been implemented (although they can be
-quite simple)
+WHY ?
 
-WE WANT YOU!  
+We want to create tools to produce production quality scores and parts
+of public domain music.
 
-You can become a user, but we'd really appreciate it you would start 
+
+BUT ..
+
+We haven't yet reached that goal:
+
+* The quality of the output isn't good enough yet due to some
+unsophisticated algorithms
+
+* Some features haven't been implemented, due to lack of time; most of
+them can be done quite simply
+
+This is why we don't consider this software stable yet. It generally
+does what it is supposed to, but we reserve the right to make
+(incompatible) changes to the input format.  We consider it
+of BETA quality.
+
+
+WE WANT YOU!
+
+You can become a user, but we'd really appreciate it if you would start 
 hacking at Lily, and help us advance our project more quickly.
 
-WHAT IS NEEDED?
 
-for compilation you need
+``YES, IT IS FANTASTIC! WHAT DO I NEED?''
+
+For compilation you need
 
 	Unix. (windows32 is known to work, too)
 	GNU C++ v2.7 or better, with libg++ installed.
@@ -90,18 +80,19 @@ for compilation you need
 	Flex (2.5.1 or better). 
 	Bison. (1.25 or better)
 
-for running you need
+For running you need
 
 	TeX
-	MusiXTeX fonts 
+	MusiXTeX fonts
 
 The MusiXTeX fonts are part of the MusiXTeX package version T.73,
 available at any CTAN mirror, or http://www.gmd.de/Misc/Music/ 
 
-WHAT CAN LILYPOND DO?
+
+``WHAT CAN LILYPOND DO?''
 
 ASCII script input (mudela), with identifiers (for music reuse),
-customizable notenames
+customizable notenames.
 
 MIDI output lets you check if you have entered the correct notes.
 MIDI to Mudela conversion through the mi2mu program.
@@ -112,11 +103,26 @@ beams optionally shared between voices.  Multiple scores within one
 input file. Each score is output to a different file.
 
 Beams, slurs, chords, super/subscripts (accents and text), 
-general n-plet (triplet, quadruplets, etc.), lyrics, transposition
+general n-plet (triplet, quadruplets, etc.), lyrics, transposition,
 dynamics (both absolute and hairpin style), clef changes, meter
-changes, cadenza-mode, key changes, repeat bars
+changes, cadenza-mode, key changes, repeat bars.
 
-Integration with LaTeX through scripts.
+Integration with LaTeX through Perl scripts.
 
 
+``WHERE CAN I FIND MORE INFO?''
 
+Sources for this project are on
+
+	ftp://pcnov095.win.tue.nl/pub/lilypond/ (Europe)
+	ftp://alpha.gnu.ai.mit.edu/gnu/ (US)
+
+More detailed info and examples can be found on the webpage at
+
+	http://www.stack.nl/~hanwen/lilypond/index.html
+
+
+THANK YOU,
+
+Thanks go out to Mats Bengtsson, Werner Lemberg and Richard Stallman
+for comments and contributions.
