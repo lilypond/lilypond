@@ -1458,15 +1458,16 @@ unlike @emph{leggiero} or @emph{non-legato} (b), @emph{portato} (c) and
 
 @lilypond[13pt,eps]
 \property Score.barNonAuto = ##t
-\property Lyrics.LyricText \set #'font-style = #'large
 \addlyrics
-\notes\relative c'' { 
+\context Staff \notes\relative c'' { 
   c4( d )e \bar "||" 
   c4-- d-- e-- \bar "||" 
   c4-.( d-. )e-. \bar "||" 
   c4-. d-. e-. \bar "||" 
 }
-\context Lyrics \lyrics { a "" "" b "" "" c "" "" d  }
+\context Lyrics \lyrics {
+  \property Lyrics . LyricText \set #'font-style = #'large
+  a "" "" b "" "" c "" "" d  }
 @end lilypond
 
 @item legato curve
@@ -2059,10 +2060,10 @@ sub@-do@-mi@-nant (S) and V = dominant (D).
 
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t 
-\property Lyrics.LyricText \set #'font-style = #'large
+\property Score.LyricText \set #'font-style = #'large
 %\property Lyrics.minVerticalAlign = #8
 \addlyrics
-\notes\relative c' { 
+\context Staff \notes\relative c' { 
   c1 d e f g a b c }
 \context Lyrics \lyrics { 
   < { I II III IV V VI VII I } 

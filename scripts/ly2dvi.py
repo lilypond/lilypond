@@ -99,7 +99,7 @@ include_path = ['.']
 lily_p = 1
 paper_p = 1
 
-output = 0
+output_name = ''
 targets = {
 	'DVI' : 0,
 	'LATEX' : 0,
@@ -120,7 +120,7 @@ dependency_files = []
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.3.142'
+	program_version = '1.3.148'
 
 
 original_dir = os.getcwd ()
@@ -177,6 +177,18 @@ def warning (s):
 	progress (_ ("warning: ") + s)
 		
 def error (s):
+
+
+	"""Report the error S.  Exit by raising an exception. Please
+	do not abuse by trying to catch this error. If you donn't want
+	a stack trace, write to the output directly.
+
+	RETURN VALUE
+
+	None
+	
+	"""
+	
 	progress (_ ("error: ") + s)
 	raise _ ("Exiting ... ")
 
@@ -236,17 +248,18 @@ def options_help_str (opts):
 	return str
 
 def help ():
-	sys.stdout.write (_ ("Usage: %s [OPTION]... FILE") % program_name)
-	sys.stdout.write ('\n\n')
-	sys.stdout.write (help_summary)
-	sys.stdout.write ('\n\n')
-	sys.stdout.write (_ ("Options:"))
-	sys.stdout.write ('\n')
-	sys.stdout.write (options_help_str (option_definitions))
-	sys.stdout.write ('\n\n')
-	sys.stdout.write (_ ("Report bugs to %s") % 'bug-gnu-music@gnu.org')
-	sys.stdout.write ('\n')
-
+	ls = [(_ ("Usage: %s [OPTION]... FILE") % program_name),
+		('\n\n'),
+		(help_summary),
+		('\n\n'),
+		(_ ("Options:")),
+		('\n'),
+		(options_help_str (option_definitions)),
+		('\n\n'),
+		(_ ("Report bugs to %s") % 'bug-gnu-music@gnu.org'),
+		('\n')]
+	map (sys.stdout.write, ls)
+	
 def setup_temp ():
 	global temp_dir
 	if not keep_temp_dir_p:
@@ -259,6 +272,13 @@ def setup_temp ():
 
 
 def system (cmd, ignore_error = 0):
+	"""Run CMD. If IGNORE_ERROR is set, don't complain when CMD returns non zero.
+
+	RETURN VALUE
+
+	Exit status of CMD
+	"""
+	
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)
 	st = os.system (cmd) >> 8
@@ -280,6 +300,7 @@ def cleanup_temp ():
 		shutil.rmtree (temp_dir)
 
 
+#what a name.
 def set_setting (dict, key, val):
 	try:
 		val = string.atof (val)
@@ -292,6 +313,7 @@ def set_setting (dict, key, val):
 	except KeyError:
 		warning (_ ("no such setting: %s") % `key`)
 		dict[key] = [val]
+
 
 def strip_extension (f, ext):
 	(p, e) = os.path.splitext (f)
@@ -318,7 +340,8 @@ option_definitions = [
 	]
 
 def run_lilypond (files, outbase, dep_prefix):
-	opts = '--output=%s.tex' % outbase
+	opts = ''
+#	opts = opts + '--output=%s.tex' % outbase
 	opts = opts + ' ' + string.join (map (lambda x : '-I ' + x,
 					      include_path))
 	if paper_p:
@@ -359,6 +382,11 @@ def analyse_lilypond_output (filename, extra):
 			set_setting (extra, x, m.group (1))
 
 def find_tex_files_for_base (base, extra):
+
+	"""
+	Find the \header fields dumped from BASE.
+	"""
+	
 	headerfiles = {}
 	for f in layout_fields:
 		if os.path.exists (base + '.' + f):
@@ -375,6 +403,11 @@ def find_tex_files_for_base (base, extra):
 	 
 
 def find_tex_files (files, extra):
+	"""
+	Find all .tex files whose prefixes start with some name in FILES. 
+
+	"""
+	
 	tfiles = []
 	
 	for f in files:
@@ -393,7 +426,8 @@ def find_tex_files (files, extra):
 
 			x = x + 1
 	if not x:
-		warning (_ ("no lilypond output found for %s") % `files`)
+		fstr = string.join (files, ', ')
+		warning (_ ("no lilypond output found for %s") % fstr)
 	return tfiles
 
 def one_latex_definition (defn, first):
@@ -421,9 +455,9 @@ ly_paper_to_latexpaper =  {
 }
 
 def global_latex_definition (tfiles, extra):
-	'''construct preamble from EXTRA,
-	dump lily output files after that, and return result.
-	'''
+
+	'''construct preamble from EXTRA, dump Latex stuff for each
+lily output file in TFILES after that, and return the Latex file constructed.  '''
 
 
 	s = ""
@@ -434,13 +468,13 @@ def global_latex_definition (tfiles, extra):
 	if extra['papersize']:
 		try:
 			options = '%s' % ly_paper_to_latexpaper[extra['papersize'][0]]
-		except:
+		except KeyError:
 			warning (_ ("invalid value: %s") % `extra['papersize'][0]`)
 			pass
 
 	if extra['latexoptions']:
 		options = options + ',' + extra['latexoptions'][-1]
-	
+
 	s = s + '\\documentclass[%s]{article}\n' % options
 
 	if extra['language']:
@@ -471,7 +505,7 @@ def global_latex_definition (tfiles, extra):
 
 	if extra['latexoptions']:
 		s = s + '\geometry{twosideshift=4mm}\n'
-		
+
 	s = s + r'''
 \usepackage[latin1]{inputenc}
 \input{titledefs}
@@ -482,10 +516,8 @@ def global_latex_definition (tfiles, extra):
 	
 	if extra['pagenumber'] and extra['pagenumber'][-1] and extra['pagenumber'][-1] != 'no':
 		s = s + r'''
-\renewcommand{\@evenhead}{\parbox{\textwidth}%
-    {\mbox{}\textbf{\thepage}\hfill\small\theheader}}
-\renewcommand{\@oddhead}{\parbox{\textwidth}%
-    {\mbox{}\small\theheader\hfill\textbf{\thepage}}}
+\renewcommand{\@evenhead}{\hbox to\textwidth{\textbf{\thepage}\hfill{\small\theheader}}}
+\renewcommand{\@oddhead}{\hbox to \textwidth{{\small\theheader}\hfill\textbf{\thepage}}}
 '''
 	else:
 		s = s + '\\pagestyle{empty}\n'
@@ -511,17 +543,28 @@ def global_latex_definition (tfiles, extra):
 	return s
 
 def run_latex (files, outbase, extra):
-	wfs = find_tex_files ([outbase] + files[1:], extra)
+
+	"""Construct latex file, for FILES and EXTRA, dump it into
+OUTBASE.latex. Run LaTeX on it.
+
+RETURN VALUE
+
+None
+	"""
+	latex_fn = outbase + '.latex'
+	
+	wfs = find_tex_files (files, extra)
 	s = global_latex_definition (wfs, extra)
 
-	f = open (outbase + '.latex', 'w')
+	f = open (latex_fn, 'w')
 	f.write (s)
 	f.close ()
 
         if ( os.name == 'posix' ):
-		cmd = 'latex \\\\nonstopmode \\\\input %s' % outbase + '.latex'
+		cmd = 'latex \\\\nonstopmode \\\\input %s' % latex_fn
 	else:
-		cmd = 'latex \\nonstopmode \\input %s' % outbase + '.latex'
+		cmd = 'latex \\nonstopmode \\input %s' % latex_fn
+
 	if not verbose_p:
 		progress ( _("Running %s...") % 'LaTeX')
 		cmd = cmd + ' 1> /dev/null 2> /dev/null'
@@ -530,6 +573,14 @@ def run_latex (files, outbase, extra):
 
 def run_dvips (outbase, extra):
 
+
+	"""Run dvips using the correct options taken from EXTRA,
+leaving a PS file in OUTBASE.ps
+
+RETURN VALUE
+
+None.
+"""
 	opts = ''
 	if extra['papersize']:
 		opts = opts + ' -t%s' % extra['papersize'][0]
@@ -566,7 +617,8 @@ def generate_dependency_file (depfile, outname):
 (sh, long) = getopt_args (__main__.option_definitions)
 try:
 	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
-except:
+except getopt.error, s: 
+	errorport.write ("\nerror: getopt says `%s\'\n\n" % s)
 	help ()
 	sys.exit (2)
 	
@@ -592,7 +644,7 @@ for opt in options:
 		targets['MIDI'] = 0
 		paper_p = 0
 	elif o == '--output' or o == '-o':
-		output = a
+		output_name = a
 	elif o == '--set' or o == '-s':
 		ss = string.split (a, '=')
 		set_setting (extra_init, ss[0], ss[1])
@@ -604,10 +656,10 @@ for opt in options:
 		identify ()
 		sys.exit (0)
 	elif o == '--warranty' or o == '-w':
-		try:
-			system ('lilypond -w')
-		except:
+		status = system ('lilypond -w', ignore_error = 1)
+		if status:
 			warranty ()
+
 		sys.exit (0)
 
 
@@ -640,27 +692,27 @@ def mkdir_p (dir, mode=0777):
 
 include_path = map (abspath, include_path)
 
-original_output = output
+original_output = output_name
 
 if files and files[0] != '-':
 
 	files = map (lambda x: strip_extension (x, '.ly'), files)
 
-	if not output:
-		output = os.path.basename (files[0])
+	if not output_name:
+		output_name = os.path.basename (files[0])
 
 	for i in ('.dvi', '.latex', '.ly', '.ps', '.tex'):
-		output = strip_extension (output, i)
+		output_name = strip_extension (output_name, i)
 
 	files = map (abspath, files) 
 
-	if os.path.dirname (output) != '.':
-		dep_prefix = os.path.dirname (output)
+	if os.path.dirname (output_name) != '.':
+		dep_prefix = os.path.dirname (output_name)
 	else:
 		dep_prefix = 0
 
-	reldir = os.path.dirname (output)
-	(outdir, outbase) = os.path.split (abspath (output))
+	reldir = os.path.dirname (output_name)
+	(outdir, outbase) = os.path.split (abspath (output_name))
 	
 	setup_environment ()
 	setup_temp ()
@@ -668,33 +720,33 @@ if files and files[0] != '-':
 	extra = extra_init
 	
 	if lily_p:
-		try:
+##		try:
 			run_lilypond (files, outbase, dep_prefix)
-		except:
-			# TODO: friendly message about LilyPond setup/failing?
-			#
-			# TODO: lilypond should fail with different
-			# error codes for:
-			#   - guile setup/startup failure
-			#   - font setup failure
-			#   - init.ly setup failure
-			#   - parse error in .ly
-			#   - unexpected: assert/core dump
-			targets = {}
+## #		except:
+## 			# TODO: friendly message about LilyPond setup/failing?
+## 			#
+## 			# TODO: lilypond should fail with different
+## 			# error codes for:
+## 			#   - guile setup/startup failure
+## 			#   - font setup failure
+## 			#   - init.ly setup failure
+## 			#   - parse error in .ly
+## 			#   - unexpected: assert/core dump
+## #			targets = {}
 
 	if targets.has_key ('DVI') or targets.has_key ('PS'):
-		try:
+#		try:
 			run_latex (files, outbase, extra)
 			# unless: add --tex, or --latex?
 			del targets['TEX']
 			del targets['LATEX']
-		except:
-			# TODO: friendly message about TeX/LaTeX setup,
-			# trying to run tex/latex by hand
-			if targets.has_key ('DVI'):
-				del targets['DVI']
-			if targets.has_key ('PS'):
-				del targets['PS']
+#		except Foobar:
+#			# TODO: friendly message about TeX/LaTeX setup,
+#			# trying to run tex/latex by hand
+#			if targets.has_key ('DVI'):
+#				del targets['DVI']
+#			if targets.has_key ('PS'):
+#				del targets['PS']
 
 	# TODO: does dvips ever fail?
 	if targets.has_key ('PS'):
@@ -728,11 +780,7 @@ if files and files[0] != '-':
 else:
 	# FIXME
 	help ()
-	progress ('\n')
-	try:
-		error (_ ("no FILEs specified, can't invoke as filter"))
-	except:
-		pass
+	errorport.write ("ly2dvi: error: " + _ ("no files specified on command line.\n"))
 	sys.exit (2)
 
 
