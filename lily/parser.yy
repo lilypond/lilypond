@@ -142,6 +142,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token SEQUENTIAL
 %token SIMULTANEOUS
 %token CONSISTSEND
+%token DENIES
 %token DURATION
 %token EXTENDER
 %token FONT
@@ -458,6 +459,9 @@ translator_spec_body:
 	}
 	| translator_spec_body ACCEPTS STRING semicolon {
 		dynamic_cast<Translator_group*> ($$)-> set_acceptor (ly_scm2string ($3), true);
+	}
+	| translator_spec_body DENIES STRING semicolon {
+		dynamic_cast<Translator_group*> ($$)-> set_acceptor (ly_scm2string ($3), false);
 	}
 	| translator_spec_body REMOVE STRING semicolon {
 		dynamic_cast<Translator_group*> ($$)-> set_element (ly_scm2string ($3), false);

@@ -5,8 +5,6 @@ description =	 "";
 composer =	 "Ludwig van Beethoven (1770-1827)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
-
-
 }
 
 \version "1.3.59";
@@ -484,14 +482,14 @@ violoncello = \notes \relative c {
 	c4 r r2 |
 }
 
-$violoncello_staff = \context Staff = violoncello <
-	\property Staff.midiInstrument = #"cello"
-	\property Staff.instrument = #"Violoncello\ne\nContrabasso"
-	\property Staff.instr = #"Vc."
-	\clef "bass";
-	\notes \context Voice=one< 
-		\global
-		\$violoncello
-	>
->
+%%%violoncelloStaff = \context Staff = violoncello <
+%%%	\property Staff.midiInstrument = #"cello"
+%%%	\property Staff.instrument = #"Violoncello\ne\nContrabasso"
+%%%	\property Staff.instr = #"Vc."
+%%%	\clef "bass";
+%%%	\notes \context Voice=one< 
+%%%		\global
+%%%		\violoncello
+%%%	>
+%%%>
 

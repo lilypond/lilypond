@@ -1,3 +1,55 @@
+1.3.79.jcn5
+===========
+
+* Created Thread_devnull_engraver and Voice_devnull_engraver iso
+  single A2_devnull_engraver in Thread context.  It seems however
+  that the hack in A2_devnull_engraver works better.
+
+* Coriolan fixes.
+
+* Slur attachment fix for chords where case slurdir != stemdir.
+
+* Made various fixes for (line-)broken slurs.
+
+* Fixed slur_height (), which fixes most ugly slurs (Yeah!).
+
+* Fixed some silly url reversals in FAQ.
+
+* Finished Coriolan music entry (again); entered second viola part.
+
+* Updated Coriolan to use part combiner on Voice level for wind parts
+  and on Staff level for violi and bassi.
+
+* Part-combiner now uses duration inquiry, which fixes rhythm-related
+  bugs in determining solo/a2.  Also, rests are taken into account.
+
+* Another crude fix for almost unexplainable (with a gdb that dumps
+  core on ly_display_scm) all-zero control points slurs.
+
+* Fixed slurs that crossed through stems and note heads.  Note
+  that beautifying of ugly slurs is still broken.
+
+* Made crude fixes slurs don't crash, bezier still crashes on
+  infinitely steep slurs (eg flauti-part *with* slur_engraver).
+
+1.3.79.gp1
+==========
+
+* Replaced empty melisma score element with a property
+
+* Renamed Voice_alist_entry -> Syllable_group in lyric-phrasing-engraver
+
+1.3.79.uu1
+==========
+
+* fixed y-position of whole rest
+
+* fixed sustainPedalPadding
+
+* etf2ly: articulation, lyrics.
+
+1.3.79
+======
 * etf2ly.py: Finale to LilyPond conversion.
 
 1.3.78.jcn4

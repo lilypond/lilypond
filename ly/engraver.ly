@@ -146,7 +146,7 @@ VoiceContext = \translator {
 	textScriptPadding = #3.0
 	\consists "Text_engraver";
 	\consists "A2_engraver";
-
+	\consists "Voice_devnull_engraver";
 
 	startSustain = #"Ped."
 	stopSustain = #"*"
@@ -211,7 +211,8 @@ GraceContext=\translator {
 
 ThreadContext = \translator{
 	\type Engraver_group_engraver;
-	\consists "A2_devnull_engraver";
+	%%\consists "A2_devnull_engraver";
+	\consists "Thread_devnull_engraver";
 	\consists "Note_heads_engraver";
 	\consists "Output_property_engraver";	
 	Generic_property_list = #generic-thread-properties
@@ -564,9 +565,6 @@ ScoreContext = \translator {
 	  (interfaces . (mark-interface))
 	  (visibility-lambda . ,end-of-line-invisible)
 	)
-	basicMelismaProperties = #`(
-	        (interfaces . (melisma-interface))
-	)
 	basicMultiMeasureRestProperties = #`(
 		(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)		
 		(molecule-callback . ,Multi_measure_rest::brew_molecule)
@@ -604,7 +602,8 @@ ScoreContext = \translator {
 	)
 	basicTextProperties = #`( )
 	basicRestProperties = #`(
-		(interfaces . (rest-interface rhythmic-head-interface))	
+		(interfaces . (rest-interface rhythmic-head-interface))
+		(after-line-breaking-callback . ,Rest::after_line_breaking)
 		(molecule-callback . ,Rest::brew_molecule)
 		(minimum-beam-collision-distance . 1.5)
 	)

@@ -5,8 +5,6 @@ description =	 "";
 composer =	 "Ludwig van Beethoven (1770-1827)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
-
-
 }
 
 \version "1.3.59";
@@ -15,8 +13,8 @@ copyright =	 "public domain";
 \include "oboi.ly"
 
 \score{
-	\$oboi_staff 
-	\include "coriolan-part-paper.ly"
+	\oboiStaff 
+	\include "coriolan-part-combine-paper.ly"
 	\include "coriolan-midi.ly"
 }
 

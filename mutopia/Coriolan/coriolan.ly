@@ -28,52 +28,77 @@ copyright =	 "public domain";
 \include "violoncello.ly"
 
 
-legni = \context StaffGroup = legni_group <
-	\$flauti_staff
-	\$oboi_staff
-	\$clarinetti_staff
-	\$fagotti_staff
+legniGroup = \context StaffGroup = legni_group <
+	\flautiStaff
+	\oboiStaff
+	\clarinettiStaff
+	\fagottiStaff
 >
 
-ottoni = \context StaffGroup = otonni_group <
-	\$corni_staff
-	\$trombe_staff
+ottoniGroup = \context StaffGroup = otonni_group <
+	\corniStaff
+	\trombeStaff
 >
 
-$timpani_g = \context StaffGroup = timpani_group <
-	\$timpani_staff
+timpaniGroup = \context StaffGroup = timpani_group <
+	\timpaniStaff
 	% Force a staff bracket (?)
 	\context Staff = timpany { \skip 1*314; }
 >
 
-violini = \context GrandStaff = violini_group <
-	\$violino1_staff
-	\$violino2_staff
+violiniGroup = \context GrandStaff = violini_group <
+	\violinoIStaff
+	\violinoIIStaff
 >
 
-violi = \context GrandStaff = violi_group <
-	\$viola1_staff
-	\$viola2_staff
+violiGroup = \context PianoStaff = violi_group <
+	\context StaffCombineStaff=one {
+		\clef "alto"; 
+		\skip 1*314; 
+		\bar "|."; 
+	}
+	\context StaffCombineStaff=two {
+		\clef "alto"; 
+		\skip 1*314; 
+		\bar "|."; 
+	}
+
+	\context StaffCombineStaff=one \partcombine StaffCombineStaff
+		\context StaffCombineThread=one \violaI
+		\context StaffCombineThread=two \violaII
 >
 
-bassi = \context GrandStaff = bassi_group <
-	\$violoncello_staff
-	\$contrabasso_staff
+bassiGroup = \context PianoStaff = bassi_group <
+	\context StaffCombineStaff=one {
+		\clef "bass"; 
+		\skip 1*314; 
+		\bar "|."; 
+	}
+	\context StaffCombineStaff=two {
+		\clef "bass"; 
+		\skip 1*314; 
+		\bar "|."; 
+	}
+
+	\context StaffCombineStaff=one \partcombine StaffCombineStaff
+		\context StaffCombineThread=one \violoncello
+		\context StaffCombineThread=two \contrabasso
 >
 
-archi = \context StaffGroup = archi_group <
-	\$violini
-	\$violi
-	\$bassi
+
+archiGroup = \context StaffGroup = archi_group <
+	\violiniGroup
+	\violiGroup
+	\bassiGroup
 >
 
 
 \score{
 	<
-		\legni
-		\ottoni
-		\$timpani_g
-		\archi
+		\legniGroup
+		\ottoniGroup
+		\timpaniGroup
+		\archiGroup
 	>
 	\header{
 		title = "Coriolan";

@@ -28,7 +28,7 @@ protected:
 
 private:
   Item* text_p_;
-  enum State { NORMAL, SOLO, SPLIT_INTERVAL, UNISON } state_;
+  enum State { SOLO, SPLIT_INTERVAL, UNIRHYTHM, UNISILENCE, UNISON } state_;
 };
 
 ADD_THIS_TRANSLATOR (A2_engraver);
@@ -36,7 +36,7 @@ ADD_THIS_TRANSLATOR (A2_engraver);
 A2_engraver::A2_engraver ()
 {
   text_p_ = 0;
-  state_ = NORMAL;
+  state_ = UNISILENCE;
 }
 
 void
@@ -45,9 +45,7 @@ A2_engraver::do_process_music ()
   if (!text_p_)
     {
       SCM unison = get_property ("unison");
-      SCM unirhythm = get_property ("unirhythm");
       SCM solo = get_property ("solo");
-      SCM split_interval = get_property ("split-interval");
       SCM solo_adue = get_property ("soloADue");
 
       if (solo_adue == SCM_BOOL_T
@@ -84,10 +82,6 @@ A2_engraver::do_process_music ()
 	  Side_position::set_direction (text_p_, dir);
 	  text_p_->set_elt_property ("text", text);
 	}
-      else if (unison == SCM_BOOL_T)
-	state_ = UNISON;
-      else if (unirhythm == SCM_BOOL_T && split_interval == SCM_BOOL_T)
-	state_ = SPLIT_INTERVAL;
     }
 }
 
@@ -110,18 +104,38 @@ A2_engraver::acknowledge_element (Score_element_info i)
 	}
     }
 	  
+  SCM unisilence = get_property ("unisilence");
+  SCM unison = get_property ("unison");
+  SCM unirhythm = get_property ("unirhythm");
+  SCM solo = get_property ("solo");
+  SCM split_interval = get_property ("split-interval");
+  SCM solo_adue = get_property ("soloADue");
+  
+  State previous_state = state_;
+  if (unisilence == SCM_BOOL_T)
+    /*
+      state_ = UNISILENCE;
+    */
+    ;
+  else if (solo == SCM_BOOL_T)
+    state_ = SOLO;
+  else if (unison == SCM_BOOL_T)
+    state_ = UNISON;
+  else if (unirhythm == SCM_BOOL_T && split_interval == SCM_BOOL_T)
+    state_ = SPLIT_INTERVAL;
+  else if (unirhythm)
+    state_ = UNIRHYTHM;
 	  
   if (Stem::has_interface (i.elem_l_))
     {
       Item *stem_l = dynamic_cast<Item*> (i.elem_l_);
 
-      SCM unison = get_property ("unison");
-      SCM unirhythm = get_property ("unirhythm");
-      SCM solo = get_property ("solo");
-      SCM split_interval = get_property ("split-interval");
-      SCM solo_adue = get_property ("soloADue");
-
-      if ((unirhythm != SCM_BOOL_T && solo != SCM_BOOL_T)
+      /*
+	Hmm.  We must set dir when solo, in order to get
+	the rests collided to the right position
+      */
+      if ((unirhythm != SCM_BOOL_T) || (solo == SCM_BOOL_T)
+	  || ((unisilence == SCM_BOOL_T && previous_state != UNISON))
 	  || (unirhythm == SCM_BOOL_T && split_interval == SCM_BOOL_T
 	      && (unison != SCM_BOOL_T || solo_adue != SCM_BOOL_T)))
 	{

@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 \version "1.3.59";
 
-viola1 = \notes \relative c {
+violaI = \notes \relative c {
 	c'1\ff ~ |
 	c |
 	f,4-. r r2 |
@@ -93,9 +93,9 @@ viola1 = \notes \relative c {
 	%60
 	)es4 r r r8 es(|
 	)as4 r r r8 as |
-	bes2:16 as: |
+	\!bes2:16\ff as: |
 	g: e: |
-	\!f4\p r r r8 f(|
+	f4\p r r r8 f(|
 	%65
 	)bes4 r r r8 bes(|
 	)as4 r r r8 as(|
@@ -263,7 +263,7 @@ viola1 = \notes \relative c {
 	)b  r r2 |
 	R1
 	% ugh, should be quoted and transposed
-	c4\p r r r8 c8(|
+	c,4\p r r r8 c8(|
 	)f4 r r r8 f8(|
 	%180
 	)e4 r r r8 e8(|
@@ -278,11 +278,11 @@ viola1 = \notes \relative c {
 	)b'4 r r r8 b8(|
 	)c4 r r r8 c,8(|
 	)f4 r r r8 f8|
-	\!g2:16\ff f: |
+	\!g'2:16\ff f: |
 	e: cis: |
 	%190
-	c,4\p r r r8 c8(|
-	)g'4 r r r8 g8(|
+	d,4\p r r r8 d8(|
+	)g4 r r r8 g8(|
 	)f4 r r r8 f8(|
 	\property Voice.crescendoText = "cresc."
 	\property Voice.crescendoSpanner = "dashed-line"
@@ -290,7 +290,6 @@ viola1 = \notes \relative c {
 	)d4 r r r8 d8(|
 	%195
 	)g4 r r r8 g8|
-	% check
 	[\!a16\ff a' a a]a4: a2: |
 	fis: dis: |
 	
@@ -318,7 +317,7 @@ viola1 = \notes \relative c {
 	g'2: g: |
 	
 	%214
-	bes,2:16\ff bes4: c: |
+	b,2:16\ff b4: c: |
 	g'2: g: |
 	
 	e2:16\ff e4: f: |
@@ -328,13 +327,12 @@ viola1 = \notes \relative c {
 	b,: c: b: c: |
 	
 	%220
-	r4 r8 as as2|
-	r4 r8 as as2|
-	r4 r8 as as2|
-	r4 r8 as as2|
-	[des'16 des f f]des4: [b16 b d d]b4: |
+	r4 r8 as as2\sf|
+	r4 r8 as as2\sf|
+	r4 r8 as as2\sf|
+	r4 r8 as as2\sf|
+	[des16 des f f]des4: [b16 b d d]b4: |
 	%225
-	% check
 	[bes16 bes c c]bes4: [a16 a c c]a4: |
 	[f16 f b b]f4: [as16 as c c]as4: |
 	[as16 as d d]as4: [as16 as c c]as4: |
@@ -355,17 +353,15 @@ viola1 = \notes \relative c {
 	\property Voice.crescendoText = "cresc."
 	\property Voice.crescendoSpanner = "dashed-line"
 	c'4\p\< r r r8 c8(|
-	% check slur and oct
-	)f4 r r r8 f8 |
-	% f,8 (|
-	es1 |
+	)f4 r r r8 f,8(|
+	)es1 |
 	
 	%255
 	\!ges\f |
 	f\p |
 	as\f |
 	g\p
-	e2:16\f e: |
+	e'2:16\f e: |
 	
 	%260
 	\property Voice.crescendoText = "cresc."
@@ -419,19 +415,17 @@ viola1 = \notes \relative c {
 	c4 r r2 |
 }
 
-% urg
-\include "viola-2.ly";
-
-
-% $viola1_staff = \context Staff = viola1 <
-$viola1_staff = \context Staff = violai <
-	\property Staff.midiInstrument = #"viola"
-	\property Staff.instrument = #"Viola"
-	\property Staff.instr = #"Vla."
-	\clef "alto";
-	\notes \context Voice=one < 
-		\global
-		\$viola1
-	>
->
+%%% urg
+%%%\include "viola-2.ly";
+%%%
+%%%violaIStaff = \context Staff = violai <
+%%%	\property Staff.midiInstrument = #"viola"
+%%%	\property Staff.instrument = #"Viola"
+%%%	\property Staff.instr = #"Vla."
+%%%	\clef "alto";
+%%%	\notes \context Voice=one < 
+%%%		\global
+%%%		\violaI
+%%%	>
+%%%>
 

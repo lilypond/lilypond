@@ -137,10 +137,12 @@ Slur::encompass_offset (Score_element*me,
       && !stem_l->extent (Y_AXIS).empty_b ())
     {
       o[Y_AXIS] = stem_l->relative_coordinate (common[Y_AXIS], Y_AXIS); // iuhg
+      o[Y_AXIS] += stem_l->extent (Y_AXIS)[dir];
     }
   else
     {
       o[Y_AXIS] = col->relative_coordinate (common[Y_AXIS], Y_AXIS);	// ugh
+      o[Y_AXIS] += col->extent (Y_AXIS)[dir];
     }
 
   /*
@@ -150,12 +152,16 @@ Slur::encompass_offset (Score_element*me,
   return o;
 }
 
-MAKE_SCHEME_CALLBACK(Slur,after_line_breaking);
-
+MAKE_SCHEME_CALLBACK (Slur, after_line_breaking);
 SCM
 Slur::after_line_breaking (SCM smob)
 {
   Score_element *me = unsmob_element (smob);
+  if (!scm_ilength (me->get_elt_property ("note-columns")))
+    {
+      me->suicide ();
+      return SCM_UNSPECIFIED;
+    }
   set_extremities (me);
   set_control_points (me);
   return SCM_UNSPECIFIED;
@@ -202,17 +208,18 @@ Slur::get_attachment (Score_element*me,Direction dir,
   Real ss = Staff_symbol_referencer::staff_space ((Score_element*)me);
   Real hs = ss / 2.0;
   Offset o;
-
-
+  
+  Score_element *stem = 0;
   if (Note_column::has_interface (sp->get_bound (dir)))
     {
       Score_element * n =sp->get_bound (dir);
-      if (Score_element*st = Note_column::stem_l (n))
+      if (Score_element *stem = Note_column::stem_l (n))
 	{
 
 	  if (str == "head")
 	    {
-	      o = Offset (0, Stem::chord_start_f (st ));
+	      o = Offset (0, Stem::head_positions (stem)
+			  [Directional_element_interface (me).get ()] * hs);
 	      /*
 		Default position is centered in X, on outer side of head Y
 	       */
@@ -221,50 +228,48 @@ Slur::get_attachment (Score_element*me,Direction dir,
 	    }
 	  else if (str == "alongside-stem")
 	    {
-	      o = Offset (0, Stem::chord_start_f (st ));
+	      o = Offset (0, Stem::chord_start_f (stem));
 	      /*
 		Default position is on stem X, on outer side of head Y
 	       */
 	      o += Offset (n->extent (X_AXIS).length ()
-			   * (1 + Stem::get_direction (st )),
+			   * (1 + Stem::get_direction (stem)),
 			   0.5 * ss * Directional_element_interface (me).get ());
 	    }
 	  else if (str == "stem")
 	    {
-	      o = Offset (0, Stem::stem_end_position (st ) * hs);
+	      o = Offset (0, Stem::stem_end_position (stem) * hs);
 	      /*
 		Default position is on stem X, at stem end Y
 	       */
 	      o += Offset (0.5 *
 			   (n->extent (X_AXIS).length ()
-			    - st->extent (X_AXIS).length ())
-			    * (1 + Stem::get_direction (st )),
+			    - stem->extent (X_AXIS).length ())
+			    * (1 + Stem::get_direction (stem)),
 			    0);
-	    }
-	  else if (str == "loose-end")
-	    {
-	      SCM other_a = dir == LEFT ? gh_cdr (s) : gh_car (s);
-	      if (ly_symbol2string (other_a) != "loose-end")
-		{
-		  o = Offset (0, get_attachment (me, -dir, common)[Y_AXIS]);
-		}
-	    }
-
-	  
-	  SCM l = scm_assoc
-	    (scm_listify (a,
-			  gh_int2scm (Stem::get_direction (st ) * dir),
-			  gh_int2scm (Directional_element_interface (me).get () * dir),
-			  SCM_UNDEFINED),
-	     scm_eval (ly_symbol2scm ("slur-extremity-offset-alist")));
-	  
-	  if (l != SCM_BOOL_F)
-	    {
-	      o += ly_scm2offset (gh_cdr (l)) * ss * dir;
 	    }
 	}
     }
-
+  else if (str == "loose-end")
+    {
+      SCM other_a = dir == LEFT ? gh_cdr (s) : gh_car (s);
+      if (ly_symbol2string (other_a) != "loose-end")
+	{
+	  o = Offset (0, get_attachment (me, -dir, common)[Y_AXIS]);
+	}
+    }
+	  
+  SCM l = scm_assoc
+    (scm_listify (a,
+		  gh_int2scm (stem ? Stem::get_direction (stem) : 1 * dir),
+		  gh_int2scm (Directional_element_interface (me).get () * dir),
+		  SCM_UNDEFINED),
+     scm_eval (ly_symbol2scm ("slur-extremity-offset-alist")));
+  
+  if (l != SCM_BOOL_F)
+    {
+      o += ly_scm2offset (gh_cdr (l)) * ss * dir;
+    }
 
   /*
     What if get_bound () is not a note-column?
@@ -275,13 +280,14 @@ Slur::get_attachment (Score_element*me,Direction dir,
       o[Y_AXIS] += sp->get_bound (dir)->relative_coordinate (common[Y_AXIS], Y_AXIS) 
 	- me->relative_coordinate (common[Y_AXIS], Y_AXIS);
     }
+
   return o;
 }
 
 Array<Offset>
 Slur::get_encompass_offset_arr (Score_element*me) 
 {
-    Spanner*sp = dynamic_cast<Spanner*>(me);
+  Spanner*sp = dynamic_cast<Spanner*>(me);
   SCM eltlist = me->get_elt_property ("note-columns");
   Score_element *common[] = {me->common_refpoint (eltlist,X_AXIS),
 			     me->common_refpoint (eltlist,Y_AXIS)};
@@ -371,11 +377,17 @@ Slur::set_spacing_rods (SCM smob)
 /*
   Ugh should have dash-length + dash-period
  */
-MAKE_SCHEME_CALLBACK(Slur,brew_molecule);
+MAKE_SCHEME_CALLBACK (Slur, brew_molecule);
 SCM
 Slur::brew_molecule (SCM smob)
 {
   Score_element * me = unsmob_element (smob);
+  if (!scm_ilength (me->get_elt_property ("note-columns")))
+    {
+      me->suicide ();
+      return SCM_EOL;
+    }
+
   Real thick = me->paper_l ()->get_var ("stafflinethickness") *
     gh_scm2double (me->get_elt_property ("thickness"));
   Bezier one = get_curve (me);
@@ -429,11 +441,18 @@ Slur::set_control_points (Score_element*me)
 
   SCM controls = SCM_EOL;
   for (int i= 4; i--;)
-    controls = gh_cons ( ly_offset2scm (b.control_[i]), controls);
+    {
+      controls = gh_cons ( ly_offset2scm (b.control_[i]), controls);
+      /*
+	BRRR WHURG.
+	All these null control-points, where do they all come from?
+      */
+      if (i && b.control_[i][X_AXIS] == 0)
+	me->suicide ();
+    }
 
   me->set_elt_property ("control-points", controls);
 }
-  
   
 Bezier
 Slur::get_curve (Score_element*me) 
@@ -447,20 +466,19 @@ Slur::get_curve (Score_element*me)
   
   if (!gh_pair_p (me->get_elt_property ("control-points")))
     set_control_points (me);
-  
-  
+
   for (SCM s= me->get_elt_property ("control-points"); s != SCM_EOL; s = gh_cdr (s))
     {
       b.control_[i] = ly_scm2offset (gh_car (s));
       i++;
     }
-  
+
   Array<Offset> enc (get_encompass_offset_arr (me));
   Direction dir = Directional_element_interface (me).get ();
   
   Real x1 = enc[0][X_AXIS];
   Real x2 = enc.top ()[X_AXIS];
-  
+
   Real off = 0.0;
   for (int i=1; i < enc.size ()-1; i++)
     {

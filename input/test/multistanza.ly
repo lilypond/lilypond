@@ -35,9 +35,10 @@ Global =  \notes{
 
 Soprano = \notes \relative c' {
 	\allup
-	d4 | g g b b a g a b a g b a g2.
+	d4 | g g b b a g a b a g b a g( a )g % modified to test melisma align right
 
-	a4 | b a g b [d16 d c8] [b a] b4 % modified to test beam melisma
+	[a8 b] | b4 % modified to test melisma align left
+	 a g b [d16 d c8] [b a] b4 % modified to test beam melisma
 %	a4 | b a g b [d8 \melisma c] \melismaEnd [b \melisma a] \melismaEnd b4
 
 	d d2 d e d4( cs8 ~ )cs d2.

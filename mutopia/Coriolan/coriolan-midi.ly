@@ -1,18 +1,38 @@
 \midi{ 
 	\tempo 4 = 150; 
+
 	\translator {
-		\VoiceContext
-		\name "VoiceOne";
+		\ThreadContext
+		\name "VoiceCombineThread";
 	}
 	\translator {
 		\VoiceContext
-		\name "VoiceTwo";
-		%\remove "Span_dynamic_engraver";
-		%\remove "Dynamic_engraver";
+		\name "VoiceCombineVoice";
+		\accepts "VoiceCombineThread";
 	}
 	\translator {
 		\StaffContext
-		\accepts "VoiceOne";
-		\accepts "VoiceTwo";
+		\name "VoiceCombineStaff";
+		\accepts "VoiceCombineVoice";
+	}
+
+	\translator {
+		\ThreadContext
+		\name "StaffCombineThread";
+	}
+	\translator {
+		\VoiceContext
+		\name "StaffCombineVoice";
+		\accepts "StaffCombineThread";
+	}
+	\translator {
+		\StaffContext
+		\name "StaffCombineStaff";
+		\accepts "StaffCombineVoice";
+	}
+	\translator {
+		\ScoreContext
+		\accepts "VoiceCombineStaff";
+		\accepts "StaffCombineStaff";
 	}
 }

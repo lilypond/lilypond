@@ -5,8 +5,6 @@ description =	 "";
 composer =	 "Ludwig van Beethoven (1770-1827)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
-
-
 }
 
 \version "1.3.59";
@@ -15,8 +13,8 @@ copyright =	 "public domain";
 \include "flauti.ly"
 
 \score{
-	\$flauti_staff
-	\include "coriolan-part-paper.ly"
+	\flautiStaff
+	\include "coriolan-part-combine-paper.ly"
 	\include "coriolan-midi.ly"
 }
 

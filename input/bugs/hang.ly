@@ -1,13 +1,18 @@
 \score{
-	\context Staff <
+	<
+	\context Staff = flauti <
 		\context Voice=one \partcombine Voice
 			\context Thread=one \notes\relative c''
 				{
-					d e f
+					%c1
+					c2 c2
 				}
 			\context Thread=two \notes\relative c''
 				{
-					d d d
 				}
 		>
+	>
+	\paper{
+		
+	}
 }

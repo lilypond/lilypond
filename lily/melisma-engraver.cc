@@ -10,6 +10,7 @@
 #include "engraver.hh"
 #include "musical-request.hh"
 #include "score-element.hh"
+#include "translator-group.hh"
 
 /**
    Signal existence of melismas.
@@ -38,11 +39,10 @@ Melisma_engraver::do_try_music (Music *m )
 	  || (to_boolean (tie))
 	  || (to_boolean (beam))) {
 
-	Score_element * melisma_p = new Score_element (get_property ("basicMelismaProperties"));
-	announce_element (melisma_p, m);
-
+	daddy_trans_l_->set_property("melismaEngraverBusy",SCM_BOOL_T);
 	return true;
       }
     }
+  daddy_trans_l_->set_property("melismaEngraverBusy",SCM_BOOL_F);
   return false;
 }

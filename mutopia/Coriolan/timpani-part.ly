@@ -13,7 +13,7 @@ copyright =	 "public domain";
 \include "timpani.ly"
 
 \score{
-	\$timpani_staff 
+	\timpaniStaff 
 	\include "coriolan-part-paper.ly"
 	\include "coriolan-midi.ly"
 }

@@ -15,7 +15,7 @@
 #include "item.hh"
 #include "smobs.hh"
 
-class Voice_alist_entry;
+class Syllable_group;
 
 
 /**
@@ -72,7 +72,7 @@ private:
   void record_lyric(const String &context_id, Score_element * lyric);
   void record_melisma(const String &context_id);
   void record_extender(const String &context_id, Score_element * extender);
-  Voice_alist_entry * lookup_context_id(const String &context_id);
+  Syllable_group * lookup_context_id(const String &context_id);
 
 public:
   Lyric_phrasing_engraver ();
@@ -80,32 +80,30 @@ public:
   VIRTUAL_COPY_CONS (Translator);
 
 private:
-  /** association list of Voice_alist_entry smobs
+  /** association list of Syllable_group smobs
   */
   Protected_scm voice_alist_;
   Score_element * any_notehead_l_;
 };
 
 
-class Voice_alist_entry
+class Syllable_group
 {
   bool first_in_phrase_b_;
   Score_element * notehead_l_;
   Link_array<Score_element> lyric_list_;
-//   Link_array<Score_element> extender_list_;
   Score_element * longest_lyric_l_;
   Score_element * shortest_lyric_l_;
   int alignment_i_;
   bool melisma_b_;
+  Real group_translation_f_;
 public:
   static SCM make_entry();
   void set_first_in_phrase(bool f);
   void set_notehead(Score_element * notehead);
   void add_lyric(Score_element * lyric);
   void add_extender(Score_element * extender);
-//   void terminate_extenders();
-//   void clear_extenders();
-  void set_melisma();
+  void set_melisma() { melisma_b_ = true; }
   bool get_melisma() { return melisma_b_; }
   int lyric_count() { return lyric_list_.size(); }
   void clear();
@@ -115,13 +113,13 @@ public:
   int appropriate_alignment(const char *punc);
   Real amount_to_translate();
   void next_lyric();
-  void copy(Voice_alist_entry *);
+  void copy(Syllable_group *);
 private:
-  Voice_alist_entry();
-  DECLARE_SIMPLE_SMOBS(Voice_alist_entry,);
+  Syllable_group();
+  DECLARE_SIMPLE_SMOBS(Syllable_group,);
 } ;
 
-Voice_alist_entry * unsmob_voice_entry (SCM);
+Syllable_group * unsmob_voice_entry (SCM);
 
 
 #endif // LYRIC_PHRASING_ENGRAVER_HH

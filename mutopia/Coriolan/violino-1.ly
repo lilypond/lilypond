@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 \version "1.3.59";
 
-violino1 = \notes \relative c {
+violinoI = \notes \relative c {
 	c'1\ff ~ |
 	c |
 	<f4-. c'-. as'-.> r r2 |
@@ -452,13 +452,13 @@ violino1 = \notes \relative c {
 	c4 r r2 |
 }
 
-$violino1_staff = \context Staff = violino1 <
+violinoIStaff = \context Staff = violino1 <
 	\property Staff.midiInstrument = #"violin"
 	\property Staff.instrument = #"Violino I"
 	\property Staff.instr = #"Vl. I"
 	\notes< 
 		\global
 		\context Voice=violinoi
-			\$violino1
+			\violinoI
 	>
 >

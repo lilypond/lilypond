@@ -1,5 +1,5 @@
 \header{
-filename =	 "bassi-part.ly";
+filename =	 "violi-part.ly";
 % %title =	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
 description =	 "";
 composer =	 "Ludwig van Beethoven (1770-1827)";
@@ -10,28 +10,28 @@ copyright =	 "public domain";
 \version "1.3.59";
 
 \include "global.ly"
-\include "violoncello.ly"
-\include "contrabasso.ly"
+\include "viola-1.ly"
+\include "viola-2.ly"
 
-bassiGroup = \context PianoStaff = bassi_group <
+violiGroup = \context PianoStaff = violi_group <
 	\context StaffCombineStaff=one {
-		\clef "bass"; 
+		\clef "alto"; 
 		\skip 1*314; 
 		\bar "|."; 
 	}
 	\context StaffCombineStaff=two {
-		\clef "bass"; 
+		\clef "alto"; 
 		\skip 1*314; 
 		\bar "|."; 
 	}
 
 	\context StaffCombineStaff=one \partcombine StaffCombineStaff
-		\context StaffCombineThread=one \violoncello
-		\context StaffCombineThread=two \contrabasso
+		\context StaffCombineThread=one \violaI
+		\context StaffCombineThread=two \violaII
 >
 
 \score{
-	\bassiGroup
+	\violiGroup
 	\include "coriolan-part-combine-paper.ly"
 	\include "coriolan-midi.ly"
 }

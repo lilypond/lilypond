@@ -19,9 +19,15 @@ compare (Array<Musical_pitch>* left, Array<Musical_pitch>* right)
   if (left->size () == right->size ())
     {
       for (int i = 0; i < left->size (); i++)
-	if ((*left)[i] != (*right)[i])
-	  return 1;
+	{
+	  int r = Musical_pitch::compare ((*left)[i], (*right)[i]);
+	  if (r)
+	    return r;
+	}
     }
+  else
+    return 1;
+
   return 0;
 }
 

@@ -28,6 +28,14 @@
 
    ;; (cons (lambda (slur dir) (begin (display "before head") (newline))#f) #f)
 
+   ;; urg: don't crash on a slur without note-columns
+   (cons (lambda (slur dir)
+	   (< (length (ly-get-elt-property slur 'note-columns)) 1)) 'head)
+
+   ;; urg: don't crash on a slur without note-columns
+   (cons (lambda (slur dir)
+	   (< (length (ly-get-elt-property slur 'note-columns)) 1)) 'head)
+
    (cons (lambda (slur dir)
 	   ;; urg, code dup
 	   (let* ((note-columns (ly-get-elt-property slur 'note-columns))
@@ -83,4 +91,9 @@
 
     ((stem 1 1) . (0 . 0.5))
     ((stem -1 -1) . (0 . -0.5))
+
+    ((loose-end -1 1) . (-4 . 0))
+    ((loose-end -1 -1) . (-4 . 0))
+    ((loose-end 1 1) . (-0.4 . 0))
+    ((loose-end 1 -1) . (-0.4 . 0))
     ))

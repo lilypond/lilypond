@@ -6,8 +6,10 @@ composer =	 "Ludwig van Beethoven (1770-1827)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
 }
+
 \version "1.3.59";
-flauto2 = \notes \relative c {
+
+flautoII = \notes \relative c {
 	R1 *2 |
 	as'''4-.\ff r r2 |
 	R1 *3 |
@@ -129,8 +131,8 @@ flauto2 = \notes \relative c {
 	bes\f~|
 	bes\p|
 	c1\f~|
-	\property VoiceTwo.crescendoText = "cresc."
-	\property VoiceTwo.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	c\p\<~|
 	c~|
 	c~|
@@ -164,8 +166,8 @@ flauto2 = \notes \relative c {
 	R1|
 	c4-. g'-. r2|
 	as4-. e-. r2|
-	\property VoiceTwo.decrescendoText = "dim."
-	\property VoiceTwo.decrescendoSpanner = "dashed-line"
+	\property Voice.decrescendoText = "dim."
+	\property Voice.decrescendoSpanner = "dashed-line"
 	f4\> r f r|
 	R1|
 	\!es4\p r r2|

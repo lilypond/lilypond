@@ -2,40 +2,16 @@
 	textheight = 295.0\mm;
 	linewidth = 180.0\mm;
 
-	% slurs are never beautiful (no steep slurs)
-	slur_beautiful = 0.0;
+	\translator{ \HaraKiriStaffContext }
 
 	\translator {
-		\VoiceContext
-		%dynamicPadding = #5  % urg, in \pt
-		%dynamicMinimumSpace = #10  % urg, in \pt
-	}
-	\translator {
-		\VoiceContext
-		\name "VoiceOne";
-		%%\consists "Line_number_engraver";
-		verticalDirection = #1
-		stemVerticalDirection = #1
-		%dynamicDirection = #-1
-		dynamicDirection = #1
-	}
-	\translator {
-		\VoiceContext
-		\name "VoiceTwo";
-		%%\consists "Line_number_engraver";
-		verticalDirection = #-1
-		stemVerticalDirection = #-1
-		\remove "Dynamic_engraver";
-		%% Aargh: absulute dynamics:
-		\remove "Text_engraver";
-	}
-	\translator { 
-		\OrchestralPartStaffContext 
-		\accepts "VoiceOne";
-		\accepts "VoiceTwo";
-	}
-	\translator { 
-		\ScoreContext skipBars = ##t 
+		\ScoreContext
+		skipBars = ##t 
+
+		barScriptPadding = #2.0 % dimension \pt
+		markScriptPadding = #4.0
+		%% urg: in pt?
+		barNumberScriptPadding = #15
 		%% URG: this changes dynamics too
 		%%textStyle = #"italic"
 		timeSignatureStyle = #"C"

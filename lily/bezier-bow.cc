@@ -12,9 +12,11 @@
 #include "misc.hh"
 #include "bezier.hh"
 
-static Real F0_1 (Real x)
+
+static Real
+F0_1 (Real x)
 {
-  return M_PI /2 *  atan(2 * x / M_PI);
+  return 2 / M_PI * atan ( M_PI * x / 2);
 }
 
 Real
@@ -37,7 +39,7 @@ slur_height (Real width, Real h_inf, Real r_0)
   
   Examples:
 
-  * F(x) = pi/2 * atan (2x/pi)
+  * F(x) = 2/pi * atan (pi x/2)
 
   * F(x) 1/alpha * x^alpha / (1 + x^alpha)
 
