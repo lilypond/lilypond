@@ -12,10 +12,12 @@ PScore			1
 Idealspacing		1
 
 # yydebug
-Parser			0
+InitParser		1
+Parser			1
+
 
 # FlexLexer debug
-Lexer			0
+Lexer			1
 
 parse_duration		1
 parse_pitchmod		1
