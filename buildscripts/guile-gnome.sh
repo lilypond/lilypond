@@ -68,7 +68,7 @@ if ! pkg-config --atleast-version=1.5.1 pango; then
 	cvs -z3 checkout -P pango
     else
         $WGET ftp://ftp.gtk.org/pub/gtk/v2.5/pango-1.5.2.tar.gz
-	tar -xzf pango-1.5.2.tar.gz
+	tar -xzf $download/pango-1.5.2.tar.gz
 	ln -s pango-1.5.2 pango
     fi
     cd pango
