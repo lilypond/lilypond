@@ -1,8 +1,53 @@
+lilypond (1.0.16-1) unstable; urgency=low
+
+  * New upstream release.
+  * [debian/{copyright,control}]: pcnov095.win.tue.nl -> ftp.cs.uu.nl
+      (New upstream master FTP site).  Also updated JCN's web site URL.
+  * [debian/rules]: 
+      - Now, in the "clean:" target, runs either 
+        "find . -user root | xargs -r chown $$SUDO_USER.$$SUDO_GID" or
+        "find . -user root | xargs -r chown $$LOGNAME" to deal with all those
+        root-owned "out/*" files generated during a "sudo debian/rules clean"
+        run.  Thanks to Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
+        for reporting the problem!  (closes: Bug#27044)
+      - Updated debian/rules according to the new debhelper rules example.
+  * [Documentation/topdocs/AUTHORS.yo]: Added a trailing "/" on URLs.
+
+ -- Anthony Fok <foka@debian.org>  Thu, 15 Oct 1998 04:49:40 -0600
+
+lilypond (1.0.2-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Anthony Fok <foka@debian.org>  Sat, 15 Aug 1998 04:32:08 -0600
+
+lilypond (1.0.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * [aclocal.m4]: Temporarily changed OPTIMIZE="-O2" to OPTIMIZE="-O"
+      to avoid egcs (c++) complaint of "Internal compiler error"
+      on my computer.
+  * [scripts/mudela-book.py]: Added "#!@PYTHON@" at the top.  This string
+      expands to "#!/usr/bin/python" in /usr/bin/mudela-book.
+      (Thanks to Lintian.  :-)
+  * [debian/control]: Recommends: python-base (>= 1.5.1).
+      (Again, thanks to Lintian.  :-)
+  * [debian/postrm]: Now also removes the generated LilyPond fonts
+      *.{tfm,pk} under /var/spool/texmf when called as "postrm remove".
+  * [debian/preinst]: Yes, have to bring this back to remove the generated
+      LilyPond fonts in /var/spool/texmf because "postrm remove" didn't do
+      its jobs in previous versions.  Oops.  :-)
+  * [debian/rules]: Installs a few new upstream documentation files, and
+      the example files in out/ directories are moved to parent directories.
+
+ -- Anthony Fok <foka@debian.org>  Fri, 14 Aug 1998 03:30:05 -0600
+
 lilypond (0.1.76-1) unstable; urgency=low
 
   * support for 'make deb' target
+  * Not uploaded to Debian's FTP site.
 
- -- Jan Nieuwenhuizen <janneke@gnu.org> Fri,  3 Jul 1998 17:53:37 +0200
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Fri,  3 Jul 1998 17:53:37 +0200
 
 lilypond (0.1.71-1) unstable; urgency=low
 

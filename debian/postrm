@@ -4,7 +4,7 @@
 #   by Anthony Fok <foka@debian.org>
 #   This is free software; see the GNU General Public Licence
 #   version 2 or later for copying conditions.  There is NO warranty.
-#   Last modified:  Wed, 22 Apr 1998 05:55:58 -0600
+#   Last modified:  Fri, 14 Aug 1998 00:07:07 -0600
 
 set -e
 
@@ -22,17 +22,13 @@ VARTEXFONTS=`/usr/bin/kpsewhich -expand-var '$VARTEXFONTS'`
 : ${VARTEXFONTS=$std_VARTEXFONTS}
 
 case "$1" in
-    remove)
-	/usr/bin/mktexlsr
-    ;;
-
     upgrade)
 	# Clear out the old TFM and PK files in case the fonts were modified
 	rm -rf $VARTEXFONTS/tfm/$font_supplier/$font_typeface
 	rm -rf $VARTEXFONTS/pk/*/$font_supplier/$font_typeface
     ;;
 
-    purge)
+    remove|purge)
 	# Clear out the old TFM and PK files in case the fonts were modified
 	rm -rf $VARTEXFONTS/tfm/$font_supplier/$font_typeface
 	rm -rf $VARTEXFONTS/pk/*/$font_supplier/$font_typeface

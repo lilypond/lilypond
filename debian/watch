@@ -1,5 +1,5 @@
 # Example watch control file for uscan
 # Rename this file to "watch" and then you can run the "uscan" command
 # to check for upstream updates and more.
-# Site			Directory	Pattern			Version	Script
-pcnov095.win.tue.nl	/pub/lilypond/development	lilypond-*.tar.gz	debian	uupdate
+# Site		Directory			Pattern			Version	Script
+ftp.cs.uu.nl	/pub/GNU/LilyPond/development	lilypond-*.tar.gz	debian	uupdate
