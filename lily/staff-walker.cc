@@ -71,7 +71,12 @@ Staff_walker::process_timing_reqs()
     for (int i=0; i < ptr()->timing_req_l_arr_.size(); i++) {
 	Timing_req * tr_l = ptr()->timing_req_l_arr_[i];
 	if (tr_l->partial()) {
-	    time_.setpartial(tr_l->partial()->duration_);
+	    Moment m = tr_l->partial()->duration_;
+	    String error = time_.try_set_partial_str(m);
+	    if (error != "") {
+		tr_l->warning(error);
+	    } else 
+		time_.setpartial(m);
 	} else if (tr_l->barcheck() && time_.whole_in_measure_) {
 	    tr_l ->warning( "Barcheck failed");
 	} else if (tr_l->cadenza()) {
