@@ -462,8 +462,8 @@ Only set if not set previously.
 	       ((now-state (vector-ref result current-idx))
 		(solo-state ((if (equal? type 'solo1) car cdr) (voice-states now-state)))
 		(silent-state ((if (equal? type 'solo1) cdr car) (voice-states now-state)))
-		(silent-notes (note-events silent-state))
-		(solo-notes (note-events solo-state))
+		(silent-notes (if silent-state (note-events silent-state) '()))
+		(solo-notes (if solo-state (note-events solo-state) '()))
 		(soln (length solo-notes))
 		(siln (length silent-notes)))
 

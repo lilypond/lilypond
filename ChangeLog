@@ -1,5 +1,7 @@
 2004-02-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/part-combiner.scm (determine-split-list): robustness fix 
+
 	* lily/paper-score.cc (process): move gc stat stuff to init.ly 
 
 	* lily/parser.yy (music_output_def_body): plug memory leak.
