@@ -3,6 +3,11 @@
 	* Documentation/user/lilypond-book.itely: fix parse error: @LaTeX
 	-> La@TeX
 
+	* mf/parmesan-heads.mf: draw_diamond_head: fixed pen width; added
+	missing lneo_mensural head; editorial cleanups
+
+	* lily/mensural-ligature.cc: added more comments
+
 2004-08-26  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/examples.itely: second, third, fourth, and fifth sections added.
