@@ -749,6 +749,7 @@ command."
   (define-key LilyPond-mode-map [(control c) return] 'LilyPond-command-current-midi)
   (define-key LilyPond-mode-map [(control c) (control return)] 'LilyPond-command-all-midi)
   (define-key LilyPond-mode-map "\C-x\C-s" 'LilyPond-save-buffer)
+  (define-key LilyPond-mode-map "\C-cb" 'LilyPond-what-beat)
   (define-key LilyPond-mode-map "\C-cf" 'font-lock-fontify-buffer)
   (define-key LilyPond-mode-map "\C-ci" 'LilyPond-insert-tag-current)
   ;; the following will should be overriden by Lilypond Quick Insert Mode
@@ -758,6 +759,7 @@ command."
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "]" 'LilyPond-electric-close-paren)
+  (define-key LilyPond-mode-map "|" 'LilyPond-electric-bar)
   (if (string-match "XEmacs\\|Lucid" emacs-version)
       (define-key LilyPond-mode-map [iso-left-tab] 'LilyPond-autocompletion)
     (define-key LilyPond-mode-map [iso-lefttab] 'LilyPond-autocompletion))
@@ -1172,7 +1174,7 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
 
 (load-library "lilypond-font-lock")
 (load-library "lilypond-indent")
-
+(load-library "lilypond-what-beat")
 
 (defun LilyPond-guile ()
   (interactive)

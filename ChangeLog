@@ -1,3 +1,9 @@
+2004-07-09  David Svoboda      <svoboda@cmu.edu>
+
+	* elisp/lilypond-mode.el,
+	* elisp/lilypond-what-beat.el: Added LilyPond-what-beat function to
+	count beats between last measure stop | and point in emacs.
+	
 2004-07-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* tex/GNUmakefile (TEX_FILES): don't dist
