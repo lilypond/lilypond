@@ -13,7 +13,7 @@
 #endif
 
 /// copy a bare (C-)array from #src# to #dest# sized  #count#
-template<class T> void arrcpy (T*dest, T*src, int count);
+template<class T> void arrcpy (T*dest, T const*src, int count);
 
 /**
   Scaleable array/stack template, for a type T with default constructor.
@@ -241,7 +241,7 @@ public:
       set_size (size_ + src.size_);
       arrcpy (array_p_+s,src.array_p_, src.size_);	
     }
-  Array<T> slice (int lower, int upper) ;
+  Array<T> slice (int lower, int upper) const; 
   void reverse();
 };
 

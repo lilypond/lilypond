@@ -9,6 +9,8 @@ paper_twentysix = \paper {
 	font_large = 14.;
 	font_Large = 17.;	
 	font_normal = 12.;
+	font_script = 10.;
+
 	font_dynamic = 10.;
 	% Ugh
 	magnification_dynamic = 4.;
@@ -22,6 +24,11 @@ paper_twentysix = \paper {
 	0=\font "feta26"
 	-1 = \font "feta23"
 	-2 = \font "feta20"
+
+	"font_feta-2" = 20.;
+	"font_feta-1" = 23.;
+	"font_feta" = 26.;
+
 	\include "params.ly";
 }
 

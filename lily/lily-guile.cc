@@ -217,11 +217,24 @@ ly_warning (SCM str)
   return SCM_BOOL_T;
 }
 
+SCM
+ly_isdir_p (SCM s)
+{
+  if (gh_number_p (s))
+    {
+      int i = gh_scm2int (s);
+      return (i>= -1 && i <= 1)  ? SCM_BOOL_T : SCM_BOOL_F; 
+    }
+  return SCM_BOOL_F;
+}
+
+
 void
 init_functions ()
 {
   scm_make_gsubr ("ly-warn", 1, 0, 0, (SCM(*)(...))ly_warning);
   scm_make_gsubr ("ly-gulp-file", 1,0, 0, (SCM(*)(...))ly_gulp_file);
+  scm_make_gsubr ("dir?", 1,0, 0, (SCM(*)(...))ly_isdir_p);  
 }
 
 ADD_SCM_INIT_FUNC(funcs, init_functions);

@@ -1,4 +1,4 @@
-i-*-outline-layout:(2 (-1 -1 0 :) 0);outline-stylish-prefixes:nil -*-
+-*-outline-layout:(2 (-1 -1 0 :) 0);outline-stylish-prefixes:nil -*-
 
 * GNU LilyPond TODO
 Features you cannot find in the documentation as working, should be
@@ -10,7 +10,10 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * make this file understandable for 3rd parties.
-. * use Rhythmic_head::position_i () for all Staff_referenced 
+. * break align order from SCM list. 
+. * time description should be put into SCM
+. *  context in embedded SCM errors.
+
 . * eradicate all VIRTUAL_COPY_CONS () macros ; use indexed creation,
     eg.
 
@@ -18,8 +21,12 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 	ctor_dict["Score_element"]->create_func ();
 
 . * acc at tied note after linebreak.
+. * fix font-naming and selecting
+. * fix naming: \interline Context.staffLineLeading, staff_line_leading (),
+staff_position staff_space
+. * chord tonic: placement of accidental  C#, Cb (from scm and C++)
 . * note head on stem err msg in dutch.
-. *  why need to run -C mf twice?
+. * why need to run -C mf twice?
 . * setting indent to 0 with \shape fails
 . * here's no difference at all in output. When either is jacked up to 7.0,
 everything works and matches up; when either is set just a bit above the
@@ -32,7 +39,6 @@ John
 . * hara kiri _8 clef.
 . * junk -M ?
 . * mudela-book doco
-. * rerun profile
 . * fix or replace feta-accordion.mf
 . * script engraver
 . * bracket pdf hack
@@ -54,7 +60,7 @@ _only_ affect staves.
 - for one of my test scores containing a modern edition of an early
 17'th century composition I have a leading measure containing the
 orginal clefs and note values of the original composition. I use the
-"harmonic" and "diamond" note head styles for that measure and would
+a"harmonic" and "diamond" note head styles for that measure and would
 like to have the stems of these notes _centered_ on the notehead as in
 the mensural music notation.
 
@@ -62,14 +68,10 @@ the mensural music notation.
 bar line fully drawn across the staves and after that keep to the
 ChoirStaff bar line types in the rest of the scores
 
-- autoBeamMelisma: if I explicitly beam notes in a staff with auto
-beaming disabled I would like to have these beams also to be
-melismatic.
-
 . * make all Feta (including dynamics) available to the user in
     textual scripts. Examples: "D.S. al \coda", "\mf espress.".
  
-. * Write scritp that uses --find-old-relative to do auto relativization.
+. * Write script that uses --find-old-relative to do auto relativization.
 . * Junk shared cruft (duration, moment) in lib/
 
 
@@ -81,8 +83,6 @@ melismatic.
 . * Key_engraver, Local_key_item
 . * Think of comprehensive solution for "if (grace_b == self_grace_b_)"
 . * String[String.length] doesn't trap.
-. * Beam
-. * Stem
 . * Rhythmic_column and interaction stem/rhythmic_column/note_head/dots.
 . * Duration
 . * clef engraver 
@@ -91,9 +91,20 @@ melismatic.
 . * junk Music_iterator::first_b_
 . * Bezier
 
-.* BUGS
-. * [c8. c16 c16 c16] in 6/8 timesig. 
+.* Beams
+. * [c8. c16 c16 c16] in 6/8 timesig.
+. * Rewrite Stem, Beam (hairy)
+.  * general shaving on Beam and Stem
+.  * use plet grouping
+.  * beams over bars
+. * Rests and beams don't work too well together. Example:
+   [ r8 g''16 des'] [r8 c16 a] 
+. * autoBeamMelisma: if I explicitly beam notes in a staff with auto
+beaming disabled I would like to have these beams also to be
+melismatic.
+. * The stemLength property should affect also beamed stems.
 . * staffside spanner (crescendo!) along with staffswitch.
+. * * auto melismaBusy for beams.
 
 . * 
 > \context Staff <
@@ -105,16 +116,10 @@ melismatic.
 
 .* STUFF
 . * We need feta-din*.mf files for more sizes than 10.
-- Rests and beams don't work too well together. Example:
-   [ r8 g''16 des'] [r8 c16 a] 
-
-- The stemLength property should affect also beamed stems.
-
 . * align left edge of broken tuplet-spanner (have a test case?)
 . * fix dynamics decently, ie. use kerning & ligatures.
 . * key restorations & repeats
 . * paperXX.ly \quartwidth, font setting not up to date. (Should read from AFM?)
-. * * auto melismaBusy for beams.
 . *In Caro Mio Ben, bar 8, there's a syllable that starts on a note, and
 ends on a pair of grace notes.  Standard practice is to mark this with
 a slur starting on the main note and ending on the grace note, so a
@@ -138,7 +143,6 @@ one of the spacing bugs mentioned in the TODO.
 . * do --safe for PS output?
 . * msgfmt -o check?
 . * collision of lyrics with span_bars. See star-spangled.
-. * Auto_beam debugging output (waarom/wanneer heb jij die weggehaald?)
 . * It is impossible to typeset two textual scripts that are stacked
   on top of eachother and avoids note collisions and at the same
   time are typeset with different textStyle. I tried to move around
@@ -398,7 +402,6 @@ languages:
 .  * german
 .  * dutch
 .  * swedish
-	 .. ?
 
 . * chords
 .  * guitar chords (fret diagrams)
@@ -414,8 +417,7 @@ languages:
 
 . * input converters
 .  * NIFF?
-.  * ABC? 
-.  * SMDL?
+.  * musedata
 
 . * add to MIDI output:
 .  * sharp / flat on trills (in MIDI ??)
@@ -455,7 +457,6 @@ hesitate to ask.
 .  * account for rhythmic position in measure
 .  * etc.
 
-
 . * Output class, handles : (smallish)
 .  * help text /(c) notice?
 .  * version line
@@ -469,23 +470,9 @@ hesitate to ask.
 .  * PS lines to .eps files
 .  * write custom prolog
 
-. * SGML input
-
-. * Documentation
-.  * internal documentation
-
 . * more spanners (smallish)
 .  * Glissando
 .  * trill
-
-. * Rewrite Stem, Beam (hairy)
-.  * general shaving on Beam and Stem
-.  * use plet grouping
-.  * beams over bars
-
-. * lines:
-.  * Ledger lines, should be separate item: Ledger_lines
-.  * beam stem showthrough, inter beam sizes (french vs german style)
 
 . * Collisions
 .  * left/right note balls should be handled by Collision:
@@ -515,15 +502,6 @@ hesitate to ask.
 .  * input property
 . * Figure out semicolons.
 . * <c f a>4 ?
-. * Viola mode?
-
-		@c c g e g 
-	for
-		c g es g, 
-
-		@A c g e g
-	for
-		cis gis e gis
 . * configure pitch_byte
 . * rest name configurable
 
@@ -535,8 +513,6 @@ hesitate to ask.
 . * lyric in staff  (sharpsharp in staff, text below)
 
 . * write Dynamic_line (to group dynamics horizontally)
-
-. * use Real for all y positions.
 
 . * half-sharps, half-flats
 

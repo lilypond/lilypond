@@ -20,6 +20,7 @@ ADD_THIS_TRANSLATOR (Chord_name_engraver);
 
 Chord_name_engraver::Chord_name_engraver ()
 {
+  chord_p_ = 0;
   tonic_req_ = 0;
   inversion_req_ = 0;
   bass_req_ = 0;
@@ -61,7 +62,7 @@ Chord_name_engraver::do_try_music (Music* m)
 void
 Chord_name_engraver::do_process_requests ()
 {
-  if (text_p_arr_.size ())
+  if (chord_p_)
     return;
   if (!pitch_arr_.size ())
     return;
@@ -71,36 +72,20 @@ Chord_name_engraver::do_process_requests ()
   if (gh_boolean_p (chord_inversion))
     find_inversion_b = gh_scm2bool (chord_inversion);
 
-  Chord chord = to_chord (pitch_arr_, tonic_req_, inversion_req_, bass_req_, 
-    find_inversion_b);
+  chord_p_ = new Chord (to_chord (pitch_arr_, tonic_req_, inversion_req_, bass_req_, find_inversion_b));
     
-  Text_item* item_p =  new Text_item;
-
-  /*
-   TODO:
-     - switch on property, add american (?) chordNameStyle:
-       Chord::american_str (...)
-
-  SCM chordNameStyle = get_property ("chordNameStyle", 0);
-  if (chordNameStyle == "Banter")
-    item_p->text_str_ = chord.banter_str (inversion);
-   */
-
-  item_p->text_str_ = chord.banter_str ();
-  
-  text_p_arr_.push (item_p);
-  announce_element (Score_element_info (item_p, 0));
+  announce_element (Score_element_info (chord_p_, 0));
 }
 
 void
 Chord_name_engraver::do_pre_move_processing ()
 {
-  for (int i=0; i < text_p_arr_.size (); i++)
+  if (chord_p_)
     {
-      typeset_element (text_p_arr_[i]);
+      typeset_element (chord_p_);
     }
-  text_p_arr_.clear ();
   pitch_arr_.clear ();
+  chord_p_ = 0;
   tonic_req_ = 0;
   inversion_req_ = 0;
   bass_req_ = 0;
