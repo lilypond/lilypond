@@ -34,7 +34,7 @@ Piano_bar_engraver::get_span_bar_p () const
 {
   Span_bar *s= new Span_bar;
   s->dim_cache_[X_AXIS]->set_empty (true);
-  s->type_str_ = "{";
+  s->type_str_ = "brace";
   return s;
 }
 
@@ -43,7 +43,7 @@ Staff_group_bar_engraver::get_span_bar_p () const
 {
   Span_bar *s= new Span_bar;
   s->dim_cache_[X_AXIS]->set_empty (true);
-  s->type_str_ = "[";
+  s->type_str_ = "bracket";
   return s;
 }
 
@@ -53,7 +53,7 @@ Staff_group_bar_engraver::acknowledge_element (Score_element_info i)
   Base_span_bar_engraver::acknowledge_element (i);
   if (Span_bar * b = dynamic_cast<Span_bar *> (i.elem_l_))
     {
-      if (b->type_str_ == "{")
+      if (b->type_str_ == "brace")
 	b->translate_axis ( -paper_l ()->get_realvar (interline_scm_sym),
 			    X_AXIS); // ugh
     }

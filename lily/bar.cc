@@ -25,10 +25,6 @@ Bar::do_print () const
 {
 #ifndef NPRINT
   String s = type_str_;
-  if (s  == "{")
-    s = "brace";
-  if (s == "[")
-    s = "bracket";
   DOUT << "type = " << s;
 #endif
 }
@@ -62,8 +58,8 @@ static char const *bar_breaks[][3] ={
   {"||", "||", ""},
   {".|.", ".|.", ""},
   {"", "scorebar", "scorepostbreak"},
-  {"", "{", "{"},
-  {"", "[", "["},  
+  {"", "brace", "brace"},
+  {"", "bracket", "bracket"},  
   {0,0,0}
 };
 

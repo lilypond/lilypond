@@ -29,7 +29,7 @@ public:
     
   Interval extent (Axis) const;
   virtual void do_print() const;
-  Graphical_axis_group (Graphical_axis_group const&);
+  Graphical_axis_group(Graphical_axis_group const&s);
   Graphical_axis_group ();
   virtual void set_axes (Axis,Axis);
   void remove_all ();
