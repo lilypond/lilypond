@@ -1,3 +1,18 @@
+13.jcn2,3
+	- mutopia/J.S.Bach/Petites-Preludes: bf's and mutopia preraration
+	- separate documentation package
+
+13.hwn2
+	- mutopia: scs2, horn-concerto-3
+	- junked Line_spacer baseclass.
+	- removed gourlay complications
+	- use force iso. energy for minimisation. Add uniformity term
+to demerits.
+
+13.jcn1
+	- bf: mudela-book
+
+*******
 12.jcn1
 	- auto-knees, input/test/auto-knee.ly
 

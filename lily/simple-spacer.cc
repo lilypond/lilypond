@@ -19,10 +19,14 @@
 #include "rod.hh"
 #include "warn.hh"
 #include "column-x-positions.hh"
+#include "dimensions.hh"
 
 Simple_spacer::Simple_spacer ()
 {
   force_f_ = 0.;
+  indent_f_ =0.0;
+  default_space_f_ = 20 PT;
+  compression_energy_factor_f_ = 3.0;
 }
 
 void
@@ -207,20 +211,17 @@ void
 Simple_spacer::solve (Column_x_positions *positions) const
 {
   positions->energy_f_  = energy_f ();  // abs (force_f_);
+  positions->force_f_ = force_f_;
+  
   positions->config_.push (indent_f_);
   for (int i=0; i <springs_.size (); i++)
     {
       positions->config_.push (positions->config_.top () + springs_[i].length (force_f_));
     }
 
-  positions->satisfies_constraints_b_ = active_b ();
+  positions->satisfies_constraints_b_ =  (line_len_f_ < 0) || active_b ();
 }
 
-void
-Simple_spacer::lower_bound_solution (Column_x_positions * posns) const
-{
-  solve (posns);
-}
 
 
 Spring_description::Spring_description( )
@@ -236,13 +237,6 @@ Spring_description::energy_f (Real force) const
 {
   Real stretch = (force >? block_force_f_) / hooke_f_;
   Real e = 0.5 * stretch * stretch * hooke_f_;
-
-  /*
-    be harder to compress.
-   */
-  if (stretch < 0)
-    e *= 4;
-
   return e;
 }
 
@@ -252,7 +246,12 @@ Simple_spacer::energy_f () const
   Real e =0.;
 
   for (int i=0; i <springs_.size (); i++)
-    e += springs_[i].energy_f (force_f_);
-      
+    {
+      e += springs_[i].energy_f (force_f_);
+    }
+
+  if (force_f_ < 0)
+    e *= compression_energy_factor_f_;
+
   return e;
 }
