@@ -17,7 +17,6 @@
 class Lyric_combine_music_iterator : public Music_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   Lyric_combine_music_iterator ();
   Lyric_combine_music_iterator (Lyric_combine_music_iterator const&src);
   DECLARE_SCHEME_CALLBACK(constructor, ());
@@ -181,23 +180,6 @@ Lyric_combine_music_iterator::do_quit ()
     music_iter_->quit();
   if (lyric_iter_)
     lyric_iter_->quit();
-}
-
-Lyric_combine_music_iterator::Lyric_combine_music_iterator (Lyric_combine_music_iterator const & src)
-    : Music_iterator (src)
-{
-  lyric_iter_ = 0;
-  music_iter_ = 0;
-
-  if (src.lyric_iter_)
-    lyric_iter_ =  src.lyric_iter_->clone ();
-  if (src.music_iter_)
-    music_iter_ =  src.music_iter_->clone ();
-
-  if (lyric_iter_)
-    scm_gc_unprotect_object (lyric_iter_->self_scm());
-  if (music_iter_)
-    scm_gc_unprotect_object (music_iter_->self_scm());
 }
 
 Music_iterator*

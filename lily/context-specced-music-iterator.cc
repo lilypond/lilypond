@@ -14,7 +14,6 @@
 class Context_specced_music_iterator : public Music_wrapper_iterator
 {
 public:
-  VIRTUAL_COPY_CONS(Music_iterator);
   DECLARE_SCHEME_CALLBACK(constructor,());
   virtual void construct_children ();
 };

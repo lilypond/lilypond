@@ -31,18 +31,6 @@ Chord_tremolo_iterator::Chord_tremolo_iterator ()
   child_iter_ = 0;
 }
 
-Chord_tremolo_iterator::Chord_tremolo_iterator (Chord_tremolo_iterator const &src)
-  : Music_iterator (src)
-{
-  factor_ = src.factor_;
-  child_iter_ = 0;
-  if (src.child_iter_)
-    {
-      child_iter_ = src.child_iter_->clone ();
-      scm_gc_unprotect_object (child_iter_->self_scm());
-    }
-}
-
 void
 Chord_tremolo_iterator::do_quit()
 {

@@ -17,7 +17,6 @@ source file of the GNU LilyPond music typesetter
 class New_lyric_combine_music_iterator : public Music_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   New_lyric_combine_music_iterator ();
   New_lyric_combine_music_iterator (New_lyric_combine_music_iterator const&src);
   DECLARE_SCHEME_CALLBACK(constructor, ());
@@ -235,23 +234,6 @@ New_lyric_combine_music_iterator::do_quit ()
     lyric_iter_->quit();
 }
 
-New_lyric_combine_music_iterator::New_lyric_combine_music_iterator (New_lyric_combine_music_iterator const & src)
-    : Music_iterator (src)
-{
-  lyric_iter_ = 0;
-
-  if (src.lyric_iter_)
-    lyric_iter_ =  src.lyric_iter_->clone ();
-
-  if (lyric_iter_)
-    scm_gc_unprotect_object (lyric_iter_->self_scm());
-
-  music_context_ = src.music_context_;
-  lyric_iter_ = src.lyric_iter_;
-    
-  
-  assert (false);		// shouldn't copy, really.
-}
 
 
 Music_iterator*

@@ -17,12 +17,6 @@ Simple_music_iterator::Simple_music_iterator ()
   last_processed_mom_ = -1;
 }
 
-Simple_music_iterator::Simple_music_iterator (Simple_music_iterator const &src)
-  : Music_iterator (src)
-{
-  last_processed_mom_ = src.last_processed_mom_;
-}
-
 bool
 Simple_music_iterator::ok ()const
 {
@@ -48,12 +42,14 @@ Simple_music_iterator::pending_moment ()const
 
 
 void
-Simple_music_iterator::process (Moment )
+Simple_music_iterator::process (Moment m)
 {
   /*
   don't do try_music (), since it would make the function useless for
-  base classes */
+  base classes
+  */
 
+  last_processed_mom_ = m;
 }
 
 IMPLEMENT_CTOR_CALLBACK (Simple_music_iterator);

@@ -15,7 +15,6 @@
 class Simultaneous_music_iterator : public Music_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   Simultaneous_music_iterator ();
   Simultaneous_music_iterator (Simultaneous_music_iterator const&);
   virtual void derived_substitute (Translator_group*f, Translator_group*t) ;

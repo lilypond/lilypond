@@ -19,7 +19,6 @@
 class Bar_check_iterator : Simple_music_iterator
 {
 public:
-  VIRTUAL_COPY_CONS(Bar_check_iterator);
   virtual void process (Moment);
   Bar_check_iterator( );
   DECLARE_SCHEME_CALLBACK(constructor, ());

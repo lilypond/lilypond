@@ -30,7 +30,6 @@ class Event_chord_iterator : public Simple_music_iterator
   
   enum { NONE_DONE, START_DONE, END_DONE }  status_;
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   DECLARE_SCHEME_CALLBACK(constructor, ());
   Event_chord_iterator ();
   Event_chord_iterator (Event_chord_iterator const&);

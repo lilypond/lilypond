@@ -158,7 +158,7 @@ Pop_property_iterator::process (Moment m)
     {
       SCM eprop = get_music ()->get_mus_property ("grob-property");
       get_outlet ()->execute_pushpop_property (sym, eprop, SCM_UNDEFINED);
-    }  
+    }
   Simple_music_iterator::process (m);
 }
 

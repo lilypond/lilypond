@@ -53,7 +53,6 @@ class Sequential_iterator :  public Music_iterator
 public:
   Grace_fixup * grace_fixups_;
   
-  VIRTUAL_COPY_CONS (Music_iterator);
   DECLARE_SCHEME_CALLBACK(constructor, ());
   Sequential_iterator ();
   Sequential_iterator (Sequential_iterator const&);

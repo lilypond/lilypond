@@ -43,8 +43,8 @@ PostScript file output is disallowed, and lilypond-bin is invoked with
 @code{--safe-mode}, the user's Guile expressions are evaluated in a
 safe environment and file inclusion is not allowed.
 
-Be warned that a DOS attack using Guile, @TeX{} or PostScript is
-rather easy.
+Warning: this does protect against denial-of-service attacks using
+Guile, @TeX{} or PostScript.
 
 (This feature is still experimental.)
 

@@ -17,7 +17,6 @@
 class New_pc_iterator : public Music_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   New_pc_iterator ();
 
   DECLARE_SCHEME_CALLBACK(constructor, ()); 
@@ -104,24 +103,7 @@ New_pc_iterator::do_quit ()
   shared_.set_translator (0);
 }
 
-New_pc_iterator::New_pc_iterator (New_pc_iterator const &src)
-  : Music_iterator (src)
-{
-  first_iter_ = 0;
-  second_iter_ = 0;
 
-  if(src.first_iter_)
-    first_iter_ = src.first_iter_->clone ();
-  if (src.second_iter_)
-    second_iter_ = src.second_iter_->clone ();
-
-  split_list_ = src.split_list_;
-  
-  if (first_iter_)
-    scm_gc_unprotect_object (first_iter_->self_scm());
-  if (second_iter_)
-    scm_gc_unprotect_object (second_iter_->self_scm());
-}
 
 Moment
 New_pc_iterator::pending_moment () const

@@ -25,18 +25,6 @@ Percent_repeat_iterator::do_quit()
   if (child_iter_)
     child_iter_->quit();
 }
-Percent_repeat_iterator::Percent_repeat_iterator (Percent_repeat_iterator const & p)
-  : Music_iterator (p)
-{
-  child_iter_ = 0;
- finish_mom_ = p.finish_mom_ ;
- 
-  if (p.child_iter_)
-    {
-      child_iter_ =  p.child_iter_->clone ();
-      scm_gc_unprotect_object (child_iter_->self_scm());
-    }
-}
 
 bool
 Percent_repeat_iterator::ok () const

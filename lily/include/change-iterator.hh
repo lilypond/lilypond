@@ -16,7 +16,6 @@
 class Change_iterator : public Simple_music_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   /* constructor is public */
   virtual void process (Moment);
   DECLARE_SCHEME_CALLBACK(constructor, ());

@@ -15,10 +15,8 @@
 class Percent_repeat_iterator : public Music_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   DECLARE_SCHEME_CALLBACK(constructor, ());
   Percent_repeat_iterator ();
-  Percent_repeat_iterator (Percent_repeat_iterator const & );
 protected:
   virtual void derived_substitute (Translator_group*f, Translator_group*t) ;
 

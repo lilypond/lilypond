@@ -16,11 +16,6 @@ Event_chord_iterator::Event_chord_iterator ()
 {
 }
 
-Event_chord_iterator::Event_chord_iterator (Event_chord_iterator const &src)
-  : Simple_music_iterator (src)
-{
-}
-
 Translator_group*
 Event_chord_iterator::get_req_translator ()
 {
@@ -47,7 +42,7 @@ Event_chord_iterator::get_elt () const
 
 
 void
-Event_chord_iterator::process (Moment )
+Event_chord_iterator::process (Moment m)
 {
   if (last_processed_mom_ < Moment (0))
     {
@@ -61,6 +56,7 @@ Event_chord_iterator::process (Moment )
 	    mus->origin ()->warning (_f ("Junking event: `%s'", mus->name()));
 	}
     }
+  Simple_music_iterator::process (m);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Event_chord_iterator);

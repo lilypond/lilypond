@@ -59,21 +59,7 @@ Sequential_iterator::do_quit ()
 }
 
 
-Sequential_iterator::Sequential_iterator (Sequential_iterator const &src)
-  : Music_iterator (src)
-{
-  grace_fixups_ = copy_grace_fixups (src.grace_fixups_);
-  cursor_ = src.cursor_;
-  list_ = src.cursor_;
-  here_mom_ = src.here_mom_;
-  iter_ = 0;
 
-  if (src.iter_)
-    {
-      iter_ = src.iter_->clone ();
-      scm_gc_unprotect_object (iter_->self_scm());
-    }
-}
 
 void
 Sequential_iterator::derived_mark ()const

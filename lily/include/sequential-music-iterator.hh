@@ -18,7 +18,6 @@
 class Sequential_music_iterator :  public Sequential_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   DECLARE_SCHEME_CALLBACK(constructor, ());
 private:
   virtual SCM get_music_list()const;
