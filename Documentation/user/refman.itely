@@ -1640,7 +1640,7 @@ See also @internalsref{PhrasingSlur},
 @refbugs
 
 Phrasing slurs have the same limitations in their formatting as normal
-slurs.
+slurs. Putting phrasing slurs over rests leads to spurious warnings.
 
 @node Breath marks
 @subsection Breath marks

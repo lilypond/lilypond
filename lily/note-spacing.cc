@@ -104,11 +104,20 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 
     What is sticking out of the note head (eg. a flag), doesn't get
     the full amount of space.
+
+    FIXED also includes the left part of the right object.
   */
-  *fixed = left_head_wid.empty_b () ? increment : left_head_wid[RIGHT];
-  *space = (base_space - increment) + *fixed +
-    (extents[LEFT][RIGHT]
-     - (left_head_wid.empty_b () ? 0.0 : left_head_wid[RIGHT]))/ 2;
+  *fixed =
+    (left_head_wid.empty_b () ? increment : left_head_wid[RIGHT])
+    + (extents[RIGHT].empty_b() ?  0.0 : - extents[RIGHT][LEFT] / 2);
+
+  /*
+    We don't do complicated stuff: (base_space - increment) is the
+    normal amount of white, which also determines the amount of
+    stretch. Upon (extreme) stretching, notes with accidentals should
+    stretch as much as notes without accidentals.
+   */
+  *space = (base_space - increment) + *fixed ;
 
   if (Item::breakable_b (right_col)
       || right_col->original_)
@@ -122,19 +131,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
       *space += -extents[RIGHT][LEFT];
       *fixed += -extents[RIGHT][LEFT];
     }
-  else if (*space - *fixed < 2 * ((- extents[RIGHT][LEFT]) >? 0))
-    {
-      /*
-    
-      What's sticking out at the left of the right side has less
-      influence. We only take it into account if there is not enough
-      space.
-
-      this sucks: this criterion is discontinuous; FIXME.
-      */
-      *space += 0.5 * (( -extents[RIGHT][LEFT]) >? 0);
-    }
-
+  
   stem_dir_correction (me, right_col, increment, space, fixed);
 }
 
