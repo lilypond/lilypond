@@ -1,4 +1,4 @@
-:dnl aclocal.m4   -*-shell-script-*-
+dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
 
@@ -337,6 +337,7 @@ AC_DEFUN(STEPMAKE_FLEXLEXER, [
     AC_CACHE_CHECK([for yyFlexLexer.yy_current_buffer],
 	[stepmake_flexlexer_yy_current_buffer],
 	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+using namespace std;
 #include <FlexLexer.h>
 class yy_flex_lexer: public yyFlexLexer
 {
