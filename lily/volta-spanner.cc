@@ -27,7 +27,7 @@ Volta_spanner::Volta_spanner (SCM s)
 {
   set_elt_pointer ("bars", SCM_EOL);
   Side_position_interface (this).set_axis (Y_AXIS);
-  directional_element (this).set (UP);
+  Directional_element_interface (this).set (UP);
 }
 
 
@@ -46,13 +46,12 @@ GLUE_SCORE_ELEMENT(Volta_spanner,brew_molecule);
 SCM
 Volta_spanner::member_brew_molecule () const
 {
-  Molecule  mol;
-
+  
   Link_array<Bar> bar_arr
     = Pointer_group_interface__extract_elements (this, (Bar*)0, "bars");
 
   if (!bar_arr.size ())
-    return mol.create_scheme();
+    return SCM_EOL;
 
   bool no_vertical_start = false;
   bool no_vertical_end = to_boolean (get_elt_property ("last-volta"));
@@ -70,10 +69,8 @@ Volta_spanner::member_brew_molecule () const
 
   Real staff_space = paper_l ()->get_var ("interline");
   Real half_space = staff_space / 2;
-
-  Real w = spanner_length ()
-  - get_broken_left_end_align ()
-    - half_space;
+  Real left = get_broken_left_end_align ();
+  Real w = spanner_length () - left - half_space;
   Real h = paper_l()->get_var ("volta_spanner_height");
   Real t = paper_l ()->get_var ("volta_thick");
 
@@ -86,21 +83,21 @@ Volta_spanner::member_brew_molecule () const
 		     SCM_UNDEFINED));
 
   Box b (Interval (0, w), Interval (0, h));
-  Molecule volta (b, at);
-  mol.add_molecule (volta);
-  
+  Molecule  mol (b, at);
   Molecule num (lookup_l ()->text ("volta",
 				   ly_scm2string (get_elt_property("text")),
 				   paper_l ()));
 
   mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
 		   - staff_space);
+  mol.translate_axis (left, X_AXIS);
   return mol.create_scheme();
 }
   
 void
 Volta_spanner::do_add_processing ()
 {
+#if 0
   Link_array<Bar> bar_arr
     = Pointer_group_interface__extract_elements (this, (Bar*)0, "bars");
 
@@ -109,6 +106,7 @@ Volta_spanner::do_add_processing ()
       set_bound (LEFT, bar_arr[0]);
       set_bound (RIGHT, bar_arr.top ());  
     }
+#endif
 }
 
 GLUE_SCORE_ELEMENT(Volta_spanner,after_line_breaking);
@@ -127,6 +125,8 @@ Volta_spanner::add_bar  (Bar* b)
 
   Side_position_interface (this).add_support (b);
   add_dependency (b);
+
+  add_bound_item (this, b); 
 }
 
 void
