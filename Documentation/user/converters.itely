@@ -267,12 +267,12 @@ distribution. pmx2ly cannot parse more recent PMX files.
 @cindex MuseData
 @cindex CCARH
 
-MuseData (see @uref{http://www.musedata.org/}) is an electronic library of
-classical music scores, currently comprising about 800 composition
-dating from 1700 to 1825.  The music is encoded in so-called MuseData
-format.  musedata2ly converts a set of MuseData files to one .ly file,
-and will include a @code{\header} field if a @file{.ref} file is
-supplied. It is invoked as follows:
+MuseData (see @uref{http://www.musedata.org/}) is an electronic
+library of classical music scores, comprising at the time of writing
+about 800 composition dating from 1700 to 1825.  The music is encoded
+in so-called MuseData format.  musedata2ly converts a set of MuseData
+files to one .ly file, and will include a @code{\header} field if a
+@file{.ref} file is supplied. It is invoked as follows:
 
 @example
         musedata2ly [@var{option}]@dots{} @var{musedata-files}
