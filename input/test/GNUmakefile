@@ -10,7 +10,7 @@ LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-che
 ## examples = font20 ancient-font
 ## LOCALSTEPMAKE_TEMPLATES += ly mutopia 
 
-EXTRA_DIST_FILES= $(wildcard *.lyinc)
+EXTRA_DIST_FILES= 
 
 include $(depth)/make/stepmake.make 
 
