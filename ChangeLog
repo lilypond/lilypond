@@ -1,3 +1,12 @@
+2003-08-28  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* input/regression/breathing-sign.ly: changed ancient examples to
+	be relevant (by request of Han-Wen); updated BreathingSign text
+	property according to new syntax
+
+	* ly/gregorian-init.ly: updated BreathingSign text property
+	according to new syntax
+
 2003-08-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* python/lilylib.py (system): remove errorlog files.
