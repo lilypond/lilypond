@@ -287,16 +287,20 @@ Third_spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> cols)
 	continue;
 
       // it->breakable || it->musical
+
+      /*
+	sloppy with typnig left/right-neighbors should take list, but paper-column found instead.
+       */
       SCM ln = cols[i] ->get_grob_property ("left-neighbors");
       if (!gh_pair_p (ln) && i ) 
 	{
-	  cols[i]->set_grob_property ("left-neighbors", cols[i-1]->self_scm());
+	  cols[i]->set_grob_property ("left-neighbors", gh_cons (cols[i-1]->self_scm(), SCM_EOL));
 	}
 
       SCM rn = cols[i] ->get_grob_property ("right-neighbors");
       if (!gh_pair_p (rn) && i < cols.size () - 1) 
 	{
-	  cols[i]->set_grob_property ("right-neighbors", cols[i + 1]->self_scm());
+	  cols[i]->set_grob_property ("right-neighbors", gh_cons (cols[i + 1]->self_scm(), SCM_EOL));
 	}
     }
 }

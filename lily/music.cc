@@ -174,7 +174,7 @@ Music::internal_set_mus_property (SCM s, SCM v)
 {
 #ifndef NDEBUG
   if (internal_type_checking_global_b)
-    assert (type_check_assignment (s, v, ly_symbol2scm ("backend-type?")));
+    assert (type_check_assignment (s, v, ly_symbol2scm ("music-type?")));
 #endif
   
 

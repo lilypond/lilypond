@@ -88,14 +88,16 @@ Accidentals are currently in a development stage.
 @section Chord names
 
 @lilypondfile[printfilename]{chord-names.ly}
+
 @lilypondfile[printfilename]{chord-changes.ly}
 
+@section Figured bass
 
+@lilypondfile[printfilename]{figured-bass.ly}
 
 @section Grace notes
 
 Grace note do weird things with timing. Fragile.
-
 
 @lilypondfile[printfilename]{grace.ly}
 
@@ -108,6 +110,7 @@ Grace note do weird things with timing. Fragile.
 @lilypondfile[printfilename]{grace-nest4.ly}
 
 @lilypondfile[printfilename]{grace-nest5.ly}
+
 @lilypondfile[printfilename]{grace-nest1.ly}
 
 @lilypondfile[printfilename]{grace-start.ly}
@@ -125,7 +128,10 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{beam-position.ly}
 
+
 @lilypondfile[printfilename]{auto-beam-bar.ly}
+
+@lilypondfile[printfilename]{beam-over-barline.ly}
 
 @lilypondfile[printfilename]{beam-rest.ly}
 
@@ -139,6 +145,7 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{triplets.ly}
 
+@lilypondfile[printfilename]{beaming-ternary-metrum.ly}
 
 @section  Slurs 
 
