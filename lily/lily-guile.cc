@@ -181,6 +181,19 @@ LY_DEFINE (ly_warn, "ly:warn",
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_programming_error, "ly:programming-error",
+	   1, 0, 1, (SCM str, SCM rest),
+	   "Scheme callable function to issue the warning @code{msg}. "
+	   "The message is formatted with @code{format} and @code{rest}.")
+{
+  SCM_ASSERT_TYPE (ly_c_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
+  progress_indication ("\n");
+
+  str = scm_simple_format (SCM_BOOL_F, str, rest);
+  programming_error (ly_scm2string (str));
+  return SCM_UNSPECIFIED;
+}
+
 LY_DEFINE (ly_dir_p, "ly:dir?",
 	   1, 0, 0, (SCM s),
 	  "type predicate. A direction is @code{-1}, @code{0} or "

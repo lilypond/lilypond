@@ -97,7 +97,7 @@
 
       (string-append
        (define-font plain fontname scaling)
-       (if (not (equal? input-encoding font-encoding))
+       (if (equal? input-encoding font-encoding)
 	   ""
 	   (reencode-font plain input-encoding command)))))
 
