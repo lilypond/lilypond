@@ -1,38 +1,31 @@
 /* 
   book-paper-def.cc -- implement Output_def
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  
 */
 
+#include "dimensions.hh"
+#include "font-metric.hh"
 #include "ly-module.hh"
 #include "output-def.hh"
-#include "dimensions.hh"
-#include "ly-smobs.icc"
-#include "font-metric.hh"
-#include "virtual-font-metric.hh"
 #include "scaled-font-metric.hh"
+#include "virtual-font-metric.hh"
 
 Real
-output_scale (Output_def  * od)
+output_scale (Output_def *od)
 {
   return ly_scm2double (od->lookup_variable (ly_symbol2scm ("outputscale")));
 }
 
-/*
-  TODO: should add nesting for Output_def here too. 
- */
-Font_metric*
-find_scaled_font (Output_def * mod,
+/* TODO: should add nesting for Output_def here too. */
+Font_metric *
+find_scaled_font (Output_def *mod,
 		  Font_metric *f, Real m, SCM input_enc_name)
 {
   if (mod->parent_)
-    {
-      return find_scaled_font (mod->parent_,
-			       f, m, input_enc_name);
-    }
+    return find_scaled_font (mod->parent_, f, m, input_enc_name);
   
   Real lookup_mag = m;
   if (!dynamic_cast<Virtual_font_metric*> (f))
@@ -61,18 +54,14 @@ find_scaled_font (Output_def * mod,
   SCM val = SCM_EOL;
   if (Virtual_font_metric * vf = dynamic_cast<Virtual_font_metric*> (f))
     {
-      /*
-	For fontify_atom (), the magnification and name must be known
-	at the same time. That's impossible for
-
-	  Scaled (Virtual_font (Font1,Font2))
-
-	so we replace by
-
-	  Virtual_font (Scaled (Font1), Scaled (Font2))
-
-      */
-      
+      /* For fontify_atom (), the magnification and name must be known
+	 at the same time. That's impossible for
+	 
+	 Scaled (Virtual_font (Font1,Font2))
+	 
+	 so we replace by
+	 
+	 Virtual_font (Scaled (Font1), Scaled (Font2))  */
       SCM lst = SCM_EOL;
       SCM *t = &lst;
       for (SCM s = vf->get_font_list (); ly_c_pair_p (s); s = ly_cdr (s))
@@ -91,7 +80,8 @@ find_scaled_font (Output_def * mod,
     {
       if (!ly_c_symbol_p (input_enc_name))
 	{
-	  SCM var = ly_module_lookup (mod->scope_, ly_symbol2scm ("inputencoding"));
+	  SCM var = ly_module_lookup (mod->scope_,
+				      ly_symbol2scm ("inputencoding"));
 	  if (var != SCM_BOOL_F) 
 	    input_enc_name = scm_variable_ref (var);
 	  if (!ly_c_symbol_p (input_enc_name))
@@ -108,17 +98,14 @@ find_scaled_font (Output_def * mod,
   return unsmob_metrics (val);
 }
 
-/*
-  TODO: this is a nasty interface. During formatting,
-  the Output_def should be scaled to the output_scale_
-  specified in the toplevel Output_def.
- */
-Output_def* 
-scale_output_def (Output_def * o, Real amount)
+/* TODO: this is a nasty interface. During formatting,
+   the Output_def should be scaled to the output_scale_
+   specified in the toplevel Output_def.  */
+Output_def * 
+scale_output_def (Output_def *o, Real amount)
 {
   SCM proc = ly_scheme_function ("scale-paper");
-  SCM new_pap = scm_call_2 (proc, o->self_scm (),
-			    scm_double2num (amount));
+  SCM new_pap = scm_call_2 (proc, o->self_scm (), scm_double2num (amount));
   scm_gc_protect_object (new_pap);
 
   return unsmob_output_def (new_pap);
@@ -144,7 +131,7 @@ LY_DEFINE (ly_bookpaper_fonts, "ly:bookpaper-fonts",
 	   s = ly_cdr (s))
 	{
 	  SCM entry = ly_car (s);
-	  for (SCM t = ly_cdr (entry); ly_c_pair_p (t); t  = ly_cdr (t))
+	  for (SCM t = ly_cdr (entry); ly_c_pair_p (t); t = ly_cdr (t))
 	    {
 	      Font_metric *fm = unsmob_metrics (ly_cdar (t));
 

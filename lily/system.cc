@@ -269,7 +269,6 @@ System::pre_processing ()
 
   if (verbose_global_b)
     progress_indication (_f ("Grob count %d", element_count ()));
-
   
   for (SCM s = get_property ("all-elements"); ly_c_pair_p (s); s = ly_cdr (s))
     unsmob_grob (ly_car (s))->handle_prebroken_dependencies ();
@@ -278,11 +277,13 @@ System::pre_processing ()
   
   for (SCM s = get_property ("all-elements"); ly_c_pair_p (s); s = ly_cdr (s))
     {
-      Grob* sc = unsmob_grob (ly_car (s));
+      Grob *sc = unsmob_grob (ly_car (s));
       sc->calculate_dependencies (PRECALCED, PRECALCING, ly_symbol2scm ("before-line-breaking-callback"));
     }
   
-  progress_indication ("\n" + _ ("Calculating line breaks...") + " ");
+  progress_indication ("\n");
+  progress_indication (_ ("Calculating line breaks..."));
+  progress_indication (" ");
   for (SCM s = get_property ("all-elements"); ly_c_pair_p (s); s = ly_cdr (s))
     {
       Grob *e = unsmob_grob (ly_car (s));

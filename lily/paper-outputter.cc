@@ -112,7 +112,6 @@ get_paper_outputter (String outname, String f)
   progress_indication (_f ("paper output to `%s'...",
 			   outname == "-" ? String ("<stdout>") : outname));
   return new Paper_outputter (outname, f);
-
 }
 
 /* FIXME: why is output_* wrapper called dump?  */

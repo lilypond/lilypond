@@ -128,7 +128,7 @@ Duration::less_p (SCM p1, SCM p2)
     return SCM_BOOL_F;
 }
 
-LY_DEFINE (duration_less, "ly:duration<?",
+LY_DEFINE (ly_duration_less_p, "ly:duration<?",
 	   2, 0, 0, (SCM p1, SCM p2),
 	  "Is @var{p1} shorter than @var{p2}?")
 {
@@ -144,7 +144,7 @@ LY_DEFINE (duration_less, "ly:duration<?",
     return SCM_BOOL_F;
 }
 
-LY_DEFINE (make_duration, "ly:make-duration",
+LY_DEFINE (ly_make_duration, "ly:make-duration",
 	   1, 3, 0, (SCM length, SCM dotcount, SCM num, SCM den),
 	   "@var{length} is the negative logarithm (base 2) of the duration:\n"
 	   "1 is a half note, 2 is a quarter note, 3 is an eighth\n"
@@ -193,7 +193,7 @@ LY_DEFINE (make_duration, "ly:make-duration",
   return p.smobbed_copy ();
 }
 
-LY_DEFINE (duration_log, "ly:duration-log",
+LY_DEFINE (ly_duration_log, "ly:duration-log",
 	   1, 0, 0, (SCM dur),
 	  "Extract the duration log from @var{dur}")
 {
@@ -201,14 +201,13 @@ LY_DEFINE (duration_log, "ly:duration-log",
   return scm_int2num (unsmob_duration (dur)->duration_log ());
 }
 
-LY_DEFINE (dot_count_log, "ly:duration-dot-count", 1, 0, 0, (SCM dur),
-	  "Extract the dot count from @var{dur}"
-)
+LY_DEFINE (ly_duration_dot_count, "ly:duration-dot-count",
+	   1, 0, 0, (SCM dur),
+	  "Extract the dot count from @var{dur}")
 {
   SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
   return scm_int2num (unsmob_duration (dur)->dot_count ());
 }
-
 
 LY_DEFINE (ly_intlog2, "ly:intlog2",
 	   1, 0, 0, (SCM d),
@@ -219,7 +218,7 @@ LY_DEFINE (ly_intlog2, "ly:intlog2",
   return scm_int2num (log);
 }
 
-LY_DEFINE (compression_factor, "ly:duration-factor",
+LY_DEFINE (ly_duration_factor, "ly:duration-factor",
 	   1, 0, 0, (SCM dur),
 	  "Extract the compression factor from @var{dur}. Return as a pair.")
 {

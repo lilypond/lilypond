@@ -91,8 +91,8 @@ determines the space between each markup in @var{args}."
 (def-markup-command (combine paper props m1 m2) (markup? markup?)
   "Print two markups on top of each other."
   (let*
-      ((s1   (interpret-markup paper props m1))
-       (s2   (interpret-markup paper props m2)))
+      ((s1 (interpret-markup paper props m1))
+       (s2 (interpret-markup paper props m2)))
 	     
     (ly:stencil-add s1 s2)))
 

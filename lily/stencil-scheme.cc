@@ -216,7 +216,7 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
 }
 
 
-LY_DEFINE (ly_align_to_x, "ly:stencil-align-to!",
+LY_DEFINE (ly_stencil_align_to_x, "ly:stencil-align-to!",
 	   3, 0, 0, (SCM stil, SCM axis, SCM dir),
 	   "Align @var{stil} using its own extents. "
 	   "@var{dir} is a number -1, 1 are left and right respectively. "

@@ -1,12 +1,12 @@
-/*   
-identifier-smob.cc -- implement glue to pass Scheme expressions off as
-identifiers.
+/*
+  identifier-smob.cc -- implement glue to pass Scheme expressions off as
+  identifiers.
 
-source file of the GNU LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
-(c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
+  (c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "identifier-smob.hh"
 
 
@@ -25,15 +25,15 @@ print_box (SCM b, SCM port, scm_print_state *)
   return 1;
 }
 
-
 /* This defines the primitve `make-box', which returns a new smob of
    type `box', initialized to `#f'.  */
-LY_DEFINE (package_identifier, "ly:export", 1,0,0, (SCM arg),
-	  "Export a Scheme object to the parser, so it is treated as an identifier.")
+LY_DEFINE (ly_export, "ly:export",
+	   1, 0, 0, (SCM arg),
+	   "Export a Scheme object to the parser, "
+	   "so it is treated as an identifier.")
 {
   SCM_RETURN_NEWSMOB (package_tag, arg);
 }
-
 
 SCM
 unpack_identifier (SCM box)
@@ -51,4 +51,5 @@ init_box_type (void)
   scm_set_smob_mark (package_tag, scm_markcdr);
   scm_set_smob_print (package_tag, print_box);
 }
+
 ADD_SCM_INIT_FUNC (package, init_box_type); 

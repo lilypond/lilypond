@@ -106,7 +106,8 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
   Array<String> output_formats = split_string (output_format_global, ',');
 
   SCM lst = SCM_EOL;
-  for (int i = 0; i < output_formats.size (); i ++)
+  int output_formats_count = output_formats.size ();
+  for (int i = 0; i < output_formats_count; i ++)
     lst = scm_cons (scm_makfrom0str (output_formats[i].to_str0 ()), lst);
   
   return lst; 
@@ -118,17 +119,15 @@ Paper_book::output (String outname)
   if (!score_lines_.size ())
     return;
 
-  
   /* Generate all stencils to trigger font loads.  */
   pages ();
-
   
   SCM formats = ly_output_formats();
   for (SCM s = formats; ly_c_pair_p (s); s = ly_cdr (s)) 
     {
       String format = ly_scm2string (ly_car (s));
-      
-      Paper_outputter *out = get_paper_outputter (outname + "." + format, format);
+      Paper_outputter *out = get_paper_outputter (outname + "." + format,
+						  format);
   
       SCM scopes = SCM_EOL;
       if (ly_c_module_p (header_))
@@ -143,21 +142,18 @@ Paper_book::output (String outname)
 				     scopes,
 				     dump_fields (),
 				     scm_makfrom0str (outname.to_str0 ()),
-				     SCM_UNDEFINED
-				     )) ;
+				     SCM_UNDEFINED));
 
       scm_gc_unprotect_object (out->self_scm ());
+      progress_indication ("\n");
     }
 }
-
 
 void
 Paper_book::classic_output (String outname)
 {
-
   /* Generate all stencils to trigger font loads.  */
   lines ();
-
 
   // ugh code dup
   SCM scopes = SCM_EOL;
@@ -168,7 +164,6 @@ Paper_book::classic_output (String outname)
     scopes = scm_cons (score_lines_[0].header_, scopes);
   //end ugh
 
-
   Array<String> output_formats = split_string (output_format_global, ',');
 
   for (int i = 0; i < output_formats.size (); i++)
@@ -178,41 +173,30 @@ Paper_book::classic_output (String outname)
       func_nm = "output-classic-framework-" + func_nm;
       
       SCM func = ly_scheme_function (func_nm.to_str0 ());
+      Paper_outputter *out = get_paper_outputter (outname + "." + format,
+						  format);
 
-      Paper_outputter *out = get_paper_outputter (outname + "." + format, format);
-
-      scm_apply_0 (func, scm_list_n (out->self_scm (),
-				     self_scm (),
-				     scopes,
+      scm_apply_0 (func, scm_list_5 (out->self_scm (), self_scm (), scopes,
 				     dump_fields (),
-				     scm_makfrom0str (outname.to_str0 ()),
-				     SCM_UNDEFINED
-				     )) ;
+				     scm_makfrom0str (outname.to_str0 ())));
 
       scm_gc_unprotect_object (out->self_scm ());
+      progress_indication ("\n");
     }
-  
-  progress_indication ("\n");
 }
 
-
-
-
-LY_DEFINE(ly_paper_book_pages, "ly:paper-book-pages",
-	  1,0,0,
-	  (SCM pb),
+LY_DEFINE (ly_paper_book_pages, "ly:paper-book-pages",
+	  1, 0, 0, (SCM pb),
 	  "Return pages in book PB.")
 {
   return unsmob_paper_book(pb)->pages ();
 }
 
-
-LY_DEFINE(ly_paper_book_scopes, "ly:paper-book-scopes",
-	  1,0,0,
-	  (SCM book),
+LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes",
+	  1, 0, 0, (SCM book),
 	  "Return pages in paper book @var{book}.")
 {
-  Paper_book * pb =  unsmob_paper_book(book);
+  Paper_book *pb = unsmob_paper_book(book);
   SCM_ASSERT_TYPE(pb, book, SCM_ARG1, __FUNCTION__, "Paper_book");
   
   SCM scopes = SCM_EOL;
@@ -222,29 +206,21 @@ LY_DEFINE(ly_paper_book_scopes, "ly:paper-book-scopes",
   return scopes;
 }
 
-
-LY_DEFINE(ly_paper_book_lines, "ly:paper-book-lines",
-	  1,0,0,
-	  (SCM pb),
-	  "Return lines in book PB.")
+LY_DEFINE (ly_paper_book_lines, "ly:paper-book-lines",
+	   1, 0, 0, (SCM pb),
+	   "Return lines in book PB.")
 {
   return unsmob_paper_book (pb)->lines ();
 }
 
-
-LY_DEFINE(ly_paper_book_book_paper, "ly:paper-book-book-paper",
-	  1,0,0,
-	  (SCM pb),
+LY_DEFINE (ly_paper_book_book_paper, "ly:paper-book-book-paper",
+	  1, 0, 0, (SCM pb),
 	  "Return pages in book PB.")
 {
-  return unsmob_paper_book(pb)->bookpaper_->self_scm ();
+  return unsmob_paper_book (pb)->bookpaper_->self_scm ();
 }
 
-/*
-
-TODO: resurrect more complex user-tweaks for titling? 
-
-*/
+/* TODO: resurrect more complex user-tweaks for titling?  */
 Stencil
 Paper_book::book_title ()
 {
@@ -271,8 +247,6 @@ Paper_book::book_title ()
   return title;
 }
 
-  
-
 Stencil
 Paper_book::score_title (int i)
 {
@@ -298,18 +272,16 @@ Paper_book::score_title (int i)
   if (unsmob_stencil (tit))
     title = *unsmob_stencil (tit);
 
-
   if (!title.is_empty ())
     title.align_to (Y_AXIS, UP);
   
   return title;
 }
   
-
 SCM
 Paper_book::lines ()
 {
-  if (SCM_BOOL_F != lines_)
+  if (lines_ != SCM_BOOL_F)
     return lines_;
 
   lines_ = SCM_EOL;
@@ -318,7 +290,6 @@ Paper_book::lines ()
   if (!title.is_empty ())
     {
       Paper_system *pl = new Paper_system (title, true);
-      
       lines_ = scm_cons (pl->self_scm (), lines_);
       scm_gc_unprotect_object (pl->self_scm ());
     }
@@ -336,7 +307,8 @@ Paper_book::lines ()
       
       if (scm_vector_p (score_lines_[i].lines_) == SCM_BOOL_T)
 	{
-	  SCM line_list = scm_vector_to_list (score_lines_[i].lines_); // guh.
+	  // guh.	  
+	  SCM line_list = scm_vector_to_list (score_lines_[i].lines_);
 
 	  line_list = scm_reverse (line_list);
 	  lines_ = scm_append (scm_list_2 (line_list, lines_));
@@ -346,23 +318,20 @@ Paper_book::lines ()
   lines_ = scm_reverse (lines_);
   
   int i = 0;
-  Paper_system * last = 0;
+  Paper_system *last = 0;
   for (SCM s = lines_; s != SCM_EOL; s = ly_cdr (s))
     {
       Paper_system * p = unsmob_paper_line (ly_car (s));
       p->number_ = ++i;
 
       if (last && last->is_title ())
-	{
-	  p->penalty_ = 10000;	// ugh, hardcoded.
-	}
+	// ugh, hardcoded.	
+	p->penalty_ = 10000;
       last = p;
     }
-
   
   return lines_;
 }
-
 
 SCM
 Paper_book::pages ()
@@ -371,18 +340,11 @@ Paper_book::pages ()
     return pages_;
 
   pages_ = SCM_EOL;
-  
   Output_def *paper = bookpaper_;
-
   SCM proc = paper->c_variable ("page-breaking");
-  pages_ = scm_apply_0 (proc, scm_list_n (lines (),
-					  self_scm (),
-					  SCM_UNDEFINED));
-
+  pages_ = scm_apply_0 (proc, scm_list_2 (lines (), self_scm ()));
   return pages_;
 }
-
-
 
 
 /****************************************************************/

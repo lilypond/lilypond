@@ -4,8 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
-
-  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -173,8 +172,9 @@ index_set_cell (SCM s, Direction d, SCM v)
   return s;
 }
   
-LY_DEFINE (ly_warning,"ly:warn", 1, 0, 0,
-  (SCM str), "Scheme callable function to issue the warning @code{msg}.")
+LY_DEFINE (ly_warn, "ly:warn",
+	   1, 0, 0, (SCM str),
+	   "Scheme callable function to issue the warning @code{msg}.")
 {
   SCM_ASSERT_TYPE (ly_c_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
   progress_indication ("\n");
@@ -182,7 +182,8 @@ LY_DEFINE (ly_warning,"ly:warn", 1, 0, 0,
   return SCM_BOOL_T;
 }
 
-LY_DEFINE (ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
+LY_DEFINE (ly_dir_p, "ly:dir?",
+	   1, 0, 0, (SCM s),
 	  "type predicate. A direction is @code{-1}, @code{0} or "
 	   "@code{1}, where @code{-1} represents "
 	  "left or down and @code{1} represents right or up.")
@@ -198,7 +199,8 @@ LY_DEFINE (ly_dir_p,  "ly:dir?", 1,0, 0,  (SCM s),
 bool
 is_number_pair (SCM p)
 {
-  return ly_c_pair_p (p) && ly_c_number_p (ly_car (p)) && ly_c_number_p (ly_cdr (p));
+  return ly_c_pair_p (p)
+    && ly_c_number_p (ly_car (p)) && ly_c_number_p (ly_cdr (p));
 }
 
 typedef void (*Void_fptr) ();
@@ -211,7 +213,6 @@ void add_scm_init_func (void (*f) ())
 
   scm_init_funcs_->push (f);
 }
-
 
 void
 ly_init_ly_module (void *)
@@ -234,12 +235,11 @@ ly_c_init_guile ()
   scm_c_use_module ("lily");
 }
 
-unsigned int ly_scm_hash (SCM s)
+unsigned int
+ly_scm_hash (SCM s)
 {
   return scm_ihashv (s, ~1u);
 }
-
-
 
 bool
 is_direction (SCM s)
@@ -251,7 +251,6 @@ is_direction (SCM s)
     }
   return false;
 }
-
 
 bool
 is_axis (SCM s)
@@ -315,7 +314,6 @@ appendable_list_append (SCM l, SCM elt)
   scm_set_car_x (l, newcons);
 }
 
-
 SCM
 ly_offset2scm (Offset o)
 {
@@ -329,7 +327,6 @@ ly_scm2offset (SCM s)
 		 ly_scm2double (ly_cdr (s)));
 }
 
-   
 LY_DEFINE (ly_number2string, "ly:number->string",
 	   1, 0, 0, (SCM s),
 	   "Convert @var{num} to a string without generating many decimals.")

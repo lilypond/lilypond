@@ -23,7 +23,7 @@ Script_column::add_staff_sided (Grob *me, Item *i)
   me->add_dependency (i);
 }
 
-LY_DEFINE (grob_script_priority_less, "ly:grob-script-priority-less",
+LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
 	  2, 0, 0, (SCM a, SCM b),
 	  "Compare two grobs by script priority. For internal use.")
 {
@@ -74,7 +74,7 @@ Script_column::before_line_breaking (SCM smob)
   do
     {
       SCM ss = scm_reverse_x (scripts[d], SCM_EOL);
-      ss = scm_stable_sort_x (ss, grob_script_priority_less_proc);
+      ss = scm_stable_sort_x (ss, ly_grob_script_priority_less_proc);
       
       Grob * last = 0;
       for (SCM s = ss; ly_c_pair_p (s); s = ly_cdr (s))
