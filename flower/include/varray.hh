@@ -164,6 +164,11 @@ public:
 	del (i);
 	return t;
     }
+    void unordered_del(int i)
+    {
+	elem(i) = top();
+	set_size(size() -1);
+    }
     void del(int i) {
 	assert(i >=0&& i < size_);
 	arrcpy(thearray+i, thearray+i+1, size_-i-1);
@@ -192,7 +197,7 @@ public:
 	set_size(size_ + src.size_);
 	arrcpy(thearray+s,src.thearray, src.size_);	
     }
-    Array<T> subvec(int lower, int upper) {
+    Array<T> slice(int lower, int upper) {
 	assert(lower >= 0 && lower <=upper&& upper <= size_);
 	Array<T> r;
 	int s =upper-lower;
