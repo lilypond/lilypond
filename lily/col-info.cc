@@ -19,6 +19,12 @@ Colinfo::print() const
     DOUT << "fixed at " << fixed_position()<<", ";
   assert (pcol_l_);
   DOUT << width_.str();
+  Direction d = LEFT;
+  do {
+    for (int i=0; i < rods_[d].size (); i++)
+      rods_[d][i].print ();
+  } while (flip (&d) != LEFT);
+  
   DOUT <<"}\n";
 #endif
 }
@@ -57,4 +63,10 @@ int
 Colinfo::rank_i () const
 {
   return pcol_l_->rank_i ();
+}
+
+void
+Spacer_rod::print ()const
+{
+  DOUT << "Other " << other_idx_ << "dist = " << distance_f_ << '\n';
 }

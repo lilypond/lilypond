@@ -20,11 +20,11 @@ Matrix::operator String() const
   s=String ("matrix { (")  + dat->name() + ")\n";
   for (int i=0; i< rows(); i++)
     {
-	for (int j = 0; j < cols(); j++) 
-	  {
-	    s+= String (stor_c_l->elem (i,j), "%6f ");
-	  }
-	s+="\n";
+      for (int j = 0; j < cols(); j++) 
+	{
+	  s+= String (stor_c_l->elem (i,j), "%6f ");
+	}
+      s+="\n";
     }
   s+="}\n";
 #endif
@@ -44,10 +44,10 @@ Vector::operator String() const
 {
   String s;
 #ifndef NPRINT
-  s="vector [";
+  s=String ("vector (") + dim () + ") [";
   for (int i=0; i < dim(); i++) 
     {
-	s += String (dat[i], "%6f") + String (' ');
+      s += String (dat[i], "%6f") + String (' ');
     }
   s+="]";
 #endif

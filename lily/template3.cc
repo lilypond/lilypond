@@ -8,6 +8,7 @@
 
 #include "atom.hh"
 #include "molecule.hh"
+#include "cursor.tcc"
 #include "pcursor.tcc"
 #include "plist.tcc"
 

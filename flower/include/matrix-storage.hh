@@ -12,6 +12,8 @@
 
 #include "varray.hh"
 #include "real.hh"
+
+// oo, noo!
 #include "virtual-methods.hh"
 
 /** 

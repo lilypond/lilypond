@@ -1,10 +1,8 @@
 MAJOR_VERSION=0
 MINOR_VERSION=1
-PATCH_LEVEL=56
+PATCH_LEVEL=57
 MY_PATCH_LEVEL=
 
-# now used as shell script in configure too
-# leave no spaces around the equal signs!
 # use the above to send patches, always empty for released version:
 # please don't move these comments up; the patch should fail if 
 # the previous version was wrong.

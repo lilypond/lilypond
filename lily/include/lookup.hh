@@ -13,6 +13,7 @@
 #include "fproto.hh"
 #include "scalar.hh"
 #include "direction.hh"
+#include "curve.hh"
 
 /** handy interface to symbol table
  */
@@ -52,6 +53,7 @@ struct Lookup {
     
   Atom dots () const;
   Atom slur (Real &dy, Real &dx, Real ht, Direction dir) const;
+  Atom control_slur (Array<Offset> controls, Real dx, Real dy) const;
   Atom plet (Real &dy, Real &dx, Direction dir) const;
   Atom tex_slur (int dy, Real &dx, Direction dir) const;
   Atom ps_slur (Real dy, Real dx, Real ht, Real dir) const;

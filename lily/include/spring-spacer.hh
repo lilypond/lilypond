@@ -16,6 +16,8 @@
 #include "colhpos.hh"
 #include "moment.hh"
 
+
+
 /** 
   Determine positions of columns connected by springs and held apart by rods.
   
@@ -45,9 +47,10 @@ class Spring_spacer : public Line_spacer {
   friend class Durations_iter;
     
   Pointer_list<Idealspacing *> ideal_p_list_;
-  Array<Colinfo> cols;
+  Array<Colinfo> cols_;
   Array<Colinfo> loose_col_arr_;
-    
+  Array<Spacer_rod> rods_;
+  
   /// mark column #i# as being loose.
   void loosen_column (int i);
   /// the index of #c# in #cols#
@@ -57,7 +60,7 @@ class Spring_spacer : public Line_spacer {
   Vector find_initial_solution() const;
 
   /// does #this# contain the column #w#? 
-  bool contains (Paper_column const *w);
+  bool contains_b (Paper_column const *w);
 
   /// make the energy function
   void make_matrices (Matrix &quad, Vector &lin,Real&) const;

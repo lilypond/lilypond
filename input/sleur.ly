@@ -58,12 +58,12 @@ blend = \melodic{
 	\stemdown; 
 %%	    \[4/5c8( c ''c c c\]1/1 c c c )c |
 	\[4/5c8( c ''f c c\]1/1 c c c )c |
+
 	\[4/5c8( c \stemup ''f \stemdown c c\]1/1 c c c )c |
 	\stemup; 
 	\octave c''; 
 	\[4/5c8( c f'' c c\]1/1 c c c )c |
 	\[4/5c8( c \stemdown f'' \stemup c c\]1/1 c c c )c |
-%	    \octave c''';
 	\stemboth;
 	c4( 'c16 'e 'g 'b d f a )'c16 c4 |
 	c4( 'c16 'e 'g 'b d f f )'c16 c4 |

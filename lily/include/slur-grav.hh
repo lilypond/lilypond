@@ -18,13 +18,13 @@ class Slur_engraver :public Engraver {
   Direction dir_;
 
 protected:
-
   virtual bool do_try_request (Request*);
   virtual void do_process_requests();
   virtual void acknowledge_element (Score_elem_info);
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();
   virtual void do_removal_processing ();
+
 public:
   TRANSLATOR_CLONE(Slur_engraver);
   Slur_engraver();

@@ -37,8 +37,8 @@ class Active_constraints {
 public:
   String status() const;
     
-  Vector vec (int k) const { return opt->cons[k]; }
-  Real rhs (int k) const { return opt->consrhs[k]; }
+  Vector vec (int k) const { return opt->cons_[k]; }
+  Real rhs (int k) const { return opt->consrhs_[k]; }
     
 
   /** drop constraint. drop constraint k from the active set. k is the index of the

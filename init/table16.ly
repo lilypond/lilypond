@@ -14,7 +14,7 @@ table_sixteen=
 		"bold"	"\setbold{%}"	0.0\pt	7.50\pt	0.0\pt	8.0\pt
 		"dynamic"	"\setdynamic{%}"	0.0\pt	0.0\pt	0.0\pt	8.0\pt
 		"finger"	"\setfinger{%}"	0.0\pt	0.0\pt	0.0\pt	4.0\pt
-		"italic"	"\setitalic{%}"	0.0\pt	7.5\pt	0.0\pt	8.0\pt
+		"italic"	"\setitalic{%}"	0.0\pt	4.\pt	0.0\pt	8.0\pt
 		"large"	"\setlarge{%}"	0.0\pt	9.50\pt	0.0\pt	10.0\pt
 		"roman"	"\settext{%}"	0.0\pt	4.0\pt	0.0\pt	8.0\pt
      }

@@ -11,6 +11,7 @@
 #include "lily-proto.hh"
 #include "parray.hh"
 #include "bow.hh"
+#include "curve.hh"
 
 /**
   A #Bow# which tries to drape itself around the stems too.
@@ -19,7 +20,12 @@ class Slur : public Bow {
 public:
   Link_array<Note_column> encompass_arr_;
   void add (Note_column*);
+
 protected:
+  virtual Molecule* brew_molecule_p () const;
+  Array<Offset> get_notes () const;
+  Array<Offset> get_controls () const;
+
   virtual void set_default_dir();
   virtual void do_post_processing();
   virtual void do_add_processing ();

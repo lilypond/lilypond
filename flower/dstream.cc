@@ -58,7 +58,7 @@ Dstream::identify_as (String name)
     idx = cl;
   else
     {
-      (*silent_assoc_p_)[idx] = false;
+      (*silent_assoc_p_)[idx] = default_silence_b_;
     }
   local_silence_b_ = (*silent_assoc_p_)[idx];
   if (current_classname_str_ != idx && !local_silence_b_)
@@ -138,6 +138,7 @@ Dstream::Dstream (ostream *r, char const * cfg_nm)
 {
   os_l_ = r;
   silent_assoc_p_ = new Assoc<String,bool>;
+  default_silence_b_ = false;
   indent_level_i_ = 0;
   if (!os_l_)
     return;
@@ -160,6 +161,8 @@ Dstream::Dstream (ostream *r, char const * cfg_nm)
     (*silent_assoc_p_)[r[0]] = (bool)(int)(Scalar (r[1]));
   }
 
+  if ((*silent_assoc_p_).elt_b ("Dstream_default_silence"))
+    default_silence_b_ = (*silent_assoc_p_)["Dstream_default_silence"];
 }
 
 

@@ -12,6 +12,7 @@
 
 #include "matrix-storage.hh"
 #include "vector.hh"
+#include "offset.hh"
 
 /**  a Real matrix.  This is a class for a nonsquare block of #Real#s.  The
     implementation of sparse matrices is done in the appropriate #smat#
@@ -111,7 +112,6 @@ public:
 
   /// set this to m1*m2.
   void set_product (Matrix const &m1, Matrix const &m2);
-
 
   Vector left_multiply (Vector const &) const;
     

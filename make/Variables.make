@@ -16,7 +16,7 @@
 
 # toplevel version info, might be handy?
 #
-include $(depth)/VERSION
+include $(depth)/make/Toplevel_version.make
 
 
 ifeq (0,${MAKELEVEL})
@@ -36,7 +36,6 @@ outdir=$(OUTDIR_NAME)
 # derived names
 lily_bindir = $(depth)/bin
 distdir = $(depth)/$(outdir)/$(DIST_NAME)
-module-distdir = $(depth)/$(MODULE_DIST_NAME)
 depdir = $(outdir)
 
 flowerout = $(buildprefix)/flower/$(OUTDIR_NAME)
@@ -60,7 +59,11 @@ include-flower = $(depth)/flower/include
 rpm-sources = ${HOME}/rpms/SOURCES
 #
 
-#include $(makeout)/Configure_variables.make
+ifndef configuration
+configuration=config
+endif
+
+include $(depth)/$(configuration).make
 
 # user settings:
 #
@@ -68,9 +71,6 @@ include $(depth)/make/User.make
 #
 #
 # need to be defined in local Makefiles:
-# build = ./$(depth)/lily/$(outdir)/.build ######## UGR!
-BUILD = $(shell cat $(build))
-INCREASE_BUILD = echo `expr \`cat $(build)\` + 1` > .b; mv .b $(build)
 #
 FOOBAR = 
 # the version:
@@ -90,10 +90,8 @@ endif
 #
 
 
-# module and top level dist:
 #
 # fix naming, use TOPLEVEL_ prefix _or_ MODULE?
-MODULE_DIST_NAME = $(MODULE_NAME)-$(VERSION)
 DIST_NAME = lilypond-$(TOPLEVEL_VERSION)
 NO_DOOS_DIST = bin flower lib lily make mi2mu out
 #
@@ -103,8 +101,8 @@ NO_DOOS_DIST = bin flower lib lily make mi2mu out
 SOURCE_FILES = $(CCFILES) $(EXTRA_SOURCE_FILES)
 OFILEC = $(SOURCE_FILES:.c=.o)
 OFILECC = $(OFILEC:.cc=.o)
-OFILEL = $(OFILECC:.l=.o)
-OFILEY = $(OFILEL:.y=.o)
+OFILEL = $(OFILECC:.ll=.o)
+OFILEY = $(OFILEL:.yy=.o)
 OFILES = $(addprefix $(outdir)/,$(OFILEY))
 #
 
@@ -150,7 +148,7 @@ CFLAGS = $(ICFLAGS) $(DEFINES) $(INCLUDES) $(USER_CFLAGS) $(EXTRA_CFLAGS)
 EXTRA_CXXFLAGS= -Wall -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
 
 CXXFLAGS = $(CFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
-INCLUDES = -Iinclude -I$(outdir) -I$(include-lib) -I$(libout) -I$(include-flower) -I$(flowerout) 
+INCLUDES = -I$(depth) -Iinclude -I$(outdir) -I$(include-lib) -I$(libout) -I$(include-flower) -I$(flowerout) 
 CXX_OUTPUT_OPTION = $< -o $@
 LDFLAGS = $(ILDFLAGS) $(USER_LDFLAGS) $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) -L$(depth)/lib/$(OUTDIR_NAME) -L$(depth)/flower/$(OUTDIR_NAME)
 LOADLIBES = $(EXTRA_LIBES) $(MODULE_LIBES)  -lstdc++ # need lg++ for win32, really!
@@ -206,7 +204,8 @@ ifndef LIB_SUFFIX
 LIB_SUFFIX = .a
 endif
 
-LIBRARY = $(LIB_PREFIX)$(NAME)$(LIB_SUFFIX)
+LIBRARY = $(outdir)/$(LIB_PREFIX)$(NAME).a
+SHAREDLIBRARY=$(outdir)/$(LIB_PREFIX)$(NAME).so
 #
 
 #replace to do stripping of certain objects

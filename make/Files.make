@@ -17,7 +17,7 @@ TCCFILES = $(wildcard *.tcc)
 # list of other source files:
 #
 
-EXTRA_SOURCE_FILES = $(wildcard *.y *.l)
+EXTRA_SOURCE_FILES = $(wildcard *.yy *.ll)
 
 #
 PODFILES = $(wildcard *.pod)
@@ -30,6 +30,5 @@ ALL_SOURCES=$(HHFILES) $(CCFILES) $(EXTRA_SOURCE_FILES) $(INLFILES) \
 
 DEPFILES = $(wildcard $(depdir)/*.dep)
 
-build = $(outdir)/.build
 
 all-tag-sources=$(CCFILES) $(HHFILES) $(TCCFILES)

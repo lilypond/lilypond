@@ -426,34 +426,36 @@ Beam::set_stemlens ()
    be more generous regarding beam position between stafflines
    */
   Real q = (yspan_f / interline_f - yspan_i) * interline_f;
-  if (q < interline_f / 3 - beam_thickness / 2)
+  if ((quantisation_ < NORMAL) && (q < interline_f / 3 - beam_thickness / 2))
     left_pos = (Pos) (left_pos | INTER);
+
 
   if (multiple_i_ > 1)
     left_pos = (Pos) (dir_ > 0 ? HANG : SIT);
 
-  // ugh, rounding problems!
+  // ugh, rounding problems! (enge floots)
   const Real EPSILON = interline_f / 10;
   do
     { 
       left_y_ += dy * dir_;
       quantise_left_y (left_pos, dy);
       dy = 0;
-      for (int j=0; j < stems_.size (); j++)
+      for (int i=0; i < stems_.size (); i++)
 	{
-	  Stem *s = stems_[j];
+	  Stem *s = stems_[i];
 	  if (s->transparent_b_)
 	    continue;
 
 	  Real x = s->hpos_f () - x0;
 	  s->set_stemend (left_y_ + slope_f_ * x);
 	  Real y = s->stem_length_f ();
-	  int mult = max (stems_[j]->beams_left_i_, stems_[j]->beams_right_i_);
-	  if (mult > 1)
+	  // duh: 
+	  int mult_i = stems_[i]->beams_left_i_ >? stems_[i]->beams_right_i_;
+	  if (mult_i > 1)
 	      // dim(y) = internote
-	      y -= (Real)(mult - 1) * interbeam_f / internote_f;
-	  if (y < MINIMUM_STEMLEN[mult])
-	    dy = dy >? (MINIMUM_STEMLEN[mult] - y);
+	      y -= (Real)(mult_i - 1) * interbeam_f / internote_f;
+	  if (y < MINIMUM_STEMLEN[mult_i])
+	    dy = dy >? (MINIMUM_STEMLEN[mult_i] - y);
 	}
     } while (abs (dy) > EPSILON);
 }

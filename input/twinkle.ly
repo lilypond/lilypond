@@ -171,7 +171,7 @@ $grand_staff = \type Staff_group <
 	\paper{
 		% use a lot of space, to avoid clashing syllables
 %		arithmetic_multiplier = 8.\pt;
-%		gourlay_maxmeasures = 14.0;
+		gourlay_maxmeasures = 14.0;
 	}
 	\midi{ 
 		\tempo 4 = 120 ;

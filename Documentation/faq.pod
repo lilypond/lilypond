@@ -12,7 +12,7 @@ are meant to be relative to the source directory)
 Q: Wow, the webpages look really neat, but if I install the .exe file
 on my windows 3.11 machine, it doesn't work.
 
-A: The dos port is done with the cygnus W32 port of the GNU utils. It
+A: The DOS port is done with the cygnus W32 port of the GNU utils. It
 does I<not> work with windows 3.x; you need NT or w95 (this is not a
 recommendation, btw.  We recommend you use Unix, in particular, use
 GNU/Linux)
@@ -29,8 +29,8 @@ If the problem persists, then please mail me.
 Q: Some of your neat scripts fail, what directories do you use:
 
 A: [This only applies if you don't do C<make install>, and develop out
-of the source directory]
-I have a directory which contains all music related stuff,
+of the source directory] I have a directory which contains all music
+related stuff,
 
 	~/something/
 
@@ -305,6 +305,14 @@ Q: Why GPL?
 
 A: Yes.
 
+
+Q: Your make system does not adhere to GNU coding standards, could you
+please fix it?
+
+A: No.  We have evaluated the standard GNU combination for compiling
+programs (autoconf, automake, libtool) and found to be inadequate in
+several respects.  More detailed argumentation is included with
+LilyPond (see F<automake.urgh>)
 
 Q: Why do I need g++ >= 2.7?
 

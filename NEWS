@@ -1,3 +1,49 @@
+
+pl 57
+	- verneukeratificering van JCN code.
+	- lots of updates on our own makefile system.
+	- junked automake & documented it
+	- put rods into Spring_spacer too. Much cleaner
+	- bf: weird spacings (enge floats)
+	- bf: too many constraints added.
+	- smarter constraint check
+	- bf: table16 fontsize.
+
+	- 56.jcn1's empiric computer science.
+	- debian patches (AF)
+	- solaris/irix patches (AO)
+
+
+pl 56.jcn4
+	- reintruduced slope in bug [c8 c16 c16] in favour of stemlen bug...
+	- staff-side: accent half line higher
+	- reincluded silly los-toros latex file
+	- bf's: bezier.cc,bow.cc, mat.hh: rotate
+	- bf: bezier slur: handle broken slurs
+	- bf: beam
+	- dehairifications of bezier.cc
+
+pl 56.jcn3
+	- bf's: offset multiply, matrix rotate
+	- dropped los-toros latex file
+
+pl 56.jcn2
+	- even nicer excentric slurs; 
+	- input/slur-bug.ly
+	- los-toros with barnumbers ;-)
+	- nice version of height-ajust bezier slurs (see sleur.ly --test)
+	- bf's beam: 
+	  * slope in[c8 c16 c16]; 
+	  * allow no INTER position for normal quantising
+
+pl 56.jcn1
+	- bezier curves with raaklijnen
+
+pl 56.ag1
+        - `Makefile.am.wild's now should work correctly with VPATH (AG)
+
+************
+
 pl 56
 	- more dutch vocabulary
 	- Barnumber FAQ added

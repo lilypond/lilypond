@@ -1,0 +1,40 @@
+# -*-Makefile-*-
+
+# @configure_input@
+
+INSTALL = @INSTALL@
+USER_CXXFLAGS = @CXXFLAGS@ @CPPFLAGS@
+USER_LDFLAGS =
+
+CXX = @CXX@
+POD2HTML= @POD2HTML@
+POD2MAN = @POD2MAN@
+ICFLAGS = @ICFLAGS@
+ILDFLAGS = @ILDFLAGS@
+libdir = @libdir@
+prefix = @prefix@
+TEXPREFIX = @TEXPREFIX@
+TEXDIR = @TEXDIR@
+TAR= @TAR@
+MFDIR = @MFDIR@
+mandir  =  @mandir@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+includedir = @includedir@
+datadir = @datadir@
+EXTRA_LIBES = @EXTRA_LIBES@
+RANLIB = @RANLIB@
+DEFS = @DEFS@
+#SET_MAKE = @SET_MAKE@
+DEFINES = @DEFS@ @DEFINES@
+FIND = @FIND@
+COMPILEINFO = @COMPILEINFO@
+BISON = @BISON@
+FLEX = @FLEX@
+LN = @LN@
+ZIP = @ZIP@
+PERL = @PERL@
+PYTHON = @PYTHON@
+OUTDIR_NAME = @OUTDIR_NAME@
+
+

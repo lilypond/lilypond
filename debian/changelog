@@ -1,6 +1,33 @@
+lilypond (0.1.48-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Anthony Fok <foka@debian.org>  Fri, 13 Mar 1998 22:15:11 -0800
+
+lilypond (0.1.46-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Anthony Fok <foka@debian.org>  Fri, 27 Feb 1998 22:43:41 -0800
+
+lilypond (0.1.45-1) unstable; urgency=low
+
+  * New upstream "The Utrecht Release".
+  * Compiled on va.debian.org because egcs 1.0.1 on my computer
+    no longer comes with libg++.  :-(  But hey, va.debian.org
+    sure is fast!  <grin>
+  * Temporarily includes *.xpm instead of *.gif files because
+    the netpbm package is not installed on va.debian.org, and
+    also because it violates Policy 2.1.2.  Thanks to
+    James Troup <J.J.Troup@scm.brad.ac.uk> for bug report!  :-)
+    (Fixes Bug#18212)
+  * debian/rules: Added "dh_undocumented ly2dvi.1".
+
+ -- Anthony Fok <foka@debian.org>  Sat, 21 Feb 1998 01:37:57 -0700
+
 lilypond (0.1.44-1) unstable; urgency=low
 
-  * New upstream release
+  * New upstream release.
 
  -- Anthony Fok <foka@debian.org>  Fri,  6 Feb 1998 22:07:39 -0700
 

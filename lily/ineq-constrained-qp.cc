@@ -9,12 +9,14 @@
 #include "qlpsolve.hh"
 #include "debug.hh"
 #include "choleski.hh"
+#include "main.hh"
 
 /*
   MAy be this also should go into a library
  */
 
 const int MAXITER=100;		// qlpsolve.hh
+
 
 /*
   assume x (idx) == value, and adjust constraints, lin and quad accordingly
@@ -24,35 +26,35 @@ const int MAXITER=100;		// qlpsolve.hh
 void
 Ineq_constrained_qp::eliminate_var (int idx, Real value)
 {
-  Vector row (quad.row (idx));
+  Vector row (quad_.row (idx));
   row*= value;
 
-  quad.delete_row (idx);
+  quad_.delete_row (idx);
 
-  quad.delete_column (idx);
+  quad_.delete_column (idx);
 
-  lin.del (idx);
+  lin_.del (idx);
   row.del (idx);
-  lin +=row ;
+  lin_ +=row ;
 
-  for (int i=0; i < cons.size(); i++)
+  for (int i=0; i < cons_.size(); i++)
     {
-      consrhs[i] -= cons[i](idx) *value;
-      cons[i].del (idx);
+      consrhs_[i] -= cons_[i](idx) *value;
+      cons_[i].del (idx);
     }
 }
 
 void
 Ineq_constrained_qp::add_inequality_cons (Vector c, double r)
 {
-  cons.push (c);
-  consrhs.push (r);
+  cons_.push (c);
+  consrhs_.push (r);
 }
 
 Ineq_constrained_qp::Ineq_constrained_qp (int novars):
-  quad (novars),
-  lin (novars),
-  const_term (0.0)
+  quad_ (novars),
+  lin_ (novars),
+  const_term_ (0.0)
 {
 }
 
@@ -60,9 +62,9 @@ void
 Ineq_constrained_qp::OK() const
 {
 #if !defined (NDEBUG) && defined (PARANOID)
-  assert (cons.size() == consrhs.size ());
-  Matrix Qdif= quad - quad.transposed();
-  assert (Qdif.norm()/quad.norm () < EPS);
+  assert (cons_.size() == consrhs_.size ());
+  Matrix Qdif= quad_ - quad_.transposed();
+  assert (Qdif.norm()/quad_.norm () < EPS);
 #endif
 }
 
@@ -70,7 +72,7 @@ Ineq_constrained_qp::OK() const
 Real
 Ineq_constrained_qp::eval (Vector v)
 {
-  return v * quad * v + lin * v + const_term;
+  return v * quad_ * v + lin_ * v + const_term_;
 }
 
 
@@ -112,16 +114,16 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
     return Vector (0);
 
   // experimental
-  if (quad.dim() > 10)
-    quad.try_set_band();
+  if (quad_.dim() > 10)
+    quad_.try_set_band();
 
   Active_constraints act (this);
   act.OK();
 
 
   Vector x (start);
-  Vector gradient=quad*x+lin;
-  //    Real fvalue = x*quad*x/2 + lin*x + const_term;
+  Vector gradient=quad_*x+lin_;
+  //    Real fvalue = x*quad_*x/2 + lin*x + const_term;
   // it's no use.
 
   Vector last_gradient (gradient);
@@ -129,6 +131,11 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
 
   while (iterations++ < MAXITER)
     {
+      //#ifdef PARANOID
+      if (experimental_features_global_b)
+	assert_solution (x);
+      //#endif
+      
       Vector direction= - act.find_active_optimum (gradient);
 
       DOUT << "gradient "<< gradient<< "\ndirection " << direction<<"\n";
@@ -137,7 +144,8 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
 	{
 	  DOUT << act.status() << '\n';
 
-	  Real minalf = infinity_f;
+	  Real unbounded_alfa = 1.0;
+	  Real minalf = unbounded_alfa;
 
 	  Inactive_iter minidx (act);
 
@@ -149,11 +157,23 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
 
 	  for (Inactive_iter ia (act); ia.ok(); ia++)
 	    {
-
-	      if (ia.vec() * direction >= 0)
+	      Real dot = ia.vec() * direction;
+	      if (dot >= 0)
 		continue;
-	      Real alfa= - (ia.vec()*x - ia.rhs ())/
-		(ia.vec()*direction);
+
+	      
+	      Real numerator = ia.rhs () - ia.vec()*x;
+	      if (numerator >= 0)
+		{
+		  if (numerator > EPS)
+		    warning (String ("Ineq_constrained_qp::solve (): Constraint off by ") + numerator);
+		  minalf = -numerator;
+		  minidx = ia;
+		  break;
+		}
+
+	      Real alfa = numerator / dot;
+
 
 	      if (minalf > alfa)
 		{
@@ -161,12 +181,12 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
 		  minalf = alfa;
 		}
 	    }
-	  Real unbounded_alfa = 1.0;
-	  Real optimal_step = min (minalf, unbounded_alfa);
+
+	  Real optimal_step = minalf;
 
 	  Vector deltax=direction * optimal_step;
 	  x += deltax;
-	  gradient += optimal_step * (quad * deltax);
+	  gradient += optimal_step * (quad_ * deltax);
 
 	  DOUT << "step = " << optimal_step<< " (|dx| = " <<
 	    deltax.norm() << ")\n";
@@ -213,13 +233,20 @@ Vector
 Ineq_constrained_qp::solve (Vector start) const
 {
   /* no hassle if no constraints*/
-  if (! cons.size())
+  if (! cons_.size())
     {
-      Choleski_decomposition chol (quad);
-      return - chol.solve (lin);
+      Choleski_decomposition chol (quad_);
+      return - chol.solve (lin_);
     }
   else
     {
       return constraint_solve (start);
     }
 }
+
+int
+Ineq_constrained_qp::dim () const
+{
+  return lin_.dim();
+}
+

@@ -15,7 +15,7 @@
 #include "debug.hh"
 #include "paper-def.hh"
 #include "string-convert.hh"
-
+#include "main.hh"
 
 static char
 direction_char (Direction y_sign)
@@ -173,7 +173,9 @@ Lookup::ps_slur (Real dy , Real dx, Real ht, Real dir) const
   mf += "}\n";
 
   Atom s;
-  s.tex_ = ps + mf;
+  s.tex_ = ps;
+  if (embedded_mf_global_b)
+    s.tex_ += mf;
   return s;
 }
 
@@ -308,3 +310,32 @@ Lookup::slur  (Real &dy_f , Real &dx, Real ht, Direction dir) const
   s.dim_[Y_AXIS] = Interval (0 <? dy_f,  0 >? dy_f);
   return s;
 }
+
+Atom
+Lookup::control_slur (Array<Offset> controls, Real dx, Real dy) const
+{
+  assert (postscript_global_b);
+  assert (controls.size () == 8);
+
+  String ps = "\\embeddedps{\n";
+  
+  for (int i = 1; i < 4; i++)
+    ps += String_convert::double_str (controls[i].x ()) + " "
+      + String_convert::double_str (controls[i].y ()) + " ";
+
+  for (int i = 5; i < 8; i++)
+//    ps += String_convert::double_str (controls[i].x () + controls[0].x () - controls[3].x ()) + " "
+//      + String_convert::double_str (controls[i].y () - controls[0].y () + controls[3].y ()) + " ";
+    ps += String_convert::double_str (controls[i].x () - dx) + " "
+      + String_convert::double_str (controls[i].y () - dy) + " ";
+
+  ps += " draw_control_slur}";
+
+  Atom s;
+  s.tex_ = ps;
+  
+  s.dim_[X_AXIS] = Interval (0, dx);
+  s.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
+  return s;
+}
+

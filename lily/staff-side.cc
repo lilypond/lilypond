@@ -69,7 +69,7 @@ Staff_side::get_position_f () const
   Interval v = support_height();
 
   // ugh, dim[y] = PT over here
-  y = v[dir_] + 1 * dir_ * inter_f;
+  y = v[dir_] + 2 * dir_ * inter_f;
 
   int y_i = (int)rint (y / inter_f);
   // ugh: 5 -> staff_lines

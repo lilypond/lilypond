@@ -7,6 +7,13 @@ Most of the items are marked in the code as well, with full explanation.
 grep for TODO and ugh/ugr
 
 0.2:
+	* junk embedded mf
+
+	* shared lib
+
+	* ly2dvi seams to eat accents as in \'el\'egant
+
+	* libtoolize flowerlib
 
 	* bf: abbrevbeam? 
 

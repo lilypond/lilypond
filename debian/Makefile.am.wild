@@ -1,5 +1,0 @@
-# debian/Makefile.am.wild
-
-EXTRA_DIST = Makefile.am.wild README.Debian TODO changelog control copyright \
-	postinst postinst.old.sh postrm preinst rules watch
-

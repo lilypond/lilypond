@@ -8,6 +8,8 @@
 # (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 # 
 
+import sys
+
 class File:
     """silly wrapper for Python file object."""
     def __init__ (self,nm, mode='r'):

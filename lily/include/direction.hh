@@ -1,5 +1,5 @@
 /*
-  direction.hh -- declare 
+  direction.hh -- declare Direction
 
   source file of the GNU LilyPond music typesetter
 
@@ -9,6 +9,8 @@
 
 #ifndef DIRECTION_HH
 #define DIRECTION_HH
+
+#include "axes.hh"
 
 enum Direction 
 {
@@ -36,5 +38,6 @@ flip (Direction *i) {
  */
 template<class T> minmax (Direction d, T, T);
 
+String direction_str (Direction, Axis);
 
 #endif // DIRECTION_HH

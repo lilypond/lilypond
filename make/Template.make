@@ -24,10 +24,6 @@ include ./$(depth)/make/Variables.make
 #
 NAME = ...
 MODULE_NAME = 
-include ./$(depth)/$(NAME)/VERSION
-
-build = $(outdir)/.build #????!
-#
 
 # descent order into subdirectories:
 #
@@ -68,8 +64,4 @@ include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
 #
 
-# auto dependencies:
-#
--include $(DEPFILES)
-#
 
