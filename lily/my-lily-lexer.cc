@@ -1,9 +1,17 @@
+/*
+  my-lily-lexer.cc -- implement My_lily_lexer
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include <strstream.h>
+#include <ctype.h>
 
 #include "interval.hh"
 #include "identifier.hh"
 #include "assoc-iter.hh"
-#include "input-file.hh"
 #include "out/parser.hh"
 #include "keyword.hh"
 #include "assoc.hh"
@@ -58,6 +66,8 @@ My_lily_lexer::My_lily_lexer()
     keytable_p_ = new Keyword_table(the_key_tab);
     identifier_assoc_p_ = new Assoc<String, Identifier*>;
     errorlevel_i_ = 0;
+    post_quotes_b_ = false;
+    
 }
 
 int
@@ -75,11 +85,6 @@ My_lily_lexer::lookup_identifier(String s)
     return (*identifier_assoc_p_)[s];
 }
 
-char const*
-My_lily_lexer::here_ch_c_l()
-{
-    return include_stack_.top()->sourcefile_l_->ch_c_l() + yyin->tellg();
-}
 
 void
 My_lily_lexer::add_identifier(Identifier*i)
@@ -104,78 +109,30 @@ My_lily_lexer::~My_lily_lexer()
     delete identifier_assoc_p_;
 }
 void
-My_lily_lexer::print_init_declarations()const
+My_lily_lexer::print_declarations(bool init_b)const
 {
     for (Assoc_iter<String,Identifier*> ai(*identifier_assoc_p_); ai.ok(); 
 	 ai++) {
-	if (ai.val()->init_b_)
+	if (ai.val()->init_b_ == init_b)
 	    ai.val()->print();
     }
-}
-void
-My_lily_lexer::print_user_declarations()const
-{
-    for (Assoc_iter<String,Identifier*> ai(*identifier_assoc_p_); ai.ok(); ai++) {
-	if (!ai.val()->init_b_)
-	    ai.val()->print();
-    }
-}
-
-String
-My_lily_lexer::spot()const
-{
-    return include_stack_.top()->name +  ": " + String( lineno() );
 }
 
 void
 My_lily_lexer::LexerError(char const *s)
 {
-    if (lexer->include_stack_.empty()) {
+    if (include_stack_.empty()) {
 	*mlog << "error at EOF" << s << '\n';
     } else {
-	char const* ch_c_l = here_ch_c_l();
-	if ( ch_c_l ) {
-	    ch_c_l--;
-	    while ( ( *ch_c_l == ' ' ) || ( *ch_c_l == '\t' ) || ( *ch_c_l == '\n' ) )
-		    ch_c_l--;
-	    ch_c_l++;
+	char const* ch_C = here_ch_C();
+	if ( ch_C ) {
+	    ch_C--;
+	    while (isspace(*ch_C == ' ' ))
+		    ch_C--;
+	    ch_C++;
 	}
 	errorlevel_i_ |= 1;
-	error( s, ch_c_l );
+	error( s, ch_C );
     }
 }
 
-// set the  new input to s, remember old file.
-void
-My_lily_lexer::new_input(String s)
-{    
-   if (!include_stack_.empty()) {
-	include_stack_.top()->line = lineno();
-	     // should this be saved at all?
-	include_stack_.top()->defined_ch_c_l_ = defined_ch_c_l;
-   }
-
-   Input_file *newin = new Input_file(s);
-   include_stack_.push(newin);
-   switch_streams(newin->is);
-
-   yylineno = 1;
-}
-
-// pop the inputstack.
-bool
-My_lily_lexer::close_input()
-{
-    Input_file *old = include_stack_.pop();
-     bool ok = 	true;
-    if (include_stack_.empty()) {
-	ok = false;
-    } else {
-	Input_file *i = include_stack_.top();
-	switch_streams(i->is);
-	yylineno = i->line;	
-	defined_ch_c_l = i->defined_ch_c_l_;
-    }
-    delete old;
-    return ok;
-}
