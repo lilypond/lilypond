@@ -1,4 +1,4 @@
-1.5.17.jcn5 - aka: `pgwit!  Ah, dacht dat-i zo wel aardig was.'
+1.5.17.jcn6 - aka: `pgwit!  Ah, dacht dat-i zo wel aardig was.'
 ===========
 
 * Some more hacking at midi2ly.py:
@@ -13,7 +13,8 @@
    - don't repeat duration by default
    - bugfix: allow 8th notes too
    - include new version of input/test/midi-scales.ly
-   - added barchecks
+   - added barchecks + fix
+   - bugfix for relative mode
 
 * Shorter MIDI creation texts.
 

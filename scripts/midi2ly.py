@@ -216,9 +216,11 @@ class Note:
 		else:
 			delta = self.pitch - reference_note.pitch
 			commas = sign (delta) * (abs (delta) / 12)
-			if (sign (delta) \
-			    * (self.notename - reference_note.notename) + 7) \
-			    % 7 >= 4:
+			if ((sign (delta) \
+			     * (self.notename - reference_note.notename) + 7) \
+			    % 7 >= 4) \
+			    or ((self.notename == reference_note.notename) \
+				and (abs (delta) > 4) and (abs (delta) < 12)):
 				commas = commas + sign (delta)
 			
 		if commas > 0:
@@ -599,7 +601,11 @@ def dump_bar_line (last_bar_t, t, bar_count):
 		
 		if t - last_bar_t == bar_t:
 			s = '|\n  %% %d\n  ' % bar_count
-		last_bar_t = t
+			last_bar_t = t
+		else:
+			# urg, this will barf at meter changes
+			last_bar_t = last_bar_t + (t - last_bar_t) / bar_t * bar_t
+			
 	return (s, last_bar_t, bar_count)
 
 			
