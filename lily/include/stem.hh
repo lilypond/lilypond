@@ -19,7 +19,7 @@ public:
   static int duration_log (Grob *);
   static void set_beaming (Grob *, int, Direction d);
   static int get_beaming (Grob *, Direction d);
-  static Grob *get_beam (Grob *);
+  static Spanner *get_beam (Grob *);
   static Grob *first_head (Grob *);
   static Grob *last_head (Grob *);
   static Drul_array<Grob*> extremal_heads (Grob *);

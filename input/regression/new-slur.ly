@@ -12,12 +12,9 @@
 %% \score
 
 \relative {
-    \override Slur #'after-line-breaking-callback = #New_slur::after_line_breaking
-    \override Slur #'print-function = #New_slur::print     
-    \override Slur #'height = ##f
-
+  
     \grace e=''16( d8.[) c16]
-    d8.[ \grace f16( e16)]
+    d=''8.[ \grace f16( e16)]
     s2
     << {c=''8.([ es16] bes4~bes )}
        \\
@@ -41,7 +38,6 @@
     c,^( c'' c) 
     c,,^( c'')
     c,,^( c')
-    s4
     | b='2( a4) s4
     | b='4.( c8) s2
     | << c=''1_(
@@ -49,6 +45,8 @@
     \break
     b4)
     e=''4.( c8) s4
+    | << { b='8[( c]) } \\
+	 { b='8[( c]) }>>
     
 
     

@@ -30,7 +30,7 @@ public:
   virtual System *get_system () const;
   
   static int get_rank (Grob*);
-
+  
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
   

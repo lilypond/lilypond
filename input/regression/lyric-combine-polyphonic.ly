@@ -12,6 +12,9 @@ texidoc ="Polyphonic rhythms and rests do not disturb
        \time 8/8
        \key des \major
        <<
+	 \lyricsto "one" \new Lyrics \lyrics {
+	     Do mi nus ex
+	 }
 	   \context Voice = one {
 	       \voiceOne
 	       bes'4 bes'4
@@ -24,9 +27,6 @@ texidoc ="Polyphonic rhythms and rests do not disturb
           \lyricsto "two" \new Lyrics \lyrics {
 	      Do na
          }
-	 \lyricsto "one" \new Lyrics \lyrics {
-	     Do mi nus ex
-	 }
        >>
     }
     \paper { raggedright = ##t}

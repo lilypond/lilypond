@@ -17,7 +17,6 @@
 #include "spanner.hh" 
 #include "group-interface.hh" 
 #include "paper-column.hh"
-#include "ambitus.hh"
 
 struct Ledger_line_spanner
 {
@@ -110,6 +109,12 @@ Ledger_line_spanner::print (SCM smob)
 
   if (heads.is_empty ())
     return SCM_EOL;
+  
+  // find size of note heads.
+  Grob * staff = Staff_symbol_referencer::get_staff_symbol (me);
+  if (!staff)
+    return SCM_EOL;
+  
     
   Stencil ledgers;
   Stencil default_ledger;
@@ -125,8 +130,6 @@ Ledger_line_spanner::print (SCM smob)
 	  common[a] = common[a]->common_refpoint (g, a);
     }
 
-  // find size of note heads.
-  Grob * staff = Staff_symbol_referencer::get_staff_symbol (me);
   int interspaces = Staff_symbol::line_count (staff)-1;
   Ledger_requests reqs;
   Real length_fraction = 0.25;
@@ -135,7 +138,8 @@ Ledger_line_spanner::print (SCM smob)
       Item *h = dynamic_cast<Item*> (heads[i]);
       
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      if (abs (pos) > interspaces)
+      if (pos
+	  && abs (pos) > interspaces)
 	{
 	  Interval head_extent = h->extent (common[X_AXIS], X_AXIS);
 	  Interval ledger_extent = head_extent;

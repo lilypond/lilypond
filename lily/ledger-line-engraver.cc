@@ -11,7 +11,6 @@
 #include "group-interface.hh"
 #include "spanner.hh"
 #include "engraver.hh"
-#include "ambitus.hh"
 
 class Ledger_line_engraver : public Engraver
 {

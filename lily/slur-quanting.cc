@@ -1,5 +1,5 @@
 /*
-  slur.cc -- implement score based Slur
+  slur-quanting.cc -- Score based slur formatting
 
   source file of the GNU LilyPond music typesetter
 
@@ -24,6 +24,8 @@
 #include "staff-symbol.hh"
 #include "stem.hh"
 #include "warn.hh"
+#include "paper-column.hh"
+
 
 struct Slur_score
 {
@@ -92,7 +94,7 @@ struct Bound_info
 {
   Box stem_extent_;
   Direction stem_dir_;
-  Grob *bound_;
+  Item *bound_;
   Grob *note_column_;
   Grob *slur_head_;
   Grob *staff_;
@@ -504,6 +506,22 @@ get_y_attachment_range (Spanner*me,
   return end_ys;
 }
 
+bool
+spanner_less (Spanner *s1, Spanner* s2)
+{
+  Slice b1, b2;
+  Direction d  = LEFT;
+  do
+    {
+      b1[d] = s1->get_bound (d)->get_column ()->rank_;
+      b2[d] = s2->get_bound (d)->get_column ()->rank_;
+    } while (flip (&d) != LEFT);  
+
+  return b2[LEFT] <= b1[LEFT] && b2[RIGHT] >= b1[RIGHT]
+    && (b2[LEFT] != b1[LEFT] || b2[RIGHT] != b1[RIGHT]);
+}
+
+
 Drul_array<Offset>
 get_base_attachments (Spanner *me,
 		      Grob **common, Drul_array<Bound_info> extremes)
@@ -531,11 +549,14 @@ get_base_attachments (Spanner *me,
 	}
       else
 	{
+	  bool same_beam =
+	    (extremes[d].stem_ && extremes[-d].stem_
+	     && Stem::get_beam (extremes[d].stem_) == Stem::get_beam (extremes[-d].stem_));
 	  if (stem
 	      && extremes[d].stem_dir_ == dir
 	      && Stem::get_beaming (stem, -d)
-	      && columns.size () > 2
-	      )
+	      && (!spanner_less (me, Stem::get_beam (stem))
+		  || same_beam))
 	    y = extremes[d].stem_extent_[Y_AXIS][dir];
 	  else if (head)
 	    y = head->extent (common[Y_AXIS], Y_AXIS)[dir];

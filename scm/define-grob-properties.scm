@@ -367,9 +367,6 @@ this column.  10000 or more means forbid line break, -10000 or less
 means force line break.  Other values influence line breaking decisions
 as a real penalty.")
 
-     (pitch-max ,ly:pitch? "Top pitch for ambitus.")
-     (pitch-min ,ly:pitch? "Bottom pitch for ambitus.")
-
      (positions ,pair?
 		"Pair of staff coordinates @code{(@var{left}
 . @var{right})}, where both @var{left} and @var{right} are in the
@@ -536,7 +533,6 @@ sizes (like the dynamic @b{p} and @b{f}) on their baselines.")
      (after-line-breaking-callback ,procedure? "This procedure is called after line breaking. Its return value is ignored.")     
      (all-elements ,grob-list? "list of all grobs in this line. Its
 function is to protect objects from being garbage collected.")
-     (ambituses ,grob-list? "list of Ambitus objects")
      (arpeggio ,ly:grob? "pointer to arpeggio object.")
      (beam ,ly:grob? "pointer to the beam, if applicable.")
      (center-element ,ly:grob? "grob which will be at the center of
@@ -661,7 +657,6 @@ than a whole rest.")
      (join-left ,boolean? "is this ligature head joined with the previous one by a vertical line?")
      (context-info ,integer? "DOCME")
      (inclinatum ,boolean? "is this neume an inclinatum?")
-     (note-head-style ,string? "name of the font character to be used as note heads in the ambitus grob.")
      (oriscus ,boolean? "is this neume an oriscus?")
      (quilisma ,boolean? "is this neume a quilisma?")
      (pes-or-flexa ,boolean? "shall this neume be joined with the previous head?")
@@ -673,9 +668,6 @@ than a whole rest.")
      
      ;; end ancient notation
 
-     ; ugh.
-     (accidentals-style ,symbol? "style for ambitus.")
-     
      )))
 
 (define-public all-backend-properties

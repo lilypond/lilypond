@@ -6,7 +6,7 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-
+#include "spanner.hh"
 #include "beam.hh"
 #include "directional-element-interface.hh"
 #include "item.hh"
@@ -52,8 +52,7 @@ Stencil
 Stem_tremolo::raw_stencil (Grob *me)
 {
   Grob *stem = unsmob_grob (me->get_property ("stem"));
-  Grob *beam = Stem::get_beam (stem);
-  
+  Spanner*beam = Stem::get_beam (stem);
   Real dydx;
   if (beam)
     {
@@ -119,7 +118,7 @@ Stem_tremolo::print (SCM grob)
       return SCM_EOL;
     }
   
-  Grob *beam = Stem::get_beam (stem);
+  Spanner *beam = Stem::get_beam (stem);
   Direction stemdir = Stem::get_direction (stem);
   if (stemdir == 0)
     stemdir = UP;

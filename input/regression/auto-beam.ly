@@ -1,14 +1,9 @@
-
 \header {
-
 texidoc="Beams are place automatically; the last measure should have a single 
 beam."
-
 }
 
 \version "2.3.4"
-
-
 
 \paper  { raggedright = ##t } 
 
@@ -20,8 +15,7 @@ beam."
   \paper {
     \context {
       \Staff
-	\remove "Clef_engraver"
-%%	\remove "Staff_symbol_engraver"
+      \remove "Clef_engraver"
     }
   }
 }

@@ -250,7 +250,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
   Drul_array<SCM> props (me->get_property ("left-items"),
 			me->get_property ("right-items"));
 
-  Drul_array<Grob*> beams_drul (0,0);
+  Drul_array<Spanner*> beams_drul (0,0);
   Drul_array<Grob*> stems_drul (0,0);
   
   stem_dirs[LEFT] = stem_dirs[RIGHT] = CENTER;
@@ -301,7 +301,6 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 
 	  stems_drul[d] = stem;
 	  beams_drul[d] = Stem::get_beam (stem);
-	    
 	  
 	  Direction sd = Stem::get_direction (stem);
 	  if (stem_dirs[d] && stem_dirs[d] != sd)
