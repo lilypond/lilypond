@@ -11,6 +11,11 @@ MergeFonts("feta-nummer10.pfa");
 MergeFonts("feta-din14.pfa");
 MergeKern("feta-din14.tfm");
 LoadTableFromFile("LILC", "feta20.otf-table")
+i = 0;
+while (i < CharCnt())
+  Select(i);
+  SetUnicodeValue(i + 0xF000, 0);
+  ++i;
+endloop
 Generate("bigcheese20.otf");
-Generate("bigcheese20.t42");
-
+Generate("bigcheese20.cff");
