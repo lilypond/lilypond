@@ -1,51 +1,13 @@
-%{
+#(set! point-and-click #t)
 
- Six Petits Preludes,
- Collection Johann Peter Kellner
- ca 1703 - 1707
-
+opus= "BWV 939"
+piece = "2"
 
 
- Kellner was a student of Bach's.  
- 
-%}
-
-\header{
-  copyright =	 "public domain";
-  source = "Ed. Henry Lemoine Urtext";
-  title =	 "Pr\\\"aludum";
-  composer =	 "Johann Sebastian Bach (1685-1750)";
-  enteredby =	 "jcn,hwn";
-
-  
-  opus= "393";
-  % mutopia headers.
-  mutopiatitle = "Prelude";
-  mutopiacomposer = "J.S.Bach";
-  mutopiaopus = "BWV939";
-  mutopiainstrument = "Piano";
-  style = "baroque";
-  copyright = "Public Domain";
-
-  maintainer = "Jan Nieuwenhuizen";
-  maintainer_email = "janneke@gnu.org";
-  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by " + \maintainer + ".\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
-  maintainer = "janneke@gnu.org";
-  lastupdated = "1999/Nov/14";
-}
-
-
-
-%{
-Old versions of LilyPond include this prelude with dynamics and fingerings.
-%}
-
-
-
-\version "1.3.117";
+\version "1.3.98";
 upper =  \context Staff \notes\relative c{
 	\context Voice=i
-	\property Voice . textStyle = "italic"
+	\property Voice.TextScript \set #'font-style = #'italic
 	r8 c' e g  e c bes' g |
 	a c, f a  f c c' a |
 	b g b d  b g f' d |
@@ -64,8 +26,10 @@ upper =  \context Staff \notes\relative c{
 	c2
 	r4
 	<
-		{ \stemUp c ~ c8} 
-		\context Voice=ii { \stemDown <e,4 a> ~ <e8 a> }
+		{ \stemUp\tieUp c ~ c8}
+		% We get a warning: No ties created!
+		% but they are too!
+		\context Voice=ii { \stemDown\tieDown <e,4 a> ~ <e8 a> }
 	>
 	\stemBoth 
 	d, fis a  fis d c' a |
@@ -87,8 +51,8 @@ upper =  \context Staff \notes\relative c{
 lower =  \context Staff \notes\relative c{
 	\context Voice=i
 	<
-		{ \stemUp c1 ~ | c ~ | c }
-		\context Voice=ii { \stemDown c,1 ~ | c ~ | c }
+		{ \stemUp\tieUp c1 ~ | c ~ | c }
+		\context Voice=ii { \stemDown\tieDown c,1 ~ | c ~ | c }
 	>
 	\stemBoth |
 	r8 c e g  e c c' e, |
@@ -130,8 +94,8 @@ global =  \notes{
         }
 	\midi{ \tempo 4 = 100; }
 	\header {
-		opus = "BWV 939";
-		piece = "2";
+		opus = \opus;
+		piece = \piece;
 	}
 }
 

@@ -4,38 +4,21 @@
 
 paperAsNine = \paper {
 	staffheight = 9.\char;
-
-%	font_large = 4.;
-%	font_Large = 4.;	
-%	font_normal = 4.;
-	font_large = 1.;
-	font_Large = 1.;	
-	font_normal = 4.;
-	font_script = 1.;
-
-	font_finger = 1.;
-	font_volta = 1.;
-	font_number = 4.;
-	font_mark = 4.;
-
-	% what about:
-	"font_number-1" = 1.;
-	%"font_number" = 10.;
-	"font_number+1" = 4.;
+	%% aiai only have these:
+%{	
+	mf/as5.af
+	mf/as9.af
+	mf/as-braces5.af
+	mf/as-braces9.af
+	mf/as-dummy1.af
+	mf/as-dummy.af
+	mf/as-number1.af
+	mf/as-number4.af
+%}
+	\stylesheet #(make-style-sheet 'paper16)
 	
-	% Ugh
-	magnification_dynamic = 2.;
-	
-
-	-2 = \font "as9"
-	-1 = \font "as9"
-	0 = \font "as9"
-
-	"font_feta-2" = 9.;
-	"font_feta-1" = 9.;
-	"font_feta" = 9.;
 
 	\include "params-as.ly";
 }
 
-\paper { \paperAs_nine }
+\paper { \paperAsNine }

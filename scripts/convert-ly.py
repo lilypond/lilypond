@@ -552,6 +552,15 @@ if 1:
 
 if 1:
 	def conv (str):
+		str = re.sub ('\\\\property *Voice *[.] *textStyle *= *"([^"]*)"', '\\\\property Voice.TextScript \\\\set #\'font-style = #\'\\1', str)
+		str = re.sub ('\\\\property *Lyrics *[.] *textStyle *= *"([^"]*)"', '\\\\property Lyrics.LyricText \\\\set #\'font-style = #\'\\1', str)
+
+		return str
+	
+	conversions.append (((1,3,98), conv, 'CONTEXT.textStyle -> GROB.#font-style '))
+
+if 1:
+	def conv (str):
 		str = re.sub ('beamAutoEnd_([0-9]*) *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(end 1 \\1 * *) = \\2', str)
 		str = re.sub ('beamAutoBegin_([0-9]*) *= *(#\\([^)]*\))', 'autoBeamSettings \\push #\'(begin 1 \\1 * *) = \\2', str)
 		str = re.sub ('beamAutoEnd *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(end * * * *) = \\1', str)
@@ -738,7 +747,7 @@ from_version = ()
 outfile_name = ''
 
 (options, files) = getopt.getopt (
-	sys.argv[1:], 'o:f:t:seh', ['version', 'output', 'show-rules', 'help', 'edit', 'from=', 'to'])
+	sys.argv[1:], 'o:f:t:seh', ['version', 'output', 'show-rules', 'help', 'edit', 'from=', 'to='])
 
 for opt in options:
 	o = opt[0]

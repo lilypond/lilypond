@@ -27,7 +27,7 @@
 )
 
 \paper {
-    \paperAs_nine
+    \paperAsNine
     \translator { \StaffContext barSize = \staffheight; }
 
     % no beam-slope

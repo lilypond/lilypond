@@ -1,3 +1,4 @@
+(debug-enable 'backtrace)
 
 ;;;; AsciiScript as
 (define (as-scm action-name)
@@ -69,7 +70,7 @@
 		    (func "h-line" dx))))))
 
   (define (font-load-command name-mag command)
-    (func "load-font" (car name-mag) (magstep (cdr name-mag))))
+    (func "load-font" (car name-mag) (cdr name-mag)))
 
   (define (header creator generate) 
     (func "header" creator generate))
@@ -107,7 +108,7 @@
 	      "Programming error: No such font known " 
 	      (car name-mag-pair))))
 	    "")				; issue no command
-	  (func "select-font" (car font-name-symbol)))))
+	  (func "select-font" (car name-mag-pair))))
 
   (define (start-line height)
 	  (func "start-line" height))
@@ -139,7 +140,7 @@
 		(func "v-line" (* -1 h)))
 	       "")))
 
-  (cond ((eq? action-name 'all-definitions)
+(cond ((eq? action-name 'all-definitions)
 	 `(begin
 	    (define beam ,beam)
 	    (define bracket ,bracket)
