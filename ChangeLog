@@ -1,3 +1,11 @@
+2004-12-09  Graham Percival  <gperlist@shaw.ca>
+
+        * Documentation/user/changing-defaults.itely: add info about
+        make-dynamic-script
+
+        * Documentation/user/notation.itely: add link in dynamics to
+        section about make-dynamic-script.
+
 2004-12-09  Christian hitz  <chhitz@gmx.net>
 
 	* lily/lily-guile.cc: change MACOS_X to __APPLE__

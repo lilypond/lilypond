@@ -1353,8 +1353,9 @@ c4 c1
 @node Controlling formatting of prefatory matter
 @subsection Controlling formatting of prefatory matter
 
-TODO: Somebody needs to explain this example, but I don't know what
-they're trying to do, so it won't be me.  -gp
+@c  This section will be moved to somewhere else soon.
+This example demonstrates how to place prefactory matter
+(such as the clef and key signature) at the end of a line.
 
 @lilypond[quote,verbatim]
 \transpose c c' {
@@ -2722,6 +2723,9 @@ a'2\< a a a\!\mf
 @end lilypond
 
 @cindex diminuendo
+
+To create new dynamic marks or text that should be aligned
+with dynamics, see @ref{New dynamic marks}.
 
 
 @refcommands
