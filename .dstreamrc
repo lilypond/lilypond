@@ -20,3 +20,8 @@ Note_req		1
 Rhythmic_req		1
 Rest_req		1
 delete_identifiers	1
+Staff			0
+Voice			0
+Voice_element		0
+Request			1
+Input_cursor		1
