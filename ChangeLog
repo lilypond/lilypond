@@ -1,3 +1,8 @@
+2002-09-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/stem-engraver.cc (acknowledge_grob): rename evented back to
+	requested.
+
 2002-09-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/ : rename Request to Event
