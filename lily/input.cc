@@ -79,6 +79,7 @@ Input::message (String message_string) const
     str += source_file_->error_string (defined_str0_);
    }
   fprintf (stderr, "%s\n", str.to_str0 ());
+  fflush (stderr);
 }
 
 void

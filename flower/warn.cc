@@ -16,6 +16,7 @@ void
 message (String s)
 {
   fputs (s.to_str0 (), stderr);
+  fflush (stderr);
 }
 
 void
