@@ -1,3 +1,6 @@
+pl 28.jcn1
+	- new outline TODO + .emacs setup
+
 pl 28
 pl 27.hwn2
 	- un-SMOB Atom.  Cons and Killing_cons as simple cons replacements.
