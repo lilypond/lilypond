@@ -1,4 +1,4 @@
-;; lilypond-font-lock.el
+;;; lilypond-font-lock.el --- syntax coloring for LilyPond mode
 
 ;; Copyright (C) 1992,1993,1994  Tim Peters
 

@@ -17,6 +17,7 @@ class Line_spanner
 public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
   static SCM line_atom (Grob* me, Real dx, Real dy);
+  static Molecule line_molecule (Grob* me, Real dx, Real dy);
 
 private:
   static Offset get_broken_offset (Grob *me, Direction dir);

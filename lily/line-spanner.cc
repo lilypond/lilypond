@@ -13,55 +13,93 @@
 #include "paper-def.hh"
 #include "paper-column.hh"
 #include "staff-symbol-referencer.hh"
+#include "font-interface.hh"
 
 #include <math.h>
 
 SCM
 Line_spanner::line_atom (Grob* me, Real dx, Real dy)
 {
-  SCM list = SCM_EOL;
   SCM type = me->get_grob_property ("type");
-  if (gh_symbol_p (type)
-      && (type == ly_symbol2scm ("line")
-	  || type == ly_symbol2scm ("dashed-line")
-	  || type == ly_symbol2scm ("dotted-line")))
-    {
-      Real staff_space = Staff_symbol_referencer::staff_space (me);
-      Real thick = me->paper_l ()->get_var ("stafflinethickness");  
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Real thick = me->paper_l ()->get_var ("stafflinethickness");  
 
-      SCM s = me->get_grob_property ("line-thickness");
-      if (gh_number_p (s))
-	thick *= gh_scm2double (s);
+  SCM s = me->get_grob_property ("line-thickness");
+  if (gh_number_p (s))
+    thick *= gh_scm2double (s);
   
       // maybe these should be in line-thickness?
-      Real length = staff_space;
-      s = me->get_grob_property ("dash-length");
-      if (gh_number_p (s))
-	length = gh_scm2double (s) * staff_space;
+  Real length = staff_space;
+  s = me->get_grob_property ("dash-length");
+  if (gh_number_p (s))
+    length = gh_scm2double (s) * staff_space;
 
-      Real period = 2 * length + thick;
-      s = me->get_grob_property ("dash-period");
-      if (gh_number_p (s))
-	period = gh_scm2double (s) * staff_space;
+  Real period = 2 * length + thick;
+  s = me->get_grob_property ("dash-period");
+  if (gh_number_p (s))
+    period = gh_scm2double (s) * staff_space;
       
-      if (type == ly_symbol2scm ("dotted-line"))
-	length = thick;
+  if (type == ly_symbol2scm ("dotted-line"))
+    length = thick;
 	
-      if (type == ly_symbol2scm ("line"))
-	length = period + thick;
+  if (type == ly_symbol2scm ("line"))
+    length = period + thick;
 
-      Real on = length - thick;
-      Real off = period - on;
+  Real on = length - thick;
+  Real off = period - on;
 
-      list = gh_list (ly_symbol2scm ("dashed-line"),
+  SCM list = gh_list (ly_symbol2scm ("dashed-line"),
 		      gh_double2scm (thick),
 		      gh_double2scm (on),
 		      gh_double2scm (off),
 		      gh_double2scm (dx),
 		      gh_double2scm (dy),
 		      SCM_UNDEFINED);
-    }
+
   return list;
+}
+
+Molecule
+Line_spanner::line_molecule (Grob* me, Real dx, Real dy)
+{
+  Molecule mol;
+  SCM type = me->get_grob_property ("type");
+  if (gh_symbol_p (type)
+      && (type == ly_symbol2scm ("line")
+	  || type == ly_symbol2scm ("dashed-line")
+	  || type == ly_symbol2scm ("dotted-line")
+	  || (type == ly_symbol2scm ("trill") && dy != 0)))
+    {
+      Box b (Interval (0, dx), Interval (0, dy));
+      mol = Molecule (b, line_atom (me, dx, dy));
+    }
+  else if (gh_symbol_p (type)
+	   && type == ly_symbol2scm ("trill"))
+    {
+      SCM alist_chain = Font_interface::font_alist_chain (me);
+      SCM style_chain = gh_list (gh_cons (ly_symbol2scm ("font-family"),
+					  ly_symbol2scm ("music")),
+				 SCM_UNDEFINED);
+      
+      Font_metric *fm = Font_interface::get_font (me,
+						  gh_list (style_chain,
+							   alist_chain,
+							   SCM_UNDEFINED));
+      Molecule m = fm->find_by_name ("scripts-trill-element");
+      do
+	mol.add_at_edge (X_AXIS, RIGHT, m, 0);
+      while (m.extent (X_AXIS).length ()
+	     && mol.extent (X_AXIS).length ()
+	     + m.extent (X_AXIS).length () < dx);
+
+      /*
+	FIXME: should center element on x/y
+       */
+      mol.translate_axis (m.extent (X_AXIS).length () / 2, X_AXIS);
+      mol.translate_axis (-(mol.extent (Y_AXIS)[DOWN]
+			    + mol.extent (Y_AXIS).length ())/2, Y_AXIS); 
+    }
+  return mol;
 }
 
 Offset
@@ -202,20 +240,11 @@ Line_spanner::brew_molecule (SCM smob)
 							  Y_AXIS)); 
       
       }
-  Molecule line;
-  SCM list = Line_spanner::line_atom (me, dxy[X_AXIS], dxy[Y_AXIS]);
-    
-  if (list == SCM_EOL)
-    return SCM_EOL;
   
-  Box b (Interval (0, dxy[X_AXIS]), Interval (0, dxy[Y_AXIS]));
-  
-  line = Molecule (b, list);
-  line.translate_axis (bound[LEFT]->extent (bound[LEFT], X_AXIS).length ()/2, X_AXIS); 
-
-  //Offset g (gap, 0);
+  Molecule line = line_molecule (me, dxy[X_AXIS], dxy[Y_AXIS]);
+  line.translate_axis (bound[LEFT]->extent (bound[LEFT],
+					    X_AXIS).length ()/2, X_AXIS); 
   line.translate (ofxy - my_off + his_off);
-      
   return line.smobbed_copy ();
 }
 

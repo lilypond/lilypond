@@ -8,7 +8,7 @@
 ;;; Inspired on auctex
 
 ;;;
-;;; Add this to your .emacs.el
+;;; Add this to your ~/.emacs or ~/.emacs.el
 ;;;     (load-library "lilypond-mode.el")
 ;;;     (setq auto-mode-alist
 ;;;      (append '(("\\.ly$" . LilyPond-mode) auto-mode-alist)))
