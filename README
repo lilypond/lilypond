@@ -15,9 +15,6 @@ To generate the pretty-printed docs, do this:
 
 	make doc
 
-in the top-level dir
-
-
 ======================
 
 NOTE:
