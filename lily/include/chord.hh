@@ -52,12 +52,12 @@ Chord to_chord (Array<Musical_pitch> pitch_arr, Tonic_req* tonic_req, Inversion_
 
 int compare (Chord*, Chord*);
 
-Simultaneous_music *get_chord (Musical_pitch tonic,
-			   Array<Musical_pitch>* add_arr_p,
-			   Array<Musical_pitch>* sub_arr_p,
-			   Musical_pitch* inversion_p,
-			   Musical_pitch* bass_p,
-			       Duration d);
+Simultaneous_music *get_chord (SCM tonic,
+			       SCM add_arr_p,
+			       SCM sub_arr_p,
+			       SCM inversion_p,
+			       SCM bass_p,
+			       SCM d);
 
 
 

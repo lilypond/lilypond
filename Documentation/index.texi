@@ -25,9 +25,9 @@ also available in @uref{../user/out-www/lilypond.ps.gz,Postscript}
 @item LilyPond @uref{../user/out-www/lilypond-internals/lilypond-internals.html,internals}
 @item @uref{../user/out-www/glossary.html,A glossary of musical
 terms}, includes translations.  Also available in @uref{../user/out-www/glossary.ps.gz,Postscript})
-@item @uref{../user/out-www/mudela-book.html,mudela-book}, a tool for
+@item @uref{../user/out-www/lilypond-book.html,lilypond-book}, a tool for
 integrating text and music in LaTeX and texinfo; also available in
-@uref{../user/out-www/mudela-book.ps.gz,Postscript}
+@uref{../user/out-www/lilypond-book.ps.gz,Postscript}
 @item @uref{../user/out-www/ly2dvi.html,ly2dvi}  does page layout for
 LilyPond printout.
 @item @uref{../user/out-www/midi2ly.html,midi2ly} 

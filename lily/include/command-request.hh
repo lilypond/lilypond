@@ -16,9 +16,6 @@
 #include "musical-pitch.hh"
 #include "protected-scm.hh"
 
-/*
-  Real penalty_f_;
- */
 class Break_req : public Request {
 public:
 
@@ -34,18 +31,10 @@ public:
   VIRTUAL_COPY_CONS(Music);
 };
 
-
-/** Baseclass for time_signature/partial req. It has to be handled by
-  Staff_{walker,column} baseclass.  */
-class Timing_req  : public Request  {
-public:
-  VIRTUAL_COPY_CONS(Music);
-};
-
 /*
     int metronome_i_;
  */
-class Tempo_req : public Timing_req
+class Tempo_req : public Request
 {
 public:
   Duration dur_;
@@ -58,39 +47,10 @@ protected:
   bool do_equal_b (Request const *) const;
 };
 
-
-/**
-  todo: allow C time_signature
-
-  int beats_i_;
-  int one_beat_i_;
-  
- */
-class Time_signature_change_req  : public Timing_req  {
-public:
-  Time_signature_change_req();
-
-protected:
-  bool do_equal_b (Request const *) const;
-  VIRTUAL_COPY_CONS(Music);
-};
-
-
 /// check if we're at start of a  measure.
-class Barcheck_req  : public Timing_req  {
+class Barcheck_req  : public Request  {
 public:
   bool do_equal_b (Request const *) const;
-  VIRTUAL_COPY_CONS(Music);
-};
-
-
-/** draw a (repeat)-bar. This something different than #Barcheck_req#,
-  the latter should only happen at the start of a measure.  */
-class Bar_req  : public Request  {
-public:
-
-  Bar_req (String);
-protected:
   VIRTUAL_COPY_CONS(Music);
 };
 
@@ -111,19 +71,5 @@ protected:
   void transpose (Musical_pitch  d);
   bool do_equal_b (Request const * )const; 
 };
-
-/*
-  String clef_str_;
- */
-
-class Clef_change_req  : public Request  {
-public:
-  
-  Clef_change_req ();
-protected:
-
-  VIRTUAL_COPY_CONS(Music);
-};
-
 
 #endif // COMMANDREQUEST_HH

@@ -20,7 +20,8 @@ twovoicesteminvert = \context Staff \notes <
 
 threevoice = \context Staff \notes <
 	\context Voice=i { \stemUp g4 f e f g a g2 }
-	\context Voice=ii { \stemUp \property Voice.horizontalNoteShift = 1 e2  e2  e2  e2 }
+	\context Voice=ii { \stemUp \property Voice.NoteColumn \push #'horizontal-shift = #1
+		e2  e2  e2  e2 }
 	\context Voice=iii { \stemDown c4 d e d c d es }
 >
 
@@ -35,26 +36,28 @@ chordstest = \context Staff \notes <
 
 hairyChord = \context Staff \notes\relative c' <
      \context Voice=one {
-	\property Voice.horizontalNoteShift=0
+ \property Voice.NoteColumn \push #'horizontal-shift = #0
 	\stemUp 
 	e4 
      }
      
      \context Voice=two {
 	\stemUp
-	\property Voice.horizontalNoteShift=1
+ \property Voice.NoteColumn \push #'horizontal-shift = #1
 	cis
      }
      
      \context Voice=three {
-	\property Voice.horizontalNoteShift=2
+ \property Voice.NoteColumn \push #'horizontal-shift = #2
+
 	\stemUp 
 	ais
      }
      
      \context Voice=four {
         \stemDown
-	\property Voice.horizontalNoteShift=-1
+ \property Voice.NoteColumn \push #'horizontal-shift = #1
+
 	fis
      }
 >

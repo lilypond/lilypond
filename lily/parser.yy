@@ -1,7 +1,7 @@
 %{ // -*-Fundamental-*-
 
 /*
-  parser.yy -- Bison/C++ parser for mudela
+  parser.yy -- Bison/C++ parser for lilypond
 
   source file of the GNU LilyPond music typesetter
 
@@ -12,8 +12,7 @@
 #include <iostream.h>
 #include "translator-def.hh"
 #include "lily-guile.hh"
-
-#include "lookup.hh"
+#include "change-iterator.hh"
 #include "misc.hh"
 #include "my-lily-lexer.hh"
 #include "paper-def.hh"
@@ -29,7 +28,8 @@
 #include "context-specced-music.hh"
 #include "score.hh"
 #include "music-list.hh"
-
+#include "output-property-music-iterator.hh"
+#include "property-iterator.hh"
 #include "file-results.hh"
 #include "input.hh"
 #include "scope.hh"
@@ -38,7 +38,7 @@
 #include "transposed-music.hh"
 #include "time-scaled-music.hh"
 #include "repeated-music.hh"
-#include "mudela-version.hh"
+#include "lilypond-input-version.hh"
 #include "grace-music.hh"
 #include "auto-change-music.hh"
 #include "part-combine-music.hh"
@@ -52,11 +52,21 @@ is_duration_b (int t)
 }
 
 
+void
+set_music_properties (Music *p, SCM a)
+{
+  for (SCM k = a; gh_pair_p (k); k = gh_cdr (k))
+	{
+	p->set_mus_property (gh_caar (k), gh_cdar (k));
+	}
+}
+
+
 // mmm JUNKME ?
-Mudela_version oldest_version ("1.3.59");
+Lilypond_version oldest_version ("1.3.59");
 
 void
-print_mudela_versions (ostream &os)
+print_lilypond_versions (ostream &os)
 {
   os << _f ("Oldest supported input version: %s", oldest_version.str ()) 
     << endl;
@@ -83,9 +93,8 @@ print_mudela_versions (ostream &os)
 
 
 %union {
-    Array<Musical_pitch> *pitch_arr;
+
     Link_array<Request> *reqvec;
-    Duration *duration;
     Identifier *id;
     String * string;
     Music *music;
@@ -94,7 +103,7 @@ print_mudela_versions (ostream &os)
 
     Musical_req* musreq;
     Music_output_def * outputdef;
-    Musical_pitch * pitch;
+
     Midi_def* midi;
     Real real;
     Request * request;
@@ -141,6 +150,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token CLEF
 %token CM_T
 %token CONSISTS
+%token DURATION
 %token SEQUENTIAL
 %token ELEMENTDESCRIPTIONS
 %token SIMULTANEOUS
@@ -195,12 +205,12 @@ yylex (YYSTYPE *s,  void * v_l)
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER 
 %token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET 
 
-%type <i>	exclamations questions
+%type <i>	exclamations questions dots
 %token <i>	DIGIT
-%token <pitch>	NOTENAME_PITCH
-%token <pitch>	TONICNAME_PITCH
-%token <pitch>	CHORDMODIFIER_PITCH
-%token <id>	DURATION_IDENTIFIER
+%token <scm>	NOTENAME_PITCH
+%token <scm>	TONICNAME_PITCH
+%token <scm>	CHORDMODIFIER_PITCH
+%token <scm>	DURATION_IDENTIFIER
 %token <id>	IDENTIFIER
 
 
@@ -211,14 +221,14 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <scm>	REQUEST_IDENTIFIER
 %token <scm>	MUSIC_IDENTIFIER TRANSLATOR_IDENTIFIER
 %token <scm>	STRING_IDENTIFIER SCM_IDENTIFIER 
-%token <scm>	DURATION RESTNAME
+%token <scm>	RESTNAME
 %token <scm>	STRING 
 %token <scm>	SCM_T
 %token <i>	UNSIGNED
 %token <real>   REAL
 
 %type <outputdef> output_def
-%type <scope> 	mudela_header mudela_header_body
+%type <scope> 	lilypond_header lilypond_header_body
 %type <request>	open_request_parens close_request_parens open_request close_request
 %type <request> request_with_dir request_that_take_dir verbose_request
 %type <i>	sub_quotes sup_quotes
@@ -230,18 +240,18 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %type <scm>	identifier_init 
 
-%type <duration> steno_duration optional_notemode_duration
-%type <duration> entered_notemode_duration explicit_duration
+%type <scm> steno_duration optional_notemode_duration
+%type <scm> entered_notemode_duration explicit_duration
 	
 %type <reqvec>  pre_requests post_requests
 %type <request> gen_text_def
-%type <pitch>   steno_musical_pitch musical_pitch absolute_musical_pitch
-%type <pitch>   steno_tonic_pitch
+%type <scm>   steno_musical_pitch musical_pitch absolute_musical_pitch
+%type <scm>   steno_tonic_pitch
 
-%type <pitch_arr>	chord_additions chord_subtractions chord_notes chord_step
+%type <scm>	chord_additions chord_subtractions chord_notes chord_step
 %type <music>	chord
-%type <pitch>	chord_note chord_inversion chord_bass
-%type <duration>	duration_length
+%type <scm>	chord_note chord_inversion chord_bass
+%type <scm>	duration_length
 
 %type <scm>  embedded_scm scalar
 %type <music>	Music Sequential_music Simultaneous_music Music_sequence
@@ -270,14 +280,14 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %%
 
-mudela:	/* empty */
-	| mudela toplevel_expression {}
-	| mudela assignment  { }
-	| mudela error {
+lilypond:	/* empty */
+	| lilypond toplevel_expression {}
+	| lilypond assignment  { }
+	| lilypond error {
 		THIS->error_level_i_  = 1;
 		//THIS->parser_error (_ ("ly invalid"));
 	}
-	| mudela INVALID	{
+	| lilypond INVALID	{
 		THIS->error_level_i_  = 1;
 		//THIS->parser_error (_ ("ly invalid"));
 	}
@@ -290,7 +300,7 @@ toplevel_expression:
 	| chordmodifiers_block			{
 		THIS->lexer_p_->chordmodifier_tab_  = $1;
 	}
-	| mudela_header {
+	| lilypond_header {
 		delete header_global_p;
 		header_global_p = $1;
 	}
@@ -332,29 +342,30 @@ notenames_body:
 	  int i = scm_ilength ($1);
 
 	  SCM tab = scm_make_vector (gh_int2scm (i), SCM_EOL);
-	  for (SCM s = $1; s != SCM_EOL; s = gh_cdr (s)) {
+	  for (SCM s = $1; gh_pair_p (s); s = gh_cdr (s)) {
 		SCM pt = gh_cdar (s);
-		if (scm_ilength (pt) != 3)
-			THIS->parser_error ("Need three args");
-		scm_hashq_set_x (tab, gh_caar(s), pt);
+		if (!unsmob_pitch (pt))
+			THIS->parser_error ("Need pitch object.");
+		else
+			scm_hashq_set_x (tab, gh_caar(s), pt);
 	  }
 
 	  $$ = tab;
 	}
 	;
 
-mudela_header_body:
+lilypond_header_body:
 	{
 		$$ = new Scope;
 		THIS->lexer_p_-> scope_l_arr_.push ($$);
 	}
-	| mudela_header_body assignment semicolon { 
+	| lilypond_header_body assignment semicolon { 
 
 	}
 	;
 
-mudela_header:
-	HEADER '{' mudela_header_body '}'	{
+lilypond_header:
+	HEADER '{' lilypond_header_body '}'	{
 		$$ = $3;
 		THIS->lexer_p_-> scope_l_arr_.pop ();		
 	}
@@ -405,7 +416,7 @@ identifier_init:
 		scm_unprotect_object ($$);
 	}
 	| explicit_duration {
-		$$ = (new Duration_identifier ($1, DURATION_IDENTIFIER))->self_scm ();
+		$$ = $1;
 	}
 	| number_expression {
 		$$ = $1;
@@ -523,7 +534,7 @@ score_body:
 	| SCORE_IDENTIFIER {
 		$$ = $1->access_content_Score (true);
 	}
-	| score_body mudela_header 	{
+	| score_body lilypond_header 	{
 		$$->header_p_ = $2;
 	}
 	| score_body output_def {
@@ -604,9 +615,8 @@ music_output_def_body:
 tempo_request:
 	TEMPO steno_duration '=' bare_unsigned	{
 		$$ = new Tempo_req;
-		$$->dur_ = *$2;
-		delete $2;
-		$$-> set_mus_property ("metronome-count", gh_int2scm ( $4));
+		$$->set_mus_property ("duration", $2);
+		$$->set_mus_property ("metronome-count", gh_int2scm ( $4));
 	}
 	;
 
@@ -655,12 +665,13 @@ Repeated_music:
 		if (m && $3 < m->length_i ())
 			$5->origin ()->warning (_ ("More alternatives than repeats.  Junking excess alternatives."));
 
+		SCM func = scm_eval2 (ly_symbol2scm ("repeat-name-to-ctor"), SCM_EOL);
+		SCM result = gh_call1 (func, $2);
 		Repeated_music * r = new Repeated_music ($4, $3 >? 1, m);
-		$$ = r;
-		r->type_ = ly_scm2string ($2);
-		r->fold_b_ = (r->type_ == "fold");
-		r->volta_fold_b_ =  (r->type_ == "volta");
+		set_music_properties (r, result);
+
 		r->set_spot (*$4->origin ());
+		$$ = r;
 	}
 	;
 
@@ -705,7 +716,8 @@ Simple_music:
 	  m->set_mus_property ("predicate", pred);
 	  m->set_mus_property ("symbol", $3);
 	  m->set_mus_property ("value",  $5);
-	  m->set_mus_property ("type", ly_symbol2scm ("output-property"));
+	  m->set_mus_property ("type",
+			Output_property_music_iterator::constructor_cxx_function);
 
 		$$ = m;
 	}
@@ -766,12 +778,10 @@ Composite_music:
 	| Simultaneous_music		{ $$ = $1; }
 	| Sequential_music		{ $$ = $1; }
 	| TRANSPOSE musical_pitch Music {
-		$$ = new Transposed_music ($3, *$2);
-		delete $2; // ugh
+		$$ = new Transposed_music ($3, *unsmob_pitch ($2));
 	}
 	| TRANSPOSE steno_tonic_pitch Music {
-		$$ = new Transposed_music ($3, *$2);
-		delete $2; // ugh
+		$$ = new Transposed_music ($3, *unsmob_pitch ($2));
 	}
 	| APPLY embedded_scm Music  {
 		SCM ret = gh_call1 ($2, $3->self_scm ());
@@ -809,8 +819,7 @@ Composite_music:
 
 relative_music:
 	RELATIVE absolute_musical_pitch Music {
-		$$ = new Relative_octave_music ($3, *$2);
-		delete $2; // ugh
+		$$ = new Relative_octave_music ($3, *unsmob_pitch ($2));
 	}
 	;
 
@@ -832,7 +841,7 @@ translator_change:
 	TRANSLATOR STRING '=' STRING  {
 		Music * t = new Music;
 		t->set_mus_property ("type",
-			ly_symbol2scm ("change-translator"));
+			Change_iterator::constructor_cxx_function);
 		t-> set_mus_property ("change-to-type", $2);
 		t-> set_mus_property ("change-to-id", $4);
 
@@ -845,7 +854,8 @@ property_def:
 	PROPERTY STRING '.' STRING '='  scalar {
 		Music *t = new Music;
 
-		t->set_mus_property ("type", ly_symbol2scm ("property-set"));
+		t->set_mus_property ("type",
+			Property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 		t->set_mus_property ("value", $6);
 
@@ -857,7 +867,8 @@ property_def:
 	}
 	| PROPERTY STRING '.' STRING PUSH embedded_scm '=' embedded_scm {
 		Music *t = new Music;
-		t->set_mus_property ("type", ly_symbol2scm ("property-push"));
+		t->set_mus_property ("type",
+			Push_property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
 		t->set_mus_property ("element-property", $6);
 		t->set_mus_property ("element-value", $8);
@@ -869,7 +880,8 @@ property_def:
 	}
 	| PROPERTY STRING '.' STRING POP embedded_scm {
 		Music *t = new Music;
-		t->set_mus_property ("type", ly_symbol2scm ("property-pop"));
+		t->set_mus_property ("type",
+			Pop_property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
 		t->set_mus_property ("element-property", $6);
 
@@ -914,7 +926,8 @@ command_element:
 	| BAR STRING ';' 			{
 		Music *t = new Music;
 
-		t->set_mus_property ("type", ly_symbol2scm ("property-set"));
+		t->set_mus_property ("type",
+			Property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbol", ly_symbol2scm ("whichBar"));
 		t->set_mus_property ("value", $2);
 
@@ -927,11 +940,12 @@ command_element:
 	| PARTIAL duration_length ';' 	{
 		Music * p = new Music;
 		p->set_mus_property ("symbol", ly_symbol2scm ( "measurePosition"));
-		p->set_mus_property ("type", ly_symbol2scm ("property-set"));
+		p->set_mus_property ("type",
+			Property_iterator::constructor_cxx_function);
 
-		Moment m = - $2->length_mom ();
-		p->set_mus_property ("value", m.make_scm());
-		delete $2; // ugh
+		Moment m = - unsmob_duration($2)->length_mom ();
+		p->set_mus_property ("value", m.smobbed_copy ());
+
 		Context_specced_music * sp = new Context_specced_music (p);
 		$$ =sp ;
 		sp-> set_mus_property ("context-type", ly_str02scm ( "Score"));
@@ -940,12 +954,10 @@ command_element:
 		SCM func = scm_eval2 (ly_symbol2scm ("clef-name-to-properties"), SCM_EOL);
 		SCM result = gh_call1 (func, $2);
 
-		SCM l = SCM_EOL; 
+		SCM l = SCM_EOL;
 		for (SCM s = result ; gh_pair_p (s); s = gh_cdr (s)) {
 			Music * p = new Music;
-			for (SCM k = gh_car (s) ; gh_pair_p (k); k = gh_cdr (k)) {
-				p->set_mus_property (gh_caar (k), gh_cdar (k));
-			}
+			set_music_properties(p, gh_car (s));
 			l = gh_cons (p->self_scm (), l);
 			scm_unprotect_object (p->self_scm ());
 		}
@@ -954,6 +966,20 @@ command_element:
 		Context_specced_music * sp = new Context_specced_music (seq);
 		$$ =sp ;
 		sp-> set_mus_property("context-type", ly_str02scm("Staff"));
+	}
+	| TIME_T bare_unsigned '/' bare_unsigned ';' {
+		Music * p = new Music;
+		p->set_mus_property ("symbol",
+			ly_symbol2scm ( "timeSignatureFraction"));
+		p->set_mus_property ("type",
+			Property_iterator::constructor_cxx_function);
+
+		p->set_mus_property ("value", gh_cons (gh_int2scm ($2),
+							gh_int2scm ($4)));
+
+		Context_specced_music * sp = new Context_specced_music (p);
+		$$ =sp ;
+		sp-> set_mus_property ("context-type", ly_str02scm ( "Score"));
 	}
 	;
 
@@ -1016,13 +1042,6 @@ verbose_command_req:
 		m->set_mus_property ("label",  gh_int2scm ($2));
 		$$ = m;
 	}
-
-	| TIME_T bare_unsigned '/' bare_unsigned 	{
-		Time_signature_change_req *m = new Time_signature_change_req;
-		m->set_mus_property ("beats", gh_int2scm ( $2));
-		m->set_mus_property ("one-beat", gh_int2scm ($4));
-		$$ = m;
-	}
 	| PENALTY bare_int 	{
 		Break_req * b = new Break_req;
 		b->set_mus_property ("penalty", gh_double2scm ( $2 / 100.0));
@@ -1031,8 +1050,8 @@ verbose_command_req:
 	}
 	| SKIP duration_length {
 		Skip_req * skip_p = new Skip_req;
-		skip_p->duration_ = *$2;
-		delete $2; // ugh
+		skip_p->set_mus_property ("duration", $2);
+
 		$$ = skip_p;
 	}
 	| tempo_request {
@@ -1046,7 +1065,7 @@ verbose_command_req:
 		Key_change_req *key_p= new Key_change_req;
 		
 		key_p->set_mus_property ("pitch-alist", $3);
-		((Music* )key_p)->transpose (* $2);
+		((Music* )key_p)->transpose (* unsmob_pitch ($2));
 		$$ = key_p; 
 	}
 	;
@@ -1161,26 +1180,38 @@ steno_musical_pitch:
 		$$ = $1;
 	}
 	| NOTENAME_PITCH sup_quotes 	{
-		$$ = $1;
-		$$->octave_i_ +=  $2;
+		Musical_pitch p = *unsmob_pitch ($1);
+		p.octave_i_ +=  $2;
+		$$ = p.smobbed_copy ();
 	}
 	| NOTENAME_PITCH sub_quotes	 {
-		$$ = $1;
-		$$->octave_i_ += - $2;
+		Musical_pitch p =* unsmob_pitch ($1);
+
+		p.octave_i_ +=  -$2;
+		$$ = p.smobbed_copy ();
+
 	}
 	;
+
+/*
+ugh. duplication
+*/
 
 steno_tonic_pitch:
 	TONICNAME_PITCH	{
 		$$ = $1;
 	}
 	| TONICNAME_PITCH sup_quotes 	{
-		$$ = $1;
-		$$->octave_i_ +=  $2;
+		Musical_pitch p = *unsmob_pitch ($1);
+		p.octave_i_ +=  $2;
+		$$ = p.smobbed_copy ();
 	}
 	| TONICNAME_PITCH sub_quotes	 {
-		$$ = $1;
-		$$->octave_i_ += - $2;
+		Musical_pitch p =* unsmob_pitch ($1);
+
+		p.octave_i_ +=  -$2;
+		$$ = p.smobbed_copy ();
+
 	}
 	;
 
@@ -1189,25 +1220,21 @@ musical_pitch:
 		$$ = $1;
 	}
 	| MUSICAL_PITCH embedded_scm {
-		int sz = scm_ilength ($2);
-		if (sz != 3) {
-			THIS->parser_error (_f ("Expecting %d arguments", 3));
-			$2 = gh_list (gh_int2scm (0), gh_int2scm (0), gh_int2scm (0), SCM_UNDEFINED);
-		}
-		$$ = new Musical_pitch ($2);
+		if (!unsmob_pitch ($2))
+			THIS->parser_error (_f ("Expecting musical-pitch value", 3));
+		 Musical_pitch m;
+		$$ = m.smobbed_copy ();
 	}
 	;
 
 explicit_duration:
 	DURATION embedded_scm 	{
-		$$ = new Duration;
-		if (scm_ilength ($2) == 2)
-			{
-			$$-> durlog_i_ = gh_scm2int (gh_car($2));
-			$$-> dots_i_ = gh_scm2int (gh_cadr($2));
-			}
-		else
-			THIS->parser_error (_("Must have 2 arguments for duration"));
+		$$ = $2;
+		if (!unsmob_duration ($2))
+		{
+			THIS->parser_error (_("Must have duration object"));
+			$$ = Duration ().smobbed_copy ();
+		}
 	}
 	;
 
@@ -1345,22 +1372,22 @@ duration_length:
 		$$ = $1;
 	}
 	| duration_length '*' bare_unsigned {
-		$$->tuplet_iso_i_ *= $3;
+		$$ = unsmob_duration ($$)->compressed ( $3) .smobbed_copy ();
 	}
 	| duration_length '/' bare_unsigned {
-		$$->tuplet_type_i_ *= $3;
+		$$ = unsmob_duration ($$)->compressed (Moment (1,$3)).smobbed_copy ();
 	}
 	;
 
 entered_notemode_duration:
 	steno_duration	{
-		THIS->set_last_duration ($1);
+		THIS->set_last_duration (unsmob_duration ($1));
 	}
 	;
 
 optional_notemode_duration:
 	{
-		$$ = new Duration (THIS->default_duration_);
+		$$ = THIS->default_duration_.smobbed_copy ();
 	}
 	| entered_notemode_duration {
 		$$ = $1;
@@ -1368,19 +1395,28 @@ optional_notemode_duration:
 	;
 
 steno_duration:
-	bare_unsigned		{
-		$$ = new Duration;
+	bare_unsigned dots		{
+		int l = 0;
 		if (!is_duration_b ($1))
 			THIS->parser_error (_f ("not a duration: %d", $1));
-		else {
-			$$->durlog_i_ = intlog2 ($1);
-		     }
+		else
+			l =  intlog2 ($1);
+
+		$$ = Duration (l, $2).smobbed_copy ();
 	}
-	| DURATION_IDENTIFIER	{
-		$$ = $1->access_content_Duration (true);
+	| DURATION_IDENTIFIER dots	{
+		Duration *d =unsmob_duration ($1);
+		Duration k (d->duration_log (),d->dot_count () + $2);
+		$$ = k.smobbed_copy ();		
 	}
-	| steno_duration '.' 	{
-		$$->dots_i_ ++;
+	;
+
+dots:
+	/* empty */ 	{
+		$$ = 0;
+	}
+	| dots '.' {
+		$$ ++;
 	}
 	;
 
@@ -1402,25 +1438,25 @@ simple_element:
 		if (!THIS->lexer_p_->note_state_b ())
 			THIS->parser_error (_ ("Have to be in Note mode for notes"));
 
-
 		Note_req *n = new Note_req;
 		
-		n->pitch_ = *$1;
-		n->duration_ = *$4;
+		n->set_mus_property ("pitch", $1);
+		n->set_mus_property ("duration", $4);
 
 		if ($3 % 2)
 			n->set_mus_property ("cautionary", SCM_BOOL_T);
-		if ( $2 % 2 || $3 % 2)
+		if ($2 % 2 || $3 % 2)
 			n->set_mus_property ("force-accidental", SCM_BOOL_T);
 
-
 		Simultaneous_music*v = new Request_chord (gh_list (n->self_scm (), SCM_UNDEFINED));
-		v->set_spot ($1->spot ());
-		n->set_spot ($1->spot ());
-		$$ = v;
+		
+/*
+FIXME
+*/
+		v->set_spot (THIS->here_input ());
+		n->set_spot (THIS->here_input ());
 
-		delete $1;
-		delete $4;
+		$$ = v;
 	}
 	| RESTNAME optional_notemode_duration		{
 
@@ -1428,7 +1464,7 @@ simple_element:
 		  if (ly_scm2string ($1) =="s")
 		    { /* Space */
 		      Skip_req * skip_p = new Skip_req;
-		      skip_p->duration_ = *$2;
+		      skip_p->set_mus_property ("duration" ,$2);
 
 		      skip_p->set_spot (THIS->here_input());
 			e = skip_p->self_scm ();
@@ -1436,21 +1472,19 @@ simple_element:
 		  else
 		    {
 		      Rest_req * rest_req_p = new Rest_req;
-		      rest_req_p->duration_ = *$2;
+		      rest_req_p->set_mus_property ("duration", $2);
 		      rest_req_p->set_spot (THIS->here_input());
 			e = rest_req_p->self_scm ();
 		    }
 		  Simultaneous_music* velt_p = new Request_chord (gh_list (e,SCM_UNDEFINED));
 		  velt_p->set_spot (THIS->here_input());
 
-		  delete $2; // ugh
+
 		  $$ = velt_p;
 	}
 	| MEASURES optional_notemode_duration  	{
 		Skip_req * sk = new Skip_req;
-		sk->duration_ = *$2;
-		
-
+		sk->set_mus_property ("duration", $2);
 		Span_req *sp1 = new Span_req;
 		Span_req *sp2 = new Span_req;
 		sp1-> set_span_dir ( START);
@@ -1481,11 +1515,11 @@ simple_element:
 			THIS->pop_spot ();
 		Lyric_req* lreq_p = new Lyric_req;
                 lreq_p->set_mus_property ("text", $1);
-		lreq_p->duration_ = *$3;
+		lreq_p->set_mus_property ("duration",$3);
 		lreq_p->set_spot (THIS->here_input());
 		Simultaneous_music* velt_p = new Request_chord (gh_list (lreq_p->self_scm (), SCM_UNDEFINED));
 
-		delete  $3; // ugh
+
 		$$= velt_p;
 
 	}
@@ -1499,13 +1533,13 @@ simple_element:
 
 chord:
 	steno_tonic_pitch optional_notemode_duration chord_additions chord_subtractions chord_inversion chord_bass {
-                $$ = get_chord (*$1, $3, $4, $5, $6, *$2);
+                $$ = get_chord ($1, $3, $4, $5, $6, $2);
 		$$->set_spot (THIS->here_input ());
         };
 
 chord_additions: 
 	{
-		$$ = new Array<Musical_pitch>;
+		$$ = SCM_EOL;
 	} 
 	| CHORD_COLON chord_notes {
 		$$ = $2;
@@ -1517,14 +1551,13 @@ chord_notes:
 		$$ = $1
 	}
 	| chord_notes '.' chord_step {
-		$$ = $1;
-		$$->concat (*$3);
+		$$ = gh_append2 ($$, $3);
 	}
 	;
 
 chord_subtractions: 
 	{
-		$$ = new Array<Musical_pitch>;
+		$$ = SCM_EOL;
 	} 
 	| CHORD_CARET chord_notes {
 		$$ = $2;
@@ -1534,58 +1567,59 @@ chord_subtractions:
 
 chord_inversion:
 	{
-		$$ = 0;
+		$$ = SCM_EOL;
 	}
 	| '/' steno_tonic_pitch {
 		$$ = $2;
-		$$->set_spot (THIS->here_input ());
 	}
 	;
 
 chord_bass:
 	{
-		$$ = 0;
+		$$ = SCM_EOL;
 	}
 	| CHORD_BASS steno_tonic_pitch {
 		$$ = $2;
-		$$->set_spot (THIS->here_input ());
 	}
 	;
 
 chord_step:
 	chord_note {
-		$$ = new Array<Musical_pitch>;
-		$$->push (*$1);
+		$$ = gh_cons ($1, SCM_EOL);
 	}
 	| CHORDMODIFIER_PITCH {
-		$$ = new Array<Musical_pitch>;
-		$$->push (*$1);
+		$$ = gh_cons ($1, SCM_EOL);
 	}
 	| CHORDMODIFIER_PITCH chord_note { /* Ugh. */
-		$$ = new Array<Musical_pitch>;
-		$$->push (*$1);
-		$$->push (*$2);
+		$$ = gh_list ($1, $2, SCM_UNDEFINED);
 	}
 	;
 
 chord_note:
 	bare_unsigned {
-		$$ = new Musical_pitch;
-		$$->notename_i_ = ($1 - 1) % 7;
-		$$->octave_i_ = $1 > 7 ? 1 : 0;
-		$$->accidental_i_ = 0;
+		 Musical_pitch m;
+		m.notename_i_ = ($1 - 1) % 7;
+		m.octave_i_ = $1 > 7 ? 1 : 0;
+		m.alteration_i_ = 0;
+
+		$$ = m.smobbed_copy ();
         } 
 	| bare_unsigned '+' {
-		$$ = new Musical_pitch;
-		$$->notename_i_ = ($1 - 1) % 7;
-		$$->octave_i_ = $1 > 7 ? 1 : 0;
-		$$->accidental_i_ = 1;
+		Musical_pitch m;
+		m.notename_i_ = ($1 - 1) % 7;
+		m.octave_i_ = $1 > 7 ? 1 : 0;
+		m.alteration_i_ = 1;
+
+
+		$$ = m.smobbed_copy ();
 	}
 	| bare_unsigned CHORD_MINUS {
-		$$ = new Musical_pitch;
-		$$->notename_i_ = ($1 - 1) % 7;
-		$$->octave_i_ = $1 > 7 ? 1 : 0;
-		$$->accidental_i_ = -1;
+		Musical_pitch m;
+		m.notename_i_ = ($1 - 1) % 7;
+		m.octave_i_ = $1 > 7 ? 1 : 0;
+		m.alteration_i_ = -1;
+
+		$$ = m.smobbed_copy ();
 	}
         ;
 

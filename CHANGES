@@ -1,3 +1,43 @@
+1.3.106.jcn2
+============
+
+* Cross compilation and info build fixes, really cancel all builtin
+rules, sigh.
+
+* Generated documentation fixes: Generate all interface descriptions,
+separately, don't list non-set interface properties with element
+descriptions.
+
+1.3.106.hwn1
+============
+
+* Deprecate `mudela' name: rename mudela to lilypond globally.
+
+* construct Music_iterators decentrally.
+
+* Make smob of Duration 
+
+* Make smob of Musical_pitch.
+
+* Move Repeated_music members into SCM. Length is computed via a SCM
+function. (todo: write SCM function to unfold all repeats. \apply for
+\midi)
+
+* Remove Time_signature_change_req, \time is disguise for \property
+Score.timeSignatureFraction = ...
+
+* \property barCheckNoSynchronize: don't reset measurePosition when
+finding a bbarcheck. This makes bar-checks for polyphonic music
+easier.
+
+* elt property full-size-change for clefs.
+
+* Bugfix: use Stem::dim_callback (), so brew_molecule () is not called
+too early.
+
+* Bugfix: use extent of Note_head (iso. Note_column) for rest
+collisions, so Stem::brew_molecule() is not called too early.
+
 1.3.105.jcn1
 ============
 

@@ -26,7 +26,7 @@ public:
 };
 
 /**
-  The request is a collection of Requests. A note that you enter in mudela is 
+  The request is a collection of Requests. A note that you enter in lilypond is 
   one Request_chord, one syllable of lyrics is one Request_chord
  */
 class Request_chord : public Simultaneous_music

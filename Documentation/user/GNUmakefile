@@ -21,7 +21,7 @@ PS_GZ_FILES= $(addsuffix .gz, $(PS_FILES))
 INFO_FILES = $(addprefix $(outdir)/, lilypond.info lilypond-internals.info)
 
 STEPMAKE_TEMPLATES=tex texinfo documentation
-LOCALSTEPMAKE_TEMPLATES=lilypond mudela
+LOCALSTEPMAKE_TEMPLATES=lilypond ly
 
 include $(depth)/make/stepmake.make 
 
@@ -29,6 +29,11 @@ dvi: $(DVI_FILES)
 
 ps: $(PS_FILES)
 
+# Cancel default info rule
+$(outdir)/%.info: $(outdir)/%.texi
+
+# info is now built by default via texinfo-rules
+# we must build them by default, otherwise they get built during make install
 info: $(INFO_FILES)
 
 default: 
@@ -59,16 +64,21 @@ backdoc-WWW: $(outdir)/lilypond-internals/lilypond-internals.html
 
 #ugh. lily/OUT/lilypond hardcoded.
 # when cross-compiling, we don't have lilypond
-$(outdir)/lilypond-internals.texi:
-	if [ -e $(depth)/$(builddir)/lily/out/lilypond ]; then \
-		cd $(outdir) && ../$(depth)/$(builddir)/lily/out/lilypond ../$(src-depth)/ly/generate-documentation; \
-	else \
-		touch $@; \
-	fi
+ifneq ($(CROSS),yes)
+$(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi:
+	cd $(outdir) && ../$(depth)/$(builddir)/lily/out/lilypond ../$(src-depth)/ly/generate-documentation
+	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
+else
+$(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi:
+##	-cd $(outdir) && lilypond ../$(src-depth)/ly/generate-documentation
+##programming error: Improbable offset for translation: setting to zero (Continuing; cross thumbs)
+##programming error: Molecule::add_at_edge: adding empty molecule. (Continuing; cross thumbs)
+	touch $@
+	touch $(outdir)/$(*F).nexi
+endif
 
 # Generic rule not possible?
 # $(outdir)/%/%.html: $(outdir)/%.texi
-
 $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
 	-$(MAKEINFO) --force --output=$@ --html $<
 # we want footers even if website builds (or is built) partly

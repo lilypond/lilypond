@@ -19,7 +19,7 @@ My_lily_parser::My_lily_parser (Sources * source_l)
 {
   source_l_ = source_l;
   lexer_p_ = 0;
-  default_duration_.durlog_i_ = 2;
+  default_duration_ = Duration (2,0);
   error_level_i_ = 0;
 
 

@@ -1,6 +1,5 @@
-
 /*   
-  auto-switch-music.cc --  implement 
+  auto-switch-music.cc --  implement Auto_change_music
   
   source file of the GNU LilyPond music typesetter
   
@@ -9,9 +8,10 @@
  */
 
 #include "auto-change-music.hh"
+#include "auto-change-iterator.hh"
 
 Auto_change_music::Auto_change_music (Music * m)
   : Music_wrapper (m)
 {
-  set_mus_property ("type", ly_symbol2scm ("auto-change-music"));
+  set_mus_property ("type", Auto_change_iterator::constructor_cxx_function);
 }

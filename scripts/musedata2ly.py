@@ -119,7 +119,7 @@ def get_transposing (s):
 def get_num_instruments (s):
 	return ''
 
-def get_mudela_notename (p, ac):
+def get_lilypond_notename (p, ac):
 	if p > 5:
 		p = p - 7
 	s = chr (p + ord ('c'))

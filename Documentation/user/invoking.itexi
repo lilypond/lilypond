@@ -42,7 +42,7 @@ code and named output.
 @item --include, -I=DIRECTORY
     Add @file{DIRECTORY} to the search path for input files.
 @item --ignore-version, -V
-    Make the incompatible mudela version warning non-fatal.
+    Make the incompatible lilypond version warning non-fatal.
 @end table
 
 

@@ -31,9 +31,8 @@ Repeated_music::Repeated_music(Music *beg, int times, Music_sequence * alts)
       set_mus_property ("body", beg->self_scm ());
       scm_unprotect_object (beg->self_scm ());
     }
-  fold_b_ = false;
-  repeats_i_ = times;
-  volta_fold_b_ = true;
+  set_mus_property ("repeat-count", gh_int2scm (times));
+
   if (alts)
     {
       alts->truncate (times);
@@ -46,10 +45,6 @@ Repeated_music::Repeated_music(Music *beg, int times, Music_sequence * alts)
 Repeated_music::Repeated_music (Repeated_music const &s)
   : Music (s)
 {
-  repeats_i_ = s.repeats_i_;
-  fold_b_ = s.fold_b_;
-  volta_fold_b_ = s.volta_fold_b_;
-  type_ = s.type_;
 }
 
 
@@ -89,25 +84,24 @@ Repeated_music::compress (Moment p)
 }
 
 Moment
-Repeated_music::alternatives_length_mom () const
+Repeated_music::alternatives_length_mom (bool fold) const
 {
   if (!alternatives () )
     return 0;
   
-  if  (fold_b_)
+  if  (fold)
     return alternatives ()->maximum_length ();
 
   Moment m =0;
   int done =0;
 
   SCM p = alternatives ()->music_list ();
-   while (gh_pair_p (p) && done < repeats_i_)
+  while (gh_pair_p (p) && done < repeat_count ())
     {
       m = m + unsmob_music (gh_car (p))->length_mom ();
       done ++;
-      if (volta_fold_b_
-	  || repeats_i_ - done < alternatives ()->length_i ())
-      p = gh_cdr (p);
+      if (repeat_count () - done < alternatives ()->length_i ())
+	p = gh_cdr (p);
     }
   return m;
 }
@@ -119,15 +113,43 @@ Repeated_music::body_length_mom () const
   if (body ())
     {
       m = body ()->length_mom ();
-      if (!fold_b_ && !volta_fold_b_)
-	m *= Rational (repeats_i_);
     }
   return m;
 }
 
-Moment
-Repeated_music::length_mom () const
+int
+Repeated_music::repeat_count () const
 {
-  return body_length_mom () + alternatives_length_mom ();
+  return gh_scm2int (get_mus_property ("repeat-count"));
 }
 
+
+MAKE_SCHEME_CALLBACK(Repeated_music,unfolded_music_length, 1);
+MAKE_SCHEME_CALLBACK(Repeated_music,folded_music_length, 1);
+MAKE_SCHEME_CALLBACK(Repeated_music,volta_music_length, 1);
+
+SCM
+Repeated_music::unfolded_music_length (SCM m)
+{
+  Repeated_music* r = dynamic_cast<Repeated_music*> (unsmob_music (m));
+  
+  Moment l = Moment (r->repeat_count ()) * r->body_length_mom () + r->alternatives_length_mom (false);
+  return l.smobbed_copy ();
+}
+
+SCM
+Repeated_music::folded_music_length (SCM m)
+{
+  Repeated_music* r = dynamic_cast<Repeated_music*> (unsmob_music (m));
+ 
+  Moment l =  r->body_length_mom () + r->alternatives_length_mom (true);
+  return l.smobbed_copy ();
+}
+
+SCM
+Repeated_music::volta_music_length (SCM m)
+{
+  Repeated_music* r = dynamic_cast<Repeated_music*> (unsmob_music (m));
+  Moment l =  r->body_length_mom () + r->alternatives_length_mom (false);
+  return l.smobbed_copy ();
+}

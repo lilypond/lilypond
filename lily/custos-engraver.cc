@@ -96,8 +96,9 @@ Custos_engraver::acknowledge_element (Score_element_info info)
 	    don't look at the staff-position, since we can't be sure
 	    whether Clef_engraver already applied a vertical shift.
 	  */
-	  
-	  pitches_.push (dynamic_cast<Note_req*> (info.req_l_)->pitch_);
+	  Note_req * nr = dynamic_cast<Note_req*> (info.req_l_);
+	  if (nr)
+	    pitches_.push (*unsmob_pitch (nr->get_mus_property ("pitch")));
 	}
     }
 }

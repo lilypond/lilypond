@@ -1,0 +1,36 @@
+@node convert-ly, , ,Top
+@chapter convert-ly
+@code{convert-ly} sequentially applies different
+lilypond-conversions to upgrade a Lilypond input file.  It uses
+@code{\version} statements in the file to detect the old version
+number.
+
+@example
+        convert-ly [options] [files]
+@end example
+
+@section Options
+@table @samp
+@item --output
+    The output file to write.  
+@item --edit
+    Do an inline edit of the input file. override @code{--output}
+@item --show-rules
+    shows all known conversions, and exit
+@item --from=@var{FROM_PATCHLEVEL}
+    Set the level to convert from. If this is not set, convert-ly will
+    guess this, on the basis of @code{\version} strings in the file
+@item --to=@var{TO_PATCHLEVEL}
+    Set the goal version of the conversion. It defaults to the latest
+    available version.
+@end table
+
+Not all language changes are handled. Multiple output options won't
+work.
+
+convert-ly is written in python, so you have install
+@uref{http://www.python.org,python}.  It was written by
+@email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}.
+
+
+

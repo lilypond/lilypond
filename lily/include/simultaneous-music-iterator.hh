@@ -20,7 +20,8 @@ public:
   Simultaneous_music_iterator ();
   Simultaneous_music_iterator (Simultaneous_music_iterator const&);
   virtual ~Simultaneous_music_iterator ();
-
+  static SCM constructor_cxx_function;
+  
   /// make a new context for every child.
   bool separate_contexts_b_;
   int cursor_i_;

@@ -71,7 +71,6 @@ Class ## _identifier::do_str () const { \
 
 DUMMY_STR(Score);
 DUMMY_STR(Music_output_def);
-DUMMY_STR(Duration);
 
   
 #define DEFAULT_STR(Class) \
@@ -115,11 +114,9 @@ Class ## _identifier::Class ## _identifier (Class ## _identifier const &s) \
 } 
 
 
-IMPLEMENT_ID_CLASS(Duration);
 IMPLEMENT_ID_CLASS(Score);
 IMPLEMENT_ID_CLASS(Music_output_def);
 VIRTUAL_ACCESSOR(Music_output_def);
-DEFAULT_ACCESSOR(Duration);
 DEFAULT_ACCESSOR(Score);
 
 

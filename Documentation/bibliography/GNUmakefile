@@ -7,7 +7,7 @@ BIB_FILES= $(wildcard *.bib)
 EXTRA_DIST_FILES= $(BIB_FILES)
 
 STEPMAKE_TEMPLATES=tex documentation
-LOCALSTEPMAKE_TEMPLATES=lilypond mudela
+LOCALSTEPMAKE_TEMPLATES=lilypond ly
 
 export BIBINPUTS:=$(shell pwd)//$(PATHSEP)$(BIBINPUTS)
 include $(depth)/make/stepmake.make 

@@ -11,30 +11,40 @@
 #define MUSICAL_PITCH_HH
 
 #include "lily-proto.hh"
-#include "input.hh"
-#include "lily-guile.hh" // we need SCM
+#include "smobs.hh"
 
 /** A "tonal" pitch. This is a pitch as it figures in diatonal western
    music (12 semitones in an octave), as opposed to a frequence in Hz
    or a integer number of semitones.
 
-   It is not Music because, it has no duration associated.
+   
+
+   
 */
-struct Musical_pitch : public Input
+class Musical_pitch
 {
-  Musical_pitch (int notename=0, int accidental=0, int octave=0);
-
-  /// construct from  '(octave name acc)
-  Musical_pitch (SCM);
-
+public:				// fixme
+  
   /// 0 is c, 6 is b
   int notename_i_;
   
   /// 0 natural, 1 sharp, etc
-  int accidental_i_;
+  int alteration_i_;
 
   /// 0 is central c
   int octave_i_;
+public:
+
+  int octave_i () const;
+  int notename_i () const;
+  int alteration_i () const;
+
+  /*
+    Musical_pitch is lexicographically ordered by (octave, notename,
+    alteration).    
+   */
+  Musical_pitch (int octave, int notename,int accidental);
+  Musical_pitch ();
 
   Musical_pitch to_relative_octave (Musical_pitch);
   void transpose (Musical_pitch);
@@ -47,8 +57,12 @@ struct Musical_pitch : public Input
   void down_to (int);
   String str () const;
 
-  SCM to_scm () const;
+  SCM smobbed_copy () const;
+  DECLARE_SCHEME_CALLBACK(less_p, (SCM a, SCM b));
+  DECLARE_SIMPLE_SMOBS(Musical_pitch,);
 };
+
+Musical_pitch* unsmob_pitch (SCM);
 
 #include "compare.hh"
 INSTANTIATE_COMPARE(Musical_pitch, Musical_pitch::compare);

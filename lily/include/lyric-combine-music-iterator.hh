@@ -18,7 +18,7 @@ class Lyric_combine_music_iterator : public Music_iterator
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
   Lyric_combine_music_iterator ();
-
+  static SCM constructor_cxx_function;
 protected:
   virtual void construct_children ();
   virtual Moment pending_moment () const;

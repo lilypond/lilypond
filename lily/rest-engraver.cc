@@ -71,17 +71,20 @@ Rest_engraver::do_process_music ()
       Staff_symbol_referencer::set_interface (rest_p_);
 
       
-      rest_p_->set_elt_property ("duration-log",
-				 gh_int2scm (rest_req_l_->duration_.durlog_i_)); 
+      int durlog  = unsmob_duration (rest_req_l_->get_mus_property ("duration"))-> duration_log ();
       
-      if (rest_req_l_->duration_.dots_i_)
+      rest_p_->set_elt_property ("duration-log",
+				 gh_int2scm (durlog));
+
+      int dots =unsmob_duration (rest_req_l_->get_mus_property ("duration"))->dot_count ();
+      
+      if (dots)
 	{
 	  dot_p_ = new Item (get_property ("Dots"));
 
 	  Rhythmic_head::set_dots (rest_p_, dot_p_);
 	  dot_p_->set_parent (rest_p_, Y_AXIS);
-	  dot_p_->set_elt_property ("dot-count",
-				    gh_int2scm (rest_req_l_->duration_.dots_i_));
+	  dot_p_->set_elt_property ("dot-count", gh_int2scm (dots));
 	  announce_element (dot_p_,0);
 	}
 

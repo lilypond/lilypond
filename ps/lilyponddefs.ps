@@ -3,8 +3,8 @@
 % hmm
 % /setgray { 1 add } bind def
 
-/stafflinethickness  mudelapaperstafflinethickness def
-/staffheight mudelapaperstaffheight def
+/stafflinethickness  lilypondpaperstafflinethickness def
+/staffheight lilypondpaperstaffheight def
 
 /xoffset 30 def
 /yoffset 700 def
@@ -57,7 +57,7 @@
 	grestore
 	yoffset add /yoffset exch def
 	% urg...
-	yoffset mudelapaperstaffheight 8 mul sub /yoffset exch def
+	yoffset lilypondpaperstaffheight 8 mul sub /yoffset exch def
 } bind def
 
 /turnOnExperimentalFeatures { } bind def

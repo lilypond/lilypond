@@ -423,9 +423,11 @@ Stem::flag (Score_element*me)
 
 MAKE_SCHEME_CALLBACK(Stem,dim_callback,2);
 SCM
-Stem::dim_callback (SCM e, SCM )
+Stem::dim_callback (SCM e, SCM ax)
 {
-   Score_element *se = unsmob_element (e);
+  Axis a = (Axis) gh_scm2int (ax);
+  assert (a == X_AXIS);
+  Score_element *se = unsmob_element (e);
   Interval r (0, 0);
   if (unsmob_element (se->get_elt_property ("beam")) || abs (flag_i (se)) <= 2)
     ;	// TODO!

@@ -245,7 +245,8 @@ The head of the list:
     'Bar_engraver
     (engraver-description
      "Bar_engraver"
-     "Create barlines."
+     "Create barlines. This engraver is controlled through the
+@code{whichBar} property. If it has no bar line to create, it will forbid a linebreak at this point"
      '(BarLine)
      (list
       (translator-property-description 'whichBar string? "This property is read to determine what type of barline to create.
@@ -678,7 +679,16 @@ Description of scripts to use.  (fixme)
     'Score_engraver
     (engraver-description
      "Score_engraver"
-     "Top level engraver. Takes care of generating columns and the complete  system (ie. LineOfScore)"
+     "Top level engraver. Takes care of generating columns and the complete  system (ie. LineOfScore)
+
+This engraver decides whether a column is breakable. The default is
+that a column is always breakable. However, when every Bar_engraver
+that does not have a barline at a certain point will call
+Score_engraver::forbid_breaks to stop linebreaks.  In practice, this
+means that you can make a breakpoint by creating a barline (assuming
+that there are no beams or notes that prevent a breakpoint.)
+
+"
      '(LineOfScore PaperColumn NonMusicalPaperColumn)
      (list
       (translator-property-description 'currentMusicalColumn ly-element? "")
@@ -852,8 +862,11 @@ either unison, unisilence or soloADue is set"
      '()
      (list
       (translator-property-description 'timeSignatureFraction number-pair? "
-pair of numbers,  signifying the time signature. For example #'(4 . 4) is a 4/4 time signature.")   
-      
+pair of numbers,  signifying the time signature. For example #'(4 . 4) is a 4/4time signature.")   
+      (translator-property-description 'barCheckNoSynchronize boolean?
+"If set, don't reset measurePosition when finding a bbarcheck. This
+makes bar-checks for polyphonic music easier.")
+
       (translator-property-description 'barNonAuto boolean? " If set to true then bar lines will not be printed
     automatically; they must be explicitly created with @code{\bar}
     keywords.  Unlike with the @code{\cadenza} keyword, measures are
@@ -879,10 +892,10 @@ defaultBarType, barAlways, barNonAuto and measurePosition.
 
 @c my @vebatim patch would help...
 @example
-@@mudela[fragment,verbatim,center]
+@@lilypond[fragment,verbatim,center]
 r1 r1*3 R1*3\property Score.skipBars=1 r1*3 R1*3
 
-@@end mudela
+@@end lilypond
 @end example
 
 ")
@@ -913,12 +926,12 @@ Normally a tuplet bracket is as wide as the
 property, you can make brackets last shorter. Example
 
 @example
-@@mudela[verbatim,fragment]
+@@lilypond[verbatim,fragment]
 \context Voice \times 2/3 @{
   \property Voice.tupletSpannerDuration = #(make-moment 1 4)
   [c8 c c] [c c c]
 @}
-@@end mudela
+@@end lilypond
 @end example
 ")
       (translator-property-description 'tupletInvisible boolean? "

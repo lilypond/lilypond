@@ -83,3 +83,5 @@ Change_iterator::process (Moment m)
 }
 
 
+
+IMPLEMENT_CTOR_CALLBACK(Change_iterator);

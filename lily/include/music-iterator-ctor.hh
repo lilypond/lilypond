@@ -13,8 +13,9 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 
-typedef void * (*Cpp_function) (SCM param);
-SCM smobify_cpp_function (Cpp_function cb);
+typedef void * (*Cxx_function) (SCM param);
+Cxx_function unsmob_cxx_function (SCM x);
+SCM smobify_cxx_function (Cxx_function cb);
 
 
 #endif /* SCORE_ELEMENT_CALLBACK_HH */

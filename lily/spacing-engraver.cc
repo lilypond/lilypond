@@ -138,8 +138,8 @@ Spacing_engraver::do_pre_move_processing ()
   Paper_column * sc
     = dynamic_cast<Paper_column*> (unsmob_element (get_property ("currentMusicalColumn")));
 
-  SCM sh = shortest_playing.make_scm( );
-  SCM st = starter.make_scm();
+  SCM sh = shortest_playing.smobbed_copy( );
+  SCM st = starter.smobbed_copy();
 
   sc->set_elt_property ("shortest-playing-duration", sh);  
   sc->set_elt_property ("shortest-starter-duration", st);

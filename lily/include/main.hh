@@ -43,5 +43,5 @@ extern int default_count_global;
 extern All_font_metrics *all_fonts_global_p;
 
 class ostream;
-void print_mudela_versions (ostream &os);
+void print_lilypond_versions (ostream &os);
 #endif

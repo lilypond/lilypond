@@ -100,15 +100,15 @@ Paper_score::process ()
   outputter_l_->output_version ();
   
   if (header_global_p)
-    outputter_l_->output_scope (header_global_p, "mudela");
+    outputter_l_->output_scope (header_global_p, "lilypond");
   if (header_l_)
-    outputter_l_->output_scope (header_l_, "mudela");
+    outputter_l_->output_scope (header_l_, "lilypond");
 
   outputter_l_->output_comment (_ ("Outputting Score, defined at: "));
   outputter_l_->output_comment (origin_str_);
 
   if (paper_l_->scope_p_)
-    outputter_l_->output_scope (paper_l_->scope_p_, "mudelapaper");
+    outputter_l_->output_scope (paper_l_->scope_p_, "lilypondpaper");
 
   SCM scm;
   if (experimental_features_global_b)

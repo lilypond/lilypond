@@ -10,9 +10,6 @@
 #include "bar.hh"
 #include "score-engraver.hh"
 #include "musical-request.hh"
-#include "multi-measure-rest.hh"
-#include "command-request.hh"
-
 #include "engraver-group-engraver.hh"
 #include "warn.hh"
 #include "item.hh"
@@ -21,11 +18,6 @@
 /*
   generate bars. Either user ("|:"), or default (new measure)
 
-  TODO
-
-  - document this
-
-  - document how barlines and line breaks interact.
   */
 class Bar_engraver : public Engraver
 {

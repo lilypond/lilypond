@@ -583,7 +583,7 @@ def try_parse_header_line (ln, state):
 
 # we use in this order specified accidental, active accidental for bar,
 # active accidental for key
-def pitch_to_mudela_name (name, acc, bar_acc, key):
+def pitch_to_lilypond_name (name, acc, bar_acc, key):
 	s = ''
 	if acc == UNDEF:
 		if not nobarlines:
@@ -600,7 +600,7 @@ def pitch_to_mudela_name (name, acc, bar_acc, key):
 	return(chr (name  + ord('c')) + s)
 
 
-def octave_to_mudela_quotes (o):
+def octave_to_lilypond_quotes (o):
 	o = o + 2
 	s =''
 	if o < 0:
@@ -623,7 +623,7 @@ def parse_num (str):
 	return (str,n)
 
 
-def duration_to_mudela_duration  (multiply_tup, defaultlen, dots):
+def duration_to_lilypond_duration  (multiply_tup, defaultlen, dots):
 	base = 1
 	# (num /  den)  / defaultlen < 1/base
 	while base * multiply_tup[0] < multiply_tup[1]:
@@ -711,7 +711,7 @@ def try_parse_rest (str, parser_state):
 	str = str[1:]
 
 	(str, num,den,d) = parse_duration (str, parser_state)
-	voices_append ('%s%s' % (rest, duration_to_mudela_duration ((num,den), default_len, d)))
+	voices_append ('%s%s' % (rest, duration_to_lilypond_duration ((num,den), default_len, d)))
 	if parser_state.next_articulation:
 		voices_append (parser_state.next_articulation)
 		parser_state.next_articulation = ''
@@ -841,15 +841,15 @@ def try_parse_note (str, parser_state):
 		voices_append ('%s' % ')' *slur_end )
 
 	bar_acc = get_bar_acc(notename, octave, parser_state)
-	pit = pitch_to_mudela_name(notename, acc, bar_acc, global_key[notename])
-	oct = octave_to_mudela_quotes (octave)
+	pit = pitch_to_lilypond_name(notename, acc, bar_acc, global_key[notename])
+	oct = octave_to_lilypond_quotes (octave)
 	if acc != UNDEF and (acc == global_key[notename] or acc == bar_acc):
 		mod='!'
 	else:
 		mod = ''
 	voices_append ("%s%s%s%s" %
 		(pit, oct, mod,
-	 	 duration_to_mudela_duration ((num,den), default_len, current_dots)))
+	 	 duration_to_lilypond_duration ((num,den), default_len, current_dots)))
 	
 	set_bar_acc(notename, octave, acc, parser_state)
 	if parser_state.next_articulation:
@@ -1021,7 +1021,7 @@ def try_parse_comment (str):
 	global nobarlines
 	if (str[0] == '%'):
 		if str[0:5] == '%MIDI':
-#the nobarlines option is necessary for an abc to mudela translator for
+#the nobarlines option is necessary for an abc to lilypond translator for
 #exactly the same reason abc2midi needs it: abc requires the user to enter
 #the note that will be printed, and MIDI and lilypond expect entry of the
 #pitch that will be played.
@@ -1103,7 +1103,7 @@ def identify():
 
 def help ():
 	print r"""
-Convert ABC to Mudela.
+Convert ABC to Lilypond.
 
 Usage: abc2ly [OPTIONS]... ABC-FILE
 

@@ -9,6 +9,7 @@
 
 #include "engraver.hh"
 #include "score-element.hh"
+#include "output-property-music-iterator.hh"
 
 class Output_property_engraver : public Engraver
 {
@@ -39,7 +40,8 @@ protected:
 bool
 Output_property_engraver::do_try_music (Music* m)
 {
-  if (m->get_mus_property ("type") ==  ly_symbol2scm ("output-property"))
+  if (m->get_mus_property ("type") ==
+      Output_property_music_iterator::constructor_cxx_function)
     {
       props_.push (m);
       return true;

@@ -14,7 +14,7 @@
 #include "font-interface.hh"
 
 /*
-FIXME: should use symbol for #'style.
+ FIXME: should use symbol for #'style.
 */
 MAKE_SCHEME_CALLBACK(Clef,before_line_breaking,1);
 SCM
@@ -33,11 +33,9 @@ Clef::before_line_breaking (SCM smob)
     {
       String str = ly_scm2string (glyph);
 
-      /*
-	FIXME: should use fontsize property to set clef changes.
-       */
-      if (s->get_elt_property ("non-default") &&
-	  s->break_status_dir() != RIGHT && style != "fullSizeChanges")
+      if (to_boolean (s->get_elt_property ("non-default")) &&
+	  s->break_status_dir() != RIGHT &&
+	  to_boolean (s->get_elt_property ("full-size-change")))
 	{
 	  str += "_change";
 	  s->set_elt_property ("glyph", ly_str02scm (str.ch_C()));	  
@@ -64,9 +62,6 @@ Clef::set_interface (Score_element* me)
 {
   me->set_interface (ly_symbol2scm ("clef-interface"));
 }
-
-
-
 
 MAKE_SCHEME_CALLBACK(Clef,brew_molecule,1)
 SCM

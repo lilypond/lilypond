@@ -25,7 +25,7 @@ bool busy_parsing();
 void kill_lexer();
 void set_lexer();
 
-/// lexer for Mudela
+/// lexer for Lilypond
 class My_lily_lexer : public Includable_lexer 
 {
 public:

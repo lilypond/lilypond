@@ -34,15 +34,15 @@
 \def\myfilbreak{\par\vfil\penalty200\vfilneg}
 
 % stacked horizontal lines
-\ifundefined{mudelapaperinterscoreline}
-        \def\mudelapaperinterscoreline{16}
+\ifundefined{lilypondpaperinterscoreline}
+        \def\lilypondpaperinterscoreline{16}
 \fi
-\ifundefined{mudelapaperinterscorelinefill}
-        \def\mudelapaperinterscorelinefill{0}
+\ifundefined{lilypondpaperinterscorelinefill}
+        \def\lilypondpaperinterscorelinefill{0}
 \fi
 
-\def\interscoreline{\vskip\mudelapaperinterscoreline pt plus %
-  \mudelapaperinterscorelinefill fill\myfilbreak}
+\def\interscoreline{\vskip\lilypondpaperinterscoreline pt plus %
+  \lilypondpaperinterscorelinefill fill\myfilbreak}
 
 \def\placebox#1#2#3{%
         \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}}%

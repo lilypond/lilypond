@@ -1,0 +1,163 @@
+% kommentar
+\documentclass[a4paper, 12pt]{article}
+%\def\preMudelaExample{}
+%\def\postMudelaExample{}
+%\usepackage{graphics}
+%\usepackage{landscape}
+\begin{document}
+%uncomment this to try twocolumn mode
+%\twocolumn
+
+
+\section{Mudelabook + LaTeX}
+
+This is an examplefile for mixing Lilypond and Latex. It is also
+used to test lilypond-book. View the source to see how it is done.
+
+A simple scale:
+
+\begin{lilypond}
+\score{
+ \notes\relative c'{c d e f g a b c}
+}
+\end{lilypond}
+
+Lilypond-book search for the \verb|\score| command when it decides
+if the code is only a fragment. Thus, in the following code, you have
+to use \verb|fragment| option, because the comment confuses lilypond-book.
+
+\begin[fragment]{lilypond}
+c d e % \score
+\end{lilypond}
+
+There is also a shorthand version \verb|\lilypond{c' e' g'}|:
+
+\lilypond{c' e' g'}
+
+that is the same as writing
+\begin{verbatim}
+\begin[eps]{lilypond}
+c' e' g'
+\end{lilypond}
+\end{verbatim}
+
+This C major
+\begin[eps, 11pt]{lilypond}
+c' e' g'
+\end{lilypond}
+and C minor \lilypond[11pt]{c' es' g'}  chords are floating inside the text.
+
+\subsection{verb and verbatim}
+
+As you see, the begin/end verbatim command inside 
+does not confuse lilypond-book:
+
+\verb|\begin{lilypond}c d e\end{lilypond}|
+
+Neither does a verbatim inside verb:
+
+\verb|\begin{verbatim}\begin{lilypond}c d e\end{lilypond}\end{verbatim}|
+
+or verb inside verbatim:
+
+\begin{verbatim}
+\verb|\begin{lilypond}c d e\end{lilypond}|
+\end{verbatim}
+
+But this is just to stress \verb|lilypond-book|. What you need is:
+
+\verb|\lilypond{c' d' e'}|
+
+and
+
+\begin{verbatim}
+\begin{lilypond}
+c d e
+\end{lilypond}
+\end{verbatim}
+
+\subsection{The 'verbatim' and 'intertext' option}
+This shows the verbatim option:
+\begin[verbatim, intertext="gives this music:"]{lilypond}
+c' d' e'
+\end{lilypond}
+
+\subsection{LaTeX comments}
+This is a line with lilypond code after the comment char % \lilypond{<c' e' g'>}
+% \lilypond{<c' e' g'>}
+
+If you do not see any music from the heading 'LaTeX comments' and until
+this line, then lilypond-book is handling latex comments pretty well :-)
+
+\subsection{To float or not to float}
+This music
+\begin[eps]{lilypond}
+c' e' 
+\end{lilypond}
+should be floating inside the text by using the \verb|eps| options.
+
+This music
+
+\begin[eps]{lilypond}
+c' e'
+\end{lilypond}
+
+has also the \verb|eps| options, but is not floating because there
+are an emptry line before and after the lilypond block. That is
+correct behaviour because it follows La\TeX{} convention that an
+empty line signals a new paragraph. Note that the \verb|eps| option
+is not necessary when you want the music in a paragraph on its own.
+
+\subsection{More examples}
+
+Itemize environment:
+\begin{itemize}
+\item \lilypond[11pt]{ c'} do
+\item \lilypond[11pt]{d'} re
+\item \lilypond[11pt]{e'} mi
+\item \lilypond[11pt]{f'} fa
+\item \lilypond[11pt]{g'} sol
+\end{itemize}
+
+Tables\footnote{ and footnote: \lilypond[eps,11pt]{c' e' g'} }:
+\marginpar{ Yes, even as marginpar
+\lilypond[eps,11pt]{c' d' e'} }
+
+\begin{tabular}{|l|l|r|}
+\hline
+\em Notes & \em Name \\
+\hline
+\lilypond[11pt, filename="cdur"]{<c' e' g'>} & major \\
+\lilypond[11pt]{<c' es' g'>} & minor \\
+\lilypond[11pt]{<c' es' ges'>} & diminished \\
+\lilypond[11pt]{<c' e' gis'>} & augmented \\
+\hline
+\end{tabular}
+
+\pagebreak
+
+Testing of spacing. The next music is surrounded by an empty line.
+text text text text text text text text text text text text 
+text text text text text text text text text text text text 
+
+\begin{lilypond}
+\score{ \notes\relative c'{ c d e f g a b c} }
+\end{lilypond}
+
+text text text text text text text text text text text text 
+text text text text text text text text text text text text 
+text text text text text text text text text text text text 
+
+Next has no empty lines.
+text text text text text text text text text text text text 
+text text text text text text text text text text text text 
+text text text text text text text text text text text text 
+\begin{lilypond}
+\score{ \notes\relative c'{ c d e f g a b c} }
+\end{lilypond}
+text text text text text text text text text text text text 
+text text text text text text text text text text text text 
+
+
+
+\end{document}

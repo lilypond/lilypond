@@ -172,14 +172,16 @@ This will install a number of files, something close to:
 	/usr/local/man/man1/midi2ly.1
 	/usr/local/man/man1/abc2ly.1
 	/usr/local/man/man1/etf2ly.1
-	/usr/local/man/man1/convert-mudela.1
-	/usr/local/man/man1/mudela-book.1
+	/usr/local/man/man1/convert-ly.1
+	/usr/local/man/man1/lilypond-book.1
 	/usr/local/man/man1/lilypond.1
 	/usr/local/bin/lilypond
 	/usr/local/bin/midi2ly
-	/usr/local/bin/convert-mudela
-	/usr/local/bin/mudela-book
+	/usr/local/bin/convert-ly
+	/usr/local/bin/lilypond-book
 	/usr/local/bin/abc2ly
+	/usr/local/bin/pmx2ly
+	/usr/local/bin/musedata2ly
 	/usr/local/bin/etf2ly
 	/usr/local/share/lilypond/*
 	/usr/local/share/locale/@{....@}/LC_MESSAGES/lilypond.mo

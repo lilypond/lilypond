@@ -219,10 +219,12 @@ void add_scm_init_func (void (*f)())
 
   scm_init_funcs_->push (f);
 }
+extern  void init_cxx_function_smobs();
 
 void
 init_lily_guile ()
 {
+  init_cxx_function_smobs();
   for (int i=scm_init_funcs_->size() ; i--;)
     (scm_init_funcs_->elem (i)) ();
 }

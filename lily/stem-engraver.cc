@@ -58,8 +58,8 @@ Stem_engraver::acknowledge_element(Score_element_info i)
       if (Rhythmic_head::stem_l (h))
 	return;
       
-      Rhythmic_req * r = dynamic_cast <Rhythmic_req *> (i.req_l_);
-      int duration_log = r->duration_.durlog_i_;      
+      int duration_log  = unsmob_duration (i.req_l_->get_mus_property ("duration"))-> duration_log ();
+	    
       if (!stem_p_) 
 	{
 	  stem_p_ = new Item (get_property ("Stem"));
@@ -107,12 +107,12 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 						gh_int2scm (tremolo_flags));
 		}
 	    }
-	  announce_element (stem_p_, r);
+	  announce_element (stem_p_, i.req_l_);
 	}
 
       if (Stem::flag_i (stem_p_) != duration_log)
 	{
-	  r->origin ()->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  Stem::flag_i (stem_p_)));
+	  i.req_l_->origin ()->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  Stem::flag_i (stem_p_)));
 	}
 
       Stem::add_head (stem_p_,h);

@@ -2,12 +2,6 @@
 
 include $(depth)/make/toplevel-version.make
 
-# Don't try to outsmart us, you puny computer!
-ifeq (0,${MAKELEVEL})
-  MAKE:=$(MAKE) --no-builtin-rules
-endif
-.SUFFIXES:
-
 # Use alternate configurations alongside eachother:
 #
 #     ./configure --enable-config=debug
@@ -63,6 +57,15 @@ stepdir = $(depth)/stepmake
 STEPMAKE_TEMPLATES := generic $(STEPMAKE_TEMPLATES) 
 LOCALSTEPMAKE_TEMPLATES:= generic $(LOCALSTEPMAKE_TEMPLATES)
 
+
+# Don't try to outsmart us, you puny computer!
+# Well, UGH.  This only removes builtin rules from
+# subsequent $(MAKE)s, *not* from the current run!
+ifeq (0,${MAKELEVEL})
+  MAKE:=$(MAKE) --no-builtin-rules
+  include $(stepdir)/no-builtin-rules.make
+endif
+.SUFFIXES:
 
 all:
 

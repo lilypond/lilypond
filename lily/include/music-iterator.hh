@@ -15,6 +15,7 @@
 #include "moment.hh"
 #include "virtual-methods.hh"
 #include "interpretation-context-handle.hh"
+#include "music-iterator-ctor.hh"
 
 /** 
   Conceptually a music-iterator operates on a queue of musical events
@@ -90,7 +91,8 @@ public:
     report to.
    */
   virtual void construct_children ();
-
+  static SCM constructor_cxx_function;
+  
 protected:
   Music  * music_l_;
 
@@ -106,8 +108,30 @@ private:
 };
 
 
+/*
+  implement Class::constructor, a SCM function that
+  returns an encapsulated factory function.
+ */
+#define IMPLEMENT_CTOR_CALLBACK(Class)		\
+static void *						\
+Class ## _ctor (SCM)				\
+{						\
+  return new Class ;				\
+}						\
+SCM Class :: constructor_cxx_function;\
+void						\
+Class ## _constructor_init()				\
+{						\
+  SCM s = smobify_cxx_function (& Class ## _ctor);	\
+  scm_permanent_object (s);\
+  gh_define (#Class "::constructor", s);\
+  Class :: constructor_cxx_function = s;\
+}\
+ADD_SCM_INIT_FUNC(Class ## _ctor_init, Class ## _constructor_init); 
+
  
-  
+
+
 
 
 

@@ -15,43 +15,35 @@
 #include "misc.hh"
 #include "lookup.hh"
 
-SCM
+static SCM
 pitch_less  (SCM p1, SCM p2)
 {
-  for (int i = 3; i--; p1 = gh_cdr (p1), p2 = gh_cdr (p2))
-    {
-      if (scm_less_p (gh_car (p1), gh_car (p2)))
-	return SCM_BOOL_T;
-      if (gh_car (p1) != gh_car (p2))
-	return SCM_BOOL_F;
-    }
-  return SCM_BOOL_T;
+  return Musical_pitch::less_p (gh_car (p1),  gh_car (p2));
 }
 
-SCM pitch_less_proc;
-
+static SCM pitch_less_proc;
 
 void
 init_pitch_funcs ()
 {
-  pitch_less_proc = gh_new_procedure2_0 ("pitch-less", &pitch_less);
+  pitch_less_proc = gh_new_procedure2_0 ("pits-less", &pitch_less);
 }
 
-ADD_SCM_INIT_FUNC(pitch,init_pitch_funcs);
+ADD_SCM_INIT_FUNC(lkpitch,init_pitch_funcs);
 
 
 void
 Local_key_item::add_pitch (Score_element*me, Musical_pitch p, bool cautionary, bool natural)
 {
   SCM acs = me->get_elt_property ("accidentals");
-  SCM pitch = p.to_scm ();
+  SCM pitch = p.smobbed_copy ();
   SCM opts = SCM_EOL;
   if (cautionary)
     opts = gh_cons (ly_symbol2scm ("cautionary"), opts);
   if (natural)
     opts = gh_cons (ly_symbol2scm ("natural"), opts);
 
-  pitch = gh_append2 (pitch, opts);
+  pitch = gh_cons (pitch, opts);
   acs = scm_merge_x (acs, gh_cons (pitch, SCM_EOL), pitch_less_proc);
 
   me->set_elt_property ("accidentals", acs);
@@ -90,10 +82,11 @@ Local_key_item::brew_molecule (SCM smob)
   for  (SCM s = accs;
 	gh_pair_p (s); s = gh_cdr (s))
     {
-      Musical_pitch p (gh_car (s));
+      Musical_pitch p (*unsmob_pitch (gh_caar (s)));
+      SCM opts = gh_cdar (s);
       
       // do one octave
-      if (p.octave_i_ != lastoct) 
+      if (p.octave_i ()  != lastoct) 
 	{
 	  if (oct_b)
 	    {
@@ -105,22 +98,22 @@ Local_key_item::brew_molecule (SCM smob)
 	  oct_b = true; 
 	}
       
-      lastoct = p.octave_i_;
+      lastoct = p.octave_i () ;
 
       SCM c0 =  me->get_elt_property ("c0-position");
       Real dy = (gh_number_p (c0) ? gh_scm2int (c0) : 0 + p.notename_i_)
 	* note_distance;
       
       Molecule acc (Font_interface::get_default_font (me)->find_by_name (String ("accidentals-")
-					       + to_str (p.accidental_i_)));
+					       + to_str (p.alteration_i_)));
       
-      if (scm_memq (ly_symbol2scm ("natural"), gh_car (s)) != SCM_BOOL_F)
+      if (scm_memq (ly_symbol2scm ("natural"), opts) != SCM_BOOL_F)
 	{
 	  Molecule prefix = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-0"));
 	  acc.add_at_edge(X_AXIS, LEFT, Molecule(prefix), 0);
 	}
 
-      if (scm_memq (ly_symbol2scm ("cautionary"), gh_car (s)) != SCM_BOOL_F)
+      if (scm_memq (ly_symbol2scm ("cautionary"), opts) != SCM_BOOL_F)
 	acc = parenthesize (me, acc);
 
       acc.translate_axis (dy, Y_AXIS);

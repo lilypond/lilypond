@@ -1,16 +1,20 @@
+
+shiftI \property Voice.NoteColumn \push #'horizontal-shift = #0
+shiftII \property Voice.NoteColumn \push #'horizontal-shift = #1
+shiftIII \property Voice.NoteColumn \push #'horizontal-shift = #2
+shiftIV \property Voice.NoteColumn \push #'horizontal-shift = #3
+shiftV \property Voice.NoteColumn \push #'horizontal-shift = #4
+
 \score { 
   \context Voice \notes\relative c {
     
 	\context Staff <
-		\context Voice =VA  {\property Voice.verticalDirection=1 \property Voice.horizontalNoteShift = 0 g'' }
-		\context Voice =VB  {\property Voice.verticalDirection=1 \property Voice.horizontalNoteShift = 1 e }
-		\context Voice =VC  {\property Voice.verticalDirection=1 \property Voice.horizontalNoteShift = 2 c }
-		\context Voice =VD  {\property Voice.verticalDirection=1 \property Voice.horizontalNoteShift = 3 a }
-		\context Voice =VE  {\property Voice.verticalDirection=1 \property Voice.horizontalNoteShift = 4 f }
-	>
-	
-	
-	
+		\context Voice =VA  {\stemUp \shiftI g'' }
+		\context Voice =VB  {\stemUp \shiftII e }
+		\context Voice =VC  {\stemUp \shiftIII c }
+		\context Voice =VD  {\stemUp \shiftIV a }
+		\context Voice =VE  {\stemUp \shiftV f }
+	>	
   }
   \paper { }  
   \midi { }

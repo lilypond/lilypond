@@ -25,7 +25,7 @@ Moment::mark_smob (SCM)
 
 
 SCM
-Moment::make_scm () const
+Moment::smobbed_copy () const
 {
   Moment * m = new Moment (*this);
   return m->smobbed_self();
@@ -59,7 +59,7 @@ make_rational (SCM n, SCM d)
       ::error ("make-moment takes two integer arguments. Using 1/1");
     }
 
-  return m.make_scm ();
+  return m.smobbed_copy ();
 }
 
 

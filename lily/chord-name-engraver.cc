@@ -58,7 +58,7 @@ void
 Chord_name_engraver::acknowledge_element (Score_element_info i)
 {
   if (Note_req* n = dynamic_cast<Note_req*> (i.req_l_))
-    pitch_arr_.push (n->pitch_);
+    pitch_arr_.push (* unsmob_pitch (n->get_mus_property ("pitch")));
 }
 
 bool
@@ -66,7 +66,7 @@ Chord_name_engraver::do_try_music (Music* m)
 {
   if (Note_req* n = dynamic_cast<Note_req*> (m))
     {
-      pitch_arr_.push (n->pitch_);
+      pitch_arr_.push (* unsmob_pitch (n->get_mus_property ("pitch")));
       return true;
     }
   if (Tonic_req* t = dynamic_cast<Tonic_req*> (m))
@@ -123,14 +123,14 @@ Chord_name_engraver::create_chord_name ()
   */
   SCM plist = SCM_EOL;
   for (int i= chord_p_->pitch_arr_.size (); i--; )
-    plist = gh_cons (chord_p_->pitch_arr_[i].to_scm (), plist);
+    plist = gh_cons (chord_p_->pitch_arr_[i].smobbed_copy (), plist);
   
   chord_name_p_->set_elt_property ("pitches", plist);
   if (chord_p_->inversion_b_)
     chord_name_p_->set_elt_property ("inversion",
-				     chord_p_->inversion_pitch_.to_scm ());
+				     chord_p_->inversion_pitch_.smobbed_copy ());
   if (chord_p_->bass_b_)
-    chord_name_p_->set_elt_property ("bass", chord_p_->bass_pitch_.to_scm ());
+    chord_name_p_->set_elt_property ("bass", chord_p_->bass_pitch_.smobbed_copy ());
 }
 
 void

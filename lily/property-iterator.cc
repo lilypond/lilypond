@@ -45,3 +45,7 @@ Pop_property_iterator::process (Moment m)
   
   Simple_music_iterator::process (m);
 }
+
+IMPLEMENT_CTOR_CALLBACK(Pop_property_iterator);
+IMPLEMENT_CTOR_CALLBACK(Push_property_iterator);
+IMPLEMENT_CTOR_CALLBACK(Property_iterator);

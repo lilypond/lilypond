@@ -14,6 +14,9 @@
 #include "music-iterator.hh"
 #include "main.hh"
 #include "killing-cons.tcc"
+#include "simultaneous-music-iterator.hh"
+#include "sequential-music-iterator.hh"
+#include "request-chord-iterator.hh"
 
 Moment
 Simultaneous_music::length_mom () const
@@ -24,13 +27,15 @@ Simultaneous_music::length_mom () const
 Simultaneous_music::Simultaneous_music(SCM head)
   : Music_sequence (head)
 {
-  set_mus_property ("type", ly_symbol2scm ("simultaneous-music"));
+  set_mus_property ("type",
+		    Simultaneous_music_iterator::constructor_cxx_function);
 }
 
 Sequential_music::Sequential_music(SCM head)
   : Music_sequence (head)
 {
-  set_mus_property ("type", ly_symbol2scm ("sequential-music"));
+  set_mus_property ("type",
+		    Sequential_music_iterator::constructor_cxx_function);
 }
 
 
@@ -49,7 +54,8 @@ Simultaneous_music::to_relative_octave (Musical_pitch p)
 Request_chord::Request_chord(SCM s)
   : Simultaneous_music (s)
 {
-  set_mus_property ("type", ly_symbol2scm ("request-chord"));
+  set_mus_property ("type",
+		    Request_chord_iterator::constructor_cxx_function);
 }
 
 Musical_pitch
@@ -60,8 +66,11 @@ Request_chord::to_relative_octave (Musical_pitch last)
       Music * mus = unsmob_music (gh_car (s));
       if (Melodic_req *m= dynamic_cast <Melodic_req *> (mus))
 	{
-	  Musical_pitch &pit = m->pitch_;
+	  Musical_pitch pit = *unsmob_pitch (m->get_mus_property ("pitch"));
+	  
 	  pit.to_relative_octave (last);
+	  m->set_mus_property ("pitch", pit.smobbed_copy());
+	  	  
 	  return pit;
 	}
     }

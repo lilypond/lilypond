@@ -8,6 +8,7 @@
  */
 
 #include "part-combine-music.hh"
+#include "part-combine-music-iterator.hh"
 #include "musical-pitch.hh"
 
 Part_combine_music::Part_combine_music (SCM  what, Music * f, Music * s)
@@ -20,7 +21,8 @@ Part_combine_music::Part_combine_music (SCM  what, Music * f, Music * s)
   scm_unprotect_object (f->self_scm());
   scm_unprotect_object (s->self_scm());  
 
-  set_mus_property ("type", ly_symbol2scm ("part-combined-music"));
+  set_mus_property ("type",
+		    Part_combine_music_iterator::constructor_cxx_function);
 }
 
 void

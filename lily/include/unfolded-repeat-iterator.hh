@@ -26,12 +26,18 @@ public:
      How often have we done the body (assuming bodies are interspersed.)?
    */
   int done_count_;
+  static SCM constructor_cxx_function; 
 
   /*
     are we now busy doing the body?
 
    */
   bool do_main_b_;
+
+  /*
+    are we doing volta's?
+   */
+  bool volta_b_;
 
   /** How far have we progressed into the repeat.
       This excludes the elt currently being iterated.
@@ -56,5 +62,15 @@ protected:
   virtual bool ok () const;
   virtual void next_element (bool side_effect);
 };
+
+class Volta_repeat_iterator : public Unfolded_repeat_iterator
+{
+public:
+  Volta_repeat_iterator ();
+  static  SCM constructor_cxx_function;
+  VIRTUAL_COPY_CONS(Music_iterator);
+};
+
+
 #endif /* UNFOLDED_REPEAT_ITERATOR_HH */
 

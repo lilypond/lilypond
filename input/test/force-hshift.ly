@@ -4,20 +4,18 @@
     
 	\context Staff <
 		\context Voice = VA {
-			\property Voice.forceHorizontalShift = #0.1
+			\property Voice.NoteColumn \push #'forced-hshift = #0.1
 			\stemUp
-	       		\property Voice.horizontalNoteShift=1
+	       		\property Voice.NoteColumn \push #'horizontal-shift = #1
 			<g' d'>
-		}	
-	
+		}
 		\context Voice = VB {
 			\stemDown
-	       		\property Voice.horizontalNoteShift=1
-			\property Voice.forceHorizontalShift = #-0.1
+	       		\property Voice.NoteColumn \push #'horizontal-shift = #1
+			\property Voice.NoteColumn \push #'forced-hshift = #-0.1
 			<bes f'>
 		}
 	>
-	
   }
   \paper {
     linewidth=-1.0;

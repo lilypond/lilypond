@@ -19,7 +19,7 @@ public:
   ~Grace_iterator ();
   virtual void construct_children () ;
   virtual void process (Moment);
-
+  static SCM constructor_cxx_function;
   Moment pending_moment () const;
 };
 
