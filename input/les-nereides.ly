@@ -296,6 +296,7 @@ theScore = \score{
 }
     
 %%% Local variables:
+%%% coding: utf-8
 %%% LilyPond-indent-level:4
 %%% End:
 

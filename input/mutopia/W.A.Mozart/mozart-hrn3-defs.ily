@@ -1,10 +1,10 @@
-% #(ly:set-point-and-click 'line-column)
+% 
 
 longgrace = \override Stem  #'stroke-style = #'()
 endlonggrace = \revert Stem #'stroke-style
 ritenuto = \markup { \italic  "rit." }
 
-\version "2.4.0"
+\version "2.5.13"
   
 cresc =  {
     #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 

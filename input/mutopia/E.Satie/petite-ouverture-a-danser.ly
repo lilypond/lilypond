@@ -1,13 +1,13 @@
 \header {
   title = "Petite Ouverture à danser"
-  subtitle =	"4"
+  subtitle = "4"
   source = ""
   composer = "Erik Satie (1866-1925)"
   enteredby = "jcn"
   copyright = "Public Domain"
 }
 
-\version "2.4.0"
+\version "2.5.13"
 
 \include "nederlands.ly"
 
@@ -163,4 +163,6 @@ lower = \context Staff  \relative c{
     }
 }
 
-
+%% Local Variables:
+%% coding: utf-8
+%% End:
