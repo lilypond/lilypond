@@ -107,6 +107,9 @@
   "%\n\\empty%\n")
 
 (define 
+  (emptybar o h) (empty o))
+
+(define 
   (end-output o) 
   ((invoke-output o "end-output")))
 
@@ -254,6 +257,9 @@
 
 (define
   (repeatbar o h) (empty o))
+
+(define
+  (repeatbarstartrepeat o h) (empty o))
 
 (define 
   (rulesym o x y) 
