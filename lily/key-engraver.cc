@@ -94,13 +94,7 @@ Key_engraver::acknowledge_element (Score_element_info info)
   else if (dynamic_cast<Bar *> (info.elem_l_)
 	   && accidental_idx_arr_.size ()) 
     {
-      bool def =  (!item_p_);
       create_key ();
-      if (!def)
-	{
-	  item_p_->set_elt_property ("visibility-lambda",
-				    scm_eval (ly_symbol2scm  ("all-visible")));
-	}
     }
 
 }
@@ -119,6 +113,10 @@ Key_engraver::do_pre_move_processing ()
 { 
   if (item_p_) 
     {
+      if (keyreq_l_)
+	item_p_->set_elt_property ("visibility-lambda",
+				   scm_eval (ly_symbol2scm  ("all-visible")));
+      
       typeset_element (item_p_);
       item_p_ = 0;
     }
@@ -126,7 +124,7 @@ Key_engraver::do_pre_move_processing ()
 
 
 /*
-  TODO Slightly hairy.  
+  TODO.  Use properties; and this is too hairy.
  */
 void
 Key_engraver::read_req (Key_change_req const * r)

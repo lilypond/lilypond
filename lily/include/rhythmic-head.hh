@@ -12,16 +12,14 @@
 
 #include "item.hh"
 
-/*
-  Why don't I have a 
-  VIRTUAL_COPY_CONS (Score_element);
-  see also note-head, rest.
-  ?
-*/
-
 class Rhythmic_head : public Item
 {
 public:
+
+  /*
+    Typically not used, since Rhythmic_head is not breakable.
+   */
+  VIRTUAL_COPY_CONS(Rhythmic_head);
   int balltype_i () const;
 
   void add_dots (Dots *);

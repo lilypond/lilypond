@@ -487,20 +487,17 @@ score_block:
 	}
 	;
 
-score_body:		{
+score_body:
+	Music	{
 		$$ = new Score;
 		$$->set_spot (THIS->here_input ());
+		$$->music_p_ = $1;
 	}
 	| SCORE_IDENTIFIER {
 		$$ = $1->access_content_Score (true);
 	}
 	| score_body mudela_header 	{
 		$$->header_p_ = $2;
-	}
-	| score_body Music	{
-		if ($$->music_p_)
-			$2->warning (_ ("More than one music block"));	
-		$$->music_p_ = $2;
 	}
 	| score_body output_def {
 		$$->add_output ($2);

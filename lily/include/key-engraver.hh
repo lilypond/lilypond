@@ -25,6 +25,10 @@ public:
   Key_engraver();
   
   VIRTUAL_COPY_CONS(Translator);
+
+  /*
+    TODO: move these into properties.
+   */
   Key key_;
   Key_change_req * keyreq_l_;
   Key_item * item_p_;
