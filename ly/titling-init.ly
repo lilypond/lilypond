@@ -1,23 +1,27 @@
 \version "2.4.0"
 
 slashSeparator = \markup {
-    \hcenter
-    \vcenter \combine
-      \beam #2.0 #0.5 #0.48
-      \raise #0.7 \beam #2.0 #0.5 #0.48
-  }
+  \hcenter
+  \vcenter \combine
+  \beam #2.0 #0.5 #0.48
+  \raise #0.7 \beam #2.0 #0.5 #0.48
+}
 
-
+%% FIXME: Would using http://lilypond.org/pdflink#music%20notation
+%%        help Google to find us even better?  Is it bad not to point
+%%        to our main page, for this reason?  How bad is using /web
+%%        iso /?
 tagline = \markup {
   \with-url
   #"http://lilypond.org/pdflink/"
   \line {
-    "Engraved by LilyPond"
+    "Engraving by LilyPond"
     #(ly:export (lilypond-version))
     "-"
     "www.lilypond.org"
   }
 }
+
 bookTitleMarkup = \markup {
 
   \column {
