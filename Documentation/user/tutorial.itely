@@ -420,7 +420,7 @@ Here are key signatures, accidentals and ties in action
 \relative c'' {
   \time 4/4
   \key g \minor
-  \clef violin
+  \clef treble
   r4 r8 a8 gis4 b
   a8 d4.~ d e,8
   fis4 fis8 fis8 eis4 a8 gis~
@@ -1131,7 +1131,7 @@ Again, these expressions can be nested arbitrarily
   \new Staff <<
     \clef bass
     { <c, g>1 ~ <c g>4 } \\
-    { f4 d e2 ~ e4}
+    { e,4 d e2 ~ e4}
   >>
 >>
 @end lilypond

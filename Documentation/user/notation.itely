@@ -236,9 +236,10 @@ must be done with multi-measure rests.  They are discussed in
 
 
 A rest's vertical position may be explicitly specified by entering a
-note with the @code{\rest} keyword appended.  This makes manual
-formatting in polyphonic music easier.  Automatic rest collision
-formatting will leave these rests alone
+note with the @code{\rest} keyword appended, the rest will be placed at
+the note's place.  This makes manual formatting in polyphonic music
+easier.  Automatic rest collision formatting will leave these rests
+alone
 
 @lilypond[fragment,quote,raggedright,verbatim]
 a'4\rest d'4\rest
@@ -305,11 +306,12 @@ Program reference: @internalsref{SkipEvent}, @internalsref{SkipMusic}.
 @cindex @code{\maxima}
 
 
-In Note, Chord, and Lyrics mode, durations are designated by numbers
-and dots: durations are entered as their reciprocal values.  For example,
-a quarter note is entered using a @code{4} (since it is a 1/4 note), while
-a half note is entered using a @code{2} (since it is a 1/2 note).  For notes
-longer than a whole you must use variables
+In Note, Chord, and Lyrics mode, durations are designated by numbers and
+dots: durations are entered as their reciprocal values.  For example, a
+quarter note is entered using a @code{4} (since it is a 1/4 note), while
+a half note is entered using a @code{2} (since it is a 1/2 note).  For
+notes longer than a whole you must use the variables @code{\longa} and
+@code{\breve}
 
 @example 
 c'\breve  
@@ -884,9 +886,9 @@ exactly on the bar line.
 
 @cindex @code{\key}
 
-The key signature indicates the scale in which a piece is played.  It
-is denoted by a set of alterations (flats or sharps) at the start of
-the staff.
+The key signature indicates the tonality in which a piece is played.  It
+is denoted by a set of alterations (flats or sharps) at the start of the
+staff.
 
 
 Setting or changing the key signature is done with the @code{\key}
