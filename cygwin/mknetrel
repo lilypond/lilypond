@@ -6,11 +6,11 @@
 # LilyPond development: lilypond-1.7
 # archive=ftp://lilypond.org/pub/LilyPond/v1.7
 
-# Guile specific mknetrel overrides
+# LilyPond mknetrel overrides
 # To use this, do something like:
 cat >/dev/null <<EOC
 
-   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.7/lilypond-1.7.13.tar.gz
+   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.7/lilypond-1.7.29.tar.gz
    rm -rf /home/netrel/src/lilypond-*
    mkdir -p /home/netrel/src && cd /home/netrel/src
    ## TODO: look at pimport
@@ -21,16 +21,14 @@ cat >/dev/null <<EOC
 
 EOC
 
-
-BUILD=1
 # sover=14
 
 patch=$mknetrel_root/patch
 if iscygwin; then
     true
 else    
-    ##uploads=$here/uploads/$base && mkdir -p $uploads
-    uploads=$here/uploads-development/$base && mkdir -p $uploads
+    uploads=$here/uploads/$base && mkdir -p $uploads
+    [ "$ABI" = "1.5" ] && uploads=$here/uploads-development/$base && mkdir -p $uploads
     tarstem=$uploads/$package
 fi
 
@@ -146,6 +144,8 @@ doc_name () {
 lib_split () {
     mkdir -p ./$prefix/bin || exit 1
     mv $inst/$prefix/bin/*.dll ./$prefix/bin
+    mkdir -p ./$prefix/lib || exit 1
+    mv $inst/$prefix/lib/*.la ./$prefix/lib
     mkdir -p ./$prefix/share || exit 1
     mv $inst/$prefix/share/$base ./$prefix/share
     true
@@ -156,7 +156,6 @@ devel_split () {
     mv $inst/$prefix/include ./$prefix/include
     mkdir -p ./$prefix/lib || exit 1
     mv $inst/$prefix/lib/*.a ./$prefix/lib
-    mv $inst/$prefix/lib/*.la ./$prefix/lib
     mkdir -p ./$prefix/share || exit 1
     mv $inst/$prefix/share/aclocal ./$prefix/share
     true
@@ -296,9 +295,8 @@ prebuild () {
     cd $src && ln -s GNUmakefile.in GNUmakefile
 
     cd $build || exit 1
-    # Ugh.  Fixed in 1.6.8CVS and 1.7.13CVS.
-    # PATH=/bin:/usr/bin:$PATH make DO_O_DEP="echo NO DEPS;" conf=for-build all doc html-doc || exit 1
-    PATH=/bin:/usr/bin:$PATH make conf=for-build all doc html-doc || exit 1
+    #PATH=/bin:/usr/bin:$PATH make conf=for-build all doc html-doc || exit 1
+    PATH=/bin:/usr/bin:$PATH make conf=for-build all doc web || exit 1
     for i in $(find . -path "out-for-build/*.1"); do
 	cp -pv $i $(dirname $(dirname $i))/$(basename $i)
     done
@@ -322,7 +320,8 @@ postinstall () {
     cd $build || exit 1
     docdir=$prefix/share/doc/$base-$ver
     
-    make conf=for-build docdir=$inst-doc/$docdir install-html-doc
+    #make conf=for-build docdir=$inst-doc/$docdir install-html-doc
+    make conf=for-build docdir=$inst-doc/$docdir web-install
 
 
     ## copy READMEs etc

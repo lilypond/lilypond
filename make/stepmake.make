@@ -26,12 +26,12 @@ else
 endif
 
 ifdef config
-  configuration=$(config)
+  config_make=$(config)
 else
   ifeq ($(builddir),)
-    configuration=$(depth)/config$(CONFIGSUFFIX).make
+    config_make=$(depth)/config$(CONFIGSUFFIX).make
   else
-    configuration=$(builddir)/config$(CONFIGSUFFIX).make
+    config_make=$(builddir)/config$(CONFIGSUFFIX).make
   endif
 endif
 
@@ -41,7 +41,7 @@ else
   outroot=$(builddir)/$(patsubst $(shell cd $(depth); pwd)%,%,$(pwd))
 endif
 
-include $(configuration)
+include $(config_make)
 
 outdir=$(outroot)/$(outbase)
 

@@ -19,7 +19,7 @@ ifdef conf
   CONFIGSUFFIX=-$(conf)
 endif
 
-# Use same configuration, but different output directory:
+# Use same configurations, but different output directory:
 #
 #     make out=WWW
 #

@@ -23,7 +23,7 @@ IN_FILES := $(wildcard *.in)
 EXTRA_DIST_FILES = $(wildcard *.el) vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES)  emacsclient.patch lexer-gcc-3.0.patch server.el.patch darwin.patch .cvsignore  lexer-gcc-3.1.sh  lilypond.words
 NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
 INSTALLATION_DIR=$(local_lilypond_datadir)
-INSTALLATION_FILES=$(configuration) VERSION
+INSTALLATION_FILES=$(config_make) VERSION
 
 # bootstrap stepmake:
 #
@@ -38,8 +38,7 @@ pfa-fonts:
 	(cd $(builddir)/share/lilypond/fonts && \
 		tar czvf ../../../$(outbase)/type1.tar.gz type1/*.pfa type1/fonts.* type1/lilypond.* )
 
-html-doc: web
-install-html-doc: 
+web-install: 
 	$(INSTALL) -m 755 -d $(local_package_docdir) 
 	tar -C $(local_package_docdir)/ -xzf $(outdir)/web.tar.gz
 

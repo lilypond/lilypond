@@ -144,11 +144,11 @@ check: local-check
 local-check:
 
 # ugh.  ugh ugh ugh
-$(depth)/$(configuration).make: $(depth)/configure
+$(config_make): $(topdir)/configure
 	@echo "************************************************************"
 	@echo "configure changed! You should probably reconfigure manually."
 	@echo "************************************************************"
-	(cd $(depth); ./config.status)
+	(cd $(builddir); ./config.status)
 	touch $@		# do something for multiple simultaneous configs.
 
 
@@ -183,5 +183,6 @@ local-help: www-targets-help
 www-targets-help:
 	@echo -e "\
   web         update website in out-www\n\
+  web-install install website documentation in (docdir=$(local_package_docdir))\n\
   web-clean   clean out-www\n\
 "
