@@ -2165,7 +2165,7 @@ def conv (str):
 }""", str)
 	str = re.sub (r'\\scriptBoth', r"""{
   \\revert TextScript  #'direction
-  \\override Script  #'direction
+  \\revert Script  #'direction
 }""", str)
 	str = re.sub ('soloADue', 'printPartCombineTexts', str)
 	str = re.sub (r'\\applymusic\s*#notes-to-clusters',
