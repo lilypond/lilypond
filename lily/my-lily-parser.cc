@@ -91,10 +91,13 @@ My_lily_parser::pop_spot ()
 Input
 My_lily_parser::here_input () const
 {
-  return  lexer_->here_input ();
+  /*
+    Parsing looks ahead , so we really want the previous location of the
+    lexer, not lexer_->here_input().
+   */
+  return lexer_->last_input_;
 }
 
-// move me?
 #include "paper-def.hh"
 #include "translator-def.hh"
 

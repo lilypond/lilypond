@@ -1,3 +1,17 @@
+2002-10-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/my-lily-lexer.cc (prepare_for_next_token): use previous
+	token for origin information.
+
+	* lily/parser.yy (My_lily_lexer): do identifier location and
+	cloning from lexer.
+
+	* scm/music-functions.scm (make-multi-measure-rest): move mmrest
+	logic out of the parser.
+
+	* Documentation/user/refman.itely (Multi measure rests): add more
+	notes about mm rests.
+
 2002-10-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/regression/bar-scripts.ly: Re-enable.

@@ -3450,7 +3450,8 @@ fermata. This can be corrected by the following property setting
 
 Bar numbers are printed by default at the start of the line.  The
 number itself is a property that can be set by modifying the
-@code{currentBarNumber} property, i.e.
+@code{currentBarNumber} property, although that is usually not
+necessary, i.e.
 @example
   \property Score.currentBarNumber = #217
 @end example
@@ -3575,12 +3576,28 @@ Lily will not expand empty measures, and the appropriate number is added
 automatically.
 
 @lilypond[fragment,verbatim]
- \time 3/4 r2. | R2. | R2.*2
- \property Score.skipBars = ##t R2.*17  R2.*4
+ \time 4/4 r1 | R1 | R1*2
+ \property Score.skipBars = ##t R1*17  R1*4
 @end lilypond
 
-Notice that the @code{R2.} is printed as a whole rest, centered in the
-measure. 
+The @code{1} in @code{R1} is similar to the duration notation used for
+notes. Hence, for time signatures other than 4/4, you must enter other
+durations.  This can be done with augmentation dots, or with
+fractions:
+
+@lilypond[fragment,verbatim]
+ \property Score.skipBars = ##t
+ \time 3/4
+  R2. | R2.*2
+ \time 13/8
+ R1*13/8
+ R1*13/8*12
+@end lilypond
+Notice that a @code{R} spanning a single measure is printed as a whole
+rest centered in the measure, regardless of the time signature.
+
+[ add note about breves.]
+ 
 
 @cindex whole rests for a full measure 
 
@@ -3590,7 +3607,8 @@ The object for this object is @internalsref{MultiMeasureRest}.
 
 Currently, there is no way to automatically condense multiple rests
 into a single multimeasure rest. Multi measure rests do not take part
-in rest collisions.
+in rest collisions. There is no way to put texts centered on
+multi-measure rests.
 
 @cindex condensing rests
 

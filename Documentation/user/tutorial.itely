@@ -284,7 +284,7 @@ File/Print inside ghostview.
 The DVI file (@file{test.dvi}) contains the same sheet music in a
 different format. DVI files are more easily processed by the computer,
 so viewing them usually is quicker.  You can run @code{xdvi test.dvi} or
-@code{kdvi test.dvi} to view the DVI file. In Xdvi, the mouse buttons
+@code{kdvi test.dvi} to view the DVI file. In Xdvi, the mouse burtons
 activate magnifying glasses.  Unfortunately, variable symbols (such as
 beams and slurs) are not displayed in the magnifying glasses.
 

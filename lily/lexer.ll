@@ -29,7 +29,6 @@
 #include <iostream>
 
 #include "parse-scm.hh"
-#include "score.hh"
 #include "lily-guile.hh"
 #include "string.hh"
 #include "string-convert.hh"
@@ -40,11 +39,9 @@
 #include "parser.hh"
 #include "warn.hh"
 #include "main.hh"
-#include "event.hh"
 #include "version.hh"
 #include "lilypond-input-version.hh"
 #include "translator-def.hh"
-#include "music-output-def.hh"
 #include "identifier-smob.hh"
 
 /*
@@ -534,30 +531,8 @@ My_lily_lexer::pop_state ()
 int
 My_lily_lexer::identifier_type(SCM sid)
 {
-	if (gh_string_p (sid)) {
-		yylval.scm = sid; 
-		return STRING_IDENTIFIER;
-	} else if (gh_number_p (sid)) {
-		yylval.scm = sid;
-		return NUMBER_IDENTIFIER;
-	} else if (unsmob_translator_def (sid)) {
-		yylval.scm = sid;
-		return TRANSLATOR_IDENTIFIER;
-	} else if (unsmob_score (sid)) {
-		yylval.scm =sid;
-		return SCORE_IDENTIFIER;
-	} else if (Music * mus =unsmob_music (sid)) {
-		yylval.scm = sid;
-		
-		return dynamic_cast<Event*> (mus) ? EVENT_IDENTIFIER : MUSIC_IDENTIFIER;
-	} else if (unsmob_duration (sid)) {
-		yylval.scm = sid;
-		return DURATION_IDENTIFIER;
-	} else if (unsmob_music_output_def (sid)) {
-		yylval.scm = sid;
-		return MUSIC_OUTPUT_DEF_IDENTIFIER;
-	}
-	return SCM_IDENTIFIER;
+	int k = try_special_identifiers(&yylval.scm , sid);
+	return k >= 0  ? k : SCM_IDENTIFIER;
 }
 
 

@@ -196,7 +196,40 @@ this is not an override
     m
     ))
 
+(define-public (make-event-chord elts)
+  (let*  ((m (make-music-by-name 'EventChord)))
+    (ly-set-mus-property! m 'elements elts)
+    m
+    ))
+
+
+(define-public (make-multi-measure-rest duration location)
+  (let*
+      (
+       (start (make-music-by-name 'MultiMeasureRestEvent))
+       (stop  (make-music-by-name 'MultiMeasureRestEvent))
+       (skip ( make-music-by-name 'SkipEvent))
+       (ch (make-music-by-name 'BarCheck))
+       (ch2  (make-music-by-name 'BarCheck))
+       )
+
+    (ly-set-mus-property! start 'span-direction START)
+    (ly-set-mus-property! stop 'span-direction STOP)    
+    (ly-set-mus-property! skip 'duration duration)
+    (map (lambda (x) (ly-set-mus-property! x 'origin location))
+	 (list start stop skip ch ch2))
+    (make-sequential-music
+     (list
+      ch
+      (make-event-chord (list start))
+      (make-event-chord (list skip))
+      (make-event-chord (list stop))
+      ch2
+      ))
+    ))
+
 (define-public (set-mus-properties! m alist)
+  "Set all of ALIST as properties of M." 
   (if (pair? alist)
       (begin
 	(ly-set-mus-property! m (caar alist) (cdar alist))
@@ -204,7 +237,7 @@ this is not an override
   ))
 
 (define-public (music-separator? m)
-  "Is M a separator."
+  "Is M a separator?"
   (let* ((ts (ly-get-mus-property m 'types )))
     (memq 'separator ts)
   ))
@@ -366,4 +399,5 @@ this is not an override
 
 ; switch-on-debugging
 	))
+
 

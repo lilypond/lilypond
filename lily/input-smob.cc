@@ -47,8 +47,9 @@ LY_DEFINE(ly_input, "ly-input-location?", 1, 0, 0,
 }
 
 LY_DEFINE(ly_input_message,  "ly-input-message", 2, 0, 0, (SCM sip, SCM msg),
-	  "Print @var{msg} as a GNU compliant error message, pointing to the
-location in @var{sip}.")
+	  "Print @var{msg} as a GNU compliant error message, pointing to the\n"
+	  "location in @var{sip}.\n"
+	  )
 {
   Input *ip  = unsmob_input(sip);
   
@@ -70,8 +71,6 @@ start_input_smobs ()
   scm_set_smob_free (input_tag, free_smob);
   scm_set_smob_print (input_tag, print_smob);
   scm_set_smob_equalp (input_tag, 0);
-
-  
 }
 
 SCM
