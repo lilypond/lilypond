@@ -256,31 +256,24 @@
   (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")))
 
 (define-public (convert-to-pdf book name)
-  (display
-   (string-append
-    "Converting to "
-    (regexp-substitute/global #f "\\.ps" name 'pre ".pdf" 'post)
-    "\n"))
-  (system (string-append "ps2pdf -sPAPERSIZE="
-			 (ly:output-def-lookup
-			  (ly:paper-book-book-paper book)
-			  'papersize)
-			 " "
-			 name)))
+  (let*
+      ((defs (ly:paper-book-book-paper book))
+       (size (ly:output-def-lookup book 'papersize)))
 
+    (postscript->pdf (if (string? size) size "a4")
+		     name)))
 
 (define-public (convert-to-png book name)
-  (display
-   (string-append
-    "Converting to "
-    (regexp-substitute/global #f "\\.ps" name 'pre ".png" 'post)
-    "\n"))
-  (system (string-append "ps2pdf -sPAPERSIZE="
-			 (ly:output-def-lookup
-			  (ly:paper-book-book-paper book)
-			  'papersize)
-			 " "
-			 name)))
+  (let*
+      ((defs (ly:paper-book-book-paper book))
+       (resolution (ly:output-def-lookup defs 'pngresolution)))
 
+    (postscript->png (if (number? resolution) resolution 90)
+		     name)))
 
-; %%BoundingBox: 70 597 207 657
+(define-public (convert-to-dvi book name)
+  (ly:warn "Can not generate DVI via the postscript back-end"))
+
+(define-public (convert-to-ps book name)
+  #t)
+

@@ -36,6 +36,8 @@ extern bool verbose_global_b;
 extern bool store_locations_global_b;
 extern bool internal_type_checking_global_b;
 extern bool make_png;
+extern bool make_dvi;
+extern bool make_ps;
 extern bool make_pdf;
 extern bool make_preview;
 

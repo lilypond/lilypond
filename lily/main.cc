@@ -47,7 +47,7 @@ bool no_paper_global_b = false;
 
 /* Selected output format.
    One of tex, ps, scm, as. */
-String output_format_global = "tex";
+String output_format_global = "ps";
 
 /* Current output name. */
 String output_name_global;
@@ -64,6 +64,8 @@ bool verbose_global_b = false;
 String init_scheme_code_string = "(begin #t ";
 
 bool make_pdf = false;
+bool make_dvi = false;
+bool make_ps = true;
 bool make_png = false;
 bool make_preview = false;
 
@@ -124,7 +126,7 @@ static Long_option_init options_static[] =
      _i ("set options, use -e '(ly:option-usage)' for help")},
     /* Bug in option parser: --output=foe is taken as an abbreviation
        for --output-format.  */
-    {_i ("EXT"), "format", 'f', _i ("use output format EXT")},
+    {_i ("EXT"), "format", 'f', _i ("select back-end to use")},
     {0, "help", 'h',  _i ("print this help")},
     {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
     {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
@@ -132,6 +134,10 @@ static Long_option_init options_static[] =
     {0, "no-paper", 'm',  _i ("produce MIDI output only")},
     {_i ("FILE"), "output", 'o',  _i ("write output to FILE")},
     {0, "preview", 'p',  _i ("generate a preview")},
+    {0, "png", 0,  _i ("generate PNG")},
+    {0, "ps", 0,  _i ("generate PostScript")},
+    {0, "dvi", 0,  _i ("generate DVI")},
+    {0, "pdf", 0,  _i ("generate PDF")},
     {0, "safe-mode", 's',  _i ("run in safe mode")},
     {0, "version", 'v',  _i ("print version number")},
     {0, "verbose", 'V', _i ("be verbose")},
@@ -243,6 +249,26 @@ prepend_load_path (String dir)
 }
 
 static void
+determine_output_options ()
+{
+  bool found_tex = false;
+  SCM formats = ly_output_formats ();
+  for (SCM s = formats; ly_c_pair_p (s); s = ly_cdr (s)) 
+    {
+      found_tex = found_tex || (ly_scm2string (ly_car (s)) == "tex");
+    }
+
+  if (make_ps && found_tex)
+    {
+      make_dvi = true;
+    }
+  if (make_pdf || make_png)
+    {
+      make_ps = true;
+    }
+}
+
+static void
 main_with_guile (void *, int, char **)
 {
   /* Engravers use lily.scm contents, need to make Guile find it.
@@ -261,6 +287,7 @@ main_with_guile (void *, int, char **)
   call_constructors ();
   progress_indication ("\n");
 
+  determine_output_options ();  
   all_fonts_global = new All_font_metrics (global_path.to_string ());
 
   init_scheme_code_string += ")";
@@ -324,6 +351,19 @@ parse_argv (int argc, char **argv)
     {
       switch (opt->shortname_char_)
 	{
+	case 0:
+	  if (String (opt->longname_str0_) == "png")
+	    make_png = true;
+	  else if (String (opt->longname_str0_) == "pdf")
+	    make_pdf = true;
+	  else if (String (opt->longname_str0_) == "ps")
+	    make_ps = true;
+	  else if (String (opt->longname_str0_) == "dvi")
+	    make_dvi = true;
+	  else if (String (opt->longname_str0_) == "preview")
+	    make_preview = true;
+	  break;
+	  
 	case 'v':
 	  notice ();
 	  exit (0);
@@ -334,9 +374,6 @@ parse_argv (int argc, char **argv)
 	    File_name file_name (s);
 	    output_name_global = file_name.to_string ();
 	  }
-	  break;
-	case 'p':
-	  make_preview = true;	  
 	  break;
 	case 'e':
 	  init_scheme_code_string += option_parser->optional_argument_str0_;

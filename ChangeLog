@@ -1,5 +1,13 @@
 2004-07-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/lily.scm (postscript->png): new function
+	(postscript->pdf): new function
+
+	* lily/paper-book.cc (post_processing): call
+	convert-to-{dvi,ps,png,pdf}
+
+	* scripts/ps2png.py (option_definitions): new file.
+
 	* lily/paper-book.cc (output): call output-preview-framework
 	(post_processing): new function. Do PDF/PNG conversion.
 

@@ -552,6 +552,26 @@ L1 is copied, L2 not.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
+(define-public (postscript->pdf papersize name)
+  (display
+   (string-append
+    "Converting to "
+    (regexp-substitute/global #f "\\.ps" name 'pre ".pdf" 'post)
+    "\n"))
+  (system (string-append "ps2pdf -sPAPERSIZE=" papersize
+			 " "
+			 name)))
+
+
+(define-public (postscript->png resolution name)
+  (system (string-append
+	   "ps2png --resolution="
+	   (if (number? resolution)
+	       (number->string resolution)
+	       "90")
+	   " "
+	   name)))
+
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
   (let* ((failed '())

@@ -191,7 +191,7 @@ vaticana_brew_join (Grob *me, int delta_pitch,
 }
 
 Stencil
-vaticana_brew_primitive (Grob *me, bool ledger_take_space)
+vaticana_brew_primitive (Grob *me)
 {
   SCM glyph_name_scm = me->get_property ("glyph-name");
   if (glyph_name_scm == SCM_EOL)
@@ -288,7 +288,7 @@ SCM
 Vaticana_ligature::brew_ligature_primitive (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  SCM primitive = vaticana_brew_primitive (me, false).smobbed_copy ();
+  SCM primitive = vaticana_brew_primitive (me).smobbed_copy ();
   return primitive;
 }
 
