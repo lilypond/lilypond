@@ -80,7 +80,7 @@ Paper_score::process ()
 			     system_->spanner_count ()));
 
   
-  progress_indication (_ ("Preprocessing elements...") + " ");
+  progress_indication (_ ("Preprocessing graphical objects...") + " ");
 
   /*
     Be sure to set breakability on first & last column.

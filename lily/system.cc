@@ -388,7 +388,7 @@ System::pre_processing ()
       sc->calculate_dependencies (PRECALCED, PRECALCING, ly_symbol2scm ("before-line-breaking-callback"));
     }
   
-  progress_indication ("\n" + _ ("Calculating column positions...") + " ");
+  progress_indication ("\n" + _ ("Calculating line breaks...") + " ");
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * e = unsmob_grob (ly_car (s));
