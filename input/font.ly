@@ -10,11 +10,13 @@ TestedFeatures	font-en-tja
 	\melodic{ 
 		\octave c';
 		\meter 4/4;
+		% \longa
+		% \breve % \brevis
 		c1 g c' a'
 		c2 g c' a'
 		c4 g c' a'
 		a\ppp a\pp a\p a\mp a\mf a\f a\ff a\fff
-		%a\fp a\sf a\sfz
+		a\fp a\sf a\sfz % a\fz a\rf
 	}
 	\paper{ 
 	    \paper_twenty

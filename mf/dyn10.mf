@@ -112,6 +112,9 @@ flare#:=52/36pt#;    % diameter of bulbs or breadth of terminals
 mode_setup;
 font_setup;
 
+input autometric;
+fet_beginfont("dyn", 10);
+
 num=-1;
 input ital-f;
 
@@ -128,8 +131,8 @@ font_setup;
 input ital-p;
 
 slant:=.28;      % tilt ratio $(\Delta x/\Delta y)$
-stem#:=30/36pt#;    % lowercase stem breadth
-ess#:=28/36pt#;      % breadth in middle of lowercase s
+stem#:=26/36pt#;    % lowercase stem breadth
+ess#:=24/36pt#;      % breadth in middle of lowercase s
 
 crisp#:=13/36pt#;    % diameter of serif corners
 tiny#:=13/36pt#;    % diameter of rounded corners
@@ -145,8 +148,11 @@ flare#:=42/36pt#;    % diameter of bulbs or breadth of terminals
 font_setup;
 
 input ital-m;
+input ital-r;
 input ital-s;
 input ital-z;
 
 font_slant slant; font_x_height x_height#;
-bye.
+
+fet_endfont("dyn");
+end.

@@ -1,9 +1,12 @@
 % bolletjes.mf
 % part of LilyPond's pretty-but-neat music font
 % third try at bolletjes
-% most beautiful bolletjes are not circular, and not even symmetric.
+% most beautiful bolletjes are pronounced, not circular, 
+% and not even symmetric.
 
-interline#:=staffsize#/(stafflines-1)+stafflinethickness#;
+% interline#:=staffsize#/(stafflines-1)+stafflinethickness#;
+% even more pronounced (almost overdone), just like the original
+interline#:=staffsize#/(stafflines-1)+2stafflinethickness#;
 
 def test_grid =
 if test>1:
@@ -31,7 +34,7 @@ def begin_notehead =
 	save b_h,a_w;
 	enddef;
 
-def end_notehead(expr code,interline,name) =
+def end_notehead(expr code,interline,name,id,texstr) =
 	save a,b,h,w,ai,bi;
 	h#=interline;
 	2b#=h#*b_h;
@@ -42,7 +45,7 @@ def end_notehead(expr code,interline,name) =
 	define_pixels(a,b);
 	define_pixels(w,h);
 	define_pixels(ai,bi);
- 	fet_beginchar(code,w#,h#,0,name);
+ 	fet_beginchar(code,w#,h#,0,name,id,texstr);
 		path black,white;
 		black=distorted_ellipse(a,b,a*err_y_a,0,super);
 		white=distorted_ellipse(ai,bi,ai*err_y_ai,bi*err_x_bi,superi);
@@ -65,6 +68,8 @@ fi
 		endgroup;
 	enddef;
 		
+% fet_begingroup("noteheads");
+fet_begingroup("balls");
 % whole note
 % Wanske, p.38
 % begin_notehead(incr code,interline#,"Whole notehead");
@@ -83,13 +88,13 @@ begin_notehead;
 	superi:=0.69;
 	b_h:=1; %no rotate-> no height correction
 	a_w:=1; % no rotate-> no width correction
-	end_notehead(incr code,interline#,"Whole notehead");
+	end_notehead(incr code,interline#,"Whole notehead","0","wholeball");
 
 % half note
 % Wanske, p.39
 begin_notehead;
-	a_b:=1.49; % after text
-	% a_b:=1.50; % after drawing
+	% a_b:=1.49; % after text
+	a_b:=1.50; % after drawing
 	err_y_a:=0.157;
 	alpha:=34;
 	super:=0.66;
@@ -101,13 +106,13 @@ begin_notehead;
 	superi:=0.80;
 	b_h:=0.935;
 	a_w:=1.12;
-	end_notehead(incr code,interline#,"Half notehead");
+	end_notehead(incr code,interline#,"Half notehead","1","halfball");
 
 % quarter note
 % Wanske p.38
 begin_notehead;
-	a_b:=1.57; % after text
-	% a_b:=1.54; % after drawing
+	% a_b:=1.57; % after text
+	a_b:=1.54; % after drawing
 	err_y_a:=0.044;
 	alpha:=32;
 	super:=0.707;
@@ -119,7 +124,46 @@ begin_notehead;
 	superi:=0.707;
 	b_h:=0.85;
 	a_w:=1.09;
-	end_notehead(incr code,interline#,"Quarter notehead");
+	end_notehead(incr code,interline#,"Quarter notehead","2","quartball");
 
-end.
+% from MO*gen.mf
+lthick:=.4pt;
+pen line_pen;
+line_pen:= pencircle scaled lthick;
+
+picture save_pic;
+def callpic = currentpicture:= save_pic enddef;
+def savepic = save_pic:= currentpicture enddef;
+
+def add_mirror (expr pone, ptwo) =
+  addto currentpicture also currentpicture
+        reflectedabout (round(pone), round(ptwo))
+enddef;
+
+def fill_square (expr xwidth, ywidth, zshift) =
+  fill unitsquare xscaled xwidth yscaled ywidth shifted zshift
+enddef;
+
+% ugh
+nhh#:=interline#;
+nhw#:=6/5interline#;
+define_pixels(nhh,nhw);
+
+fet_beginchar(incr code,2interline#,interline#,0,"Brevis notehead","-1","breveball");
+	fill_square (5/4nhw, .25nhh, (0,.25nhh));
+	add_mirror (origin, right);
+	x1=x2=0; x3=x4=5/4nhw; y1=-y2=y3=-y4=.7nhh;
+	pickup line_pen;
+	draw z1--z2; draw z3--z4;
+	savepic;
+	endchar;
+
+fet_beginchar(incr code,2interline#,interline#,0,"Longa notehead","-2","longaball");
+	callpic;
+	pickup line_pen;
+	draw (5/4nhw,-.7nhh)--(5/4nhw,-1.7nhh);
+	endchar;
+
+% fet_endgroup("noteheads");
+fet_endgroup("balls");
 
