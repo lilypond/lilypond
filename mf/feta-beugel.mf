@@ -47,8 +47,7 @@ def draw_brace (expr height_sharp, width_sharp, slt_sharp) =
 
 %% +1  is needed because fet_beginchar increments after dumping the strings.
 fet_beginchar ("brace number " & (decimal (code + 1)),
-  "brace" & abc_encode_int (code - 64),
-  "brace" & abc_encode_int (code - 64))
+		"brace" & decimal code)
 
 	set_char_box (0, width#, height#/2, height#/2);
 	  

@@ -919,8 +919,7 @@ fet_beginchar("Hufnagel do/fa clef", "hufnagel-do-fa")
 	fi;
 	draw_hufnagel_do_fa_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("Hufnagel do/fa clef", "hufnagel-do-fa_change",
-	      "chufnageldofaclef")
+fet_beginchar("Hufnagel do/fa clef", "hufnagel-do-fa_change")
 	draw_hufnagel_do_fa_clef((0,0), .8);
 fet_endchar;
 

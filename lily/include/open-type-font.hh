@@ -10,8 +10,11 @@
 #ifndef OPEN_TYPE_FONT_HH
 #define OPEN_TYPE_FONT_HH
 
+#include <map>
 #include "freetype.hh"
 #include "font-metric.hh"
+
+typedef std::map<FT_UInt, FT_ULong> Index_to_charcode_map;
 
 class Open_type_font : public Font_metric
 {
@@ -19,8 +22,8 @@ class Open_type_font : public Font_metric
 
   SCM lily_character_table_; 
   SCM lily_global_table_;
-  
-  Open_type_font();
+  Index_to_charcode_map index_to_charcode_map_;
+  Open_type_font (FT_Face);
 public:
   static SCM make_otf (String);
   virtual ~Open_type_font();

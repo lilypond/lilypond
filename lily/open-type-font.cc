@@ -7,6 +7,7 @@
 
 */
 
+#include <map>
 #include <stdio.h>
 
 #include <freetype/tttables.h>
@@ -58,12 +59,28 @@ load_scheme_table (char const *tag_str, FT_Face face)
   return tab;
 }
 	    
+Index_to_charcode_map
+make_index_to_charcode_map (FT_Face face)
+{
+  Index_to_charcode_map m;
+  FT_ULong  charcode;                                              
+  FT_UInt   gindex;                                                
+                                                                      
+  charcode = FT_Get_First_Char( face, &gindex );                   
+  while ( gindex != 0 )                                            
+    {
+      m[gindex] = charcode;
+      charcode = FT_Get_Next_Char( face, charcode, &gindex );        
+    }
+  return m;
+}                                                                  
+
 SCM
 Open_type_font::make_otf (String str)
 {
-  Open_type_font * otf = new Open_type_font;
+  FT_Face face;
   int error_code = FT_New_Face(freetype2_library, str.to_str0(),
-			       0, &(otf->face_));
+			       0, &face);
   
   if (error_code == FT_Err_Unknown_File_Format)
     {
@@ -75,17 +92,20 @@ Open_type_font::make_otf (String str)
     }
 
 
+  Open_type_font * otf = new Open_type_font (face);
 
-  otf->lily_character_table_ =  load_scheme_table ("LILC", otf->face_);
-  otf->lily_global_table_ =  load_scheme_table ("LILY", otf->face_);
-  
+    
   return otf->self_scm ();
 }
 
-Open_type_font::Open_type_font()
+Open_type_font::Open_type_font(FT_Face)
 {
   lily_character_table_ = SCM_EOL;
   lily_global_table_ = SCM_EOL;
+  
+  lily_character_table_ =  load_scheme_table ("LILC", face_);
+  lily_global_table_ =  load_scheme_table ("LILY", face_);
+  index_to_charcode_map_ = make_index_to_charcode_map (face_);  
 }
 
 void
