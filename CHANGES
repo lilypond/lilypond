@@ -1,3 +1,38 @@
+1.3.58.hwn1
+===========
+
+* Rewrote key sig support.  Now key signature can also be controlled
+by setting keySignature and localKeySignature properties, eg.
+
+	\property keySignature = #'((2 . -1) ( 4 . -1) (6 . -1))
+
+sets a key signature of `es ges bes' (an unusual key signature).
+
+Keys are internally represented as transpositions of the c-major
+scale. Printing the key signature for a scale is done by filtering out
+all non-natural accidentals.
+
+* Removed support for \keysignature, and \key something \minor; Newkey
+is now obsolete.
+
+1.3.58.jcn3
+===========
+
+* Fixed pedal items (hw)
+
+* Changed configure option tex-tmfdir to tmf-path now accepting multiple
+  tfm directories.  Automated links to cmr and amstex tfm font directories.
+
+* Replaced one scm_assoc () u-turn slipped through jcn1
+
+* various GUILE 1.3.5 compile fixes
+
+* Added `Ped' as a compound symbol font and removed silly scheme kerning.
+
+* Replaced some scheme assoc u-turns with scm_assoc ()
+
+* Ran po-update (mostly because of new ja contribution).
+
 1.3.57.jcn2
 ===========
 
