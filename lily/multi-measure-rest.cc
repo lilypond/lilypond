@@ -294,7 +294,6 @@ Multi_measure_rest::add_column (Grob*me,Item* c)
 
 
 MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods,1);
-
 SCM
 Multi_measure_rest::set_spacing_rods (SCM smob)
 {
@@ -332,8 +331,11 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
       rod.distance_ = l->extent (l, X_AXIS)[BIGGER] - r->extent (r, X_AXIS)[SMALLER]
 	+ sym_width  + 2.0;			// 2.0 = magic!
   
+      Real minlen  =0.0;
+      SCM ml  =me->get_grob_property ("minimum-length");
+      if (gh_number_p (ml)) minlen = gh_scm2double (ml);
       rod.distance_ = max(rod.distance_,
-			  gh_scm2double (me->get_grob_property ("minimum-length")));
+			  minlen);
       rod.add_to_cols ();
     }
   return SCM_UNSPECIFIED;

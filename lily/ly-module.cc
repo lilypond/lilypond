@@ -39,14 +39,29 @@ ly_clear_anonymous_modules ()
 {
   SCM s = anon_modules;
   anon_modules = SCM_EOL;
-
+  
   for (; gh_pair_p (s) ; s = gh_cdr (s))
     {
-      scm_vector_fill_x (SCM_MODULE_OBARRAY(gh_car(s)), SCM_EOL);
+      SCM tab= scm_c_make_hash_table (2);
+      /*
+	UGH.
+      */
+      
+      SCM_STRUCT_DATA(gh_car(s))[scm_module_index_obarray] = (long unsigned int) tab;
     }
 }
 
 #define FUNC_NAME __FUNCTION__
+
+SCM
+define_one_var (void * closure, SCM key, SCM val, SCM result)
+{
+  SCM dest =  (SCM) closure;
+  scm_module_define (dest, key, scm_variable_ref (val));
+  return SCM_EOL;
+}
+
+typedef SCM (*Hash_cl_func)();
 
 void
 ly_copy_module_variables (SCM dest, SCM src)
@@ -54,16 +69,13 @@ ly_copy_module_variables (SCM dest, SCM src)
   SCM_VALIDATE_MODULE (1, src);
 
   SCM obarr= SCM_MODULE_OBARRAY(src);
-  SCM syms = SCM_EOL;
+  scm_internal_hash_fold ((Hash_cl_func) &define_one_var, (void*) dest, SCM_EOL, obarr);
+}
 
-  for (int i = 0;  i < SCM_VECTOR_LENGTH (obarr); i++)
-    {
-      for( SCM s = scm_vector_ref(obarr, SCM_MAKINUM (i));
-	   gh_pair_p (s); s = gh_cdr (s))
-	{
-	  scm_module_define (dest, gh_caar (s), scm_variable_ref (gh_cdar(s)));
-	}
-    }
+SCM
+accumulate_symbol (void * closure, SCM key, SCM val, SCM result)
+{
+  return scm_cons (key, result);
 }
 
 SCM
@@ -72,20 +84,14 @@ ly_module_symbols (SCM mod)
   SCM_VALIDATE_MODULE (1, mod);
   
   SCM obarr= SCM_MODULE_OBARRAY(mod);
-  SCM syms = SCM_EOL;
-
-  for (int i = 0;  i < SCM_VECTOR_LENGTH (obarr); i++)
-    {
-      for( SCM s = scm_vector_ref(obarr, SCM_MAKINUM (i));
-	   gh_pair_p (s); s = gh_cdr (s))
-	{
-	  syms = scm_cons (gh_caar (s), syms);
-	}
-    }
-  return syms;
+  return scm_internal_hash_fold ((Hash_cl_func) &accumulate_symbol, NULL, SCM_EOL, obarr); 
 }
 
-
+SCM
+entry_to_alist (void * closure, SCM key, SCM val, SCM result)
+{
+  return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
+}
 
 SCM
 ly_module_to_alist (SCM mod)
@@ -94,18 +100,8 @@ ly_module_to_alist (SCM mod)
   
   
   SCM obarr= SCM_MODULE_OBARRAY(mod);
-  SCM alist = SCM_EOL;
 
-  for (int i = 0;  i < SCM_VECTOR_LENGTH (obarr); i++)
-    {
-      for( SCM s = scm_vector_ref(obarr, SCM_MAKINUM (i));
-	   gh_pair_p (s); s = gh_cdr (s))
-	{
-	  alist = scm_acons (gh_caar (s), scm_variable_ref (gh_cdar (s)),
-							    alist);
-	}
-    }
-  return alist;
+  return scm_internal_hash_fold ((Hash_cl_func) &entry_to_alist, NULL, SCM_EOL, obarr); 
 }
 
 /*
