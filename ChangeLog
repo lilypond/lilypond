@@ -1,5 +1,8 @@
 2002-04-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/system-start-delimiter-engraver.cc (acknowledge_grob):
+	compare #'glyph as strings. 
+
 	* scripts/lilypond-book.py: fix by Mats. Try to import pre if available.
 
 	* scripts/ly2dvi.py (setup_environment): fix by Mats.
@@ -36,7 +39,7 @@
 
 2002-04-22  Han-Wen  <hanwen@cs.uu.nl>
 
-	* mf/feta-nummer-code.mf (code): three fixes.
+	* mf/feta-nummer-code.mf (code): fixes for 3 glyph.
 
 2002-04-21  Han-Wen  <hanwen@cs.uu.nl>
 
