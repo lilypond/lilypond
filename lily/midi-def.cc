@@ -16,6 +16,11 @@
 //     destructor
 //     routines, alphasorted
 
+// statics Midi_def
+// ugh
+int Midi_def::den_i_s = 4;
+int Midi_def::num_i_s = 4;
+
 Midi_def::Midi_def()
 {
     set_tempo( Moment( 1, 4 ), 60 );
