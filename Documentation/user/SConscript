@@ -59,12 +59,12 @@ srcdir = env['srcdir']
 ##MAKEINFO = env['MAKEINFO']
 # TODO: purl (ugh?), symlinks
 verbose = verbose_opt (env, ' --verbose')
-a = ('makeinfo -I%(srcdir)s/%(reldir)s -I$$(dirname $SOURCE)'\
+a = ('makeinfo -I%(reldir)s -I$$(dirname $SOURCE)'\
      + ' --output=%(out)s/lilypond'\
      + ' --css-include=%(docdir)s/texinfo.css'\
      + ' --html%(verbose)s'\
      + ' $SOURCE &&' \
-     + ' makeinfo -I%(srcdir)s/%(reldir)s -I$$(dirname $SOURCE)' \
+     + ' makeinfo -I%(reldir)s -I$$(dirname $SOURCE)' \
      + ' --output=$TARGET' \
      + ' --css-include=%(docdir)s/texinfo.css' \
      + ' --html --no-split --no-headers %(verbose)s' \
@@ -72,12 +72,12 @@ a = ('makeinfo -I%(srcdir)s/%(reldir)s -I$$(dirname $SOURCE)'\
 e.Command ('lilypond/lilypond.html', 'lilypond.texi', a)
 
 # TODO: purl (ugh?), symlinks
-a = ('makeinfo -I%(srcdir)s/%(reldir)s -I$$(dirname $SOURCE)'\
+a = ('makeinfo -I%(reldir)s -I$$(dirname $SOURCE)'\
      + ' --output=%(out)s/lilypond-internals' \
      + ' --css-include=%(docdir)s/texinfo.css' \
      + ' --html%(verbose)s'\
      + ' $SOURCE &&' \
-     + ' makeinfo -I%(srcdir)s/%(reldir)s -I$$(dirname $SOURCE)' \
+     + ' makeinfo -I%(reldir)s -I$$(dirname $SOURCE)' \
      + ' --output=$TARGET' \
      + ' --css-include=%(docdir)s/texinfo.css' \
      + ' --html --no-split --no-headers %(verbose)s' \
