@@ -100,8 +100,9 @@ which looks like @file{/usr/}
  
 @end example 
 
-@file{~/usr/src/bin/} is in the variable PATH, and contains symbolic
-links to the compiled executables.
+@file{~/usr/bin/} is in the variable PATH, and contains symbolic links
+to the compiled executables. Unpacked sources, releases and patches are
+in subdirectories under @file{~/usr/src/}.
 
 @subsubsection Is there an emacs mode?
 
@@ -225,7 +226,7 @@ staves (lyric and melodic), otherwise they will end up in the same
 staff/lyricline
 @example 
 	
-	\score @{
+4	\score @{
 		< \melodic \type Staff = "treble" \trebleMelody
 		  \lyric \type Lyrics = "tlyrics" \trebtext
 		  \type Staff = "bass" \melodic \bassMelody	   

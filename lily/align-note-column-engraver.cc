@@ -53,7 +53,7 @@ Align_note_column_engraver::do_removal_processing ()
   SCM al = get_property ("graceAlignPosition", 0);
   if (isdir_b (al))
     {
-      align_item_p_->notehead_align_dir_ = to_dir (al);
+      align_item_p_->set_direction (to_dir (al));
     }
   
   typeset_element (align_item_p_);

@@ -51,7 +51,7 @@ Dot_column::do_pre_processing ()
 
 Dot_column::Dot_column ()
 {
-  notehead_align_dir_ = RIGHT;
+  set_direction (RIGHT);
   set_axes(X_AXIS,X_AXIS);
 }
 

@@ -60,9 +60,9 @@ Script_column_engraver::acknowledge_element( Score_element_info inf)
   if (!thing)
     return;
   
-  if (Staff_sidify (thing).is_staff_side_b ())
+  if (Side_position_interface (thing).is_staff_side_b ())
     {
-      if (!thing->breakable_b () && Staff_sidify (thing).get_axis () == Y_AXIS)
+      if (!thing->breakable_b () && Side_position_interface (thing).get_axis () == Y_AXIS)
 	{
 	  script_l_arr_.push (thing);
 	}
