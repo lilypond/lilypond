@@ -10,10 +10,10 @@
 	moved convert-ly info to invoking.itely.
 
 	* Documentation/user/global.itely, changing-defaults.itely,
-	sound.itely: moved global settings, file layout, and sound
-	into global.itely.
+	sound-output.itexi: moved global settings, file layout, and
+	sound into global.itely.
 
-	* Documentation/user/sound.itely: file removed.
+	* Documentation/user/sound-output.itexi: file removed.
 
 	* Documentation/user/lilypond.tely: removed links to
 	notation.itely and sound.itely.
