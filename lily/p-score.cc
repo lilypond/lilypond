@@ -25,6 +25,7 @@
 
 Paper_score::Paper_score ()
 {
+  paper_l_ =0;
   outputter_l_ =0;
   Line_of_score * line_p = new Line_of_score;
   typeset_unbroken_spanner (line_p);
@@ -52,6 +53,10 @@ Paper_score::typeset_element (Score_element * elem_p)
   elem_p_arr_.push (elem_p);
   elem_p->pscore_l_ = this;
   elem_p->add_processing ();
+
+  SCM p =  elem_p->remove_elt_property (break_helper_only_scm_sym);
+  if (p != SCM_BOOL_F)
+    break_helpers_arr_.push (elem_p);
 }
 
 
@@ -61,6 +66,10 @@ Paper_score::typeset_unbroken_spanner (Spanner*span_p)
   span_p_arr_.push (span_p);
   span_p->pscore_l_=this;
   span_p->add_processing ();
+
+  SCM p =  span_p->remove_elt_property (break_helper_only_scm_sym);
+  if (p != SCM_BOOL_F)
+    break_helpers_arr_.push (span_p);
 }
 
 void
@@ -129,7 +138,13 @@ Paper_score::calc_breaking ()
 
 
 
-void delete_array_contents (Link_array<Score_element> const&to_remove, Dictionary<int> &type_stats)
+/*
+  not clean.  Should update elem_p_arr_ and span_p_arr_.  That would
+  also repair the stats.
+
+  This may be done efficiently by first sorting the arrays.  */
+void
+delete_array_contents (Link_array<Score_element> &to_remove, Dictionary<int> &type_stats)
 {
   for (int i=0; i < to_remove.size (); i++)
     {
@@ -147,40 +162,14 @@ void delete_array_contents (Link_array<Score_element> const&to_remove, Dictionar
 	 type_stats["Total"] ++;
        }
 
+  to_remove.clear ();
+  to_remove.tighten_maxsize ();
 }
-Link_array<Score_element>
-Paper_score::remove_break_helpers ()
+
+void
+Paper_score::schedule_for_delete (Score_element*e)
 {
-  Link_array<Score_element> to_remove;
-  Link_array<Score_element> keep;
-  SCM help_sym = break_helper_only_scm_sym;
-  for (int i=0; i < elem_p_arr_.size (); i++)
-    {
-      Score_element*e = elem_p_arr_[i];
-      SCM p =  e->get_elt_property (help_sym);
-      if (p != SCM_BOOL_F)
-	to_remove.push (e);
-      else
-	keep.push (e);
-    }
-
-  elem_p_arr_ = keep;
-  Link_array<Spanner> keeps;
-  for (int i=0; i<span_p_arr_.size  ();i++)
-    {
-      Spanner *s = span_p_arr_[i];
-      Score_element *e = s;
-      SCM p =  e->get_elt_property (break_helper_only_scm_sym);
-      if (p != SCM_BOOL_F)
-	to_remove.push (e);
-      else
-	keeps.push (s);
-    }
-
-
-  span_p_arr_ =keeps;
-
-  return to_remove;
+  to_delete_arr_.push (e);
 }
 
 void
@@ -190,18 +179,19 @@ Paper_score::process ()
   type_stats["Item"] =0;
   type_stats["Spanner"] =0;
   type_stats["Total"]=0;
-    
+
   print ();
   *mlog << _ ("Preprocessing elements...") << " " << flush;
   line_l_->breakable_col_processing ();
-      line_l_->pre_processing ();
+  line_l_->pre_processing ();
   
-      *mlog << '\n' << _ ("Calculating column positions...") << " " << flush;
-      line_l_->space_processing ();
+  *mlog << '\n' << _ ("Calculating column positions...") << " " << flush;
+  line_l_->space_processing ();
 
   Array<Column_x_positions> breaking = calc_breaking ();
 
-  delete_array_contents (remove_break_helpers(), type_stats);
+
+  delete_array_contents (break_helpers_arr_, type_stats);
   
   Paper_stream* paper_stream_p = paper_l_->paper_stream_p ();
   outputter_l_ = paper_l_->paper_outputter_p (paper_stream_p, header_l_, origin_str_);
@@ -217,6 +207,7 @@ Paper_score::process ()
 
   if (experimental_features_global_b)
     *mlog << elem_p_arr_.size ()  + span_p_arr_.size () << " elements. ";
+
   *mlog << "\nLine ... ";
   for (int i=0; i < lines.size (); i++)
     {
@@ -232,10 +223,9 @@ Paper_score::process ()
 	*mlog << '(' << elem_p_arr_.size () + span_p_arr_.size () << ')';
       
       *mlog << ']' << flush;
-      Link_array<Score_element> to_remove (remove_line (line_l));
- 
-      delete_array_contents (to_remove,  type_stats);
-    }
+      
+      delete_array_contents (to_delete_arr_, type_stats);
+     }
   
   // huh?
   delete outputter_l_;
@@ -255,38 +245,6 @@ Paper_score::process ()
     }
   *mlog << '\n' << flush;
       
-}
-
-
-Link_array<Score_element>
-Paper_score::remove_line (Line_of_score *l)
-{
-  Link_array<Score_element> to_remove;
-  Link_array<Score_element> keep;
-  for (int i=0; i < elem_p_arr_.size (); i++)
-    {
-      Score_element*e = elem_p_arr_[i];
-      if (e->line_l () == l)
-	to_remove.push (e);
-      else
-	keep.push (e);
-    }
-
-  elem_p_arr_ = keep;
-  Link_array<Spanner> keeps;
-  for (int i=0; i<span_p_arr_.size  ();i++)
-    {
-      Spanner *s = span_p_arr_[i];
-      Score_element *e = s;
-      if (e->line_l () == l)
-	to_remove.push (e);
-      else
-	keeps.push (s);
-    }
-
-
-  span_p_arr_ =keeps;
-  return to_remove;
 }
 
 Link_array<Item>

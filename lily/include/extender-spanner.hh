@@ -30,25 +30,18 @@
 class Extender_spanner : public Directional_spanner
 {
 public:
-  Extender_spanner ();
-  virtual ~Extender_spanner ();
-
+Extender_spanner ();
   Offset center () const;  
   void set_textitem (Direction, Item*);
 
-  Drul_array<Item *> item_l_drul_;	// should use teh spanpoints field of item.
 protected:
   virtual Molecule* do_brew_molecule_p () const;
-  void do_add_processing ();
   Interval do_height () const;
-  void do_substitute_element_pointer (Score_element* o, Score_element* n);
+
   void do_post_processing ();
  
   VIRTUAL_COPY_CONS (Score_element);
 
-  Extender_spanner (Extender_spanner const&);
-
-  Drul_array<Real> dy_f_drul_;
   Drul_array<Real> dx_f_drul_;
 };
 

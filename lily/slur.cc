@@ -312,7 +312,6 @@ Slur::get_encompass_offset_arr () const
       notes.push (info.o_ - left);
     }
   Encompass_info info (encompass_arr_.top (), dir_, this);
-  // [encompass_arr_.size () - 1]
   
   // urg:
   Slur* urg = (Slur*)this;

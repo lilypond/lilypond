@@ -92,7 +92,7 @@ Stem_engraver::do_pre_move_processing()
       if (dir)
 	{
 	  stem_p_->dir_ = dir;
-	  stem_p_->dir_forced_b_ = true;
+	  stem_p_->set_elt_property (dir_forced_scm_sym, SCM_BOOL_T);
 	}
 
       Translator_group const *which;

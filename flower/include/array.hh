@@ -123,7 +123,7 @@ public:
     }
 
   /// tighten array size_.
-  void precompute()     {
+  void tighten_maxsize()     {
     remax (size_);
   }
     

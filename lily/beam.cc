@@ -26,7 +26,6 @@
 #include "abbreviation-beam.hh"
 #include "misc.hh"
 #include "debug.hh"
-
 #include "molecule.hh"
 #include "leastsquares.hh"
 #include "stem.hh"
@@ -38,7 +37,6 @@ Beam::Beam ()
 {
   slope_f_ = 0;
   left_y_ = 0;
-  damping_i_ = 1;
   quantisation_ = NORMAL;
   multiple_i_ = 0;
   vertical_align_drul_[MIN] = 0;
@@ -62,6 +60,9 @@ Molecule*
 Beam::do_brew_molecule_p () const
 {
   Molecule *mol_p = new Molecule;
+  if (!sinfo_.size ())
+    return mol_p;
+  
   Real x0 = stems_[0]->hpos_f ();
   for (int j=0; j <stems_.size (); j++)
     {
@@ -200,8 +201,10 @@ Beam::set_default_dir ()
   for (int i=0; i <stems_.size (); i++)
     {
       Stem *s = stems_[i];
-      s->beam_dir_ = dir_;
-      if (!s->dir_forced_b_)
+      s->set_elt_property (beam_dir_scm_sym, gh_int2scm (dir_));
+
+      SCM force = s->remove_elt_property (dir_forced_scm_sym);
+      if (force == SCM_BOOL_F)
 	s->dir_ = dir_;
     }
 }
@@ -358,8 +361,13 @@ Beam::calculate_slope ()
 	damped = tanh (slope_f_)
 	corresponds with some tables in [Wanske]
       */
-      if (damping_i_)
-	slope_f_ = 0.6 * tanh (slope_f_) / damping_i_;
+      SCM damp = remove_elt_property (damping_scm_sym);
+      int damping = 1;		// ugh.
+      if (damp!= SCM_BOOL_F)
+	damping = gh_int2scm (SCM_CDR(damp));
+
+      if (damping)
+	slope_f_ = 0.6 * tanh (slope_f_) / damping;
       
       quantise_dy ();
 

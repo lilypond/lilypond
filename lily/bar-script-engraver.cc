@@ -58,7 +58,10 @@ Bar_script_engraver::cast_to_interesting_item (Score_element *e)
   if (hang_on_clef_b_)
     {
       Clef_item * c = dynamic_cast<Clef_item*> (e);
-      if (c && c->default_b_)
+
+
+      // urg.
+      if (c) //  && c->default_b_)
 	{
 	  i = c;
 	}

@@ -15,7 +15,16 @@
 /** a beam connects multiple stems.
 
   Beam adjusts the stems its owns to make sure that they reach the
-  beam and that point in the correct direction */
+  beam and that point in the correct direction
+
+elt property:
+
+damping: amount of beam slope damping. (int)
+
+should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams 
+
+
+*/
 class Beam : public Directional_spanner  {
 public:
   /** 
@@ -33,10 +42,12 @@ public:
 
   /// position of leftmost end of beam  
   Real left_y_;
-  /// should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams
-  int damping_i_;
-  /// should beam pos / slope be quantised? 0: no, 1: yes, 2: traditional
+
+  /** should beam pos / slope be quantised? 0: no, 1: yes, 2: traditional
+      JUNKME.
+   */
   Quantisation quantisation_;
+  
   /// maximum number of beams (for opening-up of beam-spacing)
   int multiple_i_;
 

@@ -26,7 +26,7 @@ Local_key_engraver::Local_key_engraver()
 void
 Local_key_engraver::do_creation_processing ()
 {
-  /*
+/*
     UGHGUHGUH.
 
     Breaks if Key_engraver is removed from under us.

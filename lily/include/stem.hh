@@ -26,14 +26,22 @@
   TODO.
   
   Stem size depends on flag.
+
+  elt properties:
+
+  beam_dir: direction of the beam (int)
+
+  dir_force: is direction explicitely specified? (bool)
+
   */
+// todo: remove baseclass Staff_symbol_referencer, since stem
+// can be across a staff.
 class Stem : public Item, public Staff_symbol_referencer {
-  Drul_array<Real> yextent_drul_;
 
   /**extent of the stem (positions).
     fractional, since Beam has to adapt them.
     */
-
+  Drul_array<Real> yextent_drul_;
 
   /**
     geen gedonder, jij gaat onder.
@@ -65,11 +73,7 @@ public:
   /// direction stem (that's me)
   Direction dir_;
 
-  /// is direction explicitely specified?
-  bool dir_forced_b_;
 
-  /// direction of the beam
-  Direction beam_dir_;
   Stem ();
     
   /// ensure that this Stem also encompasses the Notehead #n#

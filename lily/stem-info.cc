@@ -27,7 +27,9 @@ Stem_info::Stem_info (Stem*s)
   stem_l_ = s;
   x_ = stem_l_->hpos_f ();
   dir_ = stem_l_->dir_;
-  beam_dir_ = stem_l_->beam_dir_;
+  SCM bd = stem_l_->remove_elt_property (beam_dir_scm_sym);
+  beam_dir_ = gh_scm2int (SCM_CDR(bd));
+  
   mult_i_ = stem_l_->mult_i_;
   interstaff_f_ = 0;
 

@@ -73,8 +73,8 @@ Beam_engraver::do_process_requests ()
 
       Scalar prop = get_property ("beamslopedamping", 0);
       if (prop.isnum_b ()) 
-	beam_p_->damping_i_ = prop;
-
+	beam_p_->set_elt_property (damping_scm_sym, gh_int2scm( prop));
+      
       prop = get_property ("beamquantisation", 0);
       if (prop.isnum_b ()) 
 	beam_p_->quantisation_ = (Beam::Quantisation)(int)prop;

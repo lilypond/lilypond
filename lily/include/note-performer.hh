@@ -9,6 +9,7 @@
 #define NOTE_PERFORMER_HH
 
 #include "performer.hh"
+#include "list.hh"
 
 /**
 */
@@ -27,7 +28,7 @@ protected:
   virtual void do_print() const;
 
 private:
-  Melodic_req * note_req_l_;
+  Array<Melodic_req *> note_req_l_;
 };
 
 #endif // NOTE_PERFORMER_HH
