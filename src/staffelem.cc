@@ -3,6 +3,7 @@
 #include "pstaff.hh"
 #include "molecule.hh"
 #include "staffelem.hh"
+#include "debug.hh"
 
 String
 Staff_elem::TeXstring() const
@@ -73,10 +74,16 @@ void
 Staff_elem::print()const
 {
 #ifndef NPRINT
+    mtor << name() << "{\n";
+    do_print();
     if (output)
 	output->print();
+    
+    mtor <<  "}\n";
 #endif
 }
+
+NAME_METHOD(Staff_elem);
 
 Staff_elem::Staff_elem()
 {

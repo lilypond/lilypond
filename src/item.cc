@@ -1,18 +1,18 @@
 #include "debug.hh"
 #include "item.hh"
 
+NAME_METHOD(Item);
+
 Item::Item()
 {
     pcol_l_ = 0;
 }
 
 void
-Item::print() const
+Item::do_print() const
 {
 #ifndef NPRINT
-    mtor << "item " ;
-    Staff_elem::print();
+    mtor << "(unknown)";
 #endif
-
 }
 
