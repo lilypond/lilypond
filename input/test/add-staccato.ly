@@ -35,6 +35,7 @@ one would not use scm constructs.  See separate-staccato.ly first.
     a b \apply #add-staccato { c c } 
     a b \apply #add-staccato { c c } 
   }
+	\paper{ raggedright = ##t }
 }
 
 %% new-chords-done %%

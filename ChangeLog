@@ -2,6 +2,9 @@
 
 	* input/test/g*: added texidoc index.
 
+	* input/test/[a-g]*: added raggedright==#t when it
+	 seemed appropiate.
+
 2003-06-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/test/spanner-after-break-tweak.ly (texidoc): new file.

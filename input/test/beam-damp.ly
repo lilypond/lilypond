@@ -2,9 +2,9 @@
 % this example doesn't look very useful.  Perhaps remove it in
 % the future, although it _does_ demonstrate a neat feature of
 % lilypond.  Maybe regression?  Or a "neat features" page
-% (one of the intro pages, maybe?)
+% (one of the intro pages, maybe?)    -gp
 % OTOH, this is probably a basic lesson for engraving music,
-% so it might not be worth advertising it.  :)
+% so it might not be worth advertising it.  :)  -gp
 texidoc = "@cindex Beam Damp
 Beams are less steep than the notes they encompass.
 " }

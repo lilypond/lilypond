@@ -52,5 +52,6 @@ bug.  "
 	  a b8 c16 d a2 r
       }
   >
+\paper{raggedright = ##t}
 }
 %% new-chords-done %%

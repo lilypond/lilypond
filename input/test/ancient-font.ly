@@ -220,8 +220,10 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 	\lowerStaff
     >
     \paper {
+% do we want to keep these settings? -gp
 	linewidth = 17.25\cm
 	textheight = 26.0\cm
+
 	stafflinethickness = \staffspace / 5.0
 	indent = 0.0
 	\translator {

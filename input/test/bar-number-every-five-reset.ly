@@ -25,4 +25,5 @@ resetBarnum = \context Score \applycontext
             \bar "|."
         }
     >
+\paper{raggedright = ##t}
 }

@@ -50,6 +50,5 @@ file lists all of them.
 	ceses ceses! ceses? |
 	
   }
-  \paper { }  
 }
 %% new-chords-done %%

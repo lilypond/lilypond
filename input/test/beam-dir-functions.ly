@@ -38,6 +38,7 @@ your favourite algorithm isn't one of these, you can hook up your own.
     \property Voice.Beam \set #'dir-function = #beam-dir-median
     [c c g] 
   }
+\paper{raggedright = ##t}
 }
 
 %% Local variables:

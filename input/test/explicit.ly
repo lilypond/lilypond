@@ -9,5 +9,6 @@ Explicit pitches and durations. "
     \pitch #(ly:make-pitch 1 1 1) \duration #(ly:make-duration 2 0)
 
   }
+\paper{raggedright = ##t}
 }
 %% new-chords-done %%

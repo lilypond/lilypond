@@ -13,6 +13,7 @@ a-\mf\< a \!a
 a\< \!a
 }
 \paper{
+raggedright = ##t
 }
 \midi{
 \tempo 1 = 60

@@ -12,5 +12,6 @@ Should use old style.
     \property Staff.TimeSignature \override #'style = #'neo_mensural
     s1 
   }
+	\paper {raggedright = ##t}
 }
 %% new-chords-done %%

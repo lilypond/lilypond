@@ -17,6 +17,7 @@ followVoice: connect note heads with line when thread switches staff.
 	\context Staff=two { \clef bass \skip 1*2 }
     >
     \paper{
+		raggedright = ##t
         linewidth = 70.\mm
 	\translator {
 	    \ScoreContext

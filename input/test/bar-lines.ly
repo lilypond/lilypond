@@ -16,5 +16,6 @@ c4
 \bar ".|." c
 \bar "|"  c
 } 
+\paper{raggedright = ##t}
 }
 %% new-chords-done %%

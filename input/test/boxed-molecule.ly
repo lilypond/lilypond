@@ -26,5 +26,7 @@ TODO:  circled molecules.
 \property Voice.Stem \revert #'molecule-callback
 
       c4. c4 \mark "F" c1 
-   }}
+   }
+\paper{raggedright = ##t}
+}
 %% new-chords-done %%

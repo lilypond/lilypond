@@ -1,7 +1,8 @@
 \version "1.7.18"
 %possible rename to paper-fill-a4.ly -gp
-% candidate for regression -gp
-
+% candidate for reg -gp
+% Han says no, but keeping this comment temporarily so that I don't
+% forget and nominate it for reg again.  :)  -gp
 
 % test file to get a4 paper really filled,
 % without having to resort to the ever-ugly oversizing hack:

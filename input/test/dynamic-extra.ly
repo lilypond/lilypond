@@ -14,6 +14,7 @@ piuf =	\markup {  \italic "pi\\`u" \dynamic "f" }
 	
 	c2\< \! c2
 	}
+\paper{raggedright = ##t}
     }
 
 %% new-chords-done %%

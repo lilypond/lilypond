@@ -19,8 +19,7 @@ a-\ff
 a\fff
 a\sf
 }
-\paper{
-}
+\paper{ raggedright = ##t }
 \midi{
 \tempo 1 = 60
 }
