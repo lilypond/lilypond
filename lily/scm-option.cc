@@ -61,7 +61,7 @@ LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (SCM),
   puts ("");
   printf (_("  The function ly:set-option allows for access to some internal variables.").to_str0 ());
   puts ("\n");
-  printf (_ ("Usage: lilypond-bin -e \"(ly:set-option SYMBOL VAL)\"").to_str0 ());
+  printf (_ ("Usage: lilypond -e \"(ly:set-option SYMBOL VAL)\"").to_str0 ());
   puts ("\n");
   printf (_ ("Use help as  SYMBOL to get online help.").to_str0 ());
 

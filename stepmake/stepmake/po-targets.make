@@ -17,13 +17,14 @@ localpo:
 else
 po: localpo
 	$(LOOP)
-ALL_PO_SOURCES = $(ALL_C_SOURCES) $(ALL_CC_SOURCES) $(PYTHON_SCRIPTS_IN) $(PY_MODULES_IN) $(wildcard $(outdir)/*.hh) $(wildcard $(outdir)/*.cc)
+ALL_PO_SOURCES = $(ALL_C_SOURCES) $(ALL_CC_SOURCES) $(PYTHON_SCRIPTS_IN) $(PY_MODULES_IN) $(SCM_FILES) $(wildcard $(outdir)/*.hh) $(wildcard $(outdir)/*.cc)
 localpo:
 ifneq ($(strip $(ALL_PO_SOURCES)),)
 	@echo $(ALL_PO_SOURCES)
 	xgettext --default-domain=$(package) --join \
 	 --output-dir=$(po-dir)/$(outdir) --add-comments \
-	 --keyword=_ --keyword=_f --keyword=_i $(ALL_PO_SOURCES)
+	 --keyword=_ --keyword=_f --keyword=_i \
+	 $(XGETTEXT_FLAGS) $(ALL_PO_SOURCES)
 endif
 endif
 

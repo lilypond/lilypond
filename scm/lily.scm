@@ -58,7 +58,8 @@
 (define ifdef "First run this through cpp.")
 (define ifndef "First run this through cpp.")
 
-
+;; gettext wrapper
+(define-public _ ly:gettext)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -561,14 +562,13 @@ possibly turned off."
 	 (output-name
 	  (regexp-substitute/global #f "\\.ps" name 'pre ".pdf" 'post)))
 
-    (newline)
-    ;; FIXME: user message: should be translated
-    (display (format "Converting to ~s..." output-name))
-    (newline)
+    (newline (current-error-port))
+    (display (format (_ "Converting to ~s...") output-name)
+	     (current-error-port))
+    (newline (current-error-port))
     
     (if (ly:get-option 'verbose)
-	;; FIXME: user message: should be translated
-	(display (format "Invoking ~s..." cmd)))
+	(display (format "Invoking `~s'..." cmd) (current-error-port)))
 
   (system cmd)))
 
@@ -584,10 +584,9 @@ possibly turned off."
 	       " ")
 	   name)))
     (if (ly:get-option 'verbose)
-	;; FIXME: user message: should be translated
 	(begin
-	  (display (format "Invoking ~s..." cmd))
-	  (newline)))
+	  (display (format (_ "Invoking `~s'...") cmd) (current-error-port))
+	  (newline (current-error-port))))
     (system cmd)))
 
 (define-public (lilypond-main files)
@@ -597,14 +596,16 @@ possibly turned off."
     (for-each
      (lambda (f)
        (catch 'ly-file-failed (lambda () (ly:parse-file f)) handler)
-;       (dump-gc-protects)
+;;;       (dump-gc-protects)
        )
      files)
 
     (if (pair? failed)
 	(begin
-	  (display
-	   ;; FIXME: user message: should be translated
-	   (string-append "\n *** Failed files: " (string-join failed) "\n"))
+	  (newline (current-error-port))
+	  (display (_ "error: failed files: ") (current-error-port))
+	  (display (string-join failed) (current-error-port))
+	  (newline (current-error-port))
+	  (newline (current-error-port))
 	  (exit 1))
 	(exit 0))))

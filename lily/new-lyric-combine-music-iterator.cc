@@ -1,10 +1,9 @@
-/*   
-     new-lyric-combine-iterator.cc -- implement New_lyric_combine_music_iterator
-
-     source file of the GNU LilyPond music typesetter
-
-     (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
+/*
+  new-lyric-combine-iterator.cc -- implement New_lyric_combine_music_iterator
+  
+  source file of the GNU LilyPond music typesetter
+  
+  (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "context.hh"
@@ -243,7 +242,7 @@ New_lyric_combine_music_iterator::do_quit ()
       if (ly_c_string_p (voice_name))
 	name = ly_scm2string (voice_name);
 
-      get_music ()->origin ()->warning (_f ("Haven't found Voice `%s'.",
+      get_music ()->origin ()->warning (_f ("cannot find Voice `%s'",
 					    name.to_str0 ()) + "\n");
     }
 

@@ -121,14 +121,18 @@ ly_display_scm (SCM s)
 }
 };
 
-String
-ly_scm2string (SCM s)
+char const *
+ly_scm2str0 (SCM string)
 {
-  assert (ly_c_string_p (s));
+  SCM_ASSERT_TYPE (ly_c_string_p (string), string, SCM_ARG1,
+		   __FUNCTION__, "string");
+  return SCM_STRING_CHARS (string);
+}
 
-  char *p = SCM_STRING_CHARS (s);
-  String r (p);
-  return r;
+String
+ly_scm2string (SCM string)
+{
+  return ly_scm2str0 (string);
 }
 
 char *
@@ -811,3 +815,12 @@ LY_DEFINE (ly_pango_add_afm_decoder, "ly:pango-add-afm-decoder",
 }
 
 #endif
+
+LY_DEFINE (ly_gettext, "ly:gettext",
+	   1, 0, 0, (SCM string),
+	   "Gettext wrapper.")
+{
+  SCM_ASSERT_TYPE (ly_c_string_p (string), string, SCM_ARG1,
+		   __FUNCTION__, "string");
+  return scm_makfrom0str (gettext (ly_scm2str0 (string)));
+}

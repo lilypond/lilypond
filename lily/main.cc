@@ -84,13 +84,13 @@ static char const *AUTHORS =
 "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n"
 "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
 
-static char const *PROGRAM_NAME = "lilypond-bin";
+static char const *PROGRAM_NAME = "lilypond";
 static char const *PROGRAM_URL = "http://lilypond.org";
 
 static char const *NOTICE =
 _i ("This program is free software.  It is covered by the GNU General Public\n"
     "License and you are welcome to change it and/or distribute copies of it\n"
-    "under certain conditions.  Invoke as `lilypond-bin --warranty' for more\n"
+    "under certain conditions.  Invoke as `lilypond --warranty' for more\n"
     "information.\n");
   
 static char const *WARRANTY =
