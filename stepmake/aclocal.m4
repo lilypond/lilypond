@@ -553,26 +553,33 @@ AC_DEFUN(XXAC_STEPMAKE_TEXMF_DIRS, [
 ])
 
 AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
-    AC_ARG_ENABLE(tex-tfmdir,
-    [  enable-tex-tfmdir=DIR   set the tex-directory where cmr10.tfm lives (default: use kpsewhich)],
-    [TFMDIR=$enableval],
-    [TFMDIR=auto] )
+    AC_ARG_ENABLE(tfm-path,
+    [  enable-tfm-path=PATH   set path of tex directories where tfm files live, esp.: cmr10.tfm (default: use kpsewhich)],
+    [tfm_path=$enableval],
+    [tfm_path=auto] )
 
     AC_CHECK_PROGS(KPSEWHICH, kpsewhich, no)
-    AC_MSG_CHECKING(for TeX TFM directory)
-    if test "x$TFMDIR" = xauto ; then
-	if test "x$TEX_TFMDIR" = "x" ; then
-	    if test "x$KPSEWHICH" != "xno" ; then
-		CMR10=`kpsewhich tfm cmr10.tfm`
-		TEX_TFMDIR=`dirname $CMR10`
-	    else
-		AC_STEPMAKE_WARN(Please set TEX_TFMDIR (to where cmr10.tfm lives):
-	TEX_TFMDIR=/usr/local/TeX/lib/tex/fonts ./configure)
-	    fi
+    AC_MSG_CHECKING(for tfm path)
+
+    TFM_FONTS="cmr msam"
+
+    if test "x$tfm_path" = xauto ; then
+	if test "x$KPSEWHICH" != "xno" ; then
+	    for i in $TFM_FONTS; do
+		dir=`$KPSEWHICH tfm ${i}10.tfm`
+		TFM_PATH="$TFM_PATH `dirname $dir`"
+	    done
+	else
+	    AC_STEPMAKE_WARN(Please specify where cmr10.tfm lives:
+    ./configure --enable-tfm-path=/usr/local/TeX/lib/tex/fonts)
 	fi
+    else
+         TFM_PATH=$tfm_path
     fi
-    AC_MSG_RESULT($TEX_TFMDIR)
-    AC_SUBST(TEX_TFMDIR)
+
+    TFM_PATH=`echo $TFM_PATH | tr ':' ' '`
+    AC_MSG_RESULT($TFM_PATH)
+    AC_SUBST(TFM_PATH)
 ])
 
 AC_DEFUN(AC_STEPMAKE_TEXMF, [

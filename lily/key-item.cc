@@ -15,15 +15,18 @@
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
 
-const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
-const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
-
 Key_item::Key_item (SCM s)
   : Item (s)
 {
   set_elt_property ("c0-position", gh_int2scm (0));
 }
 
+
+/*
+  FIXME: too much hardcoding here.
+ */
+const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
+const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 
 
 /*

@@ -60,14 +60,13 @@ showln -sf $LILYPOND_SOURCEDIR/buildscripts/out/genheader $prefix/bin/genheader
 showln -sf $LILYPOND_SOURCEDIR/scripts/out/as2text $prefix/bin/as2text
 
 
-
 testmkdir $prefix/share
 rm -rf $prefix/share/lilypond
 showln -sf $sources/lilypond $prefix/share/lilypond
 
 
 BUILDDIR=`pwd`
-LOCALES="de it nl fr"
+LOCALES="de fr it ja nl ru"
 for i in $LOCALES; do
 	dir=$BUILDDIR/share/locale/$i/LC_MESSAGES
 	if test ! -x $dir ; then
@@ -78,12 +77,20 @@ for i in $LOCALES; do
 done
 rm -f afm; showln -sf $BUILDDIR/mf/out afm
 rm -f tfm; showln -sf $BUILDDIR/mf/out tfm
-if test "x$TEX_TFMDIR" = "x" ; then
-	CMR10=`kpsewhich tfm cmr10.tfm`
-	TEX_TFMDIR=`dirname $CMR10`
-fi
-rm -f cmtfm; showln -sf $TEX_TFMDIR $BUILDDIR/cmtfm
 
+TFM_FONTS="cmr msam"
+for i in $TFM_FONTS; do
+    dir=`kpsewhich tfm ${i}10.tfm`
+    TFM_PATH="$TFM_PATH `dirname $dir`"
+done
+
+# urg: GNU make's $(word) index starts at 1
+i=1
+for dir in $TFM_PATH; do
+	rm -f $BUILDDIR/tfm.$i;
+	showln -s $dir $BUILDDIR/tfm.$i
+	i=$((i + 1))
+done
 
 if [ -f ../.gdbinit.lilypond ];
 then
@@ -98,7 +105,7 @@ echo
 
 echo Starting configuration
 echo
-(set -x; TEX_TFMDIR=$TEX_TFMDIR ./configure --prefix=$prefix --enable-debugging --enable-printing --enable-checking --disable-optimise)
+(set -x; ./configure --prefix=$prefix --enable-debugging --enable-printing --enable-checking --disable-optimise)
 
 echo "Making tags in background..."
 make TAGS > /dev/null 2>&1 &

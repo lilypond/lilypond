@@ -7,11 +7,11 @@
 #ifndef AUDIO_ITEM_HH
 #define AUDIO_ITEM_HH
 
- #include <typeinfo>
+#include <typeinfo>
 #include "lily-proto.hh"
 #include "string.hh"
 #include "audio-element.hh"
-#include "key-def.hh"
+
 #include "musical-pitch.hh"
 #include "moment.hh"
 #include "drul-array.hh"
@@ -48,9 +48,8 @@ public:
 class Audio_key : public Audio_item
 {
 public:
-  Audio_key (Key_def const& key);
-
-  Key_def key_;
+  Audio_key (); //Newkey_def const& key);
+  // FIXME
 };
 
 class Audio_instrument : public Audio_item

@@ -40,9 +40,9 @@ Audio_note::tie_to (Audio_note* t)
 }
 
 		    
-Audio_key::Audio_key (Key_def const& k)
+Audio_key::Audio_key () // Key_def const& k)
 {
-  key_ = k;
+  //fixme.
 }
 
 Audio_dynamic::Audio_dynamic (Real volume)

@@ -22,7 +22,7 @@ public:
   void add_bar (Bar*);
  
 protected:
-  virtual Molecule do_brew_molecule () const;
+  Molecule do_brew_molecule () const;
   VIRTUAL_COPY_CONS (Score_element);
 
   virtual void do_add_processing ();

@@ -30,7 +30,7 @@ protected:
   void calc_dy (Real *) const;
   void calc_position_and_height (Real*,Real *dy)const;
   
-  virtual Molecule do_brew_molecule () const;
+  Molecule do_brew_molecule () const;
   VIRTUAL_COPY_CONS(Score_element);
   virtual void do_add_processing ();
   virtual void after_line_breaking ();

@@ -23,7 +23,7 @@ public:
 Crescendo(SCM);
 protected:
   VIRTUAL_COPY_CONS(Score_element);
-  virtual Molecule do_brew_molecule() const;
+  Molecule do_brew_molecule() const;
     
 private:
   Molecule get_symbol() const;

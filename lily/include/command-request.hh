@@ -14,7 +14,7 @@
 #include "array.hh"
 #include "duration.hh"
 #include "musical-pitch.hh"
-#include "key-def.hh"
+#include "newkey-def.hh"
 #include "protected-scm.hh"
 
 class Break_req : public Request {
@@ -102,13 +102,16 @@ class Breathing_sign_req : public Request {
     Routines for sharps and flats are separated, 
     so that caller may identify non-conventional keys.
 */
+/*
+  UGH!
+ */
 class Key_change_req  : public Request
 {
 public:
   Key_change_req ();
   ~Key_change_req();
   Key_change_req(Key_change_req const &);
-  Key_def *key_;
+  Newkey_def *key_;
 
 protected:
   VIRTUAL_COPY_CONS(Music);

@@ -23,7 +23,7 @@ class  Rest : public Rhythmic_head
 {
 protected:
   virtual void after_line_breaking ();
-  virtual Molecule do_brew_molecule () const;
+  Molecule do_brew_molecule () const;
 public:
    static SCM scheme_molecule (SCM);
   

@@ -112,9 +112,8 @@ System_start_delimiter::staff_brace (Real y)  const
   int idx = int (((maxht - step) <? y - minht) / step);
   idx = idx >? 0;
 
-  SCM l = scm_eval (gh_list (ly_symbol2scm ("style-to-cmr"),
-			    ly_str02scm ("brace"),
-			    SCM_UNDEFINED));
+  SCM l = scm_assoc (ly_str02scm ("brace"),
+		     scm_eval (ly_symbol2scm ("cmr-alist")));
   
   String nm = "feta-braces";
   if (l != SCM_BOOL_F)

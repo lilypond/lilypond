@@ -31,7 +31,7 @@ public:
   virtual Direction get_default_dir() const;
 
 protected:
-  virtual Molecule do_brew_molecule () const;
+  Molecule do_brew_molecule () const;
   virtual Array<Offset> get_encompass_offset_arr () const;
   Bezier get_curve () const;
 

@@ -23,7 +23,7 @@ public:
   
 Text_item (SCM s);
 protected:
-  virtual Molecule do_brew_molecule () const;
+  Molecule do_brew_molecule () const;
 };
 
 #endif /* Text_ITEM_HH */

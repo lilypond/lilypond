@@ -356,8 +356,9 @@ Midi_key::Midi_key (Audio_key*a)
 String
 Midi_key::str () const
 {
-  int sharps_i = audio_l_->key_.sharps_i ();
-  int flats_i = audio_l_->key_.flats_i ();
+  // fxime.
+  int sharps_i = 0; //audio_l_->key_.sharps_i ();
+  int flats_i = 0; //audio_l_->key_.flats_i ();
 
   // midi cannot handle non-conventional keys
   if (flats_i && sharps_i)
@@ -370,7 +371,9 @@ Midi_key::str () const
 
   String str = "ff5902";
   str += String_convert::i2hex_str (accidentals_i, 2, '0');
-  str += String_convert::i2hex_str ((int)audio_l_->key_.minor_b (), 2, '0');
+
+  // (int)audio_l_->key_.minor_b ()
+  str += String_convert::i2hex_str (0, 2, '0');
   return String_convert::hex2bin_str (str);
 }
 

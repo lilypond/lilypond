@@ -136,15 +136,6 @@
    )
 )
 
-;; (define (ly-warn s) (error s))
-(define (break-align-spacer this next)
-  (let ((entry (assoc (list this next) space-alist)))
-    (if entry
-	(cdr entry)
-	(begin (ly-warn (string-append "Unknown spacing pair `" this "', `" next "'"))
-	       '(minimum-space 0.0)))))
-  
-
 (define (find-notehead-symbol duration style)
   (case style
    ((cross) "2cross")
@@ -210,17 +201,6 @@
   )
 	     
 (define script-alist '())
-(define (articulation-to-scriptdef a)
-  (assoc a script-alist)
-  )
-
-;; Map style names to TeX font names.  Return false if 
-;; no font name found. 
-(define (style-to-cmr s)
-  (assoc s cmr-alist )
-  )
-	    
-
 
 (define font-name-alist  '())
 (define (font-command name-mag)
@@ -971,3 +951,15 @@
      )
    )
      
+
+(define major-scale
+  '(
+    (0 . 0)
+    (1 . 0)
+    (2 . 0)
+    (3 . 0)
+    (4 . 0)
+    (5 . 0)
+    (6 . 0)
+    )
+  )

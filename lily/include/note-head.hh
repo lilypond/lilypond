@@ -30,7 +30,7 @@ public:
   Note_head (SCM);
 protected:
   virtual void before_line_breaking ();
-  virtual Molecule do_brew_molecule() const;
+  Molecule do_brew_molecule() const;
 };
 #endif // NOTEHEAD_HH
 

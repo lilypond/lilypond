@@ -26,7 +26,7 @@ public:
   Breathing_sign (SCM s);
 protected:
   virtual void after_line_breaking ();
-  virtual Molecule do_brew_molecule () const;
+  Molecule do_brew_molecule () const;
 };
 
 #endif // BREATHING_SIGN_HH

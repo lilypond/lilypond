@@ -217,13 +217,21 @@ setup_paths ()
     global_path.parse_path (env_sz);
 
 
-  char *suffixes[] = {"ly", "afm", "scm", "tfm", "cmtfm", "ps", 0};
+  /*
+    Should use kpathsea, this is getting out of hand.  
+   */
+  char *suffixes[] = {"ly", "afm", "scm", "tfm", "ps", 0};
+  String prefix = prefix_directory;
+  if (prefix.empty_b ()) prefix =  DIR_DATADIR;
   for (char **s = suffixes; *s; s++)
     {
-      if (!prefix_directory.empty_b())
-	global_path.add (prefix_directory + to_str ('/') + String (*s));
-      else
-	global_path.add (String (DIR_DATADIR) + to_str ('/') + String(*s));
+      String p =  prefix + to_str ('/') + String (*s);
+      
+      global_path.add (p);
+      /* Urg: GNU make's $(word) index starts at 1 */
+      int i  = 1;
+      while (global_path.try_add (p + to_str (".") + to_str (i)))
+	i++;
     }
 }
 
