@@ -61,6 +61,9 @@ String output_name_global;
 /* Run in safe mode? */
 bool be_safe_global = false;
 
+/* Provide URI links to the original file */
+bool point_and_click_global = true;
+
 /* Verbose progress indication? */
 bool be_verbose_global = false;
 
