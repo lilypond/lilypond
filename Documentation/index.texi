@@ -5,16 +5,29 @@
 @node Top, , , (dir)
 @top
 
+@html
+<a name="everyone">
+@end html
 
-@unnumberedsubsec Documentation for everyone
+
+@unnumberedsubsec General information
+
 
 @itemize @bullet 
 @item @uref{DEDICATION.html,Dedication}  Lily is  dedicated to our friends.
 @item @uref{http://www.gnu.org/copyleft/gpl.html,GPL} it is released under
   the GNU GPL.
+@item @uref{http://www.lilypond.org/wiki, Lilypond Wiki} A wikiwiki site
+  dedicated to lilypond.
 @end itemize
 
+@html
+<a name="new-users">
+@end html
+
+
 @unnumberedsubsec Information for new users
+
 @itemize @bullet
 @item @uref{../../index.html,index} What is Lilypond?
 @item @uref{../topdocs/out-www/README.html, README} general information
@@ -22,14 +35,21 @@
   How install on Unix.
 @item @uref{../windows/out-www/installing.html, WINDOWS}
 How to install on Windows.
-@item @uref{http://appel.lilypond.org/wiki?LilyPondFaqs,FAQ} Frequently
+@item @uref{http://www.lilypond.org/wiki?LilyPondFaqs,FAQ} Frequently
 asked questions, with answers.
-@item @uref{http://appel.lilypond.org/wiki?MailingLists,MailingLists} Subscribe to
+@item @uref{http://www.lilypond.org/wiki?MailingLists,MailingLists} Subscribe to
 the mailing lists
-@item @uref{../out-www/lilypond/Tutorial.html,Tutorial} Learn how to use LilyPond.
+@item @uref{../user/out-www/lilypond/Tutorial.html,Tutorial} Learn how to use LilyPond.
 @end itemize
 
+
+
+@html
+<a name="other-users">
+@end html
+
 @unnumberedsubsec Information for other users
+
 
 @itemize @bullet
 @item @uref{CHANGES.html, CHANGES} things recently done
@@ -50,12 +70,23 @@ terms, including translations.  (in
 @uref{../user/out-www/glossary.ps.gz,Postscript})
 @end itemize
 
+
+
+@html
+<a name="developers">
+@end html
+
 @unnumberedsubsec Information for developers
+
 
 @itemize @bullet
 @item @uref{../out-www/regression-test.html,regression-test} A glossary
 of musical terms, including translations.  (in
 @uref{../out-www/regression-test.ps.gz,Postscript})
+@item
+@uref{http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations,lilypond
+textual domain
+}  in the Translation Project.
 @end itemize
 
 
@@ -68,6 +99,11 @@ of musical terms, including translations.  (in
 
 
 @unnumberedsubsec Background information
+
+
+@html
+<a name="background">
+@end html
 
 @itemize @bullet
 @item @uref{../topdocs/out-www/AUTHORS.html, Authors} documents who did
@@ -104,6 +140,45 @@ notation}.
 @uref{../bibliography/out-www/computer-notation.html,music notation
 by computer}.
 @end itemize
+
+
+@html
+<a name="mailing-lists">
+@end html
+@unnumberedsec Mailing lists
+
+If you have questions, do write to the mailing lists.  But don't forget
+to read the @uref{Documentation/topdocs/out-www/FAQ.html,Very Frequently
+Asked Questions} and @uref{http://appel.dyndns.org/wiki?LilyPondFaqs,
+Frequently Asked Questions} first.
+
+
+@itemize @bullet
+@item @uref{http://mail.gnu.org/mailman/listinfo/info-gnu-music,info-gnu-music@@gnu.org}
+is a low-volume list for information on the GNU Music project.
+    This list is moderated; ask 
+    @email{drl@@gnu.org, David R. Linn} or
+    @email{hanwen@@cs.uu.nl, Han-Wen} to send announcements for this list.
+@item @uref{http://mail.gnu.org/mailman/listinfo/help-gnu-music,help-gnu-music@@gnu.org}
+    For help with using LilyPond.
+@item @uref{http://mail.gnu.org/mailman/listinfo/bug-gnu-music,bug-gnu-music@@gnu.org}
+If you have bugreports, you should send them to this list.  
+
+
+
+        Please include in your bugreport the version of LilyPond that
+you experience the problem with, a description of your system and sample
+input to reproduce the problem. Do not send output files over the list,
+they tend to be very big and don't help with describing the problem.
+
+
+@item @uref{http://mail.gnu.org/mailman/listinfo/gnu-music-discuss,gnu-music-discuss@@gnu.org}
+    For discussions concerning LilyPond.
+@end itemize
+
+These pages were entirely created from a @strong{development snapshot}
+of the LilyPond package.  The version of this webpage is printed at the
+bottom.
 
 
 @bye
