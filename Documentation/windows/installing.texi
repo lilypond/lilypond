@@ -11,10 +11,11 @@
 
 @chapter WINDOWS - Installing GNU LilyPond on Windows
 
-This document explains how to install the binary release for windows on
-a Microsoft Windows 95, 98, NT or 2000 machine. Please follow the
-instructions carefully. If it doesn't work for you, please send a
-bugreport, following the guidelines in the section on bugreports below.
+This document explains how to install the binary release for windows
+on a Microsoft Windows 95, 98, ME, NT, 2000 or XP machine.  Please
+follow the instructions carefully.  If it doesn't work for you, please
+send a bugreport, following the guidelines in the section on
+bugreports below.
 
 
 @section Windows binary setup 
@@ -26,17 +27,54 @@ You will be asked some questions. If you are unsure just click "Next".
 Do not change the default install directory @file{c:/cygwin}.
 
 This installs LilyPond, and Cygwin, GUILE, Python, teTeX (MikTeX is not
-supported) and GSView.  If you already have some of that software under
+supported).  If you already have some of that software under
 @file{c:/cygwin}, then don't worry: nothing will be installed twice.
 
 If you want to install any of this software by hand, do this
 @strong{before} you run @file{setup.exe}, otherwise your LilyPond setup
 may not work.
 
+
+@subsection Additional software
+
+If you install the Cygwin's XFree86 X11 window system, tetex-x11 and
+ghostscript-x11 packages too, you can view the @code{dvi} output doing
+@code{xdvi test.dvi}.
+
+LilyPond needs a PostScript/PDF viewer to be really useful.  At this
+time (Sun Aug 11 2002), such software is not available in Cygwin, so
+you must use native Windows software instead.
+
+@table @samp
+@item Ghostview.
+
+You can use GSView-2.6.  This old package has two advantages.  It has
+gsview and ghostscript bundeled, and it doesn't popup @emph{Register
+Now|Cancel} windows all the time.
+
+Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv26w32.exe,here} to
+install GSView-2.6 (GhostView for Windows), or visit
+@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
+
+@c check/update versions
+You can also use the newer versions GSView-3.6 and GhostScript-6.50,
+which can also display PDFs.  You get annoying @emph{Register
+Now|Cancel} popups, though.
+
+Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv36w32.exe,here} for
+GSview and 
+Click @uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs650/gs650w32.exe
+,here} for GhostScript.
+@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
+or visit the
+@uref{http://www.cs.wisc.edu/~ghost/,Ghostscript, Ghostview and GSview site}.
+@end table
+
+
 @section Testing LilyPond
 
 Open a LilyPond shell (To open a a lilypond shell, click the "GNU
-LilyPond" icon), and type
+LilyPond" or "Cygwin" icon), and type
 
 @quotation
 @example
@@ -85,7 +123,11 @@ ly2dvi -P foo
 
 @end example
 @end quotation
-You can now view the file using the following command
+If you install the Cygwin's XFree86 X11 window system, tetex-x11 and
+ghostscript-x11 packages too, you can view the @code{dvi} output doing
+@code{xdvi test.dvi}.  If you have installed a PostScript/PDF viewer,
+such as @code{GSView} from @uref{http://www.cs.wisc.edu/~ghost},
+viewing the PS file can be done with:
 @quotation
 @example
 
@@ -135,7 +177,6 @@ want to see the output of the  following commands:
   python --version
   lilypond --version
   ly2dvi --version
-  gswin32c  --version
 @end example
 @end quotation
 @item If ly2dvi fails, then please run it as follows and include the
@@ -151,70 +192,16 @@ You can also check out
 @uref{http://lilypond.org/wiki/?TroubleshootingWindows} for more
 instructions on how to make a bug report.
 
+
 @ignore
-@subsection Additional software
-
-LilyPond needs a number of software packages to be really useful.  These
-are included in the binary setup program (see above).
-
-If you choose to install this additional software yourself, make sure
-you install LilyPond last, otherwise the LilyPond setup will be broken.
-Also note that this means that you will probably need to fix some PATH
-and TEX environment variables yourself.  If you think you can handle
-that, you may do so, but don't complain if it doesn't work.
-
-These software packages are included in the LilyPond installation:
-
-@table @asis
-@item A full TeX installation.
-
-As of LilyPond versions 1.4.11 (and 1.5.29), only Cygwin's teTeX
-installation is supported (packages tetex-beta and texmf-base).  It is
-part of Cygwin and much more robust for use with LilyPond than MiKTeX.
-See @file{/usr/doc/Cygwin/tetex-beta-20001218.README} and
-@file{/usr/doc/Cygwin/texmf-20000804-2.README} for details.
-
-@item Ghostview.
-
-You can use GSView-2.6.  This old package has two advantages.  It has
-gsview and ghostscript bundeled, and it doesn't popup @emph{Register
-Now|Cancel} windows all the time.  It doesn't work together with Yap to
-display PostScript specials.
-
-Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv26w32.exe,here} to
-install GSView-2.6 (GhostView for Windows), or visit
-@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
-
-You can also use the newer versions GSView-3.6 and GhostScript-6.50 If
-you install both these packages, Yap will display PostScript specials.
-You get annoying @emph{Register Now|Cancel} popups, though.
-
-Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv36w32.exe,here} for
-GSview and 
-Click @uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs650/gs650w32.exe
-,here} for GhostScript.
-@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
-or visit the
-@uref{http://www.cs.wisc.edu/~ghost/,Ghostscript, Ghostview and GSview site}.
-@end table
 
 [TODO:
 
 
 * emacs-mode installation, figure out and describe proper
 emacs-on-cygwin setup.
-
 ]
 
-  guile -v
-  Guile 1.4.1
-
-  guile -e %load-path
-  ERROR: Wrong type to apply: ("/usr/share/guile/site" /usr/share/guile/1.4.1")
-  
-
-  
-Mats?
 
 Let's take this step by step.
 
@@ -235,21 +222,4 @@ This one you should get a single page document with some text
 in each corner.
 ]
 
-@end ignore
-
-@ignore
-@c irrelevant.
-
-If you want to install more of cygwnTo expand on this minimal set,
-@section If you already have MikTeX, GSView or
-
-If you already have cygwin installed, don't worry: nothing will be
-installed twice.  To expand on this minimal set, click
-@uref{http://sources.redhat.com/cygwin/setup.exe,here}, or visit a
-Cygwin @uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
-
-
-This will install the minimal set of cygwin tools needed to run
-LilyPond.  Make sure to install in the default place, @file{c:/cygwin},
-and install everything. 
 @end ignore
