@@ -8,14 +8,26 @@
 #  Original LaTeX file made by Mats Bengtsson, 17/8 1997
 #
 
-VERSION="0.5"
-IDENTIFICATION="lytodvi.sh $VERSION" 
+VERSION="0.6.hwn1"
+NAME=ly2dvi.sh
+IDENTIFICATION="$NAME $VERSION" 
 NOW=`date`
 echo "$IDENTIFICATION" 1>&2
 
 # NEWS
-# 0.5.hwn1
-#	- do tee of output.
+    
+# 0.6.hwn1
+# 	- handle LILYINCLUDE
+#       - --output
+#
+# 0.6
+#	- Source rc-files, if present. Files are:
+#	  /usr/local/share/lilyrc /etc/lilyrc $HOME/.lilyrc ./.lilyrc
+#	- tee output from Lilypond
+#	- Handles margins for A4 paper (equal on both sides)
+#	- new option -s (--separate) for one LaTeX run per file,
+#	  else all files are run together
+
 # 0.5
 #	- More useful ("two-level") debug.
 #	- The Q&D hack to find file names and not handling \include
@@ -103,14 +115,26 @@ Usage: $0 [options] file[s]
 
 Options:
   -D, --debug           set debug mode
+  -o, --output          set output directory
   -h, --help            this help text
   -k, --keep            keep LaTeX file
   -l, --language=       give LaTeX language (babel)
   -p, --papersize=      give LaTeX papersize (eg. a4paper)
+  -s, --separate        run all files separately through LaTeX
 
   files may be (a mix of) input to or output from lilypond(1)
 EOF
 }
+
+#
+# RC-files ?
+#
+for D in /usr/local/share/ /etc/ $HOME/. ./.
+do
+  RCfile=$D"lilyrc"
+  [ -f $RCfile ] && . $RCfile
+done
+
 #
 # Keywords defined in titledefs.tex
 #
@@ -136,13 +160,16 @@ fi
 # debugging
 #
 debug_echo=true
-
+#
+# All files in one LaTeX run
+#
+SEPFILE=N
 #
 # Find command line options and switches
 #
 # "x:" x takes argument
 #
-switches="Dhkl:p:\?"
+switches="Do:hkl:p:s\?"
 options=""
 #
 # ugh, "\-" is a hack to support long options
@@ -170,8 +197,14 @@ do
     l  )
       LNG=$OPTARG
       ;;
+    o  )
+      OUTPUTDIR=$OPTARG
+      ;;
     p  )
       PSZ=$OPTARG
+      ;;
+    s  )
+      SEPFILE=Y
       ;;
     \? )
       help;
@@ -181,6 +214,13 @@ do
     -)
       $debug_echo "long option: \`$OPTARG'"
       case "$OPTARG" in
+        D*|-D*)
+          if [ $debug_echo = echo ]
+          then
+            set -x
+          fi
+          debug_echo=echo
+          ;;
         h*|-h*)
           help;
 	  exit 0
@@ -194,12 +234,11 @@ do
         p*|-p*)
           PSZ=`echo $OPTARG | sed -e s/"^.*="//`
           ;;
-        D*|-D*)
-          if [ $debug_echo = echo ]
-          then
-            set -x
-          fi
-          debug_echo=echo
+	o*|-o*)
+	      OUTPUTDIR=$OPTARG
+	      ;;
+        s*|-s*)
+      	  SEPFILE=Y
           ;;
         *|-*)
           echo $0": illegal option -- "$OPTARG;
@@ -220,20 +259,200 @@ then
   exit 1
 fi
 #
-for GF in $*
-do
-  #
-  # Check if input file exists...
-  #
-  if [ ! -f $GF ]
+startFile(){
+#
+# LaTeX file name
+#
+if [ "$KEEP" != "Y" ]
+then
+  if [ "$TMP" = "" ]
   then
-    GF=$GF.ly
-    if [ ! -f $GF ]
+    TMP=/tmp
+  fi
+  if [ ! -d $TMP ]
+  then
+    $debug_echo $IDENTIFICATION": temporary directory "$TMP" not found, set to /tmp"
+    TMP=/tmp
+  fi
+#
+  BN=`basename $File .tex`
+  FN=$BN.$$
+  LF=$TMP/$FN.tex
+else
+  BN=`basename $File .tex`
+  FN=$BN.$$
+  LF=$FN.tex
+fi
+#
+# Find:
+#   paper size (PSZ, overridden by command line option -p)
+#   language   (LNG, overridden by command line option -l)
+#   textwidth
+#
+eval `sed -n \\
+  -e 's/\\\\def\\\\mudelapapersize{\([^}]*\).*$/fPSZ=\1;/p' \\
+  -e 's/\\\\def\\\\mudelalanguage{\([^}]*\).*$/fLNG=\1;/p' \\
+  -e 's/\\\\def\\\\mudelapaperlinewidth{\([^}]*\).*$/TWN=\1;/p' \\
+    $File`
+if [ "$PSZ" = "" ]
+then
+  PSZ=$fPSZ
+fi
+if [ "$PSZ" != "" ]
+then
+  PAPER="["$PSZ"]"
+fi
+#
+if [ "$LNG" = "" ]
+then
+  LNG=$fLNG
+fi
+if [ "$LNG" != "" ]
+then
+  LLNG="\usepackage["$LNG"]{babel}"
+else
+  LLNG="%"
+fi
+
+#
+# Find textwidth
+#
+if [ "$TWN" != "" ]
+then
+  TW=$TWN
+  case $TW in
+    *mm)
+      ;;
+    *cm)
+      ;;
+    *pt)
+      ;;
+    *)
+      TW=$TW"pt"
+      ;;
+  esac
+  $debug_echo "Text width = "$TW
+fi
+TWp=`echo $TW | sed -e 's/\..*$//'`
+PWp=600;				# Width of A4 paper!
+MARG=`expr $PWp - $TWp`
+MARG=`expr $MARG / 2`"pt"
+#
+# Geometry: /var/lib/texmf/latex/geometry/geometry.dvi
+#
+#
+# Write LaTeX file
+#
+cat << EOF > $LF
+% Creator: $IDENTIFICATION
+% Automatically generated from  $IF, $NOW
+
+\documentclass$PAPER{article}
+\nonstopmode
+$LLNG
+\usepackage{geometry}
+\usepackage[T1]{fontenc}
+%\addtolength{\oddsidemargin}{-1cm}
+%\addtolength{\topmargin}{-1cm}
+\setlength{\textwidth}{$TW}
+\geometry{width=$TW, left=$MARG, top=1cm}
+\input lilyponddefs
+\input titledefs
+\begin{document}
+EOF
+#
+# Include \def\mudela-definitions
+#
+for L in $MU_DEF
+do
+  LL=`egrep '^\\\\def.'$L'{' $OF`
+  if [ "$LL" != "" ]
+  then
+    LLL=`echo $LL | sed -e 's/}.*$//' -e 's/.*{//'`
+    if [ "$LLL" != "" ]
     then
-      $debug_echo $IDENTIFICATION": Input file "$GF" not found"
-      exit 2
+      echo '\'$L'{'$LLL'}%'                                >> $LF
     fi
   fi
+done
+#
+cat << EOF >> $LF
+\makelilytitle
+EOF
+}
+#
+# Conclusion
+#
+endFile(){
+cat << EOF >> $LF
+\vfill\hfill{(\LilyIdString)}
+\end{document}
+EOF
+#
+# Run LaTeX
+#
+latex $LF || exit 5
+#
+# Rename dvi file
+#
+if [ -f $FN.dvi ]
+then
+    RESULT=$BN.dvi
+    if [ x$OUTPUTDIR != x ]; then
+	RESULT="$OUTPUTDIR/$RESULT"
+    fi
+    cp $FN.dvi $RESULT
+fi
+#
+# Clean up
+#
+if [ "$KEEP" != "Y" ]
+then
+  rm $LF $FN.*
+fi
+#
+# Output some info
+#
+cat << EOF
+
+$IDENTIFICATION: dvi file name is $RESULT
+
+EOF
+}
+
+    # ugh. GF is side-effect.
+findInput() {
+    # should check for LILYINCLUDE
+    for lypath in `echo $LILYINCLUDE| sed 's/:/ /g'`
+    do
+	if [ x$lypath = x ]
+	then
+	    lypath="."
+	fi
+
+	if [ -f "$lypath/$1" ]
+	then
+	    GF="$lypath/$1"
+	    return	    
+	fi
+
+        if [ -f "$lypath/$1.ly" ]
+	then
+		GF="$lypath/$1.ly"
+		return
+	fi
+    done
+    $debug_echo $IDENTIFICATION": Input file "$GF" not found"
+    echo $NAME": Input file "$GF" not found"	1>&2
+    exit 2
+}
+#
+# Loop through all files
+#
+for GF in $*
+do
+    findInput $GF
+
   #
   # Check whether the file is input to or output from lilypond
   #
@@ -276,169 +495,47 @@ do
     $debug_echo "lilypond "$IF
 
     lilypond $IF 2>&1  | tee /tmp/lilylog.$$
-    OF=`cat /tmp/lilylog.$$| egrep '^TeX output to ' | \\
+    OF=`egrep '^TeX output to ' /tmp/lilylog.$$ | \\
         sed -e 's/TeX output to//' -e 's/\.\.\.//'`
+    rm /tmp/lilylog.$$
     $debug_echo "==> "$OF
   fi
   #
-  # Check if output file is generated
+  # "Spin through" all the files
   #
   for File in $OF
   do
     $debug_echo "--- "$File
+    #
+    # Check if output file is generated
+    #
     if [ ! -f $File ]
     then
       $debug_echo $IDENTIFICATION": hmm, I could not find the output file "$File
       exit 4
     fi
+    #
+    # Is this the first file?
+    #
     if [ -z "$FFile" ]
     then
       FFile=$File
-      #
-      # LaTeX file name
-      #
-      if [ "$KEEP" != "Y" ]
-      then
-        if [ "$TMP" = "" ]
-        then
-          TMP=/tmp
-        fi
-        if [ ! -d $TMP ]
-        then
-          $debug_echo $IDENTIFICATION": temporary directory "$TMP" not found, set to /tmp"
-          TMP=/tmp
-        fi
-      #
-        BN=`basename $FFile .tex`
-        FN=$BN.$$
-        LF=$TMP/$FN.tex
-      else
-        BN=`basename $FFile .tex`
-        FN=$BN.$$
-        LF=$FN.tex
-      fi
-      #
-      # Find:
-      #   paper size (PSZ, overridden by command line option -p)
-      #   language   (LNG, overridden by command line option -l)
-      #   textwidth
-      #
-      eval `sed -n \\
-        -e 's/\\\\def\\\\mudelapapersize{\([^}]*\).*$/fPSZ=\1;/p' \\
-        -e 's/\\\\def\\\\mudelalanguage{\([^}]*\).*$/fLNG=\1;/p' \\
-        -e 's/\\\\def\\\\mudelapaperlinewidth{\([^}]*\).*$/TWN=\1;/p' \\
-          $OF`
-      if [ "$PSZ" = "" ]
-      then
-        PSZ=$fPSZ
-      fi
-      if [ "$PSZ" != "" ]
-      then
-        PAPER="["$PSZ"]"
-      fi
-      #
-      if [ "$LNG" = "" ]
-      then
-        LNG=$fLNG
-      fi
-      if [ "$LNG" != "" ]
-      then
-        LLNG="\usepackage["$LNG"]{babel}"
-      else
-        LLNG="%"
-      fi
-
-      #
-      # Find textwidth
-      #
-      if [ "$TWN" != "" ]
-      then
-        TW=$TWN
-        case $TW in
-          *mm)
-            ;;
-          *cm)
-            ;;
-          *pt)
-            ;;
-          *)
-            TW=$TW"pt"
-            ;;
-        esac
-        $debug_echo "Text width = "$TW
-      fi
-
-      #
-      # Write LaTeX file
-      #
-      cat << EOF > $LF
-% Creator: $IDENTIFICATION
-% Automatically generated from  $IF, $NOW
-
-\documentclass$PAPER{article}
-\nonstopmode
-$LLNG
-\usepackage[T1]{fontenc}
-\addtolength{\oddsidemargin}{-1cm}
-\addtolength{\topmargin}{-1cm}
-\setlength{\textwidth}{$TW}
-\input lilyponddefs
-\input titledefs
-\begin{document}
-EOF
-      #
-      # Include \def\mudela-definitions
-      #
-      for L in $MU_DEF
-      do
-        LL=`egrep '^\\\\def.'$L'{' $OF`
-        if [ "$LL" != "" ]
-        then
-          LLL=`echo $LL | sed -e 's/}.*$//' -e 's/.*{//'`
-          if [ "$LLL" != "" ]
-          then
-            echo '\'$L'{'$LLL'}%'                                >> $LF
-          fi
-        fi
-      done
-      #
-      cat << EOF >> $LF
-\makelilytitle
-EOF
+      startFile
     fi
     cat << EOF >> $LF
 \input{$File}
 EOF
+    if [ $SEPFILE = Y ]
+    then
+      FFile=""
+      endFile
+    fi
   done
 done
-cat << EOF >> $LF
-\vfill\hfill{(\LilyIdString)}
-\end{document}
-EOF
-#
-# Run LaTeX
-#
-latex $LF || exit 5
-#
-# Rename dvi file
-#
-if [ -f $FN.dvi ]
+if [ $SEPFILE = N ]
 then
-  cp $FN.dvi $BN.dvi
+  endFile
 fi
 #
-# Clean up
-#
-if [ "$KEEP" != "Y" ]
-then
-  rm $LF $FN.*
-fi
-#
-# Output some info
-#
-cat << EOF
-
-$IDENTIFICATION: dvi file name is $BN.dvi
-
-EOF
 # OK - finished
+#
