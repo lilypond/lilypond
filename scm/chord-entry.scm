@@ -169,11 +169,14 @@ Side effect: put original pitch in INVERSION.
     (set! complete-chord (map (lambda (x) (ly:pitch-transpose x root))
 			      (sort complete-chord ly:pitch<?)))
 
-    ;; If natural 11 is present, but not given explicitly, we remove
-    ;; it.
+    ;; If natural 11 + natural 3 is present, but not given explicitly,
+    ;; we remove the 11.
     (if (and (not explicit-11)
 	     (get-step 11 complete-chord)
-	     (= 0 (ly:pitch-alteration  (get-step 11 complete-chord))))
+	     (get-step 3 complete-chord)
+	     (= 0 (ly:pitch-alteration (get-step 11 complete-chord)))
+	     (= 0 (ly:pitch-alteration (get-step 3 complete-chord)))
+	     )
 	     
 	(set! complete-chord (remove-step 11  complete-chord))
 	)
@@ -282,7 +285,7 @@ UPPER-STEP separately."
     ((null? base) '())
     ((> (ly:pitch-steps upper-step) (ly:pitch-steps (car base)))
      (cons (car base) (stack-thirds upper-step  (cdr base))))
-    ((= (ly:pitch-steps upper-step) (ly:pitch-steps (car base)))
+    ((<= (ly:pitch-steps upper-step) (ly:pitch-steps (car base)))
      (list upper-step))
     (else '())
     ))
