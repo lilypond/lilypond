@@ -45,6 +45,12 @@ void strip_leading_white (String&);
 #define yylval (*(YYSTYPE*)lexval_l)
 
 #define YY_USER_ACTION	add_lexed_char (YYLeng ());
+/*
+
+LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
+
+*/
+
 %}
 
 %option c++
@@ -83,6 +89,7 @@ HORIZONTALWHITE		[ \t]
 BLACK		[^ \n\t\f\r]
 RESTNAME	[rs]
 NOTECOMMAND	\\{A}+
+ANDREWLYRICS		([^ \n\t\f\\{}<>0-9";.|]|\\[^a-zA-Z\]\[<>])[^0-9 \t\n\f]
 LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 ESCAPED		[nt\\'"]
 PLET		\\\[
