@@ -21,13 +21,14 @@ public:
   virtual ~Open_type_font();
   virtual Box get_indexed_char (int) const;
   virtual int name_to_index (String) const;
+
 #if 0
   virtual int count () const;
   virtual int index_to_ascii (int) const;
   virtual Box get_ascii_char (int) const;
   virtual Offset get_indexed_wxwy (int) const;
-  virtual Real design_size () const;
 #endif
+  virtual Real design_size () const;
 };
 
 

@@ -141,6 +141,22 @@ kpathsea_gulp_file_to_string (String name)
   return string;
 }
 
+
+LY_DEFINE (ly_find_file, "ly:find-file",
+	   1, 0, 0, (SCM name),
+	   "Return the absolute file name of @var{name},"
+	   "or @code{#f} if not found.")
+{
+  SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
+
+  String nm = ly_scm2string (name);
+  String file_name = global_path.find (nm);
+  if (file_name.is_empty ())
+    return SCM_BOOL_F;
+  
+  return scm_makfrom0str (file_name.to_str0 ());
+}
+
 LY_DEFINE (ly_kpathsea_find_file, "ly:kpathsea-find-file",
 	   1, 0, 0, (SCM name),
 	   "Return the absolute file name of @var{name},"

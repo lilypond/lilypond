@@ -28,6 +28,7 @@
 #include "misc.hh"
 #include "output-def.hh"
 #include "warn.hh"
+#include "freetype.hh"
 
 /*
  * Global options that can be overridden through command line.
@@ -313,7 +314,7 @@ main_with_guile (void *, int, char **)
   ly_c_init_guile ();
   call_constructors ();
   init_global_tweak_registry ();
-  
+  init_freetype ();
   determine_output_options ();  
   all_fonts_global = new All_font_metrics (global_path.to_string ());
 

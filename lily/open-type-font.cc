@@ -12,32 +12,12 @@
 
 #include <stdio.h>
 
-#if 0
-
-void
-enumerate_glyphs (FT_Face face)
-{
-  FT_UInt glyph_index;
-  FT_ULong char_code = FT_Get_First_Char (face, &glyph_index);
-  while (gindex != 0)                                       
-  {                                                                
-    // ... do something with (charcode,gindex) pair ...               
-    FT_Get
-    charcode = FT_Get_Next_Char( face, charcode, &gindex );        
-  }                                                                
-}
-
-#endif
-
 SCM
 Open_type_font::make_otf (String str)
 {
   Open_type_font * otf = new Open_type_font;
   int error_code = FT_New_Face(freetype2_library, str.to_str0(),
 			       0, &(otf->face_));
-
-  //  int code = FT_Set_Charmap (otf->face_, );   
-
   
   if (error_code == FT_Err_Unknown_File_Format)
     {
@@ -58,25 +38,26 @@ Open_type_font::~Open_type_font()
 
 
 Box
-Open_type_font::get_indexed_char (int signed_idx)
+Open_type_font::get_indexed_char (int signed_idx) const
 {
   FT_UInt idx = signed_idx;
-  int code = 
-    FT_Load_Glyph (face_,
+  FT_Load_Glyph (face_,
 		   idx,
 		   FT_LOAD_NO_SCALE);
 
-  FT_Glyph_Metrics m = face->glyph->metrics;
-  Box b (Interval (0, m->width) - m->horiBearingX,
-	 Interval (0, m->height) - m->horiBearingY);
+  FT_Glyph_Metrics m = face_->glyph->metrics;
+  int hb = m.horiBearingX;
+  int vb = m.horiBearingY;
+  Box b (Interval (-hb, m.width - hb),
+	 Interval (-vb, m.height - vb));
   
   return b;
 }
 
 int
-Open_type_font::name_to_index (String nm)
+Open_type_font::name_to_index (String nm) const
 {
-  FT_String * nm_str = nm.to_str0 ();
+  char * nm_str = (char * )nm.to_str0 ();
   int idx = FT_Get_Name_Index (face_, nm_str);
 
   if (idx == 0)
@@ -87,7 +68,7 @@ Open_type_font::name_to_index (String nm)
 
 
 Real
-Open_type_font::get_design_size () const
+Open_type_font::design_size () const
 {
   return 20.0;
 }

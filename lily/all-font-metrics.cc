@@ -8,7 +8,7 @@
 
 #include "all-font-metrics.hh"
 
-//#include "open-type-font.hh"
+#include "open-type-font.hh"
 #include "config.hh"
 #include "main.hh"
 #include "warn.hh"
@@ -120,8 +120,6 @@ All_font_metrics::find_afm (String name)
   return dynamic_cast<Adobe_font_metric*> (unsmob_metrics (val));
 }
 
-#if 0
-
 Open_type_font*
 All_font_metrics::find_otf (String name)
 {
@@ -154,7 +152,6 @@ All_font_metrics::find_otf (String name)
 
   return dynamic_cast<Open_type_font*> (unsmob_metrics (val));
 }
-#endif
 
 Tex_font_metric*
 All_font_metrics::find_tfm (String name)
@@ -201,9 +198,8 @@ All_font_metrics::find_tfm (String name)
 Font_metric*
 All_font_metrics::find_font (String name)
 {
-  //Font_metric *f = find_otf (name);
-  Font_metric *f = 0;
-  
+  Font_metric *f = find_otf (name);
+   
   if (!f &&
       (name.left_string (4) == "feta"
        || name.left_string (8) == "parmesan"
