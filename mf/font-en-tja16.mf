@@ -1,0 +1,16 @@
+% font-en-tja16.mf
+% part of LilyPond's pretty-but-neat music font
+
+mode_setup;
+
+test:=0;
+
+staffsize#:=16pt#;
+stafflines:=5;
+stafflinethickness#:=0.4pt#;
+code:=-1;
+
+input bolletjes;
+
+end.
+
