@@ -1,3 +1,7 @@
+2003-08-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/breathing-sign.ly (texidoc): transpose up
+
 2003-08-28  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* input/regression/breathing-sign.ly: changed ancient examples to
@@ -8,6 +12,9 @@
 	according to new syntax
 
 2003-08-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/refman.itely (Clef): give example of G_8 clef.
+	(Clef): index entries for clefs.
 
 	* python/lilylib.py (system): remove errorlog files.
 	

@@ -260,7 +260,6 @@ def read_pipe (cmd, mode = 'r'):
 	signal = 0x0f & status
 	exit_status = status >> 8
 
-	print 'errorlog', error_log_file 
 	if status:
 		error (_ ("`%s\' failed (%d)") % (cmd, exit_status))
 		
@@ -280,9 +279,7 @@ def read_pipe (cmd, mode = 'r'):
 		progress ('\n')
 
 	if error_log_file:
-		print 'unlinking errorlog', error_log_file 
 		os.unlink (error_log_file)
-	print 'reachin end', error_log_file 
 		
 	return output
 
