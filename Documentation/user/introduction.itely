@@ -34,7 +34,6 @@ design, and how this approach affects you as a user.
 * Batch processing::            
 * Music engraving::             
 * Music representation::        
-* Program design::              
 * Example applications::        
 * About this manual::           
 @end menu
@@ -269,7 +268,7 @@ The manual is divided into the following chapters
   extend the program.
 @item Invoking
   This chapter explains how to runn LilyPond and its helper programs. 
-@end itemize
+@end table
 
 Once you are experienced with, you can simply use the manual as
 reference: there is an extensive index@footnote{If you are looking for

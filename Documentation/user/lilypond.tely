@@ -127,8 +127,7 @@ this and other documentation.
 * Advanced Topics::                How it all works.
 * Invoking LilyPond::              Operation.
 * Converting from other formats::  Converting to lilypond source format.
-* Integrating text and music with lilypond-book::
-                                   The lilypond-book manual.
+* lilypond-book manual::           Integrating text and music with lilypond-book.
 * Literature::                     Additional reading material.
 * Index::                          Unified index.
 * Reference manual details::                

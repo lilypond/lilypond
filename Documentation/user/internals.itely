@@ -878,7 +878,7 @@ plain @TeX{}.
 
 Here an example how to embed a small LilyPond file @code{foo.ly} into
 running La@TeX{} text without using the @code{lilypond-book} script
-(@pxref{Integrating text and music with lilypond-book}).
+(@pxref{lilypond-book manual}).
 
 @example
 \documentclass@{article@}
