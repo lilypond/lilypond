@@ -9,13 +9,14 @@
 /*
   UGH. too many includes.
  */
+#include <stdio.h>
+
 #include "warn.hh"
 #include "music-iterator.hh"
 #include "translator-group.hh"
 #include "music-wrapper.hh"
 #include "music-wrapper-iterator.hh"
 #include "simple-music-iterator.hh"
-#include "ly-smobs.icc"
 
 #include "ly-smobs.icc"
 
@@ -203,9 +204,13 @@ Music_iterator::mark_smob (SCM smob)
 }
 
 int
-Music_iterator::print_smob (SCM , SCM port, scm_print_state*)
+Music_iterator::print_smob (SCM sm , SCM port, scm_print_state*)
 {
-  scm_puts ("#<Music iterator>", port);
+  char s[1000];
+
+  Music_iterator *iter = unsmob_iterator (sm);
+  sprintf (s, "#<%s>", classname (iter));
+  scm_puts (s, port);
   return 1;
 }
 

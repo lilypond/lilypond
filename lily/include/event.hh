@@ -47,7 +47,7 @@ protected:
   void transpose (Pitch  d);
 };
 
-SCM transpose_key_alist (SCM,SCM);
+SCM ly_transpose_key_alist (SCM,SCM);
 
 
 

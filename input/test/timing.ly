@@ -2,7 +2,9 @@
 % possible rename to bar-something.
 
 \header{ texidoc = "@cindex Bar Length
-You can alter the length of bars in a number of ways. "
+
+You can alter the length of bars by setting
+@code{measureLength} or by resetting @code{measurePosition}. "
 }
 
 \score { 

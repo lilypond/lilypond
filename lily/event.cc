@@ -74,7 +74,7 @@ Event::Event ()
 }
 
 ADD_MUSIC(Event);
-LY_DEFINE(music_duration_length, "music-duration-length", 1, 0,0,
+LY_DEFINE(ly_music_duration_length, "ly:music-duration-length", 1, 0,0,
 	  (SCM mus),
 	  "Extract the duration field from @var{mus}, and return the length.")
 {
@@ -96,7 +96,7 @@ LY_DEFINE(music_duration_length, "music-duration-length", 1, 0,0,
 }
 
 
-LY_DEFINE(music_duration_compress, "ly:music-duration-compress", 2, 0,0,
+LY_DEFINE(ly_music_duration_compress, "ly:music-duration-compress", 2, 0,0,
 	  (SCM mus, SCM factor),
 	  "Extract the duration field from @var{mus}, and compress it.")
 {
@@ -120,7 +120,7 @@ LY_DEFINE(music_duration_compress, "ly:music-duration-compress", 2, 0,0,
 
   TODO: this should use ly:pitch. 
  */
-LY_DEFINE(transpose_key_alist, "ly:transpose-key-alist",
+LY_DEFINE(ly_transpose_key_alist, "ly:transpose-key-alist",
 	  2, 0,0, (SCM l, SCM pitch),
 	  "Make a new key alist of @var{l} transposed by pitch @var{pitch}")
 {
@@ -163,7 +163,7 @@ Key_change_ev::transpose (Pitch p)
 {
   SCM pa = get_mus_property ("pitch-alist");
 
-  set_mus_property ("pitch-alist", transpose_key_alist (pa, p.smobbed_copy()));
+  set_mus_property ("pitch-alist", ly_transpose_key_alist (pa, p.smobbed_copy()));
   Pitch tonic = *unsmob_pitch (get_mus_property ("tonic"));
   set_mus_property ("tonic",
 		    tonic.smobbed_copy ());

@@ -230,7 +230,14 @@ i.e.  this is not an override"
     m
     ))
 
+(define-public (make-nonevent-skip dur)
+  (let*  ((m (make-music-by-name 'NonEventSkip)))
+    (ly:set-mus-property! m 'duration dur)
+    m
+  ))
+
 ;;;;;;;;;;;;;;;;
+
 ;; mmrest
 (define-public (make-multi-measure-rest duration location)
   (let*

@@ -252,7 +252,7 @@ Sequential_iterator::descend_to_child ()
 */
 
 SCM
-Sequential_iterator::get_pending_events (Moment until)const
+Sequential_iterator::get_pending_events (Moment until) const
 {
   SCM s = SCM_EOL;
   if (until <  pending_moment ())
