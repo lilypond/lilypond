@@ -449,6 +449,7 @@ fet_beginchar("G clef", "G", "trebleclef")
 	fi;
 	draw_gclef(1.0);
 fet_endchar;
+
 fet_beginchar("G clef", "G_change", "ctrebleclef")
 	draw_gclef(0.8);
 fet_endchar;
@@ -669,3 +670,24 @@ fet_beginchar("tab clef (reduced)", "tab_change", "ctabclef")
 fet_endchar;
 
 fet_endgroup("clefs");
+
+if 0 = 1:
+
+%
+% testing unicode/gnome-canvas
+%
+
+savecode:=code;
+code:=97;
+fet_beginchar("Ascii b", "b", "b")
+%%fet_beginchar("G clef", "G", "trebleclef")
+	if test_staff = 1:
+		draw_staff(-1,3, 0.0);
+	fi;
+	draw_gclef(1.0);
+	%% charnamestr:="Ascii b";
+fet_endchar;
+
+code:=savecode;
+
+fi

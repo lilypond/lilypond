@@ -529,7 +529,30 @@ fet_beginchar("X-Circled notehead", "2xcircle", "xcircledhead")
 fet_endchar;
 
 
-
 fet_endgroup("noteheads");
 
+% what is this doing here?
 define_pixels(black_notehead_width);
+
+
+if 0 = 1:
+
+% free space: ascii a-i
+code:=106;
+
+%
+% testing unicode/gnome-canvas
+%
+savecode:=code;
+code:=96;
+%fet_beginchar("Whole notehead", "0", "wholehead")
+fet_beginchar("Ascii a", "a", "a")
+	draw_outside_ellipse (1.80 - puff_up_factor / 3.0, 0, 0.707, 0);
+	undraw_inside_ellipse (1.30, 125 - puff_up_factor *10,
+			0.68, 2 stafflinethickness#,
+			(w /2, 0));
+%	draw_staff_outline (-2, 2, 0.5);
+fet_endchar;
+
+code:=savecode;
+fi
