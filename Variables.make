@@ -37,9 +37,12 @@ endif
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=18
+PATCHLEVEL=19
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 CXXVER=`$(CXX) --version`
+
+#flower version
+NEEDEFLOWERVER=1.0.16
 
 # directories
 TOPDIR  := $(shell if [ "$$PWD" != "" ]; then echo $$PWD; else pwd; fi)
