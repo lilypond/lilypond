@@ -28,6 +28,7 @@
 
 #include <iostream>
 
+#include "parse-scm.hh"
 #include "score.hh"
 #include "lily-guile.hh"
 #include "string.hh"
@@ -76,6 +77,8 @@ LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 
 
 SCM scan_fraction (String);
+SCM (* scm_parse_error_handler) (void *);
+
 
 %}
 
