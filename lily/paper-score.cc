@@ -102,25 +102,34 @@ Paper_score::process (String outname)
 
   SCM scopes = SCM_EOL;
 
-  /*
-    Last one first.
-   */
   if (header_)
     scopes = scm_cons (header_, scopes);
-
   if (global_input_file->header_ && global_input_file->header_ != header_)
     scopes = scm_cons (global_input_file->header_, scopes);
   
   outputter_->output_metadata (scopes, paper_);
   outputter_->output_music_output_def (paper_);
+  outputter_->output_scheme (scm_list_1 (ly_symbol2scm ("header-end")));
 
-  SCM scm = scm_list_n (ly_symbol2scm ("header-end"), SCM_UNDEFINED);
-  outputter_->output_scheme (scm);
+  outputter_
+    ->output_scheme (scm_list_2 (ly_symbol2scm ("define-fonts"),
+				 ly_quote_scm (paper_->font_descriptions ())));
+
+#if 0
+  // huh? does not work, stack overflow
+  outputter_->output_scheme (scm_list_2 (ly_symbol2scm ("make-title"),
+					 outputter_->file_));
+#else
+#if 0
+  // uhuh?? does not work, stack overflow
+  outputter_->output_scheme (scm_list_2 (ly_symbol2scm ("set-port"),
+  					 outputter_->file_));
+#endif
+  outputter_->output_scheme (scm_list_1 (ly_symbol2scm ("make-title")));
+#endif
 
   system_->output_lines ();
-
-  scm = scm_list_n (ly_symbol2scm ("end-output"), SCM_UNDEFINED);
-  outputter_->output_scheme (scm);
+  outputter_->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
 
   progress_indication ("\n");
 

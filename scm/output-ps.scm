@@ -135,8 +135,6 @@
 	(regexp-substitute/global #f "feta([a-z-]*)([0-9]+)" name 'pre "GNU-LilyPond-feta" 1 "-" 2 'post))
        (else name)))
     
-    ;;(format (current-error-port) "DEFINE-FONTS: ~S\n" internal-external-name-mag-pairs)
-    
     (string-append
      "/" command
      " { /"
@@ -301,14 +299,7 @@
    "\n" (ly:number->string height)
    " start-system\n"
    "{\n"
-   "set-ps-scale-to-lily-scale\n"
-
-   ;; URG
-   (if (pair? header-stencils)
-       (let ((s (output-stencils header-stencils)))
-	 (set! header-stencils '())
-	 (string-append s (stop-system) (start-system width height)))
-       "")))
+   "set-ps-scale-to-lily-scale\n"))
 
 (define (stem breapth width depth height) 
   (string-append
@@ -367,8 +358,7 @@
 (define (output-scopes paper scopes fields basename)
 
   ;; FIXME: customise/generate these
-  (let ((props '((;;(linewidth . 120)
-		  (font-family . roman)
+  (let ((props '(((font-family . roman)
 		  (word-space . 1)
 		  (baseline-skip . 2)
 		  (font-series . medium)
@@ -384,10 +374,18 @@
 	  (let ((val (variable-ref var))
 		(tex-key (symbol->string sym)))
 	    
+	    (format (current-error-port) "SYM:~S\n" sym)
+	    
 	    (if (memq sym fields)
 		(header-to-file basename sym val))
 	    
 	    (cond
+	     ((eq? sym 'font)
+	      BARF
+	      (format (current-error-port) "PROPS:~S\n" val)
+	      (set! props (cons val props))
+	      "")
+	     
 	     ;; define strings, for /make-lilypond-title to pick up
 	     ((string? val) (ps-string-def "lilypond" sym val))
 
@@ -416,27 +414,37 @@
 
 (define header-stencils '())
 
-(define (output-stencils lst)
-  (apply string-append
-	 (map (lambda (x) (stencil->string x '(10 . -10))) lst)))
+(define output-port (current-error-port))
+(define (set-port p)
+  (set! output-port p)
+  "")
+
+(define (make-title)
+  (if (pair? header-stencils)
+      (map (lambda (x) (output-stencil output-port x '(10 . -10)))
+	   header-stencils))
+  "")
 
 ;; hmm, looks like recursing call is always last statement, does guile
 ;; think so too?
-(define (stencil->string expr o)
+(define (output-stencil port expr offset)
   (if (pair? expr)
       (let ((head (car expr)))
+	(format (current-error-port) "head: ~S\n" head)
+	(force-output (current-error-port))
 	(cond
 	 ((ly:input-location? head)
-	  (string-append (apply define-origin (ly:input-location head))
-			 (stencil->string (cadr expr) o)))
+	  (display (apply define-origin (ly:input-location head)) port)
+	  (output-stencil port (cadr expr) offset))
 	 ((eq? head 'no-origin)
-	  (string-append (expression->string head)
-			 (stencil->string (cadr expr) o)))
+	  (display (expression->string head) port)
+	  (output-stencil port (cadr expr) offset))
 	 ((eq? head 'translate-stencil)
-	  (stencil->string (caddr expr) (offset-add o (cadr expr))))
+	  (output-stencil port (caddr expr) (offset-add offset (cadr expr))))
 	 ((eq? head 'combine-stencil)
-	  (string-append (stencil->string (cadr expr) o)
-			 (stencil->string (caddr expr) o)))
+	  (output-stencil port (cadr expr) offset)
+	  (output-stencil port (caddr expr) offset))
 	 (else
-	  (placebox (car o) (cdr o) (expression->string expr)))))
-      ""))
+	  (display (placebox (car offset) (cdr offset)
+			     (expression->string expr)) port))))))
+
