@@ -8,7 +8,8 @@
 
 // "" huh?
 #include "time.h"
-
+#include "main.hh"
+#include "source.hh"
 #include "proto.hh"
 #include "plist.hh"
 #include "string.hh"
@@ -48,36 +49,25 @@ Midi_output::do_staff(Staff*st_l,int track_i)
 
     // set track name
     Midi_text track_name( Midi_text::TRACK_NAME, "Track " + String_convert::i2dec_str( track_i, 0, '0' ) );
-    midi_track.add( Moment( 0.0 ), &track_name );
+    midi_track.add( Moment( 0 ), &track_name );
 
     // set instrument :-)
     Midi_text instrument_name( Midi_text::INSTRUMENT_NAME, "piano" );
-    midi_track.add( Moment( 0.0 ), &instrument_name );
+    midi_track.add( Moment( 0 ), &instrument_name );
 
     // set key, help, where to get key, where to get major/minor?
     int accidentals_i = 0;
     int minor_i = 0;
 
-#ifdef UGR
-    // uph, sorry, wanna test this...
-    // menuetto in F
-    if ( ( infile_str_g.index_i( "scsii-menuetto" ) >= 0 )
-	|| ( infile_str_g.index_i( "standchen" ) >= 0 )
-	|| ( infile_str_g.left_str( 1 )  == String( "s" ) ) )
-    	accidentals_i = -1;
-    // standchen in d	
-    if ( ( infile_str_g.index_i( "standchen" ) >= 0 ) )
-    	minor_i = 1;
-#endif
 
     Midi_key midi_key( accidentals_i, minor_i ); 
-    midi_track.add( Moment( 0.0 ), &midi_key );
+    midi_track.add( Moment( 0 ), &midi_key );
 
     Midi_tempo midi_tempo( midi_l_->get_tempo_i( Moment( 1, 4 ) ) );
-    midi_track.add( Moment( 0.0 ), &midi_tempo );
+    midi_track.add( Moment( 0 ), &midi_tempo );
 
     Midi_time midi_time( Midi_def::num_i_s, Midi_def::den_i_s, 18 );
-    midi_track.add( Moment( 0.0 ), &midi_time );
+    midi_track.add( Moment( 0 ), &midi_time );
 
     for (Midi_walker w (st_l, &midi_track); w.ok(); w++)
 	w.process_requests();
@@ -96,41 +86,26 @@ Midi_output::header()
     String str = String( "Creator: " ) + get_version_str() + "\n";
 
     Midi_text creator( Midi_text::TEXT, str );
-    midi_track.add( Moment( 0.0 ), &creator );
+    midi_track.add( Moment( 0 ), &creator );
 
     str = "Generated, at ";
     str += ctime( &t );
     str = str.left_str( str.length_i() - 1 );
     str += ",\n";
     Midi_text generate( Midi_text::TEXT, str );
-    midi_track.add( Moment( 0.0 ), &generate );
+    midi_track.add( Moment( 0 ), &generate );
+    Source_file* sourcefile_l = source_l_g->sourcefile_l( score_l_->defined_ch_C_ );
+    if ( sourcefile_l ) {
+	str = "from musical definition: " 
+	    + sourcefile_l->file_line_no_str(score_l_->defined_ch_C_);
 
-    str = "from musical definition: " + infile_str_g + "\n";
+    }
     Midi_text from( Midi_text::TEXT, str );
-    midi_track.add( Moment( 0.0 ), &from );
+    midi_track.add( Moment( 0 ), &from );
 
     // set track name
     Midi_text track_name( Midi_text::TRACK_NAME, "Track " + String_convert::i2dec_str( 0, 0, '0' ) );
-    midi_track.add( Moment( 0.0 ), &track_name );
-
-#if 0
-    /*
-	shouldn't impose copyright on output.
-	*/
-    struct tm* tm_l = gmtime( &t );
-    String year_str = String_convert::i2dec_str( 1900 + tm_l->tm_year, 4, '0' );
-	    
-    // your copyleft here
-    str = " Copyleft (o) " + year_str + "by\n";
-    Midi_text copyleft( Midi_text::COPYRIGHT, str );
-    midi_track.add( Moment( 0.0 ), &copyleft );
-
-    str = " Han-Wen Nienhuys <hanwen@stack.nl>,"
-	  " Jan Nieuwenhuizen <jan@digicash.com>\n";
-	
-    Midi_text authors( Midi_text::COPYRIGHT, str );
-    midi_track.add( Moment( 0.0 ), &authors );
-#endif
+    midi_track.add( Moment( 0 ), &track_name );
     *midi_stream_l_  << midi_track;
 }
 

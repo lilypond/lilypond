@@ -29,8 +29,7 @@ Tex_stream::header()
     *os << "% Creator: " << get_version_str();
     *os << "% Automatically generated, at ";
     time_t t(time(0));
-    *os << ctime(&t);
-    *os << "% from musical definition: " + infile_str_g + "\n";
+    *os << ctime(&t)<<"\n";
 }
 Tex_stream::~Tex_stream()
 {
