@@ -9,7 +9,6 @@
 #include "column-x-positions.hh"
 #include "real.hh"
 #include "debug.hh"
-#include "vector.hh"
 #include "line-spacer.hh"
 
 Column_x_positions::Column_x_positions()
@@ -36,8 +35,6 @@ Column_x_positions::print() const
 #ifndef NPRINT
   DOUT << "energy : " << energy_f_ << '\n';
   DOUT << "line of " << config_.size() << " cols\n";
-  Vector v (config_);
-  DOUT << v;
 #endif
 }
 
@@ -49,12 +46,6 @@ Column_x_positions::OK() const
 #endif
 }
 
-void
-Column_x_positions::set_stupid_solution(Vector v)
-{
-  energy_f_ = infinity_f;
-  config_ = v;
-}
 
 void
 Column_x_positions::stupid_solution()

@@ -7,24 +7,24 @@ toeter_i = \notes\relative c <{
 	\context Voice = upper { \stemup s1*6 }
 	\context Voice = together  { 
 
-	c'''4 c c c \break
+	c'''4^"toet I" c c c 
 	d d d d \break
-	R1 \break 
+	R1 
 	\context Voice = upper {
 		e4 e e e \break }
-	f f f f \break
+	f f f f
 	g g g g 
 }>
 
 toeter_ii = \notes \relative c \context Voice = together { 
-	c''4 c c c \break
-	d d d d \break
-	R1 \break
+	c''4^"toet II" c c c 
+	d d d d 
+	R1 
 	\context Voice = lower {
 		\stemdown 
-		e4 e e e \break
+		e4 e e e 
         }
-	f f f f \break
+	f f f f 
 	g g g g
 }
 
@@ -37,14 +37,14 @@ zager = \context Staff = zager \notes \relative c'' {
 	\clef treble;
 	\property Staff.instrument = "Zager"
 	\property Staff.instr = "Zag."
-	c4 d e f \break
+	c4^"zag" d e f 
 	\property Staff.instr = "Zag. \& Zog."
-	f e d c \break
-	c d e f \break
+	f e d c 
+	c d e f 
 	\property Staff.instr = "Zag."
 	\stemup
-	f e d c \break
-	c d e f \break
+	f e d c 
+	c d e f 
 	f e d c
 }
 
@@ -52,14 +52,14 @@ zoger = \context Staff = zoger \notes \relative c'' {
 	\clef treble;
 	\property Staff.instrument = "Zoger"
 	\property Staff.instr = "Zog."
-	c4 d e f \break
+	c4^"zog" d e f 
 	\skip 1*2;
 
 	\translator Staff=zager
 	\stemdown 
 	c2 g2
 	
-	a4 b c d \break
+	a4 b c d 
 	\skip 1*1;
 }
 
@@ -78,7 +78,7 @@ zagers = \context GrandStaff <
 		>
 	>
 	\paper{
-		linewidth = 40.0\mm;
+		linewidth = 80.0\mm;
 		\translator { \HaraKiriStaffContext }
 %uh?
 		\translator { \OrchestralScoreContext }

@@ -30,7 +30,7 @@ public:
   int lines_i () const;
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
 
-  virtual int position_i () const;
+  virtual Real position_f () const;
 };
 
 #endif /* STAFF_SYM_REFERENCER_HH */

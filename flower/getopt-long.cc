@@ -16,7 +16,7 @@
 inline char*
 gettext (char const* s)
 {
-  return s;
+  return (char*)s;
 }
 #else
 #include <libintl.h>

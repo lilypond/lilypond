@@ -11,7 +11,7 @@
 #include "paper-score.hh"
 #include "debug.hh"
 #include "paper-column.hh"
-#include "spring-spacer.hh"
+#include "line-spacer.hh"
 
 
 /** El stupido.  Add a measure until we're past the optimum.

@@ -33,7 +33,7 @@ public:
      Set empty in direction a1 and a2.  If an argument is NO_AXES, it is ignored.
    */
   void set_empty (bool b, Axis a1 = NO_AXES, Axis a2 = NO_AXES);
-  bool empty_b (Axis a1 = NO_AXES, Axis a2 = NO_AXES);
+  bool empty_b (Axis a1);
   Graphical_element ();
   Graphical_element (Graphical_element const&);
   virtual ~Graphical_element ();

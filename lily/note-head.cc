@@ -33,7 +33,7 @@ Note_head::do_pre_processing ()
   if (balltype_i_ > 2)
     balltype_i_ = 2;
   if (dots_l_)			// move into Rhythmic_head?
-    dots_l_->position_i_ = position_i ();
+    dots_l_->position_i_ = int (position_f ());
 }
 
 
@@ -41,7 +41,7 @@ Note_head::do_pre_processing ()
 int
 Note_head::compare (Note_head *const  &a, Note_head * const &b)
 {
-  return a->position_i () - b->position_i ();
+  return sign(a->position_f () - b->position_f ());
 }
 
 /**
@@ -61,9 +61,9 @@ Note_head::do_brew_molecule_p() const
   Real inter_f = staff_line_leading_f ()/2;
   int sz = lines_i ()-1;
 
-  int streepjes_i = abs (position_i ()) < sz 
+  int streepjes_i = abs (position_f ()) < sz 
     ? 0
-    : (abs(position_i ()) - sz) /2;
+    : (abs(position_f ()) - sz) /2;
 
 
   String type; 
@@ -79,7 +79,7 @@ Note_head::do_brew_molecule_p() const
 
   if (streepjes_i) 
     {
-      Direction dir = (Direction)sign (position_i ());
+      Direction dir = (Direction)sign (position_f ());
       Interval hd = out->dim_[X_AXIS];
       Real hw = hd.length ()/4;
       
@@ -87,7 +87,7 @@ Note_head::do_brew_molecule_p() const
 	= lookup_l ()->ledger_line  (Interval (hd[LEFT] - hw,
 					       hd[RIGHT] + hw));
       
-      int parity =  abs(position_i ()) % 2;
+      int parity =  abs(int (position_f ())) % 2;
       
       for (int i=0; i < streepjes_i; i++)
 	{

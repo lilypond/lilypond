@@ -51,7 +51,7 @@ Note_column::head_positions_interval() const
   iv.set_empty ();
   for (int i=0; i <head_l_arr_.size ();i ++)
     {
-      int j = head_l_arr_[i]->position_i ();
+      int j = int (head_l_arr_[i]->position_f ());
       iv.unite (Slice (j,j));
     }
   return iv;

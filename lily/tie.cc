@@ -37,8 +37,8 @@ Tie::Tie()
 Direction
 Tie::get_default_dir () const
 {
-  int m = (head_l_drul_[LEFT]->position_i () 
-	  + head_l_drul_[RIGHT]->position_i ()) /2;
+  int m = int (head_l_drul_[LEFT]->position_f () 
+	       + head_l_drul_[RIGHT]->position_f ()) /2;
 
   /*
     If dir is not determined: inverse of stem: down
@@ -151,11 +151,12 @@ Tie::do_post_processing()
 	 for smal slurs
    */
 
-  int ypos_i = head_l_drul_[LEFT] ? head_l_drul_[LEFT]->position_i ()
-    : head_l_drul_[RIGHT]->position_i ();
+  Real ypos = head_l_drul_[LEFT] ? head_l_drul_[LEFT]->position_f ()
+    : head_l_drul_[RIGHT]->position_f ();
 
-  Real y_f = internote_f * ypos_i; 
-
+  Real y_f = internote_f * ypos; 
+  int ypos_i = int (ypos);
+ 
   Real dx_f = extent (X_AXIS).length () + dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
   if (dx_f < paper_l ()->get_var ("tie_staffspace_length"))
     {

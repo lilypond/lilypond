@@ -59,7 +59,7 @@ Bar_script_engraver::do_acknowledge_element (Item *i)
 
       /*
 	How do we make sure that staff_side_p_ has a dependency from
-	someone else? We can't use i for that,  so we use some other element.
+	someone else? We can't use I for that,  so we use some other element.
        */
       // staff_side_p_->set_elt_property (dangling_scm_sym, SCM_BOOL_T)
       get_staff_info ().command_pcol_l ()->add_dependency (staff_side_p_);

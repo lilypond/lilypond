@@ -26,7 +26,7 @@ public:
   Rhythmic_head ();
 
   int dots_i ()const;
-  virtual int position_i () const;
+  virtual Real position_f () const;
 protected:
   virtual void do_post_processing ();
   virtual void do_pre_processing ();

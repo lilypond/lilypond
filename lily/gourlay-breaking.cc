@@ -8,11 +8,11 @@
 
 #include "gourlay-breaking.hh"
 #include "column-x-positions.hh"
-#include "spring-spacer.hh"
 #include "debug.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "paper-def.hh"
+#include "line-spacer.hh"
 
 #include "killing-cons.tcc"
 

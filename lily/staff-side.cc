@@ -72,6 +72,17 @@ Staff_side_element::position_self ()
       to_position_l_->get_elt_property (transparent_scm_sym) != SCM_BOOL_F)
     return;
 
+  Axis other = Axis ((axis_ + 1) % NO_AXES);
+  if (parent_l (axis_)->empty_b (axis_)
+      &&parent_l (axis_)->empty_b (other)) // guh
+    {
+      warning (_("No support; erasing script"));
+      to_position_l_->set_empty (X_AXIS,Y_AXIS);
+      to_position_l_->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+      set_empty (X_AXIS, Y_AXIS);
+      return ;
+    }
+  
   Interval dim;
   Graphical_element *common = 0;
   if (support_l_arr_.size ())
@@ -102,8 +113,6 @@ Staff_side_element::position_self ()
     : Interval(0,0);
 
   Real off =  relative_coordinate (common, axis_);
- 
-
 
   SCM pad = remove_elt_property (padding_scm_sym);
   if (pad != SCM_BOOL_F)

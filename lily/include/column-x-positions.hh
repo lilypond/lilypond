@@ -27,7 +27,6 @@ struct Column_x_positions {
   /** generate a solution with no regard to idealspacings or
     constraints.  should always work */
   void stupid_solution();
-  void set_stupid_solution (Vector);
   Column_x_positions();
   void add_paper_column (Paper_column*c);
   void print() const;

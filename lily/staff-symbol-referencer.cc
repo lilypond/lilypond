@@ -52,9 +52,8 @@ Staff_symbol_referencer::staff_line_leading_f () const
   return (staff_sym_l_) ? staff_sym_l_->staff_line_leading_f_ : paper_l ()->get_realvar (interline_scm_sym);
 }
 
-
-int
-Staff_symbol_referencer::position_i () const
+Real
+Staff_symbol_referencer::position_f () const
 {
   if (!staff_sym_l_ )
     return 0;
@@ -62,5 +61,5 @@ Staff_symbol_referencer::position_i () const
   Graphical_element * c = common_refpoint (staff_sym_l_, Y_AXIS);
   Real y = relative_coordinate (c, Y_AXIS) - staff_sym_l_->relative_coordinate (c, Y_AXIS);
 
-  return int (2.0 * y / staff_line_leading_f ());
+  return 2.0 * y / staff_line_leading_f ();
 }
