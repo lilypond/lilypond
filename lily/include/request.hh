@@ -46,8 +46,10 @@ public:
     virtual Blank_req * blank() { return 0; }
     virtual Musical_req *musical() { return 0; }
     virtual Command_req * command() { return 0; }
+    bool equal_b(Request*) const;
 protected:
-    virtual void do_print()const ;
+    virtual bool do_equal_b(Request*) const;
+    virtual void do_print()const;
 };
 
 #define REQUESTMETHODS(T,accessor)	\
@@ -67,7 +69,8 @@ public:
     General_script_def *scriptdef_p_;
 
     /* *************** */
-    static int compare(const Script_req &, const Script_req &);
+    bool do_equal_b(Request*)const;
+
     Script_req();
     REQUESTMETHODS(Script_req,script);
     ~Script_req();
