@@ -9,11 +9,10 @@
 #define NOTE_PERFORMER_HH
 
 #include "performer.hh"
-#include "list.hh"
 
 /**
+Convert reqs to audio notes.
 */
-
 class Note_performer : public Performer {
 public:
   VIRTUAL_COPY_CONS(Translator);
@@ -23,7 +22,6 @@ public:
 
 protected:
   virtual void do_process_requests();
-
   virtual bool do_try_music (Music *req_l) ;
   virtual void do_print() const;
 

@@ -14,11 +14,11 @@
 #include "drul-array.hh"
 
 class Beam_engraver : public Engraver {
-  Drul_array<Beam_req*> reqs_drul_;
+  Drul_array<Span_req*> reqs_drul_;
 
   Beam *finished_beam_p_;
   Beam *beam_p_;
-  Beam_req * prev_start_req_;
+  Span_req * prev_start_req_;
   Rhythmic_grouping*grouping_p_;
   Rhythmic_grouping*finished_grouping_p_;
   

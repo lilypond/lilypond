@@ -186,10 +186,8 @@ Auto_beam_engraver::create_beam_p ()
 void
 Auto_beam_engraver::end_beam ()
 {
-  DOUT << String ("ending autobeam at: ") + now_mom ().str () + "\n";
   if (stem_l_arr_p_->size () < 2)
     {
-      DOUT << "junking autombeam: less than two stems\n";
       junk_beam ();
     }
   else
@@ -236,7 +234,6 @@ Auto_beam_engraver::do_removal_processing ()
   typeset_beam ();
   if (stem_l_arr_p_ && stem_l_arr_p_->size ())
     {
-      DOUT << "Unfinished beam\n";
       junk_beam ();
     }
 }
@@ -248,7 +245,6 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
     {
       if (stem_l_arr_p_)
 	{
-	  DOUT << "junking autobeam: beam encountered\n";
 	  junk_beam ();
 	}
     }
@@ -256,7 +252,6 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
     {
       if (stem_l_arr_p_)
 	{
-	  DOUT << "junking autobeam: bar encountered\n";
 	  junk_beam ();
 	}
     }
@@ -269,7 +264,6 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 
       if (dynamic_cast<Rest *> (info.elem_l_))
 	{
-	  DOUT << "junking autobeam: rest encountered\n";
 	  end_beam ();
 	  return;
 	}
@@ -280,7 +274,6 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 
       if (stem_l->beam_l_)
 	{
-	  DOUT << "junking autobeam: beamed stem encountered\n";
 	  junk_beam ();
 	  return;
 	}
@@ -292,7 +285,6 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
        */
       if (rhythmic_req->duration_.durlog_i_ <= 2)
 	{
-	  DOUT << "ending autobeam: stem doesn't fit in beam\n";
 	  end_beam ();
 	  return;
 	}
@@ -300,7 +292,6 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
       Moment start = get_staff_info().time_C_->whole_in_measure_;
       if (!grouping_p_->child_fit_b (start))
 	{
-	  DOUT << "ending autobeam: stem doesn't fit in group\n";
 	  end_beam ();
 	}
       else
@@ -350,13 +341,10 @@ Auto_beam_engraver::process_acknowledged ()
       if ((extend_mom_ < now)
 	  || ((extend_mom_ == now) && (last_add_mom_ != now )))
 	{
-	  DOUT << String ("junking autobeam: no stem added since: ")
-	    + last_add_mom_.str () + "\n";
 	  end_beam ();
 	}
       else if (!stem_l_arr_p_->size ())
 	{
-	  DOUT << "junking started autobeam: no stems\n";
 	  junk_beam ();
 	}
     }

@@ -1,9 +1,9 @@
-\version "1.0.16";
+\version "1.0.19";
 
 corI=\notes\relative c'' {
 \key c;
 
-\property Staff."midi_instrument" = "french horn"
+\property Staff."midiInstrument" = "french horn"
 
 [g8. \f ( a16 ] ) g2 |
 [g8.  ( a16 ] ) g2_"dim." |
@@ -247,7 +247,7 @@ a-. [ gis-. gis-. \< g-.] |
 corII=\notes\relative c'' {
 \key c;
 
-\property Staff."midi_instrument" = "french horn"
+\property Staff."midiInstrument" = "french horn"
 
 R2.*19 |
 r4 r [g8^"solo" \p (\< \! ) e'] |
@@ -412,7 +412,7 @@ c'4-. \fz r^\fermata
 trpI=\notes\relative c'' {
 \key c;
 
-\property Staff."midi_instrument" = "trumpet"
+\property Staff."midiInstrument" = "trumpet"
 
 [d8. ( \f e16 ] ) d2 |
 R2.*30 |
@@ -575,7 +575,7 @@ r4 r8 [c'16^"Flauto" ( d] |
 trpII=\notes\relative c' {
 \key c;
 
-\property Staff."midi_instrument" = "trumpet"
+\property Staff."midiInstrument" = "trumpet"
 
 R2.*31 |
 r4 r^\fermata r8 ^\fermata r |
@@ -677,7 +677,7 @@ g4 \fz r^\fermata
 timpani=\notes\relative c, {
 \clef "bass";
 
-\property Staff."midi_instrument" = "timpani"
+\property Staff."midiInstrument" = "timpani"
 
 r2. | % Ensure that the staff is printed on page 1 of the score.
 R2.*5 |

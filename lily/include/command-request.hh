@@ -162,11 +162,5 @@ protected:
   VIRTUAL_COPY_CONS(Music);
 };
 
-class Bracket_req :  public Span_req {
-
-public:
-  VIRTUAL_COPY_CONS(Music);
-};
-
 
 #endif // COMMANDREQUEST_HH

@@ -50,6 +50,7 @@ StaffContext=\translator {
 
 
 	\consists "Separating_line_group_engraver";
+	\consists "Font_size_engraver";
 	  
 	\accepts "Voice";
 	dynamicStyle = "dynamic";
@@ -61,12 +62,14 @@ StaffContext=\translator {
 	\name ChoirStaff;
 	alignmentReference = \center;	
 	\consists "Staff_group_bar_engraver";
+
 	\consistsend "Axis_group_engraver";
 	\accepts "Staff";
 	\accepts "RhythmicStaff";
 	\accepts "GrandStaff";
 	\accepts "PianoStaff";
-	
+
+		
 	\accepts "Lyrics";
 	\accepts "ChordNames";
 }
@@ -89,7 +92,7 @@ RhythmicStaffContext=\translator{
 \translator{\RhythmicStaffContext}
 VoiceContext = \translator {
 	\type "Engraver_group_engraver";
-	\consists "Dynamic_engraver";
+	\consists "Dynamic_engraver";   % must come before text_engraver.
 	\name Voice ;
 	beamAuto = "1";
 	
@@ -99,7 +102,7 @@ VoiceContext = \translator {
 	\consists "Beam_engraver";
 	\consists "Auto_beam_engraver";
 	\include "auto-beam-settings.ly";
-	\consists "Abbreviation_beam_engraver";
+%	\consists "Abbreviation_beam_engraver";
 %	\consists "Multi_measure_rest_engraver";
 
 	% ugh.  Order matters here.
@@ -168,12 +171,13 @@ StaffGroupContext= \translator {
 	\consists "Separating_line_group_engraver";
 	\consists "Lyric_engraver";
 	\consists "Extender_engraver";
-	\consists "Beam_req_swallow_translator";
 }
 
 \translator {
 	\type "Engraver_group_engraver";
 	\name Lyrics;
+	\consists Vertical_align_engraver;%need this for getting folded repeats right.
+
 	\consistsend "Axis_group_engraver";
 	
 	\accepts "LyricVoice";

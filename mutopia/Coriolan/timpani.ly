@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.16";
+\version "1.0.19";
 
 timpani = \notes \relative c {
 	R1 *2 | c4-.\ff r r2 | R1 *3 | c4-. r r2 | R1 *3 |
@@ -21,7 +21,7 @@ timpani = \notes \relative c {
 }
 
 $timpani_staff = \context Staff = timpani <
-	\property Staff.midi_instrument = "timpani"
+	\property Staff.midiInstrument = "timpani"
 	\property Staff.instrument = "2 Timpani (C-G)"
 	\property Staff.instr = "Timp."
 	\clef "bass";

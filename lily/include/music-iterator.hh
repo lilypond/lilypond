@@ -29,6 +29,8 @@ class Music_iterator {
 
 protected:
   Music const * music_l_;
+
+  /// ugh. JUNKME
   bool first_b_;
 
   /**
@@ -46,7 +48,6 @@ protected:
     Get an iterator for MUS, inheriting the translation unit from THIS.
    */
   Music_iterator* get_iterator_p (Music const*mus) const;
-  void set_translator (Translator_group*);
 
   /** Do the actual reporting.  This should be overriden in derived
     classes.  It is called by #process_and_next#, the public interface 
@@ -60,11 +61,13 @@ public:
    */
   Translator_group*report_to_l() const;
 
+  void set_translator (Translator_group*);
   
   /** Get an iterator matching the type of MUS, and use TRANS to find
     an accompanying translation unit
    */
-  static Music_iterator* static_get_iterator_p (Music const* mus,Translator_group* trans);
+  static Music_iterator* static_get_iterator_p (Music const* mus);
+  void init_translator (Music const *, Translator_group *); 
 
   Music_iterator();
     

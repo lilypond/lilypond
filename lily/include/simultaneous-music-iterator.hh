@@ -16,6 +16,10 @@
 class Simultaneous_music_iterator : public Music_list_iterator
 {
 public:
+
+  /// make a new context for every child.
+  bool separate_contexts_b_;
+  
   Simultaneous_music_iterator ();
   virtual ~Simultaneous_music_iterator ();
 

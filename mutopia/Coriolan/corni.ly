@@ -9,13 +9,13 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.16";
+\version "1.0.19";
 
 \include "corno-1.ly"
 \include "corno-2.ly"
 
 $corni_staff = \context Staff = corni <
-	\property Staff.midi_instrument = "french horn"
+	\property Staff.midiInstrument = "french horn"
 	\property Staff.instrument = "2 Corni (E\\textflat)"
 	\property Staff.instr = "Cor. (E\\textflat)"
 	% urg: can't; only My_midi_lexer:<non-static> () parses pitch?

@@ -1,8 +1,8 @@
-\version "1.0.16";
+\version "1.0.19";
 
 oboe=\notes\relative c'' {
 \clef "treble";
-\property Staff."midi_instrument" = "oboe"
+\property Staff."midiInstrument" = "oboe"
 
 [c8. \f ( d16] ) c2_"dim." |
 [c8. ( d16] ) c2 |
@@ -197,7 +197,7 @@ f4-. \fz r^\fermata
 
 flauto=\notes\relative c''' {
 \clef "treble";
-\property Staff."midi_instrument" = "flute"
+\property Staff."midiInstrument" = "flute"
 
 [c8. \f ( d16] c2 |
 )c,8 r r4 r |
@@ -377,7 +377,7 @@ f4 \fz r^\fermata
 clarI=\notes\relative c'' {
 \key G;
 \clef "treble";
-\property Staff."midi_instrument" = "clarinet"
+\property Staff."midiInstrument" = "clarinet"
 
 [d8. \fp ( e16 ] ) d2 |
 [d8._"dim." ( e16 ] ) d2 |
@@ -613,7 +613,7 @@ g'4-. \fz r^\fermata
 clarII=\notes\relative c'' {
 \key G;
 \clef "treble";
-\property Staff."midi_instrument" = "clarinet"
+\property Staff."midiInstrument" = "clarinet"
 
 [d8. \fp ( e16 ] ) d2 |
 [d8._"dim." ( e16 ] ) d2 |
@@ -820,7 +820,7 @@ b4-. \fz r^\fermata
 
 fagotto=\notes\relative c' {
 \clef "bass";
-\property Staff."midi_instrument" = "bassoon"
+\property Staff."midiInstrument" = "bassoon"
 
 [c8. \f ( d16 ] ) c2_"dim." |
 [c8. ( d16 ] ) c4 r |

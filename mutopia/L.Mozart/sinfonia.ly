@@ -383,4 +383,4 @@ bassocontinuo = \notes \relative c'{
         \midi{ \tempo 4 = 100; }
 }
 
-\version "1.0.16";
+\version "1.0.19";

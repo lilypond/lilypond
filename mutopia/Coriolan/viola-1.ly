@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.16";
+\version "1.0.19";
 
 viola1 = \notes \relative c {
 	\context Voice=one
@@ -292,7 +292,7 @@ viola1 = \notes \relative c {
 
 % $viola1_staff = \context Staff = viola1 <
 $viola1_staff = \context Staff = violai <
-	\property Staff.midi_instrument = "viola"
+	\property Staff.midiInstrument = "viola"
 	\property Staff.instrument = "Viola"
 	\property Staff.instr = "Vla."
 	\clef "alto";

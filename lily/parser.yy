@@ -41,13 +41,17 @@
 #include "relative-music.hh"
 #include "transposed-music.hh"
 #include "time-scaled-music.hh"
-#include "repeated-music.hh"
+#include "new-repeated-music.hh"
 
 // mmm
 Mudela_version oldest_version ("1.0.16");
-Mudela_version version ("1.0.16");
+Mudela_version version ("1.0.19");
 
-
+void
+print_mudela_versions (ostream &os)
+{
+  os << "Mudela versions: oldest  " << oldest_version.str () << " current " << version.str () <<endl;
+}
 // needed for bison.simple's malloc() and free()
 #include <malloc.h>
 
@@ -138,7 +142,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 /* tokens which are not keywords */
 
-%token ABSDYNAMIC
+%token TEXTSCRIPT
 %token ACCEPTS
 %token ALTERNATIVE
 %token BAR
@@ -180,7 +184,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token SCRIPT
 %token SHAPE
 %token SKIP
-%token SPANDYNAMIC
+%token SPANREQUEST
 %token TEMPO
 %token TIME_T
 %token TIMES
@@ -244,7 +248,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <duration>	duration_length
 
 %type <scalar>  scalar
-%type <music>	Music  relative_music Sequential_music Simultaneous_music
+%type <music>	Music  relative_music Sequential_music Simultaneous_music Music_sequence
 %type <music>	property_def translator_change
 %type <music_list> Music_list
 %type <paper>	paper_block paper_def_body
@@ -714,23 +718,31 @@ Music:
 
 Alternative_music:
 	/* empty */ {
-
-		/* UGH*/
-               Music_list* m = new Music_list;
-               $$ = new Sequential_music (m);
+		$$ = 0;
 	}
-	| ALTERNATIVE Simultaneous_music {
-		$$ = $2;
-	}
-	| ALTERNATIVE Sequential_music {
+	| ALTERNATIVE Music_sequence {
 		$$ = $2;
 	}
 	;
 
-Repeated_music: REPEAT unsigned Music Alternative_music	{
-		Music_sequence* m = dynamic_cast <Music_sequence*> ($4);
-		assert (m);
-		$$ = new Repeated_music ($3, $2 >? 1, m);
+
+
+
+Repeated_music:
+	REPEAT STRING unsigned Music Alternative_music
+	{
+		Music_sequence* m = dynamic_cast <Music_sequence*> ($5);
+
+		New_repeated_music * r = new New_repeated_music ($4, $3 >? 1, m);
+		$$ = r;
+		r->fold_b_ = (*$2 == "fold");
+		r->semi_fold_b_ =  (*$2 == "semi");
+		delete $2;
+	}
+	;
+
+Music_sequence: '{' Music_list '}'	{
+		$$ = new Music_sequence ($2);
 	}
 	;
 
@@ -906,13 +918,15 @@ abbrev_command_req:
 		$$ = new Tie_req;
 	}
 	| '['		{
-		Beam_req*b= new Beam_req;
-		b->spantype_ = START;
+		Span_req*b= new Span_req;
+		b->span_dir_ = START;
+		b->span_type_str_ = "beam";
 		$$ =b;
 	}
 	| ']'		{
-		Beam_req*b= new Beam_req;
-		b->spantype_ = STOP;
+		Span_req*b= new Span_req;
+		b->span_dir_ = STOP;
+		b->span_type_str_ = "beam";
 		$$ = b;
 	}
 	;
@@ -1035,17 +1049,19 @@ verbose_request:
 		$$ = (Request*)$1->access_content_Request (true);
 		$$->set_spot (THIS->here_input ());
 	}
-	| ABSDYNAMIC '{' STRING '}'	{
-		Absolute_dynamic_req *ad_p = new Absolute_dynamic_req;
-		ad_p ->loudness_str_ = *$3;
-		ad_p->set_spot (THIS->here_input ());
+	| TEXTSCRIPT STRING STRING 	{
+		Text_script_req *ts_p = new Text_script_req;
+		ts_p-> text_str_ = *$2;
+		ts_p-> style_str_ = *$3;
+		ts_p->set_spot (THIS->here_input ());
 		delete $3;
-		$$ =ad_p;
+		delete $2;
+		$$ = ts_p;
 	}
-	| SPANDYNAMIC '{' int int '}' {
-		Span_dynamic_req * sp_p = new Span_dynamic_req;
-		sp_p-> dynamic_dir_  = Direction($3);
-		sp_p->spantype_ = Direction($4);
+	| SPANREQUEST int STRING {
+		Span_req * sp_p = new Span_req;
+		sp_p-> span_dir_  = Direction($2);
+		sp_p->span_type_str_ = *$3;
 		sp_p->set_spot (THIS->here_input ());
 		$$ = sp_p;
 	}
@@ -1160,22 +1176,24 @@ extender_req:
 close_request:
 	close_request_parens {
 		$$ = $1;
-		dynamic_cast<Span_req*> ($$)->spantype_ = START;
+		dynamic_cast<Span_req*> ($$)->span_dir_ = START;
 	}
 	
 close_request_parens:
 	'('	{
-		$$= new Slur_req;
+		Span_req* s= new Span_req;
+		$$ = s;
+		s->span_type_str_ = "slur";
 	}
 	| E_SMALLER {
-		Span_dynamic_req*s =new Span_dynamic_req;
+		Span_req*s =new Span_req;
 		$$ = s;
-		s->dynamic_dir_ = UP;
+		s->span_type_str_ = "crescendo";
 	}
 	| E_BIGGER {
-		Span_dynamic_req*s =new Span_dynamic_req;
+		Span_req*s =new Span_req;
 		$$ = s;
-		s->dynamic_dir_ = DOWN;
+		s->span_type_str_ = "decrescendo";
 	}
 	;
 
@@ -1183,19 +1201,20 @@ close_request_parens:
 open_request:
 	open_request_parens {
 		$$ = $1;
-		dynamic_cast<Span_req*> ($$)->spantype_ = STOP;
+		dynamic_cast<Span_req*> ($$)->span_dir_ = STOP;
 	}
 	;
 
 open_request_parens:
 	E_EXCLAMATION 	{
-		Span_dynamic_req *s =  new Span_dynamic_req;
-		s->dynamic_dir_ = SMALLER;
+		Span_req *s =  new Span_req;
+		s->span_type_str_ = "crescendo";
 		$$ = s;
-		
 	}
 	| ')'	{
-		$$= new Slur_req
+		Span_req* s= new Span_req;
+		$$ = s;
+		s->span_type_str_ = "slur";
 	}
 	;
 

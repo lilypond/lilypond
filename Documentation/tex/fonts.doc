@@ -117,7 +117,7 @@ small and symmetric disturbances.
 \subsection{Tangent method correction}
 
 A somewhat more elaborate\footnote{While staying in the realm 
-of emperic computer science} way of having a slur avoid 
+of empiric computer science} way of having a slur avoid 
 disturbing notes is by first defining the slur's ideal shape 
 and then using the height correction.  The ideal shape of a 
 slur can be guessed by calculating the tangents of the disturbing 

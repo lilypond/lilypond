@@ -19,7 +19,7 @@
    * auto beaming
 %}
 
-\version "1.0.16";
+\version "1.0.19";
 
 \include "nederlands.ly"                 % for correct parsing of note names
 

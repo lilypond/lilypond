@@ -41,4 +41,4 @@ tab = \notes\transpose c'''\chords{
 
 }
 
-\version "1.0.16"; 
+\version "1.0.19"; 

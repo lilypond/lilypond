@@ -1,3 +1,5 @@
+#if 0
+
 /*
   abbreviation-beam-engraver.cc -- implement Abbreviation_beam_engraver
 
@@ -32,7 +34,7 @@ Abbreviation_beam_engraver::do_try_music (Music*r)
   if (!b)
     return false;
 
-  if (bool (abeam_p_) == bool (b->spantype_ == START))
+  if (bool (abeam_p_) == bool (b->span_dir_ == START))
     return false;
 
   Direction d = (!abeam_p_) ? LEFT : RIGHT;
@@ -93,3 +95,5 @@ Abbreviation_beam_engraver::acknowledge_element (Score_element_info i)
 
   abeam_p_->add_stem (s);
 }
+
+#endif

@@ -1,0 +1,120 @@
+
+
+So to answer your question about staff sizes:
+
+You're asking the wrong question.
+
+Since the 1850's music has bee blown up and shot down to any size you want.
+This is, for reasons I'll get into later, often a really bad mistake. This
+is also the reason why looking at scores and trying to measure their size,
+and then trying to make sense out to the result can be so frustrating.
+
+In real engraving, everything, and I do mean everything, is set up on a
+horizontal AND vertical grid. The real question is not how large is the
+staff, but how many spaces across.
+ 
+If you take the height of the staff and divide it into the length, and then
+multiply by 4 you will have the number of units on the staff. Different
+publishing houses have different engraving areas. The old Breitkopf
+classical piano format was 107 accross x 154 high. The modern piano format
+is about 119 accross. The vertical varies with the kind of music and the
+publisher. Because C.F. Peters has a horizontal engraving size of 7 3/8
+inches, there staff is 118 accross. G.Schirmer is 7 5/8 so they wind up with
+121. Score's default is 7.5 inches so you wind up with 119. This is what is
+usualy called a Rastral 3. Rastral 2 is about 107 or 108, Rastral 4 is about
+127 - 132. 
+
+Rastral 3 translates in SCORE to a Code 8 P5 value of .72. This is very
+convienent since the staff is already locked on the grid (which means you
+can move the staff by intering only two digits, rather than four, or using
+the cursor arrows.
+
+In SCORE, the P5 value multiplied by .35 will give you the staff height in
+inches (FORTRAN'S default resolution is 4000 x 4000 dpi). Again divide the
+height into the satff width (7.5 inches for SCORE) and multiply by four for
+the staff width in units that are the same as the vertical space between two
+adjacent staff lines.
+
+Since the default spacing for P5=1 is five spaces between staves, and this
+(for reasons that I will never, ever understand) remains constant when the
+staff sizes is changed, if you want to lock onto the vertical grid you have
+to divide 18 by the P5 value and multiply by -1. For P5 = .72 this will give
+you a value of -25. If you set Code 8 P4 staff Nr. 2 to -25, staff one and
+two will print right on top of each other. If you set the P4 of staff Nr. 3
+to -50 all three staves will print on top of each other. And so on. This is
+very handy for engraving more than one voice on a line since the edit
+function (EDI) will always work. Otherwise it doesn't. 
+
+Now this is getting too long. Think about it, and I'll answer your
+questions. Don't look for any of this in the manuals, it isn't there.
+
+To close up, the trouble with reducing and enlarging is that, as
+typographers figured out in the 16th century, when you change the size of a
+font, the shapes of the symbols have to change too. A nice fat serif in 72
+points will dissapear if the symbol is reduced to 7 points. SCORE's font
+isn't too bad around Rastral 5. Otherwise it needs help. If you look at good
+engraving in SCORE you will notice that different engravers have their own
+symbol libraries. A real music engraving program would have to have a least
+8 different sets of symbols. Which is a bit of work.
+
+george mcguire
+
+****
+
+
+There isn'y really anything usefull written by high quality engraving. The
+reason is simple - the whole system was based on apprenticeship, and if you
+want to sell it, you can't give it away.
+
+Also engravers don't tend to be very verbal. The one great teacher I had,
+Walter Boelke who apprenticed at Roeder and became the chief engraver at
+G.Schirmer in New York, never told me anything. But he would sit next to me
+and grunt when I did something right.
+
+
+*******
+
+
+>
+>My best reference (Wanske) says that Rastral are fixed sizes of
+>staffs, so you are saying that the staff lengths come in fixed sets as
+>well.
+>
+
+The sizes were fixed for the publisher she was working for (Schott), which
+are very close to Breitkopf.
+But the Roeder sizes were different. There is a long history behind this -
+starting with the fact that the first German engraving workshop (methods,
+machinery, tools and engravers) was imported from England (?).
+
+
+******
+
+>If I understand you correctly, you are saying that the scaleable part
+>of msuic isn't so much the height, but how many symbols you can cramp
+>onto one line, and how many lines (systems) on one page.  Or do you
+>mean that I should not be thinking in "dimensions" but "ratios".
+>
+
+Yes, basically the rations are what is important. The horizontal size was
+dependent on the piece of metal.
+On the other hand metal was expensive and the sizes and layout had
+everything to do with how much you could cram on a page.
+
+****
+
+That's okay as far as it goes. But if you look at different size noteheads
+you will notice that they are ovals, and that the angles from the horizontal
+of the main axises change with the size. Of course this is something Tex
+deals with easily and well.
+
+****
+
+Table from Wanske:
+
+
+16.5 15.5 14.5 13.5 12 11.5 9
+143 12 11 10 9 8.5 7
+11 10 9 8 7 6.5 5
+
+

@@ -7,7 +7,7 @@ title = "Ode to Joy";
 metre = "8 7 8 7 D";
 }
 
-\version "1.0.16";
+\version "1.0.19";
 
 sop=\notes \relative c'' {
 	b4 b c d | d c b a | g g a b | b4. a8 a2 \bar "||";

@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.16";
+\version "1.0.19";
 
 violino2 = \notes \relative c {
 	c'1\ff ~ | c | <f4-. c'-. as'-.> r r2 | R1 |
@@ -293,7 +293,7 @@ violino2 = \notes \relative c {
 $violino2_staff = \context Staff = violino2 <
  	% MIDI hoort geeneens verschil tussen een
 	% eerste en tweede viool ;-)
-	\property Staff.midi_instrument = "violin"
+	\property Staff.midiInstrument = "violin"
 	\property Staff.instrument = "Violino II"
 	\property Staff.instr = "Vl. II"
 	\notes< 

@@ -7,14 +7,14 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.16";
+\version "1.0.19";
 
 \include "global.ly"
 \include "viola-1.ly"
 \include "viola-2.ly"
 
 $viola_staff = \context Staff = violai <
-	\property Staff.midi_instrument = "viola"
+	\property Staff.midiInstrument = "viola"
 	\property Staff.instrument = "Viola"
 	\property Staff.instr = "Vla."
 	\clef "alto";

@@ -11,7 +11,7 @@ copyright =	 "public domain";
 Tested Features		lyrics and chords
 %}
 
-\version "1.0.16";
+\version "1.0.19";
 
 melodie = \notes\relative c'' {
         \clef "violin";

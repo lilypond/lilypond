@@ -16,7 +16,7 @@ void
 Span_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << spantype_;
+  DOUT << span_dir_;
 #endif
 }
 
@@ -110,7 +110,10 @@ Rhythmic_req::compress (Moment m)
 void
 Lyric_req::do_print () const
 {
+#ifndef NPRINT
   Rhythmic_req::do_print ();
+  DOUT <<  "text = " << text_str_;
+#endif
 }
 
 
@@ -148,67 +151,18 @@ Note_req::do_print () const
 }
 
 
-Abbreviation_beam_req::Abbreviation_beam_req ()
-{
-  type_i_ = 0;
-}
-
 bool
 Span_req::do_equal_b (Request*r) const
 {
   Span_req * s = dynamic_cast <Span_req *> (r);
-  return s && spantype_ == s->spantype_;
+  return s && span_dir_ == s->span_dir_;
 }
 
 Span_req::Span_req ()
 {
-  spantype_ = CENTER;
+  span_dir_ = CENTER;
 }
 
-
-void
-Absolute_dynamic_req::do_print () const
-{
-#ifndef NPRINT
-  DOUT << " loudness " <<loudness_str_ ;
-#endif
-}
-
-bool
-Absolute_dynamic_req::do_equal_b (Request *r) const
-{
-  Absolute_dynamic_req *a = dynamic_cast <Absolute_dynamic_req *> (r);
-  return a&& loudness_str_ == a->loudness_str_;
-}
-
-Absolute_dynamic_req::Absolute_dynamic_req ()
-{
-  loudness_str_ = "fm";		// yes, "illegal" on purpose.
-}
-
-
-
-bool
-Span_dynamic_req::do_equal_b (Request *req) const
-{
-  Span_dynamic_req * s = dynamic_cast <Span_dynamic_req *> (req);
-
-  return s&& Span_req::do_equal_b (req) && s->dynamic_dir_ == dynamic_dir_;
-}
-
-Span_dynamic_req::Span_dynamic_req ()
-{
-  dynamic_dir_  = CENTER;
-}
-
-void
-Span_dynamic_req::do_print () const
-{
-#ifndef NPRINT
-  Span_req::do_print ();
-  DOUT << "softer/louder: " << dynamic_dir_;
-#endif
-}
 
 void
 Text_script_req::do_print () const
@@ -227,5 +181,6 @@ bool
 Articulation_req::do_equal_b (Request*r) const
 {
   Articulation_req * a = dynamic_cast<Articulation_req*>(r);
-  return articulation_str_ == a->articulation_str_;
+  
+  return a &&  articulation_str_ == a->articulation_str_;
 }

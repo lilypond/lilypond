@@ -30,4 +30,4 @@ copyright =	 "Public Domain";
 	}
 }
 
-\version "1.0.16";
+\version "1.0.19";

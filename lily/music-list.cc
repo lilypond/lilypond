@@ -45,11 +45,6 @@ Sequential_music::length_mom () const
   return cumulative_length ();
 }
 
-Musical_pitch
-Sequential_music::to_relative_octave (Musical_pitch p)
-{
-  return do_relative_octave (p, false);
-}
 
 Musical_pitch
 Simultaneous_music::to_relative_octave (Musical_pitch p)

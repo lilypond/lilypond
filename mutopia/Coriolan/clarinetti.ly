@@ -9,13 +9,13 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.16";
+\version "1.0.19";
 
 \include "clarinetto-1.ly"
 \include "clarinetto-2.ly"
 
 $clarinetti_staff = \context Staff = clarinetti <
-	\property Staff.midi_instrument = "clarinet"
+	\property Staff.midiInstrument = "clarinet"
 	\property Staff.instrument = "2 Clarinetti (B\\textflat)"
 	\property Staff.instr = "Cl. (B\\textflat)"
 	% urg: can't; only My_midi_lexer:<non-static> () parses pitch?

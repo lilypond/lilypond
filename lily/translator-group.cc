@@ -457,7 +457,7 @@ Translator_group::get_property (String id,
       return properties_dict_[id];
     }
 
-#if 0
+#if 1
   if (daddy_trans_l_)
     return daddy_trans_l_->get_property (id, where_l);
 #endif

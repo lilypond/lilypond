@@ -16,7 +16,7 @@ copyright =	 "public domain";
 % scales with accents.
 %
 
-\version "1.0.16";
+\version "1.0.19";
 blah = 	\notes {
 		\time 6/8;	
 \transpose c {

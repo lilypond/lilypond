@@ -6,9 +6,11 @@
 #  bug-gnu-music@gnu.org
 #  help-gnu-music@gnu.org
 #
-# All non-english comments are NOT in swedish, they are norwegian!
 #  TODO:
-# * output various stuff either via sys.stderr or sys.stdout, not using print.
+# * Spacing before and after mudela blocks should be fixed. No empy lines
+#   before and after the mudela block should make just little space between
+#   music and text, one or more empy lines should make bigger space, like
+#   between paragraphs.
 # * center option (??)
 # * make mudela-book understand usepackage{geometry}
 # * check that linewidth set in \paper is not wider than actual linewidth?
@@ -64,7 +66,12 @@
 # 0.5.5: (Mats B)
 #   - bf: Default fragments have linewidth=-1.0
 #   - Added 'singleline' and 'multiline' options.
-
+# 0.5.6:
+#   - \mudelafile{} set linewith correct, -1 for .sly and texlinewidth for .fly
+#   - changes to Mudela_output
+#   - changed RE to search for pre/postMudelaExample to make it possible to
+#     comment out a definition.
+#   - use sys.stderr and sys.stdout instead of print
 import os
 import string
 import re
@@ -73,7 +80,7 @@ import sys
 
 outdir = 'out'
 initfile = ''
-program_version = '0.5.3'
+program_version = '0.5.6'
 include_path = ['.']
 
 out_files = []
@@ -99,8 +106,8 @@ twocolumn_re = re.compile('\\\\twocolumn')
 onecolumn_re = re.compile('\\\\onecolumn')
 mudela_file_re = re.compile('\\\\mudelafile{([^}]+)}')
 file_ext_re = re.compile('.+\\.([^.}]+$)')
-preMudelaExample_re = re.compile('\\\\def\\\\preMudelaExample')
-postMudelaExample_re = re.compile('\\\\def\\\\postMudelaExample')
+preMudelaExample_re = re.compile('^\s*\\\\def\\\\preMudelaExample')
+postMudelaExample_re = re.compile('^\s*\\\\def\\\\postMudelaExample')
 boundingBox_re = re.compile('%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)')
 intertext_re = re.compile("intertext=\"([^\"]*)\"")
 
@@ -238,6 +245,15 @@ class Properties:
 
 
 class Mudela_output:
+    """ Using only self.code_type to deside both value of linewith and
+    if we have to put code into \score{...} was silly. Now we use:
+    self.code_type:  show us what need to be added.
+                        None : init value
+                        'NOTES' : add \context Voice{ ... }
+                        'CONTEXT' : add \score{ ... }
+                        'COMPLETE' : jupp
+    self.single_line_b:   0 : linewidth=-1  1: linewith=textwidth
+    """
     def __init__ (self, basename):
         self.basename = basename
         self.temp_filename = "%s/%s" %(outdir, 'mudela-temp.ly')
@@ -245,48 +261,59 @@ class Mudela_output:
         self.__lines = []
         # 'tex' or 'eps'
         self.graphic_type = 'tex'
-        self.code_type = 'unknown'
-        self.code_type_override = None
+        self.code_type = None
+        self.single_line_b = 1
+        self.optlist = []
     def write (self, line):
-        # match only if there is nothing but whitespace before \begin HACK
+        # match only if there is nothing but whitespace before \begin.
+        # we should not have to do this RE for every line
         if re.search('^\s*\\\\begin{mudela}', line):
-            self.scan_begin_statement(line)
-        else:
-            if self.code_type == 'unknown':
-                if re.search('^\s*\\\\score', line) or \
-                   re.search('^\s*\\\\paper', line) or \
-                   re.search('^\s*\\\\header', line) or \
-                   re.search('^\s*[A-Za-z]*\s*=', line):
-                    self.code_type = 'ly'
+            r  = begin_mudela_opts_re.search(line)
+            if r:
+                o = r.group()[1:-1]
+                self.optlist =  re.compile('[\s,]*').split(o)
+            else:
+                self.optlist = []
+        else: # ugh this is NOT bulletproof...
+            if not self.code_type:
+                if re.search('^\s*%', line) or re.search('^\s*$', line):
+                    pass
+                elif re.search('^\s*\\\\context', line):
+                    self.code_type = 'CONTEXT'
+                    self.single_line_b = 0
+                elif re.search('^\s*\\\\score', line) or \
+                     re.search('^\s*\\\\paper', line) or \
+                     re.search('^\s*\\\\header', line) or \
+                     re.search('^\s*\\\\version', line) or \
+                     re.search('^\s*\\\\include', line) or \
+                     re.search('^\s*[A-Za-z]*\s*=', line):
+                    self.code_type = 'COMPLETE'
+                    self.single_line_b = 0
+                else:
+                    self.code_type = 'NOTES'
+                    self.single_line_b = 1
             self.__lines.append(line)
-    def scan_begin_statement(self, line):
-        r  = begin_mudela_opts_re.search(line)
-        if r:
-            o = r.group()[1:-1]
-            optlist =  re.compile('[\s,]*').split(o)
-        else:
-            optlist = []
-        if 'fragment' in optlist:
-            self.code_type_override = 'sly'
-        if 'nonfragment' in optlist:
-            self.code_type_override = 'ly'
-        if 'singleline' in optlist:
-            self.code_type_override = 'sly'
-        if 'multiline' in optlist:
-            self.code_type_override = 'fly'
-        if 'eps' in optlist:
-            self.graphic_type = 'eps'
-        for pt in fontsize_pt2i.keys():
-            if pt in optlist:
-                Props.setMudelaFontsize(fontsize_pt2i[pt], 'block')
     def write_red_tape(self):
+        if 'eps' in self.optlist:
+            self.graphic_type = 'eps'
+            #self.single_line_b = 1
+        if 'fragment' in self.optlist:
+            self.code_type = 'NOTES'
+        if 'nonfragment' in self.optlist:
+            self.code_type = 'COMPLETE'
+        if 'multiline' in self.optlist:
+            self.single_line_b = 0
+        for pt in fontsize_pt2i.keys():
+            if pt in self.optlist:
+                Props.setMudelaFontsize(fontsize_pt2i[pt], 'block')
         self.file.write ('\\include \"paper%d.ly\"\n' \
                          % Props.getMudelaFontsize())
                          
         s = fontsize_i2a[Props.getMudelaFontsize()]
-        if self.code_type == 'sly':
+        if 'singleline' in self.optlist:
+            self.single_line_b = 1
+        if self.single_line_b:
             linewidth_str = 'linewidth = -1.\cm;'
-            self.code_type = 'fly'
         else:
             linewidth_str = 'linewidth = %i.\\pt;' % Props.getLineWidth()
         self.file.write("\\paper {"
@@ -294,19 +321,18 @@ class Mudela_output:
                         + linewidth_str
                         + "castingalgorithm = \Gourlay; \n}")
                         #+ "castingalgorithm = \Wordwrap; indent = 2.\cm; \n}")
-        if self.code_type == 'fly':
+        if self.code_type == 'CONTEXT':
             self.file.write('\\score{\n\\notes\\relative c{')
+        if self.code_type == 'NOTES' :
+            self.file.write('\\score{\n\\notes\\relative c{\\context Voice{')
     def close (self):
-        if self.code_type == 'unknown':
-            self.code_type = 'sly'
-        if self.code_type_override:
-            self.code_type = self.code_type_override
         self.write_red_tape()
         for l in self.__lines:
             self.file.write(l)
-        if self.code_type == 'fly':
+        if self.code_type == 'CONTEXT':
             self.file.write('}}')
-            
+        elif self.code_type == 'NOTES':
+            self.file.write('}}}')
         self.file.close()
 
         inf = outdir + self.basename + '.ly'
@@ -324,7 +350,7 @@ class Mudela_output:
 	return recompile_b
 
     def insert_me_string(self):
-        "Returns a string that can be used directly in latex."
+        "ugh the name of this function is wrong"
         if self.graphic_type == 'tex':
             return ['tex', self.basename]
         elif self.graphic_type == 'eps':
@@ -360,7 +386,7 @@ class Tex_output:
         if s != '':
             e = os.system('cd %s; lilypond %s' %(outdir, s))
             if e:
-                print "error: lilypond exited with value", e
+                sys.stderr.write("error: lilypond exited with value %i\n" % e)
                 sys.exit(e)
         for g in g_vec:
             if g[0] == 'eps':
@@ -373,13 +399,14 @@ class Tex_output:
         for line in self.__lines:
             if type(line)==type([]):
                 if line[0] == 'tex':
-                    file.write('\\preMudelaExample\\input %s\n\postMudelaExample '\
+                    #\\def\\interscoreline{}
+                    file.write('\\preMudelaExample \\input %s \\postMudelaExample\n'\
 			       # TeX applies the prefix of the main source automatically.
                                % (line[1]+'.tex'))
 #                               % (outdir+line[1]+'.tex'))
                 if line[0] == 'eps':
                     ps_dim = ps_dimention(outdir+line[1]+'.eps')
-                    file.write('\\parbox{%ipt}{\includegraphics{%s}}\n' \
+                    file.write('\\noindent\\parbox{%ipt}{\includegraphics{%s}}\n' \
                                % (ps_dim[0], line[1]+'.eps'))
 #                               % (ps_dim[0], outdir+line[1]+'.eps'))
             else:
@@ -441,8 +468,7 @@ class Tex_input:
                     retlines = retlines + ls[0]
                     retdeps = retdeps + ls[1]
                 except:
-                    print "warning: can't find %s, let's hope latex will" \
-                          % r_inp.groups()[0]
+                    sys.stderr.write("warning: can't find %s, let's hope latex will\n" % r_inp.groups()[0])
                     retlines.append (line)
             elif r_inc:
                 try:
@@ -453,8 +479,7 @@ class Tex_input:
                     retlines = retlines + ls[0]
                     retdeps = retdeps + ls[1]
                 except:
-                    print "warning: can't find %s, let's hope latex will" \
-                          % r_inc.groups()[0]
+                    sys.stderr.write("warning: can't find %s, let's hope latex will" % r_inc.groups()[0])
                     retlines.append (line)
             else:
                 # This code should be rewritten, it looks terrible
@@ -571,21 +596,20 @@ class Main_tex_input(Tex_input):
 		fn = r.group (1)
 		full_path = find_file (fn)
 		if not full_path:
-		    print 'error: can\'t find file `%s\'.' % fn
+		    sys.stderr.write("error: can't find file '%s'\n" % fn)
 		    sys.exit (1)
-
-
-		r = file_ext_re.search(fn)
-                if r:
-                    self.code_type = r.group(1)
 
 		f = open (full_path, 'r')
 		lines =f.readlines ()
 		for x in lines:
 		    self.mudela.write (x)
+		r = file_ext_re.search(fn)
+                if r:
+                    if r.group(1) == 'fly':
+                        self.mudela.optlist.append('multiline')
 		stat =self.mudela.close ()
 		if stat:
-			print "(File %s needs recompiling)\n" % full_path
+			sys.stdout.write("(File %s needs recompiling)\n" % full_path)
                 self.mudtex.write (self.mudela.insert_me_string())
 		self.deps.append (full_path)
 		del self.mudela
@@ -673,7 +697,7 @@ Options:\n
 def write_deps (fn, out,  deps):
 	out_fn = os.path.join (outdir, fn)
 	
-	print 'writing `%s\'\n' % out_fn
+	sys.stdout.write('writing `%s\'\n' % out_fn)
 	
 	f = open (out_fn, 'w')
 	target = re.sub (os.sep + os.sep, os.sep, os.path.join (outdir, out + '.latex'))
@@ -695,7 +719,7 @@ def main():
                                     'help', 'dependencies', 'include=',
                                     'force-verbatim', 'init='])
     except getopt.error, msg:
-        print "error:", msg
+        sys.stderr.write("error: %s" % msg)
         sys.exit(1)
         
     do_deps = 0
@@ -707,7 +731,7 @@ def main():
 	elif o == '--outname' or o == '-o':
             if len(files) > 1:
                 #HACK
-                print "Mudela-book is confused by --outname on multiple files"
+                sys.stderr.write("Mudela-book is confused by --outname on multiple files")
                 sys.exit(1)
             outname = a
         elif o == '--outdir' or o == '-d':
@@ -718,14 +742,14 @@ def main():
             do_deps = 1
         elif o == '--default-mudela-fontsize':
             if not fontsize_pt2i.has_key(a):
-                print "Error: illegal fontsize:", a
-                print " accepted fontsizes are: 11pt, 13pt, 16pt, 20pt, 26pt"
+                sys.stderr.write("Error: illegal fontsize: %s" % a)
+                sys.stderr.write("  accepted fontsizes are: 11pt, 13pt, 16pt, 20pt, 26pt")
                 sys.exit()
             Props.setMudelaFontsize(fontsize_pt2i[a], 'init')
 	elif o == '--force-mudela-fontsize':
             if not fontsize_pt2i.has_key(a):
-                print "Error: illegal fontsize:", a
-                print " accepted fontsizes are: 11pt, 13pt, 16pt, 20pt, 26pt"
+                sys.stderr.write("Error: illegal fontsize: %s" % a)
+                sys.stderr.write("  accepted fontsizes are: 11pt, 13pt, 16pt, 20pt, 26pt")
                 sys.exit()
             Props.force_mudela_fontsize = fontsize_pt2i[a]
         elif o == '--force-verbatim':
@@ -737,7 +761,7 @@ def main():
 
     # r""" ... """ means: leave escape seqs alone.
     defined_mudela_cmd = {'mudela': r"""
-\begin{mudela}[eps \fontoptions]
+\begin{mudela}[eps, singleline \fontoptions]
   \context Staff <
     \context Voice{
       \maininput

@@ -31,6 +31,9 @@ protected:
 
 private:
   Moment here_mom_;
+
+  /// don't go into next element when you finish.
+  bool per_elt_b_;
   Cons<Music> *cursor_;
   Music_iterator * iter_p_;
 

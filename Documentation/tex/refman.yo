@@ -478,11 +478,11 @@ If you use code(R) then all of the measure will be filled with whole rests.
 mudela(fragment,verbatim,center)(
 r1 r1*3 R1*3
 )
-If you set the code(Score.SkipBars) property, then only one measure will be
+If you set the code(Score.skipBars) property, then only one measure will be
 printed; with code(R), a number indicating the length of the rest will be
 displayed.  
 mudela(fragment,verbatim,center)(
-\property Score.SkipBars=1
+\property Score.skipBars=1
 r1 r1*3 R1*3
 )
 Even though the code(\times) command is not explicit, it is still
@@ -1030,6 +1030,9 @@ var(code) is unsigned and specifies the dynamic mark to print.
 Normally you should use the more user friendly abbreviations defined
 in the init file file(dynamic.ly).
 
+FIXME: Changed to code(\textscript) var(text) var(style).  Defines
+a text-request.
+
 dit(code(\accepts) var(string)code(;)) This keyword can appear only within a
 code(\translator) block.  It specifies what contexts are allowed with the
 context that is being defined.  See Section ref(translators).  
@@ -1260,12 +1263,21 @@ var(duration).  A gap will be left for the skipped time with no notes
 printed.  It works in Note Mode or Lyrics Mode (but generates a
 mysterious error in lyrics).
 
+OBSOLETE
+
 dit(code(\spandynamic) code({) var(kind) var(toggle) code(})) Internal
 keyword for crescendo and decrescendo symbols.  The first parameter
 var(kind) is set to 1 for a crescendo and -1 for a decrescendo.  The
 second parameter is set to 1 to start the mark and 2 to stop it.
 Users should use the abbreviations which are defined in the
 initialization file file(dynamic.ly).
+
+FIXME:
+
+code(\spanrequest) var(startstop) var(type).  Define a
+spanning request var(startstop) is either -1 (start) or 1
+(stop). var(type) is a string that describes what should be started.
+Supported types are "crescendo", "decrescendo", "beam", "slur".
 
 dit(code(\tempo) var(duration) = var(perminute)code(;)) Used within
 code(\midi) or within music to specify the tempo.  For example, 
@@ -1444,7 +1456,12 @@ mudela(center)(
 }
 )
 
-dit(code("midi_instrument")) Sets the instrument for MIDI output.  This
+
+dit(code(restStyle)) Change the layout of rests shorter than quarter notes. 
+Currently, the standard layout code(restStyle="") and mensural notation
+code(restStyle="mensural") are available.
+
+dit(code("midiInstrument")) Sets the instrument for MIDI output.  This
 property name must be quoted because of the embedded underscore.  If
 this property is not set then LilyPond will use the code(instrument)
 property.  This must be set to one of the strings on the list of MIDI
@@ -1498,9 +1515,12 @@ subscripts.  See above for list of text styles.
 dit(code(textScriptPadding)) Determines the extra space added between
 super-/subscripted text and the closest staff line or note.
 
-dit(code(fontsize)) Can be used to select smaller font sizes for
+dit(code(fontSize)) Can be used to select smaller font sizes for
 music.  The normal font size is 0, and the two smaller sizes are -1
 and -2.
+
+dit(code(abbrev)) Set length for tremolo to be used if no length is
+explicitly specified.
 
 GONE dit(code(markScriptPadding)) Determines the extra space added between
 the mark and the closest staff line or note.
@@ -1556,12 +1576,9 @@ dit(code(instrument) and code(instr)) If code(Staff_margin_engraver)
 is added to the Staff translator, then the code(instrument) property
 is used to label the first line of the staff and the code(instr)
 property is used to label subsequent lines.  If the
-code(midi_instrument) property is not set then code(instrument) is
+code(midiInstrument) property is not set then code(instrument) is
 used to determine the instrument for MIDI output.
 COMMENT(This prints the instrument name on top of the staff lines.)
-
-dit(code(abbrev)) Set length for tremolo to be used if no length is
-explicitly specified.
 
 dit(code(createKeyOnClefChange)) Set to a nonempty string if you want key
 signatures to be printed when the clef changes.  Set to the empty string (the
@@ -1612,10 +1629,6 @@ mudela(center)(
 }
 )
 
-dit(code(restStyle)) Change the layout of rests shorter than quarter notes. 
-Currently, the standard layout code(restStyle="") and mensural notation
-code(restStyle="mensural") are available.
-
 dit(code(clefStyle)) Determines how clefs are typeset. When set to
 code(transparent), the clefs are not printed at all, when set to
 code(fullSizeChanges), clef changes in the middle of a line are
@@ -1640,7 +1653,7 @@ subsubsubsect(Score properties)
 
 description(
 
-dit(code(SkipBars)) Set to 1 to skip the empty bars that are produced
+dit(code(skipBars)) Set to 1 to skip the empty bars that are produced
 by multimeasure notes and rests.  These bars will not appear on the
 printed output.  Set to zero (the default) to expand multimeasure
 notes and rests into their full length, printing the appropriate
@@ -1829,7 +1842,7 @@ description(
   dit(var(integer)) If an integer appears on the left side of an
 assignment then a code(\font) keyword must appear on the right
 side.  This defines a music font at a particular size.  See Voice
-property code(\fontsize).
+property code(fontSize).
 
 dit(code(arithmetic_basicspace) and code(arithmetic_multiplier))
 The space taken by a note is determined by the formula 
@@ -1898,7 +1911,7 @@ dit(code(tie_x_minimum))
 subsect(MIDI Instrument Names)
 label(midilist)
 
-The MIDI instrument name is set by the code(Staff."midi_instrument")
+The MIDI instrument name is set by the code(Staff."midiInstrument")
 property or, if that property is not set, the code(Staff.instrument)
 property.  The instrument name should be chosen from this list.  If
 string does not exactly match one from this list then LilyPond uses

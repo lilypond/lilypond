@@ -9,13 +9,13 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.16";
+\version "1.0.19";
 
 \include "flauto-1.ly"
 \include "flauto-2.ly"
 
 $flauti_staff = \context Staff = flauti <
-	\property Staff.midi_instrument = "flute"
+	\property Staff.midiInstrument = "flute"
 	\property Staff.instrument = "2 Flauti"
 	\property Staff.instr = "Fl."
 	\notes \context Voice=flauti < 

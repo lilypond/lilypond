@@ -39,11 +39,6 @@ Bar_req::do_equal_b (Request*r) const
   return b && type_str_ == b->type_str_;
 }
 
-
-
-
-
-
 void
 Bar_req::do_print() const
 {
@@ -51,7 +46,6 @@ Bar_req::do_print() const
   DOUT << type_str_;
 #endif
 }
-
 
 Bar_req::Bar_req (String s)
 {
@@ -70,8 +64,6 @@ Partial_measure_req::do_equal_b (Request* r) const
 
   return p&& p->length_mom_ == length_mom_;
 }
-
-
 
 bool
 Barcheck_req::do_equal_b (Request*r) const

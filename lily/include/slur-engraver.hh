@@ -11,8 +11,8 @@
 #include "engraver.hh"
 
 class Slur_engraver :public Engraver {
-  Link_array<Slur_req> requests_arr_;
-  Link_array<Slur_req> new_slur_req_l_arr_;
+  Link_array<Span_req> requests_arr_;
+  Link_array<Span_req> new_slur_req_l_arr_;
   Link_array<Slur> slur_l_stack_;
   Link_array<Slur> end_slur_l_arr_;
 

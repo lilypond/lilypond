@@ -14,6 +14,7 @@
 
 Simultaneous_music_iterator::Simultaneous_music_iterator ()
 {
+  separate_contexts_b_ = false;
 }
 
 Simultaneous_music_iterator::~Simultaneous_music_iterator ()
@@ -29,21 +30,27 @@ Simultaneous_music_iterator::construct_children()
 
   for (Cons<Music> *i = sim->music_p_list_p_->head_; i;  i = i->next_, j++)
     {
-      Music_iterator * mi = get_iterator_p (i->car_);
+      Music_iterator * mi = static_get_iterator_p (i->car_);
+
+      /* if separate_contexts_b_ is set, create a new context with the
+	 number number as name */
+      
+      Translator_group * t = (j && separate_contexts_b_)
+	? report_to_l ()->find_create_translator_l (report_to_l()->type_str_,
+						    to_str (j))
+	: report_to_l ();
+
+      mi->init_translator (i->car_, t);
+      mi->construct_children ();
+      
       if (mi->ok()) 
 	{
-#if 0
-	  if  (sim->translator_type_str_.empty_b ())
-	    set_translator (mi->report_to_l()->ancestor_l (0));	// huh?
-#endif
-
 	  children_p_list_.append (new Killing_cons<Music_iterator> (mi,0));
 	}
       else
 	delete mi;
     }
 }
-
 
 void
 Simultaneous_music_iterator::do_print() const

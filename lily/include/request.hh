@@ -43,6 +43,7 @@ public:
   VIRTUAL_COPY_CONS(Music);
 };
 
+#if 0
 /** Put a script above or below this ``note'' or bar. eg upbow, downbow. Why
   a request? These symbols may conflict with slurs and brackets, so
   this also a request */
@@ -59,7 +60,7 @@ public:
   ~Script_req();
   Script_req (Script_req const&);
 };
-
+#endif
 
 /**
   Requests to start or stop something.
@@ -68,8 +69,9 @@ public:
 class Span_req  : public virtual Request  {
 public:
   /// should the spanner start or stop, or is it unwanted?
-  Direction spantype_;
-
+  Direction span_dir_;
+  String span_type_str_;
+  
   Span_req();
 protected:
   virtual bool do_equal_b (Request*) const;
@@ -81,12 +83,6 @@ protected:
   Start a tie at this note, end it at the next
  */
 class Tie_req : public Request {
-public:
-  VIRTUAL_COPY_CONS(Music);
-};
-
-/** Start / stop a beam at this note */
-class Beam_req  : public Span_req  {
 public:
   VIRTUAL_COPY_CONS(Music);
 };

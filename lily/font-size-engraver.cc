@@ -19,7 +19,7 @@ Font_size_engraver::Font_size_engraver ()
 void
 Font_size_engraver::do_process_requests ()
 {
-  Scalar s (get_property ("fontsize", 0));
+  Scalar s (get_property ("fontSize", 0));
   
   if (s.length_i ()  && s.isnum_b ())
     {
