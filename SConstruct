@@ -59,11 +59,18 @@ import os
 import string
 import sys
 import stat
+import shutil
+
+# faster but scary: when changing #includes, do scons --implicit-deps-changed
+# SetOption ('implicit_cache', 1)
 
 # SConscripts are only needed in directories where something needs
 # to be done, building or installing
 # TODO: Documentation/*, input/*/*, vim, po
 # rename Documentation/* to ./doc?
+
+# somethin's broken wrt config.h checksums?
+FOOSUMS = 1
 
 subdirs = ['flower', 'lily', 'mf', 'scm', 'ly', 'Documentation',
 	   'Documentation/user', 'input', 'scripts', 'elisp',
@@ -85,7 +92,8 @@ config_vars = (
 	'CXXFLAGS',
 	'DEFINES',
 	'LIBS',
-	'METAFONT'
+	'METAFONT',
+	'PERL',
 	'PYTHON',
 	)
 
@@ -109,6 +117,8 @@ opts.AddOptions (
 		    1),
 	BoolOption ('verbose', 'run commands with verbose flag',
 		    0),
+	BoolOption ('checksums', 'use checksums instead of timestamps',
+		    1),
 	)
 
 srcdir = Dir ('.').srcnode ().abspath
@@ -117,11 +127,47 @@ srcdir = Dir ('.').srcnode ().abspath
 sys.path.append (os.path.join (srcdir, 'stepmake', 'bin'))
 import packagepython
 package = packagepython.Package (srcdir)
-
-
-prefix = '/usr/local'
-
 version = packagepython.version_tuple_to_str (package.version)
+
+ENV = { 'PATH' : os.environ['PATH'] }
+for key in ['LD_LIBRARY_PATH', 'GUILE_LOAD_PATH', 'PKG_CONFIG_PATH']:
+    	if os.environ.has_key(key):
+        	ENV[key] = os.environ[key]
+
+env = Environment (
+	ENV = ENV,
+
+	BASH = '/bin/bash',
+	MAKEINFO = 'LANG= makeinfo',
+	PERL = '/usr/bin/perl',
+	PYTHON = '/usr/bin/python',
+	SH = '/bin/sh',
+	
+	ABC2LY_PY = srcdir + '/scripts/abc2ly.py',
+	LILYPOND_BOOK = srcdir + '/scripts/lilypond-book.py',
+	LILYPOND_BOOK_FLAGS = '',
+	LILYPOND_BOOK_FORMAT = 'texi-html',
+	LILYPOND_PY = srcdir + '/scripts/lilypond.py',
+	MF_TO_TABLE_PY = srcdir + '/buildscripts/mf-to-table.py',
+	
+	PKG_CONFIG_PATH = [os.path.join (os.environ['HOME'],
+					 'usr/pkg/gnome/lib'),
+			   os.path.join (os.environ['HOME'],
+					 'usr/pkg/pango/lib')],
+	MFMODE = 'ljfour',
+	TEXINFO_PAPERSIZE_OPTION = '-t @afourpaper',
+	TOPLEVEL_VERSION = version,
+	)
+
+Help (usage + opts.GenerateHelpText (env))
+
+map (lambda x: opts.AddOptions ((x,)), config_vars)
+opts.Update (env)
+
+if env['checksums']:
+	SetOption ('max_drift', 0)
+
+prefix = env['prefix']
 bindir = os.path.join (prefix, 'bin')
 sharedir = os.path.join (prefix, 'share')
 libdir = os.path.join (prefix, 'lib')
@@ -130,48 +176,19 @@ sharedir_package = os.path.join (sharedir, package.name)
 sharedir_package_version = os.path.join (sharedir_package, version)
 lilypondprefix = sharedir_package_version
 
-ENV = { 'PATH' : os.environ['PATH'] }
-for key in ['LD_LIBRARY_PATH', 'GUILE_LOAD_PATH', 'PKG_CONFIG_PATH']:
-    	if os.environ.has_key(key):
-        	ENV[key] = os.environ[key]
-
-
-env = Environment (
-	ENV = ENV,
-
+# post-option environment-update
+env.Append (
 	srcdir = srcdir,
-
+	
 	bindir = bindir,
 	sharedir = sharedir,
-	TOPLEVEL_VERSION = version,
 	lilypond_datadir = sharedir_package,
 	local_lilypond_datadir = sharedir_package_version,
 	lilypondprefix = lilypondprefix,
 	sharedir_package = sharedir_package,
 	sharedir_package_version = sharedir_package_version,
-
-
-	SH = '/bin/sh',
-	BASH = '/bin/bash',
-	PYTHON = '/usr/bin/python',
-	MAKEINFO = 'LANG= makeinfo',
-	
-	LILYPOND_BOOK = srcdir + '/scripts/lilypond-book.py',
-	LILYPOND_PY = srcdir + '/scripts/lilypond.py',
-	
-	ABC2LY_PY = srcdir + '/scripts/abc2ly.py',
-	MF_TO_TABLE_PY = srcdir + '/buildscripts/mf-to-table.py',
-	LILYPOND_BOOK_FLAGS = '',
-	LILYPOND_BOOK_FORMAT = 'texi-html',
-	
-	TEXINFO_PAPERSIZE_OPTION = '-t @afourpaper',
-	MFMODE = 'ljfour'
 	)
 
-Help (usage + opts.GenerateHelpText (env))
-
-map (lambda x: opts.AddOptions ((x,)), config_vars)
-opts.Update (env)
 env.CacheDir (os.path.join (env['build'], '=build-cache'))
 
 if env['debugging']:
@@ -191,12 +208,13 @@ if env['warnings']:
 if env['verbose']:
 	env['__verbose'] = '--verbose'
 
-env.Append (PKG_CONFIG_PATH = [os.path.join (os.environ['HOME'],
-					     'usr/pkg/gnome/lib'),
-			       os.path.join (os.environ['HOME'],
-					     'usr/pkg/pango/lib')])
-
-env['srcdir'] = Dir ('.').srcnode ().abspath
+# Hmm
+#env.Append (ENV = {'PKG_CONFIG_PATH' : string.join (env['PKG_CONFIG_PATH'],
+#						    os.pathsep),
+#		   'LD_LIBRARY_PATH' : string.join (env['LD_LIBRARY_PATH'],
+#						    os.pathsep),
+#		   'GUILE_LOAD_PATH' : string.join (env['GUILE_LOAD_PATH'],
+#						    os.pathsep), })
 
 outdir = os.path.join (Dir (env['build']).abspath, env['out'])
 config_h = os.path.join (outdir, 'config.h')
@@ -212,9 +230,9 @@ if not COMMAND_LINE_TARGETS:
 	env.Default ('lily')
 env.Alias ('all', '.')
 env.Alias ('doc',
-	   'Documentation',
-	   'Documentation/user',
-	   'Documentation/topdocs')
+	   ['Documentation',
+	    'Documentation/user',
+	    'Documentation/topdocs'])
 
 env.Depends ('doc', ['lily', 'mf'])
 env.Depends ('input', ['lily', 'mf'])
@@ -371,6 +389,12 @@ def configure (target, source, env):
 
 	return conf.Finish ()
 
+def config_header (target, source, env):
+	config = open (str (target[0]), 'w')
+	for i in list_sort (env['DEFINES'].keys ()):
+		config.write ('#define %s %s\n' % (i, env['DEFINES'][i]))
+	config.close ()
+
 if os.path.exists (config_cache) and 'config' in COMMAND_LINE_TARGETS:
 	os.unlink (config_cache)
 # WTF?
@@ -380,15 +404,52 @@ if not os.path.exists (config_cache) \
    or (os.stat ('SConstruct')[stat.ST_MTIME]
        > os.stat (config_cache)[stat.ST_MTIME]):
 	env = configure (None, None, env)
-	map (lambda x: opts.AddOptions ((x,)), config_vars)
-	opts.Save (config_cache, env)
 
-def config_header (target, source, env):
-	config = open (str (target[0]), 'w')
-	for i in list_sort (env['DEFINES'].keys ()):
-		config.write ('#define %s %s\n' % (i, env['DEFINES'][i]))
-	config.close ()
-env.Command (config_h, config_cache, config_header)
+	# We 'should' save opts each time, but that makes config.h
+	# always out of date, and that triggers recompiles, even when
+	# using checksums?
+	if FOOSUMS: #not env['checksums']:
+
+		## FIXME: Is this smart, using option cache for saving
+		## config.cache?  I cannot seem to find the official method.
+		map (lambda x: opts.AddOptions ((x,)), config_vars)
+		opts.Save (config_cache, env)
+
+		env.Command (config_h, config_cache, config_header)
+
+# hmm?
+def xuniquify (lst):
+	n = []
+	for i in lst:
+		if not i in n:
+			n.append (i)
+	lst = n
+	return lst
+
+def uniquify (lst):
+	d = {}
+	n = len (lst)
+	i = 0
+	while i < n:
+		if not d.has_key (lst[i]):
+			d[lst[i]] = 1
+			i += 1
+		else:
+			del lst[i]
+			n -= 1
+	return lst
+
+for i in config_vars:
+	if env.has_key (i) and type (env[i]) == type ([]):
+		env[i] = uniquify (env[i])
+
+if not FOOSUMS: #env['checksums']:
+	## FIXME: Is this smart, using option cache for saving
+	## config.cache?  I cannot seem to find the official method.
+	map (lambda x: opts.AddOptions ((x,)), config_vars)
+	
+	opts.Save (config_cache, env)
+	env.Command (config_h, config_cache, config_header)
 
 env.Command (version_h, '#/VERSION',
 	     '$PYTHON ./stepmake/bin/make-version.py VERSION > $TARGET')
@@ -396,6 +457,7 @@ env.Command (version_h, '#/VERSION',
 absbuild = Dir (env['build']).abspath
 run_prefix = os.path.join (absbuild, os.path.join (env['out'], 'usr'))
 
+# post-config environment update
 env.Append (
 	absbuild = absbuild,
 	run_prefix = run_prefix,
@@ -445,6 +507,7 @@ def symlink_tree (target, source, env):
 			depth = len (string.split (dir, '/'))
 			frm = os.path.join ('../' * depth, src, env['out'])
 		os.symlink (frm, os.path.basename (dst))
+	shutil.rmtree (run_prefix)
 	prefix = os.path.join (env['out'], 'usr')
 	map (lambda x: symlink (x[0], os.path.join (prefix, x[1])),
 	     (('python', 'lib/lilypond/python'),
@@ -464,8 +527,8 @@ def symlink_tree (target, source, env):
 
 if env['debugging']:
 	stamp = os.path.join (run_prefix, 'stamp')
-	env.Depends ('.', stamp)
-	env.Command (stamp, 'VERSION', [symlink_tree, 'touch $TARGET'])
+	env.Command (stamp, 'SConstruct', [symlink_tree, 'touch $TARGET'])
+	env.Depends ('lily', stamp)
 
 #### dist, tar
 def plus (a, b):

@@ -1,5 +1,5 @@
 # -*-python-*-
 
 Import ('env')
-env.AT_COPY ('index.html')
+env.AT_COPY ('index.html.in')
 
