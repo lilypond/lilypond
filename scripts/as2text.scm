@@ -1,4 +1,4 @@
-#!/usr/bin/guile \
+#!@GUILE@ \
 -e main -s
 !#
 ;;;; as2text.scm -- Translate AsciiScript to Text
@@ -28,10 +28,10 @@
       "unknown"
       subst-version))
 
-(define (show-version)
+(define (show-version port)
   (display (string-append 
 	    program-name " - LilyPond version " program-version "\n")
-	   (current-error-port)))
+	   port))
 
 (define (show-help)
   (display "Convert AsciiScript to text.
@@ -43,7 +43,7 @@ Options:
   -h,--help          this help
   -o,--output=FILE   set output file
   -v,--version       show version
-" (current-error-port)))
+"))
 
 (define (gulp-file name)
   (let ((port (if (equal? name "-")
@@ -86,7 +86,6 @@ Options:
   (set! lily-home (string-append 
 		     (dirname (dirname (car args))) 
 		     "/share/lilypond"))
-  (show-version)
   (let ((options (getopt-long args
 			      `((output (single-char #\o)
                                           (value #t))
@@ -97,11 +96,12 @@ Options:
         (if pair (cdr pair) default)))
 
     (if (assq 'help options)
-	(begin (show-help) (exit 0)))
-	    
-    (if (assq 'version options)
-	(exit 0))
+	(begin (show-version (current-output-port)) (show-help) (exit 0)))
 
+    (if (assq 'version options)
+	(begin (show-version (current-output-port)) (exit 0)))
+
+    (show-version (current-error-port))
     (let ((output-name (opt 'output "-"))
 	  (files (let ((foo (opt '() '())))
 		      (if (null? foo) 
@@ -394,3 +394,4 @@ Options:
 		   (c (get-char font n)))
 		  (plot-char c)
 		  (rmove-to (char-width c) 0)))))
+

@@ -160,6 +160,8 @@ AC_DEFUN(AC_STEPMAKE_GUILE, [
     if guile-config --version 2>&1 | grep -q 'version 1\.[012]'; then
        AC_STEPMAKE_WARN(Guile version 1.3 or better needed)
     fi
+    AC_PATH_PROG(GUILE, guile, error)
+    AC_SUBST(GUILE)
 ])
 
 AC_DEFUN(AC_STEPMAKE_INIT, [

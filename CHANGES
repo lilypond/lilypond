@@ -1,3 +1,11 @@
+1.3.25.jcn2
+===========
+
+* lilypond as as2ly: --help and --version to stdout.  Regular identify 
+  to stderr.  This fixes help2man's manpage generation.
+
+* configure: substitute full path for perl and guile in scripts.
+
 1.3.25.jcn1
 ===========
 

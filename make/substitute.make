@@ -7,6 +7,7 @@ include $(stepdir)/substitute-rules.make
 ATVARIABLES = \
   BASH\
   DATE\
+  GUILE\
   date\
   datadir\
   PACKAGE\
