@@ -11,8 +11,8 @@ paper_sixteen = \paper {
 	quartwidth = 5.28\pt;
 	wholewidth = 7.92\pt;
 	
-	font_large = 12.;
-	font_Large = 10.;
+	font_Large = 12.;
+	font_large = 10.;
 	font_normal = 8.;
 	font_script = 7.;
 

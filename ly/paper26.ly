@@ -1,13 +1,15 @@
 % paper26.ly
 
+\version "1.3.59";
+
 paper_twentysix = \paper {
 	staffheight = 26.0\pt;
 
 	quartwidth = 8.59\pt;
 	wholewidth = 12.87\pt;
 	
-	font_large = 14.;
 	font_Large = 17.;	
+	font_large = 14.;
 	font_normal = 12.;
 	font_script = 10.;
 
