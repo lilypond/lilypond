@@ -37,7 +37,7 @@ public:
     Scheme hash tables with (oct name acc)  values, and symbol keys
    */
   Protected_scm chordmodifier_tab_;
-  Protected_scm pitchname_tab_;
+  Protected_scm pitchname_tab_stack_;
   Keyword_table * keytable_;
   int errorlevel_;
 
@@ -56,7 +56,7 @@ public:
   void start_main_input ();
 
   SCM lookup_identifier (String s);
-  void push_note_state ();
+  void push_note_state (SCM tab);
   void push_markup_state ();
   void push_figuredbass_state ();
   void push_chord_state ();

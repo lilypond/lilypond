@@ -1762,6 +1762,7 @@ def conv (str):
 
 conversions.append (((2,1,17), conv, """\\partcombine syntax change to \\newpartcombine"""))
 
+
 def conv (str):
 	str = re.sub (r'\\newpartcombine', r'\\partcombine', str)
 	str = re.sub (r'\\autochange\s+Staff', r'\\autochange ', str)
@@ -1770,6 +1771,23 @@ def conv (str):
 conversions.append (((2,1,18), conv, """\\newpartcombine -> \\partcombine,
 \\autochange Staff -> \\autochange
 """))
+
+
+
+def conv (str):
+	str = re.sub (r'\\include "drumpitch-init.ly','', str)
+	str = re.sub (r'\\pitchnames ','pitchnames = ', str)
+	str = re.sub (r'\\chordmodifiers ','chordmodifiers = ', str)
+
+	if re.search ('drums->paper', str):
+		sys.stderr.write ("\nDrum notation found. Check file manually!")
+		
+	str = re.sub (r"""\\apply\s+#\(drums->paper\s+'([a-z]+)\)""",
+		      r"""\property DrumStaff.drumStyleTable = #\1-style""",
+		      str)
+	return str
+
+conversions.append (((2,1,19), conv, """Drum notation changes, Removing \chordmodifiers, \notenames  ."""))
 
 ################################
 #	END OF CONVERSIONS	

@@ -39,7 +39,6 @@ static Keyword_ent the_key_tab[]={
   {"bar", BAR},
   {"breathe", BREATHE},
   {"change", CHANGE},
-  {"chordmodifiers", CHORDMODIFIERS},
   {"chords", CHORDS},
   {"clef", CLEF},
   {"consists", CONSISTS},
@@ -47,6 +46,7 @@ static Keyword_ent the_key_tab[]={
   {"context", CONTEXT},
   {"default", DEFAULT},
   {"denies", DENIES},
+  {"drums", DRUMS},
   {"description", DESCRIPTION},
   {"figures",FIGURES},
   {"grace", GRACE},
@@ -67,7 +67,6 @@ static Keyword_ent the_key_tab[]={
   {"paper", PAPER},
   {"partcombine", PARTCOMBINE},
   {"partial", PARTIAL},
-  {"pitchnames", PITCHNAMES},
   {"property", PROPERTY},
   {"relative", RELATIVE},
   {"remove", REMOVE},
@@ -99,7 +98,7 @@ My_lily_lexer::My_lily_lexer ()
   keytable_ = new Keyword_table (the_key_tab);
 
   chordmodifier_tab_ = scm_make_vector (gh_int2scm (1), SCM_EOL);
-  pitchname_tab_ = scm_make_vector (gh_int2scm (1), SCM_EOL);
+  pitchname_tab_stack_ = SCM_EOL; 
   
   scopes_ = SCM_EOL;
   

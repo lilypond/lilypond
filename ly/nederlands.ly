@@ -1,9 +1,9 @@
-\version "1.9.8"
+\version "2.1.19"
 %{
  common dutch names for notes. es means flat, is means sharp
 %}
 
-\pitchnames #`(
+dutchPitchnames =  #`(
 	(ceses . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
 
 	(ceh . ,(ly:make-pitch -1 0 SEMI-FLAT))
@@ -81,3 +81,4 @@
 	)
 
 
+pitchnames = \dutchPitchnames 

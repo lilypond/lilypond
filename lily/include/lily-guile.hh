@@ -173,7 +173,7 @@ SCM ly_number2string (SCM s);
 
 SCM parse_symbol_list (char const *);
 SCM robust_list_ref(int i, SCM l);
-
+SCM alist_to_hashq (SCM);
 
 inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
 inline SCM ly_car (SCM x) { return SCM_CAR (x); } 

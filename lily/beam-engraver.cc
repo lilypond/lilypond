@@ -94,15 +94,7 @@ Beam_engraver::Beam_engraver ()
 bool
 Beam_engraver::try_music (Music *m)
 {
-  if (m->is_mus_type ("abort-event"))
-    {
-      evs_drul_[START] = 0;
-      evs_drul_[STOP] = 0;
-      if (beam_)
-	beam_->suicide ();
-      beam_ = 0;
-    }
-  else if (m->is_mus_type ("beam-event"))
+  if (m->is_mus_type ("beam-event"))
     {
       Direction d = to_dir (m->get_mus_property ("span-direction"));
       if (d == START && !valid_start_point ())
@@ -301,7 +293,7 @@ ENTER_DESCRIPTION(Beam_engraver,
 /* descr */       "Handles Beam events by engraving Beams.    If omitted, then notes will be "
 "printed with flags instead of beams.",
 /* creats*/       "Beam",
-/* accepts */     "beam-event abort-event",
+/* accepts */     "beam-event",
 /* acks  */      "stem-interface rest-interface",
 /* reads */       "beamMelismaBusy beatLength subdivideBeams",
 /* write */       "");
@@ -344,7 +336,7 @@ ENTER_DESCRIPTION(Grace_beam_engraver,
 " are at grace points in time. "
 ,
 /* creats*/       "Beam",
-/* accepts */     "beam-event abort-event",
+/* accepts */     "beam-event",
 /* acks  */      "stem-interface rest-interface",
 /* reads */       "beamMelismaBusy beatLength allowBeamBreak subdivideBeams",
 /* write */       "");

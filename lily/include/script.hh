@@ -28,5 +28,9 @@ public:
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
 };
 
+void make_script_from_event (Grob *p,
+			     SCM * descr, Translator_group*tg,
+			     SCM type, 
+			     int index);
 #endif /* Stem_SCRIPT_HH */
 

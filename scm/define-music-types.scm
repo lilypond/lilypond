@@ -1,13 +1,6 @@
 
 (define-public music-descriptions
   `(
-    (AbortEvent
-     . (
-   (description .  "End the currently running spanners.")
-	(internal-class-name . "Event")
-	(span-type . "abort")
-	(types . (general-music event abort-event))
-	))
     (AbsoluteDynamicEvent
      . (
    (description . "Creates a dynamic mark.  Syntax: @var{note}@code{\\x},

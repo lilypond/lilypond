@@ -159,19 +159,7 @@ Piano_pedal_engraver::acknowledge_grob (Grob_info info)
 bool
 Piano_pedal_engraver::try_music (Music *m)
 {
-  if (m->is_mus_type ("abort-event"))
-    {
-      for (Pedal_info*p = info_list_; p->name_; p ++)
-	{
-	  p->event_drul_[START] = 0;
-	  p->event_drul_[STOP] = 0;
-	  
-	  if (p->bracket_)
-	    p->bracket_->suicide ();
-	  p->bracket_ = 0;
-	}
-    }
-  else if  (m->is_mus_type ("pedal-event"))
+ if  (m->is_mus_type ("pedal-event"))
     {
       for (Pedal_info*p = info_list_; p->name_; p ++)
 	{
@@ -566,7 +554,7 @@ Piano_pedal_engraver::typeset_all ()
 ENTER_DESCRIPTION (Piano_pedal_engraver,
 /* descr */       "Engrave piano pedal symbols and brackets.",
 /* creats*/       "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",
-/* accepts */     "pedal-event abort-event",
+/* accepts */     "pedal-event",
 /* acks  */       "note-column-interface",
 /* reads */       "pedalSostenutoStrings pedalSustainStrings pedalUnaCordaStrings pedalSostenutoStyle pedalSustainStyle pedalUnaCordaStyle",
 /* write */       "");

@@ -448,7 +448,7 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
 ENTER_DESCRIPTION (Mensural_ligature_engraver,
 /* descr */       "Handles Mensural_ligature_events by glueing special ligature heads together.",
 /* creats*/       "MensuralLigature",
-/* accepts */     "ligature-event abort-event",
+/* accepts */     "ligature-event",
 /* acks  */      "note-head-interface rest-interface",
 /* reads */       "",
 /* write */       "");

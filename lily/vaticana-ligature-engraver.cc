@@ -581,7 +581,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 ENTER_DESCRIPTION (Vaticana_ligature_engraver,
 /* descr */       "Handles ligatures by glueing special ligature heads together.",
 /* creats*/       "VaticanaLigature",
-/* accepts */     "ligature-event abort-event",
+/* accepts */     "ligature-event",
 /* acks  */      "note-head-interface rest-interface",
 /* reads */       "",
 /* write */       "");

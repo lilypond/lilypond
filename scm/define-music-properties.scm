@@ -45,6 +45,8 @@ TODO: consider making type into symbol ")
 (music-property-description 'denominator integer? "denominator in a time signature")
 (music-property-description 'digit integer? "digit for fingering")
 (music-property-description 'direction ly:dir? "Print this up or down?")
+(music-property-description 'drum-type symbol? "Which percussion instrument to play this note on.")
+
 (music-property-description 'tags list? "List of symbols that for denoting extra details,
 eg. @code{\\tag #'part ...} could tag a piece of music as only being active in a part.")
 

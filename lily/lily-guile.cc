@@ -768,3 +768,20 @@ robust_scm2int (SCM k, int o)
 
   return o;
 }
+
+
+SCM
+alist_to_hashq (SCM alist)
+{
+  int i = scm_ilength (alist);
+  if (i < 0)
+    return scm_make_vector (gh_int2scm (0), SCM_EOL);
+	  
+  SCM tab = scm_make_vector (gh_int2scm (i), SCM_EOL);
+  for (SCM s = alist; gh_pair_p (s); s = ly_cdr (s))
+    {
+      SCM pt = ly_cdar (s);
+      scm_hashq_set_x (tab, ly_caar (s), pt);
+    }
+  return tab; 
+}

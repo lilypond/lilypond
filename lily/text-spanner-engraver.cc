@@ -50,14 +50,6 @@ Text_spanner_engraver::try_music (Music *m)
       req_drul_[d] = m;
       return true;
     }
-  else if (m->is_mus_type ("abort-event"))
-    {
-      req_drul_[LEFT] = 0;
-      req_drul_[RIGHT] = 0;
-      if (span_)
-	span_->suicide ();
-      span_ = 0;
-    }
 
   return false;
 }

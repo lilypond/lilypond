@@ -3,7 +3,7 @@
      with s for sharp and f for flat.
 %}
 
-\pitchnames #`(
+pitchnamesEnglish = #`(
 	(cflatflat . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
 	(cflat . ,(ly:make-pitch -1 0 FLAT))
 	(c . ,(ly:make-pitch -1 0 NATURAL))
@@ -85,5 +85,7 @@
 	(bx . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
 )
 
-\version "1.9.8"
+pitchnames = pitchnamesEnglish
+
+\version "2.1.19"
 

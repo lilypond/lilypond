@@ -18,8 +18,19 @@ Version 2.1.13
 
 @itemize @bullet
 
+@item Drum notation is now supported  natively:
+percussion may be entered in @code{\drums} mode, and printed in a
+@code{DrumStaff} context:
+
+@example
+  \score @{
+    \drums \new DrumStaff @{ hihat4 cowbell8 @}
+  @}
+@end example
+
+
 @item The automatic staff changer was internally rewritten. As a
-result, the syntax  has been simplified as well:
+result, the syntax has been simplified as well:
 
 @example
   \autochange @var{the music}

@@ -606,8 +606,9 @@ HYPHEN		--
 %%
 
 void
-My_lily_lexer::push_note_state ()
+My_lily_lexer::push_note_state (SCM tab)
 {
+	pitchname_tab_stack_ = gh_cons (tab, pitchname_tab_stack_);
 	yy_push_state (notes);
 }
 
@@ -637,6 +638,8 @@ My_lily_lexer::push_markup_state ()
 void
 My_lily_lexer::pop_state ()
 {
+	if (YYSTATE == notes)
+		pitchname_tab_stack_ = gh_cdr (pitchname_tab_stack_);
 	yy_pop_state ();
 }
 
@@ -653,7 +656,7 @@ My_lily_lexer::scan_escaped_word (String str)
 {
 	// use more SCM for this.
 
-	SCM sym = ly_symbol2scm (str.to_str0 ());
+//	SCM sym = ly_symbol2scm (str.to_str0 ());
 
 	int l = lookup_keyword (str);
 	if (l != -1) {
@@ -666,15 +669,6 @@ My_lily_lexer::scan_escaped_word (String str)
 		return identifier_type (sid);
 	}
 
-	if ((YYSTATE != notes) && (YYSTATE != chords)) {
-		SCM pitch = scm_hashq_get_handle (pitchname_tab_, sym);
-		
-		if (gh_pair_p (pitch))
-		{
-			yylval.scm = ly_cdr (pitch);
-			return NOTENAME_PITCH;
-		}
-	}
 	String msg (_f ("unknown escaped string: `\\%s'", str));	
 	LexerError (msg.to_str0 ());
 
@@ -688,13 +682,18 @@ My_lily_lexer::scan_bare_word (String str)
 {
 	SCM sym = ly_symbol2scm (str.to_str0 ());
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
-		SCM pitch = scm_hashq_get_handle (pitchname_tab_, sym);
-		if (gh_pair_p (pitch)) {
-		    yylval.scm = ly_cdr (pitch);
-                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
-		} else if ((pitch = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)
+		SCM handle = scm_hashq_get_handle (gh_car (pitchname_tab_stack_), sym);
+		
+		if (gh_pair_p (handle)) {
+			yylval.scm = ly_cdr (handle);
+			if (unsmob_pitch (yylval.scm)) 
+	                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
+			else if (gh_symbol_p (yylval.scm))
+			    return DRUM_PITCH;
+		}
+		else if ((handle = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)
 		{
-		    yylval.scm = ly_cdr (pitch);
+		    yylval.scm = ly_cdr (handle);
 		    return CHORD_MODIFIER;
 		}
 	}

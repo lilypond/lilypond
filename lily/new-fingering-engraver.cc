@@ -97,8 +97,6 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
     }
 }
 
-extern void make_script_from_event (Grob *, SCM * descr, Translator_group*tg, Music * event,
-				     int index);
 void
 New_fingering_engraver::add_script (Grob * head,
 				    Music * event,
@@ -107,7 +105,8 @@ New_fingering_engraver::add_script (Grob * head,
   Finger_tuple ft ;
 
   Grob * g=  make_item ("Script");
-  make_script_from_event (g, &ft.description_, daddy_trans_, event, 0);
+  make_script_from_event (g, &ft.description_, daddy_trans_,
+			  event->get_mus_property ("articulation-type"), 0);
   if (g)
     {
       ft.script_ =g ;
@@ -132,7 +131,7 @@ New_fingering_engraver::add_fingering (Grob * head,
   
   Side_position_interface::add_support (ft.script_, head);
 
-  int d = gh_scm2int ( event->get_mus_property ("digit"));
+  int d = gh_scm2int (event->get_mus_property ("digit"));
   
   /*
     TODO:

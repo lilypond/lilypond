@@ -7,7 +7,7 @@
 %            added asas and marked ases as `unusual'
 
 
-\pitchnames  #`(
+pitchnamesDeutsch =  #`(
 	(ceses . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
 	(ces . ,(ly:make-pitch -1 0 FLAT))
 	(c . ,(ly:make-pitch -1 0 NATURAL))
@@ -47,6 +47,6 @@
 )
 
 
+pitchnames = \pitchnamesDeutsch
 
-
-\version "1.9.8"
+\version "2.1.19"

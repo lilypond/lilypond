@@ -44,22 +44,7 @@ Slur_engraver::Slur_engraver ()
 bool
 Slur_engraver::try_music (Music *ev)
 {
-  if (ev->is_mus_type ("abort-event"))
-    {
-      for (int i = 0; i < slur_stack_.size (); i++)
-	{
-	  slur_stack_[i]->suicide ();
-	}
-      slur_stack_.clear ();
-      for (int i = 0; i < end_slurs_.size (); i++)
-	{
-	  end_slurs_[i]->suicide ();
-	}
-      end_slurs_.clear ();
-      events_.clear ();
-      new_slur_evs_.clear ();
-    }
-  else if (ev->is_mus_type ("slur-event"))
+  if (ev->is_mus_type ("slur-event"))
     {
       /*
 	Let's not start more than one slur per moment.

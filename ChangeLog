@@ -1,9 +1,42 @@
+2004-02-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/lily-guile.cc (alist_to_hashq): new function
+
+	* scm/lily.scm (alist->hash-table): new function.
+
+	* Documentation/user/refman.itely (Percussion staves): update doco.
+
+	* input/regression/drums.ly (timb): updates
+
+	* lily/note-performer.cc (create_audio_elements): robustness fix.
+
+	* ly/engraver-init.ly: add DrumStaff and DrumVoice contexts
+
 2004-02-05  Jan Nieuwenhuizen  <janneke@gnua.org>
 
 	* scripts/filter-lilypond-book.py (find_toplevel_snippets): Do not
 	discard valid matches.
 
 2004-02-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/drum-note-engraver.cc: new file.
+
+	* ly/drumpitch-init.ly: move drum definitions
+
+	* scm/drums.scm: remove file.
+
+	* lily/*.cc: remove abort-event everywhere.
+
+	* lily/note-heads-engraver.cc (process_music): robustification.
+
+	* lily/accidental-engraver.cc (process_acknowledged_grobs): robustification.
+
+	* lily/parser.yy (simple_element): add \drums mode.
+	(simple_element): remove \pitchnames , \chordmodifiers. Use
+	variables to store this. 
+
+	* lily/lexer.ll (My_lily_lexer): remove support for \PITCHNAME
+	outside \notes.
 
 	* VERSION: release 2.1.18.
 	

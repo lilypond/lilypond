@@ -293,7 +293,7 @@ fet_beginchar("Half diamondhead", "1diamond",
 
 fet_endchar;
 
-fet_beginchar("Quart diamondheadh", "2diamondh", "diamondheadh")
+fet_beginchar("Quart diamondhead", "2diamond", "diamondhead")
 	draw_outside_ellipse (1.80, 35, 0.495, -0.25);
 fet_endchar;
 

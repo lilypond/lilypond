@@ -11,7 +11,7 @@
 % contributed by Paolo Zuliani <<zuliap@easynet.it>>
 % additions for semi-sharps and semi-flats by Eric Wurbel <<wurbel@univ-tln.fr>>
 
-\pitchnames #`(
+pitchnamesItaliano = #`(
 	(dobb . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
 	(dobsb . ,(ly:make-pitch -1 0 THREE-Q-FLAT))
 	(dob . ,(ly:make-pitch -1 0 FLAT))
@@ -84,4 +84,6 @@
 
 )
 
-\version "2.1.0"
+pitchnames = \pitchnamesItaliano
+
+\version "2.1.19"

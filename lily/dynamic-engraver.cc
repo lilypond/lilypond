@@ -94,21 +94,6 @@ Dynamic_engraver::try_music (Music * m)
       script_ev_ = m;
       return true;
     }
-  else if (m->is_mus_type ("abort-event"))
-    {
-      accepted_spanreqs_drul_[LEFT] = 0;
-      accepted_spanreqs_drul_[RIGHT] = 0;
-      /*
-	Let's not kill the line spanner, since that would fuck up
-	earlier, not-to-be-terminated stuff.
-
-	It will disappear by itself when stop_translation_timestep
-	() finds that there is nothing to support anymore.  */
-	  
-      if (cresc_)
-	cresc_->suicide ();
-      cresc_ = 0;
-    }
   else if (m->is_mus_type ("decrescendo-event")
 	   || m->is_mus_type ("crescendo-event"))
     {

@@ -77,15 +77,7 @@ Ligature_engraver::Ligature_engraver ()
 bool
 Ligature_engraver::try_music (Music *m)
 {
-  if (m->is_mus_type ("abort-event"))
-    {
-      reqs_drul_[START] = 0;
-      reqs_drul_[STOP] = 0;
-      if (ligature_)
-	ligature_->suicide ();
-      ligature_ = 0;
-    }
-  else if (m->is_mus_type ("ligature-event"))
+  if (m->is_mus_type ("ligature-event"))
     {
       Direction d = to_dir (m->get_mus_property ("span-direction"));
       reqs_drul_[d] = m;
@@ -294,7 +286,7 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
 ENTER_DESCRIPTION (Ligature_engraver,
 /* descr */       "Abstract class; a concrete subclass handles Ligature_events by engraving Ligatures in a concrete style.",
 /* creats */      "",
-/* accepts */     "ligature-event abort-event",
+/* accepts */     "ligature-event",
 /* acks  */      "note-head-interface rest-interface",
 /* reads */       "",
 /* write */       "");
