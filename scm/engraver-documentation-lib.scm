@@ -71,6 +71,7 @@
 ;; First level Engraver description
 (define (document-separate-engraver top description)
   (let ((name (car description)))
+    (processing name)
     (string-append
      (node (engraver-name name))
      (document-engraver 2 description))))
@@ -123,7 +124,7 @@
 (define (document-context top context-desc)
   (let ((name (cdr (assoc 'type-name context-desc)))
 	(doc (context-doc-string context-desc)))
-    
+    (processing name)
     (string-append
      (node (context-name name))
      (section 2 (context-name name))

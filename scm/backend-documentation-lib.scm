@@ -9,21 +9,23 @@
 
 ;;; This file generates documentation for the backend of lilypond.
 
-
 ;; alist of property descriptions
+;; when called by First level Interface description, desc == '()
+;; CDR "not set" is only used for Second level Element description
 (define (document-element-property prop desc)
   (let ((handle (assoc (car prop) desc)))
     (cons
-     (string-append
-      "@code{" (symbol->string (car prop)) "} "
-      "(" (type-name (cadr prop)) "):")
-     (string-append
-      (caddr prop)
-      "\ndefault value: @code{"
-      (if (pair? handle)
-	  (scm->string (cdr handle))
-	  "not set" )
-      "}"))))
+     (string-append "@code{" (symbol->string (car prop)) "} "
+		    "(" (type-name (cadr prop)) ")"
+		    (if (equal? desc '()) "" ":"))
+     (string-append (if (equal? desc '())
+			(caddr prop)
+			(if (pair? handle)
+			    (string-append (caddr prop)
+					   "\ndefault value: @code{"
+					   (scm->string (cdr handle))
+					   "}")
+			    "not set"))))))
 
 ;; First level Interface description
 ;; Second level, part of element description
@@ -38,18 +40,25 @@
     (string-append
      (section level (string-append (interface-name (symbol->string name))))
      desc
-     (description-list docs))))
+     
+     (description-list
+      ;; filter-out entries with CDR "not set"
+      (apply append
+	     (map (lambda  (x)
+		    (if (string-match "not set" (cdr x)) '() (list x)))
+		  docs))))))
 
 ;; First level Interface description
 (define (document-separate-interface interface)
   (let ((name (car interface)))
+    (processing name)
     (string-append
      (node (interface-name name))
      (document-interface 2 interface '()))))
 
 ;; First level element description
 (define (document-element iname description)
-  (display (string-append "\nProcessing " iname " ... ") (current-error-port))
+  (processing iname)
   (let* ((metah (assoc 'meta description))
 	 
 	 (meta (if (pair? metah)
@@ -97,14 +106,46 @@
 
 ;; testin.. -- how to do this
 (eval-string (ly-gulp-file "interface.scm"))
-(define interface-description-alist
+(define xinterface-description-alist
   `(
     (general-element . ,general-element-interface)
     (beam . ,beam-interface)
     (clef . ,clef-interface)
     (slur . ,slur-interface)
     ))
-	      
+
+;; burp, need these for running outside of LilyPond
+(if #f
+    (begin
+
+      (debug-enable 'backtrace)
+
+      (define (number-pair?  x)
+	(and (pair? x) (number? (car x)) (number? (cdr x))))
+      
+      (define (ly-gulp-file x) "")
+      (define (ly-element? x) #f)
+      (define (ly-input-location? x) #f)
+      (define (dir? x) #f)
+      (define (moment? x) #f)
+      (load "lily.scm")))
+
+(use-modules (ice-9 string-fun))
+(define (list-interface-names)
+  (let* ((text (string-append (ly-gulp-file "interface.scm") "\n(define "))
+	 (r (make-regexp 
+	     "\n[(](define *([a-z-]*-interface)*)*[^\n]*"))
+	 (t (regexp-substitute/global #f r text 2 " " 'post))
+	 (ugh (regexp-substitute/global #f "#f *" t 'pre 'post))
+	 (l (separate-fields-discarding-char #\  ugh list)))
+    (reverse (cdr (reverse l)))))
+
+(eval (ly-gulp-file "interface.scm"))
+
+(define interface-description-alist
+  (map (lambda (x) (cons (string->symbol x) (eval-string x)))
+	     (list-interface-names)))
+
 (define (document-all-interfaces name)
   (string-append
    (texi-node-menu name (map (lambda (x) (cons (interface-name x) ""))
