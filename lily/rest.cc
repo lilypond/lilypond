@@ -82,7 +82,7 @@ Rest::brew_internal_molecule (SCM smob)
   
   String style; 
   SCM style_sym =me->get_grob_property ("style");
-  if (balltype >= 2 && gh_symbol_p (style_sym))
+  if (gh_symbol_p (style_sym))
     {
       style = ly_scm2string (scm_symbol_to_string (style_sym));
     }
