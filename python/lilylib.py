@@ -462,7 +462,7 @@ def get_bbox (filename):
 	return gr
 
 
-def make_ps_images (ps_name, resolution = 90):
+def make_ps_images (ps_name, resolution = 90, papersize = "a4"):
 	## todo:
 	## have better algorithm for deciding when to crop page,
 	## and when to show full page
@@ -504,8 +504,21 @@ def make_ps_images (ps_name, resolution = 90):
 		if y == 0:
 			y = 1
 
-		cmd = r'''gs -g%dx%d -sDEVICE=png16m  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c showpage -c quit ''' % \
-		      (x, y, output_file, resolution, trans_ps, ps_name)
+		###cmd = r'''gs -g%dx%d -sDEVICE=png16m  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c showpage -c quit ''' % \
+		###      (x, y, output_file, resolution, trans_ps, ps_name)
+		cmd = r'''gs\
+		-g%(x)d%(y)d\
+		-sDEVICE=png16m\
+		-dTextAlphaBits=4\
+		-dGraphicsAlphaBits=4\
+		-q\
+		-sOutputFile=%(output_file)s\
+		-sPAPERSIZE=%(papersize)s\
+		-r%(resolution)d -dNOPAUSE\
+		%(trans_ps)s\
+		%(ps_name)s\
+		-c showpage\
+		-c quit ''' % vars ()
 
 		rms = glob.glob (base + '-page*.png')
 		map (os.unlink, rms)
@@ -516,8 +529,19 @@ def make_ps_images (ps_name, resolution = 90):
 		if os.path.isfile (rmfile):
 			os.unlink (rmfile)
 		
-		cmd = r'''gs -s  -sDEVICE=png16m  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c quit''' % (output_file,
-																      resolution, ps_name)
+		###cmd = r'''gs -s -sDEVICE=png16m  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c quit''' % (output_file,
+		### resolution, ps_name)
+		cmd = r'''gs\
+		-s\
+		-sDEVICE=png16m\
+		-dTextAlphaBits=4\
+		-dGraphicsAlphaBits=4\
+		-q\
+		-sOutputFile=%(output_file)s\
+		-sPAPERSIZE=%(papersize)s\
+		-dNOPAUSE -r%(resolution)d\
+		%(ps_name)s\
+		-c quit''' % vars ()
 
 	status = system (cmd)
 	signal = 0xf & status

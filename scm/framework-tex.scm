@@ -301,11 +301,11 @@
 
 (define-public (convert-to-png book name)
   (let* ((defs (ly:paper-book-paper book))
-	 (resolution (ly:output-def-lookup defs 'pngresolution)))
+	 (resolution (ly:output-def-lookup defs 'pngresolution))
+	 (papersizename (ly:output-def-lookup defs 'papersizename)))
     (postscript->png
-     (if (number? resolution)
-	 resolution
-	 (ly:get-option 'resolution))
+     (if (number? resolution) resolution (ly:get-option 'resolution))
+     (if (string? papersizename) papersizename "a4")
      (string-append (basename name ".tex") ".ps"))))
 
 (define-public (convert-to-ps book name)

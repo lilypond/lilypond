@@ -48,17 +48,19 @@
     (format (current-error-port) (_ "Converting to `~a'...") pdf-name)
     (ly:system cmd)))
 
-(define-public (postscript->png resolution name)
+(define-public (postscript->png resolution papersize name)
   (let ((cmd (string-append
 	      "ps2png --resolution="
 	      (if (number? resolution)
 		  (number->string resolution)
 		  "90 ")
+	      " --papersize=" (if (string? papersize) papersize "a4")
 	      (if (ly:get-option 'verbose)
 		  " --verbose "
 		  " ")
 	      name)))
-
+    ;; Do not try to guess the name of the png file
+    (format (current-error-port) (_ "Converting to `~a'...") "png")
     (ly:system cmd)))
 
 (define-public (postprocess-output paper-book module filename formats)

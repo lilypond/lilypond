@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-10 16:21+0100\n"
+"POT-Creation-Date: 2005-03-17 16:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -559,7 +559,7 @@ msgstr ""
 
 #: accidental.cc:223 key-signature-interface.cc:133 lily/accidental.cc:223
 #: lily/key-signature-interface.cc:133 lily/accidental.cc:233
-#: lily/key-signature-interface.cc:128
+#: lily/key-signature-interface.cc:128 lily/key-signature-interface.cc:127
 #, c-format
 msgid "accidental `%s' not found"
 msgstr ""
@@ -569,6 +569,7 @@ msgstr ""
 msgid "Error parsing AFM file: `%s'"
 msgstr ""
 
+#. FIXME: broken sentence
 #. FIXME: broken sentence
 #. FIXME: broken sentence
 #. FIXME: broken sentence
@@ -628,6 +629,7 @@ msgstr ""
 #: auto-change-iterator.cc:66 change-iterator.cc:61
 #: lily/auto-change-iterator.cc:66 lily/change-iterator.cc:61
 #: lily/auto-change-iterator.cc:63 lily/change-iterator.cc:60
+#: lily/auto-change-iterator.cc:62
 msgid "Can't switch translators, I'm there already"
 msgstr ""
 
@@ -648,20 +650,24 @@ msgid "already have a beam"
 msgstr ""
 
 #: beam-engraver.cc:209 lily/beam-engraver.cc:209 lily/beam-engraver.cc:206
+#: lily/beam-engraver.cc:205
 msgid "unterminated beam"
 msgstr ""
 
 #: beam-engraver.cc:242 chord-tremolo-engraver.cc:168
 #: lily/beam-engraver.cc:242 lily/chord-tremolo-engraver.cc:168
 #: lily/beam-engraver.cc:239 lily/chord-tremolo-engraver.cc:165
+#: lily/beam-engraver.cc:238
 msgid "stem must have Rhythmic structure"
 msgstr ""
 
 #: beam-engraver.cc:256 lily/beam-engraver.cc:256 lily/beam-engraver.cc:252
+#: lily/beam-engraver.cc:251
 msgid "stem doesn't fit in beam"
 msgstr ""
 
 #: beam-engraver.cc:257 lily/beam-engraver.cc:257 lily/beam-engraver.cc:253
+#: lily/beam-engraver.cc:252
 msgid "beam was started here"
 msgstr ""
 
@@ -673,7 +679,7 @@ msgstr ""
 msgid "removing beam with less than two stems"
 msgstr ""
 
-#: beam.cc:1011 lily/beam.cc:1011 lily/beam.cc:984
+#: beam.cc:1011 lily/beam.cc:1011 lily/beam.cc:984 lily/beam.cc:988
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 
@@ -688,6 +694,12 @@ msgstr ""
 msgid "can't change `%s' to `%s'"
 msgstr ""
 
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
 #.
 #. We could change the current translator's id, but that would make
 #. errors hard to catch
@@ -793,27 +805,27 @@ msgstr ""
 
 #: dynamic-engraver.cc:179 span-dynamic-performer.cc:84
 #: lily/dynamic-engraver.cc:179 lily/span-dynamic-performer.cc:84
-#: lily/dynamic-engraver.cc:172
+#: lily/dynamic-engraver.cc:172 lily/dynamic-engraver.cc:171
 msgid "can't find start of (de)crescendo"
 msgstr ""
 
 #: dynamic-engraver.cc:189 lily/dynamic-engraver.cc:189
-#: lily/dynamic-engraver.cc:182
+#: lily/dynamic-engraver.cc:182 lily/dynamic-engraver.cc:180
 msgid "already have a decrescendo"
 msgstr ""
 
 #: dynamic-engraver.cc:191 lily/dynamic-engraver.cc:191
-#: lily/dynamic-engraver.cc:184
+#: lily/dynamic-engraver.cc:184 lily/dynamic-engraver.cc:182
 msgid "already have a crescendo"
 msgstr ""
 
 #: dynamic-engraver.cc:194 lily/dynamic-engraver.cc:194
-#: lily/dynamic-engraver.cc:187
+#: lily/dynamic-engraver.cc:187 lily/dynamic-engraver.cc:185
 msgid "Cresc started here"
 msgstr ""
 
 #: dynamic-engraver.cc:315 lily/dynamic-engraver.cc:315
-#: lily/dynamic-engraver.cc:307
+#: lily/dynamic-engraver.cc:307 lily/dynamic-engraver.cc:304
 msgid "unterminated (de)crescendo"
 msgstr ""
 
@@ -863,6 +875,7 @@ msgid "elapsed time: %.2f seconds"
 msgstr ""
 
 #: global-context.cc:162 lily/global-context.cc:162 lily/global-context.cc:161
+#: lily/global-context.cc:160
 #, c-format
 msgid "can't find `%s' context"
 msgstr ""
@@ -889,11 +902,13 @@ msgid "implied \\%s added"
 msgstr ""
 
 #: grob-interface.cc:48 lily/grob-interface.cc:48 lily/grob-interface.cc:46
+#: lily/grob-interface.cc:45
 #, c-format
 msgid "Unknown interface `%s'"
 msgstr ""
 
 #: grob-interface.cc:59 lily/grob-interface.cc:59 lily/grob-interface.cc:57
+#: lily/grob-interface.cc:56
 #, c-format
 msgid "Grob `%s' has no interface for property `%s'"
 msgstr ""
@@ -917,11 +932,12 @@ msgid "Conflicting note group events."
 msgstr ""
 
 #: hyphen-engraver.cc:96 lily/hyphen-engraver.cc:96 lily/hyphen-engraver.cc:91
+#: lily/hyphen-engraver.cc:89
 msgid "removing unterminated hyphen"
 msgstr ""
 
 #: hyphen-engraver.cc:109 lily/hyphen-engraver.cc:109
-#: lily/hyphen-engraver.cc:104
+#: lily/hyphen-engraver.cc:104 lily/hyphen-engraver.cc:102
 msgid "unterminated hyphen; removing"
 msgstr ""
 
@@ -1085,6 +1101,8 @@ msgstr ""
 #. for --output-format.
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
+#. Bug in option parser: --output =foe is taken as an abbreviation
+#. for --output-format.
 #: main.cc:126 lily/main.cc:136 lily/main.cc:134
 msgid "EXTs"
 msgstr ""
@@ -1152,6 +1170,7 @@ msgid ""
 "%s  and others."
 msgstr ""
 
+#. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
@@ -1271,13 +1290,16 @@ msgstr ""
 #.
 #. music for the softenon children?
 #.
+#.
+#. music for the softenon children?
+#.
 #: new-fingering-engraver.cc:153 lily/new-fingering-engraver.cc:153
-#: lily/new-fingering-engraver.cc:150
+#: lily/new-fingering-engraver.cc:150 lily/new-fingering-engraver.cc:149
 msgid "music for the martians."
 msgstr ""
 
 #: new-fingering-engraver.cc:233 lily/new-fingering-engraver.cc:233
-#: lily/new-fingering-engraver.cc:230
+#: lily/new-fingering-engraver.cc:230 lily/new-fingering-engraver.cc:229
 msgid "Fingerings are also not down?! Putting them down anyway."
 msgstr ""
 
@@ -1289,6 +1311,7 @@ msgid "cannot find Voice `%s'"
 msgstr ""
 
 #: note-collision.cc:413 lily/note-collision.cc:413 lily/note-collision.cc:405
+#: lily/note-collision.cc:404
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr ""
 
@@ -1355,7 +1378,7 @@ msgid "Don't know how to handle a percent repeat of this length."
 msgstr ""
 
 #: percent-repeat-engraver.cc:160 lily/percent-repeat-engraver.cc:160
-#: lily/percent-repeat-engraver.cc:159
+#: lily/percent-repeat-engraver.cc:159 lily/percent-repeat-engraver.cc:158
 msgid "unterminated percent repeat"
 msgstr ""
 
@@ -1387,7 +1410,7 @@ msgid "unterminated phrasing slur"
 msgstr ""
 
 #: piano-pedal-engraver.cc:232 lily/piano-pedal-engraver.cc:232
-#: lily/piano-pedal-engraver.cc:225
+#: lily/piano-pedal-engraver.cc:225 lily/piano-pedal-engraver.cc:224
 msgid "Need 3 strings for piano pedals. No pedal made. "
 msgstr ""
 
@@ -1395,12 +1418,13 @@ msgstr ""
 #: piano-pedal-performer.cc:80 lily/piano-pedal-engraver.cc:247
 #: lily/piano-pedal-engraver.cc:262 lily/piano-pedal-performer.cc:80
 #: lily/piano-pedal-engraver.cc:240 lily/piano-pedal-engraver.cc:255
+#: lily/piano-pedal-engraver.cc:239 lily/piano-pedal-engraver.cc:254
 #, c-format
 msgid "can't find start of piano pedal: `%s'"
 msgstr ""
 
 #: piano-pedal-engraver.cc:313 lily/piano-pedal-engraver.cc:313
-#: lily/piano-pedal-engraver.cc:305
+#: lily/piano-pedal-engraver.cc:305 lily/piano-pedal-engraver.cc:304
 #, c-format
 msgid "can't find start of piano pedal bracket: `%s'"
 msgstr ""
@@ -1427,7 +1451,7 @@ msgstr ""
 
 #: rest-collision.cc:164 rest-collision.cc:207 lily/rest-collision.cc:164
 #: lily/rest-collision.cc:207 lily/rest-collision.cc:162
-#: lily/rest-collision.cc:209
+#: lily/rest-collision.cc:209 lily/rest-collision.cc:208
 msgid "too many colliding rests"
 msgstr ""
 
@@ -1498,18 +1522,19 @@ msgstr ""
 msgid "Aborting."
 msgstr ""
 
-#: score.cc:224 lily/score.cc:219 lily/score.cc:214
+#: score.cc:224 lily/score.cc:219 lily/score.cc:214 lily/score.cc:213
 msgid "Already have music in score"
 msgstr ""
 
-#: score.cc:225 lily/score.cc:220 lily/score.cc:215
+#: score.cc:225 lily/score.cc:220 lily/score.cc:215 lily/score.cc:214
 msgid "This is the previous music"
 msgstr ""
 
-#: score.cc:230 lily/score.cc:225 lily/score.cc:220
+#: score.cc:230 lily/score.cc:225 lily/score.cc:220 lily/score.cc:219
 msgid "Error found in this music expression. Ignoring it"
 msgstr ""
 
+#. FIXME:
 #. FIXME:
 #. FIXME:
 #. FIXME:
@@ -1528,6 +1553,7 @@ msgstr ""
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
 #: separation-item.cc:54 separation-item.cc:98 lily/separation-item.cc:54
 #: lily/separation-item.cc:98 lily/separation-item.cc:52
 #: lily/separation-item.cc:96
@@ -1535,6 +1561,7 @@ msgid "Separation_item:  I've been drinking too much"
 msgstr ""
 
 #: simple-spacer.cc:506 lily/simple-spacer.cc:424 lily/simple-spacer.cc:411
+#: lily/simple-spacer.cc:410
 #, c-format
 msgid "No spring between column %d and next one"
 msgstr ""
@@ -1553,7 +1580,7 @@ msgid "Huh?  Got %d, expected %d characters"
 msgstr ""
 
 #: spacing-spanner.cc:386 lily/spacing-spanner.cc:386
-#: lily/spacing-spanner.cc:378
+#: lily/spacing-spanner.cc:378 lily/spacing-spanner.cc:377
 #, c-format
 msgid "Global shortest duration is %s"
 msgstr ""
@@ -1562,6 +1589,7 @@ msgstr ""
 msgid "tremolo duration is too long"
 msgstr ""
 
+#. FIXME:
 #. FIXME:
 #. FIXME:
 #. FIXME:
@@ -1579,12 +1607,12 @@ msgstr ""
 msgid "Weird stem size; check for narrow beams"
 msgstr ""
 
-#: stem.cc:579 lily/stem.cc:579 lily/stem.cc:578
+#: stem.cc:579 lily/stem.cc:579 lily/stem.cc:578 lily/stem.cc:577
 #, c-format
 msgid "flag `%s' not found"
 msgstr ""
 
-#: stem.cc:590 lily/stem.cc:590 lily/stem.cc:589
+#: stem.cc:590 lily/stem.cc:590 lily/stem.cc:589 lily/stem.cc:588
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr ""
@@ -1626,12 +1654,16 @@ msgstr ""
 #. more of a programming error.
 #. Not using ngettext's plural feature here, as this message is
 #. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
 #: tfm-reader.cc:108 lily/tfm-reader.cc:108 lily/tfm-reader.cc:107
+#: lily/tfm-reader.cc:106
 #, c-format
 msgid "TFM header of `%s' has only %u word (s)"
 msgstr ""
 
 #: tfm-reader.cc:142 lily/tfm-reader.cc:142 lily/tfm-reader.cc:141
+#: lily/tfm-reader.cc:139
 #, c-format
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
 msgstr ""
@@ -1642,6 +1674,7 @@ msgid "can't find ascii character: %d"
 msgstr ""
 
 #: tie-engraver.cc:199 lily/tie-engraver.cc:199 lily/tie-engraver.cc:195
+#: lily/tie-engraver.cc:194
 msgid "lonely tie"
 msgstr ""
 
@@ -1670,12 +1703,19 @@ msgstr ""
 #.
 #. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
 #.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
 #: time-signature-engraver.cc:55 lily/time-signature-engraver.cc:55
 #: lily/time-signature-engraver.cc:54
 #, c-format
 msgid "Found strange time signature %d/%d."
 msgstr ""
 
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
 #. If there is no such symbol, we default to the numbered style.
@@ -1711,6 +1751,7 @@ msgid "unterminated trill spanner"
 msgstr ""
 
 #: tuplet-bracket.cc:451 lily/tuplet-bracket.cc:447 lily/tuplet-bracket.cc:439
+#: lily/tuplet-bracket.cc:438
 msgid "Killing tuplet bracket across linebreak."
 msgstr ""
 
@@ -1736,14 +1777,17 @@ msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
 msgstr ""
 
 #: volta-engraver.cc:140 lily/volta-engraver.cc:140 lily/volta-engraver.cc:134
+#: lily/volta-engraver.cc:133
 msgid "No volta spanner to end"
 msgstr ""
 
 #: volta-engraver.cc:151 lily/volta-engraver.cc:151 lily/volta-engraver.cc:145
+#: lily/volta-engraver.cc:144
 msgid "Already have a volta spanner.  Stopping that one prematurely."
 msgstr ""
 
 #: volta-engraver.cc:155 lily/volta-engraver.cc:155 lily/volta-engraver.cc:149
+#: lily/volta-engraver.cc:148
 msgid "Also have a stopped spanner.  Giving up."
 msgstr ""
 
@@ -1978,4 +2022,9 @@ msgstr ""
 #: lily/scm-option.cc:62
 #, c-format
 msgid "Usage: lilypond -e \"(ly:set - option SYMBOL VAL)\""
+msgstr ""
+
+#: lily/scm-option.cc:62
+#, c-format
+msgid "Usage: lilypond -e \"(ly : set - option SYMBOL VAL)\""
 msgstr ""
