@@ -199,11 +199,11 @@ bc=\melodic{
   \meter 3/2;
   g1. | c |
 	% 30
-  f | d^"\textsharp" |
+  f | d^"\\textsharp" |
   g | c |
-  A | d^"\textsharp" |
+  A | d^"\\textsharp" |
   G | c |
-  d^"\textsharp" | e |
+  d^"\\textsharp" | e |
   f | g1 B2 |
   d1.^"3 4 3" |
   \meter 4/4;
@@ -212,7 +212,7 @@ bc=\melodic{
   g1^"3 4 3" | c |
   G^"3 4 3" | c2 G |
   d1^"3 4 3" | G^"3 4 3" |
-  c2 G | d1^"\textsharp" ( |
+  c2 G | d1^"\\textsharp" ( |
   ) d^"3 4 3" | 
   \cadenza 1;
   G\breve 

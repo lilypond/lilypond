@@ -10,6 +10,9 @@ path outer_path;
 upflag_width# = .750 black_notehead_width# + stemthickness#/2;
 downflag_width# = .833 black_notehead_width# + stemthickness#/2;
 
+right_upflag_space# = .2 upflag_width#;
+right_downflag_space# = .2 downflag_width#;
+
 %
 % Flags pointing down cannot overlap with the notehead in y-direction,
 % so they have less slant.
@@ -104,7 +107,7 @@ fet_beginchar("8th Flag (up)", "u3", "eighthflag")
 	foot_depth# =  3 interline#;
 
 	set_char_box(stemthickness# /2, hip_width# 
-		+ stemthickness#/2, 
+		+ stemthickness#/2 + right_upflag_space#, 
 		 foot_depth# + foot_thickness#/2, stemthickness#/2)
 
 	define_pixels(flare, hip_width, hip_thickness,
@@ -133,7 +136,7 @@ fet_beginchar("16th Flag (up)", "u4", "sixteenthflag")
 	foot_width_ratio = .8;
 
 	set_char_box(stemthickness# /2, hip_width#
-		+ stemthickness#/2, 
+		+ stemthickness#/2 + right_upflag_space#, 
 		total_depth# + foot_thickness#/2, stemthickness#/2)
 
 	define_pixels(flare, hip_width, hip_thickness,
@@ -168,7 +171,7 @@ fet_beginchar("32nd Flag (up)", "u5", "thirtysecondflag")
 	foot_width_ratio = .8;
 
 	set_char_box(stemthickness# /2, hip_width#
-		+ stemthickness#/2, 
+		+ stemthickness#/2 + right_upflag_space#, 
 		total_depth# + foot_thickness#/2, stemthickness#/2)
 
 	define_pixels(flare, hip_width, hip_thickness,
@@ -206,7 +209,7 @@ fet_beginchar("64th Flag (up)", "u6", "sixtyfourthflag")
 	foot_width_ratio = .8;
 
 	set_char_box(stemthickness# /2, hip_width#
-		+ stemthickness#/2, 
+		+ stemthickness#/2 + right_upflag_space#, 
 		total_depth# + foot_thickness#/2, stemthickness#/2)
 
 	define_pixels(flare, hip_width, hip_thickness,
@@ -245,7 +248,7 @@ fet_beginchar("8th (down)", "d3", "deighthflag")
 	foot_width_ratio = .8;
 
 	set_char_box(stemthickness# /2, hip_width#
-		+ stemthickness#/2, 
+		+ stemthickness#/2 + right_downflag_space#,
 		total_depth# + foot_thickness#/2, stemthickness#/2)
 
 	define_pixels(flare, hip_width, hip_thickness,
@@ -279,7 +282,7 @@ fet_beginchar("16th (down)", "d4", "dsixteenthflag")
 	foot_width_ratio = .95;
 
 	set_char_box(stemthickness# /2, hip_width#
-		+ stemthickness#/2, 
+		+ stemthickness#/2 + right_downflag_space#, 
 		total_depth# + foot_thickness#/2, stemthickness#/2)
 
 	define_pixels(flare, hip_width, hip_thickness,
@@ -316,7 +319,7 @@ fet_beginchar("32nd (down)", "d5", "dthirtysecondflag")
 	foot_width_ratio = .95;
 
 	set_char_box(stemthickness# /2, hip_width#
-		+ stemthickness#/2, 
+		+ stemthickness#/2 + right_downflag_space#, 
 		total_depth# + foot_thickness#/2, stemthickness#/2)
 
 	define_pixels(flare, hip_width, hip_thickness,
@@ -355,7 +358,7 @@ fet_beginchar("64th (down)", "d6", "dsixtyfourthflag")
 	foot_width_ratio = .98;
 
 	set_char_box(stemthickness# /2, hip_width#
-		+ stemthickness#/2, 
+		+ stemthickness#/2 + right_downflag_space#, 
 		total_depth# + foot_thickness#/2, stemthickness#/2)
 
 	define_pixels(flare, hip_width, hip_thickness,
