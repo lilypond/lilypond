@@ -44,7 +44,9 @@ Dot_column::side_position (SCM element_smob, SCM axis)
   Grob * stem = unsmob_grob (me->get_grob_property ("stem"));
   if (stem
       && !Stem::beam_l (stem)
-      && Stem::duration_log (stem) > 2)
+      && Stem::duration_log (stem) > 2
+      && !Stem::invisible_b (stem)
+      )
     {
       /*
 	trigger stem end & direction calculation.
