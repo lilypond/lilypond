@@ -1,16 +1,46 @@
-@ifinfo
+@ifnottex
 @macro reng {word}
-@ref{ (lilypond-internals)Engraver \word\, \word\ },
+@ref{ (lilypond-internals)\word\, \word\ },
 
 @end macro
-@end ifinfo
+@end ifnottex
 
-@ifnotinfo
+@iftex
 @macro reng {word}
-@ref{ (lilypond-internals)Engraver \word\, \word\ }
+\word\
 
 @end macro
-@end ifnotinfo
+@end iftex
+
+
+@ifnottex
+@macro rgrob {word}
+@ref{ (lilypond-internals)\word\, \word\ },
+
+@end macro
+@end ifnottex
+
+@iftex
+@macro rgrob {word}
+\word\
+
+@end macro
+@end iftex
+
+
+@ifnottex
+@macro rint {word}
+@ref{ (lilypond-internals)\word\, \word\ },
+
+@end macro
+@end ifnottex
+
+@iftex
+@macro rint {word}
+\word\
+
+@end macro
+@end iftex
 
 
 

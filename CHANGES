@@ -1,3 +1,22 @@
+1.4.0.jcn7
+==========
+
+* Added \tupletUp, \tupletDown, \tupletBoth.
+
+* Bugfix convert-ly: treCorde.
+
+* Slur attachment and extremity offsets taken relative to slur
+direction; so that
+   Slur \override #'attachment-offset = #'((0 . 1) . (0 . 1))
+will always make the slur move away from the note head.
+
+* Bugfix: slurs on dotted or flagged notes.
+
+* Refman fixes.
+
+* Added @reng, @rgrob, and @rint macros for referencing engravers,
+grobs and interfaces in documentation.
+
 1.4.0.jcn6
 ==========
 

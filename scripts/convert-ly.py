@@ -777,7 +777,7 @@ if 1:
 
 if 1:
 	def conv (str):
-		str = re.sub ('([Cc])horda', '\\1orda', str)
+		str = re.sub ('([Cc])hord([ea])', '\\1ord\\2', str)
 		return str
 	
 	conversions.append (((1,3,144), conv, 'Chorda -> Corda'))

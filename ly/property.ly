@@ -44,6 +44,20 @@ scriptBoth = {
   \property Voice.Script \revert #'direction
 }
 
+tupletUp  = {
+  \property Voice.TupletBracket \override #'direction = #1
+  \property Voice.TupletBracket \override #'direction = #1
+}
+tupletDown = {
+  \property Voice.TupletBracket \override #'direction = #-1
+  \property Voice.TupletBracket \override #'direction = #-1
+}
+tupletBoth = {
+  \property Voice.TupletBracket \revert #'direction
+  \property Voice.TupletBracket \revert #'direction
+}
+
+
 
 cadenzaOn = \property Score.timing = ##f
 cadenzaOff = {
