@@ -1,5 +1,5 @@
 
-\version "2.3.16"
+\version "2.3.17"
 \header{
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.
@@ -10,17 +10,17 @@ under normal circumstances, these beams would get knees here
 }
 
 extreme = \relative c'' {
-  \stemBoth
+  \stemNeutral
    g8[ c c,]
    c16[ c'' a f]
   \stemUp 
    c,,32[ c'' a f]
 
   %%%%%%%
-  \stemBoth
+  \stemNeutral
   \times 2/3{ d16[ fis' d,]} \times 2/3{ cis[ g'' cis,,]}
   a'16 cis a, g''' % Used to give a nice beam directed upwards.
-  \stemBoth
+  \stemNeutral
 
   \transpose c c {
 	  \stemDown  e'8[ e e']

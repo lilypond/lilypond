@@ -2197,6 +2197,15 @@ conversions.append (((2, 3, 16), conv,
 		     '''\foo -> \foomode (for chords, notes, etc.)
 fold \new FooContext \foomode into \foo.'''))
 
+def conv (str):
+	str = re.sub (r'(slur|stem|phrasingSlur|tie|dynamic|dots|tuplet|arpeggio|)Both', r'\1Neutral', str)
+
+	return str
+
+conversions.append (((2, 3, 17), conv,
+		     '''\foo -> \foomode (for chords, notes, etc.)
+fold \new FooContext \foomode into \foo.'''))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

@@ -44,7 +44,7 @@
 %}
 
 
-\version "2.3.16"
+\version "2.3.17"
 
 
 
@@ -128,7 +128,7 @@ comes = \context Voice=one  \relative c'' {
   f f16 e f8 c8 d4 r8 d |
   es8 es16 d es8 bes c es16 d es8 f |
   bes, es16 d es8 f as,16 bes c4 bes16 as |
-  \stemBoth g16 es f g as bes c d es d c d es f g a |
+  \stemNeutral g16 es f g as bes c d es d c d es f g a |
   bes f, g as bes c d e f es d es f g a b |
 %%15
   \stemUp c8 b16 a g f! es d c8 es d c |
@@ -180,7 +180,7 @@ bassdux = \context Voice=three  \relative c' {
   c16 d es8~ es16 a, bes c d es f8~ f16 b, c d |
 %%20 
 % es8 r r e f f, es! d |     % -> \classic_accidentals
-  es8 r r e \stemBoth \stemDown f f, es! d \stemBoth |
+  es8 r r e \stemNeutral \stemDown f f, es! d \stemNeutral |
   r as' g f g f16 es f8 g |
   c16 d es d c bes as g f bes' as g f es d c |
   bes c d c bes as g f es as' g f es d c bes |

@@ -6064,8 +6064,9 @@ incipit of transcriptions of mensural pieces.  The @code{mensural}
 style mimics the look of historical printings of the 16th century.
 
 The following examples shows the differences in style,
+
 @lilypond[raggedright]
-{
+\relative c' {
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter default }
 

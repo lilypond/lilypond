@@ -582,8 +582,8 @@ def repeat_prepend():
 
 	
 def lyrics_append(a):
-	a = re.sub ( '#', '\\#', a)	# latex does not like naked #'s
-	a = re.sub ( '"', '\\"', a)	# latex does not like naked "'s
+	a = re.sub ('#', '\\#', a)	# latex does not like naked #'s
+	a = re.sub ('"', '\\"', a)	# latex does not like naked "'s
 	a = '\t{  "' + a + '" }\n'
 	stuff_append (lyrics, current_lyric_idx, a)
 

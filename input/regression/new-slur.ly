@@ -3,7 +3,7 @@
     texidoc = "Scoring based slur formatting."
 }
 
-\version "2.3.16"
+\version "2.3.17"
 \paper {
     raggedright = ##t
 %    #(define debug-slur-scoring #t)
@@ -35,7 +35,7 @@
     <c g>^( f <g b>) f
     <c g>_( f <g b>)
     <g b>_( g  <b d>)
-    <g b>_( \stemDown g \stemBoth  <b d>)
+    <g b>_( \stemDown g \stemNeutral  <b d>)
     c,^( c'' c) 
     c,,^( c'')
     c,,^( c')

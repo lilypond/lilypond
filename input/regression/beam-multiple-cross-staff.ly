@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.17"
 \header {
 
     texidoc = "Kneed beams (often happens with cross-staff beams)
@@ -13,7 +13,7 @@ to the last beam.
 	     \context Staff = SA {
 		 \stemDown
 		  c8[ c16 \change Staff = SB \stemUp c16 ]
-		 \stemBoth
+		 \stemNeutral
 		  f[ g \change Staff = SA a c] 
 			       }
 	     \context Staff = SB \relative c' {

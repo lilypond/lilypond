@@ -1,5 +1,5 @@
 
-\version "2.3.16"
+\version "2.3.17"
 \header{
 texidoc="
 Slurs should look nice and symmetric.  The curvature may increase
@@ -12,11 +12,11 @@ run through noteheads or stems.
 	\relative c''{
 		\time 3/4
 		\slurUp
-		\stemBoth a ( \stemDown a \stemBoth  a) a( c  a) a( e'  a,) a( g'  a,)
+		\stemNeutral a ( \stemDown a \stemNeutral  a) a( c  a) a( e'  a,) a( g'  a,)
 		\stemUp a( e'  a,)
 		\break
 		\slurDown
-		\stemBoth c ( \stemUp c \stemBoth  c) c ( a  c) c( d,  c') c( f,  c')
+		\stemNeutral c ( \stemUp c \stemNeutral  c) c ( a  c) c( d,  c') c( f,  c')
 		\stemDown c( f,  c')
 	}
 	\paper{

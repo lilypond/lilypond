@@ -1,5 +1,5 @@
 
-\version "2.3.16"
+\version "2.3.17"
 
 \header {
     
@@ -12,9 +12,9 @@
 \score {
      \relative c'' {
 	\stemDown d c b a g f e
-	\stemBoth
+	\stemNeutral
 	\stemUp a b c d e f g a
-	\stemBoth
+	\stemNeutral
 	<g, e'>2 <b e g> <c e g> <d f g>
 	
     } 

@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.17"
 \include "deutsch.ly"
 % possible rename to scheme- something.  -gp
 % TODO: ask if it needs to have so many empty bars in the middle.  -gp
@@ -53,7 +53,7 @@ using Scheme functions to avoid typing work. " }
 
 
 
-\version "2.3.16"
+\version "2.3.17"
 
 pat =  \transpose c c' \repeat unfold 2 {
   << { \context Staff=up {r8 e16 f g e f g } }
@@ -65,7 +65,7 @@ pat =  \transpose c c' \repeat unfold 2 {
 }
 
 enda =  { r8 f,16 a, c f c a, \stemUp c \change Staff = down
-      a, f, a, f, d, f, d, \change Staff = up \stemBoth
+      a, f, a, f, d, f, d, \change Staff = up \stemNeutral
       r8 g16 h d' f' d' h d' h g h d f e\prall d <e g c'>1^\fermata \bar "|."
 }
 endb =  {\stemUp \tieUp r16 c,8.~c,4~c,2 r16 h,,8.~h,,4~h,,2 c,1 \bar "|."}

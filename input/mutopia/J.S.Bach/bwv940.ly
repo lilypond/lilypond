@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.16"
+\version "2.3.17"
 
 %{
  Header for Petites Preludes.
@@ -45,7 +45,7 @@ one = \relative c{
 	\skip 1 |
 	\stemUp
 	r4 d''2 cis4 |
-	\stemBoth
+	\stemNeutral
 	d16 a' g f  e f cis d 
 	e8.\mordent f16  d8.\prall cis16 |
 	\stemUp\tieUp
@@ -84,14 +84,14 @@ two = \relative c{
 three = \relative c{
 	\stemUp
 	f2 e |
-	\stemBoth
+	\stemNeutral
 	d16 d' c bes  a bes f g 
 	a8.\mordent bes16 
 	g8.\prall f16 |
 	f2 g4 gis |
 	a2 ~ a16 a g f  e f c d |
 	%5
-	e8.\mordent f16  d8.\prall c16 \stemBoth c4. d8 |
+	e8.\mordent f16  d8.\prall c16 \stemNeutral c4. d8 |
 	\stemDown	\tieDown
 
 	e4 ~ e16 f e d  cis a b cis  d e f d |
