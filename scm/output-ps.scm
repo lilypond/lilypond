@@ -201,7 +201,8 @@
 	   (font-encoding (assoc-get 'output-name coding-alist))
 	   (command (font-command font))
 	   ;; FIXME -- see (font-command )
-	   (plain (if font-encoding (get-coding-command font-encoding)
+	   (plain (if font-encoding
+		      (font-command font . (get-coding-command font-encoding))
 		      command))
 	   (designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
