@@ -8,35 +8,8 @@
 #include "fproto.hh"
 #include "real.hh"
 #include "interval.hh"
-
-
-/// 2d vector 
-struct Offset {
-    Real x,y;
-
-    Offset operator+(Offset o)const {
-	Offset r(*this);
-	r+=o;
-	return r;
-    }
-    
-    Offset operator+=(Offset o) {
-	x+=o.x;
-	y+=o.y;
-	return *this;
-    }
-    Offset(Real ix , Real iy) {
-	x=ix;
-	y=iy;
-    }
-    Offset() {
-	x=0.0;
-	y=0.0;
-    }
-};
-
-
-/// a 4-tuple of #Real#s
+#include "offset.hh"
+/// a square subset of Real^2
 struct Box {
     Interval x, y;
     
@@ -48,7 +21,6 @@ struct Box {
 	x.unite(b.x);
 	y.unite(b.y);
     }
-    Box(svec<Real> &);
     Box();
     Box(Interval ix, Interval iy);
 };
