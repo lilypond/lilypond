@@ -25,6 +25,8 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <iostream.h> /* gcc 3.0 */
+#include <errno.h>
+
 
 #include "score.hh"
 #include "lily-guile.hh"
