@@ -1,9 +1,75 @@
-lilypond (1.6.66-1) unstable; urgency=low
+lilypond (1.5.68-2) unstable; urgency=low
 
-  * Change python requirement in build-depend to build on unstable.
-  * Remove this entry: upstream testing build as we're gearing up to 1.6.
+  * Oops, I was missing Build-Depends on python-dev.  Thanks to LaMont
+    Jones and his hppa build daemon for the report. (Closes: Bug#153402)
+  * lilypond should Depends instead of Recommends tetex-extra.
+    Thanks to Russell Neches for the report.  (Closes: Bug#152228)
+  * lilypond-indent.el is now installed in lilypond 1.5.x.
+    Thanks to Christophe Rhodes for the report.  (Closes: Bug#139070)
 
- -- Jan Nieuwenhuizen <janneke@gnu.org>  Wed, 10 Jul 2002 02:54:14 +0200
+ -- Anthony Fok <foka@debian.org>  Thu, 18 Jul 2002 23:41:44 +0800
+
+lilypond (1.5.68-1) unstable; urgency=low
+
+  * New upstream release, gearing up for 1.6.0.
+  * Thanks to upstream author Jan Nieuwenhuizen for updating the Debian
+    package to work with 1.5.68.
+  * As per Jan's suggestion, now Build-Depends: pktrace (>= 1.0.3-1),
+    pfaedit (>= 0.0.20020312-1), autotrace, t1utils
+
+ -- Anthony Fok <foka@debian.org>  Wed, 17 Jul 2002 03:20:23 +0800
+
+lilypond (1.4.13-1) unstable; urgency=low
+
+  * New upstream release.
+  * Depends: pktrace
+
+ -- Anthony Fok <foka@debian.org>  Mon,  6 May 2002 04:09:32 +0800
+
+lilypond (1.4.12-1) unstable; urgency=high
+
+  * New upstream maintenance release.
+  * Several important fixes (including our bison-related patch added
+    to 1.4.10-1) are included since 1.4.11 this release.  (Now, I
+    don't even need to increase teTeX's extra_mem_top, extra_mem_bot
+    or pool_size!  :-)  Please include in Woody.
+  * Fixed a typo in lilypond-doc package description: typestting ->
+    typesetting.  Thanks, Matt Zimmerman!  (Closes: Bug#125083)
+
+ -- Anthony Fok <foka@debian.org>  Sun, 24 Feb 2002 02:06:15 +0800
+
+lilypond (1.4.10-1) unstable; urgency=high
+
+  * New upstream release.
+  * lilypond failed to build with bison >= 1.30 because bison's output file
+    has been renamed.  Applied an upstream fix.  (Closes: Bug#133692)
+  * lilypond's documentation also failed to build with the latest
+    tetex or texinfo package.  Instead of increasing extra_mem_top and
+    extra_mem_bot, increasing pool_size does the trick.
+
+ -- Anthony Fok <foka@debian.org>  Mon, 18 Feb 2002 11:41:31 +0800
+
+lilypond (1.4.9-1) unstable; urgency=high
+
+  * New upstream release.
+  * Oops, libc6-dev is known as libc6.1-dev and libc-dev on some
+    architectures.  Fixed Build-Depends so that lilypond can be built
+    on all platforms.  Thanks to Colin Watson for reporting the bug.
+    (Closes: Bug#120208)
+
+ -- Anthony Fok <foka@debian.org>  Tue, 27 Nov 2001 23:28:11 +0800
+
+lilypond (1.4.8-2) unstable; urgency=high
+
+  * [debian/rules]: Use -s instead of -a so that lilypond would get built
+     on all architectures even when the dummy lilypond1.3 package isn't
+     built.  Thanks to Ryan Murray for the report.  (Closes: Bug#117622)
+  * Depends on python instead of python-base.  The python scripts in
+    lilypond work with old and new Python versions.
+  * Build-Depends on "-z combreloc"-enabled binutils (>= 2.11.92.0.10-2)
+    and libc6-dev (>= 2.2.4-5) so that lily runs faster!  :-)
+
+ -- Anthony Fok <foka@debian.org>  Sun, 11 Nov 2001 10:45:10 +0800
 
 lilypond (1.4.8-1) unstable; urgency=high
 
@@ -817,8 +883,3 @@ lilypond (0.1.0-1) unstable; urgency=low
   * Initial Release.
 
  -- Anthony Fok <foka@gpu.srv.ualberta.ca>  Wed,  6 Aug 1997 04:40:57 -0600
-
-Local variables:
-mode: debian-changelog
-add-log-mailing-address: "foka@debian.org"
-End:

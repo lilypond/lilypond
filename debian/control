@@ -1,17 +1,17 @@
 Source: lilypond
-Build-Depends: debhelper (>= 3.0.5), python-base (>= 1.5.2-4) | python1.5 (>= 1.5.2-4) | python, libguile-dev (>= 1:1.4-9), tetex-bin, libkpathsea-dev, tetex-extra, flex (>= 2.5.4a-14), bison, texinfo (>= 4.0b-2), groff, m4, gettext (>= 0.10.36-1)
+Build-Depends: debhelper (>= 3.0.5), binutils (>= 2.11.92.0.10-2), libc6-dev (>= 2.2.4-6) | libc6.1-dev (>= 2.2.4-6) | libc0.2-dev (>= 2.2.4-6), python-dev, libguile-dev (>= 1:1.4-9), tetex-bin, libkpathsea-dev, tetex-extra, flex (>= 2.5.4a-14), bison, texinfo (>= 4.0b-2), groff, m4, gettext (>= 0.10.36-1), pktrace (>= 1.0.3-1), pfaedit (>= 0.0.20020312-1), autotrace, t1utils
 Build-Depends-Indep: bibtex2html, gs | gs-aladdin, netpbm (>= 2:9.10-1)
 Section: tex
 Priority: optional
 Maintainer: Anthony Fok <foka@debian.org>
-Standards-Version: 3.5.5
+Standards-Version: 3.5.6
 
 Package: lilypond
 Architecture: any
 Replaces: lilypond1.3
 Provides: lilypond1.3
-Depends: ${shlibs:Depends}, tetex-bin (>= 1.0.5-1), python-base (>= 1.5.2-4), guile
-Recommends: lilypond-doc, tetex-extra (>= 1.0-1)
+Depends: ${shlibs:Depends}, tetex-bin (>= 1.0.5-1), tetex-extra (>= 1.0-1), python, guile
+Recommends: lilypond-doc
 Conflicts: lilypond1.3 (<= 1.3.132-1), musixtex-fonts
 Description: A program for printing sheet music.
  LilyPond is a music typesetter.  It produces beautiful sheet music
@@ -28,17 +28,18 @@ Description: A program for printing sheet music.
 Package: lilypond-doc
 Section: doc
 Architecture: all
-Suggests: lilypond (>= 1.4.8-1), postscript-viewer, www-browser
+Suggests: lilypond (>= 1.5.68-1), postscript-viewer, www-browser
 Description: LilyPond Documentation in HTML, PS and DVI formats
  This package contains the HTML, PostScript and DVI documentation for the
- LilyPond music typestting software.
+ LilyPond music typesetting software.
 
 Package: lilypond1.3
 Architecture: arm i386 m68k powerpc sparc
-Depends: lilypond (>= 1.4.8-1)
+Depends: lilypond (>= 1.5.68-1)
 Description: Dummy package for transition to new stable lilypond.
  This dummy package provides a transition from the previous lilypond1.3
- package back to a newer lilypond because the stable 1.4 series has arrived.
+ package back to a newer lilypond because the stable 1.4 series
+ (soon 1.6 series) has arrived.
  .
  Please feel free to remove this dummy package after you have upgraded
  to the latest lilypond.
