@@ -66,7 +66,5 @@ protected:
 
 
 DECLARE_UNSMOB(Music,music);
+
 #endif // MUSIC_HH
-
-
-

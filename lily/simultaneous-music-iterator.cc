@@ -24,6 +24,7 @@ Simultaneous_music_iterator::Simultaneous_music_iterator (Simultaneous_music_ite
 {
   separate_contexts_b_
     = src.separate_contexts_b_;
+  children_list_ = SCM_EOL;
   
   SCM children_list = SCM_EOL;
   SCM *tail  = &children_list; 

@@ -18,6 +18,8 @@ class Break_align_engraver : public Engraver
 {
   Item *align_;
   Protected_scm column_alist_;
+  Item *edge_;
+
   void add_to_group (SCM,Item*);
 protected:
   virtual void finalize ();
@@ -71,13 +73,19 @@ Break_align_engraver::stop_translation_timestep ()
       typeset_grob (align_);
       align_ = 0;
     }
+  if (edge_)
+    {
+      typeset_grob (edge_);
+      edge_ = 0;
+    }
 }
 
 
 Break_align_engraver::Break_align_engraver ()
 {
   column_alist_ = SCM_EOL;
-  align_ =0;
+  edge_ = 0;
+  align_ = 0;
 }
 
 void
@@ -103,9 +111,9 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 
 	  announce_grob (align_, SCM_EOL);
 
-	  Item * edge = new Item (get_property ("LeftEdge"));
-	  add_to_group (edge->get_grob_property ("break-align-symbol"), edge);
-	  announce_grob(edge, SCM_EOL);
+	  edge_ = new Item (get_property ("LeftEdge"));
+	  add_to_group (edge_->get_grob_property ("break-align-symbol"), edge_);
+	  announce_grob(edge_, SCM_EOL);
 	}
       
       add_to_group (align_name, item);

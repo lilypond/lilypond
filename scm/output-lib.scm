@@ -94,23 +94,6 @@
  molecule-boxer
  )
 
-
-(define (arg->string arg)
-  (cond ((number? arg) (inexact->string arg 10))
-	((string? arg) (string-append "\"" arg "\""))
-	((symbol? arg) (string-append "\"" (symbol->string arg) "\""))))
-
-;; ugh: naming.
-(define (func name . args)
-  (string-append 
-   "(" name 
-   (if (null? args) 
-       ""
-       (apply string-append 
-	      (map (lambda (x) (string-append " " (arg->string x))) args)))
-   ")\n"))
-
-
 ;;(define (mm-to-pt x)
 ;;  (* (/ 72.27 25.40) x))
 

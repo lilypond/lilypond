@@ -204,6 +204,7 @@ ly_init_ly_module (void *data)
   scm_primitive_load_path (scm_makfrom0str ("lily.scm"));
 }
 
+
 SCM lily_module ;
 
 void

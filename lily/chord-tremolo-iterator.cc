@@ -35,9 +35,12 @@ Chord_tremolo_iterator::Chord_tremolo_iterator (Chord_tremolo_iterator const &sr
   : Music_iterator (src)
 {
   factor_ = src.factor_;
-  child_iter_ = src.child_iter_ ? src.child_iter_->clone () : 0;
-  if (child_iter_)
-    scm_gc_unprotect_object (child_iter_->self_scm());
+  child_iter_ = 0;
+  if (src.child_iter_)
+    {
+      child_iter_ = src.child_iter_->clone ();
+      scm_gc_unprotect_object (child_iter_->self_scm());
+    }
 }
 
 void
@@ -86,8 +89,6 @@ Chord_tremolo_iterator::try_music_in_children (Music  *m) const
 {
   return child_iter_->try_music (m);
 }
-
-
 
 IMPLEMENT_CTOR_CALLBACK (Chord_tremolo_iterator);
 

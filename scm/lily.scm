@@ -12,10 +12,9 @@
 ;;; General settings
 ;; debugging evaluator is slower.
 
-(debug-enable 'debug)
+;(debug-enable 'debug)
 ;(debug-enable 'backtrace)
-(read-enable 'positions)
-
+;(read-enable 'positions)
 
 
 (define-public (line-column-location line col file)
@@ -83,7 +82,7 @@
   (cons (f (car x)) (f (cdr x))))
 
 ;; used where?
-(define (reduce operator list)
+(define-public (reduce operator list)
   "reduce OP [A, B, C, D, ... ] =
    A op (B op (C ... ))
 "
@@ -121,7 +120,7 @@ is the  first to satisfy CRIT
 (define (!= l r)
   (not (= l r)))
 
-(define (filter-list pred? list)
+(define-public (filter-list pred? list)
   "return that part of LIST for which PRED is true."
   (if (null? list) '()
       (let* ((rest  (filter-list pred? (cdr list))))
@@ -129,7 +128,7 @@ is the  first to satisfy CRIT
 	    (cons (car list)  rest)
 	    rest))))
 
-(define (filter-out-list pred? list)
+(define-public (filter-out-list pred? list)
   "return that part of LIST for which PRED is true."
   (if (null? list) '()
       (let* ((rest  (filter-list pred? (cdr list))))
@@ -137,7 +136,7 @@ is the  first to satisfy CRIT
 	    (cons (car list)  rest)
 	    rest))))
 
-(define (uniqued-alist  alist acc)
+(define-public (uniqued-alist  alist acc)
   (if (null? alist) acc
       (if (assoc (caar alist) acc)
 	  (uniqued-alist (cdr alist) acc)

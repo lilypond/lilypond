@@ -14,7 +14,7 @@ When it all works, head straight to the tutorial:
 
 Runtime requirements:
   cygwin-1.3.10 or newer
-  libguile14
+  libguile12
   bash
   libiconv2
   libintl2
@@ -38,15 +38,15 @@ Build requirements:
   binutils-20011102 or newer
   gcc-2.95.3-5 or newer
   bison-1.35 or newer
-  guile-devel-1.5.6-5 or newer
+  guile-devel-1.6.0-1 or newer
   fileutils
   flex-2.5.4 or newer
-  libguile14-1.5.6-5 or newer
-  libkpathsea3-20020530-2 or newer
+  libguile12-1.6.0-1 or newer
+  libkpathsea3-20020911-1 or newer
   python-2.2 or newer
   sed-3.02 or newer
   sh-utils
-  tetex-devel-20020530-2 or newer
+  tetex-devel-20020911-1 or newer
   texinfo-4.2 or newer
 
 Website/documentation build requirements (lilypond-doc package):

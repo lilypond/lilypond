@@ -1,3 +1,4 @@
+
 ;;; tex.scm -- implement Scheme output routines for TeX
 ;;;
 ;;;  source file of the GNU LilyPond music typesetter
@@ -55,7 +56,7 @@
 
 
 (define (unknown) 
-  "%\n\\unknown%\n")
+  "%\n\\unknown\n")
 
 (define (select-font name-mag-pair)
   (let*
@@ -146,7 +147,7 @@
   (begin
 					; uncomment for some stats about lily memory	  
 					;		(display (gc-stats))
-    (string-append "\n\\EndLilyPondOutput\n"
+    (string-append "%\n\\endgroup\\EndLilyPondOutput\n"
 					; Put GC stats here.
 		   )))
 
@@ -172,15 +173,16 @@
 		     ((equal? (ly-unit) "pt") (/ 72.0  72.27))
 		     (else (error "unknown unit" (ly-unit)))
 		     ))
-    " mul }"
+    " mul }%\n"
    "\\special{\\string! "
    
    ;; URG: ly-gulp-file: now we can't use scm output without Lily
    (regexp-substitute/global #f "\n"
 				 (ly-gulp-file "music-drawing-routines.ps") 'pre " %\n" 'post)
    "}"
-   "\\input lilyponddefs \\outputscale=\\lilypondpaperoutputscale \\lilypondpaperunit"
-   "\\turnOnPostScript"))
+   "\\input lilyponddefs\n"
+   "\\outputscale=\\lilypondpaperoutputscale \\lilypondpaperunit\n"
+   "\\turnOnPostScript\\begingroup\\parindent0pt\n"))
 
 ;; Note: this string must match the string in ly2dvi.py!!!
 (define (header creator generate) 
@@ -207,10 +209,7 @@
 	(tex-val (output-tex-string val)))
     (if (equal? (sans-surrounding-whitespace tex-val) "")
 	(string-append "\\let\\" tex-key "\\undefined\n")
-	(string-append "\\def\\" tex-key "{" tex-val "}\n"))
-    )
-  )
-
+	(string-append "\\def\\" tex-key "{" tex-val "}%\n"))))
 
 (define (number->dim x)
   (string-append
@@ -228,14 +227,21 @@
 (define (bezier-sandwich l thick)
   (embedded-ps (list 'bezier-sandwich  `(quote ,l) thick)))
 
-(define (start-system ht)
-  (string-append "\\vbox to " (number->dim ht) "{\\hbox{"
-		 "%\n"))
+(define (start-system wd ht)
+  (string-append "\\leavevmode\n"
+		 "\\scoreshift = " (number->dim (* ht 0.5)) "\n"
+		 "\\ifundefined{lilypondscoreshift}%\n"
+		 "\\else\n"
+		 "  \\advance\\scoreshift by -\\lilypondscoreshift\n"
+		 "\\fi\n"
+		 "\\hbox to " (number->dim wd) "{%\n"
+		 "\\lower\\scoreshift\n"
+		 "\\vbox to " (number->dim ht) "{\\hbox{%\n"))
 
 (define (stop-system) 
-  "}\\vss}\\interscoreline\n")
+  "}\\vss}\\hss}\\interscoreline\n")
 (define (stop-last-system)
-  "}\\vss}")
+  "}\\vss}\\hss}")
 
 (define (filledbox breapth width depth height)
   (if (and #f (defined? 'ps-testing))
@@ -284,4 +290,5 @@
 (define-public (tex-output-expression expr port)
   (display (my-eval-in-module expr this-module) port )
   )
+
 

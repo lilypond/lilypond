@@ -692,6 +692,7 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 
 	
 	s = global_latex_preamble (extra) + '\\begin{document}\n'
+	s = s + '\\parindent 0pt\n'
 	s = s + '\\thispagestyle{firstpage}\n'
 
 	first = 1
