@@ -67,16 +67,15 @@ help: generic-help local-help
   install     install programs and data (prefix=$(prefix))\n\
   lib         update all libraries\n\
   release     roll tarball and generate patch\n\
-  rpm         build RedHat package\n\
+  rpm         build Red Hat package\n\
   po          make new translation Portable Object database\n\
   po-replace  do po-update and replace catalogs with msgmerged versions\n\
   po-update   update translation Portable Object database\n\
-  tar         same as dist\n\
   TAGS        genarate tagfiles\n\
-  zip         build binary doze distribution\n\
 \n\
 Make may be invoked from any subdirectory\n\
-Note that all commands recurse into SUBSDIRS\n\
+Note that all commands recurse into SUBDIRS;\n\
+prepend \`local-' to do only cwd, eg: local-clean\n\
 "\
 #
 

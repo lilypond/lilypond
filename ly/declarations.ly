@@ -29,6 +29,8 @@ papersize = "a4"
 \include "generic-paper.ly"
 \include "paper20.ly"
 
+singleLine = \paper { linewidth = 1.; }
+
 % ugh
 \include "midi.ly"
 

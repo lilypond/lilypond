@@ -1819,9 +1819,8 @@ bars.
 @section The end        
          
 That's all folks.  From here, you can either try fiddling with input
-files, or you can read the reference manual.
+files, or you can read the reference manual.  You can find more example
+files in @file{input} and @file{input/test}.  You can also look at Real
+Music (TM), have a look at the @ref{Mutopia project}.
 
 
-@c @lilypond[nofragment]
-@c #(set! point-and-click #f)
-@c @end lilypond 

@@ -28,12 +28,3 @@ release:
 rpm: $(depth)/$(package-icon) dist
 	su -c 'rpm -tb $(depth)/$(outdir)/$(distname).tar.gz'
 
-update:
-	$(PYTHON) $(step-bindir)/update.py --package=$(topdir) $(makeflags)
-
-xzip:
-	$(SHELL) $(step-bindir)/package-zip.sh $(topdir) $(prefix:/%=%)
-
-zip:
-	$(SHELL) $(step-bindir)/package-zip32.sh $(topdir)
-

@@ -1,0 +1,75 @@
+
+@node Mutopia project
+@chapter Mutopia project
+@cindex mutopia project
+@cindex sheet music archive
+
+
+The Mutopia project needs your help.  Mutopia is a collection of
+public domain sheet music.  All the music on Mutopia is completely
+free to download, print out, perform and distribute.  Mutopia is
+similar in spirit to Project Gutenburg - but consists of a growing
+collection of free music.  You can help the project by entering music
+(either by hand, or by converting from scans or MIDI) and submitting
+it.  Point your browser to the @uref{http://www.mutopiaproject.org}.
+
+
+@menu
+* Mutopia ports collection::    
+@end menu
+
+@node Mutopia ports collection
+@section Mutopia ports collection
+@cindex mutopia ports collection
+
+
+We're working on a ports collection for LilyPond.  The aim is to make
+all music in Mutopia very easily accessible for LilyPond users 
+to study, edit and print.
+
+A somewhat functional experimental tree will be available in version
+1.3.141.  It should then be very easy to
+
+@enumerate 1
+  download anything from Mutopia
+  compile for printing or for Mutopia submission
+  publish and package for Mutopia
+@end enumerate
+
+Type @samp{make help} in @file{ports} directory to see possible
+targets.
+
+[TODO]
+
+Now that we have the @samp{make sync} target, maybe we should
+only dist the composers in the tarball:
+@example
+ports/mutopia/ArbeauT
+ports/mutopia/BachJS
+ports/mutopia/BanchieriA
+ports/mutopia/BeethovenLv
+ports/mutopia/BendaJA
+ports/mutopia/BruhnsN
+ports/mutopia/CarcassiM
+ports/mutopia/CarulliF
+ports/mutopia/ClementiM
+ports/mutopia/DowlandJ
+ports/mutopia/GiordianoG
+ports/mutopia/JoplinS
+ports/mutopia/MilanL
+ports/mutopia/MozartWA
+ports/mutopia/PaganiniN
+ports/mutopia/Saint-SaensC
+ports/mutopia/SatieE
+ports/mutopia/SchubertF
+@end example
+
+To build the Solo Cello Suite from J.S.Bach, you would do:
+@example
+$ cd ports/mutopia/BachJS
+$ make sync
+$ cd BWV1008/solo-cello-suite-ii
+$ make mutopia
+@end example
+
+Disadvantage: no clue of available titles.

@@ -69,7 +69,7 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 # or make `foo-book' to make out/foo-book.ps
 #
 %: $(outdir)/%.ps
-	@echo Making $@ from $<
+	@echo Generated $< for target $@.
 
 #
 # Also clean hand-compiled stuff in cwd

@@ -19,7 +19,7 @@
 @chapter Reference Manual
 
 This document describes GNU LilyPond and its input format. The last
-revision of this document was for LilyPond 1.3.138.
+revision of this document was for LilyPond 1.3.141.
 
 
 @menu
@@ -41,6 +41,7 @@ revision of this document was for LilyPond 1.3.138.
 * Page layout::                 
 * Sound::                       
 * Music entry::                 
+* Using LilyPond::              
 * Interpretation context::      
 * Syntactic details::           
 * Lexical details::             
@@ -60,7 +61,7 @@ by `music compiler' or `music to notation compiler'.
 
 LilyPond is linked to GUILE, GNU's Scheme library for extension. The
 Scheme library provides the glue that holds together the low-level
-routines and separate modules general, which are C++
+routines and separate modules general, which are C++.
 
 When lilypond is run to typeset sheet music, the following happens:
 @itemize @bullet
@@ -429,7 +430,7 @@ Rests are entered like notes, with note name `@code{r}'.
 
 Skips the amount of time specified by @var{duration}.  If no other music
 is played, a gap will be left for the skipped time with no notes
-printed.  The short hand is only available in Note and Chord mode.
+printed.  The shorthand is only available in Note and Chord mode.
 
 
 
@@ -833,6 +834,18 @@ Automatic beams can not be put on the last note in a score.
 Automatic beaming is on by default, but it can switched off by setting
 @code{Voice.noAutoBeaming} to true.  You you may find this necessary for
 a melody that goes with lyrics.
+
+@refbugs
+
+It is not possible to specify beaming for beams with mixed durations,
+that differs from the beaming of all separate durations, ie, you'll
+have to specify manual beams to get:
+@lilypond[fragment,singleline,relative]
+  \property Voice.autoBeamSettings
+    \override #'(end * * * *) = #(make-moment 3 8)
+  \time 12/8; c'8 c c  c16 c c c c c  [c c c c] c8 c  c4
+@end lilypond
+
 
 @c .    {Manual beams}
 @cindex Automatic beams
@@ -1697,7 +1710,7 @@ Piano pedal instruction can be expressed using
 @code{\sustainDown}, @code{\sustainUp}, @code{\unaChorda},
 @code{\treChorde}, @code{\sostenutoDown} and @code{\sostenutoUp}.
 
-These identifiers are short hands for spanner commands of the types
+These identifiers are shorthands for spanner commands of the types
 @code{Sustain}, @code{UnaChorda} and @code{Sostenuto}:
 
 @lilypond[fragment,verbatim]
@@ -2438,6 +2451,24 @@ the behavior of part combining, refer to the automatically generated
 documentation. Look for @code{Thread_devnull_engraver}
 @code{Voice_devnull_engraver} and @code{A2_engraver}. 
 
+@refbugs
+
+In @code{soloADue} mode, when the two voices play the same notes on and
+off, the part combiner may typeset @code{a2} more than once in a
+measure.
+
+@lilypond[fragment,singleline]
+  \context Staff <
+    \context Voice=one \partcombine Voice
+      \context Thread=one \relative c'' {
+        c b c b c a c a
+      }
+      \context Thread=two \relative c'' {
+        b b b b f a f a
+      }
+  >
+@end lilypond
+
 @cindex @code{Thread_devnull_engraver}
 @cindex @code{Voice_engraver}
 @cindex @code{A2_engraver}
@@ -2957,8 +2988,10 @@ use either this or @code{stafflinethickness}
   @item @code{linewidth}  
     Sets the width of the lines.
 
-If set to a negative value, a single
-    unjustified line is produced.
+If set to a negative value, a single unjustified line is produced.
+@c rename to singleLinePaper ?
+The shorthand @code{\singleLine} defines a default paper block that
+produces a single line.
 
 @cindex @code{textheight}
 
@@ -3344,6 +3377,107 @@ line and column. Control-mousebutton 2 will show all clickable boxes.
 When you convert the TeX file to PostScript using dvips, dvips
 will complain about not finding @code{src:X:Y} files. Those complaints are
 harmless, and can be ignored.
+
+
+@c . {Using LilyPond}
+@node Using LilyPond
+@section Using LilyPond
+@cindex Using LilyPond
+@cindex Generating output
+
+@c slaat dit ergens op?
+
+@c direct postscript?
+
+@table @code
+@item plain lilypond
+@example
+lilypond foo.ly
+@end example
+For more information on how to use lilypond see
+@ifnottex
+@ref{Invoking LilyPond}.
+@end ifnottex
+@iftex
+the online manual.
+@end iftex
+
+@item ly2dvi
+Ly2dvi produces titling from @code{\header} fields.
+@example
+ly2dvi foo.ly
+@end example
+For more information on how to use ly2dvi see
+@ifnottex
+@ref{ly2dvi}.
+@end ifnottex
+@iftex
+the online manual.
+@end iftex
+
+@item lilypond-book
+Lilypond-book supports interleaving text and music.
+@example
+lilypond-book foo.doc
+@end example
+For more information on how to use lilypond-book see
+@ifnottex
+@ref{lilypond-book}.
+@end ifnottex
+@iftex
+the online manual.
+@end iftex
+@end table
+
+
+An emacs mode for LilyPond is included with the source archive as
+@file{lilypond-mode.el} and @file{lilypond-font-lock.el}.  If you have
+an RPM, it is in @file{/usr/share/doc/lilypond-X/}.  You have to install
+it yourself.
+
+Add this to your ~/.emacs or ~/.emacs.el:
+@example 
+    (load-library "lilypond-mode.el")
+    (setq auto-mode-alist
+      (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+    (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+@end example
+
+If you have the latest LilyPond-1.3.x Debian package, LilyPond-mode
+is automatically loaded, so you need not modify your ~/.emacs file.
+
+@menu
+* Pre-cooked makefile::         
+@end menu
+
+@node Pre-cooked makefile
+@subsection Pre-cooked makefile
+
+@c waar deze info?  is uiteindelijk wel handig, schat ik.
+[TODO: cut blabla]
+If you have a big music project, or just a lot of LilyPond input files,
+all generated output from LilyPond, @TeX{} and metafont will clutter
+your working directory.  LilyPond comes with a one-size-fits-all
+pre-cooked makefile that helps you manage producing ouptut.  It will
+produce all output in @file{out}, generate and track dependencies.
+Also, it helps in preparing your submission to the @ref{Mutopia
+project}.
+
+@file{make/ly.make}
+@example
+mkdir my-project
+cd my-project
+cp /usr/share/lilypond/make/ly.make GNUmakefile
+cp /usr/share/doc/lilypond/examples/input/tutorial/menuet.ly .
+make menuet
+[..]
+Generated out/menuet.ps for target menuet.
+@end example
+
+Type @samp{make help} to see possible targets.
+
+[TODO]
+@file{/usr/share/lilypond/doc/lilypond/examples/input/mutopia-header.ly}
 
 
 @node Interpretation context
