@@ -50,7 +50,7 @@ TEX		{AA}|-|{PUNCT}|{ACCENT}|{NATIONAL}
 WORD		{A}{AN}*
 ALPHAWORD	{A}+
 INT		-?{N}+
-REAL		{INT}?(\.{N}*)?
+REAL		{INT}?(\.{N}+)?
 KEYWORD		\\{WORD}
 WHITE		[ \n\t\f]
 BLACK		[^ \n\t\f]
