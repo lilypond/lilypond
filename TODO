@@ -23,8 +23,6 @@ grep for TODO and ugh/ugr
 
 	* bf: abbrevs over whole note
 
-	* mi2mu: fix a1*0/4 output
-
 STUFF
 
 	* give Items/Spanners access to unbroken originals	

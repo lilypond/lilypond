@@ -173,8 +173,6 @@ Mudela_note::duration ()
 Moment
 Mudela_note::duration_mom ()
 {
-// ugh
-//    return Duration_convert::dur2_mom (duration ());
   assert (end_column_l_);
   return end_column_l_->at_mom () - at_mom ();
 }
@@ -209,6 +207,13 @@ Mudela_note::str ()
 
   if (dur.plet_b ())
 	str += String (" \\plet 1/1;");
+
+  /* 
+    note of zero duration is nonsense, 
+    but let's output anyway for convenient debugging
+   */
+  if (!duration_mom ())
+    return String ("\n% ") + str + "\n";
 
   return str + " ";
 }

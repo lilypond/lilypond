@@ -10,6 +10,10 @@ pl 31
 
 ********
 nov 11
+pl 30.jcn1
+	- bf: mi2mu: notes of zero duration as comments
+	- feta: ugh c clef
+
 pl 30
 	- feta: G clef. 
 	- scripts now do relative coords (fixes lyrics + barnumber bug)
