@@ -1,3 +1,8 @@
+2003-12-03  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* ly/italiano.ly: additions for semi-sharps and semi-flats by Eric
+	Wurbel <wurbel@univ-tln.fr>.
+
 2003-11-17  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/midi2ly.py: Add space after chords.
