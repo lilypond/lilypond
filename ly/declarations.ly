@@ -1,3 +1,5 @@
+
+\version "1.3.146"
 breve = \duration #(make-duration -1 0)
 longa = \duration #(make-duration -2 0 )
 maxima = \duration #(make-duration -3 0)
@@ -17,22 +19,27 @@ smaller = -1
 bigger = 1
 center=0
 
-break =  \penalty  -1000000; 
-noBreak =  \penalty 1000000; 
+break =  \penalty  #-10000
+noBreak =  \penalty #10000
 \include "scale-definitions.ly"
 
 melisma = \property Staff.melismaBusy = ##t
 melismaEnd = \property Staff.melismaBusy = ##f
-papersize = "a4"
+
 
 \include "engraver.ly"
-\include "generic-paper.ly"
-\include "paper20.ly"
 
-singleLine = \paper { linewidth = 1.; }
+singleLine = \paper { linewidth = 1. }
 
 % ugh
 \include "midi.ly"
+
+papersize = "a4"
+paperfile = \papersize + ".ly"
+
+\include "generic-paper.ly"
+\include "paper20.ly"
+
 
 \include "dynamic-scripts.ly"
 \include "spanners.ly"
@@ -40,7 +47,9 @@ singleLine = \paper { linewidth = 1.; }
 \include "property.ly"
 
 
-unusedEntry = \notes { c4 }		% reset default duration
+
+% reset default duration
+unusedEntry = \notes { c4 }	
 
 % music = "\melodic\relative c"
 

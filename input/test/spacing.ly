@@ -1,9 +1,10 @@
+\version "1.3.146"
 \header{
-title= "Spacing";
-subtitle =  "proofsheet"; 
-enteredby = 	 "jcn";
-copyright = 	 "public domain";
-TestedFeatures = 	 "This file tests various spacings";
+title= "Spacing"
+subtitle =  "proofsheet" 
+enteredby = 	 "jcn"
+copyright = 	 "public domain"
+TestedFeatures = 	 "This file tests various spacings"
 }
 
 
@@ -90,7 +91,7 @@ singlepart =  \notes{
 	\multipart 
     }
     \paper {
-%    linewidth= 18.\cm;
+%    linewidth= 18.\cm
 
     }
 }

@@ -568,7 +568,7 @@ There are also numerous other interesting projects that are more or less
 related  to LilyPond
 
 @itemize @bullet
-@item Writing convertors, eg. from NIFF and MIDI (we tried writing one with
+@item Writing converters, eg. from NIFF and MIDI (we tried writing one with
 limited success: midi2ly, included with lilypond.)
 
 We found that writing them in Python is the easiest.

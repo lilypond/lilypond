@@ -1,8 +1,9 @@
+\version "1.3.146"
 
 \header {
 texidoc="
 Draw abritrary lines.  This brings LilyPond on par with Mup.
-";
+"
 }
 
 \score {
@@ -17,6 +18,6 @@ Draw abritrary lines.  This brings LilyPond on par with Mup.
     a'1
   }
   \paper {
-    linewidth = 70.0*\staffspace;
+    linewidth = 70.0*\staffspace
   }
 }

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 
@@ -27,7 +28,7 @@
 	        e-#'(((baselineskip . 0) (kern . 1.5) lines) "Violoncello" "    e" "Contrabasso")
 		}
 	\paper{
-		linewidth = -1.\mm;
+		linewidth = -1.\mm
 		\translator{
 			\ScoreContext
 			TextScript \override #'font-family = #'roman

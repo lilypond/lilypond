@@ -1,10 +1,11 @@
+\version "1.3.146"
 \header {
 texidoc= "Using make-music, you can add
 various stuff to notes. Here is an example
 how to add an extra fingering. 
 
 In general, first do a display of the music you want ot
-create, then write a function that will build the structure for you.";
+create, then write a function that will build the structure for you."
 } 
 
 #(define (make-script x) 

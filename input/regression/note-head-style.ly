@@ -1,3 +1,4 @@
+\version "1.3.146"
 \header{
 texidoc="
 Note head shapes are settable.  The stem endings should be adjusted
@@ -7,30 +8,35 @@ you must create a special context called Thread.
 Harmonic notes have a different shape and different
 dimensions. Nevertheless, noteheads in both styles can be combined, on
 either up or down stems.
-";
+"
 }
 
 
+\include "paper23.ly"
 
-
-\score { \notes \relative c{
-
-c''4 c2 c8  c16 c16 c1 c\breve
+\score { \notes \relative c''{
+% \property Voice.Stem \override #'thickness = #5.0
+\property Voice.NoteHead \set #'style = #'default
+c4 c2 c8  c16 c16 c1 c\breve b4 b2 b8  b16 b16 b1 b\breve \break
 \property Voice.NoteHead \set #'style = #'diamond
-c4 c2 c8  c16 c16  c1 c\breve
+c4 c2 c8  c16 c16 c1 c\breve b4 b2 b8  b16 b16 b1 b\breve \break
 \property Voice.NoteHead \set #'style = #'transparent
-c4 c2 c8  c16 c16  c1 c\breve
+c4 c2 c8  c16 c16 c1 c\breve b4 b2 b8  b16 b16 b1 b\breve \break
 \property Voice.NoteHead \set #'style = #'cross
-c4 c2 c8  c16 c16  c1 c\breve
+c4 c2 c8  c16 c16 c1 c\breve b4 b2 b8  b16 b16 b1 b\breve \break
+\property Voice.NoteHead \set #'style = #'xcircle
+c4 c2 c8  c16 c16 c1 c\breve b4 b2 b8  b16 b16 b1 b\breve \break
+\property Voice.NoteHead \set #'style = #'slash
+c4 c2 c8  c16 c16 c1 c\breve b4 b2 b8  b16 b16 b1 b\breve \break
 \property Voice.NoteHead \set #'style = #'mensural
-c4 c2 c8  c16 c16  c1 c\breve c\longa
+c4 c2 c8  c16 c16  c1 c\breve c\longa b4 b2 b8  b16 b16 b1 b\breve b\longa \break
 \property Voice.NoteHead \set #'style = #'harmonic
-c4 c2 c8  c16 c16  c1 c\breve
+c4 c2 c8  c16 c16 c1 c\breve b4 b2 b8  b16 b16 b1 b\breve \break
 \property Voice.NoteHead \set #'style = #'baroque
-c4 c2 c8  c16 c16  c1 c\breve c\longa
+c4 c2 c8  c16 c16  c1 c\breve c\longa b4 b2 b8  b16 b16 b1 b\breve b\longa \break
 
 
-   \context Voice <
+   \context Voice = another <
     \context Thread = TA
       {
         \property Thread.NoteHead \set #'style = #'cross
@@ -46,18 +52,18 @@ c4 c2 c8  c16 c16  c1 c\breve c\longa
   >
 
 
-   \context Voice <\context Thread = TA {
-   \property Thread.NoteHead \set #'style = #'default
-   c4 c4 }
-\context Thread = TB {
-   \property Thread.NoteHead \set #'style = #'mensural
-  c'4 \stemDown c
+   \context Voice <
+     \context Thread = TA {
+       \property Thread.NoteHead \set #'style = #'cross
+       c4 c4 c4 c4 }
+     \context Thread = TB {
+       \property Thread.NoteHead \set #'style = #'mensural
+       c'4 \stemDown c
+       \property Thread.NoteHead \set #'style = #'slash
+       \stemUp c4 \stemDown c
 } >
 
 }
 
-    \paper {
-
-
-}
+    \paper {}
 }

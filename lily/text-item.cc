@@ -38,7 +38,7 @@ Text_item::text2molecule (Grob *me, SCM text, SCM alist_chain)
 {
   if (gh_string_p (text))
     return string2molecule (me, text, alist_chain);
-  else if (gh_list_p (text))
+  else if (gh_list_p (text) && text != SCM_EOL && text != SCM_UNDEFINED)
     {
       if (!gh_pair_p (gh_car (text)) && gh_string_p (gh_car (text)))
 	return string2molecule (me, gh_car (text), alist_chain);

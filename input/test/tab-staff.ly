@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 
@@ -19,11 +20,11 @@ bla =  \notes \relative c' { <c4 e g>  <c4. e g> <c8 f a> <c4 f a> <c1 e g> }
 \paper {
  \translator {
   \StaffContext
-  \name TabStaff;
+  \name TabStaff
   StaffSymbol \override #'line-count = #6
-  \remove "Clef_engraver";
-  \remove "Time_signature_engraver";
-  \consists "Pitch_squash_engraver";
+  \remove "Clef_engraver"
+  \remove "Time_signature_engraver"
+  \consists "Pitch_squash_engraver"
    NoteHead \override #'transparent = ##t
    Stem \override #'transparent = ##t
    NoteHead \override #'staff-position = #-6
@@ -33,7 +34,7 @@ bla =  \notes \relative c' { <c4 e g>  <c4. e g> <c8 f a> <c4 f a> <c1 e g> }
 }
 \translator {
 \ScoreContext
-\accepts TabStaff;
+\accepts TabStaff
 }
 }
 }

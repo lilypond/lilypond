@@ -1,7 +1,8 @@
+\version "1.3.146"
 
 \header {
 texidoc="You can get ugly slurs, if you want.
-";
+"
 }
 
 baseWalk = \notes \relative c {
@@ -10,15 +11,15 @@ baseWalk = \notes \relative c {
 
 \score {
   \notes \context PianoStaff <
-    \time 6/4;
+    \time 6/4
     \context Staff=up { s1 * 6/4 }
     \context Staff=down <
-      \clef bass;
+      \clef bass
       \autochange Staff \context Voice \baseWalk
     >
   >
   \paper {
-    linewidth = -1.;
+    linewidth = -1.
     \translator {
       \VoiceContext
       Slur \override #'beautiful = #5.0

@@ -1,8 +1,8 @@
 
-\version "1.3.138";
+\version "1.3.138"
 
-\include "os-music.ly";
-\include "paper13.ly";
+\include "os-music.ly"
+\include "paper13.ly"
 
 #(set! point-and-click line-column-location)
 #(define text-flat '((font-relative-size . -2) (music "accidentals--1")))
@@ -10,6 +10,7 @@
 \score {
   <
     \global
+    \property Score.BarNumber \override #'padding = #3
     \context StaffGroup = woodwind <
       \context Staff = flauti <
 	\property Staff.midiInstrument = #"flute"
@@ -25,7 +26,7 @@
 	\property Staff.midiInstrument = #"timpani"
 	\property Staff.instrument = #'(lines "Timpani" "(C-G)")
 	\property Staff.instr = #"Timp."
-	\clef bass;
+	\clef bass
         \Key
 	\timpani
       >
@@ -45,37 +46,26 @@
 	\property Staff.instrument = #`(lines "Corno" (rows "(E" ,text-flat ")"))
 	\property Staff.instr = #`(lines "Cor."  (rows "(E" ,text-flat ")"))
 	\property Staff.transposing = #3
-	\notes \key bes \major;
+	\notes \key bes \major
 	\context Voice=one \corno
       >
     >
   >
   \paper {
-    indent = 15 * \staffspace;
-    linewidth = 60 * \staffspace;
-    textheight = 90 * \staffspace;
-    \translator{
-      \ThreadContext
-      \consists "Rest_engraver";
-    }
+    indent = 15 * \staffspace
+    linewidth = 60 * \staffspace
+    textheight = 90 * \staffspace
     \translator{
       \VoiceContext
-      \remove "Rest_engraver";    
-      \consists "Multi_measure_rest_engraver";
-      \consists "Bar_engraver";
+      \consists "Multi_measure_rest_engraver"
     }
     \translator{
       \HaraKiriStaffContext
-      \remove "Multi_measure_rest_engraver";
-      \remove "Bar_engraver";
-    }
-    \translator {
-      \OrchestralScoreContext
-      BarNumber \override #'padding = #3
+      \remove "Multi_measure_rest_engraver"
     }
   }
   \midi {
-    \tempo 4 = 75;
+    \tempo 4 = 75
   }
 }
 

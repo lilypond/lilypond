@@ -1,9 +1,10 @@
+\version "1.3.146"
 
 \header {
-texidoc  = " Ez-notation prints names in note heads.";
+texidoc  = " Ez-notation prints names in note heads."
 }
 
-\include "paper26.ly";
+\include "paper26.ly"
 \paper { \paperTwentysix }
 
 \score {

@@ -1,25 +1,26 @@
+\version "1.3.146"
 %{
 Converted from star.mup with the aid of mup2ly.py
-http://www.Arkkra.com/doc/star.html
-http://www.Arkkra.com/doc/star.ps
+http://www.arkkra.com/doc/star.html
+http://www.arkkra.com/doc/star.ps
 %}
 
 
 
 \header{
-	title="The Star Spangled Banner";
-	subtitle="The United States National Anthem";
-	poet="Text by Francis Scott Key";
-	composer="J. S. Smith";
-	arranger="Arranged by William J. Krauss";
-	enteredby="jcn";
-	copyright="public domain";
+	title="The Star Spangled Banner"
+	subtitle="The United States National Anthem"
+	poet="Text by Francis Scott Key"
+	composer="J. S. Smith"
+	arranger="Arranged by William J. Krauss"
+	enteredby="jcn"
+	copyright="public domain"
 }
 
 global =  \notes {
-  \time 3/4; 
-  \key d \major;
-  \partial 4;
+  \time 3/4 
+  \key d \major
+  \partial 4
 }
 
 staffBVoiceB =  \notes {
@@ -95,7 +96,7 @@ text =  \lyrics {
       % Ah, it seems that this context stops to exist just before
       % the :| barline is set, and doesn't see its width?
       % Ugly fix:
-      Whose broad \bar "|.";
+      Whose broad \bar "|."
     }
     \context LyricsVoice = "one-2" 
     { 
@@ -112,19 +113,19 @@ text =  \lyrics {
   }
 }
 
-\include "paper16.ly";
+\include "paper16.ly"
 
 \score{ 
 	\context GrandStaff \notes < 
 		\addlyrics
 		\context Staff=upper <
 			\global
-			\clef treble;
+			\clef treble
 			\property Staff.automaticMelismata = ##t
 			\context Voice = one \transpose c'' {
 				\voiceOne
 				\staffBVoiceB
-				\bar "|.";
+				\bar "|."
 			} 
 			\context Voice = two \transpose c'' {
 				\voiceTwo
@@ -134,7 +135,7 @@ text =  \lyrics {
 		\context LyricsVoice = "one-1" \text
 		\context Staff=lower <
 			\global
-			\clef bass;
+			\clef bass
 			\property Staff.VoltaBracket = \turnOff
 			\context Voice = three {
 				\voiceOne
@@ -148,19 +149,19 @@ text =  \lyrics {
 	>
 	\paper{
 		\paperSixteen
-		textheight = 230.\mm;
-		linewidth= 180.\mm;
+		textheight = 230.\mm
+		linewidth= 180.\mm
 		\translator {
 			\GrandStaffContext
-			\accepts "Lyrics";
+			\accepts "Lyrics"
 		}
 		\translator {
 			\LyricsVoiceContext
-			\consists "Bar_engraver";
+			\consists "Bar_engraver"
 		}
 	}
 	\midi {
-		\tempo 4 = 60;
+		\tempo 4 = 60
 	}
 }
 

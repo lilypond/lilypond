@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 \score{
@@ -13,9 +14,9 @@
 		c( d e )c |
 	}
 	\paper{ 
-	      indent = 0.0\pt;
+	      indent = 0.0\pt
 		%for broken!
-		% linewidth= 30.\mm;
+		% linewidth= 30.\mm
 
 	}
 }

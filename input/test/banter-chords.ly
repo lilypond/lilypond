@@ -1,9 +1,10 @@
+\version "1.3.146"
 
 
 \header{
-enteredby = 	 "jcn";
-copyright = 	 "public domain";
-TestedFeatures = 	 "Banter named chords";
+enteredby = 	 "jcn"
+copyright = 	 "public domain"
+TestedFeatures = 	 "Banter named chords"
 }
 
 % test German (Banter) naming
@@ -17,12 +18,12 @@ TestedFeatures = 	 "Banter named chords";
 
 % {
 
-#;(define chord::names-alist-banter '())
+#(define chord::names-alist-banter '())
 #(set! chord::names-alist-banter
       (append 
       '(
         (((0 . 0) (2 . -1) (4 . -1)) . (("m" ("5-" . (type . "super")))))
-	; Co iso Cm5-7-
+	 Co iso Cm5-7-
         (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("o" (type "super")))
 	)))
 

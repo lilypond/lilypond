@@ -28,7 +28,7 @@ this:
 
 
 @lilypond[fragment,verbatim]
-\relative c'' { \key c \minor; r8 c16 b c8 g as c16 b c8 d | g,4 }
+\relative c'' { \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4 }
 @end lilypond 
 
 The output looks very good: the font and the layout algorithms were

@@ -1,6 +1,7 @@
+\version "1.3.146"
 
 \header{
-texidoc="One automatic knee";
+texidoc="One automatic knee"
 }
 
 \score {
@@ -8,7 +9,7 @@ texidoc="One automatic knee";
     [c'8 c,,] [c8 e']
   }
   \paper{
-    linewidth = 40*\staffspace;
+    linewidth = 40*\staffspace
 % Now by default
 %    \translator {
 %      \VoiceContext

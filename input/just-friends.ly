@@ -1,12 +1,13 @@
+\version "1.3.146"
 \header {
-  filename =    "just-friends.ly";
-  title =       "Just Friends";
-  description = "Jazz chords example with bar lines";
-  opus =        "";
-  source =      "mutex@gmd.de";
-  composer =    "";
-  enteredby =   "jcn";
-  copyright =   "Public Domain";
+  filename =    "just-friends.ly"
+  title =       "Just Friends"
+  description = "Jazz chords example with bar lines"
+  opus =        ""
+  source =      "mutex@gmd.de"
+  composer =    ""
+  enteredby =   "jcn"
+  copyright =   "Public Domain"
 }
 
 %{
@@ -45,13 +46,13 @@ of a certain tune (Jazz, Real Book, for example), like
 		}
 	}
 	\paper{
-		indent = 0.0\mm;
-		linewidth = 100.0\mm;
+		indent = 0.0\mm
+		linewidth = 100.0\mm
 		\translator{
 			\ChordNamesContext
-			barNonAuto = ##f;
-			\consists Bar_engraver;
-			\consists "Volta_engraver";
+			barNonAuto = ##f
+			\consists Bar_engraver
+			\consists "Volta_engraver"
 		}
 	}
 }

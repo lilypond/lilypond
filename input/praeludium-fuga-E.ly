@@ -1,10 +1,11 @@
+\version "1.3.146"
 \header {
-  filename =    "praeludium-fuga-E.ly";
-  title =       "praeludium and fuga in E-major";
-  opus =        "BWV 566";
-  composer =    "Johann Sebastian Bach (1685-1750)";
-  enteredby =   "JCN";
-  copyright =   "public domain";
+  filename =    "praeludium-fuga-E.ly"
+  title =       "praeludium and fuga in E-major"
+  opus =        "BWV 566"
+  composer =    "Johann Sebastian Bach (1685-1750)"
+  enteredby =   "JCN"
+  copyright =   "public domain"
 }
 %{
   description
@@ -27,13 +28,13 @@
 
 
 praeludiumCommands =  \notes {
-  \time 4/4;
-   \key e \major;
+  \time 4/4
+   \key e \major
 }
 
 praeludiumRight =   \notes {
   \praeludiumCommands
-  \clef violin;
+  \clef violin
 
   % 13 -- how to type -- where to split -- this more neatly?
   \context Staff <
@@ -48,7 +49,7 @@ praeludiumRight =   \notes {
       %\stemUp
       %{
       this is a diversion from the Griepenkerl/Keller
-       edition; a hack to avoid collisions
+       edition a hack to avoid collisions
       %}
       \stemDown
       \shiftOn s4 gis }
@@ -65,7 +66,7 @@ praeludiumRight =   \notes {
 
 praeludiumLeft =  \notes \relative c {
   \praeludiumCommands
-  \clef bass;
+  \clef bass
 
   % 13
   \context Staff <
@@ -87,7 +88,7 @@ praeludiumLeft =  \notes \relative c {
 
 praeludiumPedal =  \notes \relative c{
   \praeludiumCommands  
-  \clef bass;
+  \clef bass
 
   %13
   r4 fis,4-\ltoe e4.-\lheel e'8-\rheel | 
@@ -98,13 +99,13 @@ praeludiumPedal =  \notes \relative c{
 
 
 fugaIICommands =  \notes{
-  \time3/4;
-  \key e \major;              % E-major
+  \time3/4
+  \key e \major              % E-major
 }
 
 fugaIIRight =  \notes   \relative c''   {
   \fugaIICommands
-  \clef violin;
+  \clef violin
 
   %15
   \context Staff <
@@ -152,7 +153,7 @@ fugaIIRight =  \notes   \relative c''   {
 
 fugaIILeft =  \notes {
   \fugaIICommands  
-  \clef bass;
+  \clef bass
 
   %15
   \context Staff < 
@@ -168,7 +169,7 @@ fugaIILeft =  \notes {
 
 fugaIIPedal =  \notes \relative c {
   \fugaIICommands  
-  \clef bass;
+  \clef bass
 
   %15
   dis4.-\ltoe e8-\rtoe cis4 |
@@ -179,7 +180,7 @@ fugaIIPedal =  \notes \relative c {
 }
 
 breakmusic =  \notes { 
-  %\time4/4;
+  %\time4/4
   r1
 }
 
@@ -204,5 +205,5 @@ breakmusic =  \notes {
   }
 
   \midi {
-    \tempo 4 =96; }
+    \tempo 4 =96 }
 }

@@ -51,9 +51,9 @@ Lilypond_voice::get_clef () const
   int p = n->pitch_i_;
 
   if (p < 56)
-    return "\\clef \"bass\";\n";
+    return "\\clef \"bass\"\n";
   else if (p > 67)
-    return "\\clef \"treble\";\n";
+    return "\\clef \"treble\"\n";
   else
     return "";
 }

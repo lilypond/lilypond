@@ -1,8 +1,9 @@
+\version "1.3.146"
 \header {
-texidoc = "Measure and beat repeats are supported.";
+texidoc = "Measure and beat repeats are supported."
 }
 	
-\score { \notes \relative c' \context Voice { \time 4/4;
+\score { \notes \relative c' \context Voice { \time 4/4
    \repeat "percent" 2 { c2 }
 
    % the chairman dances

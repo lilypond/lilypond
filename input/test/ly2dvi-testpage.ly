@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 %{
@@ -5,16 +6,16 @@
 %}
 
 \header {
-copyright = "copyright";
-title = "title";
-subtitle = "subtitle";
-composer = "composer";
-arranger = "arranger";
-instrument = "instrument";
-metre = "metre";
-opus = "opus";
-piece = "piece";
-poet = "poet";
+copyright = "copyright"
+title = "title"
+subtitle = "subtitle"
+composer = "composer"
+arranger = "arranger"
+instrument = "instrument"
+metre = "metre"
+opus = "opus"
+piece = "piece"
+poet = "poet"
 }
 
 
@@ -27,15 +28,15 @@ poet = "poet";
 	
 	\header {
 
-	title = "localtitle";
-	subtitle = "localsubtitle";
-	composer = "localcomposer";
-	arranger = "localarranger";
-	instrument = "localinstrument";
-	metre = "localmetre";
-	opus = "localopus";
-	piece = "localpiece";
-	poet = "localpoet";
-	copyright = "localcopyright";
+	title = "localtitle"
+	subtitle = "localsubtitle"
+	composer = "localcomposer"
+	arranger = "localarranger"
+	instrument = "localinstrument"
+	metre = "localmetre"
+	opus = "localopus"
+	piece = "localpiece"
+	poet = "localpoet"
+	copyright = "localcopyright"
 	}
 }

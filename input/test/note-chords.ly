@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 scheme = \notes {
   <c'1 e' g'>
@@ -10,5 +11,5 @@ scheme = \notes {
     \context ChordNamesVoice \scheme
     \context Staff \scheme
   >
-  \paper { linewidth = -1.; }
+  \paper { linewidth = -1. }
 }

@@ -1,5 +1,6 @@
+\version "1.3.146"
 \header {
-texidoc = "There is limited support for mensural notation: note head shapes are available. Mensural stems are centered on the note heads, both for up and down stems.";
+texidoc = "There is limited support for mensural notation: note head shapes are available. Mensural stems are centered on the note heads, both for up and down stems."
 }
 
 \score {\notes { \context Voice { 

@@ -134,8 +134,18 @@ Add a ref if REF is set
    ;; prepend GNU for dir, must be unique
    "\n* GNU " name ": (" file-name ").          " name "."
    "\n@end direntry"
-   (node "Top") ",(lilypond)Index,(lilypond)Development," top
+   ;; ugh, prev and next should be settable, of course
+   (node "Top") ",(lilypond)Index,(lilypond)Full Grob interface list," top
    "\n@top"
+   (texi-section 1 name #f)
+   (texi-menu items-alist)
+   "\n@contents"
+   ))
+
+(define (itexi-file-head name file-name top items-alist)
+  (string-append
+   "@c -*-texinfo-*-"
+   (node name) ",,," top
    (texi-section 1 name #f)
    (texi-menu items-alist)
    "\n@contents"

@@ -1,6 +1,7 @@
+\version "1.3.146"
 
 \header {
-texidoc ="Broken volta spanners behave correctly at left edge in all cases.";
+texidoc ="Broken volta spanners behave correctly at left edge in all cases."
 
 }
 
@@ -39,11 +40,11 @@ Bar 23	Perfect
 %}
 
 voiceB = \notes {
-    \clef bass;
+    \clef bass
      \property Staff.instrument = "Bass"
      \property Staff.instr = "B"
-     \key f \minor; 
-     \time 4/4;  
+     \key f \minor 
+     \time 4/4  
     f,2 (   ) f,8    r8   f8    e8    
     \repeat  volta 2
     {
@@ -129,10 +130,10 @@ voiceE = \notes {
 
     >
 	\paper {
-	    font_normal = 12.;
+	    font_normal = 12.
 	    \translator {
 	    	 \StaffContext 
-		 \consists Instrument_name_engraver;
+		 \consists Instrument_name_engraver
 	    }
 	}
 }

@@ -1,13 +1,14 @@
+\version "1.3.146"
 \header{
 texidoc="
 Normal collisions. We have support for polyphony, where the
 middle voices are horizontally shifted.
-";
-filename = 	 "collisions.ly";
-description = 	 "random counterpoint to test collisions";
-enteredby = 	 "HWN,JCN";
-copyright = 	 "public domain";
-Tested = 	 "test the Collision resolution ";
+"
+filename = 	 "collisions.ly"
+description = 	 "random counterpoint to test collisions"
+enteredby = 	 "HWN,JCN"
+copyright = 	 "public domain"
+Tested = 	 "test the Collision resolution "
 }
 
 

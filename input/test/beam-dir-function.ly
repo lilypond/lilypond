@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \header{
 texidoc="
@@ -17,7 +18,7 @@ We should see:
   up down down
 
   up up down
-";
+"
 }
 
 \score {
@@ -31,7 +32,7 @@ We should see:
     [d a]
     
     \property Voice.Beam \set #'dir-function = #beam-dir-majority
-    \time 3/8;
+    \time 3/8
     [d8 a a]
     \property Voice.Beam \set #'dir-function = #beam-dir-mean
     [d a a] 

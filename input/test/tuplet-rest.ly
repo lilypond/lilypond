@@ -1,9 +1,10 @@
+\version "1.3.146"
 
 
 
 \score {
   \context Voice \notes \relative c'' {
-    \time 2/4;
+    \time 2/4
     \times 2/3 { r c,,, c''' }
     \times 2/3 { r c c }
     \times 2/3 { r c r}

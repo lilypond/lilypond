@@ -1,10 +1,11 @@
+\version "1.3.146"
 \header{
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.
 Stems may be short, but noteheads should never touch the beam.  Note that
-under normal circumstances, these beams would get knees; here
+under normal circumstances, these beams would get knees here
 Beam.auto-knee-gap was set to false.
-";
+"
 }
 
 \score{
@@ -16,7 +17,7 @@ Beam.auto-knee-gap was set to false.
 
 	}
 	\paper{
-		linewidth=-1.;
+		linewidth=-1.
 		\translator {
 		        \VoiceContext
 			% If we want to test extreme beams,

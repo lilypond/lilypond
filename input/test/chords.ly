@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 %{
@@ -7,12 +8,12 @@ Would this be acceptable/good enough/convenient for entry?
    
    C#                     cis
    Cb                     ces
-   Cm; Cmin               c:3-; c:m; c:min
-   Caug                   c:5+; c:aug;
-   Cdim                   c:3-.5-; c:dim
-   Cmaj7                  c:7+; c:maj
+   Cm Cmin               c:3- c:m c:min
+   Caug                   c:5+ c:aug
+   Cdim                   c:3-.5- c:dim
+   Cmaj7                  c:7+ c:maj
    C7                     c:7
-   Csus; Csus4            c:4; c:sus
+   Csus Csus4            c:4 c:sus
 
 %}
 
@@ -37,21 +38,21 @@ keys =  \notes{
                 s1 s1 s1
                 s1 s1
                 s1
-                \key g \major; s1
-                \key d \major; s1 
-                \key a \major; s1 
-                \key e \major; s1 
-                \key b \major; s1 
-                \key fis \major; s1
-                \key c \major; s1 
-                \key f \major; s1 
-                \key bes \major; s1
-                \key es \major; s1
-                \key as \major; s1
-                \key des \major; s1
-                \key ges \major; s1
-                \key c \major; s1*2
-                \key c \major; s1*6
+                \key g \major s1
+                \key d \major s1 
+                \key a \major s1 
+                \key e \major s1 
+                \key b \major s1 
+                \key fis \major s1
+                \key c \major s1 
+                \key f \major s1 
+                \key bes \major s1
+                \key es \major s1
+                \key as \major s1
+                \key des \major s1
+                \key ges \major s1
+                \key c \major s1*2
+                \key c \major s1*6
 	}
 
 \score{

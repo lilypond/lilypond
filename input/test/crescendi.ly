@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \score{
 \notes\relative c''{
@@ -11,6 +12,6 @@ a\< \!a
 \paper{
 }
 \midi{
-\tempo 1 = 60;
+\tempo 1 = 60
 }
 }

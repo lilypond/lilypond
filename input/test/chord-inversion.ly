@@ -1,7 +1,8 @@
+\version "1.3.146"
 \header{
-enteredby = 	 "jcn";
-copyright = 	 "public domain";
-TestedFeatures = 	 "chord inversions";
+enteredby = 	 "jcn"
+copyright = 	 "public domain"
+TestedFeatures = 	 "chord inversions"
 }
 
 inversions =  \notes\transpose c''\chords{

@@ -1,3 +1,4 @@
+\version "1.3.146"
 % ASCII Art output
 
 % Process as:
@@ -12,23 +13,23 @@
 \score {
   \context GrandStaff <
     \context Staff=upper \notes\relative c{
-      \key f \major;
-      \time 3/4;
+      \key f \major
+      \time 3/4
       r8^"Moderato" %\pp 
       <g'-. c-.> <c-. es-.> <g-. c-.> <c-. es-.> <g-. c-.> |
       r8 <as-. c-.> <c-. es-.>
     }
     \context Staff=lower \notes\relative c{
-      \key f \major;
-      \time 3/4;
-      \clef "bass";
+      \key f \major
+      \time 3/4
+      \clef "bass"
       <c,2 c'> r4 
       <as2 as'> r4
     }
   >
   \paper {
-    indent=4.0\char;
-    linewidth=78.0\char;
+    indent=4.0\char
+    linewidth=78.0\char
     \translator { 
       \VoiceContext 
       % horizontal beams

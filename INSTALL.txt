@@ -326,6 +326,18 @@ your problems.  If you find bugs, please send bug reports to
 
    Bugs that are not fault of LilyPond are documented here.
 
+NetBSD
+******
+
+   * The flex precompiled in NetBSD-1.4.2 is broken.  Download
+     flex-2.5.4a, build, install.
+
+   * The configuration of Gcc (egcs-2.91.60 19981201 (egcs-1.1.1
+     release)) does not include `/usr/pkg' paths.  Configure using:
+
+          CFLAGS='-I /usr/pkg/include' LDFLAGS='-L/usr/pkg/lib' ./configure
+
+
 Solaris:
 ********
 

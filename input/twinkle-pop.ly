@@ -1,16 +1,17 @@
+\version "1.3.146"
 \header{
-filename = 	 "twinkle-pop.ly";
-xtitle = 	 "Ah, vous dirais-je, maman ";
-description = 	 "twinkle twinkle in pop-song-settings";
-composer = 	 "traditional";
-enteredby = 	 "HWN, chords by Johan Vromans";
-copyright = 	 "public domain";
+filename = 	 "twinkle-pop.ly"
+xtitle = 	 "Ah, vous dirais-je, maman "
+description = 	 "twinkle twinkle in pop-song-settings"
+composer = 	 "traditional"
+enteredby = 	 "HWN, chords by Johan Vromans"
+copyright = 	 "public domain"
 }
 
 
 melodie =  \notes\relative c'' {
-        \clef "violin";
-        \time 2/4 ;
+        \clef "violin"
+        \time 2/4 
 
         c4 c  | g' g | a a | g2  |
         f4 f  | e e  | d d | c2  |
@@ -18,7 +19,7 @@ melodie =  \notes\relative c'' {
         g  g  | f f  | e e | d d |
 	% copy 1-8
         c4 c  | g' g | a a | g2  |
-        f4 f  | e e  | d d | c2 \bar "|.";
+        f4 f  | e e  | d d | c2 \bar "|."
 }
 
 acc =  \chords {
@@ -51,7 +52,7 @@ text =  \lyrics{
            \context Lyrics \text
         >
 	\header{
-		title = "Ah, vous dirais-je, maman ";
+		title = "Ah, vous dirais-je, maman "
 	}
         \paper {  }
 }
@@ -63,7 +64,7 @@ text =  \lyrics{
            \lyrics \context Lyrics \text
         >
 	\header{
-		piece = "clarinet in B\\textflat";
+		piece = "clarinet in B\\textflat"
 	}
         \paper {  }
 }

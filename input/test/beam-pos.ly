@@ -1,11 +1,12 @@
+\version "1.3.146"
 
 \header{
-filename =	 "beam-pos.ly";
-composer =	 "jcn";
-enteredby =	 "jcn";
-copyright =	 "PD";
+filename =	 "beam-pos.ly"
+composer =	 "jcn"
+enteredby =	 "jcn"
+copyright =	 "PD"
 
-TestedFeatures =	 "beam quant positions";
+TestedFeatures =	 "beam quant positions"
 }
 
 \score{

@@ -1,14 +1,15 @@
+\version "1.3.146"
 
 % bagpipe music.
 
 \header
 {
- title="Flower of Scotland";
+ title="Flower of Scotland"
 }
 
 \paper {
-  linewidth = 14.0 \cm;
-  indent = 0.0 \cm;
+  linewidth = 14.0 \cm
+  indent = 0.0 \cm
   \translator {
   	\GraceContext
 
@@ -71,7 +72,7 @@ gcdg =  \notes{ \grace { [g'32 c d]}}
 
 % 
 \score {
-  \notes { \time 6/8; \partial 4;
+  \notes { \time 6/8 \partial 4
   \tieUp
   \slurUp
 f4 |
@@ -81,16 +82,16 @@ f4 |
 )e8 d4 \gg d4 e8 |
 
 \break
-\time 9/8;
+\time 9/8
 \dblf f2.( )f4 d8 |
-\time 6/8;
+\time 6/8
 \dblg g'4 a'8 \gg a'4. |
 \thrd d4.( )d4 \eg a8 |
-\time 9/8;
+\time 9/8
 \dble e4 \lag e8 \gg [e16 d8. e8] \gg f4 g'8 |
 
 \break
-\time 6/8;
+\time 6/8
 \gg f4 e8 \thrd d4. |
 \eg a4.( )a4 d8 |
 \dblg g'4 a'8 \gg a'4. |

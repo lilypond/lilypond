@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 
@@ -15,7 +16,7 @@
 	
 \score{
     \notes \relative c''{
-    	\time 2/4;
+    	\time 2/4
 	% one beam per measure
       	c8 c c c
       	c16 c c c c c c c

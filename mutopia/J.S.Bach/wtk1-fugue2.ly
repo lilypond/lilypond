@@ -1,32 +1,32 @@
 \header {
-  title =       "Fuga a 3 voci";
-  opus =        "BWV 847-Fuga";
-  source =      "Henle's Urtext";
-  composer =    "Johann Sebastian Bach (1685-1750)";
-  enteredby =   "hwn, wl, jcn";
+  title =       "Fuga a 3 voci"
+  opus =        "BWV 847-Fuga"
+  source =      "Henle's Urtext"
+  composer =    "Johann Sebastian Bach (1685-1750)"
+  enteredby =   "hwn, wl, jcn"
 
   % mutopia headers.
-  mutopiatitle = "Das Wohltemperierte Clavier I, Fuga II (c-minor)";
-  mutopiacomposer = "J. S. Bach (1685-1750)";
-  mutopiainstrument = "Piano";
-  mutopiaopus = "BWV847";
-  style = "baroque";
-  copyright = "Public Domain";
-  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
-  maintainer = "hanwen@cs.uu.nl";
-  lastupdated = "2000/Feb/14";
+  mutopiatitle = "Das Wohltemperierte Clavier I, Fuga II (c-minor)"
+  mutopiacomposer = "J. S. Bach (1685-1750)"
+  mutopiainstrument = "Piano"
+  mutopiaopus = "BWV847"
+  style = "baroque"
+  copyright = "Public Domain"
+  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!"
+  maintainer = "hanwen@cs.uu.nl"
+  lastupdated = "2000/Feb/14"
 }
 
 
 % It would be nice to squeeze this onto two pages, but I am not sure
 % if it would work with US paper.
 
-\version "1.3.117";
+\version "1.3.146"
 
   
 dux =  \context Voice=two \notes \relative c''{
   \voiceTwo
-  \clef violin;
+  \clef violin
 
   r8 c16 b c8 g as c16 b c8 d |
   g, c16 b c8 d f,16 g as4 g16 f |
@@ -123,7 +123,7 @@ comes =  \context Voice=one \notes \relative c'' {
 }
 
 bassdux =  \context Voice=three \notes \relative c' {
-  \clef bass;
+  \clef bass
   R1 |
   R |
   R |
@@ -171,20 +171,20 @@ bassdux =  \context Voice=three \notes \relative c' {
  
     \notes \context PianoStaff < 
 	\context Staff = treble <
-	    \key c \minor;
-%	\key es \major;
+	    \key c \minor
+%	\key es \major
 	    \dux
-	    { \comes \bar "|."; }
-	      \time 4/4;
+	    { \comes \bar "|." }
+	      \time 4/4
 	  >
 	\context Staff = bass <
-	    \key c \minor;
+	    \key c \minor
 	    \bassdux
 	>
     >
 
     \paper {
-        linewidth = 18.0 \cm;
+        linewidth = 18.0 \cm
 	\translator{ \OrchestralScoreContext
 	 timeSignatureStyle \override #'style = #"C"
 
@@ -192,11 +192,11 @@ bassdux =  \context Voice=three \notes \relative c' {
 	
     }
     \header{
-	opus = "BWV 847";
+	opus = "BWV 847"
     }
 
     \midi {
-	\tempo 4 =84;
+	\tempo 4 =84
     }
 }
 

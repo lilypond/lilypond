@@ -1,8 +1,9 @@
+\version "1.3.146"
 \header{
 texidoc="
 More specific settings take precendence over less specific settings. The
 second slur has slurDirection set to down, overriding the stemup  setting.
-";
+"
 }
 
 
@@ -13,5 +14,5 @@ second slur has slurDirection set to down, overriding the stemup  setting.
 	\slurDown
 	c4 ( )c4 
  }
- \paper { linewidth = -1.0; }
+ \paper { linewidth = -1.0 }
 }

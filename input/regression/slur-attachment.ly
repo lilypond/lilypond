@@ -1,9 +1,10 @@
+\version "1.3.146"
 
 \header{
 texidoc="
 Slurs should be attached to note heads, except when they would collide
 with beams.  Also see: ophee-slurs.
-";
+"
 }
 \score{
 	\notes \relative c''{
@@ -14,7 +15,7 @@ with beams.  Also see: ophee-slurs.
 		a4() a8 a
 	}
 	\paper{ 
-		indent = 0.0;
-		linewidth = 100.\mm;
+		indent = 0.0
+		linewidth = 100.\mm
 	}
 }

@@ -1,8 +1,9 @@
+\version "1.3.146"
 
 \header {
 texidoc="
 Simple customised music apply.
-";
+"
 }
 
 music = \notes { c'4 d'4( e'4 f'4 }
@@ -26,6 +27,6 @@ music = \notes { c'4 d'4( e'4 f'4 }
     \music
     \apply #reverse-music \music
   }
-  \paper { linewidth = -1.; }
+  \paper { linewidth = -1. }
 }
 

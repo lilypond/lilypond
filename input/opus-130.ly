@@ -1,14 +1,15 @@
+\version "1.3.146"
 \header{
-filename =	 "opus-130.ly";
-title =	 "Quartett";
-description =	 "";
-composer =	 "Ludwig van Beethoven (1770-1827)";
-opus = "130";
-enteredby =	 "JCN";
-copyright =	 "public domain";
+filename =	 "opus-130.ly"
+title =	 "Quartett"
+description =	 ""
+composer =	 "Ludwig van Beethoven (1770-1827)"
+opus = "130"
+enteredby =	 "JCN"
+copyright =	 "public domain"
 }
 
-% \;
+% \
 
 tempi = \notes {
 	\property Voice.TextScript \set #'font-style = #'large
@@ -21,8 +22,8 @@ dynamics = \notes {
 }
 
 global = \notes {
-	\key g \major;
-	\time 3/8;
+	\key g \major
+	\time 3/8
 	< 
 	        \dynamics
 		s4. *  8
@@ -43,13 +44,13 @@ violineii = \notes\relative c'{
 }
 
 viola = \notes\relative c'{
-	\clef "alto";
+	\clef "alto"
 	g8(b)g | b(e,)b' | c,(a')c, | c'(d,)c' | b(d)b | 
 	e(g,)e' | e(e,<)a' c,> | < a(c,> <fis b,> )b, 
 }
 
 cello = \notes\relative c'{
-	\clef "bass";
+	\clef "bass"
 	g4 r8 | e'4 r8 | c4 r8 | d4 r8 | g,,8 b g | b(e,)b' |
 	c,(a')d, | d'(d,)g 
 }
@@ -66,6 +67,6 @@ cello = \notes\relative c'{
 	\paper{
 		\translator { \OrchestralScoreContext }
 	}
-	\midi{ \tempo 4 = 160; }
+	\midi{ \tempo 4 = 160 }
 }
 

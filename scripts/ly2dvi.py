@@ -329,10 +329,16 @@ def run_lilypond (files, outbase, dep_prefix):
 	if track_dependencies_p:
 		opts = opts + " --dependencies"
 		if dep_prefix:
-			opts = ' --dep_prefix=%s' % dep_prefix
+			opts = opts + ' --dep-prefix=%s' % dep_prefix
 
 	fs = string.join (files)
 
+	if not verbose_p:
+		progress ( _("Running %s...") % 'LilyPond')
+		# cmd = cmd + ' 1> /dev/null 2> /dev/null'
+	else:
+		opts = opts + ' --verbose'
+	
 	system ('lilypond %s %s ' % (opts, fs))
 
 def analyse_lilypond_output (filename, extra):
@@ -604,6 +610,9 @@ if files and files[0] != '-':
 	if not output:
 		output = os.path.basename (files[0])
 
+	for i in ('.dvi', '.latex', '.ly', '.ps', '.tex'):
+		output = strip_extension (output, i)
+
 	files = map (compat_abspath, files) 
 
 	if os.path.dirname (output) != '.':
@@ -658,7 +667,7 @@ if files and files[0] != '-':
 	# add DEP to targets?
 	if track_dependencies_p:
 		depfile = os.path.join (outdir, outbase + '.dep')
-		generate_dependency_file (depfile, dest)
+		generate_dependency_file (depfile, depfile)
 		if os.path.isfile (depfile):
 			progress (_ ("dependencies output to %s...") % depfile)
 

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 %{
 
@@ -15,7 +16,7 @@ interesting bug in 1.3.98)
 	    >
 	 \paper {
 	    \translator { \StaffContext
-	    \consists Instrument_name_engraver;
+	    \consists Instrument_name_engraver
 
 	    }
 	  }

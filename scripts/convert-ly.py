@@ -28,6 +28,8 @@ import time
 # lilypond_version_re_str = '\\\\version *\"(.*)\"'
 lilypond_version_re_str = '\\\\(mudela-)?version *\"(.*)\"'
 lilypond_version_re = re.compile (lilypond_version_re_str)
+add_version = 1
+
 
 def program_id ():
 	return '%s (GNU LilyPond) %s' %(program_name,  version);
@@ -45,9 +47,10 @@ Options:
   -a, --assume-old       apply all conversions to unversioned files
   -h, --help             print this help
   -e, --edit             in place edit
-  -f, --from=VERSION     start from version
+  -f, --from=VERSION     start from version. Overrides \version found in file.
   -s, --show-rules       print all rules.
   -t, --to=VERSION       target version
+  -n, --no-version       don't add new version stamp.
       --version          print program version
 
 Report bugs to bugs-gnu-music@gnu.org
@@ -792,6 +795,18 @@ if 1:
 	conversions.append (((1,3,145), conv,
 	'ContextNameXxxxVerticalExtent -> XxxxVerticalExtent'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('\\\\key[ \t]*;', '\\key \\default;', str)
+		str = re.sub ('\\\\mark[ \t]*;', '\\mark \\default;', str)
+
+		# only remove ; that are directly after words.
+		# otherwise  we interfere with Scheme comments, which is badbadbad.
+		str = re.sub ("([^ \t]);", "\\1", str)
+
+		return str
+	conversions.append (((1,3,146), conv, 'semicolons removed'))
+
 ################################
 #	END OF CONVERSIONS	
 ################################
@@ -823,13 +838,11 @@ def do_conversion (infile, from_version, outfile, to_version):
 	if last_conversion:
 		sys.stderr.write ('\n')
 		new_ver =  '\\version \"%s\"' % tup_to_str (last_conversion)
-		# JUNKME?
-		# ugh: this all really doesn't help
-		# esp. as current conversion rules are soo incomplete
+
 		if re.search (lilypond_version_re_str, str):
 			str = re.sub (lilypond_version_re_str,'\\'+new_ver , str)
-		#else:
-		#	str = new_ver + '\n' + str
+		elif add_version:
+			str = new_ver + '\n' + str
 
 		outfile.write(str)
 
@@ -896,7 +909,7 @@ from_version = ()
 outfile_name = ''
 
 (options, files) = getopt.getopt (
-	sys.argv[1:], 'ao:f:t:seh', ['assume-old', 'version', 'output', 'show-rules', 'help', 'edit', 'from=', 'to='])
+	sys.argv[1:], 'ao:f:t:senh', ['no-version', 'assume-old', 'version', 'output', 'show-rules', 'help', 'edit', 'from=', 'to='])
 
 for opt in options:
 	o = opt[0]
@@ -920,6 +933,8 @@ for opt in options:
 		outfile_name = a
 	elif o == '--assume-old' or o == '-a':
 		assume_old = 1
+	elif o == '--no-version' or o == '-n':
+		add_version = 0
 	else:
 		print o
 		raise getopt.error

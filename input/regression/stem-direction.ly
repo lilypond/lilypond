@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \header{
 texidoc="
@@ -8,7 +9,7 @@ point) are mixed.
 Stems, beams, ties and slurs should behave similarly, when placed
 on the middle staff line. Of course stem-direction is down for high
 notes, and up for low notes.
-";
+"
 }
 
 
@@ -18,7 +19,7 @@ notes, and up for low notes.
 	
   }
   \paper {
-    linewidth=-1.0;
+    linewidth=-1.0
   }  
   \midi { }
 }

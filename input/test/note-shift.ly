@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \score { 
   \context Voice \notes\relative c {
@@ -27,7 +28,7 @@
 	
   }
   \paper {
-    linewidth=-1.0;
+    linewidth=-1.0
   }  
   \midi { }
 }

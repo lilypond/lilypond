@@ -1,7 +1,8 @@
+\version "1.3.146"
 
 \score {
   \context Staff \notes <
-    \time 3/8;
+    \time 3/8
     \context Voice=one \relative c'' {
       \property Voice.Stem \set #'direction = #1
       \property Voice.Tie \set #'direction = #1
@@ -17,5 +18,5 @@
       a8()a~a  
     }
   >
-  \paper { linewidth = 40*\staffspace; } 
+  \paper { linewidth = 40*\staffspace } 
 }

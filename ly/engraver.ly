@@ -1,49 +1,49 @@
-\version "1.3.140"
+\version "1.3.146"
 
 %
 % setup for Request->Element conversion. Guru-only
 %
 
 StaffContext=\translator {
-	\type "Engraver_group_engraver";
-	\name Staff ;
-	\consists "Output_property_engraver";	
+	\type "Engraver_group_engraver"
+	\name Staff 
+	\consists "Output_property_engraver"	
 	Generic_property_list = #generic-staff-properties
-	\consists "Property_engraver";
+	\consists "Property_engraver"
 	
-	\consists "Multi_measure_rest_engraver";
+	\consists "Multi_measure_rest_engraver"
 
-	\consists "Bar_engraver";
+	\consists "Bar_engraver"
  % Bar_engraver must be first so default bars aren't overwritten
 % with empty ones.
 
 
-%	\consists "Repeat_engraver";
-	\consists "Volta_engraver";
-	\consists "Separating_line_group_engraver";	
+%	\consists "Repeat_engraver"
+	\consists "Volta_engraver"
+	\consists "Separating_line_group_engraver"	
 
 
 
-	\consists "Clef_engraver";
-	\consists "Key_engraver";
-	\consists "Time_signature_engraver";
-	\consists "Staff_symbol_engraver";
-	\consists "Collision_engraver";
-	\consists "Rest_collision_engraver";
-	\consists "Local_key_engraver";
-	\consists "Piano_pedal_engraver";
+	\consists "Clef_engraver"
+	\consists "Key_engraver"
+	\consists "Time_signature_engraver"
+	\consists "Staff_symbol_engraver"
+	\consists "Collision_engraver"
+	\consists "Rest_collision_engraver"
+	\consists "Local_key_engraver"
+	\consists "Piano_pedal_engraver"
 
 %{
-	The Instrument_name_engraver puts the name of the instrument
-	(\property Staff.instrument; Staff.instr for subsequent lines)
+	The Instrument_name_engravei puts the name of the instrument
+	(\property Staff.instrument Staff.instr for subsequent lines)
 	to the left of a staff.
 
 	This is commented out, so you don't get funny things on the
 	PianoStaff	
-	\consists "Instrument_name_engraver";
+	\consists "Instrument_name_engraver"
 %}
 
-	\consistsend "Axis_group_engraver";
+	\consistsend "Axis_group_engraver"
 	
 	MinimumVerticalExtent = ##f
 	ExtraVerticalExtent = ##f
@@ -56,143 +56,143 @@ StaffContext=\translator {
 	instrument = #""
 	instr = #""
 	  
-	\accepts "Voice";
+	\accepts "Voice"
 }
 
 
 StaffContainerContext = \translator {
-	\type Engraver_group_engraver;
-	\consists "Axis_group_engraver";
+	\type Engraver_group_engraver
+	\consists "Axis_group_engraver"
 	MinimumVerticalExtent = ##f
 	ExtraVerticalExtent = ##f
 	VerticalExtent = ##f 
 	
-	\accepts Staff;
-	\name StaffContainer;
+	\accepts Staff
+	\name StaffContainer
 }
 
 InnerChoirStaffContext = \translator {
-	\type "Engraver_group_engraver";
-	\name InnerChoirStaff;
-	alignmentReference = \center;
-	\consists "System_start_delimiter_engraver";
+	\type "Engraver_group_engraver"
+	\name InnerChoirStaff
+	alignmentReference = #0
+	\consists "System_start_delimiter_engraver"
 	SystemStartDelimiter \override #'glyph = #'bracket
 
-	\accepts "Staff";
-	\accepts "RhythmicStaff";
-	\accepts "GrandStaff";
-	\accepts "PianoStaff";
-	\accepts "Lyrics";
-	\accepts "ChordNames";
+	\accepts "Staff"
+	\accepts "RhythmicStaff"
+	\accepts "GrandStaff"
+	\accepts "PianoStaff"
+	\accepts "Lyrics"
+	\accepts "ChordNames"
 }
 ChoirStaffContext = \translator {
 	\InnerChoirStaffContext
-	\name ChoirStaff;
-	\accepts "InnerChoirStaff";
-	\accepts "InnerStaffGroup";
+	\name ChoirStaff
+	\accepts "InnerChoirStaff"
+	\accepts "InnerStaffGroup"
 }
 
 
 RhythmicStaffContext=\translator{
-	\type "Engraver_group_engraver";
+	\type "Engraver_group_engraver"
 	
-	\consists "Property_engraver";
-	\consists "Output_property_engraver";	
+	\consists "Property_engraver"
+	\consists "Output_property_engraver"	
 
 	Generic_property_list = #generic-staff-properties
 	MinimumVerticalExtent = ##f
 	ExtraVerticalExtent = ##f
 	VerticalExtent = ##f 
 
-	\consists "Pitch_squash_engraver";
-	\consists "Separating_line_group_engraver";	
-	\name RhythmicStaff;
-	\alias "Staff";
+	\consists "Pitch_squash_engraver"
+	\consists "Separating_line_group_engraver"	
+	\name RhythmicStaff
+	\alias "Staff"
 	
 	Bar \override #'bar-size = #4
 	VoltaBracket \override #'minimum-space =  #15  % urg, in \pt
 	VoltaBracket \override #'padding =  #5  % urg, in \pt
 	StaffSymbol \override #'line-count = #1	
 
-%	\consists "Repeat_engraver";
-	\consists "Volta_engraver";
-	\consists "Bar_engraver";
-	\consists "Time_signature_engraver";
-	\consists "Staff_symbol_engraver";
-	\consistsend "Axis_group_engraver";
-	\accepts "Voice";
+%	\consists "Repeat_engraver"
+	\consists "Volta_engraver"
+	\consists "Bar_engraver"
+	\consists "Time_signature_engraver"
+	\consists "Staff_symbol_engraver"
+	\consistsend "Axis_group_engraver"
+	\accepts "Voice"
 }
 
 
 VoiceContext = \translator {
-	\type "Engraver_group_engraver";
-	\name Voice;
+	\type "Engraver_group_engraver"
+	\name Voice
 
 	Generic_property_list = #generic-voice-properties
 
 	% must come before all
-	\consists "Voice_devnull_engraver";
-	\consists "Output_property_engraver";	
-	\consists "Arpeggio_engraver";
+	\consists "Voice_devnull_engraver"
+	\consists "Output_property_engraver"	
+	\consists "Arpeggio_engraver"
 
-	\consists "Text_spanner_engraver";
-	\consists "Property_engraver";
+	\consists "Text_spanner_engraver"
+	\consists "Property_engraver"
 	
-	\consists "Breathing_sign_engraver";
- 	\consists "Rest_engraver";
-	\consists "Dot_column_engraver";
-	\consists "Stem_engraver";
-	\consists "Beam_engraver";
-	\consists "Auto_beam_engraver";
+	\consists "Breathing_sign_engraver"
+ 	% \consists "Rest_engraver"
+	\consists "Dot_column_engraver"
+	\consists "Stem_engraver"
+	\consists "Beam_engraver"
+	\consists "Auto_beam_engraver"
 
-	\consists "Chord_tremolo_engraver";
-	\consists "Percent_repeat_engraver";
-	\consists "Melisma_engraver";
+	\consists "Chord_tremolo_engraver"
+	\consists "Percent_repeat_engraver"
+	\consists "Melisma_engraver"
 
 %{
  Must come before text_engraver, but after note_column engraver.
 
 %}
-	\consists "Dynamic_engraver";
-	\consists "Text_engraver";
+	\consists "Dynamic_engraver"
+	\consists "Text_engraver"
 
-	\consists "Script_engraver";
-	\consists "Script_column_engraver";
-	\consists "Rhythmic_column_engraver";
-	\consists "Phrasing_slur_engraver";
-	\consists "Slur_engraver";
-	\consists "Tie_engraver";
-	\consists "Tuplet_engraver";
-	\consists "Grace_position_engraver";
-	\consists "A2_engraver";
+	\consists "Script_engraver"
+	\consists "Script_column_engraver"
+	\consists "Rhythmic_column_engraver"
+	\consists "Phrasing_slur_engraver"
+	\consists "Slur_engraver"
+	\consists "Tie_engraver"
+	\consists "Tuplet_engraver"
+	\consists "Grace_position_engraver"
+	\consists "A2_engraver"
 
-	\consists "Skip_req_swallow_translator";
-	\accepts Thread; % bug if you leave out this!
-	\accepts Grace;
+	\consists "Skip_req_swallow_translator"
+	\accepts Thread % bug if you leave out this!
+	\accepts Grace
 }
 
 GraceContext=\translator {
-	\type "Grace_engraver_group";
-	\name "Grace";
-	\consists "Output_property_engraver";	
+	\type "Grace_engraver_group"
+	\name "Grace"
+	\consists "Output_property_engraver"	
 
 	Generic_property_list = #generic-grace-properties
 	
-	\consists "Note_heads_engraver";
-	\consists "Local_key_engraver";
-	\consists "Stem_engraver";
-	\consists "Beam_engraver";
-	\consists "Slur_engraver";
+	\consists "Note_heads_engraver"
+	\consists "Local_key_engraver"
+	\consists "Stem_engraver"
+	\consists "Beam_engraver"
+	\consists "Slur_engraver"
 
-	\consists "Auto_beam_engraver";
-	\consists "Align_note_column_engraver";
+	\consists "Auto_beam_engraver"
+	\consists "Align_note_column_engraver"
 
-	\consists "Rhythmic_column_engraver";
+	\consists "Rhythmic_column_engraver"
 
-	\consists "Dynamic_engraver";% in Grace ???
-	\consists "Text_engraver"; % in Grace ???
+	\consists "Dynamic_engraver"% in Grace ???
+	\consists "Text_engraver" % in Grace ???
 
-	\consists "Property_engraver";
+	\consists "Property_engraver"
 
 	Stem \override  #'flag-style = #"grace"
 	Stem \override  #'stem-length = #6.0
@@ -215,131 +215,132 @@ GraceContext=\translator {
 		 = #(map (lambda (x) (* 0.8 x)) '(0.0 2.5 2.0 1.5))
 
 	weAreGraceContext = ##t   
-	graceAccidentalSpace= 1.5 ; % in staff space
+	graceAccidentalSpace= #1.5  % in staff space
 }
 
 ThreadContext = \translator{
-	\type Engraver_group_engraver;
-	\name Thread;
+	\type Engraver_group_engraver
+	\name Thread
 	
-	\consists "Thread_devnull_engraver";
-	\consists "Note_heads_engraver";
-	\consists "Note_head_line_engraver";
-	\consists "Output_property_engraver";	
+	\consists "Thread_devnull_engraver"
+	\consists "Note_heads_engraver"
+	\consists "Rest_engraver"
+	\consists "Note_head_line_engraver"
+	\consists "Output_property_engraver"	
 	Generic_property_list = #generic-thread-properties
-	\consists "Property_engraver";
+	\consists "Property_engraver"
 }
 
 GrandStaffContext=\translator{
-	\type "Engraver_group_engraver";
-	\name GrandStaff;
-	\consists "Span_bar_engraver";
-	\consists "Span_arpeggio_engraver";
-	\consists "System_start_delimiter_engraver";
+	\type "Engraver_group_engraver"
+	\name GrandStaff
+	\consists "Span_bar_engraver"
+	\consists "Span_arpeggio_engraver"
+	\consists "System_start_delimiter_engraver"
 	SystemStartDelimiter \override #'glyph = #'brace
 	
-	\consists "Property_engraver";	
+	\consists "Property_engraver"	
 	Generic_property_list = #generic-grand-staff-properties
-	\accepts "Staff";
+	\accepts "Staff"
 }
 
 PianoStaffContext = \translator{
 	\GrandStaffContext
-	\name "PianoStaff";
+	\name "PianoStaff"
 
-	\consists "Vertical_align_engraver";
+	\consists "Vertical_align_engraver"
 
-	alignmentReference = \center;
+	alignmentReference = #0
 	verticalAlignmentChildCallback = #Align_interface::fixed_distance_alignment_callback
 	VerticalAlignment \override #'forced-distance = #12
 
-%	\consistsend "Axis_group_engraver";
+%	\consistsend "Axis_group_engraver"
 }
 
 InnerStaffGroupContext= \translator {
-	\type "Engraver_group_engraver";
-	\name InnerStaffGroup;
+	\type "Engraver_group_engraver"
+	\name InnerStaffGroup
 
-	\consists "Span_bar_engraver";
-	\consists "Span_arpeggio_engraver";
-	\consists "Output_property_engraver";	
+	\consists "Span_bar_engraver"
+	\consists "Span_arpeggio_engraver"
+	\consists "Output_property_engraver"	
 	SystemStartDelimiter \override #'glyph = #'bracket
 
-	\consists "System_start_delimiter_engraver";
-	\accepts "Staff";
-	\accepts "RhythmicStaff";
-	\accepts "GrandStaff";
-	\accepts "PianoStaff";
+	\consists "System_start_delimiter_engraver"
+	\accepts "Staff"
+	\accepts "RhythmicStaff"
+	\accepts "GrandStaff"
+	\accepts "PianoStaff"
 	
-	\accepts "Lyrics";
-	\accepts "ChordNames";
+	\accepts "Lyrics"
+	\accepts "ChordNames"
 }
 StaffGroupContext = \translator {
 	\InnerStaffGroupContext
-	\name StaffGroup;
-	\accepts "InnerChoirStaff";
-	\accepts "ChoirStaff";
-	\accepts "InnerStaffGroup";
+	\name StaffGroup
+	\accepts "InnerChoirStaff"
+	\accepts "ChoirStaff"
+	\accepts "InnerStaffGroup"
 }
 
 
 % UGH! JUNKME
 LyricsVoiceContext= \translator{
-	\type "Engraver_group_engraver";
-	\consistsend "Axis_group_engraver";
+	\type "Engraver_group_engraver"
+	\consistsend "Axis_group_engraver"
 	MinimumVerticalExtent = #(cons -1.2 1.2)
 	ExtraVerticalExtent = ##f
 	VerticalExtent = ##f 
-	\name LyricsVoice ;
-	\consists "Separating_line_group_engraver";
-	\consists "Lyric_engraver";
-	\consists "Extender_engraver";
-	\consists "Hyphen_engraver";
-	\consists "Stanza_number_engraver";
-	phrasingPunctuation = #".,;:!?\""
+	\name LyricsVoice 
+	\consists "Separating_line_group_engraver"
+	\consists "Lyric_engraver"
+	\consists "Extender_engraver"
+	\consists "Hyphen_engraver"
+	\consists "Stanza_number_engraver"
+	phrasingPunctuation = #".,:!?\""
 	
 }
 NoteNamesContext = \translator {
-	\type "Engraver_group_engraver";
-	\name NoteNames;
-	\consistsend "Axis_group_engraver";
+	\type "Engraver_group_engraver"
+	\name NoteNames
+	\consistsend "Axis_group_engraver"
 
 	MinimumVerticalExtent = ##f
 	ExtraVerticalExtent = ##f
 	VerticalExtent = ##f 
 
 	
-	\consists "Note_name_engraver";
-	\consists "Separating_line_group_engraver";
+	\consists "Note_name_engraver"
+	\consists "Separating_line_group_engraver"
 }
 
 LyricsContext = \translator {
-	\type "Engraver_group_engraver";
-	\name Lyrics;
-	\consists Vertical_align_engraver; %need this for getting folded repeats right.
+	\type "Engraver_group_engraver"
+	\name Lyrics
+	\consists Vertical_align_engraver %need this for getting folded repeats right.
 	Generic_property_list = #generic-lyrics-properties
-	\consists "Property_engraver";
-	\consistsend "Axis_group_engraver";
+	\consists "Property_engraver"
+	\consistsend "Axis_group_engraver"
 	MinimumVerticalExtent = ##f
 	ExtraVerticalExtent = ##f
 	VerticalExtent = ##f 
 	
-	\accepts "LyricsVoice";
+	\accepts "LyricsVoice"
 }
 
 
 ChordNamesContext = \translator {
-	\type "Engraver_group_engraver";
-	\name ChordNames;
+	\type "Engraver_group_engraver"
+	\name ChordNames
 
 	Generic_property_list = #generic-chord-staff-properties
 
-	\consists "Property_engraver";	
-	\consists "Output_property_engraver";	
-	\consists "Separating_line_group_engraver";
-	\consists "Chord_name_engraver";
-	\consists "Skip_req_swallow_translator";
-	\consistsend "Axis_group_engraver";
+	\consists "Property_engraver"	
+	\consists "Output_property_engraver"	
+	\consists "Separating_line_group_engraver"
+	\consists "Chord_name_engraver"
+	\consists "Skip_req_swallow_translator"
+	\consistsend "Axis_group_engraver"
 	MinimumVerticalExtent = ##f
 	ExtraVerticalExtent = ##f
 	VerticalExtent = ##f 
@@ -350,9 +351,9 @@ ChordNamesContext = \translator {
 
 
 StupidScore = \translator {
- 	\type "Score_engraver";
-	\name Score;
-	\consists "Note_heads_engraver";
+ 	\type "Score_engraver"
+	\name Score
+	\consists "Note_heads_engraver"
 }
 
 
@@ -360,10 +361,10 @@ StupidScore = \translator {
 
 HaraKiriStaffContext = \translator {
 	\StaffContext
-	\remove "Axis_group_engraver";
-	\consistsend "Hara_kiri_engraver";	  
-	\consists "Instrument_name_engraver";
-	\accepts "Voice";
+	\remove "Axis_group_engraver"
+	\consistsend "Hara_kiri_engraver"
+	\consists "Instrument_name_engraver"
+	\accepts "Voice"
 }
 %{
   The HaraKiriStaffContexts doesn't override \name,
@@ -376,33 +377,33 @@ HaraKiriStaffContext = \translator {
 
 
 ScoreContext = \translator {
-	\type Score_engraver;
-	\name Score;
+	\type Score_engraver
+	\name Score
 	
 
-	\consists "Repeat_acknowledge_engraver";
-	\consists "Timing_engraver";
-	\consists "Output_property_engraver";	
-	\consists "System_start_delimiter_engraver";
-	\consists "Mark_engraver";	
-	\consists "Break_align_engraver";
-	\consists "Spacing_engraver";
-	\consists "Vertical_align_engraver";
+	\consists "Repeat_acknowledge_engraver"
+	\consists "Timing_engraver"
+	\consists "Output_property_engraver"
+	\consists "System_start_delimiter_engraver"
+	\consists "Mark_engraver"	
+	\consists "Break_align_engraver"
+	\consists "Spacing_engraver"
+	\consists "Vertical_align_engraver"
 
-	\consists "Lyric_phrasing_engraver";
-	\consists "Bar_number_engraver";
-	\consists "Span_arpeggio_engraver";
+	\consists "Lyric_phrasing_engraver"
+	\consists "Bar_number_engraver"
+	\consists "Span_arpeggio_engraver"
 
-	\accepts "Staff";	
-	\accepts "StaffContainer";
-	\accepts "StaffGroup";
-	\accepts "RhythmicStaff";	
-	\accepts "Lyrics";
-	\accepts "ChordNames";
-	\accepts "GrandStaff";
-	\accepts "ChoirStaff";
-	\accepts "PianoStaff";
-	\accepts "NoteNames";
+	\accepts "Staff"
+	\accepts "StaffContainer"
+	\accepts "StaffGroup"
+	\accepts "RhythmicStaff"	
+	\accepts "Lyrics"
+	\accepts "ChordNames"
+	\accepts "GrandStaff"
+	\accepts "ChoirStaff"
+	\accepts "PianoStaff"
+	\accepts "NoteNames"
 
 	soloText = #"Solo"
 	soloIIText = #"Solo II"
@@ -437,8 +438,8 @@ ScoreContext = \translator {
 	clefGlyph = #"clefs-G"
 	clefPosition = #-2
 
-        automaticPhrasing = ##t;
-	alignmentReference = \down;
+        automaticPhrasing = ##t
+	alignmentReference = #-1   % \down
 	defaultBarType = #"|"
 
 	explicitClefVisibility = #all-visible
@@ -468,7 +469,6 @@ ScoreContext = \translator {
 	  Staff_bar
 	  Time_signature
 	  Custos
-	  Stanza_number
 	)
 
 

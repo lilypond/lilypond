@@ -96,16 +96,14 @@ print_lilypond_versions (ostream &os)
 %union {
 
     Link_array<Request> *reqvec;
-    String * string;
+
+    String *string; // needed by the lexer as temporary scratch area.
     Music *music;
     Score *score;
     Scope *scope;
     Scheme_hash_table *scmhash;
-    Musical_req* musreq;
     Music_output_def * outputdef;
 
-    Midi_def* midi;
-    Real real;
     Request * request;
 
     /* We use SCMs to do strings, because it saves us the trouble of
@@ -172,6 +170,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token MIDI
 %token MM_T
 %token PITCH
+%token DEFAULT
 %token NAME
 %token PITCHNAMES
 %token NOTES
@@ -224,10 +223,10 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <scm>	MUSIC_IDENTIFIER TRANSLATOR_IDENTIFIER
 %token <scm>	STRING_IDENTIFIER SCM_IDENTIFIER 
 %token <scm>	RESTNAME
-%token <scm>	STRING 
+%token <scm>	STRING   
 %token <scm>	SCM_T
 %token <i>	UNSIGNED
-%token <real>   REAL
+%token <scm>   REAL
 
 %type <outputdef> output_def
 %type <scmhash> 	lilypond_header lilypond_header_body
@@ -267,6 +266,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <request>	extender_req
 %type <request> hyphen_req
 %type <scm>	string bare_number number_expression
+
 %type <score>	score_block score_body
 
 %type <scm>	translator_spec_block translator_spec_body
@@ -363,7 +363,7 @@ lilypond_header_body:
 		Scope *sc = new Scope ($$);
 		THIS->lexer_p_-> scope_l_arr_.push (sc);
 	}
-	| lilypond_header_body assignment semicolon { 
+	| lilypond_header_body assignment  { 
 
 	}
 	;
@@ -448,7 +448,7 @@ translator_spec_body:
 		$$ = unsmob_translator_def ($1)->clone_scm ();
 		unsmob_translator_def ($$)-> set_spot (THIS->here_input ());
 	}
-	| TYPE STRING semicolon	{
+	| TYPE STRING 	{
 		$$ = Translator_def::make_scm ();
 		Translator_def*td =  unsmob_translator_def ($$);
 		td->translator_group_type_ = $2;
@@ -465,23 +465,13 @@ translator_spec_body:
 	  unsmob_translator_def ($$)->add_pop_property (
 		scm_string_to_symbol ($2), $4);
 	}
-	| translator_spec_body STRING '=' identifier_init semicolon	{ 
-		SCM v = gh_int2scm (0);
-		if (gh_string_p ($4) || gh_number_p ($4) || gh_boolean_p ($4))
-			v = $4;
-		else 
-			THIS->parser_error (_ ("Wrong type for property value"));
-
-		/* ugh*/
-		unsmob_translator_def ($$)->add_property_assign ($2, v);
-	}
-	| translator_spec_body NAME STRING semicolon {
+	| translator_spec_body NAME STRING  {
 		unsmob_translator_def ($$)->type_name_ = $3;
 	}
-	| translator_spec_body CONSISTS STRING semicolon {
+	| translator_spec_body CONSISTS STRING  {
 		unsmob_translator_def ($$)->add_element ($3);
 	}
-	| translator_spec_body ALIAS STRING semicolon {
+	| translator_spec_body ALIAS STRING  {
 		Translator_def*td = unsmob_translator_def ($$);
 		td->type_aliases_ = gh_cons ($3, td->type_aliases_);
 	}
@@ -491,16 +481,16 @@ translator_spec_body:
 			->add_property_assign (scm_symbol_to_string (gh_caar (p)), gh_cdar (p));
 
 	}
-	| translator_spec_body CONSISTSEND STRING semicolon {
+	| translator_spec_body CONSISTSEND STRING  {
 		unsmob_translator_def ($$)->add_last_element ( $3);
 	}
-	| translator_spec_body ACCEPTS STRING semicolon {
+	| translator_spec_body ACCEPTS STRING  {
 		unsmob_translator_def ($$)->set_acceptor ($3,true);
 	}
-	| translator_spec_body DENIES STRING semicolon {
+	| translator_spec_body DENIES STRING  {
 		unsmob_translator_def ($$)->set_acceptor ($3,false);
 	}
-	| translator_spec_body REMOVE STRING semicolon {
+	| translator_spec_body REMOVE STRING  {
 		unsmob_translator_def ($$)->remove_element ($3);
 	}
 	;
@@ -597,7 +587,7 @@ music_output_def_body:
 		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 		$$ = p;
 	}
-	| music_output_def_body assignment semicolon {
+	| music_output_def_body assignment  {
 
 	}
 	| music_output_def_body translator_spec_block	{
@@ -606,7 +596,7 @@ music_output_def_body:
 	| music_output_def_body STYLESHEET embedded_scm {
 		dynamic_cast<Paper_def*> ($$)-> style_sheet_ = $3;
 	}
-	| music_output_def_body tempo_request semicolon {
+	| music_output_def_body tempo_request  {
 		/*
 			junk this ? there already is tempo stuff in
 			music.
@@ -786,7 +776,7 @@ Composite_music:
 		scm_unprotect_object ($2->self_scm ());
 
 	}
-	| CONTEXT STRING '=' STRING Music {
+	| CONTEXT string '=' string Music {
 		Context_specced_music *csm =  new Context_specced_music (SCM_EOL);
 		csm->set_mus_property ("element", $5->self_scm ());
 		scm_unprotect_object ($5->self_scm ());
@@ -1045,7 +1035,7 @@ command_element:
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
 	}
-	| BAR STRING ';' 			{
+	| BAR STRING  			{
 		Music *t = new Music (SCM_EOL);
 
 		t->set_mus_property ("iterator-ctor",
@@ -1062,7 +1052,7 @@ command_element:
 
 		csm->set_mus_property ("context-type", ly_str02scm ("Score"));
 	}
-	| PARTIAL duration_length ';' 	{
+	| PARTIAL duration_length  	{
 		Music * p = new Music (SCM_EOL);
 		p->set_mus_property ("symbol", ly_symbol2scm ( "measurePosition"));
 		p->set_mus_property ("iterator-ctor",
@@ -1078,7 +1068,7 @@ command_element:
 		$$ =sp ;
 		sp-> set_mus_property ("context-type", ly_str02scm ( "Score"));
 	}
-	| CLEF STRING ';' {
+	| CLEF STRING  {
 		SCM func = scm_eval2 (ly_symbol2scm ("clef-name-to-properties"), SCM_EOL);
 		SCM result = gh_call1 (func, $2);
 
@@ -1099,7 +1089,7 @@ command_element:
 		$$ =sp ;
 		sp-> set_mus_property ("context-type", ly_str02scm ("Staff"));
 	}
-	| TIME_T bare_unsigned '/' bare_unsigned ';' {
+	| TIME_T bare_unsigned '/' bare_unsigned  {
 		Music * p = new Music (SCM_EOL);
 		p->set_mus_property ("symbol",
 			ly_symbol2scm ( "timeSignatureFraction"));
@@ -1125,7 +1115,7 @@ command_element:
 
 command_req:
 	shorthand_command_req  	{ $$ = $1; }
-	| verbose_command_req semicolon	{ $$ = $1; }
+	| verbose_command_req 	{ $$ = $1; }
 	;
 
 shorthand_command_req:
@@ -1167,7 +1157,7 @@ verbose_command_req:
 		sp_p->set_spot (THIS->here_input ());
 		$$ = sp_p;
 	}
-	| MARK  {
+	| MARK DEFAULT  {
 		Mark_req * m = new Mark_req;
 		$$ = m;
 	}
@@ -1177,9 +1167,15 @@ verbose_command_req:
 		$$ = m;
 
 	}
-	| PENALTY bare_int 	{
+	| PENALTY SCM_T 	{
+
+		
 		Break_req * b = new Break_req;
-		b->set_mus_property ("penalty", gh_double2scm ( $2 / 100.0));
+		SCM s = $2;
+		if (!gh_number_p (s))
+			s  =gh_int2scm (0);
+
+		b->set_mus_property ("penalty", s);
 		b->set_spot (THIS->here_input ());
 		$$ = b;
 	}
@@ -1192,7 +1188,7 @@ verbose_command_req:
 	| tempo_request {
 		$$ = $1;
 	}
-	| KEY {
+	| KEY DEFAULT {
 		Key_change_req *key_p= new Key_change_req;
 		$$ = key_p;
 	}
@@ -1674,21 +1670,11 @@ FIXME: location is one off, since ptich & duration don't contain origin refs.
 		$$ = new Sequential_music (SCM_EOL);
 		$$->set_mus_property ("elements", ms);
 	}
-	| STRING { 
-	 	THIS->remember_spot ();
-	} 
-	/* cont */
-	optional_notemode_duration 	{
-		if (!THIS->lexer_p_->lyric_state_b ()) {
-			THIS->pop_spot ().error (_ ("Have to be in Lyric mode for lyrics"));
-			THIS->error_level_i_  = 1;
-			THIS->parser_error (_ ("Giving up"));
-		} 
-		else
-			THIS->pop_spot ();
+	| STRING optional_notemode_duration 	{
+
 		Lyric_req* lreq_p = new Lyric_req;
                 lreq_p->set_mus_property ("text", $1);
-		lreq_p->set_mus_property ("duration",$3);
+		lreq_p->set_mus_property ("duration",$2);
 		lreq_p->set_spot (THIS->here_input ());
 		Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
 		velt_p->set_mus_property ("elements", gh_list (lreq_p->self_scm (), SCM_UNDEFINED));
@@ -1828,49 +1814,39 @@ bare_number:
 	UNSIGNED	{
 		$$ = gh_int2scm ($1);
 	}
-	| DIGIT		{
-		$$ = gh_int2scm ($1);
-	}
 	| REAL		{
-		$$ = gh_double2scm ($1);
+		$$ = $1;
 	}
 	| NUMBER_IDENTIFIER		{
 		$$ = $1;
 	}
 	| REAL CM_T	{
-		$$ = gh_double2scm ($1 CM);
+		$$ = gh_double2scm (gh_scm2double ($1) CM );
 	}
 	| REAL PT_T	{
-		$$ = gh_double2scm ($1 PT);
+		$$ = gh_double2scm (gh_scm2double ($1) PT);
 	}
 	| REAL IN_T	{
-		$$ = gh_double2scm ($1 INCH);
+		$$ = gh_double2scm (gh_scm2double ($1) INCH);
 	}
 	| REAL MM_T	{
-		$$ = gh_double2scm ($1 MM);
+		$$ = gh_double2scm (gh_scm2double ($1) MM);
 	}
 	| REAL CHAR_T	{
-		$$ = gh_double2scm ($1 CHAR);
+		$$ = gh_double2scm (gh_scm2double ($1) CHAR);
 	}
 	;
 
 
 bare_unsigned:
-	bare_number {
-		if (scm_integer_p ($1) == SCM_BOOL_T) {
-			$$ = gh_scm2int ($1);
-
-		} else {
-			THIS->parser_error (_ ("need integer number arg"));
-			$$ = 0;
-		}
-		if ($$ < 0) {
-			THIS->parser_error (_ ("Must be positive integer"));
-			$$ = -$$;
-			}
-
+	UNSIGNED {
+			$$ = $1;
+	}
+	| DIGIT {
+		$$ = $1;
 	}
 	;
+
 bare_int:
 	bare_number {
 		if (scm_integer_p ($1) == SCM_BOOL_T)
@@ -1912,10 +1888,6 @@ questions:
 	| questions '?'	{ $$ ++; }
 	;
 
-
-semicolon:
-	';'
-	;
 
 %%
 

@@ -1,7 +1,8 @@
+\version "1.3.146"
 
 \header{
 % should look the same
-title="symmetry";
+title="symmetry"
 }
 \score{
 	\notes\relative c'{
@@ -12,6 +13,6 @@ title="symmetry";
 	}
 	\paper{
 
-		linewidth = 50.0\mm;
+		linewidth = 50.0\mm
 	}
 }

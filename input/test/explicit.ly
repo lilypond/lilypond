@@ -1,6 +1,7 @@
+\version "1.3.146"
 
 \header{
-texidoc="Explicit pitches and durations.";
+texidoc="Explicit pitches and durations."
 }
 \score {
   \notes {

@@ -1,10 +1,11 @@
+\version "1.3.146"
 \header{
-filename = 	 "twinkle-pop.ly";
-xtitle = 	 "Ah, vous dirais-je, maman ";
-description = 	 "twinkle twinkle in pop-song-settings";
-composer = 	 "traditional";
-enteredby = 	 "HWN, chords by Johan Vromans";
-copyright = 	 "public domain";
+filename = 	 "twinkle-pop.ly"
+xtitle = 	 "Ah, vous dirais-je, maman "
+description = 	 "twinkle twinkle in pop-song-settings"
+composer = 	 "traditional"
+enteredby = 	 "HWN, chords by Johan Vromans"
+copyright = 	 "public domain"
 }
 
 
@@ -19,8 +20,8 @@ m = \notes  \relative c'' {
 	b c d e }
 
 textI =   \lyrics  { la4 __ la -- la  I, la dargh la dargh.  }
-textII =   \lyrics  { dar -- dargh __ dargh dargh; dargh la dargh loo.  }
-textIII =   \lyrics  { la -- da __ doo dah; dargh la dargh loo.  }
+textII =   \lyrics  { dar -- dargh __ dargh dargh dargh la dargh loo.  }
+textIII =   \lyrics  { la -- da __ doo dah dargh la dargh loo.  }
 
 \score {
 

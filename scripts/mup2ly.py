@@ -81,7 +81,7 @@ def warranty ():
 	sys.stdout.write ('\n')
 	sys.stdout.write (_ (r'''
 Distributed under terms of the GNU General Public License. It comes with
-NO WARRANTY.'''))
+absolutely NO WARRANTY.'''))
 	sys.stdout.write ('\n')
 
 def progress (s):
@@ -162,7 +162,9 @@ def help ():
 	sys.stdout.write (_ ("Options:"))
 	sys.stdout.write ('\n')
 	sys.stdout.write (options_help_str (option_definitions))
-	sys.stdout.write ('\n\n')
+	sys.stdout.write ('\n')
+	warning (_ ("%s is far from completed.  Not all constructs are recognised.") % program_name)
+	sys.stdout.write ('\n')
 	sys.stdout.write (_ ("Report bugs to %s") % 'bug-gnu-music@gnu.org')
 	sys.stdout.write ('\n')
 	sys.exit (0)
@@ -441,7 +443,7 @@ class Clef:
 		self.type = cl
 		
 	def dump (self):
-		return '\\clef %s;' % self.type
+		return '\\clef %s' % self.type
 
 key_sharps = ('c', 'g', 'd', 'a', 'e', 'b', 'fis')
 key_flats = ('BUG', 'f', 'bes', 'es', 'as', 'des', 'ges')
@@ -453,11 +455,11 @@ class Key:
 		
 	def dump (self):
 		if self.sharps and self.flats:
-			k = '\\keysignature %s ;' % 'TODO'
+			k = '\\keysignature %s ' % 'TODO'
 		elif self.sharps:
-			k = '\\notes\\key %s \major;' % key_sharps[self.sharps]
+			k = '\\notes\\key %s \major' % key_sharps[self.sharps]
 		elif self.flats:
-			k = '\\notes\\key %s \major;' % key_flats[self.flats]
+			k = '\\notes\\key %s \major' % key_flats[self.flats]
 		return k
 
 class Time:
@@ -465,7 +467,7 @@ class Time:
 		self.frac = frac
 		
 	def dump (self):
-		return '\\time %d/%d;' % (self.frac[0], self.frac[1])
+		return '\\time %d/%d' % (self.frac[0], self.frac[1])
 	
 
 clef_table = {
@@ -888,7 +890,9 @@ class Parser:
 	def parse_context_score (self, line):
 		debug ('score: ' + line)
 		line = string.lstrip (line)
-		#ugh, these should also be matche in context_staff
+		# ugh: these (and lots more) should also be parsed in
+		# context staff.  we should have a class Staff_properties
+		# and parse/set all those.
 		m = re.match ('^(time[ \t]*=[ \t]*([0-9]+)[ \t]*/[ \t]*([0-9]+))', line)
 		if m:
 			line = line[len (m.group (1)):]
@@ -1040,6 +1044,8 @@ class Pre_processor:
 			s = ''
 		return s
 
+	# duh: mup is strictly line-based, except for `define',
+	# which is `@' terminated and may span several lines
 	def process_macro_define (self, line):
 		global macros
 		# don't define new macros in unactive areas

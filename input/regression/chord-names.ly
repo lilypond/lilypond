@@ -1,9 +1,10 @@
+\version "1.3.146"
 \header{
 texidoc="
 Chord names are generated from a list pitches, and are customisable
 from guile.  For some unlogical names, guile customisation is used
 by default.
-";
+"
 }
 
 chord =  \notes\transpose c''\chords{

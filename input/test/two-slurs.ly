@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 %
 % We'd want to combine the stems, but have two slurs too...
@@ -15,6 +16,6 @@
 		}
 	>
 	\paper{
-		linewidth=60.\mm;
+		linewidth=60.\mm
 	}
 }

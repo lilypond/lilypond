@@ -1,8 +1,9 @@
+\version "1.3.146"
 
 \score{
 	\context Staff = one <
-		\context Voice=one { \skip 1; }
-		\context Voice=two { \skip 1; }
+		\context Voice=one { \skip 1 }
+		\context Voice=two { \skip 1 }
 
 		\context Voice=one \partcombine Voice
 			\context Thread=one \notes\relative c''
@@ -15,6 +16,6 @@
 				}
 		>
 	\paper{
-		linewidth = 100.\mm;
+		linewidth = 100.\mm
 	}
 }

@@ -1,6 +1,7 @@
+\version "1.3.146"
 \header{
-	title="CELLO-THUMBS";
-	enteredby="Maarten Storm";
+	title="CELLO-THUMBS"
+	enteredby="Maarten Storm"
 }
 
 
@@ -14,7 +15,7 @@
 		<c_\thumb c'-3(> <)d_\thumb d'-3>]
 	}
 	\paper{ 
-		linewidth = 80.\mm; 
+		linewidth = 80.\mm 
 
 	}
 }

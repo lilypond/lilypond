@@ -1,8 +1,10 @@
 \header {
-  title =       "Trip";
-  copyright =   "public domain";
+  title =       "Trip"
+  copyright =   "public domain"
 }
 
+
+\version "1.3.146"
 
 %{
 
@@ -23,8 +25,8 @@ TODO:
 
 
 praeludiumRight =   \notes {
-   \key e \major;
-  \clef violin;
+   \key e \major
+  \clef violin
 
   % 13 -- how to type -- where to split -- this more neatly?
   \context Staff <
@@ -49,8 +51,8 @@ praeludiumRight =   \notes {
 }
 
 praeludiumLeft =  \notes \relative c {
-   \key e \major;
-  \clef bass;
+   \key e \major
+  \clef bass
 
   % 13
   \context Staff <
@@ -88,9 +90,9 @@ praeludiumLeft =  \notes \relative c {
 
 
 fugaIIRight =  \notes   \relative c''   {
-  \key e \major;              % E-major
-  \clef violin;
-  \time3/4;
+  \key e \major              % E-major
+  \clef violin
+  \time3/4
 
   %15
   \context Staff <
@@ -139,8 +141,8 @@ fugaIIRight =  \notes   \relative c''   {
 gracetest =  \notes \grace { [c16 ( cis dis] }
 
 fugaIILeft =  \notes {
-  \key e \major;
-  \clef bass;
+  \key e \major
+  \clef bass
 
   %15
   \context Staff < 
@@ -151,14 +153,14 @@ fugaIILeft =  \notes {
     \context Voice = two { \stemDown s2 e4 |
       fis2 fis4 }
   >
-  \stemBoth cis2 [e16( fis a \clef "treble"; b] |
+  \stemBoth cis2 [e16( fis a \clef "treble" b] |
   d'4 ) b8 b8 b4 |
   %19
 }
 
 fugaIIPedal =  \notes \relative c {
-  \key e \major;
-  \clef bass;
+  \key e \major
+  \clef bass
 
   \repeat "volta" 2 { dis4.-\ltoe } \alternative { e8-\rtoe cis4 } |
   b4.-\lheel [cis8-\ltoe dis8-\rtoe e8-\rheel] |
@@ -180,7 +182,7 @@ fugaIIPedal =  \notes \relative c {
 
  	\property Score.midiInstrument = "church organ"
         \praeludiumRight 
-	 \times 4/3 {  c4 c4 c4 }  \mark "B";
+	 \times 4/3 {  c4 c4 c4 }  \mark "B"
 	   \fugaIIRight }
       \context Staff = bass {
 	\property Staff.instrument = #"left"
@@ -192,9 +194,9 @@ fugaIIPedal =  \notes \relative c {
         \property Staff.instrument = #"bass"
         \property Staff.instr = #"bs"	
 
-        \time 4/4;
-	\key e \major; 
-  \clef bass;
+        \time 4/4
+	\key e \major 
+  \clef bass
 
   %13
   r4 fis,4-\ltoe e4.-\lheel e'8-\rheel | 
@@ -210,9 +212,9 @@ fis8-\rtoe fis4-\rtoe [e8-\ltoe a-\rtoe] |
       g  r4.
     )
       c2^^^-^\f 
- \time 3/4;
+ \time 3/4
 
-  \fugaIIPedal \bar "|." ; }
+  \fugaIIPedal \bar "|."  }
       
     >
   >
@@ -223,13 +225,13 @@ fis8-\rtoe fis4-\rtoe [e8-\ltoe a-\rtoe] |
 		\OrchestralScoreContext
 	}
 	\translator { \PianoStaffContext
-		\consists "Instrument_name_engraver";
+		\consists "Instrument_name_engraver"
 	}
 	\translator { \StaffContext
-		\consists "Instrument_name_engraver";
+		\consists "Instrument_name_engraver"
 	}
   }
 
   \midi {
-    \tempo 4 =96; }
+    \tempo 4 =96 }
 }

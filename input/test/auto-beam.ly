@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 %{
   The auto-beam engraver has presets for common time signatures.
@@ -6,55 +7,55 @@
 \score{
     \notes \relative c''{
 %{
-	% urg: something breaks in grouping ; see input/bugs/time-grouping.ly
-    	\time 1/2;
+	% urg: something breaks in grouping  see input/bugs/time-grouping.ly
+    	\time 1/2
     	c8 c c c
 	c16 c c c c c c c
 	c32 c c c c c c c c c c c c c c c
-    	\time 1/4;
+    	\time 1/4
     	c8 c 
 	c16 c c c
 	c32 c c c c c c c
-    	\time 1/8;
+    	\time 1/8
     	c8
 	c16 c
 	c32 c c c
 %}
-	\time 2/2;
+	\time 2/2
     	c8 c c c c c c c
 	c16 c c c c c c c c c c c c c c c
 	c32 c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c
-	\time 2/4;
+	\time 2/4
 	c8 c c c
 	c16 c c c c c c c
 	c32 c c c c c c c c c c c c c c c
-	\time 2/8;
+	\time 2/8
 	c8 c
 	c16 c c c
 	c32 c c c c c c c
-	\time 3/2;
+	\time 3/2
 	c8 c c c c c c c c c c c
 	c16 c c c c c c c c c c c c c c c c c c c c c c c
-	\time 3/4;
+	\time 3/4
 	c8 c c c c c
 	c16 c c c c c c c c c c c
 	c32 c c c c c c c c c c c c c c c c c c c c c c c
-	\time 3/8;
+	\time 3/8
 	c8 c c
 	c16 c c c c c
 	c32 c c c c c c c c c c c
-	\time 4/4;
+	\time 4/4
 	c8 c c c c c c c
 	c16 c c c c c c c c c c c c c c c
 	c32 c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c
-	\time 4/8;
+	\time 4/8
 	c8 c c c
 	c16 c c c c c c c
 	c32 c c c c c c c c c c c c c c c
-	\time 6/8;
+	\time 6/8
 	c8 c c c c c
 	c16 c c c c c c c c c c c
-	\time 9/8;
+	\time 9/8
 	c8 c c c c c c c c
 	c16 c c c c c c c c c c c c c c c c c
     }

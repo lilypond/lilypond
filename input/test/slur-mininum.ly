@@ -1,10 +1,11 @@
+\version "1.3.146"
 \header {
-texidoc = "" ;
+texidoc = "" 
 }
 
 \score{
 	\notes\relative c''{
-		\time 2/4;
+		\time 2/4
 		\property Voice.Slur \set #'minimum-length = #40
 		c()c
 		c~c\break

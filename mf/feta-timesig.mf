@@ -3,15 +3,15 @@
 % 
 % source file of the Feta (not an abbreviation of Font-En-Tja) music font
 % 
-% (c) 1998--1999 Mats Bengtsson <matsb@s3.kth.se>,
-%		Christian Mondrup <scancm@biobase.dk>
+% (c) 1998--2001 Mats Bengtsson <matsb@s3.kth.se>,
+%		 Christian Mondrup <scancm@biobase.dk>
 
 fet_begingroup("timesig");
 
 def set_C_width =
 	save left_width, right_width;
-	left_width# := 0.9 staff_space#;
-	right_width# := .7 staff_space#;
+	left_width# := 1.0 staff_space#;
+	right_width# := 0.8 staff_space#;
 	define_pixels(left_width,right_width);
 enddef;
 
@@ -31,27 +31,28 @@ def draw_C =
 	z4 = (0, -staff_space);
 	z5r = (right_width - stafflinethickness, -0.4 staff_space);
 	
-	penpos1(hair, 0);
+	penpos1(hair, 10);
 	penpos2(stafflinethickness, 90);
 	penpos3(left_fatness * staff_space, 180);
 	penpos4(stafflinethickness, -90);
 	penpos5(hair, -5);
+	z6l = z1l;
+	penpos6(hair, 0);
 	
-	draw_bulb(-1, z1l,  z1r, bulb_rad, .8);
+	draw_bulb(-1, z6l,  z6r, bulb_rad, .8);
 
-	fill z1l{up} .. z2l{left} .. z3l{down} .. z4l{right} ..
+	fill z1l{dir (100)} .. z2l{left} .. z3l{down} .. z4l{right} ..
 	simple_serif(z5l, z5r, -90) .. 
-	z4r{left} .. z3r{up} .. z2r{right} .. z1r -- cycle;
+	z4r{left} .. z3r{up} .. z2r{right} .. {dir (-80)}z1r -- cycle;
 	
-%	labels(1,2,3,4,5);
-	penlabels(1,2,3,4,5);
+	penlabels(1,2,3,4,5,6);
 enddef;
 
 fet_beginchar ("4/4 meter", "C4/4", "fourfourmeter")
 	set_C_width;
 	set_char_box(left_width# + staff_space#, right_width# + staff_space#, 
 		staff_space#, staff_space#);
-	
+
 	draw_C;
 fet_endchar;
 

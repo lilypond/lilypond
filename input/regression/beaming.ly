@@ -1,10 +1,11 @@
+\version "1.3.146"
 
 \header{
 texidoc="
 Beaming is generated automatically. Beams may cross bar lines. In that
 case, line breaks are forbidden.  Yet clef and key signatures are
 hidden just as with breakable bar lines.
-";
+"
 }
 
 \score { \context Staff \notes \relative c''  {

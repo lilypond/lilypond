@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \score{
 	\notes \relative c''{
@@ -8,7 +9,7 @@
 		\slurDown a()c d()g,\break
 	}
 	\paper{
-		indent = 0.0;
-		linewidth = 60.0\mm;
+		indent = 0.0
+		linewidth = 60.0\mm
 	}
 }

@@ -1,7 +1,8 @@
+\version "1.3.146"
 
 \score{
 	\notes\relative c'<
-		\time 6/8;
+		\time 6/8
 		\context Staff{
 			e8(e)e e(d)e e(c)e e(b)e
 		}
@@ -10,6 +11,6 @@
 		}
 	>
 	\paper{
-		linewidth=-1.;
+		linewidth=-1.
 	}
 }

@@ -1,3 +1,4 @@
+\version "1.3.146"
 % ASCII Art output
 %
 % Process as:
@@ -9,14 +10,14 @@
 
 \score {
   \notes\relative c'' {
-    \time 3/8;
+    \time 3/8
     a8 a a 
-    \time 5/8;
+    \time 5/8
     a a a a a
     %a16 a  a a a a a a a a 
   }
   \paper {
-    linewidth = -1.;
+    linewidth = -1.
     \translator {
       \StaffContext
       StaffSymbol \override #'molecule-callback = #(lambda (x) '())

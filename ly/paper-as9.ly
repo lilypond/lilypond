@@ -1,15 +1,15 @@
 % paper-as9.ly
 
-\version "1.3.120";
+\version "1.3.146"
 
 paperAsNine = \paper {
-	staffheight = 9.\char;
+	staffheight = 9.\char
 
-	%\translator { \StaffContext barSize = \staffheight; }
+	%\translator { \StaffContext barSize = \staffheight }
 
 	\stylesheet #(as-make-style-sheet 'as9)
 
-	\include "params-as.ly";
+	\include "params-as.ly"
 	
 }
 

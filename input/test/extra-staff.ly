@@ -1,3 +1,4 @@
+\version "1.3.146"
 %{
 (Message vers:9)
 To: Adrian Mariano <adrian@cam.cornell.edu>
@@ -33,7 +34,7 @@ extra-staff.ly:
 		}
 	>
   	\paper {
-		linewidth = -1.;
+		linewidth = -1.
 		\translator{
 			\ScoreContext
 

@@ -1,7 +1,8 @@
+\version "1.3.146"
 
 \score{
 	\context Staff <
-		\time 4/4;
+		\time 4/4
 		\context Voice=one \partcombine Voice
 			\context Thread=one \notes\relative c'' {
 				a4 c4.()g8 a4 |
@@ -15,7 +16,7 @@
 			}
 	>
 	\paper{
-		linewidth=140.\mm;
+		linewidth=140.\mm
 		\translator {
 			\VoiceContext
 			soloADue = ##f

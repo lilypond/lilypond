@@ -1,17 +1,17 @@
 
 \header {
-        title = "The river is flowing";
-        composer = "Traditonal (?)";
+        title = "The river is flowing"
+        composer = "Traditonal (?)"
 }
 
 \include "paper16.ly"
 
 melody = \notes \relative c' {
-        \partial 8;
+        \partial 8
         g8 |
         c4 c8 d [es () d] c4 | f4 f8 g [es() d] c g |
         c4 c8 d [es () d] c4 | d4 es8 d c4.
-        \bar "|.";
+        \bar "|."
 }
 
 text = \lyrics {
@@ -37,5 +37,5 @@ accompaniment =\chords {
              \context Lyrics \text
         }
         \midi  { }
-        \paper { linewidth = 10.0\cm; }
+        \paper { linewidth = 10.0\cm }
 }

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 %{
   See scm/chord-names.scm: chord::names-alist-american
@@ -8,7 +9,7 @@
 #(set! chord::names-alist-american
       (append 
       '(
-	;; any changes here, see scm/chord-name.scm
+	 any changes here, see scm/chord-name.scm
 
 	)
       chord::names-alist-american))

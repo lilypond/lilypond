@@ -1,9 +1,10 @@
+\version "1.3.146"
 
 
 
 \score{
    \notes\relative c''{
-     \time 4/8;
+     \time 4/8
 
 %{
     the default for 4/8 (see scm/auto-beam.scm)

@@ -1,7 +1,8 @@
+\version "1.3.146"
 
 \score{
 	\notes\relative c''{
-		\time 2/4;
+		\time 2/4
 		e2(
 		\break
 		)e4 f,(\break
@@ -10,6 +11,6 @@
 		)e'2
 	}
 	\paper{
-		linewidth = 60.\mm;
+		linewidth = 60.\mm
 	}
 }

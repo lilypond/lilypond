@@ -1,7 +1,8 @@
+\version "1.3.146"
 \header{
-filename = 	"chord-table.ly";
-copyright =  	"public domain";
-enteredby =  	"jcn";
+filename = 	"chord-table.ly"
+copyright =  	"public domain"
+enteredby =  	"jcn"
 }
 
 tab =  \notes\transpose c'''\chords{
@@ -36,7 +37,7 @@ tab =  \notes\transpose c'''\chords{
 		\context ChordNames=b \notes\transpose b,\tab
 	>
 	\paper{
-		textheight = \vsize - 4.0 * \staffheight;
+		textheight = \vsize - 4.0 * \staffheight
 	}
 
 }

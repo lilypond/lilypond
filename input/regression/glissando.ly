@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \header{
 
@@ -7,7 +8,7 @@ The first two glissandi are not consecutive.
 The engraver does no time-keeping, so it involves some trickery to get
 < @{ s8 s8 s4 @} @{ c4 \\gliss d4 @} > working correctly.
 
-";
+"
 }
 
 \score{
@@ -21,11 +22,11 @@ The engraver does no time-keeping, so it involves some trickery to get
 	     
     }
     \paper{
-        linewidth = 70.\mm;
+        linewidth = 70.\mm
 	\translator{
 	       \StaffContext
 	       % makes for handier debugging
-	       % \remove Clef_engraver;
+	       % \remove Clef_engraver
 	}
     }
 }

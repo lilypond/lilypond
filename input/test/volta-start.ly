@@ -1,19 +1,20 @@
+\version "1.3.146"
 
 \header{
 
 texidoc =  " Volta braces are hung on barlines. At the start of the
-line, they should always start after the prefatory matter.  ";
+line, they should always start after the prefatory matter.  "
 
 }
 
 
 
 voiceB =  \notes {
-    \clef bass;
+    \clef bass
      \property Staff.instrument = "Bass"
      \property Staff.instr = "B"
-     \key f \minor; 
-     \time 4/4;  
+     \key f \minor 
+     \time 4/4  
     f,2 (   ) f,8    r8   f8    e8    
     \repeat  volta 2
     {
@@ -99,10 +100,10 @@ voiceE =  \notes {
 
     >
 	\paper {
-	    font_normal = 12.;
+	    font_normal = 12.
 	    \translator {
 	    	 \StaffContext 
-		 \consists Instrument_name_engraver;
+		 \consists Instrument_name_engraver
 	    }
 	}
 }

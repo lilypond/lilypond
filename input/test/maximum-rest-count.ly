@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \score{
 \context Staff \notes\relative c''<
@@ -35,6 +36,6 @@
 \paper{
 }
 \midi{
-\tempo 1 = 60;
+\tempo 1 = 60
 }
 }

@@ -1,6 +1,7 @@
+\version "1.3.146"
 
 \header{
-texidoc="Two automatic knees";
+texidoc="Two automatic knees"
 }
 
 \score {
@@ -11,12 +12,12 @@ texidoc="Two automatic knees";
       [ b, \translator Staff="down" d ]
     }
     \context Staff = "down" {
-      \clef bass; 
+      \clef bass 
       s2.
     }
   >
   \paper{
-    linewidth = 40*\staffspace;
+    linewidth = 40*\staffspace
 % Now by default
 %    \translator{
 %      \VoiceContext

@@ -1,17 +1,18 @@
+\version "1.3.146"
 \header{
-title= "Stems and Beams";
-subtitle =  "proofsheet"; 
-enteredby = 	 "jcn";
-copyright = 	 "public domain";
+title= "Stems and Beams"
+subtitle =  "proofsheet" 
+enteredby = 	 "jcn"
+copyright = 	 "public domain"
 TestedFeatures = 	 "This file tests the length of stems and placement 
-of beams";
+of beams"
 	
 }
 
 
 
 beamintervals =  \notes{
-		\time 7/4;
+		\time 7/4
 		\stemUp
 \transpose c'{
 		[ c8 d ] [ c e ] [ c f ] [ c g ] [ c a ] [ c b ] [ c c' ] |
@@ -29,7 +30,7 @@ beamintervals =  \notes{
 \score{
 	\notes\transpose c'{ 
 		\stemUp
-		\time 17/4;
+		\time 17/4
 		g,4 a, b, c d e f g a b c' d' e' f' g' a' b' |
 		\stemDown
 		b' a' g' f' e' d' c' b a g f e d c b, a, g, |

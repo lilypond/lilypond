@@ -1,3 +1,4 @@
+\version "1.3.146"
 %K000.ly LilyPond 1.2.16
 
 
@@ -8,7 +9,7 @@
 \paper {
 \translator{\VoiceContext
   %% huh?
-  %%beamAutoBegin=0;
+  %%beamAutoBegin=0
   autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 3 8)
   autoBeamSettings \override #'(end 1 16 * *) = #(make-moment 3 8)
   autoBeamSettings \override #'(end 1 24 * *) = #(make-moment 1 8)
@@ -37,9 +38,9 @@ xb={\property Voice.noAutoBeaming=##t}
 \score{
 \context PianoStaff \notes<
 \context Staff=up<
-  \key d \major ;
-\time 3/8;
-\clef treble;
+  \key d \major 
+\time 3/8
+\clef treble
 \autochange Staff
 \context Voice=va< \zs
 \su
@@ -54,8 +55,8 @@ a'8 s \lh d''|
 %a5
 s8 \rh fis'' s|
 %a6
-a''32 s fis'' s d'' s a' s d' s a s \bar "||";
-\key f \major; 
+a''32 s fis'' s d'' s a' s d' s a s \bar "||"
+\key f \major 
 %a7
 r16 a' f'8. d'16~
 %a8
@@ -63,8 +64,8 @@ d'16 g' e'8. cis'16|
 %a9
 r16 a' f'8. d'16~
 %a10
-d'16 g' e'8. cis'16 \bar "||";
-\key d \major;
+d'16 g' e'8. cis'16 \bar "||"
+\key d \major
 %a11
 r16 fis' d'8. g'16~
 %a12
@@ -116,8 +117,8 @@ s8 gis''4|
 %a35
 s32 e' cis' a s a' e' cis' s cis'' a' e'|
 %a36
-\lh a'32 \rh[e'' cis'' a']\lh cis'' \rh[a'' e'' cis'']\lh a' \rh[a cis' e']\bar "||";
-\time 6/8;
+\lh a'32 \rh[e'' cis'' a']\lh cis'' \rh[a'' e'' cis'']\lh a' \rh[a cis' e']\bar "||"
+\time 6/8
 %a37
 gis''8 a'' gis'' a'' gis'' a''|
 }
@@ -337,8 +338,8 @@ s4.*6
 }>
 >
 \context Staff=down<
-\clef bass;
-\key d \major;
+\clef bass
+\key d \major
 s4.*38
 >>
 } 

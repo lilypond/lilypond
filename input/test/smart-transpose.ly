@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \header {
 texidoc="
@@ -12,7 +13,7 @@ texidoc="
 
 You mean like this. (Sorry 'bout the nuked indentation.)
 @end example
-";
+"
 }
 
 #(define  (unhair-pitch p)
@@ -78,6 +79,6 @@ music = \notes \relative c' { c4 d  e f g a b  c }
     \apply #(lambda (x) (smart-transpose x (make-pitch 0 5 1)))
       \music
   }
-  \paper { linewidth = -1.; }
+  \paper { linewidth = -1. }
 }
 

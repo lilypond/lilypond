@@ -1,6 +1,7 @@
+\version "1.3.146"
 \header {
 texidoc = "whole and half rests moving outside the staff should get
-ledger lines";
+ledger lines"
 }
 
 

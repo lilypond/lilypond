@@ -1,3 +1,4 @@
+\version "1.3.146"
 %{
 do a  memory stress test.
 %}
@@ -9,7 +10,7 @@ bla =  \notes {
 \score { \context Score <
 	\bla 	\bla 	\bla 	\bla 	\bla 	\bla 	\bla
 	>
-	\paper { Gourlay_maxmeaures = 2.; }
+	\paper { Gourlay_maxmeaures = 2. }
 }
 
 

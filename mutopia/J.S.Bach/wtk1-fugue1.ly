@@ -1,30 +1,30 @@
 \header{
-title = 	 	 "Fuga a 4";
-opus =            "BWV 846";
-composer = 	 "Johann Sebastian Bach (1685-1750)";
-enteredby = 	 "Shay Rojansky";
+title = 	 	 "Fuga a 4"
+opus =            "BWV 846"
+composer = 	 "Johann Sebastian Bach (1685-1750)"
+enteredby = 	 "Shay Rojansky"
 
 
   % mutopia headers.
-  mutopiatitle = "Das Wohltemperierte Clavier I, Fuga 1 (c-major)";
-  mutopiacomposer = "J.S.Bach";
-  mutopiaopus = "BWV846";
-  style = "baroque";
-  copyright =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
-  maintainer = "hanwen@cs.uu.nl";
-  lastupdated = "1999/Oct/14";
+  mutopiatitle = "Das Wohltemperierte Clavier I, Fuga 1 (c-major)"
+  mutopiacomposer = "J.S.Bach"
+  mutopiaopus = "BWV846"
+  style = "baroque"
+  copyright =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!"
+  maintainer = "hanwen@cs.uu.nl"
+  lastupdated = "1999/Oct/14"
   
 }
 
 %{
 TODO: use autobeaming.	
 %}
-\version "1.3.117";
+\version "1.3.146"
 
 
 tenor = 
 	\context Voice  = tenor  \notes \relative c' {
-	\clef "violin";
+	\clef "violin"
 
 	\stemDown
 	r8 [c8 d e] [f8. g32 f] [e8 a] |
@@ -103,7 +103,7 @@ soprane =
 
 alt = 
 \context Voice = alt	\notes \relative   c {
-	\clef "bass";
+	\clef "bass"
 
 	
 	\stemUp
@@ -143,7 +143,7 @@ alt =
 
 bass = \context Voice = bassvoice
 	\notes \relative c {
-	\clef "bass";
+	\clef "bass"
 
 
 	\stemDown
@@ -185,20 +185,20 @@ bass = \context Voice = bassvoice
 \score {
 	\notes \context PianoStaff < 
 		\context Staff = one {
-		\time 4/4;
+		\time 4/4
 		<
 			\soprane
 			\tenor
-		> \bar "|."; }
+		> \bar "|." }
 		\context Staff = two { <
 			\alt
 			\bass
-		> \bar "|."; }
+		> \bar "|." }
 	> 
 
 	\paper{
-	   linewidth = 18.0 \cm;
+	   linewidth = 18.0 \cm
 	}
 
-	\midi { \tempo 4 = 84; }
+	\midi { \tempo 4 = 84 }
 }

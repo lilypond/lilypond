@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 
 
@@ -6,29 +7,29 @@
 \paper {
 	CueVoiceContext = \translator {
             \VoiceContext
-            \name CueVoice;
+            \name CueVoice
             NoteHead \override #'font-relative-size = #-1
             Stem \override #'font-relative-size = #-1
             Beam \override #'font-relative-size = #-1
             TextScript \override #'font-relative-size = #-1
             Slur \override #'font-relative-size = #-1
             Accidentals \override #'font-relative-size = #-1
-	};
+	}
 	\translator{ \CueVoiceContext }
 	StaffContext = \translator{\StaffContext
-		\accepts "CueVoice";
-	}; 
+		\accepts "CueVoice"
+	} 
 }
 
 \paper {
     StaffContext = \translator{
        \StaffContext
-       \remove "Time_signature_engraver";
-    };
+       \remove "Time_signature_engraver"
+    }
     \translator { \StaffContext }   
     \translator{
       \VoiceContext
-      \remove "Auto_beam_engraver";
+      \remove "Auto_beam_engraver"
      }
      \translator {
          \ScoreContext

@@ -1,7 +1,8 @@
+\version "1.3.146"
 
 \paper{
-	indent=0.;
-	linewidth=188.\mm;
+	indent=0.
+	linewidth=188.\mm
 
 	\translator{
 		\PianoStaffContext

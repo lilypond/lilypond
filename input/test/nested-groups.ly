@@ -1,15 +1,15 @@
 \header{
 texidoc="
 In InnerStaffGroup and InnerChoirStaff, the brackets should be shiftet leftwards.
-";
-filename = 	 "nested-groups.ly";
-description = 	 "Test of nested staff groups and choirstaffs";
-enteredby = 	 "RZ";
-copyright = 	 "public domain";
-Tested = 	 "Nested StaffGroups";
+"
+filename = 	 "nested-groups.ly"
+description = 	 "Test of nested staff groups and choirstaffs"
+enteredby = 	 "RZ"
+copyright = 	 "public domain"
+Tested = 	 "Nested StaffGroups"
 }
 
-\version "1.3.140" % rz1
+\version "1.3.146" % rz1
 
 \score { \notes
 <
@@ -42,5 +42,5 @@ Tested = 	 "Nested StaffGroups";
 
 >
 
- \paper { linewidth = -1; }
+ \paper { linewidth = -1 }
 }

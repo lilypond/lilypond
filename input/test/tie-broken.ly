@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 \score{
 	\notes \relative c''{
@@ -6,13 +7,13 @@
 		c c c c 
 
 		c1~\break
-		\time 8/8; c
+		\time 8/8 c
 		c4 c c c~\break
-		\time 4/4;
+		\time 4/4
 		c c c c 
 	}
 	\paper {
-		linewidth=40.\mm;
-		indent=0.;
+		linewidth=40.\mm
+		indent=0.
 	}
 }

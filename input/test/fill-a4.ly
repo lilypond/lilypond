@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 %
 % test file to get a4 paper really filled,
@@ -9,17 +10,17 @@
 % at a reasonably (small) value.  -- jcn
 %
 \header{
-tagline="Ligly";
+tagline="Ligly"
 }
-\include "paper13.ly";
+\include "paper13.ly"
 \score{
 	\context Voice \notes\relative c'{
-		\clef alto;
+		\clef alto
 		\repeat "unfold" 36 c1
 	}
 	\paper{
 		\paperThirteen
-		indent = 0.0\mm;
+		indent = 0.0\mm
 		% URG
 		% Vertical space is rather precious when typesetting
 		% music.  But we can only set textheight here, and must
@@ -27,9 +28,9 @@ tagline="Ligly";
 		% footers.  If we want a header or footer on some page,
 		% all other pages suffer shortened `textheight'.
 		% Try the maximum for a4, without loosing footers:
-		textheight = 297.0\mm - 7.0\mm;
-		papersize = "a4";
-		linewidth = 15.0\mm;
+		textheight = 297.0\mm - 7.0\mm
+		papersize = "a4"
+		linewidth = 15.0\mm
 		\translator {
 			\StaffContext
 			MinimumVerticalExtent = #(cons 0 0)

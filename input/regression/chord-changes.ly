@@ -1,9 +1,10 @@
+\version "1.3.146"
 
 \header{
 texidoc="property chordChanges: only display chord names when
 there's a change in the chords scheme, but always display the
 chord name after a line break.
-";
+"
 }
 
 scheme = \chords {
@@ -21,6 +22,6 @@ settings = {
     \context Staff \transpose c'' \scheme
   >
   \paper{
-    linewidth = 40 * \staffspace;
+    linewidth = 40 * \staffspace
   }
 }

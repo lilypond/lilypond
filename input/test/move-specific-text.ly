@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 #(define (make-text-checker text)
    (lambda (grob) (equal? text (ly-get-grob-property grob 'text))))
@@ -9,5 +10,5 @@
       #'extra-offset = #'(-3.5 . -4.5)
     a^2^"m.d."
   }
-  \paper { linewidth = -1.; }
+  \paper { linewidth = -1. }
 }

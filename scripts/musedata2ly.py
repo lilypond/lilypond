@@ -77,7 +77,7 @@ class Ref_parser:
 	def dump( self):
 		str = ''
 		for (k,v) in self.dict.items ():
-			str = str +'  %s = "%s";\n' % (k,v)
+			str = str +'  %s = "%s"\n' % (k,v)
 		str = '\\header {\n%s}' % str
 		return str
 	
@@ -102,7 +102,7 @@ def get_key (s):
 	return ''
 
 def get_timesig (s):
-	return '\\time %s;\n' % s
+	return '\\time %s\n' % s
 
 
 divisions = 4

@@ -1,3 +1,4 @@
+\version "1.3.146"
 
 %  german-chords.ly:
 % german/norwegian/danish?

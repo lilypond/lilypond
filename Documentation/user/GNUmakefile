@@ -115,14 +115,27 @@ local-clean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
 	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals
 
-# when cross-compiling, we don't have lilypond
+$(outdir)/lilypond.nexi: $(outdir)/interfaces.itexi
+$(outdir)/lilypond.texi: $(outdir)/interfaces.itexi
+
+# Rules for the automatically generated documentation
+# When cross-compiling, we don't have lilypond, so we fake
 ifneq ($(CROSS),yes)
-$(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi:
+dummy:
+$(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: dummy
 	cd $(outdir) && ../$(depth)/$(builddir)/lily/$(outconfbase)/lilypond ../$(src-depth)/ly/generate-documentation
 	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
+
+$(outdir)/interfaces.itexi: dummy
+	cd $(outdir) && ../$(depth)/$(builddir)/lily/$(outconfbase)/lilypond ../$(src-depth)/ly/generate-interface-doc
+
 else
+
 $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi:
 	touch $@
 	touch $(outdir)/$(*F).nexi
+
+$(outdir)/interfaces.itexi:
+	cp dummy-interfaces.itexi $@
 endif
 

@@ -1,4 +1,3 @@
-
 /*   
   lyric-number-engraver.cc --  implement Stanza_number_engraver
   
@@ -41,26 +40,34 @@ Stanza_number_engraver::Stanza_number_engraver ()
 void
 Stanza_number_engraver::acknowledge_grob (Grob_info i)
 {
-  SCM s = get_property ("stanza");
-      
-  if (now_mom () > Moment (0))
-    s = get_property ("stz");
-  
-  if (gh_string_p (s))
+  if (gh_string_p (get_property ("whichBar")))
     {
-//       if (i.elem_l_->has_interface (symbol ("lyric-syllable-interface")))
-        // Tried catching lyric items to generate stanza numbers, but it spoils lyric spacing.
-       if (Bar::has_interface (i.elem_l_) || now_mom () == Moment (0))
-	// Works, but requires bar_engraver in LyricsVoice context apart from at beginning.
-	// Is there any score element we can catch that will do the trick?
-//       if (! i.elem_l_->has_interface (symbol ("lyric-syllable-interface")) ||
-// 	  now_mom () == Moment (0))
-	// What happens if we try anything at all EXCEPT a lyric? Is there anything else?
-        // Not sure what it's catching, but it still mucks up lyrics.
+      SCM s = get_property ("stanza");
+      
+      if (now_mom () > Moment (0))
+	s = get_property ("stz");
+  
+      if (gh_string_p (s))
+
+	/*
+	  if (i.elem_l_->has_interface (symbol ("lyric-syllable-interface")))
+
+	  Tried catching lyric items to generate stanza numbers, but it
+	  spoils lyric spacing.
+
+	  Works, but requires bar_engraver in LyricsVoice context apart
+	  from at beginning.  Is there any score element we can catch
+	  that will do the trick?
+
+	  What happens if we try anything at all EXCEPT a lyric? Is
+	  there anything else?  Not sure what it's catching, but it
+	  still mucks up lyrics.
+
+	*/
+
 	create_text (s);
     }
 }
-
 
 void
 Stanza_number_engraver::stop_translation_timestep ()

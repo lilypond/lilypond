@@ -546,13 +546,18 @@ fet_beginchar("Crossed notehead", "2cross", "crossedhead")
 fet_endchar;
 
 fet_beginchar("X-Circled notehead", "2xcircle", "xcircledhead")
-	set_char_box(0, noteheight#+stafflinethickness#,
-	  noteheight#/2+stafflinethickness#/2,noteheight#/2+stafflinethickness#/2);
-	pickup pencircle scaled 1.2stafflinethickness;
-	draw fullcircle scaled 2h shifted (h,0);
-	pos := h/sqrt2;
-	draw (-pos+h,-pos) -- (pos+h,pos);
-	draw (-pos+h,pos) -- (pos+h,-pos);
+	wid# := black_notehead_width#;
+	hei# := noteheight#+stafflinethickness#;
+	set_char_box(0, wid#,hei#/2,hei#/2);
+	cthick := 1.2stafflinethickness;
+	cxr := w/2-cthick/2;
+	cyr := h-cthick/2;
+	pickup pencircle scaled cthick;
+	draw fullcircle xscaled 2cxr yscaled 2cyr shifted (w/2,0);
+	xpos := cxr/sqrt2;
+	ypos := cyr/sqrt2;
+	draw (-xpos+w/2,-ypos) -- (xpos+w/2,ypos);
+	draw (-xpos+w/2,ypos) -- (xpos+w/2,-ypos);
 fet_endchar;
 
 fet_endgroup("noteheads");

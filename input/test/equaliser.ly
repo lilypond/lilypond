@@ -1,3 +1,4 @@
+\version "1.3.146"
 %
 % TODO: junkme.
 %
@@ -109,7 +110,7 @@ violoncello = \notes \relative c' {
     \context StaffGroup ="timpani" <
       \context Staff ="timpani" \timpani
      { 
-       \skip 1; 
+       \skip 1 
        % Hmm: this forces a staff-bracket, that's good!
        % However, I can't find where is decided on staff-bracket yes/no
      }
@@ -124,24 +125,24 @@ violoncello = \notes \relative c' {
     >
   >
  \header{
-		title = "Coriolan";
-		subtitle = "Ouverture"; 
-		opus = "Opus 62";
-		composer = "Ludwig van Beethoven (1770-1827)";
-		enteredby = "JCN";
-		copyright = "public domain";
+		title = "Coriolan"
+		subtitle = "Ouverture" 
+		opus = "Opus 62"
+		composer = "Ludwig van Beethoven (1770-1827)"
+		enteredby = "JCN"
+		copyright = "public domain"
 	}
 
   \paper {
   	\paperSixteen
-  	indent=100.0\mm;
-  	linewidth=150.0\mm;
+  	indent=100.0\mm
+  	linewidth=150.0\mm
     \translator {
       \HaraKiriStaffContext
     }
   }
   \midi {
-  	\tempo 1 = 60;
+  	\tempo 1 = 60
   }
 }
 

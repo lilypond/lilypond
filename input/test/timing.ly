@@ -1,10 +1,11 @@
+\version "1.3.146"
 
 \score { 
   \context Voice \notes\relative c {
     
 	
 	% \property Score. measurePosition = #(make-moment -1 4)
-	\partial 4;
+	\partial 4
 	c''4 c4 c4 c2 c1
 	\cadenzaOn [c8 d e f] [g a b c b c b c]
 	\cadenzaOff

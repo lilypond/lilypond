@@ -1,21 +1,21 @@
 \header{
-title = 	 "Preludium";
-opus = 	 "BWV 846";
-composer = 	 "Johann Sebastian Bach (1685-1750)";
-enteredby = 	 "Shay Rojansky";
+title = 	 "Preludium"
+opus = 	 "BWV 846"
+composer = 	 "Johann Sebastian Bach (1685-1750)"
+enteredby = 	 "Shay Rojansky"
 
 
   % mutopia headers.
-  mutopiatitle = "Das Wohltemperierte Clavier I, Prelude 1 (c-major)";
-  mutopiacomposer = "J.S.Bach";
-  mutopiaopus = "BWV846";
-  style = "baroque";
-  copyright =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
-  maintainer = "hanwen@cs.uu.nl";
-  lastupdated = "1999/Oct/14";
+  mutopiatitle = "Das Wohltemperierte Clavier I, Prelude 1 (c-major)"
+  mutopiacomposer = "J.S.Bach"
+  mutopiaopus = "BWV846"
+  style = "baroque"
+  copyright =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!"
+  maintainer = "hanwen@cs.uu.nl"
+  lastupdated = "1999/Oct/14"
 }
 
-\version "1.3.117";
+\version "1.3.146"
 
 % should do programmable input.
 soprane = 
@@ -23,8 +23,8 @@ soprane =
 	\context Staff <
 	% Real soprane
 	\context Voice = uVoice {
-	\time 4/4;
-        \clef "violin";
+	\time 4/4
+        \clef "violin"
 
 	\stemUp
 	r8 [g16 c'] [e' g c' e'] r8 [g16 c'] [e' g c' e'] |
@@ -76,12 +76,12 @@ soprane =
 
 	r8 [f,16 a,] [c f c a,] [c a, f, a,] [f, d, f, d,] |
 	r8 [g16 b] [d' f' d' b] [d' b g b] [d f e d] |
-	<e1 g c'> \bar "|.";
+	<e1 g c'> \bar "|."
     }
 
 bass = 
     \notes {
-        \clef "bass";
+        \clef "bass"
 
 
 	\stemDown
@@ -158,7 +158,7 @@ bass =
 	
 	c, c, |
 	c, c, |
-	c,1 \bar "|."; }>
+	c,1 \bar "|." }>
     }
 
         
@@ -168,7 +168,7 @@ bass =
         \bass
     >
     \midi {
-        \tempo 4 = 80;
+        \tempo 4 = 80
     }
 }
 

@@ -6,11 +6,14 @@
 
 
 import find
+import fnmatch
 import sys
 import os
+import re
 import string
 import getopt
 import pipes
+
 topdir = ''
 def gulp_file(f):
 	try:
@@ -90,12 +93,14 @@ def remove_automatic (dirnames):
 			cleanup ()
 			sys.exit (1)
 
-	dirs = map (lambda d: find.find ('out', d), dirnames)
+	dirs = map (lambda d: find.find ('out*', d), dirnames)
 	dirs = reduce (lambda x,y:  x + y, dirs)
 	
-	print dirs 
+	#print dirs
+
 	for d in dirs:
-		files = files + find.find ('*', d)
+		if os.path.isdir (d):
+			files = files + find.find ('*', d)
 		
 	for f in files:
 		try:

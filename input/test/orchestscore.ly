@@ -1,5 +1,6 @@
+\version "1.3.146"
 \header{
-  latexpackages="graphicx";
+  latexpackages="graphicx"
 }
 
 
@@ -96,9 +97,9 @@ c1 | c2 c | c c | R1*5
   >
 >
  \paper {
-%    \paperSixteen;
-    linewidth = 185.\mm;
-    textheight = 260.\mm;
+%    \paperSixteen
+    linewidth = 185.\mm
+    textheight = 260.\mm
     \translator {
       \OrchestralScoreContext
       skipBars = ##t 

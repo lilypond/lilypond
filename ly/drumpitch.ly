@@ -1,7 +1,7 @@
 % GM drum pitches.
 % I use different accidentals to distinguish drums at the same GM pitch.
 % Always accidental 0 (white keys) or 1 (black keys) to get the "correct" gm name.
-% i.e. fis, for closed highat ; ges, for highat.
+% i.e. fis, for closed highat  ges, for highat.
 
 % 2001/03/25 Rune Zedeler <rune@zedeler.dk>
 
@@ -64,7 +64,7 @@
 	(mutetriangle	  trim	,(make-pitch 1 4 1))
 	(triangle	  tri	,(make-pitch 1 4 2))
 	(opentriangle	  trio	,(make-pitch 1 5 0))
-	; "transposing" pitches:
+	 "transposing" pitches:
 	(oneup		  ua	,(make-pitch 0 1 0))
 	(twoup		  ub	,(make-pitch 0 2 0))
 	(threeup	  uc	,(make-pitch 0 3 0))
@@ -151,4 +151,4 @@
  )
 
 
-\version "1.3.142";
+\version "1.3.146"

@@ -1,9 +1,10 @@
+\version "1.3.146"
 
 \header{
 texidoc="
 Breaks can be encouraged and discouraged using @code{\break} and
 @code{\noBreak}.  They are abbrevs for @code{\penalty} commands.
-";
+"
 }
 
 
@@ -14,5 +15,5 @@ Breaks can be encouraged and discouraged using @code{\break} and
 	  
 	  c1^"break after this" \break c1 c1 
 	}
-	\paper { linewidth = 4.0\cm;}
+	\paper { linewidth = 4.0\cm}
 }

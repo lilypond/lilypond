@@ -1,7 +1,8 @@
+\version "1.3.146"
 
 \score { 
   \context Voice \notes\relative c {
-    \time 4/4;
+    \time 4/4
 	g''1 a2 b4. c8
 	
   }

@@ -115,6 +115,7 @@ read from the @code{\paper} block, if set.
 
 @subsection Environment variables
 
+@table @code
 @item LANG
 selects the language for the warning messages of Ly2dvi and LilyPond.
 @end table

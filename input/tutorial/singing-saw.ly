@@ -20,7 +20,7 @@ piano = \context PianoStaff  \notes <
      s1*2
      \accomp
    >
-  \context Staff = down { \clef bass; s1*2 }
+  \context Staff = down { \clef bass s1*2 }
 >
 
 saw = \context Staff \notes  {
