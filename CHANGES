@@ -1,11 +1,11 @@
-1.4.2.jcn2
+1.4.2.jcn3
 ==========
 
 * Windows: bugfix for tex-wrappers, added tex wrapper for dvips.
 LilyPond (read: ly2dvi) should now work right out of the box.
 
 Amazing; it seems that ly2dvi won't generate PK files without this
-dvips wrapper.  We had over 150 downloads of setup.exe, yet only one
+dvips wrapper.  We had over 200 downloads of setup.exe, yet only one
 `call for help'.  Did all the others give up, or did none of them
 bother to share their fix/file a bug report?  Urg.
 
