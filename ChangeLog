@@ -1,5 +1,9 @@
 2002-04-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/index.texi: add PDF links.
+
+	* Documentation/user/GNUmakefile (PDF_FILES): add PDF files to website.
+
 	* lily/system-start-delimiter-engraver.cc (acknowledge_grob):
 	compare #'glyph as strings. 
 

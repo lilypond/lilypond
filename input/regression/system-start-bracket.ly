@@ -14,4 +14,4 @@ The piano brace should be shifted horizontally if it  is enclosed in a bracket.
 	    e4
 	   >
     >
-    }}
+    }\paper {linewidth = -1. }}

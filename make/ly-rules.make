@@ -47,3 +47,8 @@ $(outdir)/%.tex: $(outdir)/%.ly
 $(outdir)/%-book.ps: $(outdir)/%.ps
 	psbook $< $<.tmp
 	pstops  '2:0L@.7(21cm,0)+1L@.7(21cm,14.85cm)' $<.tmp $@
+
+$(outdir)/%.pdf: $(outdir)/%.dvi
+	dvips -u lilypond.map -o $@.pdfps  -Ppdf $<
+	ps2pdf $@.pdfps $@
+
