@@ -82,6 +82,7 @@ def
         bind def
         /draw_cresc
         {
+                staffrulethickness setlinewidth
                 /cresc_cont exch def
                 /cresc_ht exch def
                 /cresc_wd exch def
@@ -118,14 +119,14 @@ def
 		stroke
         }
         bind def
- staffheight 2 div
- /slurhtlimit exch def
+ staffheight 2 div /slurhtlimit exch def
  /slurratio 0.3333 def
  %
  %  (b*ratio)/(1 + b / htlimit)
  /getslurcontrol 
  { 
-        slurhtlimit 90 div /slur_alpha exch def
+ 	slurhtlimit add /slurheight exch def
+        slurheight 90 div /slur_alpha exch def
         slurratio 60 div slur_alpha div  /slur_beta  exch def
         slur_beta mul 1 atan slur_alpha mul
  } bind def
@@ -135,12 +136,13 @@ def
         staffrulethickness setlinewidth
         0 0 moveto
         /slur_dir exch def
+        /slur_height exch def
         /slur_dy exch def
         /slur_dx exch def
         slur_dy slur_dx lily_distance /slur_b  exch def
-        slur_b getslurcontrol 
+        slur_b slur_height getslurcontrol 
         slur_dir mul /slur_ht exch def
-        slur_b getslurcontrol /slur_indent exch def       
+        slur_b slur_height getslurcontrol /slur_indent exch def       
 %
         slur_dy slur_dx atan rotate
         slur_indent slur_ht

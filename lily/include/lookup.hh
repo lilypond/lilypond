@@ -50,10 +50,10 @@ struct Lookup {
   Atom bar (String, Real height) const;
     
   Atom dots () const;
-  Atom slur (Real &dy, Real &dx, Direction dir) const;
+  Atom slur (Real &dy, Real &dx, Real ht, Direction dir) const;
   Atom plet (Real &dy, Real &dx, Direction dir) const;
   Atom tex_slur (int dy, Real &dx, Direction dir) const;
-  Atom ps_slur (Real dy, Real dx, Real dir) const;
+  Atom ps_slur (Real dy, Real dx, Real ht, Real dir) const;
   Atom half_slur (int dy, Real &dx, Direction dir, int xpart) const;
   Atom half_slur_middlepart (Real &dx, Direction dir) const;
   Atom big_slur (int dy, Real &dx, Direction dir) const;

@@ -10,7 +10,7 @@
 #ifndef SCRIPT_COLUMN_HH
 #define SCRIPT_COLUMN_HH
 
-#include "elem-group-item.hh"
+#include "horizontal-vertical-group-item.hh"
 
 /** a struct for treating a group of noteheads (noteheads, stem
   (chord) and scripts) as a single entity.  */

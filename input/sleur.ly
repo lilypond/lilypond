@@ -30,12 +30,29 @@ beum = \melodic{
 	[c8 c] c4 c4 c4 |
 }
 
+extend = {
+	  c8(( c c )c c c c )c |
+	  \[4/5c8( c c' c )c\]1/1 c c c c |
+	  \[4/5c8( c c c c'\]1/1 c c c )c |
+	  \[4/5c8( c c c c''\]1/1 c c c )c' |
+	  \[4/5c8( c c c c'\]1/1 c c c )'c |
+	  \[4/5c8( c c' c c\]1/1 c c c )c |
+	  \[4/5c8( c c c ''c\]1/1 c c c )c |
+	  \[4/5c8( c ''c c c\]1/1 c c c )c |
+}
+
 \score{
 	\melodic{ 
 		\shortlong
 		\dirs
 		\complex
 		\beum
+		\stemup; 
+		\octave c''; 
+		\extend
+		\stemdown; 
+		\octave c'; 
+		\extend
 	}
 	\paper{ }
 }

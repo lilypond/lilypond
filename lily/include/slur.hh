@@ -25,6 +25,7 @@ protected:
   virtual void do_add_processing ();
   virtual void do_pre_processing ();
   virtual void do_substitute_dependency (Score_elem*, Score_elem*);
+  virtual Real height_f () const;
 
   SCORE_ELEM_CLONE(Slur);
   DECLARE_MY_RUNTIME_TYPEINFO;
