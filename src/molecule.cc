@@ -82,7 +82,7 @@ Molecule::add_right(const Molecule &m)
 	add(m);
 	return;
     }
-   Real xof=extent().x.max - m.extent().x.min;
+   Real xof=extent().x.right - m.extent().x.left;
     Molecule toadd(m);
     toadd.translate(Offset(xof, 0.0));
     add(toadd);
@@ -95,7 +95,7 @@ Molecule::add_left(const Molecule &m)
 	add(m);
 	return;
     }
-    Real xof=extent().x.min - m.extent().x.max;
+    Real xof=extent().x.left - m.extent().x.right;
     Molecule toadd(m);
     toadd.translate(Offset(xof, 0.0));
     add(toadd);
@@ -109,7 +109,7 @@ Molecule::add_top(const Molecule &m)
 	add(m);
 	return;
     }
-  Real yof=extent().y.max - m.extent().y.min;
+  Real yof=extent().y.right - m.extent().y.left;
     Molecule toadd(m);
     toadd.translate(Offset(0,yof));
     add(toadd);
@@ -122,7 +122,7 @@ Molecule::add_bottom(const Molecule &m)
 	add(m);
 	return;
     }
-    Real yof=extent().y.min- m.extent().y.max;
+    Real yof=extent().y.left- m.extent().y.right;
     Molecule toadd(m);
     toadd.translate(Offset(0,yof));
     add(toadd);

@@ -13,7 +13,7 @@ make_vbox(Interval i)
 {    
     String s("\\vbox to ");
     s += print_dimen(i.length());
-    s += "{\\vskip "+print_dimen(i.max)+" ";
+    s += "{\\vskip "+print_dimen(i.right)+" ";
     return s;
 }
 
@@ -68,8 +68,8 @@ Line_of_staff::Line_of_staff(Line_of_score * sc, PStaff*st)
     
     for (PCursor<const Spanner*> sp(pstaff_->spans); sp.ok(); sp++) {
 
-	PCol *brokenstart = &MAX(*linestart, *sp->left);
-	PCol *brokenstop = &MIN(*linestop, *sp->right);
+	PCol *brokenstart = &max(*linestart, *sp->left);
+	PCol *brokenstop = &min(*linestop, *sp->right);
 	if ( *brokenstart < *brokenstop) {
 	    line_of_score_->pscore_-> // higghl
 		add_broken(sp->broken_at(brokenstart,brokenstop));
