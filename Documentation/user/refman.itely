@@ -185,7 +185,7 @@ can be forced by adding an exclamation mark @code{!}
 after the pitch.  A cautionary accidental
 @cindex cautionary accidental
 @cindex parenthesized accidental
-(an accidental within parentheses) can be obtained by adding the
+(i.e. an accidental within parentheses) can be obtained by adding the
 question mark `@code{?}' after the pitch:
 
 @lilypond[fragment,verbatim]
@@ -400,7 +400,7 @@ notating exactly the same concept:
 \time 3/4 c'2. c'2 ~ c'4
 @end lilypond
 If you need to tie a lot of  notes over bars, it may be easier to use automatic
-note splitting (See @ref{Automatic note splitting}).
+note splitting (see @ref{Automatic note splitting}).
 
 @refcommands
 
@@ -1441,7 +1441,7 @@ Here, @var{BE} is the symbol @code{begin} or @code{end}. It determines
 whether the rule applies to begin or end-points.  The quantity
 @var{P}/@var{Q} refers to the length of the beamed notes (and `@code{*
 *}' designates notes of any length), @var{N}/@var{M} refers to a time
-signature (wildcards, `@code{* *}' may be entered to designate all time
+signature (wildcards `@code{* *}' may be entered to designate all time
 signatures).
 
 For example, if automatic beams should end on every quarter note, use
@@ -1461,7 +1461,7 @@ example, automatic beams can only end on a dotted quarter note:
 @end example
 In 4/4 time signature, this means that automatic beams could end only on
 3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
-3/8 has passed within the measure).
+3/8, has passed within the measure).
 
 Rules can also be restricted to specific time signatures. A rule that
 should only be applied in @var{N}/@var{M} time signature is formed by
@@ -2130,7 +2130,7 @@ For finger changes, use markup texts:
 @cindex subscript
 
 You can use the thumb-script to indicate that a note should be
-played with the thumb. (used in cello music):
+played with the thumb (e.g. in cello music):
 
 @lilypond[verbatim, singleline, fragment]
       <a' a''-3>8(_\thumb <b' b''-3>)_\thumb
@@ -2790,7 +2790,7 @@ the full name or the abbreviation may be used in input files.
 
 To typeset the music on a staff apply the function @code{drums->paper}
 to the percussion music. This function takes a list of percussion
-instrument names, notehead scripts and staff positions (that is:
+instrument names, notehead scripts and staff positions (i.e.
 pitches relative to the C-clef) and transforms the input
 music by moving the pitch, changing the notehead and (optionally)
 adding a script:
@@ -3510,7 +3510,7 @@ an unslurred group of notes to be a melisma, then insert
 @end lilypond
 
 In addition, notes are considered a melisma if they are manually
-beamed, and automatic beaming (See @ref{Setting automatic beam
+beamed, and automatic beaming (see @ref{Setting automatic beam
 behavior}) is switched off.  The criteria for deciding melismata
 can be tuned with the property @code{melismaBusyProperties}. See
 @internalsref{Melisma_engraver} for more information.
@@ -8446,7 +8446,7 @@ stretchable distances (``springs'') of differing lengths. Longer
 durations get more space, shorter durations get less.  The shortest
 durations get a fixed amount of space (which is controlled by
 @code{shortest-duration-space} in the @internalsref{SpacingSpanner} object). 
-/The longer the duration, the more space it gets: doubling a
+The longer the duration, the more space it gets: doubling a
 duration adds a fixed amount (this amount is controlled by
 @code{spacing-increment}) of space to the note.
 
@@ -8459,7 +8459,7 @@ c8 c4 c4 c4
 
 Normally, @code{shortest-duration-space} is set to 1.2, which is the
 width of a note head, and @code{shortest-duration-space} is set to
-2.0, meaning that the shortest note gets 2 NHW (2 times
+2.0, meaning that the shortest note gets 2 NHW (i.e. 2 times
 @code{shortest-duration-space}) of space. For normal notes, this space
 is always counted from the left edge of the symbol, so the shortest
 notes are generally followed by one NHW of space.

@@ -1,3 +1,10 @@
+2004-01-26  Heikki Junes <hjunes@cc.hut.fi>
+
+	* Documentation/user/{introduction.itely,refman.itely,
+	converters.itely}: fix some text inside parentheses; text should
+	be readable (even) if parentheses are either replaced with commas 
+	or dropped out.
+
 2004-01-25  Werner Lemberg  <wl@gnu.org>
 
 	* buildscripts/lilypond.words.py, input/puer-fragment.ly,

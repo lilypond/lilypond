@@ -267,7 +267,7 @@ distribution. pmx2ly cannot parse more recent PMX files.
 @cindex Musedata
 @cindex CCARH
 
-Musedata (@uref{http://www.musedata.org/}) is an electronic library of
+Musedata (see @uref{http://www.musedata.org/}) is an electronic library of
 classical music scores, currently comprising about 800 composition
 dating from 1700 to 1825.  The music is encoded in so-called Musedata
 format.  musedata2ly converts a set of musedata files to one .ly file,

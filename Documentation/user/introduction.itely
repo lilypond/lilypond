@@ -39,7 +39,7 @@ placing symbols such that the result looks pleasing.
 
 Common music notation is a system of recording music that has evolved
 over the past 1000 years. The form that is now in common use, dates
-from the early renaissance. Although, the basic form (note heads on a
+from the early renaissance. Although, the basic form (i.e. note heads on a
 5-line staff) has not changed, the details still change to express the
 innovations of contemporary notation.  Hence, it encompasses some 500
 years of music. Its applications range from monophonic melodies to
@@ -171,7 +171,7 @@ And the @code{Stem_engraver} adds stems:
 @end lilypond
 
 The @code{Stem_engraver} is notified of any note head coming along.
-Every time one (or more, for a chord) note heads is seen, a stem
+Every time one (or more, for a chord) note head(s) is seen, a stem
 object is created, and attached to the note head.
 
 By adding engravers for beams, slurs, accents, accidentals, bar lines,
