@@ -1,3 +1,8 @@
+2004-08-29  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* lily/context-scheme.cc (LY_DEFINE): ly:context-grob-definition
+	takes two arguments.
+
 2004-08-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* input/regression/slur-stem-broken.ly: remove.
@@ -42,6 +47,7 @@
 	* lily/slur-quanting.cc (get_bezier): new functionality, blow up
 	slur depending on extents of note heads.
 	
+>>>>>>> 1.2519
 2004-08-28  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/tutorial.itely: minor editing.

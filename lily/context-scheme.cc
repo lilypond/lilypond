@@ -34,7 +34,7 @@ LY_DEFINE (ly_context_name, "ly:context-name",
 }
 
 LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
-	   1, 0, 0, (SCM context, SCM name),
+	   2, 0, 0, (SCM context, SCM name),
 	   "Return the definition of @var{name} (a symbol) within @var{context} "
 	   "as an alist")
 {
