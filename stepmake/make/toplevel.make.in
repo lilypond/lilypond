@@ -1,0 +1,33 @@
+# -*-Makefile-*-
+# title	 specific top level makefile for StepMake
+
+# subdir level:
+#
+depth = .
+#
+
+# descent order into subdirectories:
+#
+SUBDIRS = bin make stepmake Documentation
+#
+
+# bootstrap stepmake:
+#
+#
+
+# list of distribution files:
+#
+SCRIPTS = configure aclocal.m4
+README_FILES = NEWS README TODO
+README_TXT_FILES = AUTHORS.txt INSTALL.txt
+EXTRA_DIST_FILES = $(IN_FILES) VERSION $(README_FILES)  $(SCRIPTS) 
+NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
+
+#
+
+# bootstrap stepmake:
+#
+STEPMAKE_TEMPLATES=toplevel
+include $(depth)/make/stepmake.make 
+#
+
