@@ -16,7 +16,6 @@ sequencers and XML converters. Refer to the
 * Invoking midi2ly::            Importing MIDI.
 * Invoking etf2ly::             Importing Finale.
 * Invoking abc2ly::             Importing ABC.          
-* Invoking pmx2ly::             Importing PMX.
 * Invoking musedata2ly::        Importing Musedata.
 * Invoking mup2ly::             Importing MUP. 
 @end menu
@@ -222,44 +221,6 @@ ABC synchronizes words and notes at the beginning of a line; abc2ly does
 not.
 
 abc2ly ignores the ABC beaming.
-
-@node Invoking pmx2ly
-@section Invoking pmx2ly
-
-PMX is a MusiXTeX preprocessor written by Don Simons. More information
-on PMX is available from the following site:
-
-@quotation
-@uref{http://icking-music-archive.org/Misc/Music/musixtex/software/pmx/}.
-@end quotation
-
-@cindex PMX
-@cindex MusiXTeX
-@cindex Simons, Don
-pmx2ly converts from PMX to LilyPond input. The program is invoked as
-follows:
-
-@example
-        pmx2ly [@var{option}]@dots{} @var{pmx-file}
-@end example
-
-The following options are supported by pmx2ly:
-
-@table @code
-@item   -h,--help
-this help
-@item  -o,--output=FILE
-set output filename to FILE
-@item  -v,--version
-version information
-@end table
-
-@refbugs
-
-This script was updated last in September 2000, and then successfully
-converted the @file{barsant.pmx} example from the PMX
-distribution. pmx2ly cannot parse more recent PMX files.
-
 
 @node Invoking musedata2ly
 @section Invoking musedata2ly

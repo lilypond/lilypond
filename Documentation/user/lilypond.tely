@@ -22,7 +22,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 * midi2ly: (./lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
 * etf2ly: (./lilypond/lilypond)Invoking etf2ly.          Importing Finale.
 * abc2ly: (./lilypond/lilypond)Invoking abc2ly.          Importing ABC.          
-* pmx2ly: (./lilypond/lilypond)Invoking pmx2ly.          Importing PMX.
 * musedata2ly: (./lilypond/lilypond)Invoking musedata2ly.        Importing MuseData.
 * mup2ly: (./lilypond/lilypond)Invoking mup2ly.          Importing Mup. 
 @end direntry
