@@ -119,7 +119,7 @@ GNU LilyPond does use a lot of resources. For operation you need the
 following software:
 
 @itemize @bullet
-@item @uref{http://lilypond.org/download/fonts,ec-fonts-mftraced}
+@item @uref{http://lilypond.org/download/fonts,ec-fonts-mftraced}  (version 1.0.5 or newer).
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version 1.6.0 or newer).
 @item @uref{http://www.python.org,Python} (version 2.1 or newer).
 @item @TeX{}.

@@ -217,7 +217,7 @@ Music::internal_set_property (SCM s, SCM v)
     if (!type_check_assignment (s, v, ly_symbol2scm ("music-type?")))
       abort ();
 
-  mutable_property_alist_ =  scm_assq_set_x (mutable_property_alist_, s, v);
+  mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
 }
 
 void
