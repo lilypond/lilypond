@@ -8,6 +8,12 @@
 
 2002-05-19  Han-Wen  <hanwen@cs.uu.nl>
 
+	* input/tutorial/sammartini.ly: fix and document autochange
+	weirdness.
+
+	* scm/pdftex.scm: resurrect PDFTeX output. Still doesn't work, but
+	does produce .pdftex files.
+
 	* lily/note-collision.cc (check_meshing_chords): move file from
 	collision.cc, implement merged note heads (there you go, Drarn :-)
 

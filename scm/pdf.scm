@@ -229,9 +229,18 @@
 (define (define-origin a b c ) "")
 (define (no-origin) "")
 
+(define my-eval-in-module eval)
 
-(define (scm-pdf-output)
-  (primitive-eval (pdf-scm 'all-definitions)))
+(if (or (equal? (minor-version) "4")
+	(equal? (minor-version) "3.4"))
+    (begin
+      (set! my-eval-in-module eval-in-module)
+
+    ))
+
+(define-public (pdf-output-expression expr port)
+  (display (my-eval-in-module expr this-module) port) )
+
 
 ; Local Variables:
 ; scheme-program-name: "guile"
