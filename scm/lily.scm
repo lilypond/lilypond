@@ -341,7 +341,7 @@
       (if security-paranoia
 	  (if use-regex
 	      (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
-	      (begin (display "warning: not paranoid") s))
+	      (begin (display "warning: not paranoid") (newline) s))
 	  s))
       
   (define (lily-def key val)

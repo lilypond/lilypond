@@ -1,3 +1,5 @@
+dnl WARNING WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -157,10 +159,26 @@ AC_DEFUN(AC_STEPMAKE_GXX, [
 ])
 
 AC_DEFUN(AC_STEPMAKE_GUILE, [
-    GUILE_FLAGS
-    if guile-config --version 2>&1 | grep -q 'version 1\.[012]'; then
-       AC_STEPMAKE_WARN(Guile version 1.3 or better needed)
+    ## First, let's just see if we can find Guile at all.
+    AC_MSG_CHECKING("for guile-config")
+    for guile_config in guile-config $build-guile-config; do
+	AC_MSG_RESULT("$guile_config")
+	if ! $guile_config --version > /dev/null 2>&1 ; then
+	    AC_MSG_WARN("cannot execute $guile_config")
+	    AC_MSG_CHECKING("if we are cross compiling")
+	    guile_config=error
+	else
+	    break
+	fi
+    done
+    if test "$guile_config" = "error"; then
+	AC_MSG_ERROR("cannot find guile-config; is Guile installed?")
+	exit 1
     fi
+    if $guile_config --version 2>&1 | grep -q 'version 1\.[012]'; then
+        AC_STEPMAKE_WARN(Guile version 1.3 or better needed)
+    fi
+    GUILE_FLAGS
     AC_PATH_PROG(GUILE, guile, error)
     AC_SUBST(GUILE)
 ])
@@ -761,12 +779,12 @@ dnl             find the libraries.
 
 AC_DEFUN([GUILE_FLAGS],[
 ## The GUILE_FLAGS macro.
-  ## First, let's just see if we can find Guile at all.
   AC_MSG_CHECKING(for Guile)
-  guile-config link > /dev/null || {
-    echo "configure: cannot find guile-config; is Guile installed?" 1>&2
-    exit 1
-  }
+  if ! $guile_config link > /dev/null ; then
+      AC_MSG_RESULT("cannot execute $guile_config")
+      AC_MSG_ERROR("cannot find guile-config; is Guile installed?")
+      exit 1
+  fi
   GUILE_CFLAGS="`guile-config compile`"
   GUILE_LDFLAGS="`guile-config link`"
   AC_SUBST(GUILE_CFLAGS)

@@ -1,6 +1,28 @@
+diff -urN ../guile-1.3.4/ChangeLog ./ChangeLog
+--- ../guile-1.3.4/ChangeLog	Sat Sep 25 19:26:50 1999
++++ ./ChangeLog	Fri Mar 24 10:47:12 2000
+@@ -1,3 +1,18 @@
++2000-03-24    <janneke@gnu.org>
++
++	* guile-config/cross-guile-config.in: Simple shell script to
++	take over guile-config's functionality for cross-compilation.
++	It will be installed as ${build}-guile-config.
++
++	* guile-config/Makefile.am: Provide for cross-guile-config.in
++	and its targets.
++
++2000-03-23    <janneke@gnu.org>
++
++	* configure.in: Added options to enable cross-compilation:
++	--enable-sizeof-int, --enable-sizeof-long,
++	--enable-restartable-syscalls.
++
+ 1999-09-25  Jim Blandy  <jimb@savonarola.red-bean.com>
+ 
+ 	* Guile 1.3.4 released.
 diff -urN ../guile-1.3.4/Makefile.in ./Makefile.in
 --- ../guile-1.3.4/Makefile.in	Sat Sep 25 19:37:14 1999
-+++ ./Makefile.in	Sun Mar 12 17:47:30 2000
++++ ./Makefile.in	Fri Mar 24 10:47:25 2000
 @@ -1,4 +1,4 @@
 -# Makefile.in generated automatically by automake 1.4 from Makefile.am
 +# Makefile.in generated automatically by automake 1.4a from Makefile.am
@@ -148,7 +170,7 @@ diff -urN ../guile-1.3.4/Makefile.in ./Makefile.in
  all-recursive check-recursive installcheck-recursive info-recursive \
 diff -urN ../guile-1.3.4/configure ./configure
 --- ../guile-1.3.4/configure	Sat Sep 25 16:50:16 1999
-+++ ./configure	Tue Mar 21 12:05:28 2000
++++ ./configure	Fri Mar 24 10:47:28 2000
 @@ -19,6 +19,12 @@
  ac_help="$ac_help
    --enable-guile-debug    Include internal debugging functions"
@@ -2071,7 +2093,7 @@ diff -urN ../guile-1.3.4/configure ./configure
  else
 diff -urN ../guile-1.3.4/configure.in ./configure.in
 --- ../guile-1.3.4/configure.in	Wed Sep 22 21:58:39 1999
-+++ ./configure.in	Tue Mar 21 12:05:24 2000
++++ ./configure.in	Fri Mar 24 01:48:26 2000
 @@ -50,6 +50,21 @@
      AC_DEFINE(GUILE_DEBUG)
    fi)
@@ -2133,7 +2155,7 @@ diff -urN ../guile-1.3.4/configure.in ./configure.in
      [AC_TRY_RUN([main () { exit (sizeof(float) > sizeof(long)); }],
 diff -urN ../guile-1.3.4/doc/Makefile.in ./doc/Makefile.in
 --- ../guile-1.3.4/doc/Makefile.in	Sat Sep 25 19:37:35 1999
-+++ ./doc/Makefile.in	Sun Mar 12 17:47:31 2000
++++ ./doc/Makefile.in	Fri Mar 24 10:47:26 2000
 @@ -1,4 +1,4 @@
 -# Makefile.in generated automatically by automake 1.4 from Makefile.am
 +# Makefile.in generated automatically by automake 1.4a from Makefile.am
@@ -2199,7 +2221,7 @@ diff -urN ../guile-1.3.4/doc/Makefile.in ./doc/Makefile.in
  
 diff -urN ../guile-1.3.4/guile-compile ./guile-compile
 --- ../guile-1.3.4/guile-compile	Thu Jan  1 01:00:00 1970
-+++ ./guile-compile	Tue Mar 21 12:07:34 2000
++++ ./guile-compile	Fri Mar 24 01:48:27 2000
 @@ -0,0 +1,13 @@
 +##automake --cygnus
 +
@@ -2216,32 +2238,39 @@ diff -urN ../guile-1.3.4/guile-compile ./guile-compile
 +make oldincludedir=$PREFIX/include install
 diff -urN ../guile-1.3.4/guile-config/Makefile.am ./guile-config/Makefile.am
 --- ../guile-1.3.4/guile-config/Makefile.am	Mon Oct 19 17:24:31 1998
-+++ ./guile-config/Makefile.am	Sun Mar 12 17:25:25 2000
-@@ -27,11 +27,20 @@
++++ ./guile-config/Makefile.am	Fri Mar 24 10:46:01 2000
+@@ -20,9 +20,9 @@
+ ##   to the Free Software Foundation, Inc., 59 Temple Place, Suite
+ ##   330, Boston, MA 02111-1307 USA
+ 
+-bin_SCRIPTS=guile-config
+-CLEANFILES=guile-config
+-EXTRA_DIST=guile-config.in
++bin_SCRIPTS=guile-config @build@-guile-config
++CLEANFILES=guile-config @build@-guile-config
++EXTRA_DIST=guile-config.in cross-guile-config.in
+ 
  ## We use @-...-@ as the substitution brackets here, instead of the
  ## usual @...@, so autoconf doesn't go and substitute the values
- ## directly into the left-hand sides of the sed substitutions.  *sigh*
--guile-config: guile-config.in
-+native-guile-config: guile-config.in
- 	rm -f guile-config.tmp
- 	sed < ${srcdir}/guile-config.in > guile-config.tmp \
- 	    -e s:@-bindir-@:${bindir}: \
+@@ -34,6 +34,15 @@
  	    -e s:@-GUILE_VERSION-@:${GUILE_VERSION}:
-+	chmod +x guile-config.tmp
-+	mv guile-config.tmp guile-config
+ 	chmod +x guile-config.tmp
+ 	mv guile-config.tmp guile-config
 +
-+guile-config: x-guile-config.in
-+	rm -f guile-config.tmp
-+	sed < ${srcdir}/x-guile-config.in > guile-config.tmp \
++@build@-guile-config: cross-guile-config.in
++	rm -f $<.tmp
++	sed < ${srcdir}/$< > $<.tmp \
 +	    -e s:@-SHELL-@:${SHELL}: \
 +	    -e s:@-GUILE_VERSION-@:${GUILE_VERSION}:\
 +	    -e s:@-PREFIX-@:${prefix}:
- 	chmod +x guile-config.tmp
- 	mv guile-config.tmp guile-config
++	chmod +x $<.tmp
++	mv $<.tmp $@
  
+ ## Get rid of any copies of the configuration script under the old
+ ## name, so people don't end up running ancient copies of it.
 diff -urN ../guile-1.3.4/guile-config/Makefile.in ./guile-config/Makefile.in
 --- ../guile-1.3.4/guile-config/Makefile.in	Sat Sep 25 19:37:32 1999
-+++ ./guile-config/Makefile.in	Sun Mar 12 17:47:31 2000
++++ ./guile-config/Makefile.in	Fri Mar 24 10:47:26 2000
 @@ -1,4 +1,4 @@
 -# Makefile.in generated automatically by automake 1.4 from Makefile.am
 +# Makefile.in generated automatically by automake 1.4a from Makefile.am
@@ -2260,6 +2289,19 @@ diff -urN ../guile-1.3.4/guile-config/Makefile.in ./guile-config/Makefile.in
  transform = @program_transform_name@
  
  NORMAL_INSTALL = :
+@@ -90,9 +91,9 @@
+ qtmdc_c = @qtmdc_c@
+ qtmds_s = @qtmds_s@
+ 
+-bin_SCRIPTS = guile-config
+-CLEANFILES = guile-config
+-EXTRA_DIST = guile-config.in
++bin_SCRIPTS = guile-config @build@-guile-config
++CLEANFILES = guile-config @build@-guile-config
++EXTRA_DIST = guile-config.in cross-guile-config.in
+ mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+ CONFIG_HEADER = ../libguile/scmconfig.h
+ CONFIG_CLEAN_FILES = 
 @@ -103,14 +104,14 @@
  
  DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
@@ -2304,40 +2346,35 @@ diff -urN ../guile-1.3.4/guile-config/Makefile.in ./guile-config/Makefile.in
  installdirs:
  	$(mkinstalldirs)  $(DESTDIR)$(bindir)
  
-@@ -217,11 +223,20 @@
- maintainer-clean
- 
- 
--guile-config: guile-config.in
-+native-guile-config: guile-config.in
- 	rm -f guile-config.tmp
- 	sed < ${srcdir}/guile-config.in > guile-config.tmp \
- 	    -e s:@-bindir-@:${bindir}: \
+@@ -224,6 +230,15 @@
  	    -e s:@-GUILE_VERSION-@:${GUILE_VERSION}:
-+	chmod +x guile-config.tmp
-+	mv guile-config.tmp guile-config
-+
-+guile-config: x-guile-config.in
-+	rm -f guile-config.tmp
-+	sed < ${srcdir}/x-guile-config.in > guile-config.tmp \
-+	    -e s:@-SHELL-@:${SHELL}:g \
-+	    -e s:@-GUILE_VERSION-@:${GUILE_VERSION}:g \
-+	    -e s:@-PREFIX-@:${prefix}:g
  	chmod +x guile-config.tmp
  	mv guile-config.tmp guile-config
++
++@build@-guile-config: cross-guile-config.in
++	rm -f $<.tmp
++	sed < ${srcdir}/$< > $<.tmp \
++	    -e s:@-SHELL-@:${SHELL}: \
++	    -e s:@-GUILE_VERSION-@:${GUILE_VERSION}:\
++	    -e s:@-PREFIX-@:${prefix}:
++	chmod +x $<.tmp
++	mv $<.tmp $@
  
-diff -urN ../guile-1.3.4/guile-config/x-guile-config.in ./guile-config/x-guile-config.in
---- ../guile-1.3.4/guile-config/x-guile-config.in	Thu Jan  1 01:00:00 1970
-+++ ./guile-config/x-guile-config.in	Sun Mar 12 17:28:15 2000
-@@ -0,0 +1,15 @@
+ install-exec-local:
+ 	rm -f ${bindir}/build-guile
+diff -urN ../guile-1.3.4/guile-config/cross-guile-config.in ./guile-config/cross-guile-config.in
+--- ../guile-1.3.4/guile-config/cross-guile-config.in	Thu Jan  1 01:00:00 1970
++++ ./guile-config/cross-guile-config.in	Fri Mar 24 11:15:19 2000
+@@ -0,0 +1,16 @@
 +#!@-SHELL-@
++# build-guile-config.in
 +case $1 in
 +	--version)
 +		echo "@-GUILE_VERSION-@"
 +		exit 0
 +		;;
 +	compile)
-+		echo
++		echo "-I @-PREFIX-@/include/guile"
 +		exit 0
 +		;;
 +	link)
@@ -2347,7 +2384,7 @@ diff -urN ../guile-1.3.4/guile-config/x-guile-config.in ./guile-config/x-guile-c
 +esac
 diff -urN ../guile-1.3.4/ice-9/Makefile.in ./ice-9/Makefile.in
 --- ../guile-1.3.4/ice-9/Makefile.in	Sat Sep 25 19:37:16 1999
-+++ ./ice-9/Makefile.in	Sun Mar 12 17:47:31 2000
++++ ./ice-9/Makefile.in	Fri Mar 24 10:47:25 2000
 @@ -1,4 +1,4 @@
 -# Makefile.in generated automatically by automake 1.4 from Makefile.am
 +# Makefile.in generated automatically by automake 1.4a from Makefile.am
@@ -2410,21 +2447,9 @@ diff -urN ../guile-1.3.4/ice-9/Makefile.in ./ice-9/Makefile.in
  installdirs:
  	$(mkinstalldirs)  $(DESTDIR)$(subpkgdatadir)
  
-diff -urN ../guile-1.3.4/libguile/Makefile.am ./libguile/Makefile.am
---- ../guile-1.3.4/libguile/Makefile.am	Sat Sep 25 16:49:25 1999
-+++ ./libguile/Makefile.am	Sun Mar 12 17:40:28 2000
-@@ -29,7 +29,7 @@
- ETAGS_ARGS = --regex='/SCM_\(GLOBAL_\)?\(G?PROC\|G?PROC1\|SYMBOL\|VCELL\|CONST_LONG\).*\"\([^\"]\)*\"/\3/'
- 
- lib_LTLIBRARIES = libguile.la
--bin_PROGRAMS = guile
-+#bin_PROGRAMS = guile.exe
- 
- guile_SOURCES = guile.c
- guile_LDADD = libguile.la ${THREAD_LIBS_LOCAL}
 diff -urN ../guile-1.3.4/libguile/Makefile.in ./libguile/Makefile.in
 --- ../guile-1.3.4/libguile/Makefile.in	Sat Sep 25 19:37:27 1999
-+++ ./libguile/Makefile.in	Sun Mar 12 17:47:31 2000
++++ ./libguile/Makefile.in	Fri Mar 24 10:47:25 2000
 @@ -1,4 +1,4 @@
 -# Makefile.in generated automatically by automake 1.4 from Makefile.am
 +# Makefile.in generated automatically by automake 1.4a from Makefile.am
@@ -2443,36 +2468,13 @@ diff -urN ../guile-1.3.4/libguile/Makefile.in ./libguile/Makefile.in
  transform = @program_transform_name@
  
  NORMAL_INSTALL = :
-@@ -97,7 +98,7 @@
- ETAGS_ARGS = --regex='/SCM_\(GLOBAL_\)?\(G?PROC\|G?PROC1\|SYMBOL\|VCELL\|CONST_LONG\).*\"\([^\"]\)*\"/\3/'
- 
- lib_LTLIBRARIES = libguile.la
--bin_PROGRAMS = guile
-+#bin_PROGRAMS = guile.exe
- 
- guile_SOURCES = guile.c
- guile_LDADD = libguile.la ${THREAD_LIBS_LOCAL}
-@@ -173,11 +174,6 @@
- smob.lo socket.lo sort.lo srcprop.lo stackchk.lo stacks.lo stime.lo \
- strings.lo strop.lo strorder.lo strports.lo struct.lo symbols.lo tag.lo \
- throw.lo unif.lo variable.lo vectors.lo version.lo vports.lo weaks.lo
--PROGRAMS =  $(bin_PROGRAMS)
--
--guile_OBJECTS =  guile.o
--guile_DEPENDENCIES =  libguile.la
--guile_LDFLAGS = 
- gh_test_c_OBJECTS =  gh_test_c.o
- gh_test_c_DEPENDENCIES =  libguile.la
- gh_test_c_LDFLAGS = 
-@@ -202,18 +198,41 @@
+@@ -202,8 +203,31 @@
  
  DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
  
 -TAR = tar
 +TAR = gtar
  GZIP_ENV = --best
--SOURCES = $(libguile_la_SOURCES) $(EXTRA_libguile_la_SOURCES) $(guile_SOURCES) $(gh_test_c_SOURCES) $(gh_test_repl_SOURCES)
--OBJECTS = $(libguile_la_OBJECTS) $(guile_OBJECTS) $(gh_test_c_OBJECTS) $(gh_test_repl_OBJECTS)
 +DEP_FILES =  .deps/alist.P .deps/alloca.P .deps/arbiters.P .deps/async.P \
 +.deps/backtrace.P .deps/boolean.P .deps/chars.P .deps/continuations.P \
 +.deps/cpp_err_symbols.P .deps/cpp_sig_symbols.P .deps/debug.P \
@@ -2481,25 +2483,25 @@ diff -urN ../guile-1.3.4/libguile/Makefile.in ./libguile/Makefile.in
 +.deps/fports.P .deps/gc.P .deps/gdbint.P .deps/gh_data.P \
 +.deps/gh_eval.P .deps/gh_funcs.P .deps/gh_init.P .deps/gh_io.P \
 +.deps/gh_list.P .deps/gh_predicates.P .deps/gh_test_c.P \
-+.deps/gh_test_repl.P .deps/gsubr.P .deps/guardians.P .deps/hash.P \
-+.deps/hashtab.P .deps/inet_aton.P .deps/init.P .deps/ioext.P \
-+.deps/iselect.P .deps/keywords.P .deps/lang.P .deps/list.P .deps/load.P \
-+.deps/macros.P .deps/mallocs.P .deps/memmove.P .deps/modules.P \
-+.deps/net_db.P .deps/numbers.P .deps/objects.P .deps/objprop.P \
-+.deps/options.P .deps/pairs.P .deps/ports.P .deps/posix.P .deps/print.P \
-+.deps/procprop.P .deps/procs.P .deps/putenv.P .deps/ramap.P \
-+.deps/random.P .deps/read.P .deps/regex-posix.P .deps/root.P \
-+.deps/scmsigs.P .deps/script.P .deps/simpos.P .deps/smob.P \
-+.deps/socket.P .deps/sort.P .deps/srcprop.P .deps/stackchk.P \
-+.deps/stacks.P .deps/stime.P .deps/strerror.P .deps/strings.P \
-+.deps/strop.P .deps/strorder.P .deps/strports.P .deps/struct.P \
-+.deps/symbols.P .deps/tag.P .deps/threads.P .deps/throw.P .deps/unif.P \
-+.deps/variable.P .deps/vectors.P .deps/version.P .deps/vports.P \
-+.deps/weaks.P
-+SOURCES = $(libguile_la_SOURCES) $(EXTRA_libguile_la_SOURCES) $(gh_test_c_SOURCES) $(gh_test_repl_SOURCES)
-+OBJECTS = $(libguile_la_OBJECTS) $(gh_test_c_OBJECTS) $(gh_test_repl_OBJECTS)
++.deps/gh_test_repl.P .deps/gsubr.P .deps/guardians.P .deps/guile.P \
++.deps/hash.P .deps/hashtab.P .deps/inet_aton.P .deps/init.P \
++.deps/ioext.P .deps/iselect.P .deps/keywords.P .deps/lang.P \
++.deps/list.P .deps/load.P .deps/macros.P .deps/mallocs.P \
++.deps/memmove.P .deps/modules.P .deps/net_db.P .deps/numbers.P \
++.deps/objects.P .deps/objprop.P .deps/options.P .deps/pairs.P \
++.deps/ports.P .deps/posix.P .deps/print.P .deps/procprop.P \
++.deps/procs.P .deps/putenv.P .deps/ramap.P .deps/random.P .deps/read.P \
++.deps/regex-posix.P .deps/root.P .deps/scmsigs.P .deps/script.P \
++.deps/simpos.P .deps/smob.P .deps/socket.P .deps/sort.P .deps/srcprop.P \
++.deps/stackchk.P .deps/stacks.P .deps/stime.P .deps/strerror.P \
++.deps/strings.P .deps/strop.P .deps/strorder.P .deps/strports.P \
++.deps/struct.P .deps/symbols.P .deps/tag.P .deps/threads.P \
++.deps/throw.P .deps/unif.P .deps/variable.P .deps/vectors.P \
++.deps/version.P .deps/vports.P .deps/weaks.P
+ SOURCES = $(libguile_la_SOURCES) $(EXTRA_libguile_la_SOURCES) $(guile_SOURCES) $(gh_test_c_SOURCES) $(gh_test_repl_SOURCES)
+ OBJECTS = $(libguile_la_OBJECTS) $(guile_OBJECTS) $(gh_test_c_OBJECTS) $(gh_test_repl_OBJECTS)
  
- all: all-redirect
+@@ -211,9 +235,9 @@
  .SUFFIXES:
  .SUFFIXES: .S .c .lo .o .s .x
  $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
@@ -2511,7 +2513,7 @@ diff -urN ../guile-1.3.4/libguile/Makefile.in ./libguile/Makefile.in
  	cd $(top_builddir) \
  	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
  
-@@ -275,9 +294,6 @@
+@@ -275,9 +299,6 @@
  	  $(LIBTOOL)  --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p; \
  	done
  
@@ -2521,7 +2523,7 @@ diff -urN ../guile-1.3.4/libguile/Makefile.in ./libguile/Makefile.in
  .s.o:
  	$(COMPILE) -c $<
  
-@@ -294,9 +310,6 @@
+@@ -294,9 +315,6 @@
  
  maintainer-clean-compile:
  
@@ -2531,50 +2533,18 @@ diff -urN ../guile-1.3.4/libguile/Makefile.in ./libguile/Makefile.in
  .s.lo:
  	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
  
-@@ -316,31 +329,6 @@
- libguile.la: $(libguile_la_OBJECTS) $(libguile_la_DEPENDENCIES)
- 	$(LINK) -rpath $(libdir) $(libguile_la_LDFLAGS) $(libguile_la_OBJECTS) $(libguile_la_LIBADD) $(LIBS)
- 
--mostlyclean-binPROGRAMS:
--
--clean-binPROGRAMS:
--	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
--
--distclean-binPROGRAMS:
--
--maintainer-clean-binPROGRAMS:
--
--install-binPROGRAMS: $(bin_PROGRAMS)
--	@$(NORMAL_INSTALL)
--	$(mkinstalldirs) $(DESTDIR)$(bindir)
--	@list='$(bin_PROGRAMS)'; for p in $$list; do \
--	  if test -f $$p; then \
+@@ -330,8 +348,8 @@
+ 	$(mkinstalldirs) $(DESTDIR)$(bindir)
+ 	@list='$(bin_PROGRAMS)'; for p in $$list; do \
+ 	  if test -f $$p; then \
 -	    echo " $(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
 -	    $(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
--	  else :; fi; \
--	done
--
--uninstall-binPROGRAMS:
--	@$(NORMAL_UNINSTALL)
--	list='$(bin_PROGRAMS)'; for p in $$list; do \
--	  rm -f $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
--	done
--
- mostlyclean-checkPROGRAMS:
++	    echo " $(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
++	    $(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
+ 	  else :; fi; \
+ 	done
  
- clean-checkPROGRAMS:
-@@ -350,10 +338,6 @@
- 
- maintainer-clean-checkPROGRAMS:
- 
--guile: $(guile_OBJECTS) $(guile_DEPENDENCIES)
--	@rm -f guile
--	$(LINK) $(guile_LDFLAGS) $(guile_OBJECTS) $(guile_LDADD) $(LIBS)
--
- gh_test_c: $(gh_test_c_OBJECTS) $(gh_test_c_DEPENDENCIES)
- 	@rm -f gh_test_c
- 	$(LINK) $(gh_test_c_LDFLAGS) $(gh_test_c_OBJECTS) $(gh_test_c_LDADD) $(LIBS)
-@@ -479,590 +463,53 @@
+@@ -479,590 +497,53 @@
  subdir = libguile
  
  distdir: $(DISTFILES)
@@ -3202,79 +3172,41 @@ diff -urN ../guile-1.3.4/libguile/Makefile.in ./libguile/Makefile.in
  info-am:
  info: info-am
  dvi-am:
-@@ -1076,8 +523,7 @@
- all-recursive-am: scmconfig.h
- 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
- 
--install-exec-am: install-libLTLIBRARIES install-binPROGRAMS \
--		install-binSCRIPTS
-+install-exec-am: install-libLTLIBRARIES install-binSCRIPTS
- install-exec: install-exec-am
- 
- install-data-am: install-modincludeDATA install-includeHEADERS \
-@@ -1087,21 +533,19 @@
- install-am: all-am
- 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
- install: install-am
--uninstall-am: uninstall-libLTLIBRARIES uninstall-binPROGRAMS \
--		uninstall-binSCRIPTS uninstall-modincludeDATA \
--		uninstall-includeHEADERS uninstall-modincludeHEADERS \
--		uninstall-pkgincludeHEADERS
-+uninstall-am: uninstall-libLTLIBRARIES uninstall-binSCRIPTS \
-+		uninstall-modincludeDATA uninstall-includeHEADERS \
-+		uninstall-modincludeHEADERS uninstall-pkgincludeHEADERS
- uninstall: uninstall-am
--all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(SCRIPTS) $(DATA) \
--		$(HEADERS) scmconfig.h
-+all-am: Makefile $(LTLIBRARIES) $(SCRIPTS) $(DATA) $(HEADERS) \
-+		scmconfig.h
+@@ -1096,7 +577,7 @@
+ 		$(HEADERS) scmconfig.h
  all-redirect: all-am
  install-strip:
 -	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
 +	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
  installdirs:
  	$(mkinstalldirs)  $(DESTDIR)$(libdir) $(DESTDIR)$(bindir) \
--		$(DESTDIR)$(bindir) $(DESTDIR)$(modincludedir) \
--		$(DESTDIR)$(includedir) $(DESTDIR)$(modincludedir) \
--		$(DESTDIR)$(pkgincludedir)
-+		$(DESTDIR)$(modincludedir) $(DESTDIR)$(includedir) \
-+		$(DESTDIR)$(modincludedir) $(DESTDIR)$(pkgincludedir)
- 
- 
- mostlyclean-generic:
-@@ -1119,21 +563,21 @@
- 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
+ 		$(DESTDIR)$(bindir) $(DESTDIR)$(modincludedir) \
+@@ -1120,19 +601,19 @@
  mostlyclean-am:  mostlyclean-hdr mostlyclean-libLTLIBRARIES \
  		mostlyclean-compile mostlyclean-libtool \
--		mostlyclean-binPROGRAMS mostlyclean-checkPROGRAMS \
+ 		mostlyclean-binPROGRAMS mostlyclean-checkPROGRAMS \
 -		mostlyclean-tags mostlyclean-generic
-+		mostlyclean-checkPROGRAMS mostlyclean-tags \
-+		mostlyclean-depend mostlyclean-generic
++		mostlyclean-tags mostlyclean-depend mostlyclean-generic
  
  mostlyclean: mostlyclean-am
  
  clean-am:  clean-hdr clean-libLTLIBRARIES clean-compile clean-libtool \
--		clean-binPROGRAMS clean-checkPROGRAMS clean-tags \
-+		clean-checkPROGRAMS clean-tags clean-depend \
- 		clean-generic mostlyclean-am
+ 		clean-binPROGRAMS clean-checkPROGRAMS clean-tags \
+-		clean-generic mostlyclean-am
++		clean-depend clean-generic mostlyclean-am
  
  clean: clean-am
  
  distclean-am:  distclean-hdr distclean-libLTLIBRARIES distclean-compile \
--		distclean-libtool distclean-binPROGRAMS \
+ 		distclean-libtool distclean-binPROGRAMS \
 -		distclean-checkPROGRAMS distclean-tags \
--		distclean-generic clean-am
-+		distclean-libtool distclean-checkPROGRAMS \
-+		distclean-tags distclean-depend distclean-generic \
-+		clean-am
++		distclean-checkPROGRAMS distclean-tags distclean-depend \
+ 		distclean-generic clean-am
  	-rm -f libtool
  
- distclean: distclean-am
-@@ -1141,9 +585,9 @@
- maintainer-clean-am:  maintainer-clean-hdr \
- 		maintainer-clean-libLTLIBRARIES \
+@@ -1143,7 +624,8 @@
  		maintainer-clean-compile maintainer-clean-libtool \
--		maintainer-clean-binPROGRAMS \
+ 		maintainer-clean-binPROGRAMS \
  		maintainer-clean-checkPROGRAMS maintainer-clean-tags \
 -		maintainer-clean-generic distclean-am
 +		maintainer-clean-depend maintainer-clean-generic \
@@ -3282,20 +3214,7 @@ diff -urN ../guile-1.3.4/libguile/Makefile.in ./libguile/Makefile.in
  	@echo "This command is intended for maintainers to use;"
  	@echo "it deletes files that may require special tools to rebuild."
  
-@@ -1155,17 +599,17 @@
- uninstall-libLTLIBRARIES install-libLTLIBRARIES mostlyclean-compile \
- distclean-compile clean-compile maintainer-clean-compile \
- mostlyclean-libtool distclean-libtool clean-libtool \
--maintainer-clean-libtool mostlyclean-binPROGRAMS distclean-binPROGRAMS \
--clean-binPROGRAMS maintainer-clean-binPROGRAMS uninstall-binPROGRAMS \
--install-binPROGRAMS mostlyclean-checkPROGRAMS distclean-checkPROGRAMS \
--clean-checkPROGRAMS maintainer-clean-checkPROGRAMS uninstall-binSCRIPTS \
--install-binSCRIPTS uninstall-modincludeDATA install-modincludeDATA \
-+maintainer-clean-libtool mostlyclean-checkPROGRAMS \
-+distclean-checkPROGRAMS clean-checkPROGRAMS \
-+maintainer-clean-checkPROGRAMS uninstall-binSCRIPTS install-binSCRIPTS \
-+uninstall-modincludeDATA install-modincludeDATA \
- uninstall-includeHEADERS install-includeHEADERS \
+@@ -1164,8 +646,9 @@
  uninstall-modincludeHEADERS install-modincludeHEADERS \
  uninstall-pkgincludeHEADERS install-pkgincludeHEADERS tags \
  mostlyclean-tags distclean-tags clean-tags maintainer-clean-tags \
@@ -3309,7 +3228,7 @@ diff -urN ../guile-1.3.4/libguile/Makefile.in ./libguile/Makefile.in
  mostlyclean-generic distclean-generic clean-generic \
 diff -urN ../guile-1.3.4/libguile/dynl-dl.c ./libguile/dynl-dl.c
 --- ../guile-1.3.4/libguile/dynl-dl.c	Sun Aug 29 20:03:26 1999
-+++ ./libguile/dynl-dl.c	Sun Mar 12 17:46:16 2000
++++ ./libguile/dynl-dl.c	Fri Mar 24 01:48:27 2000
 @@ -45,7 +45,9 @@
     Author: Aubrey Jaffer
     Modified for libguile by Marius Vollmer */
@@ -3322,7 +3241,7 @@ diff -urN ../guile-1.3.4/libguile/dynl-dl.c ./libguile/dynl-dl.c
  #  define DLOPEN_MODE	RTLD_LAZY
 diff -urN ../guile-1.3.4/libguile/filesys.c ./libguile/filesys.c
 --- ../guile-1.3.4/libguile/filesys.c	Sun Sep 12 05:47:39 1999
-+++ ./libguile/filesys.c	Sun Mar 12 17:46:59 2000
++++ ./libguile/filesys.c	Fri Mar 24 01:48:27 2000
 @@ -138,7 +138,9 @@
  	fdes = SCM_INUM (object);
        else
@@ -3335,7 +3254,7 @@ diff -urN ../guile-1.3.4/libguile/filesys.c ./libguile/filesys.c
      {
 diff -urN ../guile-1.3.4/qt/Makefile.in ./qt/Makefile.in
 --- ../guile-1.3.4/qt/Makefile.in	Sat Sep 25 19:37:18 1999
-+++ ./qt/Makefile.in	Sun Mar 12 17:47:31 2000
++++ ./qt/Makefile.in	Fri Mar 24 10:47:26 2000
 @@ -1,4 +1,4 @@
 -# Makefile.in generated automatically by automake 1.4 from Makefile.am
 +# Makefile.in generated automatically by automake 1.4a from Makefile.am
@@ -3521,7 +3440,7 @@ diff -urN ../guile-1.3.4/qt/Makefile.in ./qt/Makefile.in
  .s.lo:
 diff -urN ../guile-1.3.4/qt/md/Makefile.in ./qt/md/Makefile.in
 --- ../guile-1.3.4/qt/md/Makefile.in	Sat Sep 25 19:37:20 1999
-+++ ./qt/md/Makefile.in	Sun Mar 12 17:47:31 2000
++++ ./qt/md/Makefile.in	Fri Mar 24 10:47:26 2000
 @@ -1,4 +1,4 @@
 -# Makefile.in generated automatically by automake 1.4 from Makefile.am
 +# Makefile.in generated automatically by automake 1.4a from Makefile.am
@@ -3586,7 +3505,7 @@ diff -urN ../guile-1.3.4/qt/md/Makefile.in ./qt/md/Makefile.in
  
 diff -urN ../guile-1.3.4/qt/time/Makefile.in ./qt/time/Makefile.in
 --- ../guile-1.3.4/qt/time/Makefile.in	Sat Sep 25 19:37:22 1999
-+++ ./qt/time/Makefile.in	Sun Mar 12 17:47:31 2000
++++ ./qt/time/Makefile.in	Fri Mar 24 10:47:26 2000
 @@ -1,4 +1,4 @@
 -# Makefile.in generated automatically by automake 1.4 from Makefile.am
 +# Makefile.in generated automatically by automake 1.4a from Makefile.am

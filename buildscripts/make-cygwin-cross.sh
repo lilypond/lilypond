@@ -99,13 +99,14 @@ cygwin_make='-k || true'
 #
 # so that's how we configure them.
 #
-native_configure='--target=$TARGET_ARCH --build=$TARGET_ARCH --host=$HOST --oldincludedir=$PREFIX/include --prefix=$NATIVE_PREFIX/$package'
+native_configure='--target=$TARGET_ARCH --build=$TARGET_ARCH --host=$HOST --oldincludedir=$PREFIX/include --prefix=$NATIVE_PREFIX/$package --program-suffix='
 
 guile_patch='guile-1.3.4-gnu-windows.patch'
 if [ $target = mingw ]; then
 	guile_patch1='guile-1.3.4-mingw.patch'
 	guile_cflags='-I $PREFIX/$TARGET_ARCH/include -I $PREFIX/i686-pc-cygwin/include'
 fi
+guile_ldflags='-L$PREFIX/lib $PREFIX/bin/$CYGWIN_DLL'
 guile_configure='--enable-sizeof-int=4 --enable-sizeof-long=4 --enable-restartable-syscalls=yes'
 guile_make='oldincludedir=$PREFIX/include'
 
@@ -267,6 +268,14 @@ pack ()
 {(
 	set -
 	package=$1
+
+	zip=$WWW/$package.zip
+	if [ -e $zip ]; then
+		echo "$zip: package exists"
+		echo "$zip: skipping"
+		exit 0
+	fi
+
         name=`echo $package | sed 's/-.*//'`
         name_pack_install=`expand $name _pack_install`
 	install_root=/tmp/$package-install
@@ -287,8 +296,8 @@ pack ()
 		fix_extension $i .py '.*\(python\).*'
 	done
 
-        rm -f $WWW/$package.zip
-        cd $install_root && zip -r $WWW/$package.zip .$NATIVE_PREFIX
+        rm -f $zip
+        cd $install_root && zip -r $zip .$NATIVE_PREFIX
 )
 }
 ##################
