@@ -1,7 +1,7 @@
 
 \version "2.3.22"
 \header {
-  texidoc = "Grace note spacing. Should it be tuned? "
+  texidoc = "Grace note spacing.  "
 }
 	
 \score {
