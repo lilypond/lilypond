@@ -23,7 +23,7 @@ SCM mark_smob (SCM)
 static int
 print_smob (SCM s, SCM port, scm_print_state *)
 {
-  String str = "#<location" +  unsmob_input (s)->location_str () + ">";
+  String str = "#<location " +  unsmob_input (s)->location_str () + ">";
   scm_puts (str.ch_C(), port);
   return 1;
 }
