@@ -13,6 +13,7 @@
 #include "output-def.hh"
 #include "font-interface.hh"
 #include "warn.hh"
+#include "pango-font.hh"
 
 LY_DEFINE (ly_paper_get_font, "ly:paper-get-font", 2, 0, 0,
 	   (SCM paper_smob, SCM chain),
@@ -57,12 +58,27 @@ get_font_by_design_size (Output_def *layout, Real requested,
   Real last_size = -1e6;
   int i = 0;
 
+  String pango_description_string;
   for (; i < n; i++)
     {
       SCM entry = SCM_VECTOR_REF (font_vector, i);
-      Font_metric *fm = unsmob_metrics (scm_force (entry));
-      size = fm->design_size ();
-
+      
+      if (scm_promise_p (entry) == SCM_BOOL_T)
+	{
+	  Font_metric *fm = unsmob_metrics (scm_force (entry));
+	  size = fm->design_size ();
+	}
+#if HAVE_PANGO_FT2
+      else if (scm_is_pair (entry)
+	       && scm_is_number (scm_car (entry))
+	       && scm_is_string (scm_cdr (entry)))
+	{
+	  size = scm_to_double (scm_car (entry));
+	  pango_description_string
+	    = ly_scm2string (scm_cdr (entry));
+	}
+#endif
+      
       if (size > requested)
 	break;
       last_size = size;
@@ -78,9 +94,23 @@ get_font_by_design_size (Output_def *layout, Real requested,
 	  size = last_size;
 	}
     }
+  
+  Font_metric *fm = 0;
+  if (pango_description_string != "")
+    {
+#if HAVE_PANGO_FT2
+      PangoFontDescription *description
+	= pango_font_description_from_string (pango_description_string.to_str0 ());
+      fm = all_fonts_global->find_pango_font (description);
+#else
+      error ("Trying to retrieve pango font without HAVE_PANGO_FT2."); 
+#endif
+    }
+  else
+    {
+      fm = unsmob_metrics (scm_force (SCM_VECTOR_REF (font_vector, i)));
+    }
 
-  Font_metric *fm = unsmob_metrics (scm_force (SCM_VECTOR_REF (font_vector,
-							       i)));
   return find_scaled_font (layout, fm, requested / size);
 }
 

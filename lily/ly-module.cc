@@ -6,6 +6,7 @@
   (c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "lily-guile.hh"
 #include "warn.hh"
 #include "main.hh"
 #include "string.hh"
