@@ -12,7 +12,7 @@
 
 (define-public (read-encoding-file filename)
   "Read .enc file, return (COMMAND-NAME . VECTOR-OF-SYMBOLS)."
-  (let* ((raw (ly:kpathsea-gulp-file filename))
+  (let* ((raw (ly:gulp-file (ly:kpathsea-expand-path filename)))
 	 (string (regexp-substitute/global #f "%[^\n]*" raw 'pre "" 'post))
 	 (command (match:substring
 		(string-match "/([^ \t\n\r]*)[ \t\n\r]+[[]" string) 1))

@@ -27,8 +27,9 @@
 class Repeat_acknowledge_engraver : public Engraver
 {
 public:
+  
   TRANSLATOR_DECLARATIONS (Repeat_acknowledge_engraver);
-
+protected:
   virtual void start_translation_timestep ();
   virtual void process_music ();
   virtual void initialize ();
@@ -62,7 +63,7 @@ Repeat_acknowledge_engraver::process_music ()
   /*
     At the start of a piece, we don't print any repeat bars.
    */
-  if (now_mom () == Moment (0))
+  if (!now_mom ().main_part_)
     return ; 
   
   SCM cs = get_property ("repeatCommands");

@@ -51,8 +51,27 @@
 	 (font-names (uniq-list (sort (map ly:font-filename fonts) string<?)))
 	 (pfas (map
 		(lambda (x)
-		  (ly:kpathsea-gulp-file (string-append x ".pfa")))
+		
+		(let*
+		    ((aname (string-append x ".pfa"))
+		     (apath (ly:kpathsea-expand-path aname))
+
+;		     (bpath (if (not apath)
+;				(ly:kpathsea-expand-path (string-append x ".pfb"))
+;				#f)))
+
+		     )
+			    
+		  (cond
+		   (apath (ly:gulp-file apath))
+
+		   ; oops , can't plonk PFB in, must convert to ASCII.
+		   ;(bpath (ly:gulp-file bpath))
+		   (else
+		    (ly:warn "Can't find PFA font ~S" x)
+		    ""))))
 		(filter string? font-names))))
+  
     (string-join pfas "\n")))
 
 (define (define-fonts bookpaper)
@@ -110,7 +129,7 @@
 
   (define (font-load-encoding encoding)
     (let ((filename (get-coding-filename encoding)))
-      (ly:kpathsea-gulp-file filename)))
+      (ly:gulp-file (ly:kpathsea-expand-path filename))))
 
   (let* ((encoding-list (map (lambda (x)
 			       (assoc-get 'input-name

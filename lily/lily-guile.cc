@@ -169,13 +169,16 @@ index_set_cell (SCM s, Direction d, SCM v)
 }
   
 LY_DEFINE (ly_warn, "ly:warn",
-	   1, 0, 0, (SCM str),
-	   "Scheme callable function to issue the warning @code{msg}.")
+	   1, 0, 1, (SCM str, SCM rest),
+	   "Scheme callable function to issue the warning @code{msg}. "
+	   "The message is formatted with @code{format} and @code{rest}.")
 {
   SCM_ASSERT_TYPE (ly_c_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
   progress_indication ("\n");
+
+  str = scm_simple_format (SCM_BOOL_F, str, rest);
   warning ("lily-guile: " + ly_scm2string (str));
-  return SCM_BOOL_T;
+  return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_dir_p, "ly:dir?",
