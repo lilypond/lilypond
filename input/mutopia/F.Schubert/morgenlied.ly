@@ -171,7 +171,7 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	\layout {
 	    \context {
 		\Lyrics
-		minimumVerticalExtent = #'(-1.0 . 0)
+		minimumVerticalExtent = #'(-0.5 . 2.5)
 	    }
 	    \context {
 		\Score
@@ -182,10 +182,6 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	    \context {
 		\PianoStaff
 		\override VerticalAlignment #'forced-distance = #10
-	    }
-	    \context {
-		\Staff
-		minimumVerticalExtent = #'(-3. . 6)
 	    }
 	    inputencoding = "latin1"
 	}
