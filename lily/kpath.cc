@@ -10,7 +10,6 @@
 #include <string.h>
 
 #include "config.h"
-#include "string.hh"
 
 #define popen REALLYUGLYKLUDGE
 #define pclose ANOTHERREALLYUGLYKLUDGE
@@ -22,6 +21,9 @@ extern "C" {
 }
 #endif
 
+#include "file-path.hh"
+#include "string.hh"
+#include "main.hh"
 #include "kpath.hh"
 #include "lily-version.hh"
 
@@ -35,13 +37,18 @@ ly_find_afm (char const * name)
   return 0;
 }
 
-char *
+String
 ly_find_tfm (char const * name)
 {
+  String p = global_path.find (String (name) + ".tfm");
+
+  if (p.length_i ())
+    return p;
+  
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
   return kpse_find_file (name, kpse_tfm_format, true);
 #endif
-  return 0;
+  return "";
 }
 
 
@@ -49,8 +56,52 @@ void
 ly_init_kpath (char *av0)
 {
 #if KPATHSEA && HAVE_KPATHSEA_KPATHSEA_H
+  /*
+    We take two pronged approach to tfms:
+
+    * the lilypond tfms (feta*.tfm) are found through our own routines.
+
+    * the TeX tfms are found through vanilla kpathsea.
+
+    (* other TFMs are not found, i.e. don't use them. )
+
+    PRO:
+ 
+    - TFM and AFM checksums always match in Lily.
+
+    - less hassle, no kpathsea spaghetti
+
+    CON:
+
+    - feta PK files are often recreated, locally
+    Solution: cache PK files locally?
+
+    - need env. vars to make sure that TeX finds the TFMs
+
+    - Outdated PK (TFM?) font files are not automatically removed,
+    since VERSION is not part of the standard location.
+
+
+    ALTERNATIVE
+
+    we have tried to come up with schemes that leave this kind of work
+    to kpathsea with objective of fixing the CONs, but miserably
+    failed. TeX installations and kpathsea itself form a buggy,
+    inconsistent, and unorderly mess.
+    
+  */
 
   /*
+   initialize kpathsea
+   */
+  kpse_set_program_name (av0, NULL);
+  kpse_maketex_option ("tfm", TRUE);
+
+#if  0
+
+
+  /*
+    
     Remove the setting for TFMFONTS if we have kpathsea, because
     kpathsea can find TFM fonts anyway.
 
@@ -66,19 +117,12 @@ ly_init_kpath (char *av0)
 
     The advantage is that the PK font will also be generated under
     /var/texmf/fonts, reducing clutter and compilation time.
-    
-  */
+
+   */
+
 #ifndef __CYGWIN__  /* mktextfm/mktexpk does not work on windows */
-#ifndef DEBIAN
   unsetenv ("TFMFONTS");
 #endif
-#endif
-
-  /*
-   initialize kpathsea
-   */
-  kpse_set_program_name (av0, NULL);
-  kpse_maketex_option ("tfm", TRUE);
 
 #ifdef DEBIAN
   String my_tfm = "$VARTEXFONTS/tfm/public/lilypond";
@@ -87,15 +131,20 @@ ly_init_kpath (char *av0)
   my_tfm += version_str () + "/";
 #endif
 
-  char * mypath = kpse_expand ((my_tfm + ":").ch_C ());
-#ifndef DEBIAN
+#ifdef DEBIAN
+  char * mypath = strdup ((my_tfm + ":").ch_C());
+  kpse_format_info[kpse_tfm_format].client_path = mypath;
+#else
+  char * mypath = kpse_expand (my_tfm.ch_C ());
+			   
   String prog = "mktextfm --destdir ";
   prog += mypath;
   
   kpse_format_info[kpse_tfm_format].program = strdup (prog.ch_C ());
 #endif
-  kpse_format_info[kpse_tfm_format].client_path = mypath;
 #endif
+#endif
+  
 }
 
 
