@@ -130,6 +130,7 @@ Spacing_problem::make_matrices(Matrix &quad, Vector &lin, Real &c) const
 {
     quad.fill(0);
     lin.fill(0);
+    c = 0;
     for (int j=0; j < ideals.sz(); j++){
 	Idealspacing const*i=ideals[j];
 	int l = col_id(i->left);
@@ -176,7 +177,6 @@ Spacing_problem::solve() const
     OK();
     assert(check_feasible());
 
-    
     /* optimalisatiefunctie */        
     Mixed_qp lp(cols.sz());
     make_matrices(lp.quad,lp.lin, lp.const_term);
