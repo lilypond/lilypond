@@ -1,3 +1,10 @@
+2002-12-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/grob-description.scm (all-grob-descriptions): small bass figures.
+
+	* scm/bass-figure.scm (brew-bass-figure): make stack direction
+	settable.
+
 2002-12-18  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el (LilyPond-command): propose 2midi if midi is
