@@ -1,3 +1,11 @@
+2004-09-30  Werner Lemberg  <wl@gnu.org>
+
+	* tex/lilyponddefs.tex (\lilypondstart): Define
+	\lilypondfontencoding for both texinfo and latex mode.
+
+	* scm/framework-tex.scm (font-load-command): Use
+	\lilypondfontencoding.
+
 2004-09-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/framework-tex.scm (dump-page): take with-extents?
