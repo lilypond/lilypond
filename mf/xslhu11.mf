@@ -1,4 +1,0 @@
-font_identifier:="xslhu11";
-mode_setup;
-font_size 10.24pt#;
-input xslhu.mf
