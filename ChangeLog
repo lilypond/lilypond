@@ -1,3 +1,17 @@
+2002-07-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/spacing-spanner.cc (set_springs): add support for
+	common-shortest-duration field.
+
+	* lily/parser.yy (translator_spec_body): allow \set in \translator
+	{}  block. This is the same as \override, here.
+
+	* lily/score-engraver.cc (one_time_step): don't warn about columns
+	when skipTypesetting == #t.
+
+	* lily/spacing-spanner.cc (musical_column_spacing): change
+	ragged right function to produce natural spacing.
+
 2002-07-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/paper-column.cc (before_line_breaking): update

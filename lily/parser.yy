@@ -510,6 +510,10 @@ translator_spec_body:
 		unsmob_translator_def ($$)
 			->add_push_property (scm_string_to_symbol ($2), $4, $6);
 	}
+	| translator_spec_body STRING SET embedded_scm '=' embedded_scm {
+		unsmob_translator_def ($$)
+			->add_push_property (scm_string_to_symbol ($2), $4, $6);
+	}
 	| translator_spec_body STRING REVERT embedded_scm  {
 	  unsmob_translator_def ($$)->add_pop_property (
 		scm_string_to_symbol ($2), $4);
