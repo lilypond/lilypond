@@ -124,7 +124,6 @@ Chord_tremolo_engraver::process_music ()
       beam_ = make_spanner ("Beam", repeat_->self_scm ());
       beam_->set_property ("chord-tremolo", SCM_BOOL_T);
 
-      SCM smp = 
       beam_start_location_ = robust_scm2moment (get_property ("measurePosition"), Moment (0));
     }
 }
