@@ -44,6 +44,7 @@ Text_item::interpret_string (SCM paper, SCM props, SCM encoding, SCM markup)
     {
       /* ARGH. */
       programming_error ("Must have Modified_font_metric for text.");
+      scm_display (fm->description_, scm_current_error_port ());
     }
       
   return Stencil (b, lst).smobbed_copy ();

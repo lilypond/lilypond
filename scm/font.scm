@@ -369,33 +369,32 @@
 	      (font-shape . upright)
 	      (font-series . medium)
 	      (font-encoding . latin1))
-	    `(10.0 . #(,(delay (ly:font-load "c059013l")))))
+	    `(10.0 . #(,(delay (ly:font-load "uncr8a")))))
   
   (add-font node
 	    '((font-family . roman)
 	      (font-shape . italic)
 	      (font-series . medium)
 	      (font-encoding . latin1))
-	    `(10.0 . #(,(delay (ly:font-load "c059033l")))))
+	    `(10.0 . #(,(delay (ly:font-load "uncri8a")))))
   
   (add-font node
 	    '((font-family . roman)
 	      (font-shape . upright)
 	      (font-series . bold)
 	      (font-encoding . latin1))
-	    `(10.0 . #(,(delay (ly:font-load "c059016l")))))
+	    `(10.0 . #(,(delay (ly:font-load "uncb8a")))))
   
   (add-font node
 	    '((font-family . roman)
 	      (font-shape . italic)
 	      (font-series . bold)
 	      (font-encoding . latin1))
-	    `(10.0 . #(,(delay (ly:font-load "c059036l")))))
+	    `(10.0 . #(,(delay (ly:font-load "uncbi8a")))))
   )
 
 
 (define-public (make-cmr-tree factor)
-
   (let
       ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
 
@@ -414,7 +413,6 @@
     (add-century-schoolbook-fonts n factor)
     n
   ))
-
 
 
 (define-public (magstep x)
