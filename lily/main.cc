@@ -40,9 +40,6 @@ Array<String> dump_header_fieldnames_global;
 /* Name of initialisation file. */
 String init_name_global;
 
-/* Do not calculate and write layout output? */
-bool skip_layout_global = false;
-
 /* Selected output format.
    One of tex, ps, scm, as.
 */
@@ -131,7 +128,6 @@ static Long_option_init options_static[] =
     {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
     {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
     {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
-    {0, "no-layout", 'm',  _i ("produce MIDI output only")},
     {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
     {0, "preview", 'p',  _i ("generate a preview")},
     {0, "no-pages", 0,  _i ("don't generate full pages")},
@@ -411,9 +407,6 @@ parse_argv (int argc, char **argv)
 	  break;
 	case 's':
 	  be_safe_global = true;
-	  break;
-	case 'm':
-	  skip_layout_global = true;
 	  break;
 	case 'p':
 	  make_preview = true;
