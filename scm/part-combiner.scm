@@ -84,24 +84,24 @@ of Split-state objects, crosslinking the Split-state vector and
 Voice-state objects
 "  
   (define (helper ss-idx ss-list idx1 idx2)
-    (let* ((s1 (if (< idx1 (vector-length vs1)) (vector-ref vs1 idx1) #f))
-	   (s2 (if (< idx2 (vector-length vs2)) (vector-ref vs2 idx2) #f))
-	   (min (cond ((and s1 s2) (moment-min (when s1) (when s2)))
-		      (s1 (when s1))
-		      (s2 (when s2))
+    (let* ((state1 (if (< idx1 (vector-length vs1)) (vector-ref vs1 idx1) #f))
+	   (state2 (if (< idx2 (vector-length vs2)) (vector-ref vs2 idx2) #f))
+	   (min (cond ((and state1 state2) (moment-min (when state1) (when state2)))
+		      (state1 (when state1))
+		      (state2 (when state2))
 		      (else #f)))
-	   (inc1 (if (and s1 (equal? min (when s1))) 1 0))
-	   (inc2 (if (and s2 (equal? min (when s2))) 1 0))
+	   (inc1 (if (and state1 (equal? min (when state1))) 1 0))
+	   (inc2 (if (and state2 (equal? min (when state2))) 1 0))
 	   (ss-object (if min
 			  (make <Split-state>
 			    #:when min
-			    #:voice-states (cons s1 s2)
+			    #:voice-states (cons state1 state2)
 			    #:synced (= inc1 inc2))
 			  #f)))
-      (if s1
-	  (set! (split-index s1) ss-idx))
-      (if s2
-	  (set! (split-index s2) ss-idx))
+      (if state1
+	  (set! (split-index state1) ss-idx))
+      (if state2
+	  (set! (split-index state2) ss-idx))
       (if min
 	  (helper (1+ ss-idx)
 		  (cons ss-object ss-list)
@@ -216,13 +216,13 @@ Voice-state objects
 	 (voice-state-vec2 (make-voice-states evl2))
 	 (result (make-split-state voice-state-vec1 voice-state-vec2)))
     
-    (define (analyse-time-step ri)
+    (define (analyse-time-step result-idx)
       (define (put x . index)
 	"Put the result to X, starting from INDEX backwards.
 
 Only set if not set previously.
 "
-	(let ((i (if (pair? index) (car index) ri)))
+	(let ((i (if (pair? index) (car index) result-idx)))
 	  (if (and (<= 0 i)
 		   (not (symbol? (configuration (vector-ref result i)))))
 	      (begin
@@ -238,7 +238,7 @@ Only set if not set previously.
 		(put prev))))
 	(map copy-one-state (span-state vs)))
 
-      (define (analyse-notes now-state) 
+      (define (analyse-notes now-state)
 	(let* ((vs1 (car (voice-states now-state)))
 	       (vs2 (cdr (voice-states now-state)))
 	       (notes1 (note-events vs1))
@@ -257,8 +257,14 @@ Only set if not set previously.
 			       ly:pitch<?)))
 	  (cond ((> (length notes1) 1) (put 'apart))
 		((> (length notes2) 1) (put 'apart))
-		((not (= (length notes1) (length notes2)))
-		 (put 'apart))
+		;;
+		((and (= (length notes2) 1)
+		      (= (length notes1) 0))
+		      (put 'playing2))
+		((and (= (length notes1) 1)
+		      (= (length notes2) 0))
+		      (put 'playing1))
+		;;
 		((and (= (length durs1) 1)
 		      (= (length durs2) 1)
 		      (not (equal? (car durs1) (car durs2))))
@@ -288,11 +294,10 @@ Only set if not set previously.
 			   (if (and (null? (span-state vs1)) (null? (span-state vs2)))
 			       (put 'chords)))))))))
       
-      (if (< ri (vector-length result))
-	  (let* ((now-state (vector-ref result ri))
+      (if (< result-idx (vector-length result))
+	  (let* ((now-state (vector-ref result result-idx))
 		 (vs1 (car (voice-states now-state)))
 		 (vs2 (cdr (voice-states now-state))))
-
 	    
 	    (cond ((not vs1) (put 'apart))
 		  ((not vs2) (put 'apart))
@@ -301,23 +306,25 @@ Only set if not set previously.
 			 (active2 (previous-span-state vs2))
 			 (new-active1 (span-state vs1))
 			 (new-active2 (span-state vs2)))
-		     (if pc-debug
-			 (display (list (when now-state) ri
+		     (if #f ; debug
+			 (display (list (when now-state) result-idx
 					active1 "->" new-active1
 					active2 "->" new-active2
 					"\n")))
 		     (if (and (synced? now-state)
 			      (equal? active1 active2)
 			      (equal? new-active1 new-active2))
-		    (analyse-notes now-state)
-		    ;; active states different:
-		    (put 'apart)))
+			 (analyse-notes now-state)
+			 
+			 ;; active states different:
+			 (put 'apart)))
+		   
 		   ;; go to the next one, if it exists.
-		   (analyse-time-step (1+ ri)))))))
+		   (analyse-time-step (1+ result-idx)))))))
     
-    (define (analyse-a2 ri)
-      (if (< ri (vector-length result))
-	  (let* ((now-state (vector-ref result ri))
+    (define (analyse-a2 result-idx)
+      (if (< result-idx (vector-length result))
+	  (let* ((now-state (vector-ref result result-idx))
 		 (vs1 (car (voice-states now-state)))
 		 (vs2 (cdr (voice-states now-state))))
 	    (if (and (equal? (configuration now-state) 'chords)
@@ -332,9 +339,9 @@ Only set if not set previously.
 			((and (= 0 (length notes1))
 			      (= 0 (length notes2)))
 			 (set! (configuration now-state) 'unisilence)))))
-	    (analyse-a2 (1+ ri)))))
+	    (analyse-a2 (1+ result-idx)))))
     
-    (define (analyse-solo12 ri)
+    (define (analyse-solo12 result-idx)
       
       (define (previous-config vs)
 	(let* ((pvs (previous-voice-state vs))
@@ -352,7 +359,7 @@ Only set if not set previously.
       
       (define (put x)
 	;; (display (list "putting "  x "\n"))
-	(set! (configuration (vector-ref result ri)) x))
+	(set! (configuration (vector-ref result result-idx)) x))
       
       (define (current-voice-state now-state voice-num)
 	(define vs ((if (= 1 voice-num) car cdr)
@@ -369,13 +376,11 @@ the mark when there are no spanners active."
 		   (solo-state (current-voice-state now-state (if (equal? type 'solo1) 1 2)))
 		   (silent-state (current-voice-state now-state (if (equal? type 'solo1) 2 1)))
 		   (silent-notes (if silent-state (note-events silent-state) '()))
-		   (solo-notes (if solo-state (note-events solo-state) '()))
-		   (soln (length solo-notes))
-		   (siln (length silent-notes)))
+		   (solo-notes (if solo-state (note-events solo-state) '())))
 	      ;; (display (list "trying " type " at "  (when now-state) solo-state silent-state	 "\n"))
 	      (cond ((not (equal? (configuration now-state) 'apart))
 		     current-idx)
-		    ((> siln 0) start-idx)
+		    ((> (length silent-notes) 0) start-idx)
 		    ((not solo-state)
 		     (put-range type start-idx current-idx)
 		     current-idx)
@@ -393,9 +398,9 @@ the mark when there are no spanners active."
 		     (try-solo type start-idx (1+ current-idx)))))
 	    start-idx)) ; try-solo
       
-      (define (analyse-moment ri)
-	"Analyse 'apart starting at RI. Return next index. "
-	(let* ((now-state (vector-ref result ri))
+      (define (analyse-moment result-idx)
+	"Analyse 'apart starting at RESULT-IDX. Return next index. "
+	(let* ((now-state (vector-ref result result-idx))
 	       (vs1 (current-voice-state now-state 1))
 	       (vs2 (current-voice-state now-state 2))
 	       ;; (vs1 (car (voice-states now-state)))
@@ -404,26 +409,28 @@ the mark when there are no spanners active."
 	       (notes2 (if vs2 (note-events vs2) '()))
 	       (n1 (length notes1))
 	       (n2 (length notes2)))
-	  ;; (display (list "analyzing step " ri "  moment " (when now-state) vs1 vs2  "\n"))
+	  ;; (display (list "analyzing step " result-idx "  moment " (when now-state) vs1 vs2  "\n"))
 	  (max				; we should always increase.
+	   
 	   (cond ((and (= n1 0) (= n2 0))
 		  (put 'apart-silence)
-		  (1+ ri))
+		  (1+ result-idx))
 		 ((and (= n2 0)
 		       (equal? (when vs1) (when now-state))
 		       (null? (previous-span-state vs1)))
-		  (try-solo 'solo1 ri ri))
+		  (try-solo 'solo1 result-idx result-idx))
 		 ((and (= n1 0)
 		       (equal? (when vs2) (when now-state))
 		       (null? (previous-span-state vs2)))
-		  (try-solo 'solo2 ri ri))
-		 (else (1+ ri)))
-	   (1+ ri)))) ; analyse-moment
+		  (try-solo 'solo2 result-idx result-idx))
+		 
+		 (else (1+ result-idx)))
+	   (1+ result-idx)))) ; analyse-moment
       
-      (if (< ri (vector-length result))
-	  (if (equal? (configuration (vector-ref result ri)) 'apart)
-	      (analyse-solo12 (analyse-moment ri))
-	      (analyse-solo12 (1+ ri))))) ; analyse-solo12
+      (if (< result-idx (vector-length result))
+	  (if (equal? (configuration (vector-ref result result-idx)) 'apart)
+	      (analyse-solo12 (analyse-moment result-idx))
+	      (analyse-solo12 (1+ result-idx))))) ; analyse-solo12
 
     (analyse-spanner-states voice-state-vec1)
     (analyse-spanner-states voice-state-vec2)
@@ -438,7 +445,7 @@ the mark when there are no spanners active."
     (analyse-time-step 0)
     ;; (display result)
     (analyse-a2 0)
-    ;; (display result)
+    ;;(display result)
     (analyse-solo12 0)
     ;; (display result)
     (set! result (map

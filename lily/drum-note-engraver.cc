@@ -46,8 +46,6 @@ Drum_notes_engraver::try_music (Music *m)
     }
   else if (m->is_mus_type ("busy-playing-event"))
     return events_.size ();
-  else if (m->is_mus_type ("start-playing-event"))
-    return events_.size ();
   
   return false;
 }

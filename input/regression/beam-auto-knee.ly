@@ -13,6 +13,6 @@ threshold.
      c,16[ e g c e g c c,,] 
   }
   \paper{
-    linewidth = 40*\staffspace
+      raggedright = ##t 
   }
 }

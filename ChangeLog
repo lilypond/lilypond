@@ -1,3 +1,16 @@
+2004-09-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/drum-note-engraver.cc (try_music): idem.
+
+	* lily/note-heads-engraver.cc: remove start-playing-event.
+
+	* lily/part-combine-iterator.cc (Part_combine_iterator): use
+	BusyPlayingEvent to determine which voice was active last.
+	(unisono): use last active to where to get unisono information
+	from.
+
+	* scm/part-combiner.scm (determine-split-list): cleanups
+
 2004-09-23  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* input/regression/lyric-extender.ly: simplify.

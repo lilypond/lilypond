@@ -13,15 +13,11 @@ notes, and up for low notes.
 "
 }
 
-
-\score { 
-  \context Voice \relative c {
-    b''4 ~ b8(b8) e4 e,
-	
-  }
-  \paper {
+\paper {
     raggedright = ##t
-  }  
-  \midi { }
+}  
+\context Voice \relative c {
+    b''4 ~ b8(b8) e4 e,
+    
 }
 
