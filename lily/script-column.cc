@@ -45,9 +45,16 @@ Script_column::before_line_breaking (SCM smob)
 {
   Grob* me = unsmob_grob (smob);
   Drul_array<SCM> scripts (SCM_EOL, SCM_EOL);
-  Link_array<Grob> staff_sided 
-    = Pointer_group_interface__extract_grobs (me, (Grob*)0, "scripts");
-				     
+  Link_array<Grob> staff_sided;
+  
+  for (SCM s  = me->get_grob_property( "scripts");  gh_pair_p (s); s = gh_cdr( s))
+    {
+      Grob *sc = unsmob_grob (gh_car (s));
+
+      if (!sc->has_offset_callback_b (Side_position_interface::aligned_side_proc, X_AXIS))
+	staff_sided.push (sc);
+    }
+  
   for (int i=0; i < staff_sided.size (); i++)
     {
       Grob* g = staff_sided[i];
@@ -65,7 +72,6 @@ Script_column::before_line_breaking (SCM smob)
   Direction d = DOWN;
   do {
     SCM ss = scm_reverse_x (scripts[d], SCM_EOL);
-    
     ss = scm_stable_sort_x (ss,  grob_script_priority_less_proc);
 
     Grob * last = 0;

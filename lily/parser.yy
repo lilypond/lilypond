@@ -1626,11 +1626,9 @@ gen_text_def:
 		$$ = t;
 	}
 	| DIGIT {
-		String ds = to_string ($1);
-		Music * t = MY_MAKE_MUSIC("TextScriptEvent");
+		Music * t = MY_MAKE_MUSIC("FingerEvent");
 		SCM finger = ly_symbol2scm ("finger");
-		t->set_mus_property ("text",  scm_makfrom0str (ds.to_str0 ()));
-		t->set_mus_property ("text-type" , finger);
+		t->set_mus_property ("digit",  gh_int2scm ($1));
 		t->set_spot (THIS->here_input ());
 		$$ = t;
 	}

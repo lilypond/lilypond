@@ -118,7 +118,13 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 
 	(internal-class-name . "Event")
 	(types . (general-music extender-event event))
-	))   
+	))
+    (FingerEvent
+     . (
+	(description . "")
+	(internal-class-name . "Event")
+	(types . (general-music fingering-event event))
+	))
     (GlissandoEvent
      . (
 	(description .  "")

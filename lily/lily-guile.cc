@@ -104,10 +104,8 @@ gulp_file_to_string (String fn)
 
 LY_DEFINE(ly_gulp_file, "ly:gulp-file", 1,0, 0,
 	  (SCM name),
-	  "Read the file named @var{name}, and return its contents in a string. The
-file is looked up using the lilypond search path.
-
-")
+	  "Read the file named @var{name}, and return its contents in a string. The "
+" file is looked up using the lilypond search path.")
 {
   return scm_makfrom0str (gulp_file_to_string (ly_scm2string (name)).to_str0 ());
 }
@@ -160,9 +158,8 @@ LY_DEFINE(ly_warning,"ly:warn", 1, 0, 0,
 }
 
 LY_DEFINE(ly_isdir,  "ly:dir?", 1,0, 0,  (SCM s),
-	  "type predicate. A direction is a -1, 0 or 1, where -1 represents left or
-down and 1 represents right or up.
-")
+	  "type predicate. A direction is a -1, 0 or 1, where -1 represents left or "
+"down and 1 represents right or up. ")
 {
   if (gh_number_p (s))
     {
@@ -311,9 +308,8 @@ ly_scm2offset (SCM s)
    
 LY_DEFINE(ly_number2string,  "ly:number->string", 1, 0,0,
 	  (SCM s),
-	  " converts @var{num} to a string without generating many decimals. It
-leaves a space at the end.
-")
+	  " converts @var{num} to a string without generating many decimals. It "
+"leaves a space at the end.")
 {
   SCM_ASSERT_TYPE (gh_number_p (s), s, SCM_ARG1, __FUNCTION__, "number");
 
@@ -364,9 +360,7 @@ wave_sweep_goodbye (void *dummy1, void *dummy2, void *dummy3)
 
 #include "version.hh"
 LY_DEFINE(ly_version,  "ly:version", 0, 0, 0, (),
-	  "Return the current lilypond version as a list, e.g.
-@code{(1 3 127 uu1)}. 
-")
+	  "Return the current lilypond version as a list, e.g. @code{(1 3 127 uu1)}. ")
 {
   char const* vs =  "\' (" MAJOR_VERSION " " MINOR_VERSION " "  PATCH_LEVEL " " MY_PATCH_LEVEL ")" ;
   
