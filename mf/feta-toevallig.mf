@@ -261,7 +261,7 @@ fet_beginchar("Double Flat", "-2", "flatflat")
 	left_wid = .7;
 	right_wid = .8;
 	overlap = .05;
-	set_char_box(1.2 stafflinethickness#, (left_wid + right_wid -overlap) *staff_space#, .5 staff_space#, 2 staff_space#);
+	set_char_box(1.2 stafflinethickness#, (left_wid + right_wid -overlap) *staff_space#, .6 staff_space#, 2 staff_space#);
 	draw_meta_flat(0, left_wid*  staff_space, 1/3 staff_space);
 	draw_meta_flat((left_wid - overlap) *staff_space,  
 		right_wid *staff_space, 1/3 staff_space);

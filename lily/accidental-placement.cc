@@ -18,6 +18,7 @@ source file of the GNU LilyPond music typesetter
 #include "note-column.hh"
 #include "group-interface.hh"
 #include "note-collision.hh"
+#include "accidental-interface.hh"
 
 MAKE_SCHEME_CALLBACK(Accidental_placement,extent_callback, 2);
 SCM
@@ -186,11 +187,9 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
    The naturals should be left of the C as well; they should
    be separate accs.
 
-   TODO: Try to combine Apes before sorting them: this will allow a
-   better placement.
+   Note that this placement problem looks NP hard, so we just use a
+   simple strategy, not an optimal choice.
 
-   Note that this placement problem is almost certainly NP hard, so we
-   just use a simple strategy, not an optimal choice.
 */
 
 SCM
@@ -198,6 +197,10 @@ Accidental_placement::position_accidentals (Grob * me)
 {
   SCM accs = me->get_grob_property ("accidentals");
 
+  /*
+    TODO: there is a bug in this code. If two accs are on the same
+    Y-position, they share an Ape, and will be pritned in overstrike.
+   */
   Link_array<Accidental_placement_entry> apes;
   for (SCM s = accs; gh_pair_p (s); s =gh_cdr (s))
     {
@@ -211,7 +214,7 @@ Accidental_placement::position_accidentals (Grob * me)
     }
 
 
-  Grob *commony =0 ;
+  Grob *common[] = {me, 0};
 
   /*
     First we must extract *all* pointers. We can only determine
@@ -224,8 +227,12 @@ Accidental_placement::position_accidentals (Grob * me)
       for (int j = ape->grobs_.size(); j--;)
 	{
 	  Grob * a = ape->grobs_[j];
+
+	  if (common[Y_AXIS])
+	    common[Y_AXIS] = common[Y_AXIS]->common_refpoint (a, Y_AXIS);
+	  else
+	    common[Y_AXIS] = a;
 	  
-	  commony = commony->common_refpoint (a, Y_AXIS);
 	  Grob *head = a->get_parent (Y_AXIS);
 
 	  Grob * col = head->get_parent (X_AXIS);
@@ -261,7 +268,7 @@ Accidental_placement::position_accidentals (Grob * me)
     }
   heads.default_sort();
   heads.uniq();
-  commony = common_refpoint_of_array (heads, commony, Y_AXIS);
+  common[Y_AXIS] = common_refpoint_of_array (heads, common[Y_AXIS], Y_AXIS);
 
   
   for (int i= apes.size (); i--;)
@@ -273,18 +280,15 @@ Accidental_placement::position_accidentals (Grob * me)
       for (int j = apes[i]->grobs_.size(); j--;)
 	{
 	  Grob * a = apes[i]->grobs_[j];
-	  Box b;
-	  b[X_AXIS] = a->extent (me, X_AXIS);
-	  b[Y_AXIS] = a->extent (commony, Y_AXIS);
 
-	  ape->extents_.push (b);
+	  Array<Box> boxes = Accidental_interface::accurate_boxes (a, common);
 	  
-	  /*
-	    TODO: replace the extents of a flat by combination of two
-	    bboxes, so that we use the shape of the flat better.
-	  */
-	  insert_extent_into_skyline (&ape->left_skyline_, b, Y_AXIS, LEFT);
-	  insert_extent_into_skyline (&ape->right_skyline_ , b,Y_AXIS, RIGHT);
+	  ape->extents_.concat (boxes);
+	  for (int j  = boxes.size(); j--;)
+	    {
+	      insert_extent_into_skyline (&ape->left_skyline_, boxes[j], Y_AXIS, LEFT);
+	      insert_extent_into_skyline (&ape->right_skyline_ , boxes[j], Y_AXIS, RIGHT);
+	    }
 	}
     }
 
@@ -305,13 +309,13 @@ Accidental_placement::position_accidentals (Grob * me)
   stagger_apes (&apes);
 
   Accidental_placement_entry * head_ape = new Accidental_placement_entry;
-  Grob *commonx = common_refpoint_of_array (heads, me, X_AXIS);  
+  common[X_AXIS] = common_refpoint_of_array (heads, common[X_AXIS], X_AXIS);  
   Array<Skyline_entry> head_skyline (empty_skyline (LEFT));
   Array<Box> head_extents;
   for (int i = heads.size(); i--;)
     {
-      Box b(heads[i]->extent (commonx, X_AXIS),
-	    heads[i]->extent (commony, Y_AXIS));
+      Box b(heads[i]->extent (common[X_AXIS] , X_AXIS),
+	    heads[i]->extent (common[Y_AXIS], Y_AXIS));
 
       insert_extent_into_skyline (&head_skyline, b , Y_AXIS, LEFT);
     }
@@ -328,7 +332,19 @@ Accidental_placement::position_accidentals (Grob * me)
   SCM spad = me->get_grob_property ("padding");
   if (gh_number_p (spad))
     padding = gh_scm2double (spad);
-  
+
+
+  /*
+    TODO:
+
+    There is a bug in this code: the left_skylines should be
+    accumulated, otherwise the b will collide with bb in
+
+      bb
+    b 
+      n 
+    
+   */
   apes.push (head_ape);
   for (int i= apes.size () -1 ; i-- > 0;)
     {
