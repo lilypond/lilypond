@@ -84,7 +84,7 @@ local @examples=("twinkle-pop", "twinkle", "multi", "wtk1-fugue2",
 		 "toccata-fuga-E", 
 		 "scsii-menuetto",
 		 "cadenza", "scales", 
-		#"rhythm", 
+		"rhythm", 
 		 "gallina");
 
 
@@ -146,7 +146,7 @@ files have been scaled to eliminate aliasing.";
 	$name=$a; print HTMLLIST "<h1>example file: $name</h1>\n<XMP>\n";
 
 	open IF, "$depth/input/$a.ly";
-	input_record_separator IF "%}";
+	input_record_separator IF "\n}";
 	
 	$desc = <IF>;
 	close IF;
