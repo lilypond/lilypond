@@ -3,7 +3,7 @@
 #shift;
 if test "x$1" = x;
 then
-    versionfile=".version"
+    versionfile="VERSION"
 else
     versionfile=$1;
 fi
