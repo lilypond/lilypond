@@ -101,7 +101,7 @@ All_font_metrics::find_afm (String name)
 	      s += "\n";
 	      s += _ (" Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V to show font paths.");
 	      s += _("A script for removing font-files is delivered with the source-code,\n"
-		     "in buildscripts/clean-fonts.sh") 
+		     "in buildscripts/clean-fonts.sh");
 	      error (s);
 	    }
 	}
