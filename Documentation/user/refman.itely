@@ -3922,7 +3922,7 @@ some common problems in orchestral music.
 * Transpose::                   
 * Multi measure rests::         
 * Automatic part combining::    
-* Frenched scores::             
+* Hiding staffs::               
 * Sound output for transposing instruments::  
 @end menu
 
@@ -4303,8 +4303,11 @@ The part combiner is slated to be rewritten [TODO: explain why].
 @cindex @code{Voice_engraver}
 @cindex @code{A2_engraver}
 
-@node Frenched scores
-@subsection Frenched scores
+@node Hiding staffs
+@subsection Hiding staffs
+
+@cindex Frenched scores
+
 
 In orchestral scores, staff lines that only have rests are usually
 removed.  This saves some space. This style is called `French Score'.
@@ -4312,7 +4315,6 @@ For @internalsref{Lyrics}, @internalsref{LyricsVoice},
 @internalsref{ChordNames} and @internalsref{FiguredBass}, this is
 switched on by default.  When these line of these contexts turn out
 empty after the line-breaking process, they are removed.
-
 
 For normal staffs, a specialized @internalsref{Staff} context is
 available, which does the same: staffs containing nothing (or only

@@ -1,3 +1,12 @@
+2003-08-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/refman.itely (Hiding staffs): rename node.
+
+2003-08-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/new-markup-syntax.ly (texidoc): remove
+	molecule-callback override.
+
 2003-08-04  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/les-nereides.ly: Mark tweaks with %tweak.
