@@ -281,8 +281,8 @@ Argument LIM limit."
      ( ?}  .  ("{" . "}"))
      ;; ligatures  '\[ ... \]' are skipped in the following expression
      ( ?]  .  ("\\([^\\]\\([\\][\\]\\)*\\|^\\)[[]" . "\\([^\\]\\([\\][\\]\\)*\\|^\\)[]]"))
-     ;; ( "\\]" . ("\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][[]" . "\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][]]"))
-     ;; ( "\\)" . ("\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][(]" . "\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][)]"))
+     ( "\\]" . ("\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][[]" . "\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][]]"))
+     ( "\\)" . ("\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][(]" . "\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][)]"))
      ))
 
 
@@ -346,8 +346,10 @@ slur-paren-p defaults to nil.
 		   (if (and (= match ?<)
 			    (looking-at ".\\s-+<\\|\\({\\|}\\|<\\|>\\|(\\|)\\|[][]\\)<"))
 		       (forward-char 1))))))
-    ;; somehow here two-char brackets \<, \>, \[, \], \(, \) are handled
-    (if (looking-at ".<\\|.>\\|.[][)(]") (forward-char 1))
+    ;; jump to the matching slur
+    (if (sequencep bracket-type)
+	(if (looking-at "..[][)(]") (forward-char 1)))
+    (if (looking-at ".[][><)(]") (forward-char 1))
     (if (= level 0) 
 	(point)
       (progn (goto-char oldpos)
@@ -409,15 +411,18 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 	(if (eq bracket-type ?])
             (message "trying to match ligatures \\[ ... \\]")
           (message "trying to match slurs \\( ... \\)")))
+    (if (eq char-before-bracket-type ?\\)
+	(setq bracket-type (string char-before-bracket-type bracket-type)))
     (save-restriction
       (if blink-matching-paren-distance
 	  (narrow-to-region (max (point-min)
 				 (- (point) blink-matching-paren-distance))
 			    oldpos)))
-    (if (memq bracket-type '(?> ?} ?]))
-	;; < { [ need to be mutually balanced and nested, so search backwards for both of these bracket types 
+    (if (memq bracket-type '(?> ?}))
+	;; < { need to be mutually balanced and nested, so search backwards for both of these bracket types 
 	(LilyPond-beginning-of-containing-sexp nil nil)  
       ;; whereas ( ) slurs within music don't, so only need to search for ( )
+      ;; use same mechanism for [ ] slurs
       (LilyPond-beginning-of-containing-sexp bracket-type t))
     (setq blinkpos (point))
     (setq mismatch
