@@ -6,6 +6,9 @@
 OPTIFLAG=-DNDEBUG -DNPRINT -O2
 DEBUGFLAG=-g
 
+# uncomment for windhoos
+# CXX=g++
+
 # turn off -pipe if linker doesn't support it
 EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes 
 
@@ -37,7 +40,7 @@ endif
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=26
+PATCHLEVEL=27
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 CXXVER=`$(CXX) --version`
 
@@ -59,14 +62,15 @@ INPUTDIR=input
 # 
 #
 include Sources.make
-progdocs=$(hdr) $(mycc)
 gencc=parser.cc lexer.cc
 cc=$(mycc) $(gencc)
 
 CCSOURCE=$(addprefix $(CCDIR)/, $(cc))
 obs=$(addprefix $(OBJECTDIR)/,$(cc:.cc=.o)) 
 ALLDEPS=$(addprefix $(DEPDIR)/,$(cc:.cc=.dep))
-
+STABLEOBS=$(addprefix $(OBJECTDIR)/,$(stablecc:.cc=.o)) 
+HEADERS=$(addprefix $(HEADERDIR)/,$(hdr)) 
+progdocs=$(HEADERS) $(addprefix $(CCDIR)/, $(mycc))
 #dist
 .EXPORT_ALL_VARIABLES:
 
@@ -81,12 +85,12 @@ SCRIPTS=make_version make_patch genheader clearlily
 MAKFILES=Makefile Variables.make Sources.make Initial.make Generate.make \
 	configure
 OFILES=COPYING README NEWS TODO
-IFILES= standchen.tex titledefs.tex pavane.tex lilyponddefs.tex \
+IFILES=  titledefs.tex lilyponddefs.tex \
 	ltest.tex test.tex .dstreamrc dimen.tex 
 DFILES=$(MAKFILES) $(OFILES) $(IFILES) $(SCRIPTS)
 
 #compiling
-LOADLIBES=-L$(FLOWERDIR) -lflower $(EXTRALIB)
+LOADLIBES=-L$(FLOWERDIR) -lflower $(EXTRALIB) -lg++
 FLOWERDIR=../flower
 
 CXXFLAGS=$(DEFINES) -I$(HEADERDIR) -I$(FLOWERDIR) $(EXTRACXXFLAGS)

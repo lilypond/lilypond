@@ -4,7 +4,9 @@
 % for lyrics, see twinkle.ly
 
 % the % is a comment.
-
+%
+% copyright: None
+%
 % declare music (which will be in *one* staff ) for the lead voice
 
 melodie = music {

@@ -23,8 +23,8 @@ ritme = staff {
 }
 
 melody=
-staff { melodic
-%	complex
+staff {
+	melodic
 	music{$
 	c8
 	|r4 r4 r4 r4

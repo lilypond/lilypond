@@ -2,7 +2,7 @@
 %  "Altijd is Kortjakje ziek"
 %  "Twinkle twinkle little star"
 % 
-
+% Copyright: none
 
 melodie = music {
 	$
@@ -104,15 +104,13 @@ text3 = music {
 }
 
 mstaf = staff {
-%	melodic
-	complex
+	melodic
 	music { melodie }
 	commands { clef "violin" }
 }
 
 bass_staf = staff {
-%	melodic
-	complex
+	melodic	
 	music { begeleiding }
 	commands { clef "bass" }
 }

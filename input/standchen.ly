@@ -1,5 +1,13 @@
-% st\"andchen.lily
-% Franz Schubert (? - ?)
+% standchen.ly
+%
+% St\"andchen (Serenade) "Leise flehen meine Lieder" D.957 No.4
+% Franz Schubert (1797-1828)
+% Text by Ludwig Rellstab (1799-1860)
+%
+% Copyright (c) 1995,1996,1997 Jan Nieuwenhuizen <jan@digicash.com>
+% 
+% The purpose of this file is to demonstrate features of LilyPond.
+% (there is an accompanying LaTeX file, standchen.tex)
 %
 % comments with # note missing stuff
 % heu, make that %#%
@@ -8,16 +16,15 @@
 %% LilyPond's naive idealspacing calc.
 %%
 
-%
 %#%%
 %#%\title{St\"andchen}
 %#%\subtitle{Serenade}
 %#%%
-%#%\composer{`franz Schubert}
+%#%\composer{Franz Schubert}
 %#%\tempo{M\"a\ss ig}
 %#%%
 %#%\meter{3/4}
-%#%\key\`f
+%#%\key\F
 %#%\clef\treble
 %#%%
 %#%\barnumbering5
@@ -30,11 +37,14 @@
 %%1
 melodie = music { $ 
 	\duration{ 8 }
-	r_"pp" { [ d `a-| } f-| { d `a-| } f-| { d `a-| ] }
+%	r_"\pp" { [ d `a-| } f-| { d `a-| } f-| { d `a-| ] }
+	r { [ d `a-|_"\pp" } f-| { d `a-| } f-| { d `a-| ] }
 %%2
 	r { [ d `bes-| } f-| { d `bes-| } f-| { d `bes-| ] }
 %%3
+	\textstyle "italic"
 	r_"simile" { [ d `bes } e { d `bes } e { d `bes ] }
+	\textstyle "roman"
 %%4
 	r { [ `a cis } e { `a cis } e { `a cis ] }
 %#%:|
@@ -51,18 +61,18 @@ melodie = music { $
 %%9
 %#%	{ 'a4.( 'cis4.\stemdown_p } { ) 'g 'e_{dolce} }
 %#%	{ 'g( 'e } 'f ) 'e
-	'a4.( )g \plet{ 2/3 } { 'g 'e } { 'f } { 'e } \plet{ 1/1 }
+	'a4.( )'g \plet{ 2/3 } { 'g 'e } { 'f } { 'e } \plet{ 1/1 }
 %%10
 	{ 'f2. 'd2. }
 %%11
-	\plet { 2/3 } [ a_"pp"( )bes a ] \plet { 1/1 } 'f4. a
+	\plet { 2/3 } [ a_"\pp"( )bes a ] \plet { 1/1 } 'f4. a
 %%12
 	\plet { 2/3 } [ g( ) a g ] \plet { 1/1 } 'e4. 'd
 %%13
 	'c4. bes \plet { 2/3 } [ bes( ) a g ] \plet { 1/1 }
 %%14
 %#%	a2 r { 'd(^ f_p(v }
-	a2 r { 'd f_"p" }
+	a2 r { 'd f_"\p" }
 %%15
 %#%	{ ) e4. ) 'c4.\stemup_{dolce} } { bes g }
 	{ e4. 'c4._"dolce" } { bes g }
@@ -70,12 +80,14 @@ melodie = music { $
 %%16
 	{ a2. f2. }
 %%17
+	\textstyle "italic"
 	[ a8._"cresc." 'cis16 ] 'f4. 'e
+	\textstyle "roman"
 %%18
 	[ 'd8. a16 ] f4. d
 %%19
 %#%	'c\grace\stemup
-	\plet { 2/3 } [ bes_"pp"( ) a bes ] \plet { 1/1 } 'd4. bes
+	\plet { 2/3 } [ bes_"\pp"( ) a bes ] \plet { 1/1 } 'd4. bes
 %%20
 	a2.
 %%21
@@ -85,23 +97,23 @@ melodie = music { $
 %#%	=f2.
 	f2.
 %%23
-	[ a8._"mf" 'cis16 ] 'f4. 'e
+	[ a8._"\mf" 'cis16 ] 'f4. 'e
 %%24
 	[ 'd8. a16 ] fis4. d
 %%25
 %#%	'cis\grace\stemup
-	\plet { 2/3 } [ b_"mf"( ) ais b ] \plet { 1/1 }	'd4. b
+	\plet { 2/3 } [ b_"\mf"( ) ais b ] \plet { 1/1 }	'd4. b
 %%26
 	{ a2. fis2. }
 %#%\tighten\newline
 %%27
-	\plet { 2/3 } [ 'e_"f"( )'dis 'e ] \plet { 1/1 } 'g4. 'cis
+	\plet { 2/3 } [ 'e_"\f"( )'dis 'e ] \plet { 1/1 } 'g4. 'cis
 %%28
 	{ 'd2. fis2. }
 %#%\volta1
 %%29
 %#%	{ bes2(^++++ g2_{mf} } 
-	{ bes2 g2_"mf" } 
+	{ bes2 g2_"\mf" } 
 %#%	[v { 'd8.( bes8. } { bes16 ) )++ g16 } ]
 	{ [ 'd8. bes8. } { bes16 g16 ] }
 %%30
@@ -113,7 +125,7 @@ melodie = music { $
 %#%	[ { a cis_.( } { a e_. } { a )- g_. } ]
 	{ [ a cis_. } { a e_. } { a g_. ] }
 %%32
-	{ a2 fis2_"pp" } { a4 fis4 }
+	{ a2 fis2_"\pp" } { a4 fis4 }
 %%33
 %#%	{ b2(^ g2 } [v { 'd8.( b8. } { b16 ) ) g16 } ]
 	{ b2( g2 } { [ 'd8. b8. } { b16 g16 ] }
@@ -138,36 +150,37 @@ melodie = music { $
 	'cis2 r4
 %%41
 %#%	{ > 'fis4. 'cis4._f } 'e [ 'e( ) 'd >! 'cis ] \plet { 1/1 }
-	{ 'fis4. 'cis4._"f" } 'e \plet { 2/3 } [ 'e( )'d 'cis ] \plet { 1/1 }
+	{ 'fis4. 'cis4._"\f" } 'e \plet { 2/3 } [ 'e( )'d 'cis ] \plet { 1/1 }
 %%42
 	[ b8. 'cis16 ] 'd4^> b r
 %%43
 %#%	[^ { b8._{ }_{ }_{ }_{ }_{ }_f g2. } 'cis16 ] 'd4^> b r
-	[ b8._"f" 'cis16 ] 'd4^> b r
+	[ b8._"\f" 'cis16 ] 'd4^> b r
 %%44
 %#%	[^ { > b8. fis2 } 'cis16 ] 'd4^> b >! r
-% typo?
 	[ b8. 'cis16 ] 'd4^> b r
 %%45
 %#%	'cis\grace\stemup
-	\plet { 2/3 } [ b_"p"( )ais b ] \plet { 1/1 } 'd4. b
+	\plet { 2/3 } [ b_"\p"( )ais b ] \plet { 1/1 } 'd4. b
 %%46
 %#%	{ =a2. fis2. }
 	{ a2. fis2. }
 %%47
-	\plet { 2/3 } [ 'e_"f"( )'dis 'e ] \plet { 1/1 } 'g4.^> 'cis
+	\plet { 2/3 } [ 'e_"\f"( )'dis 'e ] \plet { 1/1 } 'g4.^> 'cis
 %%48
 %#%	{ fis2.(v ='d2.\stemup(^ }
 	{ fis2. 'd2. }
 %%49
 %#%	{ ) 'd4 ) =f2._> } { r4 s4_{decr} } 'd4\stemup
+	\textstyle "italic"
 	'd4 r4_"decresc." 'd4
+	\textstyle "roman"
 %%50
 	{ bes2. e2. }
 %%51
 	{ a2. cis2. }
 %%52
-	{ fis2 d2 } { a4 f4_"pp" }
+	{ fis2 d2 } { a4 f4_"\pp" }
 %%53
 %#%	{ bes2 g2 } [ { 'd8.^>( bes8. } { ) bes16 g16 } ]
 	{ bes2 g2 } { [ 'd8.^> bes8. } { bes16 g16 ] }
@@ -178,7 +191,9 @@ melodie = music { $
 %#%	{ a4. g4. } [ { a cis_.( } { a e_. } { a )- g_. } ] 
 	{ a4. g4. } { [ a cis_. } { a e_. } { a g_. ] }
 %%56
+	\textstyle "italic"
 	{ a2. fis2._"dim." }
+	\textstyle "roman"
 %%57
 	{ a2. fis2. }
 %%58
@@ -482,10 +497,11 @@ score {
 		output "standchen.uit"
 		unitspace 2.4 cm
  %		unitspace 4.0 cm % leaves all text stand free
-geometric 1.4
+		geometric 1.4
 	}
 	staff { 
-	 	melodic music { melodie }
+		melodic
+		music { melodie }
 		commands {
 			key $bes$
 			clef "violin"
@@ -497,7 +513,8 @@ geometric 1.4
  		music { tekst2 }
   	}
 	staff { 
-		melodic music { begeleiding }
+		melodic
+		music { begeleiding }
 		commands {
 			key $bes$
 			clef "bass" 
@@ -510,6 +527,14 @@ geometric 1.4
 		skip 32:0
 		bar ":|"
 		skip 22:0
- 		bar "||"
+		bar "||"
+	}
+	paper {
+		symboltables { table_sixteen }
+		width 195mm
+		unitspace 20mm
+%		unitspace 4.0 cm % leaves all text stand free
+%		geometric 1.4
+		output "standchen.out"
 	}
 }
