@@ -30,11 +30,13 @@ Staff_walker::Staff_walker(Staff_walker const &s)
 }
 
 Staff_walker::Staff_walker(Staff * s, PScore*ps )
-    : PCursor<Staff_column*> (s->cols)
+    : PCursor<Staff_column*> (s->cols_)
 {
     staff_l_ = s;
     pscore_l_ = ps;
-    default_grouping = new Rhythmic_grouping(MInterval(0, 1), 4); // should be in tdes. TODO
+    
+    // should be in tdes. TODO
+    default_grouping = new Rhythmic_grouping(MInterval(0, 1), 4); 
     score_walk_l_ = 0;
 }
 
@@ -98,6 +100,7 @@ Staff_walker::process()
     process_timing_reqs();    
     process_requests();
 }
+
 void 
 Staff_walker::allow_break()
 {
