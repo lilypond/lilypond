@@ -297,8 +297,6 @@ ChordNamesContext = \translator {
 	MinimumVerticalExtent = ##f
 	ExtraVerticalExtent = ##f
 	VerticalExtent = ##f 
-
-	VerticalAxisGroup \override #'invisible-staff = ##t
 	}
 
 

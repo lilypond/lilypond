@@ -84,7 +84,7 @@ Accidentals are currently in a development stage.
 
 @lilypondfile[printfilename]{glissando.ly}
 
-@lilypondfile[printfilename]{fingering.ly}
+@c @l ilypondfile[printfilename]{fingering.ly}
 
 @section Dynamics
 
@@ -265,7 +265,7 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{spacing-stem-same-direction.ly}
 
-@lilypondfile[printfilename]{spacing-individual-tuning.ly}
+@c @l ilypondfile[printfilename]{spacing-individual-tuning.ly}
 
 @lilypondfile[printfilename]{spacing-note-flags.ly}
 

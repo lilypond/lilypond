@@ -1,3 +1,8 @@
+2002-04-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/*.cc: add some undocced properties.
+	scm/grob-description.scm: idem.
+
 2002-04-12  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-font-lock.el: Handle slurs \( and \), numbers,

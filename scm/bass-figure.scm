@@ -31,6 +31,7 @@
 
 
 
+
 (define (brew-bass-figure grob)
   "Make a molecule for a Figured Bass grob"
   (let* (
@@ -39,7 +40,7 @@
 	 (padding (ly-get-grob-property grob 'padding))
 	 (kerning (ly-get-grob-property grob 'kern))
 	 (thickness (*
-		     (ly-get-paper-variable grob 'stafflinethickness)
+		     (ly-get-paper-variable grob 'linethickness)
 		     (ly-get-grob-property grob 'thickness))
 		    )
 	 )
@@ -83,3 +84,8 @@
     mol
     ))
 
+
+(ly-add-interface
+'bass-figure-interface
+ "A bass figure, including bracket"
+ '(padding thickness ))
