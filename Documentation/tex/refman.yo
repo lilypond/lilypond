@@ -1080,7 +1080,8 @@ mudela(center)(
            \clef baritone; c'4_"\kern -10mm baritone"
            \clef varbaritone; c'4^"\kern -10mm varbaritone"
            \clef tenor;     c'4_"\kern -10mm tenor"
-           \clef "G_8";   c'4^"\kern -6mm G\_8"  }  
+%           \clef "G_8";   c'4^"\kern -6mm G\_8"  %%% BROKEN!
+   }  
    \paper{ linewidth= 4.5 \in; }
 }
 )
@@ -1573,13 +1574,18 @@ mudela(fragment,center)(
 }
 )
 
-COMMENT(Broken!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
+dit(code(restStyle)) Change the layout of rests shorter than quarter notes. 
+Currently, the standard layout code(restStyle="") and mensural notation
+code(restStyle="mensural") are available.
 
+dit(code(clefStyle)) Determines how clefs are typeset. When set to
+code(transparent), the clefs are not printed at all, when set to
+code(fullSizeChanges), clef changes in the middle of a line are
+typeset with a full size clef. By default, clef changes are typeset in
+smaller size.
 
 )
    
-
-
 subsubsubsect(GrandStaff properties)
 
 description( 

@@ -1,4 +1,15 @@
---- ../lilypond-1.1.37/NEWS	Wed Mar 31 21:50:35 1999
+--- ../lilypond-1.1.37.mb1/NEWS	Wed Mar 31 22:12:22 1999
+++ b/NEWS	Mon Apr  5 22:54:57 1999
+@@ -1,3 +1,9 @@
+pl 37.mb2
+	- Added property clefStyle: "" / "transparent" / "fullSizeChanges"
+	- New example: input/test/incipit.ly
+	- Documented clefStyle and restStyle in refman.tex
+	- Partial bug fix: octaviated clefs. Still broken!!!
+
+ pl 37.mb1
+ 	- Added property restStyle. 
+ 	- mensural 4th, 8th and 16th rests.--- ../lilypond-1.1.37/NEWS	Wed Mar 31 21:50:35 1999
 ++ b/NEWS	Sun Apr  4 00:42:55 1999
 @@ -1,4 +1,13 @@
 pl 37.script1

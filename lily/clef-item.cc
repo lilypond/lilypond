@@ -19,10 +19,15 @@ void
 Clef_item::do_pre_processing()
 {
   dim_cache_[Y_AXIS].translate (y_position_i_ * staff_line_leading_f () / 2.0);
-  if (break_status_dir() != RIGHT)
-    {
-      symbol_ += "_change";    
-    }
+  SCM style_sym =get_elt_property (style_scm_sym);
+  String style;
+  if (style_sym != SCM_BOOL_F)
+    style = ly_scm2string (SCM_CDR(style_sym));
+  
+  if (break_status_dir() != RIGHT && style != "fullSizeChanges")
+    symbol_ += "_change";
+  if (style == "transparent")
+    set_elt_property (transparent_scm_sym, SCM_BOOL_T);
 }
 
 /*
@@ -46,7 +51,7 @@ Clef_item::do_add_processing ()
       SCM octave_dir = remove_elt_property (octave_dir_scm_sym);
       if (octave_dir != SCM_BOOL_F)
 	{
-	  Direction d = Direction (gh_int2scm (SCM_CDR(octave_dir)));
+	  Direction d = Direction (gh_scm2int (SCM_CDR(octave_dir)));
 	  g = new G_text_item;
 	  pscore_l_->typeset_element (g);
       
