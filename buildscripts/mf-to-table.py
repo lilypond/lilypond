@@ -1,6 +1,6 @@
 #!@PYTHON@
 
-# mf-to-table.py -- convert spacing info in MF logs .afm and .tex
+# mf-to-table.py -- convert spacing info in MF logs . and .tex
 #
 # source file of the GNU LilyPond music typesetter
 #
@@ -56,8 +56,6 @@ def tfm_checksum (fn):
 
 	return cs
 
-
-## ugh.  What's font_family supposed to be?  It's not an afm thing.
 font_family = 'feta'
 
 def parse_logfile (fn):
@@ -326,6 +324,6 @@ for filenm in files:
 	if depfile_nm:
 		write_deps (open (depfile_nm, 'wb'), deps,
 			    [base + '.dvi', base + '.pfa', base + '.pfb',
-			     texfile_nm, afmfile_nm])
+			     texfile_nm])
 	if lyfile_nm:
 		write_fontlist (open (lyfile_nm, 'w'), g, m)
