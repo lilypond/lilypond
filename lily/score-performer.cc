@@ -105,6 +105,9 @@ Score_performer::header(Midi_stream &output_stream)
 			  + String_convert::i2dec_str( 0, 0, '0' ) );
     midi_track.add( Moment( 0 ), &track_name );
 
+    Midi_tempo tempo ( get_tempo_i());
+    midi_track.add( Moment(0), &tempo);
+
     output_stream  << midi_track;
 }
 
@@ -131,6 +134,11 @@ Score_performer::set_score(Score* score_l )
 void
 Score_performer::start()
 {
+    //<ugh>
+    int track_i = 1;
+    Performer_group_performer::set_track( track_i );
+    //</ugh>
+
     if ( midi_l_->outfile_str_ == "" )
 	midi_l_->outfile_str_ = default_out_fn + ".midi";
 }
