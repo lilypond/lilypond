@@ -31,12 +31,17 @@ Midi_stream::~Midi_stream ()
 Midi_stream&
 Midi_stream::operator << (String str)
 {
-  Byte * b = str.get_bytes ();
+  Byte *b = str.get_bytes ();
+#if 0
   for (int sz = str.length (); sz--;)
     {
       fputc (*b, out_file_);
       b++;
     }
+#else
+  for (int i = 0, n = str.length (); i < n; i++)
+    fputc (b[i], out_file_);
+#endif
   return *this;
 }
 
@@ -45,30 +50,18 @@ Midi_stream::operator << (Midi_item const& midi_c_r)
 {
   String str = midi_c_r.to_string ();
 
-
+  // ugh, should have separate debugging output with Midi*::print routines
   if (midi_debug_global_b)
     {
-     str = String_convert::bin2hex (str) + "\n";
-    // ugh, should have separate debugging output with Midi*::print routines
-    int i = str.index ("0a");
-    while (i >= 0)
-      {
-        str[i] = '\n';
-        str[i + 1] = '\t';
-    	i = str.index ("0a");
-      }
-    }
-  else
-    {
-      Byte * b = str.get_bytes ();
-      for (int sz = str.length (); sz--;)
+      str = String_convert::bin2hex (str) + "\n";
+      for (int i = str.index ("0a"); i >= 0; i = str.index ("0a"))
 	{
-	  fputc (*b, out_file_);
-	  b++;
+	  str[i] = '\n';
+	  str[i + 1] = '\t';
 	}
     }
-  
-  return *this;
+
+  return operator << (str);
 }
 
 Midi_stream&
