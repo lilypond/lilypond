@@ -48,11 +48,10 @@ virtuoso that taught in Geneva.
 \include "mozart-hrn3-romanze.ily"
 \include "mozart-hrn3-rondo.ily"
 
-    \bookpaper {
-	betweensystempadding = 0.0
-	betweensystemspace = 20 \mm
-%	raggedbottom = ##t 
-	}
+\bookpaper {
+    betweensystempadding = 0.0
+    betweensystemspace = 20 \mm
+}
 
 
 \book {

@@ -218,15 +218,27 @@ Simple_spacer::my_solve_linelen ()
 void
 Simple_spacer::my_solve_natural_len ()
 {
+  Real line_len_force = 0.0;
+  
   while (is_active ())
     {
       force_ = active_blocking_force () >? 0.0;
+      Real conf = configuration_length ();
 
+      if (conf < line_len_)
+	{
+	  line_len_force = force_
+	    + (line_len_ - conf)
+	    * active_springs_stiffness();
+	}
+      
       if (force_ < 1e-8) // ugh.,
 	break;
       
       set_active_states ();
     }
+
+  force_ = line_len_force;
 }
 
 LY_DEFINE(ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
@@ -286,15 +298,8 @@ LY_DEFINE(ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
     }
 
   SCM force_return = SCM_BOOL_F;
-  if (is_ragged)
-    {
-      Real len = posns.top ();
-      if (spacer.line_len_ - len  >= 0)
-	force_return  = scm_from_double ((spacer.line_len_ - len)
-					 * spacer.active_springs_stiffness ());
-    }
-  else if (!isinf (spacer.force_)
-	   && spacer.is_active ())
+  if (!isinf (spacer.force_)
+      && spacer.is_active ())
     {
       force_return = scm_from_double (spacer.force_);
     }
@@ -384,18 +389,8 @@ Simple_spacer_wrapper::solve (Column_x_positions *positions, bool ragged)
     */
   if (ragged)
     {
-      Real len = positions->config_.top ();
-      if (spacer_->line_len_ - len  >= 0)
-	positions->force_ = ((spacer_->line_len_ - len)
-			     * spacer_->active_springs_stiffness ());
-      else
-	{
-	  positions->force_ = 0.0;
-	  /*
-	    Don't go past end-of-line in ragged right.
-	   */
-	  positions->satisfies_constraints_ = false;
-	}
+      positions->satisfies_constraints_ = 
+	positions->config_.top () < spacer_->line_len_ ;
     }
 
 
