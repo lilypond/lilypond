@@ -1,4 +1,4 @@
-@c -*-texinfo-*-
+c -*-texinfo-*-
 
 @c TODO:
 @c   * more details about running lilypond; error messages,
@@ -373,7 +373,7 @@ cis1 ees fisis aeses
 @cindex key signature, setting
 
 The key signature is set with the command ``@code{\key}'', followed by
-a pitch and  @code{\major} or @code{\minor}:
+a pitch and @code{\major} or @code{\minor}:
 @quotation
 @example
 \key d \major
@@ -391,6 +391,36 @@ g'
 @end lilypond
 @end quotation
 
+WARNING!  The key signature only affects the way the output is printed,
+not the music itself.  If you type
+
+@example
+@code{
+\key d \major
+d e f g
+}
+@end example
+
+LilyPond will print an F-natural.  An F-sharp in the key of D major
+is still an F-sharp!  To print an F-sharp, you must use @code{fis},
+no matter what the key signature is.  See this example:
+
+@quotation
+@example
+\key d \major
+fis4 f fes fis |
+g2 fis
+@end example
+@end quotation
+
+@lilypond[noindent]
+\score{ \notes { \relative c'{
+\key d \major
+fis4 f fes fis
+g2 fis
+}}}
+@end lilypond
+@separate
 
 @cindex tie
 A tie is created by adding a tilde ``@code{~}'' to the first note
