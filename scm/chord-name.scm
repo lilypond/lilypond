@@ -29,13 +29,34 @@
 "
 TODO:
 
-- Use lilypond Pitch objects -- SCM pitch objects lead to
-duplication. LilyPond pitch objects force meaningful names
-(i.e. (ly:pitch-octave PITCH)  )
+  * Use lilypond Pitch objects -- SCM pitch objects lead to
+    duplication. LilyPond pitch objects force meaningful names
+    (i.e. (ly:pitch-octave PITCH) )
 
-- Pitches are musical objects. The pitches -> markup step should
+  * Pitches are musical objects. The pitches -> markup step should
 happen earlier (during interpreting), brew-molecule () should only
-dump reinterpret the markup as a molecule. " ; "
+dump reinterpret the markup as a molecule.
+
+ [* naming chord::... ; this is scheme not C++]
+ (yes - constructive naming suggestion here)
+
+ * easier tweakability:
+    - split chord::names-alists up into logical bits,
+      such as chord::exceptions-delta, exceptions-oslash
+    - iso just the 'style parameter, use a list, eg:
+      \property ChordNames.ChordName \set
+        #'style = #'(jazz delta oslash german-tonic german-Bb)
+
+ * clean split/merge of bass/banter/american stuff.
+   GET RID OF code duplication.
+
+ * fix FIXMEs
+
+ * doc strings
+
+"
+
+;; " hey Emacs: string has ended
 
 
 ;; pitch = (octave notename alteration)
@@ -44,23 +65,6 @@ dump reinterpret the markup as a molecule. " ; "
 ;;
 ;; markup = markup text -- see font.scm and input/test/markup.ly
 
-
-;; TODO
-
-;; Ugh : naming chord::... ; this is scheme not C++
-;;
-;; * easier tweakability:
-;;    - split chord::names-alists up into logical bits,
-;;      such as chord::exceptions-delta, exceptions-oslash
-;;    - iso just the 'style parameter, use a list, eg:
-;;      \property ChordNames.ChordName \set
-;;        #'style = #'(jazz delta oslash german-tonic german-Bb)
-;;
-;; * fix FIXMEs
-;;
-;; * clean split/merge of bass/banter/american stuff
-;;
-;; * doc strings
 
 (define-public chord::names-alist-banter
        `(
@@ -106,33 +110,44 @@ dump reinterpret the markup as a molecule. " ; "
 	
 	))
 
-(define (accidental->textp acc pos)
-  (if (= acc 0)
-      '()
-      (if (equal? pos 'columns)
-        (list '(music (font-relative-size . -1))
-                   (list (string-append "accidentals-" (number->string acc))))
-        (if (equal? pos 'super)
-          (list '(music (raise . 2) (font-relative-size . -1))
-                   (list (string-append "accidentals-" (number->string acc))))
-          (list '(music (raise . -1) (font-relative-size . -1))
-                   (list (string-append "accidentals-" (number->string acc))))))))
-
-(define (accidental->text acc) (accidental->textp acc 'columns))
-(define (accidental->text-super acc) (accidental->textp acc 'super))
-(define (accidental->text-sub acc) (accidental->textp acc 'sub))
-
 ; pitch->note-name: drops octave
 (define (pitch->note-name pitch)
   (cons (cadr pitch) (caddr pitch)))
 
-(define (accidental-markup acc)
+(define (accidental->markup acc)
   "ACC is an int, return a markup making an accidental."
   (if (= acc 0)
       (make-line-markup (list empty-markup))
       (make-smaller-markup (make-musicglyph-markup
 			    (string-append "accidentals-"
 					   (number->string acc))))))
+
+(define (accidental->markupp acc pos)
+
+  (if (= acc 0)
+      empty-markup
+      (let ((acc-markup (make-musicglyph-markup
+			 (string-append "accidentals-"
+					(number->string acc)))))
+	
+	(if (equal? pos 'columns)
+	    (make-line-markup (list (make-smaller-markup acc-markup)))
+	  (if (equal? pos 'super)
+	      (make-line-markup (list (make-super-markup acc-markup)))
+	      ;; not 'super or 'columns must be 'sub...
+	      (make-line-markup (list (make-sub-markup acc-markup))))))))
+
+
+;; FIXME: possibly to be used for american/jazz style
+;; However, only pos == columns is used, which seems to do
+;; exactly what accidental->markup does...
+(define (amy-accidental->text acc) (accidental->textp acc 'columns))
+
+;; These not used
+;;;(define (accidental->text-super acc) (accidental->textp acc 'simple-super))
+;;(define (accidental->text-super acc) (accidental->textp acc 'super))
+;;(define (accidental->text-sub acc) (accidental->textp acc 'sub))
+
 
 ;;
 ;; TODO: invent sensible way to make note name tweaking possible?
@@ -145,7 +160,7 @@ dump reinterpret the markup as a molecule. " ; "
     ;; undefined?
     ;; (make-normal-size-superscript-markup
     (make-super-markup
-     (accidental-markup (caddr pitch))))))
+     (accidental->markup (caddr pitch))))))
   
 ;;; Hooks to override chord names and note names, 
 ;;; see input/tricks/german-chords.ly
@@ -447,7 +462,6 @@ dump reinterpret the markup as a molecule. " ; "
 ;; Complete rewrite by Amelie Zapf, <amy@loueymoss.com>
 
 ;; DONT use non-ascii characters, even if ``it works'' in Windows
-;; DONT use non-ascii characters, even if ``it works'' in Windows
 
 ;;a white triangle
 (define mathm-markup-object
@@ -457,6 +471,15 @@ dump reinterpret the markup as a molecule. " ; "
 (define mathn-markup-object
   (make-override-markup '(font-family . math) (make-simple-markup "N")))
 
+(define (step->markup-accidental pitch)
+    (case (caddr pitch)
+      ((-2) (accidental->markup -2))
+      ((-1) (accidental->markup -1))
+      ((0) empty-markup)
+      ((1) (accidental->markup 1))
+      ((2) (accidental->markup 2)))
+    (make-simple-markup (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8)))))
+
 (define-public chord::names-alist-american 
   `(
     (((0 . 0)) . ,empty-markup)
@@ -464,40 +487,30 @@ dump reinterpret the markup as a molecule. " ; "
     (((0 . 0) (2 . -1)) . ,(make-simple-markup "m"))
     (((0 . 0) (4 . 0)) . ,(make-super-markup (make-simple-markup "5 ")))
     (((0 . 0) (1 . 0) (4 . 0)) . ,(make-super-markup (make-simple-markup "2 ")))
-					;choose your symbol for the fully diminished chord
+    ;;choose your symbol for the fully diminished chord
     (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ,(make-simple-markup "dim"))
-					;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ,(make-line-markup (list empty-markup (make-super-markup (make-simple-markup "o")))))
-    )
-  )
-
-(define (step->markup-accidental pitch)
-    (case (caddr pitch)
-      ((-2) (accidental-markup -2))
-      ((-1) (accidental-markup -1))
-      ((0) empty-markup)
-      ((1) (accidental-markup 1))
-      ((2) (accidental-markup 2)))
-    (make-simple-markup (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8)))))
+    ;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ,(make-line-markup (list empty-markup (make-super-markup (make-simple-markup "o")))))
+    ))
 
 (define (step->markup-american pitch)
   (case (cadr pitch)
     ((6) (case (caddr pitch)
-	   ((-2) (make-line-markup (list (accidental-markup -1) (make-simple-markup "7"))))
+	   ((-2) (make-line-markup (list (accidental->markup -1) (make-simple-markup "7"))))
 	   ((-1) (make-simple-markup "7"))
 	   ((0) (make-simple-markup "maj7"))
-	   ((1) (make-line-markup (list (accidental-markup 1) (make-simple-markup "7"))))
-	   ((2) (make-line-markup (list (accidental-markup 2) (make-simple-markup "7"))))))
+	   ((1) (make-line-markup (list (accidental->markup 1) (make-simple-markup "7"))))
+	   ((2) (make-line-markup (list (accidental->markup 2) (make-simple-markup "7"))))))
     ((4) (case (caddr pitch)
-	   ((-2) (make-line-markup (list (accidental-markup -2) (make-simple-markup "5"))))
+	   ((-2) (make-line-markup (list (accidental->markup -2) (make-simple-markup "5"))))
 	   ;;choose your symbol for the diminished fifth
 	   ((-1) (make-simple-markup "-5"))
-	   ;;((-1) (make-line-markup (list (accidental-markup -1) (make-simple-markup "5")))))
+	   ;;((-1) (make-line-markup (list (accidental->markup -1) (make-simple-markup "5")))))
 	   ((0) empty-markup)
 	   ;;choose your symbol for the augmented fifth
 	   ;;((1) (make-simple-markup "aug"))
-	   ;;((1) (make-line-markup (list (accidental-markup 1) (make-simple-markup "5")))))
+	   ;;((1) (make-line-markup (list (accidental->markup 1) (make-simple-markup "5")))))
 	   ((1) (make-simple-markup "+5"))
-	   ((2) (make-line-markup (list (accidental-markup 2) (make-simple-markup "5"))))))
+	   ((2) (make-line-markup (list (accidental->markup 2) (make-simple-markup "5"))))))
     (else (if (and (= (car pitch) 0)
 		   (= (cadr pitch) 3)
 		   (= (caddr pitch) 0))
@@ -506,77 +519,81 @@ dump reinterpret the markup as a molecule. " ; "
   
 (define (chord::additions->markup-american additions subtractions)
   (if (pair? additions)
-     ; I don't like all this reasoning here, when we're actually typesetting.
-     (if(and(pair? (cdr additions)) ;a further addition left over
-	    (or(and(= 0 (caddr(car additions))) ;this addition natural
- 		   (not(= 6 (cadr(car additions)))))
- 	       (and(= -1 (caddr(car additions)))
- 		   (= 6 (cadr(car additions)))))
- 	    (or(and(= 0 (caddr(cadr additions))) ;the following addition natural
- 		   (not(= 6 (cadr(cadr additions)))))
- 	       (and(= -1 (caddr(cadr additions)))
- 		   (= 6 (cadr(cadr additions)))))
- 	    (or(and(= (car(car additions)) (car(cadr additions))) ;both a third apart
- 		   (= 2 (- (cadr(cadr additions)) (cadr(car additions)))))
- 	       (and(= 1 (- (car(cadr additions)) (car(car additions))))
- 		   (= 5 (- (cadr(car additions)) (cadr(cadr additions))))))
- 	    (or(null? subtractions) ;this or clause protects the "adds"
- 	       (and (pair? subtractions)
- 		    (or (< (car(cadr additions)) (car(car subtractions)))
- 			(and(= (car(cadr additions)) (car(car subtractions)))
- 			    (< (cadr(cadr additions)) (cadr(car subtractions))))))))
-	(chord::additions->markup-american (cdr additions) subtractions)
-	(make-line-markup
-	 (list
-	  (let ((step (step->markup-american (car additions))))
-	    (if (or (pair? (cdr additions))
-		    (pair? subtractions))
-		(if (and (pair? (cdr additions))
-			 (or(< 3 (- (cadr(cadr additions)) (cadr(car additions))))
-			    (and(< 0 (- (car(cadr additions)) (car(car additions))))
-				(> 4 (- (cadr(car additions)) (cadr(cadr additions)))))))
-		    (make-line-markup (list step (make-simple-markup " add")))
-		    ;; tweak your favorite separator here
-		    ;; (make-line-markup (list step (make-simple-markup "/")))
-		    (make-line-markup (list step (make-simple-markup " "))))
-		step))
-	  (chord::additions->markup-american (cdr additions) subtractions))))
-     empty-markup))
+      ;; I don't like all this reasoning here, when we're actually typesetting.
+      (if(and(pair? (cdr additions)) ;a further addition left over
+	     (or(and(= 0 (caddr(car additions))) ;this addition natural
+		    (not(= 6 (cadr(car additions)))))
+		(and(= -1 (caddr(car additions)))
+		    (= 6 (cadr(car additions)))))
+	     (or(and(= 0 (caddr(cadr additions))) ;the following addition natural
+		    (not(= 6 (cadr(cadr additions)))))
+		(and(= -1 (caddr(cadr additions)))
+		    (= 6 (cadr(cadr additions)))))
+	     (or(and(= (car(car additions)) (car(cadr additions))) ;both a third apart
+		    (= 2 (- (cadr(cadr additions)) (cadr(car additions)))))
+		(and(= 1 (- (car(cadr additions)) (car(car additions))))
+		    (= 5 (- (cadr(car additions)) (cadr(cadr additions))))))
+	     (or(null? subtractions) ;this or clause protects the "adds"
+		(and (pair? subtractions)
+		     (or (< (car(cadr additions)) (car(car subtractions)))
+			 (and(= (car(cadr additions)) (car(car subtractions)))
+			     (< (cadr(cadr additions)) (cadr(car subtractions))))))))
+	 (chord::additions->markup-american (cdr additions) subtractions)
+	 (make-line-markup
+	  (list
+	   (let ((step (step->markup-american (car additions))))
+	     (if (or (pair? (cdr additions))
+		     (pair? subtractions))
+		 (if (and (pair? (cdr additions))
+			  (or(< 3 (- (cadr(cadr additions)) (cadr(car additions))))
+			     (and(< 0 (- (car(cadr additions)) (car(car additions))))
+				 (> 4 (- (cadr(car additions)) (cadr(cadr additions)))))))
+		     (make-line-markup (list step (make-simple-markup " add")))
+		     ;; tweak your favorite separator here
+		     ;; (make-line-markup (list step (make-simple-markup "/")))
+		     (make-line-markup (list step (make-simple-markup " "))))
+		 step))
+	   (chord::additions->markup-american (cdr additions) subtractions))))
+      empty-markup))
 
 (define (chord::inner-name-american tonic exception-part additions subtractions
 				  bass-and-inversion steps)
   (let* ((tonic-markup (pitch->chord-name-markup-banter tonic steps))
-	 (except-markup (if exception-part exception-part empty-markup))  ;;(make-simple-markup "")
+	 (except-markup (if exception-part exception-part empty-markup))
 	 (sep-markup (if (and (string-match "super" (format "~s" except-markup))
-			    (or (pair? additions)
-				(pair? subtractions)))
-		       (make-super-markup (make-simple-markup "/"))
-		       empty-markup))
-	 ;this list contains all the additions that go "in line"
+			      (or (pair? additions)
+				  (pair? subtractions)))
+			 (make-super-markup (make-simple-markup "/"))
+			 empty-markup))
+	 ;;this list contains all the additions that go "in line"
 	 (prefixes
-	  (filter-list (lambda (x)
-			 (let ((o (car x)) (n (cadr x)) (a (caddr x)))
-			   (and (not (and (= 0 o) (= 2 n))) ;gets rid of unwanted thirds
-				;change this if you want it differently
-				(not (and (= 0 o) (= 3 n) (= 0 a))) ;sus4
-				(not (and (= 0 o) (= 4 n) (!= 0 a)))))) ;alt5
-		       additions))
-	 ;this list contains all the additions that are patched onto the end
-	 ;of the chord symbol, usually sus4 and altered 5ths.
+	  (filter-list
+	   (lambda (x)
+	     (let ((o (car x)) (n (cadr x)) (a (caddr x)))
+	       (and (not (and (= 0 o) (= 2 n))) ;gets rid of unwanted thirds
+		    ;;change this if you want it differently
+		    (not (and (= 0 o) (= 3 n) (= 0 a))) ;sus4
+		    (not (and (= 0 o) (= 4 n) (!= 0 a)))))) ;alt5
+	   additions))
+	 ;;this list contains all the additions that are patched onto the end
+	 ;;of the chord symbol, usually sus4 and altered 5ths.
 	 (suffixes
-	  ;take out the reverse if it bothers you in a pathological chord
-	  (reverse (filter-list (lambda (x)
-			 (let ((o (car x)) (n (cadr x)) (a (caddr x)))
-			   (and(not (and (= 0 o) (= 2 n))) ;gets rid of unwanted thirds
-			   ;change this correspondingly
-			       (or(and (= 0 o) (= 3 n) (= 0 a)) ;sus4
-				  (and (= 0 o) (= 4 n) (!= 0 a)))))) ;alt5
-		       additions)))
-	 (relevant-subs (filter-list (lambda (x) ;catches subtractions higher than 5th
-				       (let((o (car x)) (n (cadr x)))
-					 (or (> o 0)
-					     (> n 4))))
-				     subtractions))
+	  ;;take out the reverse if it bothers you in a pathological chord
+	  (reverse
+	   (filter-list
+	    (lambda (x)
+	      (let ((o (car x)) (n (cadr x)) (a (caddr x)))
+		(and(not (and (= 0 o) (= 2 n))) ;gets rid of unwanted thirds
+		    ;;change this correspondingly
+		    (or(and (= 0 o) (= 3 n) (= 0 a)) ;sus4
+		       (and (= 0 o) (= 4 n) (!= 0 a)))))) ;alt5
+	    additions)))
+	 (relevant-subs (filter-list
+			 (lambda (x) ;catches subtractions higher than 5th
+			   (let((o (car x)) (n (cadr x)))
+			     (or (> o 0)
+				 (> n 4))))
+			 subtractions))
 	 (pref-markup (chord::additions->markup-american prefixes relevant-subs))
 	 (suff-markup (chord::additions->markup-american suffixes relevant-subs))
 	 (b+i-markup (chord::bass-and-inversion->markup-banter bass-and-inversion)))
@@ -585,8 +602,7 @@ dump reinterpret the markup as a molecule. " ; "
       tonic-markup except-markup sep-markup
       (make-raise-markup
        0.3
-       (make-line-markup
-	(list pref-markup suff-markup)))
+       (make-line-markup (list pref-markup suff-markup)))
       b+i-markup))))
 
 (define (chord::additions-american steps)
@@ -622,6 +638,8 @@ dump reinterpret the markup as a molecule. " ; "
 ;; Jazz chords, by Atte Andr'e Jensen <atte@post.com>
 ;; Complete rewrite by Amelie Zapf (amy@loueymoss.com)
 
+;; FIXME: identical to chord::names-alist-american, apart from commented
+;;        dim chord.  should merge.
 (define-public chord::names-alist-jazz 
   `(
     (((0 . 0)) . ,empty-markup)
@@ -629,43 +647,45 @@ dump reinterpret the markup as a molecule. " ; "
     (((0 . 0) (2 . -1)) . ,(make-simple-markup "m"))
     (((0 . 0) (4 . 0)) . ,(make-super-markup (make-simple-markup "5 ")))
     (((0 . 0) (1 . 0) (4 . 0)) . ,(make-super-markup (make-simple-markup "2 ")))
-					;choose your symbol for the fully diminished chord
-					;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ,(make-simple-markup "dim"))
+    ;;choose your symbol for the fully diminished chord
+    ;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ,(make-simple-markup "dim"))
     (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ,(make-line-markup (list (make-simple-markup "") (make-super-markup (make-simple-markup "o")))))
     ))
 
-
+;; FIXME: rather similar to step->markup-american.  should merge.
 (define (step->markup-jazz pitch)
   (case (cadr pitch)
     ((6) (case (caddr pitch)
-	   ((-2) (make-line-markup (list (accidental-markup -1) (make-simple-markup "7"))))
+	   ((-2) (make-line-markup (list (accidental->markup -1) (make-simple-markup "7"))))
 	   ((-1) (make-simple-markup "7"))
-					;Pick your favorite maj7
+	   ;;Pick your favorite maj7
 	   ((0) mathm-markup-object)  ;;a white triangle
 	   ;;((0) mathn-markup-object) ;;a black triangle
 	   ;;((0) (make-simple-markup "maj7")) ;;good old maj7
-	   ((1) (make-line-markup (list (accidental-markup 1) (make-simple-markup "7"))))
-	   ((2) (make-line-markup (list (accidental-markup 2) (make-simple-markup "7"))))))
+	   ((1) (make-line-markup (list (accidental->markup 1) (make-simple-markup "7"))))
+	   ((2) (make-line-markup (list (accidental->markup 2) (make-simple-markup "7"))))))
     ((4) (case (caddr pitch)
-	   ((-2) (make-line-markup (list (accidental-markup -2) (make-simple-markup "5"))))
+	   ((-2) (make-line-markup (list (accidental->markup -2) (make-simple-markup "5"))))
 	   ;;choose your symbol for the diminished fifth
-	   ;;((-1) '("-5"))
-	   ((-1) (make-line-markup (list (accidental-markup -1) (make-simple-markup "5"))))
-	   ((0) (make-simple-markup ""))
-					;choose your symbol for the augmented fifth
-					;;;((1) (make-simple-markup "aug"))
-	   ((1) (make-line-markup (list (accidental-markup 1) (make-simple-markup "5"))))
+	   ;;((-1) (make-simple-markup "-5"))
+	   ((-1) (make-line-markup (list (accidental->markup -1) (make-simple-markup "5"))))
+	   ((0) empty-markup)
+	   ;;choose your symbol for the augmented fifth
+	   ;;((1) (make-simple-markup "aug"))
+	   ((1) (make-line-markup (list (accidental->markup 1) (make-simple-markup "5"))))
 	   ;;((1) (make-simple-markup "+5"))
-	   ((2) (make-line-markup (list (accidental-markup 2) (make-simple-markup "5"))))))
+	   ((2) (make-line-markup (list (accidental->markup 2) (make-simple-markup "5"))))))
     (else (if (and (= (car pitch) 0)
 		   (= (cadr pitch) 3)
 		   (= (caddr pitch) 0))
 	      (make-simple-markup "sus4")
 	      (step->markup-accidental pitch)))))
 
+;; FIXME: identical to chord::additions->markup-american,
+;; except for -jazz / -american suffixes on calls
 (define (chord::additions->markup-jazz additions subtractions)
   (if (pair? additions)
-					; I don't like all this reasoning here, when we're actually typesetting.
+      ;; I don't like all this reasoning here, when we're actually typesetting.
       (if(and(pair? (cdr additions)) ;a further addition left over
 	     (or(and(= 0 (caddr(car additions))) ;this addition natural
 		    (not(= 6 (cadr(car additions)))))
@@ -696,56 +716,60 @@ dump reinterpret the markup as a molecule. " ; "
 				 (> 4 (- (cadr(car additions)) (cadr(cadr additions)))))))
 		     (make-line-markup (list step (make-simple-markup " add")))
 		     ;; tweak your favorite separator here
-		     ;; (make-line-markup (list step "/"))
+		     ;; (make-line-markup (list step (make-simple-markup "/")))
 		     (make-line-markup (list step (make-simple-markup " "))))
 		 step))
 	   (chord::additions->markup-jazz (cdr additions) subtractions))))
       empty-markup))
 
+;; FIXME: identical to chord::additions->markup-american.
+;; except for -jazz / -american suffixes on calls
 (define (chord::inner-name-jazz tonic exception-part additions subtractions
 				bass-and-inversion steps)
   (let* ((tonic-markup (pitch->chord-name-markup-banter tonic steps))
-	 (except-markup (if exception-part exception-part empty-markup))  ;;(make-simple-markup "")
+	 (except-markup (if exception-part exception-part empty-markup))
 	 (sep-markup (if (and (string-match "super" (format "~s" except-markup))
 			      (or (pair? additions)
 				  (pair? subtractions)))
 			 (make-super-markup (make-simple-markup "/"))
 			 empty-markup))
-					;this list contains all the additions that go "in line"
+	 ;;this list contains all the additions that go "in line"
 	 (prefixes
-	  (filter-list (lambda (x)
-			 (let ((o (car x)) (n (cadr x)) (a (caddr x)))
-			   (and (not (and (= 0 o) (= 2 n))) ;gets rid of unwanted thirds
-					;change this if you want it differently
-				(not (and (= 0 o) (= 3 n) (= 0 a))) ;sus4
-				(not (and (= 0 o) (= 4 n) (!= 0 a)))))) ;alt5
-		       additions))
-					;this list contains all the additions that are patched onto the end
-					;of the chord symbol, usually sus4 and altered 5ths.
+	  (filter-list
+	   (lambda (x)
+	     (let ((o (car x)) (n (cadr x)) (a (caddr x)))
+	       (and (not (and (= 0 o) (= 2 n))) ;gets rid of unwanted thirds
+		    ;;change this if you want it differently
+		    (not (and (= 0 o) (= 3 n) (= 0 a))) ;sus4
+		    (not (and (= 0 o) (= 4 n) (!= 0 a)))))) ;alt5
+	   additions))
+	 ;;this list contains all the additions that are patched onto the end
+	 ;;of the chord symbol, usually sus4 and altered 5ths.
 	 (suffixes
-					;take out the reverse if it bothers you in a pathological chord
-	  (reverse (filter-list (lambda (x)
-				  (let ((o (car x)) (n (cadr x)) (a (caddr x)))
-				    (and(not (and (= 0 o) (= 2 n))) ;gets rid of unwanted thirds
-					;change this correspondingly
-					(or(and (= 0 o) (= 3 n) (= 0 a)) ;sus4
-					   (and (= 0 o) (= 4 n) (!= 0 a)))))) ;alt5
-				additions)))
-	 (relevant-subs (filter-list (lambda (x) ;catches subtractions higher than 5th
-				       (let((o (car x)) (n (cadr x)))
-					 (or (> o 0)
-					     (> n 4))))
-				     subtractions))
+	  ;;take out the reverse if it bothers you in a pathological chord
+	  (reverse
+	   (filter-list
+	    (lambda (x)
+	      (let ((o (car x)) (n (cadr x)) (a (caddr x)))
+		(and(not (and (= 0 o) (= 2 n))) ;gets rid of unwanted thirds
+		    ;;change this correspondingly
+		    (or(and (= 0 o) (= 3 n) (= 0 a)) ;sus4
+		       (and (= 0 o) (= 4 n) (!= 0 a)))))) ;alt5
+	    additions)))
+	 (relevant-subs (filter-list
+			 (lambda (x) ;catches subtractions higher than 5th
+			   (let((o (car x)) (n (cadr x)))
+			     (or (> o 0)
+				 (> n 4))))
+			 subtractions))
 	 (pref-markup (chord::additions->markup-jazz prefixes relevant-subs))
 	 (suff-markup (chord::additions->markup-jazz suffixes relevant-subs))
 	 (b+i-markup (chord::bass-and-inversion->markup-banter bass-and-inversion)))
     (make-line-markup
      (list
-      tonic-markup
-      except-markup
-      sep-markup
+      tonic-markup except-markup sep-markup
       (make-raise-markup
-       0.33
+       0.3
        (make-line-markup (list pref-markup suff-markup)))
       b+i-markup))))
 
