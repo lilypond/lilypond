@@ -17,7 +17,7 @@ class Part_combine_music : public Music
 {
 public:
   VIRTUAL_COPY_CONS (Music);
-  Part_combine_music (SCM what_str, Music*, Music*);
+  Part_combine_music (SCM l);
 
   Music * first_l () const;
   Music * second_l () const;

@@ -16,7 +16,7 @@
 class Transposed_music : public Music_wrapper
 {
 public:
-  Transposed_music (Music*, Pitch);
+  Transposed_music (SCM);
   
   VIRTUAL_COPY_CONS(Music);
   virtual Pitch to_relative_octave (Pitch);

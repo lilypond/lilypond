@@ -426,3 +426,41 @@ type_check_assignment (SCM val, SCM sym,  SCM type_symbol)
     }
   return ok;
 }
+
+SCM
+ly_get_trans_property (SCM context, SCM name)
+{
+  Translator *t = unsmob_translator (context);
+  Translator_group* tr=   dynamic_cast<Translator_group*> (t);
+  if (!t || !tr)
+    {
+      warning ("ly-get-trans-property: expecting a Translator_group argument");
+      return SCM_EOL;
+    }
+  return tr->get_property (name);
+  
+}
+SCM
+ly_set_trans_property (SCM context, SCM name, SCM val)
+{
+
+  Translator *t = unsmob_translator (context);
+  Translator_group* tr=   dynamic_cast<Translator_group*> (t);
+  if (tr)
+    {
+      tr->set_property (name, val);
+    }
+  return SCM_UNSPECIFIED;
+}
+
+
+
+
+void
+add_trans_scm_funcs ()
+{
+  scm_make_gsubr ("ly-get-trans-property", 2, 0, 0, (Scheme_function_unknown)ly_get_trans_property);
+  scm_make_gsubr ("ly-get-trans-property", 3, 0, 0, (Scheme_function_unknown)ly_get_trans_property);
+}
+
+ADD_SCM_INIT_FUNC(trans_scm, add_trans_scm_funcs);

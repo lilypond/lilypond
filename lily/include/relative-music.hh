@@ -15,10 +15,7 @@
 class Relative_octave_music : public Music_wrapper
 {
 public:
-  Pitch last_pitch_;
-
-
-  Relative_octave_music (Music*, Pitch);
+  Relative_octave_music (SCM l);
   
   VIRTUAL_COPY_CONS(Music);
   virtual Pitch to_relative_octave (Pitch);

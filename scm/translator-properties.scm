@@ -125,8 +125,8 @@ remembered for the duration of a measure.
 ")
 (translator-property-description 'graceAccidentalSpace number? "amount space to alot for an accidental")
 (translator-property-description 'graceAlignPosition dir? "put the grace note before or after the main note?")
-(translator-property-description 'instr string? "see @code{instrument}")
-(translator-property-description 'instrument string? " If @code{Instrument_name_engraver}
+(translator-property-description 'instr list-or-string? "see @code{instrument}")
+(translator-property-description 'instrument list-or-string? " If @code{Instrument_name_engraver}
 @cindex Instrument_name_engraver
  is
     added to the Staff translator, then the @code{instrument} property

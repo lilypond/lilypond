@@ -27,6 +27,7 @@
   (and (pair? x) (number? (car x)) (number? (cdr x))))
 (define (boolean-or-symbol? x) (or boolean? x) (or symbol? x))
 (define (number-or-string? x) (or (number? x) (string? x)))
+(define (list-or-string? x) (or (list? x) (string? x)))
 (define markup?
   (lambda (x) (or (string? x) (list? x))))
 

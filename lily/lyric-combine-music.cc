@@ -11,11 +11,9 @@
 #include "lyric-combine-music-iterator.hh"
 #include "pitch.hh"
 
-Lyric_combine_music::Lyric_combine_music (Music * m, Music * l)
+Lyric_combine_music::Lyric_combine_music (SCM l)
+  : Music (l)
 {
-  set_mus_property ("music", m->self_scm ());
-  set_mus_property ("lyrics", l->self_scm ());  
-
   set_mus_property ("iterator-ctor",
 		    Lyric_combine_music_iterator::constructor_cxx_function);
 }

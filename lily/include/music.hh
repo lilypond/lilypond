@@ -57,13 +57,11 @@ public:
   virtual void compress (Moment factor);
   VIRTUAL_COPY_CONS(Music);
   Music (Music const &m);
-  Music();
+  Music (SCM);
 protected:
-
   DECLARE_SMOBS(Music,);
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
- 
 };
 
 

@@ -17,10 +17,7 @@
 class Time_scaled_music : public Music_wrapper
 {
 public:
-  int num_i_;
-  int den_i_;
-
-  Time_scaled_music (int, int, Music *);
+  Time_scaled_music (SCM);
   
   VIRTUAL_COPY_CONS(Music);
 };

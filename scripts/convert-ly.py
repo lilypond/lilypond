@@ -119,8 +119,8 @@ if 1:					# need new a namespace
 		
 		return str
 
-	conversions.append (
-		((0,1,19), conv, 'deprecated \\octave; can\'t convert automatically'))
+	conversions.append ((
+		((0,1,19), conv, 'deprecated \\octave; can\'t convert automatically')))
 
 
 if 1:					# need new a namespace
@@ -131,8 +131,8 @@ if 1:					# need new a namespace
 			
 		return str
 
-	conversions.append (
-		((0,1,20), conv, 'deprecated \\textstyle, new \key syntax'))
+	conversions.append ((
+		((0,1,20), conv, 'deprecated \\textstyle, new \key syntax')))
 
 
 if 1:
@@ -142,16 +142,16 @@ if 1:
 			
 		return str
 
-	conversions.append (
+	conversions.append ((
 		((0,1,21), conv, '\\musical_pitch -> \\musicalpitch, '+
-		 '\\meter -> \\time'))
+		 '\\meter -> \\time')))
 
 if 1:
 	def conv (str):
 		return str
 
-	conversions.append (
-		((1,0,0), conv, '0.1.21 -> 1.0.0 '))
+	conversions.append ((
+		((1,0,0), conv, '0.1.21 -> 1.0.0 ')))
 
 
 if 1:
@@ -162,9 +162,9 @@ if 1:
 			
 		return str
 
-	conversions.append (
+	conversions.append ((
 		((1,0,1), conv, '\\accidentals -> \\keysignature, ' +
-		 'specialaccidentals -> keyoctaviation'))
+		 'specialaccidentals -> keyoctaviation')))
 
 if 1:
 	def conv(str):
@@ -172,7 +172,7 @@ if 1:
 			sys.stderr.write ('\nNot smart enough to convert to new \\header format')
 		return str
 	
-    conversions.append (((1,0,2), conv, '\\header { key = concat + with + operator }'))
+	conversions.append (((1,0,2), conv, '\\header { key = concat + with + operator }'))
 
 if 1:
 	def conv(str):
@@ -180,7 +180,7 @@ if 1:
 			
 		return str
 	
-    conversions.append (((1,0,3), conv, '\\melodic -> \\notes'))
+	conversions.append (((1,0,3), conv, '\\melodic -> \\notes'))
 
 if 1:
 	def conv(str):
@@ -189,7 +189,7 @@ if 1:
 			
 		return str
 	
-    conversions.append (((1,0,4), conv, 'default_{paper,midi}'))
+	conversions.append (((1,0,4), conv, 'default_{paper,midi}'))
 
 if 1:
 	def conv(str):
@@ -198,7 +198,7 @@ if 1:
 			
 		return str
 	
-    conversions.append (((1,0,5), conv, 'ChoireStaff -> ChoirStaff'))
+	conversions.append (((1,0,5), conv, 'ChoireStaff -> ChoirStaff'))
 
 if 1:
 	def conv(str):
@@ -207,7 +207,7 @@ if 1:
 			raise FatalConversionError()
 		return str
 	
-    conversions.append (((1,0,6), conv, 'foo = \\translator {\\type .. } ->\\translator {\\type ..; foo; }'))
+	conversions.append (((1,0,6), conv, 'foo = \\translator {\\type .. } ->\\translator {\\type ..; foo; }'))
 
 
 if 1:
@@ -216,7 +216,7 @@ if 1:
 			
 		return str
 	
-    conversions.append (((1,0,7), conv, '\\lyric -> \\lyrics'))
+	conversions.append (((1,0,7), conv, '\\lyric -> \\lyrics'))
 
 if 1:
 	def conv(str):
@@ -229,12 +229,12 @@ if 1:
 		str =  re.sub ('\\]([0-9/]+)', '] }', str)
 		return str
 	
-    conversions.append (((1,0,10), conv, '[2/3 ]1/1 -> \\times 2/3 '))
+	conversions.append (((1,0,10), conv, '[2/3 ]1/1 -> \\times 2/3 '))
 
 if 1:
 	def conv(str):
 		return str
-    conversions.append (((1,0,12), conv, 'Chord syntax stuff'))
+	conversions.append (((1,0,12), conv, 'Chord syntax stuff'))
 
 
 if 1:
@@ -245,7 +245,7 @@ if 1:
 			
 		return str
 	
-    conversions.append (((1,0,13), conv, '<a ~ b> c -> <a b> ~ c'))
+	conversions.append (((1,0,13), conv, '<a ~ b> c -> <a b> ~ c'))
 
 if 1:
 	def conv(str):
@@ -254,7 +254,7 @@ if 1:
 			
 		return str
 	
-    conversions.append (((1,0,14), conv, '<[a b> <a b]>c -> [<a b> <a b>]'))
+	conversions.append (((1,0,14), conv, '<[a b> <a b]>c -> [<a b> <a b>]'))
 
 
 if 1:
@@ -264,7 +264,7 @@ if 1:
 			
 		return str
 	
-    conversions.append (((1,0,16), conv, '\\type -> \\context, textstyle -> textStyle'))
+	conversions.append (((1,0,16), conv, '\\type -> \\context, textstyle -> textStyle'))
 
 
 if 1:
@@ -274,7 +274,7 @@ if 1:
 			raise FatalConversionError()
 		return str
 	
-    conversions.append (((1,0,18), conv,
+	conversions.append (((1,0,18), conv,
                 '\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative'))
 
 if 1:
@@ -285,7 +285,7 @@ if 1:
 			
 		return str
 
-    conversions.append (((1,0,19), conv,
+	conversions.append (((1,0,19), conv,
                 'fontsize -> fontSize, midi_instrument -> midiInstrument, SkipBars -> skipBars'))
 
 
@@ -297,7 +297,7 @@ if 1:
 			
 		return str
 
-    conversions.append (((1,0,20), conv,
+	conversions.append (((1,0,20), conv,
                 '{,tie,slur}ydirection -> {v,tieV,slurV}erticalDirection'))
 
 
@@ -307,7 +307,7 @@ if 1:
 			
 		return str
 
-    conversions.append (((1,0,21), conv,
+	conversions.append (((1,0,21), conv,
                 'hshift -> horizontalNoteShift'))
 
 
@@ -317,7 +317,7 @@ if 1:
 			
 		return str
 
-    conversions.append (((1,1,52), conv,
+	conversions.append (((1,1,52), conv,
                 'deprecate \\grouping'))
 
 
@@ -327,7 +327,7 @@ if 1:
 			
 		return str
 
-    conversions.append (((1,1,55), conv,
+	conversions.append (((1,1,55), conv,
                 '\\wheel -> \\coda'))
 
 if 1:
@@ -337,7 +337,7 @@ if 1:
 			
 		return str
 
-    conversions.append (((1,1,65), conv,
+	conversions.append (((1,1,65), conv,
                 'slurdash -> slurDash, keyoctaviation -> keyOctaviation'))
 
 if 1:
@@ -346,7 +346,7 @@ if 1:
 			
 		return str
 
-    conversions.append (((1,1,66), conv,
+	conversions.append (((1,1,66), conv,
                 'semi -> volta'))
 
 
@@ -356,7 +356,7 @@ if 1:
 			
 		return str
 
-    conversions.append (((1,1,67), conv,
+	conversions.append (((1,1,67), conv,
                 'beamAuto -> noAutoBeaming'))
 
 if 1:
@@ -365,7 +365,7 @@ if 1:
 			
 		return str
 
-    conversions.append (((1,2,0), conv,
+	conversions.append (((1,2,0), conv,
                 'automaticMelismas -> automaticMelismata'))
 
 if 1:
@@ -374,7 +374,7 @@ if 1:
 			
 		return str
 
-    conversions.append (((1,2,1), conv,
+	conversions.append (((1,2,1), conv,
                 'dynamicDir -> dynamicDirection'))
 
 if 1:
@@ -384,7 +384,7 @@ if 1:
 			
 		return str
 
-    conversions.append (((1,3,4), conv,
+	conversions.append (((1,3,4), conv,
                 '\\cadenza -> \cadenza{On|Off}'))
 
 if 1:
@@ -394,7 +394,7 @@ if 1:
 			      str)
 		return str
 
-    conversions.append (((1,3,5), conv, 'beamAuto moment properties'))
+	conversions.append (((1,3,5), conv, 'beamAuto moment properties'))
 
 if 1:
 	def conv (str):
@@ -403,7 +403,7 @@ if 1:
 			      str)
 		return str
 
-    conversions.append (((1,3,17), conv, 'stemStyle -> flagStyle'))
+	conversions.append (((1,3,17), conv, 'stemStyle -> flagStyle'))
 
 if 1:
 	def conv (str):
@@ -412,7 +412,7 @@ if 1:
 			      str)
 		return str
 
-    conversions.append (((1,3,18), conv, 'staffLineLeading -> staffSpace'))
+	conversions.append (((1,3,18), conv, 'staffLineLeading -> staffSpace'))
 
 if 1:
 	def conv (str):
@@ -424,7 +424,7 @@ if 1:
 			      str)
 		return str
 
-    conversions.append (((1,3,35), conv, 'textEmptyDimension -> textNonEmpty'))
+	conversions.append (((1,3,35), conv, 'textEmptyDimension -> textNonEmpty'))
 
 if 1:
 	def conv (str):
@@ -436,7 +436,7 @@ if 1:
 			sys.stderr.write ('\nNot smart enough to convert to new \\notenames format')
 		return str
 
-    conversions.append (((1,3,38), conv, '\musicalpitch { a b c } -> #\'(a b c)'))
+	conversions.append (((1,3,38), conv, '\musicalpitch { a b c } -> #\'(a b c)'))
 
 if 1:
 	def conv (str):
@@ -446,7 +446,7 @@ if 1:
 		str = re.sub ("\\\\key ([^;]+);",  replace, str)
 		return str
 	
-    conversions.append (((1,3,39), conv, '\\key A ;  ->\\key a;'))
+	conversions.append (((1,3,39), conv, '\\key A ;  ->\\key a;'))
 
 if 1:
 	def conv (str):
@@ -454,7 +454,7 @@ if 1:
 			sys.stderr.write ('\nNot smart enough to convert to new tremolo format')
 		return str
 
-    conversions.append (((1,3,41), conv,
+	conversions.append (((1,3,41), conv,
                 '[:16 c4 d4 ] -> \\repeat "tremolo" 2 { c16 d16 }'))
 
 if 1:
@@ -462,7 +462,7 @@ if 1:
 		str = re.sub ('Staff_margin_engraver' , 'Instrument_name_engraver', str)
 		return str
 
-    conversions.append (((1,3,42), conv,
+	conversions.append (((1,3,42), conv,
                 'Staff_margin_engraver deprecated, use Instrument_name_engraver'))
 
 if 1:
@@ -470,14 +470,14 @@ if 1:
 		str = re.sub ('note[hH]eadStyle\\s*=\\s*"?(\\w+)"?' , "noteHeadStyle = #'\\1", str)
 		return str
 
-    conversions.append (((1,3,49), conv,
+	conversions.append (((1,3,49), conv,
                 'noteHeadStyle value: string -> symbol'))
 
 if 1:
 	def conv (str):
 		str = re.sub (r"""\\key *([a-z]+) *;""", r"""\\key \1 \major;""",str);
 		return str
-    conversions.append (((1,3,59), conv,
+	conversions.append (((1,3,59), conv,
                 '\key X ; -> \key X major; ')) 
 
 if 1:
@@ -486,7 +486,7 @@ if 1:
 			      'latexheaders = "',
 			      str)
 		return str
-    conversions.append (((1,3,68), conv, 'latexheaders = "\\input global" -> latexheaders = "global"'))
+	conversions.append (((1,3,68), conv, 'latexheaders = "\\input global" -> latexheaders = "global"'))
 
 
 
@@ -508,7 +508,7 @@ if 1:
 		str = re.sub ('basic([A-Za-z_]+)Properties', '\\1', str)
 		return str
 	
-    conversions.append (((1,3,92), conv, 'basicXXXProperties -> XXX'))
+	conversions.append (((1,3,92), conv, 'basicXXXProperties -> XXX'))
 
 if 1:
 	def conv (str):
@@ -534,7 +534,7 @@ if 1:
 		
 		return str
 	
-    conversions.append (((1,3,93), conv,
+	conversions.append (((1,3,93), conv,
                 'property definiton case (eg. onevoice -> oneVoice)'))
 
 
@@ -548,7 +548,7 @@ if 1:
 
 		return str
 	
-    conversions.append (((1,3,97), conv, 'ChordName -> ChordNames'))
+	conversions.append (((1,3,97), conv, 'ChordName -> ChordNames'))
 
 if 1:
 	def conv (str):
@@ -560,7 +560,7 @@ if 1:
 
 		return str
 	
-    conversions.append (((1,3,102), conv, 'beamAutoEnd -> autoBeamSettings \\push (end * * * *)'))
+	conversions.append (((1,3,102), conv, 'beamAutoEnd -> autoBeamSettings \\push (end * * * *)'))
 
 
 if 1:
@@ -570,16 +570,16 @@ if 1:
 
 		return str
 	
-    conversions.append (((1,3,110), conv, '\\push -> \\override, \\pop -> \\revert'))
+	conversions.append (((1,3,110), conv, '\\push -> \\override, \\pop -> \\revert'))
 
 if 1:
 	def conv (str):
 		str = re.sub ('LyricVoice', 'LyricsVoice', str)
-		% old fix
+		# old fix
 		str = re.sub ('ChordNames*.ChordNames*', 'Chordnames.Chordname', str)
 		return str
 	
-    conversions.append (((1,3,113), conv, 'LyricVoice -> LyricsVoice'))
+	conversions.append (((1,3,113), conv, 'LyricVoice -> LyricsVoice'))
 
 
 ############################

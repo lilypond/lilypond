@@ -10,10 +10,10 @@
     'Stem_engraver
     (engraver-description
      "Stem_engraver"
-     "Create stems and single-stem tremolos"
+     "Create stems and single-stem tremolos.  It also works together with
+the beam engraver for overriding beaming."
      '(Stem StemTremolo)
-     '(
-      tremoloFlags
+     '(tremoloFlags
       stemLeftBeamCount
       stemRightBeamCount    
       )))
@@ -149,11 +149,14 @@ interesting items (ie. note heads, lyric syllables and normal rests)"
       )))
 
    (cons
-    'Auto_beam_engraver
+   'Auto_beam_engraver
     (engraver-description
      "Auto_beam_engraver"
-     "Generate beams based on measure characteristics and observed Stems.
-Uses beatLength, measureLength and measurePosition to decide when to start and stop a beam.
+     "Generate beams based on measure characteristics and observed
+Stems.  Uses beatLength, measureLength and measurePosition to decide
+when to start and stop a beam.  Overriding beaming is done through
+@ref{Stem_engraver} properties stemLeftBeamCount and
+stemRightBeamCount.
 "
      '(
        Beam)

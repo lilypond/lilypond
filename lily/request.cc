@@ -25,6 +25,7 @@ Request::do_equal_b (Request const*) const
   
 
 Request::Request ()
+  : Music (SCM_EOL)
 {
   set_mus_property ("type", ly_symbol2scm ("request"));
 }

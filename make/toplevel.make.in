@@ -15,7 +15,7 @@ SUBDIRS =  buildscripts scripts  flower lily mf midi2ly po debian \
 
 SCRIPTS = configure aclocal.m4
 README_FILES =  DEDICATION COPYING NEWS CHANGES ROADMAP
-README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt 
+README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt FAQ.txt
 IN_FILES := $(wildcard *.in)
 EXTRA_DIST_FILES = lilypond-font-lock.el lilypond-mode.el vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES) 
 NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)

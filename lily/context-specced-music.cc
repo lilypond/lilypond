@@ -7,7 +7,7 @@
   
  */
 #include "context-specced-music.hh"
-Context_specced_music::Context_specced_music(Music *m)
+Context_specced_music::Context_specced_music(SCM m)
   : Music_wrapper  (m)
 {
   set_mus_property ("type",

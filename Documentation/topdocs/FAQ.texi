@@ -34,15 +34,6 @@ FAQs}.  Also, please look in the searchable mailinglist archives:
 If you are still at loss, send your questions to the @strong{mailing
 list}, and not to authors directly.
 
-@subsection My symbols are all messed up!
-
-After I upgraded, I get the wrong symbols and dvi-checksum errors!
-
-We obviously mucked with the fonts in the upgrade.  Remove @strong{all}
-previous fonts, including the @file{.pk} and @file{.tfm} fonts in
-@file{/var/lib/texmf} and your current directory.  A script automating
-this has been included, see @file{buildscripts/clean-fonts.sh}.
-
 @node Installation
 @section Installation
 

@@ -10,10 +10,9 @@
 #include "transposed-music.hh"
 #include "debug.hh"
 
-Transposed_music::Transposed_music (Music *p, Pitch pit)
-  : Music_wrapper (p)
+Transposed_music::Transposed_music (SCM l)
+  : Music_wrapper (l)
 {
-  p->transpose (pit);
   set_mus_property ("type", ly_symbol2scm ("transposed-music"));
 }
 

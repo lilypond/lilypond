@@ -21,10 +21,9 @@ Music_wrapper::transpose (Pitch p)
 }
 
 
-Music_wrapper::Music_wrapper(Music*p)
+Music_wrapper::Music_wrapper(SCM l)
+  : Music (l)
 {
-  set_mus_property ("element", p->self_scm ());
-  scm_unprotect_object (p->self_scm ());
 }
 
 Moment

@@ -47,17 +47,26 @@ Instrument_name_engraver::stop_translation_timestep ()
     }
 }
 
+/*
+  FIXME: use different mechanics, and use a markup-p function?
+ */
 void
 Instrument_name_engraver::create_text (SCM txt)
 {
   if(!text_)
     {
       text_ = new Item (get_property ("InstrumentName"));
-      text_->set_grob_property ("text", txt);
-
+      if (txt != SCM_EOL)
+        {
+          text_->set_grob_property ("text", txt);
+        }
+      else if (text_->get_grob_property ("text") == SCM_EOL)
+        {
+          return;
+        }
       if (delim_)
-	text_->set_parent (delim_, Y_AXIS);
-
+        text_->set_parent (delim_, Y_AXIS);
+      
       announce_grob (text_,0);
     }
 }
@@ -72,10 +81,10 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
       if (now_mom () > Moment (0))
 	s = get_property ("instr");
 
-      if (gh_string_p (s))
-	{
+      //      if (gh_string_p (s))
+      //	{
 	  create_text (s);
-	}
+	  //	}
     }
 
   if (Align_interface::has_interface (i.elem_l_)

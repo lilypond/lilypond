@@ -40,11 +40,11 @@ inline int compare (CHead_melodic_tuple const &a, CHead_melodic_tuple const &b)
    priority queue. If we have a Tie_req, connect the notes that finish
    just at this time, and note that start at this time.
 
-   TODO: junk the pq.
- */
+   TODO: junk the pq; the PQ is overkill if we assume that no
+   different durations occur in parallel.
+*/
 class Tie_engraver : public Engraver
 {
-  bool done_;
   PQueue<CHead_melodic_tuple> past_notes_pq_;
   Moment end_mom_;
   Moment next_end_mom_;
@@ -117,20 +117,10 @@ Tie_engraver::acknowledge_grob (Grob_info i)
     }
 }
 
+
 void
 Tie_engraver::create_grobs ()
 {
-  if (req_l_ && !done_)
-    {
-      Moment now = now_mom ();
-      stopped_heads_.clear ();
-      while (past_notes_pq_.size ()
-	     && past_notes_pq_.front ().end_ == now)
-	stopped_heads_.push (past_notes_pq_.get ());
-      done_ = true;
-      return;
-    }
-
   if (req_l_)
     {
       now_heads_.sort (CHead_melodic_tuple::pitch_compare);
@@ -196,11 +186,7 @@ Tie_engraver::create_grobs ()
 	  announce_grob (p, req_l_);
 	}
 
-      if (!tie_p_arr_.size ())
-	{
-	  req_l_->origin ()->warning (_ ("No ties were created!"));
-	}
-      else if (tie_p_arr_.size () > 1 && !tie_column_p_)
+      if (tie_p_arr_.size () > 1 && !tie_column_p_)
 	{
 	  tie_column_p_ = new Spanner (get_property ("TieColumn"));
 	  Tie_column::set_interface (tie_column_p_);
@@ -221,6 +207,11 @@ Tie_engraver::stop_translation_timestep ()
     }
   now_heads_.clear ();
 
+  if (req_l_ && !tie_p_arr_.size ())
+    {
+      req_l_->origin ()->warning (_ ("No ties were created!"));
+    }
+  
   for (int i=0; i<  tie_p_arr_.size (); i++)
    {
       typeset_tie (tie_p_arr_[i]);
@@ -263,10 +254,16 @@ Tie_engraver::start_translation_timestep ()
       set_melisma (false);
     }
   req_l_ = 0;
-  done_ = false;
   Moment now = now_mom ();
   while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
     past_notes_pq_.delmin ();
+
+
+  stopped_heads_.clear ();
+  while (past_notes_pq_.size ()
+	 && past_notes_pq_.front ().end_ == now)
+    stopped_heads_.push (past_notes_pq_.get ());
+
 }
 
 ADD_THIS_TRANSLATOR(Tie_engraver);
@@ -286,6 +283,9 @@ CHead_melodic_tuple::CHead_melodic_tuple (Grob *h, Melodic_req*m, Moment mom)
   end_ = mom;
 }
 
+/*
+  signed compare, should use pitch<? 
+ */
 int
 CHead_melodic_tuple::pitch_compare (CHead_melodic_tuple const&h1,
 			     CHead_melodic_tuple const &h2)
@@ -293,12 +293,13 @@ CHead_melodic_tuple::pitch_compare (CHead_melodic_tuple const&h1,
   SCM p1  = h1.req_l_->get_mus_property ("pitch");
   SCM p2  = h2.req_l_->get_mus_property ("pitch");
   
-  return Pitch::equal_p (p1,p2) == SCM_BOOL_T;
+  return Pitch::compare (*unsmob_pitch (p1),
+			 *unsmob_pitch (p2));
 }
 
 int
 CHead_melodic_tuple::time_compare (CHead_melodic_tuple const&h1,
-			     CHead_melodic_tuple const &h2)
+				   CHead_melodic_tuple const &h2)
 {
   return (h1.end_ - h2.end_ ).sign ();
 }

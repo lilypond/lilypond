@@ -43,9 +43,9 @@ Music::Music (Music const &m)
 }
 
 
-Music::Music()
+Music::Music(SCM l)
 {
-  immutable_property_alist_ = SCM_EOL;
+  immutable_property_alist_ = l;
   mutable_property_alist_ = SCM_EOL;
   smobify_self ();
 }

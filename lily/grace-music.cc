@@ -22,7 +22,7 @@ Grace_music::length_mom () const
   return 0;
 }
 
-Grace_music::Grace_music (Music *p)
+Grace_music::Grace_music (SCM p)
   : Music_wrapper (p)
 {
   set_mus_property ("iterator-ctor",
