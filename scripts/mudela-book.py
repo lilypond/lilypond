@@ -61,6 +61,9 @@
 # 0.5.4: (Mats B)
 #   - .fly and .sly files in \mudelafile{} are treated as standalone Lilypond.
 #   - Fragments, .fly and .sly files are in \relative mode.
+# 0.5.5: (Mats B)
+#   - bf: Default fragments have linewidth=-1.0
+#   - Added 'singleline' and 'multiline' options.
 
 import os
 import string
@@ -267,6 +270,10 @@ class Mudela_output:
             self.code_type_override = 'sly'
         if 'nonfragment' in optlist:
             self.code_type_override = 'ly'
+        if 'singleline' in optlist:
+            self.code_type_override = 'sly'
+        if 'multiline' in optlist:
+            self.code_type_override = 'fly'
         if 'eps' in optlist:
             self.graphic_type = 'eps'
         for pt in fontsize_pt2i.keys():
@@ -291,7 +298,7 @@ class Mudela_output:
             self.file.write('\\score{\n\\notes\\relative c{')
     def close (self):
         if self.code_type == 'unknown':
-            self.code_type = 'fly'
+            self.code_type = 'sly'
         if self.code_type_override:
             self.code_type = self.code_type_override
         self.write_red_tape()
