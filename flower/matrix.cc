@@ -75,19 +75,19 @@ Matrix::Matrix(Matrix const &m)
 
 Matrix::Matrix(int n, int m)
 {
-    dat = virtual_smat::get_full(n,m);
+    dat = Matrix_storage::get_full(n,m);
     fill(0);
 }
 
 Matrix::Matrix(int n)
 {
-    dat = virtual_smat::get_full(n,n);
+    dat = Matrix_storage::get_full(n,n);
     fill(0);
 }
 
 Matrix::Matrix(Vector v, Vector w)
 {   
-    dat = virtual_smat::get_full(v.dim(), w.dim());
+    dat = Matrix_storage::get_full(v.dim(), w.dim());
     for (int i=0, j=0; dat->mult_ok(i,j); dat->mult_next(i,j))
 	dat->elem(i,j)=v(i)*w(j);
 }
@@ -188,7 +188,9 @@ Matrix::set_product(Matrix const &m1, Matrix const &m2)
 {
     assert(m1.cols()==m2.rows());
     assert(cols()==m2.cols() && rows()==m1.rows());
-    
+
+    if (m1.dat->try_right_multiply(dat, m2.dat))
+	return; 
     for (int i=0, j=0; dat->mult_ok(i,j);
 	 dat->mult_next(i,j)) {
 	Real r=0.0;

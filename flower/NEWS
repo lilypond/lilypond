@@ -1,6 +1,11 @@
+pl 1.1.10
+	- Matrix_storage naming
+	- Matrix_storage::try_right_multiply to help speed up
+	  matrix multiply routines.
+
 pl 1.1.9
 	- _C iso _c_l
-	- flower debug.
+	- flower-debug.
 	
 pl 1.1.8
 	
