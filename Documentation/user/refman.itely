@@ -4909,10 +4909,10 @@ are currently not at all accessible through the @code{\time} command.
 Mensural time signatures are supported typographically, but not yet
 musically.  The internal representation of durations is currently
 based on a purely binary system; a ternary division such as 1 brevis =
-3 semibrevis (tempus perfectum) or 1 semibrevis = 3 minima (prolatio
-perfectum) is not correctly handled: event times in ternary modes will
-be badly computed, resulting e.g. in horizontally misaligned note
-heads, and bar checks are likely to erroneously fail.
+3 semibrevis (tempus perfectum) or 1 semibrevis = 3 minima (cum
+prolatione maiori) is not correctly handled: event times in ternary
+modes will be badly computed, resulting e.g. in horizontally
+misaligned note heads, and bar checks are likely to erroneously fail.
 
 The syntax and semantics of the @code{\time} command for mensural
 music is subject to change.
