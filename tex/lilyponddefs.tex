@@ -188,6 +188,12 @@
      {\gdef\lilypondpagebreak{\newpage}}}
   {}
       
+%% Allow overriding of pagebreak
+\lilypondifundefined{lilypondnopagebreak}
+{\lilypondifundefined{@nodocument}
+   {\gdef\lilypondnopagebreak{}}
+   {\gdef\lilypondnopagebreak{\nopagebreak}}}
+{}
 %% Include \special only once.
 \gdef\lilypondspecial{
   \special{header=music-drawing-routines.ps}

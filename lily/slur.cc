@@ -151,38 +151,47 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   Interval xext = robust_relative_extent (script, cx, X_AXIS);
 
 
-  Real slur_padding = robust_scm2double (script->get_property ("padding"),
-					 0.2);	// todo: slur property, script property?
+  Real slur_padding = robust_scm2double (script->get_property ("slur-padding"),
+					 0.0);	// todo: slur property, script property?
   yext.widen (slur_padding);
   
   Interval bezext (curve.control_[0][X_AXIS],
 		   curve.control_[3][X_AXIS]);
 
-  Real x = xext.center ();
-  if (bezext.contains (x))
-    ;
-  else if (!bezext.contains (xext[RIGHT]))
-    x = xext[LEFT];
-  else if (!bezext.contains (xext[LEFT]))
-    x = xext[RIGHT];
+  bool consider[] = { false, false, false };
+  Real ys[] = {0, 0, 0};
+  int k = 0;
+  bool do_shift = false;
 
-  
-  if (!bezext.contains (x))
-    return scm_make_real (0);
-  Real dist = fabs (x - bezext[LEFT]) <? fabs (x - bezext[RIGHT]);
-  
-  Real y = (dist >  1e-3)
-    ? curve.get_other_coordinate (X_AXIS, x)
-    : ((x < bezext.center())
-       ? curve.control_[0][Y_AXIS]
-       : curve.control_[3][Y_AXIS]);
-       
-  if (yext.contains (y)) 
+  for (Direction d = LEFT ;  d <= RIGHT; d = Direction (d + 1))
     {
-      Direction dir = get_grob_direction (script); 
-      return scm_make_real (y - yext[-dir] + dir * slur_padding);
+      Real x = xext.linear_combination (d);
+      consider[k] = bezext.contains (x);
+
+      if (consider[k])
+	{
+	  ys[k] = curve.get_other_coordinate (X_AXIS, x);
+	  consider[k] = true;
+
+	  if (yext.contains (ys[k]))
+	    do_shift = true;
+	}
     }
-  return scm_make_real (0.0);
+  Real offset = 0.0;
+  if (do_shift)
+    {
+      k = 0;
+      Direction dir = get_grob_direction (script);
+      for (Direction d = LEFT ;  d <= RIGHT; d = Direction (d + 1))
+	{
+	  offset = 
+	    dir * (dir * offset >? dir * (ys[k]
+					  - yext[-dir] + dir * slur_padding));
+	  k++;
+	}
+    }
+  
+  return scm_make_real (offset);
 }
 
 

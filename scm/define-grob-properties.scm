@@ -391,6 +391,7 @@ note that starts here.")
 object.")
      (size ,number? "Size of object, relative to standard size.")
      (slope ,number? "The slope of this object.")
+     (slur-padding ,number? "Extra distance between slur and script.")
      (slur-details ,list?
 		   "An alist of scoring parameters for slur formatting")
      (space-alist ,list? "A table that specifies distances between
