@@ -1,5 +1,8 @@
 ;;; lilypond-indent.el --- Auto-indentation for lilypond code
 ;;;
+;;; Heikki Junes <hjunes@cc.hut.fi>
+;;; show-paren-function was taken and then modified from FSF Emacs paren.el 
+
 ;;; Chris Jackson <chris@fluffhouse.org.uk>
 ;;; some code is taken from ESS (Emacs Speaks Statistics) S-mode by A.J.Rossini <rossini@biostat.washington.edu>
 
@@ -11,6 +14,7 @@
 ;;;      - the cursor is after the matching closing bracket
 ;;;    * separate '('- and ')'-slurs from '\('- and '\)'-slurs.
 ;;;    * separate '['- and ']'-slurs from '\['- and '\]'-slurs.
+;;;    * currently, brackets may need a non-bracket char between ( ( ) )
 
 (defcustom LilyPond-indent-level 4
   "*Indentation of lilypond statements with respect to containing block.")
@@ -407,8 +411,8 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 	  (setq char-before-bracket-type (if char-before-bracket-type nil ?\\)))))
     (if (eq char-before-bracket-type ?\\)
 	(if (eq bracket-type ?])
-            (message "trying to match ligatures \\[ ... \\]")
-          (message "trying to match slurs \\( ... \\)")))
+            (message "matching ligatures \\[ ... \\]")
+          (message "matching slurs \\( ... \\)")))
     (if (eq char-before-bracket-type ?\\)
 	(setq bracket-type (string char-before-bracket-type bracket-type)))
     (save-restriction
@@ -482,3 +486,113 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 	(progn (backward-char 1)
 	       (LilyPond-blink-matching-open)
 	       (forward-char 1)))))
+
+;; Find the place to show, if there is one,
+;; and show it until input arrives.
+(defun LilyPond-show-paren-function ()
+  (if show-paren-mode
+      (let (pos dir mismatch face (oldpos (point)))
+	(cond ((memq (preceding-char) '(?\) ?\] ?} ?>))
+	       (setq dir -1))
+	      ((memq (following-char) '(?\( ?\[ ?{ ?<))
+	       (setq dir 1)))
+	;;
+	;; Find the other end of the sexp.
+	(when dir
+	  (save-excursion
+	    (save-restriction
+	      ;; Determine the range within which to look for a match.
+	      (when blink-matching-paren-distance
+		(narrow-to-region
+		 (max (point-min) (- (point) blink-matching-paren-distance))
+		 (min (point-max) (+ (point) blink-matching-paren-distance))))
+	      ;; Scan across one sexp within that range.
+	      ;; Errors or nil mean there is a mismatch.
+	      ;;; NOTE: HERE IT IS VERY MUCH WRONG
+	      ;;; ONE CANNOT USE scan-sexps BECAUSE
+	      ;;; BRACKETS ARE NOT IN THE SYNTAX TABLE.
+              ;;; HENCE BY REPLACING THE FOLLOWING IT WILL WORK.
+	      (condition-case ()
+		  (setq pos (scan-sexps (point) dir))
+		(error (setq pos t mismatch t)))
+	      ;; If found a "matching" paren, see if it is the right
+	      ;; kind of paren to match the one we started at.
+	      (when (integerp pos)
+		(let ((beg (min pos oldpos)) (end (max pos oldpos)))
+		  (when (/= (char-after beg) ?\$)
+		    (setq mismatch
+			  (not (eq (char-before end)
+				   ;; This can give nil.
+				   (LilyPond-matching-paren (char-after beg)))))))))))
+	;;
+	;; Highlight the other end of the sexp, or unhighlight if none.
+	(if (not pos)
+	    (progn
+	      ;; If not at a paren that has a match,
+	      ;; turn off any previous paren highlighting.
+	      (and show-paren-overlay (overlay-buffer show-paren-overlay)
+		   (delete-overlay show-paren-overlay))
+	      (and show-paren-overlay-1 (overlay-buffer show-paren-overlay-1)
+		   (delete-overlay show-paren-overlay-1)))
+	  ;;
+	  ;; Use the correct face.
+	  (if mismatch
+	      (progn
+		(if show-paren-ring-bell-on-mismatch
+		    (beep))
+		(setq face 'show-paren-mismatch-face))
+	    (setq face 'show-paren-match-face))
+	  ;;
+	  ;; If matching backwards, highlight the closeparen
+	  ;; before point as well as its matching open.
+	  ;; If matching forward, and the openparen is unbalanced,
+	  ;; highlight the paren at point to indicate misbalance.
+	  ;; Otherwise, turn off any such highlighting.
+	  (if (and (= dir 1) (integerp pos))
+	      (when (and show-paren-overlay-1
+			 (overlay-buffer show-paren-overlay-1))
+		(delete-overlay show-paren-overlay-1))
+	    (let ((from (if (= dir 1)
+			    (point)
+			  (forward-point -1)))
+		  (to (if (= dir 1)
+			  (forward-point 1)
+			(point))))
+	      (if show-paren-overlay-1
+		  (move-overlay show-paren-overlay-1 from to (current-buffer))
+		(setq show-paren-overlay-1 (make-overlay from to)))
+	      ;; Always set the overlay face, since it varies.
+	      (overlay-put show-paren-overlay-1 'priority show-paren-priority)
+	      (overlay-put show-paren-overlay-1 'face face)))
+	  ;;
+	  ;; Turn on highlighting for the matching paren, if found.
+	  ;; If it's an unmatched paren, turn off any such highlighting.
+	  (unless (integerp pos)
+	    (delete-overlay show-paren-overlay))
+	  (let ((to (if (or (eq show-paren-style 'expression)
+			    (and (eq show-paren-style 'mixed)
+				 (not (pos-visible-in-window-p pos))))
+			(point)
+		      pos))
+		(from (if (or (eq show-paren-style 'expression)
+			      (and (eq show-paren-style 'mixed)
+				   (not (pos-visible-in-window-p pos))))
+			  pos
+			(save-excursion
+			  (goto-char pos)
+			  (forward-point (- dir))))))
+	    (if show-paren-overlay
+		(move-overlay show-paren-overlay from to (current-buffer))
+	      (setq show-paren-overlay (make-overlay from to))))
+	  ;;
+	  ;; Always set the overlay face, since it varies.
+	  (overlay-put show-paren-overlay 'priority show-paren-priority)
+	  (overlay-put show-paren-overlay 'face face)))
+    ;; show-paren-mode is nil in this buffer.
+    (and show-paren-overlay
+	 (delete-overlay show-paren-overlay))
+    (and show-paren-overlay-1
+	 (delete-overlay show-paren-overlay-1))))
+
+;; uncomment the following line to test show-paren-function
+;(defun show-paren-function () (LilyPond-show-paren-function))
