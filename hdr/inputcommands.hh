@@ -11,29 +11,29 @@
 #include "proto.hh"
 #include "plist.hh"
 #include "real.hh"
-#include "moment.hh"
+#include "timedescription.hh"
 
 struct Commands_at : public IPointerList<Input_command*> {
-    Moment moment_;
+    Time_description tdescription_;
     
     /****************/
 
-    Real when();
+    Moment when();
     void     parse(Staff_commands_at*);
     void print() const;
-    Real barleft();
+    Moment barleft();
     void add(Input_command*);
-    void setpartial(Real);
+    void setpartial(Moment);
     Commands_at(const Commands_at&);
-    Commands_at(Real, Commands_at*prev);
+    Commands_at(Moment, Commands_at*prev);
 };
 
 struct Input_cursor : public PCursor<Commands_at*>
 {
     /****************/
     Input_cursor(PCursor<Commands_at*>);
-    Real when()const;
-    void find_moment(Real w);
+    Moment when()const;
+    void find_moment(Moment w);
     void prev() { operator --(0); }
     void next() { operator ++(0); }    
 };
@@ -44,9 +44,9 @@ struct Input_commands : public IPointerList<Commands_at*> {
     
     /****************/
 
-    void find_moment(Real);
+    void find_moment(Moment);
     void add(Input_command c);
-    void do_skip(int bars, Real wholes);
+    void do_skip(int bars, Moment wholes);
         
     Input_commands();
     Input_commands(Input_commands const&);
@@ -56,10 +56,5 @@ struct Input_commands : public IPointerList<Commands_at*> {
     Staff_commands *parse() const;
 };
 
-
-
-void
-interpret_meter(Input_command *c, int &beats_per_meas, int& one_beat,
-		Real& whole_per_measure);
 #endif // INPUTCOMMANDS_HH
 

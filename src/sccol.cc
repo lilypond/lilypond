@@ -1,7 +1,18 @@
-#include "sccol.hh"
 #include "debug.hh"
+#include "pcol.hh"
+#include "sccol.hh"
 
-Score_column::Score_column(Real w)
+int
+Score_column::compare(Score_column & c1, Score_column &c2)
+{
+	return sign(c1.when - c2.when);
+}
+
+void
+Score_column::set_breakable() {
+    pcol_->set_breakable();
+}
+Score_column::Score_column(Moment w)
 {
     when = w;
     pcol_ = new PCol(0);
@@ -28,18 +39,18 @@ Score_column::print() const
 }
 
 int
-Real_compare(Real &a , Real& b)
+Tdescription_compare(Moment &a , Moment& b)
 {
-    return sgn(a-b);
+    return sign(a-b);
 }
 
 void
 Score_column::preprocess()
 {
-    durations.sort(Real_compare);
+    durations.sort(Tdescription_compare);
 }
 void
-Score_column::add_duration(Real d)
+Score_column::add_duration(Moment d)
 {
     for (int i = 0; i< durations.sz(); i++) {
 	if (d == durations[i])
