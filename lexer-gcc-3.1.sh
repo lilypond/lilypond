@@ -4,6 +4,10 @@
 
 set -e
 
+FLEXLEXER=OK
+
+if [ -z "$FLEXLEXER" ]; then
+
 includes="$HOME/usr/include /usr/local/include /usr/include"
 
 for i in $includes; do
@@ -24,6 +28,7 @@ EOF
     exit 1
 fi
 
+fi # flexlexer
 
 if [ -n "$CONF" ]; then
     CONFIGSUFFIX=-$CONF
@@ -32,6 +37,8 @@ if [ -n "$CONF" ]; then
     ENABLECONFIG="--enable-config=$CONF "
 fi    
 outdir=out$CONFIGSUFFIX
+
+if [ -z "$FLEXLEXER" ]; then
 
 echo -n "Copying and fixing $file... "
 mkdir -p lily/$outdir
@@ -42,11 +49,11 @@ sed -e 's/iostream.h/iostream/' \
     $file > lily/$outdir/FlexLexer.h
 echo "done"
 
+fi # flexlexer
 
 if [ -f GNUmakefile ]; then
-    echo -n "Generating and fixing $file... "
-
     file=lily/$outdir/lexer.cc
+    echo -n "Generating and fixing $file... "
     rm -f $file
     make conf=$CONF -C lily $outdir/lexer.cc > /dev/null 2>&1 || true
 
