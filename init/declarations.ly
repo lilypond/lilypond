@@ -5,6 +5,7 @@ longa = \duration { -2 0 }
 
 \include "dynamic.ly"
 \include "nederlands.ly"		% dutch
+\include "chord-modifiers.ly"
 \include "script.ly"
 
 

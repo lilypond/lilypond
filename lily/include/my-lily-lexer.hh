@@ -37,19 +37,25 @@ public:
   String main_input_str_;
   void * lexval_l;
   Scope * toplevel_scope_p_;
+  bool main_input_b_;
   
   Notename_table *note_tab_p_;
   Array<Scope*> scope_l_arr_;
   Keyword_table * keytable_p_;
   int errorlevel_i_;
-
-
+  Notename_table *chordmodifier_tab_p_;
+  Musical_pitch lookup_notename (String s);
   void start_main_input ();
   void set_notename_table(Notename_table*tab_p);
+  bool chordmodifier_b (String) const;
+  void set_chordmodifier_table (Notename_table*tab_p);
+  Musical_pitch lookup_chordmodifier (String s);
+   
   bool notename_b(String) const;
   Identifier*lookup_identifier (String s);
   Musical_pitch lookup_pitch (String s);
   void push_note_state();
+  void push_chord_state();
   void push_lyric_state();
   void pop_state();
   void LexerError (char const *);
@@ -60,6 +66,7 @@ public:
   void print_declarations (bool init_b) const;
   void add_notename (String, Musical_pitch);
   bool note_state_b() const;
+  bool chord_state_b() const;
   bool lyric_state_b() const;
 };
 

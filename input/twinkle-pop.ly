@@ -1,9 +1,8 @@
 \header{
-filename =	 "twinkle.ly";
+filename =	 "twinkle-pop.ly";
 title =	 "Ah, vous dirais-je, maman ";
 description =	 "twinkle twinkle in pop-song-settings";
 composer =	 "traditional";
-
 enteredby =	 "HWN, chords by Johan Vromans";
 copyright =	 "public domain";
 }
@@ -14,16 +13,28 @@ Tested Features		lyrics and chords
 
 \version "1.0.10";
 
-melodie = \notes\relative c {
-        \clef"violin";
+melodie = \notes\relative c'' {
+        \clef "violin";
         \time 2/4 ;
 
-        c''4^"C" c |    g'    g |       a^"F"  a |      g2^"C"   |
-        f4^"F" f |      e^"C" e |       d^"G7" d |      c2^"C"   |
-        g'4^"G" g |      f^"F" f |       e^"C"  e |      d^"G7" d |
-        g^"G"  g |      f^"F" f |       e^"C"  e |      d^"G7" d |
-        c4^"C" c |      g'    g |       a^"F"  a |      g2^"C"   |
-        f4^"F" f |      e^"C" e |       d^"G7" d |      c2^"C"   |
+        c4 c  | g' g | a a | g2  |
+        f4 f  | e e  | d d | c2  |
+        g'4 g | f f  | e e | d d |
+        g  g  | f f  | e e | d d |
+	% copy 1-8
+        c4 c  | g' g | a a | g2  |
+        f4 f  | e e  | d d | c2  |
+}
+
+acc = \chords {
+	% why don't \skip, s4 work?
+        @2c @c @f @c
+        @f @c @g7 @c
+	@g @f @c  @g7 % urg, bug!
+        @g @f @c  @g7
+	% copy 1-8
+        @2c @c @f @c
+        @f @c @g7 @c
 }
 
 text = \lyrics{ 
@@ -39,8 +50,11 @@ text = \lyrics{
 }
 
 \score {
-        <  \notes \type Staff \melodie
-           \lyrics   \type Lyrics \text
+        <  
+	   \chords \type ChordNames \acc
+%	   \notes \type Staff=chords \acc
+	   \notes \type Staff=melody \melodie
+           \lyrics \type Lyrics \text
         >
         \paper {  }
 }

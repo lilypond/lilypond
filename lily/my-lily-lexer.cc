@@ -28,6 +28,8 @@ static Keyword_ent the_key_tab[]={
   {"alternative", ALTERNATIVE},
   {"bar", BAR},
   {"cadenza", CADENZA},
+  {"chordmodifiers", CHORDMODIFIERS},
+  {"chords", CHORDS},
   {"clef", CLEF},
   {"cm", CM_T},
   {"consists", CONSISTS},
@@ -80,6 +82,8 @@ My_lily_lexer::My_lily_lexer()
   scope_l_arr_.push (toplevel_scope_p_);
   errorlevel_i_ = 0;
   note_tab_p_ = new Notename_table;
+  chordmodifier_tab_p_ = new Notename_table;
+  main_input_b_ = false;
 }
 
 int
@@ -105,7 +109,10 @@ My_lily_lexer::start_main_input ()
   if (!monitor->silent_b ("InitLexer") && check_debug)
     set_debug (1);
 
+
   new_input (main_input_str_, source_global_l);
+  if (safe_global_b)
+    allow_includes_b_ = false;
   
   print_declarations(true);
 }
@@ -167,9 +174,15 @@ My_lily_lexer::LexerError (char const *s)
 }
 
 Musical_pitch
-My_lily_lexer::lookup_pitch (String s)
+My_lily_lexer::lookup_notename (String s)
 {
   return (*note_tab_p_)[s];
+}
+
+Musical_pitch
+My_lily_lexer::lookup_chordmodifier (String s)
+{
+  return (*chordmodifier_tab_p_)[s];
 }
 
 bool
@@ -179,16 +192,23 @@ My_lily_lexer::notename_b (String s) const
 }
 
 void
-My_lily_lexer::add_notename (String s, Musical_pitch p)
-{
-  (*note_tab_p_)[s] = p;
-}
-
-void
-My_lily_lexer::set_notename_table(Notename_table *p)
+My_lily_lexer::set_notename_table (Notename_table *p)
 {
   delete note_tab_p_;
   note_tab_p_ = p;
+}
+
+bool
+My_lily_lexer::chordmodifier_b (String s) const
+{
+  return chordmodifier_tab_p_->elem_b (s);
+}
+
+void
+My_lily_lexer::set_chordmodifier_table (Notename_table *p)
+{
+  delete chordmodifier_tab_p_;
+  chordmodifier_tab_p_ = p;
 }
 
 char

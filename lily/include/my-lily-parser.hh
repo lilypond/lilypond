@@ -19,21 +19,15 @@
 #include "array.hh"
 #include "input.hh"
 
-class My_lily_parser {
-  char const* here_ch_C() const;
-  Array<Input> define_spot_array_;
-  String init_str_;
+class My_lily_parser 
+{
+public:
+  My_lily_parser (Sources * sources_l);
+  ~My_lily_parser();
 
-  void add_requests (Simultaneous_music*v);
-
-  Simultaneous_music * get_note_element (Note_req * ,Duration *);
-  Simultaneous_music* get_rest_element (String, Duration *);
-  Simultaneous_music* get_word_element (String, Duration*);
-  Melodic_req* get_melodic_req (Melodic_req* melodic, int quotes);
-  String notename_str (Melodic_req* melodic);
-  void set_last_duration (Duration const *);
-  void set_abbrev_beam (int type_i);
-  friend int yyparse (void*);
+  void do_init_file();
+  void parse_file ( String init_str, String file_str);
+  void set_version_check (bool ignore);
 
 public:
   int abbrev_beam_type_i_;
@@ -53,7 +47,6 @@ public:
   My_lily_lexer * lexer_p_;
  
   Moment plet_mom();
-  void add_notename (String, Musical_pitch req_p);
   Input here_input() const;
   void remember_spot();
   Input pop_spot();
@@ -68,12 +61,23 @@ public:
   void set_debug();
   void set_yydebug (bool);
   bool ignore_version_b_;
-public:
-  void do_init_file();
-  void parse_file ( String init_str, String file_str);
-  My_lily_parser (Sources * sources_l);
-  ~My_lily_parser();
-  void set_version_check (bool ignore);
+
+private:
+  char const* here_ch_C() const;
+  Array<Input> define_spot_array_;
+  String init_str_;
+
+  void add_requests (Simultaneous_music*v);
+
+  Simultaneous_music * get_note_element (Note_req * ,Duration *);
+  Simultaneous_music * get_chord (Musical_pitch, Array<Musical_pitch>*, Array<Musical_pitch>*, Duration);
+  Simultaneous_music* get_rest_element (String, Duration *);
+  Simultaneous_music* get_word_element (String, Duration*);
+  Melodic_req* get_melodic_req (Melodic_req* melodic, int quotes);
+  String notename_str (Melodic_req* melodic);
+  void set_last_duration (Duration const *);
+  void set_abbrev_beam (int type_i);
+  friend int yyparse (void*);
 };
 
 #endif // MY_LILY_PARSER_HH
