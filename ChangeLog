@@ -1,5 +1,8 @@
 2002-06-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* stepmake/bin/release.py (prev_ver): Bugfix: assume new diff
+	naming scheme.
+
 	* Documentation/windows/zlily-profile.sh:
 	* Documentation/windows/post-lilypond.sh: Assume normal
 	prefix=/usr for lilypond.

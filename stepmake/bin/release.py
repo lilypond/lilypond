@@ -63,7 +63,10 @@ os.link(orig,  os.path.join (package.release_dir, tarball))
 # urg: howto check exit code?
 os.system(sys.executable + ' ' + package.topdir + '/stepmake/bin/package-diff.py --outdir=%s --package=%s' % (outdir, topdir))
 
-diffname = pn + '.diff.gz'
+prev_ver = prev_version (cur_ver)
+dn = '%s-%s-%s' % (package.name, version_tuple_to_str (prev_ver),
+		   version_tuple_to_str (cur_ver))
+diffname = dn + '.diff.gz'
 rel_pn = package.patch_dir + diffname
 
 diffname = os.path.join (outdir, diffname)
