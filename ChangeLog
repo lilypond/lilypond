@@ -1,5 +1,9 @@
 2005-03-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/separating-group-spanner.cc (find_rods): oops. Fix the real
+	culprit: always exit the loop if we find a rod, even if it has
+	distance < 0. 
+
 	* lily/ledger-line-spanner.cc (set_spacing_rods): rewrite to O(n)
 	algorithm.
 

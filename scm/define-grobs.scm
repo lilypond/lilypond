@@ -574,7 +574,7 @@
 	(Y-extent-callback . #f)
 	(minimum-length-fraction . 0.25)
 	(length-fraction . 0.25)
-	(spacing-procedure . ,Ledger_line_spanner::set_spacing_rods)
+;	(spacing-procedure . ,Ledger_line_spanner::set_spacing_rods)
 	(print-function . ,Ledger_line_spanner::print)
 	(layer . 0)
 	(meta . ((interfaces . (spanner-interface ledger-line-interface))))
