@@ -10,7 +10,7 @@ reg="$(regtool -q get 'HKLM\Software\MiK\MiKTeX\CurrentVersion\MiKTeX\Install Ro
 b="$(cygpath -u ""$reg"")"
 
 # Where we installed it
-c=texmf="/usr/windows/MiKTeX"
+c="/usr/windows/MiKTeX"
 
 for i in "$a" "$b" "$c"; do
 	if [ -d "$i" ]; then
