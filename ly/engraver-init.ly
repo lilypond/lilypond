@@ -113,6 +113,7 @@ RhythmicStaffContext=\translator{
 	\consists "Bar_engraver"
 	\consists "Time_signature_engraver"
 	\consists "Staff_symbol_engraver"
+	\consists "Instrument_name_engraver"
 	\consistsend "Axis_group_engraver"
 	\accepts "Voice"
 }
@@ -446,16 +447,17 @@ FiguredBassContext = \translator {
 	\consistsend "Axis_group_engraver"
 }
 
+
 TabVoiceContext =   \translator {
       \VoiceContext
       \name "TabVoice"
       \denies "Thread"
       \consists "Tab_note_heads_engraver"
-      
+
       % Draws all stems/beams out of the staff (and not in the middle of the staff !)
       Beam \override #'damping = #100000
       Stem \override #'up-to-staff = ##t
-      
+
       % No accidental in tablature !
       \remove Accidental_engraver
       Accidental  = \turnOff 

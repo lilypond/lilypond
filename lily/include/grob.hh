@@ -101,7 +101,7 @@ public:
      #funcptr# is the function to call to update this element.
    */
   void calculate_dependencies (int final, int busy, SCM funcname);
-  static SCM handle_broken_grobs(SCM, SCM criterion);
+
 
   virtual void do_break_processing ();
   virtual Grob *find_broken_piece (System*) const;
@@ -117,7 +117,6 @@ public:
   DECLARE_SCHEME_CALLBACK (point_dimension_callback, (SCM smob, SCM axis));
   DECLARE_SCHEME_CALLBACK (molecule_extent, (SCM smob, SCM axis));
 
-
   static SCM ly_set_grob_property (SCM, SCM,SCM);
   static SCM ly_get_grob_property (SCM, SCM);  
 
@@ -127,34 +126,16 @@ public:
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
 
-
   DECLARE_SMOBS (Grob,foo);
 
   void init ();
-
-
 public:
-  
   bool empty_b (Axis a) const;
 
   Interval extent (Grob * refpoint, Axis) const;
  
-  /**
-    translate in one direction
-    */
-    
   void translate_axis (Real, Axis);
-
-  /**
-     Find the offset relative to D.  If   D equals THIS, then it is 0.
-     Otherwise, it recursively defd as
-
-     OFFSET_ + PARENT_L_->relative_coordinate (D)
-   */
   Real relative_coordinate (Grob const* refp, Axis) const;
-  /**
-    Find the group-element which has both #this# and #s#
-   */
   Grob*common_refpoint (Grob const* s, Axis a) const;
 
 
@@ -163,15 +144,8 @@ public:
   void add_offset_callback (SCM callback, Axis);
   bool has_extent_callback_b (SCM, Axis)const;  
   void set_extent (SCM , Axis);
-
-  
-  /**
-    Invoke callbacks to get offset relative to parent.
-   */
   Real get_offset (Axis a) const;
-  /**
-     Set the  parent refpoint of THIS to E
-   */
+  
   void set_parent (Grob* e, Axis);
   
   Grob *get_parent (Axis a) const {   return  dim_cache_[a].parent_l_; }
@@ -184,6 +158,9 @@ Item* unsmob_item (SCM );
 
 Grob*common_refpoint_of_list (SCM elt_list, Grob * , Axis a);
 Grob*common_refpoint_of_array (Link_array<Grob> const&, Grob * , Axis a);
+
+void set_break_subsititution (SCM criterion);
+SCM do_break_substitution (SCM);
 
 #endif // STAFFELEM_HH
 

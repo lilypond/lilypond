@@ -145,9 +145,9 @@ Item::handle_prebroken_dependencies ()
 {
   if (original_l_)
     {
-      mutable_property_alist_
-	= handle_broken_grobs(original_l_->mutable_property_alist_,
-			       gh_int2scm (break_status_dir ()));
+      set_break_subsititution (gh_int2scm (break_status_dir ()));
+      mutable_property_alist_ = do_break_substitution(original_l_->mutable_property_alist_);
+
     }
   
   /*

@@ -1,4 +1,9 @@
-2002-06-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+2002-06-22  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/grob.cc (do_break_substitution): rename function, use
+	global var for criterion argument. Reduces stack usage a little.
+
+	* ly/engraver-init.ly (StaffContext): add Instrument_engraver
 
 	* scripts/convert-ly.py, lily/*.cc, scm/*.scm: change
 	visibility-lambda to break-visibility
