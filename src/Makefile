@@ -1,8 +1,9 @@
 default:
 	$(MAKE) -C ..
 
+DISTFILES=Makefile $(mycc) $(othersrc)
 dist:
-	ln Makefile $(mycc) $(othersrc) $(DDIR)/src
+	ln $(DISTFILES) $(DDIR)/$(SUBDIR)
 
 TAGS: $(mycc)
 	etags -CT $(mycc) 

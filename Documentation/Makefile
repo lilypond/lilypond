@@ -1,7 +1,8 @@
-PODS=README.pod CodingStyle.pod lilygut.pod lilyinput.pod
+PODS=README.pod CodingStyle.pod lilygut.pod lilyinput.pod error.pod\
+	faq.pod
 TXTS=$(PODS:.pod=.txt)
 MANS=$(PODS:.pod=.1)
-DOCFILES=$(PODS) Makefile 
+DISTFILES=$(PODS) Makefile
 
 
 default:
@@ -10,7 +11,7 @@ default:
 doc: $(TXTS)
 
 dist:
-	ln $(DOCFILES) $(DDIR)/Documentation/
+	ln $(DISTFILES) $(DDIR)/$(SUBDIR)
 clean:
 	rm -f $(TXTS) $(MANS)
 

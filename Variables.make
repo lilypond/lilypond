@@ -7,7 +7,7 @@ OPTIFLAG=-DNDEBUG -DNPRINT -O2
 DEBUGFLAG=-g
 
 # turn off -pipe if linker doesn't support it
-EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes 
+#EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes 
 
 #
 # -lefence = ElectricFence.
@@ -37,12 +37,12 @@ endif
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=22
+PATCHLEVEL=23
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 CXXVER=`$(CXX) --version`
 
 #flower version
-NEEDEFLOWERVER=1.0.17
+NEEDEFLOWERVER=1.0.20
 
 # directories
 TOPDIR  := $(shell if [ "$$PWD" != "" ]; then echo $$PWD; else pwd; fi)
@@ -50,11 +50,14 @@ OBJECTDIR=objects
 HEADERDIR=hdr
 CCDIR=src
 INITDIR=init
-vpath %.cc $(CCDIR)
-vpath %.hh $(HEADERDIR)
-vpath %.y $(CCDIR)
-vpath %.l $(CCDIR)
-vpath %.o $(OBJECTDIR)
+DEPDIR=deps
+INPUTDIR=input
+#vpath %.cc $(CCDIR)
+#vpath %.hh $(HEADERDIR)
+#vpath %.y $(CCDIR)
+#vpath %.l $(CCDIR)
+#vpath %.o $(OBJECTDIR)
+#vpath %.dep $(DEPDIR)
 
 # 
 #
@@ -62,8 +65,10 @@ include Sources.make
 progdocs=$(hdr) $(mycc)
 gencc=parser.cc lexer.cc
 cc=$(mycc) $(gencc)
-obs=$(cc:.cc=.o) 
 
+CCSOURCE=$(addprefix $(CCDIR)/, $(cc))
+obs=$(addprefix $(OBJECTDIR)/,$(cc:.cc=.o)) 
+ALLDEPS=$(addprefix $(DEPDIR)/,$(cc:.cc=.dep))
 
 #dist
 .EXPORT_ALL_VARIABLES:
@@ -75,12 +80,12 @@ DNAME=$(PACKAGENAME)-$(VERSION)
 
 # distribution files.
 othersrc=lexer.l parser.y
-SCRIPTS=make_version make_patch genheader
-IFILES=dimen.tex symbol.ini kortjakje.ly pavane.ly  maartje.ly\
-	lilyponddefs.tex test.tex .dstreamrc cadenza.ly scales.ly\
-	titledefs.tex pavane.tex
-OFILES=Makefile Variables.make Sources.make COPYING README NEWS
-DFILES=$(OFILES) $(IFILES) $(SCRIPTS)
+SCRIPTS=make_version make_patch genheader clean
+MAKFILES=Makefile Variables.make Sources.make Initial.make Generate.make \
+	configure
+OFILES=COPYING README NEWS TODO
+IFILES= standchen.tex titledefs.tex pavane.tex lilyponddefs.tex test.tex .dstreamrc dimen.tex 
+DFILES=$(MAKFILES) $(OFILES) $(IFILES) $(SCRIPTS)
 
 #compiling
 LOADLIBES=-L$(FLOWERDIR) -lflower $(EXTRALIB)
@@ -92,4 +97,9 @@ BISON=bison
 exe=$(PACKAGENAME)
 OUTPUT_OPTION=$< -o $@
 DDIR=$(TOPDIR)/$(DNAME)
-SUBDIRS=Documentation $(OBJECTDIR) $(CCDIR) $(HEADERDIR) $(INITDIR)
+SUBDIRS=Documentation $(OBJECTDIR) $(CCDIR) $(HEADERDIR) $(INITDIR) $(DEPDIR) \
+	$(INPUTDIR)
+
+depfile=deps/$(subst .o,.dep,$(notdir $@)) 
+DODEP=rm -f $(depfile); DEPENDENCIES_OUTPUT="$(depfile) $(OBJECTDIR)/$(notdir $@)"
+

@@ -1,8 +1,9 @@
 default:
 	$(MAKE) -C ..
-
+DISTFILES=Makefile $(hdr)
 dist:
-	ln Makefile $(hdr) $(DDIR)/$(HEADERDIR)
+	ln $(DISTFILES) $(DDIR)/$(SUBDIR)
+
 
 TAGS: $(hdr) 
 	etags -CT $(hdr) 
