@@ -238,22 +238,21 @@ Stem::invisible_b (Grob*me)
   return ! (heads_i (me) && Rhythmic_head::balltype_i (support_head (me)) >= 1);
 }
 
-int
-Stem::get_center_distance (Grob*me, Direction d)
-{
-  int staff_center = 0;
-  int distance = (int) (d* (head_positions (me)[d] - staff_center));
-  return distance >? 0;
-}
-
 Direction
 Stem::get_default_dir (Grob*me) 
 {
-  int du = get_center_distance (me,UP);
-  int dd = get_center_distance (me,DOWN);
-
-  if (sign (dd - du))
-    return Direction (sign (dd -du));
+  int staff_center = 0;
+  Interval hp = head_positions (me);
+  if (hp.empty_b())
+    {
+      return CENTER;
+    }
+  
+  int udistance = (int) (UP * hp[UP] - staff_center);
+  int ddistance = (int) (DOWN* hp[DOWN] - staff_center);  
+  
+  if (sign (ddistance - udistance))
+    return Direction (sign (ddistance -udistance));
 
   return to_dir (me->get_grob_property ("neutral-direction"));
 }
@@ -431,13 +430,15 @@ SCM
 Stem::before_line_breaking (SCM smob)
 {
   Grob*me = unsmob_grob (smob);
-  stem_end_position (me);	// ugh. Trigger direction calc.
-  position_noteheads (me);
 
-  if (invisible_b (me))
+  if (!invisible_b (me))
+    {
+      stem_end_position (me);	// ugh. Trigger direction calc.
+      position_noteheads (me);
+    }
+  else
     {
       me->remove_grob_property ("molecule-callback");
-      // suicide ();
     }
   
   return SCM_UNSPECIFIED;
@@ -628,6 +629,12 @@ Stem::off_callback (SCM element_smob, SCM)
   Grob *me = unsmob_grob (element_smob);
   
   Real r=0;
+
+  if (invisible_b (me))
+    {
+      return gh_double2scm (0.0);
+    }
+  
   if (Grob * f = first_head (me))
     {
       Interval head_wid = Note_head::head_extent(f, X_AXIS);
