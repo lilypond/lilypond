@@ -37,6 +37,7 @@ public:
   Paper_outputter (String nm, String format);
   SCM scheme_to_string (SCM);
   void output_stencil (Stencil);
+  void close();
 };
 
 Paper_outputter *get_paper_outputter (String, String);

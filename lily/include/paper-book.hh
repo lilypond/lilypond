@@ -48,6 +48,7 @@ public:
   Stencil score_title (int);
   void classic_output (String);
   void output (String);
+  void post_processing (SCM, SCM);
 };
 
 DECLARE_UNSMOB (Paper_book, paper_book)

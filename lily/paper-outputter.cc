@@ -138,3 +138,9 @@ LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
   
   return po->dump_string (str);
 }
+
+void
+Paper_outputter::close ()
+{
+  scm_close_port (file_);
+}

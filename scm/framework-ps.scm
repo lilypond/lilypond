@@ -14,6 +14,9 @@
 	     (srfi srfi-13)
 	     (lily))
 
+(define mm-to-bigpoint
+  (/ 72 25.4))
+
 (define-public (ps-font-command font . override-coding)
   (let* ((name (ly:font-filename font))
 	 (magnify (ly:font-magnification font))
@@ -157,8 +160,7 @@
      (value->string (ly:output-def-lookup paper ly-key)) " def \n"))
 
   (string-append
-   "/lily-output-units 2.83464  def  %% milimeter \n"
-   "% /lily-output-units 0.996264  def  %% true points.\n"
+   "/lily-output-units " (number->string mm-to-bigpoint) "  def  %% milimeter \n"
    (output-entry "staff-line-thickness" 'linethickness)
    (output-entry "line-width" 'linewidth)
    (output-entry "paper-size" 'papersize)
@@ -166,11 +168,6 @@
    "/output-scale "
    (number->string (ly:output-def-lookup paper 'outputscale))
    " lily-output-units mul def \n"))
-
-(define (header paper page-count classic?)
-  (string-append
-   "%!PS-Adobe-3.0\n"
-   "%%Creator: creator time-stamp \n"))
 
 (define (dump-page outputter page page-number page-count)
   (ly:outputter-dump-string outputter
@@ -183,6 +180,27 @@
   (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter "} stop-system \nshowpage\n"))
 
+(define (eps-header bookpaper bbox)
+  (string-append "%!PS-Adobe-2.0 EPSF-2.0\n"
+		 "%%Creator: creator time-stamp\n"
+		 "%%BoundingBox: " (string-join (map number->string  bbox) " ") "\n"
+		 "%%EndComments\n"))
+
+(define (page-header bookpaper page-count)
+  (string-append "%!PS-Adobe-3.0\n"
+		 "%%Creator: creator time-stamp\n"
+		 "%%Pages: " (number->string page-count) "\n"
+		 "%%PageOrder: Ascend\n"
+		 "%%DocumentPaperSizes: " (ly:output-def-lookup bookpaper 'papersize) "\n"))
+
+(define (preamble bookpaper)
+  (list
+   (output-variables bookpaper)
+   (ly:gulp-file "music-drawing-routines.ps")
+   (ly:gulp-file "lilyponddefs.ps")
+   (load-fonts bookpaper)
+   (define-fonts bookpaper)))
+
 (define-public (output-framework outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (pages (ly:paper-book-pages book))
@@ -191,21 +209,10 @@
   (for-each
    (lambda (x)
      (ly:outputter-dump-string outputter x))
-   (list
-    (header bookpaper
-	    (length pages)
-	    #f)
-
-    "%%Pages: " (number->string page-count) "\n"
-    "%%PageOrder: Ascend\n"
-    "%%DocumentPaperSizes: " (ly:output-def-lookup bookpaper 'papersize) "\n"
-
-    (output-variables bookpaper)
-    (ly:gulp-file "music-drawing-routines.ps")
-    (ly:gulp-file "lilyponddefs.ps")
-    (load-fonts bookpaper)
-    (define-fonts bookpaper)))
-
+   (cons
+    (page-header bookpaper page-count)
+    (preamble bookpaper)))
+  
   (for-each
    (lambda (page)
      (set! page-number (1+ page-number))
@@ -213,68 +220,67 @@
    pages)
   (ly:outputter-dump-string outputter "%%Trailer\n%%EOF\n")))
 
-(define-public (output-classic-framework outputter book scopes fields
-					    basename)
+(define-public (output-preview-framework outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
-	 (lines (ly:paper-book-lines book))
-	 (y 0.0)
-	 ;; What the F*** is 2.83463?
-	 (scale (* 2.83464 (ly:output-def-lookup bookpaper 'outputscale)))
-	 (total-y
-	  (apply + (map (lambda (z) (ly:paper-system-extent z Y)) lines)))
-	 (x-ext '(-8 . 0))
-	 (lineno 0))
-
-    (define (dump-line outputter system)
-      (let ((stil (ly:paper-system-stencil system)))
-	
-	(ly:outputter-dump-string
-	 outputter
-	 (string-append
-	  " 0.0 "
-	  (ly:number->string y)
-	  " start-system {\n set-ps-scale-to-lily-scale\n"))
-	(set! y (+ y (ly:paper-system-extent system Y)))
-	(ly:outputter-dump-stencil outputter stil)
-	(ly:outputter-dump-string
-	 outputter
-	 "} stop-system\n")))
-
-    (define (to-pt x)
-      (inexact->exact (round (* scale x))))
-
-    (define (bbox llx lly urx ury)
-      (string-append
-       "%%BoundingBox: "
-       (ly:number->string (to-pt llx)) " "
-       (ly:number->string (to-pt lly)) " "
-       (ly:number->string (to-pt urx)) " "
-       (ly:number->string (to-pt ury)) "\n"))
-
-    (for-each
-     (lambda (ell)
-       (set! x-ext (interval-union x-ext
-				   (cons 0.0 (ly:paper-system-extent ell X)))))
-     lines)
-
+	 (systems (ly:paper-book-lines book))
+	 (scale  (ly:output-def-lookup bookpaper 'outputscale ))
+	 (titles (take-while ly:paper-system-title? systems))
+	 (non-title (find (lambda (x) (not (ly:paper-system-title? x))) systems))
+	 (dump-me
+	  (stack-stencils Y DOWN 0.0 
+			  (map ly:paper-system-stencil
+			       (append titles (list non-title)))))
+	 (xext (ly:stencil-extent dump-me X))
+	 (yext (ly:stencil-extent dump-me Y))
+	 )
+    
   (for-each
    (lambda (x)
      (ly:outputter-dump-string outputter x))
-   (list
-    "%!PS-Adobe-2.0 EPSF-2.0\n"
-    "%%Creator: LilyPond \n"
+   (cons
+    (eps-header bookpaper
+		(map
+		 (lambda (x)
+		   (inexact->exact
+		    (round (* x scale mm-to-bigpoint))))
+		 (list (car xext) (car yext)
+		       (cdr xext) (cdr yext))))
+    (preamble bookpaper)))
 
-;;    (bbox (car x-ext) 0 (cdr x-ext) total-y)    ; doesn't work well
 
-    "%%EndComments\n"
-    (output-variables bookpaper)
-    (ly:gulp-file "music-drawing-routines.ps")
-    (ly:gulp-file "lilyponddefs.ps")
-    (load-fonts bookpaper)
-    (define-fonts bookpaper)))
+  (ly:outputter-dump-string outputter
+			    (string-append "0 0 start-system { "
+					   "set-ps-scale-to-lily-scale "
+					   "\n"))
+  (ly:outputter-dump-stencil outputter dump-me)
+  (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")))
 
-;; ;   page-number page-count))
-  (for-each
-   (lambda (line) (set! lineno (1+ lineno)) (dump-line outputter line))
-   lines)
-  (ly:outputter-dump-string outputter "\n")))
+(define-public (convert-to-pdf book name)
+  (display
+   (string-append
+    "Converting to "
+    (regexp-substitute/global #f "\\.ps" name 'pre ".pdf" 'post)
+    "\n"))
+  (system (string-append "ps2pdf -sPAPERSIZE="
+			 (ly:output-def-lookup
+			  (ly:paper-book-book-paper book)
+			  'papersize)
+			 " "
+			 name)))
+
+
+(define-public (convert-to-png book name)
+  (display
+   (string-append
+    "Converting to "
+    (regexp-substitute/global #f "\\.ps" name 'pre ".png" 'post)
+    "\n"))
+  (system (string-append "ps2pdf -sPAPERSIZE="
+			 (ly:output-def-lookup
+			  (ly:paper-book-book-paper book)
+			  'papersize)
+			 " "
+			 name)))
+
+
+; %%BoundingBox: 70 597 207 657
