@@ -245,13 +245,12 @@ composer, title, etc.
 @item An @code{\addquote} statement. See @ref{Quoting other voices}
 for more information.
 
-@item A @code{\score} block. This score will be formatted as a book
-containing a single movement.
+@item A @code{\score} block. This score will be collected with other
+toplevel scores, and combined as a single @code{\book}.
 
 This behavior can be changed by setting the variable
 @code{toplevel-score-handler} at toplevel.  The default handler is
 defined in the init file @file{scm/lily.scm}.
-
 
 @item A @code{\book} block formats the block
 
@@ -265,8 +264,9 @@ defined in the init file @file{scm/lily.scm}.
   @{ c'4 d' e'2 @}
 @end example
 
- This will format the piece as a book with a single movement.
-
+This will add the piece in a @code{\score}, and formats it into a
+single book together with all other toplevel @code{\score}s and music
+expressions.
  
 This behavior can be changed by setting the variable
 @code{toplevel-music-handler} at toplevel. The default handler is
