@@ -110,12 +110,18 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 
 
 For processing both the @TeX{} and the PostScript output, you must
-have appropriate environment variables set.  Scripts to do this are
-included in @file{buildscripts/out/lilypond-profile} (for sh shells)
-and @file{buildscripts/out/lilypond-login} (for C-shells), and should
-normally be sourced as part of your login process. If these scripts
-are not run from the system wide login process, then you must run it
-yourself.
+have appropriate environment variables set.  The following scripts  do
+this:
+
+@itemize @bullet
+@item @file{buildscripts/out/lilypond-profile}
+(for sh shells)
+@item  @file{buildscripts/out/lilypond-login} (for C-shells)
+@end itemize
+
+They should normally be sourced as part of your login process. If
+these scripts are not run from the system wide login process, then you
+must run it yourself.
 
 @cindex installing LilyPond
 

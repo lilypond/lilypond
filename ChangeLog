@@ -1,3 +1,9 @@
+2002-08-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/lilypond-book.itely: small cleanups
+
+	* Documentation/user/*.itely: fix overfull hboxes. 
+
 2002-08-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/tutorial.itely (A piano excerpt): 

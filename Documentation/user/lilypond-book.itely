@@ -16,8 +16,8 @@ TODO: cleanup
 
 @c  fix this node name , this is too long.
 
-@node Insert music snippets into your texts using lilypond-book
-@chapter Insert music snippets into your texts using lilypond-book
+@node lilypond-book: Integrating text and music
+@chapter lilypond-book: Integrating text and music
 
 If you want to add pictures of music to a document, you can simply do
 it the way you would do with other types of pictures.  You write
@@ -26,12 +26,14 @@ LilyPond code, process it separately to embedded PostScript or
 @code{html} source.
 
 @command{lilypond-book} provides you with a way to automate this
-process: this program will extract snippets of music from your
-document, run lilypond on them, and substitute the resulting pictures
-back. This works for La@TeX{}, @code{html} or texinfo documents.
-@code{lilypond-book} introduces some extra LilyPond specific
-constructs, that integrate seamlessly with the rest of your source
-document.
+process: this program extracts snippets of music from your document,
+runs lilypond on them, and substitutes the resulting pictures back.
+The line width and font size definitions for the music are adjusted so
+they match the layout of your document.
+
+It can work on La@TeX{}, @code{html} or texinfo documents.  A tutorial
+on using lilypond-book is in @ref{integrating text and music}.
+
 
 @cindex texinfo
 @cindex latex
@@ -41,49 +43,8 @@ document.
 @cindex documents, adding music to
 
 
-More precisely, if a La@TeX{}  file contains
-@example 
-
-        \begin@{lilypond@}
-        CONTENTS
-        \end@{lilypond@}
- 
-@end example
-or
-@example
-        \lilypond@{CONTENTS@}
-@end example
-then LilyPond is run on CONTENTS.  @command{lilypond-book} puts the
-result back into the latex file. When you run the result through latex,
-you get a document that mixes text and music.  lilypond-book will insert
-line width and font size definitions before @code{CONTENTS}, so the
-music samples will match the layout of your document.
-
-Very often, if you mix music and text, the music is only a few
-notes or at most a few bars. This music should be as short as possible
-and not stretched to be aligned to the right margin. lilypond-book does
-this automatically if you don't use a @code{\score} block in
-@code{CONTENTS}. For example: @code{\lilypond@{\context Voice <c' e' g'>
-@}}.
-
-You can also use @code{lilypondfile} to include another file:
-@example
-        \lilypondfile@{foo.ly@}
-@end example
-
-All three forms can take several options. They are specified in brackets
-as follows:
-@example
-       \lilypondfile[options, go, here]@{ ..  @}
-       \begin[options, go, here]@{lilypond@} .. \end@{lilypond@}
-       \lilypond[options, go,here]@{ .. @}
-@end example
-
-In the Texinfo version, bitmaps of the music are also generated, so you
-can make a HTML document with embedded music.
-
-
-@section Texinfo reference
+@node Integrating Texinfo and music
+@section Integrating Texinfo and music
 
 You specify the LilyPond code like this:
 @example
@@ -125,7 +86,11 @@ sizes. One of these commands should be in the beginning of the document:
 @end itemize
 @code{@@pagesizes} are not yet supported.
 
-@section La@TeX{} reference
+When producing texinfo, lilypond-book also generates bitmaps of the
+music, so you can make a HTML document with embedded music.
+
+@node Integrating La@TeX{} and music
+@section Integrating La@TeX{} and music
 
 You specify the LilyPond code like this:
 @example
@@ -184,7 +149,8 @@ defined to nothing by default, and the user can redefine them
 to whatever he wants.
 
 
-@section HTML reference
+@node Integrating HTML and music
+@section Integrating HTML and music
 
 You specify the LilyPond code like this:
 
@@ -217,13 +183,11 @@ Some music in <lilypond a b c/> a line of text.
 @end example
 @end quotation
 
-@c Huh? ugh, can't show inline pictures in texinfo?
+@node Music fragment options
+@section Music fragment options
 
-@c Some music in @lilypond{a b c} a line of text.
-
-
-
-@section Options
+The commands for lilypond-book have room to specify options. These are
+all of the options:
 
 @table @code
 @item eps
@@ -315,7 +279,8 @@ with @code{\lilypondfile}.
     starting note.
 @end table
 
-@section Invocation
+@node Invoking lilypond-book
+@section Invoking lilypond-book
 
 When you run @command{lilypond-book} it will generate lots of small
 files that LilyPond will process. So to avoid all the garbage in
@@ -353,6 +318,7 @@ lilypond-book accepts the following command-line options:
     Specify the document type to process: @code{html}, @code{latex} or
 @code{texi} (default).  @command{lilypond-book} usually figures this
 out automatically.
+
 @item --default-music-fontsize=@var{sz}pt
     Set the fontsize to use for LilyPond if no fontsize is given
     as option.
@@ -379,8 +345,6 @@ out automatically.
  lilypond-book --read-lys
 @end example
 
-[TODO not a useful option unless you can undump the input file]
-
 @item --outname=@var{FILE}
     The name of La@TeX{} file to output. If this option  is not given,
     the output name is derived from the input name.
@@ -404,10 +368,11 @@ straight right margin.
 Almost all La@TeX{} commands that change margins and line widths are
 ignored.
 
-There is no way to automatically apply convert-ly to fragments inside a
-lilypond-book file.
+There is no way to automatically apply convert-ly only to fragments
+inside a lilypond-book file.
 
 @file{lilypond-book} processes all music fragments in one big run. The
 state of the GUILE interpreter is not reset between fragments; this
-means that GUILE definitions, eg. done with @code{#(define .. )} and
-@code{#(set! .. )} can leak from one fragment into a next fragment.
+means that global GUILE definitions, eg. done with @code{#(define
+.. )} and @code{#(set! .. )} can leak from one fragment into a next
+fragment.

@@ -1021,7 +1021,11 @@
 	(molecule-callback . ,tablature-molecule-callback)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
 	(stem-attachment-function . ,tablature-stem-attachment-function)
-	(meta . ((interfaces . (rhythmic-head-interface font-interface note-head-interface staff-symbol-referencer-interface item-interface ))))
+	(meta . ((interfaces
+		  . (rhythmic-head-interface
+		     font-interface
+		     note-head-interface staff-symbol-referencer-interface
+		     text-interface item-interface ))))
 	))
 
 
