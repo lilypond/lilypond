@@ -1,3 +1,8 @@
+2004-10-21  Werner Lemberg  <wl@gnu.org>
+
+	* tex/lily-pdf-defs.tex, tex/lily-ps-defs.tex
+	(\lilypondexperimentalfeatures): Removed.
+
 2004-10-20  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/notation.itely: fixed 2 typos
