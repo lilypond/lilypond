@@ -238,7 +238,13 @@ Beam::quanting (SCM smob)
     }
 
   Real rad = Staff_symbol_referencer::staff_radius (me);
-  int beam_count = get_beam_count (me);
+
+  
+  
+  Drul_array<int> edge_beam_counts
+    (Stem::beam_multiplicity (stems[0]).length  () + 1,
+     Stem::beam_multiplicity (stems.top ()).length  () + 1);
+  
   Real beam_translation = get_beam_translation (me) / ss;
 
   Real reasonable_score = (is_knee) ? 200000 : 100;
@@ -247,7 +253,7 @@ Beam::quanting (SCM smob)
       {
 	Real d = score_forbidden_quants (qscores[i].yl, qscores[i].yr,
 				     rad, slt, thickness, beam_translation,
-				     beam_count, ldir, rdir); 
+				     edge_beam_counts, ldir, rdir); 
 	qscores[i].demerits += d;
 
 #if DEBUG_QUANTING
@@ -438,14 +444,14 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 			      Real radius,
 			      Real slt,
 			      Real thickness, Real beam_translation,
-			      int beam_count,
+			      Drul_array<int> beam_counts,
 			      Direction ldir, Direction rdir)
 {
   Real dy = yr - yl;
   Drul_array<Real> y(yl,yr);
   Drul_array<Direction> dirs(ldir,rdir);
   
-  Real extra_demerit = SECONDARY_BEAM_DEMERIT / beam_count;
+  Real extra_demerit = SECONDARY_BEAM_DEMERIT / (beam_counts[LEFT] >? beam_counts[RIGHT]);
 
   /*
     Inside the staff, inter quants are forbidden.
@@ -460,9 +466,9 @@ Beam::score_forbidden_quants (Real yl, Real yr,
   while ((flip (&d))!= LEFT); 
 
 
-  for (int j = 1; j <= beam_count; j++)
+  do
     {
-      do
+      for (int j = 1; j <= beam_counts[d]; j++)
 	{
 	  /*
 	    see if the outer staffline falls in a beam-gap
@@ -482,66 +488,46 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	    if (gap.contains (k))
 	      dem += extra_demerit;
 	}
-      while ((flip (&d))!= LEFT); 
     }
+  while ((flip (&d))!= LEFT); 
 
 
-  
-  // todo: use beam_count of outer stems.
-  if (beam_count >= 2)
+  if ((beam_counts[LEFT] >? beam_counts[RIGHT]) >= 2)
     {
       Real straddle = 0.0;
       Real sit = (thickness - slt) / 2;
       Real inter = 0.5;
       Real hang = 1.0 - (thickness - slt) / 2;
 
-      // hmm, without Interval/Drul_array, you get ~ 4x same code...
-      if (fabs (y[LEFT] - dirs[LEFT] * beam_translation) < radius + inter)
-	{
-	  if (dirs[LEFT] == UP && dy <= BEAM_EPS
-	      && fabs (my_modf (y[LEFT]) - sit) < BEAM_EPS)
-	    dem += extra_demerit;
-	  
-	  if (dirs[LEFT] == DOWN && dy >= BEAM_EPS
-	      && fabs (my_modf (y[LEFT]) - hang) < BEAM_EPS)
-	    dem += extra_demerit;
-	}
 
-      if (fabs (y[RIGHT] - dirs[RIGHT] * beam_translation) < radius + inter)
+      Direction d = LEFT;
+      do
 	{
-	  if (dirs[RIGHT] == UP && dy >= BEAM_EPS
-	      && fabs (my_modf (y[RIGHT]) - sit) < BEAM_EPS)
-	    dem += extra_demerit;
-	  
-	  if (dirs[RIGHT] == DOWN && dy <= BEAM_EPS
-	      && fabs (my_modf (y[RIGHT]) - hang) < BEAM_EPS)
-	    dem += extra_demerit;
-	}
-      
-      if (beam_count >= 3)
-	{
-	  if (fabs (y[LEFT] - 2 * dirs[LEFT] * beam_translation) < radius + inter)
+	  if (beam_counts[d] >= 2
+	      && fabs (y[d] - dirs[d] * beam_translation) < radius + inter)
 	    {
-	      if (dirs[LEFT] == UP && dy <= BEAM_EPS
-		  && fabs (my_modf (y[LEFT]) - straddle) < BEAM_EPS)
+	      if (dirs[d] == UP && dy <= BEAM_EPS
+		  && fabs (my_modf (y[d]) - sit) < BEAM_EPS)
 		dem += extra_demerit;
-	      
-	      if (dirs[LEFT] == DOWN && dy >= BEAM_EPS
-		  && fabs (my_modf (y[LEFT]) - straddle) < BEAM_EPS)
+	  
+	      if (dirs[d] == DOWN && dy >= BEAM_EPS
+		  && fabs (my_modf (y[d]) - hang) < BEAM_EPS)
 		dem += extra_demerit;
 	    }
-	  
-	  if (fabs (y[RIGHT] - 2 * dirs[RIGHT] * beam_translation) < radius + inter)
+
+	  if (beam_counts[d] >= 3
+	      && fabs (y[d] - 2 * dirs[d] * beam_translation) < radius + inter)
 	    {
-	      if (dirs[RIGHT] == UP && dy >= BEAM_EPS
-		  && fabs (my_modf (y[RIGHT]) - straddle) < BEAM_EPS)
+	      if (dirs[d] == UP && dy <= BEAM_EPS
+		  && fabs (my_modf (y[d]) - straddle) < BEAM_EPS)
 		dem += extra_demerit;
 	      
-	      if (dirs[RIGHT] == DOWN && dy <= BEAM_EPS
-		  && fabs (my_modf (y[RIGHT]) - straddle) < BEAM_EPS)
+	      if (dirs[d] == DOWN && dy >= BEAM_EPS
+		  && fabs (my_modf (y[d]) - straddle) < BEAM_EPS)
 		dem += extra_demerit;
 	    }
 	}
+      while (flip (&d) != LEFT);
     }
   
   return dem;

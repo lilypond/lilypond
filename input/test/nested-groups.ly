@@ -7,6 +7,7 @@ and @code{ChoirStaff} produce similar straight brackets, whereas
 and @code{InnerChoirStaff}, the brackets are shifted leftwards.
 
 "
+}
 
 \score { \notes
 <<

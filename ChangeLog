@@ -1,3 +1,20 @@
+2004-02-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/beam-quanting.cc: cleanup, separate counts for left and
+	right beam ends.
+
+	* lily/side-position-interface.cc (quantised_position): also
+	quantize staccato position for forced stem directions. 
+
+2004-02-27  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/*.scm: Patch by Nicolas Sceaux: 
+
+	* scm/music-functions.scm: ly:grob-property and ly:music-property
+	are made procedure with setters.
+
+	* scm/*.scm: replace ..-set-property! with set! (..-property  )
+	
 2004-02-28  Heikki Junes <hjunes@cc.hut.fi>
 
 	* input/test/[p-r]*.ly: use more verbose texidocs. add comments

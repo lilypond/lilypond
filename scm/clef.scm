@@ -94,39 +94,31 @@
   "Generate the clef setting commands for a clef with name CL."
   (define (make-prop-set props)
     (let ((m (make-music-by-name 'PropertySet)))
-
-      (map (lambda (x) (ly:music-set-property! m (car x) (cdr x))) props)
+      (map (lambda (x) (set! (ly:music-property m (car x)) (cdr x))) props)
       m))
-  
   (let ((e '())
 	(c0 0)
 	(oct 0)
 	(match (string-match "^(.*)([_^])([0-9]+)$" clef-name)))
-
     (if match
 	(begin
 	  (set! clef-name (match:substring match 1))
 	  (set! oct
 		(* (if (equal? (match:substring match 2) "^") -1 1)
 		   (- (string->number (match:substring match 3)) 1)))))
-
-    (set! e  (assoc clef-name supported-clefs))
-    
+    (set! e (assoc clef-name supported-clefs))
     (if (pair? e)
-	(let* ((musics
-		(map make-prop-set  
-		     `(((symbol . clefGlyph)
-			(value . ,(cadr e)))
-		       ((symbol . centralCPosition)
-			(value . ,(+ oct
-				     (caddr e)
-				     (cdr (assoc (cadr e) c0-pitch-alist)))))
-		       ((symbol . clefPosition) (value . ,(caddr e)))
-		       ((symbol . clefOctavation) (value . ,(- oct))))))
+	(let* ((musics (map make-prop-set  
+			    `(((symbol . clefGlyph) (value . ,(cadr e)))
+			      ((symbol . centralCPosition)
+			       (value . ,(+ oct
+					    (caddr e)
+					    (cdr (assoc (cadr e) c0-pitch-alist)))))
+			      ((symbol . clefPosition) (value . ,(caddr e)))
+			      ((symbol . clefOctavation) (value . ,(- oct))))))
 	       (seq (make-music-by-name 'SequentialMusic))
 	       (csp (make-music-by-name 'ContextSpeccedMusic)))
-
-	  (ly:music-set-property! seq 'elements musics)
+	  (set! (ly:music-property seq 'elements) musics)
 	  (context-spec-music seq 'Staff))
 	(begin
 	  (ly:warn (format "Unknown clef type `~a'

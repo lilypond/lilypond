@@ -56,7 +56,7 @@ public:
 				  Real yl, Real yr);
   static Real score_forbidden_quants (Real, Real,
 				      Real, Real, Real, Real,
-				      int, Direction, Direction);
+				      Drul_array<int>, Direction, Direction);
   
 
   static int get_direction_beam_count (Grob *me, Direction d);
