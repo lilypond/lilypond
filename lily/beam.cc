@@ -465,8 +465,18 @@ Beam::quanting (SCM smob)
   Direction rdir = Direction (stem_infos.top ().dir_);
   bool knee_b = dirs_found[LEFT] && dirs_found[RIGHT];
 
-  
-  int REGION_SIZE = 2;
+  /*
+    This
+    
+      \score {
+        \context Staff \notes {
+	  \stemDown [e'8 e e']
+	}
+      }
+      
+    breaks with REGION_SIZE < 4
+  */
+  int REGION_SIZE = 4;
 
   /*
     Knees are harder, lets try some more possibilities for knees. 
