@@ -262,8 +262,28 @@ To install GNU LilyPond, type:
 	sh buildscripts/clean-fonts.sh      
 @end example 
 
+If, in addition, you want to generate PDF files of your scores and have 
+installed mftrace, type:
+@example 
+        make pfa-fonts
+        make MAKE_PFA_FILES=1 install
+        texhash
+@end example 
+(PFA versions of the fonts for the latest LilyPond version can also be
+obtained from the web site using:
+@example 
+        mkdir /tmp/newfonts
+        cd /tmp/newfonts/
+        wget -l 1 -nd -r -A pfa,map http://lilypond.org/stable/mf/out/
+        mv *.pfa $LILYPONDSHARE/fonts/type1/
+        mv *.map $LILYPONDSHARE/dvips/
+        texhash
+@end example 
+where @code{$LILYPONDSHARE} denotes @code{/usr/share/lilypond/1.7.*/} or
+wherever LilyPond is installed on your system.
+
 If you are doing an upgrade, you should remove all @file{feta}
-@code{.pk} and @file{.tfm} files.  A script has been provided to do the
+@code{.pk} and @code{.tfm} files.  A script has been provided to do the
 work for you, see @file{buildscripts/clean-fonts.sh}.
 
 
