@@ -1,11 +1,12 @@
 #include "request.hh"
 #include "swalker.hh"
 #include "debug.hh"
+#include "clef.hh"
 #include "staff.hh"
 #include "command.hh"
 #include "simplestaff.hh"
 #include "sccol.hh" 
-
+#include "simplewalker.hh"
 
 
 
@@ -50,11 +51,13 @@ Simple_column::process_requests()
 	    }
 	}
 }
+
 Staff_column*
 Simple_staff::create_col(Score_column*s)
 {
     return new Simple_column(s,this);
 }
+
 void
 Simple_staff::walk()
 {
