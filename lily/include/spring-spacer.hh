@@ -93,6 +93,7 @@ public:
     virtual    void OK() const;
     virtual    void print() const;
     virtual    void prepare();
+    virtual ~Spring_spacer(){}
 };
 
 #endif // SPRING_SPACER_HH
