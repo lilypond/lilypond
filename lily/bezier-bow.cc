@@ -41,7 +41,7 @@ slur_height (Real width, Real h_inf, Real r_0)
 
   * F (x) = 2/pi * atan (pi x/2)
 
-  * F (x) 1/alpha * x^alpha / (1 + x^alpha)
+  * F (x) = 1/alpha * x^alpha / (1 + x^alpha)
 
   * (etc.)
 
@@ -54,6 +54,23 @@ slur_height (Real width, Real h_inf, Real r_0)
   no experiments for determining the best combinations of F, h_inf and
   r_0.
 
+
+  The indent is equals the height of the slur for small slurs.  For
+  large slurs, this gives a certain hookiness at the end, so we
+  increase the indent.
+
+  ind = G(w)
+
+  w -> 0,  G(w) -> .5 h
+
+  w -> inf, G(w) -> 2*h
+
+  eg.
+
+
+  G(w) = h (w/(w+h_inf) 1.5 + .5 h 
+  
+  
   */
 
 Bezier
@@ -61,7 +78,7 @@ slur_shape (Real width, Real h_inf, Real r_0)
 {
   Bezier curve;
   Real height =  slur_height (width, h_inf, r_0);
-  Real indent = height;
+  Real indent = (width/(h_inf+ width)*1.5 + 0.5) * height;
 
   curve.control_[0] = Offset (0, 0);
   curve.control_[1] = Offset (indent, height);
