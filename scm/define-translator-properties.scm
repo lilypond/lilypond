@@ -190,6 +190,10 @@ arpeggios that cross staves.
 (translator-property-description 'crescendoText markup? "Text to print at start of non-hairpin crecscendo, ie: @samp{cresc.}")
 (translator-property-description 'crescendoSpanner symbol? "Type of spanner to be used for crescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
 (translator-property-description 'decrescendoText markup? "Text to print at start of non-hairpin decrecscendo, ie: @samp{dim.}")
+(translator-property-description 'drumPitchTable hash-table?
+				 "A table mapping percussion
+instruments (symbols) to pitches.")
+
 (translator-property-description 'drumStyleTable hash-table?
 				 "A hash table containing mapping drums to layout settings.
 Predefined values: @code{drums-style}, @code{timbales-style}, @code{congas-style}, @code{bongos-style}
