@@ -118,5 +118,5 @@ ADD_INTERFACE (Staff_symbol,"staff-symbol-interface",
   "This spanner draws the lines of a staff.  The center (i.e. middle line
 or space) is position 0.",
 	       
-  "staff-space thickness line-count");
+  "ragged-right staff-space thickness line-count");
 

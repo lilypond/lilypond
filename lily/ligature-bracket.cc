@@ -143,3 +143,4 @@ Ligature_bracket::brew_molecule (SCM smob)
 
   return bracket.smobbed_copy ();
 }
+
