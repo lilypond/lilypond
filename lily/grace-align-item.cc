@@ -13,19 +13,17 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 
-/*
-  TODO: cfg-able
- */
 MAKE_SCHEME_CALLBACK(Grace_align_item,before_line_breaking);
 SCM
 Grace_align_item::before_line_breaking (SCM smob)
 {
   Score_element*me = unsmob_element (smob);
-  Real nhw = // lookup_l ()->notehead (2, "")..extent (X_AXIS).length();
-    me->paper_l ()->get_var ("quartwidth");
+
+  SCM space = me->get_elt_property ("horizontal-space");
+  Real ss = me->paper_l ()->get_var ("staffspace");
   
   me->set_elt_property ("threshold",
-		    gh_cons (gh_double2scm (nhw* 1.5),
+		    gh_cons (gh_double2scm (ss  *gh_scm2double (space)),
 			     gh_double2scm (infinity_f)));
   dynamic_cast<Item*>(me)->column_l ()->set_elt_property ("contains-grace", SCM_BOOL_T);
 

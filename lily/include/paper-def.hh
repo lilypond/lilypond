@@ -65,10 +65,6 @@ public:
   void set_lookup (int, SCM lookup_smob);
   Paper_def (Paper_def const&);
 
-  /** The distance between beams of multiplicity_i
-      JUNKME
-  */
-  Real interbeam_f (int multiplicity_i) const;
   Interval line_dimensions_int (int) const;
   void print () const;
   Lookup const * lookup_l (int sz) const;	// TODO naming

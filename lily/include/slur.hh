@@ -11,6 +11,14 @@
 #include "lily-proto.hh"
 #include "rod.hh"
 
+/**
+
+   de-uglify-parameters -- list of 3 real constants. They define the
+     valid areas for the middle control points. Used in de_uglyfy.
+     They are a bit empirical.
+
+     
+ */
 class Slur
 {
 public:

@@ -86,12 +86,6 @@ Music_iterator::pending_moment () const
 
 
 void
-Music_iterator::skip (Moment)
-{
-  assert (0);
-}
-
-void
 Music_iterator::process (Moment)
 {
 }

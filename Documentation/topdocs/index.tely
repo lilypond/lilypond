@@ -122,7 +122,7 @@ Debian GNU/Linux i386}
 @uref{ftp://ftp.debian.org/debian/dists/unstable/main/binary-powerpc/tex,
 Debian GNU/Linux PowerPC} 
 @item @uref{http://home.austin.rr.com/jbr/jeff/lilypond/, Windows Stable}
-@item @uref{http://appel.dyndns.org/lilypond/gnu-windows, Windows
+@item @uref{http://appel.lilypond.org/lilypond/gnu-windows, Windows
 Testing}
 @end itemize
 
@@ -143,7 +143,7 @@ is a low-volume list for information on the GNU Music project.
     This list is moderated; ask 
     @email{drl@@gnu.org, David R. Linn} or
     @email{hanwen@@cs.uu.nl, Han-Wen} to send announcements for this list.
-@item @uref{http://mail.gnu.org/mailman/listinfo/help-gnu-music,@samp{help-gnu-music@@gnu.org}}
+@item @uref{http://mail.gnu.org/mailman/listinfo/help-gnu-music,help-gnu-music@@gnu.org}
     For help with using LilyPond.
 @item @uref{http://mail.gnu.org/mailman/listinfo/bug-gnu-music,bug-gnu-music@@gnu.org}
 If you have bugreports, you should send them to this list.  

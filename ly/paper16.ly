@@ -6,11 +6,6 @@
 
 paper_sixteen = \paper {
 	staffheight = 16.0\pt;
-
-	% ugh, see table16 for sizes
-	quartwidth = 5.28\pt;
-	wholewidth = 7.92\pt;
-	
 	font_Large = 12.;
 	font_large = 10.;
 	font_normal = 8.;

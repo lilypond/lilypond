@@ -85,18 +85,6 @@
 
 (define security-paranoia #f)
 
-
-;; See documentation of Item::visibility_lambda_
-(define (begin-of-line-visible d) (if (= d 1) '(#f . #f) '(#t . #t)))
-(define (spanbar-begin-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
-(define (all-visible d) '(#f . #f))
-(define (all-invisible d) '(#t . #t))
-(define (begin-of-line-invisible d) (if (= d 1) '(#t . #t) '(#f . #f)))
-(define (end-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
-
-
-(define mark-visibility end-of-line-invisible)
-
 ;; Spacing constants for prefatory matter.
 ;;
 ;; rules for this spacing are much more complicated than this. See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147

@@ -18,10 +18,6 @@ paper_twentythree = \paper {
 
 	% Ugh
 	magnification_dynamic = 3.;
-	
-	% ugh see table20 for sizes
-	quartwidth =  6.61\pt;
-	wholewidth = 9.90\pt;
 
 	-2 = \font "feta16"
 	-1 = \font "feta20"

@@ -472,7 +472,7 @@ Stem::brew_molecule (SCM smob)
   
   if (!invisible_b (me))
     {
-      Real stem_width = me->paper_l ()->get_var ("stemthickness");
+      Real stem_width = gh_scm2double (me->get_elt_property ("thickness")) * me->paper_l ()->get_var ("stafflinethickness");
       Molecule ss =me->lookup_l ()->filledbox (Box (Interval (-stem_width/2, stem_width/2),
 						 Interval (stem_y[DOWN]*dy, stem_y[UP]*dy)));
       mol.add_molecule (ss);
@@ -499,7 +499,7 @@ Stem::off_callback (Score_element * me, Axis)
       if (to_boolean (me->get_elt_property ("stem-centered")))
 	return head_wid.center ();
       
-      Real rule_thick = me->paper_l ()->get_var ("stemthickness");
+      Real rule_thick = gh_scm2double (me->get_elt_property ("thickness")) * me->paper_l ()->get_var ("stafflinethickness");
       Direction d = get_direction (me);
       r = head_wid[d] - d * rule_thick ;
     }
@@ -532,10 +532,14 @@ Stem::calc_stem_info (Score_element*me)
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real half_space = staff_space / 2;
-  Real interbeam_f = me->paper_l ()->interbeam_f (Beam::get_multiplicity (beam));
-  Real thick = gh_scm2double (beam->get_elt_property ("beam-thickness"));
   int multiplicity = Beam::get_multiplicity (beam);
 
+
+  SCM space_proc = beam->get_elt_property ("beam-space-function");
+  SCM space = gh_call1 (space_proc, gh_int2scm (multiplicity));
+  Real interbeam_f = gh_scm2double (space) * staff_space;
+
+  Real thick = gh_scm2double (beam->get_elt_property ("beam-thickness"));
   Stem_info info; 
   info.idealy_f_ = chord_start_f (me);
 

@@ -23,9 +23,6 @@ paper_as_five = \paper {
 	% Ugh
 	magnification_dynamic = 2.;
 	
-	% ugh see table20 for sizes
-	quartwidth =  3.\char;
-	wholewidth = 3.\char;
 
 	-2 = \font "as5"
 	-1 = \font "as5"

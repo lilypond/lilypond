@@ -17,7 +17,13 @@
   properties:
 
   columns -- list of paper-columns
- */
+
+ expand-limit -- int : max number of measures expanded in church rests
+
+ minimum-width -- Real in staffspace
+
+ padding -- staffspace
+*/
 class Multi_measure_rest
 {
 public:

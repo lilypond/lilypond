@@ -1,29 +1,18 @@
-#(gc)
-  
 breve = \duration #'( -1 0)
 longa = \duration #'( -2 0 )
 maxima = \duration #'( -3 0 )
 
-#(gc)
 
-#(eval-string (ly-gulp-file "generic-property.scm"))
-
-#(gc)
-
-% urg, move to basic property?
-#(eval-string (ly-gulp-file "slur.scm"))
-
-#(gc)
+#(begin
+  (eval-string (ly-gulp-file "slur.scm"))
+  (eval-string (ly-gulp-file "generic-property.scm"))
+  (eval-string (ly-gulp-file "basic-properties.scm"))
+ )
 
 \include "nederlands.ly"		% dutch
-
-#(gc)
-
 \include "chord-modifiers.ly"
-#(gc)
-
 \include "script.ly"
-#(gc)
+
 
 
 % declarations for standard directions
@@ -48,6 +37,7 @@ melismaEnd = \property Staff.melismaBusy = ##f
 
 
 papersize = "a4"
+
 \include "generic-paper.ly"
 \include "paper20.ly"
 

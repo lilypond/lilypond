@@ -14,6 +14,10 @@
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 
+/*
+  horizontal-space -- amount of space to add after a note (in staff-space)
+ */
+
 class Grace_align_item
 {
 public:

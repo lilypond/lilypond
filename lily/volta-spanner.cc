@@ -64,11 +64,12 @@ Volta_spanner::brew_molecule (SCM smob)
 #endif
 
   Real staff_space = me->paper_l ()->get_var ("interline");
+  Real staff_thick = me->paper_l ()->get_var ("stafflinethickness");  
   Real half_space = staff_space / 2;
   Real left = dynamic_cast<Spanner*>(me)->get_broken_left_end_align ();
   Real w = dynamic_cast<Spanner*>(me)->spanner_length () - left - half_space;
-  Real h = me->paper_l()->get_var ("volta_spanner_height");
-  Real t = me->paper_l ()->get_var ("volta_thick");
+  Real h = staff_space * gh_scm2double (me->get_elt_property ("height"));
+  Real t = staff_thick * gh_scm2double (me->get_elt_property ("thickness"));
 
   /*
     ugh: should build from line segments.

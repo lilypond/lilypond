@@ -82,7 +82,8 @@ Multi_measure_rest::brew_molecule (SCM smob)
     }
   
 
-  if (measures <= me->paper_l() ->get_var ("multi_measure_rest_expand_limit"))
+  SCM limit = me->get_elt_property ("expand-limit");
+  if (measures <= gh_scm2int (limit))
     {
       /*
 	Build a rest from smaller parts. Distances inbetween are
@@ -109,8 +110,8 @@ Multi_measure_rest::brew_molecule (SCM smob)
 	    }
 
 	  Real pad = s.empty_b ()
-	    ? 0.0 : me->paper_l ()->get_var ("multi_measure_rest_padding");
-      
+	    ? 0.0 : gh_scm2double (me->get_elt_property ("padding")) * staff_space;
+
 	  Molecule r (me->lookup_l ()->afm_find ("rests-" + to_str (k)));
 	  if (k == 0)
 	    r.translate_axis (staff_space, Y_AXIS);
@@ -189,7 +190,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 	  should do something more advanced.
 	 */
       rod.distance_f_ = l->extent (X_AXIS)[BIGGER] - r->extent (X_AXIS)[SMALLER]
-	+ me->paper_l ()->get_var ("multi_measure_rest_x_minimum");
+	+ gh_scm2double (me->get_elt_property ("minimum-width"));
   
       rod.add_to_cols ();
     }

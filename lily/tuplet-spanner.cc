@@ -22,11 +22,10 @@
 #include "directional-element-interface.hh"
 #include "spanner.hh"
 
-
-
 void
 Tuplet_spanner::set_interface (Score_element*me)
 {
+  me->set_interface (ly_symbol2scm ("tuplet-bracket"));
 }
 
 /*

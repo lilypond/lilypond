@@ -15,15 +15,6 @@ indent = 8.0\char;
 staffspace = (\staffheight - 1.0 ) / 4.0;
 stafflinethickness = \staffspace / 2.0;
 
-% deprecated
-interline = \staffspace;
-
-% urg, need grace_ versions of these too?
-beam_thickness = 0.52 * (\staffspace - \stafflinethickness);
-
-interbeam = (2.0 * \staffspace + \stafflinethickness - \beam_thickness) / 2.0;
-interbeam4 = (3.0 * \staffspace - \beam_thickness) / 3.0;
-
 %{
 The space taken by a note is determined by the formula 
 
@@ -103,11 +94,6 @@ tie_y_gap = 0.25 * \staffspace;
 % length of a tie that's a staffspace high
 tie_staffspace_length = 4.0 * \staffspace;
 
-% ugh: rename to bow (in bezier.cc and fonts.doc too...)
-
-% used to be 1.4 .
-slur_thickness = 1.2 * \stafflinethickness;
-tie_thickness = 1.2 * \stafflinethickness;
 
 %{
  Specifies the maximum height of slurs.
@@ -128,50 +114,14 @@ slur_clip_height = 3.0 * \staffheight;
 slur_clip_angle = 100.0;
 slur_rc_factor = 2.4;
 
-% ugh
-notewidth = 3.0\char;
-
-gourlay_energybound = 100000.;
-%{
-Maximum number of measures per line to try when using Gourlay
-method. 
-%}
-gourlay_maxmeasures = 10.;
-
 % vertical space between lines.
 line_kern = \staffspace;
 
-volta_thick = 1.0\char;
-volta_spanner_height = 1.0\char;
-
-% relative thickness of thin lines  1.6 : 1 : 0.8
-stemthickness = 1.0\char;
-rulethickness = 1.0\char;
-
-
-extender_height = 0.8*\stafflinethickness;
-
-hyphen_thickness = 0.05*\font_normal;
-hyphen_height = 0.2*\font_normal;
-hyphen_minimum_length = 0.25*\font_normal;
-
-% Multi-measure rests
-multi_measure_rest_x_minimum = 2.5*\staffheight;
-multi_measure_rest_padding = 2.0 *\staffspace;
-multi_measure_rest_expand_limit = 10.0;
 
 % chop off this much when next to pp / ff sign.
 crescendo_shorten = 4.0 * \staffspace;
 crescendo_thickness   = \stafflinethickness;
 crescendo_height = 0.666 * \staffspace;
-
-% in internote.
-restcollision_minimum_dist = 3.0;
-restcollision_minimum_beamdist = 1.5;
-
-
-% unit for note collision resolving
-collision_note_width = \notewidth;	%ugh.
 
 % deprecated!
 postBreakPadding = 0.0;
@@ -216,9 +166,6 @@ compression_energy_factor = 0.6;
 
 % if stem is on middle line, choose this direction.
 stem_default_neutral_direction = 1.0;
-
-% in staffspace
-articulation_script_padding_default = 1.0;
 
 % Backward compatibility -- has no function; 
 Gourlay = 0.0;

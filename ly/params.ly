@@ -22,15 +22,6 @@ stafflinethickness = \staffspace / 10.0;
 % deprecated
 interline = \staffspace;
 
-
-% urg, need grace_ versions of these too?
-beam_thickness = 0.52 * (\staffspace - \stafflinethickness);
-
-
-
-interbeam = (2.0 * \staffspace + \stafflinethickness - \beam_thickness) / 2.0;
-interbeam4 = (3.0 * \staffspace - \beam_thickness) / 3.0;
-
 %{
 The space taken by a note is determined by the formula 
 
@@ -72,8 +63,9 @@ If you want to space your music wider, use something like:
 
 %}
 % We use 0.9*\quartwidth, because 1.0 seems to wide.
+% quartwidth == 1.32 * staffspace
 % We don't adjust arithmetic_basicspace accordingly (why not?)
-arithmetic_multiplier = 0.9 * \quartwidth ;
+arithmetic_multiplier = 0.9 * 1.32 * \staffspace ;
 arithmetic_basicspace = 2.0;
 
 
@@ -93,6 +85,8 @@ beam_steep_slope = 0.2 / 1.0;
   Slur parameters.
   
   See Documentation/programmer/fonts.doc
+
+  TODO: -> elt-properties.
 %}
 % Height-limit (h_inf) = factor * staff_space
 slur_height_limit_factor = 2.0;
@@ -113,13 +107,6 @@ slur_y_gap = 0.25 * \staffspace;
 slur_y_free = 0.75 * \staffspace;
 slur_x_minimum = 1.5 * \staffspace;
 
-
-% The constants that define the valid areas for the middle control points
-% Used in de_uglyfy.  Bit empirical.
-bezier_control1 = 1.5;
-bezier_control2 = 0.8;
-bezier_control3 = -2.0;
-
 % URG: the magic constants for area asymmetry
 bezier_pct_c0 = -0.2;
 bezier_pct_c3 = 0.000006;
@@ -136,39 +123,11 @@ tie_height_limit_factor = 1.0 ;
 tie_ratio = \slur_ratio;
 
 % OSU: tie gap == slur gap
-tie_x_gap = \slur_x_gap;
-
+tie_x_gap = 0.2 * \staffspace;
 tie_staffline_clearance = 2.0 *\slur_thickness;
 
-
-% ugh
-notewidth = (\quartwidth + \wholewidth) / 2.0;
-
-gourlay_energybound = 100000.;
-%{
-Maximum number of measures per line to try when using Gourlay
-method. 
-%}
-gourlay_maxmeasures = 10.;
-
-% vertical space between lines.
+% vertical space between lines of text.
 line_kern = \staffspace;
-
-volta_thick = 1.6*\stafflinethickness;
-volta_spanner_height = 2.0 *\staffspace;
-
-% relative thickness of thin lines  1.6 : 1 : 0.8
-stemthickness = 0.8*\stafflinethickness;
-rulethickness = \stafflinethickness;
-
-
-extender_height = 0.8*\stafflinethickness;
-
-
-% Multi-measure rests
-multi_measure_rest_x_minimum = 2.5*\staffheight;
-multi_measure_rest_padding = 2.0 *\staffspace;
-multi_measure_rest_expand_limit = 10.0;
 
 % chop off this much when next to pp / ff sign.
 crescendo_shorten = 4.0 * \staffspace;
@@ -177,11 +136,6 @@ crescendo_height = 0.666 * \staffspace;
 crescendo_dash_thickness = 1.2*\stafflinethickness;
 crescendo_dash = 4.0*\staffspace;
 
-% in internote.
-
-
-% unit for note collision resolving
-collision_note_width = \notewidth;	%ugh.
 
 % optical correction amount.
 stemSpacingCorrection = 0.5*\staffspace;
@@ -221,8 +175,6 @@ will cause scores to be set looser
 
 compression_energy_factor = 0.6;
 
-% in staffspace
-articulation_script_padding_default = 1.0;
 
 
 \include "engraver.ly";

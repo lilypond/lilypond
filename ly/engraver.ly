@@ -64,13 +64,13 @@ StaffContext=\translator {
 
 RhythmicStaffContext=\translator{
 	\type "Engraver_group_engraver";
-	numberOfStaffLines  = #1
+	
 	\consists "Property_engraver";
 	\consists "Output_property_engraver";	
 
 	Generic_property_list = #generic-staff-properties
 	
-	barSize =   4.0 * \staffspace ; % urg: pt
+ 	barSize =   4.0 * \staffspace ; % JUNKME
 
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
@@ -78,8 +78,7 @@ RhythmicStaffContext=\translator{
 
 	basicVoltaSpannerProperties \push #'minimum-space =  #15  % urg, in \pt
 	basicVoltaSpannerProperties \push #'padding =  #5  % urg, in \pt
-
-
+	basicStaffSymbolProperties \push #'line-count = #1	
 
 	\consists "Repeat_engraver";
 	\consists "Bar_engraver";
@@ -171,9 +170,11 @@ GraceContext=\translator {
 	basicTextScriptProperties \push #'font-size = #-1
 	basicSlurProperties \push #'font-size = #-1
 	basicLocalKeyProperties \push #'font-size = #-1
-
-	weAreGraceContext = ##t 
-	graceAccidentalSpace= 1.5 * \staffspace;
+	basicBeamProperties \push #'beam-thickness = #0.3
+	basicBeamProperties \push #'beam-space-function = #(lambda (x) 0.5)
+	
+	weAreGraceContext = ##t   
+	graceAccidentalSpace= 1.5 * \staffspace; % JUNKME
 };
 
 \translator{\GraceContext}
@@ -207,6 +208,8 @@ PianoStaffContext = \translator{\GrandStaffContext
 	alignmentReference = \center;
 
 	\consists "Vertical_align_engraver";
+
+	% JUNKME
 	minVerticalAlign = 3.0*\staffheight;
 	maxVerticalAlign = 3.0*\staffheight;
 
@@ -455,17 +458,7 @@ ScoreContext = \translator {
 		(name . "barnumber")
 	)
 
-	basicBeamProperties = #`(
-		(molecule-callback . ,Beam::brew_molecule)
-		(beam-thickness . 0.42) ; staff-space
-		(before-line-breaking-callback . ,Beam::before_line_breaking)
-		(after-line-breaking-callback . ,Beam::after_line_breaking)
-		(default-neutral-direction . 1)
-		(interfaces . (beam-interface))
-		(damping . 1)
-		(name . "beam")		
-	)
-
+	basicBeamProperties = #basic-beam-properties
 	basicBreakAlignProperties = #`(
 		(breakable . #t)
 		(interfaces . (break-align-interface))
@@ -504,6 +497,7 @@ ScoreContext = \translator {
 	basicCollisionProperties = #`(
 		(axes 0 1)
 		(interfaces . (collision-interface))
+		(note-width . 1.65)
 		(name . "note collision")
 	)
 	basicCrescendoProperties = #`(
@@ -545,8 +539,10 @@ ScoreContext = \translator {
 		(name . "left edge")
 	)
 	basicGraceAlignItemProperties = #`(
-		(axes . (0))
 		(interfaces . (axis-group-interface align-interface))
+		(axes . (0))
+		(horizontal-space . 1.2)
+		(padding . 1.0)
 		(before-line-breaking-callback . ,Grace_align_item::before_line_breaking)
 		(name . "grace alignment")
 	)
@@ -593,6 +589,7 @@ ScoreContext = \translator {
 	basicLyricExtenderProperties = #`(
 		(interfaces . (lyric-extender-interface))
 		(molecule-callback . ,Lyric_extender::brew_molecule)
+		(height . 0.8) ; stafflinethickness;
 		(right-trim-amount . 0.5)
 		(name . "extender line")
 	)
@@ -616,6 +613,10 @@ ScoreContext = \translator {
 		(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)		
 		(molecule-callback . ,Multi_measure_rest::brew_molecule)
 		(staff-position . 0)
+		(expand-limit . 10)
+		(padding . 2.0) ; staffspace
+		(minimum-width . 12.5) ; staffspace
+
 		(name . "multi-measure rest")
 	)
 	basicNoteColumnProperties = #`(
@@ -675,6 +676,8 @@ ScoreContext = \translator {
 		(spacing-procedure . ,Slur::set_spacing_rods)		
 		(minimum-length . 1.5)
 		(after-line-breaking-callback . ,Slur::after_line_breaking)
+
+		(de-uglify-parameters . ( 1.5  0.8  -2.0))
 		(name . "slur")
 	)
 	basicSpacingSpannerProperties =#`(
@@ -779,12 +782,14 @@ ScoreContext = \translator {
 	   	(molecule-callback . ,Stem_tremolo::brew_molecule)
 		(beam-width . 2.0) ; staff-space
 		(beam-thickness . 0.42) ; staff-space
+		(beam-space-function . ,default-beam-space-function)
 		(name . "stem tremolo")
 	)
 	basicStemProperties = #`(
 		(interfaces . (stem-interface))
 		(before-line-breaking-callback . ,Stem::before_line_breaking)
 		(molecule-callback . ,Stem::brew_molecule)
+		(thickness . 0.8)
 
 		; if stem is on middle line, choose this direction.
 		(default-neutral-direction . 1)
@@ -819,6 +824,8 @@ ScoreContext = \translator {
 		(interfaces . (volta-spanner-interface side-position-interface))
 		(direction . 1)
 		(padding . 5)
+		(thickness . 1.6)  ;  stafflinethickness
+		(height . 2.0) ; staffspace;
 		(minimum-space . 25)
 		(name . "volta brace")
 	)	

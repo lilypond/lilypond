@@ -5,9 +5,6 @@
 paper_eleven = \paper {
 	staffheight = 11.0\pt;
 
-        % ugh see table11 for sizes
-	quartwidth = 3.63 \pt;
-	wholewidth = 5.45 \pt;
 
 	font_Large = 8.;
 	font_large = 6.;

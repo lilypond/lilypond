@@ -67,9 +67,12 @@ Slur::de_uglyfy (Score_element*me, Slur_bezier_bow* bb, Real default_height)
       Real h = bb->curve_.control_[i][Y_AXIS] * ff / length;
 
       Real f = default_height / length;
-      Real c1 = me->paper_l ()->get_var ("bezier_control1");
-      Real c2 = me->paper_l ()->get_var ("bezier_control2");
-      Real c3 = me->paper_l ()->get_var ("bezier_control3");
+      SCM up = me->get_elt_property ("de-uglify-parameters");
+      
+      Real c1 = gh_scm2double (gh_car (up));
+      Real c2 = gh_scm2double (gh_cadr (up));
+      Real c3 = gh_scm2double (gh_caddr (up)); 
+      
       if (h > c1 * f)
 	{
 	  h = c1 * f; 
