@@ -58,8 +58,12 @@ Hyphen_spanner::brew_molecule (SCM smob)
     {
       bounds[LEFT] -=  gh_scm2double (space);
     }
-  Real w  = bounds.length ();
 
+  /*
+    we should probably do something more intelligent when bounds is
+    empty, but at least this doesn't crash.
+  */      
+  Real w  = bounds.empty_b () ? 0 : bounds.length ();
   
   /* for length, use a geometric mean of the available space and some minimum
    */
@@ -93,9 +97,8 @@ Hyphen_spanner::brew_molecule (SCM smob)
     }
   Box b (Interval (-l/2,l/2), Interval (h,h+th));
   Molecule mol (Lookup::filledbox (b));
-  mol.translate_axis (bounds.center ()
-		      -sp->relative_coordinate (common, X_AXIS),
-		      X_AXIS);
+  Real ct = bounds.empty_b () ? 0 : bounds.center () ;
+  mol.translate_axis (ct -sp->relative_coordinate (common, X_AXIS), X_AXIS);
   return mol.smobbed_copy ();
 }
   
