@@ -10,6 +10,9 @@ class String;
 void set_matrix_debug(Dstream&ds);
 
 /// a row of numbers
+/**
+    a vector. Storage is handled in Array, Vector only does the mathematics.
+ */
 class Vector  {
     Array<Real> dat;
 public:
@@ -75,9 +78,6 @@ public:
     /// set to j-th element of unit-base
     void set_unit(int j) ;
 };
-/**
-    a vector. Storage is handled in Array, Vector only does the mathematics.
- */
 
 inline Vector
 operator+(Vector a, Vector const &b) {

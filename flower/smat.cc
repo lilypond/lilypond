@@ -182,7 +182,7 @@ Full_storage::clone()
 {
     return new Full_storage(*this);
 }
-/****************************************************************/
+
 
 virtual_smat *
 virtual_smat::get_full(int n, int m)

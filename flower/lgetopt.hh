@@ -15,15 +15,16 @@ struct long_option_init {
 };
 
 
-///
+///  C++ for version of long_getopt.
+/** For processing GNU style command line arguments.  No pointer
+  (return values, arguments) contents are copied.  */
 class Getopt_long {
 public:
-    ///
+    /** errorcodes: no error, argument expected, no argument expected,
+      unknown option, illegal argument (eg. int expected).  */
     enum Errorcod { E_NOERROR = 0, E_ARGEXPECT, E_NOARGEXPECT, E_UNKNOWNOPTION,
 		E_ILLEGALARG } ;
 
-    /** errorcodes: no error, argument expected, no argument expected,
-      unknown option, illegal argument (eg. int expected).  */
 
 private:
 
@@ -48,12 +49,12 @@ private:
     void report(Errorcod c);
 public:
     /// what to do with  errors
-    void seterror(ostream *os);
     /**
        report messages on  #*os#, and abort.
        if #os# is null, then do not report nor abort, just set #error#
       */
        
+    void seterror(ostream *os);
     /// argument. Set to 0 if not present
     char* optarg;
 
@@ -73,18 +74,14 @@ public:
     Getopt_long(int c,  char **v, long_option_init *lo);
 
     /// get the next option
-    long_option_init *operator()();
     /**
-      RETURN: pointer to next option found.
+      @return pointer to next option found.
       0 if error occurred, or next argument is no option.
       */
+    long_option_init *operator()();
 
     char *current_arg();
     char * get_next_arg();
     Errorcod error;
 };
-/**
-  C++ for version of long_getopt. For processing GNU style command line arguments.
-  No pointer  (return values, arguments) contents are copied.
-  */
 #endif

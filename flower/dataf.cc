@@ -79,6 +79,9 @@ Data_file::get_word()
 }
 
 /// get a char.
+/**
+   Only class member who uses text_file::get
+   */
 char
 Data_file::data_get() {
     char c =  get(); 
@@ -91,9 +94,6 @@ Data_file::data_get() {
 
     return c;
 }
-/**
-   Only class member who uses text_file::get
-   */
 
 /// read line, gobble '\n'    
 String Data_file::get_line()     

@@ -1,3 +1,4 @@
+
 #ifndef TEXTSTR_HH
 #define TEXTSTR_HH
 
@@ -7,13 +8,21 @@
 #include "varray.hh"
 
 /// line counting input stream.
+/**
+ a stream for textfiles. linecounting. Thin interface getchar and
+ ungetchar.  (ungetc is unlimited) 
+
+ should protect get and unget against improper use
+*/
+
+
 class Text_stream
 {
     int line_no;
 
     // could just have used streams. 
     FILE *f;  
-	Array<char> pushback;
+    Array<char> pushback;
     String name;
     
  public:
@@ -61,14 +70,6 @@ class Text_stream
     /// GNU format message.
     void message(String s); 
 };
-/**
- a stream for textfiles. linecounting. Thin interface getchar and
- ungetchar.  (ungetc is unlimited) 
-
- should protect get and unget against improper use
-*/
-
-
 /// read a data file
 class Data_file : private Text_stream
 {

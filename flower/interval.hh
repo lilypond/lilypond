@@ -13,11 +13,15 @@
 
 
 /// a T interval
+/**
+  this represents the closed interval [left,right].
+  No invariants. T must be a totally ordered ring
+  */
 template<class T>
 struct Interval_t {
     T left, right;
 
-    /****************/
+    /* ************** */
     
     T center() { return (left + right) / T(2);}
     void translate(T t) {
@@ -43,11 +47,11 @@ struct Interval_t {
     T max()const { return right;}
     T min()const{ return left; }
     T &min(){ return left; }
-    void unite(Interval_t<T> h);
     /**
       PRE
       *this and h are comparable
       */
+    void unite(Interval_t<T> h);
     void intersect(Interval_t<T> h);
 
     T length() const;
@@ -68,10 +72,6 @@ struct Interval_t {
     String str() const;    
     bool elt_q(T r);
 };
-/**
-  this represents the closed interval [left,right].
-  No invariants. T must be a totally ordered ring
-  */
 
 /// partial ordering
 template<class T>

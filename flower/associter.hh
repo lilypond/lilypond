@@ -35,8 +35,5 @@ struct Assoc_iter {
     K key() { return assoc_.arr[i].key; }
     V &val() { return assoc_.arr[i].val; }    
 };
-/*
-  Iterator
- */
 
 #endif

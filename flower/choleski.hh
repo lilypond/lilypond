@@ -3,6 +3,13 @@
 
 #include "matrix.hh"
 
+/**
+    structure for using the LU decomposition of a positive definite .
+
+    #P# is split  into
+
+    LD transpose(L)
+    */
 struct Choleski_decomposition {
 
     /// lower triangle of Choleski decomposition
@@ -11,36 +18,27 @@ struct Choleski_decomposition {
     /// diagonal 
     Vector D;
     ///Create decomposition of P
-    Choleski_decomposition(Matrix P);
     /**
     PRE
     P needs to be symmetric positive definite
     */
     
+    Choleski_decomposition(Matrix P);
     Vector solve(Vector rhs) const;
-    Vector operator * (Vector rhs) const { return solve (rhs); }
-    /**
+        /**
     solve Px = rhs
+    */
+Vector operator * (Vector rhs) const { return solve (rhs); }
+  /**
+    return the inverse of the matrix P.
     */
 
     Matrix inverse() const;
     /**
-    return the inverse of the matrix P.
-    */
-
-    Matrix original() const;
-    /**
     return P,  calc'ed from L and D
     */
+    Matrix original() const;
+  
 	 
 };
-/**
-    structure for using the LU decomposition of a positive definite .
-
-    #P# is split  into
-
-    LD transpose(L)
-    */
-    
-
 #endif

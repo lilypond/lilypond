@@ -17,12 +17,12 @@ public:
     virtual int cols() const = 0;
     
     /// set the size. contents lost
-    virtual void set_size(int i, int j) = 0;
     /**      
       PRE
       i >=0, j>=0
     */
     
+    virtual void set_size(int i, int j) = 0;
     /// set the size to square dimen. contents lost
     virtual void set_size(int i) = 0;
     /**
