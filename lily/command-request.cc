@@ -88,13 +88,8 @@ void
 Group_feature_req::do_print() const
 {
 #ifndef NPRINT
-    mtor << "stemdir " << stemdir_i_;
+    mtor << type_str_ << "=" << value_str_;
 #endif
-}
-
-Group_feature_req::Group_feature_req()
-{
-    stemdir_i_ = 0;
 }
 
 IMPLEMENT_STATIC_NAME(Group_change_req);

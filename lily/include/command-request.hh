@@ -108,8 +108,9 @@ public:
 
 class Group_feature_req  : public Command_req  {
 public:
-    int stemdir_i_;
-    Group_feature_req();
+    String type_str_;
+    String value_str_;
+    
     REQUESTMETHODS(Group_feature_req, groupfeature);
 };
 
