@@ -62,5 +62,7 @@ begeleiding = \melodic{
 		\melodie
 		\begeleiding 
 	>
+	\paper{}
+	\midi{}
 }
 
