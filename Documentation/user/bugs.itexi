@@ -1,26 +1,31 @@
 @node Reporting Bugs, , , Top
 @section Bug reports
 
-There is an extensive list of todoes and bugs.  See the file
-@file{TODO} distributed with the sources.  If you have a problem,
-would you please try to find out
-
-@c ********* The TODO file is no more in the distr.  /MB
-
-@itemize @bullet
-@item If the bug has been fixed in a newer release.
-@item If the bug has been found earlier, consult @file{TODO} and @file{BUGS}.
-@end itemize
-
-If you have really found a bug, then we would appreciate it if you
-sent a bugreport.
+LilyPond development moves quickly, so if you have a problem, it is
+wise to check if it has been fixed in a newer release.  If you think
+you found a bug, please send in a bugreport including the following
+information:
 
 @itemize @bullet
-@item Send a copy of the input which causes the error.
-@item Send a description of the platform you use.
-@item Send a description of the LilyPond version you use 
-    (with compile/configure options please).
-@item Send a description of the bug itself.
-@item Send it to @email{bug-gnu-music@@gnu.org}; you don't have to be subscribed
-    to this mailinglist.
+
+@item @strong{important:} a sample input which causes the error.
+
+(and you will do us a favor if send a @strong{small} sample file)
+
+@item @strong{important:} which LilyPond version you use.
+
+This information tells us if you've found a new bug, or an old one.
+
+@item A description of the platform you use (i.e., operating system,
+system libraries, whether you downloaded a binary release)
+
+@item If necessary, send a description of the bug itself.  
+
 @end itemize
+
+
+You can send the report to @email{bug-gnu-music@@gnu.org}---You don't
+have to be subscribed to this mailinglist, or you can enter the bug in
+the LilyPond wiki, at
+@uref{http://appel.lilypond.org/wiki/index.php?LilyPondBugs}. 
+

@@ -1,4 +1,4 @@
-\version "1.3.96"
+\version "1.3.110"
 chord = \notes\transpose c''\chords{
    c1
    c:m
@@ -23,7 +23,7 @@ chord = \notes\transpose c''\chords{
 
         	\translator { 
 			\ChordNamesContext
-			ChordName \push #'word-space = #1 
+			ChordNames \override #'word-space = #1 
 		}
     }
 }

@@ -172,13 +172,13 @@ yylex (YYSTYPE *s,  void * v_l)
 %token MM_T
 %token MUSICAL_PITCH
 %token NAME
-%token NOTENAMES
+%token PITCHNAMES
 %token NOTES
 %token PAPER
 %token PARTIAL
 %token PENALTY
 %token PROPERTY
-%token PUSH POP 
+%token OVERRIDE SET REVERT 
 %token PT_T
 %token RELATIVE
 %token REMOVE
@@ -332,7 +332,7 @@ chordmodifiers_block:
 
 
 notenames_block:
-	NOTENAMES notenames_body   {  $$ = $2; }
+	PITCHNAMES notenames_body   {  $$ = $2; }
 	;
 
 
@@ -450,11 +450,11 @@ translator_spec_body:
 	| translator_spec_body STRING '=' embedded_scm			{
 		unsmob_translator_def ($$)->add_property_assign ($2, $4);
 	}
-	| translator_spec_body STRING PUSH embedded_scm '=' embedded_scm {
+	| translator_spec_body STRING OVERRIDE embedded_scm '=' embedded_scm {
 		unsmob_translator_def ($$)
 			->add_push_property (scm_string_to_symbol ($2), $4, $6);
 	}
-	| translator_spec_body STRING POP embedded_scm  {
+	| translator_spec_body STRING REVERT embedded_scm  {
 	  unsmob_translator_def($$)->add_pop_property (
 		scm_string_to_symbol ($2), $4);
 	}
@@ -717,7 +717,7 @@ Simple_music:
 	  m->set_mus_property ("predicate", pred);
 	  m->set_mus_property ("symbol", $3);
 	  m->set_mus_property ("value",  $5);
-	  m->set_mus_property ("type",
+	  m->set_mus_property ("iterator-ctor",
 			Output_property_music_iterator::constructor_cxx_function);
 
 		$$ = m;
@@ -841,7 +841,7 @@ part_combined_music:
 translator_change:
 	TRANSLATOR STRING '=' STRING  {
 		Music * t = new Music;
-		t->set_mus_property ("type",
+		t->set_mus_property ("iterator-ctor",
 			Change_iterator::constructor_cxx_function);
 		t-> set_mus_property ("change-to-type", $2);
 		t-> set_mus_property ("change-to-id", $4);
@@ -855,7 +855,7 @@ property_def:
 	PROPERTY STRING '.' STRING '='  scalar {
 		Music *t = new Music;
 
-		t->set_mus_property ("type",
+		t->set_mus_property ("iterator-ctor",
 			Property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 		t->set_mus_property ("value", $6);
@@ -866,25 +866,39 @@ property_def:
 
 		csm-> set_mus_property ("context-type", $2);
 	}
-	| PROPERTY STRING '.' STRING PUSH embedded_scm '=' embedded_scm {
+	| PROPERTY STRING '.' STRING SET embedded_scm '=' embedded_scm {
 		Music *t = new Music;
-		t->set_mus_property ("type",
+		t->set_mus_property ("iterator-ctor",
 			Push_property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
-		t->set_mus_property ("element-property", $6);
-		t->set_mus_property ("element-value", $8);
+		t->set_mus_property ("pop-first", SCM_BOOL_T);
+		t->set_mus_property ("grob-property", $6);
+		t->set_mus_property ("grob-value", $8);
 		Context_specced_music *csm = new Context_specced_music (t);
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
 		csm-> set_mus_property ("context-type", $2);
 	}
-	| PROPERTY STRING '.' STRING POP embedded_scm {
+	| PROPERTY STRING '.' STRING OVERRIDE embedded_scm '=' embedded_scm {
 		Music *t = new Music;
-		t->set_mus_property ("type",
+		t->set_mus_property ("iterator-ctor",
+			Push_property_iterator::constructor_cxx_function);
+		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
+		t->set_mus_property ("grob-property", $6);
+		t->set_mus_property ("grob-value", $8);
+		Context_specced_music *csm = new Context_specced_music (t);
+		$$ = csm;
+		$$->set_spot (THIS->here_input ());
+
+		csm-> set_mus_property ("context-type", $2);
+	}
+	| PROPERTY STRING '.' STRING REVERT embedded_scm {
+		Music *t = new Music;
+		t->set_mus_property ("iterator-ctor",
 			Pop_property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
-		t->set_mus_property ("element-property", $6);
+		t->set_mus_property ("grob-property", $6);
 
 		Context_specced_music *csm = new Context_specced_music (t);
 		$$ = csm;
@@ -927,7 +941,7 @@ command_element:
 	| BAR STRING ';' 			{
 		Music *t = new Music;
 
-		t->set_mus_property ("type",
+		t->set_mus_property ("iterator-ctor",
 			Property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbol", ly_symbol2scm ("whichBar"));
 		t->set_mus_property ("value", $2);
@@ -941,7 +955,7 @@ command_element:
 	| PARTIAL duration_length ';' 	{
 		Music * p = new Music;
 		p->set_mus_property ("symbol", ly_symbol2scm ( "measurePosition"));
-		p->set_mus_property ("type",
+		p->set_mus_property ("iterator-ctor",
 			Property_iterator::constructor_cxx_function);
 
 		Moment m = - unsmob_duration($2)->length_mom ();
@@ -972,7 +986,7 @@ command_element:
 		Music * p = new Music;
 		p->set_mus_property ("symbol",
 			ly_symbol2scm ( "timeSignatureFraction"));
-		p->set_mus_property ("type",
+		p->set_mus_property ("iterator-ctor",
 			Property_iterator::constructor_cxx_function);
 
 		p->set_mus_property ("value", gh_cons (gh_int2scm ($2),

@@ -15,7 +15,7 @@
 #include "moment.hh"
 #include "virtual-methods.hh"
 #include "interpretation-context-handle.hh"
-#include "music-iterator-ctor.hh"
+#include "cxx-function-smob.hh"
 
 /** 
   Conceptually a music-iterator operates on a queue of musical events

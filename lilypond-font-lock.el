@@ -27,19 +27,19 @@
 ;;   - fontlock: \melodic \melodic
 
 (defconst LilyPond-font-lock-keywords
-  (let* ((keywords '("spanrequest" "simultaneous" "sequential" "accepts"
-		     "autochange" "alternative" "bar" "breathe"
-		     "cadenza" "chordmodifiers" "chords" "clef" "cm" "consists"
-		     "consistsend" "context"
-		     "duration" "font" "grace" "header" "in" "lyrics"
-		     "key" "keysignature" "mark" "musicalpitch"
-		     "time" "times" "midi" "mm" "name" "notenames"
-		     "notes" "partial" "paper" "penalty" "push" "pop" "property" "pt"
-		     "relative" "remove" "repeat" "repetitions" "addlyrics"
-		     "scm" "scmfile" "score" "script"
-		     "shape" "skip" "textscript" "tempo" "translator" "transpose"
-		     "type" "version" 
-		     ))
+  (let* ((keywords '(
+
+"apply" "arpeggio" "autochange" "spanrequest" "commandspanrequest"
+"simultaneous" "sequential" "accepts" "alternative" "bar" "breathe"
+"char" "chordmodifiers" "chords" "clef" "cm" "consists" "consistsend"
+"context" "denies" "duration" "dynamicscript" "elementdescriptions"
+"font" "grace" "header" "in" "lyrics" "key" "mark" "musicalpitch"
+"time" "times" "midi" "mm" "name" "notenames" "notes" "outputproperty"
+"override" "set" "revert" "partial" "paper" "penalty" "property" "pt"
+"relative" "remove" "repeat" "addlyrics" "partcombine" "score"
+"script" "stylesheet" "skip" "textscript" "tempo" "translator"
+"transpose" "type" 
+		      ))
        (kwregex (mapconcat (lambda (x) (concat "\\\\" x))  keywords "\\|")))
 
     (list 

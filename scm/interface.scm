@@ -305,13 +305,46 @@ object."
 (define bar-line-interface
   (lily-interface
    'bar-line-interface
-   "Bar line"
+   "Bar line.
+
+This is a request to print a special bar symbol. It replaces the 
+regular bar symbol with a special
+symbol.  The argument @var{bartype} is a string which specifies the
+kind of bar to print.  Options are @code{\":|\"}
+@cindex \"|A@@@code{:|}
+,
+@code{\"|:\"}
+@cindex \"|B@@@code{|:}
+, @code{\":|:\"}
+@cindex \"|C@@@code{:|:}
+,
+@code{\"||\"}
+@cindex \"|D@@@code{||}
+, @code{\"|.\"}
+@cindex \"|E@@@code{|.}
+,
+@code{\".|\"}
+@cindex \"|F@@@code{.|}
+, and @code{\".|.\"}
+@cindex \"|G@@@code{.|.}
+. 
+
+These produce, respectively, a right repeat, a left repeat, a double
+repeat, a double bar, a start bar, an end bar, and a thick double bar.
+If @var{bartype} is set to @code{\"empty\"} then nothing is printed,
+but a line break is allowed at that spot.
+
+"
    '( barsize-procedure kern thin-kern hair-thickness thick-thickness glyph bar-size break-glyph-function )))
 
 (define hairpin-interface
   (lily-interface
    'hairpin-interface
-   "hairpin crescendo"
+   "hairpin crescendo.
+
+padding -- horizontal padding. This is useful if a crescendo is set next to a text like `mf'
+
+"
    '( grow-direction thickness height padding )
    ))
 
@@ -496,7 +529,10 @@ syllables.   The length of the hyphen line should stretch based on the
   (lily-interface
    'multi-measure-rest-interface
    "A rest that spans a whole number of measures.  For typesetting the
-numbers, fields from font-interface may be used. 
+numbers, fields from font-interface may be used.
+
+padding is the space between number and rest. Measured in staffspace.
+ 
 "
    '(
     

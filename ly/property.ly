@@ -1,23 +1,23 @@
 % property.ly
 
-\version "1.3.96";
+\version "1.3.110";
 
-stemUp = \property Voice.Stem \push #'direction = #1
-stemDown = \property Voice.Stem \push #'direction = #-1 
-stemBoth= \property Voice.Stem \pop #'direction
+stemUp = \property Voice.Stem \override #'direction = #1
+stemDown = \property Voice.Stem \override #'direction = #-1 
+stemBoth= \property Voice.Stem \revert #'direction
 
-slurUp   = \property Voice.Slur \push #'direction = #1
-slurBoth = \property Voice.Slur \pop #'direction 
-slurDown = \property Voice.Slur \push #'direction = #-1
-shiftOn  = \property Voice.NoteColumn \push #'horizontal-shift = #1
-shiftOnn  = \property Voice.NoteColumn \push #'horizontal-shift = #2
-shiftOnnn  = \property Voice.NoteColumn \push #'horizontal-shift = #3
-shiftOff  = \property Voice.NoteColumn \pop #'horizontal-shift 
+slurUp   = \property Voice.Slur \override #'direction = #1
+slurBoth = \property Voice.Slur \revert #'direction 
+slurDown = \property Voice.Slur \override #'direction = #-1
+shiftOn  = \property Voice.NoteColumn \override #'horizontal-shift = #1
+shiftOnn  = \property Voice.NoteColumn \override #'horizontal-shift = #2
+shiftOnnn  = \property Voice.NoteColumn \override #'horizontal-shift = #3
+shiftOff  = \property Voice.NoteColumn \revert #'horizontal-shift 
 
 
-tieUp = \property Voice.Tie \push #'direction = #1
-tieDown = \property Voice.Tie \push #'direction = #-1
-tieBoth = \property Voice.Tie \pop #'direction 
+tieUp = \property Voice.Tie \override #'direction = #1
+tieDown = \property Voice.Tie \override #'direction = #-1
+tieBoth = \property Voice.Tie \revert #'direction 
 
 cadenzaOn = \property Score.timing = ##f
 cadenzaOff = { \property Score.timing = ##t
@@ -48,8 +48,8 @@ voiceFour = {
 	\shiftOn
 }
 
-slurDotted = \property Voice.Slur \push #'dashed = #1
-slurNoDots = \property Voice.Slur \pop #'dashed
+slurDotted = \property Voice.Slur \override #'dashed = #1
+slurNoDots = \property Voice.Slur \revert #'dashed
 
 	
 tiny  = 

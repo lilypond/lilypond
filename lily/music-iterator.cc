@@ -89,10 +89,10 @@ Music_iterator::static_get_iterator_p (Music *m)
 {
   Music_iterator * p =0;
 
-  SCM type = m->get_mus_property ("type") ;
-  if (unsmob_cxx_function (type))
+  SCM ctor = m->get_mus_property ("iterator-ctor") ;
+  if (unsmob_cxx_function (ctor))
     {
-      Cxx_function f =  unsmob_cxx_function (type);
+      Cxx_function f =  unsmob_cxx_function (ctor);
       
       p = (Music_iterator*) (*f) (SCM_EOL);
     }

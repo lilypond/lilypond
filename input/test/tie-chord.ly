@@ -1,3 +1,6 @@
+
+\version "1.3.110";
+
 t = \notes \relative c' {   <c e g> ~ <c e g> }
 
 	\score { 
@@ -5,7 +8,7 @@ t = \notes \relative c' {   <c e g> ~ <c e g> }
    \t
    \transpose g' \t
 
-   \property Voice.TieColumn \push #'direction = #-1
+   \property Voice.TieColumn \override #'direction = #-1
    \t
 
   }

@@ -1,4 +1,6 @@
 
+% left start  of broken volta bracket.
+ 
 voice4 = \notes {
 \clef bass;
  \property Staff.instrument = "Bass"

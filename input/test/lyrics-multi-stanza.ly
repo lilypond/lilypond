@@ -3,7 +3,7 @@
 % * Stanza_number_engraver
 % * Automatic melismata on beamed notes
 
-\version "1.3.96";
+\version "1.3.110";
 \include "english.ly"
 
 \header{
@@ -16,7 +16,7 @@ allup = \notes{
 	\stemUp
 	\slurUp
         \tieUp
-	\property Voice.DynamicLineSpanner \push #'direction = #1
+	\property Voice.DynamicLineSpanner \override #'direction = #1
 	\autoBeamOff
 }
 
@@ -24,7 +24,7 @@ alldown = \notes{
 	\stemDown
 	\slurDown
         \tieDown
-	\property Voice.DynamicLineSpanner \push #'direction = #-1
+	\property Voice.DynamicLineSpanner \override #'direction = #-1
 	\autoBeamOff
 }
 

@@ -562,6 +562,17 @@ if 1:
 	
 	conversions.append ((1,3,102), conv, 'beamAutoEnd -> autoBeamSettings \\push (end * * * *)')
 
+
+if 1:
+	def conv (str):
+		str = re.sub ('\\\\push', '\\\\override', str)
+		str = re.sub ('\\\\pop', '\\\\revert', str)
+
+		return str
+	
+	conversions.append ((1,3,110), conv, '\\push -> \\override, \\pop -> \\revert')
+
+
 ############################
 	
 

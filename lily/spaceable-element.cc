@@ -1,5 +1,5 @@
 /*   
-  spaceable-element.cc --  implement Spaceable_element
+  spaceable-element.cc --  implement Spaceable_grob
   
   source file of the GNU LilyPond music typesetter
   
@@ -12,7 +12,7 @@
 #include "warn.hh"
 
 SCM
-Spaceable_element::get_minimum_distances ( Grob*me)
+Spaceable_grob::get_minimum_distances ( Grob*me)
 {
   return me->get_grob_property ("minimum-distances");
 }
@@ -20,7 +20,7 @@ Spaceable_element::get_minimum_distances ( Grob*me)
 /*todo: merge code of spring & rod?
  */
 void
-Spaceable_element::add_rod (Grob *me , Grob * p, Real d)
+Spaceable_grob::add_rod (Grob *me , Grob * p, Real d)
 {
   SCM mins = get_minimum_distances (me);
   SCM newdist = gh_double2scm (d);
@@ -40,7 +40,7 @@ Spaceable_element::add_rod (Grob *me , Grob * p, Real d)
 }
 
 void
-Spaceable_element::add_spring (Grob*me, Grob * p, Real d, Real strength)
+Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength)
 {
   SCM mins = get_ideal_distances (me);
   SCM newdist= gh_double2scm (d);
@@ -60,14 +60,14 @@ Spaceable_element::add_spring (Grob*me, Grob * p, Real d, Real strength)
 }
 
 SCM
-Spaceable_element::get_ideal_distances (Grob*me)
+Spaceable_grob::get_ideal_distances (Grob*me)
 {
   return me->get_grob_property ("ideal-distances");
 }
 
 
 void
-Spaceable_element::remove_interface (Grob*me)
+Spaceable_grob::remove_interface (Grob*me)
 {
   me->remove_grob_property ("minimum-distances");
   me->remove_grob_property ("ideal-distances");
@@ -76,7 +76,7 @@ Spaceable_element::remove_interface (Grob*me)
 
 
 void
-Spaceable_element::set_interface (Grob*me)
+Spaceable_grob::set_interface (Grob*me)
 {
   me->set_interface (ly_symbol2scm ("spaceable-element-interface"));
 }

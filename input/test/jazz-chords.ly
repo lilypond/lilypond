@@ -1,3 +1,6 @@
+
+\version "1.3.110";
+
 %% This should only be necessary if your kpathsea setup is broken
 %
 % Make sure the correct msamxx.tfm is where lily can find it
@@ -9,7 +12,7 @@
 %
 
 chord = \notes\transpose c''\chords{
-\property ChordNames.ChordNames \push #'style = #"jazz"
+\property ChordNames.ChordNames \override #'style = #"jazz"
 % major chords
 c
 c:6		% 6 = major triad with added sixth
@@ -58,7 +61,7 @@ c:m5-.7-	% o = diminished seventh chord
 >
     \paper
     {
-        \translator { \ChordNamesContext ChordNames \push #'word-space = #1 }
+        \translator { \ChordNamesContext ChordNames \override #'word-space = #1 }
 %        \translator { \LyricsContext textScriptWordSpace = #0.3 }
     }
 }

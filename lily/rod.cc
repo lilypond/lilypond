@@ -37,7 +37,7 @@ Rod::add_to_cols ()
 {
   columnize();
   if (item_l_drul_[LEFT] != item_l_drul_[RIGHT])
-    Spaceable_element::add_rod (item_l_drul_[LEFT],
+    Spaceable_grob::add_rod (item_l_drul_[LEFT],
 				item_l_drul_[RIGHT],
 				distance_f_ );
 }

@@ -41,10 +41,10 @@ multiple \paper{}s in one \score
 Note: Original key f.
 %}
 
-\version "1.3.93";
+\version "1.3.110";
 
-dynamicUp = 	\property Voice.DynamicLineSpanner \push #'direction = #1
-dynamicRevert = 	\property Voice.DynamicLineSpanner \pop #'direction
+dynamicUp = 	\property Voice.DynamicLineSpanner \override #'direction = #1
+dynamicRevert = 	\property Voice.DynamicLineSpanner \revert #'direction
 
 
 vocalVerse = \notes\relative c''{
@@ -226,9 +226,9 @@ trebleThrough = \notes \relative c'{
 	< { a4.-> )f8 } { a'4. f8 } > |
 	<e2 e'> r4 |
 	<es!2 es'! > r4 |
-	\property Voice . TextItem \push #'font-style = #'italic
+	\property Voice . TextItem \override #'font-style = #'italic
 	<d2_"decresc." d'> r4 |
-	\property Voice . TextItem \pop #'font-style
+	\property Voice . TextItem \revert #'font-style
 
 	%75
 	<b2 b'> r4 |
@@ -240,9 +240,9 @@ trebleThrough = \notes \relative c'{
 	<f4. g> <b,8-. g'-.(> <d-. g-.> <f-. )g-.> |
 	%80
 
-	\property Voice . TextItem \push #'font-style = #'italic
+	\property Voice . TextItem \override #'font-style = #'italic
 	<e2._"dim." g> |
-	\property Voice . TextItem \pop #'font-style
+	\property Voice . TextItem \revert #'font-style
 
 	<g,2. e' g> |
 	<g2.-\fermata e' g> |
@@ -376,7 +376,7 @@ vocalStaff = \context Staff = vocal<
 
 treble = {
 	\clef treble;
-	\property Voice.beamAutoBegin= #(make-moment 0 1)
+	\property Voice.autoBeamSettings \override #'(begin * * * *) = #(make-moment 0 1)
 	\trebleIntro 
 	\trebleVerseOne 
 	\trebleEentje

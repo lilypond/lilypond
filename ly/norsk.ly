@@ -1,5 +1,5 @@
 
-% 	$Id: norsk.ly,v 1.8 2000/11/12 22:29:58 fred Exp $	
+% 	$Id: norsk.ly,v 1.9 2000/11/26 19:05:12 fred Exp $	
 
 %{
 
@@ -27,7 +27,7 @@
 
 %}
 
-\notenames #'(
+\pitchnames #'(
 	(ceses . ,(make-pitch -1 0 -2 ))
 	(cessess . ,(make-pitch -1 0 -2 ))
 	(ces . ,(make-pitch -1 0 -1 ))
@@ -104,4 +104,4 @@
 
 
 
-\version "1.3.96";
+\version "1.3.110";

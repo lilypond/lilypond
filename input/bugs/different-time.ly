@@ -4,14 +4,13 @@
 \score{
     \context PianoStaff <
         \context Staff = upper \notes\relative c''{
-	    \time 3/4;
+	    \property Staff.timeSignatureFraction = #'(3 . 4)
 	    c4 c c
 	    c2.
 	  	    
         }
-        \context Staff = lower \notes\relative c'{
-%	    \clef bass;
-	    \time 4/4;
+        \context Staff = lower \notes\relative c' {
+	    \property Staff.timeSignatureFraction = #'(4 . 4)
 	    c4 c c c
 	    c1
         }

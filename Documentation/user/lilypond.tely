@@ -80,6 +80,18 @@ than the names being similar :-)"
 @node Top, , , (dir)
 @chapter GNU LilyPond --- The music typesetter
 
+
+LilyPond produces sheet music from input files.  This document describes
+how to use LilyPond.
+
+@cindex web site
+
+A further source of information is the website, which can be found at
+@uref{http://www.lilypond.org/}.  The website contains on-line copies of
+this and other documentation.
+
+
+
 @menu
 * Tutorial::                       A tutorial introduction to lilypond.
 * Invoking LilyPond::              Operation.
@@ -87,10 +99,7 @@ than the names being similar :-)"
 * Reference Manual::               Reference Manual.
 @c Move to Reference Manual?
 * Internals:(lilypond-internals).  Auto generated detailed documentation.
-* More information::               Where to turn to for more help.
-* convert-ly::                 Upgrading input files.
-@c Hmm, having the generated doco in a separate file,
-@c the index can't refer to that.
+* convert-ly::                     Upgrading input files.
 * Index::                          Unified index.
 @end menu
 
@@ -109,14 +118,11 @@ than the names being similar :-)"
 
 @mbinclude tutorial.itely
 
-
 @include invoking.itexi
 
 @include bugs.itexi
 
 @mbinclude refman.itely
-
-@include moreinfo.itexi
 
 @include convert-ly.itexi
 

@@ -11,7 +11,7 @@
  Tested Features: cross staff auto beams and slurs, grace notes, no bars
 %}
 
-\version "1.3.93";
+\version "1.3.110";
 
 global = \notes {
 	\key a \minor;
@@ -105,7 +105,7 @@ accompany = \notes \relative c {
 			\global
 			\context Voice=foo {
 			\stemUp
-			\property Voice.Script \push #'direction = #1
+			\property Voice.Script \override #'direction = #1
 			
 			\melody 
 			}
@@ -134,7 +134,7 @@ accompany = \notes \relative c {
 
 			slurVerticalDirection = #1
 			verticalDirection = #-1
-			beamAutoEnd = #(make-moment 1 2)
+			autoBeamSettings \override #'(end * * * *) = #(make-moment 1 2)
 		}
 	}
 	\midi {

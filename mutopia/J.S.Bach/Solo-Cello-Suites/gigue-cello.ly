@@ -1,7 +1,7 @@
 
 
 
-\version "1.3.93";
+\version "1.3.110";
 
 \include "gigue-urtext.ly";
 
@@ -39,8 +39,8 @@ gigue_cello_staff = \context Staff <
 	\paper{
 		\translator{
 			\VoiceContext
-			beamAutoEnd_8 = #(make-moment 3 4)
-			beamAutoEnd_16 = #(make-moment 3 4)
+			autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 3 4)
+			autoBeamSettings \override #'(end 1 16 * *) = #(make-moment 3 4)
 		}
 	}
 	\midi{ \tempo 4 = 60; }

@@ -3,7 +3,7 @@
      with s for sharp and f for flat.
 %}
 
-\notenames #`(
+\pitchnames #`(
 	(cflatflat . ,(make-pitch -1 0 -2 ))
 	(cflat . ,(make-pitch -1 0 -1 ))
 	(c . ,(make-pitch -1 0 0 ))
@@ -77,5 +77,5 @@
 	(bss . ,(make-pitch -1 6 2 ))
 )
 
-\version "1.3.96";
+\version "1.3.110";
 

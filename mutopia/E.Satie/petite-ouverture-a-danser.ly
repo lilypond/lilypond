@@ -12,7 +12,7 @@
  Tested Features:
 %}
 
-\version "1.3.93";
+\version "1.3.110";
 
 \include "nederlands.ly"
 
@@ -152,8 +152,8 @@ lower = \context Staff \notes \relative c{
     \translator{ \OrchestralScoreContext }
     \translator{
 	    \VoiceContext
-	    beamAutoEnd_8  = #(make-moment 1 4)
-	    beamAutoEnd_16  = #(make-moment 1 4)
+	    autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 1 4)
+	    autoBeamSettings \override #'(end 1 16 * *) = #(make-moment 1 4)
     }
   }
   \midi {

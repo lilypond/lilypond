@@ -25,7 +25,9 @@ $(outdir)/%.txt: $(outdir)/%.texi
 	$(MAKEINFO) -I../  --no-split --no-headers --output $@ $<
 
 $(outdir)/%.texi: %.texi
+	rm -f $@
 	cp $< $@
+	chmod -w $@
 
 
 

@@ -1,4 +1,7 @@
 
+\version "1.3.110";
+
+
 voice4 = \notes {
 \clef bass;
  \property Staff.instrument = "Bass"
@@ -35,7 +38,7 @@ voicedefault = \notes {
             font_normal = 12.;
             \translator {
                  \StaffContext
-		 TimeSignature \push   #'style = #"C"
+		 TimeSignature \override   #'style = #"C"
                  \consists Instrument_name_engraver;
             }
         }

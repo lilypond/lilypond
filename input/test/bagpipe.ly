@@ -1,4 +1,4 @@
-\version "1.3.96";
+\version "1.3.110";
 % bagpipe music.
 
 \header
@@ -12,20 +12,20 @@
   \translator {
   	\GraceContext
 
-	NoteHead \push #'font-relative-size = #-2
-	NoteHead \push #'font-relative-size = #-2	
-        Stem \push #'flag-style = ##f
+	NoteHead \override #'font-relative-size = #-2
+	NoteHead \override #'font-relative-size = #-2	
+        Stem \override #'flag-style = ##f
     % The following determines the length of stems without beams
     % default is between 2.8 and 4.0 depending on the number of flags
-         Stem \push #'length = #6	
-        Stem \push #'font-relative-size = #-2
-	GraceAlignItem \push #'horizontal-space = #1
-	Stem \push #'flag-style = #""
+         Stem \override #'length = #6	
+        Stem \override #'font-relative-size = #-2
+	GraceAlignItem \override #'horizontal-space = #1
+	Stem \override #'flag-style = #""
  
   }
   \translator { \StaffContext
-  	TimeSignature \push #'style = #"C4/4"
-  	TimeSignature \push #'visibility-function = #begin-of-line-visible
+  	TimeSignature \override #'style = #"C4/4"
+  	TimeSignature \override #'visibility-function = #begin-of-line-visible
   }	
 }
 

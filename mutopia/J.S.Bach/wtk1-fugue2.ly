@@ -21,7 +21,7 @@
 % It would be nice to squeeze this onto two pages, but I am not sure
 % if it would work with US paper.
 
-\version "1.3.93";
+\version "1.3.110";
 
   
 dux = \context Voice=two \notes \relative c''{
@@ -186,7 +186,7 @@ bassdux = \context Voice=three \notes \relative c' {
     \paper {
         linewidth = 18.0 \cm;
 	\translator{ \OrchestralScoreContext
-	 timeSignatureStyle \push #'style = #"C"
+	 timeSignatureStyle \override #'style = #"C"
 
 	}
 	

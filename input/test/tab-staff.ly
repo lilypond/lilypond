@@ -1,3 +1,6 @@
+
+\version "1.3.110";
+
 %{
 
 Kludge for half-assed tab notation (you need to fill the numbers
@@ -17,16 +20,16 @@ bla = \notes \relative c' { <c4 e g>  <c4. e g> <c8 f a> <c4 f a> <c1 e g> }
  \translator {
   \StaffContext
   \name TabStaff;
-  basicStaffSymbolProperties \push #'line-count = #6
+  basicStaffSymbolProperties \override #'line-count = #6
   \remove "Clef_engraver";
   \remove "Time_signature_engraver";
   \consists "Pitch_squash_engraver";
-   basicNoteHeadProperties \push #'transparent = ##t
-   basicStemProperties \push #'transparent = ##t
-   basicNoteHeadProperties \push #'staff-position = #-6
-   basicDotsProperties \push #'transparent = ##t
+   basicNoteHeadProperties \override #'transparent = ##t
+   basicStemProperties \override #'transparent = ##t
+   basicNoteHeadProperties \override #'staff-position = #-6
+   basicDotsProperties \override #'transparent = ##t
    squashedPosition = #-4
-   basicStemProperties \push #'length = #12
+   basicStemProperties \override #'length = #12
 }
 \translator {
 \ScoreContext

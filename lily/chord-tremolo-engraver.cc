@@ -77,7 +77,7 @@ Chord_tremolo_engraver::try_music (Music * m)
 {
   Repeated_music * rp = dynamic_cast<Repeated_music*> (m);
   if (rp
-      && rp->get_mus_property ("type") == Chord_tremolo_iterator::constructor_cxx_function
+      && rp->get_mus_property ("iterator-ctor") == Chord_tremolo_iterator::constructor_cxx_function
       && !repeat_) 
     {
       Moment l = rp->body_length_mom ();

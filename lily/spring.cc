@@ -23,7 +23,7 @@ Spring::Spring ()
 void
 Spring::add_to_cols ()
 {
-  Spaceable_element::add_spring (item_l_drul_[LEFT]->column_l (),
+  Spaceable_grob::add_spring (item_l_drul_[LEFT]->column_l (),
 				 item_l_drul_[RIGHT]->column_l (),
 				 distance_f_, strength_f_);
 }

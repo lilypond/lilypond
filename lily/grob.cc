@@ -682,7 +682,7 @@ Grob::add_offset_callback (SCM cb, Axis a)
 bool
 Grob::has_extent_callback_b (SCM cb, Axis a)const
 {
-  return scm_equal_p (cb, dim_cache_[a].dimension_);
+  return scm_equal_p (cb, dim_cache_[a].dimension_) == SCM_BOOL_T;
 }
 
 

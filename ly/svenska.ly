@@ -3,7 +3,7 @@
 %
 % by Mats Bengtsson.
 
-\notenames #'(
+\pitchnames #'(
 	(cessess . ,(make-pitch -1 0 -2 ))
 	(cess . ,(make-pitch -1 0 -1 ))
 	(c . ,(make-pitch -1 0 0 ))
@@ -40,4 +40,4 @@
 	(hiss . ,(make-pitch -1 6 1 ))
 	(hississ . ,(make-pitch -1 6 2 ))
 )
-\version "1.3.96";
+\version "1.3.110";

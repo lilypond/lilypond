@@ -3,13 +3,13 @@
     date	= "2000";
 }
 
-\version "1.3.59";
+\version "1.3.110";
 
 \include "paper26.ly"
 
 global = \notes {
     \property Score.timing = 1
-    \property Staff.TimeSignature \push #'style = #"old"
+    \property Staff.TimeSignature \override #'style = #"old"
     \time 2/2;
 }
 
@@ -17,7 +17,7 @@ upperVoice = \context Staff = upperVoice <
     \global
     \property Staff.numberOfStaffLines = 4
     \notes \transpose c' {
-	\property Staff.Custos \push #'style = #'"vaticana"
+	\property Staff.Custos \override #'style = #'"vaticana"
 	\clef "vaticana_fa2";
 	c1 d e f g
 	\clef "vaticana_do2";
@@ -26,7 +26,7 @@ upperVoice = \context Staff = upperVoice <
 	\clef "vaticana_fa1";
 	e d c\breve \bar "|";
 
-	\property Staff.Custos \push #'style = #"medicaea"
+	\property Staff.Custos \override #'style = #"medicaea"
 	\clef "medicaea_fa2";
 	c1 d e f g
 	\clef "medicaea_do2";
@@ -35,7 +35,7 @@ upperVoice = \context Staff = upperVoice <
 	\clef "medicaea_fa1";
 	e d c\breve \bar "|";
 
-	\property Staff.Custos \push #'style = #'"hufnagel"
+	\property Staff.Custos \override #'style = #'"hufnagel"
 	\clef "hufnagel_fa2";
 	c1 d e f g
 	\clef "hufnagel_do2";
@@ -50,7 +50,7 @@ lowerVoice = \context Staff = lowerNotes <
     \global
     \property Staff.numberOfStaffLines = 5
     \notes \transpose c'' {
-	\property Staff.Custos \push #'style = #'"mensural"
+	\property Staff.Custos \override #'style = #'"mensural"
 	\clef "mensural1_c2";
 	c1 d e f g
 	\clef "mensural1_c2";

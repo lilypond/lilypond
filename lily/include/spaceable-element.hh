@@ -1,5 +1,5 @@
 /*   
-  spaceable-element.hh -- declare Spaceable_element
+  spaceable-grob.hh -- declare Spaceable_grob
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,13 +7,13 @@
   
  */
 
-#ifndef SPACEABLE_ELEMENT_HH
-#define SPACEABLE_ELEMENT_HH
+#ifndef SPACEABLE_GROB_HH
+#define SPACEABLE_GROB_HH
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 
-struct Spaceable_element
+struct Spaceable_grob
 {
   /// set a minimum distance
   static void add_rod (Grob*me, Grob * to, Real distance);
@@ -24,5 +24,5 @@ struct Spaceable_element
   static SCM get_ideal_distances (Grob*);
 };
 
-#endif /* SPACEABLE_ELEMENT_HH */
+#endif /* SPACEABLE_GROB_HH */
 

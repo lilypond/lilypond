@@ -12,6 +12,7 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 #include "engraver.hh"
+#include "axis-group-interface.hh"
 
 class Separating_line_group_engraver : public Engraver
 {
@@ -57,23 +58,28 @@ void
 Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 {
   Item * it = dynamic_cast <Item *> (i.elem_l_);
-  if (it && !it->parent_l (X_AXIS))
-    {
-      bool ib =Item::breakable_b (it);
-      Item *&p_ref_ (ib ? break_malt_p_
-			      : nobreak_malt_p_);
+  if (!it)
+    return;
+  if (it->parent_l (X_AXIS)
+      && it->parent_l (X_AXIS)->has_extent_callback_b
+      (Axis_group_interface::group_extent_callback_proc, X_AXIS))
+    return;
 
-      if (!p_ref_)
-	{
-	  p_ref_ = new Item
-	    (get_property ("SeparationItem"));
+  
+  bool ib =Item::breakable_b (it);
+  Item *&p_ref_ (ib ? break_malt_p_
+		 : nobreak_malt_p_);
+
+  if (!p_ref_)
+    {
+      p_ref_ = new Item
+	(get_property ("SeparationItem"));
 	  
-	  if (ib)
-	    p_ref_->set_grob_property ("breakable", SCM_BOOL_T);
-	  announce_grob (p_ref_, 0);
-	}
-      Separation_item::add_item (p_ref_,it);
+      if (ib)
+	p_ref_->set_grob_property ("breakable", SCM_BOOL_T);
+      announce_grob (p_ref_, 0);
     }
+  Separation_item::add_item (p_ref_,it);
 }
 
 void

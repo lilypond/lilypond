@@ -1,5 +1,30 @@
-1.3.109.jcn2
+1.3.110.hwn1
 ============
+
+* Fixed non-empty-text feature.
+
+* Bugfix for Grob::has_extent_callback_b ()
+
+* Added infrastructure for music property documentation strings.
+
+* Syntax change: \notenames -> \pitchnames
+
+* Changed syntax \push -> \override, \pop -> \revert. Add:
+
+	\property Context.Element \set #'foo = #bar
+
+which  does a \revert followed by a \override.
+
+* Documentation updates.
+
+* Fixed typechecks for \push, \pop and \property
+
+* Bugfix: Local_key_engraver.
+
+* Fixes for lilypond-mode.el (patch by Mark Hindley)
+
+1.3.110
+=======
 
 * Fixed a mysterious typo in toplevel index.
 

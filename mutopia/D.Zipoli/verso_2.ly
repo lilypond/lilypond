@@ -17,7 +17,7 @@ title = "Verso II";
 	under the Gnu Public Licence.
 %}
 	
-\version "1.3.93";
+\version "1.3.110";
 
 $voice_one = \notes \relative c' {
 	a'2 bes4. [c16 bes] | a4 d ~ d c ~ | c b ~ [b8 a] a4 ~|

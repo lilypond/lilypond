@@ -1,7 +1,7 @@
 
 
 
-\version "1.3.93";
+\version "1.3.110";
 
 \include "menuetto-urtext.ly";
 
@@ -53,7 +53,7 @@ menuetto_i_cello_staff = \context Staff <
 	\paper{
 		\translator{
 			\VoiceContext
-			beamAutoEnd_8 = #(make-moment 3 4)
+			autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 3 4)
 		}
 	}
 	\midi{ \tempo 4 = 110; }
@@ -90,7 +90,7 @@ menuetto_ii_cello_staff = \context Staff <
 	\paper{
 		\translator{
 			\VoiceContext
-			beamAutoEnd_8 = #(make-moment 3 4)
+			autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 3 4)
 
 		}
 	}
