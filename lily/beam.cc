@@ -815,6 +815,8 @@ Beam::after_line_breaking (SCM smob)
 void
 Beam::position_beam (Grob *me)
 {
+  if (!me->is_live ())
+    return ;
   if (to_boolean (me->get_property ("positioning-done")))
     return ;
 
