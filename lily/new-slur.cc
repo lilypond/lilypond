@@ -274,8 +274,9 @@ New_slur::set_end_points (Grob *me)
       Real y = h->extent (common[Y_AXIS], Y_AXIS)[dir];
 
       y += dir * 0.5 * staff_space;
-      if (Staff_symbol_referencer::on_staffline (h))
-	y += .5 * staff_space * dir ; 
+      int p = Staff_symbol_referencer::get_position (h) + 2*dir;
+      if (Staff_symbol_referencer::on_staffline (h, p))
+	y += 0.5 * staff_space * dir ; 
 
       Grob * fh = Note_column::first_head (extremes[d]);
       Real x = fh->extent (common[X_AXIS],  X_AXIS).linear_combination (CENTER);
@@ -291,8 +292,12 @@ New_slur::set_end_points (Grob *me)
     } while (flip (&d) != LEFT);
 
   Drul_array<Real> staff_offsets;
+  Interval end_ys;
+
   do {
     staff_offsets[d] = staves[d]->relative_coordinate (common[Y_AXIS], Y_AXIS);
+    end_ys[d] =  dir * (dir * base_attachment[d][Y_AXIS] + 4.0 *dir >?
+			dir * (dir + extremes[d]->extent(common[Y_AXIS],Y_AXIS)[dir]));
   } while (flip (&d) != LEFT);
   
   Array<Slur_score> scores;
@@ -300,37 +305,32 @@ New_slur::set_end_points (Grob *me)
   Drul_array<Offset> os;
 
   /*ugh.   */
-  os[LEFT] = base_attachment[LEFT]; 
-  for (int i = 0; i < SLUR_REGION_SIZE; i++)
+  os[LEFT] = base_attachment[LEFT];
+    
+  for (int i = 0; dir * os[LEFT][Y_AXIS] < dir * end_ys[LEFT]; i++)
     {
       os[RIGHT] = base_attachment[RIGHT];
-      for (int j = 0; j < SLUR_REGION_SIZE; j++)
+      for (int j = 0; dir *os[RIGHT][Y_AXIS] < dir * end_ys[RIGHT]; j++)
 	{
 	  Slur_score s;
 	  s.attachment_ = os;
 
 	  scores.push (s);
 
-	  Real y  = os[RIGHT][Y_AXIS]; 
-	  
-	  if (Staff_symbol_referencer::staff_radius (staves[RIGHT])
-	      > fabs ((y - staff_offsets[RIGHT]) / staff_space))
-	    y += dir *staff_space;
-	  else
-	    y += dir * staff_space / 2;
+	  Real incr = dir * staff_space;
+	  if  (Staff_symbol_referencer::staff_radius (staves[RIGHT])
+	      < fabs ((os[RIGHT][Y_AXIS] - staff_offsets[RIGHT]) / staff_space))
+	    incr /= 2;
 
-	  os[RIGHT][Y_AXIS] = y;	  
+	  os[RIGHT][Y_AXIS] += incr;	  
 	}
 
-      Real y  = os[LEFT][Y_AXIS]; 
+      Real incr = dir * staff_space;
+      if  (Staff_symbol_referencer::staff_radius (staves[LEFT])
+	   < fabs ((os[LEFT][Y_AXIS] - staff_offsets[LEFT]) / staff_space))
+	incr /= 2;
 
-      if (Staff_symbol_referencer::staff_radius (staves[LEFT])
-	  > fabs ((y - staff_offsets[LEFT]) / staff_space))
-	y += dir *staff_space;
-      else
-	y += dir *staff_space / 2;
-
-      os[LEFT][Y_AXIS] = y;      
+      os[LEFT][Y_AXIS] += incr;	  
     }
   
 
@@ -413,11 +413,11 @@ New_slur::score_encompass (Grob * me,  Grob *common[], Drul_array<Offset> base_a
 	      ext.add_point (infos[j].stem_);
 	      ext.add_point (infos[j].head_);
 
-	      demerit += - CLOSENESS_FACTOR * (dir * (y - (ext[dir] + dir * HEAD_FREE_SPACE)) <? 0) ;
+	      demerit += - CLOSENESS_FACTOR * (dir * (y - (ext[dir] + dir * HEAD_FREE_SPACE)) <? 0) /
+		infos.size ();
 	    }
 	}
-      if (infos.size())
-	demerit /= infos.size ();
+
       Direction d = LEFT;
       do {
 	demerit +=
