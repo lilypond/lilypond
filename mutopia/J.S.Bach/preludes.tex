@@ -1,18 +1,28 @@
 \documentclass{article}         %UGH
 \usepackage{a4}
 
+% UGH UGH
 \advance\oddsidemargin-30mm
 \evensidemargin\oddsidemargin
 % ugh, centre
 \advance\textwidth60mm
-\hsize210mm
-\vsize269mm
-\advance\topmargin-25mm
-\advance\textheight50mm
-\pagestyle{empty}
+\advance\topmargin-20mm
+\addtolength{\textheight}{40mm}
+\footskip5mm
+
+\usepackage{fancyheadings}
+\lhead{}
+\rhead{}
+\chead{}
+\lfoot{}
+\cfoot{\ifnum\thepage=1{\hfill\LilyIdString}\fi}
+\rfoot{\ifnum\thepage>1{\hfill\thepage\hfill}\fi}
+
+\headrulewidth0mm
+\pagestyle{fancy}
+\thispagestyle{fancy}
 
 \input titledefs
-        
 \input lilyponddefs
 \def\interscoreline{\vskip2mm}
 %ugh

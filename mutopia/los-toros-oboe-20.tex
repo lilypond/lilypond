@@ -1,15 +1,29 @@
 \documentclass{article}         %UGH
+
 \usepackage{a4}
 
-%
 % UGH UGH
-\advance\oddsidemargin-30mm
+\advance\oddsidemargin-25mm
 \evensidemargin\oddsidemargin
 % ugh, centre
-\advance\textwidth60mm
+\advance\textwidth40mm
 \advance\topmargin-20mm
 \addtolength{\textheight}{40mm}
-\pagestyle{empty}
+\footskip5mm
+
+\usepackage{fancyheadings}
+\lhead{}
+\rhead{}
+\chead{}
+\lfoot{}
+\cfoot{\ifnum\thepage=1{\hfill\LilyIdString}\fi}
+\rfoot{\ifnum\thepage>1{\hfill\thepage\hfill}\fi}
+
+\headrulewidth0mm
+\pagestyle{fancy}
+\thispagestyle{fancy}
+
+
 \begin{document}
 \input lilyponddefs
 \input titledefs
@@ -20,5 +34,6 @@
 %#%\tempo{M\"a\ss ig}
 \makelilytitle
 \input{los-toros-oboe.tex}
-%\input lelie.tex
+% \input{los-toros-oboe-1.tex}
 \end{document}
+

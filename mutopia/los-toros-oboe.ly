@@ -1,11 +1,15 @@
 \header{
 filename =	 "los-toros-oboe.ly";
-title =	         "Los Toros";
+title =	         "La Feria\normalsize\\[2ex]Los Toros";
 opus =	         "";
-composer =	 "Paul Lac\^ome d'Estalenx (1838-1920)";
+composer =	 "Paul Lac\\^ome d'Estalenx (1838-1920)";
 enteredby =	 "jcn";
 copyright =	 "public domain";
 } 
+
+%{
+Silly latex file dropped; use ly2dvi
+%}
 
 \include "paper20.ly"
 
@@ -177,9 +181,10 @@ hoboonelast = \melodic{
 	[bes16-. bes-. bes-. bes-.] [bes8-. ces'->] |
 	[bes'16-.\ff bes'-. bes'-. bes'-.] [bes'8-. ces''16->] r16^"court"-\fermata |
 	% ugh: eight measures rest (ugh: r1 -> four beats...)
+	% eiht measures rest..
 	\textstyle "bold";
 %	r2^"Un peu plus lent et \\'el\\'egant"
-	r2
+	r2^"\\fetanummer8"
 	r4 r8\p bes |
 	g2->^"Un peu plus lent et \\'el\\'egant" ~ |
 	\textstyle "italic";
@@ -282,58 +287,60 @@ $staff_hoboone = \type Staff = hoboonestaff <
 
 a4 = \paper{
 	\paper_twenty
-	linewidth= 165.\mm;
+	linewidth= 185.\mm;
 	gourlay_maxmeasures = 10.0;
-	Score = \translator {
-		\type Score_engraver;
+	Staff = \translator {
+		\type "Engraver_group_engraver";
+		defaultclef = violin;
 
-		\consists "Timing_engraver";
-		\consists "Bar_column_engraver";
-		\consists "Bar_number_engraver";
-
-		\consists "Span_score_bar_engraver";
-		\consists "Score_priority_engraver";
-		\consists "Priority_horizontal_align_engraver";
-		\consists "Vertical_align_engraver";
-
-
-		\accepts "Staff_group";
-		\accepts "Staff";
-		\accepts "Rhythmic_staff";	
-		\accepts "Lyrics";
-		\accepts "Grandstaff";
+		\consists "Bar_engraver";
+		\consists "Clef_engraver";
+		\consists "Key_engraver";
+		\consists "Meter_engraver";
+		\consists "Local_key_engraver";
+		\consists "Staff_sym_engraver";
+		\consists "Collision_engraver";
+		\consists "Rest_collision_engraver";
+% not yet: multibar rest
+%		\consists "Bar_column_engraver";
+%		\consists "Bar_number_engraver";
+		\consists "Separating_line_group_engraver";
+		\consists "Line_group_engraver";
+		  
+		\accepts "Voice";
 	}
 }
 
 a4sixteen = \paper{
-	linewidth= 165.\mm;
-	Score = \translator {
-		\type Score_engraver;
+	linewidth= 193.\mm;
+	Staff = \translator {
+		\type "Engraver_group_engraver";
+		defaultclef = violin;
 
-		\consists "Timing_engraver";
-		\consists "Bar_column_engraver";
-		\consists "Bar_number_engraver";
-
-		\consists "Span_score_bar_engraver";
-		\consists "Score_priority_engraver";
-		\consists "Priority_horizontal_align_engraver";
-		\consists "Vertical_align_engraver";
-
-
-		\accepts "Staff_group";
-		\accepts "Staff";
-		\accepts "Rhythmic_staff";	
-		\accepts "Lyrics";
-		\accepts "Grandstaff";
+		\consists "Bar_engraver";
+		\consists "Clef_engraver";
+		\consists "Key_engraver";
+		\consists "Meter_engraver";
+		\consists "Local_key_engraver";
+		\consists "Staff_sym_engraver";
+		\consists "Collision_engraver";
+		\consists "Rest_collision_engraver";
+% not yet: multibar rest
+%		\consists "Bar_column_engraver";
+%		\consists "Bar_number_engraver";
+		\consists "Separating_line_group_engraver";
+		\consists "Line_group_engraver";
+		  
+		\accepts "Voice";
 	}
 }
 
 \score{
 	\$staff_hoboone
 	\paper{ \a4 }
-%	\paper{ \a4sixteen }
 	\midi{
 		\tempo 4 = 80;
 	}
+	\paper{ \a4sixteen }
 }
 
