@@ -18,10 +18,6 @@ class Breathing_sign : public Item
 public:
   VIRTUAL_COPY_CONS(Score_element);
   Breathing_sign ();
-
-  void set_vertical_position (Direction);
-
-
 protected:
   virtual void do_post_processing ();
   virtual Molecule* do_brew_molecule_p () const;
