@@ -1,5 +1,7 @@
 2002-09-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/parser.yy: remove TYPED_MAKE_MUSIC().
+
 	* lily/include/translator.hh (ENTER_DESCRIPTION): add
 	events-accepted field.
 
