@@ -93,14 +93,14 @@ enddef;
 def draw_neomensural_left_stemmed_head (expr wid) =
 	draw_neomensural_brevis(wid);
 
-	x6 = x7 = head_width - stem_width/2;
+	x6 = x7 = stem_width/2;
 	y6 = y5;
 	y7 = y5 - 2.25 staff_space;
 	pickup pencircle scaled stem_width;
 	draw z6 .. z7;
 enddef;
 
-fet_beginchar("Left stemmed notehead", "lneomensural", "mensuralleftstemmedhead");
+fet_beginchar("Left stemmed notehead", "lneomensural", "neomensuralleftstemmedhead");
 	draw_neomensural_left_stemmed_head (2 staff_space#);
 fet_endchar;
 
@@ -123,10 +123,6 @@ def draw_neomensural_longa (expr wid) =
 	fill z7r .. z6r{z6-z7} .. {z7-z6} z6l -- z7l -- cycle;
 	penlabels(6,7);
 enddef;
-
-fet_beginchar("Left stemmed notehead", "lneomensural", "mensuralleftstemmedhead");
-	draw_neomensural_left_stemmed_head (2 staff_space#);
-fet_endchar;
 
 %
 % En wij presenteren U: de opvolgster van Emily
