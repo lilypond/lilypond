@@ -8,11 +8,11 @@ which can be used to extend music syntax seamlessly."
 
 #(define myBar
   (ly:make-music-head
+   (list string?)
    (lambda (where type)
     (context-spec-music
      (context-spec-music (make-property-set 'whichBar type) 'Timing)
      'Score))
-   (list string?)
     
     ))
 

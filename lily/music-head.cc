@@ -28,7 +28,7 @@ print_music_head (SCM b, SCM port, scm_print_state *)
 
 
 LY_DEFINE (ly_make_music_head, "ly:make-music-head", 2, 0, 0,
-	   (SCM func, SCM signature),
+	   (SCM signature, SCM func),
 	  "Make a function to process music, to be used for the "
 	   "parser. @code{func} is the function, and @code{signature} describes "
 	   "Its arguments. @code{signature} is a list containing either "
