@@ -43,6 +43,12 @@ Grep for TODO and ugh/ugr/urg.
 }
 . * - Look at input/test/span-bars.ly. The staff lines extend too far
   to the left on the note systems including the GrandStaff.
+. * midi key.
+. *P.P.S. It can be cool in mudela-book to distinguish in pre,postMudelaExample,
+whether MudelaExample is epsed or not: ( if this fragment is floating eps, than 1,
+otherwise 2). say preMudelaExample[eps]{}, and change it in document body sometimes.
+
+. * tetex: mfplain.mem
 . * fix midi output:
 .  * default duration?  d
      duration must be not entered explicitely on first note.
@@ -67,6 +73,7 @@ specify the third.  Should there be?
 
 .* TODO before 1.2
 . * Gade score
+.  * remove [] in favour of auto-beamer
 .  * In the score, the staff lines extend too far to the left. 
   This is also illustrated in the second score of span-bars.ly
   as I've pointed out earlier.
@@ -114,23 +121,40 @@ n=\notes\relative c'{
   directions of the dynamics for the two parts. 
   Voice.dynamicDir seems to set the direction for the full staff.
 . *  hangOnClef with non-breakable clefs.
-. * use an alist for Score_elem "properties".
+. * Aha, the problem is the new TeX code generation for changing fonts.
+> (The explanation below is mostly intended for Han-Wen and Jan)
+> Before, the font was changed with macros declared separately for 
+> pure TeX and LaTeX, but now all the fonts are declared directly in
+> the generated code using the low-level TeX commands. This circumvents
+> the fontencoding mechanism of LaTeX and is a potential source of
+> problems also for us users of the Latin-1 character set. 
+> I think it still works since the inputencoding latin1 is 
+> declared by ly2dvi, but it still means that e.g. an o with
+> umlaut is typeset as a combination of the two symbols 'o' and
+> 'umlaut' instead of as a single character, as would be the case
+> if fontencoding OT1 had been used. This shouldn't give any 
+> difference in layout, though. One of the main argument for using
+> fontencoding OT1 is for the hyphenation mechanism to work, an 
+> argument that's clearly irrelevant in our application. Yet we
+> see the problem for August.
 . * Check gcc 2.8.1 compatibility
 . * Document source code.
 . * limit memory usage; the full coriolan takes up too much resources.
 .  * Sort items after breaking in order of linenumber.  Then be more
      eficient with finding 
-.  * Do Mark & sweep GC for Score_elems, junk backlinks.
+.  * Do Mark & sweep GC for Score_elems
 . * make "in-between" engraver (Tie, Extender)
-. * use Drul_array for Interval.
+. * textWidthFatness property
+. * The Lilypond accidental symbols are available through the TeX macros, 
+\textflat, \textsharp and \textnatural defined in the init file
+lilyponddefs.tex. All the symbols are defined in the files fetaXX.tex
+where XX corresponds to the size. I don't know where (or even if) they
+are installed but they are generated in the mf/out/ directory during the
+compilation.
 . * compulsory hshift
-. * ties to tie only notes of the same pitch, so that
- 	< a~  a,>  a
-works as you'd expect it to.
 . * 1. Can Lily be told where to start numbering?
 . * do scaled fonts.
 . * profile atom smobs
-. * Try to use Killing_cons iso. Pointer_list
 . * make dependencies () a virtual function.
 . * fix Repeated_music design
 . * one big ly2dvi input that includes *all* tests.
@@ -216,7 +240,6 @@ The beams are at the right angle, but they aren't in the right place.
 .  * bracket on/off/no-bracket-when-beam
 .  * num on/off/no-num-when-beam
 . * fix: standchen.
-. * junk backlinks?
 . * junk text{sharp,flat,etc}
 . * fix convert-mudela manpage
 . * decimal point in \paper {}
@@ -261,7 +284,7 @@ The beams are at the right angle, but they aren't in the right place.
 .  * cf'able ly2dvi  tagline.
 .  * deps for ly2dvi
 .* STUFF
-. * check out legal/(c) matters for scores.
+. * arrows on slurs.
 . * Align_element::padding  ?
 . * uniformise property names...
 .  * ydirection <-> yDirection
