@@ -269,7 +269,7 @@
     (postscript->png
      (if (number? resolution)
 	 resolution
-	 (ly:get-option 'preview-resolution))b
+	 (ly:get-option 'resolution))
      (string-append (basename name ".tex") ".ps"))))
 
 (define-public (convert-to-ps book name)

@@ -583,7 +583,7 @@ possibly turned off."
 	   "ps2png --resolution="
 	   (if (number? resolution)
 	       (number->string resolution)
-	       "90")
+	       "90 ")
 	   (if (ly:get-option 'verbose)
 	       "--verbose "
 	       " ")
