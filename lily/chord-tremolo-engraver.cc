@@ -22,6 +22,7 @@
 #include "chord-tremolo-iterator.hh"
 #include "stem-tremolo.hh"
 #include "music-list.hh"
+#include "math.h"           // ceil
 
 /**
   This acknowledges repeated music with "tremolo" style.  It typesets
@@ -52,6 +53,7 @@ protected:
   Moment beam_start_location_;
 
   int note_head_i_;
+  int dots_i_;
 
   bool sequential_body_b_;
   Spanner * beam_p_;
@@ -71,6 +73,7 @@ Chord_tremolo_engraver::Chord_tremolo_engraver ()
   beam_p_  = finished_beam_p_ = 0;
   repeat_ =0;
   note_head_i_ = 0;
+  dots_i_ = 0;
   stem_tremolo_ = 0;
   sequential_body_b_ = false;
 }
@@ -89,8 +92,10 @@ Chord_tremolo_engraver::try_music (Music * m)
       stop_mom_ = start_mom_ + l;
       sequential_body_b_ = dynamic_cast<Sequential_music*> (rp->body ());
 
-      // ugh. should generate dots, triplet beams.      
-      note_head_i_ = l.den () <? 4; 
+      // ugh. should generate triplet beams.
+      note_head_i_ = int (ceil (double(l.den ()) / l.num ()));
+      dots_i_ = intlog2 (1+l.num ()) -1 ; // 1->0, 3->1, 7->2
+      note_head_i_ = note_head_i_ <? 4; 
       return true;
     }
 
@@ -207,6 +212,17 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
   if (repeat_ && Note_head::has_interface (info.grob_l_))
     {
       info.grob_l_->set_grob_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
+      if (dots_i_ > 0) 
+	{
+          Item * d = new Item (get_property ("Dots"));
+          Rhythmic_head::set_dots (info.grob_l_, d);
+          
+	  d->set_grob_property ("dot-count", gh_int2scm (dots_i_));
+
+          d->set_parent (info.grob_l_, Y_AXIS);
+          announce_grob (d, SCM_EOL);
+	  
+	}
     }
 }
 
