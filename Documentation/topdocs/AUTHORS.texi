@@ -75,7 +75,7 @@ list is alphabetically ordered.
     minor bug fixes, lyric-phrasing.
 @item @email{Roy.Rankin@@alcatel.com.au, Roy R. Rankin},
     major extension, fixes to abc2ly, lilypond bug fixes
-@item @email{reuterj@@ira.uka.de, Juergen Reuter}
+@item @email{reuter@@ipd.uka.de, Juergen Reuter}
         Ancient notation  support (custos, porrectus, mensural notation,
         ancient clefs, etc.)
 @item @email{august@@infran.ru, August S.Sigov}
