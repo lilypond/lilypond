@@ -73,14 +73,14 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 {
   Real thick = me->get_paper()->get_realvar (ly_symbol2scm ("linethickness"));  
   thick *= robust_scm2double (me->get_grob_property ("thickness"), 1.0); // todo: staff sym referencer? 
-  
+
   SCM type = me->get_grob_property ("style");
-  if (type == ly_symbol2scm ("dotted-line")
-      || type == ly_symbol2scm ("dashed-line"))
+
+  SCM dash_fraction = me->get_grob_property ("dash-fraction");
+  if (gh_number_p (dash_fraction) || type == ly_symbol2scm ("dotted-line"))
     {
       Real fraction =
-	robust_scm2double (me->get_grob_property ("dash-fraction"),
-			   (type == ly_symbol2scm ("dotted-line")) ? 0.0 : 0.4);
+	robust_scm2double (dash_fraction, (type == ly_symbol2scm ("dotted-line")) ? 0.0 : 0.4);
 
       fraction = (fraction >? 0) <? 1.0;
       Real period = Staff_symbol_referencer::staff_space (me)
@@ -88,7 +88,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 
       if (period < 0)
 	return Molecule ();
-	
+  
       return make_dashed_line (thick, from, to, period, fraction);
     }
   else
