@@ -9,6 +9,12 @@
 
 	* scm/output-sodipodi.scm: Resurrect sodipodi output.
 
+2004-05-07  Kristof Bastiaensen  <kristof.bastiaensen@vleeuwen.org>
+
+	* elisp/lilypond-mode.el: Changed the way defaults are created for
+	LilyPond-command-master.  LilyPond-mode will now check the
+	timestamps of the files to see which command has to run next.
+
 2004-05-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/bass-figure.scm (format-bass-figure): don't set

@@ -32,7 +32,7 @@
   "File prefix for commands on buffer or region.")
 
 (defvar LilyPond-master-file nil
-  "Master file that will be used by Lilypond next run.")
+  "Master file that Lilypond will be run on.")
 
 ;; FIXME: find ``\score'' in buffers / make settable?
 (defun LilyPond-get-master-file ()
@@ -411,15 +411,15 @@ in LilyPond-include-path."
   ;; Should expand this to include possible keyboard shortcuts which
   ;; could then be mapped to define-key and menu.
   `(
-    ("LilyPond" . ("lilypond-bin %s" . "LaTeX"))
-    ("TeX" . ("tex '\\nonstopmode\\input %t'" . "View"))
+    ("LilyPond" . ("lilypond-bin %s" "%s" "%l" "LaTeX"))
+    ("TeX" . ("tex '\\nonstopmode\\input %t'" "%t" "%d" "View"))
 
-    ("2Dvi" . ("lilypond %s" . "View"))
-    ("2PS" . ("lilypond -P %s" . "ViewPS"))
-    ("2Midi" . ("lilypond -m %s" . "Midi"))
+    ("2Dvi" . ("lilypond %s" "%s" "%d" "View"))
+    ("2PS" . ("lilypond -P %s" "%s" "%p" "ViewPS"))
+    ("2Midi" . ("lilypond -m %s" "%s" "%m" "Midi"))
 
-    ("Book" . ("lilypond-book %x" . "LaTeX"))
-    ("LaTeX" . ("latex '\\nonstopmode\\input %l'" . "View"))
+    ("Book" . ("lilypond-book %x" "%x" "%l" "LaTeX"))
+    ("LaTeX" . ("latex '\\nonstopmode\\input %l'" "%l" "%d" "View"))
 
     ;; point-n-click (arg: exits upop USR1)
     ("SmartView" . ("xdvi %d"))
@@ -487,22 +487,23 @@ Must be the car of an entry in `LilyPond-command-alist'."
   :group 'LilyPond
   :type 'string)
 
-(defun xLilyPond-compile-sentinel (process msg)
-  (if (and process
-	   (= 0 (process-exit-status process)))
-      (setq LilyPond-command-next
-	    (or (cddr (assoc LilyPond-command-next LilyPond-command-alist))
-		LilyPond-command-default))))
-
-;; FIXME: shouldn't do this for stray View/xdvi
-(defun LilyPond-compile-sentinel (buffer msg)
-  (if (string-match "^finished" msg)
-      (setq LilyPond-command-next
-	    (or (cddr (assoc LilyPond-command-next LilyPond-command-alist))
-		LilyPond-command-default))))
-
-;;(make-variable-buffer-local 'compilation-finish-function)
-(setq compilation-finish-function 'LilyPond-compile-sentinel)
+(defun LilyPond-find-required-command (command file)
+  "Find the first command in the chain that is needed to run
+ (input file is newer than the output file)"
+  (let* ((entry (cdr (assoc command LilyPond-command-alist)))
+	(next-command (nth 3 entry)))
+    (if (null next-command)
+	command
+      (let* ((src-string (nth 1 entry))
+	    (input (LilyPond-command-expand src-string file))
+	    (output (LilyPond-command-expand (nth 2 entry) file)))
+	(if (or (file-newer-than-file-p input output)
+		(and (equal "%s" src-string)
+		     (not (equal (buffer-name) file))
+		     (file-newer-than-file-p (buffer-name)
+					     output)))
+	    command
+	  (LilyPond-find-required-command next-command file))))))
 
 (defun LilyPond-command-query (name)
   "Query the user for what LilyPond command to use."
@@ -517,7 +518,7 @@ Must be the car of an entry in `LilyPond-command-alist'."
 	((y-or-n-p "The command will be invoked to an already saved buffer. Revert it? ")
 	 (revert-buffer t t)))
     
-  (let* ((default LilyPond-command-next)
+  (let* ((default (LilyPond-find-required-command LilyPond-command-next name))
 	 (completion-ignore-case t)
 	 (answer (or LilyPond-command-force
 		     (completing-read
@@ -698,7 +699,12 @@ command."
 				(sit-for 0 100)))
 			  (setq job-string nil)))))
 
-	      (setq LilyPond-command-next name)
+	      (setq LilyPond-command-next
+		    (let* ((entry (assoc name LilyPond-command-alist))
+			   (next-command (nth 3 (cdr entry))))
+		      (or next-command
+			  LilyPond-command-default)))
+	      
 	      (if (string-equal job-string "no jobs")
 		  (LilyPond-compile-file command name))))))))
 	  
