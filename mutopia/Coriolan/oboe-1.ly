@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 \version "1.3.59";
 
-oboe1 = \notes \relative c'' {
+oboeI = \notes \relative c'' {
 	R1*2 |
 	as'4-.\ff r r2 |
 	R1*3 |
@@ -20,19 +20,19 @@ oboe1 = \notes \relative c'' {
 	g4-. r r2 |
 	g4-. r r2 |
 	R1 *4 |
-	\property VoiceOne.crescendoText = "cresc."
-	\property VoiceOne.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	as2\p\< ( g |
 	)fis2. \!g4-.\f |
 	R1*5 |
-	\property VoiceOne.crescendoText = "cresc."
-	\property VoiceOne.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	ges2\p\<  f ~ |
 	f4 \!e\f r2 |
 	R1 |
 	f2\p()es |
-	\property VoiceOne.crescendoText = "cresc."
-	\property VoiceOne.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	d1\< |
 	d |
 	d2 d |
@@ -55,22 +55,22 @@ oboe1 = \notes \relative c'' {
 	)f2. ges4(|
 	)f4 r r2|
 	R1*9|
-	\property VoiceOne.crescendoText = "cresc."
-	\property VoiceOne.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	g2.\p\<( as4|
 	g f d)bes|
 	\!bes'2\ff des|
 	c bes|
 	as4\p r r2|
 	R1*3|
-	\property VoiceOne.crescendoText = "cresc."
-	\property VoiceOne.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	as2.\p\<( bes4|
 	as g e)c|
 	\!c'2\ff es,|
 	d1~|
-	\property VoiceOne.crescendoText = "cresc."
-	\property VoiceOne.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	d\p\< ~|
 	d~|
 	\!d2.\sf\>()f4|
@@ -80,8 +80,8 @@ oboe1 = \notes \relative c'' {
 	fis\pp r r2|
 	r r4 r8 fis' |
 	g4 r r2|
-	\property VoiceOne.crescendoText = "cresc."
-	\property VoiceOne.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	r r4 r8 g\<|
 	a4 r r r8 a|
 	bes4 r r r8 bes|
@@ -127,8 +127,8 @@ oboe1 = \notes \relative c'' {
 	des4 r r r8 c|
 	bes4 r8 es f4 r8 f|
 	g4 r8 g e4 r 8 e|
-	\property VoiceOne.crescendoText = "cresc."
-	\property VoiceOne.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	c'1\p\< ~|
 	c~|
 	c~|
@@ -158,8 +158,8 @@ oboe1 = \notes \relative c'' {
 	)g2. fis4\sf(|
 	)g4 r r2|
 	R1*5|
-	\property VoiceOne.crescendoText = "cresc."
-	\property VoiceOne.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	e2.\p\< (f4|
 	e d b)g|
 	g'2.(a4 g2)f|
@@ -171,8 +171,8 @@ oboe1 = \notes \relative c'' {
 	a~|
 	a~|
 	a|
-	\property VoiceOne.crescendoText = "cresc."
-	\property VoiceOne.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	f2.\<( g4|
 	f e cis)a|
 	\!a'2\ff c|
@@ -187,8 +187,8 @@ oboe1 = \notes \relative c'' {
 	es(d es)c|
 	b r r2|
 	r r4 r8 d|
-	\property VoiceOne.crescendoText = "cresc."
-	\property VoiceOne.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	es4\< r r2|
 	r r4 r8 es|
 	f4 r r r8 f|
@@ -224,8 +224,8 @@ oboe1 = \notes \relative c'' {
 	es d b)g|
 	g'2.(as4|
 	g2)f|
-	\property VoiceOne.crescendoText = "cresc."
-	\property VoiceOne.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	es2.\<( f4|
 	es d b)g|
 	c1|
@@ -234,8 +234,8 @@ oboe1 = \notes \relative c'' {
 	f\f|
 	g\p|
 	g\f|
-	\property VoiceOne.crescendoText = "cresc."
-	\property VoiceOne.crescendoSpanner = "dashed-line"
+	\property Voice.crescendoText = "cresc."
+	\property Voice.crescendoSpanner = "dashed-line"
 	c\p\<~|
 	c~|
 	c~|

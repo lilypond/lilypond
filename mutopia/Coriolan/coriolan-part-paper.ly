@@ -9,6 +9,14 @@
 		\VoiceContext
 		%dynamicPadding = #5  % urg, in \pt
 		%dynamicMinimumSpace = #10  % urg, in \pt
+		\remove Rest_engraver;
+		\remove Slur_engraver;
+		\remove Tie_engraver;
+	}
+	\translator {
+		\StaffContext
+%		\consists Slur_engraver;
+		\consists Tie_engraver;
 	}
 	\translator {
 		\VoiceContext
@@ -36,6 +44,8 @@
 	}
 	\translator { 
 		\ScoreContext skipBars = ##t 
+		%% urg: in pt?
+		barNumberScriptPadding = #15
 		%% URG: this changes dynamics too
 		%%textStyle = #"italic"
 		timeSignatureStyle = #"C"

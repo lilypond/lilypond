@@ -15,6 +15,32 @@
 #include "moment.hh"
 #include "duration.hh"
 
+int
+compare (Array<Duration>* left, Array<Duration>* right)
+{
+  assert (left);
+  assert (right);
+  
+  if (left->size () == right->size ())
+    {
+      for (int i = 0; i < left->size (); i++)
+	{
+	  int r = Duration::compare ((*left)[i], (*right)[i]);
+	  if (r)
+	    return r;
+	}
+    }
+  else
+    return 1;
+  return 0;
+}
+
+int
+Duration::compare (Duration const &left, Duration const &right)
+{
+  return Rational::compare (left.length_mom (), right.length_mom ());
+}
+
 Duration::Duration ()
 {
   durlog_i_ = 0;

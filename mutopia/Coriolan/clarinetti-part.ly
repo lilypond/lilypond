@@ -12,8 +12,8 @@ copyright =	 "public domain";
 \include "global.ly"
 \include "clarinetti.ly"
 \score{
-	\$clarinetti_staff
-	\include "coriolan-part-paper.ly"
+	\clarinettiStaff
+	\include "coriolan-part-combine-paper.ly"
 	\include "coriolan-midi.ly"
 }
 

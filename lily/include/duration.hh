@@ -25,6 +25,7 @@ struct Duration {
   void set_plet (int,int );
   void compress (Rational);
   Rational length_mom () const ;
+  static int compare (Duration const&, Duration const&);
 
   /// Logarithm of the base duration.
   int durlog_i_;
@@ -37,5 +38,11 @@ struct Duration {
   int tuplet_type_i_; 
 
 };
+
+#include "compare.hh"
+INSTANTIATE_COMPARE(Duration, Duration::compare);
+
+int compare (Array<Duration>*, Array<Duration>*);
+
 #endif // DURATION_HH
 

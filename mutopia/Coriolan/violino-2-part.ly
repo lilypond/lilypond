@@ -13,7 +13,7 @@ copyright =	 "public domain";
 \include "violino-2.ly"
 
 \score{
-	\$violino2_staff 
+	\violinoIIStaff 
 	\include "coriolan-part-paper.ly"
 	\include "coriolan-midi.ly"
 }

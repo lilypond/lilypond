@@ -1,8 +1,5 @@
 \score{
-	\context Staff = one <
-		\context Voice=one { \skip 1; }
-		\context Voice=two { \skip 1; }
-
+	\context Staff <
 		\context Voice=one \partcombine Voice
 			\context Thread=one \notes\relative c''
 				{

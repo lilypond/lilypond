@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 \version "1.3.59";
 
-violino2 = \notes \relative c {
+violinoII = \notes \relative c {
 	c'1\ff ~ |
 	c |
 	<f4-. c'-. as'-.> r r2 |
@@ -448,7 +448,7 @@ violino2 = \notes \relative c {
 	c4 r r2 |
 }
 
-$violino2_staff = \context Staff = violino2 <
+violinoIIStaff = \context Staff = violino2 <
 	% MIDI hoort geeneens verschil tussen een
 	% eerste en tweede viool ;-)
 	\property Staff.midiInstrument = #"violin"
@@ -457,6 +457,6 @@ $violino2_staff = \context Staff = violino2 <
 	\notes< 
 		\global
 		\context Voice=violinoii
-			\$violino2
+			\violinoII
 	>
 >

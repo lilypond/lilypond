@@ -416,9 +416,9 @@ Put this in @file{~/.emacs}:
 (server-start)
 @end example
 
-For column positioning, apply @uref{this
-patch,http://www.cs.uu.nl/~hanwen/software/emacsclient-column} to
-@code{emacsclient.c} and @code{server.el}. Stick the compiled
+For column positioning, apply
+@uref{http://www.cs.uu.nl/~hanwen/software/emacsclient-column, this
+patch} to @code{emacsclient.c} and @code{server.el}. Stick the compiled
 emacsclient into a bin directory, and put @code{server.el} into a elisp
 directory (eg. @file{~/usr/share/emacs/}). Add the following to your
 @file{.emacs} init file, before invoking server-start.
@@ -438,18 +438,19 @@ src specials. You're better off using plain xdvi.
 
 Click control-mouse button 2 for making emacs jump to the appropriate place.
 
-For column positioning you must install this @uref{patch,
-http://www.cs.uu.nl/~hanwen/software/xdvik-src} to make Xdvik emit
-column numbers. Add the command line option @code{-srceditorcommand
-"emacsclient --no-wait +%l:%c %f"}
+For column positioning you must install
+@uref{http://www.cs.uu.nl/~hanwen/software/xdvik-src, this patch} to
+make Xdvik emit column numbers. Add the command line option
+@code{-srceditorcommand "emacsclient --no-wait +%l:%c %f"}
 
 Xdvi
 
 @uref{Xdvi,ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz} has
-better support for src specials. Apply @uref{this patch,
-http://www.cs.uu.nl/~hanwen/software/xdvi-src}. Before starting, set the
-environment variable @code{XEDITOR} to @code{"emacsclient --no-wait +%d
-%s"}.  When viewing, control-mousebutton 1 will take you to the correct
+better support for src specials. Apply
+@uref{http://www.cs.uu.nl/~hanwen/software/xdvi-src, this patch}. Before
+starting, set the environment variable @code{XEDITOR} to
+@code{"emacsclient --no-wait +%d %s"}.  When viewing,
+control-mousebutton 1 will take you to the correct
 line/column. Control-mousebutton 2 will show all clickable boxes.
 
 dvips:

@@ -26,7 +26,8 @@ void
 A2_devnull_engraver::acknowledge_element (Score_element_info i)
 {
   if (daddy_trans_l_->id_str_ == "two"
-      && to_boolean (get_property ("unison"))
+      && (to_boolean (get_property ("unison"))
+	  || to_boolean (get_property ("unisilence")))
       && to_boolean (get_property ("soloADue")))
     i.elem_l_->suicide ();
 }

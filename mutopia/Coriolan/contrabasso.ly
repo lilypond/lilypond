@@ -191,15 +191,15 @@ contrabasso = \notes \relative c {
 	c4 r r2 |
 }
 
-$contrabasso_staff = \context Staff = contrabasso <
-	\property Staff.midiInstrument = #"contrabass"
-	\property Staff.instrument = #"Contrabasso"
-	\property Staff.instr = #"Cb."
-	\property Staff.transposing = #-12
-	\clef "bass";
-	\notes \context Voice=one< 
-		\global
-		\$contrabasso
-	>
->
+%%%contrabassoStaff = \context Staff = contrabasso <
+%%%	\property Staff.midiInstrument = #"contrabass"
+%%%	\property Staff.instrument = #"Contrabasso"
+%%%	\property Staff.instr = #"Cb."
+%%%	\property Staff.transposing = #-12
+%%%	\clef "bass";
+%%%	\notes \context Voice=one< 
+%%%		\global
+%%%		\contrabasso
+%%%	>
+%%%>
 

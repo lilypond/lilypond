@@ -137,10 +137,12 @@ Slur::encompass_offset (Score_element*me,
       && !stem_l->extent (Y_AXIS).empty_b ())
     {
       o[Y_AXIS] = stem_l->relative_coordinate (common[Y_AXIS], Y_AXIS); // iuhg
+      o[Y_AXIS] += stem_l->extent (Y_AXIS)[dir];
     }
   else
     {
       o[Y_AXIS] = col->relative_coordinate (common[Y_AXIS], Y_AXIS);	// ugh
+      o[Y_AXIS] += col->extent (Y_AXIS)[dir];
     }
 
   /*
@@ -207,7 +209,6 @@ Slur::get_attachment (Score_element*me,Direction dir,
   Real hs = ss / 2.0;
   Offset o;
 
-
   if (Note_column::has_interface (sp->get_bound (dir)))
     {
       Score_element * n =sp->get_bound (dir);
@@ -252,6 +253,11 @@ Slur::get_attachment (Score_element*me,Direction dir,
 		{
 		  o = Offset (0, get_attachment (me, -dir, common)[Y_AXIS]);
 		}
+	      else if (dir == RIGHT)
+		{
+		  o[X_AXIS] = (sp->get_bound (dir)->relative_coordinate (common[X_AXIS], X_AXIS) 
+			       - me->relative_coordinate (common[X_AXIS], X_AXIS));
+		}
 	    }
 
 	  
@@ -279,6 +285,7 @@ Slur::get_attachment (Score_element*me,Direction dir,
       o[Y_AXIS] += sp->get_bound (dir)->relative_coordinate (common[Y_AXIS], Y_AXIS) 
 	- me->relative_coordinate (common[Y_AXIS], Y_AXIS);
     }
+
   return o;
 }
 
@@ -439,11 +446,18 @@ Slur::set_control_points (Score_element*me)
 
   SCM controls = SCM_EOL;
   for (int i= 4; i--;)
-    controls = gh_cons ( ly_offset2scm (b.control_[i]), controls);
+    {
+      controls = gh_cons ( ly_offset2scm (b.control_[i]), controls);
+      /*
+	BRRR WHURG.
+	All these null control-points, where do they all come from?
+      */
+      if (i && b.control_[i][X_AXIS] == 0)
+	me->suicide ();
+    }
 
   me->set_elt_property ("control-points", controls);
 }
-  
   
 Bezier
 Slur::get_curve (Score_element*me) 
@@ -457,20 +471,19 @@ Slur::get_curve (Score_element*me)
   
   if (!gh_pair_p (me->get_elt_property ("control-points")))
     set_control_points (me);
-  
-  
+
   for (SCM s= me->get_elt_property ("control-points"); s != SCM_EOL; s = gh_cdr (s))
     {
       b.control_[i] = ly_scm2offset (gh_car (s));
       i++;
     }
-  
+
   Array<Offset> enc (get_encompass_offset_arr (me));
   Direction dir = Directional_element_interface (me).get ();
   
   Real x1 = enc[0][X_AXIS];
   Real x2 = enc.top ()[X_AXIS];
-  
+
   Real off = 0.0;
   for (int i=1; i < enc.size ()-1; i++)
     {

@@ -167,6 +167,15 @@ public:
   VIRTUAL_COPY_CONS (Music);
 };
 
+/**
+   What rhythms have ben acked ?
+ */
+class Rhythm_interrogate_req : public Request
+{
+public:
+  Array<Duration> duration_arr_;
+  VIRTUAL_COPY_CONS (Music);
+};
 
 
 /**

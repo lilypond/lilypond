@@ -145,7 +145,7 @@ timpani = \notes \relative c {
 	R1*18|
 }
 
-$timpani_staff = \context Staff = timpani <
+timpaniStaff = \context Staff = timpani <
 	\property Staff.midiInstrument = #"timpani"
 	\property Staff.instrument = #"2 Timpani\n(C-G)"
 	\property Staff.instr = #"Timp."
@@ -154,7 +154,7 @@ $timpani_staff = \context Staff = timpani <
 %		\global
 		\time 4/4;
 		\context Voice=timpani
-			\$timpani
+			\timpani
 	>
 >
 
