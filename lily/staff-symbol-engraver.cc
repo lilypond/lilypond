@@ -54,8 +54,8 @@ Staff_symbol_engraver::do_creation_processing()
 void
 Staff_symbol_engraver::do_removal_processing()
 {
-  SCM n = get_property ("numberOfStaffLines",0);
-  SCM ss = get_property ("staffSpace", 0);
+  SCM n = get_property ("numberOfStaffLines");
+  SCM ss = get_property ("staffSpace");
 
   if (gh_number_p (ss))
     span_p_->set_elt_property ("staff-space", ss);

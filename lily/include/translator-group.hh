@@ -39,7 +39,7 @@ protected:
   Cons_list<Translator> trans_p_list_;
 
 public:
-  SCM get_property (SCM name_sym, Translator_group  **where_found_l) const;
+  SCM get_property (SCM name_sym) const;
   void set_property (String var_name, SCM value);
   
 

@@ -62,8 +62,8 @@ public:
     */
   Music_output_def *output_def_l () const;
 
-  SCM get_property (String, Translator_group **) const;
-  SCM get_property (SCM symbol, Translator_group **) const;
+  SCM get_property (String) const;
+  SCM get_property (SCM symbol) const;
   
   virtual Moment now_mom () const;  
 

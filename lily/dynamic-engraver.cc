@@ -139,16 +139,16 @@ Dynamic_engraver::do_process_requests()
 	  /*
 	    UGH UGH 
 	   */
-	  SCM prop = get_property ("dynamicDirection", 0);
+	  SCM prop = get_property ("dynamicDirection");
 	  if (!isdir_b (prop))
 	    {
-	      prop = get_property ("verticalDirection", 0);
+	      prop = get_property ("verticalDirection");
 	    }
 
 	  if (isdir_b (prop) && to_dir (prop))
 	    text_p_->set_elt_property ("direction", prop);
 
-	  prop = get_property ("dynamicPadding", 0);
+	  prop = get_property ("dynamicPadding");
 	  if (gh_number_p(prop))
 	    {
 	      text_p_->set_elt_property ("padding", prop);

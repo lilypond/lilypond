@@ -429,20 +429,16 @@ Translator_group::do_add_processing ()
 }
 
 SCM
-Translator_group::get_property (SCM sym, Translator_group **where_l) const
+Translator_group::get_property (SCM sym) const
 {
   if (properties_dict_.elem_b (sym))
     {
-      if (where_l)
-	*where_l = (Translator_group*) this; // ugh
       return properties_dict_.get (sym);
     }
 
   if (daddy_trans_l_)
-    return daddy_trans_l_->get_property (sym, where_l);
+    return daddy_trans_l_->get_property (sym);
   
-  if (where_l)
-    *where_l = 0;
 
   return SCM_UNDEFINED;
 }

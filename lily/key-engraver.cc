@@ -87,7 +87,7 @@ Key_engraver::acknowledge_element (Score_element_info info)
 {
   if (dynamic_cast <Clef_change_req *> (info.req_l_)) 
     {
-      SCM c =  get_property ("createKeyOnClefChange", 0);
+      SCM c =  get_property ("createKeyOnClefChange");
       if (to_boolean (c))
 	create_key ();
     }
@@ -133,7 +133,7 @@ Key_engraver::read_req (Key_change_req const * r)
 {
   old_accidental_idx_arr_ = accidental_idx_arr_;
   key_.clear ();
-  SCM prop = get_property ("keyOctaviation", 0);
+  SCM prop = get_property ("keyOctaviation");
 
   key_.multi_octave_b_ = to_boolean (prop);
   

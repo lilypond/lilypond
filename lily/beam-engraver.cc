@@ -158,7 +158,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 
       bool stem_grace = stem_l->get_elt_property ("grace") == SCM_BOOL_T;
 
-      SCM wg =get_property ("weAreGraceContext",0);
+      SCM wg =get_property ("weAreGraceContext");
       bool wgb= to_boolean (wg);
 
       if (wgb!= stem_grace)

@@ -28,7 +28,7 @@ Stem_engraver::Stem_engraver()
 void
 Stem_engraver::do_creation_processing ()
 {
-  SCM prop = get_property ("abbrev", 0);
+  SCM prop = get_property ("abbrev");
   if (gh_number_p(prop)) 
     {
       default_abbrev_i_  = gh_scm2int (prop);
@@ -99,18 +99,17 @@ Stem_engraver::do_pre_move_processing()
 
   if (stem_p_)
     {
-      Translator_group* which;
-      SCM prop = get_property ("stemLeftBeamCount", &which);
+      SCM prop = get_property ("stemLeftBeamCount");
       if (gh_number_p(prop))
 	{
 	  stem_p_->set_beaming (gh_scm2int (prop),LEFT);
-	  ((Translator_group*)which)->set_property ("stemLeftBeamCount", SCM_UNDEFINED);
+	  daddy_trans_l_->set_property ("stemLeftBeamCount", SCM_UNDEFINED);
 	}
-      prop = get_property ("stemRightBeamCount", &which);
+      prop = get_property ("stemRightBeamCount");
       if (gh_number_p(prop))
 	{
 	  stem_p_->set_beaming (gh_scm2int (prop), RIGHT);
-	  ((Translator_group*)which)->set_property ("stemRightBeamCount", SCM_UNDEFINED);
+	  daddy_trans_l_->set_property ("stemRightBeamCount", SCM_UNDEFINED);
 	}
 
       // UGH. Should mark non-forced instead.

@@ -73,8 +73,8 @@ Clef_engraver::set_type (String s)
   else
     octave_dir_ = CENTER;
 
-  SCM c = get_property ("supportedClefTypes",0);
-  SCM p = get_property ("clefPitches", 0);
+  SCM c = get_property ("supportedClefTypes");
+  SCM p = get_property ("clefPitches");
   
   if (gh_list_p (c))
     {
@@ -132,7 +132,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
 void
 Clef_engraver::do_creation_processing()
 {
-  SCM def = get_property ("defaultClef", 0);
+  SCM def = get_property ("defaultClef");
   if (gh_string_p (def))
     {
       set_type (ly_scm2string (def));

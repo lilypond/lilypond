@@ -37,7 +37,7 @@ Note_performer::do_process_requests ()
     {
       int transposing_i = 0;
       //urg
-      SCM prop = get_property ("transposing", 0);
+      SCM prop = get_property ("transposing");
       if (gh_number_p(prop)) 
 	transposing_i = gh_scm2int (prop);
 

@@ -29,11 +29,6 @@ Slur_engraver::do_try_music (Music *req_l)
 void
 Slur_engraver::set_melisma (bool m)
 {
-  Translator_group *where = daddy_trans_l_;
-  get_property ("slurMelismaBusy", &where);
-  if (!where)
-    where = daddy_trans_l_;
-    
   daddy_trans_l_->set_property ("slurMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
@@ -58,7 +53,7 @@ Slur_engraver::do_removal_processing ()
       typeset_element (slur_l_stack_[i]);
     }
   slur_l_stack_.clear ();
-  SCM wg = get_property ("weAreGraceContext",0);
+  SCM wg = get_property ("weAreGraceContext");
   bool wgb = to_boolean (wg);
   if (!wgb)
     for (int i=0; i < requests_arr_.size(); i++)
@@ -115,7 +110,7 @@ void
 Slur_engraver::do_post_move_processing()
 {
   new_slur_req_l_arr_.clear();
-  SCM m = get_property ("automaticMelismata",0);
+  SCM m = get_property ("automaticMelismata");
   if (to_boolean (m))
     {
       set_melisma (slur_l_stack_.size ());

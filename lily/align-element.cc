@@ -30,6 +30,12 @@ Align_element::do_pre_processing ()
 void
 Align_element::do_side_processing ()
 {
+  SCM d = get_elt_property ("stacking-dir");
+  Direction stacking_dir = gh_number_p(d) ? to_dir (d) : CENTER;
+  if (!stacking_dir)
+    stacking_dir = DOWN;
+
+  
   Array<Interval> dims;
 
   Link_array<Score_element> elems;
@@ -66,15 +72,11 @@ Align_element::do_side_processing ()
     }
 
   Real where_f=0;
-  Real center_f = 0.0;
-  SCM scenter = get_elt_property ("center-element");
-  Score_element *center_elt = unsmob_element (scenter);
-  
   for (int i=0 ;  i < elems.size(); i++) 
     {
-      Real dy = - stacking_dir_ * dims[i][-stacking_dir_];
+      Real dy = - stacking_dir * dims[i][-stacking_dir];
       if (i)
-	dy += stacking_dir_ * dims[i-1][stacking_dir_];
+	dy += stacking_dir * dims[i-1][stacking_dir];
 
       if (i)
 	{
@@ -82,31 +84,15 @@ Align_element::do_side_processing ()
 	    <? threshold_interval_[BIGGER];
 	}
 
-      if (!i && align_dir_ == LEFT)
-	center_f = where_f;
-      else if (align_dir_ == CENTER && elems[i] == center_elt)
-	center_f = where_f;
 
-      where_f += stacking_dir_ * dy;
+      where_f += stacking_dir * dy;
       elems[i]->translate_axis (where_f, axis ());
     }
-
-  if (dims.size ())
-    where_f += dims.top ()[stacking_dir_];
-  if (align_dir_ == RIGHT)
-    center_f = where_f;
-  else if (align_dir_ == CENTER && !center_elt)
-    center_f = where_f / 2;
-    
-  if (center_f)
-    translate_axis ( - center_f, axis ());
 }
 
 Align_element::Align_element()
 {
   threshold_interval_ = Interval (0, Interval::infinity ());
-  stacking_dir_ = DOWN;
-  align_dir_ = CENTER;
 }
 
 int

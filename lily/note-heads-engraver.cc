@@ -58,7 +58,7 @@ Note_heads_engraver::do_process_requests()
   if (note_p_arr_.size ())
     return ;
   
-  SCM noteheadstyle = get_property ("noteHeadStyle", 0);
+  SCM noteheadstyle = get_property ("noteHeadStyle");
   for (int i=0; i < note_req_l_arr_.size (); i++)
     {
       Note_head *note_p  = new Note_head;

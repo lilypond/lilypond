@@ -81,7 +81,7 @@ Text_engraver::do_process_requests ()
       Text_item *text = new Text_item;
       Side_position_interface stafy (text);
 
-      SCM axisprop = get_property ("scriptHorizontal",0);
+      SCM axisprop = get_property ("scriptHorizontal");
       if (to_boolean (axisprop))
 	{
 	  stafy.set_axis (X_AXIS);
@@ -102,7 +102,7 @@ Text_engraver::do_process_requests ()
       if (r->style_str_.length_i ())
 	text->set_elt_property ("style", ly_str02scm (r->style_str_.ch_C()));
       
-      SCM empty = get_property ("textEmptyDimension", 0);
+      SCM empty = get_property ("textEmptyDimension");
       if (to_boolean (empty))
 	{
 	  text->set_empty (X_AXIS);

@@ -94,7 +94,7 @@ Script_engraver::do_process_requests()
       if (l->get_direction ())
 	stafy.set_direction (l->get_direction ());
 
-      SCM axisprop = get_property ("scriptHorizontal",0);
+      SCM axisprop = get_property ("scriptHorizontal");
       bool xaxis = to_boolean (axisprop);
       if (xaxis)
 	stafy.set_axis (X_AXIS);
@@ -119,7 +119,7 @@ void
 Script_engraver::acknowledge_element (Score_element_info inf)
 {
   bool them_grace = to_boolean (inf.elem_l_->get_elt_property ("grace"));
-  bool us_grace = to_boolean (get_property ("weAreGraceContext",0));
+  bool us_grace = to_boolean (get_property ("weAreGraceContext"));
 
   if (us_grace != them_grace)
     return;

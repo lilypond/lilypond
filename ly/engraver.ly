@@ -214,8 +214,8 @@ StaffGroupContext= \translator {
 	\type "Engraver_group_engraver";
 	\consists "Span_bar_engraver";
 	\consists "Output_property_engraver";	
-	
 	\consists "Staff_group_bar_engraver";
+
 	\name StaffGroup;
 	\accepts "Staff";
 	\accepts "RhythmicStaff";
@@ -246,6 +246,7 @@ LyricsContext = \translator {
 	\name Lyrics;
 	\consists Vertical_align_engraver;%need this for getting folded repeats right.
 
+	\consists "Property_engraver";
 	\consistsend "Axis_group_engraver";
 	
 	\accepts "LyricVoice";
@@ -340,7 +341,7 @@ ScoreContext = \translator {
 	\accepts "NoteNames";
 
 	markVisibilityFunction = #end-of-line-invisible
-	barNumberVisibilityFunction = #end-of-line-invisible
+	barNumberVisibilityFunction = #begin-of-line-visible
 	marginVisibilityFunction = #begin-of-line-visible
 };
 
@@ -354,8 +355,6 @@ OrchestralScoreContext= \translator {
 
 	\consists "Bar_number_engraver";
 	\consists "Mark_engraver";
-
-	\accepts "HaraKiriStaff";
 };
 
 \translator {

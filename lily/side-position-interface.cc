@@ -111,7 +111,7 @@ Side_position_interface::side_position (Dimension_cache const * c)
   return total_off;
 }
 
-/*
+/**
   callback that centers the element on itself
  */
 Real

@@ -23,7 +23,7 @@ Vertical_align_engraver::do_creation_processing()
 {
   valign_p_ =new Axis_align_spanner;
   valign_p_->set_axis (Y_AXIS);
-  valign_p_->stacking_dir_ = DOWN;
+  valign_p_->set_elt_property ("stacking-dir",  gh_int2scm (DOWN));
   
   valign_p_->set_bounds(LEFT,get_staff_info().command_pcol_l ());
   announce_element (Score_element_info (valign_p_ , 0));
@@ -32,23 +32,18 @@ Vertical_align_engraver::do_creation_processing()
 void
 Vertical_align_engraver::do_removal_processing()
 {
-  SCM dist (get_property ("maxVerticalAlign", 0));
+  SCM dist (get_property ("maxVerticalAlign"));
   if (gh_number_p(dist))
     {
       valign_p_->threshold_interval_[BIGGER]  = gh_scm2double (dist);
     }
 
-  dist = get_property ("minVerticalAlign", 0);
+  dist = get_property ("minVerticalAlign");
   if (gh_number_p(dist))
     {
       valign_p_->threshold_interval_[SMALLER]  = gh_scm2double (dist);
     }
 
-  dist = get_property ("alignmentReference",0);
-  if (isdir_b (dist))
-    {
-      valign_p_->align_dir_ = to_dir (dist);
-    }
   valign_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (valign_p_);
   valign_p_ =0;

@@ -22,26 +22,28 @@
   TODO: implement padding.
 
   document usage of this.
- */
+
+
+
+  *******
+  
+  element properties
+
+  stacking-dir
+  
+  Which side to align?  -1: left side, 0: centered (around
+     center_l_ if not nil, or around center of width), 1: right side
+
+  *****
+
+  align-dir: deprecate! Use Side_pos_interface::self_align
+  
+
+*/
 class Align_element : public virtual Axis_group_element {
 public:
   Interval threshold_interval_ ;
 
-  /**
-     Should high priorities be first or last?
-   */
-    
-  Direction stacking_dir_;
-
-  /**
-     Which side to align?  -1: left side, 0: centered (around
-     center_l_ if not nil, or around center of width), 1: right side
-
-     URG. Unintuitive if stacking_dir_ == -1 
-  */
-
-  Direction align_dir_;
-  
   Axis axis () const;
   
   Align_element ();

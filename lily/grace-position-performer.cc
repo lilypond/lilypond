@@ -61,7 +61,7 @@ Grace_position_performer::process_acknowledged ()
 	    shortest_mom = shortest_mom <? notes_[i]->length_mom_;
 	  
 	  Rational grace_fraction_rat (1, 2);
-	  SCM prop = get_property ("graceFraction", 0);
+	  SCM prop = get_property ("graceFraction");
 	  if (SMOB_IS_TYPE_B(Moment, prop))
 	    grace_fraction_rat = *SMOB_TO_TYPE (Moment,prop);
 
