@@ -1,9 +1,9 @@
 % "Ah,  vous dirais-je, maman" (Mozart, KV 265)
 % 
-% \bare bones version. (written down from memory :-)
+% bare bones version. (written down from memory :-)
 % for lyrics, see twinkle.ly
 
-% the % is a co\mment.
+% the % is a comment.
 %
 % copyright: None
 %
@@ -36,13 +36,13 @@ melodie = \melodic{
 begeleiding = \melodic{
 	\clef "bass"
 	\meter{ 2/4 }
-	\octave{ c' } 		% default octave: 1 below the first octave.
+	\octave{ c } 		% default octave: 1 below the first octave.
 
 	%%% theme
-	'c			% ' means one octave lower.
-				% Similarly: ' means one higher.
+	'c			% ' before note means one octave lower.
+				% Similarly: ' after means one higher.
 	   c	e c	f c	e c	d 'b	c 'a	'f 'g	'c2
-	\octave { ' }
+	\octave { 'c }
 	e 'g	d 'g	c 'g	'b 'g	e 'g	d 'g	c 'g	'b 'g
 	%%%% var 1
 	r8 e8() c  	r8 e8() c  	r8 f8()c 	r8 e8()c
@@ -50,8 +50,8 @@ begeleiding = \melodic{
 }
 
 \score{
-	\staff{ melodie }
-	\staff{ begeleiding }
+	\staff{ melodicregs melodie }
+	\staff{ melodicregs begeleiding }
 	\paper{
 		\unitspace 2.5\cm	% a whole note takes 2.5 \cm ideally.
 	}

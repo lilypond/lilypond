@@ -1,7 +1,3 @@
-%%%%%%%%% HAS TO BE ADJUSTED to pl32
-
-
-% martien.ly
 %
 % Viola Quartet
 % Martien Lohman (194x-????) 
@@ -9,7 +5,6 @@
 % quite alive at the time of writing; 
 % copyright by ml
 %
-% lilypond: src/\stem.cc:42: void Stem::set_\stemend(double): Assertion `(dir > 0 && se >= maxnote) || (se <= minnote && dir <0)' failed.
 % 
 % The purpose of this file is to demonstrate features of LilyPond;
 % respect the copyright.
