@@ -1,3 +1,9 @@
+2004-07-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/font.scm (add-cmr-fonts): upright caps is eccc.
+
+	* Documentation/GNUmakefile (README_TOP_FILES): add THANKS.txt.
+
 2004-07-02  Carl Sorensen  <carldsorensen@comcast.net>
 
 	* scm/output-ps.scm (white-text): Add scale paramter to allow scaling
