@@ -70,7 +70,7 @@ enddef;
 % Some sources (eg Musix/OpusTeX think that the appendage should be on
 % the left, some say right. Right wins democratically.
 %
-def draw_longa (expr wid) =
+def draw_neo_longa (expr wid) =
 	draw_brevis(wid);
 	save theta;
 
@@ -91,15 +91,15 @@ enddef;
 %
 % (ze is wel breed)
 % 
-fet_beginchar("Maxima notehead", "-3mensural", "mensuralmaximahead");
-	draw_longa (1.3 brevis_wid#)
+fet_beginchar("Maxima notehead", "-3neo_mensural", "mensuralmaximahead");
+	draw_neo_longa (1.3 brevis_wid#)
 fet_endchar;
 
-fet_beginchar("Longa notehead", "-2mensural", "mensurallongahead");
-	draw_longa (brevis_wid#)
+fet_beginchar("Longa notehead", "-2neo_mensural", "mensurallongahead");
+	draw_neo_longa (brevis_wid#)
 fet_endchar;
 
-fet_beginchar("Brevis notehead", "-1mensural", "mensuralbrevishead")
+fet_beginchar("Brevis notehead", "-1neo_mensural", "mensuralbrevishead")
 	draw_brevis(brevis_wid#);
 fet_endchar;
 
@@ -141,18 +141,43 @@ def draw_neo_mensural_open_head (expr wid)=
 	unfill z5 -- z6 -- z7 -- z8 --cycle;
 enddef;
 
-fet_beginchar("Neo-mensural open head","0neo_mensural","neomensuralminimhead")
+fet_beginchar("Neo-mensural open head","0neo_mensural","neomensuralsemibrevishead")
       draw_neo_mensural_open_head (staff_space#);
 fet_endchar;
 
-fet_beginchar("Neo-mensural open head","1neo_mensural","neomensuralsemiminimhead")
+fet_beginchar("Neo-mensural open head","1neo_mensural","neomensuralminimahead")
       draw_neo_mensural_open_head (staff_space#);
 fet_endchar;
 
-fet_beginchar("Neo-mensural black head","2neo_mensural","neofusahead")
+fet_beginchar("Neo-mensural black head","2neo_mensural","neomensuralsemiminimahead")
       draw_neo_mensural_black_head (staff_space#);
 fet_endchar;
 
+
+brevis_wid# := 1 staff_space#;
+
+def draw_longa (expr wid) =
+	draw_brevis(wid);
+	save theta;
+
+	x6 = x7 = head_width - stem_width/2;
+	y6 = y5;
+	y7 = y5 - 2.25staff_space;
+	pickup pencircle scaled stem_width;
+	draw z6 .. z7;
+enddef;
+
+fet_beginchar("Maxima notehead", "-3mensural", "mensuralmaximahead");
+	draw_longa (2.0 brevis_wid#)
+fet_endchar;
+
+fet_beginchar("Longa notehead", "-2mensural", "mensurallongahead");
+	draw_longa (brevis_wid#)
+fet_endchar;
+
+fet_beginchar("Brevis notehead", "-1mensural", "mensuralbrevishead")
+	draw_brevis(brevis_wid#);
+fet_endchar;
 
 def draw_mensural_head (expr wid, open) =
       save head_width;
@@ -188,15 +213,15 @@ def draw_mensural_head (expr wid, open) =
 enddef;
 
 
-fet_beginchar("Mensural open head","0mensural","mensuralminimhead")
+fet_beginchar("Mensural open head","0mensural","mensuralsemibrevishead")
 	draw_mensural_head (staff_space#, true);
 fet_endchar;
 
-fet_beginchar("Mensural open head","1mensural","mensuralsemiminimhead")
+fet_beginchar("Mensural open head","1mensural","mensuralminimahead")
 	draw_mensural_head (staff_space#, true);
 fet_endchar;
 
-fet_beginchar("Mensural black head","2mensural","fusahead")
+fet_beginchar("Mensural black head","2mensural","mensuralsemiminimahead")
 	draw_mensural_head (staff_space#, false);
 fet_endchar;
 

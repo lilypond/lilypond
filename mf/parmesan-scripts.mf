@@ -1,0 +1,46 @@
+% -*-Fundamental-*-
+% parmesan-scripts.mf -- implement ancient script symbols
+% 
+% source file of LilyPond's pretty-but-neat music font
+% 
+% (c) 2002 Juergen Reuter <reuter@ipd.uka.de>
+% 
+
+fet_begingroup ("scripts")
+
+def draw_fermata =
+	save za, zb, zc, zd, ze, zf, zg, zh;
+	pair za, zb, zc, zd, ze, zf, zg, zh;
+
+	set_char_box(staff_space#/2, staff_space#/2,
+		     5/2*stafflinethickness#, 2staff_space#);
+
+	pickup pencircle
+		xscaled 1.0 stafflinethickness
+		yscaled 5.0 stafflinethickness
+		rotated -35;
+	za = (+0.50staff_space, +2.00staff_space);
+	zb = (+0.00staff_space, +2.00staff_space);
+	zc = (-0.50staff_space, +1.50staff_space);
+	zd = (-0.25staff_space, +1.00staff_space);
+	ze = (+0.10staff_space, +0.80staff_space);
+	zf = (+0.00staff_space, +0.00staff_space);
+	draw za{-1,+1} .. zb .. zc .. zd .. ze .. zf;
+
+	pickup pencircle scaled 3.0 stafflinethickness;
+	zg = (-0.5staff_space, +0.0staff_space);
+	zh = (+0.5staff_space, +0.0staff_space);
+	drawdot zg;
+	drawdot zh;
+enddef;
+
+fet_beginchar("fermata up", "ufermata", "ufermata")
+	draw_fermata;	
+fet_endchar;
+
+fet_beginchar("fermata down", "dfermata", "dfermata")
+	draw_fermata;
+	y_mirror_char;
+fet_endchar;
+
+fet_endgroup ("scripts")

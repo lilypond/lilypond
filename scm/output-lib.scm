@@ -64,11 +64,12 @@
 (define (find-notehead-symbol duration style)
   (case style
    ((xcircle) "2xcircle")
-   ((harmonic) "0mensural")
+   ((harmonic) "0neo_mensural")
    ((baroque) 
     (string-append (number->string duration)
-		   (if (< duration 0) "mensural" "")))
+		   (if (< duration 0) "neo_mensural" "")))
    ((mensural) (string-append (number->string duration) (symbol->string style)))
+   ((neo_mensural) (string-append (number->string duration) (symbol->string style)))
    ((default) (number->string duration))
    (else
     (string-append (number->string (max 0 duration)) (symbol->string style)))))

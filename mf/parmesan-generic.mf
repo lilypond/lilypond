@@ -1,11 +1,10 @@
-% 
-% feta-generic.mf --  implement generic stuff: include lots of files, but don't
-%  set dims.
+% -*-Fundamental-*-
+% parmesan-generic.mf --  implement generic stuff: include lots of files,
+% but don't set dims.
 %
-% source file of the Feta (defintively not an abbreviation for Font-En-Tja)
-% music font
+% source file of LilyPond's pretty-but-neat music font
 % 
-% (c) 1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+% (c) 2002 Juergen Reuter <reuter@ipd.uka.de>
 % 
 
 
@@ -32,6 +31,7 @@ if test = 0:
 	input parmesan-accidentals;
 	input parmesan-flags;
 	input parmesan-timesig;
+	input parmesan-scripts;
 
 else:
 
