@@ -426,6 +426,19 @@ if 1:
 
 	conversions.append ((1,3,35), conv, 'textEmptyDimension -> textNonEmpty')
 
+if 1:
+	def conv (str):
+		str = re.sub ("([a-z]+)[ \t]*=[ \t]*\\\\musicalpitch *{([- 0-9]+)} *\n",
+			      "(\\1 . (\\2))\n", str)
+		str = re.sub ("\\\\musicalpitch *{([0-9 -]+)}",
+			      "\\\\musicalpitch #'(\\1)", str)
+		if re.search ('\\\\notenames',str):
+			sys.stderr.write ('\nNot smart enough to convert to new \\notenames format')
+		return str
+
+	conversions.append ((1,3,38), conv, '\musicalpitch { a b c } -> #\'(a b c)')
+
+
 ############################
 	
 

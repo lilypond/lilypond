@@ -23,12 +23,16 @@
 struct Musical_pitch : public Input
 {
   Musical_pitch (int notename=0, int accidental=0, int octave=0);
+
+  /// construct from  '(octave name acc)
   Musical_pitch (SCM);
 
   /// 0 is c, 6 is b
   int notename_i_;
+  
   /// 0 natural, 1 sharp, etc
   int accidental_i_;
+
   /// 0 is central c
   int octave_i_;
 
