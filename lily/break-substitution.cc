@@ -478,10 +478,17 @@ substitute_mutable_property_alist (SCM alist)
       else
 	val = do_break_substitution (val);
 
-      *tail = scm_cons (scm_cons (sym, val), SCM_EOL);
-      tail = SCM_CDRLOC (*tail);
-    }
 
+      if (val != SCM_UNDEFINED)
+	{
+	  /*
+	    for ly:grob? properties, SCM_UNDEFINED could leak out
+	    through ly:grob-property
+	   */
+	  *tail = scm_cons (scm_cons (sym, val), SCM_EOL);
+	  tail = SCM_CDRLOC (*tail);
+	}
+    }
   return l;
 }
 
