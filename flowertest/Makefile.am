@@ -7,13 +7,13 @@ bin_PROGRAMS = test
 
 TESTS = $(top_srcdir)/flowertest/check.sh
 
-test_SOURCES = 
+test_SOURCES = main.cc mat-test.cc pqtest.cc rattest.cc stringtest.cc
 
 test_LDADD = $(top_builddir)/flower/libflower.la @LEXLIB@
 
 EXTRA_DIST = result Makefile.am.wild GNUmakefile check.sh
 
-noinst_HEADERS = 
+noinst_HEADERS = flower-test.hh
 
 INCLUDES = -I$(top_srcdir)/flower/include
 

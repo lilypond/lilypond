@@ -15,6 +15,22 @@ import regsub
 import os
 import sys
 import time
+
+
+lilypath =''
+try:
+	lilypath = os.environ['LILYPOND_SOURCEDIR'] + '/'
+except KeyError:
+	try:
+		lilypath = os.environ['top_srcdir'] + '/'
+	except KeyError:
+	    print 'Please set LILYPOND_SOURCEDIR to the toplevel source, eg LILYPOND_SOURCEDIR=/home/foobar/lilypond-1.2.3/'
+
+	    sys.exit(1)
+
+lilypath = lilypath + '/bin/'
+sys.path.append(lilypath)
+ 
 from flower import *
 
 begin_autometric_re = regex.compile('@{')

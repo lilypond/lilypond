@@ -10,5 +10,11 @@ OUTFILES = $(M4FILES:%.m4=%)
 
 default: all $(OUTFILES)
 
+# ugh
+M4 = m4
+
+%.ly: $(srcdir)/%.ly.m4
+	$(M4) $< > $@
+
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
 	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
