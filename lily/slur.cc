@@ -549,8 +549,10 @@ Slur::set_control_points (Score_element*me)
       Real length = bb.curve_.control_[3][X_AXIS]; 
       Real default_height = slur_height (length, h_inf, r_0);
 
-      SCM ssb = scm_assq (ly_symbol2scm ("beautiful"), details);
-      Real sb =gh_scm2double (gh_cdr (ssb));
+      SCM ssb = me->get_elt_property ("beautiful");
+      Real sb = 0;
+      if (gh_number_p (ssb))
+	sb = gh_scm2double (ssb);
 
       bb.minimise_enclosed_area (me->paper_l(), sb);
       SCM sbf = scm_assq (ly_symbol2scm ("force-blowfit"), details);

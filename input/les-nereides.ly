@@ -20,12 +20,13 @@ cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
          (* (if (<= multiplicity 3) 0.816 0.844) 0.8))
 
 %% cpp: don't start on first column
-%% hmm, why doesn't this work?
  #(define (make-text-checker text)
   (lambda (elt)
-    (and (not (eq? #f (memq 'text-item-interface (ly-get-elt-property elt 'interfaces))))
-         (not (#f (string-match text (ly-get-elt-property elt 'text)))))
+     ;; huh, string-match undefined?
+     ;; (string-match text (ly-get-elt-property elt 'text))
+     (equal? text (ly-get-elt-property elt 'text))
     ))
+
 
 global = \notes{
     \partial 2;
@@ -58,13 +59,21 @@ treble = \context Voice=treble \notes\relative c''{
     r4 <cis\arpeggio eis a cis> r2
     %3
     r4 <cis\arpeggio fis a cis> r8.
+    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \translator Staff=bass
-    \outputproperty #(make-text-checker "m")
-	    #'extra-offset = #'(-6 . 2)
+    % Get back
+    \context Voice 
+    \outputproperty #(make-text-checker "m.d.")
+	    #'extra-offset = #'(-3 . -4)
+    % currently, this can't be (small) italic, because in the paperblock
+    % we set italic_magnifictation to get large italics.
     cis,16^2^"m.d."( <fis8 fis,> <e! e,!>
     %4
     <)dis,4 a' dis>
+    % Urg, this lifts us up to staff context
     \translator Staff=treble
+    % Get back
+    \context Voice 
     \property Voice.Slur \pop #'direction
     \property Voice.Slur \push #'direction = #1
     \property PianoStaff.connectArpeggios = ##t
@@ -77,9 +86,14 @@ treble = \context Voice=treble \notes\relative c''{
     \property Voice.TextSpanner \push #'type = #"dotted-line"
     \property Voice.TextSpanner \push #'edge-height = #'(0 . 1.5)
     \property Voice.TextSpanner \push #'edge-text = #'("8 " . "")
+    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \property Staff."c0-position" = #-13
-    \outputproperty #(make-text-checker "m")
-	    #'extra-offset = #'(-6 . 2)
+    % Get back
+    \context Voice 
+    \outputproperty #(make-text-checker "m.g.")
+	    #'extra-offset = #'(-3 . -2)
+    % currently, this can't be (small) italic, because in the paperblock
+    % we set italic_magnifictation to get large italics.
     cis''''4^"m.g."\arpeggio \spanrequest \start "text"  (
 
 #ifndef FAKE_GRACE
@@ -168,7 +182,7 @@ trebleTwo = \context Voice=trebleTwo \notes\relative c''{
 #endif
 
     \property Voice.NoteColumn \push #'force-hshift = #-0.2
-    <e,2 gis, e d>
+    <e,2 gis, e d!>
     % Hmm s/r?
     %r8 cis4. d4
     s8 cis4. d4
@@ -182,40 +196,54 @@ trebleTwo = \context Voice=trebleTwo \notes\relative c''{
 }
 
 bass = \context Voice=bass \notes\relative c{
-    \property Voice.Slur \push #'details =
-          #'((height-limit . 2.0) (ratio . 0.333) (force-blowfit . 0.5) (beautiful . 5.0))
+    % Allow ugly slurs
+    \property Voice.Slur \push #'beautiful = #5.0
     \property Voice.Slur \push #'attachment-offset = #'((0 . -3) . (0 . -6))
     \property Voice.Stem \pop #'direction
     \property Voice.Slur \push #'direction = #-1
     % huh, auto-beamer?
     r8. e,16-2( [<a8 a,> <b b,>] <cis4 cis,> |
     %2
+    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \translator Staff=treble
+    % Get back
+    \context Voice 
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #-1
     \property Voice.slurEndAttachment = #'stem
     <)a''4\arpeggio eis cis> 
     %\stemboth
     \property Voice.slurEndAttachment = ##f
+    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \translator Staff=bass
+    % Get back
+    \context Voice 
     \property Voice.Stem \pop #'direction
     \property Voice.Slur \pop #'y-free
     \property Voice.Slur \push #'y-free = #0.1
+    \property Voice.Slur \pop #'attachment-offset
+    \property Voice.Slur \push #'attachment-offset = #'((0 . -3) . (0 . -8))
     r8. cis,,16( <fis8 fis,> <gis gis,>
     %3
     \property Voice.Stem \pop #'length
     \property Voice.Stem \push #'length = #5
     <a4 a,>
+    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \translator Staff=treble
+    % Get back
+    \context Voice 
     \property Voice.Stem \pop #'length
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #-1
     <)a'\arpeggio fis cis>
+    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \translator Staff=bass
+    % Get back
+    \context Voice 
     \property Voice.Stem \pop #'direction
     r2
     %4
-    \property Voice.Slur \pop #'details
+    \property Voice.Slur \pop #'beautiful
     \property Voice.Slur \pop #'attachment-offset
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #-1
