@@ -2101,7 +2101,9 @@ petrucci style mensural C clefs, for use on different staff lines
 @code{petrucci-c5}
 @tab
 @lilypond[fragment,relative=1,notime]
-  \clef "petrucci-c2" c
+  \clef "petrucci-c2"
+  \override NoteHead #'style = #'mensural
+  c
 @end lilypond
 
 @item
@@ -2110,7 +2112,9 @@ petrucci style mensural F clef
 @code{petrucci-f}
 @tab
 @lilypond[fragment,relative=1,notime]
-  \clef "petrucci-f" c
+  \clef "petrucci-f"
+  \override NoteHead #'style = #'mensural
+  c
 @end lilypond
 
 @item
@@ -2119,7 +2123,9 @@ petrucci style mensural G clef
 @code{petrucci-g}
 @tab
 @lilypond[fragment,relative=1,notime]
-  \clef "petrucci-g" c
+  \clef "petrucci-g"
+  \override NoteHead #'style = #'mensural
+  c
 @end lilypond
 
 @item
@@ -2129,7 +2135,9 @@ historic style mensural C clef
 @code{mensural-c3}, @code{mensural-c4}
 @tab
 @lilypond[fragment,relative=1,notime]
-  \clef "mensural-c2" c
+  \clef "mensural-c2"
+  \override NoteHead #'style = #'mensural
+  c
 @end lilypond
 
 @item
@@ -2138,7 +2146,9 @@ historic style mensural F clef
 @code{mensural-f}
 @tab
 @lilypond[fragment,relative=1,notime]
-  \clef "mensural-f" c
+  \clef "mensural-f"
+  \override NoteHead #'style = #'mensural
+  c
 @end lilypond
 
 @item
@@ -2147,7 +2157,9 @@ historic style mensural G clef
 @code{mensural-g}
 @tab
 @lilypond[fragment,relative=1,notime]
-  \clef "mensural-g" c
+  \clef "mensural-g"
+  \override NoteHead #'style = #'mensural
+  c
 @end lilypond
 
 @item
@@ -2158,7 +2170,12 @@ Editio Vaticana style do clef
 @tab
 @lilypond[fragment,relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
-  \clef "vaticana-do2" c
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'vaticana.punctum
+  \clef "vaticana-do2"
+  c
 @end lilypond
 
 @item
@@ -2168,7 +2185,12 @@ Editio Vaticana style fa clef
 @tab
 @lilypond[fragment,relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
-  \clef "vaticana-fa2" c
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'vaticana.punctum
+  \clef "vaticana-fa2"
+  c
 @end lilypond
 
 @item
@@ -2179,7 +2201,12 @@ Editio Medicaea style do clef
 @tab
 @lilypond[fragment,relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
-  \clef "medicaea-do2" c
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'medicaea.punctum
+  \clef "medicaea-do2"
+  c
 @end lilypond
 
 @item
@@ -2189,7 +2216,12 @@ Editio Medicaea style fa clef
 @tab
 @lilypond[fragment,relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
-  \clef "medicaea-fa2" c
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'medicaea.punctum
+  \clef "medicaea-fa2"
+  c
 @end lilypond
 
 @item
@@ -2200,7 +2232,12 @@ historic style hufnagel do clef
 @tab
 @lilypond[fragment,relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
-  \clef "hufnagel-do2" c
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'hufnagel.punctum
+  \clef "hufnagel-do2"
+  c
 @end lilypond
 
 @item
@@ -2210,7 +2247,12 @@ historic style hufnagel fa clef
 @tab
 @lilypond[fragment,relative=1,notime]
   \override Staff.StaffSymbol #'line-count = #4
-  \clef "hufnagel-fa2" c
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'hufnagel.punctum
+  \clef "hufnagel-fa2"
+  c
 @end lilypond
 
 @item
@@ -2219,7 +2261,12 @@ historic style hufnagel combined do/fa clef
 @code{hufnagel-do-fa}
 @tab
 @lilypond[fragment,relative=1,notime]
-  \clef "hufnagel-do-fa" c
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'hufnagel.punctum
+  \clef "hufnagel-do-fa"
+  c
 @end lilypond
 @end multitable
 
@@ -2302,12 +2349,14 @@ following table
 @lilypond[quote,raggedright]
 \layout {
   indent = 0.0
-  \context { \Staff
+  \context {
+    \Staff
     \remove Staff_symbol_engraver
     \remove Clef_engraver
     \remove Time_signature_engraver
   }
-} {
+}
+{
   \set Score.timing = ##f
   \set Score.barAlways = ##t
   s_\markup { "\\time 4/4" }
@@ -2354,6 +2403,7 @@ The following examples show the differences in style,
 @lilypond[raggedright,fragment,relative=1,quote]
 {
   \fatText
+
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter default }
 
@@ -2411,6 +2461,7 @@ Editio Vaticana style.
 \include "gregorian-init.ly"
 \score {
   \context VaticanaVoice {
+    \override Staff.StaffSymbol #'color = #red
     \override TextScript #'font-family = #'typewriter
     \override TextScript #'font-shape = #'upright
     \override Script #'padding = #-0.1
@@ -2483,19 +2534,19 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 \new Lyrics \lyricmode {
   \markup { \column {
     \typewriter "vaticana"
-    \line { " " \musicglyph #"custodes.vaticana-u0" }
+    \line { " " \musicglyph #"custodes.vaticana.u0" }
   } }
   \markup { \column {
     \typewriter "medicaea"
-    \line { " " \musicglyph #"custodes.medicaea-u0" }
+    \line { " " \musicglyph #"custodes.medicaea.u0" }
   }}
   \markup { \column {
     \typewriter "hufnagel"
-    \line { " " \musicglyph #"custodes.hufnagel-u0" }
+    \line { " " \musicglyph #"custodes.hufnagel.u0" }
   }}
   \markup { \column {
     \typewriter "mensural"
-    \line { " " \musicglyph #"custodes.mensural-u0" }
+    \line { " " \musicglyph #"custodes.mensural.u0" }
   }}
 }
 @end lilypond
@@ -3620,6 +3671,7 @@ the following excerpt demonstrates
 \score {
   <<
     \context VaticanaVoice = "cantus" {
+      \override Staff.StaffSymbol #'color = #red
       \override Score.BarNumber #'transparent = ##t {
         \[ c'\melisma c' \flexa a \]
         \[ a \flexa \deminutum g\melismaEnd \]
