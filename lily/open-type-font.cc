@@ -16,8 +16,6 @@
 #include "dimensions.hh"
 #include "modified-font-metric.hh"
 
-const Real point_constant = 1 PT;
-
 FT_Byte *
 load_table (char const *tag_str, FT_Face face, FT_ULong *length)
 {

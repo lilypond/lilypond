@@ -19,7 +19,6 @@ void add_score (Score* s);
 void set_default_output (String s);
 String find_file (String);
 void call_constructors ();
-
 Array<String> get_inclusion_names ();
 void set_inclusion_names (Array<String>);
 

@@ -8,7 +8,7 @@
 */
 
 #include "lily-parser.hh"
-
+#include "text-metrics.hh"
 #include "book.hh"
 #include "lilypond-key.hh"
 #include "file-name.hh"
@@ -86,6 +86,11 @@ Lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
 void
 Lily_parser::parse_file (String init, String name, String out_name)
 {
+  if (output_format_global == "tex")
+    {
+      try_load_text_metrics (out_name); 
+    }
+  
   lexer_ = new Lily_lexer (sources_);
   scm_gc_unprotect_object (lexer_->self_scm ());
   // TODO: use $parser 

@@ -11,6 +11,7 @@
  (guile)
  (ice-9 regex)
  (srfi srfi-13)
+ (lily output-tex)
  (lily))
 
 (define (dummy . foo) #f)
@@ -33,5 +34,6 @@
 		      (hash str TEX_STRING_HASHLIMIT)
 		    (ly:font-file-name font)
 		    (ly:font-file-name font)
-		    str) port)
+		    (sanitize-tex-string str))
+	      port)
      )))

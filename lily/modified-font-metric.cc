@@ -5,12 +5,11 @@
   
   (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <cctype>
 
 #include "modified-font-metric.hh"
 #include "pango-font.hh"
-
-#include <cctype>
-
+#include "text-metrics.hh"
 #include "warn.hh"
 #include "stencil.hh"
 
@@ -265,8 +264,6 @@ Modified_font_metric::text_dimension (String text) const
       b.scale (magnification_); 
       return b;
     }
-
-
   
   if (input_encoding_ == "TeX")
     b = tex_kludge (text);
@@ -311,7 +308,6 @@ Modified_font_metric::text_dimension (String text) const
 	  if (idx >= 0)
 	    char_box = orig_->get_indexed_char (idx);
 	  
-	  char_box.scale (magnification_);
 	  if (!char_box[X_AXIS].is_empty ())
 	    /* length ? */
 	    w += char_box[X_AXIS][RIGHT];
@@ -323,6 +319,7 @@ Modified_font_metric::text_dimension (String text) const
 	ydims = Interval (0, 0);
 
       b = Box (Interval (0, w), ydims);
+      b.scale (magnification_);
     }
   
   return b;

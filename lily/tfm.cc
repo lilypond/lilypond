@@ -15,38 +15,8 @@
 #include "warn.hh"
 #include "dimensions.hh"
 
-static SCM tex_dimension_hash_tab;
 static Tex_font_char_metric dummy_static_char_metric;
 
-
-	  
-Box
-lookup_tex_text_dimension (Font_metric *font,
-			   SCM text)
-{
-  Box b;
-
-  SCM limit = ly_lily_module_constant ("TEX_STRING_HASHLIMIT");
-  String key_str = ly_scm2string (font->font_file_name());
-  int hash_code = scm_to_int (scm_hash (text, limit));
-  key_str = to_string (hash_code)  + key_str;
-  
-  SCM val = scm_hash_ref (tex_dimension_hash_tab,
-			  scm_makfrom0str (key_str.to_str0 ()),
-			  SCM_BOOL_F);
-
-  if (scm_is_pair (val))
-    {
-      b[X_AXIS][LEFT] = 0.0 PT;
-      b[X_AXIS][RIGHT] = scm_to_double (scm_car (val)) PT;
-      val = scm_cdr (val);
-      b[Y_AXIS][UP] = scm_to_double (scm_car (val)) PT;
-      val = scm_cdr (val);
-      b[Y_AXIS][DOWN] = scm_to_double (scm_car (val)) PT; 
-    }
-  
-  return b; 
-}
 
 
 Tex_font_char_metric::Tex_font_char_metric ()
@@ -77,9 +47,9 @@ Tex_font_char_metric::dimensions () const
 
   Real point_constant = 1 PT;
   
-  return Box (Interval (0, width_*point_constant ),
-	      Interval ((d <? height_)*point_constant,
-			(d >? height_)*point_constant));
+  return Box (Interval (0, width_* point_constant ),
+	      Interval ((d <? height_) * point_constant,
+			(d >? height_) * point_constant));
 }
 
 Tex_font_metric::Tex_font_metric ()
@@ -168,33 +138,4 @@ Tex_font_metric::name_to_index (String s) const
     }
   else
     return -1;  
-}
-
-
-LY_DEFINE(ly_load_text_dimensions, "ly:load-text-dimensions",
-	  1, 0, 0,
-	  (SCM dimension_alist),
-	  "Load dimensions from TeX in a (KEY . (W H D)) format alist")
-{
-  if (!tex_dimension_hash_tab)
-    {
-      tex_dimension_hash_tab =
-	scm_gc_protect_object (scm_make_hash_table (scm_from_int (113)));
-    }
-
-  for (SCM s = dimension_alist;
-       scm_is_pair (s);
-       s = scm_cdr (s))
-    {
-      SCM key = scm_caar (s);
-      SCM val = scm_cdar (s);
-      
-      if (scm_hash_ref (tex_dimension_hash_tab, key, SCM_BOOL_F)
-	  == SCM_BOOL_F)
-	{
-	  scm_hash_set_x (tex_dimension_hash_tab, key, val);
-	}
-    }
-
-  return SCM_UNSPECIFIED;
 }
