@@ -1,3 +1,28 @@
+pl 9.rrr1
+	- abc2ly bug fixes and extensions
+	- volta spanner given height to avoid collisions
+
+pl 9.jcn2
+	- 2.95 fixes
+	- input/test/different-time-signatures.ly (wasn't this in refman?)
+
+pl 9.hwn1
+	- fixes for mi2mu
+	- bf: staff-side with empty parent.
+	- bf:
+Hara_kiri_vertical_group_spanner::do_substitute_element_pointer has to
+call Axis_group_spanner::do_substitute_element_pointer.  Fixes
+harakiri & barline problem.
+	- junk: Spring_spacer, Ineq_constrained_qp, Mixed_qp,
+Active_constraints, Inactive_iter, Matrix, Vector,
+Choleski_decomposition, Full_storage
+
+
+pl 9.jcn1
+	- included last Localisation.texi
+	- set-lily: de catalog too
+
+*******
 pl 8.hwn1
 	- Erwin Dieterich: german translation.
 	- dependency helper funcs simplified.
