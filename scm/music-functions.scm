@@ -217,11 +217,16 @@ i.e.  this is not an override"
     cm))
 
 
-(define*-public (descend-to-context m context)
+(define-public (descend-to-context m context)
   "Like context-spec-music, but only descending. "
   (let ((cm (context-spec-music m context)))
     (ly:music-set-property! cm 'descend-only #t)
     cm))
+
+(define-public (make-non-relative-music mus)
+  (make-music 'UnrelativableMusic
+	      'element mus
+  ))
 
 (define-public (make-apply-context func)
   (make-music 'ApplyContext
