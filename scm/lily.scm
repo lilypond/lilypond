@@ -229,9 +229,15 @@
 
 
 ; Make a function that checks score element for being of a specific type. 
-(define (make-type-checker name)
+(define (make-type-checker symbol)
   (lambda (elt)
-    (not (not (memq name (ly-get-elt-property elt 'interfaces))))))
+    (display  symbol)
+    (if (eq? #t (ly-get-elt-property elt symbol))
+	       #t
+	#f)
+    ))
+
+  
 
 	
 ;;;;;;;;;;;;;;;;;;; TeX output
@@ -373,7 +379,7 @@
       (string-append"\\vbox to " (number->dim ht) "{\\hbox{%\n"))
 
   (define (stop-line) 
-    "}\\vss}\\interscoreline")
+    "}\\vss}\\interscoreline\n")
   (define (stop-last-line)
     "}\\vss}")
   (define (filledbox breapth width depth height) 
