@@ -18,7 +18,7 @@
   Make the key signature.
  */
 class Key_engraver : public Engraver {
-  void create_key();
+  void create_key(bool);
   void read_req (Key_change_req const * r);
 
 public:
@@ -32,6 +32,7 @@ public:
   Key key_;
   Key_change_req * keyreq_l_;
   Key_item * item_p_;
+
   Array<Musical_pitch> accidental_idx_arr_;
   Array<Musical_pitch> old_accidental_idx_arr_;
 

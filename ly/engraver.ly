@@ -376,6 +376,8 @@ ScoreContext = \translator {
 	alignmentReference = \down;
 	defaultClef = #"treble"
 	defaultBarType = #"|"
+       systemStartDelimiterGlyph = #'bar-line
+
 	\accepts "Staff";
 	\accepts "StaffGroup";
 	\accepts "RhythmicStaff";	

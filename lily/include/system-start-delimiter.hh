@@ -21,6 +21,7 @@ public:
   System_start_delimiter ();
   VIRTUAL_COPY_CONS (Score_element);
 protected:
+  virtual void after_line_breaking();
   virtual  Molecule do_brew_molecule () const;
   Molecule staff_bracket (Real) const;
   Molecule staff_brace (Real) const;

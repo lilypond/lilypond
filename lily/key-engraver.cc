@@ -29,7 +29,7 @@ Key_engraver::key_changed_b () const
 }
 
 void
-Key_engraver::create_key ()
+Key_engraver::create_key (bool def)
 {
   if (!item_p_) 
     {
@@ -65,6 +65,12 @@ Key_engraver::create_key ()
 	    item_p_->add_old (m_l.notename_i_, a);
 	}
     }
+
+
+  if (!def)
+      item_p_->set_elt_property ("visibility-lambda",
+				 scm_eval (ly_symbol2scm  ("all-visible")));
+
 }      
 
 
@@ -89,12 +95,15 @@ Key_engraver::acknowledge_element (Score_element_info info)
     {
       SCM c =  get_property ("createKeyOnClefChange");
       if (to_boolean (c))
-	create_key ();
+	{
+	  create_key (false);
+      
+	}
     }
   else if (dynamic_cast<Bar *> (info.elem_l_)
 	   && accidental_idx_arr_.size ()) 
     {
-      create_key ();
+      create_key (true);
     }
 
 }
@@ -104,7 +113,7 @@ Key_engraver::do_process_music ()
 {
   if (keyreq_l_) 
     {
-      create_key ();
+      create_key (false);
     }
 }
 
@@ -113,10 +122,6 @@ Key_engraver::do_pre_move_processing ()
 { 
   if (item_p_) 
     {
-      if (keyreq_l_)
-	item_p_->set_elt_property ("visibility-lambda",
-				   scm_eval (ly_symbol2scm  ("all-visible")));
-      
       typeset_element (item_p_);
       item_p_ = 0;
     }
