@@ -30,6 +30,7 @@
 #include "source.hh"
 #include "lily-version.hh"
 #include "scm-hash.hh"
+#include "ly-modules.hh"
 
 
 LY_DEFINE(ly_set_point_and_click_x, "set-point-and-click!", 1, 0, 0,

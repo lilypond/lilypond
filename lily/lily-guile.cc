@@ -193,16 +193,6 @@ void add_scm_init_func (void (*f) ())
   scm_init_funcs_->push (f);
 }
 
-#if 0
-SCM
-ly_use_module (SCM module)
-{
-  scm_call_1 (SCM_VARIABLE_REF (process_use_modules_var),
-	      scm_list_1 (scm_list_1 (convert_module_name (name))));
-  return SCM_UNSPECIFIED;
-}
-#endif
-
 void
 ly_init_ly_module (void *data)
 {
@@ -714,51 +704,3 @@ robust_list_ref(int i, SCM l)
   return gh_car(l);
 }
 
-static int module_count;
-
-void
-ly_init_anonymous_module (void * data)
-{
-  scm_c_use_module ("lily");  
-}
-
-SCM
-ly_make_anonymous_module ()
-{
-  String s = "*anonymous-ly-" + to_string (module_count++) +  "*";
-  SCM mod = scm_c_define_module (s.to_str0(), ly_init_anonymous_module, 0);
-  scm_module_define (mod, ly_symbol2scm ("symbols-defined-here"), SCM_EOL);
-  return mod;
-}
-
-void
-ly_copy_module_variable (SCM dest, SCM src)
-{
-  SCM defd = ly_symbol2scm ("symbols-defined-here");
-  SCM dvar = scm_module_lookup (src, ly_symbol2scm ("symbols-defined-here"));
-  SCM lst =  scm_variable_ref (dvar);
-  for (SCM s =lst; gh_pair_p (s); s  = gh_cdr (s))
-    {
-      SCM var  = scm_module_lookup (src, gh_car (s));
-      scm_module_define (dest, gh_car (s),
-			 scm_variable_ref (var));
-    }
-
-  scm_module_define (dest, defd, lst);
-}
-
-SCM
-ly_module_to_alist (SCM mod)
-{
-  SCM defd = ly_symbol2scm ("symbols-defined-here");
-  SCM dvar = scm_module_lookup (mod, defd);
-  SCM lst = scm_variable_ref (dvar);
-
-  SCM alist =  SCM_EOL;
-  for (SCM s =lst; gh_pair_p (s); s  = gh_cdr (s))
-    {
-      SCM var  = scm_module_lookup (mod, gh_car (s));
-      alist= scm_cons (scm_cons (gh_car(s), scm_variable_ref (var)), alist);
-    }
-  return alist;
-}

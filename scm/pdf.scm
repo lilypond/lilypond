@@ -24,7 +24,7 @@
 
 (define currentpoint (cons 0 0))
 (define (showcp) 
-  (string-append (control->string currentpoint) " "))
+  (string-append (number-pair->string currentpoint) " "))
 (define (moveto x y)
   (set! currentpoint (cons x y))
   (string-append (showcp) "m "))

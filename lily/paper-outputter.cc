@@ -23,6 +23,8 @@
 #include "lily-version.hh"
 #include "paper-def.hh"
 #include "input-file-results.hh"
+#include "ly-modules.hh"
+
 
 
 /*
@@ -94,6 +96,9 @@ Paper_outputter::output_scheme (SCM scm)
 void
 Paper_outputter::output_scope (SCM mod, String prefix)
 {
+  if (!SCM_MODULEP (mod))
+    return ;
+  
   SCM al = ly_module_to_alist (mod);
   for (SCM s = al ; gh_pair_p (s); s = ly_cdr (s))
     {

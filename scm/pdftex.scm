@@ -18,6 +18,9 @@
 	     (ice-9 string-fun)	  
 	     )
 
+
+(define font-name-alist  '())
+
 (define this-module (current-module))
 (define (unknown) 
   "%\n\\unknown%\n")

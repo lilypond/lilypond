@@ -44,6 +44,10 @@ Key_performer::create_audio_elements ()
 {
   if (key_req_) 
     {
+
+      /*
+	UGH. primitive-eval.
+       */
       SCM pitchlist = key_req_->get_mus_property ("pitch-alist");
       SCM proc = scm_primitive_eval (ly_symbol2scm ("accidentals-in-key")); 
       SCM acc = gh_call1 (proc, pitchlist);

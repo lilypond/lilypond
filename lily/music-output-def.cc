@@ -16,6 +16,7 @@
 #include "main.hh"
 #include "file-path.hh"
 #include "lily-guile.hh"
+#include "ly-modules.hh"
 
 #include "ly-smobs.icc"
 
@@ -58,8 +59,7 @@ Music_output_def::Music_output_def (Music_output_def const &s)
   scaled_fonts_ = scm_list_copy (s.scaled_fonts_);  
 
   scope_= ly_make_anonymous_module ();
-  ly_copy_module_variable (scope_, s.scope_);
-
+  ly_copy_module_variables (scope_, s.scope_);
 }
 
 
@@ -167,15 +167,12 @@ void
 Music_output_def::set_variable (SCM sym, SCM val)
 {
   scm_module_define (scope_, sym, val);
-  
-  SCM var = scm_module_lookup (scope_, ly_symbol2scm ("symbols-defined-here"));
-  scm_variable_set_x (var, gh_cons (sym,  scm_variable_ref (var)));
 }
 
 SCM
 Music_output_def::lookup_variable (SCM sym) const
 {
-  SCM var = scm_module_lookup (scope_, sym);
+  SCM var = ly_module_lookup (scope_, sym);
 
   return scm_variable_ref (var);
 }

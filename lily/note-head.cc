@@ -111,16 +111,9 @@ internal_brew_molecule (Grob *me, bool ledger_take_space)
       return Molecule();
     }
 
-  /*
-    ugh: use gh_call () / scm_apply ().
-
-    UGH: use grob-property.
-  */
   SCM log = gh_int2scm (Note_head::get_balltype (me));
-  SCM exp = scm_list_n (ly_symbol2scm ("find-notehead-symbol"), log,
-			ly_quote_scm (style),
-			SCM_UNDEFINED);
-  SCM scm_font_char = scm_primitive_eval (exp);
+  SCM proc = me->get_grob_property ("glyph-name-procedure");
+  SCM scm_font_char = scm_call_2 (proc, log, style);
   String font_char = "noteheads-" + ly_scm2string (scm_font_char);
 
   Font_metric * fm = Font_interface::get_default_font (me);

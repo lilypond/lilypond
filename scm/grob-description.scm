@@ -555,6 +555,7 @@
      . (
 	(style . default)
 	(molecule-callback . ,Note_head::brew_molecule)
+	(glyph-name-procedure . ,find-notehead-symbol)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
 	(stem-attachment-function . ,note-head-style->attachment-coordinates)
 	(meta . ((interfaces . (rhythmic-head-interface font-interface note-head-interface staff-symbol-referencer-interface item-interface ))))

@@ -12,7 +12,7 @@
 (use-modules (ice-9 regex))
 ; (use-modules (lily))
 
-(display "hallo\n")
+;;(display "hallo\n")
 ;;(display (make-duration 1  2))
 ;;(write standalone (current-error-port))
 
@@ -20,15 +20,12 @@
 ;;; General settings
 ;; debugging evaluator is slower.
 
-;(debug-enable 'debug)
+(debug-enable 'debug)
 ;(debug-enable 'backtrace)
-;(read-enable 'positions)
+(read-enable 'positions)
 
 
-
-(define point-and-click #f)
-(define security-paranoia #f)
-(define midi-debug #f)
+(define-public security-paranoia #f)
 
 (define (line-column-location line col file)
   "Print an input location, including column number ."
@@ -46,19 +43,15 @@
 (define ifndef "First run this through cpp.")
   
 (define-public default-script-alist '())
-(define font-name-alist  '())
 
 (if (not (defined? 'standalone))
     (define standalone (not (defined? 'ly-gulp-file))))
 
 ;; The regex module may not be available, or may be broken.
-(define use-regex
+(define-public use-regex
   (let ((os (string-downcase (vector-ref (uname) 0))))
     (not (equal? "cygwin" (substring os 0 (min 6 (string-length os)))))))
 
-;; If you have trouble with regex, define #f
-(define use-regex #t)
-;;(define use-regex #f)
 
 
 ;;; Un-assorted stuff
@@ -155,7 +148,7 @@
      output-alist)
    ))
 
-(define (find-dumper format )
+(define-public (find-dumper format )
   (let*
       ((d (assoc format output-alist)))
     

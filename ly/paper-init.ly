@@ -10,6 +10,6 @@
 linewidth = \hsize - 2.\cm
 % Leave the textheight calculation to the geometry package. /MB
 %textheight = \vsize - 4.\cm
-
+raggedright = ##f
 indent = \linewidth / 14.0
 

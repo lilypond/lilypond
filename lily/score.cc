@@ -21,6 +21,8 @@
 #include "cpu-timer.hh"
 #include "main.hh"
 #include "paper-def.hh"
+#include "ly-modules.hh"
+
 
 
 /*
@@ -58,7 +60,7 @@ Score::Score (Score const &s)
     defs_.push (s.defs_[i]->clone ());
   errorlevel_ = s.errorlevel_;
   header_ = ly_make_anonymous_module ();
-  ly_copy_module_variable (header_, s.header_);
+  ly_copy_module_variables (header_, s.header_);
 }
 
 Score::~Score ()

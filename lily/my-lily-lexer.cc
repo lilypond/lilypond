@@ -23,6 +23,8 @@
 #include "main.hh"
 #include "input.hh"
 #include "moment.hh"
+#include "ly-modules.hh"
+
 
 static Keyword_ent the_key_tab[]={
   {"alias", ALIAS},
@@ -108,9 +110,13 @@ My_lily_lexer::My_lily_lexer ()
 void
 My_lily_lexer::add_scope (SCM module)
 {
+  ly_reexport_module (scm_current_module());
   scm_set_current_module (module);
   for (SCM s = scopes_; gh_pair_p (s); s = gh_cdr (s))
     {
+      /*
+	UGH. how to do this more neatly? 
+      */      
       SCM expr = scm_list_n (ly_symbol2scm ("module-use!"),
 			     module, scm_list_n (ly_symbol2scm ("module-public-interface"),
 						 gh_car (s), SCM_UNDEFINED),
@@ -120,7 +126,6 @@ My_lily_lexer::add_scope (SCM module)
     }
   
   scopes_ = scm_cons (module, scopes_);
-  scm_display (scm_current_module(), scm_current_output_port());
 }
 
 SCM
@@ -145,10 +150,11 @@ My_lily_lexer::lookup_identifier (String s)
 {
   SCM sym = ly_symbol2scm (s.to_str0());
   for (SCM s = scopes_; gh_pair_p (s); s = gh_cdr (s))
-  {
-    SCM var = scm_module_lookup (gh_car (s), sym);
-    return scm_variable_ref (var);
-  }
+    {
+      SCM var = ly_module_lookup (gh_car (s), sym);
+      if (var != SCM_BOOL_F)
+	return scm_variable_ref(var);
+    }
 
   return SCM_UNSPECIFIED;
 }
@@ -175,11 +181,8 @@ My_lily_lexer::set_identifier (SCM name, SCM s)
 
   SCM sym = scm_string_to_symbol (name);
   SCM mod = gh_car (scopes_);
-  SCM var = scm_module_lookup (mod, ly_symbol2scm ("symbols-defined-here"));
 
-  scm_variable_set_x (var, gh_cons (sym,  scm_variable_ref (var)));
   scm_module_define (mod, sym, s);
-  scm_c_export (ly_symbol2string(sym).to_str0(), NULL);
 }
 
 My_lily_lexer::~My_lily_lexer ()

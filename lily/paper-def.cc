@@ -20,6 +20,8 @@
 #include "scm-hash.hh"
 #include "input-file-results.hh" // urg? header_global
 #include "paper-outputter.hh"
+#include "ly-modules.hh"
+
 
 /*
   This is an almost empty thing. The only substantial thing this class
@@ -128,7 +130,7 @@ Paper_def::find_font (SCM fn, Real m)
     }
   else
     {
-      SCM var =  scm_module_lookup (scope_, ly_symbol2scm ("outputscale"));
+      SCM var =   ly_module_lookup (scope_, ly_symbol2scm ("outputscale"));
       m /= gh_scm2double (scm_variable_ref (var));
 
       f = all_fonts_global->find_font (ly_scm2string (fn));

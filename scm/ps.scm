@@ -10,6 +10,8 @@
 (define-module (scm ps)
   )
 
+(define font-name-alist  '())
+
 (define this-module (current-module))
 
 (debug-enable 'backtrace)
@@ -26,6 +28,7 @@
  
 (use-modules
  (guile)
+ (lily)
 )
 
 
@@ -123,7 +126,7 @@
 ;; what the heck is this interface ?
 (define (dashed-slur thick dash l)
   (string-append 
-   (apply string-append (map control->string l)) 
+   (apply string-append (map number-pair->string l)) 
    (ly-number->string thick) 
    " [ "
    (ly-number->string dash)
@@ -235,14 +238,14 @@
 ;; two beziers
 (define (bezier-sandwich l thick)
   (string-append 
-   (apply string-append (map control->string l))
+   (apply string-append (map number-pair->string l))
    (ly-number->string thick)
    " draw_bezier_sandwich "))
 
 ;; two beziers with round endings
 (define (bezier-bow l thick)
   (string-append 
-   (apply string-append (map control->string l))
+   (apply string-append (map number-pair->string l))
    (ly-number->string thick)
    " draw_bezier_sandwich "
    (bezier-ending (list-ref l 3) (list-ref l 0) (list-ref l 5))

@@ -123,7 +123,7 @@ Fingering_engraver."
 ;;;;;;;;;;;;;;;;
 
 
-(define (make-grob-property-set grob gprop val)
+(define-public (make-grob-property-set grob gprop val)
   "Make a M-exp that sets GPROP to VAL in GROBS. Does a pop first, i.e.
 this is not an override 
 "
@@ -138,8 +138,9 @@ this is not an override
      m
    
    ))
-   
-(define (make-grob-property-revert grob gprop)
+
+
+(define-public (make-grob-property-revert grob gprop)
   "Revert the grob property GPROP for GROB."
    (let* ((m (ly-make-music  "Music")))
      (ly-set-mus-property! m 'iterator-ctor Pop_property_iterator::constructor)
@@ -150,7 +151,7 @@ this is not an override
    
    ))
    
-(define (make-voice-props-set n)
+(define-public (make-voice-props-set n)
   (make-sequential-music
    (append
       (map (lambda (x) (make-grob-property-set x 'direction
@@ -160,7 +161,7 @@ this is not an override
    )
   ))
 
-(define (make-voice-props-revert)
+(define-public (make-voice-props-revert)
   (make-sequential-music
    (list
       (make-grob-property-revert 'Tie 'direction)
@@ -171,7 +172,7 @@ this is not an override
    ))
   )
 
-(define (context-spec-music m context . rest)
+(define-public (context-spec-music m context . rest)
   "Add \context CONTEXT = foo to M. "
   
   (let* ((cm (ly-make-music "Context_specced_music")))
@@ -183,19 +184,19 @@ this is not an override
     cm
   ))
 
-(define (make-sequential-music elts)
+(define-public (make-sequential-music elts)
   (let*  ((m (ly-make-music "Sequential_music")))
     (ly-set-mus-property! m 'elements elts)
     m
   ))
 
-(define (make-simultaneous-music elts)
+(define-public (make-simultaneous-music elts)
   (let*  ((m (ly-make-music "Simultaneous_music")))
     (ly-set-mus-property! m 'elements elts)
     m
     ))
 
-(define (music-separator? m)
+(define-public (music-separator? m)
   "Is M a separator."
   (let* ((n (ly-get-mus-property m 'name )))
     (and (symbol? n) (equal? 'separator n))
@@ -335,7 +336,7 @@ this is not an override
   m
   )
 
-(define toplevel-music-functions
+(define-public toplevel-music-functions
   (list check-start-chords
 	voicify-music
 

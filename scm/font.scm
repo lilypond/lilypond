@@ -224,7 +224,7 @@
 	     paper20-style-sheet-alist))
        font-list-alist)))
 
-(define (make-style-sheet sym)
+(define-public (make-style-sheet sym)
   `((fonts . ,(append paper-style-sheet-alist
 		      (cdr (assoc sym font-list-alist))))
     (font-defaults

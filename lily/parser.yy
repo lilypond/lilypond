@@ -60,6 +60,7 @@ this.
 #include "auto-change-iterator.hh"
 #include "un-relativable-music.hh"
 #include "chord.hh"
+#include "ly-modules.hh"
 
 bool
 regular_identifier_b (SCM id)
