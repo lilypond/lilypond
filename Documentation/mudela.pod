@@ -1,0 +1,453 @@
+=head1 NAME
+
+Mudela -  LilyPond input format 0.1
+
+=head1 DESCRIPTION
+
+This document describes the the LilyPond input format, which is an
+effective language for definining music.  We call this language
+(rather arrogantly) The Musical Definition Language (S<Mudela 2>).
+
+The first aim of Mudela is to define a piece of music, 
+being complete from both from a musical typesetting, 
+as from a musical performing point of view.
+
+The design of Mudela has been (perfect past tense, hopefully)
+an ongoing process, 
+the most important criteria being:
+
+=over 4
+
+=item *
+
+define the (musical) message of the composer as unambiguously as possible,
+
+=item *
+
+be intuitive, and easily readable 
+(compared to, say, Musi*TeX input, or MIDI :-),
+
+=item *
+
+be writable in ASCII with a simple texteditor, yfte(TM).
+
+=back
+
+Other considerations were (and will be):
+
+=over 4
+
+=item *
+
+be able to edit the layout 
+without danger of changing the original music (Urtext),
+
+=item *
+
+allow for adding different interpretations, again, 
+without danger of changing the original,
+
+=item *
+
+easy to create a conductor's score, 
+as well as the scores for all individual instruments,
+
+=item *
+
+provide simple musical manipulations, such as 
+S<(i) extracting> a slice of music from a previously defined piece, 
+S<(ii) extracting> only the rhythm from a piece of music, 
+S<(iii) transposing>, etc.,
+
+=item *
+
+easy to comprehend to both programmers and others.
+
+=back
+
+Musical pieces could be
+
+=over 5
+
+=item *
+
+Mahlerian orchestral scores,
+
+=item *
+
+piano pieces (Schubertian, Rachmaninovian),
+
+=item *
+
+pop songs (lyrics and chords),
+
+=item *
+
+gregorian chants,
+
+=item *
+
+Bach multivoice organ pieces,
+
+=item *
+
+short excerpts to be used in musicological publications.
+
+=back
+
+
+=head1 Overview
+
+The Musical Definition Language (Mudela) S<version 2>,
+has a logical structure, 
+making use of typing and naming (using identifiers),
+that allows for flexible input, and definition reuse.
+
+The below included for explanatory
+purposes only (i.e., for a complete and up-to-date definition, see
+F<lily/parser.y> and F<lily/lexer.l>):
+
+=head2 Files
+
+The de-facto extension of Mudela is F<.ly>. Files may be included by
+entering C<include> at the start of a line:
+
+	include "a_file.ly"
+
+=head2 Comments
+
+Line comments are introduced by a C<%>
+
+=head2 Words
+
+Keywords are preceded by a backslash "\". They contain alphabetic
+characters only. 
+
+Identifiers in their normal form consist start with a alpha character,
+followed by alpha-numerics. Identifiers can contain any characters
+(except whitespace, C<$> and C<%>), if you use this construct:
+
+	$Id_with###@weird92chars = 
+
+=head2 Nesting characters
+
+Mudela uses the brace (C<{> and C<}>) for hierarchical structures. To
+aid the eye in reading, for chords the C<<> and the C<>> are used as
+nesting braces.
+
+=head2 Identifiers
+
+=head2 Hierarchical structures
+
+The general structure consists of declarations:
+
+	IDENTIFIER = \TYPE{
+		<type specific data>
+	}
+
+and instantiations:
+
+	\TYPE{ <type specific data> }
+
+(Currently, C<\score> is the only type that can be instantiated
+at top level. Currently declarations can only be done at top level)
+
+Most instantiations that use an IDENTIFIER are specified as follows:
+
+	\TYPE { IDENTIFIER [...] }
+
+Some exceptions on this rule have been made to prevent inputting
+Mudela becoming tedious
+
+
+=head2 Simple mudela
+
+The actual musical part of Mudela that defines a melody, is known as 
+I<simple mudela>. 
+
+Simple mudela is the most common type of music.  It consists of a list
+of notes or lyrics, chords, and commands.
+
+=head2 Modes:
+
+To simplify different aspects of music definition (entering the notes
+and manipulating them) Mudela has a number of different input "modes":
+
+=over 4
+
+=item Normal mode
+
+At the start of parsing, Mudela assumes normal mode.
+In Normal mode, a word is looked up in the following order:
+
+	word	identifier, string
+	\word	keyword, string
+
+In normalmode, a word is assumed to start with an alphabetic
+character, followed by alpha-numeric characters.
+
+=item Note mode
+
+Note mode (and thus Simple mudela) is introduced by the keyword C<\music>.
+In Note mode, a word is looked up in the following order:
+
+	word	identifier, string
+	\word	keyword, string
+
+In Note mode a word is considered to have alphabetic characters only.
+
+=item Lyric mode
+
+Lyrics mode (and thus Simple mudela)  is introduced by the keyword C<\lyrics>.
+
+In Lyrics mode, a word is looked up in the following order:
+
+	word	string
+	\word	keyword, string
+
+In Lyric mode every sequence of non-digit and non-white characters
+starting with an alphabetic character is considered a word.
+
+	a&@&@&TSI|{[	% a word
+	1THtrhortho	% not a "word"
+	Leise Fl\"u\ss{}teren meine Sapfe	% 4 words
+
+
+=back
+
+These modes are of a lexical nature. Normal and Note mode largely
+resemble each other, save the possibility of entering Reals, and
+meaning of C<_>
+
+=head2 Notes
+
+Simple mudela basically is a sequence of the notes you want to
+enter. 
+
+	a'4	% dutch names
+
+is a A-1 pitched quaver. The ' as well as the ' signify an octave change.
+A-1 is 440 Hz concert-pitch. C<c'> is also known as the central
+c. More examples:
+
+	'a	% 110
+	a	% 220
+	a'	% 440
+	a''	% 880
+
+another example:
+
+	'as4.*2/3
+
+This is an A flat, (just below 110 Hz concert-pitch). The C<*2/3>
+signifies that this note is part of a triplet (3 in stead of 2). The
+duration is one and a half quaver (C<4.>) times 2/3. 
+
+The default language for notenames is defined to be dutch,
+
+	% double sharp
+	cisis disis eisis fisis gisis aisis bisis
+	% sharps
+	cis dis eis fis gis ais bis
+	% naturals
+	c d e f g a b 
+	% flats
+	ces des es fes ges as bes
+	% double flats
+	ceses deses eses feses geses ases beses
+
+The standard notenames also have uppercase versions, which octavate
+down:
+
+	a	% 220 concert-pitch
+	A	% 110
+	'A	% 55
+	A'	% 220
+	Cisis
+
+The rest is named 
+
+	r
+
+These notenames along with duration are enough material to construct
+simple melodies:
+
+	c4 c4 g4 g4 a4 a4 g2
+	f4 f4 e4 e4 d4 d4 c2
+
+Music is able to express more. generally speaking, the other
+'features' are either connected between notes (slurs, beams: spanning
+requests) or attached to notes (eg. accents). The former are
+implemented as START and STOP stop features and then attached to the note.
+
+	[]	START/STOP a beam
+	()	START/STOP a slur
+
+
+example: 
+
+	[c8 () d8 () e8 ]
+
+Please note that these two characters do I<not> necessarrily nest, eg:
+
+	[c8 e8(] [)g8 c'8]
+
+
+Symbols which can be put at either side of a staff are entered as follows:
+
+	a-^	% marcato, direction: default
+	a^-	% portato, direction: above note
+	a_.	% staccato, direction: below note
+	a^\script { "symbolindex"  . . . } % see script.ini for details.
+
+Dynamics can be put after the notename:
+
+	a4 \dynamic { 0 } % 0 = fff, 7 = ppp
+
+Mudela defines the following dynamic identifiers:
+
+	ppp pp p mp mf df ff fff	% df iso f, f is a notename.
+
+The general form of a note is:
+
+	post-requests de-octavate notename octavate duration pre-requests 
+
+Notenames are just identifiers, and can be declared for any
+language appropriate (see F<dutch.ini>). 
+
+=head2 Defaults
+
+If omit the duration of a, a default value is substituted. For this
+default value, there are two modes:
+
+=over 4
+
+=item 1
+
+Use the last duration explicitly entered
+
+=item 2
+
+Use the explicitly set "default duration"
+
+=back
+
+Thus the following inputs are  equivalent
+
+	c4 c4 c16 c16 c16 s16 c4 c16
+
+	\duration { "last" }
+	c4 c c16 c c c c4 c16
+
+	\duration { 4 }
+	c c c16 c16 c16 c16 c c16
+
+	\duration { 16 }
+	c4 c4 c c c c c4 
+
+If you are typing music which does not lie in the "small" and "large"
+octave, you can prevent having to type C<'> all the time by using the
+C<\octave> command: These two notes have the same pitch.
+
+	c''	\octave{2} c
+
+By default the setting of C<\octave> is 0.
+
+=head2 Lyrics
+
+Lyrics in Mudela resemble Simple mudela a lot, with notes substituted
+by text. 
+
+All syllables are entered separately, separated by whitespace 
+
+	Twin-4 kle4 twin-4 kle4 ... 
+
+Two syllables or words that compose a single
+duration entry are bound together using an underscore 
+
+	He_could4 not4
+
+=head2  Music direction
+
+Mudela reads left to right, but LilyPond can stack voices and
+Voice_elements which are produced in two directions: horizontal
+(voice like) and vertical (chord like)
+
+You can start horizontal music by enclosing a sequence of notes with { and }
+
+	{ c c g g a a g2 }	% twinkle twinkle
+
+You can start vertical music (a "chord") by enclosing a sequence of
+notes with < and >. Example:
+
+	<a cis e'>	% a-major chord
+
+You can also put vertical music inside horizontal music:
+
+	{ c < c e > <c e g> <c e g c'> }	% 4 increasing chords
+
+And vice versa
+
+	< \multivoice
+	  {c c g g a a g2}		
+	  {r2  r2  c c g g a a g2} >	% a canon
+
+The duration of a chord equals the union of the durations of each of
+its elements.  The C<\multivoice> is a construct which is explained
+below.
+
+=head2 Rhythms
+
+Rhythms in Mudela are entered identical to Simple mudela.
+The melodic part of the information is ignored.
+
+=head1 STRUCTURE
+
+In concrete, a piece of Mudela has the following structure:
+
+	% declare pieces of music:
+	melody = \music{ <simple mudela> }
+	accompany = \music{ <simple mudela> }
+
+	% instantiate (=create tex, midi output) the score:
+	\score{ 
+		\staff{ melody }
+		\staff{ accompany }
+		\commands{ <score global commands> }
+		\midi{ <midi definitions> }
+		\paper{ <paper and layout definitions }
+	}
+
+=head2 Examples
+
+Examples are included with the LilyPond distribution. For the sake of
+maintenance no long examples are included in this document.
+
+
+=head2 Requests
+
+=head2 Voice
+
+=head2 Voice_element
+
+=head2 Voice groups
+
+=head2 Other
+
+LilyPond first reads F<symbol.ini>, which contains declarations crucial
+to proper operation of LilyPond (symbol tables, note names).
+
+=head1 HISTORY
+
+
+This language has a number of roots. First and foremost, LilyPond's
+predecessor mpp was the inspiration of simple Mudela.  Secondly, the
+hierarchical structure looks a lot like Rayce's (Rayce is a raytracer
+that I've written as a hobby project. ), which in turn owes a lot to
+POVRay.
+
+Now, we know, musictypesetting and raytracing do not necessarily
+require the same input format, and we know that a lot more ways exist
+to convert music to ASCII, but we did give this language some
+thoughts. As always suggestions are appreciated.
+

@@ -13,18 +13,18 @@
 % (except for grace notes) are printed
 %
 %%1
-melodie = \music {  \clef\violin
+melodie = \music {  \clef\violin\octave{1}
 	\key{bes}
 	\meter{3/4}\duration{ 8 }
-	r pp < [ d `a-| > f-| < d `a-| > f-| < d `a-| ] > |
+	r pp < [ d 'a-| > f-| < d 'a-| > f-| < d 'a-| ] > |
 %%2
-	r < [ d `bes-| > f-| < d `bes-| > f-| < d `bes-| ] > |
+	r < [ d 'bes-| > f-| < d 'bes-| > f-| < d 'bes-| ] > |
 %%3
 	\textstyle "italic"
-	r_"simile" < [ d `bes > e < d `bes > e < d `bes ] >
+	r_"simile" < [ d 'bes > e < d 'bes > e < d 'bes ] >
 	\textstyle "roman" |
 %%4
-	r < [ `a cis > e < `a cis > e < `a cis ] > |
+	r < [ 'a cis > e < 'a cis > e < 'a cis ] > |
 %#%:|
 %%5
 	[ a()bes a ]2/3  d'4. a |
@@ -167,146 +167,146 @@ begeleiding = \music {
 	\key{bes}\meter{3/4}
 	\clef\bass
 	\duration{2}
-	`d r4 |
+	'd r4 |
 %%2
-	``bes r4 |
+	''bes r4 |
 
 %%3
-	``g r4 |
+	''g r4 |
 
 %%4
-	``a r4 |
+	''a r4 |
 %#%:|
 %%5
 \duration{ 8 }
- 	< \multivoice { \stem{ 1 } [ `f `a d `a d `a ] }
-	{ \stem{ -1 } `d2 r4 } > |
+ 	< \multivoice { \stem{ 1 } [ 'f 'a d 'a d 'a ] }
+	{ \stem{ -1 } 'd2 r4 } > |
 %%6
- 	< \multivoice { \stem{ 1 } [ `d `e `g `e `g `e ] }
-	{ \stem{ -1 } ``bes2 r4 } > |
+ 	< \multivoice { \stem{ 1 } [ 'd 'e 'g 'e 'g 'e ] }
+	{ \stem{ -1 } ''bes2 r4 } > |
 %%7 
-	< \multivoice { \stem{ 1 } [ `cis `e `g `e `g e ] }
-	{ \stem{ -1 } ``a2 r4 } > |
+	< \multivoice { \stem{ 1 } [ 'cis 'e 'g 'e 'g e ] }
+	{ \stem{ -1 } ''a2 r4 } > |
  %%8
-	< \multivoice { \stem{ 1 } [ `d `a d `a d `a ] }
-	{ \stem{ -1 } `d2 r4 } > |
+	< \multivoice { \stem{ 1 } [ 'd 'a d 'a d 'a ] }
+	{ \stem{ -1 } 'd2 r4 } > |
 %%9
-	[ `a e g e g e ] |
+	[ 'a e g e g e ] |
 %%10
-	[ `d `a d `a d `a ] |
+	[ 'd 'a d 'a d 'a ] |
 %%11
-	< \multivoice { \stem{ 1 } [ `f `a d `a d `a ] }
-	{ \stem{ -1 } `d2 r4 } > |
+	< \multivoice { \stem{ 1 } [ 'f 'a d 'a d 'a ] }
+	{ \stem{ -1 } 'd2 r4 } > |
 %%12 == 6
-	< \multivoice { \stem{ 1 } [ `d `e `g `e `g `e ] }
-	{ \stem{ -1 } ``bes2 r4 } > |
+	< \multivoice { \stem{ 1 } [ 'd 'e 'g 'e 'g 'e ] }
+	{ \stem{ -1 } ''bes2 r4 } > |
 %13
-	< \multivoice { [ `e `g `bes `g `bes `g ] }
-	{ \stem{ -1 } `c2 r4 } > |
+	< \multivoice { [ 'e 'g 'bes 'g 'bes 'g ] }
+	{ \stem{ -1 } 'c2 r4 } > |
 %%14
-	< \multivoice { \stem{ 1 } [ `a c f c f c ] }
-	{ \stem{ -1 } `f2 r4 } > |
+	< \multivoice { \stem{ 1 } [ 'a c f c f c ] }
+	{ \stem{ -1 } 'f2 r4 } > |
 %%15
-	[ `c `g `bes `g `bes `g ] |
+	[ 'c 'g 'bes 'g 'bes 'g ] |
 %%16
-	[ ``f `c `f `c `f `c ] |
+	[ ''f 'c 'f 'c 'f 'c ] |
 %%17
-	< \multivoice { \stem{ 1 } [ ``a `e `g `e `g `e ] }
-	{ \stem{ -1 } ``a2 r4 } > |
+	< \multivoice { \stem{ 1 } [ ''a 'e 'g 'e 'g 'e ] }
+	{ \stem{ -1 } ''a2 r4 } > |
 %%18
-	< \multivoice { \stem{ 1 } [ `d `a d `a d `a ] }
-	{ \stem{ -1 } `d2 r4 } > |
+	< \multivoice { \stem{ 1 } [ 'd 'a d 'a d 'a ] }
+	{ \stem{ -1 } 'd2 r4 } > |
 %%19
-	< \multivoice { \stem{ 1 } [ ``bes `f `bes `f `bes `f ] }
-	{ \stem{ -1 } ``bes2 r4 } > |
+	< \multivoice { \stem{ 1 } [ ''bes 'f 'bes 'f 'bes 'f ] }
+	{ \stem{ -1 } ''bes2 r4 } > |
 %%20
-	< \multivoice { \stem{ 1 } [ ``f `c `f `c `f `c ] }
-	{ \stem{ -1 } ``f2 r4 } > |
+	< \multivoice { \stem{ 1 } [ ''f 'c 'f 'c 'f 'c ] }
+	{ \stem{ -1 } ''f2 r4 } > |
 %%21
-	< [ `e `c > `g c `g c `g ] |
+	< [ 'e 'c > 'g c 'g c 'g ] |
 %%22
-	[ `f `a c `a `f `c ] |
+	[ 'f 'a c 'a 'f 'c ] |
 %%23
-	< \multivoice { \stem{ 1 } [ ``a `e `g `e `g `e ] }
-	{ \stem{ -1 } ``a2 r4 } > |
+	< \multivoice { \stem{ 1 } [ ''a 'e 'g 'e 'g 'e ] }
+	{ \stem{ -1 } ''a2 r4 } > |
 %%24
-	< \multivoice { \stem{ 1 } [ `d `fis `a `fis `a `fis ] }
-	{ \stem{ -1 } `d2 r4 } > |
+	< \multivoice { \stem{ 1 } [ 'd 'fis 'a 'fis 'a 'fis ] }
+	{ \stem{ -1 } 'd2 r4 } > |
 %%25
-	< \multivoice { \stem{ 1 } [ ``g `d `b `d `b `d ] }
-	{ \stem{ -1 } ``g2 r4 } > |
+	< \multivoice { \stem{ 1 } [ ''g 'd 'b 'd 'b 'd ] }
+	{ \stem{ -1 } ''g2 r4 } > |
 %%26
-	< \multivoice { \stem{ 1 } [ `d `a d `a d `a ] }
-	{ \stem{ -1 } `d2 r4 } > |
+	< \multivoice { \stem{ 1 } [ 'd 'a d 'a d 'a ] }
+	{ \stem{ -1 } 'd2 r4 } > |
 %%27
-	< [ `cis ``a > `e `a `e `a `e ] |
+	< [ 'cis ''a > 'e 'a 'e 'a 'e ] |
 %%28
-	[ `d `a d `a d `a ] |
+	[ 'd 'a d 'a d 'a ] |
 %%29
-	[ `d `g `bes `g `bes `g ] |
+	[ 'd 'g 'bes 'g 'bes 'g ] |
 %#%\volta1
 %%30 
-	[ `d `fis `a `fis `a `fis ] |
+	[ 'd 'fis 'a 'fis 'a 'fis ] |
 %%31
-	[ ``a `e `a `e `a `e ] |
+	[ ''a 'e 'a 'e 'a 'e ] |
 %%32
-	[ `d `fis `a `fis `a `fis ] |
+	[ 'd 'fis 'a 'fis 'a 'fis ] |
 %%33
-	[ `d `g `b `g `b `g ] |
+	[ 'd 'g 'b 'g 'b 'g ] |
 %%34
-	[ `d `fis `a `fis `a `fis ] |
+	[ 'd 'fis 'a 'fis 'a 'fis ] |
 %%35
-	[ ``a `e `a `e `a `e ] |
+	[ ''a 'e 'a 'e 'a 'e ] |
 %%36
-	[ `d `fis `a `fis `a `fis ] |
+	[ 'd 'fis 'a 'fis 'a 'fis ] |
 %#%\volta2
 %#%:|
 %%37
-	[ ``a `e `g `e ``bes^> `e ] |
+	[ ''a 'e 'g 'e ''bes^> 'e ] |
 %%38
-	[ ``a < e cis `a > < e cis `a > < e cis `a > < e cis `a > < e cis `a ] >  |
+	[ ''a < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a ] >  |
 %%39
-	[ ``a `e `g `e ``bes^> `e ] |
+	[ ''a 'e 'g 'e ''bes^> 'e ] |
 %%40
-	[ ``a < e cis `a > < e cis `a > < e cis `a > < e cis `a > < e cis `a ] >  |
+	[ ''a < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a ] >  |
 %%41
-	[ ``ais `e `fis `e `fis `e ] |
+	[ ''ais 'e 'fis 'e 'fis 'e ] |
 %%42
-	< [ `d ``b > `fis `b `fis `b `fis ] |
+	< [ 'd ''b > 'fis 'b 'fis 'b 'fis ] |
 %%43
-	< [ `e ``b > `g `b `g `b `g ] |
+	< [ 'e ''b > 'g 'b 'g 'b 'g ] |
 %%44
-	< [ `d ``b > `fis `b `fis `b `fis ] |
+	< [ 'd ''b > 'fis 'b 'fis 'b 'fis ] |
 %%45
-	< \multivoice { \stem{ 1 } [ ``g `d `b `d `b `d ] }
-	{ \stem{ -1 } ``g2 r4 } > |
+	< \multivoice { \stem{ 1 } [ ''g 'd 'b 'd 'b 'd ] }
+	{ \stem{ -1 } ''g2 r4 } > |
 %%46
-	< \multivoice { \stem{ 1 } [ `d `a d `a d `a ] }
-	{ \stem{ -1 } `d2 r4 } > |
+	< \multivoice { \stem{ 1 } [ 'd 'a d 'a d 'a ] }
+	{ \stem{ -1 } 'd2 r4 } > |
 %%47
-	< [ `cis ``a > `e `a `e `a `e ] |
+	< [ 'cis ''a > 'e 'a 'e 'a 'e ] |
 %%48
-	[ `d `fis `a `fis `a `fis ] |
+	[ 'd 'fis 'a 'fis 'a 'fis ] |
 %%49
-	[ `d `a d `a d `a ] |
+	[ 'd 'a d 'a d 'a ] |
 %%50
- 	[ ``g `e `g `e `g `e ] |
+ 	[ ''g 'e 'g 'e 'g 'e ] |
 %%51
-	[ ``a `e `g `e `g `e ] |
+	[ ''a 'e 'g 'e 'g 'e ] |
 %%52
-	[ ``d `d `fis `d `fis `d ] |
+	[ ''d 'd 'fis 'd 'fis 'd ] |
 %%53
-	[ `d `g `bes `g `bes `g ] |
+	[ 'd 'g 'bes 'g 'bes 'g ] |
 %%54
-	[ `d `fis `a `fis `a `fis ] |
+	[ 'd 'fis 'a 'fis 'a 'fis ] |
 %%55
-	[ ``a `e `g `e `g `e ] |
+	[ ''a 'e 'g 'e 'g 'e ] |
 %%56
-	[ ``d ``a `d ``a `d ``a ] |
+	[ ''d ''a 'd ''a 'd ''a ] |
 %%57
-	[ ``d ``a `d ``a `d ``a ]
+	[ ''d ''a 'd ''a 'd ''a ]
 %%58
-	< `d2.^\fermata ``d2. > |
+	< 'd2.^\fermata ''d2. > |
  }
 
 
@@ -447,7 +447,7 @@ tekstII= \lyrics {
 	\music { tekstI }
 	\music { tekstII }
 	}
-% Setting up music ...lilypond: ../flower/include/cursor.inl:98: class Cursor<void *> Cursor<void *>::operator ++(int): Assertion `pointer_' failed.
+% Setting up music ...lilypond: ../flower/include/cursor.inl:98: class Cursor<void *> Cursor<void *>::operator ++(int): Assertion 'pointer_' failed.
 %IOT trap/Abort
 % als geen music in staff
 	\staff { 
