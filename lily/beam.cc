@@ -320,9 +320,11 @@ Beam::set_steminfo ()
       total_count_i++;
     }
 
+  bool grace_b = get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+  String type_str = grace_b ? "grace_" : "";
   int stem_max = (int)rint(paper_l ()->get_var ("stem_max"));
-  Real shorten_f = paper_l ()->get_var (String ("forced_stem_shorten"
-					      + to_str (multiple_i_ <? stem_max)));
+  Real shorten_f = paper_l ()->get_var (type_str + "forced_stem_shorten"
+					+ to_str (multiple_i_ <? stem_max));
     
   Real leftx = 0;
   for (int i=0; i < stems_.size (); i++)
@@ -639,8 +641,9 @@ Beam::set_grouping (Rhythmic_grouping def, Rhythmic_grouping cur)
 Molecule
 Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 {
-  assert (!next || next->hpos_f () > here->hpos_f ());
-  assert (!prev || prev->hpos_f () < here->hpos_f ());
+  if ((next && !(next->hpos_f () > here->hpos_f ())) ||
+      (prev && !(prev->hpos_f () < here->hpos_f ())))
+      programming_error ("Beams are not left-to-right");
 
   Real staffline_f = paper_l ()->rule_thickness ();
   Real interbeam_f = paper_l ()->interbeam_f (multiple_i_);
