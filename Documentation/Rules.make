@@ -23,8 +23,13 @@ $(outdir)/%.text: $(outdir)/%.1
 $(depth)/%.text: $(outdir)/%.text
 	cp $< $@
 
-$(outdir)/%.html: %.pod
-	$(pod2html)  $<
+do_pod2html=$(pod2html) $<
+
+# do this for perl 5.004
+#	 $ make do_pod2html='$(pod2html) --infile $< --outfile=$@' html
+#
+$(outdir)/%.html: %.pod $(depth)/VERSION
+	$(do_pod2html) 
 	mv $(notdir $@) $(outdir)/
 
 $(outdir)/%.5: %.pod
@@ -36,15 +41,19 @@ $(outdir)/%.1: %.pod
 $(outdir)/%.gz: $(outdir)/%
 	gzip -c9 $< > $@
 
-$(outdir)/%.dvi: $(depth)/input/%.ly $(lilyout)/lilypond
-	(cd $(outdir); lilypond ../$< ;\
+name-stem= $(notdir $(basename $<))
+$(outdir)/%.dvi: $(depth)/input/%.ly 
+	(cd $(outdir); \
+	rm lelie.midi ; \
+	lilypond -o  $(name-stem)  ../$< )
+	(cd $(outdir); \
 	if [ -f ../$(basename $< ).tex ]; \
 	then \
 		latex ../$(basename $< ) ;\
 	else \
-		tex '\nonstopmode \input lelie' ;\
-		mv lelie.dvi ../$@ ; \
+		tex $(name-stem) ;\
 	fi)
+
 
 # generate the pixmap at twice the size, then rescale (for antialiasing)
 $(outdir)/%.gif: $(outdir)/%.ps
