@@ -26,7 +26,7 @@ time3_2beamAutoEnd_16 = "1/4";
 time3_2beamAutoEnd_32 = "1/8";
 
 time3_4beamAutoBegin_8 = "1/4";
-time3_4beamAutoEnd_8 = "3/4";
+time3_4beamAutoEnd = "3/4";
 time3_4beamAutoBegin_16 = "1/16";
 time3_4beamAutoEnd_16 = "1/4";
 %time3_4beamAutoBegin_32 = "1/8";
@@ -40,25 +40,25 @@ time3_8beamAutoEnd = "3/8";
 %   end beams with 32th notes each 1/8 note
 %   end beams with 1/8 triplets each 1/4 note
 
-time4_4beamAutoEnd_8 = "1/2";
+time4_4beamAutoEnd = "1/2";
 time4_4beamAutoEnd_12 = "1/4";
 time4_4beamAutoEnd_32 = "1/8";
 
-time4_8beamAutoEnd_8 = "1/4";
+time4_8beamAutoEnd = "1/4";
 time4_8beamAutoEnd_16 = "1/4";
 time4_8beamAutoEnd_32 = "1/8";
 
 time4_16beamAutoEnd = "1/8";
 
-time6_8beamAutoEnd_8 = "3/8";
+time6_8beamAutoEnd = "3/8";
 time6_8beamAutoEnd_16 = "3/8";
 time6_8beamAutoEnd_32 = "1/8";
 
-time9_8beamAutoEnd_8 = "3/8";
+time9_8beamAutoEnd = "3/8";
 time9_8beamAutoEnd_16 = "3/8";
 time9_8beamAutoEnd_32 = "1/8";
 
-time12_8beamAutoEnd_8 = "3/8";
+time12_8beamAutoEnd = "3/8";
 time12_8beamAutoEnd_16 = "3/8";
 time12_8beamAutoEnd_32 = "1/8";
 
@@ -85,5 +85,4 @@ or, more globally, by doing:
 see also input/test/auto-beam-override.ly
 
 %}
-
 
