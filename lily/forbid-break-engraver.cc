@@ -29,7 +29,7 @@ Forbid_line_break_engraver::start_translation_timestep()
   SCM busy = get_property ("busyGrobs");
 
   Moment now = now_mom();
-  while (gh_pair_p (busy) && *unsmob_moment (gh_caar (busy)) == now)
+  while (gh_pair_p (busy) && unsmob_moment (gh_caar (busy))->main_part_ == now.main_part_)
     busy = gh_cdr (busy);
 
   

@@ -9,7 +9,6 @@
 #include "paper-column.hh"
 #include "break-algorithm.hh"
 #include "paper-def.hh"
-#include "debug.hh"
 #include "system.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"

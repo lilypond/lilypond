@@ -13,7 +13,7 @@
 #include "paper-score.hh"
 #include "paper-def.hh"
 #include "grob.hh"
-#include "debug.hh"
+
 #include "spanner.hh"
 #include "item.hh"
 #include "misc.hh"
