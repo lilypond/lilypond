@@ -61,7 +61,7 @@ PREREQUISITES
 
 
 
-28/Apr/98                LilyPond 0.1.60                        1
+28/Apr/98                LilyPond 0.1.62                        1
 
 
 
@@ -127,7 +127,7 @@ MAINTAINER
 
 
 
-28/Apr/98                LilyPond 0.1.60                        2
+28/Apr/98                LilyPond 0.1.62                        2
 
 
 
@@ -193,6 +193,6 @@ PATCHES(1)            LilyPond documentation           PATCHES(1)
 
 
 
-28/Apr/98                LilyPond 0.1.60                        3
+28/Apr/98                LilyPond 0.1.62                        3
 
 

@@ -59,21 +59,28 @@ public:
   void set (Lookup*);
 
   Paper_def (Paper_def const&);
-  /// The distance between beams
-  Real interbeam_f () const;
-  /**
-    The distance between lines
-    */
+  /// The distance between beams of multiplicity_i
+  Real interbeam_f (int multiplicity_i) const;
+
+  /// The thickness of a beam
+  Real beam_thickness_f () const;
+
+  /// The distance between lines
   Real interline_f () const;
   /// half the distance between lines
   Real internote_f () const;
 
   /// thickness of the standard line 
   Real rule_thickness () const;
+
+  /// thickness of the staff line
+  Real staffline_f () const;
+
   Interval line_dimensions_int (int) const;
   Real linewidth_f () const;
+
   /// height of the staff
-  Real standard_height () const;
+  Real staffheight_f () const;
 
   /// width of a crotchet ball
   Real note_width () const;

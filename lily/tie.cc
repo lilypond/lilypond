@@ -11,6 +11,7 @@
 #include "note-head.hh"
 #include "p-col.hh"
 #include "debug.hh"
+#include "main.hh"  // experimental features
 
 IMPLEMENT_IS_TYPE_B1(Tie,Bow);
 
@@ -65,7 +66,7 @@ Tie::do_post_processing()
 
   Real notewidth = paper ()->note_width ();
   Real interline_f = paper ()->interline_f ();
-  Real const TIE_MIN = 2.0 * interline_f;
+  Real tie_min = paper ()->get_var ("tie_x_minimum");
 
   /* 
    [OSU]: slur and tie placement
@@ -76,11 +77,9 @@ Tie::do_post_processing()
    * y = length < 5ss : horizontal raakpunt
      y = length >= 5ss : y next interline - d * 0.25 ss
      --> height <= 5 length ?? we use <= 3 length, now...
-
-   * suggested gap = ss / 5;
    */
-  // jcn: 1/5 seems so small?
-  Real gap_f = interline_f / 2; // 5;
+
+  Real gap_f = paper ()->get_var ("slur_x_gap");
 
   Direction d = LEFT;
   do
@@ -122,11 +121,11 @@ Tie::do_post_processing()
       // tie attached to outer notehead
       if (!head_l_drul_[d])
 	{
-	  if (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT] < TIE_MIN)
+	  if (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT] < tie_min)
 	    {
-	      dx_f_drul_[d] -= d * TIE_MIN 
+	      dx_f_drul_[d] -= d * tie_min 
 		- (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
-	      dx_f_drul_[d] = dx_f_drul_[(Direction)-d] + d * TIE_MIN;
+	      dx_f_drul_[d] = dx_f_drul_[(Direction)-d] + d * tie_min;
 	    }
 
 	  dy_f_drul_[d] = dy_f_drul_[(Direction) -d];

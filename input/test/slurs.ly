@@ -3,7 +3,6 @@
 
 \score{
 	\melodic{\octave c';
-		\duration "last";
 
 		'c4 ~ 'c c'' ~ c'' ~ g ~ c ~
 		d ~ e ~ f ~ g ~

@@ -90,14 +90,6 @@ IMPLEMENT_IS_TYPE_B1(Command_req,Request);
 void
 Command_req::do_print() const{}
 
-IMPLEMENT_IS_TYPE_B1(Disallow_break_req,Command_req);
-
-void
-Disallow_break_req::do_print() const
-{
-}
-/* *************** */
-
 IMPLEMENT_IS_TYPE_B1(Barcheck_req,Timing_req);
 
 void
@@ -252,12 +244,17 @@ Key_change_req::Key_change_req()
   multi_octave_b_= false;
 }
 
-void
-Break_force_req::do_print () const
+IMPLEMENT_IS_TYPE_B1(Break_req, Command_req);
+
+Break_req::Break_req ()
 {
+  penalty_i_ = 0;
 }
 
-IMPLEMENT_IS_TYPE_B1(Break_force_req, Command_req);
+void
+Break_req::do_print () const
+{
+}
 
 Key_change_req::Key_change_req (Key_change_req const&c)
   : Command_req (c)

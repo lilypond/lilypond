@@ -11,14 +11,6 @@
 #include "score-elem-info.hh"
 #include "multi-measure-rest.hh"
 
-void
-Timing_engraver::acknowledge_element (Score_elem_info i)
-{
-  if (!i.elem_l_->is_type_b (Multi_measure_rest::static_name ()))
-    return;
-  if (((Multi_measure_rest*)i.elem_l_->item ())->measures_i_)
-    mmrest_b_ = true;
-}
 
 void
 Timing_engraver::fill_staff_info (Staff_info &inf)

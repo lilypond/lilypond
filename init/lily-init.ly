@@ -1,8 +1,8 @@
 % Toplevel initialisation file. 
 	
-\version "0.1.10";
+\version "0.1.13";
 
 
-\include "declarations.ly"
+\include "declarations.ly";
 
 \maininput

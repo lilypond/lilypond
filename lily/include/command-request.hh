@@ -26,16 +26,18 @@ public:
   virtual Meter_change_req * meterchange() { return 0; }
   virtual Bar_req *bar() { return 0; }
   virtual Cadenza_req *cadenza() { return 0; }
-  virtual Disallow_break_req *disallowbreak() { return 0; }
   virtual Timing_req*timing() {  return 0; }
   virtual Command_script_req*commandscript() { return 0;}
-  virtual Break_force_req *forcebreak () { return 0; }
+  virtual Break_req *linebreak () { return 0; }
 };
 
 
-class Break_force_req : public Command_req {
+class Break_req : public Command_req {
 public:
-  REQUESTMETHODS(Break_force_req, forcebreak);
+  enum { DISALLOW = -10000, FORCE = 10000 };
+  int penalty_i_;
+  Break_req ();
+  REQUESTMETHODS (Break_req, linebreak);
 };
 
 class Command_script_req : public Command_req,  public Script_req {
@@ -45,13 +47,6 @@ public:
   ~Command_script_req();
   REQUESTMETHODS(Command_script_req, commandscript);
 };
-
-
-class Disallow_break_req : public Command_req {
-public:
-  REQUESTMETHODS(Disallow_break_req, disallowbreak);
-};
-
 
 /** Baseclass for meter/partial req. It has to be handled by
   Staff_{walker,column} baseclass.  */

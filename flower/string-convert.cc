@@ -11,6 +11,7 @@
 #include "string.hh"
 #include "string-convert.hh"
 #include "rational.hh"
+#include "varray.hh"
 
 /**
    a safe length for stringconversion buffers
@@ -287,5 +288,22 @@ String_convert::precision_str (double x, int n)
     assert (0);
 
   return (sign (x) > 0 ? str : "-" + str);
+}
+
+Array<String>
+String_convert::split_arr (String str, char c)
+{
+  Array<String> a;
+  int i = str.index_i (c);
+  while (i >=0)
+    {
+      String s = str.left_str (i);
+      a.push (s);
+      str = str.cut (i + 1, INT_MAX);
+      i = str.index_i (c);
+    }
+  if (str.length_i ())
+    a.push (str);
+  return a;
 }
 

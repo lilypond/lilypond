@@ -8,7 +8,7 @@ depth = ..
 # identify module:
 #
 NAME = Documentation
-SUBDIRS=man tex
+SUBDIRS=man tex 
 
 #
 
@@ -33,19 +33,28 @@ default: all do-doc
 # list of distribution files:
 #
 XPMS=$(wildcard *.xpm)
-giffiles=$(XPMS:.xpm=.gif)
+giffiles = $(addprefix $(outdir)/,$(XPMS:.xpm=.gif))
 
-gifs: $(addprefix $(outdir)/, $(giffiles))
+gifs: $(giffiles)
 
-
-EXTRA_DISTFILES = $(XPMS)   vocabulary-data vocabulary-forms.el  automake.urgh
+EXTRA_DISTFILES = $(XPMS)   vocabulary-data vocabulary-forms.el  automake.urgh\
+	gnu-music-history
 
 # don't do DVI files. They can only be made if lily is installed
 do-doc: $(TEXTFILES)
 
-local-WWW: $(HTMLFILES)
+
+$(outdir)/%.txt: $(depth)/%
+	-rm $@
+	ln $< $@
+
+README_TOPFILES=NEWS DEDICATION TODO ANNOUNCE-0.1
+README_TXTFILES=$(addprefix $(outdir)/,$(addsuffix .txt, $(README_TOPFILES)))
+
+local-WWW: $(HTMLFILES) $(README_TXTFILES)  $(giffiles)
 
 # generic targets and rules:
 #
 include $(depth)/make/Targets.make
 include $(depth)/make/Rules.make
+

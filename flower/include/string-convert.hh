@@ -37,6 +37,7 @@ public:
     static String rational_str (Rational);
     static String pointer_str (void const *);
     static String precision_str (double x, int n);
+    static Array<String> split_arr (String str, char c);
     static String i64_str (I64, char const * fmt = 0);
 };
 

@@ -61,7 +61,7 @@ RECOMMENDED
 
 
 
-25/Apr/98                LilyPond 0.1.59                        1
+6/May/98                 LilyPond 0.1.62                        1
 
 
 
@@ -127,7 +127,7 @@ CONFIGURING and COMPILING
 
 
 
-25/Apr/98                LilyPond 0.1.59                        2
+6/May/98                 LilyPond 0.1.62                        2
 
 
 
@@ -163,10 +163,15 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
        --enable-tex-dir
            Set then directory TeX input is in (detected as a
-           subdir of tex-prefix)
+           subdir of tex-prefix).  This should be a directory
+           that is reachable both for tex and latex.  On my
+           system the best choice would be
+           /usr/lib/texmf/texmf/tex/generic//.
 
        --enable-mf-dir
-           Set the directory mf input is in (idem)
+           Set the directory mf input is in (idem).   On my
+           system the best choice would be
+           /usr/lib/texmf/texmf/fonts/source/public/.
 
        --enable-config
            Output to different configuration files.  Needed for
@@ -185,15 +190,10 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
        subdirectories out/ (which contain all files generated
        during compilation).
 
-CONFIGURING FOR MULTIPLE PLATFORMS
-       If you want to compile LilyPond with different
-       configuration settings, then, you can use the --enable-
-       config option.  Example: suppose I want to build with and
-       without profiling.  Then I'd use the following for the
 
 
 
-25/Apr/98                LilyPond 0.1.59                        3
+6/May/98                 LilyPond 0.1.62                        3
 
 
 
@@ -202,6 +202,11 @@ CONFIGURING FOR MULTIPLE PLATFORMS
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
+CONFIGURING FOR MULTIPLE PLATFORMS
+       If you want to compile LilyPond with different
+       configuration settings, then, you can use the --enable-
+       config option.  Example: suppose I want to build with and
+       without profiling.  Then I'd use the following for the
        normal build,
 
              configure --prefix=~ --disable-optimise --enable-checking
@@ -244,6 +249,25 @@ EXAMPLE
 
        This is what the output looks like over here:
 
+
+
+
+
+
+
+
+
+
+
+6/May/98                 LilyPond 0.1.62                        4
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
                GNU LilyPond 0.0.78 #4/FlowerLib 1.1.24 #0
                Parsing ... [/home/hw/share/lilypond/init//
                        <..etc..>
@@ -255,19 +279,6 @@ EXAMPLE
                TeX output to someinput.tex ...
                Creating MIDI elements ...MIDI output to someinput.midi ...
 
-
-
-
-
-25/Apr/98                LilyPond 0.1.59                        4
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
-
                hw:~/musix/spacer$ xdvi someinput&
                [1] 855
 
@@ -275,12 +286,14 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
        Please refer to the man page for more information.
 
 REDHAT LINUX
-       RedHat Linux users should be able to get a RPM. A spec
-       file is in make/out/lilypond.spec. You should be able to
-       create an rpm as a normal user. Be sure you have a
-       ~/.rpmrc, and edit the RPM-dir in Variables.make. (If you
-       create the RPM as a normal user the permissions will not
-       be set correctly, unfortunately)
+       RedHat Linux users can compile an RPM. A spec file is in
+       make/out/lilypond.spec.  You should install a gif file
+       called lelie_icon.gif along with the sources.  You can
+       generate this gif file by typing
+
+            make gifs
+
+       in the directory Documentation.
 
 DEBIAN GNU/LINUX
        A Debian package is also available; contact Anthony Fok
@@ -309,6 +322,18 @@ AUTHORS
 
        Jan Nieuwenhuizen <jan@digicash.com>
 
+
+
+
+6/May/98                 LilyPond 0.1.62                        5
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
        Have fun!
 
 
@@ -325,6 +350,47 @@ AUTHORS
 
 
 
-25/Apr/98                LilyPond 0.1.59                        5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6/May/98                 LilyPond 0.1.62                        6
 
 

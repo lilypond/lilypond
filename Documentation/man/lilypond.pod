@@ -65,15 +65,11 @@ Add F<DIRECTORY> to the search path for input files.
 
 Make incompatible mudela version non-fatal.
 
-=item B<--no-postscript, -P>,
+=item B<--find-quarts, -Q>,
 
-Don't generate embedded PostScript (or MetaFont) symbols, but resort to
-less beautiful fixed-size versions.
+Warn about melodic intervals larger than a fourth.  Useful for
+converting absolute octave mode stuff to relative octaves.
 
-LilyPond uses PostScript for variable symbols where possible.  (For some 
-of these symbols runtime MetaFont source will be genarated too.  These are 
-not used unless you also include the appropriate  TeX file too.  See 
-F<tex/fetdefs.tex>.)
 
 =back
 

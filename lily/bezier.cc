@@ -144,8 +144,7 @@ Bezier_bow::blow_fit ()
   Real internote_f = STAFFHEIGHT / 8;
 #endif
 
-  //urg
-  Real epsilon = internote_f / 2;
+  Real epsilon = internote_f / 4;
   if (abs (dy2 - dy1) < epsilon)
     return;
   
@@ -200,7 +199,7 @@ Bezier_bow::calc_f (Real height)
   Real dy = check_fit_f ();
   calc_return (0, 0);
 
-  transform_controls_back ();
+  transform_back ();
   return dy;
 }
 
@@ -211,7 +210,7 @@ Bezier_bow::calc ()
 
   calc_controls ();
 
-  transform_controls_back ();
+  transform_back ();
 }
 
 /*
@@ -249,30 +248,33 @@ bool
 Bezier_bow::calc_clipping ()
 {
 #ifndef STANDALONE
-  Real staffsize_f = paper_l_->get_var ("barsize");
+  Real clip_height = paper_l_->get_var ("slur_clip_height");
+  Real clip_ratio = paper_l_->get_var ("slur_clip_ratio");
+  Real clip_angle = paper_l_->get_var ("slur_clip_angle");
 #else
   Real staffsize_f = STAFFHEIGHT;
+  Real clip_height = 3.0 * staffsize_f;
+  Real clip_ratio = 1.2;
+  Real clip_angle = 100;
 #endif
 
   Real b = control_[3].x () - control_[0].x ();
-  Real clip_h = 1.2 * b <? 3.0 * staffsize_f;
+  Real clip_h = clip_ratio * b <? clip_height;
   Real begin_h = control_[1].y () - control_[0].y ();
   Real end_h = control_[2].y () - control_[3].y ();
   Real begin_dy = 0 >? begin_h - clip_h;
   Real end_dy = 0 >? end_h - clip_h;
   
   Real pi = M_PI;
-  Real begin_alpha = (control_[1] - control_[0]).arg () + alpha_;
-  Real end_alpha = pi -  (control_[2] - control_[3]).arg () - alpha_;
+  Real begin_alpha = (control_[1] - control_[0]).arg () + dir_ * alpha_;
+  Real end_alpha = pi -  (control_[2] - control_[3]).arg () - dir_ * alpha_;
 
-  Real max_alpha = (100.0 / 90) * pi/2;
+  Real max_alpha = clip_angle / 90 * pi / 2;
   if ((begin_dy < 0) && (end_dy < 0)
     && (begin_alpha < max_alpha) && (end_alpha < max_alpha))
     return false;
 
-  encompass_.rotate (alpha_);
-  origin_.y () *= dir_;
-  encompass_.translate (origin_);
+  transform_back ();
 
   bool again = true;
 
@@ -280,8 +282,8 @@ Bezier_bow::calc_clipping ()
     {
       Real dy = (begin_dy + end_dy) / 4;
       dy *= cos (alpha_);
-      encompass_[0].y () += dy;
-      encompass_[encompass_.size () - 1].y () += dy;
+      encompass_[0].y () += dir_ * dy;
+      encompass_[encompass_.size () - 1].y () += dir_ * dy;
     }
   else
     {
@@ -292,17 +294,14 @@ Bezier_bow::calc_clipping ()
       if (end_alpha >= max_alpha)
 	end_dy = 0 >? c * end_alpha / max_alpha * end_h;
 
-      encompass_[0].y () += begin_dy;
-      encompass_[encompass_.size () - 1].y () += end_dy;
+      encompass_[0].y () += dir_ * begin_dy;
+      encompass_[encompass_.size () - 1].y () += dir_ * end_dy;
 
       Offset delta = encompass_[encompass_.size () - 1] - encompass_[0];
       alpha_ = delta.arg ();
     }
 
-  origin_ = encompass_[0];
-  encompass_.translate (-origin_);
-  origin_.y () *= dir_;
-  encompass_.rotate (-alpha_);
+  transform ();
 
   return again;
 }
@@ -335,7 +334,7 @@ void
 Bezier_bow::calc_return (Real begin_alpha, Real end_alpha)
 {
 #ifndef STANDALONE
-  Real thick = 1.8 * paper_l_->rule_thickness ();
+  Real thick = paper_l_->get_var ("slur_thickness");
 #else
   Real thick = 1.8 * 0.4 PT;
 #endif
@@ -400,7 +399,13 @@ Bezier_bow::calc_tangent_controls ()
 
   // emperic computer science:
   //   * tangents somewhat steeper than minimal line
+#ifndef STANDALONE
+  Real internote = paper_l_->internote_f ();
+  Real rc_correct = paper_l_->get_var ("slur_rc_factor");
+#else
+  Real internote = STAFFHEIGHT / 8;
   Real rc_correct = 2.4;
+#endif
 
   begin_rc *= rc_correct;
   end_rc *= rc_correct;
@@ -411,11 +416,6 @@ Bezier_bow::calc_tangent_controls ()
   Real end_alpha = atan (-end_rc);
   Real theta = (begin_alpha - end_alpha) / 2;
 
-#ifndef STANDALONE
-  Real internote = paper_l_->internote_f ();
-#else
-  Real internote = STAFFHEIGHT / 8;
-#endif
   Real epsilon = internote / 5;
 
   // if we have two disturbing points, have height line through those...
@@ -491,11 +491,8 @@ Bezier_bow::transform ()
 }
 
 void
-Bezier_bow::transform_controls_back ()
+Bezier_bow::transform_back ()
 {
-  // silly name; let's transform encompass back too
-  // to allow recalculation without re-set()ting encompass array
-
   if (dir_ == DOWN)
     {
       control_.flipy ();
@@ -511,7 +508,6 @@ Bezier_bow::transform_controls_back ()
 
   encompass_.rotate (alpha_);
   encompass_.translate (origin_);
-
 }
 
 /*
@@ -522,13 +518,13 @@ Bezier_bow::calc_default (Real h)
 {
   Real pi = M_PI;
 #ifndef STANDALONE
-  Real staffsize_f = paper_l_->get_var ("barsize");
+  Real height_limit = paper_l_->get_var ("slur_height_limit");
+  Real ratio = paper_l_->get_var ("slur_ratio");
 #else
   Real staffsize_f = STAFFHEIGHT;
-#endif
-
   Real height_limit = staffsize_f;
   Real ratio = 1.0/3.0;
+#endif
 
   Real alpha = height_limit * 2.0 / pi;
   Real beta = pi * ratio / (2.0 * height_limit);

@@ -9,10 +9,11 @@
 #include "debug.hh"
 #include "p-col.hh"
 #include "score-column.hh"
+#include "command-request.hh"
 
 Score_column::Score_column (Moment w)
 {
-  forced_break_b_ = false;
+  break_penalty_i_ = 0;
   when_ = w;
   musical_b_ = false;
 }
@@ -22,7 +23,7 @@ Score_column::do_print() const
 {
 #ifndef NPRINT
   DOUT << "mus "<< musical_b_ <<" at " <<  when_<< '\n';
-  if (forced_break_b_)
+  if (break_penalty_i_ >= Break_req::FORCE)
     DOUT << "Break forced";
       
   DOUT << "durations: [";

@@ -64,7 +64,7 @@ blah = 	\melodic {
   \meter 4/4;
 
 c1
-	\duration  8;
+
 		r8-"text" r8^. r8_. r8 r8 r8 r8 r8
 	[c-> d-> e-> f->][g-> a-> b-> c'->] % 1
 \octave c';	[c'-^ b-^ a-^ g-^][f-^ e-^ d-^ c-^]

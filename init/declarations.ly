@@ -28,4 +28,7 @@ down = -1
 % zillie spellink?
 center=0
 
+break = { \penalty = 10000; }
+nobreak = { \penalty = -10000; }
+
 \include "property.ly"

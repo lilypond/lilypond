@@ -147,6 +147,39 @@ Lookup::flag (int j, Direction d) const
 }
 
 Atom
+Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
+{
+  assert (controls.size () == 8);
+
+  String ps = "\\embeddedps{\n";
+  
+  Real dx = controls[3].x () - controls[0].x ();
+  Real dy = controls[3].y () - controls[0].y ();
+
+  for (int i = 1; i < 4; i++)
+    ps += String_convert::double_str (controls[i].x ()) + " "
+      + String_convert::double_str (controls[i].y ()) + " ";
+
+  ps += String_convert::double_str (controls[0].x ()) + " "
+    + String_convert::double_str (controls[0].y ()) + " ";
+
+  ps += String_convert::double_str (thick) + " ";
+  Real on = dash > 1? thick * dash - thick : 0;
+  Real off = 2 * thick;
+  ps += "[" + String_convert::double_str (on) + " ";
+  ps += String_convert::double_str (off) + "] ";
+  ps += String_convert::int_str (0) + " ";
+  ps += " draw_dashed_slur}";
+
+  Atom s;
+  s.tex_ = ps;
+  
+  s.dim_[X_AXIS] = Interval (0, dx);
+  s.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
+  return s;
+}
+
+Atom
 Lookup::slur (Array<Offset> controls) const
 {
   assert (controls.size () == 8);
@@ -196,7 +229,7 @@ Lookup::hairpin (Real width, bool decresc, bool continued) const
 {
   String embed;
   Atom ret;  
-  Real height = paper_l_->get_var ("barsize") / 6;
+  Real height = paper_l_->staffheight_f () / 6;
   embed = "\\embeddedps{\n" ;
   embed += String (width) + " " 
 	+ String (height) + " " 

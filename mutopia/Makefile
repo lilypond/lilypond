@@ -10,7 +10,7 @@ depth = ..
 SUBDIRS = J.S.Bach Coriolan
 EXTRA_DISTFILES +=  TODO
 
-examples=standje gallina
+examples=standchen gallina
 
 
 #

@@ -50,6 +50,7 @@ struct Lookup {
   Atom bar (String, Real height) const;
     
   Atom dots () const;
+  Atom dashed_slur (Array<Offset> controls, Real thick, Real dash) const;
   Atom slur (Array<Offset> controls) const;
   Atom plet (Real dy, Real dx, Direction dir) const;
   Atom text (String style, String text, int align = 1) const;

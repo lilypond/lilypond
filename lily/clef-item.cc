@@ -13,7 +13,7 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "clef-grav.hh"
-
+#include "text-item.hh"
 
 void
 Clef_item::do_pre_processing()
@@ -32,7 +32,12 @@ Clef_item::Clef_item()
   breakable_b_ =true;
   default_b_ = false;
   change_b_ = true;
+  octave_dir_ = CENTER;
   read ("violin");
+  // Ugh: This should be const, I guess.
+  octave_marker_td_p_ = new Text_def();
+  octave_marker_td_p_->text_str_ = "8";
+  octave_marker_td_p_->style_str_ = "italic";
 }
 
 /*
@@ -129,6 +134,7 @@ void
 Clef_item::read (Clef_engraver const &k)
 {
   read (k.clef_type_str_);
+  octave_dir_ = k.octave_dir_;
 }
 
 Molecule*
@@ -140,6 +146,11 @@ Clef_item::brew_molecule_p() const
   Atom s = paper()->lookup_l ()->clef (t);
   Molecule*output = new Molecule (Atom (s));
   output->translate_axis (paper()->internote_f () * y_position_i_, Y_AXIS);
+  if (octave_dir_)
+    output->add_at_edge (Y_AXIS, 
+			 octave_dir_,
+			 Molecule(octave_marker_td_p_->get_atom(paper(), 
+							        CENTER)));
   return output;
 }
 

@@ -13,9 +13,9 @@ copyright =	 "public domain";
 
 \include "global.ly"
 \include "flauti.ly"
+\include "part-paper.ly"
 
 \score{
-%	\property Score.part = 1
 	\$flauti_staff
 	\paper{}
 }

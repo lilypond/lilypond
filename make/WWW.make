@@ -10,4 +10,5 @@ html_subdirs=$(addprefix --subdirs ,$(SUBDIRS))
 
 local-WWW: $(ly_examples) $(ps_examples) $(gif_examples)
 	(cd $(outdir); $(PYTHON) ../$(depth)/bin/mutopia-index.py --prefix=../ --suffix=/$(outdir) $(html_subdirs) $(examples))
+	add-html-footer $(outdir)/index.html
 

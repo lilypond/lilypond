@@ -17,6 +17,6 @@ esac
 
 # generate the pixmap at twice the size, then rescale (for antialiasing)
 cat $1 | gs  -q -sDEVICE=ppmraw \
-    -sOutputFile="|pnmscale 0.5|ppmtogif > $FILE-page%d.gif" \
+    -sOutputFile="|pnmscale 0.3333|ppmtogif > $FILE-page%d.gif" \
     -r200 -dNOPAUSE - -c quit
 

@@ -13,10 +13,10 @@ copyright =	 "public domain";
 
 \include "global.ly"
 \include "oboi.ly"
+\include "part-paper.ly"
 
 \score{
-%	\property Score.part = 1
-	\$oboi_staff
+	\$oboi_staff 
 	\paper{}
 }
 

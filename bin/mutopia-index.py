@@ -27,7 +27,7 @@ def gen_list(inputs, subdir, filename):
 	list.write  ('<ul>')	
         for ex in subdirs:
 	    print 'subdir %s ' % ex
-	    list.write ('<li><a href=%s>Subdirectory: %s</a></li>\n' % (pre + ex + post , ex))
+	    list.write ('<li><a href=%s/index.html>Subdirectory: %s</a></li>\n' % (pre + ex + post , ex))
 
 	list.write ('</ul>')
 

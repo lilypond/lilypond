@@ -61,6 +61,9 @@ Tie_engraver::do_process_requests()
   if (req_l_ && ! tie_p_)
     {
       tie_p_ = new Tie;
+      Scalar prop = get_property ("slurdash");
+      if (prop.isnum_b ()) 
+	tie_p_->dash_i_ = prop;
     }
 }
 

@@ -13,9 +13,8 @@ copyright =	 "public domain";
 
 \include "global.ly"
 \include "corni.ly"
-
+\include "part-paper.ly"
 \score{
-%	\property Score.part = 1
 	\$corni_staff
 	\paper{}
 }

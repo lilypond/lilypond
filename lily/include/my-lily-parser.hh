@@ -30,16 +30,21 @@ class My_lily_parser {
   Chord * get_note_element (Note_req * ,Duration *);
   Chord* get_rest_element (String,Duration *);
   Chord* get_word_element (Text_def*, Duration*);
+  Melodic_req* get_melodic_req (Melodic_req* melodic, int quotes);
+  void set_nearest (Melodic_req* melodic);
+  String notename_str (Melodic_req* melodic);
 
   void set_last_duration (Duration const *);
   void set_default_duration (Duration const *);
   void set_abbrev_beam (int type_i);
   void set_duration_mode (String s);
+  void set_octave_mode (String s);
   friend int yyparse (void*);
 
 public:
   int abbrev_beam_type_i_;
   int default_octave_i_;
+  Melodic_req* last_melodic_;
   Duration default_duration_;
   Plet plet_;
   Header *default_header_p_;
@@ -47,6 +52,7 @@ public:
   String textstyle_str_;
   bool first_b_;
   bool last_duration_mode_b_ ;
+  bool relative_octave_mode_b_;
   Array<Request*> pre_reqs, post_reqs;
   int fatal_error_i_;
   Sources * source_l_;

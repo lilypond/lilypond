@@ -20,7 +20,7 @@
 
 Score_engraver::Score_engraver()
 {
-  disallow_break_b_ = false;
+  break_penalty_i_ = 0;
   scoreline_l_ =0;
   command_column_l_ =0;
   musical_column_l_ =0;
@@ -34,7 +34,7 @@ Score_engraver::prepare (Moment w)
   Global_translator::prepare (w);
   set_columns (new Score_column (w),  new Score_column (w));
   
-  disallow_break_b_ = false;
+  break_penalty_i_ = 0;
   post_move_processing();
 }
 
@@ -165,7 +165,7 @@ Score_engraver::typeset_all()
 void
 Score_engraver::do_pre_move_processing()
 {
-  if (!disallow_break_b_)
+  if (break_penalty_i_ > Break_req::DISALLOW)
     {
       get_staff_info().command_pcol_l ()-> breakable_b_ = true;
       breaks_i_ ++;
@@ -242,14 +242,18 @@ Score_engraver::do_try_request (Request*r)
 {
   bool gotcha = Engraver_group_engraver::do_try_request (r);  
 
-  if (!gotcha && r->command())
+  if (gotcha || !r->command ())
+    return gotcha;
+
+  Command_req * c = r->command ();
+  if (c->linebreak ())
     {
-      Command_req * c = r->command ();
-      if (c->disallowbreak ())
-	disallow_break_b_ = true;
-      else if (c->forcebreak ())
+      Break_req* b = (Break_req*)c->linebreak ();
+      if (b->penalty_i_ <= Break_req::DISALLOW)
+	break_penalty_i_ = b->penalty_i_;
+      else if (b->penalty_i_ >= Break_req::FORCE)
 	{
-	  command_column_l_->forced_break_b_ = true;
+	  command_column_l_->break_penalty_i_ = b->penalty_i_;
 	  gotcha = true;
 	}
     }

@@ -12,8 +12,6 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\include "paper20.ly"
-
 define(comma, r16 [$1$4 $2 $3] [$2 $1 $2 $6$1] r $1$7 r $5$1 |)
 define(s, `comma(translit($*,` ', `,'))')
 define(t, r16 [$1$4 $2 $3] [$2 $1 $2 $6$1] r $1$7 r $5$1 |)
@@ -167,8 +165,7 @@ grand_staff = \type Grand_staff <
 >
 
 a4 = \paper{
-	\paper_twenty
-	linewidth= 195.\mm;
+	linewidth= 193.\mm;
 }
 
 \score{

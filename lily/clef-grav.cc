@@ -20,6 +20,7 @@ Clef_engraver::Clef_engraver()
   clef_req_l_ =0;
   clef_type_str_ = 0;
   c0_position_i_ =0;
+  octave_dir_ = CENTER;
 }
 
 /*
@@ -28,6 +29,18 @@ Clef_engraver::Clef_engraver()
 bool
 Clef_engraver::set_type (String s)
 {
+  if (s.right_str(2) == "_8") // Down one octave
+    {
+      octave_dir_ = DOWN;
+      s = s.left_str(s.length_i() - 2);
+    }
+  else if (s.right_str(2) == "^8") // Up one octave
+    {
+      octave_dir_ = UP;
+      s = s.left_str(s.length_i() - 2);
+    }
+  else
+    octave_dir_ = CENTER;
   clef_type_str_ = s;
   if (clef_type_str_ == "violin" || clef_type_str_ == "G" || clef_type_str_ == "G2")
     c0_position_i_= -6;
@@ -64,6 +77,7 @@ Clef_engraver::set_type (String s)
     default:
     return false;
     }		    
+  c0_position_i_ -= (int) octave_dir_ * 7;
   
   return true;
 }

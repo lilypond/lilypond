@@ -165,7 +165,7 @@ bassdux = \melodic {
 
         
 \score {
-  \melodic {
+ 
     \type Grand_staff < 
       \type Staff = treble < 
         \global 
@@ -177,7 +177,6 @@ bassdux = \melodic {
         \bassdux
       >
     >
-  }
 
   \paper {
     gourlay_maxmeasures = 5.;

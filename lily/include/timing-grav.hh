@@ -18,7 +18,6 @@
 class Timing_engraver : public Timing_translator, public Engraver
 {   
 protected:
-  virtual void acknowledge_element (Score_elem_info i);
   virtual void fill_staff_info (Staff_info&);
   virtual Engraver * engraver_l () { return Engraver::engraver_l (); }
 public:

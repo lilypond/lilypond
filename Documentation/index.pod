@@ -1,58 +1,13 @@
 =head1 NAME
 
-The Homepage of LilyPond -- the GNU Project music typesetter
+The Documentation of LilyPond -- the GNU Project music typesetter
 
 =head1 DESCRIPTION
-
-LilyPond is the GNU Project music typesetter.  It generates visual or
-auditive output from a music definition file: it can typeset formatted
-sheet music to a TeX file and play (mechanical) performances to a MIDI
-file.
-
-This is not a Fanmail/Hype page. These pages were entirely created from
-the LilyPond package-sources. 
 
 Note: These pages are created from the latest B<development snapshots>
 of LilyPond.  You can look at the bottom if you want to know which
 version this was.
 
-=head2 Mirrors
-
-=over 4
-
-=item http://sca.uwaterloo.ca/lilypond/
-
-Eric Praetzel was kind enough to provide a mirror of both the website
-and the ftp site.  
-
-=back
-
-=head2 Examples
-
-=over 4
-
-=item *
-<a href=examples_output.html
->
-short examples of what LilyPond can do: MIDI, PS, .gif and input.
-</a
->
-
-=item *
-<a href=mutopiaexamples_output.html 
->
-examples of what LilyPond can do
-with real music: MIDI, PS, .gif and input 
-</a
->
-
-=back
-
-=head2 NEWS! 
-
-This is what the latest version brings:
-
-top_of_NEWS
 
 =head2 Documentation: Introduction
 
@@ -139,7 +94,7 @@ The lilypond logo (medium size, format: .gif)
 =item *
 <a href=../tex/out-www/index.html
 >
-PS documents about LilyPond
+TeX documents about LilyPond
 </a
 >
 
@@ -187,7 +142,7 @@ The coding standards of the lilypond project.
 =item *
 <a href=docxx/index.html
 >
-The DOC++ documentation of the C++ sources.
+The DOC++ documentation of the C++ sources. [temporarily disabled]
 </a
 >
 
@@ -226,12 +181,6 @@ B<download> LilyPond and other interesting links
 >
 
 
-=item *
-<a href=sconstat/stats.html
->
-Stats on this page. [temporarily out of order]
-</a
->
 
 =back
 

@@ -61,6 +61,7 @@ strijkers = \type Staff_group = strijkers_group <
 \score{
 	<
 		\textstyle "italic";
+
 		\$legno
 		\$koper
 		\$timpani_g

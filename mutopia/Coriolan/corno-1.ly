@@ -13,11 +13,11 @@ copyright =	 "public domain";
 
 corno1 = \melodic{
 	\octave c';	
-	r1*2 | as'4-.\ff r r2 | r1*3 |
-	as'4-. r r2 | r1*3 |
+	R1 *2 | as'4-.\ff r r2 | R1 *3 |
+	as'4-. r r2 | R1 *3 |
 	es'4-. r r2 | r1 |
 	g'4-. r r2 | g'4-. r r2 |
-	r1*5 |
+	R1 *5 |
 	r2 r4 g'4-.\f |
 }
 

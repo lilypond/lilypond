@@ -11,9 +11,6 @@
 
 #include <iostream.h>
 
-// mmm
-#define MUDELA_VERSION "0.1.10"
-
 #include "scalar.hh"
 #include "translation-property.hh"
 #include "script-def.hh"
@@ -40,6 +37,12 @@
 #include "duration-convert.hh"
 #include "change-translator.hh"
 #include "file-results.hh"
+#include "mudela-version.hh"
+
+// mmm
+Mudela_version oldest_version ("0.1.8");
+Mudela_version version ("0.1.13");
+
 
 // needed for bison.simple's malloc() and free()
 #include <malloc.h>
@@ -53,6 +56,8 @@ int guess_plet_a[GUESS_PLET] =
   3,
   4
 };
+
+Paper_def* current_paper = 0;
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -131,7 +136,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token BAR
 %token BEAMPLET
 %token MAEBTELP
-%token BREAK
+%token PENALTY
 %token CADENZA
 %token CLEAR
 %token CLEF
@@ -175,6 +180,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token TEMPO
 %token TYPE
 %token TEXID
+%token MEASURES
 %token TEXTSTYLE
 %token TITLE
 %token PROPERTY
@@ -212,8 +218,9 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <header> 	mudela_header mudela_header_body
 %type <box>	box
 %type <i>	open_request_parens close_request_parens
-%type <c>	open_abbrev_parens
+%type <i>	open_abbrev_parens
 %type <i>	open_plet_parens close_plet_parens
+%type <i>	post_quotes pre_quotes
 %type <music>	simple_element music_elt full_element lyrics_elt command_elt
 %type <i>	abbrev_type
 %type <i>	int unsigned
@@ -236,7 +243,8 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <musiclist> Voice Voice_body
 %type <chord>	Chord Chord_body
 %type <paper>	paper_block paper_body
-%type <real>	dim real
+%type <real>	dim real real_expression
+%type <real>	real_add_expression real_mult_expression real_primary
 %type <real>	unit
 %type <request> abbrev_command_req
 %type <request>	post_request structured_post_request
@@ -275,7 +283,8 @@ mudela:	/* empty */
 
 check_version:
 	VERSION STRING ';'		{
-		if (String (*$2) != MUDELA_VERSION) {
+	 	Mudela_version ver (*$2);
+		if (!((ver >= oldest_version) && (ver <= version))) {
 			if (THIS->ignore_version_b_) {
 				THIS->here_input ().error ("Incorrect mudela version");
 			} else {
@@ -368,9 +377,8 @@ identifier_init:
 		$$ = new Lookup_id ($1, IDENTIFIER);
 
 	}
-	| real	{
+	| real {
 		$$ = new Real_id (new Real ($1), REAL_IDENTIFIER);
-
 	}
 	| int	{
 		$$ = new Int_id (new int ($1), INT_IDENTIFIER);
@@ -389,8 +397,6 @@ identifier_init:
 		$$ = new Duration_id ($1, DURATION_IDENTIFIER);
 	}
 	;
-
-
 
 translator_spec:
 	TRANSLATOR '{' translator_spec_body '}'
@@ -490,11 +496,16 @@ paper_block:
 	'{' paper_body '}' 	{ $$ = $3; }
 	;
 
+optional_semicolon:
+	/* empty */
+	| ';'
+	;
+
 paper_body:
 	/* empty */		 	{
 		$$ = THIS->default_paper ();
 	}
-	| PAPER_IDENTIFIER	{
+	| PAPER_IDENTIFIER optional_semicolon	{
 		$$ = $1->paperdef ();
 	}
 	| paper_body OUTPUT STRING ';'	{ 
@@ -502,11 +513,10 @@ paper_body:
 		delete $3;
 	}
 	| paper_body symtables		{ $$->set ($2); }
-	| paper_body STRING '=' dim ';'		{
+	| paper_body STRING '=' real_expression ';'		{
 		$$->set_var (*$2, $4);
-	}
-	| paper_body STRING '=' real ';' {
-		$$->set_var (*$2, $4);
+// ugh, huh?
+		current_paper = $$;
 	}
 	| paper_body STRING '=' translator_spec	{
 		$$-> assign_translator (*$2, $4);
@@ -518,6 +528,43 @@ paper_body:
 	}
 	| paper_body error {
 
+	}
+	;
+
+real_primary:
+	real
+	| dim
+	| STRING {
+// ugh, huh?
+//		$$ = THIS->default_paper ()->get_var (*$1);
+		$$ = current_paper->get_var (*$1);
+	}
+	| '(' real_expression ')' {
+		$$ = $2;
+	}
+	;
+
+real_expression:
+	real_add_expression
+	;
+
+real_add_expression:
+	real_mult_expression
+	| real_add_expression '+' real_mult_expression {
+		$$ = $1 + $3;
+	}
+	| real_add_expression '-' real_mult_expression {
+		$$ = $1 - $3;
+	}
+	;
+
+real_mult_expression:
+	real_primary
+	| real_mult_expression '*' real_primary {
+		$$ = $1 * $3;
+	}
+	| real_mult_expression '/' real_primary {
+		$$ = $1 / $3;
 	}
 	;
 
@@ -727,10 +774,11 @@ verbose_command_req:
 		$$ = new Bar_req (*$2);
 		delete $2;
 	}
-	| BREAK	{
-		Break_force_req * f = new Break_force_req;
-		f-> set_spot (THIS->here_input ());
-		$$ = f;
+	| PENALTY '=' int	{
+		Break_req * b = new Break_req;
+		b->penalty_i_ = $3;
+		b-> set_spot (THIS->here_input ());
+		$$ = b;
 	}
 	| METER unsigned '/' unsigned 	{
 		Meter_change_req *m = new Meter_change_req;
@@ -811,29 +859,56 @@ post_request:
 	}
 	;
 
+pre_quotes:
+	PRE_QUOTES {
+//		int i = $1;
+		$$ = $1;
+	}
+	| pre_quotes PRE_QUOTES {
+//		int i = $1 + $2;
+		$$ =  $1 + $2;
+	}
+	;
 
+post_quotes:
+	POST_QUOTES {
+//		int i = $1;
+		$$ = $1;
+	}
+	| post_quotes POST_QUOTES {
+//		int i = $1 + $2;
+		$$ = $1 + $2;
+	}
+	;
 
 /*
 	URG!!
+
+	Whitespace mustn't be stripped.  So what?
+	Python is cool, and there even the amount *and* type of whitespace
+	is significant.  So this is not uncool per se, maybe context-free
+	just sucks for humans.
+	jcn
 */
 steno_melodic_req:
 	NOTENAME_ID	{
-		$$ = $1->clone ()->musical ()->melodic ();
-		$$->octave_i_ += THIS->default_octave_i_;
+		Melodic_req* m =  $1->clone ()->musical ()->melodic ();
+		$$ = THIS->get_melodic_req (m, 0 + THIS->default_octave_i_);
 	}
-	| steno_melodic_req POST_QUOTES 	{
-		$$-> octave_i_ += $2;
+	| NOTENAME_ID post_quotes 	{
+		Melodic_req* m =  $1->clone ()->musical ()->melodic ();
+		$$ = THIS->get_melodic_req (m, $2 + THIS->default_octave_i_);
 	}
-	| PRE_QUOTES steno_melodic_req	 {
-		$$ = $2;
-		$2-> octave_i_ -= $1;
+	| pre_quotes NOTENAME_ID	 {
+		Melodic_req* m =  $2->clone ()->musical ()->melodic ();
+		$$ = THIS->get_melodic_req (m, -$1 + THIS->default_octave_i_);
 	}
 	;
 
 steno_note_req:
 	steno_melodic_req	{
 		$$ = new Note_req;
-		* (Melodic_req *) $$ = *$1;
+		*(Melodic_req *) $$ = *$1;
 		delete $1;
 	}
 	| steno_note_req   '!' 		{
@@ -926,8 +1001,7 @@ close_request_parens:
 	| E_BIGGER {
 		$$ = '>';
 	}
-	| close_plet_parens {
-	}
+	| close_plet_parens
 	;
 
 open_abbrev_parens:
@@ -969,10 +1043,8 @@ open_request_parens:
 	| '['	{
 		$$='[';
 	}
-	| open_abbrev_parens {
-	}
-	| open_plet_parens {
-	}
+	| open_abbrev_parens
+	| open_plet_parens
 	;
 
 
@@ -1099,6 +1171,10 @@ voice_command:
 		THIS->default_octave_i_ = $3->octave_i_;
 		delete $3;
 	}
+	| OCTAVE STRING {
+		THIS->set_octave_mode (*$2);
+		delete $2;
+	}
 	| TEXTSTYLE STRING 	{
 		THIS->textstyle_str_ = *$2;
 		delete $2;
@@ -1192,7 +1268,18 @@ music_elt:
 	}
 	| RESTNAME notemode_duration		{
 		$$ = THIS->get_rest_element (*$1, $2);
-		delete $1;
+		delete $1;  // delete notename
+	}
+	| MEASURES notemode_duration  	{
+		Multi_measure_rest_req* m = new Multi_measure_rest_req;
+		m->duration_ = *$2;
+		delete $2;
+
+		Chord*velt_p = new Request_chord;
+		velt_p->set_spot (THIS->here_input ());
+		velt_p->add (m);
+		$$ = velt_p;
+
 	}
 	;
 

@@ -33,6 +33,7 @@
 #include "debug.hh"
 #include "parseconstruct.hh"
 #include "main.hh"
+#include "musical-request.hh"
 #include "identifier.hh"
 void strip_trailing_white (String&);
 void strip_leading_white (String&);
@@ -136,9 +137,9 @@ TELP		\\\]
 <notes,INITIAL,lyrics>\\include           {
 	yy_push_state (incl);
 }
-<incl>\"[^"]*\"   { /* got the include file name */
+<incl>\"[^"]*\";?   { /* got the include file name */
 	String s (YYText ()+1);
-	s = s.left_str (s.length_i ()-1);
+	s = s.left_str (s.index_last_i ('"'));
 	DOUT << "#include `" << s << "\'\n";
 	new_input (s,source_global_l);
 	yy_pop_state ();
@@ -152,6 +153,9 @@ TELP		\\\]
 	yylval.string = new String (s);	
 	DOUT << "rest:"<< yylval.string;
 	return RESTNAME;
+}
+<notes>R		{
+	return MEASURES;
 }
 <INITIAL,lyrics,notes>\\\${BLACK}*{WHITE}	{
 	String s=YYText () + 2;
@@ -370,6 +374,7 @@ My_lily_lexer::scan_escaped_word (String str)
 		if (mel_l) {
 		    DOUT << "(notename)\n";
 		    yylval.melreq = mel_l;
+		    mel_l->set_spot (Input (source_file_l (), here_ch_C ()));
 		    return NOTENAME_ID;
 		}
 	}
@@ -390,6 +395,7 @@ My_lily_lexer::scan_bare_word (String str)
 		if (mel_l) {
 		    DOUT << "(notename)\n";
 		    yylval.melreq = mel_l;
+		    mel_l->set_spot (Input (source_file_l (), here_ch_C ()));
 		    return NOTENAME_ID;
 		}
 	}

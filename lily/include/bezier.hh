@@ -62,7 +62,7 @@ public:
   Real check_fit_f ();
   void set (Array<Offset> points, int dir);
   void transform ();
-  void transform_controls_back ();
+  void transform_back ();
 
   Paper_def* paper_l_;
   Curve encompass_;

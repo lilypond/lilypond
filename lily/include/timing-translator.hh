@@ -33,6 +33,5 @@ protected:
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();
 
-  bool mmrest_b_;
 };
 #endif // TIMING_TRANSLATOR_HH

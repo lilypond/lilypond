@@ -24,6 +24,7 @@
 bool version_ignore_global_b = false;
 bool no_paper_global_b = false;
 bool no_timestamps_global_b = false;
+bool find_quarts_global_b = false;
 String default_outname_base_global =  "lelie";
 int default_count_global;
 
@@ -45,6 +46,7 @@ Long_option_init theopts[] = {
   {0, "no-paper", 'M'},
   {0, "dependencies", 'd'},
   {0, "no-timestamps", 'T'},
+  {0, "find-quarts", 'Q'},
   {0, "ignore-version", 'V'},
   {0,0,0}
 };
@@ -58,17 +60,17 @@ usage ()
     "\n"
     "Options:\n"
     "  -D, --debug            enable debugging output\n"
-    "  -d, --dependencies     write dependency files for every output\n"
+    "  -d, --dependencies     write Makefile dependencies for every input file\n"
+    "  -Q, --find-quarts      show all intervals bigger than a quart\n"
     "  -I, --include=DIR      add DIR to search path\n"
     "  -i, --init=FILE        use FILE as init file\n"
     "  -h, --help             this help\n"
-    "  -w, --warranty         show warranty and copyright\n"
+    "  -M, --no-paper         produce midi output only\n"
     "  -o, --output=FILE      set FILE as default output\n"
     "  -t, --test             switch on experimental features\n"
-    "  -M, --no-paper         produce midi output only\n"
-    "  -V, --ignore-version   ignore mudela version\n"
-
     "  -T, --no-timestamps    don't timestamp the output\n"
+    "  -V, --ignore-version   ignore mudela version\n"
+    "  -w, --warranty         show warranty and copyright\n"
     "\n"
     "GNU LilyPond was compiled with the following settings:\n")
 #ifdef NDEBUG
@@ -85,8 +87,6 @@ usage ()
     "\n";
 
   ;
-
-
 }
 
 void
@@ -159,6 +159,9 @@ main (int argc, char **argv)
 	case 'w':
 	  notice ();
 	  exit (0);
+	  break;
+	case 'Q':
+	  find_quarts_global_b = true;
 	  break;
 	case 'I':
 	  path.push (oparser.optional_argument_ch_C_);

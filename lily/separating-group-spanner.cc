@@ -10,6 +10,7 @@
 #include "separating-group-spanner.hh"
 #include "single-malt-grouping-item.hh"
 #include "p-col.hh"
+#include "paper-def.hh"
 
 Array<Rod>
 Separating_group_spanner::get_rods () const
@@ -22,9 +23,11 @@ Separating_group_spanner::get_rods () const
       bool lb =spacing_unit_l_arr_[i]->column_l ()->breakable_b_;
       if (lb)
 	{
-	  a.push (Rod ((Single_malt_grouping_item*)
+	  Rod r((Single_malt_grouping_item*)
 		       spacing_unit_l_arr_[i]->find_prebroken_piece (RIGHT),
-		       spacing_unit_l_arr_[i+1]));
+		       spacing_unit_l_arr_[i+1]);
+	  r.distance_f_ += paper ()->interline_f () *1.5;
+	  a.push (r);
 	}
       bool rb=spacing_unit_l_arr_[i+1]->column_l ()->breakable_b_;
       if (rb)
@@ -35,10 +38,12 @@ Separating_group_spanner::get_rods () const
 	}
       if (lb && rb)
 	{
-	  a.push (Rod ((Single_malt_grouping_item*)
+	  Rod r((Single_malt_grouping_item*)
 		       spacing_unit_l_arr_[i]->find_prebroken_piece (RIGHT),
 		       (Single_malt_grouping_item*)
-		       spacing_unit_l_arr_[i+1]->find_prebroken_piece (LEFT)));
+		       spacing_unit_l_arr_[i+1]->find_prebroken_piece (LEFT));
+	  r.distance_f_ += paper ()->interline_f () *1.5;
+	  a.push (r);
 	}
 	
     }
