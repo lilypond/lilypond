@@ -144,7 +144,7 @@ export PKG_CONFIG_PATH=$HOME/usr/pkg/g-wrap/lib/pkgconfig:$PKG_CONFIG_PATH
 
 # requires 800mb RAM with -O2
 (cd libgnomecanvas/gnome/gw; perl  -i~  -pe 's/-O2//g' Makefile)
-    
+
 G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install
 
 export GUILE_LOAD_PATH=$HOME/usr/pkg/guile-gnome/share/guile:$GUILE_LOAD_PATH

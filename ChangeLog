@@ -1,5 +1,8 @@
 2004-06-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/page-layout.scm (default-page-make-stencil): don't stretch
+	if there is too few systems on a page.
+
 	* lily/parser.yy (relative_music): start at middle C without pitch
 	argument.
 

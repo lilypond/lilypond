@@ -8,21 +8,15 @@
 
 #include "ly-module.hh"
 #include "main.hh"
-#include "paper-book.hh"
 #include "output-def.hh"
+#include "paper-book.hh"
 #include "paper-outputter.hh"
-#include "paper-system.hh"
 #include "paper-score.hh"
+#include "paper-system.hh"
 #include "stencil.hh"
 #include "warn.hh"
 
-
-/*
-  Ugh. the Function of the Paper_book class is unclear. Trim this
-  file.
-  
- */
-
+#include "ly-smobs.icc"
 
 Paper_book::Paper_book ()
 {
@@ -37,8 +31,6 @@ Paper_book::Paper_book ()
 Paper_book::~Paper_book ()
 {
 }
-
-#include "ly-smobs.icc"
 
 IMPLEMENT_DEFAULT_EQUAL_P (Paper_book);
 IMPLEMENT_SMOBS (Paper_book)
