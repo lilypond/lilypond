@@ -104,7 +104,11 @@ SCM ly_write2scm (SCM s);
 SCM ly_deep_copy (SCM);
 SCM ly_truncate_list (int k, SCM l );
 
-#define CACHE_SYMBOLS
+
+/*
+  Unreliable on gcc2
+ */
+// #define CACHE_SYMBOLS
 
 
 #if (__GNUC__ > 2)
