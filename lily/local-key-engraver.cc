@@ -94,9 +94,10 @@ Local_key_engraver::create_grobs ()
 	  SCM prev = scm_assoc (gh_cons (gh_int2scm (o), gh_int2scm (n)), localsig);
 	  if (prev == SCM_BOOL_F)
 	    prev = scm_assoc (gh_int2scm (n), localsig);
-	  int prev_acc = (prev == SCM_BOOL_F) ? 0 : gh_scm2int (gh_cdr (prev));
-	  bool different = prev_acc != a;
-	  
+	  SCM prev_acc = (prev == SCM_BOOL_F) ? gh_int2scm(0) : gh_cdr (prev);
+	  bool different = !gh_equal_p(prev_acc , gh_int2scm(a));
+	  int p = gh_number_p(prev_acc) ? gh_scm2int(prev_acc) : 0;
+
 	  bool tie_changes = tied_l_arr_.find_l (support_l) && different;
 	  if ((to_boolean (note_l->get_mus_property ("force-accidental"))
 	      || different) && !tie_changes)
@@ -114,8 +115,8 @@ Local_key_engraver::create_grobs ()
 
 	      
 	      bool extra_natural =
-		sign (prev_acc) * (prev_acc - a) == 1
-		&& abs(prev_acc) == 2;
+		sign (p) * (p - a) == 1
+		&& abs(p) == 2;
 
 	      Local_key_item::add_pitch (key_item_p_, *unsmob_pitch (note_l->get_mus_property ("pitch")),
 					 to_boolean (note_l->get_mus_property ("cautionary")),
@@ -132,7 +133,18 @@ Local_key_engraver::create_grobs ()
 
 	   */
 	  bool forget = to_boolean (get_property ("forgetAccidentals"));
-	  if (!forget && !tie_changes)
+	  if (tie_changes)
+	    {
+	      /*
+		Remember an alteration that is different both from
+		that of the tied note and of the key signature.
+	       */
+	      localsig = scm_assoc_set_x (localsig, gh_cons (gh_int2scm (o),
+							     gh_int2scm (n)),
+					  SCM_BOOL_T); 
+
+	    }
+	  else if (!forget)
 	    {
 	      /*
 		not really really correct if there are more than one
