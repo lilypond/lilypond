@@ -1,9 +1,9 @@
 \version "1.7.18"
 
 \header {
-    texidoc = "Cross staff stems
+    texidoc = "
 
-Unfortunately, there is no support for putting chords across staves.
+There is no support for putting chords across staves.
 You can get this result by increasing the length of the stem in the
 lower stave so it reaches the stem in the upper stave, or vice versa.
 
