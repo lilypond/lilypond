@@ -8,8 +8,10 @@
 
 @itemize @bullet
 
+@item There is now support for putting two slurs on chords, both above
+and below. This is switched on with the @code{doubleSlurs} property.
+
 @item Running trills now have their own spanner and event,
-for example,
 
 @example
   c1\startTrillSpan c4\stopTrillSpan 

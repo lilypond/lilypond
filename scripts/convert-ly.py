@@ -2167,6 +2167,8 @@ def conv (str):
   \\override Script  #'direction
 }""", str)
 	str = re.sub ('soloADue', 'printPartCombineTexts', str)
+	str = re.sub (r'\\applymusic\s*#notes-to-clusters',
+		      '\\makeClusters', str)
 	return str
 
 conversions.append (((2, 3, 12), conv,

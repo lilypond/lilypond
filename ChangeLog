@@ -1,5 +1,9 @@
 2004-08-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/slur-double.ly: new file. 
+
+	* lily/slur-engraver.cc: add doubleSlurs property
+
 	* scm/fret-diagrams.scm (label-fret): use cond instead of case for
 	symbols.
 
