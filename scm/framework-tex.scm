@@ -16,12 +16,6 @@
 	     (srfi srfi-1)
 	     (lily))
 
-;; FIXME: rename
-;; what is bla supposed to do?  It breaks the default output terribly:
-
-;; \def\lilypondpaperbla$\backslash${$\backslash$}{bla$\backslash${$\backslash$}}%
-;; \lyitem{089.5557}{-15.3109}{\hbox{\magfontUGQLomTVo{}bla$\backslash${$\backslash$}}}%
-;; --jcn
 (define-public (sanitize-tex-string s)
   (if (ly:get-option 'safe)
       (regexp-substitute/global
@@ -249,6 +243,7 @@
      (lambda (x)
        (ly:outputter-dump-string outputter x))
      (list
+      
       ;;FIXME
       (header paper (length lines) #f)
       "\\def\\lilypondclassic{1}%\n"

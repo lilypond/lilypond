@@ -137,8 +137,9 @@ measure of the closeness of the inner stems. It is used for damping
 the slope of the beam.")
      (collapse-height ,ly:dimension? "Minimum height of system start delimiter.  If equal or smaller, the bracket is removed.")
 
+     (context ,ly:context? "Originating context of the grob")
+     
      ;;DOCME
-
      (control-points ,list? "List of 4 offsets (number-pairs) that form control points for the  tie/slur shape.")
 
      (damping ,number? "Amount of beam slope damping. 0: no, 1: yes,
