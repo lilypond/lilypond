@@ -18,6 +18,7 @@
 #include "paper-score.hh"
 #include "molecule.hh"
 #include "grob.hh"
+#include "warn.hh"
 #include "spanner.hh"
 #include "system.hh"
 #include "item.hh"

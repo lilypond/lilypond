@@ -18,7 +18,11 @@ TODO:
 
   * cross staff 
   
+  - Determine auto knees based on positions if it's set by the user.
+
+
 Notes:
+
 
  - Stems run to the Y-center of the beam.
   
