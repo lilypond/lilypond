@@ -25,6 +25,9 @@
 
 (define slur-extremity-rules
   (list
+
+   ;; (cons (lambda (slur dir) (begin (display "before head") (newline))#f) #f)
+
    (cons (lambda (slur dir)
 	   ;; urg, code dup
 	   (let* ((note-columns (ly-get-elt-property slur 'note-columns))
@@ -33,6 +36,8 @@
 	     (and stem
 		  (not (= (ly-get-elt-property slur 'direction) 
 			  (ly-get-elt-property stem 'direction))))))  'head)
+
+   ;; (cons (lambda (slur dir) (begin (display "before stem") (newline))#f) #f)
 
    (cons (lambda (slur dir)
 	   ;; if attached-to-stem
@@ -52,7 +57,9 @@
 			     #f))))))
 	 'stem)
 
+   ;;(cons (lambda (slur dir) (begin (display "before loose-end") (newline))#f) #f)
    (cons (lambda (slur dir) (not (attached-to-stem slur dir)))  'loose-end)
+   ;; (cons (lambda (slur dir) (begin (display "after loose-end") (newline))#f) #f)
 
    ;; default case, attach to head
    (cons (lambda (x y) #t)  'head)
