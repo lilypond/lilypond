@@ -31,8 +31,24 @@ Font_metric::coding_scheme () const
   return "FontSpecific";
 }
 
-
-
+Stencil
+Font_metric::find_by_name (String s) const
+{
+  int idx = name_to_index (s);
+  Box b;
+  
+  SCM expr = SCM_EOL;
+  if (idx >= 0)
+    {
+      expr = scm_list_3 (ly_symbol2scm ("char"),
+			 self_scm (),
+			 gh_int2scm (index_to_ascii (idx)));
+      b = get_indexed_char (idx);
+    }
+  
+  Stencil q (b, expr);
+  return q;
+}
 
 Font_metric::Font_metric ()
 {
@@ -111,12 +127,6 @@ IMPLEMENT_SMOBS (Font_metric);
 IMPLEMENT_DEFAULT_EQUAL_P (Font_metric);
 IMPLEMENT_TYPE_P (Font_metric, "ly:font-metric?");
 
-Stencil
-Font_metric::find_by_name (String) const
-{
-  Stencil m;
-  return m;
-}
 
 LY_DEFINE (ly_find_glyph_by_name, "ly:find-glyph-by-name",
 	   2, 0, 0,
@@ -197,6 +207,14 @@ LY_DEFINE (ly_font_design_size,"ly:font-design-size", 1 , 0, 0,
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
   return gh_double2scm (fm->design_size ());
+}
+
+
+
+int
+Font_metric::index_to_ascii (int i) const
+{
+  return i;
 }
 
 Stencil

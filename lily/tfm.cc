@@ -50,26 +50,17 @@ Tex_font_char_metric::dimensions () const
 			(d >? height_)*point_constant));
 }
 
-#define APPEND_CHAR_METRIC_ELT(k) \
-    outstr += ::to_string (#k) + " "  + ::to_string (k ## _)  + "; "
-
-String
-Tex_font_char_metric::to_string () const
-{
-  String outstr;
-
-  APPEND_CHAR_METRIC_ELT (exists);
-  APPEND_CHAR_METRIC_ELT (code);
-  APPEND_CHAR_METRIC_ELT (width);
-  APPEND_CHAR_METRIC_ELT (height);
-  APPEND_CHAR_METRIC_ELT (depth);
-  APPEND_CHAR_METRIC_ELT (italic_correction);
-  
-  return outstr + "\n";
-}
-
 Tex_font_metric::Tex_font_metric ()
 {
+  encoding_table_ = SCM_EOL;
+}
+
+
+
+void
+Tex_font_metric::derived_mark () const
+{
+  scm_gc_mark (encoding_table_);
 }
 
 Tex_font_char_metric const *
@@ -100,15 +91,6 @@ Tex_font_metric::get_ascii_char (int a) const
   return b;
 }
 
-String
-Tex_font_metric::to_string () const
-{
-  String outstr;
-  for (int i=0; i < char_metrics_.size (); i++)
-    outstr += char_metrics_[i].to_string ();
-  return outstr;
-}
-
 SCM
 Tex_font_metric::make_tfm (String filename)
 {
@@ -119,6 +101,11 @@ Tex_font_metric::make_tfm (String filename)
   tfm->header_ = reader.header_;
   tfm->char_metrics_ = reader.char_metrics_;
   tfm->ascii_to_metric_idx_ = reader.ascii_to_metric_idx_;
+
+  
+  tfm->encoding_table_ =
+    scm_call_1 (ly_scheme_function ("get-coding-table"),
+		scm_makfrom0str (tfm->info_.coding_scheme.to_str0 ()));
 
   return tfm->self_scm ();
 }
@@ -133,4 +120,18 @@ String
 Tex_font_metric::coding_scheme () const
 {
   return info_.coding_scheme;
+}
+
+int
+Tex_font_metric::name_to_index (String s) const
+{
+  SCM sym = ly_symbol2scm (s.to_str0 ());
+
+  SCM idx = scm_hash_ref (encoding_table_, sym, SCM_BOOL_F);
+  if (scm_integer_p (idx) == SCM_BOOL_T)
+    {
+      return gh_scm2int (idx);
+    }
+  else
+    return -1;  
 }

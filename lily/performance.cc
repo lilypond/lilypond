@@ -60,7 +60,7 @@ Performance::output (Midi_stream& midi_stream)
 	MIDI players tend to ignore instrument settings on
 	channel 10, the percussion channel by default.
        */
-      if (channel == 9)
+      if (channel % 16 == 9)
 	 channel++;
 
 
@@ -70,9 +70,9 @@ Performance::output (Midi_stream& midi_stream)
 	*/
       if (s->channel_ < 0)
 	{
-	  s->channel_ = channel <? 15;
+	  s->channel_ = channel % 16;
 	  if (channel > 15)
-	    warning ("MIDI channel wrapped around. Mapping to channel 15.");
+	    warning ("MIDI channel wrapped around. Remapping modulo 16.");
 	}
       
       s->output (midi_stream, channel++);

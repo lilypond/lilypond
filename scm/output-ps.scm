@@ -135,8 +135,9 @@
     (list arch_angle arch_width arch_height height arch_thick thick))
    " draw_bracket"))
 
-(define (char i)
+(define (char font i)
   (string-append 
+    (font-command font) " setfont " 
    "(\\" (ly:inexact->string i 8) ") show" ))
 
 (define (comment s)
@@ -271,9 +272,6 @@
 (define (filledbox breapth width depth height) 
   (string-append (ly:numbers->string (list breapth width depth height))
 		 " draw_box"))
-
-(define (fontify font exp)
-  (string-append (font-command font) " setfont " exp))
 
 (define (header creator time-stamp page-count-)
   (set! page-count page-count-)
@@ -413,9 +411,13 @@
    (ly:numbers->string (list h w thick))
    " draw_symmetric_x_triangle"))
 
-(define (text s)
+(define (text font s)
+  
 ;;  (string-append "(" (escape-parentheses s) ") show "))
-  (string-append "(" (ps-encoding s) ") show"))
+  (string-append
+
+   (font-command font) " setfont " 
+   "(" (ps-encoding s) ") show"))
 
 (define (unknown) 
   "\n unknown\n")

@@ -76,8 +76,8 @@ kpathsea_find_tfm (char const * name)
     warning (_f ("kpathsea can not find TFM file: `%s'", name));
   else
     return name_ptr;
-  
 #endif
+
   return "";
 }
 
@@ -154,40 +154,6 @@ void
 initialize_kpathsea (char *av0)
 {
 #if KPATHSEA && HAVE_KPATHSEA_KPATHSEA_H
-  /*
-    We take two pronged approach to tfms:
-
-    * the lilypond tfms (feta*.tfm) are found through our own routines.
-
-    * the TeX tfms are found through vanilla kpathsea.
-
-    (* other TFMs are not found, i.e. don't use them. )
-
-    PRO:
- 
-    - TFM and AFM checksums always match in Lily.
-
-    - less hassle, no kpathsea spaghetti
-
-    CON:
-
-    - feta PK files are often recreated, locally
-    Solution: cache PK files locally?
-
-    - need env. vars to make sure that TeX finds the TFMs
-
-    - Outdated PK (TFM?) font files are not automatically removed,
-    since VERSION is not part of the standard location.
-
-
-    ALTERNATIVE
-
-    we have tried to come up with schemes that leave this kind of work
-    to kpathsea with objective of fixing the CONs, but miserably
-    failed. TeX installations and kpathsea itself form a buggy,
-    inconsistent, and unorderly mess.
-    
-  */
 
   /*
    initialize kpathsea

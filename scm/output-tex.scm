@@ -11,7 +11,6 @@
   #:re-export (quote)
   #:export (define-fonts
 	     font-command
-	     fontify
 	     unknown
 	     output-paper-def
 	     output-scopes
@@ -49,7 +48,7 @@
 	     start-page
 	     stop-page
 	     )
-)
+  )
 
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
@@ -61,6 +60,7 @@
 ;;;;;;;;
 ;;;;;;;; DOCUMENT ME!
 ;;;;;;;;
+
 
 (define (font-command font)
   (string-append
@@ -74,9 +74,6 @@
 (define (define-fonts paper font-list)
   (apply string-append
 	 (map (lambda (x) (font-load-command paper x)) font-list)))
-
-(define (fontify font exp)
-  (string-append "\\" (font-command font) exp))
 
 (define (unknown) 
   "%\n\\unknown\n")
@@ -156,8 +153,9 @@
 (define (dashed-slur thick dash l)
   (embedded-ps (list 'dashed-slur thick dash `(quote ,l))))
 
-(define (char i)
-  (string-append "\\char" (ly:inexact->string i 10) " "))
+(define (char font i)
+  (string-append "\\" (font-command font)
+		 "\\char" (ly:inexact->string i 10) " "))
 
 (define (dashed-line thick on off dx dy)
   (embedded-ps (list 'dashed-line  thick on off dx dy)))
@@ -250,10 +248,6 @@
    "\\def\\lilypondtagline{Engraved by LilyPond (version "
    (lilypond-version)")}\n"))
 
-(define (invoke-char s i)
-  (string-append 
-   "\n\\" s "{" (ly:inexact->string i 10) "}" ))
-
 ;; FIXME: explain ploblem: need to do something to make this really safe.  
 (define (output-tex-string s)
   (if safe-mode?
@@ -316,8 +310,16 @@
 (define (round-filled-box x y width height blotdiam)
   (embedded-ps (list 'round-filled-box  x y width height blotdiam)))
 
-(define (text s)
-  (string-append "\\hbox{" (output-tex-string s) "}"))
+(define (text font s)
+  (let*
+      ((perm (caddr (ly:font-encoding font))))
+  (display (ly:font-encoding font))
+  (string-append "\\hbox{\\" (font-command font) "{}"
+		 (output-tex-string
+		  (if (vector? perm)
+		      (reencode-string perm s)
+		      s))
+		  "}")))
 
 (define (tuplet ht gapx dx dy thick dir)
   (embedded-ps (list 'tuplet  ht gapx dx dy thick dir)))
@@ -337,8 +339,7 @@
       (string-append "\\special{src:" ;;; \\string ? 
 		     (point-and-click line col file)
 		     "}" )
-      "")
-  )
+      ""))
 
 ;; no-origin not yet supported by Xdvi
 (define (no-origin) "")

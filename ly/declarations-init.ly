@@ -52,9 +52,11 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
     pt = #(/  in 72.27)
     cm = #(* 10 mm)
 
+    inputcoding = #"TeX"
     raggedright = ##f
     raggedlast = ##f 
     packed = ##f
+    
     #(define $is-paper #t)
     
     #(define font-defaults
