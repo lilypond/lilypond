@@ -24,7 +24,6 @@ input cmbase;
 
 M:=design_size/10;
 
-
 u#:=M*21.2/36pt#;      % unit width
 width_adj#:=M*11/36pt#;    % width adjustment for certain characters
 serif_fit#:=M*0pt#;    % extra sidebar near lowercase serifs
@@ -140,8 +139,6 @@ fcode = 102;
 
 input feta-ital-f;
 
-input feta-new-code;
-
 slant:=.28;      % tilt ratio $(\Delta x/\Delta y)$
 stem#:=M*32/36pt#;    % lowercase stem breadth
 ess#:=M*28/36pt#;      % breadth in middle of lowercase s
@@ -165,10 +162,13 @@ input feta-ital-m;
 input feta-ital-r;
 input feta-ital-s;
 input feta-ital-z;
+input feta-new-code;
 
 font_slant slant;
 font_x_height x_height#;
 font_quad 18u#;             % to have a working em unit
+
+
 
 %%fet_endfont("feta-din");
 
