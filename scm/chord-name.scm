@@ -325,7 +325,7 @@
 	 (subs-text (chord::subtractions->text-banter subtractions))
 	 (b+i-text (chord::bass-and-inversion->text-banter bass-and-inversion)))
     (text-append
-     tonic-text except-text " " sep-text
+     tonic-text except-text sep-text
      ;;(list (list simple-super) adds-text subs-text)
      (list (list '((raise . 1) (font-relative-size . -1))) adds-text subs-text)
      b+i-text)))
