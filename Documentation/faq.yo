@@ -186,15 +186,18 @@ elements.)
 
 question(Do you support multiple staff-sizes?)
 
-Yes and no.  At this time you can choose between 11, 13, 16, 19,
-20, 23 and 20 pt staff-size.  The sizes can't be changed per staff
-(yet).  Look at file(standchen.ly) for an example.
-
+Yes.  At this time you can choose between 11, 13, 16, 19, 20, 23 and
+20 pt staff-size.  Use the staffLineLeading property for setting the
+size of the staff, and fontSize for setting the size of the glyphs.
 
 question(Do you support Gregorian chant notation?)
 
 No.  There is no reason why LilyPond can't be extended to do so, but
 we haven't done it yet (and there are currently no plans to do it).
+
+question(Do you support grace notes?)
+
+No.  But they can kludged.  See file(input/test/grace.ly)
 
 
 sect(How do I ....)
@@ -243,9 +246,7 @@ verb(
 
 question(How do I get bar numbers?)
 
-See file(init/engraver.ly).  You have to uncomment some entries.  To
-do this  `portably' you should redefine some engravers in your own
-source files.  Check out file(init/rhythm.ly).
+See file(input/test/bar-scripts.ly).
 
 
 sect(Development)
@@ -390,6 +391,24 @@ We obviously mucked with the fonts in the upgrade.  Remove em(all)
 previous fonts, including the file(.pk) and file(.tfm) fonts in
 file(/var/lib/texmf).  A script automating this has been included, see
 file(buildscripts/clean-fonts.sh).
+
+question(all the pk and tfm
+fonts are created in the directory where the mudela file is, not in
+"/var/spool/texmf" where I think they should be.)
+
+Mats Bengtsson <mats.bengtsson@s3.kth.se> writes:
+
+The simple solution used by Anthony Fok in the Debian distribution of
+Lilypond is to link the mf/ directory to
+/usr/lib/texmf/fonts/source/public/lilypond Depending on what
+distribution of teTeX and Linux you have installed, there might also
+be other places like /usr/local/lib/texmf/fonts/source/public/lilypond
+or /var/spool/texmf//fonts/source/public/lilypond
+
+Wherever you put it, don't forget to run mktexlsr (or texhash for
+older installations) afterwards, so that TeX will find the files.
+Also, don't forget to remove all old .tfm and .*pk files when the font
+is updated (as it will be in version 1.1.40, for example).
 
 question(How does PS output work?)
 
