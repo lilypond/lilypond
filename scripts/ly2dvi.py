@@ -67,12 +67,24 @@ import operator
 import tempfile
 import traceback
 
-datadir = '@datadir@'
-sys.path.append (datadir + '/python')
+datadir = ''
+
+if '@datadir@' == ('@' + 'datadir' + '@'):
+	datadir = os.environ['LILYPONDPREFIX']
+else:
+	datadir = '@datadir@'
+
+while datadir[-1] == os.sep:
+	datadir = datadir[:-1]
+
+
+sys.path.append (os.path.join (datadir, 'python'))
+sys.path.append (os.path.join (datadir, 'buildscripts/out'))	
+
 try:
 	import gettext
 	gettext.bindtextdomain ('lilypond', '@localedir@')
-	gettext.textdomain('lilypond')
+	gettext.textdomain ('lilypond')
 	_ = gettext.gettext
 except:
 	def _ (s):
@@ -83,10 +95,34 @@ except:
 # is available on UNIX.
 try:
        import resource
-       resource.setrlimit(resource.RLIMIT_STACK, (-1,-1))
+       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
 except:
        pass
 
+program_name = 'ly2dvi'
+package_name = 'lilypond'
+help_summary = _ ("Generate .dvi with LaTeX for LilyPond")
+
+option_definitions = [
+	('', 'd', 'dependencies', _ ("write Makefile dependencies for every input file")),
+	('', 'h', 'help', _ ("this help")),
+	(_ ("DIR"), 'I', 'include', _ ("add DIR to LilyPond's search path")),
+	('', 'k', 'keep', _ ("keep all output, and name the directory %s.dir") % program_name),
+	('', '', 'no-lily', _ ("don't run LilyPond")),
+	('', 'm', 'no-paper', _ ("produce MIDI output only")),
+	(_ ("FILE"), 'o', 'output', _ ("write ouput to FILE")),
+	(_ ("FILE"), 'f', 'find-pfa', _ ("find pfa fonts used in FILE")),
+	# why capital P?
+	('', 'P', 'postscript', _ ("generate PostScript output")),
+	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),
+	('', 'V', 'verbose', _ ("verbose")),
+	('', 'v', 'version', _ ("print version number")),
+	('', 'w', 'warranty', _ ("show warranty and copyright")),
+	]
+
+from lilylib import *
+
+# verbose_p = 1 # arg!
 
 layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
 	  'footer', 'head', 'composer', 'arranger', 'instrument',
@@ -109,10 +145,7 @@ extra_init = {
 }
 
 extra_fields = extra_init.keys ()
-
 fields = layout_fields + extra_fields
-program_name = 'ly2dvi'
-help_summary = _ ("Generate .dvi with LaTeX for LilyPond")
 
 include_path = ['.']
 lily_p = 1
@@ -133,24 +166,6 @@ track_dependencies_p = 0
 dependency_files = []
 
 
-# lily_py.py -- options and stuff
-# 
-# source file of the GNU LilyPond music typesetter
-
-# BEGIN Library for these?
-# cut-n-paste from ly2dvi
-
-program_version = '@TOPLEVEL_VERSION@'
-if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.3.148'
-
-
-original_dir = os.getcwd ()
-temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
-
-keep_temp_dir_p = 0
-verbose_p = 0
-
 #
 # Try to cater for bad installations of LilyPond, that have
 # broken TeX setup.  Just hope this doesn't hurt good TeX
@@ -166,164 +181,13 @@ environment = {
 	'GS_LIB' : datadir + '/ps',
 }
 
+
 def setup_environment ():
 	for key in environment.keys ():
 		val = environment[key]
 		if os.environ.has_key (key):
 			val = os.environ[key] + os.pathsep + val 
 		os.environ[key] = val
-
-def identify ():
-	sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
-
-def warranty ():
-	identify ()
-	sys.stdout.write ('\n')
-	sys.stdout.write (_ ('Copyright (c) %s by' % ' 2001'))
-	sys.stdout.write ('\n')
-	sys.stdout.write ('  Han-Wen Nienhuys')
-	sys.stdout.write ('  Jan Nieuwenhuizen')
-	sys.stdout.write ('\n')
-	sys.stdout.write (_ (r'''
-Distributed under terms of the GNU General Public License. It comes with
-NO WARRANTY.'''))
-	sys.stdout.write ('\n')
-
-errorport=sys.stderr
-
-def progress (s):
-	errorport.write (s + '\n')
-
-def warning (s):
-	progress (_ ("warning: ") + s)
-		
-def error (s):
-
-
-	'''Report the error S.  Exit by raising an exception. Please
-	do not abuse by trying to catch this error. If you do not want
-	a stack trace, write to the output directly.
-
-	RETURN VALUE
-
-	None
-	
-	'''
-	
-	progress (_ ("error: ") + s)
-	raise _ ("Exiting ... ")
-
-def getopt_args (opts):
-	'''Construct arguments (LONG, SHORT) for getopt from  list of options.'''
-	short = ''
-	long = []
-	for o in opts:
-		if o[1]:
-			short = short + o[1]
-			if o[0]:
-				short = short + ':'
-		if o[2]:
-			l = o[2]
-			if o[0]:
-				l = l + '='
-			long.append (l)
-	return (short, long)
-
-def option_help_str (o):
-	'''Transform one option description (4-tuple ) into neatly formatted string'''
-	sh = '  '	
-	if o[1]:
-		sh = '-%s' % o[1]
-
-	sep = ' '
-	if o[1] and o[2]:
-		sep = ','
-		
-	long = ''
-	if o[2]:
-		long= '--%s' % o[2]
-
-	arg = ''
-	if o[0]:
-		if o[2]:
-			arg = '='
-		arg = arg + o[0]
-	return '  ' + sh + sep + long + arg
-
-
-def options_help_str (opts):
-	'''Convert a list of options into a neatly formatted string'''
-	w = 0
-	strs =[]
-	helps = []
-
-	for o in opts:
-		s = option_help_str (o)
-		strs.append ((s, o[3]))
-		if len (s) > w:
-			w = len (s)
-
-	str = ''
-	for s in strs:
-		str = str + '%s%s%s\n' % (s[0], ' ' * (w - len(s[0])  + 3), s[1])
-	return str
-
-def help ():
-	ls = [(_ ("Usage: %s [OPTION]... FILE") % program_name),
-		('\n\n'),
-		(help_summary),
-		('\n\n'),
-		(_ ("Options:")),
-		('\n'),
-		(options_help_str (option_definitions)),
-		('\n\n'),
-		(_ ("Report bugs to %s") % 'bug-gnu-music@gnu.org'),
-		('\n')]
-	map (sys.stdout.write, ls)
-	
-def setup_temp ():
-	"""
-	Create a temporary directory, and return its name. 
-	"""
-	global temp_dir
-	if not keep_temp_dir_p:
-		temp_dir = tempfile.mktemp (program_name)
-	try:
-		os.mkdir (temp_dir, 0777)
-	except OSError:
-		pass
-
-	return temp_dir
-
-
-def system (cmd, ignore_error = 0):
-	"""Run CMD. If IGNORE_ERROR is set, don't complain when CMD returns non zero.
-
-	RETURN VALUE
-
-	Exit status of CMD
-	"""
-	
-	if verbose_p:
-		progress (_ ("Invoking `%s\'") % cmd)
-	st = os.system (cmd)
-	if st:
-		name = re.match ('[ \t]*([^ \t]*)', cmd).group (1)
-		msg = name + ': ' + _ ("command exited with value %d") % st
-		if ignore_error:
-			warning (msg + ' ' + _ ("(ignored)") + ' ')
-		else:
-			error (msg)
-
-	return st
-
-
-def cleanup_temp ():
-	if not keep_temp_dir_p:
-		if verbose_p:
-			progress (_ ("Cleaning %s...") % temp_dir)
-		shutil.rmtree (temp_dir)
-
 
 #what a name.
 def set_setting (dict, key, val):
@@ -340,30 +204,9 @@ def set_setting (dict, key, val):
 		dict[key] = [val]
 
 
-def strip_extension (f, ext):
-	(p, e) = os.path.splitext (f)
-	if e == ext:
-		e = ''
-	return p + e
-
-# END Library
-
-option_definitions = [
-	('', 'd', 'dependencies', _ ("write Makefile dependencies for every input file")),
-	('', 'h', 'help', _ ("this help")),
-	(_ ("DIR"), 'I', 'include', _ ("add DIR to LilyPond's search path")),
-	('', 'k', 'keep', _ ("keep all output, and name the directory %s.dir") % program_name),
-	('', '', 'no-lily', _ ("don't run LilyPond")),
-	('', 'm', 'no-paper', _ ("produce MIDI output only")),
-	(_ ("FILE"), 'o', 'output', _ ("write ouput to FILE")),
-	(_ ("FILE"), 'f', 'find-pfa', _ ("find pfa fonts used in FILE")),
-	# why capital P?
-	('', 'P', 'postscript', _ ("generate PostScript output")),
-	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),
-	('', 'V', 'verbose', _ ("verbose")),
-	('', 'v', 'version', _ ("print version number")),
-	('', 'w', 'warranty', _ ("show warranty and copyright")),
-	]
+def print_environment ():
+	for (k,v) in os.environ.items ():
+		sys.stderr.write ("%s=\"%s\"\n" % (k,v)) 
 
 def run_lilypond (files, outbase, dep_prefix):
 	opts = ''
@@ -384,11 +227,14 @@ def run_lilypond (files, outbase, dep_prefix):
 	fs = string.join (files)
 
 	if not verbose_p:
-		progress ( _("Running %s...") % 'LilyPond')
 		# cmd = cmd + ' 1> /dev/null 2> /dev/null'
+		progress ( _("Running %s...") % 'LilyPond')
 	else:
 		opts = opts + ' --verbose'
-	
+
+		# for better debugging!
+		print_environment ()
+	print opts, fs	
 	system ('lilypond %s %s ' % (opts, fs))
 
 def analyse_lilypond_output (filename, extra):
@@ -657,7 +503,7 @@ try:
 	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
 except getopt.error, s:
 	errorport.write ('\n')
-	errorport.write (_( "error: ") + _ ("getopt says: `%s\'" % s))
+	errorport.write (_ ("error: ") + _ ("getopt says: `%s\'" % s))
 	errorport.write ('\n')
 	errorport.write ('\n')
 	help ()
@@ -850,7 +696,7 @@ if files and files[0] != '-':
 else:
 	# FIXME: read from stdin when files[0] = '-'
 	help ()
-	errorport.write ("ly2dvi: " + _ ("error: ") + _ ("no files specified on command line.") + '\n')
+	errorport.write (program_name + ":" + _ ("error: ") + _ ("no files specified on command line.") + '\n')
 	sys.exit (2)
 
 
