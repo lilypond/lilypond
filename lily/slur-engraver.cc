@@ -10,6 +10,7 @@
 #include "slur.hh"
 #include "debug.hh"
 #include "note-column.hh"
+#include "translator-group.hh"
 
 bool
 Slur_engraver::do_try_music (Music *req_l)
@@ -19,9 +20,21 @@ Slur_engraver::do_try_music (Music *req_l)
       if (sl->span_type_str_ != "slur")
 	return false;
       new_slur_req_l_arr_.push (sl);
+
       return true;
     }
   return false;
+}
+
+void
+Slur_engraver::set_melisma (bool m)
+{
+    Translator_group *where = daddy_trans_l_;
+    get_property ("melismaBusy", &where);
+    if (!where)
+      where = daddy_trans_l_;
+    
+    daddy_trans_l_->set_property ("melismaBusy", m ? "1" :"0");
 }
 
 void
@@ -76,7 +89,7 @@ Slur_engraver::do_process_requests()
 	  // push a new slur onto stack.
 	  //(use temp. array to wait for all slur STOPs)
 	  Slur * s_p =new Slur;
-	  Scalar prop = get_property ("slurdash", 0);
+	  Scalar prop = get_property ("slurDash", 0);
 	  if (prop.isnum_b ()) 
 	    s_p->set_elt_property (dashed_scm_sym, gh_int2scm(prop));
 
@@ -113,6 +126,10 @@ void
 Slur_engraver::do_post_move_processing()
 {
   new_slur_req_l_arr_.clear();
+  if (get_property ("automaticMelismas",0).to_bool ())
+    {
+      set_melisma (slur_l_stack_.size ());
+    }
 }
 
 

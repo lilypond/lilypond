@@ -373,6 +373,18 @@ if 1:
 	conversions.append ((1,1,55), conv,
 			    '\\wheel -> \\coda')
 
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('keyoctaviation','keyOctaviation', x)
+			x =  re.sub ('slurdash','slurDash', x)
+			newlines.append (x)
+		return newlines
+
+	conversions.append ((1,1,65), conv,
+			    'slurdash -> slurDash, keyoctaviation -> keyOctaviation')
+
 
 ############################
 	

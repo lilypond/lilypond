@@ -31,10 +31,14 @@ protected:
   virtual bool do_try_music (Music*);
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
+  virtual void do_post_move_processing();
 
 private:
-  Drul_array<Abbreviation_beam_req *> span_reqs_drul_;
+  void typeset_beam ();
+  Drul_array<Abbreviation_beam_req*> reqs_drul_;
+  Abbreviation_beam_req* prev_start_req_;
   Abbreviation_beam* abeam_p_;
+  Abbreviation_beam* finished_abeam_p_;
 };
 
 #endif // ABBREVIATION_BEAM_ENGRAVER_HH

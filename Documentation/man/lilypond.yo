@@ -24,6 +24,9 @@ includefile(../BLURB.in)
 
 manpageoptions()
 description(
+dit(-f,--format=)
+	Output format for sheet music. Choices are tex (for TeX
+	output), ps (for PostScript) and scm (for GUILE)
 dit(-I,--include=)
     add file(FILE) to the search path for input files.
 dit(-m,--midi)

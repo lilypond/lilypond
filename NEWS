@@ -1,5 +1,30 @@
+pl 64.jcn1
+	- resurrected abbreviation beam
+	- coriolan fixes
+
+pl 64.hwn1
+	- reference-manual updates.
+	- slurdash -> slurDash, keyoctaviation -> keyOctaviation
+
+pl 64.uu1
+	- \property forceHorizontalShift
+	- bf: denneboom.ly
+	- warn if translator switching  to self.
+	- warn if brace at end of lyric syllable.
+	- bf: Repeated_music::alternatives_length_mom ()
+	- \property automaticMelismas: if slur then melisma
+	- \property noVoltaBraces
+	- bf: star-spangled-banner
+
+pl 63.lu2
+	- very tight: hinterfleisch -> 0 : input/bugs/spacing-very-tight.ly
+	- bfs: neutral beam and tie directions (daar was ik al bang voor:-)
+	- bf: abe: may beam over skip, as long as note present too
+	- bf: scsii-prelude: added slurs using skips
+
+*********
 pl 63.uu1
-	- mutopia updates  courtesy Peter Chubb
+	- mutopia updates courtesy Peter Chubb
 	- Don't make Time_scaled_music for c4*2/3 entry, only do the
 time compression.  Should cure spurious Tuplet_brace/spanner warnings.
 

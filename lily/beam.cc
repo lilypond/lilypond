@@ -170,7 +170,6 @@ Beam::get_default_dir () const
   count[UP]  = count[DOWN] = 0;
   Direction d = DOWN;
 
-  Direction beamdir;
   for (int i=0; i <stems_.size (); i++)
     do {
       Stem *s = stems_[i];
@@ -198,28 +197,38 @@ Beam::get_default_dir () const
      If dir is not determined: up (see stem::get_default_dir ())
   */
 
+  Direction beam_dir;
+  Direction neutral_dir = (int)paper_l ()->get_var ("stem_default_neutral_direction");
+
   Dir_algorithm a = (Dir_algorithm)rint(paper_l ()->get_var ("beam_dir_algorithm"));
   switch (a)
     {
     case MAJORITY:
-      beamdir = (count[UP] >= count[DOWN]) ? UP : DOWN;
+      beam_dir = (count[UP] == count[DOWN]) ? neutral_dir 
+        : (count[UP] > count[DOWN]) ? UP : DOWN;
       break;
     case MEAN:
       // mean center distance
-      beamdir = (total[UP] >= total[DOWN]) ? UP : DOWN;
+      beam_dir = (total[UP] == total[DOWN]) ? neutral_dir
+        : (total[UP] > total[DOWN]) ? UP : DOWN;
       break;
     default:
     case MEDIAN:
       // median center distance
-      if (!count[DOWN])
-	beamdir = UP;
-      if (!count[UP])
-	beamdir = DOWN;
+      if (!count[DOWN] || !count[UP])
+        {
+	  beam_dir = (count[UP] == count[DOWN]) ? neutral_dir 
+	    : (count[UP] > count[DOWN]) ? UP : DOWN;
+	}
       else
-	beamdir = (total[UP] / count[UP] >= total[DOWN] / count[DOWN]) ? UP : DOWN;
+        {
+	  beam_dir = (total[UP] / count[UP] == total[DOWN] / count[DOWN]) 
+	    ? neutral_dir 
+	      : (total[UP] / count[UP] > total[DOWN] / count[DOWN]) ? UP : DOWN;
+	}
       break;
     }
-  return beamdir;
+  return beam_dir;
 }
 
 void
@@ -332,8 +341,11 @@ Beam::set_steminfo ()
   for (int i=0; i < stems_.size (); i++)
     {
       Stem *s = stems_[i];
+#if 0
+      // abbreviation beam needs to beam over invisible stems of wholes
       if (s->invisible_b ())
 	continue;
+#endif
 
       Stem_info info (s, multiple_i_);
       if (leftx == 0)
@@ -654,7 +666,13 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   Molecule rightbeams;
 
   // UGH
-  Real nw_f = paper_l ()->note_width () * 0.8;
+  Real nw_f;
+  if (here->type_i ()== 1)
+    nw_f = paper_l ()->get_var ("wholewidth");
+  else if (here->type_i () == 2)
+    nw_f = paper_l ()->note_width () * 0.8;
+  else
+    nw_f = paper_l ()->get_var ("quartwidth");
 
   /* half beams extending to the left. */
   if (prev)
@@ -693,7 +711,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       SCM gap = get_elt_property (beam_gap_scm_sym);
       if (gap != SCM_BOOL_F)
 	{
-	  int gap_i = gh_scm2int (gap);
+	  int gap_i = gh_scm2int (SCM_CDR (gap));
 	  int nogap = rwholebeams - gap_i;
 	  
 	  for (; j  < nogap; j++)
@@ -711,7 +729,10 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       for (; j  < rwholebeams; j++)
 	{
 	  Molecule b (a);
-	  b.translate (Offset (gap_f, -dir_ * dy * j));
+	  if (!here->invisible_b ())
+	    b.translate (Offset (gap_f, -dir_ * dy * j));
+	  else
+	    b.translate (Offset (0, -dir_ * dy * j));
 	  rightbeams.add_molecule (b);
 	}
 

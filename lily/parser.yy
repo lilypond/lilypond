@@ -923,11 +923,35 @@ abbrev_command_req:
 		b->span_type_str_ = "beam";
 		$$ =b;
 	}
+	| '[' ':' unsigned {
+		if (!Duration::duration_type_b ($3))
+		  THIS->parser_error (_f ("not a duration: %d", $3));
+		else if ($3 < 8)
+		  THIS->parser_error (_ ("can't abbreviate"));
+		else
+		  THIS->set_abbrev_beam ($3);
+
+		Abbreviation_beam_req* a = new Abbreviation_beam_req;
+		a->span_dir_ = START;
+		a->type_i_ = THIS->abbrev_beam_type_i_;
+		$$=a;
+	}
 	| ']'		{
-		Span_req*b= new Span_req;
-		b->span_dir_ = STOP;
-		b->span_type_str_ = "beam";
-		$$ = b;
+		if (!THIS->abbrev_beam_type_i_)
+		  {
+		     Span_req*b= new Span_req;
+		     b->span_dir_ = STOP;
+		     b->span_type_str_ = "beam";
+		     $$ = b;
+		   }
+		else
+		  {
+		    Abbreviation_beam_req* a = new Abbreviation_beam_req;
+		    a->span_dir_ = STOP;
+		    a->type_i_ = THIS->abbrev_beam_type_i_;
+		    THIS->set_abbrev_beam (0);
+		    $$ = a;
+		  }
 	}
 	| BREATHE {
 		$$ = new Breathing_sign_req;
@@ -1355,6 +1379,13 @@ simple_element:
 		delete $1;
 		n->duration_ = *$4;
 		delete $4;
+		if (THIS->abbrev_beam_type_i_)
+		  {
+		    if (n->duration_.plet_b ())
+		      THIS->parser_error (_ ("can't abbreviate tuplet"));
+		    else
+		      n->duration_.set_plet (1, 2);
+		  }
 		n->cautionary_b_ = $3 % 2;
 		n->forceacc_b_ = $2 % 2 || n->cautionary_b_;
 
