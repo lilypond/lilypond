@@ -441,7 +441,7 @@ paper_body:
 	| paper_body STRING '=' dim ';'		{ 
 		$$->set_var(*$2, $4);
 	}
-	| paper_body STRING '=' REAL ';' {
+	| paper_body STRING '=' real ';' {
 		$$->set_var(*$2, $4);
 	}
 	| paper_body input_translator_spec	{
