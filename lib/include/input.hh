@@ -10,6 +10,8 @@
 #ifndef INPUT_HH
 #define INPUT_HH
 
+#include "proto.hh"
+
 /**
   Base class for anything that records its poisition in the parse file.
  */

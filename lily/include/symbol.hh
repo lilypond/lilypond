@@ -1,3 +1,11 @@
+/*
+  symbol.hh -- declare Symbol, Atom
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #ifndef SYMBOL_HH
 #define SYMBOL_HH
 
@@ -14,4 +22,24 @@ struct Symbol {
     String str()const;		// for printing.
 };
 
+
+/// a symbol which can be translated, and freely copied
+struct Atom {
+    Offset off;
+    Symbol sym;
+
+    /* *************** */
+    
+    void translate(Offset o) {
+	off += o;
+    }
+    
+    /// how big is #this#?
+    Box extent() const;
+    Atom(Symbol s);
+
+    void print() const;
+
+    String TeX_string() const;
+};
 #endif
