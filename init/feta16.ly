@@ -1,5 +1,5 @@
 % Creator: mf-to-table.py version 0.4
-% Automatically generated on Wed Dec 24 16:38:34 1997
+% Automatically generated on Mon Jan  5 15:23:51 1998
 % Do not edit
 % input from out/feta16.log
 % name=\symboltables {
@@ -53,7 +53,7 @@
         "upbow"	"\\upbow"	-2.60\pt	2.60\pt	-0.00\pt	8.32\pt	
         "downbow"	"\\downbow"	-3.00\pt	3.00\pt	-0.00\pt	5.33\pt	
         "turn"	"\\turn"	-4.38\pt	4.38\pt	-2.12\pt	2.12\pt	
-        "trill"	"\\trill"	-0.00\pt	8.00\pt	-0.00\pt	9.00\pt	
+        "trill"	"\\trill"	-4.00\pt	4.00\pt	-0.00\pt	9.00\pt	
         "pedalheel"	"\\pedalheel"	-2.00\pt	2.00\pt	-2.00\pt	2.67\pt	
         "pedaltoe"	"\\pedaltoe"	-2.00\pt	2.00\pt	-0.00\pt	6.00\pt	
         "flageolet"	"\\flageolet"	-2.13\pt	2.13\pt	-2.13\pt	2.13\pt	
@@ -73,7 +73,7 @@
         "alto_change"	"\\caltoclef"	-3.20\pt	11.91\pt	-6.40\pt	6.40\pt	
         "bass"	"\\bassclef"	-2.00\pt	14.40\pt	-10.00\pt	4.00\pt	
         "bass_change"	"\\cbassclef"	-1.60\pt	11.52\pt	-8.00\pt	3.20\pt	
-        "violin"	"\\violinclef"	-4.11\pt	14.95\pt	-12.00\pt	20.00\pt	
-        "violin_change"	"\\cviolinclef"	-3.53\pt	11.72\pt	-9.60\pt	16.00\pt	
+        "violin"	"\\violinclef"	-3.49\pt	14.95\pt	-12.00\pt	20.00\pt	
+        "violin_change"	"\\cviolinclef"	-3.03\pt	11.72\pt	-9.60\pt	16.00\pt	
         }
     %  } % $name

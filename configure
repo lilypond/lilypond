@@ -28,7 +28,7 @@ ac_help="$ac_help
 ac_help="$ac_help
   tex-dir=DIR             set the directory to put LilyPond TeX files in. "
 ac_help="$ac_help
-  mf-dir=DIR             set the directory to put LilyPond MetaFont files in. (obsolete)"
+  mf-dir=DIR             set the directory to put LilyPond MetaFont files in. "
 ac_help="$ac_help
   out-dir                 set the directory for machine generated files. Default out or out-HOST"
 
