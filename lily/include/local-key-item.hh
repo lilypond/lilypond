@@ -10,7 +10,9 @@
 #include "varray.hh"
 
 struct Local_acc {
-    int name , acc, octave;
+    int name_i_;
+    int accidental_i_;
+    int octave_i_;
     static int compare(Local_acc&, Local_acc&);
 };
 
