@@ -6,12 +6,12 @@
   (c) 2001--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "accidental-interface.hh"
 #include "font-interface.hh"
 #include "item.hh"
-#include "stencil.hh"
-#include "accidental-interface.hh"
 #include "output-def.hh"
 #include "pitch.hh"
+#include "stencil.hh"
 
 /*
   TODO: insert support for smaller cautionaries, tie-break-reminders.
@@ -40,9 +40,7 @@ Accidental_interface::after_line_breaking (SCM smob)
   Grob *tie = unsmob_grob (me->get_property ("tie"));
 
   if (tie && !tie->original_)
-    {
-      me->suicide ();
-    }
+    me->suicide ();
   return SCM_UNSPECIFIED;
 }
 
@@ -115,7 +113,7 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
 	  */
 	}
     }
-      
+
   if (!boxes.size ())
     boxes.push (b);
 
@@ -128,7 +126,6 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
 
   return boxes;
 }
-
 
 /*
  * Some styles do not provide all flavours of accidentals, e.g. there
@@ -144,9 +141,7 @@ Accidental_interface::get_fontcharname (String style, int alteration)
 {
   if (alteration == DOUBLE_FLAT
       || alteration == DOUBLE_SHARP)
-    {
-      return to_string (alteration);
-    }
+    return to_string (alteration);
 
   if (style == "hufnagel")
     switch (alteration)
@@ -203,16 +198,12 @@ Accidental_interface::print (SCM smob)
   SCM scm_style = me->get_property ("style");
   String style;
   if (scm_is_symbol (scm_style))
-    {
-      style = ly_symbol2string (scm_style);
-    }
+    style = ly_symbol2string (scm_style);
   else
-    {
-      /*
-	preferably no name for the default style.
-      */
-      style = "";
-    }
+    /*
+      preferably no name for the default style.
+    */
+    style = "";
 
   Font_metric *fm = 0;
   if (smaller)
@@ -239,13 +230,9 @@ Accidental_interface::print (SCM smob)
       Stencil acc (fm->find_by_name ("accidentals." + font_char));
 
       if (acc.is_empty ())
-	{
-	  me->warning (_f ("accidental `%s' not found", font_char));
-	}
+	me->warning (_f ("accidental `%s' not found", font_char));
       else
-	{
-	  mol.add_at_edge (X_AXIS, RIGHT, acc, 0.1, 0);
-	}
+	mol.add_at_edge (X_AXIS, RIGHT, acc, 0.1, 0);
     }
 
   if (parens)
@@ -256,7 +243,6 @@ Accidental_interface::print (SCM smob)
 
 /*
   TODO: should move inside-slur into item?
-
 */
 ADD_INTERFACE (Accidental_interface, "accidental-interface",
 	       "a single accidental",
