@@ -1,3 +1,9 @@
+2003-09-16  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* buildscripts/lilypond.words.py: add all slur types to Emacs
+	insertion menu, suppose everything is postfixed by dropping 
+	unnecessary `-' -marks.
+
 2003-09-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/stem.cc (get_default_stem_end_position): lengthen stems for
