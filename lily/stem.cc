@@ -461,18 +461,65 @@ Stem::set_spacing_hints (Grob*me)
 Molecule
 Stem::flag (Grob*me)
 {
-  String style;
-  SCM st = me->get_grob_property ("flag-style");
-  if (gh_string_p (st))
+  // TODO: rename flag-style into something more appropriate,
+  // e.g. "stroke-style", maybe with values "" (i.e. no stroke),
+  // "single" and "double".  Needs more discussion.
+  String style, fstyle, stafflineOffs;
+  SCM fst = me->get_grob_property ("flag-style");
+  if (gh_string_p (fst))
     {
-      style = ly_scm2string (st);
+      fstyle = ly_scm2string (fst);
     }
 
+  SCM st = me->get_grob_property ("style");
+  if (gh_symbol_p (st))
+    {
+      style = (ly_scm2string (scm_symbol_to_string (st)));
+    }
+  else
+    {
+      style = "";
+    }
+  if (String::compare_i (style, "mensural") == 0)
+      // Mensural notation: For notes on staff lines, use different
+      // flags than for notes between staff lines.  The idea is that
+      // flags are always vertically aligned with the staff lines,
+      // regardless if the note head is on a staff line or between two
+      // staff lines.  In other words, the inner end of a flag always
+      // touches a staff line.
+    {
+	// Urrgh!  We have to detect wether this stem ends on a staff
+	// line or between two staff lines.  But we can not call
+	// stem_end_position(me) or get_default_stem_end_position(me),
+	// since this encounters the flag and hence results in an
+	// infinite recursion.  However, in pure mensural notation,
+	// there are no multiple note heads attached to a single stem,
+	// neither is there usually need for using the stem_shorten
+	// property (except for 32th and 64th notes, but that is not a
+	// problem since the stem length in this case is augmented by
+	// an integral multiple of staff_space).  Hence, it should be
+	// sufficient to just take the first note head, assume it's
+	// the only one, look if it's on a staff line, and select the
+	// flag's shape accordingly.  In the worst case, the shape
+	// looks slightly misplaced, but that will usually be the
+	// programmer's fault (e.g. when trying to attach multiple
+	// note heads to a single stem in mensural notation).
+	Grob *firstHead = first_head(me);
+	int sz = Staff_symbol_referencer::line_count (me)-1;
+	int p = (int)rint (Staff_symbol_referencer::position_f (firstHead));
+	stafflineOffs = (((p ^ sz) & 0x1) == 0) ? "1" : "0";
+    }
+  else
+    {
+	stafflineOffs = "";
+    }
   char c = (get_direction (me) == UP) ? 'u' : 'd';
-  Molecule m = Font_interface::get_default_font (me)->find_by_name (String ("flags-") + to_str (c) + 
-				      to_str (flag_i (me)));
-  if (!style.empty_b ())
-    m.add_molecule (Font_interface::get_default_font (me)->find_by_name (String ("flags-") + to_str (c) + style));
+  Molecule m =
+      Font_interface::get_default_font (me)->
+      find_by_name (String ("flags-") + style + to_str (c) + stafflineOffs +
+		    to_str (flag_i (me)));
+  if (!fstyle.empty_b ())
+    m.add_molecule (Font_interface::get_default_font (me)->find_by_name (String ("flags-") + to_str (c) + fstyle));
   return m;
 }
 

@@ -107,6 +107,7 @@ lowerVoice =  \context Staff = lowerNotes <
       #'line-count = #5
     
     \notes \transpose c' {
+	\property Voice.noAutoBeaming = ##t
 	\property Staff.KeySignature \override #'style = #'mensural
 	\property Staff.Accidentals \override #'style = #'mensural
 	\property Staff.Custos \override #'style = #'mensural
@@ -131,7 +132,11 @@ lowerVoice =  \context Staff = lowerNotes <
 	e d c1 \bar "|"
 
         \property Voice.NoteHead \override #'style = #'mensural
+	\property Voice.Stem \override #'style = #'mensural
+	\property Voice.Stem \override #'thickness = #1.0
 	\clef "petrucci_f"
+	c8 b, c16 b, c32 b, c64 b, c b,
+	d8 e  d16 e  d32 e  d64 e  d e
 	c2 d e f g
         \property Staff.forceClef = ##t
 	\clef "petrucci_f"
@@ -171,14 +176,14 @@ lowerVoice =  \context Staff = lowerNotes <
 %	\paperTwentysix
 	linewidth = 17.25\cm
 	textheight = 26.0\cm
-%	stafflinethickness = \staffspace / 5.0
+	stafflinethickness = \staffspace / 5.0
 	indent = 0.0
 	\translator {
 	    \StaffContext
 	    \consists Custos_engraver
 %	    Custos \override #'style = #'mensural
 	    \remove Time_signature_engraver
-	    StaffSymbol \override #'thickness = #2.0
+%	    StaffSymbol \override #'thickness = #2.0
 %	    StaffSymbol \override #'line-count = #4
 	}
     }

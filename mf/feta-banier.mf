@@ -229,29 +229,6 @@ fet_beginchar("64th Flag (up)", "u6", "sixtyfourthflag")
 	draw (0, 0) .. (0,-2 staff_space);
 fet_endchar;
 
-fet_beginchar("grace dash (up)", "ugrace", "gracedash")
-	save flare, 
-		hip_depth_ratio, hip_width,
-		foot_depth;
-
-	flare# = 1.0 staff_space#;
-	hip_depth_ratio = .72; 
-	hip_width# = upflag_width# - hip_thickness#/2;
-
-	foot_depth# =  3 staff_space#;
-
-	define_pixels(flare, hip_width, hip_thickness,
-		foot_depth, foot_thickness);
-
-	set_char_box(hip_width# * hip_depth_ratio,
-	  hip_width# + stemthickness#/2 + right_upflag_space#, 
-	  foot_depth# * hip_depth_ratio, -flare#)
-
-	pickup pencircle scaled 1.5 stemthickness;
-	draw (-b ,-d) ..
-	  (w, h);
-fet_endchar;
-
 fet_beginchar("8th (down)", "d3", "deighthflag")
 	save flare, 
 		hip_depth_ratio, hip_width,
@@ -280,6 +257,218 @@ fet_beginchar("8th (down)", "d3", "deighthflag")
 		(hip_width, foot_depth), 
 		hip_depth_ratio,foot_width_ratio, hip_thickness, foot_thickness);
 
+%%%%%%%%
+%
+%
+%
+% Mensural Notation
+%
+%
+%
+
+def draw_mensural_outermost_flag_i =
+	define_pixels(stafflinethickness, staff_space)
+
+	pickup pencircle
+		xscaled 1.00 stafflinethickness
+		yscaled 0.22 staff_space
+		rotated -35;
+
+	save za, zb, zc, zd, ze;
+	pair za, zb, zc, zd, ze;
+
+	za = (+0.00 staff_space, -0.00 staff_space);
+	zb = (+0.15 staff_space, -0.00 staff_space);
+	zc = (+0.45 staff_space, -0.35 staff_space);
+	zd = (+0.45 staff_space, -0.85 staff_space);
+	ze = (+0.00 staff_space, -2.00 staff_space);
+
+	draw za .. zb -- zc{zc-zb} .. {ze-zd}zd -- ze;
+enddef;
+
+def draw_mensural_outermost_flag_ii =
+	define_pixels(stafflinethickness, staff_space)
+
+	pickup pencircle
+		xscaled 1.00 stafflinethickness
+		yscaled 0.22 staff_space
+		rotated -35;
+
+	save za, zb, zc, zd, ze;
+	pair za, zb, zc, zd, ze;
+
+	za = (+0.00 staff_space, -0.00 staff_space);
+	zb = (+0.15 staff_space, -0.00 staff_space);
+	zc = (+0.20 staff_space, -0.05 staff_space);
+	zd = (+0.20 staff_space, -1.15 staff_space);
+	ze = (+0.00 staff_space, -1.40 staff_space);
+
+	draw za .. zb -- zc{zc-zb} .. {ze-zd}zd -- ze;
+enddef;
+
+def draw_mensural_inner_flag(expr il_shift) =
+	define_pixels(stafflinethickness, staff_space)
+
+	pickup pencircle
+		xscaled 1.00 stafflinethickness
+		yscaled 0.22 staff_space
+		rotated -35;
+
+	save zs, za, zb, zc, zd;
+	pair zs, za, zb, zc, zd;
+
+	zs = (0, -il_shift * staff_space);
+	za = zs + (+0.00 staff_space, -0.10 staff_space);
+	zb = zs + (+0.33 staff_space, -0.30 staff_space);
+	zc = zs + (+0.33 staff_space, -0.70 staff_space);
+	zd = zs + (+0.00 staff_space, -0.90 staff_space);
+
+	draw za{2,1} .. zb .. zc .. {-2,-1}zd;
+enddef;
+
+fet_beginchar("8th Mensural Flag (up)", "mensuralu03", "menseighthflag")
+	set_char_box(0, 0.60 staff_space#, 2.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+fet_endchar;
+
+fet_beginchar("8th Mensural Flag (up)", "mensuralu13", "mens1eighthflag")
+	set_char_box(0, 0.60 staff_space#, 1.50 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+fet_endchar;
+
+fet_beginchar("8th Mensural Flag (down)", "mensurald03", "mensdeighthflag")
+	set_char_box(0.60 staff_space#, 0, 0, 2.00 staff_space#)
+	draw_mensural_outermost_flag_i
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("8th Mensural Flag (down)", "mensurald13", "mensd1eighthflag")
+	set_char_box(0.60 staff_space#, 0, 0, 1.50 staff_space#)
+	draw_mensural_outermost_flag_ii
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("16th Mensural Flag (up)", "mensuralu04", "menssixteenthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+	draw_mensural_inner_flag(2.0)
+fet_endchar;
+
+fet_beginchar("16th Mensural Flag (up)", "mensuralu14", "mens1sixteenthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+	draw_mensural_inner_flag(1.5)
+fet_endchar;
+
+fet_beginchar("16th Mensural Flag (down)", "mensurald04", "mensdsixteenthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+	draw_mensural_inner_flag(2.0)
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("16th Mensural Flag (down)", "mensurald14", "mensd1sixteenthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+	draw_mensural_inner_flag(1.5)
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("32th Mensural Flag (up)", "mensuralu05", "mensthirtysecondflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+	draw_mensural_inner_flag(2.0)
+	draw_mensural_inner_flag(3.0)
+fet_endchar;
+
+fet_beginchar("32th Mensural Flag (up)", "mensuralu15", "mens1thirtysecondflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+	draw_mensural_inner_flag(1.5)
+	draw_mensural_inner_flag(2.5)
+fet_endchar;
+
+fet_beginchar("32th Mensural Flag (down)", "mensurald05", "mensdthirtysecondflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+	draw_mensural_inner_flag(2.0)
+	draw_mensural_inner_flag(3.0)
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("32th Mensural Flag (down)", "mensurald15", "mensd1thirtysecondflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+	draw_mensural_inner_flag(1.5)
+	draw_mensural_inner_flag(2.5)
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("64th Mensural Flag (up)", "mensuralu06", "menssixtyfourthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+	draw_mensural_inner_flag(1.5)
+	draw_mensural_inner_flag(2.5)
+	draw_mensural_inner_flag(3.5)
+fet_endchar;
+
+fet_beginchar("64th Mensural Flag (up)", "mensuralu16", "mens1sixtyfourthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+	draw_mensural_inner_flag(1.17)
+	draw_mensural_inner_flag(2.08)
+	draw_mensural_inner_flag(3.00)
+fet_endchar;
+
+fet_beginchar("64th Mensural Flag (down)", "mensurald06", "mensdsixtyfourthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+	draw_mensural_inner_flag(1.5)
+	draw_mensural_inner_flag(2.5)
+	draw_mensural_inner_flag(3.5)
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("64th Mensural Flag (down)", "mensurald16", "mensd1sixtyfourthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+	draw_mensural_inner_flag(1.17)
+	draw_mensural_inner_flag(2.08)
+	draw_mensural_inner_flag(3.00)
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+%%%%%%%%
+%
+%
+%
+% Single Stroke for Short Appogiatura
+%
+%
+%
+
+fet_beginchar("grace dash (up)", "ugrace", "gracedash")
+	save flare, 
+		hip_depth_ratio, hip_width,
+		foot_depth;
+
+	flare# = 1.0 staff_space#;
+	hip_depth_ratio = .72; 
+	hip_width# = upflag_width# - hip_thickness#/2;
+
+	foot_depth# =  3 staff_space#;
+
+	define_pixels(flare, hip_width, hip_thickness,
+		foot_depth, foot_thickness);
+
+	set_char_box(hip_width# * hip_depth_ratio,
+	  hip_width# + stemthickness#/2 + right_upflag_space#, 
+	  foot_depth# * hip_depth_ratio, -flare#)
+
+	pickup pencircle scaled 1.5 stemthickness;
+	draw (-b ,-d) ..
+	  (w, h);
+fet_endchar;
 
 	pickup pencircle scaled stemthickness;
 	draw (0, 0) .. (0,-2 staff_space);
@@ -404,6 +593,218 @@ fet_beginchar("64th (down)", "d6", "dsixtyfourthflag")
 	y_mirror_char;
 fet_endchar;
 
+%%%%%%%%
+%
+%
+%
+% Mensural Notation
+%
+%
+%
+
+def draw_mensural_outermost_flag_i =
+	define_pixels(stafflinethickness, staff_space)
+
+	pickup pencircle
+		xscaled 1.00 stafflinethickness
+		yscaled 0.22 staff_space
+		rotated -35;
+
+	save za, zb, zc, zd, ze;
+	pair za, zb, zc, zd, ze;
+
+	za = (+0.00 staff_space, -0.00 staff_space);
+	zb = (+0.15 staff_space, -0.00 staff_space);
+	zc = (+0.45 staff_space, -0.35 staff_space);
+	zd = (+0.45 staff_space, -0.85 staff_space);
+	ze = (+0.00 staff_space, -2.00 staff_space);
+
+	draw za .. zb -- zc{zc-zb} .. {ze-zd}zd -- ze;
+enddef;
+
+def draw_mensural_outermost_flag_ii =
+	define_pixels(stafflinethickness, staff_space)
+
+	pickup pencircle
+		xscaled 1.00 stafflinethickness
+		yscaled 0.22 staff_space
+		rotated -35;
+
+	save za, zb, zc, zd, ze;
+	pair za, zb, zc, zd, ze;
+
+	za = (+0.00 staff_space, -0.00 staff_space);
+	zb = (+0.15 staff_space, -0.00 staff_space);
+	zc = (+0.20 staff_space, -0.05 staff_space);
+	zd = (+0.20 staff_space, -1.15 staff_space);
+	ze = (+0.00 staff_space, -1.40 staff_space);
+
+	draw za .. zb -- zc{zc-zb} .. {ze-zd}zd -- ze;
+enddef;
+
+def draw_mensural_inner_flag(expr il_shift) =
+	define_pixels(stafflinethickness, staff_space)
+
+	pickup pencircle
+		xscaled 1.00 stafflinethickness
+		yscaled 0.22 staff_space
+		rotated -35;
+
+	save zs, za, zb, zc, zd;
+	pair zs, za, zb, zc, zd;
+
+	zs = (0, -il_shift * staff_space);
+	za = zs + (+0.00 staff_space, -0.10 staff_space);
+	zb = zs + (+0.33 staff_space, -0.30 staff_space);
+	zc = zs + (+0.33 staff_space, -0.70 staff_space);
+	zd = zs + (+0.00 staff_space, -0.90 staff_space);
+
+	draw za{2,1} .. zb .. zc .. {-2,-1}zd;
+enddef;
+
+fet_beginchar("8th Mensural Flag (up)", "mensuralu03", "menseighthflag")
+	set_char_box(0, 0.60 staff_space#, 2.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+fet_endchar;
+
+fet_beginchar("8th Mensural Flag (up)", "mensuralu13", "mens1eighthflag")
+	set_char_box(0, 0.60 staff_space#, 1.50 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+fet_endchar;
+
+fet_beginchar("8th Mensural Flag (down)", "mensurald03", "mensdeighthflag")
+	set_char_box(0.60 staff_space#, 0, 0, 2.00 staff_space#)
+	draw_mensural_outermost_flag_i
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("8th Mensural Flag (down)", "mensurald13", "mensd1eighthflag")
+	set_char_box(0.60 staff_space#, 0, 0, 1.50 staff_space#)
+	draw_mensural_outermost_flag_ii
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("16th Mensural Flag (up)", "mensuralu04", "menssixteenthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+	draw_mensural_inner_flag(2.0)
+fet_endchar;
+
+fet_beginchar("16th Mensural Flag (up)", "mensuralu14", "mens1sixteenthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+	draw_mensural_inner_flag(1.5)
+fet_endchar;
+
+fet_beginchar("16th Mensural Flag (down)", "mensurald04", "mensdsixteenthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+	draw_mensural_inner_flag(2.0)
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("16th Mensural Flag (down)", "mensurald14", "mensd1sixteenthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+	draw_mensural_inner_flag(1.5)
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("32th Mensural Flag (up)", "mensuralu05", "mensthirtysecondflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+	draw_mensural_inner_flag(2.0)
+	draw_mensural_inner_flag(3.0)
+fet_endchar;
+
+fet_beginchar("32th Mensural Flag (up)", "mensuralu15", "mens1thirtysecondflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+	draw_mensural_inner_flag(1.5)
+	draw_mensural_inner_flag(2.5)
+fet_endchar;
+
+fet_beginchar("32th Mensural Flag (down)", "mensurald05", "mensdthirtysecondflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+	draw_mensural_inner_flag(2.0)
+	draw_mensural_inner_flag(3.0)
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("32th Mensural Flag (down)", "mensurald15", "mensd1thirtysecondflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+	draw_mensural_inner_flag(1.5)
+	draw_mensural_inner_flag(2.5)
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("64th Mensural Flag (up)", "mensuralu06", "menssixtyfourthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+	draw_mensural_inner_flag(1.5)
+	draw_mensural_inner_flag(2.5)
+	draw_mensural_inner_flag(3.5)
+fet_endchar;
+
+fet_beginchar("64th Mensural Flag (up)", "mensuralu16", "mens1sixtyfourthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+	draw_mensural_inner_flag(1.17)
+	draw_mensural_inner_flag(2.08)
+	draw_mensural_inner_flag(3.00)
+fet_endchar;
+
+fet_beginchar("64th Mensural Flag (down)", "mensurald06", "mensdsixtyfourthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_i
+	draw_mensural_inner_flag(1.5)
+	draw_mensural_inner_flag(2.5)
+	draw_mensural_inner_flag(3.5)
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+fet_beginchar("64th Mensural Flag (down)", "mensurald16", "mensd1sixtyfourthflag")
+	set_char_box(0, 0.60 staff_space#, 3.00 staff_space#, 0)
+	draw_mensural_outermost_flag_ii
+	draw_mensural_inner_flag(1.17)
+	draw_mensural_inner_flag(2.08)
+	draw_mensural_inner_flag(3.00)
+	currentpicture := currentpicture xscaled -1 yscaled -1;
+fet_endchar;
+
+%%%%%%%%
+%
+%
+%
+% Single Stroke for Short Appogiatura
+%
+%
+%
+
+fet_beginchar("grace dash (up)", "ugrace", "gracedash")
+	save flare, 
+		hip_depth_ratio, hip_width,
+		foot_depth;
+
+	flare# = 1.0 staff_space#;
+	hip_depth_ratio = .72; 
+	hip_width# = upflag_width# - hip_thickness#/2;
+
+	foot_depth# =  3 staff_space#;
+
+	define_pixels(flare, hip_width, hip_thickness,
+		foot_depth, foot_thickness);
+
+	set_char_box(hip_width# * hip_depth_ratio,
+	  hip_width# + stemthickness#/2 + right_upflag_space#, 
+	  foot_depth# * hip_depth_ratio, -flare#)
+
+	pickup pencircle scaled 1.5 stemthickness;
+	draw (-b ,-d) ..
+	  (w, h);
+fet_endchar;
 
 fet_beginchar("grace dash (down)", "dgrace", "dgracedash")
 	save flare, hip_depth_ratio, hip_width,	foot_depth;
