@@ -1,7 +1,7 @@
 \version "1.7.18"
 
 \header {
-texidoc = "Note head lines (eg glissando)
+texidoc = "Note head lines (e.g. glissando)
 run between centers of the note heads."
 }
 
