@@ -13,7 +13,7 @@ Choices are @code{divisioMinima}, @code{divisioMaior}
 
 \score {
     \notes {
-	\context Staff = staff \addlyrics \notes \transpose c c' {
+	\newcontext Staff \addlyrics \notes \transpose c c' {
 	    \property Score.timing = ##f
 	    \property Score.barAlways = ##t
 	    \property Voice.TextScript \set #'padding = #3
@@ -40,7 +40,7 @@ Choices are @code{divisioMinima}, @code{divisioMaior}
 	    \caesura
             g4( a) g e( f) e
 	}
-	\context Lyrics = lyrics \lyrics {
+	\newcontext Lyrics \lyrics {
 	    Blah blub, blah blam.
 	    Blah blub, blah blam.
 	    Blah blub, blah blam.

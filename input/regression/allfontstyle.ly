@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "1.9.1"
 
 \header{
@@ -12,10 +11,11 @@ Different text styles are used for various purposes.
 		\emptyText
 		\repeat volta 2 { \time 4/4 c4^"cuivr\\'e"_\fermata }
 		 \alternative {
-		 	{ \property Voice.TextScript \set #'font-style = #'italic d-4_"cantabile" }
+		 	{
+			    d-4_\markup { \italic "cantabile"  } }
 		 	{  e }  } \grace { c16 }
-			\property Voice.TextScript \set #'font-style = #'large
-			 f4\ff^""^"Largo" \mark "B" g 
+			 
+			 f4\ff^""^\markup  { \large "Largo" } \mark "B" g 
 	}
 	\paper { raggedright = ##t
 	% \translator {\BarNumberingStaffContext} }

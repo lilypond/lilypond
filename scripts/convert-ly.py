@@ -1407,6 +1407,10 @@ Postfix articulations, new chord syntax."""))
 
 if 1:
 	def conv (str):
+		if re.search ("font-style",str):
+			sys.stderr.write ("font-style is deprecated. Please remove.")
+			raise FatalConversionError()
+			
 		str = re.sub (r'-\\markup', r'@\\markup', str)
 		str = re.sub (r'-\\', r'\\', str)
 		str = re.sub (r'-\)', ')', str)

@@ -1,27 +1,24 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 \header {
     texidoc="@cindex Force hshift
 Force hshift to override collisions. " }
 
 \score { 
-  \context Voice \notes\relative c {
-    
-	\context Staff <
-		\context Voice = VA {
+     \notes\relative c'
+       \context Staff < {
 			\property Voice.NoteColumn \override #'force-hshift = #0.1
 			\stemUp
 	       		\property Voice.NoteColumn \override #'horizontal-shift = #1
-			<<g' d'>>
-		}
-		\context Voice = VB {
+			<<d a'>>
+		} \\
+		 {
 			\stemDown
 	       		\property Voice.NoteColumn \override #'horizontal-shift = #1
 			\property Voice.NoteColumn \override #'force-hshift = #-0.1
-			<<bes f'>>
+			<<b f'>>
 		}
-	>
-  }
+	> 
   \paper {
     raggedright = ##t
   }  

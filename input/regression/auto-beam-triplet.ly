@@ -1,4 +1,4 @@
-
+#(ly:set-option 'old-relative)
 \header
 {
 texidoc = "Automatic beaming is also done on tuplets."

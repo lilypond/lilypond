@@ -1,4 +1,4 @@
-
+#(ly:set-option 'old-relative)
 \version "1.9.1"
 \header {
     texidoc = "Instrument names are also printed on  partial starting measures."

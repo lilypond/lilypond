@@ -88,7 +88,7 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
    (description .  "Starts or stops a beam.  Syntax for manual control:
 c8-[ c c-] c8")
 	(internal-class-name . "Event")
-	(types . (general-music event new-beam-event span-event))
+	(types . (general-music event beam-event span-event))
 	))
     (BreakEvent
      . (
@@ -567,7 +567,7 @@ For example, transposed music.")
      . (
 	(description .  "A tie.  Entered as @var{note}-~.")
 	(internal-class-name . "Event")
-	(types . (general-music new-tie-event event))
+	(types . (general-music tie-event event))
 	))
     (TremoloEvent
      . (

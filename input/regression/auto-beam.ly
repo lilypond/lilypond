@@ -1,4 +1,4 @@
-
+#(ly:set-option 'old-relative)
 \header {
 
 texidoc="Test automatic beamer: the last measure should have a single beam."
