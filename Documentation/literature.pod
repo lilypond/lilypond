@@ -18,9 +18,9 @@ EDV-gesteuerten Notensatz'', Schott-Verlag, Mainz 1988.ISBN 3-7957-2886-x.
 
 [I. A very thorough overview of engraving practices of various
 craftsmen. It includes detailed specs of characters, dimensions etc.
-II. a thorough overview of a (by now antiquated) automated system
-called Ikarus; EDV Means e(lektronischen) D(aten)v(erarbeitung),
-electronic data processing HWN]
+II. a thorough overview of a anonymous (by now antiquated) automated
+system. EDV Means e(lektronischen) D(aten)v(erarbeitung), electronic
+data processing HWN]
 
 Maxwell Weaner and Walter Boelke, Standard Music Notation Practice,
 revised edition by Arnold Broido and Daniel Dorff. Music Publisher's
@@ -233,6 +233,8 @@ some of the conventions and difficulties in printing music HWN]
 
 The University of Colorado Music Engraving page.
 http://obenamots.cc.colorado.edu/Musicpress/engraving.html
+
+[Webpages about engraving (designed with finale users in mind) (sic) HWN]
 
 Anthony Donato. Preparing Music Manuscript. Englewood Cliffs:
 Prentice-Hall, 1963.
