@@ -89,10 +89,12 @@ You can search the lists from the following page:
 
 If you have installed a previous version, be sure to remove old font
 files, e.g.,
+
 @example 
 	rm `find /var/lib/texmf/fonts -name 'feta*'` 
 @end example 
-a script to do this for you is left
+
+a script to do this is left after compiling in
 @file{buildscripts/out/clean-fonts}.
 
 @section Bugs

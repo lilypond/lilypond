@@ -1,5 +1,7 @@
 2003-09-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/topdocs/README.texi (Top): clarifications.
+
 	* Documentation/bibliography/computer-notation.bib (isbn): add phd
 	theses of Gieseking and Renz.
 
