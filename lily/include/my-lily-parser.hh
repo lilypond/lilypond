@@ -62,10 +62,12 @@ public:
     void set_debug();
     void set_yydebug(bool);
     void print_declarations();
+    bool ignore_version_b_;
 public:
     void parse_file ( String init_str, String file_str);
     My_lily_parser(Sources * sources_l);
     ~My_lily_parser();
+    void set_version_check(bool ignore);
 };
 
 #endif // MY_LILY_PARSER_HH
