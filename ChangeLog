@@ -1,3 +1,8 @@
+2003-05-16  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: XEmacs-fix: Use (mark) to find active-mark.
+	Count \midi -keywords also for a region.
+
 2003-05-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/lookup.cc (LY_DEFINE): new function

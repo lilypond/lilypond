@@ -296,12 +296,16 @@ in LilyPond-include-path."
 (defun count-midi-words ()
   "Check number of midi-scores before the curser."
   (interactive)
-  (count-rexp (point-min) (point-max) "\\\\midi"))
+  (if (eq LilyPond-command-current 'LilyPond-command-region)
+      (count-rexp (mark t) (point) "\\\\midi")
+    (count-rexp (point-min) (point-max) "\\\\midi")))
  
 (defun count-midi-words-backwards ()
   "Check number of midi-scores before the curser."
   (interactive)
-  (count-rexp (point-min) (point) "\\\\midi"))
+  (if (eq LilyPond-command-current 'LilyPond-command-region)
+      (count-rexp (mark t) (point) "\\\\midi")
+    (count-rexp (point-min) (point) "\\\\midi")))
  
 (defun LilyPond-string-current-midi ()
   "Check the midi file of the following midi-score in the current document."
@@ -646,6 +650,11 @@ command."
       (require 'imenu)
     (error nil)))
 
+(defun LilyPond-mark-active ()
+  "Check if there is an active mark."
+  (interactive)
+  (and transient-mark-mode
+       (if (string-match "XEmacs\\|Lucid" emacs-version) (mark) mark-active)))
 
 ;;; Keymap
 
@@ -892,7 +901,7 @@ command."
 (defun LilyPond-insert-tag-notes ()
   "LilyPond notes tag."
   (interactive)
-  (setq begin (if (and transient-mark-mode mark-active) 
+  (setq begin (if (LilyPond-mark-active)
 		  (mark-marker) (point-marker)))
   (setq end (point-marker))
   (goto-char begin)
@@ -908,7 +917,7 @@ command."
 (defun LilyPond-insert-tag-score ()
   "LilyPond score tag."
   (interactive)
-  (setq begin (if (and transient-mark-mode mark-active) 
+  (setq begin (if (LilyPond-mark-active) 
 		  (mark-marker) (point-marker)))
   (setq end (point-marker))
   (goto-char begin)
@@ -1031,7 +1040,7 @@ command."
     (if (eq LilyPond-command-current 'LilyPond-command-region)
 	(if (eq (mark t) nil)
 	    (progn (message "The mark is not set now") (sit-for 0 500))
-	  (progn (if (not (not (and transient-mark-mode mark-active)))
+	  (progn (if (not (not (LilyPond-mark-active)))
 		     (progn (message "Region is not active, using region between inactive mark and current point.") (sit-for 0 500)))
 		 (LilyPond-command-region (mark t) (point))))
       (funcall LilyPond-command-current))))
