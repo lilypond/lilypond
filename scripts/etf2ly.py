@@ -97,17 +97,30 @@ have the correct number of accidentals
 		while accidental_bits < 256:
 			p = transpose (p, (3,0))
 			accidental_bits = accidental_bits + 1
-			
+
+	if bank_number == 1:
+		# minor scale
+		p = transpose (p, (5, 0))
 	p  = (p[0] % 7, p[1])
 
-	return p
+	return KeySignature (p, bank_number)
 
 # should cache this.
-def find_scale (transposition):
+def find_scale (keysig):
 	cscale = map (lambda x: (x,0), range (0,7))
-	trscale = map(lambda x, k=transposition: transpose(x, k), cscale)
-
+	print "cscale: ", cscale
+	ascale = map (lambda x: (x,0), range (-2,5))
+	print "ascale: ", ascale
+	transposition = keysig.pitch
+	if keysig.sig_type == 1:
+		transposition = transpose(transposition, (2, -1))
+		transposition = (transposition[0] % 7, transposition[1])
+		trscale = map(lambda x, k=transposition: transpose(x, k), ascale)
+	else:
+		trscale = map(lambda x, k=transposition: transpose(x, k), cscale)
+	print "trscale: ", trscale
 	return trscale
+
 def EDU_to_duration (edu):
 	log = 1
 	d = 4096
@@ -384,7 +397,25 @@ class Verse:
 		str = """\nverse%s = \\lyrics {\n %s}\n""" %  (encodeint (self.number - 1) ,str)
 		return str
 
+class KeySignature:
+	def __init__(self, pitch, sig_type = 0):
+		self.pitch = pitch
+		self.sig_type = sig_type
 	
+	def signature_type (self):
+		if self.sig_type == 1:
+			return "\\minor"
+		else:
+			# really only for 0, but we only know about 0 and 1
+			return "\\major"
+	
+	def equal (self, other):
+		if other and other.pitch == self.pitch and other.sig_type == self.sig_type:
+			return 1
+		else:
+			return 0
+	
+
 class Measure:
 	def __init__(self, no):
 		self.number = no
@@ -502,9 +533,10 @@ class Staff:
 			e = ''
 			
 			if g:
-				if last_key <> g.key_signature:
-					pitch= g.key_signature					
-					e = e + "\\key %s \\major " % (lily_notename (pitch))
+				if g.key_signature and not g.key_signature.equal(last_key):
+					pitch= g.key_signature.pitch
+					e = e + "\\key %s %s " % (lily_notename (pitch),
+								  g.key_signature.signature_type())
 					
 					last_key = g.key_signature
 				if last_time <> g.timesig :
@@ -1093,7 +1125,7 @@ class Etf_file:
 			sys.stderr.write ("\nLyrics found; edit to use \\addlyrics to couple to a staff\n")
 			
 		if staffs:
-			str = str + '\\score { < %s > } ' % string.join (staffs)
+			str = str + '\\score { << %s >> } ' % string.join (staffs)
 			
 		return str
 
