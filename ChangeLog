@@ -1,3 +1,8 @@
+2003-02-16  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond.words:
+	* Documentation/user/music-glossary.tely: add ambitus.
+
 2003-02-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/chords-ignatzek.scm (ignatzek-chord-names): robustness fix.
