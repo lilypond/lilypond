@@ -66,7 +66,9 @@ private:
   Moment beat_length_;
   
   // We act as if beam were created, and start a grouping anyway.
-  Beaming_info_list*grouping_p_;  
+  Beaming_info_list*grouping_p_;
+  SCM beam_settings_ ;		// ugh. should protect ? 
+  
   Beaming_info_list*finished_grouping_p_;
 };
 
@@ -80,6 +82,7 @@ Auto_beam_engraver::Auto_beam_engraver ()
   finished_beam_p_ = 0;
   finished_grouping_p_ = 0;
   grouping_p_ = 0;
+  beam_settings_ = SCM_EOL;  
 }
 
 /*
@@ -230,7 +233,7 @@ Auto_beam_engraver::create_beam_p ()
      return 0;
     }
   
-  Spanner* beam_p = new Spanner (get_property ("Beam"));
+  Spanner* beam_p = new Spanner (beam_settings_);
   for (int i = 0; i < stem_l_arr_p_->size (); i++)
     {
       /*
@@ -256,6 +259,8 @@ Auto_beam_engraver::begin_beam ()
   stem_l_arr_p_ = new Link_array<Item>;
   assert (!grouping_p_);
   grouping_p_ = new Beaming_info_list;
+  beam_settings_ = get_property ("Beam");
+  
   beam_start_moment_ = now_mom ();
   beam_start_location_ = *unsmob_moment (get_property ("measurePosition"));
   subdivide_beams_ = gh_scm2bool(get_property("subdivideBeams"));
@@ -272,7 +277,8 @@ Auto_beam_engraver::junk_beam ()
   stem_l_arr_p_ = 0;
   delete grouping_p_;
   grouping_p_ = 0;
-
+  beam_settings_ = SCM_EOL;
+  
   shortest_mom_ = Moment (Rational (1, 8));
 }
 
@@ -292,6 +298,7 @@ Auto_beam_engraver::end_beam ()
       delete stem_l_arr_p_;
       stem_l_arr_p_ = 0;
       grouping_p_ = 0;
+      beam_settings_ = SCM_EOL;
     }
 
   shortest_mom_ = Moment (Rational (1, 8));
