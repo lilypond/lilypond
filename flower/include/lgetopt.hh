@@ -14,7 +14,7 @@ struct Long_option_init {
     char const * longname;
     char        shortname;
 
-    ostream &printon(ostream &errorout);
+    void printon(ostream &errorout)const ;
 };
 
 
@@ -28,54 +28,56 @@ struct Long_option_init {
   argument reordering
   */
 class Getopt_long {
-public:
+
+    /// the option info.
+    const Long_option_init *option_a_;
+    int table_len_i_;
+    
+    /// if doing short option, arg_value_ch_a_a_[optind][optindind] is processed next.
+    int argument_index_i_;
+
+    /// the option found
+    const Long_option_init *found_option_l_;
+
+
+public: 
     /** errorcodes: no error, argument expected, no argument expected,
       unknown option, illegal argument (eg. int expected).  */
     enum Errorcod { E_NOERROR = 0, E_ARGEXPECT, E_NOARGEXPECT, E_UNKNOWNOPTION,
 		E_ILLEGALARG } ;
 
+    /// argument. Set to 0 if not present
+    char const * optional_argument_ch_C_;
 
-private:
+    /// current error status
+    Errorcod error_;
 
-    /// the option info.
-    Long_option_init *the_opts;
-    int table_len;
-    
-    /// if doing short option, argv[optind][optindind] is processed next.
-    int optindind;
+    /// arg_value_ch_a_a_[array_index_i_] will be processed next.
+    int array_index_i_;
 
-    /// the option found
-    Long_option_init *beet;
+    /// the arguments
+    char **arg_value_ch_a_a_;
 
+    /// the arg. count
+    int argument_count_i_;
+
+    ostream *error_ostream_l_;
+
+public:
     /// get ready for processing next error.
-    bool next();
-    Long_option_init *parselong();
-    Long_option_init *parseshort();
-    
-    ostream *errorout;
+    void next();
+    const Long_option_init *parselong();
+    const Long_option_init *parseshort();
+    void OK()const;
+    bool ok() const;
 
     /// report an error and abort
     void report(Errorcod c);
-public:
 
-    /// argument. Set to 0 if not present
-    char* optarg;
-
-    /// current error status
-    Errorcod error;
 
     /// return an integer (with err. detect)
-    long intarg();
-    /// argv[optind] will be processed next.
-    int optind;
-
-    /// the arguments
-    char **argv;
-
-    /// the arg. count
-    int argc;
-    
-    /* *************** */
+    long argument_to_i();
+ 
     
     /**
       What to do with  errors. 
@@ -92,9 +94,9 @@ public:
       @return pointer to next option found.
       0 if error occurred, or next argument is no option.
       */
-    Long_option_init *operator()();
+    const Long_option_init *operator()();
 
-    char *current_arg();
-    char * get_next_arg();
+    char const *current_arg();
+    char const * get_next_arg();
 };
 #endif
