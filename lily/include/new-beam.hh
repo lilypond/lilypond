@@ -28,15 +28,13 @@ public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (end_after_line_breaking, (SCM));
 
-  /*
-    y-dy callbacks
-   */
+  /* position callbacks */
   DECLARE_SCHEME_CALLBACK (least_squares, (SCM));
   DECLARE_SCHEME_CALLBACK (check_concave, (SCM));
   DECLARE_SCHEME_CALLBACK (slope_damping, (SCM));
   DECLARE_SCHEME_CALLBACK (quantise_position, (SCM));
-  DECLARE_SCHEME_CALLBACK (user_override, (SCM));
 
   static Molecule stem_beams (Grob*,Item *here, Item *next, Item *prev,
 			      Real dydx);

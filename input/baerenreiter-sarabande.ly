@@ -97,10 +97,10 @@ sarabandeA =  \context Voice \notes \relative c {
     \\
     { f,4 fis4. s8 |
       <d4 g,> gis4.   } >
-  \stemUp
+  \voiceOne
   d16(cis)d f,
   [a,8 e']
-  \stemBoth
+  \oneVoice
   [d' cis] |
   d4 d,,2 |
 }

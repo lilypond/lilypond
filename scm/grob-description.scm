@@ -111,18 +111,13 @@
 	(position-callbacks . (,New_beam::least_squares
 			       ,New_beam::check_concave
 			       ,New_beam::slope_damping
-			       ,New_beam::quantise_position
-			       ,New_beam::user_override))
+			       ,New_beam::quantise_position))
 	
 	(thickness . 0.48) ; in staff-space
 	(before-line-breaking-callback . ,Beam::before_line_breaking)
 	;;(after-line-breaking-callback . ,Beam::after_line_breaking)
 	(after-line-breaking-callback . (,New_beam::after_line_breaking
-					 ,New_beam::least_squares
-					 ,New_beam::check_concave
-					 ,New_beam::slope_damping
-					 ,New_beam::quantise_position
-					 ,New_beam::user_override))
+					 ,New_beam::end_after_line_breaking))
 	(neutral-direction . -1)
 	(dir-function . ,beam-dir-majority)
 	(height-quant-function .  ,default-beam-dy-quants)

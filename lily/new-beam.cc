@@ -11,8 +11,8 @@
 /*
   [TODO]
 
-  * Fix XXX
-
+  * different left/right quanting: slope, multiplicity
+  
   * Fix TODO
   
   * Junk stem_info.
@@ -293,11 +293,18 @@ MAKE_SCHEME_CALLBACK (New_beam, after_line_breaking, 1);
 SCM
 New_beam::after_line_breaking (SCM smob)
 {
-  Grob *me =  unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
   
   /* Copy to mutable list. */
-  me->set_grob_property ("position",
-			 ly_deep_copy (me->get_grob_property ("position")));
+  SCM s = ly_deep_copy (me->get_grob_property ("position"));
+  me->set_grob_property ("position", s);
+
+  if (ly_car (s) != SCM_BOOL_F)
+    return SCM_UNSPECIFIED;
+
+  SCM callbacks = me->get_grob_property ("position-callbacks");
+  for (SCM i = callbacks; gh_pair_p (i); i = ly_cdr (i))
+    gh_call1 (ly_car (i), smob);
 
   return SCM_UNSPECIFIED;
 }
@@ -327,8 +334,9 @@ New_beam::least_squares (SCM smob)
       if (!ideal[LEFT] && chord.delta () && count == 2)
 	{
 	  Direction d = (Direction)(sign (chord.delta ()) * dir);
-	  pos[d] = d * gh_scm2double (me->get_grob_property ("thickness")) / 2;
-	  pos[-d] = 0;
+	  pos[d] = gh_scm2double (me->get_grob_property ("thickness")) / 2
+	    * dir;
+	  pos[-d] = - pos[d];
 	}
       else
 	pos = ideal;
@@ -477,8 +485,8 @@ New_beam::quantise_interval (Grob *me, Interval pos, Direction quant_dir)
 				      SCM_UNDEFINED));
   
   Array<Real> a;
-  for (; gh_pair_p (quants); quants = ly_cdr (quants))
-    a.push (gh_scm2double (ly_car (quants)));
+  for (SCM i = quants; gh_pair_p (i); i = ly_cdr (i))
+    a.push (gh_scm2double (ly_car (i)));
   
   if (a.size () <= 1)
     return pos;
@@ -486,16 +494,42 @@ New_beam::quantise_interval (Grob *me, Interval pos, Direction quant_dir)
   Direction dir = Directional_element_interface::get (me);
   Interval left = quantise_iv (a, pos[LEFT]*dir/staff_space) * staff_space;
   Interval right = quantise_iv (a, pos[RIGHT]*dir/staff_space) * staff_space;
-
-  if (quant_dir)
-    return Interval (left[quant_dir]*dir, right[quant_dir]*dir);
   
-  /* XXX TODO: some intelligent choice of quants */
-  return Interval (left[MAX]*dir, right[MAX]*dir);
+  Real dy = pos.delta ();
+  Real ady = abs (dy);
+
+  // quant direction hints disabled for now
+  int q = 0;//(int)quant_dir;
+
+  /* TODO: make smart choice, find best left/right quants pair.
+
+     Slope should never be steeper than least_squares (before damping)
+     (save that value?)
+     Slope should never be reduced to zero.
+   */
+  Interval qpos (0, 20.0 *sign (dy));
+  Direction ldir = LEFT;
+  do
+    {
+      Direction rdir = LEFT;
+      do
+	{
+	  Interval i (left[ldir]*dir, right[rdir]*dir);
+	  if ((abs (abs (i.delta ()) - ady) <= abs (abs (qpos.delta ()) - ady)
+       && sign (i.delta ()) == sign (pos.delta ())
+       && (!q
+	   || (i[LEFT]*q >= pos[LEFT]*q && i[RIGHT]*q >= pos[RIGHT]*q))))
+	    qpos = i;
+	}
+      while (flip (&rdir) != LEFT);
+    }
+  while (flip (&ldir) != LEFT);
+  
+  return qpos;
 }
 
 
-/* Quantise vertial position (left and right) of beam.
+/* Quantise vertical position (left and right) of beam.
    Generalisation of [Ross]. */
 MAKE_SCHEME_CALLBACK (New_beam, quantise_position, 1);
 SCM
@@ -510,6 +544,7 @@ New_beam::quantise_position (SCM smob)
   
   me->set_grob_property ("position", ly_interval2scm (pos));
   set_stem_lengths (me);
+
   pos = ly_scm2interval (me->get_grob_property ("position"));
   
   y_shift = check_stem_length_f (me, pos);
@@ -529,37 +564,17 @@ New_beam::quantise_position (SCM smob)
     }
   
   me->set_grob_property ("position", ly_interval2scm (pos));
+
   return SCM_UNSPECIFIED;
 }
 
-/* It's tricky to have the user override y, dy directly, so we use this
-   translation func.  Also, if our staff_space != 1 (smaller staff, eg),
-   user will expect staff-position to be discrete values. */
-MAKE_SCHEME_CALLBACK (New_beam, user_override, 1);
+MAKE_SCHEME_CALLBACK (New_beam, end_after_line_breaking, 1);
 SCM
-New_beam::user_override (SCM smob)
+New_beam::end_after_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-
-  // UGR, MOVE ME
   set_stem_lengths (me);
-#if 0
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  SCM s = me->get_grob_property ("staff-position");
-  if (gh_number_p (s))
-    {
-      Real y = gh_scm2double (s) * staff_space * 0.5;
-      me->set_grob_property ("y", gh_double2scm (y));
-    }
-
-  /* Name suggestions? Tilt, slope, vertical-* ? */
-  s = me->get_grob_property ("height");
-  if (gh_number_p (s))
-    {
-      Real dy = gh_scm2double (s) * staff_space * 0.5;
-      me->set_grob_property ("dy", gh_double2scm (dy));
-    }
-#endif  
+  
   return SCM_UNSPECIFIED;
 }
 
