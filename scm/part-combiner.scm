@@ -549,9 +549,9 @@ Only set if not set previously.
 
 (define-public (make-autochange-music music)
 
-  (define (generate-split-list event-list)
+  (define (generate-split-list event-list acc)
     (if (null? event-list)
-	'()
+	acc
 	(let*
 	    ((evs (map car (cdar event-list)))
 	     (now (caar event-list))
@@ -564,22 +564,29 @@ Only set if not set previously.
 
 	;; tail recursive.
 	(if (and pitch (not (= (ly:pitch-steps pitch) 0)))
-	    (cons (cons now (sign (ly:pitch-steps pitch)))
-		  (generate-split-list (cdr event-list)))
-	    (generate-split-list (cdr event-list)))
-    	)))
+	    (generate-split-list
+	     (cdr event-list)
+	     (cons (cons now (sign (ly:pitch-steps pitch))) acc))
+	    (generate-split-list (cdr event-list) acc)
+	    ))
+	))
 
   (set! noticed '())
   
   (let*
       ((m (make-music-by-name 'AutoChangeMusic))
        (context (ly:run-translator music part-combine-listener))
-       (evs (last-pair noticed)) )
+       (evs (last-pair noticed))
+       (split
+	(reverse!
+	 (generate-split-list (if (pair? evs)
+				  (reverse! (cdar evs) '()) '())
+			      '())
+	 '())
+       ))
 
     (ly:set-mus-property! m 'element music)
-    (ly:set-mus-property!
-     m 'split-list
-     (generate-split-list (if (pair? evs) (reverse! (cdar evs) '()) '())) )
+    (ly:set-mus-property! m 'split-list split)
     
     (set! noticed '())
     m

@@ -6,6 +6,10 @@
 
 2004-02-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/part-combiner.scm (make-autochange-music): use
+	accumulator. Fixes stack overflow.
+
+	* lily/*: rename brew_molecule -> print , molecule-callback -> print-function
 	* lily/*: rename brew_molecule -> print , molecule-callback ->
 	print-function
 
