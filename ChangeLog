@@ -1,3 +1,10 @@
+2003-03-19  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+
+	* Documentation/user/lilypond-book.itely (Music fragment options),
+	  scripts/lilypond-book.py: Don't include quotation blocks by
+	  default. Introduce option quote instead of noquote
+
 2003-03-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION: 1.7.15 released
