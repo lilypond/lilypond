@@ -30,8 +30,8 @@ struct Identifier : public Input {
     void print()const;
     NAME_MEMBERS();
     void error(String);
+    IDACCESSOR(Input_translator, input_translator)
     IDACCESSOR(Music, music)
-    IDACCESSOR(Input_translator, itrans)	
     IDACCESSOR(General_script_def, script)
     IDACCESSOR(Symtables, symtables)
     IDACCESSOR(Midi_def, mididef)
@@ -58,7 +58,7 @@ struct Idclass : Identifier {\
 }\
 
 
-
+declare_id_class(Input_translator_id, Input_translator, input_translator);
 declare_id_class(Real_id, Real, real);
 declare_id_class(Script_id, General_script_def, script);
 declare_id_class(Lookup_id, Lookup, lookup);
@@ -67,7 +67,6 @@ declare_id_class(Music_id, Music, music);
 declare_id_class(Int_id, int, intid);
 declare_id_class(Score_id, Score, score);
 declare_id_class(Request_id, Request, request);
-declare_id_class(Input_trans_id, Input_translator, itrans);
 declare_id_class(Paper_def_id,Paper_def, paperdef);
 declare_id_class(Midi_def_id,Midi_def, mididef);
 #endif // IDENTIFIER_
