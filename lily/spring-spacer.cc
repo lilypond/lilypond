@@ -149,13 +149,15 @@ Spring_spacer::check_constraints (Vector v) const
 {
   int dim=v.dim();
   assert (dim == cols.size());
-
+  DOUT << "checking " << v;
   for (int i=0; i < dim; i++)
     {
       if (cols[i].fixed_b() &&
 	  abs (cols[i].fixed_position() - v (i)) > COLFUDGE)
-	return false;
-
+	{
+	  DOUT << "Fixpos broken\n";
+	  return false;
+	}
       Array<Column_rod> &rods (cols[i].pcol_l_->minimal_dists_arr_drul_[RIGHT]);
       for (int j =0; j < rods.size (); j++)
 	{
@@ -165,7 +167,11 @@ Spring_spacer::check_constraints (Vector v) const
 	  if (rods[j].other_l_ != cols[i + delta_idx].pcol_l_)
 	    continue;
 	  if (v (i + delta_idx) - v (i) < rods[j].distance_f_)
-	    return false;
+	    {
+	      DOUT << "v (i + delta_idx) - v (i) too small: i, delta_idx: "
+		   << i << " " << delta_idx;
+	      return false;
+	    }
 	}
 
     }
@@ -178,8 +184,11 @@ Vector
 Spring_spacer::try_initial_solution() const
 {
   Vector v;
-  if (try_initial_solution_and_tell (v))
-    warning ("I'm too fat; call Oprah");
+  if (!try_initial_solution_and_tell (v))
+    {
+      warning ("I'm too fat; call Oprah");
+      DOUT << "tried solution: " << v;
+    }
   return v;
 
 }
@@ -209,12 +218,14 @@ Spring_spacer::try_initial_solution_and_tell (Vector &v) const
 	  
 	  min_x = min_x >? (initsol (idx) + cr.distance_f_);
 	}
+      initsol (i) = min_x;
       
       if (cols[i].fixed_b())
 	{
 	  initsol (i)=cols[i].fixed_position();
 	  if (initsol (i) < min_x )
 	    {
+	      DOUT << "failing: init, min : " << initsol (i) << " " << min_x << "\n";
 	      initsol (i) = min_x;
 	      succeeded = false;
 	    }
@@ -277,14 +288,11 @@ Spring_spacer::make_constraints (Mixed_qp& lp) const
 	  Column_rod & cr = lc->minimal_dists_arr_drul_[RIGHT][i];
 	  int right_rank = cr.other_l_->rank_i ();
 
-	  cout << "lr, rr, last = " << my_rank << ", " <<right_rank << ", " << last_rank << endl;
 
 	  if (right_rank > last_rank)
 	    break;
 	      
 	  int right_idx = right_rank - my_rank + j;
-	  cout << "li, ri = " << j << "," << right_idx;
-	  cout << "lr, rr = " << my_rank << ", " <<right_rank << endl;
 	  c1(right_idx)=1.0 ;
 	  c1(j)=-1.0 ;
 
@@ -520,13 +528,14 @@ Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
 #endif
 }
 
+/*
+  TODO: take out the refs to width
+ */
 /**
   generate springs between columns.
 
-  UNDER DESTRUCTION
-
   TODO: This needs rethinking.  Spacing should take optical
-  effects into account, and should be local (measure wide)
+  effects into account
 
   The algorithm is taken from :
 
@@ -565,7 +574,7 @@ Spring_spacer::calc_idealspacing()
 	  
 	  Moment delta_t =  scol_l (i+1)->when() - scol_l (i)->when () ;
 
-	  Real k=  paper_l()->arithmetic_constant(context_shortest_arr[i]);
+	  Real k=  paper_l()->arithmetic_constant (context_shortest_arr[i]);
 	  /*
 	    ugh should use shortest_playing distance
 	  */
@@ -603,7 +612,7 @@ Spring_spacer::calc_idealspacing()
 	  Moment delta_t = scol_l (i+1)->when() - scol_l (i)->when ();
 	  Real k=  paper_l()->arithmetic_constant(context_shortest);
 	  Real dist = paper_l()->duration_to_dist (shortest_playing_len, k);
-	  dist *= delta_t / shortest_playing_len;
+	  dist *= (double)(delta_t / shortest_playing_len);
 
 	  /*
 	    According to [Ross] and [Wanske], and from what i've seen:
