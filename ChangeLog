@@ -1,6 +1,9 @@
 2003-08-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION (PATCH_LEVEL): release 1.6.12
+	
+	* Documentation/user/GNUmakefile
+	($(outdir)/lilypond/lilypond.html): huh, what is  $* ?
 
 	* Documentation/footer.html.in: remove useless footer.
 
