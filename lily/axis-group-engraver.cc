@@ -178,7 +178,9 @@ void
 Hara_kiri_engraver::acknowledge_grob (Grob_info i)
 {
   Axis_group_engraver::acknowledge_grob (i);
-  if (i.grob_->internal_has_interface (ly_symbol2scm ("rhythmic-grob-interface")))
+  if (i.grob_->internal_has_interface (ly_symbol2scm ("rhythmic-grob-interface"))
+      || i.grob_->internal_has_interface (ly_symbol2scm ("lyric-interface"))
+      )
     {
       Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob_);
     }

@@ -1,27 +1,23 @@
-\version "2.1.10"
-\header{
-    texidoc =
+\version "2.1.19"
+\header
+{
 
-    "Extenders that end a staff should not extend past the staff."
+    texidoc = "Lyric extenders run to the end of the line if it
+continues the next line. Otherwise, it should run to the last note
+of the melisma."
 
-}
-
-sopran = \notes \relative c'' {
-\time 3/4 a2.( | \break
- g2) g4
-}
-
-text = \lyrics {
-Aaaaa __ aaaaaah
 }
 
 \score {
-<<
-    
-  \context Voice = "foo" \sopran
-  \context LyricsVoice \lyricsto foo \text
->>
-\paper { linewidth = 5.0\cm
+    << 
+	\context Voice=A \notes {
+	    a1 ( a1 \break
+	    a) a2( b) \break
+	    a2 
+	}
+	\lyricsto A \context LyricsVoice \lyrics { a __ a __ ha }
+    >>
+    \paper {
+	raggedright = ##t
+    }
 }
-}
-

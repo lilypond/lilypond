@@ -57,15 +57,6 @@ substitute_grob (Grob *sc)
 	a huge recursion in the GC routine.
        */
 
-      /*
-	This was introduced in 1.3.49 as a measure to prevent
-	programming errors. It looks rather expensive (?).
-
-	TODO:
-		
-	benchmark , document when (what kind of programming
-	errors) this happens.
-      */
       if (sc->common_refpoint (line, X_AXIS)
 	  && sc->common_refpoint (line, Y_AXIS))
 	{
@@ -442,6 +433,12 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
       }
 #endif
 
+      /*
+	see below.
+       */
+      if (sym == ly_symbol2scm ("all-elements"))
+	sc->set_grob_property ("all-elements", SCM_EOL);
+
       sc->mutable_property_alist_ = scm_acons (sym, newval,
 					       sc->mutable_property_alist_);
     }
@@ -512,8 +509,23 @@ Spanner::substitute_one_mutable_property (SCM sym,
 
 	SCM newval = (type == grob_list_p)
 	  ? substitute_grob_list (val)
-	  : do_break_substitution(val);
+	  : do_break_substitution (val);
 
+	/*
+	  For the substitution of a single property, we tack the result onto
+	  mutable_property_alist_ ; mutable_property_alist_ is empty after
+	  Grob::Grob (Grob const&), except that System has all-elements set,
+	  as a side product of typeset_grob() on newly copied spanners.
+
+	  Here we clear that list explicitly to free some memory and
+	  counter some of the confusion I encountered while debugging
+	  another problem
+
+	  (hwn 4/2/04)
+	*/
+	if (sym == ly_symbol2scm ("all-elements"))
+	  sc->set_grob_property ("all-elements", SCM_EOL);
+	
 	sc->mutable_property_alist_ = scm_cons (scm_cons (sym, newval),
 						sc->mutable_property_alist_);
       }

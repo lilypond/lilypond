@@ -1,5 +1,17 @@
 2004-02-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/axis-group-engraver.cc (acknowledge_grob): also take
+	lyric-interface; this prevents lines with only extender lines from
+	being junked.
+ 
+	* scm/define-grob-interfaces.scm (lyric-interface): new interface
+
+	* lily/lyric-extender.cc (brew_molecule): get line breaking and
+	extenders right, for once and for all (hopefully).
+	
+	* lily/break-substitution.cc (substitute_one_mutable_property):
+	clear old 'all-elements for System grobs.
+
 	* lily/new-lyric-combine-music-iterator.cc (find_voice): make sure
 	that associatedVoiceContext is always assigned when music & lyrics
 	are found. 

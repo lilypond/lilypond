@@ -494,7 +494,8 @@
 	(minimum-length .  0.5) 
 	(molecule-callback . ,Hyphen_spanner::brew_molecule)
 	(Y-extent-callback . ,Grob::point_dimension_callback)
-	(meta . ((interfaces . (lyric-hyphen-interface spanner-interface))))
+	(meta . ((interfaces . (lyric-interface lyric-hyphen-interface
+						spanner-interface))))
 	))
 
     (LyricExtender
@@ -503,7 +504,8 @@
 	(thickness . 0.8) ; linethickness
 	(minimum-length . 1.5)
 	(Y-extent-callback . ,Grob::point_dimension_callback)
-	(meta . ((interfaces . (lyric-extender-interface spanner-interface))))
+	(meta . ((interfaces . (lyric-interface
+				lyric-extender-interface spanner-interface))))
 	))
 
     (LyricText

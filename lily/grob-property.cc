@@ -97,6 +97,7 @@ Grob::internal_get_grob_property (SCM sym) const
       if (!type_check_assignment (sym, gh_cdr (s),
 				  ly_symbol2scm ("backend-type?")))
 	abort ();
+
       check_interfaces_for_property (this, sym);
     }
 
@@ -106,7 +107,7 @@ Grob::internal_get_grob_property (SCM sym) const
 void
 Grob::substitute_mutable_properties (SCM crit, SCM orig)
 {
-  set_break_subsititution(crit);
+  set_break_subsititution (crit);
   mutable_property_alist_ = substitute_mutable_property_alist (orig);
 }
 
