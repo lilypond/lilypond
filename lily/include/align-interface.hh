@@ -10,7 +10,6 @@
 #ifndef ALIGN_INTERFACE_HH
 #define ALIGN_INTERFACE_HH
 
-#include "axes.hh"
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 

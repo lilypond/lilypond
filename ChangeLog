@@ -1,3 +1,11 @@
+2004-05-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/include/audio-column.hh: remove unused variables.
+	(patch by Michael Welsh Duggan)
+
+	* flower/include/axes.hh (other_axis): inline Axes function
+	(thanks to David Brandon).
+
 2004-05-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/mknetrel: Install image links (backportme).

@@ -23,10 +23,8 @@ public:
 
   void add_audio_item (Audio_item* i);
   Moment at_mom () const;
-  void print () const;
 
   Link_array<Audio_item> audio_items_;
-  Performance * performance_;
 
 private:
   Audio_column (Audio_column const&);

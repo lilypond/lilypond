@@ -10,26 +10,28 @@
 #ifndef AXES_HH
 #define AXES_HH
 
+#include <assert.h>
+
 enum Axis {
     X_AXIS =0,
     Y_AXIS =1,
     NO_AXES=2,
 };
 
+static inline
+Axis
+incr (Axis &a)
+{
+  assert (a < NO_AXES);
+  a = Axis (int (a) + 1);
+  return a;
+}
 
-class String;
-
-String axis_name_string (Axis);
-
-
-/**
-  the operator ++ for Axis. 
- */
-Axis other_axis (Axis); 
-Axis post_incr (Axis &);
-Axis incr (Axis &);
-//Axis operator++ (Axis);
-
-
+static inline
+Axis
+other_axis (Axis a)
+{
+  return a ==  Y_AXIS ? X_AXIS : Y_AXIS;
+}
 
 #endif // AXES_HH

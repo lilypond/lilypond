@@ -189,18 +189,21 @@ Score::book_rendering (String outname, Music_output_def *default_def,
   for (int i = 0; !i || i < outdef_count; i++)
     {
       Music_output_def *def = outdef_count ? defs_[i] : default_def;
-      SCM context = ly_run_translator (music_, def->self_scm ());
-      if (Global_context *g = dynamic_cast<Global_context*>
-	  (unsmob_context (context)))
+      if (!(no_paper_global_b && dynamic_cast<Paper_def*> (def)))
 	{
-	  SCM s = ly_format_output (context, out);
-	  if (s != SCM_UNDEFINED)
+	  SCM context = ly_run_translator (music_, def->self_scm ());
+	  if (Global_context *g = dynamic_cast<Global_context*>
+	      (unsmob_context (context)))
 	    {
-	      systems = s;
-	      /* Ugh. */
-	      Music_output *output = g->get_output ();
-	      if (Paper_score *ps = dynamic_cast<Paper_score*> (output))
-		*paper = ps->paper_;
+	      SCM s = ly_format_output (context, out);
+	      if (s != SCM_UNDEFINED)
+		{
+		  systems = s;
+		  /* Ugh. */
+		  Music_output *output = g->get_output ();
+		  if (Paper_score *ps = dynamic_cast<Paper_score*> (output))
+		    *paper = ps->paper_;
+		}
 	    }
 	}
     }

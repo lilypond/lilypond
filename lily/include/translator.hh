@@ -41,7 +41,6 @@ public:
   
   Translator (Translator const &);
 
-  void removal_processing ();
   SCM internal_get_property (SCM symbol) const;
   
   virtual Music_output_def *get_output_def () const;

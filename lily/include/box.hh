@@ -9,8 +9,6 @@
 #include "real.hh"
 #include "interval.hh"
 #include "offset.hh"
-#include "axes.hh"
-
 
 struct Box
 {
