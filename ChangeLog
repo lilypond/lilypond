@@ -29,6 +29,12 @@
 	* lily/duration-scheme.cc: bugfix: correct parameters to
 	SCM_ASSERT_TYPE.
 
+	* THANKS: added Pal.
+
+	* Documentation/user/notation.itely: bugfix: unTeXified
+	$\\backslash$.  Bugfix: yet another glyph renaming victim:
+	"timesig.*x/y" -> "timesig.*xy".
+
 2005-02-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 	
 	* VERSION (PACKAGE_NAME): release 2.5.12

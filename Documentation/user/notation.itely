@@ -6521,35 +6521,35 @@ following table
 } {
   \set Score.timing = ##f
   \set Score.barAlways = ##t
-  s_\markup { "$\\backslash$time 4/4" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural4/4" }
+  s_\markup { "\\time 4/4" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural44" }
   s
-  s_\markup { "$\\backslash$time 2/2" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural2/2" }
+  s_\markup { "\\time 2/2" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural22" }
   s
-  s_\markup { "$\\backslash$time 6/4" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural6/4" }
+  s_\markup { "\\time 6/4" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural64" }
   s
-  s_\markup { "$\\backslash$time 6/8" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural6/8" }
+  s_\markup { "\\time 6/8" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural68" }
   \break
-  s_\markup { "$\\backslash$time 3/2" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural3/2" }
+  s_\markup { "\\time 3/2" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural32" }
   s
-  s_\markup { "$\\backslash$time 3/4" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural3/4" }
+  s_\markup { "\\time 3/4" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural34" }
   s
-  s_\markup { "$\\backslash$time 9/4" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural9/4" }
+  s_\markup { "\\time 9/4" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural94" }
   s
-  s_\markup { "$\\backslash$time 9/8" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural9/8" }
+  s_\markup { "\\time 9/8" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural98" }
   \break
-  s_\markup { "$\\backslash$time 4/8" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural4/8" }
+  s_\markup { "\\time 4/8" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural48" }
   s
-  s_\markup { "$\\backslash$time 2/4" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural2/4" }
+  s_\markup { "\\time 2/4" }
+  ^\markup { "       " \musicglyph #"timesig.neomensural24" }
 }
 @end lilypond
 
