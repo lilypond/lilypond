@@ -11,13 +11,13 @@ texidoc = "New markup syntax."
     \property Voice.TextScript \set #'molecule-callback = #brew-new-markup-molecule
     f'-\markup { foo
 		\raise #0.2 \bold bar
-		\override #'(baseline-skip . 4) \column < baz bazr bla >
+		\override #'(baseline-skip . 4) \column << baz bazr bla >>
 		\hspace #2.0
 		\override #'(font-family . music) {
 			\lookup #"noteheads-0"
 			\char #53
 		}
-
+		\musicglyph #"accidentals--1"
 		\combine "X" "+"   
 		\combine "o" "/"
 		"$\\emptyset$"

@@ -163,7 +163,7 @@ Input_file_results::Input_file_results (String init_string, String file_string)
 {
   header_ = SCM_EOL;
   global_input_file = this;
-  ly_set_point_and_click_x (SCM_BOOL_F);
+  ly_set_point_and_click (SCM_BOOL_F);
   
   sources_.set_path (&global_path);
   

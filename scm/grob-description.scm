@@ -117,7 +117,7 @@
      . (
 	(molecule-callback . ,brew-bass-figure)
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
-	(direction . 0)
+	(direction . 1)
 	(font-family . number)
 	(font-relative-size . -3)
 	(padding . 0.1)

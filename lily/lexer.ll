@@ -285,7 +285,7 @@ HYPHEN		--
 	yylval.scm = sval;
 	return SCM_T;
 }
-<INITIAL,notes>{ 
+<INITIAL,notes,markup>{ 
 	\<\<   {
 		return CHORD_OPEN;
 	}

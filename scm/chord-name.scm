@@ -14,11 +14,19 @@
    (ice-9 string-fun)
    )
 
+
+;; debugging.
+(define (mydisplay x) (display x) x)
+
+
 "
 
 TODO:
 
-- Use lilypond Pitch objects -- SCM pitch objects leads to duplication. 
+- Use lilypond Pitch objects -- SCM pitch objects lead to
+duplication. LilyPond pitch objects force meaningful names
+(i.e. (ly:pitch-octave PITCH)  )
+
 
 - Pitches are musical objects. The pitches -> markup step should
 happen earlier (during interpreting), brew-molecule () should only
@@ -26,6 +34,7 @@ dump reinterpret the markup as a molecule.
 
 
 "
+
 
 ;; pitch = (octave notename alteration)
 ;;
@@ -56,9 +65,9 @@ dump reinterpret the markup as a molecule.
       (append 
        `(
 	; C iso C.no3.no5
-	(((0 . 0)) . (,simple-markup ""))
+	(((0 . 0)) . ,empty-markup)
 	; C iso C.no5
-	(((0 . 0) (2 . 0)) . (,simple-markup ""))
+	(((0 . 0) (2 . 0)) . ,empty-markup)
 	; Cm iso Cm.no5
 	(((0 . 0) (2 . -1)) . (,simple-markup "m"))
 	; C2 iso C2.no3
@@ -91,17 +100,17 @@ dump reinterpret the markup as a molecule.
 (define (accidental-markup acc)
   "ACC is an int, return a markup making an accidental."
   (if (= acc 0)
-      `(,simple-markup "")
+      empty-markup
       `(,smaller-markup (,musicglyph-markup ,(string-append "accidentals-" (number->string acc))))
   ))
 
 (define (pitch->markup pitch)
-  (list line-markup
-   (list
-    (list simple-markup
-	  (make-string 1 (integer->char (+ (modulo (+ (cadr pitch) 2) 7) 65))))
-    (list normal-size-superscript-markup
-	  (accidental-markup (caddr pitch))))))
+  `(,line-markup
+   (
+    (,simple-markup
+       ,(make-string 1 (integer->char (+ (modulo (+ (cadr pitch) 2) 7) 65))))
+    (,normal-size-superscript-markup
+     ,(accidental-markup (caddr pitch))))))
   
 ;;; Hooks to override chord names and note names, 
 ;;; see input/tricks/german-chords.ly
@@ -117,8 +126,8 @@ dump reinterpret the markup as a molecule.
 
 (define (step->markup pitch)
   (string-append
-    (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8)))
-    (case (caddr pitch)
+   (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8)))
+   (case (caddr pitch)
       ((-2) "--")
       ((-1) "-")
       ((0) "")
@@ -126,7 +135,7 @@ dump reinterpret the markup as a molecule.
       ((2) "++"))))
   
 (define (step->markup-banter pitch)
-  (list simple-markup
+    (list simple-markup
 	(if (= (cadr pitch) 6)
 	    (case (caddr pitch)
 	      ((-2)  "7-")
@@ -261,36 +270,34 @@ dump reinterpret the markup as a molecule.
 		   step))
 	     
 	     (chord::additions->markup-banter (cdr additions) subtractions)))
-      (list simple-markup "")
-
+      empty-markup
       ))
 
 (define (chord::subtractions->markup-banter subtractions)	 
   (if (pair? subtractions)
-      (list line-markup 
-	    (list simple-markup "no")
-	    (let ((step (step->markup-jazz (car subtractions))))
-	      (if (pair? (cdr subtractions))
-		  (list line-markup (list  step (list simple-markup "/")))
-		  step))
-	    (chord::subtractions->markup-banter (cdr subtractions)))
-      (list simple-markup "")
+      `(,line-markup 
+	((,simple-markup "no")
+	 ,(let ((step (step->markup-jazz (car subtractions))))
+	    (if (pair? (cdr subtractions))
+		`(,line-markup (,step (,simple-markup "/")))
+		step))
+	 ,(chord::subtractions->markup-banter (cdr subtractions))))
+      empty-markup
       ))
 
 (define (chord::bass-and-inversion->markup-banter bass-and-inversion)
   (if (and (pair? bass-and-inversion)
 	   (or (car bass-and-inversion)
 	       (cdr bass-and-inversion)))
-      (list
-       line-markup
-       (list
-	(list simple-markup "/")
-	(pitch->note-name-markup-banter	
-	 (if (car bass-and-inversion)
-	     (car bass-and-inversion)
-	     (cdr bass-and-inversion)))
-	))
-      (list simple-markup "")
+      `(,line-markup
+	(
+	 (,simple-markup "/")
+	 ,(pitch->note-name-markup-banter	
+	   (if (car bass-and-inversion)
+	       (car bass-and-inversion)
+	       (cdr bass-and-inversion)))
+	 ))
+      empty-markup
       ))
 
 ;; FIXME: merge this function with inner-name-jazz, -american
@@ -308,7 +315,10 @@ dump reinterpret the markup as a molecule.
 
 "
   (let* ((tonic-markup (pitch->chord-name-markup-banter tonic steps))
-	 (except-markup exception-part)
+	 (except-markup
+
+	  ;; see below.
+	  (if exception-part exception-part `(,simple-markup "fixme")))
 	 (sep-markup (list simple-markup
 			 (if (and (string-match "super" (format "~s" except-markup))
 				  (or (pair? additions)
@@ -318,7 +328,7 @@ dump reinterpret the markup as a molecule.
 	 (adds-markup (chord::additions->markup-banter additions subtractions))
 	 (subs-markup (chord::subtractions->markup-banter subtractions))
 	 (b+i-markup (chord::bass-and-inversion->markup-banter bass-and-inversion)))
-
+    
     `(,line-markup
       (,tonic-markup
        ,except-markup
@@ -351,10 +361,25 @@ dump reinterpret the markup as a molecule.
     (string-append (symbol->string name)
 		   (symbol->string style)))))
 
-;; check exceptions-alist for biggest matching part of try-steps
-;; return (MATCHED-EXCEPTION . UNMATCHED-STEPS)
+
+;; this is unintelligible.
+;;
+
+;
+; - what's a helper, and why isn't it inside another function?
+;
+; what is going out, what is coming in, howcome it produces #f 
+;  in some cases?
+;
+
 (define (chord::exceptions-lookup-helper
 	 exceptions-alist try-steps unmatched-steps exception-part)
+	 "
+
+ check exceptions-alist for biggest matching part of try-steps
+ return (MATCHED-EXCEPTION . UNMATCHED-STEPS)
+
+"
   (if (pair? try-steps)
       ;; FIXME: junk '(0 . 0) from exceptions lists?
       ;;        if so: how to handle first '((0 . 0) . #f) entry?
@@ -376,9 +401,15 @@ dump reinterpret the markup as a molecule.
 	       (cons (car r) unmatched-steps) #f))))
       (cons exception-part unmatched-steps)))
 
-;; return (MATCHED-EXCEPTION . BASE-CHORD-WITH-UNMATCHED-STEPS)
-;; BASE-CHORD-WITH-UNMATCHED-STEPS always includes (tonic 3 5)
+;; see above.
+
 (define (chord::exceptions-lookup style steps)
+  "
+   return (MATCHED-EXCEPTION . BASE-CHORD-WITH-UNMATCHED-STEPS)
+   BASE-CHORD-WITH-UNMATCHED-STEPS always includes (tonic 3 5)
+
+"
+
   (let* ((result (chord::exceptions-lookup-helper
 		  (chord::restyle 'chord::names-alist- style)
 		  steps '() #f))
@@ -402,7 +433,6 @@ dump reinterpret the markup as a molecule.
 	 (exception-part (car lookup))
 	 (unmatched-steps (cadr lookup))
 	 (func (chord::restyle 'chord::name- style))
-
 	 )
 
     
@@ -429,7 +459,7 @@ dump reinterpret the markup as a molecule.
 				       (cdr pitches))
 		    '())))
     
-     (chord::name->markup style (car pitches) steps bass-and-inversion)
+    (chord::name->markup style (car pitches) steps bass-and-inversion)
     ))
 
 ;;;
@@ -486,12 +516,12 @@ dump reinterpret the markup as a molecule.
 	     (,simple-markup " 7"))))
 	 (((0 . 0) (2 . 0) (4 . 1) (6 . -1)) . (,simple-markup "aug7"))
 	 (((0 . 0) (2 . 0) (4 . -1) (6 . 0))
-	  . (line-markup
+	  . (,line-markup
 	     ((,simple-markup "maj7")
 	      (,small-markup (,raise-markup 0.2 ,(accidental-markup -1)))
 	      (,simple-markup "5"))))
 	 (((0 . 0) (2 . 0) (4 . -1) (6 . -1)) .
-	  (line-markup
+	  (,line-markup
 	   ((,simple-markup "7")
 	      (,small-markup (,raise-markup 0.2 ,(accidental-markup -1)))
 	      (,simple-markup "5"))))
@@ -508,7 +538,6 @@ dump reinterpret the markup as a molecule.
 	 )
       chord::names-alist-american))
 
-
 ;; American style chordnames use no "no",
 ;; but otherwise very similar to banter for now
 (define-public (chord::name-american tonic exception-part unmatched-steps
@@ -517,8 +546,6 @@ dump reinterpret the markup as a molecule.
 	(subtractions #f))
     (chord::inner-name-banter tonic exception-part additions subtractions
 			      bass-and-inversion steps)))
-
-
 
 ;;; 
 ;;; Jazz style
@@ -587,7 +614,7 @@ dump reinterpret the markup as a molecule.
 	;; shouldn't this be a filled black triange, like this:  ? --jcn
 	;;(((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . (columns ("m") ((raise . 0.5)((font-family . math) "N"))))
 	(((0 . 0) (2 . -1) (4 . 0) (6 . 0)) .
-	 (,line-markup (,simple-markup "m") ,mathm-markup-object))
+	 (,line-markup ((,simple-markup "m") ,mathm-markup-object)))
 	; minor seventh chord = m7
 	(((0 . 0) (2 . -1) (4 . 0) (6 . -1)) . ,(mraise-arg "7"))
 	; minor sixth nine chord = m6/9
@@ -748,8 +775,8 @@ dump reinterpret the markup as a molecule.
     (if (pair? sus)
 	`(,line-markup ((,simple-markup "sus")
 			,(step->markup-jazz (car sus))))
-	`(,simple-markup "")))
-  )
+	empty-markup)
+  ))
 
 
 (define (chord::additions>5->markup-jazz additions subtractions)
@@ -909,7 +936,7 @@ If we encounter a chromatically altered step, turn on list-step
 (define chord::names-alist-jazz
       (append
        `(
-        (((0 . 0) (2 . -1)) . ("m"))
+        (((0 . 0) (2 . -1)) . (,simple-markup "m"))
 
 	;; some fixups -- jcn
 	; major seventh chord = triangle
