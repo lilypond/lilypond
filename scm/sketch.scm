@@ -7,10 +7,6 @@
 ;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
-;;; TODO:
-;;; * rewrite
-;;; * move y-translate systems
-
 ;; def dispats (out,x,y,expr):
 ;;     (symbol, rest) = expr
 ;;     if symbol == 'placebox':
@@ -22,14 +18,6 @@
 ;;         out.write ('moveto( %f %f); char(%d)' % (x,y,rest))
 
 
-;; (define (dispatch x y expr)
-;;  (let ((keyword (car expr))) 
-;;   (cond
-;;    ((eq? keyword 'placebox)
-;;    	    (dispatch (+ x (cadr expr)) (+ y (caddr expr) (cadddr expr)))
-
-;;      [etc.]
-;;    ))
 
 
 ;;
@@ -48,12 +36,53 @@
 
 (use-modules (ice-9 format) (guile) (lily))
 
+;; hmm
+; (define (dispatch x y expr)
+;  (let ((keyword (car expr))) 
+;    (cond
+; ((eq? keyword 'beam x y width slope thick)
+; ((eq? keyword 'bezier-bow x y l thick)
+; ((eq? keyword 'bezier-sandwich x y l thick)
+; ((eq? keyword 'bracket arch_angle arch_width arch_height  height arch_thick thick)
+; ((eq? keyword 'char x y i)
+; ((eq? keyword 'comment s)
+; ((eq? keyword 'dashed-line thick on off dx dy)
+; ((eq? keyword 'dashed-slur thick dash l)
+; ((eq? keyword 'define-origin a b c ) "")
+; ((eq? keyword 'end-output)
+; ((eq? keyword 'experimental-on) "")
+; ((eq? keyword 'ez-ball ch letter-col ball-col)
+; ((eq? keyword 'filledbox x y breapth width depth height)
+; ((eq? keyword 'font-load-command name-mag command)
+; ((eq? keyword 'font-switch i)
+; ((eq? keyword 'header creator generate)
+; ((eq? keyword 'header-end)
+; ((eq? keyword 'invoke-char s i)
+; ((eq? keyword 'lily-def key val)
+; ((eq? keyword 'no-origin) "")
+; ((eq? keyword 'output-scale 1)
+; ((eq? keyword 'placebox)
+;  (dispatch (+ x (cadr expr)) (+ y (caddr expr) (cadddr expr))))
+; ((eq? keyword 'repeat-slash wid slope thick)
+; ((eq? keyword 'roundfilledbox x y dx dy w h b)
+; ((eq? keyword 'select-font name-mag-pair)
+; ((eq? keyword 'start-system width height)
+; ((eq? keyword 'stem x y z w) (filledbox x y z w))
+; ((eq? keyword 'stop-last-system)
+; ((eq? keyword 'stop-system)
+; ((eq? keyword 'text x y s)
+; ((eq? keyword 'unknown)
+
+;     )))
+
+
+(define current-y 150)
 
 (define (dispatch expr)
   (let ((keyword (car expr))) 
     (cond
      ((eq? keyword 'placebox)
-      (dispatch-x-y (cadr expr) (+ 150 (caddr expr)) (cadddr expr)))
+      (dispatch-x-y (cadr expr) (+ current-y (caddr expr)) (cadddr expr)))
      (else
       (apply (eval keyword this-module) (cdr expr))))))
 
@@ -97,9 +126,6 @@
    (sketch-numbers->string (map mul-scale (list width dy dx height x y)))
    ")\n"))
 
-
-(define (roundfilledbox x y dx dy w h b)
-  (sketch-filled-rectangle w 0 0 h x y))
 
 (define (sketch-bezier x y l)
   (let* ((c0 (car (list-tail l 3)))
@@ -149,6 +175,10 @@
 (define (cached-fontname i)
   "")
 
+
+(define (roundfilledbox x y dx dy w h b)
+  (sketch-filled-rectangle w 0 0 h x y))
+
 (define (select-font name-mag-pair)
   ;; name-mag-pair: (quote ("feta20" . 0.569055118110236))"feta20"(quote ("feta20" . 0.569055118110236))
   (let ((f (assoc (caadr name-mag-pair) font-alist)))
@@ -163,8 +193,7 @@
 
 (define (beam x y width slope thick)
   (apply sketch-filled-rectangle
-	 (map mul-scale
-	      (list width (* slope width) 0 thick x y))))
+	 (list width (* slope width) 0 thick x y)))
 
 (define (comment s)
   (string-append "# " s "\n"))
@@ -262,6 +291,7 @@ layer('Layer 1',1,1,0,0,(0,0,0))
 
 ; TODO: use HEIGHT argument
 (define (start-system width height)
+  (set! current-y (- current-y height))
    "G()\n"
 )
 
@@ -308,3 +338,7 @@ layer('Layer 1',1,1,0,0,(0,0,0))
 
 
 
+;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;
+
+ 
