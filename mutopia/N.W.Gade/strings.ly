@@ -32,7 +32,7 @@ r8 [ c ( g' c, f c ] |
 [ bes c ] ) bes2 ~ |
 bes r4 |
 R2.*4 |
-r4 r^\fermata r8^\fermata [c'16 \pp ( d] | \time 2/4;
+r4 r r8 [c'16 \pp ( d] | \time 2/4;
 ) c8 r r [c16 ( d] |
 ) c8 r r [c16 ( d] |
 [c d c a][f a c d] |
@@ -255,7 +255,7 @@ c r a r |
 <a4 ) a'> r8 c, |
 f2 ~ |
 f ( |
-<f4 \fz c' ) a'> r^\fermata
+<f4 \fz c' ) a'> r
 
 }
 
@@ -291,7 +291,7 @@ c \< ~ |
 \! c \pp ~ |
 c2 r4 |
 R2.*4 |
-r4 r^\fermata r8^\fermata [c'16 \pp ( d] | \time 2/4;
+r4 r r8 [c'16 \pp ( d] | \time 2/4;
 ) c8 r r [c16 ( d] |
 ) c8 r r [c16 ( d] |
 [c d c a][f a c d] |
@@ -558,7 +558,7 @@ es \< es4 \! d8 \f |
 <a4 ) a'> r8 c, |
 [a16 ( gis a gis][a gis a gis] |
 [a gis a gis][a gis a gis] |
-<) a4 f' \fz > r^\fermata 
+<) a4 f' \fz > r 
 }
 
 vla=\notes\relative c' {
@@ -588,10 +588,10 @@ g2 \mf [a8 \< ( \! d ] |
 [ c \> b \! c g e ) c] |
 [e'8. \pp ( f16 d8 e f d ] |
 b4 [c8 \< a f \! ) a ] |
-c,2 \p ~ c'4 |
-c,2 ~ c'4 |
-c,2 ~ c'4 |
-c, ~ c' r |
+c,2 \p () c'4 |
+c,2 () c'4 |
+c,2 () c'4 |
+c, () c' r |
 [c,8 ( g' ][ c g c a ] |
 [bes c ] ) a4 r |
 R2. |
@@ -603,7 +603,7 @@ r4 r c, \pp ~ |
 c2. ~ |
 c4 r r |
 R2.*3 |
-r4 r^\fermata r8^\fermata r8 |
+r4 r r8 r8 |
 R2*4 |
 c'8-. \pp r bes-. r |
 c-. r bes-. r |
@@ -832,7 +832,7 @@ a r c-. r |
 <f4 ) c'> r8 c, |
 [c'16 ( b c b][c b c b] |
 [c b c b][c b c b] |
-<c4 \fz ) a'> r^\fermata 
+<c4 \fz ) a'> r 
 }
 
 vlc=\notes\relative c' {
@@ -869,7 +869,7 @@ g ) f f, ( \< | % added slur
 ) e2. ~ |
 e2 r4 |
 R2.*4 |
-r4 r4^\fermata r8^\fermata [c'16 \pp ( d] | \time 2/4; % \pp added
+r4 r4 r8 [c'16 \pp ( d] | \time 2/4; % \pp added
 ) c8 r r [c16 ( d] | 
 ) c8 r r [c16 ( d] |
 [c d c a][f a c d] |
@@ -1102,7 +1102,7 @@ f4 r8 c8 ( |
 ) f4 r8 c8 ( |
 ) f,2 ~ |
 f ( |
-) f'4 \fz r^\fermata
+) f'4 \fz r
 }
 
 cb=\notes\relative c {
@@ -1136,7 +1136,7 @@ r4 r f ( \< |
 r r dis ( \< |
 \! ) e2 r4 |
 R2.*6 |
-r4 r^\fermata r8^\fermata r |
+r4 r r8 r |
 R2*4 |
 d8-. \pp r g-. r |
 d-. r g-. r |
@@ -1331,5 +1331,5 @@ f4 r8 c8 ( |
 ) f4 r8 c8 ( |
 ) f,2 ~ |
 f ( |
-) f'4 \fz r^\fermata
+) f'4 \fz r
 }

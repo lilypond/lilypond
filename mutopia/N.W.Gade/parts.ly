@@ -8,6 +8,9 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 		"Statens Musikbibliotek, Stockholm, Sweden";
 }
 
+% Process with 'ly2dvi -s parts.ly' to get the separate parts.
+
+
 \version "1.0.20";
 
 \include "global.ly"
@@ -19,29 +22,26 @@ my_paper = \paper {
   textheight = 275.0 \mm;
   \translator {
     \OrchestralPartStaffContext
-    textScriptPadding = 5.0;
   }
   \translator { 
     \ScoreContext
     skipBars = 1;
     markScriptPadding = "6.0";
-    textstyle = "italic";
-    textEmptyDimension = 1;
-    oldTieBehavior = 1;
-  }
-  \translator { \VoiceContext
-    oldTieBehavior = 1;
+    barNumberScriptPadding = "11.0";
+    textScriptPadding = 5.0;
     textstyle = "italic";
     textEmptyDimension = 1;
   }
 }
-
+%{
 \score{
   \context Staff <
-    \global
-    \marks
-    \flauto
-    \flautohelp
+    \context Voice <
+      \global
+      \marks
+      \flauto
+    >
+    \context Voice = help \flautohelp
   >
   \header{
     instrument = "Flauto";
@@ -54,13 +54,15 @@ my_paper = \paper {
     \tempo 4=120;
   }
 }
-
+%}
 \score{
   \context Staff <
-    \global
-    \marks
-    \oboe
-    \oboehelp
+    \context Voice <
+      \global
+      \marks
+      \oboe
+    >
+    \context Voice = help \oboehelp
   >
   \header{
     instrument = "Oboe";
@@ -73,9 +75,9 @@ my_paper = \paper {
     \tempo 4=120;
   }
 }
-
+%{
 \score{
-  \context Staff <
+  \context Voice <
     \globalNoKey
     \marks
     \clarI
@@ -93,7 +95,7 @@ my_paper = \paper {
 }
 
 \score{
-  \context Staff <
+  \context Voice <
     \globalNoKey
     \marks
     \clarII
@@ -111,7 +113,7 @@ my_paper = \paper {
 }
 
 \score{
-  \context Staff <
+  \context Voice <
     \global
     \marks
     \fagotto
@@ -130,10 +132,12 @@ my_paper = \paper {
 
 \score{
   \context Staff <
-    \globalNoKey
-    \marks
-    \corI
-    \corIhelp
+    \context Voice <
+      \globalNoKey
+      \marks
+      \corI
+    >
+    \context Voice = help \corIhelp
   >
   \header{
     instrument = "Corno I in F";
@@ -149,10 +153,12 @@ my_paper = \paper {
 
 \score{
   \context Staff <
-    \globalNoKey
-    \marks
-    \corII
-    \corIIhelp
+    \context Voice <
+      \globalNoKey
+      \marks
+      \corII
+    >
+    \context Voice = help \corIIhelp
   >
   \header{
     instrument = "Corno II in F";
@@ -168,10 +174,12 @@ my_paper = \paper {
 
 \score{
   \context Staff <
-    \globalNoKey
-    \marks
-    \trpI
-    \trpIhelp
+    \context Voice <
+      \globalNoKey
+      \marks
+      \trpI
+      >
+    \context Voice = help \trpIhelp
   >
   \header{
     instrument = "Tromba I in B\\textflat";
@@ -187,10 +195,12 @@ my_paper = \paper {
 
 \score{
   \context Staff <
-    \globalNoKey
-    \marks
-    \trpII
-    \trpIIhelp
+    \context Voice <
+      \globalNoKey
+      \marks
+      \trpII
+    >
+    \context Voice = help \trpIIhelp
   >
   \header{
     instrument = "Tromba II in B\\textflat";
@@ -206,10 +216,12 @@ my_paper = \paper {
 
 \score{
   \context Staff <
-    \globalNoKey
-    \marks
-    \timpani
-    \timphelp
+    \context Voice <
+      \globalNoKey
+      \marks
+      \timpani
+    >
+    \context Voice = help \timphelp
   >
   \header{
     instrument = "Timpani \& Triangolo";
@@ -224,7 +236,7 @@ my_paper = \paper {
 }
 
 \score{
-  \context Staff <
+  \context Voice <
     \global
     \marks
     \viI
@@ -242,7 +254,7 @@ my_paper = \paper {
 }
 
 \score{
-  \context Staff <
+  \context Voice <
     \global
     \marks
     \viII
@@ -260,7 +272,7 @@ my_paper = \paper {
 }
 
 \score{
-  \context Staff <
+  \context Voice <
     \global
     \marks
     \notes{s2.*32 s2*142 \break}
@@ -279,7 +291,7 @@ my_paper = \paper {
 }
 
 \score{
-  \context Staff <
+  \context Voice <
     \global
     \marks
     \vlc
@@ -297,7 +309,7 @@ my_paper = \paper {
 }
 
 \score{
-  \context Staff <
+  \context Voice <
     \global
     \marks
     \cb
@@ -313,3 +325,4 @@ my_paper = \paper {
     \tempo 4=120;
   }
 }
+%}

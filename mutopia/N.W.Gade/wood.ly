@@ -20,7 +20,7 @@ R2.*4 |
 [c8. ( d16] c4. ) a8 |
 [a8. ( g16 ] ) f4 r |
 R2.*13 |
-r4 r4^\fermata r8^\fermata r8 \time 2/4;
+r4 r4 r8 r8 \time 2/4;
 R2*4 |
 d'8-. \pp r d-. r |
 d-. r d-. r |
@@ -191,7 +191,7 @@ f4 r8 c ( |
 ) a'4 r8 c, ( |
 ) f4 r |
 R2 |
-f4-. \fz r^\fermata
+f4-. \fz r
 }
 
 
@@ -212,7 +212,7 @@ R2.*4 |
 [c8. ( d16] c4. ) a8 |
 [a8. ( g16 ] ) f4 r |
 R2.*13 |
-r4 r4^\fermata r8^\fermata r8 \time 2/4;
+r4 r4 r8 r8 \time 2/4;
 R2*4 |
 a'8-. \pp r g-. r |
 a8-. r g-. r |
@@ -233,7 +233,7 @@ dis,2 |
 c r d r |
 g, r r4 |
 R2*10 |
-R4 r8 e' \p |
+r4 r8 e' \p |
 e [es-. es-.] d-. |
 d-. [cis-. cis-.] c-. |
 c [c16 ( d] [es8 d16 c] | % slur added
@@ -370,7 +370,7 @@ f4 r8 c' ( |
 ) a4 r8 c ( |
 ) f4 r |
 R2 |
-f4 \fz r^\fermata
+f4 \fz r
 
 }
 
@@ -398,7 +398,7 @@ d4-> () b r |
 r r \times 2/3 { [d8 ( b ) d ] } |
 a4 () d r |
 R2.*6 |
-r4 r4^\fermata r8^\fermata r8 |
+r4 r4 r8 r8 |
 R2*4 |
 gis,8-. \pp r a-. r |
 gis-. r a-. r |
@@ -606,7 +606,7 @@ g r d r |
 ) b'4 r8 d, ( |
 ) g,2 ~ |
 g ( |
-) g'4-. \fz r^\fermata
+) g'4-. \fz r
 }
 
 
@@ -634,7 +634,7 @@ d4 () b r |
 r r \times 2/3 { [d8 \f ( b ) d ] } |
 a4 () d r |
 R2.*6 |
-r4 r4^\fermata r8^\fermata r8 |
+r4 r4 r8 r8 |
 R2*9 |
 r4 r8 d-. \p |
 [c-. b-. \< a-. g-. ] |
@@ -815,7 +815,7 @@ b4 r |
 d4 r8 d, ( |
 ) g2 ~ |
 g ( |
-) b4-. \fz r^\fermata 
+) b4-. \fz r 
 }
 
 fagotto=\notes\relative c' {
@@ -825,7 +825,7 @@ fagotto=\notes\relative c' {
 [c8. \f ( d16 ] ) c2_"dim." |
 [c8. ( d16 ] ) c4 r |
 R2.*29 |
-r4 r4^\fermata r8^\fermata r8 |
+r4 r4 r8 r8 |
 R2*4 |
 c8-. \pp r bes-. r |
 c8-. r bes-. r |
@@ -1032,14 +1032,14 @@ c-. r c-. r |
 ) f4 r8 c ( |
 ) f,2 ~ |
 f ( |
-) c'4 \fz r^\fermata
+) c'4 \fz r
 }
 
 oboehelp=\notes\relative c'' {
 \tiny
 
 s2.*32 |
-s2*32 |
+s2*32 | \stemdown
 [a8^"Vi. I" ( g f d] |
 [b g ) a ] s8 |
 s2*106 |
@@ -1051,16 +1051,16 @@ flautohelp=\notes\relative c'' {
 \tiny
 
 s2.*32 |
-s2*32 |
+s2*32 | \stemdown
 [a8^"Vi. I" ( g f d] |
-[b g ) a ] s8 |
+[b g ) a ] s8 | \stemboth
 s2*60 |
 f''2^"Oboe" ( |
 b,4 [c8 ) b] |
-s2*44 |
+s2*44 | \stemdown
 [d8^"Vi. I" ( c bes g] |
 [e c ) d] s |
-s2*54 |
+s2*54 | \stemup
 bes''4.^"Vi. I"  a8 |
 [g-. f-. e-. ] s8 | 
 }
