@@ -69,8 +69,18 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
   Real ss = Staff_symbol_referencer::staff_space (me);
   SCM support = me->get_grob_property ("side-support-elements");
   Grob *common = common_refpoint_of_list (support, me->get_parent (a), a);
-  
+  Grob * st = Staff_symbol_referencer::get_staff_symbol (me);
+  bool include_staff = (st
+			&& a == Y_AXIS
+			&& gh_number_p (me->get_grob_property ("staff-padding")));
+
   Interval dim;
+  if (include_staff)
+    {
+      common = st->common_refpoint (common, Y_AXIS);
+      dim = st->extent (common, Y_AXIS);
+    }
+    
   for (SCM s = support; s != SCM_EOL; s = ly_cdr (s))
     {
       Grob * e  = unsmob_grob (ly_car (s));
@@ -230,7 +240,7 @@ Side_position_interface::set_axis (Grob*me, Axis a)
 
 
 
-// ugh. doesn't cactch all variants. 
+// ugh. doesn't catch all variants. 
 Axis
 Side_position_interface::get_axis (Grob*me)
 {
@@ -249,8 +259,8 @@ ADD_INTERFACE (Side_position_interface,"side-position-interface",
 	       "Position a victim object (this one) next to other objects (the "
 	       "support).  In this case, the property @code{direction} signifies where to put the  "
 	       "victim object relative to the support (left or right, up or down?)\n\n "
-	       "The routine puts objects at a distance of the staff if the property "
-	       "@code{staff-padding} is defined. If undefined, the staff symbol is ignored." 
+	       "The routine also takes the size the staff into account if "
+	       "@code{staff-padding} is set. If undefined, the staff symbol is ignored." 
 	       ,
 	       "staff-padding side-support-elements direction-source "
 	       "direction side-relative-direction minimum-space padding");

@@ -449,15 +449,20 @@ Only set if not set previously.
 		    
        ))
      (define (put-range x a b)
+       (display (list "put range "  x a b "\n"))
        (do
 	   ((i a (1+ i)))
 	   ((> i b) b)
 	 (set! (configuration (vector-ref result i)) x)
 	 ))
      (define (put x)
-       (set! (configuration (vector-ref result ri)) x))
+      
+       (display (list "putting "  x "\n"))
+      (set! (configuration (vector-ref result ri)) x))
 	    
      (define (try-solo type start-idx current-idx)
+       "Find a maximum stretch that can be marked as solo. Only set
+the mark when there are no spanners active."
        (if (< current-idx (vector-length result))
 	   (let*
 	       ((now-state (vector-ref result current-idx))
@@ -483,9 +488,7 @@ Only set if not set previously.
 	   (1- current-idx)))
 	      
      (define (analyse-moment ri)
-       "Analyse 'apart  starting at RI. Return next index. 
-"
-       
+       "Analyse 'apart  starting at RI. Return next index. "
         (let*
 	   ((now-state (vector-ref result ri))
 	    (vs1 (car (voice-states now-state)))
@@ -495,6 +498,11 @@ Only set if not set previously.
 	    (n1 (length notes1))
 	    (n2 (length notes2)) )
 
+	  (display (list "analysing "  (when now-state)
+			 "\n1= " vs1 
+			 "\n2= " vs2 
+			 "\n"))
+	  
 	  (cond
 	   ((and (= n1 0) (= n2 0))
 	    (put 'apart-silence)
@@ -532,10 +540,11 @@ Only set if not set previously.
 	))
      
    (analyse-time-step 0)
-   (analyse-a2 0)
+;   (display result)
+;   (analyse-a2 0)
 ;   (display result)
    (analyse-solo12 0)
-;   (if pc-debug (display result))
+   (display result)
 
    (set! result (map
 		 (lambda (x) (cons (when x) (configuration x)))
