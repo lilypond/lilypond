@@ -1,7 +1,17 @@
-2005-03-12  Jürgen Reuter  <reuter@ipd.uka.de>
+2005-03-13  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* input/regression/mensural-ligatures.ly: new file (with examples
 	compiled by Pal Benko).
+
+	* Documentation/user/instrument-notation.itely: Bugfix: yet some
+	other "custodes.*-u0" -> "custodes.*.u0" renaming victims in
+	musicglyph access.  Many small beautifications in ancient
+	examples.
+
+	* input/test/divisiones.ly: fixed indentation; small
+	beautifications
+
+	* ly/engraver-init.ly: added FIXME comment
 
 2005-03-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
