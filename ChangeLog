@@ -1,3 +1,8 @@
+2005-04-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (Lilypond_snippet.__init__): 
+	only process options fi they're there.
+
 2005-04-06  Jan Nieuwenhuizen  <jan.nieuwenhuizen@aspiratie.nl>
 
 	* scripts/lilypond-book.py (split_options): Bugfix.  Small code

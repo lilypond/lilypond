@@ -677,7 +677,8 @@ class Lilypond_snippet (Snippet):
 	def __init__ (self, type, match, format, line_number):
 		Snippet.__init__ (self, type, match, format, line_number)
 		os = match.group ('options')
-		self.do_options (os, self.type)
+		if os:
+			self.do_options (os, self.type)
 
 	def ly (self):
 		return self.substring ('code')
