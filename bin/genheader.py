@@ -47,7 +47,7 @@ def project_str():
     if regex.search('flower', cwd) <> -1:
 	PROJECT = "the Flower Library"
     elif regex.search('mf$', cwd) <> -1:
-	PROJECT = "the Feta (Font-En-Tja) music font"
+	PROJECT = "the Feta (defintively not an abbreviation for Font-En-Tja) music font"
     else:
 	PROJECT = "the GNU LilyPond music typesetter"
     return PROJECT
