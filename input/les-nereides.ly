@@ -214,11 +214,19 @@ bassTwo =  \context Voice=bassTwo \notes\relative c{
 
 middleDynamics =  \context Dynamics=middle \notes{
     \property Dynamics.TextScript \set #'padding = #-1
-    
     s2
     s1*2
     | %4
-    s2 s32 s-"rall." s s s8 s4
+    s2
+    \grace {
+    	   s8
+    	   s16 s s
+    	   s32 s
+           \once\property Dynamics.Hairpin \set #'extra-offset = #'(0 . 2)
+	   s-\> s
+     	   s32 s s s-\!
+    }
+    s32 s-"rall." s s s8 s4
     | %5
     s2-"a tempo" s8
     \once\property Dynamics.Hairpin \set #'extra-offset = #'(1 . 0)
