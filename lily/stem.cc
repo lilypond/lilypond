@@ -592,9 +592,9 @@ Stem::flag (Grob *me)
   return flag;
 }
 
-MAKE_SCHEME_CALLBACK (Stem,dim_callback,2);
+MAKE_SCHEME_CALLBACK (Stem,width_callback,2);
 SCM
-Stem::dim_callback (SCM e, SCM ax)
+Stem::width_callback (SCM e, SCM ax)
 {
   Axis a = (Axis) scm_to_int (ax);
   assert (a == X_AXIS);
@@ -714,9 +714,9 @@ Stem::print (SCM smob)
 /*
   move the stem to right of the notehead if it is up.
  */
-MAKE_SCHEME_CALLBACK (Stem, off_callback, 2);
+MAKE_SCHEME_CALLBACK (Stem, offset_callback, 2);
 SCM
-Stem::off_callback (SCM element_smob, SCM)
+Stem::offset_callback (SCM element_smob, SCM)
 {
   Grob *me = unsmob_grob (element_smob);
   Real r = 0.0;

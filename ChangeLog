@@ -1,3 +1,26 @@
+2004-12-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/output-tex.scm (named-glyph): new function. This fixes TeX output.
+
+	* scm/framework-tex.scm (otf-font-load-command): load subfonts.
+	(tex-font-command-raw): new function.
+
+	* lily/include/virtual-font-metric.hh (Module): remove file
+
+	* lily/virtual-font-metric.cc (Module): remove file.
+	
+
+	* lily/open-type-font.cc (LY_DEFINE): ly:otf-font-glyph-info
+	(get_indexed_char): read bbox from lily table if present.
+
+2004-12-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* mf/GNUmakefile ($(outdir)/aybabtu.subfonts): rule for
+	aybabtu.subfonts
+
+	* mf/feta-beugel.mf (y): don't number consecutively, instead, use
+	global glyphname. Enables more than 64 glyphs in the OTF.
+
 2004-12-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/font.scm (add-music-fonts): Load aybabtu iso all separate

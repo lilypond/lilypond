@@ -263,9 +263,9 @@
      Staff_symbol::print
      Staff_symbol_referencer::callback
      Stem::before_line_breaking
-     Stem::dim_callback
+     Stem::width_callback
      Stem::height
-     Stem::off_callback
+     Stem::offset_callback
      Stem::print
      Stem_tremolo::height
      Stem_tremolo::print

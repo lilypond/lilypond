@@ -42,9 +42,9 @@ public:
   static void set_spacing_hints (Grob *);
   
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (off_callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element, SCM axis));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
-  DECLARE_SCHEME_CALLBACK (dim_callback, (SCM smob, SCM axis));
+  DECLARE_SCHEME_CALLBACK (width_callback, (SCM smob, SCM axis));
   DECLARE_SCHEME_CALLBACK (height, (SCM, SCM));
 
 private:

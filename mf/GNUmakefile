@@ -58,7 +58,10 @@ $(outdir)/%.otf: $(outdir)/%.pe
 $(outdir)/%.otf-table: $(outdir)/%.lisp
 	cat $< $(subst parmesan,feta,$<) > $@
 
+$(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts
 
+$(outdir)/aybabtu.subfonts: 
+	 echo $(subst .mf,,$(wildcard feta-braces-[a-z].mf)) > $@
 
 $(PE_SCRIPTS):
 	$(PYTHON) $(buildscript-dir)/gen-bigcheese-scripts.py --dir=$(outdir)

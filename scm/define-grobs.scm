@@ -1045,8 +1045,8 @@
 	;; The 'extreme case' minima
 	(beamed-extreme-minimum-free-lengths . (2.0 1.25))
 
-	(X-offset-callbacks . (,Stem::off_callback))
-	(X-extent-callback . ,Stem::dim_callback)	
+	(X-offset-callbacks . (,Stem::offset_callback))
+	(X-extent-callback . ,Stem::width_callback)	
 	(Y-extent-callback . ,Stem::height)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(meta . ((interfaces . (stem-interface font-interface item-interface ))))

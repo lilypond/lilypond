@@ -102,11 +102,14 @@ Score_engraver::initialize ()
 {
   Font_metric *fm = all_fonts_global->find_otf (MUSIC_FONT);
   if (!fm)
-    error (_f ("cannot find `%s'", MUSIC_FONT ".otf")
-	   + "\n"
-	   + _ ("Music font has not been installed properly.")
-	   + _ ("Aborting"));
-
+    {
+      error (_f ("cannot find `%s'", MUSIC_FONT ".otf")
+	       + "\n"
+	       + _ ("Music font has not been installed properly.\n")
+	       + _f ("Search path `%s'\n", global_path.to_string ().to_str0())
+	       + _ ("Aborting"));       
+    }
+  
   if (!scm_is_string (ly_kpathsea_find_file (scm_makfrom0str ("ecrm10.pfa")))
       && (!scm_is_string (ly_kpathsea_find_file (scm_makfrom0str ("lmr10.pfb")))))
       error (_f ("cannot find `%s'", "ecrm10.pfa")

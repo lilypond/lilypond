@@ -10,7 +10,6 @@
 #include "ly-module.hh"
 #include "output-def.hh"
 #include "modified-font-metric.hh"
-#include "virtual-font-metric.hh"
 
 Real
 output_scale (Output_def *od)
@@ -27,8 +26,6 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m,
     return find_scaled_font (mod->parent_, f, m, font_encoding, input_encoding);
   
   Real lookup_mag = m;
-  if (!dynamic_cast<Virtual_font_metric*> (f))
-    lookup_mag /= output_scale (mod);
 
   SCM font_table = mod->lookup_variable (ly_symbol2scm ("scaled-fonts"));
   if (scm_hash_table_p (font_table) != SCM_BOOL_T)
@@ -47,35 +44,7 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m,
   else
     sizes = SCM_EOL;
   
-  /* Hmm. We're chaining font - metrics.  Should consider whether to
-     merge virtual-font and scaled_font.  */
-  SCM val = SCM_EOL;
-  if (Virtual_font_metric * vf = dynamic_cast<Virtual_font_metric*> (f))
-    {
-      /* For fontify_atom (), the magnification and name must be known
-	 at the same time. That's impossible for
-	 
-	 Scaled (Virtual_font (Font1,Font2))
-	 
-	 so we replace by
-	 
-	 Virtual_font (Scaled (Font1), Scaled (Font2))  */
-      SCM lst = SCM_EOL;
-      SCM *t = &lst;
-      for (SCM s = vf->get_font_list (); scm_is_pair (s); s = scm_cdr (s))
-	{
-	  Font_metric *scaled
-	    = find_scaled_font (mod, unsmob_metrics (scm_car (s)), m,
-				font_encoding, input_encoding);
-	  *t = scm_cons (scaled->self_scm (), SCM_EOL);
-	  t = SCM_CDRLOC (*t);
-	}
-
-      vf = new Virtual_font_metric (lst);
-      val = vf->self_scm ();
-    }
-  else
-    val = Modified_font_metric::make_scaled_font_metric (f, lookup_mag,
+  SCM val = Modified_font_metric::make_scaled_font_metric (f, lookup_mag,
 							 font_encoding,
 							 input_encoding);
 

@@ -25,11 +25,11 @@ mode_setup;
 
 
 
-save code;
+save code, braces_per_font;
 code := 64;
+braces_per_font := 64;
 
-
-def draw_brace (expr height_sharp, width_sharp, slt_sharp) =
+def draw_brace (expr height_sharp, width_sharp, slt_sharp, brace_number) =
 
 	save pendir, height, width, thin, thick, slt;
 	save penangle;
@@ -38,8 +38,8 @@ def draw_brace (expr height_sharp, width_sharp, slt_sharp) =
 	slt# := slt_sharp;
 
 %% +1  is needed because fet_beginchar increments after dumping the strings.
-fet_beginchar ("brace number " & (decimal (code + 1)),
-		"brace" & decimal code)
+fet_beginchar ("brace number " & (decimal (brace_number)),
+		"brace" & decimal(brace_number))
 
 	set_char_box (0, width#, height#/2, height#/2);
 	  
@@ -79,17 +79,20 @@ y := 10pt#;
 
 
 
+
 for i := 0 step 1 until font_count:
 
   %% We can't store more than 64 (65?) height dimensions in a TFM
   %% file, so we make small files.
+  save number;
+
+  number := braces_per_font * i;
 
   for j := 0 step 1 until 63:
     % message "l: "&decimal l;
     % note: define_pixels (x) multiplies x by hppp,
     % must never get bigger than infinity
     y := y + increment;
-
     if y > infinity/hppp:
       message "Resolution and/or magnification is too high";
       error please report: <bug-lilypond@gnu.org>;
@@ -103,8 +106,9 @@ for i := 0 step 1 until font_count:
     increment := x / 10;
     linethickness :=  min (0.5pt#, y/150);
     if i = font_count:
-      draw_brace (y, x, linethickness);
+      draw_brace (y, x, linethickness, number);
     fi
+    number := number + 1;
   endfor;
 endfor
   

@@ -15,7 +15,7 @@
 #include "font-metric.hh"
 
 typedef std::map<FT_UInt, FT_ULong> Index_to_charcode_map;
-//typedef std::map<String, FT_ULong> Glyph_name_to_charcode_map;
+typedef std::map<String, FT_ULong> Glyph_name_to_index_map;
 
 class Open_type_font : public Font_metric
 {
@@ -25,10 +25,14 @@ class Open_type_font : public Font_metric
   SCM lily_character_table_; 
   SCM lily_global_table_;
   Index_to_charcode_map index_to_charcode_map_;
-  //Glyph_name_to_charcode_map glyph_name_to_charcode_map_;
+  Glyph_name_to_index_map glyph_name_to_index_map_;
   Open_type_font (FT_Face);
 
 public:
+  SCM get_subfonts () const;
+  SCM get_global_table () const;
+  SCM get_char_table () const;
+  
   static SCM make_otf (String);
   virtual ~Open_type_font();
   virtual Offset attachment_point (String) const;
