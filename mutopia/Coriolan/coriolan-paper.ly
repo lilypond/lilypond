@@ -40,8 +40,9 @@
 	}
 	\translator { 
 		\ScoreContext 
-		textEmptyDimension = ##t
+		%textEmptyDimension = ##t
 		textStyle = #"italic"
+		timeSignatureStyle = #"C"
 	}
 	\translator { \OrchestralScoreContext }
 }

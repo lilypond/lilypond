@@ -40,6 +40,7 @@ private:
   Drul_array<Span_req*> span_req_l_drul_;
   Array<Audio_dynamic_tuple> dynamic_tuple_arr_;
   Array<Audio_dynamic_tuple> finished_dynamic_tuple_arr_;
+  Direction dir_;
   Direction finished_dir_;
 };
 
@@ -109,6 +110,7 @@ Span_dynamic_performer::do_process_music ()
 
   if (span_req_l_drul_[STOP])
     {
+      finished_dir_ = dir_;
       if (!span_start_req_l_)
 	{
 	  span_req_l_drul_[STOP]->warning (_ ("can't find start of (de)crescendo"));
@@ -117,8 +119,6 @@ Span_dynamic_performer::do_process_music ()
 	{
 	  span_start_req_l_ = 0;
 	  finished_dynamic_tuple_arr_ = dynamic_tuple_arr_;
-	  finished_dir_ = span_req_l_drul_[STOP]->span_type_str_ == "crescendo"
-	    ? RIGHT : LEFT;
 	  dynamic_tuple_arr_.clear ();
 	  if (finished_dynamic_tuple_arr_.size ())
 	    dynamic_tuple_arr_.push (finished_dynamic_tuple_arr_.top ());
@@ -127,6 +127,8 @@ Span_dynamic_performer::do_process_music ()
 
   if (span_req_l_drul_[START])
     {
+      dir_ = span_req_l_drul_[START]->span_type_str_ == "crescendo"
+	? RIGHT : LEFT;
       span_start_req_l_ = span_req_l_drul_[START];
       audio_p_ = new Audio_dynamic (0);
       Audio_element_info info (audio_p_, 0);

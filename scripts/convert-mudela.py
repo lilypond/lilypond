@@ -281,7 +281,7 @@ if 1:
 	def conv(str):
 		str =  re.sub ('SkipBars','skipBars', str)
 		str =  re.sub ('fontsize','fontSize', str)
-		str =  re.sub ('midi_instrument','midiInstrument', x)			
+		str =  re.sub ('midi_instrument','midiInstrument', str)			
 			
 		return str
 
@@ -293,7 +293,7 @@ if 1:
 	def conv(str):
 		str =  re.sub ('tieydirection','tieVerticalDirection', str)
 		str =  re.sub ('slurydirection','slurVerticalDirection', str)
-		str =  re.sub ('ydirection','verticalDirection', x)			
+		str =  re.sub ('ydirection','verticalDirection', str)			
 			
 		return str
 
