@@ -1,16 +1,11 @@
 #include "music-list.hh"
 #include "sequential-music-iterator.hh"
 
-Sequential_music::Sequential_music ()
-  : Music_sequence ()
+Sequential_music::Sequential_music (SCM x)
+  : Music_sequence (x)
 {
 }
 
-Moment
-Sequential_music::get_length () const
-{
-  return Music_sequence::cumulative_length (get_property ("elements"));
-}
 ADD_MUSIC (Sequential_music);
 
 Moment

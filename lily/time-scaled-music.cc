@@ -11,8 +11,9 @@
 
 #include "time-scaled-music-iterator.hh"
 
-Time_scaled_music::Time_scaled_music ()
+Time_scaled_music::Time_scaled_music (SCM x)
+  : Music_wrapper (x)
 {
-  
 }
+
 ADD_MUSIC (Time_scaled_music);

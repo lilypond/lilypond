@@ -17,10 +17,10 @@ class Lyric_combine_music : public Music
 public:
   Lyric_combine_music (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Lyric_combine_music);
+  DECLARE_SCHEME_CALLBACK(length_callback,(SCM));
 
   Music *get_music () const;
   Music *get_lyrics () const;
-  virtual Moment get_length () const;
 };
 
 #endif /* LYRIC_COMBINE_MUSIC_HH */

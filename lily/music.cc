@@ -45,6 +45,8 @@ Music::Music (SCM init)
   immutable_property_alist_ = init;
   mutable_property_alist_ = SCM_EOL;
   smobify_self ();
+
+  length_callback_ = get_property ("length-callback");
 }
 
 Music::Music (Music const &m)
@@ -58,6 +60,7 @@ Music::Music (Music const &m)
      that they won't be protected from GC. */
   smobify_self ();
   mutable_property_alist_ = ly_music_deep_copy (m.mutable_property_alist_);
+  length_callback_ = m.length_callback_;
   set_spot (*m.origin ());
 }
 
@@ -89,14 +92,13 @@ Music::get_length () const
   if (unsmob_moment (lst))
     return *unsmob_moment (lst);
 
-  lst = get_property ("length-callback");
-  if (ly_c_procedure_p (lst))
+  if (ly_c_procedure_p (length_callback_))
     {
-      SCM res = scm_call_1 (lst, self_scm ());
+      SCM res = scm_call_1 (length_callback_, self_scm ());
       return *unsmob_moment (res);
     }
 
-  return 0;
+  return *unsmob_moment (scm_call_1 (length_callback_, self_scm ()));
 }
 
 Moment

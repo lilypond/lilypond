@@ -14,10 +14,14 @@ Music_wrapper::Music_wrapper (SCM x)
 {
 }
 
-Moment
-Music_wrapper::get_length () const
+
+MAKE_SCHEME_CALLBACK(Music_wrapper,length_callback,1);
+SCM
+Music_wrapper::length_callback (SCM m)
 {
-  return element ()->get_length ();
+  Music * me = unsmob_music (m);
+  Music *elt = unsmob_music (me->get_property ("element"));
+  return elt->get_length ().smobbed_copy ();
 }
 
 Music*

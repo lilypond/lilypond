@@ -13,12 +13,6 @@
 #include "scm-option.hh"
 
 Moment
-Simultaneous_music::get_length () const
-{
-  return Music_sequence::maximum_length (get_property ("elements"));
-}
-
-Moment
 Simultaneous_music::start_mom () const
 {
   return Music_sequence::minimum_start (get_property ("elements"));

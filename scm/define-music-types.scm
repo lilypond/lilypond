@@ -199,6 +199,7 @@ Syntax: @var{note}\\cr
      . (
 	(description .	"Interpret the argument as grace notes. ")
 	(internal-class-name . "Grace_music")
+	(length . ,(ly:make-moment 0 1))
 	(iterator-ctor . ,Grace_iterator::constructor)
 	(types . (grace-music music-wrapper-music general-music))
 	))
@@ -452,6 +453,7 @@ previously added property from a graphical object definition
 Syntax \\sequential @{..@} or simply @{..@} .")
 
 	(internal-class-name . "Sequential_music")
+	(length-callback . ,Music_sequence::cumulative_length_callback)
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
 	(types . (general-music sequential-music))
 	))
@@ -463,6 +465,7 @@ to group start-mmrest, skip, stop-mmrest sequence.
 
 Syntax @code{R2.*5} for 5 measures in 3/4 time.")
 	(internal-class-name . "Sequential_music")
+	(length-callback . ,Music_sequence::cumulative_length_callback)
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
 	(types . (general-music sequential-music))
 	))
@@ -497,6 +500,7 @@ SYNTAX
 
 	(internal-class-name . "Simultaneous_music")
 	(iterator-ctor . ,Simultaneous_music_iterator::constructor)
+	(length-callback . ,Music_sequence::maximum_length_callback)
 	
 	(types . (general-music simultaneous-music))
 	))
@@ -593,6 +597,7 @@ For example, transposed music.")
 	(description .	"Internally used to group a set of events.")
 	(internal-class-name . "Event_chord")
 	(iterator-ctor . ,Event_chord_iterator::constructor)
+	(length-callback . ,Music_sequence::maximum_length_callback)
 	(types . (general-music event-chord simultaneous-music))
 	)
      )

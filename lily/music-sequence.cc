@@ -66,6 +66,22 @@ Music_sequence::maximum_length (SCM l)
   return dur;
 }
 
+MAKE_SCHEME_CALLBACK(Music_sequence,maximum_length_callback,1);
+SCM
+Music_sequence::maximum_length_callback (SCM m)
+{
+  Music* me = unsmob_music (m);
+  return maximum_length (me->get_property ("elements")).smobbed_copy();
+}
+
+MAKE_SCHEME_CALLBACK(Music_sequence,cumulative_length_callback,1);
+SCM
+Music_sequence::cumulative_length_callback (SCM m)
+{
+  Music* me = unsmob_music (m);
+  return maximum_length (me->get_property ("elements")).smobbed_copy();
+}
+
 Pitch
 music_list_to_relative (SCM l,Pitch p, bool ret_first)
 {
@@ -123,4 +139,5 @@ Music_sequence::first_start (SCM l)
     }
   return m;
 }
+
 
