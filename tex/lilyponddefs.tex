@@ -90,5 +90,7 @@
         nolilyfooter\texsuffix\endcsname
 \fi
 
-\newdimen\outputscale
+\ifx\outputscale\undefined
+        \csname global\endcsname\csname newdimen\endcsname\outputscale
+\fi
 \endinput
