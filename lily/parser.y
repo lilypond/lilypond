@@ -1,7 +1,7 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
 
-#define MUDELA_VERSION "0.0.57"
+#define MUDELA_VERSION "0.0.58"
 
 #include "script-def.hh"
 #include "symtable.hh"
@@ -174,7 +174,8 @@ yylex(YYSTYPE *s,  void * v_l)
 
 
 %type <box>	box
-%type <c>	open_request_parens close_request_parens close_plet_parens
+%type <c>	open_request_parens close_request_parens
+%type <c>	open_plet_parens close_plet_parens
 %type <chord>	music_chord music_chord_body  init_music_chord
 %type <el>	voice_elt full_element lyrics_elt command_elt
 %type <i>	int
@@ -718,10 +719,6 @@ post_requests:
 		$2->set_spot( THIS->here_input());
 		THIS->post_reqs.push($2);
 	}
-	| post_requests close_plet_parens INT '/' INT { 
-		THIS->post_reqs.push( THIS->get_parens_request($2) ); 
-		THIS->post_reqs.push( get_plet_request( $2, $3, $5 ) ); 
-	}
 	;
 
 post_request:
@@ -737,6 +734,7 @@ pure_post_request:
 		$$->set_spot( THIS->here_input());
 	}
 	;
+
 pure_post_request_choice:
 	close_request_parens	{ 
 		$$ = THIS->get_parens_request($1); 
@@ -753,7 +751,7 @@ pure_post_request_choice:
 */
 steno_melodic_req:
 	NOTENAME_ID	{
-		$$ = $1->clone()->melodic();
+		$$ = $1->clone()->musical()->melodic();
 		$$->octave_i_ += THIS->default_octave_i_;
 	}
 	| steno_melodic_req POST_QUOTES 	{  
@@ -801,8 +799,9 @@ dynamic_req:
 	;
 
 close_plet_parens:
-	']' {
+	']' INT '/' INT {
 		$$ = ']';
+		THIS->default_duration_.set_plet($2,$4);
 	}
 	;
 
@@ -816,6 +815,8 @@ close_request_parens:
 	| ']'	{ 
 		$$ = ']';
 	}
+	| close_plet_parens {
+	}
 	| E_SMALLER {
 		$$ = '<';
 	}
@@ -824,6 +825,13 @@ close_request_parens:
 	}
 	;
   
+open_plet_parens:
+	'[' INT '/' INT {
+		$$ = '[';
+		THIS->default_duration_.set_plet($2,$4);
+	}
+	;
+
 open_request_parens:
 	E_EXCLAMATION 	{
 		$$ = '!';
@@ -833,6 +841,8 @@ open_request_parens:
 	}
 	| '['	{
 		$$='[';
+	}
+	| open_plet_parens {
 	}
 	;
 
@@ -844,7 +854,8 @@ script_definition:
 
 script_body:
 	STRING int int int int 		{
-		$$ = new Script_def(*$1,$2, $3,$4,$5);
+		$$ = new Script_def;
+		$$->set_from_input(*$1,$2, $3,$4,$5);
 		delete $1;
 	}	
 	;
@@ -1014,7 +1025,7 @@ pitch_list:			{
 		$$ = new Array<Melodic_req*>;
 	}
 	| pitch_list NOTENAME_ID	{
-		$$->push($2->clone()->melodic());
+		$$->push($2->clone()->musical()->melodic());
 	}
 	;
 

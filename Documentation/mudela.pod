@@ -53,7 +53,7 @@ A perl-script which tries to convert to newer versions
 
 =head2 Words
 
-Keywords are preceded by a backslash "\". They contain alphabetic
+Keywords are preceded by a backslash: '\'. They contain alphabetic
 characters only. 
 
 Identifiers in their normal form consist start with a alpha character,
@@ -74,6 +74,16 @@ Mudela uses the brace (C<{> and C<}>) for hierarchical structures. To
 aid the eye in reading, for chords the < and the > are used as
 nesting braces.
 
+=head2 Constants
+
+Please note that -.5 is no Real.
+
+	"I am a string"
+	-1.2e3		% a real
+	12		% an int
+
+
+	
 =head2 Identifiers
 
 =head2 Hierarchical structures
@@ -238,7 +248,7 @@ error for this reason.
 
 	[c8 e8(] [)g8 <c'8] e'8>
 				% NO nesting!
-	[c8 c8 c8]2/3		% a triplet
+	[2/3 c8 c8 c8]1/1	% a triplet
 
 
 =head2 Slurs and Ties

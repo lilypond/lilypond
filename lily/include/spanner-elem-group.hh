@@ -16,10 +16,9 @@
 class Spanner_elem_group : public Spanner, public Element_group {
     
 protected:
-    void do_break_at(PCol*,PCol*);
     virtual Interval do_width()const;
     virtual void do_print() const;
     SPANNER_CLONE(Spanner_elem_group)
-    NAME_MEMBERS(Spanner_elem_group);
+    NAME_MEMBERS();
 };
 #endif // SPANNER_ELEM_GROUP_HH

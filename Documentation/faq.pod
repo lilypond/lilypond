@@ -16,6 +16,17 @@ clean" after installing it
 
 If the problem persists, then please mail me.
 
+Q: Some of your neat scripts fail, what directories do you use:
+
+A:
+	
+	~/something
+	  lilypond	# the directory as unpacked from the tarball
+	  releases	# directory for .tar.gz releases
+	  patches	# directory for patches between different releases
+
+~/something/lilypond/bin is in the PATH, and contains symlinks to the
+compiled executables.
 
 =head2 Language: mudela
 
@@ -196,7 +207,7 @@ LD_LIBRARY_PATH to a directory containing F<libflower.so>
 
 Q: I want a DOS/NT/W95 port.
 
-A.0: Reconsider.  Try Linux/GNU.  It's fun!
+A.0: Reconsider.  Try Linux.  It's fun!
 
 A.1: Currently (patchlevel 27), GNU LilyPond (and flowerLib) compiles, links
 and runs on windhoos-nt, using the cygnus gnu port (release b17.1). 

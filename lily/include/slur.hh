@@ -21,12 +21,11 @@ public:
     void add(Note_column*);
 protected:
     virtual void set_default_dir();
-    virtual void do_break_at( PCol*, PCol*) ; 
     virtual void do_post_processing();
     virtual void do_substitute_dependency(Score_elem*, Score_elem*);
     virtual void do_pre_processing();
     SPANNER_CLONE(Slur)
-    NAME_MEMBERS(Slur);
+    NAME_MEMBERS();
 };
 
 #endif // SLUR_HH

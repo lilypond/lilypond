@@ -8,6 +8,7 @@
 #include "staff-sym.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
+#include "molecule.hh"
 #include "debug.hh"
 
 
