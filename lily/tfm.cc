@@ -27,9 +27,9 @@ lookup_tex_text_dimension (Font_metric *font,
   Box b;
 
   SCM limit = ly_scheme_function ("TEX_STRING_HASHLIMIT");
-  String key_str = font->font_name ();
+  String key_str = ly_scm2string (font->font_file_name());
   int hash_code = scm_to_int (scm_hash (text, limit));
-  key_str += to_string (hash_code);
+  key_str = to_string (hash_code)  + key_str;
   
   SCM val = scm_hash_ref (tex_dimension_hash_tab,
 			  scm_makfrom0str (key_str.to_str0 ()),
@@ -42,7 +42,7 @@ lookup_tex_text_dimension (Font_metric *font,
       val = scm_cdr (val);
       b[Y_AXIS][UP] = scm_to_double (scm_car (val));
       val = scm_cdr (val);
-      b[Y_AXIS][RIGHT] = scm_to_double (scm_car (val)); 
+      b[Y_AXIS][DOWN] = scm_to_double (scm_car (val)); 
     }
   
   return b; 
