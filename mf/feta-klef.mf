@@ -26,6 +26,9 @@ enddef;
 
 % [Wanske] says the bulbs should be positioned about 1/4 right of the
 % "arrow"
+
+%
+% TODO: the hair-curve at z6r looks a little awkward.
 def draw_c_clef (expr reduction) = 
 	save hair, norm, reduced_ss, right_edge;
 	reduced_ss#=staff_space#*reduction;
