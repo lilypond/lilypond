@@ -1,3 +1,12 @@
+pl 77
+	- mfmode
+
+pl 76
+	- bfs: shells, scripts
+
+pl 75
+	- bfs: release
+
 pl 74
 	- avoid buggy /bin/sh on hp-ux
 	- bf: make/stepmake.make

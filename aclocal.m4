@@ -1,3 +1,5 @@
+dnl WARNING WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -196,20 +198,22 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
     fi
     stepmake=`echo ${stepmake} | sed "s!\\\${prefix}!$presome!"`
 
+    AC_MSG_CHECKING(Package)
     if test "x$PACKAGE" = "xSTEPMAKE"; then
-        echo Stepmake package!
+	AC_MSG_RESULT(Stepmake package!)
 	(cd stepmake; rm -f stepmake; ln -s ../stepmake .)
 	(cd stepmake; rm -f bin; ln -s ../bin .)
 	AC_CONFIG_AUX_DIR(bin)
 	stepmake=stepmake
     else
-        echo Package: $PACKAGE
+        AC_MSG_RESULT($PACKAGE)
+	AC_MSG_CHECKING(for stepmake)
 	# Check for installed stepmake
 	if test -d $stepmake; then
-	    echo Using installed stepmake: $stepmake
+	    AC_MSG_RESULT($stepmake)
 	else
 	    stepmake='$(depth)'/stepmake
-	    echo Using local stepmake: $datadir/stepmake not found
+	    AC_MSG_RESULT(./stepmake  ($datadir/stepmake not found))
 	fi
 	AC_CONFIG_AUX_DIR(\
 	  $HOME/usr/local/share/stepmake/bin\
@@ -275,14 +279,15 @@ dnl    fi
     AC_CHECK_PROGS(TAR, tar, error)
 
     if test "x`uname`" = "xHP-UX"; then
+	AC_PATH_PROG(BASH, bash, /bin/sh)
 	AC_STEPMAKE_WARN(avoiding buggy /bin/sh)
-	AC_CHECK_PROGS(SHELL, bash, /bin/ksh)
+	AC_PATH_PROG(SHELL, bash, /bin/ksh)
     else
+	AC_PATH_PROG(BASH, bash, /bin/sh)
 	SHELL=/bin/sh
 	AC_SUBST(SHELL)
     fi
 
-    AC_CHECK_PROGS(BASH, bash, /bin/sh)
 
     AC_PATH_PROG(PYTHON, ${PYTHON:-python}, -echo no python)
     AC_SUBST(PYTHON)
@@ -474,7 +479,8 @@ AC_DEFUN(AC_STEPMAKE_MSGFMT, [
     fi
 ])
 
-AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
+#why has this been dropped?
+AC_DEFUN(XXAC_STEPMAKE_TEXMF_DIRS, [
     AC_ARG_ENABLE(tex-prefix,
     [  enable-tex-prefix=DIR   set the tex-directory to find TeX subdirectories. (default: PREFIX)],
     [TEXPREFIX=$enableval],
@@ -508,6 +514,29 @@ AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
     AC_SUBST(MFDIR)
 ])
 
+AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
+    AC_ARG_ENABLE(tex-tfmdir,
+    [  enable-tex-tfmdir=DIR   set the tex-directory where cmr10.tfm lives (default: use kpsewhich)],
+    [TFMDIR=$enableval],
+    [TFMDIR=auto] )
+
+    AC_CHECK_PROGS(KPSEWHICH, kpsewhich, no)
+    AC_MSG_CHECKING(for TeX TFM directory)
+    if test "x$TFMDIR" = xauto ; then
+	if test "x$TEX_TFMDIR" = "x" ; then
+	    if test "x$KPSEWHICH" != "xno" ; then
+		CMR10=`kpsewhich tfm cmr10.tfm`
+		TEX_TFMDIR=`dirname $CMR10`
+	    else
+		AC_STEPMAKE_WARN(Please set TEX_TFMDIR (to where cmr10.tfm lives):
+	TEX_TFMDIR=/usr/local/TeX/lib/tex/fonts ./configure)
+	    fi
+	fi
+    fi
+    AC_MSG_RESULT($TEX_TFMDIR)
+    AC_SUBST(TEX_TFMDIR)
+])
+
 AC_DEFUN(AC_STEPMAKE_TEXMF, [
     # urg, never know what names these teTeX guys will think up
 
@@ -520,6 +549,7 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
     AC_CHECK_PROGS(METAPOST, mp, no)
     if test "x$METAPOST" = "xno"; then
 	AC_CHECK_PROGS(MPOST, mpost, -echo no mp or mpost)
+
 	METAPOST=$MPOST
     fi
 
@@ -535,8 +565,20 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
 	INIMETAPOST=$INIMPOST
     fi
 
+    AC_MSG_CHECKING(for working metafont mode)
+    modelist='ljfour lj4 lj3 lj2 ljet laserjet'
+    for MFMODE in $modelist; do
+    	$METAFONT "\mode:=$MFMODE; mode_setup; end." > /dev/null 2>&1
+	if test -f mfput.tfm; then
+	    break;
+	fi
+    done
+    rm -f mfput.*
+    AC_MSG_RESULT($MFMODE)
+
     AC_SUBST(METAFONT)
     AC_SUBST(METAPOST)
+    AC_SUBST(MFMODE)
     AC_SUBST(INIMETAFONT)
     AC_SUBST(INIMETAPOST)
 ])

@@ -3,7 +3,18 @@ $(outdir)/%: %.pl
 	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@
 
-#FIXME.  Check for bash?
+$(outdir)/%: %.bash
+	cat $< | sed $(sed-atvariables) > $@
+	chmod 755 $@
+
+$(outdir)/%: %.scm
+	cat $< | sed $(sed-atvariables) > $@
+	chmod 755 $@
+
+$(outdir)/%: %.expect
+	cat $< | sed $(sed-atvariables) > $@
+	chmod 755 $@
+
 $(outdir)/%: %.sh
 	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@

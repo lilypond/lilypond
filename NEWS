@@ -1,4 +1,37 @@
 
+pl 44
+pl 43.jcn2
+ 	- bf: repeat :| placement + core dump
+ 	  input/test/repeat.ly
+ 	  input/test/coda-kludge.ly
+ 	- bf: mf without ljfour
+ 	  * feta-accordion fix/hack for feta11 at 300dpi
+
+pl 43.hwn1
+       - half assed attempt at ABC convertor.
+       - Spacing_spanner: "decentral" spacing stuff.  Use -t to try.
+       - bf: StaffGroup vertical alignment
+       - \property {slur,tie,}ydirection -> {slurV,tieV,v}erticalDirection (1.0.20)
+       - Spanner now hangs on left endpoint.
+       - \property forgetAccidentals: do not remember accidentals.
+ Every note not in the key triggers typesetting of an accidental.
+       - \property noResetKey: do not reset key at start of measure:
+ accidental remain in effect until overriden
+       - bf: ties & accidentals (fix breaks oldTieBehavior)
+       - junked Tie::same_pitch_b_
+  
+pl 43.jcn1
+	- configure, set-lily.sh, release stuff
+
+pl 42.tca2
+	- lilypond don't put \interstaffline after last line. This to
+	  get really nice vertical spacing for mudela-book.
+	- mudela-book: vertical spacing
+	- lilyponddefs.tex: commented out \parindent=0pt to get correct 
+	  paragraph indent for mudela-book
+
+************
+pl 43
 
 pl 41.hwn3
        - reinstated \property inheritance
@@ -16,8 +49,6 @@ quence]
        - data struct simplification: junked Dynamic_req,
 Absolute_dynamic_req, Span_dynamic_req, Slur_req, Beam_req. Use
 Span_reqs and Text_script_reqs with type fields instead. 
-
-
 
 pl 42.tca1
  	- updated mudela-book documentation
@@ -98,8 +129,8 @@ Hara_kiri should be working again.
 spacing.)
 	
 pl 40.mb1
-       - bf: ly2dvi set MFINPUTS so standard tree is found before lilypond
-       - bf: lilypond-regtest.doc, ls-latex.py; now finds author/title
+	- bf: ly2dvi set MFINPUTS so standard tree is found before lilypond
+	- bf: lilypond-regtest.doc, ls-latex.py; now finds author/title
 
 pl 40.uu1
 	- large documentation patch by Adrian Mariano
@@ -303,8 +334,8 @@ pl 33.jcn1
 	- allow autobeaming according to duration iso (crude) multiplicity
 
 pl 33.jbr1
-         - change my email address
-         - Windows platform does a cp -r instead of a ln -s
+	 - change my email address
+	 - Windows platform does a cp -r instead of a ln -s
 
 pl 33.uu1
 	- bf: ^ and _
@@ -554,9 +585,9 @@ pl 23.ms1
 	- sinfonia.ly: several fixes
   	- dynamics
 	 * increased range pppppp to ffffff
-         * added sp, spp, sff, rfz
-         * example see input/test/tchaikovsky.ly
-         * updated dynamics in refman
+	 * added sp, spp, sff, rfz
+	 * example see input/test/tchaikovsky.ly
+	 * updated dynamics in refman
 
 
 pl 24.jcn2
@@ -577,7 +608,7 @@ pl 24.jcn2
 
 
 pl 24.mb1
-        - bf: Correct units now used in the .afm files.
+	- bf: Correct units now used in the .afm files.
 
 ******
 
@@ -589,13 +620,13 @@ pl 23.jcn9
 	- bf: lily-version
 
 pl 23.jbr1
-        - scripts/ly2dvi.py: Windows 95 shell does not support redivrection 
-          of stderr.  We now distribute ash and use it when needed.
-        - stepmake/bin/package-zip32.sh: distribute ash, and guild ice-9/
-          directory.  We build and distribute manpages in html format instead
-          of text format.
-        - Documentation/ntweb: Updated doco and now distributing as a self
-          extracted binary with install script.
+	- scripts/ly2dvi.py: Windows 95 shell does not support redivrection 
+	  of stderr.  We now distribute ash and use it when needed.
+	- stepmake/bin/package-zip32.sh: distribute ash, and guild ice-9/
+	  directory.  We build and distribute manpages in html format instead
+	  of text format.
+	- Documentation/ntweb: Updated doco and now distributing as a self
+	  extracted binary with install script.
 
 pl 23.hwn4
 	- bugfixes
@@ -750,7 +781,7 @@ pl 18.jcn5
 	- bf: vv-duet
 
 pl 18.mb1
-         - \mark now works, using G_staff_side_item.
+	 - \mark now works, using G_staff_side_item.
  	- Improved layout of multi-bar rests, including a new
  	  font symbol.
 
@@ -776,17 +807,17 @@ pl 18.jcn1
 pl 18 (jan 4 '99)
 
 pl 17.jbr2
-        - Documentation/README-W32: Brought my stuff up to date
-        - Documentation/ntweb: updated for realease
-        - stepmake/bin/package-zip32.sh: cygwin-b20 changes
-        - scripts/ly2dvi.py: LILYPONDPREFIX fixes
+	- Documentation/README-W32: Brought my stuff up to date
+	- Documentation/ntweb: updated for realease
+	- stepmake/bin/package-zip32.sh: cygwin-b20 changes
+	- scripts/ly2dvi.py: LILYPONDPREFIX fixes
 
 pl 17.jbr1
-        - scripts/ly2dvi.py root is now the shared directory path not the
-          root of the lily installation.  Environment variable LILYPONDPREFIX
-          is also the path to shared directory.
-        - lily/main.cc WINNT conditional added to avoid a casting of 
-          main_prog
+	- scripts/ly2dvi.py root is now the shared directory path not the
+	  root of the lily installation.  Environment variable LILYPONDPREFIX
+	  is also the path to shared directory.
+	- lily/main.cc WINNT conditional added to avoid a casting of 
+	  main_prog
 
 pl 17.hwn1
 	- bfs wtk1-fugue1
@@ -824,7 +855,7 @@ pl 15.uu1
 
 pl15.tca1
 	- fixed verbatim option behaviour for mudela-book.
-        - added mudela-book option intertext="some text" 
+	- added mudela-book option intertext="some text" 
 	- mudela-book now understand latex \begin{verbatim}
   
 pl 15.jcn1
@@ -843,8 +874,8 @@ parser, lilypond (mudela 1.0.14), manual
 parser, lilypond (Mudela 1.0.13)
 
 pl 14.jcn1
-        - bf: get_chord C-m5-
-        - typos: chord-name
+	- bf: get_chord C-m5-
+	- typos: chord-name
 
 pl 14.tca2	
 	- move option proccing out of main
@@ -870,7 +901,7 @@ pl 12.jcn2
 	- bf: package-diff
 	- new chord syntax, again: TONIC [DURATION] ['-' MODIFIERS/ADDITIONS]
 	- shorthand prefix for note-mode: '@', no shorthand for notes in chord
-           mode...
+	   mode...
  
 pl 11.jcn6
 	- bf: ly2dvi: better guess LILYPONDPREFIX: <bin>../share/lilypond
@@ -907,16 +938,16 @@ pl 11.jcn2
 	- duration with chords + change:  @4 c @c7
 
 pl 11.jcn1
-        - minor chord syntax change: *c6 iso @c6;
+	- minor chord syntax change: *c6 iso @c6;
 
 **********
 
 pl 11
 
 pl9.tca1
-        - included that missing init/mudela-book-defs.py. Added
-          one line to init/GNUMakefile to make .py-files be included.
-        - fragment and nonfragment options to override autodetection
+	- included that missing init/mudela-book-defs.py. Added
+	  one line to init/GNUMakefile to make .py-files be included.
+	- fragment and nonfragment options to override autodetection
 
 pl 10.jcn1
 	- input/test/chords.ly
@@ -964,12 +995,12 @@ pl 9
 	- fixed \relative
 
 pl8.tca1
-        - changes to mudela-book. Junked fragment and floating options,
-          added eps option. Options should not stay as long that you get
-          comfortable with them. ;)
-        - Also possible to define your own commands with
-          a syntax like \mudela{c d e}
-        - updated mudela-book-doc.doc
+	- changes to mudela-book. Junked fragment and floating options,
+	  added eps option. Options should not stay as long that you get
+	  comfortable with them. ;)
+	- Also possible to define your own commands with
+	  a syntax like \mudela{c d e}
+	- updated mudela-book-doc.doc
 
 pl 8.jcn3
 	- website: gnuisation of footers
@@ -1090,7 +1121,7 @@ pl 4.uu1
 	- bf: mudela-book -> \default_paper is obsolete.
 
 pl 3.ms1
-         - thumb-upgrade
+	 - thumb-upgrade
  
 pl4.jcn1
 	- bf: dotted slur
@@ -1114,10 +1145,10 @@ pl 3.tca1
  	- mudela-book example file in Documentation/tex/mudela-book-doc.doc
 
 pl 3.jcn5
-        - bf: dashed-slur
-        - bf: LilyIdString
-        - more star fixes
-        - repeatbar fixes
+	- bf: dashed-slur
+	- bf: LilyIdString
+	- more star fixes
+	- repeatbar fixes
 
 pl 3.jcn3
  	- mup-to-ly.py: version 0.0
@@ -1161,12 +1192,12 @@ pl 1.jcn4
 pl 2
 
 pl 1.mb1
-        - Support for cautionary accidentals. , i.e. accidentals 
-          within parantheses. Syntax: 'cis?'. Try input/test/accid.fly
-          Note that the font has changed.
-        - bf: No unnecessary warnings about time signatures
-        - Added optional second argument of \key. Set to \major or \minor 
-          to get a major or minor key. Default: major.
+	- Support for cautionary accidentals. , i.e. accidentals 
+	  within parantheses. Syntax: 'cis?'. Try input/test/accid.fly
+	  Note that the font has changed.
+	- bf: No unnecessary warnings about time signatures
+	- Added optional second argument of \key. Set to \major or \minor 
+	  to get a major or minor key. Default: major.
 	- bf: Compilation error in midi-walker.cc
 
 pl 1.jcn2

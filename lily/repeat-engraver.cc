@@ -31,13 +31,32 @@ Repeat_engraver::do_try_music (Music* m)
 {
   if (New_repeated_music* r = dynamic_cast<New_repeated_music *> (m))
     {
+      if (!r->semi_fold_b_)
+        return true;
+
       Music_sequence* alt = r->alternatives_p_;
       Moment repeat_length_mom = r->repeat_body_p_->length_mom ();
       Moment stop_mom = now_mom () + repeat_length_mom;
       Moment alt_mom = now_mom () + repeat_length_mom;
+
+      /*
+	if there's a repeat block, we'll need a stop-repeat :| 
+	*/
       if (repeat_length_mom)
 	{
-	  stop_mom += r->alternatives_length_mom ();
+	  /*
+	    if there are alternatives, the :| comes before last alternative
+	    (only for semi-unfolded, but otherwise we're not here anyway?)
+	    */
+	  if (alt)
+	    {
+	      for (Cons<Music> *i (alt->music_p_list_p_->head_); i && i->next_; i = i->next_)
+		{
+		  stop_mom += i->car_->length_mom ();
+		  if (r->fold_b_)
+		    break;
+		}
+	     }
 	  repeated_music_arr_.push (r);
 	  stop_mom_arr_.push (stop_mom);
 	}
@@ -57,6 +76,9 @@ Repeat_engraver::do_try_music (Music* m)
       Scalar prop = get_property ("voltaSpannerDuration", 0);
       if (prop.length_i ())
 	span_mom = prop.to_rat ();
+
+      if (!alt)
+	return true;
 
       int alt_i = r->repeats_i_ + 1 - cons_list_size_i (alt->music_p_list_p_->head_ ) >? 1;
       for (Cons<Music> *i = alt->music_p_list_p_->head_; i ; i = i->next_)

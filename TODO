@@ -13,9 +13,17 @@ Grep for TODO and ugh/ugr/urg.
 . * PostScript
 .  * header for PS enteredby = "bla <bla@bar.com>"
 .  * ps/lily.ps see comments.
+. * down tuplet spanner.
+. * didot / big point.
 . * devise standard for functioning of Vertical_align_element.
 . * midi key.
-
+. * Repeats
+.  * input/bugs/rep.ly (moved from test)
+.  * unfold broken: 
+.   * without alternatives: repeat unfold 4 { a b c d }
+.   * count > alternatives: repeat unfold 79 { a b c d } 
+\alternative { { c c c c } { d d d d } }
+.  * kind of 'initial property' iso fold/volta(semi)/unfold strings
 . * fix singleStaffBracket
 . * declare performers in \midi
 . * fix MIDI
@@ -53,11 +61,7 @@ There are distinct ways of specifying the first two (although at
 present, they're not properly distinguished) but no distinct way to
 specify the third.  Should there be?
 . * rest collision minimum dist.
-. * 1. is there a "no key signature mode" for lily yet so that i can just
-enter the notes without worrying about it instead of having to
-remember to put a "!" after each accidental?
-
-a note with a circle after it, meaning:
+. * a note with a circle after it, meaning:
 
    note + circle = note + 1/4 of its length
 
@@ -65,22 +69,12 @@ a note with a circle after it, meaning:
    page three, the c-sharp on the second line should be a quarter with 
    a circle, not a quarter tied to a sixteenth.  is this at all
    possible with lily?
-tuplets that are written as "number : note", for example
+. * tuplets that are written as "number : note", for example
    "3 : [image of a half note here]".  possible?
-"p+" and "p-" for dynamic markings.  possible?
 . * repeat engraver, gallina.ly
 
 . * Matanya's tips: 
 .  * spacing for prefatory matter
-.  * The line length is 7.5 inch (19.05
-cm) and the height of normal size is equivalent to the traditional raster 1
-> size. (The Schott company sells Letraset sheets of musical symbols which are
-> measured in raster sizes). It is agreed among most engravers I know that the
-> standard size for adult readers in solo music should 70% of raster 1.  Jeff's
-> example was 75%, so I had to modify my file to match. 
-
-So that makes for a staff space of 4 2/3 point. I'll add the
-dimensions to the TODO file.
 .  * accidentals closer to note head
 .  * to space the staffs/staffgroups contained in the score.  
 
@@ -107,10 +101,10 @@ In the orchestscore.ly file, I tried:
 . * Slur
 . * Rhythmic_grouping
 . * Duration
-. * Spring generation
 . * Collision
 . * Rest_collision
 . * clef grav prop's 
+. * parser
 
 .* TODO before 1.2
 . * Morally pure LilyPond.
@@ -142,6 +136,7 @@ In the orchestscore.ly file, I tried:
 .  * make wide_spanner_engraver (line_group_spanne,r staff_symbol)
 . * remove Interval dim_ from Dimension_cache and rename the struct.
 . * do scaled fonts generally 
+. * Spacing.
 . * The Lilypond accidental symbols are available through the TeX macros, 
 \textflat, \textsharp and \textnatural defined in the init file
 lilyponddefs.tex. All the symbols are defined in the files fetaXX.tex
@@ -206,6 +201,7 @@ compilation.
 . * ly2dvi
 .  * bottomnote for ly2dvi
 .  * deps for ly2dvi
+
 .* STUFF
 . * compulsory hshift
 . * Give # lines in linebreaking.  
@@ -214,11 +210,7 @@ compilation.
 . * \selectmusic to cut pieces from music. 
 . * TODO: merge atom & molecule; make  tree from molecule.
 . * Align_element::padding  ?
-. * uniformise property names...
-.  * ydirection <-> yDirection
-.  * rather allow '_' in identifiers first (i.e. junk ^ and _),
-and do y_direction?
-.  * typo checks on property names?
+. * typo checks on property names?
 . * use streambufs and iostream
 	to provide IO handling for TeX stream, mudela stream, data-file.
 . * seriously buffer TeX output (do profile of writing .5 mb TeX file.)
@@ -358,11 +350,6 @@ touching it.
 .  * -u switch
 .  * detect of 16/8 bit files
 .  * examples to go with it.
-
-. * Spring_spacer:
-.  * write a faster Spring_spacer (without matrices if possible)
-.  * relate energybound to linelen unitspace fontsize etc.
-.  * used fixed point fp?
 
 . * \header
 .  * output header info to MIDI too.
