@@ -155,7 +155,8 @@ Getopt_long::parseshort()
 }
 
 Long_option_init *
-Getopt_long::operator()() {
+Getopt_long::operator()() 
+{
     if (!next())
 	return 0;
     

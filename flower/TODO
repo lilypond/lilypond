@@ -1,9 +1,5 @@
-	* Autoconf configure script.
-
 	* fix/junk ambiguous String constructor overloads, e.g.:
 	  String( int ) and String( char )
-
-	* shared lib.
 
 	* LGPL?
 
@@ -24,3 +20,4 @@
 		parsestream.h
 		vector.h
 
+	* lgetopt: cmd -, or cmd --
