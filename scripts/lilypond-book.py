@@ -107,10 +107,8 @@ program_name = 'lilypond-book'
 verbose_p = 0
 pseudo_filter_p = 0
 original_dir = os.getcwd ()
-#temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
-#urg
-temp_dir = '/tmp'
-keep_temp_dir_p = 0
+
+
 preview_resolution = 90
 
 ## FIXME
@@ -149,7 +147,6 @@ option_definitions = [
 # global variables
 
 include_path = [os.getcwd ()]
-
 
 #lilypond_binary = 'valgrind --suppressions=/home/hanwen/usr/src/guile-1.6.supp  --num-callers=10 /home/hanwen/usr/src/lilypond/lily/out/lilypond'
 
