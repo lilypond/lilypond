@@ -7,18 +7,18 @@ Choices are @code{divisioMinima}, @code{divisioMaior}
 @code{caesura}.
 " }
 
-\version "2.1.21"
+\version "2.1.22"
 
 \include "gregorian-init.ly"
 
 \score {
  <<
 	\context Voice \notes \transpose c c' {
-	    \property Score.timing = ##f
-	    \property Score.barAlways = ##t
-	    \property Voice.TextScript \set #'padding = #3
-	    \property Staff.BarLine \override #'transparent = ##t
-	    \property Voice.Stem \override #'transparent = ##t
+	    \set Score.timing =  ##f
+	    \set Score.barAlways =  ##t
+	    \override TextScript  #'padding = #3
+	    \override Staff.BarLine  #'transparent = ##t
+	    \override Stem  #'transparent = ##t
             g4( a) g e( f) e
             ^\markup { "divisio minima" }
 	    \divisioMinima

@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
 
     texidoc = "@cindex Bars Always
@@ -11,8 +11,8 @@ By setting @code{barAlways} and @code{defaultBarType,} you can automatically ins
 
 \score {
 	\notes \relative c''{
-		\property Score.barAlways = ##t
-		\property Score.defaultBarType = ":|:"
+		\set Score.barAlways =  ##t
+		\set Score.defaultBarType =  ":|:"
 		c4 c4 c4 c4 }
 	\paper{raggedright = ##t}
 }

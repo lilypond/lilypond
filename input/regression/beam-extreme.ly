@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header{
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.
@@ -31,13 +31,13 @@ extreme = \notes\relative c'' {
   {
     % If we want to test extreme beams,
     % we should not have them auto-kneed
-    \property Voice.Beam \override #'auto-knee-gap = ##f
+    \override Beam  #'auto-knee-gap = ##f
     \extreme
 
 
     %% what does this test? --hwn
 %{
-    \property Voice.Beam \override #'slope-limit = #1000
+    \override Beam  #'slope-limit = #1000
     \extreme
     %}
   }

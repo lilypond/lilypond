@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header{
 	texidoc="@cindex Crescendi
 LilyPond can print crescendi in a number of different ways.
@@ -8,8 +8,8 @@ LilyPond can print crescendi in a number of different ways.
 \notes\relative c''{
 a1\fff\> a\pp\!
 a\< a\!
-\property Voice.crescendoText = \markup { \italic \bold "cresc." }
-\property Voice.crescendoSpanner = #'dashed-line
+\set crescendoText =  \markup { \italic \bold "cresc." }
+\set crescendoSpanner =  #'dashed-line
 a\mf\< a a\! 
 a\< a\!
 }

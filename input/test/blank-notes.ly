@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 % possible rename to invis-notes.ly
 % check if other documents call this "blank notes", though.  I think
 % invisible notes sounds better, but whatever it is, it should be
@@ -13,14 +13,10 @@ do wierd tricks with LilyPond (especially with slurs, since you can't attach
 a slur to a rest or spacer rest).
 " }
 
-blanknotes = { \property Voice.NoteHead
-	       \override #'transparent  = ##t
-	       \property Voice.Stem
-	       \override #'transparent = ##t }
-unblanknotes = { \property Voice.NoteHead
-		 \revert #'transparent
-		 \property Voice.Stem
-		 \revert #'transparent }
+blanknotes = { \override NoteHead  #'transparent  = ##t
+	       \override Stem  #'transparent = ##t }
+unblanknotes = { \revert NoteHead #'transparent
+		 \revert Stem #'transparent }
 
 
 \score {

@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
   texidoc="Manual hack for nested tuplets, move outer tuplet up."
 }
@@ -16,7 +16,7 @@
 \score {
   \notes\relative c'' {
 
-    \property Voice.tupletNumberFormatFunction = #fraction-tuplet-formatter
+    \set tupletNumberFormatFunction =  #fraction-tuplet-formatter
 
     \applyoutput #(outputproperty-compatibility (make-text-checker-once "2:3")
 		   'extra-offset '(0 . 1.5))

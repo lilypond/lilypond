@@ -1,4 +1,4 @@
-\version "2.1.14"
+\version "2.1.22"
 % TODO:
 % check with ancient- stuff.  rename, merge, something.  -gp
 
@@ -13,8 +13,8 @@ LilyPond can print mensural ligatures."
 % This is intended behaviour.
 
 voice = \notes \transpose c c' {
-  \property Score.timing = ##f
-  \property Score.defaultBarType = "empty"
+  \set Score.timing =  ##f
+  \set Score.defaultBarType =  "empty"
   g\longa c\breve a\breve f\breve d'\longa^\fermata
   \bar "|"
   \[

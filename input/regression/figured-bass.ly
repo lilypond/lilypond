@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {
 texidoc = "
 Figured bass is created by the FiguredBass context which eats
@@ -13,13 +13,13 @@ You can also type letters by entering quoted strings, as demonstrated in the las
  \context FiguredBass {
    \figures { 
 	<3 [5 7]>
-\once \property FiguredBass.BassFigure \set #'direction = #-1
+\once \override FiguredBass.BassFigure  #'direction = #-1
 	<3 [5 7]>
 	<3 [5] 7 [9 11]>
 	<3+ 5- 7!>
 	<3 _! 5 _- 7>
 	<3 _ 5 _ 7>
-\property FiguredBass.BassFigure \set #'font-family = #'roman
+\override FiguredBass.BassFigure  #'font-family = #'roman
 	<"V7" ["bla" 6] 7>
     }
  }

@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header{
 texidoc="
 A sharp sign after a double sharp sign, as well as a flat sign
@@ -16,7 +16,7 @@ gisis'4 gis gisis ges |
 
 \score { << \context Staff \thenotes
 	\context NoteNames  {
-		\property NoteNames.NoteName \override  #'no-spacing-rods  = ##f 
+		\override NoteNames.NoteName   #'no-spacing-rods  = ##f 
 		\thenotes
 	}
 	>>

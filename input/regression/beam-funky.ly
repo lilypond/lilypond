@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
     
     texidoc = "Knee beaming, complex configurations.  According to
@@ -12,8 +12,8 @@ beam. This is in disagreement with the current algorithm."
 \score { \notes
 \relative c'
 	 {
-	     \property Voice.Beam \set #'auto-knee-gap = #7
-	     \property Voice.subdivideBeams = ##t	     
+	     \override Beam  #'auto-knee-gap = #7
+	     \set subdivideBeams =  ##t	     
 	     \time 8/8
 	      c,16[  g'''16  
 	     c,,,16  g'''16 

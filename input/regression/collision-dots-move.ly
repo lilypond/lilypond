@@ -1,3 +1,4 @@
+\version "2.1.22"
 \header {
     
     texidoc = "If collision resolution finds dotted note head must

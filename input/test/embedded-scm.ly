@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 % TODO: does this work?  It doesn't do anything with 1.7.20
 \header {texidoc="@cindex Embedded scm
 You can embed scm functions in your scores.

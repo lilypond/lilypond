@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 
 \header {
 
@@ -23,7 +23,7 @@ lower = \notes\relative c {
       \upper
     >>  
     \new Staff  {
-	\property Staff.StaffSymbol \set #'line-count = #4 
+	\override Staff.StaffSymbol  #'line-count = #4 
         \clef bass
         \lower
     }

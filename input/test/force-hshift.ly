@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
     texidoc="@cindex Force hshift
 Force hshift to override collisions. " }
@@ -11,8 +11,7 @@ Force hshift to override collisions. " }
 			<d g>
 		} \\ {
 			<b f'>
-\once \property Voice.NoteColumn
-  \override #'force-hshift = #1.7
+\once \override NoteColumn  #'force-hshift = #1.7
 			<b f'>
 		}
 	>> 

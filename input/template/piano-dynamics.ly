@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {
 texidoc ="
   Dynamics on a separate line, neatly centered between staffs.

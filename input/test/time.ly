@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 % TODO: This file could be old.  Ask about it later.  -gp
 
 \header { texidoc =  "@cindex Time
@@ -43,7 +43,7 @@ properties will quite definitely change, and maybe the syntax of the
 \score { 
   \context Voice \notes\relative c {
     % LilyPond doesn't understand 'default =>> it does what you want
-    \property Staff.TimeSignature \override #'style = #'default
+    \override Staff.TimeSignature  #'style = #'default
     \time 1/1
     c''1^"TimeSignature style = \#'default" 
     \time 2/2 
@@ -69,7 +69,7 @@ properties will quite definitely change, and maybe the syntax of the
     \time 9/4 
     c2. c2. c2. 
     \break
-    \property Staff.TimeSignature \set #'style = #'mensural
+    \override Staff.TimeSignature  #'style = #'mensural
     \time 1/1 
     c1^"TimeSignature style = \#'mensural" 
     \time 2/2 
@@ -99,7 +99,7 @@ properties will quite definitely change, and maybe the syntax of the
     \time 9/8 
     c4. c4. c4. 
     \break
-    \property Staff.TimeSignature \set #'style = #'neo_mensural
+    \override Staff.TimeSignature  #'style = #'neo_mensural
     \time 1/1 
     c1^"TimeSignature style = \#'neo\_mensural" 
     \time 2/2 
@@ -129,7 +129,7 @@ properties will quite definitely change, and maybe the syntax of the
     \time 9/8 
     c4. c4. c4. 
     \break
-    \property Staff.TimeSignature \set #'style = #'numbered
+    \override Staff.TimeSignature  #'style = #'numbered
     \time 1/1 
     c1^"TimeSignature style = \#'numbered"
     \time 2/2 
@@ -156,7 +156,7 @@ properties will quite definitely change, and maybe the syntax of the
     c2. c2. c2.
     \break
     % If the style starts with a '1', you get this style
-    \property Staff.TimeSignature \set #'style = #'1style
+    \override Staff.TimeSignature  #'style = #'1style
     \time 1/1 
     c1^"TimeSignature style = \#'1xxx"
     \time 2/2 

@@ -1,4 +1,4 @@
-\version "2.1.21"
+\version "2.1.22"
 \header {
 
     texidoc = "With the @code{\\lyricsto} mechanism, individual lyric
@@ -17,12 +17,12 @@
     \lyricsto "bla" \lyrics \new Lyrics {
 	bla 
 
-	\property Lyrics . ignoreMelismata = ##t
+	\set ignoreMelismata =  ##t
 	
 	blob
 
 	%% note: effect of ignoreMelismata delayed one time step.
-	\property Lyrics . ignoreMelismata \unset
+	\unset ignoreMelismata 
 	blob
 	
 	blob

@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {
     
 texidoc ="In polyphonic notation, many voices can share a staff: In

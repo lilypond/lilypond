@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 
 \header{
 texidoc="
@@ -9,7 +9,7 @@ with beams.
 }
 \score{
 	\notes \relative c''{
-	        \property Voice.Slur \set #'direction = #1
+	        \override Slur  #'direction = #1
 	        a8( a a4)
 		a4( a8 a)
 	        a8 a(a4)

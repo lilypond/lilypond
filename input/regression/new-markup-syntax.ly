@@ -2,7 +2,7 @@
 texidoc = "New markup syntax."
 }
 
-\version "2.1.7"
+\version "2.1.22"
 
 
 \score {
@@ -19,7 +19,7 @@ texidoc = "New markup syntax."
 			\lookup #"noteheads-0"
 			\char #53
 		}
-		\musicglyph #"accidentals--1"
+		\semiflat
 		\combine "X" "+"   
 		\combine "o" "/"
 %		\char-number #"abc1234abc"

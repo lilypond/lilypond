@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {
 
     texidoc = "For knees, the spacing correction is such that the
@@ -11,9 +11,9 @@ width of the note heads and the thickness of the stem.
  g''8[ g g'' g''] 
 
  % check code independent of default settings.
- \property Voice.NoteSpacing \override #'knee-spacing-correction = #1.0 
+ \override NoteSpacing  #'knee-spacing-correction = #1.0 
  g''8[ g g'' g''] 
- \property Voice.Stem \override #'thickness = #10 
+ \override Stem  #'thickness = #10 
  g''8[ g g'' g''] 
     }
 \paper { raggedright = ##t}

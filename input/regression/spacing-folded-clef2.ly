@@ -1,8 +1,8 @@
-\version "2.1.21"
+\version "2.1.22"
 \header {
 
 texidoc = "A clef can be folded below notes in a different staff, if
-there is space enough. With @code{Paper_column} molecule callbacks we can
+there is space enough. With @code{Paper_column} stencil callbacks we can
 show where columns are in the score."
 }
 

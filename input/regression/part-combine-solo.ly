@@ -17,11 +17,11 @@ Solo 1/2 can not be used when a spanner is active, so there is no solo
 vone = \notes \relative a' { d4 r8 d8 d8 r8 d8 r8 d2 ~ d2 ~ d4 }
 vtwo = \notes \relative g' { g4.   g8 r2          g4 r4 r2  g4 } 
 
-\version "2.1.18"
+\version "2.1.22"
 
 \score {
     
-    << \property Score.skipBars = ##t
+    << \set Score.skipBars =  ##t
    \partcombine \vone \vtwo
        >>
 }

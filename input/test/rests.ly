@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
     texidoc = "@cindex Rests
 
@@ -14,23 +14,23 @@ Rests in various styles.
 
 \score {
     \context Staff \notes\relative c {
-	\property Score.timing = ##f
-	\property Staff.Rest \set #'style = #'mensural
+	\set Score.timing =  ##f
+	\override Staff.Rest  #'style = #'mensural
 	r\maxima^"Rest style = \#'mensural"
 	r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128
 	\bar empty \break
 
-	\property Staff.Rest \set #'style = #'neo_mensural
+	\override Staff.Rest  #'style = #'neo_mensural
 	r\maxima^"Rest style = \#'neo\\_mensural"
 	r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128
 	\bar empty \break
 
-	\property Staff.Rest \set #'style = #'classical
+	\override Staff.Rest  #'style = #'classical
 	r\maxima^"Rest style = \#'classical"
 	r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128
 	\bar empty \break
 
-	\property Staff.Rest \set #'style = #'default
+	\override Staff.Rest  #'style = #'default
 	r\maxima^"Rest style = \#'default"
 	r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128
 	\break

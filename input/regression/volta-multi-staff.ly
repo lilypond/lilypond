@@ -3,7 +3,7 @@
     texidoc = "By setting @code{voltaOnThisStaff}, repeats can be put on more staffs in a score."
 
 }
-\version "2.1.7"
+\version "2.1.22"
 
 
 vmus = \notes { \repeat volta 2 c1 \alternative { d e } } 
@@ -17,7 +17,7 @@ vmus = \notes { \repeat volta 2 c1 \alternative { d e } }
 	>>
 	\new StaffGroup <<
 	    \new Staff <<
-		\property Staff.voltaOnThisStaff = ##t
+		\set Staff.voltaOnThisStaff =  ##t
 		\vmus >>
 	    \new Staff \vmus
 	>>

@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 
 \header { texidoc = "@cindex Tie Sparse
 Setting sparseTies causes only one tie to be
@@ -8,7 +8,7 @@ generated per chord pair. "
 	
 \score { 
   \context Voice \notes\relative c {
-	\property Voice.sparseTies = ##t
+	\set sparseTies =  ##t
 	c''  <c e g> ~ <c e g> 
   }
   \paper { raggedright = ##t }  

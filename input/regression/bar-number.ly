@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 
 \header {
 
@@ -16,8 +16,8 @@ The padding should be increased, to prevent clashes at the start of the line.
   \notes \relative c'' {
       \partial 4 c4 
       c1 c c
-      \property Score.currentBarNumber = #99999
-      \property Score.BarNumber \override #'padding = #3
+      \set Score.currentBarNumber =  #99999
+      \override Score.BarNumber  #'padding = #3
       c1 c
   }
   \paper {

@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header{ texidoc = "
 
 @cindex Clef Manual Control
@@ -10,18 +10,18 @@ example are central C."
 }
 
 \score { \notes {
-  \property Staff.clefGlyph = #"clefs-F"
-  \property Staff.clefPosition = #2
+  \set Staff.clefGlyph =  #"clefs-F"
+  \set Staff.clefPosition =  #2
   c'4
-  \property Staff.clefGlyph = #"clefs-G"
+  \set Staff.clefGlyph =  #"clefs-G"
   c'4
-  \property Staff.clefGlyph = #"clefs-C"
+  \set Staff.clefGlyph =  #"clefs-C"
 
   c'4
-	\property Staff.clefOctavation = #7 
+	\set Staff.clefOctavation =  #7 
   c'4
-	\property Staff.clefOctavation = #0 
-	\property Staff.clefPosition = #0
+	\set Staff.clefOctavation =  #0 
+	\set Staff.clefPosition =  #0
   c'4
 	\clef "bass"
   c'4

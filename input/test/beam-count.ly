@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header{
 	texidoc="@cindex Beam Count
 
@@ -9,13 +9,12 @@ two sets of four 32nds joined as if they were 8th notes.
 " }
 
 fragment = \notes {
-  \property Voice.autoBeamSettings
-    \set #'(end * * * *) = #(ly:make-moment 1 4)
+  \override autoBeamSettings  #'(end * * * *) = #(ly:make-moment 1 4)
   f32 g a b b a g f
 
   f32 g a b 
-  \property Voice.stemRightBeamCount = #1  b
-  \property Voice.stemLeftBeamCount = #1 a
+  \set stemRightBeamCount =  #1  b
+  \set stemLeftBeamCount =  #1 a
    g f
 }
 

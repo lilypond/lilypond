@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {
 
     texidoc =
@@ -15,13 +15,13 @@ improvisation is active.
 
 
 improOn = \notes {
-    \property Voice.squashedPosition = #0
-    \property Voice.NoteHead \override #'style = #'slash
+    \set squashedPosition =  #0
+    \override NoteHead  #'style = #'slash
 }
 
 improOff = \notes {
-    \property Voice.squashedPosition \unset
-    \property Voice.NoteHead \revert #'style
+    \unset squashedPosition 
+    \revert NoteHead #'style
 }
 
 global = \notes { s1*3 \bar "|." }

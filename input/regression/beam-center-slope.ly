@@ -1,6 +1,6 @@
 
 
-\version "2.1.7"
+\version "2.1.22"
 \header{
 
     texidoc="Simple beams on middle staffline are allowed to be
@@ -11,11 +11,11 @@
 
 \score{
     \notes\relative c'{
-	%%\property Staff.Stem \set #'beamed-lengths = #'(3.50)
+	%%\override Staff.Stem  #'beamed-lengths = #'(3.50)
 	%%  c8[ d]
 	%%  d[ c]
 	%% r2
-	%% \property Staff.Stem \set #'beamed-lengths = #'(3.26)
+	%% \override Staff.Stem  #'beamed-lengths = #'(3.26)
 
          a8[^"small slope" b]
          b[ a]

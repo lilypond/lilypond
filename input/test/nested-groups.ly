@@ -1,4 +1,4 @@
-\version "2.1.7" 
+\version "2.1.22" 
 
 \header{ texidoc="@cindex Nested Staff Groups
 LilyPond can print nested groups of staffs. "

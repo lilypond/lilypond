@@ -1,5 +1,5 @@
 
-\version "2.1.18"
+\version "2.1.22"
 
 \header { texidoc="@cindex Slur Ugly
 You can get ugly slurs, if you want. "

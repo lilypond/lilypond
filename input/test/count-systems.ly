@@ -1,5 +1,5 @@
 
-\version "2.1.19"
+\version "2.1.22"
 \header{
     
     texidoc="@cindex Count Systems
@@ -27,7 +27,7 @@ specified number of lines.
   
 \score{
     \notes\relative c''{
-	\property Voice.NoteHead \override #'after-line-breaking-callback
+	\override NoteHead  #'after-line-breaking-callback
 	% = #display-system-count
 	= #display-systemno
 	c1

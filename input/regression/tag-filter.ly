@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
 
 texidoc = "The @code{\\tag} command marks music expressions with a
@@ -21,7 +21,7 @@ common =
 	\tag #'part <<
 	  R1 \\
 	  {
-	      \property Voice.fontSize = #-1
+	      \set fontSize =  #-1
 	      c4_"cue" f2 g4 } 
         >>
 	\tag #'score R1
@@ -33,15 +33,15 @@ common =
 \score {
     \notes \simultaneous { 
     \new Staff {
-	\property Staff.instrument = #"both"
+	\set Staff.instrument =  #"both"
 	\common
 	}
     \new Staff {
-	\property Staff.instrument = #"part"
+	\set Staff.instrument =  #"part"
 	\apply #(remove-tag 'score) \common
 	}
     \new Staff {
-	\property Staff.instrument = #"score"
+	\set Staff.instrument =  #"score"
 	\apply #(remove-tag 'part) \common
 	}
     }

@@ -1,4 +1,4 @@
-\version "2.1.21"
+\version "2.1.22"
 \header { texidoc = "
 
 @cindex Preset Extent
@@ -16,7 +16,7 @@ spaced so widely.
     \context Lyrics \lyrics {
 	foo --
 	
-	\property Lyrics . LyricText \set #'X-extent = #'(-10.0 . 10.0)
+	\override LyricText  #'X-extent = #'(-10.0 . 10.0)
  bar baz
 	}
     \paper { raggedright = ##t}

@@ -12,7 +12,7 @@ The bracket direction is determined by the dominating stem direction.
     }
  
 
-\version "2.1.12"
+\version "2.1.22"
 
 \score {
   \notes \relative c' {

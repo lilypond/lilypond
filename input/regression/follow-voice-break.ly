@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header{
        texidoc = "
 When put across line breaks, only the part before the line break is
@@ -10,7 +10,7 @@ printed. The line-spanners connects to the Y position of the note  on the next l
 
 \score{
         \context PianoStaff <<
-	    \property PianoStaff.followVoice = ##t	    
+	    \set PianoStaff.followVoice =  ##t	    
                 \context Staff=one \notes\relative c''{
 		    a1 \break
 		    \change Staff=two

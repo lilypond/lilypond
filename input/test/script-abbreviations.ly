@@ -1,7 +1,7 @@
 
 % this chart is used in the manual too.
 
-\version "2.1.7"
+\version "2.1.22"
 \header { texidoc = "@cindex Script Abbreviations
 
 Some scripts may be entered using an abbreviation.
@@ -12,8 +12,8 @@ Some scripts may be entered using an abbreviation.
 
 \score {
     \notes \context Voice {
-      \property Voice.TextScript \set #'font-family = #'typewriter
-      \property Voice.TextScript \set #'font-shape = #'upright
+      \override TextScript  #'font-family = #'typewriter
+      \override TextScript  #'font-shape = #'upright
       c''4-._"c-."      s4
       c''4--_"c-{}-"    s4
       c''4-+_"c-+"      s4

@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {
 
 
@@ -16,9 +16,8 @@
     \context Staff = down \relative c {
 	\clef bass
 	r4 r8
-	\once\property Voice.Slur \set #'extra-offset = #'(0 . -8)
-	\once\property Voice.Slur
-	\set #'control-points =
+	\once\override Slur  #'extra-offset = #'(0 . -8)
+	\once\override Slur  #'control-points =
 	#'((0 . -4) (2 . 0) (60 . 0) (63 . 4))
 			   c8( as' f c' as f c as' f
 			   \change Staff = up

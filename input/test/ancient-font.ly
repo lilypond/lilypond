@@ -1,4 +1,4 @@
-\version "2.1.14"
+\version "2.1.22"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -11,97 +11,97 @@ included in LilyPond's support of ancient notation.
 
 upperStaff =  \context GregorianStaff = upperStaff <<
   \context GregorianVoice <<
-    \property Score.timing = ##f
-%   \property Score.forceAccidental = ##t %%%%%%%% FIXME: what happened to this property?
+    \set Score.timing =  ##f
+%   \set Score.forceAccidental =  ##t %%%%%%%% FIXME: what happened to this property?
 
-    \property Staff.StaffSymbol \override #'line-count = #4
+    \override Staff.StaffSymbol  #'line-count = #4
 
     \notes \transpose c c {
-	\property Staff.KeySignature \override #'style = #'vaticana
-	\property Staff.Accidental \override #'style = #'vaticana
-	\property Voice.NoteHead \override #'style = #'vaticana_punctum
+	\override Staff.KeySignature  #'style = #'vaticana
+	\override Staff.Accidental  #'style = #'vaticana
+	\override NoteHead  #'style = #'vaticana_punctum
 	\key es \major
 	\clef "vaticana_fa2"
 	c!1 des! e! f! ges!
 
-	\property Voice.NoteHead \override #'style = #'vaticana_inclinatum
+	\override NoteHead  #'style = #'vaticana_inclinatum
 	a! b! ces'
-	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+	\override Staff.BarLine  #'bar-size = #3.0 \bar "|"
 %	\break % 1 (8*1)
 
-	\property Voice.NoteHead \override #'style = #'vaticana_quilisma
+	\override NoteHead  #'style = #'vaticana_quilisma
 	b! des'! ges! fes!
 	\breathe
 	\clef "vaticana_fa1"
-	\property Voice.NoteHead \override #'style = #'vaticana_plica
+	\override NoteHead  #'style = #'vaticana_plica
 	es d
-	\property Voice.NoteHead \override #'style = #'vaticana_reverse_plica
+	\override NoteHead  #'style = #'vaticana_reverse_plica
 	c d
-	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+	\override Staff.BarLine  #'bar-size = #3.0 \bar "|"
 %	\break %2 (8*1)
 
-	\property Voice.NoteHead \override #'style = #'vaticana_punctum_cavum
+	\override NoteHead  #'style = #'vaticana_punctum_cavum
 	es f
-	\property Voice.NoteHead \override #'style = #'vaticana_lpes
+	\override NoteHead  #'style = #'vaticana_lpes
 	g as
-	\property Voice.NoteHead \override #'style = #'vaticana_upes
+	\override NoteHead  #'style = #'vaticana_upes
 	bes as
-	\property Voice.NoteHead \override #'style = #'vaticana_vupes
+	\override NoteHead  #'style = #'vaticana_vupes
 	g f
-	\property Voice.NoteHead \override #'style = #'vaticana_linea_punctum
-	\property Staff.BarLine \override #'bar-size = #2.0 \bar "|"
+	\override NoteHead  #'style = #'vaticana_linea_punctum
+	\override Staff.BarLine  #'bar-size = #2.0 \bar "|"
 %	\break % 3 (8*1)
 
 	es d
-	\property Voice.NoteHead \override #'style = #'vaticana_epiphonus
+	\override NoteHead  #'style = #'vaticana_epiphonus
 	c d
-	\property Voice.NoteHead \override #'style = #'vaticana_cephalicus
+	\override NoteHead  #'style = #'vaticana_cephalicus
 	es f
 
-	\property Staff.KeySignature \override #'style = #'medicaea
-	\property Staff.Accidental \override #'style = #'medicaea
-	\property Staff.Custos \override #'style = #'medicaea
-	\property Voice.NoteHead \override #'style = #'medicaea_punctum
+	\override Staff.KeySignature  #'style = #'medicaea
+	\override Staff.Accidental  #'style = #'medicaea
+	\override Staff.Custos  #'style = #'medicaea
+	\override NoteHead  #'style = #'medicaea_punctum
 	\clef "medicaea_fa2"
 	ces! des!
-	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+	\override Staff.BarLine  #'bar-size = #3.0 \bar "|"
 %	\break % 4 (8*1)
 
 	e! f! ges!
 	\clef "medicaea_do2"
-	\property Voice.NoteHead \override #'style = #'medicaea_inclinatum
+	\override NoteHead  #'style = #'medicaea_inclinatum
 	a! b! ces'!
-	\property Voice.NoteHead \override #'style = #'medicaea_virga
+	\override NoteHead  #'style = #'medicaea_virga
 	b! a!
-	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+	\override Staff.BarLine  #'bar-size = #3.0 \bar "|"
 %	\break % 5 (8*1)
 
 	ges! fes!
 	\clef "medicaea_fa1"
-	\property Voice.NoteHead \override #'style = #'medicaea_rvirga
+	\override NoteHead  #'style = #'medicaea_rvirga
 	e! des! ces!
 
-	\property Staff.KeySignature \override #'style = #'hufnagel
-	\property Staff.Accidental \override #'style = #'hufnagel
-	\property Staff.Custos \override #'style = #'hufnagel
-	\property Voice.NoteHead \override #'style = #'hufnagel_punctum
+	\override Staff.KeySignature  #'style = #'hufnagel
+	\override Staff.Accidental  #'style = #'hufnagel
+	\override Staff.Custos  #'style = #'hufnagel
+	\override NoteHead  #'style = #'hufnagel_punctum
 	\clef "hufnagel_fa2"
 	ces! des! es!
-	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+	\override Staff.BarLine  #'bar-size = #3.0 \bar "|"
 %	\break % 6 (8*1)
 
 	fes! ges!
 	\clef "hufnagel_do2"
-	\property Voice.NoteHead \override #'style = #'hufnagel_lpes
+	\override NoteHead  #'style = #'hufnagel_lpes
 	as! bes! ces'!
-	\property Voice.NoteHead \override #'style = #'hufnagel_virga
+	\override NoteHead  #'style = #'hufnagel_virga
 	bes! as!
-	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
+	\override Staff.BarLine  #'bar-size = #3.0 \bar "|"
 %	\break % 7 (8*1)
 
 	ges! fes!
 	\clef "hufnagel_do_fa"
-	\property Voice.NoteHead \override #'style = #'hufnagel_punctum
+	\override NoteHead  #'style = #'hufnagel_punctum
 	es! des! ces! des! es! fes!
 	\bar "||"
 %	\break % 8 (8*1)
@@ -116,13 +116,13 @@ lowerStaff =  \context MensuralStaff = lowerStaff <<
   \context MensuralVoice <<
     
     % this is broken until further notice -- see refman
-    % \property Staff.StaffSymbol \override #'line-count = #5
+    % \override Staff.StaffSymbol  #'line-count = #5
     \context Staff \applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 5)
 
     \notes \transpose c c {
-	\property Voice.autoBeaming = ##f
-	\property Voice.NoteHead \override #'style = #'neo_mensural
-	\property Voice.Rest \override #'style = #'neo_mensural
+	\set autoBeaming =  ##f
+	\override NoteHead  #'style = #'neo_mensural
+	\override Rest  #'style = #'neo_mensural
 	\key a \major
 
 % FIXME: lily crashes on some (invalid?) ligatures with:
@@ -133,7 +133,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <<
 % on many ligatures such as BB.
 
 	cis'1 d'\breve gis'\breve e'\breve \[ e'\longa fis'\longa \]
-	\property Staff.forceClef = ##t
+	\set Staff.forceClef =  ##t
 	\clef "neo_mensural_c2"
 	cis1
 	\bar "|"
@@ -147,7 +147,7 @@ lowerStaff =  \context MensuralStaff = lowerStaff <<
 	fis1 ces1
 	\clef "petrucci_c2"
 	r\longa
-	\property Staff.forceClef = ##t
+	\set Staff.forceClef =  ##t
 	\clef "mensural_c2"
 	r\breve
 	\bar "|"
@@ -156,15 +156,15 @@ lowerStaff =  \context MensuralStaff = lowerStaff <<
 	r2
 	\clef "mensural_g"
 	r4 r8 r16 r16
-	\property Voice.NoteHead \override #'style = #'mensural
-	\property Voice.Stem \override #'flag-style = #'mensural
-	\property Voice.Stem \override #'thickness = #1.0
-	\property Voice.Rest \override #'style = #'mensural
+	\override NoteHead  #'style = #'mensural
+	\override Stem  #'flag-style = #'mensural
+	\override Stem  #'thickness = #1.0
+	\override Rest  #'style = #'mensural
 	\clef "petrucci_f"
 	c8 b, c16 b, c32 b, c64 b, c64 b,
 	d8 e  d16 e  d32 e  d64 e  d64 e
 	r\longa
-	\property Staff.forceClef = ##t
+	\set Staff.forceClef =  ##t
 	\clef "petrucci_f"
 	r\breve
 	\bar "|"
@@ -172,14 +172,14 @@ lowerStaff =  \context MensuralStaff = lowerStaff <<
 
 	r\breve 
 	\clef "mensural_f"
-	% FIXME: must set Voice.Stem flag-style to #'neo_mensural to avoid
+	% FIXME: must set Stem flag-style to #'neo_mensural to avoid
 	% segmentation fault on r8/r16/r32.  (Strange: what has
-	% Voice.Stem flag-style to do with mensural rests?)
-	\property Voice.Stem \override #'flag-style = #'neo_mensural
+	% Stem flag-style to do with mensural rests?)
+	\override Stem  #'flag-style = #'neo_mensural
 	% FIXME: produces warnings about "flag `neo_mensurald4' (or 3) not found".
 	r2 r4 r8 r16 r16
-	\property Voice.Stem \override #'flag-style = #'mensural
-	\property Staff.forceClef = ##t
+	\override Stem  #'flag-style = #'mensural
+	\set Staff.forceClef =  ##t
 	\clef "mensural_f"
 	e\breve f g a1
 	\clef "mensural_g"
@@ -191,18 +191,18 @@ lowerStaff =  \context MensuralStaff = lowerStaff <<
 %	\break % 9 (16*1)
 
 	bes'!\longa fis'!1 as'!1 ges'!\longa % lig
-	\property Staff.forceClef = ##t
+	\set Staff.forceClef =  ##t
 	\clef "mensural_g"
 	e'2 d' c' \bar "|"
 %	\break % 11 (16*1)
 
-	\property Staff.forceClef = ##t
+	\set Staff.forceClef =  ##t
 	\clef "petrucci_g"
 	c'2 d' e' f'
 	\clef "petrucci_g"
 	g' as'! bes'! cis''!
 	bes'! as'! gis'! fis'!
-	\property Staff.forceClef = ##t
+	\set Staff.forceClef =  ##t
 	\clef "mensural_g"
 	es'! des'! cis'!1 \bar "||"
 %	\break % 12 (8*1)

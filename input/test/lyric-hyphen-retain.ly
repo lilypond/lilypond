@@ -1,5 +1,5 @@
 
-\version "2.1.20"
+\version "2.1.22"
 
 \header {
 
@@ -23,14 +23,14 @@ c16[ c c c]
 c16[ c c c]
 
 }
-    \lyrics \new LyricsVoice \with {
+    \lyrics \new Lyrics \with {
 	% Otherwise lyrics are so far apart that hyphens don't disappear
 	SeparationItem \set #'padding = #0.0
 	}{ bla -- bla -- bla -- bla --
 	   bla -- bla -- bla -- bla --
 
-	   \property LyricsVoice . LyricHyphen \set #'minimum-length = #0.7
-	   \property LyricsVoice . LyricHyphen \set #'spacing-procedure =
+	   \override LyricHyphen  #'minimum-length = #0.7
+	   \override LyricHyphen  #'spacing-procedure =
                   #Hyphen_spanner::set_spacing_rods
 
 	   bla -- bla -- bla -- bla 

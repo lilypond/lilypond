@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {
 
 texidoc = "Cautionary accidentals are indicated using either
@@ -12,9 +12,9 @@ parentheses (default) or smaller accidentals.
     \notes {
     c''4
     cis''?4
-    \property Staff.Accidental \set #'cautionary-style = #'smaller
+    \override Staff.Accidental  #'cautionary-style = #'smaller
     cis''?4
-    \property Staff.Accidental \set #'cautionary-style = #'parentheses
+    \override Staff.Accidental  #'cautionary-style = #'parentheses
     cis''?4
     }
 

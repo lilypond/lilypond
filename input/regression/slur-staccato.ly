@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
 texidoc="Manual hack for slur and staccato."
 }
@@ -8,10 +8,10 @@ texidoc="Manual hack for slur and staccato."
 
 \score {
   \context Staff \notes\relative c'' {
-    \property Voice.Slur \override
+    \override Slur 
       #'attachment-offset = #'((0 . 1) . (0 . 1))
     a-.( g-.  a)-.
-    \property Voice.Slur \override
+    \override Slur 
       #'attachment-offset = #'((0 . 1.5) . (0 . 1.5))
     b-.( a-.  b)-.
   }

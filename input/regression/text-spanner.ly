@@ -1,13 +1,13 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header {
 texidoc= "Text spanners should not repeat start text when broken."
 }
 
 \score {
   \notes \relative c'' {
-    \property Voice.crescendoText = #"cresc."
-    \property Voice.crescendoSpanner = #'dashed-line
+    \set crescendoText =  #"cresc."
+    \set crescendoSpanner =  #'dashed-line
     c1\< c \break
     c1 c\! \break
     }

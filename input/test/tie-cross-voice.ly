@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 
 
 
@@ -11,7 +11,7 @@
 \context Staff \notes {
 \relative c''  <<
   {
-      \once \property Voice.Stem \set #'transparent = ##t
+      \once \override Stem  #'transparent = ##t
       b8~ b8 }
   \\
   { b[ g8] }

@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header { texidoc = "The property @code{chordNameExceptions} can used
     to store a list of special notations for specific chords.
 
@@ -33,7 +33,7 @@ chExceptions = #(append
 
 theMusic =    \chords {
       c:7sus4 c:dim7/+f
-      \property Current.chordNameExceptions = #chExceptions
+      \set Current.chordNameExceptions =  #chExceptions
       c:7sus4 c:dim7/+f }
 
   

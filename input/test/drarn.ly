@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.22"
 \header{texidoc="@cindex Drarn
 You can attach slurs and ties to noteheads.
 " }
@@ -9,17 +9,17 @@ You can attach slurs and ties to noteheads.
     
      \relative c'' {
 \time 3/8	 
-      \property Voice.Stem \set #'direction = #1
-      \property Voice.Tie \set #'direction = #1
-      \property Voice.Slur \set #'direction = #1
-      \property Voice.Slur \set #'attachment = #'(head . head)
+      \override Stem  #'direction = #1
+      \override Tie  #'direction = #1
+      \override Slur  #'direction = #1
+      \override Slur  #'attachment = #'(head . head)
       c8~c(c)  
     }\\
      \relative c'' {
-      \property Voice.Stem \set #'direction = #-1
-      \property Voice.Tie \set #'direction = #-1
-      \property Voice.Slur \set #'direction = #-1
-      \property Voice.Slur \set #'attachment = #'(head . head)
+      \override Stem  #'direction = #-1
+      \override Tie  #'direction = #-1
+      \override Slur  #'direction = #-1
+      \override Slur  #'attachment = #'(head . head)
       a8(a)~a  
     }
   >>

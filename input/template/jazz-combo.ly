@@ -1,4 +1,4 @@
-\version "2.1.19"
+\version "2.1.22"
 \header {
         title = "Song"
         subtitle = "(tune)"
@@ -15,15 +15,15 @@
 %%%%%%%%%%%% Some macros %%%%%%%%%%%%%%%%%%%
 
 sl = {
-    \property Voice.NoteHead \override #'style = #'slash
-    \property Voice.Stem \override #'transparent = ##t
+    \override NoteHead  #'style = #'slash
+    \override Stem  #'transparent = ##t
 }
 nsl = {
-    \property Voice.NoteHead \revert #'style
-    \property Voice.Stem \revert #'transparent
+    \revert NoteHead #'style
+    \revert Stem #'transparent
 }
-cr = \property Voice.NoteHead \override #'style = #'cross
-ncr = \property Voice.NoteHead \revert #'style
+cr = \override NoteHead  #'style = #'cross
+ncr = \revert NoteHead #'style
 
 %% insert chord name style stuff here.
 
@@ -48,7 +48,7 @@ trpt = \notes \transpose c d \relative c'' {
 trpharmony = \chords \transpose c' d { \jzchords }
 trumpet = {
     \global 
-    \property Staff.instrument = #"Trumpet"
+    \set Staff.instrument =  #"Trumpet"
     \clef treble
     \context Staff <<
 	\trpt
@@ -64,7 +64,7 @@ alto = \notes \transpose c a \relative c' {
 altoharmony = \chords \transpose c' a { \jzchords }
 altosax = {
         \global
-        \property Staff.instrument = #"Alto Sax"
+        \set Staff.instrument =  #"Alto Sax"
         \clef treble
         \context Staff <<
                 \alto
@@ -80,7 +80,7 @@ bari = \notes \transpose c a' \relative c {
 bariharmony = \chords \transpose c' a { \jzchords s1 s d2:maj e:m7 }
 barisax = {
         \global
-        \property Staff.instrument = #"Bari Sax"
+        \set Staff.instrument =  #"Bari Sax"
         \clef treble
         \context Staff <<
                 \bari
@@ -95,7 +95,7 @@ tbone = \notes \relative c {
 tboneharmony = \chords { \jzchords }
 trombone = {
         \global
-        \property Staff.instrument = #"Trombone"
+        \set Staff.instrument =  #"Trombone"
         \clef bass
         \context Staff <<
                 \tbone
@@ -114,7 +114,7 @@ gtrharmony = \chords { \jzchords
 
 guitar = {
         \global
-        \property Staff.instrument = #"Guitar"
+        \set Staff.instrument =  #"Guitar"
         \clef treble
         \context Staff <<
         	\gtr
@@ -149,7 +149,7 @@ lhLower = \notes \relative c {
 PianoRH = {
         \clef treble
         \global
-        \property Staff.midiInstrument = "acoustic grand"
+        \set Staff.midiInstrument =  "acoustic grand"
         \context Staff <<
                 \context Voice = one \rhUpper
         	\context Voice = two \rhLower
@@ -159,7 +159,7 @@ PianoRH = {
 PianoLH = {
         \clef bass
         \global
-        \property Staff.midiInstrument = "acoustic grand"
+        \set Staff.midiInstrument =  "acoustic grand"
         \context Staff <<
         	\context Voice = one \lhUpper
         	\context Voice = two \lhLower
@@ -168,7 +168,7 @@ PianoLH = {
 
 piano = {
 	\context PianoStaff <<
-		\property PianoStaff.instrument = #"Piano"
+		\set PianoStaff.instrument =  #"Piano"
         	\context Staff = upper \PianoRH
         	\context Staff = lower \PianoLH
         >>
@@ -182,7 +182,7 @@ bass = \notes \relative c {
 
 bass = {
     \global
-    \property Staff.instrument = #"Bass"
+    \set Staff.instrument =  #"Bass"
     \clef bass
     \context Staff <<
 	\bass
@@ -205,7 +205,7 @@ down = \drums {
 drumContents = {
 	\global
 	<<
-		\property DrumStaff.instrument = #"Drums"
+		\set DrumStaff.instrument =  #"Drums"
 		\new DrumVoice { \voiceOne \up }
 		\new DrumVoice { \voiceTwo \down }
 	>>

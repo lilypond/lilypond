@@ -1,11 +1,11 @@
-\version "2.1.7"
+\version "2.1.22"
 \header { texidoc = "This combines instrument names and multimeasure rests (there was an
 interesting bug in 1.3.98). " }
 
 \score{
 	\context Staff <<
-	      \property Staff.instrument = "instrument"
-	      \property Staff.instr = "instr"
+	      \set Staff.instrument =  "instrument"
+	      \set Staff.instr =  "instr"
 	      \notes{c''1 \break R1 }
 	    >>
 	 \paper {

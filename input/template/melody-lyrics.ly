@@ -1,4 +1,4 @@
-\version "2.1.21"
+\version "2.1.22"
 
 \header {
   texidoc = "Melody and lyrics."
@@ -15,7 +15,7 @@ text = \lyrics {
 \score {
   <<
       \context Voice = one {
-	  \property Staff.autoBeaming = ##f
+	  \set Staff.autoBeaming =  ##f
 	  \melody
       }
       \lyricsto "one" \new Lyrics \text

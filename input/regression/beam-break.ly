@@ -4,10 +4,10 @@
 "
 
 }
-\version "2.1.7"
+\version "2.1.22"
     \paper { raggedright= ##t }
 
 \score { \notes \relative c''  {
-    \property Score.forbidBeamBreak = ##f
+    \set Score.forbidBeamBreak =  ##f
    \time 3/16 c16-[ d e \break f-] 
 }}

@@ -7,17 +7,15 @@ including alterations. "
 }
 
 
-\version "2.1.7"
+\version "2.1.22"
 
 
-textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
+textFlat = \markup {\smaller \semiflat}
 
 \score {
   \notes \new Staff {
-    \property Staff.instrument
-	= \markup { \column < "Clarinetti" { "in B" \textFlat } > }
-    \property Staff.instr
-	= \markup { \smaller  { "Cl(B" \textFlat ")" } }
+    \set Staff.instrument =  \markup { \column < "Clarinetti" { "in B" \textFlat } > }
+    \set Staff.instr =  \markup { \smaller  { "Cl(B" \textFlat ")" } }
 
     { c''1 \break c'' }
 

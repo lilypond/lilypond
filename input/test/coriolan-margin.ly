@@ -1,5 +1,5 @@
 
-\version "2.1.13"
+\version "2.1.22"
 
 
 % Ugh, we need to override some LaTeX titling stuff
@@ -18,13 +18,13 @@ Demonstration of how to set up an orchestral score (Beethoven's Coriolan overtur
 
 #(set-global-staff-size 16)
 
-raisedFlat = \markup { \raise #0.4 \smaller \smaller \musicglyph #"accidentals--2"  }
+raisedFlat = \markup { \raise #0.4 \smaller \smaller \flat  }
 
 
 
 flauti = \notes \relative c' {
-  \property Staff.instrument	= #"2 Flauti"
-  \property Staff.instr		= #"Fl."
+  \set Staff.instrument =  #"2 Flauti"
+  \set Staff.instr =  #"Fl."
   \time 4/4
   c1 
   \break c
@@ -34,71 +34,67 @@ flauti = \notes \relative c' {
 }
 
 oboi = \notes \relative c' {
-  \property Staff.instrument	= #"2 Oboi"
-  \property Staff.instr		= #"Ob."
+  \set Staff.instrument =  #"2 Oboi"
+  \set Staff.instr =  #"Ob."
   c1 c
 }
 
 clarinetti = \notes \relative c' {
-    \property Staff.instrument
-	= \markup { \column < "Clarinetti" { "in B" \raisedFlat } > }
-    \property Staff.instr
-	= \markup { \smaller  { "Cl(B" \raisedFlat ")" } }
+    \set Staff.instrument =  \markup { \column < "Clarinetti" { "in B" \raisedFlat } > }
+    \set Staff.instr =  \markup { \smaller  { "Cl(B" \raisedFlat ")" } }
 
   c1 c
 }
 
 fagotti = \notes \relative c' {
-  \property Staff.instrument	= #"2 Fagotti"
-  \property Staff.instr		= #"Fg."
+  \set Staff.instrument =  #"2 Fagotti"
+  \set Staff.instr =  #"Fg."
   c1 c
 }
 
 corni = \notes \relative c' {
-    \property Staff.instrument
-	= \markup { \column < "Corni" { "in E" \raisedFlat } > }
-    \property Staff.instr
-	= \markup { \smaller  { "Cor(E" \raisedFlat ")" } }
+    \set Staff.instrument =  \markup { \column < "Corni" { "in E" \raisedFlat } > }
+    \set Staff.instr =  \markup { \smaller  { "Cor(E" \raisedFlat ")" } }
 
   c1 c
 }
 
 trombe = \notes \relative c' {
-  \property Staff.instrument	= \markup \column < "2 Trombe" "(C)" >
-  \property Staff.instr		= \markup \column <  "Tbe." "(C)" >
+  \set Staff.instrument =  \markup \column < "2 Trombe" "(C)" >
+  \set Staff.instr =  \markup \column <  "Tbe." "(C)" >
 
   c1 c
 }
 
 timpani = \notes \relative c' {
-  \property Staff.instrument	= \markup \column < "Timpani" "(C-G)" >
-  \property Staff.instr		= #"Timp."
+  \set Staff.instrument =  \markup \column < "Timpani" "(C-G)" >
+  \set Staff.instr =  #"Timp."
 
   c1 c
 }
 
 violinoI = \notes \relative c' {
-  \property Staff.instrument	= #"Violino I  "
-  \property Staff.instr		= #"Vl. I  "
+  \set Staff.instrument =  #"Violino I  "
+  \set Staff.instr =  #"Vl. I  "
   c1 c
 }
 
 violinoII = \notes \relative c' {
-  \property Staff.instrument	= #"Violino II  "
-  \property Staff.instr		= #"Vl. II  "
+  \set Staff.instrument =  #"Violino II  "
+  \set Staff.instr =  #"Vl. II  "
   c1 c
 }
 
 viola = \notes \relative c' {
-  \property Staff.instrument	= #"Viola"
-  \property Staff.instr		= #"Vla."
+  \set Staff.instrument =  #"Viola"
+  \set Staff.instr =  #"Vla."
   c1 c 
   %c
 }
 
 violoncello = \notes \relative c' {
-  \property Staff.instrument	= \markup \column < "Violoncello" "e" "Contrabasso" >
-  \property Staff.instr		= \markup \column <  "Vc." "Cb." >
+  \set Staff.instrument =  \markup \column < "Violoncello" "e" "Contrabasso" >
+  \set Staff.instr =  \markup \column <  "Vc." "Cb." >
   c1 c
 }
 

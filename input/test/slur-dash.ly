@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {texidoc = "@cindex Slur, dotted
 You can print different kinds of slurs (dotted, dashed, etc). "
 } 
@@ -9,7 +9,7 @@ You can print different kinds of slurs (dotted, dashed, etc). "
 		c( d e  c) |
 		\slurSolid
 		c( d e  c) |
-		\property Voice. Slur \set #'dashed = #0.0
+		\override Slur  #'dashed = #0.0
 		c( d e  c) |
 		\slurSolid
 		c( d e  c) |

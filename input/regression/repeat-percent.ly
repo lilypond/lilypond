@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {
 texidoc = "Measure  repeats are supported, and may be nested with beat repeats."
 }

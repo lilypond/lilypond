@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 
 \header {
 
@@ -20,12 +20,12 @@ available through (La)TeX.
 
 \score {
     \notes {
-	\property Staff.TimeSignature 	\set #'font-name = #"cmr17"
-	\property Score.skipBars = ##t
+	\override Staff.TimeSignature  #'font-name = #"cmr17"
+	\set Score.skipBars =  ##t
 
 	% use font-name putri8r for Utopia Italic :
 	
-	\property Staff.MultiMeasureRestText \set  #'font-name = #"cmss12"
+	\override Staff.MultiMeasureRestText   #'font-name = #"cmss12"
 
 
 	% use "ptmb8r" for Times Roman
