@@ -38,7 +38,6 @@ include $(depth)/make/stepmake.make
 # lilypond.tely uses mbinclude
 TEXINFO_SOURCES := $(filter-out lilypond.tely, $(TEXINFO_SOURCES))
 
-
 dvi: $(DVI_FILES)
 
 ps: $(PS_FILES)
@@ -124,6 +123,10 @@ local-clean:
 
 #$(outdir)/lilypond.nexi: $(outdir)/interfaces.itexi
 #$(outdir)/lilypond.texi: $(outdir)/interfaces.itexi
+
+# lilypond.texi deps
+$(builddir)/mf/$(outconfbase)/feta16list.ly:
+	$(MAKE) -C $(topdir)/mf
 
 # Rules for the automatically generated documentation
 # When cross-compiling, we don't have lilypond, so we fake
