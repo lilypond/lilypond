@@ -16,27 +16,17 @@ depth = ..
 # identify module:
 #
 NAME = make
-MAJOR_VERSION = $(TOPLEVEL_MAJOR_VERSION)
-MINOR_VERSION = $(TOPLEVEL_MINOR_VERSION)
-PATCH_LEVEL = $(TOPLEVEL_PATCH_LEVEL)
-# use to send patches, always empty for released version:
-MY_PATCH_LEVEL = $(TOPLEVEL_MY_PATCH_LEVEL)
-build = ./$(depth)/lily/$(outdir)/.build
-#
 
-# list of generic make files:
-#
-MAKEFILES = $(shell ls *.make)
-#
 
 # list of distribution files:
 #
-DISTFILES = Configure_variables.make.in Makefile lilypond.spec.in $(MAKEFILES)
+EXTRA_DISTFILES = Configure_variables.make.in lilypond.spec.in
 #
 
 # generic variables:
 #
-include ./$(depth)/make/Variables.make 
+include ./$(depth)/make/Variables.make
+include ./$(depth)/make/Files.make 
 #
 
 # generic targets and rules:
@@ -45,5 +35,5 @@ include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
 #
 
-lilypond.spec: lilypond.spec.in
+lilypond.spec: lilypond.spec.in $(depth)/.version
 	sed 's/@TOPLEVEL_VERSION@/${TOPLEVEL_VERSION}/g'< $< > $@
