@@ -11,30 +11,6 @@
 int default_duration = 4, default_dots=0, default_octave=0;
 
 void
-parse_duration(const char *a, int &j, int &intdur, int &dots)
-{    
-    String durstr;    
-    while (isdigit(a[j])) 
-	{
-	durstr += a[j++];
-	}
-
-    dots=default_dots;
-    
-    while (a[j] == '.') 
-	{
-	j++;
-	dots++;
-	}
-    
-    intdur = (durstr.len()) ?
-	durstr.value():default_duration;
-
-    mtor << "dur " << intdur << "dots " << dots<<eol;
-}
-
-
-void
 parse_octave (const char *a, int &j, int &oct)
 {    
     while (1) 
@@ -50,14 +26,11 @@ parse_octave (const char *a, int &j, int &oct)
 }
 
 void 
-parse_pitch( const char *a, int &j, int &oct, bool & overide_acc,
-	     int & large, int & small)
+parse_pitchmod( const char *a, int &j, int &oct, bool & overide_acc)
 {
     // octave
     oct =default_octave;
     parse_octave(a,j,oct);
-
-    mtor << "oct " << oct;
 	
     // accidental
     overide_acc = false;
@@ -68,36 +41,20 @@ parse_pitch( const char *a, int &j, int &oct, bool & overide_acc,
 	j++;
 	}
 
-    
-    // notename.
-    String nm;
-    while (isalpha(a[j])) 
-	{
-	nm += a[j++];
-	}
-    if (isupper(nm[0]))
-	{
-	oct--;	
-	nm.lower();
-	}
-        
-
-    lookup_notename(large,small,nm);
-    mtor << "override: " << overide_acc;    
-    mtor << "pitch "<< large <<", "<<small<<"\n";    
+    mtor << "oct " << oct;
+    mtor << "override: " << overide_acc;        
 }
 
 
 Voice_element *
-get_note_element(String pitch, String durstr)
+get_note_element(String pitch, int * notename, int * duration )
 {
     Voice_element*v = new Voice_element;
     int i=0;
     
-    int dur, dots;
-    parse_duration(durstr, i, dur, dots);
-    i=0;
-
+    int dur = duration[0];
+    int dots=duration[1];
+    
     Note_req * rq = new Note_req;
 
     if (dur >= 2) {
@@ -105,13 +62,12 @@ get_note_element(String pitch, String durstr)
 	v->add(st);
     }
     
-    int oct, pit, acc;
+    int oct;
     bool forceacc;
-    parse_pitch(pitch, i, oct, forceacc, pit, acc);
-    rq->name =pit;
-    
+    parse_pitchmod(pitch, i, oct, forceacc);
+    rq->name =notename[0];
+    rq->accidental = notename[1];
     rq->octave = oct;
-    rq->accidental = acc;
     rq->forceacc = forceacc;
     rq->balltype = dur;
     rq->dots = dots;
@@ -124,19 +80,14 @@ get_note_element(String pitch, String durstr)
 }
 
 Voice_element *
-get_rest_element(String, String durstr)
+get_rest_element(String,  int * duration )
 {    
     Voice_element*v = new Voice_element;
-    int i=0;
-    
-    int dur, dots;
-    parse_duration(durstr, i, dur, dots);
-    i=0;
 
     Rest_req * rq = new Rest_req;
   
-    rq->balltype = dur;
-    rq->dots = dots;    
+    rq->balltype = duration[0];
+    rq->dots = duration[1];    
     rq->print();
     v->add(rq);
 
@@ -144,15 +95,22 @@ get_rest_element(String, String durstr)
 }
 
 void
-set_default_duration(String d)
+get_default_duration(int *p)
 {
-    int i=0;
-    parse_duration(d, i, default_duration, default_dots);
+   *p++ = default_duration;
+    *p = default_dots;
+}
+
+void
+set_default_duration(int *p)
+{
+     default_duration = *p++;
+     default_dots = *p++;
 }
 
 
 void
-set_default_pitch(String d)
+set_default_octave(String d)
 {
     int i=0;
     default_octave=0;

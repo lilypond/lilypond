@@ -12,6 +12,7 @@
 	\newdimen\interstaffrule
 
 \def\musixtwentydefs{
+	\font\textfont=cmr10
 	\font\slurufont=xslu20
 	\font\slurdfont=xsld20
 	\font\slurhfont=xslz20
@@ -25,6 +26,7 @@
 	\musixcalc
 }
 \def\musixsixteendefs{
+	\font\textfont=cmr8
 	\font\slurufont=xslu16
 	\font\slurdfont=xsld16
 	\font\slurhfont=xslz20 % sigh
@@ -89,7 +91,7 @@
 
 \def\maatstreep{\vrule height\balkhoog}
 \def\finishbar{\vrule height\balkhoog  width 1pt}
-\def\generalmeter#1#2{\vbox to 0pt{\vss\rm\hbox{#1}\hbox{#2}}}
+\def\generalmeter#1#2{\vbox to 0pt{\vss\textfont\hbox{#1}\hbox{#2}}}
 \def\lineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
 
 \def\beauty{%
