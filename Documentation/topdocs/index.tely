@@ -127,11 +127,9 @@ installation instructions}.
 
 There are binaries available, but alas they are not updated for every version released.
 @itemize @bullet
-@item RedHat i386
-binary RPMs:  @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/}  
-
+@item RedHat-i386 and Linuxppc RPMs:
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/}
 @item Debian binary @uref{ftp://ftp.debian.org/pub/debian/dists/unstable/main/binary-i386/tex} 
-@item i386 RPM: @uref{http://linux.umbc.edu/software/lilypond/rpms/} 
 @item Windows NT: @uref{http://home.austin.rr.com/jbr/jeff/lilypond/}
 @end itemize
 
@@ -169,8 +167,7 @@ Frequently Asked Questions} first.)
 @item bug-gnu-music@@gnu.org
     If you have bugreports, you should send them to this list.  If you
 want to know about bugs, subscribe: send mail with subject "subscribe"
-to
-    @email{bug-gnu-music-request@@gnu.org}. The archive is at
+to @email{bug-gnu-music-request@@gnu.org}. The archive is at
 @uref{http://www.mail-archive.com/bug-gnu-music@@gnu.org}
 
         Please include in your bugreport the version of LilyPond that
@@ -187,7 +184,8 @@ they tend to be very big and don't help with describing the problem.
     @uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org}
 @end table
 
-
+If you want to unsubscribe use the same procedure as subscribing, but
+substitute @code{unsubscribe} where you would put @code{subscribe}.
 
 @unnumberedsubsec Webmaster's Disclaimer
 

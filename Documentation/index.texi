@@ -1,9 +1,10 @@
 \input texinfo @c -*-texinfo-*-
 @setfilename index.info
-@settitle index
+@settitle Index to LilyPond documentation
 
 @node Top, , , (dir)
 @top
+
 
 @unnumberedsubsec Info
 
@@ -12,15 +13,14 @@
 @item @uref{../topdocs/out-www/AUTHORS.html, Authors}
 @item @uref{../topdocs/out-www/README.html, Readme file}
 @item @uref{../topdocs/out-www/INSTALL.html, Installation instructions}
+@item @uref{faq.html,FAQ: Frequently asked questions}, with answers
 @end itemize
+
 
 
 @unnumberedsubsec Manuals
 
 @itemize @bullet
-@item @uref{faq.html,FAQ: Frequently asked questions}, with answers
-@item @uref{programs.html,`Manual pages'}
-
 @item @uref{../user/out-www/lilypond.html,LilyPond reference manual}
 also available in @uref{../user/out-www/lilypond.ps.gz,Postscript}
 @item @uref{../user/out-www/glossary.html,A glossary of musical
@@ -28,10 +28,11 @@ terms}, includes translations.  Also available in @uref{../user/out-www/glossary
 @item @uref{../user/out-www/mudela-book.html,mudela-book}, a tool for
 integrating text and music in LaTeX and texinfo; also available in
 @uref{../user/out-www/mudela-book.ps.gz,Postscript}
+@item @uref{ly2dvi.html,ly2dvi} manual. Ly2dvi does page layout for
+LilyPond prints
+@item @uref{midi2ly.html,midi2ly} manual. midi2ly converts MIDI files to
+LilyPond input
 @item @uref{../programmer/out-www/index.html,Programmer documentation}
-@item @uref{../bibliography/out-www/index.html,Bibliography}
-@item @uref{../misc/out-www/index.html,Miscellaneous texts}:
-announcements and change logs for old versions; background information.
 @end itemize
 
 
@@ -49,5 +50,42 @@ announcements and change logs for old versions; background information.
 @item @uref{../pictures/out-www/lelie-logo.png, logo} in medium size
 @item @uref{../pictures/out-www/lelie-icon.png, logo} in small size
 @end itemize
+
+
+
+@unnumberedsubsec Literature
+
+@itemize @bullet
+@item @uref{../bibliography/out-www/colorado.html,University of
+Colorado Engraving music bibliography}. Books refered from the
+@uref{http://www.cc.colorado.edu/Dept/MU/Musicpress/,Big Site of Music
+Notation and Engraving} at University  of Colorado.
+@item References on
+@uref{../bibliography/out-www/engraving.html,engraving and music
+notation}.
+@item Papers on
+@uref{../bibliography/out-www/computer-notation.html,music notation
+by computer}.
+@end itemize
+
+
+@unnumberedsubsec Miscellaneous texts
+
+@itemize @bullet
+@item @uref{../misc/out-www/CHANGES-0.0.txt, Change logs from 0.0 till 0.1 }
+@item @uref{../misc/out-www/CHANGES-0.1.txt, Change logs from 0.1 till 1.0 }
+@item @uref{../misc/out-www/CHANGES-1.0.txt, Change logs from 1.0 till 1.1 }
+@item @uref{../misc/out-www/CHANGES-1.1.txt, Change logs from 1.1 till 1.2 }
+@item @uref{../misc/out-www/NEWS-1.2.txt, summary of changes from 1.1 till 1.2 }
+@item @uref{../misc/out-www/ANNOUNCE-0.1.txt, Announcement of 0.1 (includes summary of
+changes)}
+@item @uref{../misc/out-www/ANNOUNCE-1.0.txt, Announcement of 1.0 (includes summary of
+changes)}
+@item @uref{../misc/out-www/ANNOUNCE-1.2.txt, Announcement of 1.2 (includes summary of changes)}
+@item @uref{../misc/out-www/AIMS.txt, Why LilyPond?}
+@item @uref{../misc/out-www/interview.txt, Answers} to the Brave GNU world standard questions.
+@end itemize
+
+
 
 @bye

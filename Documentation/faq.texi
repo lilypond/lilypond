@@ -126,6 +126,11 @@ LilyPond development is moving quite fast, documentation will often lag
 a bit behind.  But don't hesitate to point out inaccuracies. Whip up
 your mail reader and write to the mailing list.
 
+@subsubsection Please take me off your mailing list, I get  so much mail!
+
+Don't ask Han-wen, don't ask David. Instead, read about
+@uref{../../index.html#mailing-lists,  the mailing lists} here.
+
 @node Language- mudela, Do you support -, Documentation, FAQ - GNU LilyPond FAQs
 @section Language: mudela
 
