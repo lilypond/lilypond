@@ -848,6 +848,13 @@ if 1:
 	
 	conversions.append (((1,5,49), conv, 'noAutoBeaming -> autoBeaming'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('tuplet-bracket-visibility', 'bracket-visibility', str)
+		str = re.sub ('tuplet-number-visibility', 'number-visibility', str)		
+		return str
+	
+	conversions.append (((1,5,52), conv, 'tuplet-X-visibility -> X-visibility'))
 
 if 1:
 	def conv (str):
@@ -855,7 +862,7 @@ if 1:
 
 		return str
 	
-	conversions.append (((1,5,56), conv, 'Pitch::transpose->ly-transpose-pitch'))
+	conversions.append (((1,5,56), conv, 'Pitch::transpose -> ly-transpose-pitch'))
 
 if 1:
 	def conv (str):

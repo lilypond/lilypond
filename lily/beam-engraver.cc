@@ -62,7 +62,10 @@ public:
 };
 
 
-
+/*
+  Hmm. this isn't necessary, since grace beams and normal beams are
+  always nested.
+ */
 bool
 Beam_engraver::valid_start_moment()
 {

@@ -208,7 +208,12 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{tie-accidental.ly}
 
+
+@section Tuplets 
+
 @lilypondfile[printfilename]{tup.ly}
+
+@lilypondfile[printfilename]{tuplet-properties.ly}
 
 @lilypondfile[printfilename]{tuplet-beam.ly}
 
