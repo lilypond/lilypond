@@ -4,7 +4,7 @@ NAME = cygwin
 
 EXTRA_DIST_FILES = changelog mknetrel $(wildcard *.hint)
 
-SEXECUTABLES=bug-lilypond-cygwin
+SEXECUTABLES=bug-lilypond-cygwin lily-wins
 STEPMAKE_TEMPLATES = install install-out script
 
 include $(depth)/make/stepmake.make
@@ -21,7 +21,7 @@ PROFILES=$(wildcard *-profile.sh) lilypond-profile.sh
 OUT_PROFILES=$(PROFILES:%=$(outdir)/%)
 
 # profiles
-$(outdir)/%.sh: %.sh
+$(outdir)/%.sh: %.sh $(config_make)
 	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@
 

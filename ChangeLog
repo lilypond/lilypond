@@ -1,4 +1,9 @@
-2003-09-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+2003-09-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* cygwin/GNUmakefile: Add lily-wins.
+
+	* cygwin/lily-wins.py: New file.
+	* cygwin/post-lilypond.sh: Set registry stuff.
 
 	* cygwin/bug-lilypond-cygwin.sh: Fix fallbacks for new docdir and
 	build versions.
