@@ -275,44 +275,44 @@ corresponding to DONE-LINES.
 CURRENT-BEST is the best result sofar, or #f."
 
     (let* ((this-page-num (if (null? best-paths)
-			      1
-			      (1+ (node-page-number (car best-paths)))))
-	   (prev-penalty (if (null? best-paths)
-			     0.0
-			     (node-penalty (car best-paths))))
-	   (page-height (page-height this-page-num last?))
-	   (space-used (cumulative-height current-lines))
-	   (this-page-penalty (height-penalty  page-height space-used))
-	   (user-penalty (ly:paper-system-break-penalty (car current-lines)))
-	   (total-penalty (combine-penalties
-			   user-penalty this-page-penalty prev-penalty))
-	   (better? (or
-		     (not current-best)
-		     (< total-penalty (node-penalty current-best))))
-	   (new-best (if better?
-			 (make-node (if (null? best-paths)
-					#f
-					(car best-paths))
-				    current-lines
-				    this-page-num total-penalty)
-			 current-best)))
-
+                              (ly:output-def-lookup bookpaper 'initialpagenumber)
+                              (1+ (node-page-number (car best-paths)))))
+           (prev-penalty (if (null? best-paths)
+                             0.0
+                             (node-penalty (car best-paths))))
+           (page-height (page-height this-page-num last?))
+           (space-used (cumulative-height current-lines))
+           (this-page-penalty (height-penalty  page-height space-used))
+           (user-penalty (ly:paper-system-break-penalty (car current-lines)))
+           (total-penalty (combine-penalties
+                           user-penalty this-page-penalty prev-penalty))
+           (better? (or
+                     (not current-best)
+                     (< total-penalty (node-penalty current-best))))
+           (new-best (if better?
+                         (make-node (if (null? best-paths)
+                                        #f
+                                        (car best-paths))
+                                    current-lines
+                                    this-page-num total-penalty)
+                         current-best)))
+      
       (if #f ;; debug
-	  (display
-	   (list
-	    "user pen " user-penalty " prev-penalty "
-	    prev-penalty "\n"
-	    "better? " better? " total-penalty " total-penalty "\n"
-	    "height " page-height " spc used: " space-used "\n"
-	    "pen " this-page-penalty " lines: " current-lines "\n")))
-
+          (display
+           (list
+            "user pen " user-penalty " prev-penalty "
+            prev-penalty "\n"
+            "better? " better? " total-penalty " total-penalty "\n"
+            "height " page-height " spc used: " space-used "\n"
+            "pen " this-page-penalty " lines: " current-lines "\n")))
+      
       (if (and (pair? done-lines)
-	       ;; if this page is too full, adding another line won't help
-	       (< this-page-penalty MAXPENALTY))
-	  (walk-paths (cdr done-lines) (cdr best-paths)
-		      (cons (car done-lines) current-lines)
-		      last? new-best)
-	  new-best)))
+               ;; if this page is too full, adding another line won't help
+               (< this-page-penalty MAXPENALTY))
+          (walk-paths (cdr done-lines) (cdr best-paths)
+                      (cons (car done-lines) current-lines)
+                      last? new-best)
+          new-best)))
 
   (define (walk-lines done best-paths todo)
     "Return the best page breaking as a single

@@ -195,7 +195,7 @@
 (define-public (output-framework outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (pages (ly:paper-book-pages book))
-	 (page-number 0)
+	 (page-number (1- (ly:output-def-lookup bookpaper 'initialpagenumber)))
 	 (page-count (length pages)))
   (for-each
    (lambda (x)
