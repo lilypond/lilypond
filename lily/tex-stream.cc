@@ -33,7 +33,7 @@ Tex_stream::header()
   *os << _("% Creator: ") << get_version_str() << "\n";
   *os << _("% Automatically generated, at ");
   time_t t (time (0));
-  *os << ctime (&t)<<"\n";
+  *os << ctime (&t) << "%\n";
 }
 Tex_stream::~Tex_stream()
 {

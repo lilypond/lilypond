@@ -8,6 +8,10 @@ and before. Glibc upto 2.0.5 also has problems with memmem (), but
 these should not affect LilyPond.
 
 
+[IRIX (5.3?)]
+
+coredump from strstream::strstream () upon the first read of a file
+
 [Linux Intel]
 
 LilyPond occasionally crashes while parsing the initialisation files.

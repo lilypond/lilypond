@@ -25,15 +25,15 @@ For compilation you need.
 =item *
 
 A GNU system: GNU LilyPond is known to run on these GNU systems: Linux
-(PPC, intel), FreeBSD, AIX, NeXTStep, Digital Unix and Solaris.
+(PPC, intel), FreeBSD, AIX, NeXTStep, IRIX, Digital Unix and Solaris.
 
 If you have the Cygnus WINDOWS32 port of the GNU utils, it will even
 work in Windows NT/95, but we don't promise to support it.
 
 =item *
 
-GNU C++ v2.7 or better, with libg++ installed.  Version 2.7.2
-or better recommended. 
+GNU C++ v2.7 or better, with libg++ installed.  If you use gcc 2.8 or
+egcs then you should install a matching libg++  (ie. 2.8) version.
 
 =item *
 
@@ -197,10 +197,10 @@ contain all files generated during compilation).
 =head2 Building for multiple hosts
 
 LilyPond does not follow the GNU standards when it comes to
-configuring and making Makefiles. In LilyPond, F<make> generates I<all>
-output in output directories (called F<out/>, by default). 
-You can have multiple compiles from the same source-tree, by
-overriding the setting for the output directory.
+configuring and making Makefiles. In LilyPond, F<make> generates
+I<all> output in output directories (called F<out/>, by default).  You
+can have multiple compiles from the same source-tree, by overriding
+the setting for the output directory.
 
 Example: on my system, I do debugging and lots compiling. For this I
 use the configuration as follows:
@@ -218,8 +218,9 @@ and I want to do profiling. For that I use
 
 These two commands build two entirely separate versions of
 LilyPond. In Real Life, you would probably also want to have two
-different prefixes. On my machine this is no problem; I never do 
-C<make install>. My prefix dirs are linked back to my source directory.
+different prefixes. On my machine this is no problem; I never do
+C<make install>. My prefix dirs are linked back to my source
+directory.
 
 
 =head1 INSTALLING

@@ -14,7 +14,7 @@
 
 Timing_translator::Timing_translator ()
 {
-  default_grouping_ = Rhythmic_grouping (MInterval (0,4),4); // ugh
+  default_grouping_ = Rhythmic_grouping (MInterval (0, 1), 4); // ugh
 }
 
 bool
@@ -94,7 +94,6 @@ Timing_translator::do_process_requests()
       else if (tr_l->cadenza())
 	{
 	  time_.set_cadenza (tr_l->cadenza()->on_b_);
-
 	}
       else if (tr_l->measuregrouping())
 	{
@@ -131,4 +130,13 @@ void
 Timing_translator::do_post_move_processing()
 {
   time_.add (now_moment ()  - time_.when_);
+}
+
+void
+Timing_translator::do_print () const
+{
+#ifndef NPRINT
+  time_.print ();
+  default_grouping_.print ();
+#endif
 }

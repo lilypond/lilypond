@@ -42,6 +42,24 @@ grep for TODO and ugh/ugr
 
 	* bf: abbrevs over whole note
 
+	* spanner that is not spanned gives assert ().
+
+* the warning about the negative slur/tie length appears twice
+which is irritating.
+
+* The `3' in the meter key is a one or two pixels too thin (at 600dpi)
+in the middle:
+ 
+* better hshift (dots, distance, head dependent)
+
+* tie/slur dir & curvature
+
+* stem len adjustable
+
+* mindist for spanners
+
+	
+
 STUFF
 
 
@@ -80,6 +98,8 @@ STUFF
 	* AFM for font input?
 
 3RD PARTY BUGS:
+
+	* gdb on RedHat 5
 
 	* xdvi: PS magnifying glass.
 

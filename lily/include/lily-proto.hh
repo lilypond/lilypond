@@ -12,6 +12,7 @@
 
 
 struct Absolute_dynamic_req;
+struct Abbreviation;
 struct Abbreviation_req;
 struct Abbreviation_beam_req;
 struct Abbreviation_beam_engraver;

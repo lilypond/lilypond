@@ -19,7 +19,9 @@ Symtables::Symtables()
 {
 }
 
+
 Symtables::Symtables (Symtables const &s)
+  : Dictionary<Symtable*> (s)
 {
   for (Assoc_iter<String, Symtable*>  i (s); i.ok(); i++)
     {

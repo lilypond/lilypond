@@ -1,3 +1,17 @@
+pl 47
+	- Abbreviation now a separate item.
+	- bf'd some gcc 2.8 warnings.
+	- bf'd spurious space in autodep.
+	- more clefs (MB)
+
+pl 46.jcn1
+	- start mudela introduction
+	- plet-fraction abbrev by guessing; /3 -> 2/3 etc.
+	- bf's: preludes-*
+
+*******
+feb 27
+
 pl 46
 	- span-bar at upstep.
 	- bf: \score { \score_identifier }

@@ -54,8 +54,10 @@
         "downbow"	"\\downbow"	-4.88\pt	4.88\pt	-0.00\pt	8.67\pt	
         "turn"	"\\turn"	-7.11\pt	7.11\pt	-3.44\pt	3.44\pt	
         "trill"	"\\trill"	-6.50\pt	6.50\pt	-0.00\pt	14.62\pt	
-        "pedalheel"	"\\pedalheel"	-3.25\pt	3.25\pt	-3.25\pt	4.33\pt	
-        "pedaltoe"	"\\pedaltoe"	-3.25\pt	3.25\pt	-0.00\pt	9.75\pt	
+        "upedalheel"	"\\upedalheel"	-3.25\pt	3.25\pt	-3.25\pt	4.33\pt	
+        "dpedalheel"	"\\dpedalheel"	-3.25\pt	3.25\pt	-4.33\pt	3.25\pt	
+        "upedaltoe"	"\\upedaltoe"	-3.25\pt	3.25\pt	-0.00\pt	9.75\pt	
+        "dpedaltoe"	"\\dpedaltoe"	-3.25\pt	3.25\pt	-9.75\pt	0.00\pt	
         "flageolet"	"\\flageolet"	-3.47\pt	3.47\pt	-3.47\pt	3.47\pt	
         }
     "flags"	 = \table {

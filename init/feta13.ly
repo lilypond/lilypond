@@ -18,19 +18,19 @@
     "accidentals"	 = \table {
         "1"	"\\sharp"	-0.00\pt	3.58\pt	-4.88\pt	4.88\pt	
         "0"	"\\natural"	-0.00\pt	2.17\pt	-4.88\pt	4.88\pt	
-        "-1"	"\\flat"	-0.39\pt	2.60\pt	-1.63\pt	6.50\pt	
-        "-2"	"\\flatflat"	-0.39\pt	4.71\pt	-1.63\pt	6.50\pt	
-        "2"	"\\sharpsharp"	-0.00\pt	3.25\pt	-1.63\pt	1.63\pt	
+        "-1"	"\\flat"	-0.39\pt	2.60\pt	-1.62\pt	6.50\pt	
+        "-2"	"\\flatflat"	-0.39\pt	4.71\pt	-1.62\pt	6.50\pt	
+        "2"	"\\sharpsharp"	-0.00\pt	3.25\pt	-1.62\pt	1.62\pt	
         }
     "dots"	 = \table {
         "dot"	"\\dot"	-0.00\pt	1.46\pt	-0.73\pt	0.73\pt	
-        "repeatcolon"	"\\repeatcolon"	-0.00\pt	1.46\pt	-1.63\pt	1.63\pt	
+        "repeatcolon"	"\\repeatcolon"	-0.00\pt	1.46\pt	-1.62\pt	1.62\pt	
         }
     "balls"	 = \table {
         "-1"	"\\brevisball"	-0.00\pt	6.50\pt	-1.79\pt	1.79\pt	
-        "-1l"	"\\brevisledger"	-1.63\pt	8.13\pt	-0.33\pt	0.33\pt	
+        "-1l"	"\\brevisledger"	-1.62\pt	8.12\pt	-0.33\pt	0.33\pt	
         "-2"	"\\longaball"	-0.00\pt	6.50\pt	-1.79\pt	1.79\pt	
-        "-2l"	"\\longaledger"	-1.63\pt	8.13\pt	-0.33\pt	0.33\pt	
+        "-2l"	"\\longaledger"	-1.62\pt	8.12\pt	-0.33\pt	0.33\pt	
         "0"	"\\wholeball"	-0.00\pt	6.44\pt	-1.79\pt	1.79\pt	
         "0l"	"\\wholeledger"	-1.61\pt	8.04\pt	-0.33\pt	0.33\pt	
         "1"	"\\halfball"	-0.00\pt	4.48\pt	-1.79\pt	1.79\pt	
@@ -41,21 +41,23 @@
     "scripts"	 = \table {
         "ufermata"	"\\ufermata"	-4.31\pt	4.31\pt	-0.24\pt	4.71\pt	
         "dfermata"	"\\dfermata"	-4.31\pt	4.31\pt	-4.71\pt	0.24\pt	
-        "sforzato"	"\\sforzatoaccent"	-2.92\pt	2.92\pt	-1.63\pt	1.63\pt	
+        "sforzato"	"\\sforzatoaccent"	-2.92\pt	2.92\pt	-1.62\pt	1.62\pt	
         "staccato"	"\\staccato"	-0.49\pt	0.49\pt	-0.49\pt	0.49\pt	
         "ustaccatissimo"	"\\ustaccatissimo"	-0.65\pt	0.65\pt	-0.20\pt	3.25\pt	
         "dstaccatissimo"	"\\dstaccatissimo"	-0.65\pt	0.65\pt	-3.25\pt	0.20\pt	
         "tenuto"	"\\tenuto"	-2.92\pt	2.92\pt	-0.20\pt	0.20\pt	
-        "umarcato"	"\\umarcato"	-1.63\pt	1.63\pt	-0.00\pt	3.58\pt	
-        "dmarcato"	"\\dmarcato"	-1.63\pt	1.63\pt	-3.58\pt	0.00\pt	
-        "open"	"\\ouvert"	-1.30\pt	1.30\pt	-1.63\pt	1.63\pt	
+        "umarcato"	"\\umarcato"	-1.62\pt	1.62\pt	-0.00\pt	3.58\pt	
+        "dmarcato"	"\\dmarcato"	-1.62\pt	1.62\pt	-3.58\pt	0.00\pt	
+        "open"	"\\ouvert"	-1.30\pt	1.30\pt	-1.62\pt	1.62\pt	
         "stopped"	"\\plusstop"	-1.79\pt	1.79\pt	-1.79\pt	1.79\pt	
         "upbow"	"\\upbow"	-2.11\pt	2.11\pt	-0.00\pt	6.76\pt	
         "downbow"	"\\downbow"	-2.44\pt	2.44\pt	-0.00\pt	4.33\pt	
         "turn"	"\\turn"	-3.55\pt	3.55\pt	-1.72\pt	1.72\pt	
         "trill"	"\\trill"	-3.25\pt	3.25\pt	-0.00\pt	7.31\pt	
-        "pedalheel"	"\\pedalheel"	-1.63\pt	1.63\pt	-1.63\pt	2.17\pt	
-        "pedaltoe"	"\\pedaltoe"	-1.63\pt	1.63\pt	-0.00\pt	4.88\pt	
+        "upedalheel"	"\\upedalheel"	-1.62\pt	1.62\pt	-1.62\pt	2.17\pt	
+        "dpedalheel"	"\\dpedalheel"	-1.62\pt	1.62\pt	-2.17\pt	1.62\pt	
+        "upedaltoe"	"\\upedaltoe"	-1.62\pt	1.62\pt	-0.00\pt	4.88\pt	
+        "dpedaltoe"	"\\dpedaltoe"	-1.62\pt	1.62\pt	-4.88\pt	0.00\pt	
         "flageolet"	"\\flageolet"	-1.73\pt	1.73\pt	-1.73\pt	1.73\pt	
         }
     "flags"	 = \table {
@@ -71,7 +73,7 @@
     "clefs"	 = \table {
         "alto"	"\\altoclef"	-3.25\pt	12.10\pt	-6.50\pt	6.50\pt	
         "alto_change"	"\\caltoclef"	-2.60\pt	9.68\pt	-5.20\pt	5.20\pt	
-        "bass"	"\\bassclef"	-1.63\pt	11.70\pt	-8.13\pt	3.25\pt	
+        "bass"	"\\bassclef"	-1.62\pt	11.70\pt	-8.12\pt	3.25\pt	
         "bass_change"	"\\cbassclef"	-1.30\pt	9.36\pt	-6.50\pt	2.60\pt	
         "violin"	"\\violinclef"	-2.83\pt	12.15\pt	-9.75\pt	16.25\pt	
         "violin_change"	"\\cviolinclef"	-2.46\pt	9.52\pt	-7.80\pt	13.00\pt	

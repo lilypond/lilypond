@@ -531,15 +531,15 @@ Spring_spacer::calc_idealspacing()
 	  Real durational_distance = 0;
 
 	  
-	      Moment delta_t =  scol_l (i+1)->when() - scol_l (i)->when () ;
+	  Moment delta_t =  scol_l (i+1)->when() - scol_l (i)->when () ;
 
-	      Real k=  paper_l()->arithmetic_constant(context_shortest_arr[i]);
-	      /*
-		ugh should use shortest_playing distance
-		*/
-	      if (delta_t)
-		durational_distance =  paper_l()->duration_to_dist (delta_t,k);
-	      symbol_distance += -cols[i+1].width_[LEFT];
+	  Real k=  paper_l()->arithmetic_constant(context_shortest_arr[i]);
+	  /*
+	    ugh should use shortest_playing distance
+	  */
+	  if (delta_t)
+	    durational_distance =  paper_l()->duration_to_dist (delta_t,k);
+	  symbol_distance += -cols[i+1].width_[LEFT];
  
 
 	  ideal_arr_[i] = symbol_distance >? durational_distance;
@@ -574,32 +574,32 @@ Spring_spacer::calc_idealspacing()
 	  dist *= delta_t / shortest_playing_len;
 
 	  /*
-	     According to [Ross] and [Wanske], and from what i've seen:
+	    According to [Ross] and [Wanske], and from what i've seen:
 	     
-	     * whitespace at the begin of the bar should be fixed at 
-	     (about) one interline.
-	     [Ross]:
-	     when spacing gets real tight, a smaller fixed value may be 
-	     used, so that there are two discrete amounts of whitespace 
-	     possible at the begin of a bar; but this is not implemented 
-	     right now.
+	    * whitespace at the begin of the bar should be fixed at 
+	    (about) one interline.
+	    [Ross]:
+	    when spacing gets real tight, a smaller fixed value may be 
+	    used, so that there are two discrete amounts of whitespace 
+	    possible at the begin of a bar; but this is not implemented 
+	    right now.
 	     
-	     * whitespace at the end of the bar is the normal amount of 
-	     "hinterfleish" that would have been used, had there been
-	     yet another note in the bar.  
-	     [Ross]:
-	     some editors argue that the bar line should not take any 
-	     space, not to hinder the flow of music spaced around a bar 
-	     line.  
-	     [Ross] and [Wanske] do not suggest this, however.  Further, 
-	     it introduces some spacing problems and think that it is ugly 
-	     too.
-	     [jcn]
-	   */
+	    * whitespace at the end of the bar is the normal amount of 
+	    "hinterfleish" that would have been used, had there been
+	    yet another note in the bar.  
+	    [Ross]:
+	    some editors argue that the bar line should not take any 
+	    space, not to hinder the flow of music spaced around a bar 
+	    line.  
+	    [Ross] and [Wanske] do not suggest this, however.  Further, 
+	    it introduces some spacing problems and think that it is ugly 
+	    too.
+	    [jcn]
+	  */
 
 	  /* 
 	     first musical column of bar
-	   */
+	  */
 	  if (i && scol_l (i - 1)->breakable_b_)
 	    {
 	      // fixed: probably should set minimum (rod/spring)?
@@ -610,7 +610,7 @@ Spring_spacer::calc_idealspacing()
 
 	  /* 
 	     last musical column of bar
-	   */
+	  */
 	  if (i + 1 < cols.size () && scol_l(i+1)->breakable_b_)
 	    {
 	      // hmm, how bout?
@@ -621,8 +621,8 @@ Spring_spacer::calc_idealspacing()
 		someone was junking this last "hinterfleisch" whitespace?!
 
 		but this seems to be fixed now :-)
-	       */
-	       // set minimum rod 
+	      */
+	      // set minimum rod 
 	      cols[i].width_[RIGHT] += interline_f;
 	    }
 

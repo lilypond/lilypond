@@ -2,10 +2,12 @@
 %% include file for LilyPond
 %%
 %% this file defines various macros to accomodate lilypond output
-
+%% 
+%% let's not make par before endinput
+%
 % TeXbook ex 7.7
 \def\ifundefined#1{\expandafter\ifx\csname#1\endcsname\relax}
-
+%
 % skip if included already
 \def\SkipLilydefs{\endinput}
 \ifundefined{EndLilyPondOutput}
@@ -13,7 +15,7 @@
         \def\SkipLilydefs{}
 \fi
 \SkipLilydefs
-
+%
 \ifundefined{mudelacopyright}
         \def\mudelacopyright{\copyright\ \number\year}
 \fi

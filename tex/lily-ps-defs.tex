@@ -23,13 +23,12 @@
 % transplant a TeX dimension into the PS output.
 \def\PSsetTeXdimen#1{\expandafter\special{! /#1 (\the\csname #1\endcsname) deftexdimen}}
 
-\def\turnOnPostScript{
+\def\turnOnPostScript{%
 \def\embeddedps##1{%
         % This sets CTM so that you get to the currentpoint
         % by executing a 0 0 moveto
         \special{ps: @beginspecial @setspecial ##1 @endspecial}       
 }
-
 %
 % width, slope, height 
 %
@@ -60,8 +59,7 @@ def
         def     
 } def
 }
-
-
+%
 \PSsetTeXdimen{staffrulethickness}
 \PSsetTeXdimen{staffheight}
 \special{! %
@@ -164,7 +162,7 @@ def
 
 
 
-\def\turnOnExperimentalFeatures{
+\def\turnOnExperimentalFeatures{%
 % draw a slur in embedded postscript
 \special{ps:
 }}

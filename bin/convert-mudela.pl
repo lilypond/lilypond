@@ -336,7 +336,7 @@ sub do_one_arg
 identify;
 
 
-GetOptions ("help", "output=s", "from=i", "to=i", "minor=i", "edit", "show-rules");
+GetOptions ("help", "output=s", "from=s", "to=s", "minor=i", "edit", "show-rules");
 
 if ($opt_help) {
     usage();

@@ -69,14 +69,6 @@ class Spring_spacer : public Line_spacer {
 
   void handle_loose_cols();
   void position_loose_cols (Vector &) const;
-  /**
-    add a idealspacing to the problem.
-      
-    One pair of columns can have no, one or more idealspacings,
-    since they can be "summed" if the columns to which #i# refers are
-    not in this problem, the spacing is ignored.
-    */
-  void add_ideal (Idealspacing const *i);
   Vector try_initial_solution() const;
   void calc_idealspacing();
   void set_fixed_cols (Mixed_qp&) const;

@@ -8,7 +8,9 @@
  */
 #include <fstream.h>
 #include <signal.h>
-#include <std/new.h>
+
+// libg++ 2.8.0
+// #include <std/new.h>
 #include <stdlib.h>
 #include "debug.hh"
 #include "dstream.hh"
@@ -59,7 +61,8 @@ debug_init()
 {
   rat_printer = print_rat;
 #ifndef NDEBUG
-  set_new_handler (&mynewhandler);
+  // libg++ 2.8.0 doesn't have set_new_handler
+  // set_new_handler (&mynewhandler);
 #endif
   set_flower_debug (*monitor, check_debug);
 
@@ -74,6 +77,9 @@ bool check_malloc_b = false;
 // #define MEMORY_PARANOID
 
 #ifdef MEMORY_PARANOID
+
+#include <malloc.h>
+
 void *
 operator new (size_t size)
 {
@@ -103,5 +109,10 @@ set_debug (bool b)
   check_debug =b;
   set_flower_debug (*monitor, check_debug);
   check_malloc_b = experimental_features_global_b;
+#ifdef MEMORY_PARANOID
+  if (check_malloc_b)
+    if (mcheck (0))
+      warning ("Can't set mem-checking!");
+#endif
 }
 

@@ -14,7 +14,14 @@
 #include <math.h>
 #include "interval.hh"
 #include "string.hh"
+#include "flower-debug.hh"
 
+template<class T>
+void
+Interval_t<T>::print () const
+{
+  fdebug << str ();
+}
 
 template<class T>
 int

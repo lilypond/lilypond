@@ -22,5 +22,11 @@ enum Direction
 
 };
 
+/**
+   if d > 0: the max operator
+   if d < 0: the min operator
+ */
+template<class T> minmax (Direction d, T, T);
+
 
 #endif // DIRECTION_HH

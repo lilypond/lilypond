@@ -20,7 +20,7 @@
 #include "beam.hh"
 #include "rest.hh"
 
-const int STEMLEN=7;
+const int STEMLEN = 7;
 
 IMPLEMENT_IS_TYPE_B1 (Stem,Item);
 
@@ -29,7 +29,6 @@ Stem::Stem ()
   /*
     TODO: staff-size
     */
-  abbrev_flag_i_ = 0;
   beam_l_ = 0;
   beams_left_i_ = 0;
   beams_right_i_ = 0;
@@ -60,7 +59,7 @@ void
 Stem::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "flag "<< flag_i_ << "abbrev_flag_i_" << abbrev_flag_i_;
+  DOUT << "flag "<< flag_i_ ;
   if (beam_l_)
     DOUT << "beamed";
 #endif
@@ -76,6 +75,12 @@ Real
 Stem::stem_begin_f () const
 {
   return yextent_drul_[Direction(-dir_)];
+}
+
+Real
+Stem::chord_start_f () const
+{
+  return head_positions()[dir_] * paper ()->internote_f ();
 }
 
 Real
@@ -157,11 +162,6 @@ Stem::set_default_stemlen ()
 {
   Real len = STEMLEN;
   Real dy = paper ()->interbeam_f ();
-
-  // ugh, should get nice *rule* for this
-  if (abbrev_flag_i_ > 1)
-    len += (abbrev_flag_i_ - 1)* dy / 2;
-
 
   if (!dir_)
     set_default_dir ();
@@ -252,11 +252,7 @@ Interval
 Stem::do_width () const
 {
   Interval r (0, 0);
-  if (abbrev_flag_i_)
-    {
-      r = abbrev_mol ().extent ().x ();
-    }
-  else if (beam_l_ || abs (flag_i_) <= 2)
+  if (beam_l_ || abs (flag_i_) <= 2)
     ;	// TODO!
   else
     {
@@ -269,44 +265,6 @@ Stem::do_width () const
 
 
 
-Molecule
-Stem::abbrev_mol () const
-{
-  Real dy = paper ()->interbeam_f ();
-  Real w = 1.5 * paper ()->lookup_l ()->ball (2).dim_.x ().length ();
-  Real interline_f = paper ()->interline_f ();
-  Real beamdy = interline_f/2;
-
-  int beams_i = 0;
-  Real slope_f = paper ()->internote_f () / 4;
-
-  if (beam_l_) {
-    // huh?
-      slope_f = 2 * beam_l_->slope_f_;
-    // ugh, rather calc from Abbreviation_req
-      beams_i = beams_right_i_ >? beams_left_i_;
-  }
-  paper ()->lookup_l ()->beam (slope_f, 20 PT, 1 PT);
-
-  Molecule beams;
-  Atom a (paper ()->lookup_l ()->beam (slope_f, w, .48 * interline_f));
-  a.translate (Offset(- w / 2, stem_end_f () - (w / 2 * slope_f)));
-  
-  // ugh
-  if (!beams_i)
-    a.translate_axis (dy + beamdy - dir_ * dy, Y_AXIS);
-  else
-    a.translate_axis (2 * beamdy - dir_ * (beamdy - dy), Y_AXIS);
-
-  for (int i = 0; i < abbrev_flag_i_; i++)
-    {
-      Atom b (a);
-      b.translate_axis (-dir_ * dy * (beams_i + i), Y_AXIS);
-      beams.add (b);
-    }
-
-  return beams;
-}
 
 const Real ANGLE = 20* (2.0*M_PI/360.0); // ugh!
 
@@ -336,11 +294,7 @@ Stem::brew_molecule_p () const
       Atom fl = p->lookup_l ()->flag (flag_i_, dir_);
       fl.translate_axis(stem_y[dir_]*dy, Y_AXIS);
       mol_p->add(fl);
-      assert (!abbrev_flag_i_);
     }
-
-  if (abbrev_flag_i_)
-    mol_p->add (abbrev_mol ());
 
   if (head_l_arr_.size())
     {

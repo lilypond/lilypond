@@ -83,6 +83,7 @@ struct Interval_t {
     return *this;
   }
   String str() const;    
+  void print () const;
   bool elt_b (T r);
 };
 

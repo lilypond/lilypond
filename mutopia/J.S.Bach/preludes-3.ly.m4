@@ -39,7 +39,8 @@ rh = \melodic{
 	s('bes d g)
 
 
-	s(c fis a -"poco a poco cresc.")
+%#	s(c fis a -"poco a poco cresc.")
+	t(c,fis,a,-"poco a poco cresc.")
 	s(d g bes)
 	s(d fis c')
 
@@ -57,7 +58,8 @@ rh = \melodic{
 	s('fis 'a c)
 	s('fis 'a c)
 	r16\p ['g 'a c] ['b 'g 'b 'g] r 'g r 'g
-	s('a c fis -"poco cresc.")
+%#	s('a c fis -"poco cresc.")
+	t('a,c,fis,-"poco cresc.")
 	s(c fis a)
 	s('b d g)
 	s('b d f -"dim.")
@@ -118,7 +120,7 @@ lh = \melodic{
 
 	'd4 r ['bes8 'g] |
 	'd4 r [es8 c] |
-	'd4 r [d8 c] |
+	'd4 r [d8 a] |
 
 	'g4 r [es8 c] |
 	'g4 r [d8 'b] |

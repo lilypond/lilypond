@@ -35,6 +35,7 @@ one = \melodic{
 	\stemup
 	)'fis4\p 
 	\skip 4*7; |
+	\textstyle "finger";
 	d4.\mf cis8-"4\\_5" ~ cis 'b4-5 'a8-"4\\_5" ~ |
 	\textstyle "italic";
 	'a 'g4-5 'fis8-4 ~ ['fis16 'fis-4-"dim." 'e-3 'd-2] 
@@ -51,6 +52,7 @@ one = \melodic{
 	'b4-5 'a ~ ['a8 'g-5 ~] ['g16 'fis8-4 'e'16-3] |
 	['fis8-4 'e-5~] ['e 'd-5~] 'd4 'cis-4 |
 	'd2\p-"rall." ~ ['d16 ''a-2( ''b-3 'cis-4] )'d4-5 |
+	\bar "|.";
 }
 
 two = \melodic{
@@ -58,25 +60,26 @@ two = \melodic{
 	\textstyle "finger";
 % ugh: koor
 %	\translator Staff=bass \octave c; \stemup
+	\stemup;
 	fis4-1( e8-2 a4 a4 gis8-2 | 
 	) a8
 	\translator Staff=treble \octave c''; \stemdown
 	'a4 'a8 'b4.-"2\\_1" cis8 ~ | 
 	cis8
 	\translator Staff=bass \octave c; \stemup
-	a8 ~ [a d'] ~ d' d'4-> c'8 | 
+	a8 ~ [a d'] ~ d' d'4-> cis'8 | 
 	d'8
 	\translator Staff=treble \octave c''; \stemdown
 	d4-> cis8-1 ~ cis 'b4-1 'b8 |
 	r8 'a4 'a8
 	\translator Staff=bass \octave c; \stemup
 	[g'8-1( fis'-2] )e'4-1 ~ | 
-	e'4 d' ~ [d'16 d-1 cis'-2 g-1] cis'4-2 ~ |
-	[c'8 a-3] d'4.-1 d'4-> cis'8-2 |
+	e'4 d' ~ [d'16 d'-1 cis'-2 b-1] cis'4-2 ~ |
+	[cis'8 a-3] d'4.-1 d'4^> cis'8-2 |
 	\translator Staff=treble \octave c''; \stemdown
 	'd4 
 	\stemboth
-	r16 [''b-1\< d-2 ''b~] <'g4-5 'e-3 ''b>
+	r16 [''b-1\< 'd-2 ''b~] <'g4-5 'e-3 ''b>
 	r16 ['cis-1 'e-2 \!'cis~] |
 	<'a4-5 'f-3 'cis> r16 ['d-1 'fis-2 'd~] <'b4-5 'g-3 'd>
 	r16 ['fis-1 'a 'fis~] |
@@ -109,7 +112,8 @@ two = \melodic{
 		}
 	>
 	[g-1 fis-2 g-1 a-2] [g-1 b-3 a-2 g-1 ~] |
-	[g g-1 fis-2 e-1] fis-2 ~ fis2
+	[g g-1 fis-2 e-1] fis4-2 ~ fis2
+	\bar "|.";
 }
 
 three = \melodic{
@@ -133,14 +137,14 @@ three = \melodic{
 	[fis-2 g a-2 fis-4] |
 	)fis16 ['g( 'b 'g] [d-2 e fis-2 d-4] [)g8-. 'g-.] r16 [cis-4( e cis] |
 	[)fis8-. 'fis-.] \stemdown r16 ['b-4( d 'b] [)e8-. 'e-.] 
-	r16 ['a-4 cis a] |
+	r16 ['a-4 cis 'a] |
 	\stemboth
 	[d-1 e-3 fis-2 d-4] [g-1 fis-2 e-3 d-1] [cis!-3 'a-5 'b cis]
 	[d-2 e fis-2 d-4] |
-	[g8 e-3] \stemdown [a 'a] ['b8.-4 'g16-5] a4-4 |
+	[g8 e-3] \stemdown [a 'a] ['b8.-4 'g16-5] 'a4-4 |
 	[d8-5 a-2~] [a g-3~] [g g-3] fis4-4 |
 	\stemup
-	r16 [g-2 b-1 g-3] [b'8.-1 c'16-1] [b8.-2 bes16-3] [a8-1 g] |
+	r16 [g-2 b-1 g-3] [d'8.-1 c'16-1] [b8.-2 bes16-3] [a8-1 g] |
 	\stemdown
 	r16 ['a-2 cis!-1 a-2] [d-1 e fis d] [e8-1 d-2] [e-1 'a-2] |
 	[d 'a-2~] ['a16 'a-2 'b cis-2] d2 |
@@ -218,6 +222,10 @@ global  = \melodic{
 	\paper{
 		\paper_twenty
 		linewidth= 195.\mm;
+%		arithmetic_basicspace = 2.;
+%		arithmetic_multiplier = 6.\pt;
+		arithmetic_basicspace = 3.;
+		arithmetic_multiplier = 6.\pt;
 	}
 	\midi{
 		\tempo 4 = 110;

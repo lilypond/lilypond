@@ -58,7 +58,7 @@ include $(depth)/make/Rules.make
 #
 
 localclean:
-	rm -f `find $(outdir)`
+	rm -f `find $(outdir) -type f`
 
 
 

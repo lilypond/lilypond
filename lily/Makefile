@@ -38,13 +38,16 @@ EXTRA_DISTFILES = VERSION
 # list of custom libraries:
 #
 MODULE_LIBDEPS= check-flower-deps check-lib-deps 
-MODULE_LIBES= -llily -lflower
+MODULE_LIBES= -llily -lflower  -lmcheck
 
 #
 
 # main target of this module:
 #
+
 default: $(EXECUTABLE)
+
+out/engraver.o: include/engraver.hh
 #
 include ./$(depth)/make/Files.make 
 

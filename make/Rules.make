@@ -10,8 +10,6 @@
 # this is supposed to clear all suffixes:
 .SUFFIXES:
 
-# so why does make still consider xx.y : RCS/xx.y,v ?
-# there is no suffix ,v anymore!
 .SUFFIXES: .cc .o .hh .y .l  .dep
 
 

@@ -68,14 +68,6 @@ class Spacing_problem {
 
     void handle_loose_cols();
     void position_loose_cols (Vector &) const;
-   /**
-       add a idealspacing to the problem.
-      
-    One pair of columns can have no, one or more idealspacings,
-    since they can be "summed" if the columns to which #i# refers are
-    not in this problem, the spacing is ignored.
-    */
-    void add_ideal (Idealspacing const *i);
     void print_ideal (Idealspacing const *) const; 
     Vector try_initial_solution() const;
     void calcideal();

@@ -24,14 +24,19 @@ $(outdir)/%.txt: $(outdir)/%.1
 $(depth)/%.txt: $(outdir)/%.txt
 	cp $< $@
 
-do_pod2html=$(pod2html) $<
+do_pod2html=$(pod2html) --infile $< --outfile=$@
+# do this for perl 5.003
+# 	do_pod2html=$(pod2html) $<
+# 	mv $(notdir $@) $(outdir)/
+
 
 # do this for perl 5.004
 #	 $ make do_pod2html='$(pod2html) --infile $< --outfile=$@' html
-#
+
+
 $(outdir)/%.html: %.pod $(depth)/VERSION
 	$(do_pod2html) 
-	mv $(notdir $@) $(outdir)/
+#
 
 $(outdir)/%.5: %.pod
 	$(pod2groff)

@@ -20,6 +20,7 @@ class Stem_engraver : public Engraver
   Direction dir_;
   int default_abbrev_i_;
   Stem *stem_p_;
+  Abbreviation *abbrev_p_;
   Rhythmic_req *rhythmic_req_l_;
   Abbreviation_req* abbrev_req_l_;
 protected:

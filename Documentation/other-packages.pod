@@ -11,7 +11,7 @@ packages. Feel free to add info (and mail it to me).
 
 =over 4
 
-=item Rosegarden, http://www.bath.ac.uk/~masjpf/rose.html
+=item Rosegarden, http://www.bath.ac.uk/~masjpf/rose.html.
 
 A Notation editor/Sequencer for X. Also outputs musictex.
 
@@ -171,6 +171,8 @@ clones.  It uses MIDI-keyboard input
 
 =head2 Unknown
 
+=over 4
+
 =item MusE, [no WWW address known]
 
 A-R Music Engraving, by A-R Editions, Inc. Professional engraving on
@@ -189,12 +191,24 @@ Dominique Montel (a professional music typesetter) is now working
 together with computer scientists on his own software for music
 publishing, called "Berlioz".
 
+=back
+
 =head2 Other stuff
+
+=over 4
 
 =item Sonata, http://www.adobe.com/type/browser/F/F_SONA.html
 
 The music font by Adobe.
 
+=item Haskore, http://haskell.systemscz.cs.yale.edu/haskore/onlinetutorial/index.html
 
+A programming system for music, based on Haskell, a functional
+programming language.  It outputs MIDI, CSound, NeXTStep MusicKit and
+CMN.
+
+
+
+=back
 
 

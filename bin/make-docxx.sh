@@ -5,4 +5,4 @@ then
 fi
 p1=`find $LILYTOP -name '*.hh' |egrep -v out/` 
 p2=`find $LILYTOP -name '*.cc' |egrep -v out/`
-doc++ -d docxx/ -S -k -p $BANNEROPT $p1 $p2
+doc++ -f -d docxx/ -S -k -p $BANNEROPT $p1 $p2

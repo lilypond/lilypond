@@ -95,7 +95,7 @@ def my_system(cmds):
 base="lilypond/";
 
 examples=["twinkle-pop", 
-	  "toccata-fuga-E", 
+	  "praeludium-fuga-E", 
 	  "cadenza", 
 	  "twinkle", 
 	  "collisions",
@@ -123,8 +123,11 @@ def gen_examples(inputs):
     print 'generating examples:\n'
     outputs = []
     for i in inputs:
-	located = multiple_find ([i + '.ly'], include_path) [0]
-
+	try:
+		located = multiple_find ([i + '.ly'], include_path) [0]
+	except IndexError:
+		print 'continuing dazed & confused (%s) ' % i
+		continue
 	outputs.append (located)
 	if not file_exist_b(i + '.dvi'):
 	    my_system (['ly2dvi %s' % located])
@@ -275,6 +278,7 @@ def edit_html():
 	s = regsub.sub ('</BODY>', footstr('index.html') + makewebsite_id + '</BODY>', s)
 	s = regsub.sub('<TITLE>\(.*\)</TITLE>$', 
 		       '<TITLE>LilyPond WWW: \\1</TITLE>', s)
+
 	dump_file (f,s)
 
 

@@ -12,7 +12,7 @@ ac_help=
 ac_default_prefix=/usr/local
 # Any additions from configure.in:
 ac_help="$ac_help
-  enable-printing         turn on debug printing"
+  enable-printing         turn on debug printing. Default: off"
 ac_help="$ac_help
   enable-checking         set runtime checks (assert calls). Default: on"
 ac_help="$ac_help
