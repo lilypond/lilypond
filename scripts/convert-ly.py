@@ -2214,6 +2214,17 @@ conversions.append (((2, 3, 22),
 		     '''paper -> layout
  bookpaper -> paper''' ))
 
+
+def conv (str):
+	str = re.sub (r'\\context\s+([a-zA-Z]+)\s*=\s*([a-z]+)',
+		      r'\\context \1 = "\2"',
+		      str )
+	return str
+
+conversions.append (((2, 3, 23),
+		     conv,
+		     '''\context Foo = NOTENAME -> \context Foo = "NOTENAME"'''))
+
 ################################
 #	END OF CONVERSIONS	
 ################################
