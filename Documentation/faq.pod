@@ -11,8 +11,10 @@ Some questions that have been answered before.
 Q: I get all kinds of errors while  compiling parser.cc
 
 A: LilyPond uses features of bison version 1.25. Please confirm that
-you are using a version 1.25 or better. If the problem persists, then
-please mail me.
+you are using a version 1.25 or better. Don't forget to do "make
+clean" after installing it
+
+If the problem persists, then please mail me.
 
 
 =head2 Language: mudela
@@ -106,6 +108,11 @@ to associate one Request with one Item or Spanner.
 
 
 =head2 Miscellaneous
+
+Q: How do I change the staff-dividers?
+
+A: See lilyponddefs.tex
+
 
 Q: Why GPL?
 
