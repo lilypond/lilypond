@@ -264,7 +264,13 @@
        "")
    ;; FIXME: duplicated in every backend
    "\\def\\lilypondtagline{Engraved by LilyPond (version "
-   (lilypond-version)")}\n"))
+   (lilypond-version)")}\n"
+
+   ;; FIXME
+   ;; this is -of course- severely broken, (--hwn)
+   (tex-string-def  "lilypondpaper" 'linewidth
+		    "18cm")
+   ))
 
 (define (output-tex-string s)
    (if (ly:get-option 'safe)
