@@ -38,7 +38,7 @@ list is alphabetically ordered.
 @item @email{bjoern.jacke@@gmx.de, Bjoern Jacke}
     German glossary stuff.
 @item @email{chris@@fluffhouse.org.uk, Chris Jackson},
-    Emacs mode indentation, directed arpeggios.
+    Piano pedals, Emacs mode indentation, directed arpeggios.
 @item @email{nj104@@cus.cam.ac.uk, Neil Jerram}. 
     parts of Documentation/Vocab*
 @item @email{heikki.junes@@hut.fi, Heikki Junes}. 

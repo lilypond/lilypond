@@ -70,7 +70,7 @@
 
 ;; in principle, have one or more uppercase letters
 "\\(\\(BarNumbering\\|Choir\\|Grand\\|HaraKiri\\|OrchestralPart\\|Piano\\|Rhythmic\\)Staff\\|\\(Cue\\|Lyrics\\)?Voice\\|\\(Orchestral\\)?Score\\|ChordNames\\|Grace\\|Lyrics\\|StaffGroup\\|Thread\\)Context" ; *Context
-"\\(script\\|dots\\|dynamic\\|slur\\|stem\\|sustain\\|tie\\|tuplet\\)\\(Both\\|Down\\|Up\\)" ; *(Both/Down/Up)
+"\\(script\\|dots\\|dynamic\\|slur\\|stem\\|sustain\\|sostenuto\\|unaCorda\\|treCorde\\|tie\\|tuplet\\)\\(Both\\|Down\\|Up\\)" ; *(Both/Down/Up)
 "\\(slur\\|tie\\)\\(Dotted\\|Solid\\)" ; *(Dotted/Solid)
 "\\(autoBeam\\|cadenza\\|impro\\|turn\\)\\(Off\\|On\\)" ; *(On/Off)
 "\\(empty\\|fat\\)Text" ; *Text

@@ -557,6 +557,20 @@
 	(meta . ,(grob-description multi-measure-rest-interface  font-interface percent-repeat-interface))
 	))
 
+    (PianoPedalBracket   ;; an example of a text spanner
+     . (
+	(molecule-callback . ,Text_spanner::brew_molecule)
+	(font-family . roman)
+	(type . line)
+	(if-text-padding . 1.0)
+	(width-correct . 0)
+	(outer . #t)
+	(angle-left  . #f)
+	(angle-right . #f)
+	(text-start  . #f)
+	(meta . ,(grob-description text-spanner-interface piano-pedal-interface font-interface))
+	))
+
     (RepeatSlash
      . (
 	(molecule-callback . , Percent_repeat_item_interface::beat_slash)
@@ -700,17 +714,27 @@
     (SostenutoPedal
      . (
 	(molecule-callback . ,Text_item::brew_molecule)
-	(direction . -1)
+	(direction . 1)
 	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
-	(Y-offset-callbacks .
-			    (,Side_position_interface::aligned_side
-			     ,Side_position_interface::centered_on_parent))
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(no-spacing-rods . #t)
+	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
+	(pedal-type . mixed)
+	(font-family . roman)
 	(font-shape . italic)
 	(self-alignment-X . 0)
 	(meta . ,(grob-description text-interface  font-interface))
 	))
 
+    (SostenutoPedalLineSpanner 
+     . (
+	(axes . ( 1))
+	(padding . 1.2)
+	(minimum-space . 1.0)
+	(direction . -1)
+	(meta . ,(grob-description piano-pedal-interface axis-group-interface side-position-interface))
+	))
+	
     (Stem
      . (
 	(before-line-breaking-callback . ,Stem::before_line_breaking)
@@ -763,13 +787,21 @@
 	(no-spacing-rods . #t)
 	(molecule-callback . ,Sustain_pedal::brew_molecule)
 	(self-alignment-X . 0)
-	(direction . -1)
+	(direction . 1)
+	(padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
+	(pedal-type . text)
 	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
-	(Y-offset-callbacks .
-			    (,Side_position_interface::aligned_side
-			     ,Side_position_interface::centered_on_parent))
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side ))
+	(meta . ,(grob-description piano-pedal-interface side-position-interface font-interface))
+	))
 
-	(meta . ,(grob-description sustain-pedal-interface side-position-interface font-interface))
+    (SustainPedalLineSpanner 
+     . (
+	(axes . ( 1))
+	(padding . 1.2)
+	(minimum-space . 1.0)
+	(direction . -1)
+	(meta . ,(grob-description piano-pedal-interface axis-group-interface side-position-interface))
 	))
 
     (SystemStartBrace
@@ -822,7 +854,7 @@
      . (
 	(molecule-callback . ,Text_spanner::brew_molecule)
 	(font-family . roman)
-	(type . "line")
+	(type . line)
 
 	;; urg, only for (de)cresc. text spanners
 	(if-text-padding . 1.0)
@@ -886,12 +918,21 @@
 	(font-shape . italic)
 	(no-spacing-rods . #t)
 	(self-alignment-X . 0)
-	(direction . -1)
+	(direction . 1)
+	(pedal-type . text)
+	(padding . 0.0)  ;; padding relative to UnaCordaPedalLineSpanner
 	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
-	(Y-offset-callbacks .
-			    (,Side_position_interface::aligned_side
-			     ,Side_position_interface::centered_on_parent))
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side ))
 	(meta . ,(grob-description text-interface font-interface))
+	))
+
+    (UnaCordaPedalLineSpanner 
+     . (
+	(axes . ( 1))
+	(padding . 1.2)
+	(minimum-space . 1.0)
+	(direction . -1)
+	(meta . ,(grob-description piano-pedal-interface axis-group-interface side-position-interface))
 	))
 
     (VoltaBracket

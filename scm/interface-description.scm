@@ -587,6 +587,12 @@ dir-list shortest-playing-duration shortest-starter-duration
 contains-grace extra-space stretch-distance ))
 
 
+  (lily-interface
+   'piano-pedal-interface
+   ""
+   '(pedal-type
+    ))
+
 
   (lily-interface
    'porrectus-interface
@@ -728,12 +734,6 @@ since these usually are in a different X_group
 
 
   (lily-interface
-   'sustain-pedal-interface
-   ""
-   '(
-    ))
-
-  (lily-interface
    'system-start-delimiter-interface
    "#'style can be bar-line, bracket or brace"
    '(bar-line-collapse-height brace-collapse-height bracket-collapse-height
@@ -749,6 +749,7 @@ since these usually are in a different X_group
     dash-length 
     line-thickness 
     edge-height 
+    edge-width
     edge-text 
     type 
 ))

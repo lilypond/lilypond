@@ -163,15 +163,25 @@ fet_beginchar( "Natural", "0", "natural")
 %
 
 % TODO: remove crook_fatness
+% TODO: document, simplify!
+%
 def draw_meta_flat(expr xcenter, w, crook_fatness) =
 	clearxy;
 	save crook_thinness;
-	save top_stem_thick, bottom_stem_thick, hair;
+	save top_stem_thick, bottom_stem_thick, hair, smaller_hole;
 	save center;
 	pair center;
 	center = (xcenter, 0);
 
-	crook_thinness = 1.25 stafflinethickness;
+%
+%  TODO: parameterize  this
+%
+	if w >= 0.75 staff_space:
+		smaller_hole = 0.2 stafflinethickness;
+	else:
+		smaller_hole = 0.0 stafflinethickness;
+	fi
+	crook_thinness = 1.1 stafflinethickness;
 	top_stem_thick = 2 stafflinethickness;
 	bottom_stem_thick = 1.2 stafflinethickness;
 
@@ -188,8 +198,10 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 	y3l = (staff_space - stafflinethickness)/2 + ypart center;
 	z3l = whatever [z2r,z1r];
 
-	z3r = .26 [z2r, z1r];
+	z3r = .26 [z2r, z1r] + (smaller_hole, 0);
+	z10 = whatever [z2r, z1r] + (smaller_hole , 0);
 
+	
 
 	z4 = (3/8 staff_space, staff_space/2) + center;
 	penpos4(whatever, 53);
@@ -207,26 +219,23 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 	save ne_angle;
 	ne_angle = angle(z9 - z8);
 
-	z7 = 8/33 [z8,z9];
+	z7 = 8/33 [z8,z9] + (1.0 smaller_hole, 0);
 	z6l = 18/33 [z8,z9] + .5 crook_thinness *dir(ne_angle -90);
   
 	penpos7(crook_thinness, ne_angle + 90);
 
 	z6r = .3 (z9-z8) + z7r;
 
-%	penpos7(crook_thinness, angle(dir(z8-center) -180);
-
 	penpos8(whatever, ne_angle + 90);
 	x8r =  xpart center - bottom_stem_thick/2;
 	penlabels(range 0 thru 10);
 
 	y10 = -1/5 staff_space;
-	z10 = whatever [z2r, z1r];
 
 	unfill z3r .. z4r{right} .. tension .9 
 		.. z6r ---
-		z7r{left}
-		.. z10  -- cycle;
+		z7r{left} 
+		.. z10{z3r-z10}  -- cycle;
 	fill z8r{down}
 		.. tension 0.8 ..z8l{(z9-z8)}
 		.. z7l

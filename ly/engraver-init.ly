@@ -379,7 +379,10 @@ ScoreContext = \translator {
 
 	pedalSustainStrings = #'("Ped." "*Ped." "*")
 	pedalUnaCordaStrings = #'("una corda" "" "tre corde")
-	pedalSostenutoStrings = #'()  % FIXME
+
+	%% these are in ordinary italic font, including the *, but they are unlikely to be used, 
+	%% as the default pedal-style for SostenutoPedal is 'mixed': i.e.  Sost. Ped_____________________ 
+	pedalSostenutoStrings = #'("Sost. Ped." "*Sost. Ped." "*") 
 
 	tupletNumberFormatFunction = #denominator-tuplet-formatter
 	

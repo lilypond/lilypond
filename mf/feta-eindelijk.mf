@@ -184,20 +184,25 @@ enddef;
 % todo: document rest.
 %
 
+def normalize (expr p) =
+	(p / length (p))
+enddef ;
 
 def draw_eighth_rest =
 	save width, bulb_diam, thin, thick;
-	save ycenter, crook_thick;
-	save crook_dir;
+	save ycenter, crook_thick, crook_thin;
+	save crook_dir, lower_brush;
 	pair crook_dir;
 
 
 	width# := 1.0 staff_space#;
 	bulb_diam# := 0.6 staff_space#;
-	thin# := 1.0 stafflinethickness#;
-	thick# :=  2.0 stafflinethickness#;
-	crook_thick# := 1.6 stafflinethickness#;
+	thin# := 1.1 stafflinethickness#;
+	thick# :=  2.2 stafflinethickness#;
+	crook_thick# := 1.8 stafflinethickness#;
+	crook_thin := 1.3 stafflinethickness;
 
+	lower_brush = 1.0 stafflinethickness;
 	ycenter := 0.5 staff_space;
 
 	define_pixels (width, bulb_diam, thin, thick, crook_thick);
@@ -208,30 +213,34 @@ def draw_eighth_rest =
 	penpos2 (thin, 0);
 
 	y1 = ycenter + - 1.5 staff_space ;
-	y2 = y5 -  2.0 stafflinethickness;
+%	y9 = y5 -  lower_brush;
+	y2 = y5 -  0.7 stafflinethickness;
+       
 	x2r = width;
 
 	y3 - y2l = 0.25 staff_space;
 	x2r - x1 = 0.5 staff_space;
 
 	x3 = x1l ;
-	y3 := ycenter +floor (- bulb_diam/2);
+
 
 	x4 = 1.02 bulb_diam ;
-	y4 = ycenter - stafflinethickness;
+	y4 = ycenter - 2 stafflinethickness + crook_thin;
 
 	x5 = 0.5 bulb_diam;
 	y5 = ycenter +bulb_diam/2;
 	
-	crook_dir = (z2l - z4) / length(z2l - z4);
-
-	z6 = whatever [z1l, z2l];
-	z6 = whatever [z2l, z4] + crook_thick * (crook_dir rotated -90);
+	z9 = z2 + 0.46 stafflinethickness * dir (angle(z2 - z1)- 10);
 
 	z7 = (bulb_diam/2,ycenter) + 0.26 staff_space * dir ( 35);
 	z8 = (0, ycenter);
 
-	z9 = z2 + 0.46 stafflinethickness * dir (angle(z2 - z1)- 10);
+	z6 = whatever [z1l, z2l];
+	z6 = whatever [z2l, z4] + crook_thick * (crook_dir rotated -90);
+	crook_dir = normalize(z2l - z4);
+
+	y3 := ycenter +floor (- bulb_diam/2);
+
 
 	penlabels (1, 2);
 	labels(3, 4, 5, 6, 7, 8, 9);

@@ -85,6 +85,8 @@ Accidentals are currently in a development stage.
 
 @lilypondfile[printfilename]{dynamics-unbound-hairpin.ly}
 
+@lilypondfile[printfilename]{pedal.ly}
+
 @section Chord names
 
 @lilypondfile[printfilename]{chord-names.ly}
