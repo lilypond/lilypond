@@ -63,7 +63,7 @@ Span_bar::do_pre_processing()
   if (spanning_l_arr_.size() < 1) 
     {
       transparent_b_ = true;
-      empty_b_ =true;
+      set_empty (true);   
     }
   else 
     {
@@ -72,7 +72,7 @@ Span_bar::do_pre_processing()
       if (!type_str_) 
 	{
 	  transparent_b_=true;
-	  empty_b_ = true;
+	  set_empty (true);
 	}
       else if (type_str_ == "|:") 
 	{

@@ -80,7 +80,8 @@ Script::do_pre_processing()
 {
   if  (breakable_b_ && break_status_i() != 1) 
     {
-      transparent_b_ = empty_b_ = true;
+      transparent_b_ = true;
+      set_empty (true);
     }
   
   if (!dir_)

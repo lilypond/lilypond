@@ -7,7 +7,7 @@
 */
 
 #include "horizontal-align-item.hh"
-
+#include "debug.hh"
 
 IMPLEMENT_IS_TYPE_B1(Horizontal_align_item,Item);
 
@@ -114,12 +114,18 @@ Horizontal_align_item::do_width() const
 void
 Horizontal_align_item::do_print() const
 {
+#ifndef NPRINT
+  Item::do_print ();
+  DOUT << "contains: ";
+  for (int i=0 ;  i < item_l_arr_.size(); i++) 
+    DOUT << item_l_arr_[i]->name () << ", ";
+#endif
 }
 
 Horizontal_align_item::Horizontal_align_item()
 {
   center_l_ = 0;
   align_i_ = 0;
-  empty_b_ = true;
+  set_empty (true);
   transparent_b_ = true;
 }
