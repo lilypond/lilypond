@@ -59,6 +59,10 @@ Grob::Grob (SCM basicprops,
      GC. After smobify_self (), they are.  */
   smobify_self ();
 
+  /*
+    We always get a new key object for a new grob.
+   */
+  scm_gc_unprotect_object (key_->self_scm ());
   SCM meta = get_property ("meta");
   if (scm_is_pair (meta))
     {
