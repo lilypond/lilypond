@@ -3,8 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
-	   Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+	   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 
@@ -29,7 +29,7 @@ protected:
   virtual void do_removal_processing();
   virtual void do_process_requests();
   virtual bool do_try_request (Request*);
-  virtual void acknowledge_element (Score_elem_info);
+  virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
 
 private:

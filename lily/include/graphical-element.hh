@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -16,7 +16,7 @@
 #include "virtual-methods.hh"
 
 /** The 2d geometric aspects of a score-element.  It was put in a
-  separate class, because Score_elem got quite big.
+  separate class, because Score_element got quite big.
 
   */
 class Graphical_element 
@@ -27,24 +27,23 @@ class Graphical_element
    */
   bool empty_b_;
   
+  Offset offset_;
+  Interval cached_dimension_a_[NO_AXES];
+  bool cached_valid_b_a_[NO_AXES];
 public:
+
+  // suck me plenty
+  virtual Score_element* access_Score_element () { return 0; }
   void set_empty (bool);
+
   bool empty_b () const;
   
   DECLARE_MY_RUNTIME_TYPEINFO;
-  /**
-    This is  needed, because #output# may still be
-    NULL.
-    */
-  Offset offset_;
   
-  Axis_group_element * axis_group_l_a_[NO_AXES];
-  Interval cached_dimension_a_[NO_AXES];
-  bool cached_valid_b_a_[NO_AXES];
+  Graphical_axis_group * axis_group_l_a_[NO_AXES];
   
   Graphical_element ();
   Graphical_element (Graphical_element const&);
-  virtual ~Graphical_element ();
   
   void invalidate_cache (Axis);
   Interval extent (Axis) const;
@@ -61,16 +60,16 @@ public:
     
   void translate_axis (Real, Axis);
 
-  Real relative_coordinate (Axis_group_element*group, Axis) const;
+  Real relative_coordinate (Graphical_axis_group*group, Axis) const;
   Offset absolute_offset() const;
   Real absolute_coordinate (Axis) const;
   /**
     Find the group-element which has both #this# and #s#
    */
-  Axis_group_element*common_group (Graphical_element const* s, Axis a) const;
+  Graphical_axis_group*common_group (Graphical_element const* s, Axis a) const;
   void unlink ();
   void junk_links ();
-  void print () const;
+  virtual void do_print () const;
 protected:
   virtual Interval do_height () const=0;
   virtual Interval do_width () const=0;

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -22,8 +22,8 @@ public:
     Bar_column();
     void set_bar (Bar*);
 protected:
-    SCORE_ELEM_CLONE(Bar_column);
-    void do_substitute_dependency (Score_elem*,Score_elem*);
+    SCORE_ELEMENT_CLONE(Bar_column);
+    void do_substitute_dependency (Score_element*,Score_element*);
     DECLARE_MY_RUNTIME_TYPEINFO;
 };
 

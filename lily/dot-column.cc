@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "dots.hh"
@@ -11,7 +11,7 @@
 #include "rhythmic-head.hh"
 
 void
-Dot_column::add (Dots *d)
+Dot_column::add_dots (Dots *d)
 {
   dot_l_arr_.push (d);
   add_dependency (d);
@@ -19,21 +19,21 @@ Dot_column::add (Dots *d)
 }
 
 void
-Dot_column::add (Rhythmic_head *r)
+Dot_column::add_head (Rhythmic_head *r)
 {
   if (!r->dots_l_)
     return ;
   
   head_l_arr_.push (r);
   add_dependency (r);
-  add (r->dots_l_);
+  add_dots (r->dots_l_);
 }
 
 void
-Dot_column::do_substitute_dependency (Score_elem*o,Score_elem*n)
+Dot_column::do_substitute_dependency (Score_element*o,Score_element*n)
 {
-  Item *oi =o->item ();
-  Item *ni = n?n->item ():0;
+  Item *oi =o->access_Item ();
+  Item *ni = n?n->access_Item ():0;
   
   if (oi&&oi->is_type_b (Rhythmic_head::static_name ()))
     head_l_arr_.substitute ((Rhythmic_head*)oi, (Rhythmic_head*)ni);

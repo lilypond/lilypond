@@ -1,7 +1,7 @@
 /*
   text-def.hh -- part of GNU LilyPond
 
-  (c) 1996,97 Han-Wen Nienhuys
+  (c) 1996--1998 Han-Wen Nienhuys
 */
 
 #ifndef TEXT_DEF_HH
@@ -19,11 +19,11 @@ public:
   VIRTUAL_COPY_CONS(Text_def,General_script_def);
 
   /**
-     centered , or aligned?
+     Alignment of typeset text wrt center.
 
-     -1 = raggedright, 0 = center, 1 = raggedleft
+     LEFT = raggedright, CENTER = centered, RIGHT = raggedleft
   */
-  Direction align_i_;
+  Direction align_dir_;
 
   String text_str_;
   String style_str_;

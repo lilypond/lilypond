@@ -1,22 +1,14 @@
 # mutopia/J.S.Bach/Makefile
 
-# subdir level:
-#
 depth = ../..
-#
 
-EXTRA_DISTFILES=preludes-3.lym4
+SUBDIRS = Petites-Preludes Solo-Cello-Suites 
 
-# descent order into subdirectories:
-#
-SUBDIRS = 
-# 
+include $(depth)/make/Stepmake.make
+include $(make-dir)/Mutopia.make
 
-# generic stuff/Makefile
-#
-include ./$(depth)/make/Mutopia.make
-#
+EXTRA_DIST_FILES=
 
-examples=scsii-cello wtk1-fugue2 preludes-2
+examples=wtk1-fugue2
 
-include $(depth)/make/WWW.make
+include $(stepdir)/WWW.make

@@ -1,91 +1,58 @@
 # -*-Makefile-*-
-########################################################
-# project  LilyPond -- the musical typesetter
-# title	   top level makefile for LilyPond  
-# file	   Makefile 
-#
-# Copyright (c) 1997 by    
-#   	Jan Nieuwenhuizen <jan@digicash.com>
-#	Han-Wen Nienhuys <hanwen@stack.nl>
+# title	   specific top level makefile for LilyPond  
 
 # subdir level:
 #
 depth = .
 #
 
-# identify module:
+# descent order into subdirectories:
 #
-NAME = lilypond
-SUBDIRS = bin flower lib lily mf mi2mu debian\
-	Documentation init input tex make mutopia test
-include VERSION
+SUBDIRS = scripts buildscripts  flower lib lily mf mi2mu po debian \
+	Documentation init input tex make mutopia test intl $(stepmake)
 #
 
-# descent order into subdirectories:
+SCRIPTS = configure aclocal.m4
+README_FILES = BUGS DEDICATION ANNOUNCE-0.1 ANNOUNCEMENT \
+ COPYING NEWS-0.1 NEWS-0.0 NEWS  TODO
+README_TXT_FILES = README.txt AUTHORS.txt INSTALL.txt PATCHES.txt
+IN_FILES := $(wildcard *.in)
+EXTRA_DIST_FILES = dstreamrc mudela-mode.el vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES)
+NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
+
+
+# bootstrap stepmake:
+#
+include $(depth)/make/Stepmake.make 
 #
 
 # list of distribution files:
 #
-SCRIPTS = configure configure.in aclocal.m4
-README_FILES = BUGS DEDICATION ANNOUNCE-0.1 ANNOUNCE \
- COPYING ONEWS NEWS README TODO \
- INSTALL$(DOTTEXT) AUTHORS$(DOTTEXT) PATCHES$(DOTTEXT)
-EXTRA_DISTFILES = config.make.in config.hh.in .dstreamrc mudela-mode.el vimrc VERSION $(README_FILES) $(SCRIPTS) 
 
 
+include $(stepdir)/Toplevel.make
 
-# generic targets and rules:
-#
-include ./$(depth)/make/Version.make
-include ./$(depth)/make/Variables.make 
-include ./$(depth)/make/Targets.make
-include ./$(depth)/make/Rules.make
+aclocal.m4: $(stepdir)/../aclocal.m4
+	cp $< $@
 
-#
-# override Variables.make:
-# do not dist ./Makefile (is copied from make/Toplevel.make)
-# 
-DISTFILES := $(EXTRA_DISTFILES)
-
-
-
-localdist: configure
-
-local-distclean: 
-	rm -f config.hh config.make Makefile config.cache config.status config.log
-
-local-maintainerclean:
-	rm -f configure
-
-Makefile: make/Toplevel.make.in
-	chmod +w $@
-	echo '# WARNING WARNING WARNING WARNING' > $@
-	echo '# do not edit! this is generated from make/Toplevel.make.in' >> $@
-	cat $< >> $@
-	chmod -w $@
-
-website:examples htmldoc
-
-htmldoc:
-	$(MAKE) CONFIGSUFFIX='www' local-WWW
-	$(MAKE) CONFIGSUFFIX='www' -C Documentation WWW
-	rm -f `find . -name \*.html~ -print`
-	tar cfz $(outdir)/htmldoc.tar.gz  `find Documentation -type d -name 'out-www' -print` out-www index.html
+website: examples htmldoc doc++
 
 examples:
-	$(MAKE) CONFIGSUFFIX='www' outdirs
 	$(MAKE) CONFIGSUFFIX='www' -C input WWW
 	$(MAKE) CONFIGSUFFIX='www' -C mutopia WWW
 	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' -czf $(outdir)/examples.tar.gz  `find input mutopia -type d -name 'out-www' -print`
 
-local-WWW: index.html
 
-index.html: Documentation/$(outdir)/topweb.html NEWS
-	$(sed-version) < Documentation/$(outdir)/topweb.html > $@
-	add-html-footer --news=NEWS $@
+localdist: do-top-doc
 
-Documentation/$(outdir)/topweb.html: 
-	make -C Documentation/ html
+$(package-icon):
+	$(MAKE) -C Documentation/pictures icon
 
-WWW-clean:
-	$(MAKE) CONFIGSUFFIX='www' clean
+
+
+do-top-doc:
+	-$(MAKE) -C Documentation/topdocs/ README_TOP_FILES="$(README_TXT_FILES)" copy-to-top
+
+$(README_TXT_FILES): do-top-doc
+
+

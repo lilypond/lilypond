@@ -32,14 +32,15 @@
 
 (defconst mudela-font-lock-keywords
   (let* ((keywords '(
-		   "accepts" "break" "bar" "cadenza" "clear" "clef" "cm" "consists" "contains"
-		   "duration" "absdynamic" "in" "translator" "type" "lyric" "key"
-		   "maininput" "melodic" "musical_pitch" "meter" "midi" "mm" "multi" "header"
-		   "notenames" "octave" "output" "partial" "paper" "plet" "property" "pt" "shape"
-		   "include"
-		   "score" "script" "skip" "staff" "table" "spandynamic" "symboltables"
-		   "tempo" "texid" "textstyle" "transpose" "version" "grouping"
-		   ))
+		     "accepts" "accidentals" "break" "bar" "cadenza" "clear" 
+		     "clef" "cm" "consists" "contains" "duration" "absdynamic" 
+		     "in" "translator" "type" "lyric" "key" "maininput" "melodic"
+		     "musical_pitch" "meter" "midi" "mm" "multi" "header"
+		     "notenames" "octave" "output" "partial" "paper" "plet"
+		     "property" "pt" "shape" "relative" "include" "score"
+		     "script" "skip" "staff" "table" "spandynamic" "symboltables"
+		     "tempo" "texid" "textstyle" "transpose" "version" "grouping"
+		     ))
        (kwregex (mapconcat (lambda (x) (concat "\\\\" x))  keywords "\\|")))
 
     (list 
@@ -198,7 +199,7 @@
 
 (defconst mu-version "0.0.1"
   "`mudela-mode' version number.")
-(defconst mu-help-address "hanwen@cs.ruu.nl"
+(defconst mu-help-address "hanwen@cs.uu.nl"
   "Address accepting submission of bug reports.")
 
 (defun mu-version ()

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include <math.h>
@@ -11,7 +11,7 @@
 #include "misc.hh"
 #include "lookup.hh"
 #include "molecule.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "debug.hh"
 #include "paper-def.hh"
 #include "string-convert.hh"

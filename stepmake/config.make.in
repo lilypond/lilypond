@@ -1,0 +1,59 @@
+# -*-Makefile-*-
+
+# @configure_input@
+
+package-depth = @package_depth@
+
+INSTALL = @INSTALL@
+USER_CXXFLAGS = @CXXFLAGS@ @CPPFLAGS@
+USER_LDFLAGS = 
+
+CC = @CC@
+CXX = @CXX@
+GCC = @GCC@
+LD = @LD@
+PACKAGE = @PACKAGE@
+package = @package@
+PACKAGE_NAME = @PACKAGE_NAME@
+stepmake = @stepmake@
+CONFIGSUFFIX = @CONFIGSUFFIX@
+MAKEINFO = @MAKEINFO@
+ICFLAGS = @ICFLAGS@
+ILDFLAGS = @ILDFLAGS@
+libdir = @libdir@
+prefix = @prefix@
+TEXPREFIX = @TEXPREFIX@
+TEXDIR = @TEXDIR@
+MFDIR = @MFDIR@
+mandir = @mandir@
+infodir = @infodir@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+includedir = @includedir@
+datadir = @datadir@
+localedir = @localedir@
+EXTRA_LIBES = @EXTRA_LIBES@ @LIBS@
+RANLIB = @RANLIB@
+DEFS = @DEFS@
+#SET_MAKE = @SET_MAKE@
+DEFINES = @DEFS@ @DEFINES@
+COMPILEINFO = @COMPILEINFO@
+DOTEXE = @DOTEXE@
+BASH = @BASH@
+BISON = @BISON@
+FIND = @FIND@
+FLEX = @FLEX@
+LN = @LN@
+MSGFMT = @MSGFMT@
+PERL = @PERL@
+PYTHON = @PYTHON@
+TAR= @TAR@
+TROFF = @TROFF@
+YODL= @YODL@
+YODL2HTML= @YODL2HTML@
+YODL2LATEX= @YODL2LATEX@
+YODL2MAN= @YODL2MAN@
+YODL2TEXINFO= @YODL2TEXINFO@
+YODL2TXT= @YODL2TXT@
+ZIP = @ZIP@
+

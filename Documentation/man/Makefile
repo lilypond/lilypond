@@ -1,19 +1,28 @@
+# Documentation/man/Makefile
 
 depth = ../..
 
-include $(depth)/make/Include.make
-include $(depth)/make/Docrules.make
+include $(depth)/make/Stepmake.make 
+
+include $(stepdir)/Documentation.vars.make
+include $(stepdir)/Documentation_rules.make
+
 SECTION=1
-MANTXT = $(addprefix $(outdir)/, $(addsuffix $(DOTTEXT),$(basename $(PODFILES) .pod)))
-MANGROFF = $(addprefix $(outdir)/, $(addsuffix .$(SECTION),$(basename $(PODFILES) .pod)))
+MANTXT = $(addprefix $(outdir)/, $(addsuffix .txt,$(basename $(TEXINFO_FILES) .texinfo)))
+MANGROFF = $(addprefix $(outdir)/, $(addsuffix .$(SECTION),$(basename $(YO_FILES) .yo)))
+
+OUTTEXINFO_FILES= $(addprefix $(outdir)/, $(addsuffix .texinfo,$(basename $(YO_FILES) .yo)))
 
 default: $(MANTXT) $(MANGROFF)
 
+texinfo: $(OUTTEXINFO_FILES)
 
 INSTALLATION_OUT_FILES=$(MANGROFF)
 INSTALLATION_OUT_DIR=$(mandir)/man$(SECTION)
 
-include $(depth)/make/Install_outfiles.make
+include $(stepdir)/Install_outfiles.make
 
-local-WWW: $(OUTPODFILES:.pod=.html)
-	ls-latex  --title 'Manual pages for LilyPond' $(PODFILES)  > $(outdir)/index.html
+local-WWW: $(MANGROFF:.1=.html)
+	$(PYTHON) $(step-bindir)/ls-latex.py --package=$(topdir) --title 'Manual pages for LilyPond' $(YO_FILES) \
+	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
+	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) $(outdir)/index.html

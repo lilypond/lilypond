@@ -3,11 +3,11 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "misc.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "debug.hh"
 #include "real.hh"
 #include "atom.hh"
@@ -41,10 +41,13 @@ Atom
 Symtable::lookup (String s) const
 {
   if (elt_b (s))
-    return (*this)[s];
+    {
+      Atom a (elem(s));
+      return a;
+    }
   else
     {
-      warning ("Symtable `" + id_str+ _("\': unknown symbol `") +s+"'\n");
+      warning (_f ("Symtable `%s\': unknown symbol: `%s\'", id_str, s));
       Atom sy;
       return sy;
     }
@@ -55,9 +58,9 @@ Symtables::operator()(String s)
 {
   if (!elt_b (s))
     {
-      error ("Symtable `" + s + _("\' unknown"));
+      error (_f ("Symtable `%s\' unknown", s));
       /* 
-	 We can't return, because we'll dump core anyway.
+	 We can 't return, because we'll dump core anyway.
        */
       return 0;
     }
@@ -69,7 +72,7 @@ Symtables::print() const
 {
   for (Assoc_iter<String, Symtable*>  i (*this); i.ok(); i++)
     {
-      DOUT << "table \'" << i.key() << "\' {\n";
+      DOUT << "table \'" << i.key () << "\' {\n";
       i.val()->print ();
       DOUT << "}\n";
     }
@@ -79,7 +82,7 @@ Symtable::print() const
 {
   for (Assoc_iter<String, Atom>  i (*this); i.ok(); i++)
     {
-      DOUT << "\'" << i.key() << "\'->" << i.val ().str () << "\n";
+      DOUT << "\'" << i.key() << "\'->" << i.val ().str () << '\n';
     }
 }
 

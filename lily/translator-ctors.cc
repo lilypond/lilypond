@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "proto.hh"
@@ -11,6 +11,10 @@
 #include "translator.hh"
 #include "dictionary.hh"
 #include "debug.hh"
+
+/*
+  should delete these after exit.
+ */
 
 Dictionary<Translator*> *global_translator_dict_p=0;
 
@@ -28,10 +32,12 @@ get_translator_l (String s)
 {
   if (global_translator_dict_p->elt_b (s))
     {
-      return (*global_translator_dict_p)[s];
+//      return (*global_translator_dict_p)[s];
+	Translator* t = (*global_translator_dict_p)[s];
+	return t;
     }
 
-  error (_("Unknown translator `") + s +"\'");
+  error (_f ("unknown translator `%s\'", s));
   return 0;
 }
 

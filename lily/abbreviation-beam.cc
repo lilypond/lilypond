@@ -3,14 +3,14 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
-	   Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+	   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "p-col.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "proto.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "abbreviation-beam.hh"
 #include "misc.hh"
 #include "debug.hh"

@@ -1,8 +1,8 @@
 /*
   multi_measure_rest-engraver.cc -- implement Multi_measure_rest_engraver
 
-  (c) 1998 Jan Nieuwenhuizen <jan@digicash.com>
-       Han-Wen Nienhuys <hanwen@cs.ruu.nl>
+  (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
+       Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "proto.hh"
@@ -26,7 +26,7 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 bool
 Multi_measure_rest_engraver::do_try_request (Request* req_l)
 {
-  if (!req_l->musical () || !req_l->musical ()->multi_measure ())
+  if (!req_l->access_Musical_req () || !req_l->access_Musical_req ()->access_Multi_measure_rest_req ())
     return false;
 
   if (multi_measure_req_l_)
@@ -34,7 +34,7 @@ Multi_measure_rest_engraver::do_try_request (Request* req_l)
 	|| req_start_mom_ != now_moment ())
       return false;
   
-  multi_measure_req_l_ = req_l->musical ()->multi_measure ();
+  multi_measure_req_l_ = req_l->access_Musical_req ()->access_Multi_measure_rest_req ();
   req_start_mom_ = now_moment ();
   
   rest_req_stop_mom_ = req_start_mom_ + multi_measure_req_l_->duration_.length ();
@@ -50,7 +50,7 @@ Multi_measure_rest_engraver::do_process_requests ()
       Time_description const *time = get_staff_info().time_C_;
       mmrest_p_ = new Multi_measure_rest;
       rest_item_creation_mom_ =  time->when_mom ();
-      announce_element (Score_elem_info (mmrest_p_, multi_measure_req_l_));
+      announce_element (Score_element_info (mmrest_p_, multi_measure_req_l_));
       start_measure_i_ = time->bars_i_;
     }
 }

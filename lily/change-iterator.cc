@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "change-iterator.hh"
@@ -22,10 +22,10 @@ Change_iterator::error (String reason)
   String to_type = change_l_->change_to_type_str_;
   String to_id =  change_l_->change_to_id_str_;
 
-  String warn1 = 
-    _ ("Can't change ") + to_type 
-    + _(" to ") + "`" + to_id + "\': " + reason;
-  String warn2= "Change_iterator::process_and_next (): " + report_to_l ()->type_str_ + " = `"
+  String warn1 = _f ("can't change `%s\' to `%s\'", to_type, to_id) 
+    + ": " + reason;
+  String warn2= "Change_iterator::process_and_next (): " 
+    + report_to_l ()->type_str_ + " = `"
     + report_to_l ()->id_str_ + "\': ";
   warning (warn2);
   change_l_->warning (warn1);

@@ -1,7 +1,7 @@
 //
 // mudela-item.cc -- implement Mudela_item
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <assert.h>
 #include "mi2mu-global.hh"
@@ -36,7 +36,7 @@ Mudela_item::duration_mom ()
 void
 Mudela_item::output (Mudela_stream& mudela_stream_r)
 {
-  mudela_stream_r << str () << String (" ");
+  mudela_stream_r << str () << " ";
 }
 
 Mudela_key::Mudela_key (int accidentals_i, int minor_i)
@@ -51,17 +51,16 @@ Mudela_key::str ()
 {
   int key_i = 0;
   if (accidentals_i_ >= 0)
-	key_i =   ((accidentals_i_ % 7)[ "cgdaebf" ] - 'a' - 2) % 7;
+    key_i =   ((accidentals_i_ % 7)[ "cgdaebf" ] - 'a' - 2) % 7;
   else
-	key_i =   ((-accidentals_i_ % 7)[ "cfbeadg" ] - 'a' - 2) % 7;
-  String str = "\\key ";
-  if (!minor_i_)
-	str += String ((char)  ((key_i + 2) % 7 + 'A'));
-  else // heu, -2: should be - 1 1/2: A -> fis
-	str += String ((char)  ((key_i + 2 - 2) % 7 + 'a'));
-  str = String ("% \"") + str
-	+ String ('"') + _("; % not supported yet\n");
-  return str;
+    key_i =   ((-accidentals_i_ % 7)[ "cfbeadg" ] - 'a' - 2) % 7;
+  
+  String keyname = (1) // !minor_i_)
+    ?  to_str ((char)  ((key_i + 2) % 7 + 'A'))
+    : to_str ((char)  ((key_i + 2 - 2) % 7 + 'a'));
+  // heu, -2: should be - 1 1/2: A -> fis
+   
+  return String("\\key " + keyname  + ";\n");
 }
 
 String
@@ -79,40 +78,40 @@ Mudela_key::notename_str (int pitch_i)
   int accidental_i = accidentals_i_a[ (minor_i_ * 5 + pitch_i) % 12 ];
   if (accidental_i &&  (accidentals_i_ < 0))
     {
-	accidental_i = - accidental_i;
-	notename_i =  (notename_i + 1) % 7;
+      accidental_i = - accidental_i;
+      notename_i =  (notename_i + 1) % 7;
     }
 
-  String notename_str = (char)  ( ((notename_i + 2) % 7) + 'a');
+  String notename_str = to_str ((char)(((notename_i + 2) % 7) + 'a'));
   while  (accidental_i-- > 0)
-	notename_str += "is";
+    notename_str += "is";
   accidental_i++;
   while  (accidental_i++ < 0)
-	if   ((notename_str == "a") ||  (notename_str == "e"))
-	    notename_str += "s";
-	else
-	    notename_str += "es";
+    if   ((notename_str == "a") ||  (notename_str == "e"))
+      notename_str += "s";
+    else
+      notename_str += "es";
   accidental_i--;
 
-  String de_octavate_str = String ('\'',  (Mudela_note::c0_pitch_i_c_ + 11 - pitch_i) / 12);
-  String octavate_str = String ('\'',  (pitch_i - Mudela_note::c0_pitch_i_c_) / 12);
-  return de_octavate_str + notename_str + octavate_str;
+  String de_octavate_str = to_str (',',  (Mudela_note::c0_pitch_i_c_ + 11 - pitch_i) / 12);
+  String octavate_str = to_str ('\'',  (pitch_i - Mudela_note::c0_pitch_i_c_) / 12);
+  return notename_str +de_octavate_str  + octavate_str;
 }
 
-Mudela_meter::Mudela_meter (int num_i, int den_i, int clocks_4_i, int count_32_i)
-   : Mudela_item (0)
+Mudela_time_signature::Mudela_time_signature (int num_i, int den_i, int clocks_4_i, int count_32_i)
+  : Mudela_item (0)
 {
   sync_dur_.durlog_i_ = 3;
   sync_f_ = 1.0;
   if (count_32_i != 8)
-	warning (String (_("#32 in quarter: ")) + String (count_32_i));
+    warning (_f ("#32 in quarter: %d", count_32_i));
   num_i_ = num_i;
   den_i_ = den_i;
   clocks_1_i_ = clocks_4_i * 4;
 }
 
 Moment
-Mudela_meter::bar_mom ()
+Mudela_time_signature::bar_mom ()
 {
   Duration d;
   d.durlog_i_ = den_i_;
@@ -120,43 +119,44 @@ Mudela_meter::bar_mom ()
 }
 
 int
-Mudela_meter::clocks_1_i ()
+Mudela_time_signature::clocks_1_i ()
 {
   return clocks_1_i_;
 }
 
 int
-Mudela_meter::den_i ()
+Mudela_time_signature::den_i ()
 {
   return den_i_;
 }
 
 int
-Mudela_meter::num_i ()
+Mudela_time_signature::num_i ()
 {
   return num_i_;
 }
 
 String
-Mudela_meter::str ()
+Mudela_time_signature::str ()
 {
-  String str = "\\meter "
-	+ String (num_i_) + "/" + String (1 << den_i_)
-	+ ";\n";
+  String str = "\\time "
+    + to_str (num_i_) + "/" + to_str (1 << den_i_)
+    + ";\n";
   return str;
 }
 
 
 // statics Mudela_note
 /*
- this switch can be used to write simple plets like
-   c4*2/3
- as
-   \plet 2/3; c4 \plet 1/1;
+  this switch can be used to write simple plets like
+  c4*2/3
+  as
+  \plet 2/3; c4 \plet 1/1;
  */
 bool const Mudela_note::simple_plet_b_s = true;
 
-Mudela_note::Mudela_note (Mudela_column* mudela_column_l, int channel_i, int pitch_i, int dyn_i)
+Mudela_note::Mudela_note (Mudela_column* mudela_column_l,
+			  int channel_i, int pitch_i, int dyn_i)
   : Mudela_item (mudela_column_l)
 {
   // junk dynamics
@@ -186,7 +186,7 @@ Mudela_note::str ()
 {
   Duration dur = duration ();
   if (dur.durlog_i_ < -10)
-	return "";
+    return "";
 
   String name_str
     = mudela_column_l_->mudela_score_l_->mudela_key_l_->notename_str (pitch_i_);
@@ -197,10 +197,10 @@ Mudela_note::str ()
   String str;
   //ugh
   if (dur.plet_b ())
-	str += String ("\\[")
-	    + String_convert::i2dec_str (dur.plet_.iso_i_, 0, 0)
-	    + "/"
-	    + String_convert::i2dec_str (dur.plet_.type_i_, 0, 0);
+    str += String ("\\[")
+      + String_convert::i2dec_str (dur.plet_.iso_i_, 0, 0)
+      + "/"
+      + String_convert::i2dec_str (dur.plet_.type_i_, 0, 0);
 
   str += name_str;
 
@@ -209,12 +209,12 @@ Mudela_note::str ()
   str += Duration_convert::dur2_str (tmp);
 
   if (dur.plet_b ())
-	str += String (" \\]");
+    str += String (" \\]");
 
   /* 
-    note of zero duration is nonsense, 
-    but let's output anyway for convenient debugging
-   */
+     note of zero duration is nonsense, 
+     but let's output anyway for convenient debugging
+  */
   if (!duration_mom ())
     return String ("\n% ") + str + "\n";
 
@@ -230,7 +230,7 @@ Mudela_skip::Mudela_skip (Mudela_column* mudela_column_l, Moment skip_mom)
 Duration
 Mudela_skip::duration ()
 {
-	return Duration_convert::mom2_dur (mom_);
+  return Duration_convert::mom2_dur (mom_);
 }
 
 Moment
@@ -243,11 +243,11 @@ String
 Mudela_skip::str ()
 {
   if (!mom_)
-	return String ("");
+    return String ("");
 
   Duration dur = duration ();
   if (dur.durlog_i_<-10)
-	return "";
+    return "";
 
   String str = "\\skip ";
   str += Duration_convert::dur2_str (dur) + "; ";
@@ -256,17 +256,17 @@ Mudela_skip::str ()
 }
 
 Mudela_tempo::Mudela_tempo (int useconds_per_4_i)
-   : Mudela_item (0)
+  : Mudela_item (0)
 {
   useconds_per_4_i_ = useconds_per_4_i;
-  seconds_per_1_f_ = (Real)useconds_per_4_i_ * 4 / 1e6;
+  seconds_per_1_mom_ = Moment(useconds_per_4_i_ *4, 1e6);
 }
 
 String
 Mudela_tempo::str ()
 {
   String str = "\\tempo 4=";
-  str += String (get_tempo_i (Moment (1, 4)));
+  str += to_str (get_tempo_i (Moment (1, 4)));
   str += ";\n";
   return str;
 }
@@ -280,11 +280,13 @@ Mudela_tempo::useconds_per_4_i ()
 int
 Mudela_tempo::get_tempo_i (Moment moment)
 {
-  return Moment (60) / moment / Moment (seconds_per_1_f_);
+  Moment m1 = Moment (60) / moment;
+  Moment m2 = seconds_per_1_mom_;
+  return m1 / m2;
 }
 
 Mudela_text::Mudela_text (Mudela_text::Type type, String text_str)
-   : Mudela_item (0)
+  : Mudela_item (0)
 {
   type_ = type;
   text_str_ = text_str;
@@ -294,8 +296,8 @@ String
 Mudela_text::str ()
 {
   if (!text_str_.length_i ()
-	||  (text_str_.length_i () != (int)strlen (text_str_.ch_C ())))
-	return "";
+      ||  (text_str_.length_i () != (int)strlen (text_str_.ch_C ())))
+    return "";
 
   return "% " + text_str_ + "\n";
 }

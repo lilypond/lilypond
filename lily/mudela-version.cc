@@ -3,13 +3,13 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
 */
 
 #include "mudela-version.hh"
 #include "string-convert.hh"
-#include "varray.hh"
+#include "array.hh"
 
 Mudela_version::Mudela_version (int major, int minor, int patch)
 {
@@ -31,7 +31,7 @@ Mudela_version::Mudela_version (String str)
 String
 Mudela_version::str () const
 {
-  return String (major_i_) + "." + String (minor_i_) + "." + String (patch_i_);
+  return to_str (major_i_) + "." + to_str (minor_i_) + "." + to_str (patch_i_);
 }
 
 Mudela_version::operator int () const

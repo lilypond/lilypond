@@ -1,29 +1,41 @@
-# list of distribution files:
-# 
+# make/Mutopia.make
 
-include $(depth)/make/Include.make
-LYFILES = $(wildcard *.ly)
-M4FILES = $(wildcard *.m4)
-DISTFILES = Makefile $(EXTRA_DISTFILES) $(LYFILES) $(wildcard *.m4)
+FLY_FILES = $(wildcard *.fly)
+LY_FILES = $(wildcard *.ly)
+M4_FILES = $(wildcard *.m4)
+LYM4_FILES = $(wildcard *.lym4)
+DIST_FILES = Makefile $(EXTRA_DIST_FILES) $(FLY_FILES) $(LY_FILES) $(M4_FILES) $(LYM4_FILES)
 #
 
-OUTFILES = $(addprefix $(outdir)/,$(M4FILES:%.m4=%))
+include $(depth)/make/Lilypond.make
 
-all: $(OUTFILES)
+OUT_FILES = $(addprefix $(outdir)/,$(M4_FILES:%.m4=%)) \
+ $(addprefix $(outdir)/,$(LYM4_FILES:%.lym4=%.ly))
 
-
+all: $(OUT_FILES)
 
 name-stem= $(notdir $(basename $<))
 
 $(outdir)/%.gif: $(outdir)/%.ps
-	sh $(depth)/bin/ps-to-gifs.sh $<
-	mv $(name-stem)-page*.gif $(outdir)/
+	sh $(buildscripts)/ps-to-gifs.sh $<
+	-mv $(name-stem)-page*.gif $(outdir)/
 	touch $@
 
-$(outdir)/%.ly$(DOTTEXT): %.ly
+$(outdir)/%.ly.txt: %.ly
 	ln -f $< $@
 
+$(outdir)/%.fly.txt: %.fly
+	ln -f $< $@
+
+# don't junk intermediate .dvi files.  They're easier to view than
+# .ps or .gif
+.PRECIOUS: $(outdir)/%.dvi
+
 $(outdir)/%.dvi: %.ly
-	ly2dvi -o $(outdir)  $< 
+	sh $(depth)/scripts/ly2dvi.sh -S $(topdir) -o $(outdir)  $< 
+	-mv $(basename $<).midi $(outdir)
+
+$(outdir)/%.dvi: %.fly
+	sh $(depth)/scripts/ly2dvi.sh -S $(topdir) -o $(outdir)  $< 
 	-mv $(basename $<).midi $(outdir)
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -19,7 +19,7 @@ class Note_column : public Script_column {
 protected:
   virtual void do_pre_processing();
   virtual void do_print () const;
-  virtual void do_substitute_dependency (Score_elem*,Score_elem*);
+  virtual void do_substitute_dependency (Score_element*,Score_element*);
 public:
   /** The relative position of the "voice" containing this
     chord. Normally this would be the same as the stem direction,
@@ -40,11 +40,11 @@ public:
         
   DECLARE_MY_RUNTIME_TYPEINFO;
   Note_column ();
-  void set (Stem*);
-  void set (Dot_column*);
-  void add (Rhythmic_head*);
+  void set_stem (Stem*);
+  void set_dotcol (Dot_column*);
+  void add_head (Rhythmic_head*);
   bool rest_b () const;
-  virtual void add (Script*s);
+  virtual void add_script (Script*s);
   void sort ();
 };
 

@@ -3,13 +3,13 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
   TODO: This is way too hairy
 */
 
 #include "stem.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "debug.hh"
 #include "paper-def.hh"
 #include "note-head.hh"
@@ -20,10 +20,12 @@
 #include "beam.hh"
 #include "rest.hh"
 
-const int STEMLEN = 7;
-
 IMPLEMENT_IS_TYPE_B1 (Stem,Item);
 
+
+Stem::~Stem ()
+{
+}
 Stem::Stem ()
 {
   /*
@@ -62,7 +64,7 @@ void
 Stem::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "flag "<< flag_i_ ;
+  DOUT << "flag "<< flag_i_;
   if (beam_l_)
     DOUT << "beamed";
 #endif
@@ -97,7 +99,7 @@ Stem::set_stemend (Real se)
 {
   // todo: margins
   if (dir_ && dir_ * head_positions()[dir_] >= se*dir_)
-    warning (_("Weird stem size; check for narrow beams"));
+    warning (_ ("weird stem size; check for narrow beams"));
 
   
   yextent_drul_[dir_]  =  se;
@@ -111,7 +113,7 @@ Stem::type_i () const
 }
 
 void
-Stem::add (Rhythmic_head *n)
+Stem::add_head (Rhythmic_head *n)
 {
   n->add_dependency (this);	// ?
   if (n->is_type_b (Note_head::static_name ()))
@@ -132,7 +134,7 @@ Stem::invisible_b () const
 }
 
 int
-Stem::get_center_distance (Direction d)
+Stem::get_center_distance (Direction d) const
 {
   int staff_center = 0;
   int distance = d*(head_positions()[d] - staff_center);
@@ -140,7 +142,7 @@ Stem::get_center_distance (Direction d)
 }
 
 Direction
-Stem::get_default_dir ()
+Stem::get_default_dir () const
 {
   return (get_center_distance (UP) >
 	  get_center_distance (DOWN)) 
@@ -149,7 +151,7 @@ Stem::get_default_dir ()
 }
 
 Direction
-Stem::get_dir ()
+Stem::get_dir () const
 {
   return dir_;
 }
@@ -163,18 +165,27 @@ Stem::set_default_dir ()
 void
 Stem::set_default_stemlen ()
 {
-  Real len = STEMLEN;
-  Real dy = paper ()->interbeam_f (mult_i_);
+  /*
+   TODO
+   urg; this should be handled by Stem_info
+   */
 
+  Real length_f = paper ()->get_var ("stem_length");
+  Real shorten_f = paper ()->get_var ("forced_stem_shorten");
+
+  Real internote_f = paper ()->internote_f ();
+  length_f /= internote_f;
+  shorten_f /= internote_f;
+
+  Real len = length_f;
   if (!dir_)
     set_default_dir ();
-
-  /* If the stem points in the "wrong" direction, it should be
-     shortened, according to [Roush & Gourlay].  Their suggestion to knock off
-     a whole staffspace is a bit drastical though.
-     */
+  /* 
+    stems in unnatural (forced) direction should be shortened, 
+    accoding to [Roush & Gourlay]
+   */
   else if (dir_ != get_default_dir ())
-    len  -= 1.0;
+    len -= shorten_f / internote_f;
 
   if (flag_i_ >= 5)
     len += 2.0;
@@ -184,13 +195,12 @@ Stem::set_default_stemlen ()
   set_stemend ((dir_ > 0) ? head_positions()[BIGGER] + len :
 	       head_positions()[SMALLER] - len);
 
-
   if (dir_ * stem_end_f () < 0)
     {
       set_stemend (0);
     }
 }
-
+//xxx
 void
 Stem::set_default_extents ()
 {
@@ -259,8 +269,7 @@ Stem::do_width () const
     ;	// TODO!
   else
     {
-      Paper_def*p= paper ();
-      r = p->lookup_l ()->flag (flag_i_, dir_).dim_.x ();
+      r = lookup_l ()->flag (flag_i_, dir_).dim_.x ();
       r += note_delta_f ();
     }
   return r;
@@ -275,9 +284,8 @@ Molecule*
 Stem::brew_molecule_p () const
 {
   Molecule *mol_p =new Molecule;
-  Paper_def *p =paper ();
   Drul_array<Real> stem_y = yextent_drul_;
-  Real dy = p->internote_f ();
+  Real dy = paper ()->internote_f ();
   
 
   Real head_wid = 0;
@@ -287,16 +295,16 @@ Stem::brew_molecule_p () const
   
   if (!invisible_b ())
     {
-      Atom ss =p->lookup_l ()->stem (stem_y[DOWN]*dy,
+      Atom ss =lookup_l ()->stem (stem_y[DOWN]*dy,
 				     stem_y[UP]*dy);
-      mol_p->add (Atom (ss));
+      mol_p->add_atom (ss);
     }
 
-  if (!beam_l_ &&abs (flag_i_) > 2)
+  if (!beam_l_ && abs (flag_i_) > 2)
     {
-      Atom fl = p->lookup_l ()->flag (flag_i_, dir_);
+      Atom fl = lookup_l ()->flag (flag_i_, dir_);
       fl.translate_axis(stem_y[dir_]*dy, Y_AXIS);
-      mol_p->add(fl);
+      mol_p->add_atom (fl);
     }
 
   if (head_l_arr_.size())
@@ -316,7 +324,12 @@ Stem::note_delta_f () const
       Real rule_thick(paper ()->rule_thickness ());
       Interval stem_wid(-rule_thick/2, rule_thick/2);
       if (stem_xdir_ == CENTER)
+#define EGCS_ICE
+#ifndef EGCS_ICE
 	r = head_wid.center ();
+#else
+	r = (head_wid.min () + head_wid.max ()) / 2;
+#endif
       else
 	r = head_wid[stem_xdir_] - stem_wid[stem_xdir_];
     }
@@ -333,11 +346,10 @@ Stem::hpos_f () const
   TODO:  head_l_arr_/rest_l_arr_ in  do_substitute_dependent ()
  */
 void
- Stem::do_substitute_dependency (Score_elem*o,Score_elem*n)
+ Stem::do_substitute_dependency (Score_element*o,Score_element*n)
 {
-  Item * o_l = o->item ();
-  Item * n_l = n? n->item () : 0;
+  Item * o_l = o->access_Item ();
+  Item * n_l = n? n->access_Item () : 0;
   head_l_arr_.substitute ((Note_head*)o_l, (Note_head*)n_l);
   rest_l_arr_.substitute ((Rest*)o_l, (Rest*)n_l);
 }
-

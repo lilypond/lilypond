@@ -1,7 +1,7 @@
 /*
   bezier.hh -- declare Bezier and Bezier_bow
 
-  (c) 1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef BEZIER_HH
@@ -47,7 +47,7 @@ public:
   Bezier_bow (Paper_def* paper_l);
 
   /**
-   Calculate bezier curve for bow from bow parameters.
+   Calculate bezier curve for bow from bow paratime_signatures.
    */
   void blow_fit ();
   void calc ();

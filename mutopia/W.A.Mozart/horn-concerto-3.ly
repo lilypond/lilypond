@@ -1,12 +1,28 @@
+\header{
+title =	 "Konzert Nr. 3 Es dur"
+subtitle = "f\\\"ur Horn und Orchester";
+description =	 "Third horn concerto, for horn in Es";
+composer =	 "W. A. Mozart (1756-1792)";
+enteredby =	 "HWN";
+opus = "K.V. 447";
+copyright =	 "public domain";
+}
 
 
-\version "0.1.14";
+\version "1.0.0";
 
 allegro =
 	\melodic
 	\relative c'
 {
-
+	\time 4/4;
+	\partial 4;
+	R1*4
+	c'2^"tutti" g
+	c, r
+	R1*1
+	r8 [g' g g] [g g e c]
+	g4 g, r2
 	R1*18
 	r2 r4 g'4 |
 	e'4. () c8 [f (d c )b ]
@@ -61,7 +77,7 @@ allegro =
 	d
 	c
 	c,
-	e''
+	e'
 	e,
 	c'2 [b8( a gis )a]
 	[gis8 e gis b ] e4 r |
@@ -133,8 +149,8 @@ allegro =
 
 romanze = \melodic \relative c' {
 
-	\key bes;
-	\meter 2/2;
+	\key F;
+	\time 2/2;
 	c'4.() f8 a,4 a
 	[bes8( c d bes] )g4 r8 g
 	a r bes r c r [d()bes]
@@ -157,7 +173,7 @@ romanze = \melodic \relative c' {
 	% mark B
 	c1\f
 	R1*9
-	f''4.(\p )d8 b4 r8 g
+	f'4.(\p )d8 b4 r8 g
 	g'4.() e8 c4 r8 cis |
 	d4(~ [d16 e d )e] [f8 () d f() d]
 	c2()b4 r
@@ -220,7 +236,7 @@ rondo = \melodic 	\relative c'
 {
 	\partial 8;
 	g'8 |
-	\meter 6/8;
+	\time 6/8;
 	\grouping 8*3 8*3;
 	\rondotheme
 	
@@ -342,11 +358,14 @@ rondo = \melodic 	\relative c'
 	c4 r8 c4 r8
 	c4 r8 r4 r8
 }
+
+default_paper = \include "part-paper.ly"
+
 \score
 {
-	{ 	\property Score.SkipBars = 1
-		\allegro
-	}
+	\allegro
+	\paper{ }
+	\midi{ \tempo 4=90; }
 }
 
 \score
@@ -354,14 +373,15 @@ rondo = \melodic 	\relative c'
 	{ 	\property Score.SkipBars = 1
 		\romanze
 	}
+		\paper{ \tempo 4 = 70; }	
+	\midi{}
 }
 \score
 {
-	{ 	\property Score.SkipBars = 1
-		\rondo
-	}
+	\rondo
+
 	\paper{
-%	castingalgorithm =\Wordwrap;
+		\tempo 4 = 100;
 	}
 	\midi{}
 }

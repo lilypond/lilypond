@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "debug.hh"
@@ -78,7 +78,7 @@ Script_def::get_atom (Paper_def *p , Direction d) const
   if (invertsym_b_)
     preidx_str = (d < 0)? "d" : "u";
 
-  return p->lookup_l()->script (preidx_str + symidx_str_);
+  return p->lookup_l(0)->script (preidx_str + symidx_str_);
 }
 
 

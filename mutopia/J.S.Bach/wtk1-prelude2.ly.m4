@@ -12,8 +12,7 @@ define(handymeasure, `intromeasure(translit($*,` ', `,'))')
 
 
 
-trebleIntro=\melodic {
-\octave c';
+trebleIntro=\melodic \transpose c'' {
 handymeasure(c' es d c)
 handymeasure(as f e c)
 handymeasure(b f es d)
@@ -40,7 +39,6 @@ handymeasure(as c B d)
 }
 
 bassIntro = \melodic {
-\octave c;
 handymeasure(c g f es)
 handymeasure(c as g f)
 handymeasure(c as g f)
@@ -71,7 +69,6 @@ handymeasure(G es d f)
 
 middlepiece = \melodic
 {
-	\octave c;
 	\stemdown
 	[G B d] 
 	\stemup	f [as f ef] [b f d' b'] [as f e f] |
@@ -79,10 +76,9 @@ middlepiece = \melodic
 	\stemup g [c' g fis g ] [es' c' g' es'] [c' as g as]| 
 	\stemdown [G A fis] 
 	\translator Staff=treble
-	\stemsboth \octave c';
-	c [es c B c] [fis  c a fis] [es c B c] |
+	\stemsboth \transpose c'' { c [es c B c] [fis  c a fis] [es c B c] }
 }
 
 
 
-}
+

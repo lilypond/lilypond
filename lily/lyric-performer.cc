@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "lyric-performer.hh"
@@ -29,25 +29,25 @@ Lyric_performer::do_print() const
 {
 #ifndef NPRINT
   if (lreq_arr_.size())
-  	lreq_arr_[ 0 ]->print();
+    lreq_arr_[ 0 ]->print();
 #endif
 }
 
 void
 Lyric_performer::do_process_requests()
 {
-  if (lreq_arr_.size() && lreq_arr_[ 0 ]->tdef_p_->text_str_.length_i())
-	play (new Audio_text (Audio_text::LYRIC, lreq_arr_[ 0 ]->tdef_p_->text_str_));
+  if (lreq_arr_.size() && lreq_arr_[0]->text_str_.length_i())
+    play (new Audio_text (Audio_text::LYRIC, lreq_arr_[ 0 ]->text_str_));
   lreq_arr_.clear();
 }
 
 bool
 Lyric_performer::do_try_request (Request* req_l)
 {
-  Musical_req* m_l = req_l->musical();
-  if (!m_l || ! m_l->lreq_l()) 
-	return false;
-  lreq_arr_.push (m_l->lreq_l());
+  Musical_req* m_l = req_l->access_Musical_req ();
+  if (!m_l || ! m_l->access_Lyric_req ()) 
+    return false;
+  lreq_arr_.push (m_l->access_Lyric_req ());
 
   return true;
 }

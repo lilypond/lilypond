@@ -1,0 +1,905 @@
+msgid ""
+msgstr ""
+"Date: 1998-05-26 11:26:28+0200\n"
+"From:  <janneke@gnu.org>\n"
+"Content-Type: text/plain; charset=\n"
+"Xgettext-Options: --c++ --default-domain=lilypond --join --output-dir=../po --add-comments --keyword=_\n"
+"Files: bow.cc int.cc\n"
+
+#: data-file.cc:52
+msgid "EOF in a string"
+msgstr "EOF in een string"
+
+#: data-file.cc:121 input.cc:86 midi-parser.cc:100 warn.cc:21
+msgid "warning: "
+msgstr "waarschuwing: "
+
+#: dstream.cc:159
+msgid "Not enough fields in Dstream init."
+msgstr "Onvoldoende velden in Dstream init."
+
+#: flower-debug.cc:17
+msgid "Debug output disabled.  Compiled with NPRINT."
+msgstr "Ontluis berichten zijn uitgeschakeld.  Vertaald met NPRINT."
+
+#: lgetopt.cc:103
+msgid "option `%s' requires an argument"
+msgstr "optie `%s' vereist een argument"
+
+#: lgetopt.cc:107
+msgid "option `%s' doesn't allow an argument"
+msgstr "optie `%s' staat geen argument toe"
+
+#: lgetopt.cc:111
+msgid "unrecognized option: `%s'"
+msgstr "onbekende optie: `%s'"
+
+#: lgetopt.cc:117
+msgid "invalid argument `%s' to option `%s'"
+msgstr "onjuist argument: `%s' voor optie `%s'"
+
+#: text-stream.cc:8
+msgid "<stdin>"
+msgstr ""
+
+#: mapped-file-storage.cc:87 midi-stream.cc:77 mudela-stream.cc:102 parser.yy:1378 scores.cc:37 simple-file-storage.cc:44 tex-stream.cc:28 text-stream.cc:21
+msgid "can't open file: `%s'"
+msgstr "kan bestand niet openen: `%s'"
+
+#: input.cc:91 warn.cc:7 warn.cc:15
+msgid "error: "
+msgstr "fout: "
+
+#: input.cc:97
+msgid "Non fatal error: "
+msgstr "Niet noodlottige fout: "
+
+#: input.cc:105 source-file.cc:62 source-file.cc:155
+msgid "position unknown"
+msgstr "positie onbekend"
+
+#: mapped-file-storage.cc:65
+msgid "map_fd: "
+msgstr ""
+
+#: mapped-file-storage.cc:74
+msgid "can't map file"
+msgstr "kan bestand niet inkaarten"
+
+#: mapped-file-storage.cc:109
+msgid "vm_deallocate: "
+msgstr ""
+
+#: simple-file-storage.cc:56
+msgid "Huh? got %d, expected %d characters"
+msgstr "Huh? kreeg %d, verwachtte %d tekens"
+
+#: abbreviation-beam-engraver.cc:76 beam-grav.cc:90
+msgid "unterminated beam"
+msgstr "onafgesloten balk"
+
+#: afm.cc:114
+msgid "can't find character called `%s'"
+msgstr ""
+
+#: atom.cc:31
+msgid "ridiculous dimension: %s, %s"
+msgstr "belachelijke dimensie: %s, %s"
+
+#: beam-grav.cc:106
+msgid "Stem must have Rhythmic structure."
+msgstr ""
+
+#: beam-grav.cc:113
+msgid "stem doesn't fit in beam"
+msgstr "stok past niet in balk"
+
+#: beam-grav.cc:124
+msgid "please fix me"
+msgstr "repareer mij alsjeblieft"
+
+#: beam-grav.cc:125
+msgid "stem at %s doesn't fit in beam"
+msgstr "stok op %s past niet in balk"
+
+#: beam.cc:117
+msgid "beam with less than two stems"
+msgstr "balk met minder dan twee stokken"
+
+#. when all too short, normal stems win..
+#: beam.cc:562
+msgid "weird beam shift, check your knees"
+msgstr "vreemde balk verplaatsing, controleer uw knie-en"
+
+#: break.cc:25
+msgid "0 lines"
+msgstr "0 regels"
+
+#: break.cc:27
+msgid "1 line (of %.0f columns)"
+msgstr "1 regel (van %.0f kolommen)"
+
+#: break.cc:29
+msgid "%d lines (with an average of %.1f columns)"
+msgstr "%d regels (van gemiddeld %.1f kolommen)"
+
+#: break.cc:159
+msgid "score does not have any columns"
+msgstr "partituur heeft geen enkele kolom"
+
+#: break.cc:183
+msgid "approximated: %s"
+msgstr "geschat: %s"
+
+#: break.cc:185
+msgid "calculated exactly: %s"
+msgstr "exact berekend: %s"
+
+#: break.cc:186 score.cc:111
+msgid "time: %.2f seconds"
+msgstr "duur: %.2f seconden"
+
+#: change-iterator.cc:25
+msgid "can't change `%s' to `%s'"
+msgstr "kan `%s' niet in `%s' veranderen"
+
+#: clef-grav.cc:137
+msgid "unknown clef type "
+msgstr "onbekende sleutel"
+
+#: collision.cc:62
+msgid "No stem direction set. Ignoring column in clash."
+msgstr "Geen stokrichting gezet.  Negeer kolom in botsing."
+
+#: collision.cc:75
+msgid "Too many clashing notecolumns. Ignoring them."
+msgstr "Te veel botsende nootkolommen.  Ik negeer ze."
+
+#: command-request.cc:209
+msgid "don't know how handle empty keys"
+msgstr ""
+
+#: crescendo.cc:47
+msgid "crescendo"
+msgstr ""
+
+#: crescendo.cc:47 lookup.cc:338 lookup.cc:371 lookup.cc:389
+msgid "too small"
+msgstr "te klein"
+
+#: debug.cc:56
+msgid "Floating point exception"
+msgstr "Drijvende komma uitzondering"
+
+#: debug.cc:140
+msgid "can't set mem-checking"
+msgstr ""
+
+#: dimen.cc:31
+msgid "unknown length unit: `%s'"
+msgstr ""
+
+#: dimen.cc:40
+msgid "NaN"
+msgstr "NaN"
+
+#: dynamic-grav.cc:85 slur-grav.cc:72
+msgid "can't find both ends of %s"
+msgstr "kan uiteinden van %s niet beide vinden"
+
+#: dynamic-grav.cc:86
+msgid "cresc"
+msgstr ""
+
+#: dynamic-grav.cc:162
+msgid "unended crescendo"
+msgstr "niet beeindigd crescendo"
+
+#: identifier.cc:49
+msgid "Wrong identifier type: "
+msgstr ""
+
+#: identifier.cc:50
+msgid "%s expected"
+msgstr "%s verwacht"
+
+#: includable-lexer.cc:38 midi-score-parser.cc:24 scores.cc:108 scores.cc:113
+msgid "can't find file: `%s'"
+msgstr "kan bestand niet vinden: `%s'"
+
+#: ineq-constrained-qp.cc:167
+msgid "Ineq_constrained_qp::solve (): Constraint off by %f"
+msgstr "Ineq_constrained_qp::solve (): voorwaarde zit er %f naast"
+
+#: ineq-constrained-qp.cc:222
+msgid "didn't converge!"
+msgstr "ik convederde niet!"
+
+#: ineq-constrained-qp.cc:224
+msgid "Too much degeneracy. "
+msgstr ""
+
+#: key-grav.cc:109
+msgid "No key name: assuming `C'"
+msgstr ""
+
+#: local-key-grav.cc:34
+msgid "out of tune"
+msgstr "vals"
+
+#: local-key-grav.cc:34 meter-grav.cc:28
+msgid "can't find"
+msgstr "kan niet vinden"
+
+#: lookup.cc:337 lookup.cc:343
+msgid "piano brace"
+msgstr "piano accolade"
+
+#: lookup.cc:344 lookup.cc:395
+msgid "too big"
+msgstr "te groot"
+
+#: lookup.cc:370 lookup.cc:388 lookup.cc:394
+msgid "bracket"
+msgstr "haak"
+
+#: main.cc:65
+msgid "Usage: %s [OPTION]... [FILE]..."
+msgstr "Gebruik: %s [OPTIE]... [BESTAND]..."
+
+#: main.cc:66
+msgid "Typeset music and or play MIDI from FILE or <stdin>"
+msgstr "Zet muziek en of speel MIDI van FILE of <stdin>"
+
+#: main.cc:48 main.cc:69
+msgid "Options:"
+msgstr "Opties:"
+
+#: main.cc:72
+msgid "  -a, --about            about LilyPond\n"
+msgstr "  -a, --about            over LilyPond\n"
+
+#: main.cc:54 main.cc:75
+msgid "  -D, --debug            enable debugging output\n"
+msgstr "  -D, --debug            toon ontluis berichten\n"
+
+#: main.cc:78
+msgid "  -d, --dependencies     write Makefile dependencies for every input file\n"
+msgstr "  -d, --dependencies     schrijf Makefile afhankelijkheden voor elk\n"
+"                           invoerbestand\n"
+
+#: main.cc:60 main.cc:81
+msgid "  -I, --include=DIR      add DIR to search path\n"
+msgstr "  -I, --include=INDEX    voeg INDEX toe aan zoekpad\n"
+
+#: main.cc:84
+msgid "  -i, --init=FILE        use FILE as init file\n"
+msgstr "  -i, --init=BESTAND     gebruik BESTAND voor initialisatiebestand\n"
+
+#: main.cc:57 main.cc:87
+msgid "  -h, --help             this help\n"
+msgstr "  -h, --help             deze hulp\n"
+
+#: main.cc:90
+msgid "  -M, --no-paper         produce midi output only\n"
+msgstr "  -M, --no-paper         produceer alleen midi uitvoer\n"
+
+#: main.cc:93
+msgid "  -o, --output=FILE      set FILE as default output base\n"
+msgstr ""
+
+#: main.cc:96
+msgid "  -Q, --find-fourths     show all intervals greater than a fourth\n"
+msgstr "  -Q, --find-fourths     toon alle intervallen groter dan een kwart\n"
+
+#: main.cc:99
+msgid "  -t, --test             switch on experimental features\n"
+msgstr "  -t, --test             doe experimentele kunstjes\n"
+
+#: main.cc:78 main.cc:102
+msgid "  -T, --no-timestamps    don't timestamp the output\n"
+msgstr "  -T, --no-timestamps    zet geen tijdstempel in de uitvoer\n"
+
+#: main.cc:105
+msgid "  -V, --ignore-version   ignore mudela version\n"
+msgstr "  -V, --ignore-version   negeer mudela versie\n"
+
+#: main.cc:87 main.cc:108
+msgid "  -w, --warranty         show warranty and copyright\n"
+msgstr "  -w, --warranty         toon garantie en copyright\n"
+
+#: main.cc:111
+msgid "GNU LilyPond was compiled with the following settings:"
+msgstr "GNU LilyPond is vertaald met de volgende instellingen:"
+
+#: main.cc:139
+msgid "GNU LilyPond is Free software, see --warranty"
+msgstr "GNU LilyPond is Vrij bedenksel, zie --warranty"
+
+#: main.cc:107 main.cc:142 main.cc:155
+msgid "Copyright (c) %s by"
+msgstr "Copyright (c) %s "
+
+#: main.cc:109 main.cc:144 main.cc:157
+msgid "Han-Wen Nienhuys <hanwen@cs.uu.nl>"
+msgstr ""
+
+#: main.cc:110 main.cc:145 main.cc:158
+msgid "Jan Nieuwenhuizen <janneke@gnu.org>"
+msgstr ""
+
+#: main.cc:153
+msgid "GNU LilyPond -- The GNU Project music typesetter"
+msgstr "GNU LilyPond -- De Muziekzetter van het GNU Project"
+
+#: main.cc:113 main.cc:161
+msgid ""
+"    This program is free software; you can redistribute it and/or\n"
+"modify it under the terms of the GNU General Public License version 2\n"
+"as published by the Free Software Foundation.\n"
+"\n"
+"    This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+"General Public License for more details.\n"
+"\n"
+"    You should have received a copy (refer to the file COPYING) of the\n"
+"GNU General Public License along with this program; if not, write to\n"
+"the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
+"USA.\n"
+msgstr ""
+"    Dit programma is vrij bedenksel; u mag het verspreiden en/of\n"
+"veranderen onder de voorwaarden van de GNU Algemene Openbare Licentie\n"
+"versie 2, zoals gepubliceerd door de Free Software Foundation.\n"
+"\n"
+"    Dit programma wordt verspreid in de hoop dat het nuttig zal zijn,\n"
+"maar ZONDER ENIGE GARANTIE; zelfs zonder de impliciete garantie voor\n"
+"het UITBATEN of als zijnde GESCHIKT VOOR EEN BEPAALD DOEL.  Zie de GNU\n"
+"Algemene Openbare Licentie voor details.\n"
+"\n"
+"    Als het goed is, heeft u bij dit programma een copie (zie het bestand\n"
+"COPYING) ontvangen van de GNU Algemene Openbare Licentie; zoniet, schrijf\n"
+"dan naar de Free Software Foundation, Inc., 675 Mass Ave, Cambridge, \n"
+"MA 02139, USA.\n"
+
+#: meter-grav.cc:28
+msgid "lost in time"
+msgstr "hoe laat is het"
+
+#: midi-item.cc:364
+msgid "unconventional key: flats: %d, sharps: %d"
+msgstr "vreemde toonsoort: %d mollen, %d kruizen"
+
+#: midi-item.cc:410
+msgid "silly duration"
+msgstr ""
+
+#: midi-item.cc:424
+msgid "silly pitch"
+msgstr ""
+
+#: midi-stream.cc:29 tex-stream.cc:58
+msgid "error syncing file (disk full?)"
+msgstr "kan file niet wegschrijven (disk vol?)"
+
+#: musical-pitch.cc:145
+msgid "Interval greater than quart, relative: %s"
+msgstr "Interval groter dan kwart, relatief: %s"
+
+#: musical-request.cc:93
+msgid "transposition by %s makes accidental larger than two"
+msgstr "transpositie van %s geeft tripel kruizen/mollen  "
+
+#: musical-request.cc:439
+msgid "never heard of dynamic scale `\\%s', assuming %s"
+msgstr "zo hard kan ik niet `\\%s', ik doe gewoon %s"
+
+#: my-lily-lexer.cc:120
+msgid "redeclaration of `\\%s'"
+msgstr "`\\%s' wordt opnieuw gedeclareerd"
+
+#: my-lily-lexer.cc:149
+msgid "error at EOF: %s"
+msgstr "fout aan het einde van file: %s"
+
+#: my-lily-parser.cc:62
+msgid "Parsing..."
+msgstr "Ontleden..."
+
+#: my-lily-parser.cc:71
+msgid "braces don't match"
+msgstr "haakjes passen niet"
+
+#: p-score.cc:178
+msgid "Can't solve this casting problem exactly; revert to Word_wrap"
+msgstr "Kan breekprobleem niet exact oplossen; verval naar Word_wrap"
+
+#: p-score.cc:197
+msgid "Preprocessing elements..."
+msgstr "Voorbewerken van elementen..."
+
+#: p-score.cc:201
+msgid "Calculating column positions..."
+msgstr "Berekenen van kolomposities..."
+
+#: p-score.cc:205
+msgid "Postprocessing elements..."
+msgstr "Nabewerken van elementen..."
+
+#: p-score.cc:231
+msgid "TeX output to %s..."
+msgstr "TeX uitvoer naar %s..."
+
+#: p-score.cc:245
+msgid "% outputting Score, defined at: "
+msgstr ""
+
+#: paper-def.cc:61
+msgid "unknown paper variable: `%s'"
+msgstr "onbekende \\paper variabele"
+
+#: paper-def.cc:65
+msgid "not a real variable"
+msgstr "variabele is geen reeal getal"
+
+#. perhaps multiple text events?
+#: performance.cc:54
+msgid "Creator: "
+msgstr "Schepper: "
+
+#: performance.cc:63
+msgid "Automatically generated"
+msgstr "Automatisch gegenerederd"
+
+#: mudela-stream.cc:84 performance.cc:68 tex-stream.cc:47
+msgid ", at "
+msgstr ", bij "
+
+#: performance.cc:76
+msgid "from musical definition: %s"
+msgstr "van muzikale definitie: %s"
+
+#: performance.cc:141
+msgid "MIDI output to %s..."
+msgstr "MIDI uitvoer naar %s..."
+
+#: plet-engraver.cc:83
+msgid "unterminated plet"
+msgstr "onsterfelijke -ool"
+
+#: plet-spanner.cc:85
+msgid "lonely plet"
+msgstr "eenzame -ool"
+
+#: qlpsolve.cc:88 qlpsolve.cc:139
+msgid "degenerate constraints"
+msgstr "voorwaarde is gedegenerederd"
+
+#: request-iterator.cc:68
+msgid "junking request: `%s'"
+msgstr "schroot verzoek: `%s'"
+
+#: score-column.cc:55
+msgid "ignoring zero duration added to column at %s"
+msgstr ""
+
+#: score-grav.cc:145
+msgid "Unbound spanner `%s'"
+msgstr "Vrijgezelle spanner `%s'"
+
+#: score.cc:57
+msgid "no toplevel translator"
+msgstr ""
+
+#: score.cc:60
+msgid "Interpreting music..."
+msgstr "Vertolken van muziek..."
+
+#: score.cc:70
+msgid "need music in a score"
+msgstr "zonder muziek geen partituur"
+
+#. should we? hampers debugging.
+#: score.cc:106
+msgid "errors found, /*not processing score*/"
+msgstr ""
+
+#: scores.cc:34
+msgid "writing dependency file: `%s'..."
+msgstr ""
+
+#: scores.cc:78
+msgid "score contains errors; will not process it"
+msgstr ""
+
+#: script.cc:60
+msgid "script needs stem direction"
+msgstr "schrift benodigt stokrichting"
+
+#: slur-grav.cc:49
+msgid "unterminated slur"
+msgstr "onsterfelijke boog"
+
+#: slur-grav.cc:72
+msgid "slur"
+msgstr ""
+
+#: spanner.cc:44
+msgid "left spanpoint is right spanpoint\n"
+msgstr ""
+
+#: spanner.cc:101
+msgid "Spanner `%s' with equal left and right spanpoints"
+msgstr ""
+
+#: spring-spacer.cc:82
+msgid "unconnected column: %d"
+msgstr ""
+
+#: spring-spacer.cc:186
+msgid "I'm too fat; call Oprah"
+msgstr ""
+
+#: spring-spacer.cc:344
+msgid "solution doesn't satisfy constraints"
+msgstr ""
+
+#: spring-spacer.cc:623
+msgid "can't find a ruling note at %s"
+msgstr ""
+
+#: spring-spacer.cc:629
+msgid "no minimum in measure at %s"
+msgstr ""
+
+#: staff-side.cc:61
+msgid "Staff_side::get_position_f(): somebody forgot to set my direction, returning -20"
+msgstr ""
+
+#: stem.cc:102
+msgid "weird stem size; check for narrow beams"
+msgstr "vreemde stoklengte; controleer op krappe balken"
+
+#: symtable.cc:50
+msgid "Symtable `%s': unknown symbol: `%s'"
+msgstr ""
+
+#: symtable.cc:61
+msgid "Symtable `%s' unknown"
+msgstr ""
+
+#: mudela-stream.cc:74 tex-stream.cc:37
+msgid "% Creator: "
+msgstr ""
+
+#: mudela-stream.cc:79 tex-stream.cc:42
+msgid "% Automatically generated"
+msgstr ""
+
+#: text-item.cc:47
+msgid "Text_item::get_position_f(): somebody forgot to set my vertical direction, returning -20"
+msgstr ""
+
+#: tie-grav.cc:114 tie.cc:50
+msgid "lonely tie"
+msgstr ""
+
+#: ties-grav.cc:82
+msgid "Can't find a note head at the right to attach Tie"
+msgstr ""
+
+#: time-description.cc:17
+msgid "cadenza"
+msgstr "cadens"
+
+#: time-description.cc:106
+msgid "partial measure must be non-negative"
+msgstr ""
+
+#: time-description.cc:108
+msgid "partial measure too large"
+msgstr ""
+
+#: timing-translator.cc:32
+msgid "conflicting timing request"
+msgstr ""
+
+#: timing-translator.cc:64
+msgid "meter change not allowed here"
+msgstr "maatwisseling is hier niet geoorloofd"
+
+#: timing-translator.cc:87
+msgid "barcheck failed by: %s"
+msgstr "misplaatste maatstreep: %s"
+
+#: translator-ctors.cc:40
+msgid "unknown translator `%s'"
+msgstr ""
+
+#: translator-group.cc:149
+msgid "can't find or create `%s' called `%s'"
+msgstr ""
+
+#: translator-group.cc:263
+msgid "can't find or create `%s'"
+msgstr ""
+
+#: translator-group.cc:353
+msgid "can't find `%s'"
+msgstr "kan niet vinden `%s'"
+
+#: word-wrap.cc:68
+msgid "ugh, this measure is too long"
+msgstr "ugh, deze maat is te lang"
+
+#: word-wrap.cc:69
+msgid "breakpoint: %d"
+msgstr ""
+
+#: word-wrap.cc:70
+msgid "generating stupido solution"
+msgstr ""
+
+#: word-wrap.cc:88
+msgid "I don't fit; put me on Montignac"
+msgstr "Ik ben te dik."
+
+#: parser.yy:300 parser.yy:303
+msgid "incorrect mudela version: %s (%s, %s)"
+msgstr "verkeerde mudela versie: %s (%s, %s)"
+
+#: parser.yy:477
+msgid "More than one music block"
+msgstr ""
+
+#: parser.yy:1047 parser.yy:1225 parser.yy:1252
+msgid "not a duration: %d"
+msgstr "is geen duur: %d"
+
+#: parser.yy:1049 parser.yy:1254
+msgid "can't abbreviate"
+msgstr ""
+
+#: parser.yy:1264
+msgid "have to be in Note mode for notes"
+msgstr ""
+
+#: parser.yy:1286
+msgid "have to be in Lyric mode for lyrics"
+msgstr ""
+
+#: lexer.ll:125
+msgid "EOF found inside a comment"
+msgstr ""
+
+#: lexer.ll:163
+msgid "undefined identifier: `%s'"
+msgstr ""
+
+#. backup rule
+#: lexer.ll:168
+msgid "missing end quote"
+msgstr ""
+
+#. backup rule
+#: lexer.ll:191 lexer.ll:195
+msgid "white expected"
+msgstr ""
+
+#: lexer.ll:342
+msgid "illegal character: `%c'"
+msgstr ""
+
+#: lexer.ll:392
+msgid "unknown escaped string: `\\%s'"
+msgstr ""
+
+#: out/BLURB.hh:2
+msgid ""
+"LilyPond is the GNU Project music typesetter.  This program can print\n"
+"beautiful sheet music from a music definition file.  It can also play\n"
+"mechanical performances to a MIDI file.  Features include multiple\n"
+"staffs, meters, clefs, keys, lyrics, versatile input language, cadenzas,\n"
+"beams, slurs, triplets, formatting scores, part extraction.  It includes\n"
+"a nice font of musical symbols.\n"
+msgstr ""
+"LilyPond is de muziekzetter van het GNU Project.  Dit programma drukt\n"
+"prachtige bladmuziek volgens een muzikaal definitie bestand.  Ook kan\n"
+"het een mechanische uitvoering afspelen naar een MIDI bestand.\n"
+"Bijzondere kunstjes zijn verscheidene notenbalken, maatsoorten,\n"
+"sleutels, toonaarden, zangteksten, krachtige invoer taal, cadensa,\n"
+"balken, boogjes, triolen, partituren, en losse partijen.  Een fraaie set\n"
+"muziektekens is inbegrepen.\n"
+
+#: out/COPERTINA.hh:2
+msgid ""
+"LilyPond \350 il tipografo musicale del progetto GNU.   Questo programma \350\n"
+"fatto per stampare belle partiture da un documento definito per musica.\n"
+"Pu\362 anche suonare le prestazioni meccaniche ad un documento MIDI.  Le\n"
+"caratteristiche includono i personali multipli, tester, chiavi, suoni,\n"
+"lirica, lingua potente dell' input, cadenze, fasci, archi, tripletti,\n"
+"segni di formattazione, estrazione delle parte.  \310 compresa una seria \n"
+"completa di caratteri musicali.\n"
+msgstr ""
+
+#: out/FLAPTEKST.hh:2
+msgid ""
+"LilyPond is de muziekzetter van het GNU Project.  Dit programma drukt\n"
+"prachtige bladmuziek volgens een muzikaal definitie bestand.  Ook kan\n"
+"het een mechanische uitvoering afspelen naar een MIDI bestand.\n"
+"Bijzondere kunstjes zijn verscheidene notenbalken, maatsoorten,\n"
+"sleutels, toonaarden, zangteksten, krachtige invoer taal, cadensa,\n"
+"balken, boogjes, triolen, partituren, en uittreksels voor individuele \n"
+"partijen.  Een fraaie set muziektekens is inbegrepen.\n"
+msgstr ""
+
+#: main.cc:43
+msgid "Usage: %s [OPTION]... [FILE]"
+msgstr ""
+
+#: main.cc:45
+msgid "Translate midi-file to mudela"
+msgstr ""
+
+#: main.cc:51
+msgid "  -b, --no-quantify      write exact durations, e.g.: a4*385/384\n"
+msgstr ""
+
+#: main.cc:63
+msgid "  -k, --key=ACC[:MINOR]  set key: ACC +sharps/-flats; :1 minor\n"
+msgstr ""
+
+#: main.cc:66
+msgid "  -n, --no-silly         assume no plets or double dots, smallest is 32\n"
+msgstr ""
+
+#: main.cc:69
+msgid "  -o, --output=FILE      set FILE as default output\n"
+msgstr "  -o, --output=BESTAND   zet BESTAND als verval uitvoer\n"
+
+#: main.cc:72
+msgid "  -p, --no-plets         assume no plets\n"
+msgstr ""
+
+#: main.cc:75
+msgid "  -q, --quiet            be quiet\n"
+msgstr ""
+
+#: main.cc:81
+msgid "  -s, --smallest=N       assume no shorter (reciprocal) durations than N\n"
+msgstr ""
+
+#: main.cc:84
+msgid "  -v, --verbose          be verbose\n"
+msgstr ""
+
+#: main.cc:90
+msgid "  -x, --no-double-dots   assume no double dotted notes\n"
+msgstr ""
+
+#: main.cc:105
+msgid "Mi2mu, translate midi to mudela"
+msgstr ""
+
+#: midi-parser.cc:64
+msgid "zero length string encountered"
+msgstr ""
+
+#: midi-score-parser.cc:45
+msgid "MIDI header expected"
+msgstr ""
+
+#. is this signed?
+#: midi-score-parser.cc:50
+msgid "Invalid header length"
+msgstr ""
+
+#: midi-score-parser.cc:53
+msgid "Invalid midi format"
+msgstr ""
+
+#: midi-score-parser.cc:56
+msgid "Invalid number of tracks"
+msgstr ""
+
+#: midi-score-parser.cc:59
+msgid "can't handle %s"
+msgstr ""
+
+#: midi-score-parser.cc:59
+msgid "non-metrical time"
+msgstr ""
+
+#: midi-score-parser.cc:95
+msgid "Parsing...\n"
+msgstr ""
+
+#: midi-track-parser.cc:70
+msgid "junking note-end event: channel = %d, pitch = %d"
+msgstr ""
+
+#: midi-track-parser.cc:125
+msgid "invalid running status"
+msgstr ""
+
+#: midi-track-parser.cc:326
+msgid "unimplemented MIDI meta-event"
+msgstr ""
+
+#: midi-track-parser.cc:331
+msgid "invalid MIDI event"
+msgstr ""
+
+#: midi-track-parser.cc:346
+msgid "MIDI track expected"
+msgstr ""
+
+#: midi-track-parser.cc:351
+msgid "invalid track length"
+msgstr ""
+
+#. heu, -2: should be - 1 1/2: A -> fis
+#: mudela-item.cc:62
+msgid "%% \"%s\"; %% not supported yet"
+msgstr ""
+
+#: mudela-item.cc:107
+msgid "#32 in quarter: %d"
+msgstr ""
+
+#: mudela-score.cc:96
+msgid "ugh"
+msgstr ""
+
+#: mudela-score.cc:108
+msgid "Lily output to %s..."
+msgstr ""
+
+#: mudela-score.cc:118 mudela-score.cc:167
+msgid "track "
+msgstr ""
+
+#: mudela-score.cc:152
+msgid "Processing..."
+msgstr ""
+
+#: mudela-score.cc:163
+msgid "Creating voices..."
+msgstr ""
+
+#: mudela-score.cc:176
+msgid "NOT Filtering tempo..."
+msgstr ""
+
+#: mudela-score.cc:185
+msgid "NOT Quantifying columns..."
+msgstr ""
+
+#: mudela-score.cc:189
+msgid "Quantifying columns..."
+msgstr ""
+
+#.    return;
+#: mudela-score.cc:224
+msgid "Settling columns..."
+msgstr ""
+
+#: mudela-staff.cc:100
+msgid "% midi copyright:"
+msgstr ""
+
+#: mudela-staff.cc:101
+msgid "% instrument:"
+msgstr ""
+
+#: mudela-stream.cc:36
+msgid "lily indent level: %d"
+msgstr ""
+
+#: mudela-stream.cc:88
+msgid "% from input file: "
+msgstr ""
+
+#: version.cc:12
+msgid "of"
+msgstr "van"

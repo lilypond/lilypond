@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include "debug.hh"
 #include "collision.hh"
@@ -16,7 +16,7 @@ Collision::Collision()
 }
 
 void
-Collision::add (Note_column* ncol_l)
+Collision::add_column (Note_column* ncol_l)
 {
   clash_l_arr_.push (ncol_l);
   add_element (ncol_l);
@@ -59,7 +59,7 @@ Collision::do_pre_processing()
       Note_column* c_l = clash_l_arr_[i];
       if (! c_l->dir_)
 	{
-	  warning (_("No stem direction set. Ignoring column in clash. "));
+	  warning (_ ("No stem direction set. Ignoring column in clash."));
 	  continue;
 	}
       int d = (c_l->dir_);
@@ -72,7 +72,7 @@ Collision::do_pre_processing()
     {
       if (clash_group_arr_a[j].size() > 1)
 	{
-	  warning (_("Too many clashing notecolumns. Ignoring them."));
+	  warning (_ ("Too many clashing notecolumns. Ignoring them."));
 	  return;
 	}
     }
@@ -154,7 +154,7 @@ Collision::do_pre_processing()
 	     (shaddup)
 	     */
 	  Offset o (x_off[j] * wid_f, y_off[j] * inter_f);
-	  ((Score_elem*)col_l_a[j])->translate (o);
+	  ((Score_element*)col_l_a[j])->translate (o);
 	}
     }
 }
@@ -163,8 +163,8 @@ Collision::do_pre_processing()
 IMPLEMENT_IS_TYPE_B1(Collision, Item);
 
 void
-Collision::do_substitute_dependency (Score_elem*o_l,Score_elem*n_l)
+Collision::do_substitute_dependency (Score_element*o_l,Score_element*n_l)
 {
-  clash_l_arr_.substitute ((Note_column*)o_l->item(),
-			   (Note_column*)(n_l?n_l->item():0));
+  clash_l_arr_.substitute ((Note_column*)o_l->access_Item (),
+			   (Note_column*)(n_l?n_l->access_Item ():0));
 }

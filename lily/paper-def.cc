@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include <math.h>
@@ -13,35 +13,44 @@
 #include "paper-def.hh"
 #include "debug.hh"
 #include "lookup.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "assoc-iter.hh"
-#include "score-grav.hh"
+#include "score-engraver.hh"
 #include "p-score.hh"
 #include "identifier.hh"
 #include "main.hh"
 #include "scope.hh"
-
+#include "assoc.hh"
+#include "assoc-iter.hh"
 
 Paper_def::Paper_def ()
 {
-  lookup_p_ = 0;
+  lookup_p_assoc_p_ = new Assoc<int, Lookup*>;
   scope_p_ = new Scope;
 }
 
 Paper_def::~Paper_def ()
 {
+  for (Assoc_iter<int, Lookup*> ai(*lookup_p_assoc_p_); ai.ok (); ai++)
+    {
+      delete ai.val ();
+    }
+  
   delete scope_p_;
-  delete lookup_p_;
+  delete lookup_p_assoc_p_;
 }
 
 Paper_def::Paper_def (Paper_def const&s)
   : Music_output_def (s)
 {
-  lookup_p_ = s.lookup_p_? new Lookup (*s.lookup_p_) : 0;
-  if (lookup_p_)
+  lookup_p_assoc_p_ = new Assoc<int, Lookup*>;
+  for (Assoc_iter<int, Lookup*> ai(*s.lookup_p_assoc_p_); ai.ok (); ai++)
     {
-      lookup_p_->paper_l_ = this;
+      Lookup * l=new Lookup (*ai.val ());
+      l->paper_l_ = this;
+      set_lookup (ai.key(), l);
     }
+  
   scope_p_ = new Scope (*s.scope_p_);
 }
 
@@ -49,11 +58,15 @@ Real
 Paper_def::get_var (String s) const
 {
   if (!scope_p_->elt_b (s))
-    error (_ ("unknown paper variable `")  + s+"'");
-  Real * p = scope_p_->elem (s)->real ();
-  Real r = *p;
-  delete p;
-  return r;
+    error (_f ("unknown paper variable: `%s\'", s));
+  Real * p = scope_p_->elem (s)->access_Real (false);
+  if (!p)
+    {
+      error (_ ("not a real variable"));
+      return 0.0;
+    }
+
+  return *p;
 }
 
 Interval
@@ -121,12 +134,14 @@ Paper_def::geometric_spacing (Moment d) const
 }
 
 void
-Paper_def::set (Lookup*l)
+Paper_def::set_lookup (int i, Lookup*l)
 {
-  assert (l != lookup_p_);
-  delete lookup_p_;
-  lookup_p_ = l;
-  lookup_p_->paper_l_ = this;
+  if (lookup_p_assoc_p_->elt_b (i))
+    {
+      delete lookup_p_assoc_p_->elem (i);
+    }
+  l ->paper_l_ = this;
+  (*lookup_p_assoc_p_)[i] = l;
 }
 
 Real
@@ -180,24 +195,26 @@ Paper_def::print () const
 #ifndef NPRINT
   Music_output_def::print ();
   DOUT << "Paper {";
-  if (lookup_p_)
-    lookup_p_->print ();
+
+  for (Assoc_iter<int, Lookup*> ai(*lookup_p_assoc_p_); ai.ok (); ai++)
+    {
+      DOUT << "Lookup: " << ai.key () ;
+      ai.val ()->print ();
+    }
+
   for (Assoc_iter<String,Identifier*> i (*scope_p_); i.ok (); i++)
     {
       DOUT << i.key () << "= ";
-//      i.val ()->print ();
-// urg
-      DOUT << i.val ()->str () << "\n";
+      DOUT << i.val ()->str () << '\n';
     }
   DOUT << "}\n";
 #endif
 }
 
 Lookup const *
-Paper_def::lookup_l ()
+Paper_def::lookup_l (int i) const
 {
-  assert (lookup_p_);
-  return lookup_p_;
+  return (*lookup_p_assoc_p_)[i];
 }
 
 IMPLEMENT_IS_TYPE_B1 (Paper_def, Music_output_def);
@@ -209,7 +226,7 @@ Paper_def::TeX_output_settings_str () const
   for (Assoc_iter<String,Identifier*> i (*scope_p_); i.ok (); i++)
     s += String ("\\def\\mudelapaper") + i.key () 
       + "{" + i.val ()->str () + "}\n";
-  s +=  lookup_p_->texsetting + "% (Tex id)\n";
+  s +=  *scope_p_->elem ("texsetting")->access_String ();
   return s;
 }
 

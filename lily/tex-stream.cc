@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 */
 
@@ -19,9 +19,13 @@ const int MAXLINELEN = 200;
 
 Tex_stream::Tex_stream (String filename)
 {
-  os = new ofstream (filename.ch_C ());
+  if (filename.length_i () && (filename != "-"))
+    os = new ofstream (filename.ch_C ());
+  else
+//    os = new ostream (cout.ostreambuf ());
+    os = new ostream (cout._strbuf);
   if (!*os)
-	error (_("can't open `") + filename+"\'");
+    error (_f ("can't open file: `%s\'", filename));
   nest_level = 0;
   line_len_i_ = 0;
   outputting_comment=false;
@@ -30,17 +34,17 @@ Tex_stream::Tex_stream (String filename)
 void
 Tex_stream::header()
 {
-  *os << _("% Creator: ");
+  *os << _ ("% Creator: ");
   if (no_timestamps_global_b)
     *os << "GNU LilyPond\n";
   else
-    *os << get_version_str() << "\n";
-  *os << _("% Automatically generated");
+    *os << get_version_str() << '\n';
+  *os << _ ("% Automatically generated");
   if (no_timestamps_global_b)
     *os << ".\n";
   else
     {
-      *os << _(", at ");
+      *os << _ (", at ");
       time_t t (time (0));
       *os << ctime (&t) << "%\n";
     }
@@ -51,7 +55,7 @@ Tex_stream::~Tex_stream()
   *os << flush;
   if (!*os)
     {
-      warning(_("error syncing file (disk full?)"));
+      warning(_ ("error syncing file (disk full?)"));
       exit_status_i_ = 1;
     }
   delete os;
@@ -59,10 +63,9 @@ Tex_stream::~Tex_stream()
 }
 
 // print string. don't forget indent.
-Tex_stream &
-Tex_stream::operator<<(String s)
+Tex_stream&
+Tex_stream::operator << (Scalar s)
 {
-
   for (char const *cp = s.ch_C (); *cp; cp++)
     {
 	if (outputting_comment)
@@ -118,6 +121,7 @@ void
 Tex_stream::break_line()
 {
   *os << "%\n";
-  *os << String (' ', nest_level);
+  *os << to_str (' ', nest_level);
   line_len_i_ = 0;
 }
+

@@ -3,7 +3,7 @@
 
   source file of the Flower Library
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -25,6 +25,7 @@ class Rational {
   unsigned int num_, den_;
   void normalise ();
   void copy (Rational const &);
+
 public:
   void set_infinite (int sign);
   bool infty_b () const;
@@ -36,7 +37,6 @@ public:
   operator bool () const;
   operator int () const;
   operator double () const;
-  operator String () const;
   Rational operator - () const;
   Rational ();
   Rational (int, int =1);

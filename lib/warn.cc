@@ -4,7 +4,7 @@
 void
 error (String s)
 {
-    cerr <<  _ ("error: ") << s << "\n";
+    cerr <<  _ ("error: ") << s << '\n';
 
     exit (1);
 }
@@ -12,7 +12,7 @@ error (String s)
 void
 non_fatal_error (String s)
 {
-    cerr <<  _ ("error: ") << s << "\n";
+    cerr <<  _ ("error: ") << s << '\n';
 }
 
 void

@@ -1,7 +1,7 @@
 //
 //  mudela-stream.hh -- part of LilyPond
 //
-//  copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+//  copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 // should i be named Mudela_stream?
 
@@ -10,6 +10,7 @@
 
 #include "mi2mu-proto.hh"
 #include "string.hh"
+#include "scalar.hh"
 
 /// Lily output
 class Mudela_stream {
@@ -17,7 +18,7 @@ public:
     Mudela_stream (String filename_str);
     ~Mudela_stream();
 
-    Mudela_stream& operator << (String str);
+    Mudela_stream& operator << (Scalar s);
     Mudela_stream& operator << (Mudela_item& mudela_item_r);
 
 private:

@@ -1,13 +1,13 @@
 /*
   stem.hh -- declare Stem
 
-  (c) 1996,97 Han-Wen Nienhuys
+  (c) 1996--1998 Han-Wen Nienhuys
 */
 
 #ifndef STEM_HH
 #define STEM_HH
 #include "item.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "moment.hh"
 #include "molecule.hh"
 
@@ -82,7 +82,7 @@ public:
   Stem ();
     
   /// ensure that this Stem also encompasses the Notehead #n#
-  void add (Rhythmic_head*n);
+  void add_head (Rhythmic_head*n);
 
   DECLARE_MY_RUNTIME_TYPEINFO;
 
@@ -93,10 +93,10 @@ public:
 
   void do_print() const;
   void set_stemend (Real);
-  Direction get_default_dir();
-  Direction get_dir ();
+  Direction get_default_dir() const;
+  Direction get_dir () const;
 
-  int get_center_distance(Direction);
+  int get_center_distance(Direction) const;
   void set_default_dir();
   void set_default_stemlen();
   void set_default_extents();
@@ -111,8 +111,9 @@ public:
     
   /// heads that the stem encompasses (positions)
   Interval_t<int> head_positions() const;
+  virtual ~Stem ();
 protected:
-  virtual void do_substitute_dependency (Score_elem*,Score_elem*);
+  virtual void do_substitute_dependency (Score_element*,Score_element*);
   virtual void do_pre_processing();
   virtual Interval do_width() const;
   Molecule* brew_molecule_p() const;

@@ -12,23 +12,23 @@ copyright =	 "public domain";
 Tested Features		lyrics and chords
 %}
 
-\version "0.1.15";
+\version "1.0.0";
 
-melodie = \melodic {
+melodie = \melodic\relative c {
         \clef"violin";
-        \meter 2/4 ;
-        \octave  c';
+        \time 2/4 ;
 
-        c4^"C" c |      g     g |       a^"F"  a |      g2^"C"   |
+        c''4^"C" c |    g'    g |       a^"F"  a |      g2^"C"   |
         f4^"F" f |      e^"C" e |       d^"G7" d |      c2^"C"   |
-        g4^"G" g |      f^"F" f |       e^"C"  e |      d^"G7" d |
+        g'4^"G" g |      f^"F" f |       e^"C"  e |      d^"G7" d |
         g^"G"  g |      f^"F" f |       e^"C"  e |      d^"G7" d |
-        c4^"C" c |      g     g |       a^"F"  a |      g2^"C"   |
+        c4^"C" c |      g'    g |       a^"F"  a |      g2^"C"   |
         f4^"F" f |      e^"C" e |       d^"G7" d |      c2^"C"   |
 }
 
 text = \lyric{ 
-        \textstyle "italic";
+        \property Lyrics . textstyle =  "italic"
+
         Ah!4 vous dir- ai_- je ma man2
         Ce4 qui cau- se mon tour- ment2
         Pa-4 pa veut que je rai- so- nne

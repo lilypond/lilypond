@@ -2,21 +2,14 @@ Begin3
 Title: LilyPond
 Version: @TOPLEVEL_VERSION@
 Entered-date: @DATE@
-Description: LilyPond is the GNU Project music typesetter.  The program
-		generates visual or auditive output from a music 
-		definition file: it can typeset formatted sheet music 
-		to a TeX file and play (mechanical) performances to a 
-		MIDI file.  Features include multiple staffs, meters, 
-		clefs, keys, lyrics, versatile input-language, 
-		cadenzas, beams, slurs, triplets.
-		It includes a nice font of musical symbols.
+Description: @BLURB@
 Keywords: music notation typesetting midi fonts engraving
 Author: hanwen@cs.ruu.nl (Han-Wen Nienhuys)
-	jan@digicash.com (Jan Nieuwenhuizen)
+	janneke@gnu.org (Jan Nieuwenhuizen)
 Maintained-by: hanwen@stack.nl (Han-Wen Nienhuys)
 Primary-site: sunsite.unc.edu /pub/Linux/apps/sound/convert
-	570k lilypond-@TOPLEVEL_VERSION@.tar.gz 
+	730k @package@-@TOPLEVEL_VERSION@.tar.gz 
 Original-site: pcnov095.win.tue.nl /pub/lilypond/development/
-	570k lilypond-@TOPLEVEL_VERSION@.tar.gz 
+	730k @package@-@TOPLEVEL_VERSION@.tar.gz 
 Copying-policy: GPL
 End

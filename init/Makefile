@@ -2,15 +2,14 @@
 
 depth = ..
 
-# generic stuff/Makefile
-#
-include ./$(depth)/make/Include.make
+include $(depth)/make/Stepmake.make 
+include $(make-dir)/Mutopia.make
 
-INIFILES = $(wildcard *.ly)
-DISTFILES = Makefile $(INIFILES)
+INI_FILES = $(FLY_FILES) $(LY_FILES)
+# DIST_FILES = Makefile $(INI_FILES)
 
-INSTALLATION_DIR=$(datadir)/lilypond/
-INSTALLATION_FILES=$(INIFILES)
+INSTALLATION_DIR=$(datadir)
+INSTALLATION_FILES=$(INI_FILES)
 
-include $(depth)/make/Installfiles.make
+include $(stepdir)/Installfiles.make
 

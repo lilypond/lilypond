@@ -3,8 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
-      Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+      Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "bow.hh"
@@ -33,9 +33,9 @@ Bow::brew_molecule_p () const
   Atom a;
 
   if (!dash_i_)
-    a = paper ()->lookup_l ()->slur (c);
+    a = lookup_l ()->slur (c);
   else
-    a = paper ()->lookup_l ()->dashed_slur (c, thick, dash_i_);
+    a = lookup_l ()->dashed_slur (c, thick, dash_i_);
 
   if (check_debug && !monitor->silent_b ("Bow"))
     {
@@ -53,7 +53,7 @@ Bow::brew_molecule_p () const
   a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
 
   Molecule* mol_p = new Molecule;
-  mol_p->add (a);
+  mol_p->add_atom (a);
 
   return mol_p;
 }
@@ -66,6 +66,26 @@ Bow::center () const
   Real dx = width ().length ();
 
   return Offset (dx / 2, dy);
+}
+
+
+
+/*
+   
+   ugh .  Control points are too crude measures.
+ */
+Interval
+Bow::do_height () const
+{
+  Array<Offset> c (get_controls());
+
+  Interval iv;
+  for (int i=0; i < c.size (); i++)
+    {
+      Real y = c[i][Y_AXIS];
+      iv.unite (Interval (y,y));
+    }
+  return iv;
 }
 
 Interval

@@ -8,7 +8,7 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 latexheaders=    "headers";
 } 
-\version "0.1.15";
+\version "1.0.0";
 
 %{
 Silly latex file dropped; use ly2dvi
@@ -30,16 +30,16 @@ Converted to relative octave from los-toros-oboe.ly:
 hoboonestart = \melodic
   \relative c'{
 % ugh: cant copy: allegro/primo tempo
-	\textstyle "large";
+	\property Voice . textstyle =  "large"
 	[es''16-.^"Allegro" es-. es-. es-.] [es8-. d-.] |
-	\textstyle "italic";
+	\property Voice . textstyle =  "italic"
 }
 
 hobooneintro = \melodic  \relative c'{
 
-%	\textstyle "roman";
+%	\property Voice . textstyle =  "roman"
 %	[es''16-.-"Allegro" es-. es-. es-.] [es8-. d-.] |
-%	\textstyle "italic";
+%	\property Voice . textstyle =  "italic"
 	[f''8.-> es16(] [)d8 c-.] |
 	[bes16( c d es] [)d8 c-.] |
 	[bes-. as->~] [as16( g f g] |
@@ -107,18 +107,18 @@ hoboonemid = \melodic	\relative c'{
 	[d16-. d-. d-. d-.] [d8.-. es16->] |
 	[d16 d d d] [d8 es16-.] r16-\fermata^"court"^"tr\\`es" |
 	% Un peu plus lent.
-	\textstyle "bold";
+	\property Voice . textstyle =  "bold"
 
 % ugh
-%	d4(\<^"Un peu plus lent" \textstyle "italic; _"tr\\`es \\'el\\'egant"
+%	d4(\<^"Un peu plus lent" \property Voice . textstyle =  "italic _"tr\\`es \\'el\\'egant"
 %	d4(\^"Un peu plus lent et \\'el\\'egant"<
-	\textstyle "italic"; 
+	\property Voice . textstyle =  "italic" 
 	d4(\<
 	[e8 \!fis8] |
 %	[)b-. a-.] [g16( fis e )d] |
-	\textstyle "bold";
-	[)b-.^"Un peu plus lent et \\'el\\'egant" a-.] [''g16( fis' e )d] |
-	\textstyle "italic"; 
+	\property Voice . textstyle =  "bold"
+	[)b-.^"Un peu plus lent et \\'el\\'egant" a-.] [g,,16( fis' e )d] |
+	\property Voice . textstyle =  "italic" 
 	[d( c b\< c] [)\!fis'8-. e-.] |
 	d,,4-> ~ [d16 e( fis g] |
 	[a b\< d fis] [)\!a8-. g-.] |
@@ -154,9 +154,9 @@ hoboonemid = \melodic	\relative c'{
 hoboonesecondstart = \melodic   \relative c'{
 
 % ugh: cant copy: allegro/primo tempo
-	\textstyle "large";
+	\property Voice . textstyle =  "large"
 	[es''16-.\ff^"Tempo 1$^o$" es-. es-. es-.] [es8-. d-.] |
-	\textstyle "italic";
+	\property Voice . textstyle =  "italic"
 	
 }
 	
@@ -195,7 +195,7 @@ hoboonelast = \melodic   \relative c'{
 	[bes'16-.\ff bes-. bes-. bes-.] [bes8-. ces16->] r16^"court"-\fermata |
 	% ugh: eight measures rest (ugh: r1 -> four beats...)
 	% eiht measures rest..
-	\textstyle "bold";
+	\property Voice . textstyle =  "bold"
 %	r2^"Un peu plus lent et \\'el\\'egant"
 	R2*8
 %	r4 r8\p bes |
@@ -203,14 +203,14 @@ hoboonelast = \melodic   \relative c'{
 	r8\p bes,, |
 %	g2->^"Un peu plus lent et \\'el\\'egant" ~ |
 	g2-> ~ |
-	\textstyle "italic";
+	\property Voice . textstyle =  "italic"
 	g8 r r c |
 	c2-> ~ |
 	c8 r r bes'\f |
 	[bes8.->\f g16-.] [es16-. bes-. g-. as-.] |
 	[bes-.-"dim." c-. d-. f-.] [es8-. c-.] |
 	d2-> ~ |
-	[d16-"dim."( es f g] [)'as8 as-.] |
+	[d16-"dim."( es f g] [)as,8 as-.] |
 	[ces8.->\p( )bes16-.] bes4 ~ |
 	[bes16( c! d f] [)es8 g,-.] |
 	[g8.->( )as16] as4 ~ |
@@ -233,9 +233,9 @@ hoboonelast = \melodic   \relative c'{
 	g8-. r f4-> ~ |
 	[f8 es-. ces8.-. as16-.] |
 	% `a deux
-	\textstyle "large";
+	\property Voice . textstyle =  "large"
 	[ces8.->^"Plus vite" bes16-.(] [a bes es d] |
-	\textstyle "italic";
+	\property Voice . textstyle =  "italic"
 	[)c!8.-> bes16] [a( bes es )d] |
 	[c->( bes es )d] [c->( bes es )d] |
 	% same measure
@@ -244,9 +244,9 @@ hoboonelast = \melodic   \relative c'{
 	[g )f d( es] [f g as a] |
 	[c )bes bes,( c] [d es f g] |
 	[as g f g] [as bes c d] |
-	\textstyle "large";
+	\property Voice . textstyle =  "large"
 	[)es-.^"Tempo 1$^o$" g,-. g-. g-.] [g8-. g-.] |
-	\textstyle "italic";
+	\property Voice . textstyle =  "italic"
 	bes4.-> g8-. |
 	gis2->( |
 	)as! |
@@ -261,9 +261,9 @@ hoboonelast = \melodic   \relative c'{
 	g4.-> g8-. |
 	es4.-> es8-. |
 	bes4.-> bes8-. |
-	\textstyle "large";
+	\property Voice . textstyle =  "large"
 	g'4.->^"Presto" g8-. |
-	\textstyle "italic";
+	\property Voice . textstyle =  "italic"
 	es4.-> es8-. |
 	[bes-. bes-. es-. g-.] |
 	[bes-. bes,-. es-. g-.] |
@@ -282,13 +282,13 @@ hoboone = \melodic {
 }
 
 global = \melodic{
-	\key bes es as;
-	\meter 2/4;
+	\key es;
+	\time 2/4;
 	\skip 4*110;
-	\key fis; |
+	\key g; |
 	\bar "||";
 	\skip 4*58;
-	\key bes es as; |
+	\key es; |
 	\bar "||";
 	\skip 4*220;
 	\bar "|.";

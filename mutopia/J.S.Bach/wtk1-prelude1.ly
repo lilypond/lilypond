@@ -8,22 +8,21 @@ enteredby =	 "Shay Rojansky";
 copyright =	 "Public Domain";
 }
 
-\version "0.1.14";
+\version "1.0.0";
 
 global = 
     \melodic {
-	 \meter 4/4;                % should be \meter C
+	 \time 4/4;                % should be \time C
     }
   
 
 % should do programmable input.
 
 soprane =
-    \melodic {
+    \melodic \transpose c'' {
         \clef "violin";
-        \octave c';
 
-	\multi 2 <
+	\type Staff <
 	% Real soprane
 	{\stemup
 	r8 [g16 c'] [e' g c' e'] r8 [g16 c'] [e' g c' e'] |
@@ -81,7 +80,7 @@ soprane =
 bass =
     \melodic {
         \clef "bass";
-        \octave c;
+
 
 	\stemdown
 	c'2 c' |
@@ -94,7 +93,7 @@ bass =
 	b b |
 	a a |	
 %% 10
-	\multi 2 <
+	\type Staff <
 	% Alt
 	{\stemup
 	r16 a8. ~ a4 r16 a8. ~ a4 |
@@ -162,7 +161,7 @@ bass =
 
         
 \score {
-    \melodic \type Grand_staff < 
+    \melodic \type GrandStaff < 
                   <
                        \global 
                        \soprane

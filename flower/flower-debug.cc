@@ -14,7 +14,7 @@ void set_flower_debug (Dstream&ds, bool b)
 {
 #ifdef NPRINT
   if (b)
-    cout << _("Debug printout disabled.  Compiled with NPRINT.") << endl;
+    cout << _ ("Debug output disabled.  Compiled with NPRINT.") << endl;
 #endif
 
   flower_check_debug = b;

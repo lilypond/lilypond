@@ -3,11 +3,11 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "molecule.hh"
-#include "boxes.hh"
+#include "box.hh"
 #include "text-spanner.hh"
 #include "text-def.hh"
 #include "debug.hh"
@@ -61,7 +61,7 @@ Text_spanner::brew_molecule_p() const
   tsym.translate (text_off_);
 
   Molecule*output = new Molecule;
-  output->add (tsym);
+  output->add_atom (tsym);
   return output;
 }
 
@@ -78,10 +78,10 @@ Text_spanner::height() const
 }
 
 void
-Text_spanner::do_substitute_dependency (Score_elem* o, Score_elem*n)
+Text_spanner::do_substitute_dependency (Score_element* o, Score_element*n)
 {
   if (support_span_l_ == o) 
-	support_span_l_ = (Directional_spanner*) (n?n->spanner():0);
+	support_span_l_ = (Directional_spanner*) (n?n->access_Spanner ():0);
 }
 
 

@@ -1,65 +1,20 @@
-#
-# project  FlowerSoft C++ library
 # title	   top level makefile for FlowerLib
 # file	   flower/Makefile
-#
-# Copyright (c) 1997 by    
-#   	Jan Nieuwenhuizen <jan@digicash.com>
-#	Han-Wen Nienhuys <hanwen@stack.nl>
-#		...your sort order here, or how to comment-out a comment
 
-# subdir level:
-#
+# should reinstate versioning if shared libs are enabled.
+
 depth = ..
-#
 
-# identify module:
-#
 NAME = flower
 MODULE_NAME = flower
 SUBDIRS = include 
-#
 
-# list of distribution files:
-#
 SCRIPTS = 
-README_FILES = ONEWS NEWS README TODO
-EXTRA_DISTFILES= VERSION $(README_FILES) $(SCRIPTS)
-
-include ./$(depth)/VERSION
-include ./$(depth)/flower/VERSION
-
-include ./$(depth)/make/Variables.make
-include ./$(depth)/make/Files.make 
-include ./$(depth)/make/Targets.make
-include ./$(depth)/make/Rules.make
-
-default: the-lib
-
-THE_LIB=$(outdir)/$(LIB_PREFIX)flower$(LIB_SUFFIX)
-the-lib: $(THE_LIB) 
-
-# version:
-#
-
-localdist: 
-
--include /dev/null $(DEPFILES)
-#
-
-localdistclean:
-	rm -f config.cache config.status config.log
-
-localinstall: $(LIBFLOWER)
-ifeq ($(LIB_SUFFIX),.so)
-	$(INSTALL) -d $(libdir)
-	$(INSTALL) $(LIBFLOWER).$(VERSION) $(libdir)
-	ln -s $(LIB_PREFIX)flower$(LIB_SUFFIX).$(VERSION) $(libdir)/$(LIB_PREFIX)flower$(LIB_SUFFIX).$(MAJOR_VERSION)
-	ln -s $(LIB_PREFIX)flower$(LIB_SUFFIX).$(VERSION) $(libdir)/$(LIB_PREFIX)flower$(LIB_SUFFIX)
-endif
-
-localuninstall:
-	rm -f $(libdir)/libflower.{so*,a}
+README_FILES = NEWS-1.0 NEWS-1.1.46 README TODO
+EXTRA_DIST_FILES= VERSION $(README_FILES) $(SCRIPTS)
 
 
-$(outdir)/flower-version.o: $(outdir)/version.hh
+include $(depth)/make/Stepmake.make 
+include $(stepdir)/C++.make
+include $(stepdir)/Library.make
+

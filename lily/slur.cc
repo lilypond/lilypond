@@ -3,8 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996,  1997--1998, 1998 Han-Wen Nienhuys <hanwen@stack.nl>
-    Jan Nieuwenhuizen <jan@digicash.com>
+  (c) 1996,  1997--1998, 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+    Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 /*
@@ -24,7 +24,7 @@
 #include "p-col.hh"
 #include "molecule.hh"
 #include "debug.hh"
-#include "boxes.hh"
+#include "box.hh"
 #include "bezier.hh"
 #include "encompass-info.hh"
 #include "main.hh"
@@ -36,7 +36,7 @@ Slur::Slur ()
 }
 
 void
-Slur::add (Note_column*n)
+Slur::add_column (Note_column*n)
 {
   encompass_arr_.push (n);
   add_dependency (n);
@@ -71,13 +71,13 @@ Slur::do_pre_processing ()
 }
 
 void
-Slur::do_substitute_dependency (Score_elem*o, Score_elem*n)
+Slur::do_substitute_dependency (Score_element*o, Score_element*n)
 {
   int i;
-  while ((i = encompass_arr_.find_i ((Note_column*)o->item ())) >=0) 
+  while ((i = encompass_arr_.find_i ((Note_column*)o->access_Item ())) >=0) 
     {
       if (n)
-	encompass_arr_[i] = (Note_column*)n->item ();
+	encompass_arr_[i] = (Note_column*)n->access_Item ();
       else
 	encompass_arr_.del (i);
     }
@@ -239,11 +239,13 @@ Slur::get_encompass_offset_arr () const
 
   Array<Offset> notes;
   notes.push (Offset (0,0));
+//  notes.push (left);
 
   for (int i = first; i < last; i++)
     {
       Encompass_info info (encompass_arr_[i], dir_);
       notes.push (info.o_ - left);
+//      notes.push (info.o_ - left);
     }
   notes.push (d);
 
@@ -252,11 +254,13 @@ Slur::get_encompass_offset_arr () const
   int n = last - first + 2;
   Array<Offset> notes (n);
   notes[0] = Offset (0,0);
+//  notes[0] = left;
 
   for (int i = first; i < last; i++)
     {
       Encompass_info info (encompass_arr_[i], dir_);
       notes[i - first + 1] = info.o_ - left;
+//     notes[i - first + 1] = info.o_;
     }
   notes[n - 1] = Offset (d);
 

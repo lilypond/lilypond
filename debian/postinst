@@ -1,244 +1,26 @@
-#!/usr/bin/perl -w
+#!/bin/sh
 #
 # postinst script for the Debian GNU/Linux lilypond package
 #
 #   by Anthony Fok <foka@debian.org>
 #   Initial release:  Sun, 26 Oct 1997 03:23:00 -0700
-#     Last modified:  Mon,  5 Jan 1998 18:36:51 -0700
+#     Last modified:  Wed, 22 Apr 1998 03:14:10 -0600
 
-use strict;
-use File::Copy;
+set -e
 
-my ($package, $pkg_name, $font_supplier, $font_typeface, $std_TEXMF, $TEXMF,
-    $TEXINPUTS, $MFINPUTS, $TFMFONTS, @fonts);
+package=lilypond		# This is used for filenames!  Don't change it!
+pkg_name="GNU LilyPond"
 
-sub correct_opus_fonts ($$);
-sub check_texmfcnf ();
-sub run_texhash ();
-sub add_fonts ($$$$@);
-sub check_specialmap ();
+std_TEXMFMAIN=/usr/lib/texmf	# Debian's standard $TEXMFMAIN
 
-$| = 1;
+TEXMFMAIN=`/usr/bin/kpsewhich -expand-var '$TEXMFMAIN'`
+: ${TEXMFMAIN:=$std_TEXMFMAIN}
 
+echo " Running /usr/bin/mktexlsr ..."
+/usr/bin/mktexlsr
 
-#######################
-# Variables  
-#######################
-
-$package = "lilypond";		# This is used for filenames!  Don't change it!
-$pkg_name = "GNU LilyPond";
-
-$font_supplier = "public";
-$font_typeface = "lilypond";
-@fonts = qw( feta );
-
-$std_TEXMF = "/usr/lib/texmf";  # Debian's standard $TEXMF
-$TEXINPUTS = "$std_TEXMF/tex/$package//";
-$MFINPUTS = "$std_TEXMF/fonts/source/$font_supplier/$font_typeface//";
-$TFMFONTS = "$std_TEXMF/fonts/tfm/$font_supplier/$font_typeface//";
-
-
-#######################
-# Subroutine
-#######################
-
-#----- Fix Opus font entries in special.map (called by check_specialmap()) ---
-#  I goofed up the Opus font entries in special.map, hence this fix.
-#  Note: This is a temporary fix.  Consider removing this in 1998.  ^_^
-
-sub correct_opus_fonts ($$) {
-    my $specialmap = $_[1];
-    my $supplier = "opustex";
-    my $typeface = "opus";
-    my @opusfonts = qw( opus opusline opusnum opussps osl );
-    my $font = "";
-    my $entries = "";
-
-    if ($_[0] =~ /(^\w+\s+public\s+$typeface\n)+/m) {
-	print " Correcting old font entries ...";
-	foreach $font (@opusfonts) {
-	    if (length($font) < 8) { $font .= "\t"; }
-	    $entries .= "$font\t$supplier\t\t$typeface\n";
-	}
-
-	($_[0] =~ s/(^\w+\s+public\s+$typeface\n)+/$entries/m)
-	    or die " Can't correct font entries in $specialmap: $!";
-
-	system(": \${MAKETEXDIR=$TEXMF/maketex}; " .
-	       "test -r \$MAKETEXDIR/maketex.site && . \$MAKETEXDIR/maketex.site; " .
-	       ": \${MT_DESTROOT=$TEXMF/fonts}; " .
-	       "rm -rf \$MT_DESTROOT/pk/*/public/$typeface");
-
-	print "\n";
-	return 1;
-    } else {
-	return 0;
-    }
-}
-
-#-------------------- Check/Modify texmf.cnf for custom teTeX installation ---
-#  Edit texmf.cnf to add search path /usr/lib/texmf
-#  for non-Debian teTeX installation
-
-sub check_texmfcnf () {
-    my $texmfcnf;
-
-    print "\n You have a custom teTeX installation in $TEXMF.\n";
-
-    chop($texmfcnf = `kpsewhich cnf texmf.cnf`);
-
-    if ($? == 0 and $texmfcnf ne "") {
-	my($filebuf, $line);
-	my $new = "$texmfcnf.new";
-	my $bak = "$texmfcnf.bak";
-
-	open(OLD, "< $texmfcnf") or die " Can't open $texmfcnf for reading: $!";
-
-	undef $/;
-	if ($filebuf = <OLD>) {
-	    if ($filebuf =~ /^(TEXMFL.*)$/m) {
-		$line = $1;
-		if ($line =~ /TEXMFL\s*=.*$std_TEXMF/) {
-		    print " Found $std_TEXMF in \$TEXMFL.  Leaving $texmfcnf untouched.\n";
-		} else {
-		    print " Adding $std_TEXMF to \$TEXMFL, updating $texmfcnf ...";
-
-		    $filebuf =~ s/^(TEXMFL\s*=\s*\S*)/$1,$std_TEXMF/m;
-		    open(NEW, "> $new")  or die "\n Can't open $new for writing: $!";
-		    (print NEW $filebuf) or die "\n Can't write to $new: $!";
-		    close(NEW);
-		    copy($texmfcnf, $bak) or die "\n Can't backup $texmfcnf: $!";
-		    rename($new, $texmfcnf)
-			or ( copy($new, $texmfcnf), unlink($new) )
-			or die "\n Can't update $texmfcnf: $!";
-		    print " done.\n";
-		}
-	    }
-	} else {
-	    warn " **\n";
-	    warn " ** Can't read from $texmfcnf: $!\n";
-	    warn " ** Please verify the content of $texmfcnf!\n";
-	    warn " **\n";
-	}
-	$/ = "\n";
-	close(OLD);
-    } else {
-        warn " **\n";
-	warn " ** Can't find texmf.cnf!\n";
-        warn " ** Please add $std_TEXMF to \$TEXMFL in your texmf.cnf.\n";
-	warn " **\n";
-    }
-}
-
-#------------------------------------------------------------- Run texhash ---
-
-sub run_texhash () {
-    print " Running texhash to update $TEXMF/ls-R ...\n";
-
-    if ( `which texhash` and -e "$TEXMF/ls-R" ) {
-	system("texhash");
-    } else {
-	warn " Error: texhash or $TEXMF/ls-R not found!\n";
-    }
-    print "\n";
-}
-
-#---------- Add font entries to special.map (called by check_specialmap()) ---
-
-sub add_fonts ($$$$@) {
-    my ($specialmap, $supplier, $typeface, $fonts) = @_[1..4];
-    my $font = "";
-    my $entries = "";
-    foreach $font (@fonts) {
-	if (length($font) < 8) { $font .= "\t"; }
-	$entries .= "$font\t$supplier\t\t$typeface\n";
-    }
-
-    $_[0] =~ /((^\w+\s+$supplier\s+$typeface\n)+)/m;
-
-    if ($1 ne $entries) {
-	($_[0] =~ s/(^\w+\s+$supplier\s+$typeface\n)+/$entries/m)
-	    or ($_[0] =~ s/(?=^beam\s+public\s+music\n)/$entries/m)
-	    or die " Can't add font entries to $specialmap: $!";
-	return 1;
-    } else {
-	return 0;
-    }
-}
-
-#---------------------------------- Check special.map and add font entries ---
-
-sub check_specialmap () {
-    my $fontmap;
-    my $specialmap = "$TEXMF/fontname/special.map";
-    my $new = "$specialmap.new";
-    my $bak = "$specialmap.bak";
-
-    print " Checking font entries in $specialmap ...\n";
-
-    open(OLD, "< $specialmap")  or die " Can't open $specialmap for reading: $!";
-    undef $/;
-    if ($fontmap = <OLD>) {
-	if (correct_opus_fonts($fontmap, $specialmap) |
-	    add_fonts($fontmap, $specialmap, $font_supplier, $font_typeface, @fonts))
-	{
-	    print " Adding $pkg_name font entries to $specialmap ...\n";
-	    open(NEW, "> $new")      or die " Can't open $new for writing: $!";
-	    (print NEW $fontmap)     or die " Can't write to $new: $!";
-	    close(NEW);
-	    copy($specialmap, $bak)  or die " Can't backup $specialmap: $!";
-	    rename($new, $specialmap)
-		or ( copy($new, $specialmap), unlink($new) )
-		or die " Can't update $specialmap: $!";
-	} else {
-	    print " Entries okay.  Leaving $specialmap untouched.\n";
-	}
-	undef $fontmap;
-    } else {
-	warn " **\n";
-	warn " ** Can't read from $specialmap: $!\n";
-	warn " ** Please verify the content of $specialmap!\n";
-	warn " **\n";
-    }
-    $/ = "\n";
-    close(OLD);
-    print "\n";
-}
-
-
-
-#######################
-# Main program 
-#######################
-
-print " Checking teTeX directory \$TEXMF ...";
-
-chop($TEXMF = `kpsetool -v '\$TEXMF'`);
-
-if ($? == 0 and $TEXMF ne "") {
-    print " okay.";
-} else {
-    warn "\n Error: kpsetool not found or \$TEXMF not set!\n";
-    warn " Assuming \$TEXMF=$std_TEXMF\n";
-    $TEXMF = $std_TEXMF;
-    if (not -d $TEXMF) {
-	warn " ... but directory '$TEXMF' does not exist either!\n";
-	die " Please check your teTeX configuration.\n"
-    }
-}
-
-if ($TEXMF ne $std_TEXMF) {
-    check_texmfcnf();
-}
-
-print "\n";
-
-run_texhash();
-check_specialmap();
-
-print " $pkg_name configuration completed.\n";
-print " Please read /usr/doc/$package/README.Debian to get started.\n";
-
-print << `EOF`
 #DEBHELPER#
-EOF
+
+echo
+echo " $pkg_name configuration completed."
+echo " Please read /usr/doc/$package/README.Debian to get started."

@@ -3,11 +3,11 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "graphical-element.hh"
-#include "axis-group-element.hh"
+#include "graphical-axis-group.hh"
 #include "debug.hh"
 
 bool
@@ -26,13 +26,8 @@ Graphical_element::Graphical_element (Graphical_element const &s)
   init ();
   empty_b_ = s.empty_b_;
   axis_group_l_a_[0] = axis_group_l_a_[1] =0;
-  offset_ = Offset (0,0);
+  offset_ = Offset (0,0);	// Hmmmm.... Should copy?
 } 
-
-Graphical_element::~Graphical_element ()
-{
-  
-}
 
 void
 Graphical_element::init ()
@@ -58,7 +53,7 @@ Real
 Graphical_element::absolute_coordinate (Axis a) const
 {
   Real r = offset_[a];
-  for (Axis_group_element * axis_group_l = axis_group_l_a_[a];
+  for (Graphical_axis_group * axis_group_l = axis_group_l_a_[a];
        axis_group_l; axis_group_l = axis_group_l->axis_group_l_a_[a])
 	
     r += axis_group_l->offset_[a];
@@ -81,10 +76,10 @@ Graphical_element::translate_axis (Real y, Axis a)
 }
 
 Real
-Graphical_element::relative_coordinate (Axis_group_element*e, Axis a) const
+Graphical_element::relative_coordinate (Graphical_axis_group*e, Axis a) const
 {
   Real r =0.0;
-  for (Axis_group_element * axis_group_l = axis_group_l_a_[a];
+  for (Graphical_axis_group * axis_group_l = axis_group_l_a_[a];
        axis_group_l != e;
        axis_group_l = axis_group_l->axis_group_l_a_[a])
     r +=  axis_group_l->offset_[a];
@@ -92,17 +87,17 @@ Graphical_element::relative_coordinate (Axis_group_element*e, Axis a) const
   return r;
 }
 
-Axis_group_element* 
+Graphical_axis_group* 
 Graphical_element::common_group (Graphical_element const* s, Axis a) const
 {
-  Link_array<Axis_group_element> my_groups;
-  for (Axis_group_element * axis_group_l = axis_group_l_a_[a];
+  Link_array<Graphical_axis_group> my_groups;
+  for (Graphical_axis_group * axis_group_l = axis_group_l_a_[a];
        axis_group_l;
        axis_group_l = axis_group_l->axis_group_l_a_[a])
     my_groups.push (axis_group_l);
 
-  Axis_group_element* common_l=0;
-  for (Axis_group_element * axis_group_l = s->axis_group_l_a_[a];
+  Graphical_axis_group* common_l=0;
+  for (Graphical_axis_group * axis_group_l = s->axis_group_l_a_[a];
        !common_l && axis_group_l;
        axis_group_l = axis_group_l->axis_group_l_a_[a])
     common_l = my_groups.find_l (axis_group_l);
@@ -169,7 +164,7 @@ Graphical_element::height() const
 void
 Graphical_element::unlink ()
 {
-    for (int j=0; j < 2; j++)
+  for (int j=0; j < 2; j++)
     if (axis_group_l_a_[j])
       axis_group_l_a_[j]->remove_element (this);
 }
@@ -181,12 +176,12 @@ Graphical_element::junk_links ()
 }
 
 void
-Graphical_element::print () const
+Graphical_element::do_print () const
 {
 #ifndef NPRINT
   if (offset_.x() || offset_.y ())
     DOUT << "offset: " << offset_.str() ;
-  DOUT << "\n";
+  DOUT << '\n';
 #endif
 }
 

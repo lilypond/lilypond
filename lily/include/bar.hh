@@ -1,7 +1,7 @@
 /*
   bar.hh -- part of GNU LilyPond
 
-  (c) 1996,97 Han-Wen Nienhuys
+  (c) 1996--1998 Han-Wen Nienhuys
 */
 
 #ifndef BAR_HH
@@ -17,13 +17,15 @@ public:
   String type_str_;
 
   DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEM_CLONE(Bar);
-  Bar();
-private:
-  void do_print() const;
+  SCORE_ELEMENT_CLONE (Bar);
+  Bar ();
+
 protected:
-  virtual void do_pre_processing();
-  Molecule*brew_molecule_p() const;
+  virtual void do_pre_processing ();
+  Molecule* brew_molecule_p () const;
+
+private:
+  void do_print () const;
 };
 #endif // BAR_HH
 

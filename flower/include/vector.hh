@@ -3,7 +3,7 @@
 
 #include <math.h>
 #include "real.hh"
-#include "varray.hh"
+#include "array.hh"
 
 class Dstream;
 class String;
@@ -41,7 +41,8 @@ public:
 	dat.insert (v,i);
     }
     void del (int i) { dat.del (i); }
-    operator String() const;
+
+    String str () const;
 
     void operator +=(Vector v) {
 	assert (v.dim() == dim ());

@@ -1,7 +1,7 @@
 /*
   plet-engraver.cc -- implement Plet_engraver
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "proto.hh"
@@ -25,7 +25,7 @@ Plet_engraver::Plet_engraver ()
 }
 
 void
-Plet_engraver::acknowledge_element (Score_elem_info i)
+Plet_engraver::acknowledge_element (Score_element_info i)
 {
   if (!i.elem_l_->is_type_b (Stem::static_name ()))
     return;
@@ -35,20 +35,20 @@ Plet_engraver::acknowledge_element (Score_elem_info i)
     return;
 
   if (!plet_spanner_p_->stem_l_drul_[LEFT])
-    plet_spanner_p_->set_stem (LEFT, (Stem*)i.elem_l_->item ());
+    plet_spanner_p_->set_stem (LEFT, (Stem*)i.elem_l_->access_Item ());
   else
     if (span_reqs_drul_[RIGHT] && !plet_spanner_p_->stem_l_drul_[RIGHT]) 
-      plet_spanner_p_->set_stem (RIGHT, (Stem*)i.elem_l_->item());
+      plet_spanner_p_->set_stem (RIGHT, (Stem*)i.elem_l_->access_Item ());
 }
 
 bool
 Plet_engraver::do_try_request (Request* req_l)
 {
-  Musical_req* mus_l = req_l->musical ();
+  Musical_req* mus_l = req_l->access_Musical_req ();
   if (!mus_l)
     return false;
 
-  Beam_req* b = mus_l->beam ();
+  Beam_req* b = mus_l->access_Beam_req ();
   if (b)
     {
       if (b->spantype)
@@ -59,7 +59,7 @@ Plet_engraver::do_try_request (Request* req_l)
       return false;
     }
     
-  Plet_req* p = mus_l->plet ();
+  Plet_req* p = mus_l->access_Plet_req ();
   if (!p)
     return false;
 
@@ -80,7 +80,7 @@ Plet_engraver::do_removal_processing ()
 {
   if (plet_spanner_p_)
     {
-      span_reqs_drul_[LEFT]->warning (_("unterminated plet"));
+      span_reqs_drul_[LEFT]->warning (_ ("unterminated plet"));
       plet_spanner_p_->unlink ();
       delete plet_spanner_p_;
       plet_spanner_p_ = 0;
@@ -95,9 +95,9 @@ Plet_engraver::do_process_requests ()
     return;
 
   plet_spanner_p_ = new Plet_spanner;
-  plet_spanner_p_->tdef_p_->text_str_ = span_reqs_drul_[LEFT]->plet_i_;
+  plet_spanner_p_->tdef_p_->text_str_ = to_str (span_reqs_drul_[LEFT]->plet_i_);
 
-  announce_element (Score_elem_info (plet_spanner_p_, span_reqs_drul_[LEFT]));
+  announce_element (Score_element_info (plet_spanner_p_, span_reqs_drul_[LEFT]));
 }
 
 void
@@ -117,8 +117,11 @@ Plet_engraver::do_pre_move_processing ()
   if (plet_spanner_p_->visibility_i_)
     typeset_element (plet_spanner_p_);
   else
-    plet_spanner_p_->unlink ();
-
+    {
+      plet_spanner_p_->unlink ();
+      delete plet_spanner_p_;
+    }
+  
   plet_spanner_p_ = 0;
   span_reqs_drul_[RIGHT] = span_reqs_drul_[LEFT] = 0;
 }

@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
   
  */
 
@@ -11,7 +11,7 @@
 #include "debug.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "rest.hh"
 #include "script.hh"
 #include "text-def.hh"
@@ -39,7 +39,7 @@ Multi_measure_rest::brew_molecule_p () const
      * make two,four,eight-measure-rest symbols
    */
 
-  Atom s (paper ()->lookup_l ()->rest (0, 0));
+  Atom s (lookup_l ()->rest (0, 0));
   Molecule* mol_p = new Molecule ( Atom (s));
   Real interline_f = paper ()->interline_f ();
   mol_p->translate_axis (interline_f, Y_AXIS);
@@ -47,11 +47,11 @@ Multi_measure_rest::brew_molecule_p () const
   if (measures_i_ > 1)
     {
       Text_def text;
-      text.text_str_ = measures_i_;
+      text.text_str_ = to_str (measures_i_);
       text.style_str_ = "number";
       Atom s = text.get_atom (paper (), UP);
       s.translate_axis (3.0 * interline_f, Y_AXIS);
-      mol_p->add (s);
+      mol_p->add_atom (s);
     }
 
   return mol_p;

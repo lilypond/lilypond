@@ -30,9 +30,12 @@ struct Interval_t {
 //  T center() { return (left + right) / T(2);}
   // and can't handle this either
   // anyone want to make a bug report?
+  // better make one soon, egcs in rh5.1 barfs on this!
   T center() {
     T two (2);
-    return (left + right) / two;
+//    return (left + right) / two;
+    T result ((left + right) / two);
+    return result;
   }
   void translate (T t) {
     left += t;
@@ -75,6 +78,11 @@ struct Interval_t {
     left =m;
     right = M;
   }
+  Interval_t<T> &operator -= (T r) {
+    *this += -r;
+    return *this;
+  }
+
   Interval_t<T> &operator += (T r) {
     left += r;
     right +=r;

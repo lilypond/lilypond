@@ -1,14 +1,13 @@
 \score{
-	\melodic{
+	\melodic\transpose c'{
 		\property Score.beamquantisation = \none
 
-		\octave c';
 		[a'8 <a' g'']>
-		[c <c 'e]>
+		[c <c e,]>
 		[a'16 <a' g'']>
-		[c <c 'e]>
+		[c <c e,]>
 		[a'32 <a' g'']>
-		[c <c 'e]>
+		[c <c e,]>
 	}
 	\paper{
 		castingalgorithm = \Wordwrap;

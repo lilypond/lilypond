@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "musical-request.hh"
@@ -33,7 +33,7 @@ void
 Span_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << spantype ;
+  DOUT << spantype;
 #endif
 }
 
@@ -65,7 +65,7 @@ void
 Abbreviation_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "type " << type_i_ << "\n";
+  DOUT << "type " << type_i_ << '\n';
 #endif
 }
 
@@ -90,7 +90,8 @@ Melodic_req::transpose (Musical_pitch delta)
   
   if (abs (pitch_.accidental_i_) > 2)
     {
-	warning (_ ("transposition by ") + delta.str () + _(" makes accidental larger than 2"));
+	warning (_f ("transposition by %s makes accidental larger than two",
+	  delta.str ()));
     }
 }
 
@@ -99,7 +100,7 @@ IMPLEMENT_IS_TYPE_B1 (Melodic_req,Musical_req);
 bool
 Melodic_req::do_equal_b (Request*r) const
 {
-  Melodic_req* m= r->musical ()->melodic ();
+  Melodic_req* m= r->access_Musical_req ()->access_Melodic_req ();
   return !compare (*m, *this);
 }
 
@@ -125,7 +126,7 @@ Rhythmic_req::compare (Rhythmic_req const &r1, Rhythmic_req const &r2)
 bool
 Rhythmic_req::do_equal_b (Request*r) const
 {
-  Rhythmic_req* rh = r->musical ()->rhythmic ();
+  Rhythmic_req* rh = r->access_Musical_req ()->access_Rhythmic_req ();
 
   return !compare (*this, *rh);
 }
@@ -159,24 +160,18 @@ Rhythmic_req::duration () const
 }
 /* *************** */
 
-Lyric_req::Lyric_req (Text_def* def_p)
-  :Text_req (0, def_p)
-{
-  def_p->align_i_ = CENTER;	// centre
-  dir_ = DOWN;		// lyrics below (invisible) staff
-}
 
 
-IMPLEMENT_IS_TYPE_B2 (Lyric_req,Musical_req,Rhythmic_req);
+IMPLEMENT_IS_TYPE_B1 (Lyric_req,Rhythmic_req);
 
 void
 Lyric_req::do_print () const
 {
   Rhythmic_req::do_print ();
-  Text_req::do_print ();
 }
 
 /* *************** */
+
 bool
 Note_req::do_equal_b (Request*r) const
 {
@@ -276,7 +271,7 @@ Plet_req::do_print () const
 bool
 Span_req:: do_equal_b (Request*r) const
 {
-  Span_req * s = r->span ();
+  Span_req * s = r->access_Span_req ();
   return spantype == s->spantype;
 }
 
@@ -300,7 +295,7 @@ Script_req::Script_req (Script_req const&s)
 bool
 Script_req::do_equal_b (Request*r) const
 {
-  Script_req * s = r->script ();
+  Script_req * s = r->access_Script_req ();
 
   return  scriptdef_p_->equal_b (*s->scriptdef_p_);
 }
@@ -318,7 +313,7 @@ void
 Script_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << " dir " << dir_ ;
+  DOUT << " dir " << dir_;
   scriptdef_p_->print ();
 #endif
 }
@@ -365,7 +360,7 @@ void
 Text_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << " dir " << dir_ ;
+  DOUT << " dir " << dir_;
   tdef_p_->print ();
 #endif
 }
@@ -410,7 +405,7 @@ Absolute_dynamic_req::do_print () const
 bool
 Absolute_dynamic_req::do_equal_b (Request *r) const
 {
-  Absolute_dynamic_req *a = r->musical ()->dynamic ()->absdynamic ();
+  Absolute_dynamic_req *a = r->access_Musical_req ()->access_Dynamic_req ()->access_Absolute_dynamic_req ();
   return loudness_ == a->loudness_;
 }
 
@@ -437,14 +432,15 @@ Dynamic_req::loudness_static_str (Loudness l)
 String
 Absolute_dynamic_req::loudness_str () const
 {
-  String s = loudness_static_str (loudness_);
-  if (s.empty_b ())
+  String str = loudness_static_str (loudness_);
+  if (str.empty_b ())
     {
-      s = "mf";
-      warning (String (_ ("Never heard of dynamic scale "))
-	       + loudness_ + _ (" assuming mf"));
+      String s = "mf";
+      warning (_f ("never heard of dynamic scale `\%s\', assuming %s",
+	str, s));
+      str = s;
     }
-  return s;
+  return str;
 }
 
 
@@ -453,6 +449,15 @@ Absolute_dynamic_req::Absolute_dynamic_req ()
   loudness_ = MF;
 }
 
+
+
+bool
+Span_dynamic_req::do_equal_b (Request *req) const
+{
+  Span_dynamic_req * s = req->access_Musical_req ()->access_Span_dynamic_req ();
+
+  return Span_req::do_equal_b (req) && s->dynamic_dir_ == dynamic_dir_;
+}
 
 Span_dynamic_req::Span_dynamic_req ()
 {
@@ -467,7 +472,7 @@ Span_dynamic_req::do_print () const
 {
 #ifndef NPRINT
   Span_req::do_print ();
-  DOUT << "softer/louder: " <<dynamic_dir_;
+  DOUT << "softer/louder: " << dynamic_dir_;
 #endif
 }
 

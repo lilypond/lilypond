@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -49,7 +49,7 @@ Text_item::get_position_f () const
       return -20;
     }
 
-  Interval v = support_height ();
+  Interval v = support_extent ();
   // add no extra: fingers should be just above note, no?
   return v[dir_];
 }
@@ -72,7 +72,8 @@ Text_item::brew_molecule_p () const
 
   if (dir_<0)		// should do something better anyway.
     mol_p->translate_axis (-mol_p->extent ().y ().left , Y_AXIS);
-  mol_p->translate_axis (y_, Y_AXIS);
+  mol_p->translate_axis (coordinate_offset_f_, Y_AXIS);
+
   
   return mol_p;
 }

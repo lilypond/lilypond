@@ -1,6 +1,6 @@
 #ifndef UNIONFIND_HH
 #define UNIONFIND_HH
-#include "varray.hh"
+#include "array.hh"
 
 /*
     which points of a graph are connected?.

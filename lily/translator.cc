@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -78,7 +78,7 @@ Translator::print () const
     DOUT << "type = " << type_str_;
   for (Dictionary_iter<Scalar> i (properties_dict_); i.ok (); i++)
     {
-      DOUT << i.key () << "=" << i.val () <<"\n";
+      DOUT << i.key () << "=" << i.val () << '\n';
     }
   do_print ();
   DOUT << "}\n";

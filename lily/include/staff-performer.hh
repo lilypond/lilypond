@@ -1,8 +1,8 @@
 /*
   staff-performer.hh -- declare Staff_performer
 
-  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
-                 Jan Nieuwenhuizen <jan@digicash.com>
+  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+                 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #ifndef STAFF_PERFORMER_HH

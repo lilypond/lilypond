@@ -1,0 +1,15 @@
+Begin3
+Title: StepMake
+Version: @TOPLEVEL_VERSION@
+Entered-date: @DATE@
+Description: @BLURB@
+Keywords: music notation typesetting midi fonts engraving
+Author: janneke@gnu.org (Jan Nieuwenhuizen)
+	hanwen@cs.ruu.nl (Han-Wen Nienhuys)
+Maintained-by: janneke@gnu.org (Jan Nieuwenhuizen)
+Primary-site: sunsite.unc.edu /pub/Linux/apps/sound/convert
+	40k @package@-@TOPLEVEL_VERSION@.tar.gz 
+Original-site: pcnov095.win.tue.nl /pub/lilypond/development/
+	40k @package@-@TOPLEVEL_VERSION@.tar.gz 
+Copying-policy: GPL
+End

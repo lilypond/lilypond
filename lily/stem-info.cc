@@ -3,12 +3,12 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
 */
 
 #include "proto.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "misc.hh"
 #include "debug.hh"
 #include "atom.hh"
@@ -68,6 +68,7 @@ Stem_info::Stem_info (Stem const *s)
   Real min_stem2_f = s->paper ()->get_var ("beam_minimum_stem2");
   Real ideal_stem1_f = s->paper ()->get_var ("beam_ideal_stem1");
   Real ideal_stem2_f = s->paper ()->get_var ("beam_ideal_stem2");
+  Real shorten_f = s->paper ()->get_var ("forced_stem_shorten");
 
   if (!beam_dir_ || (beam_dir_ == dir_))
     {
@@ -85,6 +86,10 @@ Stem_info::Stem_info (Stem const *s)
 	  idealy_f_ += ideal_stem2_f;
 	  miny_f_ += min_stem2_f;
 	}
+
+      // stems in unnatural (forced) direction are shortened
+      if (s->dir_ != s->get_default_dir ())
+	idealy_f_ -= shorten_f;
 
       // lowest beam of (UP) beam must never be lower than second staffline
       miny_f_ = miny_f_ >? (- 2 * internote_f - beam_f

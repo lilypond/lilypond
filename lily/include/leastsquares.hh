@@ -1,12 +1,12 @@
 /*
   leastsquare.hh -- part of GNU LilyPond
 
-  (c) 1996,97 Han-Wen Nienhuys
+  (c) 1996--1998 Han-Wen Nienhuys
 */
 
 #ifndef LEASTSQUARE_HH
 #define LEASTSQUARE_HH
-#include "varray.hh"
+#include "array.hh"
 #include "offset.hh"
 
 

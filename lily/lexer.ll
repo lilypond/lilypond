@@ -27,7 +27,7 @@
 #include "string.hh"
 #include "string-convert.hh"
 #include "my-lily-lexer.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "interval.hh"
 #include "parser.hh"
 #include "debug.hh"
@@ -78,9 +78,9 @@ UNSIGNED	{N}+
 INT		-?{UNSIGNED}
 REAL		({INT}\.{N}*)|(-?\.{N}+)
 KEYWORD		\\{WORD}
-WHITE		[ \n\t\f]
+WHITE		[ \n\t\f\r]
 HORIZONTALWHITE		[ \t]
-BLACK		[^ \n\t\f]
+BLACK		[^ \n\t\f\r]
 RESTNAME	[rs]
 NOTECOMMAND	\\{A}+
 LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
@@ -122,7 +122,7 @@ TELP		\\\]
 		yy_pop_state ();
 	}
 	<<EOF>> 	{
-		LexerError ("EOF found inside a comment");
+		LexerError (_ ("EOF found inside a comment").ch_C ());
 		if (! close_input ()) 
 		  yyterminate (); // can't move this, since it actually rets a YY_NULL
 	}
@@ -152,7 +152,7 @@ TELP		\\\]
 	Identifier * id = lookup_identifier (s);
 	if (id) 
 	  {
-	    String* s_p = id->string ();
+	    String* s_p = id->access_String ();
 	    DOUT << "#include `" << *s_p << "\'\n";
 	    new_input (*s_p, source_global_l);
 	    delete s_p;
@@ -160,12 +160,12 @@ TELP		\\\]
 	  }
 	else
 	  {
-	    String msg ("Undefined identifier: `" + s + "'");	
+	    String msg (_f ("undefined identifier: `%s\'", s ));	
 	    LexerError (msg.ch_C ());
 	  }
 }
 <incl>\"[^"]*   { // backup rule
-	cerr << "missing end quote" << endl;
+	cerr << _ ("missing end quote") << endl;
 	exit (1);
 }
 <notes>{RESTNAME} 	{
@@ -180,7 +180,7 @@ TELP		\\\]
 <INITIAL,lyrics,notes>\\\${BLACK}*{WHITE}	{
 	String s=YYText () + 2;
 	s=s.left_str (s.length_i () - 1);
-	return scan_escaped_word (s);
+	return scan_escaped_word (s); 
 }
 <INITIAL,lyrics,notes>\${BLACK}*{WHITE}		{
 	String s=YYText () + 1;
@@ -188,11 +188,11 @@ TELP		\\\]
 	return scan_bare_word (s);
 }
 <INITIAL,lyrics,notes>\\\${BLACK}*		{ // backup rule
-	cerr << "white expected" << endl;
+	cerr << _ ("white expected") << endl;
 	exit (1);
 }
 <INITIAL,lyrics,notes>\${BLACK}*		{ // backup rule
-	cerr << "white expected" << endl;
+	cerr << _ ("white expected") << endl;
 	exit (1);
 }
 <notes>{
@@ -203,7 +203,7 @@ TELP		\\\]
 	}
 
 	{NOTECOMMAND}	{
-		return scan_escaped_word (YYText ()+1);
+		return scan_escaped_word (YYText () + 1); 
 	}
 
 	{DIGIT}		{
@@ -226,7 +226,7 @@ TELP		\\\]
 }
 <quote>{
 	\\{ESCAPED}	{
-		*yylval.string += escaped_char(YYText()[1]);
+		*yylval.string += to_str (escaped_char(YYText()[1]));
 	}
 	[^\\"]+	{
 		*yylval.string += YYText ();
@@ -251,7 +251,7 @@ TELP		\\\]
 		return UNSIGNED;
 	}
 	{NOTECOMMAND}	{
-		return scan_escaped_word (YYText ()+1);
+		return scan_escaped_word (YYText () + 1);
 	}
 	{LYRICS} {
 		/* ugr. This sux. */
@@ -284,7 +284,7 @@ TELP		\\\]
 	return scan_bare_word (YYText ());
 }
 {KEYWORD}	{
-	return scan_escaped_word (YYText ()+1);
+	return scan_escaped_word (YYText () + 1);
 }
 {REAL}		{
 	Real r;
@@ -339,7 +339,7 @@ TELP		\\\]
 }
 
 <*>.		{
-	String msg= String ("illegal character: ") +String (YYText ()[0]);
+	String msg = _f ("illegal character: `%c\'", YYText ()[0]);
 	LexerError (msg.ch_C ());
 	return YYText ()[0];
 }
@@ -382,12 +382,14 @@ My_lily_lexer::scan_escaped_word (String str)
 		if (notename_b (str))
 			{
 			yylval.pitch = new Musical_pitch (lookup_pitch (str));
+			yylval.pitch->set_spot (Input (source_file_l (), 
+			  here_ch_C ()));
 			return NOTENAME_PITCH;
 			}
 	}
 	if (check_debug)
 		print_declarations (true);
-	String msg ("Unknown escaped string: `" + str + "'");	
+	String msg (_f ("unknown escaped string: `\\%s\'", str));	
 	LexerError (msg.ch_C ());
 	DOUT << "(string)";
 	String *sp = new String (str);
@@ -403,7 +405,8 @@ My_lily_lexer::scan_bare_word (String str)
 		if (notename_b (str)) {
 		    DOUT << "(notename)\n";
 		    yylval.pitch = new Musical_pitch (lookup_pitch (str));
-
+		    yylval.pitch->set_spot (Input (source_file_l (), 
+		      here_ch_C ()));
 		    return NOTENAME_PITCH;
 		}
 	}

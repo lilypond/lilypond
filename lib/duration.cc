@@ -3,8 +3,8 @@
 
   source file of the LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
-           Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
+           Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include <assert.h>
@@ -82,3 +82,4 @@ Duration::plet_b ()
 {
   return !plet_.unit_b ();
 }
+

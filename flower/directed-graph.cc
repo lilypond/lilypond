@@ -3,7 +3,7 @@
 
   source file FlowerLib
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "directed-graph.hh"
@@ -38,7 +38,7 @@ void
 Directed_graph_node::copy_edges_out (Directed_graph_node const &s)
 {
   for (int i=0; i < s.edge_out_l_arr_.size(); i++)
-    add (s.edge_out_l_arr_[i]);
+    add_edge (s.edge_out_l_arr_[i]);
 }
 
 void
@@ -132,12 +132,12 @@ Directed_graph_node::unlink()
 
 Directed_graph_node::~Directed_graph_node()
 {
-  assert (!linked_b());
+  // assert (!linked_b());  // hampered by memfrobbing
 }
 
   
 void
-Directed_graph_node::add (Directed_graph_node* dep_l)
+Directed_graph_node::add_edge (Directed_graph_node* dep_l)
 {
   PARANOID_OK();
   if (!dep_l)

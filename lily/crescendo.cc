@@ -3,11 +3,11 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "molecule.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "crescendo.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
@@ -44,7 +44,7 @@ Crescendo::get_symbol() const
 
   if (w_dim < 0)
     {
-      warning (_("Crescendo too small"));
+      warning (_ ("crescendo") + " " + _("too small"));
       w_dim = 0;
     }
 
@@ -57,7 +57,7 @@ Crescendo::get_symbol() const
   
 
   bool continued = broken[(Direction)-grow_dir_];
-  return Atom (paper()->lookup_l ()->hairpin (w_dim, grow_dir_ < 0, continued));
+  return Atom (lookup_l ()->hairpin (w_dim, grow_dir_ < 0, continued));
 }
 
 Molecule*
@@ -70,8 +70,8 @@ Crescendo::brew_molecule_p() const
 
   m_p = new Molecule;
   Atom s (get_symbol());
-  m_p->add (Atom (s));
-  m_p->translate (Offset (x_off_dim, y_));
+  m_p->add_atom  (s);
+  m_p->translate (Offset (x_off_dim, coordinate_offset_f_));
   return m_p;
 }
 

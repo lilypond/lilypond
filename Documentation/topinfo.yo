@@ -1,0 +1,37 @@
+
+node()(Top)(Copying)((dir))
+
+menu(
+mit(Copying)(                      Your rights.)
+mit(Programs)(                     Your softs.)
+mit(Mutopia)(                      Your music.)
+mit(Concept Index)(                Your index.)
+)
+
+node(Top)(Copying)(Programs)(Top)
+chapter(COPYING)
+LilyPond is Free Software.  See file(COPYING) for details.
+
+node(Copying)(Programs)(convert-mudela)(Top)
+menu(
+mit(convert-mudela)(               Convert Mudela)
+mit(LilyPond)(                     The GNU Music Typsetter herself)
+mit(Ly2dvi)(                       Lilypond Frontend)
+mit(Mi2mu)(                        MIDI input)
+mit(mudela-book)(                  Integrate LaTeX and mudela)
+)
+
+whentexinfo(texinfocommand(@include man/DOEXPAND(outdir)/convert-mudela.texinfo))
+whentexinfo(texinfocommand(@include man/DOEXPAND(outdir)/lilypond.texinfo))
+whentexinfo(texinfocommand(@include man/DOEXPAND(outdir)/ly2dvi.texinfo))
+whentexinfo(texinfocommand(@include man/DOEXPAND(outdir)/mi2mu.texinfo))
+whentexinfo(texinfocommand(@include man/DOEXPAND(outdir)/mudela-book.texinfo))
+whentexinfo(texinfocommand(@include DOEXPAND(outdir)/mutopia.texinfo))
+
+nchapter(Concept Index)
+node(Mutopia)(Concept Index)()(Top)
+COMMENT( urg makeindex())
+printndex()
+
+whentexinfo(texinfocommand(@bye))
+

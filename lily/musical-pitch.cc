@@ -3,11 +3,12 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998 Han-Wen Nienhuys <hanwen@cs.ruu.nl>
+  (c) 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 #include "musical-pitch.hh"
 #include "debug.hh"
+#include "main.hh"
 
 Musical_pitch::Musical_pitch ()
 {
@@ -26,7 +27,7 @@ void
 Musical_pitch::print () const
 {
 #ifndef NPRINT
-  DOUT << str();
+  DOUT << str ();
 #endif
 }
 
@@ -84,24 +85,32 @@ Musical_pitch::transpose (Musical_pitch delta)
 }
 
 
+#if 0
+// nice test for internationalisation strings
 char const *accname[] = {"double flat", "flat", "natural",
 			 "sharp" , "double sharp"};
+#else
+char const *accname[] = {"eses", "es", "", "is" , "isis"};
+#endif
 
 String
 Musical_pitch::str () const
 {
   int n = (notename_i_ + 2) % 7;
-  String s (char(n + 'a'));
+  String s = to_str (char(n + 'a'));
   if (accidental_i_)
-    s +=   " " + String (accname[accidental_i_ + 2]);
+    s += String (accname[accidental_i_ + 2]);
 
   if (octave_i_)
-    s  += String ((octave_i_> 0)? "^": "_") + String(octave_i_);
-  
+    s  += String ((octave_i_> 0)? "^": "_") + to_str (octave_i_);
 
   return s;
 }
 
+/*
+  change me to relative, counting from last pitch p
+  return copy of resulting pitch
+ */
 Musical_pitch
 Musical_pitch::to_relative_octave (Musical_pitch p)
 {
@@ -112,24 +121,37 @@ Musical_pitch::to_relative_octave (Musical_pitch p)
   up_pitch.accidental_i_ = accidental_i_;
   down_pitch.accidental_i_ = accidental_i_;
   
+  Musical_pitch n = *this;
   up_pitch.up_to (notename_i_);
   down_pitch.down_to (notename_i_);
+
   int h = p.steps ();
   if (abs (up_pitch.steps () - h) < abs (down_pitch.steps () - h))
+    n = up_pitch;
+  else
+    n = down_pitch;
+  
+  if (find_quarts_global_b)
     {
-      *this =  up_pitch;
-      /* this sux imnsho
-      if (oct_mod > 0)		// ugh
-      oct_mod --;*/
+      int d = this->semitone_pitch () - n.semitone_pitch ();
+      if (d)
+	{
+	  int i = 1 + (abs (d) - 1) / 12;
+	  String quote_str = d < 0 ? to_str (',', i) : to_str ('\'', i);
+	  Musical_pitch w = *this;
+	  w.octave_i_ = 0;
+	  String name_str = w.str ();
+	  name_str + quote_str;
+	  w.warning (_f ("Interval greater than quart, relative: %s", 
+	    name_str + quote_str));
+	  // don't actually do any relative stuff
+	  n = *this;
+	}
     }
   else
-    {
-      *this = down_pitch;
-      /*      if (oct_mod < 0)
-	      oct_mod ++;*/
-    }
-  
-  octave_i_ += oct_mod;
+    n.octave_i_ += oct_mod;
+
+  *this = n;
   return *this;
 }
 
@@ -153,86 +175,3 @@ Musical_pitch::down_to (int notename)
   notename_i_ = notename;
 }
 
-#if 0
-
-Musical_pitch
-My_lily_parser::get_melodic_req (Musical_pitch p, int quotes)
-{
-  if (relative_octave_mode_b_)
-    {
-      set_nearest (melodic);
-      int d = melodic->pitch () - last_melodic_->pitch ();
-      int shift = 0;
-      if (quotes && (sign (d) == sign (quotes)))
-	shift -= sign (quotes);
-      if (!quotes && (abs (d) == 6))
-	{
-	  String str = _("Octave ambiguity; assuming ");
-	  /*
-	    [TODO]
-	    figure this out.
-
-	    If the distance is exactly*) half an octave, there is 
-	    no nearest pitch.  In that case, we'll try to guess what 
-	    composer/ typist meant.
-	    Firstly, we'll do this by comparing the 'notename distance':
-		
-	    f b'   % name-distance: f g a b: 3
-
-	    is surely a shorter notename distance than
-
-	    f 'b  % name-distance: b c d e f: 4
-
-	    (should we give a warning at all, or can we safely assume
-	    this is a positive interval up?)
-
-	    *) It is conceivable that, musically speaking, the interval
-	    with the greater pitch-distance is thought to be smaller?
-
-	  */
-
-	  int name_delta = melodic->notename_i_ - last_melodic_->notename_i_;
-	  int name_near = abs (name_delta) % 7;
-	  int name_wrap = (7 - abs (name_delta)) % 7;
-	  if (name_near != name_wrap)
-	    shift = name_near < name_wrap ? sign (name_delta) : -sign (name_delta);
-	  else if (sign (last_melodic_->accidental_i_) 
-		   != sign (melodic->accidental_i_))
-	    shift = last_melodic_->accidental_i_ - melodic->accidental_i_;
-	  else
-	    shift = -1;
-	  String name_str = notename_str (melodic);
-	  str += shift > 0 ? name_str + "'" : "'" + name_str;
-	  if (sign (d) == sign (shift))
-	    shift = 0;
-	  melodic->warning (str);
-	}
-      melodic->octave_i_ += quotes + shift;
-    }
-  else
-    {
-      Melodic_req nearest (*melodic);
-      set_nearest (&nearest);
-      melodic->octave_i_ += quotes;
-
-      if (find_quarts_global_b)
-	{
-	  int e = melodic->pitch () - nearest.pitch ();
-	  if (e)
-	    {
-	      int d = melodic->pitch () - last_melodic_->pitch ();
-	      String str = _("Interval greater than quart");
-	      int n = 1 + (abs (d) - 1) / 12;
-	      String quote_str ('\'', n);
-	      str += _(", relative: ");
-	      String name_str = notename_str (melodic);
-	      str += d < 0 ? quote_str + name_str : name_str + quote_str;
-	      melodic->warning (str);
-	    }
-	}
-    }
-  delete last_melodic_;
-  last_melodic_ = melodic->clone ()->musical ()->melodic ();
-  return melodic;
-}
-#endif

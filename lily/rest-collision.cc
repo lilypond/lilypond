@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "debug.hh"
@@ -18,7 +18,7 @@
 IMPLEMENT_IS_TYPE_B1(Rest_collision,Item);
 
 void
-Rest_collision::add (Note_column *nc_l)
+Rest_collision::add_column (Note_column *nc_l)
 {
   add_dependency (nc_l);
   if (nc_l->rest_b ())
@@ -129,14 +129,14 @@ Rest_collision::do_print() const
 }
 
 void
-Rest_collision::do_substitute_dependency (Score_elem*o,Score_elem*n)
+Rest_collision::do_substitute_dependency (Score_element*o,Score_element*n)
 {
-  Item*o_l = o->item();
+  Item*o_l = o->access_Item ();
   
 
   if (o_l&&o_l->is_type_b (Note_column::static_name ()))
     {
-      Note_column *n_l = n?(Note_column*)n->item():0;
+      Note_column *n_l = n?(Note_column*)n->access_Item ():0;
       rest_l_arr_.substitute ((Note_column*)o_l, n_l);
       ncol_l_arr_.substitute ((Note_column*)o_l, n_l);
     }

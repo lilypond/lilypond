@@ -1,9 +1,10 @@
 % test damping
+\version "1.0.0";
 
 \score{
-	\melodic{
-		\octave relative;
-		c'()b' ~ 'b c
+	\melodic\relative c'{
+
+		c'()b' ~ b, c
 		c c c c
 		c c c c
 		c c c c

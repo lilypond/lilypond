@@ -13,7 +13,7 @@ int
       tabcmp (void const * p1, void const * p2)
 {
   return strcmp (((Keyword_ent const *) p1)->name,
-                ((Keyword_ent const *) p2)->name);
+		 ((Keyword_ent const *) p2)->name);
 }
 
 Keyword_table::Keyword_table (Keyword_ent *tab)
@@ -21,7 +21,8 @@ Keyword_table::Keyword_table (Keyword_ent *tab)
   table = tab;
 
   /* count keywords */
-  for (maxkey = 0; table[maxkey].name; maxkey++);
+  for (maxkey = 0; table[maxkey].name; maxkey++)
+    ;
 
   /* sort them */
   qsort (table, maxkey, sizeof (Keyword_ent), tabcmp);

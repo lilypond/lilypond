@@ -3,12 +3,16 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "string.hh"
 #include "dictionary-iter.hh"
 #include "header.hh"
+#include "main.hh"
+
+extern char const *lily_version_number_sz();
+
 
 String
 Header::TeX_string() const
@@ -22,4 +26,10 @@ Header::TeX_string() const
       s += "\\def\\mudela" + i.key() + "{" + i.val() + "}";
     }
   return s;
+}
+
+Header::Header ()
+{
+  lily_id_str_ = "Lily was here, " +
+    String (lily_version_number_sz ());
 }

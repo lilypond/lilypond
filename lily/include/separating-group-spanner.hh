@@ -3,14 +3,14 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998 Han-Wen Nienhuys <hanwen@cs.ruu.nl>
+  (c) 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
 #ifndef SEPARATING_GROUP_SPANNER_HH
 #define SEPARATING_GROUP_SPANNER_HH
 
-#include "vertical-group-spanner.hh"
+#include "spanner.hh"
 
 
 class Separating_group_spanner : public Spanner
@@ -20,9 +20,9 @@ public:
   DECLARE_MY_RUNTIME_TYPEINFO;
   void add_spacing_unit (Single_malt_grouping_item*);
 protected:
-  SCORE_ELEM_CLONE (Separating_group_spanner);
+  SCORE_ELEMENT_CLONE (Separating_group_spanner);
   virtual Array<Rod> get_rods () const;
-  virtual void do_substitute_dependency (Score_elem*,Score_elem*);
+  virtual void do_substitute_dependency (Score_element*,Score_element*);
 };
 
 #endif /* SEPARATING_GROUP_SPANNER_HH */

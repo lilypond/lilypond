@@ -1,9 +1,9 @@
 /*
-  linespace.hh -- declare Colinfo, Spacing_problem
+  linespace.hh -- declare  Spacing_problem
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #error
@@ -12,7 +12,7 @@
 #define LINESPACE_HH
 
 #include "plist.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "vector.hh"
 #include "interval.hh"
 #include "pointer.hh"
@@ -42,8 +42,8 @@
 */
 class Spacing_problem {
     PointerList<Idealspacing *> ideal_p_list_;
-    Array<Colinfo> cols;
-    Array<Colinfo> loose_col_arr_;
+    Array<Column_info> cols;
+    Array<Column_info> loose_col_arr_;
     
     /// mark column #i# as being loose.
     void loosen_column (int i);
@@ -81,7 +81,7 @@ public:
     Array<Paper_column*> error_pcol_l_arr() const;
 
     virtual   Array<Real> solve() const;
-    virtual  void add_column (Paper_column  *, bool fixed=false, Real fixpos=0.0);
+    virtual void add_column (Paper_column  *, bool fixed=false, Real fixpos=0.0);
  
 
     virtual Vector default_solution() contains { 

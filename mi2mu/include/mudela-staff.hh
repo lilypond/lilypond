@@ -1,7 +1,7 @@
 //
 // mudela-staff.hh -- declare mudela_staff
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef MUDELA_STAFF_HH
 #define MUDELA_STAFF_HH
@@ -27,7 +27,7 @@ public:
     String instrument_str_;
     String name_str_;
     Mudela_key* mudela_key_l_;
-    Mudela_meter* mudela_meter_l_;
+    Mudela_time_signature* mudela_time_signature_l_;
     Mudela_tempo* mudela_tempo_l_;
     int number_i_;
 

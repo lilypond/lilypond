@@ -1,5 +1,9 @@
-MAJOR_VERSION=0
-MINOR_VERSION=1
-PATCH_LEVEL=65
+PACKAGE_NAME=LilyPond
+MAJOR_VERSION=1
+MINOR_VERSION=0
+PATCH_LEVEL=1
 MY_PATCH_LEVEL=
 
+# use the above to send patches, always empty for released version:
+# please don't move these comments up; the patch should fail if 
+# the previous version was wrong.

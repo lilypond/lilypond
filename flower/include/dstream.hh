@@ -3,13 +3,14 @@
 
   source file of the Flower Library
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #ifndef DSTREAM_HH
 #define DSTREAM_HH
 
 #include "string.hh"
+#include "scalar.hh"
 
 const char eol= '\n';
 
@@ -41,6 +42,7 @@ class Dstream
   String current_classname_str_;
   void output (String s);
   Assoc<String, bool> *silent_assoc_p_;
+
 public:
   void clear_silence();
   bool silent_b (String) const;
@@ -52,9 +54,12 @@ public:
   virtual ~Dstream();
   Dstream &identify_as (String s);
 
-  /** Output a string via the Dstream. This is the only output
-      interface. It delegates all conversion to String class.  */
-  Dstream &operator << (String s);
+  /** 
+    Output a Scalar via the Dstream.  This is the only output
+    interface.  It explicitely delegates all implicit conversion 
+    to Scalar class.  
+    */
+  Dstream &operator << (Scalar);
   /**
      Output memory locations.
   */

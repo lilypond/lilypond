@@ -1,0 +1,16 @@
+18:46:03 mub ~/lelie$ lilypond twinkle
+GNU LilyPond 0.1.78/FlowerLib 1.1.44.
+Ontleden...[/home/fred/usr/src/lilypond/init/init.ly[/home/fred/usr/src/lilypond/init/declarations.ly[/home/fred/usr/src/lilypond/init/dynamic.ly][/home/fred/usr/src/lilypond/init/nederlands.ly][/home/fred/usr/src/lilypond/init/script.ly][/home/fred/usr/src/lilypond/init/paper20.ly[/home/fred/usr/src/lilypond/init/table20.ly][/home/fred/usr/src/lilypond/init/table13.ly][/home/fred/usr/src/lilypond/init/table16.ly][/home/fred/usr/src/lilypond/init/params.ly[/home/fred/usr/src/lilypond/init/a4.ly][/home/fred/usr/src/lilypond/init/paper.ly][/home/fred/usr/src/lilypond/init/engraver.ly]]][/home/fred/usr/src/lilypond/init/midi.ly[/home/fred/usr/src/lilypond/init/performer.ly]][/home/fred/usr/src/lilypond/init/property.ly]][/home/fred/usr/src/lilypond/input/twinkle.ly]]
+Vertolken van muziek...[8][16][24][25]
+duur: 1.34 seconden
+Voorbewerken van elementen... [/home/fred/usr/src/lilypond/mf/out/feta20.afm]
+Berekenen van kolomposities... [3][6][9][12][15][18][21][24][25]
+geschat: 231 regels (van gemiddeld 21.4 kolommen)
+exact berekend: 66 regels (van gemiddeld 25.5 kolommen)
+duur: 6.11 seconden
+Nabewerken van elementen... 
+TeX uitvoer naar twinkle.tex...
+
+Vertolken van muziek...
+duur: 0.22 seconden
+MIDI uitvoer naar twinkle.midi...

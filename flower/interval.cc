@@ -3,7 +3,7 @@
 
   source file of the Flower Library
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -22,7 +22,7 @@ Interval_t<Real>::infinity ()
 String
 Interval_t<Real>::T_to_str (Real r)
 {
-  return String (r);
+  return to_str (r);
 }
 
 template INTERVAL__INSTANTIATE (int);
@@ -36,6 +36,6 @@ Interval_t<int>::infinity ()
 String
 Interval_t<int>::T_to_str (int i)
 {
-  return String (i);
+  return to_str (i);
 }
 

@@ -1,12 +1,13 @@
 # mutopia/Makefile
 
-# subdir level:
-#
 depth = ../..
-#
-# generic stuff/Makefile
-#
-include ./$(depth)/make/Mutopia.make
 
-#examples=coriolan oboi-part
-include $(depth)/make/WWW.make
+include $(depth)/make/Stepmake.make
+include $(make-dir)/Mutopia.make
+
+# do Coriolan if you have plenty RAM / CPU
+# examples=coriolan oboi-part viola-part
+examples= oboi-part viola-part
+
+include $(stepdir)/WWW.make
+

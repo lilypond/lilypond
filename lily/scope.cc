@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998 Han-Wen Nienhuys <hanwen@cs.ruu.nl>
+  (c) 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
@@ -20,7 +20,7 @@ Scope::print () const
     {
       if (ai.val()->init_b_ == init_b)
 	{
-	  DOUT << ai.key() << '=';
+	  DOUT << ai.key() << "=";
 	  ai.val()->print ();
 	}
     }
@@ -30,8 +30,8 @@ Scope::~Scope ()
 {
   for (Assoc_iter<String,Identifier*>	 ai (*this); ai.ok(); ai++)
     {
-      DOUT << "deleting: " << ai.key()<<'\n';
-      delete ai.val();
+      DOUT << "deleting: " << ai.key() << '\n';
+      delete ai.val ();
     }
 }
 

@@ -3,10 +3,11 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "axis-group-spanner.hh"
+#include "debug.hh"
 #include "item.hh"
 #include "p-col.hh"
 
@@ -17,16 +18,16 @@
 void
 Axis_group_spanner::do_break_processing_if_unbroken()
 {
-  Link_array<Score_elem> elems = elem_l_arr ();
+  Link_array<Score_element> elems = elem_l_arr ();
   Line_of_score *my_line = line_l();
   for (int i=0; i < elems.size(); i++) 
     {
       if (!elems[i]->line_l()) 
 	{
-	  Item * item_l = elems[i]->item();
+	  Item * item_l = elems[i]->access_Item ();
 	  if  (item_l
 	       && item_l->breakable_b_ 
-	       && item_l->break_status_i() == 0) 
+	       && item_l->break_status_dir() == 0) 
 	    {
 	      // last two checks are paranoia
 	      Item * broken_item_l = 
@@ -37,9 +38,11 @@ Axis_group_spanner::do_break_processing_if_unbroken()
 	}
     }
 }
+
 void
 Axis_group_spanner::do_break_processing()
 {
+  DOUT << "do_break_processing ()\n";
   bool breaking_self_b = ! Spanner::line_l();
   if (!breaking_self_b)  
     {
@@ -49,12 +52,12 @@ Axis_group_spanner::do_break_processing()
     }
 
   break_into_pieces ();
-  Link_array<Score_elem> loose_elems = elem_l_arr ();
+  Link_array<Score_element> loose_elems = elem_l_arr ();
   remove_all();
   
   for (int i=0; i < loose_elems.size(); i++) 
     {
-      Score_elem * elt = loose_elems[i];
+      Score_element * elt = loose_elems[i];
       Line_of_score *elt_line = elt->line_l();
 	
       if (! elt_line)
@@ -62,9 +65,9 @@ Axis_group_spanner::do_break_processing()
 	  /* this piece doesn't know where it belongs.
 	     Find out if it was broken, and use the broken remains
 	     */
-	  if (elt->spanner()) 
+	  if (elt->access_Spanner ()) 
 	    {
-	      Spanner * sp = elt->spanner();
+	      Spanner * sp = elt->access_Spanner ();
 		
 	      for (int j =0; j < broken_into_l_arr_.size(); j++) 
 		{
@@ -73,22 +76,22 @@ Axis_group_spanner::do_break_processing()
 		    
 		  Spanner * broken_span_l 
 		    = sp->find_broken_piece (
-					     ((Score_elem*)my_broken_l)->line_l());
+					     ((Score_element*)my_broken_l)->line_l());
 		    
 		  if (broken_span_l) 
 		    my_broken_l->add_element (broken_span_l);
 		    
 		}
 	    }
-	  else if (elt->item() 
-		   && elt->item()->breakable_b_ 
-		   && elt->item()->break_status_i () == 0) 
+	  else if (elt->access_Item () 
+		   && elt->access_Item ()->breakable_b_ 
+		   && elt->access_Item ()->break_status_dir () == 0) 
 	    {
 	      // broken items
 	      Direction  j=LEFT;
 	      do 
 		{
-		  Item * my_item = elt->item()->broken_to_drul_[j];
+		  Item * my_item = elt->access_Item ()->broken_to_drul_[j];
 		  Line_of_score * item_line_l = my_item->line_l() ;
 		  if (! item_line_l) 
 		    continue;
@@ -97,6 +100,14 @@ Axis_group_spanner::do_break_processing()
 		    = (Axis_group_spanner*)find_broken_piece (item_line_l);
 		  if (v)
 		    v->add_element (my_item);
+		  else
+		    {
+		      my_item->transparent_b_ = true;
+		      my_item->set_empty (true);
+		      /*my_item->unlink ();
+		      delete my_item;*/
+		    }
+
 		}
 	      while (flip(&j) != LEFT);
 	    }
@@ -119,6 +130,8 @@ void
 Axis_group_spanner::do_print() const
 {
   Axis_group_element::do_print();
+
+  Spanner::do_print ();
 }
 
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "script-column.hh"
@@ -17,7 +17,7 @@ IMPLEMENT_IS_TYPE_B1(Script_column,Horizontal_vertical_group_item);
 
 
 void
-Script_column::add (Script*s_l)
+Script_column::add_script (Script*s_l)
 {
   script_l_arr_.push (s_l);
   add_dependency (s_l);
@@ -53,7 +53,7 @@ Script_column::do_pre_processing()
   for (int i=0; i < script_l_arr_.size(); i++) 
     {
       Script*s_l = script_l_arr_[i];
-      placed_l_arr_a[idx (s_l->specs_l_->inside_b(),
+      placed_l_arr_a[idx (s_l->specs_p_->inside_b(),
 			  s_l->dir_) ].push (s_l);
     }
   
@@ -103,11 +103,11 @@ Script_column::add_support (Item*i_l)
 }
 
 void
-Script_column::do_substitute_dependency (Score_elem*o,Score_elem*n)
+Script_column::do_substitute_dependency (Score_element*o,Score_element*n)
 {
-  if (o->item()) 
+  if (o->access_Item ()) 
     {
-      script_l_arr_.substitute ((Script*)o->item(),(Script*) (n?n->item ():0));
-      support_l_arr_.substitute (o->item(), (n?n->item ():0));
+      script_l_arr_.substitute ((Script*)o->access_Item (),(Script*) (n?n->access_Item ():0));
+      support_l_arr_.substitute (o->access_Item (), (n?n->access_Item ():0));
     }
 }

@@ -1,28 +1,32 @@
 /*
-  virtual-methods.hh -- declare 
+  virtual-methods.hh -- declare macros for our do-it-yourself RTTI
 
   source file of the Flower Library
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef VIRTUAL_METHODS_HH
 #define VIRTUAL_METHODS_HH
 
-/** a macro to declare the classes name as a static and virtual function.
+#include "stdlib.h"		// size_t
+
+/**  Declare the classes name as a static and virtual function.
   The static_name() can *not* be inlined (this might have the effect that 
   s->name() != S::static_name (). Overlapping strings need not be merged in C++
  */
 #define DECLARE_MY_RUNTIME_TYPEINFO	\
-static char const *static_name();\
 static bool static_is_type_b (const char*s);\
 virtual bool is_type_b (const char *s) const { return static_is_type_b (s); } \
 virtual char const *name() const{ return static_name (); } \
-int a_stupid_nonexistent_function_to_allow_the_semicolon_come_out()
+virtual size_t class_size () const { return static_class_size (); }\
+static size_t static_class_size (); \
+static char const *static_name()
 
 #define IMPLEMENT_STATIC_NAME(c)\
-    char const *c::static_name() { return #c; } 
+    char const *c::static_name() { return #c; } \
+    size_t c::static_class_size () { return sizeof (c); }
 
 
 

@@ -1,6 +1,0 @@
-MAJOR_VERSION = 0
-MINOR_VERSION = 0
-PATCH_LEVEL = 22
-# use to send patches, always empty for released version:
-MY_PATCH_LEVEL = 
-#

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -22,7 +22,7 @@ public:
     void set_head (Direction, Note_head*head_l);
 
     DECLARE_MY_RUNTIME_TYPEINFO;
-    SCORE_ELEM_CLONE(Tie);
+    SCORE_ELEMENT_CLONE(Tie);
 
     bool same_pitch_b_;
     Drul_array<Note_head *> head_l_drul_;
@@ -31,7 +31,7 @@ protected:
     virtual void do_add_processing ();
     virtual void do_post_processing ();
     virtual void set_default_dir();
-    virtual void do_substitute_dependency (Score_elem*,Score_elem*);
+    virtual void do_substitute_dependency (Score_element*,Score_element*);
     Array<Offset> get_controls () const;
 };
 #endif // TIE_HH

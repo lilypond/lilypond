@@ -5,7 +5,7 @@ TestedFeatures =	 "This file tests Feta embedded slurs"
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\version "0.1.15";
+\version "1.0.0";
 
 shortlong = \melodic{
 	c4()c( c c  |
@@ -15,20 +15,20 @@ shortlong = \melodic{
 	c c c )c |
 }
 
-dirs = \melodic {
-	\octave c';
+dirs = \melodic\transpose c' {
+
 	c'1() g' () c () g () c |
 }
 
 complex = \melodic{
-	\octave c';
-	c,16( e,( g,( b,( d( f( a( c'())))))))c4 c4 |
-	\octave c''';
-	c,16( a( f( d( b,( g,( e,( c,())))))))c4 c4 |
+\transpose c'{
+	c,16( e,( g,( b,( d( f( a( c'())))))))c4 c4 |}
+\transpose c'''{
+	c,16( a( f( d( b,( g,( e,( c,())))))))c4 c4 |}
 }
 
-over = \melodic{
-	\octave c'; 
+over = \melodic\transpose c'{
+
 
 	e( g' g' )e
 	e( a' a' )e
@@ -51,8 +51,8 @@ over = \melodic{
 	e( c'' f )e
 }
 
-under = \melodic{
-	\octave c'; 
+under = \melodic\transpose c'{
+
 	\stemdown 
 	f'( \stemboth d d \stemdown )f'
 	f'( \stemboth c c \stemdown )f'
@@ -76,8 +76,8 @@ under = \melodic{
 	f'( e, f )f'
 }
 
-eccentric = \melodic{
-	\octave c';
+eccentric = \melodic\transpose c'{
+
 	\stemup
 	\[4/7 f( a' f f f f )f \] |
 	\[4/7 f( f f f f a' )f \] |
@@ -86,8 +86,7 @@ eccentric = \melodic{
 	\[4/7 e'( e' e' e' e' c )e' \] |
 }
 
-tiltup = \melodic{
-	\octave c'; 
+tiltup = \melodic\transpose c'{
 	e( c'' c'' )e'
 	\stemup
 	e( c'' c'' )e'
@@ -101,8 +100,7 @@ tiltup = \melodic{
 	f'( a, a, )f''
 }
 
-tiltdown = \melodic{
-	\octave c'; 
+tiltdown = \melodic\transpose c'{
 	e'( c'' c'' )e
 	\stemup
 	e'( c'' c'' )e
@@ -116,8 +114,7 @@ tiltdown = \melodic{
 	f''( a, a, )f'
 }
 
-broken = \melodic{
-      \octave c'';
+broken = \melodic\transpose c''{
       c c c c()
       c c c c(
       c )c c c(
@@ -125,13 +122,12 @@ broken = \melodic{
       )a' a' a' a'()
       a' a' a' a'()
       c( c c )c 
-      c( c c )'f 
+      c( c c )f, 
       f,( c c )c 
-      f,( c c )'f
+      f,( c c )f,
 }
 
-blend =	\melodic{
-	\octave c';
+blend =	\melodic\transpose c'{
 	e( c'' c'' )e
 	\stemup
 	f'( c'' c'' )f'
@@ -152,8 +148,8 @@ blend =	\melodic{
 }
 
 
-bug = \melodic{
-	\octave c';
+bug = \melodic\transpose c'{
+
 	a()g( f )e
 	b'()a'( g' )f'
 	g( f' e' )d'
@@ -161,15 +157,14 @@ bug = \melodic{
 	c' () b () c' c'
 }
 
-clipping = \melodic{
-	\octave c';
+clipping = \melodic\transpose c'{
 	\stemboth
 	c( c''' c''')c
 	c( c''' c )c''
 	c''( c c''' )c
 	\stemdown
 	c( \stemup c,,, c,,, \stemdown )c
-	c( \stemup c,,, c \stemdown )''c
+	c( \stemup c,,, c \stemdown )c,,
 	c,,( \stemup c c,,, \stemdown )c
 }
 

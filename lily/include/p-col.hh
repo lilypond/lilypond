@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -31,7 +31,7 @@
 class Paper_column : public Horizontal_group_item { 
 public:
   DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEM_CLONE(Paper_column);
+  SCORE_ELEMENT_CLONE(Paper_column);
   Drul_array< Array<Column_rod> > minimal_dists_arr_drul_;
 
   void preprocess ();
@@ -64,7 +64,7 @@ public:
   bool used_b() const;
   bool breakpoint_b() const;
     
-  void add (Item *i);
+  void add_item (Item *i);
 
   Paper_column();
 

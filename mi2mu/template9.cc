@@ -4,7 +4,7 @@
 // liblily.a(template.o): In function `GLOBAL_$I$template.cc':
 // template.cc:28: multiple definition of `global constructors keyed to template.cc'
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include "proto.hh"
 #include "list.hh"

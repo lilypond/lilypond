@@ -2,18 +2,19 @@ This package was debianized by Anthony Fok <foka@debian.org> on
 Wed,  6 Aug 1997 04:30:28 -0600
 
 It was downloaded from
-    ftp://pcnov095.win.tue.nl/pub/lilypond/development/
-        lilypond-0.1.48.tar.gz
+      ftp://pcnov095.win.tue.nl/pub/lilypond/development/
+          lilypond-0.1.71.tar.gz
 
 It is also available from:
-    ftp://alpha.gnu.org/gnu/
+      ftp://sca.uwaterloo.ca/pub/lilypond/development/
 
 For more information about GNU LilyPond, please visit:
-    http://www.stack.nl/~hanwen/lilypond/ for more information.
+      http://www.cs.ruu.nl/people/hanwen/lilypond/
+  or  http://sca.uwaterloo.ca/~praetzel/lilypond/
 
 Authors:
-    Han-Wen Nienhuys <hanwen@stack.nl>
-    Jan Nieuwenhuizen <jan@digicash.com>
+      Han-Wen Nienhuys <hanwen@stack.nl>
+      Jan Nieuwenhuizen <janneke@gnu.org>
  
 Copyright:
 
@@ -33,6 +34,13 @@ Copyright:
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+    *** NOTE
+
+            This license applies to all files except the included example
+    input files (which are in the subdirectory input/ and mutopia/ )
+
+    *** END NOTE
 
 
 All the other scripts and control files for building and installing

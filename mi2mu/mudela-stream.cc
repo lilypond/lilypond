@@ -3,7 +3,7 @@
 //
 // source file of the LilyPond music typesetter
 //
-// (c)  1997--1998, 1998 Jan Nieuwenhuizen <jan@digicash.com>
+// (c)  1997--1998, 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <assert.h>
 #include <time.h>
@@ -11,6 +11,7 @@
 #include "mi2mu-global.hh"
 #include "mudela-item.hh"
 #include "mudela-stream.hh"
+#include "string-convert.hh"
 
 extern String filename_str_g;
 
@@ -33,20 +34,20 @@ Mudela_stream::~Mudela_stream()
 {
   delete os_p_;
   if  (indent_i_)
-    warning (_("lily indent level: ") + String (indent_i_));
+    warning (_f ("lily indent level: %d", indent_i_));
 }
 
 Mudela_stream&
-Mudela_stream::operator << (String str)
+Mudela_stream::operator << (Scalar s)
 {
   static String word_sep_str = "{} \t\n";
-  while  (str.length_i())
+  while  (s.length_i())
     {
-      int i = str.index_any_i (word_sep_str) + 1;
+      int i = s.index_any_i (word_sep_str) + 1;
       if  (!i)
-	i = str.length_i();
-      String word = str.left_str (i);
-      str = str.cut (i, str.length_i());
+	i = s.length_i();
+      String word = s.left_str (i);
+      s = s.cut_str (i, s.length_i());
       output_wrapped (word);
     }
   return *this;
@@ -63,7 +64,7 @@ Mudela_stream::operator << (Mudela_item& mudela_item_r)
 void
 Mudela_stream::handle_pending_indent()
 {
-  *os_p_ << String ('\t', pending_indent_i_);
+  *os_p_ << String_convert::char_str ('\t', pending_indent_i_);
   column_i_ += pending_indent_i_ * INDENT_i;
   pending_indent_i_ = 0;
 }
@@ -71,27 +72,27 @@ Mudela_stream::handle_pending_indent()
 void
 Mudela_stream::header()
 {
-  *os_p_ << _("% Creator: ");
+  *os_p_ << _ ("% Creator: ");
   if (no_timestamps_b_g)
     *os_p_ << "GNU LilyPond\n"; 
   else
-    *os_p_ << mi2mu_version_str() << "\n";
-  *os_p_ << _("% Automatically generated");
+    *os_p_ << mi2mu_version_str() << '\n';
+  *os_p_ << _ ("% Automatically generated");
   if (no_timestamps_b_g)
     *os_p_ << ".\n";
   else
     {
-      *os_p_ << _(", at ");
+      *os_p_ << _ (", at ");
       time_t t (time (0));
       *os_p_ << ctime (&t) << "%\n";
     }
-  *os_p_ << _("% from input file: ");
+  *os_p_ << _ ("% from input file: ");
   //  *os_p_ << midi_parser_l_g->filename_str_;
   // ugh
   *os_p_ << filename_str_g;
   *os_p_ << "\n\n";
   // ugh
-  *os_p_ << "\\version \"0.1.11\";\n";
+  *os_p_ << "\\version \"1.0.0\";\n";
 }
 
 void
@@ -99,7 +100,7 @@ Mudela_stream::open()
 {
   os_p_ = new ofstream (filename_str_.ch_C ());
   if  (!*os_p_)
-    error  (_("can't open: `") + filename_str_ + "\'");
+    error (_f ("can't open file: `%s\'",  filename_str_));
 }
 
 void

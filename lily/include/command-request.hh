@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -11,7 +11,7 @@
 #define COMMANDREQUEST_HH
 
 #include "request.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "duration.hh"
 #include "musical-pitch.hh"
 
@@ -19,17 +19,19 @@
   musical requests. */
 class Command_req  : public virtual Request  {
 public:
-  REQUESTMETHODS(Command_req, command);
-  virtual Measure_grouping_req * measuregrouping() { return 0; }
-  virtual Clef_change_req * clefchange() { return 0; }
-  virtual Key_change_req * keychange() { return 0; }
-  virtual Partial_measure_req * partial() { return 0; }
-  virtual Meter_change_req * meterchange() { return 0; }
-  virtual Bar_req *bar() { return 0; }
-  virtual Cadenza_req *cadenza() { return 0; }
-  virtual Timing_req*timing() {  return 0; }
-  virtual Command_script_req*commandscript() { return 0;}
-  virtual Break_req *linebreak () { return 0; }
+  REQUESTMETHODS(Command_req);
+
+    DEFAULTACCESSOR(Measure_grouping_req)
+    DEFAULTACCESSOR(Clef_change_req)
+    DEFAULTACCESSOR(Key_change_req)
+    DEFAULTACCESSOR(Partial_measure_req)
+    DEFAULTACCESSOR(Time_signature_change_req)
+    DEFAULTACCESSOR(Bar_req)
+    DEFAULTACCESSOR(Cadenza_req)
+    DEFAULTACCESSOR(Timing_req)
+    DEFAULTACCESSOR(Command_script_req)
+    DEFAULTACCESSOR(Break_req)
+    DEFAULTACCESSOR(Mark_req)
 };
 
 
@@ -38,7 +40,14 @@ public:
   enum { DISALLOW = -10000, FORCE = 10000 };
   int penalty_i_;
   Break_req ();
-  REQUESTMETHODS (Break_req, linebreak);
+  REQUESTMETHODS (Break_req);
+};
+
+class Mark_req : public Command_req {
+public:
+  Mark_req (String);
+  String str_;
+  REQUESTMETHODS (Mark_req);
 };
 
 class Command_script_req : public Command_req,  public Script_req {
@@ -46,15 +55,15 @@ public:
   // huh? 
   Command_script_req();
   ~Command_script_req();
-  REQUESTMETHODS(Command_script_req, commandscript);
+  REQUESTMETHODS(Command_script_req);
 };
 
-/** Baseclass for meter/partial req. It has to be handled by
+/** Baseclass for time_signature/partial req. It has to be handled by
   Staff_{walker,column} baseclass.  */
 class Timing_req  : public Command_req  {
 public:
-  REQUESTMETHODS(Timing_req, timing);
-  virtual Tempo_req * tempo(){return 0; }
+  REQUESTMETHODS(Timing_req);
+  DEFAULTACCESSOR(Tempo_req)
 };
 
 
@@ -65,7 +74,7 @@ public:
   int metronome_i_;
 
   Tempo_req();
-  REQUESTMETHODS(Tempo_req, tempo);
+  REQUESTMETHODS(Tempo_req);
   bool do_equal_b (Request *) const;
 };
 
@@ -74,21 +83,20 @@ public:
   Moment duration_;
 
   Partial_measure_req (Moment);
-  REQUESTMETHODS(Partial_measure_req, partial);
+  REQUESTMETHODS(Partial_measure_req);
   bool do_equal_b (Request*) const;
 };
 
 /**
-  todo: allow C meter
+  todo: allow C time_signature
  */
-class Meter_change_req  : public Timing_req  {
+class Time_signature_change_req  : public Timing_req  {
 public:
   int beats_i_, one_beat_i_;
 
-  Meter_change_req();
-  void set (int,int);
+  Time_signature_change_req();
   bool do_equal_b (Request*) const;
-  REQUESTMETHODS(Meter_change_req, meterchange);
+  REQUESTMETHODS(Time_signature_change_req);
 };
 
 /// toggle Cadenza mode
@@ -98,14 +106,14 @@ public:
   bool on_b_;
   bool do_equal_b (Request*) const;
   Cadenza_req (bool);
-  REQUESTMETHODS(Cadenza_req,cadenza);
+  REQUESTMETHODS(Cadenza_req);
 };
 
 /// check if we're at start of a  measure.
 class Barcheck_req  : public Timing_req  {
 public:
   bool do_equal_b (Request *) const;
-  REQUESTMETHODS(Barcheck_req,barcheck);
+  REQUESTMETHODS(Barcheck_req);
 };
 
 class Measure_grouping_req : public Timing_req  {
@@ -113,7 +121,7 @@ public:
   Array<int> beat_i_arr_;
   Array<Moment> elt_length_arr_;
   bool do_equal_b (Request *) const;
-  REQUESTMETHODS(Measure_grouping_req, measuregrouping);
+  REQUESTMETHODS(Measure_grouping_req);
 };
 
 /** draw a (repeat)-bar. This something different than #Barcheck_req#,
@@ -124,7 +132,7 @@ public:
   Bar_req (String);
   bool do_equal_b (Request*) const;
 
-  REQUESTMETHODS(Bar_req,bar);
+  REQUESTMETHODS(Bar_req);
 };
 
 
@@ -137,11 +145,10 @@ class Key_change_req  : public Command_req  {
 public:
   Array<Musical_pitch> pitch_arr_;
   bool minor_b_;
+  bool ordinary_key_b_;
 
-  /// don't ignore the  octaves in #melodic_p_arr_#?
-  bool multi_octave_b_;
   Key_change_req();
-  REQUESTMETHODS(Key_change_req, keychange);
+  REQUESTMETHODS(Key_change_req);
 
   /// squash the octaves to 1
   void squash_octaves();
@@ -151,16 +158,16 @@ public:
   /// return number of sharps in key
   int sharps_i();
 
-  void transpose (Musical_pitch  d) const;
+  void transpose (Musical_pitch  d);
   /// is minor key?
-  int minor_b();
+  bool minor_b() const;
 };
 
 class Clef_change_req  : public Command_req  {
 public:
   String clef_str_;
   Clef_change_req (String);
-  REQUESTMETHODS(Clef_change_req, clefchange);
+  REQUESTMETHODS(Clef_change_req);
 };
 
 #endif // COMMANDREQUEST_HH

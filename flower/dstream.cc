@@ -3,7 +3,7 @@
 
   source file of the Flower Library
 
-  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include <fstream.h>
@@ -13,6 +13,7 @@
 #include "text-db.hh"
 #include "string-convert.hh"
 #include "assoc-iter.hh"
+#include "rational.hh"
 
 /// indent of each level
 const INDTAB = 2;
@@ -79,13 +80,6 @@ Dstream::silent_b (String s) const
 }
 
 Dstream &
-Dstream::operator<<(String s)
-{
-  output (s);
-  return *this;
-}
-
-Dstream &
 Dstream::operator<<(void const *v_l)
 {
   output (String_convert::pointer_str (v_l));
@@ -93,9 +87,16 @@ Dstream::operator<<(void const *v_l)
 }
 
 Dstream &
-Dstream::operator<<(char const *ch_l)
+Dstream::operator <<(Scalar s)
 {
-  output (ch_l);
+  output (s);
+  return *this;
+}
+
+Dstream &
+Dstream::operator <<(const char * s)
+{
+  output (String (s));
   return *this;
 }
 
@@ -124,7 +125,7 @@ Dstream::output (String s)
 	break;
 
       case '\n':
-	*os_l_ << '\n' << String (' ', indent_level_i_) << flush;
+	*os_l_ << '\n' << to_str (' ', indent_level_i_) << flush;
 	break;
       default:
 	*os_l_ << *cp;
@@ -145,17 +146,17 @@ Dstream::Dstream (ostream *r, char const * cfg_nm)
 
   char const * fn =cfg_nm ? cfg_nm : ".dstreamrc";
   {
-    ifstream ifs (fn);	// can't open
+    ifstream ifs (fn);	// can 't open
     if (!ifs)
       return;
   }
 
   Text_db cfg (fn);
-  while (! cfg.eof()){
+  while (!cfg.eof_b ()){
     Text_record  r (cfg++);
     if (r.size() != 2)
       {
-	r.message (_("not enough fields in Dstream init."));
+	r.message (_ ("Not enough fields in Dstream init."));
 	continue;
       }
     (*silent_assoc_p_)[r[0]] = (bool)(int)(Scalar (r[1]));
@@ -180,3 +181,4 @@ Dstream::clear_silence()
       i.val() = false;
     }
 }
+

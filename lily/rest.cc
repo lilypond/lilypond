@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "molecule.hh"
@@ -17,7 +17,7 @@
 void
 Rest::do_add_processing ()
 {
-  if (balltype_i_ != 0 && balltype_i_ != 1)
+  if (balltype_i_ > 1)
     position_i_ -= 4;
   else if (balltype_i_ == 0)
     position_i_ += 2;
@@ -41,7 +41,7 @@ Rest::brew_molecule_p () const
   bool streepjes_b = abs(position_i_) > staff_size_i_ /2 &&  
     (balltype_i_ == 0 || balltype_i_ == 1);
   
-  Atom s(paper ()->lookup_l()->rest (balltype_i_, streepjes_b));
+  Atom s(lookup_l ()->rest (balltype_i_, streepjes_b));
   Molecule * m = new Molecule ( Atom (s));
   m->translate_axis (position_i_ *  paper ()->internote_f (), Y_AXIS);
   return m;

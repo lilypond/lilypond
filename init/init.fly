@@ -1,0 +1,14 @@
+% Toplevel initialisation file. 
+	
+\version "1.0.0";
+
+
+\include "declarations.ly"
+
+\score { 
+  \melodic\relative c {
+    \maininput
+  }
+  \paper { }  
+  \midi{ }
+}

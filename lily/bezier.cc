@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include <math.h>
@@ -12,7 +12,7 @@
 
 #ifndef STANDALONE
 #include "direction.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "paper-def.hh"
 #include "debug.hh"
 #include "main.hh"
@@ -167,6 +167,12 @@ Bezier_bow::blow_fit ()
   Real a = (dy2 - dy1) / (f * dy1);
   Real b = dy1;
   Real h = -b / a;
+
+  if (sign (h) != sign (h1))
+    return;
+
+  if (sign (h) != sign (h1))
+    return;
 
   control_[1].y () += -h1 +h; 
   control_[2].y () += -h1 +h; 

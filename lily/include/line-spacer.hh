@@ -3,14 +3,14 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef LINE_SPACER_HH
 #define LINE_SPACER_HH
 #include "lily-proto.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "vector.hh"
 #include "interval.hh"
 
@@ -31,13 +31,13 @@ public:
     
   /** solve the spacing problem
    */
-  virtual void solve (Col_hpositions *) const=0;
+  virtual void solve (Column_x_positions *) const=0;
 
   /**
     Approximate the spacing problem:
     return a lower bound on the energy
     */
-  virtual void lower_bound_solution (Col_hpositions *) const=0;
+  virtual void lower_bound_solution (Column_x_positions *) const=0;
     
   /** add a col to the problem. columns have to be added left to
     right. The column contains info on it's minimum width.  */

@@ -1,7 +1,7 @@
 //
 // mi2mu-global.hh -- declare global (sic) stuff for mi2mu
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef MI2MU_GLOBAL_HH
 #define MI2MU_GLOBAL_HH

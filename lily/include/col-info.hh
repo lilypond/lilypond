@@ -1,9 +1,9 @@
 /*
-  col-info.hh -- declare Colinfo
+  col-info.hh -- declare Column_info
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -23,7 +23,7 @@ struct Spacer_rod {
 
 
 /// helper struct for #Spacing_problem#
-struct Colinfo {
+struct Column_info {
   Paper_column *pcol_l_;
   P<Real> fixpos_p_;
 
@@ -35,8 +35,8 @@ struct Colinfo {
   Drul_array< Array<Spacer_rod> > rods_;
   
   /* *************** */
-  Colinfo();
-  Colinfo (Paper_column *,Real const *);
+  Column_info();
+  Column_info (Paper_column *,Real const *);
 
   int rank_i () const;
   void print() const;

@@ -3,14 +3,14 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef LYRIC_ENGRAVER_HH
 #define LYRIC_ENGRAVER_HH
 #include "engraver.hh"
-#include "varray.hh"
+#include "array.hh"
 
 #include "lily-proto.hh"
 

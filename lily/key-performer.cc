@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "key-performer.hh"
@@ -47,8 +47,8 @@ Key_performer::do_try_request (Request* req_l)
   if (key_req_l_)
 	return false;
 
-  if (req_l->command())
-	key_req_l_ = req_l->command()->keychange ();
+  if (req_l->access_Command_req ())
+	key_req_l_ = req_l->access_Command_req ()->access_Key_change_req ();
 
   if (key_req_l_)
 	return true;

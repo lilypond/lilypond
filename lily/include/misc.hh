@@ -1,18 +1,23 @@
 #ifndef MISC_HH
 #define MISC_HH
 
+#include <stdlib.h>
+
 #include "real.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "interval.hh"
 
 double log_2(double x) ;
 int intlog2(int d);
-#if ! defined(_ABS_)
+
+#if 0
+				// defined in real.hh
 inline int
 abs (int i){
     return (i < 0)?-i:i;
 }
 #endif
+
 inline int
 sign (int i) {
     if (i<0) return -1;
@@ -25,6 +30,7 @@ sign (int i) {
 Interval itemlist_width (const Array<Item*> &its);
 #endif
 
+void set_frobnify (void*, size_t);
 int get_lower_bound (Array<Real> const& positions, Real x);
 Slice get_bounds_slice (Array<Real> const& positions, Real x);
 Interval get_bounds_iv (Array<Real> const& positions, Real x);

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "paper-def.hh"
@@ -11,7 +11,6 @@
 #include "note-head.hh"
 #include "p-col.hh"
 #include "debug.hh"
-#include "main.hh"  // experimental features
 
 IMPLEMENT_IS_TYPE_B1(Tie,Bow);
 
@@ -48,7 +47,7 @@ void
 Tie::do_add_processing()
 {
   if (!(head_l_drul_[LEFT] && head_l_drul_[RIGHT]))
-    warning (_("Lonely tie.. "));
+    warning (_ ("lonely tie"));
 
   Direction d = LEFT;
   Drul_array<Note_head *> new_head_drul = head_l_drul_;
@@ -103,9 +102,9 @@ Tie::do_post_processing()
 	  dy_f_drul_[d] += dir_ * 0.25 * interline_f;
 	}
       // tie attached to inner notehead
-      else if (head_l_drul_[d])
+      else if (head_l_drul_[d] && d == LEFT)
 	{
-	  dx_f_drul_[d] += d*0.5 * notewidth;
+	  dx_f_drul_[d] += -d * notewidth;
 	}
       // uhm? loose end of tie // tie attached to stem
       else
@@ -150,12 +149,12 @@ Tie::do_post_processing()
 }
 
 void
-Tie::do_substitute_dependency (Score_elem*o, Score_elem*n)
+Tie::do_substitute_dependency (Score_element*o, Score_element*n)
 {
-  Note_head *new_l =n?(Note_head*)n->item():0;
-  if (o->item() == head_l_drul_[LEFT])
+  Note_head *new_l =n?(Note_head*)n->access_Item ():0;
+  if (o->access_Item () == head_l_drul_[LEFT])
     head_l_drul_[LEFT] = new_l;
-  else if (o->item() == head_l_drul_[RIGHT])
+  else if (o->access_Item () == head_l_drul_[RIGHT])
     head_l_drul_[RIGHT] = new_l;
 }
 

@@ -3,10 +3,10 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
   TODO
-  This doth suck. We should have PS output, and read spacing info from TFMs
+  This doth suck. We should have PS output, and read spacing info from AFMs
 
   Glissando, 
 
@@ -15,7 +15,7 @@
 #include "lookup.hh"
 #include "debug.hh"
 #include "symtable.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "tex.hh"
 #include "scalar.hh"
 #include "paper-def.hh"
@@ -25,19 +25,44 @@
 Lookup::Lookup()
 {
   paper_l_ = 0;
-  texsetting = "\\unknowntexsetting";
   symtables_p_ = new Symtables;
+  afm_p_ =0;
 }
 
 Lookup::Lookup (Lookup const &s)
 {
+  font_ = s.font_;
+  font_path_ = s.font_path_;
   paper_l_ = s.paper_l_;
-  texsetting = s.texsetting;
   symtables_p_ = new Symtables (*s.symtables_p_);
+  afm_p_ = 0;
 }
+
 Lookup::~Lookup()
 {
+  delete afm_p_;
   delete symtables_p_;
+}
+
+Atom
+Lookup::afm_find (String s) const
+{
+  if (!afm_p_)
+    {
+      *mlog << "[" << font_path_;
+      ((Lookup*)this)->afm_p_ = new Adobe_font_metric (read_afm (font_path_));
+      *mlog << "]" << flush ;
+      DOUT << this->afm_p_->str ();
+    }
+  Adobe_font_char_metric m = afm_p_->find_char (s);
+
+  Atom a;
+  a.tex_ = String_convert::form_str ("\\char%d", m.code ());
+  a.dim_ = m.B_;
+  a.dim_[X_AXIS] *= 1 / 1000.0;
+  a.dim_[Y_AXIS] *= 1 / 1000.0;
+  a.font_ = font_;
+  return a;
 }
 
 void
@@ -50,25 +75,23 @@ void
 Lookup::print() const
 {
 #ifndef NPRINT
-  DOUT << "Lookup: " << texsetting << " {\n";
+  DOUT << "Lookup {\n";
   symtables_p_->print();
   DOUT << "}\n";
 #endif
 }
 
 Atom
-Lookup::text (String style, String text, int dir) const
+Lookup::text (String style, String text) const
 {
   Array<String> a;
 
   a.push (text);
   Atom tsym =  (*symtables_p_)("style")->lookup (style);
-  a[0] = substitute_args (tsym.tex_,a);
+  tsym.tex_ = substitute_args (tsym.tex_,a);
+  tsym.font_ = font_;
 
-  Atom s = (*symtables_p_)("align")->lookup (dir);
-  s.tex_ = substitute_args (s.tex_,a);
-  s.dim_ = tsym.dim_;
-  return s;
+  return tsym;
 }
 
 
@@ -79,28 +102,34 @@ Lookup::ball (int j) const
   if (j > 2)
     j = 2;
 
-  Symtable * st = (*symtables_p_)("balls");
-  return st->lookup (String (j));
+  Atom s = afm_find (String ("balls") + String ("-") + to_str (j));
+  return s;
 }
 
 Atom
 Lookup::rest (int j, bool o) const
 {
-  return (*symtables_p_)("rests")->lookup (String (j) + (o ? "o" : ""));
+  Atom s =afm_find (String ("rests")
+		    + String ("-") + to_str (j) + (o ? "o" : ""));
+
+  return s;
 }
 
 Atom
 Lookup::fill (Box b) const
 {
-  Atom s ((*symtables_p_)("param")->lookup ("fill"));
+  Atom s;
+  s.tex_ = "";
   s.dim_ = b;
+
   return s;
 }
 
 Atom
 Lookup::accidental (int j) const
 {
-  return (*symtables_p_)("accidentals")->lookup (String (j));
+  Atom s= afm_find (String ("accidentals") + String ("-") + to_str (j));
+  return s;
 }
 
 
@@ -112,38 +141,47 @@ Lookup::bar (String s, Real h) const
   Atom ret=(*symtables_p_)("bars")->lookup (s);
   ret.tex_ = substitute_args (ret.tex_, a);
   ret.dim_.y() = Interval (-h/2, h/2);
+  ret.font_ = font_;
   return ret;
 }
 
 Atom
-Lookup::script (String s) const
+Lookup::script (String st) const
 {
-  return (*symtables_p_)("scripts")->lookup (s);
+  Atom s= afm_find (String ("scripts") + String ("-") + st);
+
+  return s;
 }
 
 Atom
-Lookup::dynamic (String s) const
+Lookup::dynamic (String st) const
 {
-  return (*symtables_p_)("dynamics")->lookup (s);
+  return (*symtables_p_) ("dynamics")->lookup (st);
 }
 
 Atom
-Lookup::clef (String s) const
+Lookup::clef (String st) const
 {
-  return (*symtables_p_)("clefs")->lookup (s);
+  Atom s=afm_find (String ("clefs") + String ("-") + st);
+
+  return s;
 }
 
 Atom
 Lookup::dots () const
 {
-  return (*symtables_p_)("dots")->lookup ("dot");
+  Atom s=afm_find (String ("dots") + String ("-") + String("dot"));
+  
+    return s;
 }
 
 Atom
 Lookup::flag (int j, Direction d) const
 {
   char c = (d == UP) ? 'u' : 'd';
-  return (*symtables_p_)("flags")->lookup (c + String (j));
+  Atom s=afm_find (String ("flags") + String ("-") + to_str (c) + to_str (j));
+
+  return s;
 }
 
 Atom
@@ -176,6 +214,7 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
   
   s.dim_[X_AXIS] = Interval (0, dx);
   s.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
+  s.font_ = font_;
   return s;
 }
 
@@ -195,7 +234,7 @@ Lookup::slur (Array<Offset> controls) const
 
   ps += String_convert::double_str (controls[4].x ()) + " "
     + String_convert::double_str (controls[4].y ()) + " ";
-
+  
   for (int i = 1; i < 4; i++)
     ps += String_convert::double_str (controls[i].x ()) + " "
       + String_convert::double_str (controls[i].y ()) + " ";
@@ -210,7 +249,9 @@ Lookup::slur (Array<Offset> controls) const
   
   s.dim_[X_AXIS] = Interval (0, dx);
   s.dim_[Y_AXIS] = Interval (0 <? dy,  0 >? dy);
+  s.font_ = font_;
   return s;
+
 }
 
 Atom
@@ -219,9 +260,7 @@ Lookup::streepje (int type) const
   if (type > 2)
     type = 2;
 
-  Symtable * st = (*symtables_p_)("balls");
-  
-  return st->lookup (String (type) + 'l');
+  return  afm_find ("balls" + String ("-") +to_str (type) + "l");
 }
 
 Atom
@@ -231,24 +270,25 @@ Lookup::hairpin (Real width, bool decresc, bool continued) const
   Atom ret;  
   Real height = paper_l_->staffheight_f () / 6;
   embed = "\\embeddedps{\n" ;
-  embed += String (width) + " " 
-	+ String (height) + " " 
-    + String (continued ? height/2 : 0) + 
+  embed += to_str (width) + " " 
+	+ to_str (height) + " " 
+    + to_str (continued ? height/2 : 0) + 
     + " draw_"  + String(decresc ? "de" : "") + "cresc}\n";
   ret.tex_ = embed;
 
 
   ret.dim_.x () = Interval (0, width);
   ret.dim_.y () = Interval (-2*height, 2*height);
-
+  ret.font_ = font_;
   return ret;
 }
 
 Atom
-Lookup::meter (Array<Scalar> a) const
+Lookup::time_signature (Array<Scalar> a) const
 {
-  Atom s((*symtables_p_)("param")->lookup ("meter"));
+  Atom s((*symtables_p_)("param")->lookup ("time_signature"));
   s.tex_ = substitute_args (s.tex_,a);
+
   return s;
 }
 
@@ -273,6 +313,7 @@ Lookup::stem (Real y1,Real y2) const
 
   String src = (*symtables_p_)("param")->lookup ("stem").tex_;
   s.tex_ = substitute_args (src,a);
+  s.font_ = font_;
   return s;
 }
 
@@ -282,7 +323,7 @@ Lookup::stem (Real y1,Real y2) const
 Atom
 Lookup::vbrace (Real &y) const
 {
-  Atom brace = (*symtables_p_)("param")->lookup ("brace");
+  Atom brace = (*symtables_p_) ("param")->lookup ( "brace");
   Interval ydims = brace.dim_[Y_AXIS];
   Real min_y = ydims[LEFT];
   Real max_y = ydims[RIGHT];
@@ -290,12 +331,14 @@ Lookup::vbrace (Real &y) const
  
   if (y < min_y)
     {
-      warning (_("piano brace too small (") + print_dimen (y)+ ")");
+      warning (_ ("piano brace") 
+	+ " " + _ ("too small") +  "(" + print_dimen (y) + ")");
       y = min_y;
     }
   if (y > max_y)
     {
-      warning (_("piano brace too big (") + print_dimen (y)+ ")");
+      warning (_ ("piano brace")
+       + " " + _ ("too big") + "(" + print_dimen (y)+ ")");
       y = max_y;
     }
 
@@ -304,10 +347,12 @@ Lookup::vbrace (Real &y) const
   
   {
     Array<String> a;
-    a.push (idx);
+    a.push (to_str (idx));
     brace.tex_ = substitute_args (brace.tex_,a);
     brace.dim_[Y_AXIS] = Interval (-y/2,y/2);
   }
+
+  brace.font_ = font_;
 
   return brace;
 }
@@ -316,11 +361,19 @@ Atom
 Lookup::vbracket (Real &y) const
 {
   Atom psbracket;
-  psbracket.tex_ = String ("\\embeddedps{ ") + y + " draw_bracket}";
+  Real min_y = paper_l_->staffheight_f ();
+  if (y < min_y)
+    {
+      warning (_ ("bracket")
+	+ " " + _ ("too small") +  "(" + print_dimen (y) + ")");
+//      y = min_y;
+    }
+  psbracket.tex_ = String ("\\embeddedps{ ") + to_str (y) + " draw_bracket}";
   psbracket.dim_[Y_AXIS] = Interval (-y/2,y/2);
   psbracket.dim_[X_AXIS] = Interval (0,4 PT);
   return psbracket;
-  Atom bracket = (*symtables_p_)("param")->lookup ("bracket");
+#if 0
+  Atom bracket = afm_find (String ("param") + "bracket");
   Interval ydims = bracket.dim_[Y_AXIS];
 
   Real min_y = ydims[LEFT];
@@ -329,12 +382,14 @@ Lookup::vbracket (Real &y) const
  
   if (y < min_y)
     {
-      warning (_("bracket too small (") + print_dimen (y)+ ")");
+      warning (_ ("bracket")
+	+ " " + _ ("too small") +  "(" + print_dimen (y) + ")");
       y = min_y;
     }
   if (y > max_y)
     {
-      warning (_("bracket too big (") + print_dimen (y)+ ")");
+      warning (_ ("bracket")
+       + " " + _ ("too big") + "(" + print_dimen (y)+ ")");
       y = max_y;
     }
 
@@ -343,11 +398,12 @@ Lookup::vbracket (Real &y) const
   
   {
     Array<String> a;
-    a.push (idx);
+    a.push (to_str (idx));
     bracket.tex_ = substitute_args (bracket.tex_,a);
     bracket.dim_[Y_AXIS] = Interval (-y/2,y/2);
   }
 
   return bracket;
+#endif
 }
 

@@ -1,7 +1,7 @@
 /*
   audio-column.hh -- declare Audio_column
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #ifndef AUDIO_COLUMN_HH
@@ -21,7 +21,7 @@ class Audio_column {
 public:
     Audio_column (Moment at_mom);
 
-    void add (Audio_item* i_l);
+    void add_audio_item (Audio_item* i_l);
     Moment at_mom() const;
     void print() const;
 

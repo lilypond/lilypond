@@ -1,7 +1,7 @@
 /*
   beam.hh -- part of GNU LilyPond
 
-  (c) 1996,97 Han-Wen Nienhuys
+  (c) 1996--1998 Han-Wen Nienhuys
 */
 
 #ifndef BEAM_HH
@@ -21,6 +21,7 @@ public:
     especially at small slopes.
     */
   enum Quantisation { NONE, NORMAL, TRADITIONAL, TEST };
+  enum Dir_algorithm { /* DOWN=-1, UP=1, */ MAJORITY=2, MEAN, MEDIAN };
 
   Link_array<Stem> stems_;
   /// the slope of the beam in posns / point (dimension)   
@@ -40,11 +41,11 @@ public:
 
   DECLARE_MY_RUNTIME_TYPEINFO;
   Beam();
-  void add (Stem*);
+  void add_stem (Stem*);
 
   void set_grouping (Rhythmic_grouping def, Rhythmic_grouping current);
   void set_stemlens ();
-  SCORE_ELEM_CLONE (Beam);
+  SCORE_ELEMENT_CLONE (Beam);
 
 protected:
   virtual Interval do_width () const;    
@@ -52,7 +53,7 @@ protected:
   void set_default_dir ();
   virtual void do_pre_processing ();
   virtual void do_post_processing ();
-  virtual void do_substitute_dependent (Score_elem*, Score_elem*);
+  virtual void do_substitute_dependent (Score_element*, Score_element*);
 
   virtual void do_print() const;
 

@@ -1,17 +1,17 @@
 /*
   performer.hh -- declare Performer
 
-  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
-                 Jan Nieuwenhuizen <jan@digicash.com>
+  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+                 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #ifndef PERFORMER_HH
 #define PERFORMER_HH
 
 #include "lily-proto.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "request.hh"
-#include "score-elem-info.hh"
+#include "score-element-info.hh"
 #include "staff-info.hh"
 #include "translator.hh"
 

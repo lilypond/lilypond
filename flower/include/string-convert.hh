@@ -7,6 +7,7 @@
 #ifndef STRING_CONVERT_HH
 #define STRING_CONVERT_HH
 
+#include <stdarg.h>
 #include "fproto.hh"
 #include "string.hh"
 
@@ -18,6 +19,7 @@ class String_convert {
     static int hex2nibble_i (Byte byte);
     static Byte nibble2hex_byte (Byte byte);
 public:
+    static String bool_str (bool b);
     static String bin2dec_str (String bin_str);
     static String bin2hex_str (String bin_str);
     static String dec2bin_str (String str);
@@ -27,6 +29,8 @@ public:
     static int dec2_i (String dec_str);
     static double dec2_f (String dec_str);
     static String double_str (double f, char const* fmt=0);
+    static String form_str (char const* format, ...);
+    static String vform_str (char const* format, va_list args);
     static int hex2_i (String str);
     static unsigned hex2_u (String str);
     static String hex2bin_str (String str);

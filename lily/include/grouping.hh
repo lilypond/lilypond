@@ -1,14 +1,14 @@
 /*
   grouping.hh -- part of GNU LilyPond
 
-  (c) 1996,97 Han-Wen Nienhuys
+  (c) 1996--1998 Han-Wen Nienhuys
 */
 
 #ifndef GROUPING_HH
 #define GROUPING_HH
 
 #include "minterval.hh"
-#include "varray.hh"
+#include "array.hh"
 
 /** data structure which represents rhythmic units   this is a tree. It groupes notes according to rules
 

@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -12,7 +12,7 @@
 #include "duration.hh"
 #include "string.hh"
 //#include "array.hh"
-#include "varray.hh"
+#include "array.hh"
 
 /**
 	Duration_convert handles all conversions to -n fro Duration (dur).

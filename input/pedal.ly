@@ -24,14 +24,13 @@
 % \lbheel \lbheel \lfheel \lftoe
 % \rbheel \rbtoe \rfheel \rftoe
 
-\version "0.1.15";
+\version "1.0.0";
 
 \score{
 		\melodic {
-			\meter 4/4;
-			\key fis cis;
+			\time 4/4;
+			\key D;
 			\clef bass;
-			\octave c;
 			% silly chord testing...
 % these should be stacked...
 %			< c,-\ltoe e,-\lheel > < c'-\rtoe e'-\rheel>

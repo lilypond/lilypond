@@ -1,9 +1,9 @@
 /*
-  tex-beam.cc -- implement Lookup::{beam_element, beam, rule_symbol}
+  tex-beam.cc -- implement Lookup::beam
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 /*
@@ -15,7 +15,7 @@
 #include "molecule.hh"
 #include "tex.hh"
 #include "symtable.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "debug.hh"
 #include "lookup.hh"
 #include "misc.hh"
@@ -55,7 +55,7 @@ Atom
 Lookup::ps_beam (Real slope, Real width, Real thick) const
 {
   String ps = "\\embeddedps{\n";
-  ps += String (width) + " "+ String (slope) + " " + String (thick)
+  ps += to_str (width) + " "+ to_str (slope) + " " + to_str (thick)
     + " draw_beam}";
 
   Atom s;

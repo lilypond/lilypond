@@ -3,8 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
-	   Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+	   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef ABBREVIATION_BEAM_HH
@@ -21,7 +21,7 @@ public:
 
   Abbreviation_beam();
 
-  SCORE_ELEM_CLONE(Abbreviation_beam);
+  SCORE_ELEMENT_CLONE(Abbreviation_beam);
 
 protected:
   virtual void do_print() const;

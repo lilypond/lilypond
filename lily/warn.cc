@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "proto.hh"
@@ -33,6 +33,6 @@ error_t (String const & s, Moment const & r)
 void
 error_t (String const & s, Time_description const &t_tdes)
 {
-  String e=s+ " (at t=" +  String(t_tdes.bars_i_) + ": " +  (t_tdes.whole_in_measure_).str () + ")\n";
+  String e=s+ " (at t=" +  to_str (t_tdes.bars_i_) + ": " +  (t_tdes.whole_in_measure_).str () + ")\n";
   error (e);
 }

@@ -3,14 +3,14 @@
 
   source file of the Flower Library
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef PARRAY_HH
 #define PARRAY_HH
 
-#include "varray.hh"
+#include "array.hh"
 
 /**
   an array of pointers.

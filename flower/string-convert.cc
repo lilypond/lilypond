@@ -11,10 +11,10 @@
 #include "string.hh"
 #include "string-convert.hh"
 #include "rational.hh"
-#include "varray.hh"
+#include "array.hh"
 
 /**
-   a safe length for stringconversion buffers
+   A safe length for stringconversion buffers.
 
    worst case would be %f printing HUGE (or 1/HUGE), which is approx
    2e318, this number would have approx 318 zero's in its string.
@@ -24,7 +24,15 @@
    @see
    man 3 snprintf
    */
+
+// hmm, this is shorter even than PATH_MAX
 static const int STRING_BUFFER_LEN=1024;
+
+String
+String_convert::bool_str (bool b)
+{
+  return String (b ? "true" : "false");
+}
 
 String
 String_convert::bin2hex_str (String bin_str)
@@ -33,8 +41,8 @@ String_convert::bin2hex_str (String bin_str)
   Byte const* byte_C = bin_str.byte_C();
   for (int i = 0; i < bin_str.length_i(); i++) 
     {
-      str += (char)nibble2hex_byte (*byte_C >> 4);
-      str += (char)nibble2hex_byte (*byte_C++);
+      str += to_str ((char)nibble2hex_byte (*byte_C >> 4));
+      str += to_str ((char)nibble2hex_byte (*byte_C++));
     }
   return str;
 }
@@ -109,7 +117,7 @@ String_convert::hex2bin_i (String hex_str, String& bin_str_r)
       int low_i = hex2nibble_i (*byte_C++);
       if (high_i < 0 || low_i < 0)
 	return 1; // illegal char
-      bin_str_r += String ((char)(high_i << 4 | low_i), 1 );
+      bin_str_r += to_str ((char)(high_i << 4 | low_i), 1 );
       i += 2;
     }
   return 0;
@@ -147,10 +155,10 @@ String_convert::i2dec_str (int i, int length_i, char ch)
     fill_ch = '0';
 
   // ugh
-  String dec_str (i);
+  String dec_str = to_str (i);
   
   // ugh
-  return String (fill_ch, length_i - dec_str.length_i()) + dec_str;
+  return to_str (fill_ch, length_i - dec_str.length_i()) + dec_str;
 }
 
 
@@ -165,16 +173,16 @@ String_convert::u2hex_str (unsigned u, int length_i, char fill_ch)
 #if 1 // both go...
   while (u) 
     {
-      str = String ((char)((u % 16)["0123456789abcdef"] ) ) + str;
+      str = to_str ((char)((u % 16)["0123456789abcdef"] ) ) + str;
       u /= 16;
     }
 #else
   str += int_str (u, "%x");	// hmm. %lx vs. %x -> portability?
 #endif
 
-  str = String (fill_ch, length_i - str.length_i()) + str;
+  str = to_str (fill_ch, length_i - str.length_i()) + str;
   while ((str.length_i() > length_i) &&  (str[ 0 ] == 'f' ) )
-    str = str.cut (2, INT_MAX);
+    str = str.cut_str (2, INT_MAX);
 
   return str;
 }
@@ -205,6 +213,25 @@ String_convert::int_str (int i, char const* fmt)
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN,
 	    (fmt ? fmt : "%d"), i);     // assume radix 10
+  return String (buffer);
+}
+
+String
+String_convert::form_str (char const* format, ...)
+{
+  va_list args;
+  va_start (args, format);
+  char buffer[STRING_BUFFER_LEN];
+  vsnprintf (buffer, STRING_BUFFER_LEN, format, args);
+  va_end (args);
+  return String (buffer);
+}
+
+String 
+String_convert::vform_str (char const* format, va_list args)
+{
+  char buffer[STRING_BUFFER_LEN];
+  vsnprintf (buffer, STRING_BUFFER_LEN, format, args);
   return String (buffer);
 }
 
@@ -262,7 +289,7 @@ String_convert::pointer_str (void const *l)
 String
 String_convert::precision_str (double x, int n)
 {
-  String format = "%." + String (0 >? n - 1) + "e";
+  String format = "%." + to_str (0 >? n - 1) + "e";
   String str = double_str (abs (x), format.ch_C ());
 
   int exp = str.right_str (3).value_i ();
@@ -276,14 +303,14 @@ String_convert::precision_str (double x, int n)
   if (exp == 0)
     return (sign (x) > 0 ? str : "-" + str);
 
-  str = str.left_str (1) + str.cut (2, INT_MAX);
+  str = str.left_str (1) + str.cut_str (2, INT_MAX);
   int dot = 1 + exp;
   if (dot <= 0)
-    str = "0." + String ('0', -dot) + str;
+    str = "0." + to_str ('0', -dot) + str;
   else if (dot >= str.length_i ())
-    str += String ('0', dot - str.length_i ());
+    str += to_str ('0', dot - str.length_i ());
   else if (( dot > 0) && (dot < str.length_i ()))
-    str = str.left_str (dot) + '.' + str.cut (dot, INT_MAX);
+    str = str.left_str (dot) + "." + str.cut_str (dot, INT_MAX);
   else
     assert (0);
 
@@ -299,7 +326,9 @@ String_convert::split_arr (String str, char c)
     {
       String s = str.left_str (i);
       a.push (s);
-      str = str.cut (i + 1, INT_MAX);
+      while (str[++i] == c)
+	;
+      str = str.cut_str (i, INT_MAX);
       i = str.index_i (c);
     }
   if (str.length_i ())

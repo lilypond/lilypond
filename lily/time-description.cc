@@ -3,23 +3,23 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "time-description.hh"
 #include "debug.hh"
 
 String
-Time_description::str() const
+Time_description::str () const
 {
   String s ("Time_description { ");
   if (cadenza_b_)
-	s+=String (" (cadenza) ");
-  s+= "at ";
-  s+=when_;
-  s+="\nmeter " + (whole_per_measure_/one_beat_).str () +":" +
+	s += String ("(") + _("cadenza") + ")";
+  s += "at ";
+  s += when_.str ();
+  s +="\ntime_signature " + (whole_per_measure_/one_beat_).str () +":" +
 	 (Rational (Rational (1)/one_beat_)).str ();
-  s+= "\nposition "+String (bars_i_) + ":"+ whole_in_measure_.str () +"\n}\n";
+  s += "\nposition " + to_str (bars_i_) + ":"+ whole_in_measure_.str () +"\n}\n";
   return s;
 }
 
@@ -27,7 +27,7 @@ void
 Time_description::print() const
 {
 #ifndef NPRINT
-  DOUT << str();
+  DOUT << str ();
 #endif
 }
 void
@@ -81,7 +81,7 @@ Time_description::add (Moment dt)
 }
 
 void
-Time_description::set_meter (int l, int o)
+Time_description::set_time_signature (int l, int o)
 {
   assert (o);
   one_beat_ = Rational (1)/Moment (o);
@@ -89,7 +89,7 @@ Time_description::set_meter (int l, int o)
 }
 
 bool
-Time_description::allow_meter_change_b()
+Time_description::allow_time_signature_change_b()
 {
   return!(whole_in_measure_);
 }
@@ -103,9 +103,9 @@ String
 Time_description::try_set_partial_str (Moment p) const
 {
   if (p<Rational (0))
-	return (_("Partial must be non-negative"));
+	return (_ ("partial measure must be non-negative"));
   if (p > whole_per_measure_)
-	return (_("Partial measure too large"));
+	return (_ ("partial measure too large"));
   return "";
 }
 

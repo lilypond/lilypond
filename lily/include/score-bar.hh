@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
@@ -19,7 +19,7 @@
 class Score_bar : public virtual Bar {
 public:
   DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEM_CLONE(Score_bar);
+  SCORE_ELEMENT_CLONE(Score_bar);
 protected:
   void do_pre_processing ();
 };

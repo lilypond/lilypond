@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -11,15 +11,15 @@
 #define ENGRAVER_HH
 
 #include "lily-proto.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "request.hh"
-#include "score-elem-info.hh"
+#include "score-element-info.hh"
 #include "staff-info.hh"
 #include "translator.hh"
 
 
 /**
-  a struct which processes requests, and creates the #Score_elem#s.
+  a struct which processes requests, and creates the #Score_element#s.
   It may use derived classes. Hungarian postfix: grav
   
   */
@@ -35,7 +35,7 @@ protected:
   /**
     Invoke walker method to typeset element. Default: pass on to daddy.
     */
-  virtual void typeset_element (Score_elem*elem_p);
+  virtual void typeset_element (Score_element*elem_p);
     
   /**
     take note of item/spanner
@@ -43,7 +43,7 @@ protected:
 
     Default: ignore the info
     */
-  virtual void acknowledge_element (Score_elem_info) {}
+  virtual void acknowledge_element (Score_element_info) {}
 
   /** Do things with stuff found in acknowledge_element. Ugh. Should
      be looped with acknowledge_element.
@@ -53,7 +53,7 @@ protected:
   /**
     Announce element. Default: pass on to daddy. Utility
     */
-  virtual void announce_element (Score_elem_info);
+  virtual void announce_element (Score_element_info);
    
   /**
     Get information on the staff. Default: ask daddy.

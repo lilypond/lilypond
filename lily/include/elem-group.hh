@@ -3,14 +3,14 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef ELEM_GROUP_HH
 #define ELEM_GROUP_HH
 
-#include "score-elem.hh"
+#include "score-element.hh"
 #include "axis-group-element.hh"
 
 

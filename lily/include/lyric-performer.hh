@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 
@@ -12,7 +12,7 @@
 
 #include "lily-proto.hh"
 #include "performer.hh"
-#include "varray.hh"
+#include "array.hh"
 
 class Lyric_performer : public Performer {
 public:

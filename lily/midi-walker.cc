@@ -3,8 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
-         Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+         Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #include "midi-walker.hh"
@@ -48,13 +48,16 @@ Midi_walker::do_start_note (Midi_note* note_p)
   Moment stop_mom = note_p->duration() + ptr ()->audio_column_l_->at_mom ();
   for (int i=0; i < stop_note_queue.size(); i++) 
     {
-	if (stop_note_queue[ i ].val->pitch_i() == note_p->pitch_i ()) 
-	  {
-	    if (stop_note_queue[ i ].key < stop_mom)
-		stop_note_queue[ i ].ignore_b_ = true;
-	    else // skip the stopnote 
-		return; 
+      if (stop_note_queue[ i ].val->pitch_i() == note_p->pitch_i ()) 
+	{
+	  if (stop_note_queue[ i ].key < stop_mom)
+	    stop_note_queue[ i ].ignore_b_ = true;
+	  else {
+	    // skip the stopnote
+	    delete note_p;
+	    return;
 	  }
+	}
     }
 
   Midi_note_event e;
@@ -73,14 +76,17 @@ Midi_walker::do_stop_notes (Moment max_mom)
 {
   while (stop_note_queue.size() && stop_note_queue.front ().key <= max_mom) 
     {
-	Midi_note_event e = stop_note_queue.get();
-	if (e.ignore_b_) 
-	    continue;
+      Midi_note_event e = stop_note_queue.get();
+      if (e.ignore_b_)
+	{
+	  delete e.val;
+	  continue;
+	}
+      
+      Moment stop_mom = e.key;
+      Midi_note_off* note_p = e.val;
 	
-	Moment stop_mom = e.key;
-	Midi_note_off* note_p = e.val;
-	
-	output_event (stop_mom, note_p);
+      output_event (stop_mom, note_p);
     }
 }
 
@@ -102,12 +108,12 @@ Midi_walker::process()
 
   Midi_item* p = ptr()->midi_item_p ();
   if (!p)
-	return;
+    return;
   p->channel_i_ = track_l_->number_i_;
   
   if (p->name() != Midi_note::static_name ())
-	output_event (ptr()->audio_column_l_->at_mom (), p);
+    output_event (ptr()->audio_column_l_->at_mom (), p);
   else
-	do_start_note ((Midi_note*)p);
+    do_start_note ((Midi_note*)p);
 }
 

@@ -3,14 +3,14 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef SCORE_HH
 #define SCORE_HH
 
-#include "varray.hh"
+#include "array.hh"
 #include "lily-proto.hh"
 #include "plist.hh"
 #include "string.hh"
@@ -34,7 +34,7 @@ public:
   ~Score();    
 
   void process();
-  void add (Music_output_def *def_p);
+  void add_output (Music_output_def *def_p);
   void print() const;
 private:
   void run_translator (Music_output_def*);

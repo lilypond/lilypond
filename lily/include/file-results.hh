@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998 Han-Wen Nienhuys <hanwen@cs.ruu.nl>
+  (c) 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 
@@ -12,7 +12,7 @@
 #include "fproto.hh"
 
 void do_one_file (String init_str, String file_str);
-
+extern Header *header_global_p;
 extern Array<String> target_str_global_array;
 extern Array<String> inclusion_global_array;
 extern Link_array<Score> score_global_array;

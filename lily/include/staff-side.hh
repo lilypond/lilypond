@@ -3,21 +3,24 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef STAFF_SIDE_HH
 #define STAFF_SIDE_HH
 
-#include "score-elem.hh"
+#include "score-element.hh"
 #include "interval.hh"
 #include "direction.hh"
 
-/** A symbol which sits along a staff.
+/**
 
-  */
-class Staff_side : virtual Score_elem
+   A symbol which sits either below or above "something" (usually, a
+   staff).
+
+*/
+class Staff_side : virtual Score_element
 {
 public:
 
@@ -25,25 +28,33 @@ public:
     Vertical dir of symbol relative to staff. -1 = below staff?
     */
   Direction dir_;
+  Axis axis_;
   Interval sym_int_;
     
-  Real y_;
+  Real coordinate_offset_f_;
 
+  /**
+     Add extra vertical space to the support symbols.
+   */
+  Real padding_f_;
 
-  void set_staffsym (Staff_symbol * );
   Staff_side ();
-  void add_support (Score_elem*);
+  void add_support (Score_element*);
   DECLARE_MY_RUNTIME_TYPEINFO;
     
 protected:
   virtual Interval symbol_height () const;
+  virtual Interval symbol_width () const;
+  Interval symbol_extent () const;
   virtual Real get_position_f () const;
-  virtual void do_substitute_dependency (Score_elem *, Score_elem*);
+  virtual void do_substitute_dependency (Score_element *, Score_element*);
+  virtual void do_pre_processing ();
   virtual void do_post_processing ();
-  Interval support_height () const;
+  Interval support_extent () const;
 
 private:
-  Link_array<Score_elem> support_l_arr_;
-//  Interval support_height () const;
+  void do_side_processing ();
+  Link_array<Score_element> support_l_arr_;
 };
+
 #endif // STAFF_SIDE_HH

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "idealspacing.hh"
@@ -16,7 +16,7 @@ Idealspacing::print() const
 {
 #ifndef NPRINT
   DOUT << "idealspacing {" ;
-  DOUT << "distance "<<space_f_<< " strength " << hooke_f_ ;
+  DOUT << "distance " << space_f_ << " strength " << hooke_f_;
   DOUT << "left " << left_i_ << " right " << right_i_ << "}\n";
 #endif
 }

@@ -1,7 +1,7 @@
 /*
   plet-spanner.hh -- part of GNU LilyPond
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef PLET_SPANNER_HH
@@ -28,12 +28,12 @@ protected:
   virtual Molecule* brew_molecule_p () const;
  
   DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEM_CLONE(Plet_spanner);
+  SCORE_ELEMENT_CLONE(Plet_spanner);
 
   virtual void do_add_processing ();
   virtual void do_post_processing ();
   virtual void set_default_dir ();
-  virtual void do_substitute_dependency (Score_elem*,Score_elem*);
+  virtual void do_substitute_dependency (Score_element*,Score_element*);
   Plet_spanner (Plet_spanner const&);
 };
 

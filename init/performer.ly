@@ -6,7 +6,7 @@ Staff =	\translator {
 	\type "Staff_performer";
 	\accepts Voice;
 	\consists "Key_performer";
-	\consists "Meter_performer";
+	\consists "Time_signature_performer";
 }
 
 Thread =\translator
@@ -21,13 +21,13 @@ Voice = \translator
 	\accepts Thread;
 }
 
-Grand_staff = \translator
+GrandStaff = \translator
 {
 	\type "Performer_group_performer";
 	\accepts Staff;
 }
 
-Lyric_voice = \translator {
+LyricVoice = \translator {
 	\type "Performer_group_performer";
 	\consists "Lyric_performer";
 }
@@ -35,11 +35,11 @@ Lyric_voice = \translator {
 
 Lyrics = \translator { 
 	\type "Staff_performer";
-	\accepts Lyric_voice;
-	\consists "Meter_performer";
+	\accepts LyricVoice;
+	\consists "Time_signature_performer";
 }
 
-Staff_group = \translator
+StaffGroup = \translator
 {
 	\type Performer_group_performer;
 	\accepts Staff;
@@ -49,9 +49,9 @@ Score = \translator {
 	\type "Score_performer";
 	instrument = piano;
 	\accepts Staff;
-	\accepts Grand_staff;
+	\accepts GrandStaff;
 	\accepts Lyrics; 
-	\accepts Staff_group;
+	\accepts StaffGroup;
 	\consists "Swallow_performer";
 }
 

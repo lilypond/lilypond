@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -27,7 +27,7 @@ public:
   Real inter_note_f() const;
   int steps_i() const;
 protected:
-  SCORE_ELEM_CLONE(Staff_symbol);
+  SCORE_ELEMENT_CLONE(Staff_symbol);
   virtual Interval do_height () const;
   virtual Molecule* brew_molecule_p() const;
   virtual void do_print() const;

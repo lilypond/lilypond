@@ -3,7 +3,7 @@
   
   source file of the Flower Library
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include <stdlib.h>
 #include "rational.hh"
@@ -32,8 +32,6 @@ operator << (ostream &o, Rational r)
   o <<  r.str ();
   return o;
 }
-
-
 
 Rational
 Rational::truncated () const
@@ -166,38 +164,35 @@ Rational::operator += (Rational r)
  */ 
 Rational::Rational(double x)
 {
-  num_ = 0;
-  den_ = 1;
   if (x != 0.0)
     {
       sign_ = ::sign (x);
       x *= sign_;
 
-      const long shift = 15;         // a safe shift per step
-      const double width = 32768.0;  // = 2^shift
-      const int maxiter = 20;        // ought not be necessary, but just in case,
-      // max 300 bits of precision
       int expt;
       double mantissa = frexp(x, &expt);
-      long exponent = expt;
-      double intpart;
-      int k = 0;
-      while (mantissa != 0.0 && k++ < maxiter)
-	{
-	  mantissa *= width;
-	  mantissa = modf(mantissa, &intpart);
-	  num_ <<= shift;
-	  num_ += (long)intpart;
-	  exponent -= shift;
-	}
-      if (exponent > 0)
-	num_ <<= exponent;
-      else if (exponent < 0)
-	den_ <<= -exponent;
-    } else {
-      sign_ =  0;
+
+      const int FACT = 1 << 20;
+
+      /*
+	FIXME
+
+	SHOULD TEST THIS
+	
+	suck me gently with a vacuum cleaner.  Thanks to Afie for this wierd idea.
+       */
+      num_ = (unsigned int) (mantissa * FACT);
+      den_ = (unsigned int) FACT;
+      normalise ();
+      num_ <<= expt;
     }
-  normalise();
+  else
+    {
+      num_ = 0;
+      den_ = 1;
+      sign_ =0;
+      normalise ();
+    }
 }
 
 
@@ -262,11 +257,6 @@ Rational::Rational (Rational const &r)
   copy (r);
 }
 
-Rational::operator String () const
-{
-  return str ();
-}
-
 String
 Rational::str () const
 {
@@ -275,9 +265,9 @@ Rational::str () const
       String s (sign_ > 0 ? "" : "-" );
       return String (s + "infinity");
     }
-  String s (num ());
+  String s = to_str (num ());
   if (den () != 1 && num ())
-    s += "/" + String (den ());
+    s += "/" + to_str (den ());
   return s;
 }
 

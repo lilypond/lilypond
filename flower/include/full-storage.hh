@@ -3,14 +3,14 @@
 
   source file of the Flower Library
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef FULL_STORAGE_HH
 #define FULL_STORAGE_HH
 
-#include "varray.hh"
+#include "array.hh"
 #include "real.hh"
 
 #ifndef INLINE

@@ -12,26 +12,25 @@ copyright =	 "public domain";
 % scales with accents.
 %
 
-\version "0.1.15";
+\version "1.0.0";
 blah = 	\melodic {
-		\meter 6/8;	
-		\octave  c, ;
+		\time 6/8;	
+\transpose c {
 		\clef "bass";
 			c4. d
-		\octave  c ;
+}
 			c d 
 		\clef "violin" ;
-		\octave  c' ;
-		\transpose  d { e f } 
-		\octave  c'' ;
+\transpose c'' {
+		\transpose  d { e f }  }
+\transpose c''' {
 		c4. d 
 	%ugr
-		 |[6/9 a8 \< a a a a a a  \! a a \ff \> ]1/1 |
-		\octave  c' ;
-		 |[6/9 a  a a a a a a a \! a ]1/1 |
-		\octave  c'' ; 
-	
-		 [6/9'c->-.-\fermata \< g,->-.-\fermata 
+		 |[6/9 a8 \< a a a a a a  \! a a \ff \> ]1/1 | }
+		 \transpose c'' {
+		     [6/9 a  a a a a a a a \! a ]1/1 | }
+		 \transpose c''' {
+		 [6/9 c,->-.-\fermata \< g,->-.-\fermata 
 			d->-.-\fermata a->-.-\fermata
 			e'->-.-\fermata b'-. f''-. c'''->-.-\fermata 
 			\! g'''->-.-\fermata \> ]1/1
@@ -40,8 +39,8 @@ blah = 	\melodic {
 			f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata 
 			a->-.-\fermata d->-.-\fermata g,->-.-\fermata \! 
 			c,->-.-\fermata ]1/1
-		 \octave c;
-		[6/9'c->-.-\fermata \< g,->-.-\fermata d->-.-\fermata 
+			
+		[6/9 c,->-.-\fermata \< g,->-.-\fermata d->-.-\fermata 
 		a->-.-\fermata
 			e'->-.-\fermata b'-. f''-. 
 			c'''->-.-\fermata \! g'''->-.-\fermata \> ]1/1
@@ -49,26 +48,27 @@ blah = 	\melodic {
 			f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata 
 			a->-.-\fermata d->-.-\fermata 
 			g,->-.-\fermata \! c,->-.-\fermata ]1/1
-		\octave  c' ;
-		\octave  c' ;   
+		}
+		\transpose c'' {
 		 [2/3 c g d' ]1/1 
 		 [2/3 d' g c ]1/1  
 		 [2/3 f c' g' ]1/1 
-		 [2/3 g' c' f ]1/1  
-		\octave  c ;
+		 [2/3 g' c' f ]1/1
+		 }
+		 \transpose c' {
 		 [2/3 c g d' ]1/1 
 		 [2/3 d' g c ]1/1  
 		 [2/3 f c' g' ]1/1 
 		 [2/3 g' c' f ]1/1 
 		 [2/3 g' c' f ]1/1 
-  \meter 4/4;
+  \time 4/4;
 
-c1
+c1}
 
 		r8-"text" r8^. r8_. r8 r8 r8 r8 r8
 	[c-> d-> e-> f->][g-> a-> b-> c'->] % 1
-\octave c';	[c'-^ b-^ a-^ g-^][f-^ e-^ d-^ c-^]
-\octave c;	[c'-^ b-^ a-^ g-^][f-^ e-^ d-^ c-^]
+\transpose c'' {	[c'-^ b-^ a-^ g-^][f-^ e-^ d-^ c-^]}
+	[c'-^ b-^ a-^ g-^][f-^ e-^ d-^ c-^]
 	[c-. d-. e-. f-.][g-. a-. b-. c'-.]
 	[c'-- b-- a-- g][f-- e-- d c--] % 5
 	[c-\portato d-\portato e-\portato f-\portato]
@@ -86,5 +86,6 @@ c1
 \score{
 	\melodic {\blah}
 	\paper{
+	 castingalgorithm = \Wordwrap;
 	}
 }

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include "dot-column.hh"
 #include "note-column.hh"
@@ -71,48 +71,48 @@ Note_column::do_pre_processing()
   
 
 void
-Note_column::set (Stem * stem_l)
+Note_column::set_stem (Stem * stem_l)
 {
   add_support (stem_l);
   stem_l_ = stem_l;
   /* 
      don't add stem to support; mostly invisible for rest-columns (and possibly taken . .)
    */
-  Score_elem::add_dependency (stem_l);
+  Score_element::add_dependency (stem_l);
   for (int i=0; i < script_l_arr_.size(); i++)
     script_l_arr_[i]->set_stem (stem_l);
 }
 
 void
-Note_column::add (Script *script_l)
+Note_column::add_script (Script *script_l)
 {
-  Script_column::add (script_l) ;
+  Script_column::add_script (script_l) ;
   if  (stem_l_)
     script_l->set_stem (stem_l_);
 }
 
 void
-Note_column::do_substitute_dependency (Score_elem*o, Score_elem*n)
+Note_column::do_substitute_dependency (Score_element*o, Score_element*n)
 {
   if (stem_l_ == o) 
     {
-      stem_l_ = n ? (Stem*)n->item():0;
+      stem_l_ = n ? (Stem*)n->access_Item ():0;
     }
   if (o->is_type_b (Note_head::static_name ()))
     {
-      head_l_arr_.substitute ((Note_head*)o->item(), 
-			      (n)? (Note_head*)n->item() : 0);
+      head_l_arr_.substitute ((Note_head*)o->access_Item (), 
+			      (n)? (Note_head*)n->access_Item () : 0);
     }
   Script_column::do_substitute_dependency (o,n);
   if (o->is_type_b (Rest::static_name ())) 
     {
-      rest_l_arr_.substitute ((Rest*)o->item(), 
-			      (n)? (Rest*)n->item() : 0);
+      rest_l_arr_.substitute ((Rest*)o->access_Item (), 
+			      (n)? (Rest*)n->access_Item () : 0);
     }
 }
 
 void
-Note_column::add (Rhythmic_head *h)
+Note_column::add_head (Rhythmic_head *h)
 {
   if (h->is_type_b (Rest::static_name ()))
     {
@@ -147,7 +147,7 @@ Note_column::do_print() const
 }
 
 void
-Note_column::set (Dot_column *d)
+Note_column::set_dotcol (Dot_column *d)
 {
   add_element (d);
 }

@@ -39,15 +39,15 @@ Binary_source_file::error_str (char const* pos_ch_c_l) const
     String pre_str ((Byte const*)begin_ch_c_l, pos_ch_c_l - begin_ch_c_l);
     pre_str = String_convert::bin2hex_str (pre_str);
     for (int i = 2; i < pre_str.length_i (); i += 3)
-	pre_str = pre_str.left_str (i) + " " + pre_str.cut (i, INT_MAX);
+	pre_str = pre_str.left_str (i) + " " + pre_str.cut_str (i, INT_MAX);
     String post_str ((Byte const*)pos_ch_c_l, end_ch_c_l - pos_ch_c_l);
     post_str = String_convert::bin2hex_str (post_str);
     for (int i = 2; i < post_str.length_i (); i += 3)
-	post_str = post_str.left_str (i) + " " + post_str.cut (i, INT_MAX);
+	post_str = post_str.left_str (i) + " " + post_str.cut_str (i, INT_MAX);
 
     String str = pre_str
-	+ String ('\n')
-    	+ String (' ', pre_str.length_i () + 1) 
+	+ to_str ('\n')
+    	+ to_str (' ', pre_str.length_i () + 1) 
     	+ post_str;
     return str;
 }

@@ -3,14 +3,14 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #ifndef ATOM_HH
 #define ATOM_HH
 
 #include "string.hh"
-#include "boxes.hh"
+#include "box.hh"
 #include "lily-proto.hh"
 
 
@@ -19,8 +19,10 @@ class Atom {
   Offset off_;
 public:
   String tex_;
+  String font_;
   Box dim_;
 
+  Offset offset () const;
   String str() const;		// for printing.
   Atom (String, Box);
   Atom ();
@@ -29,7 +31,6 @@ public:
   /// how big is #this#?
   Box extent() const;
   void print() const;
-  String TeX_string() const;
   bool check_infinity_b () const;
 };
 #endif

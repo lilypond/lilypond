@@ -1,7 +1,7 @@
 /*
   script.hh -- part of GNU LilyPond
 
-  (c) 1996,97 Han-Wen Nienhuys
+  (c) 1996--1998 Han-Wen Nienhuys
 */
 
 #ifndef SCRIPT_HH
@@ -14,28 +14,31 @@
   Accents that are put over a note-group.
  */
 class Script : public Item, public Staff_side {
-    
-    Stem *stem_l_;
+  Stem *stem_l_;
 
 protected:
-    Molecule *brew_molecule_p() const;
-    virtual void do_substitute_dependency (Score_elem*,Score_elem*);
-    virtual void do_print() const;
-    virtual Interval symbol_height() const;
-    virtual void do_pre_processing();
-    virtual Interval do_width() const;
-    SCORE_ELEM_CLONE(Script);
+  Molecule *brew_molecule_p() const;
+  virtual void do_substitute_dependency (Score_element*,Score_element*);
+  virtual void do_print() const;
+  virtual Interval symbol_height() const;
+  virtual Interval symbol_width () const;
+  virtual void do_pre_processing();
+  virtual Interval do_width() const;
+  SCORE_ELEMENT_CLONE(Script);
 private:
 
-    void set_default_dir();
+  void set_default_dir();
 public:
-    General_script_def *specs_l_;
+  General_script_def *specs_p_;
+  bool postbreak_only_b_;
     
-    static int compare (Script  *const&, Script *const&) ;
-    Script();
-    void set_stem (Stem*);
-    DECLARE_MY_RUNTIME_TYPEINFO;
-
+  static int compare (Script  *const&, Script *const&) ;
+  Script();
+  ~Script ();
+  Script (Script const&);
+   
+  void set_stem (Stem*);
+  DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
 

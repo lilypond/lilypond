@@ -3,32 +3,38 @@ filename =	"title.ly";
 title =		"Title";
 subtitle =	"Subtitle";
 composer=	"Composer (xxxx-yyyy)";
-opus = 		"Opus 0";
 arranger =	"Arranger";
 copyright = 	"public domain";
 enteredby = 	"jcn";
 source = 	"urtext";
-piece =		"Piece I";
 instrument=	"Instrument";
 }
 
+\version "1.0.0";
+
 \score{
-	\melodic{
-		\octave relative;	
+	\melodic
+	  \relative c'{
 		c' d e f f e d c \break
 		c d e f f e d c
 	}
+	\header{
+	opus = 		"Opus 0";
+	piece =		"Piece I";
+	override="Overdriven";
+	}
 }
 
-\header{ 
-piece =	"Piece II"; 
-opus = 		"Opus 1";
-}
 
 \score{
-	\melodic{
+	\melodic
+	\relative c' {
 	    f' e d c c d e f \break
 	    f e d c c d e f
+	}
+	\header{ 
+	piece =	"Piece II"; 
+	opus = 		"Opus 1";
 	}
 }
 

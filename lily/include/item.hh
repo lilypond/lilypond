@@ -3,15 +3,15 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #ifndef ITEM_HH
 #define ITEM_HH
 
 
-#include "boxes.hh"
+#include "box.hh"
 #include "string.hh"
-#include "score-elem.hh"
+#include "score-element.hh"
 #include "drul-array.hh"
 
 /**
@@ -24,22 +24,22 @@
   spacing calculation. 
   
 */
-class Item : public virtual Score_elem {
+class Item : public virtual Score_element {
 public:
   Link_array<Spanner> attached_span_l_arr_;
   Drul_array<Item*> broken_to_drul_;
 
   /// should be put in a breakable col.
   bool breakable_b_;
-  Direction break_status_i_;
+  Direction break_status_dir_;
   int break_priority_i_;
   
   /// nobreak = 0, pre = -1, post = 1
-  int break_status_i() const;
+  Direction break_status_dir() const;
   Item * find_prebroken_piece (Direction) const;
   Item * find_prebroken_piece (Line_of_score*) const;    
 
-  virtual Item *item() { return this; }
+  virtual Item *access_Item() ;
   Item();
   Real hpos_f() const;
   DECLARE_MY_RUNTIME_TYPEINFO;
@@ -47,6 +47,8 @@ public:
   virtual Paper_column * column_l () const;
     
   static int left_right_compare (Item const *, Item const*);
+  
+  Item (Item const &);
 protected:
   virtual void do_unlink ();
   virtual void do_junk_links();

@@ -21,6 +21,14 @@ slurdash		0	normal slurs
 slurdash	        1	dotted slurs
 slurdash	        >1	dashed slurs
 
+slurydirection		-1	force stem down		\slurdown
+slurydirection		0  	stem direction free	\slurboth
+slurydirection		1	force stem up		\slurup
+
+slurydirection		-1	force stem down		\slurdown
+slurydirection		0  	stem direction free	\slurboth
+slurydirection		1	force stem up		\slurup
+
 [Score?]
 beamslopedamping	0	no damping		\beamslopeproportional	
 beamslopedamping	1	damping1)		\beamslopedamped
@@ -30,6 +38,10 @@ beamslopedamping	100000	zero slope		\beamslopezero
 beamquantisation	0	no quantisations	\beamposfree
 beamquantisation	1	quantise pos and slope	\beamposnormal
 beamquantisation	2	quantise avoide wedge2)	\beampostraditional
+
+[Staff]
+specialaccidentals	0	Accidental for all octaves	\normalkey
+specialaccidentals	1	Accidental only for specified octave	\specialkey
 
 
 [Staff?]
@@ -66,36 +78,83 @@ stemdown = {
 	\skip 1*0;
 	\property Voice.ydirection = \down
 }
+slurup = {
+	\skip 1*0;
+	\property Voice.slurydirection = \up 
+	}
+slurboth= {
+	\skip 1*0;
+	\property Voice.slurydirection = \center
+}
+slurdown = { 	
+	\skip 1*0;
+	\property Voice.slurydirection = \down
+}
+
+shifton = 	\property Voice.hshift = 1
+shiftoff = 	\property Voice.hshift = 0
 
 onevoice = { 	
-	\property Voice.ydirection = \center
-	\property Voice.hshift = 0
+	\stemboth \shiftoff	
 }
 
 voiceone = { 	
 	\type Voice = one 
 	\skip 1*0;
-	\property Voice.ydirection = \up
+	\stemup
 }
 
 voicetwo = { 	
 	\type Voice = two
 	\skip 1*0;
-	\property Voice.ydirection = \down
+	\stemdown
 }
 
 voicethree = { 	
 	\type Voice = three
 	\skip 1*0;
-	\property Voice.ydirection = \up
-	\property Voice.hshift = 1
+	\stemup
+
 }
 
 voicefour = { 	
 	\type Voice = four
 	\skip 1*0;
-	\property Voice.ydirection = \down
-	\property Voice.hshift = 1
+	\stemdown
+	\shifton
+}
+
+onestaff = { 	
+	\translator Staff=one
+	\skip 1*0;
+}
+
+staffone = { 	
+	\translator Staff=one
+	\skip 1*0;
+	\property Staff.ydirection = \center
+	\property Staff.hshift = 0
+}
+
+stafftwo = { 	
+	\translator Staff=two
+	\skip 1*0;
+	\property Staff.ydirection = \center
+	\property Staff.hshift = 0
+}
+
+staffthree = { 	
+	\translator Staff=three
+	\skip 1*0;
+	\property Staff.ydirection = \center
+	\property Staff.hshift = 0
+}
+
+stafffour = { 	
+	\translator Staff=four
+	\skip 1*0;
+	\property Staff.ydirection = \center
+	\property Staff.hshift = 0
 }
 
 % ugh, cluttering global namespace...
@@ -137,5 +196,65 @@ slurnormal = {
 
 slurdotted = {
 	\property Voice.slurdash = 1
+}
+
+%{
+ for grace note hack, see input/test/grace.ly
+%}
+pletoff = {
+	\property Voice.pletvisibility = 0
+}
+pleton = {
+	\property Voice.pletvisibility = 2
+}
+tiny  = {
+	\property Voice.fontsize= "-2"
+	\pletoff %urg
+}
+
+small  = {
+	\property Voice.fontsize= "-1"
+}
+
+normalsize = {
+	\property Voice.fontsize= "0"
+	\pleton %urg
+}
+
+%{
+  [urg: try at] temporary grace note hack
+  the total visible duration of the grace notes must be half
+  the duration of the 'at' note: e.g.:
+
+  \grace b8 \graceat c4 \ecarg
+  \grace c16 b16 \graceat c4 \ecarg
+
+grace = {
+	\tiny
+% it would be so cool not to have to specify these factors each time...
+% :-(
+	\property Voice.pletvisibility = 0
+	\[1/16
+}
+
+graceat = \melodic {
+	\normalsize
+	\property Voice.pletvisibility = 0
+	\] \[31/32
+}
+
+ecarg =  \melodic {
+	\property Voice.pletvisibility = 0
+	\]
+	\property Voice.pletvisibility = 2
+}
+%}
+
+normalkey = {
+	\property Staff.specialaccidentals = 0
+}
+
+specialkey = {
+	\property Staff.specialaccidentals = 1
 }
 

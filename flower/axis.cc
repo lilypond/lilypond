@@ -3,18 +3,16 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include <assert.h>
-
 #include "axes.hh"
-#include "string.hh"
 
 String
 axis_name_str (Axis a)
 {
-  return String (char(a + 'x'));
+  return to_str (char(a + 'x'));
 }
 
 /*

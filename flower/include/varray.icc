@@ -1,3 +1,4 @@
+#error
 /*
   (c) Han-Wen Nienhuys 1995,96,97,98
 
@@ -6,7 +7,7 @@
 
 
 #if 0
-#include "varray.hh"
+#include "array.hh"
 #ifdef INLINE
 #undef INLINE
 #endif

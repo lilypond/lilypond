@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #include "audio-staff.hh"
@@ -13,7 +13,7 @@
 #include "midi-walker.hh"
 
 void
-Audio_staff::add (Audio_item* l)
+Audio_staff::add_audio_item (Audio_item* l)
 {
   audio_item_l_list_.bottom().add (l);
 }

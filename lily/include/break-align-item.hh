@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -19,7 +19,7 @@ protected:
     virtual void do_pre_processing();
 public:
     DECLARE_MY_RUNTIME_TYPEINFO;
-    SCORE_ELEM_CLONE(Break_align_item);
+    SCORE_ELEMENT_CLONE(Break_align_item);
 	
 };
 #endif // BREAK_ALIGN_ITEM_HH

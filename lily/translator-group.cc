@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "music-output-def.hh"
@@ -146,7 +146,7 @@ Translator_group::find_create_translator_l (String n, String id)
     ret = daddy_trans_l_->find_create_translator_l (n,id);
   else
     {
-      warning (_("Can't find or create `") + n + _("' called `") + id + "'\n");
+      warning (_f ("can't find or create `%s\' called `%s\'", n, id));
       ret =0;
     }
   return ret;
@@ -206,7 +206,7 @@ Translator_group::nongroup_l_arr () const
 void
 Translator_group::terminate_translator (Translator*r_l)
 {
-  DOUT << "Removing " << r_l->name() << " at " << now_moment () << "\n";
+  DOUT << "Removing " << r_l->name() << " at " << now_moment () << '\n';
   r_l->removal_processing();
   Translator * trans_p =remove_translator_p (r_l);
 
@@ -258,6 +258,11 @@ Translator_group::get_default_interpreter()
   if (accepts_str_arr_.size())
     {
       Translator*t = output_def_l ()->find_translator_l (accepts_str_arr_[0]);
+      if (!t)
+	{
+	  warning (_f ("can't find or create `%s\'", accepts_str_arr_[0]));
+	  t = this;
+	}
       Translator_group * g= t->clone ()->group_l ();
       add (g);
 
@@ -302,7 +307,7 @@ Translator_group::do_print() const
     {
       if (id_str_.length_i ())
 	DOUT << "ID: " << id_str_ ;
-      DOUT << " iterators: " << iterator_count_<< "\n";
+      DOUT << " iterators: " << iterator_count_<< '\n';
     }
   each (&Translator::print);
 #endif
@@ -345,7 +350,7 @@ Translator_group::do_add_processing ()
     {
       Translator * t = output_def_l ()->find_translator_l (consists_str_arr_[i]);
       if (!t)
-	warning (_("Could not find `") +consists_str_arr_[i]+ "'");
+	warning (_f ("can't find `%s\'", consists_str_arr_[i]));
       else
 	add (t->clone ());
     }

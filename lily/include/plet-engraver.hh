@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef PLET_ENGRAVER_HH
@@ -25,7 +25,7 @@ public:
   Plet_engraver ();
 
 protected:
-  virtual void acknowledge_element (Score_elem_info);
+  virtual void acknowledge_element (Score_element_info);
   virtual void do_removal_processing();
   virtual void do_process_requests();
   virtual bool do_try_request (Request*);

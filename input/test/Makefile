@@ -1,12 +1,11 @@
-# input/Makefile
+# input/test/Makefile
 
-# subdir level:
-#
 depth = ../..
-#
 
-include $(depth)/make/Mutopia.make
+include $(depth)/make/Stepmake.make 
+include $(make-dir)/Mutopia.make
 
-examples=font20 denneboom
+examples=font20 hara-kiri grace mark denneboom
 
-include $(depth)/make/WWW.make
+include $(stepdir)/WWW.make
+

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "proto.hh"
@@ -20,6 +20,6 @@
 
 #define IPLC_INSTANTIATE(a) POINTERLIST_INSTANTIATE(a)
 
-IPLC_INSTANTIATE(Score_elem);
+IPLC_INSTANTIATE(Score_element);
 IPLC_INSTANTIATE(Spanner);
 IPLC_INSTANTIATE(Idealspacing);

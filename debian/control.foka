@@ -1,0 +1,30 @@
+Source: lilypond
+Section: tex
+Priority: optional
+Maintainer: Anthony Fok <foka@debian.org>
+Standards-Version: 2.4.1.0
+
+Package: lilypond
+Architecture: any
+Depends: ${shlibs:Depends}, tetex-base (>= 0.9-5)
+Conflicts: musixtex-fonts, tetex-base (<< 0.9)
+Description: The GNU Project music typesetter.
+ LilyPond is the GNU Project music typesetter.  This program can print
+ beautiful sheet music from a music definition file.  It can also play
+ mechanical performances to a MIDI file.  Features include multiple
+ staffs, meters, clefs, keys, lyrics, versatile input language,
+ cadenzas, beams, slurs, triplets, formatting scores, part extraction.
+ It includes a nice font of musical symbols.
+ .
+ LilyPond is de muziek typesetter van het GNU Project.
+ Het programma genereert prachtige bladmuziek uit een muziek definitie
+ bestand.  Ook kan het (mechanische) uitvoeringen afspelen naar MIDI
+ bestanden.  Bijzondere mogelijkheden omvatten verscheidene notenbalken,
+ maatsoorten, sleutels, toonsoorten, zangteksten, krachtige invoer taal,
+ cadensa, balken, boogjes, triolen, partituren, en losse partijen.  Een
+ fraai font met muzikeksymbolen wordt meegeleverd.
+ .
+  URL: http://www.cs.ruu.nl/people/hanwen/lilypond/
+       http://sca.uwaterloo.ca/~praetzel/lilypond/
+  Authors: Han-Wen Nienhuys <hanwen@stack.nl>
+           Jan Nieuwenhuizen <janneke@gnu.org>

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include <stdio.h>
@@ -13,14 +13,13 @@
 #endif
 
 #include "simple-file-storage.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "string.hh"
 #include "warn.hh"
 
 void
 Simple_file_storage::load_stdin ()
 {
-  int data_len = 0;
   len_i_ = 0;
 
   int c;
@@ -42,7 +41,7 @@ Simple_file_storage::load_file (String s)
 
   if (!f)
     {
-      warning (_ ("can't open file `") + s + "'");
+      warning (_f ("can't open file: `%s\'", s));
       return ;
     }
 
@@ -54,8 +53,7 @@ Simple_file_storage::load_file (String s)
   ret = fread (data_p_, sizeof (char), len_i_, f);
 
   if  (ret!=len_i_)
-    warning (_ ("Huh? got ") + String (ret) + _ (", expected ")
-	     + String (len_i_) + _ (" characters"));
+    warning (_f ("Huh? got %d, expected %d characters", ret, len_i_));
 
   fclose (f);
 }
@@ -80,7 +78,7 @@ Simple_file_storage::Simple_file_storage (String s)
   data_p_ = 0;
   len_i_ = 0;
 
-  if (!s.length_i ())
+  if (!s.length_i () || (s == "-"))
     load_stdin ();
   else
     load_file (s);

@@ -1,4 +1,4 @@
-voice_one = \melodic	{ \octave c'; \stemup
+voice_one = \melodic\transpose c'	{  \stemup
 	R1 * 2 | f'4-. r r2 | R1 * 3 |
 	f'4-. r r2 | R1 * 3 |
 	es'4-. r r2 | r1 |
@@ -9,7 +9,7 @@ voice_one = \melodic	{ \octave c'; \stemup
 	}
 
 voice_two = \melodic
-	{ \transpose 'c { \stemdown
+	{ \transpose c, { \stemdown
 	R1 * 2 | f'4-. r r2 | R1 * 3 |
 	f'4-. r r2 | R1 * 3 |
 	es'4-. r r2 | r1 |

@@ -1,7 +1,7 @@
 //
 // mudela-column.hh -- declare Mudela_column
 //
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef MUDELA_COLUMN_HH
 #define MUDELA_COLUMN_HH

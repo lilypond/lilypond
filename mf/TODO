@@ -7,8 +7,10 @@
 	- lo-res fixes.
 	- work out sizes of character fonts.
 	- more symbols
-	  * piano pedals,
+	  * piano pedals: Ped/*
 	  * maxima notehead
-	  * coda signs.
+	  * coda signs: Segno, O+
+	  * glissando, arpeggio
+	  * lengthened trill
 	- 128th flags
 	- include important spacing dims in fetalog 

@@ -2,38 +2,57 @@
 
 # @configure_input@
 
-INSTALL = @INSTALL@
-USER_CXXFLAGS = @CXXFLAGS@ @CPPFLAGS@
-USER_LDFLAGS =
+package-depth = @package_depth@
 
+USER_CXXFLAGS = @CXXFLAGS@ @CPPFLAGS@
+USER_LDFLAGS = 
+
+CC = @CC@
 CXX = @CXX@
-POD2HTML= @POD2HTML@
-POD2MAN = @POD2MAN@
+GCC = @GCC@
+LD = @LD@
+PACKAGE = @PACKAGE@
+package = @package@
+PACKAGE_NAME = @PACKAGE_NAME@
+stepmake = @stepmake@
+CONFIGSUFFIX = @CONFIGSUFFIX@
+MAKEINFO = @MAKEINFO@
 ICFLAGS = @ICFLAGS@
 ILDFLAGS = @ILDFLAGS@
 libdir = @libdir@
 prefix = @prefix@
 TEXPREFIX = @TEXPREFIX@
 TEXDIR = @TEXDIR@
-TAR= @TAR@
 MFDIR = @MFDIR@
-mandir  =  @mandir@
+mandir = @mandir@
+infodir = @infodir@
 exec_prefix = @exec_prefix@
 bindir = @bindir@
 includedir = @includedir@
 datadir = @datadir@
-EXTRA_LIBES = @EXTRA_LIBES@
+localedir = @localedir@
+EXTRA_LIBES = @EXTRA_LIBES@ @LIBS@
 RANLIB = @RANLIB@
 DEFS = @DEFS@
 #SET_MAKE = @SET_MAKE@
 DEFINES = @DEFS@ @DEFINES@
-FIND = @FIND@
 COMPILEINFO = @COMPILEINFO@
+DOTEXE = @DOTEXE@
+BASH = @BASH@
 BISON = @BISON@
+FIND = @FIND@
 FLEX = @FLEX@
 LN = @LN@
-ZIP = @ZIP@
+MSGFMT = @MSGFMT@
 PERL = @PERL@
 PYTHON = @PYTHON@
-CONFIGSUFFIX = @CONFIGSUFFIX@
+TAR= @TAR@
+TROFF = @TROFF@
+YODL= @YODL@
+YODL2HTML= @YODL2HTML@
+YODL2LATEX= @YODL2LATEX@
+YODL2MAN= @YODL2MAN@
+YODL2TEXINFO= @YODL2TEXINFO@
+YODL2TXT= @YODL2TXT@
+ZIP = @ZIP@
 

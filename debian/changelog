@@ -1,3 +1,51 @@
+lilypond (0.1.76-1) unstable; urgency=low
+
+  * support for 'make deb' target
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org> Fri,  3 Jul 1998 17:53:37 +0200
+
+lilypond (0.1.71-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Anthony Fok <foka@debian.org>  Sat,  6 Jun 1998 00:00:00 -0600
+
+lilypond (0.1.66-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Anthony Fok <foka@debian.org>  Wed, 20 May 1998 06:50:12 -0600
+
+lilypond (0.1.61-1) frozen unstable; urgency=low
+
+  * New upstream release with tons of bug fixes.
+    Please put this in Hamm.
+  * Revised debian/rules w.r.t. make/lilypond.spec.in.
+
+ -- Anthony Fok <foka@debian.org>  Mon,  4 May 1998 03:36:06 -0600
+
+lilypond (0.1.60-1) frozen unstable; urgency=medium
+
+  * New upstream release with lots of bug fixes, including the MIDI
+    generation bug in 0.1.48.  Please put this in Hamm.
+  * debian/rules:
+     - Upgraded to standards version 2.4.1.0 (no changes).
+     - lilypond now also depends on tetex-base (>= 0.9-5)
+       and conflicts with tetex-base (<< 0.9).
+  * Modified postinst and postrm to work with teTeX 0.9 / Web2C 7.2:
+     - Removed all the *ugly* kludges and functions that were supposed to
+       deal with non-Debian teTeX installations.  Those kludges were
+       specifically made for teTeX 0.4, but they failed to work as intended
+       due to the changes in teTeX 0.9.
+     - No longer messes with special.map because the standard
+       Web2C 7.2 special.map already lists the feta fonts.
+     - Since postinst is so much simpler, it is now a sh script!  :-)
+  * Removed preinst which contained yet another obsolete kludge to clean
+    obsolete/ancient lilypond fonts.
+  * Updated the GNU LilyPond Home Page URIs.
+
+ -- Anthony Fok <foka@debian.org>  Fri,  1 May 1998 01:14:49 -0600
+
 lilypond (0.1.48-1) unstable; urgency=low
 
   * New upstream release.

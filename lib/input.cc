@@ -3,7 +3,7 @@
 
  source file of the LilyPond music typesetter
 
- (c) 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+ (c) 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include "proto.hh"
 #include "input.hh"
@@ -94,7 +94,7 @@ Input::error (String s) const
 void
 Input::non_fatal_error (String s) const
 {
-  message (_ ("Non fatal error: ")+ s);
+  message (_ ("Non fatal error: ") + s);
 }
 String
 Input::location_str () const
@@ -102,5 +102,5 @@ Input::location_str () const
   if (source_file_l_)
     return source_file_l_->file_line_column_str (defined_ch_C_);
   else
-    return _("(location unknown)");
+    return "(" + _ ("position unknown") + ")";
 }

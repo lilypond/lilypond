@@ -11,7 +11,7 @@
 #include "command-request.hh"
 #include "music-list.hh"
 #include "identifier.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "text-def.hh"
 #include "parseconstruct.hh"
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "translator-group.hh"
@@ -53,6 +53,7 @@ Request_chord_iterator::do_print() const
   DOUT << "duration: " << elt_duration_;
 #endif
 }
+
 void
 Request_chord_iterator::process_and_next (Moment mom)
 {
@@ -64,8 +65,7 @@ Request_chord_iterator::process_and_next (Moment mom)
 	  Request * req_l = (Request*)i.ptr();
 	  bool gotcha = report_to_l()->try_request (req_l);
 	  if (!gotcha)
-	    req_l->warning (_("Junking request: ") + String (req_l->name()));
-
+	    req_l->warning (_f ("junking request: `%s\'", req_l->name()));
 	}
       first_b_ = false;
     }

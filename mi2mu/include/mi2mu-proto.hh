@@ -17,7 +17,7 @@ class Midi_track_parser;
 class Mudela_stream;
 class Mudela_item;
 class Mudela_key;
-class Mudela_meter;
+class Mudela_time_signature;
 class Mudela_note;
 class Mudela_tempo;
 class Mudela_text;

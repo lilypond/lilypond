@@ -3,14 +3,16 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
+
 #include "atom.hh"
 #include "tex.hh"
 #include "interval.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 #include "string.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "debug.hh"
 #include "main.hh"
 
@@ -26,8 +28,8 @@ Atom::check_infinity_b ()const
       Axis ax = (Axis)a;
       if (abs (off_[ax]) >= 100 CM)
 	{
-	  warning (_("ridiculous dimension ") + axis_name_str (ax)  + ", "
-		   +print_dimen(off_[ax]));
+	  warning (_f ("ridiculous dimension: %s, %s", axis_name_str (ax),
+		   print_dimen(off_[ax])));
 	  
 	  if (experimental_features_global_b)
 	    assert (false);
@@ -45,11 +47,11 @@ void
 Atom::print() const
 {
 #ifndef NPRINT
-  DOUT << "texstring: " <<tex_<<"\n";
+  DOUT << "texstring: " << tex_ << '\n';
 
   DOUT << "dim:";
-    for (Axis i=X_AXIS; i < NO_AXES; incr(i))
-      DOUT << axis_name_str(i) << " = " << dim_[i].str();
+  for (Axis i=X_AXIS; i < NO_AXES; incr(i))
+    DOUT << axis_name_str(i) << " = " << dim_[i].str();
 
   DOUT << "\noffset: " << off_.str ();
 #endif
@@ -80,25 +82,17 @@ Atom::Atom (String s, Box b)
 String
 Atom::str() const
 {
-  return "Atom (\'"+tex_+"\', (" + dim_.x().str () + ", "
+  return String ("Atom (\'") + tex_ + "\', (" + dim_.x().str () + ", "
     + dim_.y ().str () + "))";
 }
 
-
-String
-Atom::TeX_string() const
+Offset
+Atom::offset () const
 {
-  String tex_str = tex_;
-  if (check_infinity_b ())
-    tex_str += "\errormark";
-  
-   // whugh.. Hard coded...
-  String s ("\\placebox{");
-  s += print_dimen (off_[Y_AXIS])+"}{";
-  s += print_dimen (off_[X_AXIS]) + "}{";
-  s += tex_str + "}";
-  return s;
+  return off_;
 }
+
+
 
 void
 Atom::translate_axis (Real r, Axis a)

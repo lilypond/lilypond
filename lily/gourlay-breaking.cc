@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "gourlay-breaking.hh"
@@ -27,7 +27,7 @@ struct Break_node {
   int prev_break_i_;
   int line_i_;
   Real energy_f_;
-  Col_hpositions line_config_;
+  Column_x_positions line_config_;
   Break_node () 
   {
     prev_break_i_ = -1;
@@ -39,7 +39,7 @@ struct Break_node {
   This algorithms is adapted from 
  */
 
-Array<Col_hpositions>
+Array<Column_x_positions>
 Gourlay_breaking::do_solve () const
 {
   Array<Break_node> optimal_paths;
@@ -60,7 +60,7 @@ Gourlay_breaking::do_solve () const
   for (; break_idx< breaks.size (); break_idx++) 
     {
       Array<int> candidates;
-      Array<Col_hpositions> candidate_lines;
+      Array<Column_x_positions> candidate_lines;
       Pointer_list<Line_spacer*> spacer_p_list;
 	
       /*
@@ -85,7 +85,7 @@ Gourlay_breaking::do_solve () const
 	  if (!feasible (line))
 	    break;
 	    
-	  Col_hpositions approx;
+	  Column_x_positions approx;
 	  approx.cols = line;
 	    
 	  approx.spacer_l_ = generate_spacing_problem (line, 
@@ -148,15 +148,15 @@ Gourlay_breaking::do_solve () const
 	}
 
       if (! (break_idx % HAPPY_DOTS_I))
-	*mlog << "[" << break_idx << "]"<<flush;
+	*mlog << "[" << break_idx << "]" << flush;
     }
 
   if  (break_idx % HAPPY_DOTS_I) 
-    *mlog << "[" << break_idx << "]"<<flush;
+    *mlog << "[" << break_idx << "]" << flush;
 
   Array<int> final_breaks;
 
-  Array<Col_hpositions> lines;
+  Array<Column_x_positions> lines;
 
   /* skip 0-th element, since it is a "dummy" elt*/
   for (int i = optimal_paths.size ()-1; i> 0;) 

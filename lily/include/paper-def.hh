@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -14,7 +14,7 @@
 #include "real.hh"
 
 #include "moment.hh"
-#include "varray.hh"
+#include "array.hh"
 #include "interval.hh"
 #include "music-output-def.hh"
 
@@ -36,7 +36,7 @@
  */
 class Paper_def : public Music_output_def 
 {
-  Lookup *lookup_p_;
+  Assoc<int, Lookup *> *lookup_p_assoc_p_;
   Scope* scope_p_;
   static int default_count_i_;
 
@@ -52,7 +52,7 @@ public:
   Real get_var (String) const;
   void reinit ();
   Paper_def ();
-  void set (Lookup*);
+  void set_lookup (int, Lookup*);
 
   Paper_def (Paper_def const&);
   /// The distance between beams of multiplicity_i
@@ -82,10 +82,10 @@ public:
   Real note_width () const;
   void print () const;
 
-  Lookup const * lookup_l ();	// TODO naming
+  Lookup const * lookup_l (int sz) const;	// TODO naming
 
   /** convert a duration to an idealspacing
-    influence using the geometric_ and  parameters.
+    influence using the geometric_ and  paratime_signatures.
     */
   Real duration_to_dist (Moment, Real) const;
   Real geometric_spacing (Moment) const;

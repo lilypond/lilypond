@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -16,7 +16,7 @@
 struct Break_caching : Break_algorithm
 {
     void do_set_pscore();
-    Array<Col_hpositions> do_solve() const;
+    Array<Column_x_positions> do_solve() const;
 };
 
     

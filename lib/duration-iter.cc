@@ -3,8 +3,8 @@
 
   source file of the LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
-	   Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+	   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 #include <assert.h>
 #include "duration-convert.hh"

@@ -1,19 +1,32 @@
+# debian/Makefile
+
 depth = ..
 
 NAME= debian
 
-# generic variables:
-#
-include ./$(depth)/make/Variables.make
-include ./$(depth)/make/Files.make 
-#
+include $(depth)/make/Stepmake.make 
 
-# generic targets and rules:
-#
-include ./$(depth)/make/Targets.make
-include ./$(depth)/make/Rules.make
-#
+CONF_FILES=changelog copyright postinst postrm rules watch 
+OUTCONF_FILES=$(addprefix $(outdir)/, $(basename $(CONF_FILES))) $(OUTIN_FILES)
+OUT_DIST_FILES = $(OUTIN_FILES)
 
+default: $(OUTCONF_FILES)
 
-EXTRA_DISTFILES = README.Debian TODO changelog control copyright \
-	postinst postinst.old.sh postrm preinst rules watch
+BLURBS=BLURB
+AT_FILES = $(BLURBS) # 
+at-dir = $(outdir)/
+at-ext =
+
+EXTRA_DIST_FILES = README.Debian TODO $(CONF_FILES) $(OUT_DIST_FILES) control.foka
+
+$(outdir)/%: %
+	rm -f $@
+	ln $< $@
+
+$(outdir)/control: $(addprefix $(outdir)/, $(BLURBS))
+
+$(outdir)/%: $(doc-dir)/%.in
+	rm -f $@
+	cat $< | sed 's%^% %' > $@
+
+localdist: default

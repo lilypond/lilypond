@@ -1,7 +1,7 @@
 /*
   midi-item.hh -- declare Midi items
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #ifndef MIDI_ITEM_HH
@@ -96,10 +96,10 @@ struct Midi_key : public Midi_item {
   virtual String str () const;
 };
 
-struct Midi_meter : Midi_item {
+struct Midi_time_signature : Midi_item {
 
   DECLARE_MY_RUNTIME_TYPEINFO;
-  Midi_meter (Audio_item* audio_item_l); 
+  Midi_time_signature (Audio_item* audio_item_l); 
   
   virtual String str () const;
   int clocks_per_1_i_;

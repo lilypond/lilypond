@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -35,6 +35,8 @@ class Active_constraints {
   Ineq_constrained_qp const *opt;
 
 public:
+
+  int degenerate_count_i_;
   String status() const;
     
   Vector vec (int k) const { return opt->cons_[k]; }
@@ -45,17 +47,17 @@ public:
     constraint in #active#
     
     */
-  void drop (int k);
+  void drop_constraint (int k);
     
 
   /** add constraint j.
     add constraint j to the active set j is the index of the
     constraint in #inactive#   
     */
-  void add (int j);
+  void add_constraint (int j);
 
   /// exchange in and out.
-  void exchange (int in, int out) { add (in); drop (out); }
+  void exchange (int in, int out) { add_constraint (in); drop_constraint (out); }
     
 
   Vector find_active_optimum (Vector g);

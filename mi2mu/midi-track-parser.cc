@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include <assert.h>
@@ -60,16 +60,15 @@ Midi_track_parser::note_end (Mudela_column* col_l, int channel_i, int pitch_i, i
 	  i->end_column_l_ = col_l;
 	  // LOGOUT(DEBUG_ver) << "Note: " << pitch_i;
 	  // LOGOUT(DEBUG_ver) << "; " << i->mudela_column_l_->at_mom_;
-	  // LOGOUT(DEBUG_ver) << ", " << i->end_column_l_->at_mom_ << "\n";
+	  // LOGOUT(DEBUG_ver) << ", " << i->end_column_l_->at_mom_ << '\n';
 	  i.remove_p();
 	  return;
 	}
       else
 	i++;
     }
-  warning (String (_("junking note-end event: "))
-	   + _(" channel = ") + String_convert::i2dec_str (channel_i, 0, ' ')
-	   + _(", pitch = ") + String_convert::i2dec_str (pitch_i, 0, ' '));
+  warning (_f ("junking note-end event: channel = %d, pitch = %d", 
+	       channel_i, pitch_i));
 }
 
 void
@@ -98,7 +97,7 @@ Midi_track_parser::parse (Mudela_column* col_l)
   if (!eot())
     return 0;
 
-  // vangnet
+  // catch-all
   note_end_all (col_l);
 
   Mudela_staff* p = mudela_staff_p_;
@@ -123,11 +122,11 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
   if (byte <= 0x5f)
     {
       if (running_byte_ <= 0x5f)
-	exit (_("Invalid running status"));
+	exit (_ ("invalid running status"));
       /*
 	'running status' rather means 'missing status'.
 	we'll just pretend we read the running status byte.
-	*/
+      */
       byte = running_byte_;
     }
   else
@@ -137,7 +136,7 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
   // DATA_ENTRY	[\x60-\x79]
   if ((byte >= 0x60) && (byte <= 0x79))
     {
-	    next_byte ();
+      next_byte ();
     }
   // ALL_NOTES_OFF	[\x7a-\x7f]
   else if ((byte >= 0x7a) && (byte <= 0x7f))
@@ -165,7 +164,7 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
       /*
 	sss: some broken devices encode NOTE_OFF as
 	NOTE_ON with zero volume
-	*/
+      */
       if (dyn_i)
 	{
 	  Mudela_note* p = new Mudela_note (col_l, channel_i, pitch_i, dyn_i);
@@ -250,11 +249,11 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	  Mudela_text* p = new Mudela_text (t, str);
 	  item_p = p;
 	  if (t == Mudela_text::COPYRIGHT)
-	     mudela_staff_p_->copyright_str_ = p->text_str_;
+	    mudela_staff_p_->copyright_str_ = p->text_str_;
 	  else if (t == Mudela_text::TRACK_NAME)
-	     mudela_staff_p_->name_str_ = p->text_str_;
+	    mudela_staff_p_->name_str_ = p->text_str_;
 	  else if (t == Mudela_text::INSTRUMENT_NAME)
-	     mudela_staff_p_->instrument_str_ = p->text_str_;
+	    mudela_staff_p_->instrument_str_ = p->text_str_;
 	}
       // END_OF_TRACK	[\x2f][\x00]
       else
@@ -295,11 +294,11 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	      int den_i = (int)next_byte ();
 	      int clocks_4_i = (int)next_byte ();
 	      int count_32_i = (int)next_byte ();
-	      Mudela_meter* p = new Mudela_meter ( num_i, den_i, clocks_4_i, count_32_i );
+	      Mudela_time_signature* p = new Mudela_time_signature ( num_i, den_i, clocks_4_i, count_32_i );
 	      item_p = p;
-	      info_l_->score_l_->mudela_meter_l_ = p;
+	      info_l_->score_l_->mudela_time_signature_l_ = p;
 	      info_l_->bar_mom_ = p->bar_mom ();
-	      mudela_staff_p_->mudela_meter_l_ = p;
+	      mudela_staff_p_->mudela_time_signature_l_ = p;
 	    }
 	  // KEY		[\x59][\x02]
 	  else if ((byte == 0x59) && (next == 0x02))
@@ -324,12 +323,12 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	    {
 	      next_byte ();
 	      next_byte ();
-	      warning (_("Unimplemented MIDI meta-event"));
+	      warning (_ ("unimplemented MIDI meta-event"));
 	    }
 	}
     }
   else
-    exit (_("Invalid MIDI event"));
+    exit (_ ("invalid MIDI event"));
 
   if (item_p)
     item_p->mudela_column_l_ = col_l;
@@ -344,16 +343,16 @@ Midi_track_parser::parse_header ()
 {
   String str = get_str (4);
   if ( str != "MTrk" )
-    exit (_("MIDI track expected"));
+    exit (_ ("MIDI track expected"));
 
   int length_i = get_i (4);
   // is this signed?
   if (length_i < 0)
-    exit (_("Invalid track length"));
+    exit (_ ("invalid track length"));
   assert (!track_info_p_);
   track_info_p_ = new Midi_parser_info (*info_l_);
   track_info_p_->end_byte_L_ = track_info_p_->byte_L_ + length_i;
   forward_byte_L (length_i);
-//  forward_byte_L (length_i-1);
+  //  forward_byte_L (length_i-1);
   info_l_ = track_info_p_;
 }

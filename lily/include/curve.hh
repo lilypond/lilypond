@@ -1,7 +1,7 @@
 /*
   curve.hh -- declare point and curve
 
-  (c) 1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef CURVE_HH
@@ -14,7 +14,7 @@
 #include "real.hh"
 
 #include "offset.hh"
-#include "varray.hh"
+#include "array.hh"
 
 class Curve : public Array<Offset>
 {

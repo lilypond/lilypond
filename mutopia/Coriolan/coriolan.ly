@@ -2,14 +2,12 @@
 filename =	 "coriolan.ly";
 % %title =	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
 description =	 "";
-composer =	 "Ludwig van Beethoven (1770-1792)";
+composer =	 "Ludwig van Beethoven (1770-1827)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
-
-
 }
 
-\version "0.1.14";
+\version "1.0.0";
 
 \include "global.ly"
 
@@ -21,55 +19,64 @@ copyright =	 "public domain";
 \include "oboi.ly"
 \include "timpani.ly"
 \include "trombe.ly"
-\include "viola.ly"
+\include "viola-1.ly"
+\include "viola-2.ly"
 \include "violino-1.ly"
 \include "violino-2.ly"
 \include "violoncello.ly"
 
-legno = \type Staff_group = legno_group <
+legno = \type StaffGroup = legno_group <
 	\$flauti_staff
 	\$oboi_staff
 	\$clarinetti_staff
 	\$fagotti_staff
 >
 
-koper = \type Staff_group = koper_group <
+koper = \type StaffGroup = koper_group <
 	\$corni_staff
 	\$trombe_staff
 >
 
-$timpani_g = \type Staff_group = timpani_group <
+$timpani_g = \type StaffGroup = timpani_group <
 	\$timpani_staff
+	\type Staff = urgtimpany \melodic{ \skip 1*34; }
 >
 
-$violini = \type Grand_staff = violini_group <
+$violini = \type GrandStaff = violini_group <
 	\$violino1_staff
 	\$violino2_staff
 >
 
-$bassi = \type Grand_staff = violine_group <
+$violi = \type GrandStaff = violi_group <
+	\$viola1_staff
+	\$viola2_staff
+>
+
+$bassi = \type GrandStaff = bassi_group <
 	\$violoncello_staff
 	\$contrabasso_staff
 >
 
-strijkers = \type Staff_group = strijkers_group <
+strijkers = \type StaffGroup = strijkers_group <
 	\$violini
-	\$viola_staff
+	\$violi
 	\$bassi
 >
 
+default_paper = \include "score-paper.ly"
 \score{
 	<
-		\textstyle "italic";
+		\property Score . textstyle =  "italic"
 
 		\$legno
 		\$koper
 		\$timpani_g
 		\$strijkers
 	>
-	\paper{}
-	\midi{
-		\tempo 4 = 160;
+	\paper{
+		% Give hara-kiri something to do...
+		linewidth = 130.0\mm;
 	}
+	\midi{ \tempo 4 = 160; }
 }
 

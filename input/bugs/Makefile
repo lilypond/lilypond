@@ -1,14 +1,11 @@
-# input/Makefile
+# input/bugs/Makefile
 
-# subdir level:
-#
 depth = ../..
-#
 
-
-include $(depth)/make/Mutopia.make
+include $(depth)/make/Stepmake.make 
+include $(make-dir)/Mutopia.make
 
 examples= #beam-bug slur-bug  #why would we want to  demo Lily's errors?
 
-include $(depth)/make/WWW.make
+include $(stepdir)/WWW.make
 

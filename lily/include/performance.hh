@@ -1,7 +1,7 @@
 /*
   performance.hh -- declare Performance
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #ifndef PERFORMANCE_HH
@@ -20,9 +20,9 @@ public:
   Performance ();
   ~Performance () {}
 
-  void add (Audio_column*);
+  void add_column (Audio_column*);
   void add_staff (Audio_staff* l);
-  void add (Audio_element*p);
+  void add_element (Audio_element*p);
 
     
   void output (Midi_stream& midi_stream_r);

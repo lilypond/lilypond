@@ -1,11 +1,11 @@
-tie = \melodic{
- 	\octave c'';
+tie = \melodic\transpose c''{
+
 	e4 ~ e e e ~ |
 	e ~ a a a ~ |
 	a d d d ~ |
 	e e e e |
-	''g ''g ''g ''g ~ |
-	''g ''g ''g ''g |
+	g,, g,, g,, g,, ~ |
+	g,, g,, g,, g,, |
 }
 
 \score{

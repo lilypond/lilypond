@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -33,14 +33,14 @@ public:
   Pointer_list<Spanner *> span_p_list_;
 
   /// other elements
-  Pointer_list<Score_elem*> elem_p_list_;
+  Pointer_list<Score_element*> elem_p_list_;
   
   Outputter *outputter_l_;  
   Super_elem *super_elem_l_;
     
   Paper_score ();
   /// add a line to the broken stuff. Positions given in #config#
-  void set_breaking (Array<Col_hpositions> const &);
+  void set_breaking (Array<Column_x_positions> const &);
 
 
   /// add to bottom of pcols
@@ -59,7 +59,7 @@ public:
   /* STANDARD ROUTINES */
   void print() const;
   
-  void typeset_element (Score_elem*);
+  void typeset_element (Score_element*);
   void typeset_broken_spanner (Spanner*);
   /// add a Spanner
   void typeset_unbroken_spanner (Spanner*);

@@ -1,47 +1,19 @@
-# project  LilyPond -- the musical typesetter
 # title	   makefile for test
-# file	   test/Makefile 
-#
-# Copyright (c) 1997 by
-#   	Jan Nieuwenhuizen <jan@digicash.com>
-#	Han-Wen Nienhuys <hanwen@stack.nl>
-#
+# test/Makefile
 
-# subdir level:
-#
 depth = ..
-#
 
-# generic variables:
-#
-include ./$(depth)/make/Variables.make 
-#
+NAME = lily-test
+MODULE_NAME = lily-test
 
-# identify module:
-#
-NAME = test
-MODULE_NAME = test
+MODULE_CXXFLAGS = -I$(depth)/flower/include -I$(depth)/flower -I$(depth)/lily/include -I$(depth)/lily
 
-# descent order into subdirectories:
-#
-SUBDIRS =
-#
+include $(depth)/make/Stepmake.make
+include $(stepdir)/C++.make
 
-include ./$(depth)/make/Files.make
+EXTRA_DIST_FILES = VERSION
 
-# list of custom libraries:
-#
-CUSTOMLIBES = \
+# default: $(EXECUTABLE)
 
-LOADLIBES +=
-#
-
-# main target of this module:
-#
-default: $(EXECUTABLE)
-include ./$(depth)/make/Files.make 
-include ./$(depth)/make/Targets.make
-include ./$(depth)/make/Rules.make
-#
-
+# include $(stepdir)/Executable.make
 

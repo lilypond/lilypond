@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "rhythmic-head.hh"
@@ -22,7 +22,7 @@ Rhythmic_head::do_add_processing ()
   if (dots_i_ && !dots_l_)
     {
       Dots *d = new Dots;
-      add (d);
+      add_dots (d);
       pscore_l_->typeset_element (d);
       axis_group_l_a_[Y_AXIS]->add_element (d);
       axis_group_l_a_[X_AXIS]->add_element (d);
@@ -34,7 +34,7 @@ Rhythmic_head::do_add_processing ()
 }
 
 void
-Rhythmic_head::add (Dots *dot_l)
+Rhythmic_head::add_dots (Dots *dot_l)
 {
   dots_l_ = dot_l;  
   dot_l->add_dependency (this);  
@@ -49,10 +49,10 @@ Rhythmic_head::Rhythmic_head ()
 }
 
 void
-Rhythmic_head::do_substitute_dependent (Score_elem*o,Score_elem*n)
+Rhythmic_head::do_substitute_dependent (Score_element*o,Score_element*n)
 {
   if (o == dots_l_)
-    dots_l_ = n ? (Dots*)n->item () :0;
+    dots_l_ = n ? (Dots*)n->access_Item () :0;
 }
 
 IMPLEMENT_IS_TYPE_B1(Rhythmic_head, Item);

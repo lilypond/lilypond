@@ -8,13 +8,12 @@ TestedFeatures =
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\include "paper20.ly"
 \include "font-body.ly"
+
 \score{
-	\FontBody
+	\type Staff { \FontBody}
 	\paper{
-	    \paper_twenty
 	    linewidth = 17.5 \cm;
 	    gourlay_maxmeasures =5.;
 	}
-	}
+}

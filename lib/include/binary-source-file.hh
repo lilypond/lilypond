@@ -1,7 +1,7 @@
 //
 //  binary-source-file.hh -- declare Binary_source_file
 //
-//  copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+//  copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef BINARY_SOURCE_FILE_HH
 #define BINARY_SOURCE_FILE_HH
