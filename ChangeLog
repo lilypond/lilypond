@@ -74,6 +74,8 @@
 
 2002-09-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.6.3 released.
+
 	* Documentation/user/refman.itely: patch by Graham Percival
 
 	* scripts/lilypond-book.py (make_pixmap): let gs write to

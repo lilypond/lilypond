@@ -17,6 +17,19 @@
   }
 }
 
+
+%% make plain work ok Out Of The Box
+
+\ifundefined{lilypondpaperunit}
+\def\lhsize{\hsize} 
+\else
+\def\lhsize{\lilypondpaperlinewidth\lilypondpaperunit}
+\fi
+
+\ifdim0pt<\lhsize
+\hsize=\lhsize
+\fi
+
 \advance\hoffset by -.6in
 
 \def\nolilyfooterPlainTeX{\nopagenumbers}
