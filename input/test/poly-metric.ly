@@ -1,34 +1,43 @@
 \version "1.7.18"
-\header { texidoc = "@cindex Poly Metric
-Polymetric music with aligned note values can be written
-by moving the timing engraver to staff context. "
-}
 
-\score {
+\header{ texidoc="@cindex Time Signature Multiple
+You can have multiple time signatures occuring at the same time.
 
-    \notes\relative c'
-    <
-	\context Staff = SA
-	{
-	    \time 4/4
-	c1 c1 c1
-	\bar "|."
-    }
-    \context Staff= SB {
-	\time 3/4
-	c2. c2.  c2. c2.
-	\bar "|."
-    }
+This is done by moving the timing engraver to staff context. Also,
+Staff should be given the alias @code{Timing} to make @code{\time}
+command work correctly.
 
-    >		 
+Barlines distort the regular spacing, though.
+
+" }
+
+\score{
+    \notes \relative c'  <
+    	\context Staff= AS {
+	    \time 3/4
+	    c4 c c | c c c |
+	}
+    	\context Staff=BS {
+	    \time 2/4
+	    c4 c | c c | c c
+	}
+    	\context Staff =CS {
+	    \time 3/8
+	    c4. c8 c c   c4. c8 c c
+	}
+    >
 
     \paper{
-    \translator{ \ScoreContext
-	    \remove "Timing_engraver" }
-    \translator{ \StaffContext
-	    \consists "Timing_engraver"
-	    \alias Timing }
-	raggedright= ##t
+    	raggedright = ##t
+	\translator{
+	    \ScoreContext
+	    \remove "Timing_engraver"
 	}
+	\translator{
+	    \StaffContext
+	    \consists "Timing_engraver"
+	    \alias "Timing"
+	}
+    }
 }
 

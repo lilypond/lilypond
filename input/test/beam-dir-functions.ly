@@ -22,7 +22,7 @@ your favourite algorithm isn't one of these, you can hook up your own.
 
 \paper { raggedright = ##t}
 \score {
-  \notes\relative c'' {
+  \notes\relative c'' {\time 3/4
     \property Voice.Beam \set #'dir-function = #beam-dir-majority
     [c8 g]
     \property Voice.Beam \set #'dir-function = #beam-dir-mean

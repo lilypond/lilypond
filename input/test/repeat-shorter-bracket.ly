@@ -1,0 +1,42 @@
+\version "1.7.18"
+\header{
+	texidoc="
+
+@cindex shorter volta bracket
+
+by setting @code{voltaSpannerDuration}, the length of a volta bracket
+can be shortened.
+
+"
+
+}
+
+
+\score {
+	<
+		\context Staff \notes\relative c''{
+			c c c c
+			% coda-klugde: let volta span only one bar
+			\property Staff.voltaSpannerDuration = #(ly:make-moment 1 1)
+			\repeat "volta" 5 { d d d d }
+				\alternative { { e e e e f f f f }
+			{ g g g g } }
+		}
+		\context Lyrics \lyrics{
+			intro1
+			\repeat fold 5 { }
+			\alternative {
+				{ chorus1 one verse1 }
+				{ chorus1 two verse1 }
+				{ chorus1 three verse }
+				{ chorus1 four verse }
+			}
+			five1
+		}
+	>
+\paper{raggedright = ##t}
+}
+
+
+% 
+

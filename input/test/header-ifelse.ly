@@ -1,23 +1,27 @@
-% #(define pieceTagLine "Copyright 2002 (C) Mutopia")
 \version "1.7.20"
-% FIXME: since tagline isn't used in creating the webpage, this example
-% doesn't output anything unusual.
+
 
 #(define (my-ly-version)
-  (let ((version (ly:version)))
-    (list (car version) (cadr version) (caddr version))))
+    (list-head (ly:version) 3))
 
 #(if (not (defined? 'pieceTagLine))
     (define pieceTagLine (string-append "Jeremie " (numbers->string (my-ly-version)) " was here")))
 
-pieceTagLine = #pieceTagLine
 \header{
 tagline = \pieceTagLine
-texidoc = "@cindex Header If Else
-High level functionality can be accomplished with GUILE. Semantics aren't nice though." 
+texidoc = "
+
+High level functionality (eg. conditional defines),
+can be accomplished with GUILE.
+
+This example puts the current version in the tagline via Scheme.
+Since the tagline isn't used in creating the webpage, this example
+doesn't output anything unusual in the collated snippets.
+
+" 
 }
 
-\score{ \notes{ c4 }
+\score{ \notes{ c'4 }
 \paper {raggedright=##t}
 }
 

@@ -1,8 +1,13 @@
 \version "1.7.18"
-% possible rename to clef-manual-control
-\header{ texidoc = "@cindex Clef Manual Control
-You can use the clef engraver by setting \property directly.  \clef
-is merely a front-end to this. " }
+\header{ texidoc = "
+
+@cindex Clef Manual Control
+
+You can use the clef engraver by using @code{\property} directly.
+@code{\clef} is merely a front-end to this. All the notes in this
+example are central C."
+
+}
 
 \score { \notes {
   \property Staff.clefGlyph = #"clefs-F"

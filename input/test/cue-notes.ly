@@ -4,6 +4,7 @@
 \header {
 
     texidoc = "@cindex Cue Notes
+
 Cue notes should be set in smaller type.  Cue clefs are
 usually not restored explicitly.
 "  }
@@ -32,10 +33,12 @@ usually not restored explicitly.
 	   #(lambda (beam mult) (* 0.8 (Beam::space_function beam mult)))
 
 	r8^"Bsn." c'8  f'8-[ f'8]
-% FIXME: check to see if clef should be cancelled from the cue.  IIRC
-% it should be, but I could be wrong.   -gp
+% note: the clef should be cancelled from the cue.  
+
+% if you want to cancel it in the main part, uncomment the following:
 %       \property Staff.fontSize\unset
 %       \property Staff . Clef = \turnOff
+			    
        \clef treble
      } >
    c'8^"Horn" cis'

@@ -2,9 +2,10 @@
 \header {
 
     texidoc = "@cindex Auto Beaming Override
-Show how auto-beaming settings can be overridden.
 
- The auto-beamer will only engrave beams that end when:
+This shows how auto-beaming settings can be overridden.
+
+The auto-beamer will only engrave beams that end when:
 @itemize @bullet
 @item  a rest is encountered
 @item
@@ -19,6 +20,7 @@ The beam will be ended also when now % beamAutoEnd = 0
 
 }
 
+%% TODO: check doc string. -hw
 
 \score{
     \notes \relative c''{

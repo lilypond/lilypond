@@ -1,8 +1,9 @@
 \version "1.7.18"
-% similiar to beam-position, but keep this one.
 \header{
     texidoc="@cindex Beam Position Control
-Controlling beam positions.
+
+Beam positions may be controlled manually, by setting @code{positions} in the @code{Beam} grob.
+
 " }
 \score { 
     \context Voice \notes\relative c {

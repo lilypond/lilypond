@@ -7,10 +7,8 @@ texidoc = "Jazz chords can also be used without notes."
 	\context ChordNames \chords{
 
 		\repeat volta 2 {
-			f1:maj f:maj f:7 bes:7
-			c:maj c:maj es es
-	
-	
+			f1:maj f:7 bes:7
+			c:maj  es
 		}
 	}
 	\paper{

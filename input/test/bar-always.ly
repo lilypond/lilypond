@@ -2,9 +2,10 @@
 \header {
 
     texidoc = "@cindex Bars Always
-By setting barAlways and defaultBarType, you can
-automatically insert barlines everywhere.
-" }
+
+By setting @code{barAlways} and @code{defaultBarType,} you can automatically insert barlines everywhere."
+
+}
 
 
 \score {
