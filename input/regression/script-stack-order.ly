@@ -6,7 +6,7 @@ order determines the order. Objects specified first are closest to the note.
 "
 }
 
-\score{ \notes { c4^"inner up"^"outer up"_"inner down"_"outer down" }
+\score{ \notes\relative c'' { c4^"inner up"^"outer up"_"inner down"_"outer down" }
 	\paper { raggedright = ##t}
     } 
 

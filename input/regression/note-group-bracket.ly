@@ -17,7 +17,7 @@ brackets for analysis start and end.
 
 
 \score {
-    \notes
+    \notes\relative c''
     {
 	c4-\startGroup-\startGroup-\startGroup
 	c4-\stopGroup

@@ -1,9 +1,12 @@
 \version "1.7.23"
 
 \header  {
+
 texidoc = "
 Texts may be added to the multi measure rests.
+
 "
+
 
 }
 
@@ -15,5 +18,5 @@ Texts may be added to the multi measure rests.
   R2.^"4"
   R2.*3_\markup { \roman "a1b2c3" }
   R2.*10^"inner"^"top"_"inner"_"bot"
-  c2.
+  c'2.
 }}

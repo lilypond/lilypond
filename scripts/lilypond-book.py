@@ -1432,8 +1432,7 @@ def check_texidoc (chunks):
 			pathbase = os.path.join (g_outdir, basename)
 			if os.path.isfile (pathbase + '.texidoc') \
 			   and 'notexidoc' not in opts:
-				body = '\n@include %s.texidoc\n' % basename + body
-				c = (type, body, opts, todo, basename)
+				n.append( ('input', '\n@include %s.texidoc\n' % basename))
 		n.append (c)
 	return n
 
@@ -1489,11 +1488,11 @@ def do_file (input_filename):
 		compile_all_files (chunks)
 		chunks = fix_epswidth (chunks)
 
+
+	chunks = format_lilypond_output_bodies (chunks)
 	global format
 	if format == 'texi':
 		chunks = check_texidoc (chunks)
-
-	chunks = format_lilypond_output_bodies (chunks)
 
 
 	x = 0
