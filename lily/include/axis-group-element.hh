@@ -24,7 +24,6 @@ protected:
   virtual Link_array<Score_element> get_extra_dependencies() const;
   virtual void do_unlink();
   virtual void do_junk_links();
-  virtual Axis_group_element * access_Axis_group_element ();
 
 public:
   virtual Link_array<Score_element> elem_l_arr() const;

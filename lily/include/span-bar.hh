@@ -20,7 +20,6 @@ public:
     Span_bar();
     DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEMENT_CLONE(Span_bar);
-    virtual Span_bar* access_Span_bar ();
     void add_bar (Bar*);
     void set_align (Align_element *);
 

@@ -116,9 +116,3 @@ Span_bar::Span_bar ()
 {
   type_str_ = "";
 }
-
-Span_bar*
-Span_bar::access_Span_bar ()
-{
-  return this;
-}
