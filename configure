@@ -594,7 +594,7 @@ if test "${enable_mingw32+set}" = set; then
   enableval="$enable_mingw32"
   MINGWPREFIX=$enableval
 else
-  MINGWPREFIX=$enableval
+  MINGWPREFIX=no
 fi
 
     
