@@ -501,6 +501,18 @@ fet_beginchar("dynamic m", "m", "dynm");
 
 fet_endchar;
 
+ligtable "m" : "p" kern 0.25 ex#, "f" kern -0.1 ex#;
+ligtable "f" : "f" kern -0.13 ex#;
+
+
+
+
+
+
+
+
+
+
 %% notes from old dyn code.
 
 % "f" obviously has a _lot_ bigger slant than "p" (see Wanske p.239)
@@ -518,6 +530,3 @@ fet_endchar;
 
 % Chester, Breitkopf suggest smaller sizes of these other chars,
 % using the x-height as reference point.
-
-ligtable "m" : "p" kern 0.25 ex#, "f" kern;
-ligtable "f" : "f"  kern -0.13 ex#;
