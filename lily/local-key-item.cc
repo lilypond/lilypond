@@ -91,12 +91,13 @@ Local_key_item::after_line_breaking (SCM smob)
 	{
 	  Grob *tie = unsmob_grob (gh_cadr (t));
 	  Spanner *sp = dynamic_cast<Spanner*> (tie);
-	  if (!sp->broken_into_l_arr_.size ())
+	  if (!sp->original_l_)
 	    {
 	      /* there should be a better way to delete me */
 	      scm_set_car_x (s, gh_list (gh_caar (s),
 					 ly_symbol2scm ("deleted"),
 					 SCM_UNDEFINED));
+	      me->set_grob_property ("molecule", SCM_EOL);
 	    }
 	}
     }

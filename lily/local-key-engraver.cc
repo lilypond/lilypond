@@ -104,9 +104,8 @@ Local_key_engraver::create_grobs ()
 	    if (support_l == Tie::head (tie_l_arr_[i], RIGHT))
 	      {
 		tie_changes = different;
-#if 0
-		// don't do this, yet.  the accidentals can't be
-		// deleted, yet.
+#if 1
+		/* Enable accidentals for broken tie */
 		tie_break_cautionary = tie_l_arr_[i];
 #endif
 		break;
