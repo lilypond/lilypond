@@ -179,13 +179,7 @@ Clef_engraver::stop_translation_timestep ()
 	    }
 	}
       
-      typeset_grob (clef_);
       clef_ =0;
-
-      if (octavate_)
-	{
-	  typeset_grob (octavate_);
-	}
 
       octavate_ = 0;
     }

@@ -91,7 +91,6 @@ Ottava_spanner_engraver::typeset_all ()
 	}
       while (flip (&d) != LEFT);
       
-      typeset_grob (finished_);
       finished_ = 0;
     }
 }

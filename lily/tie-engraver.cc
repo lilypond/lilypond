@@ -140,11 +140,7 @@ Tie_engraver::stop_translation_timestep ()
 
       ties_.clear ();
       last_event_ = 0;
-      if (tie_column_)
-	{
-	  typeset_grob (tie_column_);
-	  tie_column_ =0;
-	}
+      tie_column_ =0;
     }
   
   if (event_)
@@ -174,7 +170,6 @@ Tie_engraver::typeset_tie (Grob *her)
   index_set_cell (her->get_property ("head-pair"), LEFT, new_head_drul[LEFT]->self_scm ());
   index_set_cell (her->get_property ("head-pair"), RIGHT, new_head_drul[RIGHT]->self_scm ());
 
-  typeset_grob (her);
 }
 
 

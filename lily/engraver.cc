@@ -52,13 +52,6 @@ Engraver::announce_grob (Grob* e, SCM cause)
 
 
  
-void
-Engraver::typeset_grob (Grob*p)
-{
-  Engraver *dad = get_daddy_engraver ();
-  if (dad)
-    dad->typeset_grob (p);
-}
 
 
 Engraver::Engraver ()

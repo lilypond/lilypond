@@ -66,7 +66,7 @@ Metronome_mark_engraver::stop_translation_timestep ()
 	text_->set_parent (bar_line_, X_AXIS);
       
       text_->set_property ("side-support-elements" , get_property ("stavesFound"));
-      typeset_grob (text_);
+      
       text_ =0;
     }
   mark_ev_ = 0;

@@ -207,14 +207,6 @@ Volta_engraver::acknowledge_grob (Grob_info i)
 void
 Volta_engraver::finalize ()
 {
-  if (volta_span_)
-    {
-      typeset_grob (volta_span_);
-    }
-  if (end_volta_span_)
-    {
-      typeset_grob (end_volta_span_);
-    }
 }
 
 
@@ -235,11 +227,7 @@ Volta_engraver::stop_translation_timestep ()
       volta_span_ = 0;
     }
   
-  if (end_volta_span_)
-    {
-      typeset_grob (end_volta_span_);
-      end_volta_span_ =0;
-    }
+  end_volta_span_ =0;
 }
 
 /*

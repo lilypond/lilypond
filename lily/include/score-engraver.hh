@@ -39,7 +39,6 @@ protected:
   virtual void initialize ();
   virtual void finalize ();
   virtual void announce_grob (Grob_info);
-  virtual void typeset_grob (Grob*elem);
   virtual void stop_translation_timestep ();
 
 public:

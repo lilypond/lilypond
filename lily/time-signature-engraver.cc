@@ -70,11 +70,7 @@ Time_signature_engraver::process_music ()
 void
 Time_signature_engraver::stop_translation_timestep ()
 {
-  if (time_signature_) 
-    {
-      typeset_grob (time_signature_);
       time_signature_ =0;
-    }
 }
  
 

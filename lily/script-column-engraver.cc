@@ -37,11 +37,7 @@ Script_column_engraver::Script_column_engraver ()
 void
 Script_column_engraver::stop_translation_timestep ()
 {
-  if (scol_)
-    {
-      typeset_grob (scol_);
-      scol_ =0;
-    }
+  scol_ =0;
   scripts_.clear ();
 }
 

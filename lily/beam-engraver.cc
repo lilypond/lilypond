@@ -164,7 +164,7 @@ Beam_engraver::typeset_beam ()
     {
       finished_beam_info_->beamify (beat_length_, subdivide_beams_);
       Beam::set_beaming (finished_beam_, finished_beam_info_);
-      typeset_grob (finished_beam_);
+      
       delete finished_beam_info_;
       finished_beam_info_ =0;
       finished_beam_ = 0;

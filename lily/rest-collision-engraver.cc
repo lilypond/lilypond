@@ -61,11 +61,7 @@ Rest_collision_engraver::acknowledge_grob (Grob_info i)
 void
 Rest_collision_engraver::stop_translation_timestep ()
 {
-  if (rest_collision_) 
-    {
-      typeset_grob (rest_collision_);
-      rest_collision_ = 0;
-    }
+  rest_collision_ = 0;
   note_columns_.clear ();
   rest_count_ = 0;
 }

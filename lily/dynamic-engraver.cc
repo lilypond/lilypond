@@ -333,15 +333,10 @@ Dynamic_engraver::typeset_all ()
 	    add_bound_item (finished_line_spanner_,
 			    finished_cresc_->get_bound (RIGHT));
 	}
-      typeset_grob (finished_cresc_);
       finished_cresc_ =0;
     }
   
-  if (script_)
-    {
-      typeset_grob (script_);
       script_ = 0;
-    }
   if (finished_line_spanner_)
     {
       /*
@@ -373,7 +368,6 @@ Dynamic_engraver::typeset_all ()
 	  finished_line_spanner_->set_bound (LEFT, ci);	  
 	}
 	
-      typeset_grob (finished_line_spanner_);
       finished_line_spanner_ = 0;
     }
 }

@@ -509,7 +509,6 @@ Piano_pedal_engraver::typeset_all (Pedal_info * p)
 
   if (p->item_)
     {
-      typeset_grob (p->item_);
       p->item_ = 0;
     }
       
@@ -521,9 +520,7 @@ Piano_pedal_engraver::typeset_all (Pedal_info * p)
 	  p->finished_bracket_->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
 	}
 
-      typeset_grob (p->finished_bracket_);
-	  
-      p->finished_bracket_ =0;
+      p->finished_bracket_ = 0;
     }
 
   if (p->finished_line_spanner_)
@@ -541,7 +538,7 @@ Piano_pedal_engraver::typeset_all (Pedal_info * p)
 	  p->finished_line_spanner_->set_bound (RIGHT, ci);
 	  p->finished_line_spanner_->set_bound (LEFT, ci);	  
 	}
-      typeset_grob (p->finished_line_spanner_);
+      
       p->finished_line_spanner_ = 0;
     }
 }

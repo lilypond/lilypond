@@ -179,35 +179,8 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
   SCM smp = get_property ("measurePosition");
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
-  if (mmrest_
-      && !mp.to_bool ()
-      && mmrest_->get_bound (LEFT) && mmrest_->get_bound (RIGHT))
-    {
-      typeset_grob (mmrest_);
-      for (int i = 0 ; i < numbers_.size (); i++)
-	{
-	  typeset_grob (numbers_[i]);
-	}
-      
-      /*
-	we must keep mmrest_ around to set measure-count, so
-	no mmrest_ = 0 here. 
-       */
-    }
-
   if (last_rest_)
     {
-      /* sanity check */
-      if (last_rest_->get_bound (LEFT) && last_rest_->get_bound (RIGHT)
-	  && last_rest_->get_bound (LEFT) != last_rest_->get_bound (RIGHT))
-	{
-	  typeset_grob (last_rest_);
-
-	  for (int i = 0; i < last_numbers_.size ();i++)
-	    {
-	      typeset_grob (last_numbers_[i]);
-	    }
-	}
       last_rest_ = 0;
       last_numbers_.clear ();
     }
@@ -280,21 +253,6 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 void
 Multi_measure_rest_engraver::finalize ()
 {
-  if (mmrest_)
-    {
-      typeset_grob (mmrest_);
-    }
-  if (last_rest_)
-    {
-      typeset_grob (last_rest_);
-    }
-
-  for (int i = 0; i < last_numbers_.size ();i++)
-    typeset_grob (last_numbers_[i]);
-
-  for (int i = 0; i < numbers_.size ();i++)
-    typeset_grob (numbers_[i]);
-
 }
 
 ENTER_DESCRIPTION (Multi_measure_rest_engraver,

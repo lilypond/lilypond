@@ -60,11 +60,7 @@ Collision_engraver::acknowledge_grob (Grob_info i)
 void
 Collision_engraver::stop_translation_timestep ()
 {
-  if (col_) 
-    {
-      typeset_grob (col_);
-      col_ =0;
-    }
+  col_ =0;
   note_columns_.clear ();
 }
 

@@ -162,20 +162,8 @@ Drum_notes_engraver::acknowledge_grob (Grob_info inf)
 void
 Drum_notes_engraver::stop_translation_timestep ()
 {
-  for (int i=0; i < notes_.size (); i++)
-    {
-      typeset_grob (notes_[i]);
-    }
   notes_.clear ();
-  for (int i=0; i < dots_.size (); i++)
-    {
-      typeset_grob (dots_[i]);
-    }
   dots_.clear ();
-  for (int i=0; i < scripts_.size (); i++)
-    {
-      typeset_grob (scripts_[i]);
-    }
   scripts_.clear ();
   
   events_.clear ();

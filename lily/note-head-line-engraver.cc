@@ -100,11 +100,7 @@ Note_head_line_engraver::process_acknowledged_grobs ()
 void
 Note_head_line_engraver::stop_translation_timestep ()
 {
-  if (line_)
-    {
-      typeset_grob (line_);
-      line_ = 0;
-    }
+  line_ = 0;
   if (head_)
     last_head_ = head_;
   head_ = 0;

@@ -415,14 +415,6 @@ Accidental_engraver::stop_translation_timestep ()
 	}
     }
   
-  for (int i = 0; i < accidentals_.size (); i++)
-    {
-      if (Grob *a = accidentals_[i].accidental_)
-	typeset_grob (a);
-    }
-
-  if (accidental_placement_)
-    typeset_grob (accidental_placement_);
 
   accidental_placement_ = 0;
   

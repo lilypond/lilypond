@@ -97,7 +97,6 @@ Hyphen_engraver::finalize ()
 	  hyphen_->suicide ();
 	}
 
-      typeset_grob (hyphen_);
       hyphen_ = 0;
     }
 
@@ -110,7 +109,6 @@ Hyphen_engraver::finalize ()
 	  finished_hyphen_->warning (_("unterminated hyphen; removing"));
 	  finished_hyphen_->suicide ();
 	}
-      typeset_grob (finished_hyphen_);
       finished_hyphen_ =0;
     }
 }
@@ -131,14 +129,12 @@ Hyphen_engraver::stop_translation_timestep ()
 {
   if (finished_hyphen_ && finished_hyphen_->get_bound (RIGHT))
     {
-      typeset_grob (finished_hyphen_);
       finished_hyphen_ = 0;
     }
 
   if (finished_hyphen_ && hyphen_)
     {
       programming_error ("Haven't finished hyphen yet.");
-      typeset_grob (finished_hyphen_);
       finished_hyphen_ =0;
     }
   

@@ -1,11 +1,11 @@
 /*   
-  new-chord-tremolo-engraver.cc --  implement Chord_tremolo_engraver
+     new-chord-tremolo-engraver.cc --  implement Chord_tremolo_engraver
   
-  source file of the GNU LilyPond music typesetter
+     source file of the GNU LilyPond music typesetter
   
-  (c) 2000--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+     (c) 2000--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
- */
+*/
 
 #include "engraver.hh"
 #include "beam.hh"
@@ -26,17 +26,17 @@
 
 /**
 
-  This acknowledges repeated music with "tremolo" style.  It typesets
-  a beam.
+This acknowledges repeated music with "tremolo" style.  It typesets
+a beam.
 
-  TODO:
+TODO:
 
-  - perhaps use engraver this to steer other engravers? That would
-  create dependencies between engravers, which is bad.
+- perhaps use engraver this to steer other engravers? That would
+create dependencies between engravers, which is bad.
 
-  - create dots if appropriate.
+- create dots if appropriate.
 
-  - create TremoloBeam iso Beam?
+- create TremoloBeam iso Beam?
 
 */
 class Chord_tremolo_engraver : public Engraver
@@ -145,11 +145,7 @@ Chord_tremolo_engraver::finalize ()
 void
 Chord_tremolo_engraver::typeset_beam ()
 {
-  if (finished_beam_)
-    {
-      typeset_grob (finished_beam_);
-      finished_beam_ = 0;
-    }
+  finished_beam_ = 0;
 }
 
 void
@@ -212,11 +208,7 @@ Chord_tremolo_engraver::stop_translation_timestep ()
 {
   typeset_beam ();
 
-  if (stem_tremolo_)
-    {
-      typeset_grob (stem_tremolo_);
-      stem_tremolo_ = 0;
-    }
+  stem_tremolo_ = 0;
 }
 
 

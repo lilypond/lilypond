@@ -23,13 +23,9 @@ here is the new implementation @code{\applymusic},
 @item @code{\apply} has been renamed to @code{\applymusic}.
 
 @item Music can be used as a markup.
-When inserting a @code{\score} block as part of a @code{\markup}, it
-produces a rendered markup of the music.
-
-@example
-@c TODO, see input/test/markup-score.ly
-@end example
-
+When inserting a @code{score} block as part of a @code{\markup}, it
+produces a rendered markup of the music.  An example is in
+@file{input/test/markup-score.ly}.
 
 @item LilyPond expressions can be embedded into Scheme. The syntax for
 this is @code{#@{ ... #@}}. Within such a block, Scheme forms can be
@@ -806,7 +802,7 @@ for chords, and
 for simultaneous music.
 
 To convert your files from <PITCHES> to <<PITCHES>>, use the script
-included in buildscripts/convert-new-chords.py
+included in @file{buildscripts/convert-new-chords.py}.
 
 This change was introduced for the following reasons
 

@@ -62,11 +62,7 @@ Breathing_sign_engraver::process_acknowledged_grobs ()
 void 
 Breathing_sign_engraver::stop_translation_timestep ()
 {
-  if (breathing_sign_)
-    {
-      typeset_grob (breathing_sign_);
-      breathing_sign_ = 0;
-    }
+  breathing_sign_ = 0;
   breathing_sign_req_ = 0;
 }
 

@@ -211,12 +211,6 @@ Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
   // prepare ligature for typesetting
   build_ligature (ligature, primitives);
   collect_accidentals (ligature, primitives);
-
-  // now actually typeset
-  for (int i = 0; i < primitives.size (); i++)
-    {
-      typeset_grob (primitives[i].grob_);
-    }
 }
 
 ENTER_DESCRIPTION (Coherent_ligature_engraver,

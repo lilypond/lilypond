@@ -52,7 +52,6 @@ Instrument_name_engraver::stop_translation_timestep ()
     {
       text_->set_property ("side-support-elements",
 				get_property ("instrumentSupport"));
-      typeset_grob (text_);
       text_ = 0;
     }
 }

@@ -130,11 +130,7 @@ Slash_repeat_engraver::start_translation_timestep ()
 void
 Slash_repeat_engraver::stop_translation_timestep ()
 {
- if (beat_slash_)
-    {
-      typeset_grob (beat_slash_);
-      beat_slash_ = 0;
-    }
+  beat_slash_ = 0;
 }
 
 

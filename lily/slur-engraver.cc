@@ -173,10 +173,6 @@ Slur_engraver::process_music ()
 void
 Slur_engraver::stop_translation_timestep ()
 {
-  for (int i = 0; i < end_slurs_.size (); i++)
-    {
-      typeset_grob (end_slurs_[i]);
-    }
   end_slurs_.clear ();
   new_slur_evs_.clear ();
 }

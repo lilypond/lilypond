@@ -141,7 +141,6 @@ Lyric_engraver::stop_translation_timestep ()
 	    }
 	}
       
-      typeset_grob (text_);
       text_ =0;
     }
   event_ =0;

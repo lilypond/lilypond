@@ -32,7 +32,6 @@ Measure_grouping_engraver::finalize ()
   if (grouping_)
     {
       grouping_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
-      typeset_grob (grouping_);
       grouping_->suicide ();
       grouping_= 0;
     }
@@ -56,7 +55,7 @@ Measure_grouping_engraver::process_music ()
     {
       grouping_->set_bound (RIGHT,
 			    unsmob_grob (get_property ("currentMusicalColumn")));
-      typeset_grob (grouping_);
+      
       grouping_ = 0;
     }
   

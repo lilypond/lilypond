@@ -135,11 +135,7 @@ Key_engraver::process_music ()
 void
 Key_engraver::stop_translation_timestep ()
 {
-  if (item_) 
-    {
-      typeset_grob (item_);
       item_ = 0;
-    }
 }
 
 
