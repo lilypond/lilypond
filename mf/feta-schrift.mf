@@ -216,7 +216,7 @@ fet_beginchar("Upbow", "upbow", "upbow")
 
 	thick = 1.4 stafflinethickness;
 	wd# = 1.3 interline#;
-	ht# = 3/2 wd#; 
+	ht# = 1.6 wd#; 
 
 	
 	set_char_box(wd#/2, wd#/2, 0, ht#);
@@ -237,10 +237,10 @@ fet_beginchar("Downbow", "downbow", "downbow")
 	save wd;
 	define_pixels(wd)
 
-	wd# = 7/4 interline#;
+	wd# = 3/2 interline#;
 	stemthick = 1.2 stafflinethickness;
 
-	set_char_box(wd#/2, wd#/2, 0, interline#);
+	set_char_box(wd#/2, wd#/2, 0, 4/3interline#);
 
 	beamheight = 4/10 h;
 

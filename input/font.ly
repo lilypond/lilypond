@@ -11,7 +11,7 @@ TestedFeatures  This file tests the Feta music-font
 	\melodic{ 
 		\octave c';
 		\meter 4/4;
-		\multi 2  < { \stemup g''\longa a''\breve | }
+		\multi 2  < { \stemup g'\longa a'\breve | }
 		{ \stemdown
 		c1 g c' a'
 		c2 g } >

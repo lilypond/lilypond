@@ -1,5 +1,5 @@
 % generated automatically by mf-to-table.py version 0.3
-% on Thu Oct  9 11:15:50 1997
+% on Thu Oct  9 20:24:27 1997
 % Do not edit
 
 % input from out/font-en-tja20.log
