@@ -1,5 +1,7 @@
 2005-02-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-ps.scm (write-preamble): remove pdf-viewer code.
+ 
 	* THANKS: add sponsor.
 
 	* scm/define-markup-commands.scm (with-url): new markup command.
