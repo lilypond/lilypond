@@ -32,7 +32,7 @@ public:
   static Slice Stem::beam_multiplicity (Grob *);
   static Real thickness (Grob*);
   static int head_count (Grob *);
-  static bool invisible_b (Grob *) ;
+  static bool is_invisible (Grob *) ;
   static Interval head_positions (Grob *);
   static Real get_default_stem_end_position (Grob*me);
   static void position_noteheads (Grob *);

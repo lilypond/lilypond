@@ -33,7 +33,7 @@ Item::Item (Item const &s)
 
 
 bool
-Item::breakable_b (Grob*me) 
+Item::is_breakable (Grob*me) 
 {
   if (me->original_)
     return false;
@@ -42,7 +42,7 @@ Item::breakable_b (Grob*me)
     me->programming_error ("only items can be breakable.");
   
   Item * i  =dynamic_cast<Item*> (me->get_parent (X_AXIS));
-  return (i) ?  Item::breakable_b (i) : to_boolean (me->get_grob_property ("breakable"));
+  return (i) ?  Item::is_breakable (i) : to_boolean (me->get_grob_property ("breakable"));
 }
 
 Paper_column *
@@ -78,7 +78,7 @@ Item::copy_breakable_items ()
 
 
 bool
-Item::broken_b () const
+Item::is_broken () const
 {
   return broken_to_drul_[LEFT] || broken_to_drul_[RIGHT];
 }
@@ -90,10 +90,10 @@ Item::broken_b () const
 void
 Item::discretionary_processing ()
 {
-  if (broken_b ())
+  if (is_broken ())
     return;
 
-  if (Item::breakable_b (this))
+  if (Item::is_breakable (this))
     copy_breakable_items ();
 }
 

@@ -189,14 +189,14 @@ Beam::quanting (SCM smob)
   
   Direction ldir = Direction (stem_infos[0].dir_);
   Direction rdir = Direction (stem_infos.top ().dir_);
-  bool knee_b = dirs_found[LEFT] && dirs_found[RIGHT];
+  bool is_knee = dirs_found[LEFT] && dirs_found[RIGHT];
 
 
   int region_size = REGION_SIZE;
   /*
     Knees are harder, lets try some more possibilities for knees. 
    */
-  if (knee_b)
+  if (is_knee)
     region_size += 2;
 
   /*
@@ -243,7 +243,7 @@ Beam::quanting (SCM smob)
   int beam_count = get_beam_count (me);
   Real beam_translation = get_beam_translation (me) / ss;
 
-  Real reasonable_score = (knee_b) ? 200000 : 100;
+  Real reasonable_score = (is_knee) ? 200000 : 100;
   for (int i = qscores.size (); i--;)
     if (qscores[i].demerits < reasonable_score)
       {
@@ -263,7 +263,7 @@ Beam::quanting (SCM smob)
 	Real d=score_stem_lengths (stems, stem_infos,
 				 base_lengths, stem_xposns,
 				 xl, xr,
-				 knee_b,
+				 is_knee,
 				 qscores[i].yl, qscores[i].yr);
 	qscores[i].demerits +=  d;
 
@@ -332,7 +332,7 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
   for (int i=0; i < stems.size (); i++)
     {
       Grob* s = stems[i];
-      if (Stem::invisible_b (s))
+      if (Stem::is_invisible (s))
 	continue;
 
       Real x = stem_xs[i];

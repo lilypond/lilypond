@@ -46,7 +46,7 @@ Spanner::do_break_processing ()
 	}
     }
   
-  if (get_system () || broken_b ())
+  if (get_system () || is_broken ())
     return;
 
   if (left == right)
@@ -260,7 +260,7 @@ Spanner::compare (Spanner * const &p1, Spanner * const &p2)
 }
 
 bool
-Spanner::broken_b () const
+Spanner::is_broken () const
 {
   return broken_intos_.size ();
 }

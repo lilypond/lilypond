@@ -251,7 +251,7 @@ Stem::add_head (Grob*me, Grob *n)
 }
 
 bool
-Stem::invisible_b (Grob*me)
+Stem::is_invisible (Grob*me)
 {
   return ! (head_count (me)
 	    && gh_scm2int (me->get_grob_property ("duration-log")) >= 1);
@@ -495,7 +495,7 @@ Stem::position_noteheads (Grob*me)
 	      Real reverse_overlap =0.5;
 	      heads[i]->translate_axis ((l-thick*reverse_overlap) * d, X_AXIS);
 
-	      if (invisible_b(me))
+	      if (is_invisible(me))
 		heads[i]->translate_axis (-thick*(2 - reverse_overlap) * d , X_AXIS);
 
 	      
@@ -721,7 +721,7 @@ Stem::print (SCM smob)
   if (!lh)
     return SCM_EOL;
 
-  if (invisible_b (me))
+  if (is_invisible (me))
     return SCM_EOL;
   
   Real y1 = Staff_symbol_referencer::get_position (lh);
@@ -790,7 +790,7 @@ Stem::off_callback (SCM element_smob, SCM)
       
       Real attach =0.0;
 
-      if (invisible_b (me))
+      if (is_invisible (me))
 	{
 	  attach = 0.0;
 	}
@@ -923,8 +923,8 @@ Stem::calc_stem_info (Grob *me)
      
      Also, not for knees.  Seems to be a good thing. */
   bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
-  bool knee_b = to_boolean (beam->get_grob_property ("knee"));
-  if (!no_extend_b && !knee_b)
+  bool is_knee = to_boolean (beam->get_grob_property ("knee"));
+  if (!no_extend_b && !is_knee)
     {
       /* Highest beam of (UP) beam must never be lower than middle
 	 staffline */
