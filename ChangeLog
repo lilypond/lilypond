@@ -1,3 +1,8 @@
+2002-09-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/text-spanner-engraver.cc: whoops. Set bound in the correct
+	spanner.
+
 2002-09-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/refman.itely: patch by Graham Percival
