@@ -53,7 +53,7 @@
   (let* ((name (ly:pitch-notename pitch))
          (alt (ly:pitch-alteration pitch))
 	 (n-a (if (member (cons name alt) `((6 . ,FLAT) (6 . ,DOUBLE-FLAT)))
-		 (cons 7 (+ (if B-instead-of-Bb 1 0) alt))
+		 (cons 7 (+ (if B-instead-of-Bb SEMI-TONE 0) alt))
 		 (cons name alt))))
     (make-line-markup
      (list
