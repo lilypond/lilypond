@@ -109,8 +109,12 @@ if old_syntax:
 	chordend = '>>'
 
 
+marker_str = '%% new-chords-done %%'
 
 def sub_chords (str):
+	if re.search (marker_str,str):
+		return str
+	
 	str= re.sub (r'\\<', '@STARTCRESC@', str)
 	str= re.sub (r'\\>', '@STARTDECRESC@', str)
 	str= re.sub (r'([_^-])>', r'\1@ACCENT@', str)
@@ -126,4 +130,4 @@ def sub_chords (str):
 	return str
 
 
-print  sub_chords (open (sys.argv[1]).read())
+print sub_chords (open (sys.argv[1]).read())  + marker_str 
