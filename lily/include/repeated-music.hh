@@ -57,6 +57,8 @@ public:
 
   /* How often do we repeat? */
   int repeat_count () const;
+  DECLARE_SCHEME_CALLBACK(relative_callback,(SCM,SCM));
+
   virtual Pitch to_relative_octave (Pitch);
 
   Moment body_get_length () const;

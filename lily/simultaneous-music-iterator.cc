@@ -7,10 +7,9 @@
 */
 
 #include "simultaneous-music-iterator.hh"
-
+#include "music.hh"
 #include "context.hh"
 #include "warn.hh"
-#include "music-list.hh"
 #include "context-def.hh"
 
 Simultaneous_music_iterator::Simultaneous_music_iterator ()

@@ -23,7 +23,6 @@ public:
   Event (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Event);
   DECLARE_SCHEME_CALLBACK(length_callback,(SCM));
-  virtual Pitch to_relative_octave (Pitch);
 };
 
 

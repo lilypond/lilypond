@@ -12,7 +12,6 @@
 
 #include "warn.hh"
 #include "event.hh"
-#include "music-list.hh"
 #include "music-iterator.hh"
 #include "score-context.hh"
 #include "context-def.hh"

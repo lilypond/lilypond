@@ -23,36 +23,6 @@ Event::length_callback (SCM m)
     }
   return mom.smobbed_copy();
 }
-
-
-Pitch
-Event::to_relative_octave (Pitch last)
-{
-  Pitch *old_pit = unsmob_pitch (get_property ("pitch"));
-  if (old_pit)
-    {
-      Pitch new_pit = *old_pit;
-      new_pit = new_pit.to_relative_octave (last);
-
-      SCM check = get_property ("absolute-octave");
-      if (scm_is_number (check) &&
-	  new_pit.get_octave () != scm_to_int (check))
-	{
-	  Pitch expected_pit (scm_to_int (check),
-			      new_pit.get_notename (),
-			      new_pit.get_alteration ());
-	  origin ()->warning (_f ("octave check failed; expected %s, found: %s",
-				  expected_pit.to_string (),
-				  new_pit.to_string ()));
-	  new_pit = expected_pit;
-	}
-      
-      set_property ("pitch", new_pit.smobbed_copy ());
-  
-      return new_pit;
-    }
-  return last;
-}
   
 Event::Event (SCM i)
   : Music (i)

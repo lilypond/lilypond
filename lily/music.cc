@@ -7,12 +7,11 @@
 */
 
 #include "music.hh"
-
+#include "music-sequence.hh"
 #include "duration.hh"
 #include "input-smob.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
-#include "music-list.hh"
 #include "pitch.hh"
 #include "score.hh"
 #include "warn.hh"
@@ -158,15 +157,46 @@ Music::print_smob (SCM s, SCM p, scm_print_state*)
 }
 
 Pitch
-Music::to_relative_octave (Pitch p)
+Music::to_relative_octave (Pitch last)
 {
+  SCM callback = get_property ("to-relative-callback");
+  if (ly_c_procedure_p (callback))
+    {
+      Pitch * p = unsmob_pitch (scm_call_2 (callback, self_scm(), last.smobbed_copy ()));
+      return *p;
+    }
+
   SCM elt = get_property ("element");
+  Pitch *old_pit = unsmob_pitch (get_property ("pitch"));
+  if (old_pit)
+    {
+      Pitch new_pit = *old_pit;
+      new_pit = new_pit.to_relative_octave (last);
 
+      SCM check = get_property ("absolute-octave");
+      if (scm_is_number (check) &&
+	  new_pit.get_octave () != scm_to_int (check))
+	{
+	  Pitch expected_pit (scm_to_int (check),
+			      new_pit.get_notename (),
+			      new_pit.get_alteration ());
+	  origin ()->warning (_f ("octave check failed; expected %s, found: %s",
+				  expected_pit.to_string (),
+				  new_pit.to_string ()));
+	  new_pit = expected_pit;
+	}
+      
+      set_property ("pitch", new_pit.smobbed_copy ());
+  
+      last = new_pit;
+    }
+
+  
   if (Music *m = unsmob_music (elt))
-    p = m->to_relative_octave (p);
+    last = m->to_relative_octave (last);
 
-  p = music_list_to_relative (get_property ("elements"), p, false);
-  return p;
+  last = music_list_to_relative (get_property ("elements"), last, false);
+  return last;
 }
 
 void

@@ -19,7 +19,6 @@
 #include "item.hh"
 #include "chord-tremolo-iterator.hh"
 #include "stem-tremolo.hh"
-#include "music-list.hh"
 #include "math.h"           // ceil
 
 /**

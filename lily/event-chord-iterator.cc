@@ -10,7 +10,6 @@
 
 #include "context.hh"
 #include "warn.hh"
-#include "music-list.hh"
 #include "event.hh"
 
 Event_chord_iterator::Event_chord_iterator ()
@@ -47,7 +46,7 @@ Event_chord_iterator::process (Moment m)
 {
   if (last_processed_mom_ < Moment (0))
     {
-      for (SCM s = dynamic_cast<Music_sequence *> (get_music ())->music_list ();
+      for (SCM s = get_music ()->get_property ("elements");
 	   scm_is_pair (s);  s = scm_cdr (s))
 	{
 	  Music *mus = unsmob_music (scm_car (s));

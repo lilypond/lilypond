@@ -87,7 +87,6 @@ For chord inversions, this is negative.")
      (quoted-voice-direction ,ly:dir? "Should the quoted voice be up-stem or down-stem?")
      (quoted-context-type ,symbol? "The name of the context to direct quotes to, eg., @code{Voice}.")
      (quoted-context-id ,string? "The id of the context to direct quotes to, eg., @code{cue}.")
-
      (to-relative-callback ,procedure? "How to transform a piece of music to relative pitches")
      (repeat-count  ,integer? "do a @code{\repeat} how ofen?")
      (span-direction ,ly:dir? "Does this start or stop a spanner?")

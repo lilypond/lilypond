@@ -1,3 +1,24 @@
+2005-01-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/include/transposed-music.hh (class Transposed_music): remove.
+
+	* lily/transposed-music.cc: remove
+
+	* lily/include/relative-music.hh: remove.
+
+	* lily/include/music-sequence.hh (struct Music_sequence): change
+	into "namespace" class.
+
+	* lily/untransposable-music.cc (Module): remove
+
+	* lily/include/un-relativable-music.hh (Module): remove
+
+	* lily/include/untransposable-music.hh (Module): remove
+
+	* lily/include/music-list.hh (Module): remove file
+
+	* lily/un-relativable-music.cc: remove file.
+
 2005-01-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/parser.yy: Compile fix.

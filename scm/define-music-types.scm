@@ -352,7 +352,7 @@ SYNTAX
      . (
 	(description .	"Combine two parts on a staff, either merged or
 as separate voices.")
-	(internal-class-name . "Simultaneous_music")
+	(internal-class-name . "Music")
 	(length-callback . ,Music_sequence::maximum_length_callback)
 	(start-callback . ,Music_sequence::minimum_start_callback)
 	(types . (general-music part-combine-music))
@@ -406,7 +406,8 @@ goes down).")
     
     (RelativeOctaveCheck
      . ((description . "Check if a pitch is in the correct octave.")
-	(internal-class-name . "Relative_octave_check")
+	(internal-class-name . "Music")
+	(to-relative-callback . ,Relative_octave_check::relative_callback)
 	(types . (general-music relative-octave-check))
 	))
     
@@ -499,10 +500,11 @@ SYNTAX
 
 @code{ \\simultaneous @{ .. @}} or < .. >.")
 
-	(internal-class-name . "Simultaneous_music")
+	(internal-class-name . "Music")
 	(iterator-ctor . ,Simultaneous_music_iterator::constructor)
 	(start-callback . ,Music_sequence::minimum_start_callback)
 	(length-callback . ,Music_sequence::maximum_length_callback)
+	(to-relative-callback . ,Music_sequence::simultaneous_relative_callback)
 	
 	(types . (general-music simultaneous-music))
 	))
@@ -567,14 +569,16 @@ Syntax @code{\\times @var{fraction} @var{music}}, e.g.
      . (
 	(description .	"Music that has been transposed.")
 	(internal-class-name . "Transposed_music")
+	(to-relative-callback . ,Relative_octave_music::no_relative_callback)
 	(types . (music-wrapper-music general-music transposed-music))
 	))
 
     (UntransposableMusic
      . (
 	(description .	"Music that can not be transposed.")
+	(to-relative-callback . ,Relative_octave_music::no_relative_callback)
 	(untransposable . #t)
-	(internal-class-name . "Untransposable_music")
+	(internal-class-name . "Music_wrapper")
 	(types . (music-wrapper-music general-music untransposable-music)) 
 	))
 
@@ -582,6 +586,7 @@ Syntax @code{\\times @var{fraction} @var{music}}, e.g.
      . (
 	(description .	"Music that can not be converted from relative to absolute notation.
 For example, transposed music.")
+	(to-relative-callback . ,Relative_octave_music::no_relative_callback)
 	(internal-class-name . "Un_relativable_music")
 	(types . (music-wrapper-music general-music unrelativable-music))
 	))
@@ -589,20 +594,20 @@ For example, transposed music.")
     (RelativeOctaveMusic
      . (
 	(description .	"Music that was entered in relative octave notation.")
-
-	(internal-class-name . "Relative_octave_music")
+	(to-relative-callback . ,Relative_octave_music::relative_callback)
+	(internal-class-name . "Music_wrapper")
 	(types . (music-wrapper-music general-music relative-octave-music))
 	))
     
     (EventChord
      . (
 	(description .	"Internally used to group a set of events.")
-	(internal-class-name . "Event_chord")
+	(internal-class-name . "Music")
 	(iterator-ctor . ,Event_chord_iterator::constructor)
 	(length-callback . ,Music_sequence::maximum_length_callback)
+	(to-relative-callback . ,Music_sequence::event_chord_relative_callback)
 	(types . (general-music event-chord simultaneous-music))
-	)
-     )
+	))
     
     (ScriptEvent
      . (

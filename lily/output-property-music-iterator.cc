@@ -7,8 +7,8 @@
  */
 
 #include "input.hh"
-#include "music-list.hh"
 #include "simple-music-iterator.hh"
+#include "music.hh"
 
 class Output_property_music_iterator : public Simple_music_iterator
 {
