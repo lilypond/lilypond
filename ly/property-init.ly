@@ -131,8 +131,24 @@ turnOff = #(cons '() '())
 % of either Staff.Arpeggio or PianoStaff.Arpeggio, depending whether 
 % cross-staff brackets are desired. 
 
-arpeggioBracket = #Arpeggio::brew_chord_bracket
 arpeggio = #(make-music 'ArpeggioEvent)
+
+arpeggioUp = \sequential {
+  \revert Arpeggio  #'print-function
+  \override Arpeggio  #'arpeggio-direction = #1
+}
+arpeggioDown = \sequential {
+  \revert Arpeggio  #'print-function
+  \override Arpeggio  #'arpeggio-direction = #-1
+}
+arpeggioBoth = \sequential {
+  \revert Arpeggio  #'print-function
+  \revert Arpeggio  #'arpeggio-direction
+}
+arpeggioBracket = \sequential {
+  \override Arpeggio  #'print-function = #Arpeggio::brew_chord_bracket
+}
+
 glissando = #(make-music 'GlissandoEvent)
 
 fermataMarkup = \markup { \musicglyph #"scripts-ufermata" } 

@@ -3172,36 +3172,37 @@ in both staves, and set
 @end lilypond
 
 The direction of the arpeggio is sometimes denoted by adding an
-arrowhead to the wiggly line.  This can be typeset by setting
-@code{arpeggio-direction}:
+arrowhead to the wiggly line:
 
 @lilypond[fragment,relative,verbatim]
   \context Voice {
-     \override Arpeggio   #'arpeggio-direction = #1
+     \arpeggioUp
      <c e g c>\arpeggio
-     \override Arpeggio   #'arpeggio-direction = #-1
+     \arpeggioDown
      <c e g c>\arpeggio
   }
 @end lilypond
 
 A square bracket on the left indicates that the player should not
-arpeggiate the chord. To draw these brackets, set the
-@code{print-function} property of @code{Arpeggio} or
-@code{PianoStaff.Arpeggio} objects to @code{\arpeggioBracket}, and use
-@code{\arpeggio} statements within the chords as before:
+arpeggiate the chord:
 
 @lilypond[fragment,relative,verbatim]
-    \override PianoStaff.Arpeggio  
-        #'print-function = \arpeggioBracket
-       <c' e g c>\arpeggio
+     \arpeggioBracket
+    <c' e g c>\arpeggio
 @end lilypond
 
 @refcommands
 
-@cindex @code{\arpeggioBracket}
-@code{\arpeggioBracket}, 
 @cindex @code{\arpeggio}
-@code{\arpeggio}.
+@code{\arpeggio},
+@cindex @code{\arpeggioUp}
+@code{\arpeggioUp},
+@cindex @code{\arpeggioDown}
+@code{\arpeggioUp},
+@cindex @code{\arpeggioBoth}
+@code{\arpeggioBoth},
+@cindex @code{\arpeggioBracket}
+@code{\arpeggioBracket}.
 
 @seealso
 
