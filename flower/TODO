@@ -1,5 +1,7 @@
 	* PointerList<T>:List<T> -> PointerList<T>:List<T*>
 
+	* PCursor -> Pointer_cursor / PointerCursor ?
+
 	* efficient copy cons for List
 
 	* change String::pos
