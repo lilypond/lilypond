@@ -846,7 +846,7 @@ Putting together, we get
     \name ImproVoice
     \type "Engraver_group_engraver"
     \consists "Note_heads_engraver"
-    \consists "Text_script_engraver"
+    \consists "Text_engraver"
     \consists Pitch_squash_engraver
     squashedPosition = #0
     \override NoteHead #'style = #'slash

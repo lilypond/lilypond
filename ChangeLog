@@ -1,3 +1,8 @@
+2004-09-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/changing-defaults.itely (Defining new
+	contexts): Fixed misprinted context name.
+
 2004-09-13  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* input/regression/rehearsal-mark-number.ly: Reuse the existing
