@@ -1,0 +1,177 @@
+% eindelijk.mf
+% LilyPond's own rest(s)
+
+% MO*TeX stuff
+% nhh#:=interline#;
+% nhw#:=6/5*interline#;
+% define_pixels(interline,nhw);
+
+med#:=1/33designsize;
+thick#:=1/16designsize;
+define_blacker_pixels(med,thick);
+pen med_pen;
+med_pen:= pencircle scaled med;
+
+rthin:=1/8interline;
+% rthick:=2rthin;
+rthick:=2thick+rthin;
+
+def shift_pic (expr pone, ptwo) =
+  currentpicture:=currentpicture shifted (round(pone),round(ptwo))
+enddef;
+
+% ugh, dunno how to generate doubles "outside*" rests?
+fet_begingroup("almostrests");
+
+% stem#:=1/8interline#;
+stem#:=1/5interline#;
+flare#:=2/3interline#;
+define_pixels(stem,flare);
+
+fet_beginchar(incr code,interline#,4interline#,0,0,"Quarter rest","4","quartrest");
+	alpha:=-50;
+	penpos1(rthin,alpha+90);
+	penpos2(5/4rthick,alpha);
+	penpos4(5/4rthick,alpha);
+	penpos3(3/4rthick,alpha);
+	penpos6(rthin,alpha-20);
+%	penpos6(rthick,alpha-20);
+%	penpos7(4/3thick,alpha);
+	penpos7(5/8rthick,alpha);
+	penpos8(rthin,-10);
+	y1l=7/2interline; x1l=1/3interline;
+	z2r=z1+(interline*right) rotated alpha;
+	z3=1/2[z2,z4];
+	x4=3/8interline; y4=2interline;
+	z6=z4l+(5/4interline*right) rotated alpha;
+%	x7l=x4l; y7r=y6l;
+	x7l=x4l; y7l=y4r;
+	x8=2/5interline; y8= interline-1/4interline;
+	z5=z6r shifted (sqrt(2)*rthin/4,sqrt(2)*rthin/4);
+
+	pickup penrazor scaled rthin rotated 45;
+	draw z1--z2r; 
+	draw z4l--z5;
+	penstroke z2e..z3e..z4e;
+	penstroke z6e..tension1.4..z7e..tension1.4..z8e;
+	penlabels(1,2,3,4,5,6,7,8);
+	endchar;
+
+def crook(expr a,w) =
+	begingroup;
+	save x,y;
+	penpos1(flare/2,-90);
+	penpos2(flare/2,0);
+	penpos3(flare/2,90);
+	penpos4(flare/2,180);
+	x4r=xpart a-w; y3r=ypart a+flare/4;
+	x1l=x2l=x3l=x4l;
+	y1l=y2l=y3l=y4l;
+	penpos5(stem,250);
+	x5=x4r+9/8flare; y5r=y1r;
+	penpos6(stem,260);
+	x6l=xpart a; y6l=ypart a;
+	penstroke z1e..z2e..z3e..z4e..z1e..z5e{right}..z6e;
+	penlabels(1,2,3,4,5,6);
+	endgroup;
+	enddef;
+
+def brush(expr a,w,b,v) =
+	begingroup;
+	save x,y;
+	z1=a; z2=b;
+	penpos3(w,angle(z2-z1)+90);
+	penpos4(w,angle(z2-z1));
+	penpos5(v,angle(z1-z2)+90);
+	penpos6(v,angle(z1-z2));
+	x3=x4=x1; y3=y4=y1;
+	x5=x6=x2; y5=y6=y2;
+	fill z3r{z1-z2}..z4l..{z2-z1}z3l..z5r{z2-z1}..z6l..{z1-z2}z5l..cycle;
+	penlabels(1,2,3,4,5,6);
+	endgroup;
+	enddef;
+
+fet_beginchar(incr code,4/3interline#,5/3interline#+2stafflinethickness#,0,0,"8th rest","-2","eighthrest");
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	crook (z1,w-stem/6);
+	z2-z1=whatever*dir70;
+	y2=stem/2;
+	brush (z1,stem/3,z2,stem);
+	% ugh
+	currentpicture:=currentpicture shifted (0,interline);
+%	currentpicture:=currentpicture shifted (0,interline+2stafflinethickness);
+	endchar;
+
+fet_beginchar(incr code,4/3interline#,5/3interline#+interline#+2stafflinethickness#,0,0,"16th rest","-2","sixteenthrest");
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	z2-z1=whatever*dir74;
+	y2=stem/2;
+	brush (z1,stem/2,z2,stem);
+	crook (z1,7/8w);
+	z3-z1=whatever*dir74;
+	y3=y1-interline;
+	crook (z3,7/8w);
+%	currentpicture:=currentpicture shifted (0,2stafflinethickness);
+	endchar;
+
+fet_beginchar(incr code,4/3interline#,5/3interline#+2interline#+2stafflinethickness#,0,0,"32th rest","-2","thirtysecondrest");
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	z2-z1=whatever*dir76;
+	y2=stem/2;
+	brush (z1,stem/2,z2,stem);
+	crook (z1,7/8w);
+	z3-z1=whatever*dir76;
+	y3=y1-interline;
+	crook (z3,7/8w);
+	z4-z1=whatever*dir76;
+	y4=y1-2interline;
+	crook (z4,7/8w);
+%	currentpicture:=currentpicture shifted (0,2stafflinethickness);
+	endchar;
+
+fet_beginchar(incr code,4/3interline#,5/3interline#+3interline#+2stafflinethickness#,0,0,"64th rest","-2","sixtyfourthrest");
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	z2-z1=whatever*dir78;
+	y2=stem/2;
+	brush (z1,stem/2,z2,stem);
+	crook (z1,7/8w);
+	z3-z1=whatever*dir78;
+	y3=y1-interline;
+	crook (z3,7/8w);
+	z4-z1=whatever*dir78;
+	y4=y1-2interline;
+	crook (z4,7/8w);
+	z5-z1=whatever*dir78;
+	y5=y1-3interline;
+	crook (z5,7/8w);
+%	currentpicture:=currentpicture shifted (0,2stafflinethickness);
+	endchar;
+
+fet_beginchar(incr code,4/3interline#,5/3interline#+4interline#+2stafflinethickness#,0,0,"128th rest","-2","hundredtwentyeighthrest");
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	z2-z1=whatever*dir80;
+	y2=stem/2;
+	brush (z1,stem/2,z2,stem);
+	crook (z1,7/8w);
+	z3-z1=whatever*dir80;
+	y3=y1-interline;
+	crook (z3,7/8w);
+	z4-z1=whatever*dir80;
+	y4=y1-2interline;
+	crook (z4,7/8w);
+	z5-z1=whatever*dir80;
+	y5=y1-3interline;
+	crook (z5,7/8w);
+	z6-z1=whatever*dir80;
+	y6=y1-4interline;
+	crook (z6,7/8w);
+%	currentpicture:=currentpicture shifted (0,2stafflinethickness);
+	endchar;
+
+fet_endgroup("rests");
+
