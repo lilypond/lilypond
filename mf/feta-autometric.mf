@@ -23,7 +23,7 @@ message "";
 def fet_beginfont (expr name, size, encod) =
 	font_identifier := name & decimal size;
 	font_size size;
-	font_coding_scheme encod;
+	font_coding_scheme "asis";
 	message "@{font@:GNU@:LilyPond@:" & name
 		& "@:" & decimal size
 		& "@:" & encod
@@ -39,18 +39,23 @@ enddef;
 
 % group or table?
 def fet_begingroup (expr name) =
-	message "@{group@:" & name
+begingroup;
+	save feta_group;
+	string feta_group;
+
+	feta_group := name;
+
+	message "@{group@:" & feta_group
 		& "@}";
 	message "";
-begingroup
 enddef;
 
 
 def fet_endgroup (expr name) =
-endgroup;
 	message "@{puorg@:" & name
 		& "@}";
 	message "";
+endgroup;
 enddef;
 
 
@@ -163,7 +168,7 @@ enddef;
 
 
 def no_dimen_beginchar (expr c) =
-begingroup
+begingroup;
 	charcode := if known c: byte c else: 0; fi;
 	charic := 0;
 	clearxy;
@@ -196,6 +201,11 @@ def fet_beginchar (expr name, id_lit) =
 	charnamestr := name;
 	idstr := id_lit;
 
+	% addition for mf2pt1
+	if known bp_per_pixel:
+		special "% MF2PT1: glyph_name " & feta_group & "." & idstr;
+	fi;
+
 	no_dimen_beginchar (incr code) name;
 enddef;
 
@@ -223,7 +233,7 @@ def breapth_endchar =
 
 	chardx := (w + b);	% what the heck is chardx
 	shipit;
-endgroup
+endgroup;
 enddef;
 
 
