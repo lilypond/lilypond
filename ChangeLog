@@ -7,6 +7,7 @@
 	once; removes empty line in @contents.
 
 	* Documentation/user/music-glossary.tely: really add Finnish author.
+	Draw more beatiful `->´ arrow in html: &rarr;
 
 2004-02-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
