@@ -2,6 +2,9 @@
 
 	* scripts/lilypond-book.py: s/option-sep/option_sep/.
 	(format_res) [LATEX, TEXINFO]: Skip whitespace before comma also.
+	(snippet_res): Fix regexps and make them ignore whitespace properly.
+	(compose_ly): Use `re.split' instead of `string.split' to remove
+	surrounding whitespace.
 	Some formatting to get more consistency.
 
 2004-10-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>

@@ -157,7 +157,7 @@ snippet_res = {
 		  r'''(?mx)
 		    (?P<match>
 		    <lilypond
-		      ((?P<options>[^:]*):)
+		      (\s*(?P<options>.*?)\s*:)?\s*
 		      (?P<code>.*?)
 		    />)''',
 
@@ -165,7 +165,7 @@ snippet_res = {
 		  r'''(?msx)
 		    (?P<match>
 		    <lilypond
-		      (?P<options>[^>]+)?
+		      \s*(?P<options>.*?)\s*
 		    >
 		    (?P<code>.*?)
 		    </lilypond>)''',
@@ -174,9 +174,9 @@ snippet_res = {
 		  r'''(?mx)
 		    (?P<match>
 		    <lilypondfile
-		      (?P<options>[^>]+)?
-		    >\s*
-		      (?P<filename>[^<]+)\s*
+		      \s*(?P<options>.*?)\s*
+		    >
+		    \s*(?P<filename>.*?)\s*
 		    </lilypondfile>)''',
 
 		'multiline_comment':
@@ -211,24 +211,24 @@ snippet_res = {
 		      (?P<filename>\S+?)
 		    })''',
 
-	'lilypond':
+		'lilypond':
 		  r'''(?smx)
 		    ^[^%\n]*?
 		    (?P<match>
 		    \\lilypond\s*(
 		    \[
-		      (?P<options>.*?)
+		      \s*(?P<options>.*?)\s*
 		    \])?\s*{
 		      (?P<code>.*?)
 		    })''',
 
-	'lilypond_block':
+		'lilypond_block':
 		  r'''(?smx)
 		    ^[^%\n]*?
 		    (?P<match>
 		    \\begin\s*(
 		    \[
-		      (?P<options>.*?)
+		      \s*(?P<options>.*?)\s*
 		    \])?\s*{lilypond}
 		      (?P<code>.*?)
 		    ^[^%\n]*?
@@ -240,7 +240,7 @@ snippet_res = {
 		    (?P<match>
 		    \\lilypondfile\s*(
 		    \[
-		      (?P<options>.*?)
+		      \s*(?P<options>.*?)\s*
 		    \])?\s*\{
 		      (?P<filename>\S+?)
 		    })''',
@@ -288,7 +288,7 @@ snippet_res = {
 		    (?P<match>
 		    @lilypond\s*(
 		    \[
-		      (?P<options>.*?)
+		      \s*(?P<options>.*?)\s*
 		    \])?\s*{
 		      (?P<code>.*?)
 		    })''',
@@ -298,7 +298,7 @@ snippet_res = {
 		    ^(?P<match>
 		    @lilypond\s*(
 		    \[
-		      (?P<options>.*?)
+		      \s*(?P<options>.*?)\s*
 		    \])?\s+?
 		    ^(?P<code>.*?)
 		    ^@end\s+lilypond)\s''',
@@ -308,7 +308,7 @@ snippet_res = {
 		    ^(?P<match>
 		    @lilypondfile\s*(
 		    \[
-		      (?P<options>.*?)
+		      \s*(?P<options>.*?)\s*
 		    \])?\s*{
 		      (?P<filename>\S+)
 		    })''',
@@ -592,7 +592,7 @@ def compose_ly (code, options):
 			i = c
 
 		if string.find (i, '=') > 0:
-			key, value = string.split (i, '=')
+			key, value = re.split ('\s*=\s*', i)
 			override[key] = value
 		else:
 			key = i
