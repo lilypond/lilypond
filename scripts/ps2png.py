@@ -66,7 +66,8 @@ for opt in options:
 		verbose_p = 1
 
 for f in files:
-	out = ly.make_ps_images (f, resolution = preview_resolution)
+	outfiles = ly.make_ps_images (f, resolution = preview_resolution)
 	## FIXME: silly message containing %d
-	sys.stderr.write (_ ("Wrote `%s'" % out))
+	
+	sys.stderr.write (_ ("Wrote `%s'" % string.join (outfiles, ', ')))
 	sys.stderr.write ('\n')
