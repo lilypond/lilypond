@@ -6,8 +6,8 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#ifndef LEXER_HH
-#define LEXER_HH
+#ifndef MY_LILY_LEXER_HH
+#define MY_LILY_LEXER_HH
 
 #include "includable-lexer.hh"
 
@@ -26,29 +26,39 @@ void set_lexer ();
 
 class My_lily_lexer : public Includable_lexer 
 {
+public:
   Protected_scm scopes_;
   Protected_scm encoding_;
+  
+private:
+  int lookup_keyword (String);
+  int scan_bare_word (String);
+  SCM scan_markup_word (String);
+  int scan_escaped_word (String);
+  int identifier_type (SCM);
+  char escaped_char (char) const;
+
 public:
   String main_input_name_;
   void *lexval;
   bool main_input_b_;
   
-  Sources * sources_; 
+  Sources *sources_; 
 
-  /*
-   Scheme hash tables with (oct name acc)  values, and symbol keys
-   */
+  /* Scheme hash tables with (oct name acc)  values, and symbol keys.  */
   Protected_scm chordmodifier_tab_;
   Protected_scm pitchname_tab_stack_;
 
-  Keyword_table * keytable_;
+  Keyword_table *keytable_;
   int error_level_;
+  Input last_input_;
 
   My_lily_lexer (Sources*);
+  My_lily_lexer (My_lily_lexer const&);
   ~My_lily_lexer ();
+
   int yylex ();
 
-  Input last_input_;
   void prepare_for_next_token ();
   int try_special_identifiers (SCM* ,SCM);
   Input here_input () const;
@@ -74,13 +84,6 @@ public:
   bool is_chord_state () const;
   bool is_lyric_state () const;
   bool is_figure_state () const;
-private:
-  int lookup_keyword (String);
-  int scan_bare_word (String);
-  SCM scan_markup_word (String);
-  int scan_escaped_word (String);
-  int identifier_type (SCM);
-  char escaped_char (char) const;
 };
 
-#endif
+#endif /* MY_LILY_LEXER_HH */
