@@ -398,7 +398,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	{
 	  SCM head = scm_last_pair (info.grob_->get_property ("note-heads"));
 	  if (scm_is_pair (head))
-	    script_->set_parent (unsmob_grob (scm_car (head)),  X_AXIS);
+	    script_->set_parent (unsmob_grob (ly_car (head)),  X_AXIS);
 	}
 
 

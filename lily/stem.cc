@@ -135,7 +135,7 @@ Stem::support_head (Grob *me)
 {
   if (head_count (me) == 1)
     /* UGH. */
-    return unsmob_grob (scm_car (me->get_property ("note-heads")));
+    return unsmob_grob (ly_car (me->get_property ("note-heads")));
   return first_head (me);
 }
 
@@ -183,9 +183,9 @@ Stem::extremal_heads (Grob *me)
   exthead[LEFT] = exthead[RIGHT] =0;
 
   for (SCM s = me->get_property ("note-heads"); scm_is_pair (s);
-       s = scm_cdr (s))
+       s = ly_cdr (s))
     {
-      Grob *n = unsmob_grob (scm_car (s));
+      Grob *n = unsmob_grob (ly_car (s));
       int p = Staff_symbol_referencer::get_rounded_position (n);
 
       Direction d = LEFT;
@@ -213,9 +213,9 @@ Stem::note_head_positions (Grob *me)
 {
   Array<int> ps ;
   for (SCM s = me->get_property ("note-heads"); scm_is_pair (s);
-       s = scm_cdr (s))
+       s = ly_cdr (s))
     {
-      Grob *n = unsmob_grob (scm_car (s));
+      Grob *n = unsmob_grob (ly_car (s));
       int p = Staff_symbol_referencer::get_rounded_position (n);
 
       ps.push (p);
@@ -742,8 +742,8 @@ Stem::get_stem_info (Grob *me)
 
   Stem_info si;
   si.dir_ = get_grob_direction (me);
-  si.ideal_y_ = scm_to_double (scm_car (scm_info));
-  si.shortest_y_ = scm_to_double (scm_cadr (scm_info));
+  si.ideal_y_ = scm_to_double (ly_car (scm_info));
+  si.shortest_y_ = scm_to_double (ly_cadr (scm_info));
   return si;
 }
 
@@ -865,8 +865,8 @@ Slice
 Stem::beam_multiplicity (Grob *stem)
 {
   SCM beaming= stem->get_property ("beaming");
-  Slice le = int_list_to_slice (scm_car (beaming));
-  Slice ri = int_list_to_slice (scm_cdr (beaming));
+  Slice le = int_list_to_slice (ly_car (beaming));
+  Slice ri = int_list_to_slice (ly_cdr (beaming));
   le.unite (ri);
   return le;
 }

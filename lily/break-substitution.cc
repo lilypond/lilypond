@@ -107,8 +107,8 @@ do_break_substitution (SCM src)
       /*
 	UGH! breaks on circular lists.
       */
-      SCM newcar = do_break_substitution (scm_car (src));
-      SCM oldcdr = scm_cdr (src);
+      SCM newcar = do_break_substitution (ly_car (src));
+      SCM oldcdr = ly_cdr (src);
       
       if (newcar == SCM_UNDEFINED
 	  && (scm_is_pair (oldcdr) || oldcdr == SCM_EOL))
@@ -142,9 +142,9 @@ substitute_grob_list (SCM grob_list)
   SCM l = SCM_EOL;
   SCM * tail = &l;
 
-  for (SCM s = grob_list; scm_is_pair (s); s =  scm_cdr (s))
+  for (SCM s = grob_list; scm_is_pair (s); s =  ly_cdr (s))
     {
-      SCM n= substitute_grob (unsmob_grob (scm_car (s)));
+      SCM n= substitute_grob (unsmob_grob (ly_car (s)));
 
       if (n != SCM_UNDEFINED)
 	{
@@ -350,9 +350,9 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
   
   int sp_index = len;
   int it_index = 0;
-  for (SCM s = grob_list; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = grob_list; scm_is_pair (s); s = ly_cdr (s))
     {
-      Grob * g = unsmob_grob (scm_car (s));
+      Grob * g = unsmob_grob (ly_car (s));
 
       Slice sr = grob_system_range (g);
       sr.intersect (system_range);
@@ -467,10 +467,10 @@ substitute_mutable_property_alist (SCM alist)
 
   SCM l = SCM_EOL;
   SCM *tail = &l;
-  for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = alist; scm_is_pair (s); s = ly_cdr (s))
     {
-      SCM sym = scm_caar (s);
-      SCM val = scm_cdar (s);
+      SCM sym = ly_caar (s);
+      SCM val = ly_cdar (s);
       SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
 
       if (type == grob_list_p)

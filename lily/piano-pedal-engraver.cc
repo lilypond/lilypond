@@ -253,7 +253,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 	    }
 	  else
 	    {
-	      s = scm_cadr (strings);
+	      s = ly_cadr (strings);
 	    }
 	  p->start_ev_ = p->event_drul_[START];
 	}
@@ -268,7 +268,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 	    }
 	  else
 	    {
-	      s = scm_caddr (strings);
+	      s = ly_caddr (strings);
 	    }
 	  p->start_ev_ = 0;
 	}
@@ -276,7 +276,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
   else if (p->event_drul_[START])
     {
       p->start_ev_ = p->event_drul_[START];
-      s = scm_car (strings);
+      s = ly_car (strings);
       if (!mixed)
 	{
 	  /*
@@ -337,7 +337,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       if (!p->event_drul_[START])
 	{
 	  SCM flare = p->bracket_->get_property ("bracket-flare");
-	  p->bracket_->set_property ("bracket-flare", scm_cons (scm_car (flare),
+	  p->bracket_->set_property ("bracket-flare", scm_cons (ly_car (flare),
 								scm_make_real (0)));
 	}
 
@@ -361,7 +361,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       if (!p->finished_bracket_)
 	{
 	  SCM flare = p->bracket_->get_property ("bracket-flare");
-	  p->bracket_->set_property ("bracket-flare", scm_cons (scm_make_real (0),scm_cdr (flare)));
+	  p->bracket_->set_property ("bracket-flare", scm_cons (scm_make_real (0),ly_cdr (flare)));
 	}
 
 

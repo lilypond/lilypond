@@ -186,12 +186,12 @@ LY_DEFINE (ly_stencil_add , "ly:stencil-add",
 
   while (!SCM_NULLP (args))
     {
-      Stencil *s = unsmob_stencil (scm_car (args));
+      Stencil *s = unsmob_stencil (ly_car (args));
       if (!s)
-	SCM_ASSERT_TYPE (s, scm_car (args), SCM_ARGn, __FUNCTION__, "Stencil");
+	SCM_ASSERT_TYPE (s, ly_car (args), SCM_ARGn, __FUNCTION__, "Stencil");
 
       result.add_stencil (*s);
-      args = scm_cdr (args);
+      args = ly_cdr (args);
     }
 
   return result.smobbed_copy ();

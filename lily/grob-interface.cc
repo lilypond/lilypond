@@ -65,18 +65,18 @@ check_interfaces_for_property (Grob const *me, SCM sym)
   SCM ifs = me->get_property ("interfaces");
 
   bool found = false;
-  for (; !found && scm_is_pair (ifs); ifs =scm_cdr (ifs))
+  for (; !found && scm_is_pair (ifs); ifs =ly_cdr (ifs))
     {
-      SCM iface = scm_hashq_ref (all_ifaces , scm_car (ifs), SCM_BOOL_F);
+      SCM iface = scm_hashq_ref (all_ifaces , ly_car (ifs), SCM_BOOL_F);
       if (iface == SCM_BOOL_F)
 	{
 	  String msg = to_string (_f ("Unknown interface `%s'",
-				      ly_symbol2string (scm_car (ifs)).to_str0 ()));
+				      ly_symbol2string (ly_car (ifs)).to_str0 ()));
 	  programming_error (msg);
 	  continue;
 	}
 
-      found= found || (scm_c_memq (sym, scm_caddr (iface)) != SCM_BOOL_F);
+      found= found || (scm_c_memq (sym, ly_caddr (iface)) != SCM_BOOL_F);
     }
 
   if (!found)

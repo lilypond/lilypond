@@ -1,8 +1,7 @@
 \header {
 
     texidoc = "SOLO is printed even if the solo voice ends before the
-    other one."
-
+    other one. Unfortunately, the multi-rest does not get printed."
 }
 
 \version "2.3.17"

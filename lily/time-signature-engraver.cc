@@ -46,7 +46,7 @@ Time_signature_engraver::process_music ()
       && last_time_fraction_ != fr
       && scm_is_pair (fr))
     {
-      int den = scm_to_int (scm_cdr (fr));
+      int den = scm_to_int (ly_cdr (fr));
       if (den != (1 << intlog2 (den)))
 	{
 	  /*
@@ -56,7 +56,7 @@ Time_signature_engraver::process_music ()
 	   */
 	  warning (_f ("Found strange time signature %d/%d.",
 		      den,
-		      scm_to_int (scm_car (fr))
+		      scm_to_int (ly_car (fr))
 		      ));
 	}
   

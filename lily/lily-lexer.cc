@@ -123,10 +123,10 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src)
   
   SCM scopes = SCM_EOL;
   SCM *tail = &scopes;
-  for (SCM s = src.scopes_; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = src.scopes_; scm_is_pair (s); s = ly_cdr (s))
     {
       SCM newmod = ly_make_anonymous_module (false);
-      ly_import_module (newmod, scm_car (s));
+      ly_import_module (newmod, ly_car (s));
       *tail = scm_cons (newmod, SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
@@ -152,9 +152,9 @@ Lily_lexer::add_scope (SCM module)
 {
   ly_reexport_module (scm_current_module ());
   scm_set_current_module (module);
-  for (SCM s = scopes_; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = scopes_; scm_is_pair (s); s = ly_cdr (s))
     {
-      ly_use_module (module, scm_car (s));
+      ly_use_module (module, ly_car (s));
     }
   scopes_ = scm_cons (module, scopes_);
 }
@@ -162,9 +162,9 @@ Lily_lexer::add_scope (SCM module)
 SCM
 Lily_lexer::remove_scope ()
 {
-  SCM sc = scm_car (scopes_);
-  scopes_ = scm_cdr (scopes_);
-  scm_set_current_module (scm_car (scopes_));
+  SCM sc = ly_car (scopes_);
+  scopes_ = ly_cdr (scopes_);
+  scm_set_current_module (ly_car (scopes_));
 
   return sc;
 }
@@ -179,9 +179,9 @@ Lily_lexer::lookup_keyword (String s)
 SCM
 Lily_lexer::lookup_identifier_symbol (SCM sym)
 {
-  for (SCM s = scopes_; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = scopes_; scm_is_pair (s); s = ly_cdr (s))
     {
-      SCM var = ly_module_lookup (scm_car (s), sym);
+      SCM var = ly_module_lookup (ly_car (s), sym);
       if (var != SCM_BOOL_F)
 	return scm_variable_ref (var);
     }
@@ -204,7 +204,7 @@ Lily_lexer::start_main_input ()
   /* Do not allow \include in --safe-mode */
   allow_includes_b_ = allow_includes_b_ && !safe_global_b;
 
-  scm_module_define (scm_car (scopes_),
+  scm_module_define (ly_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
 		     scm_makfrom0str (main_input_name_.to_str0 ()));
 }
@@ -224,7 +224,7 @@ Lily_lexer::set_identifier (SCM name, SCM s)
 	  warning (_f ("Identifier name is a keyword: `%s'", symstr.to_str0()));
 	}
 
-      SCM mod = scm_car (scopes_);
+      SCM mod = ly_car (scopes_);
 
       scm_module_define (mod, sym, s);
     }
@@ -295,7 +295,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Lily_lexer);
 SCM
 Lily_lexer::mark_smob (SCM s)
 {
-  Lily_lexer *lexer = (Lily_lexer*) scm_cdr (s);
+  Lily_lexer *lexer = (Lily_lexer*) ly_cdr (s);
 
   scm_gc_mark (lexer->chordmodifier_tab_);
   scm_gc_mark (lexer->pitchname_tab_stack_);

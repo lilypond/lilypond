@@ -90,9 +90,9 @@ static void
 set_property_on_children (Context *trans, char const *sym, SCM val)
 {
   trans->set_property (sym, ly_deep_copy (val));
-  for (SCM p = trans->children_contexts (); scm_is_pair (p); p = scm_cdr (p))
+  for (SCM p = trans->children_contexts (); scm_is_pair (p); p = ly_cdr (p))
     {
-      Context *trg = unsmob_context (scm_car (p));
+      Context *trg = unsmob_context (ly_car (p));
       set_property_on_children (trg, sym, ly_deep_copy (val));
     }
 }
@@ -148,7 +148,7 @@ recent_enough (int bar_number, SCM alteration_def, SCM laziness)
       || laziness== SCM_BOOL_T)
     return true;
   
-  return (bar_number <= scm_to_int (scm_cdr (alteration_def)) + scm_to_int (laziness));
+  return (bar_number <= scm_to_int (ly_cdr (alteration_def)) + scm_to_int (laziness));
 }
 
 static int
@@ -157,7 +157,7 @@ extract_alteration (SCM alteration_def)
   if (scm_is_number (alteration_def))
     return scm_to_int (alteration_def);
   else if (scm_is_pair (alteration_def))
-    return scm_to_int (scm_car (alteration_def));
+    return scm_to_int (ly_car (alteration_def));
   else if (alteration_def == SCM_BOOL_F)
     return 0;
   else
@@ -169,7 +169,7 @@ bool
 is_tied (SCM alteration_def)
 {
   return (alteration_def == SCM_BOOL_T)
-    || (scm_is_pair (alteration_def) && scm_car (alteration_def) == SCM_BOOL_T);
+    || (scm_is_pair (alteration_def) && ly_car (alteration_def) == SCM_BOOL_T);
 }
 
 static int
@@ -186,12 +186,12 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
 						     scm_int2num (n)), sig, SCM_BOOL_F);
   SCM from_key_signature = ly_assoc_get (scm_int2num (n), sig, SCM_BOOL_F);
   SCM from_other_octaves = SCM_BOOL_F;
-  for (SCM s = sig ; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = sig ; scm_is_pair (s); s = ly_cdr (s))
     {
-      SCM entry = scm_car (s);
-      if (scm_is_pair (scm_car (entry))
-	  && scm_cdar (entry) == scm_int2num (n))
-	from_other_octaves = scm_cdr (entry); 
+      SCM entry = ly_car (s);
+      if (scm_is_pair (ly_car (entry))
+	  && ly_cdar (entry) == scm_int2num (n))
+	from_other_octaves = ly_cdr (entry); 
     }
   
 
@@ -239,19 +239,19 @@ number_accidentals (bool *different,
   int number = 0;
 
   *different = false;
-  if (scm_is_pair (accidentals) && !scm_is_symbol (scm_car (accidentals)))
+  if (scm_is_pair (accidentals) && !scm_is_symbol (ly_car (accidentals)))
     warning (_f ("Accidental typesetting list must begin with context-name: %s", 
-		 ly_scm2string (scm_car (accidentals)).to_str0 ()));
+		 ly_scm2string (ly_car (accidentals)).to_str0 ()));
   
   for (; scm_is_pair (accidentals) && origin;
-       accidentals = scm_cdr (accidentals))
+       accidentals = ly_cdr (accidentals))
     {
       // If pair then it is a new accidentals typesetting rule to be checked
-      SCM rule = scm_car (accidentals);
+      SCM rule = ly_car (accidentals);
       if (scm_is_pair (rule))
 	{
-	  SCM type = scm_car (rule);
-	  SCM laziness = scm_cdr (rule);
+	  SCM type = ly_car (rule);
+	  SCM laziness = ly_cdr (rule);
 	  SCM localsig = origin->get_property ("localKeySignature");
 	  
 	  bool same_octave_b = 

@@ -50,8 +50,8 @@ Key_performer::create_audio_elements ()
       SCM acc = scm_call_1 (proc, pitchlist);
       
       Pitch key_do (0, 
-		    scm_to_int (scm_caar (pitchlist)),
-		    scm_to_int (scm_cdar (pitchlist)));
+		    scm_to_int (ly_caar (pitchlist)),
+		    scm_to_int (ly_cdar (pitchlist)));
 
       Pitch c_do (0, 0, 0);
 		  

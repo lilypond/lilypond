@@ -44,9 +44,9 @@ Script_column::before_line_breaking (SCM smob)
   Drul_array<SCM> scripts (SCM_EOL, SCM_EOL);
   Link_array<Grob> staff_sided;
   
-  for (SCM s = me->get_property ("scripts"); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = me->get_property ("scripts"); scm_is_pair (s); s = ly_cdr (s))
     {
-      Grob *sc = unsmob_grob (scm_car (s));
+      Grob *sc = unsmob_grob (ly_car (s));
 
       /*
 	Don't want to consider scripts horizontally next to notes.
@@ -77,9 +77,9 @@ Script_column::before_line_breaking (SCM smob)
       ss = scm_stable_sort_x (ss, ly_grob_script_priority_less_proc);
       
       Grob * last = 0;
-      for (SCM s = ss; scm_is_pair (s); s = scm_cdr (s))
+      for (SCM s = ss; scm_is_pair (s); s = ly_cdr (s))
 	{
-	  Grob *g = unsmob_grob (scm_car (s));
+	  Grob *g = unsmob_grob (ly_car (s));
 	  if (last)
 	    Side_position_interface::add_support (g,last);
 	  

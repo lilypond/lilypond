@@ -186,7 +186,7 @@ LY_DEFINE (ly_font_filename,"ly:font-filename",
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
-  return scm_car (fm->description_);
+  return ly_car (fm->description_);
 }
 
 
@@ -222,7 +222,7 @@ LY_DEFINE (ly_font_magnification,"ly:font-magnification", 1 , 0, 0,
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
-  return scm_cdr (fm->description_);
+  return ly_cdr (fm->description_);
 }
 
 LY_DEFINE (ly_font_design_size,"ly:font-design-size", 1 , 0, 0,

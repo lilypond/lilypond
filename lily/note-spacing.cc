@@ -42,9 +42,9 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
   Interval left_head_wid; 
   do
     {
-      for (SCM  s = props[d]; scm_is_pair (s); s = scm_cdr (s))
+      for (SCM  s = props[d]; scm_is_pair (s); s = ly_cdr (s))
 	{
-	  Item * it= dynamic_cast<Item*> (unsmob_grob (scm_car (s)));
+	  Item * it= dynamic_cast<Item*> (unsmob_grob (ly_car (s)));
 	  
 	  if (d == RIGHT && it->break_status_dir () != col_dir)
 	    {
@@ -188,9 +188,9 @@ Note_spacing::right_column (Grob*me)
   Item *mincol = 0;
   int min_rank = INT_MAX;
   bool prune = false;
-  for (SCM s = right ; scm_is_pair (s) ; s = scm_cdr (s))
+  for (SCM s = right ; scm_is_pair (s) ; s = ly_cdr (s))
     {
-      Item * ri = unsmob_item (scm_car (s));
+      Item * ri = unsmob_item (ly_car (s));
 
       Item * col = ri->get_column ();
       int rank = Paper_column::get_rank (col);
@@ -209,10 +209,10 @@ Note_spacing::right_column (Grob*me)
     {
       // I'm a lazy bum. We could do this in-place.
       SCM newright  = SCM_EOL;
-      for (SCM s = right ; scm_is_pair (s) ; s =scm_cdr (s))
+      for (SCM s = right ; scm_is_pair (s) ; s =ly_cdr (s))
 	{
-	  if (unsmob_item (scm_car (s))->get_column () == mincol)
-	    newright = scm_cons (scm_car (s), newright);
+	  if (unsmob_item (ly_car (s))->get_column () == mincol)
+	    newright = scm_cons (ly_car (s), newright);
 	}
 
       me->set_property ("right-items", newright);
@@ -264,9 +264,9 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
   
   do
     {
-      for (SCM  s = props[d]; scm_is_pair (s); s = scm_cdr (s))
+      for (SCM  s = props[d]; scm_is_pair (s); s = ly_cdr (s))
 	{
-	  Item * it= dynamic_cast<Item*> (unsmob_grob (scm_car (s)));
+	  Item * it= dynamic_cast<Item*> (unsmob_grob (ly_car (s)));
 
 	  if (d == RIGHT)
 	    acc_right = acc_right || Note_column::accidentals (it);

@@ -263,22 +263,22 @@ LY_DEFINE(ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
 
   bool is_ragged   = ragged == SCM_BOOL_T; 
   Simple_spacer spacer; 
-  for (SCM s = springs; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = springs; scm_is_pair (s); s = ly_cdr (s))
     {
-      Real ideal = scm_to_double (scm_caar (s));
-      Real hooke = scm_to_double (scm_cadar (s));
+      Real ideal = scm_to_double (ly_caar (s));
+      Real hooke = scm_to_double (ly_cadar (s));
 
       spacer.add_spring (ideal, hooke);
     }
 
-  for (SCM s = rods; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = rods; scm_is_pair (s); s = ly_cdr (s))
     {
-      SCM entry = scm_car (s);
-      int l = scm_to_int (scm_car (entry));
-      int r = scm_to_int (scm_cadr (entry));
-      entry = scm_cddr (entry);
+      SCM entry = ly_car (s);
+      int l = scm_to_int (ly_car (entry));
+      int r = scm_to_int (ly_cadr (entry));
+      entry = ly_cddr (entry);
       
-      Real distance = scm_to_double (scm_car (entry));
+      Real distance = scm_to_double (ly_car (entry));
       spacer.add_rod (l, r, distance);
     }
 
@@ -471,9 +471,9 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 
       for (SCM s = cols[i]->get_property ("ideal-distances");
 	   !spring && scm_is_pair (s);
-	   s = scm_cdr (s))
+	   s = ly_cdr (s))
 	{
-	  Spring_smob *sp = unsmob_spring (scm_car (s));
+	  Spring_smob *sp = unsmob_spring (ly_car (s));
 	  
 	  
 	  if (sp->other_ == cols[i+1])
@@ -494,13 +494,13 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
   for (int i=0; i < cols.size () - 1; i++)
     {
       for (SCM s = Spaceable_grob::get_minimum_distances (cols[i]);
-	   scm_is_pair (s); s = scm_cdr (s))
+	   scm_is_pair (s); s = ly_cdr (s))
 	{
-	  Grob * other = unsmob_grob (scm_caar (s));
+	  Grob * other = unsmob_grob (ly_caar (s));
 	  int oi = cols.find_index (other);
 	  if (oi >= 0)
 	    {
-	      spacer_->add_rod (i, oi, scm_to_double (scm_cdar (s)));
+	      spacer_->add_rod (i, oi, scm_to_double (ly_cdar (s)));
 	    }
 	}
     }

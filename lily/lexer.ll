@@ -193,7 +193,7 @@ HYPHEN		--
 	progress_indication ("\n");
 	progress_indication (_f ("input renamed to: `%s'", s.to_str0 ()));
 	progress_indication ("\n");
-	scm_module_define (scm_car (scopes_),
+	scm_module_define (ly_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
 		     scm_makfrom0str (s.to_str0()));
 
@@ -499,9 +499,9 @@ HYPHEN		--
 		String str (YYText () + 1);
 		SCM s = lookup_markup_command (str);
 
-		if (scm_is_pair (s) && scm_is_symbol (scm_cdr (s)) ) {
-			yylval.scm = scm_car(s);
-			SCM tag = scm_cdr(s);
+		if (scm_is_pair (s) && scm_is_symbol (ly_cdr (s)) ) {
+			yylval.scm = ly_car(s);
+			SCM tag = ly_cdr(s);
 			if (tag == ly_symbol2scm("markup0"))
 				return MARKUP_HEAD_MARKUP0;
 			if (tag == ly_symbol2scm("empty"))
@@ -676,7 +676,7 @@ void
 Lily_lexer::pop_state ()
 {
 	if (YYSTATE == notes || YYSTATE == chords)
-		pitchname_tab_stack_ = scm_cdr (pitchname_tab_stack_);
+		pitchname_tab_stack_ = ly_cdr (pitchname_tab_stack_);
 	yy_pop_state ();
 }
 
@@ -728,10 +728,10 @@ Lily_lexer::scan_bare_word (String str)
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
 		SCM handle = SCM_BOOL_F;
 		if (scm_is_pair (pitchname_tab_stack_))
-			handle = scm_hashq_get_handle (scm_car (pitchname_tab_stack_), sym);
+			handle = scm_hashq_get_handle (ly_car (pitchname_tab_stack_), sym);
 		
 		if (scm_is_pair (handle)) {
-			yylval.scm = scm_cdr (handle);
+			yylval.scm = ly_cdr (handle);
 			if (unsmob_pitch (yylval.scm)) 
 	                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
 			else if (scm_is_symbol (yylval.scm))
@@ -739,7 +739,7 @@ Lily_lexer::scan_bare_word (String str)
 		}
 		else if ((handle = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)
 		{
-		    yylval.scm = scm_cdr (handle);
+		    yylval.scm = ly_cdr (handle);
 		    return CHORD_MODIFIER;
 		}
 	}

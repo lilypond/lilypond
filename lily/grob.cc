@@ -60,7 +60,7 @@ Grob::Grob (SCM basicprops)
       /* Switch off interface checks for the moment.  */
       bool itc = internal_type_checking_global_b;
       internal_type_checking_global_b = false;
-      internal_set_property (ly_symbol2scm ("interfaces"), scm_cdr (ifs));
+      internal_set_property (ly_symbol2scm ("interfaces"), ly_cdr (ifs));
       internal_type_checking_global_b = itc;
     }
 
@@ -177,8 +177,8 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
   status_ = busy;
 
   for (SCM d = get_property ("dependencies"); scm_is_pair (d);
-       d = scm_cdr (d))
-    unsmob_grob (scm_car (d))->calculate_dependencies (final, busy, funcname);
+       d = ly_cdr (d))
+    unsmob_grob (ly_car (d))->calculate_dependencies (final, busy, funcname);
 
   SCM proc = internal_get_property (funcname);
   if (ly_c_procedure_p (proc))
@@ -268,8 +268,8 @@ Grob::handle_broken_dependencies ()
     /* THIS, SP is the original spanner.  We use a special function
        because some Spanners have enormously long lists in their
        properties, and a special function fixes FOO  */
-    for (SCM s = mutable_property_alist_; scm_is_pair (s); s = scm_cdr (s))
-      sp->substitute_one_mutable_property (scm_caar (s), scm_cdar (s));
+    for (SCM s = mutable_property_alist_; scm_is_pair (s); s = ly_cdr (s))
+      sp->substitute_one_mutable_property (ly_caar (s), ly_cdar (s));
 
   System *system = get_system ();
 
@@ -418,16 +418,16 @@ Grob::extent (Grob *refp, Axis a) const
   /* Signs ?  */
   if (scm_is_pair (extra))
     {
-      ext[BIGGER] += scm_to_double (scm_cdr (extra));
-      ext[SMALLER] += scm_to_double (scm_car (extra));
+      ext[BIGGER] += scm_to_double (ly_cdr (extra));
+      ext[SMALLER] += scm_to_double (ly_car (extra));
     }
 
   extra = get_property (a == X_AXIS
 			? "minimum-X-extent"
 			: "minimum-Y-extent");
   if (scm_is_pair (extra))
-    ext.unite (Interval (scm_to_double (scm_car (extra)),
-			 scm_to_double (scm_cdr (extra))));
+    ext.unite (Interval (scm_to_double (ly_car (extra)),
+			 scm_to_double (ly_cdr (extra))));
 
   ext.translate (x);
 
@@ -452,8 +452,8 @@ Grob::common_refpoint (Grob const *s, Axis a) const
 Grob *
 common_refpoint_of_list (SCM elist, Grob *common, Axis a)
 {
-  for (; scm_is_pair (elist); elist = scm_cdr (elist))
-    if (Grob *s = unsmob_grob (scm_car (elist)))
+  for (; scm_is_pair (elist); elist = ly_cdr (elist))
+    if (Grob *s = unsmob_grob (ly_car (elist)))
       {
 	if (common)
 	  common = common->common_refpoint (s, a);
@@ -484,7 +484,7 @@ Grob::name () const
 {
   SCM meta = get_property ("meta");
   SCM nm = scm_assoc (ly_symbol2scm ("name"), meta);
-  nm = (scm_is_pair (nm)) ? scm_cdr (nm) : SCM_EOL;
+  nm = (scm_is_pair (nm)) ? ly_cdr (nm) : SCM_EOL;
   return scm_is_symbol (nm) ? ly_symbol2string (nm) : classname (this);
 }
 
@@ -617,7 +617,7 @@ Grob::mark_smob (SCM ses)
 int
 Grob::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Grob *sc = (Grob *) scm_cdr (s);
+  Grob *sc = (Grob *) ly_cdr (s);
 
   scm_puts ("#<Grob ", port);
   scm_puts ((char *) sc->name ().to_str0 (), port);
@@ -652,9 +652,9 @@ ly_scm2grobs (SCM lst)
 {
   Link_array<Grob> arr;
 
-  for (SCM s = lst; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = lst; scm_is_pair (s); s = ly_cdr (s))
     {
-      SCM e = scm_car (s);
+      SCM e = ly_car (s);
       arr.push (unsmob_grob (e));
     }
 
