@@ -16,11 +16,15 @@ Note_heads_engraver::Note_heads_engraver()
 }
 
 bool
-Note_heads_engraver::do_try_music (Music *req_l) 
+Note_heads_engraver::do_try_music (Music *m) 
 {
-  if (Note_req * n =dynamic_cast <Note_req *> (req_l))
+  if (Note_req * n =dynamic_cast <Note_req *> (m))
     {
       note_req_l_arr_.push (n);
+      return true;
+    }
+  if (Tonic_req* t = dynamic_cast<Tonic_req*> (m))
+    {
       return true;
     }
   return false;

@@ -120,6 +120,19 @@ Melodic_req::do_print () const
 pitch_.print ();
 }
 
+
+Tonic_req::Tonic_req ()
+{
+}
+
+void
+Tonic_req::do_print () const
+{
+#ifndef NPRINT
+  Melodic_req::do_print ();
+#endif
+}
+
 int
 Rhythmic_req::compare (Rhythmic_req const &r1, Rhythmic_req const &r2)
 {

@@ -25,9 +25,10 @@ public:
 
   String banter_str (Musical_pitch* inversion) const;
   int find_tonic_i () const;
+  int find_pitch_i (Musical_pitch p) const;
+  int find_notename_i (Musical_pitch p) const;
 
   Array<Musical_pitch> pitch_arr_;
-  int tonic_i_;
 };
 
 #endif // CHORD_HH

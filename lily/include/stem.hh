@@ -46,10 +46,10 @@ class Stem : public Item {
     */
   Direction  stem_xdir_;
 
-public:
   Link_array<Note_head> head_l_arr_;
   Link_array<Rest> rest_l_arr_;
     
+public:
   /// how many abbrev beam don't reach stem?
   int beam_gap_i_;
 

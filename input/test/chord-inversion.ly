@@ -9,9 +9,8 @@ inversions = \notes\transpose c''\chords{
 	c1 c-sus c-6 c/e c/g c/d
 	% now try to find chords with inversions
 	\property Score.chordInversion = 1 
-	\property Score.chordInversionPreserve = 1 
 	c1 c-sus c-6 
-	c/e % c/e is not found because preserving doesn't work fully yet...
+	c/e
 	c/g
 	c/d % this triggers a warning: no 'd' in chord of c
 }

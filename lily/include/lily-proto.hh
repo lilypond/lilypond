@@ -251,6 +251,7 @@ struct Time_signature;
 struct Time_signature_change_req;
 struct Time_signature_engraver;
 struct Time_signature_performer;
+struct Tonic_req;
 struct Translator;
 struct Translator_group;
 struct Timing_req;

@@ -88,6 +88,13 @@ struct Melodic_req :virtual Musical_req
   REQUESTMETHODS(Melodic_req);
 };
 
+/// specify tonic of a chord
+struct Tonic_req : public Melodic_req
+{
+  Tonic_req ();
+  REQUESTMETHODS(Tonic_req);
+};
+
 /// Put a note of specified type, height, and with accidental on the staff.
 class Note_req  : public Rhythmic_req, virtual public Melodic_req  {
 public:
