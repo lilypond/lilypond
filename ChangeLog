@@ -1,5 +1,10 @@
 2003-09-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/clef-oct.ly: new file.
+
+	* scm/clef.scm (make-clef-set): use regexps, support arbitrary
+	transposition.
+
 	* input/template/*.ly: remove old relative.
 
 	* ly/english.ly: add X names for double sharp.

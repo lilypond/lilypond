@@ -650,7 +650,6 @@
     (OctavateEight
      . (
 	(self-alignment-X . 0)
-	(text . "8")
 	(break-visibility . ,begin-of-line-visible)
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent ,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
