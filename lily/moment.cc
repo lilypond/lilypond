@@ -247,3 +247,13 @@ operator << (std::ostream &os, Moment const &m)
   return os;
 }
 #endif
+
+Moment
+robust_scm2moment (SCM m, Moment d)
+{
+  Moment * p = unsmob_moment (m);
+  if (!p)
+    return d;
+  else
+    return *p;
+}

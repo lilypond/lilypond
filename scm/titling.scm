@@ -126,7 +126,7 @@
 	    '())
 	(if (has 'piece)
 	    (list
-	     (markup #:fill-line (#:large #:bigger #:caps (get 'piece) "")))
+	     (markup #:fill-line (#:large #:bigger (get 'piece) "")))
 	    '())))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
