@@ -12,7 +12,7 @@ Data_file::gobble_white()
 	if (eof()) 
 	    break;
 
-    data_unget(c);
+    data_unget (c);
 }
 
 String
@@ -24,9 +24,9 @@ Data_file::get_word()
 	{
 	char 	c  = data_get();
 	
-	if (isspace(c) || eof()) 
+	if (isspace (c) || eof()) 
 	    {
-	    data_unget(c);
+	    data_unget (c);
 	    break;
 	    }
 	
@@ -37,7 +37,7 @@ Data_file::get_word()
 
 	    while ((c  = data_get()) != '\"')
 		if (eof())
-		    error("EOF in a string");		
+		    error ("EOF in a string");		
 		else
 		    s += c;
 	    
@@ -59,7 +59,7 @@ Data_file::data_get() {
     char c =  get(); 
     if (!rawmode && c == '#') // gobble comment
 	{	
-	while ((c = get()) != '\n' && !eof()) 
+	while ((c = get()) != '\n' && !eof ()) 
 	    ;
 	    return '\n';
 	}    
@@ -73,7 +73,7 @@ String Data_file::get_line()
     char c; 
     String s;
 
-    while ((c  = data_get()) != '\n' && !eof())
+    while ((c  = data_get()) != '\n' && !eof ())
 	s += c;
     return s;	
 }
@@ -85,8 +85,8 @@ Data_file::gobble_leading_white()
     // eat blank lines.
     while (!eof()) {
 	char c = data_get();		    
-	if (!isspace(c)) {
-	    data_unget(c);
+	if (!isspace (c)) {
+	    data_unget (c);
 	    break;
 	}
     }

@@ -20,9 +20,9 @@ typedef double Real;
 const Real infinity_f = HUGE_VAL;
 
 inline Real
-distance(Real x,Real y)
+distance (Real x,Real y)
 {
-    return abs(x-y);
+    return abs (x-y);
 }
 
 #endif

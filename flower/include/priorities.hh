@@ -18,16 +18,16 @@
 template<class K>
 struct Priorities :    Array<K>
 {
-    void insert(K k) 
+    void insert (K k) 
     {
 	int i=0;
 	for (; i < size(); i++) {
-	    if(elem(i) == k)
+	    if (elem (i) == k)
 		return;
-	    if (elem(i) > k )
+	    if (elem (i) > k)
 		break;
 	}
-	Array<K>::insert(k, i);
+	Array<K>::insert (k, i);
     }
 };
 #endif // PRIORITIES_HH

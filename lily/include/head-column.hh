@@ -29,9 +29,9 @@ public:
     int dir_i_;
     Stem* stem_l_;
 
-    void add(Note_head*);
-    virtual void add(Script*s);
-    virtual void set(Stem*);
+    void add (Note_head*);
+    virtual void add (Script*s);
+    virtual void set (Stem*);
     Head_column();
     DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
@@ -39,6 +39,6 @@ protected:
 
     virtual void do_pre_processing();
     virtual void do_print()const;
-    virtual void do_substitute_dependency(Score_elem*,Score_elem*);
+    virtual void do_substitute_dependency (Score_elem*,Score_elem*);
 };
 #endif // HEAD_COLUMN_HH

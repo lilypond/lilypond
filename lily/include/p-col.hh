@@ -60,7 +60,7 @@ public:
     bool breakpoint_b() const;
     void clean_breakable_items();
     
-    void add(Item *i);
+    void add (Item *i);
 
     /// Can this be broken? true eg. for bars. 
     bool breakable_b()const;
@@ -75,8 +75,8 @@ public:
 
       @return < 0 if c1 < c2.
     */
-    static int compare(const PCol &c1, const PCol &c2);
-    void set_rank(int);
+    static int compare (const PCol &c1, const PCol &c2);
+    void set_rank (int);
 
     void OK() const;
     void set_breakable();
@@ -89,12 +89,12 @@ private:
       -1 is uninitialised.
      */
     int rank_i_;
-    PCol(PCol const&){}
+    PCol (PCol const&){}
 };
 
 
 #include "compare.hh"
-instantiate_compare(PCol &, PCol::compare);
+INSTANTIATE_COMPARE(PCol &, PCol::compare);
      
 
 #endif

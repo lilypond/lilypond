@@ -19,17 +19,17 @@
  */
 struct Midi_item {
     DECLARE_MY_RUNTIME_TYPEINFO;
-    Midi_item( Audio_item* audio_item_l ); 
-    static String i2varint_str( int i );
-    void output( Midi_stream* midi_stream_l ) const;
+    Midi_item (Audio_item* audio_item_l); 
+    static String i2varint_str (int i);
+    void output (Midi_stream* midi_stream_l) const;
     virtual String str() const = 0;
 
     Audio_item* audio_item_l_;
     int channel_i_;
 
 private:
-    Midi_item( Midi_item const& );
-    Midi_item& operator =( Midi_item const& );
+    Midi_item (Midi_item const&);
+    Midi_item& operator =( Midi_item const&);
 };
 
 /**
@@ -39,8 +39,8 @@ struct Midi_chunk : Midi_item {
     DECLARE_MY_RUNTIME_TYPEINFO;
     Midi_chunk();
 
-    void add( String str );
-    void set( String header_str, String data_str, String footer_str );
+    void add (String str);
+    void set (String header_str, String data_str, String footer_str);
     virtual String str() const;
 
 private:
@@ -51,7 +51,7 @@ private:
 
 struct Midi_duration : public Midi_item {
     DECLARE_MY_RUNTIME_TYPEINFO;
-    Midi_duration( Real seconds_f );
+    Midi_duration (Real seconds_f);
 
     virtual String str() const;
     Real seconds_f_;
@@ -60,7 +60,7 @@ struct Midi_duration : public Midi_item {
 struct Midi_header : Midi_chunk {
     DECLARE_MY_RUNTIME_TYPEINFO;
 
-    Midi_header( int format_i, int tracks_i, int clocks_per_4_i );
+    Midi_header (int format_i, int tracks_i, int clocks_per_4_i);
 
 };
 
@@ -69,7 +69,7 @@ struct Midi_header : Midi_chunk {
  */
 struct Midi_instrument : public Midi_item {
     DECLARE_MY_RUNTIME_TYPEINFO;
-    Midi_instrument( int channel_i, String instrument_str );
+    Midi_instrument (int channel_i, String instrument_str);
 
     virtual String str() const;
     String instrument_str_;
@@ -78,7 +78,7 @@ struct Midi_instrument : public Midi_item {
 
 struct Midi_key : public Midi_item {
     DECLARE_MY_RUNTIME_TYPEINFO;
-    Midi_key( Audio_item* audio_item_l );
+    Midi_key (Audio_item* audio_item_l);
 	
     virtual String str() const;
 };
@@ -86,7 +86,7 @@ struct Midi_key : public Midi_item {
 struct Midi_meter : Midi_item {
 
     DECLARE_MY_RUNTIME_TYPEINFO;
-    Midi_meter( Audio_item* audio_item_l ); 
+    Midi_meter (Audio_item* audio_item_l); 
   
     virtual String str() const;
     int clocks_per_1_i_;
@@ -97,7 +97,7 @@ struct Midi_meter : Midi_item {
  */
 struct Midi_note : public Midi_item {
     DECLARE_MY_RUNTIME_TYPEINFO;
-    Midi_note( Audio_item* audio_item_l ); 
+    Midi_note (Audio_item* audio_item_l); 
 
     Moment duration() const;
     int pitch_i() const;
@@ -112,7 +112,7 @@ struct Midi_note : public Midi_item {
  */
 struct Midi_note_off : public Midi_item {
     DECLARE_MY_RUNTIME_TYPEINFO;
-    Midi_note_off( Midi_note* midi_note_l ); 
+    Midi_note_off (Midi_note* midi_note_l); 
 
     int pitch_i() const;
     virtual String str() const;
@@ -127,8 +127,8 @@ struct Midi_text : Midi_item {
 	TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC, 
 	MARKER, CUE_POINT
     };
-    Midi_text( Midi_text::Type type, String text_str );
-    Midi_text( Audio_item* audio_item_l );
+    Midi_text (Midi_text::Type type, String text_str);
+    Midi_text (Audio_item* audio_item_l);
     
     virtual String str() const;
 
@@ -138,8 +138,8 @@ struct Midi_text : Midi_item {
 
 struct Midi_tempo : Midi_item {
     DECLARE_MY_RUNTIME_TYPEINFO;
-    Midi_tempo( int per_minute_4_i );
-    Midi_tempo( Audio_item* audio_item_l ); 
+    Midi_tempo (int per_minute_4_i);
+    Midi_tempo (Audio_item* audio_item_l); 
   
     virtual String str() const;
 
@@ -152,8 +152,8 @@ struct Midi_track : Midi_chunk {
     
     Midi_track();
 
-    void add( int delta_time_i, String event );
-    void add( Moment delta_time_moment, Midi_item* mitem_l );
+    void add (int delta_time_i, String event);
+    void add (Moment delta_time_moment, Midi_item* mitem_l);
 };
 
 #endif // MIDI_ITEM_HH

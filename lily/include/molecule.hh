@@ -14,22 +14,22 @@ struct Molecule {
     /* *************** */
     
     Molecule() { }
-    Molecule(Atom const &a) { add(a) ;}
+    Molecule (Atom const &a) { add (a) ;}
 
-    void add_right(const Molecule &m);
-    void add_left(const Molecule &m);
-    void add_top(const Molecule &m);
-    void add_bottom(const Molecule &m);
-    void add(Molecule const &m);
-    void translate(Offset);
-    void translate(Real,Axis);
-    void add(Atom const & a) ;
+    void add_right (const Molecule &m);
+    void add_left (const Molecule &m);
+    void add_top (const Molecule &m);
+    void add_bottom (const Molecule &m);
+    void add (Molecule const &m);
+    void translate (Offset);
+    void translate (Real,Axis);
+    void add (Atom const & a) ;
     /// how big is #this#? 
     Box extent() const;
 
     String TeX_string() const;
 
-    Molecule(const Molecule&s);
+    Molecule (const Molecule&s);
     void print() const;
 private:
     void operator=(const Molecule&);

@@ -3,9 +3,9 @@
     see a book on data structures
     */
 
-Union_find::Union_find(int n)
+Union_find::Union_find (int n)
 {
-    classes.set_size(n);
+    classes.set_size (n);
 
     for (int i=0; i < n; i++) {
 	classes[i] = i;
@@ -13,7 +13,7 @@ Union_find::Union_find(int n)
 }
 
 int
-Union_find::find(int i)
+Union_find::find (int i)
 {
     int rep = i;
     while (classes[rep] != rep)
@@ -27,9 +27,9 @@ Union_find::find(int i)
 }
 
 void
-Union_find::connect(int i, int j)
+Union_find::connect (int i, int j)
 {
-    i = find(i);
-    j = find(j);
+    i = find (i);
+    j = find (j);
     classes[i] = j;    
 }

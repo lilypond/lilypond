@@ -20,7 +20,7 @@ public:
     int line_len_i_;
     
     /// open a file for writing
-    Tex_stream(String filename);
+    Tex_stream (String filename);
     void header();
     /// delegate conversion to string class.
     Tex_stream &operator<<(String);
@@ -28,6 +28,6 @@ public:
     /// close the file
     ~Tex_stream();
 private:
-    Tex_stream(Tex_stream const&);
+    Tex_stream (Tex_stream const&);
 };
 #endif

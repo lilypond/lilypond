@@ -26,9 +26,9 @@ public:
     /* *************** */
     DECLARE_MY_RUNTIME_TYPEINFO;
     Beam();
-    void add(Stem*);
+    void add (Stem*);
 
-    void set_grouping(Rhythmic_grouping def, Rhythmic_grouping current);
+    void set_grouping (Rhythmic_grouping def, Rhythmic_grouping current);
     void set_stemlens();
     SCORE_ELEM_CLONE(Beam);
 protected:
@@ -37,12 +37,12 @@ protected:
     virtual void set_default_dir();
     virtual void do_pre_processing();
     virtual void do_post_processing();
-    virtual void do_substitute_dependent(Score_elem*, Score_elem*);
+    virtual void do_substitute_dependent (Score_elem*, Score_elem*);
 
     virtual void do_print() const;
 
 private:
-    Molecule stem_beams(Stem *here, Stem *next, Stem *prev)const;
+    Molecule stem_beams (Stem *here, Stem *next, Stem *prev)const;
     void solve_slope();
     Molecule*brew_molecule_p()const;
 };

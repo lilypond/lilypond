@@ -18,11 +18,11 @@
 class Slur : public Bow {
 public:
     Link_array<Note_column> encompass_arr_;
-    void add(Note_column*);
+    void add (Note_column*);
 protected:
     virtual void set_default_dir();
     virtual void do_post_processing();
-    virtual void do_substitute_dependency(Score_elem*, Score_elem*);
+    virtual void do_substitute_dependency (Score_elem*, Score_elem*);
     virtual void do_pre_processing();
     SCORE_ELEM_CLONE(Slur);
     DECLARE_MY_RUNTIME_TYPEINFO;

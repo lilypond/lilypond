@@ -28,8 +28,8 @@ class Link_list : public List<void *>
     PCursor<T> bottom() const {
 	return PCursor<T> (List<void*>::bottom());
     }
-    PCursor<T> find(T) const;
-    void concatenate(Link_list<T> const &s) { List<void*>::concatenate(s); }
+    PCursor<T> find (T) const;
+    void concatenate (Link_list<T> const &s) { List<void*>::concatenate (s); }
 
     Link_list() {}
 };
@@ -55,19 +55,19 @@ class Pointer_list : public Link_list<T> {
     
 public:
     void junk();
-    Pointer_list(Pointer_list const &) { set_empty(); }
+    Pointer_list (Pointer_list const &) { set_empty(); }
     Pointer_list() { }
-    ~Pointer_list() { junk(); }
+    ~Pointer_list() { junk (); }
 };
 
 #define Pointer_list__copy(T, to, from, op)   \
   for (PCursor<T> _pc_(from); _pc_.ok(); _pc_++)\
-      to.bottom().add(_pc_->op)\
+      to.bottom().add (_pc_->op)\
   \
 
 
 template<class T>
-void PL_copy(Pointer_list<T*> &dst,Pointer_list<T*> const&src);
+void PL_copy (Pointer_list<T*> &dst,Pointer_list<T*> const&src);
 
 
 

@@ -20,10 +20,10 @@ class Bar_column : public Script_column {
 
 public:
     Bar_column();
-    void set_bar( Bar*);
+    void set_bar (Bar*);
 protected:
     SCORE_ELEM_CLONE(Bar_column);
-    void do_substitute_dependency(Score_elem*,Score_elem*);
+    void do_substitute_dependency (Score_elem*,Score_elem*);
     DECLARE_MY_RUNTIME_TYPEINFO;
 };
 

@@ -16,7 +16,7 @@ class Collision_engraver : public Engraver {
     Collision* col_p_;
 
 protected:
-    virtual void acknowledge_element(Score_elem_info);
+    virtual void acknowledge_element (Score_elem_info);
     virtual void do_pre_move_processing();
 public:
     Collision_engraver();

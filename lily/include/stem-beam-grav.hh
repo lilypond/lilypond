@@ -30,10 +30,10 @@ public:
 
 protected:
     ~Stem_beam_engraver();
-    virtual void set_feature(Feature dir_i_);
-    virtual bool do_try_request(Request*);
+    virtual void set_feature (Feature dir_i_);
+    virtual bool do_try_request (Request*);
     virtual void do_process_requests();
-    virtual void acknowledge_element(Score_elem_info);
+    virtual void acknowledge_element (Score_elem_info);
     virtual void do_pre_move_processing();
     virtual void do_post_move_processing();
 };

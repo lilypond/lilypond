@@ -17,8 +17,8 @@
 
 class Notename_table :   Assoc<String, P<Melodic_req> >{
 public:
-    void add(String, Melodic_req*);
-    Melodic_req*get_l(String);
+    void add (String, Melodic_req*);
+    Melodic_req*get_l (String);
 };
   
 #endif // NOTENAME_TABLE_HH

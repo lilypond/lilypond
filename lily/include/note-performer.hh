@@ -22,7 +22,7 @@ public:
 protected:
     virtual void process_requests();
 
-    virtual bool do_try_request( Request *req_l ) ;
+    virtual bool do_try_request (Request *req_l) ;
     virtual void do_print() const;
 
 private:

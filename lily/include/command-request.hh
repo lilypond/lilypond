@@ -65,16 +65,16 @@ public:
 
     Tempo_req();
     REQUESTMETHODS(Tempo_req, tempo);
-    bool do_equal_b(Request *)const;
+    bool do_equal_b (Request *)const;
 };
 
 class Partial_measure_req  : public Timing_req  {
 public:
     Moment duration_;
 
-    Partial_measure_req(Moment);
+    Partial_measure_req (Moment);
     REQUESTMETHODS(Partial_measure_req, partial);
-    bool do_equal_b(Request*)const;
+    bool do_equal_b (Request*)const;
 };
 
 /**
@@ -85,8 +85,8 @@ public:
     int beats_i_, one_beat_i_;
 
     Meter_change_req();
-    void set(int,int);
-    bool do_equal_b(Request*)const;
+    void set (int,int);
+    bool do_equal_b (Request*)const;
     REQUESTMETHODS(Meter_change_req, meterchange);
 };
 
@@ -95,15 +95,15 @@ class Cadenza_req  : public Timing_req  {
 public:
     /// turn on?
     bool on_b_;
-    bool do_equal_b(Request*)const;
-    Cadenza_req(bool);
+    bool do_equal_b (Request*)const;
+    Cadenza_req (bool);
     REQUESTMETHODS(Cadenza_req,cadenza);
 };
 
 /// check if we're at start of a  measure.
 class Barcheck_req  : public Timing_req  {
 public:
-    bool do_equal_b(Request *)const;
+    bool do_equal_b (Request *)const;
     REQUESTMETHODS(Barcheck_req,barcheck);
 };
 
@@ -111,7 +111,7 @@ class Measure_grouping_req : public Timing_req  {
 public:
     Array<int> beat_i_arr_;
     Array<Moment> elt_length_arr_;
-    bool do_equal_b(Request *)const;
+    bool do_equal_b (Request *)const;
     REQUESTMETHODS(Measure_grouping_req, measuregrouping);
 };
 
@@ -120,8 +120,8 @@ public:
 class Bar_req  : public Command_req  {
 public:
     String type_str_;
-    Bar_req(String);
-    bool do_equal_b(Request*)const;
+    Bar_req (String);
+    bool do_equal_b (Request*)const;
 
     REQUESTMETHODS(Bar_req,bar);
 };
@@ -148,7 +148,7 @@ public:
     /// don't ignore the  octaves in #melodic_p_arr_#?
     bool multi_octave_b_;
     Key_change_req();
-    Key_change_req(Key_change_req const&);
+    Key_change_req (Key_change_req const&);
     ~Key_change_req();
     REQUESTMETHODS(Key_change_req, keychange);
 
@@ -160,7 +160,7 @@ public:
     /// return number of sharps in key
     int sharps_i();
 
-    void transpose(Melodic_req const & d) const;
+    void transpose (Melodic_req const & d) const;
     /// is minor key?
     int minor_b();
 };
@@ -168,7 +168,7 @@ public:
 class Clef_change_req  : public Command_req  {
 public:
     String clef_str_;
-    Clef_change_req(String);
+    Clef_change_req (String);
     REQUESTMETHODS(Clef_change_req, clefchange);
 };
 

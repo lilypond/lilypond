@@ -18,7 +18,7 @@ Full_storage::init()
     height_i_=width_i_=max_height_i_=max_width_i_=0;
 }
 INLINE bool
-Full_storage::valid(int i, int j)const
+Full_storage::valid (int i, int j)const
 {
     return (i>=0 && i < height_i_)
 	&& (j < width_i_ && j >=0);
@@ -26,22 +26,22 @@ Full_storage::valid(int i, int j)const
 
 
 INLINE
-Full_storage::Full_storage(Full_storage const&s)
+Full_storage::Full_storage (Full_storage const&s)
 {
     init();
     (*this) = s;
 }
 
 INLINE Real& 
-Full_storage::elem(int i,int j)
+Full_storage::elem (int i,int j)
 {
-    assert(valid(i,j));
+    assert (valid (i,j));
     return els_p_p_[i][j];
 }
 
 INLINE Real
-Full_storage::elem(int i, int j) const {
-    assert(valid(i,j));
+Full_storage::elem (int i, int j) const {
+    assert (valid (i,j));
     return els_p_p_[i][j];
 }
 
@@ -64,28 +64,28 @@ Full_storage::cols() const
 INLINE int
 Full_storage::dim()const
 {
-    assert (rows()==cols());
+    assert (rows()==cols ());
     return rows();
 }
 
 INLINE void
-Full_storage::resize(int i)
+Full_storage::resize (int i)
 {
-    resize(i,i);
+    resize (i,i);
 }
 
 INLINE   
-Full_storage::Full_storage(int i,int j)
+Full_storage::Full_storage (int i,int j)
 {
     init();
-    set_size(i,j);
+    set_size (i,j);
 }
 
 INLINE 
-Full_storage::Full_storage(int i)
+Full_storage::Full_storage (int i)
 {
     init();
-    set_size(i);
+    set_size (i);
 }
  
 INLINE

@@ -6,48 +6,48 @@
 #ifndef COMPARE_HH
 #define COMPARE_HH
 
-#define one_operator(type, function, op) \
+#define ONE_OPERATOR(type, function, op) \
 inline bool \
 operator op (type t1, type t2) {\
-    return function(t1, t2) op 0;\
+    return function (t1, t2) op 0;\
 }\
 
-#define gpp_minmax_operator(type, op, opp) \
+#define GPP_MINMAX_OPERATOR(type, op, opp) \
 inline type \
-operator op(type t1, type t2)\
+operator op (type t1, type t2)\
 {\
      return (t1 opp t2) ? t1 :  t2;\
 }\
 
 
 #if defined (__GNUG__) && ! defined (__STRICT_ANSI__)
-#define gpp_minmax(type, prefix)\
-       prefix gpp_minmax_operator(type, <?, <)\
-       prefix gpp_minmax_operator(type, >?, >)
+#define GPP_MINMAX(type, prefix)\
+       prefix GPP_MINMAX_OPERATOR(type, <?, <)\
+       prefix GPP_MINMAX_OPERATOR(type, >?, >)
 #else
-#define gpp_minmax(type, prefix)
+#define GPP_MINMAX(type, prefix)
 #endif
 
 /**  handy notations for a signed comparison. 
     make the operators{<,<=,==,>=,>} and the MAX and MIN of two.
     Please fill a & in the type argument if necessary.    
     */
-#define template_instantiate_compare(type, function, prefix) \
-prefix one_operator(type, function, >)\
-prefix one_operator(type, function, >=)\
-prefix one_operator(type, function, ==)\
-prefix one_operator(type, function, !=)\
-prefix one_operator(type, function, <)\
-prefix one_operator(type, function, <=)\
-gpp_minmax(type, prefix)\
-prefix inline type max(type t1, type t2) {  return (t1 > t2 )? t1 : t2; }\
-prefix inline type min(type t1, type t2) {  return (t1 < t2 )? t1 : t2; }\
+#define TEMPLATE_INSTANTIATE_COMPARE(type, function, prefix) \
+prefix ONE_OPERATOR(type, function, >)\
+prefix ONE_OPERATOR(type, function, >=)\
+prefix ONE_OPERATOR(type, function, ==)\
+prefix ONE_OPERATOR(type, function, !=)\
+prefix ONE_OPERATOR(type, function, <)\
+prefix ONE_OPERATOR(type, function, <=)\
+GPP_MINMAX(type, prefix)\
+prefix inline type max (type t1, type t2) {  return (t1 > t2)? t1 : t2; }\
+prefix inline type min (type t1, type t2) {  return (t1 < t2)? t1 : t2; }\
   \
 prefix  bool operator<(type t1, type t2) /* stupid fix to allow ; */
 
 
     
-#define instantiate_compare(type, func) template_instantiate_compare(type,func, )
+#define INSTANTIATE_COMPARE(type, func) TEMPLATE_INSTANTIATE_COMPARE(type,func,)
      
 
      

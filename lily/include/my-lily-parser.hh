@@ -25,16 +25,16 @@ class My_lily_parser {
     Array<Input> define_spot_array_;
     String init_str_;
 
-    void add_requests( Chord*v);
+    void add_requests (Chord*v);
 
-    Chord * get_note_element(Note_req * ,Duration *);
-    Chord* get_rest_element(String,Duration *);
-    Chord* get_word_element(Text_def*, Duration*);
+    Chord * get_note_element (Note_req * ,Duration *);
+    Chord* get_rest_element (String,Duration *);
+    Chord* get_word_element (Text_def*, Duration*);
 
-    void set_last_duration(Duration const *);
-    void set_default_duration(Duration const *);
-    void set_duration_mode(String s);
-    friend int yyparse( void*);
+    void set_last_duration (Duration const *);
+    void set_default_duration (Duration const *);
+    void set_duration_mode (String s);
+    friend int yyparse (void*);
 public:
     int default_octave_i_;
     Duration default_duration_;
@@ -51,7 +51,7 @@ public:
     My_lily_lexer * lexer_p_;
  
     Moment plet_mom();
-    void add_notename(String, Melodic_req* req_p);
+    void add_notename (String, Melodic_req* req_p);
     Input here_input()const;
     void remember_spot();
     Input pop_spot();
@@ -59,21 +59,21 @@ public:
     Paper_def*default_paper();
     Midi_def*default_midi();
     void do_yyparse();
-    void parser_error(String);
+    void parser_error (String);
     void clear_notenames();
 
-    Request* get_parens_request(char c);
+    Request* get_parens_request (char c);
     
     void set_debug();
-    void set_yydebug(bool);
+    void set_yydebug (bool);
     void print_declarations();
     bool ignore_version_b_;
 public:
     void do_init_file();
     void parse_file ( String init_str, String file_str);
-    My_lily_parser(Sources * sources_l);
+    My_lily_parser (Sources * sources_l);
     ~My_lily_parser();
-    void set_version_check(bool ignore);
+    void set_version_check (bool ignore);
 };
 
 #endif // MY_LILY_PARSER_HH

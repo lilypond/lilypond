@@ -30,7 +30,7 @@ struct Col_hpositions {
       constraints.  should always work */
     void stupid_solution();
     Col_hpositions();
-    void add( PCol*c);
+    void add (PCol*c);
     void print() const;
 };
 

@@ -33,7 +33,7 @@ public:
     VIRTUAL_COPY_CONS(Request,Music);
     
     virtual MInterval time_int() const;
-    virtual void transpose(Melodic_req const &){}
+    virtual void transpose (Melodic_req const &){}
     virtual Moment duration() const { return 0; }
 
     /*  accessors for children
@@ -46,9 +46,9 @@ public:
     virtual Blank_req * blank() { return 0; }
     virtual Musical_req *musical() { return 0; }
     virtual Command_req * command() { return 0; }
-    bool equal_b(Request*) const;
+    bool equal_b (Request*) const;
 protected:
-    virtual bool do_equal_b(Request*) const;
+    virtual bool do_equal_b (Request*) const;
     virtual void do_print()const;
 };
 
@@ -69,12 +69,12 @@ public:
     General_script_def *scriptdef_p_;
 
     /* *************** */
-    bool do_equal_b(Request*)const;
+    bool do_equal_b (Request*)const;
 
     Script_req();
     REQUESTMETHODS(Script_req,script);
     ~Script_req();
-    Script_req(Script_req const&);
+    Script_req (Script_req const&);
 };
 
     

@@ -15,11 +15,11 @@
 
 class Horizontal_group_item : public Axis_group_item, public Horizontal_group_element {
 protected:
-    virtual void remove_all() { Horizontal_group_element::remove_all(); }
+    virtual void remove_all() { Horizontal_group_element::remove_all (); }
     virtual void do_print() const;
 public:
-    virtual void add_element(Score_elem*e) { Horizontal_group_element::add_element(e); }
-    virtual void remove_element(Score_elem*e) { Horizontal_group_element::remove_element(e); }
+    virtual void add_element (Score_elem*e) { Horizontal_group_element::add_element (e); }
+    virtual void remove_element (Score_elem*e) { Horizontal_group_element::remove_element (e); }
     DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Horizontal_group_item);
   

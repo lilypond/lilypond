@@ -26,9 +26,9 @@ public:
     virtual void print()const;
     virtual int depth_i()const=0;
     virtual bool is_bottom_engraver_b() const { return false; }
-    virtual bool try_request(Request*);
-    virtual Translator *find_get_translator_l(String name, String id)=0;
-    virtual Translator *ancestor_l(int l=1)=0;
+    virtual bool try_request (Request*);
+    virtual Translator *find_get_translator_l (String name, String id)=0;
+    virtual Translator *ancestor_l (int l=1)=0;
     virtual ~Translator(){}
     DECLARE_MY_RUNTIME_TYPEINFO;
     Translator();

@@ -26,7 +26,7 @@ class String_handle {
     void down();
 
     /// increase ref count
-    void up(String_data *d);
+    void up (String_data *d);
     
     /** make sure data has only one reference.      
        POST: data->references == 1
@@ -36,7 +36,7 @@ class String_handle {
 public:
     String_handle();
     ~String_handle();
-    String_handle(String_handle const & src);
+    String_handle (String_handle const & src);
 
     Byte const* byte_C() const;
     char const* ch_C() const;
@@ -51,10 +51,10 @@ public:
        don't use this for loops. Use byte_C()
        */
     Byte &operator[](int j);
-    void append( Byte const* byte_C, int length_i );
-    void set( Byte const* byte_C, int length_i );
+    void append (Byte const* byte_C, int length_i);
+    void set (Byte const* byte_C, int length_i);
     void operator = (char const *p);
-    void trunc(int j);
+    void trunc (int j);
     int length_i() const;
 };
 

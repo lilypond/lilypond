@@ -17,15 +17,15 @@
 
 class Audio_score {
 public:
-    Audio_score( Score* l );
+    Audio_score (Score* l);
 
-    void add( Audio_column* );
-    void add_staff( Audio_staff* l );
-    void add(Audio_element*p);
+    void add (Audio_column*);
+    void add_staff (Audio_staff* l);
+    void add (Audio_element*p);
 
     
-    void output( Midi_stream& midi_stream_r );
-    void output_header_track( Midi_stream& midi_stream_r );
+    void output (Midi_stream& midi_stream_r);
+    void output_header_track (Midi_stream& midi_stream_r);
 
     void print() const;
     void process();

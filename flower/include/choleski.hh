@@ -9,7 +9,7 @@
 
     #P# is split  into
 
-    LD transpose(L)
+    LD transpose (L)
     */
 struct Choleski_decomposition {
 
@@ -24,12 +24,12 @@ struct Choleski_decomposition {
     P needs to be symmetric positive definite
     */
     
-    Choleski_decomposition(Matrix const &P);
+    Choleski_decomposition (Matrix const &P);
 
     /**
     solve Px = rhs
     */
-    Vector solve(Vector rhs) const;
+    Vector solve (Vector rhs) const;
     void solve (Vector &dest, Vector const &rhs)const;
     Vector operator * (Vector rhs) const { return solve (rhs); }
   /**
@@ -41,10 +41,10 @@ struct Choleski_decomposition {
     */
     Matrix original() const;
 private:
-    void full_matrix_solve(Vector &,Vector const&)const;
-    void band_matrix_solve(Vector &, Vector const&)const;
-    void full_matrix_decompose(Matrix const & P);
-    void band_matrix_decompose(Matrix const &P);
+    void full_matrix_solve (Vector &,Vector const&)const;
+    void band_matrix_solve (Vector &, Vector const&)const;
+    void full_matrix_decompose (Matrix const & P);
+    void band_matrix_decompose (Matrix const &P);
 	 
 };
 #endif

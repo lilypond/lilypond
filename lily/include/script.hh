@@ -19,7 +19,7 @@ class Script : public Item, public Staff_side {
 
 protected:
     Molecule *brew_molecule_p()const;
-    virtual void do_substitute_dependency(Score_elem*,Score_elem*);
+    virtual void do_substitute_dependency (Score_elem*,Score_elem*);
     virtual void do_print() const;
     virtual Interval symbol_height()const;
     virtual void do_pre_processing();
@@ -31,9 +31,9 @@ private:
 public:
     General_script_def *specs_l_;
     
-    static int compare(Script  *const&, Script *const&) ;
+    static int compare (Script  *const&, Script *const&) ;
     Script();
-    void set_stem(Stem*);
+    void set_stem (Stem*);
     DECLARE_MY_RUNTIME_TYPEINFO;
 
 };

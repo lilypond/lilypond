@@ -14,7 +14,7 @@
 
 class Text_def : public General_script_def {
 protected:
-    virtual Atom get_atom(Paper_def* p, int dir_i_)const;
+    virtual Atom get_atom (Paper_def* p, int dir_i_)const;
     DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Text_def,General_script_def);
 public:
@@ -30,10 +30,10 @@ public:
     
     virtual void do_print() const;
     virtual ~Text_def() {};
-    virtual bool do_equal_b(const General_script_def*)const;
+    virtual bool do_equal_b (const General_script_def*)const;
     Text_def();
     virtual void print() const;
-    Interval width(Paper_def*) const;
+    Interval width (Paper_def*) const;
 };
 
 #endif // TEXT_DEF_HH

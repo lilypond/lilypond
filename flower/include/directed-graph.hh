@@ -24,17 +24,17 @@ public:
     
     /** remove i-th edge_out (and exactly one ref to me in the edge_out)
       */
-    void remove_edge_out_idx(int i);
-    void copy_edges_out(Directed_graph_node const&);
+    void remove_edge_out_idx (int i);
+    void copy_edges_out (Directed_graph_node const&);
     bool linked_b() const;
     void unlink();
     void junk_links();
-    void add(Directed_graph_node*);
-    void remove_edge_in(Directed_graph_node *);
-    void remove_edge_out(Directed_graph_node*);
-    bool contains_b(Directed_graph_node const*) const;
+    void add (Directed_graph_node*);
+    void remove_edge_in (Directed_graph_node *);
+    void remove_edge_out (Directed_graph_node*);
+    bool contains_b (Directed_graph_node const*) const;
 
-    Directed_graph_node(Directed_graph_node const &);
+    Directed_graph_node (Directed_graph_node const &);
     void OK()const;
     Directed_graph_node();
 

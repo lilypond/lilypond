@@ -45,8 +45,8 @@ public:
     virtual MInterval time_int()const;
     virtual ~Music(){}
     void print() const;
-    virtual void transpose(Melodic_req const *);
-    virtual void translate(Moment dt);
+    virtual void transpose (Melodic_req const *);
+    virtual void translate (Moment dt);
     VIRTUAL_COPY_CONS(Music,Music);
     DECLARE_MY_RUNTIME_TYPEINFO;
     Music();

@@ -17,12 +17,12 @@ protected:
     int idx_;
     Array<T> &arr_;
 public:
-    ACursor(ACursor const& s) 
+    ACursor (ACursor const& s) 
 	:arr_(s.arr_)
     {
 	idx_ = s.idx_;
     }
-    ACursor(Array<T> const &arr)
+    ACursor (Array<T> const &arr)
 	arr_((Array<T>&)arr)
     {
 	idx_ =0;
@@ -36,7 +36,7 @@ public:
 	idx_ ++;
 	return t;
     }
-    bool ok() { return idx_ >=0 && idx_ < arr_.size(); }
+    bool ok() { return idx_ >=0 && idx_ < arr_.size (); }
 };
 
 
@@ -44,8 +44,8 @@ template<class T>
 class PACursor : public ACursor<T*>
 {
 public:
-    PACursor(Link_array<T> l)
-	: ACursor(l)
+    PACursor (Link_array<T> l)
+	: ACursor (l)
     {
     }
     T* ptr() { return arr_[idx_]; }

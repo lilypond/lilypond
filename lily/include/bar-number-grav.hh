@@ -20,7 +20,7 @@ class Bar_number_grav : public Engraver {
     int number_i_;
 protected:
 
-    void acknowledge_element(Score_elem_info);
+    void acknowledge_element (Score_elem_info);
     void do_pre_move_processing();
 public:
     Bar_number_grav();

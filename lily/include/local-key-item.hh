@@ -13,7 +13,7 @@ struct Local_acc {
     int name_i_;
     int accidental_i_;
     int octave_i_;
-    static int compare(Local_acc&, Local_acc&);
+    static int compare (Local_acc&, Local_acc&);
 };
 
 /**
@@ -36,13 +36,13 @@ public:
 
 
     
-    Local_key_item(int c0position);
-    void add_support(Item*);
-    void add(int oct, int pitch, int acc);
-    void add(Melodic_req*);
+    Local_key_item (int c0position);
+    void add_support (Item*);
+    void add (int oct, int pitch, int acc);
+    void add (Melodic_req*);
 protected:
     virtual void do_pre_processing();    
-    virtual void do_substitute_dependency(Score_elem*,Score_elem*);
+    virtual void do_substitute_dependency (Score_elem*,Score_elem*);
     virtual Molecule* brew_molecule_p()const;
 };
 #endif // LOCALKEYITEM_HH

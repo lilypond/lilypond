@@ -23,12 +23,12 @@ class Mixed_qp :public Ineq_constrained_qp {
     Array<int> eq_cons;
     Array<Real> eq_consrhs;
 public:
-    Mixed_qp(int n);
+    Mixed_qp (int n);
     void OK() const;
     void print() const;
 
-    Vector solve(Vector start) const;
-    void add_fixed_var(int i , Real value);
+    Vector solve (Vector start) const;
+    void add_fixed_var (int i , Real value);
     
 
     /**
@@ -37,8 +37,8 @@ public:
         c*vars == r
 
       PRE
-      c.dim()==dim();
+      c.dim()==dim ();
      */
-    void add_equality_cons(Vector c, double r);
+    void add_equality_cons (Vector c, double r);
 };
 #endif

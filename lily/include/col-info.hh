@@ -24,7 +24,7 @@ struct Colinfo {
     bool ugh_b_;		
     /* *************** */
     Colinfo();
-    Colinfo(PCol *,Real const *);
+    Colinfo (PCol *,Real const *);
 
     void print() const;
     bool fixed() const { return fixpos_p_.get_C();}

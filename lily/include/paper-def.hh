@@ -43,15 +43,15 @@ public:
     
     
     /* *************** */
-    void set_var(String, Real);
+    void set_var (String, Real);
     Real get_var (String)const;
     void reinit();
     Paper_def();
-    void set(Lookup*);
-    void set (Input_translator * );
+    void set (Lookup*);
+    void set (Input_translator *);
     Global_translator * get_global_translator_p()const;
     ~Paper_def();
-    Paper_def(Paper_def const&);
+    Paper_def (Paper_def const&);
     /// The distance between beams
     Real interbeam_f()const;
     /**
@@ -77,7 +77,7 @@ public:
     /** convert a duration to an idealspacing
       influence using the geometric_ and  parameters.
       */
-    Real duration_to_dist(Moment);
+    Real duration_to_dist (Moment);
 };
 
 #endif // Paper_def_HH

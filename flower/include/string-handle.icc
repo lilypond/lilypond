@@ -24,7 +24,7 @@ String_handle::down()
 
 /// increase ref count
 INLINE void 
-String_handle::up(String_data *d) 
+String_handle::up (String_data *d) 
 { 
     data=d; data->references ++; 
 }
@@ -33,16 +33,16 @@ INLINE void
 String_handle::copy() 
 {
     if (data->references !=1){
-	String_data *newdata = new String_data(*data);
+	String_data *newdata = new String_data (*data);
 	down();
-	up(newdata);
+	up (newdata);
     }
 }
 
 INLINE
 String_handle::String_handle() 
 {
-    up(new String_data);
+    up (new String_data);
 }
 
 INLINE
@@ -52,9 +52,9 @@ String_handle::~String_handle()
 }    
 
 INLINE
-String_handle::String_handle(String_handle const & src) 
+String_handle::String_handle (String_handle const & src) 
 {	
-    up(src.data);
+    up (src.data);
 }
 
 INLINE Byte* 
@@ -89,7 +89,7 @@ String_handle::operator =(String_handle const &src)
     if (this == &src)
 	return;
     down();
-    up(src.data);
+    up (src.data);
 }
 
 INLINE void 
@@ -116,30 +116,30 @@ String_handle::operator[](int j)
 }
 
 INLINE void 
-String_handle::append( Byte const* byte_C, int length_i ) 
+String_handle::append (Byte const* byte_C, int length_i) 
 {
     copy();
-    data->append( byte_C, length_i );
+    data->append (byte_C, length_i);
 }
 			   
 INLINE void 
-String_handle::set( Byte const* byte_C, int length_i ) 
+String_handle::set (Byte const* byte_C, int length_i) 
 {
     copy();
-    data->set( byte_C, length_i );
+    data->set (byte_C, length_i);
 }
 			   
 INLINE void 
 String_handle::operator = (char const *p) 
 {
     copy();
-    data->set( p );
+    data->set (p);
 }
 			   
 INLINE void 
-String_handle::trunc(int j) 
+String_handle::trunc (int j) 
 {
-    copy(); data->trunc(j); 
+    copy(); data->trunc (j); 
 }
 
 INLINE int 

@@ -38,8 +38,8 @@ public:
     /* *************** */
 
     Moment when() {  return when_; }
-    Score_column(Moment when);       
-    void add_duration(Moment );
+    Score_column (Moment when);       
+    void add_duration (Moment);
     void preprocess();
     bool musical_b() { return musical_b_; }
     void print() const;

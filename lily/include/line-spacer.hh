@@ -31,17 +31,17 @@ public:
     
     /** solve the spacing problem
       */
-    virtual void solve(Col_hpositions *) const=0;
+    virtual void solve (Col_hpositions *) const=0;
 
     /**
       Approximate the spacing problem:
       return a lower bound on the energy
      */
-    virtual void lower_bound_solution(Col_hpositions *) const=0;
+    virtual void lower_bound_solution (Col_hpositions *) const=0;
     
     /** add a col to the problem. columns have to be added left to
       right. The column contains info on it's minimum width.  */
-    virtual void add_column(PCol  *, bool fixed=false, Real fixpos=0.0)=0;
+    virtual void add_column (PCol  *, bool fixed=false, Real fixpos=0.0)=0;
 
     /**
       can the posed problem be solved?
@@ -51,7 +51,7 @@ public:
       prepare() was called
       
      */
-    virtual bool check_constraints(Vector v) const=0;
+    virtual bool check_constraints (Vector v) const=0;
 
     /**
       generate a solution which can't fail

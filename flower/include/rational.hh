@@ -12,6 +12,6 @@
 #include <Rational.h>
 
 /// print a Rational. To be called from the  debugger
-void print_rat(Rational const&);
+void print_rat (Rational const&);
 
 #endif // RATIONAL_HH

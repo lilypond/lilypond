@@ -39,7 +39,7 @@ public:
     virtual Spanner* spanner() { return this; }    
     Spanner();
     bool broken_b() const;
-    Spanner* find_broken_piece(Line_of_score*)const;
+    Spanner* find_broken_piece (Line_of_score*)const;
 protected:
     void set_my_columns();
     SCORE_ELEM_CLONE(Spanner);
@@ -47,7 +47,7 @@ protected:
     /**
       this is virtual; for instance, Line_of_score overrides it.
      */
-    virtual void break_into_pieces(bool);
+    virtual void break_into_pieces (bool);
 
     Link_array<Spanner> broken_into_l_arr_;
 	

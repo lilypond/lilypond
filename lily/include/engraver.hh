@@ -31,7 +31,7 @@ class Engraver {
     /**
       You cannot copy a Engraver
      */
-    Engraver(const Engraver&){}
+    Engraver (const Engraver&){}
 
     enum { 
 	VIRGIN,
@@ -61,13 +61,13 @@ protected:
     virtual void do_post_move_processing(){}
    
 
-    virtual void do_creation_processing () {}
+    virtual void do_creation_processing() {}
     virtual void do_removal_processing() {}
 
     /**
       Invoke walker method to typeset element. Default: pass on to daddy.
       */
-    virtual void typeset_element(Score_elem*elem_p);
+    virtual void typeset_element (Score_elem*elem_p);
     
      /**
       take note of item/spanner
@@ -75,31 +75,31 @@ protected:
 
       Default: ignore the info
       */
-    virtual void acknowledge_element(Score_elem_info) {}
+    virtual void acknowledge_element (Score_elem_info) {}
     /**
       Announce element. Default: pass on to daddy. Utility
       */
-    virtual void announce_element(Score_elem_info);
+    virtual void announce_element (Score_elem_info);
     /**
-      Set Feature of the engraver(s). Default: ignore Feature.
+      Set Feature of the engraver (s). Default: ignore Feature.
      */
-    virtual void set_feature(Feature){}
+    virtual void set_feature (Feature){}
     /**
       ask daddy for a feature
      */
-    virtual Scalar get_feature(String type_str);
+    virtual Scalar get_feature (String type_str);
     /**
       Does this equal or contain a certain engraver?
      */
 
     virtual void sync_features() {}
    
-    virtual bool contains_b(Engraver*grav_l)const;
+    virtual bool contains_b (Engraver*grav_l)const;
     /**
       Get information on the staff. Default: ask daddy.
       */
     virtual Staff_info get_staff_info()const;
-    virtual void fill_staff_info(Staff_info&);
+    virtual void fill_staff_info (Staff_info&);
 
 
     virtual void do_print()const;  
@@ -107,7 +107,7 @@ protected:
 	  @see{try_request}
 	  Default: always return false
       */
-    virtual bool do_try_request(Request *req_l);
+    virtual bool do_try_request (Request *req_l);
 public:
     void pre_move_processing();
     void process_requests();
@@ -120,7 +120,7 @@ public:
       true: request swallowed. Don't try to put the request elsewhere.
 
       */
-    bool try_request(Request*);
+    bool try_request (Request*);
     bool is_bottom_engraver() const;
 
     void post_move_processing();
@@ -139,17 +139,17 @@ public:
  */
 #define ADD_THIS_ENGRAVER(c)				\
 struct c ## init {					\
-    static Engraver * globalctor (){		\
+    static Engraver * globalctor(){		\
 	return new c;					\
     }							\
-    c ## init () {					\
-	add_engraver(c::static_name(), globalctor);	\
+    c ## init() {					\
+	add_engraver (c::static_name(), globalctor);	\
 							\
     }							\
 } _ ## c ## init;
 
 typedef Engraver*(*Grav_ctor)(void);
-void add_engraver(String s, Grav_ctor f);
+void add_engraver (String s, Grav_ctor f);
 
 #endif // ENGRAVER_HH
 

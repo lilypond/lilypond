@@ -17,25 +17,25 @@
 
 class Music_iterator {
    Array<Translator *>report_to_l_arr_;
-   void push_translator(Translator*);
+   void push_translator (Translator*);
     void pop_translator();
 protected:
     bool first_b_;
     virtual void do_print()const;
     
     virtual Translator * get_req_translator_l();
-    Music_iterator* get_iterator_p(Music*)const;
-    void set_translator(Translator*);
+    Music_iterator* get_iterator_p (Music*)const;
+    void set_translator (Translator*);
     Music_iterator *daddy_iter_l_;
     
 public:
     Translator *report_to_l()const;
     DECLARE_MY_RUNTIME_TYPEINFO;
  
-    static Music_iterator* static_get_iterator_p(Music*,Translator*);
+    static Music_iterator* static_get_iterator_p (Music*,Translator*);
     Music_iterator();
     
-    virtual void process_and_next(Moment until);
+    virtual void process_and_next (Moment until);
     virtual Moment next_moment()const;
     virtual bool ok()const;
     virtual ~Music_iterator();
@@ -50,12 +50,12 @@ class Chord_iterator : public Music_iterator
     Pointer_list<Music_iterator*> children_p_list_;
 public:
     ~Chord_iterator();
-    Chord_iterator(Chord const*);
+    Chord_iterator (Chord const*);
     DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
     virtual void do_print()const;
     virtual void construct_children();
-    virtual void process_and_next(Moment);
+    virtual void process_and_next (Moment);
     virtual Moment next_moment()const;
     virtual bool ok()const;
 };
@@ -65,11 +65,11 @@ class Request_chord_iterator : public Music_iterator {
     Moment elt_duration_;
     bool last_b_;
 public:
-    Request_chord_iterator(Request_chord*);
+    Request_chord_iterator (Request_chord*);
     DECLARE_MY_RUNTIME_TYPEINFO;
 
 protected:
-    virtual void process_and_next(Moment);
+    virtual void process_and_next (Moment);
     virtual Moment next_moment()const;
     virtual void construct_children();
     virtual bool ok()const;
@@ -87,13 +87,13 @@ class Voice_iterator :  private PCursor<Music*>, public Music_iterator
     void set_voice_translator();
     
 public:
-    Voice_iterator(Voice const*);
+    Voice_iterator (Voice const*);
     DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
     virtual void do_print()const;
     virtual void construct_children();
     ~Voice_iterator();    
-    virtual void process_and_next(Moment);
+    virtual void process_and_next (Moment);
     virtual Moment next_moment()const;
     virtual bool ok()const;
 };

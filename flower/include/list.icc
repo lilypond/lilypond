@@ -20,11 +20,11 @@ List<T>::set_empty()
 
 template<class T>
 inline void
-List<T>::remove( Cursor<T> me )
+List<T>::remove (Cursor<T> me)
 {
-    if ( me.ok() ){
+    if ( me.ok()){
 	Link<T> *lp = me.pointer();	
-	lp->remove(*this);
+	lp->remove (*this);
 	delete lp;
         size_--;
     }
@@ -41,7 +41,7 @@ template<class T>
 inline Cursor<T>
 List<T>::top()const
 {
-    return Cursor<T>( *this, top_ );
+    return Cursor<T>( *this, top_);
 }
 
 
@@ -49,7 +49,7 @@ template<class T>
 inline Cursor<T>
 List<T>::bottom()const
 {
-    return Cursor<T>( *this, bottom_ );
+    return Cursor<T>( *this, bottom_);
 }
 
 

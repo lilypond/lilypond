@@ -65,17 +65,17 @@ public:
 
     
     /* *************** */
-    Stem(int staff_size_i);
+    Stem (int staff_size_i);
     
     /// ensure that this Stem also encompasses the Notehead #n#
-    void add(Note_head*n);
+    void add (Note_head*n);
 
     DECLARE_MY_RUNTIME_TYPEINFO;
 
     Real hpos_f()const;
     
     void do_print() const;
-    void set_stemend(Real);
+    void set_stemend (Real);
     int get_default_dir();
     int get_center_distance_from_top();
     int get_center_distance_from_bottom();
@@ -94,7 +94,7 @@ public:
     int max_head_i() const;
     int min_head_i() const;
 protected:
-    virtual void do_substitute_dependency(Score_elem*,Score_elem*);
+    virtual void do_substitute_dependency (Score_elem*,Score_elem*);
     virtual void do_pre_processing();
     virtual Interval do_width() const;
     Molecule* brew_molecule_p() const;

@@ -14,7 +14,7 @@
 #include "head-column.hh"
 
 /** a struct for treating a group of noteheads (noteheads, stem
-  (chord) and scripts ) as a single entity.  */
+  (chord) and scripts) as a single entity.  */
 class Note_column : public Head_column {
 protected:
     virtual void do_pre_processing();
@@ -26,7 +26,7 @@ public:
         
     DECLARE_MY_RUNTIME_TYPEINFO;
     Note_column();
-    virtual void set(Stem *);
+    virtual void set (Stem *);
     void sort();
 };
 

@@ -28,41 +28,41 @@ class Full_storage : public Matrix_storage
     void
     init() ;
      
-    bool valid(int i, int j) const ; 
+    bool valid (int i, int j) const ; 
 
-    void resize_rows(int);
-    void resize_cols(int);
+    void resize_rows (int);
+    void resize_cols (int);
 
 public:
     virtual int rows() const;
     virtual int cols() const ;
     
     
-    virtual void resize(int i, int j);
-    virtual void resize(int i);
-    virtual Real& elem(int i,int j);
-    virtual Real elem(int i, int j)const ;
+    virtual void resize (int i, int j);
+    virtual void resize (int i);
+    virtual Real& elem (int i,int j);
+    virtual Real elem (int i, int j)const ;
     int dim()const;
-    Full_storage(Matrix_storage*);
+    Full_storage (Matrix_storage*);
     Full_storage();
-    Full_storage(int i, int j);
-    Full_storage(Full_storage const&);
-    Full_storage(int i);
+    Full_storage (int i, int j);
+    Full_storage (Full_storage const&);
+    Full_storage (int i);
     void OK() const;
     void operator=(Full_storage const &);
     
-    virtual void insert_row(int k);
-    virtual void delete_row(int k);
-    virtual void delete_column(int k);
+    virtual void insert_row (int k);
+    virtual void delete_row (int k);
+    virtual void delete_column (int k);
     
     ~Full_storage();
-    virtual bool mult_ok(int i, int j)const;
-    virtual void mult_next(int &i, int &j) const ;
-    virtual bool trans_ok(int i, int j) const;
-    virtual void trans_next(int &i, int &j) const;
+    virtual bool mult_ok (int i, int j)const;
+    virtual void mult_next (int &i, int &j) const ;
+    virtual bool trans_ok (int i, int j) const;
+    virtual void trans_next (int &i, int &j) const;
     DECLARE_VIRTUAL_COPY_CONS(Full_storage,Matrix_storage);
     DECLARE_MY_RUNTIME_TYPEINFO;
-    virtual bool try_right_multiply(Matrix_storage * dest, Matrix_storage const * )const;
+    virtual bool try_right_multiply (Matrix_storage * dest, Matrix_storage const *)const;
 };
 
 #endif // FULL_STORAGE_HH

@@ -13,8 +13,8 @@ Getopt_long::argument_to_i()
 {
     long l;
     if (!optional_argument_ch_C_ 
-	|| sscanf(optional_argument_ch_C_, "%ld", &l) != 1)
-	report(E_ILLEGALARG);
+	|| sscanf (optional_argument_ch_C_, "%ld", &l) != 1)
+	report (E_ILLEGALARG);
     
     return l;
 }
@@ -23,23 +23,23 @@ const Long_option_init *
 Getopt_long::parselong()
 {
     char const *optnm = arg_value_ch_a_a_[array_index_i_] + 2 ;
-    assert(*optnm);
+    assert (*optnm);
     
-    char const *endopt = strchr(optnm, '=');
-    int searchlen  = (endopt) ? endopt - optnm : strlen(optnm);
+    char const *endopt = strchr (optnm, '=');
+    int searchlen  = (endopt) ? endopt - optnm : strlen (optnm);
     
     found_option_l_=0;
     for (int i=0; i< table_len_i_; i++) {
 	char const *ln = option_a_[i].longname;
 
-	if (ln && !strncmp(ln, optnm, searchlen)) {
+	if (ln && !strncmp (ln, optnm, searchlen)) {
 	    found_option_l_ = option_a_+i;
 	    break;
 	}
     }	
 
     if (!found_option_l_) {
-	report(E_UNKNOWNOPTION);
+	report (E_UNKNOWNOPTION);
 	return 0;
     }
     array_index_i_++;
@@ -54,12 +54,12 @@ Getopt_long::parselong()
 	    array_index_i_++;
 	}
 	if (!optional_argument_ch_C_)
-	    report(E_ARGEXPECT);
+	    report (E_ARGEXPECT);
 
     } else {
 	optional_argument_ch_C_ = 0;
 	if (endopt)
-	    report(E_NOARGEXPECT);
+	    report (E_NOARGEXPECT);
     }
     
     return found_option_l_;
@@ -67,7 +67,7 @@ Getopt_long::parselong()
 
 
 void
-Long_option_init::printon(ostream &errorout)const
+Long_option_init::printon (ostream &errorout)const
 {
     if (shortname)	
 	errorout <<"-" << shortname;
@@ -79,7 +79,7 @@ Long_option_init::printon(ostream &errorout)const
 
 // report an error, GNU style.
 void
-Getopt_long::report(Errorcod c)
+Getopt_long::report (Errorcod c)
 {
     error_ = c;
     if (!error_ostream_l_)
@@ -89,7 +89,7 @@ Getopt_long::report(Errorcod c)
     switch (c) {
     case E_ARGEXPECT:
 	*error_ostream_l_<< "option ";
-	found_option_l_->printon(*error_ostream_l_);
+	found_option_l_->printon (*error_ostream_l_);
 	*error_ostream_l_ << "requires an argument"<<endl;
 	break;
     case  E_NOARGEXPECT:
@@ -107,12 +107,12 @@ Getopt_long::report(Errorcod c)
 	break;
     case E_ILLEGALARG:
 	*error_ostream_l_ << "illegal argument `" << optional_argument_ch_C_ << "\'to option ";
-	found_option_l_->printon(*error_ostream_l_);
+	found_option_l_->printon (*error_ostream_l_);
 	*error_ostream_l_ << '\n';
     default:
-	assert(false);
+	assert (false);
     }
-    exit(2); 
+    exit (2); 
 }
     
 const Long_option_init *
@@ -120,7 +120,7 @@ Getopt_long::parseshort()
 {
     char c=arg_value_ch_a_a_[array_index_i_][argument_index_i_];
     found_option_l_=0;
-    assert(c);
+    assert (c);
     
     for (int i=0; i < table_len_i_; i++)
 	if (option_a_[i].shortname == c) {
@@ -129,7 +129,7 @@ Getopt_long::parseshort()
 	}
 
     if (!found_option_l_){
-	report(E_UNKNOWNOPTION);
+	report (E_UNKNOWNOPTION);
 	return 0;
     }
 
@@ -148,7 +148,7 @@ Getopt_long::parseshort()
 	array_index_i_ ++;
     }
     if (!optional_argument_ch_C_) {
-	report(E_ARGEXPECT);
+	report (E_ARGEXPECT);
     }
     
     return found_option_l_;
@@ -171,7 +171,7 @@ Getopt_long::operator()()
 	return 0;
 
     if (argument_C[1] == '-') {// what to do with "command  --  bla"
-	if ( argument_C[2] )
+	if ( argument_C[2])
 	    return parselong();
 	else
 	    return 0;
@@ -185,7 +185,7 @@ Getopt_long::operator()()
     }
 }
 
-Getopt_long::Getopt_long(int c, char  **v, Long_option_init *lo)
+Getopt_long::Getopt_long (int c, char  **v, Long_option_init *lo)
 {
     option_a_ = lo;
     error_ostream_l_ = &cerr;

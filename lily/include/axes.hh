@@ -19,6 +19,6 @@ enum Axis {
 
 class String;
 
-String axis_name_str(Axis);
+String axis_name_str (Axis);
 
 #endif // AXES_HH

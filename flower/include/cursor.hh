@@ -20,19 +20,19 @@ class Cursor
  public:
     /** create cursor, set at top. The const part isn't true, actually, #list#
       surely isn't const, but I get tired of the warning messages.  */
-    Cursor( const List<T>& list, Link<T>* pointer = 0 );
+    Cursor (const List<T>& list, Link<T>* pointer = 0);
     /**
       Create an invalid cursor (pointing to nothing, associated with   no list.)
      */
     Cursor();
-    Cursor( const Cursor<T>& cursor );
+    Cursor (const Cursor<T>& cursor);
 
     T& thing();
 
     /// return current T
     T& operator *() { return thing(); }
     operator T() { return thing(); }
-    Cursor<T> operator =( const Cursor<T>& c );
+    Cursor<T> operator =( const Cursor<T>& c);
 
     /// make cursor with #no# items back
     Cursor<T> operator -( int no) const;
@@ -47,10 +47,10 @@ class Cursor
     /// move one up.
     void previous();
     /// return current and move one down
-    Cursor<T> operator ++( int );
+    Cursor<T> operator ++( int);
     
     /// return current and move one up
-    Cursor<T> operator --( int ); 
+    Cursor<T> operator --( int); 
 
     /// point to link?
     bool ok()const;
@@ -72,7 +72,7 @@ class Cursor
       cursor points to same object, cursor.next() is newly added
       object.
       */
-    void add( T const & thing );
+    void add (T const & thing);
 
     /**  put (copy) before me in List. 
       analogously to editor. ok() interpreted as at begin of
@@ -86,7 +86,7 @@ class Cursor
       is newly inserted object.
       */
     
-    void insert( T const & thing );
+    void insert (T const & thing);
     ///
     void backspace();
 
@@ -96,7 +96,7 @@ class Cursor
     /// access the list this came from
     List<T>& list() const ;
     Link<T>* pointer();
-    static   int compare(Cursor<T> a,Cursor<T>b) { return a-b; }
+    static   int compare (Cursor<T> a,Cursor<T>b) { return a-b; }
 private:
     List<T>& list_;
     Link<T>* pointer_;
@@ -109,7 +109,7 @@ private:
 #include "compare.hh"
 
 
-template_instantiate_compare(Cursor<T>, Cursor<T>::compare, template<class T>);
+TEMPLATE_INSTANTIATE_COMPARE(Cursor<T>, Cursor<T>::compare, template<class T>);
 
 #include "pcursor.hh"
 #include "list.hh"

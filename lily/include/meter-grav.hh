@@ -24,8 +24,8 @@ public:
     Meter_change_req * meter_req_l_;
     Meter * meter_p_;
  
-    virtual void fill_staff_info(Staff_info&);
-    virtual bool do_try_request(Request *req_l);
+    virtual void fill_staff_info (Staff_info&);
+    virtual bool do_try_request (Request *req_l);
     virtual void do_process_requests();
     virtual void do_pre_move_processing();
     virtual void do_creation_processing();

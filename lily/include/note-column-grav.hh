@@ -24,10 +24,10 @@ class Note_column_engraver :public Engraver {
     int dir_i_;
     
 
-    bool acceptable_elem_b(Score_elem const*)const;
+    bool acceptable_elem_b (Score_elem const*)const;
 protected:
-    virtual void set_feature(Feature);
-    virtual void acknowledge_element(Score_elem_info);
+    virtual void set_feature (Feature);
+    virtual void acknowledge_element (Score_elem_info);
     virtual void do_pre_move_processing();
     virtual void do_post_move_processing();
 public:

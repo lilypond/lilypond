@@ -30,15 +30,15 @@ struct Atom {
 
     /* *************** */
     
-    void translate(Offset o) {
+    void translate (Offset o) {
 	off_ += o;
     }
-    void translate(Real r,Axis a){
+    void translate (Real r,Axis a){
 	off_[a] += r;
     }
     /// how big is #this#?
     Box extent() const;
-    Atom(Symbol s);
+    Atom (Symbol s);
 
     void print() const;
 

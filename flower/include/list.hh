@@ -19,8 +19,8 @@ template<class T> class Link;
  
    {\bf note:} 
    retrieving "invalid" cursors, i.e. 
-   #top()/bottom()# from empty list, #find()# without success,
-    results in a nonvalid Cursor ( #!ok()# )
+   #top()/bottom ()# from empty list, #find ()# without success,
+    results in a nonvalid Cursor ( #!ok()#)
 
 
     INVARIANTEN!
@@ -30,7 +30,7 @@ template<class T>
 class List
 {
  public:
-    List(List const&src);
+    List (List const&src);
 
     /// construct empty list                
     List();    
@@ -48,7 +48,7 @@ class List
     friend class Cursor<T>;
     friend class Link<T>;
 
-    void concatenate(List<T> const &s);
+    void concatenate (List<T> const &s);
     
     /**  make *this empty. 
 
@@ -60,10 +60,10 @@ class List
       */
      void set_empty();
   
-    void add( T const & thing, Cursor<T> &after_me );
+    void add (T const & thing, Cursor<T> &after_me);
 
     /// put thing before #before_me#
-    void insert( T const & thing, Cursor<T> &before_me );
+    void insert (T const & thing, Cursor<T> &before_me);
 
     /** Remove link pointed to by me. Destructor of contents called
       (nop for pointers)
@@ -74,7 +74,7 @@ class List
 
       WARNING: do not use #me# after calling
       */
-    void remove( Cursor<T> me );
+    void remove (Cursor<T> me);
    
 
     /* ************** */

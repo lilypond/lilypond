@@ -19,11 +19,11 @@ class Vertical_group_spanner : public Axis_group_spanner, public Vertical_group_
 {
 protected:
     SCORE_ELEM_CLONE(Vertical_group_spanner);
-    virtual void remove_all() { Vertical_group_element::remove_all(); }
+    virtual void remove_all() { Vertical_group_element::remove_all (); }
 public:
     DECLARE_MY_RUNTIME_TYPEINFO;
-    virtual void add_element(Score_elem*e) { Vertical_group_element::add_element(e); }
-    virtual void remove_element(Score_elem*e) { Vertical_group_element::remove_element(e); }
+    virtual void add_element (Score_elem*e) { Vertical_group_element::add_element (e); }
+    virtual void remove_element (Score_elem*e) { Vertical_group_element::remove_element (e); }
   
 };
 

@@ -13,7 +13,7 @@
 #include "engraver-group.hh"
 
 /**
-  A group of voices which share certain characteristics (such as beams. ).
+  A group of voices which share certain characteristics (such as beams.).
  */
 class Voice_group_engravers  : public Engraver_group_engraver {
     Moment termination_mom_;
@@ -21,13 +21,13 @@ class Voice_group_engravers  : public Engraver_group_engraver {
 
 protected:
     virtual void do_print() const;
-    virtual Scalar get_feature(String);
-    virtual bool do_try_request(Request*);
+    virtual Scalar get_feature (String);
+    virtual bool do_try_request (Request*);
 public:
     
     
     DECLARE_MY_RUNTIME_TYPEINFO;
-    static bool static_acceptable_request_b(Request*);
+    static bool static_acceptable_request_b (Request*);
     Voice_group_engravers();
 };
 #endif // VOICEGROUPGRAVS_HH
