@@ -14,9 +14,12 @@ URL: http://www.lilypond.org/
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 
-Buildrequires: t1utils bison flex mftrace
+Buildrequires: t1utils bison flex mftrace ImageMagick
 
-#  require texinfo >= 4.6 really, otherwise the info files fuck up.
+#  requires texinfo >= 4.6 really, otherwise the info files fuck up.
+# however, that's still not standard on RH 9, so we'll leave it at  this
+# for now
+
 Buildrequires: texinfo
 Requires: tetex  tetex-latex libstdc++ python 
 Requires: guile >= 1.6.4-7

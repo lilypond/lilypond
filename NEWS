@@ -6,7 +6,8 @@ cleaner and more flexible.
 
 ** A new syntax has been added for text entry.  This syntax is more
 friendly than the old mechanism, and it is implemented in a more
-robust and modular way.
+robust and modular way. For more information, refer to the section on
+"Text markup" in the notation manual.
 
 ** Deeper integration of the input language and Scheme. You can now use
 LilyPond identifiers in Scheme, and use Scheme expressions instead of
@@ -41,6 +42,15 @@ this code is
 
 	\applycontext #SCHEME-FUNCTION
 
+
+** User code may now be executed on arbitrary grobs during interpreting.
+The syntax for this feature is
+
+ 	\applyoutput #SCHEME-FUNCTION
+
+SCHEME-FUNCTION takes a single argument, and is called for every grob
+that is created in the current context.
+
 ** New algorithms for chord-name formatting have been installed. They
 can be tuned and have ergonomic syntax for entering exceptions.
 
@@ -57,10 +67,7 @@ without the proper line breaking and horizontal spacing.
 
 ** Clusters may now be printed. The syntax is:
 
-	NOTE-\startCluster
-
-	..
-	NOTE-\stopCluster
+	\apply #clusters-to-notes { NOTE NOTE .. }
 
 ** For irregular meters, beat grouping marks can be printed. The
 syntax for this is

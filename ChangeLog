@@ -10,6 +10,8 @@
 
 2003-07-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.7.26 released
+
 	* lily/separation-item.cc: add padding property.
 
 	* input/test/*.ly: various fixes, remove solo-a2.ly
