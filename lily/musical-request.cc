@@ -33,6 +33,8 @@ Stem_req::Stem_req()
 IMPLEMENT_STATIC_NAME(Musical_req);
 void
 Musical_req::do_print()const{}
+void
+Tie_req::do_print()const{}
 
 IMPLEMENT_STATIC_NAME(Request);
 
@@ -435,3 +437,5 @@ Span_dynamic_req::do_print()const
     mtor << "louder/louder: " <<dynamic_dir_i_;
 #endif
 }
+
+IMPLEMENT_STATIC_NAME(Tie_req);
