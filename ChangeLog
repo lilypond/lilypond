@@ -1,5 +1,13 @@
 2002-09-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/lilypond-book.py (output_verbatim): python 2.2 workaround.
+
+	* scm/documentation-lib.scm (scm->string): print procedure name in
+	stead of #<procedure .. > 
+
+	* scripts/ly2dvi.py (run_lilypond): exit with error if lily exited
+	any file with an error.
+
 	* input/regression/molecule-hacking.ly: also restore Y
 	extent. Fixes bugs with stem attachment of parenthesized note
 	heads.

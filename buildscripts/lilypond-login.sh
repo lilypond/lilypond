@@ -12,15 +12,7 @@
 # strange shell, this C
 set datadir="@local_lilypond_datadir@"
 
- if ( $?GS_LIB ) then
-       setenv GS_LIB "$datadir/ps:$GS_LIB"
- else
-       setenv GS_LIB "$datadir/ps"
- endif
-
-
 # setenv LILYPONDPREFIX "$datadir"
-
 # bit silly. for ly2dvi, overrules compiled-in datadir...
 # setenv LILYPONDPREFIX "@local_lilypond_datadir@"
 
@@ -31,11 +23,21 @@ set noglob
 setenv TEXMF "{$datadir,"`kpsexpand  \$TEXMF`"}"
 unset noglob
 
+
+
+# if ( $?GS_LIB ) then
+#       setenv GS_LIB "$datadir/ps:$GS_LIB"
+# else
+#       setenv GS_LIB "$datadir/ps"
+# endif
+
+
+
 # Add all available TeX Type1 fonts (including Feta) to Ghostscript:
-if ( $?GS_FONTPATH ) then
-       setenv GS_FONTPATH `kpsewhich -expand-path=\$T1FONTS`:$GS_FONTPATH
-else
-       setenv GS_FONTPATH `kpsewhich -expand-path=\$T1FONTS`
-endif
+#if ( $?GS_FONTPATH ) then
+#       setenv GS_FONTPATH `kpsewhich -expand-path=\$T1FONTS`:$GS_FONTPATH
+#else
+#       setenv GS_FONTPATH `kpsewhich -expand-path=\$T1FONTS`
+#endif
 
 

@@ -9,7 +9,7 @@ Beam. The note head is also rather naive, since the extent of the
 parens are also not seen by accidentals.
 "
 	
-	 }
+}
 
 #(define (parenthesize-callback callback)
    "Construct a function that will do CALLBACK and add parentheses.

@@ -79,18 +79,21 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 		the first and last (quarter) note bothe get one tremolo flag.
 	       */
 	      int requested_type = gh_scm2int (tremolo_req_->get_mus_property ("tremolo-type"));
-	      if (requested_type <= 8)
-		{
-		  tremolo_req_->origin()->warning (_("tremolo duration is too long"));
-		  requested_type = 0;
-		}
 	      SCM f = get_property ("tremoloFlags");
 	      if (!requested_type && gh_number_p (f))
 		requested_type = gh_scm2int (f);
 	      else
 		daddy_trans_->set_property ("tremoloFlags", gh_int2scm (requested_type));
 
-	      if (requested_type)
+	      int tremolo_flags = intlog2 (requested_type) - 2
+		- (duration_log > 2 ? duration_log - 2 : 0);
+	      if (tremolo_flags <= 0)
+		{
+		  tremolo_req_->origin()->warning (_("tremolo duration is too long"));
+		  tremolo_flags = 0;
+		}
+
+	      if (tremolo_flags)
 		{
 		  tremolo_ = new Item (get_property ("StemTremolo"));
 		  announce_grob(tremolo_, tremolo_req_->self_scm());
@@ -100,11 +103,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 		    the tremolo-type minus the number of flags of the note
 		    itself.
 		   */
-		  int tremolo_flags = intlog2 (requested_type) - 2
-		    - (duration_log > 2 ? duration_log - 2 : 0);
-		  if (tremolo_flags < 0)
-		    tremolo_flags = 0;
-		  tremolo_->set_grob_property ("flag-count",
+			  tremolo_->set_grob_property ("flag-count",
 						gh_int2scm (tremolo_flags));
 		  tremolo_->set_parent (stem_, X_AXIS);
 		}

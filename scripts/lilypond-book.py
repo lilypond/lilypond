@@ -456,7 +456,11 @@ def output_verbatim (body, small):
 		body = re.sub ('>', '&gt;', body)
 		body = re.sub ('<', '&lt;', body)
 	elif __main__.format == 'texi':
-		body = re.sub ('([@{}])', '@\\1', body)
+		
+		# clumsy workaround for python 2.2 pre bug.
+		body = re.sub ('@', '@@', body)
+		body = re.sub ('{', '@{', body)
+		body = re.sub ('}', '@}', body)
 
 	if small:
 		key = 'output-small-verbatim'

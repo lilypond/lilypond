@@ -130,9 +130,13 @@ def user_error (s, e=1):
 		sys.exit (e)
 	
 def error (s):
-	'''Report the error S.  Exit by raising an exception. Please
-	do not abuse by trying to catch this error. If you do not want
-	a stack trace, write to the output directly.
+	'''Report the error S.
+
+	If verbose is set, exit by raising an exception. Otherwise,
+	simply sys.exit().
+
+	Please do not abuse by trying to catch this error. If you do
+	not want a stack trace, write to the output directly.
 
 	RETURN VALUE
 
@@ -141,7 +145,10 @@ def error (s):
 	'''
 	
 	progress (_ ("error: ") + s)
-	raise _ ("Exiting ... ")
+	if verbose_p:
+		raise _ ("Exiting ... ")
+	else:
+		sys.exit (2)
 
 def getopt_args (opts):
 	'''Construct arguments (LONG, SHORT) for getopt from  list of options.'''
@@ -321,6 +328,7 @@ errorport = sys.stderr
 keep_temp_dir_p = 0
 verbose_p = 0
 preview_p = 0
+lilypond_error_p = 0
 preview_resolution = 90
 pseudo_filter_p = 0
 latex_cmd = 'latex'
@@ -512,7 +520,9 @@ def run_lilypond (files, dep_prefix):
 		sys.stderr.write ( "\n" \
 			+ _ ("LilyPond failed on an input file (exit status %d).") % exit_status + "\n")
 		sys.stderr.write (_("Trying to salvage the rest.") +'\n\n')
-		
+
+		global lilypond_error_p
+		lilypond_error_p = 1
 		
 
 def analyse_lilypond_output (filename, extra):
@@ -1107,7 +1117,8 @@ if files:
 			
 	os.chdir (original_dir)
 	cleanup_temp ()
-	
+
+	sys.exit (lilypond_error_p)
 else:
 	help ()
 	user_error (_ ("no files specified on command line"), 2)
