@@ -1,7 +1,16 @@
 % -*-latex-*-
 
 % this document should be run through the mudela-book script after lilypond
-% has been installed. 
+% has been installed.  The rules have been precooked into the
+% Documentation/Rules.make file; do 
+%
+%   make out/mudela-man.dvi
+%
+% or
+%
+%   mudela-book --outdir=out/ --outname=mudela-course.mudtex mudela-course.doc
+%   latex '\nonstopmode \input out/mudela-course.mudtex'
+
 
 \documentclass{article}
 \usepackage{a4wide}
