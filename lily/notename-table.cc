@@ -22,3 +22,4 @@ Notename_table::get_name (Musical_pitch m) const
     }
   return "r";			// rest. 
 }
+
