@@ -1,5 +1,5 @@
 /*
-  grob-scheme.cc --
+  grob-scheme.cc -- Scheme entry points for the grob datatype
 
   source file of the GNU LilyPond music typesetter
 

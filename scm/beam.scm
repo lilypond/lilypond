@@ -59,3 +59,40 @@
       (dir-compare (/ (car total) (car count)) (/ (cdr total) (cdr count)))
       (dir-compare (car count) (cdr count))))
 	    
+
+(define ((check-beam-quant posl posr) beam)
+  "Check whether BEAM has POSL and POSR quants.  POSL are (POSITION
+. QUANT) pairs, where QUANT is -1 (hang), 0 (center), 1 (sit) or -2/ 2 (inter) 
+
+"
+  (let*
+      ((posns (ly:grob-property beam 'positions))
+       (thick (ly:grob-property beam 'thickness))
+       (paper (ly:grob-paper beam))
+       (lthick (ly:output-def-lookup paper 'linethickness))
+       (staff-thick lthick) ; fixme.
+       (quant->coord (lambda (p q)
+		       (if (= 2 (abs q))
+			   (+ p (/ q 4.0))
+			   (+ p (- (* 0.5 q thick) (* 0.5 q lthick))))))
+       (want-l (quant->coord (car posl) (cdr posl))) 
+       (want-r (quant->coord (car posr) (cdr posr)))
+       (almost-equal (lambda (x y) (< (abs (- x y)) 1e-3))))
+    
+    (if (or (not (almost-equal want-l (car posns)))
+	    (not (almost-equal want-r (cdr posns))))
+	(ly:warn
+	 (format "Error in beam quanting found. Want (~S,~S) found (~S)."
+		 want-l want-r posns
+		 )))))
+		 
+(define-public (check-quant-callbacks l r)
+  (list Beam::least_squares
+    Beam::check_concave
+    Beam::slope_damping
+    Beam::shift_region_to_valid
+    Beam::quanting
+    (check-beam-quant l r)
+    ))
+
+  
