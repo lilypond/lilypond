@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include "debug.hh"
 #include "music-list.hh"
@@ -116,6 +116,7 @@ Music_iterator::process_and_next (Moment)
 {
   first_b_ = false;
 }
+
 
 bool
 Music_iterator::ok() const
