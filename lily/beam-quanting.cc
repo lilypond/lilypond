@@ -454,6 +454,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
   Direction d = LEFT;
   Real dem = 0.0;
   
+
   do
     {
       for (int j = 1; j <= beam_counts[d]; j++)
@@ -465,8 +466,8 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	    borderline cases. If we do 2.0, then the upper outer line
 	    will be in the gap of the (2,sit) quant, leading to a
 	    false demerit.
-	   */
-	  Real gap1 =  y[d] - stem_dir * ((j-1) * beam_translation + thickness / 2 - slt/2.2 );
+	  */
+	  Real gap1 = y[d] - stem_dir * ((j-1) * beam_translation + thickness / 2 - slt/2.2 );
 	  Real gap2 = y[d] - stem_dir * (j * beam_translation - thickness / 2 + slt/2.2);
 
 	  Interval gap;
@@ -476,7 +477,18 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	  for (Real k = - radius ;
 	       k <= radius + BEAM_EPS; k += 1.0) 
 	    if (gap.contains (k))
-	      dem += extra_demerit;
+	      {
+		Real dist = fabs (gap[UP]-k) <? fabs (gap[DOWN] - k);
+
+		/*
+		  this parameter is tuned to grace-stem-length.ly
+		*/
+		Real fixed_demerit = 0.4;
+		
+		dem += extra_demerit
+		  * (fixed_demerit +
+		     (1-fixed_demerit) * (dist / gap.length())* 2);
+	      }
 	}
     }
   while ((flip (&d))!= LEFT); 

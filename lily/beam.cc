@@ -912,11 +912,11 @@ Beam::least_squares (SCM smob)
 
       /*
 	For broken beams this doesn't work well. In this case, the
-	 slope esp. of the first part of a broken beam should predict
-	 where the second part goes.
-       */
+	slope esp. of the first part of a broken beam should predict
+	where the second part goes.
+      */
       me->set_property ("least-squares-dy",
-			     scm_make_real (pos[RIGHT] - pos[LEFT]));
+			scm_make_real (pos[RIGHT] - pos[LEFT]));
     }
   else
     {

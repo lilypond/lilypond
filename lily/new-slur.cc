@@ -815,7 +815,7 @@ New_slur::score_slopes (Grob * me,  Grob *common[],
       if (!has_beams)
 	/*
 	  0.2: account for staffline offset.
-	 */
+	*/
 	demerit += score_param->STEEPER_SLOPE_FACTOR *  (dir * (fabs (slur_dy) - fabs (dy + 0.2)) >? 0); 
 
       demerit += ((fabs (slur_dy/slur_dz[X_AXIS]) - score_param->MAX_SLOPE)>?0)  * score_param->MAX_SLOPE_FACTOR;
