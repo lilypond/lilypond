@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc= "@cindex Scheme Manual Accidentals
 Positions of accidentals may be manually set. This
@@ -16,7 +16,7 @@ involves some scheme code. " }
 \score {
   \context Voice \notes \relative c'' {
     c2.
-    <
+    <<
 \property Staff.AccidentalPlacement = \turnOff
 \context Staff \outputproperty #(make-acc-position-checker 9)
                                #'extra-offset = #'(-1 . 0)
@@ -30,7 +30,7 @@ involves some scheme code. " }
       eis
       gis
       d'!
-    >
+    >>
   }
   \paper {
     raggedright = ##t

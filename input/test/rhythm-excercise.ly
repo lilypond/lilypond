@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 \header { texidoc = "@cindex Rhythm Exercise
 This example shows a way to generate rhythm exercises with
 LilyPond (e.g. no staff but retaining the barlines). "

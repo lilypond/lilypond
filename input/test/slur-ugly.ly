@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header { texidoc="@cindex Slur Ugly
 You can get ugly slurs, if you want. "
@@ -10,14 +10,14 @@ baseWalk = \notes \relative c {
 }
 
 \score {
-  \notes \context PianoStaff <
+  \notes \context PianoStaff <<
     \time 6/4
     \context Staff=up { s1 * 6/4 }
-    \context Staff=down <
+    \context Staff=down <<
       \clef bass
       \autochange Staff \context Voice \baseWalk
-    >
-  >
+    >>
+  >>
   \paper {
     raggedright = ##t
     \translator {

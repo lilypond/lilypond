@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 \header {
 
 texidoc ="Polyphonic rhythms and rests don't disturb
@@ -11,7 +11,7 @@ texidoc ="Polyphonic rhythms and rests don't disturb
        \clef violin
        \time 8/8
        \key des \major
-       < \context Voice = one {
+       << \context Voice = one {
           \voiceOne
           \addlyrics
           \notes {
@@ -34,7 +34,7 @@ texidoc ="Polyphonic rhythms and rests don't disturb
              Do __ na
           }
          }
-       >
+       >>
     }
     \paper { raggedright = ##t}
 }

@@ -1,4 +1,4 @@
-\version "1.9.2" 
+\version "1.9.4" 
 
 \header{ texidoc="@cindex Nested Staff Groups
 LilyPond can print nested groups of staffs. "
@@ -8,35 +8,35 @@ LilyPond can print nested groups of staffs. "
 }
 
 \score { \notes
-<
-  \new StaffGroup < 
+<<
+  \new StaffGroup << 
   \new Staff {c' d' e' f'}
-  \new InnerStaffGroup <
+  \new InnerStaffGroup <<
    \new Staff {c' d' e' f'}
-   \new GrandStaff <
+   \new GrandStaff <<
      \new Staff {c' d' e' f'}
      \new Staff {c' d' e' f'}
-   >
+   >>
   \new Staff {c' d' e' f'}
-  >
-  \new ChoirStaff <
+  >>
+  \new ChoirStaff <<
    \new Staff {c' d' e' f'}
-    \new InnerStaffGroup <
+    \new InnerStaffGroup <<
      \new Staff {c' d' e' f'}
-    >
+    >>
    \new Staff {c' d' e' f'}
-  >
-  >
-  \new ChoirStaff < 
+  >>
+  >>
+  \new ChoirStaff << 
    \new Staff {c' d' e' f'}
-   \new InnerStaffGroup <
+   \new InnerStaffGroup <<
     \new Staff {c' d' e' f'}
     \new Staff {c' d' e' f'}
-   >
+   >>
    \new Staff {c' d' e' f'}
-  >
+  >>
 
->
+>>
 
  \paper { raggedright = ##t}
 }

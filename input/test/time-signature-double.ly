@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header { texidoc= "@cindex Time Signature Double
 Double time signatures are not supported

@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
 
@@ -12,16 +12,16 @@ note. When central C is reached, we don't switch (by default).
     \paper { raggedright= ##t }
 
 \score {
-	\notes \context PianoStaff <
+	\notes \context PianoStaff <<
 	\context Staff = "up" {
-		\autochange Staff \context Voice = VA < \relative c' { g4 c e d c r4 a g } >
+		\autochange Staff \context Voice = VA << \relative c' { g4 c e d c r4 a g } >>
 	}
 	\context Staff = "down" {
 		\clef bass 
 		s1*2
 	}
 
-	>
+	>>
 	
 }
 

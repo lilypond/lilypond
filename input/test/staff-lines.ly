@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header { texidoc="@cindex Staff Lines
 Staff symbol property set workaround. "
@@ -15,19 +15,19 @@ lower = \notes\relative c {
 }
 
 \score {
-  \context PianoStaff <
+  \context PianoStaff <<
     %\time 4/4
-    \new Staff <
+    \new Staff <<
       \upper
       \outputproperty #(make-type-checker 'staff-symbol-interface)
         #'line-count = #5
-    >  
-    \new Staff <
+    >>  
+    \new Staff <<
       \clef bass
       \lower
       \outputproperty #(make-type-checker 'staff-symbol-interface)
         #'line-count = #4
-    >  
-  >
+    >>  
+  >>
   \paper { raggedright=##t}  
 }

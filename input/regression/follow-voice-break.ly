@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header{
        texidoc = "
 When put across line breaks, only the part before the line break is
@@ -9,7 +9,7 @@ printed. The line-spanners connects to the Y position of the note  on the next l
 }
 
 \score{
-        \context PianoStaff <
+        \context PianoStaff <<
 	    \property PianoStaff.followVoice = ##t	    
                 \context Staff=one \notes\relative c''{
 		    a1 \break
@@ -17,7 +17,7 @@ printed. The line-spanners connects to the Y position of the note  on the next l
 		    a,
 		}
         \context Staff=two { \clef bass \skip 1*2 }
-    >
+    >>
     \paper{
 	raggedright = ##t
     }

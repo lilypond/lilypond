@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
   texidoc = "Lead sheet format: chords with melody."
@@ -13,13 +13,13 @@ melody = \notes \relative c' {
 }
 
 \score {
-  \notes <
+  \notes <<
     \context ChordNames {
         \property ChordNames.chordChanges = ##t
         \harmonies
     }
     \context Staff = one \melody
-  >
+  >>
 
   \paper{ }
   \midi{ }

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header
 {
@@ -11,10 +11,10 @@ texidoc = "Rests in collisions sit opposite of the note if no direction is
     \paper { raggedright= ##t }
 
 \score{\notes\relative c''
-       \context Staff <
+       \context Staff <<
 \time 2/4
 \new Voice {
     r4 }
 \new Voice {\voiceTwo
-b8  }>}
+b8  }>>}
 

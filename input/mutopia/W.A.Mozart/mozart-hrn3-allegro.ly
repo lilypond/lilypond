@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.4"
 \include  "mozart-hrn3-defs.ly"
 
 allegro =
@@ -26,7 +26,11 @@ allegro =
 	dis4 ( e4) r8  c8[-. c-. c-.]
 	c4.(  d16[ e]  f4  e)
 	a,( d g, c)
-	d-. d-. \grace e16( d8.[) c16 d8. e16]
+	d-. d-. \grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+   e16( 
+  \property Voice.Stem \revert #'stroke-style }
+ d8.[) c16 d8. e16]
 	c4 r r2
 	R1*3
 	c,2 ~  c8[ e g c]
@@ -40,7 +44,11 @@ allegro =
 	d2( ~   d8[ e16 d]  c8[  b)] |
 	 b[( a)] a4 r8  a[ a a]
 	a4( cis e  g)
-	\grace { \longgrace g16( \endlonggrace }
+	\grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+   \longgrace g16( \endlonggrace 
+  \property Voice.Stem \revert #'stroke-style }
+
 	 fis8[)( e16  d)] d4-. r2 | 
 	\mark "B"
 	R1*3
@@ -58,8 +66,12 @@ allegro =
 	c,2\p e4 g c \cresc e g4. e8 |
 	\endcresc d4.\f  e16[ fis]  g[ ( fis) e d]  c[( b) a g]
 
-	< a1(\trill
-	  { s2 \grace{  g16[ a] } } >
+	<< a1(\trill
+	  { s2 \grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+    g16[ a] 
+  \property Voice.Stem \revert #'stroke-style }
+ } >>
 	\mark "C"
 	 g4) r r2
 	R1*15
@@ -98,7 +110,11 @@ allegro =
 	c4.(  d16[ e] f4  e)
 	a, ( d g,  c)
 	d d 
-	    \grace { e8( }
+	    \grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+   e8( 
+  \property Voice.Stem \revert #'stroke-style }
+
 	   d8.[) c16 d8. e16] 
 	c4 r r2
 	\mark "F"
@@ -108,8 +124,16 @@ allegro =
 	 c,8[ e g c ]  e[ ( g) e c]
 	 c[( b)] b4 r2
 	c2 (bes  a)  a8[(b c  cis)]
-	d2( ~  d8[ e16 d] \grace { \longgrace d16( \endlonggrace } c8[) b16  c)]
-	\grace { \longgrace c16 \endlonggrace } b8[( a16  g)] g4 r2 |
+	d2( ~  d8[ e16 d] \grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+   \longgrace d16( \endlonggrace 
+  \property Voice.Stem \revert #'stroke-style }
+ c8[) b16  c)]
+	\grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+   \longgrace c16 \endlonggrace 
+  \property Voice.Stem \revert #'stroke-style }
+ b8[( a16  g)] g4 r2 |
 	R1*3
 	r2 r4  g'8[( e)]
 	\mark "G"
@@ -128,10 +152,18 @@ allegro =
 
 	
 	f4. ( d8)  f8[ ( d) f d]
-	 c[ (e]  g2) \grace  { \longgrace f16(  \endlonggrace }  e8[)( d16  c)]
+	 c[ (e]  g2) \grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+   \longgrace f16(  \endlonggrace 
+  \property Voice.Stem \revert #'stroke-style }
+  e8[)( d16  c)]
 
-	< d1\trill (
-	  { s2 \grace {  c16[ d] } } >
+	<< d1\trill (
+	  { s2 \grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+    c16[ d] 
+  \property Voice.Stem \revert #'stroke-style }
+ } >>
 	
 	 c4) r r2
 	R1 |
@@ -144,8 +176,12 @@ allegro =
 	g4 \times 2/3 {  r8  c8[( g)] } \times 2/3 {  e[ ( g) e-. ] } \times 2/3 {  c[ ( e) c-.] }|
 	g4 r8 g'\f  a[ b c d]|
 
-	< d1(\trill
-	  { s2 \grace {  c16[ d] } }  >
+	<< d1(\trill
+	  { s2 \grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+    c16[ d] 
+  \property Voice.Stem \revert #'stroke-style }
+ }  >>
 	 c4) r r2
 	R1*3
 

@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header{
 texidoc= "Lyrics can be set to a melody automatically.  Excess lyrics will be
@@ -32,7 +32,7 @@ noise = \repeat unfold 6 \notes \relative c'' { g16 g g g }
 textII = \context LyricsVoice = "middle-1" \lyrics { da -- da __ da -- da da da da da  }
 
 \score {
-    \notes < \context Staff = SA \noise
+    \notes << \context Staff = SA \noise
       \context Lyrics = LA { s1 }
       \context Staff = SB { s1 }
       \context Lyrics = LB { s1 }
@@ -40,11 +40,11 @@ textII = \context LyricsVoice = "middle-1" \lyrics { da -- da __ da -- da da da 
       
       \addlyrics
 	  \context Staff = SB \context Voice="middle" \m
-	  < \context Lyrics = LA \textI
+	  << \context Lyrics = LA \textI
 	    \context Lyrics = LB \textII
-	  >
+	  >>
 	  
-    >
+    >>
 }
 
 

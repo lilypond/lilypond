@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 \header{
 texidoc="
 
@@ -16,14 +16,14 @@ onestaff =  \new Staff\notes\relative c''  {
 	 c1 \mark "A" \break c2  c2 \break
 }
 
-grstaff =  \notes \relative c'' \context GrandStaff <
+grstaff =  \notes \relative c'' \context GrandStaff <<
 	\new Staff {
 
 	\property Staff.instr = instr
 	
 	 \mark "B" \break c1 \mark "A" c2  }
 	\new Staff { c1 c2  }
->
+>>
 
 
 \score {\grstaff}

@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 % TODO: move stuff from ancient-font into here?  See comment
 % for ancient-font.ly
 \header {

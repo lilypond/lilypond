@@ -1,13 +1,13 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 \header { texidoc= "Tests lyric extenders. "}
 
     \paper { raggedright= ##t }
 \score{
-\notes \relative c'	<
+\notes \relative c'	<<
 	\context Staff { c (c) (c) c }
 	\context Lyrics \lyrics { bla __ alb xxx __ yyy }
-	>
+	>>
 }
 
 

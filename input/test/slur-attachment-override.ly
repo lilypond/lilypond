@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header{
 texidoc="@cindex Slur Attachment Override
@@ -8,7 +8,7 @@ In some cases you may want to set slur attachments by hand. "
 
 
 %%
-%% except that both slurs are stem <-> stem.
+%% except that both slurs are stem <<-> stem.
 %%
 
 fragment = \notes {

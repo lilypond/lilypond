@@ -10,6 +10,32 @@
 @itemize
 
 @item
+The syntax for chords and simultaneous music have changed.
+Chords are entered as
+
+@example
+   <@var{pitches}>
+@end example
+
+while simultaneous music is entered
+
+@example
+   <<@var{..music list..}>>
+@end example
+
+In effect, the meanings of both have been swapped relative to their 1.8
+definition.  The syntax for lists in @code{\markup} has changed
+alongside, but figured bass mode was not  changed, i.e.:
+
+@example
+  \markup @{ \center <@var{..list of markups..}> @}
+  \figure @{ <@var{figures> @}
+@end example
+
+As chords the more often used than simultaneous music, this change will
+save keystrokes.
+
+@item
 Each music expression can now be tagged, to make different printed
 versions from the same music expression.  In the following example,
 we see two versions of a piece of music, one for the full score, and
@@ -36,8 +62,8 @@ to an articulation, for example,
         c4-\tag #'with-fingerings -4 -\tag #'with-strings \6
 @end example
 
-This defines a note, which has a fingering and a string-number
-indication. 
+This defines a note, which has a conditional fingering and a
+string-number indication.
 
 @item
 The settings for chord-fingering are more flexible. You can specify a

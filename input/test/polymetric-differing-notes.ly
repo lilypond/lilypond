@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header{ texidoc="
 
@@ -46,7 +46,7 @@ what happens on the inside: a 3/4 time signature is combined with a
 
 
 \score {
-    \notes \relative c'  <
+    \notes \relative c'  <<
     	\new Staff {
 	    \time 3/4
 	    c4 c c | c c c |
@@ -66,6 +66,6 @@ what happens on the inside: a 3/4 time signature is combined with a
 		\repeat unfold 2 { c8[  c] }
 		|  c4. c4. \times 2/3 { c8 c c } c4  }
 	}
-	>
+	>>
 	\paper { raggedright = ##t }
 }

@@ -1,11 +1,11 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header{
 	texidoc="@cindex Beam Isknee
 LilyPond can beam across a Piano Staff.
 " }
 \score{
-	\context PianoStaff <
+	\context PianoStaff <<
 	\context Staff=one \notes\relative c'{
 		s1
 	}
@@ -16,7 +16,7 @@ LilyPond can beam across a Piano Staff.
 		s8
 		s2
 	}
-	>
+	>>
 	\paper{
  		raggedright = ##t
 	}

@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header{
 texidoc="
@@ -50,9 +50,9 @@ thenotes = \notes \relative cis' {
 }
 
 \score {
-  <
+  <<
     \context Staff \thenotes
     \context NoteNames \thenotes
-  >
+  >>
 }
 

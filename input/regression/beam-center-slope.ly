@@ -1,6 +1,6 @@
 
 
-\version "1.9.2"
+\version "1.9.4"
 \header{
 
     texidoc="Simple beams on middle staffline are allowed to be

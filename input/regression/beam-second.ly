@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header{
   texidoc="
 Seconds are tricky.  We used to have problems with seconds being too

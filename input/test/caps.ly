@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header {
 texidoc =  "@cindex Capital Letters
 You can set the font to use small caps.
@@ -8,11 +8,11 @@ You can set the font to use small caps.
 shapeSC   = \property Lyrics.LyricText \override #'font-shape = #'caps
 shapeNorm = \property Lyrics.LyricText \revert   #'font-shape
 
-\score { <
+\score { <<
   \notes \relative c'' { c4 c4 c8 c8 c8 }
   \lyrics \context Lyrics { 
     what4 is4 \shapeSC The8  Ma -- trix? }
-  >
+  >>
   \paper { raggedright = ##t}
 }
 

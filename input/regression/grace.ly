@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header{
 texidoc="
@@ -24,7 +24,7 @@ not set.  Main note scripts don't end up on the grace note.
 	\grace {  cis32[ dis32] } e4
 	\grace {  c32[ d] }\times 2/3 {  c8[ c c] }
 	 \grace {  b32[ ( c32] }   c4)
-	\grace  <<c d>>16  c8[ c8]
+	\grace  <c d>16  c8[ c8]
 %	\grace  c16  c8[ c8]
         %% broken?
 	%%\grace  { \property Grace.graceAlignPosition = \right c16} c4

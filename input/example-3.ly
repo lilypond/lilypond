@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.4"
 
 one =  \notes\relative c{
 	c'' d e f
@@ -11,10 +11,10 @@ two =  \notes\relative c{
 }
 
 \score{
-	<
+	<<
 		\one
 		\two
-	>
+	>>
 	\paper{}
 	\midi{}
 }

@@ -1,5 +1,5 @@
 
-\version "1.9.2" 
+\version "1.9.4" 
 \header {
 
 texidoc = "The @code{\applyoutput} expression is the most flexible way to
@@ -38,10 +38,10 @@ position.
 \notes \context Voice \relative  c' {
 				      \stemUp
 				      \property Voice.autoBeaming = ##f
-   { <<d f g b>>8
+   { <d f g b>8
      \context Voice \applyoutput #mc-squared
 
-	 <<d f g b>>
+	 <d f g b>
    }
 	      
    }

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 %% I don't know what this example is supposed to do.  delete it?
 %% It shows how to use the autochange feature together with an extra
@@ -30,20 +30,20 @@ basloopje = \notes\relative c{
 accompany = \repeat unfold 4 \notes \relative c \basloopje
 
 \score{
-    \notes \context PianoStaff<
-	\context Staff=up <
+    \notes \context PianoStaff<<
+	\context Staff=up <<
 	    \global
 	    \context Voice=foo{
 		\voiceOne
 		\melody 
 	    }
-	>
-	\context Staff=down<
+	>>
+	\context Staff=down<<
 	    \global
 	    \clef bass
 	    \autochange Staff \context Voice \accompany
-	>
-    >
+	>>
+    >>
 
     \paper {
 	\translator{ 

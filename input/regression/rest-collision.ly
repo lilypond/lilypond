@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header{
 texidoc="
 Rests should not collide with beams, stems and noteheads.  Rests may
@@ -17,7 +17,7 @@ scale =  \notes \relative c' {
 rests =  \notes             {
   r r r  r r r r r r r r r r r r r
 } 
-different = <  {
+different = <<  {
       \notes \relative c'' {
         r8 a e4 a e
       }
@@ -25,21 +25,21 @@ different = <  {
       
       \notes \relative c'' {
         r1
-      }} >
+      }} >>
 
-scales =  \context Staff \notes <
+scales =  \context Staff \notes <<
 	 {  r1 r2 r2   \scale    c''1 c'2 a'2 \rests  }
 	 \\
 	 { a'1 a'2 d'2 \rests r1 r2 r2  \scale }
->
+>>
 
 restsII =  \context Staff \notes {
 	r4 r8
-	\context Staff < {  r8 } \\{  r8} >
-	\context Staff < { r8} r8 \\{  r8} >
-	\context Staff < { r8} r8 r8 \\ {  r8} >
-	\context Staff < { r} \\ {  r} >
-	\context Staff < { r} r\\ { \stemDown r} >
+	\context Staff << {  r8 } \\{  r8} >>
+	\context Staff << { r8} r8 \\{  r8} >>
+	\context Staff << { r8} r8 r8 \\ {  r8} >>
+	\context Staff << { r} \\ {  r} >>
+	\context Staff << { r} r\\ { \stemDown r} >>
 	\stemUp
 	\transpose c c' {  c''8[ r8 c''8 c''8]
 	 c8[ r8 c8 c8]

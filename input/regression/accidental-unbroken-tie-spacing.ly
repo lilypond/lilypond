@@ -4,13 +4,13 @@ texidoc = "Tied accidentaled notes (which cause reminder accidentals) don't wrea
 the spacing when unbroken."
 }
 
-\version "1.9.2"
+\version "1.9.4"
 
 rechts = \notes \relative c' {
   \clef treble
   \time 3/4
-    c8 b2  <<g b des f>>8 ~ |
-    <<g b des f>>8
+    c8 b2  <g b des f>8 ~ |
+    <g b des f>8
 }
 
 \score {

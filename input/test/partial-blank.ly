@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 % check with invisible-notes or blank-notes.  possible rename. -gp
 \header{ texidoc = "@cindex Partial Blank
 When entering half music (i.e. for students to complete by hand)
@@ -15,8 +15,8 @@ quickmeasure = \notes {
 mel = \notes \relative c' {c16 d16 e8 a4 g2 e8 d c2. g'1 e4 d c2}
 
 \score {
-\context PianoStaff \notes <
-  \new Staff <
+\context PianoStaff \notes <<
+  \new Staff <<
     \clef G
     \new Voice {\mel}
     \new Voice {
@@ -25,9 +25,9 @@ mel = \notes \relative c' {c16 d16 e8 a4 g2 e8 d c2. g'1 e4 d c2}
 	\property Voice.Beam \override #'transparent = ##t
         \repeat unfold 4 \quickmeasure
     }
-  >
+  >>
   \new Staff \notes {\clef F s1*4}
->
+>>
 \paper {}
 }
 

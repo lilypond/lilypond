@@ -1,17 +1,17 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 \header {
     texidoc = "Cross staff  (kneed) beams don't cause extreme slopes."
 }
 
 \score {
-    \notes\context PianoStaff <
+    \notes\context PianoStaff <<
     \context Staff = up
-    \relative c'' <
+    \relative c'' <<
         {
 	    \stemDown
             f16( \> d b\! \translator Staff = down \stemUp
-            \clef treble g ~ << g e>>8)
+            \clef treble g ~ < g e>8)
 	    
 	     e[ \translator Staff = up
 	    \stemDown
@@ -24,10 +24,10 @@
 	    e8.]
 	    
 	} \\
-    >
+    >>
     \context Staff = down {
         \time 3/8 \clef bass s4.*3 }
-    >
+    >>
     \paper { raggedright = ##t}
 }
 

@@ -38,7 +38,7 @@
 %}
 
 
-\version "1.9.1"
+\version "1.9.4"
 
 
 
@@ -100,8 +100,8 @@ dux =  \context Voice=two \notes \relative c''{
   b, c d b b c r c |
   f16 d es c ~ c8 b c4 r8 e |
 %%30
-  f4 r8 f f es16 d es8 <<f as>> |
-  <<b, d>> r <<b d>> r <<g c>>2 |
+  f4 r8 f f es16 d es8 <f as> |
+  <b, d> r <b d> r <g c>2 |
 }
 
 
@@ -143,7 +143,7 @@ comes =  \context Voice=one \notes \relative c'' {
   g f16 es f8 d as' g r a |
   b c f,16 es d c c8 c'16 b c8 g |
 %%30
-  as c16 b c8 <<d b ! as !>> g,8 c16 b c8 d |
+  as c16 b c8 <d b ! as !> g,8 c16 b c8 d |
   f,16 g as4 g16 f e2 |
 }
 
@@ -186,26 +186,26 @@ bassdux =  \context Voice=three \notes \relative c' {
   f,16 g as4 g16 f es4 r8 es' |
   d c g' g, 
 %%30
-  < {  c2 ~ | c1 ~ | c1 } \\
+  << {  c2 ~ | c1 ~ | c1 } \\
     {   c,2 ~ | c1 ~ | c1 }
-  > 
+  >> 
 }
 
 \score {
  
-    \notes \context PianoStaff < 
+    \notes \context PianoStaff << 
         \property Score.TimeSignature \override #'style = #'C
-	\context Staff = treble <
+	\context Staff = treble <<
 	    \key c \minor
 	    \dux
 	    { \comes \bar "|." }
 	      \time 4/4
-	  >
-	\context Staff = bass <
+	  >>
+	\context Staff = bass <<
 	    \key c \minor
 	    \bassdux
-	>
-    >
+	>>
+    >>
 
     \paper {
         linewidth = 18.0 \cm

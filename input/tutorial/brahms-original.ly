@@ -1,23 +1,23 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.4"
 \score {
-    \notes\context PianoStaff <
+    \notes\context PianoStaff <<
     \context Staff = up
-    \relative c'' <
+    \relative c'' <<
         {   \key d\major 
             fis4-3_\p(~
             fis16 a)-5 } \\
         {
             fis16(\> d b\! \translator Staff = down
-            \clef treble g~ <<g e>>8) } \\
+            \clef treble g~ <g e>8) } \\
         { s16
           d'
-          ~ <<d b>>4 }
-    >
+          ~ <d b>4 }
+    >>
     \context Staff = down {
         \key d \major
         \time 3/8 \clef bass s4. }
-    >
+    >>
     \paper { raggedright = ##t}
 }
 

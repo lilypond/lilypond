@@ -1445,7 +1445,7 @@ if 1:
 		str = re.sub ('accacciatura',
 			      'acciaccatura', str)
 
-		if re.search ("context-spec-music"):
+		if re.search ("context-spec-music", str):
 			sys.stderr.write ("context-spec-music takes a symbol for the context now. Update by hand.")
 					  
 			raise FatalConversionError()
@@ -1461,7 +1461,39 @@ if 1:
 			     """\acciaccatura misspelling, fingerHorizontalDirection -> fingeringOrientations"""))
 
 
-			
+def conv (str):
+	if re.search ('\\figures', str):
+		sys.stderr.write ("Warning: attempting automatic \\figures conversion.  Check results!");
+		
+	
+	def figures_replace (m):
+		s = m.group (1)
+		s = re.sub ('<', '@FIGOPEN@',s)
+		s = re.sub ('>', '@FIGCLOSE@',s)
+		return '\\figures { %s }' % s
+	
+	str = re.sub (r'\\figures[ \t\n]*{([^}]+)}', figures_replace, str)
+	str = re.sub (r'\\<', '@STARTCRESC@', str)
+	str = re.sub (r'\\>', '@STARTDECRESC@', str)
+	str = re.sub (r'([-^_])>', r'\1@ACCENT@', str)
+	str = re.sub (r'<<', '@STARTCHORD@', str)
+	str = re.sub (r'>>', '@ENDCHORD@', str)
+	str = re.sub (r'>', '@ENDSIMUL@', str)
+	str = re.sub (r'<', '@STARTSIMUL@', str)
+	str = re.sub ('@STARTDECRESC@', '\\>', str)
+	str = re.sub ('@STARTCRESC@', '\\<', str)
+	str = re.sub ('@ACCENT@', '>', str)
+	str = re.sub ('@ENDCHORD@', '>', str)
+	str = re.sub ('@STARTCHORD@', '<', str)
+	str = re.sub ('@STARTSIMUL@', '<<', str)
+	str = re.sub ('@ENDSIMUL@', '>>', str)
+	str = re.sub ('@FIGOPEN@', '<', str)
+	str = re.sub ('@FIGCLOSE@', '>', str)
+
+	return str
+
+conversions.append (((1,9,4), conv, 'Swap < > and << >>'))
+
 
 ################################
 #	END OF CONVERSIONS	

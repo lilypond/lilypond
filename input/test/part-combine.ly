@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header{ texidoc="@cindex Part Combine
 In orchestral scores and hymns, voices are traditionally combined onto
@@ -9,7 +9,7 @@ voices according to actual rhythm and pitch.  User-defined texts such as
 }
 
 \score{
-   \notes \context Staff = flauti <
+   \notes \context Staff = flauti <<
     \time 4/4
     \context Voice=one \partcombine Voice
     \context Thread=one\relative c'' {
@@ -22,7 +22,7 @@ voices according to actual rhythm and pitch.  User-defined texts such as
       c r e r | r2 s2 | a,4 r a r | a r r a |
       a2 \property Voice.soloADue = ##f a |
     }
-  >
+  >>
   \paper{
 	raggedright = ##t
     linewidth = 80 * \staffspace

@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
 texidoc="@cindex Smart Transpose
@@ -7,7 +7,7 @@ texidoc="@cindex Smart Transpose
 	Here's a copy of my feature request :
 @quotation
         Your task, if you accept it is to implement a \smarttranspose
-        command> that would translate such oddities into more natural
+        command>> that would translate such oddities into more natural
         notations. Double accidentals should be removed, as well as E-sharp
         (-> F), bC (-> B), bF (-> E), B-sharp (-> C).
 @end quotation

@@ -6,7 +6,7 @@ NB should have no bracket, B should have bracket.
 }
  
 
-\version "1.9.2"
+\version "1.9.4"
 
 
 \score { 

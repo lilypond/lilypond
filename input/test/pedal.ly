@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header{ texidoc = "@cindex Pedal
 Piano pedal symbols merge stop and start.  The strings are configurable. 

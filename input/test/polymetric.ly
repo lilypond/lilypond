@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header{ texidoc="@cindex Time Signature Multiple
 
@@ -15,7 +15,7 @@ command work correctly. Barlines distort the regular spacing, though.
 " }
 
 \score{
-    \notes \relative c'  <
+    \notes \relative c'  <<
     	\new Staff {
 	    \time 3/4
 	    c4 c c | c c c |
@@ -29,7 +29,7 @@ command work correctly. Barlines distort the regular spacing, though.
 	    \time 3/8
 	    c4. c8 c c   c4. c8 c c
 	}
-    >
+    >>
 
     \paper{
     	raggedright = ##t

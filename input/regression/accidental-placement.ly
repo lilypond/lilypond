@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
 
@@ -15,18 +15,18 @@ flats in a sixth should be staggered.  "
     cis4
     c4
  \transpose c c' {    
-  <<bis es gis>>4
-  <<es! as!>>
-  <<gis! cis!>>
-  <<g! des'>>
-  <<ges! es'!>>
+  <bis es gis>4
+  <es! as!>
+  <gis! cis!>
+  <g! des'>
+  <ges! es'!>
 }    
-    <<cis d es fis gis ases bes ces d dis >>4
-    <<bes'! fis!>>     
-    <<bes! cis!>>
-    <<c! es ges beses>>
-    <<bes! c d f >>    
-    <<bes,! c d f >>
+    <cis d es fis gis ases bes ces d dis >4
+    <bes'! fis!>     
+    <bes! cis!>
+    <c! es ges beses>
+    <bes! c d f >    
+    <bes,! c d f >
 }
 \paper { raggedright = ##t}
      }

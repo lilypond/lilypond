@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.4"
 
 % \include "mozart-hrn3-defs.ly"
 
@@ -47,9 +47,17 @@ rondo = \notes 	\relative c'
 	c4 r8 r4 r8 |
 	R2.*7
 	\mark  "A"
-	c4.\p \grace { e16( }  d8[) c d]
+	c4.\p \grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+   e16( 
+  \property Voice.Stem \revert #'stroke-style }
+  d8[) c d]
 	c4 r8 r4 r8
-	e4. \grace g16(  f8[) e f]
+	e4. \grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+   g16( 
+  \property Voice.Stem \revert #'stroke-style }
+  f8[) e f]
 	e4 r8 r4 r8
 	g4. e4 c8
 	g2.~
@@ -85,8 +93,8 @@ rondo = \notes 	\relative c'
 	 b[( d) d-.]  d[( g) g-.]
 	g2.~
 	 g8[ \> a g]  f[ e d]
-	< \rondotheme
-	  { s8\!\p } >
+	<< \rondotheme
+	  { s8\!\p } >>
 	  
 	R2.*12
 	r4 r8 r4 c8
@@ -140,8 +148,8 @@ rondo = \notes 	\relative c'
 
 	%% EB does the slur in the Rondo differently from the 1st adn 2nd time.
 	%% why. Should check with MS.
-	< \rondotheme
-	  { s8\p } >
+	<< \rondotheme
+	  { s8\p } >>
 	R2.*7
 	\mark "G"
 	R2.*4
@@ -162,8 +170,12 @@ rondo = \notes 	\relative c'
 	g4 r8  g''8[ e c]
 
 	
-	< d2.(\trill
-	  { s2 	\grace {   c16[ d] } } >
+	<< d2.(\trill
+	  { s2 	\grace {
+  \property Voice.Stem \override #'stroke-style = #"grace"
+     c16[ d] 
+  \property Voice.Stem \revert #'stroke-style }
+ } >>
 	
 	
 	 c4) r8 r4 r8

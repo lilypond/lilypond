@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header{texidoc = "@cindex Staff Bracket
 Here's an example of staff brackets. "
@@ -7,13 +7,13 @@ Here's an example of staff brackets. "
 
 \score
 {
-  \new StaffGroup \notes \relative c'' <
+  \new StaffGroup \notes \relative c'' <<
       \new Staff {  b1 }
-    \new PianoStaff <
+    \new PianoStaff <<
       \new Staff \notes { b1 }
       \new Staff \notes { b1 }
-    > 
-  >
+    >> 
+  >>
 
   \paper {
     \translator

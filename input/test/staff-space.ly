@@ -1,21 +1,21 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header{ texidoc ="@cindex Staff Space
 Setting staff space on a staff. "
 }
 
 \score { 
-  \notes \relative c'' \context GrandStaff <
+  \notes \relative c'' \context GrandStaff <<
 	\new Staff { c4 c4  }
 	\new Staff {
 	    c4
 
-	    <<c d f g>>8[
+	    <c d f g>8[
 	   e]
 	   f[ c']
 	 }
->
+>>
 \paper {  \translator  {
       \StaffContext
       StaffSymbol \set #'staff-space = #5.5

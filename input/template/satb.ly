@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 \header {
 
     texidoc = "
@@ -20,7 +20,7 @@ bassMusic = \notes \relative c { c4 c g c }
 bassWords = \lyrics { ho4 ho ho ho }
 
 \score { \notes
-	  \context StaffGroup <
+	  \context StaffGroup <<
 	      \property Score.automaticMelismata = ##t
 	  \context Lyrics = sopLyrs { s1 }
 	  \context Staff = women { s1 }
@@ -41,7 +41,7 @@ bassWords = \lyrics { ho4 ho ho ho }
 		\context Staff = men  \context Voice = VB { \voiceTwo \bassMusic }
 		\context Lyrics = bassLyrs { \bassWords}
 	  
-	  >
+	  >>
   \paper {
     \translator {
 

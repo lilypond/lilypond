@@ -245,8 +245,8 @@ yylex (YYSTYPE *s,  void * v)
 %token BREATHE
 %token CHORDMODIFIERS  
 %token CHORDS
-%token CHORD_CLOSE
-%token CHORD_OPEN
+%token LESSLESS
+%token MOREMORE
 %token CLEF
 %token COMMANDSPANREQUEST
 %token CONSISTS
@@ -870,7 +870,7 @@ Simultaneous_music:
 		$$->set_spot(THIS->here_input());
 
 	}
-	| '<' Music_list '>'	{
+	| simul_open Music_list simul_close	{
 		$$ = MY_MAKE_MUSIC("SimultaneousMusic");
 		$$->set_mus_property ("elements", ly_car ($2));
 		$$->set_spot(THIS->here_input());
@@ -1341,8 +1341,20 @@ note_chord_element:
 	}
 	;
 
+chord_open: '<'
+	;
+
+chord_close: '>'
+	;
+
+simul_open: LESSLESS
+	;
+
+simul_close: MOREMORE
+	;
+
 chord_body:
-	CHORD_OPEN chord_body_elements CHORD_CLOSE
+	chord_open chord_body_elements chord_close
 	{
 		$$ = MY_MAKE_MUSIC("EventChord");
 		$$->set_mus_property ("elements",
@@ -2347,7 +2359,7 @@ markup:
 	;
 
 markup_list:
-	CHORD_OPEN markup_list_body CHORD_CLOSE { $$ = scm_reverse_x ($2, SCM_EOL); }
+	chord_open markup_list_body chord_close { $$ = scm_reverse_x ($2, SCM_EOL); }
 	;
 
 markup_line:

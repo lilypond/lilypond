@@ -1,11 +1,11 @@
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
 texidoc = "Crescendi may start off-notes. In that case, they should  not collapse into flat lines."
 }
 
 \score { \notes { \context  Voice { 
-  < f''1 { s4 s4 \< s4\! \> s4\! } >
+  << f''1 { s4 s4 \< s4\! \> s4\! } >>
 }}
 
 \paper { raggedright = ##t}

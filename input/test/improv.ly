@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 \header {
 
 texidoc =
@@ -19,17 +19,17 @@ improOff = \notes {\translator SquashVoice = melo }
 global = \notes { s1*3 \bar "|." }
 
 \score {
-  <
+  <<
     \context ChordNames \chords {e8*7:m7 a2.:m7 bes4:m7 b1:m7 e8:m }
-    \context Staff \notes <
+    \context Staff \notes <<
       \context SquashVoice = impro { \global }
       \context Voice = melo \transpose c c' {
 	e8 e g a a16(bes)(a8) g \improOn e8
 	~e2~e8 f4 fis8
 	~fis2 \improOff a16(bes) a8 g e
       }
-    >
-  >
+    >>
+  >>
   \paper { 
     \translator {
       \VoiceContext

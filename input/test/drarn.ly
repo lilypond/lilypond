@@ -1,11 +1,11 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header{texidoc="@cindex Drarn
 You can attach slurs and ties to noteheads.
 " }
 
 \score {
-  \context Staff \notes <
+  \context Staff \notes <<
     
      \relative c'' {
 \time 3/8	 
@@ -22,7 +22,7 @@ You can attach slurs and ties to noteheads.
       \property Voice.Slur \set #'attachment = #'(head . head)
       a8(a)~a  
     }
-  >
+  >>
   \paper { linewidth = 40*\staffspace
 		raggedright = ##t } 
 }

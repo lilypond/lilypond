@@ -1,8 +1,8 @@
-\version "1.9.2"
+\version "1.9.4"
 \header { texidoc = "Tests a collision between multimeasure rests in
 different voices. " }
 \score {
-  \context Staff \notes <
+  \context Staff \notes <<
     \new Voice {
       \property Voice.MultiMeasureRest \override #'staff-position = #3
       R1
@@ -11,7 +11,7 @@ different voices. " }
       \property Voice.MultiMeasureRest \override #'staff-position = #-3
       R1
     }
-  >
+  >>
   \paper {
     \translator {
       \StaffContext

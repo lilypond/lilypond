@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 \header {
     texidoc = "Slurs become flatter as they grow longer. "
 
@@ -11,7 +11,7 @@ x = {
 }
 
 \score {
-    \context Staff \notes\relative c <
+    \context Staff \notes\relative c <<
     \new Voice { \x f(f) }
     \new Voice { \x g(s4g) }
     \new Voice { \x a(s4*2a) }
@@ -39,7 +39,7 @@ x = {
     \new Voice { \x b(s4*24b) }
     \new Voice { \x c(s4*25c) }
     \new Voice { \x d(s4*26d) }
-  >
+  >>
   \paper {
     raggedright = ##t
     \translator{

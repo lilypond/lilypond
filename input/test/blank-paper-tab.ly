@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 \header {
     
 texidoc = "@cindex Blank Paper Tab
@@ -8,10 +8,10 @@ tablature staff. " }
 emptymusic = \notes { \repeat unfold 4  { s1\break }  \bar "|." }
 
 \score  {
-\notes  <
+\notes  <<
 	\context Staff \emptymusic
 	\context TabStaff \emptymusic
-	>
+	>>
 
 
   \paper {

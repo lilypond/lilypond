@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header { texidoc = "@cindex Staff Size
 
@@ -10,7 +10,7 @@ Setting staff sizes is a little clumsy.  There are two options: using
 }
 
 \score {
-  \notes \relative c' < \new StaffContainer {
+  \notes \relative c' << \new StaffContainer {
      \property StaffContainer.StaffSymbol \set #'staff-space = #(/ 16 20)
 
 	\property Staff.fontSize = #-1
@@ -30,7 +30,7 @@ Setting staff sizes is a little clumsy.  There are two options: using
   \clef bass
   c8 c c c  c c c c
 }
->
+>>
 \paper { raggedright = ##t}
 }
 

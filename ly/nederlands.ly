@@ -46,11 +46,3 @@
 )
 
 
-
-
-foo= \notes {
-        <<c e g b>>-\markup { \normal-size-super
-    %			  \override #'(font-family . math) "N" }
-			  \override #'(font-family . math) "M" }
-}
-

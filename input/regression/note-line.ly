@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
 texidoc = "Note head lines (e.g. glissando)
@@ -10,7 +10,7 @@ sd = \notes{ \translator Staff = down}
 
 \score {
     \context PianoStaff
-        \notes <
+        \notes <<
 	\context Staff = up   {
             \property PianoStaff.connectArpeggios = ##t
 	    \showStaffSwitch
@@ -20,7 +20,7 @@ sd = \notes{ \translator Staff = down}
 	\context Staff = down {
 	    \clef F s1*4
 	}
-    >
+    >>
 \paper {
     linewidth = 8.0 \cm
 }

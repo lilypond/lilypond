@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.4"
 % ASCII Art output
 %
 % Process as:
@@ -10,14 +10,14 @@
 \include "paper-as5.ly"
 
 \score{
-  <
+  <<
       \context Staff \notes\relative c'{ 
         c d e f
         \repeat "volta" 2 { g a b c }
         \alternative { { c b a g } { f e d c } }
       }
       \context Lyrics \lyrics {
-        De eer- ste < { maat } { moet } >
+        De eer- ste << { maat } { moet } >>
         \repeat fold 2 { }
         \alternative {
           { en dan twee keer } 
@@ -25,5 +25,5 @@
         }
         en dan nog dit er ach- ter aan
       }
-  >
+  >>
 }

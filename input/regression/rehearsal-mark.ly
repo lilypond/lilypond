@@ -4,7 +4,7 @@
 can be incremented automatically or manually.  "}
 
 
-\version "1.9.2"
+\version "1.9.4"
 
 
 global =  \notes {
@@ -14,7 +14,7 @@ global =  \notes {
   s1 | \mark "12"
   s1 | \mark \default 
   s1 | \mark "A2"
-  s1 | \mark \markup { mark \column << up \bold down >> }
+  s1 | \mark \markup { mark \column < up \bold down > }
   s1
 }
 
@@ -24,6 +24,6 @@ one =  \notes \relative c {
 
 
 \score{
-\context Staff	< \global \one >
+\context Staff	<< \global \one >>
 }
 

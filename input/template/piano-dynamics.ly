@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 \header {
 texidoc ="
   Template that puts dynamics on a separate line, so it is neatly
@@ -25,15 +25,15 @@ pedal = \notes {
 }
 
 \score {
-  \context PianoStaff <
+  \context PianoStaff <<
     \context Staff=upper \upper
     \context Dynamics=dynamics \dynamics
-    \context Staff=lower <
+    \context Staff=lower <<
       \clef bass
       \lower
-    >
+    >>
     \context Dynamics=pedal \pedal
-  >
+  >>
   \paper {
     \translator {
       \type "Engraver_group_engraver"

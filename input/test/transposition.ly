@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 
 \header{ texidoc = "@cindex Transposition
 Transposition test file."
@@ -11,7 +11,7 @@ Hi all,
 
 I have extend Mats' patches to allow accidental transposition:
         \keysignature bes es fis
-		= \transpose c' d =>
+		= \transpose c' d =>>
         \keysignature gis
 
 As you can see in output =  the example file "test.ly" there are a few problems left:
@@ -61,12 +61,12 @@ vThree =  \notes \relative c''{
 vFour =  \notes \transpose c d \vThree
 
 \score {
-  \context StaffGroup <
+  \context StaffGroup <<
          \new Staff \vOne
          \new Staff \vTwo
          \new Staff \vThree
          \new Staff \vFour
-  >
+  >>
         \paper { linewidth= 130.\mm raggedright = ##t }
 }
 

@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header{
   texidoc="
 
@@ -15,12 +15,12 @@
 
 %\paper { raggedright = ##t}
 \score {
-< \context Voice = "v" \notes  \relative c'' {
+<< \context Voice = "v" \notes  \relative c'' {
       \property Staff.automaticMelismata = ##t
       \cadenzaOn
       a\breve  \bar "||" a1 \bar "|"  a \bar "|"  a \bar "||" \break a \bar "|" a \bar "|" a  \bar "|" a \bar "||" \break a \bar "|" a \bar "|."
     }
-    \context Lyrics <
+    \context Lyrics <<
       \context LyricsVoice = "v-1" \lyrics {
 %        \property LyricsVoice . stanza = "1:"
 	\property Lyrics . LyricText \override #'ignore-length-mismatch = ##t
@@ -76,7 +76,7 @@
 				% note' true'
 				%% ? what are the last 2 for? 
       }
-   >
-   >
+   >>
+   >>
 }
 

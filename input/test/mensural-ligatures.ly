@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 % TODO:
 % check with ancient- stuff.  rename, merge, something.  -gp
 
@@ -32,18 +32,18 @@ voice = \notes \transpose c c' {
 }
 
 \score {
-    \context ChoirStaff <
-	\new MensuralStaff <
-	    \context MensuralVoice <
+    \context ChoirStaff <<
+	\new MensuralStaff <<
+	    \context MensuralVoice <<
 		\voice
-	    >
-	>
-	\new Staff <
-	    \context Voice <
+	    >>
+	>>
+	\new Staff <<
+	    \context Voice <<
 		\voice
-	    >
-	>
-    >
+	    >>
+	>>
+    >>
     \paper {
 	stafflinethickness = \staffspace / 5.0
 	\translator {

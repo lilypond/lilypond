@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header { texidoc="@cindex Octave Doubling
 Octave doubling parts of music. "
 }
@@ -11,13 +11,13 @@ upperOne = \notes\relative c'' {
   a4 a a a
 }
 
-upperOctave = \notes <
+upperOctave = \notes <<
   \context Thread=upperOne { \transpose c' c \upperOne }
   \context Thread=upperOne {
     \property Thread.devNullThread = #'allways s1*2
     \property Thread.devNullThread = #'() s1*2
   }
->
+>>
 
 lowerOne = \notes\relative c {
   a8 a a a  a a a a
@@ -31,31 +31,31 @@ firstEight = \notes {
   \property Thread.devNullThread = #'allways s8*7
 }
 
-lowerOctave = \notes <
+lowerOctave = \notes <<
   \context Thread=lowerOne { \transpose c' c  \lowerOne }
   \context Thread=lowerOne {
     \repeat "unfold" 4 { \firstEight }
   }
->
+>>
 
 \score {
-  <
-    \context PianoStaff <
-      \context Staff=upper <
-        \context Voice=upperOne <
+  <<
+    \context PianoStaff <<
+      \context Staff=upper <<
+        \context Voice=upperOne <<
           \upperOne
           \upperOctave
-        >
-      >
-      \context Staff=lower <
+        >>
+      >>
+      \context Staff=lower <<
         \clef bass
-	\context Voice=lowerOne <
+	\context Voice=lowerOne <<
 	  \lowerOne
 	  \lowerOctave
-	>
-      >
-    >
-  >  
+	>>
+      >>
+    >>
+  >>  
   \paper { }
 }
 

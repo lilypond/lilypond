@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.4"
 
 \header  {
 texidoc = "a staff should really die, if no one's referencing it."
@@ -11,13 +11,13 @@ texidoc = "a staff should really die, if no one's referencing it."
 
     \break
 
-    \context PianoStaff <
+    \context PianoStaff <<
       \context Staff = i {
         \notes { a' b' c' d' }
       }
       \context Staff = ii {
         \notes { \clef "bass" a b c d }
       }
-    >
+    >>
   }
 }

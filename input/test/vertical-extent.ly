@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 % TODO: huh?  what's this file about?  -gp
 
 \header { texidoc = "
@@ -9,7 +9,7 @@ associated context finishes, so using it in \property works.
 " }
 
 \score {
-  \notes  <
+  \notes  <<
     \new Staff {
       \property Staff.verticalExtent = #'(-15.0 . 0.0)
       \clef alto
@@ -20,7 +20,7 @@ associated context finishes, so using it in \property works.
       \clef alto
       g1
     }
-  >
+  >>
   \paper{
       raggedright = ##t
   }

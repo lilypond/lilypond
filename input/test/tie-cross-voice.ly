@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 
 
@@ -10,13 +10,13 @@
 
 \score {
 \context Staff \notes {
-\relative c''  <
+\relative c''  <<
   {
       \once \property Voice.Stem \set #'transparent = ##t
       b8~ b8 }
   \\
   { b[ g8] }
->
+>>
 }
 \paper { raggedright = ##t }
 }

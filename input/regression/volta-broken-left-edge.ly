@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
 texidoc ="Broken volta spanners behave correctly at left edge in all cases."
@@ -105,7 +105,7 @@ f f\break
     }
 }
 \score{
-        \notes <
+        \notes <<
 
 
 	\new Staff
@@ -117,7 +117,7 @@ f f\break
 	    \voiceE
 	}
 
-    >
+    >>
 	\paper { raggedright =##t }
 }
 

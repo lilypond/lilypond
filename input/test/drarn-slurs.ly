@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 % possible rename to slurs-?
 % TODO: find out what drarn means, and if there's an overlap with drarn.ly
 \header{

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.2"
+\version "1.9.4"
 
 \header {
   texidoc ="Polyphonic piano music"
@@ -26,18 +26,18 @@ lowerTwo = \notes\relative c {
 }
 
 \score {
-  \context PianoStaff <
+  \context PianoStaff <<
     %\time 4/4
-    \context Staff = upper <
+    \context Staff = upper <<
       \context Voice = one \upperOne
       \context Voice = two \upperTwo
-    >  
-    \context Staff = lower <
+    >>  
+    \context Staff = lower <<
       \clef bass
       \context Voice = one \lowerOne
       \context Voice = two \lowerTwo
-    >  
-  >
+    >>  
+  >>
   \paper { }  
   \midi { }  
 }

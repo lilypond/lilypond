@@ -1,5 +1,5 @@
 
-\version "1.9.2"
+\version "1.9.4"
 % candidate for regression.  -gp
 \header { texidoc = "@cindex Rest Dot Positions
 This file tests dotted rests. " }
@@ -49,10 +49,10 @@ muz = \notes \relative c'' {
 \score {
   \context Staff  {
       \muz \break
-      <
+      <<
 	 {  \muz } \\
 	 {  \muz }
-      >
+      >>
   }
 	\paper{}
 }

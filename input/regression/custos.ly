@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 \header {
     texidoc = "Custodes in various styles."
 }
@@ -11,19 +11,19 @@
 
 	\property Staff.Custos \set #'style = #'hufnagel
 	c'1^"Custos style = \#'hufnagel"
-	\break << d' a' f''>>1
+	\break < d' a' f''>1
 
 	\property Staff.Custos \set #'style = #'medicaea
 	c'1^"Custos style = \#'medicaea"
-	\break << d' a' f''>>1
+	\break < d' a' f''>1
 
 	\property Staff.Custos \set #'style = #'vaticana
 	c'1^"Custos style = \#'vaticana"
-	\break << d' a' f''>>1
+	\break < d' a' f''>1
 
 	\property Staff.Custos \set #'style = #'mensural
 	c'1^"Custos style = \#'mensural"
-	\break << d' a' f''>>1
+	\break < d' a' f''>1
     }
     \paper {
 	\translator {

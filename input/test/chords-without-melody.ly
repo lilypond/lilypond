@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 \header {
 texidoc = "Jazz chords can also be used without notes."
 }

@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 \header {
         title = "Song"
         subtitle = "(tune)"
@@ -47,9 +47,9 @@ trumpet = {
         \global 
         \property Staff.instrument = #"Trumpet"
         \clef treble
-        \context Staff <
+        \context Staff <<
                 \trpt
-        >
+        >>
 }
 
 % ------ Alto Saxophone ------
@@ -63,9 +63,9 @@ altosax = {
         \global
         \property Staff.instrument = #"Alto Sax"
         \clef treble
-        \context Staff <
+        \context Staff <<
                 \alto
-        >
+        >>
 }
 
 % ------ Baritone Saxophone ------
@@ -79,9 +79,9 @@ barisax = {
         \global
         \property Staff.instrument = #"Bari Sax"
         \clef treble
-        \context Staff <
+        \context Staff <<
                 \bari
-        >
+        >>
 }
 % ------ Trombone ------
 tbone = \notes \relative c {
@@ -94,9 +94,9 @@ trombone = {
         \global
         \property Staff.instrument = #"Trombone"
         \clef bass
-        \context Staff <
+        \context Staff <<
                 \tbone
-        >
+        >>
 }
 % ############ Rhythm Section #############
 % ------ Guitar ------
@@ -113,9 +113,9 @@ guitar = {
         \global
         \property Staff.instrument = #"Guitar"
         \clef treble
-        \context Staff <
+        \context Staff <<
         	\gtr
-        >
+        >>
 }
 
 %% ------ Piano ------
@@ -147,28 +147,28 @@ PianoRH = {
         \clef treble
         \global
         \property Staff.midiInstrument = "acoustic grand"
-        \context Staff <
+        \context Staff <<
                 \context Voice = one \rhUpper
         	\context Voice = two \rhLower
-        >
+        >>
 }
 
 PianoLH = {
         \clef bass
         \global
         \property Staff.midiInstrument = "acoustic grand"
-        \context Staff <
+        \context Staff <<
         	\context Voice = one \lhUpper
         	\context Voice = two \lhLower
-        >
+        >>
 }
 
 piano = {
-	\context PianoStaff <
+	\context PianoStaff <<
 		\property PianoStaff.instrument = #"Piano"
         	\context Staff = upper \PianoRH
         	\context Staff = lower \PianoLH
-        >
+        >>
 }
 
 % ------ Bass Guitar ------
@@ -181,16 +181,16 @@ bass = {
         \global
         \property Staff.instrument = #"Bass"
         \clef bass
-        \context Staff <
+        \context Staff <<
                 \bass
-        >
+        >>
 }
 
 % ------ Drums ------
 \include "drumpitch-init.ly"
 up = \notes {
-        hh4 <hh4 sn> hh4 <hh4 sn> hh4 <hh4 sn> hh4 <hh4 sn>
-	hh4 <hh4 sn> hh4 <hh4 sn>
+        hh4 <<hh4 sn>> hh4 <<hh4 sn>> hh4 <<hh4 sn>> hh4 <<hh4 sn>>
+	hh4 <<hh4 sn>> hh4 <<hh4 sn>>
 }
 down = \notes {
         bd4 s bd s bd s bd s bd s bd s
@@ -200,17 +200,17 @@ drums = \context Staff = drums {
 	\global
 	\property Staff.instrument = #"Drums"
 	\clef percussion
-	<
+	<<
 		\context Voice = first { \voiceOne \up }
 		\context Voice = second { \voiceTwo \down }
-	>
+	>>
 }
 
 %%%%%%%%% It All Goes Together Here %%%%%%%%%%%%%%%%%%%%%%
 
 \score {
-<
-        \context StaffGroup = horns <
+<<
+        \context StaffGroup = horns <<
                 \context Staff = trumpet \trumpet
 
                 \context Staff = altosax \altosax
@@ -220,9 +220,9 @@ drums = \context Staff = drums {
                 \context Staff = barisax \barisax
 
                 \context Staff = trombone \trombone
-        >
+        >>
 
-        \context StaffGroup = rhythm <
+        \context StaffGroup = rhythm <<
 		\context ChordNames = chords \gtrharmony
                 \context Staff = guitar \guitar
 		\context PianoStaff = piano \piano
@@ -230,8 +230,8 @@ drums = \context Staff = drums {
                 \context Staff = bass \bass
                 
                 \apply #(drums->paper 'drums) \drums
-        >
->
+        >>
+>>
         \midi { \tempo 4 = 75 }
         \paper {
                 linewidth = 15.0 \cm

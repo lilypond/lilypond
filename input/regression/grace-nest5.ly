@@ -1,12 +1,12 @@
 
-\version "1.9.2"
+\version "1.9.4"
 \header {
     texidoc = "Another nested grace situation."
     }
 
 \score
 { \notes \relative c'' {
-     s2 <<f>>4
+     s2 <f>4
     \grace g e4
 }
 

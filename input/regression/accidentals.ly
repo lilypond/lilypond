@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 
 \header{
 texidoc="
@@ -41,29 +41,29 @@ mel = \notes { \key d \major \time 4/4
 }
 
 \score { \notes
- <
+ <<
   \context Staff \transpose c c'' {
    \mel
 %   \property Score.oneMeasureLazy = ##t
    \property Score.autoAccidentals = #'(Staff (same-octave . 0))
-   < s1^"$\\backslash$property Score.autoAccidentals = \\#'((same-octave . 0))" \mel >
+   << s1^"$\\backslash$property Score.autoAccidentals = \\#'((same-octave . 0))" \mel >>
    \property Score.autoAccidentals = #'(Staff (same-octave . 1))
-   < s1^"$\\backslash$property Score.autoAccidentals = \\#'((same-octave . 1))" \mel >
+   << s1^"$\\backslash$property Score.autoAccidentals = \\#'((same-octave . 1))" \mel >>
    \property Score.autoAccidentals = #'(Staff (any-octave . 0))
-   < s1^"$\\backslash$property Score.autoAccidentals = \\#'((any-octave . 0))" \mel >
+   << s1^"$\\backslash$property Score.autoAccidentals = \\#'((any-octave . 0))" \mel >>
    \property Score.autoAccidentals = #'(Staff (any-octave . 1))
-   < s1^"$\\backslash$property Score.autoAccidentals = \\#'((any-octave . 1))" \mel >
+   << s1^"$\\backslash$property Score.autoAccidentals = \\#'((any-octave . 1))" \mel >>
    \modernAccidentals
-   < s1^"$\\backslash$modernAccidentals" \mel >
+   << s1^"$\\backslash$modernAccidentals" \mel >>
    \modernCautionaries
-   < s1^"$\\backslash$modernCautionaries" \mel >
+   << s1^"$\\backslash$modernCautionaries" \mel >>
    \noResetKey
-   < s1^"$\\backslash$noResetKey" \mel >
+   << s1^"$\\backslash$noResetKey" \mel >>
    \forgetAccidentals
-   < s1^"$\\backslash$forgetAccidentals" \mel >
+   << s1^"$\\backslash$forgetAccidentals" \mel >>
   }
   \context NoteNames \repeat unfold 9 \apply #no-octaves \mel
- >
+ >>
  \paper {
   indent = 0.0
  }

@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 
 \header{ texidoc="@cindex Explicit Pitch and Duration
 Explicit pitches and durations. "

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.4"
 \header {
 texidoc = "@cindex Midi Volume Equaliser
 The full orchestra plays a notes, where groups stop one after
@@ -116,34 +116,34 @@ violoncello = \notes \relative c' {
 
 
 \score {
-  < 
-    \context StaffGroup ="legni" < 
+  << 
+    \context StaffGroup ="legni" << 
       \context Staff ="flauti" \flauti
       \context Staff ="oboi" \oboi
       \context Staff ="clarinetti" \clarinetti 
       \context Staff ="fagotti" \fagotti 
-    >
-    \context StaffGroup ="ottoni" <
+    >>
+    \context StaffGroup ="ottoni" <<
       \context Staff ="corni" \corni
       \context Staff ="trombe" \trombe
-    >
-    \context StaffGroup ="timpani" <
+    >>
+    \context StaffGroup ="timpani" <<
       \context Staff ="timpani" \timpani
      { 
        \skip 1 
        % Hmm: this forces a staff-bracket, that's good!
        % However, I can't find where is decided on staff-bracket yes/no
      }
-    >
-    \context StaffGroup ="archi" <
-      \context GrandStaff ="violini" <
+    >>
+    \context StaffGroup ="archi" <<
+      \context GrandStaff ="violini" <<
         \context Staff ="violino1" \violinoI
         \context Staff ="violino2" \violinoII
-      >
+      >>
       \context Staff ="viola" \viola
       \context Staff ="violoncello" \violoncello
-    >
-  >
+    >>
+  >>
 
   \paper {
   	\paperSixteen

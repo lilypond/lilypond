@@ -1,4 +1,4 @@
-\version "1.9.2"
+\version "1.9.4"
 \header  {
     texidoc = "@cindex Chord Names German
 By setting @code{ChordNames.chordRootNamer}, the root
@@ -20,7 +20,7 @@ scm = \chords {
     % beses/beses
 } 
 \score {
-\notes <
+\notes <<
     \context ChordNames { \scm }
     \new ChordNames {
 	\property ChordNames.instrument = #"german"
@@ -28,7 +28,7 @@ scm = \chords {
     \new ChordNames {
 	\property ChordNames.instrument =#"semi-german"
 	\semiGermanChords \scm }
-    \context Voice {  \scm } >
+    \context Voice {  \scm } >>
 \paper {
     raggedright = ##t 
     \translator {\ChordNamesContext \consists Instrument_name_engraver }}

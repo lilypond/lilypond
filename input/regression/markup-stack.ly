@@ -1,6 +1,6 @@
-\version "1.9.2"
+\version "1.9.4"
 \header {texidoc="Stacking of markup scripts."}
 \paper { raggedright = ##t}
-\score { \notes { c''^\markup { "a" \column << "1" \bold "2"  "3" >> } } }
+\score { \notes { c''^\markup { "a" \column < "1" \bold "2"  "3" > } } }
 
 
