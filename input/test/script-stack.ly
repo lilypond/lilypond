@@ -5,7 +5,7 @@ You can stack text and articulations. "
 }
 
 \score {
-	\notes {
+	\notes\relative c' {
 		c2_"geen gedonder"_"jij gaat onder"
 		c2^^^.^|^"down"^"up"
 	 }
