@@ -130,7 +130,7 @@ Mudela_score::output (String filename_str)
       if ( (mudela_staff_p_list_.size_i () != 1)
 	   && (i->car_ == mudela_staff_p_list_.head_->car_))
   	continue;
-      mudela_stream << "\\type Staff = \"" << i->car_->id_str () << "\" ";
+      mudela_stream << "\\context Staff = \"" << i->car_->id_str () << "\" ";
       mudela_stream << String ("\\" +  i->car_->id_str ()) << "\n";
     }
   if (mudela_staff_p_list_.size_i () > 1)
