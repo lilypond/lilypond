@@ -212,7 +212,7 @@
      . (
 	(description .  "")
 
-	(internal-class-name . "Part_combine_music")
+	(internal-class-name . "Simultaneous_music")
 	(types . (general-music part-combine-music))
 	(iterator-ctor . ,Part_combine_music_iterator::constructor)
      ))

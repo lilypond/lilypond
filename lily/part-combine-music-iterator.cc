@@ -6,7 +6,6 @@
   (c) 2000--2002 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
-#include "part-combine-music.hh"
 #include "part-combine-music-iterator.hh"
 #include "translator-group.hh"
 #include "request.hh"
@@ -83,13 +82,15 @@ Part_combine_music_iterator::ok () const
   return first_iter_->ok () || second_iter_->ok ();
 }
 
+
 void
 Part_combine_music_iterator::construct_children ()
 {
-  Part_combine_music const * m = dynamic_cast<Part_combine_music const*> (get_music ());
+  SCM lst = get_music ()->get_mus_property ("elements");
   
-  first_iter_ = unsmob_iterator (get_iterator (m->get_first ()));
-  second_iter_ = unsmob_iterator (get_iterator (m->get_second ()));
+  
+  first_iter_ = unsmob_iterator (get_iterator (unsmob_music (gh_car (lst))));
+  second_iter_ = unsmob_iterator (get_iterator (unsmob_music (gh_cadr (lst))));
 }
 
 void
@@ -171,7 +172,8 @@ int
 Part_combine_music_iterator::get_state (Moment)
 {
   int state = UNKNOWN;
-  Part_combine_music const *p = dynamic_cast<Part_combine_music const* > (get_music ());
+  
+  Music *p = get_music ();
 
   String w = ly_scm2string (p->get_mus_property ("what"));
     
@@ -371,8 +373,7 @@ s      Consider thread switching: threads "one", "two" and "both".
   else
     state = state_;
   
-  Part_combine_music const *p =
-    dynamic_cast<Part_combine_music const* > (get_music ());
+  Music *p =get_music ();
 
 
   bool previously_combined_b = first_iter_->report_to ()->daddy_trans_

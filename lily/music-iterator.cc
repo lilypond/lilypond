@@ -15,7 +15,6 @@
 #include "music-wrapper.hh"
 #include "music-wrapper-iterator.hh"
 #include "simple-music-iterator.hh"
-
 #include "ly-smobs.icc"
 
 Music_iterator::Music_iterator ()
