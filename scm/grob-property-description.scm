@@ -573,8 +573,7 @@ columns.
 (grob-property-description 'rest-collision ly:grob? "rest collision that a rest is in.")
 (grob-property-description 'rest-collision-done boolean? "Is this rest collision processed yet?")
 
-(grob-property-description 'staff-support boolean? " JUNKME.")
-(grob-property-description 'script-molecule pair? "index code for script.")
+(grob-property-description 'script-molecule pair? "Index code for script -- internal, see script.cc.")
 
 (grob-property-description 'accidental-grob ly:grob? "Accidental for this note.")
 

@@ -318,6 +318,8 @@ than this number of measures, no number is printed. ")
 scripts left or right of note heads.  Support for this is limited.
 Accidentals will collide with scripts.
 ")
+(translator-property-description 'fingersHorizontal boolean? "Put the middle fingerings to the
+right side of the note head.")
 
 (translator-property-description 'skipBars boolean? " Set to true to
 skip the empty bars that are produced by multimeasure notes and rests.

@@ -1,4 +1,3 @@
-# Does info really work?
 %define info yes
 
 %define name lilypond
@@ -10,16 +9,15 @@ Name:		%{name}
 Version:	%{version}
 Release:	%{release}
 License:	GPL
-Group:		Publishing
+Group:		Applications/Publishing
 URL:		http://www.lilypond.org/
 Source0:	ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-%{version}.tar.gz
-## Patch0: lilypond-GNUmakefile.in.patch.bz2
-Source1:	%name-16x16.png.tar.bz2
-Source2:	%name-32x32.png.tar.bz2
-Source3:	%name-48x48.png.tar.bz2
+# Source1:	%name-16x16.png.tar.bz2
+# Source2:	%name-32x32.png.tar.bz2
+# Source3:	%name-48x48.png.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-buildroot
-BuildRequires:	guile guile-devel
-Requires:	tetex
+BuildRequires:	t1utils bison texinfo
+Requires:	tetex tetex-latex
 
 %description
 LilyPond is a music typesetter.  It produces beautiful sheet music using a
@@ -52,8 +50,7 @@ example input files and the files from the Mutopia project.
 %prep
 rm -rf $RPM_BUILD_ROOT
 
-%setup -a 1
-## % patch0 -b .orig
+%setup
 
 %build
 # DO NOT use % { configure } , it hardcodes all paths, runs libtool,

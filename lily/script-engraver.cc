@@ -12,11 +12,23 @@
 #include "engraver.hh"
 #include "note-column.hh"
 
+
+struct Script_tuple
+{
+  Music *event_;
+  Grob * script_;
+  SCM description_;
+  Script_tuple ()
+  {
+    event_ = 0;
+    script_ = 0;
+    description_ = SCM_EOL;
+  }
+};
+
 class Script_engraver : public Engraver
 {
-  Link_array<Grob> scripts_;
-  Link_array<Music> script_reqs_;
-
+  Array<Script_tuple> scripts_;
 public:
   TRANSLATOR_DECLARATIONS(Script_engraver);
 protected:
@@ -31,7 +43,7 @@ protected:
 void
 Script_engraver::initialize ()
 {
-  script_reqs_.clear ();
+  scripts_.clear ();
 }
 
 bool
@@ -39,7 +51,9 @@ Script_engraver::try_music (Music *r)
 {
   if (r->is_mus_type ("articulation-event"))
     {
-      script_reqs_.push (r);
+      Script_tuple t;
+      t.event_ =r;
+      scripts_.push (t);
       return true;
     }
   return false;
@@ -48,9 +62,9 @@ Script_engraver::try_music (Music *r)
 void
 Script_engraver::process_music ()
 {
-  for (int i=0; i < script_reqs_.size (); i++)
+  for (int i=0; i < scripts_.size (); i++)
     {
-      Music* l=script_reqs_[i];
+      Music* l=scripts_[i].event_;
 
       SCM alist = get_property ("scriptDefinitions");
       SCM art = scm_assoc (l->get_mus_property ("articulation-type"), alist);
@@ -62,13 +76,17 @@ Script_engraver::process_music ()
 			
 	  continue;
 	}
+      
       // todo -> use result of articulation-to-scriptdef directly as basic prop list.
       Grob *p =new Item (get_property ("Script"));
+      scripts_[i].script_ = p;
       art = ly_cdr (art);
+
+      scripts_[i].description_ = art;
+      
       p->set_grob_property ("script-molecule", ly_car (art));
 
       art = ly_cdr (art);
-      bool follow_staff = gh_scm2bool (ly_car (art));
       art = ly_cdr (art);
       SCM relative_stem_dir = ly_car (art);
       art = ly_cdr (art);
@@ -84,9 +102,10 @@ Script_engraver::process_music ()
       if (gh_number_p (s))
 	priority = gh_scm2int (s);
 
-      /* Make sure they're in order of user input by adding index i.
-      Don't use the direction in this priority. Smaller means closer
-      to the head.
+      /*
+	Make sure they're in order of user input by adding index i.
+	Don't use the direction in this priority. Smaller means closer
+	to the head.
       */
       priority += i;
 
@@ -96,23 +115,9 @@ Script_engraver::process_music ()
 	p->set_grob_property ("side-relative-direction", relative_stem_dir);
 
 
-      /*
-	FIXME: should figure this out in relation with basic props! 
-       */
-      SCM axisprop = get_property ("scriptHorizontal");
-      bool xaxis = to_boolean (axisprop);
-      Side_position_interface::set_axis (p, xaxis ? X_AXIS : Y_AXIS);
-
-      if (!follow_staff && ! xaxis)
-	p->set_grob_property ("staff-support", SCM_BOOL_T);
-
-      if (!xaxis && follow_staff)
-	p->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
-      
-      
+      Side_position_interface::set_axis (p, Y_AXIS);
       p->set_grob_property ("script-priority", gh_int2scm (priority));
-  
-      scripts_.push (p);
+
       
       announce_grob (p, l->self_scm());
     }
@@ -125,7 +130,7 @@ Script_engraver::acknowledge_grob (Grob_info inf)
     {
       for (int i=0; i < scripts_.size (); i++)
 	{
-	  Grob*e = scripts_[i];
+	  Grob*e = scripts_[i].script_;
 
 	  e->set_grob_property ("direction-source", inf.grob_->self_scm ());
 	  e->add_dependency (inf.grob_);
@@ -136,7 +141,7 @@ Script_engraver::acknowledge_grob (Grob_info inf)
     {
       for (int i=0; i < scripts_.size (); i++)
 	{
-	  Grob *e = scripts_[i];
+	  Grob *e = scripts_[i].script_;
 	  
 	  if (Side_position_interface::get_axis (e) == X_AXIS
 	      && !e->get_parent (Y_AXIS))
@@ -160,7 +165,7 @@ Script_engraver::acknowledge_grob (Grob_info inf)
        */
       for (int i=0; i < scripts_.size (); i++)
 	{
-	  Grob *e = scripts_[i];
+	  Grob *e = scripts_[i].script_;
 	  
 	  if (!e->get_parent (X_AXIS) &&
 	      Side_position_interface::get_axis (e) == Y_AXIS)
@@ -176,15 +181,14 @@ Script_engraver::stop_translation_timestep ()
 {
   for (int i=0; i < scripts_.size (); i++) 
     {
-
-      /*
-	TODO: junk staff-support.
-       */
-      Grob * sc = scripts_[i];
-      if (to_boolean (sc->get_grob_property ("staff-support")))
-	{
-	  Side_position_interface::add_staff_support (sc);
-	}
+      if (!scripts_[i].script_)
+	continue;
+      
+      Grob * sc = scripts_[i].script_;
+      if (to_boolean (gh_cadr (scripts_[i].description_)))
+	sc->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
+      else
+	Side_position_interface::add_staff_support (sc);
       typeset_grob (sc);
     }
   scripts_.clear ();
@@ -193,7 +197,7 @@ Script_engraver::stop_translation_timestep ()
 void
 Script_engraver::start_translation_timestep ()
 {
-  script_reqs_.clear ();
+  scripts_.clear ();
 }
 
 
@@ -201,10 +205,9 @@ Script_engraver::start_translation_timestep ()
 Script_engraver::Script_engraver(){}
 
 ENTER_DESCRIPTION(Script_engraver,
-/* descr */       "    Handles note ornaments generated by @code{\\script}.  
-",
+/* descr */       "Handles note scripted articulations.",
 /* creats*/       "Script",
 /* accepts */     "script-event articulation-event",
 /* acks  */      "stem-interface rhythmic-head-interface note-column-interface",
-/* reads */       "scriptDefinitions scriptHorizontal",
+/* reads */       "scriptDefinitions",
 /* write */       "");

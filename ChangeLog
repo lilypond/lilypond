@@ -1,3 +1,18 @@
+2002-10-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/finger-chords.ly (texidoc): new file.
+
+	* lily/script-engraver.cc (process_music): remove scriptHorizontal
+	support
+
+	* lily/fingering-engraver.cc (process_music): remove kludgy
+	scriptHorizontal stuff.
+
+	* lily/script.cc: remove staff-support property.
+
+	* lily/new-fingering-engraver.cc (add_fingering): new
+	file. Fingering engraver for new style chords.
+
 2002-10-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/parser.yy (bare_number): allow 4 \cm (without

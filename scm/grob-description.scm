@@ -344,8 +344,6 @@
     (Fingering
      . (
 	(molecule-callback . ,Text_item::brew_molecule)
-	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent
-			       ,Self_alignment_interface::aligned_on_self))
 	(padding . 0.6)
 	;;		(direction . -1)
 	(self-alignment-X . 0)

@@ -27,10 +27,13 @@ Script_interface::get_molecule (Grob * me, Direction d)
   SCM key = ly_car (s);
   if (key == ly_symbol2scm ("feta"))
     {
+      SCM name_entry = ly_cdr (s);
+
+      SCM str = (gh_pair_p (name_entry)) ? index_get_cell (name_entry, d) :  name_entry;
       return Font_interface::get_default_font (me)->find_by_name ("scripts-" +
-				    ly_scm2string (index_get_cell (ly_cdr (s), d)));
+								  ly_scm2string (str));
     }
-  else if (key == ly_symbol2scm ("accordion"))
+ else if (key == ly_symbol2scm ("accordion"))
     {
       return Lookup::accordion (ly_cdr (s), 1.0, Font_interface::get_default_font (me));
     }
@@ -107,5 +110,5 @@ ADD_INTERFACE (Text_script,"text-script-interface",
 
 ADD_INTERFACE (Script_interface, "script-interface",
   "",
-  "script-priority script-molecule staff-support");
+  "script-priority script-molecule");
 
