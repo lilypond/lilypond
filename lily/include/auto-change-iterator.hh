@@ -22,7 +22,11 @@ public:
 protected:
   virtual void process (Moment);  
 
+
+  Array<Musical_pitch> pending_pitch (Moment)const;
 private:
+
+  
   Direction where_dir_;
   void change_to (Music_iterator* , String, String);
 };

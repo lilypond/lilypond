@@ -260,8 +260,7 @@ Stem::get_default_stem_end_position (Score_element*me)
     }
   else
     {
-      s = scm_eval2 (ly_symbol2scm ((type_str + "stem-length").ch_C()),
-		     SCM_EOL);
+      s = me->get_elt_property("lengths");
       for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
 	a.push (gh_scm2double (gh_car (q)));
 		
@@ -271,9 +270,8 @@ Stem::get_default_stem_end_position (Score_element*me)
 
 
   a.clear ();
-  s = scm_eval2 (ly_symbol2scm ((type_str + "stem-shorten").ch_C()),
-		 SCM_EOL);
-  for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
+  s = me->get_elt_property ("stem-shorten");
+  for (SCM q = s; gh_pair_p (q); q = gh_cdr (q))
     a.push (gh_scm2double (gh_car (q)));
 
 
@@ -535,11 +533,11 @@ Stem::calc_stem_info (Score_element*me)
   int multiplicity = Beam::get_multiplicity (beam);
 
 
-  SCM space_proc = beam->get_elt_property ("beam-space-function");
+  SCM space_proc = beam->get_elt_property ("space-function");
   SCM space = gh_call1 (space_proc, gh_int2scm (multiplicity));
   Real interbeam_f = gh_scm2double (space) * staff_space;
 
-  Real thick = gh_scm2double (beam->get_elt_property ("beam-thickness"));
+  Real thick = gh_scm2double (beam->get_elt_property ("thickness"));
   Stem_info info; 
   info.idealy_f_ = chord_start_f (me);
 
@@ -551,17 +549,15 @@ Stem::calc_stem_info (Score_element*me)
   
   Array<Real> a;
   SCM s;
-  String type_str = grace_b ? "grace-" : "";
   
-  s = scm_eval2 (ly_symbol2scm ((type_str + "beamed-stem-minimum-length").ch_C()), SCM_EOL);
+  s = me->get_elt_property("beamed-minimum-lengths");
   a.clear ();
   for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
     a.push (gh_scm2double (gh_car (q)));
 
 
   Real minimum_length = a[multiplicity <? (a.size () - 1)] * staff_space;
-  s = scm_eval2 (ly_symbol2scm ((type_str + "beamed-stem-length").ch_C()),
-		 SCM_EOL);
+  s = me->get_elt_property ("beamed-lengths");
 
   a.clear();
   for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))

@@ -32,14 +32,7 @@ Sequential_music_iterator::Sequential_music_iterator (Sequential_music_iterator 
 
 Sequential_music_iterator::~Sequential_music_iterator()
 {
-  if (iter_p_)
-    {
-#if 0
-      if (iter_p_->ok () )
-	music_l_->origin ()->warning (_ ("Must stop before this music ends"));
-#endif
-      delete iter_p_;
-    }
+  delete iter_p_;
 }
 
 void
@@ -81,25 +74,19 @@ Sequential_music_iterator::descend_to_child ()
 
 
 /*
+  Retrieve all music (starting at HERE), until a music with length L >
+  0 is found.  From the precondition, we know that UNTIL is later than
+  the earliest event. Hence we know
   
-  
-  Hier staat in feite: haal alle muziek op (startend op tijd HERE) tot
-  je iets met lengte L > 0 tegenkomt.  Aangezien de preconditie is dat
-  UNTIL het eerstvolgende event is, weet je (per definitie)
-
   L >= (UNTIL - HERE)
 
-  en iets wat hierna komt (op tijd T) komt dus na tijd
+  so something that comes after this thing with L > 0 happens after
 
   HERE + L >= HERE + (UNTIL - HERE) = UNTIL
 
-  Dus als je een L>0 tegenkomt, wil je de rest niet meer. Aangezien
-  alles wat tot nu toe hebt gespaard op HERE begint, is dat precies wat
-  je nodig hebt.
-
-  Misschien kan je deze comment erbij stoppen, en moeten we de
-  eigenschappen van het muziek datatype wat formaliseren, zodat deze
-  redenering helderder is.
+  Hence all events after the one with L>0 are uninteresting, so we
+  ignore them.
+  
 */
 
 SCM
@@ -142,7 +129,6 @@ Sequential_music_iterator::get_music (Moment until)const
 void
 Sequential_music_iterator::skip (Moment until)
 {
-  SCM curs = cursor_;
   while (1)
     {
       Moment l =iter_p_->music_length_mom ();
@@ -156,12 +142,12 @@ Sequential_music_iterator::skip (Moment until)
       delete iter_p_;
       iter_p_ =0;
 
-      curs = gh_cdr (curs);
+      cursor_ = gh_cdr (cursor_);
 
-      if (!gh_pair_p (curs))
+      if (!gh_pair_p (cursor_))
 	return ;
       else
-	iter_p_ = get_iterator_p (unsmob_music (gh_car (curs)));
+	iter_p_ = get_iterator_p (unsmob_music (gh_car (cursor_)));
     }
 }
 

@@ -99,12 +99,6 @@ Rest_engraver::do_try_music (Music *m)
       rest_req_l_ = r;
       return true;
     }  
-  else if (Rhythm_interrogate_req *r = dynamic_cast<Rhythm_interrogate_req*> (m))
-    {
-      if (rest_req_l_)
-	r->duration_arr_.push (rest_req_l_->duration_); // GUH UGH UGHUGH.
-      return true;
-    }
   return false;
 }
 

@@ -25,9 +25,10 @@
   ok () -- events left ?
 
   pending_mom () -- time tag of the next event to be processed.
+    PRECONDITION: this->ok() holds.
   
-  process (M) -- process all at M (Precondition: no events exist before
-    M).  Side-effects:
+  process (M) -- process all at M (Precondition: no events exist
+    before M, this->ok() holds).  Side-effects:
     
     * This removes all events at M from the pending queue.
 
@@ -43,7 +44,7 @@
 
   TODO:
 
-  merge pending_moment and process.
+  merge pending_moment and process?
   
 */
 class Music_iterator
@@ -55,8 +56,6 @@ public:
   VIRTUAL_COPY_CONS (Music_iterator);
 
   Moment music_length_mom () const;
-
-  
   Music_iterator ();
   Music_iterator (Music_iterator const&);
   virtual ~Music_iterator ();

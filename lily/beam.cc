@@ -94,9 +94,6 @@ Beam::before_line_breaking (SCM smob)
   return SCM_EOL;
 }
 
-/*
- FIXME
- */
 Direction
 Beam::get_default_dir (Score_element*me) 
 {
@@ -124,14 +121,13 @@ Beam::get_default_dir (Score_element*me)
 
     } while (flip(&d) != DOWN);
   
+  SCM func = me->get_elt_property ("dir-function");
+  SCM s = gh_call2 (func,
+		    gh_cons (gh_int2scm (count[UP]),
+			     gh_int2scm (count[DOWN])),
+		    gh_cons (gh_int2scm (total[UP]),
+			     gh_int2scm (total[DOWN])));
 
-  SCM s = scm_eval2 (gh_list (ly_symbol2scm ("beam-dir-algorithm"),
-			     ly_quote_scm (gh_cons (gh_int2scm (count[UP]),
-						    gh_int2scm (count[DOWN]))),
-			     ly_quote_scm (gh_cons (gh_int2scm (total[UP]),
-						    gh_int2scm (total[DOWN]))),
-			     SCM_UNDEFINED),
-		     SCM_EOL);
   if (gh_number_p (s) && gh_scm2int (s))
     return to_dir (s);
   
@@ -244,9 +240,7 @@ Beam::set_stem_shorten (Score_element*m)
 
   int multiplicity = get_multiplicity (me);
 
-  // grace stems?
-  SCM shorten = scm_eval2 (ly_symbol2scm ("beamed-stem-shorten"), SCM_EOL);
-
+  SCM shorten = me->get_elt_property ("beamed-stem-shorten");
   if (shorten == SCM_EOL)
     return;
 
@@ -452,10 +446,10 @@ Beam::calc_stem_y_f (Score_element*me,Item* s, Real y, Real dy)
 
   Real staffspace = me->paper_l ()->get_var ("staffspace");
   
-  SCM space_proc = me->get_elt_property ("beam-space-function");
+  SCM space_proc = me->get_elt_property ("space-function");
   SCM space = gh_call1 (space_proc, gh_int2scm (beam_multiplicity));
 
-  Real thick = gh_scm2double (me->get_elt_property ("beam-thickness")) *staffspace;
+  Real thick = gh_scm2double (me->get_elt_property ("thickness")) *staffspace;
   Real interbeam_f = gh_scm2double (space) * staffspace;
 
   // ugh -> use commonx
@@ -556,8 +550,14 @@ Real
 Beam::quantise_dy_f (Score_element*me,Real dy) 
 {
   Array<Real> a;
-  for (SCM s = scm_eval2 (ly_symbol2scm ("beam-height-quants"), SCM_EOL);
-       s !=SCM_EOL; s = gh_cdr (s))
+
+  SCM proc = me->get_elt_property ("height-quants");
+  SCM quants = gh_call2 (proc, me->self_scm (),
+			 gh_double2scm (me->paper_l ()->get_var ("stafflinethickness")
+					/ me->paper_l ()->get_var ("staffspace")));
+  
+  
+  for (SCM s = quants; gh_pair_p (s); s = gh_cdr (s))
     a.push (gh_scm2double (gh_car (s)));
   
   if (a.size () <= 1)
@@ -587,15 +587,20 @@ Beam::quantise_y_f (Score_element*me,Real y, Real dy, int quant_dir)
   int multiplicity = get_multiplicity (me);
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  SCM quants = scm_eval2 (gh_list (ly_symbol2scm ("beam-vertical-position-quants"),
-				  gh_int2scm (multiplicity),
-				  gh_double2scm (dy/staff_space),
-				  SCM_UNDEFINED),
-			  SCM_EOL);
+  Real thick = me->paper_l ()->get_var ("stafflinethickness");
 
+
+  SCM proc = me->get_elt_property ("vertical-position-quant-function");
+  SCM quants = scm_apply (proc,
+			  me->self_scm (),
+			  gh_list (gh_int2scm (multiplicity),
+				   gh_double2scm (dy/staff_space),
+				   gh_double2scm (thick/staff_space),
+				   SCM_EOL, SCM_UNDEFINED));
+  
   Array<Real> a;
 
-  for (; quants != SCM_EOL; quants = gh_cdr (quants))
+  for (; gh_pair_p (quants); quants = gh_cdr (quants))
     a.push (gh_scm2double (gh_car (quants)));
 
   if (a.size () <= 1)
@@ -635,8 +640,7 @@ Beam::set_beaming (Score_element*me,Beaming_info_list *beaming)
 /*
   beams to go with one stem.
 
-  BURP
-  clean  me up.
+  FIXME: clean me up.
   */
 Molecule
 Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev) 
@@ -650,10 +654,10 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
   int multiplicity = get_multiplicity (me);
   Real staffspace =me->paper_l ()->get_var ("staffspace");
 
-  SCM space_proc = me->get_elt_property ("beam-space-function");
+  SCM space_proc = me->get_elt_property ("space-function");
   SCM space = gh_call1 (space_proc, gh_int2scm (multiplicity));
 
-  Real thick = gh_scm2double (me->get_elt_property ("beam-thickness")) *staffspace;
+  Real thick = gh_scm2double (me->get_elt_property ("thickness")) *staffspace;
   Real interbeam_f = gh_scm2double (space) * staffspace;
     
   Real bdy = interbeam_f;
@@ -669,16 +673,13 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
   Molecule leftbeams;
   Molecule rightbeams;
 
-  /*
-    UGH: make a property of this.
-  */
   Real nw_f;
   if (!Stem::first_head (here))
     nw_f = 0;
   else {
     int t = Stem::type_i (here); 
 
-    SCM proc = me->get_elt_property ("beam-flag-width-function");
+    SCM proc = me->get_elt_property ("flag-width-function");
     SCM result = gh_call1 (proc, gh_int2scm (t));
     nw_f = gh_scm2double (result) * staffspace;
   }
@@ -720,7 +721,7 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
       int j = 0;
       Real gap_f = 0;
 
-      SCM gap = me->get_elt_property ("beam-gap");
+      SCM gap = me->get_elt_property ("gap");
       if (gh_number_p (gap))
 	{
 	  int gap_i = gh_scm2int ( (gap));

@@ -17,7 +17,7 @@ voice4 = \notes {
 }
 voicedefault = \notes {
  \property Staff.timeSignatureStyle="C"
- \time 4/4; \key f; 
+ \time 4/4; \key f \major;  
  \tempo 4 = 200;
 }
 \score{

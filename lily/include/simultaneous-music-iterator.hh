@@ -29,6 +29,7 @@ public:
   virtual Moment pending_moment () const;
   virtual bool ok () const;
   virtual SCM get_music (Moment)const;
+  virtual void skip (Moment);
 
 protected:
   virtual void process (Moment);

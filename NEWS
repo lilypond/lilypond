@@ -2,6 +2,8 @@
 
 * Point and click functionality using emacs and Xdvi.
 
+* Automatic part combining for orchestral scores.
+
 * Improved design and implementation: Complete rewrite of the
 internals: LilyPond is smaller, cleaner, more flexible, etc.
 
@@ -9,6 +11,9 @@ internals: LilyPond is smaller, cleaner, more flexible, etc.
 
  - Improved speed (undone for now, by .73 + .74), 
    with comparable memory footprint
+
+ - More tweakability using less memory with new property push
+  mechanism.
 
  - Improved robustness: Lily almost never crashes.
 

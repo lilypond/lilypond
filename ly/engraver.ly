@@ -164,13 +164,20 @@ GraceContext=\translator {
 
 	basicNoteHeadProperties \push #'font-size = #-1
 	basicStemProperties \push #'font-size = #-1
+	basicStemProperties \push #'stem-shorten = #'(0)
 	basicBeamProperties \push #'font-size = #-1
 	basicTextScriptProperties \push #'font-size = #-1
 	basicSlurProperties \push #'font-size = #-1
 	basicLocalKeyProperties \push #'font-size = #-1
 	basicBeamProperties \push #'beam-thickness = #0.3
 	basicBeamProperties \push #'beam-space-function = #(lambda (x) 0.5)
-	
+
+	basicStemProperties \push #'lengths = #(map (lambda (x) (* 0.8 x)) '(3.5 3.5 3.5 4.5 5.0))
+	basicStemProperties \push #'beamed-lengths =
+		#'(0.0 2.5 2.0 1.5)
+	basicStemProperties \push #'minimum-beamed-lengths
+		 = #(map (lambda (x) (* 0.8 x)) '(0.0 2.5 2.0 1.5))
+
 	weAreGraceContext = ##t   
 	graceAccidentalSpace= 1.5 ; % in staff space
 }
@@ -214,11 +221,6 @@ StaffGroupContext= \translator {
 	\consists "Output_property_engraver";	
 	\consists "System_start_delimiter_engraver";
        systemStartDelimiterGlyph = #'bracket
-       
-
-
-
-
 	\name StaffGroup;
 	\accepts "Staff";
 	\accepts "RhythmicStaff";
@@ -671,19 +673,7 @@ ScoreContext = \translator {
 		(before-line-breaking-callback . ,Script_column::before_line_breaking)
 		(name . "script column")
 	)
-	basicSlurProperties = #`(
-		(interfaces . (slur-interface))
-		(molecule-callback . ,Slur::brew_molecule)
-		(thickness . 1.2)		
-		(spacing-procedure . ,Slur::set_spacing_rods)		
-		(minimum-length . 1.5)
-		(after-line-breaking-callback . ,Slur::after_line_breaking)
-
-		(de-uglify-parameters . ( 1.5  0.8  -2.0))
-		(details . ((height-limit . 2.0) (ratio . 0.333) (force-blowfit . 0.5) (beautiful . 0.5)))
-		(y-free . 0.75)
-		(name . "slur")
-	)
+	basicSlurProperties = #default-basic-slur-properties
 	basicSpacingSpannerProperties =#`(
 		(spacing-procedure . ,Spacing_spanner::set_springs)
 
@@ -797,7 +787,15 @@ ScoreContext = \translator {
 		(before-line-breaking-callback . ,Stem::before_line_breaking)
 		(molecule-callback . ,Stem::brew_molecule)
 		(thickness . 0.8)
+		(beamed-lengths . (0.0 2.5 2.0 1.5))
+		(beamed-minimum-lengths . (0.0 1.5 1.25 1.0))
+		
+;;  Stems in unnatural (forced) direction should be shortened,
+;;  according to [Roush & Gourlay].  Their suggestion to knock off
+;;  a whole staffspace seems a bit drastical: we'll do half.
 
+		(lengths . (3.5 3.5 3.5 4.5 5.0))
+		(stem-shorten . (0.5))
 		; if stem is on middle line, choose this direction.
 		(default-neutral-direction . 1)
 		(name . "stem")
