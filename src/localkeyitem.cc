@@ -15,7 +15,7 @@ void
 Local_key_item::add(Item*head_l)
 {
     group.push(head_l);
-    dependencies.push(head_l);
+    add_depedency(head_l);
 }
 void
 Local_key_item::add(Melodic_req*m_l)
