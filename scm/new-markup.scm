@@ -283,8 +283,8 @@ for the reader.
   )
   (and (list? arg) (markup-list-inner? arg)))
 
-
 (define (markup-argument-list? signature arguments)
+  "Typecheck argument list."
   (if (and (pair? signature) (pair? arguments))
       (and ((car signature) (car arguments))
 	   (markup-argument-list? (cdr signature) (cdr arguments)))
@@ -293,6 +293,9 @@ for the reader.
 
 
 (define (markup-argument-list-error signature arguments number)
+  "return (ARG-NR TYPE-EXPECTED ARG-FOUND) if an error is detected, or
+#f is no error found.
+"
   (if (and (pair? signature) (pair? arguments))
       (if (not ((car signature) (car arguments)))
 	  (list number (type-name (car signature)) (car arguments))
@@ -330,6 +333,10 @@ for the reader.
    #t
   )
 
+
+;;
+;; good enough if you only  use make-XXX-markup functions.
+;; 
 (define (cheap-markup? x)
   (and (pair? x)
        (markup-function? (car x)))
@@ -415,18 +422,22 @@ for the reader.
 	 )
       
       `(define (,(string->symbol make-name) . args)
-	 (if (= (length  args) (length ,signature))
-	     #t
+	 (let*
+	     (
+	      (arglen (length  args))
+	      (siglen (length ,signature))
+	      (error-msg
+	       (if (and (> 0 siglen) (> 0 arglen))
+		   (markup-argument-list-error ,signature args 1)))
+	      
+	      )
+	 
+	 (if (or (not (= arglen siglen)) (< siglen 0) (< 0 arglen))
 	     (scm-error 'markup-format ,make-name "Expect ~A arguments for ~A. Found ~A: ~S"
 			(list (length ,signature)
 			      ,make-name
 			      (length args)
 			      args) #f))
-
-	 (let*
-	     (
-	      (error-msg (markup-argument-list-error ,signature args 1))
-	      )
 	 (if error-msg
 	     (scm-error 'markup-format ,make-name "Invalid argument in position ~A\n Expect: ~A\nFound: ~S." error-msg #f)
 	     
@@ -434,6 +445,49 @@ for the reader.
 	     )))
     )
 )
+
+
+
+(define (make-markup markup-function make-name signature args)
+  
+  " Construct a markup object from MARKUP-FUNCTION and ARGS. Typecheck
+against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
+"
+
+  (let*
+      (
+       (arglen (length args))
+       (siglen (length signature))
+       (error-msg
+	(if (and (> siglen 0) (> arglen 0))
+	    (markup-argument-list-error signature args 1)))
+       )
+
+
+    (if (or (not (= arglen siglen)) (< siglen 0) (< arglen 0))
+	(scm-error 'markup-format make-name "Expect ~A arguments for ~A. Found ~A: ~S"
+		   (list siglen
+			 make-name
+			 arglen
+			 args) #f))
+
+    (if error-msg
+	(scm-error 'markup-format make-name "Invalid argument in position ~A\nExpect: ~A\nFound: ~S." error-msg #f)
+	
+	(cons markup-function  args)
+	)))
+
+(define (make-markup-maker entry)
+  (let* (
+	 (name (symbol->string (procedure-name (car entry))))
+	 (make-name  (string-append "make-" name))
+	 (signature (object-property (car entry) 'markup-signature))
+	 )
+  
+    `(define (,(string->symbol make-name) . args)
+       (make-markup ,(car entry) ,make-name ,(cons 'list signature)  args)
+       ))
+  )
 
 (eval
  (cons 'begin (map make-markup-maker markup-function-list))
@@ -474,9 +528,26 @@ for the reader.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(if #f
+   (define (typecheck-with-error x)
+     (catch
+      'markup-format
+      (lambda () (markup? x))
+      (lambda (key message arg)
+	(display "\nERROR: markup format error: \n")
+	(display message)
+	(newline)
+	(write arg (current-output-port))
+	)
+      )))
+
 ;; test make-foo-markup functions
 (if #t
     (begin
+      (newline)
+      (newline)
+      (display (make-line-markup (list (make-simple-markup "FOO"))))
+      
       (make-line-markup (make-simple-markup "FOO"))
       (make-line-markup (make-simple-markup "FOO") (make-simple-markup "foo"))
       (make-raise-markup "foo" (make-simple-markup "foo"))
@@ -494,17 +565,7 @@ for the reader.
    ;; To get error messages, see above to install the alternate
    ;; typecheck routine for markup?.
    
-   (define (typecheck-with-error x)
-     (catch
-      'markup-format
-      (lambda () (markup? x))
-      (lambda (key message arg)
-	(display "\nERROR: markup format error: \n")
-	(display message)
-	(newline)
-	(write arg (current-output-port))
-	)
-      ))
+
 
    (display (typecheck-with-error `(,simple-markup "foobar")))
    (display (typecheck-with-error `(,simple-markup "foobar")))
