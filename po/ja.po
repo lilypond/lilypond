@@ -1697,8 +1697,8 @@ msgid "Usage: %s [OPTION]... FILE..."
 msgstr "使い方: %s [オプション]... [ファイル]..."
 
 #: main.cc:157
-msgid "Typeset music and or play MIDI from FILE"
-msgstr "ファイルの楽曲を組版したり、MIDI 演奏したりする"
+msgid "Typeset music and or play MIDI from FILE."
+msgstr "ファイルの楽曲を組版したり、MIDI 演奏したりする."
 
 #: main.cc:160
 msgid ""

@@ -1664,8 +1664,8 @@ msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Aufruf: %s [OPTION]... DATEI..."
 
 #: main.cc:157
-msgid "Typeset music and or play MIDI from FILE"
-msgstr "Musiksatz und/oder MIDI-Aufführung aus DATEI"
+msgid "Typeset music and or play MIDI from FILE."
+msgstr "Musiksatz und/oder MIDI-Aufführung aus DATEI."
 
 #: main.cc:160
 msgid ""
