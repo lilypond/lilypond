@@ -47,9 +47,11 @@ Lookup::add(String s, Symtable*p)
 void
 Lookup::print()const
 {
+    #ifndef NPRINT
     mtor << "Lookup: " << texsetting << " {\n";
     symtables_->print();
     mtor << "}\n";
+    #endif
 }
 
 Symbol

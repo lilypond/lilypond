@@ -21,6 +21,8 @@ void
 Music::print()const
 {
 #ifndef NPRINT
+    if ( ! check_debug)
+	return ;
     mtor << name() << "{";
     if  (type_str_!="" || id_str_!="")
 	mtor << "`" <<type_str_ << " = " << id_str_<<"\'";
