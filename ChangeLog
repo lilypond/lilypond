@@ -4,7 +4,11 @@
 
 2004-11-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* scm/output-gnome.scm (bezier-sandwich): New function.
+	* lily/pangofc-afm-decoder.cc (main): Test more feta fonts.
+
+	* scm/output-gnome.scm (bezier-sandwich): New function.  Reset
+	path-def before using.  Fixes muchtomany slurs in wrong places
+	bug.
 
 2004-11-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
