@@ -6,8 +6,7 @@ include $(depth)/make/stepmake.make
 
 AF_FILES = $(wildcard *.af) 
 
-EXTRA_DIST_FILES += README feta.tex merge.pe
-
+EXTRA_DIST_FILES += README feta.tex
 
 # We don't use $(MF_FILES), because there's more .mf cruft here
 FETA_MF_FILES = $(wildcard feta[0-9]*.mf)\
@@ -44,14 +43,11 @@ foe:
 	echo $(TEXMF)
 	kpsewhich exbase.mf
 
-
 $(outdir)/feta20.otf-table:
 	cat $(outdir)/feta20.lisp $(outdir)/parmesan20.lisp > $@
 
-$(outdir)/feta20.otf: merge.pe $(outdir)/feta20.otf-table
-# FIXME: srcdir build. 
-	(cd $(outdir) ; fontforge -script ../merge.pe ) 
-
+$(outdir)/bigcheese20.otf: $(outdir)/merge.pe $(outdir)/feta20.otf-table
+	(cd $(outdir) && fontforge -script merge.pe)
 
 ## use separate package sauter-fonts-mftraced.
 SAUTER_FONTS = 
