@@ -11,16 +11,13 @@
 \context {
 	\type "Engraver_group_engraver"
 	\name Staff
-
 	
 	\consists "Output_property_engraver"	
-	
 	\consists "Bar_engraver"
 % Bar_engraver must be first so default bars aren't overwritten
 % with empty ones.
 	
 	\consists "Font_size_engraver"
-	
 	\consists "Volta_engraver"
 	\consists "Separating_line_group_engraver"	
 	\consists "Dot_column_engraver"

@@ -98,21 +98,6 @@ dump_fields ()
   return fields;
 }
 
-LY_DEFINE (ly_output_formats, "ly:output-formats",
-	   0, 0, 0, (),
-	   "Formats passed to --format as a list of strings, "
-	   "used for the output.")
-{
-  Array<String> output_formats = split_string (output_format_global, ',');
-
-  SCM lst = SCM_EOL;
-  int output_formats_count = output_formats.size ();
-  for (int i = 0; i < output_formats_count; i ++)
-    lst = scm_cons (scm_makfrom0str (output_formats[i].to_str0 ()), lst);
-  
-  return lst; 
-}
-
 void
 Paper_book::post_processing (SCM module,
 			     SCM file_name)
@@ -154,59 +139,55 @@ Paper_book::output (String outname)
   /* Generate all stencils to trigger font loads.  */
   pages ();
   
-  SCM formats = ly_output_formats ();
-  for (SCM s = formats; scm_is_pair (s); s = scm_cdr (s)) 
+  String format = output_format_global;
+  String file_name = outname;
+      
+  if (file_name != "-")
+    file_name += "." + format;
+      
+  Paper_outputter *out = get_paper_outputter (file_name, format);
+  
+  SCM scopes = SCM_EOL;
+  if (ly_c_module_p (header_))
+    scopes = scm_cons (header_, scopes);
+  
+  String mod_nm = "scm framework-" + format;
+
+  SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
+  if (make_pages)
     {
-      String format = ly_scm2string (scm_car (s));
-      String file_name = outname;
+      SCM func = scm_c_module_lookup (mod, "output-framework");
+
+      func = scm_variable_ref (func);
+      scm_apply_0 (func, scm_list_n (out->self_scm (),
+				     self_scm (),
+				     scopes,
+				     dump_fields (),
+				     scm_makfrom0str (outname.to_str0 ()),
+				     SCM_UNDEFINED));
+      out->close ();
+      scm_gc_unprotect_object (out->self_scm ());
+      post_processing (mod, scm_makfrom0str (file_name.to_str0 ()));
+    }
       
-      if (file_name != "-")
-	file_name += "." + format;
-      
+  if (make_preview)
+    {
+      String file_name = outname + ".preview." + format;
       Paper_outputter *out = get_paper_outputter (file_name, format);
   
-      SCM scopes = SCM_EOL;
-      if (ly_c_module_p (header_))
-	scopes = scm_cons (header_, scopes);
-  
-      String mod_nm = "scm framework-" + format;
+      SCM func = scm_c_module_lookup (mod, "output-preview-framework");
+      func = scm_variable_ref (func);
+      scm_apply_0 (func, scm_list_n (out->self_scm (),
+				     self_scm (),
+				     scopes,
+				     dump_fields (),
+				     scm_makfrom0str (outname.to_str0 ()),
+				     SCM_UNDEFINED));
 
-      SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
-      if (make_pages)
-	{
-	  SCM func = scm_c_module_lookup (mod, "output-framework");
+      out->close ();
+      scm_gc_unprotect_object (out->self_scm ());
 
-	  func = scm_variable_ref (func);
-	  scm_apply_0 (func, scm_list_n (out->self_scm (),
-					 self_scm (),
-					 scopes,
-					 dump_fields (),
-					 scm_makfrom0str (outname.to_str0 ()),
-					 SCM_UNDEFINED));
-	  out->close ();
-	  scm_gc_unprotect_object (out->self_scm ());
-	  post_processing (mod, scm_makfrom0str (file_name.to_str0 ()));
-	}
-      
-      if (make_preview)
-	{
-	  String file_name = outname + ".preview." + format;
-	  Paper_outputter *out = get_paper_outputter (file_name, format);
-  
-   	  SCM func = scm_c_module_lookup (mod, "output-preview-framework");
-	  func = scm_variable_ref (func);
-	  scm_apply_0 (func, scm_list_n (out->self_scm (),
-					 self_scm (),
-					 scopes,
-					 dump_fields (),
-					 scm_makfrom0str (outname.to_str0 ()),
-					 SCM_UNDEFINED));
-
-	  out->close ();
-	  scm_gc_unprotect_object (out->self_scm ());
-
-	  post_processing (mod, scm_makfrom0str (file_name.to_str0 ()));
-     	}
+      post_processing (mod, scm_makfrom0str (file_name.to_str0 ()));
     }
   progress_indication ("\n");
 }
@@ -226,29 +207,24 @@ Paper_book::classic_output (String outname)
     scopes = scm_cons (score_systems_[0].header_, scopes);
   //end ugh
 
-  Array<String> output_formats = split_string (output_format_global, ',');
-
-  for (int i = 0; i < output_formats.size (); i++)
-    {
-      String format = output_formats[i];
-      String mod_nm = "scm framework-" + format;
+  String format = output_format_global;
+  String mod_nm = "scm framework-" + format;
       
-      SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
-      SCM func = scm_c_module_lookup (mod, "output-classic-framework");
+  SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
+  SCM func = scm_c_module_lookup (mod, "output-classic-framework");
 
-      func = scm_variable_ref (func);
+  func = scm_variable_ref (func);
       
-      Paper_outputter *out = get_paper_outputter (outname + "." + format,
-						  format);
+  Paper_outputter *out = get_paper_outputter (outname + "." + format,
+					      format);
 
-      scm_apply_0 (func, scm_list_n (out->self_scm (), self_scm (), scopes,
-				     dump_fields (),
-				     scm_makfrom0str (outname.to_str0 ()),
-				     SCM_UNDEFINED));
+  scm_apply_0 (func, scm_list_n (out->self_scm (), self_scm (), scopes,
+				 dump_fields (),
+				 scm_makfrom0str (outname.to_str0 ()),
+				 SCM_UNDEFINED));
 
-      scm_gc_unprotect_object (out->self_scm ());
-      progress_indication ("\n");
-    }
+  scm_gc_unprotect_object (out->self_scm ());
+  progress_indication ("\n");
 }
 
 LY_DEFINE (ly_paper_book_pages, "ly:paper-book-pages",

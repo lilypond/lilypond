@@ -44,7 +44,8 @@ String init_name_global;
 bool no_layout_global_b = false;
 
 /* Selected output format.
-   One of tex, ps, scm, as. */
+   One of tex, ps, scm, as.
+*/
 String output_format_global = "ps";
 
 /* Current output name. */
@@ -253,16 +254,10 @@ prepend_load_path (String dir)
 static void
 determine_output_options ()
 {
-  bool found_gnome = false;
-  bool found_svg = false;
-  bool found_tex = false;
-  SCM formats = ly_output_formats ();
-  for (SCM s = formats; scm_is_pair (s); s = scm_cdr (s)) 
-    {
-      found_gnome = found_gnome || ly_scm2string(scm_car (s)) == "gnome";
-      found_svg = found_gnome || ly_scm2string(scm_car (s)) == "svg";
-      found_tex = found_tex || (ly_scm2string (scm_car (s)) == "tex");
-    }
+  bool found_gnome = (output_format_global == "gnome");
+  bool found_svg = (output_format_global == "svg");
+  bool found_tex = (output_format_global == "tex");
+
 
   if (make_pdf || make_png)
     {
