@@ -30,11 +30,9 @@
 (define-public (number-or-string? x)
   (or (number? x) (string? x)))
 
-(define-public (markup? x)
-  (or (string? x) (list? x)
-      (new-markup? x)))
-
 (define-public (scheme? x) #t)
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

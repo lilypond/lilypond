@@ -25,14 +25,38 @@
 	(function music)
 	))
 
-(define-public (display-one-music music)
+(define-public (display-music music)
+  "Display music, not done with music-map for clarity of presentation."
   (display music)
-  (display (ly:get-mutable-properties music))
+  (display ": { ")
+  
+  (let* ((es (ly:get-mus-property music 'elements))
+         (e (ly:get-mus-property music 'element))
+	 )
+
+    (display (ly:get-mutable-properties music))
+
+    (if (pair?  es)
+	(begin (display "\nElements: {\n")
+	       (map display-music es)
+	       (display "}\n")
+	))
+    
+    
+    (if (ly:music? e)
+	(begin
+	  (display "\nChild:")
+	  (display-music e)
+	  )
+	)
+    )
+  (display " }\n")
   music
   )
 
-(define-public (display-music arg)
-  (music-map display-one-music arg))
+
+
+
   
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -104,46 +128,11 @@ written by Rune Zedeler. "
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 
-
-(define  (pitchify-scripts music)
-  "Copy the pitch fields of the Note_requests into  Text_script_requests, to aid
-Fingering_engraver."
-  (define (find-note musics)
-    (filter-list (lambda (m) (equal? (ly:music-name m) "Note_req")) musics)
-    )
-  (define (find-scripts musics)
-    (filter-list (lambda (m) (equal? (ly:music-name m) "Text_script_req")) musics))
-
-  (let* (
-	 (e (ly:get-mus-property music 'element))
-	 (es (ly:get-mus-property music 'elements))
-	 (notes (find-note es))
-	 (pitch (if (pair? notes) (ly:get-mus-property (car  notes) 'pitch) #f))
-	 )
-
-    (if pitch
-	(map (lambda (x) (ly:set-mus-property! x 'pitch pitch)) (find-scripts es))
-	)
-	
-    (if (pair? es)
-        (ly:set-mus-property!
-         music 'elements
-         (map pitchify-scripts es)))
-
-    (if (ly:music? e)
-        (ly:set-mus-property!
-         music 'element
-         (pitchify-scripts e)))
-
-    music))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property setting music objs.
 
 (define-public (make-grob-property-set grob gprop val)
 
-  "Make a M-exp that sets GPROP to VAL in GROBS. Does a pop first,
+  "Make a Music expression that sets GPROP to VAL in GROB. Does a pop first,
 i.e.  this is not an override"
   
    (let* ((m (make-music-by-name  'OverrideProperty)))
@@ -236,14 +225,13 @@ i.e.  this is not an override"
        (skip ( make-music-by-name 'SkipEvent))
        (ch (make-music-by-name 'BarCheck))
        (ch2  (make-music-by-name 'BarCheck))
+       (seq  (make-music-by-name 'MultiMeasureRestMusicGroup))
        )
 
     (ly:set-mus-property! start 'span-direction START)
     (ly:set-mus-property! stop 'span-direction STOP)    
     (ly:set-mus-property! skip 'duration duration)
-    (map (lambda (x) (ly:set-mus-property! x 'origin location))
-	 (list start stop skip ch ch2))
-    (make-sequential-music
+    (ly:set-mus-property! seq 'elements
      (list
       ch
       (make-event-chord (list start))
@@ -251,7 +239,53 @@ i.e.  this is not an override"
       (make-event-chord (list stop))
       ch2
       ))
+
+    seq
     ))
+
+(define-public (glue-mm-rest-texts music)
+  "Check if we have R1*4-\markup { .. }, and if applicable convert to
+a property set for MultiMeasureRestNumber."
+  
+  (define (script-to-mmrest-text script-music)
+    "Extract 'direction and 'text   from SCRIPT-MUSIC, and transform into property sets."
+    
+    (let*
+	(
+	 (text (ly:get-mus-property script-music 'text))
+	 (dir (ly:get-mus-property script-music 'direction))
+	 (p (make-grob-property-set 'MultiMeasureRestNumber 'text text))
+	 (d (if (ly:dir? dir)
+		(make-grob-property-set 'MultiMeasureRestNumber 'direction dir)
+		#f))
+	 (l (list p))
+	 )
+      (ly:set-mus-property! p 'once #t)
+      (if d
+	  (begin
+	    (ly:set-mus-property! d 'once #t)
+	    (set! l (cons d l))))
+      
+      (context-spec-music (make-sequential-music l) "Voice")
+    ))
+  
+  (if (eq? (ly:get-mus-property music 'name)  'MultiMeasureRestMusicGroup)
+      (let*
+	  (
+	   (text? (lambda (x) (memq 'script-event (ly:get-mus-property x 'types))))
+	   (es (ly:get-mus-property  music 'elements))
+	   (texts (filter-list text? es))
+	   (others (filter-out-list text? es))
+	   )
+	(if (pair? texts)
+	    (ly:set-mus-property!
+	     music 'elements
+	     (cons (script-to-mmrest-text (car texts))
+		   others))
+	    )
+      ))
+  music
+  )
 
 
 (define-public (make-property-set sym val)
@@ -327,33 +361,6 @@ Rest can contain a list of beat groupings
     (memq 'separator ts)
   ))
 
-(define (split-one sep?  l acc)
-  "Split off the first parts before separator and return both parts.
-
-"
-  (if (null? l)
-      (cons acc '())
-      (if (sep? (car l))
-	  (cons acc (cdr l))
-	  (split-one sep? (cdr l) (cons (car l) acc))
-	  )
-      ))
-
-(define-public (split-list l sep?)
-  "
-
-(display (split-list '(a b c / d e f / g) (lambda (x) (equal? x '/))) )
-=>
- ...
-
-"
-  (if (null? l)
-      '()
-      (let* ((c (split-one sep? l '())))
-	(cons (reverse! (car c) '()) (split-list (cdr c) sep?))
-	)
-      )
-  )
 
 ;;; splitting chords into voices.
 
@@ -454,7 +461,8 @@ Rest can contain a list of beat groupings
   ))
 
 (define (ly:music-message music msg)
-  (let* (
+  (let*
+      (
       (ip (ly:get-mus-property music 'origin))
       )
 
@@ -502,7 +510,7 @@ Rest can contain a list of beat groupings
 (define-public toplevel-music-functions
   (list check-start-chords
 	voicify-music
-
+	(lambda (x) (music-map glue-mm-rest-texts x))
 ; switch-on-debugging
 	))
 

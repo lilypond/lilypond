@@ -241,5 +241,8 @@ arpeggioBracket = #(lambda (grob) (Arpeggio::brew_chord_bracket grob))
 arpeggio = #(make-music-by-name 'ArpeggioEvent)
 glissando = #(make-music-by-name 'GlissandoEvent)
 
+fermataMarkup = \markup { \musicglyph #"scripts-ufermata" } 
+
 setMmRestFermata =
-  \once \property Voice.MultiMeasureRestNumber \override #'text = #'(music "scripts-ufermata")
+  \once \property Voice.MultiMeasureRestNumber \override #'text =
+    #fermataMarkup 

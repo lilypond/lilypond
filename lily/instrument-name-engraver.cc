@@ -68,10 +68,12 @@ Instrument_name_engraver::create_text ()
   
       if (now_mom () > Moment (0))
 	txt = get_property ("instr");
+      /*
+	UGH.
+      */
+      if (txt == SCM_EOL)
+	return ;
       
-      if (!new_markup_p (txt))
-	return ; 
-          
       text_ = new Item (get_property ("InstrumentName"));
       
       if (text_->get_grob_property ("text") != txt)

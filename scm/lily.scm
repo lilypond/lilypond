@@ -118,7 +118,10 @@
 
 ;; why -list suffix (see reduce-list)
 (define-public (filter-list pred? list)
-  "return that part of LIST for which PRED is true."
+  "return that part of LIST for which PRED is true.
+
+ TODO: rewrite using accumulator. Now it takes O(n) stack. "
+  
   (if (null? list) '()
       (let* ((rest (filter-list pred? (cdr list))))
 	(if (pred? (car list))
@@ -189,6 +192,37 @@ L1 is copied, L2 not.
   (inner-split predicate l  c)
   (set-car! c (reverse! (car c))) 
   c)
+)
+
+
+(define-public (split-list l sep?)
+  "
+
+(display (split-list '(a b c / d e f / g) (lambda (x) (equal? x '/))) )
+=>
+((a b c) (d e f) (g))
+
+"
+
+(define (split-one sep?  l acc)
+  "Split off the first parts before separator and return both parts.
+
+"
+  ;; " KUT EMACS
+  (if (null? l)
+      (cons acc '())
+      (if (sep? (car l))
+	  (cons acc (cdr l))
+	  (split-one sep? (cdr l) (cons (car l) acc))
+	  )
+      ))
+
+(if (null? l)
+    '()
+    (let* ((c (split-one sep? l '())))
+      (cons (reverse! (car c) '()) (split-list (cdr c) sep?))
+      )
+    )
 )
 
 
@@ -334,25 +368,27 @@ is the  first to satisfy CRIT
        "chord-entry.scm"
        "double-plus-new-chord-name.scm"
        "molecule.scm"
+       "new-markup.scm"
        "bass-figure.scm"
-       "grob-property-description.scm"
-       "context-description.scm"
-       "interface-description.scm"
-       "beam.scm"
-       "clef.scm"
-       "slur.scm"
-       "font.scm"
        "music-functions.scm"
        "music-property-description.scm"
        "auto-beam.scm"
-       "new-markup.scm"
        "basic-properties.scm"
        "chord-name.scm"
-       "grob-description.scm"
        "translator-property-description.scm"
        "script.scm"
        "drums.scm"
        "midi.scm"
+
+       "beam.scm"
+       "clef.scm"
+       "slur.scm"
+       "font.scm"
+       
+       "grob-property-description.scm"
+       "grob-description.scm"
+       "context-description.scm"
+       "interface-description.scm"
        ))
 
 

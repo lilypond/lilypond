@@ -570,7 +570,7 @@
     
     (MultiMeasureRestNumber
      . (
-	(molecule-callback . ,Text_item::brew_molecule)
+	(molecule-callback . ,brew-new-markup-molecule)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_other_axis_parent))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))

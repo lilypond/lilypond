@@ -43,8 +43,8 @@ StaffContext=\translator {
 	% weird effects when doing instrument names for
 	% piano staves
 
-	instrument = ##f
-	instr = ##f
+	instrument = #'()
+	instr = #'()
 	  
 	\accepts "Voice"
 }
@@ -424,7 +424,6 @@ ScoreContext = \translator {
 	autoAccidentals = #'(Staff (same-octave . 0))
 	autoCautionaries = #'()  
 
-
        keyAccidentalOrder = #'(
          (6 . -1) (2  . -1) (5 . -1 ) (1  . -1) (4  . -1) (0  . -1) (3  . -1)
 	 (3  . 1) (0 . 1) (4 . 1) (1 . 1) (5 . 1) (2 . 1) (6 . 1)
@@ -450,6 +449,16 @@ ScoreContext = \translator {
 	majorSevenSymbol = #whiteTriangleMarkup
 	chordNameSeparator = #(make-simple-markup  "/")
 	chordNameExceptions = #ignatzekExceptions
+
+	%% tablature:
+	stringOneTopmost = ##t
+	highStringOne = ##t
+
+	%% One may change the strings tuning as following :
+	%% The lenght of the list must be equal to the number of string
+      
+	stringTunings   = #guitar-tunings
+	tablatureFormat = #fret-number-tablature-format
 
 	\grobdescriptions #all-grob-descriptions
 }
@@ -505,26 +514,17 @@ TabStaffContext = \translator {
       StaffSymbol \override #'line-count  = #6
       StaffSymbol \override #'staff-space = #1.5
 
-      stringOneTopmost = ##t
-      highStringOne = ##t
-
-      % One may change the strings tuning as following :
-      % The lenght of the list must be equal to the number of string
-      %TabNoteHead \override #'string-tunings = #'(10 10 10 10 10 10)
-      
-      % Special "TAB" clef
-      clefGlyph = #"clefs-tab"
-      clefPosition = #0
-      
-      % Don't draw stems over the tablature figures !
+     % Don't draw stems over the tablature figures !
       Stem \override #'avoid-note-head = ##t
       
       % No accidental in tablature !
       \remove Accidental_engraver
       \remove Key_engraver
-      stringTunings   = #guitar-tunings
-      tablatureFormat = #fret-number-tablature-format
 
+      % Special "TAB" clef
+      clefGlyph = #"clefs-tab"
+      clefPosition = #0
+      
 
 }
    
