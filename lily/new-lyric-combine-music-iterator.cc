@@ -169,8 +169,8 @@ New_lyric_combine_music_iterator::find_voice ()
 	  String name = ly_scm2string (voice_name);
 	  Context *voice = find_context_below (t, "Voice", name);
 	  if (!voice)
-	    get_music ()->origin ()->warning (_f ("cannot find Voice: %s\n",
-						  name.to_str0 ())); 
+	    get_music ()->origin ()->warning (_f ("cannot find Voice: %s",
+						  name.to_str0 ()) + "\n");
 	  else
 	    music_context_ = voice;
 	    

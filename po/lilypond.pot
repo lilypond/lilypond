@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-31 16:05+0200\n"
+"POT-Creation-Date: 2004-03-31 16:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -788,7 +788,7 @@ msgstr ""
 msgid "unterminated beam"
 msgstr ""
 
-#: beam-engraver.cc:245 chord-tremolo-engraver.cc:191
+#: beam-engraver.cc:245 chord-tremolo-engraver.cc:179
 msgid "stem must have Rhythmic structure"
 msgstr ""
 
@@ -816,11 +816,11 @@ msgstr ""
 #.
 #. last->translator_id_string_  = get_change ()->change_to_id_string_;
 #.
-#: change-iterator.cc:80
+#: change-iterator.cc:87
 msgid "I'm one myself"
 msgstr ""
 
-#: change-iterator.cc:83
+#: change-iterator.cc:90
 msgid "none of these in my family"
 msgstr ""
 
@@ -829,7 +829,7 @@ msgstr ""
 msgid "Chord tremolo with %d elements. Must have two elements."
 msgstr ""
 
-#: chord-tremolo-engraver.cc:153
+#: chord-tremolo-engraver.cc:141
 msgid "unterminated chord tremolo"
 msgstr ""
 
@@ -1252,7 +1252,7 @@ msgstr ""
 
 #: new-lyric-combine-music-iterator.cc:172
 #, c-format
-msgid "cannot find Voice: %s\n"
+msgid "cannot find Voice: %s"
 msgstr ""
 
 #: note-collision.cc:384
@@ -1485,12 +1485,12 @@ msgstr ""
 msgid "tremolo duration is too long"
 msgstr ""
 
-#: stem-engraver.cc:126
+#: stem-engraver.cc:128
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
 msgstr ""
 
-#: stem-engraver.cc:127
+#: stem-engraver.cc:129
 msgid "Don't you want polyphonic voices instead?"
 msgstr ""
 
@@ -1620,48 +1620,48 @@ msgstr ""
 msgid "More alternatives than repeats.  Junking excess alternatives."
 msgstr ""
 
-#: parser.yy:856 parser.yy:863
+#: parser.yy:857 parser.yy:864
 msgid "\\applycontext takes function argument"
 msgstr ""
 
-#: parser.yy:1013
+#: parser.yy:1014
 msgid "\\apply takes function argument"
 msgstr ""
 
-#: parser.yy:1376
+#: parser.yy:1377
 msgid "Can't find music"
 msgstr ""
 
-#: parser.yy:1494
+#: parser.yy:1495
 msgid "Second argument must be pitch list."
 msgstr ""
 
-#: parser.yy:1531 parser.yy:1536 parser.yy:2069
+#: parser.yy:1532 parser.yy:1537 parser.yy:2070
 msgid "Have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:1621
+#: parser.yy:1622
 msgid "Expecting string as script definition"
 msgstr ""
 
-#: parser.yy:1828 parser.yy:1883
+#: parser.yy:1829 parser.yy:1884
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:1979
+#: parser.yy:1980
 msgid "Have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:2084
+#: parser.yy:2085
 msgid "Have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:2231
+#: parser.yy:2232
 msgid "need integer number arg"
 msgstr ""
 
-#: parser.yy:2382
+#: parser.yy:2383
 msgid "Suspect duration found following this beam"
 msgstr ""
 
