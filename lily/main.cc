@@ -354,7 +354,6 @@ main_with_guile (void *, int, char **)
   call_constructors ();
   init_global_tweak_registry ();
   init_fontconfig ();
-  test_pango();
   
   init_freetype ();
 

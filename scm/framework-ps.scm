@@ -230,9 +230,15 @@
 			   (a-file-name (ly:kpathsea-find-file aname))
 			   (b-file-name (ly:kpathsea-find-file bname))
 			   )
+		      (display  x )(newline)
 		      (cond
 		       ((and bare-file-name (string-match "\\.pfb" bare-file-name))
 			(ly:pfb->pfa bare-file-name))
+		       ((and bare-file-name
+			     (string-match "\\.otf" bare-file-name))
+
+			(display "HOI\n")
+			(cached-file-contents (string-regexp-substitute "otf" "cff.ps" bare-file-name)))
 		       ((and bare-file-name (string-match "\\.ttf" bare-file-name))
 			(ly:ttf->pfa bare-file-name))
 		       (bare-file-name (cached-file-contents bare-file-name))
