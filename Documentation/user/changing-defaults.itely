@@ -1556,7 +1556,14 @@ LilyPond uses the Pango library to format multi-lingual texts.  This
 means that any text, be it title, lyric text, or musical instruction
 contaning non-ASCII characters should be entered as Unicode.
 
-@lilypondfile[utf8.ly]
+Depending on the fonts installed, the following fragment shows Hebrew
+and Cyrillic lyrics,
+
+@cindex Cyrillic
+@cindex Hebrew
+@cindex ASCII, non
+
+@lilypondfile{utf8.ly}
 
 The @TeX{} backend does not handle encoding specially at all. Strings
 in the input are put in the output as-is. Extents of text items in the
@@ -2598,6 +2605,5 @@ be entered:
 @itemize @bullet
 @item @code{\version}
 @item @code{\include}
-@item @code{\encoding}
 @item @code{\renameinput}
 @end itemize 

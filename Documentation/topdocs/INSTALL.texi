@@ -127,7 +127,8 @@ following software:
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version 1.6.0 or newer).
 @item @uref{http://www.python.org,Python} (version 2.1 or newer).
 @item @TeX{}.
-@item Xdvi and Ghostscript.
+@item @uref{http://www.ghostscript.com,Ghostscript} (version 8.15 or
+newer)
 @end itemize
 
 You have to help @TeX{} and MetaFont find LilyPond support

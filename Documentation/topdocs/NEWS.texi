@@ -9,6 +9,13 @@
 @itemize @bullet
 
 @item
+The PostScript backend is now used by default. This backend requires
+less machinery to run, and gives more consistent results.
+
+Due bugs in GhostScript's PDF handling, it is recommended to upgrade
+to GhostScript 8.x.
+
+@item
 Separator slashes may be inserted between systems in a score. See
 @file{input/regression/system-separator.ly} for an example. 
 
