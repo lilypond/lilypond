@@ -1,4 +1,4 @@
-% -*-Fundamental-*-
+% -%-Fundamental-%- -*-Metafont-*-
 % parmesan-clefs.mf -- implement ancient clefs
 % 
 % source file of LilyPond's pretty-but-neat music font
@@ -7,6 +7,38 @@
 %
 
 fet_begingroup ("clefs")
+
+%
+% character aligment:
+%
+%   Each clef is associated with a particular pitch: the treble clef
+%   with the 'g', the alto clef with the 'c', the bass clef with the
+%   'f', etc.  The shape of each clef character defines a vertical
+%   position that is assumed to represent this pitch.  For the treble
+%   clef, it is the vertical position of the center of the spiral
+%   ending that represents the 'g' pitch.  For the bass clef, it is
+%   the center between the two fat dots that define the vertical
+%   position of the 'f' pitch.  For the alto clef, it is the vertical
+%   center of the clef that is aligned with the 'c' pitch.  For each
+%   clef character, this center should be vertically aligned with the
+%   point (0, 0).  The horizontal alignment of each clef character
+%   should be such that the vertical line through the point (0, 0)
+%   touches the left-most edge of the clef.
+%
+%   TODO: document exact_center
+%
+% set_char_box() conventions:
+%
+% * breapth: Ignored (as far as I know).  Should be set to 0.
+%
+% * width: Should match the head's width.
+%
+% * depth: Should match the bottom edge of the head.  Affects vertical
+%   collision handling.
+%
+% * height: Should match the top edge of the head.  Affects vertical
+%   collision handling.
+%
 
 
 %%%%%%%%
@@ -22,22 +54,22 @@ def draw_vaticana_do_clef(expr exact_center, reduction) =
 
 	reduced_il# = staff_space# * reduction;
 	
-	set_char_box(0.0reduced_il#, 0.4reduced_il#,
+	set_char_box(0.0reduced_il#, 0.5reduced_il#,
 		     0.8reduced_il#, 0.8reduced_il#);
 
 	define_pixels(reduced_il);
 
-	pickup pencircle xscaled stafflinethickness yscaled 0.6reduced_il;
+	pickup pencircle xscaled 0.6stafflinethickness yscaled 0.6reduced_il;
 
 	save za, zb, zc, zd, ze, zf;
 	pair za, zb, zc, zd, ze, zf;
 
-	za = exact_center + (0.4reduced_il, -.45reduced_il);
-	zb = exact_center + (0.2reduced_il, -.50reduced_il);
-	zc = exact_center + (0.0reduced_il, -.25reduced_il);
-	zd = exact_center + (0.0reduced_il, +.25reduced_il);
-	ze = exact_center + (0.2reduced_il, +.50reduced_il);
-	zf = exact_center + (0.4reduced_il, +.45reduced_il);
+	rt  za = exact_center + (0.50reduced_il, -.45reduced_il);
+	    zb = exact_center + (0.25reduced_il, -.50reduced_il);
+	lft zc = exact_center + (0.00reduced_il, -.25reduced_il);
+	lft zd = exact_center + (0.00reduced_il, +.25reduced_il);
+	    ze = exact_center + (0.25reduced_il, +.50reduced_il);
+	rt  zf = exact_center + (0.50reduced_il, +.45reduced_il);
 	draw za .. zb .. zc --	% lower punctum
 	     zd .. ze .. zf;	% upper punctum
 enddef;
@@ -63,30 +95,23 @@ def draw_vaticana_fa_clef(expr exact_center, reduction) =
 	save za, zb, zc, zd, ze;
 	pair za, zb, zc, zd, ze;
 
-	%stem
-	pickup pencircle scaled stafflinethickness;
-	xpart za = xpart zb =
-		xpart exact_center + 0.4reduced_il;
-	ypart za = ypart exact_center = ypart zb + 1.5reduced_il;
-	draw za .. zb;
-
 	%left-handed punctum
-	pickup pencircle xscaled stafflinethickness yscaled 0.5reduced_il;
-	zc = exact_center +
-		(+0.4reduced_il, -0.05reduced_il);
-	zd = exact_center +
-		(+0.2reduced_il, +0.05reduced_il);
-	ze = exact_center +
-		(+0.0reduced_il, +0.00reduced_il);
-	draw zc .. zd .. ze;
+	pickup pencircle xscaled 0.6stafflinethickness yscaled 0.5reduced_il;
+	lft za = exact_center + (+0.00reduced_il, +0.00reduced_il);
+	    zb = exact_center + (+0.25reduced_il, +0.05reduced_il);
+	rt  zc = exact_center + (+0.50reduced_il, -0.05reduced_il);
+	draw za .. zb .. zc;
+
+	%stem
+	pickup pencircle scaled 0.6stafflinethickness;
+	xpart zc = xpart zd = xpart ze;
+	ypart zd = ypart exact_center = bot ypart ze + 1.5reduced_il;
+	draw zd -- ze;
 
 	%right-handed puncta as in do clef
-	draw_vaticana_do_clef(
-		exact_center +
-		(+0.4reduced_il + 1.25stafflinethickness, 0),
-		reduction);
+	draw_vaticana_do_clef(exact_center + (0.55reduced_il, 0), reduction);
 
-	set_char_box(0.0reduced_il#, 0.8reduced_il# + 1.25stafflinethickness#,
+	set_char_box(0.0reduced_il#, 1.05reduced_il#,
 		     1.5reduced_il#, 0.8reduced_il#);
 enddef;
 
@@ -120,42 +145,41 @@ def draw_medicaea_do_clef(expr exact_center, reduction) =
 	flag_height# = 0.5 reduced_il#;
 	define_pixels(flag_height);
 
-	%lower flag
-	save za, zb;
-	pair za, zb;
-	pickup pencircle xscaled reduced_slt yscaled flag_height;
-	xpart exact_center
-		= xpart za + 0.5 reduced_il
-		= xpart zb - 0.5 reduced_il;
-	ypart za = ypart exact_center - 0.5 flag_height
-			- 0.5 (staff_space - reduced_il);
-	ypart zb = ypart za - reduced_il + flag_height;
-	draw za .. zb;
-
 	%upper flag
 	save za, zb;
 	pair za, zb;
 	pickup pencircle xscaled reduced_slt yscaled flag_height;
 	xpart exact_center
-		= xpart za + 0.5 reduced_il
-		= xpart zb - 0.5 reduced_il;
-	ypart za = ypart exact_center - 0.5 flag_height
-			- 0.5 (staff_space - reduced_il)
-			+ staff_space;
+		= lft xpart za
+		= rt xpart zb - reduced_il;
+	ypart za = ypart exact_center +
+		0.5 (reduced_il - flag_height - staff_space);
 	ypart zb = ypart za - reduced_il + flag_height;
-	draw za .. zb;
+	draw za -- zb;
+
+	%lower flag
+	save za, zb;
+	pair za, zb;
+	pickup pencircle xscaled reduced_slt yscaled flag_height;
+	xpart exact_center
+		= lft xpart za
+		= rt xpart zb - reduced_il;
+	ypart za = ypart exact_center +
+		 0.5 (reduced_il - flag_height + staff_space);
+	ypart zb = ypart za - reduced_il + flag_height;
+	draw za -- zb;
 
 	%stem
 	save za, zb;
 	pair za, zb;
 	pickup pencircle scaled reduced_slt;
-	xpart za = xpart zb = xpart exact_center - 0.5 reduced_il;
+	lft xpart za = lft xpart zb = xpart exact_center;
 	ypart exact_center
-		= ypart za + 1.5 reduced_il
-		= ypart zb - 1.5 reduced_il;
-	draw za .. zb;
+		= top ypart zb - 1.5 reduced_il
+		= bot ypart za + 1.5 reduced_il;
+	draw za -- zb;
 
-	set_char_box(0.5reduced_il#, 0.5reduced_il#,
+	set_char_box(0, 1.0reduced_il#,
 		     1.5reduced_il#, 1.5reduced_il#);
 enddef;
 
@@ -188,26 +212,19 @@ def draw_medicaea_fa_clef(expr exact_center, reduction) =
 	pickup pencircle scaled stafflinethickness;
 	xpart za = xpart zb =
 		xpart exact_center + 0.4reduced_il;
-	ypart za = ypart exact_center = ypart zb + 1.5reduced_il;
+	ypart za = ypart exact_center = bot ypart zb + 1.5reduced_il;
 	draw za -- zb;
 
 	%left-handed punctum
 	pickup pencircle xscaled reduced_slt yscaled reduced_il;
-	zc = exact_center +
-		(+0.4reduced_il, 0);
-	zd = exact_center +
-		(+0.0reduced_il, 0);
+	lft zc = exact_center;
+	zd = exact_center + (0.4reduced_il, 0);
 	draw zc -- zd;
 
 	%right-handed puncta as in do clef
-	draw_medicaea_do_clef(
-		exact_center +
-		(+1.1reduced_il + 1.25stafflinethickness, 0),
-		reduction);
+	draw_medicaea_do_clef(exact_center + (0.7reduced_il, 0), reduction);
 
-	set_char_box(0.5reduced_slt#,
-		     1.6reduced_il# + 1.25stafflinethickness#,
-		     1.5reduced_il#, 1.5reduced_il#);
+	set_char_box(0, 1.7reduced_il#, 1.5reduced_il#, 1.5reduced_il#);
 enddef;
 
 
@@ -723,8 +740,8 @@ def draw_petrucci_g_clef(expr exact_center, reduction) =
 	reduced_slt# = stafflinethickness# * reduction;
 	define_pixels(reduced_il, reduced_slt);
 
-	set_char_box(0.90 reduced_il#, 0.30 reduced_il#,
-		     0.55 reduced_il#, 3.80 reduced_il#);
+	set_char_box(0, 1.25 reduced_il#,
+		     0.65 reduced_il#, 3.80 reduced_il#);
 
 	save za, zb, zc, zd, ze, zf, zg, zh, zi, zj;
 	pair za, zb, zc, zd, ze, zf, zg, zh, zi, zj;
@@ -734,16 +751,16 @@ def draw_petrucci_g_clef(expr exact_center, reduction) =
 		yscaled 0.22 reduced_il
 		rotated -35;
 
-	za = exact_center + (+0.00 reduced_il, +0.00 reduced_il);
-	zb = exact_center + (+0.20 reduced_il, +1.20 reduced_il);
-	zc = exact_center + (-0.10 reduced_il, +2.00 reduced_il);
-	zd = exact_center + (-0.50 reduced_il, +3.00 reduced_il);
-	ze = exact_center + (+0.00 reduced_il, +3.70 reduced_il);
-	zf = exact_center + (+0.20 reduced_il, +3.00 reduced_il);
-	zg = exact_center + (-0.20 reduced_il, +2.00 reduced_il);
-	zh = exact_center + (-0.50 reduced_il, +1.70 reduced_il);
-	zi = exact_center + (-0.80 reduced_il, +0.75 reduced_il);
-	zj = exact_center + (-0.60 reduced_il, +0.60 reduced_il);
+	lft za = exact_center + (0.80 reduced_il, +0.00 reduced_il);
+	lft zb = exact_center + (1.00 reduced_il, +1.20 reduced_il);
+	lft zc = exact_center + (0.70 reduced_il, +2.00 reduced_il);
+	lft zd = exact_center + (0.30 reduced_il, +3.00 reduced_il);
+	lft ze = exact_center + (0.80 reduced_il, +3.70 reduced_il);
+	lft zf = exact_center + (1.00 reduced_il, +3.00 reduced_il);
+	lft zg = exact_center + (0.60 reduced_il, +2.00 reduced_il);
+	lft zh = exact_center + (0.30 reduced_il, +1.70 reduced_il);
+	lft zi = exact_center + (0.00 reduced_il, +0.75 reduced_il);
+	lft zj = exact_center + (0.20 reduced_il, +0.60 reduced_il);
 
 	draw za{-1,2} .. zb .. zc .. zd .. ze .. zf .. zg .. zh .. zi .. zj;
 
@@ -755,12 +772,12 @@ def draw_petrucci_g_clef(expr exact_center, reduction) =
 		yscaled 0.33 reduced_il
 		rotated -35;
 
-	za = exact_center + (+0.25 reduced_il, +0.45 reduced_il);
-	zb = exact_center + (-0.25 reduced_il, +0.45 reduced_il);
-	zc = exact_center + (-0.25 reduced_il, -0.45 reduced_il);
-	zd = exact_center + (+0.25 reduced_il, -0.45 reduced_il);
-	ze = exact_center + (+0.30 reduced_il, +0.00 reduced_il);
-	zf = exact_center + (+0.00 reduced_il, +0.00 reduced_il);
+	lft za = exact_center + (1.05 reduced_il, +0.45 reduced_il);
+	lft zb = exact_center + (0.55 reduced_il, +0.45 reduced_il);
+	lft zc = exact_center + (0.55 reduced_il, -0.45 reduced_il);
+	lft zd = exact_center + (1.05 reduced_il, -0.45 reduced_il);
+	lft ze = exact_center + (1.10 reduced_il, +0.00 reduced_il);
+	lft zf = exact_center + (0.80 reduced_il, +0.00 reduced_il);
 
 	draw za .. zb .. zc .. zd .. {up}ze -- zf;
 enddef;
