@@ -370,7 +370,7 @@ if 1:
 
 if 1:
 	def conv(str):
-		str =  re.sub ('dynamicDir', 'dynamicDirection', str)
+		str =  re.sub ('dynamicDir\\b', 'dynamicDirection', str)
 			
 		return str
 

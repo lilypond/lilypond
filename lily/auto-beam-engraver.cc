@@ -105,7 +105,11 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   /*
     first guess: end beam at end of beat
   */
-  Moment end_mom = timer_l_->one_beat_;
+  SCM one (get_property ("beatLength", 0));
+
+  Moment end_mom;
+  if (SMOB_IS_TYPE_B(Moment, one))
+    end_mom = *SMOB_TO_TYPE (Moment, one);
 
   /*
     second guess: property generic time exception

@@ -75,7 +75,6 @@ print_mudela_versions (ostream &os)
 
 
 %union {
-    Array<Real>* realarr;
     Array<Musical_pitch> *pitch_arr;
     Link_array<Request> *reqvec;
     Array<int> *intvec;
@@ -174,7 +173,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token SCM_T
 %token SCORE
 %token SCRIPT
-%token SHAPE
 %token SKIP
 %token SPANREQUEST
 %token TEMPO
@@ -254,7 +252,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <request> hyphen_req
 %type <scm>	string
 %type <score>	score_block score_body
-%type <realarr>	real_array
 
 %type <scm>	script_abbreviation
 %type <trans>	translator_spec_block translator_spec_body
@@ -567,21 +564,6 @@ paper_def_body:
 	| paper_def_body translator_spec_block {
 		$$->assign_translator ($2);
 	}
-	| paper_def_body SHAPE real_array  semicolon {
-		/*
-			URG URG.
-		*/
-		if ($3->size () % 2)
-			warning (_ ("Need even number of args for shape array"));
-
-		for (int i=0; i < $3->size ();  i+=2)
-		{
-			Real l = $3->elem (i);
-			$$->shape_int_a_.push (Interval (l,
-							 l + $3->elem (i+1)));
-		}
-		delete $3;
-	}
 	| paper_def_body error {
 
 	}
@@ -632,20 +614,6 @@ real:
 	}
 	;
 		
-
-real_array:
-	real {
-		$$ = new Array<Real>;
-		$$->push ($1);
-	}
-	|  /* empty */ {
-		$$ = new Array<Real>;
-	}
-	| real_array ',' real {
-		$$->push($3);
-	}
-	;
-
 /*
 	MIDI
 */

@@ -54,7 +54,7 @@ list is alphabetically ordered.
     testing
 @item @email{pinard@@iro.umontreal.ca, Franc@,ois Pinard}, 
     parts of Documentation/Vocab*, started internationalization stuff
-@item @email{portnoy@ai.mit.edu,Stephen Peters} pdfTeX support
+@item @email{portnoy@@ai.mit.edu,Stephen Peters}, pdfTeX support
 @item @email{glenprideaux@@iname.com, Glen Prideaux},
     minor bug fix to script used to generate doc++ documentation
 @item @email{Roy.Rankin@@alcatel.com.au, Roy R. Rankin},

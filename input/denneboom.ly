@@ -83,17 +83,22 @@ verse_two_staff = \context Lyrics = two
 denneboom_shape = \paper{ 
 	\paper_twenty
 	indent = 20. \mm;
-	\shape   70. \mm, 20. \mm,
-		 65. \mm, 30. \mm,
-		 57.5 \mm, 45. \mm,
-		 50. \mm, 60. \mm,
-		 42.5 \mm, 75. \mm,
-		 35. \mm, 90. \mm,
-		 27.5 \mm, 105. \mm,
-		 20. \mm, 120. \mm,
-		 10. \mm, 140. \mm,
-		 65. \mm, 30. \mm
-		 ;
+
+	% UGH -- THIS IS HAIRY 
+	#'margin-shape = #(map
+		(lambda (x) (cons-map mm-to-pt x)) 
+		'((70.0 .  20.)
+		 (65.0 .  30.0)
+		 (57.5  .  45.0)
+		 (50.0 .  60.0) 
+		 (42.5  .  75.)  
+		 (35.0 .  90.)
+		 (27.5  .  105.)
+		 (20.0 .  120.0)
+		 (10.0 .  140.0) 
+		 (65.0 .  30.0))
+	)
+
 	gourlay_maxmeasures = 30.;
 	arithmetic_basicspace = 3.8;
 	arithmetic_multiplier = 8.\pt;
