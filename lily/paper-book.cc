@@ -98,6 +98,19 @@ Paper_book::output (String outname)
   int page_count = scm_ilength (pages);
   out->output_header (paper, scopes (0), page_count, false);
 
+#if 0
+  /* Ugh; fixme.  */
+  int paper_count = papers_.size ();
+  for (int i = 1; i < paper_count; i ++)
+    {
+      SCM fonts = papers_[i]->font_descriptions ();
+      out->output_scheme (scm_list_3 (ly_symbol2scm ("define-fonts"),
+				      papers_[i]->self_scm (),
+				      //FIXME:
+				      ly_quote_scm (ly_list_qsort_uniq_x (fonts))));
+    }
+#endif
+
   for (SCM s = pages; s != SCM_EOL; s = ly_cdr (s))
     {
       Page *p = unsmob_page (ly_car (s));
