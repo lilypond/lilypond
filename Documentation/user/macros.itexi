@@ -180,16 +180,24 @@ internals document, @internalsref{\NAME\}
 @findex \NAME\@c
 @end macro
 
-
-
-
-@c
-@c ARGGGHHHHH! I want
+@c I want
 @c @cindex @code{@backslash\WHAT\}
-@c how do I do that?
-@c   --hwn
+@c how do I do that?  --hwn
+
+@ignore
+
+Is this question still relevant?  With texinfo 4.7,
+escape the backslash, like so  --jcn
+
+@macro refcommand{WHAT}
+@cindex @code{\\\WHAT\}
+@code{\WHAT\},
+@end macro
+
+@end ignore
 
 @macro refcommand{WHAT}
 @findex \WHAT\
 @code{\WHAT\} 
 @end macro
+
