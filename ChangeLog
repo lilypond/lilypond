@@ -1,5 +1,7 @@
 2003-07-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/index.html.in: url typo.
+
 	* VERSION (PACKAGE_NAME): release 1.7.28
 
 	* python/lilylib.py (error_log): remove '/' from name.
