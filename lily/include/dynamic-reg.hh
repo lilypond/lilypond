@@ -15,9 +15,13 @@
 struct Dynamic_register : Request_register {
     int dir_i_;
     Text_item * dynamic_p_;
-    Dynamic_req* dynamic_req_l_;
+    Crescendo * to_end_cresc_p_;
+    Crescendo * cresc_p_;
+    Span_dynamic_req * cresc_req_l_;
+    Array<Dynamic_req*> dynamic_req_l_arr_;
     /* ************** */
     Dynamic_register();
+    ~Dynamic_register();
     virtual bool try_request(Request *req_l);
     virtual void process_requests();
     virtual void pre_move_processing();
