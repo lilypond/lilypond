@@ -32,7 +32,7 @@ import stat
 import string
 import sys
 import __main__
-
+  
 package_name = 'lilypond'
 program_name = 'build-lily'
 program_version = '@TOPLEVEL_VERSION@'
