@@ -1,3 +1,9 @@
+lilypond (1.0.19.uu3-1) frozen unstable; urgency=low
+
+  * New upstream bug-fix release.
+
+ -- Anthony Fok <foka@debian.org>  Sat, 12 Dec 1998 04:23:15 -0700
+
 lilypond (1.0.19.uu1-2) frozen unstable; urgency=low
 
   * [debian/rules]: Now builds the LilyPond documentation in dvi format.
@@ -10,7 +16,7 @@ lilypond (1.0.19.uu1-2) frozen unstable; urgency=low
 
 lilypond (1.0.19.uu1-1) frozen unstable; urgency=low
 
-  * New upstream bugfix release.
+  * New upstream bug-fix release.
 
  -- Anthony Fok <foka@debian.org>  Mon,  7 Dec 1998 13:12:02 -0700
 
@@ -28,7 +34,7 @@ lilypond (1.0.18-2) frozen unstable; urgency=low
 
 lilypond (1.0.18-1) frozen unstable; urgency=low
 
-  * New upstream bugfix release.
+  * New upstream bug-fix release.
   * [debian/control]:
       - Upgraded to standards version 2.5.0.0 (no changes).
       - Recommends: python-misc (>= 1.5.1) because ly2dvi needs the glob

@@ -1,0 +1,58 @@
+#!/bin/sh
+#
+# preinst script for the Debian GNU/Linux lilypond package
+#   by Anthony Fok <foka@debian.org>
+#   This is free software; see the GNU General Public Licence
+#   version 2 or later for copying conditions.  There is NO warranty.
+#   Last modified:  Tue, 10 Nov 1998 23:47:00 -0700
+
+set -e
+
+package=lilypond
+font_supplier=public
+font_typeface=lilypond
+std_TEXMFMAIN=/usr/lib/texmf
+std_VARTEXFONTS=/var/spool/texmf
+
+#DEBHELPER#
+
+TEXMFMAIN=`/usr/bin/kpsewhich -expand-var '$TEXMFMAIN'`
+: ${TEXMFMAIN:=$std_TEXMFMAIN}
+VARTEXFONTS=`/usr/bin/kpsewhich -expand-var '$VARTEXFONTS'`
+: ${VARTEXFONTS=$std_VARTEXFONTS}
+
+LILYTEXINPUTS=$TEXMFMAIN/tex/$package
+LILYMFINPUTS=$TEXMFMAIN/fonts/source/$font_supplier/$font_typeface
+
+case "$1" in
+    install|upgrade)
+	# Clear out the old TFM and PK files in case the fonts were
+	# left-over from previous installations
+	rm -rf $VARTEXFONTS/tfm/$font_supplier/$font_typeface
+	rm -rf $VARTEXFONTS/pk/*/$font_supplier/$font_typeface
+
+	# Fix a silly bug in Debian's lilypond 1.0.17-1.  :-)
+	if [ "$2" = "1.0.17-1" ]; then
+	    rm -rf $VARTEXFONTS/tfm/$font_supplier/mf
+	    rm -rf $VARTEXFONTS/pk/*/$font_supplier/mf
+	fi
+
+	# Since 1.0.17-1, /usr/lib/texmf/tex/lilypond has been changed
+        # to a symbolic directory.  Remove the old real directory to
+        # prevent problems during upgrade.
+	for i in $LILYTEXINPUTS $LILYMFINPUTS; do
+	    if [ -d $i -a ! -L $i ]; then
+		rm -rf $i
+	    fi
+	done
+    ;;
+
+    abort-upgrade)
+    ;;
+
+    *)
+	echo "$0 called with unknown argument \`$1'" >&2
+	exit 0
+    ;;
+
+esac

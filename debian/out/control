@@ -2,12 +2,12 @@ Source: lilypond
 Section: tex
 Priority: optional
 Maintainer: Anthony Fok <foka@debian.org>
-Standards-Version: 2.4.1.0
+Standards-Version: 2.5.0.0
 
 Package: lilypond
 Architecture: any
-Depends: ${shlibs:Depends}, tetex-base (>= 0.9-5)
-Recommends: python-base (>= 1.5.1)
+Depends: ${shlibs:Depends}, tetex-bin (>= 0.9.981031-2)
+Recommends: python-base (>= 1.5.1), python-misc (>= 1.5.1), tetex-base (>= 0.9.981030-1), tetex-extra (>= 0.9.981030-1)
 Conflicts: musixtex-fonts, tetex-base (<< 0.9)
 Description: The GNU Project music typesetter.
  LilyPond is the GNU Project music typesetter.  This program can print
