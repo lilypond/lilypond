@@ -1,5 +1,12 @@
 2004-02-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/user/tutorial.itely:
+	* Documentation/user/refman.itely: Add short note about being part
+	of lilypond.tely.
+
+	* COPYING: Make note more clear with respect to files that are
+	explicitely licenced otherwise (Documention/user/ comes to mind).
+	
 	* Documentation/topdocs/AUTHORS.texi (AUTHORS): Use @,{c}.  Remove
 	comment about barfing of @c,{}.
 
