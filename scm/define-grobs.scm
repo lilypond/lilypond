@@ -563,10 +563,11 @@
 	(print-function . ,Text_item::print)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))	
 	(direction . 1)
-	(breakable . #t)
-	(break-visibility . ,end-of-line-invisible)
 	(padding . 0.8)
-	(meta . ((interfaces . (text-interface side-position-interface font-interface metronome-mark-interface item-interface))))
+	(meta . ((interfaces . (text-interface side-position-interface
+					       font-interface
+					       metronome-mark-interface
+					       item-interface))))
 	))
     (MeasureGrouping
      . (

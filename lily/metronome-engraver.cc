@@ -8,6 +8,7 @@
 
 #include <ctype.h>
 
+#include "note-column.hh"
 #include "bar-line.hh"
 #include "time-signature.hh"
 #include "engraver.hh"
@@ -26,16 +27,13 @@ public:
 protected:
   Item *text_;
   Grob *bar_line_;
+  Music *mark_ev_;
   
+  void create_items (Music*);
 protected:
   virtual void stop_translation_timestep ();
-  virtual void acknowledge_grob (Grob_info);
-  void create_items (Music*);
   virtual bool try_music (Music *ev);
   virtual void process_music ();
-  
-private:
-  Music *mark_ev_;
 };
 
 Metronome_mark_engraver::Metronome_mark_engraver ()
@@ -44,29 +42,15 @@ Metronome_mark_engraver::Metronome_mark_engraver ()
   mark_ev_ = 0;
 }
 
-void
-Metronome_mark_engraver::acknowledge_grob (Grob_info inf)
-{
-  if (Bar_line::has_interface (inf.grob_))
-    {
-      bar_line_ = inf.grob_;
-    }
-  else if (text_ && Time_signature::has_interface (inf.grob_))
-    {
-      text_->set_parent (inf.grob_, X_AXIS);
-    }
-}
-
 void 
 Metronome_mark_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      if (bar_line_ && !text_->get_parent (X_AXIS))
-	text_->set_parent (bar_line_, X_AXIS);
-      
+      Grob*mc = unsmob_grob (get_property( "currentMusicalColumn"));
+      text_->set_parent (mc, X_AXIS);
       text_->set_property ("side-support-elements" , get_property ("stavesFound"));
-      typeset_grob (text_);
+      
       text_ =0;
     }
   mark_ev_ = 0;
@@ -80,8 +64,8 @@ Metronome_mark_engraver::create_items (Music *rq)
     return;
 
   text_ = make_item ("MetronomeMark");
-
   announce_grob (text_, rq->self_scm ());
+
 }
 
 
@@ -117,6 +101,6 @@ ENTER_DESCRIPTION (Metronome_mark_engraver,
 		   ,
 /* creats*/       "MetronomeMark",
 /* accepts */     "metronome-change-event",
-/* acks  */       "time-signature-interface bar-line-interface",
+		   /* acks  */       "",
 /* reads */       "stavesFound metronomeMarkFormatter",
 /* write */       "");

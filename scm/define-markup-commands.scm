@@ -70,6 +70,14 @@ determines the space between each markup in @var{args}."
    (chain-assoc-get 'word-space props)
    (map (lambda (m) (interpret-markup paper props m)) args)))
 
+(def-markup-command (general-align paper props axis dir arg)  (integer? number? markup?)
+  "Align @var{arg} in @var{axis} direction to the @var{dir} side."
+  (let* ((m (interpret-markup paper props arg)))
+
+    (ly:stencil-align-to! m axis dir)
+    m
+  ))
+
 (def-markup-command (combine paper props m1 m2) (markup? markup?)
   "Print two markups on top of each other."
   (ly:stencil-add
