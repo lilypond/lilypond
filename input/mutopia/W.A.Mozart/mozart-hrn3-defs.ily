@@ -40,7 +40,7 @@ stopGraceMusic= \sequential {
         restNumberThreshold = #1
 
 	\override RehearsalMark #'font-series = #'bold
-	\override RehearsalMark #'font-size = #6
+	\override RehearsalMark #'font-size = #4.5
 
         \override Beam #'thickness = #0.6
         \override Beam #'space-function = #(lambda (beam mult) 0.8)
