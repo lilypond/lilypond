@@ -21,6 +21,7 @@ struct Lookup {
     void add(String, Symtable*);
     void print()const;
     Real internote_f()const;
+    Real interbeam_f()const;
 
     Symbol linestaff(int n, Real w)const;
     Symbol fill(Box b)const;
@@ -43,7 +44,7 @@ struct Lookup {
     Symbol accidental(int)const;
     Symbol ball(int)const;
     Symbol flag(int)const;
-    Symbol rest(int)const;
+    Symbol rest(int, bool outside)const;
     Symbol clef(String)const;
     Symbol bar(String)const;
     Symbol dots(int)const;
