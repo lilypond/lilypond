@@ -30,7 +30,7 @@ struct Dict_initialiser
 /*
   interface to STL function.
  */
-#include "cons.hh"
+
 template <class V>
 class Dictionary : public std::map<String, V> //map<String, V>
 {

@@ -6,7 +6,7 @@
 
 #ifndef MIDI_ITEM_HH
 #define MIDI_ITEM_HH
-
+i
 #include "cons.hh"
 #include "string.hh"
 #include "lily-proto.hh"
