@@ -790,9 +790,9 @@ def help ():
 Convert PMX to LilyPond.
 
 Options:
-  -h, --help          this help
+  -h, --help          print this help
   -o, --output=FILE   set output filename to FILE
-  -v, --version       version information
+  -v, --version       shown version information
 
 PMX is a Musixtex preprocessor written by Don Simons, see
 http://www.gmd.de/Misc/Music/musixtex/software/pmx/

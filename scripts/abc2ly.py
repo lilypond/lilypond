@@ -1267,10 +1267,10 @@ Convert ABC to lilypond.
 Usage: abc2ly [OPTIONS]... ABC-FILE
 
 Options:
-  -h, --help          this help
+  -h, --help          print this help
   -o, --output=FILE   set output filename to FILE
-  -v, --version       version information
-  -s, --strict        be strict about succes.
+  -v, --version       show version information
+  -s, --strict        be strict about succes
   
 This program converts ABC music files (see
 http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) To LilyPond input.

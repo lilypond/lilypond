@@ -47,10 +47,10 @@ input is guessed by default from \version directive
 
 Options:
   -h, --help             print this help
-  -e, --edit             in place edit
-  -f, --from=VERSION     start from version. Overrides \version found in file.
+  -e, --edit             edit in place
+  -f, --from=VERSION     start from version; overrides \version found in file
   -s, --show-rules       print all rules.
-  -t, --to=VERSION       target version
+  -t, --to=VERSION       show target version
   -n, --no-version       don't add new version stamp.
       --version          print program version
 
