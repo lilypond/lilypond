@@ -118,10 +118,6 @@
   (invoke-char " show" i))
 
 
-(define (hairpin thick width starth endh )
-  (string-append 
-   (numbers->string (list width starth endh thick))
-   " draw_hairpin"))
 
 ;; what the heck is this interface ?
 (define (dashed-slur thick dash l)
@@ -276,17 +272,6 @@ set-ps-scale-to-lily-scale
 
 (define (text s)
   (string-append "(" s ") show  "))
-
-
-(define (volta h w thick vert_start vert_end)
-  (string-append 
-   (numbers->string (list h w thick (inexact->exact vert_start) (inexact->exact vert_end)))
-   " draw_volta"))
-
-(define (tuplet ht gap dx dy thick dir)
-  (string-append 
-   (numbers->string (list ht gap dx dy thick (inexact->exact dir)))
-   " draw_tuplet"))
 
 
 (define (unknown) 

@@ -14,6 +14,7 @@
 #include "paper-def.hh"
 #include "debug.hh"
 #include "paper-column.hh"
+#include "lookup.hh"
 
 MAKE_SCHEME_CALLBACK (Hairpin, brew_molecule, 1);
 
@@ -35,7 +36,11 @@ Hairpin::brew_molecule (SCM smob)
   Direction grow_dir = to_dir (s);
 
 
-  /* Ugh, must be same as Text_spanner::brew_molecule.  */  
+  /* Ugh, must be same as Text_spanner::brew_molecule.  */
+
+  /*
+    Ugh. property name is not general.
+   */
   Real padding = gh_scm2double (me->get_grob_property ("if-text-padding"));
  
   Drul_array<bool> broken;
@@ -110,27 +115,14 @@ Hairpin::brew_molecule (SCM smob)
       starth = continued ? height/2 : 0.0;
       endh = height;
     }
-  
-  /*
-    TODO: junk this and, make a general
 
-    Lookup::line  (XY1, XY2).
-  */
-  SCM hairpin = scm_list_n (ly_symbol2scm ("hairpin"),
-			 gh_double2scm (thick),
-			 gh_double2scm (width),
-			 gh_double2scm (starth),
-			 gh_double2scm (endh),
-			 SCM_UNDEFINED);
-
-  /*
-    We make the hairpin too large in Y direction, so it stays at
-    proper distance from the staff.
-  */
-  Interval yext = 2* height  * Interval (-1,1);
-  Box b (Interval (0, width), yext);
-  Molecule mol (b, hairpin);
-  
+  Molecule mol  = Lookup::line (thick,
+				Offset (0, starth),
+				Offset (width, endh));
+  mol.add_molecule (Lookup::line (thick,
+				  Offset (0, -starth),
+				  Offset (width, -endh)));
+		    
   mol.translate_axis (x_points[LEFT]
 		      - bounds[LEFT]->relative_coordinate (common, X_AXIS),
 		      X_AXIS);
@@ -141,10 +133,6 @@ Hairpin::brew_molecule (SCM smob)
 
 
 ADD_INTERFACE (Hairpin, "hairpin-interface",
-  "hairpin crescendo.
-
-padding -- horizontal padding. This is useful if a crescendo is set next to a text like `mf'
-
-",
-  "grow-direction thickness height padding");
+  "hairpin crescendo.",
+  "grow-direction thickness height if-text-padding");
 

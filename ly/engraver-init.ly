@@ -8,7 +8,6 @@ StaffContext=\translator {
 	\type "Engraver_group_engraver"
 	\name Staff 
 	\consists "Output_property_engraver"	
-	Generic_property_list = #generic-staff-properties
 	
 	\consists "Bar_engraver"
  % Bar_engraver must be first so default bars aren't overwritten
@@ -92,7 +91,7 @@ RhythmicStaffContext=\translator{
 	
 	\consists "Output_property_engraver"	
 
-	Generic_property_list = #generic-staff-properties
+
 	MinimumVerticalExtent = ##f
 	ExtraVerticalExtent = ##f
 	VerticalExtent = ##f 
@@ -122,7 +121,7 @@ VoiceContext = \translator {
 	\type "Engraver_group_engraver"
 	\name Voice
 
-	Generic_property_list = #generic-voice-properties
+
 	localKeySignature = #'()
 	\consists "Font_size_engraver"
 	
@@ -176,7 +175,7 @@ ThreadContext = \translator{
 	\consists "Rest_engraver"
 	\consists "Note_head_line_engraver"
 	\consists "Output_property_engraver"	
-	Generic_property_list = #generic-thread-properties
+
 }
 
 GrandStaffContext=\translator{
@@ -187,7 +186,7 @@ GrandStaffContext=\translator{
 	\consists "Span_arpeggio_engraver"
 	\consists "System_start_delimiter_engraver"
 	systemStartDelimiter = #'SystemStartBrace
-	Generic_property_list = #generic-grand-staff-properties
+
 	\accepts "Staff"
 }
 
@@ -272,7 +271,7 @@ LyricsContext = \translator {
 	\type "Engraver_group_engraver"
 	\name Lyrics
 	\consists Vertical_align_engraver %need this for getting folded repeats right.
-	Generic_property_list = #generic-lyrics-properties
+
 
 	\consistsend "Axis_group_engraver"
 	MinimumVerticalExtent = ##f
@@ -287,7 +286,7 @@ ChordNamesContext = \translator {
 	\type "Engraver_group_engraver"
 	\name ChordNames
 
-	Generic_property_list = #generic-chord-staff-properties
+
 
 
 	\consists "Output_property_engraver"	

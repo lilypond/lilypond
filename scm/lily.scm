@@ -174,7 +174,6 @@
 	   "music-functions.scm"
 	   "music-property-description.scm"
 	   "auto-beam.scm"
-	   "generic-property.scm"
 	   "basic-properties.scm"
 	   "chord-name.scm"
 	   "grob-description.scm"

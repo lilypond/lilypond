@@ -218,21 +218,3 @@
 
 (define (tuplet ht gap dx dy thick dir) "")
 
-(define (volta h w thick vert-start vert-end)
-  ;; urg
-  (string-append
-   (func "set-line-char" "|")
-   (func "rmove-to" 0 -4)
-   ;; definition strange-way around
-   (if (= 0 vert-start)
-       (func "v-line" h)
-       "")
-   (func "rmove-to" 1 h)
-   (func "set-line-char" "_")
-   (func "h-line" (- w 1))
-   (func "set-line-char" "|")
-   (if (= 0 vert-end)
-       (string-append
-	(func "rmove-to" (- w 1) (* -1 h))
-	(func "v-line" (* -1 h)))
-       "")))
