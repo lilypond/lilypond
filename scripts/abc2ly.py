@@ -11,11 +11,14 @@
 
 program_name = 'abc2ly'
 version = '@TOPLEVEL_VERSION@'
+if version == '@' + 'TOPLEVEL_VERSION' + '@':
+	version = '1.2.0'
 import __main__
 import getopt
 import sys
 import re
 import string
+import os
 try:
 	import mpz
 except:
@@ -678,7 +681,7 @@ def parse_file (fn):
 
 	state = Parser_state ()
 	lineno = 0
-	sys.stderr.write ("Parsing line ... ")
+	sys.stderr.write ("Line ... ")
 	sys.stderr.flush ()
 	
 	for ln in ls:
@@ -728,14 +731,14 @@ def identify():
 
 def help ():
 	print r"""
-This is an ABC to mudela convertor.
+Convert ABC to Mudela.
 
-Usage: abc2ly INPUTFILE
+Usage: abc2ly [OPTION]... ABC-FILE
 
--h, --help   this help.
--o, --output set output filename
+Options:
+  -h, --help          this help
+  -o, --output=FILE   set output filename to FILE
 """
-
 
 
 identify()
@@ -754,23 +757,22 @@ for opt in options:
 		raise getopt.error
 
 
-header['tagline'] = 'Lily was here %s -- Directly converted from ABC' % version
+header['tagline'] = 'Lily was here %s -- automatically converted from ABC' % version
 for f in files:
 	if f == '-':
 		f = ''
 
+	sys.stderr.write ('Parsing... [%s]\n' % f)
 	parse_file (f)
 
-	outf = None
-	if out_filename:
-		outf = open (out_filename, 'w')
-	else:
-		outf = sys.stdout
-
+	if not out_filename:
+		out_filename = os.path.basename (os.path.splitext (f)[0]) + ".ly"
+	sys.stderr.write ('Ly output to: %s...' % out_filename)
+	outf = open (out_filename, 'w')
 
 #	dump_global (outf)
 	dump_lyrics (outf)
 	dump_voices (outf)
 	dump_score (outf)
-	
+	sys.stderr.write ('\n')
 	

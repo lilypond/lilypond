@@ -11,10 +11,10 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 .* TODO before 1.2
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * chord names. -- what about?
-. * check html (png) music: pictures are cut-off at the bottom over here (jcn)
-. * Staff.noAutoBeaming = 0 ?  (vs: automaticMelismas)  I don't like 
-settings with negations in them (manualBeaming?) 
 . * Melismas(*) --> Melismata (at least in doco)
+. * ?  -Q, --find-old-relative show all changes in relative syntax
+What's old about absolute to relative conversion?  Could maybe use for
+abc2ly, midi2ly?
 
 .* Cleanups needed
 . * \$ and $ identifier syntax in examples.
@@ -38,10 +38,11 @@ settings with negations in them (manualBeaming?)
 
 .* BUGS
 . * [c8. c16 c16 c16] in 6/8 timesig. 
+. * staffside spanner (crescendo!) along with staffswitch.
 . * 
 > \context Staff <
->   {\voiceone c''4. r8}
->   {\voicetwo c,4 r4}
+>   {\voiceone''4. r8}
+>  \voicetwo c,4 r4}
 > >
 
 .* STUFF

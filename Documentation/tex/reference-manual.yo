@@ -70,48 +70,86 @@ includefile(html-disclaimer.yo-urg)
 sect(Overview)
 
 
-This bind(document)footnote(This document was revised for LilyPond
+This nop(document)footnote(This document was revised for LilyPond
 1.2.)  describes the the GNU LilyPond input format, which is a
-language for defining music.  We call this language (rather
-arrogantly) The Musical Definition Language or Mudela, for
-short.footnote(If anybody comes up with a better name, we'd gladly
-take this. Gourlay already uses Musical Description Language, G-Sharp
-Score Definition Language.  ISO standard 10743 defines a Standard
-Music Description Language.  We're not being original here.)
+language for defining music.  We call this language Music Definition
+Language or Mudela, for short.footnote(If anybody comes up with a
+better name, we'd gladly take this. Gourlay already uses Musical
+Description Language,  ISO standard
+10743 defines a Standard Music Description Language.  We're not being
+original here.)
 
 Mudela is a language that allows you  to
 itemize(
-it() create musical expressions by combining pitches, durations to
+it() create musical expressions by combining pitches, durations 
 it() output those musical expressions to various formats
 it() give those musical expressions and output definitions names, so
 you can enter them in manageable chunks.
 )
 
-Mudela aims to be a language that defines a piece of music completely
-both for typesetting and for a performance point of view.
+Mudela aims to define a piece of music completely, both from
+typesetting and from a performance point of view.
 
-sect(General syntax)
+sect(Top level)cindex(top level)
 
-The percent sign introduces line comments.
+This section describes what you may  enter at top level.
 
-The syntax for most constructions follows this pattern: A keyword that
-is the name of the construction, followed by a list of items, which is
-enclosed in braces, e.g. a paper block looks like this
-verb(\paper {
-  linewidth = 14.0 \cm;          % one item
-  indent = \linewidth / 12.0 ;   % another one.
-})
+subsect(Score definitions)cindex(score definition)
 
-Words without backslashes are
-strings, like ``linewidth'' in the above example.  When you do an
-assigment, the left hand side is a string, the name name of the
-identifier you wish to assign to.  When you refer to an identifier,
-you must put a backslash before the name, like in second item of the
-example.
+The output is generated combining a music expression with an output
+definition.  A score block has the following syntax code(\score {)
+var(musicexpr) var(outputdefs) code(}).  var(outputdefs) are zero or
+more output definitons.  If no output definiton is supplied, the
+default code(\paper) block will be added.
+
+subsect(Information header)cindex(header)keyindex(header)
+
+The syntax is code(\header) code({) var(key1) = var(val1); var(key2) = var(val2); ... code(}))
+
+A header describes the file's contents.  It can also appear in a
+code(\score) block.  Tools like indexandcode(ly2dvi) can use this
+information for generating titles.  Key values that are used by ly2dvi
+are: title, subtitle, composer, opus, poet, instrument, metre,
+arranger, piece and tagline.
+
+It is customary to put the code(\header) at the top of the file.
+
+subsect(Setting notenames and chordnames)
+label(notenames)
+
+Note name tables can be specified using code(\notenames)keyindex(notenames) code({)
+var(assignmentlist) code(}).  var(assignmentlist) is a list of definitions of
+the form var(name) = var(pitch).
+
+Chord modifiers can be set analogously, with
+code(\chordmodifiers)keyindex(chordmodifiers).
 
 
 
-sect(Lexical devices)cindex(Lexical devices)
+subsect(Output definitions)
+
+A code(\paper) block at top level sets the default paper block.  A
+code(\midi) block at top level works similarly.
+
+
+subsect(GUILE and Scheme)
+
+LilyPond contains a Scheme interpreter (the GUILE library) for
+internal use.  The following commands access the interpreter directly.
+
+code(\scm)keyindex(scm) var(scheme)code(;) evaluates the specified Scheme
+code.  The result is discarded. keyindex(scm)
+
+code(\scmfile)keyindex(scmfile) var(filename)code(;) reads Scheme code from the
+specified file.  The result is discarded. keyindex(scmfile)
+
+subsect(Identifiers)
+
+Identifier assignments may appear at top level.  Semicolons are
+forbidden after top level assignments.
+
+
+sect(Lexical conventions)cindex(Lexical conventions)
 
 subsect(Comments)cindex(Comments)
 cindex(%)
@@ -125,7 +163,47 @@ subsect(Keywords)
 cindex(keyword)
 
 Keywords start with a backslash, followed by a number of lower case
-alphabetic characters.
+alphabetic characters.  This are all the keywords.
+
+verb(\accepts \addlyrics \alternative \bar \breathe \cadenza
+\chordmodifiers \chords \clef \cm \consists \consistsend \context
+\duration \font \grace \header \in \key \keysignature \lyrics \mark
+\midi \mm \musicalpitch \name \notenames \notes \paper \partial
+\penalty \property \pt \relative \remove \repeat \repetitions \scm
+\scmfile \score \script \sequential \shape \simultaneous \skip
+\spanrequest \tempo \textscript \time \times \translator \transpose
+\type)
+
+
+subsect(Integers)cindex(Integers)
+
+Formed from an optional minus sign followed by digits.  Arithmetic
+operations cannot be done with integers, and integers cannot be mixed
+with reals.
+
+subsect(Reals)cindex(Reals) 
+Formed from an optional minus sign and a sequence of digits followed
+by a em(required) decimal point and an optional exponent such as
+code(-1.2e3).  Reals can be built up using the usual operations:
+indexandcode(+), indexandcode(-), indexandcode(*), and indexandcode(/), with parentheses for grouping.
+
+A real constant can be followed by one of the dimension keywords:
+cindex(dimension) code(\mm)keyindex(mm), code(\pt)keyindex(pt),
+code(\in)keyindex(in), or code(\cm)keyindex(cm), for millimeters,
+points, inches and centimeters.  This converts the number a real that
+is the internal representation of dimensions.
+
+subsect(String)cindex(String) 
+
+Begins and ends with the code(") character.  To include a code(")
+character in a string write code(\").  Various other backslash
+sequences have special interpretations as in the C language.  A string
+that contains no spaces can be written without the quotes.  See
+Section ref(modes) for details on unquoted strings; their
+interpretation varies depending on the situation.  Strings can be
+concatenated with the code(+) operator.
+
+
 
 
 subsect(Tokenizer commands)
@@ -133,21 +211,21 @@ subsect(Tokenizer commands)
 The tokenizer accepts the following commands.  They can appear
 anywhere.
 
-itemize(
-dit(code(\maininput)) keyindex(maininput) Internal command.  This
-command is used for creating init files like file(init.fly) that read
-the user file into the middle of another file.  It is illegal to use
+description(
+
+dit(code(\maininput)) keyindex(maininput) This command is used in init
+files to signal that the user file must be read.  It is illegal to use
 this command in a user file.
 
-dit(code(\include)) keyindex(include)var(file) Include the specified file.  The
+dit(code(\include) var(file))keyindex(include) Include var(file).  The
 argument var(file) may be a quoted string, (An unquoted string will
 not work here.)  or a string identifier.  The full filename including
 the file(.ly) extension must be given,
 
-dit(code(\version) var(string))
+dit(code(\version) var(string)code(;))
 keyindex(version)
 Specify the version of LilyPond that a
-file was written for.  The argument is the version number, for example
+file was written for.  The argument is a  version string in quotes, for example
 code("1.2.0").  This is used to detect invalid input, and to aid
 code(convert-mudela), a tool that automatically upgrades input files.
 )
@@ -169,15 +247,15 @@ svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess
 italiano.ly    do  re  mi  fa  sol la  sid si  -d          -b
 catalan.ly     do  re  mi  fa  sol la  sid si  -d/-s       -b)
 
-The pitch names can be easily redefined using the
-code(\notenames)keyindex(notenames) command, see Subsection ref(notenames).
+ Pitch names can be redefined using the
+code(\notenames)keyindex(notenames) command, see Subsection
+ref(notenames).
 
 subsect(Lexical modes)cindex(Lexical modes)cindex(modes)
 label(modes)
 
-To simplify different aspects of music definition (entering the notes
-and manipulating them) Mudela has four different input modes which
-affect how unquoted strings are interpreted.  In each mode, words are
+To simplify entering notes, lyrics and chrds Mudela has three special
+input modes on top of the default mode.  In each mode, words are
 identified on the input.  If code("word") is encountered, it is
 treated as a string.  If code(\word) is encountered it is treated as a
 keyword or as an identifier.  The behavior of the modes differs in two
@@ -198,15 +276,15 @@ notename of code(word).  If no notename is found, then code(word) is
 treated as a string.
 
 Since combinations of numbers and dots are used for indicating
-durations, you can not enter real numbers in this mode.
+durations, it is not possible to enter real numbers in this mode.
 
 dit(Chord mode)cindex(mode!chord) Chord mode is introduced by the keyword
-code(\chords)keyindex(chords).  Similar to note mode, but words are also looked
+code(\chords)keyindex(chords).  It is similar to note mode, but words are also looked
 up in a chord modifier table (containg code(maj), code(dim) etc.)
 
 Since combinations of numbers and dots are used for indicating
 durations, you can not enter real numbers in this mode.  Dashes and
-carets are used to indicate chord additions and subtractions, so
+carets are used to indicate chord additions and substractions, so
 scripts can not be entered in chord mode.
 
 dit(Lyric mode) cindex(mode!lyric) Lyrics mode is introduced by the keyword
@@ -228,15 +306,15 @@ digit and not white space.  One important consequence of this is that
 a word can end with code(}), which may be confusing if you thought the
 code(}) was going to terminate lyrics mode.footnote(LilyPond will
 issue a warning, though).  Any code(_) characters
-which appear in an unquoted word are converted to spaces, providing a
+which appear in an unquoted word are converted to spaces.  This
+provides  a
 mechanism for introducing spaces into words without using quotes.  
 Quoted words can also be used in lyrics mode to specify words that
 cannot be specified with the above rules.  Here are some examples.
 Not all of these words are printable by TeX().
 COMMENT(
-
+DOEXPAND(muckslash)^etre          % a word
 )verb(Ah!       % a word
-\^etre          % a word
 2B_||_!2B       % not a word because it starts with a digit
 ``Hello''       % not a word because it starts with `
 _ _ _ _         % 4 words, each one a space
@@ -260,7 +338,7 @@ discouraged.)
 
 
 
-subsect(Types)cindex(Types)
+sect(Types)cindex(Types and identifiers)
 
 Mudela has a limited set of types:
 itemize(
@@ -268,11 +346,13 @@ it() integers,
 it() reals,
 it() strings,
 it() music expressions,
-it() durations,
-it() note name tables
-it() context definitions,
-it() output definitions (code(\paper)keyindex(paper) blocks and  code(\midi)keyindex(midi) blocks)
-it() score definitions
+it() durations of notes and rests (specified with code(\notenames)keyindex(notenames)),
+it() note name tables,
+it() context definitions,  Part of output definitions.  See Section ref(contextdefs) for more
+information,
+it() output definitions (like code(\paper)keyindex(paper) blocks and
+code(\midi)keyindex(midi) blocks),
+it() score definitions. (code(\score)keyindex(score) blocks)
 )
 
 
@@ -283,64 +363,43 @@ integers in arithmetic expressions, and ``type errors'' cindex(type error) (eg. 
 string identifier to initialize a code(\paper)keyindex(paper) block)
 will yield ``parse error''.
 
-subsubsect(Integers)cindex(Integers)
+Identifiers allow objects to be assigned to names.  To assign an
+identifier you use var(name)=var(value) and to refer to an identifier,
+you preceed its name with a backslash: code(\)var(name).  Identifier
+assignments must appear at the top level in the Mudela file.
+Semicolons are forbidden after assignments appearing at the top level
+but they are obligatory after assignments appearing elsewhere.
 
-Formed from an optional minus sign followed by digits.  Arithmetic
-operations cannot be done with integers, and integers cannot be mixed
-with reals.
+var(value) is any of the types listed above.
 
-subsubsect(Reals)cindex(Reals) 
-Formed from an optional minus sign and a sequence of digits followed
-by a em(required) decimal point and an optional exponent such as
-code(-1.2e3).  Reals can be built up using the usual operations:
-indexandcode(+), indexandcode(-), indexandcode(*), and indexandcode(/), with parentheses for grouping.
+An identifier can be created with any string for its name, but you
+will only be able to refer to identifiers whose names begin with a
+letter and are entirely alphanumeric.  It is impossible to refer to an
+identifier whose name is the same as the name of a keyword.
 
-A real constant can be followed by one of the dimension keywords:
-cindex(dimension) code(\mm)keyindex(mm), code(\pt)keyindex(pt),
-code(\in)keyindex(in), or code(\cm)keyindex(cm), for millimeters,
-points, inches and centimeters.  This converts the number a real that
-is the internal representation of dimensions.
-
-subsubsect(String)cindex(String) 
-
-Begins and ends with the code(") character.  To include a code(")
-character in a string write code(\").  Various other backslash
-sequences have special interpretations as in the C language.  A string
-that contains no spaces can be written without the quotes.  See
-Section ref(modes) for details on unquoted strings; their
-interpretation varies depending on the situation.  Strings can be
-concatenated with the code(+) operator.
+The right hand side of an identifier assignment is parsed completely
+before the assignment is done, so it is legal to redefine an
+identifier in terms of its old value: code(foo = \foo * 2.0).
 
 
-
-subsubsect(Pitch and duration)cindex(pitch)cindex(duration) 
-
-The syntax for pitch specification is
-code(\musicalpitch)keyindex(musicalpitch) code({) var(octave)
-var(note) var(shift) code(}) The octave is specified by an integer,
-zero for the octave containing middle C.  The note is a number from 0
-to 7, with 0 corresponding to C and 7 corresponding to B.  The shift
-is zero for a natural, negative to add flats, or positive to add
-sharps.
-
-In note and chord mode,  pitches may be designated by names. 
-See Section ref(notelang) for pitch names in different languages.
-
-
-The syntax for duration specification is
-code(\duration)keyindex(duration) code({) var(length) var(dotcount)
-code(}) var(length) is the negative logarithm (base 2) of duration: 1
-is a half note, 2 is a quarter note, 3 is an eighth note, etc.  The
-number of dots after the note is given by var(dotcount).
+When an identifier is referenced, the information that it points to is
+copied.  Therefore it only makes sense to put identifiers for
+translators, output definitions and code(\score)keyindex(score) blocks as the first
+item in a block.  For this reason, if you reference to a code(\foo)
+variable in a code(\foo) block, it must be the first item in the list
+following code(\foo).footnote(code(\paper{\one \two}) does not make
+sense, because the information of code(\two) would overwrite the
+information of code(\one), thereby making the reference to the first
+identifier useless.)
 
 
 
-subsubsect(Music expressions)cindex(Music expressions)
+sect(Music expressions)cindex(Music expressions)
 
 Music in mudela is entered as a music expression.  Notes, rests, lyric
 syllables are music expressions (the atomic expressions),
 cindex(atomic music expressions) and you can
-combine music expressions to form new music expressions.  This example
+combine music expressions to form new ones.  This example
 forms a compound expressions out of the quarter code(c)   note and a
 code(d) note:COMMENT(
 
@@ -354,157 +413,64 @@ Atomic music expression are discussed in
 bind(Subsection)ref(atomicmusic).  Compound music expressions are
 discussed in bind(Subsection)ref(compoundmusic).
 
-subsubsect(Score definitions)cindex(score definitions)
-These couples music expressions to output definitions.
-
-
-subsubsect(Output definitions)cindex(output definitions)
-These define how to output music expressions.
-
-subsubsect(Context definitions)cindex(context definitions)
-Part of output definitions.  See Section ref(context) for more
-information.
-
-
-subsubsect(Durations)cindex(durations)
-Durations of notes and rests.
-
-
-subsubsect(Notename tables)cindex(notename tables)
-
-Tables with sets of pitch names (in different languages)
-
-
-sect(Top level)cindex(top level)
-
-This section describes what you may  enter at top level.
-
-subsect(Score definitions)cindex(score definition)
-
-The output is generated combining a music expression with an output
-definition.  A score block has the following syntax code(\score {)
-var(musicexpr) var(outputdefs) code(}).  var(outputdefs) are zero or
-more output definitons.  If no output definiton is supplied, the
-default code(\paper) block will be added.
-
-subsect(Information header)cindex(header)keyindex(header)0
-
-code(\header) code({) var(key1) = var(val1); var(key2) = var(val2); ... code(}))
-
-A header describing the file's contents can appear at top level.  If a
-file has multiple code(\score) blocks, then a header can appear in
-each score block describing its contents.  Tools like
-indexandcode(ly2dvi) can use this information for generating titles.
-Key values that are used by ly2dvi are: title, subtitle, composer,
-opus, poet, instrument, metre, arranger, piece and tagline.
-
-It is  custom to put the code(\header) at the top of the file.
-
-subsect(Setting notenames and chordnames)
-label(notenames)
-
-Note name tables can be specified using code(\notenames)keyindex(notenames) code({)
-var(assignmentlist) code(}).  var(assignmentlist) is a list of definitions of
-the form var(name) = var(pitch).
-
-Chord modifiers can be set analogously, with
-code(\chordmodifiers)keyindex(chordmodifiers).
-
-
-
-subsect(Output definitions)
-
-A code(\paper) block at top level sets the default paper block.  A
-code(\midi) block at top level works similarly.
-
-
-subsect(GUILE and Scheme)
-
-code(\scm)keyindex(scm) var(scheme)code(;) evaluates the specified Scheme
-code.  The result is discarded. keyindex(scm)
-
-code(\scmfile)keyindex(scmfile) var(filename)code(;) reads Scheme code from the
-specified file.  The result is discarded. keyindex(scmfile)
-
-subsect(Identifiers)
-
-Identifier assignments may appear at top level.
-
-
-sect(Identifiers)cindex(Identifiers)
-
-Identifiers allow names to be assigned to constants, music, or other
-Mudela structures.  To assign an identifier you use
-var(name)=var(value) and to refer to an identifier, you preceed its
-name with a backslash: code(\)var(name).  
-Identifier assignments must appear at the top level in the Mudela
-file.  Semicolons are forbidden after assignments appearing
-at the top level but they are obligatory after assignments appearing
-elsewhere.
-
-
-
-An identifier can be created with any string for its name, but you
-will only be able to refer to identifiers whose names begin with a
-letter and are entirely alphanumeric.  It is impossible to refer to an
-identifier whose name is the same as the name of a keyword.
-
-The right hand side of an identifier assignment is parsed completely
-before the assignment is done, so it is legal to redefine an
-identifier in terms of its old value: code(foo = \foo * 2.0).
-
-Identifiers can be set equal to
-itemize(
-it() integers,
-it() reals,
-it() strings,
-it() music,
-it() durations (specified with code(\duration)keyindex(duration)),
-it() articulations and spanner marks.
-it() note name tables (specified with code(\notenames)keyindex(notenames)),
-it() translator definitions,
-it() output definitions (code(\paper)keyindex(paper) blocks and  code(\midi)keyindex(midi) blocks)
-it() score definitions (code(\score)keyindex(score) blocks)
-)
-
-When an identifier is referenced, the information that it points to is
-copied.  Therefore it only makes sense to put identifiers for
-translators, output definitions and code(\score)keyindex(score) blocks as the first
-item in a block.  For this reason, if you reference to a code(\foo)
-variable in a code(\foo) block, it must be the first item in the list
-following code(\foo).footnote(code(\paper{\one \two}) does not make
-sense, because the information of code(\two) would overwrite the
-information of code(\one), thereby making the reference to the first
-identifier useless.)
-
-
 sect(Atomic music expressions)
 label(atomicmusic)
 
-subsect(Basic Note Specification)cindex(Basic Note Specification)
-label(notedesc)cindex(pitches)cindex(entering notes)
+subsect(Pitch and duration)cindex(pitch)cindex(duration) 
+
+The syntax for pitch specification is
+code(\musicalpitch)keyindex(musicalpitch) code({) var(octave)
+var(note) var(shift) code(}) The octave is specified by an integer,
+zero for the octave containing middle C.  The note is a number from 0
+to 7, with 0 corresponding to C and 7 corresponding to B.  The shift
+is zero for a natural, negative to add flats, or positive to add
+sharps.
+
+In note and chord mode,  pitches may be designated by names. 
+See Section ref(notelang) for pitch names in different languages.
+
+The syntax for duration specification is
+code(\duration)keyindex(duration) code({) var(length) var(dotcount)
+code(}) var(length) is the negative logarithm (base 2) of duration: 1
+is a half note, 2 is a quarter note, 3 is an eighth note, etc.  The
+number of dots after the note is given by var(dotcount).
+
+In note, chord and lyric mode, durations may be designated by numbers
+and dots. See Section ref(notelang) for details.
 
 
-A note specification has the form 
-var(pitch)[var(octavespec)][code(!)][code(?)][var(duration)].
-The pitch of the note is specified by the note's name.  
 
-LilyPond has predefined note names for various languages.  The default
-names are the Dutch note names.  The notes are specified by the
-letters code(c) through code(b), where code(c) is an octave below
-middle C and the letters span the ocatave above that C.  
-In Dutch,cindex(notenames!Dutch) a sharp is formed by adding
-code(-is) to the end of a pitch name.  A flat is formed by adding code(-es).
+
+subsect(Note specification)label(notedesc)
+
+cindex(Note Specification)
+cindex(pitches)cindex(entering notes)
+
+A note specification has the form
+var(pitch)[var(octavespec)][code(!)][code(?)][var(duration)].  The
+pitch of the note is specified by the note's name.
+
+subsubsect(Pitches)
+
+The default names are the Dutch note names.  The notes are specified
+by the letters code(c) through code(b), where code(c) is an octave
+below middle C and the letters span the octave above that C.  In
+Dutch,cindex(notenames!Dutch) a sharp is formed by adding code(-is) to
+the end of a pitch name.  A flat is formed by adding code(-es).
 Double sharps and double flats are obtained by adding code(-isis) or
-code(-eses).  
-Lily has predefined sets of notenames
-for various nop(languages).  See Section ref(notelang) for details.
+code(-eses).  code(aes) and code(ees) are contracted to code(as) and
+code(es) in Dutch, but both forms will be accepted.q
+
+
+Lily has predefined sets of notenames for various
+languages.  See Section ref(notelang) for details.
+
+subsubsect(Octaves)
 
 The optional octave specification takes the form of a series of single
-quote 
-indexandcode(') characters or a series of comma indexandcode(,) characters.  Each
-code(') raises the pitch by one octave; each code(,) lowers the pitch
-by an octave.  
+quote indexandcode(') characters or a series of comma indexandcode(,)
+characters.  Each code(') raises the pitch by one octave; each code(,)
+lowers the pitch by an octave.
 
 mudela(fragment,verbatim,center)(
 c' d' e' f' g' a' b' c''
@@ -530,26 +496,30 @@ Whenever a C-sharp is desired,  you must specify a C-sharp.  LilyPond
 will determine what accidentals to  typeset  depending on the  key and
 context.   
 A reminder accidental cindex(reminder accidental) can be forced by
-using the  optional exclamation mark `code(!)'
-on the pitch.
+adding an exclamation mark `code(!)'
+after the pitch.
 A cautionary accidental, cindex(cautionary accidental) i.e., an accidental within parentheses
-can be obtained using the optional question mark `indexandcode(?)' on the pitch.
-mudela(fragment,verbatim,center)(
+can be obtained by adding the question mark `indexandcode(?)' after
+the pitch.COMMENT(
+
+)mudela(fragment,verbatim,center)(
 cis' d' e' cis'  c'? d' e' c'!  
 )
 
+subsubsect(Duration)
 cindex(duration)
+
 Durations are entered as their reciprocal values. For notes longer
 than a whole note, use identifiers.
 verb(
   c'\longa c'\breve  
-  c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64 c'2. c'8. c'16
+  c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64 
 )
 mudela()(
 \score {
        \notes \relative c'' {
          a\longa a\breve  
-         a1 a2 a4 a8 a16 a32 a64 a64 a2. a8. a16
+         a1 a2 a4 a8 a16 a32 a64 a64 
          }
          \paper {
 		loose_column_distance = 2.5 * \interline;
@@ -560,54 +530,48 @@ mudela()(
         		    \consists "Stem_engraver";
         		    \consists "Rhythmic_column_engraver";
          }}})
-
-mudela(fragment,verbatim,center)(
-r1 r2 r4 r8 r16 r32
-)
+verb(
+  r\longa r\breve  
+  r1 r2 r4 r8 r16 r32 r64 r64 
+)mudela()(\score {
+       \notes \relative c'' {
+         r\longa r\breve  
+         r1 r2 r4 r8 r16 r32 r64 r64 
+         }
+         \paper {
+		loose_column_distance = 2.5 * \interline;
+        	linewidth = -1.0;
+        	\translator { \type "Score_engraver";
+        		    \name "Score";
+        		    \consists "Rest_engraver";
+        		    \consists "Stem_engraver";
+        		    \consists "Rhythmic_column_engraver";
+         } }})
 
 If the duration is omitted then it is set equal to the previous
 duration.  If there is no previous duration, then a quarter note is
-assumed.  
-The duration can be followed by a dot indexandcode(.) to obtain dotted note
-lengths.  
-mudela(fragment,verbatim,center)(
+assumed.  The duration can be followed by a dot indexandcode(.) to
+obtain dotted note lengths.  COMMENT(
+
+)mudela(fragment,verbatim,center)(
 a'4. b'4.
 )
 
-Extra long notes can be obtained using the code(\breve)keyindex(breve) and
-indexandcode(longa) durations:
-mudela(fragment,verbatim,center)(
-c'\breve gis'\longa
-)
-
-You can alter the length of duration by writing code(*)var(fraction) after a
-it.
-
+You can alter the length of duration by writing code(*)var(fraction)
+after a it.  This will not affect the appearance of noteheads or
+rests.
 
 subsubsect(Rests)
 
-Rests are entered like notes, with note name indexandcode(r) or
-indexandcode(R).  There is also a note name indexandcode(s) which produces a
-nonprinting note of the specified duration.
+Rests are entered like notes, with note name indexandcode(r),
+indexandcode(s) or indexandcode(R).  There is also a note name which
+produces a nonprinting note of the specified duration. code(R) is
+specifically  meant for entering parts: the code(R) rest can expand to
+fill a score with rests, or it can be printed as a single multimeasure resst.
 
-The shape of notes and normal rests will be unchanged. When used in
-this whole-measure rest code(R) will fill measures with rest symbols.
-COMMENT(
+subsubsect(Lyrics syllables)cindex(Lyric expressions)
 
-)mudela(fragment,verbatim,center)(
-r1 r1*3 R1*3
-)
-If you set the cindex(skipBars)code(Score.skipBars) property, then only one measure will be
-printed; with indexandcode(R), a number indicating the length of the rest will be
-displayed.  
-mudela(fragment,verbatim,center)(
-\property Score.skipBars=1
-r1 r1*3 R1*3
-)
-
-subsubsect(Lyrics)cindex(Lyric expressions)
-
-Lyrics are entered like notes, with pitches replaced
+Syllables are entered like notes, with pitches replaced
 by text.  For example code(Twin-4 kle4 twin-4 kle4) enters four
 syllables, each with quarter note duration.  Note that the hyphen has
 no special meaning for lyrics, and does not introduce special symbols.
@@ -633,11 +597,12 @@ A music expression that the context which is a direct child of the
 a  context of type var(contexttype) should be shifted to a context of
 type var(contexttype) and  the specified name.  
 
+Usually this is used to switch staffs in Piano music,
+eg. code(\translator Staff = top )var(Music)
 
 subsect(Commands)cindex(Commands)
 
-Commands are music expressions that have no duration.   They fall in
-two categories.
+Commands are music expressions that have no duration.   
 
 subsubsect(Key signatures)
 
@@ -653,9 +618,6 @@ code(\ionian)keyindex(ionian), code(\locrian)keyindex(locrian), code(\aeolian)ke
 code(\mixolydian)keyindex(mixolydian), code(\lydian)keyindex(lydian), code(\phrygian)keyindex(phrygian), and
 code(\dorian)keyindex(dorian) are also defined.
 
-code(\partial)keyindex(partial) var(duration)code(;) Music expression that makes
-the first measure of the music last for the specified duration.  
-
 
 code(\keysignature)keyindex(keysignature) var(pitchseq)code(;)
 Specify an arbitrary key signature.  The pitches from var(pitch) will
@@ -665,7 +627,7 @@ be printed in the key signature in the order that they appear on the list.
 subsubsect(Rehearsal marks)
         
 code(\mark)keyindex(mark) var(unsigned)code(;) or code(\mark)
-var(string)code(;)) A music expression.  Prints a mark over or under
+var(string)code(;) A music expression.  Prints a mark over or under
 (depending on the indexandcode(markDirection) property) the staff.  You must
 add indexandcode(Mark_engraver) to the either Score or Staff context for this
 to work.
@@ -673,18 +635,18 @@ to work.
 
 subsubsect(Bar lines)
 
-code(\bar)keyindex(bar) var(bartype)code(;) Music expression that requests
-LilyPond to print a special bar symbol, or at
-measure boundaries, replaces the regular bar symbol with a special
-symbol.  The argument var(bartype) is a string which specifies the
-kind of bar to print.  Options are indexandcode(":|"), indexandcode("|:"),
-indexandcode(":|:"), indexandcode("||"), indexandcode("|."), indexandcode(".|"), or indexandcode(".|.").
-These produce respectively a right repeat, a left repeat, a double
-repeat, a double bar, a start bar, an end bar, or a thick double bar.
-If var(bartype) is set to code("empty") then nothing is printed, but a
-line break is allowed at that spot.  
+code(\bar)keyindex(bar) var(bartype)code(;) This is a request to print
+a special bar symbol, or at measure boundaries.  It replaces the
+regular bar symbol with a special symbol.  The argument var(bartype)
+is a string which specifies the kind of bar to print.  Options are
+indexandcode(":|"), indexandcode("|:"), indexandcode(":|:"),
+indexandcode("||"), indexandcode("|."), indexandcode(".|"), or
+indexandcode(".|.").  These produce respectively a right repeat, a
+left repeat, a double repeat, a double bar, a start bar, an end bar,
+or a thick double bar.  If var(bartype) is set to code("empty") then
+nothing is printed, but a line break is allowed at that spot.
 
-You are encouraged to use code(\repeat) for repetitions.
+You are encouraged to use code(\repeat) for repetitions. See Section ref(sec:repeats)
 
 subsubsect(Timing commands) 
 
@@ -695,13 +657,14 @@ then a bar is immediately printed and bar generation is turned on.
 
 code(\time)keyindex(time) var(numerator)code(/)var(denominator)code(;) Change the time
 signature.  The default time signature is 4/4.  The time signature is
-used to generate bar lines  at correct places.
+used to generate bar lines.
 
+code(\partial )var(duration)code(;) Music expression that makes
+the first measure of the music last for the specified duration.  keyindex(partial)
 
-code(\tempo)keyindex(tempo) var(duration) = var(perminute)code(;) Used within
-code(\midi) or within music to specify the tempo.  For example, 
-`code(\midi { \tempo 4 = 76;})' requests output with 76 quarter notes
-per minute.
+code(\tempo)keyindex(tempo) var(duration) = var(perminute)code(;) Used
+to specify the tempo.  For example, `code(\tempo 4 = 76;)' requests
+output with 76 quarter notes per minute.
 
 code(\partial)keyindex(partial)var( duration)code(;) This creates an incomplete
 measure at the start of the music, eg.  code(\partial 8*2;) creates a
@@ -709,11 +672,11 @@ starting measure lasting two eighth notes.cindex(anacrusis)cindex(upstep)
 
 code(|)cindex(|)cindex(barcheck)
 
-code(|) is a barcheck.  Whenever a
-barcheck is encountered during interpretation, a warning message is
-issued if it doesn't fall at a measure boundary.  This can help you
-finding errors in the input. The beginning of the measure will also be
-relocated, so you can also use this to shorten measures.cindex(shorten measures)cindex(upstep)
+code(|) is a barcheck.  Whenever a barcheck is encountered during
+interpretation, a warning message is issued if it doesn't fall at a
+measure boundary.  This can help you finding errors in the input. The
+beginning of the measure will also be relocated, so this can also be
+used to shorten measures.cindex(shorten measures)cindex(upstep)
 
 subsubsect(Other commands)
 
@@ -757,7 +720,7 @@ code(violin).  The bass clef is also available by code(\clef  F).
 code(\skip)keyindex(skip) var(duration)code(;) Skips the amount of time
 specified by var(duration).  If no other music is played, a gap will
 be left for the skipped time with no notes printed.  It works in Note
-Mode or Lyrics Mode.  In notes mode, this has the same effect as the
+Mode or Lyrics Mode.  In note mode, this has the same effect as the
 space rest code(s).
 
 
@@ -795,11 +758,11 @@ mudela(fragment,verbatim,center)(
 COMMENT(ref to normal tremolos?)
 
 subsubsect(Lyric helpers)
-cindex(--)cindex(___)cindex(extender)cindex(hyphen)
+cindex(--)cindex(__)cindex(extender)cindex(hyphen)
 
 The syntax for an extender mark is code(__).  This syntax can only be
 used within lyrics mode.  The syntax for a spanning hyphen (a hyphen
-that will be printed between two lyric syllables) is code(--)
+that will be printed between two lyric syllables) is code(-)code(-)
 
 
 
@@ -807,10 +770,9 @@ subsubsect(Tie)cindex(tie)
 
 A tie connects two adjacent note heads of the same pitch.  When used
 with chords, it connects all of the note heads whose pitches match.
-Ties are indicated using the tilde symbol indexandcode(~) by analogy with
-TeX()'s tie which connects words.  Note that if you try to tie
-together chords which have no common pitches, then a warning message
-will appear and no tie will be created.  COMMENT(
+Ties are indicated using the tilde symbol indexandcode(~).
+If you try to tie together chords which have no common pitches, a
+warning message will appear. No ties will be created.  COMMENT(
 
 )mudela(fragment,verbatim,center)(
 e' ~ e' <c' e' g'> ~ <c' e' g'>
@@ -818,7 +780,7 @@ e' ~ e' <c' e' g'> ~ <c' e' g'>
 
 subsect(Atomic music expressions: add-ons)
 
-[explain Requests]
+[TODO: explain Requests]
 
 
 subsubsect(Articulations)cindex(articulations)cindex(scripts)cindex(ornaments)
@@ -827,11 +789,10 @@ A variety of symbols can appear above and below notes to indicate
 different characteristics of the performance.  These symbols can be
 added to a note with `var(note)code(-\)var(name)'.  Numerous symbols
 are defined in file(script.ly) and file(script.scm).  Symbols can be
-forced to appear above the note by writing
-`var(note)code(^\)var(name)', and they can be forced to appear below
-by writing `var(note)code(_\)var(name)'.  Here is a chart showing
-symbols above notes, with the name of the corresponding symbol
-appearing underneath.
+forced to appear above or below the note by writing
+`var(note)code(^\)var(name)' and `var(note)code(_\)var(name)'
+respectively. Here is a chart showing symbols above notes, with the
+name of the corresponding symbol appearing underneath.
 
 mudela()(
 \score{
@@ -881,17 +842,40 @@ COMMENT(
 %        \paper { linewidth = 12.\cm; }
 })
 
-Dynamic marks are specified by using an identifier after a note
-without: code(c4 \ff).  The available dynamic marks are:
-code(\pppppp)keyindex(pppppp), code(\ppppp)keyindex(ppppp),
-code(\pppp)keyindex(pppp), code(\ppp)keyindex(ppp),
-code(\pp)keyindex(pp), code(\p)keyindex(p), code(\mp)keyindex(mp),
-code(\mf)keyindex(mf), code(\f)keyindex(f), code(\ff)keyindex(ff),
-code(\fff)keyindex(fff), code(\ffff)keyindex(ffff),
-code(\fffff)keyindex(fffff), code(\ffffff)keyindex(ffffff),
-code(\fp)keyindex(fp), code(\sf)keyindex(sf), code(\sff)keyindex(sff),
-code(\sp)keyindex(sp), code(\spp)keyindex(spp),
-code(\sfz)keyindex(sfz) and code(\rfz)keyindex(rfz).
+Dynamic marks are specified by using an identifier after a note:
+code(c4-\ff).  The available dynamic marks are: keyindex(pppp),
+code(\ppp)keyindex(ppp), code(\pp)keyindex(pp), code(\p)keyindex(p),
+code(\mp)keyindex(mp), code(\mf)keyindex(mf), code(\f)keyindex(f),
+code(\ff)keyindex(ff), code(\fff)keyindex(fff),
+code(\ffff)keyindex(ffff), code(\fp)keyindex(fp),
+code(\sf)keyindex(sf), code(\sff)keyindex(sff), code(\sp)keyindex(sp),
+code(\spp)keyindex(spp), code(\sfz)keyindex(sfz) and
+code(\rfz)keyindex(rfz).
+
+subsubsect(General text scripts)
+
+code(\textscript)keyindex(textscript) var(text) var(style).  Defines a text to be
+printed over or under a note.  var(style) is a string that may be one
+of code(finger), code(roman), code(italic), code(dynamic), code(Large)
+or code(large).  
+
+You can attach a general textscript request using this syntax
+verb(c4-\textscript "6" "finger"
+c4-\textscript "foo" "normal"
+)
+This is equivalent with code(c4-6 c4-"foo").  
+
+subsubsect(General scripts)cindex(scripts)
+
+Syntax: code(\script)keyindex(script) var(alias).
+
+ Prints a symbol above or below a note.  The argument is a string
+which points into the script-alias table defined in file(script.scm).
+The scheme definitions specify whether the symbol follows notes into
+the staff, dependence of symbol placement on staff direction, and a
+priority for placing several symbols over one note.  Usually the
+code(\script)keyindex(script) keyword is not used directly.  Various
+helpful identifier definitions appear in file(script.ly).
 
 
 subsubsect(Slur)cindex(Slur)
@@ -907,6 +891,26 @@ both sides: COMMENT(
 f'()g'()a' [a'8 b'(] a'4 g'2 )f'
 )
 
+
+subsubsect(Crescendo)cindex(Crescendo)
+
+A crescendo mark is started with code(\cr)keyindex(cr) and terminated with
+code(\rc)keyindex(rc).  A decrescendo mark is started with code(\decr)keyindex(decr) and
+terminated with code(\rced)keyindex(rced).  There are also shorthands for these
+marks.  A crescendo can be started with code(\<)keyindex(<) and a decrescendo can
+be started with code(\>)keyindex(>).  Either one can be terminated with code(\!)keyindex(!).
+Note that code(\!) must go before the last note of the dynamic mark whereas
+code(\rc) and code(\rced) go after the last note.  Because these marks are
+bound to notes, if you want to get several marks during one note, you must use
+spacer notes. COMMENT(
+
+)mudela(fragment,verbatim,center)(
+c'' \< \! c''   d'' \decr e'' \rced 
+< f''1 {s4 \< \! s2 \> \! s2 } >)
+
+
+
+subsubsect(General spanners)
 
 code(\spanrequest)keyindex(spanrequest) var(startstop) var(type).
 Define a spanning request var(startstop) is either -1
@@ -924,47 +928,11 @@ c4-\spanrequest \stop "slur"
 )
 The slur syntax with parentheses is an abbreviation of this.
 
-code(\textscript)keyindex(textscript)) var(text) var(style).  Defines a text to be
-printed over or under a note.  var(style) is a string that may be one
-of code(finger), code(roman), code(italic), code(dynamic), code(Large)
-or code(large).  
-
-You can attach a general textscript request using this syntax
-verb(c4-\textscript "6" "finger"
-c4-\textscript "foo" "normal"
-)
-This is equivalent with code(c4-6 c4-"foo").  
-
-code(\script)keyindex(script) var(alias) Prints a symbol above or below a note.
-The argument is a string which points into the script-alias table
-defined in file(script.scm).  The scheme definitions specify whether
-the symbol follows notes into the staff, dependence of symbol
-placement on staff direction, and a priority for placing several
-symbols over one note.  Usually the code(\script)keyindex(script) keyword is not used
-directly.  Various helpful identifier definitions appear in
-file(script.ly).
-
 COMMENT(came till here with indexifying)
-
-subsubsect(Crescendo)cindex(Crescendo)
-
-A crescendo mark is started with code(\cr)keyindex(cr) and terminated with
-code(\rc)keyindex(rc).  A decrescendo mark is started with code(\decr)keyindex(decr) and
-terminated with code(\rced)keyindex(rced).  There are also shorthands for these
-marks.  A crescendo can be started with code(\<)keyindex(<) and a decrescendo can
-be started with code(\>)keyindex(>).  Either one can be terminated with code(\!)keyindex(!).
-Note that code(\!) must go before the last note of the dynamic mark whereas
-code(\rc) and code(\rced) go after the last note.  Because these marks are
-bound to notes, if you want to get several marks during one note, you must use
-spacer notes. COMMENT(
-
-)mudela(fragment,verbatim,center)(
-c'' \< \! c''   d'' \decr e'' \rced 
-< f''1 {s4 \< \! s4 \> \! s2 } >)
 
 subsubsect(Tremolo marks)cindex(Tremolo marks)
 
-Tremolo marks can be printed by a note by adding code(:)[var(length)]
+Tremolo marks can be printed by a single note by adding code(:)[var(length)]
 after the note.  The length must be at least 8.  A var(length) value
 of 8 gives one line across the note stem.  
 If the length is omitted,
@@ -977,18 +945,15 @@ sect(Compound music expressions)cindex(Compound music expressions)
 label(compoundmusic)
 
 
-Music is a compound type: arbitrarily complicated expressions with a
-hierarchical structure can be formed from simple building blocks.
-Syntactically, these items can be nested any way you like.  This
-simple example shows how three chords can be expressed in two
-different ways: COMMENT(
+Music expression are a compound data structure.  You can nest music
+expressions any way you like.  This simple example shows how three
+chords can be expressed in two different ways: COMMENT(
 
 )mudela(fragment,verbatim,center)(
 \notes\context Staff{
-  <a c' e'> <b  d' f'> <c' e' g'>
-  <{a b  c'}{c' d' e'}{e' f' g'}>
+  <a c'> <b  d' > <c' e' >
+  <{a b  c'}{c' d' e'}>
 })
-
 
 
 subsect(Context selection)cindex(Context selection)
@@ -996,36 +961,45 @@ subsect(Context selection)cindex(Context selection)
 code(\context)keyindex(context) var(contexttype) [code(=) var(contextname)]
 var(musicexpr)
 
-Interpret var(musicexpr) within a context of type
-var(contexttype).  If the context does not exist, it will be created.
-context.  The new context can optionally be given a name.
-This is a Music expression itself.   See Section ref(contexts) for
-more information  on interpretation contexts.
+Interpret var(musicexpr) within a context of type var(contexttype).
+If the context does not exist, it will be created.  The new context
+can optionally be given a name.  See Section ref(contextselection) and
+ref(contextdefs) for more
+information on interpretation contexts.
 
 subsect(Music entry modes)
 cindex(input modes)
 cindex(mode switch)
 
-Mode switching keywords form compound music expressions:
-code(\notes)keyindex(notes)var( musicexpr), code(\chords)keyindex(chords)var( musicexpr), and
-code(\lyrics)keyindex(lyrics)var( musicexpr).  This indicates that var(musicexpr)
-should be parsed in indicated mode. See Section ref(modes) for more
-information on modes.
+Mode switching keywords form compound music
+expressions:keyindex(notes)keyindex(chords)keyindex(lyrics)
+code(\notes )var(musicexpr), code(\chords )var( musicexpr), and
+code(\lyrics )var(musicexpr).  These expressions do not add anything
+to the meaning of their arguments.  They are just a way to indicat
+that the arguments should be parsed in indicated mode. See Section
+ref(modes) for more information on modes.
+
+
+More information on context selection can be found in Section ref(contextselection)
+
 
 subsect(Sequential music)cindex(Sequential music)
+keyindex(sequential)
 
-All musical expressions have a duration.  The duration of sequential
-music is the the sum of the durations of the elements.  The syntax  is
-code(\sequential)keyindex(sequential)code( {)var( musicexprlist )code(}).  There is an
-abbreviated form, which leaves out the keyword:
-code({)var( musicexprlist )code(}).
+The syntax is code(\sequential)code( {)var(musicexprlist)code( }).  This means that list should be played or
+written in sequence, i.e., the second after the first, the third after
+the second.  The duration of sequential music is the the sum of the
+durations of the elements.  There is an abbreviated form, which leaves
+out the keyword: code({ )var(musicexprlist )code( }).
+
 
 subsect(Simultaneous music)cindex(Simultaneous music)
 
-Simultaneous music using angle brackets, the duration is the maximum
-of the durations of the elements.  The syntax is
-code(\simultaneous)keyindex(simultaneous)code({)var( musicexprlist )code(}). The
-abbreviated form, code(<) var(musicexprlist) code(>) is common idiom.
+The syntax is code(\simultaneous)keyindex(simultaneous)code({)var(
+musicexprlist )code(}).  It constructs a music expression where all of
+its arguments start at the same moment.  The duration is the maximum
+of the durations of the elements.  The abbreviated form, code(<)
+var(musicexprlist) code(>) is common idiom.
 
 If you try to use a chord as the first thing in your score, you
 might get multiple staffs in stead of a chord.COMMENT(
@@ -1042,13 +1016,68 @@ mudela(verbatim,center)(\score { \notes\context Voice <c''4 e''>
   \paper { linewidth = -1.; }
 })
 
-More information on context selection can be found in Section ref(contextselection)
+
+subsect(Relative Pitch Specification)cindex(Relative Pitch Specification)
+label(relative)
+
+It is easy to get confused by octave changing marks and accidentally
+put a pitch in the wrong octave.  A much better way of entering a
+note's octave is `the relative octave' mode.
+
+The syntax for relative mode is code(\relative)keyindex(relative)
+var(startpitch) var(musicexpr).
+
+The octave of notes that appear in var(musicexpr) are calculated as
+follows: when no octave changing marks are used, the basic interval
+between this and the last note is always taken to be a fourth or
+less.footnote(The interval is determined without regard accidentals.
+A code(fisis) following a code(ceses) will be put above the
+code(ceses)) The octave changing marks code(') and code(,) can then be
+added to raise or lower the pitch by an extra octave.  Upon entering
+relative mode, an absolute starting pitch must be specified that will
+act as the predecessor of the first note of var(musicexpr).
+
+Entering scales is straightforward in relative mode.
+
+mudela(fragment,verbatim,center)(
+\relative c' { c d e f g a b c c, }
+)
+
+and octave changing marks are used for intervals greater than a fourth.
+
+mudela(fragment,verbatim,center)(
+\relative c'' { c g c f, c' a,, e''' }
+)
+
+When the preceding item is a chord, the first note of the chord is used to
+determine the first note of the next chord.  But other notes within the second
+chord are determined by looking at the immediately preceding note.  
+
+mudela(fragment,verbatim,center)(
+\relative c' { c <c e g> 
+    <c' e g> <c, e' g> }
+) 
+
+The pitch after the code(\relative) contains a notename. To parse the
+pitch as a notename, you have to be in note mode, so there must be a
+surrounding code(\notes)keyindex(notes) keyword (which is not shown here).
+
+The relative conversion will not affect code(\transpose) or
+code(\relative) sections in its argument.  If you want to use relative
+within transposed music, you must place an additional code(\relative)
+inside the code(\transpose).
+
+You are strongly recommended to use relative pitch mode: it is less
+work, less error-prone and more readable.
+
+
 
 subsect(Chord names)
 
 Chord names are a way to generate simultaneous music expressions that
-correspond with traditional notenaming.
-var(tonic)[var(duration)][code(-)var(modifier)][code(^)var(subtractions)][code(/)var(inversion)]
+correspond with traditional chord names. It can only be used in chord
+mode (See Section ref(modes)).  The syntax is
+var(tonic)[var(duration)][code(-)var(modifiers)][code(^)var(substractions)][code(/)var(inversion)].
 var(tonic) should be the tonic note of the chord, and the var(duration) is
 the chord duration in the usual notation.  There are two kinds of modifiers.
 One type is chord additions, which are obtained by listing intervals separated
@@ -1057,15 +1086,16 @@ code(-) to indicate raising or lowering by half a step.  A chord additions has
 two effects:  it adds the specified interval and all lower odd numbered
 intervals to the chord, and it may lower or raise the specified interval.
 Intervals must be separated by a dot (code(.)).
-Repeating a code(-) character will remove a half step from the preceding
-interval.  
-mudela(fragment,verbatim,center)(
+COMMENT(
+
+)mudela(fragment,verbatim)(
 \transpose c''{ 
 \chords{
   c1 c-3- c-7 c-8 c-9  
   c-9-.5+.7+ c-3-.5- c-4.6.8
-}}) 
-The second type of modifier that may appear after the code(-) is 
+}})COMMENT(
+
+)The second type of modifier that may appear after the code(-) is 
 a named modifier. 
 Named modifiers are listed in the file file(chord-modifiers.ly).  The
 available modifiers are code(m) and code(min) which lower
@@ -1075,11 +1105,11 @@ the 5th, indexandcode(maj) which adds a raised 7th, and indexandcode(sus) which 
 mudela(fragment,verbatim,center)(
 \transpose c''{ 
 \chords{
-  c1-m c-min c-maj c-aug c-dim c-sus
+  c1-m c-min7 c-maj c-aug c-dim c-sus
 }}) 
 
-Chord subtractions are used to eliminate notes from a chord.  The notes to be
-subtracted are listed after a code(^) character, separated by dots.  
+Chord substractions are used to eliminate notes from a chord.  The notes to be
+substracted are listed after a code(^) character, separated by dots.  
 mudela(fragment,verbatim,center)(
 \transpose c''{ 
 \chords{
@@ -1095,20 +1125,20 @@ mudela(fragment,verbatim,center)(
   \chords { c1 c/e c/g c-7/e }
 }) 
 Throughout these examples, chords have been shifted around the staff
-using code(\transpose).  The code(\relative) keyword has odd effects
-when combined with named chords.  
+using code(\transpose).  b
+
+You should  not combine code(\relative)  with named chords. 
 
 
-This syntax can only be used in chord mode.
 
 
 subsect(Tuplets)cindex(Tuplets)
 
-Tuplets are made out of a music expression, by multiplying their
-length with a fraction.  The syntax is code(\times)keyindex(times) var(fraction)
+Tuplets are made out of a music expression by multiplying their
+duration with a fraction.  The syntax is code(\times)keyindex(times) var(fraction)
 var(musicexpr).
 
-The length of var(musicexpr) will be multiplied by the fraction.
+The duration of var(musicexpr) will be multiplied by the fraction.
 In print, the fraction's denominator will be printed over the notes,
 optionally with a bracket.  The most
 common tuplet is the triplet in which 3 notes have the length of 2, so
@@ -1122,18 +1152,18 @@ subsect(Grace notes)cindex(Grace notes)
 Grace notes are specified as code(\grace )keyindex(grace )var(musicexpr).  A grace
 note expression has duration 0; the next real note is assumed to the
 main note.
-0
-You cannot have the grace note after the main note in music
-expressions, terms of duration and main notes, but you can typeset the
-grace notes to the right of the main note using the property
-indexandcode(graceAlignPosition).
+
+You cannot have the grace note after the main note, terms of duration
+and main notes, but you can typeset the grace notes to the right of
+the main note using the property indexandcode(graceAlignPosition).
 
 When grace music is interpreted, a score-within-a-score is set up:
-var(musicexpr) has its own time bookkeeping, and you could for example
-have separate barlines within grace notes.  Within this
-score-within-a-score you can create notes, beams, slurs, etc. Unbeamed
-eighth notes and shorter by default have a slash through the stem.
-This behavior can be controlled with the indexandcode(stemStyle) property.
+var(musicexpr) has its own time bookkeeping, and you could (for
+example) have a separate time signature within grace notes.  Within
+this score-within-a-score you can create notes, beams, slurs,
+etc. Unbeamed eighth notes and shorter by default have a slash through
+the stem.  This behavior can be controlled with the
+indexandcode(stemStyle) property.
 
 mudela(fragment)(
   \relative c'' { \grace c8 c4 \grace { [c16 c16] } c4
@@ -1150,25 +1180,26 @@ Ending a staff or score with grace notes may generate a run-time
 error, since there will be no main note to attach the grace notes to.
 
 subsect(Repeats)cindex(Repeats)
+label(sec:repeats)
 
 In order to specify repeats, use the code(\repeat)keyindex(repeat) keyword.  Since
-repeats look differently when played and when printed, there are a few
+repeats look and sound differently when played and when printed, there are a few
 different variants of repeats.
 
 description(
 dit(unfolded) repeated music is fully written (played) out.  Useful
 for  MIDI output.
 dit(volta)  This is the normal notation: repeats are not
-written out, but alternative endings (voltas), are printed, one after
-the other.
+written out, but alternative endings (voltas), are printed, left to right.
 dit(folded) alternative endings are written stacked, which is useful
 for lyrics.
 )  
 
-The syntax for repeats is code(\repeat )var(variant)var(
-repeatcount)\var(repeatbody).  If you have alternative endings, you
-may add code(\alternative)keyindex(alternative)code({ )var(alternative1) var(alternative2)
-var(alternative3) .. code(}), where each var(alternative) is of type Music.
+The syntax for repeats is code(\repeat) var(variant) var(repeatcount)
+var(repeatbody).  If you have alternative endings, you may add
+code(\alternative)keyindex(alternative)code( { )var(alternative1)
+var(alternative2) var(alternative3) .. code( }), where each
+var(alternative) is a  Music expression.
 
 Normal notation repeats are used like this:
 mudela(fragment,verbatim,center)(
@@ -1199,7 +1230,7 @@ mudela(fragment,verbatim)(
 }})
 
 If you don't give enough alternatives for all of the repeats, then the
-first alternative is assumed to be repeated enough to equal to
+first alternative is assumed to be repeated often enough to equal the
 specified number of repeats.  
 mudela(fragment,verbatim)(
 \context Staff { \relative c'{
@@ -1210,115 +1241,59 @@ mudela(fragment,verbatim)(
 
 
 
-It is possible to nest code(\repeat).  This is not entirely supported,
+It is possible to nest code(\repeat).  This is not entirely supported:
 the notes will come be in the right places, but the repeat bars will
 not.
 
-
-
-subsubsect(Relative Pitch Specification)cindex(Relative Pitch Specification)
-label(relative)
-
-One can easily get confused by the large numbers of octave changing
-marks in the music, and it is easy to accidentally put a pitch in the
-wrong octave.   A much better way of specifying a
-note's octave is `the relative octave' mode.
-
-The syntax for relative mode is code(\relative)keyindex(relative)var( startpitch )(var
-musicexpr).
-
-The octave of notes that appear in var(musicexpr) are calculated as
-follows: when no octave changing marks are used, the basic interval
-between this and the last note is always taken to be a fourth or
-less.footnote(The interval is determined without regard accidentals.
-A code(fisis) following a code(ceses) will be put above the
-code(ceses)) The octave changing marks code(') and code(,) can then be
-added to raise or lower the pitch by an extra octave..  Upon entering
-relative mode, an absolute starting pitch must be specified that will
-act as the predecessor of the first note of the following music.
-
-Entering scales is straightforward in relative mode.
-
-mudela(fragment,verbatim,center)(
-\relative c' { c d e f g a b c c, }
-)
-
-and octave changing marks are used for intervals greater than a fourth.
-
-mudela(fragment,verbatim,center)(
-\relative c'' { c g c f, c' a,, e''' }
-)
-
-When the preceding item is a chord, the first note of the chord is used to
-determine the first note of the next chord.  But other notes within the second
-chord are determined by looking at the immediately preceding note.  
-
-mudela(fragment,verbatim,center)(
-\relative c' { c <c e g> 
-    <c' e g> <c, e' g> }
-) 
-
-The pitch after the code(\relative) contains a notename. To parse the
-pitch as a notename, you have to be in note mode, so there must be a
-surrounding code(\notes)keyindex(notes) keyword (which is not shown here).
-
-The relative conversion will not affect sections in its argument that
-contain code(\transpose) or code(\relative).  If you want transposed
-music within a code(\relative), you must place an additional
-code(\relative) inside the code(\transpose).
-
-You are strongly recommended to use relative pitch mode: it is less
-typing, less error-prone and more readable.
 
 
 
 subsect(Tranposition of Pitches)cindex(Tranposition of Pitches)
 label(transpose)
 
-With code(\transpose)keyindex(transpose) a music expression can be transposed.
+A music expression can be transposed with code(\transpose)keyindex(transpose).
 The syntax is code(\transpose) var(pitch) var(musicexpr)
-
-Middle C is tranposed to var(pitch).  If it appears inside
-code(\relative)keyindex(relative), then any notes specified for transposition
-should be specified inside another code(\relative).  See Section
-ref(transpose).
+This means that middle C in var(musicexpr) is tranposed to var(pitch). 
 
 code(\transpose) distinguishes between enharmonic pitches: both
 code(\transpose cis') or code(\transpose des') will transpose up half
 a tone.  The first version will print sharps and the second version
 will print flats.    COMMENT(
 
-)mudela(fragment,verbatim,center)(
+)mudela(fragment,verbatim)(
 \context Staff {
   \clef "F"; { \key e; c d e f } \clef "G";
   \transpose des'' { \key e; c d e f }
   \transpose cis'' { \key e; c d e f } }
 )
 
-If you want to use both code(\transpose) and code(\relative), then you
-must use code(\transpose) first.  Any code(\relative) keywords that
-are outside the code(\transpose) have no effect on notes that appear
-inside the code(\transpose).
 
+If you want to use both code(\transpose) and code(\relative), then you
+must use code(\transpose) first.  code(\relative) will have no effect
+music that appears inside a code(\transpose).
 
  
 subsect(Automatic lyric durations)cindex(Automatic lyric durations)
 
 If you have lyrics that are set to a melody, you can import the rhythm
-of that melody into the lyrics using
-code(\addlyrics)keyindex(addlyrics).
-The syntax for this is
-code(\addlyrics)var( musicexpr1 musicexpr2).  This means that both
-var(musicexpr1) and var(musicexpr2) are interpreted, but that every
-non-command atomic music expression (``every syllable'') in
-var(musicexpr2) is interpreted using timing of var(musicexpr1).
+of that melody into the lyrics using code(\addlyrics).
+keyindex(addlyrics) The syntax for this is code(\addlyrics)
+var(musicexpr1 musicexpr2).  This means that both var(musicexpr1) and
+var(musicexpr2) are interpreted, but that every non-command atomic
+music expression (``every syllable'') in var(musicexpr2) is
+interpreted using timing of var(musicexpr1).
+
+If the property code(automaticMelismata) is set in the context of
+var(musicexpr1), then no lyrics will be put on slurred and tied notes.
 
 Example
 COMMENT(
 
 )mudela(verbatim,fragment)(
 	\addlyrics
-		\transpose c'' { c4 d8. e16 f2 }
+		\transpose c'' {
+			\property Voice.automaticMelismata = "1"
+			c8 () cis d8. e16 f2 }
 		\context Lyrics \lyrics { do4 re mi fa }
 )COMMENT(
 
@@ -1328,12 +1303,12 @@ undesired effects when using multiple stanzas: COMMENT(
 
 )mudela(verbatim,fragment)(
 	\addlyrics
-		\transpose c'' { c4 d8. e16 f2 }
+		\transpose c'' { c8 () cis d8. e16 f2 }
 		\context Lyrics \lyrics < { do4 re mi fa }
 					  { do8 re mi fa } >
 )
 
-It is valid (but probably not very useful) to use notes i.s.o. lyrics
+It is valid (but probably not very useful) to use notes in stead of  lyrics
 for var(musicexpr2). COMMENT(
 
 mudela(verbatim,fragment)(
@@ -1358,12 +1333,12 @@ COMMENT(
 
 )Can be interpreted as making a string identifier code(\foo)
 containing code("bar"), or a music identifier code(\foo) containing
-the lyric `bar'.
+the syllable `bar'.
 
 it()The assignment
 verb( foo = -6
-)Can be interpreted as making a int identifier containing -6, or a
-request identifier containing the fingering `6' (with neutral direction).
+)Can be interpreted as making a integer identifier containing -6, or a
+Request identifier containing the fingering `6' (with neutral direction).
 
 it()
 If you do a nested repeat,
@@ -1372,7 +1347,7 @@ verb(
   \repeat ..
   \alternative
   ) then it is ambiguous to which code(\repeat) the code(\alternative)
-  belongs. This is the classic if-then-else dillema.  It may be solved
+  belongs. This is the classic if-then-else dilemma.  It may be solved
   by using braces.
 
 it()
@@ -1384,24 +1359,25 @@ sect(Notation conversion specifics)
 subsect(Automatic Beam Generation)cindex(Automatic Beam Generation)
 label(autobeam)
 
-By default, Lilypond will generate beams automatically.  This feature can be
-disabled by setting the indexandcode(Voice.beamAuto) property to 0.  It can be
-overridden for specific cases by specifying explicit beams as
-described in Section ref(manualbeam).  
+By default, Lilypond will generate beams automatically.  This feature
+can be disabled by setting the indexandcode(Voice.noAutoBeaming)
+property to 1.  It can be overridden for specific cases by specifying
+explicit beams as described in Section ref(manualbeam).
 
-In order to decide how to generate beams, Lilypond uses a large number
-of Voice properties, whose default values appear in
-file(auto-beam-settings.ly).  In general, beams can begin anywhere,
-but their ending location is significant.  Beams can end on a beat, or
-at durations specified by the indexandcode(Voice.beamAutoEnd) property.  To
-end beams every quarter note, for example, you could use set
-indexandcode(Voice.beamAutoEnd) equal to code("1/4").  To end beams every
-three eighth notes you would set it to code("3/8").  The same syntax
-can be used to specify beam starting points using indexandcode(Voice.beamAutoBegin).
+A large number of Voice properties are used to decide how to generate
+beams.  Their default values appear in file(auto-beam-settings.ly).
+In general, beams can begin anywhere, but their ending location is
+significant.  Beams can end on a beat, or at durations specified by
+the indexandcode(Voice.beamAutoEnd) property.  To end beams every
+quarter note, for example, you could use set
+indexandcode(Voice.beamAutoEnd) equal to code("1/4").  To end beams at
+every three eighth notes you would set it to code("3/8").  The same
+syntax can be used to specify beam starting points using
+indexandcode(Voice.beamAutoBegin).
 
 To allow different settings for different time signatures, these
 property names can start with code(time)var(N)code(_)var(M) to
-restrict the definition to var(N)code(/)code(M) time.  So for example,
+restrict the definition to var(N)code(/)code(M) time.  For example,
 to specify beams ending only for 6/8 time you would use the property
 code(Voice.time6_8beamAutoEnd).  To allow different endings for notes
 of different durations, the duration can be tacked onto the end of the
@@ -1412,7 +1388,7 @@ subsect(Printing chord names)cindex(chord names)cindex(chords)cindex(printing!ch
 
 For displaying printed chord names, use the indexandcode(ChordNames) context.  
 The chords may be entered either using the notation described above,
-or directly using angle brackets. 
+or directly using simultaneous music. 
 mudela(fragment,verbatim)(
 <
   \context ChordNames { \chords{ a b c} \notes{ < d f g >  < e g b > } }
@@ -1429,7 +1405,7 @@ mudela(fragment,verbatim,center)(
   \context Thread \notes{ < e'1 g' c'' > }
 >)
 If you want inversions to be recognized, you must set the property
-indexandcode(Score.chordInversion): 
+indexandcode(ChordNames.chordInversion): 
 mudela(fragment,verbatim,center)(
 <
   \property Score.chordInversion = 1
@@ -1443,13 +1419,13 @@ mudela(fragment,verbatim,center)(
 subsect(Printing lyrics)cindex(Lyrics)cindex(printing!lyrics)
 label(lyricprint)
 
-In order to instruct LilyPond to write lyrics, the syllables must be
-interpreted within a code(Lyrics) context cindex(context!Lyrics).
+Lyric syllables must be interpreted within a code(Lyrics) context
+cindex(context!Lyrics) for printing them.
 
 Here is a full example: 
 mudela(verbatim)(\score{
-  <  \notes \transpose c'' {c d e c | c d e c | e f g'2 | 
-                              e'4 f g'2 \bar "|."; }
+  <  \notes \transpose c'' {c d e c | c d e c | e f g2 | 
+                              e4 f g2 \bar "|."; }
      \context Lyrics \lyrics { 
               Va-4 der Ja- cob Va- der Ja- cob
               Slaapt gij nog?2 Slaapt4 gij nog?2  }
@@ -1457,29 +1433,33 @@ mudela(verbatim)(\score{
 })
 
 
-When one word is attached to many notes, you may 
-want a  continuous line after the lyric to show  this.   To achieve
+ You may 
+want a  continuous line after the syllables to show melismata.   To achieve
 this effect, add a code(__) lyric as a separate word 
 after the lyric to be extended.  
 This will create
 an extender, a line  that extends over the entire duration of 
 the lyric.  This line will run all the way to the start of the next
 lyric, so you may want to shorten it by using a blank lyric.  
-mudela(verbatim)(\score{
+COMMENT(
+
+)mudela(verbatim)(\score{
 < \notes \relative c''{ 
      a4()b()c()d c()d()b()a c()d()b()a }
    \context Lyrics \lyrics {
      foo1 __  bar2. __ _4 baz1 __ }
-> })
+> })COMMENT(
+
+)
      
 If you want to have hyphens centered between syllables (rather than attached
-to the end of the first syllable) you can use the special code(--) lyric as
+to the end of the first syllable) you can use the special code(-)code(-) lyric as
 separate word between syllables. This will result in a hyphen whose length
 varies depending on the space between syllables, and centered between the
 syllables. For example: 
 mudela(verbatim)(\score{
-  <  \notes \transpose c'' {c d e c | c d e c | e f g'2 | 
-                              e'4 f g'2 \bar "|."; }
+  <  \notes \transpose c'' {c d e c | c d e c | e f g2 | 
+                              e4 f g2 \bar "|."; }
      \context Lyrics \lyrics { 
               Va4  -- der Ja -- cob Va -- der Ja -- cob
               Slaapt gij nog?2 Slaapt4 gij nog?2  }
@@ -1506,34 +1486,35 @@ it() What is the current key signature, time signature, point within
 the measure, etc.
 )
 
-Contexts are grouped hierarchically: a Voice context is contained in a
-Staff context (because a staff can contain multiple voices at any
-point), a Staff context is contained in a Score, StaffGroup,
-ChoirStaff context (because these can all contain multiple Staffs.)
+Contexts are grouped hierarchically: a code(Voice) context is
+contained in a code(Staff) context (because a staff can contain
+multiple voices at any point), a code(Staff) context is contained in a
+code(Score), code(StaffGroup) or code(ChoirStaff) context (because these
+can all contain multiple staffs.)
 
-The Contexts associated with sheet music output are called notation
-contexts, those with associated with sound output are called playing
-contexts.
+Contexts associated with sheet music output are called notation
+contexts, those for sound output are called playing contexts.
 
-Context are created either automatically, or manually.
-Initially, the top level music expression is reported to the top level
-context (the Score context). 
+Contexts are created either  manually or automatically.
+Initially, the top level music expression is interpreted by the top level
+context (the code(Score) context). 
 When a atomic music expression (a note, a rest, a code(\bar),
-code(\time) command), a nested set of context is created that can process these
+code(\time) command), a nested set of contexts is created that can process these
 atomic expressions, so in this example,COMMENT(
 
 )verb(\score { \notes < c4 > })COMMENT(
 
-)the sequential music, code({ c4 }) is interpreted by Score context.
+)the sequential music, code({ c4 }) is interpreted by code(Score) context.
 When the note code(c4) itself is interpreted, a set of contexts is needed
-that will accept notes. The default for this is a Voice context,
-contained in a Staff context.
+that will accept notes. The default for this is a code(Voice) context,
+contained in a code(Staff) context.  Creation of  these contexts
+results in the staff being printed.
 
 subsect(Context selection)
 label(contextselection)
 
 You can also create contexts manually, and you probably have to do so
-if you want to typeset complicated multiple voice/multiple staff
+if you want to typeset complicated multiple part
 material.  If a code(\context )var(name musicexpr) expression is
 encountered during the interpretation phase, the var(musicexpr)
 argument will be interpreted with a context of type var(name).  If you
@@ -1543,7 +1524,9 @@ If a context of the specified type and name can not be found, a new
 one is created.  For example,
 COMMENT(
 
-)verb(\score { \notes \relative c'' { c4 <d4 \context Staff = "another" e4> f} })COMMENT(
+)mudela(verbatim)(\score {
+  \notes \relative c'' {
+    c4 <d4 \context Staff = "another" e4> f } })COMMENT(
 
 ) in this example, the code(c) and code(d) are
 printed on the default staff.  For the code(e), a context Staff called
@@ -1555,7 +1538,7 @@ code(another) is removed.
 
 Almost all music expressions inherit their interpretation context from
 their parent. In other words, suppose that the syntax for a music
-expression is code(\keyword) var(musicexpr1) var(musicexpr2) dots().
+expression is code(\keyword) var(musicexpr1) var(musicexpr2) ellipsis().
 When the interpretation of this music expression starts, the context
 for var(musicexpr1), var(musicexpr2), etc. that of the total
 expression.
@@ -1565,25 +1548,25 @@ verb(\score { \notes \relative c'' { c4 d4 e4 }})
 result in this?
 mudela()(\score { \notes \relative c'' { <c4> <d4> <e4> }})
 
-For code(c4) a default Staff (with contained Voice) context is
+For the code(c4) a default code(Staff) (with contained code(Voice)) context is
 created.  After the code(c4), ends no music refers to this default
 staff, so it would be ended, with the result shown.  To prevent this
 inconvenient behavior, the context to which the sequential music
 refers is adjusted during the interpretation.  So after the code(c4)
-ends, the context of the sequential music is also the default Voice
+ends, the context of the sequential music is also the default code(Voice)
 context.  The code(d4) gets interpreted in the same context as code(c4)
 
 
 subsect(Predefined contexts)
 
-These are the contexts that come presupplied with LilyPond.
-They are defined in init file(ly/engraver.ly).
+These are the contexts are supplied with the package.  They are
+defined in init file(ly/engraver.ly).
 
 description(
 
 dit(code(Grace))indexcode(Grace) The context for handling grace notes, it is
   instantiated automatically when you use code(\grace).  It is a
-  "embedded" miniature of the Score context.  Since this context needs
+  `embedded' miniature of the Score context.  Since this context needs
   special interaction with the rest of LilyPond, you should not
   explicitly instantiate it.
 
@@ -1687,8 +1670,8 @@ dit(code(textStyle))indexcode(textStyle) Set the font for lyrics.  The available
 choices are code(roman), code(italic), code(bold), code(large),
 code(Large), code(typewriter), and code(finger).  The code(finger)
 font can only display numbers.  Note also that you must be careful
-when using code(\property) in Lyrics mode.  Because of the way strings
-are parsed, either put quotes around the arguments to code(\property)
+when using code(\property) in Lyrics mode,  because of the way strings
+are parsed.   Either put quotes around the arguments to code(\property)
 or be sure to leave a space on both sides of the dot.
 
 
@@ -1726,7 +1709,7 @@ subsubsubsect(Voice properties)cindex(properties!Voice)
 description(  
 
 dit(code(stemLength))indexcode(stemLength) Set length of stems.  Unit is 
-code(interline)/2, so stemLength defaults to 7.
+code(interline)/2, so code(stemLength) defaults to 7.
 
 dit(code(stemLeftBeamCount))indexcode(stemLeftBeamCount) Specify the number of beams to draw on
 the left side of the next note.   Overrides automatic beaming.  The
@@ -1736,9 +1719,8 @@ dit(code(stemRightBeamCount))indexcode(stemRightBeamCount) Specify the number of
 the right side of the next note.   Overrides automatic beaming.  The
 value is only used once, and then it is erased.
 
-dit(code(beamAuto))indexcode(beamAuto) If set to 1 then beams are generated
-automatically.  If set to zero then no beams will be automatically
-generated.  The default value is 1.  
+dit(code(noAutoBeaming))indexcode(beamAuto) If set to 1 then beams are
+not generated automatically.
 
 dit(code(beamAutoEnd))indexcode(beamAutoEnd) Specifies when automatically generated beams
 can end.  See Section ref(autobeam).
@@ -1749,11 +1731,11 @@ can start.  See Section ref(autobeam).
 dit(code(textEmptyDimension))indexcode(textEmptyDimension) If set to 1 then text placed above or
 below the staff is assumed to have zero width.  
 
-dit(code(beamquantisation))indexcode(beamquantisation) Set to code(\none) for no quantization.
-Set to code(\normal) to quantize position and slope.  Set to
-code(\traditional) to avoid wedges.  These three settings are
-available via code(\beamposfree), code(\beamposnormal), and
-code(\beampostraditional).
+dit(code(beamquantisation))indexcode(beamquantisation) Set to
+code(\none) for no quantization.  Set to code(\normal) to quantize
+position and slope.  Set to code(\traditional) to avoid wedges.  These
+three settings are available via code(\beamposfree),
+code(\beamposnormal), and code(\beampostraditional).
 
 dit(code(beamslopedamping))indexcode(beamslopedamping) Set to code(\none) for undamped beams.
 Set to code(\normal) for damped beams.  Set to code(\infinity) for
@@ -1765,8 +1747,7 @@ dit(code(restStyle))indexcode(restStyle) Change the layout of rests shorter than
 Currently, the standard layout code(restStyle="") and mensural notation
 code(restStyle="mensural") are available.
 
-dit(code(midiInstrument))indexcode(midiInstrument) Sets the instrument for MIDI output.  This
-property name must be quoted because of the embedded underscore.  If
+dit(code(midiInstrument))indexcode(midiInstrument) Sets the instrument for MIDI output.    If
 this property is not set then LilyPond will use the code(instrument)
 property.  This must be set to one of the strings on the list of MIDI
 instruments that appears in Section ref(midilist).  If you use a
@@ -1784,8 +1765,7 @@ beams, slurs, and ties.  Set to code(\down) to force them down,
 code(\up) to force them up, or code(\free) to let LilyPond decide.
 This can be used to distinguish between voices on the same staff.  The
 code(\stemdown), code(\stemup), and code(\stemboth) identifiers set
-this property.  See also the identifiers code(\voiceone),
-code(\voicetwo), code(\voicethree) and code(\voicefour).
+this property.
 
 dit(code(slurVerticalDirection))indexcode(slurVerticalDirection) Set to code(\free) for free choice of slur
 direction, set to code(\up) to force slurs up, set to code(\down) to
@@ -1804,14 +1784,13 @@ dit(code(horizontalNoteShift))indexcode(horizontalNoteShift) Enable LilyPond to 
 horizontally if they collide with other notes.  This is useful when
 typesetting many voices on one staff.  The identifier code(\shift) is
 defined to enable this.  Traditionally, the outer chords (the upmost
-and downmost voices), should have no horizontalNoteShift. Voice s 
+and downmost voices), should have no code(horizontalNoteShift). 
 
 
-dit(code(forceHorizontalShift))indexcode(forceHorizontalShift) Force horizontal shift for collision
-resolution.  It overrides automatic collision resolution.
-This will only work if the context also has its stem direction and
-horizontalNoteShift property set. The value is the shift amount
-expressed in code(note_width), as set in the paper section.
+dit(code(forceHorizontalShift))indexcode(forceHorizontalShift) Force
+horizontal shift for collision resolution.  It overrides automatic
+collision resolution.  The value is the shift amount expressed in
+code(note_width), as set in the paper section.
 
 dit(code(dynamicDir))indexcode(dynamicDir) Determines location of dynamic marks.  Set to
 code(\up) to print marks above the staff; set to code(\down) to print
@@ -1840,9 +1819,8 @@ dit(code(tupletVisibility))indexcode(tupletVisibility) Determines whether tuplet
 labelled.  Setting to 0 shows nothing; setting to 1 shows a number;
 setting to 2 shows a number and a bracket if there is no beam; setting
 to 3 shows a number, and if there is no beam it adds a bracket;
-setting to 4 shows both a number and a bracket unconditionally. The 
-code(pletoff) and code(pleton) identifiers set the property to 0 and 3, 
-respectively. 
+setting to 4 shows both a number and a bracket unconditionally.
+
 
 dit(code(markScriptPadding))indexcode(markScriptPadding) Determines the extra space added between
 the mark and the closest staff line or note.
@@ -1873,8 +1851,9 @@ default?  (Doesn't seem to do anything.)
 dit(code(barNumberDirection))indexcode(barNumberDirection) Set to code(\up) or code(\down) to put
 bar numbers above or below the staff.  
 
-dit(code(barNumberHangOnClef))indexcode(barNumberHangOnClef) Set to 1 to cause bar numbers to appear
-above or below the clef instead of on the bar line.
+dit(code(barNumberHangOnClef))indexcode(barNumberHangOnClef) Set to 1
+to cause bar numbers to appear above or below the clef instead of on
+the bar line. This property is deprecated.  Do not use.
 
 dit(code(barNumberScriptPadding))indexcode(barNumberScriptPadding) Sets extra space between the bar
 number and the bar it labels.
@@ -1904,7 +1883,8 @@ dit(code(numberOfStaffLines))indexcode(numberOfStaffLines) Specifies the number 
 default is 5. 
 
 dit(code(postBreakPadding))indexcode(postBreakPadding) Extra space in points to be added after
-the clef, time signature and key signature on the staff.
+the clef, time signature and key signature on the staff. Deprecated,
+do not use.
 
 dit(code(barAtLineStart))indexcode(barAtLineStart) Set to 1 to produce a bar line after the
 clef at the start of each line (but not at the beginning of the
@@ -1944,17 +1924,18 @@ be different and is specified independently: code(\keysignature bes
 fis').  The default value is 1.  Can be set to zero with
 code(\specialkey) or reset to 1 with code(\normalkey).
 
-dit(code(instrument) and code(instr)) If code(Staff_margin_engraver)
-cindex(instrument)cindex(instr)
+dit(code(instrument)) and code(instr) If code(Staff_margin_engraver)
+cindex(instrument)cindex(instr)cindex(Staff_margin_engraver)
 is added to the Staff translator, then the code(instrument) property
 is used to label the first line of the staff and the code(instr)
 property is used to label subsequent lines.  If the
 code(midiInstrument) property is not set then code(instrument) is
 used to determine the instrument for MIDI output.
 
-dit(code(createKeyOnClefChange))indexcode(createKeyOnClefChange) Set to a nonempty string if you want key
-signatures to be printed when the clef changes.  Set to the empty string (the
-default) if you do not want key signatures printed.
+dit(code(createKeyOnClefChange))indexcode(createKeyOnClefChange) Set
+to a nonempty string if you want key signatures to be printed when the
+clef changes.  Set to the empty string if you do not want key
+signatures printed.
 
 dit(code(timeSignatureStyle))indexcode(timeSignatureStyle) Changes the default two-digit layout
    for time signatures. The following values are recognized:
@@ -2039,9 +2020,12 @@ dit(code(skipBars))indexcode(skipBars) Set to 1 to skip the empty bars that are 
 by multimeasure notes and rests.  These bars will not appear on the
 printed output.  Set to zero (the default) to expand multimeasure
 notes and rests into their full length, printing the appropriate
-number of empty bars so that synrchonization with other voices is
-preserved.  COMMENT(meaning of "skip" here seems to be different from
-the meaning used for the keyword \skip.)
+number of empty bars so that synchronization with other voices is
+preserved.
+mudela(fragment,verbatim,center)(
+r1 r1*3 R1*3\property Score.skipBars=1 r1*3 R1*3
+)
+
 )
 
 subsubsubsect(ChordNamesVoice properties)cindex(properties!ChordNamesVoice)
@@ -2073,7 +2057,7 @@ information on context definitions.
 
 it() A margin shape declaration. The syntax is code(\shape)
 var(indent1)code(,) var(width1)code(,) var(indent2)code(,) var(width2)
-... code(;)
+ellipsis() code(;)
 indexcode(\shape)
 Each pair of var(indent) and var(width) values is a
 dimension specifying how far to indent and how wide to make the line.
@@ -2120,14 +2104,13 @@ subsect(Paper variables)cindex(Paper variables)
 label(papervars)
 
 There are a large number of paper variables that are used to control
-details of the layout. These variables control layout defaults for the
-entire score.  Usually you will not want to change these
-variables; they are set by default to vaules that depend on the font
-size in use.   The values are used by the graphic objects while
-formatting the score; they are therefore implementation dependent.
-Most variables are accompanied by documentation in the
-initalization file file(params.ly) or file(paperSZ.ly), where code(SZ)
-is the staff height in points.
+details of the layout. These variables control the defaults for the
+entire score.  Usually, they do not have to be changed; they are 
+by default set to values that depend on the font size in use.  The values
+are used by the graphic objects while formatting the score; they are
+therefore implementation dependent.  Most variables are accompanied by
+documentation in the initalization file file(params.ly) or
+file(paperSZ.ly), where code(SZ) is the staff height in points.
 
 Nevertheless, here are some variables  you may want to use or change:
 
@@ -2139,7 +2122,7 @@ staff lines, calculated from the center of the lines.  You should use
 either this or code(rulethickness) as a unit for distances you modify.
   
 dit(code(linewidth))indexcode(linewidth) Sets the width of the
-lines.  If it is set to -1.0, then a single unjustified line is
+lines.  If  set to -1.0, then a single unjustified line is
 produced.
 
 dit(code(output))indexcode(output) Specifies an alternate name for
@@ -2148,22 +2131,19 @@ you specify.
 
 dit(code(rulethickness))indexcode(rulethickness) Determines thickness of staff lines and bars. 
 
-code(castingalgorithm)indexcode(castingalgorithm)0
-The algorithm to use for breaking lines.
-Choices are code(\Gourlay)keyindex(Gourlay) for a TeX() like dynamic
-programming algorithm, and code(\Wordwrap)keyindex(Wordwrap) for a
-simple algorithm.  Gourlay breaking looks much better, but takes em(a
-lot) more resources.  Wordwrap leaves really spaced out lines at the
-end
-
-
+code(castingalgorithm)indexcode(castingalgorithm) The algorithm to use
+for breaking lines.  Choices are code(\Gourlay)keyindex(Gourlay) for a
+TeX() like dynamic programming algorithm, and
+code(\Wordwrap)keyindex(Wordwrap) for a simple algorithm.  Gourlay
+breaking looks much better, but takes a lot more resources.  Wordwrap
+leaves loosely spaced lines at the end
 
 )
 
 
 
-subsect(Context definitions)cindex(context definition)
-label(translators)
+subsect(Context definitions)
+label(contextdefs)cindex(context definition)
 
 A notation contexts is defined by the following information
 
@@ -2205,9 +2185,7 @@ it() code(\consists) var(engravername)code(;)
   
 it() code(\consistsend) var(engravername)code(;)
   Analogous to code(\consists), but makes sure that var(engravername)
-  is always added to the end of the list of engravers. Useful if this
-  context is to be modified with identifiers and code(\remove) later
-  on.
+  is always added to the end of the list of engravers. 
 
     Some engraver types need to be at the end of the list; this
     insures they are put there, and stay there, if a user adds or
@@ -2353,56 +2331,6 @@ dit(code(Vertical_align_engraver))indexcode(Vertical_align_engraver)
 )
 
 
-sect(Pre-defined Identifiers)cindex(Pre-defined Identifiers)
-label(ident)
-
-Various identifiers are defined in the initialization files to
-provide shorthands for some settings.  
-
-description(
-dit(code(\break))keyindex(break) Force a line break in music by using a large
-argument for the keyword code(\penalty). 
-dit(code(\center))keyindex(center) Used for setting textalignment property.  Is set to 0.
-dit(code(\down))keyindex(down) Used for setting direction setting properties.  Is
-equal to -1.  
-dit(code(\free))keyindex(free) Used for setting direction setting properties.  Is
-equal to 0.  
-dit(code(\infinity))keyindex(infinity) Used for setting the Score.beamslopedamping
-property.  Is actually equal to 10000.  
-dit(code(\left))keyindex(left) Used for setting textalignment property.  Is equal to -1.
-dit(code(\nobreak))keyindex(nobreak) Prevent a line break in music by using a large
-negative argument for the keyword code(\penalty). 
-dit(code(\none))keyindex(none) Used for setting Score.beamslopedamping and
-Score.beamquantisation properties.  Is equal to 0.
-dit(code(\normal))keyindex(normal) Used for setting Score.beamslopedamping and
-Score.beamquantisation properties.  Is equal to 1.
-dit(code(\normalkey))keyindex(normalkey) Select normal key signatures where each octave
-has the same key signature.  This sets the Staff.keyoctaviation property.
-dit(code(\right))keyindex(right) Used for setting textalignment property.  Is set to 1.
-dit(code(\shiftoff))keyindex(shiftoff) Disable horizontal shifting of note heads that collide.  
-Sets the Voice.horizontalNoteShift property.
-dit(code(\shifton))keyindex(shifton) Enable note heads that collide with other note heads
-to be shifted horiztonally.  Sets the Voice.horizontalNoteShift property.
-dit(code(\slurboth))keyindex(slurboth) Allow slurs to be above or below notes.  This
-sets the Voice.slurVerticalDirection property. 
-dit(code(\slurdown))keyindex(slurdown) Force slurs to be below notes. This sets the
-Voice.slurVerticalDirection property. 
-dit(code(\slurup))keyindex(slurup) Force slurs to be above notes.  This sets the
-Voice.slurVerticalDirection property.  
-dit(code(\specialkey))keyindex(specialkey) Allow keys signatures do differ in different
-octaves.  This sets the Staff.keyoctaviation property.  
-dit(code(\stemboth))keyindex(stemboth) Allow stems, beams, and slurs to point either
-direction.  This sets the Voice.verticalDirection property. 
-dit(code(\stemdown))keyindex(stemdown) Force stems, beams, and slurs to point down.
-This sets the Voice.verticalDirection property. 
-dit(code(\stemup))keyindex(stemup) Force stems, beams and slurs to point up.  This
-sets the Voice.verticalDirection property. 
-dit(code(\traditional))keyindex(traditional) Used for setting the 
-Score.beamquantisation property.  Is equal to 2.  
-dit(code(\up))keyindex(up) Used for setting various direction properties.  Is
-equal to 1. 
-)
-
 
 
 sect(Sound output)
@@ -2424,14 +2352,14 @@ subsect(Context definitions) cindex(context definitions)
 
 Context definitions follow the precisely the same syntax as within the
 \paper block.  Translation modules for sound are called performers.
-The contexts for MIDI output are defined in file(performer.ly).
+The contexts for MIDI output are defined in file(ly/performer.ly).
 
 
 subsect(MIDI Instrument Names)cindex(MIDI Instrument Names)
 label(midilist)
 
 The MIDI instrument name is set by the indexandcode(Staff.midiInstrument)
-property or, if that property is not set, the ndexandcode(Staff.instrument)
+property or, if that property is not set, the indexandcode(Staff.instrument)
 property.  The instrument name should be chosen from this list.  If
 string does not exactly match one from this list then LilyPond uses
 the default piano.
@@ -2505,6 +2433,54 @@ dit(code(Swallow_performer))indexcode(Swallow_performer)
 )
 
 
+sect(Pre-defined Identifiers)cindex(Pre-defined Identifiers)
+label(ident)
+
+Various identifiers are defined in the initialization files to
+provide shorthands for some settings.  Most of them are in file(ly/declarations.ly).
+
+description(
+dit(code(\break))keyindex(break) Force a line break in music by using a large
+argument for the keyword code(\penalty). 
+dit(code(\center))keyindex(center) Used for setting direction  properties.  Equals 0.
+dit(code(\down))keyindex(down) Used for setting direction setting properties.  Is
+equal to -1.  
+dit(code(\free))keyindex(free) Used for setting direction setting properties.  Is
+equal to 0.  
+dit(code(\left))keyindex(left) Used for setting textalignment property.  Is equal to -1.
+dit(code(\nobreak))keyindex(nobreak) Prevent a line break in music by using a large
+negative argument for the keyword code(\penalty). 
+dit(code(\none))keyindex(none) Used for setting code(Score.beamslopedamping) and
+code(Score.beamquantisation) properties.  Is equal to 0.
+dit(code(\normal))keyindex(normal) Used for setting code(Score.beamslopedamping) and
+code(Score.beamquantisation) properties.  Is equal to 1.
+dit(code(\normalkey))keyindex(normalkey) Select normal key signatures where each octave
+has the same key signature.  This sets the code(Staff.keyoctaviation) property.
+dit(code(\right))keyindex(right) Used for setting textalignment property.  Is set to 1.
+dit(code(\shiftoff))keyindex(shiftoff) Disable horizontal shifting of note heads that collide.  
+Sets the code(Voice.horizontalNoteShift) property.
+dit(code(\shifton))keyindex(shifton) Enable note heads that collide with other note heads
+to be shifted horiztonally.  Sets the code(Voice.horizontalNoteShift) property.
+dit(code(\slurboth))keyindex(slurboth) Allow slurs to be above or below notes.  This
+sets the code(Voice.slurVerticalDirection) property. 
+dit(code(\slurdown))keyindex(slurdown) Force slurs to be below notes. This sets the
+code(Voice.slurVerticalDirection) property. 
+dit(code(\slurup))keyindex(slurup) Force slurs to be above notes.  This sets the
+code(Voice.slurVerticalDirection) property.  
+dit(code(\specialkey))keyindex(specialkey) Allow keys signatures do differ in different
+octaves.  This sets the code(Staff.keyoctaviation) property.  
+dit(code(\stemboth))keyindex(stemboth) Allow stems, beams, and slurs to point either
+direction.  This sets the code(Voice.verticalDirection) property. 
+dit(code(\stemdown))keyindex(stemdown) Force stems, beams, and slurs to point down.
+This sets the code(Voice.verticalDirection) property. 
+dit(code(\stemup))keyindex(stemup) Force stems, beams and slurs to point up.  This
+sets the code(Voice.verticalDirection) property. 
+dit(code(\traditional))keyindex(traditional) Used for setting the 
+code(Score.beamquantisation) property.  Is equal to 2.  
+dit(code(\up))keyindex(up) Used for setting various direction properties.  Is
+equal to 1. 
+)
+
 
 
 
@@ -2537,14 +2513,6 @@ as well.  Subsequent code(\paper) keywords will produces sequentially
 numbered file names.  Several files can be specified; they will each
 be processed independently.footnote(Not entirely true: the status of
 GUILE is kept).
-
-sect(Future improvements)cindex(Future improvements)
-
-Chord tremolos will be done with a code(\repeat) variant in
-future versions.  
-
-The syntax of repeats is not entirely crystallised. You can expect
-more variants,  better MIDI integration, better time handling.
 
 
 whenlatex(

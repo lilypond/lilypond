@@ -25,7 +25,7 @@ two = \notes\relative c{
 %     ly2dvi example-3
 %     xdvi example-3     # or your dvi viewer here
 %
-% For more elaborate examples see twinkle.ly, kortjakje.ly and mutopia/*.
+% For more elaborate examples see twinkle.ly, input/* and mutopia/*.
 %
 % A docmument on Mudela is under construction: Documentation/tex/mudela.doc
 % (available as .ps from the website too).

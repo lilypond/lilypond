@@ -126,7 +126,7 @@ void
 Slur_engraver::do_post_move_processing()
 {
   new_slur_req_l_arr_.clear();
-  if (get_property ("automaticMelismas",0).to_bool ())
+  if (get_property ("automaticMelismata",0).to_bool ())
     {
       set_melisma (slur_l_stack_.size ());
     }

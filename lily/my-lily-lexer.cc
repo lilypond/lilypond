@@ -52,7 +52,7 @@ static Keyword_ent the_key_tab[]={
   {"mm", MM_T},
   {"name", NAME},
   {"notenames", NOTENAMES},
-  {"notes" , NOTES},
+  {"notes", NOTES},
   {"partial", PARTIAL},
   {"paper", PAPER},
   {"penalty", PENALTY},

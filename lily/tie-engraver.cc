@@ -26,7 +26,7 @@ Tie_engraver::do_try_music (Music *m)
   if (Tie_req * c = dynamic_cast<Tie_req*> (m))
     {
       req_l_ = c;
-      if (get_property ("automaticMelismas",0).to_bool ())
+      if (get_property ("automaticMelismata",0).to_bool ())
 	{
 	  set_melisma (true);
 	}
@@ -188,7 +188,7 @@ Tie_engraver::do_pre_move_processing ()
 void
 Tie_engraver::do_post_move_processing ()
 {
-  if (get_property ("automaticMelismas",0).to_bool ())
+  if (get_property ("automaticMelismata",0).to_bool ())
     {
       set_melisma (false);
     }
