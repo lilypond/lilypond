@@ -180,7 +180,10 @@ def dump_lyrics (outf):
 		outf.write("    >\n    \\paper{}\n}\n")
 
 def dump_default_bar (outf):
-	outf.write ("\n\\property Score.defaultBarType=\"empty\"\n")
+	"""
+	Nowadays abc2ly outputs explicits barlines (?)
+	"""
+ 	outf.write ("\n\\property Score.defaultBarType=\"empty\"\n")
 
 
 def dump_slyrics (outf):
