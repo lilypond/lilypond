@@ -212,7 +212,7 @@ Musical_pitch::print_smob (SCM s, SCM port, scm_print_state *)
   Musical_pitch  *r = (Musical_pitch *) gh_cdr (s);
      
   scm_puts ("#<Musical_pitch ", port);
-  scm_display (gh_str02scm (r->str().ch_C()), port);
+  scm_display (gh_str02scm ((char*)r->str().ch_C()), port);
   scm_puts (" >", port);
   
   return 1;

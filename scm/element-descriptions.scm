@@ -246,7 +246,7 @@
 		(molecule-callback . ,Text_item::brew_molecule)
 		(direction . 1)
 		(breakable . #t)
-		(font-family . number)
+		(font-family . roman)
 		(font-relative-size . 1)
 		(visibility-lambda . ,end-of-line-invisible)
 		(padding . 0.8)

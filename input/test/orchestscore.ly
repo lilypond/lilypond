@@ -1,4 +1,4 @@
-\version "1.3.96";
+\version "1.3.102";
 
 m = \notes \relative c''{
 
@@ -94,11 +94,9 @@ c1 | c2 c | c c | R1*5
     textheight = 260.\mm;
     \translator {
 	\OrchestralScoreContext
-	barNumberScriptPadding = 10;
+%	barNumberScriptPadding = 10;
     }
     \translator { \HaraKiriStaffContext
-        marginScriptPadding = 15.0;
-%        StaffMinimumVerticalExtent = #(cons -0.0 0.0)
     }
   }
 }
