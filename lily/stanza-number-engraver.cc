@@ -84,7 +84,7 @@ Stanza_number_engraver::create_text (SCM txt)
     {
       text_ = new Item (get_property ("StanzaNumber"));
       text_->set_grob_property ("text", txt);
-      announce_grob (text_,0);
+      announce_grob (text_, SCM_EOL);
     }
 }
 

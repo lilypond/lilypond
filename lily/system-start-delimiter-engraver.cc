@@ -77,7 +77,7 @@ System_start_delimiter_engraver::initialize ()
   delim_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 
 
-  announce_grob (delim_,0);
+  announce_grob (delim_, SCM_EOL);
 }
 
 void

@@ -105,7 +105,7 @@ Hyphen_engraver::create_grobs ()
       hyphen_p_ = new Spanner (get_property ("LyricHyphen"));
 
       Hyphen_spanner (hyphen_p_).set_textitem (LEFT, last_lyric_l_);
-      announce_grob (hyphen_p_, req_l_);
+      announce_grob(hyphen_p_, req_l_->self_scm());
     }
 }
 

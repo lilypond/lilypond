@@ -46,10 +46,10 @@ Score_engraver::make_columns ()
   
       command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
 
-      Grob_info i1 (command_column_l_, SCM_EOL);
+      Grob_info i1 (command_column_l_);
       i1.origin_trans_l_ = this;
 
-      Grob_info i2 (musical_column_l_, SCM_EOL);
+      Grob_info i2 (musical_column_l_);
       i2.origin_trans_l_ = this;
 
       announce_grob (i1);
@@ -124,7 +124,6 @@ Score_engraver::one_time_step ()
       process_music ();
       announces ();
     }
-
   
   stop_translation_timestep ();
   check_removal ();

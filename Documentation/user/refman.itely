@@ -1199,7 +1199,10 @@ c'4 \breathe d4
 
 @refbugs
 
-  Currently, only tick marks are supported, not comma style breath marks.
+The current layout of the default comma style breath marks
+could be improved and more optional symbols should be added to the
+font.
+
 
 
 @c .  {Tempo}
@@ -1553,9 +1556,15 @@ For everyday use, we recommend the identifiers @code{\cresc},
 @cindex diminuendo
 
 Dynamics are grobs of @internalsref{DynamicText} and
-@internalsref{Hairpin}. They are put together on
-@internalsref{DynamicLineSpanner} to align them vertically.
+@internalsref{Hairpin}. Vertical positioning of these symbols is handled
+by the @internalsref{DynamicLineSpanner} grob.  If you want to adjust
+padding or vertical direction of the dynamics, you must set properties
+for the @internalsref{DynamicLineSpanner} grob. Predefined identifiers
+to set the vertical direction are \dynamicUp and \dynamicDown.
 
+@cindex direction, of dynamics
+@cindex @code{\dynamicDown}
+@cindex @code{\dynamicUp}
 
 @c .  {Repeats}
 @node Repeats

@@ -45,7 +45,7 @@ protected:
   /**
     Announce element. Default: pass on to daddy. Utility
     */
-  virtual void announce_grob (Grob*, Music*);
+  virtual void announce_grob (Grob*, SCM cause);
   virtual void announce_grob (Grob_info);
   virtual void process_music ();
 

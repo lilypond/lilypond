@@ -70,7 +70,7 @@ Instrument_name_engraver::create_text (SCM txt)
       if (delim_)
         text_->set_parent (delim_, Y_AXIS);
       
-      announce_grob (text_,0);
+      announce_grob (text_, SCM_EOL);
     }
 }
 

@@ -18,7 +18,9 @@
     ))
 
 
-;;; WARNING: the meta field should be the last one. 
+;;; WARNING: the meta field should be the last one.
+
+;; TODO: junk the meta field in favor of something more compact?
 (define all-grob-descriptions
   `(
     (Accidentals . (
@@ -803,5 +805,12 @@
 
 (set! all-grob-descriptions (map completize-grob-entry all-grob-descriptions))
 
+
+
 ;  (display  (map pair? all-grob-descriptions))
 
+
+;; make sure that \property Foo.Bar =\turnOff doesn't complain
+
+(map (lambda (x) (set-object-property! (car x) 'translator-type? list?))
+     all-grob-descriptions)

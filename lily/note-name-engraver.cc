@@ -50,7 +50,7 @@ Note_name_engraver::create_grobs ()
     {
       Item * t = new Item (get_property ("NoteName"));
       t->set_grob_property ("text", ly_str02scm (s.ch_C ()));
-      announce_grob (t, req_l_arr_[0]);
+      announce_grob(t, req_l_arr_[0]->self_scm());
       texts_.push (t);
     }
 }

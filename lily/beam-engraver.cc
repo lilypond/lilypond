@@ -22,9 +22,6 @@
 class Beam_engraver : public Engraver
 {
   Drul_array<Span_req*> reqs_drul_;
-
-  Link_array<Stem> stems_;
-  
   
   Spanner *finished_beam_p_;
   Spanner *beam_p_;
@@ -47,7 +44,7 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void finalize ();
-  virtual void create_grobs ();
+
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);
   virtual void process_music ();
@@ -87,12 +84,6 @@ Beam_engraver::try_music (Music *m)
 	{
       
 	  Direction d =c->get_span_dir ();
-
-	  if (d == STOP && !beam_p_)
-	    {
-	      m->origin ()->warning (_ ("can't find start of beam"));
-	      return false;
-	    }
 
 	  if (d == STOP)
 	    {
@@ -137,12 +128,6 @@ Beam_engraver::process_music ()
     {
       top_engraver ()->forbid_breaks ();
     }
-}
-
-
-void
-Beam_engraver::create_grobs ()
-{
   if (reqs_drul_[START])
     {
       if (beam_p_)
@@ -163,11 +148,11 @@ Beam_engraver::create_grobs ()
       
       /* urg, must copy to Auto_beam_engraver too */
  
-      announce_grob (beam_p_, reqs_drul_[START]);
+      announce_grob(beam_p_, reqs_drul_[START]->self_scm());
     }
-  reqs_drul_[STOP] = 0;
-  reqs_drul_[START] = 0;
+
 }
+
 
 void
 Beam_engraver::typeset_beam ()
@@ -182,8 +167,6 @@ Beam_engraver::typeset_beam ()
       delete finished_beam_info_p_;
       finished_beam_info_p_ =0;
       finished_beam_p_ = 0;
-    
-      reqs_drul_[STOP] = 0;
     }
 }
 
@@ -191,14 +174,18 @@ void
 Beam_engraver::start_translation_timestep ()
 {
   reqs_drul_ [START] =0;
-  if (beam_p_) {
-    SCM m = get_property ("automaticMelismata");
-    SCM b = get_property ("noAutoBeaming");
-    if (to_boolean (m) && to_boolean (b)) {
-      set_melisma (true);
+  reqs_drul_[STOP] = 0;
+  
+  if (beam_p_)
+    {
+      SCM m = get_property ("automaticMelismata");
+      SCM b = get_property ("noAutoBeaming");
+      if (to_boolean (m) && to_boolean (b))
+	{
+	  set_melisma (true);
+	}
+      subdivide_beams_ = to_boolean(get_property("subdivideBeams")); 
     }
-    subdivide_beams_ = gh_scm2bool(get_property("subdivideBeams")); 
-  }
 }
 
 void

@@ -16,8 +16,6 @@
 
 /**
   Data container for broadcasts.
-
-  TODO: Store this in element info! 
   */
 struct Grob_info {
   Translator * origin_trans_l_;
@@ -25,17 +23,11 @@ struct Grob_info {
 
   Grob * grob_l_;
 
-  /*
-    Notice that CAUSE is not GC protected ; this might be a cause for
-    GC errors if you don't use music or grobs as a cause.
-  */
-  SCM cause_;
 public:
   Music * music_cause ();
   Link_array<Translator> origin_trans_l_arr (Translator*) const;
-  Grob_info (Grob*, SCM);
+  Grob_info (Grob*);
   Grob_info ();
 };
-
 
 #endif // STAFFELEMINFO_HH

@@ -100,7 +100,7 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 	{
 	  align_l_ = new Item (get_property ("BreakAlignment"));
 	  Break_align_interface::set_interface (align_l_);
-	  announce_grob (align_l_,0);
+	  announce_grob (align_l_, SCM_EOL);
 
 	  SCM edge_sym = ly_symbol2scm ("Left_edge_item");
 	  Item * edge = new Item (get_property ("LeftEdge"));
@@ -121,7 +121,7 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 	  */
 	  align_l_->set_grob_property ("self-alignment-X", edge->self_scm ());
 	  
-	  announce_grob (edge, 0);
+	  announce_grob(edge, SCM_EOL);
 	  column_alist_ = scm_assoc_set_x (column_alist_, edge_sym, edge->self_scm ());
 	}
 
@@ -143,7 +143,7 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 
 	  group->set_grob_property ("break-align-symbol", align_name);
 	  group->set_parent (align_l_, Y_AXIS);
-	  announce_grob (group, 0);
+	  announce_grob(group, SCM_EOL);
 	  column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
 
 	}

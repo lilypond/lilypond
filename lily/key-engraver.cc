@@ -71,7 +71,9 @@ Key_engraver::create_key (bool def)
 
       Staff_symbol_referencer::set_interface (item_p_);
       Key_item::set_interface (item_p_);
-      announce_grob (item_p_,keyreq_l_);
+
+
+      announce_grob(item_p_, keyreq_l_ ? keyreq_l_->self_scm() : SCM_EOL);
     }
 
   if (!def)

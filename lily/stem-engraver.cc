@@ -91,7 +91,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 		  tremolo_p_ = new Item (get_property ("StemTremolo"));
 		  Stem_tremolo::set_interface (tremolo_p_);
 
-		  announce_grob (tremolo_p_, tremolo_req_l_);
+		  announce_grob(tremolo_p_, tremolo_req_l_->self_scm());
 		  /*
 		    The number of tremolo flags is the number of flags of
 		    the tremolo-type minus the number of flags of the note
@@ -109,7 +109,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 	  /*
 	    We announce the cause of the head as cause of the stem.
 	    The stem needs a rhythmic structure to fit it into a beam.  */
-	  announce_grob (stem_p_, i.music_cause ());
+	  announce_grob(stem_p_, i.music_cause ()->self_scm());
 	}
 
       if (Stem::flag_i (stem_p_) != duration_log)

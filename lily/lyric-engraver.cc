@@ -73,7 +73,7 @@ Lyric_engraver::create_grobs ()
       
       text_p_->translate_axis (0.66, X_AXIS);
       
-      announce_grob (text_p_, req_l_);
+      announce_grob(text_p_, req_l_->self_scm());
       req_l_ = 0;
     }
 }

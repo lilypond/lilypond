@@ -47,7 +47,7 @@ Staff_symbol_engraver::initialize ()
   
   span_p_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 
-  announce_grob (span_p_, 0);
+  announce_grob(span_p_, SCM_EOL);
 }
 
 void

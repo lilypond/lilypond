@@ -146,7 +146,7 @@ Percent_repeat_engraver::process_music ()
       if (repeat_sign_type_ == BEAT)
 	{
 	  beat_slash_ = new Item (get_property ("RepeatSlash"));
-	  announce_grob (beat_slash_, repeat_);
+	  announce_grob(beat_slash_, repeat_->self_scm());
 	}
       else if (repeat_sign_type_ == MEASURE)
 	{
@@ -155,13 +155,13 @@ Percent_repeat_engraver::process_music ()
 	  perc_p_ = new Spanner (get_property ("PercentRepeat"));
 	  SCM col =get_property ("currentCommandColumn");
 	  perc_p_->set_bound (LEFT, unsmob_grob (col));
-	  announce_grob (perc_p_, repeat_);
+	  announce_grob(perc_p_, repeat_->self_scm());
 	}
       else if (repeat_sign_type_ == DOUBLE_MEASURE)
 	
 	{
 	  double_percent_ = new Item (get_property ("DoublePercentRepeat"));
-	  announce_grob (double_percent_, repeat_);
+	  announce_grob(double_percent_, repeat_->self_scm());
 
       /*
 	forbid breaks on a % line. Should forbid all breaks, really.

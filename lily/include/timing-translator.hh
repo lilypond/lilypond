@@ -18,8 +18,9 @@
 class Timing_translator : public virtual Translator
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Timing_translator ();
+  //  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Timing_translator);
+
 
 protected: 
   virtual void initialize ();

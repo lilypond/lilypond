@@ -134,7 +134,7 @@ Text_engraver::create_grobs ()
 	 */
 	text->set_grob_property ("no-spacing-rods" , SCM_BOOL_F);
 		
-      announce_grob (text, r);
+      announce_grob (text, r->self_scm ());
       texts_.push (text);
     }
 }

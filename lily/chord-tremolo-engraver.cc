@@ -112,7 +112,7 @@ Chord_tremolo_engraver::process_music ()
 	  Moment mp
 	    = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 	  beam_start_location_ = mp;
-	  announce_grob (beam_p_, repeat_);
+	  announce_grob(beam_p_, repeat_->self_scm());
 	}
       else if (!sequential_body_b_ && !stem_tremolo_)
 	{
@@ -122,7 +122,7 @@ Chord_tremolo_engraver::process_music ()
 	      stem_tremolo_ = new Item (get_property ("StemTremolo"));
 	      Stem_tremolo::set_interface (stem_tremolo_);
 
-	      announce_grob (stem_tremolo_, repeat_);
+	      announce_grob(stem_tremolo_, repeat_->self_scm());
 	      stem_tremolo_->set_grob_property ("tremolo-flags",
 						gh_int2scm (flags));
 

@@ -69,7 +69,7 @@ Separating_line_group_engraver::initialize ()
 {
   sep_span_p_ = new Spanner (get_property ("SeparatingGroupSpanner"));
 
-  announce_grob (sep_span_p_, 0);
+  announce_grob(sep_span_p_, SCM_EOL);
   sep_span_p_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 }
 
@@ -120,7 +120,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 
       if (ib)
 	p_ref_->set_grob_property ("breakable", SCM_BOOL_T);
-      announce_grob (p_ref_, 0);
+      announce_grob(p_ref_, SCM_EOL);
 
       if (p_ref_ == break_malt_p_)
 	{
@@ -128,7 +128,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 	  current_spacings_.staff_spacing_ = it;
 	  it->set_grob_property ("left-items", gh_cons (break_malt_p_->self_scm (), SCM_EOL));
 	  
-	  announce_grob (it, 0);
+	  announce_grob(it, SCM_EOL);
 
 	  if (int i = last_spacings_.note_spacings_.size ())
 	    {

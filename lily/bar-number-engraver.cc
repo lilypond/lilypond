@@ -99,7 +99,7 @@ Bar_number_engraver::create_items ()
   text_p_ = new Item (b);
   Side_position_interface::set_axis (text_p_,Y_AXIS);
 
-  announce_grob (text_p_, 0);
+  announce_grob(text_p_, SCM_EOL);
 }
 
 ENTER_DESCRIPTION(Bar_number_engraver,

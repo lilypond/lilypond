@@ -19,7 +19,6 @@
 void
 Timing_translator::stop_translation_timestep ()
 {
-  
   Translator *t = this;
   Global_translator *global_l =0;
   do
@@ -155,3 +154,4 @@ Timing_translator::start_translation_timestep ()
   daddy_trans_l_->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 
+ENTER_DESCRIPTION (Timing_translator, "","","","","" );

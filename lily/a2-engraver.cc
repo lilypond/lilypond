@@ -55,7 +55,7 @@ A2_engraver::create_grobs ()
 	{
 	  text_p_ = new Item (get_property ("TextScript"));
 	  Side_position_interface::set_axis (text_p_, Y_AXIS);
-	  announce_grob (text_p_, 0);
+	  announce_grob(text_p_, SCM_EOL);
       
 	  Direction dir = UP;
 	  SCM text = SCM_EOL;

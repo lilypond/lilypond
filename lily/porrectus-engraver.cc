@@ -122,7 +122,7 @@ Porrectus_engraver::create_grobs ()
 	  Porrectus::set_left_head(porrectus_p_, left_head);
 	  Porrectus::set_right_head(porrectus_p_, right_head);
 	  porrectus_p_arr_.push (porrectus_p_);
-	  announce_grob (porrectus_p_, porrectus_req_l_);
+	  announce_grob(porrectus_p_, porrectus_req_l_->self_scm());
 
 	  past_notes_pq_. insert (right_heads_[i]);
 	  left_heads_.del (i);

@@ -50,7 +50,7 @@ Line_group_engraver_group::initialize ()
     = unsmob_grob (get_property ("currentCommandColumn")); 
   staffline_p_->set_bound (LEFT,it);
   
-  Engraver::announce_grob (staffline_p_,0);
+  Engraver::announce_grob (staffline_p_, SCM_EOL);
 }
 
 void

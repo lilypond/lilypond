@@ -170,10 +170,12 @@ Piano_pedal_engraver::create_grobs ()
 	  p->item_p_ = new Item (get_property (propname.ch_C ()));
 	  p->item_p_->set_grob_property ("text", s);
 
-	  announce_grob (p->item_p_,
-			    p->req_l_drul_[START]
-			    ? p->req_l_drul_[START]
-			    : p->req_l_drul_[STOP]);
+
+	  Music * c =  p->req_l_drul_[START]
+	    ? p->req_l_drul_[START]
+	    : p->req_l_drul_[STOP];
+	  announce_grob (p->item_p_, c ?  c->self_scm() : SCM_EOL);
+			
 	}
       p->req_l_drul_[START] = 0;
       p->req_l_drul_[STOP] = 0;

@@ -125,7 +125,7 @@ Text_spanner_engraver::create_grobs ()
 	  Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
 	  span_->set_bound (LEFT, e);
 	  
-	  announce_grob (span_, req_drul_[START]);
+	  announce_grob (span_, req_drul_[START]->self_scm());
 	  req_drul_[START] = 0;
 	}
     }

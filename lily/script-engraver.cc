@@ -108,7 +108,7 @@ Script_engraver::process_music ()
   
       script_p_arr_.push (p);
       
-      announce_grob (p, l);
+      announce_grob (p, l->self_scm());
     }
 }
 
