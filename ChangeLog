@@ -1,6 +1,8 @@
 2003-07-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-	* VERSION: release 1.7.27
+	* VERSION (PACKAGE_NAME): release 1.7.27
+
+	* config.make.in: add PAPER variable
 
 	* buildscripts/new-chords.py (help): add help text
 

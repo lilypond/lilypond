@@ -139,6 +139,13 @@ scrollkeeper-update
 %{_bindir}/pmx2ly
 
 %doc buildscripts/out/convert-new-chords
+%doc NEWS
+%doc THANKS
+%doc COPYING
+%doc DEDICATION
+%doc README.txt
+%doc AUTHORS.txt
+
 
 %if %{info}
 %{_infodir}/*
