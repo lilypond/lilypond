@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 \header {
     texidoc = "Scripts can be stacked. The order is determined by a

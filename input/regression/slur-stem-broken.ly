@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 \header {
 texidoc="Trend of broken slur with user-overridden stem attachment should also

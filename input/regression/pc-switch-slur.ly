@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 \header{
 texidoc="The partcombiner should not combine two small slurs into a big one."

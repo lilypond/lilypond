@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \header {
 texidoc = "Tied accidentaled notes (which cause reminder accidentals) don't wreak havoc in
 the spacing when unbroken."

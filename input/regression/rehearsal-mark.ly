@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 
 \header { texidoc= " Rehearsal marks are printed over barlines. They
 can be incremented automatically or manually.  "}

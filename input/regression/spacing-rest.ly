@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 \header {
     texidoc = "Rests get a little less space, since they are narrower.

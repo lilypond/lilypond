@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 \header{
 texidoc="Slurs should not get confused by augmentation dots.  We use a lot
