@@ -1,6 +1,22 @@
+2004-10-20  Werner Lemberg  <wl@gnu.org>
+
+	* scm/framework-tex.scm (header-end): Don't set \outputscale.
+	(dump-line): Produce prettier output.
+
+	* tex/lilyponddefs.tex: Comment all macros extensively.
+	(\lilypondstart): Set \outputscale.
+	Define \lilypondpagebreak and \lilypondnopagebreak here.
+	Don't test for positive \lilypondpaperlinewidth -- this is always
+	positive in the normal case (LilyPond produces bad output otherwise
+	so we can safely ignore negative or zero values).
+	(\lilypondend): Remove useless test for \lilypondbook.
+	(\fetasixteen, \fetafont, \fetachar): Removed, unused.  We also
+	don't input `feta20.tex'.
+
 2004-10-19  Graham Percival  <gperlist@shaw.ca>
 
-	* Documentation/user/examples.itely: added texidoc lilypond-book template.
+	* Documentation/user/examples.itely: added texidoc lilypond-book
+	template.
 
 2004-10-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
@@ -93,7 +109,8 @@
 
 	* Documentation/user/examples.itely: added lilypond-book template.
 
-	* Documentation/user/lilypond-book.itely: added filename extension page.
+	* Documentation/user/lilypond-book.itely: added filename extension
+	page.
 
 2004-10-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
@@ -276,7 +293,8 @@
 	* lily/slur-scoring.cc (struct Slur_score_state): new
 	struct. Collect scoring function arguments.
 	(struct Slur_score_state): add musical_dy_
-	(get_extra_encompass_infos): new function. Split off state computations.
+	(get_extra_encompass_infos): new function. Split off state
+	computations.
 
 	* scm/part-combiner.scm (determine-split-list): remove playing1
 	and playing2.
@@ -592,7 +610,8 @@
 
 2004-09-22  Graham Percival  <gperlist@shaw.ca>
 
-	* Documentation/user/tutorial.itely: modified a "future planning" comment.
+	* Documentation/user/tutorial.itely: modified a "future planning"
+	comment.
 
 	* Documentation/user/notation.itely: more editing.
 
@@ -781,7 +800,8 @@
 
 	* input/mutopia/F.Schubert/morgenlied.ly,
 	input/mutopia/J.S.Bach/baerenreiter-sarabande.ly,
-	input/mutopia/R.Schumann/romanze-op28-2.ly: Add lifetime and full name.
+	input/mutopia/R.Schumann/romanze-op28-2.ly: Add lifetime and full
+	name.
 
 2004-09-15  Juergen Reuter  <reuter@ipd.uka.de>
 
@@ -792,7 +812,8 @@
 
 2004-09-15  Graham Percival  <gperlist@shaw.ca>
 
-	* Documentation/user/introduction.itely: update \stemBoth to \stemNeutral
+	* Documentation/user/introduction.itely: update \stemBoth to
+	\stemNeutral.
 
 	* Documentation/user/notation.itely: more editing of the manual.
 
@@ -843,7 +864,8 @@
 
 	* Documentation/user/notation.itely: fixed Time Signature numbers bug.
 
-	* Documentation/user/invoking.itexi: updated the "reporting bugs" section.
+	* Documentation/user/invoking.itexi: updated the "reporting bugs"
+	section.
 
 2004-09-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
@@ -1286,7 +1308,8 @@
 
 2004-08-26  Graham Percival  <gperlist@shaw.ca>
 
-	* Documentation/user/examples.itely: second, third, fourth, and fifth sections added.
+	* Documentation/user/examples.itely: second, third, fourth, and fifth
+	sections added.
 
 	* input/template/{various}: removed files included in examples.itely.
 
@@ -1378,7 +1401,8 @@
 	* Documentation/user/notation.itely (Easy Notation note heads):
 	revise notation Chapter.
 
-	* ly/music-functions-init.ly (makecluster): add makeClusters music function.
+	* ly/music-functions-init.ly (makecluster): add makeClusters music
+	function.
 
 	* lily/part-combine-engraver.cc: rename soloADue ->
 	printPartCombineTexts
@@ -1501,7 +1525,8 @@
 	xgettext does not recognise scheme yet.  Patch submitted.
 
 	* lily/scm-option.cc (LY_DEFINE):
-	* lily/main.cc: The program is now called lilypond (WAS: lilypond-bin).
+	* lily/main.cc: The program is now called lilypond (WAS:
+	lilypond-bin).
 
 	* lily/rest-collision.cc (do_shift): Uniformise two too many rests
 	messages.
@@ -1629,7 +1654,7 @@
 
 	* scm/define-grob-properties.scm: add number-type and label-dir
 
-	* scm/fret-diagrams.scm (label-fret): allow fret label to be on either 
+	* scm/fret-diagrams.scm (label-fret): allow fret label to be on either
 	left or right.  Allow choice of upper-case roman, lower-case roman, or
 	arabic numerals in fret label
 
@@ -1718,7 +1743,8 @@
 
 2004-08-01  Heikki Junes  <hanwen@xs4all.nl>
 
-	* Documentation/user/{changing-defaults,notation,tutorial}.itely: fixes.
+	* Documentation/user/{changing-defaults,notation,tutorial}.itely:
+	fixes.
 
 2004-08-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
@@ -2414,7 +2440,8 @@
 
 	* scm/beam.scm (check-slope-callbacks): check sign of slope. 
 
-	* input/regression/beam-concave.ly (rossFourBeams): add cases from Ross
+	* input/regression/beam-concave.ly (rossFourBeams): add cases from
+	Ross
 
 	* scm/script.scm (default-script-alist): marcato should follow
 	into staff
@@ -2512,10 +2539,11 @@
 
 	* scm/output-ps.scm (white-text): Add scale paramter to allow scaling
 
-	* scm/output-tex.scm (white-text): Add scale parameter to allow font scaling
+	* scm/output-tex.scm (white-text): Add scale parameter to allow font
+	scaling
 
-	* scm/stencil.scm (fontify-text-white) : Adjust to better center, properly
-	scale white text
+	* scm/stencil.scm (fontify-text-white) : Adjust to better center,
+	properly scale white text
 
 	* scm/fret-diagrams.scm (make-fret-diagram): change default dot
 	position for numbered dots so dot will touch fret.
@@ -3044,7 +3072,8 @@
 
 	* scm/document-translation.scm (all-engravers-doc): link to user man
 
-	* scm/page-layout.scm (ly:optimal-page-breaks): use penalty iso. score.
+	* scm/page-layout.scm (ly:optimal-page-breaks): use penalty
+	iso. score.
 
 	* Documentation/user/notation.itely (Relative octaves): typo.
 
@@ -3516,7 +3545,8 @@
 	* mf/feta-klef.mf: 
 	* mf/feta-bolletjes.mf: Oops.  Comment-out canvast test code.
 
-	* Documentation/user/programming-interface.itely: Use @emph (was: @em).
+	* Documentation/user/programming-interface.itely: Use @emph (was:
+	@em).
 
 	* Documentation/user/out/tutorial.texi: Untrigger lilypond-book error.
 

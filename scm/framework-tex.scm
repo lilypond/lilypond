@@ -165,7 +165,6 @@
    "\\ifx\\lilypondstart\\undefined\n"
    "  \\input lilyponddefs\n"
    "\\fi\n"
-   "\\outputscale = \\lilypondpaperoutputscale\\lilypondpaperunit\n"
    "\\lilypondstart\n"
    "\\lilypondspecial\n"
    "\\lilypondpostscript\n"))
@@ -210,7 +209,7 @@
    putter
    (string-append "\\leavevmode\n\\lybox{0}{0}{0}{"
 		  (ly:number->string (interval-length (ly:paper-system-extent line Y)))
-		  "}{"))
+		  "}{%\n"))
 
   (ly:outputter-dump-stencil putter (ly:paper-system-stencil line))
   (ly:outputter-dump-string
