@@ -166,7 +166,7 @@
   (ly:outputter-dump-string outputter "} stop-system \nshowpage\n"))
 
 (define-public (output-framework-ps outputter book scopes fields basename)
-  (let* ((bookpaper  (ly:paper-book-book-paper book))
+  (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (page-number 0)
 	 (page-count (length pages)))
