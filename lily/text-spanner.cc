@@ -1,10 +1,11 @@
 /*
-
   text-spanner.cc -- implement Text_spanner
 
   source file of the GNU LilyPond music typesetter
 
   (c) 2000--2003 Jan Nieuwenhuizen <janneke@gnu.org>
+
+  Revised over good by Han-Wen. 
 */
 
 #include "molecule.hh"
@@ -38,11 +39,6 @@ Text_spanner::brew_molecule (SCM smob)
   Grob *me= unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
   
-  if (spanner->internal_has_interface (ly_symbol2scm ("piano-pedal-interface")))
-    {
-      setup_pedal_bracket(spanner);
-    }
-
   /* Ugh, must be same as Hairpin::brew_molecule.  */
   Real padding = 0.0;
   SCM itp= me->get_grob_property ("if-text-padding");
@@ -106,7 +102,7 @@ Text_spanner::brew_molecule (SCM smob)
   shorten[LEFT] = 0;
   shorten[RIGHT] = 0;
 
-  SCM ew = me->get_grob_property ("edge-flare");
+  SCM ew = me->get_grob_property ("bracket-flare");
   SCM s = me->get_grob_property ("shorten-pair");
   if (gh_pair_p (s))
     {
@@ -143,7 +139,8 @@ Text_spanner::brew_molecule (SCM smob)
 
 	  Real dy = gh_scm2double (index_get_cell (s, d)) * - dir;
 	  if (dy)
-	    edge_line[d] = Line_spanner::line_molecule (me, thick, dx, dy);
+	    edge_line[d] = Line_spanner::line_molecule (me, thick, Offset(0,0),
+							Offset (dx, dy));
 	}
       while (flip (&d) != LEFT);
     }
@@ -163,8 +160,8 @@ Text_spanner::brew_molecule (SCM smob)
   while (flip (&d) != LEFT);
 
   Molecule l =Line_spanner::line_molecule (me, thick,
-					   span_points.length (), 0);
-  l.translate_axis (span_points[LEFT], X_AXIS); 
+					   Offset (span_points[LEFT], 0),
+					   Offset (span_points[RIGHT], 0));
   m.add_molecule (l);
 
   m.translate_axis (- me->relative_coordinate (common, X_AXIS), X_AXIS);
@@ -174,127 +171,7 @@ Text_spanner::brew_molecule (SCM smob)
 
 
 
-/* 
-   Piano pedal brackets are a special case of a text spanner.
-   Pedal up-down (restart) indicated by the angled right and left edges 
-   of consecutive pedals touching exactly to form an __/\__
-   Chris Jackson <chris@fluffhouse.org.uk>
-*/
-/*
-  TODO: this should be moved somewhere else (?).
-
-  Perhaps make separate function for pedal-bracket.
- */
-/*
-  UGH UGH UGH .
-
-  This is broken broken.
-
-  All the tweak props should be unnecessary.
-
-  This should not be linked with Text_spanner.
- */
-
-void 
-Text_spanner::setup_pedal_bracket(Spanner *me)
-{
-
-  Real thick = me->get_paper ()->get_var ("linethickness");  
-  SCM st = me->get_grob_property ("thickness");
-  if (gh_number_p (st))
-    {
-      thick *=  gh_scm2double (st);
-    }  
-
-  Drul_array<bool> broken;
-  Drul_array<Real> height, width, shorten, r;
-
-  SCM pa = me->get_grob_property ("if-text-padding");
-  SCM eh = me->get_grob_property ("edge-height");
-  SCM sp = me->get_grob_property ("shorten-pair");
-  
-  Direction d = LEFT;
-  Interval e;
-  Real padding = 0;
-
-  if (gh_number_p (pa))
-    padding = gh_scm2double (pa);
-
-  do
-    {
-      Item *b = me->get_bound (d);
-
-      e = b->extent (b, X_AXIS);
-      if (!e.empty_b ())
-	r[d] = d * (e[-d] + padding);
-
-      broken[d] = b->break_status_dir () != CENTER;
-      width[d]  =  0;
-      height[d] =  0;
-      shorten[d] = 0;
-      if (!broken[d] && (ly_number_pair_p (eh)))
-	height[d] += gh_scm2double (index_get_cell (eh, d));
-      if (ly_number_pair_p (sp))
-	shorten[d] +=  gh_scm2double (index_get_cell (sp, d));
-    }
-  while (flip (&d) != LEFT);
-  
-  Real extra_short = 0;
-  
-  // For 'Mixed' style pedals, i.e.  a bracket preceded by text:  Ped._____|
-  // need to shorten by the extent of the text grob
-  if (to_boolean (me->get_grob_property ("text-start")))
-    {
-      height[LEFT] = 0;
-      extra_short = padding;
-      if (Grob *textbit = unsmob_grob (me->get_grob_property("pedal-text")))
-	{
-	  if (textbit->internal_has_interface(ly_symbol2scm("text-interface")))
-	    // for plain text, e.g., Sost. Ped.
-	    {
-	      SCM text  =  textbit->get_grob_property("text"); 
-	      if (gh_string_p (text)) {
-		SCM properties = Font_interface::font_alist_chain (me);
-		
-		Molecule mol = Text_item::interpret_new_markup (me->self_scm (),
-								properties, text);
-		extra_short += mol.extent(X_AXIS).length() / 2;
-	      }
-	    }
-	}
-      shorten[RIGHT] -= thick;
-    }
-
-  shorten[LEFT] += extra_short ;
-  
-  if (broken[LEFT])
-    {
-      shorten[LEFT]  -=  me->get_broken_left_end_align () ;
-      shorten[RIGHT]  +=  abs(width[RIGHT])  +  thick  -  r[RIGHT];
-    }
-
-  else
-    {
-      // Shorten a ____/ on the right so that it will touch an adjoining \___
-      shorten[RIGHT]  +=  abs(width[LEFT])  +  abs(width[RIGHT])  +  thick;
-      // Also shorten so that it ends just before the spanned note.
-      shorten[RIGHT]  -=  (r[LEFT]  +  r[RIGHT]);
-    }
-
-  me->set_grob_property ("edge-height", ly_interval2scm (height));
-  me->set_grob_property ("shorten-pair", ly_interval2scm (shorten));
-}
-
-
-struct Pianopedal
-{
-  static bool has_interface (Grob*);
-};
-ADD_INTERFACE (Pianopedal,"piano-pedal-interface",
-	       "",
-	       "pedal-type edge-widen edge-height shorten-pair text-start left-widen right-widen pedal-text");
-
 ADD_INTERFACE (Text_spanner,"text-spanner-interface",
 	       "generic text spanner",
-	       "dash-period if-text-padding dash-length edge-height edge-widen edge-text shorten-pair style thickness enclose-bounds width-correct");
+	       "dash-period if-text-padding dash-length edge-height bracket-flare edge-text shorten-pair style thickness enclose-bounds width-correct");
 

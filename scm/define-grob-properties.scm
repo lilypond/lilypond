@@ -289,8 +289,6 @@ space to add. For barline, space after a thick line.")
 (grob-property-description 'right-position number? "position of right part of spanner.")
 (grob-property-description 'left-padding ly:dimension? "space left of accs.")
 
-(grob-property-description 'left-widen boolean? "Whether the left edge of a piano pedal bracket should be widened by the first element of edge-widen.")
-
 (grob-property-description 'length ly:dimension? "Stem length for unbeamed stems, only for user override.")
 (grob-property-description 'lengths list? "Stem length given
 multiplicity of flag.  The Nth element of the list gives the stem
@@ -360,7 +358,6 @@ provided in @code{input/regression/molecule-hacking.ly}.
 (grob-property-description 'oriscus boolean? "is this neume an oriscus?.")
 (grob-property-description 'enclose-bounds boolean? "whether a text spanner should extend to the outer edge of the spanned notes")
 (grob-property-description 'padding ly:dimension? "add this much extra space between objects that are next to each other.")
-(grob-property-description 'pedal-type symbol? "Style of piano pedal: text, bracket or mixed.")
 (grob-property-description 'pedal-text ly:grob? "Pointer to the text of a mixed-style piano pedal.")
 (grob-property-description 'penalty number? "Penalty for breaking at
 this column. 10000 or more means forbid linebreak, -10000 or less
@@ -379,7 +376,6 @@ as a real penalty.")
 (grob-property-description 'ratio number? "Slur parameter.  See height-limit.")
 (grob-property-description 'right-padding ly:dimension? "space right of accs.")
 (grob-property-description 'right-trim-amount ly:dimension? "shortening of the lyric extender on the right.")
-(grob-property-description 'right-widen boolean? "Whether the right edge of a piano pedal bracket should be widened by the second element of edge-widen")
 (grob-property-description 'script-priority number? "A sorting key that determines in what order a script is within a stack of scripts.")
 (grob-property-description 'self-alignment-X number-or-grob? "real number: -1 =
 left aligned, 0 = center, 1 right-aligned in X direction.
@@ -439,7 +435,6 @@ the Nth element of the list gives the amount stem shortening of a note with N fl
 (grob-property-description 'support-head ly:grob? "the note head at
 one end of the stem.")
 (grob-property-description 'text markup? "Text markup.  See reference manual for more information.")
-(grob-property-description 'text-start boolean? "Indicator for whether a piano pedal bracket has leading text, such as Ped.")
 (grob-property-description 'thick-thickness number? "thickness, measured in stafflinethickness.")
 (grob-property-description 'thickness number? "thickness, measured in stafflinethickness.")
 (grob-property-description 'thin-kern number? "space after a hair-line.")

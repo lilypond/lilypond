@@ -23,7 +23,7 @@
 
   Properties:
 
-  glyph -- text string (TODO:   make one large glyph of the Ped symbol, removes need for member_brew_molecule ())
+  glyph -- text string (TODO: make one large glyph of the Ped symbol, removes need for member_brew_molecule ())
 
 */
 
@@ -44,6 +44,7 @@ Sustain_pedal::brew_molecule (SCM smob)
   SCM glyph = e->get_grob_property ("text");
   if (!gh_string_p (glyph))
     return mol.smobbed_copy ();
+  
   String text = ly_scm2string (glyph);
 
   for (int i = 0; i < text.length (); i++)

@@ -455,14 +455,18 @@ ScoreContext = \translator {
 	verticalAlignmentChildCallback = #Align_interface::alignment_callback
 
 	pedalSustainStrings = #'("Ped." "*Ped." "*")
+	pedalSustainStyle = #'text
 	pedalUnaCordaStrings = #'("una corda" "" "tre corde")
+	pedalUnaCordaStyle = #'text
 
 	%% These are in ordinary italic font, including the *,
 	%% but they are unlikely to be used, 
 	%% as the default pedal-style for SostenutoPedal is 'mixed':
 	%% i.e.  Sost. Ped_____________________ 
 	pedalSostenutoStrings = #'("Sost. Ped." "*Sost. Ped." "*") 
+	pedalSostenutoStyle = #'mixed
 
+	
 	tupletNumberFormatFunction = #denominator-tuplet-formatter
 	
 	subdivideBeams = ##f

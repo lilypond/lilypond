@@ -456,7 +456,6 @@
 	(gap . 0.0)
 	(padding . 2.0)
 	(thickness . 1.6)
-	(edge-widen . (0.0 . 0.0))
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
 	(before-line-breaking-callback . ,Tuplet_bracket::before_line_breaking)
@@ -725,17 +724,18 @@
     (PianoPedalBracket   ;; an example of a text spanner
      . (
 	(molecule-callback . ,Text_spanner::brew_molecule)
+	(after-line-breaking-callback . ,Piano_pedal_bracket::after_line_breaking)
 	(font-family . roman)
 	(style . line)
 	(if-text-padding . 1.0)
 	(width-correct . 0)
 	(enclose-bounds . #t)
 	(direction . -1)
-	(edge-widen . (0.5 . 0.5))
+	(bracket-flare . (0.5 . 0.5))
 	(edge-height . (1.0 . 1.0))
 	(shorten-pair . (0.0 . 0.0))
 	(thickness .  1.0)
-	(meta . ((interfaces . (text-spanner-interface piano-pedal-interface spanner-interface))))
+	(meta . ((interfaces . (text-spanner-interface piano-pedal-bracket-interface spanner-interface))))
 	))
 
     (RepeatSlash
@@ -891,7 +891,6 @@
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(no-spacing-rods . #t)
 	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
-	(pedal-type . mixed)
 	(font-family . roman)
 	(font-shape . italic)
 	(self-alignment-X . 0)
@@ -998,7 +997,6 @@
 	(self-alignment-X . 0)
 	(direction . 1)
 	(padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
-	(pedal-type . text)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(meta . ((interfaces . (piano-pedal-interface text-spanner-interface text-interface self-alignment-interface font-interface item-interface))))
 	))
@@ -1155,7 +1153,6 @@
 	(gap . 2.0)
 	(padding . 0.9)
 	(thickness . 1.6)
-	(edge-widen . (0.0 . 0.0))
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
 	(before-line-breaking-callback . ,Tuplet_bracket::before_line_breaking)
@@ -1177,7 +1174,6 @@
 	(no-spacing-rods . #t)
 	(self-alignment-X . 0)
 	(direction . 1)
-	(pedal-type . text)
 	(padding . 0.0)  ;; padding relative to UnaCordaPedalLineSpanner
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(meta . ((interfaces . (text-interface self-alignment-interface font-interface item-interface ))))
