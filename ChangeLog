@@ -1,5 +1,14 @@
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/output-lib.scm (note-head-style->attachment-coordinates):
+	note about triangle note heads.
+
+	* scm/drums.scm: use alist for instrument-settings. This fixes the
+	bug with assigning to drums in the .ly file.
+
+	* mf/feta-autometric.mf (code): start font at 32. WARNING: FONT
+	CHANGED.
+
 	* scm/define-grob-interfaces.scm (cluster-beacon-interface): add
 	cluster-beacon-interface
 
