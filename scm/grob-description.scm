@@ -102,6 +102,7 @@
 	(concaveness . 0.08)
 	(concaveness-no-slope . #t)
 	(concaveness-square . #t)
+	(ideal-lengthen . #t)
 	(y-dy-callbacks . (,Beam::least_squares
 			   ,Beam::check_concave
 			   ,Beam::slope_damping
@@ -116,7 +117,7 @@
 	(dir-function . ,beam-dir-majority)
 	(height-quants .  ,default-beam-dy-quants)
 	(vertical-position-quant-function . ,default-beam-y-quants)
-	(beamed-stem-shorten . (0.5))
+	(beamed-stem-shorten . (1.0 0.5))
 	(outer-stem-length-limit . 0.2)
 	(slope-limit . 0.2)
 	(flag-width-function . ,default-beam-flag-width-function)
@@ -727,7 +728,7 @@
 	;;  a whole staffspace seems a bit drastical: we'll do half.
 
 	(lengths . (3.5 3.5 3.5 4.5 5.0))
-	(stem-shorten . (0.5))
+	(stem-shorten . (1.0 0.5))
 					; if stem is on middle line, choose this direction.
 	(neutral-direction . -1)
 	(X-offset-callbacks . (,Stem::off_callback))
