@@ -22,6 +22,8 @@
 	* lilypond-mode.el (LilyPond-kill-job): Kill all Lilypond compiling
 	jobs at the same time. Add horizontal lines to Command menu.
 
+	* lilypond.words: add markup, teeny, etc.
+
 2002-12-08  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: Use LilyPond-command-alist for Midi and MidiAll.
