@@ -291,9 +291,12 @@
     (string-append "% " s))
   
   (define (end-output) 
+	(begin
+; uncomment for some stats about lily memory	  
+;		(display (gc-stats))
     (string-append "\n\\EndLilyPondOutput"
 		   ; Put GC stats here.
-		   ))
+		   )))
   
   (define (experimental-on)
     "")
