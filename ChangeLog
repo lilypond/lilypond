@@ -1,8 +1,11 @@
 2004-01-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/beam-engraver.cc (valid_end_point): opps, beam-stop-events
+	come earlier nowadays.  This fixes beams on grace notes.
+	
 	* scm/music-functions.scm (direction-polyphonic-grobs): new
 	variable, share between override and revert. This fixes script
-	directions in polyphonic sections.
+	directions in polyphonic sections. (backportme)
 
 2004-01-14  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 

@@ -54,8 +54,8 @@ protected:
   virtual bool try_music (Music*);
   virtual void process_music ();
 
-  virtual bool valid_start_moment();
-  virtual bool valid_end_moment ();
+  virtual bool valid_start_point();
+  virtual bool valid_end_point ();
   
 public:
   TRANSLATOR_DECLARATIONS(  Beam_engraver );
@@ -67,7 +67,7 @@ public:
   always nested.
  */
 bool
-Beam_engraver::valid_start_moment()
+Beam_engraver::valid_start_point()
 {
   Moment n = now_mom ();
 
@@ -75,11 +75,10 @@ Beam_engraver::valid_start_moment()
 }
 
 bool
-Beam_engraver::valid_end_moment()
+Beam_engraver::valid_end_point()
 {
-  return last_stem_added_at_.grace_part_ == Rational(0);
+  return valid_start_point ();
 }
-
 
 Beam_engraver::Beam_engraver ()
 {
@@ -106,14 +105,11 @@ Beam_engraver::try_music (Music *m)
   else if (m->is_mus_type ("beam-event"))
     {
       Direction d = to_dir (m->get_mus_property ("span-direction"));
-      if (d == START && !valid_start_moment ())
+      if (d == START && !valid_start_point ())
 	return false;
-      if (d == STOP && !valid_end_moment ())
+      if (d == STOP && !valid_end_point ())
 	return false;
 
-      if (d == STOP && !beam_)
-	return false;
-      
       if (d == START)
 	{
 	  evs_drul_[d] = m;
@@ -255,7 +251,7 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	{
 	  Moment now = now_mom();
 
-	  if (!valid_start_moment ())
+	  if (!valid_start_point ())
 	    return ;
 	  
 	  Item *stem = dynamic_cast<Item*> (info.grob_);
@@ -318,8 +314,8 @@ public:
   TRANSLATOR_DECLARATIONS(Grace_beam_engraver);  
 
 protected:
-  virtual bool valid_start_moment();
-  virtual bool valid_end_moment ();
+  virtual bool valid_start_point();
+  virtual bool valid_end_point ();
 };
 
 Grace_beam_engraver::Grace_beam_engraver()
@@ -327,7 +323,7 @@ Grace_beam_engraver::Grace_beam_engraver()
 }
 
 bool
-Grace_beam_engraver::valid_start_moment()
+Grace_beam_engraver::valid_start_point()
 {
   Moment n = now_mom ();
 
@@ -336,9 +332,9 @@ Grace_beam_engraver::valid_start_moment()
 
 
 bool
-Grace_beam_engraver::valid_end_moment ()
+Grace_beam_engraver::valid_end_point ()
 {
-  return beam_ && last_stem_added_at_.grace_part_ != Rational(0);
+  return beam_ && valid_start_point ();
 }
 
 
