@@ -59,7 +59,7 @@
    (tex-number-def "lilypondpaper" 'outputscale
 		   (number->string (exact->inexact
 				    (ly:bookpaper-outputscale bookpaper))))
-   (tex-string-def "lilypondpapersize" 'papersize
+   (tex-string-def "lilypondpaper" 'papersize
 		   (eval 'papersize (ly:output-def-scope bookpaper)))
 
    (apply string-append
@@ -149,7 +149,7 @@
        "}\\vss\n}\n\\vfill\n"
        "}\\vss\n}\n\\vfill\\lilypondpagebreak\n")))
 
-(define-public (output-framework-tex outputter book scopes fields basename)
+(define-public (output-framework outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (last-page (car (last-pair pages)))
@@ -181,7 +181,7 @@
        "}%\n"
        "}\\interscoreline\n")))
 
-(define-public (output-classic-framework-tex
+(define-public (output-classic-framework
 		outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
 	 (lines (ly:paper-book-lines book))
@@ -201,3 +201,21 @@
      (lambda (line) (dump-line outputter line (eq? line last-line))) lines)
     (ly:outputter-dump-string outputter "\\lilypondend\n")))
 
+
+(define-public (output-preview-framework
+		outputter book scopes fields basename)
+  (let* ((bookpaper (ly:paper-book-book-paper book))
+	 (lines (ly:paper-book-lines book)))
+    (for-each
+     (lambda (x)
+       (ly:outputter-dump-string outputter x))
+     (list
+      ;;FIXME
+      (header "creator" "timestamp" bookpaper (length lines) #f)
+      "\\def\\lilypondclassic{1}%\n"
+      (output-scopes scopes fields basename)
+      (define-fonts bookpaper)
+      (header-end)))
+
+    (dump-line outputter (car lines) #t)
+    (ly:outputter-dump-string outputter "\\lilypondend\n")))

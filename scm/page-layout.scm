@@ -120,7 +120,7 @@
   "Construct a stencil representing the page from LINES.  "
   (let*
      ((top-margin  (ly:output-def-lookup paper 'top-margin))
-
+      
       ;; TODO: naming vsize/hsize not analogous to TeX.
       
       (hsize (ly:output-def-lookup paper 'hsize))
@@ -135,14 +135,19 @@
       (line-stencils (map ly:paper-system-stencil lines))
       (height-proc (ly:output-def-lookup paper 'page-music-height))
       (music-height (height-proc paper scopes number last?))
+      (ragged (ly:output-def-lookup paper 'raggedbottom))
+      (ragged-last   (ly:output-def-lookup paper 'raggedlastbottom))
+      (ragged-bottom (or (eq? #t ragged)
+			 (and last? (eq? #t ragged-last))))
+
       (spc-left (-  music-height
 		   (apply + (map (lambda (x)
 				   (interval-length (ly:stencil-extent x Y)))
 			line-stencils))))
       (stretchable-lines (remove ly:paper-system-title? (cdr lines)))
       (stretch (if (or (null? stretchable-lines)
-		       (> spc-left (/ music-height 2)))
-		   
+		       (> spc-left (/ music-height 2))
+		       ragged-bottom)
 		   0.0
 		   (/ spc-left (length stretchable-lines))))
 

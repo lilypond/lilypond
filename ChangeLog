@@ -4,6 +4,17 @@
 
 2004-06-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/page-layout.scm (default-page-make-stencil): add
+	raggedbottom, raggedlastbottom.
+
+	* Documentation/user/changing-defaults.itely (Page layout): add doc.
+
+	* scm/framework-tex.scm (define-fonts): fix export of
+	papersize.
+
+	* lily/paper-book.cc (classic_output): strip suffixes from
+	framework functions.
+
 	* lily/tuplet-bracket.cc (before_line_breaking): do not return
 	SCM_UNDEFINED to Scheme.
 

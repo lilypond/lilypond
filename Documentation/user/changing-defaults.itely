@@ -2209,6 +2209,10 @@ The default layout responds to the following settings in the
  Distance between top-most music system and the page header
 @item foot-sep
  Distance between bottom-most music system and the page footer
+@item raggedbottom
+ If set to true, systems will not be spread across the page.  
+@item raggedlastbottom
+ If set to true, systems will not be spread to fill the last page.
 @end table
 
 The default page header puts the page number and the @code{instrument}
