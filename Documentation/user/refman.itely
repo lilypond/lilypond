@@ -31,7 +31,6 @@ has been revised for LilyPond 1.3.125
 
 @menu
 * Overview::                    
-* Music constructs::            
 * Modifying music::             
 * Repeats::                     
 * Note entry::                  
@@ -41,6 +40,7 @@ has been revised for LilyPond 1.3.125
 * Piano music::                 
 * Lyrics::                      
 * Chords::                      
+* Writing parts::               
 * Page layout::                 
 * Sound::                       
 * Music entry::                 
@@ -110,133 +110,6 @@ can enter and edit them in manageable chunks.
 @end itemize
 
 
-@c . {Music constructs}
-@node Music constructs
-@section Music constructs
-@cindex Music constructs
-@menu
-* Music expressions::           
-* Sequential music::            
-* Simultaneous music::          
-* Compound music expressions::  
-@end menu
-
-@c .  {Music expressions}
-@node Music expressions
-@subsection Music expressions
-
-@cindex music expressions
-
-Music in LilyPond is entered as a music expression.  Notes, rests, lyric
-syllables are music expressions (the atomic expressions), and you can
-combine music expressions to form new ones.  This example forms a
-compound expressions out of the quarter @code{c} note and a @code{d}
-note:
-
-@example 
-\sequential @{ c4 d4 @} 
-@end example 
-
-The meaning of this compound expression is to play the @code{c}
-first, and then the @code{d} (as opposed to playing them
-simultaneously, for instance).
-
-@c .  {Sequential music}
-@node Sequential music
-@subsection Sequential music
-@cindex Sequential music
-@cindex @code{\sequential}
-@cindex sequential music
-
-@example
-  \sequential @code{@{} @var{musicexprlist} @code{@}}
-@end example
-
-This means that list should be played or written in sequence, i.e.,
-the second after the first, the third after the second.  The duration
-of sequential music is the the sum of the durations of the elements. 
-There is a shorthand, which leaves out the keyword:
-
-@example
-@cindex @code{<}
-@cindex @code{>}
-
-  @code{@{} @var{musicexprlist} @code{@}}
-@end example
-
-@c .  {Simultaneous music}
-@node Simultaneous music
-@subsection Simultaneous music
-@cindex Simultaneous music
-@cindex @code{\simultaneous}
-
-@example
-  \simultaneous @code{@{} @var{musicexprlist} @code{@}}
-@end example
-
-It constructs a music expression where all of its arguments start at
-the same moment.  The duration is the maximum of the durations of the
-elements.  The following shorthand is a common idiom:
-
-@example
-  @code{<} @var{musicexprlist} @code{>}
-@end example
-
-If you try to use a chord as the first thing in your score, you might
-get multiple staffs instead of a chord.
-
-@lilypond[verbatim,center]
-  \score {
-    \notes <c''4 e''>
-    \paper {
-      linewidth = -1.;
-    }
-  }
-@end lilypond
-
-This happens because the chord is interpreted by a score context.
-Each time a note is encountered a default Voice context (along with a
-Staff context) is created.  The solution is to explicitly instantiate
-a Voice context:
-
-@lilypond[verbatim,center]
-  \score {
-    \notes\context Voice <c''4 e''>
-    \paper {
-      linewidth = -1.;
-    }
-  }
-@end lilypond
-
-@c .  {Compound music expressions}
-@node Compound music expressions
-@subsection Compound music expressions
-
-@cindex Compound music expressions
-
-Music expressions are compound data structures.  You can nest music
-expressions any way you like.  This simple example shows how three
-chords can be expressed in two different ways:
-
-@lilypond[fragment,verbatim,center]
-  \notes \context Staff {
-    <a c'> <b  d' > <c' e'>
-    < { a b  c' } { c' d' e' } >
-  }
-
-@end lilypond
-
-@cindex @code{\context}
-@cindex context selection
-
-@example
-  \context @var{contexttype} [= @var{contextname}] @var{musicexpr}
-@end example
-
-Interpret @var{musicexpr} within a context of type @var{contexttype}. 
-If the context does not exist, it will be created.  The new context
-can optionally be given a name.  
-
 
 @c . {Modifying music}
 @node Modifying music
@@ -250,46 +123,8 @@ Repeated music?
 Repeating music expressions?
 
 @menu
-* Transpose::                   
 * Apply::                       
 @end menu
-@c .  {Transpose}
-@node Transpose
-@subsection Transpose
-@cindex Transpose
-@cindex transposition of pitches
-@cindex @code{\transpose}
-
-A music expression can be transposed with @code{\transpose}.  The syntax
-is
-@example
-  \transpose @var{pitch} @var{musicexpr}
-@end example
-
-This means that middle C in @var{musicexpr} is transposed to
-@var{pitch}.
-
-@code{\transpose} distinguishes between enharmonic pitches: both
-@code{\transpose cis'} or @code{\transpose des'} will transpose up half
-a tone.  The first version will print sharps and the second version
-will print flats.
-
-@quotation
-@lilypond[fragment,verbatim]
-\context Staff {
-  \clef "F";
-  { \key e \major; c d e f }
-  \clef "G";
-  \transpose des'' { \key e \major; c d e f }
-  \transpose cis'' { \key e \major; c d e f }
-}
-
-@end lilypond
-@end quotation
-
-If you want to use both @code{\transpose} and @code{\relative}, then
-you must use @code{\transpose} first.  @code{\relative} will have no
-effect music that appears inside a @code{\transpose}.
 
 @c .  {Apply}
 @node Apply
@@ -458,9 +293,10 @@ command can be
  Print a |: bar line
 @item 'stop-repeat
  Print a :| bar line
-@item (volta . #f)
 @item (volta . @var{text})
   Print a volta bracket saying @var{text}.
+@item (volta . #f)
+  Stop a running volta bracket
 @end table
 
 @lilypond[verbatim, fragment]
@@ -525,7 +361,6 @@ default argument saves a lot of typing.
 * Durations::                   
 * Notes::                       
 * Rests::                       
-* Multi measure rests::         
 * Skip::                        
 @end menu
 
@@ -741,8 +576,6 @@ question mark `@code{?}' after the pitch.
 @end lilypond
 
 
-
-
 @c .  {Rests}
 @node  Rests
 @subsection Rests
@@ -753,31 +586,6 @@ There is also a note name
 `@code{s}', which produces a space of the specified
 duration.
 
-
-@c .  {Multi measure rests}
-@node  Multi measure rests
-@subsection Multi measure rests
-@cindex Multi measure rests
-
-@cindex @code{R}
-
-[todo: moveme to orchestral-part section?]
-
-Multi measure rests are entered using `@code{R}'. It is specifically
-meant for entering parts: the rest can expand to fill a score with
-rests, or it can be printed as a single multimeasure rest This expansion
-is controlled by the property @code{Score.skipBars}. If this is set to true,
-Lily will not expand empty measures, and the appropriate number is added
-automatically.
-
-@lilypond[fragment,verbatim]
- \time 3/4; R2.*2 \property Score.skipBars = ##t R2.*17  R2.*4
-@end lilypond
-
-Currently, there is  no way to condense multiple rests into a single
-multimeasure rest.
-
-@cindex condensing rests
 
 @c .  {Skip}
 @node Skip
@@ -1507,7 +1315,6 @@ implemented.
 * Crescendo and Decrescendo::   
 * Bar lines::                   
 * Breath marks::                
-* Rehearsal marks::             
 @end menu
 
 
@@ -1631,7 +1438,7 @@ This is a short-cut for doing
 @end example
 
 You are encouraged to use @code{\repeat} for repetitions.  See
-@ref{Repeat}, and the documentation of @code{whichBar} in
+@ref{Repeats}, and the documentation of @code{whichBar} in
 @ref{(lilypond-internals)LilyPond context properties}.
 
 
@@ -1642,20 +1449,6 @@ You are encouraged to use @code{\repeat} for repetitions.  See
 @subsubsection Breath marks
 @cindex Breath marks
 
-@c .   {Rehearsal marks}
-@node Rehearsal marks
-@subsubsection Rehearsal marks
-@cindex Rehearsal marks
-@cindex mark
-@cindex @code{\mark}
-
-@example
-  \mark @var{unsigned};
-@cindex @code{Mark_engraver}
-  \mark @var{string};
-@end example
-
-Prints a mark over or under the staff.  
 
 
 @c .  {Bar check}
@@ -1795,12 +1588,6 @@ can be printed automatically. This is enabled if the property
   >  
 @end lilypond
 @end quotation
-
-
-
-
-
-
 
 
 @c . {Lyrics}
@@ -2384,7 +2171,105 @@ scheme = \chords {
 @end lilypond
 @end quotation
 
+@node Writing parts
+@section Writing parts
 
+@c .  {Transpose}
+@menu
+* Rehearsal marks::             
+* Transpose::                   
+* Multi measure rests::         
+@end menu
+
+[TODO:
+
+partcombine
+
+rehearsal marks
+
+bar numbering 
+
+tranposing midi property.
+
+] 
+
+@c .   {Rehearsal marks}
+@node Rehearsal marks
+@subsection Rehearsal marks
+@cindex Rehearsal marks
+@cindex mark
+@cindex @code{\mark}
+
+@example
+  \mark @var{unsigned};
+@cindex @code{Mark_engraver}
+  \mark @var{string};
+@end example
+
+Prints a mark over or under the staff.  
+
+[TODO: automatic increments]
+
+@node Transpose
+@subsection Transpose
+@cindex Transpose
+@cindex transposition of pitches
+@cindex @code{\transpose}
+
+A music expression can be transposed with @code{\transpose}.  The syntax
+is
+@example
+  \transpose @var{pitch} @var{musicexpr}
+@end example
+
+This means that middle C in @var{musicexpr} is transposed to
+@var{pitch}.
+
+@code{\transpose} distinguishes between enharmonic pitches: both
+@code{\transpose cis'} or @code{\transpose des'} will transpose up half
+a tone.  The first version will print sharps and the second version
+will print flats.
+
+@quotation
+@lilypond[fragment,verbatim]
+\context Staff {
+  \clef "F";
+  { \key e \major; c d e f }
+  \clef "G";
+  \transpose des'' { \key e \major; c d e f }
+  \transpose cis'' { \key e \major; c d e f }
+}
+
+@end lilypond
+@end quotation
+
+If you want to use both @code{\transpose} and @code{\relative}, then
+you must use @code{\transpose} first.  @code{\relative} will have no
+effect music that appears inside a @code{\transpose}.
+
+
+@c .  {Multi measure rests}
+@node  Multi measure rests
+@subsection Multi measure rests
+@cindex Multi measure rests
+
+@cindex @code{R}
+
+Multi measure rests are entered using `@code{R}'. It is specifically
+meant for entering parts: the rest can expand to fill a score with
+rests, or it can be printed as a single multimeasure rest This expansion
+is controlled by the property @code{Score.skipBars}. If this is set to true,
+Lily will not expand empty measures, and the appropriate number is added
+automatically.
+
+@lilypond[fragment,verbatim]
+ \time 3/4; R2.*2 \property Score.skipBars = ##t R2.*17  R2.*4
+@end lilypond
+
+Currently, there is  no way to condense multiple rests into a single
+multimeasure rest.
+
+@cindex condensing rests
 
 
 @c . {Page layout}
@@ -2802,11 +2687,27 @@ relative within transposed music, you must place an additional
 @section Engravers
 @cindex engravers
 @menu
+* Selecting contexts::          
 * Context definitions::         
 * Notation Contexts::           
 @end menu
 
-[rewrite this entirely]
+@c .  {Music expressions}
+@node Selecting contexts
+@subsection Selecting contexts
+
+@cindex @code{\context}
+@cindex context selection
+
+@example
+  \context @var{contexttype} [= @var{contextname}] @var{musicexpr}
+@end example
+
+Interpret @var{musicexpr} within a context of type @var{contexttype}. 
+If the context does not exist, it will be created.  The new context
+can optionally be given a name.  
+
+
 
 @c .  {Context definitions}
 @node Context definitions
@@ -3144,6 +3045,7 @@ called @emph{performers}.
 @menu
 * Top level::                   
 * Identifiers::                 
+* Music expressions::           
 * Assignments::                 
 * Lexical details::             
 * Lexical modes::               
@@ -3250,6 +3152,93 @@ not yet user accessible.
 @item Font_metric: object representing a font. (See @ref{Font metrics})
 
 @end itemize
+
+
+@node Music expressions
+@subsection Music expressions
+
+@cindex music expressions
+
+Music in LilyPond is entered as a music expression.  Notes, rests, lyric
+syllables are music expressions, and you can combine music expressions
+to form new ones, for example by enclosing a list of expressions in
+@code{\sequential @{ @}} or @code{< >}.  In this example, a compound
+expression is formed out of the quarter note @code{c} and a quarter note
+@code{d}:
+
+@example 
+\sequential @{ c4 d4 @} 
+@end example 
+
+@cindex Sequential music
+@cindex @code{\sequential}
+@cindex sequential music
+@cindex @code{<}
+@cindex @code{>}
+@cindex Simultaneous music
+@cindex @code{\simultaneous}
+
+The two basic compound  music expressions are simultaneous  and
+sequential music.
+
+@example
+  \sequential @code{@{} @var{musicexprlist} @code{@}}
+  \simultaneous @code{@{} @var{musicexprlist} @code{@}}
+@end example
+For both, there is a shorthand:
+@example
+  @code{@{} @var{musicexprlist} @code{@}}
+@end example
+for sequential and
+@example
+  @code{<} @var{musicexprlist} @code{>}
+@end example
+for simultaneous music.
+Other compound music expressions include
+@example
+ \repeat @var{expr}
+ \transpose @var{pitch} @var{expr}
+ \apply @var{func} @var{expr}
+ \context @var{type} = @var{id} @var{expr}
+ \times @var{fraction} @var{expr}
+@end example
+
+In principle, the way in which you nest sequential and simultaneous to
+produce music is not relevant.  In the following example, three chords
+are expressed in two different ways:
+
+@lilypond[fragment,verbatim,center]
+  \notes \context Voice {
+    <a c'> <b  d' > <c' e'>
+    < { a b  c' } { c' d' e' } >
+  }
+@end lilypond
+
+However, in some cases, LilyPond will also try to choose contexts, and
+use the structure of the music expression  to do so. This can have
+undesired effects: for example, LilyPond will create a separate staff
+for each note if you start a @code{\score} with a  chord:
+@lilypond[verbatim,center]
+  \score {
+    \notes <c''4 e''>
+    \paper {
+      linewidth = -1.;
+    }
+  }
+@end lilypond
+  The solution is to explicitly instantiate the context you desire.
+In this case this is typically a Voice context
+@lilypond[verbatim,center]
+  \score {
+    \notes\context Voice <c''4 e''>
+    \paper {
+      linewidth = -1.;
+    }
+  }
+@end lilypond
+If you use @code{\context Staff} you will get separate stems for each
+note head, leading to collisions, so don't use that.
+
 
 
 @c .   {Assignments}
