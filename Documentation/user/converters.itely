@@ -66,7 +66,9 @@ The following options can be given:
     Print usage help.
 @end table
 
-
+convert-ly always converts up to the last syntax change handled by
+it. This means that the @code{\version} number left in the file is
+usually lower than the version of convert-ly itself.
 
 @refbugs
 

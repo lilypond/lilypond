@@ -109,9 +109,9 @@ have the correct number of accidentals
 # should cache this.
 def find_scale (keysig):
 	cscale = map (lambda x: (x,0), range (0,7))
-	print "cscale: ", cscale
+#	print "cscale: ", cscale
 	ascale = map (lambda x: (x,0), range (-2,5))
-	print "ascale: ", ascale
+#	print "ascale: ", ascale
 	transposition = keysig.pitch
 	if keysig.sig_type == 1:
 		transposition = transpose(transposition, (2, -1))
@@ -119,7 +119,7 @@ def find_scale (keysig):
 		trscale = map(lambda x, k=transposition: transpose(x, k), ascale)
 	else:
 		trscale = map(lambda x, k=transposition: transpose(x, k), cscale)
-	print "trscale: ", trscale
+#	print "trscale: ", trscale
 	return trscale
 
 def EDU_to_duration (edu):
@@ -137,7 +137,7 @@ def EDU_to_duration (edu):
 		dots = 2
 	return (log, dots)	
 
-def rat_to_lily_duration (rat):
+def rational_to_lily_skip (rat):
 	(n,d) = rat
 
 	basedur = 1
@@ -395,7 +395,7 @@ class Verse:
 				str = str + ' ' * 4 + line + '\n'
 				line = ''
 			
-		str = """\nverse%s = \\lyricmode {\n %s}\n""" %  (encodeint (self.number - 1) ,str)
+		str = """\nverse%s = \\lyricmode {\n %s }\n""" %  (encodeint (self.number - 1) ,str)
 		return str
 
 class KeySignature:
@@ -463,14 +463,19 @@ class Frame:
 
 		# do grace notes.
 		lastch = None
+		in_grace = 0
 		for c in self.chords:
 			if c.grace and (lastch == None or (not lastch.grace)):
 				c.chord_prefix = r'\grace {' + c.chord_prefix
+				in_grace = 1
 			elif not c.grace and lastch and lastch.grace:
 				lastch.chord_suffix = lastch.chord_suffix + ' } '
-
+				in_grace = 0
+				
 			lastch = c
-			
+
+		if lastch and in_grace:
+			lastch.chord_suffix += '}' 
 
 		
 	def dump (self):
@@ -493,7 +498,7 @@ class Frame:
 			sys.stderr.write ("""\nHuh? Going backwards in frame no %d, start/end (%d,%d)""" % (self.number, self.start, self.end))
 			left = (0,1)
 		if left[0]:
-			str = str + rat_to_lily_duration (left)
+			str = str + rational_to_lily_skip (left)
 
 		str = str + '  | \n'
 		return str
@@ -570,7 +575,7 @@ class Staff:
 				last_clef = m.clef
 			if e:
 				if gap <> (0,1):
-					k = k +' ' + rat_to_lily_duration (gap) + '\n'
+					k = k +' ' + rational_to_lily_skip (gap) + '\n'
 				gap = (0,1)
 				k = k + e
 				
@@ -606,7 +611,7 @@ class Staff:
 				if fr:
 					first_frame = fr
 					if gap <> (0,1):
-						laystr = laystr +'} %s {\n ' % rat_to_lily_duration (gap)
+						laystr = laystr +'} %s {\n ' % rational_to_lily_skip (gap)
 						gap = (0,1)
 					laystr = laystr + fr.dump ()
 				else:
@@ -618,7 +623,7 @@ class Staff:
 							% (self.number, m.number))
 			if first_frame:
 				l = self.layerid (x)
-				laystr = '%s = { { %s } }\n\n' % (l, laystr)
+				laystr = '%s = { {  %s } }\n\n' % (l, laystr)
 				str = str  + laystr
 				layerids.append (l)
 
@@ -1126,7 +1131,8 @@ class Etf_file:
 			sys.stderr.write ("\nLyrics found; edit to use \\addlyrics to couple to a staff\n")
 			
 		if staffs:
-			str = str + '\\score { << %s >> } ' % string.join (staffs)
+			str += '\\version "2.3.25"\n'
+			str = str + '<<\n  %s\n>> } ' % string.join (staffs)
 			
 		return str
 

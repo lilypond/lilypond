@@ -982,8 +982,9 @@ def convert_midi (f, o):
 
 	tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, f)
 
+        
 	s = ''
-	s = tag + '\n\n'
+	s = tag + '\n\\version "2.3.25"\n\n'
 	for i in range (len (tracks)):
 		s = s + dump_track (tracks[i], i)
 
@@ -1083,7 +1084,6 @@ if not files or files[0] == '-':
 
 
 for f in files:
-
 	g = f
 	g = strip_extension (g, '.midi')
 	g = strip_extension (g, '.mid')

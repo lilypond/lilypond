@@ -5,6 +5,21 @@
 
 2004-10-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/notation.itely (Automatic note splitting):
+	note about lyrics. 
+
+	* Documentation/user/converters.itely (Invoking convert-ly): note
+	about version numbers. 
+
+	* scripts/abc2ly.py (dump_score): revise lyric dumping
+
+	* scripts/mup2ly.py (pre_processor_commands): always open file.
+
+	* scripts/etf2ly.py (Frame.calculate): always close \grace.
+	(Etf_file.dump): add \version
+
+	* VERSION: 2.3.25 released.
+
 	* lily/scm-option.cc: add 'resolution to ly:get-option argument
 	list.
 

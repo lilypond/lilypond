@@ -1295,7 +1295,8 @@ for f in files:
 		h = sys.stdin
 	elif f and not os.path.isfile (f):
 		f = strip_extension (f, '.mup') + '.mup'
-		h = open (f)
+		
+	h = open (f)
 	progress ( _("Processing `%s'..." % f))
 	raw_lines = h.readlines ()
 	p = Pre_processor (raw_lines)
