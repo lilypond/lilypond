@@ -200,7 +200,6 @@ mezzosoprano
 \\minor
 \\mixolydian
 \\mm
-\\mm
 \\modernAccidentals
 \\modernCautionaries
 \\modernVoiceAccidentals
@@ -253,6 +252,9 @@ NoteNames
 \\pbow
 \\penalty
 percent
+\\phrasingSlurBoth
+\\phrasingSlurDown
+\\phrasingSlurUp
 \\phrygian
 \\Piano
 \\pianoAccidentals
