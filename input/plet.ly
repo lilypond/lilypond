@@ -1,18 +1,18 @@
 
-melanie = music {
-	$
+melanie = \music {
+	
 	\duration{8}
-	[ c d ] { [ d 'd } { c 'c ] } |
+	[ c d ] { [ d d' } { c c' ] } |
 	[ c d ] [ e { d g } c ]2/3 |
-	[ c d ] [ c16 d16 'e16 'e16 d16 c16 ]4/6 |
+	[ c d ] [ c16 d16 e'16 e'16 d16 c16 ]4/6 |
 	[ c d e e d c ]4/6 |
 	[c d ] { \music{ [ c d e ]2/3 } \music{ [ f g a ]2/3 } } |
 	[ c d ] [ d c ] |
-        $
+        
 }
 
-michelle = music {
-	$
+michelle = \music {
+	
 	\duration{8}
 	[ c c c c ] |
 	[ c c c c ] |
@@ -20,10 +20,10 @@ michelle = music {
 	[ c c c c ] |
 	[ c c c c ] |
 	[ c c c c ] |
-	$
+	
 }
 
-mireille = music {
+mireille = \music {
 	@
 	\duration{8}
 	o o o o |
@@ -36,10 +36,10 @@ mireille = music {
 }
 
 score {
-	staff { lyric music { mireille } }
-	staff { melodic music { melanie } }
-	staff { melodic music { michelle } }
-	commands{ 
-		meter {2*4}
+	\staff { lyric \music { mireille } }
+	\staff { \melodic \music { melanie } }
+	\staff { \melodic \music { michelle } }
+	\co\mmands{ 
+		\meter {2*4}
 	}
 }

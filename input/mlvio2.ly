@@ -11,8 +11,8 @@
 % The purpose of this file is to demonstrate features of LilyPond;
 % respect the copyright.
 %
-violin2 = music { 
-	$
+violinII = \music { 
+	
 \clef "violin"	\octave{}
 	\duration{4}
 	\key{fis}
@@ -172,7 +172,7 @@ violin2 = music {
 %69
 	es2. |
 %70
-	[ c es g ] 'c4.  |
+	[ c es g ] c'4.  |
 %71
 	b4 g4 d4 |
 %72
@@ -214,5 +214,5 @@ violin2 = music {
 	fis_"dacapo" \key{fis}|
 	\textstyle "roman"
 % \key\G ||
-	$
+	
 }
