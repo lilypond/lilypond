@@ -84,8 +84,9 @@ struct Group_change_req : Nonmusical_req {
 /** draw a (repeat)-bar. This something different than #Barcheck_req#,
   the latter should only happen at the start of a measure.  */
 struct Bar_req : Nonmusical_req {
-    String type;
+    String type_str_;
     Bar_req(String);
+    int compare(const Bar_req&)const;
     REQUESTMETHODS(Bar_req,bar);
 };
 struct Terminate_voice_req : Nonmusical_req {
