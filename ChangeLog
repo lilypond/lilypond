@@ -1,10 +1,14 @@
+2002-09-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/translator-property-description.scm (voltaOnThisStaff): add
+	property.
+
 2002-09-28  Werner Lemberg  <wl@gnu.org>
 
 	* scm/tex.scm (header-end): Suppress page numbering.
 
 	* scripts/lilypond-book.py (output_dict) <output-texi-quoted>:
 	Fix quotation for HTML output.
-
 
 2002-09-28   Graham Percival   <gperciva@sfu.ca>
 	

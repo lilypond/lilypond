@@ -51,7 +51,8 @@ Volta_engraver::Volta_engraver ()
 void
 Volta_engraver::process_music ()
 {
-  if (unsmob_grob (staff_))
+  if (unsmob_grob (staff_)
+      && !to_boolean (get_property ("voltaOnThisStaff")))
     {
       /*
 	TODO: this does weird things when you open a piece with a
@@ -212,5 +213,5 @@ ENTER_DESCRIPTION(Volta_engraver,
 /* descr */       "Make volta brackets",
 /* creats*/       "VoltaBracket",
 /* acks  */       "bar-line-interface staff-symbol-interface note-column-interface",
-/* reads */       "repeatCommands voltaSpannerDuration stavesFound",
+/* reads */       "repeatCommands voltaSpannerDuration stavesFound voltaOnThisStaff",
 /* write */       "");
