@@ -134,6 +134,22 @@ Duration::less_p (SCM p1, SCM p2)
     return SCM_BOOL_F;
 }
 
+LY_DEFINE(duration_less, "ly:duration<?", 2,0,0, (SCM p1, SCM p2),
+	  "Is @var{p1} shorter than @var{p2}?")
+{
+  Duration *a = unsmob_duration (p1);
+  Duration *b = unsmob_duration (p2);
+
+  SCM_ASSERT_TYPE(a, p1, SCM_ARG1, __FUNCTION__, "Duration");
+  SCM_ASSERT_TYPE(b, p2, SCM_ARG2, __FUNCTION__, "Duration");
+
+  if (Duration::compare (*a, *b) < 0)
+    return SCM_BOOL_T;
+  else
+    return SCM_BOOL_F;
+}
+
+
 LY_DEFINE(make_duration,
 	  "ly:make-duration", 2, 2, 0, (SCM length, SCM dotcount,
 				     SCM num, SCM den),

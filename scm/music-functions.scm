@@ -27,6 +27,7 @@
 
 (define-public (display-one-music music)
   (display music)
+  (display (ly:get-mutable-properties music))
   music
   )
 

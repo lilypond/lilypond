@@ -154,9 +154,12 @@ Music::print_smob (SCM s, SCM p, scm_print_state*)
   Music* m = unsmob_music (s);
   scm_puts (classname (m),p);
 
-  print_alist (m->mutable_property_alist_, p);
-  print_alist (m->immutable_property_alist_, p);
-  
+  /*
+    Printing these takes a lot of time, especially during backtraces.
+    For inspecting, it is better to explicitly use an inspection
+    function.
+   */
+
   scm_puts (">",p);
   return 1;
 }
@@ -217,6 +220,15 @@ Music::origin () const
 Music::~Music ()
 {
   
+}
+
+LY_DEFINE(ly_get_music_length,
+	  "ly:get-music-length", 1, 0, 0,  (SCM mus),
+	  "Get the length (in musical time) of music expression @var{mus}.")
+{
+  Music * sc = unsmob_music (mus);
+  SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "music");
+  return sc->get_length().smobbed_copy();
 }
 
 LY_DEFINE(ly_get_mus_property,

@@ -1,3 +1,4 @@
+
 \header {
     texidoc = "test file for new-new-chord names, ie, double-plus-new-chord-name"
 }
@@ -33,37 +34,54 @@ epartial = \chordnames {
 }
 
 
-xch = \chords { c:7+.9-^3.5 c:dim }
-
-xch = \chords { c:13-.9+^11 }
-ch = \chords { c:7.9- }
-ch = \chords { c:7.9+.11+ }
-ch = \chords { c:7.9+ }
-ch = \chords {  c:3-.9^7 }	% madd9
-
-ch = \chords {  c:3-.6.9^7 }	% m6/9 
-
-ch = \chords { c:dim9 }
-
-ch = \chords { c:1^5 }
-
-ch = \chords { c:m5-.7-	} % o = diminished seventh chord
-
-ch = \chords { c:7-	} 
-%ch = \chords { c:3.11-	}
-
-%ch = \chords { c:7.11.13 }
-
-% ch = \chords { c:7.11.15.17.19.21 }
-ch = \chords { c c:m c:7 c:7.9 c:7+.9 c:7.9+ c:9^7 c:3.11^7
+ch = \notes \transpose c' c' 
+{
+	<<c e g>>1
+	<<c es g>>
+	<<c e gis>>
+	<<c es ges>> \break
+	<<c e g bes>>
+	<<c es g bes>>
+	<<c e g b>>
+	<<c es ges beses>> 
+	<<c es ges b>> \break
+	<<c e gis bes>>
+	<<c es g b>>
+	<<c e gis b>> 
+	<<c es ges bes>>\break
+	<<c e g a>>
+	<<c es g a>>
+	<<c e g bes d'>> % ?? 
+	<<c es g bes d'>> \break
+	<<c es g bes d' f' a' >>
+	<<c es g bes d' f' >>
+	<<c es ges bes d' >> 
+	<<c e g bes des' >> \break
+	<<c e g bes dis'>>
+	<<c e g bes d' f'>>
+	<<c e g bes d' fis'>>
+	<<c e g bes d' f' a'>>\break
+	<<c e g bes d' fis' as'>>
+	<<c e gis bes dis'>>
+	<<c e g bes dis' fis'>>
+	<<c e g bes d' f' as'>>\break
+	<<c e g bes des' f' as'>>
+	<<c e g bes d' fis'>>
+	<<c e g b d'>>
+	<<c e g bes d' f' as'>>\break
+	<<c e g bes des' f' as'>>
+	<<c e g bes des' f' a'>>
+	<<c e g b d'>>
+	<<c e g b d' f' a'>>\break
+	<<c e g b d' fis'>>
+	<<c e g bes des' f ' a'>>
+	<<c f g>>
+	<<c f g bes>>\break
+	<<c f g bes d'>>
+	<<c e g d'>>
+	<<c es g f'>>
 }
-%ch = \chords { c:9^7 c:5^3}
 
-ch = \chords { c:3- c:3 c:2 c:7+ c:3-.5-.7- c:6.9^7
-	c:4.7+^3
-	r
-
-}
 
 \score{
     <

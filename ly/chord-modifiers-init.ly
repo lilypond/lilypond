@@ -15,3 +15,13 @@
 	(sus . ,(ly:make-pitch 0 3 0 ))
 )
 
+
+whiteTriangleMarkup =#(make-override-markup '(font-family . math) (make-simple-markup "M"))
+
+blackTriangleMarkup = #(make-override-markup '(font-family . math) (make-simple-markup "N"))
+
+ignatzekExceptionMusic =  \notes {
+	<<c e gis>>1-\markup { "+" }
+	<<c es ges>>-\markup { \super "o" } % should be $\circ$ ?
+	<<c es ges bes>>-\markup { \super \combine "o" "/" }
+}

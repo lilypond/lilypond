@@ -15,11 +15,8 @@
    )
 
 
-(define (write-me x)
-  "Write and return X. For debugging purposes. "
-  (write x) (newline) x)
 
-;(define (dbg x) (write-me x))
+;(define (dbg x) (write-me "" x))
 (define (dbg x) x)
 
 ;;(define (write-me x) (write x) (newline) x)
@@ -158,7 +155,7 @@ dump reinterpret the markup as a molecule.
 ;;
 ;; TODO: invent sensible way to make note name tweaking possible?
 ;;
-(define (pitch->markup pitch)
+(define (old-pitch->markup pitch)
   (make-line-markup
    (list
     (make-simple-markup
@@ -169,14 +166,14 @@ dump reinterpret the markup as a molecule.
 ;;; Hooks to override chord names and note names, 
 ;;; see input/tricks/german-chords.ly
 
-(define pitch->markup-banter pitch->markup)
+(define old-pitch->markup-banter old-pitch->markup)
 
 ;; We need also steps, to allow for Cc name override,
 ;; see input/test/Cc-chords.ly
 (define (pitch->chord-name-markup-banter pitch steps)
-  (pitch->markup-banter pitch))
+  (old-pitch->markup-banter pitch))
 
-(define pitch->note-name-markup-banter pitch->markup-banter)
+(define pitch->note-name-markup-banter old-pitch->markup-banter)
 
 (define (step->markup pitch)
   (string-append
@@ -856,13 +853,14 @@ dump reinterpret the markup as a molecule.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(define-public (new-chord->markup func ly-pitches bass inversion exceptions)
+(define-public (new-chord->markup func ly-pitches bass inversion context)
   "Entry point for New_chord_name_engraver. See chord-name.scm for the
 signature of FUNC.  LY-PITCHES, BASS and INVERSION are lily
 pitches. EXCEPTIONS is an alist (see scm file).
  "
   
   (let* ((pitches (map c++-pitch->scm ly-pitches))
+	 (exceptions (ly:get-context-property context 'chordNameExceptions))
 	 (bass-and-inversion 
 	  (cons (c++-pitch->scm bass)
 		(c++-pitch->scm inversion)))

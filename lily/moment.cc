@@ -103,6 +103,7 @@ LY_DEFINE (div_moment,"ly:div-moment", 2,0,0, (SCM a, SCM b),
 }
 
 
+
 SCM
 Moment::equal_p (SCM a, SCM b)
 {

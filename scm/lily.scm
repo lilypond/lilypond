@@ -59,11 +59,128 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Unassorted utility functions.
 
+
+;;;;;;;;;;;;;;;;
+; alist
 (define (uniqued-alist  alist acc)
   (if (null? alist) acc
       (if (assoc (caar alist) acc)
 	  (uniqued-alist (cdr alist) acc)
 	  (uniqued-alist (cdr alist) (cons (car alist) acc)))))
+
+
+(define (assoc-get key alist)
+  "Return value if KEY in ALIST, else #f."
+  (let ((entry (assoc key alist)))
+    (if entry (cdr entry) #f)))
+  
+(define (assoc-get-default key alist default)
+  "Return value if KEY in ALIST, else DEFAULT."
+  (let ((entry (assoc key alist)))
+    (if entry (cdr entry) default)))
+
+
+(define-public (uniqued-alist  alist acc)
+  (if (null? alist) acc
+      (if (assoc (caar alist) acc)
+	  (uniqued-alist (cdr alist) acc)
+	  (uniqued-alist (cdr alist) (cons (car alist) acc)))))
+
+(define-public (alist<? x y)
+  (string<? (symbol->string (car x))
+	    (symbol->string (car y))))
+
+;;;;;;;;;;;;;;;;
+; list
+(define (tail lst)
+  "Return tail element of LST."
+  (car (last-pair lst)))
+
+(define (list-minus a b)
+  "Return list of elements in A that are not in B."
+  (if (pair? a)
+      (if (pair? b)
+	  (if (member (car a) b)
+	      (list-minus (cdr a) b)
+	      (cons (car a) (list-minus (cdr a) b)))
+	  a)
+      '()))
+
+;; why -list suffix (see reduce-list)
+(define-public (filter-list pred? list)
+  "return that part of LIST for which PRED is true."
+  (if (null? list) '()
+      (let* ((rest (filter-list pred? (cdr list))))
+	(if (pred? (car list))
+	    (cons (car list)  rest)
+	    rest))))
+
+(define-public (filter-out-list pred? list)
+  "return that part of LIST for which PRED is false."
+  (if (null? list) '()
+      (let* ((rest (filter-out-list pred? (cdr list))))
+	(if (not (pred? (car list)))
+	    (cons (car list)  rest)
+	    rest))))
+
+
+(define (first-n n lst)
+  "Return first N elements of LST"
+  (if (and (pair? lst)
+	   (> n 0))
+      (cons (car lst) (first-n (- n 1) (cdr lst)))
+      '()))
+
+(define-public (uniq-list list)
+  (if (null? list) '()
+      (if (null? (cdr list))
+	  list
+	  (if (equal? (car list) (cadr list))
+	      (uniq-list (cdr list))
+	      (cons (car list) (uniq-list (cdr list)))))))
+
+(define (butfirst-n n lst)
+  "Return all but first N entries of LST"
+  (if (pair? lst)
+      (if (> n 0)
+	  (butfirst-n (- n 1) (cdr lst))
+	  lst)
+      '()))
+  
+(define (split-at predicate l)
+ "Split L = (a_1 a_2 ... a_k b_1 ... b_k)
+into L1 = (a_1 ... a_k ) and L2 =(b_1 .. b_k) 
+Such that (PREDICATE a_i a_{i+1}) and not (PREDICATE a_k b_1).
+L1 is copied, L2 not.
+
+(split-at (lambda (x y) (= (- y x) 2))  '(1 3 5 9 11) (cons '() '()))"
+;; "
+
+;; KUT EMACS MODE.
+
+  (define (inner-split predicate l acc)
+  (cond
+   ((null? l) acc)
+   ((null? (cdr l))
+    (set-car! acc (cons (car l) (car acc)))
+    acc)
+   ((predicate (car l) (cadr l))
+    (set-car! acc (cons (car l) (car acc)))
+    (inner-split predicate (cdr l) acc))
+   (else
+    (set-car! acc (cons (car l) (car acc)))
+    (set-cdr! acc (cdr l))
+    acc)
+
+  ))
+ (let*
+    ((c (cons '() '()))
+     )
+  (inner-split predicate l  c)
+  (set-car! c (reverse! (car c))) 
+  c)
+)
+
 
 (define (other-axis a)
   (remainder (+ a 1) 2))
@@ -74,7 +191,10 @@
          (+ (cdr iv) amount))
 )
 
-
+(define-public (write-me message x)
+  "Return X.  Display MESSAGE and write X.  Handy for debugging, possibly turned off."
+  (display message) (write x) (newline) x)
+;;  x)
 
 (define (index-cell cell dir)
   (if (equal? dir 1)
@@ -110,7 +230,6 @@ is the  first to satisfy CRIT
       )
   ))
 
-;; rare naam.  voorstel: reduce-add-infix
 (define-public (list-insert-separator list between)
   "Create new list, inserting BETWEEN between elements of LIST"
   (if (null? list)
@@ -122,64 +241,27 @@ is the  first to satisfy CRIT
   
   )))
 
+;;;;;;;;;;;;;;;;
+; strings.
+
 (define-public (string-join str-list sep)
   "append the list of strings in STR-LIST, joining them with SEP"
   (apply string-append (list-insert-separator str-list sep))
   )
 
+(define-public (pad-string-to str wid)
+  (string-append str (make-string (max (- wid (string-length str)) 0) #\ ))
+  )
 
+;;;;;;;;;;;;;;;;
+; other
 (define (sign x)
   (if (= x 0)
       0
       (if (< x 0) -1 1)))
 
-(define (write-me n x)
-  (display n)
-  (write x)
-  (newline)
-  x)
-
 (define-public (!= l r)
   (not (= l r)))
-
-;; why -list suffix (see reduce-list)
-(define-public (filter-list pred? list)
-  "return that part of LIST for which PRED is true."
-  (if (null? list) '()
-      (let* ((rest (filter-list pred? (cdr list))))
-	(if (pred? (car list))
-	    (cons (car list)  rest)
-	    rest))))
-
-(define-public (filter-out-list pred? list)
-  "return that part of LIST for which PRED is false."
-  (if (null? list) '()
-      (let* ((rest (filter-out-list pred? (cdr list))))
-	(if (not (pred? (car list)))
-	    (cons (car list)  rest)
-	    rest))))
-
-(define-public (uniqued-alist  alist acc)
-  (if (null? alist) acc
-      (if (assoc (caar alist) acc)
-	  (uniqued-alist (cdr alist) acc)
-	  (uniqued-alist (cdr alist) (cons (car alist) acc)))))
-
-(define-public (uniq-list list)
-  (if (null? list) '()
-      (if (null? (cdr list))
-	  list
-	  (if (equal? (car list) (cadr list))
-	      (uniq-list (cdr list))
-	      (cons (car list) (uniq-list (cdr list)))))))
-
-(define-public (alist<? x y)
-  (string<? (symbol->string (car x))
-	    (symbol->string (car y))))
-
-(define-public (pad-string-to str wid)
-  (string-append str (make-string (max (- wid (string-length str)) 0) #\ ))
-  )
 
 (define-public (ly:load x)
   (let* (
@@ -200,7 +282,6 @@ is the  first to satisfy CRIT
 	     (scm sketch)
 	     (scm sodipodi)
 	     (scm pdftex)
-	     (scm double-plus-new-chord-name)
 	     )
 
 (define output-alist
@@ -239,7 +320,8 @@ is the  first to satisfy CRIT
      '("music-types.scm"
        "output-lib.scm"
        "c++.scm"
-       
+       "chords-ignatzek.scm"
+       "double-plus-new-chord-name.scm"
        "molecule.scm"
        "bass-figure.scm"
        "grob-property-description.scm"
