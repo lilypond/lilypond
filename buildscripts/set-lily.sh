@@ -48,7 +48,8 @@ chmod 755 $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh
 ln -sf $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh $prefix/bin/ps-to-gifs
 ln -sf $LILYPOND_SOURCEDIR/mf/out/ afm
 mkdir -p $prefix/share/lilypond
-ln -sf $LILYPOND_SOURCEDIR/scm $prefix/share/lilypond
+ln -sf $LILYPOND_SOURCEDIR/ $prefix/share/lilypond
+
 if [ -f ../.gdbinit ];
 then
     ln ../.gdbinit .

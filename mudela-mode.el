@@ -36,7 +36,7 @@
 		     "clef" "cm" "consists" "contains" "duration" "absdynamic" 
 		     "in" "translator" "type" "lyric" "key" "maininput" "notes"
 		     "musical_pitch" "time" "midi" "mm" "header"
-		     "notenames" "octave" "output" "partial" "paper" "plet"
+		     "notenames" "octave" "output" "partial" "paper" "plet" "name"
 		     "property" "pt" "shape" "relative" "include" "score"
 		     "scm" "scmfile"
 		     "script" "skip"  "table" "times" "spandynamic" "symboltables"

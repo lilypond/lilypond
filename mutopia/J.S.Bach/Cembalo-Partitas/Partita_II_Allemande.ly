@@ -4,7 +4,7 @@
 	piece = "Allemande";
 }
 
-\version "1.0.10";
+\version "1.0.14";
 
 global = \notes{
 	\time 4/4;
@@ -52,7 +52,7 @@ hoyreEn = \notes\relative c'''{
 	\type Staff <
 		{ \stemup [bes8 d'][bes a16 g] g4~ g16 }
 		{ \stemup s2 s16 d8.~ d16 }
-		{ \stemdown r8 <g d> <[g d><fis c]> r16 [d16 b8~] b16 }
+		{ \stemdown r8 <g d> <[g d><fis c>] r16 [d16 b8~] b16 }
 	>
 	[es'16 d c] |
 %17
@@ -75,7 +75,7 @@ hoyreEn = \notes\relative c'''{
 	fis4.~ [fis16 e32 fis][g16 d f es][d c b a] |
 	\type Staff <
 		{ \stemup [g8 g'][es d16 c] c4. }
-		{ \stemdown r8 <g c es> <[g c> <f b]> <es4. g> } 
+		{ \stemdown r8 <g c es> <[g c> <f b>] <es4. g> } 
 	>	s8
 }
 

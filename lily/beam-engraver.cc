@@ -29,7 +29,7 @@ Beam_engraver::do_try_music (Music*r)
   if (!b)
     return false;
 
-  if (bool (beam_p_) == bool (b->spantype == Span_req::START))
+  if (bool (beam_p_) == bool (b->spantype_ == START))
     return false;
 
   Direction d = (!beam_p_) ? LEFT : RIGHT;

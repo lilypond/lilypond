@@ -11,6 +11,7 @@
 #include "command-request.hh"
 #include "note-head.hh"
 #include "musical-request.hh"
+#include "tie.hh"
 
 Command_tie_engraver::Command_tie_engraver()
 {
@@ -42,12 +43,47 @@ Command_tie_engraver::acknowledge_element (Score_element_info i)
 void
 Command_tie_engraver::do_process_requests ()
 {
-  
+  if (req_l_)
+    {
+      Moment now = now_moment ();
+      Link_array<Note_head> nharr;
+      
+      stopped_heads_.clear ();
+      while (past_notes_pq_.size ()
+	     && past_notes_pq_.front ().end_ == now)
+	stopped_heads_.push (past_notes_pq_.get ());
+
+    }
 }
 
 void
-Command_tie_engraver::processed_acknowledged ()
+Command_tie_engraver::process_acknowledged ()
 {
+  if (req_l_)
+    {
+      if (now_heads_.size () != stopped_heads_.size ())
+	{
+	  req_l_->warning ("Unequal number of note heads for tie");
+	}
+      int sz = now_heads_.size () <? stopped_heads_.size ();
+
+      // hmm. Should do something more sensible.
+      // because, we assume no more noteheads come along after the 1st pass.
+      if (sz > tie_p_arr_.size ())
+	{
+	  now_heads_.sort (CHead_melodic_tuple::pitch_compare);
+	  stopped_heads_.sort(CHead_melodic_tuple::pitch_compare);
+
+	  for (int i=0; i < sz; i++)
+	    {
+	      Tie * p = new Tie;
+	      p->set_head (LEFT, stopped_heads_[i].head_l_);
+	      p->set_head (RIGHT, now_heads_[i].head_l_);
+	      tie_p_arr_.push (p);
+	      announce_element (Score_element_info (p, req_l_));
+	    }
+	}
+    }
 }
 
 void
@@ -57,13 +93,21 @@ Command_tie_engraver::do_pre_move_processing ()
     {
       past_notes_pq_.insert (now_heads_[i]);
     }
+  now_heads_.clear( );
+  
+  for (int i=0; i<  tie_p_arr_.size (); i++)
+    {
+      typeset_element (tie_p_arr_[i]);
+    }
+  tie_p_arr_.clear ();
 }
 
 void
 Command_tie_engraver::do_post_move_processing ()
 {
+  req_l_ =0;
   Moment now = now_moment ();
-  while (past_notes_pq_.front ().end_ < now)
+  while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
     past_notes_pq_.delmin ();
 }
 

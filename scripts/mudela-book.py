@@ -36,6 +36,10 @@
 #   - mudela-book will scan the mudela code to find out if it has to add
 #     paper-definition and \score{\notes{...}}
 #   - possible to define commands that look like this: \mudela{ c d e }
+# 0.5.1:
+#   - removed init/mudela-book-defs.py, \mudela is defined inside mudela-book
+#   - fragment and nonfragment options will override autodetection of type of
+#     in mudela-block (voice contents or complete code)
 
 import os
 import string
@@ -45,7 +49,7 @@ import sys
 
 outdir = 'out'
 initfile = ''
-program_version = '0.5'
+program_version = '0.5.1'
 
 out_files = []
 
@@ -592,24 +596,11 @@ def main():
     if outdir[-1:] != '/':
         outdir = outdir + '/'
 
-    std_init_filename = ''
-    for p in string.split(os.environ['LILYINCLUDE'], ':'):
-        try:
-            std_init_filename =  p+os.sep+'mudela-book-defs.py'
-            break
-        except:
-            continue
-    defined_mudela_cmd_re = {}
-    try:
-	f = open(std_init_filename)
-	s = f.read()
-	f.close()
-	defined_mudela_cmd = eval(s)	# UGH
-    except IOError, w:
-        sys.stderr.write("%s (`%s')\n" % (w[1], std_init_filename))
-#        sys.exit(1)
-
-
+    defined_mudela_cmd = {'mudela': r"""
+\begin{mudela}[eps \fontoptions]
+    \maininput
+\end{mudela}
+"""}
     if initfile != '':
         f = open(initfile)
         s = f.read()
@@ -618,7 +609,6 @@ def main():
         for i in d.keys():
             defined_mudela_cmd[i] = d[i]
         del d
-
     c = defined_mudela_cmd.keys()[0]
     for x in defined_mudela_cmd.keys()[1:]:
         c = c + '|'+x

@@ -14,36 +14,8 @@ fragments of mudela in your source file, and includes the results into
 document that can be processed with LaTeX\&.  The result is a text
 document with formatted music integrated\&.
 .PP 
-Lilypond will create a directory to put temporary files, the default
-dir name is \fBout\fP\&. When you run mudela on a file, like this:
-.PP 
-
-.DS 
- 
-mudelab-book myfile\&.tex
-.DE 
- 
-
-.PP 
-the a file \fBout/myfile\&.latex\fP will be created\&. And to create
-the \fB\&.dvi\fP file you should type:
-.PP 
-
-.DS 
- 
-latex out/myfile\&.latex
-.DE 
- 
-
-.PP 
-This will create \fBmyfile\&.dvi\fP in the current directory\&. Bad things
-will happen if you cd to \fBout\fP and then runs 
-.DS 
- 
-latex myfile\&.latex
-.DE 
- 
-
+Lilypond will by default create all output files in directory \fBout\fP\&.
+The file to give to latex has ext \fB\&.latex\fP\&.
 .PP 
 \fBAbout the input\fP
 .PP 
@@ -69,30 +41,31 @@ to whatever he wants\&.
 .PP 
 \f(CW\ebegin\fP takes the following options:
 .PP 
-.IP "floating" 
-the created graphics can be inserted in the middle of a text line, 
-not only as a separate paragraph
-.IP "fragment" 
-mudela-book adds some redtape\&. You
-can substitute voice-contents for CONTENTS in this case\&.
+.IP "eps" 
+the music is created as eps graphics that can be inserted in 
+the middle of a text line, not only as a separate paragraph
 .IP "verbatim" 
 CONTENTS is copied into the TeX source enclosed in a verbatim block\&.
 .IP "11pt, 13pt, 16pt, 20pt, 26pt" 
 set the fontsize to use for the music
+.IP "fragment" 
+.IP "nonfragment" 
+Override mudela-book autodetection of what type of code is in the
+mudela block, voice contents or complete code\&.
 .PP 
 .SH "OPTIONS" 
 .PP 
 .IP 
-.IP "--mudela-fontsize" 
+.IP "--default-mudela-fontsize=??pt" 
 Set the fontsize to use for mudela if no fontsize is given
 as option\&.
-.IP "--force-mudela-fontsize" 
+.IP "--force-mudela-fontsize=??pt" 
 Force all mudela to use this fontsize, overriding options
 given to \ebegin{mudela}
-.IP "--outname" 
+.IP "--outname=FILE" 
 The name of  file to output\&. If this option  is not given,
 the output name derived from the input name\&.
-.IP "--outdir" 
+.IP "--outdir=DIRECTORY" 
 The directory to output lilypond output and input to\&.
 .IP "--help" 
 Print a short help message
@@ -100,11 +73,12 @@ Print a short help message
 Write dependencies to outdir/filename\&.dep
 .IP "--force-verbatim" 
 Make all mudela verbatim\&.
+.IP "--initfile=FILE" 
+read command definitions from \fBFILE\fP
 .PP 
 .SH "FILES" 
-You have to install LaTeX\&. \fBmudela-book\fP is not tested on LaTeX 2\&.09
-and will probably fail on something else than LaTeX2e\&.
-.PP 
+See \fBDocumentation/tex/out/mudela-book-doc\&.dvi\fP for more info\&.
+You have to install LaTeX\&.
 \fBmudela-book\fP is written in  python 1\&.5, so you have to install 
 python\&.
 .PP 
@@ -117,6 +91,7 @@ music in \efootnote{\&.\&.\&.} or \emarginpar{\&.\&.\&.}\&.
 .PP 
 Ignores almost all LaTeX commands that changes margins and linewidths\&.
 .PP 
+\fB\ebegin{verbatim}\fP is ignored\&.
 .SH "AUTHOR" 
 .PP 
 Han-Wen Nienhuys <hanwen@cs\&.uu\&.nl>, http://www\&.cs\&.uu\&.nl/people/hanwen

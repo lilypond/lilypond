@@ -349,13 +349,13 @@ My_lily_parser::get_parens_request (int t)
     case '>':
     case '(':
     case '[':
-      dynamic_cast<Span_req*> (reqs[0])->spantype = Span_req::START;
+      dynamic_cast<Span_req*> (reqs[0])->spantype_ = START;
       break;
       
     case '!':
     case ')':
     case ']':
-      dynamic_cast<Span_req*> (reqs[0])->spantype = Span_req::STOP;
+      dynamic_cast<Span_req*> (reqs[0])->spantype_ = STOP;
       break;
 
     default:

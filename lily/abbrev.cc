@@ -40,7 +40,7 @@ Abbreviation::brew_molecule_p () const
   if (stem_l_ && stem_l_->beam_l_) {
     slope_f = stem_l_->beam_l_->slope_f_;
     // ugh, rather calc from Abbreviation_req
-    beams_i = stem_l_->beams_right_i_ >? stem_l_->beams_left_i_;
+    beams_i = stem_l_->beams_i_drul_[RIGHT] >? stem_l_->beams_i_drul_[LEFT];
   } 
   Real sl = slope_f * internote_f;
 

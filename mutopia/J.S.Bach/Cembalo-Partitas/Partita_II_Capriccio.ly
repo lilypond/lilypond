@@ -10,7 +10,7 @@
 %% 
 %% Noe liknende skjer også i mellom andre og tredje stemme i takt 28
 
-\version "1.0.10";
+\version "1.0.14";
 
 global = \notes{
 	\time 2/4;
@@ -137,7 +137,7 @@ vOne = \type Voice = voiceOne \notes\relative c''{
 	c4 r |
 %93
 	r8 g f'4~ |
-	[f8 d g <f as,]> |
+	[f8 d g <f as,>] |
 	<es4 g,> <d f,> |
 	<c2 g es>
 }

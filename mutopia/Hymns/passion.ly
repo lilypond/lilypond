@@ -5,7 +5,7 @@ composer = "J. S. Bach";
 enteredby = "Peter Chubb";
 }
 
-\version "1.0.10";
+\version "1.0.14";
 
 sop=\notes \transpose c'' {
 	\repeat 2 {

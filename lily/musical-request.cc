@@ -38,7 +38,7 @@ void
 Span_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << spantype;
+  DOUT << spantype_;
 #endif
 }
 
@@ -157,11 +157,6 @@ Rhythmic_req::compress (Moment m)
 {
   duration_.compress (m);
 }
-  
-
-
-
-
 
 void
 Lyric_req::do_print () const
@@ -203,18 +198,11 @@ Note_req::do_print () const
 #endif
 }
 
-
-
 void
 Rest_req::do_print () const
 {
       Rhythmic_req::do_print ();
 }
-
-
-
-
-
 
 void
 Multi_measure_rest_req::do_print () const
@@ -223,17 +211,10 @@ Multi_measure_rest_req::do_print () const
 }
 
 
-
-
-
-
 void
 Beam_req::do_print () const
 {
 }
-
-
-
 
 Abbreviation_beam_req::Abbreviation_beam_req ()
 {
@@ -277,12 +258,12 @@ bool
 Span_req::do_equal_b (Request*r) const
 {
   Span_req * s = dynamic_cast <Span_req *> (r);
-  return s && spantype == s->spantype;
+  return s && spantype_ == s->spantype_;
 }
 
 Span_req::Span_req ()
 {
-  spantype = NOSPAN;
+  spantype_ = CENTER;
 }
 
 Script_req::Script_req (Script_req const&s)
@@ -300,8 +281,7 @@ bool
 Script_req::do_equal_b (Request*r) const
 {
   Script_req * s = dynamic_cast <Script_req *> (r);
-
-  return s&&  scriptdef_p_->equal_b (*s->scriptdef_p_);
+  return s &&  scriptdef_p_->equal_b (*s->scriptdef_p_);
 }
 
 Script_req::Script_req ()
@@ -328,10 +308,6 @@ Musical_script_req::do_print () const
   Script_req::do_print ();
 }
 
-
-
-
-
 Script_req::~Script_req ()
 {
   delete scriptdef_p_;
@@ -356,9 +332,6 @@ Text_req::Text_req (int dir_i, Text_def* tdef_p)
   tdef_p_ = tdef_p;
 }
 
-
-
-
 void
 Text_req::do_print () const
 {
@@ -368,31 +341,19 @@ Text_req::do_print () const
 #endif
 }
 
-
-
-
-
 void
 Skip_req::do_print () const
 {
 #ifndef NPRINT
-
   DOUT << "duration: " << duration ();
 #endif
 }
-
-
-
-
 
 void
 Dynamic_req::do_print () const
 {
   Musical_req::do_print ();
 }
-
-
-
 
 void
 Absolute_dynamic_req::do_print () const
@@ -402,7 +363,6 @@ Absolute_dynamic_req::do_print () const
   DOUT << " loudness " <<loudness_str ();
 #endif
 }
-
 
 bool
 Absolute_dynamic_req::do_equal_b (Request *r) const
@@ -465,9 +425,6 @@ Span_dynamic_req::Span_dynamic_req ()
 {
   dynamic_dir_  = CENTER;
 }
-
-
-
 
 void
 Span_dynamic_req::do_print () const

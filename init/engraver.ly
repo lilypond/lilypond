@@ -95,14 +95,14 @@ VoiceContext = \translator {
 	\consists "Dot_column_engraver";
 	\consists "Stem_engraver";
 %	\consists "Plet_engraver";
-	\consists "Beam_engraver";
+	\consists "Command_beam_engraver";
 	\consists "Abbreviation_beam_engraver";
 	\consists "Multi_measure_rest_engraver";
 	\consists "Script_engraver";
 	\consists "Rhythmic_column_engraver";
 	\consists "Font_size_engraver";
 	\consists "Slur_engraver";
-	\consists "Ties_engraver";
+	\consists "Command_tie_engraver";
 	\consists "Tuplet_engraver";	
 	\consists "Note_heads_engraver" ;	
 	\consists "Skip_req_swallow_translator";

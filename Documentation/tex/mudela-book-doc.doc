@@ -12,6 +12,8 @@
 \maketitle
 %\printparam
 
+\section{Introduction}
+
 Mudela-book is a script that process your \LaTeX~file and with great
 help from GNU LilyPond it translates blocks of mudela code it finds
 inside \verb|mudela| environments to tex or eps graphics. It then
@@ -157,27 +159,12 @@ To avoid that \LaTeX~places the music on a line of its one, there should
 be no empty lines between the normal text and the mudela
 environment. 
 
-There is an even shorter way to write small musical fragments. This
-triad, \mudela{<c' e' g'>}, was created with this code:
-\verb|\mudela{<c' e' g'>}|
-
-Mudela-book let you define your own commands, see the file 
-\verb|mudela-book-defs.py|. In a later version, it will be possible to
-have your own file that defines new commands. To print small rhythms
-like this, \mudelaRhythm{c4 r8 [c16 c] c4 c}, the default 
-\verb|mudela-book-defs.py| also defines a command \verb|mudelaRhythm|. 
-The last music was created like this:
-\verb|\mudelaRhytm{c4 r8 [c16 c] c4 c}|. This feature is higly
-experimental, so Things Will Change.
-
-The last example show that we need options to change the
+\section{Fontsize options}
+You can use all lilypond fontsizes in mudela-book. 
 % LONG line just to test multiple mudela on one line
-fontsize of the music. 11pt, \mudela[11pt]{<c' e' g'>} or 13pt, \mudela[13pt]{<c' e' g'>} is probably a better fontsize
-if you include music in the middle of the text. The code looks like this:
-\verb|\mudela[11pt]{<c' e' g'>}|
-
-or
-\begin{mudela}[13pt, verbatim]
+The default 16pt fontsize, \mudela{<c' e' g'>}, is probably to big to be included in the middle of the text. 11pt, \mudela[11pt]{<c' e' g'>} or 13pt, \mudela[13pt]{<c' e' g'>} is probably better.
+The code can look like this:
+\begin{mudela}[13pt, eps, verbatim]
 <c' e' g'>
 \end{mudela}
 
@@ -220,6 +207,68 @@ The following options set the fontsize:
 \end{mudela}
 \end{itemize}
 
+\section{User defined commands}
+There is an even shorter way to write small musical fragments. This
+triad, \mudela{<c' e' g'>}, was created with this code:
+\verb|\mudela{<c' e' g'>}|
+
+Mudela-book defines the \verb|\mudela| command, and let you define
+your own commands in a file specified by 
+the command line option \verb|--initfile=filename|. The format for the
+file is a definition of a python dictionary:
+% mudela-book should really respect \begin{verbatim}
+
+\verb|{    'mudela': r"""|
+
+\verb|\begin|\verb|{mudela}[eps \fontoptions]|
+
+\verb|    \maininput|
+
+\verb|\end|\verb|{mudela}|
+
+\verb|""",|
+
+\verb|    'mudelaRhythm': r"""|
+
+\verb|\begin|\verb|{mudela}[eps \fontoptions]|
+\begin{verbatim}
+\score{
+    \type RhythmicStaff{
+        \notes{\stemup \maininput}
+    }
+    \paper{linewidth = -1.\cm;}
+}
+\end{verbatim}
+\verb|\end|\verb|{mudela}|
+
+\verb|"""|
+
+\verb|}|
+
+The above code show how \verb|\mudela| could have been defined, and
+also defines a new command \verb|mudelaRhythm|. Notice that you can
+send fontsize options to the defined commands. 
+\verb|\mudelaRhytm[11pt]{c4 c8 [c16 c] c4 c}| produce this music:
+\begin{mudela}[eps, 11pt]
+\score{
+  \type RhythmicStaff{
+    \notes{ \stemup c4 r8 [c16 c] c4 c }
+  }
+  \paper{linewidth = -1.\cm;}
+}
+\end{mudela}
+
+\section{Just in case...}
+The options \verb|fragment| and \verb|nonfragment| will override
+mudela-book when it scans the mudela code to see if it is staff
+contents or complete code. This might be useful if mudela-book choose
+wrong. 
+
+Since there is no finder's fee which doubles every year, there is no
+need to wait for the price money to grow. So send a bug report today
+if you need this one of this options.
+
+\section{Examples}
 This was all options to \verb|\begin{mudela}|. The rest of the
 document will show some ways you can use mudela in
 \LaTeX~documents. It will also act as a simple test-suite for
@@ -244,7 +293,7 @@ and marginspars just as any other included eps graphics.
 	r4-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
 	[f16-.( )f-. dis8-- gis16-.( )gis-.] cis4.-\fermata |
 	
-	r4.-\fermata [cis,16 cis g'8 f16 f b][g16 g f8 b16 b] dis4.-\fermata
+	r4.-\fermata [cis,16 cis g'8 f16 f b8][g16 g f8 b16 b] dis4.-\fermata
   }
   \paper{linewidth = 7.\cm;}
 }
@@ -253,7 +302,7 @@ and marginspars just as any other included eps graphics.
 
 To the right you can see some bars from the trumpet fanfara from the
 beginning of the fantastic street opera ``Houdini the Great'', by the
-danish composer Andy Pape.  The music is put inside a
+danish composer Andy Pape. The music is put inside a
 \verb|floatingfigure| environment, and the music will be aligned by
 the right marging if you set floatingfigure width and mudela linewidth
 to the same value. The code looks like this:
@@ -266,7 +315,7 @@ to the same value. The code looks like this:
     r4.-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
     [f16-.( )f-. dis8-- gis16-.( )gis-.] cis8.-\fermata |
 	
-    r4.-\fermata [cis,16 cis g'8 f16 f b]
+    r4.-\fermata [cis,16 cis g'8 f16 f b8]
     [g16 g f8 b16 b] dis4.-\fermata
   }
   \paper{linewidth = 7.\cm;}

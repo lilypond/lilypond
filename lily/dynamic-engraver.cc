@@ -75,7 +75,7 @@ Dynamic_engraver::do_process_requests()
 	}
       else if (Span_dynamic_req *span_l = dynamic_cast <Span_dynamic_req *> (dreq_l))
 	{
-	  if (span_l->spantype == Span_req::STOP)
+	  if (span_l->spantype_ == STOP)
 	    {
 	      if (!cresc_p_)
 		{
@@ -88,7 +88,7 @@ Dynamic_engraver::do_process_requests()
 		  cresc_p_ = 0;
 		}
 	    }
-	  else if (span_l->spantype == Span_req::START)
+	  else if (span_l->spantype_ == START)
 	    {
 	      cresc_req_l_ = span_l;
 	      assert (!new_cresc_p);

@@ -8,7 +8,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-% \version "1.0.10";
+% \version "1.0.14";
 
 global = \notes {
 	\key g;
@@ -46,7 +46,7 @@ viola = \notes\relative c'{
 	\type Voice=i 
 	\clef "alto";
 	[g8(b)g] | [b(e,)b'] | [c,(a')c,] | [c'(d,)c'] | [b(d)b] | 
-	[e(g,)e'] | [e(e,<)a' c,]> | <[a(c,> <fis b,> )b,] |
+	[e(g,)e'] | [e(e,<)a' c,>] | <[a(c,> <fis b,> )b,] |
 }
 
 cello = \notes\relative c'{

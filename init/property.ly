@@ -78,23 +78,29 @@ instrument		ascii	midi instrument table lookup
 %hmm, (these) abbrevs suck, imo
 % i guess they're meant as some form of doco
 % that's what i use them for...
-stemup = {
+stemup = \notes {
+	s1*0
 	% Stupid hack to make < { \stemup } > work
 	\property Voice.ydirection = \up 
 	}
-stemboth= {
+stemboth= \notes {
+	s1*0
 	\property Voice.ydirection = \center
 }
-stemdown = { 	
+stemdown = \notes { 	
+	s1*0
 	\property Voice.ydirection = \down
 }
-slurup = {
+slurup = \notes {
+	s1*0
 	\property Voice.slurydirection = \up 
 	}
-slurboth= {
+slurboth= \notes {
+	s1*0
 	\property Voice.slurydirection = \center
 }
-slurdown = { 	
+slurdown = \notes { 	
+	s1*0
 	\property Voice.slurydirection = \down
 }
 

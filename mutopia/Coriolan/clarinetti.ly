@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.10";
+\version "1.0.14";
 
 \include "clarinetto-1.ly"
 \include "clarinetto-2.ly"

@@ -32,7 +32,7 @@ Abbreviation_beam_engraver::do_try_music (Music*r)
   if (!b)
     return false;
 
-  if (bool (abeam_p_) == bool (b->spantype == Span_req::START))
+  if (bool (abeam_p_) == bool (b->spantype_ == START))
     return false;
 
   Direction d = (!abeam_p_) ? LEFT : RIGHT;
@@ -84,10 +84,7 @@ Abbreviation_beam_engraver::acknowledge_element (Score_element_info i)
 
   int type_i = span_reqs_drul_[LEFT]->type_i_;
   s->flag_i_ = intlog2 (type_i) - 2;
-  if (span_reqs_drul_[RIGHT])
-    s->beams_left_i_ = s->flag_i_;
-  else
-    s->beams_right_i_ = s->flag_i_;
+  s->beams_i_drul_[(span_reqs_drul_[RIGHT]) ? LEFT: RIGHT] = s->flag_i_;
 
   abeam_p_->multiple_i_ = s->flag_i_;
   if (s->type_i () != 1) // no abbrev gaps on half note

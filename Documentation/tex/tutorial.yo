@@ -651,22 +651,22 @@ mudela(fragment,verbatim)(
 [c'8 c'] [c'16 c' c' c'] [c'16. c'32 c' c'16.]
 )
 
+The brackets themselves have no duration, so they are grammatically
+equivalent to the barcheck.
+
 dit(Tie) LilyPond's tie is entered as a tilde, `code(~)', in analogy
  with TeX()'s tie (which ties together words with a space), The tie is
  similar to the slur: it looks like a slur, but a slur connects whole
  chords, whereas the tie connects note heads.  
 
-The input convention for the tilde is somewhat peculiar when used in
-conjunction with chords.  Internally, the extra information that is
-represented by the tilde has to be attached to a note (or to a rest,
-for that matter).  For this reason, you can't put the tilde between
-two chords (as in code(<c' g'> ~nop( )<c' g'>)).  The tilde sign must be
-directly after a note of the chords.  It does not matter which
-one. The following example demonstrates the use of ties:
+The following example demonstrates the use of ties:
 mudela(fragment,verbatim,center)(
   c''1 ~ c''4
-  <c'2. ~  g' es''> <c'4 g' es''> 
+  <c'2.  g' es''> ~ <c'4 g' es''> 
 )
+
+Since the tie is thought to be inbetween the notes, it has no
+duration, and is grammatically equivalent to the barcheck.
 
 dit(Hairpins)
 Crescendi and decrescendi can be printed in hairpin style.  The
@@ -951,8 +951,8 @@ dit(GrandStaff) A code(GrandStaff) context contains code(Staff)
   contexts, and it adds a brace to the output at the
   nop(left.)footnote(The GrandStaff is quite limited, LilyPond can not
   do cross staff beaming and slurring.)
-    
-    A code(GrandStaff) context can contain code(Staff)s. Typically, it
+
+  A code(GrandStaff) context can contain code(Staff)s. Typically, it
   will contain two code(Staff)s, one treble staff, and one bass
   staff. The bar lines of the contained staffs are connected
   vertically.
@@ -1504,21 +1504,26 @@ rests; here they are used as a placeholder to attach articulation
 marks to.  
 
 mudela(verbatim)(
-  bach =  \notes \relative c { [g16 d' b' a] [b d, b' d,] }
-  
+  bach =  \notes \relative c { g16 d' b' a b d, b' d, }
+  bachBeams = \notes { [s4] [s4] }
   staffStuff = \notes { \clef bass; \time 4/4; s1 \bar "|."; }
   
   slursOne = \notes { s16( s s s s16 s s )s }
   slursTwo = \notes { s16-. s s() s s16() s  s ()s }
 
   \score{
-    { < \type Voice = celloVoice { \bach \bach }
-        \type Voice = celloVoice { \slursOne \slursOne }
+
+    
+    { < 
+        \type Voice = celloVoice { \bach \bach}
+        \type Voice = celloVoice < { \slursOne \slursOne }
+	      { \bachBeams \bachBeams } >	
         \staffStuff
       >
       <
         \type Voice = celloVoice { \bach \bach }
-        \type Voice = celloVoice { \slursTwo \slursTwo }
+        \type Voice = celloVoice < { \slursTwo \slursTwo }
+	      { \bachBeams \bachBeams } >
         \staffStuff
       >
     }

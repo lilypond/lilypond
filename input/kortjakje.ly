@@ -10,7 +10,7 @@ copyright =	 "public domain";
 Tested Features: example file with comments
 
 %}
-\version "1.0.10";
+\version "1.0.14";
 
 
 % the % is a comment.

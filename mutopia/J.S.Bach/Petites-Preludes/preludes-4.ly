@@ -8,7 +8,7 @@ composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";
 }
-\version "1.0.10";
+\version "1.0.14";
 
 one = \notes\relative c{
 	\property Voice . textstyle =  "italic"
@@ -78,7 +78,7 @@ two = \notes\relative c{
 	e4 d ~ [d16 d-1 cis-2 b-1] cis4-2 ~ |
 	[cis8 a-3] d4.-1 d4^> cis8-2 |
 	\translator Staff=treble \stemdown
-	d4 \stemboth r16 [b-1\< d-2 b~] <g'4-5 e-3 b>
+	d4 \stemboth r16 [b-1\< d-2 b~] <g'4-5 e-3 b> 
 	r16 [cis,-1 e-2 \!cis~] |
 	<a'4-5 fis-3 cis> r16 [d,-1 fis-2 d~] <b'4-5 g-3 d>
 	r16 [fis-1 a fis~] |
