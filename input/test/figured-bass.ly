@@ -6,7 +6,7 @@
 
 
 % Scheme macros for accidentals. Note how they can be combined
-% with other strings, for example in: d^#`(rows ,sharp "4")
+% with other strings, for example in: d^#`(columns ,sharp "4")
 
 #(define sharp '((raise . 0.2) (music (named "accidentals-1"))))
 #(define natural '((raise . 0.2) (music (named "accidentals-0"))))
@@ -21,7 +21,7 @@
       fis4^"7 6" [g8 d] e4^"7 6" [f?8 c] |
       [d^#sharp d b g][c^"7" c^"5" a^"6" f] |
       [bes^"7" bes^"5" g^"6" e] a4^#sharp d^"6" ~ |
-      d^#`(rows ,sharp "4") c^"6" d e^#sharp |
+      d^#`(columns ,sharp "4") c^"6" d e^#sharp |
   }
 }
 

@@ -13,13 +13,13 @@
 %
 % FIXME: put in an item, and typeset by an engraver.
 
-#(define note '(rows (music "noteheads-2" ((kern . -0.1) "flags-stem"))))
-#(define eight-note `(rows ,note ((kern . -0.1) (music ((raise . 3.5) "flags-u3")))))
-#(define dotted-eight-note `(rows ,eight-note (music "dots-dot")))
+#(define note '(columns (music "noteheads-2" ((kern . -0.1) "flags-stem"))))
+#(define eight-note `(columns ,note ((kern . -0.1) (music ((raise . 3.5) "flags-u3")))))
+#(define dotted-eight-note `(columns ,eight-note (music "dots-dot")))
 
 \score {
   \notes\relative c'' {
-    a1^#`((rows (font-relative-size . -1)) ,dotted-eight-note " = 64")
+    a1^#`((columns (font-relative-size . -1)) ,dotted-eight-note " = 64")
   }
   \paper {
     linewidth = -1.

@@ -46,10 +46,10 @@ flautiStaff =  \notes \context VoiceCombineStaff = flauti <
 %  \property VoiceCombineStaff.instr = #"Fl."
 
   \property VoiceCombineStaff.instrument = #`((kern . 0.5) (lines
-    "2 Clarinetti" (rows "(B" ,text-flat ")")))
+    "2 Clarinetti" (columns "(B" ,text-flat ")")))
 
   \property VoiceCombineStaff.instr = #`((kern . 0.5) (lines
-    "Cl."  (rows "(B" ,text-flat ")")))
+    "Cl."  (columns "(B" ,text-flat ")")))
 
   %\global
   \context VoiceCombineVoice=one \partcombine VoiceCombineVoice
@@ -149,7 +149,7 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
 
     % Ugh, markup burps
     \property StaffCombineStaff.instrument = #'((kern . 0.5)
-    (lines "Violoncello" (rows "    e") (rows "Contrabasso")))
+    (lines "Violoncello" (columns "    e") (rows "Contrabasso")))
 
     \property StaffCombineStaff.instr = #"Vc."
     

@@ -16,12 +16,12 @@
 
 		d-#'(lines "one" "two" "three")
 		e-#'(lines (bold "one") 
-		  (rows "and" "there" "is" ((font-family . number) "2"))
+		  (columns "and" "there" "is" ((font-family . number) "2"))
 		  (italic "three"))
 		f-#'(finger "3")
 		g-#'(music (named "noteheads-2" "flags-u3"))
-		b-#'(rows "a" (((kern . 3) (raise . 2)) "b") "c")
-		c-#'(rows "1" (((raise . -2) (kern . -1)) "2") "3")
+		b-#'(columns "a" (((kern . 3) (raise . 2)) "b") "c")
+		c-#'(columns "1" (((raise . -2) (kern . -1)) "2") "3")
 % }
 	        d-#'(lines "Violoncello" "    e" "Contrabasso")
 	        e-#'((lines (baselineskip . 0) (kern . 1.5)) "Violoncello" "    e" "Contrabasso")
