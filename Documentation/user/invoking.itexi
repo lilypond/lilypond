@@ -40,13 +40,12 @@ The following options are supported:
 
 @table @code
 
-@item -e,--evaluate=@var{code}
-  Evaluates the Scheme @var{code} before parsing @file{.ly}
-files. Multiple @code{-e} options may be given. They will be evaluated
-sequentially. The function @code{set-lily-option} may be invoked to
-set various debugging options.
-
-
+@item -e,--evaluate=@var{expr}
+Evaluate the Scheme @var{expr} before parsing any @file{.ly} files.
+Multiple @code{-e} options may be given, they will be evaluated
+sequentially.  The function @code{ly-set-option} allows for access to
+some internal variables.  Use @code{-e '(ly-option-usage')} for more
+information.
 
 @item -f,--format=@var{format}
 @c

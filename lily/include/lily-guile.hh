@@ -284,6 +284,20 @@ SCM \
 FNAME ARGLIST\
 
 
+#define LY_DEFINE_NOARGS(FNAME, PRIMNAME, REQ, OPT, VAR, DOCSTRING) \
+SCM FNAME ## _proc;\
+void \
+FNAME ## init_noargs ()\
+{\
+ FNAME ## _proc \
+    = scm_c_define_gsubr (PRIMNAME,REQ, OPT, VAR, (Scheme_function_unknown) FNAME);\
+  ly_add_function_documentation (PRIMNAME, "", DOCSTRING);\
+}\
+ADD_SCM_INIT_FUNC (FNAME ## init_unique_prefix_noargs, FNAME ## init_noargs);\
+SCM \
+FNAME
+
+
 
 
 

@@ -21,6 +21,7 @@ INFO_FILES = $(addprefix $(outdir)/, lilypond.info lilypond-internals.info)
 
 STEPMAKE_TEMPLATES=tex texinfo documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
+LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly-set-option (quote internal-type-checking) \#t)"'
 
 # Hmm, what about?
 # local-dist: check-info
