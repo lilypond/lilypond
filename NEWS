@@ -1,3 +1,39 @@
+pl 49.mb1
+	- bf: ly2dvi -N
+	- Added dynamicPadding property (applies only to dynamic marks, 
+	  not (de)crescendi.
+
+pl 49.jcn4
+	- resurrected gnossienne-4
+	- Documentation fixes (for texinfo get yodl-1.31.13, tbr)
+	- minor abc2ly fixes; successfully converted some simple abc files from
+	    http://faeryland.tamu-commerce.edu/joyce/
+	- www.mail-archive.COM
+
+pl 49.jcn1
+	- guile scm_gc_mark () workaround:
+	- via scm output wrapper buildscripts/lilypond.sh, set:
+	    PATH=$LILYPONDPREFIX/buildscripts/out:$PATH
+	- scm output fixes
+
+pl 48.hwn2
+	- bf: rest-collisions.
+	- cleaned up standchen
+	- bf: slur dims.
+	- bf: unfold without enough alternatives.
+	- Use Lily version for \version.
+
+
+pl 49.uu1
+	- ran purify. Fixed some small problems, plugged some leaks.
+	- bf: linebreak at |:
+	- doc updates by Adrian Mariano
+
+pl 49-rst
+	- Breathing signs by Michael Krause
+
+************
+
 pl 48.hwn1
 	- \property hshift -> \property horizontalNoteShift (mudela 1.0.21)
 	- cleaned up collision.  \property hshift = 2 now supported.
