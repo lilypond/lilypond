@@ -43,7 +43,7 @@ a column.  The dots go along as rests are shifted to avoid collisions.
 
 @mudelafile{dots.ly}
 
-Accidentals worki: the second note does not get a sharp. The third and
+Accidentals work: the second note does not get a sharp. The third and
 fourth show forced and courtesy accidentals
 
 @mudelafile{accidental.ly}
@@ -207,11 +207,6 @@ More specific settings take precendence over less specific settings. The
 second slur has slurDirection set to down, overriding the stemup  setting.
 
 @mudelafile{generic-property-override.ly}
-
-Paper column supports a special output property that allows you to force
-page breaks (among others).
-
-@mudelafile{between-systems.ly}
 
 @section Repeats
 
