@@ -188,6 +188,18 @@ enddef;
 % it is closed, or even a flare.
 % 
 
+% from an email to Rune Zedeler:
+%
+% 
+% For example, the 8th rest was vaguely based on a book with trumpet
+% studies by Duhem, and by Baerenreiters cello suites. I included my
+% findings in a comment in the mf file.  One of the things that I tried
+% to do was make the rest a little lighter and narrower than the black
+% note head. I think this looks better in polyphonic music, when the
+% rest is below a head from a different voice.
+%
+%
+
 
 def draw_rest_bulb(expr ycenter, ycut, pat, stretch) =
 begingroup;
