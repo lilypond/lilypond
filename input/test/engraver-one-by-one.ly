@@ -45,8 +45,6 @@ MyStaffContext=\translator {
 
 	\consists "Volta_engraver"
 	\consists "Separating_line_group_engraver"	
-	SeparatingGroupSpanner \override #'spacing-procedure
-	  =  #Separating_group_spanner::set_spacing_rods_and_seqs
 	\consists "Dot_column_engraver"
 
 	\consists "Ottava_spanner_engraver"
