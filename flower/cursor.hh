@@ -11,7 +11,10 @@ template<class T>
 class Cursor 
 {
  public:
-    Cursor( List<T>& list, Link<T>* pointer = 0 );
+    Cursor( const List<T>& list, Link<T>* pointer = 0 );
+    /** this isn't true, actually, #list# surely isn't const, but I get
+      tired of the warning messages.  */
+    
     Cursor( const Cursor<T>& cursor );
     
     /// return current T
@@ -100,17 +103,8 @@ private:
 
 
 /*
-  comparations.
+  comparisons.
   */
-
-
-
-
-
-
-
-
-
 #include "compare.hh"
 
 template<class T>
