@@ -110,14 +110,29 @@ Copyright 1999--2005 by the authors
 @end macro
 
 @menu
-* Table of contents::           
+* Musical terms A-Z::           
+* Duration names notes and rests::  
+* Pitch names::                 
+* Literature used::             
 @end menu
 
-@node Table of contents
-@chapter Table of contents
+@node Musical terms A-Z
+@chapter Musical terms A-Z
+
+Languages in this order.
+@itemize
+@item ES - Spanish
+@item I - Italian
+@item F - French
+@item D - German
+@item NL - Dutch
+@item UK - British English
+@item DK - Danish
+@item S - Swedish
+@item FI - Finnish
+@end itemize
 
 @menu
-* Introduction::                
 * A::                           
 * accent::                      
 * accessory::                   
@@ -380,23 +395,6 @@ Copyright 1999--2005 by the authors
 * whole tone::                  
 * woodwind::                    
 @end menu
-
-@node Introduction
-@section Introduction
-
-Languages in this order.
-@itemize
-@item ES - Spanish
-@item I - Italian
-@item F - French
-@item D - German
-@item NL - Dutch
-@item UK - British English
-@item DK - Danish
-@item S - Swedish
-@item FI - Finnish
-@end itemize
-
 
 @node A
 @section A
@@ -4987,7 +4985,8 @@ A family of blown wooden musical instruments.  Today some of these instruments
 are actually made from metal.  The woodwind instruments commonly used in a
 symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 
-@page
+@node Duration names notes and rests
+@chapter Duration names, notes and rests
 
 @table @code
 @item DURATION NAMES, NOTES AND RESTS
@@ -5146,7 +5145,8 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @end multitable
 @c @item @tab @tab @tab @tab @tab @tab @tab @tab @tab
 
-@page
+@node Pitch names
+@chapter Pitch names
 
 @table @code
 @item PITCH NAMES
@@ -5213,6 +5213,7 @@ ais @tab ais @tab ais
 @end multitable
 
 
+@node Literature used
 @unnumbered Literature used
 
 @itemize
