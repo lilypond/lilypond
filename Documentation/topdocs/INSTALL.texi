@@ -175,10 +175,10 @@ FTP directory for @code{geometry}}. This package is normally included
 with the @TeX{} distribution.
 
 @item kpathsea, a library for searching (@TeX{}) files.  @code{kpathsea} is
-usually included with your installation of @TeX{}.  You may need to install
-a tetex-devel or tetex-dev package too. If kpathsea is not installed in
-a directory where the compiler normally looks, read the hints for
-Slackware below.
+usually included with your installation of @TeX{}.  You may need to
+install a tetex-devel or tetex-dev package too. If kpathsea is not
+installed in a directory where the compiler normally looks, read the
+hints for Slackware below.
 
 In the very unlikely case that kpathsea is not available for your
 platform (ie, you're not running GNU/Linux, Windows, or any recent
@@ -281,7 +281,7 @@ build,
 @c prefix=~ ?
 @example 
 
-      ./configure --prefix=~ --enable-checking
+      ./configure --prefix=$HOME/usr/ --enable-checking
       make
       make install
 @end example 
@@ -290,7 +290,7 @@ and for the profiling version, I specify a different configuration.
 
 @example 
 
-      ./configure --prefix=~ --enable-profiling --enable-config=prof --disable-checking
+      ./configure --prefix=$HOME/usr/ --enable-profiling --enable-config=prof --disable-checking
       make conf=prof
       make conf=prof install
 
@@ -384,13 +384,7 @@ with a faulty compiler. Do not compile LilyPond with -O2 on this
 platform.
 
 At least on Slackware 8.0, you have to manually specify the paths to the
-Kpathsea library, using
-@itemize
-@item @code{rm config.cache}
-@item @code{export LDFLAGS=-L/usr/share/texmf/lib}
-@item @code{export CPPFLAGS=-I/usr/share/texmf/include}
-@item @code{./configure}
-@end itemize
+Kpathsea library, see the section on kpathsea 
 
 
 @subsection Mandrake
@@ -561,7 +555,7 @@ prerequisites (python, TeX, X11, ghostscript) and then LilyPond
 itself.
 
 
-@subsubsection compiling on MacOS X
+@subsection compiling on MacOS X
 LilyPond has been built on Darwin, to be precise, on:
 @example
     Darwin buoux.aspiratie.nl 5.3 Darwin Kernel Version 5.3: Thu Jan 24
@@ -614,6 +608,24 @@ consult the FAQ before mailing your problems.  If you find bugs, please
 send bug reports to @email{bug-lilypond@@gnu.org}.
 
 Bugs that are not fault of LilyPond are documented here.
+
+@subsection Linking to kpathsea
+
+If kpathsea and the corresponding header files are installed in some
+directory where GCC does not search by default, for example in
+@file{/usr/local/lib/} and @file{/usr/local/include/} respectively,
+you have to explicitly tell configure where to find it. To do this,
+
+@itemize
+@item @code{rm config.cache}
+@item @code{export LDFLAGS=-L/usr/share/texmf/lib}
+@item @code{export CPPFLAGS=-I/usr/share/texmf/include}
+@item @code{./configure}
+@end itemize
+Once configure has found them, the paths are stored in
+@file{config.make} and will be used even if you don't have the
+environment variables set during make.
+
 
 @unnumberedsubsec Gcc-3.0.4
 

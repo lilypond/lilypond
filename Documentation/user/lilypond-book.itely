@@ -19,27 +19,30 @@ TODO: cleanup
 @node Insert music snippets into your texts using lilypond-book
 @chapter Insert music snippets into your texts using lilypond-book
 
+@cindex
+
+
 If you want to add pictures of music to a document, you can simply do
 it the way you would do with other types of pictures.  You write
 LilyPond code, process it separately to embedded PostScript or
 @code{png}, and include it as a picture into your La@TeX{} or
 @code{html} source.
 
-@command{lilypond-book} provides you with an alternative and easier
-way; it allows you to insert snippets of LilyPond code into your
-La@TeX{}, @code{html} or @code{texi} document.  @code{lilypond-book}
-introduces some extra LilyPond specific constructs, that integrate
-seamlessly with the rest of your source document.
+@command{lilypond-book} provides you with a way to automate this
+process: this program will extract snippets of music from your
+document, run lilypond on them, and substitute the resulting pictures
+back. This works for La@TeX{}, @code{html} or texinfo documents.
+@code{lilypond-book} introduces some extra LilyPond specific
+constructs, that integrate seamlessly with the rest of your source
+document.
 
+@cindex texinfo
+@cindex latex
+@cindex texinfo
+@cindex @code{texi}
+@cindex html
+@cindex documents, adding music to
 
-
-
-
-@command{lilypond-book} runs LilyPond on fragments of LilyPond in a
-La@TeX{} or Texinfo file, and includes the results into a document that
-can be processed with La@TeX{}, @command{makeinfo} or
-@command{texi2dvi}.  The result is a text document containing formatted
-music integrated.
 
 More precisely, if a La@TeX{}  file contains
 @example 
@@ -406,3 +409,8 @@ ignored.
 
 There is no way to automatically apply convert-ly to fragments inside a
 lilypond-book file.
+
+@file{lilypond-book} processes all music fragments in one big run. The
+state of the GUILE interpreter is not reset between fragments; this
+means that GUILE definitions, eg. done with @code{#(define .. )} and
+@code{#(set! .. )} can leak from one fragment into a next fragment.
