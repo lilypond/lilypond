@@ -42,7 +42,7 @@ of %s
 
 builtstr = r"""<hr><font size=-1>
 This page was built from %s-%s by 
-<address><br>%s &lt<a href=\"mailto:%s\">%s</a>&gt,  %s.</address><p></font>"""
+<address><br>%s &lt<a href="mailto:%s">%s</a>&gt,  %s.</address><p></font>"""
 
 package_name = ''
 
