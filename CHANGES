@@ -1,3 +1,29 @@
+1.5.7.hwn1
+==========
+
+* reinclude input/bugs/*.ly
+
+* Mensural flags (Juergen Reuter)
+
+* Fixed problem with hanging Xdvi from redhat 7.x. See also
+http://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=52089
+
+* Bugfix: don't crash if kpse_find_file returns 0.
+
+* Bugfix: don't allocate \outputscale for every file.
+
+* Bugfix: mixing different rhythms on one staff doesn't muck up the
+spacing that much.
+
+1.5.7.hjj2
+==========
+
+* Add PS-compilation, PS-viewing and MIDI-play in LilyPond
+-Emacs-mode.  (Heikki Johannes Junes).
+
+* Add common finnish names for notes
+
+
 1.5.6.jcn2
 =========
  
@@ -13,7 +39,7 @@ missing from 1.5.5 distribution.
 * Add short crescendo bug to input/bugs.
 
 * Update and bit more verbose download instructions in INSTALL, 
-  fix some links on ftp.lilypond.org.
+fix some links on ftp.lilypond.org.
 
 
 1.5.6.hwn1
@@ -36,17 +62,6 @@ Changes were made to
  
 1.5.6
 =====
-
-* Loose column support: clef changes, key changes may be folded
-underneath notes in a different staff; changes made to
-
-  - Separating_group_spanner: decide which columns are loose
-
-  - Simple_spacer, New_spacing_spanner: only look at non-loose columns.
-
-  - Line_of_score: set horizontal positions for loose columns.
- 
-
 
 1.4.6.mb1
 =========
