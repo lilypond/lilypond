@@ -5,7 +5,7 @@
 @chapter Introduction
 
 There are a lot of programs that let you print sheet music with a
-computer, but most of them do not do good job.  Most computer
+computer, but most of them do not do a good job.  Most computer
 printouts have a bland, mechanical look, and are unpleasant to play
 from.  If you agree with us on that, then you will like LilyPond: we
 have tried to capture the original look of hand-engraved music.  We
@@ -54,10 +54,10 @@ question is considered ``engraving'' (i.e. typography).
 For tackling the first problem, notation, we have broken up the
 problem into digestible (and programmable) chunks: every type of
 symbol is handled by a separate program module, a so-called plug-in.
-Each plug-in are completely modular and independent, so each can be
+Each plug-in is completely modular and independent, so each can be
 developed and improved separately.  When put together, the plug-ins
-can solve the music notation program in cooperation.  People that put
-graphics to musical ideas are called copyists or engravers, so by
+can solve the music notation problem in cooperation.  People that translate
+musical ideas to graphic symbols are called copyists or engravers, so by
 analogy, each plug-in is also called @code{engraver}.
 
 In the following example, we see how we start out with a note head
@@ -196,7 +196,7 @@ polyphony? In polyphonic notation, many voices can share a staff.
 
 In this situation, the accidentals and staff are shared, but the
 stems, slurs, beams, etc. are private to each voice. Hence, engravers
-should be grouped. The engravers for note head, stems, slurs, etc. go
+should be grouped. The engravers for note heads, stems, slurs, etc. go
 into a group called ``Voice context,'' while the engravers for key,
 accidental, bar, etc. go into a group called ``Staff context.'' In the
 case of polyphony, a single Staff context contains more than one Voice
@@ -223,7 +223,7 @@ printing.  Only a few decades ago, sheet music was made by cutting and
 stamping the music into zinc or pewter plates, in mirror image. The plate
 would be inked, and the depressions caused by the cutting and stamping
 would hold ink.  An image was formed by pressing paper to the
-plate. The stamping and cutting was completely done by hand. Making
+plate. The stamping and cutting was done completely by hand. Making
 corrections was cumbersome, so engraving had to be done correctly in
 one go. Of course, this was a highly specialized skill, much more so
 than the traditional process of printing books.
@@ -239,7 +239,7 @@ is acceptable for publication.
 
 
 Sheet music is performance material: everything is done to aid the
-musician in letting him perform better.  Music often is far away from
+musician in letting him perform better.  Music is often far away from
 its reader---it might be on a music stand. To make it clearly
 readable, traditionally printed sheet music always uses bold symbols,
 on heavy staff lines, and is printed on large sheets of paper.  This
@@ -338,7 +338,7 @@ combination should be put farther apart, and the notes of a down-up
 combination should be put closer together, all depending on the
 combined vertical positions of the notes. The first two measures are
 printed with this correction, the last two measures without. The notes
-in the last two measures form down-stem/up-stems clumps of notes.
+in the last two measures form down-stem/up-stem clumps of notes.
 
 @node Typography and program architecture
 @section Typography and program architecture
@@ -352,9 +352,9 @@ become a master.  As an engraver gets older and wiser, he will be able
 to produce better and more complex pieces.  A similar situation is
 present when putting typographical knowledge into a computer program.
 It is not possible to come up with a definitive solution for a problem
-at the first try. Instead, we start out with simple solution that
+on the first try. Instead, we start out with a simple solution that
 might cover 75% of the cases, and gradually refine that solution over
-the course of months or years, so 90 or 95 % of the cases are
+the course of months or years, so that 90 or 95 % of the cases are
 handled.
 
 This has an important implication for the design of the program: at
@@ -372,7 +372,7 @@ Until that time, users must have a way to deal with imperfections:
 these 25%, 10% or 5% of the cases that are not handled
 automatically. In these cases, a user must be able to override
 formatting decisions. To accomplish this we store decisions in generic
-variables, and let the user manipulate thosed.  For example, consider
+variables, and let the user manipulate those.  For example, consider
 the following fragment of notation:
 
 @lilypond
@@ -405,7 +405,7 @@ This was achieved with the following input statement:
    \once \override DynamicLineSpanner    #'padding = #4.0 
 @end example
 It increases the amount of space (@code{padding}) between the note and
-the dynamic symbol to 4.0 (which is measured in staff space, so 4.0
+the dynamic symbol to 4.0 (which is measured in staff spaces, so 4.0
 equals the height of a staff). The keyword @code{\once} indicates that
 this is a tweak: it is only done one time.
 
@@ -416,12 +416,13 @@ Scheme objects, and attached to graphical objects such as note heads
 and stems. The variables are a means to adjust formatting details in
 individual cases, but they are used in a more general manner.
 
-Consider the case of a publisher that is not satisfied with the in the
+Consider the case of a publisher that is not satisfied with the
 default layout, and wants heavier stems. Normally, they are @code{1.3}
 times the thickness of staff lines, but suppose that their editions
 require them to be twice the thickness of the staff lines. The same
 mechanism can be used to adjust a setting globally. By issuing the
-following command, the entire piece is now formatted with thicker stems:
+following command, the entire piece is now formatted with thicker
+stems:
 @example
     \override Score.Stem   #'thickness = #3.0 
 @end example
@@ -462,7 +463,7 @@ The full scope of this functionality certainly is intimidating, but
 there is no need to fear: normally, it is not necessary to define
 style-sheets or rewrite formatting functions. In fact, LilyPond gets a
 lot of formatting right automatically, so adjusting individual layout
-situations is not needed  often at all.
+situations is often not needed at all.
 
 
 @node Music representation

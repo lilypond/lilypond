@@ -76,8 +76,11 @@ void execute_pushpop_property (Context * trg, SCM prop, SCM eltprop, SCM val);
 SCM updated_grob_properties (Context* tg, SCM sym);
 Context * find_context_below (Context * where,
 		    String type, String id);
+bool melisma_busy (Context*);
 
-Context * unsmob_context (SCM);
+Context *get_voice_to_lyrics (Context *lyrics);
+Grob *get_current_note_head (Context * voice);
+Context *unsmob_context (SCM);
 
 DECLARE_UNSMOB(Context,context);
 

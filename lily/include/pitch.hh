@@ -78,6 +78,7 @@ enum {
   DOUBLE_SHARP,
 };
 
+SCM ly_pitch_diff (SCM pitch, SCM  root);
 SCM ly_pitch_transpose (SCM p, SCM delta);
 DECLARE_UNSMOB(Pitch,pitch);
 

@@ -18,11 +18,16 @@ Version 2.1.13
 
 @itemize @bullet
 
+
 @item Cue notes can  now be quoted directly from the parts that
-contain them. For example,
+contain them. This will take into account tunings of source and target
+instrument. For example,
 
 @verbatim
-\addquote oboe \notes\relative c' { fis4 fis fis fis }
+\addquote clarinet \notes\relative c' {
+  \tuning bes
+  fis4 fis fis fis
+}
 
 \score {
     \notes \relative c'' {
@@ -31,7 +36,13 @@ contain them. For example,
 }
 @end verbatim
 
+@item The transposition of an instrument can be specified using the
+@code{\tuning} command. The following command specifies an E-flat alto
+saxophone:
 
+@example
+  \tuning es'
+@end example 
 
 @item The naming of exported Scheme functions now follows Scheme conventions.
 Changes be applied to Scheme files with convert-ly:

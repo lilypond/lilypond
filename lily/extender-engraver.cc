@@ -12,12 +12,14 @@
 #include "lyric-extender.hh"
 #include "item.hh"
 #include "engraver.hh"
+#include "context.hh"
+#include "group-interface.hh"
 
 class Extender_engraver : public Engraver
 {
   Music* ev_;
   Spanner* extender_;
-  Spanner * finished_extender_;  
+  Spanner * pending_extender_;  
 public:
   TRANSLATOR_DECLARATIONS(Extender_engraver);
 
@@ -37,25 +39,9 @@ private:
 Extender_engraver::Extender_engraver ()
 {
   extender_ = 0;
-  finished_extender_ = 0;
+  pending_extender_ = 0;
   ev_ = 0;
 }
-
-void
-Extender_engraver::acknowledge_grob (Grob_info i)
-{
-  Item * item =  dynamic_cast<Item*> (i.grob_);
-  // -> text_item
-  if (item && item->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
-    {
-      if (extender_)
-	extender_->set_bound (LEFT, item);
-
-      if (finished_extender_)
-	finished_extender_->set_bound (RIGHT, item);
-    }
-}
-
 
 bool
 Extender_engraver::try_music (Music* r)
@@ -65,6 +51,68 @@ Extender_engraver::try_music (Music* r)
 
   ev_ = r;
   return true;
+}
+
+
+void
+Extender_engraver::process_music ()
+{
+  if (ev_)
+    {
+      extender_ = make_spanner ("LyricExtender");
+      announce_grob (extender_, ev_->self_scm());
+    }
+}
+
+
+void
+Extender_engraver::acknowledge_grob (Grob_info i)
+{
+  Item * item =  dynamic_cast<Item*> (i.grob_);
+
+  if (item
+      && item->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+    {
+      if (extender_)
+	extender_->set_bound (LEFT, item);
+
+      if (pending_extender_)
+	pending_extender_->set_bound (RIGHT, item);
+    }
+}
+
+void
+Extender_engraver::stop_translation_timestep ()
+{
+  if (pending_extender_ && pending_extender_->get_bound (RIGHT))
+    {
+      typeset_grob (pending_extender_);
+      pending_extender_ = 0;
+    }
+
+  if (extender_ || pending_extender_)
+    {
+      Context *voice = get_voice_to_lyrics (daddy_context_);
+      Grob* h =  (voice) ? get_current_note_head (voice) : 0;
+
+      if (h)
+	{
+	  if (extender_)
+	    Pointer_group_interface::add_grob (extender_,
+					       ly_symbol2scm ("heads"), h);
+	  if (pending_extender_)
+	    Pointer_group_interface::add_grob (pending_extender_,
+					       ly_symbol2scm ("heads"), h);
+	}	    
+
+      if (extender_)
+	{
+	  pending_extender_ = extender_;
+	  extender_ = 0;
+	}
+    }
+
+  ev_ = 0;
 }
 
 void
@@ -97,50 +145,18 @@ Extender_engraver::finalize ()
       extender_ = 0;
     }
 
-  if (finished_extender_)
+  if (pending_extender_)
     {
-      completize_extender (finished_extender_);
+      completize_extender (pending_extender_);
 
-      if (!finished_extender_->get_bound (RIGHT))
-	  finished_extender_->warning (_("unterminated extender"));
-      typeset_grob (finished_extender_);
-      finished_extender_ =0;
-    }
-}
-
-void
-Extender_engraver::process_music ()
-{
-  if (ev_)
-    {
-      extender_ = make_spanner ("LyricExtender");
-      announce_grob (extender_, ev_->self_scm());
+      if (!pending_extender_->get_bound (RIGHT))
+	  pending_extender_->warning (_("unterminated extender"));
+      typeset_grob (pending_extender_);
+      pending_extender_ =0;
     }
 }
 
 
-void
-Extender_engraver::stop_translation_timestep ()
-{
-  if (finished_extender_ && finished_extender_->get_bound (RIGHT))
-    {
-      typeset_grob (finished_extender_);
-      finished_extender_ = 0;
-    }
-
-  if (finished_extender_ && extender_)
-    {
-      programming_error ("Haven't finished extender yet.");
-      typeset_grob (finished_extender_);
-      finished_extender_ =0;
-    }
-  
-  if (extender_)
-    finished_extender_ = extender_;
-  extender_ = 0;
-
-  ev_ = 0;
-}
 
 
 

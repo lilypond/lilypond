@@ -2,13 +2,13 @@
 
 \header { texidoc= "In lyric extenders, a syllable may be extended over several notes. "}
 
-    \paper { raggedright= ##t }
+\paper { raggedright= ##t }
 \score{
 \notes \relative c'	<<
-	\context Staff {
+	\context Voice = melody {
 	    c8[ ( d] )
 	    r4 f4 }
-	\context Lyrics \lyrics { xxx __ \skip 4 x  }
+	\lyricsto melody \context Lyrics \lyrics { ah __ ha  }
 	>>
 }
 

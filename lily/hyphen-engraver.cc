@@ -92,7 +92,11 @@ Hyphen_engraver::finalize ()
       completize_hyphen (hyphen_);
 
       if (!hyphen_->get_bound (RIGHT))
-	hyphen_->warning (_ ("unterminated hyphen"));
+	{
+	  hyphen_->warning (_ ("unterminated hyphen; removing"));
+	  hyphen_->suicide ();
+	}
+
       typeset_grob (hyphen_);
       hyphen_ = 0;
     }

@@ -10,6 +10,7 @@
 (define-class <Voice-state> ()
   (event-list #:init-value '() #:accessor events #:init-keyword #:events)
   (when-moment #:accessor when #:init-keyword #:when)
+  (tuning #:accessor tuning #:init-keyword #:tuning)
   (split-index #:accessor split-index)
   (vector-index)
   (state-vector)
@@ -81,7 +82,8 @@
 	 (map
 	  (lambda (v)
 	    (make <Voice-state>
-	      #:when (car v)
+	      #:when (caar v)
+	      #:tuning (cdar v)
 	      #:events (map car (cdr v))
 	      ))
 	  evl))))
@@ -580,8 +582,9 @@ the mark when there are no spanners active."
     (if (null? event-list)
 	acc
 	(let*
-	    ((evs (map car (cdar event-list)))
-	     (now (caar event-list))
+	    ((now-tun (caar event-list))
+	     (evs (map car (cdar event-list)))
+	     (now (car now-tun))
 	     (notes (filter (lambda (x)
 			      (equal? (ly:music-property  x 'name) 'NoteEvent))
 			      evs))

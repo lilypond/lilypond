@@ -1,21 +1,25 @@
 \version "2.1.26"
 
 \header {
-texidoc = "Stanza numbers are put left of their lyric."
+texidoc = "Stanza numbers are put left of their lyric. Theyr are aligned in a column."
 }
 
 \score {
 <<
-    \notes { r4 r4 c4  c4 }
-    \context Lyrics
-    \lyrics {
+    \context Voice = "A" \notes \relative c'' { r4 r4 c4  c4 }
+    \lyricsto A \new Lyrics \lyrics  {
 	\skip 2
 	\set stanza = "1."
-	Foo8 Bar8
+	Foo8 
+    }
+    \lyricsto A \new Lyrics \lyrics {
+	\skip 2
+	\set stanza = "2."
+	FFFooooo8
     }
 >>
 
 \paper { raggedright = ##t } 
-} 
+}
 
 

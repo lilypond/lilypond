@@ -21,9 +21,9 @@
 	\consists "Bar_engraver"
 % Bar_engraver must be first so default bars aren't overwritten
 % with empty ones.
+	
 	\consists "Font_size_engraver"
 
-%	\consists "Repeat_engraver"
 	\consists "Volta_engraver"
 	\consists "Separating_line_group_engraver"	
 	\consists "Dot_column_engraver"
@@ -39,8 +39,6 @@
 	\consists "Accidental_engraver"
 	\consists "Piano_pedal_engraver"
 	\consists "Instrument_name_engraver"
-	\consists "Grob_pq_engraver"
-	\consists "Forbid_line_break_engraver"
 	\consists "String_number_engraver"
 	\consistsend "Axis_group_engraver"
 
@@ -171,6 +169,7 @@
     \consists "Multi_measure_rest_engraver"
     \consists "Text_spanner_engraver"
     \consists "Grob_pq_engraver"
+    \consists "Forbid_line_break_engraver"
 
     \consists "Note_head_line_engraver"
     \consists "Glissando_engraver"
@@ -420,7 +419,7 @@ AncientRemoveEmptyStaffContext = \translator {
     \consists "Break_align_engraver"
     \consists "Spacing_engraver"
     \consists "Vertical_align_engraver"
-    \consists "Lyric_phrasing_engraver"
+    \consists "Stanza_number_align_engraver"
     \consists "Bar_number_engraver"
     \consists "Span_arpeggio_engraver"
 

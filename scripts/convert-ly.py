@@ -1938,6 +1938,38 @@ def conv (str):
 	return str
 
 conversions.append (((2,1,26), conv, """More Scheme function renaming"""))
+
+def conv (str):
+	def subst (m):
+		g = string.atoi (m.group (2))
+		o = g / 12
+		g -= o * 12
+		if g <  0:
+			g += 12
+			o -= 1
+
+
+		lower_pitches = filter (lambda x : x <= g, [0, 2, 4, 5, 7, 9, 11, 12])
+		s = len (lower_pitches) -1 
+		a = g - lower_pitches [-1]
+
+
+		print s , lower_pitches, g, a, s 
+		str = 'cdefgab' [s]
+		str += ['eses', 'es', '', 'is', 'isis'][a + 2]
+		if o < 0:
+			str += ',' * (-o - 1)
+		elif o >= 0:
+			str += "'" * (o + 1)
+			
+		return '\\tuning %s ' % str
+
+	
+	str = re.sub (r"\\set ([A-Za-z]+\s*\.\s*)?transposing\s*=\s*#([-0-9]+)",
+		      subst, str)
+	return str
+
+conversions.append (((2,1,26), conv, """property transposing -> tuning"""))
 ################################
 #	END OF CONVERSIONS	
 ################################
