@@ -12,7 +12,7 @@ hh=assoc.hh associter.hh choleski.hh compare.hh cursor.hh dstream.hh\
 fproto.hh handle.hh interval.hh iterate.hh lgetopt.hh link.hh list.hh\
 matrix.hh path.hh pcursor.hh plist.hh rational.hh real.hh scalar.hh\
 smat.hh string.hh stringconversion.hh stringhandle.hh stringdata.hh\
-textdb.hh textstream.hh unionfind.hh\
+textdb.hh textstream.hh unionfind.hh pqueue.hh\
 varray.hh vector.hh vsmat.hh datafile.hh
 
 extra=stringtest.cc

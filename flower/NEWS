@@ -1,16 +1,22 @@
 
+pl 1.1.2 
+	- StringConversio::bin2int_i
+	- dumb prioq
+
 pl 1.1.1
 	- separated StringHandle and StringData
-(JCN pl 27-3)
-	- debug memmove code
-	- StringData bugfix
-	- old String::String( char, int ) bugfix
+	- String::compare
 
 1.1.0:
 		
 
 ------------------
 1.0:
+
+pl 27-3
+	- debug memmove code
+	- StringData bugfix
+	- old String::String( char, int ) bugfix
 
 pl 27-1,2 (not released)
 	patches by JCN
