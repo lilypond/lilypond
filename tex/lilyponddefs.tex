@@ -109,6 +109,12 @@
         \ledgerlinethickness=2\staffrulethickness
 }
 
+% stacked numbers; may be overruled in fetdefs
+\def\generalmeter#1#2{\vbox to 0pt{\vss\hbox{\meterfont
+         #1}\nointerlineskip
+         \hbox{\meterfont #2}\vss}}
+
+% stacked horizontal lines 
 
 \input dyndefs
 
@@ -195,12 +201,7 @@
 \def\hslurcharh#1{{\hslurhfont\char#1}}
 \def\hslurcharu#1{{\hslurufont\char#1}}
 \def\hslurchard#1{{\hslurdfont\char#1}}
-% stacked numbers
-\def\generalmeter#1#2{\vbox to 0pt{\vss\hbox{\meterfont
-        #1}\nointerlineskip
-        \hbox{\meterfont #2}\vss}}
 
-% stacked horizontal lines 
 \def\lines#1#2#3{%
  \vbox{\kern-\interstaffrule
         \n=0\nointerlineskip%
