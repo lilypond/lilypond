@@ -1,4 +1,7 @@
-2004-11-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+2004-11-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* mf/feta-bolletjes.mf (overdone_heads): cleanup triangle
+	note-head, to have different attachment points for up and down.
 
 	* mf/feta-bolletjes.mf: merge solfa heads into main note heads.
 
