@@ -1,20 +1,17 @@
 \include "header.ly"
-% urg
 
 \paper {
 linewidth = 180.\mm;
 \translator { \BarNumberingStaffContext }
 }
 
-
-% \include "prelude-" + \instrument + ".ly";
-
-i = "prelude-" + \instrument + ".ly"
-ii = "allemande-" + \instrument + ".ly"
-iii = "courante-" + \instrument + ".ly"
-iv = "sarabande-" + \instrument + ".ly"
-v = "menuetto-" + \instrument + ".ly"
-vi = "gigue-" + \instrument + ".ly"
+% \include "prelude-" + \instr + ".ly";
+i = "prelude-" + \instr + ".ly"
+ii = "allemande-" + \instr + ".ly"
+iii = "courante-" + \instr + ".ly"
+iv = "sarabande-" + \instr + ".ly"
+v = "menuetto-" + \instr + ".ly"
+vi = "gigue-" + \instr + ".ly"
 
 \include \i
 \include \ii

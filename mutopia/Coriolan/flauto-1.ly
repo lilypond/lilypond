@@ -1,11 +1,3 @@
-\header{
-filename = 	 "flauto-1.ly";
-%title = 	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description = 	 "";
-composer = 	 "Ludwig van Beethoven (1770-1827)";
-enteredby = 	 "JCN";
-copyright = 	 "public domain";
-}
 
 \version "1.3.120";
 
@@ -132,14 +124,14 @@ flautoI =  \notes \relative c {
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	r4 r8 ges'\< f4 r8 c|
-	des4 r r2|
+	\!des4 r r2|
 	R1*5|
 	f4 r r r8 es|
 	des4 r r r8 c|
 	bes4 r8 e f4 r8 f|
 	g4 r8 g e4 r8 e|
 	R1*4|
-	\!as,4\ff r8 des8 c4 r8 g|
+	as,4\ff r8 des8 c4 r8 g|
 	f4 r8 bes as4 r8 es|
 	des4 r8 g f4 r8 f'|
 	f4 r8 f e4 r8 e|

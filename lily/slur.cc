@@ -37,9 +37,9 @@
 void
 Slur::set_interface (Grob*me)
 {
-  /* Ugh, junked this function, but if we don't do this, we somehow
-     won't be able to write to it */
-  me->set_grob_property ("attachment", me->get_grob_property ("attachment"));
+  /* Copy to mutable list. */
+  me->set_grob_property ("attachment",
+			 ly_deep_copy (me->get_grob_property ("attachment")));
 }
 
 void

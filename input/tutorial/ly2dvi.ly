@@ -2,7 +2,7 @@
         title = "Two miniatures";
   }
   
-  #(set point-and-click #t)
+  #(set! point-and-click #t)
   
   \paper { linewidth = -1.0; }
 

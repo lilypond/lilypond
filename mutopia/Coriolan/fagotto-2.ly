@@ -1,11 +1,3 @@
-\header{
-filename = 	 "fagotto-2.ly";
-%title = 	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description = 	 "";
-composer = 	 "Ludwig van Beethoven (1770-1827)";
-enteredby = 	 "JCN";
-copyright = 	 "public domain";
-}
 
 \version "1.3.120";
 
@@ -222,8 +214,6 @@ fagottoII =  \notes \relative c {
 	\!f'2\ff e|
 	dis b~|
 	b1\p|
-	\property VoiceCombineVoice.crescendoText = #"cresc."
-	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	a\<|
 	g|
 	f|

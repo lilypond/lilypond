@@ -69,11 +69,11 @@ which substitutes some @AT_VARIABLES@ as well.
       </td></tr>
       <tr><td><font size=-1>
 	<a href="ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/">RedHat i386</a><br>
-	<a href="ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/ppc">LinuxPPC</a><br>
+	<a href="ftp://appel.lilypond.org/pub/gnu/LilyPond/linuxppc-2000-Q4">LinuxPPC</a><br>
 	<a href="ftp://ftp.debian.org/debian/pool/main/l/lilypond">Debian Stable</a><br>
 	<a href="ftp://ftp.debian.org/debian/pool/main/l/lilypond1.3">Debian Unstable</a><br>
 	<a href="http://home.austin.rr.com/jbr/jeff/lilypond/">Windows Stable</a><br>
-	<a href="http://appel.lilypond.org/lilypond/gnu-windows">Windows Testing</a><br>
+	<a href="http://appel.lilypond.org/lilypond/gnu-windows">Windows Unstable</a><br>
 	<br>
       </td></tr>
       <tr><td bgcolor="#e8e8ff">

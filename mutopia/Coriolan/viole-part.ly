@@ -3,11 +3,11 @@
 
 \include "header.ly"
 \include "global.ly"
-\include "violino-1.ly"
+\include "viole.ly"
 
 \score{
-	\violinoIStaff 
-	\include "coriolan-part-paper.ly"
+	\violeGroup
+	\include "coriolan-part-combine-paper.ly"
 	\include "coriolan-midi.ly"
 }
 
