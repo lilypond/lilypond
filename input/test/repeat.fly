@@ -1,2 +1,1 @@
-% a'' b c d \repeat 2 { { c c c c } } \alternative { { e e e e } { e e e g } } c c c c
-a'' b c d \repeat 2 { { c c c c } } \alternative { { e e e e } } c c c c
+a b c d \repeat 2 { { c c c c d d d d } } \alternative { { e e e e } { e e e g } } c c c c  c c c c

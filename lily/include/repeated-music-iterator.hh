@@ -11,25 +11,27 @@
 #define REPEATED_MUSIC_ITERATOR_HH
 
 #include "music-wrapper-iterator.hh"
-#include "voice-iterator.hh"
+#include "sequential-music-iterator.hh"
 
-class Repeated_music_iterator : public virtual Music_wrapper_iterator, public virtual Sequential_music_iterator
+class Repeated_music_iterator : public Music_iterator
 {
 public:
-  Repeated_music_iterator();
-
-protected:
+  Repeated_music_iterator ();
   ~Repeated_music_iterator ();
 
-  virtual Music_wrapper *music_wrapper_l () const;
-  virtual Sequential_music* sequential_music_l() const;
-  virtual bool ok () const;
-  virtual void do_process_and_next (Moment);
   virtual void construct_children ();
-  virtual void start_next_element ();
-  virtual void leave_element ();
-};
+  virtual Moment next_moment () const;
+  virtual bool ok () const;
 
+protected:
+  virtual Repeated_music* repeated_music_l () const;
+  virtual void do_print () const;
+  virtual void do_process_and_next (Moment);
+
+private:
+  Music_iterator* repeat_iter_p_;
+  Sequential_music_iterator* alternative_iter_p_;
+};
 
 #endif /* REPEATED_MUSIC_ITERATOR_HH */
 

@@ -181,8 +181,8 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
 
   // (lambda (o) (dashed-slur o thick dash '(stuff))
   a.lambda_ = 
-    ly_append (ly_lambda_o (),
-    gh_list (ly_append (ly_func_o ("dashed-slur"),
+    gh_append2 (ly_lambda_o (),
+    gh_list (gh_append2 (ly_func_o ("dashed-slur"),
     gh_cons (gh_double2scm (thick), 
     gh_cons (gh_double2scm (dash),
     gh_list (ly_quote_scm (gh_list (sc[1], sc[2], sc[3], sc[0], SCM_UNDEFINED)), SCM_UNDEFINED)))), SCM_UNDEFINED));
@@ -380,9 +380,10 @@ Lookup::text (String style, String text) const
 	  ;
       else
 	{
-	  if (afm_p)
+	  int c = text[i];
+	  if (afm_p && ((c >= 0) && (c < afm_p->char_metrics_.size ())))
 	    {
-	      Adobe_font_char_metric m = afm_p->char_metrics_[(int)text[i]];
+	      Adobe_font_char_metric m = afm_p->char_metrics_[c];
 	      w += m.B_.x ().length ();
 	      DOUT << to_str (m.B_.x ().length ()) << " ";
 	    }
@@ -537,4 +538,15 @@ Lookup::vbracket (Real &y) const
   return a;
 }
 
+Atom
+Lookup::volta (Real w, bool last_b) const
+{
+  Array<Real> arr;
+  arr.push (w);
+  arr.push (last_b);
+  Atom a;
+  a.lambda_ = (lambda_scm ("volta", arr));
+  a.str_ = "volta";
+  return a;
+}
 

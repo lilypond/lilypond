@@ -14,7 +14,7 @@ pipethrough(date) sucks.
 
 paragraphs have too much space.
 
-in stead <-> instead
+instead <-> instead
 )
 
 COMMENT(
@@ -50,7 +50,7 @@ latexlayoutcmds(
 whenlatex(notableofcontents())
 whentexinfo(notableofcontents())
 
-article(Mudela, the Music-Definition Language)
+article(Mudela -- Using LilyPond to typeset music)
       (Han-Wen Nienhuys and Jan Nieuwenhuizen)
       (nop()PIPETHROUGH(date "+%B %d, %Y")()()nop())
 
@@ -73,8 +73,8 @@ If you are reading this, you probably are interested in printing
 music.  LilyPond is a program that can print music from a
 specification that you, the user, supply.  Using LilyPond may be a bit
 quaint in the beginning, because you have to give that specification
-using a em(language) named mudela.  This chapter is a gentle
-introduction Mudela.
+using a em(language).  This document is a gentle introduction to that
+language, which is called Mudela.
 
 We will demonstrate the working of Mudela by presenting a examples of
 input alongside with the resulting output.  We will comment on these
@@ -87,7 +87,8 @@ sect(The first tune)
 label(sec:firsttune)
 
 To demonstrate what LilyPond input looks like, we start off with a
-full fledged (yet simple) example. It is somewhat convoluted version of one of the  menuets in  J.~S.~Bach's ``Clavierbuchlein".
+full fledged (yet simple) example. It is somewhat convoluted version
+of one of the menuets in bind(J.)bind(S.)Bach's em(Clavierbuchlein).
 
 mudela(verbatim)(
 % lines preceded by a percent are comments.
@@ -100,7 +101,7 @@ mudela(verbatim)(
 
 	d4 [g,8 a b c] d4 g, g |
 	e'4 [c8 d e fis] g4 g, g |
-	c4 [d8 c b a] b4 [c8 b a g] |
+	c4 [d8( )c b a( ] )b4 [c8 b a g] |
 	a4 [b8 a g fis] g2.  |
 
 	\bar ":|";		% a repeat sign
@@ -109,8 +110,7 @@ mudela(verbatim)(
 	b'4 [g8 a b g]
 	a4 [d,8 e fis d] |
 	g4 [e8 fis g d] cis4 [b8 cis] a4 |
-	[a8-. b-. cis-. d-. e-. fis-. ]
-				% try some super and subscripts.
+	[a8-. b-. cis-. d-. e-. fis-. ] % try some super and subscripts.
 	g4 fis e |
 	fis a,  r8 cis8
 	d2.-\fermata
@@ -145,28 +145,32 @@ verb(
 Now for some explanation of the input itself, we will dissect the
 input line by line
 
+verb(% lines preceded by a percent are comments.)COMMENT
+
+)The percent sign (code(%)) introduces a line comment.  If you want
+make larger comments, you can use block comments. These are delimited
+by code(%{) and code(%})
+
+
 verb(\input "paper16.ly")
 
 By default, LilyPond will use definitions for a staff of 20 point
 high.  If you want smaller output (e.g., 16 point), you have to import
 the setting for that size.  You can do this by including a file.
-code(\include "file") is replaced by the contents of the code(file).
+code(\include "file") is replaced by the contents of  code(file).
 
 
 verb(\score {
-)
+) COMMENT( 
 
-A mudela file combines music with directions for outputting that
+) A mudela file combines music with directions for outputting that
 music.  The music is combined with the output directions by putting
 them into a code(\score) block.
 verb(
    \notes			% get ready for notes
-)
-This makes LilyPond ready for accepting notes.  The percent sign
-(code(%)) introduces a line comment.  If you want make larger
-comments, you can use block comments. These are delimited by code(%{)
-and code(%})
+) COMMENT( 
 
+)This makes LilyPond ready for accepting notes.
 verb(
     \relative c''		% octave quotes are relative now
 )
@@ -208,8 +212,10 @@ verb(
 	\key G;
 ) COMMENT(
 
-) This command changes the current key to G-major.  Notice that in the
-output, the key comes before the time signature, like it should be.
+) This command changes the current key to G-major.  Although
+this command comes after the code(\time) command, in the
+output, the key comes before the time signature: LilyPond knows about
+music typesetting conventions.
 verb(
 	d4
 ) COMMENT(
@@ -231,39 +237,52 @@ duration (It is not illegal to enter it anyway.  Then you would have
 to enter code(a8 b8))
 verb(
 	  c]
-)
-This ends the beam started 4 notes before at the c.  In the output,
+) COMMENT(
+
+) This ends the beam started four notes earlier, at the code(g).  In the output,
 you will notice a measure bar following this note.  You do not have to
 enter anything to make LilyPond create a bar.  Instead Lily deduce
 where bars have to be by comparing durations of notes with the current
 time signature.
 verb(
 	  d4 g, g |
-)
-3 more notes.  The code(|) is a "barcheck".  When processing the
+) COMMENT(
+
+) Three more notes:  The code(|) is a "barcheck".  When processing the
 music, LilyPond will check  that barchecks are found at the start of
-a bar precisely.  This makes it easy to spot where one left out a
-note. 
+a bar precisely.  This makes it easy to spot where notes are forgotten. 
 verb(
 	e'4 [c8 d e fis]
-)
-Up till now, no notes were chromaticall altered.  Here is the first
-one that is: code(fis). Mudela by default uses Dutch note names, and
-``Fis'' is the Dutch note name for ``F
-sharp''.  However, there is no sharp sign in the output. The program
-keeps track of key signatures, and will only print accidentals if they
-are needed.
+) COMMENT(
 
-The next 2 lines are  not very interesting, nothing happens what we
-haven't seen already.  The next line introduces  a small new feature:
+) So far, no notes were chromatically altered.  Here is the first one
+that is: code(fis). Mudela by default uses Dutch note names, and
+``Fis'' is the Dutch note name for ``F sharp''.  However, there is no
+sharp sign in the output. The program keeps track of key signatures,
+and will only print accidentals if they are needed.
+verb(
+	c4 [d8( )c b a( ] )b4 [c8 b a g] |
+) COMMENT(
+
+) The next line shows something new: a slur is a symbol that is
+printed over several notes.  In mudela, one enters a slur by marking
+the beginning and ending note of the slur with an opening and closing
+parenthesis respectively.  In the line shown above this is done for
+two slurs.  Note that parentheses (slur markers) are between the
+notes, and the brackets (beam markers) around the notes. As you can
+see, the brackets and parentheses do not have to nest.
+
 verb(
 	a4 [b8 a g fis] g2.  |
-)
-A duration that is to be augmented with a duration dot, is notated
+) COMMENT(
+
+) A duration that is to be augmented with a duration dot, is notated
 with a number followed by periods, as many as you want augmentation
 dots.
 verb(
 	\bar ":|";		% a repeat sign
+) COMMENT(
+
 )
 Lily can not detect where you want your music to be repeated, so you
 have to instruct her: a special bar symbol can be entered by the
@@ -272,12 +291,15 @@ that you want.  Then comes a semicolon to separate the string from the
 rest of the notes, analogously with code(\key) and code(\time).
 verb(
      cis'4 [b8 cis] a4 |
+) COMMENT(
+
 )
 This line shows that Lily will print an accidental if that is needed:
 the first C sharp will be printed with an accidental, the second without.
 verb(
-	[a8-. b-. cis-. d-. e-. fis-. ]
-				% try some super and subscripts.
+	[a8-. b-. cis-. d-. e-. fis-. ] % try some super and subscripts.
+) COMMENT(
+
 )
 There is more to music than just pitches and rhythms.  An important
 aspect is articulation.  You can enter articulation signs either in an
@@ -285,19 +307,26 @@ abbreviated form, e.g., by using code(-.) for staccato as shown above.
 
 verb(
 	fis a,  r8 cis8
+) COMMENT(
+
 )
 Rests are denoted by the special notename code(r).  You can also make
 an invisible rest by using the special notename code(s).
-verb(d2.-\fermata)
-Finally, all articulations has a verbose form, like code(\fermata).
-The ``command'' COMMENT(Hi Adrian :-)
-code(\fermata) is not part of the core of the language (most of the
-other discussed elements are), but it is an abbreviation of a more
-complicated description of a fermata.  code(\fermata) refers to that
-abbreviation and is therefore called an em(identifier).
+verb(
+	d2.-\fermata
+) COMMENT(
+
+) Finally, all articulations has a verbose form, like code(\fermata).
+The ``command'' COMMENT(Hi Adrian :-) code(\fermata) is not part of
+the core of the language (most of the other discussed elements are),
+but it is an abbreviation of a more complicated description of a
+fermata.  code(\fermata) refers to that abbreviation and is therefore
+called an em(identifier).
 
 verb(
 	}
+) COMMENT(
+
 )
 This ends the sequential music.
 
@@ -319,7 +348,7 @@ Finally, the last brace ends the code(\score) block.
 
 There are a couple of things to note here.  The input format tries to
 capture the meaning of em(music), and not notation.  Therefore the
-format contains musical concepts like pitches and durations, in stead
+format contains musical concepts like pitches and durations, instead
 of symbols and positions.  Second, the format tries to be
 em(context-free): a note will remain to sound the  same regardless of
 the current time signature, the key nop(etc.)COMMENT(footnote The
@@ -388,9 +417,11 @@ mudela()(
 	 }
 	 \paper {
 		linewidth = -1.0;
-		\translator { \StaffContext
-			    \remove "Staff_symbol_engraver";
-			    \remove "Bar_engraver";
+		\translator { \type "Score_engraver";
+			    \name "Score";
+			    \consists "Note_heads_engraver";
+			    \consists "Stem_engraver";
+			    \consists "Rhythmic_column_engraver";
 	 }}}
 	 
 )
@@ -505,13 +536,15 @@ mudela(verbatim, fragment)(
 You can nest simultaneous and sequential music in any way you want,
 e.g.,
 mudela(verbatim,fragment)(
-	< { c''4 c''4 }
-	  { c8 <c e> c <c e> } >
+	< { g''4 g''4 }
+	  { c'8 <c' e'> c' <c' e'> } >
 )
 As you can see, LilyPond has some difficulty typesetting this
 elegantly.  To adequately solve this, you have to persuade LilyPond to
 make separate stems for both sequential music lists.   This is a topic
 that is covered in bind(Section)ref(sec:polyphonic).
+
+[Chords and relative mode]
 
 
 sect(Adding nuances: articulation and dynamics)
@@ -572,68 +605,63 @@ should not enter a dash between the name and the note.footnote(This
 mudela(verbatim,fragment)(
   c4 \ff c4 \fp c4 c4 \ppp c4 c4 \sfz
 )
+
 COMMENT(UGH)
 
 sect(Bridging the notes: beams, slurs and ties)
 
-Up till now most of the typesetting concerned simple fixed symbols
-only.  Now we turn to variable symbols: symbols that run from one note
-to another. In LilyPond terminology, such a symbol is called a
-em(spanner).  To print a spanner, you have to attach a marker to the
-note that begins it and to the one that ends it.
+Music typesetting does not use fixed symbols only.  A lot of symbols
+are variable: they run from one note to another. In LilyPond
+terminology, such a symbol is called a em(spanner).  To print a
+spanner, you have to attach a marker to the note that begins it and to
+the one that ends it.
 
+It is your job to make sure that each spanner that you start, also ends.
+If it doesn't, then Bad Things are likely to happen. If you end
+spanners that are not started,  LilyPond will
+warn you about illegal ending markers.
 
-The first example of such a symbol is the slur.  For the slur, the
-start marker is the opening parenthesis. It won't be a surprise that
-the stopping marker is the closing parenthesis.
+LilyPond has a few spanners
+description(
+dit(The slur)
+ The slur has the opening parenthesis as 
+start marker is.  The stopping marker is the closing parenthesis.
 For example:
 mudela(fragment,center,verbatim)( c'4( )c'4 )
 
-Notice that the parentheses should be between the notes.footnote(The
-location of the parentheses might be changed in a future version of
-the language.)
-
-It is your job to make sure that each slur that you start also ends.
-If it doesn't end, then Bad Things are likely to happen.  The slur is
-quite flexible: you can nest nop(slurs,)footnote(This is inconsistent
-when compared to the syntax for articulation hints.  This will be
-fixed some time, we hope.) and you can connect a note with a slur on
-both the left and the right side:
+  The slur is quite flexible: you can nest nop(slurs,)footnote(This is
+inconsistent when compared to the syntax for articulation hints.  This
+will be fixed some time, we hope.) and you can connect a note with a
+slur on both the left and the right side:
 
 mudela(fragment,verbatim,center)(
   c'4((   )c''4 )c'4( )g'4 
 )
 
-Another spanner is the beam (see bind(Figure)ref(mud:beam)).  Strictly
-speaking, a beam is not a musical concept.  The pattern of a beam can
-be derived from the structure of the time signature and the durations
-of the notes. It is merely a device that helps you understand the
-rhythms notated. Unfortunately, LilyPond is not smart enough to insert
-beams into your music on her own. You will have to instruct her by
-marking the starting and stopping point of the beam with `code([)' and
-`code(])' respectively, e.g.
+dit(Beam)
 
-latexcommand(\begin{figure}[h])
-  center(
-    mudela(fragment,verbatim, center)([c'8 c'] [c'16 c' c' c'] [c'16. c'32 c' c'16.] )
-    latexcommand(\caption{Some beams})
-    label(mud:beam)
-  )
-latexcommand(\end{figure})
+Another spanner is the beam.  The starting marker is the opening
+bracket, then ending marker is the closing bracket.  The brackets have
+to be em(around) the beamed notes.  footnote(Strictly speaking, a
+beam is not a musical concept: beaming doesn't change the meaning of
+music, it only clarifies the rhythmic structure.  One might argue that
+beams should not be present in a "music" language.  Unfortunately,
+LilyPond is not smart enough to insert beams into music on its own.
 
-LilyPond has code that guesses what the pattern should look like, so
-that you don't have to specify the beaming for complicated
-patterns.footnote(Unfortunately the algorithm used is not foolproof yet:
-  code([c8. c32 c32]) will produce incorrect results.)
+LilyPond does have code that guesses what the pattern should look
+like, so that you don't have to specify the beaming for complicated
+patterns.  Alas, the algorithm used is not foolproof
+yet: code([c8. c32 c32]) will produce incorrect results.)
 
-Again, it is your responsibility to make sure that you end every beam
-that you start.
+mudela(fragment,verbatim)(
+[c'8 c'] [c'16 c' c' c'] [c'16. c'32 c' c'16.]
+)
 
-A third spanner is similar to the slur: the tie.  The tie looks like a
-slur, but a slur connects whole chords, whereas the tie connects
-note heads.  Tied notes should be played as one long note.
-In analogy with TeX()'s tie (which  ties together words with a
-space), LilyPond's tie is entered as a tilde, `code(~)'.  
+dit(The tie) The tie is similar to the slur: it  looks like a
+slur, but a slur connects whole chords, whereas the tie connects note
+heads.  Tied notes should be played as one long note.  In analogy with
+TeX()'s tie (which ties together words with a space), LilyPond's tie
+is entered as a tilde, `code(~)'.
 
 The input convention for the tilde is somewhat peculiar when used in
 conjunction with chords.  Internally, the extra information that is
@@ -644,7 +672,22 @@ directly after a note of the chords.  It does not matter which
 one. The following example demonstrates the use of ties:
 mudela(fragment,verbatim,center)(
   c''1 ~ c''4
-  <c'1 ~  g' es''> <c'4 g' es''> 
+  <c'2. ~  g' es''> <c'4 g' es''> 
+)
+
+dit(Hairpins)
+Crescendi and decrescendi can be printed in hairpin style.  The
+starting marker for the crescendo is code(\<), and for the decrescendo
+code(\>).  Both have code(\!) as the ending marker.
+mudela(fragment, verbatim)(
+   c4 \< \! c4 \> \! c2
+      < c1
+        { s4 \< \! s4 \> \! s2 } >
+)
+This example shows a trick: by attaching the markings to space rests
+that run parallel to the whole note, you can have dynamic markings
+within a note. 
+
 )
 
 sect(Commands)
@@ -659,21 +702,39 @@ override some of the settings.  This can be done by inserting various
 commands between the music.  The general form of these commands is
 COMMENT(
 
-)center( em(keyword) sc(arguments) )
+)center(code(\keyword argument argument ... ;))
 
-em(keyword)s are words that have a special meaning to the parser of
-Mudela.  Because the parser must be able to distinguish the keywords
-from note names, they have to be preceded by a so-called escape
-character, the backslash, `code(\)'.  To separate the arguments from
-any notes that might follow the arguments, you have to end your
-command with a semicolon.  An added benefit of this construction is
-that the commands stand out between your notes, because of the
-backslashes.
-
-So the general form actually is `code(\keyword argument argument ... ;)'
-Let us review these commands:
-
+These are the commands that are currently supported:
 description(
+dit(code(\bar) var(bartype))
+  This command makes LilyPond print special bar
+  lines and repeat symbols.  You can also use it to allow line breaks
+  when entering cadenzas.  The argument var(bartype) is a string that
+  describes what kind of bar line to print.
+
+mudela(fragment,verbatim)(
+    \bar "|:"; c'4 \bar ":|:";    c'4  \bar ":|";  c'4 \bar "||";
+    c'4 \bar "empty"; c'4 \bar "|.";
+)
+
+  The command `code(\bar "empty")' does not create any visible bar
+  line, but it tells LilyPond to allow a linebreak at that
+  position.  The `code(\bar)' command prints the specified symbol
+  immediately.  If you give a `code(\bar)' command at the end of a
+  measure then the specified symbol replaces the automatic bar line;
+  otherwise the specified symbol appears in the middle of the measure.
+  The code(\bar) command does not affect metric structure.
+
+dit(code(\cadenza) var(togglevalue)) This command toggles the
+automatic printing of barlines.  `code(\cadenza 1)' turns off the
+automatically generated bar lines.  They are switched on again with
+`code(\cadenza 0)'. Then a bar line is printed, and LilyPond will act
+as if you are again at the start of a measure.
+
+
+This is useful when typesetting music without a meter (such as an ad
+ libitum cadenza).
+
 dit(code(\clef) var(clefname)) This command sets the current clef for notation,
   i.e., a clef symbol is printed and the notes following this command
   are shifted vertically.  The argument is a string, the name of the
@@ -683,6 +744,7 @@ dit(code(\clef) var(clefname)) This command sets the current clef for notation,
     \clef "treble"; c'4
     \clef "alto"; c'4    
   )
+
 dit(code(\key) var(pitch) var(type)) This command changes the current
   key signature.  The key signature is printed at the start of every
   line. The var(type) argument is set to code(\major) or code(\minor)
@@ -696,64 +758,22 @@ This command changes the current key signature.  Unlike the
 `code(\key)' command, this command can produce arbitrary key
 signatures, which can be useful for unconventional keys or modes.  The
 key signature is given in the form of a list of notes.  The notes will
-be printed in the key signature in the order that they appear on the list.
-For example, the key
-of C-minor can be specified as `code(\keysignature bes es as)'.  The
-command `code(\keysignature fis es bis)' provides a more exotic
-example.
+be printed in the key signature in the order that they appear on the
+list.  For example, the key of C-minor can be specified as
+`code(\keysignature bes es as)'.  The command `code(\keysignature fis
+es bis)' provides a more exotic example.
 
 
 dit(code(\time) var(numerator)code(/)var(denominator))
-  This command changes the current time signature.  LilyPond uses the
-  time signature to
-  calculate where to place the bars that start a measure.  These bars
-  in turn are the places where a system can be broken into lines.
+  This command changes the current time signature.
+  The default value for this time signature is common time (4/4).
 
-  The default value for this time signature is common time (4/4).  You
-  can also tell this from the  Twinkle ``Twinkle Little
-Star'' example in bind(Figure)ref(fig:twinkle1).  This
-song actually has a 2/4 time signature, so a metrically more correct
-  version  would start with as follows:
-  mudela(fragment,center,verbatim)(
-    \time 2/4;  c'4 c'  g' g' 
-  )
+dit(code(\partial) var(duration))
+  This command allows you to make
+  upsteps at the start of a piece.
+  The var(duration) argument has the same form as the duration of a
+  note.
 
-
-dit(code(\cadenza) var(togglevalue)) When typesetting music without a
-regular meter (such as an ad libitum cadenza), no bar lines should be
-printed.  In LilyPond you can achieve this by issuing the command
-`code(\cadenza 1)': it turns off the automatically
-generated bar lines.
-
-You switch them on again with `code(\cadenza 0)', and then a bar line
-is printed.  LilyPond will act as if you are again at the start of a
-measure.
-
-dit(code(\bar) var(bartype))
-  This command lets you print special bar
-  lines and repeat symbols.  You can also use it to allow line breaks
-  when entering cadenzas.  The argument var(bartype) is a string that
-  describes what kind of bar line to print.
-
-mudela(fragment,verbatim)(
-    \bar "|:"; c'4 \bar ":|:";    c'4  \bar ":|";  c'4 \bar "||";
-    c'4 \bar "empty"; c'4 \bar "|.";
-)
-  The command `code(\bar "empty")' does not create any visible bar
-  line, but it does tells LilyPond to allow a linebreak
-  at that position.  The `code(\bar)' command prints the specified
-  symbol immediately.  If you give a `code(\bar)' command at the end
-  of a measure then
-  the specified symbol replaces the automatic bar line; otherwise
-  the specified symbol appears in the middle of the measure.   The
-    code(\bar) command does not affect metric structure.
-
-
-  
-dit(code(\partial) var(duration)) some music starts with a measure that
-isn't fully filled, a so-called upstep.  The code(\partial) command
-allows you to make
-upsteps. The argument is a duration similar to the duration of a note.
 The `code(\partial)' command cannot be used to generate partial
 measures in the middle of the music.  
 Example:
@@ -763,7 +783,7 @@ Example:
     [d'8 dis'] e' c''4 e'8 c''4 
   )
 
-  dit(code(\grouping) var(durationslist)) sets the metric structure of the measure.
+dit(code(\grouping) var(durationslist)) sets the metric structure of the measure.
     Its effect can best be shown by an example:
     mudela(fragment,verbatim)(
         \time 5/16;
@@ -783,45 +803,44 @@ of 2 and 3 beats, with as many groups of
 (2+2), 8/8 in 3+3+2)
 )
 
-The commands that are described above aren't really music, but they
-can be used in the same places as notes.  This makes the grammar of the
-language simpler.  It is possible to put a command into a chord.
-For example, the following two snippets of Mudela produce identical output.
-verb(
-  <c4 e g \time 2/4;>
-  \time 2/4; <c4 e g>
-)
+The commands described above aren't really music, but they can best be
+thought as as notes with no duration.  Since they are grammatically
+equivalent to notes, these commands can be used in the same places as
+notes:
 
 sect(Notation context)
 
-This section is about translation contexts, a topic of LilyPond that
+COMMENT(This section is about translation contexts, a topic of LilyPond that
 is somewhat advanced.  You don't have to understand this to use
 LilyPond to print simple music.  If you don't want to typeset fancy
 polyphonic music or tweak the LilyPond notation engine, you can skip
-the next two sections.
+the next two sections.)
 
-In bind(Section)ref(tutorial:more-staffs) it was explained, that there
+In bind(Section)ref(tutorial:more-staffs) it was explained that there
 are more ways to notate a simple chord: as a single voice on a single
 staff or in multiple staffs (and we'll soon see, that you can typeset
-it as multiple voices on a  staff).  Obviously the concept of staff is not
-really something musical.  But what is it
+it as multiple voices on a staff).  Obviously the concept of staff is
+not really something musical.  But what is it then?
 
-The most simplistic explanation is: a staff is a peculiarity of the
-notation system.  In other words, a staff is a graphic device, a
-special picture of five lines on which one can print note heads.  To
-avoid confusion, we will call this view on the concept of staff
-`staff symbol' from now on.
+The most simplistic explanation is: a staff is a graphic peculiarity
+of the notation system.  In other words, a staff is a graphic device,
+a special picture of five lines on which one can print note heads.  We
+will call this view on the concept of staff `staff symbol' from now
+on.
 
-There is more to it than meets the eye and mind.  A staff
+But 
+there is more to a staff than just the symbol.  A staff
 contains---besides a staff symbol--- some more components:
 itemize(
-it()A staff can  have a key signature (printed at the left)
+it()A staff can have a key signature (printed at the left)
 it()A staff can have a time signature (printed at the left)
 it()A staff has bar lines
 it()A staff has a clef (printed at the left)
+) COMMENT(
+
 )
-To explain what a staff really is,   we'll try to print music without
-these components.  If these components aren't printed, it is still
+To explain what a staff really is, we'll try to print music without
+these components.   Without those, it is still
 possible to print music:
 mudela()(\score{
 \notes \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
@@ -836,13 +855,13 @@ mudela()(\score{
   \remove "Key_engraver";
   }
  }
-})
+})COMMENT(
 
-As you can see, one can still make out the general form of the melody
-and the rhythm that is to be played, but the notation is difficult to
-read and the musical information is not complete.  The stress pattern
-in the notes can't be deduced from this output.  For this, we need a
-time signature:
+) As you can see, you can still make out the general form of the
+melody and the rhythm that is to be played, but the notation is
+difficult to read.  Moreover, the musical information is not complete.
+The stress pattern in the notes can't be deduced from this output.
+For this, we need a time signature:
 
 mudela()(
 \score {
@@ -856,11 +875,11 @@ mudela()(
   \remove "Clef_engraver";
   \remove "Key_engraver";
   }}
- })
+ }) COMMENT(
 
-Technically speaking you know where the strong and weak beats are, but
+)Technically speaking you know where the strong and weak beats are, but
 it is difficult to find them quickly.   Bar lines  help you in finding
-the location within the measure of the notes:
+the location  of the notes within the measure:
 mudela()(
 \score {
   \notes \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
@@ -889,8 +908,9 @@ a'4 f4 e c d2 } \paper {
   \remove "Key_engraver";
   }
  }
-})
+})COMMENT(
 
+)
 This makes the output decidedly easier to read, but you still don't
 know what the pitches of the notes above are.  So this is still not
 enough.  But suppose you see the following notation:
@@ -899,9 +919,9 @@ mudela()(\score {
   \paper {
     linewidth = -1.;
   }
-})
+})COMMENT(
 
-Now you know the pitch of the notes: you look at the start of the line
+) Now you know the pitch of the notes: you look at the start of the line
 and see a clef, with this clef, you can determine the notated pitches.
 You have found the em(context) in which the notation is to be
 interpreted!
@@ -910,34 +930,30 @@ So the context determines the relationship between a piece of music
 and its notation: you, the reader, use context to deduce music from
 notation.  Because LilyPond is a notation writer instead of a reader,
 context works the other way around for Lily: with context a piece of
-music can be converted to notation.  The components of a staff form
-context, and context is needed to read and write notation.  This
-motivates the following definition.
+music can be converted to notation.
 
-quote(
-A bf(notation context) is  a conversion from music to notation.
-)
+We see that a staff forms context, and that context is needed to
+convert between notation and music.  In LilyPond we turn around this
+reasoning: LilyPond has a notion of notation context, and the staff is
+just one example of a notation context.  In fact, the arguments of the
+code(\type) command (Staff, GrandStaff) were all names of different
+contexts.
 
-The example focused mainly on on staffs, but a staff is not the only
-type of notation context.  Notation contexts may be nested: you can
-print polyphonic music by putting multiple `Voice' contexts in one
-`Staff' context.  The arguments of the code(\type) command (Staff,
-GrandStaff) were in fact all names of different contexts.
-The notions of ``current clef'' and ``current position within the
-measure'' are all properties of notation contexts.  Commands like
-code(\clef) and code(\cadenza) change these properties.  
-
+We make one final observation before listing the standard notation
+contexts.  A score can contain many staffs; A staff can contain many
+voices.  This suggests that notation contexts are objects that can be
+nested.
 
 The following is a list of the contexts that are supported by
-LilyPond:
+LilyPond.  Each notation context is characterised by its name, the
+notation elements it creates, and the contexts that it can contain.
 description(
-
 dit(Voice) The code(Voice) context is a context that corresponds to a
   voice on a staff.  This context handles the conversion of noteheads,
   dynamic signs, stems, beams, super- and subscripts, slurs, ties and rests
 
 dit(Staff) The code(Staff) context handles clefs, bar lines, keys,
-  accidentals.  A code(Staff) context can contain multiple code(Voice)
+  accidentals.  A code(Staff) context can contain code(Voice)
   contexts.
 
 dit(RhythmicStaff) The code(RhythmicStaff) context is like the staff,
@@ -947,11 +963,11 @@ dit(RhythmicStaff) The code(RhythmicStaff) context is like the staff,
 dit(GrandStaff) A code(GrandStaff) context contains code(Staff)
   contexts, and it adds a brace to the output at the
   nop(left.)footnote(This is a major deficiency in the current
-  implementation.    Currently stems,
-  slurs and beams cannot be printed across two staffs.
-In reality, a grand staff is  a hybrid of one big staff and two stacked staffs.)
+  implementation.  Currently stems, slurs and beams cannot be printed
+  across two staffs.  In reality, a grand staff is a hybrid of one big
+  staff and two stacked staffs.)
   
-  A code(GrandStaff) context can contain multiple
+  A code(GrandStaff) context can contain 
   code(Staff)s. Typically, it will contain two code(Staff)s, one
   treble staff, and one bass staff. The bar lines of the contained
   staffs are connected vertically.
@@ -969,24 +985,31 @@ dit(Score) The code(Score) context is the toplevel context: no context can
   administration of time signatures.  It also makes sure that items
   such as clefs, time signatures, and key-signatures are aligned across staffs.
   
-  The code(Score) can contain code(Staff), code(StaffGroup), code(Lyrics), code(GrandStaff) and
-  code(RhythmicStaff) contexts.
+  The code(Score) can contain code(Staff), code(StaffGroup),
+  code(Lyrics), code(GrandStaff) and code(RhythmicStaff) contexts.
 
 COMMENT(do ChoireStaff)
 )
 
 
-  Later on, in bind(Section)ref(tutorial:engravers) we will
-explain how you can create your own contexts.
+If you are familiar with structured documents, you might see the
+analogy of a context with a stylesheet: a stylesheet is neither
+presentation nor information, but rather a recipe em(how) a specific
+piece of information should be presented.  The big difference with
+stylesheets is that in music notation the elements provided by context
+are essential to understanding what is notated.
 
-If you are familiar with structured documents (like HTML, SGML or
-LaTeX()), you might see the analogy of a context with a stylesheet: a
-stylesheet is neither presentation nor information, but rather a
-recipe em(how) a specific piece of information should be presented.
-Analogously, a notation context is neither music nor notation, but the
-conversion between the two.  The big difference with text is that in
-music notation the elements provided by context are essential to
-understanding what is notated.
+The notions of ``current clef'' and ``current position within the
+measure'' are all properties of notation contexts.  Commands like
+code(\clef) and code(\cadenza) change these properties, and this
+explains why they are fundamentally different from musical expressions
+like notes and rests.
+
+A notation context is not a primitive element of LilyPond, but rather
+  Later on, in bind(Section)ref(tutorial:engravers) we will explain
+  how you can create your own contexts.
+
+
 
 
 sect(Nested music: more than one staff)
@@ -1023,13 +1046,13 @@ expressed with the code(\type) construct.  The following input says
 
 verb(
   \type Staff e'4 
-)COMMENT (
+)COMMENT(
 
 ) The same can be done for the other note, i.e.,
 
 verb(
   \type Staff g4 
-) COMMENT (
+) COMMENT(
 
 ) If you want to stack these staffs, you must create a chord of both:
 
@@ -1055,7 +1078,7 @@ mudela(verbatim,fragment)(
   < \type Staff = trebleStaff e'4
     \type Staff = bassStaff  g4 
   >
-)COMMENT (
+)COMMENT(
 
 ) The names that you choose do not matter just as long as they are
 different.  This is almost right, except for the brace at the left and
@@ -1096,7 +1119,7 @@ verb(
     \type Voice = one  ...
     \type Voice = two  ...
   >
-) COMMENT (
+) COMMENT(
 
 ) On the ellipsis there should be music going from left to right, in
 otherr words, there should be sequential music, notes enclosed in
@@ -1111,10 +1134,8 @@ mudela(fragment,verbatim)(
 As you can see the result is not quite perfect.  The notes on the last
 two beats look like plain chords and not like separate voices.  What
 really happened was that the stems of the upper and lower voices were
-printed on top of each other.  If you have tried running this example, you will probably
-have noticed a complaint  about ``too many
-clashing notecolumns''  during the LilyPond run.
-This complaint refers to the overlapping stems.
+printed on top of each other.
+
 
 To remedy this, engravers traditionally make the stems of the upper
 and lower voice point in different directions: the stems of the lower
@@ -1212,13 +1233,8 @@ lyrics we have to instruct LilyPond that what we enter are not note
 names but words---or rather: strings.  This instruction is the keyword
 code(\lyrics).  After entering this keyword you can enter a musical
 construct---sequential music, simultaneous music, code(\type)
-entries, etc.--- but with syllables in stead of pitches.  For example:
+entries, etc.--- but with syllables instead of pitches.  For example:
 verb( \lyrics { 'got8 me on my knees4, Le-8 lie! })
-
-The effect of code(\lyrics) can be compared with the effect of the
-doublequote character, code("), for it also changes the lexical
-meaning of spaces and characters.  This mode is another example of a
-handy input feature of the language.
 
 Next comes the conversion to notation.  LilyPond can't (yet) figure
 out that lyrics need different treatment than notes.  As a result, the
@@ -1231,35 +1247,31 @@ the code(\type) keyword.  Here is a simple example:
 mudela(fragment,verbatim)(
 	\type Lyrics \lyrics { 'got8 me on my knees,4 Le-8 lie! })
 
-The result is technically more or less correct, but without a melody it
+The result is technically  correct, but without a melody it
 just doesn't work, so let's add a blob of cream:
 mudela(fragment,verbatim)(
   <
     \type Staff  { c''8. c''16 bes'8. a'16 g'4 f'8 g'4. }
     \type Lyrics \lyrics { 'got8. me16 on8. my16 knees,4 Le-8 lie!4. }
   >
-)
+) COMMENT
 
-The strings that makes up each syllable in the lyrics block are passed
-along to TeX() verbatim, so if you are proficient with TeX() you can
-do various nifty things.  Just keep in mind that a syllable either
-starts with a letter (a character in the range `code(a)' to `code(z)'
-or `code(A)' to `code(Z)'), or it is a string enclosed quotes. It ends
-with either a number for the duration, or a space.  A last feature
-that should be mentioned is the space-lyric: if you want to enter
-a single ``syllable'' that consists of multiple words, i.e., words
-separated by  spaces, you should use an
-underscore instead of a space.  All these tricks are demonstrated in
-the following example:
+) The strings that makes up each syllable in the lyrics block are
+passed along to TeX() verbatim, so if you are proficient with TeX()
+you can do various nifty things.  Just keep in mind that a syllable
+either starts with a letter (a character in the range `code(a)' to
+`code(z)' or `code(A)' to `code(Z)'), or it is a string enclosed
+quotes. It ends with either a number for the duration, or a space.
+All these tricks are demonstrated in the following example:
 
 COMMENT( urg
-\type Lyrics \lyrics { 'got_m\textbf{e}4 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
-\type Lyrics \lyrics { 'got_m{\bf e}4 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
+\type Lyrics \lyrics { 'got8 m\textbf{e}8 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
+\type Lyrics \lyrics { 'got8 m{\bf e}4 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
 )
 
 mudela(fragment,verbatim)(<
   \type Staff  { c''8. c''16 bes'8. a'16 g'4 f'8 g'4. }
-  \type Lyrics \lyrics { 'got_me4 on8. m$\cal_Y$16 "3s,"4 Le-8 lie!4.}
+  \type Lyrics \lyrics { 'got8 me8 on8. m$\cal_Y$16 "3s,"4 Le-8 lie!4.}
 >
 )
 
@@ -1316,12 +1328,13 @@ Another interesting feature of this example are the assignments within
 the paper block.  Some blocks, such as code(\paper), have a scope of
 their own.  In the case of the code(\paper) block, these variables
 influence the characteristics of the output.  As is shown, you can
-tune quantities like the stemlength, and enter simple expressions.
-The purpose of the negative linewidth is to prevent the music from
-being justified.  The identifiers that are meaningful are for the
-paper block is strongly implementation dependent, so they will not be
-listed here.  Moreover, since most of the values are predefined to
-sensible defaults, there usually is no need to tune these values.
+tune quantities like the stemlength, and enter simple
+nop(expressions.)footnote(The purpose of the negative linewidth is to
+prevent the music from being justified.)  The identifiers that are
+meaningful are for the paper block is strongly implementation
+dependent, so they will not be listed here.  Moreover, since most of
+the values are predefined to sensible defaults, there usually is no
+need to tune these values.
 
 Recall the properties of a context, that could be set with
 code(\property).  It is a very general mechanism to tune the output of
@@ -1375,12 +1388,12 @@ sect(Sound output)
 label(tutorial:sound)
 
 You get output by combining music with definition a conversion to
-output.  Up till now we have only focused on the graphic output of
-traditional engraving.  But there is no reason why that should be the
-only form of output for music.  LilyPond currently supports one other
-conversion: the conversion from abstract music to sound. You can have
-LilyPond play the music that you entered.  The format that is used
-for this output is MIDI.  
+output.  LilyPond currently supports one other conversion besides
+notation: the conversion from abstract music to sound. You can have
+LilyPond play the music that you entered.  The format that is used for
+this output is MIDI.  The most useful purpose of this sound output is
+to prooflisten your files: typing errors stand out when you listen,
+especially if they involve accidentals.
 
 The only information that you need to enter is the
  nop(tempo)footnote(Unfortunately,
@@ -1392,11 +1405,9 @@ verb(
 \score {
    ...music...
    \midi { \tempo 4 = 76; }
-}) COMMENT (
+}) COMMENT(
 
-) The most useful purpose of this sound output is to prooflisten your
-files: typing errors stand out when you listen, especially if they
-involve accidentals.  The output was implemented in a very rudimentary
+)   The output was implemented in a very rudimentary
 manner, so it is probably not worth listening to for any other reason.
 
 
@@ -1407,6 +1418,7 @@ As was promised, we will now take a dive into the more wizardrous parts
 of LilyPond: redefining (notation) contexts.  We previously explained
 that a context 
 itemize(
+it()has a name
 it()is a conversion from music to notation,
 it()can contain other contexts
 it()handles specific notation constructs
@@ -1447,10 +1459,9 @@ verb(
         propertyname = "value";
         propertyname = "value";
 
-} )
+}) COMMENT(
 
-
-The code(\translator) keyword opens the block for translation (or
+) The code(\translator) keyword opens the block for translation (or
 context) definition.  The code(\type) keyword explains to Lily that
 the context should be formed by taking an (empty) instance of
 code(Engraver_group_engraver).  The code(Engraver_group_engraver) is a
@@ -1468,6 +1479,7 @@ specify which notation construct a context should handle by specifying
 which engravers should be part of the context.  The code(\consists
 "Foobar") entry really means ``add an instance of code(Foobar) to the
 translation group.''
+
 
 You can also declare contexts, and reference them.  This is useful in
 combination with code(\remove "..."): code(\remove) does the opposite
@@ -1533,7 +1545,7 @@ By naming other contexts that you create, you can reference other
 contexts than the current context from within the music.  For example,
 from within the music that you enter for staff code(One), one could
 enter a small piece of music, and send it to staff code(Two), e.g.,
-COMMENT (
+COMMENT(
 
 ) mudela(fragment,verbatim)(
   <
@@ -1543,24 +1555,23 @@ COMMENT (
 )
 
 
-Another useful application of this feature is making Urtexts.
-em(Urtext) is the German word for `original text'.  The Urtext
-edition of a piece of music, is an edition that reflects the original
-writing of the composer.  Such editions are useful for musicologists,
-and performers that want  to perform authentic interpretations.  However,
-for mere mortals, the Urtext can be quite hard to read.  It might not
-contain fingering and beaming, and typically it is full of footnotes.
-Moreover, common interpretations may have emerged---after the composer
-died.  For this reason, the music that can be had as Urtext usually is also
-available in enhanced and edited editions.
 
-The mechanism of context selection can be used to fabricate an Urtext
-and an edited edition from em(one source).  We will use the first few
-bars of bind(J.)bind(S.)Bach's lovely Cello suite bind(no.)I to
-demonstrate this.  The example makes heavy use of space rests: a space
-rest takes up time, like a rest does, but it doesn't print anything.
-It can be used as a placeholder, to attach articulation marks to.  It
-is entered as a note with the name code(s).
+The mechanism of context selection can be used to fabricate an
+nop(Urtext)footnote(em(Urtext) is the German word for `original text'.
+The Urtext edition of a piece of music, is an edition that reflects
+the original writing of the composer.  Such editions are useful for
+musicologists, and performers that want to perform authentic
+interpretations.  However, for mere mortals, the Urtext can be quite
+hard to read.  It might not contain fingering and beaming, and
+typically it is full of footnotes.  Moreover, common interpretations
+may have emerged---after the composer died.  For this reason, the
+music that can be had as Urtext usually is also available in enhanced
+and edited editions.  ) and an edited edition from em(one source).  We
+will use the first few bars of bind(J.)bind(S.)Bach's first Cello
+suite to demonstrate this.  The example makes heavy use of space
+rests: a space rest takes up time, like a rest does, but it doesn't
+print anything.  It can be used as a placeholder, to attach
+articulation marks to.  It is entered as a note with the name code(s).
 
 mudela(verbatim)(
   bach =  \notes \relative c { [g16 d' b' a] [b d, b' d,] }
@@ -1581,7 +1592,7 @@ mudela(verbatim)(
         \staffStuff
       >
     }
-    \paper {}
+    \paper { linewidth = -1.;}
   }
 )
 
@@ -1647,7 +1658,7 @@ switch = \type Voice = voiceA \notes { s4 \translator Staff = staffB s4
 )
 
 Don't try to switch staffs when you are in the middle of a slur or
-beam, though.  It doesn't work yet.
+beam, though: the spanners won't switch along.
 
 sect(Hairy durations: triplets)
 

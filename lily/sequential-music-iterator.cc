@@ -1,5 +1,5 @@
 /*
-  Sequential_music-iter.cc -- implement Sequential_music_iterator
+  Sequential_music_iterator.cc -- implement Sequential_music_iterator
 
   source file of the GNU LilyPond music typesetter
 
@@ -8,7 +8,7 @@
 
 #include "translator-group.hh"
 #include "debug.hh"
-#include "voice-iterator.hh"
+#include "sequential-music-iterator.hh"
 #include "music-list.hh"
 
 

@@ -15,55 +15,77 @@
 
 Repeated_music_iterator::Repeated_music_iterator ()
 {
+  repeat_iter_p_ = 0;
+  alternative_iter_p_ = 0;
 }
 
 Repeated_music_iterator::~Repeated_music_iterator ()
 {
+  delete repeat_iter_p_;
+  delete alternative_iter_p_;
+}
+
+void
+Repeated_music_iterator::do_print () const
+{
+  if (repeat_iter_p_) repeat_iter_p_->print ();
+  if (alternative_iter_p_) alternative_iter_p_->print ();
 }
 
 void
 Repeated_music_iterator::construct_children ()
 {
-  Music_wrapper_iterator::construct_children ();
-  // Sequential_music_iterator::construct_children ();
+  repeat_iter_p_ = get_iterator_p (repeated_music_l ()->repeat_p_);  
 }
 
 void
 Repeated_music_iterator::do_process_and_next (Moment m)
 {
-  if (Music_wrapper_iterator::ok ())
-    Music_wrapper_iterator::do_process_and_next (m);
-//  else
-    //Sequential_music_iterator::do_process_and_next (m);
+  if (first_b_)
+    {
+      bool success = report_to_l ()->try_music (repeated_music_l ());
+      if (!success)
+	music_l_->warning ( _("No one to print a volta bracket"));
+    }
+  if (repeat_iter_p_->ok ())
+    repeat_iter_p_->process_and_next (m);
+  else
+    {
+      if (!alternative_iter_p_)
+        {
+	  delete repeat_iter_p_;
+	  repeat_iter_p_ = 0;
+	  alternative_iter_p_ = dynamic_cast<Sequential_music_iterator*>
+	    (get_iterator_p (repeated_music_l ()->alternative_p_));  
+	}
+      alternative_iter_p_->process_and_next (m);
+    }
+  Music_iterator::do_process_and_next (m);
 }
 
-Music_wrapper*
-Repeated_music_iterator::music_wrapper_l () const
+Moment
+Repeated_music_iterator::next_moment () const
 {
-  return ((Repeated_music*)Music_wrapper_iterator::music_l_)->repeat_p_;
+  if (repeat_iter_p_)
+    return repeat_iter_p_->next_moment ();
+  else if (alternative_iter_p_)
+    return alternative_iter_p_->next_moment ();
+  return 0;
 }
 
 bool
 Repeated_music_iterator::ok () const
 {
-  return Music_wrapper_iterator::ok (); // || Sequential_music_iterator:: ok();
+  if (repeat_iter_p_)
+    return repeat_iter_p_->ok ();
+  else if (alternative_iter_p_)
+    return alternative_iter_p_->ok ();
+  return false;
 }
 
-Sequential_music*
-Repeated_music_iterator::sequential_music_l () const
+Repeated_music*
+Repeated_music_iterator::repeated_music_l () const
 {
-  return ((Repeated_music*)Sequential_music_iterator::music_l_)->alternative_p_;
-}
-
-void
-Repeated_music_iterator::start_next_element ()
-{
-  // Sequential_music_iterator::start_next_element ();
-}
-
-void
-Repeated_music_iterator::leave_element ()
-{
-  // Sequential_music_iterator::leave_element ();
+  return (Repeated_music*)Music_iterator::music_l_;
 }
 

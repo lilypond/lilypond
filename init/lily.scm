@@ -43,9 +43,9 @@
     (string-append (number->string (cadr c)) " ")))
 
 ;;;;;;;; TeX
-; (define (tex action)
+;(define (tex action)
 
-(define 
+(define  
   (beam-tex width slope thick)
   (embedded-ps-tex (beam-ps width slope thick)))
 
@@ -169,7 +169,14 @@
   (text-tex f s)
   (string-append "\\set" f "{" s "}"))
 
+(define 
+  (tuplet-tex dx dy dir)
+  (embedded-ps-tex (tuplet-ps dx dy dir)))
 
+
+(define 
+  (volta-tex w last)
+  (embedded-ps-tex (volta-ps w last)))
 
 ;;;;;;;;;;;; PS
 
@@ -288,6 +295,12 @@
   (text-ps f s)
   (string-append "(" s ") set" f " "))
 
+
+(define 
+  (volta-ps w last)
+  (string-append 
+   (numbers->string (list w (inexact->exact last)))
+   "draw_volta"))
 
 ;;; output definitions
 
@@ -455,10 +468,6 @@
    "draw_tuplet"))
 
 (define 
-  (tuplet-tex dx dy dir)
-  (embedded-ps-tex (tuplet-ps dx dy dir)))
-
-(define 
   (stem o kern width height depth) 
   ((invoke-output o "stem") kern width height depth))
 
@@ -476,14 +485,15 @@
   (startrepeat o h)
   ((invoke-output o "invoke-dim1") "startrepeat" h))
 
-
 (define 
   (stop-line o) 
   ((invoke-output o "stop-line")))
-
 
 (define
   (stoprepeat o h)
   ((invoke-output o "invoke-dim1") "stoprepeat" h))
 
+(define 
+  (volta o w last)
+  ((invoke-output o "volta") w last))
 

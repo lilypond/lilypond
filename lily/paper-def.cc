@@ -233,8 +233,8 @@ output_def (Paper_outputter* p, String key, String val)
   SCM args_scm =
     gh_cons (gh_str02scm (key.ch_l ()), gh_cons (gh_str02scm (val.ch_l ()), SCM_EOL));
   SCM scm =
-    ly_append (ly_lambda_o (),
-    ly_list1 (ly_append (ly_func_o ("lily-def"), args_scm)));
+    gh_append2 (ly_lambda_o (),
+    ly_list1 (gh_append2 (ly_func_o ("lily-def"), args_scm)));
   p->output_scheme (scm);
 }
 
@@ -286,14 +286,14 @@ Paper_def::paper_outputter_p (Paper_stream* os_p, Header* header_l, String origi
   output_settings (p);
 
   SCM scm =
-    ly_append (ly_lambda_o (),
-    ly_list1 (ly_append (ly_func_o ("experimental-on"), SCM_EOL)));
+    gh_append2 (ly_lambda_o (),
+    ly_list1 (gh_append2 (ly_func_o ("experimental-on"), SCM_EOL)));
 
   p->output_scheme (scm);
 
   scm =
-    ly_append (ly_lambda_o (),
-    ly_list1 (ly_append (ly_func_o ("header-end"), SCM_EOL)));
+    gh_append2 (ly_lambda_o (),
+    ly_list1 (gh_append2 (ly_func_o ("header-end"), SCM_EOL)));
 
   p->output_scheme (scm);
 

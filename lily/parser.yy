@@ -745,9 +745,9 @@ Alternative_music: {
 	;
 
 Repeated_music: REPEAT unsigned '{' Music '}' Alternative_music	{
-		Music_wrapper *w= new Music_wrapper ($4);
+		// s/r conflicts -> '{' '}' 
 		Sequential_music* s = (Sequential_music*)$6;
-		$$ = new Repeated_music (w, $2, s);
+		$$ = new Repeated_music ($4, $2, s);
 	}
 	;
 

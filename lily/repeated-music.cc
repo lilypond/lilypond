@@ -8,10 +8,10 @@
  */
 
 #include "repeated-music.hh"
-#include "music-wrapper.hh"
-#include "music-list.hh"
+#include "musical-pitch.hh"
 
-Repeated_music::Repeated_music (Music_wrapper *r, int n, Sequential_music* a)
+//Repeated_music::Repeated_music (Music* r, int n, Music_list* a)
+Repeated_music::Repeated_music (Music* r, int n, Sequential_music* a)
 {
   repeats_i_ = n;
   repeat_p_ = r;
@@ -27,11 +27,9 @@ Repeated_music::~Repeated_music ()
 Repeated_music::Repeated_music (Repeated_music const& s)
   : Music (s)
 {
-#if 0
- // urg?
-  repeat_p_ = (Music_wrapper*)(s.repeat_p_) ? s.repeat_p_->clone () : 0;
-  alternative_p_ = (Sequential_music*)(s.alternative_p_) ? s.alternative_p_->clone () : 0;
-#endif 
+  repeat_p_ = (s.repeat_p_) ? s.repeat_p_->clone () : 0;
+  // urg?
+//  alternative_p_ = (Sequential_music*)(s.alternative_p_) ? s.alternative_p_->clone () : 0;
 }
 
 void
@@ -62,3 +60,4 @@ Repeated_music::duration () const
     m += alternative_p_->duration ();
   return m;
 }
+

@@ -17,11 +17,14 @@ class Change_iterator : public Music_iterator
 {
   Change_translator *change_l ();
   void  error (String);
-  
-public:
-  
+
 protected:
   virtual void do_process_and_next (Moment);
+
+public:
+  /*
+    CTOR is public
+   */
 };
 
 #endif

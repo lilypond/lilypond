@@ -55,6 +55,7 @@ public:
   Atom text (String style, String text) const;
   Atom vbrace (Real &dy) const;
   Atom vbracket (Real &dy) const;
+  Atom volta (Real w, bool last_b) const;
   Atom special_time_signature (String, Array<int>) const;
   Atom time_signature (Array<int>) const;
 
