@@ -4,8 +4,7 @@
 ;;;; 
 ;;;; (c) 2004 Carl D. Sorensen <c_sorensen@byu.edu>
 
-(define ly:paper-lookup ly:output-def-lookup) ; compat for 2.3, remove  when using 2.2
-(define ss-font-encoding 'ec )
+
 
 (define (fret-parse-marking-list marking-list fret-count)
    (let* ((fret-range (list 1 fret-count))
@@ -53,6 +52,23 @@
                                                                     '()
                                                                     (third this-list)))
              (subtract-base-fret base-fret (cdr dot-list))))))
+
+(define (sans-serif-stencil paper props mag  text)
+"create a stencil in sans-serif font based on @var{paper} and @var{props}
+with magnification @varr{mag} of the string @var{text}."
+  (let* ((my-props (prepend-alist-chain  'font-size (stepmag mag)
+                   (prepend-alist-chain  'font-family 'sans props))))
+        (interpret-markup paper my-props text)))
+
+(define (sans-serif-stencil-white paper props mag text)
+"create a stencil with white text in sans-serif font based on @var{paper} and @var{props}
+with magnification @varr{mag} of the string @var{text}."
+  (let* ((text-stencil (sans-serif-stencil paper props mag text))
+         (x-extent  (ly:stencil-extent text-stencil X))
+         (y-extent  (ly:stencil-extent text-stencil Y))
+         (c  `(white-text ,(* 2 mag) ,text))) ;urg -- workaround for using ps font
+    (ly:make-stencil c  x-extent y-extent)))  ;urg -- extent is not from ps font, but we hope it's close
+
 
 (define (draw-strings string-count fret-range th size)
 "Draw the strings (vertical lines) for a fret diagram with @var{string-count} strings and frets as indicated
@@ -152,18 +168,6 @@
          (extent (cons (- scale-dot-radius) scale-dot-radius))
          (finger (caddr mypair))
          (finger (if (number? finger) (number->string finger) finger))
-          (string-label-font 
-               (ly:paper-get-font paper `(((font-family . sans)
-                                           (font-encoding . ,ss-font-encoding)
-                                           (font-series . medium) 
-                                           (font-shape . upright)
-                                           (font-size . ,(stepmag  string-label-font-mag))))))
-          (dot-label-font 
-               (ly:paper-get-font paper `(((font-family . sans)
-                                           (font-encoding . ,ss-font-encoding)
-                                           (font-series . medium) 
-                                           (font-shape . upright)
-                                           (font-size . ,(stepmag  dot-label-font-mag))))))
          (dotstencil  (if (eq? dot-color 'white)
                           (begin
                           (ly:make-stencil (list 'white-dot 0 0 scale-dot-radius) extent extent))
@@ -180,9 +184,9 @@
                         (ly:stencil-translate-axis 
                           (ly:stencil-translate-axis 
                               (if (eq? dot-color 'white)
-                              (centered-stencil (fontify-text dot-label-font finger))
-                              (centered-stencil (fontify-text-white dot-label-font-mag 
-                                                                    dot-label-font  finger)))
+                              (centered-stencil (sans-serif-stencil paper props dot-label-font-mag finger))
+                              (centered-stencil (sans-serif-stencil-white paper props 
+                                                 dot-label-font-mag  finger)))
                                xpos X)
                               ypos Y)
                         (ly:stencil-translate-axis
@@ -195,7 +199,8 @@
                          positioned-dot
                          (ly:stencil-translate-axis 
                              (ly:stencil-translate-axis 
-                                 (centered-stencil (fontify-text string-label-font finger)) xpos  X)
+                                 (centered-stencil (sans-serif-stencil paper props 
+                                                        string-label-font-mag finger)) xpos  X)
                              (* size finger-yoffset) Y))
                      ;unknown finger-code
                      positioned-dot)))))
@@ -213,14 +218,12 @@
            (xo-font-mag (* size 0.5))
 ;           (xo-horizontal-offset (* size (chain-assoc-get 'xo-horizontal-offset props -0.35)))
            (xo-horizontal-offset (* size -0.35))
-           (font (ly:paper-get-font paper `(((font-encoding . ,ss-font-encoding)(font-family . sans)
-                                        (font-series . medium) (font-shape . upright)
-                                        (font-size . ,(stepmag (* size xo-font-mag)))))))
            (mypair (car xo-list))
            (restlist (cdr xo-list))
            (glyph-string (if (eq? (car mypair) 'mute) "X" "O"))
            (xpos (+ (* (- string-count (cadr mypair)) size) xo-horizontal-offset ))
-           (glyph-stencil (ly:stencil-translate-axis (fontify-text font glyph-string) xpos X)))
+           (glyph-stencil (ly:stencil-translate-axis 
+              (sans-serif-stencil paper props (* size xo-font-mag) glyph-string) xpos X)))
       (if (null? restlist)
           glyph-stencil
           (ly:stencil-add
@@ -286,11 +289,6 @@
           (label-vertical-offset -0.2)
 	  (number-type (chain-assoc-get 'number-type props 'roman-lower))
           (fret-count (+ (- (cadr fret-range) (car fret-range)) 1))
-          (font (ly:paper-get-font paper `(((font-encoding . ,ss-font-encoding)
-                                            (font-family . sans)
-                                            (font-series . medium) 
-                                            (font-shape . upright)
-                                            (font-size . ,(stepmag (* size label-font-mag)))))))
            (label-text 
               (case number-type 
                   ('roman-lower (format #f "~(~:@r~)" base-fret))
@@ -298,7 +296,7 @@
                   ('arabic  (format #f "~d" base-fret))
                   (else (format #f  "~(~:@r~)" base-fret)))))
        (ly:stencil-translate-axis 
-           (fontify-text font label-text) 
+           (sans-serif-stencil paper props (* size label-font-mag) label-text) 
                        (* size (+ fret-count label-vertical-offset)) Y)))
  
 (def-markup-command (fret-diagram-verbose paper props marking-list)
@@ -354,7 +352,7 @@ part of the place-fret element is present, @var{finger-value} will be displayed 
          (default-dot-position (if (eq? finger-code 'in-dot) (- 0.95 default-dot-radius) 0.6))  ; move up to make room for bigger if labeled
          (dot-radius (chain-assoc-get 'dot-radius props default-dot-radius))  ; needed for both draw-dots and draw-barre
          (dot-position (chain-assoc-get 'dot-position props default-dot-position)) ; needed for both draw-dots and draw-barre
-         (th (* (ly:paper-lookup paper 'linethickness)
+         (th (* (ly:output-def-lookup paper 'linethickness)
                 (chain-assoc-get 'thickness props 0.5))) ; needed for both draw-frets and draw-strings
                 
          (alignment (chain-assoc-get 'align-dir props -0.4)) ; needed only here

@@ -1,3 +1,8 @@
+2004-08-19  Carl Sorensen  <carldsorensen@comcast.net>
+
+	* scm/fret-diagrams.scm: Eliminate use of fontify-text; make 
+	font calls for diagrams based on paper and props
+
 2004-08-19  Graham Percival <gperlist@shaw.ca>
 
 	* scripts/conver-ly.py: add \newpage -> \pageBreak rule.
