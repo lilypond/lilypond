@@ -1,3 +1,15 @@
+pl 36
+	- Jan's patches:
+	- do MIDI rests cleanly.
+	- lily/m2m: time and tempo fixed for metric timing
+Internal
+	- Midi_tempo
+	- m2m parses more midi stuff (all of bach-wtc); timing??
+	- m2m recognises some commandline options
+Examples
+	- fixed midi.ly
+
+*******
 pl 35
 	- Register_group
 Bugfix
@@ -14,6 +26,11 @@ Internal
 	- junked Midi_staff, Staff_column children, Midi_walker
 	- Midi_output
 
+pl 33-1
+	- m2m parses midi
+Internal
+	- Binary_source_file
+	- Source_file::error_str simplified
 *******
 pl33
 Examples
