@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.3";
+\version "1.0.4";
 
 \include "global.ly"
 
@@ -63,7 +63,7 @@ strijkers = \type StaffGroup = strijkers_group <
 	\$bassi
 >
 
-default_paper = \include "score-paper.ly"
+ \include "score-paper.ly"
 \score{
 	<
 		\property Score . textstyle =  "italic"

@@ -25,7 +25,6 @@ latexlayoutcmds(
 \setlength{\evensidemargin}{0.25in}
 )
 
-latexpackage()(a4wide) COMMENT(UGH)
 
 whenlatex(notableofcontents())
 whentexinfo(notableofcontents())

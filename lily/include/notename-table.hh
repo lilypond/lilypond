@@ -1,5 +1,5 @@
 /*
-  notename-table.hh -- declare 
+  notename-table.hh -- declare Notename_table
 
   source file of the GNU LilyPond music typesetter
 

@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.3";
+\version "1.0.4";
 
 oboe2 = \notes \relative c{
 	R1 *2| f''4-.\ff r r2 | R1 *3 | f4-. r r2 | R1 *3 |

@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.3";
+\version "1.0.4";
 
 contrabasso = \notes \relative c {
 %	\translator Staff=violoncello

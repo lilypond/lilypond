@@ -9,6 +9,8 @@ grep for TODO and ugh/ugr/urg
 
 	* egcs-1.1 support
 
+	* make engraver hacking robust.
+
 	* fix LOCALE settings, and \def\foo{2,000pt} output
 
 	* use streambufs and iostream
@@ -53,8 +55,6 @@ grep for TODO and ugh/ugr/urg
 	- abstract grammar.
 
 	* install TeX stuff into tex/generic directory.
-
-	* preformatted .info stuff.
 
 	* percussion note heads
 

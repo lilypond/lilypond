@@ -9,7 +9,7 @@ copyright =	 "public domain";
 }
 
 
-\version "1.0.3";
+\version "1.0.4";
 
 allegro =
 	\notes
@@ -359,7 +359,7 @@ rondo = \notes 	\relative c'
 	c4 r8 r4 r8
 }
 
-default_paper = \include "part-paper.ly"
+ \include "part-paper.ly"
 
 \score
 {

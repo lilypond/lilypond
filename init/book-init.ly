@@ -1,12 +1,12 @@
 % Toplevel initialisation file. 
 	
-\version "1.0.3";
+\version "1.0.4";
 
 
 \include "declarations.ly";
 \include "paper16.ly"
 
-default_paper = \paper{
+ \paper{
 	\paper_sixteen
 }
 

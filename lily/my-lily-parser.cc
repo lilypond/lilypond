@@ -40,11 +40,6 @@ My_lily_parser::~My_lily_parser()
 }
 
 
-void
-My_lily_parser::clear_notenames()
-{
-  lexer_p_->clear_notenames();
-}
 
 void
 My_lily_parser::set_version_check (bool ig)
@@ -318,14 +313,14 @@ My_lily_parser::add_notename (String s, Musical_pitch p)
 Paper_def*
 My_lily_parser::default_paper_p ()
 {
-  Identifier *id = lexer_p_->lookup_identifier ("default_paper");
+  Identifier *id = lexer_p_->lookup_identifier ("$defaultpaper");
   return id ? id->access_Paper_def () : new Paper_def ;
 }
 
 Midi_def*
 My_lily_parser::default_midi_p ()
 {
-  Identifier *id = lexer_p_->lookup_identifier ("default_midi");
+  Identifier *id = lexer_p_->lookup_identifier ("$defaultmidi");
   return id ? id->access_Midi_def () : new Midi_def ;
 }
 
