@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.59";
+\version "1.3.88";
 
 cornoI = \notes \relative c {
 	R1*2 |
@@ -16,7 +16,7 @@ cornoI = \notes \relative c {
 	f4-. r r2 |
 	R1*3 |
 	c4-. r r2 |
-	r1 |
+	R1 |
 	e4-. r r2 |
 	e4-. r r2 |
 	R1*5 |
@@ -25,8 +25,8 @@ cornoI = \notes \relative c {
 	r4 g-.\f r2 |
 	R1*2 |
 	% `a 2
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	r8 f\p\< f2 e4 |
 	r8 f f2 e4 |
 	f4. e8 f4. e8 |
@@ -77,7 +77,7 @@ cornoI = \notes \relative c {
 	r2 e4 r ||
 |
 	R1*4	|
-	e4\f r4 r2 r1|
+	e4\f r4 r2 R1|
 	e4\f r4 r2|
 	R1*3|
 	e4\f r8 e e4 r8 e ||
@@ -109,7 +109,7 @@ cornoI = \notes \relative c {
 	e r e r|
 	d r r2 ||
 |
-	r1|
+	R1|
 	d4-.\ff r4 r2|
 	R1*3|
 	f2\sf r2 f2 \sf r2|
@@ -172,8 +172,8 @@ cornoI = \notes \relative c {
 	e~|
 	e~|
 	e~|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	e\<~|
 	e~|
 	e|

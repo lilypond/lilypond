@@ -7,28 +7,28 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.59";
+\version "1.3.88";
 
 contrabasso = \notes \relative c {
 	% copied 21 from cello
 	c1\ff ~ |
 	c |
 	f,4-. r r2 |
-	r1 |
+	R1 |
 	c'1\ff ~ |
 	c |
 	f,4-. r r2 |
-	r1 |
+	R1 |
 	c'1\ff ~ |
 	c |
 	fis,4-. r r2 |
-	r1 |
+	R1 |
 	g4-. r r2 |
 	g4-. r r2 |
 	c4\p r4 r2 |
 	c4 r4 r2 |
 	c4 r4 r2 |
-	r1 |
+	R1 |
 	\property StaffCombineVoice.crescendoText = "cresc."
 	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
 	c'4.\< c8 bes4. bes8 |

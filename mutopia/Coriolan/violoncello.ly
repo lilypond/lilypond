@@ -7,28 +7,27 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.59";
+\version "1.3.88";
 
 violoncello = \notes \relative c {
 	c1\ff ~ |
 	c |
 	f,4-. r r2 |
-	r1 |
+	R1 |
 	c'1\ff ~ |
 	c |
 	f,4-. r r2 |
-	\property StaffCombineStaff.instr = #"Vc.\nCb."
-	r1 |
+	R1 |
 	c'1\ff ~ |
 	c |
 	fis,4-. r r2 |
-	r1 |
+	R1 |
 	g4-. r r2 |
 	g4-. r r2 |
 	c4\p r4 r2 |
 	c4 r4 r2 |
 	c4 r4 r2 |
-	r1 |
+	R1 |
 	\property StaffCombineVoice.crescendoText = "cresc."
 	\property StaffCombineVoice.crescendoSpanner = "dashed-line"
 	c'4.\< c8 bes4. bes8 |
@@ -458,7 +457,9 @@ violoncello = \notes \relative c {
 	[c8-.-"arco" es-.][es()d][d-. as'-.][as()g] |
 	R1
 	\property StaffCombineVoice.decrescendoText = "sempre pi\\`u piano"
-	\property StaffCombineVoice.decrescendoSpanner = ""
+	% urg, "" is assumed to be hairpin...
+	%\property StaffCombineVoice.decrescendoSpanner = ""
+	\property StaffCombineVoice.decrescendoSpanner = "dashed-line"
 	\times 2/3 {  c,4\> ( es c ~ } \times 2/3 {  c as' )g } |
 
 	%300

@@ -77,7 +77,7 @@
 
 ;; This list defines the offsets for each type of attachment.
 ;; The format of each element is
-;; (attachment stem-dir * attachment-dir slur-dir)
+;; (stem-dir * dir . slur-dir * dir)
 ;; Different attachments have different default points:
 ;;
 ;; head: Default position is centered in X, on outer side of head Y
@@ -85,16 +85,16 @@
 ;; stem: Default position is on stem X, at stem end Y
 (define slur-extremity-offset-alist
   '(
-    ((head 1 1) . (-0.25 . 0.2))
+    ((head 1 1) . (-0.25 . 0.25))
     ((head 1 -1) . (-0.25 . -0.25))
     ((head -1 1) . (-0.25 . 0.25))
-    ((head -1 -1) . (-0.85 . -0.2))
+    ((head -1 -1) . (-0.85 . -0.25))
 
     ((stem 1 1) . (0 . 0.5))
     ((stem -1 -1) . (0 . -0.5))
 
-    ((loose-end -1 1) . (-4 . 0))
-    ((loose-end -1 -1) . (-4 . 0))
     ((loose-end 1 1) . (-0.4 . 0))
     ((loose-end 1 -1) . (-0.4 . 0))
+    ((loose-end -1 -1) . (-4 . 0))
+    ((loose-end -1 1) . (-4 . 0))
     ))

@@ -125,7 +125,7 @@ These commands should be in the beginning of the document:
 @end itemize
 @code{@@pagesizes} are not supported.
 
-@subsection{Examples}
+@subsection Examples
 
 Two simple examples. First a complete block:
 
@@ -150,7 +150,7 @@ and its music:
 @mudela[11pt]{<c' e' g'>}
 
 
-@subsection{@@example and @@code}
+@subsection @@example and @@code
 
 I'm not sure if this will go into the final documentation, this is
 here mostly to remember me on why things are the way they are.
@@ -221,7 +221,7 @@ to whatever he wants.
 @strong{[UGH: THIS DOES NOT HAPPEN WHEN
 YOU USE THE SHORT FORM, \MUDELA@{ ... @}, CHECK OUT WHY]}
 
-@subsection{@code{landscape} package}
+@subsection @code{landscape} package 
 There is some simple support for landscape paper format, and this
 can be combined with the @code{\twocolumn} command. Only a4 and
 letter paper is supported, more to come...
@@ -241,7 +241,7 @@ BLA BLA BLA
 \end@{document@}
 @end example
 
-@subsection{Examples}
+@subsection Examples 
 
 @example
 \begin[26pt]@{mudela@}
@@ -265,7 +265,7 @@ and its music:
 @mudela[11pt]{<c' e' g'>}
 
 
-@subsection{\begin@{verbatim@} and \verb|\verb|}
+@subsection \begin@{verbatim@} and \verb|\verb| 
 
 There work just as expected. Look at @file{mb-latex.tex} for details.
 
@@ -395,7 +395,7 @@ The La@TeX{} \includeonly@{...@} command is ignored.
 
 Ignores almost all La@TeX{} commands that changes margins and linewidths.
 
-La@TeX{} comments can confuse command{mudela-book}:
+La@TeX{} comments can confuse @command{mudela-book}:
 @example
 % this music will be displayed: \mudela@{c d e@}
 @end example

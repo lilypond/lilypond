@@ -696,7 +696,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
     r1 r2 r4 r8 r16 r32 r64 r64 
   }
   \paper {
-    loose_column_distance = 2.5 * \interline;
+    loose_column_distance = 2.5 * \staffspace;
     linewidth = -1.0;
     \translator {
 	\StaffContext
@@ -2471,7 +2471,7 @@ Nevertheless, here are some variables you may want to use or change:
   @item @code{indent}@indexcode{indent}  
     The indentation of the first line of music.
 
-  @item @code{interline}@indexcode{interline}  
+  @item @code{staffspace}@indexcode{staffspace}
     The distance between two staff lines, calculated from the center
     of the lines.  You should use either this or @code{rulethickness}
     as a unit for distances you modify.

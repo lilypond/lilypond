@@ -5,11 +5,9 @@ description =	 "";
 composer =	 "Ludwig van Beethoven (1770-1827)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
-
-
 }
 
-\version "1.3.59";
+\version "1.3.88";
 
 clarinettoI = \notes \relative c {
 	R1 *2 |
@@ -18,12 +16,12 @@ clarinettoI = \notes \relative c {
 	e4-. r r2 |
 	R1 *3 |
 	f4-. r r2 |
-	r1 |
+	R1 |
 	f4-. r r2 |
 	e4-. r r2 |
 	R1 *4 |
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	bes2\p\< ( a |
 	)gis2. \!a4-.\f |
 	R1*13 |
@@ -45,8 +43,8 @@ clarinettoI = \notes \relative c {
 	c2. c4\sf|
 	c4 r r2|
 	R1*5|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	a'2.\p\< ( bes4|
 	a g e)c|
 	c'2.( d4|
@@ -59,8 +57,8 @@ clarinettoI = \notes \relative c {
 	d~|
 	d~|
 	d|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	bes2.\<( c4|
 	bes a fis)d|
 	\!d'2\ff f|
@@ -142,8 +140,8 @@ clarinettoI = \notes \relative c {
 	)e2. f4\sf(|
 	)e4 r r2|
 	R1*9|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	fis2.\p\<(g4|
 	fis e cis)a|
 	\!a2\ff c|
@@ -162,8 +160,8 @@ clarinettoI = \notes \relative c {
 	r2 r4 d(|
 	)cis r r2|
 	r r4 r8 cis|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	d4\< r r2|
 	r r4 r8 d|
 	e4 r r r8 e|
@@ -196,8 +194,8 @@ clarinettoI = \notes \relative c {
 	d4 r8 g f4 r8 c|
 	bes4 r r2|
 	R1*11|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	f'2.\p\<(g4|
 	f e cis)a|
 	a1|
@@ -206,8 +204,8 @@ clarinettoI = \notes \relative c {
 	c\f~|
 	c\p|
 	d\f~|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	d\p\<~|
 	d~|
 	d~|
@@ -237,8 +235,8 @@ clarinettoI = \notes \relative c {
 	R1|
 	d4-. d-. r2|
 	d4-. d-. r2|
-	\property Voice.decrescendoText = "dim."
-	\property Voice.decrescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.decrescendoText = "dim."
+	\property VoiceCombineVoice.decrescendoSpanner = "dashed-line"
 	d4\> r e r|
 	R1|
 	\!a,4\p r r2|

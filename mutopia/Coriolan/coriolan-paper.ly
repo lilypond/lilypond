@@ -1,8 +1,10 @@
 \paper{
 	\paper_sixteen
 
-	textheight = 295.0\mm;
-	linewidth = 180.0\mm;
+	%textheight = 290.0\mm;
+	%linewidth = 195.0\mm;
+	textheight = 285.0\mm;
+	linewidth = 190.0\mm;
 
 	\translator{ \HaraKiriStaffContext }
 	%
@@ -49,7 +51,9 @@
 		soloADue = ##t
 		soloText = #""
 		soloIIText = #""
-		aDueText = #""
+		% This is non-conventional, but currently it is
+		% the only way to tell the difference.
+		aDueText = #"\\`a2"
 		splitInterval = #'(1 . 0)
 		changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
 	}
@@ -75,8 +79,6 @@
 		%% URG: this changes dynamics too
 		%%textStyle = #"italic"
 		timeSignatureStyle = #"C"
-		instrumentScriptPadding = #60  %% urg, this is in pt
-		instrScriptPadding = #40 %% urg, this is in pt
 		marginScriptHorizontalAlignment = #1
 		maximumRestCount = #1
 	}

@@ -78,6 +78,9 @@ Text_engraver::do_process_music ()
     {
       Text_script_req * r = reqs_[i];
 
+      /*
+	Urg:  Text_engraver loads TextScriptProperties
+       */
       Item *text = new Item (get_property ("basicTextScriptProperties"));
       
 
@@ -89,7 +92,7 @@ Text_engraver::do_process_music ()
 	make sure they're in order by adding i to the priority field.
 	*/
       text->set_elt_property ("script-priority",
-			    gh_int2scm (200 + i));
+			      gh_int2scm (200 + i));
 
       if (r->get_direction ())
 	Side_position::set_direction (text, r->get_direction ());
@@ -106,6 +109,11 @@ Text_engraver::do_process_music ()
 
        Anyway, non-empty text has been broken for some time now.
        */
+
+
+      /// URG this is broken by basicTextScriptProperties which defines
+      /// no-spacing-rods
+      /// FIXME
       SCM nonempty = get_property ("textNonEmpty");
       if (!to_boolean (nonempty))
 	/*

@@ -7,12 +7,13 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.59";
+\version "1.3.88";
 
 \include "global.ly"
 \include "viola-1.ly"
 \include "viola-2.ly"
 
+%{
 violiGroup = \context PianoStaff = violi_group \notes <
 	\context StaffCombineStaff=oneVioli {
 		\property StaffCombineStaff.midiInstrument = #"viola"
@@ -37,3 +38,20 @@ violiGroup = \context PianoStaff = violi_group \notes <
 		\context StaffCombineVoice=one \violaI
 		\context StaffCombineVoice=two \violaII
 >
+%}
+
+violiGroup = \notes \context VoiceCombineStaff = violi <
+	\context VoiceCombineStaff=violi {
+		\property VoiceCombineStaff.midiInstrument = #"viola"
+		\property VoiceStaffCombineStaff.instrument = #"Viola"
+		\property VoiceStaffCombineStaff.instr = #"Vla."
+		\clef "alto"; 
+		\key es \major;
+		\skip 1*314; 
+		\bar "|."; 
+	}
+	\context VoiceCombineVoice=one \partcombine VoiceCombineVoice
+		\context VoiceCombineThread=one \violaI
+		\context VoiceCombineThread=two \violaII
+>
+

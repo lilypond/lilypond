@@ -233,7 +233,7 @@ Slur::get_attachment (Score_element*me,Direction dir,
   if (Note_column::has_interface (sp->get_bound (dir)))
     {
       Score_element * n =sp->get_bound (dir);
-      if (Score_element *stem = Note_column::stem_l (n))
+      if ((stem = Note_column::stem_l (n)))
 	{
 
 	  if (str == "head")
@@ -291,10 +291,12 @@ Slur::get_attachment (Score_element*me,Direction dir,
 
 
   // FIXME
+  int stemdir = stem ? Stem::get_direction (stem) : 1;
+  int slurdir = gh_scm2int (me->get_elt_property ("direction"));
   SCM l = scm_assoc
     (scm_listify (a,
-		  gh_int2scm (stem ? Stem::get_direction (stem) : 1 * dir),
-		  gh_int2scm (Directional_element_interface::get (me) * dir),
+		  gh_int2scm (stemdir * dir),
+		  gh_int2scm (slurdir * dir),
 		  SCM_UNDEFINED),
      scm_eval2 (ly_symbol2scm ("slur-extremity-offset-alist"), SCM_EOL));
   

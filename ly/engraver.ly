@@ -10,6 +10,7 @@ StaffContext=\translator {
 	\consists "Property_engraver";
 	
 	\consists "Multi_measure_rest_engraver";
+
 	\consists "Bar_engraver";
  % Bar_engraver must be first so default bars aren't overwritten
 % with empty ones.
@@ -608,13 +609,13 @@ ScoreContext = \translator {
 	  (name . "rehearsal mark")
 	)
 	basicMultiMeasureRestProperties = #`(
-		(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)		
+		(interfaces . (multi-measure-rest-interface))
+		(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)
 		(molecule-callback . ,Multi_measure_rest::brew_molecule)
 		(staff-position . 0)
 		(expand-limit . 10)
 		(padding . 2.0) ; staffspace
 		(minimum-width . 12.5) ; staffspace
-
 		(name . "multi-measure rest")
 	)
 	basicNoteColumnProperties = #`(
@@ -644,7 +645,10 @@ ScoreContext = \translator {
 		(axes 0)
 		(rank . -1)
 	)
+
+	%% These text props are only used by line-number-engraver...
 	basicTextProperties = #`( )
+
 	basicRestProperties = #`(
 		(interfaces . (rest-interface rhythmic-head-interface))
 		(after-line-breaking-callback . ,Rest::after_line_breaking)

@@ -1,3 +1,6 @@
+%% run this through ly2dvi (afterwards -- urg ly2dvi should tee lily output)
+%% on my printer, I use dvips -O 5mm,0mm -o x.ps coriolan
+
 \header{
 filename =	 "coriolan.ly";
 title =	 "Ouverture"; 
@@ -8,7 +11,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.3.59";
+\version "1.3.88";
 
 \include "global.ly"
 \include "paper16.ly"
@@ -72,6 +75,6 @@ archiGroup = \context StaffGroup = archi_group <
 		copyright = "public domain";
 	}
 	\include "coriolan-paper.ly"
-	\include "coriolan-midi.ly"
+%	\include "coriolan-midi.ly"
 }
 

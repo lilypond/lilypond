@@ -5,11 +5,9 @@ description =	 "";
 composer =	 "Ludwig van Beethoven (1770-1827)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
-
-
 }
 
-\version "1.3.59";
+\version "1.3.88";
 
 clarinettoII = \notes \relative c { 
 	R1*2 bes''4-.\ff r r2 |
@@ -17,7 +15,7 @@ clarinettoII = \notes \relative c {
 	cis4-. r r2 |
 	R1 *3 |
 	d4-. r r2 |
-	r1 |
+	R1 |
 	d4-. r r2 |
 	cis4-. r r2 |
 	R1 *5 |
@@ -51,8 +49,8 @@ clarinettoII = \notes \relative c {
 	d~|
 	d|
 	%a deux|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	bes'2.\<(c4|
 	bes a fis)d|
 	\!d'2\ff f,|
@@ -123,8 +121,8 @@ clarinettoII = \notes \relative c {
 	)e2. f4\sf(|
 	)e4 r r2|
 	R1*9|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	fis2.\p\<( g4|
 	fis e cis)a|
 	%a deux; urg|
@@ -171,8 +169,8 @@ clarinettoII = \notes \relative c {
 	c1\f~|
 	c\p|
 	a1\f|
-	\property Voice.crescendoText = "cresc."
-	\property Voice.crescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.crescendoText = "cresc."
+	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	d,\p\<~|
 	d~|
 	d~|
@@ -204,8 +202,8 @@ clarinettoII = \notes \relative c {
 	R1|
 	a4-. c-. r2|
 	bes4-. c-. r2|
-	\property Voice.decrescendoText = "dim."
-	\property Voice.decrescendoSpanner = "dashed-line"
+	\property VoiceCombineVoice.decrescendoText = "dim."
+	\property VoiceCombineVoice.decrescendoSpanner = "dashed-line"
 	bes4\> r a r|
 	R1|
 	\!a4\p r r2|

@@ -41,8 +41,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
 {
   Score_element *me = unsmob_element (smob);
   Spanner * sp = dynamic_cast<Spanner*> (me);
-  Real staff_space
-    = Staff_symbol_referencer::staff_space (me);
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   Interval sp_iv;
   Direction d = LEFT;
@@ -174,6 +173,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   Item * rb = r->find_prebroken_piece (LEFT);      
   
   Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
   for (int i=0; i < 4; i++)
     {
       Item * l =  combinations[i][0];
@@ -190,7 +190,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 	  should do something more advanced.
 	 */
       rod.distance_f_ = l->extent (X_AXIS)[BIGGER] - r->extent (X_AXIS)[SMALLER]
-	+ gh_scm2double (me->get_elt_property ("minimum-width"));
+	+ gh_scm2double (me->get_elt_property ("minimum-width")) * staff_space;
   
       rod.add_to_cols ();
     }
