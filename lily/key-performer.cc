@@ -6,6 +6,7 @@
   (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "music-sequence.hh"
 #include "audio-item.hh"
 #include "performer.hh"
 #include "warn.hh"
@@ -17,18 +18,18 @@ public:
   ~Key_performer ();
 
 protected:
-  virtual bool try_music (Music* req);
+  virtual bool try_music (Music* ev);
   virtual void create_audio_elements ();
   virtual void stop_translation_timestep ();
 
 private:
-  Key_change_ev* key_req_;
+  Event* key_ev_;
   Audio_key* audio_;
 };
 
 Key_performer::Key_performer ()
 {
-  key_req_ = 0;
+  key_ev_ = 0;
   audio_ = 0;
 }
 
@@ -39,9 +40,9 @@ Key_performer::~Key_performer ()
 void
 Key_performer::create_audio_elements ()
 {
-  if (key_req_) 
+  if (key_ev_) 
     {
-      SCM pitchlist = key_req_->get_property ("pitch-alist");
+      SCM pitchlist = key_ev_->get_property ("pitch-alist");
       SCM proc = ly_lily_module_constant ("alterations-in-key");
       
       SCM acc = scm_call_1 (proc, pitchlist);
@@ -62,9 +63,9 @@ Key_performer::create_audio_elements ()
       audio_ = new Audio_key (scm_to_int (acc),
 			      SCM_BOOL_T != scm_equal_p (minor, c_pitchlist));
 
-      Audio_element_info info (audio_, key_req_);
+      Audio_element_info info (audio_, key_ev_);
       announce_element (info);
-      key_req_ = 0;
+      key_ev_ = 0;
     }
 }
 
@@ -79,14 +80,14 @@ Key_performer::stop_translation_timestep ()
 }
 
 bool
-Key_performer::try_music (Music* req)
+Key_performer::try_music (Music* ev)
 {
-  if (Key_change_ev *kc = dynamic_cast <Key_change_ev *> (req))
+  if (Event *kc = dynamic_cast <Event *> (ev))
     {
-      if (key_req_)
+      if (key_ev_)
 	warning (_ ("FIXME: key change merge"));
 
-      key_req_ = kc;
+      key_ev_ = kc;
       return true;
     }
 

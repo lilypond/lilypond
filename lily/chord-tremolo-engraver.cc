@@ -41,7 +41,7 @@ class Chord_tremolo_engraver : public Engraver
   void typeset_beam ();
   TRANSLATOR_DECLARATIONS (Chord_tremolo_engraver);
 protected:
-  Repeated_music * repeat_;
+  Music * repeat_;
 
   /// moment (global time) where beam started.
   Moment start_mom_;
@@ -52,7 +52,7 @@ protected:
   /// location  within measure where beam started.
   Moment beam_start_location_;
 
-  bool sequential_body_b_;
+  bool body_is_sequential_;
   Spanner * beam_;
   Spanner * finished_beam_;
   Item * stem_tremolo_;
@@ -71,37 +71,37 @@ Chord_tremolo_engraver::Chord_tremolo_engraver ()
   repeat_ = 0;
   flags_ = 0;
   stem_tremolo_ = 0;
-  sequential_body_b_ = false;
+  body_is_sequential_ = false;
 }
 
 bool
 Chord_tremolo_engraver::try_music (Music * m)
 {
-  Repeated_music * rp = dynamic_cast<Repeated_music*> (m);
-  if (rp
-      && rp->get_property ("iterator-ctor") == Chord_tremolo_iterator::constructor_proc
+  if (m->is_mus_type ("repeated-music")
+      && m->get_property ("iterator-ctor") == Chord_tremolo_iterator::constructor_proc
       && !repeat_) 
     {
-      Moment l = rp->get_length ();
-      repeat_ = rp;
+      Moment l = m->get_length ();
+      repeat_ = m;
       start_mom_ = now_mom ();
       stop_mom_ = start_mom_ + l;
 
-      
-      sequential_body_b_ = rp->body()->is_mus_type ("sequential-music");
 
-      int elt_count = sequential_body_b_ ? scm_ilength (rp->body()->get_property ("elements")) : 1;
+      Music *body = Repeated_music::body (m);
+      body_is_sequential_ = body->is_mus_type ("sequential-music");
 
-      if (sequential_body_b_ && elt_count != 2)
+      int elt_count = body_is_sequential_ ? scm_ilength (body->get_property ("elements")) : 1;
+
+      if (body_is_sequential_ && elt_count != 2)
 	{
-	  rp->origin ()->warning (_f ("Chord tremolo with %d elements. Must have two elements.", elt_count));
+	  m->origin ()->warning (_f ("Chord tremolo with %d elements. Must have two elements.", elt_count));
 	}
 
       if (elt_count <= 0)
 	elt_count = 1;
 	  
       Rational total_dur = l.main_part_;
-      Rational note_dur = total_dur / Rational (elt_count * repeat_->repeat_count ());
+      Rational note_dur = total_dur / Rational (elt_count * Repeated_music::repeat_count (repeat_));
 
       total_duration_flags_ = 0 >? (intlog2 (total_dur.den ()) - 2);
       
@@ -116,7 +116,7 @@ Chord_tremolo_engraver::try_music (Music * m)
 void
 Chord_tremolo_engraver::process_music ()
 {
-  if (repeat_ && sequential_body_b_ && !beam_)
+  if (repeat_ && body_is_sequential_ && !beam_)
     {
       beam_ = make_spanner ("Beam", repeat_->self_scm ());
       beam_->set_property ("chord-tremolo", SCM_BOOL_T);
@@ -173,7 +173,7 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 	}
     }
   else if (repeat_ &&
-	   flags_ && !sequential_body_b_ && Stem::has_interface (info.grob_))
+	   flags_ && !body_is_sequential_ && Stem::has_interface (info.grob_))
     {
       stem_tremolo_ = make_item ("StemTremolo", repeat_->self_scm ());
       stem_tremolo_->set_property ("flag-count",

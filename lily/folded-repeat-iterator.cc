@@ -46,8 +46,8 @@ Folded_repeat_iterator::pending_moment () const
 void
 Folded_repeat_iterator::construct_children ()
 {
-  Repeated_music  *  mus = dynamic_cast<Repeated_music*> (get_music ());
-  main_iter_ = unsmob_iterator (get_iterator (mus->body ()));
+  Music  *mus = get_music ();
+  main_iter_ = unsmob_iterator (get_iterator (Repeated_music::body (mus)));
   if (!main_iter_->ok ())
     {
       leave_body ();
@@ -91,18 +91,18 @@ Folded_repeat_iterator::process (Moment m)
 void
 Folded_repeat_iterator::leave_body ()
 {
-  Repeated_music *  mus = dynamic_cast<Repeated_music *> (get_music ());
+  Music *mus = get_music ();
 
   main_iter_->quit ();
   main_iter_ = 0;
-  main_length_mom_ +=  mus->body ()->get_length ();
+  main_length_mom_ +=  Repeated_music::body (mus)->get_length ();
 }
 
 void
 Folded_repeat_iterator::enter_alternative ()
 {
-  Repeated_music *  mus = dynamic_cast<Repeated_music *> (get_music ());  
-  if (mus->alternatives ())
+  Music *mus = get_music (); 
+  if (scm_is_pair (Repeated_music::alternatives (mus)))
     {
       /*
 	ugh.

@@ -14,61 +14,68 @@
 #include "scm-option.hh"
 
 Music *
-Repeated_music::body ()const
+Repeated_music::body (Music *me)
 {
-  return unsmob_music (get_property ("element"));
+  return unsmob_music (me->get_property ("element"));
 }
 
 SCM
-Repeated_music::alternatives ()const
+Repeated_music::alternatives (Music *me)
 {
-  return get_property ("elements");
+  return me->get_property ("elements");
 }
 
-Pitch
-Repeated_music::to_relative_octave (Pitch p)
+MAKE_SCHEME_CALLBACK(Repeated_music,relative_callback, 2);
+SCM
+Repeated_music::relative_callback (SCM music, SCM pitch)
 {
+  Pitch p = *unsmob_pitch (pitch);
+  Music *me = unsmob_music (music); 
   if (lily_1_8_relative)
     {
-      if (body ())
-	p = body ()->to_relative_octave (p);
+      Music *body = unsmob_music (me->get_property ("element"));
+      if (body)
+	p = body->to_relative_octave (p);
 
-      Pitch last = p ; 
-      if (alternatives ())
+      Pitch last = p ;
+      SCM alternatives = me->get_property ("elements");
+
+      for (SCM s = alternatives; scm_is_pair (s);  s = scm_cdr (s))
 	{
-	  lily_1_8_compatibility_used = true; 
+	  lily_1_8_compatibility_used = true;
+	  unsmob_music (scm_car (s))->to_relative_octave (p);
+	}
 
-	  for (SCM s = alternatives (); scm_is_pair (s);  s = scm_cdr (s))
-	    unsmob_music (scm_car (s))->to_relative_octave (p);
-	}     
-
-      return last;
+      return last.smobbed_copy ();
     }
   else
     {
-      return Music::to_relative_octave (p);
+      return me->generic_to_relative_octave (p).smobbed_copy ();
     }
 }
 
 
 Moment
-Repeated_music::alternatives_get_length (bool fold) const
+Repeated_music::alternatives_get_length (Music *me, bool fold) 
 {
-  if (!alternatives ())
+  SCM alternative_list = alternatives (me);
+  int len = scm_ilength (alternative_list);
+  if (len <= 0)
     return 0;
   
   if (fold)
-    return Music_sequence::maximum_length (alternatives ());
+    return Music_sequence::maximum_length (alternative_list);
 
   Moment m = 0;
   int done = 0;
+  int count = robust_scm2int (me->get_property ("repeat-count"), 0);
 
-  SCM p = alternatives ();
-  while (scm_is_pair (p) && done < repeat_count ())
+  SCM p = alternative_list;
+  while (scm_is_pair (p) && done < count)
     {
       m = m + unsmob_music (scm_car (p))->get_length ();
       done ++;
-      if (repeat_count () - done < scm_ilength (alternatives ()))
+      if (count - done < len)
 	p = scm_cdr (p);
     }
   return m;
@@ -79,19 +86,9 @@ Repeated_music::alternatives_get_length (bool fold) const
   of volta repeats, where the alternatives are iterated just as they
   were entered.  */
 Moment
-Repeated_music::alternatives_volta_get_length () const
+Repeated_music::alternatives_volta_get_length (Music *me)
 {
-  if (!alternatives ())
-    return 0;
-
-  Moment m;
-  SCM p = alternatives ();
-  while (scm_is_pair (p))
-    {
-      m = m + unsmob_music (scm_car (p))->get_length ();
-      p = scm_cdr (p);
-    }
-  return m;
+  return Music_sequence::cumulative_length (alternatives (me));
 }
 
 
@@ -99,67 +96,59 @@ Repeated_music::alternatives_volta_get_length () const
   Length of the body in THIS. Disregards REPEAT-COUNT. 
  */
 Moment
-Repeated_music::body_get_length () const
+Repeated_music::body_get_length (Music *me)
 {
   Moment m = 0;
-  if (body ())
+  if (Music *body = unsmob_music (me->get_property ("element")))
     {
-      m = body ()->get_length ();
+      m = body->get_length ();
     }
   return m;
 }
 
-int
-Repeated_music::repeat_count () const
-{
-  return scm_to_int (get_property ("repeat-count"));
-}
-
 
 MAKE_SCHEME_CALLBACK (Repeated_music,unfolded_music_length, 1);
-MAKE_SCHEME_CALLBACK (Repeated_music,folded_music_length, 1);
-MAKE_SCHEME_CALLBACK (Repeated_music,volta_music_length, 1);
 
 SCM
 Repeated_music::unfolded_music_length (SCM m)
 {
-  Repeated_music* r = dynamic_cast<Repeated_music*> (unsmob_music (m));
-  
-  Moment l = Moment (r->repeat_count ()) * r->body_get_length () + r->alternatives_get_length (false);
+  Music *me = unsmob_music (m);
+
+  Moment l = Moment (repeat_count (me)) * body_get_length (me) + alternatives_get_length (me, false);
   return l.smobbed_copy ();
 }
 
+MAKE_SCHEME_CALLBACK (Repeated_music,folded_music_length, 1);
 SCM
 Repeated_music::folded_music_length (SCM m)
 {
-  Repeated_music* r = dynamic_cast<Repeated_music*> (unsmob_music (m));
- 
-  Moment l =  r->body_get_length () + r->alternatives_get_length (true);
+  Music *me = unsmob_music (m);
+
+  Moment l =  body_get_length (me) + alternatives_get_length (me, true);
   return l.smobbed_copy ();
 }
 
+int
+Repeated_music::repeat_count (Music *me) 
+{
+  return scm_to_int (me->get_property ("repeat-count"));
+}
+
+MAKE_SCHEME_CALLBACK (Repeated_music,volta_music_length, 1);
 SCM
 Repeated_music::volta_music_length (SCM m)
 {
-  Repeated_music* r = dynamic_cast<Repeated_music*> (unsmob_music (m));
-  Moment l =  r->body_get_length () + r->alternatives_volta_get_length ();
+  Music *me = unsmob_music (m);
+  Moment l = body_get_length (me) + alternatives_volta_get_length (me);
   return l.smobbed_copy ();
 }
-
-ADD_MUSIC (Repeated_music);
-
-Repeated_music::Repeated_music (SCM x)
-  : Music (x)
-{
-}
-
 
 MAKE_SCHEME_CALLBACK (Repeated_music,minimum_start, 1);
 SCM
 Repeated_music::minimum_start (SCM m)
 {
-  Music * me = unsmob_music (m);
-  Music * body = unsmob_music (me->get_property ("element"));
+  Music *me = unsmob_music (m);
+  Music *body = unsmob_music (me->get_property ("element"));
 
   if (body)
     return body->start_mom ().smobbed_copy ();

@@ -26,21 +26,6 @@ public:
 };
 
 
-/**
-    Handle key changes.
-*/
-class Key_change_ev  : public Event
-{
-public:
-  Key_change_ev (SCM);
-  SCM pitch_alist ();
-  
-protected:
-  VIRTUAL_COPY_CONSTRUCTOR (Music, Key_change_ev);
-  void transpose (Pitch  d);
-};
-
-SCM ly_transpose_key_alist (SCM,SCM);
 
 
 

@@ -46,24 +46,19 @@
    the first alternative is assumed to be repeated.
    
 */
-class Repeated_music : public Music
+class Repeated_music
 {
 public:
-  Repeated_music (SCM);
-  VIRTUAL_COPY_CONSTRUCTOR (Music, Repeated_music);
-
-  Music *body () const;
-  SCM alternatives () const;
+  static Music *body (Music*);
+  static SCM alternatives (Music*);
 
   /* How often do we repeat? */
-  int repeat_count () const;
+  static int repeat_count (Music*);
   DECLARE_SCHEME_CALLBACK(relative_callback,(SCM,SCM));
 
-  virtual Pitch to_relative_octave (Pitch);
-
-  Moment body_get_length () const;
-  Moment alternatives_get_length (bool fold) const;
-  Moment alternatives_volta_get_length () const;  
+  static Moment body_get_length (Music*);
+  static Moment alternatives_get_length (Music *, bool fold);
+  static Moment alternatives_volta_get_length (Music *);  
 
   DECLARE_SCHEME_CALLBACK (unfolded_music_length, (SCM));
   DECLARE_SCHEME_CALLBACK (volta_music_length, (SCM));

@@ -36,9 +36,9 @@ Percent_repeat_iterator::ok () const
 void
 Percent_repeat_iterator::construct_children ()
 {
-  Repeated_music * mus = dynamic_cast<Repeated_music *> (get_music ());
+  Music *mus = get_music ();
   finish_mom_ = mus->get_length ();
-  child_iter_ = unsmob_iterator (get_iterator (mus->body ()));
+  child_iter_ = unsmob_iterator (get_iterator (Repeated_music::body (mus)));
 }
 
 

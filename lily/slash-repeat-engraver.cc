@@ -33,7 +33,7 @@ class Slash_repeat_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Slash_repeat_engraver);
 protected:
-  Repeated_music * repeat_;
+  Music *repeat_;
 
   /// moment (global time) where beam started.
   Moment start_mom_;
@@ -62,30 +62,25 @@ Slash_repeat_engraver::Slash_repeat_engraver ()
 bool
 Slash_repeat_engraver::try_music (Music * m)
 {
-  Repeated_music * rp = dynamic_cast<Repeated_music*> (m);
-  if (rp
+  if (m->is_mus_type ("repeated-music")
       && !repeat_
-      && rp->get_property ("iterator-ctor")
+      && m->get_property ("iterator-ctor")
       == Percent_repeat_iterator::constructor_proc)
     {
-      body_length_ = rp->body_get_length ();
-      int count =   rp->repeat_count ();
+      body_length_ = Repeated_music::body_get_length (m);
+      int count =   Repeated_music::repeat_count (m);
       
       Moment now = now_mom ();
       start_mom_ = now;
       stop_mom_ = start_mom_ + Moment (count) * body_length_;
       next_moment_ = start_mom_ + body_length_;
 
-      SCM m = get_property ("measureLength");
-      Moment meas_len;
-      if (Moment *mp = unsmob_moment (m))
-	meas_len = *mp;
-
+      Moment meas_len = robust_scm2moment (m->get_property ("measureLength"), Moment (0));
       if (body_length_ < meas_len 
 	  && meas_len.main_part_.mod_rat (body_length_.main_part_)
 	  == Moment (Rational (0,0)))
 	{
-	  repeat_ = rp;
+	  repeat_ = m;
 	}
       else
 	return false;

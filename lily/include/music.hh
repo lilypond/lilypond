@@ -28,12 +28,13 @@ public:
 
   SCM internal_get_property (SCM) const;
   void internal_set_property (SCM , SCM val);
-  SCM get_property_alist (bool mut) const;
+  SCM get_property_alist (bool mutble) const;
   bool internal_is_music_type (SCM) const;
   int duration_log () const;
   
   DECLARE_SCHEME_CALLBACK(relative_callback,(SCM,SCM));
-  virtual Pitch to_relative_octave (Pitch);
+  Pitch to_relative_octave (Pitch);
+  Pitch generic_to_relative_octave (Pitch);  
   String name () const;
   Moment get_length () const;
   Moment start_mom () const;

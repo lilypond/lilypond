@@ -34,7 +34,7 @@ class Percent_repeat_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Percent_repeat_engraver);
 protected:
-  Repeated_music * repeat_;
+  Music *repeat_;
 
   /// moment (global time) where beam started.
   Moment start_mom_;
@@ -74,14 +74,13 @@ Percent_repeat_engraver::Percent_repeat_engraver ()
 bool
 Percent_repeat_engraver::try_music (Music * m)
 {
-  Repeated_music * rp = dynamic_cast<Repeated_music*> (m);
-  if (rp
-      && rp->get_property ("iterator-ctor")
+  if (m->is_mus_type ("repeated-music")
+      && m->get_property ("iterator-ctor")
          == Percent_repeat_iterator::constructor_proc
       && !repeat_)
     {
-      body_length_ = rp->body_get_length ();
-      int count =   rp->repeat_count ();
+      body_length_ = Repeated_music::body_get_length (m);
+      int count = Repeated_music::repeat_count (m);
       
       Moment now = now_mom ();
       start_mom_ = now;
@@ -102,7 +101,7 @@ Percent_repeat_engraver::try_music (Music * m)
 	  return false;
 	}
 
-      repeat_ = rp;
+      repeat_ = m;
 
       
       Global_context *global = get_global_context ();

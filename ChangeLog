@@ -1,5 +1,10 @@
 2005-01-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/include/repeated-music.hh (class Repeated_music): change
+	into "namespace" class.
+
+	* lily/event.cc: remove Key_change_event.
+
 	* lily/include/transposed-music.hh (class Transposed_music): remove.
 
 	* lily/transposed-music.cc: remove
