@@ -64,89 +64,21 @@ lilypond-bin -fgnome input/simple-song.ly
 
 ;;; SCRIPT moved to buildscripts/guile-gnome.sh
 
-"
-
-// pango CVS supports custom font mappings
-
-// pango-CVS afm font mapping pseudo code
-//  - ask for help on gnome/gtk list?
-//  - get it to work
-//  - add to guile-gnome or to lily?
-
-#if 0
-// what about these?
-pango_fc_decoder_class_init (PangoFcDecoderClass *klass)
-pango_fc_decoder_init (PangoFcDecoder *decoder)
-#endif
-
-FcCharset *
-get_afm_charset (PangoFcFont *fcfont)
-{
-  // read afm
-  // convert afm mapping into FcCharset
-}
-
-PangoGlyph *
-get_afm_glyph (PangoFcFont *fcfont, guint32 wc)
-{
-  // map wc -> character name
-  // `get' character by name from font
-  // turn character into PangoGlyph
-}
-
-PangoFcDecoder *
-find_afm_decoder (FcPattern *pattern, gpointer user_data)
-{
-  // what is pattern, what is user_data?
-  // where do I get the font-name/font-file-name -> .AFM file mapping in?
- 
-  // Hmm, now what about the virtual baseclassness,
-  // Should I derive an AfmDecoder, AfmDecoderClass
-  // And how does that work in C / gtk+?
-  
-  PangoFcDecoderClass *dclass;
-  dclass = g_new (PangoFcDecoderClass, 1);
-  dclass->get_charset = &get_afm_charset;
-  dclass->get_charset = &get_afm_glyph;
-
-  // What's the connection between the decoder and the class?
-  // #define _G_TYPE_IGC(ip, gt, ct) ((ct*) (((GTypeInstance*) ip)->g_class))
-  
-  PangoFcDecoder *decoder;
-  decoder = g_new (PangoFcDecoder, 1);
-  
-  //Hmmm, there must be less hairy way?
-  decoder->parent_instance = dclass;
-
-  return decoder;
-}
-
-void
-setup_pango (GtkWidget *canvas)
-{
-  // how to get map?
-  PangoFcFontMap *map;
-#if 1
-  // get map from context from widget
-  map = gtk_widget_get_pango_context (canvas) -> font_map;
-#else
-  pango_x_font_map_for_display (display))
-  //pango_xft_get_font_map (display, screen);
-#endif
-
-  pango_fc_font_map_add_decoder_find_func (map, &find_afm_decoder);
-}
-
-
-
-
-"
-
-
-
 (debug-enable 'backtrace)
 
-(define-module (scm output-gnome))
+;;(define-module (scm output-gnome))
+(define-module (scm output-gnome)
+  #:export (
+	    char
+	    comment
+	    define-origin
+	    filledbox
+	    horizontal-line
+	    no-origin
+	    placebox
+	    round-filled-box
+	    text
+	    ))
 
 (define this-module (current-module))
 
@@ -156,44 +88,35 @@ setup_pango (GtkWidget *canvas)
  (srfi srfi-13)
  (lily)
  (gnome gtk)
- (gnome gtk gdk-event))
+ 
+ ;; Hmm, <gnome-outputter> is not imported -- but trying this breaks
+ ;; framework-gnome in a weird way.
+ ;;(scm framework-gnome))
+ )
 
 ;; the name of the module will change to canvas rsn
 (if (resolve-module '(gnome gw canvas))
     (use-modules (gnome gw canvas))
     (use-modules (gnome gw libgnomecanvas)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Lily output interface --- fix silly names and docme
-"
- The output interface has functions for
-  * formatting stencils, and
-  * output commands
+;; ughughughughu ughr huh?? -- defined in framework-gnome
+(define PIXELS-PER-UNIT 2)
+(define-class <gnome-outputter> ()
+  (page-stencils ;;#:init-value '#()
+   #:init-keyword #:page-stencils #:accessor page-stencils)
+  (window #:init-value (make <gtk-window> #:type 'toplevel) #:accessor window)
+  (scrolled #:init-value (make <gtk-scrolled-window>) #:accessor scrolled)
+  (canvas #:init-value #f #:accessor canvas)
+  (page-number #:init-value 0 #:accessor page-number)
+  (pixels-per-unit #:init-value PIXELS-PER-UNIT #:accessor pixels-per-unit)
+  (text-items #:init-value '() #:accessor text-items)
+  (location #:init-value #:f #:accessor location)
+  (item-locations #:init-value (make-hash-table 31) #:accessor item-locations)
+  (window-width #:init-keyword #:window-width #:accessor window-width)
+  (window-height #:init-keyword #:window-height #:accessor window-height)
+  (canvas-width #:init-keyword #:canvas-width #:accessor canvas-width)
+  (canvas-height #:init-keyword #:canvas-height #:accessor canvas-height))
 
- Stencils:
- beam
- bezier-sandwich
- bracket
- char
- filledbox
- text
- ...
-
- Commands:
- placebox
- ...
-
-
- The Bare minimum interface for \score { \notes c } } should
- implement:
-
-    output-framework-INTERFACE (see framework-INTERFACE)
-    char
-    filledbox
-    placebox
-
- and should intercept:
-"
 
 (define (dummy . foo) #f)
 
@@ -207,32 +130,6 @@ setup_pango (GtkWidget *canvas)
      output-interface-intercept)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;;; Global vars
-(define main-window #f)
-(define main-scrolled #f)
-(define main-canvas #f)
-(define page-number 0)
-
-(define page-stencils #f)
-(define output-canvas #f)
-
-(define system-origin '(0 . 0))
-
-;; UGHr
-(define item-locations (make-hash-table 31))
-(define location #f)
-
-(define button-height 25)
-(define canvas-width 2000)
-(define canvas-height 4000)
-
-(define window-width 400)
-(define window-height
-  (inexact->exact (round (* 1.42 window-width))))
-
-(define font-paper #f)
 
 ;;; output-scale and font-size fun
 ;; This used to be:
@@ -251,6 +148,7 @@ setup_pango (GtkWidget *canvas)
 
 ;;(define output-scale (* OUTPUT-SCALE pixels-per-unit))
 (define output-scale (* ARBITRARY-OUTPUT-SCALE pixels-per-unit))
+
 
 
 ;; helper functions -- sort this out
@@ -283,10 +181,9 @@ setup_pango (GtkWidget *canvas)
       (utf8 i)
       (utf8 (+ #xee00 i))))
 
-;;; hmm?
 (define (draw-rectangle x1 y1 x2 y2 color width-units)
   (make <gnome-canvas-rect>
-    #:parent (root main-canvas) #:x1 x1 #:y1 y1 #:x2 x2 #:y2 y2
+    #:parent (root (canvas go)) #:x1 x1 #:y1 y1 #:x2 x2 #:y2 y2
     #:fill-color color #:width-units width-units))
 
 
@@ -365,36 +262,34 @@ setup_pango (GtkWidget *canvas)
   
   (stderr "pango-font-name: ~S\n" (pango-font-name font))
   (stderr "pango-font-size: ~S\n" (pango-font-size font))
-  (set!
-   text-items
-   (cons
-    (make <gnome-canvas-text>
-      #:parent (root main-canvas)
+  (let ((item
+	 (make <gnome-canvas-text>
+	   #:parent (root (canvas go))
       
-      ;; experimental text placement corrections.
-      ;; UGHR?  What happened to tex offsets?  south-west?
-      ;; is pango doing something 'smart' wrt baseline ?
-      #:anchor 'south-west
-      #:x 0.003 #:y 0.123
-      
-      ;;
-      ;;#:anchor 'west
-      ;;#:x 0.015 #:y -3.71
-      
-      #:font (pango-font-name font)
-      
-      #:size-points (pango-font-size font)
-      ;;#:size ...
-      #:size-set #t
-
-      ;;apparently no effect :-(
-      ;;#:scale 1.0
-      ;;#:scale-set #t
-      
-      #:fill-color "black"
-      #:text string)
-    text-items))
-  (car text-items))
+	   ;; experimental text placement corrections.
+	   ;; UGHR?  What happened to tex offsets?  south-west?
+	   ;; is pango doing something 'smart' wrt baseline ?
+	   #:anchor 'south-west
+	   #:x 0.003 #:y 0.123
+	   
+	   ;;
+	   ;;#:anchor 'west
+	   ;;#:x 0.015 #:y -3.71
+	   
+	   #:font (pango-font-name font)
+	   
+	   #:size-points (pango-font-size font)
+	   ;;#:size ...
+	   #:size-set #t
+	   
+	   ;;apparently no effect :-(
+	   ;;#:scale 1.0
+	   ;;#:scale-set #t
+	   
+	   #:fill-color "black"
+	   #:text string)))
+    (set! (text-items go) (cons item (text-items go)))
+    item))
 
 (define (filledbox a b c d)
   (round-filled-box a b c d 0.001))
@@ -412,205 +307,3 @@ setup_pango (GtkWidget *canvas)
 		     ;; (point-and-click line col file)
 		     (list line col file)
 		     #f)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; gnome stuff  --- move to framework-gnome
-(define (dump-page number)
-  (if (or (not page-stencils)
-	  (< number 0)
-	  (>= number (vector-length page-stencils)))
-      (stderr "No such page: ~S\n" (1+ number))
-      
-      (let* ((old-canvas main-canvas)
-	     (canvas (new-canvas)))
-	(set! page-number number)
-	
-	;; no destroy method for gnome-canvas-text?
-	;;(map destroy (gtk-container-get-children main-canvas))
-	;;(map destroy text-items)
-
-	;;Hmm
-	;;(set! main-canvas canvas)
-	(set! text-items '())
-	(ly:outputter-dump-stencil output-canvas
-				   (vector-ref page-stencils page-number))
-	
-	(if old-canvas (destroy old-canvas))
-	(add main-scrolled canvas)
-	(show canvas))))
-
-(define x-editor #f)
-(define (get-x-editor)
-  (if (not x-editor)
-      (set! x-editor (getenv "XEDITOR")))
-  x-editor)
-
-(define ifs #f)
-(define (get-ifs)
-  (if (not ifs)
-      (set! ifs (getenv "IFS")))
-  (if (not ifs)
-      (set! ifs " 	"))
-  ifs)
-      
-(define (spawn-editor location)
-  (let* ((line (car location))
-	 (column (cadr location))
-	 (file-name (caddr location))
-	 (template (substring (get-x-editor) 0))
-	 
-	 ;; Adhere to %l %c %f?
-	 (command
-	  (regexp-substitute/global
-	   #f "%l" (regexp-substitute/global
-		    #f "%c"
-		    (regexp-substitute/global
-		     #f "%f" template 'pre file-name 'post)
-		    'pre (number->string column)
-		    'post)
-	   'pre (number->string line) 'post)))
-    
-    (stderr "spawning: ~s\n" command)
-    (if (= (primitive-fork) 0)
-	(let ((command-list (string-split command #\ )));; (get-ifs))))
-	  (apply execlp command-list)
-	  (primitive-exit)))))
-	  
-(define location-callback spawn-editor)
-
-(define (item-event item event . data)
-  (case (gdk-event:type event)
-    ((enter-notify) (gobject-set-property item 'fill-color "red"))
-    ((leave-notify) (gobject-set-property item 'fill-color "black"))
-    ((button-press)
-     (let ((location (hashq-ref item-locations item #f)))
-       (if location
-	   (location-callback location)
-	   (stderr "no location\n"))))
-    ((2button-press) (gobject-set-property item 'fill-color "red")))
-  #t)
-
-;; TODO: one list per-page
-(define text-items '())
-(define (scale-canvas factor)
-  (set! pixels-per-unit (* pixels-per-unit factor))
-  (set-pixels-per-unit main-canvas pixels-per-unit)
-  (for-each
-   (lambda (x)
-     (let ((scale (gobject-get-property x 'scale))
-	   (points (gobject-get-property x 'size-points)))
-       ;;(gobject-set-property x 'scale pixels-per-unit)
-       (gobject-set-property x 'size-points (* points factor))))
-     text-items))
-
-(define (key-press-event item event . data)
-  (let ((keyval (gdk-event-key:keyval event))
-	(mods (gdk-event-key:modifiers event)))
-    (cond ((and (or (eq? keyval gdk:q)
-		    (eq? keyval gdk:w))
-		(equal? mods '(control-mask modifier-mask)))
-	   (gtk-main-quit))
-	  ((and #t ;;(null? mods)
-		(eq? keyval gdk:plus))
-	   (scale-canvas 2))
-	  ((and #t ;; (null? mods)
-		(eq? keyval gdk:minus))
-	   (scale-canvas 0.5))
-	  ((or (eq? keyval gdk:Page-Up)
-	       (eq? keyval gdk:BackSpace))
-	   (dump-page (1- page-number)))
-	  ((or (eq? keyval gdk:Page-Down)
-	       (eq? keyval gdk:space))
-	   (dump-page (1+ page-number))))
-    #f))
-
-(define (papersize window paper)
-  (let* ((hsize (ly:output-def-lookup paper 'hsize))
-	 (vsize (ly:output-def-lookup paper 'vsize))
-	 (width (inexact->exact (ceiling (* output-scale hsize))))
-	 (height (inexact->exact (ceiling (* output-scale vsize))))
-	 (max-width (gdk-screen-width))
-	 (max-height (gdk-screen-height))
-	 (scrollbar-size 20))
-
-    ;; ughr: panels?
-    (set! max-height (- max-height 80))
-
-    (stderr "bookpaper-outputscale:~S\n" (ly:bookpaper-outputscale paper))
-    
-    ;; hmm?
-    ;;(set! OUTPUT-SCALE (ly:bookpaper-outputscale paper))
-    ;;(set! output-scale (* OUTPUT-SCALE pixels-per-unit))
-
-    ;; huh, *2?
-    
-    (set! window-width (min (+ scrollbar-size (* width 2)) max-width))
-    (set! window-height (min (+ button-height scrollbar-size (* height 2))
-			     max-height))
-    
-    (set! canvas-width width)
-    (set! canvas-height height)))
-
-
-(define (new-canvas)
-  (let* ((canvas (make <gnome-canvas>))
-	 (root (root canvas)))
-
-    (set-size-request canvas window-width window-height)
-    (set-scroll-region canvas 0 0 canvas-width canvas-height)
-    
-    (set-pixels-per-unit canvas pixels-per-unit)
-
-    (set! main-canvas canvas)
-    (draw-rectangle 0 0 canvas-width canvas-height "white" 0)
-    
-    canvas))
-
-(define (main outputter bookpaper pages)
-  (let* ((window (make <gtk-window> #:type 'toplevel))
-	 (button (make <gtk-button> #:label "Exit"))
-	 (next (make <gtk-button> #:label "Next"))
-	 (prev (make <gtk-button> #:label "Previous"))
-	 (vbox (make <gtk-vbox> #:homogeneous #f))
-	 (hbox (make <gtk-hbox> #:homogeneous #f))
-	 (scrolled (make <gtk-scrolled-window>))
-	 (canvas (new-canvas)))
-
-    (papersize window bookpaper)
-    (set-size-request window window-width window-height)
-    
-    (add window vbox)
-    (add vbox scrolled)
-    (add scrolled canvas)
-    
-    (add vbox hbox)
-    (set-size-request hbox window-width button-height)
-    (set-child-packing vbox hbox #f #f 0 'end)
-    
-    (set-child-packing hbox button #f #f 0 'end)
-    (set-size-request button (quotient window-width 2) button-height)
-    
-    (add hbox next)
-    (add hbox prev)
-    (add hbox button)
-    
-    (gtype-instance-signal-connect button 'clicked
-				   (lambda (b) (gtk-main-quit)))
-    (gtype-instance-signal-connect next 'clicked
-				   (lambda (b) (dump-page (1+ page-number))))
-    (gtype-instance-signal-connect prev 'clicked
-				   (lambda (b) (dump-page (1- page-number))))
-
-    (gtype-instance-signal-connect window 'key-press-event key-press-event)
-    (show-all window)
-
-    ;; HMMM.  Make some class for these vars?
-    (set! main-window window)
-    (set! main-scrolled scrolled)
-    (set! output-canvas outputter)
-    (set! page-stencils pages)
-    
-    (dump-page 0)
-    
-    (gtk-main)))
-
