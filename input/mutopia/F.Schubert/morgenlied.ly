@@ -183,6 +183,7 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 	    \StaffContext
 	    minimumVerticalExtent = #'(-3. . 6)
 	}
+	inputencoding = #"latin1"
     }
     \midi {
 	\tempo 4 = 70

@@ -150,7 +150,7 @@ Paper_def::find_scaled_font (Font_metric *f, Real m)
   else
     {
       SCM scale_var = ly_module_lookup (scope_, ly_symbol2scm ("outputscale"));
-      SCM coding_var = ly_module_lookup (scope_, ly_symbol2scm ("inputcoding"));
+      SCM coding_var = ly_module_lookup (scope_, ly_symbol2scm ("inputencoding"));
 
       m /= ly_scm2double (scm_variable_ref (scale_var));
       val = Modified_font_metric::make_scaled_font_metric (scm_variable_ref (coding_var),

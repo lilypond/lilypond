@@ -26,6 +26,16 @@ slur_height (Real width, Real h_inf, Real r_0)
 }
 
   /*
+
+
+  ^              x                    x                  
+  |
+height   <indent>
+  |
+  v      x                                    x
+
+  
+  
   For small w, the height should be proportional to w, for w ->
   infinity, the height should rise to a limit asymptotically.
 
@@ -55,9 +65,9 @@ slur_height (Real width, Real h_inf, Real r_0)
   r_0.
 
 
-  The indent is equals the height of the slur for small slurs.  For
-  large slurs, this gives a certain hookiness at the end, so we
-  increase the indent.
+  The indent is proportional to the height of the slur for small
+  slurs.  For large slurs, this gives a certain hookiness at the end,
+  so we increase the indent.
 
   ind = G(w)
 

@@ -250,9 +250,9 @@
 
 ;; FIXME: explain ploblem: need to do something to make this really safe.  
 (define (output-tex-string s)
-  (if safe-mode?
-      (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
-      s))
+   (if safe-mode?
+       (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
+       s))
 
 (define (lily-def key val)
   (let ((tex-key
@@ -312,12 +312,18 @@
 
 (define (text font s)
   (let*
-      ((perm (assoc-get  'char-mapping (ly:font-encoding-alist font))))
+      ((mapping #f))
+
+      ;; TODO: we'd better do this for PS only
+      ;; LaTeX gets in the way, and we need to remap
+      ;; nonprintable chars.
+
+       ; (assoc-get  'char-mapping (ly:font-encoding-alist font))))
 
     (string-append "\\hbox{\\" (font-command font) "{}"
 		   (output-tex-string
-		    (if (vector? perm)
-			(reencode-string perm s)
+		    (if (vector? mapping)
+			(reencode-string mapping s)
 			s))
 		   "}")))
 
