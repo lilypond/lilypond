@@ -997,7 +997,7 @@ example,
 
 This command is equivalent to setting @code{clefGlyph},
 @code{clefPosition} (which controls the Y position of the clef),
-@code{centralCPosition} and @code{clefOctavation}.  A clef is printed
+@code{middleCPosition} and @code{clefOctavation}.  A clef is printed
 when any of these properties are changed.  The following example shows
 possibilities when setting properties manually.
 
@@ -5071,8 +5071,6 @@ c1 \mark \default
 @c umm, is the manual the right place for feature requests?  :)  -gp
 @c FIXME - should make that tunable.
 
-To use boxed bar numbers instead of letters, see @ref{Bar numbers}.
-
 The mark is incremented automatically if you use @code{\mark
 \default}, but you can also use an integer argument to set the mark
 manually.  The value to use is stored in the property
@@ -5088,19 +5086,16 @@ few measures, it is set to function that produces a boxed number.
 \set Score.markFormatter = #format-mark-numbers
 c1 \mark \default
 c1 \mark \default
-\set Score.markFormatter
-   = #(lambda (mark context)
-       (make-bold-markup
-        (make-box-markup (number->string mark))))
+\set Score.markFormatter = #format-mark-box-numbers
 c1 \mark \default
 c1 \mark \default
 c1
 @end lilypond
 
 The file @file{scm/@/translation@/-functions@/.scm} contains the definitions
-of @code{format-mark-numbers} (the default format) and
-@code{format-mark-letters}.  These can be used as inspiration for other
-formatting functions.
+of @code{format-mark-numbers} (the default format), @code{format-mark-box-numbers},
+@code{format-mark-letters} and @code{format-mark-box-letters}.
+These can be used as inspiration for other formatting functions.
 
 
 @cindex coda on bar line

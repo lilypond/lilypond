@@ -1,4 +1,4 @@
-;;;; translator-property-description.scm -- part of backend documentation
+;;;; define-context-properties.scm -- part of backend documentation
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
