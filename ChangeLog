@@ -1,3 +1,7 @@
+2004-11-02  Werner Lemberg  <wl@gnu.org>
+
+	* Documentation/user/notation.ly: More fixes to improve appearance.
+
 2004-11-01  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* lily/main.cc (dir_info): Fixed typo in the printouts.
