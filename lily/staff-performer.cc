@@ -35,7 +35,7 @@ Staff_performer::do_creation_processing()
   if (instrument_str().length_i()) 
     {
 	// staff name
-	play (new Audio_text ( Audio_text::TRACK_NAME, instrument_str ()));
+	play (new Audio_text (Audio_text::TRACK_NAME, instrument_str ()));
 	// instrument description
 	play (new Audio_text (Audio_text::INSTRUMENT_NAME, instrument_str ()));
     }

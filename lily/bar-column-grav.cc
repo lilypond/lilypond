@@ -36,7 +36,7 @@ Bar_column_engraver::acknowledge_element (Score_elem_info info)
 	     bar_l_ = (Bar*)info.elem_l_->item();
     }
 	
-  if ( bar_l_ && !barcol_p_) 
+  if (bar_l_ && !barcol_p_) 
     {
 	barcol_p_ = new Bar_column;
 	barcol_p_->breakable_b_ =true;

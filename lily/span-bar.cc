@@ -60,7 +60,7 @@ Span_bar::do_width() const
 void
 Span_bar::do_pre_processing()
 {
-  if ( spanning_l_arr_.size() < 1) 
+  if (spanning_l_arr_.size() < 1) 
     {
 	transparent_b_ = true;
 	empty_b_ =true;
@@ -74,11 +74,11 @@ Span_bar::do_pre_processing()
 	    transparent_b_=true;
 	    empty_b_ = true;
 	  }
-	else if ( type_str_ == "|:") 
+	else if (type_str_ == "|:") 
 	  {
 	    type_str_ = ".|";
 	  }
-	else if ( type_str_ == ":|")
+	else if (type_str_ == ":|")
 	  {
 	    type_str_ = "|.";
 	  }
@@ -93,7 +93,7 @@ Span_bar::get_bar_sym (Real dy) const
 
 
 Molecule*
-Span_bar::brew_molecule_p()const
+Span_bar::brew_molecule_p() const
 {
   Interval y_int;
   for (int i=0; i < spanning_l_arr_.size(); i++) 
@@ -109,7 +109,7 @@ Span_bar::brew_molecule_p()const
 
   Symbol s = get_bar_sym (y_int.length());
   Molecule*output = new Molecule (Atom (s));
-  output->translate (  y_int[-1], Y_AXIS);
+  output->translate (y_int[-1], Y_AXIS);
   return output;
 }
 

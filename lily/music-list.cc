@@ -25,7 +25,7 @@ IMPLEMENT_IS_TYPE_B1(Voice,Music_list);
 IMPLEMENT_IS_TYPE_B1(Chord,Music_list);
 
 MInterval
-Chord::time_int()const
+Chord::time_int() const
 {
   MInterval m;
   for (iter (music_p_list_.top(), i); i.ok (); i++)
@@ -62,7 +62,7 @@ Voice::time_int() const
       /*
 	  c4 <> c4
       */
-	if ( !interval.empty_b())
+	if (!interval.empty_b())
 	    last += interval.length();
     }
   return  offset_mom_ + MInterval (0,last);
@@ -98,7 +98,7 @@ Music_list::transpose (Melodic_req const*rq)
 }
 
 void
-Music_list::do_print()const
+Music_list::do_print() const
 {
 #ifndef NPRINT
   for (iter (music_p_list_.top(),i); i.ok (); i++)

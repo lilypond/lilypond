@@ -45,7 +45,7 @@ Keyword_table::Keyword_table (Keyword_ent *tab)
   lookup with binsearch, return tokencode.
 */
 int
-Keyword_table::lookup (char const *s)const
+Keyword_table::lookup (char const *s) const
 {
   int     lo,
           hi,

@@ -6,7 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-
+#include "p-col.hh"
 #include "vertical-align-grav.hh"
 #include "vertical-align-spanner.hh"
 
@@ -19,14 +19,14 @@ void
 Vertical_align_engraver::do_creation_processing()
 {
   valign_p_ =new Vertical_align_spanner;
-  valign_p_->left_col_l_ = get_staff_info().command_pcol_l () ;
+  valign_p_->set_bounds(LEFT,get_staff_info().command_pcol_l ());
   announce_element (Score_elem_info (valign_p_ , 0));
 }
 
 void
 Vertical_align_engraver::do_removal_processing()
 {
-  valign_p_->right_col_l_ = get_staff_info().command_pcol_l ();
+  valign_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (valign_p_);
   valign_p_ =0;
 }
@@ -34,13 +34,13 @@ Vertical_align_engraver::do_removal_processing()
 void
 Vertical_align_engraver::acknowledge_element (Score_elem_info i)
 {
-  if ( i.origin_grav_l_arr_.size() == 2 && 
-	 i.elem_l_->is_type_b (Vertical_group_element::static_name()) &&
-	 !i.elem_l_->axis_group_l_a_[Y_AXIS]  ) 
-	   {
-	assert (!valign_p_->contains_b (i.elem_l_));
+  if (i.origin_grav_l_arr_.size() == 2 && 
+       i.elem_l_->is_type_b (Vertical_group_element::static_name()) &&
+       !i.elem_l_->axis_group_l_a_[Y_AXIS]) 
+    {
+      assert (!valign_p_->contains_b (i.elem_l_));
 
-	valign_p_->add ( i.elem_l_);
+      valign_p_->add (i.elem_l_);
     }
 }
 

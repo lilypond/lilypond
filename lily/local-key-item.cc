@@ -56,7 +56,7 @@ Local_key_item::do_pre_processing()
 }
 
 Molecule*
-Local_key_item::brew_molecule_p()const
+Local_key_item::brew_molecule_p() const
 {
   Molecule* output = new Molecule;
   Molecule*octmol = 0;

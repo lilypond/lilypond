@@ -1,5 +1,5 @@
 /*
-  p-col.cc -- implement PCol
+  p-col.cc -- implement Paper_column
 
   source file of the GNU LilyPond music typesetter
 
@@ -8,157 +8,91 @@
 
 #include "p-col.hh"
 #include "p-score.hh"
-
 #include "debug.hh"
 
-Interval
-PCol::width() const
-{
-  Interval w;
-
-  for (iter_top (its,i); i.ok(); i++)
-	w.unite (i->width());
-  if (w.empty_b())
-	w.unite (Interval (0,0));
-  return w;
-}
-
-void
-PCol::clean_breakable_items()
-{
-  if (!line_l_) 
-    {
-	its.junk_links();
-    }
-  if (prebreak_p_) 
-	prebreak_p_->clean_breakable_items();
-  if (postbreak_p_) 
-	postbreak_p_->clean_breakable_items();
-}
 
 int
-PCol::rank_i() const
+Paper_column::rank_i() const
 {
   return rank_i_;
 }
 
 void
-PCol::set_rank (int i)
+Paper_column::set_rank (int i)
 {
   rank_i_ = i;
-  if (prebreak_p_)
-	prebreak_p_->rank_i_ = i;
-  if (postbreak_p_)
-	postbreak_p_->rank_i_ = i;
+  if (prebreak_l())
+    prebreak_l()->rank_i_ = i;
+  if (postbreak_l())
+    postbreak_l()->rank_i_ = i;
 }
 
 void
-PCol::print() const
+Paper_column::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "PCol {";
-
   DOUT << "rank: " << rank_i_ << '\n';
-
-  DOUT << "# symbols: " << its.size() ;
-     if (prebreak_p_){
-        DOUT << "\npre: ";
-        prebreak_p_->print();
-    }
-    if (postbreak_p_) {
-      DOUT << "post: ";
-      postbreak_p_->print();
-    } 
-  else if (daddy_l_) 
+  if (prebreak_l())
     {
-	DOUT <<'\n' << ((this == daddy_l_->prebreak_p_) ?
-		       "prebreak" : "postbreak");
-	DOUT << '\n';
+      DOUT << "\npre: ";
+      prebreak_l()->print();
+    }
+  if (postbreak_l()) 
+    {
+      DOUT << "post: ";
+      postbreak_l()->print();
+    } 
+  if (break_status_i_)
+    {
+      DOUT <<'\n' << ((break_status_i_ == -1)? "prebreak" : "postbreak");
+      DOUT << '\n';
     }
   DOUT << "extent: " << width().str () << "\n";
-  DOUT << "}\n";
 #endif 
 }
 
 int
-PCol::compare (PCol const &c1, PCol const &c2)
+Paper_column::compare (Paper_column const &c1, Paper_column const &c2)
 {
   return c1.rank_i() - c2.rank_i ();
 }
 
-void
-PCol::OK() const
+Paper_column*
+Paper_column::prebreak_l() const
 {
-#ifndef NDEBUG
-  if (prebreak_p_ || postbreak_p_) 
-    {
-	assert (prebreak_p_&&postbreak_p_);
-	assert (prebreak_p_->daddy_l_ == this);
-	assert (postbreak_p_->daddy_l_ == this);
-    }
-#endif
+  return (Paper_column*)broken_to_drul_[LEFT];
 }
 
-void
-PCol::set_breakable()
+Paper_column*
+Paper_column::postbreak_l() const
 {
-  if (breakable_b())
-	return;
-
-  do_set_breakable();
-  prebreak_p_->pscore_l_ = pscore_l_;
-  postbreak_p_->pscore_l_ = pscore_l_;
-
-  prebreak_p_->daddy_l_ = postbreak_p_->daddy_l_ = this;
+  return(Paper_column*) broken_to_drul_[RIGHT];
 }
-void
-PCol::do_set_breakable()
-{
-   prebreak_p_ = new PCol;
-  postbreak_p_ = new PCol;
-}
-  
-
 bool
-PCol::breakpoint_b() const
+Paper_column::breakpoint_b() const
 {
   return !line_l_;
 }
 
-bool
-PCol::breakable_b() const
-{
-  return prebreak_p_||postbreak_p_||daddy_l_;
-}
-
-PCol::PCol()
+Paper_column::Paper_column()
 {
   used_b_ = false;
   error_mark_b_ = false;
-  daddy_l_ = 0;
-  prebreak_p_=0;
-  postbreak_p_=0;
   line_l_=0;
-  hpos_f_ = -1.0;
-  pscore_l_ = 0;
   rank_i_ = -1;
 }
 
-PCol::~PCol()
+Line_of_score*
+Paper_column::line_l() const
 {
-  delete prebreak_p_;
-  delete postbreak_p_;
-}
-
-void
-PCol::add (Item *i)
-{
-  its.bottom().add (i);
-  i->pcol_l_ = this; 
+  return line_l_;
 }
 
 bool
-PCol::used_b()const
+Paper_column::used_b() const
 {
-  return daddy_l_ || breakable_b() || its.size ()|| used_b_;
+  return linked_b();
 }
+
+IMPLEMENT_IS_TYPE_B1(Paper_column, Horizontal_group_item);
+

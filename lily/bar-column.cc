@@ -26,7 +26,7 @@ void
 Bar_column::do_substitute_dependency (Score_elem*o,Score_elem*n)
 {
   Script_column::do_substitute_dependency (o,n);
-  if ( o == bar_l_) 
+  if (o == bar_l_) 
     {
 	bar_l_ = n ? (Bar*)n->item() : 0;
     }

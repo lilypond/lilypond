@@ -18,10 +18,10 @@ Music::time_int() const
 }
 
 void
-Music::print()const
+Music::print() const
 {
 #ifndef NPRINT
-  if ( ! check_debug)
+  if (! check_debug)
 	return ;
   DOUT << name() << "{";
   if  (type_str_!="" || id_str_!="")
@@ -43,7 +43,7 @@ Music::translate (Moment)
 }
 
 void
-Music::do_print()const
+Music::do_print() const
 {
 }
 

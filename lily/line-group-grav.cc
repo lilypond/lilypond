@@ -12,6 +12,7 @@
 #include "bar.hh"
 #include "debug.hh"
 #include "line-group-grav.hh"
+#include "p-col.hh"
 
 Line_group_engraver::Line_group_engraver()
 {
@@ -21,7 +22,7 @@ Line_group_engraver::Line_group_engraver()
 void
 Line_group_engraver::acknowledge_element (Score_elem_info  elem)
 {
-  if ( !elem.elem_l_->axis_group_l_a_[Y_AXIS])
+  if (!elem.elem_l_->axis_group_l_a_[Y_AXIS])
 	staffline_p_->add_element (elem.elem_l_);
 }
 
@@ -29,7 +30,7 @@ Line_group_engraver::acknowledge_element (Score_elem_info  elem)
 void
 Line_group_engraver::do_removal_processing()
 {
-  staffline_p_->right_col_l_ = get_staff_info().command_pcol_l ();
+  staffline_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (staffline_p_);
   staffline_p_ = 0;
 }
@@ -38,7 +39,7 @@ void
 Line_group_engraver::do_creation_processing()
 {
   staffline_p_ = new Vertical_group_spanner ;
-  staffline_p_->left_col_l_ = get_staff_info().command_pcol_l ();
+  staffline_p_->set_bounds(LEFT,get_staff_info().command_pcol_l ());
 
   // don't broadcast to self.
   announce_element (Score_elem_info (staffline_p_,0));

@@ -36,7 +36,7 @@ Performer::play (Audio_element* p)
 }
 
 int
-Performer::get_tempo_i()const
+Performer::get_tempo_i() const
 {
   return daddy_perf_l_->get_tempo_i();
 }

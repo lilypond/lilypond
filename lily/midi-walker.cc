@@ -27,7 +27,7 @@ compare (Midi_note_event const& left, Midi_note_event const& right)
 }
 
 Midi_walker::Midi_walker (Audio_staff* audio_staff_l, Midi_track* track_l)
-  : PCursor<Audio_item*>( audio_staff_l->audio_item_l_list_)
+  : PCursor<Audio_item*>(audio_staff_l->audio_item_l_list_)
 {
   track_l_ = track_l;
   last_mom_ = 0;
@@ -36,7 +36,7 @@ Midi_walker::Midi_walker (Audio_staff* audio_staff_l, Midi_track* track_l)
 Midi_walker::~Midi_walker()
 { 
   // ugh
-  do_stop_notes (last_mom_ + Moment (10, 1) );
+  do_stop_notes (last_mom_ + Moment (10, 1));
 }
 
 /**
@@ -46,11 +46,11 @@ void
 Midi_walker::do_start_note (Midi_note* note_l)
 {
   Moment stop_mom = note_l->duration() + ptr ()->audio_column_l_->at_mom ();
-  for ( int i=0; i < stop_note_queue.size(); i++) 
+  for (int i=0; i < stop_note_queue.size(); i++) 
     {
-	if ( stop_note_queue[ i ].val->pitch_i() == note_l->pitch_i ()) 
+	if (stop_note_queue[ i ].val->pitch_i() == note_l->pitch_i ()) 
 	  {
-	    if ( stop_note_queue[ i ].key < stop_mom)
+	    if (stop_note_queue[ i ].key < stop_mom)
 		stop_note_queue[ i ].ignore_b_ = true;
 	    else // skip the stopnote 
 		return; 
@@ -71,10 +71,10 @@ Midi_walker::do_start_note (Midi_note* note_l)
 void
 Midi_walker::do_stop_notes (Moment max_mom)
 {
-  while ( stop_note_queue.size() && stop_note_queue.front ().key <= max_mom) 
+  while (stop_note_queue.size() && stop_note_queue.front ().key <= max_mom) 
     {
 	Midi_note_event e = stop_note_queue.get();
-	if ( e.ignore_b_) 
+	if (e.ignore_b_) 
 	    continue;
 	
 	Moment stop_mom = e.key;
@@ -101,11 +101,11 @@ Midi_walker::process()
   do_stop_notes (ptr()->audio_column_l_->at_mom ());
 
   Midi_item* p = ptr()->midi_item_p ();
-  if ( !p )
+  if (!p)
 	return;
   p->channel_i_ = track_l_->number_i_;
   
-  if ( p->name() != Midi_note::static_name ())
+  if (p->name() != Midi_note::static_name ())
 	output_event (ptr()->audio_column_l_->at_mom (), p);
   else
 	do_start_note ((Midi_note*)p);

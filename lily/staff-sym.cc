@@ -22,7 +22,7 @@ Staff_symbol::Staff_symbol (int l)
 IMPLEMENT_IS_TYPE_B1(Staff_symbol,Spanner);
 
 void
-Staff_symbol::do_print()const
+Staff_symbol::do_print() const
 {
 #ifndef NPRINT
   Spanner::do_print();
@@ -37,16 +37,8 @@ Staff_symbol::brew_molecule_p() const
   return new Molecule (a);
 }
 
-void
-Staff_symbol::set_extent (PCol*p1, PCol*p2)
-{
-  assert (p1&&p2);
-  left_col_l_ = p1;
-  right_col_l_ = p2;
-}
-
 Real
-Staff_symbol::inter_note_f()const
+Staff_symbol::inter_note_f() const
 {
   return paper()->internote_f ();
 }

@@ -41,7 +41,7 @@ Score_align_engraver::acknowledge_element (Score_elem_info inf)
 	    announce_element (Score_elem_info (align_p_,0));
 	  }
 	Score_elem * unbound_elem = inf.elem_l_;
-	while ( unbound_elem->axis_group_l_a_[X_AXIS])
+	while (unbound_elem->axis_group_l_a_[X_AXIS])
 	    unbound_elem = unbound_elem->axis_group_l_a_[X_AXIS];
 	align_p_->add_element (unbound_elem);
     }

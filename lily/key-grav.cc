@@ -65,7 +65,7 @@ Key_engraver::acknowledge_element (Score_elem_info info)
     }
   else if (info.elem_l_->name() == Bar::static_name ()) 
     {
-	if ( !keyreq_l_)
+	if (!keyreq_l_)
 	    default_key_b_ = true;
 	create_key();
     }

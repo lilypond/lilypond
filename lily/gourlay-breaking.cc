@@ -39,7 +39,7 @@ struct Break_node {
  */
 
 Array<Col_hpositions>
-Gourlay_breaking::do_solve()const
+Gourlay_breaking::do_solve() const
 {
 
   Array<Break_node> optimal_paths;
@@ -78,8 +78,8 @@ Gourlay_breaking::do_solve()const
 	    
 	  Line_of_cols line = all.slice (breaks[start_idx], breaks[break_idx]+1);
 	    
-	  line[0] = line[0]->postbreak_p_;
-	  line.top() = line.top ()->prebreak_p_;
+	  line[0] = line[0]->postbreak_l();
+	  line.top() = line.top ()->prebreak_l();
 	    
 	  if (!feasible (line))
 	    break;
@@ -110,22 +110,22 @@ Gourlay_breaking::do_solve()const
       for (int j=0; j < candidates.size(); j++) 
 	{
 	  int start = candidates[j];
-	  if ( optimal_paths[start].line_config_.energy_f_
+	  if (optimal_paths[start].line_config_.energy_f_
 	       + candidate_lines[j].energy_f_  > minimal_energy)
 		
 	    continue;
 
-	  if ( !candidate_lines[j].satisfies_constraints_b_) 
+	  if (!candidate_lines[j].satisfies_constraints_b_) 
 	    {
 	      candidate_lines[j].solve_line();
-	      ((Break_algorithm*)this)->exact_stats_.add ( candidate_lines[j].cols);
+	      ((Break_algorithm*)this)->exact_stats_.add (candidate_lines[j].cols);
 	    }
 	    
 	  Real this_energy 
 	    = optimal_paths[start].line_config_.energy_f_ 
 	    + candidate_lines[j].energy_f_ ;
 	    
-	  if ( this_energy < minimal_energy) 
+	  if (this_energy < minimal_energy) 
 	    {
 	      minimal_j = j;
 	      minimal_energy = this_energy;
@@ -143,24 +143,24 @@ Gourlay_breaking::do_solve()const
 	  optimal_paths[break_idx].line_config_ = candidate_lines[minimal_j];
 	}
 
-      if ( !(break_idx % HAPPY_DOTS_I))
+      if (!(break_idx % HAPPY_DOTS_I))
 	*mlog << "[" << break_idx << "]"<<flush;
     }
 
-  if  ( break_idx % HAPPY_DOTS_I) 
+  if  (break_idx % HAPPY_DOTS_I) 
     *mlog << "[" << break_idx << "]"<<flush;
 
   Array<int> final_breaks;
 
   Array<Col_hpositions> lines;
-  Real min_energy_f_ = infinity_f;
-  Real max_energy_f_ = 0;
+
+  Real max_energy_f = 0;
   
   /* skip 0-th element, since it is a "dummy" elt*/
   for (int i = optimal_paths.size()-1; i> 0;) 
     {
-      final_breaks.push ( i);
-      assert ( i > optimal_paths[i].prev_break_i_);
+      final_breaks.push (i);
+      assert (i > optimal_paths[i].prev_break_i_);
 
       // there was no "feasible path"
       if (!optimal_paths[i].line_config_.config.size()) {
@@ -174,7 +174,7 @@ Gourlay_breaking::do_solve()const
   /*
     TODO print variation in energy
    */
-  if (max_energy_f_ ) 
+  if (max_energy_f) 
     {
       ;
     }
@@ -182,7 +182,7 @@ Gourlay_breaking::do_solve()const
   
 
   for (int i= final_breaks.size(); i--;) 
-    lines.push ( optimal_paths[final_breaks[i]].line_config_);
+    lines.push (optimal_paths[final_breaks[i]].line_config_);
 
   
   return lines;

@@ -210,10 +210,10 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
 
   
 Vector
-Ineq_constrained_qp::solve (Vector start)const
+Ineq_constrained_qp::solve (Vector start) const
 { 
   /* no hassle if no constraints*/
-  if ( ! cons.size()) 
+  if (! cons.size()) 
     {
 	Choleski_decomposition chol (quad);
 	return - chol.solve (lin);

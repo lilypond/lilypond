@@ -66,7 +66,7 @@ Clef_engraver::acknowledge_element (Score_elem_info info)
   if (info.elem_l_->name() == Bar::static_name ()) 
     {
 	create_clef();
-	if ( !clef_req_l_)
+	if (!clef_req_l_)
 	    clef_p_->default_b_ = true;
     }
 }

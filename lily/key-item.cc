@@ -63,7 +63,7 @@ Key_item::add (int p, int a)
 
 
 Molecule*
-Key_item::brew_molecule_p()const
+Key_item::brew_molecule_p() const
 {
   Molecule*output = new Molecule;
   Real inter = paper()->internote_f ();
@@ -76,7 +76,7 @@ Key_item::brew_molecule_p()const
 	Molecule m (a);
 	output->add_right (m);	
     }
-  if ( pitch.size()) 
+  if (pitch.size()) 
     {
 	Molecule m (paper()->lookup_l ()->fill (Box (
 	Interval (0, paper()->note_width ()),

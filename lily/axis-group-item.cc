@@ -16,19 +16,17 @@ Axis_group_item::OK() const
   Link_array<Score_elem> elems = axis_admin_.elem_l_arr_; 
   for (int i=0; i < elems.size(); i++) 
     {
-	Item * it_l = elems[i]->item();
-	assert (it_l);
-  
-	// somebody probably broke it in pieces
-	assert (it_l->pcol_l_ == pcol_l_);
+      Item * it_l = elems[i]->item();
+      assert (it_l);
     }
 }
 
 void
 Axis_group_item::do_breakable_col_processing()
 {
-  if (!pcol_l_->breakable_b())
-	return;
+  if (!breakable_b_)
+    return;
+  
   OK();
   copy_breakable_items();
   
@@ -36,12 +34,15 @@ Axis_group_item::do_breakable_col_processing()
   Link_array<Score_elem> elems = axis_admin_.elem_l_arr_; 
   for (int i=0; i < elems.size(); i++) 
     {
-	Item* it_l = elems[i]->item();
-	for ( int j=0; j < 2; j++) 
-	  {
-	    Item *new_l = it_l->find_prebroken_piece (broken_to_a_[j]->pcol_l_);
-	    ((Axis_group_item*)broken_to_a_[j])->add_element (new_l);
-	  }
+      Item* it_l = elems[i]->item();
+      Direction  j=LEFT;
+      do 
+	{
+	  Item *new_l = 
+	    it_l->find_prebroken_piece (broken_to_drul_[j]->break_status_i_);
+	  ((Axis_group_item*)broken_to_drul_[j])->add_element (new_l);
+	}
+      while ((j*=-1)!=LEFT);
     }
   Item::do_breakable_col_processing();
 }

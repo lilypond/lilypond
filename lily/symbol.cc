@@ -15,7 +15,7 @@ Symbol::Symbol (String s, Box b)
 
 
 String
-Symbol::str()const 
+Symbol::str() const 
 {
   return  "symbol (\'"+tex+"\', (" + dim.x().str () + ", " + dim.y ().str () + "))";
 }
