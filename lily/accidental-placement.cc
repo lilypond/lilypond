@@ -254,7 +254,9 @@ Accidental_placement::position_accidentals (Grob * me)
     return SCM_UNSPECIFIED;
   
   SCM accs = me->get_property ("accidental-grobs");
-
+  if (!scm_is_pair (accs))
+    return SCM_UNSPECIFIED;
+    
   /*
     TODO: there is a bug in this code. If two accs are on the same
     Y-position, they share an Ape, and will be printed in overstrike.

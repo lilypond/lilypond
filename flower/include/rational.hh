@@ -33,8 +33,10 @@ public:
   void set_infinite (int sign);
   bool is_infinity () const;
   void invert ();
-  int num () const { return sign_ * num_; }
-  int den () const { return den_; }
+  int numerator () const { return sign_ * num_; }
+  int denominator () const { return den_; }
+  int num () const { return numerator(); }
+  int den () const { return denominator(); }
 
   Rational trunc_rat () const;
   Rational div_rat (Rational) const;
