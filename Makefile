@@ -5,10 +5,14 @@ include Variables.make
 
 
 $(exe): $(obs)
+	strip --strip-debug $(STABLEOBS)
 	$(CXX) -o $@ $^ $(LOADLIBES)
 
+
+.PHONY: clean
+
 clean:
-	rm -f $(exe) $(DOCDIR)/* core $(obs)
+	rm -f $(exe) $(DOCDIR)/* core $(obs) $(ALLDEPS)
 	for SUBDIR in $(SUBDIRS); \
 	do \
 		$(MAKE) SUBDIR=$$SUBDIR -C $$SUBDIR clean;\
