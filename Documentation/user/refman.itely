@@ -1810,11 +1810,26 @@ using @code{^} and @code{_}.
 
 @lilypondfile[notexidoc]{script-chart.ly}
 
+@seealso
+
+@internalsref{ScriptEvent}, @internalsref{Script}.
+
+@refbugs
+
+All of these note ornaments appear in the printed output but have no
+effect on the MIDI rendering of the music.
+
+
+@node Fingering instructions
+@section Fingering instructions
 
 @cindex fingering
 
-Fingering instructions can also be entered in this shorthand. For
-finger changes, use markup texts:
+Fingering instructions can be entered using
+@example
+  @var{note}-@var{digit}
+@end example
+For finger changes, use markup texts:
 @c
 @lilypond[verbatim, singleline, fragment]
       c'4-1 c'4-2 c'4-3 c'4-4
@@ -1831,20 +1846,14 @@ finger changes, use markup texts:
 	\property Voice.fingerHorizontalDirection = #LEFT
 	<< c-1  es-3 g-5 >> 4
 	\property Voice.fingerHorizontalDirection = #RIGHT
-	<< c-1  e-2 g-3 b-5 >> 4-\arpeggio
+	<< c-1  e-2 g-3 b-5 >>4
 	\property Voice.fingerHorizontalDirection = #LEFT
-	<< c_1  e-2 g-3 b^5 >> 4
+	<< c_1  e-2 g-3 b^5 >>4
 @end lilypond
         
 @seealso
 
-@internalsref{ScriptEvent}, 
-@internalsref{Script}, @internalsref{FingerEvent} and @internalsref{Fingering}.
-
-@refbugs
-
-All of these note ornaments appear in the printed output but have no
-effect on the MIDI rendering of the music.
+@internalsref{FingerEvent} and @internalsref{Fingering}.
 
 
 @node Text scripts
@@ -1920,14 +1929,13 @@ staves.
 
 Unbeamed eighth notes and shorter by default have a slash through the
 stem. This can be controlled with object property @code{stroke-style} of
-@internalsref{Stem}. The change in formatting is accomplished by
-inserting @code{\startGraceMusic} before handling the grace notes, and
-@code{\stopGraceMusic} after finishing the grace notes.
-You can add to these definitions to globally change grace note
-formatting. The standard definitions are in @file{ly/grace-init.ly}.
+@internalsref{Stem}. For proper  matching of override and reverts of
+such properties, it is necessary to use a Scheme function.
 
-[TODO discuss Scheme functionality.]
-
+The following fragment overrides the default formatting Grace style stems.
+@example
+  #(add-to-grace-init "Voice" 'Stem  'stroke-style '())
+@end example
 
 The @code{\override} is carefully matched with a @code{\revert}.
 
@@ -1944,8 +1952,6 @@ The @code{\override} is carefully matched with a @code{\revert}.
   } c4
 }
 @end lilypond
-
-
 
 If you want to end a note with a grace note, then the standard trick
 is to put the grace notes before a phantom ``space note'', e.g.
@@ -2003,6 +2009,9 @@ Grace sections should only be used within sequential music
 expressions.  Nesting, juxtaposing, or ending sequential music with a
 grace section is not supported, and might produce crashes or other
 errors.
+
+Overriding settings for grace music using @code{add-to-grace-init}
+cannot be done in a modular way.
 
 
 @node Glissando 
@@ -2085,14 +2094,15 @@ A crescendo mark is started with @code{\cr} and terminated with
 crescendo can be started with @code{\<} and a decrescendo can be
 started with @code{\>}.  Either one can be terminated with @code{\!}.
 Because these marks are bound to notes, if you must use spacer notes
-if marks during one note are needed.
+if multiple marks during one note are needed.
 
 @lilypond[fragment,verbatim,center,quote]
   c''-\< c''-\!   d''-\decr e''-\rced 
   < f''1 { s4 s4-\< s4-\! \>  s4-\! } >
 @end lilypond
 This may give rise to very short hairpins. Use @code{minimum-length}
-in @internalsref{Voice}.@internalsref{HairPin} to lengthen these, e.g.
+in @internalsref{Voice}.@internalsref{HairPin} to lengthen them, for
+example:
 
 @example
  \property Staff.Hairpin \override #'minimum-length = #5
@@ -2146,9 +2156,13 @@ object. Predefined variables to set the vertical direction are
 @cindex repeats
 @cindex @code{\repeat}
 
-To specify repeats, use the @code{\repeat} keyword.  Since repeats
-should work differently when played or printed, there are a few
-different variants of repeats.
+
+Repetition is a central concept in music, and multiple notations exist
+for repetitions. In LilyPond, most of these notations can be captured
+in a uniform syntax. One of the advantages is, all these repetitions
+can be rendered in MIDI accurately.
+
+The following types of repetition are supported:
 
 @table @code
 @item unfold
@@ -2185,10 +2199,6 @@ Make beat or measure repeats. These look like percent signs.
 
 @node Repeat syntax
 @subsection Repeat syntax
-
-
-Repetition is a central concept in music, and multiple notations exist
-for repetitions.
 
 @syntax
 
@@ -2248,8 +2258,8 @@ With alternative endings:
 @noindent
 then it is ambiguous to which @code{\repeat} the @code{\alternative}
 belongs. This ambiguity is resolved by always having the
-@code{\alternative} belong to the inner @code{\repeat}.  This
-ambiguity may also be resolved by using braces.
+@code{\alternative} belong to the inner @code{\repeat}.  For clarity,
+it is advisable to use braces in such situations.
 @cindex ambiguity
 
 @node Repeats and MIDI

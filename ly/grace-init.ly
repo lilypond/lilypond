@@ -1,5 +1,10 @@
 \version "1.7.18"
 
+%%
+%% TODO: these definitions should be read and executed out dynamically
+%%  using an applycontext.
+%%
+
 startGraceMusic = {
     \property Voice.Stem \override  #'direction = #1
     \property Voice.Stem \override #'lengths = 
