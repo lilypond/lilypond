@@ -1,0 +1,358 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename reference-manual.info
+@settitle Reference Manual
+
+@node Top, , , (dir)
+@top
+
+
+@section Introduction
+
+[TODO: THIS MANUAL IS OUTDATED. FIXME.]
+
+Mudela-book is a script that process your \LaTeX file and with great
+help from GNU LilyPond it translates blocks of mudela code it finds
+inside @code{mudela} environments to tex or eps graphics. It then
+creates a new file that can be sent through \LaTeX to create a
+@file{.dvi} file with lines of music integrated with text.
+
+Mudela-book will do its best to try to align the music to the left and
+right margins. Currently the most used papersizes and one- and
+twocolumn mode is supported, but if you use the geometry-package from
+LaTeX or change the margins things will break.
+
+This document assumes you have basic knowledge of GNU LilyPond and
+LaTeX.
+
+So what does this look like? Well, here is an example:
+@mudela[veryverbatim, intertext="produces this music:"]
+\score{
+  \notes\relative c'{
+    \time 5/8;
+    [e16( g b c a g][e a b d] | )e2 d,8 |
+    [e16( g b c a g][e a b d] | )b2 [a16( f] |
+    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
+    [f( a b d b a][f a b d] | )e2
+  }
+}
+@end mudela
+If you are lucky, the above example show a nice feature of LilyPond
+and LaTeX. Since LilyPond can output the music as \TeX graphics,
+LaTeX can insert pagebreaks between the lines of music.
+
+Notice that there is no @code{\paper} statement in the example
+above. Mudela-book will insert some code for you that defines the
+linewidth and the font to use. If you don't want to change the default, 
+there is no need to put an empty @code{\paper@{@}} inside the @code{\score}.
+In the example above, something like
+this might be inserted before your code:
+@example
+\include "paper16.ly"
+\paper@{ \paper_sixteen
+    linewidth = 390.\pt;
+    castingalgorithm = \Gourlay;
+@}
+@end example
+The actual values for linewidth will differ depending on papersize and
+number of columns. Also, if you use a different fontsize for the
+music, another file than @code{paper16.ly} will be included.
+
+If you want to make the music not so wide, you can insert a
+@code{\paper} statement that set the linewidth:
+
+@mudela[veryverbatim, intertext="produces this music:"]
+\score{
+  \notes\relative c'{
+    \time 5/8;
+    [e16( g b c a g][e a b d] | )e2 d,8 |
+    [e16( g b c a g][e a b d] | )b2 [a16( f] |
+    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
+    [f( a b d b a][f a b d] | )e2
+  }
+  \paper{linewidth = 10.\cm;}
+}
+@end mudela
+
+Very often, if you mix music and text, the music is often only a 
+few notes or at most a few bars. This music should be as short as
+possible and not stretched to be aligned to the right margin.
+
+If you only write voice-contents in the mudela block, mudela-book 
+will set the @code{linewidth} variable to -1, so Lilypond
+will make the music as short as possible but without breaking the
+line. Here is a well know harmonic progression:
+@mudela[veryverbatim, intertext="produce a well known harmonic progression:"]
+  <c' e g> <b d g> <c2 e g>
+@end mudela
+
+If you want to place music examples in the text,
+@mudela[eps]
+  <c' e g> <b d g> <c2 e g>
+@end mudela
+, you can use the @code{eps} option. This will create the music as
+eps graphics and include it into the document with the 
+@code{\includegraphics} command.
+
+The code used look like this:
+@example
+@mudela[eps]
+  <c' e g> <b d g> <c2 e g>
+@end mudela
+@end example
+
+You can also use the @code{eps} option if the block is a complete
+mudela source. This 5 cm long empty line, 
+@mudela[eps]
+\score{
+  \notes{s}
+  \paper{ linewidth = 5.\cm;}
+}
+@end mudela
+was created with this code:
+@example
+@mudela[eps]
+\score{
+  \notes{s}
+  \paper{ linewidth = 5.\cm;}
+}
+@end mudela
+@end example
+
+To avoid that LaTeX places the music on a line of its one, there should
+be no empty lines between the normal text and the mudela
+environment. 
+
+You can also use @code{mudelafile} (on a separate line, FIXME), to
+include another file. Files with name ending with @code{.sly}
+
+@section Fontsize options You can use all lilypond fontsizes in
+mudela-book.  The default 16pt fontsize is probably to big to be
+included in the middle of the text, 11pt or 13pt is probably better.
+
+The code can look like this:
+@example
+@mudela[13pt, eps]
+<c' e g>
+@end mudela
+@end example
+
+The following options set the fontsize:
+@itemize
+@item @code{11pt}
+@mudela[11pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end mudela
+@item @code{13pt}
+@mudela[13pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end mudela
+@item @code{16pt}
+@mudela[16pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end mudela
+@item @code{20pt}
+@mudela[20pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end mudela
+@item @code{26pt}
+@mudela[26pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end mudela
+@end itemize
+
+
+@section More options
+@itemize
+@item The @code{singleline} option set @code{linewidth} to -1.0.
+@item The @code{multiline} option set @code{linewidth} to a value letting
+the music be aligned to the right margin. The music can span several
+lines. 
+@end itemize
+
+@section Just in case...
+The options @code{fragment} and @code{nonfragment} will override
+mudela-book when it scans the mudela code to see if it is voice
+contents or complete code. This might be useful if mudela-book choose
+wrong. 
+
+Since there is no finder's fee which doubles every year, there is no
+need to wait for the price money to grow. So send a bug report today
+if you need this one of these options.
+
+@section Examples
+
+This was all options to @code{\begin}. The rest of the mudela
+document will show some ways you can use mudela in
+LaTeX documents. It will also act as a simple test-suite for
+mudela-book. You can place @code{eps} mudela in and marginspars just
+as any other included eps graphics.
+
+@mudela
+\score{
+  \notes\relative c'{ 
+        \time 12/8;  
+        r4-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
+        [f16-.( )f-. dis8-- gis16-.( )gis-.] cis4.-\fermata |
+        
+        r4.-\fermata [cis,16 cis g'8 f16 f b8][g16 g f8 b16 b] dis4.-\fermata
+  }
+  \paper{linewidth = 7.\cm;}
+}
+@end mudela
+
+
+To the right you can see some bars from the trumpet fanfara from the
+beginning of the fantastic street opera ``Houdini the Great'', by the
+Danish composer Andy Pape. The music is put inside a
+@code{floatingfigure} environment, and the music will be aligned by
+the right marging if you set floatingfigure width and mudela linewidth
+to the same value. The code looks like this:
+
+@mudela[verbatim]
+\score{
+  \notes\relative c'{ 
+    \time 12/8;  
+    r4.-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
+    [f16-.( )f-. dis8-- gis16-.( )gis-.] cis8.-\fermata |
+        
+    r4.-\fermata [cis,16 cis g'8 f16 f b8]
+    [g16 g f8 b16 b] dis4.-\fermata
+  }
+  \paper{linewidth = 7.\cm;}
+}
+@end mudela
+
+If you have a lot of small music examples like this in the middle of
+your text, you might get a nicer look by using ``double'' line
+spacing. Put the @code{\linespread@{1.6@}} command into the preamble of
+your document. Then the line spacing will not be increased between the
+lines where you have music printed with the smallest font size.
+
+Mudela-book does know about @code{\onecolumn} and @code{\twocolumn}. 
+So the music will be adjusted to the new linewith:
+
+Verbatim environments will also ignore the page margins. That is
+a feature of LaTeX. (But you usually put things inside a verbatim
+environment when you don't want LaTeX to do any linebreaking)
+
+
+@section Texinfo behavior
+
+[TODO]
+
+@section Invocation
+
+@file{mudela-book} is a script that helps integrating mudela and
+LaTeX.  mudela-book runs LilyPond on fragments of mudela in your
+source file, and includes the results into document that can be
+processed with LaTeX.  The result is a text document with formatted
+music integrated.
+
+Lilypond will by default create all output files in directory @file{out}.
+The file to give to latex has ext @file{.latex}.
+
+@strong{About the input}
+
+If the file contains the ``block''
+
+@example 
+
+        \begin@{mudela@}
+        CONTENTS
+        \end@{mudela@}
+ 
+@end example 
+
+then LilyPond is run on CONTENTS.  mudela-book puts the result back,
+surrounded by @code{\preMudelaExample} and @code{\postMudelaExample}
+commands. @code{\preMudelaExample} and @code{posMudelaExample} is
+defined to nothing by default, and the user can redefine them
+to whatever he wants.
+
+@code{\begin} takes the following options:
+
+@table @samp
+@item eps
+    the music is created as eps graphics that can be inserted in 
+    the middle of a text line, not only as a separate paragraph
+@item verbatim
+    CONTENTS is copied into the TeX source enclosed in a verbatim block.
+@item 11pt, 13pt, 16pt, 20pt, 26pt
+    set the fontsize to use for the music
+@item singleline
+  linewidth = -1.
+@item multiline
+  linewidth = textwidth
+@item fragment
+@item nonfragment
+    Override mudela-book autodetection of what type of code is in the
+    mudela block, voice contents or complete code.
+@end table
+
+
+@table @samp
+
+@item --default-mudela-fontsize=??pt
+    Set the fontsize to use for mudela if no fontsize is given
+    as option.
+@item --force-mudela-fontsize=??pt
+    Force all mudela to use this fontsize, overriding options
+    given to \begin@{mudela@}
+@item --outname=FILE
+    The name of LaTeX file to output. If this option  is not given,
+the output name derived from the input name.
+@item --out-www=DIRECTORY
+    The name of the directory to output lilypond output and input to.
+    This must be a name; the subdirectory will be created in the cwd. [FIXME]
+@item --help
+	Print a short help message
+@item --dependencies
+        Write dependencies to out-www/filename.dep
+@item --force-verbatim
+	Make all mudela verbatim.
+@item --initfile=FILE
+        read command definitions from @file{FILE}
+@end table
+
+
+
+@file{mudela-book} is written in python 1.5, so you have to install
+@uref{http://www.python.org,python}.
+
+
+
+@section Bugs
+  
+The LaTeX \includeonly@{...@} command is ignored.
+
+Ignores almost all LaTeX commands that changes margins and linewidths.
+
+@section Authors
+
+@email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}, @uref{http://www.cs.uu.nl/people/hanwen}
+
+@email{tomato@@xoommail.com, Tom Cato Amundsen}
+
+
+@bye
+
+
+
+
+
+

@@ -20,7 +20,7 @@ global = \notes {
   \key a \minor;
   \time 6/4;
   \skip 1.*34;
-%  \bar ".|";
+  \bar ".|";
 }
   
 melody = \notes\relative c''{
@@ -106,18 +106,20 @@ accompany = \notes \relative c{
 
 \score{
   \notes{
-    \context AutoSwitchGrandStaff \relative c <
-      \context Staff=upper <
+    \context PianoStaff \relative c <
+      %\context Staff=upper <
+      \context Staff=up <
         \global
-        \context Voice=foo{
+        \context Voice=foo {
 	  \property Voice.verticalDirection = 1
 	  \property Voice.scriptVerticalDirection = 1
 	  \melody 
-        }
+	}
       >
-      \context AutoSwitchContext <
+      \context Staff=down <
         \global
-	\accompany
+	\clef bass;
+        \accompany
       >
     >
   }
@@ -126,8 +128,8 @@ accompany = \notes \relative c{
     indent = 8.\mm;
     textheight = 295.\mm;
 
-    % no slur damping
-    slur_slope_damping = 100.0;
+    slur_interstaff_slope_damping = 100.0;
+    slur_interstaff_height_damping = 100.0;
 
     \translator{ 
       \StaffContext
@@ -136,58 +138,13 @@ accompany = \notes \relative c{
       % urg defaultBarType = "";
       defaultBarType = "empty";
       \remove "Time_signature_engraver";
-    }
-    \translator{ 
-      \GraceContext
-      \remove "Local_key_engraver";
-    }
-    \translator { 
-      \ScoreContext
-      \accepts "AutoSwitchGrandStaff";
-    }
-    \translator{
-      \type "Engraver_group_engraver";
-      \name AutoSwitchGrandStaff;
-      \consists "Span_bar_engraver";
-      \consists "Vertical_align_engraver";
-      \consists "Piano_bar_engraver";
-      \consistsend "Axis_group_engraver";
-      minVerticalAlign = 2.*\staffheight;
-      maxVerticalAlign = 2.*\staffheight;	
-      switcherName = "Voice";
-      acceptorName = "Thread";
-      staffContextName = "Staff";
 
-      \accepts "AutoSwitchContext";
-      \accepts "Staff";
       slurVerticalDirection = 1;
       verticalDirection = -1;
       beamAutoEnd = "1/2";
     }
-    \translator {
-      \type "Engraver_group_engraver";
-      \name AutoSwitchContext;
-      \consists "Staff_switching_translator";
-    }
   }
   \midi {
     \tempo 4 = 54;
-    \translator {
-      \ScoreContext
-      \accepts "AutoSwitchGrandStaff";
-    }
-    \translator {
-      \type "Performer_group_performer";
-      \name AutoSwitchGrandStaff;
-      \accepts "AutoSwitchContext";
-      \accepts "Staff";
-    }
-    \translator {
-      \type "Staff_performer";
-      \name AutoSwitchContext;
-      \accepts "Voice";
-      \consists "Key_performer";
-      \consists "Time_signature_performer";
-    }
   }
 }

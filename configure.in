@@ -19,10 +19,16 @@ printing_b=no
 AC_ARG_ENABLE(printing,
     [  enable-printing         turn on debug printing. Default: off],
     [printing_b=$enableval])
-    
+
 if test "$optimise_b" = yes; then
     DEFINES="$DEFINES -DSTRING_UTILS_INLINED"
     AC_DEFINE(STRINGS_UTILS_INLINED)
+fi
+
+if test "$printing_b" = no; then
+    # ugh
+    AC_DEFINE(NPRINT)
+    DEFINES="$DEFINES -DNPRINT"
 fi
 
 AC_STEPMAKE_CXX

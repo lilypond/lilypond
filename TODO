@@ -11,11 +11,18 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use Rhythmic_head::position_i () for all Staff_referenced 
+. * make diff and make release should leave junk in out/, not in ../test/ 
 . * setting indent to 0 with \shape fails
 . * junk -M ?
 . * mudela-book doco
 . * Depracate Wordwrap
 . * rerun profile
+. * fix or replace feta-accordion.mf
+. * fix configure with CFLAGS or LDFLAGS, try:
++    CFLAGS=-g LDFLAGS='-Wl,--warn-common' ./configure
++ configure will use them while testing the compiler, but they don't
++ appear in config.make
+
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * script engraver
 . * HaraKiriStaffContext removes bar lines and doesn't remove
@@ -104,26 +111,7 @@ abc2ly, midi2ly?
 .* BUGS
 . * [c8. c16 c16 c16] in 6/8 timesig. 
 . * staffside spanner (crescendo!) along with staffswitch.
-. * --- 2, margin notes don't work correctly for the pianostaff (in the
-following example, i expect the "piano" string to be centered
-vertically between the two staves):
 
-\score {
-  \notes \context PianoStaff <
-    \property PianoStaff.instrument = "Piano"
-    \context Staff = treble {
-	a b c
-    }
-    \context Staff = bass {
-	\clef bass;
-	a, b, c,
-    }
-  >
-  \paper {
-    \translator { \StaffContext \consists "Staff_margin_engraver"; }
-    \translator { \PianoStaffContext \consists "Staff_margin_engraver"; }
-  }
-}
 . * 
 > \context Staff <
 >   {\voiceone''4. r8}
@@ -134,12 +122,6 @@ vertically between the two staves):
 
 .* STUFF
 . * We need feta-din*.mf files for more sizes than 10.
-. *
-- The syntax for chords looks clumsy with two different meanings of 
-  '-' and different syntax for separating modifiers from the tonic
-  and from other modifiers. Why not use for example ':' between
-  tonic and modifier and between the different modifiers?
-
 - Rests and beams don't work too well together. Example:
    [ r8 g''16 des'] [r8 c16 a] 
 
@@ -246,12 +228,9 @@ repeated section with different words for each repeat.
 .  * deps for ly2dvi
 . * TODO: merge atom & molecule; make  tree from molecule.
 . * Align_element::padding  ?
-. * typo checks on property names?
 . * use streambufs and iostream
 to provide IO handling for TeX stream, mudela stream, data-file.
 . * seriously buffer TeX output (do profile of writing .5 mb TeX file.)
-. * strip EXEs before installing
-. * zip target for binary windows dist (JBR)
 . * fix partial measures in meaningful way.
 . * uniformise recent feta contributions.
 .  * bigger and fatter 4/4 C
@@ -295,12 +274,6 @@ to provide IO handling for TeX stream, mudela stream, data-file.
   syntax: \repeat "repeatsymbol" 2 {...}, but I'm not sure that
   I understand the implementation of repeats well enough.
 . * add full cello suites to web site (kom op, Maarten!)
-. * rename 'staff_line_leading' (who is being lead where?) to
-staff_space, interline; (or other meaningful name) and use throughout
-lily
-
-[-> leading are the lead strips between the sticks (lines) of
-typeface. ie. leading is vertical space  --hwn]
 . * add mudela-book-doc source to webstie.
 . * Rethink Time_description
 \cadenza , \meter,  should all be \properties
@@ -374,7 +347,7 @@ touching it.
 
       axeses.push (as);
     }
-. * GNU diff 2.7: diff -rN does not see a new directory with empty file
+
 . * patch: don't touch timestamp if all patches fail.
 . * MetaPost: should not generate setgray for unfill
 . * mfplain.ini not in tetex 0.9

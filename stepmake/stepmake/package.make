@@ -23,7 +23,7 @@ diff:
 	$(PYTHON) $(step-bindir)/package-diff.py --package=$(topdir) $(makeflags)
 
 release: 
-	$(PYTHON) $(step-bindir)/release.py --package=$(topdir)
+	$(PYTHON) $(step-bindir)/release.py --outdir=$(topdir)/$(outdir) --package=$(topdir)
 
 rpm: $(depth)/$(package-icon) dist
 	su -c 'rpm -tb $(depth)/$(outdir)/$(distname).tar.gz'

@@ -44,11 +44,11 @@ fi
 
 # numbered files
 if [ "x$named" = "x" ]; then
-	NUMS=`grep "^C *[0-9]*;" $afm | sed "s!^C *\([^;]*\).*!\\1!"`
-	PBMS=`grep "^C *[0-9]*;" $afm | sed "s!^C *\([^;]*\).*!out/$font-\\1.pbm!"`
+	NUMS=`grep "^C *[0-9]* *;" $afm | sed "s!^C *\([^ ;]*\).*!\\1!"`
+	PBMS=`grep "^C *[0-9]* *;" $afm | sed "s!^C *\([^ ;]*\).*!out/$font-\\1.pbm!"`
 else
-	NUMS=`grep "^C *[0-9]*;" $afm | sed "s!^C [^;]*; *N *\([^;]*\).*!\\1!"`
-	PBMS=`grep "^C *[0-9]*;" $afm | sed "s!^C [^;]*; *N *\([^;]*\).*!out/$font-\\1.pbm!"`
+	NUMS=`grep "^C *[0-9]* *;" $afm | sed "s!^C *.*; *N *\([^ ;]*\).*!\\1!"`
+	PBMS=`grep "^C *[0-9]* *;" $afm | sed "s!^C *.*; *N *\([^ ;]*\).*!out/$font-\\1.pbm!"`
 fi
 
 # $PKTOPBM out/$font.${RESOLUTION}pk -x 100 -y 100 $PBMS

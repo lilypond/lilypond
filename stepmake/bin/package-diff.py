@@ -119,7 +119,6 @@ i.e., you should rerun autoconf, configure """
 
 
 def makediff (fromdir, todir, patch_name):
-
 	# urg, again?
 	from packagepython import *
 
@@ -238,7 +237,8 @@ if to_diff == from_diff:
 
 if not patch_name:
 	pn = to_diff + '.diff'
-	patch_name =  os.path.join (os.getcwd (), pn)
+	patch_name =  os.path.join (os.getcwd (), 'out')
+	patch_name =  os.path.join (patch_name, pn)
 
 from_diff = '/tmp/package-diff/' + from_diff
 to_diff =  '/tmp/package-diff/' + to_diff
@@ -276,4 +276,5 @@ sys.stderr.write ('cleaning ... ')
 os.system ('rm -fr %s %s' % (from_diff, to_diff))
 sys.stderr.write ('\n')
 os.chdir (prev_cwd)
+
 

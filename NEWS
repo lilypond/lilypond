@@ -1,4 +1,14 @@
-WHAT'S NEW?
+
+WHAT'S NEW SINCE 1.2.0
+
+* Much faster spacing engine. 
+
+* Features: automatic staff switching
+
+* Documentation now all is in texinfo.
+
+
+WHAT'S NEW SINCE 1.0.17
 
 * Large cleanups, enhanced design and GUILE integration for smaller
   memory footprint and more flexible code.

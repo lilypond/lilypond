@@ -3,7 +3,7 @@
 depth = ..
 
 NAME = documentation
-SUBDIRS= tex metadoc bibliography pictures topdocs ntweb
+SUBDIRS= user metadoc bibliography pictures topdocs ntweb
 STEPMAKE_TEMPLATES=documentation  texinfo
 
 README_TOP_FILES=NEWS DEDICATION TODO  AIMS
