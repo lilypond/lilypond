@@ -56,6 +56,7 @@ class Font_info:
 		'bxti' : ('bold', 'italic'),
 		'csc' : ('smallcaps', 'roman'),
 		'r' : ('regular', 'roman'),
+		'ss' : ('regular', 'sansserif'),
 		'tt' : ('regular', 'typewriter'),
 		'ti' : ('regular', 'italic'),
 		}
