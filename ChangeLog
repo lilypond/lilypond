@@ -7,6 +7,7 @@
 2003-05-15  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: Allow Midi on buffer.
+	Use only '.ly'-extension, remove '.sly' and '.fly'.
 
 2003-05-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 

@@ -379,10 +379,10 @@ LilyPond-expand-list.
 			(string :tag "Next Key")))))
 
 ;; drop this?
-(defcustom LilyPond-file-extensions '(".ly" ".sly" ".fly")
-  "*File extensions used by manually generated TeX files."
+(defcustom LilyPond-file-extension ".ly"
+  "*File extension used in LilyPond sources."
   :group 'LilyPond
-  :type '(repeat (string :format "%v")))
+  :type 'string)
 
 
 (defcustom LilyPond-expand-alist 
@@ -435,7 +435,7 @@ Must be the car of an entry in `LilyPond-command-alist'."
   (let* ((default (cond ((if (string-equal name LilyPond-region-file-prefix)
 			     (LilyPond-check-files (concat name ".tex")
 						   (list name)
-						   LilyPond-file-extensions)
+						   (list LilyPond-file-extension))
 			   (if (verify-visited-file-modtime (current-buffer))
 			       (if (buffer-modified-p)
 				   (if (y-or-n-p "Save buffer before next command? ")
@@ -521,21 +521,19 @@ Must be the car of an entry in `LilyPond-command-alist'."
 	;; urg
 	(dir "./")
 	(base LilyPond-region-file-prefix)
-	;; Hmm
-	(ext (if (string-match "^[\\]score" (buffer-substring begin end))
-		 ".ly"
-	       (if (< 50 (abs (- begin end)))
-		   ".fly"
-		 ".sly"))))
+	(ext LilyPond-file-extension))
     (concat dir base ext)))
 
+;;; Commands on Region work if there is an appropriate '\score'.
 (defun LilyPond-command-region (begin end)
   "Run LilyPond on the current region."
   (interactive "r")
   (write-region begin end (LilyPond-region-file begin end) nil 'nomsg)
   (LilyPond-command (LilyPond-command-query
 		     (LilyPond-region-file begin end))
-		    '(lambda () (LilyPond-region-file begin end))))
+		    '(lambda () (LilyPond-region-file begin end)))
+  ;; Region may deactivate even if buffer was intact, reactivate?
+  )
 
 (defun LilyPond-command-buffer ()
   "Run LilyPond on buffer."
