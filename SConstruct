@@ -672,6 +672,7 @@ def symlink_tree (target, source, env):
 	      ('#ps',        'share/lilypond/tex/music-drawing-routines.ps'),
 	      ('mf',         'share/lilypond/otf'),
 	      ('mf',         'share/lilypond/tfm'),
+	      ('tex',        'share/lilypond/tex/enc'),
 	      ('#mf',        'share/lilypond/fonts/mf'),
 	      ('mf',         'share/lilypond/fonts/otf'),
 	      ('mf',         'share/lilypond/fonts/tfm'),
