@@ -19,7 +19,6 @@ struct sstack : Array<T> {
         Array<T>::pop();
 	return l;
     }
-    void push(T l) { add(l); }
 };
 /**
   Same as for #Array# goes here.
