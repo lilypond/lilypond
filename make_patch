@@ -25,7 +25,7 @@ then
    tar zfxv $nm$old.tar.gz
 fi
 
-(cd $nm$old; make clean)
-(cd $nm$new; make clean)
+#(cd $nm$old; touch depend; make clean)
+#(cd $nm$new; touch depend; make clean)
 (cd $nm$new; diff -P -c  ../$nm$old . > ../patch-$new)
 rm -rf $nm$old
