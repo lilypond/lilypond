@@ -11,7 +11,6 @@
 #define SCORE_HALIGN_GRAV_HH
 #include "engraver.hh"
 class Score_horizontal_align_engraver : public Engraver {
-    
     Break_align_item * halign_p_;
 public:
     NAME_MEMBERS();
