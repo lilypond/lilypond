@@ -4731,8 +4731,7 @@ extensions and should not be used.
 @seealso
 
 
-@internalsref{Custos}, @inputfileref{input/test,custos-style.ly} and
-@inputfileref{input/regression,custos.ly}.
+@internalsref{Custos} and @inputfileref{input/regression,custos.ly}.
 
 
 @node Divisiones
