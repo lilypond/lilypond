@@ -2621,7 +2621,7 @@ c'\glissando c'
 
 Program reference: @internalsref{Glissando}, and @internalsref{GlissandoEvent}.
 
-Example files: @file{input/regression,glissando.ly}
+Example files: @file{input/regression/glissando.ly}.
 
  
 
@@ -4024,7 +4024,7 @@ in the text, as shown here,
 
 
 The @code{ignoreMelismata} applies to the syllable ``fas'', so it
-should bev entered before ``go''.
+should be entered before ``go''.
 
 The reverse is also possible: making a lyric line slower than the
 standard.  This can be achieved by insert @code{\skip}s into the
