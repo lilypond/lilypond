@@ -18,6 +18,7 @@ PCol::width() const
 int
 PCol::rank() const
 {
+#if 0
     if(!pscore_l_)
 	return -1;
     PCursor<PCol*> me=pscore_l_->find_col( (PCol*)this);
@@ -25,6 +26,19 @@ PCol::rank() const
 	return -1;
     PCursor<PCol*> bot(pscore_l_->cols.top());
     return me - bot;
+#endif
+    assert(rank_i_ != -1);
+    return rank_i_;
+}
+
+void
+PCol::set_rank(int i)
+{
+    rank_i_ = i;
+    if (prebreak_p_)
+	prebreak_p_->rank_i_ = i;
+    if (postbreak_p_)
+	postbreak_p_->rank_i_ = i;
 }
 
 void
@@ -34,7 +48,7 @@ PCol::print() const
     mtor << "PCol {";
 
     if (rank() >= 0)
-	mtor << "rank: " << rank() << '\n';
+	mtor << "rank: " << rank_i_ << '\n';
 
     mtor << "# symbols: " << its.size() ;
     if (breakable_b()){
@@ -54,11 +68,7 @@ PCol::print() const
 int
 PCol::compare(PCol const &c1, PCol const &c2)
 {
-    PScore*ps_l = c1.pscore_l_;
-    PCursor<PCol*> ac(ps_l->find_col(&c1));
-    PCursor<PCol*> bc(ps_l->find_col(&c2));
-    assert(ac.ok() && bc.ok());
-    return ac - bc;
+    return c1.rank() - c2.rank();
 }
 
 void

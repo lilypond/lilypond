@@ -8,6 +8,8 @@
 #define REST_HH
 #include "item.hh"
 
+/** typeset a Rest. A "vanilla" item.
+ */
 struct Rest : Item {
 
     int dots;

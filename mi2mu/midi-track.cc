@@ -30,7 +30,7 @@ Midi_track::add_begin_at( PointerList<Midi_voice*>& open_voices_r, Moment mom )
 {
 	for ( PCursor<Midi_voice*> i( midi_voice_p_list_.top() ); i.ok(); i++ )
 		if ( i->begin_mom() == mom ) {
-			dtor << "open_voices (" << open_voices_r.size() << "): +1\n";
+			tor( DEBUG_ver ) << "open_voices (" << open_voices_r.size() << "): +1\n";
 			open_voices_r.bottom().add( *i );
 		}
 }
@@ -104,75 +104,92 @@ Midi_track::process()
 	for ( PCursor<Track_column*> i( tcol_p_list_.top() ); i.ok(); i++ ) {
 		int bars_i = (int)( i->mom() / bar_mom );
 		if ( bars_i > bar_i )
-			mtor << '[' << bar_i << flush; 
+			tor( NORMAL_ver ) << '[' << bar_i << flush; 
 		while ( i->midi_event_p_list_.size() ) 
-			// shit, where has the T* PCursor::remove() gone??
-			// i don-t want to get and delete, 
-			// i want to (re)move!
-			// is it renamed: get vs add/insert ?? (put/remove :-)	
 			get_free_midi_voice_l( i->mom() )->add_event( i->midi_event_p_list_.top().remove_p() );
 		if ( bars_i > bar_i ) {
-			bar_i++;
-			mtor << ']' << flush; 
+			bar_i = bars_i;
+			tor( NORMAL_ver ) << ']' << flush; 
 		}
 	}
 
-	dtor << "ends: " << endl;
+	tor( DEBUG_ver ) << "ends: " << endl;
 	int n = 0;
 	for ( PCursor<Midi_voice*> i( midi_voice_p_list_.top() ); i.ok(); i++ ) 
-		vtor << "voice " << n++ << ": " << i->end_mom() << endl;
-	dtor << ":sdne" << endl;
+		tor( VERBOSE_ver ) << "voice " << n++ << ": " << i->end_mom() << endl;
+	tor( DEBUG_ver ) << ":sdne" << endl;
 }
 
 
 void
 Midi_track::output_mudela( Lily_stream& lily_stream_r )
 {
-	lily_stream_r << name_str_ << " = music { $";
+	lily_stream_r << name_str_ << " = \\melodic{";
 	lily_stream_r.indent();
 	lily_stream_r << "% midi copyright:" << copyright_str_;
 	lily_stream_r.newline();
 	lily_stream_r << "% instrument:" << instrument_str_;
 	lily_stream_r.newline();
 
-	int bar_i = 1;
+	int bar_i = 0;
 	Moment bar_mom = midi_time_p_->bar_mom();
 
 	PointerList<Midi_voice*> open_voices;
 	Moment now_mom = 0.0;
 	Moment then_mom = 0.0;
 	while ( now_mom < end_mom() ) {
-		int bars_i = (int)( now_mom / bar_mom );
+		int bars_i = (int)( now_mom / bar_mom ) + 1;
 		if ( bars_i > bar_i )
-			mtor << '[' << bar_i << flush; 
+			tor( NORMAL_ver ) << '[' << flush; 
+
+		if ( bars_i > bar_i ) { 
+		 	Moment into_bar_mom = now_mom - ( bars_i - 1 ) * bar_mom;
+			if ( bars_i > 1 ) {
+				if ( !into_bar_mom )
+					lily_stream_r << "|";
+				lily_stream_r.newline();
+			}
+			lily_stream_r << "% " << String_convert::i2dec_str( bars_i, 0, ' ' );
+			if ( into_bar_mom )
+				lily_stream_r << ":" << Duration_convert::dur2_str( Duration_convert::mom2_dur( into_bar_mom ) );
+			lily_stream_r.newline();
+		}
+
 		add_begin_at( open_voices, now_mom );
 
 		Moment begin_mom = next_begin_mom( now_mom ); 
+
+		if ( bars_i > bar_i )
+			tor( NORMAL_ver ) << bars_i << flush; 
+
 		Moment end_mom = next_end_mom( now_mom ); 
 		if ( ( begin_mom > now_mom ) && ( begin_mom < end_mom ) )
 			then_mom = begin_mom;
 		else 
 			then_mom = end_mom;
 
-		dtor << "begin: " << begin_mom << " end: " << end_mom << endl;
-		dtor << "slice: " << now_mom << ", " << then_mom << endl;
+		tor( DEBUG_ver ) << "begin: " << begin_mom << " end: " << end_mom << endl;
+		tor( DEBUG_ver ) << "slice: " << now_mom << ", " << then_mom << endl;
 
 		if ( open_voices.size() > 1 )
-			lily_stream_r << "{ ";
+			lily_stream_r << "< ";
 		for ( PCursor<Midi_voice*> i( open_voices.top() ); i.ok(); i++ )
 			lily_stream_r << i->mudela_str( now_mom, then_mom, open_voices.size() - 1 );
 		if ( open_voices.size() > 1 )
-			lily_stream_r << "} ";
+			lily_stream_r << "> ";
 		now_mom = then_mom;
 
 		remove_end_at( open_voices, now_mom );
 		if ( bars_i > bar_i ) {
-			bar_i++;
-			mtor << ']' << flush; 
+			bar_i = bars_i;
+			tor( NORMAL_ver ) << ']' << flush; 
 		}
 	}
+	bar_i++;
+	tor( NORMAL_ver ) << '[' << bar_i << ']' << flush; 
+
 	lily_stream_r.tnedni();
-	lily_stream_r << "$} % " << name_str_;
+	lily_stream_r << "} % " << name_str_;
 	lily_stream_r.newline();
 }
 
@@ -182,8 +199,8 @@ Midi_track::remove_end_at( PointerList<Midi_voice*>& open_voices_r, Moment mom )
 	for ( PCursor<Midi_voice*> i( open_voices_r.top() ); i.ok(); i++ )
 //		if ( i->end_mom() == mom ) {
 		if ( i->end_mom() <= mom ) {
-			dtor << "open_voices (" << open_voices_r.size() << "): -1\n";
-			i.remove_p();  // remove? // no delete; only a copy
+			tor( DEBUG_ver ) << "open_voices (" << open_voices_r.size() << "): -1\n";
+			i.remove_p();
 			if ( !i.ok() )
 				break;
 		}

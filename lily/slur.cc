@@ -133,3 +133,4 @@ Slur::brew_molecule_p() const
     return output;
 }
 
+IMPLEMENT_STATIC_NAME(Slur);

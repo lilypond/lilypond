@@ -169,7 +169,9 @@ LIBRARY = $(LIB_PREFIX)$(NAME)$(LIB_SUFFIX)
 STRIPDEBUG=true #replace to do stripping of certain objects
 
 DISTFILES=$(EXTRA_DISTFILES) Makefile $(ALL_SOURCES)
-DOCDIR=$(depth)/doc++
+DOCDIR=$(depth)/$(outdir)
 
 
 progdocs=$(allhh) $(allcc) 
+pod2groff=pod2man --center="LilyPond documentation" --section="0"\
+	--release="LilyPond $(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_PATCH_LEVEL)" $< > $@

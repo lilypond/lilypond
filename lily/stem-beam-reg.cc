@@ -154,3 +154,5 @@ Stem_beam_register::set_feature(Features i)
 {
     default_dir_i_ = i.direction_i_;
 }
+
+IMPLEMENT_STATIC_NAME(Stem_beam_register);

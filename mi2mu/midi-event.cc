@@ -34,13 +34,13 @@ Midi_key::Midi_key( int accidentals_i, int minor_i )
 String
 Midi_key::mudela_str( bool command_mode_bo )
 {
-	String str = "key\\";
+	String str = "\\key\\";
 	if ( !minor_i_ ) 
 		str += String( (char)( ( key_i_ + 2 ) % 7 + 'A'  ) );
 	else // heu, -2: should be - 1 1/2: A -> fis
 		str += String( (char)( ( key_i_ + 2 - 2 ) % 7 + 'a'  ) );
-	if ( !command_mode_bo )
-	    str =  String( '\\' ) + str;
+//	if ( !command_mode_bo )
+//	    str =  String( '\\' ) + str;
 	str = String( "%" ) + str + "\n"; // "\key\F" not supported yet...
 	return str;
 }
@@ -73,12 +73,14 @@ Midi_key::notename_str( int pitch_i )
 		else
 			notename_str += "es";
 	accidental_i--;
-	String octave_str;
 
-	octave_str += String( '\'', ( pitch_i - Midi_note::c0_pitch_i_c_ ) / 12 );
-	octave_str += String( '`', ( Midi_note::c0_pitch_i_c_ + 11 - pitch_i ) / 12 );
-	return octave_str + notename_str;
+	String de_octavate_str = String( '\'', ( Midi_note::c0_pitch_i_c_ + 11 - pitch_i ) / 12 );
+	String octavate_str = String( '\'', ( pitch_i - Midi_note::c0_pitch_i_c_ ) / 12 );
+	return de_octavate_str + notename_str + octavate_str;
 }
+
+// statics Midi_note
+bool const Midi_note::simple_plet_b_s = false;
 
 Midi_note::Midi_note( String name_str, Duration dur )
 {
@@ -91,9 +93,8 @@ String
 Midi_note::mudela_str( bool command_mode_bo )
 {
 //	assert( !command_mode_bo );
-// undefined ref to simple_plet_bo_ ??
-//	if ( simple_plet_bo_ )
-//		return name_str_ + Duration_convert::dur2_str( dur_ );
+	if ( simple_plet_b_s )
+		return name_str_ + Duration_convert::dur2_str( dur_ );
 
 	//ugh
 	String str;
@@ -134,7 +135,7 @@ Midi_tempo::mudela_str( bool command_mode_bo )
 //	assert( command_mode_bo );
 	if ( !command_mode_bo )
 		return "";
-	String str = "tempo 4:";
+	String str = "\\tempo 4:";
 	str += String( get_tempo_i( Moment( 1, 4 ) ) );
 	return str;
 }
@@ -206,11 +207,11 @@ Midi_time::num_i()
 String
 Midi_time::mudela_str( bool command_mode_bo )
 {
-	String str = "meter { "
-		+ String( num_i_ ) + "*" + String( 1 << den_i_ ) 
+	String str = "\\meter{ "
+		+ String( num_i_ ) + "/" + String( 1 << den_i_ ) 
 		+ " }";
-	if ( !command_mode_bo )
-	    str =  String( '\\' ) + str;
+//	if ( !command_mode_bo )
+//	    str =  String( '\\' ) + str;
 	return str;
 }
 

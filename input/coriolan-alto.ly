@@ -11,7 +11,7 @@
 % (maybe even sooner :-)
 %
 
-alto = \music { 
+alto = \melodic{ 
 	
 		\meter {4/4} \grouping {4*4}
 	\duration{ 8 }
@@ -70,11 +70,9 @@ alto = \music {
 	
 }
 
-\score {
-	\staff { \melodic \music { alto }}
-
-	
-	\paper { 
+\score{
+	\staff{ alto }
+	\paper{ 
 		\unitspace 14\mm
 		\geometric 1.4
 	}

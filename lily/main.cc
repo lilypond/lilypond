@@ -38,16 +38,20 @@ Long_option_init theopts[] = {
 };
 
 void
-help()
+usage()
 {
     cout <<
-	"--help, -h		This help\n"
-	"--warranty, -w		show warranty & copyright\n"
-	"--output, -o		set default output\n"
-	"--debug, -d		enable debug output\n"
-	"--init, -i             set init file\n"
-        "--include, -I		add to file search path.\n"
-	"--midi, -M             midi output only\n"
+    	"Usage: lilypond [options] [mudela-file]\n"
+	"Typeset and or produce midi output from mudela-file or stdin\n"
+	"\n"
+	"Options:\n"
+	"  -d, --debug         enable debugging output\n"
+        "  -I, --include=DIR   add DIR to search path\n"
+	"  -i, --init=FILE     use FILE as init file\n"
+	"  -h, --help          this help\n"
+	"  -w, --warranty      show warranty and copyright\n"
+	"  -o, --output=FILE   set FILE as default output\n"
+	"  -M, --midi          produce midi output only\n"
 	"\n"
 	"LilyPond was compiled with the following settings:\n"
 #ifdef NDEBUG
@@ -139,7 +143,7 @@ main (int argc, char **argv)
 	    init_str = oparser.optarg;
 	    break;
 	case 'h':
-	    help();
+	    usage();
 	    exit(0);
 	    break;
 	case 'd':

@@ -90,6 +90,7 @@ protected:
       */
     virtual Staff_info get_staff_info();
     
+    
     virtual void do_print()const;  
 public:
     /** Every Request_register (except for the 'top' which is directly

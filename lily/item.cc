@@ -8,6 +8,8 @@ Item::Item()
     pcol_l_ = 0;
 }
 
+IMPLEMENT_STATIC_NAME(Item);
+
 void
 Item::do_print() const
 {

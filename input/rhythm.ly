@@ -4,9 +4,7 @@
 % add any impressive examples here, please
 
 ritme = \staff {
-	\melodic
-
-	\music { 
+	\rhythmic{ 
 	\partial {1*8}	% doesnt' have to be here. 
 		\meter{ 4/4}
 	c8					|
@@ -39,26 +37,24 @@ ritme = \staff {
 
 	
 }
-another = \staff {
-	\melodic
-	\music { \meter{ 4/4} 
+another = \staff{
+	\melodic{ \meter{ 4/4} 
 		c1 c1 c1 c4 c4 c4 c4  \meter{ 4/4} c1 c1 c1
 	 }
 }
 
-yanother = \staff {
-	\melodic
-	\music { \meter{ 4/4} 
+yanother = \staff{
+	\melodic{ \meter{ 4/4} 
 		c1 c1 c1 c4 c4 c4 c4  c1 c1 c1
 	 }
 }
 
-\score {
-	\staff{ritme}
-	\staff { another }
-	\staff { yanother }
+\score{
+	ritme
+	another
+	yanother
 	
-	\paper {
+	\paper{
 		\unitspace 2\cm
 		\geometric 1.3
 	}

@@ -57,3 +57,4 @@ Text_register::post_move_processing()
 {
     text_req_l_ = 0;
 }
+IMPLEMENT_STATIC_NAME(Text_register);

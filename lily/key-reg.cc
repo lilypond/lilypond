@@ -97,3 +97,4 @@ Key_register::post_move_processing()
     default_key_b_ = false;
     kit_p_ = 0;
 }
+IMPLEMENT_STATIC_NAME(Key_register);

@@ -81,7 +81,7 @@ header:
 
 track: 
 	TRACK INT32 {
-		mtor << "\ntrack " << midi_parser_l_g->track_i_ << ": " << flush;
+		tor( NORMAL_ver ) << "\ntrack " << midi_parser_l_g->track_i_ << ": " << flush;
 		$$ = new Midi_track( midi_parser_l_g->track_i_++,
 			// silly, cause not set yet!
 			midi_parser_l_g->copyright_str_,
@@ -99,7 +99,7 @@ event:
 		if ( $2 ) {
 			String str = $2->mudela_str( false );
 			if ( str.length_i() )
-				dtor << str << " " << flush;
+				tor( DEBUG_ver ) << str << " " << flush;
 		}
 	}
 	;
@@ -109,9 +109,10 @@ varint:
 		midi_parser_l_g->forward( $1 );
 		if ( $1 ) {
 			int bars_i = (int)( midi_parser_l_g->mom() / midi_parser_l_g->midi_time_p_->bar_mom() );
-			if ( bars_i > midi_parser_l_g->bar_i_ )
-				mtor << '[' << midi_parser_l_g->bar_i_++ 
-					<< ']' << flush; 
+			if ( bars_i > midi_parser_l_g->bar_i_ ) {
+				tor( NORMAL_ver ) << '[' << midi_parser_l_g->bar_i_ << ']' << flush; 
+			midi_parser_l_g->bar_i_ = bars_i;	
+			}
 		}
 	}
 	;
@@ -158,7 +159,7 @@ the_meta_event:
 				$$ = new Midi_text( type, *$2 );
 				break;
 			}
-		dtor << *$2 << endl;
+		tor( DEBUG_ver ) << *$2 << endl;
 		delete $2;
 	}
 	| END_OF_TRACK {
@@ -166,7 +167,7 @@ the_meta_event:
 	}
 	| TEMPO U8 U8 U8 { 
 		$$ = new Midi_tempo( ( $2 << 16 ) + ( $3 << 8 ) + $4 );
-		dtor << $$->mudela_str( false ) << endl;
+		tor( DEBUG_ver ) << $$->mudela_str( false ) << endl;
 		midi_parser_l_g->set_tempo( ( $2 << 16 ) + ( $3 << 8 ) + $4 );
 	}
 	| SMPTE_OFFSET U8 U8 U8 U8 U8 { 
@@ -174,7 +175,7 @@ the_meta_event:
 	}
 	| TIME U8 U8 U8 U8 { 
 		$$ = new Midi_time( $2, $3, $4, $5 );
-		dtor << $$->mudela_str( true ) << endl;
+		tor( DEBUG_ver ) << $$->mudela_str( true ) << endl;
 		midi_parser_l_g->set_time( $2, $3, $4, $5 );
 	}
 	| KEY I8 I8 { 
@@ -189,25 +190,25 @@ the_meta_event:
 
 text_event: 
 	YYTEXT {
-		dtor << "\n% Text: ";
+		tor( DEBUG_ver ) << "\n% Text: ";
 	}
 	| YYCOPYRIGHT {
-		dtor << "\n% Copyright: ";
+		tor( DEBUG_ver ) << "\n% Copyright: ";
 	}
 	| YYTRACK_NAME {
-		dtor << "\n% Track  name: ";
+		tor( DEBUG_ver ) << "\n% Track  name: ";
 	}
 	| YYINSTRUMENT_NAME {
-		dtor << "\n% Instrument  name: ";
+		tor( DEBUG_ver ) << "\n% Instrument  name: ";
 	}
 	| YYLYRIC {
-		dtor << "\n% Lyric: ";
+		tor( DEBUG_ver ) << "\n% Lyric: ";
 	}
 	| YYMARKER {
-		dtor << "\n% Marker: ";
+		tor( DEBUG_ver ) << "\n% Marker: ";
 	}
 	| YYCUE_POINT {
-		dtor << "\n% Cue point: ";
+		tor( DEBUG_ver ) << "\n% Cue point: ";
 	}
 	;
 

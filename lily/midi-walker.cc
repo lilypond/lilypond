@@ -6,6 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>, Jan Nieuwenhuizen <jan@digicash.com>
 */
 
+#include "command-request.hh"
 #include "musical-request.hh"
 #include "p-score.hh"
 #include "staff.hh"
@@ -76,6 +77,22 @@ void
 Midi_walker::process_requests()
 {
     do_stop_notes(ptr()->when());
+
+    for ( int i = 0; i < ptr()->commandreq_l_arr_.size(); i++ )  {
+	Command_req *c_l = ptr()->commandreq_l_arr_[i]->command();
+	Meter_change_req* meter_l = c_l->meterchange();
+	if ( meter_l )
+	    output_event( Midi_time( meter_l->beats_i_, meter_l->one_beat_i_, 18 ), 0 );
+	Key_change_req* key_l = c_l->keychange();
+	if ( key_l ) {
+	    int sharps_i = key_l->sharps_i();
+	    int flats_i = key_l->flats_i();
+	    // midi cannot handle non-conventional keys
+	    if ( !( flats_i && sharps_i ) )
+		output_event( Midi_key( sharps_i - flats_i, key_l->minor_b() ), 0 );
+	}
+    }
+
     for ( int i = 0; i < ptr()->musicalreq_l_arr_.size(); i++ )  {
 
 	Rhythmic_req *n = ptr()->musicalreq_l_arr_[i]->rhythmic();

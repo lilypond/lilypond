@@ -11,9 +11,9 @@ Excuse me for this poor page. I don't really have time for doing this..
 =head1 DOCUMENTATION
 
 =item *
-<a href=README.html
+<a href=lilypond.html
 >
-README
+The manual page
 </a
 >
 
@@ -25,16 +25,16 @@ internal structures.
 >
 
 =item *
-<a href=lilyinput.html
+<a href=mudela.html
 >
-notes on the input format
+Mudela, the input format
 </a
 >
 
 =item *
 <a href=faq.html
 >
-FAQ
+FAQs
 </a
 >
 
@@ -46,15 +46,22 @@ errors
 >
 
 =item *
-<a href=lelie_logo.png
+<a href=lelieblond.png
 >
-The lilypond logo (in PNG format)
+The lilypond logo (Big)
+</a
+>
+
+=item *
+<a href=lelie_logo.gif
+>
+The lilypond logo (in gif format)
 </a
 >
 
 
 =item *
-<a href=wohltemperirt.ly
+<a href=wohltemperirt.ly.txt
 >
 An example inputfile: from Bach's WTK: c-minor fugue
 </a

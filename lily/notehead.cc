@@ -26,6 +26,8 @@ Notehead::set_rhythmic(Rhythmic_req*r_req_l)
     dots = r_req_l->duration_.dots_i_;
 }
     
+IMPLEMENT_STATIC_NAME(Notehead);
+
 void
 Notehead::do_print()const
 {

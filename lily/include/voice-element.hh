@@ -17,7 +17,10 @@
 /** one horizontal bit.  Voice_element is nothing but a container for
     *the requests, */
 struct Voice_element {
-    Moment duration;
+    /** the duration of the element.  This can be 0; The duration is
+      determined from rhythmical requests contained in this
+      Voice_element */
+    Moment duration_;
     char const* defined_ch_C_;
     Voice const *voice_l_;
     IPointerList<Request*> reqs;
@@ -28,7 +31,7 @@ struct Voice_element {
     Voice_element(Voice_element const & src );
 
     void add(Request*);
-    bool find_plet_start_bo(char c, Moment& moment_r);
+    bool find_plet_start_b(char c, Moment& moment_r);
     void print ()const;
     void set_default_group(String id);
     void set_plet_backwards(Moment& now_moment_r, Moment until_moment, int num_i, int den_i);

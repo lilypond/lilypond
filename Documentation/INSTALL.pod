@@ -35,7 +35,7 @@ AT&T CC.
 
 =item *
 Bash. Most scripts will continue to work with a stock sh, but they
-will generate (harmless) syntax errors
+might generate (harmless) syntax errors
 
 =item *
 GNU make. 

@@ -71,7 +71,7 @@ private:
     void paper();
 
     // utils:
-    PCursor<Score_column*> create_cols(Moment);
+    PCursor<Score_column*> create_cols(Moment, PCursor<Score_column*> &last);
 
     Score(Score const&){}
 

@@ -4,6 +4,8 @@
 
 
 
+IMPLEMENT_STATIC_NAME(Spanner);
+
 void
 Spanner::do_print()const
 {

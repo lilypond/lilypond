@@ -198,3 +198,4 @@ Staff_elem::add_dependency(Staff_elem * p)
     dependencies.push(p);
     p->dependants.push(p);
 }
+IMPLEMENT_STATIC_NAME(Staff_elem);

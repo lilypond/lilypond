@@ -1,3 +1,6 @@
+# -*-Makefile-*-
+#
+# @configure_input@
 #
 # project  LilyPond -- the musical typesetter
 # title	   top level makefile for LilyPond  
@@ -32,10 +35,12 @@ SUBDIRS = flower lib lily mi2mu \
 
 # list of distribution files:
 #
-# SYMLINKS = # naah, configure
 SCRIPTS = configure configure.in install-sh
 README_FILES = ANNOUNCE COPYING NEWS README TODO INSTALL.text
 EXTRA_DISTFILES=  .dstreamrc .version $(README_FILES) $(SCRIPTS) $(SYMLINKS)
+
+# do not dist ./Makefile (is copied from make/Toplevel.make)
+DISTFILES:=$(EXTRA_DISTFILES)# Makefile $(ALL_SOURCES)
 #
 
 
@@ -47,13 +52,13 @@ include ./$(depth)/make/Rules.make
 
 localdist: configure
 
-# ugh. I know dep is not quite what is really needed.
 INSTALL.text: check-doc-deps
 	rm -f INSTALL.text
 	ln `find -name INSTALL.text|head -1` .
 
 localclean:
 	rm -f $(allexe) core config.cache config.log config.status 
+	rm -f $(outdir)/*.{class,html,gif}
 
 localinstall: all
 	$(INSTALL) -d $(bindir)

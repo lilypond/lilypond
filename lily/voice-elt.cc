@@ -27,7 +27,7 @@ void
 Voice_element::print() const
 {
 #ifndef NPRINT
-    mtor << "voice_element { dur :"<< duration <<"\n";
+    mtor << "voice_element { dur :"<< duration_ <<"\n";
     for (iter_top(reqs,rc); rc.ok(); rc++) {
 	rc->print();
     }
@@ -39,8 +39,8 @@ void
 Voice_element::add(Request*r)
 {
     if (r->duration()) {
-	assert (!duration  || duration == r->duration());
-	duration = r->duration();
+	assert (!duration_  || duration_ == r->duration());
+	duration_ = r->duration();
     }
     
     r->elt_l_ = this;
@@ -51,7 +51,7 @@ Voice_element::add(Request*r)
 Voice_element::Voice_element()
 {
     voice_l_ = 0;
-    duration = 0;
+    duration_ = 0;
     defined_ch_C_ = 0;
 }
 
@@ -65,10 +65,10 @@ Voice_element::Voice_element(Voice_element const&src)
 
 }
 bool
-Voice_element::find_plet_start_bo(char c, Moment& moment_r)
+Voice_element::find_plet_start_b(char c, Moment& moment_r)
 {
     assert( c == ']' );
-    moment_r += duration;
+    moment_r += duration_;
     for ( PCursor<Request*> i( reqs.top() ); i.ok(); i++ ) {
 	if (i->beam() && i->beam()->spantype == Span_req::START )
 	    return true;
@@ -91,7 +91,7 @@ void
 Voice_element::set_plet_backwards(Moment& now_moment_r,
 				  Moment until_moment, int num_i, int den_i)
 {
-    now_moment_r += duration;
+    now_moment_r += duration_;
     if ( now_moment_r > until_moment )
     	return;
     for ( PCursor<Request*> i( reqs.top() ); i.ok(); i++ ) {

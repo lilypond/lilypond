@@ -73,3 +73,5 @@ Notehead_register::post_move_processing()
 {
     note_req_l_ = 0;
 }
+
+IMPLEMENT_STATIC_NAME(Notehead_register);

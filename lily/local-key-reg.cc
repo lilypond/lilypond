@@ -67,3 +67,4 @@ Local_key_register::process_requests()
 	    warning ("Help me! can't figure  current key", 0);
     }
 }
+IMPLEMENT_STATIC_NAME(Local_key_register);

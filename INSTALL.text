@@ -34,7 +34,7 @@ PPPPRRRREEEERRRREEEEQQQQUUUUIIIISSSSIIIITTTTEE
             it will not compile with AT&T CC.
 
        +o Bash. Most scripts will continue to work with a stock
-            sh, but they will generate (harmless) syntax errors
+            sh, but they might generate (harmless) syntax errors
 
        +o GNU make.
 
@@ -61,7 +61,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 
 
-24/Mar/97                LilyPond 0.0.44                        1
+25/Mar/97                LilyPond 0.0.45                        1
 
 
 
@@ -127,7 +127,7 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 
 
 
-24/Mar/97                LilyPond 0.0.44                        2
+25/Mar/97                LilyPond 0.0.45                        2
 
 
 
@@ -193,6 +193,6 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-24/Mar/97                LilyPond 0.0.44                        3
+25/Mar/97                LilyPond 0.0.45                        3
 
 

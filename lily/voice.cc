@@ -30,10 +30,10 @@ Voice::set_default_group(String s)
 }
 
 bool
-Voice::find_plet_start_bo(char c, Moment& moment_r)
+Voice::find_plet_start_b(char c, Moment& moment_r)
 {
     for (iter_bot(elts, i); i.ok(); i--)
-	if ( i->find_plet_start_bo(c, moment_r) )
+	if ( i->find_plet_start_b(c, moment_r) )
 	    return true;
     return false;
 }
@@ -88,7 +88,7 @@ Voice::last() const
 	l = start;
     
     for (iter_top(elts,i); i.ok(); i++)
-	l  += i->duration;
+	l  += i->duration_;
     return l;
 }
 

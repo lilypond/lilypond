@@ -8,7 +8,7 @@
 
 #include "proto.hh"
 #include "plist.hh"
-#include "registergroup.hh"
+#include "register-group.hh"
 #include "register.hh"
 
 bool
@@ -46,8 +46,12 @@ Register_group_register::process_requests()
 void
 Register_group_register::post_move_processing()
 {
-    for (iter_top(reg_list_, i); i.ok(); i++) 
-	i->post_move_processing();
+    iter_top(reg_list_, i);
+    while (i.ok()) {
+	// this construction to ensure clean deletion
+	Request_register *reg_l = i++; 
+	reg_l->post_move_processing();
+    }
 }
 
 void
@@ -78,9 +82,15 @@ Register_group_register::contains_b(Request_register* reg_l)
 bool
 Register_group_register::try_request(Request*req_l)
 {
-    for (iter_top(reg_list_, i); i.ok(); i++) 
-	if (i->try_request(req_l))
+    iter_top(reg_list_, i); 
+    while (i.ok()) {
+
+
+	// this construction to ensure clean deletion
+	Request_register *reg_l = i++; 
+	if (reg_l->try_request( req_l ))
 	    return true;
+    }
     return false;
 }
 
@@ -110,6 +120,8 @@ Register_group_register::terminate_register(Request_register*r_l)
 {
     delete get_register_p(r_l);
 }
+
+IMPLEMENT_STATIC_NAME(Register_group_register);
 
 void
 Register_group_register::do_print()const

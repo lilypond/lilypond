@@ -55,19 +55,8 @@ Midi_output::do_staff(Staff*st_l,int track_i)
     Midi_text instrument_name( Midi_text::INSTRUMENT_NAME, "piano" );
     midi_track.add( Moment( 0 ), &instrument_name );
 
-    // set key, help, where to get key, where to get major/minor?
-    int accidentals_i = 0;
-    int minor_i = 0;
-
-
-    Midi_key midi_key( accidentals_i, minor_i ); 
-    midi_track.add( Moment( 0 ), &midi_key );
-
     Midi_tempo midi_tempo( midi_l_->get_tempo_i( Moment( 1, 4 ) ) );
     midi_track.add( Moment( 0 ), &midi_tempo );
-
-    Midi_time midi_time( Midi_def::num_i_s, Midi_def::den_i_s, 18 );
-    midi_track.add( Moment( 0 ), &midi_time );
 
     for (Midi_walker w (st_l, &midi_track); w.ok(); w++)
 	w.process_requests();
@@ -106,6 +95,12 @@ Midi_output::header()
     // set track name
     Midi_text track_name( Midi_text::TRACK_NAME, "Track " + String_convert::i2dec_str( 0, 0, '0' ) );
     midi_track.add( Moment( 0 ), &track_name );
+
+    // ugh, to please lily when reparsing mi2mu output.
+    // lily currently barfs when no meter present.
+    Midi_time midi_time( 4, 4, 18 );
+    midi_track.add( Moment( 0.0 ), &midi_time );
+
     *midi_stream_l_  << midi_track;
 }
 

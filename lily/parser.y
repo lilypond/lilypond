@@ -101,14 +101,15 @@ yylex(YYSTYPE *s,  void * v_l)
 %token GEOMETRIC
 %token GROUPING
 %token IN_T
-%token LYRICS
+%token LYRIC
 %token KEY
 %token MELODIC
+%token MELODIC_REQUEST
 %token METER
 %token MIDI
 %token MM_T
 %token MULTIVOICE
-%token MUSIC
+%token NOTE
 %token OCTAVECOMMAND
 %token OUTPUT
 %token PAPER
@@ -378,24 +379,29 @@ staff_block:
 		$$ = $4; 
 		$$-> defined_ch_C_ = THIS->define_spot_array_.pop();
 	}
+	| { THIS->remember_spot(); }
+/*cont*/	STAFF_IDENTIFIER	{ 
+		$$ = $2->staff(true); 
+		$$-> defined_ch_C_ = THIS->define_spot_array_.pop();
+	}
 	;
 
 
 
 staff_init:
-	STAFF_IDENTIFIER		{ $$ = $1->staff(true); }
+	/* empty */ {
+		$$ = new Input_staff( "melodic" );
+	}
 	| STRING		{
 		$$ = new Input_staff(*$1);
 		delete $1;
-	}
-	| MELODIC {
-		$$ = new Input_staff("melodic");
 	}
 	;
 
 staff_body:
 	staff_init
 	| staff_body init_music	{
+		$$ = $1;
 		$2->set_default_group( "staff_music" + String($$->music_.size()));
 		$$->add($2);
 	}
@@ -410,22 +416,25 @@ init_music:
 	init_music_voice	{ $$ = $1; }
 	| init_music_chord	{ $$ = $1; }
 	| init_lyrics_voice	{ $$ = $1; }
+	| VOICE_IDENTIFIER	{ 
+		$$ = $1->mvoice(true);
+	}
 	;
 
 init_lyrics_voice:
-	LYRICS { THIS->lexer_p_->push_lyric_state(); } 
+	LYRIC { THIS->lexer_p_->push_lyric_state(); } 
 	music_voice { $$ = $3; THIS->lexer_p_->pop_state(); }
 	;
 
 init_music_voice:
-	MUSIC { THIS->lexer_p_->push_note_state(); } 
+	MELODIC { THIS->lexer_p_->push_note_state(); } 
 	/* cont*/ music_voice
 		{ $$=$3; THIS->lexer_p_->pop_state(); }
 	;
 init_music_chord:
-	MUSIC { THIS->lexer_p_->push_note_state(); } 
+	{ THIS->lexer_p_->push_note_state(); } 
 	/* cont*/ music_chord
-		  { $$=$3; THIS->lexer_p_->pop_state(); }
+		  { $$=$2; THIS->lexer_p_->pop_state(); }
 	;
 /*
 	MUSIC
@@ -470,7 +479,8 @@ music_voice_body:
 	| music_voice_body '>' {
 		THIS->fatal_error_i_ = 1;
 		THIS->parser_error("Confused by errors: bailing out");
-	};
+	}
+	;
 
 music_chord:  '<' music_chord_body '>'	{ $$ = $2; }
 	;
@@ -638,7 +648,7 @@ steno_note_req:
 	;
 
 melodic_request:
-	MELODIC '{' int int int '}'	{/* ugh */
+	MELODIC_REQUEST '{' int int int '}'	{/* ugh */
 		$$ = new Melodic_req;
 		$$->octave_i_ = $3;
 		$$->notename_i_ = $4;
@@ -764,8 +774,10 @@ voice_command:
 		THIS->default_duration_ = *$3;
 		delete $3;
 	}
-	| OCTAVECOMMAND '{' int '}'	{
-		THIS->default_octave_i_ = $3;
+	| OCTAVECOMMAND { THIS->default_octave_i_ = 2; }
+/* cont */
+	'{' steno_melodic_req '}'	{
+		THIS->default_octave_i_ = $4->octave_i_;
 	}
 	| TEXTSTYLE STRING 	{
 		THIS->textstyle_str_ = *$2;

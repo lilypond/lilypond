@@ -70,3 +70,5 @@ Text_item::brew_molecule_p() const
     
     return mol_p;
 }
+
+IMPLEMENT_STATIC_NAME(Text_item);

@@ -11,7 +11,6 @@
 #include "command-request.hh"
 
 Meter_register::Meter_register()
-
 {
     post_move_processing();
 }
@@ -22,10 +21,11 @@ Meter_register::try_request(Request*r_l)
     Command_req* creq_l= r_l->command();
      if (!creq_l || !creq_l->meterchange()) 
 	return false;
-
-    assert(!meter_req_l_);
-    meter_req_l_ = r_l->command()->meterchange();
-
+     Meter_change_req *m = creq_l->meterchange();
+     if (meter_req_l_ && meter_req_l_->compare(*m))
+	 return false;
+     
+    meter_req_l_ = m;
     return true;
 }
 
@@ -62,3 +62,4 @@ Meter_register::post_move_processing()
     meter_req_l_ = 0;
     meter_p_ =0;
 }
+IMPLEMENT_STATIC_NAME(Meter_register);

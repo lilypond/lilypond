@@ -25,36 +25,32 @@ Midi_score::add_track( Midi_track* midi_track_p )
 int
 Midi_score::output_mudela( String filename_str )
 {
-	mtor << "Lily output to " << filename_str << " ..." << endl;
+	tor( NORMAL_ver ) << "Lily output to " << filename_str << " ..." << endl;
 
 	int track_i = 0;
 	Lily_stream lily_stream( filename_str );
 	for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ ) {
-		mtor << "track " << track_i++ << ": " << flush;
+		tor( NORMAL_ver ) << "track " << track_i++ << ": " << flush;
 		i->output_mudela( lily_stream );
 		lily_stream.newline();
-		mtor << endl;
+		tor( NORMAL_ver ) << endl;
 	}
 
-	lily_stream << "score {";
-	lily_stream.newline();
-
-	for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ ) {
-		lily_stream << "\tstaff { melodic music { ";
-		lily_stream << i->name_str();
-		lily_stream << " } }";
-		lily_stream.newline();
-	}
-
+	lily_stream << "\\score{";
 	lily_stream.indent();
-		lily_stream << "commands {";
-		lily_stream.indent();
-			// not use silly 0 track
-			midi_track_p_list_.bottom()->midi_time_p_->output_mudela( lily_stream, true );
+		for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ ) {
+			lily_stream << "\\staff{ ";
+			lily_stream << i->name_str();
+			lily_stream << " }";
+			lily_stream.newline();
+		}
+		lily_stream.newline();
+		lily_stream << "\\paper{";
+			lily_stream.indent();
+			lily_stream << "\\unitspace 20\\mm";
 			lily_stream.tnedni();
 		lily_stream << "}";
-		lily_stream.newline();
-		lily_stream << "midi {";
+		lily_stream << "\\midi{";
 			lily_stream.indent();
 			// not use silly 0 track
 			midi_track_p_list_.bottom()->midi_tempo_p_->output_mudela( lily_stream, true );
@@ -73,9 +69,9 @@ Midi_score::process()
 {
 	int track_i = 0;
 	for ( PCursor<Midi_track*> i( midi_track_p_list_.top() ); i.ok(); i++ )  {
-		mtor << "track " << track_i++ << ": " << flush;
+		tor( NORMAL_ver ) << "track " << track_i++ << ": " << flush;
 		i->process();
-		mtor << endl;
+		tor( NORMAL_ver ) << endl;
 	}
 }
 

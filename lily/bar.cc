@@ -12,6 +12,8 @@ Bar::Bar( String t)
     type = t;
 }
 
+IMPLEMENT_STATIC_NAME(Bar);
+
 void
 Bar::do_print()const
 {

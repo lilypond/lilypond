@@ -32,7 +32,6 @@ Score::setup_music()
 
     for (iter_top(staffs_,i); i.ok(); i++) {
 	i->setup_staffcols();
-	i->OK();
     }
 }
 
@@ -104,26 +103,27 @@ Score::clean_cols()
     }
 }
 
-/**
-  Create columns at time #w#.
-  this sux.  We should have Score_column create the appropriate PCol.
-  Unfortunately, PCols don't know about their position.
+/** Create columns at time #w#.  This sux.  We should have
+  Score_column create the appropriate PCol.  Unfortunately, PCols
+  don't know about their position.
 
-  @return cursor pointing to the nonmusical (first) column
-  */
+  @return cursor pointing to the nonmusical (first) column */
 PCursor<Score_column*>
-Score::create_cols(Moment w)
+Score::create_cols(Moment w, PCursor<Score_column*> &i)
 {
     Score_column* c1 = new Score_column(w);
     Score_column* c2 = new Score_column(w);
     
     c1->musical_b_ = false;
     c2->musical_b_ = true;
-    
-    iter_top(cols_,i);
 
+    if (i.ok()) {
+	i --;
+    }
+    if ( !i.ok() ) {
+	i = cols_.top();
+    }
     for (; i.ok(); i++) {
-	assert(i->when() != w);
 	if (i->when() > w)
 	    break;
     }
@@ -152,7 +152,7 @@ Score::find_col(Moment w, bool mus)
 	if (i->when() > w)
 	    break;
     }
-    i = create_cols(w);
+    i = create_cols(w,i);
     if (mus)
 	i++;
     return i;
@@ -247,7 +247,6 @@ Score::~Score()
 void
 Score::paper_output()
 {
-    OK();
     if (paper_p_->outfile=="")
 	paper_p_->outfile = default_out_fn + ".out";
 

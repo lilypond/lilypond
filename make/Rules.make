@@ -48,9 +48,13 @@ $(outdir)/%.text: $(outdir)/%.1
 $(depth)/%.text: $(outdir)/%.text
 	cp $< $@
 
+$(outdir)/%.5: %.pod
+	$(pod2groff)
 $(outdir)/%.1: %.pod
-	pod2man --center="LilyPond documentation" --section="0"\
-		--release="LilyPond $(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_PATCH_LEVEL)" $< > $@
+	$(pod2groff)
+
+
+
 #
 
 # outdirs:

@@ -71,7 +71,7 @@ SSME		[\0x7f][\x03]
 %%
 
 {HEADER}/{INT32}	{ // using /{INT32}; longer match than {INT32}
-	dtor << "lex: header" << endl;
+	tor( DEBUG_ver ) << "lex: header" << endl;
 	yy_push_state( int16 ); 
 	yy_push_state( int16 ); 
 	yy_push_state( int16 ); 
@@ -80,7 +80,7 @@ SSME		[\0x7f][\x03]
 }
 
 {TRACK}/{INT32}	{ // using /{INT32}; longer match than {INT32}
-	dtor << "lex: track" << endl;
+	tor( DEBUG_ver ) << "lex: track" << endl;
 	yy_push_state( track ); 
 	yy_push_state( int32 ); 
 	return TRACK;
@@ -91,7 +91,7 @@ SSME		[\0x7f][\x03]
 	exit( 1 );
 }
 <int32>{INT32}	{ // really signed? 
-	dtor << "lex: int32" << endl;
+	tor( DEBUG_ver ) << "lex: int32" << endl;
 	assert( YYLeng() == 4 );
 	String str( (Byte const*)YYText(), YYLeng() );
 	yylval.i = String_convert::bin2_i( str );
@@ -99,7 +99,7 @@ SSME		[\0x7f][\x03]
 	return INT32;
 }
 <int16>{INT16}	{ // really signed?
-	dtor << "lex: int16" << endl;
+	tor( DEBUG_ver ) << "lex: int16" << endl;
 	assert( YYLeng() == 2 );
 	String str( (Byte const*)YYText(), YYLeng() );
 	yylval.i = String_convert::bin2_i( str );
@@ -107,7 +107,7 @@ SSME		[\0x7f][\x03]
 	return INT16;
 }
 <i8>{I8}	{
-	dtor << "lex: i8" << endl;
+	tor( DEBUG_ver ) << "lex: i8" << endl;
 	assert( YYLeng() == 1 );
 //	yylval.byte = *(signed char*)YYText();
 	yylval.i = *(signed char*)YYText();
@@ -115,7 +115,7 @@ SSME		[\0x7f][\x03]
 	return I8;
 }
 <u8>{U8}	{
-	dtor << "lex: u8" << endl;
+	tor( DEBUG_ver ) << "lex: u8" << endl;
 	assert( YYLeng() == 1 );
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
@@ -126,7 +126,7 @@ SSME		[\0x7f][\x03]
 <track>{VARINT} {
 	String str( (Byte const*)YYText(), YYLeng() );
 	yylval.i = My_midi_lexer::varint2_i( str );
-	dtor << String( "lex: track: varint(" ) 
+	tor( DEBUG_ver ) << String( "lex: track: varint(" ) 
 		+ String( yylval.i ) + "): "
 		+ String_convert::bin2hex_str( str ) << endl;
 	yy_push_state( event ); 
@@ -140,7 +140,7 @@ SSME		[\0x7f][\x03]
 <event>{RUNNING_STATUS}	{
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
-	dtor << String ( "lex: running status: " ) + String( yylval.i ) << endl;
+	tor( DEBUG_ver ) << String ( "lex: running status: " ) + String( yylval.i ) << endl;
 	yy_pop_state(); 
 //	yy_push_state( u8 );
 	yy_push_state( u8 );
@@ -149,23 +149,23 @@ SSME		[\0x7f][\x03]
 <event>{DATA_ENTRY}	{
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
-	dtor << String ( "lex: undefined data entry: " ) + String( yylval.i ) << endl;
+	tor( DEBUG_ver ) << String ( "lex: undefined data entry: " ) + String( yylval.i ) << endl;
 	yy_pop_state(); 
 	yy_push_state( u8 );
 	return DATA_ENTRY;
 }
 <event>{ALL_NOTES_OFF}	{
-	dtor << "lex: all note off" << endl;
+	tor( DEBUG_ver ) << "lex: all note off" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
-	dtor << String ( "lex: all notes off: " ) + String( yylval.i ) << endl;
+	tor( DEBUG_ver ) << String ( "lex: all notes off: " ) + String( yylval.i ) << endl;
 	yy_pop_state(); 
 	yy_push_state( u8 );
 	yy_push_state( u8 );
 	return ALL_NOTES_OFF;
 }
 <event>{NOTE_OFF}	{
-	dtor << "lex: note off" << endl;
+	tor( DEBUG_ver ) << "lex: note off" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
@@ -174,7 +174,7 @@ SSME		[\0x7f][\x03]
 	return NOTE_OFF;
 }
 <event>{NOTE_ON}	{
-	dtor << "lex: note on" << endl;
+	tor( DEBUG_ver ) << "lex: note on" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
@@ -183,7 +183,7 @@ SSME		[\0x7f][\x03]
 	return NOTE_ON;
 }
 <event>{POLYPHONIC_AFTERTOUCH}	{
-	dtor << "lex: polyphonic aftertouch" << endl;
+	tor( DEBUG_ver ) << "lex: polyphonic aftertouch" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
@@ -192,7 +192,7 @@ SSME		[\0x7f][\x03]
 	return POLYPHONIC_AFTERTOUCH;
 }
 <event>{CONTROLMODE_CHANGE}	{
-	dtor << "lex: controlmode change" << endl;
+	tor( DEBUG_ver ) << "lex: controlmode change" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
@@ -201,7 +201,7 @@ SSME		[\0x7f][\x03]
 	return CONTROLMODE_CHANGE;
 }
 <event>{PROGRAM_CHANGE}	{
-	dtor << "lex: program change" << endl;
+	tor( DEBUG_ver ) << "lex: program change" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
@@ -209,7 +209,7 @@ SSME		[\0x7f][\x03]
 	return PROGRAM_CHANGE;
 }
 <event>{CHANNEL_AFTERTOUCH}	{
-	dtor << "lex: channel aftertouch" << endl;
+	tor( DEBUG_ver ) << "lex: channel aftertouch" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
@@ -218,7 +218,7 @@ SSME		[\0x7f][\x03]
 	return CHANNEL_AFTERTOUCH;
 }
 <event>{PITCHWHEEL_RANGE} {
-	dtor << "lex: pitchwheel range" << endl;
+	tor( DEBUG_ver ) << "lex: pitchwheel range" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state(); 
@@ -227,20 +227,20 @@ SSME		[\0x7f][\x03]
 	return PITCHWHEEL_RANGE;
 }
 <event>{SYSEX_EVENT1} {	// len data
-	dtor << "lex: sysex1" << endl;
+	tor( DEBUG_ver ) << "lex: sysex1" << endl;
 	yy_pop_state(); 
 	yy_push_state( data );
 	return SYSEX_EVENT1;
 }
 <event>{SYSEX_EVENT2} {	// len data
-	dtor << "lex: sysex2" << endl;
+	tor( DEBUG_ver ) << "lex: sysex2" << endl;
 	yy_pop_state(); 
 //	yy_push_state( u8 ); //?
 	yy_push_state( data );
 	return SYSEX_EVENT2;
 }
 <event>{META_EVENT}	{
-	dtor << "lex: meta" << endl;
+	tor( DEBUG_ver ) << "lex: meta" << endl;
 	yy_push_state( meta_event );
 	return META_EVENT;
 }
@@ -250,14 +250,14 @@ SSME		[\0x7f][\x03]
 	exit( 1 );
 }
 <meta_event>{SEQUENCE}	{	// ssss sequence number
-	dtor << "lex: sequence" << endl;
+	tor( DEBUG_ver ) << "lex: sequence" << endl;
 	yy_pop_state();
 	yy_pop_state();
 	yy_push_state( int16 );
 	return SEQUENCE;
 }
 <meta_event>{YYTEXT}	{		// len data
-	dtor << "lex: text" << endl;
+	tor( DEBUG_ver ) << "lex: text" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
@@ -266,7 +266,7 @@ SSME		[\0x7f][\x03]
 	return YYTEXT;
 }
 <meta_event>{YYCOPYRIGHT}	{
-	dtor << "lex: copyright" << endl;
+	tor( DEBUG_ver ) << "lex: copyright" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
@@ -275,7 +275,7 @@ SSME		[\0x7f][\x03]
 	return YYCOPYRIGHT;
 }
 <meta_event>{YYTRACK_NAME}	{
-	dtor << "lex: track name" << endl;
+	tor( DEBUG_ver ) << "lex: track name" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
@@ -284,7 +284,7 @@ SSME		[\0x7f][\x03]
 	return YYTRACK_NAME;
 }
 <meta_event>{YYINSTRUMENT_NAME}	{
-	dtor << "lex: instrument name" << endl;
+	tor( DEBUG_ver ) << "lex: instrument name" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
@@ -293,7 +293,7 @@ SSME		[\0x7f][\x03]
 	return YYINSTRUMENT_NAME;
 }
 <meta_event>{YYLYRIC}	{
-	dtor << "lex: lyric" << endl;
+	tor( DEBUG_ver ) << "lex: lyric" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
@@ -302,7 +302,7 @@ SSME		[\0x7f][\x03]
 	return YYLYRIC;
 }
 <meta_event>{YYMARKER}	{
-	dtor << "lex: marker" << endl;
+	tor( DEBUG_ver ) << "lex: marker" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
@@ -311,7 +311,7 @@ SSME		[\0x7f][\x03]
 	return YYMARKER;
 }
 <meta_event>{YYCUE_POINT}	{
-	dtor << "lex: cue point" << endl;
+	tor( DEBUG_ver ) << "lex: cue point" << endl;
 //	yylval.byte = *(Byte*)YYText();
 	yylval.i = *(Byte*)YYText();
 	yy_pop_state();
@@ -320,7 +320,7 @@ SSME		[\0x7f][\x03]
 	return YYCUE_POINT;
 }
 <meta_event>{TEMPO}	{ 	// tttttt usec
-	dtor << "lex: tempo" << endl;
+	tor( DEBUG_ver ) << "lex: tempo" << endl;
 	yy_pop_state();
 	yy_pop_state();
 	yy_push_state( u8 );
@@ -329,7 +329,7 @@ SSME		[\0x7f][\x03]
 	return TEMPO;
 }
 <meta_event>{SMPTE_OFFSET}	{ 		// hr mn se fr ff
-	dtor << "lex: smpte offset" << endl;
+	tor( DEBUG_ver ) << "lex: smpte offset" << endl;
 	yy_pop_state();
 	yy_pop_state();
 	yy_push_state( u8 );
@@ -340,7 +340,7 @@ SSME		[\0x7f][\x03]
 	return SMPTE_OFFSET;
 }
 <meta_event>{TIME}	{		// nn dd cc bb
-	dtor << "lex: time" << endl;
+	tor( DEBUG_ver ) << "lex: time" << endl;
 	yy_pop_state();
 	yy_pop_state();
 	yy_push_state( u8 );
@@ -350,7 +350,7 @@ SSME		[\0x7f][\x03]
 	return TIME;
 }
 <meta_event>{KEY}	{	// sf mi
-	dtor << "lex: key" << endl;
+	tor( DEBUG_ver ) << "lex: key" << endl;
 	yy_pop_state();
 	yy_pop_state();
 	yy_push_state( i8 );
@@ -358,14 +358,14 @@ SSME		[\0x7f][\x03]
 	return KEY;
 }
 <meta_event>{SSME}	{	// len data
-	dtor << "lex: smme" << endl;
+	tor( DEBUG_ver ) << "lex: smme" << endl;
 	yy_pop_state();
 	yy_pop_state();
 	yy_push_state( data );
 	return SSME;
 }
 <meta_event>{END_OF_TRACK} {
-	dtor << "lex: end of track" << endl;
+	tor( DEBUG_ver ) << "lex: end of track" << endl;
 	yy_pop_state();
 	yy_pop_state();
 	yy_pop_state();
@@ -383,7 +383,7 @@ SSME		[\0x7f][\x03]
 }
 
 <data>{VARINT} {
-	dtor << "lex: data" << endl;
+	tor( DEBUG_ver ) << "lex: data" << endl;
 	String str( (Byte const*)YYText(), YYLeng() );
 	int i = My_midi_lexer::varint2_i( str );
 	String* str_p = new String;
@@ -400,7 +400,7 @@ SSME		[\0x7f][\x03]
 }
 
 <<EOF>> {
-//	mtor << "<<EOF>>";
+//	tor( NORMAL_ver ) << "<<EOF>>";
 
 	if ( !close_i() )
  	  yyterminate(); // can't move this, since it actually rets a YY_NULL

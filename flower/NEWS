@@ -8,7 +8,7 @@ pl 1.1.8
 pl 1.1.7
 	- PQueue blondification.
 	- String_convert::i2hex_str fix, unsigned eqvs introduced
-	- long long deprecioated, now named I64
+	- long long depreciated, now named I64
 	- type I32 introduced. should be used iso int where 32 bits are 
 	  needed(or, brr, assumed...)
 

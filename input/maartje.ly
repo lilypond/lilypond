@@ -3,7 +3,7 @@
 % COPYRIGHT: GPL
 %
 %
-globals=\music{
+globals=\melodic{
 		\meter {4/ 4}
 		\partial {8}
 		\skip {1*8}
@@ -13,30 +13,27 @@ globals=\music{
 		\meter {2/4}
 }
 
-ritme = \staff {
-	rhythmic
-	\music{globals}
-	\music {
-	c8
-	|[a8() a8. a8 a16 a16 a16] c4.
-		
-	%[c8( )a'8() c8 c8]% BUG!
-	|c2 c2
-	
-	|[fis16 dis'16( fis16 dis'16 ][fis16) dis'16 fis16 dis'16]
-	| r32 r32 r16 r8 r4 r2
-	|[c8. c16] [c16 c8.] [c16 c16 c8] [c16 c8 c16]
-
-	 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2
-
-	}
+ritme = \staff{
+ 	globals
+% rhythmic broken for  now
+% 	\rhytmic{
+% 	c8
+% 	|[a8() a8. a8 a16 a16 a16] c4.
+% 		
+% 	%[c8( )a'8() c8 c8]% BUG!
+% 	|c2 c2
+% 	
+% 	|[fis16 dis'16( fis16 dis'16 ][fis16) dis'16 fis16 dis'16]
+% 	| r32 r32 r16 r8 r4 r2
+% 	|[c8. c16] [c16 c8.] [c16 c16 c8] [c16 c8 c16]
+% 
+% 	 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2
+% 	}
 }
 
-melody=
-\staff {
-	\melodic
-	\music { globals }
-	\music{
+melody= \staff{
+	globals
+	\melodic{
 	c8\key{fis cis gis}
 	|r4 r4 r4 r4
 	|cis'2..	r8
@@ -64,16 +61,12 @@ melody=
 
 }
 
-\score {
-	\paper {
+\score{
+	\paper{
 		\geometric 1.4
 		\unitspace 3.0 \cm
 	}
-%	\staff { ritme } % broken for now
-	\staff { melody }
-	
+	ritme
+	melody
 }
-
-
-
 

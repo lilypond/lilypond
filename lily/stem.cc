@@ -26,6 +26,8 @@ Stem::Stem(int c) //, Moment len)
     stem_xoffset=0;
 }
 
+IMPLEMENT_STATIC_NAME(Stem);
+
 void
 Stem::do_print() const
 {

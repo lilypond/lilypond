@@ -98,3 +98,4 @@ Slur_register::~Slur_register()
 	warning("unterminated slur", requests_arr_[i]->defined_ch_C_);
     }
 }
+IMPLEMENT_STATIC_NAME(Slur_register);

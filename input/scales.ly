@@ -1,9 +1,8 @@
 
-blah =
-\staff {\melodic\music{    \meter {6/8}
+blah = \staff{\melodic{    \meter {6/8}
                 \skip {36*8}
 		\meter {4/4}}
-	\music{ 	
+	\melodic{ 	
 \duration { 8 }
 			\octave{ }
 			 |[ a a a a a a a a a ]6/9 
@@ -45,11 +44,9 @@ c1
 	}
 }
 
-\score {
-	\staff {
+\score{
 	blah
-	}
-	\paper {
+	\paper{
 		\symboltables {table_sixteen}
 		\unitspace 1.5 \cm
 		\geometric 1.4

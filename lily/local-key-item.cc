@@ -91,3 +91,4 @@ Local_acc::compare(Local_acc&a, Local_acc&b)
     
     assert(false);
 };
+IMPLEMENT_STATIC_NAME(Local_key_item);

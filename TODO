@@ -1,7 +1,5 @@
 before 0.1
 	
-	* fix -O2 -NDEBUG compile
-
 	* remove spurious/outdated comments in .ly, debug .ly
 
 	* pushgroup, popgroup.
@@ -40,8 +38,6 @@ BUGS
 
 	* cis ( | ) cis
 
-	* Group_feature at start of music. 
-
 	* parser error handling (can you say Segfault?)
 
 SEVERELY LACKING:
@@ -78,6 +74,8 @@ INPUTLANGUAGE
 SMALLISH PROJECTS
 
 	* key transposition
+	
+	* caching breakpoints / saving them. 
 
 	* key { C } 
 	
@@ -86,6 +84,9 @@ SMALLISH PROJECTS
         * qtor, btor, mtor-> tor( QUIET_ver ), tor( DEBUG_ver ), etc.
 
 	* use tors feature in lily
+
+	* do conventional keys (C G A, F B E, a e fis, d as des, etc ), 
+	  besides lists of flats/sharps
 
 	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
 

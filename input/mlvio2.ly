@@ -11,9 +11,9 @@
 % The purpose of this file is to demonstrate features of LilyPond;
 % respect the copyright.
 %
-violinII = \music { 
-	
-\clef "violin"	\octave{}
+violinII = \melodic{ 
+	\clef "violin"
+	\octave{c}
 	\duration{4}
 	\key{fis}
 %1

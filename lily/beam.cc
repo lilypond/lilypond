@@ -281,6 +281,8 @@ Beam::brew_molecule_p() const return out;
     out->translate(Offset(x0 - left->hpos,0));
 }
 
+IMPLEMENT_STATIC_NAME(Beam);
+
 void
 Beam::do_print()const
 {

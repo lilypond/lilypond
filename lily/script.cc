@@ -127,3 +127,4 @@ Script::brew_molecule_p() const
     out->translate(Offset(0,dy * pos));
     return out;
 }
+IMPLEMENT_STATIC_NAME(Script);

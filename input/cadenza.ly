@@ -4,7 +4,7 @@
 % author: unknown. Copyright: none
 %
 
-cad = \music { 
+cad = \melodic{ 
 		\cadenza {1}
 		\grouping{1*4}\duration { 8}
 	\textstyle "italic"
@@ -47,10 +47,7 @@ cad = \music {
 	}
 
 \score {
-	\staff { \melodic
-		\music { cad }
-	}
-	
+	\staff { cad }
 	\paper {}
 	\midi { \tempo 4:90 }
 }

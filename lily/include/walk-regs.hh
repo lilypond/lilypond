@@ -11,7 +11,7 @@
 #define WALKREGS_HH
 
 
-#include "registergroup.hh"
+#include "register-group.hh"
 
 /**
   Top level registers: the interface to Complex_walker.

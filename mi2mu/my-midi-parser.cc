@@ -113,7 +113,7 @@ My_midi_parser::note_end_midi_event_p( int channel_i, int pitch_i, int dyn_i )
 //	assert( start_i64 != -1 ); // did we start?
 
 	Duration dur( 0 );
-	if ( Duration_convert::be_blonde_b_s )
+	if ( Duration_convert::no_quantify_b_s )
 		dur = Duration_convert::ticks2_dur( (I64)now_i64_ - start_i64 );
 	else
 		dur = Duration_convert::ticks2standardised_dur( (I64)now_i64_ - start_i64 );
@@ -124,7 +124,7 @@ int
 My_midi_parser::output_mudela( String filename_str )
 {
 	assert( midi_score_p_ );
-	mtor << "\nProcessing..." << endl;
+	tor( NORMAL_ver ) << "\nProcessing..." << endl;
 	midi_score_p_->process();
 	return midi_score_p_->output_mudela( filename_str );
 }
@@ -132,7 +132,7 @@ My_midi_parser::output_mudela( String filename_str )
 int
 My_midi_parser::parse()
 {
-	mtor << "\nParsing..." << flush;
+	tor( NORMAL_ver ) << "\nParsing..." << flush;
 	return ::yyparse();
 }
 

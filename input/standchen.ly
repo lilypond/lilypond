@@ -13,9 +13,12 @@
 % (except for grace notes) are printed
 %
 %%1
-melodie = \music {  \clef\violin\octave{1}
-	\key{bes}
-	\meter{3/4}\duration{ 8 }
+melodie = \melodic{  
+	\meter{ 3/4 }
+	\clef\violin
+	\key{ bes }
+	\octave{ c }
+	\duration{ 8 }
 	r pp < [ d 'a-| > f-| < d 'a-| > f-| < d 'a-| ] > |
 %%2
 	r < [ d 'bes-| > f-| < d 'bes-| > f-| < d 'bes-| ] > |
@@ -161,11 +164,13 @@ melodie = \music {  \clef\violin\octave{1}
 %%58
 	< a2.^\fermata fis2. > |
 %#%\tighten
- }
+}
 
-begeleiding = \music { 
-	\key{bes}\meter{3/4}
+begeleiding = \melodic{ 
+	\meter{3/4}
 	\clef\bass
+	\key{bes}
+	\octave{ c }
 	\duration{2}
 	'd r4 |
 %%2
@@ -310,8 +315,8 @@ begeleiding = \music {
  }
 
 
-tekstI = \lyrics {
-	\meter{3/4}
+tekstI = \lyric{
+	\meter{ 3/4 }
 	\duration{4}
 	_ _ _
 	_ _ _
@@ -377,7 +382,7 @@ tekstI = \lyrics {
 	
 }
 
-tekstII= \lyrics {
+tekstII = \lyric{
         \meter{3/4}
 	\duration{4}
 	_ _ _
@@ -441,24 +446,12 @@ tekstII= \lyrics {
 	
 }
 
-\score {
-	\staff { 
-		lyric 
-	\music { tekstI }
-	\music { tekstII }
-	}
-% Setting up music ...lilypond: ../flower/include/cursor.inl:98: class Cursor<void *> Cursor<void *>::operator ++(int): Assertion 'pointer_' failed.
-%IOT trap/Abort
-% als geen music in staff
-	\staff { 
-	 	\melodic 
-		\music { melodie }
-	}
-	\staff { 
-		\melodic 
-		\music { begeleiding }
-	}
-	\paper {
+\score{
+	\staff{ lyric % this sux el grandioso. What about \lyricstaff, \melodicstaff etc. 
+		tekstI tekstII }
+	\staff{ melodie }
+	\staff{ begeleiding }
+	\paper{
 		\width 195\mm
 
 		% on two pages...
@@ -466,7 +459,7 @@ tekstII= \lyrics {
 		\geometric 1.2
 		\output "standchen.out"
 	}
-	\midi {
+	\midi{
 		\tempo 4:54
 	}
 }

@@ -51,9 +51,11 @@ include ./$(depth)/make/Rules.make
 localclean:
 	rm -f $(TEXTFILES) $(HTMLFILES) $(GROFFFILES)
 
-localinstall: $(outdir)/lilypond.1
+localinstall: $(outdir)/lilypond.1 $(outdir)/mudela.5
+	$(INSTALL) -d $(mandir)/man5
 	$(INSTALL) -d $(mandir)/man1
-	$(INSTALL) -m 755 $< $(mandir)/man1
-
+	$(INSTALL) -m 755 $(outdir)/lilypond.1 $(mandir)/man1
+	$(INSTALL) -m 755 $(outdir)/mudela.5 $(mandir)/man5
+ 
 localuninstall:
 	rm -f $(mandir)/man1/lilypond.1

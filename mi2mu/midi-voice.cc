@@ -26,12 +26,12 @@ Moment
 Midi_voice::end_mom()
 {
 	Moment now_mom = begin_mom_;
-	dtor << now_mom << ", ";
+	tor( DEBUG_ver ) << now_mom << ", ";
 	for ( PCursor<Midi_event*> i( midi_event_p_list_.top() ); i.ok(); i++ ) {
-		dtor << now_mom << ", ";
+		tor( DEBUG_ver ) << now_mom << ", ";
 		now_mom += i->mom();
 	}
-	dtor << endl;
+	tor( DEBUG_ver ) << endl;
 	return now_mom;
 }
 
@@ -56,7 +56,7 @@ Midi_voice::mudela_str( Moment from_mom, Moment to_mom, bool multiple_bo )
 	}
 	
 	if ( str.length_i() && multiple_bo )
-		str = "\\music{ " + str + "} ";
+		str = "{ " + str + "} ";
 	return str;
 }
 

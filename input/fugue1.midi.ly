@@ -1,144 +1,268 @@
-% Creator: This is mi2mu 0.0.11.2 #14/FlowerLib 1.1.7 #1 of Mar 12 1997 02:11:21
-% Automatically generated, at Wed Mar 12 02:22:22 1997
-% from input file: fugue1.\midi
+% Creator: This is mi2mu 0.0.12.1 #5/FlowerLib 1.1.9 #0 of Mar 24 1997 21:30:32
+% Automatically generated, at Mon Mar 24 23:39:09 1997
+% from input file: fugue1.midi
 
-track0 = \music { 
-	% \midi copyright:
+track0 = \melodic{
+	% midi copyright:
 	% instrument:
+	% 1
+	
+	% 26:2.
+	|
+	% 27
 	
 } % track0
 
-track1 = \music { 
-	% \midi copyright:
+track1 = \melodic{
+	% midi copyright:
 	% instrument:
-	g8 a8 b8 c'8. { \music{ d'16 } } { \music{ c'16 } } 
-	{ \music{ b8 } } e'8 a8 { \music{ d'8. } } e'16 
-	d'16 c'16 b16 g16 a16 b16 c'16 b16 c'16 d'16 e'16 
-	d'16 e'16 fis'16 g'8 b8 c'8 a8 d'16 c'16 b16 a16 { 
-	\music{ g8. } } g16 f16 e16 f16 g16 a16 g16 a16 b16 
-	c'2 b4 c'8 d'8 e'8 f'8. { \music{ f'16 } \music{ 
-	g'16 } } e'8 a'8 d'8 g'8. a'16 g'16 f'16 e'8 a'8. 
-	b'16 a'16 g'16 f'2 e'8. fis'16 g'2 fis'4 g'16 f'16 
-	e'16 d'16 c'16 d'16 c'16 b16 a16 c'16 b16 a16 c'16 
-	a16 gis8 e'8 d'8 c'16 b16 a16 gis16 a16 b16 c'16 
-	fis16 gis16 a16 b8 a16 b16 c'8 f'8 e'8 d'4 c'16 b16 
-	{ \music{ c'16 } } { \music{ b16 } } { \music{ b16 
-	b16 } \music{ c'16 c'16 } \music{ b16 } \music{ 
-	c'16 c'16 } } { } { \music{ b16 } } { \music{ a16 } 
-	} a4 g8 a8 b8 c'8. { \music{ d'16 } } { \music{ 
-	c'16 } } { \music{ b8 } } c'8 d'8 e'8 f'8. { \music{
-	 g'16 } } { \music{ f'16 } } { \music{ e'8 } } a'8 
-	d'8 g'8. a'16 g'16 f'16 e'8 a'8 d'8 ais'8 a'8 g'16 
-	f'16 g'16 f'16 g'16 e'16 f'16 { \music{ g'16 } } { 
-	\music{ g'16 } } { \music{ a'16 } } { \music{ g'16 }
-	 } { } { } { \music{ f'16 } } { \music{ g'16 } } { 
-	\music{ a'16 } } cis'16 d'16 g'16 { \music{ f'16 } 
-	} { \music{ e'16 } } { \music{ f'16 } } { \music{ 
-	e'16 } } { } { \music{ f'16 } } { } { } { } { 
-	\music{ e'8 } } { } d'16 d'8 g8 a8 b8 c'8 d'16 { 
-	\music{ c'16 } } { \music{ b8 } } e'8 a8 { \music{ 
-	d'8. } } e'16 d'16 c'16 b16 c'16 d'16 e'16 f'16 
-	g'16 a'16 g'16 f'16 e'16 d'16 c'16 { \music{ c'16 } 
-	} { \music{ b16 } } { \music{ c'16 } } { } { } { 
-	\music{ b8. } } c'8 d'8 g8 { \music{ c'4 } } b8 c'4 
-	b8 ais8 a8 { \music{ d'4 } } c'8 d'8 e'8 f'4 a'16 { 
-	\music{ g'16 } } f'16 e'16 { \music{ f'16 } } { 
-	\music{ e'16 } } d'16 c'2 g16 { \music{ a16 } } b16 
-	c'16 d'16 e'16 { \music{ f'8. } } { \music{ d'16 } 
-	\music{ c'16 e'16 } } f'16 { \music{ g'16 } } { 
-	\music{ a'8. } } b'16 c''2 
+	% 1
+	
+	% 2:4*5/32
+	g8 a8 b8 c'8. 
+	% 3:4*5/128
+	< { d'16 } > < { c'16 } > < { b8 } > e'8 a8 < { 
+	d'8. } > e'16 d'16 c'16 b16 g16 a16 b16 c'16 b16 
+	c'16 d'16 e'16 d'16 e'16 fis'16 g'8 b8 c'8 a8 d'16 
+	c'16 b16 a16 
+	% 5:4*47/384
+	< { g8. } > g16 f16 e16 f16 g16 a16 g16 a16 b16 c'2 
+	b4 |
+	% 7
+	c'8 d'8 e'8 f'8. < { f'16 } { g'16 } > e'8 a'8 d'8 
+	g'8. a'16 g'16 f'16 e'8 a'8. b'16 a'16 g'16 f'2 
+	e'8. fis'16 g'2 fis'4 g'16 f'16 e'16 d'16 c'16 d'16 
+	c'16 b16 a16 c'16 b16 a16 
+	% 11:4
+	c'16 a16 gis8 e'8 d'8 c'16 b16 a16 gis16 a16 b16 
+	c'16 fis16 gis16 a16 b8 a16 b16 c'8 f'8 e'8 d'4 
+	c'16 b16 
+	% 13:4*45/256
+	< { c'16 } > < { b16 } > < { b16 b16 } { c'16 c'16 }
+	 { b16 } { c'16 c'16 } > < > < { b16 } > < { a16 } 
+	> |
+	% 14
+	a4 
+	% 15:4*5/32
+	g8 a8 b8 c'8. 
+	% 16:4*5/128
+	< { d'16 } > < { c'16 } > < { b8 } > c'8 d'8 e'8 
+	f'8. < { g'16 } > < { f'16 } > |
+	% 17
+	< { e'8 } > a'8 d'8 g'8. a'16 g'16 f'16 e'8 a'8 d'8 
+	ais'8 a'8 g'16 f'16 g'16 f'16 g'16 e'16 f'16 
+	% 18:4*155/768
+	< { g'16 } > < { g'16 } > < { a'16 } > < { g'16 } > 
+	< > < > < { f'16 } > < { g'16 } > |
+	% 19
+	< { a'16 } > cis'16 d'16 g'16 < { f'16 } > < { e'16 
+	} > < { f'16 } > < { e'16 } > < > < { f'16 } > < > 
+	< > < > < { e'8 } > < > d'16 d'8 
+	% 20:4*7/32
+	g8 a8 b8 
+	% 21:4
+	c'8 d'16 < { c'16 } > < { b8 } > e'8 a8 < { d'8. } 
+	> 
+	% 22:4*5/384
+	e'16 d'16 c'16 b16 c'16 d'16 e'16 f'16 g'16 a'16 
+	g'16 f'16 e'16 d'16 c'16 < { c'16 } > < { b16 } > < 
+	{ c'16 } > |
+	% 23
+	< > < > < { b8. } > c'8 d'8 g8 < { c'4 } > b8 c'4 
+	b8 ais8 a8 
+	% 24:4*59/384
+	< { d'4 } > c'8 d'8 e'8 
+	% 25:4
+	f'4 a'16 < { g'16 } > f'16 e'16 < { f'16 } > < { 
+	e'16 } > d'16 |
+	% 26
+	c'2 g16 < { a16 } > b16 c'16 d'16 e'16 < { f'8. } > 
+	|
+	% 27
+	< { d'16 } { c'16 e'16 } > f'16 < { g'16 } > < { 
+	a'8. } > b'16 c''2 
 } % track1
 
-track2 = \music { 
-	% \midi copyright:
+track2 = \melodic{
+	% midi copyright:
 	% instrument:
-	c8 d8 e8 f8. { \music{ g16 } } { \music{ f16 } } { 
-	\music{ e8 } } a8 d8 { \music{ g8. } } a16 g16 f16 
-	e16 f16 e16 d16 c16 d16 c16 'b16 'a8 fis8 { \music{ 
-	g4. } } f16 e16 f8 d8 g8 f8 e8 d8 g4 f16 e16 f4 f16 
-	e8 d4 c8 f8 g16 f16 e16 f8 d8 g4.. g8 a8 b8 { 
-	\music{ c'8. } } { \music{ d'16 } } { \music{ c'16 }
-	 } { \music{ b8 } } e'8 a8 { \music{ d'8. } } e'16 
-	d'16 c'16 b8 d8 e8 fis8 { \music{ g8. } } { \music{ 
-	a16 } } { \music{ g16 } } { \music{ f8 } } b8 e8 
-	a8. b16 a16 gis16 fis8 f8 e8 d8. e16 fis16 gis16 
-	a16 gis16 a16 b16 gis16 fis16 gis16 a16 b8 c8 d8 e8 
-	{ \music{ f8. } } { \music{ g16 } } { \music{ f16 } 
-	} { \music{ e8 } } a8 d8 g8. a16 g16 f16 e16 e16 
-	fis16 g4 fis8 gis8 { \music{ a4 } } g8 a8 b8 { 
-	\music{ c'8. } } { \music{ d'16 } } { \music{ c'16 }
-	 } { \music{ b8 } } e'8 a8 d'8. e'16 d'16 c'16 b8 
-	g'8 cis'8 d'8 e'8 cis'8 d'8 e'8 a8 e8 fis8 g8 { 
-	\music{ a8. } } { \music{ b16 } } { \music{ a16 } } 
-	{ \music{ g8 } } c'8 fis8 { \music{ b8. } } c'16 
-	b16 a16 g16 fis16 e16 d16 e4 d4 a16 g16 f16 e16 g16 
-	f16 a16 g4 a16 ais8 { \music{ c'4 } } d'8 g8 { 
-	\music{ g4. } } f4 e8 d4 e16 a4 g4 f8 g8 a8 { 
-	\music{ ais8. } } { \music{ c'16 } } { \music{ 
-	ais16 } } { \music{ a8 } } d'8 g8 { \music{ c'8. } 
-	} d'16 c'16 ais16 a16 ais16 a16 g16 f16 g16 f16 e16 
-	g16 a4 f'16 d'8 { \music{ e'2 } \music{ g'2 } } 
+	% 1
+	c8 d8 e8 f8. < { g16 } > < { f16 } > < { e8 } > a8 
+	d8 
+	% 2:4*107/3840
+	< { g8. } > a16 g16 f16 e16 f16 e16 d16 c16 d16 c16 
+	'b16 'a8 fis8 
+	% 3:4*203/3840
+	< { g4. } > f16 e16 f8 d8 g8 f8 e8 d8 
+	% 4:2
+	g4 f16 e16 
+	% 5:4
+	f4 f16 e8 d4 c8 f8 
+	% 6:4
+	g16 f16 e16 f8 d8 g2 
+	% 7:4*241/3840
+	
+	% 9:8
+	g8 a8 b8 < { c'8. } > < { d'16 } > < { c'16 } > < { 
+	b8 } > e'8 a8 
+	% 10:4*13/480
+	< { d'8. } > e'16 d'16 c'16 b8 d8 e8 fis8 
+	% 11:4*23/384
+	< { g8. } > < { a16 } > < { g16 } > < { f8 } > b8 
+	e8 a8. b16 a16 gis16 fis8 f8 e8 d8. e16 fis16 gis16 
+	a16 gis16 a16 b16 gis16 fis16 gis16 a16 b8 
+	% 13:4*5/32
+	
+	% 14:8
+	c8 d8 e8 < { f8. } > < { g16 } > < { f16 } > < { e8 
+	} > a8 d8 g8. a16 g16 f16 
+	% 15:2
+	e16 e16 fis16 g4 
+	% 16:4*91/3840
+	fis8 gis8 < { a4 } > g8 a8 b8 < { c'8. } > |
+	% 17
+	< { d'16 } > < { c'16 } > < { b8 } > e'8 a8 d'8. 
+	e'16 d'16 c'16 b8 g'8 cis'8 d'8 e'8 cis'8 d'8 e'8 
+	a8 
+	% 19:8
+	e8 fis8 g8 < { a8. } > < { b16 } > < { a16 } > |
+	% 20
+	< { g8 } > c'8 fis8 < { b8. } > c'16 b16 a16 g16 
+	fis16 e16 d16 e4 
+	% 21:4
+	d4 a16 g16 f16 e16 g16 f16 a16 |
+	% 22
+	g4 a16 ais8 < { c'4 } > d'8 g8 < { g4. } > |
+	% 23
+	f4 e8 d4 |
+	% 24
+	e16 a4 g4 f8 g8 a8 < { ais8. } > |
+	% 25
+	< { c'16 } > < { ais16 } > < { a8 } > d'8 g8 < { 
+	c'8. } > d'16 c'16 ais16 a16 ais16 a16 g16 f16 g16 
+	f16 e16 
+	% 26:2
+	g16 a4 
+	% 27:4
+	f'16 d'8 < { e'2 } { g'2 } > 
 } % track2
 
-track3 = \music { 
-	% \midi copyright:
+track3 = \melodic{
+	% midi copyright:
 	% instrument:
-	'g8 'a8 'b8 c8. { \music{ d16 } } { \music{ c16 } } 
-	{ \music{ 'b8 } } e8 'a8 { \music{ d8. } } e16 d16 
-	c16 'b8 c4 'ais8 'a8 d8 'g8 c8 'a16 'b16 c16 d4 'g4 
-	'g8 'a8 'b8 c8. { \music{ d16 } } { \music{ c16 } } 
-	{ } 'b8 e8 'a8 d8. e16 d16 c16 'b8 e4. d4 'b16 c16 
-	'a16 e16 d16 c16 'b16 c16 'a16 'b16 c16 d16 c16 
-	'b16 'a16 'g4 'e8 'fis8 'gis8 'a8. { \music{ 'b16 } 
-	} { \music{ 'a16 } } { \music{ 'g8 } } c8 'fis8 
-	'b8. c16 'b16 'a16 'gis8 { \music{ 'a4 } } 'gis8 
-	'a4 'g8 'a8 'b8 c8. { \music{ d16 } } { \music{ c16 
-	} } { \music{ 'b8 } } e8 'a8 d4 'g8 d4 c8 'a8 e4 d8 
-	'a8 'b8 cis8 d8. { \music{ e16 } } { \music{ d16 } 
-	} { \music{ c8 } } f8 'b8 e8. f16 e16 d16 cis8 'a8 
-	'b8 cis8 d8. { \music{ e16 } } { \music{ d16 } } { 
-	\music{ c8 } } fis8 'b8 e8. fis16 e16 d16 c4.. d16 
-	c16 'b16 'a16 'g16 'a16 'fis16 'g8 'b8 c8 { \music{ 
-	d8 } } e8. { \music{ f16 } } { \music{ e16 } } { 
-	\music{ d8 } } g8 c8 f8. g16 f16 e16 d4 e8 d4 { 
-	\music{ 'g8 } } 'g4. 'c8 'd8 'e8 'f8. { \music{ 
-	'g16 } } { \music{ 'f16 } } { \music{ 'e8 } } 'a8 
-	'd8 { \music{ 'g8. } } 'a16 'g16 'f16 'e16 'd16 
-	'e16 'f16 'g16 'a16 'ais16 'g16 'a16 'e16 'f16 'g16 
-	'a16 'b16 c16 { \music{ 'a16 } \music{ d2 } } c1 
+	% 1
+	
+	% 4:8
+	'g8 'a8 'b8 c8. < { d16 } > < { c16 } > < { 'b8 } > 
+	e8 'a8 
+	% 5:4*11/384
+	< { d8. } > e16 d16 c16 'b8 c4 'ais8 'a8 d8 'g8 c8 
+	% 6:2
+	'a16 'b16 c16 d4 'g4 
+	% 7:4
+	'g8 'a8 'b8 c8. < { d16 } > < { c16 } > < > |
+	% 8
+	'b8 e8 'a8 d8. e16 d16 c16 'b8 e4. d4 
+	% 9:2
+	'b16 c16 'a16 e16 d16 c16 'b16 c16 'a16 'b16 c16 
+	d16 c16 'b16 'a16 'g4 
+	% 10:2.
+	
+	% 12:8
+	'e8 'fis8 'gis8 'a8. < { 'b16 } > < { 'a16 } > < { 
+	'g8 } > c8 'fis8 'b8. c16 'b16 'a16 
+	% 13:2
+	'gis8 < { 'a4 } > 'gis8 'a4 
+	% 14:4
+	'g8 'a8 'b8 c8. < { d16 } > < { c16 } > |
+	% 15
+	< { 'b8 } > e8 'a8 d4 'g8 d4 c8 'a8 e4 d8 
+	% 16:4*5/32
+	
+	% 17:8
+	'a8 'b8 cis8 d8. < { e16 } > < { d16 } > < { c8 } > 
+	f8 'b8 e8. f16 e16 d16 cis8 
+	% 18:4*5/32
+	
+	% 19:8
+	'a8 'b8 cis8 d8. < { e16 } > < { d16 } > < { c8 } > 
+	fis8 'b8 e8. fis16 e16 d16 
+	% 20:2
+	c2 d16 c16 'b16 'a16 'g16 'a16 'fis16 
+	% 21:2
+	'g8 'b8 c8 < { d8 } > e8. 
+	% 22:4*5/128
+	< { f16 } > < { e16 } > < { d8 } > g8 c8 f8. g16 
+	f16 e16 d4 e8 d4 
+	% 23:4*59/384
+	< { 'g8 } > 'g4. 'c8 'd8 'e8 'f8. 
+	% 24:4*21/128
+	< { 'g16 } > < { 'f16 } > < { 'e8 } > 'a8 'd8 
+	% 25:4*11/384
+	< { 'g8. } > 'a16 'g16 'f16 'e16 'd16 'e16 'f16 
+	'g16 'a16 'ais16 'g16 'a16 'e16 'f16 'g16 'a16 'b16 
+	c16 
+	% 26:4*7/64
+	< { 'a16 } { d2 } > |
+	% 27
+	c1 
 } % track3
 
-track4 = \music { 
-	% \midi copyright:
+track4 = \melodic{
+	% midi copyright:
 	% instrument:
-	'c8 'd8 'e8 'f8. { \music{ 'g16 } } { \music{ 'f16 }
-	 } { \music{ 'e8 } } 'a8 'd8 { \music{ 'g8. } } 
-	'a16 'g16 'f16 'e16 'f16 'e16 'd16 'c16 'd16 'c16 
-	''b16 ''a8 'd8 'a8 'fis8 'g16 'a16 'ais16 'g16 
-	'cis8 'd8 'a4 'e4 'a16 'b16 c16 d16 c16 'b16 'a16 
-	'g16 c8 ''g8 ''a8 ''b8 'c8. { \music{ 'd16 } } { 
-	\music{ 'c16 } } { \music{ ''b8 } } 'e8 ''a8 'd8. 
-	'e16 'd16 'c16 { \music{ ''b8 } } 'e4 'd8 'c8 'f4 
-	'e4 'd4 'e8 'f8 'e16 'd16 'e4 ''a4 ''g8 ''a8 ''b8 
-	'c8. { \music{ 'd16 } } { \music{ 'c16 } } { \music{
-	 ''b8 } } 'e8 ''a8 'd8. 'e16 'd16 'c16 ''b8 ai''s8 
-	''a8 ''g8 ''a8 'fis8 'g8 'e8 'd4 'e8 'f8 'g8. { 
-	\music{ 'a16 } } { \music{ 'g16 } } { \music{ 'f8 } 
-	} 'ais8 'e8 'a8. 'b16 { \music{ 'a16 } } 'g16 'f16 
-	'e16 'f16 'd16 'g8 'a8 'd4.. 'e16 'd16 'c16 ''b16 
-	''a16 ''g16 fi''s16 ''e8 'e8 'fis8 'g4 'a16 'g16 
-	'fis8 'd8 'g1 'a4 'b8 c8 'f16 'a16 'g16 'f16 'e16 
-	'd16 'c16 ''b16 'c16 'd16 'e16 'f16 'g8 ''g8 'b2 
+	% 1
+	
+	% 5:4*5/32
+	'c8 'd8 'e8 'f8. 
+	% 6:4*5/128
+	< { 'g16 } > < { 'f16 } > < { 'e8 } > 'a8 'd8 < { 
+	'g8. } > 'a16 'g16 'f16 'e16 'f16 'e16 'd16 'c16 
+	'd16 'c16 ''b16 ''a8 'd8 'a8 'fis8 'g16 'a16 'ais16 
+	'g16 'cis8 'd8 'a4 'e4 'a16 'b16 c16 d16 c16 'b16 
+	'a16 'g16 c8 
+	% 9:4*5/32
+	
+	% 10:4*5/32
+	''g8 ''a8 ''b8 'c8. 
+	% 11:4*5/128
+	< { 'd16 } > < { 'c16 } > < { ''b8 } > 'e8 ''a8 
+	'd8. 'e16 'd16 'c16 < { ''b8 } > |
+	% 12
+	'e4 'd8 'c8 'f4 'e4 'd4 'e8 'f8 'e16 'd16 'e4 ''a4 
+	% 14:4
+	
+	% 15:8
+	''g8 ''a8 ''b8 'c8. < { 'd16 } > < { 'c16 } > < { 
+	''b8 } > 'e8 ''a8 'd8. 'e16 'd16 'c16 ''b8 ''ais8 
+	''a8 ''g8 ''a8 'fis8 'g8 'e8 'd4 'e8 'f8 'g8. 
+	% 18:4*5/128
+	< { 'a16 } > < { 'g16 } > < { 'f8 } > 'ais8 'e8 
+	'a8. 'b16 < { 'a16 } > 'g16 'f16 'e16 'f16 'd16 'g8 
+	'a8 
+	% 19:2
+	'd2 'e16 'd16 'c16 ''b16 ''a16 ''g16 ''fis16 ''e8 
+	'e8 'fis8 'g4 'a16 'g16 'fis8 'd8 'g1 'a4 'b8 c8 
+	'f16 'a16 'g16 'f16 'e16 'd16 'c16 ''b16 'c16 'd16 
+	'e16 'f16 'g8 ''g8 |
+	% 24
+	
+	% 26:2
+	'b2 |
+	% 27
+	
 } % track4
 
-score {
-	\staff { \melodic \music { track0 } }
-	\staff { \melodic \music { track1 } }
-	\staff { \melodic \music { track2 } }
-	\staff { \melodic \music { track3 } }
-	\staff { \melodic \music { track4 } }
-
-	\midi {
+\score{
+	\staff{ track0 }
+	\staff{ track1 }
+	\staff{ track2 }
+	\staff{ track3 }
+	\staff{ track4 }
+	
+	\paper{
+		\unitspace 20\mm
+	}\midi{
 		\tempo 4:60 
 	}
 }

@@ -11,11 +11,10 @@
 % The purpose of this file is to demonstrate features of LilyPond;
 % respect the copyright.
 %
-alto = \music { 
-	
+alto = \melodic{ 
 	\duration{16}
 	\clef\alto
-	\octave{}
+	\octave{c}
 	\key{fis}
 %1
         [ 'b8. 'a ] [ 'g8 'b c ] |

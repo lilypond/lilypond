@@ -6,9 +6,6 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-
- 
-
 #include "proto.hh"
 #include "plist.hh"
 #include "staff.hh"
@@ -23,6 +20,8 @@
 #include "command-request.hh" // todo
 #include "midi-stream.hh"
 #include "pqueue.hh"
+
+
 void
 Staff::add(PointerList<Voice*> const &l)
 {
@@ -94,9 +93,9 @@ void
 Staff::setup_staffcols()
 {
     PQueue<Subtle_req *, Moment> subtle_req_pq;
+	PCursor<Staff_column*> last(cols_);
     
     for (iter_top(voice_list_,i); i.ok(); i++) {
-	PCursor<Staff_column*> last(cols_);
 	Moment now = i->start;
 	iter_top(i->elts,j);
 	while( j.ok()) {
@@ -113,14 +112,13 @@ Staff::setup_staffcols()
 	    }
 	    if(next == now) {
 		s_l->add(j, subtle_req_pq); 
-		now += j->duration;
+		now += j->duration_;
 		j++;
 	    }
 	}
 	
     }
-    PCursor<Staff_column*> last(cols_);
-    
+   last = cols_.top(); 
     while (subtle_req_pq.size()) {
 	Moment front =subtle_req_pq.front_idx();
 	Staff_column *s_l = get_col(front, &last);
@@ -128,7 +126,6 @@ Staff::setup_staffcols()
 	    s_l->setup_one_request(subtle_req_pq.get()); // ugh!
     }
 	
-    OK();
 }
 
 void

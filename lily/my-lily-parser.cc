@@ -109,8 +109,7 @@ My_lily_parser::get_word_element(Text_def* tdef_p, Duration * duration_p)
     Lyric_req* lreq_p = new Lyric_req(tdef_p);
 
     lreq_p->duration_ = *duration_p;
-    lreq_p->print();
-    lreq_p->defined_ch_C_ = here_ch_C();
+     lreq_p->defined_ch_C_ = here_ch_C();
 
     velt_p->add(lreq_p);
 
@@ -126,8 +125,7 @@ My_lily_parser::get_rest_element(String,  Duration * duration_p )
 
     Rest_req * rest_req_p = new Rest_req;
     rest_req_p->duration_ = *duration_p;
-    rest_req_p->print();
-    rest_req_p->defined_ch_C_ = here_ch_C();
+     rest_req_p->defined_ch_C_ = here_ch_C();
 
     velt_p->add(rest_req_p);
     delete duration_p;
@@ -210,7 +208,7 @@ My_lily_parser::My_lily_parser(Sources * source_l)
     source_l_ = source_l;
     lexer_p_ = 0;
     default_duration_.type_i_ = 4;
-    default_octave_i_=0;
+    default_octave_i_ = 3; // retain old default
     textstyle_str_="roman";		// in lexer?
     error_level_i_ = 0;
     last_duration_mode = false;

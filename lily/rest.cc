@@ -22,6 +22,8 @@ Rest::Rest(Duration d)
 }
 
 
+IMPLEMENT_STATIC_NAME(Rest);
+
 void
 Rest::do_print()const
 {
