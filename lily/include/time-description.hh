@@ -37,9 +37,10 @@ struct Time_description {
     String str()const;
     void print() const;
     void setpartial(Moment p);
+    String try_set_partial_str(Moment)const;
     Moment barleft();
     void set_meter(int,int);
-    static int compare (Time_description&, Time_description&);
+    static int compare (const Time_description&, const Time_description&);
 };
 
 #include "compare.hh"
