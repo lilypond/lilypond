@@ -5389,6 +5389,7 @@ longer than one line, can be produced by setting @code{raggedright} to
 true in the @code{\paper} block.
 
 @cindex page layout
+@cindex vertical spacing
 
 The page layout process happens outside lilypond. Ly2dvi sets page
 layout instructions. Ly2dvi responds to the following variables in the
