@@ -12,7 +12,7 @@ class Ineq_constrained_qp {
 public:
     Matrix quad;
     Vector lin;
-
+    Real const_term;
 
     ///
     void assert_solution(Vector sol) const;
