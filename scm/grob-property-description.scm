@@ -381,6 +381,7 @@ function of type (beam multiplicity dy staff-line-thickness) -> real.  Default v
 (grob-property-description 'visibility-lambda procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY).")
 (grob-property-description 'when moment? "when does this column happen?.")
 (grob-property-description 'word-space number? "elongate left by this much (FIXME: cumbersome semantics).")
+(grob-property-description 'end-alignment number? "proportion of lyric length to align with note-head for non-centered lyrics.")
 (grob-property-description 'x-gap number? "horizontal gap between notehead and tie.")
 (grob-property-description 'y-free number? "minimal vertical gap between slur and noteheads or stems.")
 (grob-property-description 'y-offset number? "extra vertical offset for ties away from the center line.")
