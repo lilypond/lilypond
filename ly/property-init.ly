@@ -226,7 +226,7 @@ turnOff = #'()
 % of either Staff.Arpeggio or PianoStaff.Arpeggio, depending whether 
 % cross-staff brackets are desired. 
 
-arpeggioBracket = #(lambda (grob) (Arpeggio::brew_chord_bracket grob))
+arpeggioBracket = #Arpeggio::brew_chord_bracket
 arpeggio = #(make-music-by-name 'ArpeggioEvent)
 glissando = #(make-music-by-name 'GlissandoEvent)
 

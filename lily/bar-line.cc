@@ -118,6 +118,10 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
     }
   else if (str == "||")
     {
+      /*
+	should align to other side? this never appears
+	on the system-start?
+      */
       m.add_at_edge (X_AXIS, RIGHT, thin, 0, 0);
       m.add_at_edge (X_AXIS, RIGHT, thin, thinkern, 0);
     }
