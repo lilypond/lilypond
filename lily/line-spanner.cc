@@ -158,7 +158,7 @@ Line_spanner::broken_trend_offset (Grob *me, Direction dir)
   Warning: this thing is a cross-staff object, so it should have empty Y-dimensions.
 
  (If not, you risk that this is called from the staff-alignment
-  routine, via molecule_extent. At this point, the staffs aren't
+  routine, via molecule_extent. At this point, the staves aren't
   separated yet, so it doesn't work cross-staff.
 
 */

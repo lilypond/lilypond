@@ -17,7 +17,7 @@ traditional song in various languages.
 %}
 
 %{
-Tested Features: lyrics, interleaving lyrics and staffs, repeats,
+Tested Features: lyrics, interleaving lyrics and staves, repeats,
 	auto beaming, adding lyrics to notes, hyphens
 %}
 

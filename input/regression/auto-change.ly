@@ -2,7 +2,7 @@
 
 \header{
 texidoc="
-Auto change piano staff switches  voices  between up and down staffs
+Auto change piano staff switches  voices  between up and down staves
 automatically rests are switched along with the coming note.
 "
 }

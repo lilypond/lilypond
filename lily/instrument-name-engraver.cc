@@ -96,7 +96,7 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
     return;
 
   /*
-    Hang the instrument names on the staffs, but not on the alignment
+    Hang the instrument names on the staves, but not on the alignment
     groups enclosing that staff. The alignment has no real location,
     but is only a vehicle for the placement routine it contains, and
     therefore the location of its refpoint won't be very useful.

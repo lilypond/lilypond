@@ -16,9 +16,9 @@
 
 /** 
 
-  Make bars that span multiple "staffs". Catch bars, and span a
+  Make bars that span multiple "staves". Catch bars, and span a
   Span_bar over them if we find more than 2 bars.  Vertical alignment
-  of staffs changes the appearance of spanbars.  It is up to the
+  of staves changes the appearance of spanbars.  It is up to the
   aligner (Vertical_align_engraver, in this case, to add extra
   dependencies to the spanbars.
 

@@ -1722,7 +1722,7 @@ simple_element:
  		$$ = velt_p;
 	}
 	| MULTI_MEASURE_REST optional_notemode_duration  	{
-		Input = THIS->pop_spot ();
+		Input i = THIS->pop_spot ();
 
 		Skip_req * sk = new Skip_req;
 		sk->set_mus_property ("duration", $2);
@@ -1747,7 +1747,7 @@ simple_element:
 		$$->set_mus_property ("elements", ms);
 	}
 	| STRING optional_notemode_duration 	{
-		Input = THIS->pop_spot ();
+		Input i = THIS->pop_spot ();
 
 		Lyric_req* lreq_p = new Lyric_req;
                 lreq_p->set_mus_property ("text", $1);
@@ -1759,7 +1759,7 @@ simple_element:
 		$$= velt_p;
 	}
 	| chord {
-		Input = THIS->pop_spot ();
+		Input i = THIS->pop_spot ();
 
 		if (!THIS->lexer_p_->chord_state_b ())
 			THIS->parser_error (_ ("Have to be in Chord mode for chords"));

@@ -18,7 +18,7 @@ staffOne =  \context Staff = one <
 >
 
 voiceTwo =  \notes \relative c' {
-	% we must have a Thread context before we can switch staffs
+	% we must have a Thread context before we can switch staves
 	% in this case, the notes before the switching  will do that 
 	% implicitely
 	\context Thread

@@ -8,7 +8,7 @@ papersizename = \papersize
 papersize = \papersize
 
 % FIXME
-% direct PostScript line height for single line staffs
+% direct PostScript line height for single line staves
 lineheight = 14
 
 paperfile = \papersize + "-init.ly"

@@ -88,7 +88,7 @@ Bar_engraver::typeset_bar ()
 }
 
 /*
-  lines may only be broken if there is a barline in all staffs 
+  lines may only be broken if there is a barline in all staves 
 */
 void 
 Bar_engraver::stop_translation_timestep ()

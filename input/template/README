@@ -4,7 +4,7 @@
 * Better comment-out most header entries, or
   move to template/title.ly altogether?
 
-* Naming conventions for voices/staffs
+* Naming conventions for voices/staves
   (think: \autochange, \partcombine)?
 
 * Add (commented-out) stuff like \time 3/4
@@ -35,7 +35,7 @@
   melody with lyrics and chords = melody-lyrics-chords.ly
   piano = piano.ly
   piano with several voices = piano-4-voices.ly
-  piano with lyrics (between staffs) = piano-lyrics.ly
+  piano with lyrics (between staves) = piano-lyrics.ly
   piano with melody and lyrics = piano-melody-lyrics.ly
 
 TODO (Choral templates, anyone?)

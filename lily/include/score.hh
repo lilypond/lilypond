@@ -19,7 +19,7 @@
 /// the total music def of one movement
 class Score: public Input {
 public:
-  /// paper_, staffs_ and commands_ form the problem definition.
+  /// paper_, staves_ and commands_ form the problem definition.
   Link_array<Music_output_def> def_p_arr_;
   SCM music_;
   Scheme_hash_table * header_p_;

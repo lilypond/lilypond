@@ -362,7 +362,7 @@ extend_spanner_over_elements (SCM value, SCM extremal_pair)
   points to.
 
   TODO: maybe be more specific. Most probably fucks up if someone sets
-  a pointer to the staffsymbol in S
+  a pointer to the staff symbol in S
 */
 void
 extend_spanner_over_elements (Grob*s)

@@ -1,5 +1,11 @@
-1.5.4.jcn2
+1.5.4.jcn3
 ==========
+
+* Spelling fixes, notably staffs->staves, except for ChangeLogs.
+
+* Removed `Default' from accidental comment names.
+
+* Compile fixes.
 
 * Fixed off by one error for point and click.
 

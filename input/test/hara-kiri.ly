@@ -1,7 +1,7 @@
 \version "1.3.146"
 
 \header {
-texidoc = "Hara kiri staffs disappear when empty "
+texidoc = "Hara kiri staves disappear when empty "
 }
 
 

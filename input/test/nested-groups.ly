@@ -3,7 +3,7 @@ texidoc="
 In InnerStaffGroup and InnerChoirStaff, the brackets should be shiftet leftwards.
 "
 filename = 	 "nested-groups.ly"
-description = 	 "Test of nested staff groups and choirstaffs"
+description = 	 "Test of nested staff groups and choirstaves"
 enteredby = 	 "RZ"
 copyright = 	 "public domain"
 Tested = 	 "Nested StaffGroups"

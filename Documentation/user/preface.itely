@@ -48,7 +48,7 @@ with a parser-first, bottom-up rewrite called mpp95 (which totally
 failed, obviously).
 
 After long and hard thinking, I came up with an algorithm for the
-horizontal spacing of multiple staffs (april 1996) I coded it (and did
+horizontal spacing of multiple staves (april 1996) I coded it (and did
 not test it).  After starting with this fundamental piece, I slowly
 added the stages which come before spacing, and after.  A half year
 later, I had a first working version, (october 1996).  I announced
