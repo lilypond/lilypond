@@ -7,6 +7,8 @@
 
 	* input/template/piano-4-voices.ly, piano-lyrics.ly: remove.
 
+	* input/GNUmakefile: remove "templates" from build subdirs.
+
 2004-10-16  Werner Lemberg  <wl@gnu.org>
 
 	* scripts/lilypond-book.ly (snippet_res): Define group `match'
