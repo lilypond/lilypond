@@ -125,6 +125,7 @@ $(builddir)/share/lilypond-force:
 	cd $(builddir)/share/$(package)/fonts && \
 		ln -s $(abs-srcdir)/mf source && \
 		ln -s ../../../mf/$(outconfbase) afm && \
+		ln -s ../../../tex/$(outconfbase) enc && \
 		ln -s ../../../mf/$(outconfbase) tfm && \
 		ln -s ../../../mf/$(outconfbase) type1
 	cd $(builddir)/share/$(package)/elisp && \

@@ -13,24 +13,24 @@ by LilyPond.  It is intended as a reference for users that are already
 somewhat familiar with LilyPond.
 
 @menu
-* Note entry::
-* Easier music entry::
-* Staff notation::
-* Polyphony::
-* Beaming::
-* Accidentals::
-* Expressive marks::
-* Repeats::
-* Rhythmic music::
-* Piano music::
-* Vocal music::
-* Other instrument specific notation::
-* Tablatures::
-* Popular music::
-* Orchestral music::
-* Ancient notation::
-* Contemporary notation::
-* Educational use::
+* Note entry::                  
+* Easier music entry::          
+* Staff notation::              
+* Polyphony::                   
+* Beaming::                     
+* Accidentals::                 
+* Expressive marks::            
+* Repeats::                     
+* Rhythmic music::              
+* Piano music::                 
+* Vocal music::                 
+* Other instrument specific notation::  
+* Tablatures::                  
+* Popular music::               
+* Orchestral music::            
+* Ancient notation::            
+* Contemporary notation::       
+* Educational use::             
 @end menu
 
 @c FIXME: Note entry vs Music entry at top level menu is confusing.
@@ -43,19 +43,19 @@ This section is about basic notation elements notes, rests and
 related constructs, such as stems, tuplets and ties.
 
 @menu
-* Notes::
-* Pitches::
-* Chromatic alterations::
-* Micro tones::
-* Chords::
-* Rests::
-* Skips::
-* Durations::
-* Augmentation dots::
-* Scaling durations::
-* Stems::
-* Ties::
-* Tuplets::
+* Notes::                       
+* Pitches::                     
+* Chromatic alterations::       
+* Micro tones::                 
+* Chords::                      
+* Rests::                       
+* Skips::                       
+* Durations::                   
+* Augmentation dots::           
+* Scaling durations::           
+* Stems::                       
+* Ties::                        
+* Tuplets::                     
 @end menu
 
 
@@ -581,11 +581,11 @@ website for more information.
 
 
 @menu
-* Relative octaves::
-* Octave check::
-* Bar check::
-* Skipping corrected music::
-* Automatic note splitting::
+* Relative octaves::            
+* Octave check::                
+* Bar check::                   
+* Skipping corrected music::    
+* Automatic note splitting::    
 @end menu
 
 
@@ -839,16 +839,16 @@ such as key signatures, clefs and time signatures.
 @cindex Staff notation
 
 @menu
-* Staff symbol::
-* Key signature::
-* Clef::
-* Ottava brackets::
-* Time signature::
-* Partial measures::
-* Unmetered music::
-* Bar lines::
-* Time administration::
-* Controlling formatting of prefatory matter::
+* Staff symbol::                
+* Key signature::               
+* Clef::                        
+* Ottava brackets::             
+* Time signature::              
+* Partial measures::            
+* Unmetered music::             
+* Bar lines::                   
+* Time administration::         
+* Controlling formatting of prefatory matter::  
 @end menu
 
 @node Staff symbol
@@ -1394,7 +1394,7 @@ a piece of music.  Polyphony in LilyPond refers to having more than
 one voice on the same staff.
 
 @menu
-* Writing polyphonic music::
+* Writing polyphonic music::    
 @end menu
 
 @node Writing polyphonic music
@@ -1556,10 +1556,10 @@ grouped.
 
 @cindex Automatic beams
 @menu
-* Automatic beams::
-* Manual beams::
-* Setting automatic beam behavior::
-* Beam formatting::
+* Automatic beams::             
+* Manual beams::                
+* Setting automatic beam behavior::  
+* Beam formatting::             
 @end menu
 
 @node Automatic beams
@@ -1809,7 +1809,7 @@ This section describes how to change the way that accidentals are
 inserted automatically before notes.
 
 @menu
-* Automatic accidentals::
+* Automatic accidentals::       
 @end menu
 
 @node Automatic accidentals
@@ -1965,19 +1965,19 @@ Expressive marks help musicians to bring more to the music than simple
 notes and rhythms.
 
 @menu
-* Slurs::
-* Phrasing slurs::
-* Breath marks::
-* Metronome marks::
-* Text scripts::
-* Text spanners::
-* Analysis brackets::
-* Articulations::
-* Running trills::
-* Fingering instructions::
-* Grace notes::
-* Glissando::
-* Dynamics::
+* Slurs::                       
+* Phrasing slurs::              
+* Breath marks::                
+* Metronome marks::             
+* Text scripts::                
+* Text spanners::               
+* Analysis brackets::           
+* Articulations::               
+* Running trills::              
+* Fingering instructions::      
+* Grace notes::                 
+* Glissando::                   
+* Dynamics::                    
 @end menu
 
 @node Slurs
@@ -2731,13 +2731,13 @@ Repetition is a central concept in music, and multiple notations exist
 for repetitions.
 
 @menu
-* Repeat types::
-* Repeat syntax::
-* Repeats and MIDI::
-* Manual repeat commands::
-* Tremolo repeats::
-* Tremolo subdivisions::
-* Measure repeats::
+* Repeat types::                
+* Repeat syntax::               
+* Repeats and MIDI::            
+* Manual repeat commands::      
+* Tremolo repeats::             
+* Tremolo subdivisions::        
+* Measure repeats::             
 @end menu
 
 @node Repeat types
@@ -3054,9 +3054,9 @@ Rhythmic music is primarily used for percussion and drum notation, but it can
 also be used to show the rhythms of melodies.
 
 @menu
-* Showing melody rhythms::
-* Entering percussion::
-* Percussion staves::
+* Showing melody rhythms::      
+* Entering percussion::         
+* Percussion staves::           
 @end menu
 
 
@@ -3335,12 +3335,12 @@ handle this cross-staffing behavior.  In this section we discuss the
 
 
 @menu
-* Automatic staff changes::
-* Manual staff switches::
-* Pedals::
-* Arpeggio::
-* Staff switch lines::
-* Cross staff stems::
+* Automatic staff changes::     
+* Manual staff switches::       
+* Pedals::                      
+* Arpeggio::                    
+* Staff switch lines::          
+* Cross staff stems::           
 @end menu
 
 @refbugs
@@ -3684,13 +3684,13 @@ for complex vocal music.
 
 
 @menu
-* Setting simple songs::
-* Entering lyrics::
-* Hyphens and extenders::
-* The Lyrics context::
-* Flexibility in alignment::
-* More stanzas::
-* Ambitus::
+* Setting simple songs::        
+* Entering lyrics::             
+* Hyphens and extenders::       
+* The Lyrics context::          
+* Flexibility in alignment::    
+* More stanzas::                
+* Ambitus::                     
 @end menu
 
 @node Setting simple songs
@@ -3986,7 +3986,7 @@ Here is an example demonstrating manual lyric durations,
 @cindex choral score
 
 A complete example of a SATB score setup is in section
-@ref{Vocal Ensembles}.
+@ref{Vocal ensembles}.
 
 
 @refcommands
@@ -4298,7 +4298,7 @@ This section includes extra information for writing string music, and may
 include extra information for other instruments in the future.
 
 @menu
-* Harmonic notes::
+* Harmonic notes::              
 @end menu
 
 @node Harmonic notes, , Other instrument specific notation, Other instrument specific notation
@@ -4328,8 +4328,8 @@ indicating on which string and fret a note must be played.  LilyPond
 offers limited support for tablature.
 
 @menu
-* Tablatures basic::
-* Non-guitar tablatures::
+* Tablatures basic::            
+* Non-guitar tablatures::       
 @end menu
 
 @node Tablatures basic, Non-guitar tablatures, Tablatures, Tablatures
@@ -4427,11 +4427,11 @@ Program reference: @internalsref{Tab_note_heads_engraver}.
 This section discusses issues that arise when writing popular music.
 
 @menu
-* Chord names::
-* Chords mode::
-* Printing chord names::
-* Fret diagrams::
-* Improvisation::
+* Chord names::                 
+* Chords mode::                 
+* Printing chord names::        
+* Fret diagrams::               
+* Improvisation::               
 @end menu
 
 @node Chord names, Chords mode, Popular music, Popular music
@@ -4872,19 +4872,19 @@ some common problems in orchestral music.
 
 
 @menu
-* System start delimiters::
-* Aligning to cadenzas::
-* Rehearsal marks::
-* Bar numbers::
-* Instrument names::
-* Transpose::
-* Instrument transpositions::
-* Multi measure rests::
-* Automatic part combining::
-* Hiding staves::
-* Different editions from one source::
-* Quoting other voices::
-* Formatting cue notes::
+* System start delimiters::     
+* Aligning to cadenzas::        
+* Rehearsal marks::             
+* Bar numbers::                 
+* Instrument names::            
+* Transpose::                   
+* Instrument transpositions::   
+* Multi measure rests::         
+* Automatic part combining::    
+* Hiding staves::               
+* Different editions from one source::  
+* Quoting other voices::        
+* Formatting cue notes::        
 @end menu
 
 @node System start delimiters
@@ -5813,19 +5813,19 @@ up during the baroque period.
 Here are all suptopics at a glance:
 
 @menu
-* Ancient note heads::
-* Ancient accidentals::
-* Ancient rests::
-* Ancient clefs::
-* Ancient flags::
-* Ancient time signatures::
-* Ancient articulations::
-* Custodes::
-* Divisiones::
-* Ligatures::
-* Gregorian Chant contexts::
-* Mensural contexts::
-* Figured bass::
+* Ancient note heads::          
+* Ancient accidentals::         
+* Ancient rests::               
+* Ancient clefs::               
+* Ancient flags::               
+* Ancient time signatures::     
+* Ancient articulations::       
+* Custodes::                    
+* Divisiones::                  
+* Ligatures::                   
+* Gregorian Chant contexts::    
+* Mensural contexts::           
+* Figured bass::                
 @end menu
 
 
@@ -6523,8 +6523,8 @@ Augmentum dots within ligatures are not handled correctly.
 
 
 @menu
-* White mensural ligatures::
-* Gregorian square neumes ligatures::
+* White mensural ligatures::    
+* Gregorian square neumes ligatures::  
 @end menu
 
 @node White mensural ligatures
@@ -7680,10 +7680,10 @@ LilyPond is limited.
 
 
 @menu
-* Polymetric notation::
-* Clusters::
-* Special fermatas::
-* Feathered beams::
+* Polymetric notation::         
+* Clusters::                    
+* Special fermatas::            
+* Feathered beams::             
 @end menu
 
 @node Polymetric notation
@@ -7928,10 +7928,10 @@ With the amount of control that LilyPond offers, one can make great
 teaching tools in addition to great musical scores.
 
 @menu
-* Balloon help::
-* Blank music sheet::
-* Hidden notes::
-* Easy Notation note heads::
+* Balloon help::                
+* Blank music sheet::           
+* Hidden notes::                
+* Easy Notation note heads::    
 @end menu
 
 @node Balloon help

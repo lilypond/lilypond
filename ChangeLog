@@ -1,3 +1,16 @@
+2005-02-08  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* GNUmakefile.in ($(builddir)/share/lilypond-force): teTeX-3.0 fix:
+	add enc symlink.
+
+	* Documentation/user/notation.itely (The Lyrics context): Bugfix:
+	xref to Vocal ensembles.
+
+2005-01-09  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* config.make.in (METAFONT): Append -progname=mf, fixes use with
+	mf-nowin for teTeX-3.0.  Backportme.
+
 2005-01-13  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/notation.itely (Ancient rests): Fix typo
