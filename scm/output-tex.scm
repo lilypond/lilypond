@@ -352,3 +352,11 @@
 
 (define-public (tex-output-expression expr port)
   (display (eval expr this-module) port ))
+
+(define-public (start-page)
+  "\n\\vbox{\n")
+
+(define-public (stop-page last?)
+  (if last?
+      "\n}\n"
+      "\n}\n\\newpage\n"))
