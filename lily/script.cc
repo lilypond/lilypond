@@ -5,7 +5,7 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-
+#include "script-def.hh"
 #include "musical-request.hh"
 #include "paper-def.hh"
 #include "script.hh"
@@ -13,7 +13,22 @@
 #include "molecule.hh"
 #include "lookup.hh"
 
+void
+Script::do_print() const
+{
+#ifndef NPRINT
+    specs_l_->print();
+#endif
+}
 
+void
+Script::do_substitute_dependency(Score_elem*o,Score_elem*n)
+{
+    Staff_side::do_substitute_dependency(o,n);
+    if (o == stem_l_) {
+	stem_l_ = n ? (Stem*)n->item() : 0;
+    }
+}
 
 void
 Script::set_stem(Stem*st_l)
@@ -23,23 +38,30 @@ Script::set_stem(Stem*st_l)
 }
 
 
-Script::Script(Script_req* rq)
+Script::Script()
 {    
-    specs_l_ = rq->scriptdef_p_;
-    inside_staff_b_ = specs_l_->inside_b();
+    specs_l_ = 0;
+    inside_staff_b_ = false;
     stem_l_ = 0;
     pos_i_ = 0;
-    dir_i_ =rq->dir_i_;
+    dir_i_ =  0;
 }
+
 void
 Script::set_default_dir()
 {
     int s_i=specs_l_->rel_stem_dir_i();
-    if (s_i && stem_l_)
-	dir_i_ = stem_l_->dir_i_ * s_i;
-    else {
+    if (s_i) { 
+	if(stem_l_)
+	    dir_i_ = stem_l_->dir_i_ * s_i;
+	else{ 
+	    specs_l_->warning("Script needs stem direction");
+	    dir_i_ = -1;
+	}
+    } else {
 	dir_i_ =specs_l_->staff_dir_i();
     }
+    assert(dir_i_);
 }
 
 void
@@ -59,7 +81,7 @@ Script::do_pre_processing()
 {
     if (!dir_i_)
 	set_default_dir();
-
+    inside_staff_b_ = specs_l_->inside_b();
 }
 
 void

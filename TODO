@@ -1,4 +1,4 @@
-Features you cannot find in the doco as working, should be mentioned her.
+Features you cannot find in the doco as working, should be mentioned here.
 
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
@@ -6,15 +6,7 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
-bugs introduced in pl68:
-	
-	* lyrics broken,
-
-	* midi broken
-
-	* scripts broken
-
-IMPORTANT
+	* 
 
 	* piano staff
 
@@ -28,7 +20,7 @@ IMPORTANT
 
 	* decent TeX page layout
 
-	* script priority
+	* enter script priority
 
 	* a Hands on tutorial [HKN]
 
@@ -57,7 +49,6 @@ PROJECTS
 	- Common Music Notation
 	- PostScript output (esp. Beams, Slurs, etc)
 	- Move PScore, Items, Spanners etc. into libmutype.a
-
 
 	* separate Score_elem settings in user-settable (properties
 	.. ) and non-user-settable part. Maybe use something like X-resources:
@@ -94,7 +85,6 @@ PROJECTS
 	- hack up mf sources for decent spacing info (and then 
 	read AFM/TFM directly, for text too)
 
-
 	* lines:
 	- Ledger lines, should be separate item: Ledger_lines, Ledger_lines_reg
 	- set different line sizes / thicknesses
@@ -104,7 +94,7 @@ PROJECTS
 	* Collisions
 	- bring Collision::do_pre_processing to haircutter
 	- left/right note balls should be handled by Collision:
-	< \multivoice { \stem 1; <b c> } { <f as b> } >
+	< \multi 2; { \stem 1; <b c> } { <f as b> } >
 
 	* Keys:
 	- merge key{item} & localkey{item}?
@@ -122,23 +112,20 @@ HKN buglist:
 
 tekst staat erg ver van notenbalken af
 
-waarom geen ; achter dingen in \paper? (\textwidth 180\mm)
-(sowieso: wanneer wel en geen ; ?)
-
 Onduidelijk wanneer wel en geen \ voor een woord. Maak liever
 verplichte regels
 
-
 BUGS
+
 	* spurious Weird stem size warnings
 
-	* staccato dot positions.
-
-	* stacked scripts.
+	* fix mysterious Flex malloc bug 
 
 	* should adjust stemlength for flag number.
 
 	* lilypond - -> crash
+
+	* scales.ly
 
 	* standchen triool beam up/down
 	
@@ -204,7 +191,7 @@ SMALLISH PROJECTS
 
 	* A range for context errors (eg. mark both { and }. )
 
-	* text in staff  (sharpsharp in staff, text below)
+	* lyric in staff  (sharpsharp in staff, text below)
 
 	* fix Egler definitions ( see tex/eglerdefs.tex )
 
@@ -273,7 +260,6 @@ SMALLISH PROJECTS
 	* script-spacing
 
 	* Brackets
-
 	
 	* use (char *) iso. String for communication between lexer and
 	parser.
@@ -346,7 +332,6 @@ IDEAS
 
 	* Spacing_request for manually adjusting spacing
 
-	
 	* caching breakpoints
 
 	* #c <-> cis
