@@ -163,7 +163,7 @@ for the reader.
 			      (car rest) Y)
   )
 
-(define-public (normal-size-superscript-markup grob props . rest)
+(define-public (normal-size-super-markup grob props . rest)
   (ly:molecule-translate-axis (interpret-markup
 			       grob
 			       props (car rest))
@@ -196,6 +196,15 @@ for the reader.
 			      (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
 			      Y)
   )
+
+(define-public (normal-size-sub-markup grob props . rest)
+  (ly:molecule-translate-axis (interpret-markup
+			       grob
+			       props (car rest))
+			      (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
+			      Y)
+  )
+
 
 ;; todo: fix negative space
 (define (hspace-markup grob props . rest)
@@ -366,7 +375,10 @@ for the reader.
 
    ;; 
    (cons sub-markup (list markup?))
+   (cons normal-size-sub-markup (list markup?))
+   
    (cons super-markup (list markup?))
+   (cons normal-size-super-markup (list markup?))
    
    (cons bold-markup (list markup?))
    (cons italic-markup (list markup?))

@@ -1,5 +1,10 @@
 2003-01-04  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/chord-name.scm: Super/raise changes and fixes for Banter.
+
+	* scm/new-markup.scm (normal-size-sub-markup) 
+	(normal-size-super-markup): New function.
+
 	* lily/source-file.cc (Source_file): Add warning for possibly
 	intentional but suspicious initialization.
 

@@ -443,7 +443,7 @@ ScoreContext = \translator {
 	)
 	barCheckSynchronize = ##t
 	chordNameFunction = #chord->markup-banter
-	chordNameExceptions = #chord::names-alist-banter
+	chordNameExceptions = #chord::exception-alist-banter
 
 	\grobdescriptions #all-grob-descriptions
 }

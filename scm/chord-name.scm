@@ -66,7 +66,7 @@ dump reinterpret the markup as a molecule.
 ;; markup = markup text -- see font.scm and input/test/markup.ly
 
 
-(define-public chord::names-alist-banter
+(define-public chord::exception-alist-banter
        `(
 	; C iso C.no3.no5
 	(((0 . 0)) . ,empty-markup)
@@ -76,10 +76,10 @@ dump reinterpret the markup as a molecule.
 	(((0 . 0) (2 . -1)) . ,(make-simple-markup "m"))
 	; C2 iso C2.no3
 	(((0 . 0) (1 . 0) (4 . 0))
-	 . ,(make-super-markup (make-simple-markup "2 ")))
+	 . ,(make-normal-size-super-markup (make-simple-markup "2 ")))
 	; C4 iso C4.no3
 	(((0 . 0) (3 . 0) (4 . 0))
-	 . ,(make-super-markup (make-simple-markup "4 ")))
+	 . ,(make-normal-size-super-markup (make-simple-markup "4 ")))
 	;; Cdim iso Cm5-
 	(((0 . 0) (2 . -1) (4 . -1)) . ,(make-simple-markup "dim"))
 	; URG: Simply C:m5-/maj7 iso Cdim maj7
@@ -87,25 +87,25 @@ dump reinterpret the markup as a molecule.
 	 . ,(make-line-markup
 	     (list
 	      (make-simple-markup "m")
-	      (make-super-markup (make-simple-markup "5-/maj7 ")))))
+	      (make-normal-size-super-markup (make-simple-markup "5-/maj7 ")))))
 	; URG: Simply C:m5-/7 iso Cdim7
 	(((0 . 0) (2 . -1) (4 . -1) (6 . -1))
 	 . ,(make-line-markup
 	     (list
 	      (make-simple-markup "m")
-	      (make-super-markup (make-simple-markup "5-/7 ")))))
+	      (make-normal-size-super-markup (make-simple-markup "5-/7 ")))))
 	; Co iso C:m5-/7-
         (((0 . 0) (2 . -1) (4 . -1) (6 . -2))
-	 . ,(make-super-markup (make-simple-markup "o ")))
+	 . ,(make-super-markup (make-simple-markup "o")))
 	; Cdim9
 	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1))
 	 . ,(make-line-markup
 	     (list (make-simple-markup "dim")
-		   (make-super-markup (make-simple-markup "9 ")))))
+		   (make-normal-size-super-markup (make-simple-markup "9 ")))))
 	(((0 . 0) (2 . -1) (4 . -1) (6 . -2) (1 . -1) (3 . -1))
 	 . ,(make-line-markup
 	     (list (make-simple-markup "dim")
-				(make-super-markup
+				(make-normal-size-super-markup
 				 (make-simple-markup "11 ")))))
 	
 	))
@@ -157,9 +157,7 @@ dump reinterpret the markup as a molecule.
    (list
     (make-simple-markup
      (vector-ref #("C" "D" "E" "F" "G" "A" "B")  (cadr pitch)))
-    ;; undefined?
-    ;; (make-normal-size-superscript-markup
-    (make-super-markup
+    (make-normal-size-super-markup
      (accidental->markup (caddr pitch))))))
   
 ;;; Hooks to override chord names and note names, 
@@ -194,6 +192,34 @@ dump reinterpret the markup as a molecule.
 	 ((1)  "7+")
 	 ((2)  "7+"))
        (step->markup pitch))))
+
+(define (step->markup-previously-alternate-jazz pitch)
+  (make-line-markup
+   (list
+    (accidental->markup (caddr pitch))
+    (make-simple-markup
+     (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8)))))))
+
+(define (step->markup-previously-jazz pitch)
+  (if (= (cadr pitch) 6)
+      (case (caddr pitch)
+	;; sharp 7 only included for completeness?
+	((-2) (make-line-markup
+	       (list
+		(accidental->markup  -1)
+		(make-simple-markup "7"))))
+	((-1) (make-simple-markup "7"))
+	((0) (make-simple-markup "maj7"))
+	;;((0) (make-line-markup
+	;;      (list (make-simple-markup "maj7"))))
+	((1) (make-line-markup
+	      (list
+	       (accidental->markup 1) (make-simple-markup "7"))))
+	((2) (make-line-markup
+	      (list (accidental->markup 1)
+		    (make-simple-markup "7")))))
+      (step->markup-previously-alternate-jazz pitch)))
+
 
 (define pitch::semitone-vec #(0 2 4 5 7 9 11))
 
@@ -319,12 +345,13 @@ dump reinterpret the markup as a molecule.
 	(chord::additions->markup-banter (cdr additions) subtractions)))
       empty-markup))
 
-(define (chord::subtractions->markup-banter subtractions)	 
+(define (chord::subtractions->markup-banter subtractions)
   (if (pair? subtractions)
       (make-line-markup
        (list
 	(make-simple-markup "no")
-	(let ((step (step->markup-jazz (car subtractions))))
+	(let ((step (step->markup-previously-jazz
+		     (car subtractions))))
 	  (if (pair? (cdr subtractions))
 	      (make-line-markup
 	       (list step (make-simple-markup "/")))
@@ -358,15 +385,21 @@ dump reinterpret the markup as a molecule.
 
 "
   (let* ((tonic-markup (pitch->chord-name-markup-banter tonic steps))
-	 (except-markup
-
-	  (if exception-part exception-part empty-markup))  ;;(make-simple-markup "")))
-	 (sep-markup (make-simple-markup
-		      (if (and (string-match "super"
-					     (format "~s" except-markup))
-			       (or (pair? additions)
-				   (pair? subtractions)))
-			  "/" "")))
+	 (except-markup (if exception-part exception-part empty-markup))
+	 (sep-markup (if (and exception-part
+			      (let ((s (format "~s" except-markup)))
+				(and
+				 (string-match "super" s)
+				 ;; ugh ugh
+				 ;; python: `except_markup`[-5:] != '"o"))'
+				 (not (equal?
+				       "\"o\"))"
+				       (substring s
+						  (- (string-length s) 5))))))
+			      (or (pair? additions)
+				  (pair? subtractions)))
+			 (make-super-markup (make-simple-markup "/"))
+			 empty-markup))
 	 (adds-markup (chord::additions->markup-banter additions subtractions))
 	 (subs-markup (chord::subtractions->markup-banter subtractions))
 	 (b+i-markup (chord::bass-and-inversion->markup-banter
@@ -377,8 +410,7 @@ dump reinterpret the markup as a molecule.
       tonic-markup
       except-markup
       sep-markup
-      (make-raise-markup
-       0.3
+      (make-normal-size-super-markup
        (make-line-markup (list adds-markup subs-markup)))
       b+i-markup))))
 
@@ -406,10 +438,10 @@ dump reinterpret the markup as a molecule.
   ;; this is unintelligible.
   ;;
   (define (chord::exceptions-lookup-helper
-	   exceptions-alist try-steps unmatched-steps exception-part)
+	   exception-alist try-steps unmatched-steps exception-part)
     "
 
- check exceptions-alist for biggest matching part of try-steps
+ check exception-alist for biggest matching part of try-steps
  return (MATCHED-EXCEPTION . UNMATCHED-STEPS)
 
 "
@@ -423,13 +455,13 @@ dump reinterpret the markup as a molecule.
 	(let ((entry (assoc
 		      (map (lambda (x) (pitch->note-name x))
 			   (append '((0 0 0)) try-steps))
-		      exceptions-alist)))
+		      exception-alist)))
 	  (if entry
 	      (chord::exceptions-lookup-helper
 	       #f '() unmatched-steps (cdr entry))
 	      (let ((r (reverse try-steps)))
 		(chord::exceptions-lookup-helper
-		 exceptions-alist
+		 exception-alist
 		 (reverse (cdr r))
 		 (cons (car r) unmatched-steps) #f))))
 	(cons exception-part unmatched-steps)))
@@ -480,13 +512,18 @@ dump reinterpret the markup as a molecule.
       ((2) (accidental->markup 2)))
     (make-simple-markup (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8)))))
 
-(define-public chord::names-alist-american 
+(define-public chord::exception-alist-american 
   `(
     (((0 . 0)) . ,empty-markup)
-    (((0 . 0)) . ,empty-markup)
     (((0 . 0) (2 . -1)) . ,(make-simple-markup "m"))
-    (((0 . 0) (4 . 0)) . ,(make-super-markup (make-simple-markup "5 ")))
-    (((0 . 0) (1 . 0) (4 . 0)) . ,(make-super-markup (make-simple-markup "2 ")))
+    
+    ;; these should probably be normal-size?  --jcn
+    ;;(((0 . 0) (4 . 0)) . ,(make-super-markup (make-simple-markup "5 ")))
+    ;;(((0 . 0) (1 . 0) (4 . 0)) . ,(make-super-markup (make-simple-markup "2 ")))
+    
+    (((0 . 0) (4 . 0)) . ,(make-normal-size-super-markup (make-simple-markup "5 ")))
+    (((0 . 0) (1 . 0) (4 . 0)) . ,(make-normal-size-super-markup (make-simple-markup "2 ")))
+    
     ;;choose your symbol for the fully diminished chord
     (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ,(make-simple-markup "dim"))
     ;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ,(make-line-markup (list empty-markup (make-super-markup (make-simple-markup "o")))))
@@ -600,8 +637,7 @@ dump reinterpret the markup as a molecule.
     (make-line-markup
      (list
       tonic-markup except-markup sep-markup
-      (make-raise-markup
-       0.3
+      (make-normal-size-super-markup
        (make-line-markup (list pref-markup suff-markup)))
       b+i-markup))))
 
@@ -638,15 +674,20 @@ dump reinterpret the markup as a molecule.
 ;; Jazz chords, by Atte Andr'e Jensen <atte@post.com>
 ;; Complete rewrite by Amelie Zapf (amy@loueymoss.com)
 
-;; FIXME: identical to chord::names-alist-american, apart from commented
+;; FIXME: identical to chord::exception-alist-american, apart from commented
 ;;        dim chord.  should merge.
-(define-public chord::names-alist-jazz 
+(define-public chord::exception-alist-jazz 
   `(
     (((0 . 0)) . ,empty-markup)
-    (((0 . 0)) . ,empty-markup)
     (((0 . 0) (2 . -1)) . ,(make-simple-markup "m"))
-    (((0 . 0) (4 . 0)) . ,(make-super-markup (make-simple-markup "5 ")))
-    (((0 . 0) (1 . 0) (4 . 0)) . ,(make-super-markup (make-simple-markup "2 ")))
+
+    ;; these should probably be normal-size?  --jcn
+    ;;(((0 . 0) (4 . 0)) . ,(make-super-markup (make-simple-markup "5 ")))
+    ;;(((0 . 0) (1 . 0) (4 . 0)) . ,(make-super-markup (make-simple-markup "2 ")))
+    
+    (((0 . 0) (4 . 0)) . ,(make-normal-size-super-markup (make-simple-markup "5 ")))
+    (((0 . 0) (1 . 0) (4 . 0)) . ,(make-normal-size-super-markup (make-simple-markup "2 ")))
+    
     ;;choose your symbol for the fully diminished chord
     ;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ,(make-simple-markup "dim"))
     (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ,(make-line-markup (list (make-simple-markup "") (make-super-markup (make-simple-markup "o")))))
@@ -768,8 +809,7 @@ dump reinterpret the markup as a molecule.
     (make-line-markup
      (list
       tonic-markup except-markup sep-markup
-      (make-raise-markup
-       0.3
+      (make-normal-size-super-markup
        (make-line-markup (list pref-markup suff-markup)))
       b+i-markup))))
 
@@ -859,11 +899,14 @@ inline use in .ly file"
   (ly:export
    (case sym
      ((jazz)
-      (chord-name-style-setter chord->markup-jazz chord::names-alist-jazz))
+      (chord-name-style-setter chord->markup-jazz
+			       chord::exception-alist-jazz))
      ((banter)
-      (chord-name-style-setter chord->markup-banter chord::names-alist-banter))
+      (chord-name-style-setter chord->markup-banter
+			       chord::exception-alist-banter))
      ((american)
-      (chord-name-style-setter chord->markup-american chord::names-alist-american))
+      (chord-name-style-setter chord->markup-american
+			       chord::exception-alist-american))
      )))
 
 
