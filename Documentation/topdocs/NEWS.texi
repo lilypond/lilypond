@@ -18,6 +18,8 @@ Version 2.1.13
 
 @itemize @bullet
 
+@item The program reference has been cleaned up and revised.
+
 @item The syntax for setting properties has been simplified:
 the following table lists the differences:
 

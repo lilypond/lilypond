@@ -167,8 +167,9 @@ Separation_item::extremal_break_aligned_grob (Grob *separation_item, Direction d
 
 
 ADD_INTERFACE (Separation_item,"separation-item-interface",
-  "Item that computes widths to generate spacing rods.\n"
-"\n"
-"Calculate dimensions for the Separating_group_spanner; this has to be "
-"an item to get dependencies correct.  "
-, "padding X-extent conditional-elements elements");
+	       "Item that computes widths to generate spacing rods. "
+	       "This is done in concert with @ref{separation-spanner-interface}."
+	       
+	       ,
+
+	       "padding X-extent conditional-elements elements");

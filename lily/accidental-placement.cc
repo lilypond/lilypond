@@ -9,6 +9,7 @@ source file of the GNU LilyPond music typesetter
 
 #include <math.h>
 #include <libc-extension.hh>
+
 #include "item.hh"
 #include "skyline.hh"
 #include "music.hh"

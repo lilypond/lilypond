@@ -397,28 +397,28 @@ Valid values are described in @internalsref{bar-line-interface}.
 whether a melisma is active. This can be used to signal melismas on
 top of those automatically detected. ")
      (graceSettings ,vector?
-		    "Overrides for grace notes. This
-property should be manipulated through the @code{add-grace-property}
-function.")
-     (currentCommandColumn ,ly:grob? "Grob that is X-parent to all current breakable (clef, key signature, etc.) items.")
-     (currentMusicalColumn ,ly:grob? "Grob that is X-parent to all non-breakable items (note heads, lyrics, etc.).")
+		    "Overrides for grace notes. This property should
+be manipulated through the @code{add-grace-property} function.")
+     (currentCommandColumn ,ly:grob? "Grob that is X-parent to all
+current breakable (clef, key signature, etc.) items.")
+     (currentMusicalColumn ,ly:grob? "Grob that is X-parent to all
+non-breakable items (note heads, lyrics, etc.).")
      (breakableSeparationItem ,ly:grob?
-			      "The breakable items in this time step, for this staff.")
+			      "The breakable items in this time step,
+for this staff.")
 
      (localKeySignature ,list? "the key signature at this point in the
-measure.  The format is the same as for keySignature, but can also contain
-((OCTAVE . NAME) . (ALTER . BARNUMBER)) pairs. It is reset at every
-bar line.
-"  )
+measure.  The format is the same as for keySignature, but can also
+contain ((@var{octave} . @var{name}) . (@var{alter} . @var{barnumber}))
+pairs. It is reset at every bar line."  )
 
      
-     (localKeySignatureChanges ,list? "Experimental.
- [DOCME]")
+     (localKeySignatureChanges ,list? "Experimental. [DOCME]")
 
      (finalizations ,list? "List of expressions to evaluate before proceeding to next time step. Internal variable.")
-     (busyGrobs ,list? "
-a queue of (END-MOMENT . GROB) conses. This is for internal (C++) use only.
-This property contains the grobs which are still busy (eg. noteheads, spanners, etc.)
+     (busyGrobs ,list? "a queue of (@var{end-moment} . @var{GROB})
+conses. This is for internal (C++) use only.  This property contains
+the grobs which are still busy (eg. noteheads, spanners, etc.)
 ")
      (barCheckLastFail ,ly:moment? "Where in  the measurze did the last barcheck fail?") 
      (associatedVoiceContext ,ly:context? "The context object of the Voice that has the melody for this Lyrics.")
@@ -429,17 +429,17 @@ variable: store table with MusicName to Engraver entries.")
 context.")
 
      (beamMelismaBusy ,boolean? "Signal if a beam is present.")
-(dynamicAbsoluteVolumeFunction ,procedure? "[DOCUMENT-ME]
-")
+     (dynamicAbsoluteVolumeFunction ,procedure? "[DOCUMENT-ME]")
 
-(lastKeySignature ,list? "Last key
-signature before a key signature change.")
+     (lastKeySignature ,list? "Last key signature before a key
+signature change.")
 
-(scriptDefinitions ,list? "
-Description of scripts. This is used by Script_engraver for typesetting note-super/subscripts. See @file{scm/script.scm} for more information
+     (scriptDefinitions ,list? "Description of scripts. This is used by
+Script_engraver for typesetting note-super/subscripts. See
+@file{scm/script.scm} for more information
 ")
-(stavesFound ,grob-list? "list of all staff-symbols found.")
-(tieMelismaBusy ,boolean? "Signal whether a tie is present.")
+     (stavesFound ,grob-list? "list of all staff-symbols found.")
+     (tieMelismaBusy ,boolean? "Signal whether a tie is present.")
      )
    ))
 
