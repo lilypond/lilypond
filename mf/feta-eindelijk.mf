@@ -25,14 +25,14 @@ def block_rest =
 	draw_block ((0,0), (block_rest_x, block_rest_y));
 	enddef;
 
-fet_beginchar( "whole rest", "0", "wholerest");
+fet_beginchar("whole rest", "0");
 	set_char_box(0, block_rest_x#,
 		block_rest_y#,  0);
 	block_rest;
 	currentpicture := currentpicture shifted (0,- block_rest_y);
 fet_endchar;
 
-fet_beginchar("half rest", "1", "halfrest");
+fet_beginchar("half rest", "1");
 	set_char_box(0, block_rest_x#, 0, block_rest_y#);
 	block_rest;
 fet_endchar;
@@ -41,7 +41,7 @@ fet_endchar;
 %
 % should use ledgerline thickness?
 %
-fet_beginchar( "whole rest (outside staff)", "0o", "outsidewholerest");
+fet_beginchar("whole rest (outside staff)", "0o")
 	set_char_box(0, block_rest_x#,
 		block_rest_y#, ledgerlinethickness#/2);
 	block_rest;
@@ -54,7 +54,7 @@ fet_beginchar( "whole rest (outside staff)", "0o", "outsidewholerest");
 	draw_gridline(z5,z6,ledgerlinethickness);
 fet_endchar;
 
-fet_beginchar("half rest (outside staff)", "1o", "outsidehalfrest");
+fet_beginchar("half rest (outside staff)", "1o");
 	set_char_box(0, block_rest_x#,
 		ledgerlinethickness#/2, block_rest_y#);
 	block_rest;
@@ -69,18 +69,18 @@ fet_endchar;
 
 define_pixels(breve_rest_y, breve_rest_x, multi_rest_x, multi_beam_height);
 
-fet_beginchar("maxima rest", "-3", "maximarest");
+fet_beginchar("maxima rest", "-3");
 	set_char_box(0, 3 breve_rest_x#, breve_rest_y#, breve_rest_y#);
 	draw_block ((0,-floor (breve_rest_y)), (breve_rest_x, floor (breve_rest_y)));
 	addto currentpicture also currentpicture shifted (2 breve_rest_x, 0);
 fet_endchar;
 
-fet_beginchar("longa rest", "-2", "longarest");
+fet_beginchar("longa rest", "-2");
 	set_char_box(0, breve_rest_x#, breve_rest_y#, breve_rest_y#);
 	draw_block ((0,-floor (breve_rest_y)), (breve_rest_x, floor (breve_rest_y)));
 fet_endchar;
 
-fet_beginchar("breve rest", "-1", "breverest");
+fet_beginchar("breve rest", "-1");
 	set_char_box(0, breve_rest_x#, 0, breve_rest_y#);
 	draw_block ((0,0), (breve_rest_x, floor (breve_rest_y)));
 fet_endchar;
@@ -88,7 +88,7 @@ fet_endchar;
 
 tracingvariables := 1;
 
-fet_beginchar("Quarter rest","2","quartrest");
+fet_beginchar("Quarter rest","2");
 %	draw_staff (-2, 2, 0.0);	
 	save alpha, yshift, height;
 	alpha:=-50;
@@ -276,12 +276,12 @@ def draw_eighth_rest =
 
 	enddef;
 
-fet_beginchar("Classical quarter rest","2classical","clasquartrest");
+fet_beginchar("Classical quarter rest","2classical");
 	draw_eighth_rest;
 	currentpicture := currentpicture xscaled -1 shifted (w,0);
 	fet_endchar;
 
-fet_beginchar("8th rest","3","eighthrest");
+fet_beginchar("8th rest","3");
 	draw_eighth_rest;
 	fet_endchar;
 
@@ -291,7 +291,7 @@ fet_beginchar("8th rest","3","eighthrest");
 % they can collide with augmentation dots. 
 %
 
-fet_beginchar("16th rest","4","sixteenthrest");
+fet_beginchar("16th rest","4");
 	save width;
 	save ycenter;
 	save crook_dir, pat;
@@ -324,7 +324,7 @@ fet_beginchar("16th rest","4","sixteenthrest");
 	% draw_staff (-2,2,0.0);
 	fet_endchar;
 
-fet_beginchar("32th rest","5","thirtysecondrest");
+fet_beginchar("32th rest","5");
 	save width;
 	save ycenter;
 	save crook_dir, pat;
@@ -358,7 +358,7 @@ fet_beginchar("32th rest","5","thirtysecondrest");
 	% draw_staff (-2,2,0.0);
 	fet_endchar;
 
-fet_beginchar("64th rest","6","sixtyfourthrest");
+fet_beginchar("64th rest","6");
 	save width;
 	save ycenter;
 	save crook_dir, pat;
@@ -393,7 +393,7 @@ fet_beginchar("64th rest","6","sixtyfourthrest");
 	% draw_staff (-2,2,0.0);
 	fet_endchar;
 
-fet_beginchar("128th rest","7","hundredtwentyeighthrest");
+fet_beginchar("128th rest","7");
 	save width;
 	save ycenter;
 	save crook_dir, pat;

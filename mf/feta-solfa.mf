@@ -23,7 +23,7 @@ def drawdoshape =
 enddef;
 
 
-fet_beginchar("Whole dohead", "s0do", "wholedohead")
+fet_beginchar("Whole dohead", "s0do")
   pickup pencircle scaled blot_diameter;
   save a_b, i_o;
   a_b = 1.8;
@@ -32,7 +32,7 @@ fet_beginchar("Whole dohead", "s0do", "wholedohead")
   drawdoshape;
 fet_endchar;
   
-fet_beginchar("Half dohead", "s1do", "halfdohead")
+fet_beginchar("Half dohead", "s1do")
   save a_b, i_o;
   a_b = 1.5;
   i_o = 0.6;
@@ -40,7 +40,7 @@ fet_beginchar("Half dohead", "s1do", "halfdohead")
   drawdoshape;
 fet_endchar;
   
-fet_beginchar("Quart dohead", "s2do", "dohead")
+fet_beginchar("Quart dohead", "s2do")
   save a_b, noteshape;
   path noteshape;
   a_b = 1.54;
@@ -52,7 +52,7 @@ fet_endchar;
 save reshape; path reshape;
 reshape = (-1,1)--(-1,0.2){down} ... (0,-1) ... {up}(1,0.2)--(1,1)--cycle;
 
-fet_beginchar("Whole rehead", "s0re", "wholerehead")
+fet_beginchar("Whole rehead", "s0re")
   save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
   path noteshape, noteishape;
   noteshape = reshape;
@@ -64,7 +64,7 @@ fet_beginchar("Whole rehead", "s0re", "wholerehead")
   draw_solfa_note_shape;
 fet_endchar;
 
-fet_beginchar("Half rehead", "s1re", "halfrehead")
+fet_beginchar("Half rehead", "s1re")
   save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
   path noteshape, noteishape;
   noteshape = reshape;
@@ -76,7 +76,7 @@ fet_beginchar("Half rehead", "s1re", "halfrehead")
   draw_solfa_note_shape;
 fet_endchar;
 
-fet_beginchar("Quart rehead", "s2re", "rehead")
+fet_beginchar("Quart rehead", "s2re")
   save a_b, noteshape;
   path noteshape;
   a_b = 1.54;
@@ -97,7 +97,7 @@ fet_endchar;
 save fashape; path fashape;
 fashape = (-1,1)--(1,1)--(1,-1)--cycle;
 
-fet_beginchar("Whole fahead", "s0fa", "wholefahead")
+fet_beginchar("Whole fahead", "s0fa")
   save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
   path noteshape, noteishape;
   noteshape = fashape;
@@ -109,7 +109,7 @@ fet_beginchar("Whole fahead", "s0fa", "wholefahead")
   draw_solfa_note_shape;
 fet_endchar;
 
-fet_beginchar("Half stemup fahead", "u1fa", "halffauhead")
+fet_beginchar("Half stemup fahead", "u1fa")
   save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
   path noteshape, noteishape;
   noteshape = fashape;
@@ -121,7 +121,7 @@ fet_beginchar("Half stemup fahead", "u1fa", "halffauhead")
   draw_solfa_note_shape;
 fet_endchar;
 
-fet_beginchar("Quart stemup fahead", "u2fa", "fauhead")
+fet_beginchar("Quart stemup fahead", "u2fa")
   save a_b, noteshape;
   path noteshape;
   a_b = 1.54;
@@ -130,7 +130,7 @@ fet_beginchar("Quart stemup fahead", "u2fa", "fauhead")
   draw_solfa_quarter_note_shape;
 fet_endchar;
 
-fet_beginchar("Half stemdn fahead", "d1fa", "halffadhead")
+fet_beginchar("Half stemdn fahead", "d1fa")
   save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
   path noteshape, noteishape;
   noteshape = fashape rotated 180;
@@ -142,7 +142,7 @@ fet_beginchar("Half stemdn fahead", "d1fa", "halffadhead")
   draw_solfa_note_shape;
 fet_endchar;
 
-fet_beginchar("Quart stemdn fahead", "d2fa", "fadhead")
+fet_beginchar("Quart stemdn fahead", "d2fa")
   save a_b, noteshape;
   path noteshape;
   a_b = 1.54;
@@ -160,7 +160,7 @@ fet_endchar;
 save lashape; path lashape;
 lashape = (-1,-1)--(-1,1)--(1,1)--(1,-1)--cycle;
 
-fet_beginchar("Whole lahead", "s0la", "wholelahead")
+fet_beginchar("Whole lahead", "s0la")
   save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
   path noteshape, noteishape;
   noteshape = lashape;
@@ -172,7 +172,7 @@ fet_beginchar("Whole lahead", "s0la", "wholelahead")
   draw_solfa_note_shape;
 fet_endchar;
 
-fet_beginchar("Half lahead", "s1la", "halflahead")
+fet_beginchar("Half lahead", "s1la")
   save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
   path noteshape, noteishape;
   noteshape = lashape;
@@ -184,7 +184,7 @@ fet_beginchar("Half lahead", "s1la", "halflahead")
   draw_solfa_note_shape;
 fet_endchar;
 
-fet_beginchar("Quart lahead", "s2la", "lahead")
+fet_beginchar("Quart lahead", "s2la")
   save a_b, noteshape;
   path noteshape;
   a_b = 1.54;
@@ -202,7 +202,7 @@ fet_endchar;
 save tishape; path tishape;
 tishape = (0,-1)--(-1,0.3)..(0,1)..(1,0.3)--cycle;
 
-fet_beginchar("Whole tihead", "s0ti", "wholetihead")
+fet_beginchar("Whole tihead", "s0ti")
   save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
   path noteshape, noteishape;
   noteshape = tishape;
@@ -214,7 +214,7 @@ fet_beginchar("Whole tihead", "s0ti", "wholetihead")
   draw_solfa_note_shape;
 fet_endchar;
 
-fet_beginchar("Half tihead", "s1ti", "halftihead")
+fet_beginchar("Half tihead", "s1ti")
   save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
   path noteshape, noteishape;
   noteshape = tishape;
@@ -226,7 +226,7 @@ fet_beginchar("Half tihead", "s1ti", "halftihead")
   draw_solfa_note_shape;
 fet_endchar;
 
-fet_beginchar("Quart tihead", "s2ti", "tihead")
+fet_beginchar("Quart tihead", "s2ti")
   save a_b, noteshape;
   path noteshape;
   a_b = 1.54;

@@ -47,12 +47,12 @@ def draw_fermata =
   drawdot z4;
 enddef;
 
-fet_beginchar("fermata up", "ufermata", "ufermata")
+fet_beginchar("fermata up", "ufermata")
 	draw_fermata;	
 	penlabels(1,2,4);
 fet_endchar;
 
-fet_beginchar("fermata down", "dfermata", "dfermata")
+fet_beginchar("fermata down", "dfermata")
 	draw_fermata;
 	y_mirror_char;
 fet_endchar;
@@ -87,11 +87,11 @@ def draw_short_fermata =
 	drawdot z6;
 enddef;
 
-fet_beginchar("short fermata up", "ushortfermata", "ushortfermata")
+fet_beginchar("short fermata up", "ushortfermata")
 	draw_short_fermata;	
 fet_endchar;
 
-fet_beginchar("short fermata down", "dshortfermata", "dshortfermata")
+fet_beginchar("short fermata down", "dshortfermata")
 	draw_short_fermata;
 	xy_mirror_char;
 fet_endchar;
@@ -116,11 +116,11 @@ def draw_long_fermata =
 	drawdot z4;
 enddef;
 
-fet_beginchar("long fermata up", "ulongfermata", "ulongfermata")
+fet_beginchar("long fermata up", "ulongfermata")
 	draw_long_fermata;	
 fet_endchar;
 
-fet_beginchar("long fermata down", "dlongfermata", "dlongfermata")
+fet_beginchar("long fermata down", "dlongfermata")
 	draw_long_fermata;
 	y_mirror_char;
 fet_endchar;
@@ -155,11 +155,11 @@ def draw_very_long_fermata =
 	drawdot z4;
 enddef;
 
-fet_beginchar("very long fermata up", "uverylongfermata", "uverylongfermata")
+fet_beginchar("very long fermata up", "uverylongfermata")
 	draw_very_long_fermata;	
 fet_endchar;
 
-fet_beginchar("very long fermata down", "dverylongfermata", "dverylongfermata")
+fet_beginchar("very long fermata down", "dverylongfermata")
 	draw_very_long_fermata;
 	y_mirror_char;
 fet_endchar;
@@ -170,7 +170,7 @@ fet_endchar;
 % the same way in the score.
 %
 
-fet_beginchar("Thumb", "thumb", "thumb")
+fet_beginchar("Thumb", "thumb")
         save thin, height, width, thick, depth;
         height# = 5/4 width#;
         height# = staff_space#;
@@ -203,7 +203,7 @@ fet_endchar;
 % FIXME: rounded endings
 %
 % `\accent' is TeX reserved.
-fet_beginchar("> accent", "sforzato", "sforzatoaccent")
+fet_beginchar("> accent", "sforzato")
 	set_char_box(.9 staff_space#, .9 staff_space#, .5 staff_space#, .5 staff_space#);
 	save thickness, diminish;
 
@@ -236,7 +236,7 @@ fet_beginchar("> accent", "sforzato", "sforzatoaccent")
 	labels(4);
 fet_endchar;
 
-fet_beginchar("espr", "espr", "espressivo")
+fet_beginchar("espr", "espr")
 	set_char_box(1.9 staff_space#, 1.9 staff_space#, .5 staff_space#, .5 staff_space#);
 	save thickness, diminish;
 	thickness = 0.05 staff_space + linethickness;
@@ -262,7 +262,7 @@ fet_beginchar("espr", "espr", "espressivo")
 
 fet_endchar;
 
-fet_beginchar("staccato dot", "staccato", "staccato")
+fet_beginchar("staccato dot", "staccato")
 	save radius;
 	radius# =   0.20 * staff_space#;
 	define_whole_pixels(radius);
@@ -282,17 +282,16 @@ def draw_staccatissimo =
 	set_char_box(radius#,radius#, blot_diameter#/2, height# + radius#);
 enddef;
 
-fet_beginchar("staccatissimo/martellato up", "ustaccatissimo", 
-		"ustaccatissimo")
+fet_beginchar("staccatissimo/martellato up", "ustaccatissimo") 
 	draw_staccatissimo;
 fet_endchar;
 
-fet_beginchar("staccatissimo/martellato down", "dstaccatissimo", "dstaccatissimo")
+fet_beginchar("staccatissimo/martellato down", "dstaccatissimo")
 	draw_staccatissimo;
 	y_mirror_char;
 fet_endchar;
 
-fet_beginchar("portato/single tenuto", "tenuto", "tenuto")
+fet_beginchar("portato/single tenuto", "tenuto")
 	save thick;
 	thick# = 1.6 linethickness#;
 	define_whole_pixels(thick);
@@ -316,14 +315,12 @@ def draw_portato =
 enddef;
 
 
-fet_beginchar("portato/tenuto with staccato", "uportato", 
-		"uportato")
+fet_beginchar("portato/tenuto with staccato", "uportato")
 	draw_portato;
 fet_endchar;
 
 
-fet_beginchar("portato/tenuto with staccato", "dportato", 
-		"dportato")
+fet_beginchar("portato/tenuto with staccato", "dportato")
 	draw_portato;
 	y_mirror_char
 fet_endchar;
@@ -351,7 +348,7 @@ def draw_marcato =
 	draw z3 .. z5;
 enddef;
 
-fet_beginchar("marcato up", "umarcato", "umarcato")
+fet_beginchar("marcato up", "umarcato")
 	draw_marcato;
 	labels(1,2,3,4,5);
 fet_endchar;
@@ -362,7 +359,7 @@ fet_endchar;
 % Contrary to what some MF/TeX `gurus' believe
 % it is *point*-symmetric with the "up" version
 %
-fet_beginchar("marcato down", "dmarcato", "dmarcato")
+fet_beginchar("marcato down", "dmarcato")
 	draw_marcato;
 	xy_mirror_char;
 fet_endchar;
@@ -372,7 +369,7 @@ fet_endchar;
 % used in french horn music todo
 %
 % TODO: too light at 20pt
-fet_beginchar("open (unstopped)", "open", "ouvert")
+fet_beginchar("open (unstopped)", "open")
 	save thin, height, width, thick;
 	height# = 5/4 width#;
 	height# = staff_space#;
@@ -392,7 +389,7 @@ fet_beginchar("open (unstopped)", "open", "ouvert")
 fet_endchar;
 
 
-fet_beginchar("plus (stopped)", "stopped", "plusstop")
+fet_beginchar("plus (stopped)", "stopped")
 	save thick, size;
 	thick = 2 linethickness;
 	size# = 1.1 staff_space#;
@@ -437,7 +434,7 @@ begingroup
 endgroup;
 enddef;
 
-fet_beginchar("Upbow", "upbow", "upbow")
+fet_beginchar("Upbow", "upbow")
 	save ht, wd, thick, diminish;
 	
 	thick = 1.4 linethickness;
@@ -448,7 +445,7 @@ fet_beginchar("Upbow", "upbow", "upbow")
 fet_endchar;
 
 
-fet_beginchar("Downbow", "downbow", "downbow")
+fet_beginchar("Downbow", "downbow")
 	save stemthick, beamheight;
 	save wd,round;
 	define_pixels(wd)
@@ -519,13 +516,13 @@ def draw_turn =
 
 enddef;
 
-fet_beginchar("Reverse turn","reverseturn","reverseturn")
+fet_beginchar("Reverse turn","reverseturn")
 	draw_turn;
 	currentpicture := currentpicture yscaled -1;
 fet_endchar;
 
 
-fet_beginchar("Turn","turn","turn")
+fet_beginchar("Turn","turn")
 	draw_turn;
 	penlabels(1,2,3,4,5,6,7);
 fet_endchar;
@@ -542,7 +539,7 @@ fet_endchar;
 %
 % 
 
-fet_beginchar("Trill (`tr')","trill","trill")
+fet_beginchar("Trill (`tr')","trill")
 	
 	save start_nib_angle,  ascender_extra, ex, hair_thick, fatness,
 	  slant_angle, slant, t_fatness, r_fatness, kerning, t_overshoot, 
@@ -700,12 +697,12 @@ def draw_heel =
 enddef;
 
 
-fet_beginchar("left heel", "upedalheel", "upedalheel")
+fet_beginchar("left heel", "upedalheel")
 	draw_heel;
 	labels(1,2,3);
 fet_endchar;
 
-fet_beginchar("right heel", "dpedalheel", "dpedalheel")
+fet_beginchar("right heel", "dpedalheel")
 	draw_heel;
 	y_mirror_char;
 fet_endchar;
@@ -723,16 +720,16 @@ def draw_toe =
 	draw_vee (wd, ht, thickness);
 enddef;
 	
-fet_beginchar("left toe", "upedaltoe", "upedaltoe")
+fet_beginchar("left toe", "upedaltoe")
 	draw_toe;
 	labels(1,2,3);
 fet_endchar;
-fet_beginchar("right toe", "dpedaltoe", "dpedaltoe")
+fet_beginchar("right toe", "dpedaltoe")
 	draw_toe;
 	y_mirror_char;
 fet_endchar;
 
-fet_beginchar("Flageolet", "flageolet", "flageolet")
+fet_beginchar("Flageolet", "flageolet")
 	save height,width,thickness;
 	height#=4/15 staffsize#;
 	width#=height#;
@@ -760,7 +757,7 @@ fet_endchar;
 %
 %
 
-fet_beginchar("Segno", "segno", "segno")
+fet_beginchar("Segno", "segno")
 	save thin, thick, ball_diam, darkness, pointheight;
 	save wd, ht, thick_nibangle, ball_nib_thick;
 	save turndir;
@@ -820,7 +817,7 @@ fet_beginchar("Segno", "segno", "segno")
 	draw (x2r,-pointheight);
 fet_endchar;
 
-fet_beginchar("Coda", "coda", "coda")
+fet_beginchar("Coda", "coda")
 	save stickout, thin, thick, codawidth, codaheight;
 
 	stickout# = 0.35 staff_space#;
@@ -855,7 +852,7 @@ fet_beginchar("Coda", "coda", "coda")
 
 fet_endchar;
 
-fet_beginchar("Varied Coda", "varcoda", "varcoda")
+fet_beginchar("Varied Coda", "varcoda")
 	save thin, thick, codawidth, codaheight;
 	thin# = 1.2 linethickness#;
 	thick# = 1.0 linethickness# + 0.25 staff_space#;
@@ -910,11 +907,11 @@ def draw_comma =
 	z3r{dir (90-alpha)} .. cycle;
 enddef;
 
-fet_beginchar("Right Comma","rcomma","rcomma");
+fet_beginchar("Right Comma","rcomma");
 	draw_comma;
 fet_endchar;
 
-fet_beginchar("Left Comma","lcomma","lcomma");
+fet_beginchar("Left Comma","lcomma");
 	draw_comma;
 	xy_mirror_char;
 fet_endchar;
@@ -933,11 +930,11 @@ def draw_varcomma =
 	draw_brush(z1, thin, z2, thick);
 enddef;
 
-fet_beginchar("Right Varied Comma","rvarcomma","rvarcomma");
+fet_beginchar("Right Varied Comma","rvarcomma");
 	draw_varcomma;
 fet_endchar;
 
-fet_beginchar("Left Varied Comma","lvarcomma","lvarcomma");
+fet_beginchar("Left Varied Comma","lvarcomma");
 	draw_varcomma;
 	xy_mirror_char;
 fet_endchar;
@@ -978,7 +975,7 @@ def draw_arpeggio =
 	penlabels(1,2,3,4,5,6,7,8,9);
 	enddef;
 
-fet_beginchar("Arpeggio","arpeggio","arpeggio");
+fet_beginchar("Arpeggio","arpeggio");
 	%draw_staff (-2, 2, 0.0);	
 	save height, overshoot, width;
 	height# = staff_space#;
@@ -992,7 +989,7 @@ fet_beginchar("Arpeggio","arpeggio","arpeggio");
 % Extendable Trill symbol.
 % Not yet used
 % Rename me to Trill, rename Trill to Tr?
-fet_beginchar("Trill_element","trill_element","trillelement");
+fet_beginchar("Trill_element","trill_element");
 	save height, overshoot;
 	height# = staff_space#;
 	width# = 0.8height#;
@@ -1042,12 +1039,12 @@ def draw_arpeggio_arrow =
 	filldraw z3 -- z12 {dir -130} ..  {dir -110} z10 {dir 110} ..  {dir 130} z11 -- cycle;
 enddef;
 
-fet_beginchar("Arpeggio arrow down", "arpeggio.arrow.M1", "arpeggioarrowdown");
+fet_beginchar("Arpeggio arrow down", "arpeggio.arrow.M1");
 	draw_arpeggio_arrow;
 fet_endchar;
 
 
-fet_beginchar("Arpeggio arrow up", "arpeggio.arrow.1", "arpeggioarrowup");
+fet_beginchar("Arpeggio arrow up", "arpeggio.arrow.1");
         draw_arpeggio_arrow;
         currentpicture := currentpicture scaled -1 shifted (0.8 staff_space, staff_space);
 fet_endchar;
@@ -1063,7 +1060,7 @@ input feta-slag;
 % I actually have no clue how they should look, so we use a slightly curvy  
 % and tapered shape. 
 %
-fet_beginchar("Caesura", "caesura", "caesura");
+fet_beginchar("Caesura", "caesura");
   save slant, space_between, clearance;
   save alpha, p;
   save botthick, topthick;

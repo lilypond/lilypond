@@ -54,20 +54,20 @@ enddef;
 
 
 
-fet_beginchar("trilelement", "trilelement", "trilelement")
+fet_beginchar("trilelement", "trilelement")
 	set_char_box(trill_width#, trill_width#,
 				trill_height#, trill_height#);
 	draw_trillelement(-trill_width);
 fet_endchar;
 
-fet_beginchar("prall", "prall", "prall")
+fet_beginchar("prall", "prall")
 	set_char_box(2 trill_width#, 2 trill_width#,
 		     trill_height#, trill_height#);
 	draw_trillelement(-2 trill_width);
 	draw_trillelement(0);
 fet_endchar;
 
-fet_beginchar("mordent", "mordent", "mordent")
+fet_beginchar("mordent", "mordent")
 	set_char_box(2 trill_width#, 2 trill_width#,
 			4/3 trill_height#, 4/3 trill_height#);
 	draw_trillelement(-2 trill_width);
@@ -81,7 +81,7 @@ fet_beginchar("mordent", "mordent", "mordent")
 	draw z1 -- z2;
 fet_endchar;
 
-fet_beginchar("prallprall", "prallprall", "prallprall")
+fet_beginchar("prallprall", "prallprall")
 	set_char_box(3 trill_width#, 3 trill_width#,
 		     trill_height#, trill_height#);
 	draw_trillelement(-3 trill_width);
@@ -89,7 +89,7 @@ fet_beginchar("prallprall", "prallprall", "prallprall")
 	draw_trillelement(1 trill_width);
 fet_endchar;
 
-fet_beginchar("prallmordent", "prallmordent", "prallmordent")
+fet_beginchar("prallmordent", "prallmordent")
 
 	set_char_box(3 trill_width#, 3 trill_width#,
 		     4/3 trill_height#, 4/3trill_height#);
@@ -108,7 +108,7 @@ fet_endchar;
 save remember_pic;
 picture remember_pic;
 
-fet_beginchar("upprall", "upprall", "upprall")
+fet_beginchar("upprall", "upprall")
 	set_char_box(3 trill_width#, 3 trill_width#,
 		      trill_height#, trill_height#);
 	draw_trillelement(-3 trill_width);
@@ -123,7 +123,7 @@ fet_beginchar("upprall", "upprall", "upprall")
 	remember_pic := currentpicture ;
 fet_endchar;
 
-fet_beginchar("upmordent", "upmordent", "upmordent")
+fet_beginchar("upmordent", "upmordent")
 	set_char_box(3 trill_width#, 3 trill_width#,
 		      4/3 trill_height#, 4/3 trill_height#);
 
@@ -137,13 +137,13 @@ fet_beginchar("upmordent", "upmordent", "upmordent")
 	draw z1 -- z2;
 fet_endchar;
 
-fet_beginchar("pralldown", "pralldown", "pralldown")
+fet_beginchar("pralldown", "pralldown")
 	set_char_box(3 trill_width#, 3 trill_width#,
 		      trill_height#, trill_height#);
 	currentpicture := remember_pic xscaled -1;
 fet_endchar;
 
-fet_beginchar("downprall", "downprall", "downprall")
+fet_beginchar("downprall", "downprall")
 	set_char_box(3 trill_width#, 3 trill_width#,
 		      trill_height#, trill_height#);
 	remember_pic := currentpicture;
@@ -160,7 +160,7 @@ fet_beginchar("downprall", "downprall", "downprall")
 
 fet_endchar;
 
-fet_beginchar("downmordent", "downmordent", "downmordent")
+fet_beginchar("downmordent", "downmordent")
 	set_char_box(3 trill_width#, 3 trill_width#,
 		    4/3  trill_height#, 4/3trill_height#);
 
@@ -174,14 +174,14 @@ fet_beginchar("downmordent", "downmordent", "downmordent")
 	draw z1 -- z2;
 fet_endchar;
 
-fet_beginchar("prallup", "prallup", "prallup")
+fet_beginchar("prallup", "prallup")
 	set_char_box(3 trill_width#, 3 trill_width#,
 		      trill_height#, trill_height#);
 	currentpicture := remember_pic xscaled -1;
 fet_endchar;
 
 
-fet_beginchar("lineprall", "lineprall", "lineprall")
+fet_beginchar("lineprall", "lineprall")
 	set_char_box(3 trill_width#, 3 trill_width#,
 		      trill_height#, 4trill_height#);
 	remember_pic := currentpicture;

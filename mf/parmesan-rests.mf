@@ -34,7 +34,7 @@ def neomens_half_block_rest =
 	draw_block ((0,0), (neomens_block_rest_x, neomens_half_block_rest_y));
 	enddef;
 
-fet_beginchar("Neo-mensural maxima rest", "-3neomensural", "neomensmaximarest");
+fet_beginchar("Neo-mensural maxima rest", "-3neomensural");
 	set_char_box(0, 3 neomens_block_rest_x#,
 		     neomens_block_rest_y#, neomens_block_rest_y#);
 	draw_block ((0,-neomens_block_rest_y),
@@ -42,20 +42,20 @@ fet_beginchar("Neo-mensural maxima rest", "-3neomensural", "neomensmaximarest");
 	addto currentpicture also currentpicture shifted (2 neomens_block_rest_x, 0);
 fet_endchar;
 
-fet_beginchar("Neo-mensural longa rest", "-2neomensural", "neomenslongarest");
+fet_beginchar("Neo-mensural longa rest", "-2neomensural");
 	set_char_box(0, neomens_block_rest_x#,
 		     neomens_block_rest_y#, neomens_block_rest_y#);
 	draw_block ((0,-neomens_block_rest_y),
 		    (neomens_block_rest_x, neomens_block_rest_y));
 fet_endchar;
 
-fet_beginchar("Neo-mensural breve rest", "-1neomensural", "neomensbreverest");
+fet_beginchar("Neo-mensural breve rest", "-1neomensural");
 	set_char_box(0, neomens_block_rest_x#,
 		     0, neomens_block_rest_y#);
 	draw_block ((0,0), (neomens_block_rest_x, neomens_block_rest_y));
 fet_endchar;
 
-fet_beginchar("Neo-mensural whole rest", "0neomensural", "neomenssemibrevisrest");
+fet_beginchar("Neo-mensural whole rest", "0neomensural");
 	set_char_box(0, neomens_block_rest_x#,
 		     neomens_half_block_rest_y#,  0);
 	neomens_half_block_rest;
@@ -63,7 +63,7 @@ fet_beginchar("Neo-mensural whole rest", "0neomensural", "neomenssemibrevisrest"
 		currentpicture shifted (0,- neomens_half_block_rest_y);
 fet_endchar;
 
-fet_beginchar("Neo-mensural half rest", "1neomensural", "neomensminimahalfrest");
+fet_beginchar("Neo-mensural half rest", "1neomensural");
 	set_char_box(0, neomens_block_rest_x#,
 		     0, neomens_half_block_rest_y#);
 	neomens_half_block_rest;
@@ -71,7 +71,7 @@ fet_endchar;
 
 neomensrestsize# = 0.8 staff_space#;
 
-fet_beginchar("Neo-mensural 4th rest","2neomensural","neomenssemiminimarest")
+fet_beginchar("Neo-mensural 4th rest","2neomensural")
 	set_char_box(0,neomensrestsize#,0,neomensrestsize#);
         pickup pencircle scaled 2 stafflinethickness;
 	lft x1 = 0;
@@ -84,7 +84,7 @@ fet_beginchar("Neo-mensural 4th rest","2neomensural","neomenssemiminimarest")
 	draw z2 .. z3;
 fet_endchar
 
-fet_beginchar("Neo-mensural 8th rest","3neomensural","neomensfusarest")
+fet_beginchar("Neo-mensural 8th rest","3neomensural")
 	set_char_box(0,neomensrestsize#,0,neomensrestsize#);
         pickup pencircle scaled 2 stafflinethickness;
 	rt x1 = w;
@@ -97,7 +97,7 @@ fet_beginchar("Neo-mensural 8th rest","3neomensural","neomensfusarest")
 	draw z2 .. z3;
 fet_endchar
 
-fet_beginchar("Neo-mensural 16th rest","4neomensural","neomenssemifusarest")
+fet_beginchar("Neo-mensural 16th rest","4neomensural")
 	set_char_box(0,neomensrestsize#,0,staff_space#);
         pickup pencircle scaled 2 stafflinethickness;
 	rt x1 = w;
@@ -142,7 +142,7 @@ mens_half_block_rest_y# = 5/8 staff_space#;
 define_pixels(mens_block_rest_y, mens_half_block_rest_y,
 	      pen_width, pen_height);
 
-fet_beginchar("Mensural maxima rest", "-3mensural", "mensmaximarest");
+fet_beginchar("Mensural maxima rest", "-3mensural");
 	set_char_box(0, pen_width#,
 		     mens_block_rest_y#, 2mens_block_rest_y#);
 	pickup pencircle
@@ -152,7 +152,7 @@ fet_beginchar("Mensural maxima rest", "-3mensural", "mensmaximarest");
 	draw (w/2, -mens_block_rest_y) -- (w/2, 2 mens_block_rest_y);
 fet_endchar;
 
-fet_beginchar("Mensural longa rest", "-2mensural", "menslongarest");
+fet_beginchar("Mensural longa rest", "-2mensural");
 	set_char_box(0, pen_width#,
 		     mens_block_rest_y#, mens_block_rest_y#);
 	pickup pencircle
@@ -162,7 +162,7 @@ fet_beginchar("Mensural longa rest", "-2mensural", "menslongarest");
 	draw (w/2, -mens_block_rest_y) -- (w/2, mens_block_rest_y);
 fet_endchar;
 
-fet_beginchar("Mensural breve rest", "-1mensural", "mensbreverest");
+fet_beginchar("Mensural breve rest", "-1mensural");
 	set_char_box(0, pen_width#,
 		     0, mens_block_rest_y#);
 	pickup pencircle
@@ -172,7 +172,7 @@ fet_beginchar("Mensural breve rest", "-1mensural", "mensbreverest");
 	draw (w/2, 0) -- (w/2, mens_block_rest_y);
 fet_endchar;
 
-fet_beginchar("Mensural whole rest", "0mensural", "menssemibrevisrest");
+fet_beginchar("Mensural whole rest", "0mensural");
 	set_char_box(0, pen_width#,
 		     mens_half_block_rest_y#, 0);
 	pickup pencircle
@@ -182,7 +182,7 @@ fet_beginchar("Mensural whole rest", "0mensural", "menssemibrevisrest");
 	draw (w/2, 0) -- (w/2, -mens_half_block_rest_y);
 fet_endchar;
 
-fet_beginchar("Mensural half rest", "1mensural", "mensminimahalfrest");
+fet_beginchar("Mensural half rest", "1mensural");
 	set_char_box(0, pen_width#,
 		     0, mens_half_block_rest_y#);
 	pickup pencircle
@@ -194,7 +194,7 @@ fet_endchar;
 
 mensrestsize# = .8staff_space#;
 
-fet_beginchar("Mensural 4th rest","2mensural","menssemiminimarest")
+fet_beginchar("Mensural 4th rest","2mensural")
 	set_char_box(0,mensrestsize#,0,mensrestsize#);
 	pickup pencircle
 		xscaled pen_width
@@ -207,7 +207,7 @@ fet_beginchar("Mensural 4th rest","2mensural","menssemiminimarest")
 	draw z1 -- z2 -- z3 -- z4;
 fet_endchar
 
-fet_beginchar("Mensural 8th rest","3mensural","mensfusarest")
+fet_beginchar("Mensural 8th rest","3mensural")
 	set_char_box(0,mensrestsize#,0,mensrestsize#);
 	pickup pencircle
 		xscaled pen_width
@@ -224,7 +224,7 @@ fet_endchar
 % FIXME: So far, I have never seen a semifusa rest printed.  Hence,
 % the shape of this font character is currently pure invention.  --jr
 %
-fet_beginchar("Mensural 16th rest","4mensural","menssemifusarest")
+fet_beginchar("Mensural 16th rest","4mensural")
 	set_char_box(0,mensrestsize#,0,staff_space#);
 	pickup pencircle
 		xscaled pen_width

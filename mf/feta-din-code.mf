@@ -33,7 +33,7 @@ bottom_blot = 1.3 serif_thick;
 
 
 code := 32;
-fet_beginchar("Space", "space", "space")
+fet_beginchar("Space", "space")
 	set_char_box(0, horizontal_space#,  0, ex#);
 fet_endchar;
 
@@ -44,7 +44,7 @@ fet_endchar;
 %
 
 code := 121;
-fet_beginchar ("dynamic z", "z", "z");
+fet_beginchar ("dynamic z", "z");
  	set_char_box (0, .98 ex#, 0, 0.9 ex#);
 
 	save thin_thick, top_narrow, over_shoot;
@@ -131,7 +131,7 @@ slant_angle = 20;
 
 
 code := 101;
-fet_beginchar("dynamic f", "f", "f");
+fet_beginchar("dynamic f", "f");
 	set_char_box (0, 1.1 ex#, descender#, ex# + ascender#);
 
 	save left_angle, right_angle;
@@ -229,7 +229,7 @@ fet_endchar;
 
 
 code := 114;
-fet_beginchar("dynamic s", "s", "s");
+fet_beginchar("dynamic s", "s");
 	set_char_box (0, 17/24  ex#, 0, 1 ex#);
 
 	save left_angle, right_angle;
@@ -335,7 +335,7 @@ currenttransform := currenttransform slanted slant;
 code := 111;
 
 
-fet_beginchar("dynamic p", "p", "p")
+fet_beginchar("dynamic p", "p")
 	%
 	% TODO w really   is 13/12 ex
 	% but should do kerning
@@ -487,7 +487,7 @@ fet_endchar;
 %
 code := 108;
 
-fet_beginchar("dynamic m", "m", "m");
+fet_beginchar("dynamic m", "m");
 	set_char_box (0, 1.5 ex#, 0, 1.0 ex#);
 
 	% should share code with p for twiddle.
@@ -636,7 +636,7 @@ code := 113;
 
 
 currenttransform := identity slanted ypart(dir(15));
-fet_beginchar("dynamic r", "r", "r");
+fet_beginchar("dynamic r", "r");
 	set_char_box (0, .75 ex#, 0, 1ex#);
 
 

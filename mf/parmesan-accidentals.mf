@@ -17,7 +17,7 @@ fet_begingroup ("accidentals")
 %
 %
 %
-fet_beginchar("Ed. Med. Flat" , "medicaea-1", "medicaeaflat");
+fet_beginchar("Ed. Med. Flat" , "medicaea-1");
 	set_char_box(0.1 staff_space#, 0.6 staff_space#,
 		     0.6 staff_space#, 1.0 staff_space#);
 
@@ -56,7 +56,7 @@ fet_beginchar("Ed. Med. Flat" , "medicaea-1", "medicaeaflat");
 %
 %
 %
-fet_beginchar("Ed. Vat. Flat" , "vaticana-1", "vaticanaflat");
+fet_beginchar("Ed. Vat. Flat" , "vaticana-1");
         save za, zb, zc, zd, ze, zf, zg;
         pair za, zb, zc, zd, ze, zf, zg;
         za = (0.00 staff_space, +0.80 staff_space);
@@ -78,7 +78,7 @@ fet_beginchar("Ed. Vat. Flat" , "vaticana-1", "vaticanaflat");
 		     0.80 staff_space# + 0.11 staff_space#);
         fet_endchar;
 
-fet_beginchar("Ed. Vat. Natural" , "vaticana0", "vaticananatural");
+fet_beginchar("Ed. Vat. Natural" , "vaticana0");
 	save za, zb, zc, zd;
 	pair za, zb, zc, zd;
 	pickup pencircle
@@ -111,7 +111,7 @@ fet_beginchar("Ed. Vat. Natural" , "vaticana0", "vaticananatural");
 %
 %
 %
-fet_beginchar("Mensural Sharp" , "mensural1", "mensuralsharp");
+fet_beginchar("Mensural Sharp" , "mensural1");
 	save stemthick;
 	define_pixels (stemthick);
 	stemthick# = linethickness#;
@@ -133,7 +133,7 @@ fet_beginchar("Mensural Sharp" , "mensural1", "mensuralsharp");
 
 	fet_endchar;
 
-fet_beginchar("Mensural Flat" , "mensural-1", "mensuralflat");
+fet_beginchar("Mensural Flat" , "mensural-1");
 	save stemthick;
 	define_pixels (stemthick);
 	stemthick# = linethickness#;
@@ -159,7 +159,7 @@ fet_beginchar("Mensural Flat" , "mensural-1", "mensuralflat");
 
 	fet_endchar;
 
-fet_beginchar("Hufnagel Flat" , "hufnagel-1", "hufnagelflat");
+fet_beginchar("Hufnagel Flat" , "hufnagel-1");
 	save stemthick;
 	define_pixels (stemthick);
 	stemthick# = linethickness#;

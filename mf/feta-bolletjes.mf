@@ -132,7 +132,7 @@ enddef;
 %
 % dimensions aren't entirely right.
 %
-fet_beginchar ("Brevis notehead", "s-1", "brevishead");
+fet_beginchar ("Brevis notehead", "s-1");
 	save stemthick, fudge;
 	define_pixels (stemthick);
 	fudge = blot_diameter / 2;
@@ -161,7 +161,7 @@ fet_endchar;
 
 
 
-fet_beginchar("Whole notehead", "s0", "wholehead")
+fet_beginchar("Whole notehead", "s0")
 	draw_outside_ellipse (1.80 - puff_up_factor / 3.0, 0, 0.707, 0);
 	undraw_inside_ellipse (1.30, 125 - puff_up_factor *10,
 			0.68, 2 stafflinethickness#,
@@ -172,14 +172,14 @@ fet_beginchar("Whole notehead", "s0", "wholehead")
 fet_endchar;
 
 
-fet_beginchar("Half notehead", "s1", "halfhead")
+fet_beginchar("Half notehead", "s1")
 	draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17);
 	undraw_inside_ellipse (3.25, 33, 0.81,
 		2.5 stafflinethickness#, (w/2, 0));
 
 fet_endchar;
 	
-fet_beginchar("Quart notehead", "s2", "quarthead")
+fet_beginchar("Quart notehead", "s2")
 
 	% used to have 32. With 31, they are slightly bolder.
 	draw_outside_ellipse (1.49 - puff_up_factor / 3.0, 31, 0.707, 0);
@@ -189,7 +189,7 @@ fet_endchar;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-fet_beginchar("Whole diamondhead", "s0diamond", "wholediamondhead")
+fet_beginchar("Whole diamondhead", "s0diamond")
 	draw_outside_ellipse (1.80, 0, 0.495, 0);
 	undraw_inside_ellipse (1.30, 125, 0.6,
 			.4 staff_space# +  stafflinethickness#,
@@ -197,8 +197,7 @@ fet_beginchar("Whole diamondhead", "s0diamond", "wholediamondhead")
 
 fet_endchar;
 
-fet_beginchar("Half diamondhead", "s1diamond", 
-	"halfdiamondhead")
+fet_beginchar("Half diamondhead", "s1diamond")
 
 	draw_outside_ellipse (1.50, 34, 0.49, 0.17);
 	undraw_inside_ellipse (3.5, 33, 0.80,
@@ -206,7 +205,7 @@ fet_beginchar("Half diamondhead", "s1diamond",
 
 fet_endchar;
 
-fet_beginchar("Quart diamondhead", "s2diamond", "diamondhead")
+fet_beginchar("Quart diamondhead", "s2diamond")
 	draw_outside_ellipse (1.80, 35, 0.495, -0.25);
 fet_endchar;
 
@@ -269,7 +268,7 @@ def define_triangle_shape(expr stemdir) =
 	fi
 enddef;
 
-fet_beginchar("Whole trianglehead", "0triangle", "wholetrianglehead")
+fet_beginchar("Whole trianglehead", "0triangle")
 	save hei,xs;
 	save llap;
 	save tilt;
@@ -297,11 +296,11 @@ def draw_closed_triangle_head(expr dir) =
 	draw triangle;
 enddef;
 
-fet_beginchar("Half trianglehead", "d1triangle", "dhalftrianglehead")
+fet_beginchar("Half trianglehead", "d1triangle")
 	draw_closed_triangle_head(-1);
 fet_endchar;
 
-fet_beginchar("Half trianglehead", "u1triangle", "uhalftrianglehead")
+fet_beginchar("Half trianglehead", "u1triangle")
 	draw_closed_triangle_head(1);
 fet_endchar;
 
@@ -317,11 +316,11 @@ def draw_closed_triangle_head(expr dir) =
 	filldraw triangle;
 enddef;
 
-fet_beginchar("Quart trianglehead", "u2triangle", "utrianglehead")
+fet_beginchar("Quart trianglehead", "u2triangle")
 	draw_closed_triangle_head(1);
 fet_endchar;
 
-fet_beginchar("Quart trianglehead", "d2triangle", "dtrianglehead")
+fet_beginchar("Quart trianglehead", "d2triangle")
 	draw_closed_triangle_head(-1);
 fet_endchar;
 
@@ -378,15 +377,15 @@ def draw_slash(expr hwid_hash) =
 	labels (range 1 thru 10);
 enddef;
 
-fet_beginchar("Whole slashhead","s0slash","wholeslashhead")
+fet_beginchar("Whole slashhead","s0slash")
 	draw_slash(4 slash_thick# + 0.5 staff_space#);
 fet_endchar;
 
-fet_beginchar("Half slashhead","s1slash","halfslashhead")
+fet_beginchar("Half slashhead","s1slash")
 	draw_slash(3.0 slash_thick# + 0.15 staff_space#);
 fet_endchar;
 
-fet_beginchar("Quart slashhead","s2slash","quartslashhead")
+fet_beginchar("Quart slashhead","s2slash")
 	draw_slash(1.5 slash_thick#);
 fet_endchar;
 
@@ -434,7 +433,7 @@ def draw_cross(expr thick) =
 	labels (12);
 enddef;
 
-fet_beginchar("Whole Crossed notehead", "s0cross", "wholecrossedhead")
+fet_beginchar("Whole Crossed notehead", "s0cross")
 	wid# := black_notehead_width#+4stafflinethickness#;
 	hei# := noteheight#+stafflinethickness#;
 	set_char_box(0, wid#,hei#/2,hei#/2);
@@ -442,21 +441,21 @@ fet_beginchar("Whole Crossed notehead", "s0cross", "wholecrossedhead")
 	draw_cross (3.75);
 fet_endchar;
 
-fet_beginchar("Half Crossed notehead", "s1cross", "halfcrossedhead")
+fet_beginchar("Half Crossed notehead", "s1cross")
 	wid# := black_notehead_width#+2 stafflinethickness#;
 	hei# := noteheight#+stafflinethickness#/2;
 	set_char_box(0, wid#,hei#/2,hei#/2);
 	draw_cross(3.0);
 fet_endchar;
 
-fet_beginchar("Crossed notehead", "s2cross", "crossedhead")
+fet_beginchar("Crossed notehead", "s2cross")
 	wid# := black_notehead_width#;
 	hei# := noteheight#;
 	set_char_box(0, wid#,hei#/2,hei#/2);
 	draw_cross(1.0);
 fet_endchar;
 
-fet_beginchar("X-Circled notehead", "s2xcircle", "xcircledhead")
+fet_beginchar("X-Circled notehead", "s2xcircle")
 	wid# := black_notehead_width#*sqrt(sqrt2);
 	hei# := noteheight#*sqrt(sqrt2);
 	set_char_box(0, wid#,hei#/2,hei#/2);
@@ -559,29 +558,29 @@ def draw_do_head (expr width_factor, dir) =
 	fi;
 enddef;
 
-fet_beginchar("Whole dohead", "s0do", "wholedohead")
+fet_beginchar("Whole dohead", "s0do")
 	draw_do_head (1.8, 1);
 	draw p;
 fet_endchar;
 
 
-fet_beginchar("Half dohead", "d1do", "downhalfdohead")
+fet_beginchar("Half dohead", "d1do")
 	draw_do_head (1.5, -1);
 	draw p;
 fet_endchar;
 
-fet_beginchar("Half dohead", "s1do", "halfdohead")
+fet_beginchar("Half dohead", "s1do")
 	draw_do_head (1.5, 1);
 	draw p;
 fet_endchar;
 
-fet_beginchar("Quart dohead", "d2do", "downdohead")
+fet_beginchar("Quart dohead", "d2do")
 	draw_do_head (1.55, -1);
 	filldraw p;
 fet_endchar;
 
 
-fet_beginchar("Quart dohead", "s2do", "dohead")
+fet_beginchar("Quart dohead", "s2do")
 	draw_do_head (1.55, 1);
 	filldraw p;
 fet_endchar;
@@ -624,29 +623,29 @@ def draw_re_head (expr width_factor, dir) =
 	fi;
 enddef;
 
-fet_beginchar("Whole rehead", "s0re", "wholerehead")
+fet_beginchar("Whole rehead", "s0re")
 	draw_re_head (1.8,1);
 	draw p;
 fet_endchar;
 
 
-fet_beginchar("Half up rehead", "u1re", "uphalfrehead")
+fet_beginchar("Half up rehead", "u1re")
 	draw_re_head (1.5, 1);
 	draw p;
 fet_endchar;
 
-fet_beginchar("Half down rehead", "d1re", "downhalfrehead")
+fet_beginchar("Half down rehead", "d1re")
 	draw_re_head (1.5, -1);
 	draw p;
 fet_endchar;
 
 
-fet_beginchar("Quart rehead", "u2re", "uprehead")
+fet_beginchar("Quart rehead", "u2re")
 	draw_re_head (1.55, 1);
 	filldraw p;
 fet_endchar;
 
-fet_beginchar("Quart rehead", "d2re", "downrehead")
+fet_beginchar("Quart rehead", "d2re")
 	draw_re_head (1.55, -1);
 	filldraw p;
 fet_endchar;
@@ -687,21 +686,21 @@ def draw_mi_head (expr width_factor) =
 %	path_in := z5 -- z1 --cycle;
 enddef;
 
-fet_beginchar("Whole mihead", "s0mi", "wholemihead")
+fet_beginchar("Whole mihead", "s0mi")
 	draw_mi_head (1.8);
 	filldraw path_out;
 	unfill path_in;
 fet_endchar;
 
 
-fet_beginchar("Half mihead", "s1mi", "halfmihead")
+fet_beginchar("Half mihead", "s1mi")
 	draw_mi_head (1.6);
 	filldraw path_out;
 	unfill path_in;
 fet_endchar;
 
 
-fet_beginchar("Quart mihead", "s2mi", "mihead")
+fet_beginchar("Quart mihead", "s2mi")
 	draw_mi_head (1.65);
 	filldraw path_out;
 fet_endchar;
@@ -737,32 +736,32 @@ def draw_fa_head (expr width_factor) =
 enddef;
 
 
-fet_beginchar("Whole fa up head", "d0fa", "wholefadownhead")
+fet_beginchar("Whole fa up head", "d0fa")
 	draw_fa_head (1.8);
 	draw p_up;
 fet_endchar;
 
-fet_beginchar("Whole fa down head", "u0fa", "wholefauphead")
+fet_beginchar("Whole fa down head", "u0fa")
 	draw_fa_head (1.8);
 	draw p_down;
 fet_endchar;
 
-fet_beginchar("half fa up head", "d1fa", "halffadownhead")
+fet_beginchar("half fa up head", "d1fa")
 	draw_fa_head (1.5);
 	draw p_up;
 fet_endchar;
 
-fet_beginchar("Half fa down head", "u1fa", "halffauphead")
+fet_beginchar("Half fa down head", "u1fa")
 	draw_fa_head (1.5);
 	draw p_down;
 fet_endchar;
 
-fet_beginchar("Quarter fa up head", "u2fa", "quarterfadownhead")
+fet_beginchar("Quarter fa up head", "u2fa")
 	draw_fa_head (1.55);
 	filldraw p_up;
 fet_endchar;
 
-fet_beginchar("Quarter fa down head", "d2fa", "quarterfauphead")
+fet_beginchar("Quarter fa down head", "d2fa")
 	draw_fa_head (1.55);
 	filldraw p_down;
 fet_endchar;
@@ -791,19 +790,19 @@ def draw_la_head (expr width_factor) =
 	p := z1 -- z2 -- z3 -- z4 -- cycle;
 enddef;
 
-fet_beginchar("Whole lahead", "s0la", "wholelahead")
+fet_beginchar("Whole lahead", "s0la")
 	draw_la_head (1.8);
 	draw p;
 fet_endchar;
 
 
-fet_beginchar("Half lahead", "s1la", "halflahead")
+fet_beginchar("Half lahead", "s1la")
 	draw_la_head (1.5);
 	draw p;
 fet_endchar;
 
 
-fet_beginchar("Quart lahead", "s2la", "lahead")
+fet_beginchar("Quart lahead", "s2la")
 	draw_la_head (1.55);
 	filldraw p;
 fet_endchar;
@@ -838,31 +837,31 @@ def draw_ti_head (expr width_factor, dir) =
 	fi;
 enddef;
 
-fet_beginchar("Whole up tihead", "s0ti", "wholetihead")
+fet_beginchar("Whole up tihead", "s0ti")
 	draw_ti_head (1.8, 1);
 	draw p;
 fet_endchar;
 
 
-fet_beginchar("Half up tihead", "u1ti", "uphalftihead")
+fet_beginchar("Half up tihead", "u1ti")
 	draw_ti_head (1.5, 1);
 	draw p;
 fet_endchar;
 
-fet_beginchar("Half down tihead", "d1ti", "dnhalftihead")
+fet_beginchar("Half down tihead", "d1ti")
 	draw_ti_head (1.5, -1);
 	draw p;
 fet_endchar;
 
 
 
-fet_beginchar("Quart up tihead", "u2ti", "utihead")
+fet_beginchar("Quart up tihead", "u2ti")
 	draw_ti_head (1.55, 1);
 	filldraw p;
 fet_endchar;
 
 
-fet_beginchar("Quart down tihead", "d2ti", "dtihead")
+fet_beginchar("Quart down tihead", "d2ti")
 	draw_ti_head (1.55, -1);
 	filldraw p;
 fet_endchar;

@@ -8,7 +8,7 @@
 
 fet_begingroup ("scripts")
 
-fet_beginchar("ictus", "ictus", "ictus")
+fet_beginchar("ictus", "ictus")
 	save ht, wd;
 	ht# = .35 staff_space#;
 	wd# = linethickness#;
@@ -40,11 +40,11 @@ def draw_accentus =
 	set_char_box(wd#/2, wd#/2, ht#/2, ht#/2);
 enddef;
 
-fet_beginchar("accentus up", "uaccentus", "uaccentus")
+fet_beginchar("accentus up", "uaccentus")
 	draw_accentus;
 fet_endchar;
 
-fet_beginchar("accentus down", "daccentus", "daccentus")
+fet_beginchar("accentus down", "daccentus")
 	draw_accentus;
 	y_mirror_char;
 fet_endchar;
@@ -66,27 +66,27 @@ def draw_half_ellipse(expr ellips_width, ellips_height) =
 	addto currentpicture also currentpicture xscaled -1;
 enddef;
 
-fet_beginchar("half circle", "usemicirculus", "usemicirculus")
+fet_beginchar("half circle", "usemicirculus")
 	draw_half_ellipse(5/16 staff_space#, 5/16 staff_space#);
 	currentpicture := currentpicture yscaled -1;
 	set_char_box(width#/2, width#/2, 0, height#/2);
 fet_endchar;
 
 
-fet_beginchar("half circle", "dsemicirculus", "dsemicirculus")
+fet_beginchar("half circle", "dsemicirculus")
 	draw_half_ellipse(5/16 staff_space#, 5/16 staff_space#);
 	set_char_box(width#/2, width#/2, height#/2, 0);
 fet_endchar;
 
 
-fet_beginchar("circle", "circulus", "circulus")
+fet_beginchar("circle", "circulus")
 	draw_half_ellipse(5/16 staff_space#, 5/16 staff_space#);
 	set_char_box(width#/2, width#/2, height#/2, height#/2);
 	addto currentpicture also currentpicture yscaled -1;
 fet_endchar;
 
 
-fet_beginchar("augmentum", "augmentum", "augmentum")
+fet_beginchar("augmentum", "augmentum")
 	save diameter;
 	diameter# = 0.25 staff_space#;
 	define_pixels(diameter);
@@ -124,13 +124,11 @@ def draw_signum_congruentiae =
 	drawdot zh;
 enddef;
 
-fet_beginchar("signum congruentiae up",
-	      "usignumcongruentiae", "usignumcongruentiae")
+fet_beginchar("signum congruentiae up", "usignumcongruentiae")
 	draw_signum_congruentiae;
 fet_endchar;
 
-fet_beginchar("signum congruentiae down",
-	      "dsignumcongruentiae", "dsignumcongruentiae")
+fet_beginchar("signum congruentiae down", "dsignumcongruentiae")
 	draw_signum_congruentiae;
 	xy_mirror_char;
 fet_endchar;
