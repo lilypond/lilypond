@@ -13,20 +13,20 @@
 @end html
 
 @menu
-* First steps::                 Music language of LilyPond
-* Running LilyPond::            Printing music
+* First steps::                 Music language of LilyPond.
+* Running LilyPond::            Printing music.
 * More basics::                 
 * Printing lyrics::             
 * A lead sheet::                
 * Listening to output::         
-* Titling ::                    
-* Single staff polyphony  ::    
+* Titling::                     
+* Single staff polyphony::      
 * Piano staffs::                
 * Setting variables::           
 * Fine tuning layout::          
 * Organizing larger pieces::    
 * An orchestral part::          
-* Integrating text and music::  Integrating text and music
+* Integrating text and music::  Integrating text and music.
 @end menu
 
 Printing music with LilyPond is a two step process.  First, the music
@@ -101,7 +101,7 @@ A @rglos{sharp} (@texisharp{}) is made by adding @samp{is}, a
 a @rglos{double sharp} or @rglos{double flat} is made by adding
 @samp{isis} or @samp{eses}:@footnote{This syntax derived from note
 naming conventions in Nordic and Germanic languages, like German and
-Dutch}
+Dutch.}
 
 @example
 cis1 ees fisis aeses

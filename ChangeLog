@@ -1,3 +1,7 @@
+2003-07-13  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* Documentation/user/ {many}: Add periods and remove spaces.
+	
 2003-07-11  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el (LilyPond-paren-set-mode): From XEmacs' paren.el:

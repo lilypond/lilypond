@@ -44,7 +44,7 @@ block, then the rest of the scores will be output in numbered files,
 starting with @file{filename-1.tex}.  Several files can be specified;
 they will each be processed independently.  @footnote{The status of
   GUILE is not reset across invocations, so be careful not to change any
-  default settings from within Scheme .}
+  default settings from within Scheme.}
 
 
 @section Command line options
@@ -108,7 +108,7 @@ web). Volunteers are welcome to do a new audit.
 @end ignore
 
 @item -v,--version
-Show version information 
+Show version information.
 @item -V,--verbose
 Be verbose: show full paths of all  files read, and give timing
 information.
@@ -443,7 +443,7 @@ in the files. Possible keys: @code{language}, @code{latexheaders},
 @code{pagenumber}, @code{linewidth}, @code{orientation},
 @code{textheight}.
 @item -v,--version
-Show version information .
+Show version information.
 @item -V,--verbose
 Be verbose.
 @item --debug
