@@ -330,7 +330,7 @@ music, so you can make a HTML document with embedded music.
 Music is entered using
 
 @example
-<lilypond relative=1 verbatim>
+<lilypond relative=2 verbatim>
   \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 </lilypond>
 @end example
@@ -338,7 +338,8 @@ Music is entered using
 @noindent
 of which lilypond-book will produce a HTML with appropriate image tags for the
 music fragments:
- 
+
+@c  why the second example?  -gp
 @example
 <lilypond relative=2 verbatim>
   \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
@@ -354,6 +355,7 @@ For inline pictures, use @code{<lilypond ... />} syntax, e.g.
 Some music in <lilypond a b c/> a line of text.
 @end example
 
+@c  FIXME: check if this feature is coming soon; if not, @ignore this stuff.
 A special feature not (yet) available in other output formats, is the
 @code{<lilypondfile>} tag, for example,
 @example
@@ -466,9 +468,20 @@ that directory before running La@TeX{} or @file{makeinfo}:
 
 @example
 lilypond-book --output=out yourfile.lytex
-cd out && latex yourfile.tex
+cd out
 @end example
 
+This will produce a .tex or .texi file.  To produce a pdf from the
+.tex file, you should do
+
+@example
+latex yourfile.tex
+dvips -Ppdf -u+ex-mftrace -u +lilypond.map yourfile.dvi
+ps2pdf yourfile.ps
+@end example
+
+To produce a texinfo document (in any output format), follow the normal
+procedures for texinfo.
 
 @command{lilypond-book} accepts the following command line options:
 

@@ -1,3 +1,8 @@
+2004-10-16  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/lilypond-book.itely: add more details about
+	building .lytex files.
+
 2004-10-16  Werner Lemberg  <wl@gnu.org>
 
 	* scripts/lilypond-book.ly (snippet_res): Define group `match'
