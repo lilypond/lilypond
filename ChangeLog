@@ -1,3 +1,9 @@
+2005-04-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/test/spacing-optical.ly (Module): new file.
+
+	* lily/staff-spacing.cc: add same-direction-correction
+
 2005-04-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/introduction.itely (Engraving): Comment-out
