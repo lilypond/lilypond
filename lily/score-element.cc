@@ -84,8 +84,9 @@ SCM
 Score_element::get_elt_property (SCM sym) const
 {
   SCM s =  scm_assq(sym, element_property_alist_);
+
   // is this a good idea?
-  if (s == SCM_BOOL_F && pscore_l_)
+  if (s == SCM_BOOL_F && pscore_l_ && pscore_l_->paper_l_)
     s = pscore_l_->paper_l_->get_scm_var (sym);
 
   return s;
@@ -217,6 +218,7 @@ Score_element::output_processing ()
   if (get_elt_property (transparent_scm_sym) != SCM_BOOL_F)
     return;
 
+  // we're being silly here. 
   if (output_p_)
     delete output_p_;
   
@@ -224,7 +226,10 @@ Score_element::output_processing ()
   pscore_l_->outputter_l_->output_molecule (output_p_,
 					    absolute_offset (),
 					    classname(this));
+
+  pscore_l_->schedule_for_delete (this);
 }
+
 
 
 /*
