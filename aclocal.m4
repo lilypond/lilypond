@@ -793,7 +793,9 @@ dnl             find the libraries.
 AC_DEFUN([GUILE_FLAGS],[
 ## The GUILE_FLAGS macro.
   AC_MSG_CHECKING(for Guile)
-  if ! $guile_config link > /dev/null ; then
+  if $guile_config link > /dev/null ; then
+      :
+  else
       AC_MSG_RESULT("cannot execute $guile_config")
       AC_MSG_ERROR("cannot find guile-config; is Guile installed?")
       exit 1

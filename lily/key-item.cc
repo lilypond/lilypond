@@ -24,21 +24,12 @@ Key_item::Key_item (SCM s)
   set_elt_property ("c0-position", gh_int2scm (0));
 }
 
-void
-Key_item::add (int p, int a)
-{
-  SCM pair = gh_cons (gh_int2scm (p),gh_int2scm (a));
-  Group_interface (this, "new-accidentals").add_thing (pair);
-}
-
-void
-Key_item::add_old (int p, int a)
-{
-  SCM pair = gh_cons (gh_int2scm (p),gh_int2scm (a));  
-  Group_interface (this, "old-accidentals").add_thing (pair);
-}
 
 
+/*
+  FIXME: key-item should just get a list of (position, acc), and leave
+  the thinking to other parties.
+ */
 int
 Key_item::calculate_position(SCM pair) const
 {
@@ -80,13 +71,12 @@ Key_item::calculate_position(SCM pair) const
   }
 }
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Key_item)
+
 /*
   TODO
   - space the `natural' signs wider
-
  */
-
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Key_item)
 Molecule 
 Key_item::do_brew_molecule () const
 {

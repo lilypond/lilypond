@@ -15,6 +15,11 @@
 #include "lookup.hh"
 
 /*
+  FIXME: should use SCM iso. arrays and have-to-delete pointers.
+ */
+  
+
+/*
   construct from parser output
 */
 Chord
@@ -210,13 +215,11 @@ Chord::Chord (Array<Musical_pitch> pitch_arr, Musical_pitch* inversion_p, Musica
     {
       inversion_pitch_ = *inversion_p;
       inversion_b_ = true;
-      delete inversion_p;
     }
   if (bass_p)
     {
       bass_pitch_ = *bass_p;
       bass_b_ = true;
-      delete bass_p;
     }
 }
   

@@ -20,7 +20,7 @@
 #include "staff-symbol-referencer.hh"
 #include "side-position-interface.hh"
 #include "engraver.hh"
-#include "key.hh"
+
 #include "parray.hh"
 
 
@@ -42,7 +42,7 @@ protected:
   virtual void do_removal_processing ();
 public:
   
-  Key local_key_;
+  Newkey local_key_;
   Key_engraver *key_grav_l_;
   Array<Note_req* > mel_l_arr_;
   Array<Item*> support_l_arr_;
@@ -111,15 +111,15 @@ Local_key_engraver::process_acknowledged ()
 	  /* see if there's a tie that "changes" the accidental */
 	  /* works because if there's a tie, the note to the left
 	     is of the same pitch as the actual note */
-	  bool tie_changes = tied_l_arr_.find_l (support_l)
-	    && !local_key_.different_acc (note_l->pitch_);
 
+	  int prev_acc =local_key_.get (note_l->pitch_.octave_i_,
+					note_l->pitch_.notename_i_);
+	  bool different = prev_acc != note_l->pitch_.accidental_i_;
+	  
+	  bool tie_changes = tied_l_arr_.find_l (support_l) && different;
 	  if (!forget
-
-	      && ((note_l->forceacc_b_
-		   || !local_key_.different_acc (note_l->pitch_)
-		   || local_key_.internal_forceacc (note_l->pitch_)))
-
+	      && (note_l->forceacc_b_
+		  || !different)
 	      && !tie_changes)
 	    {
 	      if (!key_item_p_) 
@@ -132,15 +132,21 @@ Local_key_engraver::process_acknowledged ()
 		  announce_element (Score_element_info (key_item_p_, 0));
 		}
 
+	      
+	      bool extra_natural
+		= sign (prev_acc) * (prev_acc - note_l->pitch_.accidental_i_) == 1 ;
+
 	      key_item_p_->add_pitch (note_l->pitch_,
 	  			      note_l->cautionary_b_,
-				      local_key_.double_to_single_acc(note_l->pitch_));
+				      extra_natural);
 	      Side_position_interface (key_item_p_).add_support (support_l);
 	    }
 	  
 	  if (!forget)
 	    {
-	      local_key_.set (note_l->pitch_);
+	      local_key_.set (note_l->pitch_.octave_i_, note_l->pitch_.notename_i_,
+			      note_l->pitch_.accidental_i_);
+#if 0
 	      if (!tied_l_arr_.find_l (support_l))
 		{
 		  local_key_.clear_internal_forceacc (note_l->pitch_);
@@ -149,6 +155,7 @@ Local_key_engraver::process_acknowledged ()
 		{
 		  local_key_.set_internal_forceacc (note_l->pitch_);
 		}
+#endif
 	    }
         }
     }

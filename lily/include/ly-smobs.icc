@@ -10,9 +10,7 @@
 #ifndef LY_SMOBS_ICC
 #define LY_SMOBS_ICC
 
-#ifndef SCM_PACK
-#define SCM_PACK(x) ((SCM) x)
-#endif
+
 
 #define IMPLEMENT_UNSMOB(CL, name)		\
 CL *						\
@@ -29,7 +27,7 @@ SCM smobify (CL *cl)\
 									\
   SCM_NEWCELL(s);							\
   SCM_SETCAR(s,CL::smob_tag_);						\
-  SCM me_s = SCM_PACK (cl);							\
+  SCM me_s = SCM_PACK(cl);							\
   SCM_SETCDR (s, me_s); \
 return s;\
 }\
