@@ -89,7 +89,6 @@ Slur::do_post_processing()
   Direction d=LEFT;
   Real nw_f = paper()->note_width ();
  
-  while ((d *= -1) != LEFT);
   do 
     {
       if  (extrema[d] != spanned_drul_[d]) 
