@@ -1,3 +1,8 @@
+2002-11-10 Heikki Junes  <hjunes@cc.hut.fi>
+
+	* emacs-mode.el: Added spanish-note-replacements 
+        (<carlos.betancourt@chello.be>).
+
 2002-11-08  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond.vim: Do not fontify cises, desis, etc.
