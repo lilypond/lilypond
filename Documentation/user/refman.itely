@@ -6684,7 +6684,7 @@ in @file{scm/grob-description.scm}), includes the following definitions for
 
 
 By adding variables on top of these existing definitions, the system
-default is overriden, and the appearance of a layout objects is
+default is overridden, and the appearance of a layout objects is
 altered.
 
 @syntax
@@ -7488,7 +7488,7 @@ exaggerated corrections.
 
 @cindex SpacingSpanner, overriding properties
 
-Properties of the  @internalsref{SpacingSpanner} must be overriden
+Properties of the  @internalsref{SpacingSpanner} must be overridden
 from the @code{\paper} block, since the @internalsref{SpacingSpanner}
 is created before any @code{\property} statements are interpreted.
 @example
