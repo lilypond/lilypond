@@ -711,7 +711,7 @@ def compose_ly (code, options, type):
     if RELATIVE in override.keys () and override[RELATIVE]:
 	relative = string.atoi (override[RELATIVE])
 
-    relative_quotes = ''
+!    relative_quotes = ''
 
     # 1 = central C
     if relative < 0:

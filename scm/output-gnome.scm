@@ -241,6 +241,26 @@ lilypond -fgnome input/simple-song.ly
 	  item)
 	#f)))
 
+(define (beam width slope thick blot)
+  (let*
+      ((def (make <gnome-canvas-path-def>))
+       (props (make <gnome-canvas-bpath>
+		   #:parent (canvas-root)
+		   #:fill-color "black"
+		   #:outline-color "black"
+		   #:width-units 0.0)))
+    
+    (reset def)
+    (moveto def 0 0)
+    (lineto def width (* width slope))
+    (lineto def width (- thick))
+    (lineto def 0 (- thick))
+    (lineto def 0 0)
+    (closepath def)
+    (set-path-def props def)
+    props))
+    
+
 (define (round-filled-box breapth width depth height blot-diameter)
   ;; FIXME: no rounded corners on rectangle...
   ;; FIXME: blot?
