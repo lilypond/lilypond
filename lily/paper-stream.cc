@@ -6,10 +6,14 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include <errno.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <fstream.h>
 
 #include "main.hh"
 #include "paper-stream.hh"
+#include "file-path.hh"
 #include "debug.hh"
 
 const int MAXLINELEN = 200;
@@ -18,8 +22,14 @@ ostream *
 open_file_stream (String filename)
 {
   ostream *os;
-  if (filename.length_i () && (filename != "-"))
-    os = new ofstream (filename.ch_C ());
+  if (!filename.empty_b () && (filename != "-"))
+    {
+      Path p = split_path (filename);
+      if (!p.dir.empty_b ())
+	if (mkdir (p.dir.ch_C (), 0777) == -1 && errno != EEXIST)
+	  error (_f ("can't create directory: `%s'", p.dir));
+      os = new ofstream (filename.ch_C ());
+    }
   else
     os = new ostream (cout._strbuf);
   if (!*os)

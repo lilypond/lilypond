@@ -105,16 +105,15 @@ Paper_def::reset_default_count()
 Paper_outputter*
 Paper_def::paper_outputter_p () 
 {
-  String basename = base_output_str (); 
-  String outname = basename;
-  if (outname != "-")
-    outname += String (".") + output_global_ch;
+  String outname = outname_str (); 
   progress_indication (_f ("paper output to %s...",
 			   outname == "-" ? String ("<stdout>") : outname));
 
   target_str_global_array.push (outname);
   Paper_outputter * po = new Paper_outputter (outname);
-  po->basename_ = basename;
+  Path p = split_path (outname);
+  p.ext = "";
+  po->basename_ = p.path ();
   return po;
 }
 

@@ -39,10 +39,9 @@ public:
 
   Global_translator *get_global_translator_p ();
   Translator_group *get_group_translator_p (String type) const;
-  String get_default_output () const;
   void assign_translator (SCM transdef);
   SCM find_translator_l (SCM name) const;
-  String base_output_str () ;
+  String outname_str () ;
   
   DECLARE_SMOBS(Music_output_def,);
 };

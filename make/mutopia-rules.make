@@ -21,19 +21,19 @@ $(outdir)/%.ly: %.abc
 	$(PYTHON) $(script-dir)/abc2ly.py -o $@ $< 
 
 $(outdir)/%.dvi: $(outdir)/%.ly
-	$(PYTHON) $(script-dir)/ly2dvi.py -o $(outdir) $< 
+	$(PYTHON) $(script-dir)/ly2dvi.py --outdir=$(outdir) --dependencies $< 
 	-mv $(basename $(<F))*.midi $(outdir)
 
 # don't junk intermediate .dvi files.  They're easier to view than
-# .ps or .gif
+# .ps or .png
 .PRECIOUS: $(outdir)/%.dvi
 
 $(outdir)/%.dvi: %.ly
-	$(PYTHON) $(script-dir)/ly2dvi.py -o $(outdir)  $< 
+	$(PYTHON) $(script-dir)/ly2dvi.py --outdir=$(outdir) --dependencies $< 
 	-mv $(basename $<)*.midi $(outdir)
 
 $(outdir)-$(PAPERSIZE)/%.dvi: %.ly
-	$(PYTHON) $(script-dir)/ly2dvi.py -o $(outdir)-$(PAPERSIZE) -p $(PAPERSIZE) $< 
+	$(PYTHON) $(script-dir)/ly2dvi.py --outdir=$(outdir)-$(PAPERSIZE) --dependencies --papersize=$(PAPERSIZE) $< 
 	-mv $(basename $<)*.midi $(outdir)-$(PAPERSIZE)
 
 $(outdir)/%.dvi: %.fly

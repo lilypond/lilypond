@@ -16,6 +16,10 @@ STEPMAKE_TEMPLATES=makedir install
 #
 -include $(depth)/make/stepmake.make 
 
+ifeq ($(PACKAGE),STEPMAKE)
 INSTALLATION_DIR=$(datadir)/stepmake
+else
+INSTALLATION_DIR=$(dir $(datadir))/$(package)/stepmake/stepmake
+endif
 INSTALLATION_FILES=GNUmakefile $(MAKE_FILES)
 

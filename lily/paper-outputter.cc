@@ -41,7 +41,7 @@ Paper_outputter::Paper_outputter (String name)
    lilypond -f scm x.ly
    guile -s x.scm
   */
-  verbatim_scheme_b_ =  output_global_ch == String ("scm");
+  verbatim_scheme_b_ = outext_global == "scm";
 
   if (verbatim_scheme_b_)
     {
@@ -74,7 +74,7 @@ Paper_outputter::output_header ()
       gh_define ("security-paranoia", SCM_BOOL_T);      
     }
 
-  SCM exp = gh_list (ly_symbol2scm ((String (output_global_ch) + "-scm").ch_C()),
+  SCM exp = gh_list (ly_symbol2scm ((outext_global + "-scm").ch_C()),
 		     ly_quote_scm (ly_symbol2scm ("all-definitions")),
 		     SCM_UNDEFINED);
   exp = scm_eval2 (exp, SCM_EOL);

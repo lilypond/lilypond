@@ -27,7 +27,6 @@ extern bool find_old_relative_b;
 
 extern int exit_status_i_;
 extern bool experimental_features_global_b;
-extern char const* output_global_ch;
 extern bool dependency_global_b;
 extern bool verbose_global_b;
 
@@ -42,8 +41,8 @@ extern File_path global_path;
 */
 extern Array<String> global_dumped_header_fieldnames;
 
-extern String default_outname_base_global;
-extern String default_outname_suffix_global;
+extern String outname_global;
+extern String outext_global;
 extern int default_count_global;
 extern All_font_metrics *all_fonts_global_p;
 

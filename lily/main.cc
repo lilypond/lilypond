@@ -41,13 +41,17 @@ bool no_paper_global_b = false;
 bool no_timestamps_global_b = false;
 bool find_old_relative_b = false;
 
-char const* output_global_ch = "tex";
 All_font_metrics *all_fonts_global_p;
 
-String default_outname_base_global =  "lelie";
-String outname_str_global;
-String init_str_global;
+String outname_global;
+// Hmm:
+// (lytex-scm (quote all-definitions))
+// String outext_global = "lytex";
+String outext_global = "tex";
 
+String init_name_global;
+
+// default? count
 int default_count_global;
 File_path global_path;
 
@@ -61,7 +65,7 @@ int exit_status_i_;
 
 Getopt_long * oparser_global_p = 0;
 
-String distill_inname_str (String name_str, String& ext_r);
+Path distill_inname (String name_str);
 
 /*
  Internationalisation kludge in two steps:
@@ -79,7 +83,7 @@ Long_option_init theopts[] = {
   {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
   {0, "dependencies", 'M',  _i ("write Makefile dependencies for every input file")},
   {0, "no-paper", 'm',  _i ("produce MIDI output only")},
-  {_i ("BASENAME"), "output", 'o',  _i ("write output to BASENAME[-x].extension")},
+  {_i ("NAME"), "output", 'o',  _i ("write output to NAME")},
   {0, "find-old-relative", 'Q',  _i ("show all changes in relative syntax")},
   {0, "safe", 's',  _i ("inhibit file output naming and exporting")},
   {0, "no-timestamps", 'T',  _i ("don't timestamp the output")},
@@ -258,53 +262,49 @@ main_prog (int, char**)
   cout << endl;
 
   call_constructors ();
-  default_outname_base_global = "lelie";
   all_fonts_global_p = new All_font_metrics (global_path.str ());
-  
+
   int p=0;
   const char *arg ;
-  while ((arg= oparser_global_p->get_next_arg ()))
+  while ((arg = oparser_global_p->get_next_arg ()) || p == 0)
     {
+      String infile;
       
-      if (outname_str_global == "")
-	{
-	  Midi_def::reset_default_count ();
-	  Paper_def::reset_default_count ();
-	}
-      String f (arg);
-      String i;
-      f = distill_inname_str (f, i);
-      if (f == "-")
-	default_outname_base_global = "-";
+      if (arg)
+	infile = arg;
       else
-	{
-	  String a,b,c,d;
-	  split_path (f, a, b, c, d);
-	  default_outname_base_global = c;
-	}
-      if (outname_str_global.length_i ())
-	default_outname_base_global = outname_str_global;
-      if (init_str_global.length_i ())
-	i = init_str_global;
+	infile = "-";
+	
+      // What/when was this supposed to do?
+      // It looks like it reset the outname_str_global for every new
+      // file, but only if user didn't specify a outname?  Huh?
+      // if (outname_str_global == "")
+      {
+	Midi_def::reset_default_count ();
+	Paper_def::reset_default_count ();
+      }
+
+      Path inpath = distill_inname (infile);
+      Path outpath = inpath;
+      outpath.ext = outext_global;
+      if (!outname_global.empty_b ())
+	outpath = split_path (outname_global);
+      
+      String init;
+      if (!init_name_global.empty_b ())
+	init = init_name_global;
       else
-	i = "init" + i;
-      do_one_file (i, f);
+	init = "init." + inpath.ext;
+
+      /* Burp: output name communication goes through _global */
+      String save_outname_global = outname_global;
+      outname_global = outpath.path ();
+      do_one_file (init, inpath.path ());
+      outname_global = save_outname_global;
       p++;
     }
-  if (!p)
-    {
-      String i;
-      if (init_str_global.length_i ())
-	i = init_str_global;
-      else
-	i = "init.ly";
-      default_outname_base_global = "-";
-      if (outname_str_global.length_i ())
-	default_outname_base_global = outname_str_global;
-      do_one_file (i, default_outname_base_global);
-    }
   delete oparser_global_p;
-  exit( exit_status_i_);
+  exit (exit_status_i_);
 }
 
 
@@ -330,7 +330,7 @@ main (int argc, char **argv)
       switch (opt->shortname_ch_)
 	{
 	case 'v':
-	  version();
+	  version ();
 	  exit (0);		// we print a version anyway.
 	  break;
 	case 't':
@@ -338,14 +338,20 @@ main (int argc, char **argv)
 	  progress_indication ("*** enabling experimental features, you're on your own now ***\n");
 	  break;
 	case 'o':
-	  outname_str_global = oparser_global_p->optional_argument_ch_C_;
+	  {
+	    String s = oparser_global_p->optional_argument_ch_C_;
+	    Path p = split_path (s);
+	    if (p.ext.empty_b ())
+	      p.ext = outext_global;
+	    outname_global = p.path ();
+	  }
 	  break;
 	case 'w':
 	  notice ();
 	  exit (0);
 	  break;
 	case 'f':
-	  output_global_ch = oparser_global_p->optional_argument_ch_C_;
+	    outext_global = oparser_global_p->optional_argument_ch_C_;
 	  break;
 	case 'Q':
 	  find_old_relative_b= true;
@@ -357,7 +363,7 @@ main (int argc, char **argv)
 	  global_path.push (oparser_global_p->optional_argument_ch_C_);
 	  break;
 	case 'i':
-	  init_str_global = oparser_global_p->optional_argument_ch_C_;
+	  init_name_global = oparser_global_p->optional_argument_ch_C_;
 	  break;
 	case 'h':
 	  usage ();
@@ -395,46 +401,33 @@ main (int argc, char **argv)
 }
 
 /**
-  make input file name from command arg.
+  Make input file name from command argument.
 
-  @input file name
-
-  @output file name with added default extension. "" is stdin.
-          in reference argument: the extension. ".ly" if none
+  Path describes file name with added default extension,
+  ".ly" if none.  "-" is stdin.
  */
-String
-distill_inname_str (String name_str, String& ext_r)
+Path
+distill_inname (String str)
 {
-  String str = name_str;
-  if (str.length_i ())
+  Path p = split_path (str);
+  if (str.empty_b () || str == "-")
+    p.base = "-";
+  else
     {
-      if (str != "-")
+      String orig_ext = p.ext;
+      char const *extensions[] = {"ly", "fly", "sly", "", 0};
+      for (int i = 0; extensions[i]; i++)
 	{
-	  String a,b,c;
-	  split_path (str,a,b,c,ext_r);
-
-	  // add extension if not present.
-	  char const* extensions[] = {"", ".ly", ".fly", ".sly", "", 0};
-	  extensions[0] = ext_r.ch_C ();
-	  for (int i = 0; extensions[i]; i++)
-	    {
-	      if (!global_path.find (a+b+c+extensions[i]).empty_b ())
-		{
-		  ext_r = extensions[i];
-		  break;
-		}
-	    }
-	  str = a+b+c+ext_r;
-	  // in any case, assume (init).ly
-	  if (!ext_r.length_i ())
-	    ext_r = ".ly";
+	  p.ext = orig_ext;
+	  if (*extensions[i] && !p.ext.empty_b ())
+	    p.ext += ".";
+	  p.ext += extensions[i];
+	  if (!global_path.find (p.path ()).empty_b ())
+	      break;
 	}
+      /* Reshuffle extension */
+      p = split_path (p.path ());
     }
-  else 
-    {
-      str = "-";
-      ext_r = ".ly";
-    }
-  return str;
+  return p;
 }
 

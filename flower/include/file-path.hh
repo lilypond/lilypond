@@ -23,6 +23,17 @@
    
 */
 
+class Path
+{
+public:
+  String root;
+  String dir;
+  String base;
+  String ext;
+
+  String path () const;
+};
+
 class File_path : private Array<String>
 {
 public:
@@ -42,6 +53,6 @@ public:
   @return
   String &drive, String &dirs, String &filebase, String &extension
  */
-void split_path (String path, String &drive, String &dirs, String &filebase, String &extension);
+Path split_path (String path);
 
 #endif

@@ -103,7 +103,7 @@
 
   (define (header creator generate) 
     (string-append
-     "%created by: " creator generate "\n"))
+     "% Generated automatically by: " creator generate "\n"))
 
   (define (invoke-char s i)
     (string-append 

@@ -11,7 +11,7 @@ depth = .
 ifeq ($(PACKAGE),STEPMAKE)
 SUBDIRS = bin make stepmake 
 else
-SUBDIRS =
+SUBDIRS = stepmake
 endif
 #
 
@@ -30,12 +30,15 @@ STEPMAKE_TEMPLATES=toplevel texinfo
 include $(depth)/make/stepmake.make 
 #
 
+# 2nd: THIS IS NO MISTAKE
+# this makes lilypond's make dist descent into stepmake
+# should check if we can remove the above
 # descent order into subdirectories:
 #
 ifeq ($(PACKAGE),STEPMAKE)
 SUBDIRS = bin make stepmake 
 else
-SUBDIRS =
+SUBDIRS = stepmake
 endif
 #
 
