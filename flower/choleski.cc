@@ -1,3 +1,11 @@
+/*
+  choleski.cc -- implement Choleski_decomposition
+
+  source file of the Flower Library
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "choleski.hh"
 const Real EPS = 1e-7;		// so sue me. Hard coded
 
@@ -31,14 +39,18 @@ Choleski_decomposition::solve(Vector rhs)const
 
 /*
   Standard matrix algorithm.
+  Should add support for banded matrices
   */
 
 Choleski_decomposition::Choleski_decomposition(Matrix P)
     : L(P.dim()), D(P.dim())
 {
     int n = P.dim();
-    assert((P-P.transposed()).norm()/P.norm() < EPS);
 
+#ifdef PARANOID
+    assert((P-P.transposed()).norm()/P.norm() < EPS);
+#endif
+    
     L.unit();
     for (int k= 0; k < n; k++) {
 	for (int j = 0; j < k; j++){
@@ -55,7 +67,7 @@ Choleski_decomposition::Choleski_decomposition(Matrix P)
 	D(k) = d;
     }
 
-#ifndef NDEBUG
+#ifdef PARANOID
     assert((original()-P).norm() / P.norm() < EPS);
 #endif
 }
@@ -81,7 +93,7 @@ Choleski_decomposition::inverse() const
 	    invm(i,j) = inv(j);
     }
     
-#ifndef NDEBUG
+#ifdef PARANOID
     Matrix I1(n), I2(original());
     I1.unit();
     assert((I1-I2*invm).norm()/I2.norm() < EPS);
