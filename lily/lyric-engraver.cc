@@ -9,7 +9,7 @@
 
 #include "lyric-engraver.hh"
 #include "musical-request.hh"
-#include "text-item.hh"
+#include "item.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
 
@@ -40,7 +40,7 @@ Lyric_engraver::do_process_music()
 {
   if (req_l_)
     {
-      text_p_=  new Text_item (get_property ("basicLyricTextProperties"));
+      text_p_=  new Item (get_property ("basicLyricTextProperties"));
       
       text_p_->set_elt_property ("text",
 				 ly_str02scm   ((req_l_->text_str_ + " ").ch_C ()));

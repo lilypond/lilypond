@@ -16,8 +16,8 @@
 #include "stem.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "text-item.hh"
-#include "sustain-pedal.hh"
+#include "item.hh"
+
 
 /*
    TODO:
@@ -159,7 +159,7 @@ Piano_pedal_engraver::do_process_music ()
 	    }
 	  else
 	    {
-	      s = get_property ("stopStart" + String (p->name_ ));
+	      s = get_property (("stopStart" + String (p->name_ )).ch_C());
 	    }
 	  p->start_req_l_ = p->req_l_drul_[START];
 	}
@@ -171,14 +171,14 @@ Piano_pedal_engraver::do_process_music ()
 	    }
 	  else
 	    {
-	      s = get_property ("stop" + String (p->name_ ));
+	      s = get_property (("stop" + String (p->name_ )).ch_C());
 	    }
 	  p->start_req_l_ = 0;
 	}
       else if (p->req_l_drul_[START])
 	{
 	  p->start_req_l_ = p->req_l_drul_[START];
-	  s = get_property ("start" + String (p->name_ ));
+	  s = get_property (("start" + String (p->name_ )).ch_C());
 	}
 
       if (gh_string_p (s))
@@ -186,14 +186,14 @@ Piano_pedal_engraver::do_process_music ()
 	  if (p->name_ == String ("Sustain"))
 	    {
 	      // fixme: Item should be sufficient.
-	      p->item_p_ = new Text_item (get_property ("basicSustainPedalProperties"));
+	      p->item_p_ = new Item (get_property ("basicSustainPedalProperties"));
 	    }
 	  else
 	    {
-	      p->item_p_ = new Text_item (get_property ("basicPedalProperties"));
+	      p->item_p_ = new Item (get_property ("basicPedalProperties"));
 	    }
-	      p->item_p_->set_elt_property ("text", s);
-	      // guh
+	  p->item_p_->set_elt_property ("text", s);
+	  // guh
 
 	  Side_position_interface si (p->item_p_);
 	  si.set_axis (Y_AXIS);

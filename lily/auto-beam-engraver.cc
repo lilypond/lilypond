@@ -119,11 +119,11 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   /*
     second guess: property generic time exception
   */
-  SCM begin = get_property (time_str + "beamAutoBegin");
+  SCM begin = get_property ((time_str + "beamAutoBegin").ch_C());
   if (unsmob_moment (begin))
     begin_mom = * unsmob_moment (begin);
 
-  SCM end = get_property (time_str + "beamAutoEnd");
+  SCM end = get_property ((time_str + "beamAutoEnd").ch_C());
   if (unsmob_moment (end))
     end_mom = * unsmob_moment (end);
 
@@ -132,11 +132,11 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   */
   if (type_str.length_i ())
     {
-      SCM end_mult = get_property ( time_str + "beamAutoEnd" + type_str);
+      SCM end_mult = get_property ((time_str + "beamAutoEnd" + type_str).ch_C());
       if (unsmob_moment (end_mult))
 	end_mom = * unsmob_moment (end_mult);
 
-      SCM begin_mult = get_property (time_str + "beamAutoBegin" + type_str);
+      SCM begin_mult = get_property ((time_str + "beamAutoBegin" + type_str).ch_C());
       if (unsmob_moment (begin_mult))
 	begin_mom = * unsmob_moment (begin_mult);
     }
@@ -159,11 +159,11 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   */
   if (type_str.length_i ())
     {
-      SCM end_mult = get_property (String ("beamAutoEnd") + type_str);
+      SCM end_mult = get_property ((String ("beamAutoEnd") + type_str).ch_C());
       if (unsmob_moment (end_mult))
 	end_mom = * unsmob_moment (end_mult);
 
-      SCM begin_mult = get_property (String ("beamAutoBegin") + type_str);
+      SCM begin_mult = get_property ((String ("beamAutoBegin") + type_str).ch_C());
       if (unsmob_moment (begin_mult))
 	begin_mom = * unsmob_moment (begin_mult);
     }

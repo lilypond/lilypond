@@ -23,12 +23,12 @@
 #include "engraver.hh"
 #include "direction.hh"
 #include "side-position-interface.hh"
-#include "text-item.hh"
+#include "item.hh"
 
 /// where is c-0 in the staff?
 class Clef_engraver : public  Engraver {
   Clef_item * clef_p_;
-  Text_item * octavate_p_;
+  Item * octavate_p_;
   Clef_change_req * clef_req_l_;
   
   void create_clef();
@@ -190,7 +190,7 @@ Clef_engraver::create_clef()
   si.set_position (clef_position_i_);
   if (octave_dir_)
     {
-      Text_item * g = new Text_item (get_property ("basicOctavateEightProperties"));
+      Item * g = new Item (get_property ("basicOctavateEightProperties"));
       Side_position_interface spi (g);
       spi.set_axis (Y_AXIS);
       spi.add_support (clef_p_);

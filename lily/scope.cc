@@ -20,15 +20,6 @@ Scope::~Scope ()
 Scope::Scope (Scope const&s)
   : id_dict_ (new Scheme_hash_table (*s.id_dict_))
 {
-  /*
-    cloning not necessary.
-
-  id_dict_ = new Hash_table<Protected_scm,Identifier*> (*s.id_dict_);
-  for (Scope_iter ai (s); ai.ok(); ai++)
-    {
-      id_dict_->elem (ai.scm_key ()) = ai.val ()->clone ();
-    }
-  */
 }
 
 Scope::Scope ()

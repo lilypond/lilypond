@@ -15,7 +15,7 @@
 #include "paper-column.hh"
 #include "staff-symbol.hh"
 #include "note-column.hh"
-#include "text-item.hh"
+#include "item.hh"
 #include "side-position-interface.hh"
 #include "engraver.hh"
 #include "stem.hh"
@@ -77,7 +77,7 @@ Dynamic_line_spanner::add_element (Score_element* e)
  */
 class Dynamic_engraver : public Engraver
 {
-  Text_item * text_p_;
+  Item * text_p_;
   Crescendo * finished_cresc_p_;
   Crescendo * cresc_p_;
 
@@ -262,7 +262,7 @@ Dynamic_engraver::do_process_music ()
     {
       String loud = text_req_l_->text_str_;
 
-      text_p_ = new Text_item (get_property ("basicDynamicTextProperties"));
+      text_p_ = new Item (get_property ("basicDynamicTextProperties"));
       text_p_->set_elt_property ("text", ly_str02scm (loud.ch_C ()));
       if (Direction d=text_req_l_->get_direction ())
 	directional_element (text_p_).set (d);
@@ -309,7 +309,7 @@ Dynamic_engraver::do_process_music ()
 	     gh_int2scm ((span_req_l_drul_[START]->span_type_str_ == "crescendo")
 			 ? BIGGER : SMALLER));
 	      
-	  SCM s = get_property (span_req_l_drul_[START]->span_type_str_ + "Text");
+	  SCM s = get_property ((span_req_l_drul_[START]->span_type_str_ + "Text").ch_C());
 	  if (gh_string_p (s))
 	    {
 	      cresc_p_->set_elt_property ("start-text", s);
@@ -317,7 +317,7 @@ Dynamic_engraver::do_process_music ()
 					    + "Text", SCM_UNDEFINED);
 	    }
 
-	  s = get_property (span_req_l_drul_[START]->span_type_str_ + "Spanner");
+	  s = get_property ((span_req_l_drul_[START]->span_type_str_ + "Spanner").ch_C());
 
 
 	  /*

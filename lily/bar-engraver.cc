@@ -28,7 +28,7 @@ Bar_engraver::create_bar ()
 {
   if (!bar_p_)
     {
-      bar_p_ = new Staff_bar (get_property ("basicBarlineProperties"));
+      bar_p_ = new Staff_bar (get_property ("basicBarProperties"));
 
       
       // urg: "" != empty...

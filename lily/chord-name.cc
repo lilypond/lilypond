@@ -128,24 +128,25 @@ Chord_name::ly_text2molecule (SCM text) const
   return mol;
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Chord_name);
+MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Chord_name);
 
-Molecule 
-Chord_name::do_brew_molecule () const
+SCM
+Chord_name::scheme_molecule (SCM smob) 
 {
-  SCM style = get_elt_property ("style");
+  Score_element *sc = unsmob_element (smob);
+  SCM style = sc->get_elt_property ("style");
   if (style == SCM_UNDEFINED)
     style = ly_str02scm ("banter");
 
-  SCM inversion = get_elt_property ("inversion");
+  SCM inversion = sc-> get_elt_property ("inversion");
   if (inversion == SCM_UNDEFINED)
     inversion = SCM_BOOL_F;
 
-  SCM bass = get_elt_property ("bass");
+  SCM bass =  sc->get_elt_property ("bass");
   if (bass == SCM_UNDEFINED)
     bass = SCM_BOOL_F;
 
-  SCM pitches = get_elt_property ("pitches");
+  SCM pitches =  sc->get_elt_property ("pitches");
 
   SCM text = scm_eval (gh_list (ly_symbol2scm ("chord::user-name"),
 				style,
@@ -153,7 +154,8 @@ Chord_name::do_brew_molecule () const
 				ly_quote_scm (gh_cons (inversion, bass)),
 				SCM_UNDEFINED));
 
-  return ly_text2molecule (text);
+  return dynamic_cast<Chord_name*> (sc)->
+    ly_text2molecule (text).create_scheme ();
 }
 
 Chord_name::Chord_name (SCM s)

@@ -6,27 +6,34 @@
   (c) 2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-
-#include "sustain-pedal.hh"
-#include "side-position-interface.hh"
+#include "score-element.hh"
 #include "molecule.hh"
 #include "lookup.hh"
-#include "staff-symbol-referencer.hh"
 
-void
-Sustain_pedal::after_line_breaking ()
+// update comment --hwn 
+/*
+  Urg.
+  This is almost text
+  Problem is:
+    * we have no kerning
+    * symbols are at wrong place in font
+
+
+
+  Properties:
+
+  glyph -- text string (TODO:   make one large glyph of the Ped symbol, removes need for do_brew_molecule ())
+
+*/
+
+struct Sustain_pedal
 {
-  return ;
-  /*
-    UGH. Should work automatically via offset callback. 
-   */
-  Side_position_interface i (this);
-  Direction d =  i.get_direction ();
-  i.set_direction (d);
-}
+public:
+   static SCM scheme_molecule (SCM);
+};
+
 
 MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Sustain_pedal);
-
 
 SCM
 Sustain_pedal::scheme_molecule (SCM smob) 
@@ -57,7 +64,3 @@ Sustain_pedal::scheme_molecule (SCM smob)
   return mol.create_scheme ();
 }
 
-Sustain_pedal ::Sustain_pedal(SCM s )
-  : Item (s)
-{
-}

@@ -233,7 +233,8 @@ HYPHEN		--
 	int n = 0;
 	if (main_input_b_ && safe_global_b) {
 		error (_ ("Can't evaluate Scheme in safe mode"));
-		return SCM_EOL;
+		yylval.scm =  SCM_EOL;
+		return SCM_T;
 	}
 	yylval.scm = ly_parse_scm (s, &n);
 	DEBUG_OUT << "Scheme: ";
@@ -473,7 +474,11 @@ My_lily_lexer::scan_escaped_word (String str)
 	if (gh_string_p (sid)) {
 		yylval.scm = sid; 
 		return STRING_IDENTIFIER;
+	} else if (gh_number_p (sid)) {
+		yylval.scm = sid;
+		return NUMBER_IDENTIFIER;
 	}
+
 
 	Identifier * id = unsmob_identifier (sid);
 	if (id) {

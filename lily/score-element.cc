@@ -38,6 +38,7 @@ remove dynamic_cast<Spanner,Item> and put this code into respective
 */
 
 
+#define INFINITY_MSG "Infinity or NaN encountered"
 
 Score_element::Score_element(SCM basicprops)
 {
@@ -49,9 +50,6 @@ Score_element::Score_element(SCM basicprops)
   status_i_ = 0;
   self_scm_ = SCM_EOL;
   original_l_ = 0;
-#ifndef READONLY_PROPS
-  basic_property_list_ = basicprops;
-#endif READONLY_PROPS
   property_alist_ = basicprops;
   pointer_alist_ = SCM_EOL;
   
@@ -67,17 +65,7 @@ Score_element::Score_element (Score_element const&s)
   self_scm_ = SCM_EOL;
   original_l_ =(Score_element*) &s;
   property_alist_ = s.property_alist_;
-#ifndef READONLY_PROPS
-  basic_property_list_ = s.basic_property_list_;
-  /*
-    TODO: should copy the private part of the list.
-   */
-  SCM y ;
-  for (SCM *sp = &s.property_alist_;  *sp != basic_property_list_; sp = &SCM_CDR(*sp))
-    {
-      *sp = gh_cons (      
-    }
-#endif
+
   pointer_alist_ = SCM_EOL;
   
   status_i_ = s.status_i_;
@@ -138,24 +126,6 @@ void
 Score_element::set_elt_property (String k, SCM val)
 {
   SCM sym = ly_symbol2scm (k.ch_C ());
-#ifndef READONLY_PROPS
-  /*
-    destructive if found in my part of the list.
-   */
-  for (SCM s = property_alist_; s != basic_property_list_; s =gh_cdr (s))
-    {
-      if (gh_caar (s)== sym)
-	{
-	  gh_set_cdr_x (gh_car (s), val);
-	  return;
-	}
-    }
-/*
-    not found in private list. Override in private list.
-   */
-  
-#endif
-  
   property_alist_ = gh_cons (gh_cons (sym, val), property_alist_);
 }
 
@@ -298,25 +268,23 @@ Score_element::do_add_processing()
 }
 
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Score_element)
+MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Score_element)
 
-  /*
+/*
   ugh.
  */  
-
-Molecule 
-Score_element::do_brew_molecule () const
+SCM
+Score_element::scheme_molecule (SCM smob) 
 {
-  SCM glyph = get_elt_property ("glyph");
+  Score_element * sc = unsmob_element (smob);
+  SCM glyph = sc->get_elt_property ("glyph");
   if (gh_string_p (glyph))
     {
-      return lookup_l ()->afm_find (String (ly_scm2string (glyph)));
+      return sc->lookup_l ()->afm_find (String (ly_scm2string (glyph))).create_scheme ();
     }
   else
     {
-      Molecule m ;
-      m.set_empty (true);
-      return m;
+      return SCM_EOL;
     }
 }
 
@@ -500,7 +468,12 @@ Score_element::find_broken_piece (Line_of_score*) const
 void
 Score_element::translate_axis (Real y, Axis a)
 {
-  dim_cache_[a].offset_ += y;
+  if (isinf (y) || isnan (y))
+    programming_error (_(INFINITY_MSG));
+  else
+    {
+      dim_cache_[a].offset_ += y;
+    }
 }  
 
 Real
@@ -532,7 +505,7 @@ Score_element::get_offset (Axis a) const
       if (isinf (r) || isnan (r))
 	{
 	  r = 0.0;
-	  programming_error ("Infinity or NaN encountered");
+	  programming_error (INFINITY_MSG);
 	}
       me->dim_cache_[a].offset_ +=r;
     }
@@ -608,9 +581,9 @@ Score_element *
 Score_element::common_refpoint (Score_element const* s, Axis a) const
 {
   /*
-    I don't like the quadratic aspect of this code. Maybe this should
-    be rewritten some time, but the largest chain of parents might be
-    10 high or so, so it shouldn't be a real issue. */
+    I don't like the quadratic aspect of this code, but I see no other
+    way. The largest chain of parents might be 10 high or so, so
+    it shouldn't be a real issue. */
   for (Score_element const *c = this; c; c = c->dim_cache_[a].parent_l_)
     for (Score_element const * d = s; d; d = d->dim_cache_[a].parent_l_)
       if (d == c)

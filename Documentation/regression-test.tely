@@ -328,6 +328,13 @@ two measures all have the same distance from each other:
 
 @mudelafile{breathing-sign.ly}
 
+Hara kiri staffs kill themselves if they are empty.  This example really
+contains two staffs, but the second contains only spaces, and is
+therefore removed. 
+
+@mudelafile{hara-kiri-short.ly}
+
+
 Fonts are  available in a default set of sizes: 11, 13, 16, 20, 23 and
 26pt staffheight.  Sizes of the text fonts and symbol fonts are made
 to match the staff dimensions.    

@@ -9,13 +9,11 @@ import os
 import time
 import string 
 import getopt
-import __main__
 
 fullname = "unknown"
 index_file=''
-banner_file = ''
 changelog_file=''
-changes =''
+package_name = ''
 package_version = ''
 
 mail_address = '(address unknown)'
@@ -24,17 +22,18 @@ try:
 except KeyError:
 	pass
 
-
 webmaster= mail_address
 try:
 	webmaster= os.environ['WEBMASTER']
 except KeyError:
 	pass
 
+header_file = ''
+footer_file = ''
+default_header = r"""
+"""
 
-
-footer_fn = ''
-footer = r"""<hr>Please take me <a href=%s>back to the index</a>
+default_footer = r"""<hr>Please take me <a href=%s>back to the index</a>
 of %s
 <!-- package name %s>
  <!-- webmaster fields. %s %s>
@@ -44,13 +43,8 @@ builtstr = r"""<hr><font size=-1>
 This page was built from %s-%s by 
 <address><br>%s &lt<a href="mailto:%s">%s</a>&gt,  %s.</address><p></font>"""
 
-package_name = ''
 
-(options, files) = getopt.getopt(sys.argv[1:], 'c:hp:', [
-	'name=', 'footer=', 'version=',
-	'changelog=', 'help', 'news=', 'index=']) 
-
-def gulp_file(f):
+def gulp_file (f):
 	try:
 		i = open(f)
 		i.seek (0, 2)
@@ -67,33 +61,45 @@ def gulp_file(f):
 
 def help ():
 	sys.stdout.write (r"""Usage: add-html-footer [OPTION]... HTML-FILE
-Add a nice footer, add the top of the ChangLog file (up to the ********)
+Add header, footer and top of ChangLog file (up to the ********) to HTML-FILE
+
 Options:
--h, --help                print this help
---version                 package version
---name                    package_name
---footer                  footer file
+  --changelog=FILE          use FILE as ChangeLog [ChangeLog]
+  --footer=FILE             use FILE as footer
+  --header=FILE             use FILE as header
+  -h, --help                print this help
+  --index=URL               set homepage to URL
+  --name=NAME               set package_name to NAME
+  --version=VERSION         set package version to VERSION
 """)
 	sys.exit (0)
+
+(options, files) = getopt.getopt(sys.argv[1:], 'h', [
+	'changelog=', 'footer=', 'header=', 'help', 'index=',
+	'name=', 'version=']) 
 
 for opt in options:
 	o = opt[0]
 	a = opt[1]
-	if o == '--news' or o == '--changelog' or o == '-c':
+	if o == '--changelog':
 		changelog_file = a
-	elif o == '--index':
-		index_file = a
 	elif o == '--footer':
-		footer_fn = a
-	elif o == '--name':
-		package_name = a
+		footer_file = a
+	elif o == '--header':
+		header_file = a
 	elif o == '-h' or o == '--help':
 		help ()
+	elif o == '--index':
+		index_file = a
+	elif o == '--name':
+		package_name = a
 	elif o == '--version':
 		package_version = a
 	else:
 		raise 'unknown opt ', o
-def set_vars():
+
+def set_vars ():
+	global fullname
 	os.environ["CONFIGSUFFIX"] = 'www';
 	if os.name == 'nt':
 		import ntpwd
@@ -102,36 +108,38 @@ def set_vars():
 		import pwd
 		pw = pwd.getpwuid (os.getuid());
 
-	f =pw[4]
+	f = pw[4]
 	f = string.split (f, ',')[0]
-	__main__.fullname=f 
-set_vars ()
+	fullname = f 
 
+#burp
+def compose_header ():
+	global default_header
+	head = default_header
+	if header_file:
+		head = gulp_file (header_file)
+	return head
 
-def footstr(index):
-	ft = __main__.footer
+def compose_footer (index):
+	global default_footer
+	foot = default_footer
 
-	if footer_fn:
-		try:
-			ft = open (footer_fn).read ()
-		except:
-			raise 'oops: ' , footer_fn
+	if footer_file:
+		foot = gulp_file (footer_file)
 
-
-	s = ft % (index, package_name, package_name, webmaster, webmaster)
+	s = foot % (index, package_name, package_name, webmaster, webmaster)
 	s = s + builtstr % (package_name, package_version, fullname,
 			    mail_address, mail_address, 
 			    time.strftime ('%c %Z', time.localtime (time.time ())))
 	return s
 
-banner = footstr (index_file)
-banner_id = '<! banner_id >'
-
-
-
+set_vars ()
+header = compose_header ()
+footer = compose_footer (index_file)
+header_tag = '<! header_tag >'
+footer_tag = '<! footer_tag >'
 
 def do_file (s):
-
 	if changelog_file:
 		changes = gulp_file (changelog_file)
 		# urg?
@@ -141,23 +149,30 @@ def do_file (s):
 			changes = changes[:m.start (0)]
 		s = re.sub ('top_of_ChangeLog', '<XMP>\n'+ changes  + '\n</XMP>\n', s)
 
+	if re.search (header_tag, s) == None:
+		body='<BODY BGCOLOR=WHITE><FONT COLOR=BLACK>'
+		s = re.sub ('(?i)<body>', body, s)
+		if re.search ('(?i)<BODY', s):
+			s = re.sub ('(?i)<body[^>]*>', body + header, s)
+		elif re.search ('(?i)<html', s):		
+			s = re.sub ('(?i)<html>', '<HTML>' + header, s)
+		else:
+			s = header + s
 
-	if re.search (banner_id, s) == None:
-		s = banner_id + s
-	else:
-		return s
+		s = header_tag + s
 
-	s = re.sub ('(?i)<body>', '<BODY BGCOLOR=WHITE><FONT COLOR=BLACK>', s)
-	# do title.
-	#s = check_tag ('<body', '', s, 0)
-	if re.search ('(?i)</body', s):
-		s = re.sub ('(?i)</body>', banner + '</BODY>', s)
-	elif re.search ('(?i)</html', s):		
-		s = re.sub ('(?i)</html>', banner + '</HTML>', s)
-	else:
-		s = s + banner
+	if re.search (footer_tag, s) == None:
+		s = s + footer_tag
+
+		if re.search ('(?i)</body', s):
+			s = re.sub ('(?i)</body>', footer + '</BODY>', s)
+		elif re.search ('(?i)</html', s):		
+			s = re.sub ('(?i)</html>', footer + '</HTML>', s)
+		else:
+			s = s + footer
 
 	return s
+
 
 for f in files:
 	s = gulp_file (f)

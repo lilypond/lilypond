@@ -10,7 +10,7 @@
 #include "dimension-cache.hh"
 #include "engraver.hh"
 #include "side-position-interface.hh"
-#include "text-item.hh"
+#include "item.hh"
 #include "musical-request.hh"
 #include "note-head.hh"
 #include "stem.hh"
@@ -22,7 +22,7 @@
 class Text_engraver : public Engraver
 {
   Link_array<Text_script_req> reqs_;
-  Link_array<Text_item> texts_;
+  Link_array<Item> texts_;
 public:
 
   VIRTUAL_COPY_CONS(Translator);
@@ -78,7 +78,7 @@ Text_engraver::do_process_music ()
     {
       Text_script_req * r = reqs_[i];
 
-      Text_item *text = new Text_item (get_property ("basicTextScriptProperties"));
+      Item *text = new Item (get_property ("basicTextScriptProperties"));
       Side_position_interface stafy (text);
 
       SCM axisprop = get_property ("scriptHorizontal");
@@ -121,7 +121,7 @@ Text_engraver::do_pre_move_processing ()
 {
   for (int i=0; i < texts_.size (); i++)
     {
-      Text_item *ti = texts_[i];
+      Item *ti = texts_[i];
       Side_position_interface (ti).add_staff_support ();
       typeset_element (ti);
     }

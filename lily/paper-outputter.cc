@@ -160,20 +160,13 @@ Paper_outputter::output_scope (Scope *scope, String prefix)
 	{
 	  output_String_def (prefix + s, ly_scm2string (v));
 	}
-      
-      Identifier * id = unsmob_identifier (v);
-      
-      if(dynamic_cast<Real_identifier*> (id))
+      else if (scm_integer_p (v) == SCM_BOOL_T)
 	{
-	  Real val  = *id->access_content_Real (false);
-
-	  output_Real_def (prefix + s, val);	  
+	  output_int_def (prefix + s, gh_scm2int (v));	  
 	}
-      else if (dynamic_cast<int_identifier*> (id))
+      else if (gh_number_p (v))
 	{
-	  int val  = *id->access_content_int (false);	  
-	  
-	  output_int_def (prefix + s, val);	  
+	  output_Real_def (prefix + s, gh_scm2double (v));	  
 	}
     }
 }

@@ -23,7 +23,7 @@ public:
 
 protected:
   virtual void before_line_breaking ();
-  Molecule  do_brew_molecule () const;
+
   virtual Real get_bar_size () const;
 };
 #endif // BAR_HH

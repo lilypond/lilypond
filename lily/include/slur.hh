@@ -28,6 +28,10 @@ protected:
   Molecule do_brew_molecule () const;
   virtual Array<Offset> get_encompass_offset_arr () const;
   Bezier get_curve () const;
+
+  /*
+    JUNKME
+   */
   Drul_array<Real> dy_f_drul_;
   Drul_array<Real> dx_f_drul_;
 

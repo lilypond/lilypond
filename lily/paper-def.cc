@@ -44,7 +44,6 @@ Paper_def::~Paper_def ()
 Paper_def::Paper_def (Paper_def const&s)
   : Music_output_def (s)
 {
-  shape_int_a_ = s.shape_int_a_;
   lookup_p_tab_p_ = new map<int, Lookup*>;
   
   for (map<int,Lookup*>::const_iterator ai = s.lookup_p_tab_p_->begin();
@@ -62,19 +61,30 @@ Paper_def::get_var (String s) const
   return get_realvar (ly_symbol2scm (s.ch_C()));
 }
 
+SCM
+Paper_def::get_scmvar (String s) const
+{
+  return  scope_p_->scm_elem (ly_symbol2scm (s.ch_C()));
+}
+
 Real
 Paper_def::get_realvar (SCM s) const
 {
   if (!scope_p_->elem_b (s))
-    error (_f ("unknown paper variable: `%s'", ly_symbol2string (s)));
-  Real * p = scope_p_->elem (s)->access_content_Real (false);
-  if (!p)
     {
-      error (_("not a real variable"));
+      programming_error ("unknown paper variable: " +  ly_symbol2string (s));
       return 0.0;
     }
-
-  return *p;
+  SCM val = scope_p_->scm_elem (s);
+  if (gh_number_p (val))
+    {
+      return gh_scm2double (val);
+    }
+  else
+    {
+      non_fatal_error (_("not a real variable"));
+      return 0.0;
+    }
 }
 
 /*

@@ -1,0 +1,26 @@
+
+<! your header here >
+<! shamefully inspired by Franc,ois Pinard's TP pages >
+
+<! ur* can't we generate this with @table from a .texi? >
+
+<bgcolor="grey">
+<table cellpadding=5 width="100%">
+  <tr>
+    <td align=left valign=top width="15%" bgcolor="grey">
+    <table align=left>
+      <tr><td bgcolor="cyan"><b>General info</b></td></tr>
+      <tr><td><font size=-1>
+          <a href="http://www.lilypond.org"><b>Entry page</b></a><br>
+          <a href="http://appel.dyndns.org/lilypond"><b>Hacking</b></a><br>
+      </td></tr>
+      <tr><td bgcolor="cyan"><b>Download Source</b></td></tr>
+      <tr><td><font size=-1>
+          <a href="ftp://ftp.gnu.org/pub/gnu/lilypond"><b>Stable</b></a><br>
+          <a href="ftp://cs.uu.nl/pub/gnu/LilyPond/development"><b>Development</b></a><br>
+      </td></tr>
+  </table>
+  <! /tr >
+  <td align=left valign=top width="90%">
+
+

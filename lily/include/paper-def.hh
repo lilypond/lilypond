@@ -10,7 +10,6 @@
 #ifndef PAPER_DEF_HH
 #define PAPER_DEF_HH
 
-#include <map>
 
 #include "lily-proto.hh"
 #include "lily-guile.hh"
@@ -56,19 +55,19 @@ protected:
 public:    
   virtual ~Paper_def ();
 
-  Array<Interval> shape_int_a_;
   /*
     JUNKME
    */
   Real get_realvar (SCM symbol) const;
   Real get_var (String id) const;
 
-  
+  SCM get_scmvar (String id)const; 
   void reinit ();
   Paper_def ();
   void set_lookup (int, Lookup*);
 
   Paper_def (Paper_def const&);
+
   /** The distance between beams of multiplicity_i
       JUNKME
   */

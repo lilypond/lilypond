@@ -19,8 +19,9 @@ TODO:
 
 %}
 
+\version "1.3.59";
 praeludiumRight =  \notes {
-   \key e;
+   \key e \major;
   \clef violin;
 
   % 13 -- how to type -- where to split -- this more neatly?
@@ -46,7 +47,7 @@ praeludiumRight =  \notes {
 }
 
 praeludiumLeft = \notes \relative c {
-   \key e;
+   \key e \major;
   \clef bass;
 
   % 13
@@ -86,7 +87,7 @@ praeludiumLeft = \notes \relative c {
 
 
 fugaIIRight = \notes   \relative c''   {
-  \key e;              % E-major
+  \key e \major;              % E-major
   \clef violin;
   \time3/4;
 
@@ -137,7 +138,7 @@ fugaIIRight = \notes   \relative c''   {
 gracetest = \notes \grace { [c16 ( cis dis] }
 
 fugaIILeft = \notes {
-  \key e;
+  \key e \major;
   \clef bass;
 
   %15
@@ -155,7 +156,7 @@ fugaIILeft = \notes {
 }
 
 fugaIIPedal = \notes \relative c {
-  \key e;
+  \key e \major;
   \clef bass;
 
   %15
@@ -192,7 +193,7 @@ fugaIIPedal = \notes \relative c {
         \property Staff.instr = #"bs"	
 
         \time 4/4;
-	\key e; 
+	\key e \major; 
   \clef bass;
 
   %13

@@ -1,3 +1,25 @@
+1.3.60.jcn1
+===========
+
+* Webpage hacking
+
+1.3.60.hwn1
+===========
+
+* Junk int_identifier, real_identifier. Merged Midi_def_identifier and
+Paper_def_identifier.
+
+* Fixed bug with spanning barlines in combination with Hara-Kiri staffs.
+
+* Cleaned up Text_item, Hyphen_spanner, Lyric_extender and
+Sustain_pedal and reduced them to an Score_element interface (they are
+no longer Score_element derived types).
+
+* Some instances of brew_molecule routines have moved out of
+Score_element, and are now called scheme_molecule.
+
+* Moved lots of parameters from ly/params.ly to ly/engraver.ly
+
 1.3.59.hwn1
 ===========
 

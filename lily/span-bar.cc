@@ -50,8 +50,12 @@ Span_bar::before_line_breaking ()
 void
 Span_bar::after_line_breaking ()
 {
-  Bar::after_line_breaking ();
   Interval i (get_spanned_interval ());
+
+  /*
+    Bar::brew_molecule delivers a barline of y-extent (-h/2,h/2), so
+    we have to translate ourselves to be in the center of the 
+    interval that we span.  */
   translate_axis (i.center (), Y_AXIS);
 }
 

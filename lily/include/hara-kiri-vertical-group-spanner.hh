@@ -27,6 +27,7 @@
 class Hara_kiri_group_spanner : public Spanner
 {
 public:
+  static Real force_hara_kiri_callback (Score_element const* , Axis);
   Hara_kiri_group_spanner (SCM);
   virtual void after_line_breaking ();
   void add_interesting_item (Item* n);
