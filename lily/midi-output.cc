@@ -31,7 +31,10 @@ Midi_output::Midi_output(Score* score_l, Midi_def* midi_l )
     midi_l_ = midi_l;
     score_l_ = score_l;
 
-    Midi_stream midi_stream(midi_l->outfile_str_, score_l_->staffs_.size(), 384 );
+    Midi_stream midi_stream(midi_l->outfile_str_, 
+        // don-t forget: extra track 0 for tempo/copyright stuff...
+    	score_l_->staffs_.size() + 1, 
+	384 );
     midi_stream_l_ = &midi_stream;
 
     header();
@@ -44,7 +47,7 @@ Midi_output::do_staff(Staff*st_l,int track_i)
     Midi_track midi_track( track_i );
 
     // set track name
-    Midi_text track_name( Midi_text::TRACK_NAME, "Track " + String_convert::i2dec_str( track_i, 2, 0 ) );
+    Midi_text track_name( Midi_text::TRACK_NAME, "Track " + String_convert::i2dec_str( track_i, 0, '0' ) );
     midi_track.add( Moment( 0.0 ), &track_name );
 
     // set instrument :-)
@@ -55,10 +58,11 @@ Midi_output::do_staff(Staff*st_l,int track_i)
     int accidentals_i = 0;
     int minor_i = 0;
 
-    // sorry, wanna test this...
+    // uph, sorry, wanna test this...
     // menuetto in F
     if ( ( infile_str_g.index_i( "scsii-menuetto" ) >= 0 )
-	|| ( infile_str_g.index_i( "standchen" ) >= 0 ) )
+	|| ( infile_str_g.index_i( "standchen" ) >= 0 )
+	|| ( infile_str_g.left_str( 1 )  == String( "s" ) ) )
     	accidentals_i = -1;
     // standchen in d	
     if ( ( infile_str_g.index_i( "standchen" ) >= 0 ) )
