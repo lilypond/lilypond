@@ -193,7 +193,7 @@ Set then directory TeX input is in (detected as a subdir of tex-prefix)
 
 =item --enable-mf-dir
 
-Set the directory mf input is in (idem) [obsolete]
+Set the directory mf input is in (idem)
 
 =item --enable-out-dir
 
