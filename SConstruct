@@ -685,9 +685,10 @@ def symlink_tree (target, source, env):
 	     # @  := out
 	     # /$ := add dst file_name
 	     (('python',     'lib/lilypond/python'),
-	      ('lily/',      'bin/lilypond-bin'),
-	      ('scripts/',   'bin/lilypond'),
+	      ('lily/',      'bin/lilypond'),
+	      ('scripts/',   'bin/convert-ly'),
 	      ('scripts/',   'bin/lilypond-book'),
+	      ('scripts/',   'bin/ps2png'),
 	      ('mf',         'share/lilypond/%(ver)s/dvips/mf-out'),
 	      ('#ps',        'share/lilypond/%(ver)s/dvips/ps'),
 	      ('#ps',        'share/lilypond/%(ver)s/tex/music-drawing-routines.ps'),
