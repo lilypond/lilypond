@@ -1,3 +1,13 @@
+2005-04-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/point-and-click.itely: document ly:set-option.
+
+	* lily/grob.cc (get_uncached_stencil): only ste grob-cause if
+	point_and_click_global is set.
+
+	* lily/scm-option.cc (LY_DEFINE): add point-and-click
+	ly:set-option argument.
+
 2005-04-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* GNUmakefile.in: Include symlinks in webball.

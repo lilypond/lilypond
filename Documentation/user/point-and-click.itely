@@ -3,11 +3,6 @@
 @cindex point and click
 
 
-
-
-@cindex source specials
-@cindex specials, source
-
 Point and click lets you find notes in the input by clicking on them
 in the PDF viewer.  This makes it easier to find input that causes
 some error in the sheet music.
@@ -83,3 +78,16 @@ emacsclient --no-wait +%(line)s:%(column)s %(file)s
 for @code{LYEDITOR} is equivalent to the standard emacsclient
 invocation.
 
+
+@cindex file size, output
+
+The point and click links enlarge the output files significantly. For
+reducing the size of PDF and PS files, point and click may be switched
+off by issuing
+
+@example
+  #(ly:set-option 'point-and-click #f)
+@end example
+
+@noindent
+in a @file{.ly} file.
