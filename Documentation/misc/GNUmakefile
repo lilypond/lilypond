@@ -13,7 +13,8 @@ default: local-doc
 
 #urg default local-WWW target uses footify before its time; 
 # must add footify with txt-to-html target
-local-WWW: $(addprefix $(outdir)/, $(addsuffix .txt, $(TEXTS))) $(OUT_HTMLFILES) txt-to-html
+OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(TEXTS)))
+local-WWW: $(OUT_TXT_FILES) $(OUT_HTMLFILES) txt-to-html
 
 copy-for-me:
 	$(foreach a, $(README_TOP_FILES), cp ../$(a) $(outdir)/$(a).txt && ) true
@@ -22,9 +23,5 @@ $(outdir)/%.txt: %
 	cp $< $@
 
 txt-to-html:
-	$(foreach a, $(TEXTS),\
-		echo "<html><body><xmp>" > $(outdir)/$(a).html;\
-		cat $(outdir)/$(a).txt >> $(outdir)/$(a).html;\
-		echo "</xmp></body></html>" >> $(outdir)/$(a).html\
-	&& ) true
+	$(PYTHON) $(step-bindir)/text2html.py $(OUT_TXT_FILES)
 	$(footify) $(addprefix $(outdir)/, $(addsuffix .html, $(TEXTS)))

@@ -26,7 +26,18 @@
 @end html
 
 
+@c Flat lists of links are not so handy
+@c the links themselves (basename of filename) do not make for
+@c intuitive clicking.
+
+
 @unnumberedsubsec Information for new users
+
+@c Hmm, this looks a bit better; maybe for users/developers too?
+
+@quotation
+
+@unnumberedsubsubsec Installation
 
 @itemize @bullet
 @item @uref{../../index.html,index} What is Lilypond?
@@ -35,14 +46,28 @@
   How install on Unix.
 @item @uref{../windows/out-www/installing.html, WINDOWS}
 How to install on Windows.
-@item @uref{http://www.lilypond.org/wiki?LilyPondFaqs,FAQ} Frequently
-asked questions, with answers.
+@end itemize
+
+@c also for users...
+@unnumberedsubsubsec Support
+
+@itemize @bullet
+@item @uref{../topdocs/out-www/FAQ.html,mini-FAQ} Mini FAQ -- very
+frequently asked questions, with answers.
+@item @uref{http://www.lilypond.org/wiki?LilyPondFaqs,FAQs} Frequently
+Asked Questions, with answers.
 @item @uref{http://www.lilypond.org/wiki?MailingLists,MailingLists} Subscribe to
 the mailing lists.
+@end itemize
+
+@unnumberedsubsubsec Documents
+
+@c direct links into first steps and running lily?
+@itemize @bullet
 @item @uref{../user/out-www/lilypond/Tutorial.html,Tutorial} Learn how to use LilyPond.
 @end itemize
 
-
+@end quotation
 
 @html
 <a name="users">
@@ -58,11 +83,18 @@ the mailing lists.
 
 @c archives?
 
+@c tutorial?
+
+@item
+@uref{../user/out-www/lilypond/Reference-Manual.html,Reference-Manual}
+The Reference Manual.
 @item @uref{../user/out-www/lilypond-internals/lilypond-internals.html,lilypond-internals}
-Documentation of internals, generated from the sources. If you want to
-fine-tune output, you need the information in this document.
+Full documentation of internals, generated from the sources.  If you
+want to fine-tune output, you need the information in this document.
 @item @uref{../user/out-www/lilypond/lilypond.html,lilypond}
-  The user manual, (in @uref{../user/out-www/lilypond.ps.gz,PostScript}).
+  The complete user manual, (in
+  @uref{../user/out-www/lilypond.ps.gz,PostScript}).
+@c glossary maybe for new users?
 @item @uref{../user/out-www/glossary.html,glossary} A glossary of musical
 terms, including translations.  (in
 @uref{../user/out-www/glossary.ps.gz,Postscript})

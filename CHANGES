@@ -1,3 +1,14 @@
+1.4.0.jcn6
+==========
+
+* Bugfix for configure.
+
+* text2html: use python script, use <pre> instead of <xmp>.
+
+* Fixed pa.ly.
+
+* Bugfix: lilypond mode: make view messages scroll by.
+
 1.4.0.jcn5
 ==========
 

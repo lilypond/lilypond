@@ -3219,7 +3219,7 @@ The most important output definition is the @code{\paper} block, for
 music notation.  The syntax is
 
 @example
-  @code{\paper @{} @var{[paperidentifier]} @var{items} @code{@}}
+  @code{\paper @{} [@var{paperidentifier}] @var{items} @code{@}}
 @end example
 
 where each of the items is one of

@@ -21,10 +21,9 @@ local-WWW: copy-for-me txt-to-html $(outdir)/regression-test.ps.gz $(outdir)/reg
 copy-for-me:
 	$(foreach a, $(README_TOP_FILES), cp ../$(a) $(outdir)/$(a).txt && ) true
 
+OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
+
+# cd $(outdir) rule gets bit hairy for --srcdir configure builds
 txt-to-html:
-	$(foreach a, $(README_TOP_FILES), \
-		echo "<html><body><xmp>" > $(outdir)/$(a).html;\
-		cat $(outdir)/$(a).txt >> $(outdir)/$(a).html;\
-		echo "</xmp></body></html>" >> $(outdir)/$(a).html\
-	&& ) true
+	$(PYTHON) $(step-bindir)/text2html.py $(OUT_TXT_FILES)
 	$(footify) $(addprefix $(outdir)/, $(addsuffix .html, $(README_TOP_FILES)))

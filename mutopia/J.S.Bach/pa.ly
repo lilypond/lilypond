@@ -254,22 +254,13 @@ pedal = \notes \relative c, {
 %  textheight = 160.0 \mm
   orientation = "landscape"
   linewidth = 280.0 \mm
-%{
-  \translator { 
-    \OrchestralScoreContext 
-    minVerticalAlign = 4.0*\staffheight
-    maxVerticalAlign = 4.0*\staffheight
-   }
-%}
   \translator { 
     \StaffGroupContext
-    minVerticalAlign = 4.0*\staffheight
-    maxVerticalAlign = 4.0*\staffheight
-   }
-   \translator { 
+    VerticalExtent = #'(4 . 4)
+  }
+  \translator { 
     \PianoStaffContext
-	minVerticalAlign = 2.5*\staffheight
-	maxVerticalAlign = 2.5*\staffheight
+    VerticalExtent = #'(2.5 . 2.5)
    }
   }
   \midi {

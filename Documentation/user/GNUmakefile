@@ -72,7 +72,7 @@ DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/
 local-WWW: rm-deep-symlinks
 
 rm-deep-symlinks:
-	cd $(outdir) && rm -f lilypond lilypond-internals
+	cd $(outdir) && rm -f lilypond lilypond-internals; true
 
 else
 

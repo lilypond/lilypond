@@ -4,7 +4,10 @@ import string
 import sys
 
 for a in sys.argv[1:]:
-	outfile = os.path.basename (os.path.splitext(a)[0]) + '.html'
+	# hmm, we need: text2html out/foe.txt -> out/foe.html,
+	# -o is a bit overkill?
+	# outfile = os.path.basename (os.path.splitext(a)[0]) + '.html'
+	outfile = os.path.splitext(a)[0] + '.html'
 	
 	try:
 	    os.unlink(outfile)
@@ -12,10 +15,10 @@ for a in sys.argv[1:]:
 	    pass
 
 	s = r"""
-<body>
-<xmp>%s
-</xmp>
-</body>""" % open (a).read ()
+<html><body><pre>
+%s
+</pre></body></html>
+""" % open (a).read ()
 	open (outfile, 'w').write (s)
 
 
