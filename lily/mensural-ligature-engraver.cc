@@ -347,7 +347,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 
   Real head_width =
     Font_interface::get_default_font (ligature)->
-    find_by_name ("noteheads--1mensural").extent (X_AXIS).length ();
+    find_by_name ("noteheads.-1mensural").extent (X_AXIS).length ();
     Real flexa_width = robust_scm2double (ligature->get_property ("flexa-width"), 2);
   flexa_width *= Staff_symbol_referencer::staff_space (ligature);
 

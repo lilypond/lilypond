@@ -119,7 +119,7 @@ Line_spanner::line_stencil (Grob *me,
       Font_metric *fm = select_font (me->get_layout (),
 				     scm_cons (style_alist,
 					      alist_chain));
-      Stencil m = fm->find_by_name ("scripts-trill-element");
+      Stencil m = fm->find_by_name ("scripts.trill.element");
       Stencil mol;
 
       do

@@ -74,8 +74,10 @@ def parse_logfile (fn):
 			group = ''
 		elif tags[0] == 'char':
 			name = tags[9]
+
+			name = re.sub ('-', 'M', name)
 			if group:
-				name = group + '-' + name
+				name = group + '.' + name
 			m = {
 				'description': tags[1],
 				'name': name,
@@ -157,10 +159,30 @@ def write_tex_defs (file, global_info, charmetrics):
 	file.write ('\\endinput\n')
 
 
+def write_otf_lisp_table (file, global_info, charmetrics):
+
+	def conv_char_metric (charmetric):
+		f = 1.0
+		s = """((%s .
+(bbox . (%f %f %f %f))
+(attachment . (%f %f))))
+""" %(charmetric['name'],
+		 -charmetric['breapth'] * f,
+		 -charmetric['depth'] * f,
+		 charmetric['width'] * f,
+		 charmetric['height'] * f,
+		 charmetric['wx'],
+		 charmetric['wy'])
+
+		return s
+
+	for c in charmetrics:
+		file.write (conv_char_metric (c))
+	
 def write_ps_encoding (name, file, global_info, charmetrics):
 	encs = ['.notdef'] * 256
 	for m in charmetrics:
-		encs[m['code']] = m['tex']
+		encs[m['code']] = m['name']
 
 	file.write ('/%s [\n' % name)
 	for m in range (0, 256):
@@ -248,9 +270,11 @@ Options:
 (options, files) = \
   getopt.getopt (sys.argv[1:],
 		 'a:d:hl:o:p:t:',
-		 ['enc=', 'afm=', 'outdir=', 'dep=',
+		 ['enc=', 'afm=', 'outdir=', 'dep=', 'lisp=',
 		  'tex=', 'ly=', 'debug', 'help', 'package='])
 
+
+lisp_nm = ''
 enc_nm = ''
 texfile_nm = ''
 depfile_nm = ''
@@ -267,6 +291,8 @@ for opt in options:
 		outdir_prefix = a
 	elif o == '--tex' or o == '-t':
 		texfile_nm = a
+	elif o == '--lisp': 
+		lisp_nm = a
 	elif o == '--enc':
 		enc_nm = a
 	elif o == '--ly' or o == '-l':
@@ -277,8 +303,6 @@ for opt in options:
 		afmfile_nm = a
 	elif o == '--debug':
 		debug_b = 1
-	elif o == '-p' or o == '--package':
-		topdir = a
 	else:
 		print o
 		raise getopt.error
@@ -306,7 +330,7 @@ for filenm in files:
 		enc_name = 'FetaBraceEncoding'
 
 	write_ps_encoding (enc_name, open (enc_nm, 'w'), g, m)
-
+	write_otf_lisp_table (open (lisp_nm, 'w'), g, m)  
 	if depfile_nm:
 		write_deps (open (depfile_nm, 'wb'), deps,
 			    [base + '.dvi', base + '.pfa', base + '.pfb',

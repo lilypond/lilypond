@@ -20,6 +20,7 @@ protected:
   virtual bool try_music (Music *ev) ;
   virtual void stop_translation_timestep ();
   virtual void create_audio_elements ();
+
 private:
   Link_array<Music> note_evs_;
   Link_array<Audio_note> notes_;

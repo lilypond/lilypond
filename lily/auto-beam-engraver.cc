@@ -21,6 +21,7 @@
 class Auto_beam_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Auto_beam_engraver);
+
 protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();

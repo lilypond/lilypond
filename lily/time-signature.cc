@@ -80,7 +80,7 @@ Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
   String char_name = style + to_string (n) + "/" + to_string (d);
   me->set_property ("font-encoding", ly_symbol2scm ("fetaMusic"));
   Stencil out = Font_interface::get_default_font (me)
-    ->find_by_name ("timesig-" + char_name);
+    ->find_by_name ("timesig." + char_name);
   if (!out.is_empty ())
     return out;
 

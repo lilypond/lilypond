@@ -6,11 +6,7 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
   
-
-  
 */
-
-
 
 #include <math.h>
 

@@ -73,12 +73,12 @@ Arpeggio::print (SCM smob)
   
   Stencil mol;
   Font_metric *fm = Font_interface::get_default_font (me);
-  Stencil squiggle = fm->find_by_name ("scripts-arpeggio");
+  Stencil squiggle = fm->find_by_name ("scripts.arpeggio");
 
   Stencil arrow ;  
   if (dir)
     {
-      arrow = fm->find_by_name ("scripts-arpeggio-arrow-" + to_string (dir));
+      arrow = fm->find_by_name ("scripts.arpeggio.arrow." + to_string (dir));
       heads[dir] -= dir * arrow.extent (Y_AXIS).length ();
     }
   
@@ -144,7 +144,7 @@ Arpeggio::width_callback (SCM smob, SCM axis)
   Grob * me = unsmob_grob (smob);
   Axis a = (Axis)scm_to_int (axis);
   assert (a == X_AXIS);
-  Stencil arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio");
+  Stencil arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts.arpeggio");
 
   return ly_interval2scm (arpeggio.extent (X_AXIS));
 }

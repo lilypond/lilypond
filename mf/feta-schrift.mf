@@ -992,7 +992,7 @@ fet_beginchar("Arpeggio","arpeggio","arpeggio");
 % Extendable Trill symbol.
 % Not yet used
 % Rename me to Trill, rename Trill to Tr?
-fet_beginchar("Trill-element","trill-element","trillelement");
+fet_beginchar("Trill_element","trill_element","trillelement");
 	save height, overshoot;
 	height# = staff_space#;
 	width# = 0.8height#;

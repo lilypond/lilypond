@@ -570,7 +570,7 @@ Stem::flag (Grob *me)
   String font_char = flag_style
     + to_string (dir) + staffline_offs + to_string (duration_log (me));
   Font_metric *fm = Font_interface::get_default_font (me);
-  Stencil flag = fm->find_by_name ("flags-" + font_char);
+  Stencil flag = fm->find_by_name ("flags." + font_char);
   if (flag.is_empty ())
     me->warning (_f ("flag `%s' not found", font_char));
 
@@ -581,7 +581,7 @@ Stem::flag (Grob *me)
       if (!stroke_style.is_empty ())
 	{
 	  String font_char = to_string (dir) + stroke_style;
-	  Stencil stroke = fm->find_by_name ("flags-" + font_char);
+	  Stencil stroke = fm->find_by_name ("flags." + font_char);
 	  if (stroke.is_empty ())
 	    me->warning (_f ("flag stroke `%s' not found", font_char));
 	  else
