@@ -1,6 +1,9 @@
 
 % move to regtest once it works?
 
+
+% still not workign ? --hwn.
+
 \header {
 texidoc="
 On their own staff, staffcombined voices should be stemboth (not up/down);

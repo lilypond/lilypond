@@ -613,12 +613,12 @@
 		(meta . ,(grob-description "SustainPedal" sustain-pedal-interface side-position-interface font-interface))
 	))
 
-	; should split in 3
+	;; TODO: should split in 3
 	(SystemStartDelimiter . (
 		(molecule-callback . ,System_start_delimiter::brew_molecule)
 		(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking)
-		;; ugh, in practice, brace has height of 4.1 staff-spaces
-		(brace-collapse-height . 4.1)
+		;; really 4.0, but 5 to be on safe side.
+		(brace-collapse-height . 5.0)
 		(bracket-collapse-height . 1)
 		(thickness . 1.6)
 		(arch-height . 1.5)
@@ -680,6 +680,7 @@
 		(break-align-symbol . Time_signature)
 		(visibility-lambda . ,all-visible)
 		(breakable . #t)
+		(style . C)
                 (font-family . number)
                 (meta . ,(grob-description "TimeSignature" time-signature-interface  font-interface))
 	))

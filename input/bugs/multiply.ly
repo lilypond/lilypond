@@ -1,8 +1,14 @@
+
+
+
 % ugh: strange order of things, this:
 %    a16 * 1/2 (
 % must be 
 %    a16 ( * 1/2
 
+%{
+?? is this a bug? --hwn
+%}
 
 \score { 
   \context Voice \notes\relative c {
