@@ -40,8 +40,7 @@ public:
   Atom beam (Real,Real, Real) const;
   virtual String character_str (int i) const;
   Atom clef (String) const;
-//  virtual Atom dashed_slur (Array<Offset> controls, Real thick, Real dash) const = 0;
-  virtual Atom dashed_slur (Array<Offset> controls, Real thick, Real dash) const;
+  virtual Atom dashed_slur (Array<Offset> controls, Real thick, Real dash) const = 0;
   Atom dots () const;
   Atom dynamic (String) const;
   Atom fill (Box b) const;

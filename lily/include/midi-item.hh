@@ -116,7 +116,7 @@ struct Midi_note : public Midi_item {
   int pitch_i () const;
   virtual String str () const;
 
-  int const c0_pitch_i_c_ = 60;
+  static int const c0_pitch_i_c_ = 60;
   Byte dynamic_byte_;
 };
 

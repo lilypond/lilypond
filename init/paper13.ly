@@ -4,9 +4,6 @@
 
 paper_thirteen = \paper {
 	staffheight = 13.0\pt;
-	% a4 paper
-	linewidth = 15.0 \cm;
-	textheight = 18.0 \cm;
 
 	% ugh see table13 for sizes
 	quartwidth = 4.29\pt;
@@ -18,6 +15,5 @@ paper_thirteen = \paper {
 	
 	0=\symboltables { \table_thirteen }
 	\include "params.ly";
-	\include "a4.ly";
 }
 

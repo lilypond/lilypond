@@ -10,7 +10,6 @@
 */
 
 #include <iostream.h>
-#include "lily-guile.hh"
 #include "notename-table.hh"
 #include "scalar.hh"
 #include "translation-property.hh"
@@ -196,7 +195,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token PT_T
 %token RELATIVE
 %token REMOVE
-%token SCHEME /* token vs typedef;  can't be named SCM */
 %token SCORE
 %token SCRIPT
 %token SHAPE
@@ -323,15 +321,7 @@ toplevel_expression:
 			Midi_def_identifier ($1, MIDI_IDENTIFIER);
 		THIS->lexer_p_->set_identifier ("$defaultmidi", id)
 	}
-	| embedded_scm { 
-	}
 	;
-
-embedded_scm:
-	SCHEME STRING ';' {
-		gh_eval_str ($2->ch_C ());
-		delete $2;
-	};
 
 check_version:
 	VERSION STRING ';'		{

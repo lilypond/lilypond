@@ -4,9 +4,6 @@
 
 paper_eleven = \paper {
 	staffheight = 11.0\pt;
-	% a4 paper
-	linewidth = 15.0 \cm;
-	textheight = 15.0 \cm;
 
         % ugh see table11 for sizes
 	quartwidth = 3.63\pt;

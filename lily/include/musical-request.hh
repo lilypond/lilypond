@@ -16,7 +16,7 @@
 #include "musical-pitch.hh"
 
 /**
-  A request which is coupled to a #Request_chord#
+  A request which is coupled to a note (that has duration).
   Base class only
  */
 class Musical_req  : public virtual Request  {

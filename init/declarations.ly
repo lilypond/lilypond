@@ -11,6 +11,8 @@ longa = \duration { -2 0 }
 Gourlay = 1.0
 Wordwrap = 0.0
 
+papersize = "a4"
+
 \include "paper20.ly"
 
 \paper{
@@ -32,8 +34,6 @@ break = { \penalty = 10000; }
 nobreak = { \penalty = -10000; }
 
 \include "property.ly"
-
-\include "scm.ly"
 
 % music = "\melodic\relative c"
 

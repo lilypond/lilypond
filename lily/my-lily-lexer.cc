@@ -55,7 +55,6 @@ static Keyword_ent the_key_tab[]={
   {"pt", PT_T},
   {"relative", RELATIVE},
   {"remove", REMOVE},
-  {"scm", SCHEME},
   {"score", SCORE},
   {"script", SCRIPT},
   {"shape", SHAPE},

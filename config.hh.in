@@ -27,3 +27,6 @@
 /* define directory and path separators */
 #define DIRSEP '@DIRSEP@'
 #define PATHSEP '@PATHSEP@'
+
+/* define GUILE-ification */
+#undef HAVE_LIBGUILE 

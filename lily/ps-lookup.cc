@@ -62,7 +62,6 @@ Ps_lookup::character_str (int i) const
   return to_str (i, "(\\%03o)");
 }
 
-#if 0
 Atom
 Ps_lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
 {
@@ -96,7 +95,6 @@ Ps_lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
   a.font_ = font_;
   return a;
 }
-#endif
 
 Atom
 Ps_lookup::hairpin (Real width, bool decresc, bool continued) const

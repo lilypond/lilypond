@@ -9,8 +9,13 @@
 #ifndef LILY_GUILE_HH
 #define LILY_GUILE_HH
 
+#include "config.hh"
+
+#ifdef HAVE_LIBGUILE
 extern "C" { 
 #include <guile/gh.h> 
 }
-
+#else
+typedef long SCM;
+#endif
 #endif // LILY_GUILE_HH

@@ -22,7 +22,7 @@ public:
 
   virtual Atom afm_find (String s) const;
   virtual String character_str (int i) const;
-//  virtual Atom dashed_slur (Array<Offset> controls, Real thick, Real dash) const;
+  virtual Atom dashed_slur (Array<Offset> controls, Real thick, Real dash) const;
   virtual Atom* atom_p (String, int, Box) const;
   Atom embed (Atom a) const;
   virtual Atom hairpin (Real width, bool decresc, bool continued) const;

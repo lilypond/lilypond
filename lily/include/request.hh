@@ -20,10 +20,11 @@
 #define DEFAULTACCESSOR(T)  virtual T *access_ ## T () { return 0; }
 
 
-/**
-   An atom of musical information .
- Hungarian postfix: req
- @see lilygut manpage
+/** An atom of musical information.  This is an abstract class for any
+  piece of music that does not contain other Music.
+  
+  Hungarian postfix: req
+
  */
 class Request : public Music {
 

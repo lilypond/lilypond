@@ -98,12 +98,12 @@ Slur_engraver::do_pre_move_processing()
 {
   Scalar dir (get_property ("slurydirection"));
   Scalar dir2 (get_property ("ydirection"));
-  if (!dir.length_i () && dir2.length_i ())
+  if (dir.length_i ())
     {
-        dir_ = (Direction) int(dir2);
+      dir_ = (Direction) sign (int(dir));
     }
-  else if (dir.length_i ())
-    dir_ = (Direction) int (dir);
+  else if (dir2.length_i ())
+    dir_ = (Direction) sign (int (dir2));
   
   for (int i = 0; i < end_slur_l_arr_.size(); i++)
     {

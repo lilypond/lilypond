@@ -38,6 +38,8 @@ Slur::Slur ()
 void
 Slur::add_column (Note_column*n)
 {
+  if (!n->head_l_arr_.size ())
+    warning (_ ("Putting slur over rest."));
   encompass_arr_.push (n);
   add_dependency (n);
 }
@@ -144,7 +146,8 @@ Slur::do_post_processing ()
       /*
         normal slur
        */
-      else if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_) 
+      else if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_ 
+	       && extrema[d]->head_l_arr_.size ()) 
         {
 	  Real notewidth_f = extrema[d]->width ().length ();
 	  dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_->height ()[dir_]);
@@ -157,17 +160,17 @@ Slur::do_post_processing ()
 		dx_f_drul_[d] += 0.25 * (dir_ * d) * d * notewidth_f;
 	    }
 	}
-      else 
-        {
-	  Real notewidth_f = extrema[d]->width ().length ();
-	  dy_f_drul_[d] = (int)rint (extrema[d]->head_positions_interval ()
-	    [dir_]) * internote_f;
-	  dx_f_drul_[d] += 0.5 * notewidth_f - d * gap_f;
+	else 
+	  {
+	    Real notewidth_f = extrema[d]->width ().length ();
+	    dy_f_drul_[d] = (int)rint (extrema[d]->head_positions_interval ()
+				       [dir_]) * internote_f;
+	    dx_f_drul_[d] += 0.5 * notewidth_f - d * gap_f;
 	}
-      dy_f_drul_[d] += dir_ * interline_f;
-      if (extrema[d]->stem_l_ && (dir_ == extrema[d]->stem_l_->dir_))
-	dy_f_drul_[d] -= dir_ * internote_f;
-    }
+	dy_f_drul_[d] += dir_ * interline_f;
+	if (extrema[d]->stem_l_ && (dir_ == extrema[d]->stem_l_->dir_))
+	  dy_f_drul_[d] -= dir_ * internote_f;
+      }
   while (flip(&d) != LEFT);
 
   // now that both are set, do dependent

@@ -16,7 +16,7 @@
 #include "musical-pitch.hh"
 
 /** Request which are  assumed to be "happening" before the
-  musical requests. */
+  musical requests.  Not coupled to a note or rest. */
 class Command_req  : public virtual Request  {
 public:
   REQUESTMETHODS(Command_req);

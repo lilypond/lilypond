@@ -38,9 +38,15 @@ Interval_t<int>
 Note_column::head_positions_interval() const
 {
   ((Note_column*)this)->sort();
-  return Interval_t<int> (head_l_arr_[0]->position_i_, 
-			  head_l_arr_.top()->position_i_);
+ Interval_t<int>  iv;
 
+ iv.set_empty ();
+
+ if (head_l_arr_.size ())
+   iv = Interval_t<int>(head_l_arr_[0]->position_i_, 
+			  head_l_arr_.top()->position_i_);
+  
+  return iv;
 }
 
 Interval 

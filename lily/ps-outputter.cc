@@ -14,8 +14,6 @@
 #include "array.hh"
 #include "string-convert.hh"
 #include "debug.hh"
-#include "lookup.hh"
-#include "main.hh"
 
 Ps_outputter::Ps_outputter (Paper_stream *s)
   :Paper_outputter (s)
@@ -64,39 +62,7 @@ Ps_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
   if (check_debug)
     *outstream_l_ << String ("\n%start: ") << nm << "\n";
 
-#if 0
   Paper_outputter::output_molecule (m, o, nm, "% % {%}placebox \n");
-#else
-  String s = "% % {%}placebox \n";
-
-  if (check_debug)
-    *outstream_l_ << String ("\n%start: ") << nm << "\n";
-
-  for (PCursor <Atom*> i (m->atoms_); i.ok (); i++)
-    {
-      Offset a_off = i->offset ();
-      a_off += o;
-
-      switch_to_font (i->font_);
-
-      Array<String> a;
-      String r;
-  
-      a.push (global_lookup_l->print_dimen (a_off.y()));
-      a.push (global_lookup_l->print_dimen (a_off.x()));
-      if (i->lambda_)
-        {
-	  gh_call1 (i->lambda_, gh_eval_str ("'ps"));
-	  // char* c = gh_scm2newstr (gh_call1 (i->lambda_, gh_eval_str ("'ps")), NULL);
-	  // a.push (String (c));
-	  // free (c);
-	}
-      else
-	a.push (i->str_);
-      r += global_lookup_l->substitute_args (s, a);
-      *outstream_l_ << r;
-    }
-#endif
 }
 
 void

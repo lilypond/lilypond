@@ -63,13 +63,11 @@ Tex_lookup::character_str (int i) const
   return Lookup::character_str (i);
 }
 
-#if 0
 Atom
 Tex_lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
 {
   return embed (Ps_lookup::dashed_slur (controls, thick, dash));
 }
-#endif
 
 Atom
 Tex_lookup::embed (Atom a) const
@@ -110,7 +108,7 @@ header_to_tex_string (Scope *head)
   String s;
   String lily_id_str = "Lily was here, " +
     String (lily_version_number_sz ());
-  s+= "\\def\\LilyIdString{"  + lily_id_str + "}";
+  s+= "\\def\\LilyIdString{"  + lily_id_str + "}\n";
   
   for (Dictionary_iter<Identifier*> i(*head); i.ok (); i++)
     {

@@ -6,6 +6,17 @@ redef(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))
 
 redef(code)(1)(tt(ARG1))
 
+COMMENT(
+
+TODO:
+   the use of semicolons needs to be documented once it settles down
+   \times needs documentation with examples somewhere once it works (?)
+   paper size?
+   the explanation of how lyrics mode parses words seems ridiculous.  
+     Is there a simple way to explain this, or is the behavior
+     too complicated for a reasonable explanation?
+)
+
 
 COMMENT( This document contains Mudela fragments.  You need at least
 Yodl-1.30.18 to convert this to tex or html.
@@ -27,11 +38,10 @@ latexlayoutcmds(
 \input mudela-book
 )
 
-COMMENT(whenlatex(notableofcontents()))
 whentexinfo(notableofcontents())
 
-article(Mudela Reference Manual)
-      (Adrian Moriano, Han-Wen Nienhuys and Jan Nieuwenhuizen)
+article(Mudela 1.0.7 / LilyPond 1.0.15 Reference Manual)
+      (Adrian Mariano, Han-Wen Nienhuys and Jan Nieuwenhuizen)
       (nop()PIPETHROUGH(date "+%B %d, %Y")()()nop())
 
 COMMENT(
@@ -109,8 +119,8 @@ sect(Syntax)
 subsect(Basic Mudela)
 
 A Mudela file consists of keywords with arguments and identifier
-assignments separated by spaces, tabs or newlines.  (Semicolons are
-used by some keywords but are not generally required.)  A one line
+assignments separated by spaces, tabs or newlines.  Semicolons are
+used by some keywords but are not generally required.  A one line
 comment is introduced by a code(%) character.  Block comments are
 started by code(%{) and ended by code(%}).  They cannot be nested.
 
@@ -203,16 +213,16 @@ will only be able to refer to identifiers whose names begin with a
 letter and are entirely alphanumeric.  It is also impossible to refer
 to an identifier whose name is the same as the name of a keyword.  The
 following words are keywords:
-verb(absdynamic   header         musicalpitch   score         transpose
-accepts	     in             notenames      script      	 type     
-bar	     include        notes          shape       	 version  
-cadenza	     key            output         skip        
-clef	     keysignature   paper          spandynamic 
-cm	     lyric          partial        symboltables
-consists     maininput      penalty        table       
-duration     mark           property       tempo       
-font	     midi           pt             time        
-grouping     mm             relative       translator)
+verb(absdynamic   header         musicalpitch   remove         times
+accepts      in             name           score          translator
+bar          include        notenames      script         transpose 
+cadenza      key            notes          shape          type      
+clef         keysignature   paper          skip        	  version   
+cm           lyrics         partial        spandynamic 
+consists     maininput      penalty        symboltables
+duration     mark           property       table       
+font         midi           pt             tempo       
+grouping     mm             relative       time)
 
 The right hand side of an identifier assignment is parsed completely
 when the assignment is made.  It therefore must have any context
@@ -220,24 +230,29 @@ specified in the definition.  For example, you must write
 code(foo=\notes{a8 b c}) rather than code(foo={a8 b c}).  Even though
 the context is specified in the definition, you must refer to the
 identifier inside the correct context:
-verb(foo = \paper{ linewidth = 6.0\in }
+verb(foo = \paper{ linewidth = 6.0\in; }
 \score{
   \notes{ ... }
   \paper{ \foo }
 })
 If code(\foo) is used here without the surrounding code(\paper) then
-an error will result.
+an error will result.  Note however that the following is acceptible
+verb(foo = \notes { ... }
+\score{ \foo })  
+It is not necessary to specify code(\notes).
 
 Identifiers can be set equal to integers, reals, strings, music,
 durations (specified with code(\duration)), note ornaments (specified
-with code(\script), dynamics commands, or code(:)), translator
-definitions, the code(\paper) block, the code(\midi) block or the
-code(\score) block.  When identifiers are used for translators, the
-code(\paper), code(\midi), and code(\score) blocks, they may only be
-referred to as the first item in a block.  So code(\paper{\one \two})
-is illegal because the identifier code(\two) is not the first thing in
-the block.
-
+with code(\script), dynamics commands, or code(:)), note name tables
+(specified with code(\notenames), translator definitions, the
+code(\paper) block, the code(\midi) block or the code(\score) block.
+When identifiers are used for translators, the code(\paper),
+code(\midi), and code(\score) blocks, they may only be referred to as
+the first item in a block.  So code(\paper{\one \two}) is illegal
+because the identifier code(\two) is not the first thing in the block.
+Unlike other identifier definitions, translator identifier definitions
+can only appear within code(\midi) or code(\paper) blocks.  See
+Section ref(translators) for more information.
 
 
 COMMENT(
@@ -310,7 +325,7 @@ Quoted words can also be used in lyrics mode to specify words that
 cannot be specified with the above rules.  Here are some examples.
 Not all of these words are printable by TeX().  
 verb(a&@&@&TSI|{[    % a word
-\'afoo}		% a word
+\'afoo}         % a word
 1THtrhortho     % not a word because it starts with a digit
 ``Hello''       % not a word because it starts with `
 Leise DOEXPAND(Fl\)DOEXPAND("u\)ss{}teren meine Sapfe       % 4 words
@@ -519,8 +534,8 @@ mudela()(
            open  flageolet reverseturn 
              trill  prall
            mordent prallprall prallmordent uprall  downprall }>
-  \paper{linewidth  = 5.875\in
-         indent = 0.0
+  \paper{linewidth  = 5.875\in;
+         indent = 0.0;
         }
 }
 )
@@ -556,7 +571,9 @@ code(\f), code(\ff), code(\fff), code(\fp), code(sf), and code(\sfz).
 
 A crescendo mark is started with code(\cr) and terminated with
 code(\rc).  A decrescendo mark is started with code(\decr) and
-terminated with code(\rced).
+terminated with code(\rced).  There are also shorthands for these
+marks.  A crescendo can be started with code(\<) and a decrescendo can
+be started with code(\>).  Either one can be terminated with code(\!).
 
 Tremolo marks can be printed by a note by adding code(:)[var(length)]
 after the note.  The length must be at least 8.  A var(length) value
@@ -881,7 +898,7 @@ mudela(center)(
            \clef varbaritone; c'4^"\kern -10mm varbaritone"
            \clef tenor;     c'4_"\kern -10mm tenor"
            \clef "G_8";   c'4^"\kern -6mm G\_8"  }  
-   \paper{ linewidth= 4.5 \in }
+   \paper{ linewidth= 4.5 \in; }
 }
 )
 mudela(center)(
@@ -891,7 +908,7 @@ mudela(center)(
            \clef soprano;  c'4_"\kern -10mm soprano"
            \clef treble;  c'4^"\kern -6mm treble"
            \clef french;  c'4_"\kern -10mm french" }  
-  \paper{ linewidth= 4.5 \in }
+  \paper{ linewidth= 4.5 \in; }
 }
 )
 The treble  clef  can also  be obtained using  the  names code(G) or
@@ -900,8 +917,9 @@ code(violin).  The bass clef is also available by code(\clef  F).
 dit(code(\cm)) Specify a dimension in centimeters. 
 
 dit(code(\consists) var(string)code(;)) This keyword can appear only within a
-code(\translator) block.  It specifies that an engraver named
-var(string) should be added to the translator.  See Section ref(translators).
+code(\translator) block.  It specifies that an engraver or performer named
+var(string) should be added to the translator.  See Section
+ref(translators).
 
 dit(code(\duration) code({) var(length) var(dotcount) code(})) Specify note
 duration.  The parameter var(length) is the negative logarithm (base
@@ -912,7 +930,7 @@ var(dotcount).
 dit(code(\font) var(string)) Internal keyword.  Used within
 code(\symboltables) to specify the font.
 
-dit(code(\grouping) var(durationseq); )  Sets  the  metric structure of
+dit(code(\grouping) var(durationseq)code(;))  Sets  the  metric structure of
 the measure.  Each argument specifies the duration of one metric unit.
 For example, code(\duration 16*5;) specifies a grouping of five beats
 together in 5/16 time.  The default grouping is to have as many groups
@@ -930,12 +948,13 @@ dit(code(\in)) Specify a dimension in inches.
 
 dit(code(\include) var(file)) Include the specified file.  The
 argument var(file) is a string.  The full filename including the
-file(.ly) extension must be given. 
+file(.ly) extension must be given, and the filename must be quoted.
+(An unquoted string will not work here.)
 
-dit(code(\key) var(pitch)) Change key signature to that of
+dit(code(\key) var(pitch)code(;)) Change key signature to that of
 var(pitch)-major.
 
-dit(code(\keysignature) var(pitchseq);)
+dit(code(\keysignature) var(pitchseq)code(;))
 Specify an arbitrary key signature.  The pitches from var(pitch) will
 be printed in the key signature in the order that they appear on the list.
 
@@ -945,13 +964,15 @@ dit(code(\maininput)) Internal command.  This command is used for creating init
 files like file(init.fly) that read the user file into the middle of another
 file.  Using it in a user file will lead to an infinite loop.
         
-dit(code(\mark) var(unsigned) or code(\mark) var(string)) Allowed in
-music only.  Prints a mark over or under (?) the staff.  You must add
-code(Mark_engraver) to the Score context and it only seems to work if the
-mark appears at the beginning of a line.  
+dit(code(\mark) var(unsigned)code(;) or code(\mark) var(string)code(;)) 
+Allowed in music only.  Prints a mark over or under (?) the staff.
+You must add code(Mark_engraver) to the Score context and it only
+seems to work if the mark appears at the beginning of a line.
 
 dit(code(\midi) var(statementlist)) Appears in a score block to
-indicate that musical output should be produced.  See code(\tempo).
+indicate that musical output should be produced and to set output
+parameters.  Can also appear at the top level to set default output
+parameters.  See code(\tempo).
 
 dit(code(\mm)) Specify a dimension in millimeters. 
 
@@ -962,7 +983,12 @@ to 7, with 0 corresponding to C and 7 corresponding to B.  The shift
 is zero for a natural, negative to add flats, or positive to add
 sharps.
 
-dit(code(\notenames) var(assignmentlist)) Define new note names.  
+dit(code(\name) var(context)code(;)) Appears within code(\translator) to
+specify the name of the context that the translator handles. See Section
+ref(translators).   
+
+dit(code(\notenames) var(assignmentlist)) Define new note names.  This
+keyword can appear only at the top level. 
 The argument is a list of definitions of  the form
 var(name) = var(pitch),  where var(pitch) is specified with the
 code(\musicalpitch) keyword.  
@@ -970,26 +996,27 @@ code(\musicalpitch) keyword.
 dit(code(\notes) var(music)) Enter note mode and process the
 specified music. 
 
-dit(code(\)code(output) var(string)code(;)) Allowed only in
-code(\paper) block.  The parameter var(string) specifies an alternate
-name for the TeX() output.  A file(.tex) extension will be added to
-var(string) to produce the output file name.
+dit(code(\)code(output) var(string)code(;)) Generate a parse error.
 
 dit(code(\paper) var(statmentlist)) 
-Appears in a score block to indicate that the music should be printed.
+Appears in a score block to indicate that the music should be printed
+or to set output parameters.  Can also appear at the top level to set
+default output parameters for all of the score blocks.  
 The var(statmentlist) contains statements that change features of the
 output.  See Section ref(paper).  
 
-dit(code(\partial) var(duration)) Specify that the first measure of
+dit(code(\partial) var(duration)code(;)) Specify that the first measure of
 the music lasts only for the specified duration.
 
-dit(code(\penalty) code(=) var(int)) Allowed only in music.
+dit(code(\penalty) code(=) var(int)code(;)) Allowed only in music.
 Discourage or encourage line breaks.  See identifiers code(\break) and
 code(\nobreak) in Section ref(ident). 
 
 dit(code(\property) var(contextname)code(.)var(propname) code(=) var(value))
 Sets the var(propname) property of the context var(contextname) to the
-specified var(value).  All three arguments are strings.
+specified var(value).  All three arguments are strings.  Depending on
+the context it may be necessary to quote the strings or to leave space
+on both sides of the dot. 
 
 dit(code(\pt)) Specify a dimension in points. 
 
@@ -1001,6 +1028,10 @@ The argument var(pitch) is
 the starting pitch for this comparision.  In the case of chords, the
 first note of a chord is used as the base for the first pitches in the next
 chord.  See Section ref(relative).
+
+dit(code(\remove) var(string)code(;)) Can appear only in a
+code(\translator) block.  Specifies that a performer or engraver named
+var(string) should be removed.  See Section ref(translators).  
 
 dit(code(\score) var(statementlist)) Create a Score context.  This
 is the top level notation context.  
@@ -1033,7 +1064,7 @@ lines beyond those explicitly specified.
 COMMENT(First pair of dimensions seems to be skipped.  At least it is
 in the example file denneboom.ly.)
 
-dit(code(\skip) var(duration)) Skips the amount of time specified by
+dit(code(\skip) var(duration)code(;)) Skips the amount of time specified by
 var(duration).  A gap will be left for the skipped time with no notes
 printed.  It works in Note Mode or Lyrics Mode (but generates a
 mysterious error in lyrics).
@@ -1052,15 +1083,18 @@ file(table*.ly).
 dit(code(\table)) Internal keyword.  Used within code(\symboltables)
 to specify the tables.  See initialization files. 
 
-dit(code(\tempo) var(duration) = var(perminute)) Used within
-code(\midi) to specify the tempo.  For example, 
-`code(\midi { \tempo 4 = 76})' requests output with 76 quarter notes
-per minute. 
+dit(code(\tempo) var(duration) = var(perminute)code(;)) Used within
+code(\midi) or within music to specify the tempo.  For example, 
+`code(\midi { \tempo 4 = 76;})' requests output with 76 quarter notes
+per minute.  Note that if the music contains several tempo commands,
+only the last one is used to set the tempo for the entire MIDI output. 
+COMMENT(Is this true?)
 
+dit(code(\time) var(numerator)code(/)var(denominator)code(;)) Change the time
+signature.  The default time signature is 4/4.  
 
-dit(code(\time) var(numerator)code(/)var(denominator)) Change the time
-signature.  The default time signature  is 4/4.  
-
+dit(code(\times) var(numerator)code(/)var(denominator) var(music))
+Multiply the duration of var(music) by the specified fraction.
 
 dit(code(\translator) var(statements) or code(\translator)
 var(context) = var(name)) The first variant appears only within
@@ -1173,17 +1207,16 @@ subsubsubsect(Lyrics properties)
 description(
 
 dit(code(textstyle)) Set the font for lyrics.  The available font
-choices are code(normaltext), code(roman), code(italic), code(bold)
-code(normaltext), code(large), code(Large), code(huge), and
-code(finger).  The code(finger) font can only display numbers.  Note
-also that you must be careful when using code(\property) in Lyrics
-mode.  Because of the way strings are parsed, either put quotes around
-the arguments to code(\property) or be sure to leave a space on both
-sides of the dot.
+choices are code(roman), code(italic), code(bold), code(large),
+code(Large), code(typewriter), and code(finger).  The code(finger)
+font can only display numbers.  Note also that you must be careful
+when using code(\property) in Lyrics mode.  Because of the way strings
+are parsed, either put quotes around the arguments to code(\property)
+or be sure to leave a space on both sides of the dot.
 
-dit(code(textalignment)) Controls alignment of lyrics.  Set to \left
-to align the left end of the lyric with the note; set to \right to
-align the right end of the lyric with the note.  Set to \center to
+dit(code(textalignment)) Controls alignment of lyrics.  Set to code(\left)
+to align the left end of the lyric with the note; set to code(\right) to
+align the right end of the lyric with the note.  Set to code(\center) to
 align the center of the lyric with the note.  
 
 )
@@ -1192,7 +1225,12 @@ subsubsubsect(Voice properties)
 
 description(  
 
-dit(code(midi_instrument)) Sets  the  instrument for MIDI  output. 
+dit(code("midi_instrument")) Sets the instrument for MIDI output.  This
+property name must be quoted because of the embedded underscore.  If
+this property is not set then LilyPond will use the code(instrument)
+property.  This must be set to one of the strings on the list of MIDI
+instruments that appears in Section ref(midilist).  If you use a
+string which is not listed, LilyPond will silently substitute piano. 
 
 dit(code(transposing)) Tranpose the MIDI output.  Set this property to
 the number of half-steps to transpose by.
@@ -1247,7 +1285,7 @@ subsubsubsect(Staff properties)
 
 description(
  
-dit(code(defaultclef)) Determines the default clef.  See code(\clef)
+dit(code(defaultClef)) Determines the default clef.  See code(\clef)
 keyword.
 
 dit(code(nolines)) Sets the number of lines that the staff has.
@@ -1269,7 +1307,9 @@ code(\specialkey) or reset to 1 with code(\normalkey).
 dit(code(instrument) and code(instr)) If code(Staff_margin_engraver)
 is added to the Staff translator, then the code(instrument) property
 is used to label the first line of the staff and the code(instr)
-property is used to label subsequent lines.
+property is used to label subsequent lines.  If the
+code(midi_instrument) property is not set then code(instrument) is
+used to determine the instrument for MIDI output.
 COMMENT(This prints the instrument name on top of the staff lines.)
 
 dit(code(abbrev)) Set length for tremolo to be used if no length is
@@ -1290,11 +1330,11 @@ dit(code(timeSignatureStyle)) Changes the default two-digit layout
       written with two digits.
       dit(code(1)): All time signatures are typeset with a single
       digit, e.g. 3/2 is written as 3.
-      dit(code(C2/2,C4/4, old2/2, old3/2, old3/4, old4/4, old6/4 or
-      old9/4)): Tells Lilypond to use a specific symbol as time
-      signature, independently of the actual time signature.
+      dit(code(C2/2), code(C4/4), code(old2/2), code(old3/2),
+      code(old3/4), code(old4/4), code(old6/4) or
+      code(old9/4)): Tells Lilypond to use a specific symbol as time
+      signature.
    )
-
 The different time signature characters are shown below with
 their names:
 mudela(fragment,center)(
@@ -1316,8 +1356,6 @@ mudela(fragment,center)(
 \time 2/2; a2^"old9/4" a2 
 }
 )
-
-COMMENT( timeSignatureSymbol?  timeSignatureChar? )
 
 
 )
@@ -1454,22 +1492,54 @@ code(castingalgorithm).  Equal to 0.0.
 )
 
 
-sect(The code(\paper) Block)
+sect(Output)
+label(output)
 label(paper)
 
-The code(\paper) block may begin with an optional identifier reference.  No
+The output produced by LilyPond is controlled by the code(\paper) and
+code(\midi) keywords.  These keywords appear in the code(\score) block
+to indicate that printed or musical output should be produced.  If
+neither keyword appears in a code(\score) block, then paper output is
+produced but MIDI output is not produced.  
+
+The contents of the code(\paper) and code(\midi) blocks can change the
+output in various ways.  These blocks can appear at the top level of a
+Mudela file to set default parameters for each type of output.  It is
+still necessary to explicitly specify the output type in the
+code(\score) blocks if you don't want the default behavior of
+producing only paper output.  
+
+The code(\paper) and code(\midi) blocks 
+may begin with an optional identifier reference.  No
 identifier references are allowed anywhere else in the block.  
-The keywords code(\shape), code(\)code(output) and code(\translator) may
-appear in this block.  In addition, variable assignments may appear.  
-The variables control layout details and are set to reasonable
-defaults that depend on the font size in use.  The only way to find out what
-variables are supported is to search the source code for code(get_var). 
+The code(\paper) block can contain the code(\shape) keyword; the
+code(\midi) block can contain the code(\tempo) keyword.  Both of them
+can contain code(\translator) keywords.  The code(\paper) block can
+also contain identifier assignments and parameter assignments.  Unlike
+at the top level, these assignments must be terminated by a semicolon.
+
 
 subsect(Paper variables)
 
-There are a large number of paper variables that are used to set internal
-details of the layout.  Usually you will not want to change these variables.
-Two variables that you may want to change are code(linewidth) and code(indent).
+There are a large number of paper variables that are used to control
+details of the layout.  Usually you will not want to change these
+variables; they are set by default to vaules that depend on the font
+size in use.  The only way to find out what variables are supported is
+to search the source code for code(get_var).  Two variables that you
+may want to change are code(linewidth) and code(indent).
+
+In order to change the font size used for the output, many variables
+need to be changed.  Some identifiers and initialization files can
+simplify this process.  The default size is 20pt.  In order to select
+a different size, you must do two things.  At the top level, do
+code(\include "paper)var(SZ)code(.ly") where var(SZ) is the height of
+the staff in points.  Values presently allowed are 11, 13, 16, 20, and
+26.  This loads some definitions, but does not cause them to take
+effect.  In order to actually change the size, you must use one of the
+identifiers: code(\paper_eleven), code(\paper_thirteen),
+code(\paper_sixteen), code(\paper_twenty) or code(\paper_twentysix)
+inside a code(\paper) block.
+
 
 description(
   dit(var(integer)) If an integer appears on the left side of an
@@ -1513,16 +1583,24 @@ lines, calculated from the center of the lines.
 dit(code(linewidth))  Sets the width of the lines.  If it is set to
 -1.0, then a single unjustified line is produced.  
 dit(code(notewidth)) Width of an average note head.  
+dit(code(output)) Specifies an alternate
+name for the TeX() output.  A file(.tex) extension will be added to
+the string you specify.
 dit(code(rulethickness)) Determines thickness of staff lines and bars. 
 dit(code(slur_clip_angle))
 dit(code(slur_clip_height))
 dit(code(slur_clip_ratio))
-dit(code(slur_height_limit))
-dit(code(slur_ratio))
+dit(code(slur_height_limit)) Specifies the maximum height of slurs.
+Normally equal to staff_height.
+dit(code(slur_ratio)) Specifes the ratio of slur hight to slur width
+to aim for.  Default value is 0.3.  
 dit(code(slur_rc_factor))
-dit(code(slur_slope_damping))
-dit(code(slur_thickness))
-dit(code(slur_x_gap))
+dit(code(slur_slope_damping)) Allows slurs to start and end at
+different heights ????  Default value is 0.5.
+dit(code(slur_thickness)) Specify slur thickness.  Equal to code(1.4 *
+\staffline) by default.  
+dit(code(slur_x_gap)) Horizontal space between note and slur.  Set to
+code(\interline / 5) by default.  
 dit(code(slur_x_minimum))
 dit(code(staffheight)) The height of the staff from the center of the
 bottom line to the center of the top line.  Equal to to code(4 * \interline).
@@ -1533,20 +1611,134 @@ dit(code(tie_slope_damping))
 dit(code(tie_x_minimum))
 )
 
+
+subsect(MIDI Instrument Names)
+label(midilist)
+
+The MIDI instrument name is set by the code(Staff."midi_instrument")
+property or, if that property is not set, the code(Staff.instrument)
+property.  The instrument name should be chosen from this list.  If
+string does not exactly match one from this list then LilyPond uses
+the default piano.
+
+COMMENT( acordina = accordion, tango accordian = concertina
+         distortion guitar = distorted guitar
+         orchestral strings = harp 
+         pan flute = wood flute? )
+
+verb("acoustic grand"               "contrabass"             "lead 7 (fifths)"
+"bright acoustic"              "tremolo strings"        "lead 8 (bass+lead)"
+"electric grand"               "pizzicato strings"      "pad 1 (new age)"
+"honky-tonk"                   "orchestral strings"     "pad 2 (warm)"
+"electric piano 1"             "timpani"                "pad 3 (polysynth)"
+"electric piano 2"             "string ensemble 1"      "pad 4 (choir)"
+"harpsichord"                  "string ensemble 2"      "pad 5 (bowed)"
+"clav"                         "synthstrings 1"         "pad 6 (metallic)"
+"celesta"                      "synthstrings 2"         "pad 7 (halo)"
+"glockenspiel"                 "choir aahs"             "pad 8 (sweep)"
+"music box"                    "voice oohs"             "fx 1 (rain)"
+"vibraphone"                   "synth voice"            "fx 2 (soundtrack)"
+"marimba"                      "orchestra hit"          "fx 3 (crystal)"
+"xylophone"                    "trumpet"                "fx 4 (atmosphere)"
+"tubular bells"                "trombone"               "fx 5 (brightness)"
+"dulcimer"                     "tuba"                   "fx 6 (goblins)"
+"drawbar organ"                "muted trumpet"          "fx 7 (echoes)"
+"percussive organ"             "french horn"            "fx 8 (sci-fi)"
+"rock organ"                   "brass section"          "sitar"
+"church organ"                 "synthbrass 1"           "banjo"
+"reed organ"                   "synthbrass 2"           "shamisen"
+"accordion"                    "soprano sax"            "koto"
+"harmonica"                    "alto sax"               "kalimba"
+"concertina"                   "tenor sax"              "bagpipe"
+"acoustic guitar (nylon)"      "baritone sax"           "fiddle"
+"acoustic guitar (steel)"      "oboe"                   "shanai"
+"electric guitar (jazz)"       "english horn"           "tinkle bell"
+"electric guitar (clean)"      "bassoon"                "agogo"
+"electric guitar (muted)"      "clarinet"               "steel drums"
+"overdriven guitar"            "piccolo"                "woodblock"
+"distorted guitar"             "flute"                  "taiko drum"
+"guitar harmonics"             "recorder"               "melodic tom"
+"acoustic bass"                "pan flute"              "synth drum"
+"electric bass (finger)"       "blown bottle"           "reverse cymbal"
+"electric bass (pick)"         "skakuhachi"             "guitar fret noise"
+"fretless bass"                "whistle"                "breath noise"
+"slap bass 1"                  "ocarina"                "seashore"
+"slap bass 2"                  "lead 1 (square)"        "bird tweet"
+"synth bass 1"                 "lead 2 (sawtooth)"      "telephone ring"
+"synth bass 2"                 "lead 3 (calliope)"      "helicopter"
+"violin"                       "lead 4 (chiff)"         "applause"
+"viola"                        "lead 5 (charang)"       "gunshot"
+"cello"                        "lead 6 (voice)")
+
+
+
 subsect(Translators)
 label(translators)
 
 The behavior of notation contexts is defined by the translators for
 those contexts.  The translator for a context specifies what notations
 are handled by the context, it specifies what other contexts the
-context can contain, and it sets property values for the context.  The
-default contexts are all defined in file(engraver.ly).  An easy way to
-change the behavior of a context is to copy the definition from that
-file and modify it.  
+context can contain, and it sets property values for the context.  
+There are different translators for each type of output.  The
+translators for paper output are defined in file(engraver.ly).  The
+translators for MIDI output are defined in file(performer.ly).  
 
-The first thing that appears inside a code(\translator)
-definition is the type of the context being created.  There are 
-four types:
+The first thing that appears inside a code(\translator) definition is
+the type of the context being created.  This is specified with the
+code(\type) keyword: code(\type) var(typename)code(;).  After the type
+of the context is specified, property assignments, the code(\name)
+keyword and code(\consists), code(\accepts), and code(\remove)
+keywords can appear in any order.  The code(\name) keyword specifies
+the name of the context that is handled by the translator.  If the
+name is not specified, the translator won't do anything.  Each
+code(\accepts) keyword specifies what contexts can be contained inside
+this one.  The code(\consists) keywords specify which notations are
+handled by the context.  Each code(\consists) keyword specifies the
+name of an engraver (for paper ouput) or performer (for MIDI output)
+which handles a certain notation.  The code(\remove) keyword can be
+used to remove a performer or engraver from the translator.
+
+In the code(\paper) block, it is also possible to define translator
+identifiers.  Like other block identifiers, the identifier can only
+be used as the very first item of a translator.  In order to define
+such an identifier outside of code(\score), you must do
+verb(\paper{ foo=\translator{ ... }
+\score{
+  \notes{ ... }
+  \paper{ \translator{ \foo ... } }
+})
+
+Some All of the standard translators have predefined identifiers,  making
+it easy to redefine these contexts by adding or removing items. 
+The predefined identifiers are:  code(StaffContext),
+code(RhythmicStaffContext),  code(VoiceContext),  code(ScoreContext), code(ScoreWithNumbers)
+
+
+subsubsect(Paper Types and Engravers and Pre-defined Translators)
+
+Some pre-defined identifiers can simplify modification of translators.
+The pre-defined identifiers are:  
+description(
+dit(code(StaffContext)) Default Staff  context. 
+dit(code(RhythmicStaffContext)) Default RhythmicStaff  context. 
+dit(code(VoiceContext)) Default Voice  context.  
+dit(code(ScoreContext))  Default  Score context. 
+dit(code(ScoreWithNumbers)) Score  context with numbering at  the
+Score level.   
+dit(code(BarNumberingStaffContext)) Staff context with numbering  at
+the Staff level.  
+dit(code(HaraKiriStaffContext))  
+dit(code(OrchestralPartStaffContext))
+dit(code(OrchestralScoreContext))
+)
+Using these pre-defined values, you can remove  or add items to the
+translator verb(\paper{ \translator{ \StaffContext
+                     \remove Some_engraver;
+                     \consists Different_engraver;  }})
+      
+
+
+There are four types for paper translators:
 description(
   dit(code(Engraver_group_engraver))
   dit(code(Hara_kiri_line_group_engraver))
@@ -1555,16 +1747,7 @@ description(
 )
 COMMENT( The names of these types seem somewhat confusing. )
 
-After the type of the context is specified, property assignments and
-code(\consists) and code(\accepts) keywords can appear in any order.  
-Each code(\accepts) keyword specifies what contexts can be contained
-inside this one.  
-
-The code(\consists) keywords specify which notations are
-handled by the context.  Each code(\consists) keyword specifies the
-name of an engraver which handles a certain notation.  
-Here is a list
-of the engravers. 
+The engravers for paper output are:
 
 description(
 dit(code(Abbreviation_beam_engraver))
@@ -1627,12 +1810,30 @@ left of the staff.
 dit(code(Staff_sym_engraver))
 dit(code(Stem_engraver)) Engraves stems.  Normally in code(Voice).
 dit(code(Ties_engraver)) Engraves ties.  Normally in code(Voice).
-COMMENT(perhaps should be named Tie_engraver?)
 dit(code(Time_signature_engraver)) Engraves the time signature.  Normally in
 code(Staff) and code(RhythmicStaff).
 dit(code(Timing_engraver)) Responsible for synchronizing timing information
 from staffs.  Normally in code(Score).  In order to create polyrhythmic music,
 this engraver should be removed from code(Score) and placed in code(Staff).
 dit(code(Vertical_align_engraver)) 
+)
+
+
+subsubsect(MIDI Types and Performers)
+
+The types available for  MIDI translators are:
+description(
+dit(code(Performer_group_performer))
+dit(code(Score_performer))
+dit(code(Staff_performer))
+)
+
+The performers for MIDI translators are:
+description(
+dit(code(Key_performer))
+dit(code(Time_signature_performer))
+dit(code(Note_performer))
+dit(code(Lyric_performer))
+dit(code(Swallow_performer))
 )
 

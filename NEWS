@@ -1,13 +1,17 @@
-pl 15.jcn3
-	- try at scheme in Atom
-
-pl 15.jcn2
-	- autoconf on guile
-	- graphical-lisp-element + silly half hook-up with autuplet
-	  (see init/test/tup.ly)
+pl 16
+	- read property ydirection and tieYDirection for tie direction.
+	- bf: slur over rest.
+	- bf: include path
+	- part of jcn2
+	- configure --enable-guile
 
 pl 15.jcn1
-	- autoconf on mf,mfont mp,mpost
+ 	- autoconf on mf,mfont mp,mpost
+ 
+pl 15.am
+	- Lots of patches from *Adrian* *Mariano*!
+
+**********
 
 pl 15
 pl 14.hwn1
