@@ -10,7 +10,7 @@
 #ifndef VERTICAL_ALIGN_ITEM_HH
 #define VERTICAL_ALIGN_ITEM_HH
 
-#include "elem-group.hh"
+#include "score-elem.hh"
 
 /**
   Order elements top to bottom.

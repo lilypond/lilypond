@@ -9,7 +9,7 @@
 
 #ifndef HORIZONTAL_ALIGN_ITEM_HH
 #define HORIZONTAL_ALIGN_ITEM_HH
-#include "elem-group.hh"
+
 #include "item.hh"
 
 /**

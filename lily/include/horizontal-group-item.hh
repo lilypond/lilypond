@@ -10,7 +10,7 @@
 #ifndef HORIZONTAL_GROUP_ITEM_HH
 #define HORIZONTAL_GROUP_ITEM_HH
 
-#include "elem-group.hh"
+#include "horizontal-group-elem.hh"
 #include "axis-group-item.hh"
 
 /**

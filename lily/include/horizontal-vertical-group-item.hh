@@ -11,7 +11,7 @@
 #define HORIZONTAL_VERTICAL_GROUP_ITEM_HH
 
 #include "axis-group-item.hh"
-#include "elem-group.hh"
+#include "horizontal-vertical-group-elem.hh"
 
 
 /**
