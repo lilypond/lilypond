@@ -529,7 +529,7 @@ msgstr ""
 # Førklaring til --verbose (borde være længre)
 #: lilypond-book.py:142 ly2dvi.py:148 midi2ly.py:105 mup2ly.py:78 main.cc:126
 msgid "be verbose"
-msgstr "udførlig uddata"
+msgstr "vær udførlig"
 
 #: lilypond-book.py:143
 #, fuzzy
@@ -2607,9 +2607,6 @@ msgstr "Overvej at konvertere inddata med skriptet \"convert-ly\""
 
 #~ msgid "don't timestamp the output"
 #~ msgstr "tidsstempl ikke uddata"
-
-#~ msgid "be verbose"
-#~ msgstr "vær udførlig"
 
 #~ msgid "assume no double dotted notes"
 #~ msgstr "antag ingen dobbeltpunktede noder"

@@ -2458,9 +2458,6 @@ msgstr ""
 #~ msgid "don't timestamp the output"
 #~ msgstr "не отмечать дату и время вывода"
 
-#~ msgid "be verbose"
-#~ msgstr "быть болтливым"
-
 #~ msgid "Usage: %s [OPTION]... [FILE]"
 #~ msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]"
 
