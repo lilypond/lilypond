@@ -5,8 +5,10 @@
 
 }
 
+\version "2.3.14"
+
 \paper {
-    raggedright = ##T
+    raggedright = ##t
 }
 
 {
