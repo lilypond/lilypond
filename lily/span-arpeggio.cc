@@ -33,27 +33,20 @@ Span_arpeggio::brew_molecule (SCM smob)
   Score_element *me = unsmob_element (smob);
   
   Interval iv;
-  //Score_element *common = me;
-  Score_element *common = 0;
+  Score_element *common = me;
   for (SCM s = me->get_elt_property ("arpeggios"); gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element *arpeggio = unsmob_element (gh_car (s));
-      if (common)
-	common = arpeggio->common_refpoint (common, Y_AXIS);
-      else
-	common = arpeggio;
+      common = common->common_refpoint (arpeggio, Y_AXIS);
     }
-  if (0)  //common)
-    for (SCM s = me->get_elt_property ("arpeggios"); gh_pair_p (s); s = gh_cdr (s))
-      {
-	Score_element *arpeggio = unsmob_element (gh_car (s));
-	// this dumps core: someone has no y-parent
-	Real c = common->relative_coordinate (arpeggio, Y_AXIS);
-	//iv.unite (Arpeggio::head_positions (stem));
-	iv.unite (Interval (c, c));
-      }
-  else
-    iv = Interval (-23, 5);
+  for (SCM s = me->get_elt_property ("arpeggios"); gh_pair_p (s); s = gh_cdr (s))
+    {
+      Score_element *arpeggio = unsmob_element (gh_car (s));
+      Real c = arpeggio->relative_coordinate (common, Y_AXIS);
+      Interval height = arpeggio->extent (Y_AXIS);
+      iv.unite (height + c);
+    }
+  iv *= 0.5;
 
   Molecule mol;
   Molecule arpeggio = me->paper_l ()->lookup_l (0)->afm_find ("scripts-arpeggio");
@@ -64,7 +57,9 @@ Span_arpeggio::brew_molecule (SCM smob)
       a.translate_axis (i * staff_space, Y_AXIS);
       mol.add_molecule (a);
     }
-  mol.translate (Offset (-2 * staff_space, 0));
+  // huh?
+  Real dy = me->relative_coordinate (common, Y_AXIS);
+  mol.translate (Offset (-2 * staff_space, -2*dy));
 
   return mol.create_scheme (); 
 }
