@@ -499,7 +499,10 @@ intastint_list:
 	| intastint_list int '*' int	{
 		$$->push ($2); $$->push ($4);
 	}
-	;
+	| intastint_list int	{
+		$$->push ($2); $$->push (1);
+	}
+	;	
 
 
 /*

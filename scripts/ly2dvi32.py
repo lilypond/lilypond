@@ -1,7 +1,20 @@
 #!@PYTHON@
 
+"""
+=======================================================================
+LilyPond to dvi converter
+
+Features include Title information, paper size specification, and image
+orientation.  
+
+Usage: ly2dvi.py [OPTION]... [FILE]...
+Input: LilyPond source or LilyPond generated TeX files
+Output: DVI file
+=======================================================================
+"""
+
 name = 'ly2dvi'
-version = '0.0.2'
+version = '0.0.4'
 
 import sys
 import os
@@ -11,12 +24,42 @@ import string
 import time
 import glob
 
+
 class Input:
+    """
+    This class handles all ly2dvi.py input file methods
+
+    Public methods:
+    
+    __init__()  Constructor
+    open(file)  Open a .ly file or .tex file using lilyinclude path
+    close()     Close current file
+    type()      Determine file type .ly (input) or .tex (output)
+    setVars()   Set title definitions found in .tex (output) file
+    """
+
+    #
+    # Constructors
+    #
 
     def __init__(this):
        this.__fd = None 
 
+    #
+    # open
+    #
     def open(this,file):
+        """
+        open file and set private class variable __fd.  The search
+        sequence is: current directory followed by the directories
+        found in include property list.  Each directory is searched
+        for file, file.ly, and file.fly.
+        
+        input:  file   filename
+        output: void
+        error:  ExitNotFound Exception
+        """
+
         for i in [''] + Props.get('include')[0:]:
             ifile = os.path.join(i,file)
             for j in ['','.ly','.fly']:
@@ -28,21 +71,57 @@ class Input:
                     pass
         sys.exit('ExitNotFound', file)
 
+
+    #
+    # close
+    #
     def close(this):
+        """
+        close file object __fd
+        
+        input:  void
+        output: void
+        error:  None
+        """
         this.__fd.close()
 
+
+    #
+    # type
+    #
     def type(this):
+        """
+        Determine input file type.  LilyPond source is 'input' type
+        and LilyPond generated TeX file is 'output' type
+
+        input:  void
+        output: 'input' | 'output'
+        error:  None
+        """
+
         firstline = this.__fd.readline()
         this.__fd.seek(0)
         if  re.match('% Creator: GNU LilyPond [0-9]+[.0-9]+',firstline ):
             return 'output'
         else:
             return 'source'
-#
-# Scan file for variable settings
-#
+
+
+    #
+    # setVars
+    #
     def setVars(this):	
-	"""Scan source file for variable settings"""
+        """
+        Search for properties in the current input file and set the
+        appropriate values.  The supported properties names are in
+        local variable varTable along with the property list
+        titledefs.
+
+        input:  void
+        output: None
+        error:  None
+        """
+
         varTable = [
             #   regexp              set method
             #   ------              ----------
@@ -56,9 +135,7 @@ class Input:
             ]
 
         titles={}
-        line='prime the pump' # ugh
-        while line:
-            line=this.__fd.readline()
+        for line in this.__fd.readlines():
             m=re.match('\\\\def\\\\mudela([\w]+){(.*)}',line)
             if m:
                 for var in varTable:
@@ -72,18 +149,77 @@ class Input:
         Props.setTitles(titles,'file')
         this.__fd.seek(0)
 
-class TeXOutput:
+
 
+class TeXOutput:
+    """
+    This class handles all ly2dvi.py output file methods
+
+    private methods:
+     __mudelaDefs(opt)  Send title info to output file
+
+    Public methods:
+    __init__()  Constructor
+    write(str)  Write a string to output file 
+    start(file) Start the latex file
+    next()      Process next output file
+    end()       Finish latex file and run latex 
+    """
+
+    #
+    # constructor
+    #
     def __init__(this):
        this.__fd = None 
        this.__base = ''
        this.__outfile = ''
 
+    #
+    # __medelaDefs
+    #
+    def __mudelaDefs(this,opt):
+        """
+        Write titles to output
+
+        input:  opt   Supports header and subheader output
+        output: None
+        error:  None
+        """
+
+        titles = Props.get('titles')
+        for key in titles.keys():
+            this.write('%s\\mudela%s{%s}%%\n' % (opt,key,titles[key]))
+
+    #
+    # write
+    #
     def write(this,str):
+        """
+        Write str to current output file
+
+        input:  str  String to write
+        output: None
+        error:  None
+        """
+        
         this.__fd.write(str)
 
+    #
+    # start
+    #
     def start(this,file):
-        """Start the latex file"""
+        """
+        Start LaTeX file.  Calculates the horizontal and vertical
+        margin using pagewidth, pageheight, linewidth, and textheight.
+        Creates temporary output filename and opens it for write.
+        Sends the LaTeX header information to output.  Lastly sends
+        the title information to output.
+
+        input:  file  output file name 
+        output: None
+        error:  None
+        """
+
         now=time.asctime(time.localtime(time.time()))
         linewidth = Props.get('linewidth')
         textheight = Props.get('textheight')
@@ -137,7 +273,20 @@ class TeXOutput:
 \\makelilytitle
 """) 
 
+    #
+    # next
+    #
     def next(this):
+        """
+        Write LaTeX subheader information to support more than one
+        score in a document.  Lastly send current title information to
+        output.
+
+        input:  None
+        output: None
+        error:  None
+        """
+
         this.write("""\
 \\def\\theopus{}%
 \\def\\thepiece{}%
@@ -151,12 +300,19 @@ class TeXOutput:
 \\makelilypiecetitle
 """)
 
-    def __mudelaDefs(this,opt):
-        titles = Props.get('titles')
-        for key in titles.keys():
-            this.write('%s\\mudela%s{%s}%%\n' % (opt,key,titles[key]))
 
+    #
+    # end
+    #
     def end(this):
+        """
+        Close output file and run latex on it.
+
+        input:  None
+        output: None
+        error:  ExitBadLatex Exception
+        """
+
         outfile=this.__base + '.dvi'
         if Props.get('output') != '':
             outfile = os.path.join(Props.get('output'), outfile )
@@ -177,43 +333,57 @@ class TeXOutput:
         if os.path.isfile(outfile):
             os.remove(outfile)
         os.rename(this.__base + '.' + str(os.getpid()) + '.dvi', outfile)
+        sys.stderr.write( '\n' + program_id() + ': dvi file name is %s\n\n'
+                   % (outfile))
+
+        if Props.get('postscript'):
+            psoutfile=this.__base + '.ps'
+            if Props.get('output') != '':
+                psoutfile = os.path.join(Props.get('output'), psoutfile )
+            stat = os.system('dvips -o %s %s 2>&1' % (psoutfile,outfile))
+            if stat:
+                sys.exit('ExitBadPostscript')
+            
+
+
 
 class Properties:
+    """
+    This class handles all ly2dvi.py property manipulation
 
-    def __set(this,var,value,requester):
-        if this.__overrideTable[requester] < this.__data[var][1]:
-            return 0
-        else:
-            this.__data[var] = [value, this.__overrideTable[requester]]
-
-    def get(this,var):
-        if var == 'include' or var == 'lilyOutputFiles':
-            return this.__data[var][0][0:]  # return a copy not a ref
-        else:
-            return this.__data[var][0]
-
-    def get_texfile_path (this, var):
-	    path =''
-	    cmd =('kpsewhich tex %s 2>&1' % var)
-	    pipe = os.popen (cmd, 'r')
-	    path = pipe.readline ()[:-1] # chop off \n
-	    if pipe.close():
-		    path = os.path.join(this.get('root'), 'texmf', 'tex', 'lilypond', var)
-
-	    fd = open(path, 'r')
-            return fd
+    Public methods:
+    
+    __init__()  Constructor
+    set<property> methods
+    """
 
     def __init__(this):
+
+        #
+        # Following is the order of priority for property assignment.  The
+        # list is organized from lowest to highest priority.  Each
+        # assignment is overridden by the next requester in the list.
+        #
+        # Requester     Description
+        # ---------     -----------
+        # init          Initial default values
+        # file          The values found in the lilypond generated TeX files
+        # environment   Envrionment variables LILYINCLUDE, LILYPONDPREFIX
+        # rcfile        $LILYPONDPREFIX/share/lilypond/.lilyrc
+        # rcfile        $HOME/.lilyrc
+        # rcfile        ./.lilyrc
+        # commandline   command line arguments
+        # 
         this.__overrideTable = {
             'init'        : 0,
-            'environment' : 1,
-            'rcfile'      : 2,
-            'file'        : 3,
+            'file'        : 1,
+            'environment' : 2,
+            'rcfile'      : 3,
             'commandline' : 4,
             'program'     : 5
             }
 
-        this.__roverrideTable = {} # reverse lookup
+        this.__roverrideTable = {} # reverse lookup used for debug
         for i in this.__overrideTable.items():
             this.__roverrideTable[i[1]]=i[0]
         
@@ -240,29 +410,18 @@ class Properties:
             'titledefs'    :  [[], this.__overrideTable['init']],
             'titles'       :  [{}, this.__overrideTable['init']],
             'lilyOutputFiles' :  [[], this.__overrideTable['init']],
+            'postscript'   :  [0, this.__overrideTable['init']],
             }
 
-        if os.environ.has_key('LILYINCLUDE'):
-            tmp=this.get('include')
-            for s in string.split(os.environ['LILYINCLUDE'],os.pathsep):
-                tmp.append(s)
-            this.__set('include', tmp, 'environment')    
-
-        if os.environ.has_key('LILYPOND'):
-            this.__set('root',os.environ['LILYPOND'], 'environment')
+        #
+        # Try to set root and HOME first before calling rcfile
+        #
+        if os.environ.has_key('LILYPONDPREFIX'):
+            this.setRoot(os.environ['LILYPONDPREFIX'], 'environment')
         else:
             p=os.path.split(sys.argv[0])
             p=os.path.split(p[0])
-            this.__set('root',p[0],'init')
-
-        t=''
-	if os.environ.has_key ('TEXINPUTS'):
-		t = os.pathsep + os.environ['TEXINPUTS']
-        os.environ['TEXINPUTS'] = os.path.join(this.get('root'), 'texmf',
-					       'tex', 'lilypond' ) + t
-
-        if os.environ.has_key('TMP'):
-            this.__set('tmp',os.environ['TMP'],'environment')
+            this.setRoot(p[0],'init')
 
         if not os.environ.has_key('HOME'):
             if os.environ.has_key('HOMEDRIVE') and \
@@ -271,49 +430,133 @@ class Properties:
                                      os.environ['HOMEPATH']
             else:
                 os.environ['HOME'] = os.curdir
-        
 
-	fd =this.get_texfile_path ('titledefs.tex')
+        this.rcfile() # Read initialization file(s)
+
+        if os.environ.has_key('LILYINCLUDE'):
+            tmp=this.get('include')
+            for s in string.split(os.environ['LILYINCLUDE'],os.pathsep):
+                tmp.append(s)
+            this.__set('include', tmp, 'environment')    
+
+
+        t=''
+	if os.environ.has_key ('TEXINPUTS'):
+		t = os.pathsep + os.environ['TEXINPUTS']
+        os.environ['TEXINPUTS'] = os.path.join(this.get('root'), 'texmf',
+					       'tex', 'lilypond' ) + t
+
+        t=''
+	if os.environ.has_key ('MFINPUTS'):
+		t = os.pathsep + os.environ['MFINPUTS']
+        os.environ['MFINPUTS'] = os.path.join(this.get('root'), 'texmf',
+					       'mf', 'public', 'lilypond' ) + t
+
+        if os.environ.has_key('TMP'):
+            this.__set('tmp',os.environ['TMP'],'environment')
+
+        
+	fd=this.get_texfile_path ('titledefs.tex')
         mudefs=[]    
-	line='prime the pump' # ugh
-        while line:
-            line=fd.readline()
+
+        for line in fd.readlines():
             m=re.match('\\\\newcommand\*{\\\\mudela([\w]+)}',line)
             if m:
                 mudefs.append(m.group(1))
 	fd.close
         this.__set('titledefs', mudefs, 'init')
 
-#
-# Read rc file
-#
+    #
+    # __set
+    #
+    def __set(this,var,value,requester):
+        """
+        All of the set methods call this to set a property.  If the value
+        was last set by a requestor of lesser priority the new value is
+        assigned, else the old value has priority and is unchanged.
+        """
+
+        if this.__overrideTable[requester] < this.__data[var][1]:
+            return 0
+        else:
+            this.__data[var] = [value, this.__overrideTable[requester]]
+
+    #
+    # get
+    #
+    def get(this,var):
+        """
+        All of the get methods call this to get a property value.  List
+        variable types are return by value to facilitate an append operation.
+        """
+
+        if var == 'include' or var == 'lilyOutputFiles':
+            return this.__data[var][0][0:]  # return a copy not a ref
+        else:
+            return this.__data[var][0]
+
+    #
+    # get_texfile_path
+    #
+    def get_texfile_path (this, var):
+        """
+        locate and open titledefs.tex file
+        """
+
+        path =''
+        cmd =('kpsewhich tex %s 2>&1' % var)
+        pipe = os.popen (cmd, 'r')
+        path = pipe.readline ()[:-1] # chop off \n
+        if pipe.close():
+            path = os.path.join(this.get('root'), 'texmf', 'tex',
+                                'lilypond', var)
+	fd = open(path, 'r')
+        return fd
+
+
+    #
+    # Read rc file
+    #
     def rcfile(this):
-	"""Read RCfile"""
+	"""
+        Read initialization file(s)
+        """
         varTable = [
             #   name              set method
             #   ----              ----------
-            ( 'LILYPOND',       this.setInclude ),
+            ( 'DEBUG',          this.setDebug ),
+            ( 'DEPENDENCIES',   this.setDependencies ),
+            ( 'KEEPLILYPOND',   this.setKeeplilypond ),
+            ( 'KEEPLY2DVI',     this.setKeeply2dvi ),
             ( 'LANGUAGE',       this.setLanguage ),
             ( 'LATEXHF',        this.setHeader ),
+            ( 'LILYINCLUDE',    this.setInclude ),
+            ( 'LILYPONDPREFIX', this.setRoot ),
+            ( 'NONUMBER',       this.setNonumber ),
             ( 'ORIENTATION',    this.setOrientation ),
             ( 'OUTPUTDIR',      this.setOutput ),
             ( 'PAPERSIZE',      this.setPaperZize ),
             ( 'PHEIGHT',        this.setTextHeight ),
-            ( 'TMP',            this.setTmp ),
+            ( 'POSTSCRIPT',     this.setPostscript ),
             ( 'PWIDTH',         this.setLineWidth ),
+            ( 'SEPARATE',       this.setSeparate ),
+            ( 'TMP',            this.setTmp ),
             ]
+
+        if ( os.name == 'posix' ):
+            dotFilename='.lilyrc'
+        else: # Windows apps like edit choke on .lilyrc
+            dotFilename='_lilyrc'
 
 	for d in [os.path.join(this.get('root'),'share','lilypond'), \
                   os.environ['HOME'], os.curdir ]:
-	    file=os.path.join(d,'.lilyrc')
+	    file=os.path.join(d,dotFilename)
 	    try:
 		fd = open( file, 'r' )
 	    except:
 		continue
 	    
-	    line='prime the pump' # ugh
-	    while line:
-		line=fd.readline()
+            for line in fd.readlines():
 		if re.match('#.*',line):
 		    continue
 		m=re.search('([\w]+)=(.*)',line)
@@ -324,10 +567,14 @@ class Properties:
                             break
 	    fd.close
 
-#
-# Set paper size
-#
+    #
+    # setPaperZize
+    #
     def setPaperZize(this,size,requester):
+        """
+        Set paper size properties
+        """
+
         paperTable = [
             # regex          width    height      name
             # -----          -----    ------      ----
@@ -373,10 +620,14 @@ class Properties:
         if not found:
             sys.exit('ExitBadPaper',size)
 
-#
-# set Text Height
-#
+    #
+    # setTextHeight
+    #
     def setTextHeight(this,size,requester):
+        """
+        Set textheight property
+        """
+
 	m=re.match('([0-9][.0-9]*)(cm|mm|pt|$)',size)
 	if m:
 	    if m.group(2) == 'cm':
@@ -393,10 +644,15 @@ class Properties:
 		sys.exit('ExitBadHeight', m.group(2))
 	else:		
 	    sys.exit('ExitBadHeight', size)
-#
-# set Text Width
-#
+
+    #
+    # setLineWidth
+    #
     def setLineWidth(this,size,requester):
+        """
+        Set linewidth propery
+        """
+
 	m=re.match('([0-9][.0-9]*)(cm|mm|pt|$)',size)
 	if m:
 	    if m.group(2) == 'cm':
@@ -413,129 +669,203 @@ class Properties:
 		sys.exit('ExitBadWidth', m.group(2))
 	else:		
 	    sys.exit('ExitBadWidth', size)
-#
-# Set Orientation
-#
+
+    #
+    # setOrientation
+    #
     def setOrientation(this,orient,requester):
+        """
+        Set orientation property
+        """
+
 	if orient == 'landscape' or orient == 'portrait':
 	    this.__set('orientation', orient, requester )
 	else:
 	    sys.exit('ExitBadOrient', orient)
-#
-# Set Language
-#
+
+    #
+    # setLanguage
+    #
     def setLanguage(this,lang,requester):
+        """
+        Set language property
+        """
+
 	this.__set('language', '\\usepackage[%s]{babel}' % (lang), requester )
-#
-# Append Include
-#
+
+    #
+    # setInclude
+    #
     def setInclude(this,inc, requester):
+        """
+        Append an include path
+        """
+
         tmp = this.get('include')
         tmp.append(inc)
         this.__set('include', tmp, requester )
-#
-# Set debug flag
-#
-    def setDebug(this,requester):
-	this.__set('debug',1,requester)
 
-#
-# Clear debug flag
-#
-    def clearDebug(this, requester):
-	this.__set('debug',0,requester)
-#
-# Set Keeplilypond flag
-#
-    def setKeeplilypond(this, requester):	
-	this.__set('keeplilypond',1,requester)
+    #
+    # setDebug
+    #
+    def setDebug(this,value,requester):
+        """
+        Set or Clear debug flag
+        """
 
-#
-# Clear Keeplilypond flag
-#
-    def clearKeeplilypond(this, requester):	
-	this.__set('keeplilypond',0,requester)
+        if int(value) == 1:
+            this.__set('debug',1,requester)
+        else:
+            this.__set('debug',0,requester)
 
-#
-# Set Keeply2dvi flag
-#
-    def setKeeply2dvi(this, requester):	
-	this.__set('keeply2dvi',1,requester)
-#
-# Clear Keeply2dvi flag
-#
-    def clearKeeply2dvi(this, requester):	
-	this.__set('keeply2dvi',0,requester)
-#
-# Set No page number flag
-#
-    def setNonumber(this, requester):	
-	this.__set('pagenumber','\\pagestyle{empty}',requester)
+    #
+    # setKeeplilypond
+    #
+    def setKeeplilypond(this, value, requester):	
+        """
+        Set or Clear keeplilypond flag
+        """
 
-#
-# Clear No page number flag
-#
-    def clearNonumber(this, requester):	
-	this.__set('pagenumber','%',requester)
-#
-# Set separate flag
-#
-    def setSeparate(this, requester):	
-	this.__set('separate',1,requester)
+        if int(value) == 1:
+            this.__set('keeplilypond',1,requester)
+        else:
+            this.__set('keeplilypond',0,requester)
 
-#
-# Clear separate flag
-#
-    def clearSeparate(this, requester):	
-	this.__set('separate',0,requester)
+    #
+    # setKeeply2dvi
+    #
+    def setKeeply2dvi(this, value, requester):	
+        """
+        Set or Clear keeply2dvi flag
+        """
 
-#
-# Set output directory name
-#
+        if int(value) == 1:
+            this.__set('keeply2dvi',1,requester)
+        else:
+            this.__set('keeply2dvi',0,requester)
+
+    #
+    # setNonumber 
+    #
+    def setNonumber(this, value, requester):	
+        """
+        Set nonumber flag
+        """
+
+        if int(value) == 1:
+            this.__set('pagenumber',1,requester)
+        else:
+            this.__set('pagenumber',0,requester)
+
+    #
+    # setSeparate
+    #
+    def setSeparate(this, value, requester):	
+        """
+        Set or Clear separate flag
+        """
+
+        if int(value) == 1:
+            this.__set('separate',1,requester)
+        else:
+            this.__set('separate',0,requester)
+
+    #
+    # Set output directory name
+    #
     def setOutput(this,out,requester):
 	this.__set('output',out,requester)
 
-#
-# Set latex header name
-#
+    #
+    # Set latex header name
+    #
     def setHeader(this,head, requester):
 	this.__set('header',head,requester)
-#
-# Set Dependencies flag to generate makefile dependencies
-#
-    def setDependencies(this, requester):	
-	this.__set('dependencies',1,requester)
 
-#
-# Clear Dependencies flag
-#
-    def clearDependencies(this, requester):	
-	this.__set('dependencies',0,requester)
-#
-# Set tmp directory
-#
+    #
+    # Set or Clear Dependencies flag to generate makefile dependencies
+    #
+    def setDependencies(this, requester):	
+        """
+        Set or Clear dependencies flag
+        """
+
+        if int(value) == 1:
+            this.__set('dependencies',1,requester)
+        else:
+            this.__set('dependencies',0,requester)
+
+    #
+    # Set tmp directory
+    #
     def setTmp(this,dir, requester):	
 	this.__set('tmp',dir,requester)
-#
-# Set mudela source file name
-#
+
+    #
+    # Set mudela source file name
+    #
     def setFilename(this,file, requester):	
 	this.__set('filename',file,requester)
-#
-# Set title commands
-#
+
+    #
+    # Set title commands
+    #
     def setTitles(this,titles, requester):	
 	this.__set('titles',titles,requester)
 
-    def addLilyOutputFiles(this,file,requester):
+    #
+    # Set title commands
+    #
+    def addLilyOutputFiles(this,filelist,requester):
+        """
+        Add a to the lily output list
+        """
+
         tmp = this.get('lilyOutputFiles')
-        tmp.append(file)
+        tmp = tmp + filelist
         this.__set('lilyOutputFiles',tmp,requester)
 
+    #
+    # Set/Clear postscript flag
+    #
+    def setPostscript(this,value,requester):
+        """
+        Set postscript flag
+        """
+
+        if int(value) == 1:
+            this.__set('postscript',1,requester)
+        else:
+            this.__set('postscript',0,requester)
+
+    #
+    # Set root
+    #
+    def setRoot(this,path, requester):	
+        """
+        Set lilypond root directory
+        """
+
+        os.environ['LILYPONDPREFIX'] = path
+	this.__set('root',path,requester)
+
+    #
+    # printProps
+    #
     def printProps(this):
+        """
+        Print properties
+        """
+        
         for key in this.__data.keys():
             print "%s <%s>:<%s>" % (key,this.get(key),
                                     this.__roverrideTable[this.__data[key][1]])
+
+
+
+#
+# Misc functions
+#
 
 def getLilyopts():
     inc = ''	
@@ -564,11 +894,16 @@ def writeLilylog(contents):
         fd.close()
 
 def getTeXFile(contents):
-    m = re.search('^TeX output to (.+)\.tex', contents,re.M)
-    if m:
-        return ( m.group(1)+'.tex' )
-    else:
+    texfiles=[]
+    for line in string.split(contents,'\n'):
+        m = re.search('^TeX output to (.+)\.\.\.', line)
+        if m:
+            texfiles.append(m.group(1))
+
+    if texfiles == []:
         sys.exit('ExitNoTeXName')
+    else:
+        return texfiles
 
 def program_id ():
     return name + ' ' + version;
@@ -598,6 +933,7 @@ def help ():
         '  -L,--landscape       set landscape orientation\n'
         '  -N,--nonumber        switch off page numbering\n'
         '  -O,--orientation=    set orientation (obsolete - use -L instead)\n'
+        '  -P,--postscript      generate postscript file\n'
         '  -W,--Width=          set paper width (points) (see manual page)\n'
         '  -d,--dependencies    tell lilypond make a dependencies file\n'
         '  -h,--help            this help text\n'
@@ -610,6 +946,11 @@ def help ():
         'files may be (a mix of) input to or output from lilypond(1)\n'
         )
 
+
+
+#
+# main
+#
 
 def main():
     """Generate dvi files from lilypond source/output"""
@@ -618,19 +959,19 @@ def main():
     outfile = TeXOutput()
     texInputFiles=[]
 
-    Props.rcfile()
     (options, files) = getopt.getopt (sys.argv[1:],
-                                      'DF:H:I:KLNW:dhkl:o:p:s',
+                                      'DF:H:I:KLNPW:dhkl:o:p:s',
                                       ['debug', 'headers=', 'Height=',
                                        'include=', 'keeplilypond', 'landscape',
                                        'nonumber', 'Width=', 'dependencies',
                                        'help', 'keeply2dvi', 'language=',
-                                       'output=', 'papersize=', 'separate'])
+                                       'output=', 'papersize=', 'separate',
+                                       'postscript'])
     for opt in options:
         o = opt[0]
         a = opt[1]
         if o == '--debug' or o == '-D':
-	    Props.setDebug('commandline')
+	    Props.setDebug(1,'commandline')
         elif o == '--headers' or o == '-F':
 	    Props.setHeader(a,'commandline')
         elif o == '--include' or o == '-I':
@@ -638,7 +979,7 @@ def main():
         elif o == '--Height' or o == '-H':
 	    Props.setTextHeight(a,'commandline')
         elif o == '--keeplilypond' or o == '-K':
-	    Props.setKeeplilypond('commandline')
+	    Props.setKeeplilypond(1,'commandline')
         elif o == '--landscape' or o == '-L':
 	    Props.setOrientation('landscape','commandline')
         elif o == '--nonumber' or o == '-N':
@@ -646,12 +987,12 @@ def main():
         elif o == '--Width' or o == '-W':
 	    Props.setLineWidth(a,'commandline')
         elif o == '--dependencies' or o == '-d':
-	    Props.setDependencies('commandline')
+	    Props.setDependencies(1,'commandline')
         elif o == '--help' or o == '-h':
             help()
             return 0
         elif o == '--keeply2dvi' or o == '-k':
-	    Props.setKeeply2dvi('commandline')
+	    Props.setKeeply2dvi(1,'commandline')
         elif o == '--language' or o == '-l':
 	    Props.setLanguage(a,'commandline')
         elif o == '--output' or o == '-o':
@@ -659,7 +1000,9 @@ def main():
         elif o == '--papersize' or o == '-p':
 	    Props.setPaperZize(a,'commandline')
         elif o == '--separate' or o == '-s':
-	    Props.setSeparate('commandline')
+	    Props.setSeparate(1,'commandline')
+        elif o == '--postscript' or o == '-P':
+	    Props.setPostscript(1,'commandline')
 
     if len(files):
         for file in files:
@@ -669,15 +1012,19 @@ def main():
             if type == 'source':
                 cmd = 'lilypond %s %s 2>&1' % (getLilyopts(), file)
                 fd = os.popen( cmd , 'r' )
-                log = fd.read()
+                log = ''
+                line=fd.readline()
+                while line:
+                    log = log + line
+                    sys.stderr.write( line )
+                    line=fd.readline()
                 stat = fd.close()
-                print log
                 if stat:
                     sys.exit('ExitBadLily', cmd )
-                texFile=getTeXFile(log)
+                texFiles=getTeXFile(log)
                 writeLilylog(log)
-                Props.addLilyOutputFiles(texFile,'program')
-                texInputFiles.append(texFile)
+                Props.addLilyOutputFiles(texFiles,'program')
+                texInputFiles = texInputFiles + texFiles
             else:
                 texInputFiles.append(file)
 
@@ -686,7 +1033,8 @@ def main():
             infile.open(file)
             infile.setVars() # first pass set variables
             infile.close()
-#            Props.printProps()
+            if Props.get('debug'):
+                Props.printProps()
             if firstfile:
                 outfile.start(file)
             else:
@@ -719,6 +1067,7 @@ ExitTable = {
     'ExitNoTeXName'        : ['hmm, I could not find an output file name', 9 ],
     'ExitBadLily'          : ['Lilypond failed', 10 ],
     'ExitBadLatex'         : ['Latex failed', 11 ],
+    'ExitBadPostscript'    : ['Postscript failed', 12 ],
     'ExitUnknown'          : ['Unknown Exit Code', 20 ],
     }
 
@@ -732,11 +1081,6 @@ def cleanup():
     for file in lilyfiles + tmpfiles:
         if os.path.isfile(file):
             os.remove(file)
-
-
-
-
-
 
 
 identify()
@@ -759,14 +1103,9 @@ except SystemExit, errno:
         sys.stderr.write( '%s: %s: %s\n' % (name, msg[0], errno.args[1]))
     else:
         sys.stderr.write( '%s %s\n' % (name, msg[0]))
+    if Props.get('debug'):
+        Props.printProps()
     cleanup()
     sys.exit(msg[1])
 else:
     cleanup()
-
-    
-
-                                   
-
-
-

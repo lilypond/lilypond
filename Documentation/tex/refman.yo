@@ -16,16 +16,19 @@ in stead <-> instead
 htmlbodyopt(bgcolor)(white)
 htmlcommand(<font color=black>)
 
-latexpackage()(a4wide)
 latexlayoutcmds(
-%\usepackage[latin1]{inputenc}
+\setlength{\topmargin}{-0.25in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{5.875in} 
+\setlength{\oddsidemargin}{0.25in}   
+\setlength{\evensidemargin}{0.25in}
 \input mudela-book
 )
 
 whenlatex(notableofcontents())
 whentexinfo(notableofcontents())
 
-report(Mudela, reference manual)
+article(Mudela, reference manual)
       (Han-Wen Nienhuys and Jan Nieuwenhuizen)
       (nop()PIPETHROUGH(date "+%B %d, %Y")()()nop())
 
@@ -87,210 +90,305 @@ sect(Files)
 The de-facto extension of Mudela is file(.ly). Files may be included by
 entering code(\include) at the start of a line:
 
-verb(
-\include "a_file.ly"
-)
+verb(\include "a_file.ly")
 
 
-sect(Comments)
+sect(Syntax)
 
-Line comments are introduced by a
-code(%).
-Block comments are delimited
+COMMENT(I don't understand the syntax, so  I can't  write  this
+section very well.  --Adrian)
+
+A one line comment is introduced by a 
+code(%) character.  
+Block comments are started 
 by 
 code(%{)
 and
-code(%}).
-They do not nest.
+ended by code(%}).
+They cannot be nested.
 
-
-sect(Versions)
-
-Occasionally, small changes in syntax across different versions of
-Mudela might give syntax errors. To warn you about possible
-incompatibilities, you can specify the Mudela version for which the
-inputfile was written,
-verb(
-\version "0.0.50";
-)
-
-A Python-script which tries to convert to newer versions
-(file(convert-mudela)) is included in the LilyPond distribution.
-
-sect(Keywords)
-
-Keywords are preceded by a backslash: code(\). They contain
-alphabetic characters only.
-
-
-sect(Nesting characters)
-
-Mudela uses the brace, `code({)' and `code(})' for most hierarchical
-structures.  For chords the code(<) and the code(>) are used as
-nesting braces.
-
-sect(Constants)
-
-verb(
-"I am a string"
+Mudela supports three types of constants: strings, reals, and integers. 
+verb("I am a string"
 -1.2e3          % a real
-12              % an int
-)
+12              % an integer)
+A string which contains no spaces can be written without the quotes.  
+However, in Note mode, unquoted text can be intepreted as note names
+rather than as a string.  
 
+Pairs of braces `code({)' and `code(})' or pairs of angle brackets 
+`code(<)' and `code(>)' are used to identify the scope
+of contexts and enable the construction of hierarchical structure.
+Items in braces will be treated as serial; items in angle brackets
+will be stacked into chords.  
+Braces are also used to group arguments for certain commands.
         
-sect(Identifiers)
-
-When assigning identifiers you use
-
-verb(
-string = ...
-)
-
+To assign an identifier you use:
+verb(string = ...)
+To use an identifier, you must preceed it with a backslash: code(\).
+verb(oboe = \melodic { ... }
+\score{ \melodic { \oboe }})
+The left-hand part of the assignment is really a string, so 
+verb("Foo bar 4 2 " = \melodic { ... })
+is also a valid assignment (but you would have trouble referencing it)
 If you reuse identifiers, then the previous contents will be thrown
 away after the right hand is evaluated, e.g.
-verb(
-bla = \melodic { \bla }
-)
-is legal
+verb(bla = \melodic { \bla })
+is legal.
 
-When using identifiers they have to be escaped:
+COMMENT(It's not clear to me what things are allowed on the RHS of 
+an identifier assignment.)
 
-verb(
-oboe = \melodic { ... }
-\score{ \melodic { \oboe }}
-)
+The following words are keywords.  You can define an identifer whose
+name is a keyword, but you will not be able to reference it.
 
-The left-hand part of the assignment is really a string, so 
-verb(
-"Foo bar 4 2 " = \melodic { .. }
-)
+verb(absdynamic  font           time       penalty       spandynamic
+accepts     grouping       midi       property      symboltables
+bar         in             mm         pt            table
+cadenza     include        multi      relative      tempo       
+clear       lyric          header     score         translator  
+clef        key            notenames  script        type        
+cm          keysignature   octave     shape         transpose   
+consists    mark           output     skip          version     
+contains    melodic        partial    staff     
+duration    musicalpitch   paper      spandynamic)
 
-is also a valid assignment (but you would have trouble referencing to it)
+COMMENT( I don't know  the proper  way to make this kind of table in
+yodl.  
+
+Also  note: Lilypond  should  really give an error when  I write
+       lyric = .....  
+Instead, I get the error later, after I try to use my redefinition of
+\lyric.  The cause  is much less clear. )
 
 
-sect(Hierarchical structures)
+subsect(Hierarchical structures)
 
 The general structure consists of declarations:
-verb(
-IDENTIFIER = \TYPE{
+verb(IDENTIFIER = \TYPE{
         <type specific data>
-}
-)
+})
 and instantiations:
 
-verb(
-\TYPE{ <type specific data> }
-)
+verb(\TYPE{ <type specific data> })
 
 (Currently, code(\score) is the only type that can be instantiated
 at top level.)
 
 Most instantiations that use an IDENTIFIER are specified as follows:
 
-verb(
-\TYPE{ \IDENTIFIER [...] }
-)
+verb(\TYPE{ \IDENTIFIER [...] })
 
 Some exceptions on this rule have been made to prevent inputting
 Mudela becoming tedious
 
-sect(Modes:)
+
+COMMENT(As far as I can tell, the last bit is simply a repetition of
+the information on how to use an identifier, so it should be deleted.
+
+But I'm uncertain about the meaning of \TYPE in the above section.
+Different from \type?  Does it refer to \melodic, \lyric?  In general,
+the use of the word "type" seems to be a source of confusion.
+)
+
+
+sect(Modes)
 
 To simplify different aspects of music definition (entering the notes
-and manipulating them) Mudela has a number of different input "modes":
+and manipulating them) Mudela has a number of different input "modes".
+In each mode, words are identified on the input.  If code("word") is
+encountered, it is treated as a string.  If code("\word") is
+encountered it is treated as a keyword or as an identifier.  The
+behavior of the modes differs in two ways: different modes treat
+unquoted words different, and different modes have different rules for
+deciding what is a word.  
 
 description(
-
 
 dit(Normal mode)
-
-At the start of parsing, Mudela assumes normal mode.
-In Normal mode, a word is looked up in the following order:
-description(
-dit(code(word))    string
-dit(code("string")) string
-dit(code(\word)) keyword, identifier
-)
-In normal mode, a word is assumed to start with an alphabetic
-character, followed by alpha-numeric characters.
+At the start of parsing, Mudela is in normal mode.
+In normal mode, a word is an alphabetic character followed by
+alphanumeric characters.  If code(word) is encountered on the input it
+is treated as a string. 
 
 dit(Note mode) Note mode is introduced by the keyword
-  code(\melodic).  In Note mode, a word is looked up in the following
-  order:
-description(
-dit(code(word)) notename, string
-dit(code("string")) string
-dit(code(\word)) keyword, identifier
-)
-
-In Note mode a word is considered to have alphabetic characters only,
-so the underscore (_) is invalid.  If you accidently mistype a
-notename, the parser will assume that you are entering a string (and
-it will most likely complain that you should be in code(\lyric) mode to
-do lyrics)
-
+code(\melodic).  In Note mode, words can only contain alphabetic
+characters.  If code(word) is encountered, Lilypond first checks for a
+notename of code(word).  If no notename is found, then code(word) is
+treated as a string.  If you mistype a notename, the parser will most
+likely complain that you should be in code(\lyric) mode to do lyrics. 
 
 dit(Lyric mode) Lyrics mode is introduced by the keyword
   code(\lyric).  Because of the various control characters that can
   appear in lyrics, e.g., foreign language accents, the inputting a
-  string containing these has been made very easy.
-
-In Lyrics mode, a word is looked up in the following order:
-description(
-dit(code(word))    string (thus a lyric)
-dit(code("string")) string
-dit(code(\word)) keyword, identifier
-)
-
-In Lyric mode every sequence of non-digit and non-white characters
-starting with an alphabetic character or the _ is considered a word.
-
-verb(
-a&@&@&TSI|{[    % a word
+  string containing these has been made very easy.  Every sequence of
+non-digit and non-white characters starting with an alphabetic
+character or the code(_) is considered a word.  When code("word") is
+encountered it is treated as a lyric (without the quotes).  Likewise,
+when code(word) is encountered, it is treated as a lyric.  The code(_)
+character is converted to a space; it provides a mechanism for
+creating words that contain spaces.  
+verb(a&@&@&TSI|{[    % a word
 1THtrhortho     % not a "word"
 Leise DOEXPAND(Fl\)DOEXPAND("u\)ss{}teren meine Sapfe       % 4 words
 _ _ _ _         % 4 words: 4 spaces
-)
-)
+))
 
+COMMENT(Well, " seems to present some problems.  Also `` seems to be
+problematic.  So the above statement isn't quite right.  Unless these
+characters are considered to be "white")
+
+COMMENT(
 These modes are of a lexical nature. Normal and Note mode largely
 resemble each other, save the possibility of entering Reals, 
 meaning of code(_) and the resolution of words
 
+What's this about reals?  When can you enter them or not enter them?)
 
 
+sect(Note Description)
+
+subsect(Basic note specification)
+
+A note specification has the form 
+var(pitch)[var(octavespec)][var(duration)].
+The pitch of the note is specified by the note's name.  
+
+Lilypond has predefined note names for various languages.  The default
+names are the Dutch note names.  The notes are specified by the
+letters code(c) through code(b), where code(c) is an octave below
+middle C and the letters span the ocatave above that C.  
+In Dutch, a sharp is formed by adding
+code(is).  A flat is formed by adding code(es).
+Double sharps and double flats are obtained by adding code(isis) or
+code(eses).  
+Lily has predefined sets of notenames
+for various nop(languages)footnote(These 
+are Dutch, English, German, Italian and Swedish.
+Simply include the language specific init file file(language.ly).).
+Rests are specified with the note name code(r).  There is also a note
+name code(s) which produces a nonprinting note of the specified
+duration.  
+
+The optional octave specification takes the form of a series of single
+quote 
+code(') characters or a series of comma code(,) characters.  Each
+code(') raises the pitch by one octave; each code(,) lowers the pitch
+by an octave.  
+
+mudela(fragment,verbatim,center)(
+c' d' e' f' g' a' b' c''
+)
+
+mudela(fragment,verbatim,center)(
+cis' dis' eis' fis' gis' ais' bis'
+)
+
+mudela(fragment,verbatim,center)(
+ces' des' es' fes' ges' as' bes'
+)
+
+mudela(fragment,verbatim,center)(
+cisis' eisis' gisis' aisis' beses'
+)
+
+mudela(fragment,verbatim,center)(
+ceses' eses' geses' ases' beses'
+)
+
+Whenever a C-sharp is desired,  you must specify a C-sharp.  Lilypond
+will determine what accidentals to  typeset  depending on the  key and
+context.   
+A reminder accidental can be forced by
+using an exclamation mark code(!)
+on a pitch.
+mudela(fragment,verbatim,center)(
+cis' d' e' cis'  c'! d' e' c' 
+)
 
 
 Durations are entered as their reciprocal values
 mudela(fragment,verbatim,center)(
 a'1 a'2 a'4 a a'8 a a'16 a'32 a'64
 )
-Notice that you only have to specify the duration when it changes: Lily
-assumes a note has the same duration as the previous one.
-
-Now we can already write a little tune
 mudela(fragment,verbatim,center)(
-c' d' e' c' | c' d' e' c' | e' f' g'2
-)
-As you'll probably have guessed,
-the vertical bar  code(|) may be used to mark
-measures.
-
-In the scale shown above
-we left-out the last c note of the next octave.
-Postfixing the pitch with a quote code(')
-produces a note by one octave higher
-mudela(fragment,verbatim,center)(
-c c' c''
+r1 r2 r4 r8 r16 r32
 )
 
-Postfixing the pitch with a comma, code(,)
-produces a note by one octave lower
+If the duration is omitted then it is set equal to the previous
+duration.  If there is no previous duration, then a quarter note is
+assumed.  
+The duration can be followed by a dot code(.) to obtain dotted note
+lengths.  
 mudela(fragment,verbatim,center)(
-a a, a,,
+a'4. b'4.
 )
 
-sect(Slurs and Ties)
+In addition, the duration can be followed by a multiplier which is
+introduced with the asterisk code(*) and can be an integer or a
+fraction.  The multiplier changes the duration that Lilypond uses
+internally for the note, but it does not change the symbol that is
+printed.  
+mudela(fragment,verbatim,center)(
+c'4*2 c'4*2 d'8*2/3 d'8*2/3
+)
+
+Extra long notes can be obtained using the code(\breve) and
+code(longa) durations:
+mudela(fragment,verbatim,center)(
+c'\breve gis'\longa
+)
+
+
+subsect(Beams and Tuplets)
+
+A beam is specified by surrounding the beamed notes with brackets
+code([) and code(]).  
+mudela(fragment,verbatim,center)(
+[a'8 a'] [a'16 a' a' a']
+)
+
+In order to create triplets, you must use a length multiplier after
+the brackets.  An open bracket code([) followed by a fraction
+instructs Lilypond to print a number over the beam, and it also
+starts multiplying all note lengths by the fraction.  The closing
+bracket code(]) should be followed by the fraction code(1/1) in order
+to restore normal note lengths.  To create a triplet without a beam,
+place a backslace code(\) before the opening and closing brackets. 
+
+For example, in an ordinary triplet, the notes have duration 2/3 as
+long as normal. 
+mudela(fragment,verbatim,center)(
+[2/3 a'8 a' a' ]1/1 \[2/3 b'4 b' b'\]1/1
+)
+
+There is a shorthand that can be used when you 
+want notes lengths multiplied by 2/n.  
+The 2 can be omitted after the open bracket
+and the first 1 can be omitted after the closing bracket.  
+mudela(fragment,verbatim,center)(
+[/3 b'8 b' b' ]/1  \[/3 a'4 a'8\]/1
+)
+
+COMMENT(The rest of this section needs to be rewritten.  I don't
+understand what's going on at all here.  The meaning of the lone ] is
+unclear.  And the : syntax is also unclear.  --Adrian)   
+
+Here is a combination
+mudela(fragment,verbatim,center)(
+[/3 a'8 a'16 a'] a'8 \]
+)
+
+Abbreviations
+mudela(fragment,verbatim,center)(
+c'1:16 [:16 e'1 g']
+)
+
+mudela(fragment,verbatim,center)(
+c'4:32 [:16 c'8 d'8]
+)
+
+
+subsect(Slurs and Ties)
 
 A tie connects two adjacent note heads
 
@@ -310,113 +408,37 @@ mudela(fragment,verbatim,center)(
 c'( d' e' )f'
 )
 
-sect(Beams and Tuplets)
 
-A beam is 
-mudela(fragment,verbatim,center)(
-[a'8 a'] [a'16 a' a' a']
-)
+sect(Lyrics)
 
-Here's a beamed triplet
-mudela(fragment,verbatim,center)(
-[/3 a'8 a' a']/1
-)
+Lyrics are entered like notes, with pitches replaced
+by text.  For example code(Twin-4 kle4 twin-4 kle4) enters four
+syllables, each with quarter note duration.  Two words can be bound
+together by an underscore If a single duration   
 
-a triplet without a beam
-mudela(fragment,verbatim,center)(
-\[/3 a'4 a'8\]
-)
+In order to instruct Lilypond to write lyrics underneath the
+staff, you must enter the lyrics context with code(\type Lyrics).  
+Lyrics should be entered in lyrics mode which is entered with code(\lyric).
 
-and a combination
-mudela(fragment,verbatim,center)(
-[/3 a'8 a'16 a'] a'8 \]
-)
+Two syllables or words that compose a single
+duration entry are bound together using an underscore: 
+code(He_could4 not4).  Here is a full example:
+mudela(verbatim)(\score{ 
+  <  \melodic \transpose c'' {c d e c | c d e c | e f g'2 | 
+                              e'4 f g'2 \bar "|."; }
+     \type Lyrics \lyric { 
+              DOEXPAND(Fr\)`e-4 re Ja- que DOEXPAND(Fr\)`e- re Ja- que
+              Dor- mez vous?2 Dor-4 mez vous?2  }
+  >
+})
 
-Abbreviations
-mudela(fragment,verbatim,center)(
-c'1:16 [:16 e'1 g']
-)
-
-mudela(fragment,verbatim,center)(
-c'4:32 [:16 c'8 d'8]
-)
-
-sect(Notenames)
-
-Lily has predefined sets of notenames
-for various nop(languages)footnote(These 
-are Dutch, English, German, Italian and Swedish.
-Simply include the language specific init file file(language.ly).).
-The default set are the ones we like best are the Dutch notenames.
-
-A sharp is formed by adding code(is)
-mudela(fragment,verbatim,center)(
-cis' dis' eis' fis' gis' ais' bis'
-)
-
-and a flat is formed by adding code(es)
-mudela(fragment,verbatim,center)(
-ces' des' es' fes' ges' as' bes'
-)
-
-With the obvious names for double sharps
-mudela(fragment,verbatim)(
-cisis' disis' eisis' fisis' gisis' aisis' bisis'
-)
-
-and double flats
-mudela(fragment,verbatim)(
-ceses' deses' eses' feses' geses' ases' beses'
+COMMENT(
+URG
+                        Fr\`e-4 re Ja- que
+                        Fr\`e- re Ja- que
 )
 
 
-There are two special `notenames', the rest
-mudela(fragment,verbatim,center)(
-r16 [a' a' a']
-)
-
-and the space
-mudela(fragment,verbatim,center)(
-a'2 s-"diminuendo" | a'
-)
-
-
-sect(Commands)
-
-mudela(fragment,verbatim,center)(
-\clef "bass"; c
-)
-
-and a clef-change
-mudela(fragment,verbatim,center)(
-\clef "treble"; f' e' \clef "alto"; d' c'
-)
-
-mudela(fragment,verbatim,center)(
-\time 3/4; c' g' g' |
-)
-
-mudela(fragment,verbatim,center)(
-\key d;
-g a b cis' d' e' fis' g'
-)
-Note how Mudela allows you to 
-convey a musical message and doesn't force  you to produce a list of typesetting commands.
-If the music has a code(cis), you type a code(cis).
-Depending on the key and context of the note
-Lily will determine what accidentals to typeset.
-
-A reminder accidental can be forced by
-using an exclamation mark code(!)
-on a pitch a reminder accidental
-mudela(fragment,verbatim,center)(
-cis' d' e' cis' | c'! d' e' c' |
-)
-
-mudela(fragment,verbatim)(
-\time 2/4;
-\bar "|:"; c' c' \bar ":|:"; c' c' \bar ":|"; c' c' \bar "|."; 
-)
 
 sect(Chords and Voices)
 
@@ -443,6 +465,38 @@ mudela(fragment,verbatim)(
 )
 
 
+sect(Time)  
+
+Lilypond aligns all musical objects according to the amount of time
+they occupy.  All of these objects have a duration.  When music is
+written in series using braces the duration is the sum of the 
+durations of the elements.  When music is stacked using angle
+brackets, the duration is the maximum of the durations of the
+elements.  
+
+Because Lilypond knows the durations of all musical elements, the time
+signature enables Lilypond to draw bar lines automatically.  The time
+signature is specified with the code(\time) command: code(\time 3/4).
+If no time signature is given, Lilypond assumes 4/4.  The automatic
+generation of bar lines can toggled with the code(\cadenza) command,
+and an incomplete measure at the start of the music can be created
+using the code(\partial) command: code(\partial 8*2;) creates a
+starting measure lasting two eighth notes.
+
+In order to help with error checking, you can insert bar markers in
+your music by typing code(|).  Whenever Lilypond encounters a code(|)
+that doesn't fall at a measure boundary, she prints a warning message.
+
+Rhythmic grouping is  a concept closely associated with this. 
+A default grouping is selected for the chosen time signature.  
+The default consists of combinations of 2 and 3 beats with as many
+groups of 3 as possible, and the groups of 3 coming first.  For
+example, 4/4 is divided into 2+2 and 8/8 is divided into 3+3+2.  This
+default grouping can be changed using the \grouping command which
+takes a list of durations to specify the grouping. 
+
+
+
 sect(A complete example)
 COMMENT(%label(se:complete))
 
@@ -458,46 +512,6 @@ mudela(verbatim)(
 }
 )
 
-sect(Lyrics)
-
-Lyrics are entered like notes, with pitches substituted
-by text. 
-
-All syllables are entered separately, separated by whitespace 
-verb(
-Twin-4 kle4 twin-4 kle4 ... 
-)
-
-Two syllables or words that compose a single
-duration entry are bound together using an underscore 
-verb(
-He_could4 not4
-)
-
-
-COMMENT(
-URG
-                        Fr\`e-4 re Ja- que
-                        Fr\`e- re Ja- que
-)
-
-mudela(verbatim,center)(
-\score{
-        < 
-                \melodic  \transpose c''  {
-                        c d e c | c d e c |
-                        e f g'2 | e'4 f g'2
-                        \bar "|.";
-                }
-                \type Lyrics \lyric{ 
-                        DOEXPAND(Fr\)`e-4 re Ja- que
-                        DOEXPAND(Fr\)`e- re Ja- que
-                        Dor- mez vous?2
-                        Dor-4 mez vous?2
-                }
-        >
-}
-)
 
 sect(Composition: forming bigger structures)
 label(sec:grammar)
@@ -518,14 +532,10 @@ table(2)(lll)(
         row(cell()cell(;))
         row(cell(em(MusicList))cell(: em(empty)))
         row(cell()cell(code(|)  em(MusicList)  em(Music)))
-	row(cell()cell(;))
+        row(cell()cell(;))
 )
 
 latexcommand(\smallskip)
-
-
-
-
 
 In mathematics you can form expressions by combining expressions,
 which are ultimately some kind of atom or terminal symbol.  The same
@@ -545,7 +555,7 @@ sequential music
   )
 it()You can stack music by enclosing a sequence of music elements
     with code(<) and code(>). This is called simultaneous music.  
-    The duration of a simultaneous composition is the union of the durations 
+    The duration of a simultaneous composition is the maximum of the durations 
     of its elements Example:
     verb(
         <a4 {cis8 cis8} e'4>      % a-major chord
@@ -568,44 +578,6 @@ verb(
 )
 
 
-sect(Durations)
-
-A duration always starts with the duration type (1,2,4 etc), and then
-any optional multipliers/dots.  `Gregrorian' durations can be entered
-as follows
-verb(
-c'\breve
-gis'\longa
-)
-
-
-        
-sect(Time signatures/groupings)
-
-A time signature specification has this form:
-verb(
-\time 3/4 ;
-)
-
-Rhythmic grouping is  a concept closely associated with this. For
-example, in a 5/8 time signature, the counts are grouped 2+3. In Mudela this is
-entered as
-verb(
-\grouping  8*2 8*3 ;
-)
-
-You can start the piece with a partial measure, the command takes a
-duration as an argument
-verb(
-\partial 16*3;
-)
-
-Make the piece start with a upstep 
-lasting 1 3/4 quarter notes.
-
-These commands  constitute `Music', and have a duration of 0.
-
-
 sect(Properties)
 
 By default the same key signature is valid for all octaves, but
@@ -623,17 +595,15 @@ Sometimes you only need to print a small fragment of music, perhaps
 something much like one of the examples in this document.  Back in
 section ref(sec:running-lilypond) we told you that the music you
 enter should be encapsulated in something like:
-verb(
-\score<
+verb(\score<
         \melodic\relative c{
-		d
-	}
-	\paper{ }
-	\midi{ }
->
-)
+                d
+        }
+        \paper{ }
+        \midi{ }
+>)
 where the only interesting information is this particular example is verb(
-	d
+        d
 )
 The rest of the above example was already nicknamed `red tape'.
 You may easily get bored if you have to provide this same red tape 
@@ -645,17 +615,14 @@ Luckily there's a trick around this, and it's called file(.fly) files.
 If you use the extension file(.fly) for Mudela file file(foo),
 LilyPond will embed your file(foo.fly) nop(in)footnote(Or something very 
 similar.  If you want to know exactly, see file(init/init.fly)):
-verb(
-\score<
+verb(\score<
         \melodic\relative c{
-		<<foo.ly>>
-	}
-	\paper{ }
-	\midi{ }
-)
-
+                <<foo.ly>>
+        }
+        \paper{ }
+        \midi{ })
 Here's how it works.  If you run LilyPond on your file file(bar.ly), you
-may notice that she starts-off by reading quite a number of files before
+may notice that she starts off by reading quite a number of files before
 she actually reaches your file(bar.ly).  There's no magic going on, Lily
 by default reads an initialisation file (file(init/init.ly)).  In the
 initialisation process a lot of things are defined that you'll need for 
@@ -664,4 +631,168 @@ engraver and perforer definitions, font sizes, musical dimensions and
 paper sizes.  When you use the extension file(.fly), Lily just starts
 reading another initialisation file (file(init/init.fly)), that includes the 
 red tape for you too.
+
+
+sect(Commands)
+
+Commands take the form of a keyword followed by a list of arguments
+separated by spaces and terminated by a semicolon: 
+`code(\keyword argument argument ... ;)'
+
+COMMENT(The above is wrong. Many  commands  have the form 
+         \keyword { text }
+       with no semicolon, at least much of the time, and some commands
+have obligatory braces as far as I can tell, which don't contain music.)
+
+description(
+
+dit(code(\absdynamic))
+
+dit(code(\accepts))
+
+dit(code(\bar) var(bartype)) Prints a special bar symbol, or at
+measure boundaries, replaces the regular bar symbol with a special
+symbol.  The argument var(bartype) is a string which specifies the
+kind of bar to print.  Options are code(":|"), code("|:"),
+code(":|:"), code("||"), code("|."),
+code(".|"), or code(".|.").  These produce respectively a right repeat, a left
+repeat, a double repeat, a double bar, a start bar, an end bar, or a
+thick double bar.  If var(bartype) is set to "empty" then nothing is
+printed, but a line break is allowed at that spot.
+
+dit(code(\cadenza) var(togglevalue)) Toggles the automatic generation
+of bar lines.  If var(togglevalue) is 0 then bar line generation is
+turne off.   If var(togglevalue) is  1  then a bar is  immediately
+printed and bar generation is turned  on.
+
+dit(code(\clear))
+
+dit(code(\clef)  var(clefname)) Sets the current clef.   The argument
+is the name of the clef.  Possibilities are code(bass), code(alto),
+and code(treble).  Treble clef is the default.
+
+dit(code(\cm)) Specify a width in centimeters. 
+
+dit(code(\consists))
+
+dit(code(\contains))
+
+dit(code(\duration) { var(length) var(dotcount) }) Specify note
+duration.  The parameter var(length) is the negative logarithm (base
+2) of duration: 1 is a half note, 2 is a quarter note, 3 is an eighth
+note, etc.  The number of dots  after  the  note is given by
+var(dotcount). 
+
+dit(code(\font))
+
+dit(code(\grouping) var(durationlist))  Sets  the  metric structure of
+the measure.  
+COMMENT(elaboration is needed here.)
+
+dit(code(\in)) Specify a width in inches.  
+
+dit(code(\include) var(file)) Include the specified file.
+
+dit(code(\lyric) { var(list) } ) Parse var(list) in lyrics mode.
+
+dit(code(\key) var(pitch)) Change key signature to  that of var(pitch)-major.
+
+dit(code(\keysignature) var(notelist))
+Specify an arbitrary key signature.  The notes from var(notelist) will
+be printed in the key signature in the order that they appear on the list.
+
+dit(code(\mark))
+
+dit(code(\melodic) var(music)) Enter note mode and process the
+specified music. 
+
+dit(code(\musicalpitch) { var(octave) var(note) var(shift) }) Specify
+note pitch.  The octave is specified by an integer, zero for the
+octave containing middle C.  The note is a number from 0 to 7, with 0
+corresponding to C and 7 corresponding to B.  The shift is zero for a
+natural, negative to add flats, or positive to add sharps.
+
+dit(code(\time) var(numerator)code(/)var(denominator)) Change the time
+signature.  The default time signature  is 4/4.  
+
+dit(code(\midi)) Produce musical output.  See code(\tempo) for setting
+the tempo.
+
+dit(code(\mm)) Specify a width in millimeters. 
+
+dit(code(\multi))
+
+dit(code(\header) { var(key1) = var(val1); var(key2) = var(val2); ... })
+Specifies information about the music.  A header should appear at the
+top of the file describing the file's contents.  If a file has
+multiple code(\score) blocks, then a header should appear in
+each score block describing its contents.  Tools like code(ly2dvi) can
+use this information for generating titles.   Some possible key values
+are: title, opus, description, composer, enteredby, and copyright.
+
+dit(code(\notenames) { var(list) }) Define new note names.  
+The argument var(list) is a list of  definitions of  the form
+var(name) = var(pitch),  where var(pitch) is specified with the
+code(\musicalpitch) command.  
+
+dit(code(\octave))
+dit(code(\nop(output)))
+
+dit(code(\partial) var(duration)) Specify that the first measure of
+the music lasts only for the specified duration.
+
+dit(code(\paper) code({) [ code(linewidth = )var(width)code(;) ] code(})) 
+Appears in a score block to indicate that the music should be printed.
+The line width can be set to -1.  in order to prevent justification of
+small fragments of music, or the width can be specified explicitly
+using code(\cm), code(\in), code(\mm), or code(\pt) to specify the
+units.
+
+dit(code(\penalty))
+
+dit(code(\property))
+
+dit(code(\pt)) Specify a width in points. 
+
+dit(code(\relative) var(pitch) var(music)) Processes the specified
+var(music) in relative pitch
+mode.  In this mode, the octave of a pitch note is chosen so that the
+note is closest to the preceeding note.  
+The argument var(pitch) is
+the starting pitch for this comparision.  In the case of chords, the
+first note of a chord is used as the base for the pitches in the next
+chord.  
+
+dit(code(\score)) Start a music definition.
+
+dit(code(\script))
+
+dit(code(\shape))
+
+dit(code(\skip))
+
+dit(code(\staff))
+
+dit(code(\spandynamic))
+dit(code(\symboltables))
+dit(code(\table))
+
+dit(code(\tempo) var(duration) = var(perminute)) Used when creating
+MIDI output to specify the tempo.  For example, 
+`code(\midi { \temp0 4 = 76})' requests output with 76 quarter notes
+per minute.  
+
+dit(code(\translator))
+dit(code(\type))
+
+dit(code(\transpose) var(pitch) var(music)) Transposes the specified
+music.  Middle C is tranposed to var(pitch). 
+
+dit(code(\version) var(string)) Specify the version of Lilypond that
+a file was written for.  The argument is the version number,
+for example code("1.0.4").
+
+)
+
+
 

@@ -85,7 +85,12 @@ o Texinfo. (version 3.12 or newer)
 
 o GNU find
 Check out ftp://ftp.gnu.org
-or any mirror of this site
+or any mirror of this site.
+
+o The geometry package for LaTeX is needed to use ly2dvi.  
+    Available at 
+ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry
+or at mirror site ftp://ftp.dante.de
 
 o  A fast computer (a full page of music typically takes 1 minute on my
     486/133, using the --enable-checking compile. It's lot slower than

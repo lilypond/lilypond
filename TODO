@@ -7,6 +7,9 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
+	* fix LOCALE settings, and \def\foo{2,000pt} output
+
+
 	* use streambufs to provide IO handling for TeX stream, mudela stream,
 data-file.
 

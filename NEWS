@@ -1,4 +1,40 @@
+pl 7
+	- refman updates by Adriano Moriano.
 
+
+pl 6.jbr2
+        - scripts/ly2dvi32.py: Fixed bug with lily input including multiple
+          files.  Also, we now stream out lilypond log one line at a time
+          for better feedback.
+
+pl 6.jbr1
+        - scripts/ly2dvi32.py: Added some doco, add postscript option, set
+          MFINPUTS along with TEXINPUTS, modified initialization sequence. 
+          Made some Python style changes per Han-Wen suggestions.
+        - Documentation/man/ly2dvi32.yo: Added a manpage for ly2dvi32.
+        - stepmake/bin/package-zip32.sh: Added doco distribution.  Removed
+          the installation directory after zip operation.  
+        - Documentation/ntweb/index.yo: LILYPOND -> LILYPONDPREFIX and 
+          comments about MiKTeX-1.11.
+
+pl 6.tca1
+ 	- First movement of Partita II (BWV 826) in 
+ 	  mutopia/J.S.Bach/Cembalo-Partitas. Lilypond output was so
+ 	  beautiful that I'll have to write the rest of the partita.
+
+pl 6.uu2
+	- mudela-book.py --dependencies
+	- more doc fixes (AM)
+	- warn if declaring a keyword.
+	- \grouping 4 2*3; now accepted.
+	- patches to standchen.ly
+
+pl 6.uu1
+
+	- mudela-book handles \input now
+	- vocabulary fixes by Adrian Moriano
+
+********
 pl 6
 	- largish rehack:
 	  * Super_element is now an `abstract' class,

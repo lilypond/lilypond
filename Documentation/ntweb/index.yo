@@ -18,6 +18,7 @@ clearpage()
 
 subsect(NEWS) label(news)
 This is what the version @TOPLEVEL_VERSION@ brings:
+
 verb(
 top_of_NEWS
 )
@@ -66,10 +67,10 @@ itemize(
   description(
     dit(batch file)
       In a batch file you can add the following entries: nl()
-      bf(set LILYPOND=em(LilyPond-dir)) nl()
-      bf(set path=%path%%LILYPOND%\bin;em(MiKTeX-dir)\miktex\bin) nl()
-      bf(set TEXINPUTS=%LILYPOND%\texmf\tex\lilypond;;) nl()
-      bf(set MFINPUTS=%LILYPOND%\texmf\mf\public\lilypond;;) nl()
+      bf(set LILYPONDPREFIX=em(LilyPond-dir)) nl()
+      bf(set path=%path%;%LILYPONDPREFIX%\bin;em(MiKTeX-dir)\miktex\bin) nl()
+      bf(set TEXINPUTS=%LILYPONDPREFIX%\texmf\tex\lilypond;;) nl()
+      bf(set MFINPUTS=%LILYPONDPREFIX%\texmf\mf\public\lilypond;;) nl()
 COMMENT(    dit(Windows Environment)
       In the Windows environment you can select
       properties menu of the My Computer icon. Click on
@@ -99,6 +100,9 @@ COMMENT(    dit(Windows Environment)
              area of MiKTeX: nl()
              bf(copy cmbx14.mf em(MiKTeX-dir)\fonts\source\public\cm\base)
         )
+	dit(NOTE) 
+	MiKTeX-1.11 localtexmf configurations should use
+        bf(em(localtexmf-dir)) in place of bf(em(MiKTeX-dir)).
       ) nl()
   it()See the link(Running)(running) instructions below
 )
@@ -110,7 +114,7 @@ clearpage()
 subsect(Running LilyPond) label(running)
 
 itemize(
-  it()Take a look at url(angles.ly)(angles.ly)
+  it()Take a look at url(angels.ly)(angels.ly)
   it()Save angles.ly to your local disk
   it()From a Command Prompt run: nl()
   bf(ly2dvi.py angles.ly) nl()

@@ -4,6 +4,8 @@ This file lists authors of GNU LilyPond, and what they wrote.  This
 list is alphabetically ordered.
 
 itemize(
+it()nemail(Tom Cato Amundsen)(tomcato@xoommail.com),
+    cembalo-partita in mudela.
 it()nemail(Mats Bengtsson)(matsb@s3.kth.se),
     lurl(http://www.s3.kth.se/~matsb)
     clef stuff, key stuff, swedish notenames, testing, general
