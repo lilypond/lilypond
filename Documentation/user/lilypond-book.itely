@@ -8,13 +8,13 @@ TODO: cleanup
 
    Could also do with a cleanup.  Lost inspiration to fix this manual
    where to describe what?
-   
-
 
 @end ignore
 
 @c @node Merging text and music with lilypond-book
 @c @chapter Merging text and music with lilypond-book
+
+@c  fix this node name , this is too long.
 
 @node Insert music snippets into your texts using lilypond-book
 @chapter Insert music snippets into your texts using lilypond-book

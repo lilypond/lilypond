@@ -25,8 +25,6 @@ this.
 
 #include <ctype.h>
 
-//#include <iostream>
-
 #include "translator-def.hh"
 #include "lily-guile.hh"
 #include "change-iterator.hh"
