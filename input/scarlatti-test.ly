@@ -4,11 +4,12 @@
 %sonata-specific settings
 \paper {
 \translator{\VoiceContext
-  beamAutoBegin=0;
-  beamAutoEnd_8=#(make-moment 3  8)
-  beamAutoEnd_16=#(make-moment 3 8)
-  beamAutoEnd_24=#(make-moment 1 8)
-  beamAutoEnd_32=#(make-moment 1 8)
+  %% huh?
+  %%beamAutoBegin=0;
+  autoBeamSettings \push #'(end 1 8 * *) = #(make-moment 3 8)
+  autoBeamSettings \push #'(end 1 16 * *) = #(make-moment 3 8)
+  autoBeamSettings \push #'(end 1 24 * *) = #(make-moment 1 8)
+  autoBeamSettings \push #'(end 1 32 * *) = #(make-moment 1 8)
 }
 }
 
@@ -25,8 +26,8 @@ ls={\property Voice.forceHorizontalShift="-0.6"}
 sls={\property Voice.forceHorizontalShift="-0.22"}
 rs={\property Voice.forceHorizontalShift="0.6"}
 srs={\property Voice.forceHorizontalShift="0.22"}
-ab={\property Voice.noAutoBeaming="0"}
-xb={\property Voice.noAutoBeaming="1"}
+ab={\property Voice.noAutoBeaming=##f}
+xb={\property Voice.noAutoBeaming=##t}
 %}
 
 

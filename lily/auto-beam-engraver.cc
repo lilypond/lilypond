@@ -97,8 +97,7 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   SCM type = gh_list (gh_int2scm (test_mom.num_i ()),
 		      gh_int2scm (test_mom.den_i ()), SCM_UNDEFINED);
 
-  // fixme
-  SCM settings = scm_eval2 (ly_symbol2scm ("auto-beam-settings"), SCM_EOL);
+  SCM settings = get_property ("autoBeamSettings");
   
   /*
     Determine end moment for auto beaming (and begin, mostly 0==anywhere) 
@@ -126,14 +125,6 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   */
   
 
-
-  //
-  //
-  // FIXME: arg: why all these guesses in reverse order?
-  // 
-  // 
-
-  
   /*
     first guess: begin beam at any position
   */

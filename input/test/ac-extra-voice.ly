@@ -62,7 +62,7 @@ accompany = \notes \relative c{
 
 			slurVerticalDirection = #1
 			verticalDirection = -1
-			beamAutoEnd = #(make-moment 1 2)
+			autoBeamSettings \push (end * * * *)  = #(make-moment 1 2)
 		}
 	}
 	\midi {

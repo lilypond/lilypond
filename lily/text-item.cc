@@ -199,9 +199,7 @@ Text_item::brew_molecule (SCM smob)
   
   SCM text = me->get_elt_property ("text");
 
-  SCM properties = gh_list (me->immutable_property_alist_,
-			    me->mutable_property_alist_, SCM_UNDEFINED);
-
+  SCM properties = Font_interface::font_alist_chain (me);
   Molecule mol = Text_item::text2molecule (me, text, properties);
 
   SCM space = me->get_elt_property ("word-space");

@@ -17,7 +17,7 @@
       	c8 c c c
       	c16 c c c c c c c
 	% from here on consider ending beam every 1/4 note
-	\property Voice.beamAutoEnd = #(make-moment 1 4)
+	\property Voice.autoBeamSettings \push #'(end * * * *) = #(make-moment 1 4)
       	c8 c c c
 	% manually override autobeam with weird beaming
       	c8 [c c] c
@@ -25,14 +25,14 @@
       	c8 c c4
       	r8 c c c
 	% no autobeaming
-	\property Voice.beamAuto = #f
+	\property Voice.beamAuto = ##f
       	c8 c c c
     }
     \paper{
       	\translator{
 	    \VoiceContext
 	    % consider ending beam at every 1/2 note
-	    beamAutoEnd = "1/2";
+	    autoBeamSettings \push #'(end * * * *) = #(make-moment 1 2)
 	}
     }
 }

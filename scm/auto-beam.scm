@@ -1,46 +1,34 @@
 ;;;
-;;; auto-beam.scm -- Auto-beam settings
+;;; auto-beam.scm -- Auto-beam-engraver settings
 ;;;
 ;;; source file of the GNU LilyPond music typesetter
 ;;; 
 ;;; (c) 2000 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;
 
-;;; setup for auto-beam engraver
-;;;
-;;; specify generic beam end times
+;;; specify generic beam begin and end times
 
 ;;; format:
 ;;;
-;;;     [time-signature]'beamAutoEnd'[duration]
+;;;   function shortest-duration-in-beam time-signature
 ;;;
 ;;; where
 ;;;
-;;;     time-signature = 'time'[numerator]'_'denominator; eg: 3_4
-;;;     duration = [numerator]'_'denominator; eg: 3_8, _16
+;;;     function = begin or end
+;;;     shortest-duration-in-beam = numerator denominator; eg: 1 16
+;;;     time-signature = numerator denominator, eg: 4 4
 ;;;
+;;; unspecified or wildcard entries for duration or time-signature
+;;; are given by * *
 
-;;; in 3/2 time:
-;;;   end beams each 1/2 note
-;;;   end beams with 16th notes each 1/4 note
-;;;   end beams with 32th notes each 1/8 note
+;;; maybe do:  '(end shortest-1 16 time-3 4) ?
 
-
-;;;
-;;;UGH UGH. 
-;;;
-;;;Fixme: should use an alist
-;;;
-;;;autoBeamSettings = (list
-;;;  (cons (list (make-moment MEASURE) TIME-SIGNATURE) (make-moment INTERVAL)
-;;;  ..
-;;;
-;;;  )
-;;;
-;;;
+;;; in 3 2 time:
+;;;   end beams each 1 2 note
+;;;   end beams with 16th notes each 1 4 note
+;;;   end beams with 32th notes each 1 8 note
 
 (define auto-beam-settings
-  (list
    `(
      ((end * * 3 2) . ,(make-moment 1 2))
      ((end 1 16 3 2) . ,(make-moment 1 4))
@@ -58,9 +46,9 @@
      ((end * * 3 8) . ,(make-moment 3 8))
 
      ;; in common time:
-     ;;   end beams each 1/2 note
-     ;;   end beams with 32th notes each 1/8 note
-     ;;   end beams with 1/8 triplets each 1/4 note
+     ;;   end beams each 1 2 note
+     ;;   end beams with 32th notes each 1 8 note
+     ;;   end beams with 1 8 triplets each 1 4 note
 
      ((end * * 4 4) . ,(make-moment 1 2))
      ((end 1 12 4 4) . ,(make-moment 1 4))
@@ -90,25 +78,26 @@
      ((end * * 12 8) . ,(make-moment 3 8))
      ((end 1 16 12 8) . ,(make-moment 3 8))
      ((end 1 32 12 8) . ,(make-moment 1 8))
-     )))
+     (meta . ,(element-description  "autoBeamSettings"))
+     ))
 
 ;;; Users may override in most cases, simply by issuing
 ;;;
-;;;    ;;; from here on consider ending beam every 1/4 note
-;;;    \property Voice.beamAutoend1_1 = (make-moment 1 4)
+;;;    % from here on consider ending beam every 1 4 note
+;;;    \property Voice.autoBeamSettings \push #'(end * * * *) = #(make-moment 1 4)
 ;;;
-;;;    ;;; no autobeaming
-;;;    \property Voice.beamAuto = f  
+;;;    % no autobeaming
+;;;    \property Voice.beamAuto = ##f  
 ;;;
-;;;or, more globally, by doing:
+;;; or, more globally, by doing:
 ;;;
 ;;; \paper{
 ;;;        \translator{
 ;;;            \VoiceContext
-;;;            ;;; consider ending beam at every 1/2 note
-;;;            beamAutoend1_1 = (make-moment 1 2)
+;;;            % consider ending beam at every 1 2 note
+;;;            autoBeamSettings \push #'(end * * * *) = #(make-moment 1 2)
 ;;;        }
 ;;;    }
 ;;;
-;;; see also input/test/auto-beam-override.ly
+;;; see also input test auto-beam-override.ly
 

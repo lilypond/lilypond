@@ -544,11 +544,23 @@ if 1:
 		if re.search ('\\\\textscript "[^"]* *"[^"]*"', str):
 			sys.stderr.write ('\nNot smart enough to convert to new \\textscript markup text')
 
-		str = re.sub ('\\textscript +\("[^"]*"\)', '\\textscript #\1', str)
+		str = re.sub ('\\textscript +("[^"]*")', '\\textscript #\\1', str)
 
 		return str
 	
 	conversions.append ((1,3,97), conv, 'ChordName -> ChordNames')
+
+if 1:
+	def conv (str):
+		str = re.sub ('beamAutoEnd_([0-9]*) *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(end 1 \\1 * *) = \\2', str)
+		str = re.sub ('beamAutoBegin_([0-9]*) *= *(#\\([^)]*\))', 'autoBeamSettings \\push #\'(begin 1 \\1 * *) = \\2', str)
+		str = re.sub ('beamAutoEnd *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(end * * * *) = \\1', str)
+		str = re.sub ('beamAutoBegin *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(begin * * * *) = \\1', str)
+
+
+		return str
+	
+	conversions.append ((1,3,102), conv, 'beamAutoEnd -> autoBeamSettings \\push (end * * * *)')
 
 ############################
 	
