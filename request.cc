@@ -1,6 +1,15 @@
 #include "request.hh"
 #include "debug.hh"
 
+#define VIRTUALCONS(T,R) R *T::clone() const { return  new T(*this); } struct T
+#define RCONS(T) VIRTUALCONS(T, Request)
+
+RCONS(Rest_req);
+RCONS(Rhythmic_req);
+RCONS(Stem_req);
+RCONS(Note_req);
+
+
 void
 Request::print() const    
 {
