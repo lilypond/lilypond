@@ -55,6 +55,7 @@ Time_description::set_cadenza(bool b)
 
 Time_description::Time_description()
 {
+    error_b_ =  false;
     whole_per_measure_ = 1;
     whole_in_measure_ =0;
     one_beat_ = Moment(1,4);
@@ -112,7 +113,7 @@ Time_description::setpartial(Moment p)
 }
 
 Moment
-Time_description::barleft()
+Time_description::barleft()const
 {
     assert(!cadenza_b_);
     return whole_per_measure_-whole_in_measure_;
@@ -132,3 +133,10 @@ Time_description::compare(Time_description const &t1,  Time_description const&t2
 
     return i;
 }
+
+Moment
+Time_description::next_bar_moment() const
+{
+    return when_ + barleft();
+}
+

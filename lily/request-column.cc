@@ -56,3 +56,8 @@ Request_column::used_b() const
 	b |= command_column_l_->used_b();
     return b;
 }
+void
+Request_column::update_time(int idx, Time_description&t)
+{
+    staff_col_l_arr_[idx]->update_time(t, 0);
+}
