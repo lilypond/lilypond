@@ -26,7 +26,12 @@ BUILD=1
 # sover=14
 
 patch=$mknetrel_root/patch
-iscygwin || (uploads=$here/uploads/$base && mkdir -p $uploads)
+if iscygwin; then
+    true
+else    
+    uploads=$here/uploads/$base && mkdir -p $uploads
+    tarstem=$uploads/$package
+fi
 
 sub_packages="doc"
 old_path=$PATH
@@ -44,6 +49,8 @@ old_path=$PATH
 #
 # Patching and configuring
 #
+
+presplit () { true; }
 
 # Maybe add to mknetrel or pimport.
 dopatchsrc () {
@@ -161,6 +168,13 @@ doc_split () {
     true
 }
 
+prebuild () {
+    for i in $sub_packages; do
+	rm -rf $inst-$i
+	mkdir -p $inst-$i || exit 1
+    done
+}
+    
 domkdist() {
     #
     # Fix up installation slightly
@@ -186,9 +200,7 @@ domkdist() {
 
     for i in $sub_packages; do
 	subname=$(${i}_name)
-        rm -rf $inst-$i
-	mkdir -p $inst-$i || exit 1
-  	cd $inst-$i
+  	cd $inst-$i || exit 1
 	${i}_split || exit 1
     done
     
@@ -272,6 +284,11 @@ postconfig () {
 }
 
 prebuild () {
+    for i in $sub_packages; do
+	rm -rf $inst-$i
+	mkdir -p $inst-$i || exit 1
+    done
+    
     # Build for build, generating doc
     cd $build || exit 1
     
@@ -285,18 +302,20 @@ prebuild () {
     done
 
     addmakeflags LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll"
+
 }
 
 postinstall () {
     mkdir -p $inst-doc/$prefix
     cd $build || exit 1
-    make conf=for-build prefix=$inst-doc/$prefix install-html-doc
+    docdir=$prefix/share/doc/$base-$ver
+    
+    make conf=for-build docdir=$inst-doc/$docdir install-html-doc
 
 
     ## copy READMEs etc
 
     cd $src || exit 1
-    docdir=$prefix/share/doc/$name-$version
     
     mkdir -p $inst/$docdir
 
@@ -304,26 +323,26 @@ postinstall () {
     find . -maxdepth 1 -type f -exec cp -pv \{\} $inst/$docdir \;
 
     ## Windows readmes
-    cd Documentation/windows || exit 1
+    cd cygwin || exit 1
     cp -p README $inst/$docdir/README.Cygwin
     cp -p changelog $inst/$docdir/changelog.Cygwin
     mkdir -p $inst/$prefix/doc/Cygwin
-    cp -p README $inst/$prefix/doc/Cygwin/$cygpack.README
+    cp -p README $inst/$prefix/doc/Cygwin/$base-$ver.README
 
     ## copy examples
     cd $src || exit 1
     cp -prv input $inst/$docdir
 
-    cd $inst-doc/$prefix/share/doc/$name-$version &&
+    cd $inst-doc/$prefix/share/doc/$base-$ver &&
     ln -s $(find html/Documentation -name '*.ps.gz') .
 
     ## Cygwin doesn't adhere to FHS (and why should they?)
-    cd $inst/$prefix && mv share/doc .
-    cd $inst-doc/$prefix && mv share/doc .
+    cd $inst/$prefix/share && tar cf - doc | (cd ..; tar xf -) && rm -rf doc
+    cd $inst-doc/$prefix/share && tar cf - doc | (cd ..; tar xf -) && rm -rf doc
 }
 
 #presplit () {
-#    docdir=$prefix/share/doc/$name-$version
+#    docdir=$prefix/share/doc/$base-$ver
 #    mkdir -p $inst-doc/$docdir || exit 1
 #}
 
