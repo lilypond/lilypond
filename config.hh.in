@@ -1,8 +1,13 @@
 /* @configure_input@ */
 
+/* Hmm */
+#define PACKAGE "@package@"
 
 /* default lilypond init and input dir */
 #define  DIR_DATADIR "@DIR_DATADIR@"
+
+/* default lilypond locale dir */
+#define  DIR_LOCALEDIR "@DIR_LOCALEDIR@"
 
 /* define if you have memmem */
 #define HAVE_MEMMEM 0
@@ -10,5 +15,12 @@
 /* define if you have snprintf */
 #define HAVE_SNPRINTF 0
 
+/* define if you have vsnprintf */
+#define HAVE_VSNPRINTF 0
+
+/* define if you have gettext */
+#define HAVE_GETTEXT 0
+
 /* define if explicit instantiation is needed */
 #undef NEED_EXPLICIT_INSTANTIATION
+
