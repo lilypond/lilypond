@@ -44,9 +44,15 @@ hebrew = \lyricmode {
   זה כיף סתם לשמוע איך תנצח קרפד עץ טוב בגן.
 }
 
+portuguese = \lyricmode { 
+  à vo cê uma can ção legal
+}
+
+
 \relative  { 
-  c2 d e f g f e 
+  c2 d e f g f e
 }
 \addlyrics { \hebrew }
 \addlyrics { \bulgarian }
 \addlyrics { \japanese }
+\addlyrics { \portuguese }
