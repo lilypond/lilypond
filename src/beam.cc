@@ -1,3 +1,4 @@
+#include "dimen.hh"
 #include "beam.hh"
 #include "misc.hh"
 #include "debug.hh"
@@ -141,7 +142,7 @@ Beam::process()
 
 // todo.
 Spanner *
-Beam::broken_at(const PCol *, const PCol *) const
+Beam::broken_at( PCol *, PCol *) const
 {
     return new Beam(*this);
 }
@@ -166,6 +167,7 @@ Beam::width() const
     return Interval( (*me->stems.top()) ->hpos(),
 		     (*me->stems.bottom()) ->hpos() );
 }
+
 /*
   beams to go with one stem.
   */
@@ -177,6 +179,8 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)
     Real dy=paper()->internote()*2;
     Real stemdx = paper()->rule_thickness();
     Real sl = slope*paper()->internote();
+    paper()->lookup_->beam(sl, convert_dimen(20,"pt"));
+    slope = sl /paper()->internote();
     Molecule leftbeams;
     Molecule rightbeams;
 
@@ -227,10 +231,7 @@ Beam::brew_molecule()
 {
     assert(left->line == right->line);
     Real inter=paper()->internote();
-    Real sl = slope*inter;
-
     output = new Molecule;
-    slope = sl / inter;
     Real x0 = stems.top()->hpos();
     
     for (PCursor<Stem*> i(stems); i.ok(); i++) {

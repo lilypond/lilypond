@@ -98,9 +98,10 @@ Staff::setup_staffcols()
 	}	
     }
 
-    for (PCursor<Command*> cc(*staff_commands_); cc.ok(); cc++) {
+    for (PCursor<Staff_commands_at*> cc(*staff_commands_); cc.ok(); cc++) {
 	Staff_column *sc=get_col(cc->when,false);
-	sc->s_commands.add(cc);
+	for (PCursor<Command*> i(**cc); i.ok(); i++)
+	    sc->s_commands.add(i);
     }
 }
 

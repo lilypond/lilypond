@@ -110,5 +110,6 @@ template_instantiate_compare(Cursor<T>, Cursor<T>::compare, template<class T>);
 #include "pcursor.hh"
 #include "list.hh"
 #include "cursor.inl"
+#include "iterate.hh"
 
 #endif // CURSOR_HH 

@@ -1,148 +1,164 @@
-#include "grouping.hh"
 #include "debug.hh"
+#include "grouping.hh"
+#include "interval.hh"
 
-Interval
-vec_union(svec<Interval> notes)
+void
+Rhythmic_grouping::OK()const
 {
-    Interval u;
-    u.set_empty();
-    for (int i =0 ; i < notes.sz() ; i++) {
-	u.unite(notes[i]);
-    }
-    return u;
-}
-
-svec<Real>
-default_bounds(Interval t)
-{
-    svec<Real> bounds;
-    Real dt = t.length();
-    bounds.add(t.min);
-    bounds.add(t.min + dt/2);    
-    return bounds;
-}
-
-svec<Real>
-Rhythmic_grouping::get_bounds()
-{
-    svec<Real> bounds;
-    if (children.sz()) {
-	for (int i=0; i < children.sz(); i++) {
-	    bounds.add(children[i]->t.min);
-	}
-    } else {
-	default_bounds(t);
-    }
-//	bounds.add(t.max );
-    return bounds;
+     for (int i= 1; i < divisions.sz(); i++) {
+	 Real dt = divisions[i] - divisions[i-1];
+	 assert(dt>0);	 
+     }
+     Interval u;
+     for (int i= 1; i < children.sz(); i++) {
+	 children[i]->OK();
+	 u.unite(children[i]->time());
+     }
+     
 }
 
 Real
-Rhythmic_grouping::last()
+Rhythmic_grouping::length() const
 {
-    return t.max;
+    return divisions.last() - divisions[0];
 }
 
 void
-Rhythmic_grouping::split_grouping(svec<Real> bounds)
+Rhythmic_grouping::split(Rhythmic_grouping r)
 {
-    int lasti =0;
-    svec<Rhythmic_grouping*> newgrp;
-    for (int i=0, j = 1; i < children.sz() && j < bounds.sz(); ) {
-	if ( children[i]->t.max < bounds[j]) {
-	    i ++;
-	    continue;
-	} else if (children[i]->t.max > bounds[j]) {
-	    j ++;
-	    continue;
-	}
-
-        assert( children[lasti]->t.min == bounds[j-1] );
-	assert( children[i]->t.max == bounds[j] );
-
-	Rhythmic_grouping * n = new Rhythmic_grouping(Interval(
-	    bounds[j-1], bounds[j]));
-	for (int k = lasti ; k < i; k++)
-	    n->children.add(children[k]);
-	newgrp.add(n);
-
-	i = lasti = i+1;
-    }
-    if (newgrp.sz() <= 1) {
-	newgrp[0]->children.set_size(0);
-	delete newgrp[0];
-	return;
-    }
-    children = newgrp;    
-}
-
-void
-Rhythmic_grouping::split_half()
-{
-    svec<Real> bounds = default_bounds(t);
-    bounds.add(t.max);
-    split_grouping(bounds);
+    svec<Real> ir = r.interior();
+    split(ir);
     
-    for (int i=0; i < children.sz(); i++) {
-	if (children[i]->children.sz())
-	    children[i]->split_half();
+    for (int i= 0; i < children.sz(); i++) {
+	Rhythmic_grouping here(r.partial_grouping(children[i]->time()));
+	if (here.divisions.sz() == 2)
+	    here.split(2);
+	children[i]->split(here);
     }
 }
 
-Rhythmic_grouping*
-Rhythmic_grouping::sub_grouping(Interval v)
+svec<Real>
+Rhythmic_grouping::interior()
 {
-    return 0;			// todo!
+    svec<Real> r(divisions);
+    r.del(0);
+    r.pop();
+    return r;
 }
+
 void
-Rhythmic_grouping::split_grouping(Rhythmic_grouping &initial_grouping)
+Rhythmic_grouping::split(int n)
 {
-    svec<Rhythmic_grouping*> newgrp;
-    svec<Real> bounds = initial_grouping.get_bounds();
-    bounds.add(initial_grouping.last());
-    split_grouping(bounds);
+    assert(divisions.sz() == 2 && children.sz() == 0);
+    Real dt =(divisions.last()-divisions[0] )/n;
+    svec<Real> r;
+    for (int i= 0; i <= n; i++)
+	r.add(divisions[0] +dt *i);
+    divisions = r;
+}
+
+void
+Rhythmic_grouping::intersect(Interval t)
+{
+    svec<Real> r;
+    for  (int i=0; i < divisions.sz(); i++)
+	if (t.elt_q(divisions[i]))
+	    r.add(divisions[i]);
+    if (r[0] > t.min )		// todo
+	r.insert( t.min,0);
+    if (r.last() < t.max)
+	r.add(t.max);
+    
+    divisions = r;
+    svec<Rhythmic_grouping*> nc;
     for (int i=0; i < children.sz(); i++) {
-	Interval h = children[i]->t;
-	Rhythmic_grouping*r = initial_grouping.sub_grouping(h);
-	if (children[i]->children.sz()) {
-	    if (r)
-		children[i]->split_grouping(*r);
-	    else
-		children[i]->split_half();
+	Interval inter = intersection(t, children[i]->time());
+	if (!inter.empty()) {
+	    Rhythmic_grouping*p =new Rhythmic_grouping(*children[i]);
+	    nc.add(p);
+	    p->intersect(inter);
+	}
+	delete children[i];
+    }
+    children = nc;
+}
+
+Rhythmic_grouping
+Rhythmic_grouping::partial_grouping(Interval t)
+{
+    Rhythmic_grouping r(*this);
+    r.intersect(t);
+    return r;
+}
+
+void
+Rhythmic_grouping::split(svec<Real> splitpoints)
+{
+    assert(!children.sz());
+    svec<Real> child;
+    int j = 0, i=0;
+    while (1) {
+	if  ( i >= divisions.sz() || j >= splitpoints.sz())
+	    break;
+	
+	child.add(divisions[i]);
+	if (divisions[i] < splitpoints[j]) {
+	    i++;
+	} else if (divisions[i] > splitpoints[j]) {
+	    j ++;	
+	} else {
+	    children.add(new Rhythmic_grouping(child));
+	    child.set_size(1);
+	    child[0] = divisions[i];
 	}
     }
 }
 
-Rhythmic_grouping::Rhythmic_grouping(Interval i)
+Rhythmic_grouping::Rhythmic_grouping(svec<Real> d)
+    :divisions(d)
 {
-    t=i;
 }
-
-Rhythmic_grouping::Rhythmic_grouping(svec<Interval> notes,
-				svec<Real> initial_grouping)
+Rhythmic_grouping::Rhythmic_grouping()
 {
-    t = vec_union(notes);
-    for (int i=0; i < notes.sz(); i++) {
-	children.add(new Rhythmic_grouping(notes[i]));
-    }
-    split_grouping(initial_grouping);
+}
+Interval
+Rhythmic_grouping::time()const
+{
+    return  Interval(divisions[0], divisions.last());
+}
+Rhythmic_grouping::Rhythmic_grouping(Interval h)
+{
+    divisions.add(h.min);
+    divisions.add(h.max);
 }
 
 Rhythmic_grouping::~Rhythmic_grouping()
 {
-    for (int i=0; i < children.sz(); i++) {
+    for (int i=0; i < children.sz(); i++)
 	delete children[i];
-    }
 }
 
+
+Rhythmic_grouping::Rhythmic_grouping(Rhythmic_grouping const&s)
+{
+    divisions = s.divisions;    
+    for (int i=0; i < s.children.sz(); i++)
+       children.add(new Rhythmic_grouping(*s.children[i]));
+}
+    
 void
 Rhythmic_grouping::print()const    
 {
-    mtor << "{ " << t << "\n";
+#ifndef NPRINT
+    mtor << "{ ";
+    for (int i=0; i < divisions.sz(); i++) {
+	mtor << divisions[i] << ',';
+    }
     for (int i=0; i < children.sz(); i++) {
 	children[i]->print();
     }
     mtor << "}";
+#endif
 }
 
 

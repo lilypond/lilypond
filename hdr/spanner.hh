@@ -31,7 +31,7 @@ struct Spanner {
 
 
     /// clone a piece of  this spanner.
-    virtual Spanner *broken_at(const PCol *c1, const PCol *c2) const=0; 
+    virtual Spanner *broken_at( PCol *c1,  PCol *c2) const=0; 
     /**
  
     PRE

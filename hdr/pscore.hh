@@ -55,13 +55,13 @@ struct PScore {
     void postprocess();
     
     /// search all pcols which are breakable.
-    svec<const PCol *> find_breaks() const;
+    svec< PCol *> find_breaks() const;
 
     /// add a line to the broken stuff. Positions given in #config#
-    void add_line(svec<const PCol *> curline, svec<Real> config);
+    void add_line(svec< PCol *> curline, svec<Real> config);
 
     /// helper: solve for the columns in #curline#.
-    svec<Real> solve_line(svec<const PCol *> curline) const;
+    svec<Real> solve_line(svec<PCol *> curline) const;
 
     void add(PStaff *);
     /// add item
@@ -83,7 +83,7 @@ struct PScore {
     */
 
     /// return argument as a cursor.
-    PCursor<PCol *> find_col(const PCol *)const;
+    PCursor<PCol *> find_col(PCol *)const;
 
     /// delete unused columns
     void clean_cols();
@@ -98,10 +98,10 @@ struct PScore {
     void print() const;
 
     /// does curline fit on the paper?
-    bool feasible(svec<const PCol *> curline) const;
+    bool feasible(svec<PCol *> curline) const;
 
     /// which is first (left, higher)
-    int compare_pcols(const PCol*, const PCol*)const;
+    int compare_pcols( PCol*, PCol*)const;
 };
 /** notes, signs, symbols in a score can be grouped in two ways:
     horizontally (staffwise), and vertically (columns). #PScore#

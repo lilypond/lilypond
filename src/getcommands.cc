@@ -16,11 +16,11 @@ get_key_typeset_command(svec<Scalar>which)
 }
 
 Command *
-get_meter_command(Real w, int n, int m)
+get_meter_command(int n, int m)
 {
     Command*c = new Command;
     
-    c->when = w;
+//    c->when = w;
     c->code = TYPESET;
     c->args.add( "METER");
     c->args.add( n );

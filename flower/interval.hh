@@ -24,15 +24,25 @@ struct Interval_t {
 	left += t;
 	right += t;
     }
-    T operator[](int j) {
+    T& idx(int j) {
 	if (j==-1)
 	    return left;
 	else if (j==1)
 	    return right;
 	else
 	    assert(false);
-	return 0;		
+	return left;		
     }
+    T& operator[](int j) {
+	return idx(j);
+    }
+    T operator[](int j) const {
+	return ((Interval_t<T> *)this)->idx(j);
+    }
+    T &max() { return right;}
+    T max()const { return right;}
+    T min()const{ return left; }
+    T &min(){ return left; }
     void unite(Interval_t<T> h);
     /**
       PRE

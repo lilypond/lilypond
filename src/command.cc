@@ -11,14 +11,6 @@ Command::isbreak()const
 Command::Command()
 {
     code = NOP;
-    when = -1;
-    priority=0;
-}
-
-Command::Command(Real w)
-{
-    code = NOP;
-    when = w;
     priority=0;
 }
 
@@ -26,7 +18,7 @@ void
 Command::print() const
 {
 #ifndef NPRINT
-    mtor << "command at " << when << ", code " << code << " prio " << priority;
+    mtor << "Command " << "code " << code << " prio " << priority;
     if ( isbreak())
 	mtor << "(break separator)";
     if (args.sz()) {

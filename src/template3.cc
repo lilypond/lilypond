@@ -16,3 +16,4 @@ IPL_instantiate(Command);
 IPL_instantiate(Input_command);
 IPL_instantiate(Commands_at);
 IPL_instantiate(Input_staff);
+IPL_instantiate(Input_music);

@@ -10,7 +10,7 @@
 
 // construct an appropriate Spacing_problem and solve it. 
 svec<Real>
-PScore::solve_line(svec<const PCol *> curline) const
+PScore::solve_line(svec< PCol *> curline) const
 {
    Spacing_problem sp;
 
@@ -28,7 +28,7 @@ PScore::solve_line(svec<const PCol *> curline) const
 }
 
 bool
-PScore::feasible(svec<const PCol *> curline) const
+PScore::feasible(svec< PCol *> curline) const
 {
     Real l =0;
     for (int i=0; i < curline.sz(); i++)
@@ -49,14 +49,14 @@ PScore::problem_OK() const
 }
 
 struct Col_configuration {
-    svec<const PCol*> line;
+    svec< PCol*> line;
     svec<Real> config;
     Real energy;
 
     Col_configuration() {
 	energy = INFTY;
     }
-    void add(const PCol*c) { line.add(c);}
+    void add( PCol*c) { line.add(c);}
     void setsol(svec<Real> sol) {
 	config = sol;
 	energy = config.last();
@@ -85,7 +85,7 @@ PScore::calc_breaking()
     problem_OK();
     PCursor<PCol *> curcol(cols);
 	    
-    svec<const PCol *> breakpoints(find_breaks());
+    svec<PCol *> breakpoints(find_breaks());
     assert(breakpoints.sz()>=2);
     for (int i=0 ; i < breakpoints.sz() -1; ) {
 	Col_configuration minimum;

@@ -37,20 +37,20 @@ Score::connect(PCol* c1, PCol *c2, Real d, Real h)
 void
 Score::calc_idealspacing()
 {
-#if 1
     PCursor<Score_column*> i(cols_);
 
     for (; i.ok(); i++) {
 	assert(i->used());
 	PCursor<Score_column*> j (i+1);
 	if (i->musical) {
+	    assert(j.ok());
 	    for (int n=0; n < i->durations.sz(); n++) {
 		Real d = i->durations[n];
 		Real dist = paper_->duration_to_dist(d);
 		while (j->when < d + i->when)
 		    j++;
 		
-		assert(j->when == d+i->when);
+		assert( distance(j->when, d+i->when) < 1e-8);
 
 		connect(i->pcol_, j->pcol_, dist);
 		if (!j->musical && (j+1).ok() 
@@ -67,31 +67,13 @@ Score::calc_idealspacing()
 	    
 	    Real d = j->when - i->when;
 	    Real dist = (d) ? paper_->duration_to_dist(d) :
-		convert_dimen(2,"pt");
+		convert_dimen(2,"pt"); // todo
 	    
 	    connect(i->pcol_, j->pcol_, dist, (d) ? 1.0:1.0);
 	}
 	    // !j.ok() might hold if we're at the last col.
 	
     }
-#else
-    PCursor<Score_column*> sc(cols_);
-
-    for (; sc.ok(); sc++) {
-	if (sc->musical)
-	    for (int i=0; i < sc->durations.sz(); i++) {
-		Real d = sc->durations[i];
-		Real dist = paper_->duration_to_dist(d);
-		PCol * c2 = find_col(sc->when + d,true)->pcol_;
-		connect(sc->pcol_, c2, dist);
-		c2 = find_col(sc->when + d,false)->pcol_;
-		connect(sc->pcol_, c2,  dist);
-	    }
-	else if (sc->used()) {	// ignore empty columns
-	    PCol * c2 = find_col(sc->when,true)->pcol_;
-	    connect(sc->pcol_, c2, 0.0);
-	}
-#endif
 }
 
 

@@ -24,8 +24,9 @@ Score::process()
 
     // do this after processing, staffs first have to generate PCols.
     do_pcols();
-    // ugh. Would want to clean the columns before anything else.
-    clean_cols();
+
+    clean_cols();    // can't move this farther up.
+
     calc_idealspacing();
 
     // debugging

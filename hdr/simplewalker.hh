@@ -8,6 +8,7 @@
 #define SIMPLEWALKER_HH
 
 #include "proto.hh"
+#include "grouping.hh"
 
 struct Simple_walker: Staff_walker {
     Stem *stem_;
@@ -22,8 +23,14 @@ struct Simple_walker: Staff_walker {
     bool processed_key;
     bool processed_clef;
     Clef clef_;
+    Rhythmic_grouping default_grouping;
+    Rhythmic_grouping current_grouping;
+    
     svec<Slur_req*> pending_slur_reqs;
     svec<Slur*>  pending_slurs;
+
+
+
     /****************/
 
     virtual void do_TYPESET_command(Command*);

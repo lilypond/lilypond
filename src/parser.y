@@ -447,8 +447,8 @@ int_list:
 	/* */ 		{
 		$$ = new svec<int>;
 	}
-	| int		{
-		$$->add($1);
+	| int_list int		{
+		$$->add($2);
 	}
 	;
 

@@ -22,7 +22,7 @@ struct Beam: public Spanner {
     
     virtual Interval width()const;    
 
-    Spanner *broken_at(const PCol *, const PCol *) const;
+    Spanner *broken_at(PCol *,  PCol *) const;
     Beam();
     void add(Stem*);
     void process();

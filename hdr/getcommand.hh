@@ -9,7 +9,7 @@
 #include "proto.hh"
 
 
-Command* get_meter_command( Real,int,int);
+Command* get_meter_command(int,int);
 
 
 

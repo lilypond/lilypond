@@ -10,24 +10,29 @@
 #include "interval.hh"
 #include "vray.hh"
 
-struct Rhythmic_grouping {
-    Interval t;
 
+
+struct Rhythmic_grouping {    
+    svec<Real> divisions;
     svec<Rhythmic_grouping*> children;
-    /****************/
-    
-    void split_half();
-    Real last();
-    Rhythmic_grouping* sub_grouping(Interval v);
-    void split_grouping(Rhythmic_grouping &initial_grouping);
-    void split_grouping(svec<Real> initial_grouping);
-    svec<Real> get_bounds();
-    Rhythmic_grouping(Interval);
-    Rhythmic_grouping(svec<Interval> notes,
-		      svec<Real> initial_grouping);
 
+    /****************/
+
+    svec<Real> interior();
+    Rhythmic_grouping partial_grouping(Interval t);
+    Real length() const;
+    Interval time() const;
+    Rhythmic_grouping(Interval);
+    Rhythmic_grouping();
+    Rhythmic_grouping(svec<Real>);
+    Rhythmic_grouping(Rhythmic_grouping const&);
+    
+    void split(Rhythmic_grouping r);
+    void split(svec<Real>);
+    void intersect(Interval);
+    void split(int n);
     void print() const;
+    void OK() const;
     ~Rhythmic_grouping();
 };
-
-#endif // GROUPING_HH
+#endif

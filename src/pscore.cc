@@ -77,7 +77,7 @@ PScore::typeset_spanner(Spanner*sp, PStaff*ps)
 
 
 void
-PScore::add_line(svec<const PCol *> curline, svec<Real> config)
+PScore::add_line(svec< PCol *> curline, svec<Real> config)
 {    
     Line_of_score *p = new Line_of_score(curline,this);
     lines.bottom().add(p);   	
@@ -105,7 +105,7 @@ PScore::get_spacing(PCol*l, PCol*r)
 
 
 int
-PScore::compare_pcols(const PCol*a, const PCol*b)const
+PScore::compare_pcols(PCol*a,  PCol*b)const
 {
     PCursor<PCol*> ac(find_col(a));
     PCursor<PCol*> bc(find_col(b));
@@ -116,10 +116,10 @@ PScore::compare_pcols(const PCol*a, const PCol*b)const
 /*
   return all breakable columns
  */
-svec<const PCol *>
+svec< PCol *>
 PScore::find_breaks() const
 {
-    svec<const PCol *> retval;
+    svec< PCol *> retval;
     for (PCursor<PCol *> c(cols); c.ok(); c++)
 	if (c->breakable())
 	    retval.add(c);
@@ -217,7 +217,7 @@ PScore::postprocess()
 }
 
 PCursor<PCol *>
-PScore::find_col(const PCol *c)const
+PScore::find_col(PCol *c)const
 {
     PCol*what = (PCol*)c;
     if (what->daddy )

@@ -25,7 +25,8 @@ Ineq_constrained_qp::add_inequality_cons(Vector c, double r)
 
 Ineq_constrained_qp::Ineq_constrained_qp(int novars):
     quad(novars),
-    lin(novars)
+    lin(novars),
+    const_term (0.0)
 {
 }
 
@@ -45,13 +46,6 @@ Ineq_constrained_qp::eval (Vector v)
 {
     return v * quad * v + lin * v + const_term;
 }
-/*
-    eliminate appropriate variables, until we have a Ineq_constrained_qp
-    then solve that.
-
-    PRE
-    cons should be ascending
-    */
 Vector
 Mixed_qp::solve(Vector start) const 
 {
@@ -94,6 +88,44 @@ Ineq_constrained_qp::eliminate_var(int idx, Real value)
 
 
 
+void
+Ineq_constrained_qp::assert_solution(Vector sol) const
+{
+    svec<int> binding;
+    for (int i=0; i < cons.sz(); i++) {
+	Real R=cons[i] * sol- consrhs[i];
+	assert(R> -EPS);
+	if (R < EPS)
+	    binding.add(i);
+    }
+    // KKT check...
+    // todo
+}
+
+void
+Ineq_constrained_qp::print() const
+{
+#ifndef NPRINT
+    mtor << "Quad " << quad;
+    mtor << "lin " << lin <<"\n"
+	<< "const " << const_term<<"\n";
+    for (int i=0; i < cons.sz(); i++) {
+	mtor << "constraint["<<i<<"]: " << cons[i] << " >= " << consrhs[i];
+	mtor << "\n";
+    }
+#endif
+}
+
+/****************/
+
+/*
+    eliminate appropriate variables, until we have a Ineq_constrained_qp
+    then solve that.
+
+    PRE
+    cons should be ascending
+    */
+
 
 Mixed_qp::Mixed_qp(int n)
     : Ineq_constrained_qp(n)
@@ -108,18 +140,7 @@ Mixed_qp::OK() const
     assert(eq_consrhs.sz() == eq_cons.sz());
 #endif    
 }
-void
-Ineq_constrained_qp::print() const
-{
-#ifndef NPRINT
-    mtor << "Quad " << quad;
-    mtor << "lin " << lin <<"\n";
-    for (int i=0; i < cons.sz(); i++) {
-	mtor << "constraint["<<i<<"]: " << cons[i] << " >= " << consrhs[i];
-	mtor << "\n";
-    }
-#endif
-}
+
 void
 Mixed_qp::print() const
 {
@@ -131,17 +152,3 @@ Mixed_qp::print() const
 #endif
 }
 
-
-void
-Ineq_constrained_qp::assert_solution(Vector sol) const
-{
-    svec<int> binding;
-    for (int i=0; i < cons.sz(); i++) {
-	Real R=cons[i] * sol- consrhs[i];
-	assert(R> -EPS);
-	if (R < EPS)
-	    binding.add(i);
-    }
-    // KKT check...
-    // todo
-}
