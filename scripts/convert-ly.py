@@ -1886,10 +1886,23 @@ def conv (str):
 			      r' \\revert \1', s)
 		return s
 	str = re.sub (r'\\(translator|with)\s*{[^}]+}',  subst_in_trans, str)
-	str = re.sub (r"""\\override\s*([a-zA-Z]+\s*\.\s*)?autoBeamSettings"""
-		      +r"""\s*#([^=]+)\s*=\s*#\(ly:make-moment\s+(\d+)\s+(\d)\s*\)""",
-		      r"""#(override-auto-beam-setting \2 \3 \4)""",
-		      str)
+
+	def sub_abs (m):
+		
+		context = m.group ('context')
+		d = m.groupdict ()
+		if context:
+			context = " '%s" % context[:-1] # -1: remove . 
+		else:
+			context = ''
+
+		d['context'] = context
+		
+		return r"""#(override-auto-beam-setting %(prop)s %(num)s %(den)s%(context)s)""" % d
+
+	str = re.sub (r"""\\override\s*(?P<context>[a-zA-Z]+\s*\.\s*)?autoBeamSettings"""
+		      +r"""\s*#(?P<prop>[^=]+)\s*=\s*#\(ly:make-moment\s+(?P<num>\d+)\s+(?P<den>\d)\s*\)""",
+		      sub_abs, str)
 	
 	return str
 	

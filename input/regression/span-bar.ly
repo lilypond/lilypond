@@ -18,9 +18,9 @@ between systems.
       \override Score.SpanBar #'transparent = ##t
       a1 a1
     }
-    \new Lyrics \lyrics <<
-      { bla1 die bla }
-      { foo bar foo }
+    \lyrics <<
+      \new Lyrics { bla1 die bla }
+      \new Lyrics { foo bar foo }
     >>
     \new Staff {
       f1 f1 f1 f1
@@ -33,6 +33,7 @@ between systems.
     raggedright =##t 
   }
 }
+
 
 %% Local variables:
 %% LilyPond-indent-level:2

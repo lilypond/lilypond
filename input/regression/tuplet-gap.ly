@@ -5,6 +5,7 @@
 
       }
 
+\version "2.1.35"
 \paper {
    indent = 0.0\mm
    raggedright = ##t
