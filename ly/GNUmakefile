@@ -9,7 +9,7 @@ INSTALLATION_DIR=$(datadir)/ly/
 INSTALLATION_FILES=$(INI_FILES)
 
 STEPMAKE_TEMPLATES=install
-LOCALSTEPMAKE_TEMPLATES=mutopia
+LOCALSTEPMAKE_TEMPLATES=ly 
 
 include $(depth)/make/stepmake.make 
 
