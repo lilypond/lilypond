@@ -20,22 +20,6 @@ source file of the GNU LilyPond music typesetter
 #include "note-collision.hh"
 #include "accidental-interface.hh"
 
-/*
-  Hmm. why not group-extent? 
- */
-MAKE_SCHEME_CALLBACK(Accidental_placement,extent_callback, 2);
-SCM
-Accidental_placement::extent_callback(SCM s, SCM axis)
-{
-  Grob * me =unsmob_grob (s);
-  Axis a = Axis (gh_scm2int (axis));
-
-  assert (a == X_AXIS);
-
-  SCM w = position_accidentals (me);
-  return w;
-}
-
 MAKE_SCHEME_CALLBACK(Accidental_placement,alignment_callback, 2);
 SCM
 Accidental_placement::alignment_callback(SCM s, SCM )
@@ -224,8 +208,6 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
   
 
 /*
-  Return: width as SCM interval.
-
 
   This routine computes placements of accidentals. During
   add_accidental(), accidentals are already grouped by note, so that
@@ -256,6 +238,9 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
 SCM
 Accidental_placement::position_accidentals (Grob * me)
 {
+  if (!me->live ())
+    return SCM_UNSPECIFIED;
+  
   SCM accs = me->get_grob_property ("accidentals");
 
   /*
@@ -464,7 +449,7 @@ Accidental_placement::position_accidentals (Grob * me)
   for (int i = apes.size(); i--;)
     delete apes[i];
 
-  return scm_width;
+  return SCM_UNSPECIFIED;
 }
 
 ADD_INTERFACE(Accidental_placement,
