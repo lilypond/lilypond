@@ -62,7 +62,7 @@ involved HTML, La@TeX{}, and Texinfo documents.
 
 A script called @code{lilypond-book} will extract the music fragments,
 format them, and put back the resulting notation.  Here we show a
-small example for use with @LaTeX{}.  The example also contains explanatory text, so we will
+small example for use with La@TeX{}.  The example also contains explanatory text, so we will
 not comment on it further
 
 @verbatim
