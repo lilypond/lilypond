@@ -1,3 +1,22 @@
+pl 15  (Oct 18)
+
+14.jcn1
+	- Kludge for accented chars (thanks, Mats)
+	- bf: don't fail on error in doco package
+	- doco package: noarch
+	- bf: standchen: mutopia prep
+
+14.hwn1
+	- move some misc stuff into Documentation/misc/
+	- cleanups: slur & beam.
+	- junked Encompass_info
+	- Smobs -- simplifies sc_elt memory management
+	- Timing_engraver collects bar reqs
+	- unfold all if doing MIDI.
+	- bfs: do something sensible if it doesn't fit.
+	- penalties for break stuff supported.
+
+*******
 13.jcn2,3
 	- mutopia/J.S.Bach/Petites-Preludes: bf's and mutopia preraration
 	- separate documentation package

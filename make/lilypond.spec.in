@@ -17,6 +17,7 @@ Prereq: tetex
 %package documentation
 Summary: Prebuilt website containing all LilyPond documentation.
 Group: Applications/Publishing
+# BuildArchitectures: noarch
 
 %description documentation
 @BLURB@
@@ -57,10 +58,10 @@ cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 #%install documentation
 #line 63: second %install
 # again, make sure that main package installs even if doco fails
-mkdir -p htmldocs
-tar -C htmldocs -xzf out/htmldoc.tar.gz
+mkdir -p htmldocs/out
+tar -C htmldocs -xzf out/htmldoc.tar.gz || true
 mkdir -p out/examples/
-tar -cf - input/  | tar -C out/examples/ -xf-
+tar -cf - input/  | tar -C out/examples/ -xf- || true
 
 %post
 
