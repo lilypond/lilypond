@@ -32,8 +32,9 @@ protected:
   virtual void derived_substitute (Translator_group*,Translator_group*);
 private:
   bool start_new_syllable () ;
-  void find_thread ();
-  
+  void find_voice ();
+
+  bool made_association_;
   Translator_group * lyrics_context_;
   Translator_group* music_context_;
   Music_iterator * lyric_iter_;
@@ -48,9 +49,14 @@ static Music *melisma_playing_ev;
 
 New_lyric_combine_music_iterator::New_lyric_combine_music_iterator ()
 {
+  made_association_ = false;
   lyric_iter_ =0;
   music_context_ =0;
   lyrics_context_ = 0;
+
+  /*
+    Ugh. out of place here.
+   */
   if (!busy_ev)
     {
       busy_ev
@@ -160,7 +166,7 @@ New_lyric_combine_music_iterator::construct_children ()
   Music *m = unsmob_music (get_music ()->get_mus_property ("element"));
   lyric_iter_ = unsmob_iterator (get_iterator (m));
 
-  find_thread ();
+  find_voice ();
   
   if (lyric_iter_)
     lyrics_context_ = find_context_below (lyric_iter_->get_outlet (),
@@ -174,7 +180,7 @@ New_lyric_combine_music_iterator::construct_children ()
 }
 
 void
-New_lyric_combine_music_iterator::find_thread ()
+New_lyric_combine_music_iterator::find_voice ()
 {
   if (!music_context_)
     {
@@ -188,19 +194,22 @@ New_lyric_combine_music_iterator::find_thread ()
 
 	  String name = ly_scm2string (voice_name);
 	  Translator_group *voice = find_context_below (t, "Voice", name);
-	  Translator_group *thread = 0;
-	  if (voice)
-	    thread = find_context_below (voice, "Thread", "");
-	  else
+	  if (!voice)
 	    get_music ()->origin ()->warning (_f ("Cannot find Voice: %s\n",
 						  name.to_str0 ())); 
-
-	  if (thread)
-	    music_context_ = thread;
+	  else
+	    music_context_ = voice;
 	    
-	  if (lyrics_context_ && voice)
-	    lyrics_context_->set_property ("associatedVoiceContext",
-					   voice->self_scm ());
+	}
+    }
+
+  if (lyrics_context_ && music_context_)
+    {
+      if (!made_association_)
+	{
+	  made_association_ = true; 
+	  lyrics_context_->set_property ("associatedVoiceContext",
+					 music_context_->self_scm ());
 	}
     }
 }
@@ -208,7 +217,7 @@ New_lyric_combine_music_iterator::find_thread ()
 void
 New_lyric_combine_music_iterator::process (Moment )
 {
-  find_thread ();
+  find_voice ();
   if (!music_context_)
     return ;
   

@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.19"
 \header { texidoc = "
 
 @cindex Preset Extent
@@ -15,10 +15,10 @@ spaced so widely.
 }
 
 \score {
-    \context Lyrics \lyrics {
+    \context LyricsVoice \lyrics {
 	foo --
-	\property Lyrics . LyricText \set #'X-extent-callback = #Grob::preset_extent
-	\property Lyrics . LyricText \set #'X-extent = #'(-10.0 . 10.0)
+	\property LyricsVoice . LyricText \set #'X-extent-callback = #Grob::preset_extent
+	\property LyricsVoice . LyricText \set #'X-extent = #'(-10.0 . 10.0)
  bar baz
 	}
     \paper { raggedright = ##t}

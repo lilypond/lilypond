@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.7"
+\version "2.1.19"
 \header{
 filename = 	 "twinkle-pop.ly"
 xtitle = 	 "Ah, vous dirais-je, maman "
@@ -34,7 +34,7 @@ acc =  \chords {
 }
 
 text =  \lyrics{ 
-        \property Lyrics . LyricText \set #'font-shape = #'italic
+        \property LyricsVoice . LyricText \set #'font-shape = #'italic
 
         Ah!4 vous dir -- ai -- je ma man2
         Ce4 qui cau -- se mon tour -- ment2
@@ -49,7 +49,7 @@ text =  \lyrics{
         <<  
 	   \context ChordNames \acc
 	   \context Staff=melody \melodie
-           \context Lyrics \text
+           \context LyricsVoice \text
         >>
 	\header{
 		title = "Ah, vous dirais-je, maman "
@@ -61,7 +61,7 @@ text =  \lyrics{
         <<  
 	   \chords \context ChordNames \transpose c d\acc
 	   \notes \context Staff=melody \transpose c d\melodie
-           \lyrics \context Lyrics \text
+           \lyrics \context LyricsVoice \text
         >>
 	\header{
 		piece = "clarinet in B$\flat$"

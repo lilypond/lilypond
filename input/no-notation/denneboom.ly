@@ -1,4 +1,4 @@
-\version "2.1.13"
+\version "2.1.19"
 \header{
 filename = 	 "denneboom.ly"
 enteredby = 	 "jcn"
@@ -66,7 +66,7 @@ verseOne = \notes{
 	\oden
 }
 
-verseOneStaff = \context Lyrics = one 
+verseOneStaff = \context LyricsVoice = one 
 	\verseOne
 
 
@@ -77,7 +77,7 @@ verseTwo = \notes{
 	\oden
 }
 
-verseTwoStaff = \context Lyrics = two 
+verseTwoStaff = \context LyricsVoice = two 
 	\verseTwo
 
 
@@ -108,7 +108,7 @@ denneboomShape = \paper{
 \score{
 	\addlyrics
 		\context Staff { \time 3/4 \melody }
-		\context Lyrics \verseOne
+		\context LyricsVoice \verseOne
 	\paper{ 
 		\denneboomShape 
 	}

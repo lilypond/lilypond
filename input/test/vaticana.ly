@@ -1,4 +1,4 @@
-\version "2.1.14"
+\version "2.1.19"
 % possible rename to ancient-something.
 
 \header { texidoc	= "Ancient Vaticana
@@ -17,7 +17,7 @@ cantus = \context VaticanaVoice = "cantus" \notes {
   \[ e\melisma \flexa d\melismaEnd \]
 }
 
-verba = \context Lyrics = "verba" \lyrics {
+verba = \context LyricsVoice = "verba" \lyrics {
   Al- le- lu- ia.
 }
 

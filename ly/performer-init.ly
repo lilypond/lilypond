@@ -1,4 +1,4 @@
-\version "1.9.8"
+\version "2.1.19"
 
 %
 % setup for Request->Element conversion. Guru-only
@@ -21,12 +21,12 @@
 	\consists "Span_dynamic_performer"
 	\consists "Tie_performer"
 	\consists "Piano_pedal_performer"
-	\accepts "Thread"
+	\accepts "Voice"
 }
 
 \translator {
 	\type "Performer_group_performer"
-	\name Thread
+	\name Voice
 	\consists "Note_performer"
 }
 
@@ -76,7 +76,6 @@
 	\accepts GrandStaff
 	\accepts PianoStaff
 	\accepts TabStaff
-	\accepts Lyrics 
 	\accepts StaffGroup
 	\accepts Devnull
 	\accepts ChoirStaff
@@ -94,9 +93,11 @@
 
 
 \translator {
-	\type "Performer_group_performer"
+	\type "Staff_performer" % Performer_group_performer ?
 	\consists "Lyric_performer"
 	\name LyricsVoice
+	\consists "Time_signature_performer"
+	\consists "Tempo_performer"
 }
 
 \translator{
@@ -105,13 +106,6 @@
 	\accepts Staff
 }
 
-\translator {
-	\type "Staff_performer"
-	\accepts LyricsVoice
-	\name Lyrics
-	\consists "Time_signature_performer"
-	\consists "Tempo_performer"
-}
 
 \translator {
 	\type "Staff_performer"

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.11"
+\version "2.1.19"
 % ASCII Art output
 %
 % Process as:
@@ -16,7 +16,7 @@
         \repeat "volta" 2 { g a b c }
         \alternative { { c b a g } { f e d c } }
       }
-      \context Lyrics \lyrics {
+      \context LyricsVoice \lyrics {
         De eer- ste << { maat } { moet } >>
         \repeat fold 2 { }
         \alternative {

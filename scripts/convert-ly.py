@@ -1798,8 +1798,11 @@ def conv (str):
 	str = re.sub (r"""\\new Thread""", """\context Voice""", str)
 	str = re.sub (r"""Thread""", """Voice""", str)
 
+	if re.search ('\bLyrics\b', str):
+		sys.stderr.write ("\nLyrics found. Check file manually!\n");
+
 	str = re.sub (r"""LyricsVoice""", r"""L@ricsVoice""", str)
-	str = re.sub (r"""\bLyrics\b""", r"""\1 LyricsVoice""", str)
+	str = re.sub (r"""\bLyrics\b""", r"""LyricsVoice""", str)
 	str = re.sub (r"""LyricsContext""", r"""LyricsVoiceContext""", str)
 	str = re.sub (r"""L@ricsVoice""", r"""LyricsVoice""",str)
 	
