@@ -1,5 +1,57 @@
-1.3.87.hwn1
+1.3.89
+======
+
+* Some fixes to Coriolan.
+
+* Fixed some stupid core dumps processing Coriolan.
+
+* Fixed several problems with part-combiner's part-switching.
+
+* Fixes for ASCII output.
+
+* Added feature to part combiner that should allow part-switching only
+  for entire measures.  Currently, it is controlled by a new 
+  property changeMoments (A . B):
+    - only switch when !(A mod now),
+    - decide whether to switch based on music during time period B.
+
+* Made bugfix: Sequential_iterator::get_music (M): mustn't return music 
+  later than M.
+
+* Added skip (M) to some iterators.
+
+* maintain minimum-length by shifting for hyphens at start of
+line. (patch courtesy Christophe Rhodes)
+
+* mudela-book fixes (courtesy Tom Cato Amundsen): documentation
+update, LaTeX example, landscape support.
+
+1.3.88.hwn2
 ===========
+
+* Added elt properties for Tie:
+  - details
+  - x-gap
+  - staffline-clearance
+
+* Added elt properties for Slur
+  - y-free
+  - details
+
+* Removed C++ support for barNumberScriptPadding, now in
+generic-property.scm (but they're deprecated anyway)
+
+* Changed threshold in Align_interface to be in staffspace 
+
+* changed minVerticalAlign and maxVerticalAlign to be in staffspace.
+A better way: do \push #'threshold = #(cons A B ).  (WARNING:
+INCOMPATIBLE CHANGE)
+
+* moved translator definitions out of \paper { }, only instantiate in
+\paper.
+
+1.3.88
+======
 
 * Sequential_iterator::get_music (), part combiner now works.
 
@@ -10,7 +62,7 @@
   - beam-flag-width-function to Beam.
 
   Grace_align_item:
-  -  horizontal-space: spacing of is configurable
+  -  horizontal-space: spacing of grace notes is configurable
 
   Volta_spanner: 
   - height
@@ -33,6 +85,8 @@
 * removed various obsolete variables from params.ly
 
 * added input/test/bagpipe.ly
+
+
 
 1.3.87
 ======

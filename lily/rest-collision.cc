@@ -172,7 +172,7 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
 	return SCM_UNSPECIFIED;
       
       // staff ref'd?
-      Real staff_space = me->paper_l()->get_var ("interline");
+      Real staff_space = me->paper_l()->get_var ("staffspace");
 
 	/* FIXME
 	  staff_space =  rcol->rests[0]->staff_space ();

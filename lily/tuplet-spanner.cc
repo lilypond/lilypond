@@ -69,7 +69,7 @@ Tuplet_spanner::brew_molecule (SCM smob)
       Real ncw = column_arr.top ()->extent(X_AXIS).length ();
       Real w = dynamic_cast<Spanner*>(me)->spanner_length () + ncw;
 
-      Real staff_space = me->paper_l ()->get_var ("interline");
+      Real staff_space = me->paper_l ()->get_var ("staffspace");
       Direction dir = Directional_element_interface::get (me);
       Real dy = gh_scm2double (me->get_elt_property ("delta-y"));
       SCM number = me->get_elt_property ("text");
