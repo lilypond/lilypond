@@ -917,6 +917,10 @@ music_function_type (SCM func)
 	{
 		return MUSIC_FUNCTION_SCM_SCM_MUSIC;
 	}
+	else if (type == ly_symbol2scm ("noarg"))
+	{
+		return MUSIC_FUNCTION;
+	}
 	else
 		{
 		/* TODO: print location */

@@ -45,7 +45,7 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
       else if (ly_c_procedure_p (ly_car (s)))
 	str += "scm";
     }
-  
+  if (str == "") str = "noarg";
   scm_set_object_property_x (func, ly_symbol2scm ("music-function-signature"),
 			     signature);
   

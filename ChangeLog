@@ -1,3 +1,20 @@
+2004-05-15  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* ly/music-functions-init.ly (def-music-function): new helper
+	macro for defining music functions. \addlyrics \appoggiatura
+	\acciaccatura \grace \partcombine \autochange \applycontext
+	\applyoutput and \breathe are now defined here thanks to it.
+
+	* lily/parser.yy: 
+	* lily/my-lily-lexer.cc: \addlyrics \appoggiatura \acciaccatura
+	\grace \partcombine \autochange \applycontext \applyoutput and
+	\breathe keywords removed from the parser.
+
+	* lily/parser.yy: 
+	* lily/music-function.cc (ly_make_music_function): 
+	* lily/lexer.ll (music_function_type): added a case for 0-arg
+	music functions.
+
 2004-05-14  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/ly-from-scheme.scm (read-lily-expression):  A variable
