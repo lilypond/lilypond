@@ -10,7 +10,9 @@
 % export GS_LIB=$(pwd)/mf/out:/usr/share/texmf/fonts/type1/bluesky/cm
 
 
-/set-ps-scale-to-lily-scale { output-scale output-scale scale } bind def
+/set-ps-scale-to-lily-scale {
+    lily-output-units output-scale mul
+    lily-output-units output-scale mul scale } bind def
 
 /init-paper {
  	gsave

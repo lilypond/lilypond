@@ -1,5 +1,7 @@
 2005-01-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ps/lilyponddefs.ps: put mm -> pt scaling in here.
+
 	* input/regression/new-markup-scheme.ly: oops. font-family=music
 	-> font-encoding fetaMusic.  
 
@@ -127,6 +129,8 @@
 
 2004-12-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION: release 2.5.5
+	
 	* lily/main.cc: use TeX as default output format.
 
 	* flower/file-path.cc (find): try to open directly as well, so we
