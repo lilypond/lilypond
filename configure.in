@@ -34,26 +34,28 @@ AC_DEFUN(AC_TEX_SUBDIR, [
     AC_MSG_RESULT($$1)
 ])
 
+AC_INIT(flower/choleski.cc)
 
-AC_INIT(flower/lib/choleski.cc)
+
 AC_LANG_CPLUSPLUS
 
 AC_ARG_ENABLE(printing,
-	[  printing       set debug printing],
+	[  enable-printing        set debug printing],
 	[],
 	[DEFINES="$DEFINES -DNPRINT=1"])
 AC_ARG_ENABLE(checking,
-	[  checking       set runtime checks],
-	[],
-	[DEFINES="$DEFINES -DNDEBUG=1"])
+	[  disable-checking       set runtime checks],
+	[DEFINES="$DEFINES -DNDEBUG=1"],
+	[])
 AC_ARG_ENABLE(debug,
-	[  debug          set debug info],
+	[  disable-debug          set debug info],
+	[],
 	[DEFINES="$DEFINES -g"])
 AC_ARG_ENABLE(optimise,
-	[  optimise       use maximal speed optimisations],
+	[  enable-optimise       use maximal speed optimisations],
 	[DEFINES="$DEFINES -O2 -DSTRING_UTILS_INLINED"])
 AC_ARG_ENABLE(profiling,
-	[  profiling      compile with gprof support],
+	[  enable-profiling      compile with gprof support],
 	[DEFINES="$DEFINES -pg"])
 AC_ARG_ENABLE(texprefix,
 	[  texprefix=DIR  set the tex-directory to put the lilypond subdir in.],
@@ -73,7 +75,6 @@ if test FIND = error; then
    AC_MSG_WARN(Couldn't find \`find'.  Please use --enable-texprefix)
 else 
     
-
 AC_SUBST(DEFINES)
 AC_SUBST(COMPILEINFO)
 AC_SUBST(AUTOHEADER)
@@ -154,6 +155,8 @@ touch make/out/Site.make
 (cd mi2mu; CXX="$ac_cv_prog_CXX" ../bin/make_version > out/version.hh
 dnl    echo 0 > out/.build
 )
+# rgu
+sed 's/TOPLEVEL_//g' <  .version >  lily/.version
 (cd lily; CXX="$ac_cv_prog_CXX" ../bin/make_version > out/version.hh
 dnl    echo 0 > out/.build
 )

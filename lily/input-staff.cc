@@ -14,12 +14,11 @@
 #include "complex-staff.hh"
 #include "lyric-staff.hh"
 
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 
 
 Input_staff::Input_staff(String s)
 {
-    score_wide_music_p_ =0;
     type= s;
     defined_ch_c_l_ = 0;
 }
@@ -31,7 +30,7 @@ Input_staff::add(Input_music*m)
 }
 
 Staff*
-Input_staff::parse(Score*score_l, Input_music *default_score_wide)
+Input_staff::parse(Score*score_l)
 {
     Staff *p=0;
     if (type == "melodic")
@@ -49,9 +48,6 @@ Input_staff::parse(Score*score_l, Input_music *default_score_wide)
 	Voice_list vl = i->convert();
 	p->add(vl);
     }
-    Voice_list vl =  (score_wide_music_p_) ? score_wide_music_p_->convert()
-	: default_score_wide->convert();
-    p->add(vl);
     return p;
 }
 
@@ -61,8 +57,6 @@ Input_staff::Input_staff(Input_staff const&s)
 	add(i->clone());
     defined_ch_c_l_ = s.defined_ch_c_l_;
     type = s.type;
-    score_wide_music_p_ = (s.score_wide_music_p_) ?
-	s.score_wide_music_p_->clone() : 0;
 }
 
 void
@@ -75,14 +69,6 @@ Input_staff::print() const
     mtor << "}\n";
 #endif
 }
-void
-Input_staff::set_score_wide(Input_music *m_p)
-{
-    delete score_wide_music_p_;
-    score_wide_music_p_ = m_p;
-}
-
 Input_staff::~Input_staff()
 {
-    delete score_wide_music_p_;
 }

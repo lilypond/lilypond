@@ -27,19 +27,19 @@ lily_bindir = ./$(depth)/bin
 distdir = ./$(depth)/$(DIST_NAME)
 module-distdir = ./$(depth)/$(MODULE_DIST_NAME)
 depdir = $(outdir)
-flowerout = ./$(depth)/flower/lib/$(outdir)
+flowerout = ./$(depth)/flower/$(outdir)
 libout = ./$(depth)/lib/$(outdir)
 libdir = $(outdir)
 lilyout = ./$(depth)/lily/$(outdir)
 mi2muout = ./$(depth)/mi2mu/$(outdir)
 makeout = ./$(depth)/make/$(outdir)
-flower-dir = ./$(depth)/flower/lib
+flower-dir = ./$(depth)/flower
 lib-dir = ./$(depth)/lib
 lily-dir = ./$(depth)/lily
 mi2mu-dir = ./$(depth)/mi2mu
 make-dir = ./$(depth)/make
 include-lib = ./$(depth)/lib/include
-include-flower = ./$(depth)/flower/lib/include
+include-flower = ./$(depth)/flower/include
 #
 
 # user settings:
@@ -52,6 +52,9 @@ include ./$(depth)/make/User.make
 BUILD = $(shell cat $(build))
 INCREASE_BUILD = echo `expr \`cat $(build)\` + 1` > .b; mv .b $(build)
 #
+
+# ugh, for win32 make
+export CXX
 
 # the version:
 #
@@ -106,7 +109,7 @@ mi2mu-version = $(mi2muout)/version.hh
 
 # custom libraries:
 #
-LIBFLOWER = $(depth)/flower/lib/$(outdir)/$(LIB_PREFIX)flower$(LIB_SUFFIX)
+LIBFLOWER = $(depth)/flower/$(outdir)/$(LIB_PREFIX)flower$(LIB_SUFFIX)
 LIBLILY = $(depth)/lib/$(outdir)/$(LIB_PREFIX)lily$(LIB_SUFFIX)
 #
 
@@ -129,6 +132,9 @@ AR_COMMAND = $(AR) $(ARFLAGS) $@
 RANLIB_COMMAND=$(RANLIB) $@
 # compiler:
 #
+
+DO_CXX_COMPILE=$(DODEP)\
+	$(CXX) -c $(CXXFLAGS) $(CXX_OUTPUT_OPTION) 
 # "CC = $(CC)"
 # "CXX = $(CXX)"
 #
@@ -161,3 +167,4 @@ LIBRARY = $(LIB_PREFIX)$(NAME)$(LIB_SUFFIX)
 
 STRIPDEBUG=true #replace to do stripping of certain objects
 
+DISTFILES=$(EXTRA_DISTFILES) Makefile $(ALL_SOURCES)

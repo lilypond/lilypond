@@ -10,13 +10,13 @@
 #include <strstream.h>
 #include "proto.hh"
 #include "plist.hh"
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 #include "debug.hh"
 #include "main.hh"
 #include "source-file.hh"
 #include "source.hh"
 
-My_flex_lexer *lexer=0;
+My_lily_lexer *lexer=0;
 
 int
 yylex() {

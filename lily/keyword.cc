@@ -5,14 +5,14 @@
 #include <stdlib.h>
 
 #include "glob.hh"
-#include "lexer.hh"
+#include "my-lily-lexer.hh"
 //#include "mudobs.hh"
 //#include "gram.hh"
 
 /* for the keyword table */
 struct Keyword_ent
 {
-    const char   *name;
+    char const *name;
     int     tokcode;
 };
 
@@ -21,16 +21,16 @@ struct Keyword_table
     Keyword_ent *table;
     int     maxkey;
     Keyword_table(Keyword_ent *);
-    int     lookup(const char *s) const;
+    int     lookup(char const *s) const;
 };
 
 
 /* for qsort */
 int
-        tabcmp(const void * p1, const void * p2)
+        tabcmp(void const * p1, void const * p2)
 {
-    return strcmp(((const Keyword_ent *) p1)->name,
-                  ((const Keyword_ent *) p2)->name);
+    return strcmp(((Keyword_ent const *) p1)->name,
+                  ((Keyword_ent const *) p2)->name);
 }
 
 Keyword_table::Keyword_table(Keyword_ent *tab)
@@ -48,7 +48,7 @@ Keyword_table::Keyword_table(Keyword_ent *tab)
   lookup with binsearch, return tokencode.
 */
 int
-Keyword_table::lookup(const char *s)const
+Keyword_table::lookup(char const *s)const
 {
     int     lo,
             hi,

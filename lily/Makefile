@@ -1,4 +1,3 @@
-#
 # project  LilyPond -- the musical typesetter
 # title	   makefile for lilypond
 # file	   lily/Makefile 
@@ -15,18 +14,16 @@ depth = ..
 
 # generic variables:
 #
-include ./$(depth)/make/Variables.make 
+include ./$(depth)/make/Variables.make
+include ./$(depth)/make/Files.make 
+include .version
+
 #
 
 # identify module:
 #
 NAME = lilypond
-MAJOR_VERSION = $(TOPLEVEL_MAJOR_VERSION)
-MINOR_VERSION = $(TOPLEVEL_MINOR_VERSION)
-PATCH_LEVEL = $(TOPLEVEL_PATCH_LEVEL)
-# use to send patches, always empty for released version:
-MY_PATCH_LEVEL = $(TOPLEVEL_MY_PATCH_LEVEL)
-build = $(lily-dir)/$(outdir)/.build
+
 #
 
 # descent order into subdirectories:
@@ -39,30 +36,16 @@ SUBDIRS = include
 VERSION_DEPENDENCY = $(lily-version)
 #
 
-# list of c++ header files:
-# 
-HHFILES := $(wildcard *.hh) #$(shell ls *.hh $(ERROR_LOG))
-#
-
-# list of c++ source files:
-#
-CCFILES := $(wildcard *.cc) #$(shell ls *.cc $(ERROR_LOG))
-#
-
-# list of other source files:
-#
-EXTRA_SOURCE_FILES = $(shell ls *.y *.l $(ERROR_LOG))
-#
 
 # list of distribution files:
 #
-DISTFILES = .version Makefile $(HHFILES) $(CCFILES) $(EXTRA_SOURCE_FILES)
+DISTFILES = .version Makefile $(ALL_SOURCES)
 #
 
 # list of custom libraries:
 #
 # yes, i know about the -L and -l options,
-# but these libraries get rebuild when needed.
+# but these libraries get rebuilt when needed.
 CUSTOMLIBES = $(LIBLILY) $(LIBFLOWER)
 
 LOADLIBES +=
@@ -84,19 +67,15 @@ include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
 #
 
-# explicit dependencies: (how to do auto?)
-#
-# ugh
-#$(outdir)/version.cc: check-flower-version $(lily-version)
-
-
-mylexer.cc: $(outdir)/parser.hh # sic
+# force these: Make can't know these have to be generated in advance
+my-lily-lexer.cc: $(outdir)/parser.hh
 lexer.l: $(outdir)/parser.hh
+
 #
 
 # list of depend files:
 #
-DEPFILES = $(shell ls $(depdir)/*.dep $(ERROR_LOG))
+DEPFILES = $(wildcard $(depdir)/*.dep)
 #
 
 # auto dependencies:
