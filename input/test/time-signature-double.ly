@@ -9,8 +9,8 @@
 
 
 Double time
-signatures are not supported explicitly, but can be faked with markups
-and overriding formatting routines. " }
+signatures are not supported explicitly, but they can be faked with 
+markups and overriding formatting routines. " }
 
 tsMarkup =
 \markup  {

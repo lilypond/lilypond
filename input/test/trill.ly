@@ -1,9 +1,8 @@
 \version "2.1.26"
 
 \header { texidoc="@cindex Trill
-Show trill line type.
-
-The extended trill is a TextSpanner in @code{trill} style.
+The extended trill may be produced using @code{TextSpanner} with @code{trill} 
+spanner style.
 "
 }
 

@@ -5,8 +5,8 @@
 
 texidoc= "
 An additional stave can be typeset in the middle of a score line. 
-A new context type is created to avoid printing time and key
-signatures and clef at the beginning of the temporary stave.
+A new context type is created for the temporary staff to avoid printing 
+time and key signatures and clef at the beginning of the extra stave.
 "
 } 
 

@@ -17,6 +17,11 @@
 	
 2004-02-28  Heikki Junes <hjunes@cc.hut.fi>
 
+	* input/test/[t-v]*.ly: finish rewriting texidocs.
+
+	* input/test/vaticana.ly: remove.
+	* input/test/ligature-vaticana.ly: new, renamed file name.
+
 	* input/test/stem-centered.ly: remove.
 	* input/test/mensural-note-heads.ly: new file. take content from
 	removed file stem-centered.ly.

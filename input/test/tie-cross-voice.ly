@@ -3,7 +3,7 @@
 
 
 \header {
-    texidoc = "Cross voice ties can be faked by blanking noteheads."
+    texidoc = "Cross voice ties can be faked by using transparent noteheads."
     }
 
 

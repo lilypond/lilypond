@@ -2,13 +2,13 @@
 \version "2.1.26"
 
 \header{ texidoc = "@cindex Transposition
-Transposition test file."
+Transposing has also an effect key signature, if it is given using
+@code{\key}. If @code{keySignature} is set explicitly instead, 
+the key signature is not transposed."
 
-
-% huh what's this supposed to test? 
      }
 
-
+% should the explicitly set key signature transpose also? -HJJ
 
 vOne = \notes \relative c''{
         \clef"violin"

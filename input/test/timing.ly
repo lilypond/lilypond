@@ -4,7 +4,7 @@
 
 \header{ texidoc = "@cindex Bar Length
 
-You can alter the length of bars by setting
+You can alter the length of bars by setting explicitly
 @code{measureLength} or by resetting @code{measurePosition}. "
 }
 

@@ -2,10 +2,9 @@
 % TODO: huh?  what's this file about?  -gp
 
 \header { texidoc = "
-Vertical extents may be overriden by
-minimumVerticalExtent, extraVerticalExtent, and  verticalExtent. These are
-normal property values, and are written into the grob when the
-associated context finishes, so using it in \property works.
+Vertical extents may increased by setting @code{minimumVerticalExtent}, 
+@code{extraVerticalExtent}, and @code{verticalExtent}. In this example,
+@code{verticalExtent} is increased.
 " }
 
 \score {
