@@ -122,26 +122,3 @@
 ;;  - take #forced stems into account (now done in C++)?
 ;;  - take y-position of chord or beam into account
 
-;
-; todo: clean this up a bit: the list is getting rather long.
-; 
-(define basic-beam-properties
-  `(
-    (molecule-callback . ,Beam::brew_molecule)
-    (thickness . 0.42) ; in staff-space, should use stafflinethick?
-    (before-line-breaking-callback . ,Beam::before_line_breaking)
-    (after-line-breaking-callback . ,Beam::after_line_breaking)
-    (default-neutral-direction . 1)
-    (dir-function . ,beam-dir-majority)
-    (height-quants .  ,default-beam-dy-quants)
-    (vertical-position-quant-function . ,default-beam-y-quants)
-    (beamed-stem-shorten . (0.5))
-    (outer-stem-length-limit . 0.2)
-    (slope-limit . 0.2)
-    (flag-width-function . ,default-beam-flag-width-function)
-    (space-function . ,default-beam-space-function)
-    (damping . 1)
-    (meta . ,(element-description "Beam" beam-interface))
-    )
-  )
-
