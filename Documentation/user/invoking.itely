@@ -375,7 +375,7 @@ of a symbol in the graphical output.  See @ref{Point and click}.
 @node Invoking lilypond-latex
 @section Invoking lilypond-latex
 
-Before LilyPond 3.0, the @code{lilypond} program only generated music
+Before LilyPond 2.4, the @code{lilypond} program only generated music
 notation.  Titles and page layout was done in a separate wrapper
 program.  For compatibility with older files, this wrapper program has
 been retained as @code{lilypond-latex}.  It uses the LilyPond program
