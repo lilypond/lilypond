@@ -31,11 +31,13 @@ The binary LilyPond setup for Windows is in fact a
 @uref{http://cygwin.com, Cygwin} installation, including the LilyPond
 package for Cygwin.
 
-If you run Windows NT, 2000 or XP, please become administrator first
-(currently, installing as an ordinary user will not work).  Download
-and run @uref{http://cygwin.com/setup.exe, setup.exe}.  You will be
-asked some questions.  If you are unsure just click "Next".  Do not
-change the default install directory @file{c:/cygwin}.
+If you run Windows NT, 2000 or XP, please become administrator first;
+installing as an ordinary user does not seem to work on certain
+Windows-NT variants.  Download and run
+@uref{http://cygwin.com/setup.exe, setup.exe}.  You will be asked some
+questions.  If you are unsure just click "Next".  Do not change the
+default install directory @file{c:/cygwin}.  Do not change the default
+text type @samp{UNIX}, i.e., do not use @samp{DOS} mounts.
 
 In the Package View dialogue window, click on the Publishing section
 to view the available publishing software for Cygwin.  Make sure that

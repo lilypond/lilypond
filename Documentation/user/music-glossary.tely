@@ -7,8 +7,8 @@
 @end html
 
 @ifhtml
-This document is also available in @uref{glossary.ps.gz,gzipped
-PostScript} and @uref{glossary.pdf,PDF}.
+This document is also available in @uref{music-glossary.ps.gz,gzipped
+PostScript} and @uref{music-glossary.pdf,PDF}.
 @end ifhtml
 
 @titlepage

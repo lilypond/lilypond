@@ -231,23 +231,14 @@ setup_paths ()
     prefix_directory[1] = lilypond_prefix;
 
 #if HAVE_GETTEXT
-  setlocale (LC_ALL, ""); /* enable locales */
-  setlocale (LC_NUMERIC, "C"); /* musn't have comma's in TeX output... */
+  /* Enable locales */
+  setlocale (LC_ALL, "");
+  /* Mustn't have commas in TeX output... */
+  setlocale (LC_NUMERIC, "C");
   String lily_locale_dir;
   String name (PACKAGE);
   name.to_lower ();
-
-  /*
-    urg; what *do* we want with $LILYPONDPREFIX, DIR_DATADIR and $prefix/share
-    handy for multiple source-dir runs, though...
-   */
-  if (!String (prefix_directory[0]).empty_b ())
-    {
-      lily_locale_dir = String (prefix_directory[0]) + "/share/locale";
-      bindtextdomain (name.to_str0 (), lily_locale_dir.to_str0 ());
-    }
-  else
-    bindtextdomain (name.to_str0 (), LOCALEDIR);
+  bindtextdomain (name.to_str0 (), LOCALEDIR);
   textdomain (name.to_str0 ());
 #endif
 

@@ -86,6 +86,7 @@ try:
 except:
        pass
 
+localedir = '@localedir@'
 try:
 	import gettext
 	gettext.bindtextdomain ('lilypond', localedir)

@@ -247,10 +247,10 @@ AC_DEFUN(STEPMAKE_DATADIR, [
     local_package_datadir=$package_datadir/$FULL_VERSION
     build_package_datadir=$builddir/share/$package
     
-    DATADIR=$(echo ${datadir} | sed "s!\\\${prefix}!$presome!")
-    PACKAGE_DATADIR=$(echo ${package_datadir} | sed "s!\\\${prefix}!$presome!")
-    LOCAL_PACKAGE_DATADIR=$(echo ${local_package_datadir} | sed "s!\\\${prefix}!$presome!")
-    BUILD_PACKAGE_DATADIR=$(echo ${build_package_datadir} | sed "s!\\\${prefix}!$presome!")
+    DATADIR=`echo ${datadir} | sed "s!\\\${prefix}!$presome!"`
+    PACKAGE_DATADIR=`echo ${package_datadir} | sed "s!\\\${prefix}!$presome!"`
+    LOCAL_PACKAGE_DATADIR=`echo ${local_package_datadir} | sed "s!\\\${prefix}!$presome!"`
+    BUILD_PACKAGE_DATADIR=`echo ${build_package_datadir} | sed "s!\\\${prefix}!$presome!"`
     
     AC_SUBST(datadir)
     AC_SUBST(package_datadir)
@@ -341,7 +341,7 @@ AC_DEFUN(STEPMAKE_GETTEXT, [
     if test "$prefix" = "NONE"; then
 	    presome=${ac_default_prefix}
     fi
-    LOCALEDIR=$(echo ${localedir} | sed "s!\\\${prefix}!$presome!")
+    LOCALEDIR=`echo ${localedir} | sed "s!\\\${prefix}!$presome!"`
     
     AC_SUBST(localedir)
     AC_DEFINE_UNQUOTED(LOCALEDIR, "${LOCALEDIR}")
@@ -562,16 +562,18 @@ AC_DEFUN(STEPMAKE_INIT, [
 
     STEPMAKE_PROGS(TAR, tar, REQUIRED)
 
-    if test "x`uname`" = "xHP-UX"; then
-	AC_PATH_PROG(BASH, bash, /bin/sh)
+    if test "$(echo 2)" != "2" ||
+	test "x`uname`" = "xHP-UX"; then
+	AC_PATH_PROG(KSH, ksh, /bin/ksh)
+	AC_PATH_PROG(BASH, bash, $KSH)
 	STEPMAKE_WARN(avoiding buggy /bin/sh)
-	AC_PATH_PROG(SHELL, bash, /bin/ksh)
+	AC_PATH_PROG(SHELL, bash, $KSH)
     else
-	AC_PATH_PROG(BASH, bash, /bin/sh)
 	SHELL=/bin/sh
-	AC_SUBST(SHELL)
+	AC_PATH_PROG(BASH, bash, $SHELL)
     fi
-
+    AC_SUBST(SHELL)
+    
     STEPMAKE_PATH_PROG(PYTHON, python, REQUIRED)
 
     if expr "$MAKE" : '.*\(echo\)' >/dev/null; then
@@ -690,7 +692,7 @@ AC_DEFUN(STEPMAKE_LIBTOOL, [
     REVISION=$PATCH_LEVEL
     # CURRENT=$MINOR_VERSION
     CURRENT=`expr $MINOR_VERSION + 1`
-    # AGE=$(expr $MAJOR_VERSION + 1)
+    # AGE=`expr $MAJOR_VERSION + 1`
     AGE=$MAJOR_VERSION
     AC_SUBST(CURRENT)
     AC_SUBST(REVISION)

@@ -4,8 +4,8 @@
 # 
 # source file of the GNU LilyPond music typesetter
 #
-# convert MIDI to LilyPond source
-#
+# (c) 1998--2002  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
 '''
@@ -430,6 +430,7 @@ class Note:
 		return (o, n, a)
 		
 	def dump (self):
+		global reference_note
 		s = chr ((self.notename + 2)  % 7 + ord ('a'))
 		s = s + self.alteration_names[self.alteration + 2]
 		if absolute_p:
@@ -450,10 +451,10 @@ class Note:
 			s = s + "," * -commas
 
 		if explicit_durations_p \
-		   or Duration.compare (self.duration, reference_note.duration):
+		   or Duration.compare (self.duration,
+					reference_note.duration):
 			s = s + self.duration.dump ()
 
-		global reference_note
 		reference_note = self
 		
 		# TODO: move space
@@ -1051,13 +1052,10 @@ for opt in options:
 
 
 	elif o == '--absolute-pitches' or o == '-a':
-		global absolute_p
 		absolute_p = 1
 	elif o == '--duration-quant' or o == '-d':
-		global duration_quant
 		duration_quant = string.atoi (a)
 	elif o == '--explicit-durations' or o == '-e':
-		global explicit_durations_p
 		explicit_durations_p = 1
 	elif o == '--key' or o == '-k':
 		(alterations, minor) = map (string.atoi, string.split (a + ':0', ':'))[0:2]
@@ -1067,7 +1065,6 @@ for opt in options:
  			sharps = alterations
  		else:
  			flats = - alterations
-		global key
 		key = Key (sharps, flats, minor)
 	elif o == '--start-quant' or o == '-s':
 		start_quant = string.atoi (a)

@@ -1,5 +1,9 @@
 2002-11-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Merge from stable:
+
+	    cvs update -jlilypond_1_6_6 -jlilypond_1_6_6_1
+	
 	* ly/paper16-init.ly (paperSixteen): Bugfix: set fonts instead of
 	stylesheet.
 
@@ -465,6 +469,61 @@
 	(schedule_lilypond_block): Implement `noquote' option for LaTeX
 	mode.
 
+2002-11-03  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* ChangeLog: Add 1.6.6 release marker.  See below.
+
+	* stepmake/stepmake/po-targets.make: Remove --c++ option.
+
+	* scripts/midi2ly.py: Fix global syntax warnings.
+
+	* GNUmakefile.in: Generate builddir locale tree too.
+
+	* scripts/ly2dvi.py:
+	* scripts/midi2ly.py: 
+	* scripts/mup2ly.py: 
+	* scripts/update-lily.py:
+	* lily/main.cc (setup_paths): Fix for locales setup.
+
+2002-10-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/windows/installing.texi: Soften wording about
+	necessity of becoming Administrator.  tommie@iae.nl reports this
+	does not seem to be necessary for his flavour of Windows 2000.
+	Explicitely discourage text mode mounts.
+
+2002-10-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/rest.cc (after_line_breaking): backport dot position fix.
+
+	* lily/rest-collision.cc (do_shift): also remove dots for suicided
+	rests. Thanks to Klaus Zimmermann for finding this bug.
+
+2002-10-24  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/topdocs/INSTALL.texi: Correction for broken /bin/sh.
+
+2002-10-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/music-glossary.tely: fix links.
+
+2002-10-21  Werner Lemberg  <wl@gnu.org>
+
+	* tex/lily-ps-defs.tex (\lilypondsetdimen): Define ID macro.
+	(\lilypondpostscript): Define PS macros `lyscaleXXX' (`XXX' is the
+	scaling factor) only once and use them in the definition of
+	\embeddedps.
+	* ps/music-drawing-routines.ps (skeel): Removed.
+
+2002-10-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4: Changed 6 instances of $( ) to ` `, for
+	Solaris7, as we don't use nested $( ) constructs.
+
+2002-10-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: Release 1.6.6.
+	
 2002-10-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/INSTALL.texi: Add note about using ksh for
