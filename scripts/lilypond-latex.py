@@ -120,7 +120,7 @@ option_definitions = [
 	#junkme? 
 	('', 'm', 'no-layout', _ ("produce MIDI output only")),
 	
-	(_ ("FILE"), 'o', 'output', _ ("write output to FILE")),
+	(_ ("FILE"), 'o', 'output', _ ("write output to FILE (suffix will be added)")),
 	(_ ('RES'), '', 'preview-resolution',
 	 _ ("set the resolution of the preview to RES")),
 	('', 'p', 'pdf', _ ("generate PDF output")),
