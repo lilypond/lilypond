@@ -5,6 +5,9 @@
 	Documentation/user/programming-interface.itely: Use @/.
 	Fix formatting of some lilypond snippets and tables.
 
+	* scripts/lilypond-book.py (compose_ly): Provide useful default
+	for LINEWIDTH in `override'.
+
 2004-10-31  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/invoking.itely: change "3.0" -> "2.4"

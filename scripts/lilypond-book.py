@@ -646,7 +646,7 @@ def compose_ly (code, options, type):
 	# To set @exampleindent locally to zero, we use the @format
 	# environment for non-quoted snippets.
 	override[EXAMPLEINDENT] = r'0.4\in'
-	override[LINEWIDTH] = None
+	override[LINEWIDTH] = texinfo_linewidths['@smallbook']
 	override.update (default_ly_options)
 
 	option_list = []
