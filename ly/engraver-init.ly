@@ -139,6 +139,7 @@ RhythmicStaffContext=\translator{
 VoiceContext = \translator {
 	\type "Engraver_group_engraver"
 	\name Voice
+
 \description "
     Corresponds to a voice on a staff.  This context handles the
     conversion of dynamic signs, stems, beams, super- and subscripts,

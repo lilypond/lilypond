@@ -19,7 +19,7 @@ chs = \notes
 \score{
     <
 	\context ChordNames {
-	#(set-chord-name-style 'ignatzek)
+%	#(set-chord-name-style 'ignatzek)
 	\chs
     }
 	\context Staff \notes \transpose c c' { \chs }
