@@ -13,7 +13,7 @@ copyright	public domain
 multiple \paper{}s in one \score 
 %}
 
-\version "0.1.5";
+\version "0.1.6";
 
 commands = \melodic{
 	\skip 2.*4;
@@ -202,7 +202,7 @@ begeleiding = \melodic{
 	''a r4 |
 %%5
 \duration 8;
- 	< \multi 2; { \stemup	
+ 	\multi 2 < { \stemup	
 		[ 'f 'a d 'a d 'a ] 
 		[ 'd 'e 'g 'e 'g 'e ] 
 		[ 'cis 'e 'g 'e 'g 'e ]
@@ -220,7 +220,7 @@ begeleiding = \melodic{
 %%10
 	[ 'd 'a d 'a d 'a ] |
 %%11
-	< \multi 2; 	
+	\multi 2 < 	
 	{ \stemup
 		[ 'f 'a d 'a d 'a ]
 		[ 'd 'e 'g 'e 'g 'e ] 
@@ -237,7 +237,7 @@ begeleiding = \melodic{
 	[ 'c 'g 'bes 'g 'bes 'g ] |
 %%16
 	[ ''f 'c 'f 'c 'f 'c ] |
-	< \multi 2;
+	\multi 2 <
 	{ \stemup 
 		[ ''a 'e 'g 'e 'g 'e ][ 'd 'a d 'a d 'a ]
 		[ ''bes 'f 'bes 'f 'bes 'f ][ ''f 'c 'f 'c 'f 'c ] }
@@ -252,7 +252,7 @@ begeleiding = \melodic{
 	< [ 'e 'c > 'g c 'g c 'g ] |
 %%22
 	[ 'f 'a c 'a 'f 'c ] |
-	< \multi 2; {
+	\multi 2 < {
 		\stemup
 		[ ''a 'e 'g 'e 'g 'e ] 
 		[ 'd 'fis 'a 'fis 'a 'fis ] 
@@ -305,7 +305,7 @@ begeleiding = \melodic{
 %%44
 	< [ 'd ''b > 'fis 'b 'fis 'b 'fis ] |
 %%45
-	< \multi 2; { \stemup 
+	\multi 2 < { \stemup 
 		[ ''g 'd 'b 'd 'b 'd ] 
 		[ 'd 'a d 'a d 'a ] 
 	} {
@@ -479,7 +479,6 @@ themusic =
 			 \tekstII
 		>
 		\type Grandstaff   <
-			\multi 2;
 			\melodic < \melodie \commands >
 			\melodic < \begeleiding \commands >
 		>
