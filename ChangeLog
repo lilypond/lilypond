@@ -1,3 +1,22 @@
+2002-08-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/header.html.in: remove FAQ
+
+	* Documentation/index.texi (Top): reorganise
+
+	* Documentation/topdocs/INSTALL.texi (Top): add note about fonts.
+
+	* Documentation/topdocs/FAQ.texi: remove.
+
+	
+
+	* stepmake/stepmake/documentation-targets.make (footify): must
+	depend on all .html files, otherwise rebuilds are broken due to
+	the time stamps 
+
+	* ly/declarations-init.ly (noBreak): set penalty to 10001 (>
+	10000).
+
 2002-08-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* ly/engraver-init.ly (ChordNamesContext): minimumverticalExtent

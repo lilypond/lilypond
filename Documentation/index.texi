@@ -18,12 +18,9 @@
 
 
 @itemize @bullet 
-@item @uref{DEDICATION.html,Dedication}  Lily is  dedicated to our friends.
-@item @uref{http://www.gnu.org/copyleft/gpl.html,GPL} it is released under
-  the GNU GPL.
-@item @uref{http://www.lilypond.org/wiki, LilyPond Wiki} A wikiwiki site
-  devoted to LilyPond.  Also available as a local
-  @uref{wiki-dump/LilyPond.html, Frozen Copy}.
+@item Lily is @uref{DEDICATION.html,dedicated to our friends.}  
+@item
+It is released under the @uref{http://www.gnu.org/copyleft/gpl.html, GNU GPL}.
 @end itemize
 
 @html
@@ -45,33 +42,27 @@
 @unnumberedsubsubsec Installation
 
 @itemize @bullet
-@item @uref{../topdocs/out-www/README.html, README} General information.
-@item @uref{../topdocs/out-www/INSTALL.html, INSTALL}
-  How install on Unix.
-@item @uref{../windows/out-www/installing.html, WINDOWS}
-How to install on Windows. @uref{http://cygwin.com/setup.exe, Install
-Lily now}.
-
+@item The @uref{../topdocs/out-www/README.html, README} contains general information.
+@item   How to @uref{../topdocs/out-www/INSTALL.html, install on Unix}
+@item How to install @uref{../windows/out-www/installing.html, on
+Windows}.  (or @uref{http://cygwin.com/setup.exe, click here} to
+install Lily now).
 @end itemize
 
 @c also for users...
 @unnumberedsubsubsec Support
 
 @itemize @bullet
-@item @uref{../../index.html,Front Page} What is LilyPond?
-@item @uref{../topdocs/out-www/FAQ.html,mini-FAQ} Mini FAQ -- very
-frequently asked questions, with answers.
-@item @uref{http://www.lilypond.org/wiki?LilyPondFaqs,FAQs} Frequently
-Asked Questions, with answers.
-@item @uref{http://www.lilypond.org/wiki?MailingLists,MailingLists} Subscribe to
-the mailing lists.
+@item @uref{../../index.html,Front Page}: What is LilyPond?
+@item  Subscribe to the
+@uref{../topdocs/out-www/README.html#mailing-lists,mailing lists}
 @end itemize
 
 @unnumberedsubsubsec Documents
 
 @c direct links into first steps and running lily?
 @itemize @bullet
-@item @uref{../user/out-www/lilypond/Tutorial.html,Tutorial} Learn how to use LilyPond.
+@item @uref{../user/out-www/lilypond/Tutorial.html,Learn} how to use LilyPond.
 @end itemize
 
 @end quotation
@@ -84,43 +75,36 @@ the mailing lists.
 
 
 @itemize @bullet
-@item @uref{ChangeLog.html, ChangeLog} Things recently done.
-
-@c download sites?
-
-@c archives?
-
-@c tutorial?
+@item The complete @uref{../user/out-www/lilypond/lilypond.html,user
+manual}, (also in @uref{../user/out-www/lilypond.ps.gz,PostScript} and
+@uref{../user/out-www/lilypond.pdf,PDF}).
 
 @item
-@uref{../user/out-www/lilypond/Reference-Manual.html,Reference-Manual}
-The reference manual, and 
-@uref{../user/out-www/lilypond/Index.html,Master Index}.
-
-@item @uref{../user/out-www/lilypond/lilypond.html,Top Table of Contents} The complete
-user manual, (in @uref{../user/out-www/lilypond.ps.gz,PostScript} and
-@uref{../user/out-www/lilypond.pdf,PDF}). This manual contains among
-others the tutorial, the reference manual.  The HTML version is also
-available as @uref{../user/out-www/lilypond.html,one big page}.
+The @uref{../user/out-www/lilypond.html,user manual} as one big page,
+for easy searching, or look it up in the
+@uref{../user/out-www/lilypond/Index.html,index}.
 
 @c glossary maybe for new users?
-@item @uref{../user/out-www/glossary.html,Glossary} A glossary of musical
-terms, including translations.  (in
-@uref{../user/out-www/glossary.ps.gz,PostScript}
-and
-@uref{../user/out-www/glossary.pdf,PDF}) Read this if you're not
+ @item
+ A  @uref{../user/out-www/glossary.html,glossary}  of musical
+terms, including translations.  (also in
+@uref{../user/out-www/glossary.ps.gz,PostScript} and
+@uref{../user/out-www/glossary.pdf,PDF}).  Read this if you're not
 familiar with English terms for notation.
 
-@item @uref{../user/out-www/lilypond-internals/lilypond-internals.html,Lilypond-Internals}
-Full documentation of internals, generated from the sources.  If you
-want to fine-tune output, you need the information in this document.
+@item Documentation of
+@uref{../user/out-www/lilypond-internals/lilypond-internals.html,internals},
+ generated from the source code.  If
+you want to fine-tune output, you need the information in this
+document.
 
-@item @uref{../../input/templates/out-www/templates.html,Templates}
-input templates, for different formats of music. Add notes, and done!
+@item
+ @uref{../../input/templates/out-www/templates.html, Templates}, for
+different music styles. Add notes, and done!
 
-@item @uref{../../input/test/out-www/test.html,Input snippets}
-All of the tips-and-trick input snippets, with the corresponding output
-shown.  Also available in
+@item All of the @uref{../../input/test/out-www/test.html,tips-and-tricks}
+ input snippets, with the corresponding
+output shown.  Also available in
 @uref{../../input/test/out-www/test.ps.gz,PostScript} and
 @uref{../../input/test/out-www/test.pdf,PDF} formats.
 @end itemize
@@ -137,9 +121,10 @@ shown.  Also available in
 @c Jan's site?
 
 @itemize @bullet
-@item @uref{../../input/regression/out-www/regression.html,Regression Tests}
-A large document with snippets that test all basic features.  Also
-available in
+@item The @uref{ChangeLog.html, ChangeLog} lists things recently done.
+@item The
+@uref{../../input/regression/out-www/regression.html,Regression Tests}
+are lot of snippets that test all basic features.  Also available in
 @uref{../../input/regression/out-www/regression.ps.gz,PostScript} and
 @uref{../../input/regression/out-www/regression.pdf,PDF} formats.
 @item
@@ -150,48 +135,12 @@ Textual Domain
 @end itemize
 
 
-@unnumberedsubsec Logo
-@itemize @bullet
-@item Logo at @uref{../pictures/out-www/lelieblond.png, large} size.
-@item Logo at @uref{../pictures/out-www/lelie-logo.png, medium} size.
-@item Logo at @uref{../pictures/out-www/lelie-icon.png, small} size.
-@end itemize
-
-
-@unnumberedsubsec Background information
-
-
-@html
-<a name="background">
-@end html
-
-@itemize @bullet
-@item @uref{../topdocs/out-www/AUTHORS.html, Authors} documents who did
-what on LilyPond.
-@item @uref{../out-www/NEWS.txt,NEWS} summary of changes for 1.4
-@item @uref{../misc/out-www/CHANGES-0.0.html, CHANGES-0.0} Change logs from 0.0 till 0.1
-@item @uref{../misc/out-www/CHANGES-0.1.html, CHANGES-0.1} Change logs from 0.1 till 1.0 
-@item @uref{../misc/out-www/CHANGES-1.0.html, CHANGES-1.0} Change logs from 1.0 till 1.1 
-@item @uref{../misc/out-www/CHANGES-1.1.html, CHANGES-1.1} Change logs from 1.1 till
-1.2 
-@item @uref{../misc/out-www/CHANGES-1.2.html, CHANGES-1.2} Change logs from 1.2 till 1.3 
-@item @uref{../misc/out-www/NEWS-1.2.html, NEWS-1.2} summary of changes from 1.1 till 1.2
-@item @uref{../misc/out-www/ANNOUNCE-0.1.html, ANNOUNCE-0.1} Announcement of 0.1 (includes summary of
-changes)
-@item @uref{../misc/out-www/ANNOUNCE-1.0.html, ANNOUNCE-1.0} Announcement of 1.0 (includes summary of
-changes)
-@item @uref{../misc/out-www/ANNOUNCE-1.2.html, ANNOUNCE-1.2} Announcement of 1.2 (includes summary of changes)
-@item @uref{../misc/out-www/AIMS.html, AIMS} Why LilyPond?
-@item @uref{../misc/out-www/interview.html, interview} Answers to the Brave GNU world standard questions.
-@item @uref{../windows/out-www/lily-wins.html, lily-wins} musings on the
-Windows installer
-@end itemize
 
 @unnumberedsubsec Literature
 
 @itemize @bullet
 @item @uref{../bibliography/out-www/colorado.html,University of
-Colorado Engraving music bibliography}. Books refered from the
+Colorado Engraving music bibliography}. Books referred to at the
 @uref{http://www.cc.colorado.edu/Dept/MU/Musicpress/,Big Site of Music
 Notation and Engraving} at University of Colorado.
 @item References on
@@ -208,12 +157,7 @@ by computer}.
 @end html
 @unnumberedsec Mailing lists
 
-If you have questions, do write to the mailing lists.  But don't forget
-to read the @uref{../topdocs/out-www/FAQ.html,Very Frequently
-Asked Questions} and @uref{http://appel.dyndns.org/wiki?LilyPondFaqs,
-Frequently Asked Questions} first.
-
-
+If you have questions, you can write to our mailing lists:
 @itemize @bullet
 @item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,lilypond-devel@@gnu.org}
 This list is for discussions concerning the development release of
@@ -241,16 +185,59 @@ Searchable archives are available from
 @item @uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,bug-lilypond@@gnu.org}
 If you have bugreports, you should send them to this list.  
 
-
-        Please include in your bugreport the version of LilyPond that
-you experience the problem with, a description of your system and sample
-input to reproduce the problem. Do not send output files over the list,
-they tend to be very big and don't help with describing the problem.
-
+Please include in your bugreport the version of LilyPond that you
+experience the problem with, a description of your system and sample
+input to reproduce the problem. Do not send output files over the
+list, they tend to be very big and don't help with describing the
+problem.
 
 Searchable archives are available from
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org}.
 
+@end itemize
+
+
+@unnumberedsubsec Logo
+@itemize @bullet
+@item Logo in @uref{../pictures/out-www/lelieblond.png, large} size.
+@item Logo in @uref{../pictures/out-www/lelie-logo.png, medium} size.
+@item Logo in @uref{../pictures/out-www/lelie-icon.png, small} size.
+@end itemize
+
+
+@unnumberedsubsec Background information
+
+
+@html
+<a name="background">
+@end html
+
+@itemize @bullet
+@item @uref{../topdocs/out-www/AUTHORS.html, Authors} documents who did
+what on LilyPond.
+@item @uref{../out-www/NEWS.txt,NEWS} summary of changes for 1.4
+@item @uref{../misc/out-www/CHANGES-1.4.html, CHANGES-1.4} Change logs
+from 1.4 up to 1.5
+@item @uref{../misc/out-www/CHANGES-1.3.html, CHANGES-1.3} Change logs from 1.3 up to 1.4 
+@item @uref{../misc/out-www/CHANGES-1.2.html, CHANGES-1.2} Change logs from 1.2 up to 1.3 
+@item @uref{../misc/out-www/CHANGES-1.1.html, CHANGES-1.1} Change logs from 1.1 up to
+1.2 
+@item @uref{../misc/out-www/CHANGES-1.0.html, CHANGES-1.0} Change logs from 1.0 up to 1.1 
+@item @uref{../misc/out-www/CHANGES-0.1.html, CHANGES-0.1} Change logs from 0.1 up to 1.0 
+@item @uref{../misc/out-www/CHANGES-0.0.html, CHANGES-0.0} Change logs from 0.0 up to 0.1
+@item @uref{../misc/out-www/NEWS-1.4.html, NEWS-1.4} summary of changes from 1.2 till 1.4
+
+@item @uref{../misc/out-www/NEWS-1.2.html, NEWS-1.2} summary of changes from 1.0 till 1.2
+
+@item @uref{../misc/out-www/ANNOUNCE-1.2.html, ANNOUNCE-1.2} Announcement of 1.2 (includes summary of changes)
+@item @uref{../misc/out-www/ANNOUNCE-1.0.html, ANNOUNCE-1.0} Announcement of 1.0 (includes summary of
+changes)
+@item @uref{../misc/out-www/ANNOUNCE-0.1.html, ANNOUNCE-0.1} Announcement of 0.1 (includes summary of
+changes)
+@item @uref{../misc/out-www/AIMS.html, AIMS} Why LilyPond?
+@item @uref{../misc/out-www/interview.html, interview} Answers to the Brave GNU world standard questions.
+@item @uref{../windows/out-www/lily-wins.html, lily-wins} musings on the
+Windows installer
 @end itemize
 
 These pages were entirely created from a @strong{development snapshot}
