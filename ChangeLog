@@ -1,3 +1,7 @@
+2003-03-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/ly2dvi.py (run_dvips): +add  .map file.
+
 2003-03-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 	
 	* lily/parser.yy (scalar): DIGIT is also a scalar.
