@@ -1,3 +1,17 @@
+pl 55
+	- bezier check and ajust for slur height
+	- better slur height ajust
+	- DO chmod 755 *test/*sh
+	- bf: discretionary of ||
+	- bf: scripts within staff
+	- NOT Grandstaff -> Grand_staff (yet?)
+	- bf: cresc. decresc. height lookup.cc,init/table*
+	- bf: staff-symbol (script placements)
+	- staff-group-bracket
+	- bf's preludes, los-toros
+	- nicer trills
+	- adjustment slur extend
+
 pl 54
 	- bf dynamic_grav
 	- bf accidentals with key change
