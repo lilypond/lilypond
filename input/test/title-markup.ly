@@ -82,11 +82,9 @@ spaceTest = \markup { "two space chars" }
 
 \score {
     \context Staff \notes \relative c' {
-	%% stress page breaking: keep on 3 pages
-	%% 35 looks very good: 3 pages
-	%% Hmmm.
-	%% 36 seems to show a bug:
-	%% 4 pages, first two half full, last two full
+	%% stress page breaking:
+	%% 35 keep on 3 pages
+	%% 36 spread evenly over 4 pages
 	\repeat unfold 35 { a b c d \break }
 	c1
     }
