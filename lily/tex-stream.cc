@@ -14,12 +14,15 @@
 #include "tex-stream.hh"
 #include "debug.hh"
 
+const int MAXLINELEN = 200;
+
 Tex_stream::Tex_stream(String filename) 
 {
     os = new ofstream(filename);
     if (!*os)
 	error("can't open `" + filename+"\'");
     nest_level = 0;
+    line_len_i_ = 0;
     outputting_comment=false;
     header();
 }
@@ -51,6 +54,7 @@ Tex_stream::operator<<(String s)
 	    }
 	    continue;
 	}
+	line_len_i_ ++;
 	switch(*cp) 
 	    {
 	    case '%':
@@ -72,9 +76,14 @@ Tex_stream::operator<<(String s)
 		/* FALLTHROUGH */
 		
 	    case '\n':
-		*os << "%\n";
-		*os << String(' ', nest_level);
+		break_line();
 		break;	      
+	    case ' ':
+		*os <<  ' ';
+		if (line_len_i_ > MAXLINELEN) 
+		   break_line(); 
+		
+		break;
 	    default:
 		*os << *cp;
 		break;
@@ -83,5 +92,12 @@ Tex_stream::operator<<(String s)
     return *this;
 }
 
+void
+Tex_stream::break_line()
+{
+    *os << "%\n";
+    *os << String(' ', nest_level);
+    line_len_i_ = 0;
+}
 
 /* *************************************************************** */
