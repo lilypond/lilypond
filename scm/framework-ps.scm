@@ -28,12 +28,12 @@
 (define mm-to-bigpoint
   (/ 72 25.4))
 
-(define-public (ps-font-command font . override-coding)
-  (let* ((name (ly:font-file-name font))
+(define-public (ps-font-command font)
+  (let* ((name (munge-lily-font-name (ly:font-file-name font)))
 	 (magnify (ly:font-magnification font)))
 
     (string-append
-     "magfont" (string-encode-integer (hashq  name 1000000))
+     "magfont" (string-encode-integer (hash  name 1000000))
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify)))))))
 
 (define (tex-font? fontname)
@@ -64,12 +64,12 @@
   (define (font-load-command font)
     (let* ((specced-font-name (ly:font-name font))
 	   (fontname (if specced-font-name
-			 specced-font-name
+			 (munge-lily-font-name specced-font-name)
 			 (ly:font-file-name font)))
 	   (command (ps-font-command font))
 
 	   ;; FIXME -- see (ps-font-command )
-	   (plain (ps-font-command font #f))
+	   (plain (ps-font-command font))
 	   (designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
 	   (ops (ly:output-def-lookup paper 'outputscale))
@@ -203,6 +203,9 @@
    "init-lilypond-parameters\n"
    "%%EndSetup\n"))
 
+(define-public (munge-lily-font-name name)
+  (regexp-substitute/global #f "([eE]mmentaler|[aA]ybabtu)"  name 'pre "PFA" 1 'post))
+
 (define (write-preamble paper load-fonts? port)
   (define (load-fonts paper)
     (let* ((fonts (ly:paper-fonts paper))
@@ -226,13 +229,20 @@
 			   (cffname (string-append x ".cff.ps"))
 			   (cff-file-name (ly:find-file cffname))
 			   )
+
+		      
 		      (cond
 		       ((and bare-file-name (string-match "\\.pfa" bare-file-name))
 			(cached-file-contents bare-file-name))
 		       ((and bare-file-name (string-match "\\.pfb" bare-file-name))
 			(ly:pfb->pfa bare-file-name))
+			
+		       ((string-match "([eE]mmentaler|[Aa]ybabtu)" x)
+			(cached-file-contents
+			 (format "~a.pfa" (munge-lily-font-name x))))
+
 		       ((and bare-file-name
-			     (string-match "\\.(otf|cff)" bare-file-name))
+			    (string-match "\\.(otf|cff)" bare-file-name))
 
 			; replace with the CFF.ps, which lives in a
 			; separate subdir.
