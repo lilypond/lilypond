@@ -936,19 +936,18 @@ c4 c g' g a a g2
 %@}
 @end example
 
-@c  FIXME
+@c  TODO   post-3.0 reorg
 @c   This is good info, but I wouldn't call it a comment.  IMO it should
-@c   be moved somewhere else.  I don't know exactly where yet, but I'll
-@c   resolve it soon.  -gp
+@c   be moved somewhere else.
 
 @cindex versioning
 
 There is a special statement that is a kind of comment.  The @code{\version}
 statement marks for which version of LilyPond the file was written.
-To mark a file for version 2.1.17, use
+To mark a file for version 3.0.0, use
 
 @example
-\version "2.3.16"
+\version "3.0.0"
 @end example
 
 @noindent
