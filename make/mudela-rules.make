@@ -21,5 +21,10 @@ $(outdir)/%.nexi: %.tely
 	mv $(@D)/$(*F).texi $@
 	$(SUBST_TEXI_DEPS)
 
+# nfo: info from non-lily texi
 $(outdir)/%.info: $(outdir)/%.nexi
-	-$(MAKEINFO) --force --output=$@ $<
+	-$(MAKEINFO) --force --output=$(outdir)/$(*F).info $<
+
+# nfo: info from non-lily texi
+#$(outdir)/%.nfo: $(outdir)/%.nexi
+#	-$(MAKEINFO) --force --output=$(outdir)/$(*F).info $<
