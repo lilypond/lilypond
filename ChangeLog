@@ -1,5 +1,9 @@
 2002-04-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/user/lilypond-book.itely: 
+	* scripts/lilypond-book.py: Add options [no]indent, linewidth and
+	noinline.
+
 	* input/mozart-hrn3-defs.ly (startGraceContext): Customize grace init.
 
 	* scm/grob-property-description.scm (beam-space): Junk.
