@@ -84,8 +84,8 @@ System_start_delimiter::after_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   SCM   gl = me->get_grob_property ("glyph");
-  
-  if (scm_ilength (me->get_grob_property ("elements")) <=  1 && gl == ly_symbol2scm ("bar-line"))
+
+  if (scm_ilength (me->get_grob_property ("elements")) <=  1 && gh_equal_p (gl,ly_str02scm ("bar-line")))
     {
       me->suicide ();
     }

@@ -667,9 +667,8 @@
 		(meta . ,(grob-description sustain-pedal-interface side-position-interface font-interface))
 	))
 
-	;; TODO: should split in 3
 	(SystemStartBrace . (
-		(glyph . brace)
+		(glyph . "brace")
 		(molecule-callback . ,System_start_delimiter::brew_molecule)
 		(collapse-height . 5.0)
 		(font-family . braces)
@@ -679,7 +678,7 @@
 	(SystemStartBracket . (
 		(Y-extent-callback . #f)
 		(molecule-callback . ,System_start_delimiter::brew_molecule)
-		(glyph . bracket)
+		(glyph . "bracket")
 		(arch-height . 1.5)
 		(arch-angle . 50.0)
 		(arch-thick . 0.25)
@@ -691,7 +690,7 @@
 	(SystemStartBar . (
 		(Y-extent-callback . #f)
 		(molecule-callback . ,System_start_delimiter::brew_molecule)
-		(glyph . bar-line)
+		(glyph . "bar-line")
 		(thickness . 1.6)
 		(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking)
 		(meta . ,(grob-description system-start-delimiter-interface ))
@@ -824,5 +823,8 @@
 
 ;; make sure that \property Foo.Bar =\turnOff doesn't complain
 
-(map (lambda (x) (set-object-property! (car x) 'translator-type? list?))
+(map (lambda (x)
+       ; (display (car x)) (newline)
+
+       (set-object-property! (car x) 'translation-type? list?))
      all-grob-descriptions)

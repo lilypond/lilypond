@@ -21,8 +21,6 @@
   (set! all-backend-properties (cons symbol all-backend-properties))
   )
 
-
-  
 ;; put this in an alist?
 
 (grob-property-description 'X-extent-callback procedure? "procedure taking an grob and axis argument, returning a number-pair. The return value is the extent of the grob.")
@@ -177,7 +175,7 @@ is used by @ref{note-collision-interface}.")
 (grob-property-description 'fraction number-pair? "fraction of a time signature.")
 (grob-property-description 'full-size-change boolean? "if set, don't make a change clef smaller.")
 
-(grob-property-description 'glyph symbol? "a string determining what (style) of  glyph is typeset. Valid choices depend on the function that is reading this property. .")
+(grob-property-description 'glyph string? "a string determining what (style) of  glyph is typeset. Valid choices depend on the function that is reading this property. .")
 (grob-property-description 'glyph-name string? "a name of character within font.")
 
 (grob-property-description 'gap number? "Size of a gap in a variable symbol.")
@@ -205,7 +203,9 @@ For text,  this is `relative'(?) to the current alignment.
 
 For barline, space after a thick line.")
 (grob-property-description 'layer number? "The output layer [0..2].  The default is 1.")
+
 (grob-property-description 'left-padding number? "space left of accs.")
+
 (grob-property-description 'length number? "Stem length for unbeamed stems, only for user override.")
 (grob-property-description 'lengths list? "Stem length given multiplicity of flag.")
 (grob-property-description 'line-count integer? "Number of staff
@@ -220,6 +220,7 @@ and will have no effect.
 (grob-property-description 'maximum-duration-for-spacing moment? "space as if a duration of this type is available in this measure.")
 (grob-property-description 'maximum-length number? "don't make Grob longer than this")
 (grob-property-description 'maximum-rest-count integer? "kill off rests so we don't more than this number left.")
+(grob-property-description 'measure-count integer? "number of measures for a multimeasure rest.")
 (grob-property-description 'merge-differently-dotted boolean? " Merge noteheads in collisions, even if they have a different number of dots. This normal notation for some types of polyphonic music. The value of this setting is used by @ref{note-collision-interface} .")
 (grob-property-description 'minimum-distance number? "minimum distance between notes and rests.")
 (grob-property-description 'minimum-distances list? "list of rods (ie. (OBJ . DIST) pairs).")
@@ -236,9 +237,14 @@ Also works as a scaling parameter for the length of hyphen. .")
 FIXME: also pair? (cons LEFT RIGHT)
 
 ")
+(grob-property-description 'minimum-space-pair number-pair? "
 
+? (cons LEFT RIGHT)
+
+")
 (grob-property-description 'minimum-width number? "minimum-width of rest symbol, in staffspace.")
 (grob-property-description 'molecule-callback procedure? "Function taking grob as argument, returning a Scheme encoded Molecule.")
+(grob-property-description 'molecule molecule? "Cached output of the molecule-callback.")
 
 (grob-property-description 'new-accidentals list? "list of (pitch, accidental) pairs.")
 (grob-property-description 'no-spacing-rods boolean? "read from grobs: boolean that makes Separation_item ignore this item (MOVE ME TO ITEM).")
@@ -267,18 +273,19 @@ as a real penalty.")
 (grob-property-description 'right-padding number? "space right of accs.")
 (grob-property-description 'right-trim-amount number? "shortening of the lyric extender on the right.")
 (grob-property-description 'script-priority number? "A sorting key that determines in what order a script is within a stack of scripts.")
-(grob-property-description 'self-alignment-X number? "real number: -1 =
+(grob-property-description 'self-alignment-X number-or-grob? "real number: -1 =
 left aligned, 0 = center, 1 right-aligned in X direction.
 
  Set to an grob pointer, if you want that grob to be the center.
 In this case, the center grob should have this object as a
 reference point.
-.")
+
+TODO: revise typing.")
 (grob-property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis.")
 (grob-property-description 'shortest-playing-duration moment? "duration of the shortest playing in that column.")
 (grob-property-description 'shortest-starter-duration moment? "duration of the shortest notes that starts exactly in this column.")
 (grob-property-description 'side-relative-direction dir? "if set: get the direction from a different object, and multiply by this.")
-(grob-property-description 'side-support list? "the support, a list of grobs.")
+(grob-property-description 'side-support-elements list? "the support, a list of grobs.")
 (grob-property-description 'slope number? "some kind of slope")
 (grob-property-description 'slope-limit number? "set slope to zero if slope is running away steeper than this.")
 (grob-property-description 'solid boolean? "should porrectus be solidly filled?.")
@@ -294,7 +301,7 @@ itself.  Return value is ignored.")
 (grob-property-description 'stacking-dir dir? "stack contents of grobs in which direction ?.")
 (grob-property-description 'staff-space number? "Amount of line leading relative to global staffspace.")
 (grob-property-description 'staff-position number? "vertical position in staff spaces, counted from the middle line.")
-(grob-property-description 'staff-symbol boolean? "the staff symbol grob that we're in.")
+
 (grob-property-description 'staffline-clearance number? "don't get closer than this to stafflines.")
 (grob-property-description 'stem ly-grob? "pointer to Stem object.")
 (grob-property-description 'stem-attachment-function procedure? "Where
@@ -376,6 +383,7 @@ The following abbreviations are currently defined:
 (grob-property-description 'thickness number? "thickness, measured in stafflinethickness.")
 (grob-property-description 'thin-kern number? "space after a hair-line.")
 (grob-property-description 'forced-distance number? "forced distance for an alignment.")
+
 (grob-property-description 'threshold number-pair? "(cons MIN MAX), where MIN and MAX are dimensions in staffspace.")
 (grob-property-description 'transparent boolean? "This is almost the
 same as setting molecule-callback to #f, but this retains the
@@ -403,3 +411,24 @@ function of type (beam multiplicity dy staff-line-thickness) -> real.  Default v
 (grob-property-description 'y-free number? "minimal vertical gap between slur and noteheads or stems.")
 (grob-property-description 'y-offset number? "extra vertical offset for ties away from the center line.")
 (grob-property-description 'y number? "set by beam: position of left edge.")
+
+
+;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;; INTERNAL
+
+(grob-property-description 'left-neighbors list? "")
+(grob-property-description 'right-neighbors list? "")
+(grob-property-description 'left-items list? "")
+(grob-property-description 'right-items list? "")
+(grob-property-description 'cause scheme? "Any kind of causation objects (i.e. music, or perhaps translator) that was the cause for this grob.  ")
+(grob-property-description 'font font-metric? "Cached font metric object")
+(grob-property-description 'break-alignment-done boolean? "mark flag to signal we've done alignment already.")
+(grob-property-description 'staff-symbol ly-grob? "the staff symbol grob that we're in.")
+(grob-property-description 'collision-done boolean? "")
+(grob-property-description 'rest ly-grob? "the staff symbol grob that we're in.")
+(grob-property-description 'rest-collision ly-grob? "rest collision that a rest is in.")
+
+(grob-property-description 'staff-support boolean? " JUNKME.")
+(grob-property-description 'script-molecule pair? "index code for script.")
+
+(grob-property-description 'accidentals-grob ly-grob? "accidentals for this note.")
