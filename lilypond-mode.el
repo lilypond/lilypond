@@ -1136,7 +1136,13 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
       (progn
 	(make-local-variable 'paren-mode)
 	(paren-set-mode 'paren)
-	))
+	(make-local-variable 'blink-matching-paren)
+	(setq blink-matching-paren t)
+	)
+    (progn
+      (make-local-variable 'blink-matching-paren-on-screen)
+      (setq blink-matching-paren-on-screen t)
+     ))
 
   ;; run the mode hook. LilyPond-mode-hook use is deprecated
   (run-hooks 'LilyPond-mode-hook))
