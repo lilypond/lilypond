@@ -30,8 +30,9 @@ def strip_extension (f, ext):
 	return p + e
 
 def escape_shell (x):
-	return re.sub (r'''([^\\])([`'"\\\s])''', r'\1\\\2', x)
-	# help emacs'" broken python mode
+ 	return re.sub ("(\s|[`'\"\\\\])", r'\\\1',x)
+#	return re.sub (r'''([^\\])([`'"\\\s])''', r'\1\\\2', x)
+        # help emacs'" broken python mode
 	
 debug (`sys.argv`)
 
