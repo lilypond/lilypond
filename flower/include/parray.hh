@@ -130,7 +130,7 @@ public:
   Array<void*>::size;
   Array<void*>::clear;
   Array<void*>::set_size;
-  Array<void*>::empty;
+  Array<void*>::is_empty;
   Array<void*>::reverse;
   Array<void*>::tighten_maxsize;
 

@@ -131,10 +131,10 @@ snippet_res = {
 	HTML: {
 	'include':  no_match,
 	'lilypond' : '(?m)(?P<match><lilypond((?P<options>[^:]*):)(?P<code>.*?)/>)',
-	'lilypond-block': r'''(?ms)(?P<match><lilypond(?P<options>[^>]+)?>(?P<code>.*?)</lilypond>)''',
-	'lilypond-file': r'(?m)(?P<match><lilypondfile(?P<options>[^>]+)?>\s*(?P<filename>[^<]+)\s*</lilypondfile>)',
-	'multiline-comment': r"(?sm)\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s",
-	'singleline-comment': no_match,
+	'lilypond_block': r'''(?ms)(?P<match><lilypond(?P<options>[^>]+)?>(?P<code>.*?)</lilypond>)''',
+	'lilypond_file': r'(?m)(?P<match><lilypondfile(?P<options>[^>]+)?>\s*(?P<filename>[^<]+)\s*</lilypondfile>)',
+	'multiline_comment': r"(?sm)\s*(?!@c\s+)(?P<code><!--\s.*?!-->)\s",
+	'singleline_comment': no_match,
 	'verb': r'''(?P<code><pre>.*?</pre>)''',
 	'verbatim': r'''(?s)(?P<code><pre>\s.*?</pre>\s)''',
 	},
@@ -142,10 +142,10 @@ snippet_res = {
 	LATEX: {
 	'include': r'(?m)^[^%\n]*?(?P<match>\\input{(?P<filename>[^}]+)})',
 	'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond\s*(\[(?P<options>.*?)\])?\s*{(?P<code>.*?)})',
-	'lilypond-block': r"(?sm)^[^%\n]*?(?P<match>\\begin\s*(\[(?P<options>.*?)\])?\s*{lilypond}(?P<code>.*?)\\end{lilypond})",
-	'lilypond-file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile\s*(\[(?P<options>.*?)\])?\s*\{(?P<filename>.+)})',
-	'multiline-comment': no_match,
-	'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>^%.*$\n+))",
+	'lilypond_block': r"(?sm)^[^%\n]*?(?P<match>\\begin\s*(\[(?P<options>.*?)\])?\s*{lilypond}(?P<code>.*?)\\end{lilypond})",
+	'lilypond_file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile\s*(\[(?P<options>.*?)\])?\s*\{(?P<filename>.+)})',
+	'multiline_comment': no_match,
+	'singleline_comment': r"(?m)^.*?(?P<match>(?P<code>^%.*$\n+))",
 	'verb': r"(?P<code>\\verb(?P<del>.).*?(?P=del))",
 	'verbatim': r"(?s)(?P<code>\\begin\s*{verbatim}.*?\\end{verbatim})",
 	},
@@ -153,10 +153,10 @@ snippet_res = {
 	TEXINFO: {
 	'include':  '(?m)^[^%\n]*?(?P<match>@include\s+(?P<filename>\S*))',
 	'lilypond' : '(?m)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?{(?P<code>.*?)})',
-	'lilypond-block': r'''(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end lilypond)\s''',
-	'lilypond-file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
-	'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
-	'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>@c([ \t][^\n]*|)\n))",
+	'lilypond_block': r'''(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end lilypond)\s''',
+	'lilypond_file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
+	'multiline_comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
+	'singleline_comment': r"(?m)^.*?(?P<match>(?P<code>@c([ \t][^\n]*|)\n))",
 	'verb': r'''(?P<code>@code{.*?})''',
 	'verbatim': r'''(?s)(?P<code>@example\s.*?@end example\s)''',
 	},
@@ -368,6 +368,8 @@ def split_options (option_string):
 index = 0
 
 class Snippet:
+
+	## huh? index is redundant? --hwn
 	def __init__ (self, type, source, index, match):
 		self.type = type
 		self.source = source
@@ -386,9 +388,9 @@ class Snippet:
 
 	def ly (self):
 		s = ''
-		if self.type == 'lilypond-block' or self.type == 'lilypond':
+		if self.type == 'lilypond_block' or self.type == 'lilypond':
 			s = self.substring ('code')
-		elif self.type == 'lilypond-file':
+		elif self.type == 'lilypond_file':
 			name = self.substring ('filename')
 			s = open (find_file (name)).read ()
 		return s
@@ -410,8 +412,8 @@ class Snippet:
 		raise 'to be done'
 
 	def write_ly (self):
-		if self.type == 'lilypond-block' or self.type == 'lilypond'\
-		       or self.type == 'lilypond-file':
+		if self.type == 'lilypond_block' or self.type == 'lilypond'\
+		       or self.type == 'lilypond_file':
 			h = open (self.basename () + '.ly', 'w')
 			h.write (self.full_ly ())
 
@@ -451,8 +453,8 @@ class Snippet:
 		h.write ('\n@end html\n')
 			
 	def outdated_p (self):
-		if self.type != 'lilypond-block' and self.type != 'lilypond'\
-		       and self.type != 'lilypond-file':
+		if self.type != 'lilypond_block' and self.type != 'lilypond'\
+		       and self.type != 'lilypond_file':
 			return None
 		base = self.basename ()
 		if os.path.exists (base + '.ly') \
@@ -469,7 +471,7 @@ class Snippet:
 		# Hmm, why is verbatim's group called 'code'; rename to 'verb'?
 		#if snippet.match.group ('code'):
 		# urg
-		if self.type == 'lilypond' or self.type == 'lilypond-block':
+		if self.type == 'lilypond' or self.type == 'lilypond_block':
 			h.write (self.source[index:self.start ('code')])
 			h.write (run_filter (self.substring ('code')))
 			h.write (self.source[self.end ('code'):self.end (0)])
@@ -483,8 +485,8 @@ class Snippet:
 		# if snippet.match.group ('code'):
 		# urg
 		if self.type == 'lilypond' \
-		       or self.type == 'lilypond-block'\
-		       or self.type == 'lilypond-file':
+		       or self.type == 'lilypond_block'\
+		       or self.type == 'lilypond_file':
 			h.write (self.source[index:self.start (0)])
 			snippet_output = eval ("Snippet.output_" + format)
 			snippet_output (self)
@@ -496,6 +498,53 @@ class Snippet:
 		else:
 			h.write (self.source[index:self.end (0)])
  		index = self.end (0)
+
+
+# this isn't working - <params> are doubly used.
+# a solution is to strip P<> from the regexes,
+# and redo the match with  the original in notice_snippet
+def other_toplevel_snippets (str, types):
+	res = ['(?P<regex%s>%s)' % (t, snippet_res[format][t])
+	       for t in types]
+
+	big_re = re.compile (string.join (res, '|'))
+	snippets = []
+	
+	def notice_snippet (match, snips = snippets, types = types):
+		snip = None
+		for t in types:
+			try:
+				key = 'regex' + t
+				gr = match.group (key)
+				snip =Snippet (t, str, match.start (key), match)
+				break
+			except IndexError:
+				pass
+		if snip:
+			snips.append (snip)
+		else:
+			raise "Huh?"
+		
+		return match.group (0)
+
+	str = big_re.sub (notice_snippet, str)
+
+	return snippets
+
+def simple_toplevel_snippets (str, types):
+	snippets  = []
+	for t in types:
+		regex = re.compile (snippet_res[format][t])
+
+		# ugh, this can be done nicer in python 2.x
+		def notice_snippet (match, snippets = snippets,
+				    t = t, str = str):
+			s = Snippet (t, str, 0, match)
+			snippets.append (s)
+			return ''
+
+		regex.sub (notice_snippet, str)
+	return snippets
 
 def find_toplevel_snippets (s, types):
 	res = {}
@@ -646,16 +695,16 @@ def do_file (input_filename):
 	ly.progress (_ ("Dissecting..."))
 	#snippets = find_toplevel_snippets (source, snippet_res[format].keys ())
 	snippet_types = (
-		'lilypond-block',
+		'lilypond_block',
 		'verb',
 		'verbatim',
-		'singleline-comment',
-		'multiline-comment',
-		'lilypond-file',
+		'singleline_comment',
+		'multiline_comment',
+		'lilypond_file',
 		'include',
 		'lilypond', )
 	
-	snippets = find_toplevel_snippets (source, snippet_types)
+	snippets = simple_toplevel_snippets (source, snippet_types)
 	ly.progress ('\n')
 
 	global h

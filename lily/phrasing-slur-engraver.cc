@@ -23,7 +23,7 @@ class Phrasing_slur_engraver : public Engraver
 {
   Link_array<Music> eventses_;
   Link_array<Music> new_phrasing_slur_evs_;
-  Link_array<Grob> phrasing_slur_l_stack_;
+  Link_array<Grob> phrasing_slurs_;
   Link_array<Grob> end_phrasing_slurs_;
   Moment last_start_;
 
@@ -80,8 +80,8 @@ Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
   if (Note_column::has_interface (info.grob_))
     {
       Grob *e =info.grob_;
-      for (int i = 0; i < phrasing_slur_l_stack_.size (); i++)
-	Slur::add_column (phrasing_slur_l_stack_[i], e);
+      for (int i = 0; i < phrasing_slurs_.size (); i++)
+	Slur::add_column (phrasing_slurs_[i], e);
       for (int i = 0; i < end_phrasing_slurs_.size (); i++)
 	Slur::add_column (end_phrasing_slurs_[i], e);
     }
@@ -90,14 +90,14 @@ Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
 void
 Phrasing_slur_engraver::finalize ()
 {
-  for (int i = 0; i < phrasing_slur_l_stack_.size (); i++)
+  for (int i = 0; i < phrasing_slurs_.size (); i++)
     {
       /*
 	Let's not typeset unterminated stuff
       */
-      phrasing_slur_l_stack_[i]->suicide ();
+      phrasing_slurs_[i]->suicide ();
     }
-  phrasing_slur_l_stack_.clear ();
+  phrasing_slurs_.clear ();
 
   for (int i=0; i < eventses_.size (); i++)
     {
@@ -118,11 +118,11 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
       
       if (d == STOP)
 	{
-	  if (phrasing_slur_l_stack_.empty ())
+	  if (phrasing_slurs_.is_empty ())
 	    phrasing_slur_ev->origin ()->warning (_f ("can't find start of phrasing slur"));
 	  else
 	    {
-	      Grob* phrasing_slur = phrasing_slur_l_stack_.pop ();
+	      Grob* phrasing_slur = phrasing_slurs_.pop ();
 	      end_phrasing_slurs_.push (phrasing_slur);
 	      eventses_.pop ();
 	    }
@@ -146,7 +146,7 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 	}
     }
   for (int i=0; i < start_phrasing_slurs.size (); i++)
-    phrasing_slur_l_stack_.push (start_phrasing_slurs[i]);
+    phrasing_slurs_.push (start_phrasing_slurs[i]);
   new_phrasing_slur_evs_.clear ();
 }
 

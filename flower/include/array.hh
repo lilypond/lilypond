@@ -168,7 +168,7 @@ public:
   /// remove and return last entry 
   T pop () 
     {
-      assert (!empty ());
+      assert (!is_empty ());
       T l = top (0);
       set_size (size ()-1);
       return l;
@@ -206,7 +206,7 @@ public:
  (*this)[i]= (*this)[j];
  (*this)[j]=t;
     }
-  bool empty () const 
+  bool is_empty () const 
     { return !size_; }
 
   void insert (T k, int j);

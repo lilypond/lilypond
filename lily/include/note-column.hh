@@ -38,7 +38,7 @@ public:
   static void set_stem (Grob*me,Grob*);
   static void set_dotcol (Grob*me,Grob*);
   static void add_head (Grob*me,Grob*);
-  static bool rest_b (Grob*me);
+  static bool has_rests (Grob*me);
   static bool has_interface (Grob*);
   
   static Item *get_stem (Grob*);

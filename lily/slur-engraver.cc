@@ -132,7 +132,7 @@ Slur_engraver::process_music ()
       Direction d = to_dir (slur_ev->get_mus_property ("span-direction"));
       if (d== STOP)
 	{
-	  if (slur_stack_.empty ())
+	  if (slur_stack_.is_empty ())
 	    /* How to shut up this warning, when Voice_devnull_engraver has
 	       eaten start event? */
 	    slur_ev->origin ()->warning (_f ("can't find start of slur"));

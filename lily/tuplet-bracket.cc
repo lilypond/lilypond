@@ -314,11 +314,11 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
     Use outer non-rest columns to determine slope
    */
   int l = 0;
-  while (l <columns.size () && Note_column::rest_b (columns[l]))
+  while (l <columns.size () && Note_column::has_rests (columns[l]))
     l ++;
 
   int r = columns.size ()- 1;
-  while (r >= l && Note_column::rest_b (columns[r]))
+  while (r >= l && Note_column::has_rests (columns[r]))
     r--;
   
   if (l < r)

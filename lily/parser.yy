@@ -440,7 +440,7 @@ toplevel_expression:
 		for (int i=0; i < sc->defs_.size (); i++)
 			default_rendering (sc->music_, sc->defs_[i]->self_scm(),head, outname);
 
-		if (sc->defs_.empty ())
+		if (sc->defs_.is_empty ())
 		{
 		   Music_output_def *id =
 			unsmob_music_output_def (THIS->lexer_->lookup_identifier
