@@ -4,8 +4,8 @@
   Distributed under GNU GPL  
 */
 
-#ifndef SVEC_H
-#define SVEC_H
+#ifndef ARRAY_H
+#define ARRAY_H
 #include <assert.h>
 
 /// copy a bare (C-)array from #src# to #dest# sized  #count#
@@ -17,9 +17,9 @@ inline void arrcpy(T*dest, T*src, int count) {
 
 ///scaleable array template, for T with def ctor.
 template<class T>
-class svec {
+class Array {
 protected:
-    
+    /// maximum length of array.
     int max;
 
     /// the data itself
@@ -46,22 +46,21 @@ public:
     /// report the size_. See {setsize_}
 
     int size() const  { return size_; }
-    int sz() const  { return size(); }
     
     /// POST: size() == 0
     void clear() { size_ = 0; }
 
-    svec() { thearray = 0; max =0; size_ =0; }
+    Array() { thearray = 0; max =0; size_ =0; }
 
     /// set the size_ to #s#
     void set_size(int s) {
 	if (s >= max) remax(s);
 	size_ = s;    
     }
-    /** POST: sz() == s.
+    /** POST: size() == s.
     Warning: contents are unspecified */
     
-    ~svec() { delete[] thearray; }
+    ~Array() { delete[] thearray; }
 
     /// return a  "new"ed copy of array 
     T* copy_array() const {
@@ -73,11 +72,11 @@ public:
     operator T* () const {
 	return copy_array();	
     }
-    void operator=(svec const & src) {
+    void operator=(Array const & src) {
 	set_size (src.size_);
 	arrcpy(thearray,src.thearray, size_);
     }
-    svec(const svec & src) {
+    Array(const Array & src) {
 	thearray = src.copy_array();
 	max = size_ = src.size_;	
     }
@@ -85,7 +84,7 @@ public:
     /// tighten array size_.
     void precompute () { remax(size_); }
 
-    /// this makes svec behave like an array
+    /// this makes Array behave like an array
     T &operator[] (const int i) const {
 	assert(i >=0&&i<size_);
 	return ((T*)thearray)[i];	
@@ -134,7 +133,7 @@ public:
 	       int lower = -1, int upper = -1 ) {
 	if (lower < 0) {
 	    lower = 0 ;
-	    upper = sz()-1;
+	    upper = size()-1;
 	}
 	if (lower >= upper)
 	    return;
@@ -145,16 +144,16 @@ public:
 		swap( ++last,i);
 	swap(lower, last);
 	sort(compare, lower, last-1);
-	sort(compare, last+1, lower);
+	sort(compare, last+1, upper);
     }
-    void concat(svec<T> const &src) {
+    void concat(Array<T> const &src) {
 	int s = size_;
 	set_size(size_ + src.size_);
 	arrcpy(thearray+s,src.thearray, src.size_);	
     }
-    svec<T> subvec(int lower, int upper) {
+    Array<T> subvec(int lower, int upper) {
 	assert(lower >= 0 && lower <=upper&& upper <= size_);
-	svec<T> r;
+	Array<T> r;
 	int s =upper-lower;
 	r.set_size(s);
 	arrcpy(r.thearray, thearray  + lower, s);

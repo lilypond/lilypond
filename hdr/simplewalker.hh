@@ -24,7 +24,8 @@ struct Simple_walker: Staff_walker {
     bool processed_clef;
     Clef clef_;
     Rhythmic_grouping default_grouping;
-    Rhythmic_grouping current_grouping;
+    Rhythmic_grouping *current_grouping;
+    Real inbar;
     
     svec<Slur_req*> pending_slur_reqs;
     svec<Slur*>  pending_slurs;

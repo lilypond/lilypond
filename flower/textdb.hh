@@ -5,8 +5,8 @@
 
 /**: do "#" comments, read quote enclosed  fields */
 
-/// a "const" svec. Contents can't be changed.
-class Text_record : svec<String>  
+/// a "const" Array. Contents can't be changed.
+class Text_record : Array<String>  
 {
     int line_no;
     String filename;
@@ -19,13 +19,13 @@ public:
 	cerr << '\n'<< filename << ": "<< line_no << s << "\n";
     }	       
     String operator[](int j) {
-	return svec<String>::operator[](j);
+	return Array<String>::operator[](j);
     }
 
-    Text_record(svec<String> s, String fn, int j) : svec<String>(s) { 
+    Text_record(Array<String> s, String fn, int j) : Array<String>(s) { 
 	filename = fn; line_no = j; 
     }
-    svec<String>::sz;           
+    Array<String>::size;           
 };
 
 /// abstraction for a datafile

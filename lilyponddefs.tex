@@ -8,6 +8,9 @@
 \newdimen\interlinedist
 	\newcount\n
 	\newdimen\balkhoog
+	\newdimen\notewidth
+	\newdimen\notewidthhalf
+	\newdimen\notewidthdouble
 	\newdimen\staffrulethickness
 	\newdimen\interstaffrule
 
@@ -21,6 +24,7 @@
 	\font\hslurhfont=xslhz20
 	\font\musicfnt=musix20
 	\balkhoog=20pt
+	\notewidth=6pt
 	\staffrulethickness=0.4pt
 
 	\musixcalc
@@ -36,7 +40,7 @@
 	\font\musicfnt=musix16
 	\balkhoog=16pt
 	\staffrulethickness=0.4pt
-
+	\notewidth=5pt
 	\musixcalc
 }
 
@@ -45,6 +49,10 @@
 	\advance\interstaffrule by-\staffrulethickness
 	\divide\interstaffrule by 4
 	\advance\interstaffrule by -\staffrulethickness
+	\notewidthhalf=\notewidth
+	\notewidthdouble=\notewidth
+	\divide	\notewidthhalf by 2
+	\multiply \notewidthdouble by 2
 }
 
 
@@ -119,9 +127,9 @@
 	}}
 
 \def\toplines#1{ % why space needed here?
-	\vbox to 0pt{\hbox{\kern-6pt\lines{#1}{12pt}}\vss}}
+	\vbox to 0pt{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}\vss}}
 \def\botlines#1{ % idem ditto
-	\vbox to 0pt{\vss\hbox{\kern-6pt\lines{#1}{12pt}}}}
+	\vbox to 0pt{\vss\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
 
 %
 % a staffsymbol with #1 lines, width #2
@@ -140,9 +148,9 @@
 \def\csixteenthrest{\vcenter\sixteenthrest}
 \def\cthirtysecondrest{\vcenter\thirtysecondrest}
 
-\def\lsingledot{\kern-6pt\singledot}
-\def\ldoubledot{\kern-6pt\doubledot}
-\def\ltripledot{\kern-6pt\tripledot}
+\def\lsingledot{\kern-\notewidth\singledot}
+\def\ldoubledot{\kern-\notewidth\doubledot}
+\def\ltripledot{\kern-\notewidth\tripledot}
 
 
 

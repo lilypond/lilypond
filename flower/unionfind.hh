@@ -1,6 +1,6 @@
 #ifndef UNIONFIND_HH
 #define UNIONFIND_HH
-#include "vray.hh"
+#include "varray.hh"
 
 /// which points of a graph are connected?
 struct Union_find {    
@@ -10,7 +10,7 @@ struct Union_find {
     Union_find(int sz);
 
 private:
-    svec<int> classes;
+    Array<int> classes;
 
 };
 /*

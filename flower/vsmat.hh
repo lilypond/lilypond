@@ -1,6 +1,6 @@
 #ifndef VSMAT_HH
 #define VSMAT_HH
-#include "vray.hh"
+#include "varray.hh"
 #include "real.hh"
 /// a  matrix storage baseclass.
 class virtual_smat {
@@ -62,8 +62,8 @@ public:
     virtual const Real& elem(int i, int j) const = 0;
 
 #if 1
-    virtual svec<Real> row(int i) const = 0;
-    virtual svec<Real> column(int j) const = 0;
+    virtual Array<Real> row(int i) const = 0;
+    virtual Array<Real> column(int j) const = 0;
 #endif
 
     /// add a row

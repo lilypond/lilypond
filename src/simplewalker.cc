@@ -1,3 +1,7 @@
+/*
+  UGR
+  */
+
 #include "request.hh"
 #include "voice.hh"
 #include "clef.hh"
@@ -19,22 +23,23 @@
 Rhythmic_grouping
 parse_grouping(svec<Scalar> a)
 {
-    Rhythmic_grouping ret;
     Real one_beat =a[0];
     a.del(0);
     svec<int> r;
     for (int i= 0 ; i < a.sz(); i++)
 	r.add(a[i]);
     Real here =0.0;
+
+    svec<Rhythmic_grouping*> children;
     for (int i=0; i < r.sz(); i++) {
-	ret.divisions.add(here);
+	
 	Real last = here;
 	here += one_beat * r[i];
-	Rhythmic_grouping *child =new Rhythmic_grouping(Interval(last, here));
-	child->split(r[i]);
-	ret.children.add(child);	
+	children.add(
+	    new Rhythmic_grouping(Interval(last, here), r[i] )
+	    );
     }
-    ret.divisions.add(here);
+    return Rhythmic_grouping(children);
 }
 
 void
@@ -46,7 +51,7 @@ Simple_walker::do_INTERPRET_command(Command*com)
 	default_grouping = parse_grouping(args);
     }else if (com->args[0] == "BAR") {
 	local_key_.reset(key_);
-	current_grouping = default_grouping;
+
     } else if (com->args[0] == "KEY") {
 	
 	if (col()->when()) {
@@ -129,6 +134,10 @@ Simple_walker::do_note(Rhythmic_req*rq)
 	
 	Notehead*n = s->get_notehead(req, clef_.c0_pos);
 	stem_->add(n);
+	if (current_grouping) {
+	    current_grouping->add_child(
+		c->moment_->whole_in_measure, rq->duration());
+	}
 	noteheads.add(n);
 	int sidx =find_slur(v);
 	if (sidx >= 0) {
@@ -138,7 +147,7 @@ Simple_walker::do_note(Rhythmic_req*rq)
 	if (wantkey)
 	    do_local_key(req);
     }
-	
+
     if (rq->rest()) {
 	c->typeset_item( s->get_rest(rq->rest()) );
     }      
@@ -154,10 +163,11 @@ Simple_walker::process_requests()
 	    error("Too many beams (t = "
 			  +String(c->when())+")");
 	beam_ = new Beam;
+	current_grouping = new Rhythmic_grouping;
     }
     for (int i=0; i < c->slurs.sz(); i++) {
 	Slur_req*sl = c->slurs[i];
-	
+
 	if (sl->spantype == Span_req::START) {
 	    if  (find_slur(sl->elt->voice_ )>=0)
 		error("Too many slurs in voice");
@@ -176,20 +186,24 @@ Simple_walker::process_requests()
     
     if (beam_) {
 	if (!stem_)
-	    error("beamed note should have a stem (t = " 
-		  +String(c->when())+")");
-	beam_->add(stem_);
+	    WARN <<"beamed note should have a stem (t = " 
+		  <<String(c->when())<<"\n";
+	else
+	    beam_->add(stem_);
+
+
     }
     if (stem_) {
 	c->typeset_item(stem_);
 	/* needed, otherwise placement of
 	   local_key fucks up */
-//	stem_->set_default_extents();
-	// can somebody explain myself?
     }
     if (c->beam_&& c->beam_->spantype == Span_req::STOP) {
+	beam_->set_grouping(default_grouping, *current_grouping);
 	pscore_->typeset_spanner(beam_, s->theline);
 	beam_ = 0;
+	delete current_grouping;
+	current_grouping =0;
     }
     for (int i = 0; i < noteheads.sz(); i++) {
 	c->typeset_item(noteheads[i]);
@@ -204,7 +218,7 @@ Simple_walker::process_requests()
 	stem_ = 0;
     }
     for (int i=0; i < c->slurs.sz(); i++) {
-	Slur_req*sl = c->slurs[i];
+	Slur_req *sl = c->slurs[i];
 
 	if (sl->spantype == Span_req::STOP) {
 	    int idx = find_slur(sl->elt->voice_);
@@ -226,7 +240,7 @@ Simple_walker::Simple_walker(Simple_staff*s)
     stem_ = 0;
     beam_ =0;
     oldkey_undo = 0;
-
+    current_grouping = 0;
     Local_key_item * i = s->get_local_key_item();
     wantkey  =i;
     delete i;

@@ -7,7 +7,7 @@
 #ifndef FPROTO_HH
 #define FPROTO_HH
 
-template<class T> struct svec;
+template<class T> struct Array;
 template<class T> struct sstack;
 template<class T,class K> struct Assoc;
 template<class T> struct List;

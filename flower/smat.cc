@@ -14,18 +14,22 @@ Full_storage::operator=(Full_storage const &fs)
 void
 Full_storage::OK() const
 {
+    #ifndef NDEBUG
     //    static Real dummy;		
     assert(maxh >= h && maxw >= w);
     assert(h >= 0 && w >= 0);
     assert(els||!maxh);
     if (maxh>0) {		// access outer elts.
 	Real *r = els[maxh -1];
+	#if 0
 	if (maxw>0) {
 	    assert(r);
 	    Real s = r[maxw -1]; // accessing unitialised memory.
 	    s = sin(s);
 	}
+	#endif
     }
+    #endif
 }
 void
 Full_storage::resize_cols(int newh)
@@ -148,20 +152,20 @@ Full_storage::insert_row(int k)
 }
 
 
-svec<Real>
+Array<Real>
 Full_storage::row(int n) const
 {
-    svec<Real> r;
+    Array<Real> r;
     for (int j = 0; j < w; j++)
 	r.add(els[n][j]);
     return r;
 }
 
-svec<Real>
+Array<Real>
 Full_storage::column(int n) const
 {
     
-    svec<Real> r;
+    Array<Real> r;
     for (int i = 0; i<h; i++)
 	r.add(els[i][n]);
     return r;

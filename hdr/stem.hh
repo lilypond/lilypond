@@ -7,9 +7,11 @@
 #ifndef STEM_HH
 #define STEM_HH
 #include "item.hh"
+#include "vray.hh"
 
 /// the rule attached to the ball
 struct Stem : public Item {
+    /// rhythmical length
     Real note_length;
     
     // heads the stem encompasses (positions)
@@ -42,6 +44,9 @@ struct Stem : public Item {
        */
 
     Real stem_xoffset;
+    
+    svec<Notehead*> heads;
+
     /****************/
 
     /// ensure that this Stem also encompasses the Notehead #n#
@@ -52,6 +57,7 @@ struct Stem : public Item {
     void set_default_dir();
     void set_default_stemlen();
     void set_default_extents();
+    void set_noteheads();
     void postprocess();
     void preprocess();
     Stem(int center, Real duration);

@@ -38,7 +38,7 @@ struct Molecule {
     void add_right(const Molecule &m);
     void add_left(const Molecule &m);
     void add_top(const Molecule &m);
-    void add_bot(const Molecule &m);
+    void add_bottom(const Molecule &m);
     void add(Molecule const &m);
     void translate(Offset);
     void add(Atom a) { ats.bottom().add(new Atom(a)); }

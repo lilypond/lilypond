@@ -1,15 +1,14 @@
 #include "plist.hh"
 
-// not inlined since it assumes knowledge of destructor.
 template<class T>
-void
-IPointerList<T>::remove(PCursor<T> me )
+IPointerList<T>::~IPointerList()
 {
-    if ( me.ok() ) {
-	delete me.ptr();
-        List<void*>::remove(me); 
+    PCursor<T> c( *this );
+    while (c.ok()) {
+	c.del();
     }
 }
+
 template<class T>
 PCursor<T> 
 PointerList<T>::find(T what ) const

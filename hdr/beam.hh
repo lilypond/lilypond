@@ -18,6 +18,8 @@ struct Beam: public Spanner {
     /// -1 below heads, +1 above heads.
     int dir;   
 
+    Rhythmic_grouping *group;
+
     /****************/
     
     virtual Interval width()const;    
@@ -31,8 +33,9 @@ struct Beam: public Spanner {
     void preprocess();
     Interval height()const;
     void print() const;
-    
+    void set_grouping(Rhythmic_grouping def, Rhythmic_grouping current);
     void set_stemlens();
+    ~Beam();
 private:
     Molecule stem_beams(Stem *here, Stem *next, Stem *prev);
     void solve_slope();

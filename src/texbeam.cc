@@ -66,31 +66,32 @@ Lookup::beam(Real &slope, Real width)
     int sidx = slope_index(slope);
     if (!slope)
 	return rule_symbol(convert_dimen(2,"pt"), width);
-        
-    Real w = width;
+    if (width < convert_dimen(2,"pt"))
+	error("Beam too narrow. " );
+    
     Real elemwidth = convert_dimen(64,"pt");
     int widx = 5;
 
     Molecule m;
-    Real dy=0;
-    Real minwid =convert_dimen(2,"pt");
-    assert(w > minwid);
-    while (w > minwid) {
-	while (elemwidth > w) {
-	    widx --;
-	    elemwidth /= 2.0;
-	}
-	
-	Atom a(beam_element(sidx, widx, slope));
-	a.translate(Offset(0, dy));
-	m.add_right(a);
-	dy += elemwidth*slope;
-	w -= elemwidth;
+    
+    while (elemwidth > width) {
+	widx --;
+	elemwidth /= 2.0;
     }
-
-    widx = 0;
-    Atom a(beam_element(sidx, widx, slope));
-    a.translate(Offset(width -minwid, (width-minwid) * slope));
+    Real overlap = elemwidth/4;
+    Real last_x = width - elemwidth;
+    Real x = overlap;
+    Atom elem(beam_element(sidx, widx, slope));
+    Atom a(elem);
+    m.add(a);
+    while (x < last_x) {
+	a=elem;
+	a.translate(Offset(x-overlap, (x-overlap)*slope));
+	m.add(a);
+	x += elemwidth - overlap;
+    }
+    a=elem;
+    a.translate(Offset(last_x, (last_x) * slope));
     m.add(a);
     
     Symbol ret;

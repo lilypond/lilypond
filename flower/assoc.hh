@@ -1,7 +1,7 @@
 #ifndef ASSOC_HH
 #define ASSOC_HH
 
-#include "vray.hh"
+#include "varray.hh"
 #include <assert.h>
 
 template<class K, class V>
@@ -13,12 +13,12 @@ struct Assoc_ent_ {
 
 template<class K, class V>
 struct Assoc {
-    svec< Assoc_ent_<K,V> > arr;
+    Array< Assoc_ent_<K,V> > arr;
 
     /****************/
     
     int find(K key) const {
-	for (int i = 0; i < arr.sz(); i++) {
+	for (int i = 0; i < arr.size(); i++) {
 	    if (!arr[i].free && key == arr[i].key)
 		return i;
 	}
@@ -26,7 +26,7 @@ struct Assoc {
     }
     int find_creat(K key) {
 	int free = -1;
-	for (int i = 0; i < arr.sz(); i++) {
+	for (int i = 0; i < arr.size(); i++) {
 	    if (key == arr[i].key) {		
 		return i;
 	    } else if (arr[i].free ) {
@@ -43,7 +43,7 @@ struct Assoc {
 	ae.free = false;
 	ae.key = key;
 	arr.add(ae);
-	return arr.sz() -1;
+	return arr.size() -1;
     }
 public:
     bool elt_query(K key) const {

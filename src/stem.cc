@@ -60,7 +60,8 @@ Stem::add(Notehead *n)
     if ( p < minnote)
 	minnote = p;
     if ( p> maxnote)
-	maxnote = p;    
+	maxnote = p;
+    heads.add(n);
 }
 
 
@@ -109,10 +110,28 @@ Stem::set_default_extents()
 }
 
 void
+Stem::set_noteheads()
+{
+    heads.sort(Notehead::compare);
+    int parity=0;
+    int lastpos = heads[0]->position;
+    for (int i=1; i < heads.sz(); i ++) {
+	if (ABS(lastpos- heads[i]->position) == 1) {
+	    if (parity)
+		heads[i]->x_dir = (stem_xoffset>0) ? 1:-1;
+	    parity = !parity;
+	} else
+	    parity = 0;
+	lastpos = heads[i]->position;
+    }
+}
+
+void
 Stem::postprocess()
 {
     if (bot == top)
 	set_default_extents();
+    set_noteheads();
     brew_molecole();
 }
 
@@ -146,7 +165,7 @@ Stem::brew_molecole()
 	Symbol fl = p->lookup_->flag(flag);
 	Molecule m(fl);
 	if (flag < -4){		
-	    output->add_bot(m);
+	    output->add_bottom(m);
 	} else if (flag > 4) {
 	    output->add_top(m);
 	} else

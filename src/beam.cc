@@ -9,8 +9,7 @@
 #include "stem.hh"
 #include "paper.hh"
 #include "lookup.hh"
-#include "scalar.hh"
-
+#include "grouping.hh"
 
 struct Stem_info {
     Real x;
@@ -38,6 +37,7 @@ Stem_info::Stem_info(const Stem*s)
 
 Beam::Beam()
 {
+    group = 0;
     slope = 0;
     left_pos = 0.0;
     dir =0;
@@ -120,23 +120,45 @@ Beam::calculate()
     solve_slope();
 }
 
-
 void
 Beam::process()
 {
     calculate();
 
-    /*
-      quick and dirty!
-      */
-    for (PCursor<Stem*> i(stems); i.ok(); i++)
-	i->beams_left = i->beams_right = intlog2(ABS(i->flag)) - 2;
-
-    stems.top()->beams_left = 0;
-    stems.bottom()->beams_right = 0;
-
     brew_molecule();
     set_stemlens();
+}
+
+void
+Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
+{
+    def.OK();
+    cur.OK();
+    assert(cur.children.sz() == stems.size());
+    
+    cur.split(def);
+    group = new Rhythmic_grouping(cur);
+    svec<int> b;
+    {
+	PCursor<Stem*> s(stems);
+	svec<int> flags;
+	for (; s.ok(); s++) {
+	    int f = intlog2(ABS(s->flag))-2;
+	    assert(f>0);
+	    flags.add(f);
+	}
+	int fi =0;
+	b= group->generate_beams(flags, fi);
+	b.insert(0,0);
+	b.add(0);
+	assert(stems.size() == b.sz()/2);
+    }
+
+    PCursor<Stem*> s(stems);
+    for (int i=0; i < b.sz() && s.ok(); i+=2, s++) {
+	s->beams_left = b[i];
+	s->beams_right = b[i+1];
+    }
 }
 
 
@@ -258,3 +280,7 @@ Beam::print()const
 #endif
 }
 
+Beam::~Beam()
+{
+    delete group;
+}

@@ -34,9 +34,7 @@ template<class T>
 struct IPointerList : public PointerList<T> {
     IPointerList(const IPointerList&) { set_empty(); }
     IPointerList() { }
-protected:
-    virtual void remove( Cursor<void*> me ) { remove (PCursor<T>(me)); }
-    virtual void remove( PCursor<T> me );
+    ~IPointerList();
 };
 /**
   NOTE:

@@ -18,6 +18,7 @@ class Cursor
     Cursor( const Cursor<T>& cursor );
 
     T& thing();
+
     /// return current T
     T& operator *() { return thing(); }
     operator T() { return thing(); }

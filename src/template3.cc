@@ -7,13 +7,13 @@
 #include "inputcommands.hh"
 #include "molecule.hh"
 #include "plist.cc"
-
+#include "staffcommands.hh"
 
 IPL_instantiate(Atom);
 IPL_instantiate(Command);
 IPL_instantiate(Atom);
-IPL_instantiate(Command);
 IPL_instantiate(Input_command);
 IPL_instantiate(Commands_at);
+IPL_instantiate(Staff_commands_at);
 IPL_instantiate(Input_staff);
 IPL_instantiate(Input_music);

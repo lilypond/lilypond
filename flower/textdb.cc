@@ -27,7 +27,7 @@ Text_db::get_record()
 {
    while (1) {
 	String s;
-	svec<String> fields;
+	Array<String> fields;
 	assert(!eof());
 	
 	while ((s = get_word()) != "")
@@ -40,7 +40,7 @@ Text_db::get_record()
 	if (get_line() != "")
 	    assert(false);
       
-	assert (fields.sz());
+	assert (fields.size());
 	return Text_record(fields, get_name(), line());
    }
 }

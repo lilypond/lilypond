@@ -48,10 +48,18 @@ get_partial_command(Real u)
 }
 
 Input_command*
+get_grouping_command(Real r,svec<int>a ) 
+{
+    Input_command*c = get_grouping_command(a);
+    c->args.insert(r,1);
+    return c;
+}
+
+Input_command*
 get_grouping_command(svec<int>a ) 
 {
     Input_command*c = new Input_command;
-    c->args.add("GROUPING");
+    c->args.add("GROUPING");    
     for (int i=0; i < a.sz(); i ++)
 	c->args.add(a[i]);
 
@@ -132,4 +140,21 @@ get_clef_interpret_command(String w)
     c->args.add("CLEF");
     c->args.add(w);
     return c;
+}
+
+svec<int>
+get_default_grouping(int count)
+{
+    svec<int> s;
+    if (!(count % 3 )) {
+	for (int i=0; i < count/3; i++)
+	    s.add(3);
+    } else if (!(count %2)) {
+	for (int i=0; i < count/2; i++)
+	    s.add(2);
+    }else {
+	s.add(2);
+	s.concat(get_default_grouping(count-2));
+    }
+    return s;
 }
