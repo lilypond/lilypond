@@ -1,3 +1,8 @@
+2005-03-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/main.cc (do_chroot_jail): paranoia security for webserver
+	use. Patch by Sebastiano Vigna <vigna@dsi.unimi.it>.
+
 2005-03-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* stepmake/bin/add-html-footer.py (do_file): make wiki link optional.
