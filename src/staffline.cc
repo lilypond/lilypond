@@ -23,14 +23,11 @@ String
 Line_of_staff::TeXstring() const
 {
     String s("%line_of_staff\n");
+    
     s+=make_vbox(height());
     // the staff itself: eg lines, accolades
     s += "\\hbox{";
     {				
-	((PStaff*)pstaff_l_)->
-	    brew_molecule_p(line_of_score_l_->pscore_l_->paper_l_->linewidth);
-
-	s+=pstaff_l_->stafsym_p_->TeXstring();
 	iter_top(line_of_score_l_->cols,cc);
 	Real lastpos=cc->hpos;
 
@@ -67,7 +64,6 @@ Line_of_staff::Line_of_staff(Line_of_score * sc, PStaff*st)
     PCol *linestop = sc->cols.bottom();
     
     for (iter_top(pstaff_l_->spans,i); i.ok(); i++) {
-
 	PCol *brokenstart = &max(*linestart, *i->left);
 	PCol *brokenstop = &min(*linestop, *i->right);
 	if ( *brokenstart < *brokenstop) {
@@ -82,7 +78,8 @@ Line_of_staff::Line_of_staff(Line_of_score * sc, PStaff*st)
 Interval
 Line_of_staff::height() const
 {
-    Interval y = pstaff_l_->stafsym_p_->extent().y;
+    Interval y(0,0);
+
     iter_top(line_of_score_l_->cols,cc);
     
     // all items in the current line & staff.
@@ -105,7 +102,9 @@ Line_of_staff::height() const
 void
 Line_of_staff::process()
 {
+#if 0
     if (!pstaff_l_->stafsym_p_)
 	pstaff_l_->brew_molecule_p(line_of_score_l_->pscore_l_->
 				 paper_l_->linewidth);
+#endif
 }
