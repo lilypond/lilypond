@@ -11,7 +11,6 @@
 
 extern char const* defined_ch_c_l;
 extern char const* req_defined_ch_c_l;
-Voice_element*get_mark_element(String);
 void set_default_duration(int *);
 void last_duration(int n);
 void set_duration_mode(String s);
@@ -28,11 +27,12 @@ Script_def* get_scriptdef(char);
 Text_def*get_text(String s);
 Request*get_script_req(int d , Script_def*def);
 Request*get_text_req(int d , Text_def*def);
-Voice_element*get_command_element(Input_command*);
-Voice_element* get_barcheck_element();
-Voice_element* get_stemdir_element(int);
+Request* get_stemdir_req(int);
 
 
+
+
+Request*get_grouping_req(Array<int> i_arr);
 
 #endif // PARSECONSTRUCT_HH
 
