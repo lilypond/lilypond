@@ -85,14 +85,15 @@ Tie_column::set_directions ()
       Direction d = (Direction) sign (p);
       if (!d)
 	d = UP;
-
       directional_element (s[i]).set (d);
     }
   
 }
 
-void
-Tie_column::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Tie_column,after_line_breaking);
+SCM
+Tie_column::member_after_line_breaking ()
 {
   set_directions ();
+  return SCM_UNDEFINED;
 }

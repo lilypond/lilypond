@@ -22,8 +22,9 @@ FIXME: should use symbol.
 
 FIXME: this should be schemified.
 */
-void
-Clef_item::before_line_breaking ()
+GLUE_SCORE_ELEMENT(Clef_item,before_line_breaking);
+SCM
+Clef_item::member_before_line_breaking ()
 {
   SCM style_sym =get_elt_property ("style");
   String style;
@@ -49,7 +50,7 @@ Clef_item::before_line_breaking ()
   else
     {
       suicide ();
-      return;
+      return SCM_UNDEFINED;
     }
 
   // ugh.
@@ -59,6 +60,8 @@ Clef_item::before_line_breaking ()
       set_elt_property ("molecule-callback", SCM_BOOL_T);
       set_extent_callback (0, X_AXIS);
     }
+
+  return SCM_UNDEFINED;
 }
 
 

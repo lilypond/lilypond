@@ -24,8 +24,9 @@ Grace_align_item::Grace_align_item (SCM s)
 /*
   TODO: cfg-able
  */
-void
-Grace_align_item::before_line_breaking ()
+GLUE_SCORE_ELEMENT(Grace_align_item,before_line_breaking);
+SCM
+Grace_align_item::member_before_line_breaking ()
 {
   Real nhw = // lookup_l ()->notehead (2, "")..extent (X_AXIS).length();
     paper_l ()->get_var ("quartwidth");
@@ -34,6 +35,9 @@ Grace_align_item::before_line_breaking ()
 		    gh_cons (gh_double2scm (nhw* 1.5),
 			     gh_double2scm (infinity_f)));
   column_l ()->set_elt_property ("contains-grace", SCM_BOOL_T);
+
+  return SCM_UNDEFINED;
+
 }
 
 

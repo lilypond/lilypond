@@ -41,8 +41,9 @@ staff_side_compare (Item * const &i1,
   return gh_scm2int (p1) - gh_scm2int (p2);
 }
 
-void
-Script_column::before_line_breaking ()
+GLUE_SCORE_ELEMENT(Script_column,before_line_breaking);
+SCM
+Script_column::member_before_line_breaking ()
 {
   Drul_array<Link_array<Item> > arrs;
   Link_array<Item> staff_sided 
@@ -75,5 +76,7 @@ Script_column::before_line_breaking ()
       }
     
   } while (flip (&d) != DOWN);
+
+  return SCM_UNDEFINED;
 }
 

@@ -18,9 +18,10 @@ class Grace_align_item : public Item
 public:
   VIRTUAL_COPY_CONS (Score_element);
   Grace_align_item (SCM);
-protected:
+
   virtual void do_add_processing ();
-  virtual void before_line_breaking ();
+  SCM member_before_line_breaking ();
+  static SCM before_line_breaking (SCM);
 };
 #endif /* GRACE_ALIGN_ITEM_HH */
 

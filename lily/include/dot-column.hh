@@ -25,7 +25,8 @@ public:
   void add_head (Rhythmic_head*);
   Dot_column (SCM);
 
-protected:
-  virtual void after_line_breaking ();
+
+  SCM member_after_line_breaking ();
+  static SCM after_line_breaking (SCM);
 };
 #endif // DOT_COLUMN_HH

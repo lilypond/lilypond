@@ -74,14 +74,16 @@ Dot_column::Dot_column (SCM s)
 
    Should be smarter.
  */
-void
-Dot_column::after_line_breaking ()
+
+GLUE_SCORE_ELEMENT(Dot_column,after_line_breaking);
+SCM
+Dot_column::member_after_line_breaking ()
 {
   Link_array<Dots> dots = Pointer_group_interface__extract_elements (this, (Dots*)0 , "dots"); 
   dots.sort (Dot_column::compare);
   
   if (dots.size () < 2)
-    return;
+    return SCM_UNDEFINED;
   Slice s;
   s.set_empty ();
 
@@ -101,7 +103,8 @@ Dot_column::after_line_breaking ()
     }
 
   if (!conflicts)
-    return;
+  return SCM_UNDEFINED;
+
   
   int  middle = s.center ();
   /*
@@ -111,8 +114,10 @@ Dot_column::after_line_breaking ()
   if (!(pos % 2))
     pos ++;			// center () rounds down.
 
-  for (int i=0; i  <dots.size (); pos += 2, i++)
+  for (int i=0; i < dots.size (); pos += 2, i++)
     {
       staff_symbol_referencer (dots[i]).set_position(pos);
     }
+
+  return SCM_UNDEFINED;
 }

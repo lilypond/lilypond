@@ -19,7 +19,8 @@ public:
   Interval rest_dim () const;
     
   Rest_collision(SCM);
-protected:
-  virtual void before_line_breaking ();
+
+  SCM member_before_line_breaking ();
+  static SCM before_line_breaking (SCM);
 };
 #endif // REST_COLLISION_HH

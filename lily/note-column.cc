@@ -149,15 +149,16 @@ Note_column::set_dotcol (Dot_column *d)
     rest -> stem -> beam -> interpolate_y_position ()
 */
 
-void
-Note_column::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Note_column,after_line_breaking);
+SCM
+Note_column::member_after_line_breaking ()
 {
   if (!stem_l () || !rest_b ())
-    return;
+    return SCM_UNDEFINED;
 
   Beam * b = stem_l ()->beam_l ();
   if (!b || !b->visible_stem_count ())
-    return;
+    return SCM_UNDEFINED;
   
   /* ugh. Should be done by beam.
      (what? should be done --jcn)
@@ -204,6 +205,8 @@ Note_column::after_line_breaking ()
     discrete_dist = int (ceil (discrete_dist / 2.0)* 2.0);
 
   translate_rests (-d *  discrete_dist);
+
+  return SCM_UNDEFINED;
 }
 
 

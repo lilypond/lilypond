@@ -39,16 +39,20 @@ Span_bar::width_callback (Score_element const *se, Axis )
   return m.extent (X_AXIS);
 }
 
-void
-Span_bar::before_line_breaking ()
+GLUE_SCORE_ELEMENT(Span_bar,before_line_breaking);
+SCM
+Span_bar::member_before_line_breaking ()
 {
-  Bar::before_line_breaking ();
+  Bar::member_before_line_breaking ();
   
   evaluate_empty ();
+
+  return SCM_UNDEFINED;
 }
 
-void
-Span_bar::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Span_bar,after_line_breaking);
+SCM
+Span_bar::member_after_line_breaking ()
 {
   Interval i (get_spanned_interval ());
 
@@ -57,6 +61,7 @@ Span_bar::after_line_breaking ()
     we have to translate ourselves to be in the center of the 
     interval that we span.  */
   translate_axis (i.center (), Y_AXIS);
+  return SCM_UNDEFINED;
 }
 
 void

@@ -20,8 +20,9 @@
 #include "group-interface.hh"
 #include "align-interface.hh"
 
-void
-Break_align_item::before_line_breaking ()
+GLUE_SCORE_ELEMENT(Break_align_item,before_line_breaking);
+SCM
+Break_align_item::member_before_line_breaking ()
 {
   if (break_status_dir() == LEFT)
     {
@@ -48,7 +49,7 @@ Break_align_item::before_line_breaking ()
     }
   
   if (!elems.size ())
-    return;
+    return SCM_UNDEFINED;
 
   SCM symbol_list = SCM_EOL;
   Array<Real> dists;
@@ -168,7 +169,9 @@ Break_align_item::before_line_breaking ()
   column_l ()->set_elt_property ("stretch-distance",
 				 gh_cons (gh_double2scm (-dists[0]),
 					  gh_double2scm (stretch_distance)));
-				 
+
+
+  return SCM_UNDEFINED;
 }
 
 Break_align_item::Break_align_item (SCM s)

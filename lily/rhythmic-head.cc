@@ -47,8 +47,9 @@ Rhythmic_head::dot_count () const
     ? gh_scm2int (dots_l ()->get_elt_property ("dot-count")) : 0;
 }
   
-void
-Rhythmic_head::after_line_breaking ()
+GLUE_SCORE_ELEMENT(Rhythmic_head,after_line_breaking);
+SCM
+Rhythmic_head::member_after_line_breaking ()
 {
   if (Dots *d = dots_l ())
     {
@@ -56,6 +57,8 @@ Rhythmic_head::after_line_breaking ()
       Staff_symbol_referencer_interface me (d);      
       si.set_position(int (me.position_f ()));
     }
+
+  return SCM_UNDEFINED;
 }
 
 
