@@ -14,8 +14,8 @@ Solo 1/2 can not be used when a spanner is active, so there is no solo
 "
     }
 
-vone = \notes \relative a' { g4 r8 g8 g8 r8 g8 r8 g2 ~ g2 ~ g4 }
-vtwo = \notes \relative g' { e4.   e8 r2          e4 r4 r2  e4 } 
+vone = \notes \relative a' { d4 r8 d8 d8 r8 d8 r8 d2 ~ d2 ~ d4 }
+vtwo = \notes \relative g' { g4.   g8 r2          g4 r4 r2  g4 } 
 
 \version "2.1.18"
 
