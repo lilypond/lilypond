@@ -76,6 +76,7 @@ for name in [
 'ly/italiano.ly',
 'ly/nederlands.ly',
 'ly/norsk.ly',
+'ly/portugues.ly',
 'ly/suomi.ly',
 'ly/svenska.ly',
 'ly/vlaams.ly',
