@@ -9,7 +9,7 @@
 
 #include <string.h>
 
-#include "p-score.hh"
+#include "paper-score.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "molecule.hh"
@@ -18,7 +18,7 @@
 #include "spanner.hh"
 #include "line-of-score.hh"
 #include "item.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "molecule.hh"
 #include "misc.hh"
 #include "paper-outputter.hh"
@@ -407,6 +407,11 @@ Score_element::handle_prebroken_dependencies()
 
 void
 Score_element::handle_prebroken_dependents()
+{
+}
+
+void
+Score_element::handle_broken_dependents()
 {
 }
 

@@ -11,7 +11,7 @@
 #include <limits.h>
 #include "killing-cons.tcc"
 #include "spring-spacer.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "debug.hh"
 #include "dimensions.hh"
 #include "qlp.hh"

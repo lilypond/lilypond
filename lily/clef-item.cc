@@ -13,7 +13,7 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "text-item.hh"
-#include "p-score.hh"
+#include "paper-score.hh"
 
 void
 Clef_item::do_pre_processing()

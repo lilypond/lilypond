@@ -10,7 +10,7 @@
 #include "engraver-group-engraver.hh"
 #include "engraver.hh"
 #include "debug.hh"
-#include "p-score.hh"
+#include "paper-score.hh"
 #include "score-element.hh"
 
 

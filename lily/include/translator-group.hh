@@ -66,6 +66,7 @@ public:
   void check_removal ();
 
 
+
   Translator *get_simple_translator (String) const;
   Translator_group *find_existing_translator_l (String n, String id);
   Translator_group *find_create_translator_l (String n, String id);
@@ -73,6 +74,8 @@ public:
 
   Translator_group*get_default_interpreter();
 protected:
+  bool try_music_on_nongroup_children (Music *m);
+  
   virtual ~Translator_group ();
   virtual void do_print () const;
   virtual void do_process_requests ();

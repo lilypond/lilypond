@@ -36,7 +36,7 @@ Note_head_side::do_pre_processing ()
   if (x_int.empty_b ())
     x_int = Interval(0,0);
   
-  translate_axis (-extent(X_AXIS)[RIGHT] + x_int[LEFT], X_AXIS);
+  translate_axis (-extent(X_AXIS)[-align_dir_] + x_int[align_dir_], X_AXIS);
 }
 
 void
@@ -44,4 +44,9 @@ Note_head_side::do_substitute_element_pointer (Score_element*o,Score_element*n)
 {
   if (Item* o_l = dynamic_cast <Item *> (o))
     support_l_arr_.substitute (o_l,dynamic_cast <Item *> (n));
+}
+
+Note_head_side:: Note_head_side()
+{
+  align_dir_ = LEFT;
 }

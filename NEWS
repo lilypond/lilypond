@@ -1,3 +1,34 @@
+pl 57.hwn1
+	- bf: accidentals on grace notes.
+	- \property graceAccidentalSpace
+	- bf: ignore grace notes duration for non-grace spacing.
+	- uncommented Key_req::transpose.
+	- Dot_column::do_post_processing (): better dot collisions, see dots.fly.
+	- derive Dot_column from Note_side_item.
+	- renaming of files
+	  * heads-engraver
+	  * request-iterator
+	  * p-score
+	  * engraver-group
+
+pl 57.jcn3
+	- bf: no extension: assume .ly
+	- bf: bow::do_width; which in turn allowed
+	- removed broken interstaff slur damping hack, and
+	- bf: slur height damping fixes damping
+
+pl 57.jcn2
+	- bf: ? priority and snap to stem
+
+pl 56.jcn4
+       - interstaff slur fixes and damping
+
+pl 56.mk1
+       - bf: collision.cc: collisions between chords with different
+         stem directions and close heads.
+
+****************s**************
+
 pl 56.jcn3
 	- slur de-hairification
 	  * slurs always attached to noteheads, by default
@@ -272,7 +303,7 @@ pl 49.uu1
 	- bf: linebreak at |:
 	- doc updates by Adrian Mariano
 
-pl 49-rst
+pl 49.mk1
 	- Breathing signs by Michael Krause
 
 ************

@@ -9,7 +9,7 @@
 #include "music-list.hh"
 #include "music-iterator.hh"
 #include "property-iterator.hh"
-#include "request-iterator.hh"
+#include "request-chord-iterator.hh"
 #include "sequential-music-iterator.hh"
 #include "simultaneous-music-iterator.hh"
 #include "translator-group.hh"

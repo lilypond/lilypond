@@ -13,7 +13,7 @@
 #include "lily-proto.hh"
 #include "array.hh"
 #include "moment.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 
 /**
   Column with durational info.

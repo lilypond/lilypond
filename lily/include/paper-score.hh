@@ -1,5 +1,5 @@
 /*
-  p-score.hh -- declare Paper_score
+  paper-score.hh -- declare Paper_score
 
   source file of the GNU LilyPond music typesetter
 

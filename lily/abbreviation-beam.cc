@@ -7,7 +7,7 @@
 	   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "array.hh"
 #include "proto.hh"
 #include "abbreviation-beam.hh"

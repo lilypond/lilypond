@@ -17,7 +17,6 @@
 
 class Note_head : public Rhythmic_head {
 public:
-  int position_i_;
 
   Note_head ();
   void flip_around_stem (Direction);

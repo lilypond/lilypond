@@ -8,7 +8,7 @@
  */
 
 #include "single-malt-grouping-item.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "debug.hh"
 
 Single_malt_grouping_item ::Single_malt_grouping_item()

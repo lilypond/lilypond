@@ -10,7 +10,7 @@
 #include "separating-line-group-engraver.hh"
 #include "separating-group-spanner.hh"
 #include "single-malt-grouping-item.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "paper-def.hh"
 
 Separating_line_group_engraver::Separating_line_group_engraver ()

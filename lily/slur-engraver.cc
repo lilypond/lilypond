@@ -45,10 +45,11 @@ Slur_engraver::do_removal_processing ()
       typeset_element (slur_l_stack_[i]);
     }
   slur_l_stack_.clear ();
-  for (int i=0; i < requests_arr_.size(); i++)
-    {
-      requests_arr_[i]->warning (_ ("unterminated slur"));
-    }
+  if (!get_property ("weAreGraceContext",0).to_bool ())
+    for (int i=0; i < requests_arr_.size(); i++)
+      {
+	requests_arr_[i]->warning (_ ("unterminated slur"));
+      }
 }
 
 void

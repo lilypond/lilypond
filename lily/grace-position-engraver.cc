@@ -44,7 +44,10 @@ Grace_position_engraver::acknowledge_element (Score_element_info i)
     }
   else if (Local_key_item*it = dynamic_cast<Local_key_item*>(i.elem_l_))
     {
-      support_.push (it);
+      if (it->get_elt_property (grace_scm_sym) == SCM_BOOL_F)
+	support_.push (it);
+      else if (align_l_) 
+	it->add_dependency (align_l_);
     }
 }
 

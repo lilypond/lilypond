@@ -13,16 +13,20 @@
 
 Dots::Dots ()
 {
-  no_dots_i_ =0;
+  dots_i_ =0;
   position_i_ =0;
+  resolve_dir_ =CENTER;
 }
 
 void
 Dots::do_post_processing ()
 {
+  if (!resolve_dir_)
+    resolve_dir_ = DOWN;
+  
   if (!(position_i_ % 2))
-    position_i_ ++;
-  if (!no_dots_i_)
+    position_i_ += resolve_dir_;
+  if (!dots_i_)
     {
       set_elt_property (transparent_scm_sym, SCM_BOOL_T);
       set_empty (true);
@@ -41,7 +45,7 @@ Dots::do_brew_molecule_p () const
 
   Real dw = d.dim_[X_AXIS].length ();
   d.translate_axis (-dw, X_AXIS);
-  for (int i=no_dots_i_; i--; )
+  for (int i=dots_i_; i--; )
     {
       d.translate_axis (2*dw,X_AXIS);
       out->add_molecule (d);

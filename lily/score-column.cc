@@ -7,7 +7,7 @@
 */
 
 #include "debug.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "score-column.hh"
 #include "command-request.hh"
 

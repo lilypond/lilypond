@@ -7,8 +7,8 @@
 */
 
 #include "idealspacing.hh"
-#include "p-col.hh"
-#include "p-score.hh"
+#include "paper-column.hh"
+#include "paper-score.hh"
 #include "debug.hh"
 
 void

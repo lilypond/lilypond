@@ -1,5 +1,5 @@
 /*
-  p-col.hh -- declare  Paper_column
+  paper-column.hh -- declare  Paper_column
 
   source file of the GNU LilyPond music typesetter
 

@@ -14,7 +14,7 @@
 #include "note-head.hh"
 #include "lookup.hh"
 #include "molecule.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "misc.hh"
 #include "beam.hh"
 #include "rest.hh"

@@ -5,7 +5,7 @@
 */
 
 #include "note-head.hh"
-#include "heads-engraver.hh"
+#include "note-heads-engraver.hh"
 #include "paper-def.hh"
 #include "musical-request.hh"
 #include "dots.hh"

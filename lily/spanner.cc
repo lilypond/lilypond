@@ -8,8 +8,8 @@
 
 #include "debug.hh"
 #include "spanner.hh"
-#include "p-col.hh"
-#include "p-score.hh"
+#include "paper-column.hh"
+#include "paper-score.hh"
 #include "molecule.hh"
 #include "paper-outputter.hh"
 
@@ -207,4 +207,32 @@ Spanner::do_space_processing ()
     {
       ss[i].add_to_cols ();
     }
+}
+
+void
+Spanner::handle_broken_dependents ()
+{
+#if 0 // need to remove delayd breaking.
+  if (original_l_ && !original_l_->line_l ())
+    {
+      
+      /* we're the broken pieces of a spanner.
+	 Check if our Y-leaning point is sane.
+       */
+      Dimension_cache *d = dim_cache_[Y_AXIS]->parent_l_;
+      if (d)
+	return;
+
+      Score_element *  ref_elt = dynamic_cast<Score_element*>(d->element_l());
+      Spanner *ref_span = dynamic_cast<Spanner*> (ref_elt);      
+      if (!ref_elt->line_l () && ref_span)
+	{
+	  Spanner *broken_refpoint =  ref_span->find_broken_piece (line_l ());
+	  if (broken_refpoint)
+	    dim_cache_[Y_AXIS]->parent_l_ = broken_refpoint->dim_cache_[Y_AXIS];
+	  else
+	    programming_error ("Spanner y -refpoint lost.");
+	}
+    }
+#endif
 }

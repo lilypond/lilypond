@@ -12,7 +12,7 @@
 #include "rest.hh"
 #include "dots.hh"
 #include "axis-group-element.hh"
-#include "p-score.hh"
+#include "paper-score.hh"
 
 void
 Rest::do_add_processing ()
@@ -21,9 +21,15 @@ Rest::do_add_processing ()
     position_i_ += 2;
 
   Rhythmic_head::do_add_processing ();
+}
+
+void
+Rest::do_post_processing ()
+{
+  Rhythmic_head::do_post_processing ();
   if (dots_l_ && balltype_i_ > 4)
     {
-      dots_l_->position_i_ = position_i_ + 3;
+      dots_l_->position_i_ += 3;
       if (balltype_i_ == 7)
 	dots_l_->position_i_++;
     }

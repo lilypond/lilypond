@@ -133,7 +133,7 @@ public:
 
 protected:
   VIRTUAL_COPY_CONS(Music);
-  //  void transpose (Musical_pitch  d);
+  void transpose (Musical_pitch  d);
   virtual void do_print () const;
 };
 

@@ -15,7 +15,7 @@
 #include "debug.hh"
 #include "lookup.hh"
 #include "molecule.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "paper-def.hh"
 #include "extender-spanner.hh"
 

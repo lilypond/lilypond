@@ -10,7 +10,7 @@
 #include "multi-measure-rest.hh"
 #include "debug.hh"
 #include "paper-def.hh"
-#include "p-col.hh" // urg
+#include "paper-column.hh" // urg
 #include "bar.hh"
 #include "lookup.hh"
 #include "rest.hh"

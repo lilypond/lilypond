@@ -6,10 +6,10 @@
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "p-score.hh"
+#include "paper-score.hh"
 #include "debug.hh"
 #include "item.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "spanner.hh"
 #include "lily-guile.hh"
 

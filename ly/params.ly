@@ -93,10 +93,14 @@ slur_x_minimum = 3.0 * \interline;
 
 % slope damping: keep dy/dx < slur_slope_damping
 slur_slope_damping = 0.3;
+slur_interstaff_slope_damping = 0.8;
 % height damping: keep h/dx < slur_height_damping
-slur_height_damping = 0.5;
+slur_height_damping = 0.6;
+slur_interstaff_height_damping = 1.5;
 % snap to stem if slur ends closer to stem than
 slur_snap_to_stem = 1.5 * \interline;
+slur_interstaff_snap_to_stem = 2.5 * \interline;
+
 
 tie_x_minimum = \slur_x_minimum;
 % OSU: tie gap == slur gap

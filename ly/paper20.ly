@@ -30,13 +30,8 @@ paper_twenty = \paper {
 
 	arithmetic_basicspace = 2.;
         arithmetic_multiplier = 6.\pt;
-	texsetting = "\\input lilyponddefs ";
-	pssetting = "(lilyponddefs.ps) findlibfile {exch pop //systemdict /run get exec} { /undefinedfilename signalerror } ifelse\n";
-	% urg, debugging only
-	scmsetting = "\"(lilyponddefs.ps) findlibfile {exch pop //systemdict /run get exec} { /undefinedfilename signalerror } ifelse\";\n";
-	scmsetting = "\"\\\\input lilyponddefs \\\\musixtwentydefs\";\n";
 
-	-2 = \font "feta13"
+		-2 = \font "feta13"
 	-1 = \font "feta16"
 	0 = \font "feta20"
 

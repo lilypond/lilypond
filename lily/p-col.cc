@@ -1,13 +1,13 @@
 /*
-  p-col.cc -- implement Paper_column
+  paper-column.cc -- implement Paper_column
 
   source file of the GNU LilyPond music typesetter
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "p-col.hh"
-#include "p-score.hh"
+#include "paper-column.hh"
+#include "paper-score.hh"
 #include "debug.hh"
 
 void

@@ -1,5 +1,5 @@
 /*
-  request-iterator.cc -- implement Request_chord_iterator
+  request-chord-iterator.cc -- implement Request_chord_iterator
 
   source file of the GNU LilyPond music typesetter
 
@@ -8,7 +8,7 @@
 
 #include "translator-group.hh"
 #include "debug.hh"
-#include "request-iterator.hh"
+#include "request-chord-iterator.hh"
 #include "music-list.hh"
 #include "request.hh"
 

@@ -7,7 +7,7 @@
 */
 #include "translator-group.hh"
 #include "axis-group-engraver.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "vertical-align-engraver.hh"
 #include "axis-align-spanner.hh"
 #include "axis-group-spanner.hh"
