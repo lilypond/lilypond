@@ -47,9 +47,7 @@ Bar_number_engraver::process_music ()
   
   if (scm_is_string (wb))
     {
-      SCM smp = get_property ("measurePosition");
-      
-      Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+      Moment mp (robust_scm2moment (get_property ("measurePosition"),Moment (0));
       if (mp.main_part_ == Rational (0))
 	{
 	  SCM bn = get_property ("currentBarNumber");

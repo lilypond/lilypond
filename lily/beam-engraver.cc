@@ -143,8 +143,7 @@ Beam_engraver::process_music ()
       set_melisma (true);
       prev_start_ev_ = start_ev_;
       beam_ = make_spanner ("Beam", start_ev_->self_scm ());
-      SCM smp = get_property ("measurePosition");
-      Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+      Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0));
 
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
@@ -181,7 +180,7 @@ Beam_engraver::start_translation_timestep ()
       set_melisma (true);
       
       subdivide_beams_ = to_boolean (get_property ("subdivideBeams"));
-      beat_length_ = *unsmob_moment (get_property ("beatLength"));
+      beat_length_ = robust_scm2moment (get_property ("beatLength"), Moment (1,4));
     }
 }
 

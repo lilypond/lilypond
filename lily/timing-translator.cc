@@ -126,7 +126,7 @@ Timing_translator::start_translation_timestep ()
     {
       measposp = now;
       context ()->set_property ("measurePosition",
-				    measposp.smobbed_copy ());
+				measposp.smobbed_copy ());
     }
   
   measposp += dt;

@@ -188,10 +188,7 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
   /* end beam at end of beat */
   if (dir == STOP)
     {
-      SCM beat (get_property ("beatLength"));
-      
-      if (unsmob_moment (beat))
-	moment = *unsmob_moment (beat);
+      moment = robust_scm2moment (get_property ("beatLength"), moment)
     }
 
   /* second guess: property generic time exception */

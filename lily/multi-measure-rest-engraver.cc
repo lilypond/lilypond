@@ -174,8 +174,8 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
     }
   
   
-  SCM smp = get_property ("measurePosition");
-  Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+  
+  Moment mp(robust_scm2moment (get_property ("measurePosition"),  Moment (0));
 
   if (last_rest_)
     {
@@ -196,8 +196,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 
   bar_seen_ = false;
 
-  SCM smp = get_property ("measurePosition");
-  Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+  Moment mp(robust_scm2moment (get_property ("measurePosition"),  Moment (0));
 
   Moment now =now_mom ();
   if (mmrest_
