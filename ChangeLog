@@ -1,6 +1,7 @@
 2004-03-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* lily/system.cc (get_line): Fix between-systems (NOT).
+	* lily/system.cc (get_line):
+	* lily/paper-outputter.cc (output_line): Fix `between-system-string'.
 
 2004-03-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 

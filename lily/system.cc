@@ -183,22 +183,15 @@ System::get_lines ()
   
    for (int i = 0; i < line_count; i++)
     {
-      System *system = dynamic_cast<System*> (broken_intos_[i]);
-
       if (verbose_global_b)
 	progress_indication ("[");
 
-      // urg between-systems hack
-      bool last = (i + 1 == line_count);
-
+      System *system = dynamic_cast<System*> (broken_intos_[i]);
       system->post_processing ();
-      scm_vector_set_x (lines, scm_int2num (i), system->get_line (last));
+      scm_vector_set_x (lines, scm_int2num (i), system->get_line ());
 
       if (verbose_global_b)
-	{
-	  progress_indication (to_string (i));
-	  progress_indication ("]");
-	}
+	progress_indication (to_string (i) + "]");
     }
    return lines;
 }
@@ -392,37 +385,21 @@ System::post_processing ()
 }
 
 /* Return line:
-   ((HEIGHT . WIDTH) LINE)
+   ((HEIGHT . WIDTH) . LINE)
    LINE: list of ((OFFSET-X . OFFSET-Y) . STENCIL)
+
+   or (!PAGE_LAYOUT):
+     ('between-system-string . STENCIL)
+   
    Maybe make clas/smob?  */
 SCM
-System::get_line (bool is_last)
+System::get_line ()
 {  
   static int const LAYER_COUNT = 3;
   SCM line = SCM_EOL;
   if (Stencil *me = get_stencil ())
     line = scm_cons (scm_cons (ly_offset2scm (Offset (0, 0)),
 			       me->smobbed_copy ()), line);
-
-  
-#ifndef PAGE_LAYOUT
-  // does not work: (\\par error) - do we really need this at all?
-  if (false && !is_last)
-    {
-      SCM lastcol = ly_car (get_property ("columns"));
-      Grob *g = unsmob_grob (lastcol);
-      
-      SCM between = ly_symbol2scm ("between-system-string");
-      SCM inter = g->internal_get_property (between);
-      if (gh_string_p (inter))
-	{
-	  Stencil *stil = new Stencil (Box (), scm_list_2 (between, inter));
-	  line = scm_cons (scm_cons (ly_offset2scm (Offset (0, 0)),
-				     stil->smobbed_copy ()),
-			   line);
-	}
-    }
-#endif
 
   /* Output stencils in three layers: 0, 1, 2.  The default layer is
      1.  */
@@ -446,6 +423,19 @@ System::get_line (bool is_last)
 	line = scm_cons (scm_cons (ly_offset2scm (o + extra),
 				   stil->smobbed_copy ()), line);
       }
+
+#ifndef PAGE_LAYOUT
+  SCM lastcol = ly_car (get_property ("columns"));
+  Grob *g = unsmob_grob (lastcol);
+  
+  SCM between = ly_symbol2scm ("between-system-string");
+  SCM inter = g->internal_get_property (between);
+  if (gh_string_p (inter))
+    {
+      Stencil *stil = new Stencil (Box (), scm_list_2 (between, inter));
+      line = scm_cons (scm_cons (between, stil->smobbed_copy ()), line);
+    }
+#endif
 
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
