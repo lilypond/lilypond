@@ -52,7 +52,7 @@ Molecule::translate (Offset o)
   Axis a = X_AXIS;
   while (a < NO_AXES)
     {
-      if (abs (o[a]) > 30 CM
+      if (abs (o[a]) > 100 CM
 	  || isinf (o[a]) || isnan (o[a]))
 	{
 	  programming_error ("Improbable offset for translation: setting to zero");
