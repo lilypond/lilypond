@@ -57,6 +57,9 @@ rpm-sources = $(release-dir)
 rpm-build = $(group-dir)/RedHat/BUILD
 #
 
+# package-icon=$(outdir)/$(package)-icon.gif
+package-icon=$(outdir)/$(package)-icon.xpm
+
 
 # need to be defined in local Makefiles:
 #
