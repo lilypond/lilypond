@@ -9,6 +9,7 @@
 ;;;;       input/test/title-markup.ly
 ;;;; 
 ;;;; TODO:
+;;;;   * papersize in header
 ;;;;   * special characters, encoding.
 ;;;;     + implement encoding switch (switches?  input/output??),
 ;;;;     + move encoding definitions to ENCODING.ps files, or
@@ -308,6 +309,8 @@
    "%%Creator: " creator " " time-stamp "\n"
    "%%Pages: " (number->string page-count) "\n"
    "%%PageOrder: Ascend\n"
+   ;; FIXME: TODO get from paper
+   ;; "%%DocumentPaperSizes: a6\n"
    ;;(string-append "GNU LilyPond (" (lilypond-version) "), ")
    ;;	   (strftime "%c" (localtime (current-time))))
    ;; FIXME: duplicated in every backend
