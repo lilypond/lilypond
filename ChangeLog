@@ -1,5 +1,9 @@
 2003-09-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/+.ly (texidoc): idem.
+
+	* input/regression/+.ly: print version number.
+
 	* input/regression/accidentals.ly (mel): shorten.
 
 	* input/regression/accidental-octave.ly (texidoc): shorten.
