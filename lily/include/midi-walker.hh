@@ -9,8 +9,6 @@
 #define MIDI_WALKER_HH
 
 #include "proto.hh"
-#include "plist.hh"
-#include "pcursor.hh"
 #include "pqueue.hh"
 #include "lily-proto.hh"
 #include "moment.hh"
@@ -26,7 +24,7 @@ int compare (Midi_note_event const& left, Midi_note_event const& right);
 /**
   walk audio and output midi
   */
-class Midi_walker// : public PCursor<Audio_item*> 
+class Midi_walker
 {
 public:
   Midi_walker (Audio_staff* audio_staff_l, Midi_track* midi_track_l);

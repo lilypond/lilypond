@@ -7,8 +7,6 @@
  */
 
 #include "proto.hh"
-#include "plist.hh"
-#include "pcursor.hh"
 #include "debug.hh"
 #include "misc.hh"
 #include "string.hh"
