@@ -221,14 +221,14 @@ Slur::Slur ()
   dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = 0.0;
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
 
-  set_elt_property ("note-columns", SCM_EOL);
+  set_elt_pointer ("note-columns", SCM_EOL);
   set_elt_property ("control-points", SCM_EOL);
 }
 
 void
 Slur::add_column (Note_column*n)
 {
-  if (!gh_pair_p (n->get_elt_property ("note-heads")))
+  if (!gh_pair_p (n->get_elt_pointer ("note-heads")))
     warning (_ ("Putting slur over rest.  Ignoring."));
   else
     {

@@ -65,7 +65,7 @@ Score_element::Score_element (Score_element const&s)
   self_scm_ = SCM_EOL;
   used_b_ = true;
   original_l_ =(Score_element*) &s;
-  property_alist_ = SCM_EOL;
+  property_alist_ = s.property_alist_; 
   pointer_alist_ = SCM_EOL;
   
   status_i_ = s.status_i_;
@@ -122,7 +122,9 @@ Score_element::remove_elt_property (const char* key)
 {
   SCM s = get_elt_property (key); 
   SCM sym = ly_symbol2scm (key);
-  property_alist_ =  scm_assq_remove_x (property_alist_, sym);
+  
+  property_alist_ = gh_cons (gh_cons (sym, SCM_UNDEFINED), property_alist_);
+
   return s;
 }
 
@@ -130,7 +132,8 @@ void
 Score_element::set_elt_property (String k, SCM v)
 {
   SCM s = ly_symbol2scm (k.ch_C ());
-  property_alist_ = scm_assq_set_x (property_alist_, s, v);
+  // non destructive
+  property_alist_ = gh_cons (gh_cons (s, v),property_alist_);
 }
 
 void
@@ -404,10 +407,7 @@ Score_element::handle_broken_dependencies()
 	{
 	  Score_element * sc = s->broken_into_l_arr_[i];
 	  Line_of_score * l = sc->line_l ();
-	  s->broken_into_l_arr_[i]->property_alist_ =
-	    handle_broken_smobs (property_alist_,
-				 l ? l->self_scm_ : SCM_UNDEFINED);
-	  s->broken_into_l_arr_[i]->pointer_alist_ =
+	  sc->pointer_alist_ =
 	    handle_broken_smobs (pointer_alist_,
 				 l ? l->self_scm_ : SCM_UNDEFINED);
 	}

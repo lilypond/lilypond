@@ -194,9 +194,7 @@ Line_of_score::column_l_arr ()const
 	seem empty. We need to retain breakable columns, in case
 	someone forced a breakpoint.
       */
-      if (!bfound
-	  || (acs[i]->get_elt_pointer ("elements") == SCM_EOL
-	      && !brb))
+      if (!bfound || !acs[i]->used_b ())
 	acs.del (i);
     }
   return acs;

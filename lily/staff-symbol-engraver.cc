@@ -48,6 +48,10 @@ Staff_symbol_engraver::do_creation_processing()
 {
   span_p_ = new Staff_symbol;
   span_p_->set_bound(LEFT,get_staff_info().command_pcol_l ());
+
+
+  // ugh, should do generic 
+  span_p_->property_alist_ = get_property ("staffSymbolBasicProperties");
   announce_element (Score_element_info (span_p_, 0));
 }
 

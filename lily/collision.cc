@@ -95,7 +95,7 @@ Collision::automatic_shift ()
       for (int i=0; i < clashes.size (); i++)
 	{
 	  SCM sh
-	    = clashes[i]->remove_elt_property ("horizontal-shift");
+	    = clashes[i]->get_elt_property ("horizontal-shift");
 
 	  if (gh_number_p (sh))
 	    shift.push (gh_scm2int (sh));

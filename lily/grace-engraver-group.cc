@@ -6,9 +6,9 @@
   (c) 1999--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
 #include "grace-engraver-group.hh"
 #include "lily-guile.hh"
-
 #include "score-element.hh"
 #include "musical-request.hh"
 
@@ -23,7 +23,7 @@ void
 Grace_engraver_group::finish ()
 {
   calling_self_b_ = true;
-  removal_processing ();	// ugr. We'd want to have this done by our parents.g
+  removal_processing ();	// ugr. We'd want to have this done by our parents.
   for (int i=0; i < announce_to_top_.size (); i++)
     {
       Engraver::announce_element (announce_to_top_[i]);

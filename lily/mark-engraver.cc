@@ -95,7 +95,7 @@ Mark_engraver::do_pre_move_processing ()
 {
   if (text_p_)
     {
-      text_p_->set_elt_property ("side-support" , staffs_);
+      text_p_->set_elt_pointer("side-support-elements" , staffs_);
       typeset_element (text_p_);
       text_p_ =0;
     }

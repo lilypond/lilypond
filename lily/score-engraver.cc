@@ -74,8 +74,6 @@ Score_engraver::do_removal_processing()
   typeset_all ();
 
 
-  if (musical_column_l_->linked_b ())
-    programming_error ("Last column in score should be non-musical");
   set_columns (0,0);
 }
 
@@ -183,10 +181,10 @@ Score_engraver::set_columns (Paper_column *new_command_l,
     {
       if (*current[i])
 	{
-	  if ((*current[i])->linked_b()) 
+	  if ((*current[i])->used_b())
+	  //	  if ((*current[i])->linked_b()) 	  
 	    {
 	      scoreline_l_->add_column ((*current[i]));
-	      
 	    }
 	  else
 	    {

@@ -23,6 +23,31 @@ StaffContext=\translator {
 
 	\consists "Repeat_engraver";
 
+	staffSymbolBasicProperties = #'(
+	 (staff-space . 1.0 )
+	 (line-count . 5 )
+	 )
+	 basicTimeSignatureProperties = #`(
+	  (break-align-symbol . Time_signature)
+	  (visibility-lambda . ,all-visible)
+	  (breakable . #t)
+	 )
+	 basicBarlineProperties = #`(
+	   (break-align-symbol . Staff_bar)
+	   (visibility-lambda . `begin-of-line-invisible)
+	   (breakable . #t)
+	   )
+
+	 basicKeyProperties = #`(
+	  (break-align-symbol . Key_item)
+	  (visibility-lambda . ,begin-of-line-visible)
+	  (breakable . #t)
+	  )	 
+	 basicClefItemProperties = #`(
+	   (breakable . #t)
+	   (break-align-symbol . Clef_item)
+	   (visibility-lambda . ,begin-of-line-visible) 
+	 )
 
 	%  name, glyph id, c0 position
 	supportedClefTypes = #'(

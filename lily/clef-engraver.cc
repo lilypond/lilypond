@@ -49,11 +49,17 @@ public:
   SCM clef_glyph_;		// no need for protection. Always referenced somewhere else.
    
   Clef_engraver();
+
+  SCM basic_properties_;
+  Protected_scm current_settings_;
 };
 
 
 Clef_engraver::Clef_engraver()
 {
+  current_settings_ = SCM_EOL;
+  basic_properties_ = SCM_EOL;
+  
   clef_glyph_ = SCM_EOL;
   clef_p_ = 0;
   clef_req_l_ = 0;
@@ -101,6 +107,14 @@ Clef_engraver::set_type (String s)
     }
 
   c0_position_i_ -= (int) octave_dir_ * 7;
+
+
+  current_settings_ = gh_cons (gh_cons (ly_symbol2scm ("glyph"), clef_glyph_), basic_properties_);
+  current_settings_ =
+    gh_cons (gh_cons (ly_symbol2scm ("c0-position"),
+		      gh_int2scm (c0_position_i_)),
+	     current_settings_);
+  
   return true;
 }
 
@@ -138,6 +152,8 @@ Clef_engraver::acknowledge_element (Score_element_info info)
 void
 Clef_engraver::do_creation_processing()
 {
+  basic_properties_ = get_property ("basicClefItemProperties");
+  
   SCM def = get_property ("defaultClef");
   if (gh_string_p (def))
     {
@@ -169,8 +185,7 @@ Clef_engraver::create_clef()
   if (!clef_p_)
     {
       Clef_item *c= new Clef_item;
-      c->set_elt_property ("breakable", SCM_BOOL_T);
-      c->set_elt_property ("break-align-symbol", ly_symbol2scm ("Clef_item"));
+      c-> property_alist_ = current_settings_;
       announce_element (Score_element_info (c, clef_req_l_));
 
       Staff_symbol_referencer_interface si(c);
@@ -217,20 +232,20 @@ Clef_engraver::do_pre_move_processing()
 {
   if (clef_p_)
     {
-      SCM vis;
-      if(to_boolean (clef_p_->remove_elt_property("non-default")))
+      SCM vis = 0; 
+      if(to_boolean (clef_p_->get_elt_property("non-default")))
 	{
 	  vis = ly_symbol2scm ("all-visible");
+	  vis = scm_eval (vis);
 	}
-      else
-	vis = ly_symbol2scm ("begin-of-line-visible");
 
-      vis = scm_eval (vis);
+      if (vis)
+	{
+	  clef_p_->set_elt_property("visibility-lambda", vis);
+	  if (octavate_p_)
+	    octavate_p_->set_elt_property("visibility-lambda", vis);
+	}
       
-      clef_p_->set_elt_property("visibility-lambda", vis);
-      if (octavate_p_)
-	octavate_p_->set_elt_property("visibility-lambda", vis);
-
       typeset_element (clef_p_);
       clef_p_ =0;
 

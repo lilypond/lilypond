@@ -34,13 +34,18 @@ Key_engraver::create_key (bool def)
   if (!item_p_) 
     {
       item_p_ = new Key_item;
-      Staff_symbol_referencer_interface st (item_p_);
-      st.set_interface ();
+      item_p_->property_alist_ = get_property ("basicKeyProperties");
 
       
-      item_p_->set_elt_property ("break-align-symbol", ly_symbol2scm ("Key_item")); 
-      item_p_->set_elt_property ("multi-octave",
-				 gh_bool2scm (key_.multi_octave_b_));
+      item_p_->set_elt_property ("c0-position", gh_int2scm (0));
+      item_p_->set_elt_property ("old-accidentals", SCM_EOL);
+      item_p_->set_elt_property ("new-accidentals", SCM_EOL);
+
+      Staff_symbol_referencer_interface st (item_p_);
+      st.set_interface ();
+      
+      if (key_.multi_octave_b_)
+	item_p_->set_elt_property ("multi-octave", gh_bool2scm (key_.multi_octave_b_));
       
       announce_element (Score_element_info (item_p_,keyreq_l_));
       
@@ -68,8 +73,8 @@ Key_engraver::create_key (bool def)
 
 
   if (!def)
-      item_p_->set_elt_property ("visibility-lambda",
-				 scm_eval (ly_symbol2scm  ("all-visible")));
+    item_p_->set_elt_property ("visibility-lambda",
+			       scm_eval (ly_symbol2scm  ("all-visible")));
 
 }      
 

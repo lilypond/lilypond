@@ -20,7 +20,6 @@
 
 Bar::Bar ()
 {
-  set_elt_property ("breakable", SCM_BOOL_T);
 }
 
 

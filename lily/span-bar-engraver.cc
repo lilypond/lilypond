@@ -43,7 +43,8 @@ Span_bar_engraver::Span_bar_engraver()
 Span_bar*
 Span_bar_engraver::get_span_bar_p() const
 {
-  return new Span_bar;
+  Span_bar * sp= new Span_bar;
+  return sp;
 }
 
 
@@ -59,22 +60,14 @@ Span_bar_engraver::acknowledge_element (Score_element_info i)
       if (bar_l_arr_.size() >= 2 && !spanbar_p_) 
 	{
 	  spanbar_p_ = get_span_bar_p();
+	  spanbar_p_-> property_alist_ = bar_l_arr_[0]->property_alist_;
 	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);
 	  spanbar_p_->set_parent (bar_l_arr_[0], X_AXIS);
 
-	  SCM v = bar_l_arr_[0]->get_elt_property ("visibility-lambda");
-	  if (gh_procedure_p (v))
-	    spanbar_p_->set_elt_property ("visibility-lambda",v);
-
-	  spanbar_p_->set_parent (bar_l_arr_[0], X_AXIS);
 	  announce_element (Score_element_info (spanbar_p_,0));
-	  if (!gh_string_p (spanbar_p_->get_elt_property ("glyph")))
-	    spanbar_p_-> set_elt_property ("glyph",
-					   bar_l_arr_[0]->get_elt_property ("glyph"));
 	}
     }
 }
-
 void
 Span_bar_engraver::do_pre_move_processing()
 {

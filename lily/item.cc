@@ -137,9 +137,6 @@ Item::handle_prebroken_dependencies ()
 {
   if (original_l_)
     {
-      property_alist_
-	= handle_broken_smobs (original_l_->property_alist_,
-			       gh_int2scm (break_status_dir ()));
       pointer_alist_
 	= handle_broken_smobs (original_l_->pointer_alist_,
 			       gh_int2scm (break_status_dir ()));
@@ -149,7 +146,7 @@ Item::handle_prebroken_dependencies ()
     Can't do this earlier, because try_visibility_lambda () might set
     the elt property transparent, which would then be copied.
   */
-  SCM vis = remove_elt_property ("visibility-lambda");
+  SCM vis = get_elt_property ("visibility-lambda");
   if (gh_procedure_p (vis))
     {
       SCM args = scm_listify (gh_int2scm (break_status_dir ()), SCM_UNDEFINED);

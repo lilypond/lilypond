@@ -1,4 +1,12 @@
---- ../lilypond-1.3.54/CHANGES	Thu May 25 00:20:46 2000
+--- ../lilypond-1.3.54.hwn1/CHANGES	Thu May 25 19:52:28 2000
+++ b/CHANGES	Fri May 26 01:15:04 2000
+@@ -1,5 +1,4 @@
+-1.3.1.3.54.hwn1
+-===========
+* Experimental property collapse for clef and staff-symbol.
+ 
+ * Massive search replace patch: store pointers and properties
+ separately, in preparation of property collapse.--- ../lilypond-1.3.54/CHANGES	Thu May 25 00:20:46 2000
 ++ b/CHANGES	Thu May 25 23:22:02 2000
 @@ -1,3 +1,11 @@
 1.3.54.jcn1
