@@ -16,7 +16,6 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * script columns
 . * Must stop before this music ends:
 verse=\lyrics {
-. * [ppc] crash on 'lilypond -I mutopia/J.S.Bach/Duette violino-viola'
 . * input/bugs/clef.sly: clef changes go missing
 . * input/test/grace.sly: wierd big spacing on grace notes
 . * TODO^2:

@@ -19,14 +19,17 @@ commands = \notes {
 right = \notes \relative c' {
   \commands 
 %if urtekst
-%  \clef "alto";
-  \clef "violin";
+  \clef "alto";
+%  \clef "violin";
+
+%if stable
+%  \property Voice."beamAutoEnd_8" = "1/4"
   \property Voice."beamAutoEnd_8" = #(make-moment 1 4)
   bes8 |
   es16 f g8 g f as g bes, as |
   \repeat "volta" 2 {
-  g'16 es f8 as, g d' es r bes, |
-  es'16 f g8 g f as g bes, as|
+  g'16 es f8 as, g d' es r bes |
+  es16 f g8 g f as g bes, as|
   g'16 es f8 as, g d' es r bes' |
   bes4 as16 g f es f es d c bes8 c16 d |
   es f g f  as g f es g8 f r bes, |
@@ -52,7 +55,7 @@ right = \notes \relative c' {
   es f g f as g f es g8 f r bes, |
   g' a4 bes8 \grace f() es16 d es8 r c |
   a' bes4 c8 \grace f,()es16 d es8 r es' |
-  d16 c bes8 bes16\prall a bes8~bes16 as g f es d c bes|
+  d16 c bes8 bes16\prall a bes8~bes16 a g f es d c bes|
   c d es8 es16\prall d es8~es16 a bes c bes a g f|
   bes8 f d\trill c16 bes bes es d c d8 bes|
   g8. a16 a8.\prallprall g32 a bes4 r8 d|
@@ -73,7 +76,7 @@ right = \notes \relative c' {
   g'16 es f8 as, g d' es r4|
   r r8 bes' bes4 as16 g f es|
   f es d c bes8 c16 d es f g f as g f es |
-  g8 f r es b' d4 es8|
+  g8 f r es c' d4 es8|
   as,16\prall g as8 r c d es4 f8|
   \grace bes,() as16 g as8 r f g16 f es8~es16\trill d es8~|
   es16 des' c bes as g f es f g as8~as16\trill g as8~|
@@ -87,9 +90,10 @@ clefs = \notes{
   \clef "alto";
   \partial 8;
   \skip 8;
-  \clef "violin";
+%testin'
+%  \clef "violin";
   \skip 1;
-  \clef "alto";
+%  \clef "alto";
   \repeat "volta" 2 { \skip 1*19; }
   \alternative {
   { \skip 1*2; }
@@ -105,11 +109,15 @@ clefs = \notes{
 
 left = \notes \relative c {
   \commands 
-  \property Staff.noVoltaBraces = ##t
 %if urtekst
-%  \clef "tenor";
-  \clef "bass";
+  \clef "tenor";
+%  \clef "bass";
+
+%if stable
+%  \property Staff.noVoltaBraces = 1 
+%  \property Voice."beamAutoEnd_8" = "1/4"
   \property Voice."beamAutoEnd_8" = #(make-moment 1 4)
+  \property Staff.noVoltaBraces = ##t
   r8 
   R1
   \repeat "volta" 2 {
@@ -151,6 +159,8 @@ left = \notes \relative c {
 
 pedal = \notes \relative c, {
   \commands 
+%if stable
+%  \property Staff.noVoltaBraces = 1
   \property Staff.noVoltaBraces = ##t
   \clef "bass";
   r8 |
@@ -189,7 +199,7 @@ pedal = \notes \relative c, {
   g f es d es g as bes|
   c d es4 bes as |
   g es bes'8 c d bes |
-  es d c b c g' c bes|
+  es d c b c g' c bes!|
   as4 es f g|
   as8 g f e f es d c|
   b g g' f es4 c|
@@ -225,7 +235,7 @@ pedal = \notes \relative c, {
      \property Score.midiInstrument = "church organ"
      <
 %if urtekst
-%     \context Voice=i \clefs
+     \context Voice=i \clefs
      \context Voice=ii \right
      >
     }
@@ -236,11 +246,17 @@ pedal = \notes \relative c, {
   >
 
 \paper {
+  %textheight = 280.0 \mm;
+  % landscape:
+  textheight = 160.0 \mm;
+  linewidth = 290.0 \mm;
+%{
   \translator { 
     \OrchestralScoreContext 
     minVerticalAlign = 4.0*\staffheight;
     maxVerticalAlign = 4.0*\staffheight;
    }
+%}
   \translator { 
     \StaffGroupContext
     minVerticalAlign = 4.0*\staffheight;
@@ -248,16 +264,9 @@ pedal = \notes \relative c, {
    }
    \translator { 
     \PianoStaffContext
-	minVerticalAlign = 3.0*\staffheight;
-	maxVerticalAlign = 3.0*\staffheight;
+	minVerticalAlign = 2.5*\staffheight;
+	maxVerticalAlign = 2.5*\staffheight;
    }
-%{
-   \translator{
-	\VoiceContext
-	% consider ending beam at every 1/2 note
-	"beamAutoEnd_8" = "1/4";
-   }
-%}
   }
   \midi {
    \tempo 4 = 69;

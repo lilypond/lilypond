@@ -1,3 +1,10 @@
+1.3.17.jcn2
+===========
+
+* Bugfix: beams with less than one (visible) stem
+
+* small fixes to pa.ly
+
 1.3.17.jcn1
 ===========
 
