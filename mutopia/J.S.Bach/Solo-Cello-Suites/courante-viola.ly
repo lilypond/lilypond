@@ -1,5 +1,5 @@
 \header{
-filename =	 "courante-cello.ly";
+filename =	 "courante-viola.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
 % piece = "Courante";
@@ -19,11 +19,11 @@ copyright =	 "public domain";
 
 \include "courante-urtext.ly";
 
-courante_cello_global = \melodic{
+courante_viola_global = \melodic{
 	\time 3/4;
 	\key f;
 	\partial 16;
-	\clef bass;
+	\clef alto;
 	\skip 2.*15;
 	s2 s8.
 	\bar ":|:";
@@ -32,17 +32,17 @@ courante_cello_global = \melodic{
 	\bar ":|";
 }
 
-courante_cello_scripts = \melodic{
+courante_viola_scripts = \melodic{
 }
 
-courante_cello_staff = \type Staff <
-	\$courante
-	\$courante_cello_global
-	\$courante_cello_scripts
+courante_viola_staff = \type Staff <
+	\melodic \transpose c' \$courante
+	\$courante_viola_global
+	\$courante_viola_scripts
 >
 
 \score{
-	\$courante_cello_staff
+	\$courante_viola_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 55; }
 	\header{ piece = "Courante"; }

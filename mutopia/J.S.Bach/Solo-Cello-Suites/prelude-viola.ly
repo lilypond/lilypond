@@ -1,8 +1,8 @@
 \header{
-filename =	 "prelude-cello.ly";
+filename =	 "prelude-viola.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-%piece = "Pr\\'elude";		% duh
+% piece = "Pr\\'elude";		% duh
 opus =	 "BWV 1008";
 % opus =	 "";
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -19,27 +19,27 @@ copyright =	 "public domain";
 
 \include "prelude-urtext.ly";
 
-prelude_cello_global = \melodic{
+prelude_viola_global = \melodic{
 	\time 3/4;
 	\key f;
-	\clef bass;
+	\clef alto;
 	\skip 2.*63;
 	\bar "|.";
 }
 
-prelude_cello_scripts = \melodic{
+prelude_viola_scripts = \melodic{
 }
 
-prelude_cello_staff = \type Staff <
-	\$prelude
-	\$prelude_cello_global
-	\$prelude_cello_scripts
+prelude_viola_staff = \type Staff <
+	\melodic \transpose c' \$prelude
+	\$prelude_viola_global
+	\$prelude_viola_scripts
 >
 
 \score{
-	\$prelude_cello_staff
+	\$prelude_viola_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 40; }
-	\header{ piece = "Pr\\'elude"; }	
+	\header{ piece = "Pr\\'elude"; }
 }
 
