@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.68"
 
 %{  When entering half music (I.e. for students to complete by hand)
     you need the spacing to correspond to the timing - all measures same length, etc.

@@ -1,4 +1,4 @@
-\version "1.5.49"
+\version "1.5.68"
 %K000.ly LilyPond 1.2.16
 \header {
 title="John's Scarlatti quotes"

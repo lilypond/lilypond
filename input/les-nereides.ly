@@ -10,7 +10,7 @@ FAKE_GRACE looks best.
 
 %}
 
-\version "1.5.49"
+\version "1.5.68"
 
 \header {
     composer =   "ARTHUR GRAY"
@@ -445,7 +445,7 @@ lowerDynamics =  \context Dynamics=lower \notes{
 	    \consists "Output_property_engraver"
 	    Generic_property_list = #generic-voice-properties
 	    \consists "Property_engraver"
-	    MinimumVerticalExtent = #'(-1 . 1)
+	    minimumVerticalExtent = #'(-1 . 1)
 
 	    pedalSustainStrings = #'("Ped." "*Ped." "*")
 	    pedalUnaCordaStrings = #'("una corda" "" "tre corde")

@@ -22,7 +22,7 @@ using Scheme functions to save typing work.
 }
 
 \include "deutsch.ly"
-\version "1.5.18"
+\version "1.5.68"
 
 #(define (transform music)
   (let* ((es (ly-get-mus-property music 'elements))
@@ -52,12 +52,12 @@ using Scheme functions to save typing work.
          (p (ly-get-mus-property music 'pitch)))
 
     (if (pair? es)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'elements
          (map (trans pitches) es)))
 
     (if (music? e)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'element
          ((trans pitches) e)))
 
@@ -68,7 +68,7 @@ using Scheme functions to save typing work.
 	      (pes (ly-get-mus-property (list-ref pitches i) 'elements))
 	      (pnew (ly-get-mus-property (car pes) 'pitch))
              )
-          (ly-set-mus-property music 'pitch pnew)
+          (ly-set-mus-property! music 'pitch pnew)
 	)
     )
     music
@@ -79,7 +79,7 @@ using Scheme functions to save typing work.
 
 
 
-\version "1.3.142"
+\version "1.5.68"
 
 pat = \notes \transpose c'' \repeat unfold 2 {
   < { \context Staff=up {r8 e16 f g e f g } }

@@ -6,7 +6,7 @@ unquantised and quantised to 0 and 4 respectively."
 
 }
 
-\version "1.5.23"
+\version "1.5.68"
 
 %{
 Have some fun beam quanting

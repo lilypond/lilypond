@@ -15,7 +15,7 @@ enteredby = 	 "Shay Rojansky"
   lastupdated = "1999/Oct/14"
 }
 
-\version "1.3.146"
+\version "1.5.68"
 
 % should do programmable input.
 soprane = 

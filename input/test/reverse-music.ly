@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.68"
 
 \header {
 texidoc="
@@ -14,15 +14,15 @@ music = \notes \relative c'' { c4 d4( e4 f4 }
          (e (ly-get-mus-property music 'element))
          (span-dir (ly-get-mus-property music 'span-direction)))
 
-    (ly-set-mus-property music 'elements reversed)
+    (ly-set-mus-property! music 'elements reversed)
 
     (if (music? e)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'element
          (reverse-music e)))
 
     (if (dir? span-dir)
-        (ly-set-mus-property music 'span-direction (- span-dir)))
+        (ly-set-mus-property! music 'span-direction (- span-dir)))
 
     (map reverse-music reversed)
 

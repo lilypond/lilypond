@@ -5,7 +5,7 @@ texidoc ="``baz'' should be centered on the a (tenor voice), but it is
 not."
 }
 
-\version "1.3.148"
+\version "1.5.68"
 
 sop = \notes \transpose c''  {e2 e fis1 }
 alt = \notes \relative c' {cis2 e e d }

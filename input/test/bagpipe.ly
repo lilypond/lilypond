@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.68"
 
 % bagpipe music.
 
@@ -27,7 +27,7 @@
   \translator { \StaffContext
   	TimeSignature \override #'style = #'C4/4
 %  	TimeSignature \override #'visibility-function = #begin-of-line-visible
-  	TimeSignature \override #'visibility-lambda = #begin-of-line-visible
+  	TimeSignature \override #'break-visibility = #begin-of-line-visible
   }	
 }
 

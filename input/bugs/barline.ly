@@ -1,4 +1,4 @@
-\version "1.3.148"
+\version "1.5.68"
 
 \header {
 texidoc = "Staves that end half way a system should end at the bar line."

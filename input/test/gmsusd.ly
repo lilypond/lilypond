@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.68"
 % the Gm7sus4/D chord prints as Gm/4/7/D
 % it took me quite a while by experiment to work out how to enter it -- PC
 

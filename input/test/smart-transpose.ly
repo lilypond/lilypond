@@ -1,4 +1,4 @@
-\version "1.5.18"
+\version "1.5.68"
 
 \header {
 texidoc="
@@ -45,19 +45,19 @@ how useful these enharmonic modifications are. Mats B.
          (p (ly-get-mus-property music 'pitch)))
 
     (if (pair? es)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'elements
          (map (lambda (x) (simplify x)) es)))
 
     (if (music? e)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'element
          (simplify e)))
 
     (if (pitch? p)
         (begin
           (set! p (unhair-pitch p))
-          (ly-set-mus-property music 'pitch p)))
+          (ly-set-mus-property! music 'pitch p)))
 
     music))
 

@@ -899,7 +899,7 @@ if 1:
 		str = re.sub ('ly-set-mus-property', 'ly-set-mus-property!', str)		
 		return str
 	
-	conversions.append (((1,3,138), conv, 'ly-set-X-property -> ly-set-X-property!'))
+	conversions.append (((1,5,68), conv, 'ly-set-X-property -> ly-set-X-property!'))
 
 
 ################################
