@@ -260,7 +260,7 @@
 	(molecule-callback . ,Text_item::brew_molecule)
 	(after-line-breaking-callback . ,Chord_name::after_line_breaking)
 	(word-space . 0.0)
-	(font-family . roman)
+	(font-family . sans)
 	(meta . ((interfaces . (font-interface 							rhythmic-grob-interface
 												text-interface chord-name-interface item-interface ))))
 	))
