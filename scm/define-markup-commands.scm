@@ -616,17 +616,14 @@ markup."
         (m (interpret-markup paper props arg)))
     (box-stencil m th pad)))
 
-(if #f
-    (def-markup-command (strut paper props) ()
-      
-      "Create a box of the same height as the space in the current font.
-
-FIXME: is this working? 
-"
-      
-      (let ((m (Text_item::interpret_markup paper props " ")))
-	(ly:stencil-set-extent! m X '(1000 . -1000))
-	m)))
+;FIXME: is this working? 
+(def-markup-command (strut paper props) ()
+  
+  "Create a box of the same height as the space in the current font."
+  
+  (let ((m (Text_item::interpret_markup paper props " ")))
+    (ly:stencil-set-extent! m X '(1000 . -1000))
+    m))
 
 (define number->mark-letter-vector (make-vector 25 #\A))
 

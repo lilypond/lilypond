@@ -196,4 +196,4 @@ Key_signature_interface::print (SCM smob)
 
 ADD_INTERFACE (Key_signature_interface, "key-signature-interface",
   "A group of accidentals, to be printed as signature sign.",
-  "c0-position old-accidentals new-accidentals");
+  "style c0-position old-accidentals new-accidentals");

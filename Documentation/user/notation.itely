@@ -1228,7 +1228,7 @@ c4 \bar "|:" c4
 @end lilypond
 
 The following bar types are available
-@lilypondfile[notexidoc]{bar-lines.ly}
+@lilypondfile[]{bar-lines.ly}
 
 For allowing line breaks, there is a special command,
 @example
@@ -3337,10 +3337,11 @@ point), and it looks ahead skipping over rests to switch in
 advance. Here is a practical example
         
 @lilypond[quote,verbatim,raggedright]
-\context PianoStaff <<
-    \autochange \relative c' {
-       g4 a  b c d r4 a g } }
- >>
+\context PianoStaff
+  \autochange \relative c'
+  {
+    g4 a  b c d r4 a g
+  }
 @end lilypond
 
 
@@ -4631,7 +4632,7 @@ The predefined variables @code{\germanChords},
 @code{\semiGermanChords} set these variables. The effect is
 demonstrated here,
 
-@lilypondfile[notexidoc]{chord-names-german.ly}
+@lilypondfile[]{chord-names-german.ly}
 
 There are also two other chord name schemes implemented: an alternate
 Jazz chord notation, and a systematic scheme called Banter chords. The
