@@ -257,7 +257,7 @@ print a note by specifying its pitch and the duration.  The pitch of
 the central C, also known as c$^1$, is written as \verb+c'+.  A quarter
 note duration is written as \verb+4+.  So, to print quarter note with
 central C pitch, you enter the following
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 c'4
 \end{mudela}
 The pitch \verb+c'+ actually consists of two parts: one for the note
@@ -266,19 +266,19 @@ specifies the octave to use, and the letter which note name to use.
 The note names simply are the letters \verb+a+ to \verb+g+.
 
 For example,
-\begin[fragment,verbatim]{mudela}
+\begin{mudela}[fragment,verbatim]
   c'4 d'4 e'4 c'4 c''4 d''4 e''4 f''4 g''4 a''4 b''4 c'''4
 \end{mudela}
 
 The duration of a note is specified as a number: a whole note is
 denoted by 1, the half note by 2, the quarter by 4, and so on.  Here
 are some random notes to show how it works
-\begin[fragment,verbatim]{mudela}
+\begin{mudela}[fragment,verbatim]
 'c8 c8 c'16 c''32 d''64 b'64 c'''2 c1 c'4 d'4 e'4 f'4 g'4 a'4
 \end{mudela}
 
 This gives us already enough material to make simple songs:
-\begin[fragment,verbatim]{mudela}
+\begin{mudela}[fragment,verbatim]
         c''4 d''4 e''4 c''4
         e''4 f''4 g''2
         g''8 a''8 g''8 f''8 e''4 c''4
@@ -334,7 +334,7 @@ to cs), Italian, Swedish, Norwegian
 However, having only quarter notes may get a bit dull.
 Durations are entered as their reciproce values
 % a1 a2 a4 a a8 a a16 a a32 a a64 a a a a
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 a1 a2 a4 a a8 a a16 a32 a64
 \end{mudela}
 note that you only have to specify
@@ -342,7 +342,7 @@ the duration when it changes:
 Lily assumes a note has the same duration as the previous one.
 
 Now we can already write a little tune
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 c d e c | c d e c | e f g2
 \end{mudela}
 As you'll probably have guessed,
@@ -353,13 +353,13 @@ In the scale shown above
 we left-out the last c note of the next octave.
 Postfixing the pitch with a quote \verb+'+
 produces a note by one octave higher
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 c c' c''
 \end{mudela}
 
 Prefixing the pitch with a quote \verb+'+
 produces a note by one octave lower
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 a 'a ''a
 \end{mudela}
 
@@ -367,50 +367,50 @@ a 'a ''a
 
 A tie connects two adjacent noteheads
 
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 e' ~ e
 \end{mudela}
 
 Whereas a slur rather connects `chords', 
 and tries to avoid crossing stems
 
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 e'( )e
 \end{mudela}
 
 And of course, such a (legato) slur can span several notes
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 c( d e )f
 \end{mudela}
 
 \section{Beams and Plets}
 
 A beam is 
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 [a8 a] [a16 a a a]
 \end{mudela}
 
 Here's a beamed triplet
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 [/3 a8 a a]/1
 \end{mudela}
 
 a triplet without a beam
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 \[/3 a4 a8\]
 \end{mudela}
 
 and a combination
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 [/3 a8 a16 a] a8 \]
 \end{mudela}
 
 Abbreviations
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 c1:16 [:16 e1 g]
 \end{mudela}
 
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 c4:32 [:16 c8 d8]
 \end{mudela}
 
@@ -423,55 +423,55 @@ Simply include the language specific init file \file{<language.ly>}.}.
 The default set are the ones we like best are the Dutch notenames.
 
 A sharp is formed by adding \verb+is+
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 cis dis eis fis gis ais bis
 \end{mudela}
 
 and a flat is formed by adding \verb+es+%
 %\footnote{Exceptions: \verb+es+ and \verb+as+.}
 \footnote{Exceptions: {\tt es} and {\tt as}.}
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 ces des es fes ges as bes
 \end{mudela}
 
 With the obvious names for double sharps
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 cisis disis eisis fisis gisis aisis bisis
 \end{mudela}
 
 and double flats
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 ceses deses eses feses geses ases beses
 \end{mudela}
 See why we like-em?
 
 There are two special `notenames', the rest
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 r16 [a a a]
 \end{mudela}
 
 and the space
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 a2 s-"diminuendo" | a
 \end{mudela}
 
 
 \section{Commands}
 
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 \clef "bass"; 'c
 \end{mudela}
 
 and a clef-change
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 \clef "violin"; f' e' \clef "alto"; d' c'
 \end{mudela}
 
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 \meter 3/4; c g g |
 \end{mudela}
 
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 \key fis cis;
 'g 'a 'b cis d e fis g'
 \end{mudela}
@@ -485,11 +485,11 @@ Lily will determine what accidentals to typeset.
 A reminder accidental can be forced by
 using an exclamation mark \verb+!+
 on a pitch a reminder accidental
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 cis d e cis | c! d e c |
 \end{mudela}
 
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 \meter 2/4;
 \bar "|:"; c c \bar ":|:"; c c \bar ":|"; c c \bar "|."; 
 \end{mudela}
@@ -497,12 +497,12 @@ cis d e cis | c! d e c |
 \section{Chords and Voices}
 
 Here's a simple chord
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 <c e g>
 \end{mudela}
 
 here are a few
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 <
         { c()d()c }
         { e()f()e }
@@ -511,7 +511,7 @@ here are a few
 \end{mudela}
 
 and similarly voices
-\begin[fragment,verbatim,center]{mudela}
+\begin{mudela}[fragment,verbatim,center]
 <
         { \voiceone c g c g }
         { \voicetwo 'c2 'g2 }
@@ -524,7 +524,7 @@ and similarly voices
 
 A Mudela file needs some red tape
 
-\begin[verbatim,center]{mudela}
+\begin{mudela}[verbatim,center]
 \score{
         \melodic {
                 \octave c';
@@ -537,7 +537,7 @@ A Mudela file needs some red tape
 
 \section{Lyrics}
 
-\begin[verbatim,center]{mudela}
+\begin{mudela}[verbatim,center]
 \score{
         < 
                 \melodic{ 
@@ -796,14 +796,14 @@ meaning of \verb+_+ and the resolution of words
 
 You enter a note by giving the name and the reciprocal of the duration:
 
-\begin[fragment,verbatim]{mudela}
+\begin{mudela}[fragment,verbatim]
 a'4     % Dutch names
 \end{mudela}
 
 is a A-1 pitched crotchet. The ' signifies an octave change.  A-1 is 440
 Hz concert-pitch. \verb+c'+ is also known as the central c. More examples:
 
-\begin[fragment,verbatim]{mudela}
+\begin{mudela}[fragment,verbatim]
         'a      % 110
         a       % 220
         A       % 110, uppercase octavates down
@@ -844,7 +844,7 @@ s       % a "space" rest, nothing is printed.
 These notenames along with duration are enough material to construct
 simple melodies:
 
-\begin[verbatim,fragment]{mudela}
+\begin{mudela}[verbatim,fragment]
 \octave c';
 c4 c4 g4 g4 a4 a4 g2
 f4 f4 e4 e4 d4 d4 c2
@@ -861,7 +861,7 @@ implemented as START and STOP stop features and then attached to the note.
 \end{description}
 
 example: 
-\begin[verbatim,fragment]{mudela}
+\begin{mudela}[verbatim,fragment]
   \octave c';
   [c8 () d8 () e8  
   e8(] [)g8 <c'8] e'8>              % NO nesting!
@@ -876,14 +876,14 @@ they should be attached to the note.  For this reason, the construct
 
 Ties connect the noteheads of adjacent notes. They are entered as follows:
 
-\begin[verbatim,fragment]{mudela}
+\begin{mudela}[verbatim,fragment]
 a'4 ~ a''4
 \end{mudela}
 
 Slurs connect whole chords, and try to avoid crossing stems. They are
 entered as follows:
 
-\begin[verbatim,fragment]{mudela}
+\begin{mudela}[verbatim,fragment]
 a'4(  )a''4
 \end{mudela}
 
@@ -891,7 +891,7 @@ a'4(  )a''4
 
 Symbols which can be put at either side (above or below) of a staff
 are entered as follows:
-\begin[verbatim,fragment]{mudela}
+\begin{mudela}[verbatim,fragment]
         a-^     % marcato, direction: default
         %a^-     % portato, direction: above note
         a_.     % staccato, direction: below note
