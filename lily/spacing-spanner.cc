@@ -128,7 +128,7 @@ Spacing_spanner::do_measure (Score_element*me, Link_array<Score_element> cols)
 	    }
 	  else
 	    {
-	      Interval ext (rc->extent (X_AXIS));
+	      Interval ext (rc->extent (rc, X_AXIS));
 	      right_dist =  ext.empty_b() ? 0.0 : - ext [LEFT];
 	    }
 
@@ -186,7 +186,7 @@ Real
 Spacing_spanner::default_bar_spacing (Score_element*me, Score_element *lc, Score_element *rc,
 				      Moment shortest) 
 {
-  Real symbol_distance = lc->extent (X_AXIS)[RIGHT] ;
+  Real symbol_distance = lc->extent (lc,X_AXIS)[RIGHT] ;
   Real durational_distance = 0;
   Moment delta_t = Paper_column::when_mom (rc) - Paper_column::when_mom (lc);
 

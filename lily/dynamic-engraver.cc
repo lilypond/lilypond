@@ -107,6 +107,9 @@ Dynamic_engraver::do_try_music (Music * m)
 	  if (line_spanner_)
 	    line_spanner_->suicide ();
 	  line_spanner_ = 0;
+	  if (cresc_p_)
+	    cresc_p_->suicide ();
+	  cresc_p_ = 0;
 	}
       else if ((s->span_type_str_ == "crescendo"
 	   || s->span_type_str_ == "decrescendo"))
@@ -225,64 +228,49 @@ Dynamic_engraver::do_process_music ()
       else
 	{
 	  current_cresc_req_ = accepted_spanreqs_drul_[START];
-	  cresc_p_  = new Spanner (get_property ("Crescendo"));
-	  Crescendo::set_interface (cresc_p_);
-	  cresc_p_->set_elt_property
-	    ("grow-direction",
-	     gh_int2scm ((accepted_spanreqs_drul_[START]->span_type_str_ == "crescendo")
-			 ? BIGGER : SMALLER));
-	      
-	  SCM s = get_property ((accepted_spanreqs_drul_[START]->span_type_str_ + "Text").ch_C());
-	  if (gh_string_p (s))
-	    {
-	      cresc_p_->set_elt_property ("start-text", s);
-	      daddy_trans_l_->set_property (accepted_spanreqs_drul_[START]->span_type_str_
-					    + "Text", SCM_UNDEFINED);
-	    }
-
-	  s = get_property ((accepted_spanreqs_drul_[START]->span_type_str_ + "Spanner").ch_C());
-
 
 	  /*
 	    TODO: Use symbols.
 	   */
-	  if (gh_string_p (s)) //&& ly_scm2string (s) != "hairpin")
+	  SCM s = get_property ((accepted_spanreqs_drul_[START]->span_type_str_ + "Spanner").ch_C());
+
+	  if (!gh_string_p (s) || ly_scm2string (s) == "hairpin")
 	    {
-	      cresc_p_->set_elt_property ("spanner", s);
+	      cresc_p_  = new Spanner (get_property ("Crescendo"));
+	      cresc_p_->set_elt_property ("grow-direction",
+					  gh_int2scm ((accepted_spanreqs_drul_[START]->span_type_str_ == "crescendo")
+						      ? BIGGER : SMALLER));
+	      
+	    }
+	  /*
+	    This is a convenient (and legacy) interface to TextSpanners
+	    for use in (de)crescendi.
+	    Hmm.
+	   */
+	  else
+	    {
+	      cresc_p_  = new Spanner (get_property ("TextSpanner"));
+	      cresc_p_->set_elt_property ("type", s);
 	      daddy_trans_l_->set_property (accepted_spanreqs_drul_[START]->span_type_str_
 					    + "Spanner", SCM_UNDEFINED);
+	      s = get_property ((accepted_spanreqs_drul_[START]->span_type_str_ + "Text").ch_C());
+	      if (gh_string_p (s))
+		{
+		  cresc_p_->set_elt_property ("edge-text",
+					      gh_cons (s, ly_str02scm ("")));
+		  daddy_trans_l_->set_property (accepted_spanreqs_drul_[START]->span_type_str_
+						+ "Text", SCM_UNDEFINED);
+		}
 	    }
-
+	
 	  Score_element *cc = unsmob_element (get_property ("currentMusicalColumn"));
 	  cresc_p_->set_bound (LEFT, cc);
 
-
-	  /* 
-	      We know how wide the text is, if we can be sure that the
-	      text already has relevant pointers into the paperdef,
-	      and it has its font-size property set.
-
-	      Since font-size may be set by a context higher up, we
-	      can not be sure of the size.
-
-
-	      We shouldn't try to do this stuff here, the Item should
-	      do it when the score is finished.  We could maybe
-	      set a callback to have the Item do the alignment if
-	      it is not a special symbol, like Crescendo.
-	  */
-
-	  
 	  if (text_p_)
 	    {
-	      index_set_cell (cresc_p_->get_elt_property ("dynamic-drul"),
-			      LEFT, text_p_->self_scm ());
-
-	      if (finished_cresc_p_
-	      // I don't see why, but we need this check
-		  && gh_pair_p (finished_cresc_p_->get_elt_property ("dynamic-drul")))
-		index_set_cell (finished_cresc_p_->get_elt_property ("dynamic-drul"),
-				RIGHT, text_p_->self_scm ());
+	      Side_position::set_direction (text_p_, LEFT);
+	      Side_position::set_axis (text_p_, X_AXIS);
+	      Side_position::add_support (text_p_, cresc_p_);
 	    }
 
 	  Axis_group_interface::add_element (line_spanner_, cresc_p_);

@@ -18,8 +18,8 @@
     for administration of what was done already
     */
 enum Score_element_status {
-  ORPHAN=0,			// not yet added to pstaff
-  VIRGIN,			// added to pstaff
+  ORPHAN=0,			// not yet added to Paper_score
+  VIRGIN,	
   PRECALCING,
   PRECALCED,		// calcs before spacing done
   POSTCALCING,		// busy calculating. This is used to trap cyclic deps.
@@ -152,7 +152,8 @@ public:
 
 public:
   bool empty_b (Axis a) const;
-  Interval extent (Axis) const;
+
+  Interval extent (Score_element * refpoint, Axis) const;
  
   /**
     translate in one direction

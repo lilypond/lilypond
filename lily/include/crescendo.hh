@@ -19,8 +19,7 @@
 struct Crescendo
 {
 public:
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
-  static void set_interface(Score_element*);
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
   static bool has_interface (Score_element*);
 };
 

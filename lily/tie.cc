@@ -137,31 +137,29 @@ Tie::get_control_points (SCM smob)
 
   Real left_x;
   if (Note_head::has_interface (me->get_bound (LEFT)))
-    left_x = l->extent (X_AXIS)[RIGHT] + x_gap_f;
+    left_x = l->extent (l, X_AXIS)[RIGHT] + x_gap_f;
   else
-    left_x = l->extent (X_AXIS).length () / 2;
+    left_x = l->extent (l, X_AXIS).length () / 2;
 
   Real width;
   if (Note_head::has_interface (me->get_bound (LEFT))
       && Note_head::has_interface (me->get_bound (RIGHT)))
     {
-      width = r->relative_coordinate (commonx, X_AXIS)
-	+ r->extent (X_AXIS)[LEFT]
-	- l->relative_coordinate (commonx, X_AXIS)
-	- l->extent (X_AXIS)[RIGHT]
+      width = 
+	+ r->extent (commonx,X_AXIS)[LEFT]
+	- l->extent (commonx, X_AXIS)[RIGHT]
 	-2 * x_gap_f;
     }
   else
     {
       if (Note_head::has_interface (me->get_bound (LEFT)))
 	width = r->relative_coordinate (commonx, X_AXIS)
-	  - l->relative_coordinate (commonx, X_AXIS)
-	  - l->extent (X_AXIS)[RIGHT]
+	  - l->extent (commonx, X_AXIS)[RIGHT]
 	  - 2 * x_gap_f;
       else
-	width = r->relative_coordinate (commonx, X_AXIS)
-	  - l->extent (X_AXIS).length () / 2
-	  + r->extent (X_AXIS)[LEFT]
+	width = 
+	  - l->extent (l, X_AXIS).length () / 2
+	  + r->extent (commonx, X_AXIS)[LEFT]
 	  - l->relative_coordinate (commonx, X_AXIS)
 	  - 2 * x_gap_f;
     }
@@ -180,7 +178,8 @@ Tie::get_control_points (SCM smob)
   
   Offset leave_dir = b.control_[1] - b.control_[0];
 
-  Real dx = (head (me, headdir)->extent (X_AXIS).length () + x_gap_f)/2.0;
+  Score_element *hed =head (me, headdir);
+  Real dx = (hed->extent (hed, X_AXIS).length () + x_gap_f)/2.0;
   Real max_gap = leave_dir[Y_AXIS] * dx / leave_dir[X_AXIS];
 
   /*

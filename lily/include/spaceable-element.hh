@@ -12,6 +12,7 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+
 /*
   properties :
 
@@ -21,7 +22,6 @@
   
   dir-list -- list of stem directions.
  */
-
 struct Spaceable_element
 {
   /// set a minimum distance

@@ -67,9 +67,9 @@ Syllable_group::add_lyric(Score_element * lyric)
   lyric_list_.push(lyric);
   /* record longest and shortest lyrics */
   if( longest_lyric_l_ ) {
-    if(lyric->extent(X_AXIS).length() > (longest_lyric_l_->extent(X_AXIS)).length())
+    if(lyric->extent(lyric,X_AXIS).length() > (longest_lyric_l_->extent(longest_lyric_l_, X_AXIS)).length())
       longest_lyric_l_ = lyric;
-    if(lyric->extent(X_AXIS).length() < (shortest_lyric_l_->extent(X_AXIS)).length())
+    if(lyric->extent(lyric, X_AXIS).length() < (shortest_lyric_l_->extent(shortest_lyric_l_, X_AXIS)).length())
       shortest_lyric_l_ = lyric;
   }
   else
@@ -90,7 +90,7 @@ Syllable_group::add_extender(Score_element * extender)
     // Right:
     Real ss = extender->paper_l ()->get_var ("staffspace");
     extender->set_elt_property("right-trim-amount", 
-			       gh_double2scm(-notehead_l_->extent(X_AXIS).length()/ss));
+			       gh_double2scm(-notehead_l_->extent(notehead_l_, X_AXIS).length()/ss));
   }
 }
 
@@ -122,7 +122,7 @@ Syllable_group::set_lyric_align(const char *punc, Score_element *default_notehea
       lyric->set_parent(notehead_l_, X_AXIS);
       lyric->add_offset_callback (Side_position::centered_on_parent_proc, X_AXIS);
       // reference is on the right of the notehead; move it left half way, and add translation
-      lyric->translate_axis (group_translation_f_-(notehead_l_->extent(X_AXIS)).center(), X_AXIS);
+      lyric->translate_axis (group_translation_f_-(notehead_l_->extent(notehead_l_, X_AXIS)).center(), X_AXIS);
     }
   }
   return (notehead_l_);
@@ -142,11 +142,11 @@ Syllable_group::amount_to_translate()
   Real translate = 0.0;
   if(alignment_i_ != CENTER) {
     // FIXME: do we really know the lyric extent here? Some font sizing comes later?
-    if((longest_lyric_l_->extent(X_AXIS)).length() <
-       (shortest_lyric_l_->extent(X_AXIS)).length() * 2 )
-      translate = alignment_i_*(longest_lyric_l_->extent(X_AXIS)).length()/2;
-    else
-      translate = alignment_i_*(shortest_lyric_l_->extent(X_AXIS)).length();
+    Real l1 = longest_lyric_l_->extent(longest_lyric_l_, X_AXIS).length() / 2;
+    Real l2 = shortest_lyric_l_->extent(shortest_lyric_l_, X_AXIS).length();
+
+    translate = l1 <? l2;
+    translate *= alignment_i_ ;
   }
   return translate;
 }
@@ -215,10 +215,10 @@ Syllable_group::adjust_melisma_align()
     switch (alignment_i_) {
       //  case LEFT: // that's all
     case CENTER: // move right so smallest lyric is left-aligned on notehead
-      translation += (shortest_lyric_l_->extent(X_AXIS)).length()/2;
+      translation += (shortest_lyric_l_->extent(shortest_lyric_l_, X_AXIS)).length()/2;
       break;
     case RIGHT: // move right so smallest lyric is left-aligned on notehead
-      translation += (shortest_lyric_l_->extent(X_AXIS)).length();
+      translation += (shortest_lyric_l_->extent(shortest_lyric_l_, X_AXIS)).length();
       break;
     }
     group_translation_f_ += translation;
