@@ -15,7 +15,7 @@
 
 
 
-IMPLEMENT_IS_TYPE_B1 (Musical_req,Request);
+
 void
 Musical_req::do_print () const{}
 void
@@ -23,9 +23,9 @@ Tie_req::do_print () const{}
 
 
 
-IMPLEMENT_IS_TYPE_B1(Span_req,Request);
 
-IMPLEMENT_IS_TYPE_B2(Musical_span_req, Span_req, Musical_span_req);
+
+
 
 void
 Musical_span_req::do_print () const
@@ -42,7 +42,7 @@ Span_req::do_print () const
 #endif
 }
 
-IMPLEMENT_IS_TYPE_B1 (Spacing_req,Request);
+
 
 Spacing_req::Spacing_req ()
 {
@@ -59,7 +59,7 @@ Spacing_req::do_print () const
 #endif
 }
 
-IMPLEMENT_IS_TYPE_B1 (Abbreviation_req, Musical_req);
+
 
 Abbreviation_req::Abbreviation_req ()
 {
@@ -75,7 +75,7 @@ Abbreviation_req::do_print () const
 }
 
 
-IMPLEMENT_IS_TYPE_B2 (Blank_req,Spacing_req,Rhythmic_req);
+
 
 void
 Blank_req::do_print () const
@@ -99,7 +99,7 @@ Melodic_req::transpose (Musical_pitch delta)
     }
 }
 
-IMPLEMENT_IS_TYPE_B1 (Melodic_req,Musical_req);
+
 
 bool
 Melodic_req::do_equal_b (Request*r) const
@@ -135,7 +135,7 @@ Rhythmic_req::do_equal_b (Request*r) const
 }
 
 
-IMPLEMENT_IS_TYPE_B1 (Rhythmic_req,Musical_req);
+
 
 void
 Rhythmic_req::do_print () const
@@ -161,7 +161,7 @@ Rhythmic_req::compress (Moment m)
 
 
 
-IMPLEMENT_IS_TYPE_B1 (Lyric_req,Rhythmic_req);
+
 
 void
 Lyric_req::do_print () const
@@ -184,7 +184,7 @@ Note_req::Note_req ()
   forceacc_b_ = false;
 }
 
-IMPLEMENT_IS_TYPE_B2 (Note_req,Melodic_req,Rhythmic_req);
+
 
 void
 Note_req::do_print () const
@@ -203,7 +203,7 @@ Note_req::do_print () const
 #endif
 }
 
-IMPLEMENT_IS_TYPE_B1 (Rest_req, Rhythmic_req);
+
 
 void
 Rest_req::do_print () const
@@ -214,7 +214,7 @@ Rest_req::do_print () const
 
 
 
-IMPLEMENT_IS_TYPE_B1 (Multi_measure_rest_req, Rhythmic_req);
+
 
 void
 Multi_measure_rest_req::do_print () const
@@ -224,7 +224,7 @@ Multi_measure_rest_req::do_print () const
 
 
 
-IMPLEMENT_IS_TYPE_B1 (Beam_req,Span_req);
+
 
 
 void
@@ -233,7 +233,7 @@ Beam_req::do_print () const
 }
 
 
-IMPLEMENT_IS_TYPE_B1 (Abbreviation_beam_req, Span_req);
+
 
 Abbreviation_beam_req::Abbreviation_beam_req ()
 {
@@ -245,13 +245,13 @@ Abbreviation_beam_req::do_print () const
 {
 }
 
-IMPLEMENT_IS_TYPE_B1 (Slur_req,Span_req);
+
 void
 Slur_req::do_print () const
 {
 }
 
-IMPLEMENT_IS_TYPE_B1 (Plet_req,Span_req);
+
 
 Plet_req::Plet_req ()
 {
@@ -260,6 +260,15 @@ Plet_req::Plet_req ()
 
 void
 Plet_req::do_print () const
+{
+}
+
+Extender_req::Extender_req ()
+{
+}
+
+void
+Extender_req::do_print () const
 {
 }
 
@@ -302,7 +311,7 @@ Script_req::Script_req ()
 }
 
 
-IMPLEMENT_IS_TYPE_B1 (Script_req,Request);
+
 
 void
 Script_req::do_print () const
@@ -320,7 +329,7 @@ Musical_script_req::do_print () const
 }
 
 
-IMPLEMENT_IS_TYPE_B2 (Musical_script_req,Musical_req, Script_req);
+
 
 
 Script_req::~Script_req ()
@@ -348,7 +357,7 @@ Text_req::Text_req (int dir_i, Text_def* tdef_p)
 }
 
 
-IMPLEMENT_IS_TYPE_B1 (Text_req,Musical_req);
+
 
 void
 Text_req::do_print () const
@@ -361,7 +370,7 @@ Text_req::do_print () const
 
 
 
-IMPLEMENT_IS_TYPE_B1 (Skip_req,Musical_req);
+
 
 void
 Skip_req::do_print () const
@@ -374,7 +383,7 @@ Skip_req::do_print () const
 
 
 
-IMPLEMENT_IS_TYPE_B1 (Dynamic_req,Musical_req);
+
 
 void
 Dynamic_req::do_print () const
@@ -383,7 +392,7 @@ Dynamic_req::do_print () const
 }
 
 
-IMPLEMENT_IS_TYPE_B1 (Absolute_dynamic_req,Musical_req);
+
 
 void
 Absolute_dynamic_req::do_print () const
@@ -458,7 +467,7 @@ Span_dynamic_req::Span_dynamic_req ()
 }
 
 
-IMPLEMENT_IS_TYPE_B1 (Span_dynamic_req,Musical_req);
+
 
 void
 Span_dynamic_req::do_print () const
@@ -470,4 +479,4 @@ Span_dynamic_req::do_print () const
 }
 
 
-IMPLEMENT_IS_TYPE_B1 (Tie_req,Musical_req);
+
