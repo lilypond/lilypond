@@ -113,8 +113,11 @@ familiar with English terms for notation.
 Full documentation of internals, generated from the sources.  If you
 want to fine-tune output, you need the information in this document.
 
+@item @uref{../../input/templates/out-www/templates.html,Templates}
+input templates, for different formats of music. Add notes, and done!
+
 @item @uref{../../input/test/out-www/test.html,Input snippets}
-All of the example input snippets, with the corresponding output
+All of the tips-and-trick input snippets, with the corresponding output
 shown.  Also available in
 @uref{../../input/test/out-www/test.ps.gz,PostScript} and
 @uref{../../input/test/out-www/test.pdf,PDF} formats.

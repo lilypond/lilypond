@@ -7,7 +7,7 @@
 }
 
 #(define (display-systemno smob)
-  (let* ((this-system (get-line smob))
+  (let* ((this-system (get-system smob))
 	 (systems (get-broken-into
 		   (get-original this-system))))
     (display smob)

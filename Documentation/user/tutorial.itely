@@ -2783,8 +2783,10 @@ hacker. From here, you can  try fiddling with input
 files, coming back to the reference  manual for information.
 Also don't forget to check out the 
 @ifhtml
-@uref{,templates},  @uref{,example} and
-@uref{,feature test} snippets. 
+@uref{../../templates/out-www/templates.html,templates},
+@uref{../../test/out-www/test.html,example} and 
+@uref{../../regression/out-www/regression.html,feature test}
+snippets.
 @end ifhtml
 @ifnothtml
 templates, example and feature test snippets.

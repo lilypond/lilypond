@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.5.69\n"
 "POT-Creation-Date: 2002-07-21 01:00+0200\n"
-"PO-Revision-Date: 2002-07-24 08:00-0500\n"
+"PO-Revision-Date: 2002-07-25 08:00-0500\n"
 "Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -245,11 +245,11 @@ msgstr "DUR*NUM/DEN"
 
 #: midi2ly.py:102
 msgid "allow tuplet durations DUR*NUM/DEN"
-msgstr ""
+msgstr "permettre un tuplet de durées DUR*NUM/DEN"
 
 #: midi2ly.py:106
 msgid "treat every text as a lyric"
-msgstr ""
+msgstr "traiter chaque texte comme des paroles"
 
 #: midi2ly.py:1027
 msgid "Example:"
@@ -428,22 +428,22 @@ msgstr "Erreur de programmation: %s (Poursuite; croisons les doigts)\n"
 #: accidental-engraver.cc:181 new-accidental-engraver.cc:234
 #, c-format
 msgid "Accidental typesetting list must begin with context-name: %s"
-msgstr ""
+msgstr "Liste de mise en page accidentelle doit débuter avec un nom de contexte: %s"
 
 #: accidental-engraver.cc:206 new-accidental-engraver.cc:259
 #, c-format
 msgid "unknown accidental typesetting: %s. Ignored"
-msgstr ""
+msgstr "mise en page accidentelle inconnue: %s. Ignorée"
 
 #: accidental-engraver.cc:222 new-accidental-engraver.cc:275
 #, c-format
 msgid "Symbol is not a parent context: %s. Ignored"
-msgstr ""
+msgstr "Symbole n'est pas un contexte parent: %s. Ignoré"
 
 #: accidental-engraver.cc:225 new-accidental-engraver.cc:278
 #, c-format
 msgid "Accidental typesetting must be pair or context-name: %s"
-msgstr ""
+msgstr "Mise en page accidentelle doit être pair ou un nom de contexte: %s"
 
 #: afm.cc:60
 #, c-format
