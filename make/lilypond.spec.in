@@ -67,6 +67,10 @@ mkdir -p out/examples/
 tar -cf - input/  | tar -C out/examples/ -xf- || true
 
 %ifos cygwin
+# urg, this symlink doesn't come through on cygwin
+# this is the way symlinks work over there, let's fake one
+rm -f $RPM_BUILD_ROOT%{_prefix}/share/lilypond/cmtfm
+echo '!<symlink>c:\\texmf\\fonts\\tfm\\public\\cm' > $RPM_BUILD_ROOT%{_prefix}/share/lilypond/cmtfm
 %{fix_suffixes}
 %endif
 
