@@ -6,11 +6,12 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "global-translator.hh"
-#include "music-iterator.hh"
 #include "debug.hh"
+#include "music.hh"
+#include "music-iterator.hh"
+#include "global-translator.hh"
 
-Global_translator::Global_translator()
+Global_translator::Global_translator ()
 {
 }
 
@@ -29,13 +30,12 @@ Global_translator::add_moment_to_process (Moment m)
   extra_mom_pq_.insert (m);
 }
 
-void
-Global_translator::modify_next (Moment &w)
+Moment
+Global_translator::sneaky_insert_extra_moment (Moment w)
 {
-  while (extra_mom_pq_.size() && 
-	 extra_mom_pq_.front() <= w)
-	
-    w =extra_mom_pq_.get();
+  while (extra_mom_pq_.size() && extra_mom_pq_.front() <= w)
+    w = extra_mom_pq_.get();
+  return w;
 }
 
 int
@@ -93,13 +93,35 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
 	    iter->print();
 	}
       
-      modify_next (w);
+      w = sneaky_insert_extra_moment (w);
       prepare (w);
       
       if (flower_dstream && !flower_dstream->silent_b ("walking"))
 	print();
 
-      iter->process_and_next (w);
+      iter->process (w);
+      for (SCM i = iter->get_music (); gh_pair_p (i); i = SCM_CDR (i))
+	{
+	  assert (gh_pair_p (i));
+	  SCM p = SCM_CAR (i);
+	  Music *m = unsmob_music (SCM_CAR (p));
+	  Translator *t = unsmob_translator (SCM_CDR (p));
+	  assert (m);
+	  assert (t);
+	  bool b = t->try_music (m);
+	  if (!b)
+	    {
+	      /*
+		Children?
+	      */
+	      printf ("junking:\n");
+	      m->print ();
+	      t->print ();
+	    }
+
+	}
+      
+      iter->next ();
       process();
     }
 }

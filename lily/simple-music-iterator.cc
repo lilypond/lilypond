@@ -22,8 +22,9 @@ Simple_music_iterator::Simple_music_iterator (Simple_music_iterator const &src)
 }
 
 void
-Simple_music_iterator::do_process_and_next (Moment m)
+Simple_music_iterator::do_process (Moment m)
 {
+#if 0
   if (ok ())
     {
       bool b = try_music (get_music ());
@@ -32,5 +33,6 @@ Simple_music_iterator::do_process_and_next (Moment m)
 					  classname (music_l_)));
 
     }
-  Music_iterator::do_process_and_next (m);
+  Music_iterator::do_process (m);
+#endif
 }

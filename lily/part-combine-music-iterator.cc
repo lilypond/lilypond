@@ -48,6 +48,23 @@ Part_combine_music_iterator::ok () const
   return first_iter_p_->ok () || second_iter_p_->ok ();
 }
 
+SCM
+Part_combine_music_iterator::get_music ()
+{
+  return SCM_EOL;
+}
+
+bool
+Part_combine_music_iterator::next ()
+{
+  bool b = false;
+  if (first_iter_p_->ok ())
+    b = first_iter_p_->next ();
+  if (second_iter_p_->ok ())
+    b = second_iter_p_->next () || b;
+  return b;
+}
+
 void
 Part_combine_music_iterator::do_print () const
 {
@@ -116,7 +133,7 @@ Part_combine_music_iterator::change_to (Music_iterator *it, String to_type,
 }
 
 void
-Part_combine_music_iterator::do_process_and_next (Moment m)
+Part_combine_music_iterator::do_process (Moment m)
 {
   Part_combine_music const * p = dynamic_cast<Part_combine_music const* > (music_l_);
 
@@ -127,44 +144,42 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
   if (first_iter_p_->ok ())
     {
       Music_iterator* i = first_iter_p_->clone ();
-      Moment until = i->next_moment ();
 
       /* Urg, silly first_b_ stuff */
-      if (now && i->next ())
-	until = i->next_moment ();
+      if (now)
+	i->next ();
 
-      /* How about a 'now_moment ()' for iterators? */
-      for (; i->ok () && i->next_moment () == until; i->next ())
+      SCM s = i->get_music ();
+      if (gh_pair_p (s))
 	{
-	  if (Music_sequence* m = dynamic_cast<Music_sequence *> (i->get_music ()))
+	  if (Music_sequence* m = dynamic_cast<Music_sequence *> (unsmob_music (SCM_CAR (SCM_CAR (s)))))
 	    {
 	      for (SCM s = m->music_list (); gh_pair_p (s);  s = gh_cdr (s))
 		{
 		  Music *u = unsmob_music (gh_car (s));
 		  if (Melodic_req *r = dynamic_cast<Melodic_req *> (u))
-		    first_pitches.push (r->pitch_);
+			first_pitches.push (r->pitch_);
 		  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (u))
 		    first_durations.push (r->duration_);
 		}
 	    }
 	}
     }
-
+  
   Array<Musical_pitch> second_pitches;
   Array<Duration> second_durations;
   if (second_iter_p_->ok ())
     {
       Music_iterator* i = second_iter_p_->clone ();
-      Moment until = i->next_moment ();
 
       /* Urg, silly second_b_ stuff */
-      if (now && i->next ())
-	until = i->next_moment ();
+      if (now)
+	i->next ();
 
-      /* How about a 'now_moment ()' for iterators? */
-      for (; i->ok () && i->next_moment () == until; i->next ())
+      SCM s = i->get_music ();
+      if (gh_pair_p (s))
 	{
-	  if (Music_sequence* m = dynamic_cast<Music_sequence *> (i->get_music ()))
+	  if (Music_sequence* m = dynamic_cast<Music_sequence *> (unsmob_music (SCM_CAR (SCM_CAR (s)))))
 	    {
 	      for (SCM s = m->music_list (); gh_pair_p (s);  s = gh_cdr (s))
 		{
@@ -172,7 +187,7 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
 		  if (Melodic_req *r = dynamic_cast<Melodic_req *> (u))
 		    second_pitches.push (r->pitch_);
 		  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (u))
-		    second_durations.push (r->duration_);
+			second_durations.push (r->duration_);
 		}
 	    }
 	}
@@ -202,7 +217,7 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
 	second_until_ = new_until;
     }
 
-#if 0 /* DEBUG */
+#if 1 /* DEBUG */
   printf ("now: %s\n", now.str ().ch_C ());
   printf ("first: ");
   for (int i = 0; i < first_pitches.size (); i++)
@@ -296,12 +311,12 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
     Hmm, shouldn't we check per iterator if next_moment < m?
   */
   if (first_iter_p_->ok ())
-    first_iter_p_->process_and_next (m);
+    first_iter_p_->process (m);
   
   if (second_iter_p_->ok ())
-    second_iter_p_->process_and_next (m);
+    second_iter_p_->process (m);
 
-  Music_iterator::do_process_and_next (m);
+  Music_iterator::do_process (m);
 }
 
 Music_iterator*

@@ -25,7 +25,7 @@ public:
   Global_translator();
 
   int moments_left_i() const;
-  void modify_next (Moment&);
+  Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
   void run_iterator_on_me (Music_iterator*);
   

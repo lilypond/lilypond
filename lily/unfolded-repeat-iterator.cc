@@ -135,7 +135,7 @@ Unfolded_repeat_iterator::construct_children ()
 }
 
 void
-Unfolded_repeat_iterator::do_process_and_next (Moment m) 
+Unfolded_repeat_iterator::do_process (Moment m) 
 {
   if (!m)
     {
@@ -156,7 +156,7 @@ Unfolded_repeat_iterator::do_process_and_next (Moment m)
 	}
       
       if (m - done_mom_ >= current_iter_p_->next_moment ())
-	current_iter_p_->process_and_next (m - done_mom_);
+	current_iter_p_->process (m - done_mom_);
       else
 	return;
     }

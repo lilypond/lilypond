@@ -26,14 +26,13 @@ public:
   virtual void construct_children ();
   virtual Moment next_moment () const;
   virtual bool ok () const;
-  virtual Music* get_music ();
+  virtual SCM get_music ();
   virtual bool next ();
 
 protected:
   virtual void do_print() const;
-  virtual void do_process_and_next (Moment);
+  virtual void do_process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
-
 
 private:
   Moment here_mom_;

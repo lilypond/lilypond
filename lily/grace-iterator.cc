@@ -27,7 +27,7 @@ Grace_iterator::construct_children ()
 }
 
 void
-Grace_iterator::do_process_and_next (Moment m)
+Grace_iterator::do_process (Moment m)
 {
   Global_translator * t = dynamic_cast<Global_translator*>(report_to_l ());
   if (t)
@@ -42,7 +42,7 @@ Grace_iterator::do_process_and_next (Moment m)
     {
       warning (_("no Grace context available")); 
     }
-  Music_iterator::do_process_and_next (m);
+  Music_iterator::do_process (m);
 }
 
 Moment

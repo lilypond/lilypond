@@ -17,12 +17,8 @@ class Change_iterator : public Music_iterator
 {
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
-  /*
-    CTOR is public
-   */
-
-protected:
-  virtual void do_process_and_next (Moment);
+  /* constructor is public */
+  virtual void do_process (Moment);
 
 private:
   void  error (String);

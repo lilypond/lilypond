@@ -18,7 +18,7 @@ public:
   VIRTUAL_COPY_CONS (Music_iterator);
   ~Grace_iterator ();
   virtual void construct_children () ;
-  virtual void do_process_and_next (Moment);
+  virtual void do_process (Moment);
 
   Moment next_moment () const;
 };

@@ -42,7 +42,7 @@ public:
   /**
     The translation unit that we this iterator is reporting  to now.
    */
-  Translator_group*report_to_l () const;
+  Translator_group* report_to_l () const;
 
   void set_translator (Translator_group*);
   
@@ -59,11 +59,10 @@ public:
   ///Are we finished with this piece of music?
   virtual bool ok () const;
 
-  virtual Music* get_music ();
+  virtual SCM get_music ();
   virtual bool next ();
 
-  ///Report all musical information that occurs between now and UNTIL
-  void process_and_next (Moment until);
+  void process (Moment until);
 
   /**
     Construct sub-iterators, and set the translator to 
@@ -94,10 +93,7 @@ protected:
    */
   Music_iterator* get_iterator_p (Music *) const;
 
-  /** Do the actual move.  This should be overriden in derived
-    classes.  It is called by #process_and_next#, the public interface 
-    */
-  virtual void do_process_and_next (Moment until);
+  virtual void do_process (Moment);
 
   virtual Music_iterator* try_music_in_children (Music *) const;
   

@@ -55,7 +55,7 @@ Folded_repeat_iterator::construct_children ()
 }
 
 void
-Folded_repeat_iterator::do_process_and_next (Moment m)
+Folded_repeat_iterator::do_process (Moment m)
 {
   if (!m)
     {
@@ -66,7 +66,7 @@ Folded_repeat_iterator::do_process_and_next (Moment m)
   
   if (main_iter_p_)
     {
-      main_iter_p_->process_and_next (m);
+      main_iter_p_->process (m);
       if (!main_iter_p_->ok ())
 	leave_body ();
     }
@@ -78,7 +78,7 @@ Folded_repeat_iterator::do_process_and_next (Moment m)
   
   if (alternative_iter_p_)
     {
-      alternative_iter_p_->process_and_next (m - main_length_mom_);
+      alternative_iter_p_->process (m - main_length_mom_);
       if (!alternative_iter_p_->ok ())
 	{
 	  delete alternative_iter_p_;

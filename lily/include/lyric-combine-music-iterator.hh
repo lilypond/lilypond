@@ -22,7 +22,7 @@ public:
 protected:
   virtual void construct_children ();
   virtual Moment next_moment () const;
-  virtual void do_process_and_next (Moment);
+  virtual void do_process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
 
   virtual bool ok () const;

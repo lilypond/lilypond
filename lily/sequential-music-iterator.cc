@@ -93,18 +93,21 @@ Sequential_music_iterator::set_sequential_music_translator()
     set_translator (child_report);
 }
 
-Music*
+SCM
 Sequential_music_iterator::get_music ()
 {
   if (ok ())
-    return unsmob_music (gh_car (cursor_));
+    return scm_listify (scm_cons (SCM_CAR (cursor_),
+				  report_to_l ()->self_scm ()),
+			SCM_UNDEFINED);
       
-  return 0;
+  return SCM_EOL;
 }
   
 bool
 Sequential_music_iterator::next ()
 {
+#if 0
   if (ok ())
     {
       bool b = false;
@@ -121,14 +124,27 @@ Sequential_music_iterator::next ()
       return b;
     }
   return false;
+#else
+  if (ok ())
+    {
+      set_sequential_music_translator ();
+      leave_element ();
+      if (gh_pair_p (cursor_))
+	start_next_element ();
+      return ok ();
+    }
+  return false;
+#endif
 }
 
 /*
   This should use get_music () and next ()
  */
 void
-Sequential_music_iterator::do_process_and_next (Moment until)
+Sequential_music_iterator::do_process (Moment until)
 {
+  return;
+#if 0
   if (ok ())
     {
       while (1) 
@@ -138,9 +154,9 @@ Sequential_music_iterator::do_process_and_next (Moment until)
 	    {
 	      Moment here = iter_p_->next_moment ();
 	      if (here != local_until)
-		return Music_iterator::do_process_and_next (until);
+		return Music_iterator::do_process (until);
 	      
-	      iter_p_->process_and_next (local_until);
+	      iter_p_->process (local_until);
 	    }
 	  
 	  if (!iter_p_->ok ()) 
@@ -151,10 +167,11 @@ Sequential_music_iterator::do_process_and_next (Moment until)
 	      if (gh_pair_p (cursor_))
 		start_next_element ();
 	      else 
-		return Music_iterator::do_process_and_next (until);
+		return Music_iterator::do_process (until);
 	    }
 	}
     }
+#endif
 }
 
 Moment

@@ -19,14 +19,17 @@ public:
   Part_combine_music_iterator ();
 
 protected:
+  virtual ~Part_combine_music_iterator ();
+
   virtual void construct_children ();
   virtual Moment next_moment () const;
-  virtual void do_process_and_next (Moment);
+  virtual void do_process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
 
   virtual bool ok () const;
+  virtual bool next ();
+  virtual SCM get_music ();
   virtual void do_print () const;
-  virtual ~Part_combine_music_iterator ();
 
 private:
   void change_to (Music_iterator*, String, String);

@@ -17,9 +17,7 @@ public:
   VIRTUAL_COPY_CONS (Music_iterator);
   Simple_music_iterator ();
   Simple_music_iterator (Simple_music_iterator const &);
-
-protected:
-  virtual void do_process_and_next (Moment );
+  virtual void do_process (Moment);
 };
 
 #endif /* SIMPLE_MUSIC_ITERATOR_HH */

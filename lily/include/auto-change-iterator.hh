@@ -20,7 +20,7 @@ public:
   Auto_change_iterator ();
 
 protected:
-  virtual void do_process_and_next (Moment);  
+  virtual void do_process (Moment);  
 
 private:
   Direction where_dir_;

@@ -53,78 +53,77 @@ Music_iterator::Music_iterator (Music_iterator const& src)
   music_l_ = src.music_l_;
 }
 
-Music_iterator::~Music_iterator()
+Music_iterator::~Music_iterator ()
 {
 }
 
 void
-Music_iterator::do_print() const
+Music_iterator::do_print () const
 {
 }
 
 void
-Music_iterator::print() const
+Music_iterator::print () const
 {
 #ifndef NPRINT
   if (!flower_dstream)
     return ;
-  DEBUG_OUT << classname(this) << "{";
-  Translator_group *t =     report_to_l();
+  DEBUG_OUT << classname (this) << "{";
+  Translator_group *t =     report_to_l ();
   DEBUG_OUT << "report to " << t->type_str_ << " = " << t->id_str_ << "\n";
-  if (ok())
-    DEBUG_OUT << "next at " << next_moment() << " ";
+  if (ok ())
+    DEBUG_OUT << "next at " << next_moment () << " ";
   else
     DEBUG_OUT << "not feeling well today..";
-  do_print();
+  do_print ();
   DEBUG_OUT << "}\n";
 #endif
 }
 
 Translator_group*
-Music_iterator::get_req_translator_l()
+Music_iterator::get_req_translator_l ()
 {
-  assert (report_to_l());
-  if (report_to_l()->is_bottom_translator_b ())
-    return report_to_l();
+  assert (report_to_l ());
+  if (report_to_l ()->is_bottom_translator_b ())
+    return report_to_l ();
 
-  set_translator (report_to_l()->get_default_interpreter ());
-  return report_to_l();
+  set_translator (report_to_l ()->get_default_interpreter ());
+  return report_to_l ();
 }
 
 
 Translator_group* 
-Music_iterator::report_to_l() const
+Music_iterator::report_to_l () const
 {
   return handle_.report_to_l ();
 }
 
 
 void
-Music_iterator::set_translator (Translator_group*trans)
+Music_iterator::set_translator (Translator_group *trans)
 {
   handle_.set_translator (trans);
 }
 
 void
-Music_iterator::construct_children()
+Music_iterator::construct_children ()
 {
 }
 
 Moment
-Music_iterator::next_moment() const
+Music_iterator::next_moment () const
 {
   return 0;
 }
 
-
 void
-Music_iterator::process_and_next (Moment m)
+Music_iterator::process (Moment m)
 {
-  do_process_and_next (m);
+  do_process (m);
 }
 
 void
-Music_iterator::do_process_and_next (Moment)
+Music_iterator::do_process (Moment)
 {
   first_b_ = false;
 }
@@ -135,12 +134,14 @@ Music_iterator::ok () const
   return first_b_;
 }
 
-Music*
+SCM
 Music_iterator::get_music ()
 {
   if (ok ())
-    return music_l_;
-  return 0;
+    return scm_listify (scm_cons (music_l_->self_scm (),
+				  report_to_l ()->self_scm ()),
+			SCM_UNDEFINED);
+  return SCM_EOL;
 }
 
 bool
@@ -151,7 +152,7 @@ Music_iterator::next ()
 }
 
 Music_iterator*
-Music_iterator::static_get_iterator_p (Music  *m)
+Music_iterator::static_get_iterator_p (Music *m)
 {
   Music_iterator * p =0;
 
@@ -169,9 +170,9 @@ Music_iterator::static_get_iterator_p (Music  *m)
     p = new Property_iterator;
   else if (dynamic_cast<Change_translator *> (m))
     p = new Change_iterator;
-  else if (dynamic_cast<Push_translation_property*>(m))
+  else if (dynamic_cast<Push_translation_property*> (m))
     p = new Push_property_iterator;
-  else if (dynamic_cast<Pop_translation_property*>(m))
+  else if (dynamic_cast<Pop_translation_property*> (m))
     p = new Pop_property_iterator;
   else if (dynamic_cast<Time_scaled_music *> (m))
     p = new Time_scaled_music_iterator;
@@ -202,10 +203,10 @@ Music_iterator::static_get_iterator_p (Music  *m)
 }
 
 void
-Music_iterator::init_translator (Music  *m, Translator_group  *report_l)
+Music_iterator::init_translator (Music *m, Translator_group *report_l)
 {
   music_l_ = m;
-  if (Context_specced_music  * csm =dynamic_cast<Context_specced_music *>(m))
+  if (Context_specced_music * csm =dynamic_cast<Context_specced_music *> (m))
     {
       Translator_group* a =report_l->
 	find_create_translator_l (csm->translator_type_str_, csm->translator_id_str_);
@@ -214,7 +215,7 @@ Music_iterator::init_translator (Music  *m, Translator_group  *report_l)
       
     }
 
-  if (! report_to_l())
+  if (! report_to_l ())
     set_translator (report_l);
 }
 
@@ -223,16 +224,16 @@ Music_iterator*
 Music_iterator::get_iterator_p (Music *m) const
 {
   Music_iterator*p = static_get_iterator_p (m);
-  p->init_translator (m, report_to_l());
+  p->init_translator (m, report_to_l ());
   
-  p->construct_children();
+  p->construct_children ();
   return p;
 }
 
 Music_iterator*
-Music_iterator::try_music (Music  *m) const
+Music_iterator::try_music (Music *m) const
 {
-  bool b = report_to_l ()->try_music ((Music*)m); // ugh
+  bool b = report_to_l ()->try_music ( (Music*)m); // ugh
   Music_iterator * it = b ? (Music_iterator*) this : 0;	// ugh
   if (!it)
     it = try_music_in_children (m);
@@ -240,7 +241,7 @@ Music_iterator::try_music (Music  *m) const
 }
 
 Music_iterator*
-Music_iterator::try_music_in_children (Music  *  ) const
+Music_iterator::try_music_in_children (Music *) const
 {
   return 0;
 }

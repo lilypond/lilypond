@@ -31,7 +31,7 @@ Chord_tremolo_iterator::Chord_tremolo_iterator()
 }
 
 void
-Chord_tremolo_iterator::do_process_and_next (Moment m)
+Chord_tremolo_iterator::do_process (Moment m)
 {
   if (!m)
     {
@@ -42,7 +42,7 @@ Chord_tremolo_iterator::do_process_and_next (Moment m)
 	music_l_->origin ()->warning ( _("no one to print a tremolos"));
     }
 
-  child_iter_p_->process_and_next  (factor_ * m);
+  child_iter_p_->process (factor_ * m);
 }
 
 

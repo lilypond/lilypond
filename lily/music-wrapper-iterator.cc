@@ -47,13 +47,13 @@ Music_wrapper_iterator::ok () const
 }
 
 void
-Music_wrapper_iterator::do_process_and_next (Moment m)
+Music_wrapper_iterator::do_process (Moment m)
 {
-  child_iter_p_->process_and_next (m);
-  Music_iterator::do_process_and_next (m);
+  child_iter_p_->process (m);
+  Music_iterator::do_process (m);
 }
 
-Music*
+SCM
 Music_wrapper_iterator::get_music ()
 {
   return child_iter_p_->get_music ();

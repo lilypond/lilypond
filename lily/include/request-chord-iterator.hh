@@ -33,7 +33,7 @@ public:
   virtual bool ok () const;
 
 protected:
-  virtual void do_process_and_next (Moment);
+  virtual void do_process (Moment);
   virtual Moment next_moment() const;
   virtual void construct_children();
   virtual void do_print() const;

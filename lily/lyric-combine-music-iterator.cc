@@ -66,13 +66,13 @@ Lyric_combine_music_iterator::construct_children ()
 }
 
 void
-Lyric_combine_music_iterator::do_process_and_next (Moment m)
+Lyric_combine_music_iterator::do_process (Moment m)
 {
   Moment my_next = music_iter_p_->next_moment ();
   if (my_next > m)
     return;
   
-  music_iter_p_->process_and_next (m);
+  music_iter_p_->process (m);
 
   bool busy = try_music (busy_req);
   if (busy)
@@ -91,12 +91,12 @@ Lyric_combine_music_iterator::do_process_and_next (Moment m)
 #endif
 	      
 	      Moment m= lyric_iter_p_->next_moment ();
-	      lyric_iter_p_->process_and_next (m);
+	      lyric_iter_p_->process (m);
 	    }
 	}
     }
   
-  Music_iterator::do_process_and_next (m);
+  Music_iterator::do_process (m);
 }
 
 Lyric_combine_music_iterator::~Lyric_combine_music_iterator ()

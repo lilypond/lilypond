@@ -72,8 +72,9 @@ Request_chord_iterator::next ()
 }
 
 void
-Request_chord_iterator::do_process_and_next (Moment)
+Request_chord_iterator::do_process (Moment)
 {
+#if 0
   // URG
   if (first_b_)
     {
@@ -93,4 +94,5 @@ Request_chord_iterator::do_process_and_next (Moment)
     }
 
   next ();
+#endif
 }

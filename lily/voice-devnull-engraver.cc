@@ -23,7 +23,9 @@ protected:
 ADD_THIS_TRANSLATOR (Voice_devnull_engraver);
 
 static char const *junk_interfaces[] = {
-  //	"beam-interface",
+#if 0
+  "beam-interface",
+#endif
   "slur-interface",
   "tie-interface",
   "text-item-interface",

@@ -30,6 +30,7 @@ ADD_THIS_TRANSLATOR (A2_devnull_engraver);
 bool
 A2_devnull_engraver::do_try_music (Music *m)
 {
+  return false;
   if (1 //daddy_trans_l_->id_str_ == "two"
       && (to_boolean (get_property ("unison"))
 	  || to_boolean (get_property ("unisilence"))))
