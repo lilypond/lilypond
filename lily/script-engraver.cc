@@ -214,6 +214,18 @@ Script_engraver::stop_translation_timestep ()
 				     ::quantised_position_proc, Y_AXIS);
 	    sc->set_property ("staff-padding", SCM_EOL);
 	  }
+	
+	/* Simplistic slur collision handling.  This fixes simple collisions
+	   like
+	   
+	   a_\upbow( b)
+	   
+	   but it most probably breaks for more interesting cases.
+	   Maybe make a new colission engraver.
+
+	   
+	   Assume that a SCRIPT that should collide with SLUR does not
+	   have a negative priority. */
 	SCM priority = sc->get_property ("script-priority");
 	if (robust_scm2int (priority, 0) >= 0
 	    && slur_

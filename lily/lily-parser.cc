@@ -29,7 +29,7 @@ Lily_parser::Lily_parser (Sources *sources)
   score_count_ = 0;
   lexer_ = 0;
   sources_ = sources;
-  default_duration_ = Duration (2,0);
+  default_duration_ = Duration (2, 0);
   error_level_ = 0;
   last_beam_start_ = SCM_EOL;
 
@@ -118,7 +118,10 @@ Lily_parser::parse_file (String init, String name, String out_name)
 void
 Lily_parser::parse_string (String ly_code)
 {
+#if 0
   SCM parent_prot = lexer_ ? lexer_->self_scm () : SCM_EOL;
+#endif
+
   Lily_lexer * parent = lexer_;
   lexer_ = (parent == 0 ? new Lily_lexer (sources_)
 	    : new Lily_lexer (*parent));

@@ -4,8 +4,9 @@
   source file of the GNU LilyPond music typesetter
   
   (c) 1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  Jan Nieuwenhuizen <janneke@gnu.org>
- */
+                 Jan Nieuwenhuizen <janneke@gnu.org>
+*/
+
 #include <math.h>
 
 #include "warn.hh"
@@ -14,31 +15,43 @@
 #include "font-interface.hh"
 #include "virtual-font-metric.hh"
 #include "output-def.hh"
-#include "scaled-font-metric.hh"
+#include "modified-font-metric.hh"
 #include "ly-module.hh"
 
 MAKE_SCHEME_CALLBACK (Text_item, interpret_string, 4)
 SCM
-Text_item::interpret_string (SCM paper, SCM props, SCM encoding, SCM markup)
+Text_item::interpret_string (SCM paper_smob,
+			     SCM props, SCM input_encoding, SCM markup)
 {
-  Output_def *pap = unsmob_output_def (paper);
+  Output_def *paper = unsmob_output_def (paper_smob);
   
-  SCM_ASSERT_TYPE(pap, paper, SCM_ARG1, __FUNCTION__, "Paper definition");
-  SCM_ASSERT_TYPE(ly_c_string_p (markup), markup, SCM_ARG3, __FUNCTION__, "string");
-  SCM_ASSERT_TYPE(encoding == SCM_EOL
-		  || ly_c_symbol_p (encoding), encoding, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (paper, paper_smob, SCM_ARG1,
+		   __FUNCTION__, "Paper definition");
+  SCM_ASSERT_TYPE (ly_c_string_p (markup), markup, SCM_ARG3,
+		   __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (input_encoding == SCM_EOL || ly_c_symbol_p (input_encoding),
+		   input_encoding, SCM_ARG2, __FUNCTION__, "symbol");
   
   String str = ly_scm2string (markup);
-  if (!ly_c_symbol_p (encoding))
+  if (!ly_c_symbol_p (input_encoding))
     {
-      SCM var = ly_module_lookup (pap->scope_,
+      /* FIXME: input_encoding is set in *book*_paper
+
+         Options include:
+	 
+         1. produce a bookpaper from a paper.
+	 2. add BOOKPAPER parameter to all callers, ie, all MARKUPs.  */
+      
+      programming_error ("FIXME: looking up input_encoding in paper");
+      programming_error ("as a workaround, set inputencoding in your \\paper block");
+      SCM var = ly_module_lookup (paper->scope_,
 				  ly_symbol2scm ("inputencoding"));
       if (var != SCM_BOOL_F) 
-	encoding = scm_variable_ref (var);
+	input_encoding = scm_variable_ref (var);
       
     }
   
-  Font_metric *fm = select_encoded_font (pap, props, encoding);
+  Font_metric *fm = select_encoded_font (paper, props, input_encoding);
 
   SCM lst = SCM_EOL;      
   Box b;
@@ -63,10 +76,10 @@ Text_item::interpret_string (SCM paper, SCM props, SCM encoding, SCM markup)
 
 MAKE_SCHEME_CALLBACK (Text_item, interpret_markup, 3)
 SCM
-Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
+Text_item::interpret_markup (SCM paper_smob, SCM props, SCM markup)
 {
   if (ly_c_string_p (markup))
-    return interpret_string (paper, props, SCM_EOL, markup);
+    return interpret_string (paper_smob, props, SCM_EOL, markup);
   else if (ly_c_pair_p (markup))
     {
       SCM func = ly_car (markup);
@@ -74,7 +87,7 @@ Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
       if (!markup_p (markup))
 	programming_error ("Markup head has no markup signature.");
       
-      return scm_apply_2 (func, paper, props, args);
+      return scm_apply_2 (func, paper_smob, props, args);
     }
   return SCM_EOL;
 }
@@ -90,22 +103,20 @@ Text_item::print (SCM grob)
   return interpret_markup (me->get_paper ()->self_scm (), chain, t);
 }
 
-
-/*
-  Ugh. Duplicated from Scheme.
- */
+/* Ugh. Duplicated from Scheme.  */
 bool
 Text_item::markup_p (SCM x)
 {
-  return
-    ly_c_string_p (x) ||
-    (ly_c_pair_p (x)
-     && SCM_BOOL_F != scm_object_property (ly_car (x), ly_symbol2scm ("markup-signature")));
+  return (ly_c_string_p (x)
+	  || (ly_c_pair_p (x)
+	      && SCM_BOOL_F
+	      != scm_object_property (ly_car (x),
+				      ly_symbol2scm ("markup-signature"))));
 }
 
 ADD_INTERFACE (Text_item,"text-interface",
-  "A scheme markup text, see @usermanref{Text-markup}.",
-  "text baseline-skip word-space");
+	       "A scheme markup text, see @usermanref{Text-markup}.",
+	       "text baseline-skip word-space");
 
 
 

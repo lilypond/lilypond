@@ -6,12 +6,12 @@
   (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
     Mats Bengtsson <matsb@s3.kth.se> (the ugly TeX parsing in text_dimension)
- */
+*/
 
 #include <math.h>
 #include <ctype.h>
 
-#include "scaled-font-metric.hh"
+#include "modified-font-metric.hh"
 #include "virtual-methods.hh"
 #include "warn.hh"
 #include "stencil.hh"

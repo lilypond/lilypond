@@ -401,8 +401,7 @@ Paper_book::pages ()
     return pages_;
 
   pages_ = SCM_EOL;
-  Output_def *paper = bookpaper_;
-  SCM proc = paper->c_variable ("page-breaking");
+  SCM proc = bookpaper_->c_variable ("page-breaking");
   pages_ = scm_apply_0 (proc, scm_list_2 (lines (), self_scm ()));
   return pages_;
 }

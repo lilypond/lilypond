@@ -313,6 +313,13 @@ Dynamic_engraver::finalize ()
 void
 Dynamic_engraver::typeset_all ()
 {
+  /* Simplistic slur collision handling.  This fixes simple collisions
+     like
+     
+         a\p( b)
+
+     which are unacceptable, but it most probably breaks for more
+     interesting cases.  Maybe make a new colission engraver.  */
   if (finished_line_spanner_ && slur_
       && get_slur_dir (slur_) == get_grob_direction (finished_line_spanner_))
     {

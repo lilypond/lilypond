@@ -333,7 +333,8 @@ L1 is copied, L2 not.
 
 
 (define-public (write-me message x)
-  "Return X.  Display MESSAGE and write X.  Handy for debugging, possibly turned off."
+  "Return X.  Display MESSAGE and write X.  Handy for debugging,
+possibly turned off."
   (display message) (write x) (newline) x)
 ;;  x)
 
@@ -554,23 +555,20 @@ L1 is copied, L2 not.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
 (define-public (postscript->pdf papersize name)
-  (let*
-      ((cmd  (string-append "ps2pdf -sPAPERSIZE=" papersize
-			 " "
-			 name))
-       (output-name (regexp-substitute/global #f "\\.ps" name 'pre ".pdf" 'post)))
+  (let* ((cmd (string-append "ps2pdf -sPAPERSIZE=" papersize " " name))
+	 (output-name
+	  (regexp-substitute/global #f "\\.ps" name 'pre ".pdf" 'post)))
+
+    (newline)
+    ;; FIXME: user message: should be translated
+    (display (format "Converting to ~s..." output-name))
+    (newline)
     
+    (if (ly:get-option 'verbose)
+	;; FIXME: user message: should be translated
+	(display (format "Invoking ~s..." cmd)))
 
-  (display
-   (string-append
-    "Converting to " output-name    "\n"))
-
-  (if (ly:get-option 'verbose)
-      (display (format "Invoking ~S" cmd)))
-  
   (system cmd)))
-
-
 
 (define-public (postscript->png resolution name)
   (let
@@ -584,7 +582,10 @@ L1 is copied, L2 not.
 	       " ")
 	   name)))
     (if (ly:get-option 'verbose)
-	(display (format "Invoking `~S'\n" cmd)))
+	;; FIXME: user message: should be translated
+	(begin
+	  (display (format "Invoking ~s..." cmd))
+	  (newline)))
     (system cmd)))
 
 (define-public (lilypond-main files)
@@ -601,6 +602,7 @@ L1 is copied, L2 not.
     (if (pair? failed)
 	(begin
 	  (display
+	   ;; FIXME: user message: should be translated
 	   (string-append "\n *** Failed files: " (string-join failed) "\n"))
 	  (exit 1))
 	(exit 0))))

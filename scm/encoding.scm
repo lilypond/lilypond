@@ -74,7 +74,7 @@ vector of symbols."
 	       (cons (cdr x) (delay (get-coding-from-file (cdr x))))))
        
        '(
-	 ;; teTeX
+	 ;; teTeX font (output) encodings
 	 ("TeX-typewriter-text" . "09fbbfac.enc") ;; cmtt10
 	 ("TeX-math-symbols" . "10037936.enc") ;; cmbsy
 	 ("ASCII-caps-and-digits" . "1b6d048e.enc") ;; cminch
@@ -84,15 +84,15 @@ vector of symbols."
 	 ("TeX-text-without-f-ligatures" . "0ef0afca.enc")
 	 ("Extended-TeX-Font-Encoding---Latin" . "tex256.enc")
 	 ("AdobeStandardEncoding" . "8a.enc")
-
-	 ;; aliases
 	 ("T1" . "tex256.enc")
 	 ("adobe" . "8a.enc")
-	 ;;("latin1" . "latin1.enc")
-	 ("latin1" . "cork.enc")
 	 ("ec" . "EC.enc")
 	 
-	 ;; LilyPond.
+	 ;; input encodings
+	 ("latin1" . "latin1.enc")
+	 ("cork" . "cork.enc")
+
+	 ;; LilyPond FETA music font
 	 ("fetaBraces" . "feta-braces-a.enc")
 	 ("fetaNumber" . "feta-nummer10.enc")
 	 ("fetaMusic" . "feta20.enc")
