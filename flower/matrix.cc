@@ -11,7 +11,7 @@
 #include "diagonal-storage.hh"
 
 bool
-Matrix::band_b()const
+Matrix::band_b() const
 {
   return dat->is_type_b (Diagonal_storage::static_name());
 }
@@ -26,7 +26,7 @@ Matrix::set_full() const
 }
 
 void
-Matrix::try_set_band()const
+Matrix::try_set_band() const
 {
   if (band_b())
 	return;
@@ -107,7 +107,7 @@ Matrix::operator=(Matrix const &m)
 }
 
 int
-Matrix::band_i()const
+Matrix::band_i() const
 {
   if ( band_b()) 
     {

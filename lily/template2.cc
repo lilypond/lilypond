@@ -10,4 +10,4 @@
 #include "plist.tcc"
 #include "pcursor.tcc"
 
- template IPL_INSTANTIATE(Line_spacer);
+template POINTERLIST_INSTANTIATE(Line_spacer);

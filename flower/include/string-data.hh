@@ -78,7 +78,7 @@ friend class String_handle;
       #String_data# knowing it.  */
     Byte &operator [](int j);
     Byte operator [](int j) const;
-    bool is_binary_bo()const;
+    bool is_binary_bo() const;
 };
 
 

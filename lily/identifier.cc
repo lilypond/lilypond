@@ -35,7 +35,7 @@ Identifier::error (String expect)
   ::error (e);
 }
 
-Identifier::Identifier ( int code)
+Identifier::Identifier (int code)
 {
   token_code_i_ = code; 
   accessed_b_ = 0;
@@ -43,7 +43,7 @@ Identifier::Identifier ( int code)
 }
 
 void
-Identifier::print()const
+Identifier::print() const
 {
   DOUT << "identifier ";
   do_print();
@@ -70,7 +70,7 @@ DEFAULT_PRINT(Paper_def_id,Paper_def, paperdef);
 
 
 void
-Duration_id::do_print()const
+Duration_id::do_print() const
 {}
 
 void

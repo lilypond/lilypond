@@ -9,6 +9,7 @@
 
 #include "lily-proto.hh"
 #include "score-elem.hh"
+#include "drul-array.hh"
 
 /** A symbol which is attached between two columns. A spanner is a
   symbol which spans across several columns, so its final appearance
@@ -30,30 +31,35 @@
   length of stems of notes they encompass.
 
   */
-class Spanner:public virtual Score_elem {
+class Spanner : public virtual Score_elem {
 public:
-    PCol *left_col_l_, *right_col_l_;
-    
-    /* *************** */
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    virtual Spanner* spanner() { return this; }    
-    Spanner();
-    bool broken_b() const;
-    Spanner* find_broken_piece (Line_of_score*)const;
+  
+  Drul_array<Item*> spanned_drul_;
+  void set_bounds(Direction d, Item*);
+
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  virtual Spanner* spanner() { return this; }    
+  Spanner();
+  bool broken_b() const;
+
+  Spanner* find_broken_piece (Line_of_score*) const;
 protected:
-    void set_my_columns();
-    SCORE_ELEM_CLONE(Spanner);
+  void set_my_columns();
+  SCORE_ELEM_CLONE(Spanner);
 
-    /**
-      this is virtual; for instance, Line_of_score overrides it.
-     */
-    virtual void break_into_pieces (bool);
+  /**
+    this is virtual; for instance, Line_of_score overrides it.
+    */
+  virtual void break_into_pieces ();
 
-    Link_array<Spanner> broken_into_l_arr_;
-	
-    virtual void do_break_processing();
-    virtual Interval do_width()const;
-    virtual void do_print()const;
-    virtual Line_of_score*line_l()const;
+  Link_array<Spanner> broken_into_l_arr_;
+
+  virtual void do_unlink();
+  virtual void do_junk_links();
+  virtual String do_TeX_output_str () const;
+  virtual void do_break_processing();
+  virtual Interval do_width() const;
+  virtual void do_print() const;
+  virtual Line_of_score*line_l() const;
 };
 #endif

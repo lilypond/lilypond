@@ -21,7 +21,7 @@
 #include "input.hh"
 
 class My_lily_parser {
-  char const* here_ch_C()const;
+  char const* here_ch_C() const;
   Array<Input> define_spot_array_;
   String init_str_;
 
@@ -53,7 +53,7 @@ public:
  
   Moment plet_mom();
   void add_notename (String, Melodic_req* req_p);
-  Input here_input()const;
+  Input here_input() const;
   void remember_spot();
   Input pop_spot();
     

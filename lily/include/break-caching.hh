@@ -16,7 +16,7 @@
 struct Break_caching : Break_algorithm
 {
     void do_set_pscore();
-    Array<Col_hpositions> do_solve()const;
+    Array<Col_hpositions> do_solve() const;
 };
 
     

@@ -129,7 +129,7 @@ Full_storage::insert_row (int k)
 }
 
 bool
-Full_storage::try_right_multiply (Matrix_storage * dest, Matrix_storage const * right)const
+Full_storage::try_right_multiply (Matrix_storage * dest, Matrix_storage const * right) const
 {
   if (dest->name() != Full_storage::static_name () ||
 	right->name() != Full_storage::static_name ())

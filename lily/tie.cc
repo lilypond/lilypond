@@ -13,76 +13,68 @@
 
 
 void
-Tie::set_head (int x_pos, Note_head * head_l)
+Tie::set_head (Direction d, Note_head * head_l)
 {
-  if (x_pos >0) 
-    {
-	assert (!right_head_l_);
-	right_head_l_ = head_l;
-    }
-  else 
-    {
-	assert (!left_head_l_);
-	left_head_l_ = head_l;
-    }
+  assert (!head_l_drul_[d]);
+  head_l_drul_[d] = head_l;
+
   add_dependency (head_l);
 }
 
 Tie::Tie()
 {
-  right_head_l_ =0;
-  left_head_l_ =0;
+  head_l_drul_[RIGHT] =0;
+  head_l_drul_[LEFT] =0;
   same_pitch_b_ =false;
 }
 
 void
 Tie::set_default_dir()
 {
-  int m= (left_head_l_->position_i_ + right_head_l_->position_i_) /2 ;
-  dir_i_ =  (m < 5)? -1:1;			// ugh
+  int m= (head_l_drul_[LEFT]->position_i_ + head_l_drul_[RIGHT]->position_i_) /2 ;
+  dir_ =  (m < 5)? DOWN : UP;	// UGH
 }
   
 
 void
 Tie::do_add_processing()
 {
-  assert (left_head_l_ && right_head_l_);
-  left_col_l_ = left_head_l_ -> pcol_l_;
-  right_col_l_ = right_head_l_ -> pcol_l_;
+  assert (head_l_drul_[LEFT] && head_l_drul_[RIGHT]);
+  set_bounds(LEFT,head_l_drul_[LEFT]);
+  set_bounds(RIGHT,head_l_drul_[RIGHT]);
 }
 
-/**
-  This is already getting hairy. Should use Note_head *heads[2]
- */
 void
 Tie::do_post_processing()
 {
-  assert (left_head_l_ || right_head_l_);
-  left_pos_i_ =  (left_head_l_)? 
-	left_head_l_->position_i_ : right_head_l_->position_i_;
-  right_pos_i_ = (right_head_l_) ? 
-	right_head_l_->position_i_ : left_head_l_->position_i_;
- 
-  if ( right_head_l_ && right_head_l_->extremal_i_) 
-    {
-	right_pos_i_ += 2*dir_i_;
-	right_dx_f_ -= 0.25;
-    }
-  else
-	right_dx_f_ -= 0.5;
+  assert (head_l_drul_[LEFT] || head_l_drul_[RIGHT]);
 
-  if (left_head_l_ && left_head_l_->extremal_i_) 
+  Direction d = LEFT;
+  do 
     {
-	left_pos_i_ += 2*dir_i_;
-	left_dx_f_ += 0.25;
+      pos_i_drul_[d] =  (head_l_drul_[d])? 
+	head_l_drul_[d]->position_i_ : head_l_drul_[(Direction)-d]->position_i_;
     }
-  else
-	left_dx_f_ += 0.5;
-  
-  if (!right_head_l_)
-	right_pos_i_ = left_pos_i_;
-  if (! left_head_l_)
-	left_pos_i_ = right_pos_i_;
+  while ((d *= -1) != LEFT);
+
+  do 
+    {
+      if (head_l_drul_[d] && head_l_drul_[d]->extremal_i_) 
+	{
+	  pos_i_drul_[d] += 2*dir_;
+	  dx_f_drul_[d] += d * 0.25;
+	}
+      else
+	dx_f_drul_[d] += d*0.5;
+    }
+  while ((d *= -1) != LEFT);
+
+  do 
+    {
+      if (!head_l_drul_[d])
+	pos_i_drul_[d] = pos_i_drul_[(Direction)-d];
+    } 
+  while ((d *= -1) != LEFT);
 }
 
 
@@ -91,10 +83,10 @@ void
 Tie::do_substitute_dependency (Score_elem*o, Score_elem*n)
 {
   Note_head *new_l =n?(Note_head*)n->item():0;
-  if (o->item() == left_head_l_)
-	left_head_l_ = new_l;
-  else if (o->item() == right_head_l_)
-	right_head_l_ = new_l;
+  if (o->item() == head_l_drul_[LEFT])
+    head_l_drul_[LEFT] = new_l;
+  else if (o->item() == head_l_drul_[RIGHT])
+    head_l_drul_[RIGHT] = new_l;
 }
 
 

@@ -22,14 +22,14 @@ Bar			0
 Beam			0
 Change_iterator		0
 Chord			0
-Chord_iterator		1
+Chord_iterator		0
 Clef_item		0
 Col_configuration	0
 Colinfo			0
 Colinfo			0
 Collision		0
-Engraver		1
-Engraver_group_engraver 1
+Engraver		0
+Engraver_group_engraver 0
 Group_change_req	0
 Head_column		0
 Idealspacing		0
@@ -43,7 +43,7 @@ Melodic_req		0
 Midi_def		0
 Mixed_qp		0
 Music			0
-Music_iterator		1
+Music_iterator		0
 My_lily_lexer		1
 Note_head		0
 Note_performer		0

@@ -24,11 +24,11 @@ public:
     void set (Vertical_align_element *);
 
 protected:
-    virtual Interval do_width()const;
+    virtual Interval do_width() const;
     virtual void do_pre_processing();
     
     virtual void do_substitute_dependency (Score_elem*,Score_elem*);
-    virtual Molecule * brew_molecule_p()const;
+    virtual Molecule * brew_molecule_p() const;
     virtual Symbol get_bar_sym (Real dy) const;
 };
 

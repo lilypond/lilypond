@@ -101,7 +101,7 @@ My_lily_lexer::set_identifier (String name_str, Identifier*i)
   Identifier *old = lookup_identifier (name_str);
   if  (old) 
     {
-	old->warning( "redeclaration of \\" + name_str);
+	old->warning("redeclaration of \\" + name_str);
 	delete old;
     }
   (*identifier_assoc_p_)[name_str] = i;
@@ -121,7 +121,7 @@ My_lily_lexer::~My_lily_lexer()
   delete identifier_assoc_p_;
 }
 void
-My_lily_lexer::print_declarations (bool init_b)const
+My_lily_lexer::print_declarations (bool init_b) const
 {
   for (Assoc_iter<String,Identifier*> ai (*identifier_assoc_p_); ai.ok(); 
 	 ai++) 

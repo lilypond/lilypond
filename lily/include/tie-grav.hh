@@ -17,7 +17,7 @@ class Tie_engraver : public Engraver {
     Tie * tie_p_;
     Moment end_mom_;
     Tie_req * req_l_;
-    int dir_i_;
+    Direction dir_;
     Tie_req *end_req_l_;
     Melodic_req * end_melodic_req_l_;
     Melodic_req  * melodic_req_l_;

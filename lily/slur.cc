@@ -7,12 +7,10 @@
 */
 
 /*
-
   TODO:
   
   think about crossing stems.
   Begin and end should be treated as a Script.
-  
  */
 #include "slur.hh"
 #include "scalar.hh"
@@ -37,22 +35,22 @@ Slur::add (Note_column*n)
 void
 Slur::set_default_dir()
 {
-  dir_i_ = -1;
+  dir_ = DOWN;
   for (int i=0; i < encompass_arr_.size(); i ++) 
     {
-	if (encompass_arr_[i]->dir_i_ < 0) 
-	  {
-	    dir_i_ =1;
-	    break;
-	  }
+      if (encompass_arr_[i]->dir_ < 0) 
+	{
+	  dir_ =UP;
+	  break;
+	}
     }
 }
 
 void
 Slur::do_pre_processing()
 {
-  right_col_l_  = encompass_arr_.top()->pcol_l_;
-  left_col_l_ = encompass_arr_[0]->pcol_l_;    
+  set_bounds(LEFT, encompass_arr_[0]);    
+  set_bounds(RIGHT, encompass_arr_.top());
 }
 
 
@@ -62,10 +60,10 @@ Slur::do_substitute_dependency (Score_elem*o, Score_elem*n)
   int i;
   while ((i = encompass_arr_.find_i ((Note_column*)o->item())) >=0) 
     {
-	if (n)
-	    encompass_arr_[i] = (Note_column*)n->item();
-	else
-	    encompass_arr_.del (i);
+      if (n)
+	encompass_arr_[i] = (Note_column*)n->item();
+      else
+	encompass_arr_.del (i);
     }
 }
 
@@ -73,29 +71,31 @@ Slur::do_substitute_dependency (Score_elem*o, Score_elem*n)
 static int 
 Note_column_compare (Note_column *const&n1 , Note_column* const&n2)
 {
-  return n1->pcol_l_->rank_i() - n2->pcol_l_->rank_i ();
+  return Item::left_right_compare(n1, n2);
 }
 
 void
 Slur::do_post_processing()
 {
   encompass_arr_.sort (Note_column_compare);
-  if (!dir_i_)
-	set_default_dir();
+  if (!dir_)
+    set_default_dir();
   Real inter_f = paper()->internote_f ();
   
-  if (encompass_arr_[0]->stem_l_) 
-      left_pos_i_ = rint (encompass_arr_[0]->stem_l_->height()[dir_i_]/inter_f);
-  else 
-      left_pos_i_ = rint ( encompass_arr_[0]->head_positions_interval()[dir_i_]);
-  
-  if (encompass_arr_.top()->stem_l_)
-      right_pos_i_ = rint (encompass_arr_.top()->stem_l_->height ()[dir_i_]/inter_f);
-  else 
-      right_pos_i_ = rint (encompass_arr_.top()->head_positions_interval ()[dir_i_]);
+  Drul_array<Note_column*> extrema;
+  extrema[LEFT] = encompass_arr_[0];
+  extrema[RIGHT] = encompass_arr_.top();
 
-  left_pos_i_ += dir_i_;
-  right_pos_i_ += dir_i_;
+  Direction d=LEFT;
+  do 
+    {
+      if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_) 
+	pos_i_drul_[d] = (int)rint (extrema[d]->stem_l_->height()[dir_]/inter_f);
+      else 
+	pos_i_drul_[d] = (int)rint (extrema[d]->head_positions_interval()[dir_]);
+      pos_i_drul_[d] += dir_;
+    }
+  while ((d *= -1) != LEFT);
 }
 
 IMPLEMENT_IS_TYPE_B1(Slur,Spanner);

@@ -28,10 +28,10 @@ struct Staff_info {
     Score * score_l_;
     Moment when();
     Score *score_l();
-    PCol * command_pcol_l();
+    Paper_column * command_pcol_l();
     Score_column* musical_l();
     Score_column *command_l();
-    PCol * musical_pcol_l();
+    Paper_column * musical_pcol_l();
     Staff_info();
 };
 

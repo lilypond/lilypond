@@ -20,7 +20,7 @@ public:
     Line_of_score * line_of_score_l_;
     void add_broken_line (Line_of_score*);
     Super_elem();
-    virtual String TeX_string()const;
+    virtual String TeX_output_str() const;
 protected:
     virtual void do_substitute_dependency (Score_elem*,Score_elem*);
     virtual void handle_broken_dependencies();

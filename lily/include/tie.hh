@@ -23,9 +23,9 @@ class Tie : public Bow {
     
 public:
     bool same_pitch_b_;
-    Note_head * left_head_l_;
-    Note_head * right_head_l_;
-    void set_head (int, Note_head*head_l);
+    Drul_array<Note_head *> head_l_drul_;
+
+    void set_head (Direction, Note_head*head_l);
 
     Tie();
     DECLARE_MY_RUNTIME_TYPEINFO;

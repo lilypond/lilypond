@@ -18,10 +18,10 @@ class Script : public Item, public Staff_side {
     Stem *stem_l_;
 
 protected:
-    Molecule *brew_molecule_p()const;
+    Molecule *brew_molecule_p() const;
     virtual void do_substitute_dependency (Score_elem*,Score_elem*);
     virtual void do_print() const;
-    virtual Interval symbol_height()const;
+    virtual Interval symbol_height() const;
     virtual void do_pre_processing();
     virtual Interval do_width() const;
     SCORE_ELEM_CLONE(Script);

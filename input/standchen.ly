@@ -1,5 +1,5 @@
 \header{
-filename	standchen-part.ly
+filename	standchen.ly
 title		St\"andchen (Serenade) "Leise flehen meine Lieder"
 opus		D. 957 No. 4
 composers	Franz Schubert (1797-1828)
@@ -7,8 +7,10 @@ composers	Franz Schubert (1797-1828)
 enteredby	JCN
 copyright	public domain
 } 
+
 %{
- Tested Features: multivoice, accents, lyrics, chords, piano music
+ Tested Features: multivoice, accents, lyrics, chords, piano music,
+multiple \paper{}s in one \score 
 %}
 
 \version "0.1.1";
@@ -482,3 +484,29 @@ themusic =
 			\melodic < \begeleiding \commands >
 		>
 	>
+
+
+\score{
+	\themusic
+	\paper{
+		\paper_twenty
+		% 20pt music uses whole pagewidth
+		linewidth= 195.\mm;
+
+		% we want gourlay, don't set geometric
+		% geometric= 1.4;
+		gourlay_maxmeasures = 9.;
+		\output "standchen-20.out";
+	}
+	\paper{
+		% 16pt mustn't use whole page width
+		linewidth= 160.\mm;
+		% we want gourlay, don't set geometric
+		% geometric= 1.4;
+		gourlay_maxmeasures = 9.;
+		\output "standchen-16.out";
+	}
+	\midi{
+		\tempo 4 = 54;
+	}
+}

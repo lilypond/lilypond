@@ -15,6 +15,7 @@
 #include "virtual-methods.hh"
 #include "input.hh"
 #include "music.hh"
+#include "direction.hh"
 
 /**
  a voice element wants something printed.
@@ -49,7 +50,7 @@ public:
     bool equal_b (Request*) const;
 protected:
     virtual bool do_equal_b (Request*) const;
-    virtual void do_print()const;
+    virtual void do_print() const;
 };
 
 #define REQUESTMETHODS(T,accessor)	\
@@ -65,11 +66,11 @@ virtual void do_print() const
   this also a request */
 class Script_req  : public virtual Request { 
 public:
-    int dir_i_;
+    Direction dir_;
     General_script_def *scriptdef_p_;
 
     /* *************** */
-    bool do_equal_b (Request*)const;
+    bool do_equal_b (Request*) const;
 
     Script_req();
     REQUESTMETHODS(Script_req,script);

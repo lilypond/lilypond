@@ -12,7 +12,7 @@
 class Text_engraver : public Engraver{
     Text_item * text_p_;
     Text_req * text_req_l_;
-    int dir_i_;
+    Direction dir_;
     /* *************** */
 protected:
     virtual void set_feature (Feature);

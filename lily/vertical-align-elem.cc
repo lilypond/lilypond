@@ -48,7 +48,7 @@ Vertical_align_element::do_post_processing()
     }
 
   Real where_f=0;
-  for ( int i=0 ;  i < elem_l_arr_.size(); i++) 
+  for (int i=0 ;  i < elem_l_arr_.size(); i++) 
     {
 	elem_l_arr_[i]->translate (- dims[i][1] - where_f, Y_AXIS);
 	where_f += dims[i].length();
@@ -56,7 +56,7 @@ Vertical_align_element::do_post_processing()
 }
 
 bool
-Vertical_align_element::contains_b (Score_elem const *e)const
+Vertical_align_element::contains_b (Score_elem const *e) const
 {
   return elem_l_arr_.find_l (e);
 }

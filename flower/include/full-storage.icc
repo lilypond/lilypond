@@ -18,7 +18,7 @@ Full_storage::init()
   height_i_=width_i_=max_height_i_=max_width_i_=0;
 }
 INLINE bool
-Full_storage::valid (int i, int j)const
+Full_storage::valid (int i, int j) const
 {
   return (i>=0 && i < height_i_)
 	&& (j < width_i_ && j >=0);
@@ -62,7 +62,7 @@ Full_storage::cols() const
   return width_i_;
 }
 INLINE int
-Full_storage::dim()const
+Full_storage::dim() const
 {
   assert (rows()==cols ());
   return rows();

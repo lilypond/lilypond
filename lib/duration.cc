@@ -34,7 +34,7 @@ Duration::duration_type_b(int t)
   /*
     ugh. Assuming behavior of conversion funcs on broken input.
    */
-  return t == Duration_convert::type2_i( Duration_convert::i2_type(t));
+  return t == Duration_convert::type2_i(Duration_convert::i2_type(t));
 }
 
 // ugh, what's this?
@@ -60,15 +60,15 @@ Duration::set_plet(Duration d)
 }
 
 void
-Duration::set_ticks( int ticks_i )
+Duration::set_ticks(int ticks_i)
 {
-  assert( durlog_i_ <10 );
-  assert( !dots_i_ );
+  assert(durlog_i_ <10);
+  assert(!dots_i_);
   ticks_i_ = ticks_i;
 }
 
 String
-Duration::str()const
+Duration::str() const
 {
   return Duration_convert::dur2_str(*this);
 }

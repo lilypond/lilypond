@@ -21,13 +21,13 @@ Tie_engraver::Tie_engraver()
   end_mom_ = -1;
   melodic_req_l_ = 0;
   end_melodic_req_l_ =0;
-  dir_i_ = 0;
+  dir_ = CENTER;
 }
 
 void
 Tie_engraver::sync_features()
 {
-  dir_i_ = get_feature ("vdir");
+  dir_ = Direction (int (get_feature ("vdir")));
 }
   
 
@@ -82,14 +82,14 @@ Tie_engraver::acknowledge_element (Score_elem_info i)
     {
 	if (tie_p_) 
 	  {
-	    tie_p_->set_head (-1, (Note_head*)i.elem_l_->item());
+	    tie_p_->set_head (LEFT, (Note_head*)i.elem_l_->item());
 	    melodic_req_l_ = i.req_l_->musical()->melodic ();
 	  }
 
 	if (end_tie_p_) 
 	  {
-	    end_tie_p_->set_head (1, (Note_head*)i.elem_l_->item());
-	    if (!Melodic_req::compare ( *end_melodic_req_l_, *melodic_req_l_))
+	    end_tie_p_->set_head (RIGHT, (Note_head*)i.elem_l_->item());
+	    if (!Melodic_req::compare (*end_melodic_req_l_, *melodic_req_l_))
 		end_tie_p_->same_pitch_b_ = true;
 	    announce_element (Score_elem_info (end_tie_p_,end_req_l_));
 	  }
@@ -101,8 +101,8 @@ Tie_engraver::do_pre_move_processing()
 {
   if (end_tie_p_) 
     {
-	if (dir_i_)
-	    end_tie_p_->dir_i_ =  dir_i_;
+	if (dir_)
+	    end_tie_p_->dir_ =  dir_;
 	
 	typeset_element (end_tie_p_);
 	end_tie_p_ =0;
@@ -124,7 +124,7 @@ void
 Tie_engraver::set_feature (Feature f)
 {
   if (f.type_ == "vdir")
-	dir_i_ = f.value_;
+	dir_ = Direction (int (f.value_));
 }
 
 

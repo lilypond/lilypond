@@ -28,75 +28,75 @@
   */
 class Stem : public Item {
     
-    Real stem_bottom_f_, stem_top_f_;
+  Real stem_bottom_f_, stem_top_f_;
     
     
-    /// needed for determining direction/length
-    int staff_size_i_;
+  /// needed for determining direction/length
+  int staff_size_i_;
 
-    /**extent of the stem (positions).
-      fractional, since Beam has to adapt them.
-      */
+  /**extent of the stem (positions).
+    fractional, since Beam has to adapt them.
+    */
 
 
-    /**
-      geen gedonder, jij gaat onder.
-      -1 stem points down, +1: stem points up
-      */
-    Real stem_xoffset_f_;
-    /**
-      store the wholes (for vapourware tremolo)
-     */
-    Link_array<Note_head> whole_l_arr_;
-    Link_array<Note_head> head_l_arr_;
-    Link_array<Note_head> rest_l_arr_;
+  /**
+    geen gedonder, jij gaat onder.
+    -1 stem points down, +1: stem points up
+    */
+  Real stem_xoffset_f_;
+  /**
+    store the wholes (for vapourware tremolo)
+    */
+  Link_array<Note_head> whole_l_arr_;
+  Link_array<Note_head> head_l_arr_;
+  Link_array<Note_head> rest_l_arr_;
     
 public:
-    /// flagtype? 4 none, 8 8th flag, 0 = beam.
-    int flag_i_;
+  /// flagtype? 4 none, 8 8th flag, 0 = beam.
+  int flag_i_;
 
-    int beams_left_i_;
-    int beams_right_i_;
+  int beams_left_i_;
+  int beams_right_i_;
 
-    /// false if in beam
-    bool print_flag_b_;
+  /// false if in beam
+  bool print_flag_b_;
     
-    int dir_i_;
+  Direction dir_;
 
     
-    /* *************** */
-    Stem (int staff_size_i);
+  /* *************** */
+  Stem ();
     
-    /// ensure that this Stem also encompasses the Notehead #n#
-    void add (Note_head*n);
+  /// ensure that this Stem also encompasses the Notehead #n#
+  void add (Note_head*n);
 
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  DECLARE_MY_RUNTIME_TYPEINFO;
 
-    Real hpos_f()const;
+  Real hpos_f() const;
     
-    void do_print() const;
-    void set_stemend (Real);
-    int get_default_dir();
-    int get_center_distance_from_top();
-    int get_center_distance_from_bottom();
-    void set_default_dir();
-    void set_default_stemlen();
-    void set_default_extents();
-    void set_noteheads();
+  void do_print() const;
+  void set_stemend (Real);
+  Direction get_default_dir();
+  int get_center_distance_from_top();
+  int get_center_distance_from_bottom();
+  void set_default_dir();
+  void set_default_stemlen();
+  void set_default_extents();
+  void set_noteheads();
 
-    Real stem_length_f()const;
-    Real stem_end_f()const;
-    Real stem_start_f() const;
+  Real stem_length_f() const;
+  Real stem_end_f() const;
+  Real stem_start_f() const;
 
-    bool invisible_b()const;
+  bool invisible_b() const;
     
-    /// heads that the stem encompasses (positions)
-    int max_head_i() const;
-    int min_head_i() const;
+  /// heads that the stem encompasses (positions)
+  int max_head_i() const;
+  int min_head_i() const;
 protected:
-    virtual void do_substitute_dependency (Score_elem*,Score_elem*);
-    virtual void do_pre_processing();
-    virtual Interval do_width() const;
-    Molecule* brew_molecule_p() const;
+  virtual void do_substitute_dependency (Score_elem*,Score_elem*);
+  virtual void do_pre_processing();
+  virtual Interval do_width() const;
+  Molecule* brew_molecule_p() const;
 };
 #endif

@@ -74,7 +74,7 @@ Getopt_long::parselong()
 
 
 void
-Long_option_init::printon (ostream &errorout)const
+Long_option_init::printon (ostream &errorout) const
 {
   if (shortname)	
 	errorout <<"-" << shortname;
@@ -219,7 +219,7 @@ Getopt_long::Getopt_long (int c, char  **v, Long_option_init *lo)
 }
 
 bool
-Getopt_long::ok()const
+Getopt_long::ok() const
 {
   return  array_index_i_ < argument_count_i_;
 }

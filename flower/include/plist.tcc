@@ -1,9 +1,19 @@
+/*
+  plist.tcc -- implement Pointer_list
+
+  source file of the Flower Library
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+#ifndef PLIST_TCC
+#define PLIST_TCC
+
 #include "plist.hh"
 
-#define PL_INSTANTIATE(a) class Link_list<a*>; \
+#define POINTERLIST_INSTANTIATE(a) class Pointer_list<a*>;\
 	template class PCursor<a*>;
-#define IPL_INSTANTIATE(a) PL_INSTANTIATE(a); \
-	template class Pointer_list<a*>
 	
 template<class T>
 void
@@ -16,13 +26,4 @@ Pointer_list<T>::junk()
     }
 }
 
-template<class T>
-PCursor<T> 
-Link_list<T>::find (T what) const
-{
-  PCursor<T> i (*this);
-  for (; i.ok(); i++)
-	if (i.ptr() == what)
-	   break;
-  return i;    
-}
+#endif // PLIST_TCC

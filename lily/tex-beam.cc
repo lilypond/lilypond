@@ -1,7 +1,13 @@
 /*
+  tex-beam.cc -- implement Lookup::{beam_element, beam, rule_symbol}
 
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+/*
   Code to generate beams for TeX
-  
   */
 
 #include <math.h>
@@ -35,17 +41,17 @@ slope_index (Real &s)
 {
   if (abs (s) > 0.5) 
     {
-	WARN << "beam steeper than 0.5 (" << s << ")\n";
-	s = sign (s) * 0.5;
+      WARN << "beam steeper than 0.5 (" << s << ")\n";
+      s = sign (s) * 0.5;
     }
 
   int i = int (rint (s *  20.0));
 
   s = i/20.0;
   if (s>0)
-	return 6*i +122;
+    return 6*i +122;
   else
-	return -6 * i+ 186;
+    return -6 * i+ 186;
 }
 
 Symbol
@@ -66,11 +72,11 @@ Lookup::beam (Real &slope, Real width) const
 {        
   int sidx = slope_index (slope);
   if (!slope)
-	return rule_symbol (2 PT, width);
+    return rule_symbol (2 PT, width);
   if (width < 2 PT) 
     {
-	WARN<<"Beam too narrow. (" << print_dimen (width) <<")\n";
-	width = 2 PT;
+      WARN<<"Beam too narrow. (" << print_dimen (width) <<")\n";
+      width = 2 PT;
     }
   Real elemwidth = 64 PT;
   int widx = 5;
@@ -79,8 +85,8 @@ Lookup::beam (Real &slope, Real width) const
   
   while (elemwidth > width) 
     {
-	widx --;
-	elemwidth /= 2.0;
+      widx --;
+      elemwidth /= 2.0;
     }
   Real overlap = elemwidth/4;
   Real last_x = width - elemwidth;
@@ -90,10 +96,10 @@ Lookup::beam (Real &slope, Real width) const
   m.add (a);
   while (x < last_x) 
     {
-	a=elem;
-	a.translate (Offset (x-overlap, (x-overlap)*slope));
-	m.add (a);
-	x += elemwidth - overlap;
+      a=elem;
+      a.translate (Offset (x-overlap, (x-overlap)*slope));
+      m.add (a);
+      x += elemwidth - overlap;
     }
   a=elem;
   a.translate (Offset (last_x, (last_x) * slope));

@@ -19,7 +19,7 @@ class Vertical_align_element : virtual public Score_elem {
     Link_array<Score_elem> elem_l_arr_;
 public:
     void add (Score_elem*);
-    bool contains_b (Score_elem const*)const;
+    bool contains_b (Score_elem const*) const;
     Vertical_align_element();
     DECLARE_MY_RUNTIME_TYPEINFO;
 protected:

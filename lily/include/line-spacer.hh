@@ -26,7 +26,7 @@ class Line_spacer
     
 public:
     Paper_def * paper_l_;
-    Paper_def *paper_l()const;
+    Paper_def *paper_l() const;
     Line_spacer();
     
     /** solve the spacing problem
@@ -41,7 +41,7 @@ public:
     
     /** add a col to the problem. columns have to be added left to
       right. The column contains info on it's minimum width.  */
-    virtual void add_column (PCol  *, bool fixed=false, Real fixpos=0.0)=0;
+    virtual void add_column (Paper_column  *, bool fixed=false, Real fixpos=0.0)=0;
 
     /**
       can the posed problem be solved?

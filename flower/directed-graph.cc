@@ -22,7 +22,7 @@ Directed_graph_node::get_in_edge_arr() const
 }
 
 Link_array<Directed_graph_node> const &
-Directed_graph_node::get_out_edge_arr()const
+Directed_graph_node::get_out_edge_arr() const
 {
   return edge_out_l_arr_;
 }
@@ -56,7 +56,7 @@ Directed_graph_node::OK() const
 }
 
 bool
-Directed_graph_node::contains_b (const Directed_graph_node *d)const
+Directed_graph_node::contains_b (const Directed_graph_node *d) const
 {
   return edge_out_l_arr_.find_l ((Directed_graph_node*)d);
 }
@@ -95,7 +95,7 @@ Directed_graph_node::remove_edge_out (Directed_graph_node *d_l)
   PARANOID_OK();
 }
 bool
-Directed_graph_node::linked_b()const
+Directed_graph_node::linked_b() const
 {
   return edge_out_l_arr_.size() || edge_in_l_arr_.size ();
 }

@@ -17,16 +17,15 @@ Score_column::Score_column (Moment w)
 }
 
 void
-Score_column::print() const
+Score_column::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "Score_column { mus "<< musical_b_ <<" at " <<  when_<<'\n';
+  DOUT << "mus "<< musical_b_ <<" at " <<  when_<<'\n';
   DOUT << "durations: [";
   for (int i=0; i < durations.size(); i++)
-	DOUT << durations[i] << " ";
+    DOUT << durations[i] << " ";
   DOUT << "]\n";
-  PCol::print();
-  DOUT << "}\n";
+  Paper_column::do_print();
 #endif
 }
 
@@ -48,21 +47,10 @@ Score_column::add_duration (Moment d)
   assert (d);
   for (int i = 0; i< durations.size(); i++) 
     {
-	if (d == durations[i])
-	    return ;
+      if (d == durations[i])
+	return ;
     }
   durations.push (d);
 }
 
-void
-Score_column::do_set_breakable()
-{
-  Score_column *c1 = new Score_column (when_);
-  Score_column *c2 = new Score_column (when_);
-  prebreak_p_ =c1;
-  postbreak_p_ = c2;
-  c1->durations = durations;
-  c2->durations = durations;
-  c1->musical_b_ 
-	= c2->musical_b_ = musical_b_;
-}
+IMPLEMENT_IS_TYPE_B1(Score_column, Paper_column);

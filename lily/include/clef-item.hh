@@ -14,7 +14,7 @@
 class Clef_item : public Item {
 protected:
     virtual void do_pre_processing();
-    Molecule* brew_molecule_p()const;
+    Molecule* brew_molecule_p() const;
 public:
     
     String type_;

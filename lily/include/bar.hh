@@ -14,17 +14,17 @@
  */
 class Bar:public Item {
 public:
-    String type_str_;
-    int spanned_i_;
+  String type_str_;
+  int spanned_i_;
     
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    SCORE_ELEM_CLONE(Bar);
-    Bar();
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  SCORE_ELEM_CLONE(Bar);
+  Bar();
 private:
-    void do_print() const;
+  void do_print() const;
 protected:
-    virtual void do_pre_processing();
-    Molecule*brew_molecule_p()const;
+  virtual void do_pre_processing();
+  Molecule*brew_molecule_p() const;
 };
 #endif // BAR_HH
 

@@ -14,7 +14,7 @@ class Directional_spanner : public Spanner{
 public:
     
     /// -1 below heads, +1 above heads.
-    int dir_i_;
+    Direction dir_;
     Directional_spanner();
     
     /// offset of "center" relative to left-column/0-pos of staff

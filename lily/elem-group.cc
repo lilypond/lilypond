@@ -17,23 +17,35 @@ Axis_group_element::do_unlink()
   remove_all();
 }
 
+void
+Axis_group_element::do_junk_links()
+{
+  axis_admin_.elem_l_arr_.set_size (0);
+}
+
 
 bool
-Axis_group_element::contains_b (Score_elem const*e)const
+Axis_group_element::contains_b (Score_elem const*e) const
 {
   return axis_admin_.contains_b (e);
 }
 
 Link_array<Score_elem>
-Axis_group_element::get_extra_dependencies()const
+Axis_group_element::get_extra_dependencies() const
 {
   return axis_admin_.elem_l_arr_;
 }
 
 void
-Axis_group_element::do_print()const
+Axis_group_element::do_print() const
 {
   axis_admin_.print();
+}
+
+
+Axis_group_element::Axis_group_element()
+{
+  transparent_b_ = true;
 }
 
 // ****************
@@ -62,6 +74,7 @@ Vertical_group_element::remove_all()
 {
   axis_admin_.remove_all (Y_AXIS,Y_AXIS);
 }
+
 // ****************
 
 void
@@ -84,7 +97,7 @@ Horizontal_group_element::remove_element (Score_elem*e)
 
 
 Interval
-Horizontal_group_element::do_width()const
+Horizontal_group_element::do_width() const
 {
   return axis_admin_.extent (X_AXIS);
 }

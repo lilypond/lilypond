@@ -28,7 +28,7 @@ struct Assoc_iter {
     bool ok() const {
 	return i < assoc_.arr.size();
     }
-    void OK()const {
+    void OK() const {
 	assert (!ok() || !assoc_.arr[i].free);
     }
     void operator++(int) { i++; i = next (i); }

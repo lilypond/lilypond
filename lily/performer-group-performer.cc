@@ -53,17 +53,17 @@ Performer_group_performer::depth_i() const
 void
 Performer_group_performer::do_creation_processing()
 {
-  for ( PCursor<Performer*> i (perf_p_list_.top()); i.ok (); i++ )
+  for (PCursor<Performer*> i (perf_p_list_.top()); i.ok (); i++)
 	i->creation_processing();
 }
 
 void
-Performer_group_performer::do_print()const
+Performer_group_performer::do_print() const
 {
 #ifndef NPRINT
-  if ( !check_debug)
+  if (!check_debug)
 	return ;
-  for ( PCursor<Performer*> i (perf_p_list_.top()); i.ok (); i++ )
+  for (PCursor<Performer*> i (perf_p_list_.top()); i.ok (); i++)
 	i->print();
 #endif
 }
@@ -71,7 +71,7 @@ Performer_group_performer::do_print()const
 void
 Performer_group_performer::do_removal_processing()
 {
-  for ( PCursor<Performer*> i (perf_p_list_.top()); i.ok (); i++ )
+  for (PCursor<Performer*> i (perf_p_list_.top()); i.ok (); i++)
 	i->do_removal_processing();
 }
 
@@ -81,7 +81,7 @@ Performer_group_performer::do_try_request (Request* req_l)
   bool hebbes_b =false;
   for (int i =0; !hebbes_b && i < nongroup_l_arr_.size() ; i++)
 	hebbes_b =nongroup_l_arr_[i]->try_request (req_l);
-  if ( !hebbes_b && daddy_perf_l_)
+  if (!hebbes_b && daddy_perf_l_)
 	hebbes_b = daddy_perf_l_->try_request (req_l);
   return hebbes_b ;
 }
@@ -90,7 +90,7 @@ Translator*
 Performer_group_performer::find_get_translator_l (String n,String id)
 {
   Translator * ret=0;
-  Input_translator* itrans_l= itrans_l_-> recursive_find ( n);
+  Input_translator* itrans_l= itrans_l_-> recursive_find (n);
   if (itrans_l) 
     {
 	ret = find_performer_l (n,id);
@@ -102,7 +102,7 @@ Performer_group_performer::find_get_translator_l (String n,String id)
 	    add (group);
 	    ret = group;
 	    
-	    if (group->itrans_l_->is_name_b (n) )
+	    if (group->itrans_l_->is_name_b (n))
 		ret ->id_str_ = id;
 	    else
 		return ret->find_get_translator_l (n,id);
@@ -137,7 +137,7 @@ Translator*
 Performer_group_performer::get_default_interpreter()
 {
   // ? 
-  if ( is_bottom_performer_b())
+  if (is_bottom_performer_b())
 	return daddy_perf_l_->get_default_interpreter();
 
   Performer_group_performer *perf_p= itrans_l_->
@@ -164,7 +164,7 @@ Performer_group_performer::print() const
 void
 Performer_group_performer::process_requests()
 {
-  for ( PCursor<Performer*> i (perf_p_list_.top()); i.ok (); i++ )
+  for (PCursor<Performer*> i (perf_p_list_.top()); i.ok (); i++)
 	i->process_requests();
 }
 

@@ -17,23 +17,20 @@
  */
 class Crescendo : public Spanner , public Staff_side {
 public:
-    int grow_dir_i_;
+  int grow_dir_;
     
-/// if there is a dynamic at the end, make the sign smaller.
-    bool right_dyn_b_;
+  /// if there is a dynamic at the end, make the sign smaller.
+  Drul_array<bool> dyn_b_drul_;
 
-    /// if there is a dynamic at the end, make the sign smaller.
-    bool left_dyn_b_;
-    Crescendo();
+  Crescendo();
 protected:
-    SCORE_ELEM_CLONE(Crescendo);
-    virtual Molecule*brew_molecule_p()const;
-    virtual Interval symbol_height()const;
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  SCORE_ELEM_CLONE(Crescendo);
+  virtual Molecule*brew_molecule_p() const;
+  virtual Interval symbol_height() const;
+  DECLARE_MY_RUNTIME_TYPEINFO;
     
 private:
-    Symbol get_symbol()const;
-    
+  Symbol get_symbol() const;
 };
 
 #endif // CRESCENDO_HH

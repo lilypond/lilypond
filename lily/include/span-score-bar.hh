@@ -31,7 +31,7 @@ public:
     DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Piano_brace);
 protected:
-    virtual Interval do_width()const;
+    virtual Interval do_width() const;
     virtual Symbol get_bar_sym (Real) const;
 };
 

@@ -1,11 +1,17 @@
-#ifndef COLS_HH
-#define COLS_HH
+/*
+  p-col.hh -- declare  Paper_column
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
 
 
-#include "boxes.hh"
+#ifndef P_COL_HH
+#define P_COL_HH
+
+#include "horizontal-group-item.hh"
 #include "plist.hh"
-#include "item.hh"
-
 
 /**
    stuff grouped vertically.
@@ -20,81 +26,64 @@
     \end{itemize}
   */
 
-class PCol { 
+class Paper_column : public Horizontal_group_item { 
 public:
-    Link_list<Item *> its;
-    Link_list<Spanner *> starters;
-    
-    /** prebreak is put before end of line.
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  SCORE_ELEM_CLONE(Paper_column);
+  
+  /** prebreak is put before end of line.
     if broken here, then (*this) column is discarded, and prebreak
     is put at end of line, owned by Col
     */
-    PCol *prebreak_p_;
+  Paper_column *prebreak_l() const;
 
-    /// postbreak at beginning of the new line
-    PCol *postbreak_p_;
+  /// postbreak at beginning of the new line
+  Paper_column *postbreak_l() const;
     
-    /** if this column is pre or postbreak, then this field points to
-     the parent.  */
-    PCol *daddy_l_;
+  /// if lines are broken then this column is in #line#
+  Line_of_score *line_l_;
+
+  virtual Line_of_score *line_l () const;
+  bool error_mark_b_;
+  bool used_b_ ;		// manual override.. 
     
-    /// if lines are broken then this column is in #line#
-    Line_of_score *line_l_;
+  /* *************** */
 
-    /** if lines are broken then this column x-coord #hpos# if not
-      known, then hpos == -1.(ugh?)  */
+  /// which  one (left =0)
+  int rank_i() const;
 
-    Real hpos_f_;			// should use ptr?
-
-    bool error_mark_b_;
-    bool used_b_ ;		// manual override.. 
+  /// does this column have items
+  bool used_b() const;
+  bool breakpoint_b() const;
     
-    Paper_score * pscore_l_;
+  void add (Item *i);
 
-    /* *************** */
-    /// which  one (left =0)
-    int rank_i() const;
+  Paper_column();
 
-    /// does this column have items
-    bool used_b() const;
-    bool breakpoint_b() const;
-    void clean_breakable_items();
-    
-    void add (Item *i);
+  /**
+    which col comes first?.
+    signed compare on columns.
 
-    /// Can this be broken? true eg. for bars. 
-    bool breakable_b()const;
-    
-    Interval width() const;
-    virtual ~PCol();
-    PCol();
-
-    /**
-      which col comes first?.
-      signed compare on columns.
-
-      @return < 0 if c1 < c2.
+    @return < 0 if c1 < c2.
     */
-    static int compare (const PCol &c1, const PCol &c2);
-    void set_rank (int);
+  static int compare (const Paper_column &c1, const Paper_column &c2);
+  void set_rank (int);
 
-    void OK() const;
-    void set_breakable();
-    virtual void do_set_breakable();
-    void print()const;
+  void OK() const;
+  virtual void do_print() const;
 private:
     
-    /**
-      The ranking: left is smaller than right 
-      -1 is uninitialised.
-     */
-    int rank_i_;
-    PCol (PCol const&){}
+  /**
+    The ranking: left is smaller than right 
+    -1 is uninitialised.
+    */
+  int rank_i_;
+
 };
 
 
 #include "compare.hh"
-INSTANTIATE_COMPARE(PCol &, PCol::compare);
+INSTANTIATE_COMPARE(Paper_column &, Paper_column::compare);
      
+#endif // P_COL_HH
 
-#endif

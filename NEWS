@@ -1,3 +1,31 @@
+
+pl 11
+	- forms for Musical vocabulary 
+	- ignore \r for windows
+	- Now paper{score,def} & midi{def,score} derived of class
+Music_output[_def]. Score is almost empty.
+	- Engraver hacking:
+	  * junk Text_engraver
+	  * Timing_engraver
+	  * barnumber now really counts the number of bars
+	  * Separated Stem_engraver and Beam_engraver
+	  * junk Stem_beam_engraver
+	  * no need for Stem_reqs
+	- use Direction = {LEFT, RIGHT, UP, DOWN} iso. -1, 1 throughout source
+	- ties and slurs with Drul_array
+	- junked Spanner_elem_group
+	- bf: w32 fixes
+	- Spanner now spans items.
+	- more GNITting ( bla ) -> (bla), indentation
+	- Drul_array
+	- Paper_column now is derived of Horizontal_group_item. Items
+are no longer hardwired into a Paper_column
+	- bf: stdin input
+	- PCol -> Paper_column
+	- Wtk-i, fugue1, prelude1 (SR)
+
+*******
+aug 21
 pl 10
 	- bf: init pending_indent_i_
 	- output header to TeX file. Who wants to write TeX to make it work?

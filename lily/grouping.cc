@@ -18,7 +18,7 @@ Rhythmic_grouping::init()
 }
 
 void
-Rhythmic_grouping::OK()const
+Rhythmic_grouping::OK() const
 {
 #ifndef NDEBUG
   assert (bool (children.size()) != bool (interval_));
@@ -40,7 +40,7 @@ Rhythmic_grouping::length() const
 }
 
 MInterval
-Rhythmic_grouping::interval()const
+Rhythmic_grouping::interval() const
 {
   if (interval_)
 	return *interval_;
@@ -138,7 +138,7 @@ Rhythmic_grouping::split (Array<MInterval> splitpoints)
   Array<Rhythmic_grouping*> ch;
   while (1) 
     {
-	if  ( i >= children.size() || j >= splitpoints.size ())
+	if  (i >= children.size() || j >= splitpoints.size ())
 	    break;
 	
 	assert (
@@ -235,7 +235,7 @@ Rhythmic_grouping::junk()
 }
 
 void
-Rhythmic_grouping::print()const    
+Rhythmic_grouping::print() const    
 {
 #ifndef NPRINT
   DOUT << "{ \n";
@@ -253,7 +253,7 @@ bool
 Rhythmic_grouping::child_fit_b (Moment start)
 {
   if (children.size())
-	return ( children.top()->interval ().right== start);
+	return (children.top()->interval ().right== start);
 
   return true;
 }  
@@ -347,7 +347,7 @@ Rhythmic_grouping::translate (Moment m)
 }
 
 void
-Rhythmic_grouping::extend (MInterval m)const
+Rhythmic_grouping::extend (MInterval m) const
 {    
   assert (m.left >= interval().left);
   while (m.right  >interval().right) 

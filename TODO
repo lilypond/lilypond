@@ -6,6 +6,10 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
+	* check out egcs
+	
+	* give Items/Spanners access to unbroken originals	
+
 3RD PARTY BUGS:
 
 	* ICE: spring-spacer::calcideal()
@@ -38,17 +42,19 @@ PROJECTS
 	- have make dist produce tarball in out/ directory.
 	- Use Automake
 	- shared lib on Solaris too.
-	- check libtool, automake
+	- check libtool
 	- generate stuff in out/default, out/sun5-irix etc iso out/ 
 	and out-sun5/
 
+	* Add mudela-output to Rosegarden.
 
-	* Add mudela to Rosegarden.
-
-	* a musical dictionary. See Documentation/Vocab*
-	- other languages
-	- emacs forms mode for editing it.
-	
+	* a musical dictionary. See Documentation/vocabulary-*, other
+languages:
+	- italian
+	- german
+	- dutch
+	- swedish
+	 .. ?
 
 	* chords
 	- guitar chords
@@ -58,7 +64,7 @@ PROJECTS
 	- MIDI output?
 	- typesetting
 
-	* integrate midi-elts from mi2mu and lily
+	* integrate midi-elts from mi2mu and lily?
 
 	* Debug logs:
 	- derive lily_stream, Dstream, texstream from ostream?
@@ -80,8 +86,7 @@ PROJECTS
 	- adapt for multiple font sizes.
 	- make separate class for Grace_*_engravers 
 	(which is at Voice_gravs level)
-	- move stem, beam, slur into baseclass to adapt for (fixed
-	size) grace notes.
+	- make encapsulated spacing problems.
 
 	* accidentals per Voice_group
 
@@ -111,7 +116,7 @@ PROJECTS
 	- NIFF ?
 	- Common Music Notation
 	- PostScript output (esp. Beams, Slurs, etc)
-	- Move PScore, Items, Spanners etc. into libmutype.a
+	- Move all Score_elems, into libmutype.a
 
  
 	* Documentation
@@ -148,7 +153,6 @@ PROJECTS
 	- rewrite : make a metafont iso font
 
 	* Font support:
-	- update 20 pt table
 	- mixed fontsizes
 
 	* lines:
@@ -175,7 +179,6 @@ PROJECTS
 	- redo Notehead to allow digits as heads
 	- add a \tablature {} lexer mode for easy entering
 
-
 	* should adjust stemlength for flag number.
 
 	* breaking:
@@ -187,6 +190,8 @@ PROJECTS
 	- set linelength per line
 
 	* Rhythmic staff.
+
+	* Baroque superstaff
 
 SEVERELY LACKING:
 
@@ -240,9 +245,6 @@ SMALLISH PROJECTS
 
 	* lyric in staff  (sharpsharp in staff, text below)
 
-	* replace Score_elem member access by get()/set() methods, to enable
-	future embedded code.
-
 	* write Dynamic_line (to group dynamics horizontally)
 
 	* write Rest_collision
@@ -275,7 +277,6 @@ SMALLISH PROJECTS
 	- String hash
 	- Pointer hash
 
-
 	* binsearch/hash for identifiers
 
 	* stafftypes: voice names/ instrument names.
@@ -290,10 +291,9 @@ SMALLISH PROJECTS
 
 	* textspanner: center position
 
-
 	* Brackets
 	
-	* Scricts:
+	* Scripts:
 	- stack scripts in chords:
 	  % fingering:        footing:
 	    < a-4 c-2 g-1 >   < c-\ltoe e-\lheel >
@@ -309,13 +309,6 @@ SMALLISH PROJECTS
 	    %  --|---         --|---
           (where "to" is a tiny bow)
 
-DOC
-	* all errors
-	
-	* hacking-HOWTO
-
-FUTURE
-
 	* auxilliary file for caching info.
 
 	* Text_crescendo
@@ -325,6 +318,11 @@ FUTURE
 	* revise calcideal
 
 	* volta
+
+DOC
+	* all errors
+	
+	* hacking-HOWTO
 
 IDEAS
 
@@ -357,7 +355,9 @@ IDEAS
 
 	* move towards incremental algorithms.
 
-	* design meta-language like TeX and Metafont
+	* far fetched language ideas
+	- design meta-language like TeX and Metafont
+	- programming/macros input
 
 	* Global type registration.
 
@@ -365,11 +365,6 @@ IDEAS
 		Type t = get_type ( *p );
 		if ( t <= get_type( q ))
 			..
-
-	
-	* virtualise PCols to make encapsulated spacing problems
-
-	* don't count bars which are not on first beat.
 
 	* naming of Voice_group/Voice
 
@@ -391,8 +386,11 @@ IDEAS
 
 	* lyrics in chords still fuck up.
 
-	* rewire acknowledge_element() logic with a process_acknowledged()
-	
+	*
+	- rewire acknowledge_element() logic with a process_acknowledged()
+	- construct Stem upon receiving Notehead. Junk Stem_req
+
+
 	* pushgroup/popgroup
 
 	* whole head on ledger line

@@ -17,20 +17,13 @@
   generate meters. 
   */
 class Meter_engraver : public Engraver {
+protected:
+  virtual void do_process_requests();
+  virtual void do_pre_move_processing();
 public:
-    Time_description time_;
-    Rhythmic_grouping  default_grouping_;
-    
-    Meter_change_req * meter_req_l_;
-    Meter * meter_p_;
- 
-    virtual void fill_staff_info (Staff_info&);
-    virtual bool do_try_request (Request *req_l);
-    virtual void do_process_requests();
-    virtual void do_pre_move_processing();
-    virtual void do_creation_processing();
-    virtual void do_post_move_processing();
-    Meter_engraver();
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  Meter * meter_p_;
+
+  Meter_engraver();
+  DECLARE_MY_RUNTIME_TYPEINFO;
 };
 #endif // METERGRAV_HH

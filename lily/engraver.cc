@@ -30,7 +30,7 @@ Engraver::post_move_processing()
 void
 Engraver::removal_processing()
 {
-  if ( status < CREATION_INITED)
+  if (status < CREATION_INITED)
 	do_creation_processing();
   
   do_removal_processing();
@@ -102,13 +102,13 @@ Engraver::typeset_element (Score_elem*p)
 }
 
 Paper_def*
-Engraver::paper()const
+Engraver::paper() const
 {
   return daddy_grav_l_->paper();
 }
 
 bool
-Engraver::contains_b (Engraver *grav_l)const
+Engraver::contains_b (Engraver *grav_l) const
 {
   return this == grav_l;
 }
@@ -116,7 +116,10 @@ Engraver::contains_b (Engraver *grav_l)const
 Staff_info
 Engraver::get_staff_info() const
 {
-  return daddy_grav_l_->get_staff_info();
+  if (daddy_grav_l_)
+    return daddy_grav_l_->get_staff_info();
+  Staff_info info;
+  return info;
 }
 
 void

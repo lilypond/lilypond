@@ -12,9 +12,9 @@
 #include "lily-proto.hh"
 
 #include "real.hh"
-#include "string.hh"
-#include "moment.hh"
 
+#include "moment.hh"
+#include "music-output-def.hh"
 
 /** 
 
@@ -27,60 +27,60 @@
   TODO: 
   
   add support for multiple fontsizes 
-  split into "Input_paper_def" and Paper_def
 
   add support for other len->wid conversions.
 
   Input_engraver should be in here.
  */
-class Paper_def {
-    Lookup *lookup_p_;
-    Assoc<String, Real> *real_vars_p_;
+class Paper_def : public Music_output_def {
+  Lookup *lookup_p_;
+  Assoc<String, Real> *real_vars_p_;
 
-    Input_translator * itrans_p_;
+  Input_translator * itrans_p_;
+protected:
+  virtual  Global_translator * get_global_translator_p();
+  VIRTUAL_COPY_CONS(Paper_def,Music_output_def);
+  DECLARE_MY_RUNTIME_TYPEINFO;
 public:    
-    String outfile_str_;
-    
-    
-    /* *************** */
-    void set_var (String, Real);
-    Real get_var (String)const;
-    void reinit();
-    Paper_def();
-    void set (Lookup*);
-    void set (Input_translator *);
-    Global_translator * get_global_translator_p()const;
-    ~Paper_def();
-    Paper_def (Paper_def const&);
-    /// The distance between beams
-    Real interbeam_f()const;
-    /**
-      The distance between lines
-     */
-    Real interline_f()const;
-    /// half the distance between lines
-    Real internote_f()const;
+  virtual ~Paper_def();
 
-    /// thickness of the standard line 
-    Real rule_thickness()const;
-    Real whole_width()const;
-    Real linewidth_f()const;
-    /// height of the staff
-    Real standard_height()const;
+  void set_var (String, Real);
+  Real get_var (String) const;
+  void reinit();
+  Paper_def();
+  void set (Lookup*);
+  void set (Input_translator *);
 
-    /// width of a crotchet ball
-    Real note_width() const;
-    void print() const;
+  Paper_def (Paper_def const&);
+  /// The distance between beams
+  Real interbeam_f() const;
+  /**
+    The distance between lines
+    */
+  Real interline_f() const;
+  /// half the distance between lines
+  Real internote_f() const;
 
-    Lookup const * lookup_l();	// TODO naming
+  /// thickness of the standard line 
+  Real rule_thickness() const;
+  Real whole_width() const;
+  Real linewidth_f() const;
+  /// height of the staff
+  Real standard_height() const;
 
-    /** convert a duration to an idealspacing
-      influence using the geometric_ and  parameters.
-      */
-    Real duration_to_dist (Moment, Real)const;
-  Real geometric_spacing(Moment)const;
-  Real arithmetic_constant(Moment minimal_mom)const;
-  Real arithmetic_spacing( Moment mom,Real constant)const;
+  /// width of a crotchet ball
+  Real note_width() const;
+  void print() const;
+
+  Lookup const * lookup_l();	// TODO naming
+
+  /** convert a duration to an idealspacing
+    influence using the geometric_ and  parameters.
+    */
+  Real duration_to_dist (Moment, Real) const;
+  Real geometric_spacing(Moment) const;
+  Real arithmetic_constant(Moment minimal_mom) const;
+  Real arithmetic_spacing( Moment mom,Real constant) const;
 };
 
 #endif // Paper_def_HH

@@ -186,7 +186,7 @@ String_data::trunc (int j)
 }
 
 INLINE bool
-String_data::is_binary_bo()const
+String_data::is_binary_bo() const
 {
 //    return !memchr (data_byte_p_, length_i_, 0);
   return ( (int)strlen ((char const*)data_byte_p_) != length_i_ );

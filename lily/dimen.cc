@@ -10,7 +10,7 @@ parse_dimen (String dim)
   char const *s = dim;
   while  (i > 0 && (isspace (s[i]) || isalpha (s[i])))
     {
-	i--;
+      i--;
     }
   String unit (s + i+1);
   return convert_dimen (dim.value_f(), unit); 
@@ -21,13 +21,13 @@ Real
 convert_dimen (Real quant, String unit)
 {
   if (unit == "cm")
-	return quant * CM_TO_PT;
+    return quant * CM_TO_PT;
   if (unit == "pt")
-	return quant;
+    return quant;
   if (unit == "mm")
-	return quant*CM_TO_PT/10;
+    return quant*CM_TO_PT/10;
   if (unit == "in")
-	return quant * INCH_TO_PT;
+    return quant * INCH_TO_PT;
   error ("unknown length unit: `" + unit+"'");
 }
 

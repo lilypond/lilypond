@@ -25,13 +25,15 @@
 
   */
 
-class Score_column : public PCol {
+class Score_column : public Paper_column {
     friend class Score;
     friend class Score_engraver;
 
     bool musical_b_;
     Moment when_;
 public:
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  SCORE_ELEM_CLONE(Score_column);
     /// length of notes/rests in this column
     Array<Moment> durations;
     
@@ -42,8 +44,7 @@ public:
     void add_duration (Moment);
     void preprocess();
     bool musical_b() { return musical_b_; }
-    void print() const;
-    virtual void do_set_breakable();
+    void do_print() const;
 
 
 };

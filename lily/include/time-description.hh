@@ -39,12 +39,12 @@ struct Time_description {
     Time_description();
     void add (Moment dt);
     bool allow_meter_change_b();
-    String str()const;
+    String str() const;
     void print() const;
     void setpartial (Moment p);
-    String try_set_partial_str (Moment)const;
-    Moment barleft()const;
-    Moment next_bar_moment()const;
+    String try_set_partial_str (Moment) const;
+    Moment barleft() const;
+    Moment next_bar_moment() const;
     void set_meter (int,int);
     static int compare (const Time_description&, const Time_description&);
 };

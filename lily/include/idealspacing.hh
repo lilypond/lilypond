@@ -21,7 +21,7 @@ struct Idealspacing {
     int left_i_;
     int right_i_;
     
-    void print()const;
+    void print() const;
     void OK() const ;
     Idealspacing();
 };

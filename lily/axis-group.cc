@@ -13,33 +13,33 @@
 /** don't copy anything: an element can only be in one
   Axis_group_element at one time.  */
 Axis_group_administration::Axis_group_administration (
-  Axis_group_administration const&)
+						      Axis_group_administration const&)
 {
 }
 
 bool 
-Axis_group_administration::contains_b (Score_elem const *e)const
+Axis_group_administration::contains_b (Score_elem const *e) const
 {
   return elem_l_arr_.find_l (e);
 }
 
 Interval
-Axis_group_administration::extent (Axis axis)const
+Axis_group_administration::extent (Axis axis) const
 {
   Interval r;
   for (int i=0; i < elem_l_arr_.size(); i++) 
-	r.unite (elem_l_arr_[i]->extent (axis));
+    r.unite (elem_l_arr_[i]->extent (axis));
   return r;
 }
 
 void
 Axis_group_administration::add_element (Score_elem*e,
-				       Axis_group_element*g, Axis a1, Axis a2)
+					Axis_group_element*g, Axis a1, Axis a2)
 {
   assert (! e->axis_group_l_a_[a1] && !e->axis_group_l_a_[a2]);
   e->axis_group_l_a_[a1] = g;
   e->axis_group_l_a_[a2] = g;    
-  elem_l_arr_.push ( e);
+  elem_l_arr_.push (e);
 }
 
 
@@ -59,9 +59,9 @@ Axis_group_administration::remove_all (Axis a1, Axis a2)
 {
   for (int i=0; i < elem_l_arr_.size(); i++) 
     {
-	Score_elem*e=elem_l_arr_[i];
-	e->axis_group_l_a_[a1] = 0;
-	e->axis_group_l_a_[a2] = 0;  
+      Score_elem*e=elem_l_arr_[i];
+      e->axis_group_l_a_[a1] = 0;
+      e->axis_group_l_a_[a2] = 0;  
     }
   elem_l_arr_.clear();
 }
@@ -72,6 +72,6 @@ Axis_group_administration::print() const
 {
 #ifndef NPRINT
   for (int i=0; i < elem_l_arr_.size(); i++) 
-	DOUT << elem_l_arr_[i]->name() << ' ';
+    DOUT << elem_l_arr_[i]->name() << ' ';
 #endif
 }

@@ -15,7 +15,7 @@ class Slur_engraver :public Engraver {
     Array<Slur_req*> new_slur_req_l_arr_;
     Array<Slur *> slur_l_stack_;
     Array<Slur*> end_slur_l_arr_;
-    int dir_i_;
+    Direction dir_;
     /* *************** */
 protected:
     virtual ~Slur_engraver();

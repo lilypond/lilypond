@@ -27,7 +27,7 @@ void
 Input_translator::print() const
 {
 #ifndef NPRINT
-  if ( ! check_debug)
+  if (! check_debug)
 	return ;
   DOUT << base_str_ <<" " << type_str_<<" {\n";
   DOUT << "Consists of ";
@@ -46,7 +46,7 @@ Input_translator::print() const
 Input_translator *
 Input_translator::recursive_find (String nm)
 {
-  if ( is_name_b (nm))
+  if (is_name_b (nm))
 	return this;
 
   Input_translator * r =0;
@@ -119,7 +119,7 @@ Input_translator::add (Input_translator *ip)
 Input_translator*
 Input_translator::get_default_itrans_l()
 {
-  if ( contains_itrans_p_list_.size())
+  if (contains_itrans_p_list_.size())
 	return contains_itrans_p_list_.top();
   else
 	return 0;

@@ -13,7 +13,7 @@
 template<class T>
 inline
 T *
-P<T>::copy_p()const
+P<T>::copy_p() const
 {
   return t_p? new T(*t_p) : 0;
 }

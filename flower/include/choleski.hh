@@ -30,7 +30,7 @@ struct Choleski_decomposition {
     solve Px = rhs
     */
     Vector solve (Vector rhs) const;
-    void solve (Vector &dest, Vector const &rhs)const;
+    void solve (Vector &dest, Vector const &rhs) const;
     Vector operator * (Vector rhs) const { return solve (rhs); }
   /**
     return the inverse of the matrix P.
@@ -41,8 +41,8 @@ struct Choleski_decomposition {
     */
     Matrix original() const;
 private:
-    void full_matrix_solve (Vector &,Vector const&)const;
-    void band_matrix_solve (Vector &, Vector const&)const;
+    void full_matrix_solve (Vector &,Vector const&) const;
+    void band_matrix_solve (Vector &, Vector const&) const;
     void full_matrix_decompose (Matrix const & P);
     void band_matrix_decompose (Matrix const &P);
 	 

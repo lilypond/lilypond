@@ -43,7 +43,7 @@ $(outdir)/%.gz: $(outdir)/%
 	gzip -c9 $< > $@
 
 name-stem= $(notdir $(basename $<))
-$(outdir)/%.dvi: $(depth)/input/%.ly 
+$(outdir)/%.dvi: $(depth)/input/%.ly $(depth)/VERSION
 	(cd $(outdir); \
 	lilypond -o  $(name-stem)  ../$< )
 	(cd $(outdir); \

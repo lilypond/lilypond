@@ -62,7 +62,7 @@ void
 Rest_collision_engraver::do_print() const
 {
 #ifndef NPRINT
-  if ( rest_collision_p_)
+  if (rest_collision_p_)
 	rest_collision_p_->print();
 #endif
 }

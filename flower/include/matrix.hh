@@ -48,9 +48,9 @@ public:
       0 <= band_i() <= dim
       */
     int band_i() const;
-    bool band_b()const;
-    void set_full()const;
-    void try_set_band()const;
+    bool band_b() const;
+    void set_full() const;
+    void try_set_band() const;
     ~Matrix() { delete dat; }
 
     /// set entries to r 

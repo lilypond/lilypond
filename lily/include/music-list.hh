@@ -45,7 +45,7 @@ public:
     DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Chord,Music);
     virtual void translate (Moment dt);
-    virtual MInterval time_int()const;
+    virtual MInterval time_int() const;
 };
 
 /**
@@ -71,7 +71,7 @@ public:
     DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Voice, Music);
     virtual void translate (Moment dt);
-    virtual MInterval time_int()const;
+    virtual MInterval time_int() const;
 };
 
 /** A simple piece of music, which wishes to change the spot of its

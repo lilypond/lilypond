@@ -17,7 +17,7 @@
 #define DECLARE_MY_RUNTIME_TYPEINFO	\
 static char const *static_name();\
 static bool static_is_type_b (const char*s);\
-virtual bool is_type_b (const char *s)const { return static_is_type_b (s); } \
+virtual bool is_type_b (const char *s) const { return static_is_type_b (s); } \
 virtual char const *name() const{ return static_name (); } \
 int a_stupid_nonexistent_function_to_allow_the_semicolon_come_out()
 

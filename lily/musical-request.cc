@@ -14,29 +14,12 @@
 #include "music-list.hh"
 
 
-IMPLEMENT_IS_TYPE_B1(Stem_req,Rhythmic_req);
-
-void
-Stem_req::do_print() const
-{
-#ifndef NPRINT
-  Rhythmic_req::do_print();
-  DOUT << "dir : " << dir_i_;
-#endif
-}
-
-Stem_req::Stem_req()
-{
-  dir_i_ = 0;
-}
-
-/* ************** */
 
 IMPLEMENT_IS_TYPE_B1(Musical_req,Request);
 void
-Musical_req::do_print()const{}
+Musical_req::do_print() const{}
 void
-Tie_req::do_print()const{}
+Tie_req::do_print() const{}
 
 
 /* *************** */
@@ -64,7 +47,7 @@ Spacing_req::Spacing_req()
 IMPLEMENT_IS_TYPE_B1(Spacing_req,Request);
 
 void
-Spacing_req::do_print()const
+Spacing_req::do_print() const
 {
 #ifndef NPRINT
   DOUT << "next " << next << "dist " << distance << "strength\n";
@@ -75,7 +58,7 @@ Spacing_req::do_print()const
 IMPLEMENT_IS_TYPE_B2(Blank_req,Spacing_req,Rhythmic_req);
 
 void
-Blank_req::do_print()const
+Blank_req::do_print() const
 {
   Spacing_req::do_print();
 }
@@ -114,7 +97,7 @@ Melodic_req::transpose (Melodic_req const & delta)
 IMPLEMENT_IS_TYPE_B1(Melodic_req,Musical_req);
 
 bool
-Melodic_req::do_equal_b (Request*r)const
+Melodic_req::do_equal_b (Request*r) const
 {
   Melodic_req* m= r->musical()->melodic ();
   return !compare (*m, *this);
@@ -129,7 +112,7 @@ Melodic_req::compare (Melodic_req const &m1 , Melodic_req const&m2)
   
   if (o)
 	return o;
-  if ( n)
+  if (n)
 	return n;
   if (a)
 	return a;
@@ -170,7 +153,7 @@ Rhythmic_req::compare (Rhythmic_req const &r1, Rhythmic_req const &r2)
 }
 
 bool
-Rhythmic_req::do_equal_b (Request*r)const
+Rhythmic_req::do_equal_b (Request*r) const
 {
   Rhythmic_req* rh = r->musical()->rhythmic ();
 
@@ -209,7 +192,7 @@ Lyric_req::Lyric_req (Text_def* def_p)
   :Text_req (0, def_p)
 {
   def_p->align_i_ = 0;	// centre
-  dir_i_ = -1;		// lyrics below (invisible) staff
+  dir_ = DOWN;		// lyrics below (invisible) staff
 }
 
 
@@ -224,7 +207,7 @@ Lyric_req::do_print() const
 
 /* *************** */
 bool
-Note_req::do_equal_b (Request*r)const
+Note_req::do_equal_b (Request*r) const
 {
   return Rhythmic_req::do_equal_b (r) && Melodic_req::do_equal_b (r);
 }
@@ -267,17 +250,17 @@ Beam_req::Beam_req()
 
 IMPLEMENT_IS_TYPE_B1(Beam_req,Span_req);
 void
-Beam_req::do_print()const{}
+Beam_req::do_print() const{}
 /* *************** */
 
 IMPLEMENT_IS_TYPE_B1(Slur_req,Span_req);
 void
-Slur_req::do_print()const{}
+Slur_req::do_print() const{}
 /* *************** */
 
 
 bool
-Span_req:: do_equal_b (Request*r)const
+Span_req:: do_equal_b (Request*r) const
 {
   Span_req * s = r->span();
   return spantype - s->spantype;
@@ -291,17 +274,17 @@ Span_req::Span_req()
 /* *************** */
 Script_req::Script_req (Script_req const&s)
 {
-  dir_i_ = s.dir_i_;
+  dir_ = s.dir_;
   scriptdef_p_ = s.scriptdef_p_ ? s.scriptdef_p_->clone() : 0;
 }
 
 /*
   don't check dirs?
   
-  (d1.dir_i_ == d2.dir_i_)
+  (d1.dir_ == d2.dir_)
  */
 bool
-Script_req::do_equal_b (Request*r)const
+Script_req::do_equal_b (Request*r) const
 {
   Script_req * s = r->script();
   
@@ -310,7 +293,7 @@ Script_req::do_equal_b (Request*r)const
 
 Script_req::Script_req()
 {
-  dir_i_ = 0;
+  dir_ = CENTER;
   scriptdef_p_ = 0;
 }
 
@@ -321,7 +304,7 @@ void
 Script_req::do_print() const
 {
 #ifndef NPRINT
-  DOUT << " dir " << dir_i_ ;
+  DOUT << " dir " << dir_ ;
   scriptdef_p_->print();
 #endif
 }
@@ -352,12 +335,12 @@ Text_req::~Text_req()
 Text_req::Text_req (Text_req const& src)
 {
   tdef_p_ = new Text_def (*src.tdef_p_);
-  dir_i_ = src.dir_i_;
+  dir_ = src.dir_;
 }
 
 Text_req::Text_req (int dir_i, Text_def* tdef_p)	
 {
-  dir_i_ = dir_i;
+  dir_ = Direction(dir_i);
   tdef_p_ = tdef_p;
 }
 
@@ -368,7 +351,7 @@ void
 Text_req::do_print() const
 {
 #ifndef NPRINT
-  DOUT << " dir " << dir_i_ ;
+  DOUT << " dir " << dir_ ;
   tdef_p_->print();
 #endif
 }
@@ -435,18 +418,18 @@ Absolute_dynamic_req::Absolute_dynamic_req()
 
 Span_dynamic_req::Span_dynamic_req()
 {
-  dynamic_dir_i_  = 0;
+  dynamic_dir_  = CENTER;
 }
 
 
 IMPLEMENT_IS_TYPE_B1(Span_dynamic_req,Musical_req);
 
 void
-Span_dynamic_req::do_print()const
+Span_dynamic_req::do_print() const
 {
 #ifndef NPRINT
   Span_req::do_print();
-  DOUT << "louder/louder: " <<dynamic_dir_i_;
+  DOUT << "softer/louder: " <<dynamic_dir_;
 #endif
 }
 

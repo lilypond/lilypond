@@ -22,11 +22,6 @@ do_scores()
     {
 	Score *&is_p = score_array_global[i];
 	
-	if (only_midi) 
-	  {
-	    delete is_p->paper_p_;
-	    is_p->paper_p_ = 0;
-	  }
 	
 	if (is_p->errorlevel_i_) 
 	  {

@@ -24,7 +24,7 @@ Translator::try_request (Request*)
 
 
 void
-Translator::print()const
+Translator::print() const
 {
 
 }

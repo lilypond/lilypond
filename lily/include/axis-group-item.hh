@@ -19,12 +19,19 @@
 
 class Axis_group_item : public virtual Axis_group_element, public Item {
 protected:
-    virtual void do_breakable_col_processing();
-    void OK()const;
-    virtual void do_print() const;
+  virtual void do_breakable_col_processing();
+  void OK() const;
+  virtual void do_print() const;
+  virtual void do_junk_links() { 
+    Item::do_junk_links();
+    Axis_group_element::do_junk_links();
+  }
+  virtual void do_unlink() {
+    Item::do_unlink();
+    Axis_group_element::do_unlink();
+  }
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
-
+  DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
 #endif // AXIS_ITEM_HH

@@ -49,12 +49,6 @@ Score_performer::depth_i() const
 }
 
 
-void
-Score_performer::finish()
-{
-  Performer_group_performer::do_removal_processing();
-}
-
 
 void
 Score_performer::play (Audio_element * p)
@@ -65,9 +59,9 @@ Score_performer::play (Audio_element * p)
     }
   else if (p->is_type_b (Audio_staff::static_name())) 
     {
-	score_l_->audio_score_p_->add_staff ((Audio_staff*)p);
+      performance_p_->add_staff ((Audio_staff*)p);
     }
-  score_l_->audio_score_p_->add (p);
+  performance_p_->add (p);
 }
 
 
@@ -76,7 +70,7 @@ Score_performer::prepare (Moment m)
 {
   now_mom_ = m;
   audio_column_l_ = new Audio_column (m);
-  score_l_->audio_score_p_->add (audio_column_l_);
+  performance_p_->add (audio_column_l_);
 }
 
 
@@ -87,12 +81,6 @@ Score_performer::process()
 }
 
 
-void
-Score_performer::set_score (Score* score_l)
-{
-  Global_translator::set_score (score_l);
-}
-
 
 void
 Score_performer::start()
@@ -101,7 +89,21 @@ Score_performer::start()
 
 
 int
-Score_performer::get_tempo_i()const
+Score_performer::get_tempo_i() const
 {
-  return score_l_->midi_p_->get_tempo_i (Moment (1, 4));
+  return performance_p_->midi_l_->get_tempo_i (Moment (1, 4));
+}
+
+void
+Score_performer::finish()
+{
+  Performer_group_performer::do_removal_processing();
+}
+
+Music_output *
+Score_performer::get_output_p ()
+{
+  Music_output * o = performance_p_;
+  performance_p_ =0;
+  return o;
 }

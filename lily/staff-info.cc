@@ -38,13 +38,13 @@ Staff_info::command_l()
   return command_l_;
 }
 
-PCol*
+Paper_column*
 Staff_info::command_pcol_l()
 {
   return command_l();
 }
 
-PCol*
+Paper_column*
 Staff_info::musical_pcol_l()
 {
   return musical_l();

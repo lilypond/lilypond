@@ -10,7 +10,7 @@
 
 
 // instantiate a template:  explicit instantiation.
-#define L_INSTANTIATE(a)   class List<a>; template class Cursor<a>; \
+#define LIST_INSTANTIATE(a)   class List<a>; template class Cursor<a>; \
   template class Link<a>
 
 #include "list.hh"

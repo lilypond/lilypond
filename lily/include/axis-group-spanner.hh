@@ -17,13 +17,21 @@
   useful example of this is the Vertical_group_spanner */
 class Axis_group_spanner : public Spanner, public virtual Axis_group_element
 {
-    void do_break_processing_if_unbroken();
+  void do_break_processing_if_unbroken();
 protected:
-    virtual void do_break_processing();
-    virtual void do_print()const;
+  virtual void do_junk_links () { 
+    Spanner::do_junk_links();
+    Axis_group_element::do_junk_links();
+  }
+  virtual void do_unlink() {
+    Spanner::do_unlink();
+    Axis_group_element::do_unlink();
+  }
+  virtual void do_break_processing();
+  virtual void do_print() const;
 
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
 #endif // SPAN_AXIS_GROUP_HH

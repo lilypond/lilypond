@@ -106,14 +106,14 @@ static File_path path;
 void
 do_one_file (String init_str, String file_str)
 {
-  if ( init_str != "" && "" == path.find (init_str) ) 
+  if (init_str != "" && "" == path.find (init_str)) 
     {
-	error ( "Can not find `" + init_str +"\'");
+	error ("Can not find `" + init_str +"\'");
 	return ;
     }
-  if ( file_str!= "" && path.find (file_str) == "" ) 
+  if (file_str!= "" && path.find (file_str) == "") 
     {
-	error ( "Can not find `" + file_str + "'");
+	error ("Can not find `" + file_str + "'");
 	return ;
     }
   
@@ -142,7 +142,7 @@ main (int argc, char **argv)
 	path.add (env_l);
     }
   path.add ("");
-  path.add (String (DIR_DATADIR) + "/init/" );
+  path.add (String (DIR_DATADIR) + "/init/");
   
   path.push (DIR_DATADIR);
 
@@ -152,7 +152,7 @@ main (int argc, char **argv)
   
   while (Long_option_init const * opt = oparser()) 
     {
-	switch ( opt->shortname)
+	switch (opt->shortname)
 	  {
 	case 'o':
 	    set_default_output (oparser.optional_argument_ch_C_);
@@ -188,7 +188,7 @@ main (int argc, char **argv)
 
   int p=0;
   const char *arg ;
-  while ( (arg= oparser.get_next_arg())) 
+  while ((arg= oparser.get_next_arg())) 
     {
 	String f (arg);
 	destill_inname (f);
@@ -207,7 +207,7 @@ main (int argc, char **argv)
 void
 destill_inname (String &name_str_r)
 {
-  if ( name_str_r.length_i())
+  if (name_str_r.length_i())
       {
       if (name_str_r[ 0 ] != '-') 
 	    {

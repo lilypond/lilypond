@@ -15,20 +15,22 @@
 #include "lookup.hh"
 #include "dimen.hh"
 #include "input-translator.hh"
-#include "engraver-group.hh"
 #include "assoc-iter.hh"
+#include "score-grav.hh"
+#include "p-score.hh"
+#include "main.hh"
 
 void
 Paper_def::set_var (String s, Real r)
 {
-   real_vars_p_->elem (s) = r;
+  real_vars_p_->elem (s) = r;
 }
  
 Real
-Paper_def::get_var (String s)const
+Paper_def::get_var (String s) const
 {
   if (! real_vars_p_->elt_b (s))
-    error ( "unknown paper variable `"  + s+"'");
+    error ("unknown paper variable `"  + s+"'");
   return real_vars_p_->elem (s);
 }
 
@@ -39,7 +41,7 @@ Paper_def::linewidth_f() const
 }
 
 Real
-Paper_def::duration_to_dist (Moment d,Real k)const
+Paper_def::duration_to_dist (Moment d,Real k) const
 {
   if (get_var("geometric"))
     return geometric_spacing(d);
@@ -63,9 +65,9 @@ Paper_def::arithmetic_constant(Moment d) const
 }
 
 Real
-Paper_def::arithmetic_spacing(Moment d ,Real k)const
+Paper_def::arithmetic_spacing(Moment d ,Real k) const
 {
-  return (log_2(d) + k)* get_var( "arithmetic_multiplier");
+  return (log_2(d) + k)* get_var("arithmetic_multiplier");
 }
 
 Real
@@ -122,7 +124,7 @@ Paper_def::interline_f() const
 
 
 Real
-Paper_def::rule_thickness()const
+Paper_def::rule_thickness() const
 {
   return get_var ("rule_thickness");
 }
@@ -139,7 +141,7 @@ Paper_def::internote_f() const
 }
 
 Real
-Paper_def::note_width()const
+Paper_def::note_width() const
 {
   return get_var ("notewidth");
 }
@@ -154,7 +156,7 @@ Paper_def::print() const
   itrans_p_->print();
   for (Assoc_iter<String,Real> i (*real_vars_p_); i.ok(); i++) 
     {
-	DOUT << i.key() << "= " << i.val () << "\n";
+      DOUT << i.key() << "= " << i.val () << "\n";
     }
   DOUT << "}\n";
 #endif
@@ -168,7 +170,19 @@ Paper_def::lookup_l()
 }
 
 Global_translator*
-Paper_def::get_global_translator_p() const
+Paper_def::get_global_translator_p() 
 {
-  return  itrans_p_->get_group_engraver_p()->global_l ();
+  if (only_midi) 
+    {
+      return 0;
+    }
+
+  Global_translator* g =  itrans_p_->get_group_engraver_p()->global_l ();
+  assert (g->is_type_b (Score_engraver::static_name()));
+  Score_engraver*grav = (Score_engraver*) g;
+  grav->pscore_p_ = new Paper_score;
+  grav->pscore_p_->paper_l_ = this;
+  return g;	  
 }
+
+IMPLEMENT_IS_TYPE_B1(Paper_def, Music_output_def);

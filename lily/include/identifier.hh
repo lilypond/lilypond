@@ -28,7 +28,7 @@ struct Identifier : public Input {
     Identifier (int code) ;
     virtual ~Identifier() ;
 
-    void print()const;
+    void print() const;
     DECLARE_MY_RUNTIME_TYPEINFO;
     void error (String);
     IDACCESSOR(Input_translator, input_translator)
@@ -45,7 +45,7 @@ struct Identifier : public Input {
     IDACCESSOR(Duration, duration)
 
 protected:
-    virtual void do_print()const=0;
+    virtual void do_print() const=0;
 private:
     Identifier (Identifier const&);
 };
@@ -57,7 +57,7 @@ struct Idclass : Identifier {\
 	Idclass (Class*st, int code);\
 	virtual Class* accessor ();\
 	~Idclass();\
-	virtual void do_print()const; \
+	virtual void do_print() const; \
 }\
 
 

@@ -48,7 +48,7 @@ class Spacing_problem {
     /// mark column #i# as being loose.
     void loosen_column (int i);
     /// the index of #c# in #cols#
-    int col_id (PCol const *c) const;
+    int col_id (Paper_column const *c) const;
 
     /// generate an (nonoptimal) solution
     Vector find_initial_solution() const;
@@ -57,7 +57,7 @@ class Spacing_problem {
     bool check_feasible() const;
 
     /// does #this# contain the column #w#? 
-    bool contains (PCol const *w);
+    bool contains (Paper_column const *w);
 
     /// make the energy function
     void make_matrices (Matrix &quad, Vector &lin,Real&) const;
@@ -76,7 +76,7 @@ class Spacing_problem {
     not in this problem, the spacing is ignored.
     */
     void add_ideal (Idealspacing const *i);
-    void print_ideal (Idealspacing const *)const; 
+    void print_ideal (Idealspacing const *) const; 
     Vector try_initial_solution() const;
     void calcideal();
 
@@ -86,10 +86,10 @@ public:
     static Line_spacer *constructor() {
 	return new Line_spacer;
     }
-    Array<PCol*> error_pcol_l_arr() const;
+    Array<Paper_column*> error_pcol_l_arr() const;
 
     virtual   Array<Real> solve() const;
-    virtual  void add_column (PCol  *, bool fixed=false, Real fixpos=0.0);
+    virtual  void add_column (Paper_column  *, bool fixed=false, Real fixpos=0.0);
  
 
     virtual Vector default_solution() contains { 

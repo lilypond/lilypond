@@ -27,7 +27,7 @@ Script::do_substitute_dependency (Score_elem*o,Score_elem*n)
   Staff_side::do_substitute_dependency (o,n);
   if (o == stem_l_) 
     {
-	stem_l_ = n ? (Stem*)n->item() : 0;
+      stem_l_ = n ? (Stem*)n->item() : 0;
     }
 }
 
@@ -44,35 +44,35 @@ Script::Script()
   specs_l_ = 0;
   inside_staff_b_ = false;
   stem_l_ = 0;
-  dir_i_ =  0;
+  dir_ =  CENTER;
 }
 
 void
 Script::set_default_dir()
 {
-  int s_i=specs_l_->rel_stem_dir_i();
+  int s_i=specs_l_->rel_stem_dir();
   if (s_i) 
     {
-	if (stem_l_)
-	    dir_i_ = stem_l_->dir_i_ * s_i;
-	else
-	  {
-	    specs_l_->warning ("Script needs stem direction");
-	    dir_i_ = -1;
-	  }
+      if (stem_l_)
+	dir_ = stem_l_->dir_ * s_i;
+      else
+	{
+	  specs_l_->warning ("Script needs stem direction");
+	  dir_ = DOWN;
+	}
     }
   else 
     {
-	dir_i_ =specs_l_->staff_dir_i();
+      dir_ =specs_l_->staff_dir();
     }
-  assert (dir_i_);
+  assert (dir_);
 }
 
 
 Interval
 Script::do_width() const
 {
-  return specs_l_->get_atom (paper(), dir_i_).extent ().x ();
+  return specs_l_->get_atom (paper(), dir_).extent ().x ();
 }
 
 void
@@ -80,18 +80,18 @@ Script::do_pre_processing()
 {
   if  (breakable_b_ && break_status_i() != 1) 
     {
-	transparent_b_ = empty_b_ = true;
+      transparent_b_ = empty_b_ = true;
     }
   
-  if (!dir_i_)
-	set_default_dir();
+  if (!dir_)
+    set_default_dir();
   inside_staff_b_ = specs_l_->inside_b();
 }
 
 Interval
-Script::symbol_height()const
+Script::symbol_height() const
 {
-  return specs_l_->get_atom (paper(), dir_i_).extent ().y ();
+  return specs_l_->get_atom (paper(), dir_).extent ().y ();
 }
 
 Molecule*
@@ -99,7 +99,7 @@ Script::brew_molecule_p() const
 {
   Real dy = paper()->internote_f ();
   
-  Molecule*out = new Molecule (specs_l_->get_atom (paper(), dir_i_));
+  Molecule*out = new Molecule (specs_l_->get_atom (paper(), dir_));
   out->translate (dy * pos_i_, Y_AXIS);
   return out;
 }

@@ -94,15 +94,15 @@ protected:
 
     virtual void sync_features() {}
    
-    virtual bool contains_b (Engraver*grav_l)const;
+    virtual bool contains_b (Engraver*grav_l) const;
     /**
       Get information on the staff. Default: ask daddy.
       */
-    virtual Staff_info get_staff_info()const;
+    virtual Staff_info get_staff_info() const;
     virtual void fill_staff_info (Staff_info&);
 
 
-    virtual void do_print()const;  
+    virtual void do_print() const;  
     /*    
 	  @see{try_request}
 	  Default: always return false

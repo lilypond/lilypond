@@ -10,7 +10,7 @@
 #include "debug.hh"
 
 String
-Time_description::str()const
+Time_description::str() const
 {
   String s ("Time_description { ");
   if (cadenza_b_)
@@ -62,7 +62,7 @@ Time_description::Time_description()
   whole_in_measure_ =0;
   one_beat_ = Moment (1,4);
   when_ = 0;
-  bars_i_ = 0;
+  bars_i_ = 1;			// musician start counting at 1
   cadenza_b_ = false;
 }
 
@@ -73,7 +73,7 @@ Time_description::add (Moment dt)
   when_ +=  dt;
   whole_in_measure_ += dt;
 	
-  while ( !cadenza_b_ && whole_in_measure_ >= whole_per_measure_) 
+  while (!cadenza_b_ && whole_in_measure_ >= whole_per_measure_) 
     {
 	whole_in_measure_ -= whole_per_measure_;
 	bars_i_ ++;
@@ -100,7 +100,7 @@ Time_description::allow_meter_change_b()
   error messages if not possible, "" if possible
   */
 String
-Time_description::try_set_partial_str (Moment p)const
+Time_description::try_set_partial_str (Moment p) const
 {
   if (p<Rational (0))
 	return ("Partial must be non-negative");
@@ -116,7 +116,7 @@ Time_description::setpartial (Moment p)
 }
 
 Moment
-Time_description::barleft()const
+Time_description::barleft() const
 {
   assert (!cadenza_b_);
   return whole_per_measure_-whole_in_measure_;

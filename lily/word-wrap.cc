@@ -21,85 +21,85 @@
 
    */
 Array<Col_hpositions>
-Word_wrap::do_solve()const
+Word_wrap::do_solve() const
 {
   problem_OK();
   
-  PCursor<PCol*> curcol (pscore_l_->col_p_list_.top());
+  PCursor<Paper_column*> curcol (pscore_l_->col_p_list_.top());
   Array<Col_hpositions> breaking;
   Line_of_cols breakpoints (find_breaks());
   assert (breakpoints.size()>=2);
 
   int break_idx_i=0;			
-  while ( break_idx_i < breakpoints.size() -1) 
+  while (break_idx_i < breakpoints.size() -1) 
     {
-	Col_hpositions minimum;
-	Col_hpositions current;
+      Col_hpositions minimum;
+      Col_hpositions current;
 
       // do  another line
-	PCol *post = breakpoints[break_idx_i]->postbreak_p_;
-	current.add (post);
-	curcol++;		// skip the breakable.
-	break_idx_i++;
+      Paper_column *post = breakpoints[break_idx_i]->postbreak_l();
+      current.add (post);
+      curcol++;		// skip the breakable.
+      break_idx_i++;
 
-	while (break_idx_i < breakpoints.size()) 
-	  {
+      while (break_idx_i < breakpoints.size()) 
+	{
 	
-	    // add another measure.
-	    while (breakpoints[break_idx_i] != curcol.ptr())
-	      {
-		current.add (curcol);
-		curcol++;
-	      }
-	    current.add (breakpoints[break_idx_i]->prebreak_p_);
+	  // add another measure.
+	  while (breakpoints[break_idx_i] != curcol.ptr())
+	    {
+	      current.add (curcol);
+	      curcol++;
+	    }
+	  current.add (breakpoints[break_idx_i]->prebreak_l());
 
-	    current.spacer_l_ = generate_spacing_problem (current.cols);
+	  current.spacer_l_ = generate_spacing_problem (current.cols);
 
-	    // try to solve
-	    if (!feasible (current.cols)) 
-	      {
-		if (!minimum.cols.size()) 
-		  {
-		    warning ("Ugh, this measure is too long, breakpoint: "
-			  + String (break_idx_i) +
-			" (generating stupido solution)");
-		    current.stupid_solution();
-		    current.energy_f_ = - 1; // make sure we break out.
-		  }
-		else
-		    current.energy_f_ = infinity_f;	// make sure we go back
-	      }
-	    else 
-	      {
+	  // try to solve
+	  if (!feasible (current.cols)) 
+	    {
+	      if (!minimum.cols.size()) 
+		{
+		  warning ("Ugh, this measure is too long, breakpoint: "
+			   + String (break_idx_i) +
+			   " (generating stupido solution)");
+		  current.stupid_solution();
+		  current.energy_f_ = - 1; // make sure we break out.
+		}
+	      else
+		current.energy_f_ = infinity_f;	// make sure we go back
+	    }
+	  else 
+	    {
 		
-		current.solve_line();
-		current.print();
-	      }
+	      current.solve_line();
+	      current.print();
+	    }
 
-	    delete current.spacer_l_;
-	    current.spacer_l_ =0;
+	  delete current.spacer_l_;
+	  current.spacer_l_ =0;
 
-	    // update minimum, or backup.
-	    if (current.energy_f_ < minimum.energy_f_ || current.energy_f_ < 0) 
-	      {
-		minimum = current;
-	      }
-	    else {		// we're one col too far.
-		break_idx_i--;
-		while (curcol.ptr() != breakpoints[break_idx_i])
-		    curcol --;
-		break;		// do the next line.
-	      }
-
-
-	    // add nobreak version of breakable column
-	    current.cols.top()=breakpoints[break_idx_i];
-	    curcol ++;
-	    break_idx_i++;
+	  // update minimum, or backup.
+	  if (current.energy_f_ < minimum.energy_f_ || current.energy_f_ < 0) 
+	    {
+	      minimum = current;
+	    }
+	  else {		// we're one col too far.
+	    break_idx_i--;
+	    while (curcol.ptr() != breakpoints[break_idx_i])
+	      curcol --;
+	    break;		// do the next line.
 	  }
 
-	*mlog << "[" <<break_idx_i<<"]"<<flush;
-	breaking.push (minimum);
+
+	  // add nobreak version of breakable column
+	  current.cols.top()=breakpoints[break_idx_i];
+	  curcol ++;
+	  break_idx_i++;
+	}
+
+      *mlog << "[" <<break_idx_i<<"]"<<flush;
+      breaking.push (minimum);
     }
   print_stats();
   return breaking;

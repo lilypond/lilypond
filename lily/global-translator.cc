@@ -6,14 +6,10 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "music.hh"
 #include "global-translator.hh"
-#include "score.hh"
-#include "score-column.hh"
 
 Global_translator::Global_translator()
 {
-  score_l_ = 0;
   last_mom_ = 0;
 }
 
@@ -36,16 +32,9 @@ Global_translator::add_moment_to_process (Moment m)
 }
 
 int
-Global_translator::depth_i()const
+Global_translator::depth_i() const
 {
   return 0;
-}
-
-void
-Global_translator::set_score (Score *s)
-{
-  score_l_ = s;
-  last_mom_ = score_l_->music_p_->time_int().max ();
 }
 
 void
@@ -58,7 +47,7 @@ Global_translator::modify_next (Moment &w)
 }
 
 int
-Global_translator::moments_left_i()const
+Global_translator::moments_left_i() const
 {
   return extra_mom_pq_.size();
 }
@@ -70,3 +59,9 @@ Global_translator::prepare (Moment)
 
 
 IMPLEMENT_IS_TYPE_B1(Global_translator, Translator);
+
+Music_output*
+Global_translator::get_output_p()
+{
+  return 0;
+}

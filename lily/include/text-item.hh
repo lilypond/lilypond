@@ -24,14 +24,14 @@ public:
     
     /* ***************/
 
-    Text_item (General_script_def*,int dir=0);
+    Text_item (General_script_def*,Direction dir=0);
     virtual ~Text_item();
     DECLARE_MY_RUNTIME_TYPEINFO;
 
 protected:
     General_script_def * tdef_p_;
 
-    virtual Interval symbol_height()const;
+    virtual Interval symbol_height() const;
 
     virtual Molecule* brew_molecule_p() const;
     virtual void do_pre_processing();

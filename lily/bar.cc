@@ -25,13 +25,13 @@ Bar::Bar()
 IMPLEMENT_IS_TYPE_B1(Bar,Item);
 
 void
-Bar::do_print()const
+Bar::do_print() const
 {
   DOUT << type_str_;
 }
 
 Molecule*
-Bar::brew_molecule_p()const
+Bar::brew_molecule_p() const
 {    
   Paper_def *p = paper();
   Symbol s = p->lookup_l()->bar (type_str_, 

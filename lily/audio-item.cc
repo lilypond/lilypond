@@ -18,7 +18,7 @@ Audio_instrument::Audio_instrument (String instrument_str)
 Midi_item*
 Audio_instrument::midi_item_p()
 {
-  return str_.length_i() ? new Midi_instrument( 0, str_ ) : 0;
+  return str_.length_i() ? new Midi_instrument(0, str_) : 0;
 }
                                     
 Audio_item::Audio_item (Request* req_l)
@@ -83,7 +83,7 @@ Audio_text::Audio_text (Audio_text::Type type, String text_str)
 Midi_item*
 Audio_text::midi_item_p()
 {
-  return text_str_.length_i() ? new Midi_text( this ) : 0;
+  return text_str_.length_i() ? new Midi_text(this) : 0;
 }
 
 

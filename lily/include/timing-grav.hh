@@ -20,19 +20,21 @@
  */
 class Timing_engraver : public Engraver
 {   
-    Time_description time_;
-    Rhythmic_grouping  default_grouping_;
-    
-    Link_array<Timing_req> timing_req_l_arr_;
- 
-    virtual void fill_staff_info (Staff_info&);
-    virtual bool do_try_request (Request *req_l);
-    virtual void do_process_requests();
-    virtual void do_pre_move_processing();
-    virtual void do_creation_processing();
-    virtual void do_post_move_processing();
-    Timing_engraver();
-    DECLARE_MY_RUNTIME_TYPEINFO;
-}
+public:
+  Time_description time_;
+  Rhythmic_grouping  default_grouping_;
+  Link_array<Timing_req> timing_req_l_arr_;
+protected: 
+  virtual void do_creation_processing ();
+  virtual void fill_staff_info (Staff_info&);
+  virtual bool do_try_request (Request *req_l);
+  virtual void do_process_requests();
+  virtual void do_pre_move_processing();
+  virtual void do_post_move_processing();
+public:
+  Meter_change_req * meter_req_l () const;
+  Timing_engraver();
+  DECLARE_MY_RUNTIME_TYPEINFO;
+};
 
 #endif // TIMING_GRAV_HH

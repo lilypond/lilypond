@@ -10,9 +10,9 @@
 #include "misc.hh"
 #include "midi-def.hh"
 #include "input-translator.hh"
-#include "performer-group-performer.hh"
+#include "audio-score.hh"
 #include "assoc-iter.hh"
-
+#include "score-performer.hh"
 #include "debug.hh"
 
 // classes, alphasorted
@@ -32,7 +32,7 @@ Midi_def::Midi_def()
   outfile_str_ = ""; 
   itrans_p_ = 0;
   // ugh
-  set_tempo (Moment (1, 4), 60 );
+  set_tempo (Moment (1, 4), 60);
 }
 
 Midi_def::Midi_def (Midi_def const& s)
@@ -50,22 +50,28 @@ Midi_def::~Midi_def()
 Real
 Midi_def::duration_to_seconds_f (Moment mom)
 {
-  if ( !mom)
+  if (!mom)
 	return 0;
   
   return Moment (whole_seconds_f_) * mom;
 }
 
 Global_translator*
-Midi_def::get_global_translator_p() const
+Midi_def::get_global_translator_p() 
 {
-  return  itrans_p_->get_group_performer_p()->global_l ();
+  Global_translator *g =     itrans_p_->get_group_performer_p()->global_l ();
+
+  assert (g->is_type_b (Score_performer::static_name()));
+  Score_performer * perf = (Score_performer*)g;
+  perf->performance_p_ = new Audio_score;
+  perf->performance_p_->midi_l_ = this;
+  return g;
 }
 
 int
 Midi_def::get_tempo_i (Moment moment)
 {
-  return Moment (whole_seconds_f_) * Moment (60 ) * moment;
+  return Moment (whole_seconds_f_) * Moment (60) * moment;
 }
 
 void
@@ -73,7 +79,7 @@ Midi_def::print() const
 {
 #ifndef NPRINT
   DOUT << "Midi {";
-  DOUT << "4/min: " << Real (60) / ( whole_seconds_f_ * 4 );
+  DOUT << "4/min: " << Real (60) / (whole_seconds_f_ * 4);
   DOUT << "out: " << outfile_str_;
   DOUT << "}\n";
 #endif
@@ -89,6 +95,7 @@ Midi_def::set (Input_translator* itrans_p)
 void
 Midi_def::set_tempo (Moment moment, int count_per_minute_i)
 {
-  whole_seconds_f_ = Moment (count_per_minute_i) / Moment (60 ) / moment;
+  whole_seconds_f_ = Moment (count_per_minute_i) / Moment (60) / moment;
 }
 
+IMPLEMENT_IS_TYPE_B1( Midi_def, Music_output_def);

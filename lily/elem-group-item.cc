@@ -11,7 +11,7 @@
 #include "p-col.hh"
 
 void
-Horizontal_vertical_group_item::do_print()const
+Horizontal_vertical_group_item::do_print() const
 {
   Horizontal_vertical_group_element::do_print();
 }

@@ -26,7 +26,7 @@ Col_hpositions::~Col_hpositions()
 }
 
 void
-Col_hpositions::add (PCol*c)
+Col_hpositions::add (Paper_column*c)
 {
   cols.push (c);
 }
@@ -43,7 +43,7 @@ Col_hpositions::print() const
 }
 
 void
-Col_hpositions::OK()const
+Col_hpositions::OK() const
 {
 #ifndef NDEBUG
   assert (config.size() == cols.size ());
