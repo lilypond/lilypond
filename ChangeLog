@@ -1,3 +1,19 @@
+2004-02-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/topdocs/NEWS.texi: Add note about info docs with
+	images.
+
+	* Documentation/user/lilypond.tely (@direntry): Update.
+
+	* stepmake/stepmake/documentation-targets.make
+	(install-info,uninstall-info): Install into $(package_infodir).
+	Install images.  Run install-info to update dir.
+
+	* config.make.in (package_infodir): Add.
+
+	* Documentation/user/GNUmakefile (info-with-images,
+	local-install-info, local-uninstall-info): New target.
+
 2004-02-27  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/define-grobs.scm (all-grob-descriptions): tune concaveness
@@ -20,6 +36,9 @@
 	* mf/GNUmakefile: unset sauter-fonts.
 
 2004-02-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/lilypond-book.py (output_texinfo): Output @image
+	descriptions for info too.
 
 	* input/test/chord-names-jazz.ly: 
 	* input/test/embedded-scm.ly: Clarify.

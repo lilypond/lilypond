@@ -18,8 +18,11 @@ Version 2.1.13
 
 @itemize @bullet
 
+@item Info documentation with images.
+In eager anticipation of Emacs 21.4 or 22.1, the info docs contain
+images.
 
-@item Cue notes can  now be quoted directly from the parts that
+@item Cue notes can be quoted directly from the parts that
 contain them. This will take into account tunings of source and target
 instrument. For example,
 

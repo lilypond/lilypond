@@ -6,25 +6,26 @@
 @end iftex
 
 @ignore
+@c FIXME: use `make install-info'
 Distributions will want to install lilypond.info doing:
 
-    ./install-info --info-dir=/usr/share/info out/lilypond.info
+    install-info --info-dir=/usr/share/info out/lilypond.info
     
 @end ignore
+
 @dircategory GNU music project
 @direntry
 @c    ;; prepend GNU for dir, must be unique
-* GNU LilyPond: (lilypond).                    The GNU music typesetter.
-* lilypond: (lilypond)Invoking lilypond::      Titling LilyPond scores.
-* Glossary: (music-glossary).                  Glossary of music terms.
-* convert-ly: (lilypond)Invoking convert-ly::  Older LilyPond versions.
-* midi2ly: (lilypond)Invoking midi2ly::        Importing MIDI.
-* etf2ly: (lilypond)Invoking etf2ly::          Importing Finale.
-* abc2ly: (lilypond)Invoking abc2ly::          Importing ABC.          
-* pmx2ly: (lilypond)Invoking pmx2ly::          Importing PMX.
-* musedata2ly: (lilypond)Invoking musedata2ly::
-                                               Importing Musedata.
-* mup2ly: (lilypond)Invoking mup2ly::          Importing MUP. 
+* GNU LilyPond: (./lilypond/lilypond).           The GNU music typesetter.
+* lilypond: (./lilypond/lilypond)Invoking LilyPond.      Titling LilyPond scores.
+* Glossary: (./lilypond/music-glossary).                  Glossary of music terms.
+* convert-ly: (./lilypond/lilypond)Invoking convert-ly.  Older LilyPond versions.
+* midi2ly: (./lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
+* etf2ly: (./lilypond/lilypond)Invoking etf2ly.          Importing Finale.
+* abc2ly: (./lilypond/lilypond)Invoking abc2ly.          Importing ABC.          
+* pmx2ly: (./lilypond/lilypond)Invoking pmx2ly.          Importing PMX.
+* musedata2ly: (./lilypond/lilypond)Invoking musedata2ly.        Importing Musedata.
+* mup2ly: (./lilypond/lilypond)Invoking mup2ly.          Importing MUP. 
 @end direntry
 
 

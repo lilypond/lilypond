@@ -1,7 +1,4 @@
-# Documentation/tex/Makefile
-
 depth=../..
-
 
 LATEX_FILES =$(wildcard *.latex)
 
@@ -38,10 +35,10 @@ dvi: $(DVI_FILES)
 ps: $(PS_FILES)
 
 # Cancel the default info generation rule.  We want to generate info
-# from `.nexi', making sure we don't run LilyPond for inline pictures,
-# when just generating info:
-
-$(outdir)/%.info: $(outdir)/%.texi
+# from `.nexi', making sure we don't run LilyPond for images, when
+# generating info.  This will produce info docs without images.  For
+# full info documentation including images, run make web.
+$(outdir)/%.info: # $(outdir)/%.texi
 
 default: 
 
@@ -104,7 +101,23 @@ deep-symlinks:
 endif
 
 
-local-WWW: $(HTML_FILES) $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) $(DEEP_HTML_FILES) info-dir
+local-WWW: $(HTML_FILES) $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) $(DEEP_HTML_FILES) info-with-images info-dir
+
+# This builds all .info targets with images, in out-www.
+# Viewawble with a recent Emacs, doing: M-x info out-www/lilypond.info
+# TODO: install .info into $(INFODIR)/lilypond/,
+# adding symlinks for images (or devise image include dir for Info?).
+info-with-images: $(INFO_FILES)
+	-cp -f $(INFO_INSTALL_FILES) $(builddir)/Documentation/user/$(outconfbase)
+
+local-install-info:
+# URG, silly home-brewn web-install target works from TOPDIR using tarball.
+# FIXME: doc pics get installed twice
+#	(cd $(package_infodir) && ln -s $(local_package_docdir)/html/*png .)
+	-(cd $(package_infodir) && ln -f $(builddir)/Documentation/user/$(outconfbase)-www/*png .)
+	
+local-uninstall-info:
+	rm -f $(package_infodir)/*.png
 
 local-WWW-clean: deep-WWW-clean
 
