@@ -280,7 +280,9 @@ Argument LIM limit."
      ;; also \> and \< are hairpins
      ( ?}  .  ("{" . "}"))
      ;; ligatures  '\[ ... \]' are skipped in the following expression
-     ( ?]  .  ("\\([^\\]\\|^\\)[[]" . "\\([^\\]\\|^\\)[]]"))
+     ( ?]  .  ("\\([^\\]\\([\\][\\]\\)*\\|^\\)[[]" . "\\([^\\]\\([\\][\\]\\)*\\|^\\)[]]"))
+     ;; ( "\\]" . ("\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][[]" . "\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][]]"))
+     ;; ( "\\)" . ("\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][(]" . "\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][)]"))
      ))
 
 
@@ -288,7 +290,9 @@ Argument LIM limit."
   `( ( ?<  .  ?> )    
      ( ?{  .  ?} )    
      ( ?[  .  ?] )
+     ;; ( "\\["  .  "\\]" )
      ( ?\(  .  ?\) )
+     ;; ( "\\("  .  "\\)" )
      ))
 
 
@@ -322,7 +326,7 @@ slur-paren-p defaults to nil.
 	(setq paren-regexp "(\\|)")
       (if slur-paren-p
 	  ;; expressional slurs  '\( ... \)' are not taken into account
-	  (setq regexp-alist (cons '( ?\) . ("\\([^\\]\\|^\\)(" . "\\([^\\]\\|^\\))")) regexp-alist)))
+	  (setq regexp-alist (cons '( ?\) . ("\\([^\\]\\([\\][\\]\\)*\\|^\\)(" . "\\([^\\]\\([\\][\\]\\)*\\|^\\))")) regexp-alist)))
       (if (memq bracket-type (mapcar 'car regexp-alist))
 	  (progn (setq paren-regexp (cdr (assoc bracket-type regexp-alist)))
 		 (setq paren-regexp (concat (car paren-regexp) "\\|" (cdr paren-regexp))))
@@ -381,7 +385,7 @@ slur-paren-p defaults to nil.
 ;;; Largely taken from the 'blink-matching-open' in lisp/simple.el in
 ;;; the Emacs distribution.
 
-(defun LilyPond-blink-matching-open (bracket-type char-before-bracket-type)
+(defun LilyPond-blink-matching-open (bracket-type)
   "Move cursor momentarily to the beginning of the sexp before
 point. In lilypond files this is used for closing ), ], } and >, whereas the
 builtin 'blink-matching-open' is not used. In syntax table, see
@@ -391,6 +395,16 @@ builtin 'blink-matching-open' is not used. In syntax table, see
   (let ( (oldpos (point))
 	 (level 0) 
 	 (mismatch) )
+    ;; Test if a ligature \] or expressional slur \) was encountered;
+    ;; the result is now in backslashed-close-char, BUT
+    ;; the result should also be used  -- match also \] or \) !
+    ;; Thus, update: LilyPond-parens-regexp-alist, LilyPond-blink-matching-open
+    (setq char-before-bracket-type nil)
+    (if (memq close-char '(?] ?\)))
+      (progn 
+	(setq np -1)
+	(while (eq (char-before (- (point) (setq np (+ np 1)))) ?\\)
+	  (setq char-before-bracket-type (if char-before-bracket-type nil ?\\)))))
     (if (eq char-before-bracket-type ?\\)
 	(if (eq bracket-type ?])
             (message "trying to match ligatures \\[ ... \\]")
@@ -458,21 +472,11 @@ builtin 'blink-matching-open' is not used. In syntax table, see
   (let ((oldpos (point)))
     (self-insert-command 1)
     (setq close-char (char-before (point)))
-    ;; Test if a ligature \] or expressional slur \) was encountered;
-    ;; the result is now in backslashed-close-char, BUT
-    ;; the result should also be used  -- match also \] or \) !
-    ;; Thus, update: LilyPond-parens-regexp-alist, LilyPond-blink-matching-open
-    (setq char-before-close-char nil)
-    (if (memq close-char '(?] ?\)))
-      (progn 
-	(setq np 0)
-	(while (eq (char-before (- (point) (setq np (+ np 1)))) ?\\)
-	  (setq char-before-close-char (if char-before-close-char nil ?\\)))))
     (if (and blink-matching-paren
 	     (not (LilyPond-inside-string-or-comment-p))
 	     (save-excursion (re-search-backward 
 			      (concat (mapconcat 'cdr (mapcar 'cdr LilyPond-parens-regexp-alist) "\\|") "\\|)") nil t)
 			     (eq oldpos (1- (match-end 0)))))
 	(progn (backward-char 1)
-	       (LilyPond-blink-matching-open close-char char-before-close-char)
+	       (LilyPond-blink-matching-open close-char)
 	       (forward-char 1)))))
