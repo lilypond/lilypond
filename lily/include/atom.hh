@@ -15,6 +15,7 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 
+//#define ATOM_SMOB
 
 #ifdef ATOM_SMOB
 
@@ -25,8 +26,9 @@ class Atom {
   static SCM smob_mark (SCM);
   static scm_sizet smob_free (SCM);
   static int smob_display (SCM, SCM, scm_print_state*);
-  SCM make_smob () const;
 public:
+  SCM make_smob () const;
+
   Offset off_;
   Atom (SCM s);
 

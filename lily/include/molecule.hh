@@ -16,6 +16,8 @@
 #include "protected-scm.hh"
 #include "cons.hh"
 
+//#define ATOM_SMOB
+
 /** a group of individually translated symbols. You can add molecules
     to the top, to the right, etc.  */
 class Molecule {
