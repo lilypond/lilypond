@@ -373,7 +373,7 @@ ly_number2string (SCM s)
   return gh_str02scm (str);
 }
 
-// #define TEST_GC
+#define TEST_GC
 
 #ifdef TEST_GC
 #include <libguile/gc.h>

@@ -38,15 +38,12 @@ return s;\
  */
 #define IMPLEMENT_SMOBS(CL)\
 long CL::smob_tag_;\
-static scm_smobfuns CL ## _funs = {					\
-  CL::mark_smob, CL::free_smob,						\
-  CL::print_smob, 0,							\
-};									\
 void									\
 CL::init_smobs ()							\
 {									\
-  smob_tag_ = scm_newsmob (&CL ## _funs);					\
-}									\
+  smob_tag_ = scm_make_smob_type_mfpe ( \
+     #CL, 0, CL::mark_smob, CL::free_smob, CL::print_smob, 0);\
+}\
 									\
 									 \
 void									 \

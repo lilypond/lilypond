@@ -291,9 +291,11 @@
     (string-append "% " s))
   
   (define (end-output) 
+	(begin
+		(display (gc-stats))
     (string-append "\n\\EndLilyPondOutput"
 		   ; Put GC stats here.
-		   ))
+		   )))
   
   (define (experimental-on)
     "")

@@ -30,15 +30,12 @@ scm_sizet free_smob (SCM)
   return 0;
 }
 
-static scm_smobfuns callback_funs = {
-  mark_smob, free_smob,
-  print_smob, 0,
-};
-
 static
 void start_callback_smobs()
 {
-  callback_tag = scm_newsmob (&callback_funs);
+  callback_tag = scm_make_smob_type_mfpe ("callback", 0,
+					  mark_smob, free_smob,
+					  print_smob, 0);
 }
 
 
