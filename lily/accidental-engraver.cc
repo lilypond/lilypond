@@ -49,6 +49,8 @@ protected:
   virtual void initialize ();
   virtual void process_acknowledged_grobs ();
   virtual void finalize ();
+
+  void update_local_key_signature ();
 public:
 
   Protected_scm last_keysig_;
@@ -80,6 +82,26 @@ set_property_on_children (Context * trans, const char * sym, SCM val)
     }
 }
 
+
+void
+Accidental_engraver::update_local_key_signature ()
+{
+  last_keysig_ = get_property ("keySignature");
+  set_property_on_children (daddy_context_, "localKeySignature", last_keysig_);
+
+  Context * trans = daddy_context_->daddy_context_;
+
+  /*
+    Huh. Don't understand what this is good for. --hwn.
+   */
+  while (trans && trans->where_defined (ly_symbol2scm ("localKeySignature")))
+    {
+      trans->set_property ("localKeySignature",
+			    ly_deep_copy (last_keysig_));
+      trans = trans->daddy_context_;
+    }
+}
+
 Accidental_engraver::Accidental_engraver ()
 {
   accidental_placement_ = 0;
@@ -89,16 +111,7 @@ Accidental_engraver::Accidental_engraver ()
 void
 Accidental_engraver::initialize ()
 {
-  last_keysig_ = get_property ("keySignature");
-
-  Context * trans_ = daddy_context_;
-  while (trans_)
-    {
-      trans_ -> set_property ("localKeySignature",
-			      ly_deep_copy (last_keysig_));
-      trans_ = trans_->daddy_context_;
-    }
-  set_property_on_children (daddy_context_,"localKeySignature", last_keysig_);
+  update_local_key_signature ();
 }
 
 /*
@@ -111,37 +124,61 @@ Accidental_engraver::initialize ()
 */
 static int
 number_accidentals_from_sig (bool *different,
-			     SCM sig, Pitch *pitch, SCM curbarnum, SCM lazyness, 
+			     SCM sig, Pitch *pitch, SCM scurbarnum, SCM lazyness, 
 			     bool ignore_octave)
 {
+  int curbarnum = gh_scm2int (scurbarnum);
+
   int n = pitch->get_notename ();
   int o = pitch->get_octave ();
   int a = pitch->get_alteration ();
-  int curbarnum_i = gh_scm2int (curbarnum);
-  int accbarnum_i = 0;
+  int accbarnum = -1;
 
-  SCM prev;
-  if (ignore_octave)
-    prev = ly_assoc_cdr (scm_int2num (n), sig);
-  else
-    prev = scm_assoc (gh_cons (scm_int2num (o), scm_int2num (n)), sig);
-
-  /* should really be true unless prev == SCM_BOOL_F */
-  if (gh_pair_p (prev) && gh_pair_p (ly_cdr (prev)))
+  SCM prevs[3];
+  int bar_nums[3] = {-1,-1,-1};
+  int prev_idx = 0;
+  
+  if (!ignore_octave)
     {
-      accbarnum_i = gh_scm2int (ly_cddr (prev));
-      prev = gh_cons (ly_car (prev), ly_cadr (prev));
+      prevs[prev_idx] = scm_assoc (scm_cons (scm_int2num (o), scm_int2num (n)), sig);
+
+      if (gh_pair_p (prevs[prev_idx]))
+	prev_idx++;
     }
   
-  /* If an accidental was not found or the accidental was too old */
-  if (prev == SCM_BOOL_F ||
-      (gh_number_p (lazyness) && curbarnum_i > accbarnum_i + gh_scm2int (lazyness)))
-    prev = scm_assoc (scm_int2num (n), sig);
+  prevs[prev_idx] = scm_assoc (scm_int2num (n), sig);
+  if (gh_pair_p (prevs[prev_idx]))
+    prev_idx++;
 
+  for (int i= 0; i < prev_idx; i++)
+    {
+      if (gh_pair_p (prevs[i])
+	  && gh_pair_p (gh_cdr (prevs[i])))
+	{
+	  bar_nums[i]  = gh_scm2int (gh_cddr (prevs[i]));
+	  prevs[i] = scm_cons (gh_car (prevs[i]), gh_cadr (prevs[i]));
+	}
+    }
+  
 
-  SCM prev_acc = (prev == SCM_BOOL_F) ? scm_int2num (0) : ly_cdr (prev);
+  SCM prev_acc = scm_int2num (0);
+  for (int i= 0; i < prev_idx; i++)
+    {
+      if (accbarnum < 0
+	  || (gh_number_p (lazyness)
+	      && curbarnum > accbarnum + gh_scm2int (lazyness)))
+	{
+	  prev_acc = gh_cdr (prevs[i]);
+	  break;
+	}
+    }
 
+  /*
+    UGH. prev_acc can be #t in case of ties. What is this for?
+    
+   */
   int p = gh_number_p (prev_acc) ? gh_scm2int (prev_acc) : 0;
+
 
   int num;
   if (a == p && gh_number_p (prev_acc))
@@ -477,15 +514,7 @@ Accidental_engraver::process_music ()
   */
   if (last_keysig_ != sig)
     {
-      Context * trans_ = daddy_context_;
-      while (trans_)
-	{
-	  trans_ -> set_property ("localKeySignature",  ly_deep_copy (sig));
-	  trans_ = trans_->daddy_context_;
-	}
-      set_property_on_children (daddy_context_,"localKeySignature", sig);
-
-      last_keysig_ = sig;
+      update_local_key_signature ();
     }
 }
 
