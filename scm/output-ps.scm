@@ -154,7 +154,12 @@
     ;; FIXME:  now feta stuff has feta* input-encoding (again?)
     ;;(format (current-error-port) "FONT: ~S, ~S\n" name font-encoding)
     ;;(format (current-error-port) "INPUT: ~S\n" input-encoding)
-    (if (and coding-command (equal? (substring coding-command 0 4) "feta"))
+    (if (and coding-command
+	     (or
+	      (equal? (substring coding-command 0 4) "feta")
+	      (equal? (substring coding-command 0 8) "parmesan")
+
+	     ))
 	(set! coding-command #f))
 
     (string-append
