@@ -308,7 +308,7 @@ LY_DEFINE(ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
     
   SCM force_return = SCM_BOOL_F;
   if (!isinf (spacer.force_)
-      && spacer.is_active ())
+      && (spacer.is_active () || is_ragged))
     {
       force_return = scm_from_double (spacer.force_);
     }
