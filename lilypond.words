@@ -33,6 +33,7 @@ Beam
 \\broken
 \\cadenzaOff
 \\cadenzaOn
+\\center
 \\cg
 \\ch
 \\char
@@ -98,6 +99,7 @@ DynamicText
 F
 \\fatText
 \\fermata
+\\fermataMarkup
 \\ff
 \\fff
 \\ffff
@@ -296,6 +298,7 @@ RhythmicStaff
 \\Rhytmic
 \\RhytmicStaff
 \\right
+\\roman
 \\rtoe
 \\scale
 \\scales
