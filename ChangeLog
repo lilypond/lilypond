@@ -1,5 +1,7 @@
 2005-04-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/midi-stream.cc: Handle unwritable midi file.
+
 	* Documentation/user/: Fix links.
 
 2005-04-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
