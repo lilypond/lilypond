@@ -20,19 +20,7 @@
   Item is the datastructure for printables whose width is known
   before the spacing is calculated
 
-  NB. This doesn't mean an Item has to initialize the output field before
-  spacing calculation. 
-  
-  
-  Element properties
-  
-  visibility-lambda -- a function that takes the break
-  direction and returns a (transparent, empty) cons
-
-  breakable -- boolean indicating if this is a breakable item (clef,
-  barline, key sig, etc.)
-
-   */
+*/
 class Item : public Score_element
 {
   Drul_array<Item*> broken_to_drul_;

@@ -1,4 +1,3 @@
-
 /*   
   auto-beam-engraver.cc --  implement Auto_beam_engraver
   
@@ -7,6 +6,7 @@
   (c) 1999--2000 Jan Nieuwenhuizen <janneke@gnu.org>
   
  */
+
 #include "beaming.hh"
 #include "musical-request.hh"
 #include "beam.hh"
@@ -19,6 +19,9 @@
 #include "item.hh"
 #include "spanner.hh"
 
+/*
+  TODO: figure what to do in grace?
+ */
 class Auto_beam_engraver : public Engraver
 {
 public:
@@ -56,16 +59,8 @@ private:
   Beaming_info_list*finished_grouping_p_;
 };
 
-
-
-
 ADD_THIS_TRANSLATOR (Auto_beam_engraver);
 
-
-/*
-  TODO: remove all references to Timing_engraver; should read properties.
-  
- */
 Auto_beam_engraver::Auto_beam_engraver ()
 {
   stem_l_arr_p_ = 0;
@@ -74,7 +69,6 @@ Auto_beam_engraver::Auto_beam_engraver ()
   finished_grouping_p_ = 0;
   grouping_p_ = 0;
 }
-
 
 bool
 Auto_beam_engraver::do_try_music (Music*) 
@@ -95,7 +89,6 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
 
   int num = *unsmob_moment (get_property("measureLength")) / one_beat;
   int den = one_beat.den_i ();
-
   
   String time_str = String ("time") + to_str (num) + "_" + to_str (den);
 
@@ -219,7 +212,7 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
     return;
 
   if (begin_mom)
-    r =     unsmob_moment (get_property ("measurePosition"))->mod_rat (begin_mom);
+    r = unsmob_moment (get_property ("measurePosition"))->mod_rat (begin_mom);
   if (!stem_l_arr_p_ && (!begin_mom || !r))
     begin_beam ();
 }
@@ -449,4 +442,3 @@ Auto_beam_engraver::process_acknowledged ()
 	}
     }
 }
-

@@ -13,17 +13,18 @@
 }
 
 allup = \notes{
-	\property Voice.verticalDirection = \up
-	\property Voice.slurVerticalDirection = \up
-        \property Voice.tieVerticalDirection = \up
-	\property Voice.dynamicDirection = \up
+	\stemUp
+	\slurUp
+        \tieUp
+	\property Voice.DynamicLineSpanner \push #'direction = #1
 	\autoBeamOff
 }
+
 alldown = \notes{
-	\property Voice.verticalDirection = \down
-	\property Voice.slurVerticalDirection = \down
-        \property Voice.tieVerticalDirection = \down
-	\property Voice.dynamicDirection = \down
+	\stemDown
+	\slurDown
+        \tieDown
+	\property Voice.DynamicLineSpanner \push #'direction = #-1
 	\autoBeamOff
 }
 

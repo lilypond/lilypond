@@ -186,7 +186,7 @@ Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l, Real beauty)
       curve_.control_[2][X_AXIS] -= da[1] * u * pct;
     }
 
-  Real area = enclosed_area_f ();
+  //  Real area = enclosed_area_f ();
 }
 
 

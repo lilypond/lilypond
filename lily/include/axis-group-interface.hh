@@ -13,10 +13,7 @@
 #include "group-interface.hh"
 
 /**
-   Treat a group of elements as a union. This sets the parent of any S
-   added to ELT_L_ to ELT_L_.
 
-   Properties:
 */
 struct Axis_group_interface 
 {

@@ -296,9 +296,8 @@ Score_element::get_molecule ()  const
   Molecule m (create_molecule (mol));
 
   /*
-    This is almost the same as setting molecule-callback to #f, but
-    this retains the dimensions of this element, which means that you
-    can erase elements individually.  */
+    transparent retains dimensions of element.
+   */
   if (to_boolean (get_elt_property ("transparent")))
     m = Molecule (m.extent_box (), SCM_EOL);
 
@@ -319,26 +318,6 @@ Score_element::do_break_processing()
 
 
 
-
-MAKE_SCHEME_CALLBACK(Score_element,brew_molecule,1)
-
-/*
-  ugh.
- */  
-SCM
-Score_element::brew_molecule (SCM smob) 
-{
-  Score_element * sc = unsmob_element (smob);
-  SCM glyph = sc->get_elt_property ("glyph");
-  if (gh_string_p (glyph))
-    {
-      return sc->lookup_l ()->afm_find (String (ly_scm2string (glyph))).create_scheme ();
-    }
-  else
-    {
-      return SCM_EOL;
-    }
-}
 
 
 Line_of_score *

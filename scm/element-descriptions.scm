@@ -77,7 +77,7 @@
 	))
 
 	(Clef . (
-   	   (molecule-callback . ,Score_element::brew_molecule)
+   	   (molecule-callback . ,Clef::brew_molecule)
 	   (before-line-breaking-callback . ,Clef::before_line_breaking)
 	   (breakable . #t)
 	   (break-align-symbol . Clef_item)
@@ -195,7 +195,9 @@
 	
 	(InstrumentName . (
 		(breakable . #t)
-		(Y-offset-callbacks . (,Side_position::centered_on_parent))
+		(Y-offset-callbacks . (,Side_position::centered_on_parent
+				       ,Side_position::aligned_on_self))
+		(self-alignment-Y . 0)
 		(molecule-callback . ,Text_item::brew_molecule)		
 		(break-align-symbol . Instrument_name)
 		(visibility-lambda . ,begin-of-line-visible)
@@ -225,7 +227,7 @@
 	
 	(LineOfScore . (
 		(axes . (0 1))
-		(meta . ,(element-description "LineOfScore"  axis-group-interface))
+		(meta . ,(element-description "LineOfScore"  line-of-score-interface axis-group-interface))
 	))
 	
 	(LyricExtender . (
@@ -475,9 +477,11 @@
 		(arch-height . 1.5)
 		(arch-angle . 50.0)
 		(arch-thick . 0.25)
+		(glyph . bar-line)
 		(arch-width . 1.5)
 		(bracket-thick . 0.25)
 		(bracket-width . 2.0)
+		(Y-extent-callback . #f)
 		(meta . ,(element-description "SystemStartDelimiter" system-start-delimiter ))
 	))
 
@@ -504,7 +508,7 @@
 	(Tie . (
 		(molecule-callback . ,Tie::brew_molecule)
 		(spacing-procedure . ,Tie::set_spacing_rods)
-		(staffline-clearance . 0.24)
+		(staffline-clearance . 0.35)
 		(details . ((ratio . 0.333) (height-limit . 1.0)))
 		(thickness . 1.2)
 		(x-gap . 0.2)

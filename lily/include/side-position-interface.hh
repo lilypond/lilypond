@@ -13,17 +13,10 @@
 #include "spanner.hh"
 #include "item.hh"
 
-/**
-   Position victim object (ELT_L_) next to other objects (the support).
+/*
+  TODO: move  out unrelated callbacks.
 
-   side-support -- list of score elements
-
-   direction-source -- in case side-relative-direction is set, where
-     to get the direction
-
-   TODO: move  out unrelated callbacks.
-
-   TODO: reduce number of methods.
+  TODO: reduce number of methods.
 */
 struct Side_position
 {

@@ -24,30 +24,12 @@ enum Score_element_status {
   PRECALCED,		// calcs before spacing done
   POSTCALCING,		// busy calculating. This is used to trap cyclic deps.
   POSTCALCED,		// after spacing calcs done
-  BREWING,
-  BREWED,
 };
 
 typedef void (Score_element::*Score_element_method_pointer) (void);
 
-/**
+/*
    Basic output object.
-
-    Element Properties:
-
-   transparent -- boolean: if true, do not print anything black.
-
-   dependencies -- list of score-element pointers that indicate who to
-   compute first.
-
-   interfaces -- list of symbols indicating the interfaces supported
-   by this object.
-
-   extra-offset -- pair of reals (a cons) forcing an extra offset
-   before outputting
-
-   glyph -- afm character name to output.
-   
 */
 class Score_element  {
   /**
@@ -138,8 +120,6 @@ public:
   bool has_interface (SCM intf);
   void set_interface (SCM intf);
 
-
-  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
 

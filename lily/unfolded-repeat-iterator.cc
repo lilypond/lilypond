@@ -53,6 +53,8 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 
 	- go to alternative if we're a volta
 
+	- make a :| if there are no alternatives   
+	
 	- do something intelligent when we're fully unfolding (fixcomment)
        */
       
@@ -74,7 +76,11 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 					     ly_str02scm (repstr.ch_C()), SCM_UNDEFINED));
 	    }	  
 	}
-      else if (done_count_ <  repmus->repeats_i_ && !repmus->volta_fold_b_) 
+      else if (repmus->volta_fold_b_)
+	{
+	  add_repeat_command (ly_symbol2scm ("end-repeat"));
+	}
+      else if (done_count_ <  repmus->repeats_i_)
 	{
 	  current_iter_p_ = get_iterator_p (repmus->body ());
 	  do_main_b_ = true;

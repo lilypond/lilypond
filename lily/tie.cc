@@ -129,17 +129,27 @@ Tie::get_control_points (SCM smob)
 
   Real x_gap_f = gh_scm2double (me->get_elt_property ("x-gap"));
 
-  Score_element* commonx = me->common_refpoint (me->get_bound (LEFT), X_AXIS);
-  commonx = me->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  
   Score_element* l = me->get_bound (LEFT);
   Score_element* r = me->get_bound (RIGHT);  
 
+  Score_element* commonx = me->common_refpoint (l, X_AXIS);
+  commonx = me->common_refpoint (r, X_AXIS);
+  
   Real left_x;
+
+  /*
+    this is a kludge: the tie has to be long enough to be
+    visible, but should not go through key sigs.
+
+    (please fixme)
+   */
+  Real lambda = 0.5;		
+  
   if (Note_head::has_interface (me->get_bound (LEFT)))
     left_x = l->extent (l, X_AXIS)[RIGHT] + x_gap_f;
   else
-    left_x = l->extent (l, X_AXIS).length () / 2;
+    left_x = l->extent (l, X_AXIS).linear_combination (lambda);
+  
 
   Real width;
   if (Note_head::has_interface (me->get_bound (LEFT))
@@ -157,10 +167,9 @@ Tie::get_control_points (SCM smob)
 	  - l->extent (commonx, X_AXIS)[RIGHT]
 	  - 2 * x_gap_f;
       else
-	width = 
-	  - l->extent (l, X_AXIS).length () / 2
+	width =
+	  - l->extent (commonx, X_AXIS).linear_combination (lambda)  
 	  + r->extent (commonx, X_AXIS)[LEFT]
-	  - l->relative_coordinate (commonx, X_AXIS)
 	  - 2 * x_gap_f;
     }
   
@@ -212,9 +221,12 @@ Tie::get_control_points (SCM smob)
 
   /*
     Avoid colliding of the horizontal part with stafflines.
-    
-    should do me for slurs as well.
 
+    
+    TODO: redo this, heuristic is half-baken, and ties often look ugly
+    as a result.
+
+    TODO: doesn't work when on staff with even number of lines.
    */
   Array<Real> horizontal (b.solve_derivative (Offset (1,0)));
   if (horizontal.size ())
@@ -233,7 +245,20 @@ Tie::get_control_points (SCM smob)
 	if (fabs (y) <= Staff_symbol_referencer::staff_radius (me)
 	  && fabs (diff) < clear)
 	{
-	  newy = ry - 0.5 * staff_space * sign (diff) ;
+	  Real y1 = ry + clear;
+	  Real y2 = ry - clear;
+	  
+	  newy =  (fabs (y1 - y) < fabs (y2 - y)) ? y1 : y2;
+	  
+	  //	  newy = ry - 0.5 * staff_space * sign (diff) ;
+
+	  /*
+	    we don't want horizontal ties
+	   */
+	  if (fabs (newy - b.control_[0][Y_AXIS]) < 1e-2)
+	    {
+	      newy = newy + dir * staff_space; 
+	    }
 	}
 
       Real y0 = b.control_ [0][Y_AXIS];
