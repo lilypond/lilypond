@@ -1,6 +1,7 @@
 # -*-rpm-spec-mode-*-
 
 %define info yes
+%define docdir %{_docdir}/lilypond/
 
 Name: lilypond
 Version: @TOPLEVEL_VERSION@
@@ -27,7 +28,7 @@ Group: Applications/Publishing
 
 %description documentation
 Documentation and example files of LilyPond. An index is available at
-%{_docdir}/web/Documentation/out-www/index.html
+%{docdir}/web/Documentation/out-www/index.html
 
 %prep
 %setup
@@ -41,6 +42,7 @@ Documentation and example files of LilyPond. An index is available at
 # because RPM will gladly do a substitution anyway.
 
 ./configure --disable-checking --prefix=%{_prefix} --enable-optimising
+
 
 make MAKE_PFA_FILES=1 all
 make -C mf/ pfa

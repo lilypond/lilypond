@@ -229,7 +229,6 @@ on PMX is available from the following site:
 @cindex PMX
 @cindex MusiXTeX
 @cindex Simons, Don
-
 pmx2ly converts from PMX to LilyPond input. The program is invoked as
 follows:
 
@@ -247,6 +246,13 @@ set output filename to FILE
 @item  -v,--version
 version information
 @end table
+
+@refbugs
+
+This script was updated last in September 2000, and then successfully
+converted the @file{barsant.pmx} example from the PMX
+distribution. Apparently no-one has ever bothered to use pmx2ly, since
+pmx2ly can not parse recent PMX files.
 
 
 @node Invoking musedata2ly
