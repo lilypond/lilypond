@@ -57,7 +57,7 @@ $(outdir)/%.dvi: $(depth)/input/%.ly $(depth)/VERSION
 
 # generate the pixmap at twice the size, then rescale (for antialiasing)
 $(outdir)/%.gif: $(outdir)/%.ps
-	gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $< -c quit |pnmscale 0.5| ppmtogif > $@
+	gs  -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $< -c quit |pnmscale 0.5| ppmtogif > $@
 
 $(outdir)/%.ly.txt: $(depth)/input/%.ly
 	ln -f $< $@
