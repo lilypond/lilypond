@@ -1,5 +1,8 @@
 2002-07-25  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/slur.cc (get_first_notecolumn_y): robustness: don't crash
+	if no note-columns.
+
 	* server.el.patch: new file.
 
 	* Documentation/user/refman.itely (Point and click):  updates.

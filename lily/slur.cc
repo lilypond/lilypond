@@ -223,12 +223,19 @@ Slur::set_extremities (Grob *me)
 Real
 Slur::get_first_notecolumn_y (Grob *me, Direction dir)
 {
-  Grob *col = dir == LEFT
-    ? unsmob_grob (ly_car (scm_reverse (me->get_grob_property
- ("note-columns"))))
-    : unsmob_grob
- (ly_car (me->get_grob_property ("note-columns")));
+  SCM cols = me->get_grob_property ("note-columns");
+
+  if(!gh_pair_p (cols))
+    {
+      programming_error ("No note-columns in slur?");
+      me->suicide ();
+      return 0.0;
+    }
   
+  if (dir == LEFT)
+    cols = scm_reverse(cols);
+  
+  Grob *col = unsmob_grob (ly_car (cols));
   Grob *common[] =
   {
     0,

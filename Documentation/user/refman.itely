@@ -628,6 +628,7 @@ newer.  Enablle the menu Settings -> Inverse search.
 @item Emacs. Emacs is an extensible text-editor.  It is available from
 @uref{http://www.gnu.org/software/emacs/}.  You need version 21 to use
 column location.
+@item XEmacs. Xemacs is very similar to emacs.
 @item NEdit.  NEdit runs under Windows, and Unix.
   It is available from @uref{http://www.nedit.org}.
 @item GVim.  GVim is a lightweight GUI variant of VIM, the popular VI
@@ -666,10 +667,13 @@ Make sure that the environment variable @var{XEDITOR} is set to
 emacsclient --no-wait +%l %f
 @end example
 @cindex @var{XEDITOR}
-For using Vim, set @var{XEDITOR} to @code{gvim +%l %f}, or use this
+If you use xemacs instead of emacs, you use @code{(gnuserve-start)} in
+your @file{.emacs}, and set @code{XEDITOR} to @code{gnuclient -q +%l %f}
+
+For using Vim, set @code{XEDITOR} to @code{gvim +%l %f}, or use this
 argument with xdvi's @code{-editor} option.
 @cindex NEdit
-For using NEdit, set @var{XEDITOR} to @code{nc -noask +%l %f}, or
+For using NEdit, set @code{XEDITOR} to @code{nc -noask +%l %f}, or
 use this argument with xdvi's @code{-editor} option.
 
 If can also make your editor jump to the exact location of the note
@@ -682,7 +686,7 @@ line,
 #(set! point-and-click line-column-location)
 @end example
 @cindex line-colomn-location
-and set @var{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}.
+and set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}.
 
 @refbugs
 
