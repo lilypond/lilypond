@@ -296,9 +296,56 @@ lower = \relative c {
    \layout {
       \context { \RemoveEmptyStaffContext }
    }  
-   \midi { \tempo 4=60}
+   \midi { \tempo 4=60 }
 }
 
+@end lilypond
+
+
+@subsection Piano centered lyrics
+
+Instead of having a full staff for the melody and lyrics, you can place
+the lyrics between the piano staff (and omit the separate melody staff).
+
+@lilypond[verbatim,raggedright]
+
+\version "2.3.22"
+upper = \relative c'' {
+   \clef treble
+   \key c \major
+   \time 4/4
+
+   a b c d
+}
+
+lower = \relative c {
+   \clef bass
+   \key c \major
+   \time 4/4
+
+   a2 c
+}
+
+text = \lyricmode {
+   Aaa Bee Cee Dee
+}
+
+\score {
+  \context GrandStaff <<
+    \context Staff = upper {
+	\context Voice = singer \upper }
+    \lyricsto "singer" \new Lyrics \text
+    \context Staff = lower <<
+      \clef bass
+      \lower
+    >>  
+  >>
+  \layout {
+    \context { \GrandStaff \accepts "Lyrics" }
+    \context { \Lyrics \consists "Bar_engraver" }
+  }  
+  \midi { \tempo 4=60 }
+}
 @end lilypond
 
 
