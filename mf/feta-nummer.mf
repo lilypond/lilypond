@@ -5,7 +5,6 @@ test:=0;
 
 input feta-autometric;
 input feta-macros;
-input feta-params;
 
 
 
@@ -41,7 +40,11 @@ widen:=designsize*h+b;
 tense=0.85;
 thick#:=7/30height#*fatten;
 thin#:=thick#/4*fatten  + max(.1 (height# / 10 - 1), 0);
-hair#:= sqrt(.8 * blot_diameter#* thin#) ;
+
+%% sqrt(.8 * blot_diameter#* thin#) ;
+hair#:= thin# * .8 ;
+
+
 flare#:=9/8 thick# + .75 (height# / 10 - 1);
 
 save b,h; 4h+b=1/8; 10h+b=1/6;
