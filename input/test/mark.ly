@@ -8,7 +8,7 @@ global =  \notes {
   s1 | \mark "12"
   s1 | \mark \default 
   s1 | \mark "A2"
-%% FIXME  s1 | \mark #'(music "scripts-segno")  
+  s1 | \mark #'(music "scripts-segno")  
   s1
 }
 

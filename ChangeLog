@@ -1,3 +1,10 @@
+2002-07-22  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/test/mark.ly: 
+	* Documentation/user/refman.itely: Re-enable \mark #'() example.
+
+	* lily/parser.yy: Revert to MARK scalar.
+
 2002-07-21  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/accidental-placement.cc (stagger_apes): try to arrange accs
