@@ -10,16 +10,17 @@ texidoc = "
 
 
 \score{
-<<	\notes \relative c' \context Voice = "bla" {
+    <<
+	\notes \relative c' \context Voice = "bla" {
 	    \autoBeamOff
 	    c4( c16 d c b)  c4
 	    d16[ e f g]
 	    
 	}
-	\lyrics  \lyricsto  "bla" \context Lyrics {
+	\lyricsto "bla" \context Lyrics \lyrics {
 	    alllll __ tijd
 	    izzz
-	} >>
-	
+	}
+    >>
     \paper { raggedright = ##t }
 }
