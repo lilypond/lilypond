@@ -63,6 +63,9 @@
 ;; See input/test/american-chords.ly
 ;;
 ;; James Hammons, <jlhamm@pacificnet.net>
+;;
+
+;; DONT use non-ascii characters, even if ``it works'' in Windows
 
 (define chord::names-alist-american '())
 (set! chord::names-alist-american
@@ -106,7 +109,7 @@
 	 )
       chord::names-alist-american))
 
-;; Jazz chords, by Atte André Jensen <atte@post.com>
+;; Jazz chords, by Atte Andr'e Jensen <atte@post.com>
 ;; NBs:	This uses the american list as a base.
 ;;	Some defs take up more than one line,
 ;; be carefull when messing with ;'s!!
@@ -120,6 +123,8 @@
 ;; 
 ;;       
 ;;
+;; DONT use non-ascii characters, even if ``it works'' in Windows
+
 (define chord::names-alist-jazz '())
 (set! chord::names-alist-jazz
       (append 
@@ -214,17 +219,21 @@
 
 	;; diminished chord(s)
 	; diminished seventh chord =  o
-	;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (((raise . 0.8)"o"))); works, but "o" is a little big
-	(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (("°")))
+
+
+	;; DONT use non-ascii characters, even if ``it works'' in Windows
+	
+	;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (((raise . 0.8)"o"))); works, but "o" is a little big
+	(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ((raise . 0.8) (size . -2) ("o")))
 
 	;; half diminshed chords
 	; half diminished seventh chord = slashed o
-	(((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (((raise . 0.8)"ø"))); works, but "ø" is a little big
+	(((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (((raise . 0.8)"/o")))
 	; half diminished seventh chord  with major 9 = slashed o cancelation 9
 	(((0 . 0) (2 . -1) (4 . -1) (6 . -1) (1 . 0)) . (
-		((raise . 0.8)"ø(")
+		((raise . 0.8)"/o(")
 		((raise . 0.3)(music (named ("accidentals-0"))))
-		((raise . 0.8)"9)"))); works, but "ø" is a little big
+		((raise . 0.8)"9)"))); 
 
 ;; Missing jazz chord definitions go here (note new syntax: see american for hints)
 

@@ -44,7 +44,7 @@ c:13-.9+^11	% 7(#9,b13)
 
 % half diminished chords
 c:m5-.7		% slashed o = m7b5
-c:9.3-.5-	% ø7(pure 9)
+c:9.3-.5-	% o/7(pure 9)
 
 % diminished chords
 c:m5-.7-	% o = diminished seventh chord

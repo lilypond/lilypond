@@ -160,6 +160,10 @@ Local_key_engraver::process_acknowledged ()
     {
       /*
 	Hmm. Which one has to be on the left?
+
+	On which left, code or paper?
+
+	(Arpeggios are engraved left of accidentals, of course.)
        */
       for (int i=0;  i < arpeggios_.size ();  i++)
 	Side_position::add_support (arpeggios_[i], key_item_p_);
