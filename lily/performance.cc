@@ -92,7 +92,8 @@ Performance::output_header_track (Midi_stream& midi_stream)
   Midi_text creator (&creator_a);
   midi_track.add (Moment (0), &creator);
 
-  str = _("Generated automatically by: ");
+  /* Better not translate this */
+  str = "Generated automatically by: ";
   str += id_str;
   if (no_timestamps_global_b)
     str += ".\n";
@@ -145,15 +146,15 @@ Performance::add_element (Audio_element *p)
 void
 Performance::process()
 {
-  String out = outname_global;
+  String out = output_name_global;
   if (out == "-")
     out = "lelie.midi";
-  int def = midi_l_->get_next_default_count ();
+  int def = midi_l_->get_next_score_count ();
   if (def)
     {
       Path p = split_path (out);
       p.base += "-" + to_str (def);
-      out = p.path ();
+      out = p.str ();
     }
   
   Midi_stream midi_stream (out);

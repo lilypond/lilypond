@@ -60,9 +60,9 @@ do_deps()
 {
   if (dependency_global_b)
     {
-      Path p = split_path (outname_global);
+      Path p = split_path (output_name_global);
       p.ext = "dep";
-      write_dependency_file (p.path (),
+      write_dependency_file (p.str (),
 			     target_str_global_array,
 			     inclusion_global_array);
     }
@@ -81,7 +81,7 @@ do_scores()
       if (is_p->errorlevel_i_)
 	{
 	  is_p->warning (_("Score contains errors; will not process it"));
-	  exit_status_i_ |= 1;
+	  exit_status_global |= 1;
 	}
       else
 	{
@@ -132,7 +132,7 @@ do_one_file (String init_str, String file_str)
 
     if (parser.error_level_i_)
       {
-	exit_status_i_  = 1;
+	exit_status_global  = 1;
       }
     else
       do_scores ();

@@ -74,7 +74,7 @@ Simple_file_storage::Simple_file_storage (String s)
   data_p_ = 0;
   len_i_ = 0;
 
-  if (!s.length_i () || (s == "-"))
+  if ((s == "-"))
     load_stdin ();
   else
     load_file (s);

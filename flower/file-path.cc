@@ -5,6 +5,7 @@
 #include "config.h"
 #include <stdio.h>
 #include <errno.h>
+
 #if HAVE_SYS_STAT_H 
 #include <sys/stat.h>
 #endif
@@ -28,8 +29,9 @@
 #define EXTSEP '.'
 #endif
 
+/* Join components to full path. */
 String
-Path::path () const
+Path::str () const
 {
   String s;
   if (!root.empty_b ())

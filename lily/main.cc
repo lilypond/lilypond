@@ -11,16 +11,20 @@
 #include <assert.h>
 #include <locale.h>
 
+#include "config.h"
+
+#if HAVE_GETTEXT
+#include <libintl.h>
+#endif
+
 #include "lily-guile.hh"
 #include "lily-version.hh"
-
 #include "all-font-metrics.hh"
 #include "getopt-long.hh"
 #include "misc.hh"
 #include "string.hh"
 #include "main.hh"
 #include "file-path.hh"
-#include "config.h"
 #include "file-results.hh"
 #include "debug.hh"
 #include "lily-guile.hh"
@@ -30,42 +34,61 @@
 #include "kpath.hh"
 
 
-#if HAVE_GETTEXT
-#include <libintl.h>
-#endif
+/*
+  Global options that can be overridden through command line.
+*/
 
-
-
-bool verbose_global_b = false;
-bool no_paper_global_b = false;
-bool no_timestamps_global_b = false;
-bool find_old_relative_b = false;
-
-All_font_metrics *all_fonts_global_p;
-
-String outname_global;
-// Hmm:
-// (lytex-scm (quote all-definitions))
-// String outext_global = "lytex";
-String outext_global = "tex";
-
-String init_name_global;
-
-// default? count
-int default_count_global;
-File_path global_path;
-
-Array<String> global_dumped_header_fieldnames;
-
-bool safe_global_b = false;
-bool experimental_features_global_b = false;
+/* Write dependencies file? */
 bool dependency_global_b = false;
 
-int exit_status_i_;
+/* Names of header fields to be dumped to a separate file. */
+Array<String> dump_header_fieldnames_global;
 
-Getopt_long * oparser_global_p = 0;
+/* Name of initialisation file. */
+String init_name_global;
 
-Path distill_inname (String name_str);
+/* Do not calculate and write paper output? */
+bool no_paper_global_b = false;
+
+/* Do not write timestamps in output? */
+bool no_timestamps_global_b = false;
+
+/* Selected output format.
+   One of tex, ps, scm, as. */
+String output_format_global = "tex";
+
+/* Current output name. */
+String output_name_global;
+
+/* Run in safe mode? -- FIXME: should be re-analised */
+bool safe_global_b = false;
+
+/* Verbose progress indication? */
+bool verbose_global_b = false;
+
+
+
+/*
+  Misc. global stuff.
+ */
+
+
+All_font_metrics *all_fonts_global_p;
+int exit_status_global;
+File_path global_path;
+
+/* Number of current score output block.  If there's more than one
+   score block, this counter will be added to the output filename. */
+int score_count_global;
+
+
+
+/*
+  File globals.
+ */
+
+/*  The option parser */
+static Getopt_long *oparser_p_static = 0;
 
 /*
  Internationalisation kludge in two steps:
@@ -75,7 +98,7 @@ Path distill_inname (String name_str);
  Note: these messages all start with lower case (ie, don't
        follow regular localisation guidelines).
  */
-Long_option_init theopts[] = {
+static Long_option_init options_static[] = {
   {_i ("EXT"), "output-format", 'f',  _i ("use output format EXT (scm, ps, tex or as)")},
   {0, "help", 'h',  _i ("this help")},
   {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
@@ -84,10 +107,8 @@ Long_option_init theopts[] = {
   {0, "dependencies", 'M',  _i ("write Makefile dependencies for every input file")},
   {0, "no-paper", 'm',  _i ("produce MIDI output only")},
   {_i ("NAME"), "output", 'o',  _i ("write output to NAME")},
-  {0, "find-old-relative", 'Q',  _i ("show all changes in relative syntax")},
   {0, "safe", 's',  _i ("inhibit file output naming and exporting")},
   {0, "no-timestamps", 'T',  _i ("don't timestamp the output")},
-  {0, "test", 't',  _i ("switch on experimental features")},
   {0, "version", 'v',  _i ("print version number")},
   {0, "verbose", 'V', _i("verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},
@@ -121,7 +142,7 @@ _(
   cout << '\n';
   cout << _ ("Options:");
   cout << '\n';
-  cout << Long_option_init::table_str (theopts);
+  cout << Long_option_init::table_str (options_static);
   cout << '\n';
   cout << _ ("This binary was compiled with the following options:") 
     << " " <<
@@ -248,6 +269,45 @@ setup_paths ()
     }
 }
 
+/**
+  Make input file name from command argument.
+
+  Path describes file name with added default extension,
+  ".ly" if none.  "-" is stdin.
+ */
+Path
+distill_inname (String str)
+{
+  Path p = split_path (str);
+  if (str.empty_b () || str == "-")
+    p.base = "-";
+  else
+    {
+      String orig_ext = p.ext;
+      char const *extensions[] = {"ly", "fly", "sly", "", 0};
+      for (int i = 0; extensions[i]; i++)
+	{
+	  p.ext = orig_ext;
+	  if (*extensions[i] && !p.ext.empty_b ())
+	    p.ext += ".";
+	  p.ext += extensions[i];
+	  if (!global_path.find (p.str ()).empty_b ())
+	      break;
+	}
+      /* Reshuffle extension */
+      p = split_path (p.str ());
+    }
+  return p;
+}
+
+String
+format_to_ext (String format)
+{
+  if (format == "tex")
+    /* .lytex change in separate (revertable) patch: 1.3.130.jcn4 */
+    return "tex"; // "lytex";
+  return format;
+}
 
 void
 main_prog (int, char**)
@@ -266,7 +326,7 @@ main_prog (int, char**)
 
   int p=0;
   const char *arg ;
-  while ((arg = oparser_global_p->get_next_arg ()) || p == 0)
+  while ((arg = oparser_p_static->get_next_arg ()) || p == 0)
     {
       String infile;
       
@@ -280,38 +340,50 @@ main_prog (int, char**)
       // file, but only if user didn't specify a outname?  Huh?
       // if (outname_str_global == "")
       {
-	Midi_def::reset_default_count ();
-	Paper_def::reset_default_count ();
+	Midi_def::reset_score_count ();
+	Paper_def::reset_score_count ();
       }
 
       Path inpath = distill_inname (infile);
+
+      /* By default, use base name of input file for output file name */
       Path outpath = inpath;
-      outpath.ext = outext_global;
-      if (!outname_global.empty_b ())
-	outpath = split_path (outname_global);
+      if (inpath.str () != "-")
+	outpath.ext = format_to_ext (output_format_global);
+
+      /* By default, write output to cwd; do not copy directory part
+         of input file name */
+      outpath.root = "";
+      outpath.dir = "";
+      
+      if (!output_name_global.empty_b ())
+	outpath = split_path (output_name_global);
       
       String init;
       if (!init_name_global.empty_b ())
 	init = init_name_global;
-      else
+      else if (!inpath.ext.empty_b ())
 	init = "init." + inpath.ext;
-
+      else
+	init = "init.ly";
+	
       /* Burp: output name communication goes through _global */
-      String save_outname_global = outname_global;
-      outname_global = outpath.path ();
-      do_one_file (init, inpath.path ());
-      outname_global = save_outname_global;
+      String save_output_name_global = output_name_global;
+      output_name_global = outpath.str ();
+      do_one_file (init, inpath.str ());
+      output_name_global = save_output_name_global;
+      
       p++;
     }
-  delete oparser_global_p;
-  exit (exit_status_i_);
+  delete oparser_p_static;
+  exit (exit_status_global);
 }
 
 
 int
 main (int argc, char **argv)
 {
-  debug_init ();		// should be first
+  debug_init ();		// should be first (can see that; but Why?)
   setup_paths ();
 
   /*
@@ -324,8 +396,8 @@ main (int argc, char **argv)
 
   ly_init_kpath (argv[0]);
   
-  oparser_global_p = new Getopt_long(argc, argv,theopts);
-  while (Long_option_init const * opt = (*oparser_global_p)())
+  oparser_p_static = new Getopt_long(argc, argv, options_static);
+  while (Long_option_init const * opt = (*oparser_p_static)())
     {
       switch (opt->shortname_ch_)
 	{
@@ -333,17 +405,13 @@ main (int argc, char **argv)
 	  version ();
 	  exit (0);		// we print a version anyway.
 	  break;
-	case 't':
-	  experimental_features_global_b = true;
-	  progress_indication ("*** enabling experimental features, you're on your own now ***\n");
-	  break;
 	case 'o':
 	  {
-	    String s = oparser_global_p->optional_argument_ch_C_;
+	    String s = oparser_p_static->optional_argument_ch_C_;
 	    Path p = split_path (s);
 	    if (p.ext.empty_b ())
-	      p.ext = outext_global;
-	    outname_global = p.path ();
+	      p.ext = format_to_ext (output_format_global);
+	    output_name_global = p.str ();
 	  }
 	  break;
 	case 'w':
@@ -351,19 +419,16 @@ main (int argc, char **argv)
 	  exit (0);
 	  break;
 	case 'f':
-	    outext_global = oparser_global_p->optional_argument_ch_C_;
-	  break;
-	case 'Q':
-	  find_old_relative_b= true;
+	    output_format_global = oparser_p_static->optional_argument_ch_C_;
 	  break;
 	case 'H':
-	  global_dumped_header_fieldnames.push (oparser_global_p->optional_argument_ch_C_);
+	  dump_header_fieldnames_global.push (oparser_p_static->optional_argument_ch_C_);
 	  break;
 	case 'I':
-	  global_path.push (oparser_global_p->optional_argument_ch_C_);
+	  global_path.push (oparser_p_static->optional_argument_ch_C_);
 	  break;
 	case 'i':
-	  init_name_global = oparser_global_p->optional_argument_ch_C_;
+	  init_name_global = oparser_p_static->optional_argument_ch_C_;
 	  break;
 	case 'h':
 	  usage ();
@@ -400,34 +465,4 @@ main (int argc, char **argv)
   return 0;			// unreachable
 }
 
-/**
-  Make input file name from command argument.
-
-  Path describes file name with added default extension,
-  ".ly" if none.  "-" is stdin.
- */
-Path
-distill_inname (String str)
-{
-  Path p = split_path (str);
-  if (str.empty_b () || str == "-")
-    p.base = "-";
-  else
-    {
-      String orig_ext = p.ext;
-      char const *extensions[] = {"ly", "fly", "sly", "", 0};
-      for (int i = 0; extensions[i]; i++)
-	{
-	  p.ext = orig_ext;
-	  if (*extensions[i] && !p.ext.empty_b ())
-	    p.ext += ".";
-	  p.ext += extensions[i];
-	  if (!global_path.find (p.path ()).empty_b ())
-	      break;
-	}
-      /* Reshuffle extension */
-      p = split_path (p.path ());
-    }
-  return p;
-}
 

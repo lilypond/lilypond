@@ -21,7 +21,7 @@
 #include "ly-smobs.icc"
 
 int
-Music_output_def::get_next_default_count () const
+Music_output_def::get_next_score_count () const
 {
   return 0;
 }
@@ -134,13 +134,13 @@ Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)
 String
 Music_output_def::outname_str () 
 {
-  String out = outname_global;
-  int def = get_next_default_count ();
-  if (def)
+  String out = output_name_global;
+  int def = get_next_score_count ();
+  if (def && out != "-")
     {
       Path p = split_path (out);
       p.base += "-" + to_str (def);
-      out = p.path ();
+      out = p.str ();
     }
   return out;
 }

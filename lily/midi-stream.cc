@@ -27,7 +27,7 @@ Midi_stream::~Midi_stream ()
   if (!*os_p_)
     {
       warning (_ ("Error syncing file (disk full?)"));
-      exit_status_i_ = 1;
+      exit_status_global = 1;
     }
   delete os_p_;
 }

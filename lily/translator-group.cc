@@ -414,7 +414,7 @@ type_check_assignment (SCM val, SCM sym,  SCM type_symbol)
 	  SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
 	  SCM type_name = gh_call1 (typefunc, type_p);
 
-	  scm_puts (_f ("Failed typecheck for `%s', value `%s' must be of type `%s'",
+	  scm_puts (_f ("Type check for `%s' failed; value `%s' must be of type `%s'",
 			ly_symbol2string (sym).ch_C (),
 			ly_scm2string (ly_write2scm( val)).ch_C (),
 			ly_scm2string (type_name).ch_C ()).ch_C (),

@@ -107,7 +107,6 @@ Chord_tremolo_engraver::process_music ()
       if (sequential_body_b_ && !beam_p_)
 	{
 	  beam_p_ = new Spanner (get_property ("Beam"));
-	  Beam::set_interface (beam_p_);
 	  beam_p_->set_grob_property ("chord-tremolo", SCM_BOOL_T);
 
 

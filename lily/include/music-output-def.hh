@@ -35,7 +35,7 @@ public:
   VIRTUAL_COPY_CONS(Music_output_def);
   Music_output_def (Music_output_def const&);
   Music_output_def ();
-  virtual int get_next_default_count () const;
+  virtual int get_next_score_count () const;
 
   Global_translator *get_global_translator_p ();
   Translator_group *get_group_translator_p (String type) const;

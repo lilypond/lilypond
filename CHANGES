@@ -1,7 +1,16 @@
-1.3.130.jcn2
+1.3.130.jcn3
 ============
 
-////* Changed default output extension to ".lytex".
+* nl.po update.
+
+* Bugfixes and cleanups of mainly main.cc.
+
+* Enabled changing default tex output extension to ".lytex".
+
+* Bugfix: use init file extension .ly for extensionless input.
+
+1.3.130.jcn2
+============
 
 * Ignore outname = ; settings in output blocks.
 

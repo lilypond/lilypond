@@ -7,9 +7,13 @@
 */
 
 #include <errno.h>
-#include <sys/stat.h>
 #include <sys/types.h>
 #include <fstream.h>
+
+#include "config.h"
+#if HAVE_SYS_STAT_H 
+#include <sys/stat.h>
+#endif
 
 #include "main.hh"
 #include "paper-stream.hh"
@@ -22,7 +26,9 @@ ostream *
 open_file_stream (String filename)
 {
   ostream *os;
-  if (!filename.empty_b () && (filename != "-"))
+  if ((filename == "-"))
+    os = new ostream (cout._strbuf);
+  else
     {
       Path p = split_path (filename);
       if (!p.dir.empty_b ())
@@ -30,8 +36,6 @@ open_file_stream (String filename)
 	  error (_f ("can't create directory: `%s'", p.dir));
       os = new ofstream (filename.ch_C ());
     }
-  else
-    os = new ostream (cout._strbuf);
   if (!*os)
     error (_f ("can't open file: `%s'", filename));
   return os;
@@ -44,7 +48,7 @@ close_file_stream (ostream *os)
   if (!*os)
     {
       warning (_ ("Error syncing file (disk full?)"));
-      exit_status_i_ = 1;
+      exit_status_global = 1;
     }
   delete os;
 }  
