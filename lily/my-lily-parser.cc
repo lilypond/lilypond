@@ -36,7 +36,7 @@ My_lily_parser::My_lily_parser (Sources *sources)
   last_beam_start_ = SCM_EOL;
   header_ = SCM_EOL;
 
-  header_ = ly_make_anonymous_module ();
+  header_ = ly_make_anonymous_module (safe_global_b);
   smobify_self ();
 }
 

@@ -38,67 +38,15 @@ Paper_outputter::Paper_outputter (String filename)
   file_ = scm_open_file (scm_makfrom0str (filename.to_str0 ()),
 			 scm_makfrom0str ("w"));
 
+  /*
+    UGH. -> global variable. 
+   */
   if (safe_global_b)
     scm_define (ly_symbol2scm ("safe-mode?"), SCM_BOOL_T);      
 
   String module_name = "scm output-" + output_format_global;
-  if (safe_global_b)
-    {
-      /* In safe mode, start from a GUILE safe-module and import
-	 all symbols from the output module.  */
-      scm_c_use_module ("ice-9 safe");
-      SCM msm = scm_primitive_eval (ly_symbol2scm ("make-safe-module"));
-      output_module_ = scm_call_0 (msm);
-      ly_import_module (output_module_,
-			scm_c_resolve_module (module_name.to_str0 ()));
-    }
-  else
-    output_module_ = scm_c_resolve_module (module_name.to_str0 ());
+  output_module_ = scm_c_resolve_module (module_name.to_str0 ());
   
-  /* FIXME: output-lib should be module, that can be imported.  */
-#define IMPORT_LESS 1 // only import the list of IMPORTS
-#if IMPORT_LESS
-  scm_c_use_module ("lily");
-  scm_c_use_module ("ice-9 regex");
-  scm_c_use_module ("srfi srfi-1");
-  scm_c_use_module ("srfi srfi-13");
-#endif
-  char const *imports[] = {
-    "lilypond-version",          /* from lily */
-    "ly:output-def-scope",
-    "ly:gulp-file",
-    "ly:number->string",
-    "ly:ragged-page-breaks",
-    "ly:optimal-page-breaks",
-    
-    "ly:number-pair->string",    /* output-lib.scm */
-    "ly:numbers->string",
-    "ly:inexact->string",
-    
-    "assoc-get",
-#if IMPORT_LESS	
-    "remove",                    /* from srfi srfi-1 */
-    "string-index",              /* from srfi srfi-13 */
-    "string-join",
-    "regexp-substitute/global",  /* from (ice9 regex) */
-#endif	
-    0,
-  };
-      
-  for (int i = 0; imports[i]; i++)
-    {
-      SCM s = ly_symbol2scm (imports[i]);
-      scm_module_define (output_module_, s, scm_primitive_eval (s));
-    }
-#ifndef IMPORT_LESS  // rather crude, esp for safe-mode let's not
-  SCM m = scm_set_current_module (output_module_);
-  /* not present in current module*/
-  scm_c_use_module ("ice-9 regex");
-  scm_c_use_module ("srfi srfi-13");
-  /* Need only a few of these, see above
-     scm_c_use_module ("lily"); */
-  scm_set_current_module (m);
-#endif
 }
 
 Paper_outputter::~Paper_outputter ()

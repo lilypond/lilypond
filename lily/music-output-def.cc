@@ -26,7 +26,7 @@ Music_output_def::Music_output_def ()
   smobify_self ();
 
   scm_gc_unprotect_object (translator_tab_->self_scm ());
-  scope_ = ly_make_anonymous_module ();
+  scope_ = ly_make_anonymous_module (false);
 }
 
 Music_output_def::~Music_output_def ()
@@ -42,7 +42,7 @@ Music_output_def::Music_output_def (Music_output_def const &s)
   translator_tab_ =   new Scheme_hash_table (*s.translator_tab_);  
   scm_gc_unprotect_object (translator_tab_->self_scm ());  
   
-  scope_= ly_make_anonymous_module ();
+  scope_= ly_make_anonymous_module (safe_global_b);
   if (is_module (s.scope_))
     ly_import_module (scope_, s.scope_);
 }

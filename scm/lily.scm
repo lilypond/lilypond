@@ -20,7 +20,6 @@
 	     (srfi srfi-1)  ; lists
 	     (srfi srfi-13)) ; strings
 
-(define-public safe-module (make-safe-module))
 
 (define-public (myd k v) (display k) (display ": ") (display v) (display ", "))
 
@@ -97,6 +96,9 @@
 (define-public default-script-alist '())
 
 (define-public safe-mode? #f)
+
+
+
 
 ;; parser stuff.
 (define-public (print-music-as-book parser music)
@@ -396,6 +398,7 @@ L1 is copied, L2 not.
 (define-public (ps-output-expression expr port)
   (display (eval expr output-ps-module) port))
 
+
 (define output-alist
   `(
     ("tex" . ("TeX output. The default output form." ,tex-output-expression))
@@ -418,6 +421,8 @@ L1 is copied, L2 not.
     (if (pair? d)
 	(caddr d)
 	(scm-error "Could not find dumper for format ~s" format))))
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
@@ -445,7 +450,6 @@ L1 is copied, L2 not.
        "translation-functions.scm"
        "script.scm"
        "midi.scm"
-
        "beam.scm"
        "clef.scm"
        "slur.scm"
@@ -458,6 +462,9 @@ L1 is copied, L2 not.
        "define-grob-interfaces.scm"
        "page-layout.scm"
        "paper.scm"
+
+       ; last:
+       "safe-lily.scm"
        ))
 
 

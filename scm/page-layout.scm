@@ -168,7 +168,7 @@
 
 (define-public (ly:optimal-page-breaks lines book-height text-height
 				       first-diff last-diff)
-
+  "DOCME"
   ;; FIXME: may need some tweaking: square, cubic
   (define (height-score available used)
     (let* ((empty (- available used))
