@@ -27,10 +27,6 @@ setting stem directions by doing.
 
 (#-1 if you want down).  
 
-Generally \pushproperty and \popproperty take precedence over
-\property, so in this example \property stemVerticalDirection will not
-work as long as you did a \pushproperty on basicStemProperties
-
 A modest amount of memory is involved each time you do a
 \pushproperty. If you do \popproperty in the right order (reversed
 from \pushproperty), then \popproperty doesn't cost memory.
@@ -49,8 +45,7 @@ Incorrect (\popproperty costs memory):
 	\popproperty #'(  ... ) #'symbolA 
 	\popproperty #'(  ... ) #'symbolB 
 
-the syntax isn't likely to stay, so it is advisable to
-use identifiers, eg.
+You can use identifiers, eg.
 
     slursUp = \context Voice \pushproperty '(basicSlurProperties)
 	    #'direction  #1
@@ -61,20 +56,27 @@ use identifiers, eg.
 \score { \notes
 \relative c' {
 	c4-.(
-	\context Voice \pushproperty #'(basicDotsProperties basicStemProperties
-	basicNoteColumnProperties basicScriptProperties basicTextProperties) #'direction #-1
+	\property Voice.basicDotsProperties \push #'direction =  #-1
+	\property Voice.basicStemProperties \push #'direction =  #-1
+	\property Voice.noteColumnProperties \push #'direction =  #-1
+	\property Voice.basicStemProperties \push #'direction =  #-1		
+	
 	) c4-. (
 	) c4-. (	
-	\context Voice \pushproperty #'basicSlurProperties #'direction #-1
-	) c4-. ( \context Voice  \popproperty #'(basicDotsProperties basicStemProperties
-		basicScriptProperties basicTextProperties) #'direction
+	 \property Voice.basicSlurProperties \push #'direction =  #-1
+	) c4-. (
+
+	\property basicDotsProperties \pop  #'direction
+	\property basicStemProperties \pop #'direction
+	\property basicScriptProperties \pop #'direction
+	\property basicTextProperties \pop #'direction
 
 	 ) c4-.  () c4-. 
 }
 
 \paper {
 \translator { \VoiceContext
-	\pushproperty #'basicNoteHeadProperties #'font-size #-2
+	basicNoteHeadProperties \push #'font-size =  #-2
 }
 }
 }

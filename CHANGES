@@ -1,4 +1,37 @@
 
+* Separated definition and implementation of contexts (moved
+definition out of Translator_group into Translator_def)
+ 
+
+* pmx2ly.py fixes: now handles text at beginning of block correctly.
+
+* update .spec to include scripts. 
+
+* Changed syntax of \pushproperty:
+
+	\property Voice.basicXXXProperties \push #'foo = #bar
+	\property basicXXXProperties \pop #'foo
+
+	\translator {
+		basicXXXProperties \push #'foo = #bar
+		basicXXXProperties \pop #'foo
+	}
+
+1.3.84.jcn1
+===========
+
+* Updated INSTALL.texi
+
+1.3.80.tca1
+===========
+* Added Documentation/user/mb-latex.tex, mudela-book+latex example
+  file and test case. Some work on Documentation/user/mudela-book.tely
+
+* mudela-book.py: any combination of \verb, \begin{verbatim}
+  @code and @example and mudela should work as expected. 
+
+* dropped [].extend that depend on python 1.5.2
+
 1.3.84
 ======
 
@@ -1266,7 +1299,7 @@ property is already set.
 
       # Use alternate configurations alongside eachother:
       #
-      #     ./configure --enable-configsuffix=debug
+      #     ./configure --enable-config=debug
       #     make conf=debug
       #
       # uses config-debug.make and config-debug.h; output goes to out-debug.
