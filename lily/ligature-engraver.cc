@@ -112,12 +112,12 @@ Ligature_engraver::create_ligature_spanner ()
 void
 Ligature_engraver::override_molecule_callback ()
 {
-  SCM symbol = ly_symbol2scm ("NoteHead");
   SCM target_callback = ly_symbol2scm ("molecule-callback");
   SCM source_callback = ly_symbol2scm ("ligature-primitive-callback");
-  SCM noteHeadProperties = daddy_trans_->get_property ("NoteHead");
+  SCM noteHeadProperties = updated_grob_properties (daddy_trans_, ly_symbol2scm ("NoteHead"));
   SCM value = ly_cdr (scm_sloppy_assq (source_callback, noteHeadProperties));
-  execute_pushpop_property (daddy_trans_, symbol, target_callback, value);
+  execute_pushpop_property (daddy_trans_, ly_symbol2scm ("NoteHead"),
+			    atarget_callback, value);
 }
 
 /*

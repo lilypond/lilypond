@@ -1,5 +1,8 @@
 2004-02-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/define-grob-properties.scm: cleanup. Separate into internal
+	and user properties.
+
 	* lily/translator-property.cc (updated_grob_properties): new
 	function
 	(execute_pushpop_property): change to new convention:
