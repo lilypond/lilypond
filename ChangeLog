@@ -1,5 +1,9 @@
 2002-08-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/tuplet-properties.ly (texidoc): bugfix
+
+	* input/regression/beam-shortened-lengths.ly: add \stemUp
+
 	* Documentation/user/refman.itely: 
 
 2002-08-22  Tom Cato
