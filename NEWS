@@ -1,3 +1,9 @@
+pl 55
+	- staff-side robustification
+	- script-on-rest bug
+	- doc update
+	- transpose syntax
+
 pl 54
 	- bugfix Colhpos.cc::OK assert fail.
 	- Inclusion of MusixTeX MF files, 

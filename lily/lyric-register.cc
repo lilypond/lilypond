@@ -8,8 +8,8 @@
 
 #include "staff-walker.hh"
 #include "lyric-register.hh"
-#include "lyric-item.hh"
 #include "musical-request.hh"
+#include "text-item.hh"
 
 Lyric_register::Lyric_register()
 {
@@ -30,9 +30,10 @@ Lyric_register::try_request(Request*r)
 void
 Lyric_register::process_requests()
 {
-    Lyric_item * last_item_l =0;
+    Text_item * last_item_l =0;
     for (int i=0; i < lreq_arr_.size(); i++) {
-	Lyric_item *lp = new Lyric_item(lreq_arr_[i],i);
+	Text_item *lp = new Text_item(lreq_arr_[i]);
+	lp->dir_i_ = -1;
 	if (last_item_l)
 	    lp->add_support(last_item_l);
 	last_item_l = lp;

@@ -40,3 +40,10 @@ available version.
 
 =back
 
+=head1 BUGS
+
+Not all language changes are handled. Multiple output options won't work
+
+=head1 AUTHOR
+
+Han-Wen Nienhuys <hanwen@gnu.ai.mit.edu>

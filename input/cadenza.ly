@@ -3,6 +3,7 @@
 %
 % author: unknown. Copyright: none
 %
+\version "0.0.54";
 
 cad = \melodic  {
 		\cadenza 1;

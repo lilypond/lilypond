@@ -11,7 +11,7 @@
 % The purpose of this file is to demonstrate features of LilyPond.
 % (there is an accompanying LaTeX file, scsii-menuetto.tex)
 %
-\version "0.0.53";
+\version "0.0.54";
 %% Stuff from MPP version
 % \lefttitle{Menuetto}
 % \tempo{Moderato}

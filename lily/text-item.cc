@@ -54,11 +54,16 @@ Text_item::set_default_index()
 }
 
 void
-Text_item::do_post_processing()
+Text_item::do_pre_processing()
 {
     if (!dir_i_)
 	dir_i_ = -1;
-    set_default_index();
+}
+
+void
+Text_item::do_post_processing()
+{
+        set_default_index();
 }
 
     

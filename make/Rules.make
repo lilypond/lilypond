@@ -67,5 +67,10 @@ $(outdir)/%.1: %.pod
 # build and config stuff: (could make this generic default rule...)
 #
 %/.build:
-	echo 0 >$@
+	echo 0 > $@
+
+
+%.text: check-doc-deps
+	rm -f $@
+	ln `find ${depth}/Documentation -name $@|head -1` .
 

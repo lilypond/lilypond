@@ -2,6 +2,9 @@
 
 
 use Getopt::Long;
+
+
+
 sub 
     version_string_conv
 {
@@ -16,12 +19,17 @@ sub
 {
  
 }
+
 sub conv_pl52_pl53
 {
 
     s/include \"/$1\\include \"/g;
 }
 
+sub conv_pl53_pl54
+{
+    print STDERR "Not smart enough to convert \\transpose\n"    if (/\\transpose/) ;
+}
 
 ###############################################################
 
@@ -29,8 +37,7 @@ sub conv_pl52_pl53
 
 
 
-sub
-    usage
+sub usage
 {
     print STDERR "Usage: convert-mudela\n";
     print STDERR "other options: --edit --output=FILE --show-rules\n";
@@ -39,7 +46,8 @@ sub
     
 my %minor_conversions = (50 => \&no_conv,
 			 52 => \&conv_pl0_0_50_pl0_0_52,
-			 53 => \&conv_pl52_pl53
+			 53 => \&conv_pl52_pl53,
+			 54 => \&conv_pl53_pl54
 			 );
 sub versions 
 {
@@ -47,15 +55,13 @@ sub versions
 }
     
 
-sub
-    show_rules
+sub    show_rules
 {
     print "Rules: ", join(", ", sort keys %minor_conversions), "\n";
     
 }
 
-sub 
-    do_conversion
+sub do_conversion
 {
     my ($from,$to) = @_;
 
@@ -83,7 +89,8 @@ sub
 	print OUTLY;
     }
 }
-sub set_auto_from
+
+sub get_auto_from
 {
     my ($fn)=@_;
     my ($ver);
@@ -97,7 +104,11 @@ sub set_auto_from
 	    last;
 	}
     }
-    die "can't determine mudela version." unless (defined($ver));
+    if (!defined($ver)){
+	print STDERR "can't determine mudela version in $fn.\n";
+	my $u;
+	return $u;
+    }
     $ver =~ s/0\.0\.// ;
     close INLY;
     return $ver;
@@ -114,13 +125,43 @@ sub  set_files
     } 
     if (( ! -f $infile) && (! $infile =~ /\\.ly$/s ) ){
 	$infile .= ".ly";
-	print STDERR "trying $infile";
+	
 
     }
     if ($opt_edit && $infile ne "-") {
 	$opt_edit = 1;
 	$outfile = "$infile.NEW";
 	$infile = "$infile";
+    }
+    print STDERR "Input $infile.. ";
+
+}
+
+sub do_one_arg
+{
+    set_files;
+
+    local ($from_version, $to_version);
+    $from_version = $opt_from;
+    $to_version = $opt_to;
+    
+    ($from_version = get_auto_from $infile) unless defined($opt_from);
+    return if (!defined($from_version));
+    
+    my @v = versions;
+    ($to_version =  pop @v) unless (defined($opt_to));
+
+
+    die "can't open \`$infile\'" unless open INLY,$infile ;
+    die "can't open \`$outfile\'" unless open OUTLY, ">$outfile";
+    
+    do_conversion $from_version, $to_version;
+    close INLY;
+    close OUTLY;
+
+    if ($opt_edit) {
+	rename $infile, "$infile~";
+	rename $outfile, "$infile";
     }
 }
 
@@ -133,24 +174,13 @@ if ($opt_show_rules) {
 }
 
 local ( $infile,$outfile);
-set_files;
+my $processed_one=0;
 
-
-($opt_from = set_auto_from $infile) unless defined($opt_from);
-
-my @v = versions;
-($opt_to =  pop @v) unless (defined($opt_to));
-
-
-die "can't open \`$infile\'" unless open INLY,$infile ;
-die "can't open \`$outfile\'" unless open OUTLY, ">$outfile";
-
-do_conversion $opt_from, $opt_to;
-close INLY;
-close OUTLY;
-
-if ($opt_edit) {
-    rename $infile, "$infile~";
-    rename $outfile, "$infile";
+while (defined($ARGV[0])) {
+    do_one_arg;
+    shift @ARGV;
+    $processed_one = 1;
 }
+do_one_arg unless ($processed_one);
 
+    

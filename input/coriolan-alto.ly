@@ -10,6 +10,7 @@
 % when lily can handle this, i-ll type the other 304 bars 
 % (maybe even sooner :-)
 %
+\version "0.0.54";
 
 alto = \melodic{ 
 	

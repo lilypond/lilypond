@@ -74,7 +74,8 @@ Script::symbol()const
 void
 Script::do_pre_processing()
 {
-    set_default_dir();
+    if (!dir_i_)
+	set_default_dir();
     set_symdir();
 }
 
