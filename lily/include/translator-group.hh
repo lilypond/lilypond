@@ -14,7 +14,7 @@
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
 #include "translator.hh"
-#include "plist.hh"
+#include "cons.hh"
 #include "parray.hh"
 
 // egcs
@@ -31,12 +31,12 @@ class Translator_group : public virtual Translator {
 
   int iterator_count_;
   friend class Interpretation_context_handle;
+  Cons_list<Translator> trans_p_list_;
 
 public:
   Scalar get_property (String type_str, Translator_group  **where_found_l) const;
   void set_property (String var_name, Scalar value);
 
-  Pointer_list<Translator *> trans_p_list_;
   String id_str_;
 
 

@@ -1,3 +1,30 @@
+pl 31.hwn2
+	- be somewhat lazy in break/object multiplication.
+	- print # elements for memory usage impression (try  -t)
+	- Paper_score cleanup
+	- junked various Pointer_list instances. Executable now is smaller.
+	- junked various cruft
+	- merged do_substitute_dependen{t,cy} to
+do_substitute_element_pointer ()
+  	- more parser cleanup
+	- Interval uses Drul_array
+  	- bf: I've been drinking too much
+	- delete break helpers before object breaking/multiplication.  Try
+to save some memory.
+  
+pl 31.jcn4
+	- bf: toplevel install, kpsewhich
+	- sm 71, require yodl-1.31.11
+	- fix: slur macros
+	- bf: info in rpm, if available
+	- fix: rat != float
+	- bf: slur-follow-music
+
+pl 31.uu1
+	- config.make: include GUILE_LDFLAGS
+
+******
+pl 31 (feb 16)
 
 pl 30.jcn1
 	- sm fixes, intl/ fixes

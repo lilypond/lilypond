@@ -73,7 +73,7 @@ Slur::do_pre_processing ()
 }
 
 void
-Slur::do_substitute_dependency (Score_element*o, Score_element*n)
+Slur::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   int i;
   while ((i = encompass_arr_.find_i (dynamic_cast<Note_column *> (o))) >=0) 
@@ -89,6 +89,21 @@ static int
 Note_column_compare (Note_column *const&n1 , Note_column* const&n2)
 {
   return Item::left_right_compare (n1, n2);
+}
+
+static bool
+broken_edge_b (Slur*s, Drul_array<Note_column*>& extrema, Direction dir)
+{
+  return extrema[dir] != s->spanned_drul_[dir];
+}
+
+static bool
+normal_edge_b (Slur*s, Drul_array<Note_column*>& extrema, Direction dir)
+{
+  return !broken_edge_b (s, extrema, dir)
+    && extrema[dir]->stem_l_
+    && !extrema[dir]->stem_l_->transparent_b_ 
+    && extrema[dir]->head_l_arr_.size ();
 }
 
 void
@@ -122,17 +137,9 @@ Slur::do_post_processing ()
 
   Direction d=LEFT;
  
-#define NORMAL_SLUR_b(dir) \
-  (extrema[dir]->stem_l_ \
-   && !extrema[dir]->stem_l_->transparent_b_  \
-   && extrema[dir]->head_l_arr_.size ()) 
-
   do 
     {
-      /*
-        broken slur
-       */
-      if (extrema[d] != spanned_drul_[d]) 
+      if (broken_edge_b (this, extrema, d))
 	{
 	  // ugh -- check if needed
 	  dx_f_drul_[d] = -d 
@@ -151,7 +158,7 @@ Slur::do_post_processing ()
       /*
         normal slur
        */
-      else if (NORMAL_SLUR_b (d))
+      else if (normal_edge_b (this, extrema, d))
         {
 	  Real notewidth_f = extrema[d]->extent (X_AXIS).length ();
 	  dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_-> extent (Y_AXIS)[dir_]);
@@ -180,10 +187,7 @@ Slur::do_post_processing ()
   // now that both are set, do dependent
   do 
     {
-      /*
-        broken slur
-       */
-      if (extrema[d] != spanned_drul_[d]) 
+      if (broken_edge_b (this, extrema, d))
         {
 	  Direction u = d;
 	  flip(&u);
@@ -200,7 +204,8 @@ Slur::do_post_processing ()
   /*
     Slur should follow line of music
    */
-  if (NORMAL_SLUR_b (LEFT) && NORMAL_SLUR_b (RIGHT)
+  if (normal_edge_b (this, extrema, LEFT)
+      && normal_edge_b (this, extrema, RIGHT)
       && (extrema[LEFT]->stem_l_ != extrema[RIGHT]->stem_l_))
     {
       Real note_dy = extrema[RIGHT]->stem_l_->head_positions ()[dir_]

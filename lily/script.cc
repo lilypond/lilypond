@@ -22,9 +22,9 @@ Script::do_print () const
 }
 
 void
-Script::do_substitute_dependency (Score_element*o,Score_element*n)
+Script::do_substitute_element_pointer (Score_element*o,Score_element*n)
 {
-  Staff_side::do_substitute_dependency (o,n);
+  Staff_side::do_substitute_element_pointer (o,n);
   if (o == stem_l_)
     {
       stem_l_ = dynamic_cast<Stem *> (n);

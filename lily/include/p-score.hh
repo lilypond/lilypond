@@ -13,7 +13,6 @@
 #include "colhpos.hh"
 #include "parray.hh"
 #include "lily-proto.hh"
-#include "plist.hh"
 #include "music-output.hh"
 
 /** all stuff which goes onto paper. notes, signs, symbols in a score
@@ -23,18 +22,19 @@
 
 class Paper_score : public Music_output
 {
+  /// crescs etc; no particular order
+  Link_array<Spanner> span_p_arr_;
+
+  /// other elements
+  Link_array<Score_element> elem_p_arr_;
+  
+
 public:
   Paper_def *paper_l_;
 
   /// the columns, ordered left to right
-  Link_list<Paper_column *> col_p_list_;
+  Link_array<Paper_column> col_l_arr_;
 
-  /// crescs etc; no particular order
-  Pointer_list<Spanner *> span_p_list_;
-
-  /// other elements
-  Pointer_list<Score_element*> elem_p_list_;
-  
   Paper_outputter *outputter_l_;  
   Line_of_score * line_l_;
   
@@ -45,12 +45,10 @@ public:
   void add_column (Paper_column*);
 
   /**
-    @return argument as a cursor of the list
+    @return index of argument.
     */
-  PCursor<Paper_column *> find_col (Paper_column const *) const;
+  int find_col_idx (Paper_column const *) const;
 
-  Link_array<Paper_column> col_range (Paper_column *left_l, Paper_column *right_l) const;
-  Link_array<Paper_column> breakable_col_range (Paper_column*,Paper_column*) const;
   Link_array<Item> broken_col_range (Item const*,Item const*) const;
     
     
@@ -69,12 +67,13 @@ protected:
   
     /* MAIN ROUTINES */
   virtual void process();
-// can't instantiate template with cygnus' gcc...
-//  virtual ~Paper_score();
 
 private:
 
-  void remove_line (Line_of_score*);
+  
+  Link_array<Score_element> remove_line (Line_of_score*);
+  Link_array<Score_element> remove_break_helpers ();
+
   /// before calc_breaking
   void preprocess();
 
@@ -84,9 +83,7 @@ private:
 
   /// after calc_breaking
   void postprocess();
-    
-  /// delete unused columns
-  void clean_cols();
+  Paper_score (Paper_score const &);
 };
 
 #endif

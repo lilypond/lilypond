@@ -15,6 +15,7 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 
+
 #ifdef ATOM_SMOB
 
 /// a symbol which can be translated, and freely copied

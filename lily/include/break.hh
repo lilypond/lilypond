@@ -42,7 +42,6 @@ protected:
   /// search all pcols which are breakable.
   Line_of_cols find_breaks() const;
 
-  Line_of_cols all_cols() const;
   Array<int> find_break_indices() const;
     
 

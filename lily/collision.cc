@@ -165,7 +165,7 @@ Collision::do_pre_processing()
 
 
 void
-Collision::do_substitute_dependency (Score_element*o_l,Score_element*n_l)
+Collision::do_substitute_element_pointer (Score_element*o_l,Score_element*n_l)
 {
   if (o_l)
     {

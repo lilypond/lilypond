@@ -123,7 +123,7 @@ Beam::do_post_processing ()
 }
 
 void
-Beam::do_substitute_dependent (Score_element*o,Score_element*n)
+Beam::do_substitute_element_pointer (Score_element*o,Score_element*n)
 {
   if (Stem * os = dynamic_cast<Stem*> (o))
     stems_.substitute (os,

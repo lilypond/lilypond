@@ -27,13 +27,13 @@ template<class T>
 int
 _Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b)
 {
-  if (a.left == b.left && a.right == b.right)
+  if (a.elem (LEFT) == b.elem (LEFT) && a.elem (RIGHT) == b.elem (RIGHT))
     return 0;
   
-  if (a.left <= b.left && a.right >= b.right)
+  if (a.elem (LEFT) <= b.elem (LEFT) && a.elem (RIGHT) >= b.elem (RIGHT))
     return 1;
 
-  if (a.left >= b.left && a.right <= b.right)
+  if (a.elem (LEFT) >= b.elem (LEFT) && a.elem (RIGHT) <= b.elem (RIGHT))
     return -1;
 
   return -2;
@@ -63,44 +63,49 @@ template<class T>
 void
 Interval_t<T>::set_empty()
 {
-  left = (T) infinity();
-  right = (T) -infinity();
+  elem (LEFT) = (T) infinity();
+  elem (RIGHT) = (T) -infinity();
 }
 
 template<class T>
 T
 Interval_t<T>::length() const 
 {
-  if (right < left) 
+  if (elem (RIGHT) < elem (LEFT)) 
     return 0;
   else 
-    return right-left;
-}
-
-template<class T>
-void
-Interval_t<T>::unite (Interval_t<T> h)
-{
-  if (h.left<left)
-    left = h.left;
-  if (h.right>right)
-    right = h.right;
+    return elem (RIGHT)-elem (LEFT);
 }
 
 /**
   smallest Interval which includes *this and #h#
  */
+template<class T>
+void
+Interval_t<T>::unite (Interval_t<T> h)
+{
+  elem (LEFT) = h.elem (LEFT) <? elem (LEFT);
+  elem (RIGHT) = h.elem (RIGHT) >?elem (RIGHT);
+
+#if 0
+  if (h.elem (LEFT)<elem (LEFT))
+    elem (LEFT) = h.elem (LEFT);
+  if (h.elem (RIGHT)>elem (RIGHT))
+  elem (RIGHT) = h.elem (RIGHT);
+#endif
+}
+
 
 template<class T>
 void
 Interval_t<T>::intersect (Interval_t<T> h)
 {
 #if defined (__GNUG__) && ! defined (__STRICT_ANSI__)
-  left = h.left >? left;
-  right = h.right <?right;
+  elem (LEFT) = h.elem (LEFT) >? elem (LEFT);
+  elem (RIGHT) = h.elem (RIGHT) <?elem (RIGHT);
 #else
-  left = max (h.left, left);
-  right = min (h.right, right);
+  elem (LEFT) = max (h.elem (LEFT), elem (LEFT));
+  elem (RIGHT) = min (h.elem (RIGHT), elem (RIGHT));
 #endif
 }
 
@@ -120,14 +125,14 @@ Interval_t<T>::str() const
     return "[empty]";
   String s ("[");
  
-  return s + T_to_str (left) + String ("," ) + T_to_str (right ) + String ("]" );
+  return s + T_to_str (elem (LEFT)) + String ("," ) + T_to_str (elem (RIGHT) ) + String ("]" );
 }
 
 template<class T>
 bool
 Interval_t<T>::elem_b (T r)
 {
-  return r >= left && r <= right;
+  return r >= elem (LEFT) && r <= elem (RIGHT);
 }
 
 

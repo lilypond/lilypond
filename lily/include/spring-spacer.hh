@@ -11,7 +11,7 @@
 #define SPRING_SPACER_HH
 
 #include "line-spacer.hh"
-#include "plist.hh"
+#include "cons.hh"
 #include "col-info.hh"
 #include "colhpos.hh"
 #include "moment.hh"
@@ -46,7 +46,7 @@
 class Spring_spacer : public Line_spacer {
   friend class Durations_iter;
 
-  Pointer_list<Idealspacing *> ideal_p_list_;
+  Cons<Idealspacing> *ideal_p_list_;
   Array<Column_info> cols_;
   Array<Column_info> loose_col_arr_;
 

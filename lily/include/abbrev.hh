@@ -16,7 +16,7 @@ class Abbreviation : public Item {
 protected:
   virtual void do_print () const;
   virtual Molecule *do_brew_molecule_p () const;
-  virtual void do_substitute_dependent (Score_element*, Score_element*);
+  virtual void do_substitute_element_pointer (Score_element*, Score_element*);
 public:
   int abbrev_flags_i_;
   Abbreviation ();

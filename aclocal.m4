@@ -1,5 +1,3 @@
-dnl WARNING WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -444,6 +442,7 @@ AC_DEFUN(AC_STEPMAKE_GETTEXT, [
 ])
 
 AC_DEFUN(AC_STEPMAKE_MAN, [
+    AC_CHECK_PROGS(GROFF, groff ditroff, -echo no groff)
     AC_CHECK_PROGS(TROFF, troff, -echo no troff)
     AC_CHECK_PROGS(TBL, tbl, cat)
 ])

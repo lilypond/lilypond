@@ -46,7 +46,7 @@ protected:
   virtual Interval symbol_height () const;
   Interval symbol_extent () const;
   virtual Real get_position_f () const;
-  virtual void do_substitute_dependency (Score_element *, Score_element*);
+  virtual void do_substitute_element_pointer (Score_element *, Score_element*);
   virtual void do_pre_processing ();
   virtual void do_post_processing ();
   Interval support_extent () const;

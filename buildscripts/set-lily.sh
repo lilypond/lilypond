@@ -51,8 +51,10 @@ ln -sf $LILYPOND_SOURCEDIR/mf/out/ afm
 TFMDIR=`kpsewhich cmr10.tfm`
 ln -sf `dirname $TFMDIR` tfm
 mkdir -p $prefix/share/
-ln -sf $prefix/lilypond/ $sources/lilypond
-
+if [ ! -x $prefix/share/lilypond ]; then
+    echo ln -sf  $sources/lilypond $prefix/share
+    ln -sf  $sources/lilypond $prefix/
+fi
 if [ -f ../.gdbinit ];
 then
     ln ../.gdbinit .

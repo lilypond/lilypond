@@ -26,7 +26,7 @@ public:
 protected:
   virtual void do_add_processing ();
   virtual void do_print () const;
-  virtual void do_substitute_dependent (Score_element*,Score_element*);
+  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
 };
 
 #endif // RHYTHMIC_HEAD_HH

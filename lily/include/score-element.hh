@@ -1,7 +1,7 @@
 /*
-  score-element.hh -- part of GNU LilyPond
+  score-element.hh -- declare Score_element
 
-  (c) 1996,97 Han-Wen Nienhuys
+  (c) 1996-1999 Han-Wen Nienhuys
 */
 
 #ifndef STAFFELEM_HH
@@ -26,6 +26,8 @@ typedef void (Score_element::*Score_element_method_pointer) (void);
   (elem) */
 class Score_element : private Directed_graph_node, public virtual Graphical_element {
 public:
+  /// delete after linebreak calculation.
+  bool break_helper_only_b_;
   Paper_score *pscore_l_;    
   Molecule * output_p_;
   Score_element ();
@@ -101,8 +103,7 @@ protected:
   /// do calculations after determining horizontal spacing
   virtual void do_post_processing ();
     
-  virtual void do_substitute_dependency (Score_element * , Score_element *);
-  virtual void do_substitute_dependent (Score_element *, Score_element *);
+  virtual void do_substitute_element_pointer (Score_element * , Score_element *);
   virtual void do_break_processing ();
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
@@ -110,7 +111,6 @@ protected:
   virtual Link_array<Score_element> get_extra_dependencies () const;
   virtual void do_unlink ();
   virtual void do_junk_links ();
-  
 };
 
 

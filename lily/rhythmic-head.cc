@@ -53,7 +53,7 @@ Rhythmic_head::Rhythmic_head ()
 }
 
 void
-Rhythmic_head::do_substitute_dependent (Score_element*o,Score_element*n)
+Rhythmic_head::do_substitute_element_pointer (Score_element*o,Score_element*n)
 {
   if (o == dots_l_)
     dots_l_ = n ? dynamic_cast<Dots *> (n) :0;

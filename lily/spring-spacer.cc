@@ -3,12 +3,13 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996,  1997--1999, 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1996--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #include <math.h>
 #include <limits.h>
+#include "killing-cons.tcc"
 #include "spring-spacer.hh"
 #include "p-col.hh"
 #include "debug.hh"
@@ -25,7 +26,7 @@
 Vector
 Spring_spacer::default_solution() const
 {
-  return try_initial_solution() ;
+  return try_initial_solution();
 }
 
 Score_column*
@@ -66,9 +67,10 @@ Spring_spacer::handle_loose_cols()
 {
   Union_find connected (cols_.size());
   Array<int> fixed;
-  for (PCursor<Idealspacing*> i (ideal_p_list_.top()); i.ok (); i++)
+  
+  for (Cons<Idealspacing> *i  = ideal_p_list_; i; i = i->next_)
     {
-      connected.connect (i->cols_drul_[LEFT],i->cols_drul_[RIGHT]);
+      connected.connect (i->car_->cols_drul_[LEFT],i->car_->cols_drul_[RIGHT]);
     }
   for (int i = 0; i < cols_.size(); i++)
     if (cols_[i].fixed_b())
@@ -238,8 +240,9 @@ Spring_spacer::make_matrices (Matrix &quad, Vector &lin, Real &c) const
   lin.fill (0);
   c = 0;
 
-  for (PCursor<Idealspacing*> i (ideal_p_list_.top()); i.ok (); i++)
+  for (Cons<Idealspacing> *p =ideal_p_list_; p; p = p->next_)
     {
+      Idealspacing *i = p->car_;
       int l = i->cols_drul_[LEFT];
       int r = i->cols_drul_[RIGHT];
 
@@ -293,8 +296,9 @@ Real
 Spring_spacer::calculate_energy_f (Vector solution) const
 {
   Real e = 0.0;
-  for (PCursor<Idealspacing*> i (ideal_p_list_.top()); i.ok(); i++)
+  for (Cons<Idealspacing>*p =ideal_p_list_; p; p = p->next_)
     {
+      Idealspacing * i = p->car_;
       e += i->energy_f(solution(i->cols_drul_[RIGHT]) - solution(i->cols_drul_[LEFT]));
     }
 
@@ -319,6 +323,7 @@ Spring_spacer::lower_bound_solution (Column_x_positions*positions) const
 
 Spring_spacer::Spring_spacer ()
 {
+  ideal_p_list_ =0;
   energy_normalisation_f_ = 1.0;
 }
 
@@ -404,17 +409,27 @@ Spring_spacer::error_pcol_l_arr() const
     }
   return retval;
 }
-
+/*
+  Ugh. Should junk this.
+ */
 void
-Spring_spacer::loosen_column (int i)
+Spring_spacer::loosen_column (int idx)
 {
-  Column_info c=cols_.get (i);
-  for (PCursor<Idealspacing*> j (ideal_p_list_.top()); j.ok (); j++)
+  Column_info c=cols_.get (idx);
+
+  Cons<Idealspacing> **pp = &ideal_p_list_;
+
+  while (*pp)
     {
-      if (j->cols_drul_[LEFT] == i|| j->cols_drul_[RIGHT] == i)
-	j.del();
+      Idealspacing *j = (*pp)->car_;
+      if (j->cols_drul_[LEFT] == idx|| j->cols_drul_[RIGHT] == idx)
+	{
+	  delete remove_cons (pp);
+	}
       else
-	j++;
+	{
+	  pp = &(*pp)->next_;
+	}
     }
   c.ugh_b_ = true;
 
@@ -437,9 +452,10 @@ Spring_spacer::print() const
       DOUT << "col " << i << " ";
       cols_[i].print();
     }
-  for (PCursor<Idealspacing*> i (ideal_p_list_.top()); i.ok (); i++)
+
+  for (Cons<Idealspacing> *p =ideal_p_list_; p; p = p->next_)
     {
-      i->print();
+      p->car_->print();
     }
 #endif
 }
@@ -458,7 +474,7 @@ Spring_spacer::connect (int i, int j, Real d, Real h)
   s->space_f_ = d;
   s->hooke_f_ = h;
 
-  ideal_p_list_.bottom().add (s);
+  ideal_p_list_ = new Killing_cons<Idealspacing> (s, ideal_p_list_);
 }
 
 

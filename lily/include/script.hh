@@ -18,7 +18,7 @@ class Script : public Item, public Staff_side {
 
 protected:
   Molecule *do_brew_molecule_p() const;
-  virtual void do_substitute_dependency (Score_element*,Score_element*);
+  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual void do_print() const;
   virtual Interval symbol_height() const;
   virtual void do_pre_processing();

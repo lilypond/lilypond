@@ -65,21 +65,22 @@ Axis_group_spanner::do_break_processing()
 	  /* this piece doesn't know where it belongs.
 	     Find out if it was broken, and use the broken remains
 	     */
-	  Spanner * sp =dynamic_cast <Spanner *> (elt);
+
 	  Item *it = dynamic_cast <Item *> (elt) ;	  
-	  if (sp)
+	  if (Spanner * sp =dynamic_cast <Spanner *> (elt))
 	    {
-	      for (int j =0; j < broken_into_l_arr_.size(); j++) 
+	      for (int j =0; j < sp->broken_info_.size(); j++) 
 		{
+		  Line_of_score *l = sp->broken_info_[j].line_l_;
+
 		  Axis_group_spanner * my_broken_l
-		    = dynamic_cast<Axis_group_spanner*>(broken_into_l_arr_[j]);
-		    
+		    = dynamic_cast<Axis_group_spanner*>(find_broken_piece (l));
+		  
 		  Spanner * broken_span_l 
-		    = sp->find_broken_piece (dynamic_cast<Score_element*>(my_broken_l)->line_l());
+		    = sp->find_broken_piece (l);
 		    
 		  if (broken_span_l) 
 		    my_broken_l->add_element (broken_span_l);
-		    
 		}
 	    }
 	  else if (it && it->breakable_b_ && it->break_status_dir () == 0) 

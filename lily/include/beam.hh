@@ -59,10 +59,8 @@ protected:
   void set_steminfo ();
   virtual void do_pre_processing ();
   virtual void do_post_processing ();
-  virtual void do_substitute_dependent (Score_element*, Score_element*);
-
+  virtual void do_substitute_element_pointer (Score_element*, Score_element*);
   virtual void do_print() const;
-
   virtual void quantise_left_y (bool extend_b);
   virtual Molecule stem_beams (Stem *here, Stem *next, Stem *prev) const;
   virtual void calculate_slope ();

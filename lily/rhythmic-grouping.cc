@@ -27,8 +27,8 @@ Rhythmic_grouping::OK() const
     {
       children[i]->OK();
       if (i>0)
-	assert (children[i-1]->interval().right ==
-		children[i]->interval().left);
+	assert (children[i-1]->interval()[RIGHT] ==
+		children[i]->interval()[LEFT]);
     }
 #endif
 }
@@ -46,8 +46,8 @@ Rhythmic_grouping::interval() const
     return *interval_;
   else
     return
-      MInterval (children[0]->interval().left,
-		 children.top()->interval ().right);
+      MInterval (children[0]->interval()[LEFT],
+		 children.top()->interval ()[RIGHT]);
 }
 
 void
@@ -78,7 +78,7 @@ Rhythmic_grouping::intervals()
     {
       MInterval i (interval());
       MInterval r1(i), r2(i);
-      r1.right = r2.left = i.center();
+      r1[RIGHT] = r2[LEFT] = i.center();
       r.push (r1); r.push (r2);
     }
   else 
@@ -142,12 +142,12 @@ Rhythmic_grouping::split (Array<MInterval> splitpoints)
 	break;
 	
       assert (
-	      children[starti]->interval().left== splitpoints[startj].left);
-      if (children[i]->interval().right < splitpoints[j].right) 
+	      children[starti]->interval()[LEFT]== splitpoints[startj][LEFT]);
+      if (children[i]->interval()[RIGHT] < splitpoints[j][RIGHT]) 
 	{
 	  i ++;
 	}
-      else if (children[i]->interval().right > splitpoints[j].right) 
+      else if (children[i]->interval()[RIGHT] > splitpoints[j][RIGHT]) 
 	{
 	  j ++;
 	}
@@ -187,7 +187,7 @@ Rhythmic_grouping::Rhythmic_grouping (MInterval t, int n)
       return;
     }
   Moment dt = t.length ()/Moment (n);
-  MInterval basic = MInterval (t.left, t.left+dt);
+  MInterval basic = MInterval (t[LEFT], t[LEFT]+dt);
   for (int i= 0; i < n; i++)
     children.push (new Rhythmic_grouping (dt*Moment (i) + basic));
 }
@@ -253,7 +253,7 @@ bool
 Rhythmic_grouping::child_fit_b (Moment start)
 {
   if (children.size())
-    return (children.top()->interval ().right== start);
+    return (children.top()->interval ()[RIGHT]== start);
 
   return true;
 }  
@@ -348,18 +348,18 @@ Rhythmic_grouping::translate (Moment m)
 void
 Rhythmic_grouping::extend (MInterval m) const
 {    
-  assert (m.left >= interval().left);
-  while (m.right  >interval().right) 
+  assert (m[LEFT] >= interval()[LEFT]);
+  while (m[RIGHT]  >interval()[RIGHT]) 
     {
       Link_array<Rhythmic_grouping> a (children);
       for (int i=0; i < a.size(); i++) 
 	{
 	  a[i] =new Rhythmic_grouping (*children[i]);
-	  a[i]->translate (children.top()->interval ().right);	    
+	  a[i]->translate (children.top()->interval ()[RIGHT]);	    
 	}
       ((Rhythmic_grouping*)this)->children.concat (a);
     }
-  assert (m.right <= interval().right);
+  assert (m[RIGHT] <= interval()[RIGHT]);
   OK();
 }
 

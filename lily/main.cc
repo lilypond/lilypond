@@ -16,7 +16,6 @@
 #include "all-fonts.hh"
 #include "proto.hh"
 #include "dimensions.hh"
-#include "plist.hh"
 #include "getopt-long.hh"
 #include "misc.hh"
 #include "string.hh"

@@ -394,7 +394,9 @@ static Dict_initialiser<char const*> cmr_init[] = {
   {0,0}
 };
 
-// Magic numbers from Knuths plain.tex:
+/**
+   Magnification steps.  These are powers of 1.2. The numbers are
+ taken from Knuth's plain.tex: */
 static Real mag_steps[] = {1, 1, 1.200, 1.440, 1.7280,  2.074, 2.488};
 
 static Dictionary<char const *> cmr_dict (cmr_init);

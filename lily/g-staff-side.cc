@@ -53,7 +53,7 @@ G_staff_side_item::add_support (Score_element*e)
 
 
 void
-G_staff_side_item::do_substitute_dependency (Score_element*o, Score_element*n)
+G_staff_side_item::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   if (o == to_position_l_)
     to_position_l_ = n;

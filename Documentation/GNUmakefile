@@ -6,7 +6,7 @@ NAME = documentation
 SUBDIRS=man tex pictures topdocs ntweb
 STEPMAKE_TEMPLATES=documentation 
 README_TOP_FILES=NEWS DEDICATION TODO ANNOUNCE-0.1
-# INFO_FILES = $(wildcard $(outdir)/$(package).info*)
+INFO_FILES = $(wildcard $(outdir)/$(package).info*)
 
 EXTRA_DIST_FILES = gnu-music-history TODO 
 

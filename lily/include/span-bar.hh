@@ -12,7 +12,7 @@
 
 #include "bar.hh"
 
-class Span_bar : public virtual Bar
+class Span_bar : public Bar
 {
   Link_array<Score_element> spanning_l_arr_;
   Interval get_spanned_interval () const;
@@ -31,7 +31,7 @@ protected:
   virtual void do_pre_processing();
   virtual void do_post_processing();
   virtual Interval do_height () const;
-  virtual void do_substitute_dependency (Score_element*,Score_element*);
+  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual Molecule * do_brew_molecule_p() const;
 };
 

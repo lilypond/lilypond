@@ -13,7 +13,6 @@
 #include "plist.tcc"
 
 #include "music-list.hh"
-#include "music-iterator.hh"
 
 POINTERLIST_INSTANTIATE(Music);
-POINTERLIST_INSTANTIATE(Music_iterator);
+

@@ -337,13 +337,26 @@ Stem::hpos_f () const
 }
 
 /*
-  TODO:  head_l_arr_/rest_l_arr_ in  do_substitute_dependent ()
+  TODO:  head_l_arr_/rest_l_arr_ in  
  */
 void
-Stem::do_substitute_dependency (Score_element*o,Score_element*n)
+Stem::do_substitute_element_pointer (Score_element*o,Score_element*n)
 {
   if (Note_head*h=dynamic_cast<Note_head*> (o))
   head_l_arr_.substitute (h, dynamic_cast<Note_head*>(n));
   if (Rest *r=dynamic_cast<Rest*> (o))
     rest_l_arr_.substitute (r, dynamic_cast<Rest*>(n));
+  if (Beam* b = dynamic_cast<Beam*> (o))
+    {
+      if (b == beam_l_) 
+	{
+	  beam_l_ = dynamic_cast<Beam*> (n);
+	  if (!beam_l_)
+	    {
+	      beams_i_drul_[LEFT] = 0;
+	      beams_i_drul_[RIGHT] = 0;
+	      mult_i_ = 0;
+	    }
+	}
+    }
 }

@@ -54,5 +54,13 @@ AC_CHECK_PROGS(MAKEINFO, makeinfo, error)
 AC_CHECK_SEARCH_RESULT($YODL2TEXINFO, yodl,  
     You should install Yodl 1.30.2 or newer)
 
+
+AC_MSG_CHECKING(Checking TFM directory)
+CMR10=`kpsewhich tfm cmr10.tfm`
+TEX_TFMDIR=`dirname $CMR10`
+AC_MSG_RESULT($TEX_TFMDIR)
+
+AC_SUBST(TEX_TFMDIR)
 AC_STEPMAKE_END
+
 

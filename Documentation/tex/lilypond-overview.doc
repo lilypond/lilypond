@@ -505,17 +505,16 @@ Figure~\ref{fig:spacing}.
   \end{center}
 \end{figure}
 
-Another clearly visible example of music typography is visible in
-collisions.  When chords or separate voices are printed, the notes
-that start at the same time should be printed aligned (ie., with the
-same $x$ position).  If the pitches are close to each other, the note
-heads would collide. To prevent this, some notes (or note heads) have
-to be shifted horizontally.  An example of this is given in Figure~\ref{fig:collision}.
+Another example of music typography is clearly visible in collisions.
+When chords or separate voices are printed, the notes that start at
+the same time should be printed aligned (ie., with the same $x$
+position).  If the pitches are close to each other, the note heads
+would collide. To prevent this, some notes (or note heads) have to be
+shifted horizontally.  An example of this is given in
+Figure~\ref{fig:collision}.
 \begin{figure}[h]
   \begin{center}
-    \begin{mudela}
-      c4
-    \end{mudela}
+    [todo]
     \caption{Collisions}
     \label{fig:collision}
   \end{center}
@@ -523,6 +522,14 @@ to be shifted horizontally.  An example of this is given in Figure~\ref{fig:coll
 
 \bibliographystyle{hw-plain}
 \bibliography{engraving,boeken,colorado,computer-notation,other-packages}
+
+\section{Requirements}
+
+\section{Approach}
+
+\subsection{Input}
+
+\section{Discussion}
 
 
 

@@ -25,7 +25,7 @@ bool
 Item::breakable_b () const
 {
   return !unbroken_original_l_ 
-    && dynamic_cast<Item*>(parent_l (X_AXIS))->breakable_b ();
+    && dynamic_cast<Item*> (parent_l (X_AXIS))->breakable_b ();
 }
 
 void
@@ -72,7 +72,7 @@ Item::copy_breakable_items()
     {
       Score_element * dolly = clone();
       Item * item_p = dynamic_cast<Item*>(dolly);
-
+      item_p->unbroken_original_l_ = this;
       item_p->break_status_dir_ =  i;
       pscore_l_->typeset_element (item_p);
       new_copies[i] =item_p;
@@ -140,12 +140,12 @@ Item::find_prebroken_piece (Line_of_score*l) const
 }
 
 Item*
-Item::find_prebroken_piece (Direction breakstatus) const
+Item::find_prebroken_piece (Direction d) const
 {
-  if (!breakstatus)
+  if (!d)
     return (Item *) (this);	// ugh
   else
-    return dynamic_cast<Item*> (broken_to_drul_[breakstatus]);
+    return dynamic_cast<Item*> (broken_to_drul_[d]);
 }
 
 void
@@ -206,7 +206,7 @@ Item::column_l () const
 Item::Item (Item const &s)
   : Score_element (s)
 {
-  unbroken_original_l_ = &s;
+  unbroken_original_l_ = 0;
   /* do not copy attached_span_l_arr_ */
   breakable_b_ = s.breakable_b_;
   visibility_lambda_ = s.visibility_lambda_;

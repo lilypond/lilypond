@@ -90,14 +90,12 @@ Bar_script_engraver::do_pre_move_processing ()
 {
   if (text_p_)
     {
-      text_p_->breakable_b_ = true; // ugh
       typeset_element (text_p_);
       text_p_ =0;
     }
   
   if (staff_side_p_) 
     {
-      staff_side_p_->breakable_b_ = true; // ugh
       typeset_element (staff_side_p_);
       staff_side_p_ = 0;
     }
@@ -112,8 +110,11 @@ Bar_script_engraver::create_items (Request *rq)
   
   staff_side_p_ = new G_staff_side_item;
   staff_side_p_->axis_ = axis_;
+  staff_side_p_->breakable_b_ = true; // ugh
+
   
   text_p_ = new G_text_item;
+  text_p_->breakable_b_ = true; // ugh
 
   Scalar prop = get_property (type_ + "Direction", 0);
   if (prop.isnum_b ())

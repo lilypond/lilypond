@@ -34,7 +34,7 @@ protected:
   virtual void do_add_processing ();
   virtual Interval do_height () const;
   virtual void do_post_processing ();
-  virtual void do_substitute_dependency (Score_element*,Score_element*);
+  virtual void do_substitute_element_pointer (Score_element*,Score_element*);
 };
 
 #endif // VOLTA_SPANNER_HH

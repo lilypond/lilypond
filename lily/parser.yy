@@ -231,7 +231,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <i>	int unsigned
 %type <i>	script_dir
 %type <i>	optional_modality
-%type <id>	identifier_init simple_identifier_init block_identifier
+%type <id>	identifier_init  
 %type <duration> steno_duration notemode_duration
 %type <duration> entered_notemode_duration explicit_duration
 %type <intvec>	intastint_list int_list
@@ -252,7 +252,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <music>	property_def translator_change
 %type <music_list> Music_list
 %type <paper>	paper_block paper_def_body
-%type <real>	real_expression real dimension
+%type <real>	real_expression real real_with_dimension
 %type <request> abbrev_command_req
 %type <request>	post_request structured_post_request
 %type <request> command_req verbose_command_req
@@ -263,7 +263,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <script>	script_definition script_body mudela_script gen_script_def
 %type <textdef> text_def finger
 %type <string>	script_abbreviation
-%type <trans>	translator_spec translator_spec_body
+%type <trans>	translator_spec_block translator_spec_body
 %type <tempo> 	tempo_request
 %type <notenametab> notenames_body notenames_block chordmodifiers_block
 
@@ -395,14 +395,8 @@ assignment:
 	;
 
 
-simple_identifier_init: identifier_init
-	;
 
 identifier_init:
-	block_identifier
-	;
-
-block_identifier:
 	score_block {
 		$$ = new Score_identifier ($1, SCORE_IDENTIFIER);
 
@@ -420,7 +414,7 @@ block_identifier:
 		$$ = new Midi_def_identifier ($1, MIDI_IDENTIFIER);
 
 	}
-	| translator_spec {
+	| translator_spec_block {
 		$$ = new Translator_identifier ($1, TRANS_IDENTIFIER);
 	}
 	| Music  {
@@ -448,7 +442,7 @@ block_identifier:
 	}
 	;
 
-translator_spec:
+translator_spec_block:
 	TRANSLATOR '{' translator_spec_body '}'
 		{ $$ = $3; }
 	;
@@ -470,7 +464,7 @@ translator_spec_body:
 		$$ = t;
 		delete $2;
 	}
-	| translator_spec_body STRING '=' simple_identifier_init ';'	{ 
+	| translator_spec_body STRING '=' identifier_init ';'	{ 
 		Identifier* id = $4;
 		String_identifier *s = dynamic_cast<String_identifier*> (id);
 		Real_identifier *r= dynamic_cast<Real_identifier*>(id);
@@ -573,11 +567,6 @@ paper_block:
 	}
 	;
 
-optional_semicolon:
-	/* empty */
-	| ';'
-	;
-
 optional_dot:
 	/* empty */
 	| '.'
@@ -589,7 +578,7 @@ paper_def_body:
 		THIS-> lexer_p_-> scope_l_arr_.push (p->scope_p_);
 		$$ = p;
 	}
-	| PAPER_IDENTIFIER optional_semicolon	{
+	| PAPER_IDENTIFIER 	{
 		Paper_def *p = $1->access_content_Paper_def (true);
 		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 		$$ = p;
@@ -603,7 +592,7 @@ paper_def_body:
 	| paper_def_body assignment ';' {
 
 	}
-	| paper_def_body translator_spec {
+	| paper_def_body translator_spec_block {
 		$$->assign_translator ($2);
 	}
 	| paper_def_body SHAPE '=' shape_array ';' {
@@ -621,7 +610,7 @@ real:
 	;
 
 
-dimension:
+real_with_dimension:
 	REAL CM_T	{
 		$$ = $1 CM;
 	}
@@ -640,7 +629,7 @@ real_expression:
 	REAL		{
 		$$ = $1;
 	}
-	| dimension
+	| real_with_dimension
 	| REAL_IDENTIFIER		{
 		$$= *$1->access_content_Real (false);
 	}
@@ -688,7 +677,7 @@ midi_body: /* empty */ 		{
 	| MIDI_IDENTIFIER	{
 		$$ = $1-> access_content_Midi_def (true);
 	}
-	| midi_body translator_spec	{
+	| midi_body translator_spec_block	{
 		$$-> assign_translator ($2);
 	}
 	| midi_body tempo_request ';' {
@@ -979,7 +968,16 @@ verbose_command_req:
 		delete $2;
 	}
 	| GROUPING intastint_list {
-		$$ = get_grouping_req (*$2); delete $2;
+		  Measure_grouping_req * mr_p = new Measure_grouping_req;
+		  for (int i=0; i < $2->size();) 
+		    {
+		      mr_p->elt_length_arr_.push (Moment (1, $2->elem(i++)));
+		      mr_p->beat_i_arr_.push ($2->elem(i++));
+		    }
+
+
+		$$ = mr_p;
+		delete $2;
 	}
 	;
 
@@ -1246,14 +1244,30 @@ finger:
 	;
 
 script_abbreviation:
-	'^'		{ $$ = get_scriptdef ('^'); }
-	| '+'		{ $$ = get_scriptdef ('+'); }
-	| '-'		{ $$ = get_scriptdef ('-'); }
- 	| '|'		{ $$ = get_scriptdef ('|'); }
-	| 'o'		{ $$ = get_scriptdef ('o'); }
-	| '>'		{ $$ = get_scriptdef ('>'); }
+	'^'		{
+		$$ = THIS->lexer_p_
+		->lookup_identifier ("dash-hat")->access_content_String (true)
+
+	}
+	| '+'		{
+		$$ = THIS->lexer_p_
+		->lookup_identifier ("dash-plus")->access_content_String (true)
+ }
+	| '-'		{
+		$$ = THIS->lexer_p_
+		->lookup_identifier ("dash-dash")->access_content_String (true)
+ }
+ 	| '|'		{
+		$$ = THIS->lexer_p_
+		->lookup_identifier ("dash-bar")->access_content_String (true)
+ }
+	| '>'		{
+		$$ = THIS->lexer_p_
+		->lookup_identifier ("dash-larger")->access_content_String (true)
+ }
 	| '.' 		{
-		$$ = get_scriptdef ('.');
+		$$ = THIS->lexer_p_
+		->lookup_identifier ("dash-dot")->access_content_String (true);
 	}
 	;
 
@@ -1267,9 +1281,9 @@ mudela_script:
 	;
 
 script_dir:
-	'_'	{ $$ = -1; }
-	| '^'	{ $$ = 1; }
-	| '-'	{ $$ = 0; }
+	'_'	{ $$ = DOWN; }
+	| '^'	{ $$ = CENTER; }
+	| '-'	{ $$ = UP; }
 	;
 
 pre_requests:

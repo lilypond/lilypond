@@ -87,7 +87,7 @@ Note_column::add_script (Script *script_l)
 }
 
 void
-Note_column::do_substitute_dependency (Score_element*o, Score_element*n)
+Note_column::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
   if (stem_l_ == o) 
     {
@@ -98,7 +98,7 @@ Note_column::do_substitute_dependency (Score_element*o, Score_element*n)
       head_l_arr_.substitute (dynamic_cast<Note_head *> (o), 
 			      (n)? dynamic_cast<Note_head *> (n) : 0);
     }
-  Script_column::do_substitute_dependency (o,n);
+  Script_column::do_substitute_element_pointer (o,n);
   if (dynamic_cast<Rest *> (o)) 
     {
       rest_l_arr_.substitute (dynamic_cast<Rest *> (o), 
