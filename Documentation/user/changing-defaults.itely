@@ -1811,6 +1811,7 @@ and wider line widths will be set correspondingly.
 #(set-default-paper-size "a6" 'landscape)
 @end example 
 
+
 @node Page layout
 @subsection Page layout
 
@@ -1933,6 +1934,14 @@ page, where @code{tagline} from @code{\header} is added.  The default
 tagline is ``Engraved by LilyPond (@var{version})''.@footnote{Nicely
 printed parts are good PR for us, so please leave the tagline if you
 can.}
+
+To print a copyright symbol, use @code{\copyright}
+
+@example
+\header @{
+  copyright = "\copyright Your Name 2005"
+@}
+@end example
 
 The header and footer are created by the functions @code{make-footer}
 and @code{make-header}, defined in @code{\paper}.  The default
