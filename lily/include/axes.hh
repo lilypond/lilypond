@@ -20,4 +20,12 @@ class String;
 
 String axis_name_str (Axis);
 
+/**
+  the operator ++ for Axis. 
+ */
+Axis post_incr(Axis &);
+Axis incr(Axis &);
+//Axis operator++(Axis);
+
+
 #endif // AXES_HH

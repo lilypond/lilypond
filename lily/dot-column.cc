@@ -49,7 +49,7 @@ Dot_column::do_pre_processing ()
     w.unite (head_l_arr_[i]->width ());
   
   if (!w.empty_b ())
-    translate (w[RIGHT] - width() [LEFT],X_AXIS);
+    translate_axis (w[RIGHT] - width() [LEFT],X_AXIS);
 }
 
 IMPLEMENT_IS_TYPE_B1(Dot_column, Horizontal_group_item);

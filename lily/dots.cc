@@ -36,17 +36,17 @@ Dots::brew_molecule_p () const
   Atom fill = paper()->lookup_l ()->fill (Box(Interval(0,0),Interval(0,0)));
   out->add(fill);
 
-  Atom d = paper ()->lookup_l ()->dots (0);
+  Atom d = paper ()->lookup_l ()->dots ();
 
   Real dw = d.dim_[X_AXIS].length();
-  d.translate(-dw,X_AXIS);
+  d.translate_axis(-dw,X_AXIS);
   for (int i=no_dots_i_; i--; )
     {
-      d.translate(2*dw,X_AXIS);
+      d.translate_axis(2*dw,X_AXIS);
       out->add (d);
     }
   Real inter_f = paper ()->internote_f ();
-  out->translate (inter_f * position_i_, Y_AXIS);
+  out->translate_axis (inter_f * position_i_, Y_AXIS);
   return out;
 }
 
