@@ -75,6 +75,9 @@ from other programs, so this capability may come in useful when you want
 to import files from a program that has no converter for its native
 format.
 
+@file{midi2ly} will convert tracks into @internalsref{Staff} and
+channels into @internalsref{Voice} contexts.
+
 It is possible to record a MIDI file using a digital keyboard, and then
 convert it to @file{.ly}. However, human players are not rhythmically
 exact enough to make a MIDI to LY conversion trivial.  midi2ly tries to
