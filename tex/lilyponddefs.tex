@@ -6,7 +6,9 @@
 %%%                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 %%%                 Mats Bengtsson <mats.bengtsson@s3.kth.se>
 %%%
+%%
 %% Avoid \par while reading this file.
+%%
 \edef\lilyponddefsELC{\the\endlinechar}%
 \endlinechar -1\relax
 
@@ -26,12 +28,23 @@
 %%   <note output>
 %%   \lilypondend
 
+%% A temporary variable.
+%%
 \newdimen\lytempdim
+
+%% The scaling factor for all dimensions.
+%%
 \newdimen\outputscale
 
-%% Handy macros from the LaTeX manual.
 \long\gdef\lilypondfirst#1#2{#1}
 \long\gdef\lilypondsecond#1#2{#2}
+
+%% \lilypondundefined{xxx}{foo}{bar}
+%%
+%%   If `xxx' (without the leading backslash) is an undefined macro,
+%%   execute block `foo'.  Otherwise, execute block `bar'.  Based on
+%%   a similar macro from the LaTeX kernel.
+%%
 \gdef\lilypondifundefined#1{
   \expandafter\ifx\csname#1\endcsname\relax
     \expandafter\lilypondfirst
@@ -40,11 +53,15 @@
   \fi
 }
 
-%% Urgh.  Lilypond uses EC fonts, but texinfo is based on CM.  We thus
-%% have to handle T1 font encoding by ourselves.  Note that the following
+%% Urgh.  LilyPond uses EC fonts, but texinfo is based on CM.  We thus
+%% have to handle T1 font encoding by ourselves; all manipulations are
+%% collected in the macro \lilypondECencoding.  Note that the following
 %% code only provides the texinfo interface, not complete access to all
 %% EC glyphs.
-
+%%
+%% All definitions are taken from texinfo or LaTeX (with modifications
+%% if necessary).
+%%
 \begingroup
 \catcode `\@=11\relax
 \gdef\lilypondECencoding{
@@ -124,112 +141,176 @@
 }
 \endgroup
 
+%% This macro provides the necessary setup to make the lilypond data
+%% work with plain TeX, LaTeX, and texinfo.
+%%
+%% The reason of using \begingroup and \endgroup is to make the macro \x
+%% immediately disappear after it has been executed.  Since we have \def
+%% within \def within \gdef, four hash signs (`#') are needed for
+%% parameters.
+%%
+%% \lilypondfontencoding is emitted by LilyPond to set the encoding of
+%% text strings.
+%%
 \gdef\lilypondstart{
   \frenchspacing
+  \outputscale \lilypondpaperoutputscale\lilypondpaperunit
+
   \begingroup
   \catcode `\@=11\relax
+
   %% \@nodocument is defined as \relax after `\begin{document}'
   \lilypondifundefined{@nodocument}
-    {%% either plain TeX or texinfo or not at the beginning of LaTeX input
+    {%% Either plain TeX or texinfo or not at the beginning of LaTeX input.
      \def\x{
        \endgroup
+
        \def\lilypondfontencoding####1{
-         \lilypondECencoding}}}
-    {%% FIXME: a4
-     %% provide a proper LaTeX preamble (for A4 paper format)
+         \lilypondECencoding}
+       \def\lilypondpagebreak{
+         \eject}
+       \def\lilypondnopagebreak{
+         \ifvmode
+           \penalty 10000\relax
+         \fi}}}
+
+    {%% LaTeX mode: Provide a complete preamble.
      \def\x{
        \endgroup
+
+       %% Indicate that we shall emit `\end{document}' while executing
+       %% \lilypondend.
        \def\lilyponddocument{}
+
        \def\lilypondfontencoding####1{
          \fontencoding{####1}
          \selectfont}
+       \def\lilypondpagebreak{
+         \newpage}
+       \def\lilypondnopagebreak{
+         \nopagebreak}
+
        \documentclass[\lilyponddocumentclassoptions]{article}
-       %% safe-mode
+
+       %% As a safety guard, don't produce auxiliary files.
        \nofiles
+
        \usepackage[\lilypondpaperinputencoding]{inputenc}
        \pagestyle{empty}
+
        \lilypondifundefined{lilypondclassic}
-         {%% Nullify [La]TeX page layout settings, page layout by LilyPond.
+         {%% If not in `classic' mode, undo LaTeX's page layout settings
+          %% since LilyPond does the layout by itself.
           \topmargin-1in
           \headheight0pt\headsep0pt
           \oddsidemargin-1in
           \evensidemargin\oddsidemargin}
-         {%% Center staves horizontally on page
-          \ifdim\lilypondpaperlinewidth\lilypondpaperunit > 0pt
-            \hsize\lilypondpaperlinewidth\lilypondpaperunit
-            \lytempdim \paperwidth
-            \advance\lytempdim -\the\hsize
-            \lytempdim 0.5\lytempdim
-            \advance\lytempdim -1in
-            \oddsidemargin \lytempdim
-            \evensidemargin \lytempdim
-          \fi}
+
+         {%% Otherwise center output horizontally, without changing the
+          %% vertical positioning.
+          \hsize\lilypondpaperlinewidth\lilypondpaperunit
+          \lytempdim \paperwidth
+          \advance\lytempdim -\the\hsize
+          \lytempdim 0.5\lytempdim
+          \advance\lytempdim -1in
+          \oddsidemargin \lytempdim
+          \evensidemargin \lytempdim}
+
        \parindent 0pt
-       %% TEXINFO workaround: \begin is defined as \outer, use \csname.
+
+       %% We can't directly say `\begin{document}' in this macro since
+       %% older versions of texinfo.tex define \begin as \outer; this
+       %% means that it causes an error if \begin is found within another
+       %% macro (even if the corresponding code will never be executed).
+       %% As a workaround we use \csname to call \begin.
        \csname begin\endcsname{document}}}
   \x}
 
+%% The opposite of \lilypondstart.
+%%
 \gdef\lilypondend{
-  \lilypondifundefined{lilypondbook}
-    {\lilypondifundefined{lilypondpaperlastpagefill}
-       {\vskip 0pt plus\lilypondpaperinterscorelinefill00 fill}
-       {}}
+  %% Handle the `lastpagefill' parameter from the \layout block.
+  \lilypondifundefined{lilypondpaperlastpagefill}
+    {\vskip 0pt plus\lilypondpaperinterscorelinefill00 fill}
     {}
+
   \begingroup
   \lilypondifundefined{lilyponddocument}
-    {\def\x{\endgroup}}
-    {\def\x{\endgroup\csname end\endcsname{document}}}
+    {\def\x{
+       \endgroup}}
+    {\def\x{
+       \endgroup
+       \csname end\endcsname{document}}}
   \x}
 
-%% Allow overriding of pagebreak
-\lilypondifundefined{lilypondpagebreak}
-  {\lilypondifundefined{@nodocument}
-     {\gdef\lilypondpagebreak{\eject}}
-     {\gdef\lilypondpagebreak{\newpage}}}
-  {}
-      
-%% Allow overriding of pagebreak
-\lilypondifundefined{lilypondnopagebreak}
-{\lilypondifundefined{@nodocument}
-   {\gdef\lilypondnopagebreak{}}
-   {\gdef\lilypondnopagebreak{\nopagebreak}}}
-{}
-%% Include \special only once.
+%% Load the PostScript drawing routines.  This is done using \special.
+%% To avoid multiple inclusions, redefine \lilypondspecial to a no-op
+%% afterwards.
+%%
 \gdef\lilypondspecial{
   \special{header=music-drawing-routines.ps}
   \gdef\lilypondspecial{}}
 
-%% The feta characters.
-\input feta20
-
-\global\font\fetasixteen = feta16
-\gdef\fetafont{\fetasixteen}
-\gdef\fetachar#1{\hbox{\fetasixteen#1}}
-
-\gdef\topalign#1{\vbox to 0pt{\hbox{#1}\vss}}
-\gdef\leftalign#1{\hbox to 0pt{#1\hss}}
-
-\gdef\lyitem#1#2#3{
-  \raise#2\outputscale \leftalign{\kern#1\outputscale#3}}
-
-\gdef\lybox#1#2#3#4#5{
-  \lytempdim\baselineskip
-  \advance\lytempdim-#4\outputscale
-  \raise\lytempdim
-  \vbox to#4\outputscale{
-    \leftalign{\kern#1\outputscale\lower#2\outputscale\topalign{#5}}
+%% Put the argument into a box which has zero height and depth (the
+%% \vss forces the latter -- TeXbook, page 80).
+%%
+\gdef\topalign#1{
+  \vbox to 0pt{
+    \hbox{#1}
     \vss}}
 
+%% Put the argument into a box which has zero width.
+%%
+\gdef\leftalign#1{
+  \hbox to 0pt{
+    #1
+    \hss}}
+
+%% The most used macro in LilyPond output.  Put #3 into a zero-width box
+%% which is moved to the right by #1 (scaled by \outputscale) and moved
+%% up by #2 (also scaled by \outputscale).  Note that negative values for
+%% #2 change the depth of the box defined by \leftalign, not the height.
+%%
+\gdef\lyitem#1#2#3{
+  \raise#2\outputscale \leftalign{
+    \kern#1\outputscale
+    #3}}
+
+%% All LilyPond music data is enclosed in this macro (as fifth argument).
+%% The data is first put into a box with zero height and depth which is
+%% then moved to the right by #1 and moved down by #2.  After this, it is
+%% put into a zero-width box, giving it a height #4 (and depth zero).
+%% Finally, the box is raised so that its true height is exactly the
+%% distance from one baseline to the next.
+%%
+%% Parameters #1 to #4 are scaled by \outputscale.
+%%
+\gdef\lybox#1#2#3#4#5{
+  \lytempdim\baselineskip
+  \advance\lytempdim -#4\outputscale
+  \raise\lytempdim
+  \vbox to #4\outputscale{
+    \leftalign{
+      \kern #1\outputscale
+      \lower #2\outputscale \topalign{
+        #5}}
+    \vss}}
+
+%% Produce a black bar (width #2, depth #3, height #4) with a vertical
+%% offset #1.  Everything is scaled by \outputscale.
+%%
 \gdef\lyvrule#1#2#3#4{
   \kern#1\outputscale
   \vrule width #2\outputscale depth #3\outputscale height #4\outputscale}
 
 %% FIXME: 'interscoreline' and 'lilypondPAPERinterscoreline
+%%
 \lilypondifundefined{lilypondpaperinterscorelinefill}
   {\gdef\lilypondpaperinterscorelinefill{0}}
   {\gdef\lilypondpaperinterscorelinefill{1}}
 
-%% Allow overriding of interscoreline, e.g. for lilypond.py's --preview
+%% Allow overriding of interscoreline, e.g., for LilyPond's --preview
+%%
 \lilypondifundefined{interscoreline}
   {\lilypondifundefined{lilypondclassic}
      {\gdef\interscoreline{}}
@@ -238,9 +319,12 @@
         plus \lilypondpaperinterscorelinefill fill}}}
   {}
 
-%% Include postscript definitions unless using PDFTeX,
-%% in that case use pdf definitions.
-%% MiKTeX workaround: use \csname.
+%% Include PostScript definitions (which are differently defined for
+%% TeX and pdfTeX).  This is loaded once only because the inputted files
+%% define \lilypondpostscript.
+%%
+%% (Don't remove the spaces after the arguments to \input!)
+%%
 \lilypondifundefined{lilypondpostscript}
   {\lilypondifundefined{pdfoutput}
      {\input lily-ps-defs }
@@ -249,6 +333,7 @@
   {}
 
 %% Restore newline functionality (disabled to avoid \par).
+%%
 \endlinechar \lilyponddefsELC
 \endinput
 
