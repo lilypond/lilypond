@@ -1,27 +1,17 @@
 # -*-python-*-
 
-import glob
 import os
-import re
-import sys
+import string
 
 Import ('env')
 sources = env['src_glob'] (env, '*.tely')
 pngs = env['src_glob'] (env, '*.png')
 
-def verbose_opt (env, opt):
-	if env['verbose']:
-		return opt
-	return ''
-
-LILYPOND_BIN = env['LILYPOND_BIN']
-LILYPONDPREFIX = env['LILYPONDPREFIX']
-
 mfbuild = os.path.join (env['absbuild'], 'mf', env['out'])
 lilybuild = os.path.join (env['absbuild'], 'lily', env['out'])
 userbuild = os.path.join (env['absbuild'], 'Documentation/user', env['out'])
 
-env.Depends ('lilypond.texi', LILYPOND_BIN)
+env.Depends ('lilypond.texi', env['LILYPOND_BIN'])
 env.Depends ('lilypond.texi', 'lilypond-internals.texi')
 env.Depends ('doc', mfbuild)
 
@@ -29,12 +19,11 @@ png_stems = map (lambda x: os.path.splitext (x)[0], pngs)
 epss = map (env.Png2eps, png_stems)
 env.Depends ('lilypond.texi', epss)
 
-env.Command ('lilypond-internals.texi', LILYPOND_BIN,
-	   ('(cd ${TARGET.dir} && \
-	   LILYPONDPREFIX=%(LILYPONDPREFIX)s %(LILYPOND_BIN)s ' \
-	    + verbose_opt (env, ' --verbose') \
-	    + ' ' + os.path.join (env['srcdir'], 'ly/generate-documentation')\
-	    + ')') % vars ())
+lydir = Dir ('.').srcnode ().abspath + '/../../ly'
+env.Command ('lilypond-internals.texi', env['LILYPOND_BIN'],
+	     'cd ${TARGET.dir} \
+	     && LILYPONDPREFIX=$LILYPONDPREFIX $LILYPOND_BIN $__verbose \
+	     $lydir/generate-documentation')
 
 doc_stems = map (lambda x: os.path.splitext (x)[0], sources)
 texis = map (env.Tely2texi, doc_stems)
@@ -44,44 +33,36 @@ pdfs = map (env.Dvi2pdf, doc_stems)
 
 
 def file_subst (file_name, find, subst):
-	find_re = re.compile (find, re.MULTILINE)
 	s = open (file_name).read ()
-	t = re.sub (find_re, subst, s)
+	t = string.replace (find, subst, s)
 	if s != t:
 		os.rename (file_name, file_name + '~')
 		h = open (file_name, "w")
 		h.write (t)
 		h.close ()
 
-##docdir = os.path.join (env['srcdir'], 'Documentation')
-docdir = Dir ('.').srcnode ().abspath + '/..'
-reldir = 'foe'
-out = env['out']
-srcdir = env['srcdir']
-verbose = verbose_opt (env, ' --verbose')
-a = ('makeinfo -I%(reldir)s -I${SOURCE.dir}'\
-     + ' --output=${TARGET.dir}'\
-     + ' --css-include=%(docdir)s/texinfo.css'\
-     + ' --html%(verbose)s'\
-     + ' $SOURCE &&' \
-     + ' makeinfo -I%(reldir)s -I${SOURCE.dir}' \
-     + ' --output=$TARGET' \
-     + ' --css-include=%(docdir)s/texinfo.css' \
-     + ' --html --no-split --no-headers %(verbose)s' \
-     + ' $SOURCE') % vars ()
+e = env.Copy ()
+e['usersrc'] = Dir ('.').srcnode ().abspath
 def url_fixup (target, source, env):
 	file_subst (str (target[0]),
 		    '\.\./lilypond-internals', 'lilypond-internals/')
-c = 'pwd; ln -f %(userbuild)s/*.png %(userbuild)s/*.ly ${TARGET.dir}/' % vars ()
-e = env.Copy ()
-e.Command ('lilypond/lilypond.html', 'lilypond.texi', [a, url_fixup, c])
+a = ['$MAKEINFO -I$usersrc -I${SOURCE.dir} --html \
+--css-include=$usersrc/../texinfo.css $__verbose \
+--output=${TARGET.dir} $SOURCE',
+     '$MAKEINFO -I$usersrc -I${SOURCE.dir} --html --no-split --no-headers \
+     --css-include=$usersrc/../texinfo.css $__verbose \
+     --output=$TARGET $SOURCE',
+     url_fixup,
+     'ln -f ${SOURCE.dir}/*.png ${SOURCE.dir}/*.ly ${TARGET.dir}/']
+     
+e.Command ('lilypond/lilypond.html', 'lilypond.texi', a)
 e.Command ('lilypond-internals/lilypond-internals.html',
-	   'lilypond-internals.texi', a)
+	     'lilypond-internals.texi', a)
 
 env.Alias ('doc', texis)
 env.Alias ('doc', dvis)
 env.Alias ('doc', pss)
 env.Alias ('doc', pdfs)
 
-env.Alias ('doc', 'lilypond-internals/lilypond.html')
+env.Alias ('doc', 'lilypond/lilypond.html')
 env.Alias ('doc', 'lilypond-internals/lilypond-internals.html')

@@ -1,0 +1,5 @@
+# -*-python-*-
+
+Import ('env')
+sources = ['lilypond-profile.sh', 'lilypond-login.sh']
+gens = map (env.AT, sources)
