@@ -16,13 +16,15 @@ IMPLEMENT_CTOR_CALLBACK (Percent_repeat_iterator);
 
 Percent_repeat_iterator::Percent_repeat_iterator ()
 {
+  child_iter_ = 0;
   
 }
 
 void
 Percent_repeat_iterator::do_quit()
 {
-  if (child_iter_) child_iter_->quit();
+  if (child_iter_)
+    child_iter_->quit();
 }
 Percent_repeat_iterator::Percent_repeat_iterator (Percent_repeat_iterator const & p)
   : Music_iterator (p)

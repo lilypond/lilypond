@@ -40,6 +40,7 @@ Sequential_iterator::Sequential_iterator ()
 {
   here_mom_ = Moment (0);
   list_ = SCM_EOL;
+  cursor_ = SCM_EOL; 
   grace_fixups_ = 0;
   iter_ =0;
 }
@@ -77,6 +78,7 @@ Sequential_iterator::derived_mark ()const
   if (iter_)
     scm_gc_mark (iter_->self_scm());
   scm_gc_mark (list_);
+  scm_gc_mark (cursor_);
 }
 
 

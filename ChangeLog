@@ -1,5 +1,16 @@
 2002-09-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/simultaneous-music-iterator.cc
+	(Simultaneous_music_iterator): init children_list_
+
+	* lily/part-combine-music-iterator.cc
+	(Part_combine_music_iterator): init state_
+
+	* lily/sequential-iterator.cc (Sequential_iterator): init cursor_
+
+	* lily/percent-repeat-iterator.cc (Percent_repeat_iterator): init
+	child_iter_.
+
 	* lily/sequential-iterator.cc (Sequential_iterator): init list_
 
 	* lily/translator-def.cc (Translator_def): make a GC proof copy

@@ -20,6 +20,8 @@ Part_combine_music_iterator::Part_combine_music_iterator ()
   second_iter_ = 0;
   first_until_ = 0;
   second_until_ = 0;
+
+  state_ = 0;
 }
 
 void

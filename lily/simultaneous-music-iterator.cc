@@ -16,6 +16,7 @@
 Simultaneous_music_iterator::Simultaneous_music_iterator ()
 {
   separate_contexts_b_ = false;
+  children_list_ = SCM_EOL;
 }
 
 Simultaneous_music_iterator::Simultaneous_music_iterator (Simultaneous_music_iterator const& src)

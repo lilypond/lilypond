@@ -18,7 +18,6 @@
 ;(debug-enable 'debug)
 ;(debug-enable 'backtrace)
 ;(read-enable 'positions)
-;(set-debug-cell-accesses! 15000)
 
 
 

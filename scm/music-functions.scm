@@ -326,4 +326,16 @@ this is not an override
      )
 
 
-(define toplevel-music-functions (list check-start-chords voicify-music))
+;; switch it on here, so parsing and init isn't checked (too slow!)
+
+(define (switch-on-debugging m)
+  (set-debug-cell-accesses! 15000)
+  m
+  )
+
+(define toplevel-music-functions
+  (list check-start-chords
+	voicify-music
+
+; switch-on-debugging
+	))
