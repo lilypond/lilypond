@@ -10,6 +10,8 @@
 
 #include <math.h>
 
+#include "pitch.hh"
+#include "accidental-interface.hh"
 #include "directional-element-interface.hh"
 #include "group-interface.hh"
 #include "lily-guile.hh"
@@ -23,10 +25,6 @@
 #include "stem.hh"
 #include "warn.hh"
 #include "beam.hh"
-
-
-
-#define DEBUG_SLUR_QUANTING 1
 
 struct Slur_score
 {
@@ -45,7 +43,9 @@ struct Slur_score
 };
 
 /*
-  TODO: put in details property.
+  TODO: put in details property.,
+
+  use lowercase.
 */
 struct Slur_score_parameters
 {
@@ -60,6 +60,8 @@ struct Slur_score_parameters
   Real HEAD_STRICT_FREE_SPACE;
   Real MAX_SLOPE;
   Real MAX_SLOPE_FACTOR;
+  Real EXTRA_OBJECT_COLLISION;
+  Real ACCIDENTAL_COLLISION;
   Real FREE_HEAD_DISTANCE;
   Slur_score_parameters ();
 };
@@ -113,6 +115,13 @@ struct Bound_info
 
 
 
+
+static void
+score_extra_encompass (Grob *me, Grob *common[],
+		       Slur_score_parameters *score_param,
+		       Drul_array<Bound_info> ,
+		       Drul_array<Offset> ,
+		       Array<Slur_score> * scores);
 static void score_slopes (Grob *me, Grob *common[],
 			  Slur_score_parameters *score_param,
 			  Drul_array<Bound_info>,
@@ -172,6 +181,8 @@ init_score_param (Slur_score_parameters *score_param)
   score_param->MAX_SLOPE = 1.1;
   score_param->MAX_SLOPE_FACTOR = 10;
   score_param->FREE_HEAD_DISTANCE = 0.3;
+  score_param->EXTRA_OBJECT_COLLISION = 8;
+  score_param->ACCIDENTAL_COLLISION = 3;
 }
 
 Slur_score_parameters::Slur_score_parameters()
@@ -386,15 +397,23 @@ set_end_points (Grob *me)
     }
 
   SCM eltlist = me->get_property ("note-columns");
-  Grob *common[] = {common_refpoint_of_list (eltlist, me, X_AXIS),
-		    common_refpoint_of_list (eltlist, me, Y_AXIS)};
 
-
+  
+  SCM extra_list = me->get_property ("encompass-objects");
   Spanner *sp = dynamic_cast<Spanner*> (me);
-  common[X_AXIS] = common[X_AXIS]->common_refpoint (sp->get_bound (RIGHT),
-						    X_AXIS);
+
+  Grob *common[] = {0,0};
+  for (int i = X_AXIS; i < NO_AXES; i++)
+    {
+      Axis a = (Axis)i;
+      common[a] = common_refpoint_of_list (eltlist, me, a);
+      common[a] = common_refpoint_of_list (extra_list, common[a], a);
+    }
+  
+  common[X_AXIS] = common[X_AXIS]->common_refpoint (sp->get_bound (RIGHT),X_AXIS);
   common[X_AXIS] = common[X_AXIS]->common_refpoint (sp->get_bound (LEFT),
 						    X_AXIS);
+  
   Drul_array<Bound_info> extremes = get_bound_info (sp, common);
   Drul_array<Offset> base_attachment
     = get_base_attachments (sp, common, extremes);
@@ -408,6 +427,7 @@ set_end_points (Grob *me)
   score_edges (me, common, &params,extremes, base_attachment, &scores);
   score_slopes (me, common, &params,extremes, base_attachment, &scores);
   score_encompass (me, common, &params,extremes, base_attachment, &scores);
+  score_extra_encompass (me, common, &params,extremes, base_attachment, &scores);
   
   Real opt = 1e6;
   int opt_idx = 0;
@@ -809,6 +829,98 @@ score_encompass (Grob *me, Grob *common[],
     }
 }
 
+
+
+void
+score_extra_encompass (Grob *me, Grob *common[],
+		 Slur_score_parameters *score_param,
+		 Drul_array<Bound_info> ,
+		 Drul_array<Offset> ,
+		 Array<Slur_score> * scores)
+{
+  Link_array<Grob> encompasses
+    = Pointer_group_interface__extract_grobs (me, (Grob *)0, "encompass-objects");
+  Direction dir = get_grob_direction (me);
+ Real lt =  me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real thick = robust_scm2double (me->get_property ("thickness"), 1.0) *  lt;
+
+
+  Array<Real> xs;
+  Array<Interval> yexts;
+  for (int i = 0; i < encompasses.size(); i++)
+    {
+      Grob *g = encompasses [i];
+      Interval xe = g->extent (common[X_AXIS], X_AXIS);
+      Interval ye = g->extent (common[Y_AXIS], Y_AXIS);
+
+      Real xp = 0.0;
+      
+      if (Accidental_interface::has_interface (g))
+	{
+	  /*
+	    C&P accidental.cc
+	   */
+	  bool parens = false;
+	  if (to_boolean (g->get_property ("cautionary")))
+	    {
+	      SCM cstyle = g->get_property ("cautionary-style");
+	      parens = ly_c_equal_p (cstyle, ly_symbol2scm ("parentheses"));
+
+	    }
+	  
+	  SCM accs = g->get_property ("accidentals");
+	  SCM scm_style = g->get_property ("style");
+	  if (!ly_c_symbol_p (scm_style)
+	      && !parens
+	      && scm_ilength (accs) == 1)
+	    {
+	      switch (ly_scm2int (ly_car (accs))) {
+	      case FLAT:
+	      case DOUBLE_FLAT:
+		xp = LEFT;
+	      case SHARP:
+		xp = 0.5* dir;
+	      case NATURAL:
+		xp = -dir;
+	      }
+	    }
+		  
+	}
+      xs.push (xe.linear_combination (xp));
+      ye.widen (.5 * thick);
+      yexts.push (ye);
+    }
+  
+  for (int i = 0; i < scores->size (); i++)
+    {
+      Bezier const &bez (scores->elem (i).curve_);
+      Real demerit = 0.0;
+      for (int j = 0; j < xs.size(); j++)
+	{
+	  Real x = xs[j];
+	  if (!(x < scores->elem (i).attachment_[RIGHT][X_AXIS]
+		&& x > scores->elem (i).attachment_[LEFT][X_AXIS]))
+	    continue;
+	
+	  Real y = bez.get_other_coordinate (X_AXIS, x);
+	  
+	  if (yexts[j].contains (y))
+	    {
+	      if (Accidental_interface::has_interface (encompasses[j]))
+		demerit += score_param->ACCIDENTAL_COLLISION;
+	      else 
+		demerit += score_param->EXTRA_OBJECT_COLLISION;
+	    }
+	}
+
+#if DEBUG_SLUR_QUANTING
+      (*scores)[i].score_card_ += to_string ("X%.2f", demerit);
+#endif
+      (*scores)[i].score_ += demerit;
+    }
+}
+
+
 void
 score_edges (Grob *me, Grob **,
 	     Slur_score_parameters * score_param,
@@ -846,7 +958,7 @@ void
 score_slopes (Grob *me, Grob *common[],
 	      Slur_score_parameters*score_param,
 	      Drul_array<Bound_info> extremes,
-	      Drul_array<Offset> base_attach,
+	      Drul_array<Offset> ,
 	      Array<Slur_score> * scores)
 {
   Drul_array<Real> ys;

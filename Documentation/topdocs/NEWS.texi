@@ -8,6 +8,14 @@
 
 @itemize @bullet
 
+@item Slur formatting has been rewritten. The new slur code
+works similar to the Beam formatter: scores are assigned for all
+esthetic components of a slur. A large number of combinations for
+begin and end points is then tried out.  They will now also take into
+account collisions with staff lines, scripts (like staccato and
+accent) and accidentals.
+
+
 @item In the LilyPond  emacs mode, the @code{|} will now display the
   current beat within the measure. 
 

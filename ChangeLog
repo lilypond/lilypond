@@ -1,3 +1,12 @@
+2004-07-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/accidental-engraver.cc (process_acknowledged_grobs):
+	make accidental appear to come from note head engraver.
+
+	* lily/slur-quanting.cc: new file.
+	(score_extra_encompass): new function. Avoid scripts and
+	accidentals
+
 2004-07-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/include/lily-guile.hh: Remove guile-1.4 compatibility.

@@ -105,7 +105,7 @@ Slur_engraver::acknowledge_grob (Grob_info info)
   else
     {
       for (int i = 0; i < slur_stack_.size (); i++)
-	New_slur::add_extra_encompass (end_slurs_[i], e);
+	New_slur::add_extra_encompass (slur_stack_[i], e);
       for (int i = 0; i < end_slurs_.size (); i++)
 	New_slur::add_extra_encompass (end_slurs_[i], e);
     }
@@ -185,9 +185,9 @@ Slur_engraver::stop_translation_timestep ()
 
 
 ENTER_DESCRIPTION (Slur_engraver,
-/* descr */       "Build slurs from Slur_evs",
+/* descr */       "Build slurs grobs from slur events",
 /* creats*/       "Slur",
 /* accepts */     "slur-event",
-/* acks  */      "note-column-interface accidental-interface script-interface",
+/* acks  */      "note-column-interface accidental-interface fingering-interface script-interface",
 /* reads */       "slurMelismaBusy",
 /* write */       "");

@@ -40,6 +40,14 @@
     c,^( c'' c) 
     c,,^( c'')
     c,,^( c')
+    \once \override Script #'padding = #1.2
+    b-.8( b-.
+    \once \override Script #'padding = #1.2
+
+    b-.)
+    b-.( b-.
+    b-.)
+    s4
     | b='2( a4) s4
     | b='4.( c8) s2
     | << c=''1_(

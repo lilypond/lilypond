@@ -10,7 +10,10 @@ source file of the GNU LilyPond music typesetter
 #ifndef ACCIDENTAL_INTERFACE_HH
 #define ACCIDENTAL_INTERFACE_HH
 
-#include "grob.hh"
+#include "box.hh"
+#include "lily-guile.hh"
+#include "lily-proto.hh"
+
 
 class Accidental_interface
 {
