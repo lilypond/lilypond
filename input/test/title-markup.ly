@@ -9,6 +9,7 @@
 
 \paper{
     #(define page-breaking ly:optimal-page-breaks)
+	fonts = #(make-utopia-tree 1.0)
     inputencoding = #"latin1"
 }
 
@@ -71,7 +72,6 @@ spaceTest = \markup { "two space chars" }
     }
     \paper {
 	%% #(paper-set-staff-size (* 11.0 pt)) 
-	inputcoding = #"latin1"
     }
 }
 
@@ -91,6 +91,5 @@ spaceTest = \markup { "two space chars" }
 	c1
     }
     \paper {
-	inputcoding = #"latin1"
     }
 }

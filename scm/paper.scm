@@ -12,7 +12,7 @@
 	 (pt (eval 'pt m)) 
 	 (mm (eval 'mm m)))
    
-    (module-define! m 'fonts (make-font-tree (/  sz (* 20 pt))))
+    (module-define! m 'fonts (make-cmr-tree (/  sz (* 20 pt))))
     
     (module-define! m 'staffheight sz)
     (module-define! m 'staff-space ss)

@@ -66,7 +66,7 @@
   (string-append
    "magfont"
    (string-encode-integer
-    (hashq (ly:font-name font) 1000000))
+    (hashq (ly:font-filename font) 1000000))
    "m"
    (string-encode-integer
     (inexact->exact (round (* 1000 (ly:font-magnification font)))))))
@@ -169,7 +169,7 @@
 (define (font-load-command paper font)
   (string-append
    "\\font\\" (font-command font) "="
-   (ly:font-name font)
+   (ly:font-filename font)
    " scaled "
    (ly:number->string (inexact->exact
 		       (round (* 1000
