@@ -72,11 +72,6 @@ postconfig () {
 	rm -f config.cache
 	export HOST_CC=gcc
 	export HOST_CXX=g++
-	if [ "$ABI" = "1.3" ]; then
-	    HOST_CC=gcc-2.95
-	    HOST_CXX=g++-2.95
-	    (cd $src && ln -s GNUmakefile.in GNUmakefile)
-	fi
 	(PATH="$old_path" \
 	    PATH="$HOME/usr/pkg/guile-1.6/bin:$PATH" \
 	    CFLAGS="-O2 -g" \
