@@ -1,13 +1,16 @@
+#include "keyitem.hh"
+
 #include "request.hh"
 #include "pscore.hh"
 #include "paper.hh"
 #include "complexstaff.hh"
 #include "sccol.hh"
 #include "debug.hh"
-
+#include "linepstaff.hh"
 #include "clefitem.hh"
 #include "bar.hh"
 #include "meter.hh"
+const NO_LINES = 5;
 
 Item *
 Complex_staff::get_TYPESET_item(Command *com)
@@ -16,7 +19,9 @@ Complex_staff::get_TYPESET_item(Command *com)
     Array<Scalar> arg( com->args);
     String type =arg[0];
     arg.del(0);
-    if (type ==  "BAR" ) {
+    if (com->args[0] == "KEY") {
+	return new Keyitem(NO_LINES);	// urgh. depends on clef.
+    } else if (type ==  "BAR" ) {
 	s = new Bar(com->args[1]);	
     } else if (type == "METER") {
 	s = new Meter(arg);
@@ -29,6 +34,7 @@ Complex_staff::get_TYPESET_item(Command *com)
     }
     return s;
 }
+
 
 
 Interval
@@ -91,6 +97,7 @@ Complex_column::typeset_item_directional(Item *i, int dir, int breakst) // UGH!
 void
 Complex_staff::set_output(PScore* ps )
 {
+    theline_l_ = new Linestaff(NO_LINES,ps); // theline_l_ is added to pscore later.
     pscore_l_ = ps;
     pscore_l_->add(theline_l_);
 }
