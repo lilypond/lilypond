@@ -1,7 +1,12 @@
 #!@PYTHON@
 
 '''
-Exampel usage:
+TODO: latex/paper parameters
+      [verbatim]
+      \relative ly:export?
+
+
+Example usage:
 
 test:
      filter-lilypond-book --filter="tr '[a-z]' '[A-Z]'" BOOK
@@ -458,7 +463,36 @@ def process_snippets (source, snippets, cmd):
 		for i in names:
 			to_eps (i)
 			ly.make_ps_images (i + '.eps', resolution=110)
-		
+
+LATEX_DOCUMENT = r'''
+%(preamble)s
+\begin{document}
+\typeout{columnsep=\the\columnsep}
+\typeout{textwidth=\the\textwidth}
+\end{document}
+'''
+#need anything else besides textwidth?
+def get_latex_parameters (source):
+	snippet, = find_snippets (source, 'preamble-end')
+	latex_cmd = 'latex "\\nonstopmode \input /dev/stdin"'
+	preamble = source[:snippet.start (0)]
+	latex_document = LATEX_DOCUMENT % vars ()
+        parameter_string = filter_pipe (latex_document, latex_cmd)
+
+	columnsep = 0
+	m = re.search ('columnsep=([0-9.]*)pt', parameter_string)
+	if m:
+		columnsep = string.atof (m.group (1))
+
+	textwidth = 0
+	m = re.search('textwidth=([0-9.]*)pt', parameter_string)
+	if m:
+		textwidth = string.atof (m.group (1))
+		if columnsep:
+			textwidth -= columnsep
+
+	return textwidth
+
 
 def do_file (input_filename):
 	global format
@@ -526,6 +560,9 @@ def do_file (input_filename):
 			snippet_output (snippet, source)
  		index = snippet.end (0)
 
+	if format == LATEX:
+		textwdith = get_latex_parameters (source)
+		#TODO: set global option
 
 	global index
 	if filter_cmd:
