@@ -1,3 +1,10 @@
+2005-04-04  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/changing-defaults.itely (Changing defaults):
+	Fix programs reference links.
+
+	* Documentation/user/music-glossary.tely: Convert to utf-8.
+
 2005-04-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* make/lilypond-vars.make: remove TEXMF from variables.
