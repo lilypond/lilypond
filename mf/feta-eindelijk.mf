@@ -272,5 +272,59 @@ fet_beginchar("128th rest","7","hundredtwentyeighthrest");
 	fet_endchar;
 
 endgroup;
-fet_endgroup("rests");
 
+% Rest symbols for mensural notation:
+
+mensrestsize# = .8interline#;
+
+fet_beginchar("Mensural 4th rest","2mensural","minimarest")
+	set_char_box(0,mensrestsize#,0,mensrestsize#);
+        pickup pencircle scaled 2 stafflinethickness;
+	lft x1 = 0;
+	bot y1 = 0;
+	lft x2 = 0;
+	top y2 = h;
+	rt x3 = w;
+	bot y3 = h/2;
+	draw z1 .. z2;
+	draw z2 .. z3;
+fet_endchar
+
+fet_beginchar("Mensural 8th rest","3mensural","fusarest")
+	set_char_box(0,mensrestsize#,0,mensrestsize#);
+        pickup pencircle scaled 2 stafflinethickness;
+	rt x1 = w;
+	bot y1 = 0;
+	rt x2 = w;
+	top y2 = h;
+	lft x3 = 0;
+	bot y3 = h/2;
+	draw z1 .. z2;
+	draw z2 .. z3;
+fet_endchar
+
+fet_beginchar("Mensural 16th rest","4mensural","semifusarest")
+	set_char_box(0,mensrestsize#,0,interline#);
+        pickup pencircle scaled 2 stafflinethickness;
+	rt x1 = w;
+	bot y1 = 0;
+	rt x2 = w;
+	top y2 = h;
+
+	draw z1 .. z2;
+
+        pickup pencircle scaled 2 stafflinethickness;
+	rt x3 = w;
+	top y3 = h;
+	lft x4 = 0;
+	bot y4 = h/2;
+	rt x5 = w;
+	top y5 = 5/8h;
+	lft x6 = 0;
+	bot y6 = h/8;
+
+	draw z3 .. z4;
+	draw z5 .. z6;
+fet_endchar
+
+fet_endgroup("rests")
