@@ -68,6 +68,7 @@ syntactical details are described at the end of the manual.
 * Chords::                      
 * Writing parts::               
 * Custodes::                    
+* Figured bass::                
 * Tuning output::               
 * Page layout::                 
 * Output formats::              
@@ -847,8 +848,27 @@ a measure it is set to @code{defaultBarType}. The contents of
 @cindex polyphony
 
 Polyphonic parts, i.e. parts with more than one voice on a staff can be
-typeset with LilyPond.   To use this, instantiate a separate Voice
-context for each part, and assign a stem direction to each part. 
+typeset with LilyPond.
+
+The easiest way to enter such fragments, is the Scheme function
+@code{voicify-music}. It will split chords using the separator
+@code{\\}, to make multiple voices.  You can use it for small,
+short-lived voices (make a chord of voices) or for single chords:
+
+@lilypond
+\score {
+\notes \context Voice = VA \apply #voicify-music \relative c'' {
+ c4 < { f d e  } \\ { b c2 } > c4 < g' \\ c, \\  f \\ d >
+}
+}
+@end lilypond
+
+The function @code{voicify-music} instantiates @internalsref{Voice}
+contexts, bearing the names @code{"1"}, @code{"2"}, etc.
+
+To explicity typeset polyphonic music, instantiate a separate Voice
+context for each part, and assign a stem direction to each part.
+@c
 @lilypond[fragment,verbatim]
 \context Staff
 < \context Voice = VA { \stemUp b'4 a' g' f' e' }
@@ -913,8 +933,10 @@ LilyPond also vertically shifts rests that are opposite of a stem.
 @end lilypond
 
 Note head collisions (horizontal shifting of note heads) are handled by
-the @internalsref{NoteCollision} grob. @internalsref{RestCollision} handles vertical
-shifting of rests.
+the @internalsref{NoteCollision} grob. @internalsref{RestCollision}
+handles vertical shifting of rests.
+
+
 
 
 
@@ -2837,6 +2859,36 @@ block:
   c'1 d' e' d' \break c' d' e' d'
 @}
 @end example
+
+
+@c . {Figured bass}
+@node Figured bass
+@section Figured bass
+
+@cindex Basso continuo
+
+Figured bass is printed by @internalsref{FiguredBass} context.  This
+context will print notes (relative to the central C) as figures.  To
+ease entering these notes, the special @code{\figures} mode, is
+available which allows you to type numbers, like @code{<4 6+>}.
+
+@lilypond
+\score { \notes  <
+ \context FiguredBass \transpose c'' {
+   <e! g >
+   <f8 ais >
+   \figures {
+     r8
+     <1 3 5>4 <3- 5+ 6!> <5>
+   } 
+ }
+ \context Voice {
+   c g8 g f4 d c
+  }
+ 
+>
+ }
+@end lilypond
 
 @c . {Tuning output}
 @node Tuning output
