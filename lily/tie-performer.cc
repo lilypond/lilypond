@@ -76,6 +76,7 @@ void
 Tie_performer::initialize ()
 {
   event_ = 0;
+  prev_event_ = 0;
 }
 
 
