@@ -18,7 +18,7 @@ Version: @TOPLEVEL_VERSION@
 Release: 2
 Copyright:    GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
+Source0: ftp.lilyond.org:/pub/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
 # music notation software for.. ?
 Summary: A program for printing sheet music.
 URL: http://www.lilypond.org/
