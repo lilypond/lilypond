@@ -304,7 +304,7 @@ ChordNamesContext = \translator {
 	\consists "Rest_swallow_translator" 
 	\consists "Output_property_engraver"	
 	\consists "Separating_line_group_engraver"
-	\consists "New_chord_name_engraver"
+	\consists "Chord_name_engraver"
 	\consists "Skip_req_swallow_translator"
 	\consistsend "Hara_kiri_engraver"
 	minimumVerticalExtent = #'(0 . 2.5)
@@ -441,7 +441,8 @@ ScoreContext = \translator {
 	majorSevenSymbol = #whiteTriangleMarkup
 	chordNameSeparator = #(make-simple-markup  "/")
 	chordNameExceptions = #ignatzekExceptions
-
+	chordRootNamer = #note-name->markup
+	
 	%% tablature:
 	stringOneTopmost = ##t
 	highStringOne = ##t

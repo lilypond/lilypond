@@ -23,7 +23,8 @@
        (= alteration -1) 0.2
        )))
 
-(define (pitch->markup pitch)
+
+(define-public (note-name->markup pitch)
   "Return pitch markup for PITCH."
   (make-line-markup
    (list
@@ -31,6 +32,18 @@
      (vector-ref #("C" "D" "E" "F" "G" "A" "B") (ly:pitch-notename pitch)))
     (make-normal-size-super-markup
      (accidental->markup (ly:pitch-alteration pitch))))))
+
+
+(define-public (note-name->german-markup pitch)
+  "Return pitch markup for PITCH, using german note names."
+  (make-line-markup
+   (list
+    (make-simple-markup
+     (vector-ref #("C" "D" "E" "F" "G" "A" "H") (ly:pitch-notename pitch)))
+    (make-normal-size-super-markup
+     (accidental->markup (ly:pitch-alteration pitch))))))
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -163,7 +176,7 @@
 	    ps)
 	)
     )
-
+  (define name-root (ly:get-context-property context 'chordRootNamer))
 
   (define (is-natural-alteration? p)
     (= (natural-chord-alteration p)  (ly:pitch-alteration p))
@@ -261,7 +274,7 @@ work than classifying the pitches."
     (let*
 	(
 	 (sep (ly:get-context-property context 'chordNameSeparator))
-	 (root-markup (pitch->markup root))
+	 (root-markup (name-root root))
 	 (add-markups (map (lambda (x)
 			     (glue-word-to-step "add" x))
 			   addition-pitches))
@@ -277,7 +290,7 @@ work than classifying the pitches."
 			       suffixes
 			       add-markups) sep))
 	 (base-stuff (if bass-pitch
-			 (list sep (pitch->markup bass-pitch))
+			 (list sep (name-root bass-pitch))
 			 '()))
 	 )
 
@@ -308,7 +321,7 @@ work than classifying the pitches."
     (if
      exception
      (make-line-markup
-      (list (pitch->markup root) exception))
+      (list (name-root root) exception))
      
      (begin				; no exception.
        

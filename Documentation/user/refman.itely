@@ -3283,6 +3283,12 @@ separators, e.g.
         = \markup { "|" }
       c:7sus4 }
 @end lilypond
+
+@item chordRootNamer
+The root of a chord is usually printed as a letter with an optional
+alteration. The transformation from pitch to letter is done by this
+function.  An application of setting this function, is providing chord
+names with german notation for the root.
 @end table
 
 

@@ -1,5 +1,14 @@
 2003-04-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* ly/german-chords-init.ly: remove file
+
+	* input/test/chord-names-german.ly (scm): new file.
+
+	* ly/engraver-init.ly (ScoreContext): add chordRootNamer property.
+
+	* lily/chord-name-engraver.cc: move New_chord_name_engraver to
+	Chord_name_engraver
+
 	* Documentation/user/refman.itely: lots of updates.
 
 	* input/regression/chord-name-exceptions.ly (chExceptionMusic):

@@ -179,7 +179,7 @@ input/test/dpncnt.ly).
        ;;    + subs:missing
        
        (let* ((root->markup (assoc-get-default
-			      'root->markup options pitch->markup))
+			      'root->markup options note-name->markup))
 	      (step->markup (assoc-get-default
 			     'step->markup options step->markup-plusminus))
 	      (sub->markup (assoc-get-default
@@ -217,7 +217,7 @@ input/test/dpncnt.ly).
        ;;    + 'add'
        ;;    + steps:rest
        (let* ((root->markup (assoc-get-default
-			      'root->markup options pitch->markup))
+			      'root->markup options note-name->markup))
 	      (step->markup (assoc-get-default
 			     'step->markup options step->markup-accidental))
 	      (sep (assoc-get-default
