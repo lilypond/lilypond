@@ -24,7 +24,7 @@ include ./$(depth)/make/Variables.make
 #
 NAME = ...
 MODULE_NAME = 
-include ./$(depth)/$(NAME)/.version
+include ./$(depth)/$(NAME)/VERSION
 
 build = $(outdir)/.build #????!
 #
