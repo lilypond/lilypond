@@ -67,6 +67,7 @@ static Keyword_ent the_key_tab[]={
   {"paper", PAPER},
   {"partcombine", PARTCOMBINE},
   {"partial", PARTIAL},
+  {"quote", QUOTE},
   {"relative", RELATIVE},
   {"remove", REMOVE},
   {"repeat", REPEAT},

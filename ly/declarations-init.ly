@@ -130,5 +130,4 @@ partCombineListener = \paper {
 % reset default duration
 unusedEntry = \notes { c4 }
 
-% music = "\melodic\relative c"
-
+#(define musicQuotes (make-hash-table)) 

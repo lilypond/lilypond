@@ -246,8 +246,12 @@ Sequential_iterator::process (Moment until)
 	  iter_->process (iter_->music_get_length ());
 	}
       else
-	iter_->process (until - here_mom_ + iter_->music_start_mom ());
-
+	{
+	  Moment w = until - here_mom_ + iter_->music_start_mom ();
+	  if (w >= Moment (0)) 
+	    iter_->process (w);
+	}
+      
       /*
 	if the iter is still OK, there must be events left that have
 	

@@ -625,3 +625,18 @@ the mark when there are no spanners active."
   ))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-public (add-quotable name mus)
+  (set! noticed '())
+  (let*
+      ((tab (eval 'musicQuotes (current-module) ))
+       (context (ly:run-translator (context-spec-music mus 'Voice)
+				   part-combine-listener))
+       (evs (last-pair noticed))
+       )
+
+    (if (pair? evs)
+	(hash-set! tab name
+		   (list->vector (reverse! (car evs) '()))))
+  ))

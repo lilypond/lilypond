@@ -1,5 +1,5 @@
 /*   
-     new-part-combine-music-iterator.cc -- implement New_pc_iterator
+     new-part-combine-music-iterator.cc -- implement Part_combine_iterator
 
      source file of the GNU LilyPond music typesetter
   
@@ -14,16 +14,16 @@
 #include "music-iterator.hh"
 #include "interpretation-context-handle.hh"
 
-class New_pc_iterator : public Music_iterator
+class Part_combine_iterator : public Music_iterator
 {
 public:
-  New_pc_iterator ();
+  Part_combine_iterator ();
 
   DECLARE_SCHEME_CALLBACK(constructor, ()); 
 protected:
   virtual void derived_substitute (Context *f, Context *t) ;
   virtual void derived_mark () const;
-  New_pc_iterator (New_pc_iterator const &);
+  Part_combine_iterator (Part_combine_iterator const &);
 
   virtual void construct_children ();
   virtual Moment pending_moment () const;
@@ -69,7 +69,7 @@ private:
 };
 
 
-New_pc_iterator::New_pc_iterator ()
+Part_combine_iterator::Part_combine_iterator ()
 {
   first_iter_ = 0;
   second_iter_ = 0;
@@ -79,7 +79,7 @@ New_pc_iterator::New_pc_iterator ()
 }
 
 void
-New_pc_iterator::derived_mark () const
+Part_combine_iterator::derived_mark () const
 {
   if (first_iter_)
     scm_gc_mark (first_iter_->self_scm());
@@ -88,7 +88,7 @@ New_pc_iterator::derived_mark () const
 }
 
 void
-New_pc_iterator::derived_substitute (Context *f,
+Part_combine_iterator::derived_substitute (Context *f,
 				     Context *t)
 {
   if (first_iter_)
@@ -98,7 +98,7 @@ New_pc_iterator::derived_substitute (Context *f,
 }
 
 void
-New_pc_iterator::do_quit ()
+Part_combine_iterator::do_quit ()
 {
   if (first_iter_)
     first_iter_->quit();
@@ -113,7 +113,7 @@ New_pc_iterator::do_quit ()
 }
 
 Moment
-New_pc_iterator::pending_moment () const
+Part_combine_iterator::pending_moment () const
 {
   Moment p;
   p.set_infinite (1);
@@ -126,13 +126,13 @@ New_pc_iterator::pending_moment () const
 }
 
 bool
-New_pc_iterator::ok () const
+Part_combine_iterator::ok () const
 {
   return first_iter_->ok () || second_iter_->ok ();
 }
 
 void
-New_pc_iterator::chords_together ()
+Part_combine_iterator::chords_together ()
 {
   if (state_ == TOGETHER)
     return;
@@ -147,7 +147,7 @@ New_pc_iterator::chords_together ()
 
 
 void
-New_pc_iterator::kill_mmrest (Context * tg)
+Part_combine_iterator::kill_mmrest (Context * tg)
 {
   static Music * mmrest;
   if (!mmrest)
@@ -160,7 +160,7 @@ New_pc_iterator::kill_mmrest (Context * tg)
 }
 
 void
-New_pc_iterator::solo1 ()
+Part_combine_iterator::solo1 ()
 {
   if (state_ == SOLO1)
     return;
@@ -186,7 +186,7 @@ New_pc_iterator::solo1 ()
 }
 
 void
-New_pc_iterator::substitute_both (Context * to1,
+Part_combine_iterator::substitute_both (Context * to1,
 				  Context * to2)
 {
   Context *tos[]  = {to1,to2};
@@ -215,7 +215,7 @@ New_pc_iterator::substitute_both (Context * to1,
 
 
 void
-New_pc_iterator::unisono (bool silent)
+Part_combine_iterator::unisono (bool silent)
 {
   Status newstate = (silent) ? UNISILENCE : UNISONO;
   
@@ -243,7 +243,7 @@ New_pc_iterator::unisono (bool silent)
 }
 
 void
-New_pc_iterator::solo2 ()
+Part_combine_iterator::solo2 ()
 {
   if (state_ == SOLO2)
     return;
@@ -266,7 +266,7 @@ New_pc_iterator::solo2 ()
 }
 
 void
-New_pc_iterator::apart (bool silent)
+Part_combine_iterator::apart (bool silent)
 {
   if (!silent)
     playing_state_ = APART;
@@ -282,7 +282,7 @@ New_pc_iterator::apart (bool silent)
 
 
 void
-New_pc_iterator::construct_children ()
+Part_combine_iterator::construct_children ()
 {
   split_list_ =  get_music ()->get_mus_property ("split-list");
   SCM lst =  get_music ()->get_mus_property ("elements");
@@ -363,7 +363,7 @@ New_pc_iterator::construct_children ()
 }
 
 void
-New_pc_iterator::process (Moment m)
+Part_combine_iterator::process (Moment m)
 {
   Moment now = get_outlet ()->now_mom ();
   Moment *splitm = 0;
@@ -406,7 +406,7 @@ New_pc_iterator::process (Moment m)
 }
 
 Music_iterator*
-New_pc_iterator::try_music_in_children (Music *m) const
+Part_combine_iterator::try_music_in_children (Music *m) const
 {
   Music_iterator * i =  first_iter_->try_music (m);
   if (i)
@@ -415,4 +415,4 @@ New_pc_iterator::try_music_in_children (Music *m) const
     return second_iter_->try_music (m);
 }
 
-IMPLEMENT_CTOR_CALLBACK (New_pc_iterator);
+IMPLEMENT_CTOR_CALLBACK (Part_combine_iterator);
