@@ -118,9 +118,9 @@ get_first_context_id (SCM type, Music *m)
 SCM
 make_simple_markup (SCM encoding, SCM a)
 {
-	SCM simple = ly_scheme_function ("simple-markup");
+	SCM simple = ly_lily_module_constant ("simple-markup");
 	if (scm_is_symbol (encoding))
-		return scm_list_3 (ly_scheme_function ("encoded-simple-markup"),
+		return scm_list_3 (ly_lily_module_constant ("encoded-simple-markup"),
 			   encoding, a);
 	return scm_list_2 (simple, a);
 }
@@ -154,7 +154,7 @@ make_chord_step (int step, int alter)
 SCM
 make_chord (SCM pitch, SCM dur, SCM modification_list)
 {
-	SCM chord_ctor = ly_scheme_function ("construct-chord");
+	SCM chord_ctor = ly_lily_module_constant ("construct-chord");
 	SCM ch = scm_call_3 (chord_ctor, pitch, dur, modification_list);
 	scm_gc_protect_object (ch);
 	return ch;
@@ -903,7 +903,7 @@ Repeated_music:
 		}
 
 
-		SCM proc = ly_scheme_function ("make-repeated-music");
+		SCM proc = ly_lily_module_constant ("make-repeated-music");
 
 		SCM mus = scm_call_1 (proc, $2);
 		scm_gc_protect_object (mus); // UGH.
@@ -925,7 +925,7 @@ Repeated_music:
 			we can not get durations and other stuff correct down the line, so we have to
 			add to the duration log here.
 			*/
-			SCM func = ly_scheme_function ("shift-duration-log");
+			SCM func = ly_lily_module_constant ("shift-duration-log");
 
 			int dots = ($3 % 3) ? 0 : 1;
 			int shift = -intlog2 ((dots) ? ($3*2/3) : $3);
@@ -1092,7 +1092,7 @@ Generic_prefix_music:
 		SCM args = scm_cddr ($1);
 		SCM sig = scm_object_property (func, ly_symbol2scm ("music-function-signature"));
 
-		SCM type_check_proc = ly_scheme_function ("type-check-list");
+		SCM type_check_proc = ly_lily_module_constant ("type-check-list");
 		bool ok  = true;
 
 		if (!to_boolean (scm_call_3  (type_check_proc, scm_cadr ($1), sig, args)))
@@ -1607,7 +1607,7 @@ chord_body_element:
 
 add_quote:
 	ADDQUOTE string Music {
-		SCM adder = ly_scheme_function ("add-quotable");
+		SCM adder = ly_lily_module_constant ("add-quotable");
 		
 		scm_call_2 (adder, $2, $3->self_scm ());
 		scm_gc_unprotect_object ($3->self_scm ());
@@ -1699,21 +1699,21 @@ command_element:
 		$$ = p;
 	}
 	| CLEF STRING  {
-		SCM proc = ly_scheme_function ("make-clef-set");
+		SCM proc = ly_lily_module_constant ("make-clef-set");
 
 		SCM result = scm_call_1 (proc, $2);
 		scm_gc_protect_object (result);
 		$$ = unsmob_music (result);
 	}
 	| TIME_T fraction  {
-		SCM proc = ly_scheme_function ("make-time-signature-set");
+		SCM proc = ly_lily_module_constant ("make-time-signature-set");
 
 		SCM result = scm_apply_2   (proc, scm_car ($2), scm_cdr ($2), SCM_EOL);
 		scm_gc_protect_object (result);
 		$$ = unsmob_music (result);
 	}
 	| MARK scalar {
-		SCM proc = ly_scheme_function ("make-mark-set");
+		SCM proc = ly_lily_module_constant ("make-mark-set");
 
 		SCM result = scm_call_1 (proc, $2);
 		scm_gc_protect_object (result);
@@ -2101,12 +2101,12 @@ tremolo_type:
 bass_number:
 	DIGIT   {
 		$$ = scm_number_to_string (scm_int2num ($1), scm_int2num (10));
-		$$ = scm_list_2 (ly_scheme_function ("number-markup"),
+		$$ = scm_list_2 (ly_lily_module_constant ("number-markup"),
 				$$);
 	}
 	| UNSIGNED {
 		$$ = scm_number_to_string (scm_int2num ($1), scm_int2num (10));
-		$$ = scm_list_2 (ly_scheme_function ("number-markup"),
+		$$ = scm_list_2 (ly_lily_module_constant ("number-markup"),
 				$$);
 	}
 	| STRING { $$ = $1; }
@@ -2268,7 +2268,7 @@ simple_element:
 	| MULTI_MEASURE_REST optional_notemode_duration  	{
 		THIS->pop_spot ();
 
-		SCM proc = ly_scheme_function ("make-multi-measure-rest");
+		SCM proc = ly_lily_module_constant ("make-multi-measure-rest");
 		SCM mus = scm_call_2 (proc, $2,
 			make_input (THIS->here_input ()));	
 		scm_gc_protect_object (mus);
@@ -2482,10 +2482,10 @@ full_markup:
 
 markup_top:
 	markup_list { 
-		$$ = scm_list_2 (ly_scheme_function ("line-markup"),  $1); 
+		$$ = scm_list_2 (ly_lily_module_constant ("line-markup"),  $1); 
 	}
 	| markup_head_1_list simple_markup	{
-		$$ = scm_car (scm_call_2 (ly_scheme_function ("map-markup-command-list"), $1, scm_list_1 ($2)));
+		$$ = scm_car (scm_call_2 (ly_lily_module_constant ("map-markup-command-list"), $1, scm_list_1 ($2)));
 	}
 	| simple_markup	{
 		$$ = $1;
@@ -2503,7 +2503,7 @@ markup_list:
 
 markup_composed_list:
 	markup_head_1_list markup_braced_list {
-		$$ = scm_call_2 (ly_scheme_function ("map-markup-command-list"), $1, $2);
+		$$ = scm_call_2 (ly_lily_module_constant ("map-markup-command-list"), $1, $2);
 		
 	}
 	;
@@ -2560,7 +2560,7 @@ simple_markup:
 		THIS->lexer_->push_note_state (alist_to_hashq (nn));
 	} '{' score_body '}' {
 		Score * sc = $4;
-		$$ = scm_list_2 (ly_scheme_function ("score-markup"), sc->self_scm ());
+		$$ = scm_list_2 (ly_lily_module_constant ("score-markup"), sc->self_scm ());
 		scm_gc_unprotect_object (sc->self_scm ());
 		THIS->lexer_->pop_state ();
 	}
@@ -2586,7 +2586,7 @@ simple_markup:
 	
 markup:
 	markup_head_1_list simple_markup	{
-		$$ = scm_car (scm_call_2 (ly_scheme_function ("map-markup-command-list"), $1, scm_list_1 ($2)));
+		$$ = scm_car (scm_call_2 (ly_lily_module_constant ("map-markup-command-list"), $1, scm_list_1 ($2)));
 	}
 	| simple_markup	{
 		$$ = $1;

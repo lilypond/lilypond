@@ -316,7 +316,7 @@ get_encoded_index (Font_metric *m, String input_coding, int code)
   String font_coding = m->coding_scheme ();
   if (font_coding == input_coding)
     return code;
-  SCM s = scm_call_3 (ly_scheme_function ("encoded-index"),
+  SCM s = scm_call_3 (ly_lily_module_constant ("encoded-index"),
 		      scm_makfrom0str (input_coding.to_str0 ()),
 		      scm_makfrom0str (font_coding.to_str0 ()),
 		      scm_int2num (code));

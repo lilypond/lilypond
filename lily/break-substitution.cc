@@ -461,7 +461,7 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
 SCM
 substitute_mutable_property_alist (SCM alist)
 {
-  SCM grob_list_p = ly_scheme_function ("grob-list?");
+  SCM grob_list_p = ly_lily_module_constant ("grob-list?");
 
   SCM l = SCM_EOL;
   SCM *tail = &l;
@@ -499,7 +499,7 @@ Spanner::substitute_one_mutable_property (SCM sym,
   Spanner*s = this;
   
   bool fast_done = false;
-  SCM grob_list_p = ly_scheme_function ("grob-list?");
+  SCM grob_list_p = ly_lily_module_constant ("grob-list?");
   if (type == grob_list_p)
     fast_done = s->fast_fubstitute_grob_list (sym, val);
 

@@ -96,7 +96,7 @@ Staff_performer::create_audio_elements ()
 void
 Staff_performer::stop_translation_timestep ()
 {
-  SCM proc = ly_scheme_function ("percussion?");
+  SCM proc = ly_lily_module_constant ("percussion?");
   
   SCM drums = scm_call_1 (proc, ly_symbol2scm (instrument_string_.to_str0 ()));
   audio_staff_->channel_ = (drums == SCM_BOOL_T ? 9 : -1 );

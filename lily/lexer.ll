@@ -882,7 +882,7 @@ avoid_silly_flex_induced_gcc_warnings ()
 SCM
 lookup_markup_command (String s)
 {
-	SCM proc = ly_scheme_function ("lookup-markup-command");
+	SCM proc = ly_lily_module_constant ("lookup-markup-command");
 	return scm_call_1 (proc, scm_makfrom0str (s.to_str0 ()));
 }
 

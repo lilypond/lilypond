@@ -226,9 +226,9 @@ LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click",
   /* UGH. */
   SCM val = SCM_BOOL_F;
   if (ly_symbol2scm ("line-column") == what)
-    val = ly_scheme_function ("line-column-location");
+    val = ly_lily_module_constant ("line-column-location");
   else if (what == ly_symbol2scm ("line"))
-    val = ly_scheme_function ("line-location");
+    val = ly_lily_module_constant ("line-location");
 
   scm_module_define (global_lily_module, ly_symbol2scm ("point-and-click"),
 		     val);

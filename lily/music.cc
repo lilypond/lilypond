@@ -245,7 +245,7 @@ Music::duration_log () const
 Music*
 make_music_by_name (SCM sym)
 {
-  SCM make_music_proc = ly_scheme_function ("make-music");
+  SCM make_music_proc = ly_lily_module_constant ("make-music");
   SCM rv = scm_call_1 (make_music_proc, sym);
 
   /* UGH. */

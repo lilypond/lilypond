@@ -103,7 +103,7 @@ get_font_by_mag_step (Output_def *layout, Real requested_step,
 SCM
 properties_to_font_size_family (SCM fonts, SCM alist_chain)
 {
-  return scm_call_2 (ly_scheme_function ("lookup-font"), fonts, alist_chain);
+  return scm_call_2 (ly_lily_module_constant ("lookup-font"), fonts, alist_chain);
 }
 
 Font_metric *

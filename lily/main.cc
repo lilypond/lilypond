@@ -339,7 +339,7 @@ main_with_guile (void *, int, char **)
       exit (2);
     }
 
-  SCM result = scm_call_1 (ly_scheme_function ("lilypond-main"), files);
+  SCM result = scm_call_1 (ly_lily_module_constant ("lilypond-main"), files);
   (void) result;
 
 
