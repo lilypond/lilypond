@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header{
 texidoc="
@@ -14,7 +14,7 @@ Beams over rests.
     }
 
     \paper{
-        linewidth =-1
+        raggedright = ##t
     }
 }
 %% new-chords-done %%

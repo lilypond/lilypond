@@ -1,9 +1,9 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
     texidoc = "Relative placements of different script types can be controlled
 by overriding script-priority."
 }
-\paper { linewidth = -1. } 
+\paper { raggedright = ##t} 
 
 \score{
     \context Staff \notes \relative g''{

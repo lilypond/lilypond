@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header {
 texidoc="
@@ -33,7 +33,7 @@ music = \notes \relative c'' { c4 d4( e4 f4 }
     \music
     \apply #reverse-music \music
   }
-  \paper { linewidth = -1. }
+  \paper { raggedright = ##t}
 }
 
 %% new-chords-done %%

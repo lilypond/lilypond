@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
   texidoc="Beam-stem attachment test.  Helper file for ps/dvips problems."
 }
@@ -10,7 +10,7 @@
     \stemUp [c8. c16]
   }
   \paper {
-    linewidth = -1.0
+    raggedright = ##t
     magnification = 64
   }
 }%% new-chords-done %%

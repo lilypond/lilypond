@@ -3,7 +3,7 @@
     texidoc= "Chord names don't attempt to find inversions and
 bass notes."  }
 
-\version "1.7.10"
+\version "1.7.16"
 
 scheme = \notes {
   <<c' e' g'>>1
@@ -16,6 +16,6 @@ scheme = \notes {
     \context ChordNames \scheme
     \context Staff \scheme
   >
-  \paper { linewidth = -1. }
+  \paper { raggedright = ##t}
 }
 %% new-chords-done %%

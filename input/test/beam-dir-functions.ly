@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
   texidoc = "
 
@@ -20,7 +20,7 @@ your favourite algorithm isn't one of these, you can hook up your own.
 "
 }
 
-\paper { linewidth = -1.}
+\paper { raggedright = ##t}
 \score {
   \notes\relative c'' {
     \property Voice.Beam \set #'dir-function = #beam-dir-majority

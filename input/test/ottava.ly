@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 
 fragment = \notes {
@@ -10,7 +10,7 @@ fragment = \notes {
   a#(ly:export (make-span-event 'TextSpanEvent START)) b c a #(ly:export (make-span-event 'TextSpanEvent STOP))
 }
 
-\paper { linewidth = -1. } 
+\paper { raggedright = ##t} 
 
 \score {
   \notes\relative c \fragment

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 
 x = {
@@ -38,7 +38,7 @@ x = {
   >
   \paper {
     indent=0.0\mm
-    linewidth=-1.0\mm
+    raggedright = ##t
     \translator{
       \VoiceContext
       Slur \override #'direction = #1

@@ -2,7 +2,7 @@
     texidoc="Make PhrasingSlur higher, to avoid colission from other slurs"
     }
 
-\version "1.7.6"
+\version "1.7.16"
 
 \score {
     \context Staff = melody \notes\relative c''{

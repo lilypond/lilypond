@@ -1,4 +1,4 @@
-\version "1.7.7"
+\version "1.7.16"
 \header{
     texidoc = "Additional tricks for dynamics.  Pi`u forte dynamic script"
 }

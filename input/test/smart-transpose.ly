@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header {
 texidoc="
@@ -68,7 +68,7 @@ music = \notes \relative c' { c4 d  e f g a b  c }
     \transpose c ais \music
     \apply #simplify \transpose c ais \music
   }
-  \paper { linewidth = -1. }
+  \paper { raggedright = ##t}
 }
 
 %% new-chords-done %%

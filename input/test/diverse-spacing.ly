@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 
 % a few 32nds shouldn't stretch spacing enormously.
@@ -12,6 +12,6 @@
 }
 
 }
-\paper  { linewidth = -1.0 }
+\paper  { raggedright = ##t}
 }
 %% new-chords-done %%

@@ -2,7 +2,7 @@
 texidoc = "Beams are less steep than the notes they encompass. "
 }
 
-\version "1.7.6"
+\version "1.7.16"
 \score{
 	\notes\relative c''{
 %		\stemUp
@@ -19,7 +19,7 @@ texidoc = "Beams are less steep than the notes they encompass. "
 		[a b c d]
 	}
 	\paper{
-		linewidth=-1.
+		raggedright = ##t
 	}
 }
 

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 
     texidoc = "Cue notes should be set in smaller type. Cue clefs are
@@ -38,5 +38,5 @@ usually not restored explicitly."
    \property Staff.Clef \unset
    eis'4 fis'4
  }
- \paper { linewidth = -1 }
+ \paper { raggedright = ##t}
 }%% new-chords-done %%

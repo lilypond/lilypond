@@ -1,4 +1,4 @@
-\version "1.7.7"
+\version "1.7.16"
 
 \header {
     texidoc = "Cross staff stems
@@ -33,6 +33,6 @@ noFlag = \once \property Voice.Stem \override #'flag-style = #'no-flag
 	      a4 a8 }
 	  >
 
-    \paper { linewidth = -1.0 }
+    \paper { raggedright = ##t}
 }
 %% new-chords-done %%

@@ -1,11 +1,11 @@
-\version "1.7.6"
+\version "1.7.16"
 
 
 fragment = \notes {
   a''^"3 $\\times$ \\`a deux"
 }
 
-\paper { linewidth = -1. } 
+\paper { raggedright = ##t} 
 
 \score {
   \notes\relative c \fragment

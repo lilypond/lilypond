@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header{
     texidoc="Second line has bar-numbers on start of every measure."
 }

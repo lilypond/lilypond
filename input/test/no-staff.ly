@@ -1,9 +1,9 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \score {
   \notes { c4 c4 c8 c8 }
   \paper {
-    linewidth = -1.
+    raggedright = ##t
     \translator {
       \StaffContext
       \remove Staff_symbol_engraver

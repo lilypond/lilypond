@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 
 
@@ -24,7 +24,7 @@ eighthNote = \markup
     a1^\markup { \magnify #0.9 \eighthNote " = 64" }
   }
   \paper {
-    linewidth = -1.
+    raggedright = ##t
     \translator{
       \ScoreContext
       TextScript \override #'font-shape = #'upright

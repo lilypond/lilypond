@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 % The volta texts should read: 1-4  and  5
 % Not 1 and 2
 % (see 1.2.17)

@@ -2,7 +2,7 @@
     texidoc = "Chord name scheme test -- double-plus-new-chord-name jazz"
 }
 
-\version "1.7.11"
+\version "1.7.16"
 
 
 

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 
 \score {
@@ -11,7 +11,7 @@
 
 
 \paper {
-linewidth=-1.0
+raggedright = ##t
 \translator { \StaffContext
   \consists "Instrument_name_engraver"
   }
