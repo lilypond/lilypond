@@ -13,7 +13,7 @@
 #include "spanner.hh"
 #include "elem-group.hh"
 
-class Spanner_elem_group : public Spanner, public Horizontal_vertical_group {
+class Spanner_elem_group : public Spanner, public Horizontal_vertical_group_element {
     
 protected:
     virtual Interval do_width()const;
