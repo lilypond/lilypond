@@ -231,7 +231,7 @@ SCM
 Dot_column::do_shifts (Grob*me)
 {
   Link_array<Grob> dots =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "dots");
+    extract_grob_array (me, ly_symbol2scm ("dots"));
 
   { /*
       Trigger note collision resolution first, since that may kill off

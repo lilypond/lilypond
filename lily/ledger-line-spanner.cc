@@ -96,7 +96,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
   if (!staff)
     return SCM_EOL;
 
-  Link_array<Grob> heads (Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-heads"));
+  Link_array<Grob> heads (extract_grob_array (me, ly_symbol2scm ("note-heads")));
   
   if (heads.is_empty ())
     return SCM_EOL;
@@ -200,7 +200,7 @@ SCM
 Ledger_line_spanner::print (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (smob));
-  Link_array<Grob> heads (Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-heads"));
+  Link_array<Grob> heads (extract_grob_array (me, ly_symbol2scm ("note-heads")));
 
   if (heads.is_empty ())
     return SCM_EOL;

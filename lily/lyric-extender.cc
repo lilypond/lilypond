@@ -32,8 +32,7 @@ Lyric_extender::print (SCM smob)
   
   common = common->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   Real sl = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));  
-  Link_array<Grob> heads (Pointer_group_interface__extract_grobs (me, (Grob*)0,
-								  "heads"));
+  Link_array<Grob> heads (extract_grob_array (me, ly_symbol2scm ("heads")));
 
   if (!heads.size ())
     return SCM_EOL;

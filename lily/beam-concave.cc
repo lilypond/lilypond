@@ -89,7 +89,7 @@ Beam::check_concave (SCM smob)
   Grob *me = unsmob_grob (smob);
 
   Link_array<Grob> stems = 
-    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
 
   if (is_knee (me))
     return SCM_UNSPECIFIED;

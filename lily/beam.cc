@@ -229,7 +229,7 @@ void
 Beam::connect_beams (Grob *me)
 {
   Link_array<Grob> stems =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
 
   Slice last_int;
   last_int.set_empty ();
@@ -309,7 +309,7 @@ Beam::print (SCM grob)
   position_beam (me);
   
   Link_array<Grob> stems =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
   Grob* xcommon = common_refpoint_of_array (stems, me, X_AXIS);
 
   xcommon = me->get_bound (LEFT)->common_refpoint (xcommon, X_AXIS);
@@ -545,7 +545,7 @@ Beam::get_default_dir (Grob *me)
   Direction d = DOWN;
 
   Link_array<Grob> stems =
-	Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+	extract_grob_array (me, ly_symbol2scm ("stems"));
 
   for (int i = 0; i < stems.size (); i++)
     do {
@@ -584,7 +584,7 @@ void
 Beam::set_stem_directions (Grob *me, Direction d)
 {
   Link_array<Grob> stems
-    = Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
+    = extract_grob_array (me, ly_symbol2scm ("stems"));
   
   for (int i = 0; i <stems.size (); i++)
     {
@@ -614,7 +614,7 @@ Beam::consider_auto_knees (Grob* me)
   gaps.set_full ();
 
   Link_array<Grob> stems =
-    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
   
   Grob *common = common_refpoint_of_array (stems, me,  Y_AXIS);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
@@ -828,7 +828,7 @@ Beam::least_squares (SCM smob)
 
   Array<Real> x_posns ;
   Link_array<Grob> stems =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
   Grob *commony = common_refpoint_of_array (stems, me, Y_AXIS);  
 
@@ -941,7 +941,7 @@ Beam::shift_region_to_valid (SCM grob)
    */
   Array<Real> x_posns ;
   Link_array<Grob> stems =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
   Grob *commony = common_refpoint_of_array (stems, me, Y_AXIS);  
 
@@ -1145,7 +1145,7 @@ void
 Beam::set_stem_lengths (Grob *me)
 {
   Link_array<Grob> stems =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
 
   if (!stems.size ())
     return;
@@ -1200,7 +1200,7 @@ void
 Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
 {
   Link_array<Grob> stems =
-    Pointer_group_interface__extract_grobs (me, (Grob *)0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
   
   Direction d = LEFT;
   for (int i = 0; i  < stems.size (); i++)
@@ -1238,7 +1238,7 @@ int
 Beam::forced_stem_count (Grob *me) 
 {
   Link_array<Grob>stems = 
-    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
   int f = 0;
   for (int i = 0; i < stems.size (); i++)
     {
@@ -1263,7 +1263,7 @@ int
 Beam::visible_stem_count (Grob *me) 
 {
   Link_array<Grob>stems = 
-    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
   int c = 0;
   for (int i = stems.size (); i--;)
     {
@@ -1277,7 +1277,7 @@ Grob*
 Beam::first_visible_stem (Grob *me) 
 {
   Link_array<Grob>stems = 
-    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
   
   for (int i = 0; i < stems.size (); i++)
     {
@@ -1291,7 +1291,7 @@ Grob*
 Beam::last_visible_stem (Grob *me) 
 {
   Link_array<Grob>stems = 
-    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
   for (int i = stems.size (); i--;)
     {
       if (!Stem::is_invisible (stems[i]))
@@ -1419,7 +1419,7 @@ int
 Beam::get_direction_beam_count (Grob *me, Direction d )
 {
   Link_array<Grob>stems = 
-    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
+    extract_grob_array (me, ly_symbol2scm ("stems"));
   int bc = 0;
   
   for (int i = stems.size (); i--;)
