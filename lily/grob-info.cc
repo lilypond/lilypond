@@ -11,10 +11,10 @@
 #include "translator.hh"
 #include "translator-group.hh"
 
-Grob_info::Grob_info (Grob*s_l, Music *r_l)
+Grob_info::Grob_info (Grob*s_l, SCM c)
 {
   grob_l_ = s_l;
-  req_l_ = r_l;
+  cause_ = c; 
   origin_trans_l_ = 0;  
 }
 
@@ -22,10 +22,15 @@ Grob_info::Grob_info (Grob*s_l, Music *r_l)
 Grob_info::Grob_info ()
 {
   grob_l_ = 0;
-  req_l_ = 0;
+  cause_ = SCM_EOL;
   origin_trans_l_ = 0;
 }
 
+Music*
+Grob_info::music_cause ()
+{
+  return unsmob_music (cause_);
+}
 
 Link_array<Translator>
 Grob_info::origin_trans_l_arr (Translator* end) const

@@ -23,13 +23,18 @@ Engraver::announce_grob (Grob_info inf)
 void
 Engraver::announce_grob (Grob* e, Music *m)
 {
+  /*
+    TODO: junk grob-info, and make a cause grob-property to store
+    `causes' generically.
+  */
+  
   if (m && store_locations_global_b 
       && m->origin ()->location_str ().length_i ())
     {
       e->set_grob_property ("origin", m->get_mus_property ("origin"));
     }
   
-  Grob_info i (e, m);
+  Grob_info i (e, m ? m->self_scm () : SCM_UNDEFINED);
   if (!i.origin_trans_l_)
     i.origin_trans_l_ = this;
   daddy_grav_l ()->announce_grob (i);

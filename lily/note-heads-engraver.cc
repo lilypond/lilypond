@@ -36,6 +36,11 @@ protected:
   virtual void stop_translation_timestep ();
 };
 
+
+Note_heads_engraver::Note_heads_engraver()
+{
+}
+
 bool
 Note_heads_engraver::try_music (Music *m) 
 {
@@ -51,7 +56,6 @@ Note_heads_engraver::try_music (Music *m)
       return now_mom () < note_end_mom_;
     }
   return false;
-  
 }
 
 
@@ -63,8 +67,6 @@ Note_heads_engraver::process_music ()
       Item *note_p  = new Item (get_property ("NoteHead"));
       
       Staff_symbol_referencer::set_interface (note_p);
-
-
       
       Music * req = note_req_l_arr_[i];
       
@@ -107,7 +109,7 @@ Note_heads_engraver::process_music ()
       note_p_arr_.push (note_p);
     }
 }
- 
+
 void
 Note_heads_engraver::stop_translation_timestep ()
 {
@@ -115,6 +117,7 @@ Note_heads_engraver::stop_translation_timestep ()
     {
       typeset_grob (note_p_arr_[i]);
     }
+
   note_p_arr_.clear ();
   for (int i=0; i < dot_p_arr_.size (); i++)
     {
@@ -128,12 +131,8 @@ Note_heads_engraver::stop_translation_timestep ()
 void
 Note_heads_engraver::start_translation_timestep ()
 {
-  
-  
 }
 
-Note_heads_engraver::Note_heads_engraver()
-{}
 
 ENTER_DESCRIPTION(Note_heads_engraver,
 /* descr */       "Generate one or more noteheads from Music of type Note_req.",

@@ -330,8 +330,7 @@ Grob::add_dependency (Grob*e)
 {
   if (e)
     {
-      Pointer_group_interface ::add_element (this, "dependencies",e);
-
+      Pointer_group_interface::add_element (this, ly_symbol2scm ("dependencies"),e);
     }
   else
     programming_error ("Null dependency added");
@@ -719,7 +718,7 @@ Grob::fixup_refpoint (SCM smob)
   for (int a = X_AXIS; a < NO_AXES; a ++)
     {
       Axis ax = (Axis)a;
-      Grob * parent = me->parent_l (ax);
+      Grob * parent = me->get_parent (ax);
 
       if (!parent)
 	continue;
@@ -770,7 +769,7 @@ Grob::mark_smob (SCM ses)
     {
       scm_gc_mark (s->dim_cache_[a].offset_callbacks_);
       scm_gc_mark (s->dim_cache_[a].dimension_);
-      Grob *p = s->parent_l (Y_AXIS);
+      Grob *p = s->get_parent (Y_AXIS);
       if (p)
 	scm_gc_mark (p->self_scm ());
     }

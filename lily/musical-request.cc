@@ -16,22 +16,6 @@ Tremolo_req::Tremolo_req ()
 {
 }
 
-void
-Melodic_req::transpose (Pitch delta)
-{
-  Pitch p = *unsmob_pitch (get_mus_property ("pitch"));
-  
-  p.transpose (delta);
-  
-  if (abs (p.alteration_i_) > 2)
-    {
-	warning (_f ("Transposition by %s makes accidental larger than two",
-	  delta.str ()));
-    }
-
-  set_mus_property ("pitch", p.smobbed_copy ());
-}
-
 bool
 Melodic_req::do_equal_b (Request const* r) const
 {
@@ -47,13 +31,16 @@ Rhythmic_req::do_equal_b (Request const* r) const
   return rh; // ;  && !compare (*this, *rh);
 }
 
-
-
 Moment
 Rhythmic_req::length_mom () const
 {
-  Duration* d = unsmob_duration (get_mus_property ("duration"));
-  return d ? d->length_mom () : Moment (0);
+  Duration *d = unsmob_duration (get_mus_property ("duration"));
+  if (!d){
+    Moment m ;
+    programming_error("Rhythmic_req has no duration");
+    return m;
+  }
+  return d->length_mom ();
 }
 
 void

@@ -8,6 +8,7 @@
 
   TODO: This is way too hairy
 */
+
 #include <math.h>		// m_pi
 
 #include "lookup.hh"
@@ -227,7 +228,7 @@ Stem::add_head (Grob*me, Grob *n)
 
   if (Note_head::has_interface (n))
     {
-      Pointer_group_interface::add_element (me, "heads",n);
+      Pointer_group_interface::add_element (me, ly_symbol2scm ("heads"), n);
     }
   else
     {
@@ -344,7 +345,7 @@ Stem::get_default_stem_end_position (Grob*me)
 	    which should be a dot-column.
 	   */
 	  if (dir * (st + flagy -  dp) < 0.5)
-	    Side_position_interface::add_support (dots->parent_l (X_AXIS), me);
+	    Side_position_interface::add_support (dots->get_parent (X_AXIS), me);
 
 	  /*
 	    previous approach was to lengthen the stem. This is not
@@ -389,10 +390,11 @@ Stem::position_noteheads (Grob*me)
 
 
   Grob *hed = support_head (me);
-  Real w = hed->extent (hed, X_AXIS)[dir];
+  Real w = Note_head::head_extent (hed,X_AXIS)[dir];
   for (int i=0; i < heads.size (); i++)
     {
-      heads[i]->translate_axis (w - heads[i]->extent (heads[i], X_AXIS)[dir], X_AXIS);
+      heads[i]->translate_axis (w - Note_head::head_extent (heads[i],X_AXIS)[dir],
+				X_AXIS);
     }
   
   bool parity= true;		// todo: make me settable.
@@ -632,7 +634,7 @@ Stem::off_callback (SCM element_smob, SCM)
   Real r=0;
   if (Grob * f = first_head (me))
     {
-      Interval head_wid = f->extent (f,X_AXIS);
+      Interval head_wid = Note_head::head_extent(f, X_AXIS);
 
       Real attach =
 	Note_head::stem_attachment_coordinate(f, X_AXIS);

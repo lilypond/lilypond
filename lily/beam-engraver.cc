@@ -243,12 +243,12 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	  if (Stem::beam_l (stem_l))
 	    return;
 
-	  Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
+	  Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.music_cause ());
 	  if (!rhythmic_req)
 	    {
 	      String s = _ ("stem must have Rhythmic structure");
-	      if (info.req_l_)
-		info.req_l_->origin ()->warning (s);
+	      if (info.music_cause ())
+		info.music_cause ()->origin ()->warning (s);
 	      else
 		::warning (s);
 	  

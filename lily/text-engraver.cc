@@ -59,10 +59,10 @@ Text_engraver::acknowledge_grob (Grob_info inf)
 	    ugh.
 	   */
 	  if (Side_position_interface::get_axis (t) == X_AXIS
-	      && !t->parent_l (Y_AXIS))
+	      && !t->get_parent (Y_AXIS))
 	    t->set_parent (inf.grob_l_, Y_AXIS);
 	  else if (Side_position_interface::get_axis (t) == Y_AXIS
-	      && !t->parent_l (X_AXIS))
+	      && !t->get_parent (X_AXIS))
 	    t->set_parent (inf.grob_l_, X_AXIS);
 	}
     }

@@ -142,7 +142,8 @@ VoiceContext = \translator {
 
 %}
 	\consists "Dynamic_engraver"
-	\consists "Text_engraver"
+	\consists "Fingering_engraver"
+%	\consists "Text_engraver"
 
 	\consists "Script_engraver"
 	\consists "Script_column_engraver"

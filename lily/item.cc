@@ -40,21 +40,21 @@ Item::breakable_b (Grob*me)
   if (!dynamic_cast<Item*> (me))
     programming_error ("only items can be breakable.");
   
-  Item * i  =dynamic_cast<Item*> (me->parent_l (X_AXIS));
+  Item * i  =dynamic_cast<Item*> (me->get_parent (X_AXIS));
   return (i) ?  Item::breakable_b (i) : to_boolean (me->get_grob_property ("breakable"));
 }
 
 Paper_column *
 Item::column_l () const
 {
-  Item *parent = dynamic_cast<Item*> (parent_l (X_AXIS));
+  Item *parent = dynamic_cast<Item*> (get_parent (X_AXIS));
   return parent ? parent->column_l () : 0;
 }
 
 Line_of_score *
 Item::line_l () const
 {
-  Grob *g = parent_l (X_AXIS);
+  Grob *g = get_parent (X_AXIS);
   return g ?  g->line_l () : 0;
 }
 

@@ -39,7 +39,7 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
 	don't add as Axis_group_interface::add_element (delim_,),
 	because that would set the parent as well */
 	  
-      Pointer_group_interface::add_element (delim_, "elements", inf.grob_l_);
+      Pointer_group_interface::add_element (delim_, ly_symbol2scm ("elements"),  inf.grob_l_);
     }
   else if (System_start_delimiter::has_interface (inf.grob_l_))
     {

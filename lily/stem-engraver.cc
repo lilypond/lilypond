@@ -105,12 +105,12 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 						gh_int2scm (tremolo_flags));
 		}
 	    }
-	  announce_grob (stem_p_, i.req_l_);
+	  announce_grob (stem_p_, i.music_cause ());
 	}
 
       if (Stem::flag_i (stem_p_) != duration_log)
 	{
-	  i.req_l_->origin ()->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  Stem::flag_i (stem_p_)));
+	  i.music_cause ()->origin ()->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  Stem::flag_i (stem_p_)));
 	}
 
       Stem::add_head (stem_p_,h);

@@ -23,7 +23,7 @@ void
 Separation_item::add_item (Grob*s,Item* i)
 {
   assert (i);
-  Pointer_group_interface::add_element (s,"elements",i);
+  Pointer_group_interface::add_element (s, ly_symbol2scm ("elements"),i);
   s->add_dependency (i);
 }
 

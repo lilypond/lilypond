@@ -20,7 +20,7 @@ Align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
   Grob * me = unsmob_grob (element_smob);
   Axis ax = (Axis)gh_scm2int (axis);
-  Grob * par = me->parent_l (ax);
+  Grob * par = me->get_parent (ax);
   if (par && !to_boolean (par->get_grob_property ("alignment-done")))
     {
       Align_interface::align_elements_to_extents (par, ax);
@@ -34,7 +34,7 @@ Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
 {
   Grob * me = unsmob_grob (element_smob);
   Axis ax = (Axis)gh_scm2int (axis);
-  Grob * par = me->parent_l (ax);
+  Grob * par = me->get_parent (ax);
   if (par && !to_boolean (par->get_grob_property ("alignment-done")))
     {
       Align_interface::align_to_fixed_distance (par, ax);

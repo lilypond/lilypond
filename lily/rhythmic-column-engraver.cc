@@ -20,8 +20,11 @@ class Rhythmic_column_engraver :public Engraver
 {
   Link_array<Grob> rhead_l_arr_;
   Grob * stem_l_;
-  Grob *ncol_p_;
-  Grob *dotcol_l_;
+  Grob * note_column_;
+  Grob * dotcol_l_;
+
+  Grob * last_spacing_;
+  Grob * spacing_;
   
   TRANSLATOR_DECLARATIONS(Rhythmic_column_engraver);
 protected:
@@ -30,15 +33,17 @@ protected:
   virtual void create_grobs ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  
 };
 
 
 
 Rhythmic_column_engraver::Rhythmic_column_engraver ()
 {
+  spacing_ =0 ;
+  last_spacing_ = 0;
+  
   stem_l_ =0;
-  ncol_p_=0;
+  note_column_=0;
   dotcol_l_ =0;
 }
 
@@ -48,34 +53,43 @@ Rhythmic_column_engraver::create_grobs ()
 {
   if (rhead_l_arr_.size ())
     {
-      if (!ncol_p_)
+      if (!note_column_)
 	{
-	  ncol_p_ = new Item (get_property ("NoteColumn"));
-	  Note_column::set_interface (ncol_p_);
-	  announce_grob (ncol_p_, 0);
+	  note_column_ = new Item (get_property ("NoteColumn"));
+	  Note_column::set_interface (note_column_);
+	  announce_grob (note_column_, 0);
+
+	  spacing_ = new Item (get_property ("NoteSpacing"));
+	  spacing_->set_grob_property ("left-item", note_column_->self_scm ());
+	  announce_grob (spacing_, 0);
+
+	  if (last_spacing_)
+	    {
+	      last_spacing_->set_grob_property ("right-item" , note_column_->self_scm ());
+	    }
 	}
 
       for (int i=0; i < rhead_l_arr_.size (); i++)
 	{
-	  if (!rhead_l_arr_[i]->parent_l (X_AXIS))
-	    Note_column::add_head (ncol_p_, rhead_l_arr_[i]);
+	  if (!rhead_l_arr_[i]->get_parent (X_AXIS))
+	    Note_column::add_head (note_column_, rhead_l_arr_[i]);
 	}
       rhead_l_arr_.set_size (0);
     }
 
   
-  if (ncol_p_)
+  if (note_column_)
     {
       if (dotcol_l_
-	  && !dotcol_l_->parent_l (X_AXIS))
+	  && !dotcol_l_->get_parent (X_AXIS))
 	{
-	  Note_column::set_dotcol (ncol_p_, dotcol_l_);
+	  Note_column::set_dotcol (note_column_, dotcol_l_);
 	}
 
       if (stem_l_
-	  && !stem_l_->parent_l (X_AXIS))
+	  && !stem_l_->get_parent (X_AXIS))
 	{
-	  Note_column::set_stem (ncol_p_, stem_l_);
+	  Note_column::set_stem (note_column_, stem_l_);
 	  stem_l_ = 0;
 	}
 
@@ -103,10 +117,10 @@ Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
 void
 Rhythmic_column_engraver::stop_translation_timestep ()
 {
-  if (ncol_p_) 
+  if (note_column_) 
     {
-      typeset_grob (ncol_p_);
-      ncol_p_ =0;
+      typeset_grob (note_column_);
+      note_column_ =0;
     }
 }
 

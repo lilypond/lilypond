@@ -10,19 +10,8 @@
 
 (define (unfold-repeats music)
 "
-[Rune Zedeler]
-
-Han-Wen Nienhuys wrote:
-
-> It shouldn't be hard to write a Scheme function to replace all repeats
-> with unfold repeats.
-[...]
-> Left to the reader as an exercise.
-
-With thanks to Han-Wen:
-
-
-"
+This function replaces all repeats  with unfold repeats. It was 
+written by Rune Zedeler. "
   (let* ((es (ly-get-mus-property music 'elements))
          (e (ly-get-mus-property music 'element))
          (body (ly-get-mus-property music 'body))
@@ -59,3 +48,34 @@ With thanks to Han-Wen:
 
     music))
 
+(define  (pitchify-scripts music)
+  "Copy the pitch fields of the Note_requests into  Text_script_requests, to aid
+Fingering_engraver."
+  (define (find-note musics)
+    (filter-list (lambda (m) (equal? (ly-music-name m) "Note_req")) musics)
+    )
+  (define (find-scripts musics)
+    (filter-list (lambda (m) (equal? (ly-music-name m) "Text_script_req")) musics))
+
+  (let* (
+	 (e (ly-get-mus-property music 'element))
+	 (es (ly-get-mus-property music 'elements))
+	 (notes (find-note es))
+	 (pitch (if (pair? notes) (ly-get-mus-property (car  notes) 'pitch) #f))
+	 )
+
+    (if pitch
+	(map (lambda (x) (ly-set-mus-property x 'pitch pitch)) (find-scripts es))
+	)
+	
+    (if (pair? es)
+        (ly-set-mus-property
+         music 'elements
+         (map pitchify-scripts es)))
+
+    (if (music? e)
+        (ly-set-mus-property
+         music 'element
+         (pitchify-scripts e)))
+
+    music))

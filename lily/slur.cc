@@ -48,7 +48,7 @@ Slur::add_column (Grob*me, Grob*n)
     warning (_ ("Putting slur over rest.  Ignoring."));
   else
     {
-      Pointer_group_interface::add_element (me, "note-columns",n);
+      Pointer_group_interface::add_element (me, ly_symbol2scm ("note-columns"), n);
       me->add_dependency (n);
     }
 

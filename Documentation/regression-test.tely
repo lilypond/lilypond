@@ -64,6 +64,8 @@ documenting bugfixes.
 
 @lilypondfile[printfilename]{glissando.ly}
 
+@lilypondfile[printfilename]{fingering.ly}
+
 @section Dynamics
 
 @lilypondfile[printfilename]{dynamics-line.ly}

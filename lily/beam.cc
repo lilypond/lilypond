@@ -40,7 +40,7 @@
 void
 Beam::add_stem (Grob*me, Grob*s)
 {
-  Pointer_group_interface:: add_element (me, "stems", s);
+  Pointer_group_interface::add_element (me, ly_symbol2scm ("stems"), s);
   
   s->add_dependency (me);
 

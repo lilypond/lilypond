@@ -44,7 +44,7 @@ Tie_column::add_tie (Grob*me,Grob *s)
       dynamic_cast<Spanner*> (me)->set_bound (RIGHT, Tie::head (s,RIGHT));
     }
   
-  Pointer_group_interface::add_element (me, "ties",s);
+  Pointer_group_interface::add_element (me, ly_symbol2scm ("ties"), s);
   s->add_dependency (me);
 }
 

@@ -24,7 +24,7 @@ Line_group_engraver_group::Line_group_engraver_group ()
 void
 Line_group_engraver_group::typeset_grob (Grob *elem)
 {
-  if (!elem->parent_l (Y_AXIS))      
+  if (!elem->get_parent (Y_AXIS))      
     Axis_group_interface::add_element (staffline_p_, elem);
   Engraver_group_engraver::typeset_grob (elem);
 }

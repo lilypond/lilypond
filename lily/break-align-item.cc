@@ -39,7 +39,7 @@ Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
   Axis a = (Axis) gh_scm2int (axis);
 
   assert (a == X_AXIS);
-  Grob *par = me->parent_l (a);
+  Grob *par = me->get_parent (a);
   if (par && !to_boolean (par->get_grob_property ("break-alignment-done")))\
     {
       par->set_grob_property ("break-alignment-done", SCM_BOOL_T);

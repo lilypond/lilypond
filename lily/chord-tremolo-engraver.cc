@@ -184,15 +184,15 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 	    }
 	  s->set_grob_property ("direction", d);
 
-	  if (dynamic_cast <Rhythmic_req *> (info.req_l_))
+	  if (dynamic_cast <Rhythmic_req *> (info.music_cause ()))
 	    {
 	      Beam::add_stem (beam_p_, s);
 	    }
 	  else
 	    {
 	      String s = _ ("stem must have Rhythmic structure");
-	      if (info.req_l_)
-		info.req_l_->origin ()->warning (s);
+	      if (info.music_cause ())
+		info.music_cause ()->origin ()->warning (s);
 	      else
 		::warning (s);
 	    }

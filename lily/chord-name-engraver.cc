@@ -80,7 +80,7 @@ Chord_name_engraver::try_music (Music* m)
 void
 Chord_name_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Note_req* n = dynamic_cast<Note_req*> (i.req_l_))
+  if (Note_req* n = dynamic_cast<Note_req*> (i.music_cause ()))
     add_note (n);
 }
 

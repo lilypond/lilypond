@@ -87,6 +87,17 @@
    )
  )
 
+(lily-interface
+ 'staff-spacing-interface
+ ""
+ '(
+   ))
+
+(lily-interface
+ 'note-spacing-interface
+ ""
+ '(
+   ))
 
 (lily-interface
  'clef-interface

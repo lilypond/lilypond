@@ -93,7 +93,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info i)
 {
   if (Audio_note *nh = dynamic_cast<Audio_note *> (i.elem_l_))
     {
-      Note_req * m = dynamic_cast<Note_req* > (i.req_l_);
+      Note_req * m = dynamic_cast<Note_req *> (i.req_l_);
       if (!m)
 	return;
       now_notes_.push (CNote_melodic_tuple (nh, m, now_mom ()+ m->length_mom ()));

@@ -45,10 +45,12 @@ Score_engraver::make_columns ()
   
       command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
 
-      Grob_info i1 (command_column_l_, 0), i2 (musical_column_l_,0);
-
+      Grob_info i1 (command_column_l_, SCM_EOL);
       i1.origin_trans_l_ = this;
+
+      Grob_info i2 (musical_column_l_, SCM_EOL);
       i2.origin_trans_l_ = this;
+
       announce_grob (i1);
       announce_grob (i2);
     }
@@ -190,14 +192,14 @@ Score_engraver::typeset_all ()
 	}
       else 
 	{
-	  if (!elem_p->parent_l (X_AXIS))
+	  if (!elem_p->get_parent (X_AXIS))
 	    {
 	      bool br = to_boolean (elem_p->get_grob_property ("breakable"));
 	      Axis_group_interface::add_element (br ? command_column_l_ : musical_column_l_, elem_p);
 
 	    }
 	}
-      if (!elem_p->parent_l (Y_AXIS))
+      if (!elem_p->get_parent (Y_AXIS))
 	Axis_group_interface::add_element (scoreline_l_, elem_p);
     }
   elem_p_arr_.clear ();
