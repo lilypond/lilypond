@@ -144,6 +144,17 @@ DOTS		\.+
  	  yyterminate(); // can't move this, since it actually rets a YY_NULL
 }
 
+
+include           { BEGIN(incl); }
+<incl>[ \t]*      { /* eat the whitespace */ }
+<incl>\"[^"]*\"+   { /* got the include file name */
+   String s (YYText()+1);
+	s = s.left(s.len()-1);
+   new_input(s);
+   BEGIN(INITIAL);
+}
+
+
 {WORD}		{
 	mtor << "word: " << YYText()<<eol;
 	String c = YYText();

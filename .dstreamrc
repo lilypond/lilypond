@@ -1,6 +1,6 @@
 # class name		silence?
 
-My_flex_lexer		1
+My_flex_lexer		0
 yyFlexLexer		1
 PCol			1
 Score_column		1
