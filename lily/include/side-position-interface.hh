@@ -13,6 +13,27 @@
 #include "spanner.hh"
 #include "item.hh"
 
+
+/**
+   Position victim object (ELT_L_) next to other objects (the support).
+
+   side-support -- list of score elements
+
+   direction -- where to put the victim object (left or right?)
+
+   side-relative-direction -- if set: get the direction from a different object, and multiply by this.
+   
+   direction-source -- in case side-relative-direction is set, where
+   to get the direction
+
+   minimum-space -- minimum distance that the victim should move
+   (after padding)
+
+   padding -- add this much extra space between victim and support
+
+   TODO: move  out unrelated callbacks.
+   
+ */
 struct Side_position_interface
 {
   Score_element * elt_l_;

@@ -12,13 +12,12 @@
 #include "dimension-cache.hh"
 
 Axis_group_interface::Axis_group_interface (Score_element*s)
-  : Group_interface (s)
 {
   elt_l_ = s;
 }
 
 Axis_group_interface
-axis_group (Score_element*s)
+Axis_group_interface (Score_element*s)
 {
   return Axis_group_interface (s);
 }
@@ -37,7 +36,7 @@ Axis_group_interface::add_element (Score_element *e)
 	e->set_parent (elt_l_, a);
     }
 
-  Group_interface::add_element (e);
+  Group_interface (elt_l_).add_element (e);
 
   elt_l_->add_dependency (e);
 }
@@ -116,7 +115,7 @@ Axis_group_interface::get_children ()
     {
       Score_element* e = unsmob_element (gh_car (ep));
       if (e)
-	childs.concat (axis_group (e).get_children ());
+	childs.concat (Axis_group_interface (e).get_children ());
     }
   
   return childs;

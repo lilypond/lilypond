@@ -11,9 +11,9 @@
 #define GRACE_ALIGN_ITEM_HH
 
 
-#include "axis-align-item.hh"
+#include "item.hh"
 
-class Grace_align_item : public Axis_align_item
+class Grace_align_item : public Item
 {
 public:
   VIRTUAL_COPY_CONS (Score_element);

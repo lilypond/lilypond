@@ -157,15 +157,15 @@ Tuplet_spanner::calc_position_and_height (Real *offset, Real * dy) const
 
   *offset = - d * infinity_f;
   
-  Real x0 = column_arr[0]->hpos_f ();
-  Real x1 = column_arr.top ()->hpos_f ();
+  Real x0 = column_arr[0]->relative_coordinate (0, X_AXIS);
+  Real x1 = column_arr.top ()->relative_coordinate (0, X_AXIS);
   
   Real factor = column_arr.size () > 1 ? 1/(x1 - x0) : 1.0;
   
   for (int i = 0; i < column_arr.size ();  i++)
     {
       Real notey = column_arr[i]->extent (Y_AXIS)[d];
-      Real x = column_arr[i]->hpos_f () - x0;
+      Real x = column_arr[i]->relative_coordinate (0, X_AXIS) - x0;
       Real tuplety =  *dy * x * factor;
 
       if (notey * d > (*offset + tuplety) * d)

@@ -29,7 +29,6 @@ public:
     
   VIRTUAL_COPY_CONS(Score_element);
   void add_bar (Score_element*);
-  void set_align (Align_element *);
 protected:
   void evaluate_empty ();
 

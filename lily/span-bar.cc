@@ -11,7 +11,6 @@
 #include "dimensions.hh"
 #include "paper-def.hh"
 #include "molecule.hh"
-#include "align-element.hh"
 #include "warn.hh"
 #include "group-interface.hh"
 

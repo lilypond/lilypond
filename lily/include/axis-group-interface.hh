@@ -12,10 +12,27 @@
 
 #include "group-interface.hh"
 
-struct Axis_group_interface : Group_interface
+/**
+   Treat a group of elements as a union. This sets the parent of any S
+   added to ELT_L_ to ELT_L_.
+
+   Properties:
+
+   axes -- list of axis (number) in which this group works
+
+   transparent -- an Axis_group is transparent by default
+
+   elements -- contains list of pointers to other elements
+
+   interfaces -- Axis_group is added to this list.
+*/
+struct Axis_group_interface 
 {
+  Score_element *elt_l_;
   Axis_group_interface (Score_element*);
+
   static Interval group_extent_callback (Dimension_cache const*);
+
   void add_element (Score_element*);
   void set_axes (Axis,Axis);
   bool axis_b (Axis)const;
@@ -23,9 +40,6 @@ struct Axis_group_interface : Group_interface
   bool has_interface_b ();
   void set_interface ();
 };
-
-Axis_group_interface
-axis_group (Score_element*);
 
 #endif /* AXIS_GROUP_INTERFACE_HH */
 
