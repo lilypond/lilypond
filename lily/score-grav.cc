@@ -55,6 +55,9 @@ Score_engraver::prepare(Moment w)
 void
 Score_engraver::finish()
 {
+    if ( (breaks_i_%8))
+	    *mlog << "[" << breaks_i_ << "]" << flush;
+   
     check_removal();
     do_removal_processing();
 }
@@ -198,16 +201,13 @@ Score_engraver::paper()const
 bool
 Score_engraver::do_try_request(Request*r)
 {
-    bool gotcha = false;  
-    for ( int i =0; !gotcha && i < nongroup_l_arr_.size() ; i++)
-	gotcha = nongroup_l_arr_[i]->try_request(r);
-  
-    if ( r->command() && r->command()->disallowbreak())
+    bool gotcha = Engraver_group_engraver::do_try_request(r);  
+    if ( !gotcha && r->command() && r->command()->disallowbreak())
 	    disallow_break_b_ = true;
     return gotcha;
 }
 
 IMPLEMENT_IS_TYPE_B1(Score_engraver,Engraver_group_engraver);
-IMPLEMENT_STATIC_NAME(Score_engraver);
+
 ADD_THIS_ENGRAVER(Score_engraver);
 

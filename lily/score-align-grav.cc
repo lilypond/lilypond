@@ -42,5 +42,4 @@ Score_align_engraver::acknowledge_element(Score_elem_info inf)
     
 }
 
-IMPLEMENT_STATIC_NAME(Score_align_engraver)
 IMPLEMENT_IS_TYPE_B1(Score_align_engraver,Engraver);
