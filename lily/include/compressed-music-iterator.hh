@@ -14,15 +14,10 @@
 
 class Compressed_music_iterator : public Music_wrapper_iterator
 {
-public:
-  Bracket_req* start_req_p_;
-  Bracket_req* stop_req_p_;
-  
-  Compressed_music_iterator();
-  ~Compressed_music_iterator ();
+public:  
+  // construction
+protected:
   virtual void do_process_and_next (Moment);
-  virtual void construct_children ();
-  Compressed_music *compressed_l ()const;
 };
 
 

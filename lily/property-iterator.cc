@@ -10,18 +10,16 @@
 #include "translation-property.hh"
 #include "translator-group.hh"
 
+/**
+  There is no real processing to a property: just lookup the
+  translation unit, and set the property.
+  */
 void
 Property_iterator::do_process_and_next (Moment m)
 {
-  if (property_l()->var_str_.length_i ())
-    report_to_l ()->set_property (property_l()->var_str_, property_l()->value_);
+  Translation_property const * prop = dynamic_cast<Translation_property const*> (music_l_);
+  if (prop->var_str_.length_i ())
+    report_to_l ()->set_property (prop->var_str_, prop->value_);
   Music_iterator::do_process_and_next (m);
 }
 
-
-
-Translation_property*
-Property_iterator::property_l () const
-{
-  return (Translation_property*) music_l_;
-}

@@ -12,6 +12,20 @@
 #include "debug.hh"
 #include "musical-pitch.hh"
 
+Music::Music()
+{
+}
+
+void    
+Music::compress (Moment)
+{
+}
+
+void
+Music::do_print() const
+{
+}
+
 Moment
 Music::duration () const
 {
@@ -32,34 +46,14 @@ Music::print() const
 #endif
 }
 
-void
-Music::transpose (Musical_pitch )
-{
-  
-}
-
-void
-Music::do_print() const
-{
-}
-
-
-
-
-
-
-  
-Music::Music()
-{
-}
-
 Musical_pitch
 Music::to_relative_octave (Musical_pitch m)
 {
   return m;
 }
 
-void    
-Music::compress (Moment)
+void
+Music::transpose (Musical_pitch )
 {
 }
+

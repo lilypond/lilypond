@@ -8,7 +8,7 @@
 #include "debug.hh"
 #include "music-list.hh"
 #include "music-iterator.hh"
-#include "voice-iterator.hh"
+#include "sequential-music-iterator.hh"
 #include "property-iterator.hh"
 #include "chord-iterator.hh"
 #include "request-iterator.hh"
@@ -20,16 +20,12 @@
 #include "music-wrapper-iterator.hh"
 #include "compressed-music-iterator.hh"
 #include "compressed-music.hh"
-
-
-
-
-
+#include "repeated-music.hh"
+#include "repeated-music-iterator.hh"
 
 void
 Music_iterator::do_print() const
 {
-
 }
 
 void
@@ -150,6 +146,10 @@ Music_iterator::static_get_iterator_p (Music const *m, Translator_group *report_
     p = new Compressed_music_iterator;
   else if (dynamic_cast<Music_wrapper  const *> (m))
     p = new Music_wrapper_iterator;
+  else if (dynamic_cast<Repeated_music const *> (m))
+    p = new Repeated_music_iterator;
+  else
+    assert (0);
 
   p->music_l_ = m;
   if (m->translator_type_str_.length_i ())
@@ -166,16 +166,11 @@ Music_iterator::static_get_iterator_p (Music const *m, Translator_group *report_
   return p;
 }
 
-void
-Music_iterator::inherit_info(Music_iterator const *)
-{
-}
 
 Music_iterator*
 Music_iterator::get_iterator_p (Music const*m) const
 {
   Music_iterator*p = static_get_iterator_p (m, report_to_l());
-  p->inherit_info (this);
   p->construct_children();
   return p;
 }

@@ -43,6 +43,7 @@
 #include "relative-music.hh"
 #include "transposed-music.hh"
 #include "compressed-music.hh"
+#include "repeated-music.hh"
 
 // mmm
 Mudela_version oldest_version ("1.0.7");
@@ -158,6 +159,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %token ABSDYNAMIC
 %token ACCEPTS
+%token ALTERNATIVE
 %token BAR
 %token BEAMPLET
 %token CADENZA
@@ -194,6 +196,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token PT_T
 %token RELATIVE
 %token REMOVE
+%token REPEAT
 %token SCM_T
 %token SCMFILE
 %token SCORE
@@ -247,6 +250,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <i>	open_plet_parens close_plet_parens
 %type <i>	sub_quotes sup_quotes
 %type <music>	simple_element  request_chord command_element Simple_music  Composite_music
+%type <music>	Alternative_music Repeated_music
 %type <i>	abbrev_type
 %type <i>	int unsigned
 %type <i>	script_dir
@@ -731,6 +735,22 @@ Music:
 	| Composite_music
 	;
 
+Alternative_music: {
+		Music_list* m = new Music_list;
+		$$ = new Sequential_music (m);
+	}
+	| ALTERNATIVE '{' Music_list '}'		{
+		$$ = new Sequential_music ($3);
+	}
+	;
+
+Repeated_music: REPEAT unsigned '{' Music '}' Alternative_music	{
+		// s/r conflicts -> '{' '}' 
+		Sequential_music* s = (Sequential_music*)$6;
+		$$ = new Repeated_music ($4, $2, s);
+	}
+	;
+
 Sequential_music: '{' Music_list '}'		{
 		$$ = new Sequential_music ($2);
 	}
@@ -766,6 +786,7 @@ Composite_music:
 		$$ = new Compressed_music ($2, $4, $5);
 
 	}
+	| Repeated_music		{ $$ = $1; }
 	| Simultaneous_music		{ $$ = $1; }
 	| Sequential_music		{ $$ = $1; }
 	| TRANSPOSE musical_pitch Music {
