@@ -1,3 +1,19 @@
+2004-11-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* mf/feta-bolletjes.mf: merge solfa heads into main note heads.
+
+	* mf/feta-generic.mf (else): remove solfa.
+
+	* mf/feta-bolletjes.mf (tishape): remove unicode test.
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): add shapeNoteStyles property.
+
+	* lily/shape-note-heads-engraver.cc (process_music): new file.
+
+	* lily/event.cc (transpose): call Event::transpose() for
+	transposing the tonic.
+
 2004-11-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-gnome.scm: Save some pointers about pango/fontconfig

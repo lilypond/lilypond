@@ -24,6 +24,7 @@ save black_notehead_width, noteheight,
 	slash_thick, slash_slope, overdone_heads;
 numeric black_notehead_width, noteheight, slash_thick;
 
+
 fet_begingroup("noteheads");
 
 
@@ -188,7 +189,6 @@ fet_endchar;
 %%%%%%%%%%%%%%%%
 
 %% testing shapes.
-
 if 0 = 1 : 
 
 
@@ -529,30 +529,332 @@ fet_beginchar("X-Circled notehead", "2xcircle", "xcircledhead")
 fet_endchar;
 
 
+
+
+%%%%%%%%
+%
+%
+% SOLFA SHAPED NOTES
+%
+%
+
+
+def generic_draw_solfa_note_shape =
+  save a,beta,black,white;
+  path black, white;
+
+  pickup pencircle scaled stafflinethickness;
+  2 beta# = noteheight#;
+  a# = a_b*beta#;
+  wid# := 2a#+stafflinethickness#;
+  hei# := noteheight#+stafflinethickness#;
+  set_char_box(0, wid#,0.5 hei#, 0.5 hei#);
+
+  define_pixels(a,beta);
+
+  black = noteshape xscaled a yscaled beta shifted (a+stafflinethickness/2,0);
+  filldraw black;
+
+  if (solid=false):
+    white = noteishape xscaled (a*ai_a) yscaled (beta*bi_b)
+                       shifted ((dx+1)*(a+stafflinethickness/2),dy*(beta+stafflinethickness/2));
+    unfill white;
+  fi;
+enddef;  
+
+def draw_solfa_note_shape =
+  save solid; boolean solid;
+  solid=false;
+  generic_draw_solfa_note_shape;
+enddef;
+def draw_solfa_quarter_note_shape =
+  save solid; boolean solid;
+  solid=true;
+  generic_draw_solfa_note_shape;
+enddef;
+
+% do - equilateral triangle: (0,-h/2) -- (w/2,h/2) -- (w,-h/2) -- cycle;
+% stem attachment: -h/2
+
+save triangle; path triangle;
+triangle := (-1,-1) -- (0,1) -- (1,-1) -- cycle;
+
+def drawdoshape =
+  save noteshape, noteishape, dx, dy, ai_a, bi_b;
+  path noteshape, noteishape;
+  noteshape = noteishape = triangle;
+  (dx,dy)=(0,0.05);
+  (ai_a,bi_b)=(i_o,i_o);
+  draw_solfa_note_shape;
+enddef;
+
+fet_beginchar("Whole dohead", "0do", "wholedohead")
+  pickup pencircle scaled blot_diameter;
+  save a_b, i_o;
+  a_b = 1.8;
+  i_o = 0.6;
+
+  drawdoshape;
+fet_endchar;
+  
+fet_beginchar("Half dohead", "1do", "halfdohead")
+  save a_b, i_o;
+  a_b = 1.5;
+  i_o = 0.6;
+
+  drawdoshape;
+fet_endchar;
+  
+fet_beginchar("Quart dohead", "2do", "dohead")
+  save a_b, noteshape;
+  path noteshape;
+  a_b = 1.54;
+  
+  noteshape = triangle;
+  draw_solfa_quarter_note_shape;
+
+fet_endchar;
+  
+% re - flat top, curved bottom:
+%                (0,h/2) {dir -90} .. (w/2,-h/2) .. {dir 90} (w,h/2) -- cycle;
+% (broader along the base and with more vertical sides for half and
+% whole notes)
+% stem attachment: h/2
+
+save reshape; path reshape;
+reshape = (-1,1)--(-1,0.2){down} ... (0,-1) ... {up}(1,0.2)--(1,1)--cycle;
+
+fet_beginchar("Whole rehead", "0re", "wholerehead")
+  save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
+  path noteshape, noteishape;
+  noteshape = reshape;
+  noteishape = reshape;
+  a_b = 1.8;
+  bi_b = 0.65;
+  ai_a = 0.8;
+  (dx,dy)=(0,-0.1);
+  draw_solfa_note_shape;
+fet_endchar;
+
+fet_beginchar("Half rehead", "1re", "halfrehead")
+  save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
+  path noteshape, noteishape;
+  noteshape = reshape;
+  noteishape = reshape;
+  a_b = 1.5;
+  bi_b = 0.65;
+  ai_a = 0.8;
+  (dx,dy)=(0,-0.1);
+  draw_solfa_note_shape;
+fet_endchar;
+
+fet_beginchar("Quart rehead", "2ro", "rehead")
+  save a_b, noteshape;
+  path noteshape;
+  a_b = 1.54;
+  
+  noteshape = reshape;
+  draw_solfa_quarter_note_shape;
+fet_endchar;
+  
+% me - diamond: (0,0) -- (w/2,h/2) -- (w,0) -- (w/2,-h/2) -- cycle;
+% similar to existing diamond shaped head, but not quite the same
+% stem attachment: 0
+
+save mishape; path mishape;
+mishape = (-1,0)--(0,1)--(1,0)--(0,-1)--cycle;
+
+fet_beginchar("Whole mihead", "0mi", "wholemihead")
+  save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
+  path noteshape, noteishape;
+  noteshape = mishape;
+  noteishape = (mishape slanted -0.35) rotated -10.5;
+  a_b = 1.8;
+  bi_b = 0.65;
+  ai_a = 0.7;
+  (dx,dy)=(0,0);
+  draw_solfa_note_shape;
+fet_endchar;
+
+fet_beginchar("Half mihead", "1mi", "halfmihead")
+  save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
+  path noteshape, noteishape;
+  noteshape = mishape;
+  noteishape =  (mishape slanted -0.35) rotated -10.5;
+  a_b = 1.5;
+  bi_b = 0.65;
+  ai_a = 0.7;
+  (dx,dy)=(0,0);
+  draw_solfa_note_shape;
+fet_endchar;
+
+fet_beginchar("Quart mihead", "2mi", "mihead")
+  save a_b, noteshape;
+  path noteshape;
+  a_b = 1.54;
+  
+  noteshape = mishape;
+  draw_solfa_quarter_note_shape;
+fet_endchar;
+
+
+% fa - scalene triangle:
+%         for stem up: (0,h/2) -- (w,h/2) -- (w,-h/2) -- cycle;
+%       for stem down: (w,-h/2) -- (0,1h/2) -- (0,h/2) -- cycle;
+%       (one is a 180 degree rotation of the other)
+% stem attachment: (doesn't much matter)
+
+save fashape; path fashape;
+fashape = (-1,1)--(1,1)--(1,-1)--cycle;
+
+fet_beginchar("Whole fahead", "0fa", "wholefahead")
+  save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
+  path noteshape, noteishape;
+  noteshape = fashape;
+  noteishape = fashape;
+  a_b = 1.8;
+  bi_b = 0.6;
+  ai_a = 0.6;
+  (dx,dy)=(0.2,.05);
+  draw_solfa_note_shape;
+fet_endchar;
+
+fet_beginchar("Half stemup fahead", "1fau", "halffauhead")
+  save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
+  path noteshape, noteishape;
+  noteshape = fashape;
+  noteishape =  fashape;
+  a_b = 1.5;
+  bi_b = 0.6;
+  ai_a = 0.6;
+  (dx,dy)=(0.2,.05);
+  draw_solfa_note_shape;
+fet_endchar;
+
+fet_beginchar("Quart stemup fahead", "2fau", "fauhead")
+  save a_b, noteshape;
+  path noteshape;
+  a_b = 1.54;
+  
+  noteshape = fashape;
+  draw_solfa_quarter_note_shape;
+fet_endchar;
+
+fet_beginchar("Half stemdn fahead", "1fad", "halffadhead")
+  save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
+  path noteshape, noteishape;
+  noteshape = fashape rotated 180;
+  noteishape =  fashape rotated 180;
+  a_b = 1.5;
+  bi_b = 0.6;
+  ai_a = 0.6;
+  (dx,dy)=(-0.2,-.05);
+  draw_solfa_note_shape;
+fet_endchar;
+
+fet_beginchar("Quart stemdn fahead", "2fad", "fadhead")
+  save a_b, noteshape;
+  path noteshape;
+  a_b = 1.54;
+  
+  noteshape = fashape rotated 180;
+  draw_solfa_quarter_note_shape;
+fet_endchar;
+
+
+% sol - oval ... the standard "round" note
+
+% la - rectangle: (0,h/2)--(w,h.2)--(w,-h/2)--(0,-h/2)--cycle;
+% stem attachment: (doesn't much matter)
+save lashape; path lashape;
+lashape = (-1,-1)--(-1,1)--(1,1)--(1,-1)--cycle;
+
+fet_beginchar("Whole lahead", "0la", "wholelahead")
+  save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
+  path noteshape, noteishape;
+  noteshape = lashape;
+  noteishape = lashape;
+  a_b = 1.8;
+  bi_b = 0.6;
+  ai_a = 0.85;
+  (dx,dy)=(0,0);
+  draw_solfa_note_shape;
+fet_endchar;
+
+fet_beginchar("Half lahead", "1la", "halflahead")
+  save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
+  path noteshape, noteishape;
+  noteshape = lashape;
+  noteishape =  lashape;
+  a_b = 1.5;
+  bi_b = 0.6;
+  ai_a = 0.85;
+  (dx,dy)=(0,0);
+  draw_solfa_note_shape;
+fet_endchar;
+
+fet_beginchar("Quart lahead", "2la", "lahead")
+  save a_b, noteshape;
+  path noteshape;
+  a_b = 1.54;
+  
+  noteshape = lashape;
+  draw_solfa_quarter_note_shape;
+fet_endchar;
+
+
+% ti - an "icecream cone" with about 2/3 of
+% the height in the cone and only 1/3 in the curved top:
+%      (0,h/6)--(w/2,-h/2)--(w,h/6)..(w/2,h/2)..cycle;
+% stem attachment: h/6
+save tishape; path tishape;
+tishape = (0,-1)--(-1,0.3)..(0,1)..(1,0.3)--cycle;
+
+fet_beginchar("Whole tihead", "0ti", "wholetihead")
+  save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
+  path noteshape, noteishape;
+  noteshape = tishape;
+  noteishape = tishape;
+  a_b = 1.8;
+  bi_b = 0.75;
+  ai_a = 0.75;
+  (dx,dy)=(0,-.02);
+  draw_solfa_note_shape;
+fet_endchar;
+
+fet_beginchar("Half tihead", "1ti", "halftihead")
+  save a_b, ai_a, bi_b, dx, dy, noteshape, noteishape;
+  path noteshape, noteishape;
+  noteshape = tishape;
+  noteishape =  tishape;
+  a_b = 1.5;
+  bi_b = 0.75;
+  ai_a = 0.75;
+  (dx,dy)=(0,-.02);
+  draw_solfa_note_shape;
+fet_endchar;
+
+fet_beginchar("Quart tihead", "2ti", "tihead")
+  save a_b, noteshape;
+  path noteshape;
+  a_b = 1.54;
+  
+  noteshape = tishape;
+  draw_solfa_quarter_note_shape;
+fet_endchar;
+
+
+
 fet_endgroup("noteheads");
 
-% what is this doing here?
+
+%
+% we derive black_notehead_width# from the quarter head,
+% so we have to define black_notehead_width (pixel qty)  
+% after the black_notehead_width# itself. Let's keep it outside the group as well.
+% 
 define_pixels(black_notehead_width);
 
 
-if 0 = 1:
 
-% free space: ascii a-i
-code:=106;
 
-%
-% testing unicode/gnome-canvas
-%
-savecode:=code;
-code:=96;
-%fet_beginchar("Whole notehead", "0", "wholehead")
-fet_beginchar("Ascii a", "a", "a")
-	draw_outside_ellipse (1.80 - puff_up_factor / 3.0, 0, 0.707, 0);
-	undraw_inside_ellipse (1.30, 125 - puff_up_factor *10,
-			0.68, 2 stafflinethickness#,
-			(w /2, 0));
-%	draw_staff_outline (-2, 2, 0.5);
-fet_endchar;
-
-code:=savecode;
-fi

@@ -302,7 +302,8 @@ context.")
      (restNumberThreshold ,number?
 			  "If a multimeasure rest takes less
 than this number of measures, no number is printed. ")
-
+     (shapeNoteStyles ,vector? "Vector of symbols, listing style for each note
+head relative to the tonic (qv.) of the scale.")
      (skipBars ,boolean? "If set to true, then
 skip the empty bars that are produced by multimeasure notes and rests.
 These bars will not appear on the printed output.  If not set (the
