@@ -1,3 +1,13 @@
+2005-01-17  Erlend Aasland  <erlenda@gmail.com>
+
+	* scm/define-markup-commands.scm: Change number->markletter-string
+	to take two arguments (vector number). Add number->mark-alphabet-vector
+	and markalphabet markup command.
+
+	* scm/translation-functions.scm: Add format-mark-box-alphabet,
+	format-mark-alphabet, format-mark-box-barnumbers and
+	format-mark-barnumbers. Fix bug in format-mark-box-numbers.
+
 2005-01-17  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/examples.itely: add SATB automatic piano

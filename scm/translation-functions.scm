@@ -28,14 +28,27 @@
       (make-simple-markup  "=")
       (make-simple-markup (number->string count))))))
 
+(define-public (format-mark-alphabet mark context)
+  (make-bold-markup (make-markalphabet-markup (1- mark))))
+
+(define-public (format-mark-box-alphabet mark context)
+  (make-bold-markup (make-box-markup (make-markalphabet-markup (1- mark)))))
+
 (define-public (format-mark-letters mark context)
   (make-bold-markup (make-markletter-markup (1- mark))))
 
 (define-public (format-mark-numbers mark context)
   (make-bold-markup (number->string mark)))
 
+(define-public (format-mark-barnumbers mark context)
+  (make-bold-markup (number->string (ly:context-property context 'currentBarNumber))))
+
 (define-public (format-mark-box-letters mark context)
   (make-bold-markup (make-box-markup (make-markletter-markup (1- mark)))))
 
 (define-public (format-mark-box-numbers mark context)
-  (make-bold-markup (make-box-markup (make-markletter-markup (1- mark)))))
+  (make-bold-markup (make-box-markup (number->string mark))))
+
+(define-public (format-mark-box-barnumbers mark context)
+  (make-bold-markup (make-box-markup
+    (number->string (ly:context-property context 'currentBarNumber)))))

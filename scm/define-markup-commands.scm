@@ -670,22 +670,30 @@ around the markup."
   (vector-set! number->mark-letter-vector j
                (integer->char (+ i (char->integer #\A)))))
 
-(define (number->markletter-string n)
+(define number->mark-alphabet-vector (list->vector
+  (map (lambda (i) (integer->char (+ i (char->integer #\A)))) (iota 26))))
+
+(define (number->markletter-string vec n)
   "Double letters for big marks."
-  (let* ((lst (vector-length number->mark-letter-vector)))
+  (let* ((lst (vector-length vec)))
     
     (if (>= n lst)
-	(string-append (number->markletter-string (1- (quotient n lst)))
-		       (number->markletter-string (remainder n lst)))
-	(make-string 1 (vector-ref number->mark-letter-vector n)))))
-
+	(string-append (number->markletter-string vec (1- (quotient n lst)))
+		       (number->markletter-string vec (remainder n lst)))
+	(make-string 1 (vector-ref vec n)))))
 
 (def-markup-command (markletter layout props num) (integer?)
   "Make a markup letter for @var{num}.  The letters start with A to Z
  (skipping I), and continues with double letters."
   
-  (Text_interface::interpret_markup layout props (number->markletter-string num)))
+  (Text_interface::interpret_markup layout props
+    (number->markletter-string number->mark-letter-vector num)))
 
+(def-markup-command (markalphabet layout props num) (integer?)
+   "Make a markup letter for @var{num}.  The letters start with A to Z
+ and continues with double letters."
+   (Text_interface::interpret_markup layout props
+     (number->markletter-string number->mark-alphabet-vector num)))
 
 (def-markup-command (bracketed-y-column layout props indices args)
   (list? markup-list?)
