@@ -12,7 +12,6 @@
 #include "includable-lexer.hh"
 
 #include "input.hh"
-#include "dictionary.hh"
 #include "lily-proto.hh"
 #include "flower-proto.hh"
 #include "array.hh"

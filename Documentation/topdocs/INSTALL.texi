@@ -209,9 +209,11 @@ tar -C / -zxf  data.tar.gz /usr/share/lilypond/1.8.0/fonts/type1/
 tar -C / -zxf  data.tar.gz /usr/share/lilypond/1.8.0/dvips/
 texhash
 @end example
-
 If you are installing LilyPond somewhere else, unpack the appropriate
-files as shown, and move them to the appropriate paths.
+files as shown, and move them to the appropriate paths. Of course, the
+.deb version number should correspond to what you are installing.
+
+
 
 If you are doing an upgrade, you should remove all @file{feta}
 @code{.pk} and @code{.tfm} files.  A script has been provided to do the

@@ -11,10 +11,11 @@
 #ifndef AFM_HH
 #define AFM_HH
 
+#include <map>
+
 #include "string.hh"
 #include "box.hh"
 #include "array.hh"
-#include "dictionary.hh"
 #include "font-metric.hh"
 #include "parse-afm.hh"
 
@@ -34,7 +35,7 @@ struct Adobe_font_metric : Font_metric
   unsigned int checksum_;
 protected:
   Array<int> ascii_to_metric_idx_;
-  Dictionary<int> name_to_metric_dict_;
+  std::map<String,int> name_to_metric_dict_;
 
   virtual Molecule find_by_name (String) const;
 
