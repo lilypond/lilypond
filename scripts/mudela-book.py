@@ -53,7 +53,7 @@ options = [
   ]
 
 format = ''
-no_lily = 0
+run_lilypond = 1
 no_match = 'a\ba'
 
 # format specific strings, ie. regex-es for input, and % strings for output
@@ -199,8 +199,9 @@ def compose_full_body (body, opts):
 		l = latex_linewidths[cols][paper][latex_size]
 
 	# urg: breaks on \include of full score
-	# if not 'nofly' in opts and not re.search ('\\\\score', body):
-	#	opts.append ('fly')
+	# Use nofly option if you want to \include full score.
+	if not 'nofly' in opts and not re.search ('\\\\score', body):
+		opts.append ('fly')
 
 	if 'fly' in opts:
 		body = r"""\score { 
@@ -407,9 +408,9 @@ def find_mudela_shorthands (b):
 		if str_opts: str_opts = '[' + str_opts + ']'
 
 
-		str = "%% copied from %s" % full_path + str 
+		str = ("%% copied from file `%s'\n" % full_path) + str 
 		return get_output ('output-mudela') % (str_opts, str)
-
+  
 	b = get_re('mudela-file').sub (mudela_file, b)
 	b = get_re('mudela').sub (mudela_short, b)
 	return b
@@ -418,7 +419,7 @@ def find_mudela_chunks (str):
 	"""Find mudela blocks, while watching for verbatim. Returns
 	(STR,MUDS) with \mudelagraphic substituted for the blocks in STR,
 	and the blocks themselves MUDS"""
-
+  
 	chunks = []
 	while str:
 		m = get_re ("mudela-block").search( str)
@@ -430,28 +431,28 @@ def find_mudela_chunks (str):
 		chunks.append (('input', str[:m.start (0)]))
 		
 		opts = m.group (1)
-		if opts:
-			opts = opts[1:-1]
-		else:
-			opts = ''
+  		if opts:
+  			opts = opts[1:-1]
+  		else:
+  			opts = ''
 		optlist = get_re('comma-sep').split (opts)
 		
 		body = m.group (2)
 		chunks.append (('mudela', body, optlist))
-
+  
 		str = str [m.end (0):]
-
+  
 	return chunks
-
-
-
+  
+  
+  
 def advance_counters (counter, opts, str):
 	"""Advance chap/sect counters,
 	revise OPTS. Return the new counter tuple"""
 	
 	(chapter, section, count) = counter
-	done = ''
-	while str:
+  	done = ''
+  	while str:
 		m = get_re ('interesting-cs').search(str)
 		if not m:
 			done = done + str
@@ -504,9 +505,8 @@ def schedule_mudela_block (base, chunk, extra_opts):
 
 	file_body = compose_full_body (body, opts)
 	updated = update_file (file_body, base + '.ly')
-
 	todo = [base]			# UGH.
-	
+
 	if not os.path.isfile (base + '.tex') or updated:
 		todo.append ('tex')
 		updated = 1
@@ -545,6 +545,7 @@ def schedule_mudela_block (base, chunk, extra_opts):
 
 def find_eps_dims (match):
 	"Fill in dimensions of EPS files."
+	
 	fn =match.group (1)
 	dims = bounding_box_dimensions (fn)
 
@@ -597,22 +598,23 @@ def transform_input_file (in_filename, out_filename):
 	chunks = newchunks
 	newchunks = []
 
-
 	# Do It.
-	if not __main__.no_lily:
+	if __main__.run_lilypond:
 		compile_all_files (chunks)
 		
 		# finishing touch.
 		for c in chunks:
-			if c[0] == 'mudela' and 'eps' in c[2]: 
+			if c[0] == 'mudela' and 'eps' in c[2]:
 				body = re.sub (r"""\\mudelaepswidth{(.*?)}""", find_eps_dims, c[1])
 				newchunks.append (('mudela', body))
 			else:
 				newchunks.append (c)
 
-		if chunks and chunks[0][0] == 'input':
-			chunks[0] = ('input', completize_preamble (chunks[0][1]))
-		
+
+	chunks = newchunks
+	if chunks and chunks[0][0] == 'input':
+		chunks[0] = ('input', completize_preamble (chunks[0][1]))
+
 	return chunks
 
 def system (cmd):
@@ -805,7 +807,7 @@ def main():
 		elif o == '--help' or o == '-h':
 			help ()
 		elif o == '--no-lily' or o == '-n':
-			__main__.no_lily = 1
+			__main__.run_lilypond = 0
 		elif o == '--dependencies':
 			do_deps = 1
 		elif o == '--default-mudela-fontsize':

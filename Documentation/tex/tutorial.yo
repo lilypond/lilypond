@@ -71,7 +71,7 @@ includefile(html-disclaimer.yo-urg)
 )
 
 
-sect(Intro,-d bold(u)ction)
+sect(Introduction)
 label(tutorial:introduction)
 latexcommand(\parindent2pc)
   

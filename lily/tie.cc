@@ -129,6 +129,8 @@ Tie::do_post_processing()
 
   if (head_l_drul_[LEFT])
     dx_f_drul_[LEFT] = head_l_drul_[LEFT]->extent (X_AXIS).length ();
+  else
+    dx_f_drul_[LEFT] = spanned_drul_[LEFT]->extent (X_AXIS).length ();
   dx_f_drul_[LEFT] += x_gap_f;
   dx_f_drul_[RIGHT] -= x_gap_f;
 

@@ -16,7 +16,7 @@ goes like this:
 
 itemize(
 it()make your fix/add your code 
-it()Add changes to NEWS, and add yourself to Documentation/AUTHORS.yo
+it()Add changes to NEWS, and add yourself to Documentation/topdocs/AUTHORS.yo
 it()generate a patch, 
 it()e-mail your patch to one of the mailing lists
     gnu-music-discuss@gnu.org or bug-gnu-music@gnu.org
