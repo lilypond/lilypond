@@ -1,3 +1,18 @@
+2002-06-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/mutopia-index.py (headertext_nopics): Add missing
+	variable.
+
+	* Documentation/windows/lilypond.hint: Renamed (previously setup.hint).
+
+	* Documentation/windows/lilypond-doc.hint: New file.
+
+	* GNUmakefile.in: Forward port: Add toplevel target install-html-doc.
+	Bugfixes for --srcdir html-doc build.
+	
+	* make/lilypond-vars.make (LILYPOND_BOOK_INCLUDES): Forward port:
+	Bugfix: Include $(builddir)/mf/out (was $(srcdir)/mf/out.
+
 2002-06-10  Han-Wen  <hanwen@cs.uu.nl>
 
 	* ly/script-init.ly (pralldown): add some scripts.

@@ -68,16 +68,17 @@ INSTALLATION_OUT_FILES5=$(outdir)/lilypond.map
 
 endif
 
-export MFINPUTS:=.:$(MFINPUTS)
-
-default: $(ALL_GEN_FILES)
-
 $(outdir)/lilypond.map: 
 	echo $(FONT_FILES:.mf=) | tr ' ' '\n' | \
 		sed 's/\(.*\)/\1 \1 <\1.pfa/' > $@
 
 $(outdir)/fonts.scale:
 	echo $(FONT_FILES:.mf=.pfa) | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $@
+
+
+export MFINPUTS:=.:$(MFINPUTS)
+
+default: $(ALL_GEN_FILES)
 
 ##
 ## todo: this also depends on .tfm, FIXME.

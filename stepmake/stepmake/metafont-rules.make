@@ -33,7 +33,7 @@ $(outdir)/%.pfa: %.mf
 	mv $(basename $(@F)).pfa $(outdir)
 
 $(outdir)/%.pfb: %.mf
-	pktrace  -I $(outdir)/ --pfb --simplify --keep-trying  $(basename $(@F))
+	pktrace -I $(outdir)/ --pfb --simplify --keep-trying  $(basename $(@F))
 	mv $(basename $(@F)).pfb $(outdir)
 
 #%.afm:
