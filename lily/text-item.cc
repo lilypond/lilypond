@@ -239,4 +239,4 @@ Text_item::brew_molecule (SCM smob)
 
 ADD_INTERFACE (Text_item,"text-interface",
   "A scheme markup text",
-  "text align baseline-skip lookup raise kern word-space magnify");
+  "text axis baseline-skip extent lookup raise kern word-space");
