@@ -1,7 +1,7 @@
 Source: lilypond
 Section: contrib/tex
 Priority: optional
-Maintainer: Anthony Fok <foka@gpu.srv.ualberta.ca>
+Maintainer: Anthony Fok <foka@debian.org>
 Standards-Version: 2.3.0.1
 
 Package: lilypond

@@ -5,7 +5,7 @@
 # This is free software; see the GNU General Public Licence
 # version 2 or later for copying conditions.  There is NO warranty.
 #
-# Currently maintained by Anthony Fok <foka@gpu.srv.ualberta.ca>
+# Currently maintained by Anthony Fok <foka@debian.org>
 # for Debian GNU/Linux.
 
 package=lilypond
@@ -13,7 +13,7 @@ package=lilypond
 SHELL=/bin/bash
 
 # Uncomment this to turn on verbose mode.
-export DH_VERBOSE=1
+#export DH_VERBOSE=1
 
 build: build-stamp
 build-stamp:
@@ -28,8 +28,10 @@ clean:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp
-	dh_clean
 	-$(MAKE) distclean
+	# Don't put dh_clean before "make distclean"!  dh_clean is
+	# "too smart" and it deletes too many files!
+	dh_clean
 	rm -f {,*/}out/{*,.build} flower/config.{log,status}
 
 # Build architecture-independent files here.
@@ -39,14 +41,13 @@ binary-indep: build
 binary-arch: build
 	dh_testdir
 	dh_testroot
-	dh_clean
 	dh_installdirs usr/lib/texmf/doc
 	$(MAKE) prefix=`pwd`/debian/tmp/usr install
 	ln -fs ../../../doc/lilypond debian/tmp/usr/lib/texmf/doc/lilypond
 	dh_installdocs BUGS TODO NEWS DEDICATION ANNOUNCE README \
 		Documentation/out/*.text Documentation/*.doc \
-		Documentation/lelie_logo.xpm
-	dh_installexamples
+		Documentation/lelie_logo.xpm bin/lytodvi.sh
+	dh_installexamples input/*.ly input/*.tex
 #	dh_installmenu
 #	dh_installcron
 #	dh_installmanpages
