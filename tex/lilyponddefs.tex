@@ -41,6 +41,7 @@
         \font\hslurdfont=xslhd20
         \font\hslurhfont=xslhz20
         \font\musicfnt=musix20
+        \font\musicdraw=musixsps
         \font\italicfont=cmti10
         \font\dynfont=cmbxti10 scaled \magstep1
         \balkhoog=20pt
@@ -63,6 +64,7 @@
         \font\hslurhfont=xslhz20
         \font\musicfnt=musix16
         \font\dynfont=cmbxti10
+        \font\musicdraw=musixsps
         \balkhoog=16pt
         \staffrulethickness=0.4pt
         \notewidth=5pt
@@ -246,8 +248,8 @@
 
 \def\beamslope#1#2{{\count0=#2\advance\count0 by#1\musicfnt\char\count0}}
 \def\rulesym#1#2{\vrule height #1 width #2}
-\def\crescendosym#1{\count0=84\advance\count0 by #1}
-\def\decrescendosym#1{\count0=116\advance\count0 by #1}
+\def\crescendosym#1{\count0=84\advance\count0 by #1\musicdraw\char\count0}
+\def\decrescendosym#1{\count0=116\advance\count0 by #1\musicdraw\char\count0}
 \def\settext#1{\textfont #1}
 \def\setitalic#1{\italicfont #1}
 \def\setdynamic#1{\dynfont #1}
