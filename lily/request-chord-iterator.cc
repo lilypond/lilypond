@@ -12,7 +12,17 @@
 #include "music-list.hh"
 #include "request.hh"
 
+Request_chord_iterator::Request_chord_iterator ()
+{
+  last_b_ = false;
+}
 
+Request_chord_iterator::Request_chord_iterator (Request_chord_iterator const &src)
+  : Music_iterator (src)
+{
+  last_b_ = src.last_b_;
+  elt_length_mom_ = src.elt_length_mom_;
+}
 
 void
 Request_chord_iterator::construct_children()
@@ -26,12 +36,6 @@ Request_chord_iterator::elt_l () const
 {
   return (Request_chord*) music_l_;
 }
-
-Request_chord_iterator::Request_chord_iterator ()
-{
-  last_b_ = false;
-}
-
 
 bool
 Request_chord_iterator::ok() const

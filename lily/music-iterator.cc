@@ -41,6 +41,22 @@
 #include "output-property.hh"
 #include "chord-tremolo-iterator.hh"
 
+Music_iterator::Music_iterator ()
+{
+  first_b_ = true;
+}
+
+Music_iterator::Music_iterator (Music_iterator const& src)
+{
+  first_b_ = src.first_b_;
+  handle_ = src.handle_;
+  music_l_ = src.music_l_;
+}
+
+Music_iterator::~Music_iterator()
+{
+}
+
 void
 Music_iterator::do_print() const
 {
@@ -91,10 +107,6 @@ Music_iterator::set_translator (Translator_group*trans)
 
 void
 Music_iterator::construct_children()
-{
-}
-
-Music_iterator::~Music_iterator()
 {
 }
 
@@ -215,11 +227,6 @@ Music_iterator::get_iterator_p (Music *m) const
   
   p->construct_children();
   return p;
-}
-
-Music_iterator::Music_iterator()
-{
-  first_b_ = true;
 }
 
 Music_iterator*

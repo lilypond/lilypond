@@ -25,7 +25,9 @@ class Request_chord_iterator : public Music_iterator
   bool last_b_;
 
 public:
+  VIRTUAL_COPY_CONS (Music_iterator);
   Request_chord_iterator ();
+  Request_chord_iterator (Request_chord_iterator const&);
   
   virtual bool next ();
   virtual bool ok () const;

@@ -14,6 +14,7 @@
 class Interpretation_context_handle
 {
   Translator_group * report_to_l_;
+public:
   void down ();
   void up (Translator_group*);
 public:

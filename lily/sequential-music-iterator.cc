@@ -12,19 +12,37 @@
 #include "music-list.hh"
 #include "request-chord-iterator.hh"
 
+Sequential_music_iterator::Sequential_music_iterator ()
+{
+  cursor_ = 0;
+  here_mom_ = 0;
+  iter_p_ =0;
+}
+
+Sequential_music_iterator::Sequential_music_iterator (Sequential_music_iterator const &src)
+  : Music_iterator (src)
+{
+  cursor_ = src.cursor_;
+  here_mom_ = src.here_mom_;
+  iter_p_ = src.iter_p_;
+}
+
+Sequential_music_iterator::~Sequential_music_iterator()
+{
+  if (iter_p_)
+    {
+      if (iter_p_->ok ())
+	music_l_->origin ()->warning (_ ("Must stop before this music ends"));
+      delete iter_p_;
+      iter_p_ = 0;
+    }
+}
 
 void
 Sequential_music_iterator::do_print() const
 {
   if (iter_p_)
     iter_p_->print();
-}
-
-Sequential_music_iterator::Sequential_music_iterator ()
-{
-  cursor_ = 0;
-  here_mom_ = 0;
-  iter_p_ =0;
 }
 
 void
@@ -73,17 +91,6 @@ Sequential_music_iterator::set_sequential_music_translator()
     
   if (report_to_l()->depth_i () < child_report->depth_i ())
     set_translator (child_report);
-}
-
-Sequential_music_iterator::~Sequential_music_iterator()
-{
-  if (iter_p_)
-    {
-      if (iter_p_->ok ())
-	music_l_->origin ()->warning (_ ("Must stop before this music ends"));
-      delete iter_p_;
-      iter_p_ = 0;
-    }
 }
 
 Music*

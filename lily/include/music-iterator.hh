@@ -24,7 +24,10 @@
   The state of an iterator would be the intersection of the particular music 
   construct with one point in musical time.
  */
-class Music_iterator {
+class Music_iterator
+{
+  //private:
+public:
   Interpretation_context_handle handle_;
 
 protected:
@@ -58,6 +61,12 @@ protected:
   virtual Music_iterator* try_music_in_children (Music  *) const;
   
 public:
+  VIRTUAL_COPY_CONS (Music_iterator);
+
+  Music_iterator();
+  Music_iterator (Music_iterator const&);
+  virtual ~Music_iterator();
+
 
   /**
      Do the reporting.  Will try MUSIC_L_ in its own translator first,
@@ -78,8 +87,6 @@ public:
   static Music_iterator* static_get_iterator_p (Music * mus);
   void init_translator (Music  *, Translator_group *); 
 
-  Music_iterator();
-    
   ///  Find the next interesting point in time.
   virtual Moment next_moment() const;
 
@@ -89,9 +96,6 @@ public:
 
   virtual Music* get_music ();
   virtual bool next ();
-
-  virtual ~Music_iterator();
-
 
   ///Report all musical information that occurs between now and UNTIL
   void process_and_next (Moment until);

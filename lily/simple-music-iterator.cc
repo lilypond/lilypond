@@ -11,6 +11,15 @@
 #include "music.hh"
 #include "input.hh"
 
+Simple_music_iterator::Simple_music_iterator ()
+  : Music_iterator ()
+{
+}
+
+Simple_music_iterator::Simple_music_iterator (Simple_music_iterator const &src)
+  : Music_iterator (src)
+{
+}
 
 void
 Simple_music_iterator::do_process_and_next (Moment m)

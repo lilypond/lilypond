@@ -21,7 +21,9 @@
 class Music_wrapper_iterator : public Music_iterator
 {
 public:
+  VIRTUAL_COPY_CONS (Music_iterator);
   Music_wrapper_iterator ();
+  Music_wrapper_iterator (Music_wrapper_iterator const&);
   ~Music_wrapper_iterator ();
 
   virtual void construct_children  () ;

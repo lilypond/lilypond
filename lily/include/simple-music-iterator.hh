@@ -14,6 +14,10 @@
 
 class Simple_music_iterator : public Music_iterator
 {
+public:
+  VIRTUAL_COPY_CONS (Music_iterator);
+  Simple_music_iterator ();
+  Simple_music_iterator (Simple_music_iterator const &);
 protected:
   virtual void do_process_and_next (Moment );
 };
