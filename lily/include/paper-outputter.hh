@@ -43,7 +43,7 @@ public:
   void output_scheme (SCM scm);
   void output_expr (SCM expr, Offset o);
   void output_header (Paper_def*);
-  void output_line (SCM, bool);
+  void output_line (SCM, Offset*, bool);
 };
 
 #endif /* PAPER_OUTPUTTER_HH */

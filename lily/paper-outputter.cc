@@ -95,20 +95,26 @@ Paper_outputter::output_header (Paper_def *paper)
 }
 
 void
-Paper_outputter::output_line (SCM line, bool is_last)
+Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
 {
   Offset dim = ly_scm2offset (ly_car (line));
-  Real width = dim[X_AXIS];
-  Real height = dim[Y_AXIS];
-      
-  if (height > 50 CM)
+  if (dim[Y_AXIS] > 50 CM)
     {
       programming_error ("Improbable system height.");
-      height = 50 CM;
+      dim[Y_AXIS] = 50 CM;
     }
 
-  output_scheme (scm_list_3 (ly_symbol2scm ("start-system"),
-			     gh_double2scm (width), gh_double2scm (height)));
+  if (output_format_global != PAGE_LAYOUT)
+    output_scheme (scm_list_3 (ly_symbol2scm ("start-system"),
+			       gh_double2scm (dim[X_AXIS]),
+			       gh_double2scm (dim[Y_AXIS])));
+  else
+    {
+      output_scheme (scm_list_3 (ly_symbol2scm ("new-start-system"),
+				 ly_quote_scm (ly_offset2scm (*origin)),
+				 ly_quote_scm (ly_offset2scm (dim))));
+      (*origin)[Y_AXIS] += dim[Y_AXIS];
+    }
 
   SCM between = SCM_EOL;
   for (SCM s = ly_cdr (line); gh_pair_p (s); s = ly_cdr (s))

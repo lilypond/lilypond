@@ -267,7 +267,7 @@
   
   (string-append (select-font name-mag-pair) exp))
 
-(define (header creator time-stamp) 
+(define (header creator time-stamp)
   (string-append
    "%!PS-Adobe-3.0\n"
    "%%Creator: " creator " " time-stamp "\n"
@@ -378,12 +378,9 @@
     (numbers->string
      (list x y width height blotdiam)) " draw_round_box"))
 
-(define (start-system width height)
+(define (new-start-system origin dim)
   (string-append
-   "\n" (ly:number->string height)
-   " start-system\n"
-   ;; Show height of system
-   (draw-line 1 0 0 (- 0 10) (- 0 (* OUTPUT-SCALE height)))
+   "\n" (number-pair->string origin) " start-system\n"
    "{\n"
    "set-ps-scale-to-lily-scale\n"))
 
@@ -392,11 +389,10 @@
    (numbers->string (list breapth width depth height))
    " draw_box" ))
 
-(define (stop-last-system)
-  (stop-system))
-
 (define (stop-system)
   "}\nstop-system\n")
+
+(define stop-last-system stop-system)
 
 (define (symmetric-x-triangle thick w h)
   (string-append
@@ -429,4 +425,6 @@
   "\nstart-page\n")
 
 (define (stop-page last?)
-  "\nstop-page\n")
+  (if last?
+      "\nstop-last-page\n"
+      "\nstop-page\n"))
