@@ -10,10 +10,11 @@ copyright =	 "public domain";
 \version "1.1.52";
 
 m =\notes  \relative c'' {
+	\property Staff.automaticMelismas = "1"
 	\autoBeamOff
-	g4  r8 \times 2/3 { g'8 f e } r8 \grace { [d16 c b] } e4
-	\melisma
-	d8.() c16
+	g4  r8 \times 2/3 { g'8( f )e } r8 \grace { [d16 c b] } e4
+	\property Staff.textEmptyDimension = "1"
+	d8.^"melisma" 	\melisma c16
 	\melismaEnd
 	b }
 
