@@ -145,7 +145,7 @@ HYPHEN		--
 <version>\"[^"]*\";?   { /* got the include file name */
 	String s (YYText ()+1);
 	s = s.left_str (s.index_last_i ('"'));
-	DEBUG_OUT << "#version `" << s << "'\n";
+
 	yy_pop_state ();
 	if (!valid_version_b (s))
 		return INVALID;
@@ -187,7 +187,7 @@ HYPHEN		--
 <incl>\"[^"]*\";?   { /* got the include file name */
 	String s (YYText ()+1);
 	s = s.left_str (s.index_last_i ('"'));
-	DEBUG_OUT << "#include `" << s << "'\n";
+
 	new_input (s,source_global_l);
 	yy_pop_state ();
 }
@@ -196,7 +196,7 @@ HYPHEN		--
 	strip_trailing_white (s);
 	if (s.length_i () && (s[s.length_i () - 1] == ';'))
 	  s = s.left_str (s.length_i () - 1);
-	DEBUG_OUT << "#include `\\" << s << "'\n";
+
 	SCM sid = lookup_identifier (s);
 	if (gh_string_p (sid)) {
 		new_input (ly_scm2string (sid), source_global_l);
@@ -290,7 +290,7 @@ HYPHEN		--
 		*yylval.string += YYText ();
 	}
 	\"	{
-		DEBUG_OUT << "quoted string: `" << *yylval.string << "'\n";
+
 		yy_pop_state ();
 
 		/* yylval is union. Must remember STRING before setting SCM*/
@@ -330,7 +330,7 @@ HYPHEN		--
 				_ ("Brace found at end of lyric. Did you forget a space?"));
 		yylval.scm = ly_str02scm (s.ch_C ());
 
-		DEBUG_OUT << "lyric : `" << s << "'\n";
+
 		return STRING;
 	}
 	. {
@@ -369,7 +369,7 @@ HYPHEN		--
 }
 
 <<EOF>> {
-	DEBUG_OUT << "<<eof>>";
+
 
 	if (! close_input ()) { 
  	  yyterminate (); // can't move this, since it actually rets a YY_NULL
@@ -387,7 +387,7 @@ HYPHEN		--
 	Real r;
 	int cnv=sscanf (YYText (), "%lf", &r);
 	assert (cnv == 1);
-	DEBUG_OUT  << "REAL" << r<<'\n';
+
 	yylval.real = r;
 	return REAL;
 }
@@ -398,12 +398,12 @@ HYPHEN		--
 }
 
 [{}]	{
-	DEBUG_OUT << "parens\n";
+
 	return YYText ()[0];
 }
 [*:=]		{
 	char c = YYText ()[0];
-	DEBUG_OUT << "misc char" <<c<<"\n";
+
 	return c;
 }
 

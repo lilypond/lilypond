@@ -15,18 +15,30 @@
 
 
 
-(translator-property-description 'CONTEXTNAMEMinimumVerticalExtent number-pair? "minimum vertical extent, same format as CONTEXTNAMEVerticalExtent [fixme, naming]")
-(translator-property-description 'CONTEXTNAMEVerticalExtent number-pair? "hard coded vertical extent.
+(translator-property-description 'MinimumVerticalExtent number-pair?
+				 "minimum vertical extent, same format as VerticalExtent")
+
+(translator-property-description 'VerticalExtent number-pair?
+				 "hard coded vertical extent.
 The format is a pair of dimensions, for example, this sets the sizes
 of a staff to 10 (5+5) staffspaces high.
 
 @example
-property Staff.StaffVerticalExtent = #(-5.0 . 5.0)
+property Staff.VerticalExtent = #(-5.0 . 5.0)
 @end example
 
- [fixme, naming]")
-(translator-property-description 'CONTEXTNAMExtraVerticalExtent number-pair? "extra vertical extent, same format
-CONTEXTNAMEMinimumVerticalExtent [fixme, naming]")
+VerticalExtent, MinimumVerticalExtent and ExtraVerticalExtent are
+predefined in all relevant contexts to @code{#f}, so they will not
+inherit values.
+
+Note that these VerticalExtents can only operate on vertical groups,
+and therefore only work in contexts which contain an
+@code{Axis_group_engraver}.
+")
+
+(translator-property-description 'ExtraVerticalExtent
+				 number-pair? "extra vertical extent, same format as  MinimumVerticalExtent")
+
 (translator-property-description 'Generic_property_list list? "description of the conversion.
 
 Defines names and types for generic properties. These are properties
@@ -190,14 +202,10 @@ remembered for the duration of a measure.
 Alist that defines in what order  alterations should be printed.
 The format is (NAME . ALTER), where NAME is from 0 .. 6 and ALTER from  -1, 1.
 ")
-(translator-property-description 'keyOctaviation boolean? "")
-(translator-property-description 'keySignature list? "The current key signature. This is an alist containing (NAME . ALTER) pairs, where NAME is from 0.. 6 and ALTER from -2,-1,0,1,2 ")
+(translator-property-description 'keySignature list? "The current key signature. This is an alist containing (NAME . ALTER) or ((OCTAVE . NAME) . ALTER) pairs, where NAME is from 0.. 6 and ALTER from -2,-1,0,1,2 ")
 
 (translator-property-description 'localKeySignature list? "the key
-signature at this point in the measure.  The format is an alist with
-entries of the form (NAME . ALTER) 
-or ((OCTAVE . NAME)  . ALTER), 
-where NAME is from 0.. 6 and ALTER from -2,-1,0,1,2" 
+signature at this point in the measure.  The format is the same as for keySignature. "
 ) 
 
 (translator-property-description 'measureLength moment? "Length of one

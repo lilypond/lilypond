@@ -44,6 +44,10 @@ StaffContext=\translator {
 %}
 
 	\consistsend "Axis_group_engraver";
+	
+	MinimumVerticalExtent = ##f
+	ExtraVerticalExtent = ##f
+	VerticalExtent = ##f 
 
 	% explicitly set instrument, so we don't get 
 	% weird effects when doing instrument names for
@@ -59,6 +63,10 @@ StaffContext=\translator {
 StaffContainerContext = \translator {
 	\type Engraver_group_engraver;
 	\consists "Axis_group_engraver";
+	MinimumVerticalExtent = ##f
+	ExtraVerticalExtent = ##f
+	VerticalExtent = ##f 
+	
 	\accepts Staff;
 	\name StaffContainer;
 }
@@ -92,6 +100,9 @@ RhythmicStaffContext=\translator{
 	\consists "Output_property_engraver";	
 
 	Generic_property_list = #generic-staff-properties
+	MinimumVerticalExtent = ##f
+	ExtraVerticalExtent = ##f
+	VerticalExtent = ##f 
 
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
@@ -276,8 +287,9 @@ StaffGroupContext = \translator {
 LyricsVoiceContext= \translator{
 	\type "Engraver_group_engraver";
 	\consistsend "Axis_group_engraver";
-	LyricsVoiceMinimumVerticalExtent = #(cons -1.2 1.2)
-
+	MinimumVerticalExtent = #(cons -1.2 1.2)
+	ExtraVerticalExtent = ##f
+	VerticalExtent = ##f 
 	\name LyricsVoice ;
 	\consists "Separating_line_group_engraver";
 	\consists "Lyric_engraver";
@@ -291,6 +303,12 @@ NoteNamesContext = \translator {
 	\type "Engraver_group_engraver";
 	\name NoteNames;
 	\consistsend "Axis_group_engraver";
+
+	MinimumVerticalExtent = ##f
+	ExtraVerticalExtent = ##f
+	VerticalExtent = ##f 
+
+	
 	\consists "Note_name_engraver";
 	\consists "Separating_line_group_engraver";
 }
@@ -302,6 +320,9 @@ LyricsContext = \translator {
 	Generic_property_list = #generic-lyrics-properties
 	\consists "Property_engraver";
 	\consistsend "Axis_group_engraver";
+	MinimumVerticalExtent = ##f
+	ExtraVerticalExtent = ##f
+	VerticalExtent = ##f 
 	
 	\accepts "LyricsVoice";
 }
@@ -319,6 +340,9 @@ ChordNamesContext = \translator {
 	\consists "Chord_name_engraver";
 	\consists "Skip_req_swallow_translator";
 	\consistsend "Axis_group_engraver";
+	MinimumVerticalExtent = ##f
+	ExtraVerticalExtent = ##f
+	VerticalExtent = ##f 
 
 	VerticalAxisGroup \override #'invisible-staff = ##t
 	}

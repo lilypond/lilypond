@@ -400,7 +400,6 @@ sane_putenv (char const* key, char const* value)
 int
 main (int argc, char **argv)
 {
-  debug_init ();		// should be first (can see that; but Why?)
   setup_paths ();
 
   /* Prepare GUILE for heavy memory usage.  If you have plenty memory,

@@ -75,11 +75,6 @@ Key_engraver::create_key (bool def)
       Staff_symbol_referencer::set_interface (item_p_);
       Key_item::set_interface (item_p_);
 
-      SCM prop = get_property ("keyOctaviation");
-      bool multi = to_boolean (prop);
-      
-      if (multi)
-	item_p_->set_grob_property ("multi-octave", gh_bool2scm (multi));
       
       announce_grob (item_p_,keyreq_l_);
     }
@@ -99,10 +94,15 @@ Key_engraver::try_music (Music * req_l)
 {
   if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req_l))
     {
-      if (keyreq_l_)
-	warning (_ ("FIXME: key change merge"));
+      if (keyreq_l_ && !keyreq_l_->equal_b (kc))
+	{
+	  kc->origin ()->warning (_ ("Conflicting key signatures found."));
+	  keyreq_l_->origin ()->warning (_ ("This was the other key definition."));	  
+	  return false;
+	}
       keyreq_l_ = kc;
       read_req (keyreq_l_);
+
       return true;
     }   
   return  false;

@@ -11,7 +11,7 @@
 #endif
 
 #include "file-path.hh"
-#include "flower-debug.hh"
+
 
 #ifndef PATHSEP
 #define PATHSEP ':'
@@ -106,7 +106,6 @@ File_path::parse_path (String p)
 String
 File_path::find (String nm) const
 {
-  DEBUG_OUT << "looking for" << nm << ": ";
   if (!nm.length_i () || (nm == "-") )
     return nm;
   for (int i=0; i < size (); i++)
@@ -119,7 +118,6 @@ File_path::find (String nm) const
 
       path += nm;
 
-      DEBUG_OUT << path << "? ";
 
 #if 0
       /*
@@ -144,12 +142,10 @@ File_path::find (String nm) const
       FILE *f = fopen (path.ch_C (), "r"); // ugh!
       if (f)
 	{
-	  DEBUG_OUT << "found\n";
 	  fclose (f);
 	  return path;
 	}
     }
-  DEBUG_OUT << '\n';
   return "";
 }
 

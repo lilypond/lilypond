@@ -14,15 +14,7 @@
 #include <math.h>
 #include "interval.hh"
 #include "string.hh"
-#include "flower-debug.hh"
 
-template<class T>
-void
-Interval_t<T>::print () const
-{
-  if (flower_dstream)
-    *flower_dstream << str ();
-}
 
 template<class T>
 int

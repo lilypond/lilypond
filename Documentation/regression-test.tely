@@ -68,7 +68,7 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{dynamics-broken-hairpin.ly}
 
-
+@lilypondfile[printfilename]{dynamics-unbound-hairpin.ly}
 
 @section Chord names
 
@@ -240,6 +240,8 @@ and documenting bugfixes.
 @lilypondfile[printfilename]{clefs.ly}
 
 @lilypondfile[printfilename]{keys.ly}
+
+@lilypondfile[printfilename]{key-signature-scordatura.ly}
 
 @section Hacks and Features
 

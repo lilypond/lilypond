@@ -32,7 +32,7 @@ tagline="Ligly";
 		linewidth = 15.0\mm;
 		\translator {
 			\StaffContext
-			StaffMinimumVerticalExtent = #(cons 0 0)
+			MinimumVerticalExtent = #(cons 0 0)
 		}
 	}
 }

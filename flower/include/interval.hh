@@ -78,7 +78,7 @@ struct Interval_t : public Drul_array<T> {
     return ((1.0 - x) * Real (elem (LEFT))  + (x + 1.0) * Real (elem (RIGHT))) * 0.5;
   }
   String str () const;    
-  void print () const;
+
   bool elem_b (T r);
   void negate () {
     T r = -elem (LEFT);

@@ -1,4 +1,4 @@
-\input texinfo @c -*-texinfo-*-
+i\input texinfo @c -*-texinfo-*-
 @setfilename index.info
 @settitle LilyPond homepage
 
@@ -10,12 +10,10 @@
 <img src="Documentation/pictures/out-www/lelie-logo.png" alt="[logo]">
 @end html
 
-@c @unnumberedsec LilyPond -- The GNU Project Music Typesetter
-
-@c something breaks on 3.12 f
 
 @unnumberedsec What is LilyPond?
 
+@c also use keywords: music notation software
 LilyPond is a music typesetter.  It produces beautiful sheet music
 using a high level description file as input. It excels at typesetting
 classical music, but you can also print pop-songs.  With LilyPond we
@@ -28,21 +26,19 @@ The input to LilyPond is plain text. So, you can use your favorite text
 editor to enter it, you can put it in mail or embed it in an article like
 this:
 
-@quotation
+
 @lilypond[fragment,verbatim]
 \relative c'' { \key c \minor; r8 c16 b c8 g as c16 b c8 d | g,4 }
 @end lilypond 
-@end quotation
 
 The output looks very good: the font and the layout algorithms were
 inspired by engraved music, so you can expect that same clear and
 elegant look from your LilyPond output.  And if you don't like the
 looks, you can tweak almost everything.
 
-The program also has limited MIDI functionality: you can write MIDI files with
-lilypond, and we have a simple MIDI to lilypond conversion tool,
-@file{midi2ly}. Conversion tools for PMX, MUP, ABC, Finale and Musedata are
-also included.
+The program also has limited MIDI functionality: you can write MIDI
+files with lilypond. You can also import files in PMX, MUP, MIDI, ABC,
+Finale and Musedata format.
 
 LilyPond is free software. It is licensed under GNU General Public
 License, so you can use, modify and redistribute the program with

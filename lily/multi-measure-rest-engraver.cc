@@ -9,7 +9,7 @@
 #include "multi-measure-rest.hh"
 #include "paper-column.hh"
 #include "engraver-group-engraver.hh"
-#include "bar.hh"
+
 #include "staff-symbol-referencer.hh"
 #include "engraver.hh"
 #include "moment.hh"
@@ -17,9 +17,6 @@
 
 /**
    The name says it all: make multi measure rests 
-
-FIXME? The MM rest engraver must be able to see bar lines, so it won't
-work at Voice level. Not a problem in practice, but aesthetically pleasing? 
 
 */
 class Multi_measure_rest_engraver : public Engraver
@@ -29,7 +26,6 @@ public:
   Multi_measure_rest_engraver ();
 
 protected:
-  virtual void acknowledge_grob (Grob_info i);
   virtual bool try_music (Music*);
   virtual void process_music ();
   virtual void stop_translation_timestep ();
@@ -56,18 +52,6 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
   new_req_l_ = busy_span_req_l_ = stop_req_l_ =0;
 }
 
-void
-Multi_measure_rest_engraver::acknowledge_grob (Grob_info i)
-{
-  Item * item = dynamic_cast<Item*> (i.elem_l_); 
-  if (item && Bar::has_interface (item))
-    {
-      if (mmrest_p_)
-	Multi_measure_rest::add_column (mmrest_p_,item);
-      if (lastrest_p_)
-	Multi_measure_rest::add_column (lastrest_p_,item);
-    }
-}
 
 bool
 Multi_measure_rest_engraver::try_music (Music* req_l)
@@ -125,7 +109,15 @@ Multi_measure_rest_engraver::process_music ()
 	= gh_scm2int (get_property ("currentBarNumber"));
     }
 
-
+  if (gh_string_p (get_property ("whichBar")))
+    {
+      Grob *cmc = unsmob_grob (get_property( "currentCommandColumn"));
+      Item *it = dynamic_cast<Item*> (cmc);
+      if (mmrest_p_)
+	add_bound_item (mmrest_p_, it);
+      if (lastrest_p_)
+	add_bound_item (lastrest_p_,it);
+    }
 }
 
 void
@@ -136,7 +128,7 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
 
   if (mmrest_p_ && (now_mom () >= start_moment_) 
       && !mp
-      && (scm_ilength (mmrest_p_->get_grob_property ("columns")) >= 2))
+      && mmrest_p_->get_bound (LEFT) && mmrest_p_->get_bound (RIGHT))
     {
       typeset_grob (mmrest_p_);
       /*
@@ -148,8 +140,7 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
   if (lastrest_p_)
     {
       /* sanity check */
-      if (scm_ilength (lastrest_p_->get_grob_property ("columns")) >= 2
-	  && lastrest_p_->get_bound (LEFT) && lastrest_p_->get_bound (RIGHT)
+      if (lastrest_p_->get_bound (LEFT) && lastrest_p_->get_bound (RIGHT)
 	  && lastrest_p_->get_bound (LEFT) != lastrest_p_->get_bound (RIGHT))
 	typeset_grob (lastrest_p_);
       lastrest_p_ = 0;

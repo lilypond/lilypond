@@ -59,9 +59,36 @@ Key_change_req::transpose (Pitch p)
   set_mus_property ("pitch-alist", newlist);
 }
 
-Break_req::Break_req ()
+
+bool
+alist_equal_p (SCM a, SCM b)
 {
+  for (SCM s = a;
+       gh_pair_p (s); s = gh_cdr (s))
+    {
+      SCM key = gh_caar (s);
+      SCM val = gh_cdar (s);
+      SCM l = scm_assoc (key, b);
+
+      if (l == SCM_BOOL_F
+	  || !gh_equal_p ( gh_cdr (l), val))
+
+	return false;
+    }
+  return true;
 }
+
+bool
+Key_change_req::do_equal_b (Request const * m )const
+{
+  Key_change_req const * kc =dynamic_cast<Key_change_req const*> (m);
+
+  if(!kc)
+    return false;
+  return alist_equal_p (get_mus_property ("pitch-alist"),
+			kc->get_mus_property ("pitch-alist"));
+}
+
 
 
 bool

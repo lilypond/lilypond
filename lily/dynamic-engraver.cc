@@ -174,7 +174,7 @@ Dynamic_engraver::process_music ()
       script_p_->set_grob_property ("text",
 				   script_req_l_->get_mus_property ("text"));
       
-      Side_position_interface::set_direction (script_p_, LEFT);
+      Side_position_interface::set_direction (script_p_, DOWN);
 
       if (Direction d = script_req_l_->get_direction ())
 	Directional_element_interface::set (line_spanner_, d);
@@ -373,10 +373,24 @@ Dynamic_engraver::typeset_all ()
 
       */
 
-      if (!finished_line_spanner_->get_bound (RIGHT)
-	  && finished_line_spanner_->get_bound (LEFT))
-	finished_line_spanner_->set_bound (RIGHT, finished_line_spanner_->get_bound (LEFT));
-      
+      Grob * l = finished_line_spanner_->get_bound (LEFT );
+      Grob * r = finished_line_spanner_->get_bound (RIGHT);      
+      if (!r && l)
+	finished_line_spanner_->set_bound (RIGHT, l);
+      else if (!l && r)
+	finished_line_spanner_->set_bound (LEFT, r);
+      else if (!r && !l)
+	{
+	  /*
+	    This is a isolated dynamic apparently, and does not even have
+	    any interesting support item.
+	   */
+	  Grob * cc = unsmob_grob (get_property ("currentMusicalColumn"));
+	  Item * ci = dynamic_cast<Item*>(cc);
+	  finished_line_spanner_->set_bound (RIGHT, ci);
+	  finished_line_spanner_->set_bound (LEFT, ci);	  
+	}
+	
       typeset_grob (finished_line_spanner_);
       finished_line_spanner_ = 0;
     }

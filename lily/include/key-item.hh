@@ -13,7 +13,7 @@
 
 struct Key_item
 {
-  static int calculate_position (Grob*,SCM pair) ;
+
   static void set_interface (Grob*);
   static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));

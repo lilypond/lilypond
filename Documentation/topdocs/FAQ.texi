@@ -58,25 +58,6 @@ yourself:
  
 @end example 
 
-@subsection Is there an emacs mode?
-
-Yes.  It is included with the source archive as
-@file{lilypond-mode.el} and @file{lilypond-font-lock.el}.  If you have
-an RPM, it is in @file{/usr/share/doc/lilypond-X/}.  You have to install
-it yourself.
-
-Add this to your ~/.emacs or ~/.emacs.el:
-@example 
-    (load-library "lilypond-mode.el")
-    (setq auto-mode-alist
-      (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
-    (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
-@end example
-
-If you have the latest LilyPond-1.3.x Debian package, LilyPond-mode
-is automatically loaded, so you need not modify your ~/.emacs file.
-
-
 @subsection I downloaded the windows32 port, and it doesn't match the website!
 
 The website is usually made from the latest snapshots.  Binary releases,
