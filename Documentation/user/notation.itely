@@ -5551,6 +5551,7 @@ staff.  See @inputfileref{input/@/test,ossia@/.ly} for an example.
 @node Different editions from one source
 @subsection Different editions from one source
 
+@cindex tag
 The @code{\tag} command marks music expressions with a name.  These
 tagged expressions can be filtered out later.  With this mechanism it
 is possible to make different versions of the same music source.
@@ -5584,6 +5585,8 @@ c1-\tag #'part ^4
 
 This defines a note with a conditional fingering indication.
 
+@cindex keepWithTag
+@cindex removeWithTag
 By applying the @code{\keepWithTag} and @code{\removeWithTag}
 commands, tagged expressions can be filtered.  For example,
 @example
@@ -7665,10 +7668,11 @@ LilyPond has limited support for figured bass
 
 @lilypond[quote,raggedright,verbatim,fragment]
 <<
-  \context Voice { \clef bass dis4 c d ais }
+  \context Voice { \clef bass dis4 c d ais g fis}
   \context FiguredBass \figuremode {
     < 6 >4 < 7 >8 < 6+ [_!] >
     < 6 >4 <6 5 [3+] >
+    < _ >4 < 6 >4
   }
 >>
 @end lilypond

@@ -1,8 +1,8 @@
 \version "2.4.0"
 \header {
     texidoc = "
-Figured bass is created by the FiguredBass context which eats
-figured bass requests and  rest-requests.  You must enter these using
+Figured bass is created by the FiguredBass context which responds to
+figured bass requests and rest-requests.  You must enter these using
 the special @code{\figuremode @{ @}} mode, which allows you to type
 numbers, like @code{<4 6+>}.
 

@@ -1,3 +1,12 @@
+2004-12-13  Graham Percival  <gperlist@shaw.ca>
+
+	* input/regression/figured-bass.ly: attempt to clarify text.
+
+	* Documentation/user/notation.tely: add cindex for tag, attempt to
+	add figured bass example.
+
+	* Documentation/user/changing-defaults: basic editing.
+
 2004-12-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* buildscripts/gen-bigcheese-scripts.py (i): load .subfonts table. 
