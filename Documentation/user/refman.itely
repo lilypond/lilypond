@@ -2485,7 +2485,9 @@ Nevertheless, here are some variables you may want to use or change:
     ly2dvi.
 
   @item @code{interscoreline}@indexcode{interscoreline}  
-    Sets the spacing between the score lines. Defaults to 16 pt.
+    Sets the spacing between the score lines. The value should be
+    a string with a length specified in TeX syntax. 
+    Defaults to  @code{"16 pt"}.
 
   @item @code{output}@indexcode{output}  
     Specifies an alternate name for the the output @file{s}.
