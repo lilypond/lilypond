@@ -112,8 +112,7 @@ if not omf_vars['creator']:
 
 
 
-print r'''
-<?xml version="1.0" encoding="UTF-8"?>
+print r'''<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE omf PUBLIC "-//OMF//DTD Scrollkeeper OMF Variant V1.0//EN" "http://scrollkeeper.sourceforge.net/dtds/scrollkeeper-omf-1.0/scrollkeeper-omf.dtd">
 <omf>
   <resource>
@@ -129,7 +128,7 @@ print r'''
     <date>
       %(date)s
     </date>
-    <version identifier="%(version)s" />
+    <version identifier="%(version)s" date="%(date)s" />
     <subject category="%(category)s"/>
     <description>
     %(description)s
@@ -137,12 +136,13 @@ print r'''
     <type>
     %(type)s
     </type>
-    <format mime="%(mimeformat)s">
+    <format mime="%(mimeformat)s" />
     <identifier url="%(location)s"/>
     <language code="C"/>
     <rights type="%(license)s" />
   </resource>
 </omf>
+
 ''' % omf_vars
 
 

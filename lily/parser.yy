@@ -1183,7 +1183,7 @@ scalar:
         | bare_int      { $$ = gh_int2scm ($1); }
         | embedded_scm  { $$ = $1; }
 	| full_markup {  $$ = $1; }
-	| DIGIT { $$ = $1; }
+	| DIGIT { $$ = gh_int2scm ($1); }
         ;
 
 

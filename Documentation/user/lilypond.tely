@@ -33,7 +33,8 @@ Distributions will want to install lilypond.info doing:
 @omfcreator Han-Wen Nienhuys and Jan Nieuwenhuizen
 @omfdescription User manual  of the LilyPond music engraving system
 @omftype user manual
-@omfcategory Music 
+@omfcategory Music
+@omflanguage English
 @end ignore
 
 

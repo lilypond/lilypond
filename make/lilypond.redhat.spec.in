@@ -52,7 +52,7 @@ make -C Documentation
 
 # make  html
 make web-doc top-web 
-
+make -C Documentation/user omf
 
 %install
 
@@ -96,12 +96,6 @@ echo 'Please logout first before using LilyPond.'
 
 %preun
 
-%post documentation
-scrollkeeper-update
-
-%preun documentation
-scrollkeeper-update
-
 
 %if %{info}
 if [ $1 = 0 ]; then
@@ -110,6 +104,15 @@ fi
 %endif
 
 chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
+
+
+%post documentation
+scrollkeeper-update
+
+%postun documentation
+scrollkeeper-update
+
+
 
 %files
 %defattr(-, root, root)
@@ -127,6 +130,8 @@ chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 %{_bindir}/mup2ly
 %{_bindir}/musedata2ly
 %{_bindir}/pmx2ly
+
+
 
 %if %{info}
 %{_infodir}/*
@@ -147,6 +152,7 @@ chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 %{_datadir}/lilypond/@TOPLEVEL_VERSION@/
 %{_datadir}/locale/*/LC_MESSAGES/lilypond.mo
 
+%{_libdir}/lilypond/
 
 /etc/profile.d/lilypond.*
 
@@ -155,7 +161,7 @@ chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
 %defattr(-, root, root)
 
-%{docdir}/lilypond/@TOPLEVEL_VERSION@
+%{docdir}/@TOPLEVEL_VERSION@
 %{_datadir}/omf/lilypond/@TOPLEVEL_VERSION@
 
 
