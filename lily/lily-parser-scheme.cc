@@ -19,6 +19,7 @@
 #include "output-def.hh"
 #include "book.hh"
 #include "paper-book.hh"
+#include "file-name-map.hh"
 
 /* Do not append `!' suffix, since 1st argument is not modified. */
 LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click",
@@ -82,7 +83,8 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       Sources sources;
       sources.set_path (&global_path);
 
-      progress_indication (_f ("Processing `%s'", file_name.to_str0 ()));
+      String mapped_fn = map_file_name (file_name);
+      progress_indication (_f ("Processing `%s'", mapped_fn.to_str0 ()));
       progress_indication ("\n");
 
       Lily_parser *parser = new Lily_parser (&sources);

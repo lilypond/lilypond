@@ -20,6 +20,7 @@
 #endif
 
 #include "warn.hh"
+#include "file-name-map.hh"
 
 void
 Source_file::load_stdin ()
@@ -142,7 +143,7 @@ Source_file::file_line_column_string (char const *context_str0) const
 String
 Source_file::name_string () const
 {
-  return name_;
+  return map_file_name (name_);
 }
 
 Source_file::~Source_file ()

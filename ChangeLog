@@ -1,5 +1,13 @@
 2005-04-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/lily-parser-scheme.cc:  print mapped file name for progress
+
+	* scripts/lilypond-book.py (find_linestarts): new function.
+	(find_toplevel_snippets): keep track of line numbers.
+
+	* lily/key-performer.cc (try_music): remove FIXME warning, gobble
+	all key changes.
+
 	* ly/declarations-init.ly (partCombineListener): use
 	ignoreBarChecks. Fixes: warn-partcombine-barcheck.ly
 

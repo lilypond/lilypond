@@ -36,6 +36,11 @@ ps: $(PS_FILES)
 
 info: $(INFO_FILES)
 
+pathsettings:
+	@echo export PATH=$(PATH)
+	@echo export LILYPONDPREFIX=$(LILYPONDPREFIX)
+	@echo export PYTHONPATH=$(PYTHONPATH)
+
 xml: $(outdir)/lilypond/lilypond.xml $(outdir)/lilypond-internals/lilypond-internals.xml
 
 # There are two modes for info: with and without images.
