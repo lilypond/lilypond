@@ -58,6 +58,7 @@
 		%%%devNullThread = #'never
 		
 		TimeSignature \override #'style = #'C
+		TextSpanner \override #'font-shape = #'italic
 		BarNumber \override #'padding = #3
 		RestCollision \override #'maximum-rest-count = #1
 	}
