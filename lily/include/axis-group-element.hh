@@ -3,34 +3,35 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
 #ifndef AXIS_GROUP_ELEMENT_HH
 #define AXIS_GROUP_ELEMENT_HH
 
-#include "score-elem.hh"
-#include "axis-group-administration.hh"
+#include "score-element.hh"
+#include "graphical-axis-group.hh"
+
 /** 
   Treat a group of elements a unity in either or both axis sense .
   This is a wrapper around Axis_group_administration
   */
-class Axis_group_element : public virtual Score_elem {
+class Axis_group_element : public virtual Score_element,
+			   public Graphical_axis_group {
 protected:
-  Axis_group_administration axis_admin_;
   virtual void do_print() const;
-  virtual Link_array<Score_elem> get_extra_dependencies() const;
+  virtual Link_array<Score_element> get_extra_dependencies() const;
   virtual void do_unlink();
   virtual void do_junk_links();
+  virtual Axis_group_element * access_Axis_group_element ();
 
 public:
-  virtual Link_array<Score_elem> elem_l_arr() const;
-  Axis_group_element();
-  virtual void remove_all()=0;
-  virtual void add_element (Graphical_element*)=0;
-  virtual void remove_element (Graphical_element*)=0;
-  virtual bool contains_b (Graphical_element const *) const;
+  virtual Link_array<Score_element> elem_l_arr() const;
+  Axis_group_element(Axis,Axis);
+  Axis_group_element();  
+  virtual Link_array<Score_element> get_children ();
+
   DECLARE_MY_RUNTIME_TYPEINFO;
 };
 

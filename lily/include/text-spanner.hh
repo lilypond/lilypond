@@ -1,7 +1,7 @@
 /*
   textspanner.hh -- part of GNU LilyPond
 
-  (c) 1996,97 Han-Wen Nienhuys
+  (c) 1996--1998 Han-Wen Nienhuys
 */
 
 #ifndef TEXTSPANNER_HH
@@ -24,10 +24,10 @@ public:
   Text_spanner();
   Text_spanner (Text_spanner const&);
 protected:
-  SCORE_ELEM_CLONE(Text_spanner);
+  SCORE_ELEMENT_CLONE(Text_spanner);
   ~Text_spanner();
   virtual void do_add_processing ();
-  virtual void do_substitute_dependency (Score_elem*,Score_elem*);
+  virtual void do_substitute_dependency (Score_element*,Score_element*);
   virtual void do_pre_processing();
   virtual void do_post_processing();
   virtual Interval height() const ;

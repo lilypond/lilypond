@@ -1,14 +1,14 @@
 /*
   spanner.hh -- part of GNU LilyPond
 
-  (c) 1996,97 Han-Wen Nienhuys
+  (c) 1996--1998 Han-Wen Nienhuys
 */
 
 #ifndef SPANNER_HH
 #define SPANNER_HH
 
 #include "lily-proto.hh"
-#include "score-elem.hh"
+#include "score-element.hh"
 #include "drul-array.hh"
 #include "rod.hh"
 
@@ -32,21 +32,21 @@
   length of stems of notes they encompass.
 
   */
-class Spanner : public virtual Score_elem {
+class Spanner : public virtual Score_element {
 public:
   
   Drul_array<Item*> spanned_drul_;
-  void set_bounds(Direction d, Item*);
+  void set_bounds (Direction d, Item*);
 
   DECLARE_MY_RUNTIME_TYPEINFO;
-  virtual Spanner* spanner() { return this; }    
-  Spanner();
-  bool broken_b() const;
+  virtual Spanner* access_Spanner ();
+  Spanner ();
+  bool broken_b () const;
   virtual Array<Rod> get_rods () const;
   Spanner* find_broken_piece (Line_of_score*) const;
 protected:
-  void set_my_columns();
-  SCORE_ELEM_CLONE(Spanner);
+  void set_my_columns ();
+  SCORE_ELEMENT_CLONE (Spanner);
 
   /**
     this is virtual; for instance, Line_of_score overrides it.
@@ -55,13 +55,13 @@ protected:
 
   Link_array<Spanner> broken_into_l_arr_;
 
-  virtual void do_unlink();
-  virtual void do_junk_links();
+  virtual void do_unlink ();
+  virtual void do_junk_links ();
   virtual void do_brew_molecule ();
   virtual void do_space_processing ();
-  virtual void do_break_processing();
-  virtual Interval do_width() const;
-  virtual void do_print() const;
-  virtual Line_of_score*line_l() const;
+  virtual void do_break_processing ();
+  virtual Interval do_width () const;
+  virtual void do_print () const;
+  virtual Line_of_score*line_l () const;
 };
 #endif

@@ -1,7 +1,7 @@
 /*
   moment.hh -- part of GNU LilyPond
 
-  (c) 1996,97 Han-Wen Nienhuys
+  (c) 1996--1998 Han-Wen Nienhuys
 */
 
 #ifndef tdes_HH
@@ -9,7 +9,7 @@
 
 #include "moment.hh"
 #include "lily-proto.hh"
-#include "varray.hh"
+#include "array.hh"
 
 /// full info on where we are
 struct Time_description {
@@ -39,14 +39,14 @@ struct Time_description {
   void OK() const;
   Time_description();
   void add (Moment dt);
-  bool allow_meter_change_b();
+  bool allow_time_signature_change_b();
   String str() const;
   void print() const;
   void setpartial (Moment p);
   String try_set_partial_str (Moment) const;
   Moment barleft() const;
   Moment next_bar_moment() const;
-  void set_meter (int,int);
+  void set_time_signature (int,int);
   static int compare (const Time_description&, const Time_description&);
 };
 

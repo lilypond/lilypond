@@ -1,13 +1,13 @@
 /*
   key.hh -- declare Key, Octave_key
 
-  (c) 1996,97 Han-Wen Nienhuys
+  (c) 1996--1998 Han-Wen Nienhuys
 */
 
 #ifndef KEY_HH
 #define KEY_HH
 
-#include "varray.hh"
+#include "array.hh"
 #include "scalar.hh"
 #include "lily-proto.hh"
 
