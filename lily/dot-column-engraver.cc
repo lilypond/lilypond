@@ -40,7 +40,7 @@ Dot_column_engraver::acknowledge_element (Score_element_info info)
 
   if (!dotcol_p_)
     {
-      dotcol_p_ = new Dot_column( SCM_EOL);
+      dotcol_p_ = new Dot_column(get_property ("basicDotColumnProperties"));
       Side_position_interface (dotcol_p_).set_axis (X_AXIS);
       Side_position_interface (dotcol_p_).set_direction (RIGHT);      
       announce_element (Score_element_info (dotcol_p_, 0));
