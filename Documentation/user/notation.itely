@@ -233,6 +233,8 @@ note with the @code{\rest} keyword appended. This makes manual
 formatting in polyphonic music easier.  Rest collision testing will
 leave these rests alone
 
+@cindex @code{\rest}
+ 
 @lilypond[quote,raggedright,verbatim]
 a'4\rest d'4\rest
 @end lilypond
@@ -292,6 +294,9 @@ Program reference: @internalsref{SkipEvent}, @internalsref{SkipMusic}.
 
 
 @cindex duration
+@cindex @code{\longa}
+@cindex @code{\breve}
+@cindex @code{\maxima}
 
 
 In Note, Chord, and Lyrics mode, durations are designated by numbers
@@ -1086,6 +1091,8 @@ indicating how much of the measure has passed at this point.
 @node Unmetered music
 @subsection Unmetered music
 
+@cindex @code{\bar}
+
 Bar lines and bar numbers are calculated automatically. For unmetered
 music (e.g. cadenzas), this is not desirable.  By setting
 @code{Score.timing} to false, this automatic timing can be switched
@@ -1097,7 +1104,6 @@ off. Empty bar lines,
 
 @noindent
 indicate where line breaks can occur.
-
 
 
 @refcommands
@@ -1211,6 +1217,8 @@ The easiest way to enter fragments with more than one voice on a staff
 is to split chords using the separator @code{\\}.  You can use it for
 small, short-lived voices or for single chords
 
+@cindex @code{\\}
+
 @lilypond[quote,verbatim,fragment]
 \context Staff \relative c'' {
   c4 << { f d e  } \\ { b c2 } >>
@@ -1268,8 +1276,8 @@ Similarly, you can merge half note heads with eighth notes, by setting
 c8 c4. } \\ { c2 c2 } >>
 @end lilypond
 
-LilyPond also vertically shifts rests that are opposite of a stem
-
+LilyPond also vertically shifts rests that are opposite of a stem,
+for example
 
 @lilypond[quote,raggedright,fragment,verbatim]
 \context Voice << c''4 \\  r4 >>
