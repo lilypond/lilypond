@@ -12,7 +12,18 @@
 % FIXME: why isn't this set (by default) by lily?
 % /text-height lilypondpapertextheight def
 
-/output-scale lilypondpaperoutputscale def
+/lily-output-units 2.83464  def  %% milimeter
+% /lily-output-units 0.996264  def  %% true points.
+
+/output-scale
+lilypondpaperoutputscale lily-output-units mul 
+def
+
+/set-ps-scale-to-lily-scale
+{
+output-scale output-scale scale
+} bind def
+
 /paper-size { lilypondpaperpapersize } bind def
 
 % FIXME

@@ -7,6 +7,9 @@
 ;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;; Stephen Peters <portnoy@portnoy.org>
 
+
+;; TODO: port this  to the new module framework.
+
 (define (pdftex-scm action-name)
   (define (unknown) 
     "%\n\\unknown%\n")
@@ -107,12 +110,6 @@
     (string-append 
      "\n\\" s "{" (inexact->string i 10) "}" ))
 
-  (define (invoke-dim1 s d)
-    (string-append
-     "\n\\" s "{" (number->dim d) "}"))
-  (define (pt->sp x)
-    (* 65536 x))
-  
   ;;
   ;; need to do something to make this really safe.
   ;;
@@ -203,7 +200,7 @@
 	    (define ez-ball ,ez-ball)
 	    (define header ,header) 
 	    (define invoke-char ,invoke-char) 
-	    (define invoke-dim1 ,invoke-dim1)
+
 	    (define placebox ,placebox)
 	    (define select-font ,select-font)
 	    (define start-line ,start-line)
@@ -231,7 +228,7 @@
 	((eq? action-name 'lily-def) lily-def)
 	((eq? action-name 'header) header) 
 	((eq? action-name 'invoke-char) invoke-char) 
-	((eq? action-name 'invoke-dim1) invoke-dim1)
+
 	((eq? action-name 'placebox) placebox)
 	((eq? action-name 'bezier-sandwich) bezier-sandwich)
 	((eq? action-name 'start-line) start-line)

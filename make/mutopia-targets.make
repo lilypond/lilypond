@@ -12,7 +12,7 @@ all: $(OUT_FILES)
 
 # we want dvi_examples as well, because they get thrown away otherwise
 # incurring another costly lilypond run.
-local-WWW: $(ly_examples) $(dvi_examples) $(ps_examples) $(png_examples)
+local-WWW: $(ly_examples) $(pdf_examples) $(ps_examples) $(png_examples)
 
 tar:
 	mkdir -p $(outdir)/$(tarball)

@@ -585,6 +585,11 @@ contains-grace extra-space stretch-distance ))
    'piano-pedal-interface
    ""
    '(pedal-type
+     edge-width
+     edge-height
+     shorten-pair
+     left-widen
+     right-widen
     ))
 
 
@@ -745,6 +750,7 @@ since these usually are in a different X_group
     edge-height 
     edge-width
     edge-text 
+    shorten-pair
     type 
 ))
 

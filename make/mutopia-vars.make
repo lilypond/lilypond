@@ -14,6 +14,7 @@ ly_examples=$(addprefix $(outdir)/, $(addsuffix .ly.txt, $(examples)))
 all_examples=$(examples)
 dvi_examples=$(addprefix $(outdir)/, $(addsuffix .dvi, $(all_examples)))
 ps_examples=$(addprefix $(outdir)/, $(addsuffix .ps.gz, $(all_examples)))
+pdf_examples=$(addprefix $(outdir)/, $(addsuffix .pdf, $(all_examples)))
 gif_examples=$(addprefix $(outdir)/, $(addsuffix .gif, $(all_examples)))
 png_examples=$(addprefix $(outdir)/, $(addsuffix .png, $(all_examples)))
 

@@ -29,6 +29,11 @@
 ;;     
 ;; We have our doubts, so we simply provide all sensible alternatives.
 
+
+;;
+;
+; DOCME: what goes into this func, what comes out.
+
 (define (dir-compare up down)
   (sign (- up down)))
 
@@ -36,7 +41,14 @@
 (define (beam-dir-majority count total)
   (dir-compare (car count) (cdr count)))
 
-(beam-dir-majority '(0 . 0) '(0 . 0))
+(define (beam-dir-majority-median count total)
+  "First try majority. If that doesn't work, try median."
+  (let ((maj (dir-compare (car count) (cdr count))))
+    (if (not (= maj 0))
+	maj
+	(beam-dir-median count total))
+    ))
+
 
 (define (beam-dir-mean count total)
   (dir-compare (car total) (cdr total)))

@@ -33,6 +33,13 @@ $(outdir)/%.dvi: $(outdir)/%.ly
 $(outdir)/%.dvi: %.ly
 	$(PYTHON) $(LY2DVI) --output=$@ --dependencies $< 
 
+
+$(outdir)/%.pdf: $(outdir)/%.dvi
+	dvips -u lilypond.map -o $@.pdfps  -Ppdf $<
+	ps2pdf $@.pdfps $@
+
+	$(PYTHON) $(LY2DVI) --output=$@ --dependencies $< 
+
 $(outdir)-$(PAPERSIZE)/%.dvi: %.ly
 	$(PYTHON) $(LY2DVI) --output=$@ --dependencies --set=papersize=$(PAPERSIZE) $< 
 

@@ -19,7 +19,7 @@ measure 25, we get back the linebreaking of Baerenreiter.
 
 
 This file used to show spacing weaknesses. Now it shows weaknesses in
-beam and slur handling.
+slur handling.
 
 Note that the Barenreiter edition contains an engraving mistake. The
 second line begins with measure 6 (but prints 5).
@@ -133,16 +133,31 @@ sarabandeCelloStaff =  \context Staff <
   \sarabandeCelloScripts
 >
 
+% size perversions
+smallerPaper = \paper {
+    \translator { \StaffContext
+		  fontSize = #-1
+		  StaffSymbol \override  #'staff-space = #0.8
+		  }
+    \translator { \ScoreContext
+		   SpacingSpanner \override #'spacing-increment = #0.96
+		}
+	
+    indent = 5.6 \mm
+    linewidth = 146.8 \mm
+}
+
+baerPaper = \paper {
+    indent = 7. \mm
+    linewidth =183.5 \mm
+}
+
+
 \score{
   \sarabandeCelloStaff
   \paper{
-    indent = 7. \mm
-    linewidth = 183.5 \mm
-    \translator { \ScoreContext
-		  %% SpacingSpanner \override #'maximum-duration-for-spacing = #(make-moment 1 16)
-
-
-		}}
+    \baerPaper
+  }
   \midi{ \tempo 4 = 40 }
   \header{
     opus= "" 

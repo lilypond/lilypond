@@ -151,10 +151,6 @@
     (string-append 
      "(\\" (inexact->string i 8) ") " s " " ))
   
-  (define (invoke-dim1 s d) 
-    (string-append
-     (ly-number->string (* d  (/ 72.27 72))) " " s ))
-
   (define (placebox x y s) "")
 
   (define (bezier-sandwich l thick)
@@ -249,7 +245,7 @@
 	    (define font-load-command ,font-load-command)
 	    (define header ,header) 
 	    (define invoke-char ,invoke-char) 
-	    (define invoke-dim1 ,invoke-dim1)
+
 	    (define placebox ,placebox)
 	    (define repeat-slash ,repeat-slash) 
 	    (define select-font ,select-font)

@@ -11,13 +11,19 @@
 %
 \def\PSsetTeXdimen#1{\expandafter\special{! /#1 (\csname #1\endcsname) set_tex_dimen}}
 \def\lilySpace{ }
+
+% for mm: 72.27/25.4
+\def\scaletounit{ 2.845276 mul }
+
+% for true printers points to postscript points: 
+%\def\scaletounit{1.00375}
 \def\turnOnPostScript{%
         % This sets CTM so that you get to the currentpoint
         % by executing a 0 0 moveto
         \def\embeddedps##1{%
                 \special{ps\string: @beginspecial @setspecial
-                        \lilypondpaperoutputscale\lilySpace 
-                        \lilypondpaperoutputscale\lilySpace
+                        \lilypondpaperoutputscale\lilySpace\scaletounit
+                        \lilypondpaperoutputscale\lilySpace\scaletounit
                         % FUCKING REDHAT XDVI -- ARG!
                         skeel ##1 @endspecial}%
         }

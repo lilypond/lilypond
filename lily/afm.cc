@@ -9,6 +9,7 @@
 #include "afm.hh"
 #include "warn.hh"
 #include "molecule.hh"
+#include "dimensions.hh"
 
 Adobe_font_metric::Adobe_font_metric (AFM_Font_info * fi)
 {
@@ -129,12 +130,16 @@ read_afm_file (String nm)
   return Adobe_font_metric::make_afm (fi, cs);
 }
 
-  
+
+/*
+  actually, AFMs will be printers point, usually, but our .py script dumps
+  real points.
+ */
 Box
 afm_bbox_to_box (AFM_BBox bb)
 {
-  return Box (Interval (bb.llx, bb.urx)* (1/1000.0),
-	      Interval (bb.lly, bb.ury)* (1/1000.0));
+  return Box (Interval (bb.llx, bb.urx)* (1/1000.0) PT,
+	      Interval (bb.lly, bb.ury)* (1/1000.0) PT);
 
 }
   
