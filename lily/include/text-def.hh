@@ -16,7 +16,7 @@ class Text_def : public General_script_def {
 protected:
     virtual Atom get_atom(Paper_def* p, int dir_i_)const;
     NAME_MEMBERS();
-    VIRTUAL_COPY_CONS(Text_def,General_script_def)
+    VIRTUAL_COPY_CONS(Text_def,General_script_def);
 public:
     /**
       centered , or aligned?
@@ -29,6 +29,7 @@ public:
     String style_str_;
     
     /* *************** */
+    virtual void do_print() const;
     virtual ~Text_def() {};
     bool do_equal_b(const Text_def&)const;
     Text_def();

@@ -38,7 +38,7 @@ protected:
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);
     virtual Interval do_width()const;
     virtual void do_print() const;
-    SCORE_ELEM_CLONE(Line_of_score)
+    SCORE_ELEM_CLONE(Line_of_score);
 };
 
 #endif

@@ -19,7 +19,7 @@ protected:
     virtual void do_pre_processing();
 public:
     NAME_MEMBERS();
-    SCORE_ELEM_CLONE(Break_align_item)
+    SCORE_ELEM_CLONE(Break_align_item);
 	
 };
 #endif // BREAK_ALIGN_ITEM_HH

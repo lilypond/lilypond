@@ -1,14 +1,14 @@
 /*
-  class-name.hh -- declare 
+  virtual-methods.hh -- declare 
 
-  source file of the LilyPond music typesetter
+  source file of the Flower Library
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 
-#ifndef CLASS_NAME_HH
-#define CLASS_NAME_HH
+#ifndef VIRTUAL_METHODS_HH
+#define VIRTUAL_METHODS_HH
 
 /** a macro to declare the classes name as a static and virtual function.
   The static_name() can *not* be inlined (this might have the effect that 
@@ -25,6 +25,7 @@ int a_stupid_nonexistent_function_to_allow_the_semicolon_come_out()
 
 #define VIRTUAL_COPY_CONS(T, R)\
   virtual R *clone() const { return  new T(*this); } \
+  int  yet_another_stupid_function_to_allow_semicolon()
 
 #define IMPLEMENT_IS_TYPE_B(D) 							   \
   bool D::is_type_b(const char *s)	const					   \
@@ -43,4 +44,4 @@ int a_stupid_nonexistent_function_to_allow_the_semicolon_come_out()
     return s == static_name() || BA::is_type_b(s) || BB::is_type_b(s); \
 }
 
-#endif // CLASS-NAME_HH
+#endif 

@@ -15,20 +15,29 @@
 /**
   Order elems left to right.
 
+  
+
   TODO: insert(order, elem)
   */
 class Horizontal_align_item :  public Item {
 protected:
     Link_array<Item> item_l_arr_;
     Array<int> priority_i_arr_;
-    int align_i_;
     
 public:
+    Item * center_l_;
+    /**
+      Which side to align? 
+      -1: left side, 0: centered (around center_l_ if not nil), 1: right side
+     */
+    int align_i_;
+        
     NAME_MEMBERS();
-    SCORE_ELEM_CLONE(Horizontal_align_item)
+    SCORE_ELEM_CLONE(Horizontal_align_item);
     void add(Item*, int p);
     Horizontal_align_item();
 protected:
+    
     virtual void do_substitute_dependency(Score_elem * , Score_elem *);
     /// do calculations before determining horizontal spacing
     virtual void do_pre_processing();

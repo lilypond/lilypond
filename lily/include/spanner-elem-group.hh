@@ -18,7 +18,7 @@ class Spanner_elem_group : public Spanner, public Horizontal_vertical_group {
 protected:
     virtual Interval do_width()const;
     virtual void do_print() const;
-    SCORE_ELEM_CLONE(Spanner_elem_group)
+    SCORE_ELEM_CLONE(Spanner_elem_group);
 public:
     NAME_MEMBERS();
 };
