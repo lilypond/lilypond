@@ -424,7 +424,7 @@ System::get_line ()
 	/*
 	  must copy the stencil, for we cannot change the stencil
 	  cached in G.
-	 */
+	*/
 	SCM my_stencil = stil->smobbed_copy ();
 	unsmob_stencil (my_stencil)->translate (o + extra);
 	stencils = scm_cons (my_stencil, stencils);
@@ -445,6 +445,8 @@ System::get_line ()
   Interval y (extent (this, Y_AXIS));
   Paper_line *pl = new Paper_line (Offset (x.length (), y.length ()),
 				   stencils);
+
+  scm_gc_unprotect_object (pl->self_scm ());
   return pl->self_scm ();
 }
 

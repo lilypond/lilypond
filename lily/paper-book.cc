@@ -30,7 +30,8 @@ stencil2line (Stencil* stil, bool is_title = false)
 		       stil->extent (Y_AXIS).length ());
   Paper_line *pl = new Paper_line (dim, scm_cons (stil->smobbed_copy (),
 						  SCM_EOL), is_title);
-  return pl->self_scm ();
+
+  return scm_gc_unprotect_object (pl->self_scm ());
 }
 
 /* Simplistic page interface */
@@ -261,6 +262,15 @@ Paper_book::output (String outname)
     (*pages)[i]->output (out, i + 1 == page_count);
 
   out->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
+
+  /*
+    Ugh
+   */
+  for (int i =pages->size (); i--;)
+    delete pages->elem(i);
+  delete pages;
+
+  
   progress_indication ("\n");
 }
 
@@ -397,12 +407,11 @@ Paper_book::pages ()
 
   SCM all = lines ();
   SCM proc = paper->get_scmvar ("page-breaking");
-  SCM breaks = scm_apply_0 (proc, scm_list_n (all,
-					      gh_double2scm (height_),
-					      gh_double2scm (text_height),
-					      gh_double2scm (-copy_height),
-					      gh_double2scm (-tag_height),
-					      SCM_UNDEFINED));
+  SCM breaks = scm_apply_0 (proc, scm_list_n (all, gh_double2scm (height_),
+					    gh_double2scm (text_height),
+					    gh_double2scm (-copy_height),
+					    gh_double2scm (-tag_height),
+					    SCM_UNDEFINED));
 
   /* Copyright on first page.  */
   if (unsmob_stencil (copyright_))
@@ -432,6 +441,7 @@ Paper_book::pages ()
   /* Tagline on last page.  */
   if (unsmob_stencil (tagline_))
     page->tagline_ = tagline_;
+
   return pages;
 }
 

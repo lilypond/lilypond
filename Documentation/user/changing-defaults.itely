@@ -50,7 +50,6 @@ entering numbers, lists, strings and symbols in Scheme.
 * Fonts::                       
 * Text markup::                 
 * Global layout::               
-* Font Size::                   
 * Output details::              
 @end menu
 
@@ -960,7 +959,6 @@ layout property name:
 * Navigating the program reference::  
 * Layout interfaces::           
 * Determining the grob property::  
-* Determining a grob property::  
 @end menu
 
 
@@ -1232,9 +1230,6 @@ object interface.  Each interface has a number of properties.  Some of
 them are not user-serviceable (``Internal properties''), but others
 are.
 
-@node Determining the grob property
-@subsection Determining the grob property
-
 We have been talking of `the' @code{Fingering} object, but actually it
 does  not amount to much. The initialization file
 @file{scm/define-grobs.scm} shows the soul of the `object',
@@ -1261,8 +1256,9 @@ as you can see, @code{Fingering} is nothing more than a bunch of
 variable settings, and the webpage is directly generated from this
 definition.
 
-@node  Determining a grob property
-@subsection Determining a grob property
+@node Determining the grob property
+@subsection Determining the grob property
+
 
 Recall that we wanted to change the position of the @b{2} in 
 
@@ -1322,7 +1318,7 @@ also be deduced from the program reference, for the page for the
 @internalsref{Fingering_engraver} plug-in says
 
 @quotation
-  Fingering_engraver is part of contexts: @dots{} @internalsref{Voice}
+  Fingering_engraver is part of contexts: @dots{} @b{@internalsref{Voice}}
 @end quotation
 
 
@@ -1333,6 +1329,8 @@ also be deduced from the program reference, for the page for the
 * Selecting font sizes::        
 * Font selection::              
 @end menu
+
+
 
 @node Selecting font sizes
 @subsection Selecting font sizes
@@ -1593,10 +1591,101 @@ are chosen whenever the page gets full.
 
 
 @menu
+* Setting global staff size::   
 * Vertical spacing::            
 * Horizontal spacing::          
+* Line breaking::               
+* Page layout::                 
 @end menu
 
+
+@node Setting global staff size
+@subsection Setting global staff size
+
+@cindex font size, setting
+@cindex staff size, setting
+@cindex @code{paper} file
+
+The Feta font provides musical symbols at eight  different
+sizes. Each font is tuned for a different staff size: at smaller sizes
+the font gets heavier, to match the relatively heavier staff lines.
+The recommended font sizes are listed in the following table:
+
+@multitable @columnfractions  .25 .25 .25 .25
+
+@item @b{font name}
+@tab @b{staff height (pt)}
+@tab @b{staff height (mm)}
+@tab @b{use}
+
+@item feta11
+@tab 11.22
+@tab 3.9 
+@tab pocket scores
+
+@item feta13
+@tab 12.60
+@tab 4.4
+@tab
+
+@item feta14
+@tab 14.14
+@tab 5.0
+@tab 
+
+@item feta16
+@tab 15.87
+@tab 5.6
+@tab 
+
+@item feta18
+@tab 17.82
+@tab 6.3
+@tab song books
+
+@item feta20
+@tab 17.82
+@tab 7.0
+@tab standard parts 
+
+@item feta23
+@tab 22.45 
+@tab 7.9
+@tab 
+
+@item feta20
+@tab 25.2 
+@tab 8.9
+@tab
+@c modern rental material  ?
+
+@end multitable
+
+These fonts are available in any sizes. The context property
+@code{fontSize} and the layout property @code{staff-space} (in
+@internalsref{StaffSymbol}) can be used to tune size for individual
+staves. The size of individual staves are relative to the global size,
+which can be set   in the following manner:
+
+@example
+  #(set-global-staff-size 14)
+@end example
+
+This sets the global default size to 14pt staff height, and scales all
+fonts accordingly.
+
+@seealso
+
+This manual: @ref{Selecting font sizes}.
+
+
+
+@menu
+* Vertical spacing::            
+* Horizontal spacing::          
+* Line breaking::               
+* Page layout::                 
+@end menu
 
 @node Vertical spacing
 @subsection Vertical spacing
@@ -1763,86 +1852,6 @@ widely.
 
 There is no convenient mechanism to manually override spacing.
 
-
-
-@node Font Size
-@section Font size
-
-@cindex font size, setting
-@cindex staff size, setting
-@cindex @code{paper} file
-
-The Feta font provides musical symbols at eight  different
-sizes. Each font is tuned for a different staff size: at smaller sizes
-the font gets heavier, to match the relatively heavier staff lines.
-The recommended font sizes are listed in the following table:
-
-@multitable @columnfractions  .25 .25 .25 .25
-
-@item @b{font name}
-@tab @b{staff height (pt)}
-@tab @b{staff height (mm)}
-@tab @b{use}
-
-@item feta11
-@tab 11.22
-@tab 3.9 
-@tab pocket scores
-
-@item feta13
-@tab 12.60
-@tab 4.4
-@tab
-
-@item feta14
-@tab 14.14
-@tab 5.0
-@tab 
-
-@item feta16
-@tab 15.87
-@tab 5.6
-@tab 
-
-@item feta18
-@tab 17.82
-@tab 6.3
-@tab song books
-
-@item feta20
-@tab 17.82
-@tab 7.0
-@tab standard parts 
-
-@item feta23
-@tab 22.45 
-@tab 7.9
-@tab 
-
-@item feta20
-@tab 25.2 
-@tab 8.9
-@tab
-@c modern rental material  ?
-
-@end multitable
-
-These fonts are available in any sizes. The context property
-@code{fontSize} and the layout property @code{staff-space} (in
-@internalsref{StaffSymbol}) can be used to tune size for individual
-staves. The size of individual staves are relative to the global size,
-which can be set   in the following manner:
-
-@example
-  #(set-global-staff-size 14)
-@end example
-
-This sets the global default size to 14pt staff height, and scales all
-fonts accordingly.
-
-@seealso
-
-This manual: @ref{Selecting font sizes}.
 
 
 @menu
