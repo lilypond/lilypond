@@ -10,9 +10,11 @@
 #include "musicalrequest.hh"
 #include "register.hh"
 #include "notehead.hh"
-#include "complexwalker.hh"
-#include "localkeyitem.hh"
-#include "complexstaff.hh"
+#include "complex-walker.hh"
+#include "local-key-item.hh"
+#include "complex-staff.hh"
+#include "registergroup.hh"
+#include "debug.hh"
 
 
 bool
@@ -23,58 +25,64 @@ Request_register::try_request(Request*)
 
 Request_register::Request_register()
 {
-    walk_l_=0;
-}
-
-Request_register::Request_register(Complex_walker*w_l)
-{
-    walk_l_=w_l;    
-}
-
-void
-Request_register::pre_move_processing()
-{    
-    do_pre_move_process();
-    accepted_req_arr_.set_size(0);
-}
-void
-Request_register::post_move_processing()
-{    
-    do_post_move_process();
-}
-
-Request_register::Request_register(Request_register const&)
-{
-    assert(false);
+    daddy_reg_l_ = 0;
 }
 
 void
 Request_register::announce_element(Staff_elem_info i)
 {
-    walk_l_->announce_element(i);
+    i.origin_reg_l_arr_.push(this);
+    daddy_reg_l_->announce_element(i);
 }
 
 void
 Request_register::typeset_element(Staff_elem*p)
 {
-    walk_l_->typeset_element(p);
+    daddy_reg_l_->typeset_element(p);
 }
 
-Paperdef*
+Paper_def*
 Request_register::paper()const
 {
-    return walk_l_->staff()->paper();
+    return daddy_reg_l_->paper();
 }
 
 void
 Request_register::typeset_breakable_item(Item * pre_p , Item * nobreak_p,
 					 Item * post_p)
 {
-    walk_l_->typeset_breakable_item(pre_p,  nobreak_p,post_p);
+    daddy_reg_l_->typeset_breakable_item(pre_p,  nobreak_p, post_p);
 }
 
 bool
 Request_register::acceptable_request_b(Request*)const
 {
     return false;
+}
+
+bool
+Request_register::contains_b(Request_register *reg_l)
+{
+    return this == reg_l;
+}
+
+Staff_info
+Request_register::get_staff_info() return inf;
+{
+    inf = daddy_reg_l_->get_staff_info();
+}
+
+void
+Request_register::print() const
+{
+#ifndef NPRINT
+    mtor << name() << " {";
+    do_print();
+    mtor << "}\n";
+#endif
+}
+
+void
+Request_register::do_print()const
+{
 }
