@@ -1,3 +1,8 @@
+2003-08-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* flower/include/string-handle.icc: formatting cleanups, rename
+	references by ref_count_.
+
 2003-08-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/convert-ly.py (FatalConversionError.conv): typo

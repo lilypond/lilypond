@@ -22,7 +22,7 @@ friend class String_handle;
     
     int length_;
     Byte* data_byte_;
-    int references;
+    int ref_count_;
 
     /// init to ""
     String_data ();

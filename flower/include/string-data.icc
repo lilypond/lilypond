@@ -21,7 +21,7 @@ const int INITIALMAX=8;
 INLINE void 
 String_data::OKW () 
 {
-  assert (references == 1);
+  assert (ref_count_ == 1);
 }
 
 INLINE void 
@@ -29,14 +29,14 @@ String_data::OK ()
 {
   assert (maxlen >= length_);
   assert (bool (data_byte_));
-  assert (references >= 1);
+  assert (ref_count_ >= 1);
 }
 
 
 INLINE
 String_data::String_data () 
 {
-  references=0;
+  ref_count_=0;
   maxlen = INITIALMAX;
   data_byte_ = new Byte[maxlen + 1];
   data_byte_[0] = 0;
@@ -46,7 +46,7 @@ String_data::String_data ()
 INLINE
 String_data::String_data (String_data const &src) 
 {
-  references=0;	
+  ref_count_=0;	
   maxlen = length_ = src.length_;		
   data_byte_ = new Byte[maxlen+1]; // should calc GNU 8byte overhead. 	
   memcpy (data_byte_, src.data_byte_, length_ + 1);	
@@ -55,7 +55,7 @@ String_data::String_data (String_data const &src)
 INLINE
 String_data::~String_data () 
 {
-  assert (references == 0);
+  assert (ref_count_ == 0);
   delete[] data_byte_;
 }
 
@@ -65,7 +65,7 @@ String_data::setmax (int j)
   OKW ();
   if (j > maxlen) 
     {
-      delete data_byte_;
+      delete[] data_byte_;
       maxlen = j;
       data_byte_ = new Byte[maxlen + 1];
   
