@@ -19,21 +19,22 @@ detect the old version number.
 @item -a,--assume-old
     If version number cannot be determined, apply all conversions.
 @item -e,--edit
-    Do an inline edit of the input file. override @code{--output}
+    Do an inline edit of the input file. Overrides @code{--output}.
 @item -f,--from=@var{from-patchlevel}
     Set the level to convert from. If this is not set, convert-ly will
-    guess this, on the basis of @code{\version} strings in the file
+    guess this, on the basis of @code{\version} strings in the file.
 @item -o,--output=@var{file}
     Set the output file to write.  
 @item -n,--no-version
     Normally, convert-ly adds a @code{\version} indicator 
-to the output. Specifying this option suppresses this.  
-
-@item --show-rules
-    Show all known conversions and exit
+    to the output. Specifying this option suppresses this.  
+@item -s, --show-rules
+    Show all known conversions and exit.
 @item --to=@var{to-patchlevel}
     Set the goal version of the conversion. It defaults to the latest
     available version.
+@item -h, --help
+    Print usage help
 @end table
 
 @unnumberedsubsec Example

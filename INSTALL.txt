@@ -66,25 +66,22 @@ Binaries
 
    Binaries are available, but are not updated for every version
 released.
-   * RedHat i386
+   * Red Hat i386
      (ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/RedHat/RPMS/)
 
-   * LinuxPPC (ftp://ftp.lilypond.org/pub/LilyPond/binaries/linuxppc)
+   * LinuxPPC (ftp://ftp.lilypond.org/pub/LilyPond/binaries/linuxppc/)
 
-   * Debian GNU/Linux Stable
-     (ftp://ftp.debian.org/debian/pool/main/l/lilypond)
-
-   * Debian GNU/Linux Unstable
-     (ftp://ftp.debian.org/debian/pool/main/l/lilypond1.3)
+   * Debian GNU/Linux
+     (ftp://ftp.debian.org/debian/pool/main/l/lilypond/)
 
    * Windows Stable (http://home.austin.rr.com/jbr/jeff/lilypond/)
-     Windows Testing (http://www.lilypond.org/gnu-windows)
+     Windows Testing (http://www.lilypond.org/gnu-windows/)
 
 
 Upgrading
 ---------
 
-   There are two  options for upgrading sources.
+   There are two options for upgrading sources.
 
    * if you have an unpacked source tree of a previous version, you may
      the patches.
@@ -96,10 +93,10 @@ Upgrading
      xdelta (ftp://ftp.xcf.berkeley.edu/pub/xdelta/).   This is much
      safer than using patches, and is the recommended way.
 
-     The following command produces `lilypond-1.3.122.tar.gz' from
-     `lilypond-1.3.121' identical (up to compression dates) to the .122
-     on the FTP site.
-            xdelta patch lilypond-1.3.121-1.3.122.xd lilypond-1.3.121.tar.gz
+     The following command produces `lilypond-1.4.1.tar.gz' from
+     `lilypond-1.4.0.tar.gz' identical (up to compression dates) to the
+     .1 on the FTP site.
+            xdelta patch lilypond-1.4.0-1.4.1.xd lilypond-1.4.0.tar.gz
 
 Requirements
 ============
@@ -131,8 +128,8 @@ Compilation
 
      TeX is used as an output backend.
 
-     Also, TeX's libkpathsea is used to find the fonts (.mf, .afm,
-     .tfm).  Make sure you have tetex 1.0 or newer (1.0.6 is known to
+     Also, TeX's libkpathsea is used to find the fonts (`.mf', `.afm',
+     `.tfm').  Make sure you have tetex 1.0 or newer (1.0.6 is known to
      work).  You may need to install a tetex-devel or tetex-dev package
      too.
 
@@ -175,7 +172,7 @@ following software
 
    * TeX.
 
-   * Xdvi and ghostscript
+   * Xdvi and Ghostscript
 
    * GUILE 1.3.4, or newer.  Check out the GUILE webpage
      (http://www.gnu.org/software/guile.html)
@@ -283,7 +280,7 @@ is in `/usr/share/doc/lilypond-X/'.  You have to install it yourself.
            (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
          (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
 
-   If you have the latest LilyPond-1.3.x Debian package, LilyPond-mode
+   If you have the latest LilyPond-1.4.x Debian package, LilyPond-mode
 is automatically loaded, so you need not modify your `~/.emacs' file.
 
 Compiling for distributions
@@ -313,7 +310,7 @@ libgr-progs.
 
    Warning
 
-   There appears to be a problem with the Xdvi shipped with RedHat 7.1.
+   There appears to be a problem with the Xdvi shipped with Red Hat 7.1.
 Symptoms: Xdvi responds very sluggishly or hangs while viewing lilypond
 output. The cause for this problem is unknown; you are advised to
 recompile Xdvi from source.
@@ -333,7 +330,7 @@ SuSE
 `ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/'.
 
    You can also compile a RPM for SUSE yourself.  A spec file is in
-`make/out/suse.spec', see the instructions for building the RedHat RPM.
+`make/out/suse.spec', see the instructions for building the Red Hat RPM.
 
    You must have the following packages: guile tcsh tetex te_latex
 te_kpath te_mpost libpng python gpp libgpp gettext autoconf netpbm
@@ -358,11 +355,11 @@ Debian GNU/Linux
 ----------------
 
    A Debian package is also available.  You may install it easily by
-using apt-get as root:
+running `apt-get' as root:
 
-     	apt-get install lilypond1.3
+     	apt-get install lilypond
 
-   Debian's tex installation is a bit short on memory, you may want to
+   Debian's TeX installation is a bit short on memory, you may want to
 increase it like this:
      --- /etc/texmf/texmf.cnf.dpkg	Sun Jan 28 14:12:14 2001
      +++ /etc/texmf/texmf.cnf	Fri Apr 27 11:09:35 2001
@@ -377,22 +374,24 @@ increase it like this:
      
       obj_tab_size.context = 256000
 
+   You could also export `extra_mem_top' and `extra_mem_bot' as
+environment variables if you do not want to or cannot modify
+`/etc/texmf/texmf.cnf'.
+
    Alternatively, visit
 
    * http://packages.debian.org/lilypond
      (http://packages.debian.org/lilypond)
 
-   * http://ftp.debian.org/debian/pool/main/l/lilypond1.3/
-     (http://ftp.debian.org/debian/pool/main/l/lilypond1.3/) for latest
-     package uploaded to Debian unstable;
-
    * http://people.debian.org/~foka/lilypond/
      (http://people.debian.org/~foka/lilypond/) for latest
-     semi-unofficial build of LilyPond 1.3.121 for Debian 2.2r2
-     (potato) users.  The official stable Debian 2.2r2 is stuck with
-     the old LilyPond-1.3.24.
+     semi-unofficial build of LilyPond 1.3.121 for Debian 2.2 (potato)
+     users.  The official stable Debian 2.2 is stuck with the old
+     LilyPond-1.3.24.  Since LilyPond-1.4 has been released, the older
+     lilypond1.3 Debian package is now obsolete.
 
-   You may contact Anthony Fok <foka@debian.org> for more information.
+   Please contact Anthony Fok <lilypond@packages.debian.org> for more
+information.
 
    The build scripts are in the subdirectory `debian/'; you can make
 the .deb by doing, for example:
@@ -400,40 +399,45 @@ the .deb by doing, for example:
      	$ su - root
      	# dpkg --purge lilypond lilypond1.3
      	# exit
-     	$ tar xzf lilypond-1.3.122.tar.gz
-     	$ cd lilypond-1.3.122
-     	$ dch -p -v 1.3.122-0.local.1 "Local build."
+     	$ tar xzf lilypond-1.4.1.tar.gz
+     	$ cd lilypond-1.4.1
+     	$ dch -p -v 1.4.1-0.local.1 "Local build."
      	$ debuild
      	$ su - root
-     	# dpkg -i ../lilypond1.3_1.3.122*.deb
+     	# dpkg -i ../lilypond_1.4.1*.deb
      	# exit
      	$
 
    For compilation on a Debian GNU/Linux system you need these packages,
 in addition to the those needed for running:
 
-   * g++, cpp, libc6-dev, libstdc++<your-libstdc++-version-here>-dev
+   * g++, cpp, libc6-dev, libstdc++<YOUR-LIBSTDC++-VERSION-HERE>-dev
 
-   * libguile<your-libguile-version-here>-dev
+   * libguile<YOUR-LIBGUILE-VERSION-HERE>-dev
 
    * make, m4, flex, bison
 
    * gettext
 
-   * groff, texinfo, bibtex2html (not in 2.2r2)
+   * groff, texinfo
+
+   * bibtex2html (not in Debian 2.2)
 
    * tetex-base, tetex-bin, tetex-extra, libkpathsea-dev or tetex-dev
 
    * dpkg-dev, debhelper, fakeroot
 
-   * gs, netpbm, pnmtopng
+   * gs, netpbm
 
-   Most of these are listed on the Build-Depends line in the
-debian/control file.  To ensure the creation of the lilypond deb is
+   * pnmtopng (only in Debian 2.2; pnmtopng has been merged with netpbm
+      in Debian testing/unstable.)
+
+   Most of these are listed on the `Build-Depends' line in the
+`debian/control' file.  To ensure the creation of the lilypond deb is
 trouble-free, we recommend that you first install the following packages
-before starting dpkg-buildpackage by running apt-get as root.
+by running \`apt-get' as root before building the package:
 
-   For Debian 2.2 (or 2.2r2, 2.2r3):
+   For Debian 2.2:
 
      	apt-get install task-debian-devel task-c++-dev \
      		python-base libguile6-dev tetex-bin tetex-dev \
@@ -445,7 +449,7 @@ before starting dpkg-buildpackage by running apt-get as root.
      	apt-get install task-debian-devel task-c++-dev \
      		python-base libguile9-dev tetex-bin libkpathsea-dev \
      		tetex-extra flex bison texinfo bibtex2html groff gs \
-     		netpbm pnmtopng m4 gettext
+     		netpbm m4 gettext
 
    And, just so that old fonts from previous versions of LilyPond won't
 interfere with your build, you may want to do this before the build too:
@@ -456,7 +460,7 @@ Problems
 ========
 
    For help and questions use <help-gnu-music@gnu.org> and
-<gnu-music-discuss@gnu.org>.  Please consult the faq before mailing
+<gnu-music-discuss@gnu.org>.  Please consult the FAQ before mailing
 your problems.  If you find bugs, please send bug reports to
 <bug-gnu-music@gnu.org>.
 

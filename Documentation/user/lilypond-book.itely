@@ -1,3 +1,5 @@
+@c -*-texinfo-*-
+
 @node lilypond-book
 @chapter  lilypond-book
 
@@ -25,7 +27,7 @@ you get a document that mixes text and music.  lilypond-book will insert
 line width and font size definitions before @code{CONTENTS}, so the
 music samples will match the layout of your document.
 
-Very often, if you mix music and text, the music is often only a few
+Very often, if you mix music and text, the music is only a few
 notes or at most a few bars. This music should be as short as possible
 and not stretched to be aligned to the right margin. lilypond-book does
 this automatically if you don't use a @code{\score} block in
@@ -46,12 +48,12 @@ as follows:
 @end example
 
 In the texinfo version, bitmaps of the music are also generated, so you
-can also make a HTML document with embedded music.
+can make a HTML document with embedded music.
 
 
 @section TeXinfo reference
 
-Your markup the lilypond code like this:
+You specify the lilypond code like this:
 @example
 @@lilypond[options, go, here]
  YOUR LILYPOND CODE
@@ -61,8 +63,8 @@ Your markup the lilypond code like this:
 @end example
 
 
-@command{lilypond-book} knows the default margins, and a few papersizes.
-These commands should be in the beginning of the document:
+@command{lilypond-book} knows the default margins, and a few paper
+sizes. One of these commands should be in the beginning of the document:
 @itemize @bullet
 @item @code{@@afourpaper}
 @item @code{@@afourlatex}
@@ -97,15 +99,17 @@ and its music:
 
 @section La@TeX{} reference
 
-Your markup the lilypond code like this:
+You specify the lilypond code like this:
 @example
 \begin[option, go, here]@{lilypond@}
  YOUR LILYPOND CODE
 \end@{lilypond@}
 @end example
 
+@example
+\lilypondfile[options, go,here]@{@var{filename}@}
+@end example
 or 
-
 @example
 \lilypond@{ YOUR LILYPOND CODE @}
 @end example
@@ -148,12 +152,12 @@ and its music:
 @table @code
 @item eps
 This will create the music as eps graphics and include it into the
-document with the @code{\includegraphics} command.  It works in Latex
-only.
+document with the @code{\includegraphics} command. It works in
+La@TeX{} only.
 
 This enables you to place music examples in the running text (and not in
 a separate paragraph). To avoid that La@TeX{} places the music on a line
-of its one, there should be no empty lines between the normal text and
+of its own, there should be no empty lines between the normal text and
 the lilypond environment. For inline music, you probably also need a
 smaller music font size (eg. 11 pt or 13 pt) 
 
@@ -214,7 +218,7 @@ of the code is used.
   The opposite of @code{singleline}: justify and break lines.
 @item fragment
 @item nofragment
-    Override @command{lilypond-book} autodetection of what type of code is in the
+    Override @command{lilypond-book} auto detection of what type of code is in the
     lilypond block, voice contents or complete code.
 @item printfilename
     Prints the file name before the music example. Useful in conjunction
@@ -226,7 +230,7 @@ with @code{\lilypondfile}.
 When you run @command{lilypond-book} it will generate lots of small
 files that Lilypond will process. So to avoid all the garbage in
 your source directory, you should either change to a temporary
-directory, or use the @code{--outdir} commandline options:
+directory, or use the @code{--outdir} command line options:
 
 @code{cd out && lilypond-book ../yourfile.tex}
 
@@ -237,7 +241,7 @@ For latex input, the file to give to latex has extension @file{.latex}.
 TeXinfo input will be written to a file with extension @file{.texi}.
 
 If you use @code{--outdir}, you should also @code{cd} to that directory
-before running LaTeX or makeinfo. This may seem a little kludgy, but
+before running LaTeX or makeinfo. This may seem a little kludgey, but
 both Latex and makeinfo expect picture files (the music) to be in the
 current working directory. Moreover, if you do this, LaTeX will not
 clutter you normal working directory  with output files.
@@ -246,7 +250,7 @@ clutter you normal working directory  with output files.
 @cindex lilypond-book and titling
 @cindex \header in LaTeX documents
 
-If you want to combine music that has titling in @code{\header}
+If you want to add titling from the @code{\header} section of the
 files, you should add  the following to the top of your LaTeX
 @example
 \input titledefs.tex
@@ -261,7 +265,7 @@ files, you should add  the following to the top of your LaTeX
 
 @item @option{-f}, @option{--format=}
     Specify the document type to process, @code{latex} or @code{texi}.
-    @command{lilypond-book} usually figure out this automatically.
+    @command{lilypond-book} usually figure this out automatically.
 @item --default-music-fontsize=@var{sz}pt
     Set the fontsize to use for lilypond if no fontsize is given
     as option.
@@ -290,7 +294,7 @@ files, you should add  the following to the top of your LaTeX
 
 @item --outname=@var{FILE}
     The name of La@TeX{} file to output. If this option  is not given,
-    the output name derived from the input name.
+    the output name is derived from the input name.
 @item --outdir=@var{DIR}
          place generated files in @var{DIR}.
 @item --version
@@ -310,11 +314,11 @@ files, you should add  the following to the top of your LaTeX
   
 The La@TeX{} \includeonly@{...@} command is ignored.
 
-The TeXinfo command @code{pagesize} is on the TODO list for Lilypond 1.4.
-But changing the linewidth in other ways will not give you a straight
+The TeXinfo command @code{pagesize} is on the TODO list for Lilypond 1.4,
+but changing the linewidth in other ways will not give you a straight
 right margin.
 
-Ignores almost all La@TeX{} commands that changes margins and linewidths.
+Almost all La@TeX{} commands that change margins and line widths are ignored.
 
 Since there is no finder's fee which doubles every year, there is no
 need to wait for the prize money to grow. So send a bug report today if

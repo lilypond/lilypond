@@ -1,3 +1,13 @@
+lilypond (1.4.1-1) unstable; urgency=low
+
+  * New upstream release.  (Closes: Bug#97598)
+  * export extra_mem_top=100000 and extra_mem_bot=100000, otherwise
+    latex runs out of memory when processing standchen.dvi.latex.
+  * Split the documentation into the "lilypond-doc" package, which
+    provides the LilyPond website in /usr/share/doc/lilypond/html.
+
+ -- Anthony Fok <foka@debian.org>  Wed, 16 May 2001 16:03:40 -0600
+
 lilypond (1.3.150-1) unstable; urgency=low
 
   * New upstream version.

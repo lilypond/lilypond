@@ -1,11 +1,11 @@
 %define info yes
 
 Name: lilypond
-Version: 1.4.1
+Version: 1.4.2
 Release: 1
 License: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.4.1.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.4.2.tar.gz
 Summary: Create and print music notation 
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 BuildRoot: /tmp/lilypond-install

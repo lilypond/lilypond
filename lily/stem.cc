@@ -26,7 +26,7 @@
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "spanner.hh"
-
+#include "side-position-interface.hh"
 
 void
 Stem::set_beaming (Grob*me ,int i,  Direction d)
@@ -293,7 +293,10 @@ Stem::get_default_stem_end_position (Grob*me)
 
   Interval hp = head_positions (me);  
   Real st = hp[dir] + dir * length_f;
+
+
   
+
   /*
     Make a little room if we have a flag and there is a dot.
 
@@ -301,7 +304,6 @@ Stem::get_default_stem_end_position (Grob*me)
 
     maybe  we should consider moving the dot to the right?
   */
-
   if (!beam_l (me)
       && flag_i (me))
     {
@@ -313,13 +315,22 @@ Stem::get_default_stem_end_position (Grob*me)
 	{
 	  Real dp = Staff_symbol_referencer::position_f  (dots);
 	  Real flagy =  flag (me).extent (Y_AXIS)[-dir] * 2; // should divide by staffspace
-	  
-	  if (dir * (st + flagy -  dp) < 0) 
-	    st += (fabs (st + flagy -  dp) + 1.0) *dir;
+
+	  /*
+	    Very gory: add myself to the X-support of the parent,
+	    which should be a dot-column.
+	   */
+	  if (dir * (st + flagy -  dp) < 0.5)
+	    Side_position_interface::add_support (dots->parent_l (X_AXIS), me);
+
+	  /*
+	    previous approach was to lengthen the stem. This is not
+	    good typesetting practice.  */
 	}
     }
-  
-   bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
+
+
+  bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
    if (!grace_b && !no_extend_b && dir * st < 0) // junkme?
       st = 0.0;
 

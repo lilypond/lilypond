@@ -20,12 +20,12 @@ list is alphabetically ordered.
    * Jan Arne Fagertun <Jan.A.Fagertun@energy.sintef.no>,     TeX
      titling and lytodvi.sh
 
-   * Anthony Fok <foka@debian.org>,     debian package: debian/*
+   * Anthony Fok <foka@debian.org>,     Debian package: debian/*
 
-   * James Hammons <jlhamm@pacificnet.net>,     american chord names,
+   * James Hammons <jlhamm@pacificnet.net>,     American chord names,
      gnu-windows testing
 
-   * Bjoern Jacke <bjoern.jacke@gmx.de>     german glossary stuff.
+   * Bjoern Jacke <bjoern.jacke@gmx.de>     German glossary stuff.
 
    * Neil Jerram <nj104@cus.cam.ac.uk>.      parts of
      Documentation/Vocab*

@@ -46,9 +46,9 @@ binary.  The following formats are supported:
 Comments
 ========
 
-   LilyPond is a long way from finished and polished, so we please send
+   LilyPond is a long way from finished and polished, so please send
 your criticism, comments, bugreports, patches, etc., to the mailing
-list.  and _not_ to us personally.
+list, _not_ to us personally.
 
    We have the following mailing lists:
 

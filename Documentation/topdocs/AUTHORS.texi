@@ -26,13 +26,13 @@ list is alphabetically ordered.
 @item Laura Conrad (lconrad@@world.std.com)
     fixes to abc2ly
 @item @email{Jan.A.Fagertun@@energy.sintef.no, Jan Arne Fagertun},
-    TeX titling and lytodvi.sh
+    @TeX{} titling and lytodvi.sh
 @item @email{foka@@debian.org, Anthony Fok}, 
-    debian package: debian/*
+    Debian package: debian/*
 @item @email{jlhamm@@pacificnet.net, James Hammons},
-    american chord names, gnu-windows testing
+    American chord names, gnu-windows testing
 @item @email{bjoern.jacke@@gmx.de, Bjoern Jacke}
-    german glossary stuff.
+    German glossary stuff.
 @item @email{nj104@@cus.cam.ac.uk, Neil Jerram}. 
     parts of Documentation/Vocab*
 @item Donald Ervin Knuth,  @uref{http://www-cs-staff.stanford.edu/~knuth/}
@@ -63,7 +63,7 @@ list is alphabetically ordered.
     parts of Documentation/Vocab*, started internationalization stuff
 @c urg: @c,{} in @email{} barfs.
 @item @email{portnoy@@ai.mit.edu,Stephen Peters},
-    pdfTeX support
+    pdf@TeX{} support
 @item @email{glenprideaux@@iname.com, Glen Prideaux},
     minor bug fixes, lyric-phrasing.
 @item @email{Roy.Rankin@@alcatel.com.au, Roy R. Rankin},

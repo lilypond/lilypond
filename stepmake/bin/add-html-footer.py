@@ -38,10 +38,12 @@ default_footer = r"""<hr>Please take me <a href=@INDEX@>back to the index</a>
 of @PACKAGE_NAME@
 """
 
-built = r"""<hr><font size=-1>
-This page was built from @PACKAGE_NAME@-@PACKAGE_VERSION@ by 
-<address><br>@GCOS@ &lt<a href="mailto:%s">@MAIL_ADDRESS@</a>&gt,
-@LOCALTIME@.</address><p></font>"""
+built = r"""<hr>
+<p><font size="-1">
+This page was built from @PACKAGE_NAME@-@PACKAGE_VERSION@ by<br>
+</font>
+<address><font size="-1">@GCOS@ &lt;<a href="mailto:%s">@MAIL_ADDRESS@</a>&gt;,
+@LOCALTIME@.</font></address>"""
 
 
 def gulp_file (f):
@@ -108,7 +110,10 @@ def set_gcos ():
 		pw = ntpwd.getpwname(os.environ['USERNAME'])
 	else:
 		import pwd
-		pw = pwd.getpwuid (os.getuid());
+		if os.environ.has_key('FAKEROOTKEY'):
+			pw = pwd.getpwnam (os.environ['LOGNAME'])
+		else:
+			pw = pwd.getpwuid (os.getuid())
 
 	f = pw[4]
 	f = string.split (f, ',')[0]
@@ -129,8 +134,8 @@ top_url = os.path.dirname (index_url) + "/"
 
 header = compose (default_header, header_file)
 footer = compose (default_footer, footer_file) + built
-header_tag = '<! header_tag >'
-footer_tag = '<! footer_tag >'
+header_tag = '<!-- header_tag -->'
+footer_tag = '<!-- footer_tag -->'
 
 def do_file (f):
 	s = gulp_file (f)
@@ -142,10 +147,10 @@ def do_file (f):
 		m = re.search (r'\*\*\*', changes)
 		if m:
 			changes = changes[:m.start (0)]
-		s = re.sub ('top_of_ChangeLog', '<XMP>\n'+ changes  + '\n</XMP>\n', s)
+		s = re.sub ('top_of_ChangeLog', '<pre>\n'+ changes  + '\n</pre>\n', s)
 
 	if re.search (header_tag, s) == None:
-		body = '<BODY BGCOLOR=WHITE><FONT COLOR=BLACK>'
+		body = '<BODY BGCOLOR=WHITE TEXT=BLACK>'
 		s = re.sub ('(?i)<body>', body, s)
 		if re.search ('(?i)<BODY', s):
 			s = re.sub ('(?i)<body[^>]*>', body + header, s, 1)
@@ -154,10 +159,14 @@ def do_file (f):
 		else:
 			s = header + s
 
-		s = header_tag + s
+		s = header_tag + '\n' + s
+
+		if re.search ('(?i)<!DOCTYPE', s) == None:
+			doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
+			s = doctype + s
 
 	if re.search (footer_tag, s) == None:
-		s = s + footer_tag
+		s = s + footer_tag + '\n'
 
 		if re.search ('(?i)</body', s):
 			s = re.sub ('(?i)</body>', footer + '</BODY>', s, 1)

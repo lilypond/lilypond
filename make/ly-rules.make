@@ -1,6 +1,6 @@
 # Mudela_rules.make
 
-.SUFFIXES: .doc .dvi .mudtex .tely .texi
+.SUFFIXES: .doc .dvi .mudtex .tely .texi .ly
 
 
 $(outdir)/%.latex: %.doc
@@ -34,6 +34,8 @@ $(outdir)/%.info: $(outdir)/%.nexi
 #$(outdir)/%.nfo: $(outdir)/%.nexi
 #	$(MAKEINFO) --output=$(outdir)/$(*F).info $<
 
+$(outdir)/%.tex: $(outdir)/%.ly
+	$(LILYPOND) $(LILYPOND_BOOK_INCLUDES) -o $@ $< 
 
 #
 # Timothy's booklet

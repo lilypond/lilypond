@@ -34,7 +34,7 @@ which use them to build @code{Grob}s (or MIDI objects, for MIDI output).
 
 In this stage @code{Music_iterators} do a traversal of the @code{Music}
 structure. The music events thus encountered are reported to
-@code{Translator}s, a set objects that collectively form interpretation
+@code{Translator}s, a set of objects that collectively form interpretation
 contexts.
 
 
@@ -59,10 +59,10 @@ The lines and horizontal positions of the columns are determined.
 @item Breaking
 
 Relations between all grobs are modified to reflect line breaks: When a
-spanner, eg. a slur, crosses a line-break, then the spanner is "broken
+spanner, e.g. a slur, crosses a line-break, then the spanner is "broken
 into pieces", for every line that the spanner is in, a copy of the grob
 is made. A substitution process redirects all grob-reference so that
-spanner grob will only reference other grobs in the same line.
+each spanner grob will only reference other grobs in the same line.
 
 @item Outputting:
 
@@ -89,17 +89,24 @@ section.
 * Miscellaneous Scheme functions::  
 @end menu
 
+@ignore
+  Why not use Scheme syntax for the functions below, such as
+  (ly-input-location? obj) and (ly-get-mus-property m sym) ?
+
+  /MB
+@end ignore
+
 @node Input location
-@section input location
+@section Input location
 
-The parser generates
+@c The parser generates
 
-Input location objects point to a lcoation in the input file. This
+Input location objects point to a location in the input file. This
 location is used to generate error messages and to enable the point and
 click output.
 
-@defun ly-input-location?
-Type predicate
+@defun ly-input-location? obj
+Type predicate, return true if @var{obj} is an input location.
 @end defun
 
 
@@ -111,7 +118,8 @@ Type predicate
 Moment is a rational number. Since GUILE doesn't support them natively,
 so we created our own rational data type.
 
-@defun moment?
+@defun moment? obj
+Type predicate, return true if @var{obj} is a moment.
 @end defun
 
 @defun make-moment num den
@@ -134,8 +142,8 @@ note, etc.  The number of dots after the note is given by
 @end defun
 
 
-@defun duration? d
-type predicate for Duration
+@defun duration? obj
+Type predicate, return true if @var{obj} is a duration.
 @end defun
 
 @node Pitch data type
@@ -193,7 +201,7 @@ interface will likely change in the near future.
 @end defun
 
 @defun music? obj
-A type predicate,  return true if @var{obj} is a music object.
+Type predicate,  return true if @var{obj} is a music object.
 @end defun
 
 @defun ly-music-name music
@@ -208,9 +216,10 @@ Music_iterator is an object type that traverses the Music structure and
 reports the events it finds to interpretation contexts. It is not yet
 user-serviceable.
 
-@defun c++-function?
-type predicate for c++-function.   Music_iterator are created from
-schemified C++ constructors. Such a constructor is a @code{c++-function}.
+@defun c++-function? obj
+Type predicate, return true if @var{obj} is a  c++-function.
+Music_iterator are created from schemified C++ constructors. Such a
+constructor is a @code{c++-function}.
 @end defun
 
 @node Translator
@@ -263,10 +272,9 @@ of the `Stem' grob with the setting @code{direction := 1}.
 
 In music notation, lots of symbols are related in some way.  You can
 think of music notation as a graph where nodes are formed by the
-symbols, and the arcs by their relations. A grob is node in that graph.
+symbols, and the arcs by their relations. A grob is a node in that graph.
 The directed edges in the graph are formed by references to other grobs
 (i.e. pointers).
-
 This big graph of grobs specifies the notation problem. The solution of
 this problem is a description of the printout in closed form, i.e. a
 list of values.  These values are Molecules. (see @ref{Molecules})
@@ -284,7 +292,7 @@ automatically.
 
 If you keep following offset reference points, you will always end up at
 the root object. This root object is called @code{Line_of_score}, and it
-represents a system (ie. a line of music).
+represents a system (i.e. a line of music).
 
 All grobs carry a set of grob-properties.  In the Stem example above,
 the property @code{direction} is set to value @code{1}.  The function
@@ -296,7 +304,7 @@ properties.
 A grob is often associated with a symbol, but some grobs do not print
 any symbols. They take care of grouping objects. For example, there is a
 separate grob that stacks staffs vertically. The @code{NoteCollision}
-also is an abstract grob: it only moves around chords, but doesn't print
+is also an abstract grob: it only moves around chords, but doesn't print
 anything.
 
 A complete list of grob types is found in the generated documentation.
@@ -331,7 +339,7 @@ stem is translated by two staff spaces in its direction.
 
 
 
-Offset callbacks can be stacked, ie.
+Offset callbacks can be stacked, i.e.
 
 @example
         \property .... \override #'Y-offset-callbacks = #(list
@@ -358,9 +366,9 @@ extent in that coordinate.
 @subsection Setting grob properties
 
 Grob properties are stored as GUILE association lists, with symbols as
-keys.  In GUILE you can access these using functions described @ref{Grob
-Scheme functions}.  From C++, grob properties can be accessed using
-these functions:
+keys.  In GUILE you can access these using functions described in
+Section @ref{Grob Scheme functions}.  From C++, grob properties can be
+accessed using these functions:
 
 @example
   SCM  get_grob_property (SCM) const;
@@ -373,12 +381,12 @@ these functions:
 @end example
 
 All lookup functions identify undefined properties with end-of-list
-(ie. @code{'()} in Scheme or @code{SCM_EOL} in C)
+(i.e. @code{'()} in Scheme or @code{SCM_EOL} in C)
 
 Properties are stored in two ways:
 @itemize @bullet
 @item mutable properties.
-grob properties that change from object to object. The storage of
+Grob properties that change from object to object. The storage of
 these are private to a grob. For example pointers to other grobs are
 always stored in the mutable properties.
 
@@ -386,7 +394,7 @@ always stored in the mutable properties.
 Grob properties that are shared across different grobs of the same
 type. The storage is shared, and hence it is read-only. Typically, this
 is used to store function callbacks, and default settings. They are
-initially read from from @file{scm/grob-description.scm}.
+initially read from @file{scm/grob-description.scm}.
 @end itemize
 
 You can change immutable grob properties with the \override syntax:
@@ -403,8 +411,7 @@ property list for stems, in effect overriding the setting from
         \property Voice.stem \revert #'direction
 @end example
 
-If you use this a lot, this gets old quickly. So we also have a
-shorthand,
+There is also a shorthand,
 
 @example
         \property Context.GrobType \set #'prop = #VAL
@@ -420,7 +427,7 @@ looks like
 @end example
 
 In this case, in every grob that satisfies @var{pred}, the grob property
- @var{sym} is set to @var{val} is done.  For example
+ @var{sym} is set to @var{val}.  For example
 
 @example
         \outputproperty
@@ -437,7 +444,7 @@ you tweak any setting of any grob.
 @node Grob interfaces
 @unnumberedsubsec Grob interfaces
 
-Grob properties form a namespace where you can set variables per
+Grob properties form a name space where you can set variables per
 object.  Each object however, may have multiple functions. For example,
 consider a dynamic symbol, such @code{\ff} (fortissimo). It is printed
 above or below the staff, it is a dynamic sign, and it is a kind of
@@ -473,7 +480,7 @@ to stack text into lines, using kerning, etc.
 @unnumberedsubsec Items and Spanners
 
 Grobs can also be distinguished in their role in the horizontal spacing.
-A lot of grobs define constraints on the spacing by their sizes. For
+Many grobs define constraints on the spacing by their sizes. For
 example, note heads, clefs, stems, and all other symbols with a fixed
 shape.  These grobs form a subtype called @code{Item}.
 
@@ -484,7 +491,7 @@ example, slur, beam, tie, etc. These grobs form a subtype called
 also the X-reference point of the spanner.
 
 Some items need special treatment for line breaking. For example, a
-clef is normally only printed at the start of a line (ie. after a line
+clef is normally only printed at the start of a line (i.e. after a line
 break).  To model this, `breakable' items (clef, key signature, bar lines,
 etc.) are copied twice. Then we have three versions of each breakable
 item: one version if there is no line break, one version that is printed
@@ -565,7 +572,7 @@ If you are interested in seeing how this information is stored, you
 can run with the @code{-f scm} option. The scheme expressions are then
 dumped in the output file.
 
-All visible, i.e. non-transparant, grobs have a callback to create a
+All visible, i.e. non-transparent, grobs have a callback to create a
 Molecule. The name of the property is @code{molecule-callback}, and its
 value should be a Scheme function taking one argument (the grob) and
 returning a Molecule.  Most molecule callbacks are written in C++, but
@@ -608,7 +615,7 @@ LilyPond only needs to know the dimension of glyph to be able to process
 them. This information is stored in font metric files. LilyPond can read
 two types of font-metrics: @TeX{} Font Metric files (TFM files) and
 Adobe Font Metric files (AFM files).  LilyPond will always try to load
-AFM files first they files are more versatile.
+AFM files first since they are more versatile.
 
 @defun ly-get-default-font gr
 This returns the default font for grob @var{gr}.
@@ -641,7 +648,8 @@ file is looked up using the lilypond search path.
 @end defun
 
 @defun dir?
-type predicate. A direction is a -1, 0 or 1.
+type predicate. A direction is a -1, 0 or 1, where -1 represents left or
+down and 1 represents right or up.
 @end defun
 
 @defun ly-number->string num

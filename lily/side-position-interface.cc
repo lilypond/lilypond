@@ -68,7 +68,18 @@ SCM
 Side_position_interface::general_side_position (Grob * me, Axis a, bool use_extents)
 {
   Grob *common = me->parent_l (a);
+
+  /*
+    As this is only used as a callback, this is called only once. We
+    could wipe SIDE-SUPPORT-ELEMENTS after we retrieve it to conserve
+    memory; however -- we should look more into benefits of such actions?
+
+    The benefit is small, it seems: total GC times taken don't
+    differ. Would this also hamper Generational GC ?
+    
+  */
   SCM support = me->get_grob_property ("side-support-elements");
+    // me->remove_grob_property ("side-support-elements");
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
     {
       Grob * e  = unsmob_grob (gh_car (s));

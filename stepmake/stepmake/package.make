@@ -1,19 +1,25 @@
 # stepmake/Package.make
 
 deb:
-	$(MAKE) -C $(depth)/debian
+#	$(MAKE) -C $(depth)/debian
+	@echo The \"deb\" target is deprecated.
+	@echo Please install the appropriate Debian packages:
+	@echo
+	@echo "  apt-get install task-debian-devel"
+	@echo 
+	@echo and then run \"debuild\" in the lilypond directory.
 
 # urg
 #(cd $(depth)/../debian/$(distname); \
 #  ln -sf debian DEBIAN; )
 # su -c 'dpkg-deb -b $(depth)/../debian/$(distname)'
 # urg, why aren't there any decent manual pages for dpkg or rpm?
-	(cd $(depth)/../debian; \
-	  rm -rf $(distname) $(distname).deb;\
-	  tar xz -C $(depth)/../debian -f $(release-dir)/$(distname).tar.gz; \
-	  cd $(distname);\
-	  dpkg-buildpackage -b -rfakeroot; \
-	)
+#	(cd $(depth)/../debian; \
+#	  rm -rf $(distname) $(distname).deb;\
+#	  tar xz -C $(depth)/../debian -f $(release-dir)/$(distname).tar.gz; \
+#	  cd $(distname);\
+#	  dpkg-buildpackage -b -rfakeroot; \
+#	)
 
 makeflags=$(patsubst %==, %, $(patsubst ---%,,$(patsubst ----%,,$(MAKEFLAGS:%=--%))))
 

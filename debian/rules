@@ -12,14 +12,20 @@ package = lilypond
 
 SHELL = /bin/sh
 r = debian/$(package)
-TMP = $(PWD)/$(r)
+r_doc = debian/$(package)-doc
 d = usr/share/doc/$(package)
 
-TELY_FILES := $(notdir $(wildcard Documentation/user/*.tely))
-DVI_FILES = $(addprefix Documentation/user/out/, $(TELY_FILES:.tely=.dvi))
-PS_FILES = $(DVI_FILES:.dvi=.ps)
+# TELY_FILES := $(notdir $(wildcard Documentation/user/*.tely))
+# DVI_FILES = $(addprefix Documentation/user/out/, $(TELY_FILES:.tely=.dvi))
+# PS_FILES = $(DVI_FILES:.dvi=.ps)
+
+# "main_memory = 263000" in /etc/texmf/texmf.cnf isn't large enough
+# for latex to process standchen.dvi.latex, so adding extra_mem_* ...
+export extra_mem_top=100000
+export extra_mem_bot=100000
 export MODE=ljfour
 export BDPI=600
+export MAILADDRESS=lilypond@packages.debian.org
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
@@ -35,48 +41,44 @@ build-stamp:
 	dh_testdir
 
 	./configure --enable-checking --disable-debugging \
-		--enable-printing --prefix=/usr --enable-optimise \
-		--enable-shared \
+		--prefix=/usr --enable-optimise \
 		--infodir='$${prefix}/share/info' \
 		--mandir='$${prefix}/share/man'
 	$(MAKE) USER_CFLAGS=-DDEBIAN all
-	$(MAKE) -C Documentation/user dvi ps
-	$(MAKE) -C Documentation/pictures pngs
 
 	touch build-stamp
+
+build-doc: build build-doc-stamp
+build-doc-stamp:
+	dh_testdir
+
+	$(MAKE) -C Documentation
+	$(MAKE) web
+
+	touch build-doc-stamp
 
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp
+	rm -f build-stamp build-doc-stamp
+	-$(MAKE) WWW-clean top-WWW-clean
 	-$(MAKE) distclean
-	dh_clean
 
-	# Correct the owner of the out/dummy.dep files when built with sudo.
-	if [ -n "$$SUDO_USER" -a -n "$$SUDO_GID" ]; then \
-		find . -user root | xargs -r chown --dereference $$SUDO_USER.$$SUDO_GID; \
-	fi
+	# Still not clean enough?  Let's use... BRUTE STRENGTH!  :-)
+	find . -type d -name 'out' -o -name 'out-www' | xargs rm -rf
+	rm -f debian/doc-base debian/TODO
+
+	dh_clean
 
 install: DH_OPTIONS=
 install: build
 	dh_testdir
 	dh_testroot
 	dh_clean -k
-	dh_installdirs usr/share/doc/texmf \
-		$(d)/examples \
-		usr/share/emacs/site-lisp \
-		usr/share/texmf/tex \
-		usr/share/texmf/fonts/source/public \
-		usr/share/texmf/fonts/afm/public \
-		usr/share/texmf/fonts/tfm/public
-	ln -fs ../$(package) $(r)/usr/share/doc/texmf/lilypond
 
-	$(MAKE) prefix=$(TMP)/usr USER_CFLAGS=-DDEBIAN install
-
-	ln -s ../../lilypond/tex $(r)/usr/share/texmf/tex/lilypond
-	ln -s ../../../../lilypond/mf $(r)/usr/share/texmf/fonts/source/public/lilypond
-	ln -s ../../../../lilypond/afm $(r)/usr/share/texmf/fonts/afm/public/lilypond
-	ln -s ../../../../lilypond/tfm $(r)/usr/share/texmf/fonts/tfm/public/lilypond
+	# Add here commands to install the package into debian/tmp.
+	dh_installdirs
+	$(MAKE) prefix=$(PWD)/$(r)/usr USER_CFLAGS=-DDEBIAN install
 
 	# Change from an absolute symlink to a relative symlink (Lintian)
 	if [ -L $(r)/usr/share/lilypond/cmtfm ]; then \
@@ -86,9 +88,18 @@ install: build
 
 # Build architecture-independent files here.
 binary-indep: DH_OPTIONS=-i
-binary-indep: build install
+binary-indep: build-doc install
 	dh_testdir
 	dh_testroot
+	# Extract LilyPond website tarball ...
+	tar -C $(r_doc)/$(d)/html -xvzf out/web.tar.gz
+	# Add symlinks to the PostScript docs and LilyPond logo PNGs ...
+	cd $(r_doc)/$(d) \
+	    && cp -s `find html/Documentation -name '*.ps.gz'` . \
+	    && cp -s html/Documentation/pictures/out-www/*.png .
+	# Copy the DVI docs too ...
+	cp -a `find Documentation -name '*.dvi' ! -name 'lily-[0-9]*.dvi'` \
+		$(r_doc)/$(d)/
 	dh_installdocs
 	dh_installchangelogs
 	dh_link
@@ -105,13 +116,16 @@ binary-arch: build install
 	dh_testroot
 	cp -av lilypond-mode.el lilypond-font-lock.el \
 		$(r)/usr/share/emacs/site-lisp/
-	dh_installdocs DEDICATION NEWS ROADMAP *.txt \
-		Documentation/pictures/out/*.png \
-		Documentation/out/*.txt \
-		$(DVI_FILES) $(PS_FILES)
-	mkdir $(r)/$(d)/bibliography $(r)/$(d)/misc
-	cp -a Documentation/bibliography/*.bib $(r)/$(d)/bibliography/
-	cp -a Documentation/misc/[ACN]* $(r)/$(d)/misc/
+	dh_installdocs DEDICATION NEWS ROADMAP *.txt
+
+#	dh_installdocs DEDICATION NEWS ROADMAP *.txt \
+#		Documentation/pictures/out/*.png
+#		Documentation/out/*.txt
+#		$(DVI_FILES) $(PS_FILES)
+#	mkdir $(r)/$(d)/bibliography $(r)/$(d)/misc
+#	cp -a Documentation/bibliography/*.bib $(r)/$(d)/bibliography/
+#	cp -a Documentation/misc/[ACN]* $(r)/$(d)/misc/
+
 #	dh_installexamples input
 	cp -aP `find input mutopia \( -name '*.*ly' -o -name '*.abc' -o -name '*.tex' -o -name 'TODO' \)` \
 		$(r)/$(d)/examples
@@ -120,7 +134,7 @@ binary-arch: build install
 #	dh_installmenu
 	dh_installemacsen
 #	dh_installcron
-#	dh_installmanpages
+#	dh_installman
 #	dh_undocumented
 	dh_installchangelogs -k CHANGES
 	dh_link
@@ -128,7 +142,10 @@ binary-arch: build install
 	dh_compress
 	dh_fixperms
 	dh_installdeb
-	dh_shlibdeps
+#	dh_shlibdeps
+	# Ugh, ugly kludge to avoid the circular symlinks under html/
+	cd debian/lilypond && dpkg-shlibdeps -T../substvars -dDepends \
+		usr/bin/lilypond usr/bin/midi2ly
 	dh_gencontrol
 #	dh_makeshlibs
 	dh_md5sums
