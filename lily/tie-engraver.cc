@@ -7,7 +7,6 @@
   
  */
 
-#include "tie-engraver.hh"
 #include "command-request.hh"
 #include "rhythmic-head.hh"
 #include "musical-request.hh"

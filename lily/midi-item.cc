@@ -7,6 +7,7 @@
  */
 
 #include "debug.hh"
+#include "main.hh"
 #include "misc.hh"
 #include "string.hh"
 #include "string-convert.hh"
@@ -594,26 +595,16 @@ Midi_track::add (Moment delta_time_mom, Midi_item* midi_p)
   event_p_list_.append (new Killing_cons<Midi_event> (e, 0));
 }
 
-extern bool verbose_global_b;
-
 String
 Midi_track::data_str () const
 {
   String str = Midi_chunk::data_str ();
-#if 0
-  if (flower_dstream && !flower_dstream->silent_b ("Midistrings"))
-#else
-  if (verbose_global_b)
-#endif
+  if (midi_debug_global_b)
     str += "\n";
   for (Cons<Midi_event> *i=event_p_list_.head_; i; i = i->next_) 
     {
       str += i->car_->str ();
-#if 0
-      if (flower_dstream && !flower_dstream->silent_b ("Midistrings"))
-#else	
-      if (verbose_global_b)
-#endif	
+      if (midi_debug_global_b)
         str += "\n";
     }
   return str;

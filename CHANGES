@@ -1,3 +1,18 @@
+1.3.132.jcn2
+============
+
+* Attempt at fixing input/bugs/tie-break-accidental.ly, but no luck.
+See comments in Local_key_engraver.
+
+* Removed some cruft from lily/include/.
+
+* Bugfix: tied notes in chords sometimes got stuck in MIDI output
+(thanks Mats).
+
+* Added some example bug files, taken from Coriolan; esp. see
+input/bugs/tie-break-accidental.ly, I've seen so much discussion on
+this, would have thought we had this right by now.
+
 1.3.132.jcn1
 ============
 

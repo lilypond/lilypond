@@ -1,5 +1,5 @@
 /*   
-  separating-line-group-engraver.cc --  implement Separating_line_group_engraver
+'  separating-line-group-engraver.cc --  implement Separating_line_group_engraver
   
   source file of the GNU LilyPond music typesetter
   
