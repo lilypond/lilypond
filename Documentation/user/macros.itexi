@@ -71,15 +71,20 @@
 @c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
 @c @inforef{} adds ``See'' to the sentence, which is annoying, but
 @c better than a broken link.
-@inforef{\NAME\,,lilypond-internals}@c
+@c @inforef{\NAME\,,lilypond-internals}@c
+@c using @ref without punctuation is OK without for formats other than info
+@ref{\NAME\,,,lilypond-internals}@c
 @c should we do this? 
 @cindex @code{\NAME\}
 @end macro
 
+ @c what is this? -- jcn
  @macro hyphenatedinternalsref{NAME,NODENAME}
  @c @uref{../lilypond-internals/\NODENAME\.html,\NAME\}@c
- @inforef{\NODENAME\,,lilypond-internals}@c
+ @c @inforef{\NODENAME\,,lilypond-internals}@c
  @c should we do this? 
+ @c using @ref without punctuation is OK without for formats other than info
+ @ref{\NODENAME\,,\NAME\,lilypond-internals}@c
  @cindex @code{\NAME\}
  @end macro
 

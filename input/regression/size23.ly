@@ -9,4 +9,4 @@ foollilypondbook = "
 
 
 #(set-global-staff-size 23)
-\include "allfontstyle.lyinc"
+\include "allfontstyle.ily"
