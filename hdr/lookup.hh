@@ -10,10 +10,12 @@
 
 struct Lookup {
     Symtables *symtables_;
-    
+    String texsetting;
     /****************/
+    void add(String, Symtable*);
+
     Real internote();
-    void parse (Text_db&t);
+
     Symbol linestaff(int n, Real w);
 
     Symbol beam_element(int,int,Real=0);
@@ -44,6 +46,7 @@ struct Lookup {
 
 
     Lookup();
+    Lookup(Lookup const &);
     ~Lookup();
 };
 
