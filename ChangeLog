@@ -1,3 +1,8 @@
+2005-02-08  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4: Use %0.f iso %d to quiet gawk < 3.1.4 and
+	mawk in fontforge (date) test.
+
 2005-02-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/font.scm (make-century-schoolbook-tree): add NCS as
