@@ -1,3 +1,4 @@
+\version "1.3.148"
 % accidentals clash
 \score {
   \context Staff \notes\relative c' <

@@ -1,3 +1,4 @@
+\version "1.3.148"
 %
 % multi-measure-rests should collide with notes, just as normal rests.
 %

@@ -1,3 +1,4 @@
+\version "1.3.148"
 %
 % when part-combining, rests should collide as in normal case
 %

@@ -1,3 +1,4 @@
+\version "1.3.148"
 
 %
 % Lyrics with barline colliding is fine now, BUT
@@ -5,16 +6,16 @@
 %
 
 \header{
-texidoc="
+texidoc = "
 Adding a @code{Bar_engraver} to the LyricsVoice context makes sure that
 lyrics don't collide with barlines.
-";
+"
 }
 
 \score {
 	\context StaffGroup <
 	\notes \context Staff {
-	        b1 \bar "|:"; b1 \bar ":|";
+	        b1 \bar "|:" b1 \bar ":|"
 	}
 	\lyrics\context Lyrics <
 	 	\context LyricsVoiceWithBars {
@@ -28,15 +29,15 @@ lyrics don't collide with barlines.
 	\notes \context Staff = SB { b1 b1 }
 	>
 	\paper {
-		linewidth = -1.0\cm;
+		linewidth = -1.0\cm
 		\translator {
 			\LyricsContext
-			\accepts "LyricsVoiceWithBars";
+			\accepts "LyricsVoiceWithBars"
 		}
 		\translator {
 			\LyricsVoiceContext
-			\consists "Bar_engraver";
-			\name "LyricsVoiceWithBars";
+			\consists "Bar_engraver"
+			\name "LyricsVoiceWithBars"
 		}
 		\translator {
 			\LyricsVoiceContext

@@ -1,3 +1,4 @@
+\version "1.3.148"
 
-\score { \notes { c^#`(rows ";" (lines "1" (bold "2") "3"))}}
+\score { \notes { c^#`(columns "" (lines "1" (bold "2") "3"))}}
 

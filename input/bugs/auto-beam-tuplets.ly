@@ -1,6 +1,7 @@
+\version "1.3.148"
 
 \header { texidoc = "tuplet-spanner should not put visible brackets on
-beams even if they're auto generated."; }
+beams even if they're auto generated." }
 
 \score { \notes \relative c' {
   \property Voice.tupletSpannerDuration = #(make-moment 1 4)

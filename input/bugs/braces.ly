@@ -1,8 +1,9 @@
+\version "1.3.148"
 % this bug apparently caused by dvips + mf rounding.
 
 
 \header {
-texidoc="Run this through ly2dvi to show differerent brace sizes"
+texidoc = "Run this through ly2dvi to show differerent brace sizes"
 }
 
 \include "paper11.ly"

@@ -1,3 +1,4 @@
+\version "1.3.148"
 \header {
   texidoc="beam-stem attachment test"
 }

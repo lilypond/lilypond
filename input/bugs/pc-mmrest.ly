@@ -1,3 +1,4 @@
+\version "1.3.148"
 %
 % mmrests of second voice should not disappear
 %
@@ -17,7 +18,7 @@ one = \notes\relative c'' {
 	d1|
 	d2 d2|
 	d2 d2|
-	\!f1\ff ~|
+	\!f1\ff  |
 	f1
 }
 
@@ -34,23 +35,23 @@ two = \notes \relative c'' {
 	\context Voice=one \partcombine Voice
 		\context Thread=one \one
 		\context Thread=two \two
-    >
+    > ~
   >
   \paper {
     \translator {
       \ThreadContext
-      \consists "Rest_engraver";
+      \consists "Rest_engraver"
     }
     \translator {
       \VoiceContext
-      \remove "Rest_engraver";
-      \consists Multi_measure_rest_engraver;
-      \consists Bar_engraver;
+      \remove "Rest_engraver"
+      \consists Multi_measure_rest_engraver
+      \consists Bar_engraver
     }
     \translator {
       \HaraKiriStaffContext
-      \remove Multi_measure_rest_engraver;
-      \remove Bar_engraver;
+      \remove Multi_measure_rest_engraver
+      \remove Bar_engraver
     }
     \translator {
       \OrchestralScoreContext

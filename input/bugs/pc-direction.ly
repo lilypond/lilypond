@@ -1,3 +1,4 @@
+\version "1.3.148"
 
 % move to regtest once it works?
 
@@ -5,13 +6,13 @@
 % still not workign ? --hwn.
 
 \header {
-texidoc="
-On their own staff, staffcombined voices should be stemboth (not up/down);
-while voicecombined threads should get their direction set (up/down)";
+texidoc = "
+On their own staff, staffcombined voices should be stemboth (not up/down)
+while voicecombined threads should get their direction set (up/down)"
 }
 
 
-End = { \skip 1*8; }
+End = { \skip 1*8 }
 
 violaI = \notes\relative c'' {
   c c e4. e8
@@ -31,7 +32,7 @@ contrabasso = \notes\relative c {
    a1
 }
 
-violeStaff =  \notes \context Staff = viole <
+violeStaff = \notes \context Staff = viole <
  \context Voice=oneViole <
  		\property Staff.instrument = #"Viola"
 		\property Staff.instr = #"Vla."
@@ -69,13 +70,13 @@ staffCombinePianoStaffProperties = {
 
   \context PianoStaff = bassi_group \notes <
     \staffCombinePianoStaffProperties
-    \context Staff=oneBassi < \clef bass;
+    \context Staff=oneBassi < \clef bass
     		\property Staff.instrument = #'(lines
     		  "Violoncello" "    e" "Contrabasso")
 
     		\property Staff.instr = #"Vc."
 		\End >
-    \context Staff=twoBassi < \clef bass;
+    \context Staff=twoBassi < \clef bass
     		\property Staff.instrument = #"Contrabasso"
 		\property Staff.instr = #"Cb."
 
@@ -89,11 +90,11 @@ staffCombinePianoStaffProperties = {
  >
   \paper {
     % \paperSixteen
-    linewidth = 80 * \staffspace;
-    textheight = 200 * \staffspace;
+    linewidth = 80 * \staffspace
+    textheight = 200 * \staffspace
     \translator{
       \ThreadContext
-      \consists "Rest_engraver";
+      \consists "Rest_engraver"
       
       % Set value for engraver at thread level,
       % to override the default that is set in ScoreContext
@@ -102,7 +103,7 @@ staffCombinePianoStaffProperties = {
     }
     \translator{
       \VoiceContext
-      \remove "Rest_engraver";    
+      \remove "Rest_engraver"    
 
       % The staff combine (bassi part) needs a
       % thread_devnull_engraver here.
@@ -110,11 +111,11 @@ staffCombinePianoStaffProperties = {
       % we switch add it, but switch it off immideately.
       % The staff combine parts switch it on.
       % devNullThread = #'never
-      \consists "Thread_devnull_engraver";
+      \consists "Thread_devnull_engraver"
     }
     \translator{
       \HaraKiriStaffContext
-      \consists "Mark_engraver";
+      \consists "Mark_engraver"
     }
     \translator {
       \OrchestralScoreContext

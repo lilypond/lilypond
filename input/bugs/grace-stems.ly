@@ -1,5 +1,6 @@
+\version "1.3.148"
 \header{
-texidoc="startGraceMusic should no-stem-extend to true, but there's no effect:
+texidoc = "startGraceMusic should no-stem-extend to true, but there's no effect:
 the two grace beams should be the same here.
 "
 }

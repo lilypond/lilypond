@@ -1,3 +1,4 @@
+\version "1.3.148"
 
 % When tightly spaced, hinterfleisch -> 0.
 % Stems may touch the bar lines, opposite stems may touch eachother.
@@ -10,7 +11,7 @@
 		r1 e4 f, e' f,
 	}
 	\paper { 
-		linewidth = 25.0 \mm;
-		indent = 0.0\mm;
+		linewidth = 25.0 \mm
+		indent = 0.0\mm
 	}
 }

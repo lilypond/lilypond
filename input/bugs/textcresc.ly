@@ -1,3 +1,4 @@
+\version "1.3.148"
 
 
 \score { \notes {
@@ -7,6 +8,6 @@
     c2. r8 c8 \< \break \! c1
   }
 }
-\paper { linewidth = 5.\cm;}
+\paper { linewidth = 5.\cm}
 }
 

@@ -1,10 +1,11 @@
+\version "1.3.148"
 
 \header{
-texidoc="
+texidoc = "
  Right ending of slur is too far right.
 
  [I did make a better test .ly for this, but can't seem to find it
-now.]  "; }
+now.]  " }
 
 \score {
   \notes \relative c'' {
@@ -15,6 +16,6 @@ now.]  "; }
     d,32( d'4 )d8..
   }
   \paper {
-    linewidth = -1.;
+    linewidth = -1.
   }
 } 

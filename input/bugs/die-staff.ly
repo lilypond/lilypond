@@ -1,3 +1,4 @@
+\version "1.3.148"
 
 \header  {
 texidoc = "a staff should really die, if no one's referencing it."
@@ -15,7 +16,7 @@ texidoc = "a staff should really die, if no one's referencing it."
         \notes { a' b' c' d' }
       }
       \context Staff = ii {
-        \notes { \clef "bass"; a b c d }
+        \notes { \clef "bass" a b c d }
       }
     >
   }

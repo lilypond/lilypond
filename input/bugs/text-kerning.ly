@@ -1,7 +1,8 @@
+\version "1.3.148"
 
 
 \header {
-texidoc= "LilyPond doesn't kern text, but TeX does, leading to skewed results: the VAVAVAVA takes less space than LilyPond thinks it does."; } 
+texidoc = "LilyPond doesn't kern text, but TeX does, leading to skewed results: the VAVAVAVA takes less space than LilyPond thinks it does." } 
 
 \score {
  \notes \relative c'' < \context Voice {
@@ -11,5 +12,5 @@ texidoc= "LilyPond doesn't kern text, but TeX does, leading to skewed results: t
 \context Lyrics  \lyrics {   foobar4 -- VAVAVAVAV4 -- foobar4 } >
 
 	
- \paper { linewidth = -10.0\cm; }
+ \paper { linewidth = -10.0\cm }
 }

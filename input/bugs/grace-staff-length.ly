@@ -1,5 +1,6 @@
+\version "1.3.148"
 \header{
-texidoc="stripped version of trip.ly.  upper staff is too short, lower too long"
+texidoc = "stripped version of trip.ly.  upper staff is too short, lower too long"
 }
 \score{
   \context PianoStaff \notes <

@@ -2,10 +2,10 @@
 
 \header {
 texidoc ="``baz'' should be centered on the a (tenor voice), but it is
-not.";
+not."
 }
 
-\version "1.3.140";
+\version "1.3.148"
 
 sop = \notes \transpose c''  {e2 e fis1 }
 alt = \notes \relative c' {cis2 e e d }
@@ -18,10 +18,10 @@ txt = \lyrics {foo2 bar baz jazz }
 	    \context Voice=sopv {\stemUp \sop}
  	    \context Voice=altv {\stemDown \alt}
 	>
-	\context Staff = down \notes < \clef "F";
+	\context Staff = down \notes < \clef "F"
 	    \context Voice=tenv {\stemUp \ten}
 	>
 	\context Lyrics = la { \txt }
     >
-    \paper { linewidth = -1; }
+    \paper { linewidth = -1 }
 }

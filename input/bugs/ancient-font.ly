@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.3.148"
 \header {
 texidoc="setting staff symbol properties the normal way is broken"
     title	= "ancient font test"

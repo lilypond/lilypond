@@ -1,3 +1,4 @@
+\version "1.3.148"
 
 \score {\notes \relative c'' <
 \context Staff = SA { \times 6/7 { [c8 c c c c c c] }  }

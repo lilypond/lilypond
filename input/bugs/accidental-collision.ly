@@ -1,7 +1,8 @@
+\version "1.3.148"
 
 
 
-\include "paper16.ly";
+\include "paper16.ly"
 \score {
   \notes {
     \relative c'' \context Voice \sequential {
@@ -9,6 +10,6 @@
    }
   }
   \paper{
-      linewidth = 5.0\cm;
+      linewidth = 5.0\cm
   }
 }

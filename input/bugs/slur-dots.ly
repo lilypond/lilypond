@@ -1,3 +1,4 @@
+\version "1.3.148"
 
 % Placement of slur uses x-extent of note-head which includes dots
 	
@@ -6,6 +7,6 @@
     c4.............()c
   }
   \paper {
-    linewidth = -1.;
+    linewidth = -1.
   }
 } 

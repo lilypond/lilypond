@@ -1,7 +1,8 @@
+\version "1.3.148"
 \header{
-filename = 	 "denneboom.ly";
-enteredby = 	 "jcn";
-copyright = 	 "public domain";
+filename = 	 "denneboom.ly"
+enteredby = 	 "jcn"
+copyright = 	 "public domain"
 }
 %{ file tests silly line shapes %}
 
@@ -9,7 +10,7 @@ copyright = 	 "public domain";
 
 
 
-oden =  \lyrics{ 
+oden = \lyrics{ 
 	O |
 	den- ne- boom, o | 
 	den- ne- boom  Wat |
@@ -17,7 +18,7 @@ oden =  \lyrics{
 	won- der- schoon 
 }
 
-ikheb =  \lyrics{
+ikheb = \lyrics{
 	Ik | 
 	heb u laatst in_'t |
 	bos zien staan  toen |
@@ -25,7 +26,7 @@ ikheb =  \lyrics{
 	kaars- jes aan 
 }
 
-ugloeit =  \lyrics{
+ugloeit = \lyrics{
 	U |
 	gloeit in bar- re | 
 	win- ter- tijd, als |
@@ -33,7 +34,7 @@ ugloeit =  \lyrics{
 	licht ge- spreid 
 }
 
-oboom =  \notes\transpose c''{
+oboom = \notes\transpose c''{
 	g,8 |
 	c8. c16 c4. d8 | 
 	e8. e16 e4. e8 | 
@@ -41,7 +42,7 @@ oboom =  \notes\transpose c''{
 	d8. c16 c4 r8
 }
 
-bos =  \notes\transpose c''{
+bos = \notes\transpose c''{
 	g8 | 
 	g e a4. g8 | 
 	g8. f16 f4 r8 f8 |
@@ -50,7 +51,7 @@ bos =  \notes\transpose c''{
 }
 
 
-melody =  \notes{
+melody = \notes{
 	\oboom
 	\oboom
 	\bos
@@ -58,31 +59,31 @@ melody =  \notes{
 }
 
 
-verseOne =  \notes{
+verseOne = \notes{
 	\oden
 	\oden
 	\ikheb
 	\oden
 }
 
-verseOneStaff =  \context Lyrics = one 
-	\$verse_one
+verseOneStaff = \context Lyrics = one 
+	\verseOne
 
 
-verseTwo =  \notes{
+verseTwo = \notes{
 	\oden
 	\oden
 	\ugloeit
 	\oden
 }
 
-verseTwoStaff =  \context Lyrics = two 
-	\$verse_two
+verseTwoStaff = \context Lyrics = two 
+	\verseTwo
 
 
-denneboomShape =  \paper{ 
+denneboomShape = \paper{ 
 	\paperTwenty
-	indent = 20. \mm;
+	indent = 20. \mm
 
 	% UGH -- THIS IS HAIRY 
 	#'margin-shape = #(map
@@ -99,17 +100,17 @@ denneboomShape =  \paper{
 		 (65.0 .  30.0))
 	)
 
-	gourlay_maxmeasures = 30.;
-	arithmetic_basicspace = 3.8;
-	arithmetic_multiplier = 8.\pt;
+	gourlay_maxmeasures = 30.
+	arithmetic_basicspace = 3.8
+	arithmetic_multiplier = 8.\pt
 }
 
 \score{
 	\addlyrics
-		\context Staff { \time 3/4; \melody }
-		\context Lyrics \$verse_one
+		\context Staff { \time 3/4 \melody }
+		\context Lyrics \verseOne
 	\paper{ 
-		\$denneboom_shape 
+		\denneboomShape 
 	}
-	\midi{ \tempo 4 = 90; }
+	\midi{ \tempo 4 = 90 }
 }

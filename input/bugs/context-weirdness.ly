@@ -1,6 +1,7 @@
+\version "1.3.148"
 \header {
 texidoc = "context level weirdness.  after some commands, explicit
- \context Voice commands must be inserted; otherwise subsequent property
+ \context Voice commands must be inserted otherwise subsequent property
  settings fail silently"
 }
 
@@ -14,31 +15,31 @@ texidoc = "context level weirdness.  after some commands, explicit
     \context Staff=upper \notes\relative c' {
         \property Score.timing = ##f
 
-        \outputproperty #(make-text-checker "foe") #'extra-offset = #'(-2 . 4)
+        output = property #(make-text-checker "foe") #'extra-offset = #'(-2 . 4)
         c-"foe"
 	
 	\translator Staff=lower
 
 	% staff switch moves us
 	% implicitely to staff level: text-checker won't see "foe"
-        \outputproperty #(make-text-checker "foe") #'extra-offset = #'(-2 . 4)
+        output = property #(make-text-checker "foe") #'extra-offset = #'(-2 . 4)
         c-"foe"
 
 	% get back to Voice level: it works again
 	\context Voice
-	\outputproperty #(make-text-checker "foe") #'extra-offset = #'(-2 . 4)
+	output = property #(make-text-checker "foe") #'extra-offset = #'(-2 . 4)
         c-"foe"
 
 	\clef treble
 	
 	% clef change moves us
 	% implicitely to staff level: text-checker won't see "foe"
-        \outputproperty #(make-text-checker "foe") #'extra-offset = #'(-2 . 4)
+        output = property #(make-text-checker "foe") #'extra-offset = #'(-2 . 4)
         c-"foe"
 
 	% get back to Voice level: it works again
 	\context Voice
-	\outputproperty #(make-text-checker "foe") #'extra-offset = #'(-2 . 4)
+	output = property #(make-text-checker "foe") #'extra-offset = #'(-2 . 4)
         c-"foe"
 	
     }

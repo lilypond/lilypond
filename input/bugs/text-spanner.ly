@@ -1,3 +1,4 @@
+\version "1.3.148"
 
 % text spanners should not repeat start text when broken
 
@@ -9,6 +10,6 @@
     c1 \!c \break
     }
   \paper {
-    linewidth = 40*\staffspace;
+    linewidth = 40*\staffspace
   }
 }

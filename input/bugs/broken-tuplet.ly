@@ -1,7 +1,8 @@
+\version "1.3.148"
 
 \header {
 
-texidoc ="tuplet bracket doesn't behave properly at line break. Not a real problem.";
+texidoc = "tuplet bracket doesn't behave properly at line break. Not a real problem."
 }
 
 \score{
@@ -11,7 +12,7 @@ texidoc ="tuplet bracket doesn't behave properly at line break. Not a real probl
 		c4 c c c
 	} >
 	\paper{
-	indent = 0.;
-		linewidth=30.\mm;
+	indent = 0.
+		linewidth=30.\mm
 	}
 }
