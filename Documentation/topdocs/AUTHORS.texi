@@ -63,7 +63,7 @@ list is alphabetically ordered.
 @item @email{portnoy@@ai.mit.edu,Stephen Peters},
     pdfTeX support
 @item @email{glenprideaux@@iname.com, Glen Prideaux},
-    minor bug fix to script used to generate doc++ documentation
+    minor bug fixes, lyric-phrasing.
 @item @email{Roy.Rankin@@alcatel.com.au, Roy R. Rankin},
     major extension, fixes to abc2ly, lilypond bug fixes
 @item @email{daboys@@austin.rr.com, Jeffrey B. Reed},
