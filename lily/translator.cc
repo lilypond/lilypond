@@ -27,7 +27,6 @@ Translator::~Translator ()
 void
 Translator::init ()
 {
-  status_ = ORPHAN;
   simple_trans_list_ = SCM_EOL;
   trans_group_list_ = SCM_EOL;
   properties_scm_ = SCM_EOL;
@@ -60,7 +59,7 @@ Translator::is_alias_b (String s) const
 }
 
 bool
-Translator::do_try_music (Music *)
+Translator::try_music (Music *)
 {
   return false;
 }
@@ -76,11 +75,7 @@ Translator::now_mom () const
 void
 Translator::add_processing ()
 {
-  if (status_ > ORPHAN)
-    return;
-  
   do_add_processing ();
-  status_ = VIRGIN;
 }
 
 void
@@ -88,62 +83,31 @@ Translator::do_add_processing ()
 {
 }
 
-void
-Translator::creation_processing ()
-{
-  if (status_ >= CREATION_INITED)
-    return ;
-  
-  do_creation_processing ();
-  status_ = CREATION_INITED;
-}
 
 void
 Translator::post_move_processing ()
 {
-  if (status_ >= MOVE_INITED)
-    return;
-
-  creation_processing ();
-  do_post_move_processing ();
-  status_ = MOVE_INITED;
+  start_translation_timestep ();
 }
 
 void
 Translator::removal_processing ()
 {
-  if (status_ == ORPHAN)
-    return;
-  creation_processing ();
   do_removal_processing ();
 }
 
-bool
-Translator::try_music (Music * r)
-{
-  if (status_ < MOVE_INITED)
-    post_move_processing ();
-
-  return do_try_music (r);
-}
 
 void
-Translator::process_music ()
+Translator::announces ()
 {
-  if (status_ < PROCESSED_REQS)
-    post_move_processing ();
-  else if (status_ >= PROCESSED_REQS)
-    return; 
-  
-  status_ = PROCESSED_REQS;
-  do_process_music ();
+  do_announces ();
 }
+
 
 void
 Translator::pre_move_processing ()
 {
-  do_pre_move_processing ();
-  status_ = CREATION_INITED;
+  stop_translation_timestep ();
 }
 
 
@@ -167,17 +131,17 @@ Translator::get_property (SCM sym) const
 }
 
 void
-Translator:: do_pre_move_processing ()
+Translator:: stop_translation_timestep ()
 {
 }
 
 void
-Translator::do_post_move_processing ()
+Translator::start_translation_timestep ()
 {
 }
 
 void
-Translator::do_process_music ()
+Translator::do_announces ()
 {
 }
 
