@@ -335,8 +335,9 @@ Simple_spacer::solve (Column_x_positions *positions, bool ragged) const
     {
       Real  l = springs_[i].length ((ragged) ? 0.0 : force_f_);
       positions->config_.push (positions->config_.top () + l);
-
-      assert (l >= 0);
+      /*
+	we have l>= 0 here, up to rounding errors 
+      */
     }
   positions->cols_ = spaced_cols_;
   positions->loose_cols_ = loose_cols_;

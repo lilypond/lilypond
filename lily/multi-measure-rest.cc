@@ -140,12 +140,11 @@ Multi_measure_rest::symbol_molecule (Grob *me, Real space)
     {
       measures = gh_scm2int (m);
     }
+  if (measures <= 0)
+    return Molecule();
   
 
   SCM limit = me->get_grob_property ("expand-limit");
-  if (measures <= 0)
-    return Molecule();
-
   if (measures > gh_scm2int (limit))
     {
       Real padding = 0.15;  

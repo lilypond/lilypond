@@ -1,23 +1,14 @@
 %{
 
- Common Spanish names for notes. "b" means flat (bemol), "s" means
- sharp (sostenido).
- 
+ Common Spanish names for notes. "b" means flat (bemol), "s" means sharp (sostenido).
  Adapted from italiano.ly.
 
  English: a   b   c   d   e   f   g
  Spanish: la  si  do  re  mi  fa  sol
 
- For some strange reason, dutch.ly and german.ly were renamed to
- follow the (ms-dos?) norsk naming convention.
-
- For spanish.ly, it should actually be "espa~nol.ly" with a "n with
- tilde on top" As the n with tilde is possibly not a good character to
- have I would write without the tilde, that is "espanol.ly"
-
 %}
 
-% contributed by Carlos Garc'ia Su'arez <cgscqmp@terra.es>
+% contributed by Carlos García Suárez <cgscqmp@terra.es>
 
 
 % For using "sostingut" notation, which is also correct
