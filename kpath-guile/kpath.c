@@ -171,9 +171,11 @@ initialize_kpathsea ()
   (*dl_kpse_set_program_name) ("lilypond", "lilypond");
   (*dl_kpse_maketex_option) ("tfm", TRUE);
   
-  SCM find = scm_c_define_gsubr ("ly:kpathsea-find-file", 1, 0, 0, ly_kpathsea_find_file);
+  SCM find = scm_c_define_gsubr ("ly:kpathsea-find-file", 1, 0, 0,
+				 ly_kpathsea_find_file);
   scm_c_export ("ly:kpathsea-find-file", NULL);
-  SCM expand = scm_c_define_gsubr ("ly:kpathsea-expand-variable", 1, 0, 0, ly_kpathsea_find_file);
+  SCM expand = scm_c_define_gsubr ("ly:kpathsea-expand-variable", 1, 0, 0,
+				   ly_kpathsea_expand_variable);
   scm_c_export ("ly:kpathsea-expand-variable", NULL);
 }
 
