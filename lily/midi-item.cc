@@ -236,6 +236,10 @@ Midi_track::Midi_track( int number_i )
 void 
 Midi_track::add( int delta_time_i, String event_str )
 {
+    if ( delta_time_i < 0 ) {
+	cout << String_convert::bin2hex_str( i2varint_str( delta_time_i ) ) << endl;
+	cout << String_convert::bin2hex_str( event_str ) << endl;
+    }
     assert(delta_time_i >= 0);
     Midi_chunk::add( i2varint_str( delta_time_i ) + event_str );
 }

@@ -11,66 +11,78 @@
 %
 \version "0.0.54";
 
-melodie = \melodic{  
-	\meter  3/4 ;
+commands = \melodic{
+	\skip 2.*4;
+	\bar ":|";
+	\skip 2.*24;
+%	volta1
+	\skip 2.*8;
+%	volta2
+	\bar ":|";
+	\skip 2.*22;
+	\bar "||"; 
+	}
+
+melodie = \melodic{ 
+	\meter 3/4;
 	\clef\violin;
-	\key  bes ;
-	\octave  c' ;
-	\duration  8 ;
+	\key bes;
+	\octave c';
+	\duration 8;
 	r \pp < [ d 'a-| > f-| < d 'a-| > f-| < d 'a-| ] > |
 %%2
 	r < [ d 'bes-| > f-| < d 'bes-| > f-| < d 'bes-| ] > |
 %%3
 	\textstyle "italic";
 	r_"simile" < [ d 'bes > e < d 'bes > e < d 'bes ] >|
-	\textstyle "roman" ;
+	\textstyle "roman";
 	
 %%4
 	r < [ 'a cis > e < 'a cis > e < 'a cis ] > |
 %%5
-	[ a()bes a ]2/3  d'4. a |
+	[ a()bes a ]2/3 d'4. a |
 %%6
-	[ g()a g ]2/3  d'4 g r |
+	[ g()a g ]2/3 d'4 g r |
 
 %%7
-	a4.^> g  [ g()f e ]2/3  |
+	a4.^> g [ g()f e ]2/3 |
 %%8
 	f2 r4 |
 %%9
 
-	< { a'4.( )g'  [ g'( f' )e' ]2/3  }
-	{ cis'4. e'_"dolce"  \plet  2/3 ; e' \plet  1/1 ; } > |
+	< { a'4.( )g' [ g'( f' )e' ]2/3 }
+	{ cis'4. e'_"dolce" \plet 2/3; e' \plet 1/1; } > |
 %%10
 	< f'2. d'2. > |
 %%11
-	[ a (\pp )bes a ]2/3  f'4. a |
+	[ a (\pp )bes a ]2/3 f'4. a |
 %%12
-	[ g( ) a g ]2/3  e'4. d' |
+	[ g( ) a g ]2/3 e'4. d' |
 %%13
-	c'4. bes  [ bes( ) a g ]2/3  |
+	c'4. bes [ bes( ) a g ]2/3 |
 %%14
 	a2 r 
-	< { d'( | )c'4. g  [ bes a g ]2/3  }
-	{ f \p ( | )e4._"dolce" bes  
-		\plet  2/3 ; g
-		\plet  1/1 ;  
+	< { d'( | )c'4. g [ bes a g ]2/3 }
+	{ f \p ( | )e4._"dolce" bes 
+		\plet 2/3; g
+		\plet 1/1; 
 	} > |
 %%16
 	< a2. f2. > |
 %%17
 	\textstyle "italic";
 	[ a8._"cresc." cis'16 ] f'4. e'
-	\textstyle "roman" ;|
+	\textstyle "roman";|
 %%18
 	[ d'8. a16 ] f4. d |
 %%19
 %#%	c'\grace\stemup
-	[ bes (\pp ) a bes ]2/3  d'4. bes |
+	[ bes (\pp ) a bes ]2/3 d'4. bes |
 %%20
 	a2. |
 %%21
 %#%	a\grace
-	[ g( )fis g ]2/3  bes4.^> g |
+	[ g( )fis g ]2/3 bes4.^> g |
 %%22
 	f!2. |
 %%23
@@ -87,12 +99,12 @@ melodie = \melodic{
 	< d'2. fis2. > |
 %#%\volta1
 %%29
-	<  { bes2( [ d'8.( ))g16 ] }
+	< { bes2( [ d'8.( ))g16 ] }
 	{ g2 \mf [ bes8. bes16 ] } > |
 %%30
 	< { a4. [ a-. a-. a-. ] }
 	{ fis4. [ fis-.( fis-. )fis-. ] } > |
-%%31  
+%%31 
 	< { a4. [ a-. a-. a-. ] }
 	{ g4. [ cis-.( e-. )g-. ] } > |
 %%32
@@ -119,7 +131,7 @@ melodie = \melodic{
 %%40
 	cis'2 r4 |
 %%41
-	< fis'4. \> cis'4. \f > e'  [ e'( )d' \! cis' ]2/3  |
+	< fis'4. \> cis'4. \f > e' [ e'( )d' \! cis' ]2/3 |
 %%42
 	[ b8. cis'16 ] d'4^> b r |
 %%43
@@ -128,16 +140,16 @@ melodie = \melodic{
 %%44
 	[ b8. \> cis'16 ] d'4^> b \! r |
 %%45
-	[ b \p ( )ais b ]2/3  d'4. b |
+	[ b \p ( )ais b ]2/3 d'4. b |
 %%46
 	<a!2. fis2. > |
 %%47
-	[ e' \f( )dis' e' ]2/3  g'4.^> cis' |
+	[ e' \f( )dis' e' ]2/3 g'4.^> cis' |
 %%48
 	\textstyle "italic";
 	< 
 	{ fis2.( \group "+1"; \stem -1; )f2. }
-	{ d'2. (  \stem  1 ; )d'4 r4_"decresc." d'4 } 
+	{ d'2. ( \stem 1; )d'4 r4_"decresc." d'4 } 
 	>
 	\textstyle "roman"; |
 %%50
@@ -170,7 +182,7 @@ begeleiding = \melodic{
 	\meter 3/4;
 	\clef\bass;
 	\key bes;
-	\octave  c' ;
+	\octave c';
 	\duration 2;
 	'd r4 |
 %%2
@@ -182,8 +194,8 @@ begeleiding = \melodic{
 %%4
 	''a r4 |
 %%5
-\duration  8 ;
- 	< \multivoice { \stem  1 ;	
+\duration 8;
+ 	< \multivoice { \stem 1;	
 		[ 'f 'a d 'a d 'a ] 
 		[ 'd 'e 'g 'e 'g 'e ] 
 		[ 'cis 'e 'g 'e 'g e ]
@@ -201,7 +213,7 @@ begeleiding = \melodic{
 	[ 'd 'a d 'a d 'a ] |
 %%11
 	< \multivoice 	
-	{ \stem  1 ;
+	{ \stem 1;
 		[ 'f 'a d 'a d 'a ]
 		[ 'd 'e 'g 'e 'g 'e ] 
 		[ 'e 'g 'bes 'g 'bes 'g ] 
@@ -219,7 +231,7 @@ begeleiding = \melodic{
 	< \multivoice
 	{ \stem 1; 
 		[ ''a 'e 'g 'e 'g 'e ][ 'd 'a d 'a d 'a ]
-		[ ''bes 'f 'bes 'f 'bes 'f ][ ''f 'c 'f 'c 'f 'c ]  }
+		[ ''bes 'f 'bes 'f 'bes 'f ][ ''f 'c 'f 'c 'f 'c ] }
 	{ \stem -1; 
 		''a2 r4
 		'd2 r4 
@@ -268,11 +280,11 @@ begeleiding = \melodic{
 %%37
 	[ ''a 'e 'g 'e ''bes^> 'e ] |
 %%38
-	[ ''a < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a ] >  |
+	[ ''a < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a ] > |
 %%39
 	[ ''a 'e 'g 'e ''bes^> 'e ] |
 %%40
-	[ ''a < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a ] >  |
+	[ ''a < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a ] > |
 %%41
 	[ ''ais 'e 'fis 'e 'fis 'e ] |
 %%42
@@ -319,7 +331,7 @@ begeleiding = \melodic{
 
 
 tekstI = \lyric{
-	\meter  3/4 ;
+	\meter 3/4;
 	\duration 4;
 	_ _ _
 	_ _ _
@@ -329,7 +341,7 @@ tekstI = \lyric{
 	[ Lei- se8 ]2/3 fleh-4. en8 
 	[ mei- ne8 ]2/3 Lie- der8 _8
 	Durch4. die8 [ Nacht zu8 ]2/3 
-	dir;2 _        
+	dir;2 _    
 	_ _ _ 
 	_ _ _
 % 11
@@ -367,7 +379,7 @@ tekstI = \lyric{
 % 37
 	La\ss8. auch16 dir8. die16 Brust8. be-16
 	we- gen, _
-	Lieb-4. chen,8  h\"o-8. re16 
+	Lieb-4. chen,8 h\"o-8. re16 
 	mich!2 _
 	Be-8. bend16 harr' ich8 _8
 	dir8. ent-16 ge- gen!8 _8
@@ -386,7 +398,7 @@ tekstI = \lyric{
 }
 
 tekstII = \lyric{
-        \meter 3/4;
+    \meter 3/4;
 	\duration 4;
 	_ _ _
 	_ _ _
@@ -423,7 +435,6 @@ tekstII = \lyric{
 	Herz.2.
 	_ _ _ 
 	_ _ _
-	  
 % volta 1
 % 29
 	_ _ _ _ _ _
@@ -433,19 +444,19 @@ tekstII = \lyric{
 
 % volta 2
 % 37
-%	_ _ _ _ _ _
-%	_ _ _ _ _ _
-%	_ _ _ _ _ _
-%	_ _ _ _ _ _ 
-%	_ _ _ _ _ _
+	_ _ _ _ _ _
+	_ _ _ _ _ _
+	_ _ _ _ _ _
+	_ _ _ _ _ _ 
+	_ _ _ _ _ _
 % 47
-%	_ _ _ _ _ _
-%	_ _ _ _ _ _
-%	_ _ _ _ _ _
-%	_ _ _ _ _ _
-%	_ _ _ _ _ _
+	_ _ _ _ _ _
+	_ _ _ _ _ _
+	_ _ _ _ _ _
+	_ _ _ _ _ _
+	_ _ _ _ _ _
 % 57
-%	_ _ _ _ _ _ 
+	_ _ _ _ _ _ 
 	
 }
 
@@ -453,8 +464,8 @@ tekstII = \lyric{
 	\staff{ lyricregs tekstI }
 	\staff{ lyricregs tekstII }
 
-	\staff{ melodicregs melodie }
-	\staff{ melodicregs begeleiding }
+	\staff{ melodicregs melodie commands}
+	\staff{ melodicregs begeleiding commands }
 	\paper{
 		\width 195\mm
 
