@@ -18,7 +18,7 @@ text = \lyrics {
 	  \property Staff.autoBeaming = ##f
 	  \melody
       }
-      \newaddlyrics \new Lyrics \text
+      \newaddlyrics "one" \new Lyrics \text
   >>
   \paper { }
   \midi  { }

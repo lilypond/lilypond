@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "2.1.7"
 
 \header{ texidoc="@cindex Time Signature Multiple

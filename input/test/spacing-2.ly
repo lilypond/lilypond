@@ -1,5 +1,5 @@
-#(ly:set-option 'old-relative)
 \version "2.1.7"
+
 % more yummy regression goodness.  -gp
 \header {
 texidoc = "
@@ -20,7 +20,7 @@ texidoc = "
 		{\key e \major }
 		>>
 	\new Staff { \clef "bass" \key e \major
-		 a,,16[ e dis e]  b'8[ b,]  e16[ e, gis b] e4
+		 a,16[ e dis e]  b'8[ b,]  e16[ e, gis b] e4
 	} 
 >> 
 

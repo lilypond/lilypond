@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "2.1.7"
 \header {
     texidoc =
@@ -13,17 +12,15 @@ if the black note heads are from 8th or shorter notes.
 
 
 \score { \notes \context Staff\relative c''<<
-\new Voice {
-    \voiceOne
+ {
     c2 c8 c4.
     
     \property Staff.NoteCollision \override #'merge-differently-headed = ##t
     c2
     c8 c4.
     c2
-}
-\new Voice {
-    \voiceTwo
+}\\
+ {
     c8 c4.
     c2
     c8 c4.

@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \header {
 
 texidoc =

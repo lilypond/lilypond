@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \header {
 
 texidoc = "Tieing only parts of chords is possible. It requires
@@ -13,7 +12,7 @@ to a different thread."
 
 \notes \context Thread \relative c' {
   << c~ e \new Thread c' >> 
-  << c e c'  >> 
+  << c, e c'  >> 
 }
 
 

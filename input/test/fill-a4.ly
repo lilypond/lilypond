@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "2.1.7"
 %possible rename to paper-fill-a4.ly -gp
 % candidate for reg -gp

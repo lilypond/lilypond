@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \header {
 
     texidoc = "By setting @code{voltaOnThisStaff}, repeats can be put on more staffs in a score."
