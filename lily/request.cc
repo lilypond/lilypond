@@ -43,7 +43,7 @@ Script_req::get_direction () const
 {
   SCM d = get_mus_property ("direction");
 
-  return (isdir_b (d)) ?  to_dir (d) : CENTER;
+  return (ly_dir_p (d)) ?  to_dir (d) : CENTER;
 }
 
 Direction
@@ -51,7 +51,7 @@ Span_req::get_span_dir () const
 {
   SCM d = get_mus_property ("span-direction");
 
-  return (isdir_b (d)) ?  to_dir (d) : CENTER;
+  return (ly_dir_p (d)) ?  to_dir (d) : CENTER;
 }
 
 void

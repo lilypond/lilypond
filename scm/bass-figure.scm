@@ -2,14 +2,6 @@
 
 ;;;; todo: make interfaces as 1st level objects in LilyPond.
 
-
-(define (fontify-text font-metric text)
-  "Set TEXT with font FONT-METRIC, returning a molecule."
-  (let* ((b  (ly-text-dimension font-metric text)))
-    (ly-make-molecule
-     (ly-fontify-atom font-metric `(text ,text)) (car b) (cdr b))
-    ))
-
 (define (brew-one-figure grob fig-music)
   "Brew a single column for a music figure"
   (let* (
@@ -38,27 +30,56 @@
     mol))
 
 
-(define (stack-molecules axis dir padding mols)
-  "Stack molecules MOLS in direction AXIS,DIR, using PADDING."
-  (if (null? mols)
-      '()
-      (if (pair? mols)
-	  (ly-combine-molecule-at-edge (car mols) axis dir 
-				       (stack-molecules axis dir padding (cdr mols))
-				       padding
-				       )
-	  )
-  ))
 
 (define (brew-bass-figure grob)
   "Make a molecule for a Figured Bass grob"
   (let* (
 	 (figs (ly-get-grob-property grob 'causes ))
-	 (fig-mols (map (lambda (x) (brew-one-figure grob x)) figs))
-	 (fig-mol (stack-molecules 1 -1 0.2 fig-mols))
+	 (mol (ly-make-molecule '() '(0 . 0) '(0 . 0)))
+	 (padding (ly-get-grob-property grob 'padding))
+	 (kerning (ly-get-grob-property grob 'kern))
+	 (thickness (*
+		     (ly-get-paper-variable grob 'stafflinethickness)
+		     (ly-get-grob-property grob 'thickness))
+		    )
 	 )
 
-    (ly-align-to! fig-mol Y DOWN)
-    fig-mol
-  ))
+
+
+    (define (brew-complete-figure grob figs mol)
+      "recursive function: take some stuff from FIGS, and add it to MOL." 
+      (define (end-bracket? fig)
+	(eq? (ly-get-mus-property fig 'bracket-stop) #t)
+	)
+      
+      (if (null? figs)
+	  mol
+	  (if (eq? (ly-get-mus-property (car figs) 'bracket-start) #t)
+	      (let* (
+		     (gather-todo (take-from-list-until figs '() end-bracket?))
+		     (unbr-mols
+		      (map
+		       (lambda (x) (brew-one-figure grob x))
+		       (reverse! (car gather-todo) '())))
+		     (br-mol (bracketify-molecule
+			      (stack-molecules Y UP kerning unbr-mols)
+			      Y thickness (* 2 padding) padding))
+		     )
+		(brew-complete-figure
+		 grob (cdr gather-todo)
+		 (ly-combine-molecule-at-edge mol Y UP br-mol kerning)
+		 )
+		)
+	      (brew-complete-figure
+	       grob (cdr figs)
+	       (ly-combine-molecule-at-edge mol Y UP (brew-one-figure grob (car figs))
+					    kerning))
+	      )
+	  ))
+
+    
+    (set! mol (brew-complete-figure grob (reverse figs) mol))
+    (ly-align-to! mol Y DOWN)
+    mol
+    ))
 

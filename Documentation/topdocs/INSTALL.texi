@@ -339,8 +339,8 @@ tetex-latex, tetex-dvips, libstdc++, python, ghostscript.
 
 For compilation on a Red Hat system you need these packages, in addition
 to the those needed for running: glibc-devel, gcc-c++, libstdc++-devel,
-guile-devel, flex, bison, texinfo, tetex-devel, groff,
-libgr-progs.
+guile-devel, flex, bison, texinfo, groff.
+
 
 
 @subsection LinuxPPC

@@ -1,3 +1,48 @@
+2002-03-02  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/lily-guile.cc: isdir_b and isaxis_b changed to ly_axis_p,
+	ly_dir_p
+
+	* lily/music.cc (ly_get_mus_property): typechecking
+	(ly_set_mus_property): idem
+	(ly_make_music): idem
+	(ly_music_name): idem
+
+	* lily/chord.cc: use scm_reverse_x iso. gh_reverse()
+
+	* lily/note-spacing.cc (stem_dir_correction): correction for
+	same stem notes as well. 
+
+	* lily/pitch.cc (pitch_transpose): stricter typechecking
+
+	* mf/parmesan*mf: magnification fixes.
+
+	* Documentation/topdocs/INSTALL.texi: update RedHat reqs
+
+2002-03-01  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* buildscripts/mf-to-table.py (postfixes): Output also .ly file
+	documenting the font. (Doesn't work for parmesan at the moment)
+
+	* Documentation/user/appendices.itely (The Feta font): Add list of
+	Feta font symbols with names.
+
+	* mf/GNUmakefile ($(outdir)/lilypond.map): Generate lilypond.map
+	automatically
+
+2002-03-01  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/translator-group.cc (ly_set_trans_property): typechecking
+	(ly_get_trans_property): typechecking.
+
+	* lily/font-metric.cc (ly_text_dimension): typechecking 
+	(ly_find_glyph_by_name): idem.
+
+	* scm/bass-figure.scm (brew-complete-figure): support for
+	bracketed numbers.
+	
+	* lily/grob.cc (ly_get_paper_var): new function
+
 2002-02-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION (PATCH_LEVEL): 1.5.35 released.

@@ -8,7 +8,7 @@ include $(depth)/make/stepmake.make
 
 AF_FILES = $(wildcard *.af) 
 
-EXTRA_DIST_FILES += README feta.tex lilypond.map
+EXTRA_DIST_FILES += README feta.tex
 
 # don't try to make fonts from test files
 TEST_FILES = $(wildcard *test*.mf)
@@ -57,7 +57,7 @@ ifdef MAKE_PFA_FILES
 PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
 ALL_GEN_FILES += $(PFA_FILES)
 INSTALLATION_OUT_DIR4=$(datadir)/pfa
-INSTALLATION_OUT_FILES4=$(PFA_FILES) lilypond.map
+INSTALLATION_OUT_FILES4=$(PFA_FILES)
 
 pfa: $(PFA_FILES) 
 endif
@@ -66,10 +66,13 @@ export MFINPUTS:=.:$(MFINPUTS)
 
 default: $(ALL_GEN_FILES)
 
+$(outdir)/lilypond.map: 
+	echo $(FONT_FILES:.mf=) | awk -v RS=' ' '{print $$1 " TeX-" $$1 " <" $$1 ".pfa"}' > $@
+
 ##
 ## todo: this also depends on .tfm, FIXME.
 $(outdir)/%.afm  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log 
-	$(PYTHON) $(buildscript-dir)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm) --tex $(outdir)/$(<F:.log=.tex) $<
+	$(PYTHON) $(buildscript-dir)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm) --tex $(outdir)/$(<F:.log=.tex) --ly $(outdir)/$(<F:.log=.ly) $<
 
 local-clean:
 	rm -f mfplain.mem mfplain.log 

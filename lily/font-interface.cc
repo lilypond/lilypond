@@ -69,12 +69,7 @@ SCM
 ly_font_interface_get_default_font (SCM grob)
 {
   Grob * gr  = unsmob_grob (grob);
-
-  if (!gr)
-    {
-      warning ("ly_font_interface_get_default_font (): invalid argument");
-      return SCM_UNDEFINED;
-    }
+  SCM_ASSERT_TYPE(gr, grob, SCM_ARG1, __FUNCTION__, "grob");
 
   return Font_interface::get_default_font (gr)->self_scm ();
 }

@@ -184,8 +184,7 @@ void ly_display_scm (SCM s);
 void read_lily_scm_file (String);
 void init_lily_guile (String dir);
 
-bool isdir_b (SCM s);
-bool isaxis_b (SCM s);
+bool ly_dir_p (SCM s);
 bool ly_number_pair_p (SCM);
 bool ly_axis_p (SCM);
 
@@ -204,6 +203,10 @@ SCM index_cell (SCM cellp, Direction d);
 SCM index_set_cell (SCM cellp, Direction d, SCM val);
 
 
+
+SCM ly_snoc (SCM s, SCM list);
+SCM ly_split_list (SCM s, SCM list);
+SCM ly_unique (SCM list);
 /*
   snarfing.
  */

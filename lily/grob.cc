@@ -847,9 +847,21 @@ Grob::discretionary_processing ()
 SCM
 spanner_get_bound (SCM slur, SCM dir)
 {
-  return dynamic_cast<Spanner*> (unsmob_grob (slur))->get_bound (to_dir (dir))->self_scm ();
+  Spanner * sl = dynamic_cast<Spanner*> (unsmob_grob (slur));
+  SCM_ASSERT_TYPE(sl, slur, SCM_ARG1, __FUNCTION__, "spanner grob");
+  SCM_ASSERT_TYPE(ly_dir_p (dir), slur, SCM_ARG2, __FUNCTION__, "dir");
+  return sl->get_bound (to_dir (dir))->self_scm ();
 }
 
+SCM
+ly_get_paper_var (SCM grob, SCM sym)
+{
+  Grob * sc = unsmob_grob (grob);
+  SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
+
+  return sc->paper_l() ->get_scmvar_scm (sym);
+}
 
 
 
@@ -862,6 +874,8 @@ init_functions ()
 		      (Scheme_function_unknown)ly_set_grob_property);
   scm_c_define_gsubr ("ly-get-spanner-bound", 2 , 0, 0,
 		      (Scheme_function_unknown) spanner_get_bound);
+  scm_c_define_gsubr ("ly-get-paper-variable", 2 , 0, 0,
+		      (Scheme_function_unknown) ly_get_paper_var);
 }
 
 bool

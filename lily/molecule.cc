@@ -151,13 +151,9 @@ SCM
 Molecule::ly_get_molecule_extent (SCM mol, SCM axis)
 {
   Molecule *m = unsmob_molecule (mol);
+  SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "molecule");
+  SCM_ASSERT_TYPE (ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
  
-  if (!m || !ly_axis_p (axis))
-    {
-      warning ("ly-get-molecule-extent: invalid arguments");
-      return ly_interval2scm (Interval (0,0));
-    }
-
   return ly_interval2scm (m->extent (Axis (gh_scm2int (axis))));
 }
 
@@ -173,7 +169,7 @@ Molecule::ly_molecule_combined_at_edge (SCM first, SCM axis, SCM direction,
 
 
   SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE(isdir_b (direction), direction, SCM_ARG3, __FUNCTION__, "dir");
+  SCM_ASSERT_TYPE(ly_dir_p (direction), direction, SCM_ARG3, __FUNCTION__, "dir");
   SCM_ASSERT_TYPE(gh_number_p(padding), padding, SCM_ARG4, __FUNCTION__, "number");
 
   if (m1)
@@ -220,7 +216,7 @@ ly_align_to_x (SCM mol, SCM axis, SCM dir)
 {
   SCM_ASSERT_TYPE(unsmob_molecule (mol), mol, SCM_ARG1, __FUNCTION__, "molecule");
   SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE(isdir_b (dir), dir, SCM_ARG3, __FUNCTION__, "dir");
+  SCM_ASSERT_TYPE(ly_dir_p (dir), dir, SCM_ARG3, __FUNCTION__, "dir");
 
   unsmob_molecule (mol)->align_to ((Axis)gh_scm2int (axis), Direction (gh_scm2int (dir)));
 

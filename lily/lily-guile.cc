@@ -230,12 +230,6 @@ ly_number_pair_p (SCM p)
   return gh_pair_p (p) && gh_number_p (ly_car (p)) && gh_number_p (ly_cdr (p));
 }
 
-bool
-ly_axis_p (SCM a)
-{
-  return gh_number_p (a) && (gh_scm2int (a) == 0 || gh_scm2int (a) == 1); 
-}
-
 typedef void (*Void_fptr) ();
 Array<Void_fptr> *scm_init_funcs_;
 
@@ -289,7 +283,7 @@ unsigned int ly_scm_hash (SCM s)
 
 
 bool
-isdir_b (SCM s)
+ly_dir_p (SCM s)
 {
   if (gh_number_p (s))
     {
@@ -301,7 +295,7 @@ isdir_b (SCM s)
 
 
 bool
-isaxis_b (SCM s)
+ly_axis_p (SCM s)
 {
   if (gh_number_p (s))
     {
@@ -666,4 +660,52 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
 	}
     }
   return ok;
+}
+
+
+/* some SCM abbrevs
+
+   zijn deze nou handig?
+   zijn ze er al in scheme, maar heten ze anders? */
+
+
+/* Remove doubles from (sorted) list */
+SCM
+ly_unique (SCM list)
+{
+  SCM unique = SCM_EOL;
+  for (SCM i = list; gh_pair_p (i); i = ly_cdr (i))
+    {
+      if (!gh_pair_p (ly_cdr (i))
+	  || !gh_equal_p (ly_car (i), ly_cadr (i)))
+	unique = gh_cons (ly_car (i), unique);
+    }
+  return scm_reverse_x (unique, SCM_EOL);
+}
+
+/* tail add */
+SCM
+ly_snoc (SCM s, SCM list)
+{
+  return gh_append2 (list, scm_list_n (s, SCM_UNDEFINED));
+}
+
+
+/* Split list at member s, removing s.
+   Return (BEFORE . AFTER) */
+SCM
+ly_split_list (SCM s, SCM list)
+{
+  SCM before = SCM_EOL;
+  SCM after = list;
+  for (; gh_pair_p (after);)
+    {
+      SCM i = ly_car (after);
+      after = ly_cdr (after);
+      if (gh_equal_p (i, s))
+	break;
+      before = gh_cons (i, before);
+    }
+  return gh_cons ( scm_reverse_x (before, SCM_EOL),  after);
+  
 }

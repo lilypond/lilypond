@@ -103,6 +103,22 @@
 
 
 
+(define (take-from-list-until todo gathered crit?)
+  "return (G, T), where (reverse G) + T = GATHERED + TODO, and the last of G
+is the  first to satisfy CRIT "
+  (if (null? todo)
+      (cons gathered todo)
+      (if (crit? (car todo))
+	  (cons (cons (car todo) gathered) (cdr todo))
+	  (take-from-list-until (cdr todo) (cons (car todo) gathered) crit?)
+      )
+  ))
+; test:
+; (take-from-list-until '(1 2 3  4 5) '() (lambda (x) (eq? x 3)))
+; ((3 2 1) 4 5)
+
+
+
 ; Make a function that checks score element for being of a specific type. 
 (define (make-type-checker symbol)
   (lambda (elt)

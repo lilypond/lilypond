@@ -131,6 +131,9 @@ Duration::less_p (SCM p1, SCM p2)
 static SCM
 make_duration (SCM l, SCM d)
 {
+  SCM_ASSERT_TYPE(gh_number_p(l), l, SCM_ARG1, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE(gh_number_p(d), d, SCM_ARG2, __FUNCTION__, "integer");
+  
   Duration p (gh_scm2int (l), gh_scm2int (d));
   return p.smobbed_copy ();
 }

@@ -19,6 +19,12 @@
 #include "file-results.hh" // urg? header_global_p
 #include "paper-outputter.hh"
 
+/*
+  This is an almost empty thing. The only substantial thing this class
+  handles, is scaling up and down to real-world dimensions (internally
+  dimensions are against global staff-space.)
+  
+ */
 Paper_def::Paper_def ()
 {
 }
@@ -43,6 +49,13 @@ SCM
 Paper_def::get_scmvar (String s) const
 {
   return  scope_p_->scm_elem (ly_symbol2scm (s.ch_C ()));
+}
+
+
+SCM
+Paper_def::get_scmvar_scm (SCM sym) const
+{
+  return  gh_double2scm (get_realvar (sym));
 }
 
 Real

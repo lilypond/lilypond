@@ -162,6 +162,7 @@
 	   "pdf.scm"
 	   "pdftex.scm"
       	   "c++.scm"
+	   "molecule.scm"
 	   "bass-figure.scm"
 	   "grob-property-description.scm"
 	   "context-description.scm"

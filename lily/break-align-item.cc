@@ -234,7 +234,6 @@ Break_align_interface::do_alignment (Grob *me)
 
     The result is that an offsets of align_elements_to_extents () are
     not compensated for, and spring_len is completely off.
-
     
   */
   column->set_grob_property ("extra-space",

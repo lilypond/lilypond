@@ -125,7 +125,7 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
   Axis axis = X_AXIS;
 
   SCM a = ly_assoc_chain (ly_symbol2scm ("axis"), p);
-  if (gh_pair_p (a) && isaxis_b (ly_cdr (a)))
+  if (gh_pair_p (a) && ly_axis_p (ly_cdr (a)))
     axis = (Axis)gh_scm2int (ly_cdr (a));
 
   Real baseline_skip = 0;

@@ -243,6 +243,8 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{spacing-stem-direction.ly}
 
+@lilypondfile[printfilename]{spacing-stem-same-direction.ly}
+
 @lilypondfile[printfilename]{spacing-individual-tuning.ly}
 
 @lilypondfile[printfilename]{lyrics-bar.ly}

@@ -116,7 +116,7 @@ Fingering_engraver::process_music ()
   for (int i= pitch_sorted_reqs.size(); i--;)
     {
       SCM dir = pitch_sorted_reqs[i]->get_mus_property ("direction");
-      if (isdir_b (dir) && to_dir (dir)) {
+      if (ly_dir_p (dir) && to_dir (dir)) {
 	if (to_dir (dir) == UP)
 	  up_reqs_.push (pitch_sorted_reqs[i]);
 	else if (to_dir (dir) == DOWN)
@@ -189,7 +189,7 @@ Fingering_engraver::make_script (Direction d, Music *r,Axis a,  int i)
 				gh_int2scm (100 + d* i));
 
 
-  if (!isdir_b (fingering->get_grob_property ("direction")))
+  if (!ly_dir_p (fingering->get_grob_property ("direction")))
     {
       if (d)
 	fingering->set_grob_property ("direction", gh_int2scm (d));
