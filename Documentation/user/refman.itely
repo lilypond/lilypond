@@ -5,8 +5,13 @@
 @c - Restructure! Separate internal commands from user level commands. /MB
 @c - Add some words about Guile.  /MB
 @c - Fix indexing (keyindex) so it doesn't add line breaks  /MB
+@c
+@c FIXME: Index has two alphabetically sorted lists @code vs plain?
+@c 
+@c If we'd include the auto-generated documentation, we 'd get a lot of
+@c very useful index entries.
+@c 
 
-@c ugh: because of @include, we need to fill in these nodes
 
 @node Reference Manual
 @chapter Reference Manual
@@ -41,7 +46,6 @@
 * Sound output::                   Sound output
 * midilist::                       midilist
 * Pre-defined Identifiers::        Pre-defined Identifiers
-@c May be fragile.  Better make single link to generated doco?
 * Interpretation contexts:(lilypond-internals)LilyPond interpretation contexts.
 * Engravers:(lilypond-internals)LilyPond engravers.
 * Backend:(lilypond-internals)LilyPond backend.
@@ -119,7 +123,7 @@ It is customary to put the @code{\header} at the top of the file.
 Note names and chord modifiers can be customised for nationalities.
 languages and conventions.  The syntax is as follows.
 @example
-   \pitchnames @keyindex{pitchnames} @var{scheme-alist}
+   \pitchnames@keyindex{pitchnames} @var{scheme-alist}
    \chordmodifiers@keyindex{chordmodifiers} @var{scheme-alist}
 @end example
 
@@ -1901,17 +1905,20 @@ display the chord name after a line break:
 @quotation
 @lilypond[verbatim]
 scheme = \chords {
-%  \property ChordNames.chordChanges = ##t
   c1:m \break c:m c:m c:m d
 }
 
 \score {
   \notes <
-    \context ChordNamesVoice \scheme
+    \context ChordNames \scheme
     \context Staff \transpose c'' \scheme
   >
   \paper{
     linewidth = 40 * \staffspace;
+    \translator {
+      \ChordNamesContext
+      chordChanges = ##t
+    }
   }
 }
 @end lilypond

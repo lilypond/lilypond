@@ -61,15 +61,9 @@ $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-interna
 	-cp -f $(outdir)/lilypond-internals/index.html $@
 	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 
-$(outdir)/features/features.html: $(outdir)/features.texi
-	-$(MAKEINFO) --force --output=$@ --html $<
-	-cp -f $(outdir)/*.png $(outdir)/features
-	-cp -f $(outdir)/features/index.html $@
-	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
-
 ifneq ($(SPLITTING_MAKEINFO),)
 
-DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/lilypond-internals.html $(outdir)/features/features.html
+DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/lilypond-internals.html
 
 else
 
@@ -79,7 +73,7 @@ endif
 
 
 local-WWW: $(HTML_FILES) $(datafiles) $(PS_GZ_FILES) $(DEEP_HTML_FILES)
-	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals features
+	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals
 	$(MAKE) footify
 	$(MAKE) deep-footify
 
@@ -96,7 +90,7 @@ $(outdir)/%.bib: %.bib
 
 localclean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
-	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals $(outdir)/features
+	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals
 
 backdoc-WWW: $(outdir)/lilypond-internals/lilypond-internals.html
 	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals

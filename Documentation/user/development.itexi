@@ -1,3 +1,6 @@
+@c -*-texinfo-*-
+
+@c Move chapter
 @node Internals
 @chapter Internals
 
@@ -120,9 +123,8 @@ to. Whenever the note head is moved, the staccato dot moves along
 automatically.
 
 If you keep following offset reference points, you will always end up at
-the root-object. This root object is called @code{Line_of_score}
-@ref{(lilypond-internals)Element Line_of_score}, and it represents a
-system (ie. a line of music).
+the root-object. This root object is called @rgrob{Line_of_score}, and it
+represents a system (ie. a line of music).
 
 All grobs carry a set of grob-properties.  In the Stem example above,
 the property @code{direction} is set to value @code{1}.  The function
@@ -134,13 +136,12 @@ properties.
 Often, a grob also is associated with a symbol. On the other hand,
 Some grobs do not print any symbols, but take care of grouping
 objects. For example, there is a separate grob that stacks staffs
-vertically, so they are not printed in overstrike. The NoteCollision
-@ref{(lilypond-internals)Element NoteCollision} is another example of
-an abstract grob.  It only moves around chords, but doesn't print
-anything.
+vertically, so they are not printed in overstrike. The
+@rgrob{NoteCollision} is another example of an abstract grob.  It only
+moves around chords, but doesn't print anything.
 
 A complete list of grob types is found in
-@ref{(lilypond-internals)Elements}
+@ref{(lilypond-internals)LilyPond backend}
 
 Grobs are created in the "Interpreting music" phase, by things in
 LilyPond called engravers.  In this phase of the translation, a load of

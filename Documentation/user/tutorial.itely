@@ -1,6 +1,5 @@
 @c -*-texinfo-*-
 
-@c ugh: because of @include, we need to fill in these nodes?
 @node Tutorial
 @chapter Tutorial
 

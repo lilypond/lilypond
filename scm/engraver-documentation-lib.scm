@@ -20,11 +20,11 @@
 ;; First level Engraver description and
 ;; second level Context description
 (define (document-engraver where engraver-descr)
- 
   (let* (
 	 (level (if (eq? where 'context) 3 2))
 	 (props (car (cdddr engraver-descr)))
 	 (name (car engraver-descr))
+	 (name-sym (string->symbol name))
 	 (desc (cadr engraver-descr))
 	 (objs (map symbol->string (caddr engraver-descr)))
 	 )
@@ -60,7 +60,7 @@
 					    (cdr (assoc 'consists x))
 					    (cdr (assoc 'end-consists x)))))
 
-			     (if (member name consists)
+			     (if (member name-sym consists)
 				 (list context)
 				 '())))
 			 context-description-alist))))
@@ -150,27 +150,22 @@
 
 (define (document-all-engravers name)
   (let* ((descs (map cdr engraver-description-alist))
-	 (names (map car engraver-description-alist))
+	 (names (map symbol->string (map car engraver-description-alist)))
 	 (doc (apply string-append
 		     (map (lambda (x) (document-separate-engraver name x))
 			  descs))))
-    
     (string-append
      (texi-node-menu name (map (lambda (x) (cons (engraver-name x) ""))
 			       names))
      doc)))
 
 (define (document-all-engraver-properties name)
-  (let*
-    (
-     (ps (sort (map symbol->string all-translation-properties) string<?))
-     (sortedsyms (map string->symbol ps))
-     (propdescs (map document-translator-property sortedsyms))
-     (texi (description-list->texi propdescs))
-     )
+  (let* ((ps (sort (map symbol->string all-translation-properties) string<?))
+	 (sortedsyms (map string->symbol ps))
+	 (propdescs (map document-translator-property sortedsyms))
+	 (texi (description-list->texi propdescs)))
      
   (string-append
 	  (node name)
 	  (texi-section 1 name #f)
-	  texi
-   )))
+	  texi)))

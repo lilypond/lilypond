@@ -1,4 +1,4 @@
-;;
+;;;
 ;;; documentation-lib.scm -- Assorted Functions for generated documentation
 ;;;
 ;;; source file of the GNU LilyPond music typesetter
@@ -125,7 +125,7 @@ Add a ref if REF is set
    ;; prepend GNU for dir, must be unique
    "\n* GNU " name " (" file-name ").           " name "."
    "\n@end direntry"
-   (node "Top") ",(lilypond)Development,," top
+   (node "Top") ",(lilypond)Features,," top
    "\n@top"
    (texi-section 1 name #f)
    (texi-menu items-alist)

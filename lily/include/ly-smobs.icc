@@ -51,7 +51,8 @@ void								\
 CL::init_smobs ()						\
 {								\
   smob_tag_ = scm_make_smob_type_mfpe (				\
-     #CL, 0, CL::mark_smob, CL::free_smob, CL::print_smob, 0);	\
+     #CL, 0, CL::mark_smob, CL::free_smob, CL::print_smob,	\
+     CL::equal_p);                                              \
 }								\
 SCM CL::smobbed_self () const					\
 {								\

@@ -12,61 +12,49 @@
 
 
 (define (backend-property->texi sym)
-  (let* (
-	(name (symbol->string sym))
+  (let* ((name (symbol->string sym))
 	(type (object-property sym 'backend-type?))
 	(typename (type-name type))
-	(desc (object-property sym 'backend-doc))
-	)
+	(desc (object-property sym 'backend-doc)))
 
     (cons (string-append "@code{" name "} "
 		       "(" typename ")"
 		       ":" )
-	  desc)
-    ))
+	  desc)))
 
 (define (document-grob-property sym grob-description only-doc-if-set)
-  (let*
-      (
-       (handle (assoc sym grob-description))
-       (defval (if (eq? handle #f)
-		   ""
-		   (scm->texi (cdr handle))
-		   ))
-       (propdoc (backend-property->texi sym))
-       )
-
-    (if (and only-doc-if-set  (eq? handle #f) )
+  (let* ((handle (assoc sym grob-description))
+	 (defval (if (eq? handle #f)
+		     ""
+		   (scm->texi (cdr handle))))
+	 (propdoc (backend-property->texi sym)))
+	 
+    (if (and only-doc-if-set  (eq? handle #f))
 	'("" . "")
 	(cons (car propdoc) (string-append (cdr propdoc)
 					   "\nDefault value: "
-					   defval)))
-    ))
+					   defval)))))
 
 (define (document-interface where interface grob-description)
-  "
-
-"
   (let* ((level (if (eq? where 'grob) 3 2))
 	 (name (car interface))
 	 (desc (cadr interface))
 	 (props (caddr interface))
-	 (docfunc  (lambda (x)
+	 (docfunc (lambda (x)
 		    (document-grob-property
 		     x grob-description (eq? where 'grob))))
-	 (docs (map docfunc props))
-	 )
+	 (docs (map docfunc props)))
 
     (string-append
-     (texi-section level (string-append (interface-name (symbol->string name))) (eq? where 'grob)) ;gur.
+     (texi-section level
+		   (string-append (interface-name (symbol->string name)))
+		   (eq? where 'grob)) ;gur.
      desc
-     
-     (description-list->texi docs)
-     )))
+     (description-list->texi docs))))
 
 ;; First level Interface description
 (define (document-separate-interface interface)
-  (let ((name (car interface)))
+  (let ((name (symbol->string (car interface))))
     (processing name)
     (string-append
      (node (interface-name name))
@@ -84,9 +72,10 @@
 	 
 	 (name (cdr (assoc 'name meta)))
 	 (ifaces (cdr (assoc 'interface-descriptions meta)))
-	 (ifacedoc (map (lambda (x) (document-interface 'grob x description))
+	 (ifacedoc (map (lambda (x)
+			  (document-interface 'grob x description))
 			(reverse ifaces))))
-    
+
     (string-append
      (node (grob-name name))
      (texi-section 2 (grob-name name) #f)
@@ -104,16 +93,19 @@
 			 engraver-description-alist))))
        (string-append
 	name " grobs are created by: "
-	(human-listify (map reffy (map engraver-name engravers)))))
+	(human-listify (map reffy
+			    (map engraver-name
+				 (map symbol->string engravers))))))
 
      (apply string-append ifacedoc))))
      
 
 (define (document-all-grobs name)
   (let* ((doc (apply string-append
-		     (map (lambda (x) (document-grob (car x) (cdr x)))
+		     (map (lambda (x)
+			    (document-grob (symbol->string (car x)) (cdr x)))
 			  all-grob-descriptions)))
-	 (names (map car all-grob-descriptions)))
+	 (names (map symbol->string (map car all-grob-descriptions))))
 
     (string-append
      (texi-node-menu name (map (lambda (x) (cons (grob-name x) ""))
@@ -145,7 +137,7 @@
 (define (ugh-standalone-list-interface-names)
   (let* ((text interface-file-str)
 	 (t1 (regexp-substitute/global #f "\n" text 'pre 'post))
-	 (t (regexp-substitute/global #f "[^\t ]*[ \t]([a-z-]+interface)" 
+	 (t (regexp-substitute/global #f "[^\t ]define[ \t]*([a-z-]+interface)" 
 				      t1 1 " " 'post))
 	 (ugh (regexp-substitute/global #f "  .*" t 'pre 'post))
 	 (l (separate-fields-discarding-char #\  ugh list)))
@@ -164,7 +156,8 @@
 ;; guile> (load "backend-documentation-lib.scm")
 ;; For some reason, this can't be generated when lilypond is loaded;
 ;; the regexp stuff behaves weird.
-(define (list-interface-names) '("general-grob-interface" "general-grob-interface" "beam-interface" "clef-interface" "axis-group-interface" "note-column-interface" "stem-interface" "slur-interface" "side-position-interface" "accidentals-interface" "line-of-score-interface" "note-head-interface" "note-name-interface" "rhythmic-head-interface" "rest-interface" "tuplet-bracket-interface" "align-interface" "aligned-interface" "align-interface" "break-aligned-interface" "chord-name-interface" "time-signature-interface" "bar-line-interface" "hairpin-interface" "arpeggio-interface" "note-collision-interface" "custos-interface" "dot-interface" "font-interface" "text-interface" "dot-column-interface" "dynamic-interface" "finger-interface" "separation-spanner-interface" "text-script-interface" "grace-alignment-interface" "hara-kiri-group-interface" "line-spanner-interface" "lyric-hyphen-interface" "key-signature-interface" "lyric-extender-interface" "lyric-syllable-interface" "mark-interface" "multi-measure-rest-interface" "font-interface" "paper-column-interface" "spaceable-element-interface" "rest-collision-interface" "script-interface" "script-column-interface" "spacing-spanner-interface" "staff-symbol-interface" "stem-tremolo-interface" "separation-item-interface" "sustain-pedal-interface" "system-start-delimiter-interface" "text-spanner-interface" "tie-interface" "tie-column-interface" "volta-bracket-interface"))
+(define (list-interface-names) '("general-grob-interface" "beam-interface" "clef-interface" "axis-group-interface" "note-column-interface" "stem-interface" "slur-interface" "side-position-interface" "accidentals-interface" "line-of-score-interface" "note-head-interface" "note-name-interface" "rhythmic-head-interface" "rest-interface" "tuplet-bracket-interface" "align-interface" "aligned-interface" "break-aligned-interface" "chord-name-interface" "time-signature-interface" "bar-line-interface" "hairpin-interface" "arpeggio-interface" "note-collision-interface" "custos-interface" "dot-interface" "font-interface" "text-interface" "dot-column-interface" "dynamic-interface" "finger-interface" "separation-spanner-interface" "text-script-interface" "grace-alignment-interface" "hara-kiri-group-interface" "line-spanner-interface" "lyric-hyphen-interface" "key-signature-interface" "lyric-extender-interface" "lyric-syllable-interface" "mark-interface" "multi-measure-rest-interface" "paper-column-interface" "spaceable-element-interface" "rest-collision-interface" "script-interface" "script-column-interface" "spacing-spanner-interface" "staff-symbol-interface" "stem-tremolo-interface" "separation-item-interface" "sustain-pedal-interface" "system-start-delimiter-interface" "text-spanner-interface" "tie-interface" "tie-column-interface" "volta-bracket-interface" "span-bar-interface"))
+
 
 (eval-string (ly-gulp-file "interface-description.scm"))
 
@@ -176,7 +169,8 @@
 
 (define (document-all-interfaces name)
   (string-append
-   (texi-node-menu name (map (lambda (x) (cons (interface-name x) ""))
+   (texi-node-menu name (map (lambda (x)
+			       (cons (interface-name (symbol->string x)) ""))
 			     (map cadr interface-description-alist)))
    (apply string-append
 	  (map document-separate-interface

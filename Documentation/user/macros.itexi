@@ -1,0 +1,44 @@
+
+@ifnottex
+@macro keyindex {word}
+@cindex @code{ \word\ }
+@end macro
+
+@macro indexcode {word}
+@cindex @code{ \word\ }
+@end macro
+@end ifnottex
+
+@iftex
+@macro keyindex {word}
+@cindex @code{ \word\ }
+
+@end macro
+
+@macro indexcode {word}
+@cindex @code{ \word\ }
+
+@end macro
+@end iftex
+
+@ifinfo
+@macro rgrob {word}
+@ref{ (lilypond-internals)Grob \word\, \word\ },
+
+@end macro
+@macro reng {word}
+@ref{ (lilypond-internals)Engraver \word\, \word\ },
+
+@end macro
+@end ifinfo
+
+@ifnotinfo
+@macro rgrob {word}
+@ref{ (lilypond-internals)Grob \word\, \word\ }
+
+@end macro
+@macro reng {word}
+@ref{ (lilypond-internals)Engraver \word\, \word\ }
+
+@end macro
+@end ifnotinfo
