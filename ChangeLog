@@ -1,5 +1,8 @@
 2003-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* buildscripts/lilypond-profile.sh (Error): more zsh stuff: print
+	a warning that the warning may erroneous.
+
 	* Documentation/topdocs/INSTALL.texi (Top): add note about get-pfa
 	target.
 
