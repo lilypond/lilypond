@@ -4,6 +4,9 @@
 
 2005-02-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/topdocs/NEWS.tely (Top): only mention 2.5
+	NEWS. Refer to website for older news.  
+
 	* stepmake/bin/add-html-footer.py (i18n): don't strip .PNG /
 	.HTML. This should be done for specific servers only.
 
