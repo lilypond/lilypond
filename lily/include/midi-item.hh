@@ -160,6 +160,16 @@ public:
   Audio_text* audio_l_;
 };
 
+class Midi_dynamic : public Midi_item
+{
+public:
+  Midi_dynamic (Audio_dynamic*);
+  
+  virtual String str () const;
+
+  Audio_dynamic* audio_l_;
+};
+
 class Midi_tempo : public Midi_item
 {
 public:

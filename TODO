@@ -16,6 +16,25 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * hard constraints for  broken slurs to.
 . * Staff_margin_engraver placement is broken for Staff.instr(ument)
 . * Bracket/brace placement and stacking is broken
+. * Lattermann:
+
+ 2. There dynamic markings of the cello part are set in roman (maybe
+    because of pizz. and arco in roman?)
+
+ 4. Bar 41/42, violins: the ties should be the same direction, pref.
+    down in bar 42.
+    -- dir of broken ties
+
+ 7. This is a bug: there's a colon in the middle of the two harmonium
+    staves
+
+ 12. bars 82 to 84 and 88: the ties of upper harmonium should all bend down.
+     -- stemdown ~ stemup and at linebreak
+
+ 15. bar 89, harmonium, the ties coming from the previous line look strangely
+     asymmetric.
+
+
 . * Mondrup:
 
 - In some cases I don't get the large textsize within note examples I request.

@@ -20,6 +20,15 @@
 #include "note-head.hh"
 #include "group-interface.hh"
 
+/*
+  TODO:
+    multiple type of span dynamic:
+    * hairpin
+    * text:
+      - `cresc. --  --  --'
+      - `cresc. poco a poco -- -- --'
+ */
+
 /**
    print text & hairpin dynamics.
  */
