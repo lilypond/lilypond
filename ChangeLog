@@ -1,3 +1,7 @@
+2005-03-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* stepmake/bin/add-html-footer.py (wiki_base): remove wiki link.
+
 2004-04-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scripts/convert-ly.py (FatalConversionError.conv): add

@@ -35,22 +35,19 @@ default_header = r"""
 """
 
 
-wiki_base = 'http://afavant.elte.hu/lywiki/'
+wiki_base = '' #'http://afavant.elte.hu/lywiki/'
 
 
 default_footer = r"""<hr>Please take me <a href=@INDEX@>back to the index</a>
 of @PACKAGE_NAME@
 """
 
-built = r"""
+built = r'''
 <p>
 <table align="center" width="100%%" cellspacing="2" BGCOLOR="#e8ffe8">
  <tr>
           <td align=left>
 
-<a href="%(wiki_base)s%(wiki_page)s">Read </a> comments on this page, or
-<a href="%(wiki_base)s%(wiki_page)s?action=edit">add</a> one.
-<p>
 <font size="-1">
 This page is for %(package_name)s-%(package_version)s (%(branch_str)s). <br>
 </font>
@@ -60,7 +57,7 @@ Report errors to &lt;<a href="mailto:%(mail_address)s">%(mail_address)s</a>&gt;.
         </table>
 
 
-"""
+'''
 
 
 def gulp_file (f):
