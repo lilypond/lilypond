@@ -476,8 +476,8 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	    This test is too weak; we should really check all lines.
 	   */
 	  Direction stem_dir = dirs[d];
-	  Real gap1 =  y[d] - stem_dir * ((j-1) * beam_translation + thickness / 2 - slt/2 );
-	  Real gap2 = y[d] - stem_dir * (j * beam_translation - thickness / 2 + slt/2);
+	  Real gap1 =  y[d] - stem_dir * ((j-1) * beam_translation + thickness / 2 - slt/2.2 );
+	  Real gap2 = y[d] - stem_dir * (j * beam_translation - thickness / 2 + slt/2.2);
 
 	  Interval gap;
 	  gap.add_point (gap1);
