@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.30"
 
 \header { texidoc = "@cindex text spanner
 Text spanners can be used in the similar manner than markings for pedals
@@ -28,7 +28,7 @@ or octavation.
         a \stopTextSpan
 
 
-        \set Staff.centralCPosition = #-13
+        \set Staff.middleCPosition = #-13
 
         \override TextSpanner  #'dash-period = #10
         \override TextSpanner  #'dash-fraction = #.5
@@ -36,7 +36,7 @@ or octavation.
         a \startTextSpan
 	b c 
         a \stopTextSpan
-        \set Staff.centralCPosition = #-6	
+        \set Staff.middleCPosition = #-6	
     }
 	\paper{ raggedright = ##t}
 }

@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.30"
 \header {
     
     texidoc = "The area underneath an (up) slur is minimised to improve the shape. "

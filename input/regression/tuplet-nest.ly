@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.30"
 \header {
   texidoc="By a manual hack for nested tuplets, an outer tuplet can be moved up."
 }

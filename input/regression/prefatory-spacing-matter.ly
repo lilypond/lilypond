@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.30"
 \header {
 
     texidoc = "Distances between prefatory items (e.g. clef, bar, etc.)

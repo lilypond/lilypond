@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.30"
 
 \header{
     texidoc="Beamed stems have standard lengths if possible. Quantization is switched off in this example."

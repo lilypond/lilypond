@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.30"
 \header { texidoc= "@cindex Chord Names No Inversions
 Since there are several interpretations for recognizing 
 chord names, the lowest note is the bass note of a chord and the inversion 

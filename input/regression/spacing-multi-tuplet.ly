@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.30"
 \header{
 texidoc = "Concurrent tuplets should be equidistant on all staffs.
 

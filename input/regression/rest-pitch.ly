@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.30"
 \header {
 
 texidoc = "Rests can have pitches--these will be affected by

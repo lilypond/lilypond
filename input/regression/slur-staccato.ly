@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.30"
 \header {
 texidoc="An extra offset may be added between a slur and staccato(s)."
 }

@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.30"
 % possible rename.  -gp
 
 \header { texidoc="@cindex Seperate Staccato

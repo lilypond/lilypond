@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.30"
 \header
 {
     texidoc ="Slurs may be placed over rest. The slur will avoid colliding with

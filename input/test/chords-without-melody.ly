@@ -1,4 +1,4 @@
-\version "2.1.29"
+\version "2.1.30"
 \header {
 texidoc = "Jazz chord names can also be printed without notes."
 }

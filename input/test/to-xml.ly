@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.30"
 
 fooBar = \notes { << c''4 \\ g'4 >> }
 

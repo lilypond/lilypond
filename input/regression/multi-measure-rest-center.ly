@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.30"
 \header
 {
   texidoc = "The multimeasure rest is centered exactly between bar lines."

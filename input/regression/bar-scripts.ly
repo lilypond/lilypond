@@ -1,10 +1,8 @@
-\version "2.1.28"
+\version "2.1.30"
 \header{
 texidoc="
 
-Markings that are attached to (invisible) barlines are 
-delicate: they are attached to the rest of the score without the score
-knowing it.  Consequently, they fall over  often.
+Markings can be attached to (invisible) barlines.
 "
 }
 
@@ -16,7 +14,8 @@ onestaff = \new Staff\notes\relative c''  {
 	 c1 \mark "A" \break c2  c2 \break
 }
 
-grstaff = \notes \relative c'' \context GrandStaff <<
+grstaff = \notes \relative c''
+\context GrandStaff <<
 	\new Staff {
 
 	\set Staff.instr = instr

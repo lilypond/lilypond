@@ -1,4 +1,4 @@
-\version "2.1.28" \header{
+\version "2.1.30" \header{
 
 
     texidoc=" Noteheads can have dots, and rests too.  

@@ -1,4 +1,4 @@
-\version "2.1.29"
+\version "2.1.30"
 \header {
 
 texidoc = "A clef can be folded below notes in a different staff, if

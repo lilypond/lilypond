@@ -1,4 +1,4 @@
-\version "2.1.28"
+\version "2.1.30"
 \header {
     title	= "Gregorian Scripts"
     texidoc  = "@cindex Gregorian Scripts

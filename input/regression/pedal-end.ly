@@ -1,4 +1,4 @@
-\version "2.1.29"
+\version "2.1.30"
 \header {
 
     texidoc = "Unterminated piano pedal brackets run to the end of the piece. "

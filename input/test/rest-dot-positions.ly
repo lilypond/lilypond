@@ -1,5 +1,5 @@
 
-\version "2.1.28"
+\version "2.1.30"
 % candidate for regression.  -gp
 \header { texidoc = "@cindex Rest Dot Positions
 Dots of rests should follow the rest positions. " }

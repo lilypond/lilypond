@@ -7,7 +7,7 @@
 
       }
 
-\version "2.1.28" % to be updated
+\version "2.1.30" % to be updated
 
 #(def-markup-command (upcase paper props str) (string?)
   "Upcase the string characters. Syntax: \\upcase #\"string\""
