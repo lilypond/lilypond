@@ -1,4 +1,17 @@
 
+pl 35
+	- naming: lily-init iso symbol.ly
+	- mf braces
+	- center textscripts.
+
+pl 34.jcn1
+	- mf: nicening of dyn, klef, rest
+	- fingerfont
+	- bf: 12/8
+	
+
+********
+dec 2
 pl 34
 	- bf: mf: numbers and alto clef
 	- bf: scsi-menuet
