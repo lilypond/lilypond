@@ -368,8 +368,18 @@ set_slur_control_points (Grob *me)
     return;
   
   state.generate_curves ();
-  Bezier best (state.get_best_curve());
 
+  SCM end_ys = me->get_property ("positions");
+  Bezier best;
+
+  if (is_number_pair (end_ys))
+    {
+      best = state.configurations_[state.get_closest_index (end_ys)]->curve_;
+    }
+  else
+    {
+      best = state.get_best_curve();
+    }
 
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)
@@ -407,33 +417,40 @@ Slur_score_state::get_best_curve ()
   if (to_boolean (slur_->get_layout ()
 		  ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")))
       && scm_is_pair (inspect_quants))
-    {
-      Drul_array<Real> ins = ly_scm2interval (inspect_quants);
-      Real mindist = 1e6;
-      for (int i = 0; i < configurations_.size (); i ++)
-	{
-	  Real d =fabs (configurations_[i]->attachment_[LEFT][Y_AXIS] - ins[LEFT])
-	    + fabs (configurations_[i]->attachment_[RIGHT][Y_AXIS] - ins[RIGHT]);
-	  if (d < mindist)
-	    {
-	      opt_idx = i;
-	      mindist= d;
-	    }
-	}
-      if (mindist > 1e5)
-	programming_error ("Could not find quant.");
-    }
+    opt_idx = get_closest_index (inspect_quants);
 
   configurations_[opt_idx]->score_card_ += to_string ("=%.2f", opt);  
   configurations_[opt_idx]->score_card_ += to_string ("i%d", opt_idx);
 
   // debug quanting
   slur_->set_property ("quant-score",
-		    scm_makfrom0str (configurations_[opt_idx]->score_card_.to_str0 ()));
+		       scm_makfrom0str (configurations_[opt_idx]->score_card_.to_str0 ()));
 
 #endif
 
   return configurations_[opt_idx]->curve_;
+}
+
+int
+Slur_score_state::get_closest_index (SCM inspect_quants) const
+{
+  Drul_array<Real> ins = ly_scm2interval (inspect_quants);
+
+  int opt_idx = -1;
+  Real mindist = 1e6;
+  for (int i = 0; i < configurations_.size (); i ++)
+    {
+      Real d =fabs (configurations_[i]->attachment_[LEFT][Y_AXIS] - ins[LEFT])
+	+ fabs (configurations_[i]->attachment_[RIGHT][Y_AXIS] - ins[RIGHT]);
+      if (d < mindist)
+	{
+	  opt_idx = i;
+	  mindist= d;
+	}
+    }
+  if (mindist > 1e5)
+    programming_error ("Could not find quant.");
+  return opt_idx;
 }
 
 /*

@@ -13,6 +13,7 @@
 #include "box.hh"
 #include "lily-proto.hh"
 #include "parray.hh"
+#include "lily-guile.hh"
 
 struct Slur_score_parameters
 {
@@ -144,6 +145,7 @@ struct Slur_score_state
   Encompass_info get_encompass_info (Grob *col) const;
   Array<Extra_collision_info> get_extra_encompass_infos () const;
   Real move_away_from_staffline (Real y, Grob *on_staff) const;
+  int get_closest_index (SCM inspect_quants) const;
 };
 
 
