@@ -124,7 +124,7 @@ a fresh copy of the  list-head is made."
 			   c 'autoBeamSettings
 			   setting (ly:make-moment num den))
 			  ))
-    "Voice")
+    'Voice)
   ))
 
 (define-public (revert-auto-beam-setting setting)
@@ -135,7 +135,7 @@ a fresh copy of the  list-head is made."
 			   c 'autoBeamSettings
 			   setting)))
     
-    "Voice")))
+    'Voice)))
   
 
 

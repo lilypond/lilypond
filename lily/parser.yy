@@ -582,7 +582,7 @@ translator_spec_body:
 	}
 	| translator_spec_body ALIAS STRING  {
 		Translator_def*td = unsmob_translator_def ($$);
-		td->type_aliases_ = scm_cons ($3, td->type_aliases_);
+		td->type_aliases_ = scm_cons (scm_string_to_symbol ($3), td->type_aliases_);
 	}
 	| translator_spec_body GROBDESCRIPTIONS embedded_scm {
 		Translator_def*td = unsmob_translator_def($$);

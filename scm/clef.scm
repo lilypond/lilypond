@@ -141,11 +141,7 @@
 	     )
 
 	  (ly:set-mus-property! seq 'elements musics)
-	  (ly:set-mus-property! csp 'element seq)
-	  (ly:set-mus-property! csp 'context-type "Staff")
-
-	  csp
-	  )
+	  (context-spec-music seq 'Staff))
 	(begin
 	  (ly:warn (format "Unknown clef type `~a'
 See scm/lily.scm for supported clefs" cl))
