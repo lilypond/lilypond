@@ -13,8 +13,18 @@ class Swallow_performer : public Performer
 public:
   TRANSLATOR_DECLARATIONS(Swallow_performer);
 protected:
-  virtual bool try_music (Music*) { return true; }
+  virtual bool try_music (Music*);
 };
+
+bool
+Swallow_performer::try_music (Music *m)
+{
+  if (m->is_mus_type ("busy-playing-event")
+      || m->is_mus_type ("melisma-playing-event"))
+    return false;
+  else
+    return true; 
+}
 
 Swallow_performer::Swallow_performer()
 {}

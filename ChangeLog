@@ -1,3 +1,10 @@
+2003-10-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/note-performer.cc (try_music): accept busy-playing-event.
+
+	* lily/swallow-perf.cc (try_music): return false for
+	busy-playing-event and melisma-playing-event.
+
 2003-10-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/etf2ly.py: Patch by Arvid Grotting for minor keys and <<
