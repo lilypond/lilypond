@@ -108,7 +108,7 @@
    ((Instrument_name Left_edge_item) . (extra-space 1.0))
    ((Left_edge_item Clef_item) . (extra-space 1.0))
    ((none Left_edge_item) . (extra-space 0.0))
-   ((Left_edge_item Staff_bar) . (extra-space 0.0))	    
+   ((Left_edge_item Staff_bar) . (extra-space 0.0))
 ;   ((none Left_edge_item) . (extra-space -15.0))
 ;   ((none Left_edge_item) . (extra-space -15.0))
    ((none Clef_item) . (minimum-space 1.0))
@@ -146,15 +146,16 @@
 	       '(minimum-space 0.0)))))
   
 
-(define (noteheadsymbol duration style)
-  (cond
-   ((equal? style "cross") "2cross")
-   ((equal? style "harmonic") "0mensural")
-   ((equal? style "baroque")
+(define (find-notehead-symbol duration style)
+  (case style
+   ((cross) "2cross")
+   ((harmonic) "0mensural")
+   ((baroque) 
     (string-append (number->string duration)
 		   (if (< duration 0) "mensural" "")))
+   ((default) (number->string duration))
    (else
-    (string-append (number->string duration) style))))
+    (string-append (number->string duration) (symbol->string style)))))
 
 
 ;;;;;;;; TeX

@@ -76,7 +76,8 @@
 (define generic-chord-name-properties
   (cons "Chord_name" (list
 		      (list 'textScriptWordSpace number? 'word-space)
-		      (list 'chordNameWordSpace number? 'word-space))))
+		      (list 'chordNameWordSpace number? 'word-space)
+		      (list 'chordNameStyle string? 'style))))
 
 (define generic-crescendo-properties
   (cons "Crescendo" (list
@@ -130,6 +131,11 @@
 
 (define generic-All-properties
   (cons "all"  (list (list 'fontSize number? 'fontsize))))
+
+
+(define generic-notehead-properties
+  (cons "Note_head" (list (list 'noteHeadStyle symbol? 'style))))
+
 
 (define generic-rest-properties
   (cons "Rest" (list (list 'restStyle string? 'reststyle))))
@@ -205,6 +211,7 @@
    generic-tie-properties
    generic-tie-column-properties   
    generic-tuplet-spanner-properties
+   generic-notehead-properties
    generic-rest-properties
    generic-slur-properties
    generic-beam-properties
@@ -238,6 +245,7 @@
 
 (define generic-thread-properties
   (list generic-All-properties
+        generic-notehead-properties
 	generic-dot-properties
 	)
 

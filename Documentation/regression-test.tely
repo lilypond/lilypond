@@ -360,4 +360,11 @@ signatures.
 \mu delafile{time.ly}
 @end ignore
 
+@section Hacks and Features
+
+As a last resort, the placement of items can be adjusted manually.
+
+@mudelafile{generic-output-property.ly}
+
 @bye
+

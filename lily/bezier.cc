@@ -7,6 +7,9 @@
 */
 
 #include <math.h>
+#include "config.h"
+
+
 #include "bezier.hh"
 #include "polynomial.hh"
 

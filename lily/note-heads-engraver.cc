@@ -58,7 +58,6 @@ Note_heads_engraver::do_process_music()
   if (note_p_arr_.size ())
     return ;
   
-  SCM noteheadstyle = get_property ("noteHeadStyle");
   for (int i=0; i < note_req_l_arr_.size (); i++)
     {
       Note_head *note_p  = new Note_head;
@@ -86,15 +85,6 @@ Note_heads_engraver::do_process_music()
 	}
       si.set_position(note_req_l->pitch_.steps ());
 
-      /*
-	TODO: transparent note heads.
-       */
-	 
-      if (gh_string_p (noteheadstyle))
-	{
-	  note_p->set_elt_property ("style", noteheadstyle);
-	}
-      
       Score_element_info itinf (note_p,note_req_l);
       announce_element (itinf);
       note_p_arr_.push (note_p);

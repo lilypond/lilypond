@@ -455,7 +455,7 @@ if 1:
 		return str
 
 	conversions.append ((1,3,41), conv,
-			    '[:16 c4 d4 ] -> \repeat "tremolo" 2 { c16 d16 }')
+			    '[:16 c4 d4 ] -> \\repeat "tremolo" 2 { c16 d16 }')
 
 if 1:
 	def conv (str):
@@ -464,6 +464,14 @@ if 1:
 
 	conversions.append ((1,3,42), conv,
 			    'Staff_margin_engraver deprecated, use Instrument_name_engraver')
+
+if 1:
+	def conv (str):
+		str = re.sub ('note[hH]eadStyle\\s*=\\s*"?(\\w+)"?' , "noteHeadStyle = #'\\1", str)
+		return str
+
+	conversions.append ((1,3,49), conv,
+			    'noteHeadStyle value: string -> symbol')
 
 ############################
 	

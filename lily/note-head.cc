@@ -87,13 +87,13 @@ Note_head::do_brew_molecule() const
   SCM style  = get_elt_property ("style");
   if (style == SCM_UNDEFINED)
     {
-      style = ly_str02scm("");
+      style = ly_symbol2scm("default");
     }
   
   Molecule out = lookup_l()->afm_find (String ("noteheads-") + 
-		ly_scm2string (scm_eval (gh_list (ly_symbol2scm("noteheadsymbol"),
+		ly_scm2string (scm_eval (gh_list (ly_symbol2scm("find-notehead-symbol"),
 						  gh_int2scm(balltype_i ()),
-						  style,
+						  ly_quote_scm(style),
 						  SCM_UNDEFINED))));
 
   Box ledgerless = out.dim_;

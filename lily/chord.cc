@@ -231,6 +231,10 @@ Chord::Chord (Chord const& chord)
 }
   
 
+/*
+  JUNKME. 
+  do something smarter.
+ */
 Array<Musical_pitch>
 Chord::base_arr (Musical_pitch p)
 {
@@ -295,6 +299,10 @@ Chord::step_i (Musical_pitch tonic, Musical_pitch p)
   return i;
 }
 
+/*
+  JUNKME. 
+  do something smarter.
+ */
 Array<Musical_pitch>
 Chord::missing_thirds_pitch_arr (Array<Musical_pitch> const* pitch_arr_p)
 {
@@ -376,76 +384,6 @@ Chord::to_pitch_arr () const
     }
   return pitch_arr;
 }
-
-void
-Chord::find_additions_and_subtractions (Array<Musical_pitch> pitch_arr, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p)
-{
-  Musical_pitch tonic = pitch_arr[0];
-  /*
-    construct an array of thirds for a normal chord
-   */
-  Array<Musical_pitch> all_arr;
-  all_arr.push (tonic);
-  if (step_i (tonic, pitch_arr.top ()) >= 5)
-    all_arr.push (pitch_arr.top ());
-  else
-    all_arr.push (base_arr (tonic).top ());
-  all_arr.concat (missing_thirds_pitch_arr (&all_arr));
-  all_arr.sort (Musical_pitch::compare);
-  
-  int i = 0;
-  int j = 0;
-  Musical_pitch last_extra = tonic;
-  while ((i < all_arr.size ()) || (j < pitch_arr.size ()))
-    {
-      Musical_pitch a = all_arr [i <? all_arr.size () - 1];
-      Musical_pitch p = pitch_arr[j <? pitch_arr.size () - 1];
-      /*
-        this pitch is present: do nothing, check next
-       */
-      if (a == p)
-	{
-	  i++;
-	  j++;
-	  last_extra = tonic;
-	}
-      /*
-        found an extra pitch: chord addition
-       */
-      else if ((p < a) || (p.notename_i_ == a.notename_i_))
-	{
-	  add_arr_p->push (p);
-	  last_extra = p;
-	  (j < pitch_arr.size ()) ? j++ : i++;
-	}
-      /*
-        a third is missing: chord subtraction
-       */
-      else
-	{
-	  if (last_extra.notename_i_ != a.notename_i_)
-	    sub_arr_p->push (a);
-	  (i < all_arr.size ()) ? i++ : j++;
-	  last_extra = tonic;
-	}
-    }
-      
-  /* add missing basic steps */
-  if (step_i (tonic, pitch_arr.top ()) < 3)
-    sub_arr_p->push (base_arr (tonic)[1]);
-  if (step_i (tonic, pitch_arr.top ()) < 5)
-    sub_arr_p->push (base_arr (tonic).top ());
-
-  /*
-    add highest addition, because it names chord, if greater than 5
-    or non-standard
-    (1, 3 and) 5 not additions: part of normal chord
-   */
-  if ((step_i (tonic, pitch_arr.top ()) > 5)
-       || pitch_arr.top ().accidental_i_)
-    add_arr_p->push (pitch_arr.top ());
-}
-
 
 /*
   This routine tries to guess tonic in a possibly inversed chord, ie

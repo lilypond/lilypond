@@ -7,4 +7,4 @@ dvi: $(DVI_FILES)
 pks: $(addprefix $(outdir)/, $(XPM_FONTS:%=%.$(XPM_RESOLUTION)pk))
 
 xpms: $(addprefix $(outdir)/, $(XPM_FONTS:%=%.afm)) pks
-	$(SHELL) $(depth)/buildscripts/mf-to-xpms.sh $(XPM_FONTS)
+	$(foreach i, $(XPM_FONTS), $(SHELL) $(depth)/buildscripts/mf-to-xpms.sh $(i) && ) true

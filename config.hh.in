@@ -21,6 +21,12 @@
 /* define if you have gettext */
 #define HAVE_GETTEXT 0
 
+/* define if you have isinf */
+#define HAVE_ISINF 0
+
+/* define if you have isinf */
+#define HAVE_ISINF 0
+
 /* define if explicit instantiation is needed */
 #undef NEED_EXPLICIT_INSTANTIATION
 
