@@ -474,6 +474,7 @@ AncientRemoveEmptyStaffContext = \context {
 
     harmonicAccidentals = ##t 
     fingeringOrientations = #'(up down)
+    stringNumberOrientations = #'(up down)
     tupletNumberFormatFunction = #denominator-tuplet-formatter
     markFormatter = #format-mark-letters
     rehearsalMark = #1 

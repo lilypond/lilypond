@@ -324,6 +324,7 @@ up the interpretation phase. This speeds up debugging large scores.")
      (squashedPosition ,integer? " Vertical position of
 squashing for @internalsref{Pitch_squash_engraver}.")
 
+     (stringNumberOrientations ,list? "See @code{fingeringOrientations}")
      (stringOneTopmost ,boolean? "Whether the 1st string is printed on the
 top line of the tablature.")
 
