@@ -44,33 +44,26 @@ Key_performer::create_audio_elements ()
 {
   if (key_req_) 
     {
-
-      /*
-	UGH. primitive-eval.
-       */
       SCM pitchlist = key_req_->get_mus_property ("pitch-alist");
       SCM proc = scm_primitive_eval (ly_symbol2scm ("accidentals-in-key")); 
       SCM acc = gh_call1 (proc, pitchlist);
- 
-      Pitch my_do (0, 
-		   gh_scm2int (ly_caar (pitchlist)),
-		   gh_scm2int (ly_cdar (pitchlist)));
+      
+      Pitch key_do (0, 
+		    gh_scm2int (ly_caar (pitchlist)),
+		    gh_scm2int (ly_cdar (pitchlist)));
+
+      Pitch c_do (0, 0, 0);
 		  
-      Pitch to_c (-1,
-		   (7 - gh_scm2int (ly_caar (pitchlist))) % 7,
-		   -gh_scm2int (ly_cdar (pitchlist)));
+      SCM c_pitchlist
+	= ly_transpose_key_alist (pitchlist,
+				  interval (key_do, c_do).smobbed_copy ());
 
-      my_do = my_do.transposed (to_c);
-      to_c = my_do.transposed (Pitch(0,0,- my_do.get_alteration ()));
+      /* MIDI keys are too limited for lilypond scales.
+	 We check for minor scale and assume major otherwise.  */
+      SCM minor = scm_primitive_eval (ly_symbol2scm ("minor"));
+      audio_ = new Audio_key (gh_scm2int (acc),
+			      SCM_BOOL_T != scm_equal_p (minor, c_pitchlist));
 
-      SCM c_pitchlist = ly_transpose_key_alist (pitchlist, to_c.smobbed_copy());
-
-      /*
-	MIDI keys are too limited for lilypond scales.
-
-	TODO: should probably detect minor key, though.
-      */
-      audio_ = new Audio_key (gh_scm2int (acc), true); 
       Audio_element_info info (audio_, key_req_);
       announce_element (info);
       key_req_ = 0;

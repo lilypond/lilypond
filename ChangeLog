@@ -1,3 +1,8 @@
+2003-08-06  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/key-performer.cc (create_audio_elements): Check for minor
+	key.  Only if key is minor, set MIDI key to minor.
+
 2003-08-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* mf/feta-eindelijk.mf (tracingvariables): add TODO.
