@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.10"
 \header {
   texidoc="Jazz chord names, but with lower case names for minor chords
 
@@ -41,7 +41,7 @@ FIXME:
 
 \score {
   <
-    \property ChordNames.ChordName \set #'style = #'jazz
+    #(set-chord-name-style 'jazz)
     \context ChordNames \chords { c1 c:m c:m7 }
   >
 }

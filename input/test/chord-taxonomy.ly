@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.10"
 \header {
   title="Chord Taxonomy of LilyPond -- jazz"
 }
@@ -18,7 +18,7 @@ scheme = \chords {
     
 \score {
   <
-    \property ChordNames.ChordName \set #'style = #'jazz
+    #(set-chord-name-style 'jazz)
     \context ChordNames \scheme
     \context Staff \notes \transpose c c' \scheme
   >

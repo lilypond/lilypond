@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.10"
 \header{
 filename = 	"chord-table.ly"
 copyright =  	"public domain"

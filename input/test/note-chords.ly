@@ -3,7 +3,7 @@
     texidoc= "Chord names don't attempt to find inversions and
 bass notes."  }
 
-\version "1.7.6"
+\version "1.7.10"
 
 scheme = \notes {
   <<c' e' g'>>1

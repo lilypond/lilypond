@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.10"
 
 \header{
 texidoc="property chordChanges: only display chord names when

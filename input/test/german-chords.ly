@@ -8,7 +8,7 @@ FIXME. Most likely broken during namespace reorganisation of early 1.7.
 
 
 }
-\version "1.7.6"
+\version "1.7.10"
 \include "german-chords-init.ly"
 
 % #(set! german-Bb #t)
