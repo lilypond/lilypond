@@ -1,3 +1,8 @@
+2002-05-20  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/autogen.sh: Check for autoconf2.13, and abort if not
+	found.
+
 2002-05-20  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/note-head.cc (internal_brew_molecule): warn if note head
