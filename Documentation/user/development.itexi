@@ -1,8 +1,7 @@
-@node Internals, , , top
+@node Internals, , , Top
 
 @menu
 * Conversion stages::              Lilypond is a multi-pass program.
-
 * Grobs::                          Graphical object  
 * Engraver::
 * Music_iterator::
@@ -10,12 +9,11 @@
 * Molecules::                       Molecules are stand-alone descriptions of output
 @end menu
 
-
-@node Conversion stages, , , Internals
+@node Conversion stages
+@section Conversion stages
 
 When translating the input to notation, there are number of distinct
 phases.  We list them here:
-
 
 @table @samp
 
@@ -25,6 +23,7 @@ The .ly file is read, and converted to a list of @code{Scores}, which
 each contain @code{Music} and paper/midi-definitions.
 
 @item Interpreting music
+@cindex interpreting music
 
 All music events are "read" in the same order as they would be played
 (or read from paper). At every step of the interpretation, musical
@@ -35,10 +34,14 @@ which use them to build grobs (or MIDI objects, for MIDI output).
 
 @item Prebreaking
 
+@cindex prebreaking
+
 At places where line breaks may occur, clefs and bars are prepared for
 a possible line break. 
 
 @item Preprocessing
+
+@cindex preprocessing
 
 In this stage, all information that is needed to determine line breaking
 is computed. 
@@ -60,7 +63,7 @@ are output, line by line.
 @end table
 
 
-@node Grobs, , , Internals
+@node Grobs
 @section Grobs
 
 This section is about Grobs (short for Graphical Objects), which are
@@ -90,7 +93,8 @@ how grobs work.
 * Pointer substitution::
 @end menu
 
-@node What is a grob?, , , Grobs
+@node What is a grob?
+@subsection What is a grob?
 
 In music notation, lots of symbols are related in some way.  You can
 think of music notation as a graph where nodes are formed by the
@@ -146,7 +150,8 @@ dimensions, line breaks, etc.  are calculated. Finally,   the printing
 description in the form of Molecules (@ref{Molecules})  is extracted from
 the network. These are then dumped into the output file
 
-@node Callbacks, , , Grobs
+@node Callbacks
+@subsection Callbacks
 
 Offsets of grobs are relative to a parent reference point. Most
 positions are not known when an object is created, so these are
@@ -196,7 +201,8 @@ means: "empty in this direction". If you fill in a pair, that pair
 hard-codes the extent in that coordinate.
 
 
-@node Setting grob properties, , , Grobs
+@node Setting grob properties
+@subsection Setting grob properties
 
 Grob properties are stored as GUILE association lists, with symbols as
 keys.   From C++, element properties can be accessed using the functions
@@ -281,7 +287,7 @@ This shifts all elements that have a @code{text} property one staff
 space to the left. This mechanism is rather clumsy to use, but it allows
 you tweak any setting of any grob.
 
-@node Items and Spanners, , , Grobs
+@node Items and Spanners
 @unnumberedsubsec Items and Spanners
 
 Grobs can also be distinguished in their role in the horizontal spacing.
@@ -308,7 +314,7 @@ the outcome of the visibility-lambda. This is a function taking a
 direction (-1, 0 or 1) and returns a cons of booleans, signifying wether
 this grob should be transparent and invisible.
 
-@node Pointer substitution, , , Grobs
+@node Pointer substitution
 @unnumberedsubsec Pointer substitution
 
 
@@ -318,13 +324,21 @@ complications. When a  spanner crosses a line-break, then the spanner is
 the grob is made. A substitution process redirects all grob-reference
 so that spanner grob will only reference other grobs in the same line.
 
-@node Engraver, , , Internals
+@node Engraver
+@section Engraver
 
-@node Music_iterator, , , Internals
+@node Music_iterator
+@section Music_iterator
 
-@node Music, , , Internals
+@node Music
+@section Music
 
-@node Molecules, , , Internals
+@node Molecules
+@section Molecules
+
+@cindex Molecule
+@cindex Atom
+@cindex Output description
 
 The objective of any typesetting system is to put ink on paper in the
 right places. For LilyPond, this final stage is left to the TeX and the
@@ -346,7 +360,8 @@ dimension information (how large is this glyph ?) with
 what-to-print-where.
 
 Conceptually, Molecules can be constructed from Scheme code, by
-translating a Molecule and by combining two molecules. In BNF notation:
+translating a Molecule and by combining two molecules. In BNF
+notation:
 
 @example
  Molecule = COMBINE Molecule Molecule
@@ -355,21 +370,26 @@ translating a Molecule and by combining two molecules. In BNF notation:
 	   ;
 @end example
 
+If you are interested in seeing how this information is stored, you
+can run with the @code{-f scm} option. The scheme expressions are then
+dumped onto the output file.
+
 (refer to the C++ code for more details). All visible,
-ie. non-transparent, grobs have a callback to create a Molecule. The
+ie. non-transparant, grobs have a callback to create a Molecule. The
 name of the property is @code{molecule-callback}, and its value should
 be a Scheme function taking one argument (the grob) and returning a
 Molecule.
 
 
 
-@node Development, , , top
+@node  Development, , , top
 @chapter Development
 
 @menu
 * CodingStyle::
 * Making patches::
 * Localisation::
+* Helping with development:: 
 @end menu
 
 @node CodingStyle, , , Development
@@ -602,7 +622,7 @@ files, doing a release.
 Use them.
 
 @node Making patches, , , Development
-
+@section Making patches
 
 @unnumberedsec  Track and distribute your code changes
 
@@ -702,10 +722,7 @@ and don't forget to make automatically generated files:
 @end example 
 
 @node Localisation, , , Development
-
-@chapter Localisation - User messages in LilyPond
-
-@section Introduction
+@section Localisation - User messages in LilyPond
 
 This document provides some guidelines for uniformising user messages.
 In the absence of other standards, we'll be using these rules when coding
@@ -715,7 +732,7 @@ guidelines in the future.
 Not-preferred messages are marked with @code{+}.  By convention,
 agrammatical examples are marked with @code{*}.
 
-@section Guidelines
+@subsection Guidelines
 
 @itemize @bullet
 
@@ -865,3 +882,81 @@ I guess we'd prefer something like (2) or (3).
 Please don't run make po/po-update with GNU gettext < 0.10.35
 
 @end itemize
+
+@node Helping with development, , , Development
+
+@chapter Getting involved
+
+If you want to help developing  LilyPond your  efforts are appreciated.
+You can help LilyPond in several ways. Not all tasks requiring
+programming or understanding the full source code.
+
+Please don't expect us to give you instructions on what you should
+do. We're just a bunch of simple hackers, and we're absolutely
+incompetent about management, design in advance, delegating work.
+Some people write to us "I want to help, what should I do?", but we
+never know what to answer them.
+
+If you want to hack, just start hacking. You can send us the result as
+a patch, and we'll gladly incorporate it.
+
+If you need some hints on where to get started: there are a number of
+specific areas where you could do work.  
+
+@unnumberedsubsec Users
+
+Mutopia needs your help. The mutopia project is a collection of public
+domain sheet music. You can help the project by entering music (either
+by hand, or by converting from scans or MIDI) and submitting it. Point
+your browser to the @uref{http://sca.uwaterloo.ca/Mutopia, Mutopia
+webpage}.
+
+@unnumberedsubsec Writers
+
+The documentation of LilyPond and related utilities needs a lot of
+work. The documentation is written in
+@uref{http://www.gnu.org/software/texinfo,texinfo}. The documentation of
+LilyPond is sorely lacking in terms of completeness, depth and
+organisation.
+
+Write if you know how to write english documentation in texinfo, and
+know about music and music notation.  You must also know how to use
+LilyPond (or be prepared to learn using it).  The task is not especially
+hard, but it is a lot of work, and you must be familiar with LilyPond.
+
+@unnumberedsubsec Translators
+
+LilyPond is completely ready for internationalized messages, but there
+are only a few translations so far (dutch, italian, german, japanese,
+french, russian).  Translation involves writing a .po file, which is
+relatively easy, and does not even require running LilyPond.
+
+@unnumberedsubsec Hackers
+
+There are lots of possibilities of improving the program itself. There
+are both small projects and big ones. Most of them are listed in our
+TODO file, listed on the homepage of Jan and
+@uref{http://www.cs.uu.nl/~hanwen/lily-devel,Han-Wen}.  Modifying
+LilyPond almost always requires patches to the C++ part.
+
+There are also numerous other interesting projects that are more or less
+related  to LilyPond
+
+@itemize @bullet
+@item Writing convertors, eg. from NIFF and MIDI (we tried writing one with
+limited success: midi2ly, included with lilypond.)
+
+We found that writing them in Python is the easiest.
+
+@item Writing a GUI frontend to
+LilyPond. At the moment @uref{denemo,denemo.sourceforge.net} is the most
+advanced.
+
+@item Helping write @uref{http://solfege.sourceforge.net/,solfege
+tools}
+
+@item Helping @uref{primrose.sourceforge.net,primrose}, a tool for
+scanning sheet music.
+@end itemize
+
+

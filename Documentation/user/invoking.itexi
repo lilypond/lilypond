@@ -1,19 +1,24 @@
+@node Invoking LilyPond, , , top
 
-@node Invoking LilyPond, , , Top
 @chapter Invoking LilyPond
 @cindex Invoking LilyPond
+@cindex command line options
+@cindex options, command line
+@cindex switches
 
 
 @example
-        @strong{lilypond} [OPTION]... [MUDELA-FILE]...
+        lilypond [OPTION]... [MUDELA-FILE]...
 @end example
 
-@section Options
+@unnumberedsec Lilypond Command Options
 
 @table @samp
 @item -f,--format=
 	Output format for sheet music. Choices are tex (for @TeX{}
-	output), ps (for PostScript) and scm (for GUILE)
+	output), ps (for PostScript) and scm (for a direct Scheme
+	dump)
+
 @item -h,--help
  Show a summary of usage.
 @item --include, -I=DIRECTORY
@@ -57,13 +62,13 @@ When invoked with a filename that has no extension, LilyPond will try
 adding `@file{.ly}' as an extension first.
 
 When LilyPond processes @file{filename.ly} it will produce
-@file{filename.tex} as output (or @file{filename.ps} for
-PostScript output).  If @file{filename.ly} contains more than one
-@code{\score} block, then LilyPond will output the rest in numbered
-files, starting with @file{filename-1.tex}.  Several files can be
-specified; they will each be processed independently.  @footnote{The
-status of GUILE is not reset across invocations, so be careful not to
- change defaults settings from within Scheme .}
+@file{filename.tex} as output (or @file{filename.ps} for PostScript
+output).  If @file{filename.ly} contains more than one @code{\score}
+block, then LilyPond will output the rest in numbered files, starting
+with @file{filename-1.tex}.  Several files can be specified; they will
+each be processed independently.  @footnote{The status of GUILE is not
+reset across invocations, so be careful not to change any default
+settings from within Scheme .}
 
 @section Environment variables
 

@@ -1,4 +1,5 @@
-@node convert-ly, , ,Top
+
+@node convert-ly, , , Top
 @chapter convert-ly
 @code{convert-ly} sequentially applies different
 lilypond-conversions to upgrade a Lilypond input file.  It uses
