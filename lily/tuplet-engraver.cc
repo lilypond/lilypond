@@ -40,7 +40,7 @@ Tuplet_engraver::do_process_requests ()
     dir = to_dir (prop);
   int visibility = 3;
   prop = get_property ("tupletVisibility", 0);
-  if (SCM_NUMBERP(prop))
+  if (gh_number_p(prop))
     visibility = gh_scm2int (prop);	// bool ?
 
   for (int i= started_span_p_arr_.size ();

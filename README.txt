@@ -55,7 +55,7 @@ Comments
 ========
 
    LilyPond is a long way from finished and polished.  We do appreciate
-criticism, comments, bugreports, patches, etc.
+criticism, comments, bugreports, patches, etc., but please,
 
      	   Please send your e-mail to one of the MAILING LISTS
 

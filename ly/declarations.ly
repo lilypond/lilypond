@@ -3,6 +3,8 @@
 breve = \duration { -1 0 }
 longa = \duration { -2 0 }
 
+#(eval-string (ly-gulp-file "generic-property.scm"))
+
 \include "nederlands.ly"		% dutch
 \include "chord-modifiers.ly"
 \include "script.ly"

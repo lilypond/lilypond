@@ -11,7 +11,7 @@
 #define FONT_SIZE_GRAV_HH
 
 #include "engraver.hh"
-
+#include "protected-scm.hh"
 /**
    Set font size on elements that do not have a fontsize set yet.
 
@@ -20,7 +20,7 @@
    Writes element property fontsize 
  */
 class Font_size_engraver : public Engraver {
-  int size_i_;
+  Protected_scm size_;
 protected:
   virtual void acknowledge_element (Score_element_info);
   virtual void  do_process_requests ();

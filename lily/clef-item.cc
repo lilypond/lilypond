@@ -60,7 +60,7 @@ Clef_item::do_add_processing ()
 	  pscore_l_->typeset_element (g);
       
 	  g->text_str_ = "8";
-	  g->style_str_ = "italic";
+	  g->set_elt_property (style_scm_sym, gh_str02scm ("italic"));
 	  g->set_parent (this, Y_AXIS);
 	  g->set_parent (this, X_AXIS);	  
 

@@ -550,7 +550,13 @@ paper_def_body:
 		$$->set_lookup ($2, l);
 	}
 	| paper_def_body assignment semicolon {
-
+		
+	}
+	| paper_def_body SCM_T '=' SCM_T {
+		if (!gh_symbol_p ($2))
+			THIS->parser_error ("expect a symbol as lvalue");
+		else
+			$$->default_properties_[$2] = $4;
 	}
 	| paper_def_body translator_spec_block {
 		$$->assign_translator ($2);

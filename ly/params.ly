@@ -97,6 +97,10 @@ MAJORITY = 2.0;
 MEAN = 3.0;
 MEDIAN = 4.0;
 
+#'beam_dir_algorithm = #'majority
+#'slope_quantisation = #'normal
+
+
 %{
 dit(code(beam_dir_algorithm)) Specify algorithm for determining
 whether beams go up or down.  It is real valued.  If set to 2.0 then

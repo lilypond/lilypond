@@ -5,7 +5,7 @@
 
 #include <assert.h>
 #include <ctype.h>
-#include "moment.hh"
+#include "rational.hh"
 #include "duration-convert.hh"
 #include "string-convert.hh"
 #include "midi2ly-proto.hh"
@@ -52,15 +52,15 @@ Mudela_staff::eat_voice (Cons_list<Mudela_item>& items)
   Mudela_voice* voice_p = new Mudela_voice (this);
   mudela_voice_p_list_.append (new Killing_cons<Mudela_voice> (voice_p, 0));
 
-  //    Moment mom = items.top ()->at_mom ();
-  Moment mom = 0;
+  //    Rational mom = items.top ()->at_mom ();
+  Rational mom = 0;
 
   for (Cons<Mudela_item>** pp = &items.head_; *pp;)
     {
       Cons<Mudela_item>* i = *pp;
       if (i->car_->at_mom () > mom)
 	{
-	  Moment dur = i->car_->at_mom () - mom;
+	  Rational dur = i->car_->at_mom () - mom;
 	  // ugh, need score
 	  Mudela_column* start = mudela_score_l_g->find_column_l (mom);
 	  voice_p->add_item (new Mudela_skip (start, dur));
@@ -170,7 +170,7 @@ Mudela_staff::output (Mudela_stream& mudela_stream_r)
 
       trackbody += "\\"  + voicename + "\n";
 
-      mudela_stream_r << "\n";
+      mudela_stream_r << '\n';
       i->car_->output (mudela_stream_r);
       c++;      
     }
@@ -184,10 +184,10 @@ Mudela_staff::output (Mudela_stream& mudela_stream_r)
 }
 
 void
-Mudela_staff::output_mudela_begin_bar (Mudela_stream& mudela_stream_r, Moment now_mom, int bar_i)
+Mudela_staff::output_mudela_begin_bar (Mudela_stream& mudela_stream_r, Rational now_mom, int bar_i)
 {
-  Moment bar_mom = mudela_time_signature_l_->bar_mom ();
-  Moment into_bar_mom = now_mom - Moment (bar_i - 1) * bar_mom;
+  Rational bar_mom = mudela_time_signature_l_->bar_mom ();
+  Rational into_bar_mom = now_mom - Rational (bar_i - 1) * bar_mom;
   if (bar_i > 1)
     {
       if (!into_bar_mom)
@@ -202,10 +202,10 @@ Mudela_staff::output_mudela_begin_bar (Mudela_stream& mudela_stream_r, Moment no
 
 #if 0 // not used for now
 void
-Mudela_staff::output_mudela_rest (Mudela_stream& mudela_stream_r, Moment begin_mom, Moment end_mom)
+Mudela_staff::output_mudela_rest (Mudela_stream& mudela_stream_r, Rational begin_mom, Rational end_mom)
 {
-  Moment bar_mom = mudela_time_signature_l_->bar_mom ();
-  Moment now_mom = begin_mom;
+  Rational bar_mom = mudela_time_signature_l_->bar_mom ();
+  Rational now_mom = begin_mom;
 
   int begin_bar_i = (int) (now_mom / bar_mom) + 1;
   int end_bar_i = (int) (end_mom / bar_mom) + 1;
@@ -220,15 +220,15 @@ Mudela_staff::output_mudela_rest (Mudela_stream& mudela_stream_r, Moment begin_m
   int bar_i = (int) (now_mom / bar_mom) + 1;
 
   //fill current bar
-  Moment begin_bar_mom = Moment (begin_bar_i - 1) * bar_mom;
+  Rational begin_bar_mom = Rational (begin_bar_i - 1) * bar_mom;
   if (now_mom > begin_bar_mom)
     {
       int next_bar_i = (int) (now_mom / bar_mom) + 2;
-      Moment next_bar_mom = Moment (next_bar_i - 1) * bar_mom;
+      Rational next_bar_mom = Rational (next_bar_i - 1) * bar_mom;
       assert (next_bar_mom <= end_mom);
 
-      Moment remain_mom = next_bar_mom - now_mom;
-      if (remain_mom > Moment (0))
+      Rational remain_mom = next_bar_mom - now_mom;
+      if (remain_mom > Rational (0))
 	{
 	  output_mudela_rest_remain (mudela_stream_r, remain_mom);
 	  now_mom += remain_mom;
@@ -259,8 +259,8 @@ Mudela_staff::output_mudela_rest (Mudela_stream& mudela_stream_r, Moment begin_m
 
   //    bar_i = check_end_bar_i (now_mom, bar_i);
 
-  Moment remain_mom = end_mom - Moment (end_bar_i - 1) * bar_mom;
-  if (remain_mom > Moment (0))
+  Rational remain_mom = end_mom - Rational (end_bar_i - 1) * bar_mom;
+  if (remain_mom > Rational (0))
     {
       output_mudela_rest_remain (mudela_stream_r, remain_mom);
       now_mom += remain_mom;
@@ -269,7 +269,7 @@ Mudela_staff::output_mudela_rest (Mudela_stream& mudela_stream_r, Moment begin_m
 }
 
 void
-Mudela_staff::output_mudela_rest_remain (Mudela_stream& mudela_stream_r, Moment mom)
+Mudela_staff::output_mudela_rest_remain (Mudela_stream& mudela_stream_r, Rational mom)
 {
   if (Duration_convert::no_quantify_b_s)
     {

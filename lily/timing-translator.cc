@@ -95,7 +95,7 @@ Timing_translator::do_process_requests()
   Translator_group * tr=0;
 
   SCM barn = get_property ("currentBarNumber", &tr);
-  if (SCM_NUMBERP(barn))
+  if (gh_number_p(barn))
     {
       time_.bars_i_ = gh_scm2int (barn);
       tr->set_property ("currentBarNumber", SCM_UNDEFINED);

@@ -31,7 +31,7 @@ Midi_track_parser::~Midi_track_parser ()
   delete track_info_p_;
 }
 
-Moment
+Rational
 Midi_track_parser::at_mom ()
 {
   return at_mom_;
@@ -85,7 +85,7 @@ Midi_track_parser::note_end_all (Mudela_column* col_l)
 Mudela_staff*
 Midi_track_parser::parse (Mudela_column* col_l)
 {
-  Moment mom = at_mom ();
+  Rational mom = at_mom ();
   while (!eot () && (mom == at_mom ()))
     {
       Mudela_item* p = parse_event (col_l);
@@ -110,7 +110,7 @@ Midi_track_parser::parse_delta_time ()
   if (eot ())
     return;
   int delta_i = get_var_i ();
-  at_mom_ += Moment (delta_i, info_l_->division_1_i_);
+  at_mom_ += Rational (delta_i, info_l_->division_1_i_);
 }
 
 Mudela_item*

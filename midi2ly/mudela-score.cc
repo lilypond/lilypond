@@ -4,7 +4,7 @@
 // copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <assert.h>
-#include "moment.hh"
+#include "rational.hh"
 #include "duration.hh"
 #include "duration-convert.hh"
 #include "midi2ly-global.hh"
@@ -27,7 +27,7 @@ Mudela_score::Mudela_score (int format_i, int tracks_i, int tempo_i)
   format_i_ = format_i;
   tracks_i_ = tracks_i;
   tempo_i_ = tempo_i;
-  column_l_array_.push (new Mudela_column (this, Moment (0)));
+  column_l_array_.push (new Mudela_column (this, Rational (0)));
   //  mudela_key_l_ = &key_c;
   mudela_key_l_ = 0;
   mudela_time_signature_l_ = &time_sig_4;
@@ -52,14 +52,14 @@ Mudela_score::add_staff (Mudela_staff* mudela_staff_p)
 }
 
 Mudela_column*
-Mudela_score::find_column_l (Moment mom)
+Mudela_score::find_column_l (Rational mom)
 {
   int upper_i = max (0, column_l_array_.size () - 1);
   int lower_i = 0;
   int i = 0; //upper_i;
   while (1)
     {
-      Moment i_mom = column_l_array_ [i]->at_mom ();
+      Rational i_mom = column_l_array_ [i]->at_mom ();
       if (i_mom == mom)
 	return column_l_array_ [i];
       if (mom < i_mom)
@@ -81,7 +81,7 @@ Mudela_score::find_column_l (Moment mom)
 }
 
 Mudela_column*
-Mudela_score::get_column_l (Moment mom)
+Mudela_score::get_column_l (Rational mom)
 {
   int i;
   Mudela_column *c=0;
@@ -131,7 +131,7 @@ Mudela_score::output (String filename_str)
 	   && (i->car_ == mudela_staff_p_list_.head_->car_))
   	continue;
       mudela_stream << "\\context Staff = \"" << i->car_->id_str () << "\" ";
-      mudela_stream << String ("\\" +  i->car_->id_str ()) << "\n";
+      mudela_stream << String ("\\" +  i->car_->id_str ()) << '\n';
     }
   if (mudela_staff_p_list_.size_i () > 1)
     mudela_stream << ">\n";
@@ -190,15 +190,15 @@ Mudela_score::quantify_columns ()
   LOGOUT (NORMAL_ver) << '\n' << _ ("Quantifying columns...") << endl;
   
   int current_bar_i = 0;
-  Moment bar_mom = mudela_time_signature_l_->bar_mom ();
+  Rational bar_mom = mudela_time_signature_l_->bar_mom ();
   
   int n = 5 >? Duration_convert::no_smaller_than_i_s;
   n = Duration_convert::type2_i (n);
-  Moment s = Moment (1, n);
+  Rational s = Rational (1, n);
   for (int i = 0; i < column_l_array_.size (); i++)
     {
       column_l_array_ [i]->at_mom_ =
-      	s * Moment ( (int) ( (column_l_array_ [i]->at_mom ()) / s));
+      	s * Rational ( (int) ( (column_l_array_ [i]->at_mom ()) / s));
   
       int bar_i = (int) (column_l_array_ [i]->at_mom () / bar_mom) + 1;
       if (bar_i > current_bar_i)
@@ -226,12 +226,12 @@ Mudela_score::settle_columns ()
   
   int start_i = 0;
   int end_i = 0;
-  Moment start_mom = 0;
+  Rational start_mom = 0;
 
   Duration smallest_dur;
   smallest_dur.durlog_i_ =  6;
-  Moment const noise_mom = Duration_convert::dur2_mom (smallest_dur)
-    / Moment (2);
+  Rational const noise_mom = Duration_convert::dur2_mom (smallest_dur)
+    / Rational (2);
   for (int i = 0; i < n; i++)
     {
       if (!start_i)

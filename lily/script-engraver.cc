@@ -71,14 +71,14 @@ Script_engraver::do_process_requests()
 	  ss->dir_ = (Direction)force_dir;
 
       SCM dir_prop (get_property ("articulationScriptVerticalDirection", 0));
-      if (SCM_NUMBERP(dir_prop))
+      if (gh_number_p(dir_prop))
 	ss->dir_ = to_dir (dir_prop);
 
       if (l->dir_)
 	ss->dir_ = l->dir_;
 
       SCM paddingprop = get_property ("articulationScriptPadding", 0);
-      if (SCM_NUMBERP(paddingprop))
+      if (gh_number_p(paddingprop))
 	{
 	  ss->set_elt_property (padding_scm_sym, paddingprop);
 	}
@@ -92,7 +92,7 @@ Script_engraver::do_process_requests()
 
       p->set_staff_side (ss);
       ss->set_elt_property (script_priority_scm_sym, priority);
-      if (SCM_NUMBERP (paddingprop))
+      if (gh_number_p (paddingprop))
 	ss->set_elt_property (padding_scm_sym, paddingprop);
   
   

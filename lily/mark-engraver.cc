@@ -46,7 +46,8 @@ Mark_engraver::do_process_requests ()
     {
       create_items (mark_req_l_);
       text_p_->text_str_ = mark_req_l_->str_;
-      text_p_->style_str_ = text_p_->text_str_.index_any_i ("0123456789") >= 0 
-	? "mark" : "Large";
+      SCM st = gh_str02scm ((text_p_->text_str_.index_any_i ("0123456789")  >= 0 )
+			    ? "mark" : "large");
+      text_p_->set_elt_property (style_scm_sym,  st);
     }
 }

@@ -93,10 +93,17 @@ Score_element::get_elt_property (SCM sym) const
   SCM s =  scm_assq(sym, element_property_alist_);
 
   // is this a good idea?
-  if (s == SCM_BOOL_F && pscore_l_ && pscore_l_->paper_l_)
-    s = pscore_l_->paper_l_->get_scm_var (sym);
+  if (s != SCM_BOOL_F)
+    return s;
 
-  return s;
+  if (pscore_l_)
+    {
+      // should probably check for Type::sym as well.
+      if (pscore_l_->paper_l_->default_properties_.elem_b (sym))
+	return pscore_l_->paper_l_->default_properties_[sym];
+    }
+  
+  return SCM_BOOL_F;
 }
 
 SCM
@@ -464,3 +471,9 @@ Score_element::do_smobify_self ()
 }
 #include "ly-smobs.icc"
 IMPLEMENT_SMOBS(Score_element);
+
+SCM
+Score_element::equal_p (SCM a, SCM b)
+{
+  return SCM_CDR(a) == SCM_CDR(b) ? SCM_BOOL_T : SCM_BOOL_F;
+}

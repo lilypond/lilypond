@@ -8,7 +8,7 @@
 
 #include "midi2ly-proto.hh"
 #include "string.hh"
-#include "moment.hh"
+#include "rational.hh"
 #include "duration.hh"
 
 // should these:
@@ -24,8 +24,8 @@ public:
   Mudela_item (Mudela_column* mudela_column_l);
   virtual ~Mudela_item ();
     
-  virtual Moment at_mom ();
-  virtual Moment duration_mom ();
+  virtual Rational at_mom ();
+  virtual Rational duration_mom ();
   void output (Mudela_stream& mudela_stream_r);
   virtual String str () = 0;
 
@@ -55,7 +55,7 @@ public:
   int den_i ();
   int num_i ();
   virtual String str ();
-  Moment bar_mom ();
+  Rational bar_mom ();
 
 private:
   Real sync_f_;
@@ -71,7 +71,7 @@ public:
   Mudela_note (Mudela_column* mudela_column_l, int channel_i, int pitch_i, int dyn_i);
 
   Duration duration ();
-  virtual Moment duration_mom ();
+  virtual Rational duration_mom ();
   virtual String str ();
     
   //    int const c0_pitch_i_c_ = 60; // huh?
@@ -86,14 +86,14 @@ public:
 class Mudela_skip : public Mudela_item 
 {
 public:
-  Mudela_skip (Mudela_column* mudela_column_l, Moment skip_mom);
+  Mudela_skip (Mudela_column* mudela_column_l, Rational skip_mom);
 
   Duration duration ();
-  virtual Moment duration_mom ();
+  virtual Rational duration_mom ();
   virtual String str ();
 
 private:
-  Moment mom_;
+  Rational mom_;
 };
 
 
@@ -102,13 +102,13 @@ class Mudela_tempo : public Mudela_item
 public:
   Mudela_tempo (int useconds_per_4_i);
 
-  int get_tempo_i (Moment moment);
+  int get_tempo_i (Rational rational);
   virtual String str ();
   int useconds_per_4_i ();
 
 private:
   int useconds_per_4_i_;
-  Moment seconds_per_1_mom_;
+  Rational seconds_per_1_mom_;
 };
 
 class Mudela_text : public Mudela_item 

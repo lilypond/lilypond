@@ -1,6 +1,6 @@
 # Yolily_topdoc_targets.make
 
-default: do-doc 
+default: local-doc 
 
 # urg
 $(outdir)/%.html: %.yo

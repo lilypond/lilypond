@@ -67,6 +67,13 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
     type_str = type_str + "_" + to_str (test_mom.den ());
 
   /*
+    URG
+    
+    FIXME: SHOULD USE ALIST
+    
+   */
+
+  /*
     Determine end moment for auto beaming (and begin, mostly 0==anywhere) 
     In order of increasing priority:
 
@@ -203,24 +210,7 @@ Auto_beam_engraver::create_beam_p ()
       beam_p->add_stem ((*stem_l_arr_p_)[i]);
     }
   
-  /* urg, copied from Beam_engraver */
-  SCM prop = get_property ("beamslopedamping", 0);
-  if (SCM_NUMBERP(prop)) 
-    beam_p->set_elt_property (damping_scm_sym, prop);
 
-  prop = get_property ("autoKneeGap", 0);
-  if (SCM_NUMBERP(prop)) 
-    beam_p->set_elt_property (auto_knee_gap_scm_sym, prop);
-
-  prop = get_property ("autoInterstaffKneeGap", 0);
-  if (SCM_NUMBERP(prop)) 
-    beam_p->set_elt_property (auto_interstaff_knee_gap_scm_sym, prop);
-      
-  prop = get_property ("beamquantisation", 0);
-  if (SCM_NUMBERP(prop)) 
-    beam_p->quantisation_ = (Beam::Quantisation)(int)prop;
- 
-  announce_element (Score_element_info (beam_p, 0));
   return beam_p;
 }
 

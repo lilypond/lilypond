@@ -86,7 +86,7 @@ Align_note_column_engraver::process_acknowledged ()
 
       */
       SCM grsp = get_property ("graceAccidentalSpace", 0);
-      if (SCM_NUMBERP(grsp))
+      if (gh_number_p(grsp))
 	{
 	  /*
 	    ugh.

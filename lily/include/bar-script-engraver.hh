@@ -31,7 +31,7 @@ protected:
   /**
     Put the script on #it#
    */
-  void do_acknowledge_element (Item *it);
+  void attach_script_to_item (Item *it);
   /**
      Return non-nil if we want to hang something on this.
    */

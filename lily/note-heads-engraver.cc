@@ -73,12 +73,13 @@ Note_heads_engraver::do_process_requests()
 	}
       note_p->position_i_  = note_req_l->pitch_.steps ();
 
+      /*
+	TODO: transparent note heads.
+       */
+	 
       if (gh_string_p (noteheadstyle))
 	{
-	  if (ly_scm2string (noteheadstyle) == "transparent")
-	    note_p->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
-	  else 
-	    note_p->set_elt_property (style_scm_sym, noteheadstyle);
+	  note_p->set_elt_property (style_scm_sym, noteheadstyle);
 	}
       
       Score_element_info itinf (note_p,note_req_l);

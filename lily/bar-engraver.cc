@@ -49,11 +49,6 @@ Bar_engraver::create_bar ()
 	{
 	  bar_p_->set_elt_property (at_line_start_scm_sym, SCM_BOOL_T);
 	}
-      prop = get_property ("barSize", 0);
-      if (SCM_NUMBERP(prop))
-	{
-	  bar_p_->set_elt_property (bar_size_scm_sym, prop);
-	}
       announce_element (Score_element_info (bar_p_, 0));
     }
 }

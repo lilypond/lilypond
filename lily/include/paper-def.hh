@@ -57,7 +57,6 @@ public:
   Real get_realvar (SCM symbol) const;
   Real get_var (String id) const;
 
-  SCM get_scm_var (SCM sym) const;
   
   void reinit ();
   Paper_def ();

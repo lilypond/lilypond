@@ -32,7 +32,7 @@ void
 Separating_line_group_engraver::do_removal_processing ()
 {
   SCM sz (get_property ("postBreakPadding", 0));
-  if (SCM_NUMBERP(sz))
+  if (gh_number_p(sz))
     {
       sep_span_p_->padding_f_ = Real(sz);
     }

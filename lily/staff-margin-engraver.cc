@@ -48,18 +48,17 @@ Staff_margin_engraver::acknowledge_element (Score_element_info inf)
     long_name = short_name;
 
   if (gh_string_p (long_name))
-    return;
+    {
+      create_items (0);
+      text_p_->text_str_ = ly_scm2string (long_name);
+      staff_side_p_->dir_ = LEFT;
+      Bar_script_engraver::attach_script_to_item (i);
 
-  create_items (0);
-  text_p_->text_str_ = ly_scm2string (long_name);
-  staff_side_p_->dir_ = LEFT;
-  Bar_script_engraver::do_acknowledge_element (i);
-
-  /*
+      /*
     UGH. ignores font size settings.
    */
-  Interval iv(text_p_->extent (Y_AXIS));
-  text_p_->translate_axis (- iv.center (),  Y_AXIS);
+      Interval iv(text_p_->extent (Y_AXIS));
+      text_p_->translate_axis (- iv.center (),  Y_AXIS);
+    }
 }
-
 

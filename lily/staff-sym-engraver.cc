@@ -35,13 +35,13 @@ void
 Staff_symbol_engraver::do_removal_processing()
 {
   SCM l (get_property ("numberOfStaffLines", 0));
-  if (SCM_NUMBERP(l))
+  if (gh_number_p(l))
     {
       span_p_->no_lines_i_ = gh_scm2int (l);
     }
 
   SCM sz (get_property ("staffLineLeading", 0));
-  if (SCM_NUMBERP(sz))
+  if (gh_number_p(sz))
     {
       span_p_->staff_line_leading_f_ = gh_scm2double (sz);
     }

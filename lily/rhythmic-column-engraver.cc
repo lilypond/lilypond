@@ -107,18 +107,6 @@ Rhythmic_column_engraver::do_pre_move_processing()
 {
   if (ncol_p_) 
     {
-      SCM sh = get_property ("horizontalNoteShift", 0);
-      if (SCM_NUMBERP(sh))
-	{
-	  ncol_p_->set_elt_property (horizontal_shift_scm_sym, sh);
-	}
-
-      sh = get_property ("forceHorizontalShift" ,0);
-      if (SCM_NUMBERP(sh))
-	{
-	  ncol_p_->set_elt_property (force_hshift_scm_sym, sh);
-	}
-
       typeset_element (ncol_p_);
       ncol_p_ =0;
     }

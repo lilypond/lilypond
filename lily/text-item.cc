@@ -16,14 +16,12 @@
 Molecule*
 Text_item::do_brew_molecule_p () const
 {
-  Molecule a= paper_l ()->lookup_l(0)->text (style_str_,text_str_, paper_l ()); 
+  SCM style = get_elt_property (style_scm_sym);
+  String st = (style == SCM_BOOL_F) ? "" : ly_scm2string (gh_cdr (style));
+  
+  Molecule a= paper_l ()->lookup_l(0)->text (st, text_str_, paper_l ());
 
   return new Molecule (a);
-}
-
-Text_item::Text_item ()
-{
-  style_str_ = "roman";
 }
 
 void

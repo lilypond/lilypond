@@ -33,10 +33,10 @@ fi
 #
 mkdir -p $prefix/bin
 result=`echo $PATH | grep "$HOME/usr/bin"`
-if [ "x$result" = "x" ];then
+if [ "x$result" = "x" ]; then
     PATH=$PATH:$HOME/usr/bin
 fi
 result=`echo $PATH | grep "$sources/$package/bin"`
-if [ "x$result" = "x" ];then
+if [ "x$result" = "x" ]; then
     PATH=$PATH:$sources/$package/bin
 fi

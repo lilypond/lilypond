@@ -9,7 +9,7 @@ EXTRA_DIST_FILES = $(TEXTS)
 
 include $(depth)/make/stepmake.make 
 
-default: do-doc
+default: local-doc
 
 local-WWW: $(addprefix $(outdir)/, $(addsuffix .txt, $(TEXTS)))
 

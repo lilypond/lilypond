@@ -34,7 +34,11 @@ testvar ()
 	fi
 }
 
-. ./stepmake/bin/package-zet.sh
+
+# . ./stepmake/bin/package-zet.sh
+sourcetree=`basename \`pwd\``
+(cd .. ; rm lilypond-devel ; showln -s $sourcetree lilypond-devel)
+
 
 echo You should add the following to your profile script
 echo
@@ -52,8 +56,8 @@ showln -sf $LILYPOND_SOURCEDIR/midi2ly/out/midi2ly $prefix/bin/midi2ly
 showln -sf $LILYPOND_SOURCEDIR/scripts/out/ly2dvi $prefix/bin/ly2dvi
 showln -sf $LILYPOND_SOURCEDIR/scripts/out/mudela-book $prefix/bin/mudela-book
 showln -sf $LILYPOND_SOURCEDIR/buildscripts/out/genheader $prefix/bin/genheader
-chmod 755 $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh
-showln -sf $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh $prefix/bin/ps-to-gifs
+
+
 
 testmkdir $prefix/share
 rm -rf $prefix/share/lilypond

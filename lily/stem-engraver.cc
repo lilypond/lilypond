@@ -29,7 +29,7 @@ void
 Stem_engraver::do_creation_processing ()
 {
   SCM prop = get_property ("abbrev", 0);
-  if (SCM_NUMBERP(prop)) 
+  if (gh_number_p(prop)) 
     {
       default_abbrev_i_  = gh_scm2int (prop);
     }
@@ -97,7 +97,7 @@ Stem_engraver::do_pre_move_processing()
   if (stem_p_)
     {
       SCM prop = get_property ("verticalDirection", 0);
-      if (SCM_NUMBERP(prop))
+      if (gh_number_p(prop))
 	{
 	  stem_p_->dir_ = to_dir (prop);
 	  stem_p_->set_elt_property (dir_forced_scm_sym, SCM_BOOL_T);
@@ -105,36 +105,17 @@ Stem_engraver::do_pre_move_processing()
 
       Translator_group* which;
       prop = get_property ("stemLeftBeamCount", &which);
-      if (SCM_NUMBERP(prop))
+      if (gh_number_p(prop))
 	{
 	  stem_p_->beams_i_drul_[LEFT] = gh_scm2int (prop);
 	  ((Translator_group*)which)->set_property ("stemLeftBeamCount", SCM_UNDEFINED);
 	}
       prop = get_property ("stemRightBeamCount", &which);
-      if (SCM_NUMBERP(prop))
+      if (gh_number_p(prop))
 	{
 	  stem_p_->beams_i_drul_[RIGHT] = gh_scm2int (prop);
 	  ((Translator_group*)which)->set_property ("stemRightBeamCount", SCM_UNDEFINED);
 	}
-
-      prop = get_property ("stemLength", 0);
-      if (SCM_NUMBERP(prop))
-	{
-	  stem_p_->set_elt_property (length_scm_sym, prop);
-	}
-
-      prop = get_property ("stemStyle", 0);
-      if (gh_string_p (prop))
-	{
-	  stem_p_->set_elt_property (style_scm_sym, prop);
-	}
-      
-      prop = get_property ("noStemExtend", 0);
-      if (gh_boolean_p (prop) && gh_scm2bool (prop))
-	{
-	  stem_p_->set_elt_property (no_stem_extend_scm_sym, prop);
-	}
-      
       typeset_element(stem_p_);
       stem_p_ = 0;
     }

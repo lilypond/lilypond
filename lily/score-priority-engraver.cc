@@ -44,8 +44,8 @@ Score_priority_engraver::acknowledge_element (Score_element_info inf)
       if (item_l->empty_b (X_AXIS) || item_l->parent_l (X_AXIS))
 	return;
 
-      bool breakable
-	= (item_l->remove_elt_property (breakable_scm_sym) != SCM_BOOL_F);
+      SCM bp=item_l->remove_elt_property (breakable_scm_sym);
+      bool breakable = (bp != SCM_BOOL_F);
       if (!breakable)
 	return ;
 

@@ -67,17 +67,17 @@ Mudela_voice::output (Mudela_stream& mudela_stream_r)
   mudela_stream_r << get_clef () << '\n';
   
   int current_bar_i = 0;
-  Moment bar_mom = mudela_staff_l_->mudela_time_signature_l_->bar_mom ();
+  Rational bar_mom = mudela_staff_l_->mudela_time_signature_l_->bar_mom ();
 
   for (Cons<Mudela_item>* i = mudela_item_l_list_.head_; i; i = i->next_)
     {
-      Moment at_mom = i->car_->mudela_column_l_->at_mom ();
+      Rational at_mom = i->car_->mudela_column_l_->at_mom ();
       int bar_i = (int) (at_mom / bar_mom) + 1;
       if (bar_i > current_bar_i) 
 	{
 	  if (current_bar_i) 
 	    {
-	      if (at_mom == Moment (bar_i - 1) * bar_mom)
+	      if (at_mom == Rational (bar_i - 1) * bar_mom)
 		mudela_stream_r << "|";
 	      mudela_stream_r << "\n% ";
 	      mudela_stream_r << String_convert::i2dec_str (bar_i, 0, ' ');

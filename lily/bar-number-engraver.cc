@@ -33,7 +33,6 @@ Bar_number_engraver::do_process_requests ()
       create_items (0);
 	
       text_p_->text_str_ = to_str (time->bars_i_);
-      text_p_->style_str_ = "roman";
     }
 }
 

@@ -448,10 +448,8 @@ Translator_group::do_add_processing ()
 }
 
 SCM
-Translator_group::get_property (String id,
-				Translator_group **where_l) const
+Translator_group::get_property (SCM sym, Translator_group **where_l) const
 {
-  SCM  sym = ly_symbol (id);
   if (properties_dict_.elem_b (sym))
     {
       if (where_l)
@@ -460,7 +458,7 @@ Translator_group::get_property (String id,
     }
 
   if (daddy_trans_l_)
-    return daddy_trans_l_->get_property (id, where_l);
+    return daddy_trans_l_->get_property (sym, where_l);
   
   if (where_l)
     *where_l = 0;

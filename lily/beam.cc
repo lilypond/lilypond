@@ -41,7 +41,6 @@ Beam::Beam ()
 {
   slope_f_ = 0;
   left_y_ = 0;
-  quantisation_ = NORMAL;
   multiple_i_ = 0;
 }
 
@@ -283,34 +282,32 @@ Beam::get_default_dir () const
   Direction beam_dir;
   Direction neutral_dir = (Direction)(int)paper_l ()->get_var ("stem_default_neutral_direction");
 
-  Dir_algorithm a = (Dir_algorithm)rint(paper_l ()->get_var ("beam_dir_algorithm"));
-  switch (a)
+  SCM a = get_elt_property (gh_symbol2scm ("beam_dir_algorithm"));
+  a= gh_cdr (a);
+  
+  if (a == gh_symbol2scm ("majority")) // should get default from paper.
+    beam_dir = (count[UP] == count[DOWN]) ? neutral_dir 
+      : (count[UP] > count[DOWN]) ? UP : DOWN;
+  else if (a == gh_symbol2scm ("mean"))
+    // mean center distance
+    beam_dir = (total[UP] == total[DOWN]) ? neutral_dir
+      : (total[UP] > total[DOWN]) ? UP : DOWN;
+  else if (a == gh_symbol2scm ("median"))
     {
-    case MAJORITY:
-      beam_dir = (count[UP] == count[DOWN]) ? neutral_dir 
-        : (count[UP] > count[DOWN]) ? UP : DOWN;
-      break;
-    case MEAN:
-      // mean center distance
-      beam_dir = (total[UP] == total[DOWN]) ? neutral_dir
-        : (total[UP] > total[DOWN]) ? UP : DOWN;
-      break;
-    default:
-    case MEDIAN:
       // median center distance
-      if (!count[DOWN] || !count[UP])
-        {
+      if (count[DOWN] && count[UP])
+	{
+	  beam_dir = (total[UP] / count[UP] == total[DOWN] / count[DOWN]) 
+	    ? neutral_dir 
+	    : (total[UP] / count[UP] > total[DOWN] / count[DOWN]) ? UP : DOWN;
+	}
+      else
+	{
 	  beam_dir = (count[UP] == count[DOWN]) ? neutral_dir 
 	    : (count[UP] > count[DOWN]) ? UP : DOWN;
 	}
-      else
-        {
-	  beam_dir = (total[UP] / count[UP] == total[DOWN] / count[DOWN]) 
-	    ? neutral_dir 
-	      : (total[UP] / count[UP] > total[DOWN] / count[DOWN]) ? UP : DOWN;
-	}
-      break;
     }
+  
   return beam_dir;
 }
 
@@ -517,7 +514,10 @@ Beam::quantise_dy ()
     + n * interline
     */
 
-  if (quantisation_ <= NONE)
+  SCM q = get_elt_property (gh_symbol2scm ("slope_quantisation"));
+  q = gh_cdr (q);
+  
+  if (q == gh_symbol2scm ("none"))
     return;
 
   Real interline_f = stems_[0]->staff_line_leading_f ();
@@ -532,7 +532,6 @@ Beam::quantise_dy ()
   
   Real quanty_f = 0.0;
 
-  /* UGR.   ICE in 2.8.1; bugreport filed. */
   Array<Real> allowed_fraction (3);
   allowed_fraction[0] = 0;
   allowed_fraction[1] = (beam_f / 2 + staffline_f / 2);
@@ -560,9 +559,8 @@ Beam::quantise_left_y (bool extend_b)
     we only need to quantise the start of the beam as dy is quantised too
    if extend_b then stems must *not* get shorter
    */
-
-  if (quantisation_ == NONE)
-    return;
+  SCM q = get_elt_property (gh_symbol2scm ("slope_quantisation"));
+  q = gh_cdr (q);
 
   /*
     ----------------------------------------------------------
@@ -607,7 +605,7 @@ Beam::quantise_left_y (bool extend_b)
   Real beamdy_f = beamdx_f * slope_f_ * internote_f;
 
   Array<Real> allowed_position;
-  if (quantisation_ <= NORMAL) 
+  if (q == gh_symbol2scm ("normal"))
     {
       if ((multiple_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
 	allowed_position.push (straddle);
@@ -615,9 +613,9 @@ Beam::quantise_left_y (bool extend_b)
 	allowed_position.push (sit);
       allowed_position.push (hang);
     }
-  else
-    // TODO: check and fix TRADITIONAL
+  else if (q == gh_symbol2scm ("traditional"))
     {
+      // TODO: check and fix TRADITIONAL
       if ((multiple_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
 	allowed_position.push (straddle);
       if ((multiple_i_ <= 1) && (beamdy_f <= staffline_f / 2))

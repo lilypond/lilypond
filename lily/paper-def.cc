@@ -54,33 +54,6 @@ Paper_def::Paper_def (Paper_def const&s)
     }
 }
 
-SCM
-Paper_def::get_scm_var (SCM s) const
-{
-  if (!scope_p_->elem_b (s))
-    return SCM_BOOL_F;
-
-  Identifier * id = scope_p_->elem (s);
-  
-  SCM z;
-  SCM_NEWCELL (z);
-  SCM_SETCAR(z, s);
-
-  SCM val;
-  
-  if (dynamic_cast<Real_identifier*> (id))
-    {
-      Real r = *id->access_content_Real (false);
-      val = gh_double2scm (r);
-    }
-  else
-    {
-      return SCM_BOOL_F;
-    }
-  
-  SCM_SETCDR(z,val);
-  return z;
-}
 
 Real
 Paper_def::get_var (String s) const

@@ -6,7 +6,7 @@
   (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "moment.hh"
+#include "rational.hh"
 #include "source-file.hh"
 #include "source.hh"
 #include "midi2ly-global.hh"
@@ -65,7 +65,7 @@ int
 Midi_score_parser::find_earliest_i (Link_array<Midi_track_parser>& tracks)
 {
   int earliest_i = 0;
-  Moment earliest_mom = infinity_mom;
+  Rational earliest_mom = infinity_rat;
   for (int i = 0; i < tracks.size(); i++)
     {
       if ( tracks [i]->at_mom () < earliest_mom )
@@ -82,7 +82,7 @@ Midi_score_parser::parse_score ()
 {
   int current_bar_i = 0;
   Mudela_time_signature m4 (4, 2, 24, 8);
-  Moment bar4_mom = m4.bar_mom ();
+  Rational bar4_mom = m4.bar_mom ();
 
   Mudela_score* score_p = new Mudela_score( 1, 1, 1 );
   info_l_->score_l_ = score_p;
@@ -96,7 +96,7 @@ Midi_score_parser::parse_score ()
   while (tracks.size ())
     {
       int i = find_earliest_i (tracks);
-      Moment at_mom = tracks [i]->at_mom ();
+      Rational at_mom = tracks [i]->at_mom ();
       Mudela_column* column_l = score_p->get_column_l (at_mom);
       Mudela_staff* staff_p = tracks [i]->parse (column_l);
       if ( staff_p )

@@ -280,9 +280,6 @@ Slur::do_post_processing ()
     Now we've got a fine slur
     Catch and correct some ugly cases
    */
-
-  
-
   String infix = interstaff_b ? "interstaff_" : "";
   Real height_damp_f = paper_l ()->get_var ("slur_"+infix +"height_damping");
   Real slope_damp_f = paper_l ()->get_var ("slur_"+infix +"slope_damping");

@@ -91,4 +91,6 @@ class ostream;
 ostream &
 operator << (ostream &,  Rational);
 
+const Rational infinity_rat = INT_MAX;
+
 #endif // RATIONAL_HH

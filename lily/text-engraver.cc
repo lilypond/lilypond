@@ -98,21 +98,9 @@ Text_engraver::do_process_requests ()
 
       text->text_str_ = r->text_str_;
       
-      if (r->style_str_.empty_b ())
-	{
-	  SCM p (get_property ("textStyle", 0));
-	  if (gh_string_p (p))
-	    text->style_str_ = ly_scm2string(p);
-	}
-      else
-	text->style_str_ = r->style_str_;
+      if (r->style_str_.length_i ())
+	text->set_elt_property (style_scm_sym, ly_ch_C_to_scm (r->style_str_.ch_C()));
       
-      SCM padding = get_property ("textScriptPadding", 0);
-      if (SCM_NUMBERP(padding))
-	{
-	  ss->set_elt_property (padding_scm_sym, padding);
-	}
-
       SCM empty = get_property ("textEmptyDimension", 0);
       if (gh_boolean_p (empty) && gh_scm2bool (empty))
 	{

@@ -27,8 +27,6 @@ protected:
 public:
   Time_signature () ;
   Array<int> args_;
-  String time_sig_type_str_;
-  
   
   VIRTUAL_COPY_CONS(Score_element);
 };

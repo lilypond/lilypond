@@ -131,7 +131,7 @@ Dynamic_engraver::do_process_requests()
 	    }
 
 	  prop = get_property ("dynamicDirection", 0);
-	  if (SCM_NUMBERP(prop))
+	  if (gh_number_p(prop))
 	    {
 	      staff_side_p_->dir_ = to_dir (prop);
 	    }
@@ -141,7 +141,7 @@ Dynamic_engraver::do_process_requests()
 	    }
 
 	  prop = get_property ("dynamicPadding", 0);
-	  if (SCM_NUMBERP(prop))
+	  if (gh_number_p(prop))
 	    {
 	      staff_side_p_->set_elt_property (padding_scm_sym, prop);
 	    }
@@ -180,7 +180,7 @@ Dynamic_engraver::do_process_requests()
 		      to_end_ss_span_p_->dir_ = to_dir (prop);
 		    }
 		  prop = get_property ("dynamicPadding", 0);
-		  if (SCM_NUMBERP(prop))
+		  if (gh_number_p(prop))
 		    {
 		      to_end_ss_span_p_->set_elt_property (padding_scm_sym,prop);
 		    }
