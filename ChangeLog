@@ -1,3 +1,14 @@
+2003-07-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mf/feta-toevallig.mf: tweak for bottom of flat sign. 
+	lo-res fixes.
+
+	* mf/feta-schrift.mf: bugfix in varcoda sign.
+	WARNING: FONT CHANGED
+
+	* lily/my-lily-lexer.cc (lookup_identifier): return SCM_UNDEFINED,
+	in accordance with lexer.ll.   
+
 2003-07-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/tutorial.itely: Edit introduction.

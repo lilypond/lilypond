@@ -147,7 +147,7 @@ My_lily_lexer::lookup_identifier (String s)
 	return scm_variable_ref(var);
     }
 
-  return SCM_UNSPECIFIED;
+  return SCM_UNDEFINED;
 }
 
 void
