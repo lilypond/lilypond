@@ -8,7 +8,6 @@
 
 #include "ly-module.hh"
 #include "main.hh"
-#include "page.hh"
 #include "paper-book.hh"
 #include "output-def.hh"
 #include "paper-outputter.hh"
@@ -29,8 +28,6 @@ Paper_book::Paper_book ()
 {
   pages_ = SCM_BOOL_F;
   lines_ = SCM_BOOL_F;
-  copyright_ = SCM_EOL;
-  tagline_ = SCM_EOL;
   header_ = SCM_EOL;
   
   bookpaper_ = 0;
@@ -54,13 +51,11 @@ Paper_book::mark_smob (SCM smob)
   for (int i = 0; i < b->score_lines_.size (); i++)
     b->score_lines_[i].gc_mark ();
 
-  scm_gc_mark (b->copyright_);
   if (b->bookpaper_)
     scm_gc_mark (b->bookpaper_->self_scm ());
   scm_gc_mark (b->header_);
   scm_gc_mark (b->pages_);
-  scm_gc_mark (b->lines_);
-  return b->tagline_;
+  return b->lines_;
 }
 
 int
@@ -224,6 +219,22 @@ LY_DEFINE(ly_paper_book_pages, "ly:paper-book-pages",
 }
 
 
+LY_DEFINE(ly_paper_book_scopes, "ly:paper-book-scopes",
+	  1,0,0,
+	  (SCM book),
+	  "Return pages in paper book @var{book}.")
+{
+  Paper_book * pb =  unsmob_paper_book(book);
+  SCM_ASSERT_TYPE(pb, book, SCM_ARG1, __FUNCTION__, "Paper_book");
+  
+  SCM scopes = SCM_EOL;
+  if (ly_c_module_p (pb->header_))
+    scopes = scm_cons (pb->header_, scopes);
+  
+  return scopes;
+}
+
+
 LY_DEFINE(ly_paper_book_lines, "ly:paper-book-lines",
 	  1,0,0,
 	  (SCM pb),
@@ -292,7 +303,7 @@ Paper_book::score_title (int i)
 
   SCM tit = SCM_EOL;
   if (ly_c_procedure_p (title_func))
-    tit =scm_call_2 (title_func,
+    tit = scm_call_2 (title_func,
 		     bookpaper_->self_scm (),
 		     scopes);
 
@@ -366,22 +377,6 @@ Paper_book::lines ()
 
 
 SCM
-make_tagline (Output_def*paper, SCM scopes)
-{
-  SCM make_tagline = paper->c_variable ("make-tagline");
-  SCM tagline = scm_call_2 (make_tagline, paper->self_scm (), scopes);
-  return tagline;
-}
-
-SCM
-make_copyright (Output_def *paper, SCM scopes)
-{
-  SCM make_copyright = paper->c_variable ("make-copyright");
-  SCM  copyright = scm_call_2 (make_copyright, paper->self_scm (), scopes);
-  return copyright;
-}
-
-SCM
 Paper_book::pages ()
 {
   if (SCM_BOOL_F != pages_)
@@ -391,61 +386,18 @@ Paper_book::pages ()
   
   Output_def *paper = bookpaper_;
 
-
-  // dummy to extract dims
-  Page *page = new Page (SCM_EOL, paper, 1); // ugh
-  Real text_height = page->text_height ();
-
-  Real copy_height = 0;
-  if (Stencil *s = unsmob_stencil (copyright_))
-    copy_height = s->extent (Y_AXIS).length ();
-
-  Real tag_height = 0;
-  if (Stencil *s = unsmob_stencil (tagline_))
-    tag_height = s->extent (Y_AXIS).length ();
-
-  scm_gc_unprotect_object (page->self_scm ());
-
-  /*
-    UGH - move this out of C++.
-   */
-  SCM scopes = SCM_EOL;
-  if (ly_c_module_p (header_))
-    scopes = scm_cons (header_, scopes);
-  
-  tagline_ = make_tagline (bookpaper_, scopes);
-  copyright_ = make_tagline (bookpaper_, scopes);
-
-
-  SCM all = lines ();
   SCM proc = paper->c_variable ("page-breaking");
-  SCM pages = scm_apply_0 (proc, scm_list_n (all,
-					     self_scm (),
-					     scm_make_real (text_height),
-					     scm_make_real (-copy_height),
-					     scm_make_real (-tag_height),
-					     SCM_UNDEFINED));
-
-
-  SCM *page_tail = &pages_;
-  int num = 0;
-  for (SCM s = pages; ly_c_pair_p (s); s =  ly_cdr (s))
-    {
-      Page * page = new Page (ly_car (s), paper, ++num);
-      
-      *page_tail = scm_cons (page->self_scm () , SCM_EOL);
-      page_tail = SCM_CDRLOC(*page_tail);
-
-      scm_gc_unprotect_object (page->self_scm ());
-
-      if (!ly_c_pair_p (ly_cdr (s)))
-	page->is_last_ = true;
-    }
+  pages_ = scm_apply_0 (proc, scm_list_n (lines (),
+					  self_scm (),
+					  SCM_UNDEFINED));
 
   return pages_;
 }
 
 
+
+
+#if 0
 
 static SCM
 c_ragged_page_breaks (SCM lines,
@@ -459,26 +411,6 @@ c_ragged_page_breaks (SCM lines,
   for (SCM s = lines ; ly_c_pair_p (s);  s = ly_cdr (s))
     {
       book_height += unsmob_paper_line (ly_car (s))->dim ()[Y_AXIS];
-    }
-
-  /*
-    UGH. following stuff should go out of C++.
-   */
-  SCM scopes = SCM_EOL;
-  if (ly_c_module_p (book->header_))
-    scopes = scm_cons (book->header_, scopes);
-  
-
-  SCM tag = make_tagline (book->bookpaper_, scopes);
-  if (unsmob_stencil (tag))
-    {
-      book_height += unsmob_stencil (tag)->extent (Y_AXIS).length ();
-    }
-
-  SCM cr = make_copyright (book->bookpaper_, scopes);
-  if (unsmob_stencil (cr))
-    {
-      book_height += unsmob_stencil (cr)->extent (Y_AXIS).length ();
     }
 
   int page_count = int (book_height / text_height + 0.5); // ceil?
@@ -522,6 +454,8 @@ LY_DEFINE (ly_ragged_page_breaks, "ly:ragged-page-breaks",
 			       ly_scm2double (text),
 			       ly_scm2double (first), ly_scm2double (last));
 }
+#endif
+
 
 /****************************************************************/
 

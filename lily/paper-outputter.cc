@@ -18,7 +18,6 @@
 #include "lily-version.hh"
 #include "ly-module.hh"
 #include "main.hh"
-#include "page.hh"
 #include "paper-book.hh"
 #include "output-def.hh"
 #include "paper-line.hh"

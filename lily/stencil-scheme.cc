@@ -127,7 +127,7 @@ LY_DEFINE (ly_stencil_moved_to_edge, "ly:stencil-moved-to-edge",
 }
 
 
-  
+
 LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
 	   4, 2, 0,  (SCM first, SCM axis, SCM direction,
 		      SCM second,
@@ -138,14 +138,19 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
 	   "@var{direction} can be -1 (left or down) or 1 (right or up). "
 	   "The stencils are juxtaposed with  @var{padding} as extra space. "
 	   "If this puts the reference points closer than @var{minimum}, "
-	   "they are moved by the latter amount.")
+	   "they are moved by the latter amount."
+	   "@var{first} and @var{second} may also be '() or #f.")
 {
   Stencil *s1 = unsmob_stencil (first);
   Stencil *s2 = unsmob_stencil (second);
   Stencil result;
 
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE (is_direction (direction), direction, SCM_ARG4, __FUNCTION__, "dir");
+  SCM_ASSERT_TYPE (s1 || first == SCM_BOOL_F || first  == SCM_EOL,
+		   first, SCM_ARG1, __FUNCTION__, "Stencil, #f or ()");
+  SCM_ASSERT_TYPE (s2 || second == SCM_BOOL_F || second  == SCM_EOL,
+		   second, SCM_ARG4, __FUNCTION__, "Stencil, #f or ()");
+  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE (is_direction (direction), direction, SCM_ARG3, __FUNCTION__, "dir");
 
   Real p = 0.0;
   if (padding != SCM_UNDEFINED)
@@ -162,6 +167,7 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
 
   if (s1)
     result = *s1;
+  
   if (s2)
     result.add_at_edge (Axis (ly_scm2int (axis)),
 			Direction (ly_scm2int (direction)), *s2, p, m);

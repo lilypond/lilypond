@@ -1,3 +1,17 @@
+2004-06-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/paper-book.cc: remove copyright & tagline. Remove
+	interactions with Page
+
+	* scm/page-layout.scm (ly:optimal-page-breaks): move back breaking
+	here, 
+	(default-page-make-stencil): new function
+	(default-page-music-height): new function
+	(page-headfoot): new function
+	(ly:optimal-page-breaks): generate stencils directly from here
+
+	* scm/titling.scm: new file, group titling functions
+
 2004-06-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/framework-gnome.scm: Do not load output-gnome.

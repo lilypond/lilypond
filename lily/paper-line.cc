@@ -61,7 +61,7 @@ Paper_line::is_title () const
   return is_title_;
 }
 
-int
+Real
 Paper_line::penalty () const
 {
   return penalty_;
@@ -91,6 +91,16 @@ LY_DEFINE (ly_paper_line_height, "ly:paper-line-extent",
   return scm_make_real (pl->dim ()[ax]);
 }
 
+
+
+LY_DEFINE (ly_paper_line_title_p, "ly:paper-line-title?",
+	   1, 0, 0, (SCM line),
+	   "Is  @var{line} a title line?")
+{
+  Paper_line *pl = unsmob_paper_line (line);
+  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
+  return SCM_BOOL (pl->is_title ());
+}
 
 LY_DEFINE (ly_paper_line_number, "ly:paper-line-number",
 	   1, 0, 0, (SCM line),

@@ -162,7 +162,7 @@
     "0 0 start-system { "
     "set-ps-scale-to-lily-scale "
     "\n"))
-  (ly:outputter-dump-stencil outputter (ly:page-stencil page))
+  (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter "} stop-system \nshowpage\n"))
 
 (define-public (output-framework-ps outputter book scopes fields basename)
