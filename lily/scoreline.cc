@@ -101,6 +101,7 @@ Line_of_score::set_breaking(Array<Col_hpositions> const &breaking)
 	
 	if (breaking.size() >1) {
 	    line_p = (Line_of_score*)clone()->spanner();
+	    line_p->copy_dependencies( *this );
 	    line_l = line_p;
 	} else 
 	    line_l =  this;
@@ -122,7 +123,7 @@ Line_of_score::set_breaking(Array<Col_hpositions> const &breaking)
 }
 
 void
-Line_of_score::break_into_pieces()
+Line_of_score::break_into_pieces(bool)
 {
 }
 
@@ -131,7 +132,7 @@ Line_of_score::get_lines()const
 {
     Link_array<Line_of_score> ret;
 
-    if(broken_into_l_arr_.size())
+    if (broken_into_l_arr_.size())
 	for (int i=0; i < broken_into_l_arr_.size(); i++) {
 	    ret.push((Line_of_score*)broken_into_l_arr_[i]);
 	}
