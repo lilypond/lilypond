@@ -78,14 +78,35 @@ Beam::before_line_breaking (SCM smob)
 {
   Grob * me =  unsmob_grob (smob);
 
-  // Why?
   /*
-    Why what?  Why the warning (beams with less than 2 stems are
-    degenerate beams, should never happen), or why would this ever
-    happen (don't know). */
+    Beams with less than 2 two stems don't make much sense, but could happen
+    when you do
+
+    [r8 c8 r8].
+    
+    For a beam that  only has one stem, we try to do some disappearance magic:
+    we revert the flag, and move on to The Eternal Engraving Fields.*/
+  
+  
   if (visible_stem_count (me) < 2)
     {
-      warning (_ ("beam has less than two stems"));
+      warning (_ ("beam has less than two visible stems"));
+
+      SCM stems = me->get_grob_property ("stems");
+      if (scm_ilength (stems) == 1)
+	{
+	  warning (_("Beam has less than two stems. Removing beam."));
+
+	  unsmob_grob (gh_car (stems))->remove_grob_property ("beam");
+	  me->suicide ();
+
+	  return SCM_UNSPECIFIED;
+	}
+      else if (scm_ilength (stems) == 0)
+	{
+	  me->suicide ();
+	  return SCM_UNSPECIFIED;	  
+	}
     }
   if (visible_stem_count (me) >= 1)
     {

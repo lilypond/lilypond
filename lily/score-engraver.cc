@@ -18,6 +18,8 @@
 #include "axis-group-interface.hh"
 #include "translator-def.hh"
 
+#include "staff-spacing.hh"
+#include "note-spacing.hh"
 
 /*
   TODO: the column creation logic is rather hairy. Revise it.
@@ -38,7 +40,6 @@ Score_engraver::make_columns ()
     ugh.
    */
   if (!command_column_l_)
-    //      || *unsmob_moment (command_column_l_->get_grob_property ("when")) != w)
     {
       set_columns (new Paper_column (get_property ("NonMusicalPaperColumn")),
 		   new Paper_column (get_property ("PaperColumn")));
@@ -134,20 +135,8 @@ Score_engraver::announce_grob (Grob_info info)
 {
   announce_info_arr_.push (info);
   pscore_p_->line_l_->typeset_grob (info.grob_l_);
-}
 
-/* All elements are propagated to the top upon announcement. If
-   something was created during one run of
-   Engraver_group_engraver::do_announces, then
-   announce_info_arr_.size () will be nonzero again
-*/
-/* junkme? Done by Engraver_group_engraver::do_announces ()?
- */
-   
-void
-Score_engraver::do_announces ()
-{
-  Engraver_group_engraver::do_announces ();
+
 }
 
 
@@ -294,7 +283,23 @@ Score_engraver::forbid_breaks ()
    */
   command_column_l_->remove_grob_property ("breakable");
 }
-
+  
+void
+Score_engraver::acknowledge_grob (Grob_info gi)
+{
+  if (Staff_spacing::has_interface (gi.grob_l_))
+    {
+      Pointer_group_interface::add_element (command_column_l_,
+					    ly_symbol2scm ("spacing-wishes"),
+					    gi.grob_l_);
+    }
+  if (Note_spacing::has_interface (gi.grob_l_))
+    {
+      Pointer_group_interface::add_element (musical_column_l_,
+					    ly_symbol2scm ("spacing-wishes"),
+					    gi.grob_l_);
+    }
+}
 
 
 
@@ -312,6 +317,6 @@ that there are no beams or notes that prevent a breakpoint.)
 
 ",
 /* creats*/       "LineOfScore PaperColumn NonMusicalPaperColumn",
-/* acks  */       "grob-interface",
+/* acks  */       "note-spacing-interface staff-spacing-interface",
 /* reads */       "currentMusicalColumn currentCommandColumn",
 /* write */       "");

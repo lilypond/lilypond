@@ -147,7 +147,6 @@ set_loose_columns (Line_of_score* which, Column_x_positions const *posns)
       Item * right = 0;
       while (1)
 	{
-	  
 	  SCM between = loose->get_grob_property ("between-cols");
 	  if (!gh_pair_p (between))
 	    break;

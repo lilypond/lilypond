@@ -324,6 +324,7 @@ ScoreContext = \translator {
 	\name Score
 	
 	\consists "Repeat_acknowledge_engraver"
+	\consists "Staff_collecting_engraver"
 	\consists "Timing_engraver"
 	\consists "Output_property_engraver"
 	\consists "System_start_delimiter_engraver"

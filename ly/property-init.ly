@@ -97,7 +97,6 @@ voiceTwo = {
   \slurDown
   \tieDown
   \dotsDown  
-
 }
    
 voiceThree = {

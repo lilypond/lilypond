@@ -22,9 +22,8 @@ Engraver_group_engraver::announce_grob (Grob_info info)
 
 
 void
-Engraver_group_engraver::create_grobs ()
+Engraver_group_engraver::create_grobs_in_simple_children ()
 {
-
   for (SCM p = simple_trans_list_; gh_pair_p (p); p = ly_cdr (p))
     {
       Translator * t = unsmob_translator (ly_car (p));
@@ -34,6 +33,10 @@ Engraver_group_engraver::create_grobs ()
     }
 }
 
+/*
+  TODO: use this mechanism for the current Engraver_group_engraver as well.
+  
+ */
 SCM find_acknowledge_engravers (SCM gravlist, SCM meta);
 void
 Engraver_group_engraver::acknowledge_grobs ()
@@ -71,7 +74,7 @@ Engraver_group_engraver::acknowledge_grobs ()
       SCM acklist = scm_hashq_ref (tab, nm, SCM_UNDEFINED);
       if (acklist == SCM_BOOL_F)
 	{
-	  acklist= find_acknowledge_engravers (simple_trans_list_, meta);
+	  acklist= find_acknowledge_engravers (gh_cons (self_scm (), simple_trans_list_), meta);
 	  scm_hashq_set_x (tab, nm, acklist);
 	}
 
@@ -94,13 +97,13 @@ Engraver_group_engraver::do_announces ()
       dynamic_cast<Engraver_group_engraver*> (t)->do_announces ();
     }
 
-  create_grobs ();
+  create_grobs_in_simple_children ();
     
   while (announce_info_arr_.size ())
     {
       acknowledge_grobs ();
       announce_info_arr_.clear ();
-      create_grobs ();
+      create_grobs_in_simple_children ();
     }
 }
 
@@ -129,8 +132,6 @@ Engraver_group_engraver::process_music ()
     }
 }
 
-void find_all_acknowledge_engravers (SCM tab, SCM gravlist, SCM allgrobs);
-
 void
 Engraver_group_engraver::initialize ()
 {
@@ -145,7 +146,7 @@ Engraver_group_engraver::Engraver_group_engraver() {}
 ENTER_DESCRIPTION(Engraver_group_engraver,
 /* descr */       "A group of engravers taken together",
 /* creats*/       "",
-/* acks  */       "grob-interface",
+/* acks  */       "",
 /* reads */       "",
 /* write */       "");
 

@@ -122,6 +122,13 @@ Rhythmic_column_engraver::stop_translation_timestep ()
       typeset_grob (note_column_);
       note_column_ =0;
     }
+
+  if (spacing_)
+    {
+      typeset_grob (spacing_);
+      last_spacing_ = spacing_;
+      spacing_ =0;
+    }
 }
 
 void

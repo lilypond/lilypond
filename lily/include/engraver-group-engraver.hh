@@ -38,8 +38,8 @@ public:
   virtual void announce_grob (Grob_info);
   virtual void process_music ();
 private:
-  void create_grobs ();
-  void acknowledge_grobs ();
+  virtual void acknowledge_grobs ();
+  virtual void create_grobs_in_simple_children ();
 };
 
 #endif // ENGRAVERGROUP_HH

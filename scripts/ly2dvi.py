@@ -443,7 +443,7 @@ def analyse_lilypond_output (filename, extra):
 
 	# search only the first 10k
 	s = s[:10240]
-	for x in ('textheight', 'linewidth', 'papersize', 'orientation'):
+	for x in extra_fields:
 		m = re.search (r'\\def\\lilypondpaper%s{([^}]*)}'%x, s)
 		if m:
 			set_setting (extra, x, m.group (1))

@@ -22,9 +22,9 @@ protected:
   Item * musical_malt_p_;
   Item * last_musical_malt_p_;
 
-  Grob * last_note_spacing_;
-  Grob * current_note_spacing_;
-  Grob * staff_spacing_;
+  Item * last_note_spacing_;
+  Item * current_note_spacing_;
+  Item * staff_spacing_;
   
   Spanner * sep_span_p_;
   

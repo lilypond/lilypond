@@ -11,6 +11,7 @@
 #define STAFF_SYMBOL_HH
 
 #include "lily-guile.hh"
+#include "lily-proto.hh"
 
 /**
   TODO: add stafflinethickness as parameter.

@@ -14,6 +14,7 @@
 #include "note-column.hh"
 #include "bar.hh"
 #include "side-position-interface.hh"
+#include "staff-symbol.hh"
 
 /*
   Create Volta spanners, by reading repeatCommands  property, usually
@@ -34,12 +35,13 @@ protected:
   Moment started_mom_;
   Spanner *volta_span_p_;
   Spanner *end_volta_span_p_;
-
+  SCM staff_;
   SCM start_str_;
 };
 
 Volta_engraver::Volta_engraver ()
 {
+  staff_ = SCM_EOL;
   volta_span_p_ = 0;
   end_volta_span_p_ = 0;
 }
@@ -48,6 +50,27 @@ Volta_engraver::Volta_engraver ()
 void
 Volta_engraver::process_music ()
 {
+  if (unsmob_grob (staff_))
+    {
+      /*
+	TODO: this does weird things when you open a piece with a
+	volta spanner.
+	
+       */
+      SCM staffs = get_property ("stavesFound");
+
+      /*
+	only put a volta on the top staff.
+	
+	May be this is a bit convoluted, and we should have a single
+	volta engraver in score context or somesuch.
+	
+      */
+      if (ly_car (scm_last_pair (staffs)) != staff_)
+	return ;
+    }
+	
+  
   SCM cs = get_property ("repeatCommands");
 
   bool  end = false;
@@ -147,6 +170,17 @@ Volta_engraver::acknowledge_grob (Grob_info i)
 	    Volta_spanner::add_bar (end_volta_span_p_ , item);
 	}
     }
+  else if (Staff_symbol::has_interface (i.grob_l_))
+    {
+      /*
+	We only want to know about a single staff: then we add to the
+	support.  */
+      if (staff_ != SCM_EOL)
+	staff_ = SCM_UNDEFINED;
+
+      if (staff_ != SCM_UNDEFINED)
+	staff_ = i.grob_l_->self_scm();
+    }
 }
 
 void
@@ -169,8 +203,6 @@ Volta_engraver::stop_translation_timestep ()
 {
   if (end_volta_span_p_)
     {
-      Side_position_interface::add_staff_support (end_volta_span_p_);
-      
       typeset_grob (end_volta_span_p_);
       end_volta_span_p_ =0;
     }
@@ -183,6 +215,6 @@ Volta_engraver::stop_translation_timestep ()
 ENTER_DESCRIPTION(Volta_engraver,
 /* descr */       "Make volta brackets",
 /* creats*/       "VoltaBracket",
-/* acks  */       "bar-line-interface note-column-interface",
-/* reads */       "repeatCommands voltaSpannerDuration",
+/* acks  */       "bar-line-interface staff-symbol-interface note-column-interface",
+/* reads */       "repeatCommands voltaSpannerDuration stavesFound",
 /* write */       "");
