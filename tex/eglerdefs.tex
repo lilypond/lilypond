@@ -1,12 +1,13 @@
 %
 % Has to be fixed. Exercise for the reader.
 %
-
+\input fetdefs
 
 \def\musixtwentyfonts{
-  \font\normaltextfont=cmr10
-        \font\meterfont=cmbx12
+        \font\normaltextfont=cmr10
+        \font\meterfont=cmbx15
         \font\slurufont=oslu20
+        \font\smalltextfont=cmr8
         \font\slurdfont=osld20
         \font\slurhfont=oslz20
         \font\hslurufont=oslhu20
@@ -17,10 +18,12 @@
         \font\italicfont=cmti10
         \font\dynfont=cmbxti10 scaled \magstep1
         \font\musicmathfont=cmsy10
+        \fettwentydefs
 }
 
 
 \def\musixsixteenfonts{
+        \font\smalltextfont=cmr6
         \font\normaltextfont=cmr8
         \font\meterfont=cmbx12
         \font\italicfont=cmti8
@@ -34,26 +37,27 @@
         \font\dynfont=cmbxti12
         \font\musicdraw=opussps
         \font\musicmathfont=cmsy8
+        \fetsixteendefs
 }
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % provide interface to musixtex fonts 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\musicdef\quartball{26}
-\musicdef\halfball{27}
-\musicdef\wholeball{28}
-\musicdef\halfrest{13}
-\musicdef\wholerest{12}
+\musicdef\halfrest{10}
+\musicdef\outsidehalfrest{11}
+\musicdef\wholerest{13}
+\musicdef\outsidewholerest{12}
 \musicdef\quartrest{14}
 \musicdef\eighthrest{15}
 \musicdef\sixteenthrest{16}
 \musicdef\thirtysecondrest{17}
 \musicdef\sixtyfourthrest{18}
-%\musicdef\hundredtwentyeighthrest{67}
 \musicdef\sharp{93}
 \musicdef\flat{91}
 \musicdef\natural{95}
 \musicdef\sharpsharp{94}
 \musicdef\flatflat{92}
+
 
 \musicdef\singledot{'00}
 \musicdef\doubledot{'01}
@@ -67,18 +71,18 @@
 \musicdef\cbassclef{68}
 \musicdef\caltoclef{70}
 
-\musicdef\deighthflag{32}
-\musicdef\dsixteenthflag{46}
-\musicdef\dthirtysecondflag{47}
-\musicdef\dsixtyfourthflag{48}
-\musicdef\dhundredtwentyeighthflag{49}
+\musicdef\deighthflag{37}
+\musicdef\dsixteenthflag{38}
+\musicdef\dthirtysecondflag{39}
+\musicdef\dsixtyfourthflag{40}
+\musicdef\dhundredtwentyeighthflag{41}
 
 % pointing up
-\musicdef\ueighthflag{40}
-\musicdef\usixteenthflag{41}
-\musicdef\uthirtysecondflag{42}
-\musicdef\usixtyfourthflag{43}
-\musicdef\uhundredtwentyeighthflag{44}
+\musicdef\ueighthflag{32}
+\musicdef\usixteenthflag{33}
+\musicdef\uthirtysecondflag{34}
+\musicdef\usixtyfourthflag{35}
+\musicdef\uhundredtwentyeighthflag{36}
 
 \maccentdef\repeatcolon{55}{2/1}
 \def\eighthflag{\topalign{\ueighthflag}}
@@ -116,3 +120,11 @@
 \musicdef\ispicato{29}
 \musicdef\upbow{23}
 \musicdef\downbow{22}
+
+\def\beamuslope#1#2{{\count0=#2\advance\count0 by#1
+        \advance\count0 by 132
+        \musicfnt\char\count0}}
+\def\beamdslope#1#2{{\count0=#2\advance\count0 by#1
+        \advance\count0 by 186
+        \musicfnt\char\count0}}
+

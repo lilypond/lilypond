@@ -1,18 +1,33 @@
+pl 17
+	- bf: ledgerline width
+	- bf: toccata-fuga-E
+	- took out some hardwiring of tex-beam
+	
+pl 16.jcn2
+	- mf-to-table.in: generate mozarella metric info tables
+	- autometric.mf: write metric info to mf logfile
+	- ital-r.mf, smaller ital-m.mf
+	- variable streepjes length (top/bottomlines); fixed (for 20pt?)
+	- streepjes twice as thick as staffrules
+	- even more pronounced bolletjes -- how 'bout this wendy?
+	- quarter and half note after drawings (a/b less distinct)
+
+*****
+sep 19
 pl 16
-	- bf: doco about {Mus*,Opus}TeX
+	- revised mudela-man a bit
 	- ; optional after \musicidentifier
+	- bf: doco about {Mus*,Opus}TeX
 	- bf: configure: MFDIR
 	- bf: String::operator bool () removed
 	- bf: String::operator char const * () removed
 	- bf: Line_spacer::~Line_spacer () added: plugged memleak
 	- bf: Line_of_score::do_unlink () call Spanner::do_unlink
 	- bf: rests in beams
-	- bfs: mudela-man
 	- bf: textnatural
 	- bf: 20 pt flags
 	- bf: longarest 
 	
-
 pl 15.jcn1
 	- bf: typos whole and half notehead
 	- de-uglyfied bolletjes.mf
