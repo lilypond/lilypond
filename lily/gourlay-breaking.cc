@@ -59,16 +59,12 @@ Gourlay_breaking::do_solve () const
   
   Array<int> breaks = find_break_indices ();
   
-  optimal_paths.set_size (breaks.size ());
-
   Break_node first_node ;
-  
-  optimal_paths[0] = first_node; 
-  int break_idx=1;
+  optimal_paths.push (first_node);
 
   Real worst_force = 0.0;
   
-  for (; break_idx< breaks.size (); break_idx++) 
+  for (  int break_idx=1; break_idx< breaks.size (); break_idx++) 
     {
       /*
 	start with a short line, add measures. At some point 
@@ -96,24 +92,15 @@ Gourlay_breaking::do_solve () const
 	  sp->solve (&cp);
 	  delete sp;
 
-	  if (cp.force_f_ > worst_force)
-	    worst_force = cp.force_f_;
+	  if (fabs (cp.force_f_) > worst_force)
+	    worst_force = fabs (cp.force_f_);
 
 	  /*
 	    We remember this solution as a "should always work
 	    solution", in case everything fucks up.  */
 	  if (start_idx == break_idx - 1)
 	    backup_sol = cp;
-	  if (!cp.satisfies_constraints_b_)
-	    {
-	      /*
-		If it doesn't satisfy constraints, we make this one
-		really unattractive.
-	      */
-	      cp.force_f_ += worst_force;
-	      cp.force_f_ *= 10;	
-	    }
-	  
+	 	  
 	  Real this_demerits;
 
 	  if (optimal_paths[start_idx].demerits_f_ >= infinity_f)
@@ -137,28 +124,30 @@ Gourlay_breaking::do_solve () const
 	    break ; 
 	}
 
-      int prev =break_idx - 1;
+
+      Break_node bnod;
       if (minimal_start_idx < 0) 
 	{
-	  optimal_paths[break_idx].demerits_f_ = infinity_f;
-	  optimal_paths[break_idx].line_config_ = backup_sol;	  
+	  bnod.demerits_f_ = infinity_f;
+	  bnod.line_config_ = backup_sol;
+	  bnod.prev_break_i_ = break_idx - 1;	  
 	}
       else 
 	{
-	  prev = minimal_start_idx;
-	  optimal_paths[break_idx].line_config_ = minimal_sol;
-	  optimal_paths[break_idx].demerits_f_ = minimal_demerits;
+	  bnod.prev_break_i_ = minimal_start_idx;
+	  bnod.demerits_f_ = minimal_demerits;
+	  bnod.line_config_ = minimal_sol;
 	}
-      optimal_paths[break_idx].prev_break_i_ = prev;
-      optimal_paths[break_idx].line_i_ = optimal_paths[prev].line_i_ + 1;
-
+      bnod.line_i_ = optimal_paths[bnod.prev_break_i_].line_i_ + 1;
+      optimal_paths.push (bnod);
+      
       if (! (break_idx % HAPPY_DOTS_I))
 	progress_indication (String ("[") + to_str (break_idx) + "]");
     }
 
   /* do the last one */
-  if (break_idx % HAPPY_DOTS_I)
-    progress_indication (String ("[") + to_str (break_idx) + "]");    
+  if (breaks.size () % HAPPY_DOTS_I)
+    progress_indication (String ("[") + to_str (breaks.size()) + "]");    
 
 
   progress_indication ("\n");
@@ -214,7 +203,20 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
 	}
     }
 
-  return abs (this_one.force_f_) + abs (prev.force_f_ - this_one.force_f_)
+  Real demerit = abs (this_one.force_f_) + abs (prev.force_f_ - this_one.force_f_)
     + break_penalties;
+
+
+   if (!this_one.satisfies_constraints_b_)
+     {
+       /*
+	 If it doesn't satisfy constraints, we make this one
+	 really unattractive.
+       */
+       demerit += 10;
+       demerit *= 100;
+     }
+
+   return demerit;
 }
 

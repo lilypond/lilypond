@@ -91,6 +91,12 @@ SCM ly_truncate_list (int k, SCM l );
 #define CACHE_SYMBOLS
 #ifdef CACHE_SYMBOLS
 
+
+/*
+  We don't use gh_symbol2scm directly, since it has const-correctness
+  problems in GUILE 1.3.4
+  
+ */
 SCM my_gh_symbol2scm (const char* x);
 
 // #warning: CACHE_SYMBOLS
@@ -108,12 +114,12 @@ SCM my_gh_symbol2scm (const char* x);
  SCM value = cached;  /* We store this one locally, since G++ -O2 fucks up else */   \
  if ( __builtin_constant_p ((x)))\
  {  if (!cached)\
-     value = cached =  scm_gc_protect_object (my_gh_symbol2scm((char*) (x)));\
+     value = cached =  scm_gc_protect_object (my_gh_symbol2scm((x)));\
  } else\
   value = gh_symbol2scm ((char*) (x)); \
   value; })
 #else
-inline SCM ly_symbol2scm(char const* x) { return gh_symbol2scm((char*)x); }
+inline SCM ly_symbol2scm(char const* x) { return gh_symbol2scm((x)); }
 #endif 
 
 
