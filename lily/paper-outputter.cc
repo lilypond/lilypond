@@ -53,6 +53,7 @@ Paper_outputter::Paper_outputter (String name)
       else
 	output_module_ = scm_c_resolve_module (name.to_str0 ());
 
+      /* FIXME: output-lib should be module, that can be imported.  */
 #define IMPORT_LESS 1 // only import the list of IMPORTS
 #if IMPORT_LESS
       scm_c_use_module ("lily");
@@ -64,10 +65,12 @@ Paper_outputter::Paper_outputter (String name)
 	"ly:output-def-scope",
 	"ly:gulp-file",
 	"ly:number->string",
-	"assoc-get",
-	"number-pair->string",
-	"inexact->string",
+	
+	"number-pair->string",       /* output-lib.scm */
 	"numbers->string",
+	
+	"assoc-get",
+	"inexact->string",           /* insecure guile? */
 #if IMPORT_LESS	
 	"string-index",              /* from srfi srfi-13 */
 	"regexp-substitute/global",  /* from (ice9 regex) */
