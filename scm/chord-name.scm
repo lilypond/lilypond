@@ -15,7 +15,7 @@
    )
 
 
-(define-public (write-me x)
+(define (write-me x)
   "Write and return X. For debugging purposes. "
   (write x) (newline) x)
 
