@@ -65,8 +65,8 @@ Align_interface::do_side_processing (Score_element * me, Axis a)
 	      gh_number_p (gh_car (min_dims))
 	      && gh_number_p (gh_cdr (min_dims)))
 	    {
-	      y.unite (Interval (gh_scm2double (gh_car  (min_dims)),
-				 gh_scm2double (gh_cdr (min_dims))));
+	      y.unite (ly_scm2interval (min_dims));
+	      
 	    }
 	  
 	  SCM extra_dims = e->remove_elt_property ("extra-space");
@@ -94,20 +94,20 @@ Align_interface::do_side_processing (Score_element * me, Axis a)
     }
 
   Real where_f=0;
-  for (int i=0 ;  i < elems.size(); i++) 
+  for (int j=0 ;  j < elems.size(); j++) 
     {
-      Real dy = - stacking_dir * dims[i][-stacking_dir];
-      if (i)
-	dy += stacking_dir * dims[i-1][stacking_dir];
+      Real dy = - stacking_dir * dims[j][-stacking_dir];
+      if (j)
+	dy += stacking_dir * dims[j-1][stacking_dir];
 
-      if (i)
+      if (j)
 	{
 	  dy = (dy >? threshold[SMALLER] )
 	    <? threshold[BIGGER];
 	}
 
       where_f += stacking_dir * dy;
-      elems[i]->translate_axis (where_f, a);
+      elems[j]->translate_axis (where_f, a);
     }
 }
 
