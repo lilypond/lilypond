@@ -641,7 +641,8 @@ command."
   (interactive)
   (defun add-dictionary-word (x)
     (nconc '(("" . 1)) x))
-  (if (eq (length (add-dictionary-word ())) 1) ; does not recreate the dict
+  ; creates dictionary if empty
+  (if (eq (length (add-dictionary-word ())) 1)
     (progn
       (setq fn (LilyPond-words-filename))
       (setq b (find-file-noselect fn t t))
@@ -654,25 +655,50 @@ command."
 	(add-dictionary-word (list copy))
 	)
       (kill-buffer b)))
-  (setq i 0)
+
+  ; search the begin of word
   (setq beg "")
-  (setq ch (preceding-char))
+  (setq i 0)
+  (setq ch (char-before (- (point) i)))
   (while (or (and (>= ch 65) (<= ch 90)) 
 	     (and (>= ch 97) (<= ch 122))) ; add [A-Z,a-z] until non-alpha
     (setq beg (concat (char-to-string ch) beg))
     (setq i (+ i 1))
     (setq ch (char-before (- (point) i)))
    )
+
+  ; search the end of word
+  (setq end "")
+  (setq j 0)
+  (setq ch (char-after (+ (point) j)))
+  (while (or (and (>= ch 65) (<= ch 90)) 
+	     (and (>= ch 97) (<= ch 122))) ; add [A-Z,a-z] until non-alpha
+    (setq end (concat end (char-to-string ch)))
+    (setq j (+ j 1))
+    (setq ch (char-after (+ (point) j))))
+  
+  ; insert try-completion and show all-completions
   (if (> i 0)
       (progn
+	(setq tryc (try-completion beg (add-dictionary-word ())))
+	(if (char-or-string-p tryc)
+	    (if (string-equal (concat beg end) tryc)
+		(goto-char (+ (point) (length end)))
+	      (progn
+		(delete-region (point) (+ (point) (length end)))
+		(insert (substring tryc (length beg) nil))))
+	  (progn
+	    (delete-region (point) (+ (point) (length end)))
+	    (font-lock-fontify-buffer)))
+	
+	(setq others "")
 	(setq co (all-completions beg (add-dictionary-word ())))
-	; the completions are known already co, currently only show them
-	; later, one of them could be interactively added
 	(while (> (length co) 0)
-	  (sit-for 0 500 1)
-	  (message (car co)) 
-	  (setq co (cdr co))))))
-  
+	  (setq others (concat others "\"" (car co) "\" "))
+	  (setq co (cdr co)))
+	(message others) 
+	(sit-for 0 100 1))))
+
 (defun LilyPond-insert-string (pre)
   "Insert text to the buffer."
   (interactive)
@@ -784,6 +810,7 @@ command."
 	     [ "\\notes..."  LilyPond-insert-tag-notes t]
 	     [ "\\score..."  LilyPond-insert-tag-score t]
 	     ["Quick Notes"  LilyPond-quick-note-insert t]
+	     ["Autocompletion"   LilyPond-autocompletion t]
 	     ))
 	  '(("Miscellaneous"
 	     ["Uncomment Region" LilyPond-un-comment-region t]

@@ -1,3 +1,8 @@
+2002-11-23  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el (LilyPond-autocompletion): deletes end-of-word,
+	inserts try-completion and shows all-completions.
+	
 2002-11-22  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el (LilyPond-words-filename): find lilypond.words
