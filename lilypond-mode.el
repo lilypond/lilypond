@@ -722,7 +722,7 @@ command."
       ("gis" "sols") ("gisis" "solss") ("ges" "solb") ("geses" "solbb")
       ("ais" "las") ("aisis" "lass") ("aes" "lab") ("aeses" "labb")
       ("bis" "sis") ("bisis" "siss") ("bes" "sib") ("beses" "sibb")))
-  (setq other-keys "()<>~}")
+  (setq other-keys "(<~>)}|")
   (setq accid 0) (setq octav 0) (setq durat "") (setq dots 0)
 
   (message "Press h for help.") (sit-for 0 750)
@@ -731,11 +731,12 @@ command."
   (setq xkey 0) (setq xinitpoint (point))
   (< xinitpoint (point))
   (while (not (= xkey 27)) ; esc to quit
-    (message (format " a[]s[]d f[]j[]k[]l r with %4s%-4s%3s%-4s ie ,' 12345678 . 0 (<~>)/}b\\b\\n Esc"
+    (message (format " a[]s[]d f[]j[]k[]l r with %4s%-4s%3s%-4s ie ,' 12345678 . 0 /%sb\\b\\n Esc"
 		     (nth (+ accid 2) dutch-note-ends)
 		     (make-string (abs octav) (if (> octav 0) ?' ?,))
 		     durat
-		     (if (string= durat "") "" (make-string dots ?.))))
+		     (if (string= durat "") "" (make-string dots ?.))
+		     other-keys))
     (setq xkey (read-char-exclusive))
     (setq x (char-to-string xkey))
     (setq note (cdr (assoc x dutch-notes)))
@@ -800,7 +801,8 @@ command."
              (message "There are Du(t)ch, Fin(n)ish/Deutsch (hit 'n') and S(p)anish note names.") (sit-for 5 0)
              (message "(B)ackspace deletes last note, Ret starts a new indented line and Esc (q)uits.") (sit-for 5 0)
              (message "Insert note triplets \"\\times 2/3 { a b } \" by typing \"/23ab}\".") (sit-for 5 0)
-             (message "This mode is experimental. Use normal mode to add further details.") (sit-for 5 0)))))
+             (message "This mode is experimental. Use normal mode to add further details.") (sit-for 5 0)))
+     (t (progn (message "Quick notes mode. Press Esc or q to quit.") (sit-for 0 500)))))
   (message "Normal editing mode."))
 
 (defun LilyPond-pre-word-search ()
@@ -930,7 +932,7 @@ command."
 	     0))
   (setq l3 (if (y-or-n-p "Insert \"\\midi\" field? ")
 	       (+ (LilyPond-insert-string "    \\midi {")
-		  (LilyPond-insert-between "Tempo: " " \\tempo (e.g. 4 = 60)" "")
+		  (LilyPond-insert-between "Tempo: (e.g. 4=60) " " \\tempo " "")
 		  (LilyPond-insert-string " }\n"))
 	     0))
   (setq l4 (LilyPond-insert-string "}\n"))
