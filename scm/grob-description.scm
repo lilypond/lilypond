@@ -5,10 +5,10 @@
 ;;;; (c) 1998--20.301  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
-					; distances are given in stafflinethickness (thicknesses) and
-					; staffspace (distances)
+;;;; distances are given in stafflinethickness (thicknesses) and
+;;;; staffspace (distances)
 
-;;; WARNING: the meta field should be the last one.
+;;;; WARNING: the meta field should be the last one.
 
 ;; TODO: junk the meta field in favor of something more compact?
 (define all-grob-descriptions
@@ -103,29 +103,26 @@
 	(position-callbacks . (,Beam::least_squares
 			       ,Beam::check_concave
 			       ,Beam::slope_damping
-			       ,Beam::new_quanting
+			       ,Beam::quanting
 			       ))
 	
 	(thickness . 0.48) ; in staff-space
 	(before-line-breaking-callback . ,Beam::before_line_breaking)
 	(after-line-breaking-callback . (,Beam::after_line_breaking
 					 ,Beam::end_after_line_breaking))
-	(neutral-direction . -1)
-	(dir-function . ,beam-dir-majority)
-	(left-position-quant-function . ,default-left-beam-pos-quants)
-	(right-position-quant-function . ,default-right-beam-pos-quants)
-	(beamed-stem-shorten . (1.0 0.5))
-	(outer-stem-length-limit . 0.2)
-	(slope-limit . 0.2)
-	(flag-width-function . ,default-beam-flag-width-function)
-	(space-function . ,default-beam-space-function)
-	(damping . 1)
-	(auto-knee-gap . 7)
-	(font-name . "cmr10")
 	(quant-score-functions . (,Beam::score_forbidden_quants
 				  ,Beam::score_slopes_dy
 				  ,Beam::score_stem_lengths
 				  ))
+	(neutral-direction . -1)
+	(dir-function . ,beam-dir-majority-median)
+	(beamed-stem-shorten . (1.0 0.5))
+	(outer-stem-length-limit . 0.2)
+	(slope-limit . 0.2)
+	(flag-width-function . ,default-beam-flag-width-function)
+	(damping . 1)
+	(auto-knee-gap . 7)
+	(font-name . "cmr10")
 	(meta . ,(grob-description beam-interface))
 	))
 
@@ -572,10 +569,14 @@
 	(if-text-padding . 1.0)
 	(width-correct . 0)
 	(outer . #t)
-	(angle-left  . #f)
-	(angle-right . #f)
+	(direction . -1)
+	(edge-width . (0.5 . 0.5))
+	(edge-height . (1.0 . 1.0))
+	(shorten-pair . (0.0 . 0.0))
+	(left-widen  . #f)
+	(right-widen . #f)
 	(text-start  . #f)
-	(meta . ,(grob-description text-spanner-interface piano-pedal-interface font-interface))
+	(meta . ,(grob-description piano-pedal-interface))
 	))
 
     (RepeatSlash
@@ -723,7 +724,6 @@
 	(molecule-callback . ,Text_item::brew_molecule)
 	(direction . 1)
 	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(no-spacing-rods . #t)
 	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
 	(pedal-type . mixed)
@@ -773,8 +773,7 @@
 	(X-extent-callback . #f)
 
 	(beam-width . 2.0) ; staff-space
-	(beam-thickness . 0.42) ; staff-space
-	(beam-space-function . ,default-beam-space-function)
+	(beam-thickness . 0.48) ; staff-space
 	(meta . ,(grob-description stem-tremolo-interface ))
 	))
 
@@ -798,7 +797,6 @@
 	(padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
 	(pedal-type . text)
 	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side ))
 	(meta . ,(grob-description piano-pedal-interface side-position-interface font-interface))
 	))
 
@@ -929,7 +927,6 @@
 	(pedal-type . text)
 	(padding . 0.0)  ;; padding relative to UnaCordaPedalLineSpanner
 	(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side ))
 	(meta . ,(grob-description text-interface font-interface))
 	))
 

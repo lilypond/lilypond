@@ -1,3 +1,84 @@
+2002-03-19  Han-Wen  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.43 released
+
+	* scm/beam.scm (beam-dir-majority-median): if majority is
+	undecided, use median. Removes a forced dir in sarabande.
+
+	* mf/feta-schrift.mf: Trill fixes, Vee fixes (upbow, ltoe, rtoe)
+
+2002-03-18 Chris Jackson <chris@fluffhouse.org.uk>
+ 
+ 	* lily/text-spanner.cc, lily/piano-pedal-engraver.cc: Cleanups. Edge
+ 	widths, heights and shortens are now customisable properties.
+ 
+ 	* scm/grob-description.scm, scm/grob-property-description.scm: New
+ 	properties added to PianoPedalBracket, unnecessary
+ 	Y-offset-callbacks removed from *Pedal, undocumented properties
+ 	fixed.
+ 
+ 	* Documentation/user/refman.itely: Piano pedal updates.
+
+2002-03-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/grob-property-description.scm:
+	* scm/interface-description.scm: Remove old stuff.
+
+	* scm/grob-description.scm (StemTremolo): Change beam-thickness to
+	0.48 (previously 0.42).
+	(Beam): Remove old stuff.
+
+	* lily/stem.cc: 
+	* lily/stem-tremolo.cc: 
+	* lily/beam.cc: 
+	* scm/beam.scm: Remove old stuff.  Use Beam::get_interbeam ()
+	(previously space-function).
+
+ 	* stepmake/bin/add-html-footer.py: Website title fix.
+
+2002-03-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/ly2dvi.py (environment): use new font searching setup.
+
+	* lily/afm.cc (afm_bbox_to_box): make code dimension independent
+
+	* lily/tfm.cc (dimensions): make code dimension independent
+
+	* ps/lilyponddefs.ps: add constant for MM and true/ps-point
+	scaling
+
+	* tex/lily-ps-defs.tex: scaling for PS points and MM.
+
+	* lily/include/dimensions.hh: try MM as internal unit.
+
+	* scm/*.scm: remove invoke-dim1
+
+2002-03-17  Han-Wen  <hanwen@cs.uu.nl>
+
+	* GNUmakefile.in (fontpaths): add fontpaths target,
+
+	* make/mutopia-targets.make: add PDF rules.
+
+	* make/mutopia-rules.make: add pdf rule.
+
+	* buildscripts/mutopia-index.py (list_item): add PDF.
+
+	* buildscripts/lilypond-profile.sh (TEXMF): typo.
+
+	* make/lilypond-vars.make: set TEXMF for the new font setup.
+ 
+2002-03-17  Han-Wen  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.42 released
+	
+	* mf/feta-schrift.mf: endless twiddling of Tr.
+
+	* mf/feta-eindelijk.mf: 8th rest: make darker, top of brush lower, and
+	endless twiddling with the bulb shape.
+
+	* lily/note-head.cc (internal_brew_molecule): make ledger lines a
+	little smaller if there is an accidental.
+
 2002-03-15  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
  
  	* buildscripts/lilypond-profile.sh: 
@@ -16,16 +97,6 @@
  
  	* mf/GNUmakefile (ALL_GEN_FILES): Actually generate the
  	lilypond.map file
- 
-2002-03-17  Han-Wen  <hanwen@cs.uu.nl>
-
-	* mf/feta-schrift.mf: endless twiddling of Tr.
-
-	* mf/feta-eindelijk.mf: 8th rest: make darker, top of brush lower, and
-	endless twiddling with the bulb shape.
-
-	* lily/note-head.cc (internal_brew_molecule): make ledger lines a
-	little smaller if there is an accidental.
 
 2002-03-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
