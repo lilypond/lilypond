@@ -3,6 +3,9 @@
 	* GNUmakefile.in: 
 	* SConstruct (symlink): teTeX-3.0 build fix: add map symlink.
 
+	* tex/GNUmakefile: teTeX-3.0 fix: install .enc in fonts/enc.  Add
+	2.0.x compatibility.
+
 2005-02-08  Werner Lemberg  <wl@gnu.org>
 
 	* mf/feta-din-code.mf: Format; clean up code.
