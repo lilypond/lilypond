@@ -781,7 +781,7 @@ LY_DEFINE (ly_protects, "ly:protects",
 #endif
 
 
-#ifdef HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC
+#if HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC
 
 #include "pangofc-afm-decoder.hh"
 
