@@ -49,6 +49,16 @@ Stem::Stem ()
 Interval_t<int>
 Stem::head_positions () const
 {
+  /* 
+    Mysterious FreeBSD fix by John Galbraith.  Somehow, the empty intervals 
+    trigger FP exceptions on FreeBSD.  Fix: do not return infinity 
+
+   */
+  if (!head_l_arr_.size ())
+    {
+      return Interval_t<int> (100,-100);	
+    }
+
   Interval_t<int> r;
   for (int i =0; i < head_l_arr_.size (); i++)
     {
