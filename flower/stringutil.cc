@@ -6,7 +6,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl> */
+  (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl> */
 
 #ifdef STRING_DEBUG 
 #define memmove mymemmove

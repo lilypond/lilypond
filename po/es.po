@@ -19,7 +19,7 @@ msgstr ""
 #.
 #. source file of the GNU LilyPond music typesetter
 #.
-#. (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#. (c) 1998--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #. Jan Nieuwenhuizen <janneke@gnu.org>
 #. ##  subst:\(^\|[^._a-z]\)\(abspath\|identify\|warranty\|progress\|warning\|error\|exit\|getopt_args\|option_help_str\|options_help_str\|help\|setup_temp\|read_pipe\|system\|cleanup_temp\|strip_extension\|cp_to_dir\|mkdir_p\|init\) *(
 #. ##  replace:\1ly.\2 (
@@ -58,7 +58,7 @@ msgid "Copyright (c) %s by"
 msgstr "Copyright (c) %s "
 
 #: lilylib.py:114
-msgid " 1998--2003"
+msgid " 1998--2005"
 msgstr ""
 
 #: lilylib.py:118
@@ -304,7 +304,7 @@ msgstr ""
 #.
 #. source file of the GNU LilyPond music typesetter
 #.
-#. (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#. (c) 1998--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #. Jan Nieuwenhuizen <janneke@gnu.org>
 #. TODO
 #. use -f and -t for -s output
@@ -651,7 +651,7 @@ msgstr "no se ha especificado ningún fichero en la línea de órdenes."
 #.
 #. source file of the GNU LilyPond music typesetter
 #.
-#. (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#. (c) 1998--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #. Jan Nieuwenhuizen <janneke@gnu.org>
 #. This is the third incarnation of lilypond.
 #.
@@ -931,7 +931,7 @@ msgstr "%s producidos en `%s'..."
 #.
 #. source file of the GNU LilyPond music typesetter
 #.
-#. (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#. (c) 1998--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #. Jan Nieuwenhuizen <janneke@gnu.org>
 #. ###############################################################
 #. Users of python modules should include this snippet.
