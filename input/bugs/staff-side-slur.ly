@@ -1,6 +1,8 @@
 \score{
 	\type Staff \notes\relative c''{
-		\property Staff.instrument = "Toeters"
+		% length matters...
+%		\property Staff.instrument = "Tot"
+		\property Staff.instrument = "ToetersToetersToeters"
 		c c c c(\break
 		)c c c c ~\break
 		c c c c\break

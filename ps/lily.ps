@@ -4,6 +4,15 @@
 % round cappings
 1 setlinecap
 
+% URG
+% staffheight 4 div /interline exch def
+% interline 3 div /bracket_b exch def
+% interline 2 mul /bracket_w exch def
+% stafflinethickness 2 mul /bracket_t exch def
+% interline 1.5 mul /bracket_v exch def
+% bracket_v /bracket_u exch def
+% 50 /bracket_alpha exch def
+
 /draw_beam % width slope thick
 {
         2 div /beam_thick exch def
