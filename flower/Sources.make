@@ -12,7 +12,7 @@ hh=cursor.hh pcursor.hh lgetopt.hh link.hh list.hh dstream.hh \
 	findcurs.hh unionfind.hh compare.hh handle.hh matrix.hh\
 	smat.hh vsmat.hh  vector.hh  real.hh choleski.hh\
 	tsmat.hh tvsmat.hh plist.hh associter.hh fproto.hh\
-	interval.hh scalar.hh sstack.hh rational.hh iterate.hh\
+	interval.hh scalar.hh rational.hh iterate.hh\
 	path.hh
 	
 
