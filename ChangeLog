@@ -1,3 +1,7 @@
+2004-09-14  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/guile-gnome.sh: Update with tarball [pre]releases.
+
 2004-09-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* lily/phrasing-slur-engraver.cc (process_music): Create
