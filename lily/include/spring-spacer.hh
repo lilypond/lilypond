@@ -51,7 +51,7 @@ private:
   Spring_spacer (Spring_spacer const&s);
   Cons<Idealspacing> *ideal_p_list_;
   Array<Column_info> cols_;
-
+  Real indent_f_;
   
   /// the index of #c# in #cols#
   int col_id (Paper_column const *c) const;
@@ -86,7 +86,8 @@ public:
   virtual ~Spring_spacer ();  
   virtual void solve (Column_x_positions*) const;
   virtual void lower_bound_solution (Column_x_positions*) const;
-  virtual void add_column (Paper_column  *, bool fixed=false, Real fixpos=0.0);
+  virtual void add_columns (Link_array<Paper_column>);
+  void add_column (Paper_column *, bool,  Real);  
 
   virtual Vector default_solution() const;
   virtual bool check_constraints (Vector v) const;

@@ -16,6 +16,9 @@
 #include "paper-column.hh"
 #include "cpu-timer.hh"
 #include "command-request.hh"
+#include "spring-spacer.hh"
+#include "simple-spacer.hh"
+
 
 String
 Col_stats::str () const
@@ -76,7 +79,6 @@ Break_algorithm::find_breaks () const
     if (all[i]->breakable_b ())
       retval.push (all[i]);
 
-
   if (linelength <=0)
     while (retval.size () >2)
       retval.del (1);
@@ -85,29 +87,34 @@ Break_algorithm::find_breaks () const
 }
 
 
-
-
-
 Line_spacer*
 Break_algorithm::generate_spacing_problem (Line_of_cols curline, Interval line) const
 {
-  // ugh
-  Spring_spacer * sp= dynamic_cast<Spring_spacer*> ((*get_line_spacer) ());
+  Real r = pscore_l_->paper_l_->get_var ("simple_spacing_solver");
+    
+  Line_spacer * sp = 0;
+  if (r)
+    sp = new Simple_spacer;
+  else
+    sp = new Spring_spacer;
+  
+  sp->default_space_f_ = pscore_l_->paper_l_->get_var ("loose_column_distance");
 
-  sp->paper_l_ = pscore_l_->paper_l_;
-  sp->add_column (curline[0], true, line[LEFT]);
-  for (int i=1; i< curline.size ()-1; i++)
-    sp->add_column (curline[i]);
+  sp->indent_f_ = line[LEFT];
 
-  if (line.length () > 0)
+  /*
+    sort out how interfacing this should work;
+   */
+  if (line.empty_b())
     {
-      sp->add_column (curline.top (), true, line[RIGHT]);
-      sp->energy_normalisation_f_  = sqr (line.length ());
+     sp->line_len_f_ = -1;
     }
   else
-    sp->add_column (curline.top ());
-
+    sp->line_len_f_ = line.length ();
+  
+  sp->add_columns (curline);
   sp->prepare ();
+
   return sp;
 }
 

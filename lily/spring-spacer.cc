@@ -79,7 +79,7 @@ Spring_spacer::handle_loose_cols()
   /*
     If columns do not have spacing information set, we need to supply our own.
    */
-  Real d = paper_l ()->get_var ("loose_column_distance");
+  Real d = default_space_f_;
   for (int i = cols_.size(); i--;)
     {
       if (! connected.equiv (fixed[0], i))
@@ -259,6 +259,8 @@ Spring_spacer::lower_bound_solution (Column_x_positions*positions) const
   Vector start (cols_.size());
   start.fill (0.0);
   Vector solution_vec (lp.solve (start));
+  for (int i=0; i < solution_vec.dim (); i++)
+    solution_vec(i) += indent_f_;
 
   DOUT << "Lower bound sol: " << solution_vec;
   positions->energy_f_ = calculate_energy_f (solution_vec);
@@ -275,8 +277,6 @@ Spring_spacer::Spring_spacer ()
 void
 Spring_spacer::solve (Column_x_positions*positions) const
 {
-  DOUT << "Spring_spacer::solve ()...";
-
   Vector solution_try;
     
   bool constraint_satisfaction = try_initial_solution_and_tell (solution_try); 
@@ -286,14 +286,19 @@ Spring_spacer::solve (Column_x_positions*positions) const
       make_matrices (lp.quad_,lp.lin_, lp.const_term_);
       make_constraints (lp);
       set_fixed_cols (lp);
-	
+
+
       Vector solution_vec (lp.solve (solution_try));
-	
+      for (int i=0; i < solution_vec.dim (); i++)
+	solution_vec(i) += indent_f_;
+
+      
       positions->satisfies_constraints_b_ = check_constraints (solution_vec);
       if (!positions->satisfies_constraints_b_)
 	{
-	  WARN << _ ("solution doesn't satisfy constraints") << '\n' ;
+	  warning (_("solution doesn't satisfy constraints"));
 	}
+      
       positions->energy_f_ = calculate_energy_f (solution_vec);
       positions->config_ = solution_vec;
     }
@@ -302,11 +307,12 @@ Spring_spacer::solve (Column_x_positions*positions) const
       positions->set_stupid_solution (solution_try);
     }
 
-  DOUT << "Finished Spring_spacer::solve ()...";
 }
 
 /**
   add one column to the problem.
+
+  TODO: ugh merge with add_columns.
 */
 void
 Spring_spacer::add_column (Paper_column  *col, bool fixed, Real fixpos)
@@ -350,6 +356,22 @@ Spring_spacer::add_column (Paper_column  *col, bool fixed, Real fixpos)
       
   cols_.push (c);
 }
+
+
+void
+Spring_spacer::add_columns (Link_array<Paper_column> cols)
+{
+  energy_normalisation_f_  = sqr (line_len_f_);
+  add_column (cols[0], true, 0.0);
+  for (int i=1; i< cols.size ()-1; i++)
+    add_column (cols[i],false,0.0);
+
+  if (line_len_f_ > 0)
+    add_column (cols.top (), true, line_len_f_);
+  else
+    add_column (cols.top (), false, 0);
+}
+
 
 
 void
@@ -402,14 +424,6 @@ Spring_spacer::prepare()
   handle_loose_cols();
   print();
 }
-
-Line_spacer*
-Spring_spacer::constructor()
-{
-  return new Spring_spacer;
-}
-
-
 
 
 Spring_spacer::~Spring_spacer()
