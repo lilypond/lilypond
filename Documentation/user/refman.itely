@@ -2171,24 +2171,26 @@ A common trick for that is to put the notes in a variables, and to hide
 the fingering information (which correspond to the string number) for
 the standard staff.
 
-@lilypond[fragment,verbatim]
+@lilypond[verbatim]
   part = \notes {
     a,4-2 c'-5 a-4 e'-6
     e-3 c'-5 a-4 e'-6
   }
-  \context StaffGroup <
-    \context Staff <
-      % Hide fingering number (used for string number) for the "normal" staff
-      \property Staff.Fingering \override #'transparent = ##t
-      
-      \part
+  \score{
+    \context StaffGroup <
+      \context Staff <
+        % Hide fingering number (used for string number) for the "normal" staff
+        \property Staff.Fingering \override #'transparent = ##t
+
+        \part
+      >
+      \context TabStaff <
+        \property Staff.Stem \override #'direction = #1
+
+        \part
+      >
     >
-    \context TabStaff <
-      \property Staff.Stem \override #'direction = #1
-      
-      \part
-    >
-  >  
+  }
 @end lilypond
 
 
