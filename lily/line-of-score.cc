@@ -50,7 +50,7 @@ Line_of_score::set_breaking (Array<Column_x_positions> const &breaking, int j) c
 	
   if (breaking.size() >1) 
     {
-      line_l = (Line_of_score*)clone()->access_Spanner ();
+      line_l = dynamic_cast <Line_of_score*> (clone());
     }
   else 
     line_l = (Line_of_score*) this;

@@ -10,8 +10,8 @@
 #include "spanner.hh"
 #include "p-col.hh"
 #include "p-score.hh"
-#include "tex-outputter.hh"
 #include "molecule.hh"
+#include "paper-outputter.hh"
 
 IMPLEMENT_IS_TYPE_B1(Spanner,Score_element);
 
@@ -53,7 +53,7 @@ Spanner::break_into_pieces ()
 
   for (int i=1; i < break_cols.size(); i++) 
     {
-      Spanner* span_p = clone()->access_Spanner ();
+      Spanner* span_p = dynamic_cast<Spanner*> (clone());
       Item *left = break_cols[i-1];
       Item *right = break_cols[i];
       if (!right->line_l())

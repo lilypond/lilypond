@@ -21,7 +21,7 @@ Script_engraver::Script_engraver()
 bool
 Script_engraver::do_try_request (Request *r_l)
 {
-  if (!r_l->access_Musical_req () || ! r_l->access_Musical_req ()->access_Musical_script_req ())
+  if (!dynamic_cast <Musical_script_req *> (r_l))
     return false ;
   
   for (int i=0; i < script_req_l_arr_.size(); i++) 
@@ -29,7 +29,7 @@ Script_engraver::do_try_request (Request *r_l)
       if (r_l->equal_b (script_req_l_arr_[i]))
 	return true;
     }
-  script_req_l_arr_.push (r_l->access_Script_req ());
+  script_req_l_arr_.push (dynamic_cast <Script_req *> (r_l));
   
   return true;
 }

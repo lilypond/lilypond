@@ -35,7 +35,7 @@ Score_priority_engraver::do_pre_move_processing()
 void
 Score_priority_engraver::acknowledge_element (Score_element_info inf)
 {
-  Item * item_l = inf.elem_l_->access_Item ();
+  Item * item_l = dynamic_cast <Item *> (inf.elem_l_);
   if (item_l && item_l->breakable_b_ && !item_l->empty_b ())
     {
       /*
@@ -68,7 +68,7 @@ Score_priority_engraver::acknowledge_element (Score_element_info inf)
 	  */
 	  if (unbound_elem->axis_group_l_a_[X_AXIS] == hg)
 	    return;
-	  unbound_elem = unbound_elem->axis_group_l_a_[X_AXIS]->access_Score_element ();
+	  unbound_elem = dynamic_cast<Score_element*> (unbound_elem->axis_group_l_a_[X_AXIS]);
 	}
 
       hg->add_element (unbound_elem);

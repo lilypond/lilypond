@@ -15,7 +15,5 @@ ADD_THIS_TRANSLATOR(Plet_swallow_engraver);
 bool
 Plet_swallow_engraver::do_try_request (Request* req_l)
 {
-  if (req_l && req_l->access_Musical_req () && req_l->access_Musical_req ()->access_Plet_req ())
-    return true;
-  return false;
+  return  dynamic_cast <Plet_req *> (req_l);
 }

@@ -60,7 +60,7 @@ Translator*
 Music_output_def::find_translator_l (String name) const
 {
   if (translator_p_dict_p_->elem_b (name))
-    return (*translator_p_dict_p_)[name]->access_Translator ();
+    return  (*translator_p_dict_p_)[name]->access_Translator ();
 
   if (global_translator_dict_p->elem_b (name))
     return (*global_translator_dict_p)[name];
@@ -76,7 +76,7 @@ Music_output_def::get_global_translator_p ()
   if (!t)
     error (_("Can't find Score context"));
   t = t->clone ();
-  Global_translator *g = t->access_Translator_group ()->global_l ();
+  Global_translator *g = dynamic_cast <Translator_group *> (t)->global_l ();
   t->add_processing ();
   
   return g;
@@ -98,6 +98,6 @@ Music_output_def::get_default_output () const
     return "";  
   Identifier * id = (*scope_p_) ["output"];
 
-  String *p = id->access_String ();
+  String *p = dynamic_cast <String *> (id);
   return p ? *p : String ("");
 }

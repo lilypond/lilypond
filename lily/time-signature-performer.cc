@@ -45,8 +45,8 @@ Time_signature_performer::do_try_request (Request* req_l)
   if (time_signature_req_l_)
     return false;
 
-  if (req_l->access_Command_req ())
-    time_signature_req_l_ = req_l->access_Command_req ()->access_Time_signature_change_req ();
+  if (dynamic_cast <Command_req *> (req_l))
+    time_signature_req_l_ = dynamic_cast <Time_signature_change_req *> (req_l);
 
   if (time_signature_req_l_)
     return true;
