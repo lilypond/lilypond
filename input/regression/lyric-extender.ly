@@ -1,16 +1,17 @@
 \version "2.3.17"
 
-\header { texidoc= "In lyric extenders, a syllable may be extended over several notes. "}
+\header { texidoc= "A LyricExtender may span several notes.  A
+LyricExtender does not extend past a rest."}
 
-\paper { raggedright= ##t }
-\score{
- \relative c'	<<
-	\context Voice = melody {
-	    c8[ ( d] )
-	    r4 f4 }
-	\lyricsto melody \context Lyrics \lyricmode { ah __ ha  }
-	>>
-}
+\paper { raggedright = ##t }
+<<
+    \relative c''{
+	c8( d e f)
+	d1
+	r2. f4
+    }
+    \addlyrics { ah2 __ ha4 __ ah4 }
+>>
 
 
 

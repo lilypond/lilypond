@@ -98,7 +98,7 @@ Extender_engraver::stop_translation_timestep ()
 	}
       else if (r && pending_extender_)
 	/* Rest: stop right here. */
-	pending_extender_->set_bound (RIGHT, h);
+	pending_extender_->set_bound (RIGHT, r);
  
       if (extender_ && !r)
 	{
