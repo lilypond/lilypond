@@ -12,6 +12,7 @@
 
 #include <pango/pangoft2.h>
 
+#include "lookup.hh"
 #include "dimensions.hh"
 #include "pango-font.hh"
 
@@ -58,7 +59,7 @@ Pango_font::derived_mark () const
 }
 
 Stencil
-Pango_font::pango_item_string_stencil (PangoItem *item, String str) const
+Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) const
 {      
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
@@ -94,10 +95,11 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str) const
       PangoGlyphGeometry ggeo = pgi->geometry;
 
       FT_Get_Glyph_Name (ftface, pg, glyph_name, GLYPH_NAME_LEN);
-      *tail = scm_cons (scm_list_3 (scm_from_double (ggeo.x_offset * scale_),
+      *tail = scm_cons (scm_list_3 (scm_from_double (ggeo.x_offset * scale_ + dx),
 				    scm_from_double (ggeo.y_offset * scale_),
 				    scm_makfrom0str (glyph_name)),
 			SCM_EOL);
+      dx = 0.0;
       tail = SCM_CDRLOC (*tail);
     }
 
@@ -118,6 +120,7 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str) const
 			 ly_quote_scm (glyph_exprs));
 
   Stencil item_stencil (b, expr);
+
   return item_stencil;  
 }
 
@@ -128,7 +131,6 @@ Pango_font::text_stencil (String str) const
 				str.to_str0 (),
 				0, str.length (), attribute_list_,
 				NULL);
-
   
   GList *ptr = items;
   Stencil dest;
@@ -137,10 +139,9 @@ Pango_font::text_stencil (String str) const
     {
       PangoItem *item = (PangoItem*) ptr->data;
 
-      Stencil item_stencil = pango_item_string_stencil (item, str);
+      Stencil item_stencil = pango_item_string_stencil (item, str, x);
 
-      item_stencil.translate_axis (x, X_AXIS);
-      x += item_stencil.extent (X_AXIS)[RIGHT];
+      x = item_stencil.extent (X_AXIS)[RIGHT];
       
       dest.add_stencil (item_stencil);
       

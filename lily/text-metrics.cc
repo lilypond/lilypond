@@ -51,7 +51,7 @@ LY_DEFINE(ly_load_text_dimensions, "ly:load-text-dimensions",
   if (!text_dimension_hash_tab)
     {
       text_dimension_hash_tab =
-	scm_gc_protect_object (scm_make_hash_table (scm_from_int (113)));
+	scm_gc_protect_object (scm_c_make_hash_table (113));
     }
 
   for (SCM s = dimension_alist;

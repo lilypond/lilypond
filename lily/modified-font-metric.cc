@@ -12,6 +12,7 @@
 #include "text-metrics.hh"
 #include "warn.hh"
 #include "stencil.hh"
+#include "lookup.hh"
 
 Modified_font_metric::Modified_font_metric (Font_metric *fm,
 					    Real magnification,
@@ -248,7 +249,8 @@ Modified_font_metric::text_stencil (String text) const
       Box b = stc.extent_box ();
 
       b.scale (magnification_);
-      return Stencil (b, stc.expr());
+      Stencil scaled(b, stc.expr());
+      return scaled;
     }
 
   return Font_metric::text_stencil (text);

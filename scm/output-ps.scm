@@ -174,16 +174,17 @@
 	 postscript-font-name
 	 size
 	 x-y-named-glyphs)
+  (format #f "gsave 1 output-scale div 1 output-scale div scale
+  /~a findfont ~a scalefont setfont\n~a grestore" postscript-font-name size
   (apply
    string-append
-   (cons
-    (format #f " /~a findfont ~a output-scale div scalefont setfont " postscript-font-name size)
-    (map (lambda  (item)
-	   (format #f " ~a ~a rmoveto /~a glyphshow "
-		   (car item)
-		   (cadr item)
-		   (caddr item)))
-	 x-y-named-glyphs))))
+   (map (lambda  (item)
+	  (format #f " ~a ~a rmoveto /~a glyphshow "
+		  (car item)
+		  (cadr item)
+		  (caddr item)))
+	x-y-named-glyphs))
+  ))
 
 (define (grob-cause grob)
   "")
