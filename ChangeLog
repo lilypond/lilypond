@@ -1,5 +1,7 @@
 2004-02-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* VERSION: release 2.1.17
+	
 	* Documentation/user/refman.itely (Automatic part combining):
 	revise documentation of the part-combiner.
 
