@@ -356,7 +356,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	ex# = 1.5 interline#;
 	kerning# = .75 ex#;
 	start_nib_angle = 20;
-
+	bulb_size = 0.47;
 	define_pixels(ex, ascender_extra, ascender, kerning);
 
 	t_overshoot = 0.03 ex;
@@ -365,7 +365,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	r_fatness = .75 fatness;
 	uitschieter = 21/40 ex;
 	hair_thick =  blot_diameter;
-	bulb_size = 0.47;
+
 	slant = .2;
 
 	local_copy(transform)(currenttransform);
@@ -446,7 +446,8 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	fill z11r{dir 70} .. z13r{down} -- z13l{up} .. z11l{dir 250} -- cycle;
 	penlabels(range 1 thru 15);
 
-	draw_bulb(-1, z13r, z13l, bulb_size, 1.5);
+
+	draw_bulb(-1, z13r, z13l, bulb_size * r_fatness, 1.5);
 fet_endchar;
 
 fet_beginchar("organ-heel", "pedalheel", "pedalheel")
