@@ -431,11 +431,9 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 
   *space += correction;
 
-#if 0
   /* there used to be a correction for bar_xextent() here, but
      it's unclear what that was good for ?
   */
-#endif
 
 }
  

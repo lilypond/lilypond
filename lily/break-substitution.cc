@@ -396,25 +396,13 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
        }
    }
 
-#if 0
-  qsort (vec + sp_index, len - sp_index,
-	 sizeof (Substitution_entry), &Substitution_entry::spanner_compare);
  /*
-   This is a waste of time -- the staff-spanners screw up the
+   sorting vec[sp_index.. len]
+   is a waste of time -- the staff-spanners screw up the
    ordering, since they go across the entire score.
  */
- for (int i = sp_index; i < len ;i++)
-   {
-     
-     for (int j = vec[i].left_; j <= vec[i].right_; j++)
-       {
-	 sp_indices[j - system_range[LEFT]].add_point (i);
-       }
-   }
-#else
  for (int i = sp_indices.size(); i--;)
    sp_indices[i]= Slice (sp_index, len-1);
-#endif
 
  
   assert (it_index <= sp_index);
