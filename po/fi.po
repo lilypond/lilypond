@@ -827,7 +827,7 @@ msgid ""
 "Trying create PDF, but no PFA fonts found.\n"
 "Using bitmap fonts instead. This will look bad."
 msgstr ""
-"Yritetään tuottaa PDF, mutta PFA fontteja ei löytynyt.\\n\n"
+"Yritetään tuottaa PDF, mutta PFA fontteja ei löytynyt.\n"
 "Käytetään bittikarttafonttejan niiden sijasta. Tulos ei näytä hyvältä."
 
 #. ugh. Different targets?
@@ -1677,7 +1677,7 @@ msgid ""
 msgstr ""
 "LilyPond on musiikin ladontaohjelma. Se tuottaa kaunista nuottikuvaa\n"
 "käyttäen korkean tason kuvaus kieltä syötteenä.  LilyPond on osa\n"
-"GNU Projektia."
+"GNU Projektia.\n"
 
 #: main.cc:182
 #, c-format
@@ -1688,7 +1688,7 @@ msgid ""
 msgstr ""
 "Tämä on ilmaisohjelmisto. Siihen sovelletaan GNU General Public License,\n"
 "ja olet tervetullut muuttamaan sitä ja/tai levittämään siitä kopioita\n"
-"tietyillä ehdoilla. Suorita `%s --warranty' saadaksesi lisäinformaatiota."
+"tietyillä ehdoilla. Suorita `%s --warranty' saadaksesi lisäinformaatiota.\n"
 
 #: main.cc:198
 msgid "GNU LilyPond -- The music typesetter"
@@ -2020,7 +2020,7 @@ msgstr "Täh?  Saatiin %d merkkiä, oletetun %d asemesta"
 #: spacing-spanner.cc:379
 #, c-format
 msgid "Global shortest duration is %s\n"
-msgstr "Globaali lyhin kesto on %s"
+msgstr "Globaali lyhin kesto on %s\n"
 
 #: spring-smob.cc:32
 #, c-format

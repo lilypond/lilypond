@@ -14,7 +14,7 @@
 
 2003-07-23  Heikki Junes  <hjunes@cc.hut.fi>
 
-	* po/fi.po: add Finnish translations.
+	* po/fi.po: add Finnish translations. fixes.
 
 	* stepmake/stepmake/toplevel-targets.make: rpm-mandrake -> rpm-mdk.
 
