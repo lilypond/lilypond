@@ -1738,19 +1738,10 @@ Bracket endings should be angled/slanted. (TODO)
  
 
 
-@node Ornaments
-@section Ornaments
-@cindex Ornaments
-
-[TODO: ornaments vs. expressive marks]
-
-@menu
-* Articulations::               
-@end menu
 
 
 @node Articulations
-@subsection Articulations
+@section Articulations
 @cindex Articulations
 
 @cindex articulations
@@ -1770,6 +1761,8 @@ put them up:
 @lilypond[fragment, verbatim]
   c''4^^ c''4_^
 @end lilypond
+
+
 
 
 Other symbols can be added using the syntax

@@ -178,7 +178,6 @@
   (display (string-append "\nWriting " x " ... ") (current-error-port)))
 
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property  stuff.
 
@@ -211,7 +210,6 @@
 	"(unset)"
 	(scm->texi (cdr handle)))))
 
-
 (define (backend-property->texi sym)
   (property->texi 'backend sym))
 
@@ -222,14 +220,11 @@ containing default values."
       ((without (property->texi where sym))
        (rv
 
-    (cons (car without)
-	  (if (eq? alist #f)
-	      (cdr without)
-	      (string-append
-	       (cdr without)
-	       "\nDefault value: "
-	       (document-property-value sym alist)))))
-
-       )
-;    (display rv)
-    rv  ))
+	(cons (car without)
+	      (if (eq? alist #f)
+		  (cdr without)
+		  (string-append
+		   (cdr without)
+		   "\nDefault value: "
+		   (document-property-value sym alist))))))
+    rv))

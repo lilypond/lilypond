@@ -389,7 +389,9 @@ files relative to the top-directory of the source archive. For
 example, @file{input/test/bla.ly} may refer to the file
 @file{lilypond-1.7.19/input/test/bla.ly}.  On binary packages for the
 Unix platform, these can typically be found somewhere below
-@file{/usr/share/doc/lilypond/}.
+@file{/usr/share/doc/lilypond/}. Initialization files, for example
+@file{scm/lily.scm}, or @file{ly/engraver-init.ly}, are usually found
+in the directory @file{/usr/share/lilypond/}.
 
 @cindex adjusting output
 @cindex variables

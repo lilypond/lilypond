@@ -4,6 +4,7 @@
 ;;;; 
 ;;;; (c) 2003 Jan Nieuwenhuizen <janneke@gnu.org>
 
+
 ;;;; NOTE: this is experimental code
 ;;;; Base and inversion are ignored.
 ;;;; Naming of the base chord (steps 1-5) is handled by exceptions only
@@ -19,8 +20,7 @@
       (make-line-markup
        (list (make-hspace-markup amount)
 	     markup))
-      markup
-      ))
+      markup))
 
 (define-public (double-plus-new-chord->markup-banter . args)
   (apply double-plus-new-chord->markup (cons 'banter args)))
@@ -260,4 +260,4 @@ input/test/dpncnt.ly).
        
        (else empty-markup))))
 
-  
+

@@ -79,8 +79,8 @@
 	(if (< (ly:pitch-steps (car ps)) (- x 1))
 	    (remove-uptil-step x (cdr ps))
 	    ps)
-	)
-    )
+	))
+  
   (define name-root (ly:get-context-property context 'chordRootNamer))
   (define name-note 
     (let ((nn (ly:get-context-property context 'chordNoteNamer)))
@@ -93,8 +93,7 @@
 	  nn)))
 
   (define (is-natural-alteration? p)
-    (= (natural-chord-alteration p)  (ly:pitch-alteration p))
-    )
+    (= (natural-chord-alteration p)  (ly:pitch-alteration p)))
   
   
   (define (ignatzek-format-chord-name
