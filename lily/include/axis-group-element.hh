@@ -22,8 +22,6 @@ class Axis_group_element : public virtual Score_element,
 protected:
   virtual void do_print() const;
   virtual Link_array<Score_element> get_extra_dependencies() const;
-  virtual void do_unlink();
-  virtual void do_junk_links();
 
 public:
   virtual Link_array<Score_element> elem_l_arr() const;

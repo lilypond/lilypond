@@ -3,8 +3,6 @@
 
 class Span_bar_engraver : public Base_span_bar_engraver
 {
-protected:
-  Span_bar *get_span_bar_p ();
 public:
   Span_bar_engraver ();
   VIRTUAL_COPY_CONS (Translator);

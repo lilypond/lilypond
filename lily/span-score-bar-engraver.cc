@@ -15,8 +15,6 @@ Span_bar*
 Span_score_bar_engraver::get_span_bar_p () const
 {
   Span_bar*s =  new Span_bar;
-  s->visibility_lambda_
-    = gh_eval_str ("Span_score_bar_visibility");
   s->type_str_ = "scorebar";
     
   return s;
@@ -33,9 +31,7 @@ Span_bar*
 Piano_bar_engraver::get_span_bar_p () const
 {
   Span_bar *s= new Span_bar;
-  s->visibility_lambda_
-    = gh_eval_str ("Piano_bar_visibility");
-  s->no_width_b_ =true;
+  s->dim_cache_[X_AXIS].set_empty (true);
   s->type_str_ = "{";
   return s;
 }
@@ -44,9 +40,7 @@ Span_bar*
 Staff_group_bar_engraver::get_span_bar_p () const
 {
   Span_bar *s= new Span_bar;
-  s->visibility_lambda_
-    = gh_eval_str ("Staff_group_bar_visibility");
-  s->no_width_b_ =true;
+  s->dim_cache_[X_AXIS].set_empty (true);
   s->type_str_ = "[";
   return s;
 }

@@ -18,12 +18,6 @@
  */
 class Horizontal_group_item : public Axis_group_item, public Horizontal_group_element {
 protected:
-  virtual void do_unlink () { 
-    Axis_group_item::do_unlink ();
-  }
-  virtual void do_junk_links() {
-    Axis_group_item::do_junk_links();
-  }
   virtual void do_print() const;
 public:
   Horizontal_group_item ();

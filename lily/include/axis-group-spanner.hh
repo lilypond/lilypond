@@ -19,14 +19,6 @@ class Axis_group_spanner : public Spanner, public virtual Axis_group_element
 {
   void do_break_processing_if_unbroken();
 protected:
-  virtual void do_junk_links () { 
-    Spanner::do_junk_links();
-    Axis_group_element::do_junk_links();
-  }
-  virtual void do_unlink() {
-    Spanner::do_unlink();
-    Axis_group_element::do_unlink();
-  }
   virtual void do_break_processing();
   virtual void do_print() const;
 

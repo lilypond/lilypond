@@ -24,7 +24,18 @@
   NB. This doesn't mean an Item has to initialize the output field before
   spacing calculation. 
   
-*/
+
+  
+  @signature
+  visibility_lambda :: int -> (bool . bool)
+     
+  @in
+  break direction
+     
+  @out
+  (transparent, empty) cons
+     
+   */
 class Item : public virtual Score_element {
   void do_break ();
   void try_visibility_lambda ();
@@ -34,22 +45,10 @@ public:
   Drul_array<Item*> broken_to_drul_;
   Item *unbroken_original_l_;
 
-  /**
-     
-     visibility_lambda :: int -> (bool . bool)
-     
-     @in
-     break direction
-     
-     @out
-     (transparent, empty) cons
-     
-   */
-  Protected_scm visibility_lambda_;
   /// should be put in a breakable col.
   bool breakable_b_;
 
-  /// I am really  to  be broken?
+  /// I am really to be broken?
   virtual bool breakable_b () const;
   
   Direction break_status_dir_;
@@ -70,9 +69,7 @@ public:
   
   Item (Item const &);
 protected:
-  virtual void do_unlink ();
-  virtual void do_junk_links();
-  virtual void  do_breakable_col_processing();
+  virtual void do_breakable_col_processing();
   virtual void handle_prebroken_dependencies();
   virtual void do_print() const;
   virtual bool linked_b() const;

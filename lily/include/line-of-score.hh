@@ -32,8 +32,6 @@ public:
 protected:
   virtual Link_array<Score_element> get_extra_dependencies () const;
 
-  virtual void do_unlink ();
-  virtual void do_junk_links ();
 
   virtual Interval do_width() const;
   virtual void do_print() const;

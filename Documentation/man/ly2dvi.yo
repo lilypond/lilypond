@@ -1,4 +1,4 @@
-mailto(daboys@bga.com)
+mailto(daboys@austin.rr.com)
 manpage(LilyPond)
        (1)
 	(1998)
@@ -252,8 +252,8 @@ letter, note
 
 manpageauthor()
 Python Version author:
-nemail(Jeffrey B. Reed)(daboys@bga.com),
-lurl(http://www.realtime.net/~daboys/lilypond/)
+nemail(Jeffrey B. Reed)(daboys@austin.rr.com),
+lurl(http://home.austin.rr.com/jbr/jeff/lilypond/)
 
 Original bourne shell version author:
 nemail(Jan Arne Fagertun)(Jan.A.Fagertun@energy.sintef.no),

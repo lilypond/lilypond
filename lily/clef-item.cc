@@ -56,20 +56,18 @@ Clef_item::do_add_processing ()
 	  Real r = do_height ()[octave_dir_] + g->extent (Y_AXIS)[-octave_dir_];
 	  g->dim_cache_[Y_AXIS].set_offset (r);
 	}
+      
       if (default_b_)
 	{
-	  visibility_lambda_ = defvis;
+	  set_elt_property (ly_symbol ("visibility_lambda"),
+			    defvis);
+
 	  if (g)
-	    g->visibility_lambda_ = defvis;
+	    g->set_elt_property (ly_symbol ("visibility_lambda"),
+				 defvis);
 	}
     }
-
-
 }
-
-
-
-
 
 Molecule*
 Clef_item::do_brew_molecule_p() const

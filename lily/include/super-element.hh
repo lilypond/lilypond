@@ -24,7 +24,6 @@ public:
   void break_processing();
   void post_processing();
   void output_all ();
-  void unlink_all ();
 
 protected:
   

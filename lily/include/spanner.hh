@@ -71,8 +71,6 @@ protected:
 
   Spanner * unbroken_original_l_;
 
-  virtual void do_unlink ();
-  virtual void do_junk_links ();
   virtual void output_processing ();
   virtual void do_space_processing ();
   virtual void do_break_processing ();

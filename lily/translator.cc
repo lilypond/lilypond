@@ -13,6 +13,12 @@
 
 #include "rational.hh"
 
+char const*
+Translator::name() const
+{
+  return classname(this);
+}
+
 Translator::~Translator ()
 {
 }

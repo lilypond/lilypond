@@ -95,18 +95,5 @@ Line_of_score::get_extra_dependencies () const
   return r;
 }
 
-void
-Line_of_score::do_unlink () 
-{
-  Spanner::do_unlink ();
-  for (int i=0; i < cols_.size (); i++)
-    cols_[i]->line_l_ =0;
-  cols_.set_size (0);
-}
 
 
-void
-Line_of_score::do_junk_links () 
-{
-  cols_.set_size (0);
-}

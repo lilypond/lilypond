@@ -28,8 +28,6 @@
   Stem size depends on flag.
   */
 class Stem : public Item {
-
-    
   Drul_array<Real> yextent_drul_;
     
   /// needed for determining direction/length

@@ -383,6 +383,14 @@ previous fonts, including the file(.pk) and file(.tfm) fonts in
 file(/var/lib/texmf).  A script automating this has been included, see
 file(buildscripts/clean-fonts.sh).
 
+question(How does PS output work?)
+
+Make Type-1 fonts: issue
+verb(
+	make pfa
+) in the mf/ subdirectory
+Set GS_FONTPATH to the directory containing the pfas. In the source
+tree, this is file(mf/out/).  Run lilypond with option tt(-f ps).
 
 question(The beams and slurs are gone if use the XDvi magnifying glass!?)
 

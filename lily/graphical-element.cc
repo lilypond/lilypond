@@ -96,22 +96,6 @@ Graphical_element::extent (Axis a) const
   return d->get_dim ();
 }
 
-void
-Graphical_element::unlink ()
-{
-  for (int a=X_AXIS; a < NO_AXES; a++)
-    if (Dimension_cache * d = dim_cache_[a].parent_l_)
-      {
-	if (Graphical_axis_group * eg
-	    = dynamic_cast<Graphical_axis_group*> (d->elt_l_))
-	  eg->remove_element (this);
-      }
-}
-
-void
-Graphical_element::junk_links ()
-{
-}
 
 void
 Graphical_element::do_print () const

@@ -11,6 +11,7 @@
 #include "item.hh"
 #include "p-col.hh"
 #include "spanner.hh"
+#include "lily-guile.hh"
 
 Item::Item ()
 {
@@ -92,10 +93,11 @@ Item::copy_breakable_items()
 void
 Item::try_visibility_lambda ()
 {
-  if (visibility_lambda_)
+  SCM vis = get_elt_property (ly_symbol ("visibility_lambda"));
+  if (vis != SCM_BOOL_F)
     {
       SCM args = scm_listify (gh_int2scm (break_status_dir_), SCM_UNDEFINED);
-      SCM result = gh_apply (visibility_lambda_, args);
+      SCM result = gh_apply ( SCM_CDR(vis), args);
       int trans = gh_scm2bool (gh_car (result));
       int empty = gh_scm2bool (gh_cdr (result));
 
@@ -170,32 +172,7 @@ Item::linked_b() const
   return Score_element::linked_b() || attached_span_l_arr_.size();
 }
 
-void
-Item::do_junk_links()
-{
-  attached_span_l_arr_.set_size(0);
-}
 
-void
-Item::do_unlink()
-{
-  Link_array<Spanner> attached=attached_span_l_arr_;
-  for (int i=0; i < attached.size (); i++)
-    {
-      Spanner *s= attached[i];
-
-      Direction d= LEFT;
-      do {
-	if (s->spanned_drul_[d] == this)
-	  s->set_bounds (d, 0);
-	if (unbroken_original_l_
-	    && unbroken_original_l_-> broken_to_drul_[d] == this)
-	  unbroken_original_l_->broken_to_drul_[d] = 0;
-      } while (flip (&d) != LEFT);
-    }
-  assert (!attached_span_l_arr_.size ());
-  unbroken_original_l_ =0;
-}
 
 Paper_column *
 Item::column_l () const
@@ -209,7 +186,6 @@ Item::Item (Item const &s)
   unbroken_original_l_ = 0;
   /* do not copy attached_span_l_arr_ */
   breakable_b_ = s.breakable_b_;
-  visibility_lambda_ = s.visibility_lambda_;
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] =0;
   break_status_dir_ = s.break_status_dir_;
   break_priority_i_ = s.break_priority_i_;

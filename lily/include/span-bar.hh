@@ -27,7 +27,6 @@ class Span_bar : public Bar
   Interval get_spanned_interval () const;
 public:
   Real extra_x_off_;
-  bool no_width_b_;
   Span_bar();
     
   VIRTUAL_COPY_CONS(Score_element);

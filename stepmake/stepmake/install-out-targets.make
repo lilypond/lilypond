@@ -8,10 +8,11 @@ localinstall-files:
 localinstall-outfiles: $(INSTALLATION_OUT_FILES) $(foreach suff, $(INSTALLATION_OUT_SUFFIXES), $(INSTALLATION_OUT_FILES$(suff)))
 	-$(INSTALL) -d $(INSTALLATION_OUT_DIR)
 	$(foreach i, $(INSTALLATION_OUT_FILES), \
-		$(INSTALL) -m 644 $(i) $(INSTALLATION_OUT_DIR) && ) true
+		$(INSTALL) -m 644 $(i) $(INSTALLATION_OUT_DIR)/ && ) true
 	$(foreach suff, $(INSTALLATION_OUT_SUFFIXES),  \
+		($(INSTALL) -d $(INSTALLATION_OUT_DIR$(suff))/ || true) && \
 		$(foreach i, $(INSTALLATION_OUT_FILES$(suff)), \
-			$(INSTALL) -m 644 $(i) $(INSTALLATION_OUT_DIR$(suff)) && ) true && ) true
+			$(INSTALL) -m 644 $(i) $(INSTALLATION_OUT_DIR$(suff))/ && ) true && ) true
 
 
 localuninstall: localuninstall-outfiles localuninstall-files 

@@ -59,8 +59,6 @@ public:
   
   Graphical_element *parent_l (Axis a) const;
   
-  void unlink ();
-  void junk_links ();
   virtual void do_print () const;
 protected:
   virtual Interval do_height () const=0;

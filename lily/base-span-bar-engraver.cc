@@ -6,6 +6,7 @@
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "lily-guile.hh"
 #include "span-bar.hh"
 #include "base-span-bar-engraver.hh"
 #include "vertical-align-spanner.hh"
@@ -50,6 +51,10 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	 */
 	{
 	  spanbar_p_ = get_span_bar_p();
+	  String visnam =  String(name()) + "_visibility";
+	  
+	  spanbar_p_->set_elt_property (ly_symbol ("visibility_lambda"),
+					gh_eval_str (visnam.ch_C()));
 
 	  if (use_priority_b_)
 	    {
