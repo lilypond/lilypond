@@ -8,6 +8,16 @@
 ; distances are given in stafflinethickness (thicknesses) and
 ; staffspace (distances)
 
+(define default-alteration-alist
+  '(
+    (0 . ((raise . 0.5) (music "accidentals-0")))
+    (-1 . ((raise . 0.5) (music "accidentals--1")))
+    (-2 . ((raise . 0.5) (music "accidentals--2")))
+    (1 . ((raise . 0.5) (music  "accidentals-1")))
+    (2 . ((raise . 0.5) (music "accidentals-2")))
+    ))
+
+
 (define all-grob-descriptions
   `(
     (Accidentals . (
@@ -66,6 +76,15 @@
 			text-interface  font-interface break-aligned-interface))
 	))
 
+	(BassFigure . (
+		       (molecule-callback . ,Text_item::brew_molecule)
+		       (Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
+		       (direction . 0)
+		       (accidental-alist . ,default-alteration-alist)
+		       (font-family . number)
+		       (font-relative-size . -1)
+		       (meta . ,(grob-description "BassFigure" text-interface font-interface ))
+	))
 	(Beam . (
 		 ;; todo: clean this up a bit: the list is getting
 		 ;; rather long.
@@ -302,6 +321,16 @@
 		(meta . ,(grob-description "LyricText" lyric-syllable-interface text-interface font-interface ))
 	))
 	
+	(Porrectus . (
+		(style . mensural)
+		(solid . #f)
+		(add-stem . #t)
+		(stem-direction . 1)
+		(molecule-callback . ,Porrectus::brew_molecule)
+		(meta . ,(grob-description "Porrectus"
+					   porrectus-interface))
+	))
+
 	(RehearsalMark . (
 		(molecule-callback . ,Text_item::brew_molecule)
 		(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
@@ -689,7 +718,6 @@
 
 	(TupletBracket . (
 		(number-gap . 2.0)   
-		(delta-y . 0)
 		(thick . 1.0)
 		(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
 		(molecule-callback . ,Tuplet_bracket::brew_molecule)
