@@ -59,6 +59,7 @@ import string
 
 subdirs = ['flower', 'lily', 'mf', 'scm', 'ly', 'Documentation',
 	   'Documentation/user', 'input']
+#subdirs = []
 
 usage = r'''Usage:
 scons [KEY=VALUE].. [TARGET]..
@@ -374,7 +375,10 @@ tarname = tarbase + '.tar.gz'
 tarball = os.path.join (outdir, tarname)
 env['tarball'] = tarball
 
-ballprefix = os.path.join (outdir, tarbase) + '/'
+if 0: # broken :-(
+	ballprefix = os.path.join (outdir, tarbase)
+else:
+	ballprefix = os.path.join (os.getcwd (), tarbase)
 env['ballprefix'] = ballprefix
 
 SConscript ('buildscripts/builder.py')
@@ -387,31 +391,18 @@ patch_files = ['emacsclient.patch', 'server.el.patch', 'darwin.patch']
 #testing
 env.Append (TARFLAGS = '-z --owner=0 --group=0')
 env.Append (GZIPFLAGS = '-9')
-all_sources = ['SConstruct', 'VERSION', '.cvsignore']\
-	      + readme_files + readme_txt + patch_files
+#all_sources = ['SConstruct', 'VERSION', '.cvsignore']\
+#	      + readme_files #+ patch_files # + readme_txt
+all_sources = ['SConstruct', 'VERSION']\
+	      + readme_files
+#	      + readme_files + readme_txt
+#	      + readme_files + patch_files + readme_txt
+
+env['sources'] = all_sources
 
 map (lambda x: env.Texi2txt (x, os.path.join ('Documentation/topdocs',
 					      os.path.splitext (x)[0])),
      readme_txt)
-
-#print `all_sources`
-#print `map (lambda x: env['ballprefix'] + x, all_sources)`
-#ballize = map (env.BALL, all_sources)
-#ballize = map (env.BALL, ['SConstruct', 'VERSION'])
-#tar = env.Tar (tarball, map (lambda x: env['ballprefix'] + x, all_sources))
-tar = env.Tar (env['tarball'], all_sources)
-env.Alias ('tar', tar)
-
-distball = os.path.join (package.release_dir, tarname)
-env.Command (distball, tarball,
-	     'if [ -e $SOURCE -a -e $TARGET ]; then rm $TARGET; fi;' \
-	     + 'ln $SOURCE $TARGET')
-env.Depends ('dist', distball)
-patchfile = os.path.join (outdir, tarbase + '.diff.gz')
-patch = env.PATCH (patchfile, tarball)
-env.Depends (patchfile, distball)
-env.Alias ('release', patch)
-
 
 for d in subdirs:
 	b = os.path.join (build, d, out)
@@ -444,13 +435,8 @@ def symlink_tree (prefix):
 		if src[0] == '#':
 			frm = os.path.join (srcdir, src[1:])
 		else:
-			print 'dst: ' + dst
 			depth = len (string.split (dir, '/'))
-			print 'depth: ' + `depth`
 			frm = os.path.join ('../' * depth, src, out)
-		print 'cwd: ' + `os.getcwd ()`
-		print 'frm: ' + frm
-		print 'dst: ' + dst
 		os.symlink (frm, os.path.basename (dst))
 	map (lambda x: symlink (x[0], os.path.join (prefix, x[1])),
 	     (('python', 'lib/lilypond/python'),
@@ -472,4 +458,22 @@ if env['debugging']:
 	prefix = os.path.join (out, 'usr')
 	if not os.path.exists (prefix):
 		symlink_tree (prefix)
+
+ball = Builder (prefix = ballprefix + '/', action = 'ln $SOURCE $TARGET')
+et = env.Copy (BUILDERS = {'BALL': ball})
+ballize = map (et.BALL, all_sources)
+tar = env.Tar (tarball, map (lambda x: os.path.join (env['ballprefix'], x),
+			     all_sources))
+env.Alias ('tar', env['tarball'])
+
+distball = os.path.join (package.release_dir, tarname)
+env.Command (distball, tarball,
+	     'if [ -e $SOURCE -a -e $TARGET ]; then rm $TARGET; fi;' \
+	     + 'ln $SOURCE $TARGET')
+env.Depends ('dist', distball)
+patchfile = os.path.join (outdir, tarbase + '.diff.gz')
+patch = env.PATCH (patchfile, tarball)
+env.Depends (patchfile, distball)
+env.Alias ('release', patch)
+
 
