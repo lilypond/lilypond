@@ -145,13 +145,15 @@ more than this (in staffspace)")
     (property-description 'de-uglify-parameters list? "list of 3 real constants. They define the valid areas for the middle control points. Used in de_uglyfy. They are a bit empirical.")
     (property-description 'details list? "alist containing contaning a few magic constants.")
     (property-description 'attachment pair? "cons of symbols, '(LEFT-TYPE . RIGHT-TYPE), where both types may be alongside-stem, stem, head or loose-end")
+    (property-description 'attachment-offset pair? "cons of offsets, '(LEFT-offset . RIGHT-offset).  This offset is added to the attachments to prevent ugly slurs.")
     (property-description 'direction dir? "up or down?")
-    (property-description 'y-free number? "? ")
-    (property-description 'control-points list? "")
-    (property-description 'extremity-rules  list? "")
-    (property-description 'extremity-offset-alist list? "")
-    (property-description 'thickness list? "")
-    (property-description 'dash number? "number representing the length of the dashes.")
+    (property-description 'beautiful number? "number that dictates when a slur should be de-uglyfied.  It correlates with the enclosed area between noteheads and slurs.  A value of 0.1 yields only undisturbed slurs, a value of 5 will tolerate quite high blown slurs.")
+    (property-description 'y-free number? "minimal vertical gap between slur and noteheads or stems")
+    (property-description 'control-points list? "[internal] control points of bezier curve")
+    (property-description 'extremity-rules  list? "an alist (procedure slur dir) -> attachment to determine the attachment (see above).  If procedure returns #t, attachment is used.  Otherwise, the next procedure is tried.")
+    (property-description 'extremity-offset-alist list? "an alist (attachment stem-dir*dir slur-dir*dir) -> offset.  The offset adds to the centre of the notehead, or stem.")
+    (property-description 'thickness list? "The thickness[stafflinethickness] of slur in the centre.")
+    (property-description 'dashed number? "[FIXME: use dash-period/dash length; see text-spanner] number representing the length of the dashes.")
     )
    )
   )
@@ -299,22 +301,6 @@ this object as a reference point.")
 
 
 
-
-(define text-spanner-interface
-  (lily-interface
-   'text-spanner-interface
-   "generic text spanner"
-   (list
-    (property-description 'dash-period  number? "")
-    (property-description 'dash-length number? "")
-    (property-description 'line-thickness number? "")
-    (property-description 'edge-height pair? "(leftheight . rightheight)")
-    (property-description 'edge-text pair? "(lefttext . righttext)")
-    (property-description 'text-style string? "") ; SYMBOL!!?
-    (property-description 'type string? "line, dashed-line or dotted-line") ; SYMBOL!!?    
-    )
-))
-
 (define hairpin-interface
   (lily-interface
    'hairpin-interface
@@ -355,10 +341,21 @@ this object as a reference point.")
 (define text-interface
   (lily-interface
    'text-interface
-   "A text"
+   "A scheme markup text"
    (list
-    (property-description 'text string? "")
-    (property-description 'style string? "")
+    (property-description 'text (lambda (x) (or (string? x) (list? x))) "the scheme markup text.  Either a string, or a list of which the CAR is a markup '(MARKUP text text ...).  MARKUP is either a CONS: an element property '(key . value) or a symbol: an abbreviation for a list of element properties.  These abbreviations are currently defined: rows lines roman music bold italic named super sub text, as well as all font-style's.")
+    (property-description 'font-style string? "font definition for a special purpose, one of: finger volta timesig mark script large Large dynamic")
+    (property-description 'font-series string? "partial font definition: medium, bold")
+    (property-description 'font-shape string?  "partial font definition: upright or italic")
+    (property-description 'font-family string? "partial font definition: music roman braces dynamic math ...")
+    (property-description 'font-name string? "partial font definition: base name of font file FIXME: should override other partials")
+    (property-description 'font-point string? "partial font definition: exact font size in points FIXME: should override font-size")
+    (property-description 'font-size string? "partial font definition: the relative size, 0 is style-sheet's normal size, -1 is smaller, +1 is bigger")
+    (property-description 'align number? "the alignment of the text, 0 is horizontal, 1 is vertical")
+    (property-description 'lookup symbol? "lookup method: 'value for plain text, 'name for character-name")
+    (property-description 'raise number? "height for text to be raised (a negative value lowers the text")
+    (property-description 'kern number? "amount of extra white space to add before text.  This is `relative'(?) to the current alignment.")
+    (property-description 'magnify number? "the magnification factor.  FIXME: doesn't work for feta fonts")
     )))
 
 
@@ -588,6 +585,20 @@ position 0."
    (list
     
     )))
+
+(define text-spanner-interface
+  (lily-interface
+   'text-spanner-interface
+   "generic text spanner"
+   (list
+    (property-description 'dash-period  number? "the length of one dash + white space")
+    (property-description 'dash-length number? "the length of a dash")
+    (property-description 'line-thickness number? "the thickness[stafflinethickness] of the line")
+    (property-description 'edge-height pair? "a cons that specifies the heights of the vertical egdes '(LEFT-height . RIGHT-height)")
+    (property-description 'edge-text pair? "a cons that specifies the texts to be set at the edges '(LEFT-text . RIGHT-text)")
+    (property-description 'type string? "one of: line, dashed-line or dotted-line") ; SYMBOL!!?    
+    )
+))
 
 (define tie-interface
   (lily-interface

@@ -77,7 +77,7 @@
 
 ;; This list defines the offsets for each type of attachment.
 ;; The format of each element is
-;; (stem-dir * dir . slur-dir * dir)
+;; (attachment stem-dir*dir slur-dir*dir)
 ;; Different attachments have different default points:
 ;;
 ;; head: Default position is centered in X, on outer side of head Y
