@@ -224,12 +224,9 @@
 ; Make a function that checks score element for being of a specific type. 
 (define (make-type-checker symbol)
   (lambda (elt)
-;    (display  symbol)
-;    (eq? #t (ly-get-elt-property elt symbol))
     (not (eq? #f (memq symbol (ly-get-elt-property elt 'interfaces))))
-    
     ))
-	
+
 ;;;;;;;;;;;;;;;;;;; TeX output
 (define (tex-scm action-name)
   (define (unknown) 

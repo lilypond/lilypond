@@ -12,11 +12,6 @@
 	}
 	>
 	\paper{
-		\translator{
-			\GrandStaffContext
-			minVerticalAlign = 2.8*\staffheight;
-			maxVerticalAlign = 2.8*\staffheight;
-		}
 		linewidth=-1.;
 	}
 }

@@ -1,5 +1,5 @@
 \score{
-	\context GrandStaff <
+	\context PianoStaff <
 	\context Staff=one \notes\relative c'{
 		s1
 	}
@@ -12,12 +12,7 @@
 	}
 	>
 	\paper{
-		\translator{
-			\GrandStaffContext
-			minVerticalAlign = 2.8*\staffheight;
-			maxVerticalAlign = 2.8*\staffheight;
-		}
-		linewidth=-1.;
+ 		linewidth=-1.;
 	}
 }
 
