@@ -179,10 +179,28 @@ Standard methods:
 	Presence of these methods usually imply that it is not feasible to this
 	via  a constructor
 	*/
-	add( .. )
+	add (..)
 
 	/// replace some data of *this
-	set( .. )
+	set (..)
+
+=head2 Constructor
+
+Every class should have a default constructor.  
+
+Don't use non-default constructors if this can be avoided:
+
+	Foo f(1)
+
+is less readable than
+
+	Foo f;
+	f.x = 1
+
+or 
+	Foo f(Foo_convert::int_to_foo (1))
+
+
 
 =head1 HUNGARIAN NOTATION NAMING CONVENTION
 
