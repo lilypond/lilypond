@@ -134,17 +134,18 @@ cat >> $index_file <<EOF
 <title>Info documentation index</title>
 <body>
 <h1>Info documentation index</h1>
+<p>
 This is the directory file \`index.html' a.k.a. \`DIR', which contains the
 topmost node of the HTML Info hierarchy.
-<p>
-This is all very much Work in Progress (WiP).
-<p>
+</p>
 <ul>
 EOF
 
 #list
 for i in $document_dirs; do
-	echo "<li> <a href=$i/$i.html>$i</a>"
+    cat <<EOF
+<li> <a href="$i/index.html">$i</a> (<a href="$i.html">$i as one big page</a>)</li>
+EOF
 done >> $index_file
 
 # foot
