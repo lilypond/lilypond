@@ -1,5 +1,8 @@
 2005-01-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/feta-schrift.mf: reverse u and d portato. Fixes:
+	portato-direction.ly
+
 	* lily/beam.cc (consider_auto_knees): add beam height to
 	threshold. Fixes: knee-multiple-beam.ly
 
