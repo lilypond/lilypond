@@ -71,6 +71,7 @@ struct Global_translator;
 struct Group_change_req;
 struct Group_feature_req;
 struct Head_column;
+struct Header;
 struct Horizontal_align_item;
 struct Horizontal_group_element;
 struct Horizontal_group_item;
