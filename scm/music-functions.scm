@@ -258,6 +258,7 @@ i.e.  this is not an override"
 (define-public (make-skip-music dur)
   (make-music 'SkipMusic
 	      'duration dur))
+
 (define-public (make-grace-music music)
   (make-music 'GraceMusic
 	      'element music))
@@ -280,7 +281,7 @@ i.e.  this is not an override"
   "Check if we have R1*4-\\markup { .. }, and if applicable convert to
 a property set for MultiMeasureRestNumber."
   (define (script-to-mmrest-text script-music)
-    "Extract 'direction and 'text   from SCRIPT-MUSIC, and transform into property sets."
+    "Extract 'direction and 'text from SCRIPT-MUSIC, and transform into property sets."
     (let ((dir (ly:music-property script-music 'direction))
 	  (p   (make-music 'MultiMeasureTextEvent
 			   'text (ly:music-property script-music 'text))))
@@ -334,8 +335,8 @@ OTTAVATION to `8va', or whatever appropriate."
   (ly:export (make-ottava-set ottavation)))
 
 (define-public (make-time-signature-set num den . rest)
-  " Set properties for time signature NUM/DEN.
-Rest can contain a list of beat groupings "
+  "Set properties for time signature NUM/DEN.  Rest can contain a list
+of beat groupings "
   (let* ((set1 (make-property-set 'timeSignatureFraction (cons num den)))
 	 (beat (ly:make-moment 1 den))
 	 (len  (ly:make-moment num den))
@@ -349,7 +350,7 @@ Rest can contain a list of beat groupings "
      (context-spec-music (make-sequential-music basic) 'Timing) 'Score)))
 
 (define-public (make-mark-set label)
-  "make the music for the \\mark command."  
+  "Make the music for the \\mark command."  
   (let* ((set (if (integer? label)
 		  (context-spec-music (make-property-set 'rehearsalMark label)
 				      'Score)

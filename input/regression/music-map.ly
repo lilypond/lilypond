@@ -17,7 +17,7 @@ dynamics are left over. These are put onto the 2nd measure."
 Scripts and dynamics are maintained.
 "
   (if (memq 'rhythmic-event (ly:music-property m 'types))
-	(let* ((newmus 	  (make-music 'SkipEvent)))
+	(let* ((newmus (make-music 'SkipEvent)))
 		(map
 		  (lambda (x) (ly:music-set-property! newmus (car x) (cdr x)))
 		  (ly:music-mutable-properties m))
