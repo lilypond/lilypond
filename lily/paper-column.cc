@@ -16,7 +16,7 @@
 #include "text-item.hh"
 #include "lookup.hh"
 #include "font-interface.hh"
-
+#include "paper-def.hh"
 
 
 
@@ -120,7 +120,8 @@ Paper_column::brew_molecule (SCM p)
   String r = to_string (Paper_column::get_rank (me));
   SCM properties = Font_interface::font_alist_chain (me);
 
-  SCM scm_mol = Text_item::interpret_markup (p, properties,
+  SCM scm_mol = Text_item::interpret_markup (me->get_paper ()->self_scm (),
+					     properties,
 					     scm_makfrom0str (r.to_str0 ()));
   Molecule t = *unsmob_molecule (scm_mol);
   t.align_to (X_AXIS, CENTER);

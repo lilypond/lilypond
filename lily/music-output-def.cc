@@ -161,3 +161,24 @@ Music_output_def::lookup_variable (SCM sym) const
 
   return scm_variable_ref (var);
 }
+
+
+LY_DEFINE(ly_paper_lookup,
+	  "ly:paper-lookup",
+	  2, 0,0,
+	  (SCM pap, SCM sym),
+	  "Lookup @var{sym} in @var{pap}. Return the value "
+	  " or '() if undefined.  "
+	  )
+{
+  Music_output_def *op = unsmob_music_output_def (pap);
+  SCM_ASSERT_TYPE (op, pap, SCM_ARG1, __FUNCTION__, "Paper");
+  SCM_ASSERT_TYPE (gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+
+  SCM v = op->lookup_variable (sym);
+
+  if (SCM_VARIABLEP(v))
+    return SCM_VARIABLE_REF(v);
+  else
+    return SCM_EOL;
+}

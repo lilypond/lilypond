@@ -1,7 +1,14 @@
+/*
+  accidental.cc -- implement Accidental_interface
+
+  (c) 2001--2003 Han-Wen Nienhuys
+  
+ */
 #include "font-interface.hh"
 #include "item.hh"
 #include "molecule.hh"
 #include "accidental-interface.hh"
+#include "paper-def.hh"
 
 /*
   TODO: insert support for smaller cautionaries, tie-break-reminders.
@@ -184,7 +191,7 @@ Accidental_interface::brew_molecule (SCM smob)
 			     (ly_symbol2scm ("font-relative-size"),
 			      scm_int2num (-1)), SCM_EOL),
 		    ac);
-      fm = Font_interface::get_font (me->get_paper (), ac);
+      fm = select_font (me->get_paper (), ac);
     }
   else
     fm = Font_interface::get_default_font (me);

@@ -72,7 +72,6 @@ void
 Break_align_interface::do_alignment (Grob *me)
 {
   Item * item = dynamic_cast<Item*> (me);
-  int rank = Paper_column::get_rank (item->get_column ());
   Link_array<Grob> elems
     = Pointer_group_interface__extract_grobs (me, (Grob*)0,
 						 "elements");

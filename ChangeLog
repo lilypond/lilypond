@@ -1,5 +1,11 @@
 2003-09-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/chord-name.scm: remove new-chord-name-brew-molecule ; use
+	ChordNames.SeparationItem #'padding for adjusting space after chords.
+	
+	* lily/music-output-def.cc (LY_DEFINE): 
+	new function ly:paper-lookup.
+	
 	* mf/parmesan-clefs.mf: use # quantities for char_box
 	offsets. Fixes overflow errors in the PFA. 
 

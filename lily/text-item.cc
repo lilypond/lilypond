@@ -15,7 +15,6 @@
 #include "virtual-font-metric.hh"
 #include "paper-def.hh"
 
-
 MAKE_SCHEME_CALLBACK(Text_item,interpret_markup,3);
 SCM
 Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
@@ -23,7 +22,7 @@ Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
   if (gh_string_p (markup))
     {
       Paper_def *pap = unsmob_paper (paper);
-      Font_metric *fm = Font_interface::get_font (pap, props);
+      Font_metric *fm = select_font (pap, props);
   
       SCM list = scm_list_n (ly_symbol2scm ("text"), markup, SCM_UNDEFINED);
       
@@ -60,10 +59,10 @@ SCM
 Text_item::brew_molecule (SCM grob)
 {
   Grob * me = unsmob_grob (grob);
-
+  
   SCM t = me->get_grob_property ("text");
   SCM chain = Font_interface::font_alist_chain (me);
-  return interpret_markup (grob, chain, t);
+  return interpret_markup (me->get_paper ()->self_scm (), chain, t);
 }
 
 

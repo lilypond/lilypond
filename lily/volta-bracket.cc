@@ -65,7 +65,8 @@ Volta_bracket_interface::brew_molecule (SCM smob)
     (strcmp(cs,":|")!=0 && strcmp(cs,"|:")!=0 && strcmp(cs,"|.")!=0
      && strcmp(cs,":|:")!=0 && strcmp(cs,".|")!=0);
 
-  Real staff_thick = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));  
+  Paper_def * paper =me->get_paper ();
+  Real staff_thick = paper->get_realvar (ly_symbol2scm ("linethickness"));  
   Real half_space = 0.5;
 
   Item * bound = dynamic_cast<Spanner*> (me)->get_bound (LEFT);
@@ -107,7 +108,7 @@ Volta_bracket_interface::brew_molecule (SCM smob)
     {
       SCM text = me->get_grob_property ("text");
       SCM properties = me->get_property_alist_chain (SCM_EOL);
-      SCM snum  = Text_item::interpret_markup (smob, properties, text);
+      SCM snum  = Text_item::interpret_markup (paper->self_scm (), properties, text);
       Molecule num = *unsmob_molecule (snum);
 
       mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
