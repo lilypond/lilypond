@@ -20,7 +20,7 @@ last bass figure.
 	<3+ 5- 7!>
 	<3 _! 5 _- 7>
 	<3 _ 5 _ 7>
-	<"V7" ["bla" 6] 7>
+	<"V7" ["bla" 6] \markup{ \musicglyph #"rests.2"} >
 	
     }
     \context Voice {

@@ -2074,6 +2074,7 @@ bass_number:
 				$$);
 	}
 	| STRING { $$ = $1; }
+	| full_markup { $$ = $1; }
 	;
 
 bass_mod:
