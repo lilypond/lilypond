@@ -275,7 +275,7 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
     {
       System *system = dynamic_cast <System*> (clone ());
       system->rank_ = i;
-      //      system->set_immutable_grob_property ("rank", gh_int2scm (i));
+
       Link_array<Grob> c (breaking[i].cols_);
       pscore_->typeset_line (system);
       

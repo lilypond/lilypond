@@ -372,6 +372,13 @@ Grob::handle_broken_dependencies ()
 void
 Grob::suicide ()
 {
+  if (!live ())
+    return; 
+
+#if 0 // see below. 
+   String nm = name();
+#endif
+  
   mutable_property_alist_ = SCM_EOL;
   immutable_property_alist_ = SCM_EOL;
 
@@ -383,6 +390,19 @@ Grob::suicide ()
       dim_cache_[a].offset_callbacks_ = SCM_EOL;
       dim_cache_[a].offsets_left_ = 0;
     }
+
+#if 0
+  /*
+    This can make debugging a little easier: we can still know what
+    the object used to be. However, since all its links have been
+    broken, it's usually more convenient to set a conditional
+    breakpoint in GDB before the property lists are wiped.
+   */
+  mutable_property_alist_ = scm_acons (ly_symbol2scm ("name"),
+				       scm_makfrom0str (nm.to_str0()),
+				       mutable_property_alist_
+				       );
+#endif
 }
 
 void

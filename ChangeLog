@@ -1,4 +1,8 @@
-	
+2002-09-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/break-align-engraver.cc (acknowledge_grob): also typeset
+	LeftEdge item.
+
 2002-09-15  Werner Lemberg  <wl@gnu.org>
 
 	Improving LilyPond's output to make them ordinary TeX boxes with
