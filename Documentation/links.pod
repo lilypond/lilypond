@@ -115,7 +115,10 @@ bug-gnu-music-request@gnu.org
 
 For discussions concerning the GNU Music project, to subscribe: send
 mail with subject "subscribe" to
-gnu-music-discuss-request@gnu.org
+gnu-music-discuss-request@gnu.org 
+
+This list is archived at
+http://www.jab.org/mail/gnu-music-discuss@gnu.org
 
 =back
 
