@@ -2,7 +2,7 @@
 /*
   proto.hh -- part of LilyPond
 
-  (c) 1996 Han-Wen Nienhuys
+  (c) 1996,97 Han-Wen Nienhuys
 */
 
 #ifndef PROTO_HH
@@ -42,8 +42,11 @@ struct Local_key;
 struct Local_key_item;
 struct Lookup;
 struct Lyric_req;
+struct Mark_req;
 struct Mixed_qp;
 struct Molecule;
+struct Rational;
+typedef Rational Moment;
 struct Note_req;
 struct Notehead;
 struct Offset;
