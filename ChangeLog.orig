@@ -1,6 +1,3 @@
-pl 1.mb1
-       - bf, scalar.cc: ".3" now detected as numerical
-       
 pl 0.uu1
 	- refman updates by Werner & Mats
 	- now use ChangeLog for changes.

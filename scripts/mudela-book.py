@@ -324,7 +324,7 @@ class Mudela_output:
         self.file.write("\\paper {"
                         + "\\paper_%s " % s
                         + linewidth_str
-                        + "castingalgorithm = \Gourlay; \n}")
+                        + "castingalgorithm = \Gourlay; \n}\n")
                         #+ "castingalgorithm = \Wordwrap; indent = 2.\cm; \n}")
         if self.code_type == 'CONTEXT':
             self.file.write('\\score{\n\\notes\\relative c{')
