@@ -327,7 +327,7 @@ Tie::brew_molecule (SCM smob)
   
    Molecule a = Lookup::slur (b, Directional_element_interface::get (me) * thick, thick);
    
-   return a.create_scheme ();
+   return a.smobbed_copy ();
 }
 
 

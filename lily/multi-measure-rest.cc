@@ -150,7 +150,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
       mol.add_molecule (s);
     }
   mol.translate_axis (x_off, X_AXIS);
-  return mol.create_scheme();
+  return mol.smobbed_copy();
 }
 
 /*

@@ -98,8 +98,8 @@ Span_dynamic_performer::do_process_music ()
 
   if (span_req_l_drul_[START])
     {
-      dir_ = span_req_l_drul_[START]->span_type_str_ == "crescendo"
-	? RIGHT : LEFT;
+      String t = ly_scm2string (span_req_l_drul_[START]->get_mus_property ("span-type"));
+      dir_ = (t == "crescendo")	? RIGHT : LEFT;
       span_start_req_l_ = span_req_l_drul_[START];
       
       dynamic_tuple_arr_.clear ();
@@ -180,8 +180,8 @@ Span_dynamic_performer::do_try_music (Music* r)
 {
   if (Span_req * s = dynamic_cast<Span_req*>(r))
     {
-      if (s-> span_type_str_ == "crescendo"
-	  || s->span_type_str_ == "decrescendo")
+      String t =  ly_scm2string (s->get_mus_property ("span-type"));      
+      if (t == "crescendo" || t == "decrescendo")
 	{
 	  span_req_l_drul_[s->get_span_dir()] = s;
 	  return true;

@@ -111,7 +111,7 @@ System_start_delimiter::brew_molecule (SCM smob)
   
   
   m.translate_axis (ext.center (), Y_AXIS);
-  return m.create_scheme ();
+  return m.smobbed_copy ();
 }
 
 Molecule

@@ -46,7 +46,8 @@ Slur_engraver::do_try_music (Music *req_l)
 {
   if (Span_req *sl = dynamic_cast <Span_req *> (req_l))
     {
-      if (sl->span_type_str_ == "abort")
+      String t =  ly_scm2string (sl->get_mus_property ("span-type"));
+      if (t == "abort")
 	{
 	  for (int i = 0; i < slur_l_stack_.size (); i++)
 	    {
@@ -61,7 +62,7 @@ Slur_engraver::do_try_music (Music *req_l)
 	  requests_arr_.clear ();
 	  new_slur_req_l_arr_.clear ();
 	}
-      else if (sl->span_type_str_ == "slur")
+      else if (t == "slur")
 	{
 	  /*
 	    Let's not start more than one slur per moment.

@@ -80,7 +80,8 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 
 		the first and last (quarter) note bothe get one tremolo flag.
 	       */
-	      int requested_type = tremolo_req_l_->type_i_;
+	      int requested_type = gh_scm2int (tremolo_req_l_->get_mus_property ("tremolo-type"));
+	      
 	      SCM f = get_property ("tremoloFlags");
 	      if (!requested_type && gh_number_p (f))
 		requested_type = gh_scm2int (f);

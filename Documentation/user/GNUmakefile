@@ -31,10 +31,17 @@ ps: $(PS_FILES)
 
 info: $(INFO_FILES)
 
-default: info
+default: 
 
 local-WWW: $(HTML_FILES)   $(datafiles) $(PS_GZ_FILES) backdoc-WWW
-	true
+	$(SHELL) $(buildscript-dir)/install-info-html.sh $(outdir) lilypond lilypond-internals
+	$(MAKE) footify
+	ln -f $(outdir)/*.png $(outdir)/lilypond
+	$(MAKE) deep-footify
+
+deep-footify:
+	$(PYTHON) $(step-bindir)/add-html-footer.py --index=../../$(depth)/ --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION) --header=$(depth)/Documentation/header.html.in --footer $(depth)/Documentation/footer.html.in $(sort $(wildcard $(outdir)/*/*.html))
+
 
 #	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation' \
 #	   $(DOC_FILES) $(TEX_FILES) $(TELY_FILES) \
@@ -49,8 +56,13 @@ localclean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
 
 backdoc-WWW: $(outdir)/lilypond-internals.html
+	$(MAKE) footify
 
 #ugh. lily/OUT/lilypond hardcoded.
+# when cross-compiling, we don't have lilypond
 $(outdir)/lilypond-internals.texi:
-	(cd $(outdir); $(topdir)/lily/out/lilypond ../$(srcdir)/../ly/generate-documentation)
-
+	if [ -e $(depth)/$(builddir)/lily/out/lilypond ]; then \
+		cd $(outdir) && ../$(depth)/$(builddir)/lily/out/lilypond ../$(src-depth)/ly/generate-documentation; \
+	else \
+		touch $@; \
+	fi

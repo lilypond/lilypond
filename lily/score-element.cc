@@ -182,8 +182,11 @@ Score_element::molecule_extent (SCM element_smob, SCM scm_axis)
   Score_element *s = unsmob_element (element_smob);
   Axis a = (Axis) gh_scm2int (scm_axis);
 
-  Molecule m = s->get_molecule ();
-  return ly_interval2scm ( m.extent(a));
+  Molecule *m = s->get_molecule ();
+  Interval e ;
+  if (m)
+    e = m->extent(a);
+  return ly_interval2scm ( e);
 }
 
 MAKE_SCHEME_CALLBACK(Score_element,preset_extent,2);
@@ -248,16 +251,23 @@ Score_element::calculate_dependencies (int final, int busy, SCM funcname)
 
 }
 
-Molecule
+Molecule *
 Score_element::get_molecule ()  const
 {
+  SCM mol = get_elt_property ("molecule");
+  if (unsmob_molecule (mol))
+    return unsmob_molecule (mol);
+  
   SCM proc = get_elt_property ("molecule-callback");
 
-  SCM mol = SCM_EOL;
+  mol = SCM_EOL;
   if (gh_procedure_p (proc)) 
     mol = gh_apply (proc, gh_list (this->self_scm (), SCM_UNDEFINED));
 
-    
+  
+  /*
+    TODO: add option for not copying origin info. 
+   */
   SCM origin =get_elt_property ("origin");
   if (!unsmob_input (origin))
     origin =ly_symbol2scm ("no-origin");
@@ -268,15 +278,19 @@ Score_element::get_molecule ()  const
 	mol = gh_cons (gh_list (origin, gh_car (mol), SCM_UNDEFINED), gh_cdr (mol));
     }
 
+  Molecule *m = unsmob_molecule (mol);
 
-  Molecule m (create_molecule (mol));
-
+  
   /*
     transparent retains dimensions of element.
    */
-  if (to_boolean (get_elt_property ("transparent")))
-    m = Molecule (m.extent_box (), SCM_EOL);
+  if (m && to_boolean (get_elt_property ("transparent")))
+    mol = Molecule (m->extent_box (), SCM_EOL).smobbed_copy ();
 
+  Score_element *me = (Score_element*)this;
+  me->set_elt_property ("molecule", mol);
+  
+  m = unsmob_molecule (mol);  
   return m;
 }
 

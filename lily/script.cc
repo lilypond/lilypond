@@ -56,12 +56,14 @@ SCM
 Script::brew_molecule (SCM smob)
 {
   Score_element *me= unsmob_element (smob);
-//   Direction dir = DOWN;
-//   SCM d = me->get_elt_property ("direction");
-//   if (isdir_b (d))
-//     dir = to_dir (d);
+#if 0
+   Direction dir = DOWN;
+   SCM d = me->get_elt_property ("direction");
+   if (isdir_b (d))
+     dir = to_dir (d);
+#endif
   Direction dir = Side_position::get_direction(me);
-  return get_molecule (me, dir).create_scheme();
+  return get_molecule (me, dir).smobbed_copy();
 }
 
 bool

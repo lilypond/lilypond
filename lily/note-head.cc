@@ -101,7 +101,7 @@ Note_head::brew_molecule (SCM smob)
 	  out.add_molecule (s);
 	}
     }
-  return out.create_scheme();
+  return out.smobbed_copy();
 }
 
 bool

@@ -236,8 +236,11 @@ Score_engraver::do_try_music (Music*r)
 	    ? gh_scm2double(pen)
 	    : 0.0;
 
-	  total_penalty += b->penalty_f_;
-	  if (b->penalty_f_ > 10000.0) //  ugh. arbitrary.
+	  SCM rpen = b->get_mus_property ("penalty");
+	  if (gh_number_p (rpen))
+	    total_penalty +=  gh_scm2double (rpen);
+	  
+	  if (total_penalty > 10000.0) //  ugh. arbitrary.
 	    forbid_breaks ();
 
 	  command_column_l_->set_elt_property ("penalty",

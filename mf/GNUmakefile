@@ -18,7 +18,7 @@ XPM_FONTS = feta20 feta-nummer10 feta-braces20
 #CM_AFM_FILES = cmr10
 
 $(outdir)/cmr10.afm:
-	-$(BASH) $(buildscripts)/tfmtoafm.sh `kpsewhich cmr10.tfm`
+	-$(GUILE) $(buildscript-dir)/tfm2oafm.scm `kpsewhich cmr10.tfm`
 	-mv $(@F) $@
 
 LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
@@ -56,7 +56,7 @@ export MFINPUTS:=.:$(MFINPUTS)
 default: $(ALL_GEN_FILES)
 
 $(outdir)/%.afm  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log
-	$(PYTHON) $(buildscripts)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm) --tex $(outdir)/$(<F:.log=.tex) $<
+	$(PYTHON) $(buildscript-dir)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm) --tex $(outdir)/$(<F:.log=.tex) $<
 
 localclean:
 	rm -f mfplain.mem mfplain.log mpout.log

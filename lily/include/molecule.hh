@@ -14,6 +14,7 @@
 #include "axes.hh"
 #include "direction.hh"
 #include "lily-guile.hh"
+#include "smobs.hh"
 
 /** a group of individually translated symbols. You can add molecules
     to the top, to the right, etc.
@@ -37,22 +38,20 @@
     Empty molecules have empty dimensions.  If add_at_edge is used to
     init the molecule, we assume that
     DIMENSIONS = (Interval(0,0),Interval(0,0)
-
-    TODO: go full smob with Molecule.
-    
 */
 class Molecule {
-  /// can't alloc on heap.
-  void * operator new (size_t s); 
   Box dim_;
   SCM expr_;
 
-public:
-
-  SCM get_expr () const;
   
+  DECLARE_SIMPLE_SMOBS(Molecule,);  
+public:
   Molecule (Box, SCM s);
   Molecule();
+
+
+  SCM smobbed_copy () const;
+  SCM get_expr () const;
 
   /**
      Set dimensions to empty, or to (Interval(0,0),Interval(0,0) */
@@ -81,6 +80,8 @@ public:
   bool empty_b() const;
 };
 
+
+Molecule *unsmob_molecule (SCM);
 SCM fontify_atom (Font_metric*, SCM atom);
 
 Molecule create_molecule (SCM brew_molecule);

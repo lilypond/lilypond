@@ -24,9 +24,9 @@ Barcheck_req::do_equal_b (Request const *r) const
 }
 
 
-Clef_change_req::Clef_change_req (String s)
+Clef_change_req::Clef_change_req ()
 {
-  clef_str_ = s;
+
 }
 
 
@@ -36,20 +36,20 @@ Time_signature_change_req::do_equal_b (Request const *r) const
   Time_signature_change_req  const* m
     = dynamic_cast <Time_signature_change_req  const*> (r);
 
+#if 0
   return m && m->beats_i_ == beats_i_
     && one_beat_i_ == m->one_beat_i_;
+#endif
+  return m;
 }
 
 Time_signature_change_req::Time_signature_change_req ()
 {
-  beats_i_ = 0;
-  one_beat_i_ =0;
 }
 
 
 Tempo_req::Tempo_req ()
 {
-  metronome_i_ = 60;
   dur_. durlog_i_ = 2;
 }
 
@@ -60,7 +60,8 @@ Tempo_req::do_equal_b (Request const *r) const
 {
   Tempo_req const *t = dynamic_cast <Tempo_req const*> (r);
 
-  return t&& t->dur_.length_mom ()== dur_.length_mom () && metronome_i_ == t->metronome_i_;
+  return t&& t->dur_.length_mom ()== dur_.length_mom ();
+  // && metronome_i_ == t->metronome_i_;
 }
 
 

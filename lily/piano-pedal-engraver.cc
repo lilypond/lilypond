@@ -118,7 +118,8 @@ Piano_pedal_engraver::do_try_music (Music *m)
     {
       for (Pedal_info*p = info_list_; p->name_; p ++)
 	{
-	  if (s->span_type_str_ == p->name_)
+	  if (scm_equal_p (s->get_mus_property ("span-type"),
+			   ly_str02scm (p->name_))==SCM_BOOL_T)
 	    {
 	      p->req_l_drul_[s->get_span_dir()] = s;
 	      return true;

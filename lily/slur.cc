@@ -526,7 +526,7 @@ Slur::brew_molecule (SCM smob)
   else
     a = Lookup::slur (one, Directional_element_interface::get (me) * thick, thick);
 
-  return a.create_scheme();
+  return a.smobbed_copy();
 }
 
 void

@@ -53,7 +53,8 @@ public:
 */
 class Span_req  : public virtual Request  {
 public:
-  String span_type_str_;
+  String get_span_type_str () const;
+  void set_span_type_str (String);
   void set_span_dir (Direction d);
   Direction get_span_dir () const;  
   

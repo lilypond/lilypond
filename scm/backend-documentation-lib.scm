@@ -25,8 +25,9 @@
 	  "not set" )
       "}"))))
 
+;; First level Interface description
 ;; Second level, part of element description
-(define (document-interface interface element-description)
+(define (document-interface level interface element-description)
   (let* ((name (car interface))
 	 (desc (cadr interface))
 	 (props (caddr interface))
@@ -35,9 +36,16 @@
 		    props)))
 
     (string-append
-     (section 2 (string-append "Interface: " (symbol->string name)))
+     (section level (string-append (interface-name (symbol->string name))))
      desc
      (description-list docs))))
+
+;; First level Interface description
+(define (document-separate-interface interface)
+  (let ((name (car interface)))
+    (string-append
+     (node (interface-name name))
+     (document-interface 2 interface '()))))
 
 ;; First level element description
 (define (document-element iname description)
@@ -51,8 +59,8 @@
 	 
 	 (name (cdr (assoc 'name meta)))
 	 (ifaces (cdr (assoc 'interface-descriptions meta)))
-	 (ifacedoc (map (lambda (x) (document-interface x description))
-				(reverse ifaces))))
+	 (ifacedoc (map (lambda (x) (document-interface 3 x description))
+			(reverse ifaces))))
     
     (string-append
      (node (element-name name))
@@ -86,3 +94,23 @@
      (texi-node-menu name (map (lambda (x) (cons (element-name x) ""))
 			       names))
      doc)))
+
+;; testin.. -- how to do this
+(eval-string (ly-gulp-file "interface.scm"))
+(define interface-description-alist
+  `(
+    (general-element . ,general-element-interface)
+    (beam . ,beam-interface)
+    (clef . ,clef-interface)
+    (slur . ,slur-interface)
+    ))
+	      
+(define (document-all-interfaces name)
+  (string-append
+   (texi-node-menu name (map (lambda (x) (cons (interface-name x) ""))
+			     (map cadr interface-description-alist)))
+   (apply string-append
+	  (map document-separate-interface
+	       (map cdr interface-description-alist)))))
+
+

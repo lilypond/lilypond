@@ -58,12 +58,13 @@ Script_engraver::do_process_music()
       Articulation_req* l=script_req_l_arr_[i];
 
       SCM alist = get_property ("scriptDefinitions");
-      SCM list = scm_assoc (ly_str02scm (l->articulation_str_.ch_C ()), alist);
+      SCM list = scm_assoc (l->get_mus_property ("articulation-type"), alist);
 
       if (list == SCM_BOOL_F)
 	{
-	  l->origin ()->warning (_f ("Don't know how to interpret articulation `%s'",
-			l->articulation_str_.ch_C ()));
+	  String a = ly_scm2string (l->get_mus_property ("articulation-type"));
+	  l->origin ()->warning (_f ("Don't know how to interpret articulation `%s'", a.ch_C()));
+			
 	  continue;
 	}
       // todo -> use result of articulation-to-scriptdef directly as basic prop list.

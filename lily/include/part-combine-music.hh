@@ -17,7 +17,7 @@ class Part_combine_music : public Music
 {
 public:
   VIRTUAL_COPY_CONS (Music);
-  Part_combine_music (String, Music*, Music*);
+  Part_combine_music (SCM what_str, Music*, Music*);
 
   Music * first_l () const;
   Music * second_l () const;
@@ -27,8 +27,6 @@ public:
   virtual Moment length_mom () const;
   virtual Musical_pitch to_relative_octave (Musical_pitch);
   virtual void compress (Moment);
-
-  String what_str_;
 };
 
 #endif /* PART_COMBINE_MUSIC_HH */

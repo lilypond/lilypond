@@ -1,12 +1,35 @@
-1.3.103.jcn5
+1.3.104.jcn3
 ============
+
+* Bit of temporary makefile hacking to stay in sync with makeinfo patch.
+
+* Separate interface description (test phase).
+
+* Makeinfo --html split fix: http://appel.lilypond.org/fred/software/texinfo-4.0.jcn2.diff
+
+* Use headers for makeinfo html output.
+
+* Made some --scrdir build fixes.
+
+1.3.104.uu1
+===========
+
+* Smobified molecule, and cache molecule (ie. generate each molecule
+only once).  Lily should be faster now. (approx. 6 % ?)
+
+* Coded properties-to-font-name in C++. Measured speedup: 14% (wtk1-fugue2)
+
+* Use music properties for Request data.
+
+1.3.104
+=======
 
 * Documentation build fix: don't run LilyPond when generating plain info doc.
 
 * Resurrected info documentation and made cross links between manual
 and generated doco, some small fixes.
 
-* Made small Time signature style fix.
+* Made small time signature style fix.
 
 * Generate texinfo iso html documentation.
 
@@ -2916,4 +2939,5 @@ pl 15.hwn1
 
 pl 15.jcn4
 	- direct #... to scm parser  (Thanks to Gary Houston)
+
 

@@ -92,7 +92,7 @@ Volta_spanner::brew_molecule (SCM smob)
   mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
 		   - 1.0);
   mol.translate_axis (left, X_AXIS);
-  return mol.create_scheme();
+  return mol.smobbed_copy ();
 }
 
 

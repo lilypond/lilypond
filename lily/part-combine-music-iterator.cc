@@ -128,7 +128,11 @@ Part_combine_music_iterator::get_state (Moment)
 {
   int state = UNKNOWN;
   Part_combine_music const *p = dynamic_cast<Part_combine_music const* > (music_l_);
-  Translator_group *first_translator = first_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_, "one" + suffix_);
+
+  String w = ly_scm2string (p->get_mus_property ("what"));
+    
+  
+  Translator_group *first_translator = first_iter_p_->report_to_l ()->find_create_translator_l (w, "one" + suffix_);
 
   SCM s = first_translator->get_property (ly_symbol2scm ("changeMoment"));
   if (!gh_pair_p (s))
@@ -284,6 +288,8 @@ Part_combine_music_iterator::get_state (Moment)
   return state;
 }
 
+static Span_req* abort_req = NULL;
+
 void
 Part_combine_music_iterator::process (Moment m)
 {
@@ -328,29 +334,25 @@ Part_combine_music_iterator::process (Moment m)
   /*
     When combining, abort all running spanners
    */
+
+  if (!abort_req)
+    {
+      abort_req = new Span_req;
+      abort_req->set_mus_property ("span-type", ly_str02scm ("abort"));
+    }
+  
   if (combine_b && combine_b != previously_combined_b)
     {
-#if 0
-      // Urg: Error in unknown function during GC: rogue pointer in heap
-      // Who deletes this 'pointer'?
-      Span_req abort;
-      abort.span_type_str_ = "abort";
       if (second_iter_p_ && second_iter_p_->ok ())
-	second_translator->try_music (&abort);
-#else
-      Span_req* abort = new Span_req;
-      abort->span_type_str_ = "abort";
-      if (second_iter_p_ && second_iter_p_->ok ())
-	second_iter_p_->try_music (abort);
-#endif
+	second_iter_p_->try_music (abort_req);
      }
-
+  String w = ly_scm2string (p->get_mus_property ("what"));
   if (combine_b != previously_combined_b)
-    change_to (second_iter_p_, p->what_str_, (combine_b ? "one" : "two")
+    change_to (second_iter_p_, w, (combine_b ? "one" : "two")
 	       + suffix_);
 
-  Translator_group *first_translator = first_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_, "one" + suffix_);
-  Translator_group *second_translator = second_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_, "two" + suffix_);
+  Translator_group *first_translator = first_iter_p_->report_to_l ()->find_create_translator_l (w, "one" + suffix_);
+  Translator_group *second_translator = second_iter_p_->report_to_l ()->find_create_translator_l (w, "two" + suffix_);
 
   /*
     hmm

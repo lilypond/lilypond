@@ -593,7 +593,8 @@ music_output_def_body:
 			junk this ? there already is tempo stuff in
 			music.
 		*/
-		dynamic_cast<Midi_def*> ($$)->set_tempo ($2->dur_.length_mom (), $2->metronome_i_);
+		int m = gh_scm2int ( $2->get_mus_property ("metronome-count")); 
+		dynamic_cast<Midi_def*> ($$)->set_tempo ($2->dur_.length_mom (), m);
 	}
 	| music_output_def_body error {
 
@@ -605,7 +606,7 @@ tempo_request:
 		$$ = new Tempo_req;
 		$$->dur_ = *$2;
 		delete $2;
-		$$-> metronome_i_ = $4;
+		$$-> set_mus_property ("metronome-count", gh_int2scm ( $4));
 	}
 	;
 
@@ -823,7 +824,7 @@ re_rhythmed_music:
 
 part_combined_music:
 	PARTCOMBINE STRING Music Music {
-		Part_combine_music * p = new Part_combine_music (ly_scm2string ($2), $3, $4);
+		Part_combine_music * p = new Part_combine_music ($2, $3, $4);
 		$$ = p;
 	}
 	;
@@ -946,14 +947,14 @@ shorthand_command_req:
 	| '['		{
 		Span_req*b= new Span_req;
 		b->set_span_dir(START);
-		b->span_type_str_ = "beam";
+		b->set_mus_property ("span-type", ly_str02scm ("beam"));
 		$$ =b;
 	}
 	| ']'		{
-	     Span_req*b= new Span_req;
-	     b->set_span_dir( STOP);
-	     b->span_type_str_ = "beam";
-	     $$ = b;
+		Span_req*b= new Span_req;
+		b->set_span_dir( STOP);
+		b->set_mus_property ("span-type", ly_str02scm ("beam"));
+		$$ = b;
 	}
 	| BREATHE {
 		$$ = new Breathing_sign_req;
@@ -969,7 +970,7 @@ verbose_command_req:
 	| COMMANDSPANREQUEST bare_int STRING {
 		Span_req * sp_p = new Span_req;
 		sp_p-> set_span_dir ( Direction($2));
-		sp_p->span_type_str_ = ly_scm2string ($3);
+		sp_p->set_mus_property ("span-type",$3);
 		sp_p->set_spot (THIS->here_input ());
 		$$ = sp_p;
 	}
@@ -991,13 +992,13 @@ verbose_command_req:
 
 	| TIME_T bare_unsigned '/' bare_unsigned 	{
 		Time_signature_change_req *m = new Time_signature_change_req;
-		m->beats_i_ = $2;
-		m->one_beat_i_=$4;
+		m->set_mus_property ("beats", gh_int2scm ( $2));
+		m->set_mus_property ("one-beat", gh_int2scm ($4));
 		$$ = m;
 	}
 	| PENALTY bare_int 	{
 		Break_req * b = new Break_req;
-		b->penalty_f_ = $2 / 100.0;
+		b->set_mus_property ("penalty", gh_double2scm ( $2 / 100.0));
 		b->set_spot (THIS->here_input ());
 		$$ = b;
 	}
@@ -1011,7 +1012,8 @@ verbose_command_req:
 		$$ = $1;
 	}
 	| CLEF STRING {
-		$$ = new Clef_change_req (ly_scm2string ($2));
+		$$ = new Clef_change_req;
+		$$->set_mus_property ("clef-type", $2);
 
 	}
 	| KEY {
@@ -1051,7 +1053,7 @@ request_that_take_dir:
 		SCM s = THIS->lexer_p_->lookup_identifier ("dash-" + ly_scm2string ($1));
 		Articulation_req *a = new Articulation_req;
 		if (gh_string_p (s))
-			a->articulation_str_ = ly_scm2string (s);
+			a->set_mus_property ("articulation-type", s);
 		else THIS->parser_error (_ ("Expecting string as script definition"));
 		$$ = a;
 	}
@@ -1091,19 +1093,19 @@ verbose_request:
 	| SPANREQUEST bare_int STRING {
 		Span_req * sp_p = new Span_req;
 		sp_p->set_span_dir( Direction($2));
-		sp_p->span_type_str_ = ly_scm2string ($3);
+		sp_p->set_mus_property ("span-type", $3);
 		sp_p->set_spot (THIS->here_input ());
 		$$ = sp_p;
 	}
 	| tremolo_type	{
 		Tremolo_req* a = new Tremolo_req;
 		a->set_spot (THIS->here_input ());
-		a->type_i_ = $1;
+		a->set_mus_property ("tremolo-type", gh_int2scm ($1));
 		$$ = a;
 	}
 	| SCRIPT STRING 	{ 
 		Articulation_req * a = new Articulation_req;
-		a->articulation_str_ = ly_scm2string ($2);
+		a->set_mus_property ("articulation-type", $2);
 		a->set_spot (THIS->here_input ());
 		$$ = a;
 	}
@@ -1213,17 +1215,17 @@ close_request_parens:
 	'('	{
 		Span_req* s= new Span_req;
 		$$ = s;
-		s->span_type_str_ = "slur";
+		s->set_mus_property ("span-type", ly_str02scm( "slur"));
 	}
 	| E_SMALLER {
 		Span_req*s =new Span_req;
 		$$ = s;
-		s->span_type_str_ = "crescendo";
+		s->set_mus_property ("span-type", ly_str02scm ( "crescendo"));
 	}
 	| E_BIGGER {
 		Span_req*s =new Span_req;
 		$$ = s;
-		s->span_type_str_ = "decrescendo";
+		s->set_mus_property ("span-type", ly_str02scm ("decrescendo"));
 	}
 	;
 
@@ -1231,20 +1233,21 @@ close_request_parens:
 open_request:
 	open_request_parens {
 		$$ = $1;
-		dynamic_cast<Span_req*> ($$)->set_span_dir ( STOP);
+		dynamic_cast<Span_req*> ($$)->set_span_dir (STOP);
 	}
 	;
 
 open_request_parens:
 	E_EXCLAMATION 	{
 		Span_req *s =  new Span_req;
-		s->span_type_str_ = "crescendo";
+		s->set_mus_property ("span-type", ly_str02scm ( "crescendo"));
+
 		$$ = s;
 	}
 	| ')'	{
 		Span_req* s= new Span_req;
 		$$ = s;
-		s->span_type_str_ = "slur";
+		s->set_mus_property ("span-type", ly_str02scm( "slur"));
 	}
 	;
 
@@ -1383,8 +1386,10 @@ simple_element:
 		n->pitch_ = *$1;
 		n->duration_ = *$4;
 
-		n->cautionary_b_ = $3 % 2;
-		n->forceacc_b_ = $2 % 2 || n->cautionary_b_;
+		if ($3 % 2)
+			n->set_mus_property ("cautionary", SCM_BOOL_T);
+		if ( $2 % 2 || $3 % 2)
+			n->set_mus_property ("force-accidental", SCM_BOOL_T);
 
 
 		Simultaneous_music*v = new Request_chord (gh_list (n->self_scm (), SCM_UNDEFINED));
@@ -1428,7 +1433,9 @@ simple_element:
 		Span_req *sp2 = new Span_req;
 		sp1-> set_span_dir ( START);
 		sp2-> set_span_dir ( STOP);
-		sp1->span_type_str_ = sp2->span_type_str_ = "rest";
+		SCM r = ly_str02scm ("rest");
+		sp1->set_mus_property ("span-type", r);
+		sp2->set_mus_property ("span-type", r);
 
 		Request_chord * rqc1 = new Request_chord (gh_list (sp1->self_scm (), SCM_UNDEFINED));
 		Request_chord * rqc2 = new Request_chord (gh_list (sk->self_scm (), SCM_UNDEFINED));;

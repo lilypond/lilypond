@@ -43,7 +43,7 @@ Sustain_pedal::brew_molecule (SCM smob)
   Molecule mol;
   SCM glyph = e->get_elt_property ("text");
   if (!gh_string_p (glyph))
-    return mol.create_scheme();
+    return mol.smobbed_copy ();
   String text = ly_scm2string (glyph);
 
   for (int i = 0; i < text.length_i (); i++)
@@ -61,6 +61,6 @@ Sustain_pedal::brew_molecule (SCM smob)
 	mol.add_at_edge (X_AXIS, RIGHT, m, 0);
     }
     
-  return mol.create_scheme ();
+  return mol.smobbed_copy ();
 }
 

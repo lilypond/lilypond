@@ -17,6 +17,17 @@
 #include "debug.hh"
 #include "killing-cons.tcc"
 
+#include "ly-smobs.icc"
+
+
+SCM
+Molecule::smobbed_copy () const
+{
+  Molecule * m = new Molecule(*this);
+
+  return m->smobbed_self ();
+}
+
 Interval
 Molecule::extent(Axis a) const
 {
@@ -143,34 +154,38 @@ Molecule::get_expr () const
   return expr_;
 }
 
-Molecule
-create_molecule (SCM scm_mol)
-{
-  if (!gh_pair_p (scm_mol))
-    return Molecule ();
 
-  SCM exp = gh_car (scm_mol);
-  scm_mol = gh_cdr (scm_mol);
-  Box b ;
-  if (gh_pair_p (scm_mol))
-    {
-      Interval i1 = ly_scm2interval (gh_car (scm_mol));
-      Interval i2 = ly_scm2interval (gh_cdr (scm_mol));  
-      b = Box (i1,i2);
-    }
-  return Molecule (b, exp);
-}
-
-SCM
-Molecule::create_scheme () const
-{
-  return gh_cons (expr_,
-		  gh_cons (ly_interval2scm (dim_[X_AXIS]),
-			   ly_interval2scm (dim_[Y_AXIS])));
-}
 
 Box
 Molecule::extent_box () const
 {
   return dim_;
 }
+IMPLEMENT_SIMPLE_SMOBS(Molecule);
+
+
+int
+Molecule::print_smob (SCM s, SCM port, scm_print_state *)
+{
+  Molecule  *r = (Molecule *) gh_cdr (s);
+     
+  scm_puts ("#<Molecule ", port);
+  /*  String str(r->str());
+  scm_puts ((char *)str.ch_C(), port);*/
+  scm_puts (" >", port);
+  
+  return 1;
+}
+
+  
+SCM
+Molecule::mark_smob (SCM s)
+{
+  Molecule  *r = (Molecule *) gh_cdr (s);
+  
+  return r->expr_;
+}
+
+IMPLEMENT_TYPE_P(Molecule, "molecule?");
+IMPLEMENT_DEFAULT_EQUAL_P(Molecule);
+IMPLEMENT_UNSMOB(Molecule, molecule);

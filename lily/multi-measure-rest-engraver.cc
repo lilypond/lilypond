@@ -73,7 +73,9 @@ Multi_measure_rest_engraver::do_try_music (Music* req_l)
 {
   if (Span_req * sp = dynamic_cast<Span_req*> (req_l))
     {
-      if (sp->span_type_str_ == "rest")
+      
+      if (scm_equal_p (sp->get_mus_property ("span-type"),
+		       ly_str02scm ("rest")))
 	{
 	  if (sp->get_span_dir() == STOP)
 	    {

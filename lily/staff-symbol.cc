@@ -48,7 +48,7 @@ Staff_symbol::brew_molecule (SCM smob)
       m.add_molecule (a);
     }
 
-  return m.create_scheme();
+  return m.smobbed_copy ();
 }
 
 int

@@ -109,7 +109,8 @@ Grace_engraver_group::pass_to_top_b (Music *m) const
 {
   if (Span_req * sp = dynamic_cast<Span_req*> (m))
     {
-      if (sp->span_type_str_ == "slur")
+      if (scm_equal_p (sp->get_mus_property ("span-type"), ly_str02scm ("slur"))
+	  == SCM_BOOL_T)
 	//	return true;
 	return false;
     }

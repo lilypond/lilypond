@@ -112,9 +112,11 @@
 	  name " can contain \n"
 	  (human-listify (map reffy (map context-name accepts)))))
      
-     "\n\nThis context is built from the following engravers\n"
-     (apply string-append 
-	    (map document-engraver-by-name consists)))))
+     "\n\nThis context is built from the following engravers: "
+     (if no-copies
+	 (human-listify (map reffy (map engraver-name consists)))
+	 (apply string-append 
+		(map document-engraver-by-name consists))))))
 
 
 ;; First level Context description

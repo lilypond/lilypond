@@ -64,7 +64,7 @@ Rest::brew_molecule (SCM smob)
   String idx =  ("rests-") + to_str (gh_scm2int (balltype))
     + (ledger_b ? "o" : "") + style;
 
-  return Font_interface::get_default_font (me)->find_by_name (idx).create_scheme();
+  return Font_interface::get_default_font (me)->find_by_name (idx).smobbed_copy();
 }
 
 

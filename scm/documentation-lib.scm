@@ -69,10 +69,12 @@
 	      items-alist))
   "\n@end menu\n"
   ;; Menus don't appear in html, so we make a list ourselves
+  "\n@ignore\n"
   "\n@ifhtml\n"
   (description-list (map (lambda (x) (cons (reffy (car x)) (cdr x)))
 			 items-alist))
-  "\n@end ifhtml\n"))
+  "\n@end ifhtml\n"
+  "\n@end ignore\n"))
 
   
 (define (texi-node-menu name items-alist)
@@ -83,13 +85,15 @@
 
 (define (texi-file-head name file-name top items-alist)
   (string-append
-   "\input texinfo @c -*-texinfo-*-\n"
-   "@settitle " name
+   "\\input texinfo @c -*-texinfo-*-"
    "\n@setfilename " file-name ".info"
+   "\n@settitle " name
    (node "Top") top
    "\n@top"
    (section 1 name)
-   (texi-menu items-alist)))
+   (texi-menu items-alist)
+   "\n@contents"
+   ))
 
 (define (context-name name)
   (string-append "Context " name))
@@ -99,6 +103,9 @@
 
 (define (element-name name)
   (string-append "Element " name))
+
+(define (interface-name name)
+  name)
 
 (define (reffy x)
   (string-append "@ref{" x "}"))

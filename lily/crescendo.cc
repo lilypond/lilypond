@@ -71,7 +71,7 @@ Crescendo::brew_molecule (SCM smob)
   Molecule mol (b, hairpin);
   mol.translate_axis (broken_left, X_AXIS);
 
-  return mol.create_scheme ();
+  return mol.smobbed_copy ();
 }
 
 

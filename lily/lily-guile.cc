@@ -437,3 +437,19 @@ ly_deep_copy (SCM l)
 }
 
 
+
+
+SCM
+ly_assoc_chain (SCM key, SCM achain)
+{
+  if (gh_pair_p (achain))
+    {
+      SCM handle = scm_assoc (key, gh_car (achain));
+      if (gh_pair_p (handle))
+	return handle;
+      else
+	return ly_assoc_chain (key, gh_cdr (achain));
+    }
+  else
+    return SCM_BOOL_F;
+}

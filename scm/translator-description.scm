@@ -459,6 +459,15 @@ If omitted, then dots appear on top of the notes.
       (translator-property-description 'keySignature list? "")
       )))
 
+   (cons 'Lyric_engraver
+	 (engraver-description
+	  "Lyric_engraver"
+	  ""
+	  '()
+	  (list
+	   ;; FIXME
+	   )))
+
    (cons 'Lyric_phrasing_engraver
 	 (engraver-description
 	  "Lyric_phrasing_engraver"
@@ -677,6 +686,15 @@ Description of scripts to use.  (fixme)
       (translator-property-description 'currentCommandColumn ly-element? "")
       )))
    
+   (cons 'Skip_req_swallow_translator
+	 (engraver-description
+	  "Skip_req_swallow_translator"
+	  ""
+	  '()
+	  (list
+	   ;; FIXME
+	   )))
+
    (cons
     'Slur_engraver
     (engraver-description

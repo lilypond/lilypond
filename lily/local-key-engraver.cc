@@ -98,7 +98,8 @@ Local_key_engraver::process_acknowledged ()
 	  bool different = prev_acc != a;
 	  
 	  bool tie_changes = tied_l_arr_.find_l (support_l) && different;
-	  if ((note_l->forceacc_b_ || different) && !tie_changes)
+	  if ((to_boolean (note_l->get_mus_property ("force-accidental"))
+	      || different) && !tie_changes)
 	    {
 	      if (!key_item_p_) 
 		{
@@ -117,7 +118,7 @@ Local_key_engraver::process_acknowledged ()
 		&& abs(prev_acc) == 2;
 
 	      Local_key_item::add_pitch (key_item_p_, note_l->pitch_,
-					 note_l->cautionary_b_,
+					 to_boolean (note_l->get_mus_property ("cautionary")),
 					 extra_natural);
 	      Side_position::add_support (key_item_p_,support_l);
 	    }

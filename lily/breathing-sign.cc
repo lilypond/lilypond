@@ -31,7 +31,7 @@ Breathing_sign::brew_molecule (SCM smob)
   Interval i1(0, space / 6), i2(-space / 2, space / 2);
   Box b(i1, i2);
 
-  return Lookup::filledbox(b).create_scheme ();
+  return Lookup::filledbox(b).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK(Breathing_sign,offset_callback,2);

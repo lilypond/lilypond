@@ -76,7 +76,7 @@ Clef::brew_molecule (SCM smob)
   SCM glyph = sc->get_elt_property ("glyph");
   if (gh_string_p (glyph))
     {
-      return Font_interface::get_default_font (sc)->find_by_name (String (ly_scm2string (glyph))).create_scheme ();
+      return Font_interface::get_default_font (sc)->find_by_name (String (ly_scm2string (glyph))).smobbed_copy ();
     }
   else
     {

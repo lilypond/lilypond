@@ -67,21 +67,6 @@ Text_item::text2molecule (Score_element *me, SCM text, SCM alist_chain)
     }
   return Molecule ();
 }
-
-SCM
-ly_assoc_chain (SCM key, SCM achain)
-{
-  if (gh_pair_p (achain))
-    {
-      SCM handle = scm_assoc (key, gh_car (achain));
-      if (gh_pair_p (handle))
-	return handle;
-      else
-	return ly_assoc_chain (key, gh_cdr (achain));
-    }
-  else
-    return SCM_BOOL_F;
-}
 	     
 Molecule
 Text_item::string2molecule (Score_element *me, SCM text, SCM alist_chain)
@@ -210,6 +195,6 @@ Text_item::brew_molecule (SCM smob)
       mol.add_at_edge (X_AXIS, RIGHT, m, gh_scm2double (space)
 		       * Staff_symbol_referencer::staff_space (me));
     }
-  return mol.create_scheme (); 
+  return mol.smobbed_copy (); 
 }
 

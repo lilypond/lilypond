@@ -20,14 +20,25 @@
 (eval-string (ly-gulp-file "engraver-documentation-lib.scm"))
 (eval-string (ly-gulp-file "backend-documentation-lib.scm"))
 
+
+
+;;(define no-copies #t)  ; from 490 to 410K, but doesn't look nice yet
+;;
+;; Also, copies of interfaces use up lots more space, but that's
+;; functional because the default property values of the interfaces
+;; are described...
+(define no-copies #f)
+
 (let* ((doc (string-append
-	    (document-paper "LilyPond interpretation contexts")
-	    (document-all-engravers "LilyPond engravers")
-	    (document-all-elements "LilyPond backend")))
+ 	     (document-paper "LilyPond interpretation contexts")
+ 	     (document-all-engravers "LilyPond engravers")
+ 	     (document-all-elements "LilyPond backend")
+ 	     (document-all-interfaces "LilyPond interfaces"))
+       )
        (name "lilypond-internals")
        (outname (string-append name ".texi"))
        (out (open-output-file outname)))
-    
+
   (writing-wip outname)
   (display 
    (string-append
@@ -37,10 +48,11 @@
      "LilyPond internals" name "(lilypond.info)"
      '(("LilyPond interpretation contexts" . "Hierarchy and grouping of Engravers")
        ("LilyPond engravers" . "Engravers create Elements")
-       ("LilyPond backend" . "Detailed description of all Elements")))
-     
+       ("LilyPond backend" . "Detailed description of all Elements")
+       ("LilyPond interfaces" . "Element Interfaces")))
+    
     doc
     "\n@bye")
-    out))
+   out))
 
 (newline (current-error-port))

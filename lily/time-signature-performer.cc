@@ -28,7 +28,10 @@ Time_signature_performer::do_process_music ()
 {
   if (time_signature_req_l_)
     {
-      audio_p_ = new Audio_time_signature (time_signature_req_l_->beats_i_, time_signature_req_l_->one_beat_i_);
+      int b = gh_scm2int (time_signature_req_l_->get_mus_property ("beats"));
+      int o = gh_scm2int (time_signature_req_l_->get_mus_property ("one-beat"));      
+      
+      audio_p_ = new Audio_time_signature (b,o);
       Audio_element_info info (audio_p_, time_signature_req_l_);
       announce_element (info);
       time_signature_req_l_ = 0;

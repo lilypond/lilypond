@@ -130,7 +130,7 @@ Key_item::brew_molecule (SCM smob)
         }
     }
 
-  return mol.create_scheme();
+  return mol.smobbed_copy();
 }
 
 

@@ -28,9 +28,12 @@ Tempo_performer::do_process_music ()
 {
   if (tempo_req_l_)
     {
+
+      SCM met = tempo_req_l_->get_mus_property ("metronome-count");
       audio_p_ = new Audio_tempo (tempo_req_l_->dur_.length_mom () /
 				  Moment (1, 4) 
-				  * Moment(tempo_req_l_->metronome_i_));
+				  * Moment(gh_scm2int (met)));
+
       Audio_element_info info (audio_p_, tempo_req_l_);
       announce_element (info);
       tempo_req_l_ = 0;

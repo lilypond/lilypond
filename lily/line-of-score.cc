@@ -305,8 +305,9 @@ Line_of_score::post_processing (bool last_line)
 
     (ugh. This is not very memory efficient.)  */
   for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
-    unsmob_element (gh_car (s))->get_molecule ();
-  
+    {
+      unsmob_element (gh_car (s))->get_molecule ();
+    }
   /*
     font defs;
    */
@@ -327,8 +328,10 @@ Line_of_score::post_processing (bool last_line)
    */ 
   for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element * sc =  unsmob_element (gh_car (s));
-      Molecule m = sc->get_molecule ();
+      Score_element *sc = unsmob_element (gh_car (s));
+      Molecule *m = sc->get_molecule ();
+      if (!m)
+	continue;
       
       Offset o (sc->relative_coordinate (this, X_AXIS),
 		sc->relative_coordinate (this, Y_AXIS));
@@ -337,10 +340,10 @@ Line_of_score::post_processing (bool last_line)
       if (gh_pair_p (e))
 	{
 	  o[X_AXIS] += gh_scm2double (gh_car (e));
-	  o[Y_AXIS] +=  gh_scm2double (gh_cdr (e));      
+	  o[Y_AXIS] += gh_scm2double (gh_cdr (e));      
 	}
 
-      output_molecule (m.get_expr (), o);
+      output_molecule (m->get_expr (), o);
     }
   if (last_line)
     {

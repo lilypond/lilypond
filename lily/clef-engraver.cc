@@ -171,7 +171,8 @@ Clef_engraver::do_try_music (Music * r_l)
   if (Clef_change_req *cl = dynamic_cast <Clef_change_req *> (r_l))
     {
       clef_req_l_ = cl;
-      if (!set_type (cl->clef_str_))
+      String t = ly_scm2string (cl->get_mus_property ("clef-type"));
+      if (!set_type (t))
 	cl->origin ()->warning (_ ("unknown clef type"));
 
       return true;

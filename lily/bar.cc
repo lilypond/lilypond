@@ -38,7 +38,7 @@ Bar::brew_molecule (SCM smob)
       if (sz < 0)
 	return SCM_EOL;
       
-      return compound_barline (me, str, sz).create_scheme ();
+      return compound_barline (me, str, sz).smobbed_copy ();
     }
   return SCM_EOL;
 }

@@ -10,9 +10,10 @@
 #include "part-combine-music.hh"
 #include "musical-pitch.hh"
 
-Part_combine_music::Part_combine_music (String what, Music * f, Music * s)
+Part_combine_music::Part_combine_music (SCM  what, Music * f, Music * s)
 {
-  what_str_ = what;
+  assert (gh_string_p (what));
+  set_mus_property ("what", what);
   set_mus_property ("one", f->self_scm ());
   set_mus_property ("two", s->self_scm ());  
 
