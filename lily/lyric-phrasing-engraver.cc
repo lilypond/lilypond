@@ -112,12 +112,15 @@ Lyric_phrasing_engraver::lookup_context_id (const String &context_id)
 	  /* match found */
 	  // (key . ((alist_entry . old_entry) . previous_entry))
 	  if (to_boolean (ly_cdadr (s)))
-	    { // it's an old entry ... make it a new one
+	    {
+	      // it's an old entry ... make it a new one
 	      SCM val = gh_cons (gh_cons (ly_caadr (s), SCM_BOOL_F), ly_cddr (s)); 
 	      voice_alist_ = scm_assoc_set_x (voice_alist_, ly_car (s), val);
 	      return unsmob_voice_entry (ly_caar (val));
 	    }
-	  else { // the entry is current ... return it.
+	  else
+	    {
+	      // the entry is current ... return it.
 	    SCM entry_scm = ly_caadr (s);
 	    return unsmob_voice_entry (entry_scm);
 	  }
@@ -176,7 +179,12 @@ Lyric_phrasing_engraver::record_melisma (const String &context_id)
   Syllable_group * v = lookup_context_id (context_id);
   v->set_melisma ();
 }
-  
+
+/*
+  TODO: this engraver is always on, also for orchestral scores. That
+  is a waste of time and space. This should be switched on
+  automatically at the first Lyrics found.
+ */
 void
 Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
 {
@@ -214,10 +222,11 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
 	{
 	  voice_context_id = ly_scm2string (voice_context_scm);
 	}
-      else {
-	voice_context_id = get_context_id (i.origin_trans_->daddy_trans_, "LyricsVoice");
-	voice_context_id = trim_suffix (voice_context_id);
-      }
+      else
+	{
+	  voice_context_id = get_context_id (i.origin_trans_->daddy_trans_, "LyricsVoice");
+	  voice_context_id = trim_suffix (voice_context_id);
+	}
       record_lyric (voice_context_id, h);
       return;
     }
@@ -291,7 +300,8 @@ Lyric_phrasing_engraver::process_acknowledged_grobs ()
       SCM v_entry = ly_cdar (v);
       // ((current . oldflag) . previous)
       if (!to_boolean (ly_cdar (v_entry)))
-	{ // not an old entry left over from a prior note ...
+	{ 
+	  // not an old entry left over from a prior note ...
 	  Syllable_group *entry = unsmob_voice_entry (ly_caar (v_entry));
 
 	  /*
@@ -344,7 +354,12 @@ Lyric_phrasing_engraver::stop_translation_timestep ()
 
 
 ENTER_DESCRIPTION(Lyric_phrasing_engraver,
-		  /* descr */       "",
+		  /* descr */       "
+This engraver combines note heads and lyrics for alignment.
+
+This engraver is switched on by default. Turn it off for faster
+processing of orchestral scores.
+",
 		  /* creats*/       "",
 		  /* acks  */       "lyric-syllable-interface note-head-interface lyric-extender-interface",
 		  /* reads */       "automaticPhrasing melismaEngraverBusy associatedVoice phrasingPunctuation",

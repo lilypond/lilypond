@@ -1468,6 +1468,10 @@ surround dots with spaces in @code{\lyrics} mode.
     \property LyricsVoice . stanza = "Ernie" 
 @end example
 
+The convention for naming @code{LyricsVoice} and @code{Voice} must
+also be used to get melismata on rests correct.
+
+
 
 @node More movements 
 @section More movements

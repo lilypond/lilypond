@@ -85,7 +85,8 @@ these symbols may be alongside-stem, stem, head or loose-end.")
 attachments to prevent ugly slurs.  [fixme: we need more documentation here].
 .")
 (grob-property-description 'auto-properties boolean? "if true, as many properties of this grob as possible will be determined automatically from the musical context.")
-(grob-property-description 'auto-knee-gap number-or-boolean? "the minimal smallest gap between two adjacent beamed chords for which beam will create auto-knees.  Set to false for no auto knees." )
+(grob-property-description 'auto-knee-gap number? "If a gap is found between noteheads
+where a  horizontal beam fits that is larger than this number,  make a kneed beam.")
 (grob-property-description 'axes list? "list of axis numbers.
 In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'bar-size number? "size of a bar line.")

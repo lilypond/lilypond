@@ -24,9 +24,6 @@
 (define (boolean-or-symbol? x)
   (or (boolean? x) (symbol? x)))
 
-(define (number-or-boolean? x)
-  (or (number? x) (boolean? x)))
-
 (define (number-or-string? x)
   (or (number? x) (string? x)))
 
@@ -62,7 +59,6 @@
    (,procedure? . "procedure") 
    (,boolean-or-symbol? . "boolean or symbol")
    (,number-or-string? . "number or string")
-   (,number-or-boolean? . "number or boolean")
    (,markup? . "markup (list or string)")
    (,number-or-grob? . "number or grob")
    ))

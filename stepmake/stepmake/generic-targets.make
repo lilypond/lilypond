@@ -112,8 +112,11 @@ local-maintainerclean:
 install-strip:
 	$(MAKE) INSTALL="$(INSTALL) -s" install
 
+final-install:
+
 install: local-install
 	$(LOOP)
+	$(MAKE) final-install
 
 local-install:
 

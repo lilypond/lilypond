@@ -7,13 +7,13 @@ texidoc = "slur or long note on other staves fool lily into extending melisma"
     \addlyrics
       \notes {
 	\property Staff.automaticMelismata= ##t
-	c4 () c r c
+	\context Voice = melismaBla { c4 () c r c }
       }
-      \context Lyrics \lyrics { foo __ bar }
+      \context LyricsVoice = "melismaBla-1" \lyrics { foo __ bar }
     \context Staff=foolMelismata \notes{
-      c4 ( c c ) c
+      c4  c c  c
     }  
-    \context Staff=foolMelismata \notes{
+    \context Staff=OtherFoolMelismata \notes{
       c1
     }  
   >  

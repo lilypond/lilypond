@@ -66,6 +66,13 @@ ifeq ($(KPATHSEA),0)
 endif
 
 
+final-install:
+	@echo
+	@echo " *** Before running, buildscripts/out/lilypond-{profile,login}"
+	@echo " *** must be run. You're advised to source these scripts from your "
+	@echo " *** login scripts. For more information, see Invoking LilyPond in the manual."
+	@echo 
+
 TOP_HTMLS = index.html examples.html
 
 examples: web-reqs

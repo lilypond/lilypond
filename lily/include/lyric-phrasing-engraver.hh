@@ -94,7 +94,7 @@ class Syllable_group
 {
   bool first_in_phrase_b_;
   Grob * notehead_;
-  Link_array<Grob> lyric_list_;
+  Link_array<Grob> lyrics_;
   Grob * longest_lyric_;
   Grob * shortest_lyric_;
   int alignment_;
@@ -108,7 +108,7 @@ public:
   void add_extender (Grob * extender);
   void set_melisma () { melisma_b_ = true; }
   bool get_melisma () { return melisma_b_; }
-  int lyric_count () { return lyric_list_.size (); }
+  int lyric_count () { return lyrics_.size (); }
   void clear ();
   bool is_empty ();
   bool set_lyric_align (const char *punc, Grob *default_notehead);
