@@ -1,11 +1,36 @@
-\version "1.5.68"
 \header{
-  texidoc="Simple beams on middle line should be allowed to have a slope."
+
+    texidoc="Simple beams on middle staffline be allowed to be
+    slightly sloped.  Beams reaching beyond middle line can have
+    bigger slope."
+
 }
+
 \score{
     \notes\relative c'{
-	[b8 c] [c b]
-	[b''8 a] [a b]
+	%%\property Staff.Stem \set #'beamed-lengths = #'(3.50)
+	%% [c8 d]
+	%% [d c]
+	%% r2
+	%% \property Staff.Stem \set #'beamed-lengths = #'(3.26)
+
+        [a8^"small slope" b]
+        [b a]
+
+	[c'' b]
+	[b c]
+	
+	[c,, d]
+	[d c]
+	
+	[a'' g]
+	[g a]
+
+	[c,,^"bigger slope" e]
+	[e c]
+	
+	[a'' f]
+	[f a]
     }
     \paper{
 	linewidth = 0.0
