@@ -126,7 +126,6 @@ Check out @uref{http://www.python.org, the python website}.
 @item GUILE (version 1.4 or newer).
 Check out
 @uref{http://www.gnu.org/software/guile/guile.html,the GUILE webpage}.
-Version 1.4 is recommended for better performance.
 
 @item GNU Make. 
 Check out

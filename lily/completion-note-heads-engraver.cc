@@ -184,9 +184,6 @@ Completion_heads_engraver::process_music ()
 	    Music * m = note_req_l_arr_[i]->clone ();
 	    scratch_note_reqs_.push (m);
 	  }
-
-      for (int i =0; i < scratch_note_reqs_.size (); i++)
-	scratch_note_reqs_[i]->set_mus_property ("duration", note_dur.smobbed_copy ());
     }
 
   
@@ -202,7 +199,8 @@ Completion_heads_engraver::process_music ()
 	  SCM pits = note_req_l_arr_[i]->get_mus_property ("pitch");
 	  req->set_mus_property ("pitch",pits);
 	}
-
+      
+      req->set_mus_property ("duration", note_dur.smobbed_copy ());
       note_p->set_grob_property ("duration-log",
 				 gh_int2scm (note_dur.duration_log ()));
       
