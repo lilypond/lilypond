@@ -57,6 +57,7 @@ encouraged to study the tutorial first.
 * Repeats::                     
 * Rhythmic music::              
 * Piano music::                 
+* Tablatures::                 
 * Lyrics::                      
 * Chords::                      
 * Writing parts::               
@@ -2100,6 +2101,98 @@ can be printed automatically. This is enabled if the property
 The associated grob is @internalsref{VoiceFollower}.
 
 
+@node Tablatures
+@section Tablatures
+
+@menu
+* Tablatures basic::
+* Non-guitar tablatures::
+* Tablature in addition to normal staff::
+@end menu
+
+@node Tablatures basic
+@subsection Tablatures basic
+@cindex Tablatures basic
+
+Tablature can be typeset with Lilypond by using the
+@internalsref{TabStaff} and @internalsref{TabVoice} contexts. As
+tablatures is a recent feature in Lilypond, most of the guitar special
+effects (hammer, pull, bend, ...) are not yet supported.
+
+With the @internalsref{TabStaff}, the string number associated to a note
+is given though the fingering mechanism, e.g. @code{c4-3} for a C
+quarter on the third string. The string 1 is the lowest one, and the
+tuning defaults to the standard guitar tuning (with 6 strings).
+
+@lilypond[fragment,verbatim]
+  \context TabStaff <
+    \notes {
+      \property Staff.Stem \override #'direction = #1
+      
+      a,4-2 c'-5 a-4 e'-6
+      e-3 c'-5 a-4 e'-6
+    }
+  >  
+@end lilypond
+
+
+@node Non-guitar tablatures
+@subsection Non-guitar tablatures
+@cindex Non-guitar tablatures
+
+There are many ways to customize Lilypond tablatures.
+
+First you can change the number of string, e.g.
+@code{StaffSymbol \override #'line-count  = #5} to have only 5 strings.
+Because of a kind of bug in Lilypond, you MUST create a new type of
+context if you want different tablatures with diiferent number of
+strings.
+
+Then you can change the strings tuning. String tuning is given as a
+Scheme list with one integer number for each string, the number being
+the string note pitch if not fretted (open note).
+
+Finally, it is possible to change the Scheme function to format the
+tablature note text. The default is @var{fret-number-tablature-format},
+which uses the fret number, but for some instruments that may not use
+this notation, just create your own tablature-format function. This
+function takes three argument: the string number, the string tuning and
+the note pitch.
+
+
+@node Tablature in addition to normal staff
+@subsection Tablature in addition to normal staff
+@cindex Tablature in addition to normal staff
+
+It is possible to typeset both tablature and a "normal" staff, as
+commonly done in many parts.
+
+A common trick for that is to put the notes in a variables, and to hide
+the fingering information (which correspond to the string number) for
+the standard staff.
+
+@lilypond[fragment,verbatim]
+  part = \notes {
+    a,4-2 c'-5 a-4 e'-6
+    e-3 c'-5 a-4 e'-6
+  }
+  \context StaffGroup <
+    \context Staff <
+      % Hide fingering number (used for string number) for the "normal" staff
+      \property Staff.Fingering \override #'transparent = ##t
+      
+      \part
+    >
+    \context TabStaff <
+      \property Staff.Stem \override #'direction = #1
+      
+      \part
+    >
+  >  
+@end lilypond
+
+
+
 @node Lyrics
 @section Lyrics
 
@@ -3153,6 +3246,11 @@ LilyPond will hang or crash if @var{value} contains cyclic references.
 The backend is not very strict in type-checking grob properties. If you
 @code{\revert} properties that are expected to be set by default,
 LilyPond may crash.
+
+
+@cindex adjusting staff symbol
+@cindex StaffSymbol, using \property
+@cindex staff lines, setting number of
 
 Some grobs are created at the moment that their context is created. An
 example of such a grob is the staff itself (i.e. the horizontal lines).

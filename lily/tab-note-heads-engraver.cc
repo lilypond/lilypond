@@ -110,13 +110,21 @@ Tab_note_heads_engraver::process_music ()
 	  dot_p_arr_.push (d);
 	}
       
+      SCM stringTunings = get_property ("stringTunings");
+      int number_of_strings = ((int) gh_length(stringTunings));
+      
       int pos = 2 * tab_string - 2; // No tab-note between the string !!!
+      
+      if (((float) (number_of_strings / 2)) != (((float) number_of_strings) / 2.0)) { // even number of string
+        pos = pos + 1;
+      }
+      
       SCM c0 = get_property ("centralCPosition");
       if (gh_number_p (c0)) pos += gh_scm2int (c0);
       
       SCM scm_pitch = req->get_mus_property ("pitch");
       SCM proc      = get_property ("tablatureFormat");
-      SCM text      = gh_call3 (proc, gh_int2scm (tab_string), get_property ("stringTunings"), scm_pitch);
+      SCM text      = gh_call3 (proc, gh_int2scm (tab_string), stringTunings, scm_pitch);
       note_p->set_grob_property ("text", text);
       
       note_p->set_grob_property ("staff-position", gh_int2scm (pos));

@@ -486,7 +486,7 @@ TabStaffContext = \translator {
       \remove Accidental_engraver
       Accidental  = \turnOff 
       
-      stringTunings = #'(4 9 14 19 23 28)
+      stringTunings   = #'(-20 -15 -10 -5 -1 4)
       tablatureFormat = #fret-number-tablature-format
 }
    

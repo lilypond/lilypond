@@ -10,7 +10,10 @@ from string-number + pitch to number.
 
 %}
 
-partition = \notes { ces'16^2 d'^2 e'8^2 g'2.^3  \times 2/3 { c'8^2 e'8^3 d'8^3 } e'4^2 }
+partition = \notes {
+    a,4-2 c'-5 a-4 e'-6
+    e-3 c'-5 a-4 e'-6
+  }
 
 \score {
   \context StaffGroup <
