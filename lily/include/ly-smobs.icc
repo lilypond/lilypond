@@ -54,7 +54,7 @@ SCM CL::smobbed_self () const					\
 {								\
   SCM s;							\
   s = gh_cons (SCM_PACK (CL::smob_tag_), SCM_PACK (this));	\
-  scm_done_malloc (sizeof (CL));				\
+  scm_gc_register_collectable_memory ((CL*)this, sizeof (CL), #CL " smob");				\
 								\
   return s;							\
 }								\
@@ -62,9 +62,10 @@ size_t  							\
 CL::free_smob (SCM ses)						\
 {								\
   CL * s = (CL*) SCM_CDR (ses);					\
-   delete s;							\
-  return sizeof (CL);						\
-}								\
+  delete s;							\
+  scm_gc_unregister_collectable_memory (s, sizeof (CL), #CL " smob");  \
+  return 0;\
+}\
 ADD_SCM_INIT_FUNC (CL, CL::init_smobs)
 
 #define IMPLEMENT_SMOBS(CL)							\
@@ -87,12 +88,10 @@ CL::unprotected_smobify_self ()								\
     deal half-initialized objects: scm_done_malloc ( ) might trigger GC.		\
     the warning in smobs.hh is just to be doubleplus goodly sure		\
    */										\
-  SCM s;										\
-  SCM_NEWCELL (s);								\
-  SCM_SETCAR (s,CL::smob_tag_);							\
-  SCM_SETCDR (s, SCM_PACK (this));						\
+  SCM s;\
+  SCM_NEWSMOB (s, CL::smob_tag_, this);\
   self_scm_ = s;								\
- scm_done_malloc (sizeof (CL));							\
+ scm_gc_register_collectable_memory (this, sizeof (CL), #CL " smob");							\
   return s;									\
 }
 

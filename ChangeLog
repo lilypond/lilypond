@@ -1,11 +1,24 @@
 2002-07-13  Han-Wen  <hanwen@cs.uu.nl>
 
+	* scripts/ly2dvi.py (run_latex): show latex error log. Ask for
+	bugreport if lilypond is killed. 
+
+2002-07-12  Mats Bengtsson  <matsb@s3.kth.se>
+
+	* lily/beam.cc (after_line_breaking): Set correct stem lengths
+	also when beam positions are set manually.
+	(consider_auto_knees): Do not use automatic knees if the directions
+	are set manually by the user.
+
+2002-07-13  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/input-smob.cc (make_input): GUILE 1.7 compatibility fixes.
+
 	* lily/beam.cc: complete rewrite of multiplicity. This fixes 16th
 	knees code.
 	(quanting): add french beaming support (property french-beaming)
+	(stem_beams): removed.
 
-
-	
 2002-07-12  Han-Wen  <hanwen@cs.uu.nl>
 
 	* input/regression/grace-auto-beam.ly: new file

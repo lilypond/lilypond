@@ -226,7 +226,7 @@ def setup_temp ():
 	return temp_dir
 
 
-def system (cmd, ignore_error = 0):
+def system (cmd, ignore_error = 0, quiet =0):
 	"""Run CMD. If IGNORE_ERROR is set, don't complain when CMD returns non zero.
 
 	RETURN VALUE
@@ -242,7 +242,8 @@ def system (cmd, ignore_error = 0):
 		name = re.match ('[ \t]*([^ \t]*)', cmd).group (1)
 		msg = name + ': ' + _ ("command exited with value %d") % st
 		if ignore_error:
-			warning (msg + ' ' + _ ("(ignored)") + ' ')
+			if not quiet:
+				warning (msg + ' ' + _ ("(ignored)") + ' ')
 		else:
 			error (msg)
 
@@ -436,12 +437,12 @@ def print_environment ():
 	for (k,v) in os.environ.items ():
 		sys.stderr.write ("%s=\"%s\"\n" % (k,v)) 
 
-def quiet_system (cmd, name):
+def quiet_system (cmd, name, ignore_error = 0):
 	if not verbose_p:
 		progress ( _("Running %s...") % name)
 		cmd = cmd + ' 1> /dev/null 2> /dev/null'
 
-	return system (cmd)
+	return system (cmd, ignore_error, quiet = 1)
 
 
 def run_lilypond (files, outbase, dep_prefix):
@@ -470,8 +471,22 @@ def run_lilypond (files, outbase, dep_prefix):
 
 		# for better debugging!
 		print_environment ()
-	print opts, fs	
-	system ('lilypond %s %s ' % (opts, fs), 'lilypond')
+
+	cmd = 'lilypond %s %s ' % (opts, fs)
+	if  verbose_p:
+		progress ("Invoking `%s'"% cmd)
+	status = os.system (cmd)
+
+	signal = 0x0f & status
+	exit_status = status >> 8
+
+	# 2 == user interrupt.
+	if signal <> 2:
+		error("\n\nLilyPond crashed (signal %d). Please submit a bugreport to bug-lilypond@gnu.org\n" % signal)
+
+	if status:
+		error ("\n\nLilyPond failed on the input file. (exit status %d)\n" % exit_status)
+		
 
 def analyse_lilypond_output (filename, extra):
 	
@@ -669,8 +684,22 @@ None
 	f.close ()
 
 	cmd = 'latex \\\\nonstopmode \\\\input %s' % latex_fn
-	quiet_system (cmd, 'LaTeX')
+	status = quiet_system (cmd, 'LaTeX', ignore_error = 1)
 
+	signal = 0xf & status
+	exit_stat = status >> 8
+
+	if exit_stat:
+		logstr = open (outbase + '.log').read()
+		m = re.search ("\n!", logstr)
+		start = m.start (0)
+		logstr = logstr[start:start+200]
+		
+		sys.stderr.write(_("""LaTeX failed on the output file.
+The error log is as follows:
+%s...\n""" % logstr))
+		raise 'LaTeX error'
+	
 	if preview_p:
 		# make a preview by rendering only the 1st line.
 		preview_fn = outbase + '.preview.tex'

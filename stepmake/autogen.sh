@@ -3,6 +3,12 @@
 
 srcdir=`dirname $0`
 
+if [ stepmake/autogen.sh -nt autogen.sh ]; then
+    echo "stepmake/autogen.sh is newer. Copying file." 
+    cp -f stepmake/autogen.sh autogen.sh
+    exec ./autogen.sh
+fi
+
 # Be paranoid: check for autoconf == 2.13
 # Some setups have both autoconf 2.13 and 2.50 available through
 # a wrapper script: /usr/bin/autoconf.
@@ -10,7 +16,7 @@ srcdir=`dirname $0`
 # advertises itself as autoconf 2.13.
 # If you have such a setup, invoke this script as:
 #   autoconf=autoconf2.13 ./autogen.sh
-for i in autoconf autoconf2.13 false; do
+for i in autoconf-2.13 autoconf2.13 autoconf  false; do
   version=`$i --version 2>/dev/null | head -1 | awk '{print $NF}' | awk -F. '{print $1 * 100 + $2}'`
   if test "0$version" -eq 213; then
     autoconf=$i

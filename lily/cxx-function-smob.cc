@@ -50,11 +50,7 @@ SCM
 smobify_cxx_function (Cxx_function cb)
 {
   SCM z;
-  
-  SCM_NEWCELL (z);
-  SCM_SETCDR (z, (SCM)cb);
-  SCM_SETCAR (z, (SCM)callback_tag);
-
+  SCM_NEWSMOB(z,callback_tag, cb) ;
   return z;
 }
 
