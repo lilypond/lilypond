@@ -40,5 +40,6 @@
 #define PES_UPPER    0x0002 // this is a head after "\~" in an ascending melody
 #define FLEXA_LEFT   0x0004 // this is a head before "\~" in a descending melody
 #define FLEXA_RIGHT  0x0008 // this is a head after "\~" in a descending melody
+#define AFTER_VIRGA  0x0010 // previous head was a virga
 
 #endif /* GREGORIAN_LIGATURE_HH */

@@ -1367,7 +1367,7 @@ shorthand_command_req:
 		$$ = MY_MAKE_MUSIC("BreathingSignEvent");
 	}
 	| E_TILDE {
-		$$ = MY_MAKE_MUSIC("PorrectusEvent");
+		$$ = MY_MAKE_MUSIC("PesOrFlexaEvent");
 	}
 	;
 

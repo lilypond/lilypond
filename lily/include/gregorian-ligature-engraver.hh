@@ -13,7 +13,7 @@
 
 class Gregorian_ligature_engraver : public Ligature_engraver
 {
-  Music *porrectus_req_;
+  Music *pes_or_flexa_req_;
 
 public:
   TRANSLATOR_DECLARATIONS(Gregorian_ligature_engraver);

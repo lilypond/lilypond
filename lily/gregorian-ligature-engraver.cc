@@ -22,7 +22,7 @@
 
 Gregorian_ligature_engraver::Gregorian_ligature_engraver ()
 {
-  porrectus_req_ = 0;
+  pes_or_flexa_req_ = 0;
 }
 
 void
@@ -36,9 +36,9 @@ Gregorian_ligature_engraver::transform_heads (Spanner *, Array<Grob_info>)
 bool
 Gregorian_ligature_engraver::try_music (Music *m)
 {
-  if (m->is_mus_type ("porrectus-event"))
+  if (m->is_mus_type ("pes-or-flexa-event"))
     {
-      porrectus_req_ = m;
+      pes_or_flexa_req_ = m;
       return true;
     }
   else
@@ -239,6 +239,7 @@ void
 provide_context_info (Array<Grob_info> primitives)
 {
   Grob *prev_primitive = 0;
+  int prev_prefix_set = 0;
   int prev_context_info = 0;
   int prev_pitch = 0;
   for (int i = 0; i < primitives.size(); i++) {
@@ -264,10 +265,16 @@ provide_context_info (Array<Grob_info> primitives)
 	  primitive->warning ("may not apply `\\~' on heads with "
 			      "identical pitch; ignoring `\\~'");
 	}
+    if (prev_prefix_set & VIRGA)
+      {
+	context_info |= AFTER_VIRGA;
+      }
+
     if (prev_primitive)
       prev_primitive->set_grob_property ("context-info",
 					 gh_int2scm (prev_context_info));
     prev_primitive = primitive;
+    prev_prefix_set = prefix_set;
     prev_context_info = context_info;
     prev_pitch = pitch;
   }
@@ -298,7 +305,7 @@ void
 Gregorian_ligature_engraver::start_translation_timestep ()
 {
   Ligature_engraver::start_translation_timestep ();
-  porrectus_req_ = 0;
+  pes_or_flexa_req_ = 0;
 }
 
 ENTER_DESCRIPTION (Gregorian_ligature_engraver,

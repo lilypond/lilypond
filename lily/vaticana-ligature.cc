@@ -78,7 +78,7 @@ vaticana_brew_flexa (Grob *me,
   Real interval_correction = 0.2*space * sign(interval);
   Real corrected_interval = interval*space + interval_correction;
 
-  // middle curve of flexa
+  // middle curve of flexa shape
   Bezier curve;
   curve.control_[0] = Offset (0.00 * width, 0.0);
   curve.control_[1] = Offset (0.33 * width, corrected_interval / 2.0);
@@ -171,16 +171,15 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
   String glyph_name = ly_scm2string (glyph_name_scm);
   if (!String::compare (glyph_name, ""))
     {
-      // empty head (typically, this is the right side of porrectus
-      // shape, which is already typeset by the associated left side
-      // head); nothing left to do
+      // empty head (typically, this is the right side of flexa shape,
+      // which is already typeset by the associated left side head);
+      // nothing left to do
       return Molecule ();
     }
 
   Molecule out;
-  int porrectus_height = 0;
+  int flexa_height = 0;
   Real thickness = 0.0;
-  Real porrectus_width = 0.0;
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   SCM thickness_scm = me->get_grob_property ("thickness");
@@ -209,34 +208,35 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
 			     me));
     }
 
-  if (!String::compare (glyph_name, "porrectus"))
+  if (!String::compare (glyph_name, "flexa"))
     {
-      SCM porrectus_height_scm = me->get_grob_property ("porrectus-height");
-      if (porrectus_height_scm != SCM_EOL)
+      SCM flexa_height_scm = me->get_grob_property ("flexa-height");
+      if (flexa_height_scm != SCM_EOL)
 	{
-	  porrectus_height = gh_scm2int (porrectus_height_scm);
+	  flexa_height = gh_scm2int (flexa_height_scm);
 	}
       else
 	{
 	  me->warning ("Vaticana_ligature: "
-		       "porrectus-height undefined; assuming 0");
+		       "flexa-height undefined; assuming 0");
 	}
 
-      SCM porrectus_width_scm = me->get_grob_property ("porrectus-width");
-      if (porrectus_width_scm != SCM_EOL)
+      Real flexa_width;
+      SCM flexa_width_scm = me->get_grob_property ("flexa-width");
+      if (flexa_width_scm != SCM_EOL)
 	{
-	  porrectus_width = gh_scm2double (porrectus_width_scm);
+	  flexa_width = gh_scm2double (flexa_width_scm);
 	}
       else
 	{
 	  me->warning ("Vaticana_ligature:"
-		       "porrectus-width undefined; assuming 2.0");
-	  porrectus_width = 2.0 * staff_space;
+		       "flexa-width undefined; assuming 2.0");
+	  flexa_width = 2.0 * staff_space;
 	}
 
       bool add_stem = to_boolean (me->get_grob_property ("add-stem"));
-      out = vaticana_brew_flexa (me, porrectus_height, true,
-				 porrectus_width, thickness, add_stem, DOWN);
+      out = vaticana_brew_flexa (me, flexa_height, true,
+				 flexa_width, thickness, add_stem, DOWN);
     }
   else
     {
@@ -267,10 +267,10 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
 
   int pos = (int)rint (Staff_symbol_referencer::get_position (me));
   vaticana_add_ledger_lines(me, &out, pos, 0, ledger_take_space);
-  if (!String::compare (glyph_name, "porrectus"))
+  if (!String::compare (glyph_name, "flexa"))
     {
-      pos += porrectus_height;
-      vaticana_add_ledger_lines(me, &out, pos, 0.5*porrectus_height, ledger_take_space);
+      pos += flexa_height;
+      vaticana_add_ledger_lines(me, &out, pos, 0.5*flexa_height, ledger_take_space);
     }
 
   return out;
@@ -294,5 +294,5 @@ Vaticana_ligature::brew_molecule (SCM)
 
 ADD_INTERFACE (Vaticana_ligature, "vaticana-ligature-interface",
 	       "A vaticana style gregorian ligature",
-	       "glyph-name porrectus-height porrectus-width thickness join-left "
+	       "glyph-name flexa-height flexa-width thickness join-left "
 	       "add-stem x-offset ligature-primitive-callback");

@@ -10,7 +10,6 @@
 #include "note-column.hh"
 #include "tuplet-bracket.hh"
 #include "spanner.hh"
-#include "warn.hh"
 
 class Ligature_bracket_engraver : public Ligature_engraver
 {

@@ -86,11 +86,11 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 	    Font_interface::get_default_font (primitive)->
 	    find_by_name ("noteheads-" + glyph_name).extent (X_AXIS).length ();
 	}
-      else if (!String::compare (glyph_name, "porrectus") ||
+      else if (!String::compare (glyph_name, "flexa") ||
 	       !String::compare (glyph_name, ""))
 	{
 	  /*
-	   * This head represents either half of a porrectus shape.
+	   * This head represents either half of a flexa shape.
 	   * Hence, it is assigned half the width of this shape.
 	   */
 	  head_width = 0.5 * flexa_width;
@@ -114,7 +114,7 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 
       /*
        * If the head is the 2nd head of a pes or flexa (but not a
-       * porrectus), mark this head to be joined with the left-side
+       * flexa shape), mark this head to be joined with the left-side
        * neighbour head (i.e. the previous head) by a vertical beam.
        */
       if ((context_info & PES_UPPER) ||
@@ -130,11 +130,18 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 	   */
 	  distance -= join_thickness;
 	}
-      else
+      else if (!String::compare (glyph_name, ""))
 	{
 	  /*
-	   * Make a small space between adjacent notes of a ligature
-	   * that are not directly joined.
+	   * 2nd (virtual) head of flexa shape: join tightly with 1st
+	   * head, i.e. do *not* add additional space, such that next
+	   * head will not be off from the flexa shape.
+	   */
+	}
+      else if (context_info & AFTER_VIRGA)
+	{
+	  /*
+	   * Make a small space after a virga.
 	   */
 	  distance += 2 * join_thickness;
 	}
@@ -242,7 +249,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
     else if ((prefix_set & PES_OR_FLEXA) &&
 	     (context_info & PES_LOWER) &&
 	     (context_info & FLEXA_RIGHT))
-      glyph_name = ""; // second head of porrectus
+      glyph_name = ""; // second head of flexa shape
     else if (context_info & PES_UPPER)
       if (pitch - prev_pitch > 1)
 	glyph_name = "vaticana_upes";
@@ -256,12 +263,12 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
      */
     if (prefix_set & PES_OR_FLEXA)
       if ((context_info & PES_LOWER) &&
-	  (context_info & FLEXA_RIGHT)) // porrectus
+	  (context_info & FLEXA_RIGHT)) // flexa shape
 	{
-	  prev_glyph_name = "porrectus";
-	  prev_primitive->set_grob_property ("porrectus-height",
+	  prev_glyph_name = "flexa";
+	  prev_primitive->set_grob_property ("flexa-height",
 					     gh_int2scm (pitch - prev_pitch));
-	  prev_primitive->set_grob_property ("porrectus-width",
+	  prev_primitive->set_grob_property ("flexa-width",
 					     gh_double2scm (flexa_width));
 	  bool add_stem =
 	    !(prev_context_info & PES_UPPER) &&
@@ -281,7 +288,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	}
 
     /*
-     * In the backend, porrectus and joins need to know about
+     * In the backend, flexa shapes and joins need to know about
      * thickness.  Hence, for simplicity, let's distribute the
      * ligature grob's value for thickness to each ligature head (even
      * if not all of them need to know).

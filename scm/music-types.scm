@@ -302,12 +302,14 @@ Syntax: @code{\property @var{context}.@var{prop} = @var{scheme-val}}.")
 	)
      )
     
-    (PorrectusEvent
+    (PesOrFlexaEvent
      . (
-	(description .  "(docme)")
+	(description .  "Within a ligature, mark the previous and the
+following note to form a pes (if melody goes up) or a flexa (if melody
+goes down).")
 
 	(internal-class-name . "Event")
-	(types . (general-music porrectus-event event))
+	(types . (general-music pes-or-flexa-event event))
 	))
 
     (RepeatedMusic
