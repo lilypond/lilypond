@@ -9,7 +9,7 @@ depth = .
 # descent order into subdirectories:
 #
 SUBDIRS = scripts buildscripts  flower lib lily mf mi2mu po debian \
-	Documentation init input tex make mutopia test intl $(stepmake)
+	Documentation init input tex make mutopia test intl stepmake
 #
 
 SCRIPTS = configure aclocal.m4
@@ -28,8 +28,6 @@ include $(depth)/make/Stepmake.make
 
 # list of distribution files:
 #
-
-
 include $(stepdir)/Toplevel.make
 
 aclocal.m4: $(stepdir)/../aclocal.m4
@@ -43,7 +41,7 @@ examples:
 	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' -czf $(outdir)/examples.tar.gz  `find input mutopia -type d -name 'out-www' -print`
 
 
-localdist: do-top-doc
+local-dist: do-top-doc
 
 $(package-icon):
 	$(MAKE) -C Documentation/pictures icon

@@ -354,14 +354,14 @@ AC_DEFUN(AC_STEPMAKE_MAN, [
 
 AC_DEFUN(AC_STEPMAKE_MSGFMT, [
     # AC_CHECK_PROGS(MSGFMT, msgfmt, -echo no msgfmt)
-    AC_CHECK_PROGS(MSGFMT, msgfmt, \$(SHELL) \$(step-bindir)/fake-msgfmt.sh)
+    AC_CHECK_PROGS(MSGFMT, msgfmt, \$(SHELL) \$(step-bindir)/fake-msgfmt.sh )
     AC_MSG_CHECKING(whether msgfmt accepts -o)
     msgfmt_output="`msgfmt -o bla 2>&1 | grep usage`"
     if test "$msgfmt_output" = ""; then
 	AC_MSG_RESULT(yes)
     else
 	# urg
-	MSGFMT="\$(SHELL) \$(step-bindir)/fake-msgfmt.sh)"
+	MSGFMT="\$(SHELL) \$(step-bindir)/fake-msgfmt.sh"
 	AC_MSG_RESULT(no)
 	AC_STEPMAKE_WARN(please install msgfmt from GNU gettext)
     fi

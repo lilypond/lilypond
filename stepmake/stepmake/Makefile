@@ -10,10 +10,12 @@ depth = ..
 SUBDIRS =
 #
 
+MAKEFILES=Makedir
+
+
 # bootstrap stepmake:
 #
 -include $(depth)/make/Stepmake.make 
-#
 
 # gory hack: stepmake itself is a stepmake package.
 default:

@@ -1,7 +1,7 @@
 Begin3
 Titel: LilyPond
-Versie: 1.0.2
-Inschrijf datum: 13AUG98
+Versie: 1.0.3
+Inschrijf datum: 19AUG98
 Beschrijving: 
 LilyPond is de muziekzetter van het GNU Project.  Dit programma drukt
 prachtige bladmuziek volgens een muzikaal definitie bestand.  Ook kan
@@ -15,8 +15,8 @@ Auteur: hanwen@stack.nl (Han-Wen Nienhuys)
 	janneke@gnu.org (Jan Nieuwenhuizen)
 Onderhouden door: hanwen@cs.ruu.nl (Han-Wen Nienhuys)
 Voornaamste plek: sunsite.unc.edu /pub/Linux/apps
-	610k lilypond-1.0.2.tar.gz 
-Oorspronkelijke plek: pcnov095.win.tue.nl /pub/lilypond/
-	610k lilypond-1.0.2.tar.gz 
+	770k lilypond-1.0.3.tar.gz 
+Oorspronkelijke plek: ftp.cs.uu.nl /pub/GNU/LilyPond/development/
+	770k lilypond-1.0.3.tar.gz 
 Copi-eer voorwaarden: GPL
 End

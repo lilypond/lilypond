@@ -110,6 +110,7 @@ Mudela_score::get_column_l (Moment mom)
   return c;
 }
 
+
 void
 Mudela_score::output (String filename_str)
 {
@@ -138,7 +139,7 @@ Mudela_score::output (String filename_str)
 	    &&  (i == mudela_staff_p_list_.top()))
 	continue;
       mudela_stream << "\\type Staff = \"" << i->id_str() << "\" ";
-      mudela_stream << "\\$" << i->id_str() << "\n";
+      mudela_stream << String ("\\" +  i->id_str ()) << "\n";
     }
   if  (mudela_staff_p_list_.size() > 1)
     mudela_stream << ">\n";

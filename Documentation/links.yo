@@ -56,7 +56,7 @@ At this moment we have about one development-patchlevel per week.
 These development releases will also be at
 
 itemize(
-it()lurl(ftp://pcnov095.win.tue.nl/pub/lilypond/development)
+it()lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development)
 
 it()lurl(ftp://sca.uwaterloo.ca/pub/lilypond)
 

@@ -16,11 +16,14 @@ center(mudela(fragment)(
 
 nsubsect()
 
-Hmm, this is what it said yesterday too.  I just want to know 
-url(What's new)(DOEXPAND(docdir)/DOEXPAND(outdir)/NEWS.html) today and then COMMENT(
-url(Download)(ftp://pcnov095.win.tue.nl/pub/lilypond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz) LilyPond.
-perhaps lily/VERSION, i.e. without my-patch-level would be best...
-)url(Download)(ftp://pcnov095.win.tue.nl/pub/lilypond/development/) LilyPond.
+Hmm, this is what it said yesterday too.  I just want to know
+url(What's new)(DOEXPAND(docdir)/DOEXPAND(outdir)/NEWS.html) today and
+then COMMENT(
+url(Download)(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz)
+LilyPond.  perhaps lily/VERSION, i.e. without my-patch-level would be
+best...
+)url(Download)(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz)
+LilyPond.
 
 nsubsect(Introduction)
 
@@ -28,7 +31,7 @@ This is not a Fanmail/Hype page. These pages were entirely created from
 the LilyPond package-sources. 
 
 A document on LilyPond's music description language Mudela is 
-url(in the making)(DOEXPAND(docdir)/tex/DOEXPAND(outdir)/mudela.html).
+url(in the making)(DOEXPAND(docdir)/tex/DOEXPAND(outdir)/tutorial.html).
 
 Note: These pages are created from the latest bf(development snapshots)
 of LilyPond, specifically, this page was made from LilyPond
@@ -63,10 +66,8 @@ verb(
 top_of_NEWS
 )
 
-COMMENT(
-Go get it at  lurl(ftp://pcnov095.win.tue.nl/pub/lilypond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz)
-)
-Go get it at  lurl(ftp://pcnov095.win.tue.nl/pub/lilypond/development/)
+
+Go get it at  lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/)
 
 nsubsect(Documentation)
 

@@ -2,10 +2,8 @@
 
 depth = ..
 
-include $(depth)/make/Stepmake.make 
-include $(stepdir)/Metafont.make
+MAKEFILES=Metafont
 
-TEX_FILES = $(wildcard *.tex)
 EXTRA_DIST_FILES += TODO README
 
 FET_FILES = $(wildcard feta[0-9]*.mf)
@@ -18,6 +16,8 @@ AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm))
 ALL_GEN_FILES=$(LYTABLES) $(TEXTABLES) $(LOG_FILES) $(AFM_FILES)
 
 OUT_DIST_FILES += $(AFM_FILES)
+
+include $(depth)/make/Stepmake.make 
 
 default: $(ALL_GEN_FILES)
 

@@ -2,11 +2,6 @@
 
 depth=../..
 
-include $(depth)/make/Stepmake.make 
-include $(stepdir)/Documentation.vars.make
-include $(depth)/make/Lilypond.make
-include $(stepdir)/Documentation_rules.make
-
 DATA_FILES = $(wildcard *.data)
 datafiles = $(addprefix $(outdir)/,$(DATA_FILES:.data=.html))
 DOC_FILES = $(wildcard *.doc)
@@ -18,6 +13,11 @@ EXTRA_DIST_FILES= $(BIB_FILES) $(DOC_FILES) $(DATA_FILES) $(EL_FILES)
 HTML_FILES = $(addprefix $(outdir)/, $(YO_FILES:.yo=.html))
 PS_FILES = $(DVI_FILES:.dvi=.ps)
 
+MAKEFILES=Documentation
+LOCALMAKEFILES=Lilypond
+
+
+include $(depth)/make/Stepmake.make 
 
 dvi: $(DVI_FILES)
 

@@ -13,7 +13,6 @@ SUBDIRS = bin make stepmake Documentation
 
 # bootstrap stepmake:
 #
-include $(depth)/make/Stepmake.make 
 #
 
 # list of distribution files:
@@ -26,11 +25,12 @@ NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
 
 #
 
+include $(depth)/make/Stepmake.make 
 include $(stepdir)/Toplevel.make
 
 
 
-localdist: do-top-doc
+local-dist: do-top-doc
 
 do-top-doc:
 	-$(MAKE) -C Documentation/topdocs/ README_TOP_FILES="$(README_TXT_FILES)" copy-to-top

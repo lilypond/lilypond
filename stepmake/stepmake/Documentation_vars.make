@@ -1,4 +1,9 @@
 # Documentation files
+AT_FILES = $(BLURBS) # 
+at-dir = $(doc-dir)/
+at-ext = .in
+
+
 #
 YO_FILES := $(wildcard *.yo)
 POD_FILES := $(wildcard *.pod)

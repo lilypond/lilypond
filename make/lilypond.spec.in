@@ -3,8 +3,8 @@ Version: @TOPLEVEL_VERSION@
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: pcnov095.win.tue.nl:/pub/lilypond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
-Summary: A program for typesetting music.
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
+Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
 Icon: @package@-icon.gif

@@ -131,10 +131,6 @@ Paper_score::set_breaking (Array<Column_x_positions> const &breaking)
 	  || !((Score_element*)span_p)->line_l ())
 	{
 	  span_p->unlink ();
-#if 0
-	  int sz = span_p->class_size();
-	  set_frobnify (span_p,sz);
-#endif
 	  delete span_p;
 	}
       else 
@@ -149,10 +145,6 @@ Paper_score::set_breaking (Array<Column_x_positions> const &breaking)
 	{
 	  i_l->unlink ();
 	  Score_element * item_p= i.remove_p ();
-#if 0
-	  int sz = item_p->class_size ();
-	  set_frobnify (item_p, sz);
-#endif
 	  delete item_p;
 	}
       else

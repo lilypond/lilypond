@@ -9,12 +9,9 @@ SUBDIRS = include
 EXTRA_DIST_FILES = VERSION 
 MODULE_LIBS=$(depth)/lib $(depth)/flower
 
-include $(depth)/make/Stepmake.make 
-include $(stepdir)/C++.make
-include $(stepdir)/Executable.make
+MAKEFILES=C++ Executable 
 
-include Stable.make
-include VERSION
+include $(depth)/make/Stepmake.make 
 
 # force these: Make can't know these have to be generated in advance
 my-lily-lexer.cc: $(outdir)/parser.hh
@@ -26,5 +23,7 @@ $(outdir)/lily-version.o: $(outdir)/version.hh
 $(outdir)/main.o: $(outdir)/BLURB.hh $(outdir)/COPERTINA.hh $(outdir)/FLAPTEKST.hh
 
 
+# ugh . -> $(outdir)
 VERSION: $(depth)/VERSION
 	cp $< $@
+

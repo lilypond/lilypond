@@ -1,3 +1,13 @@
+
+# UGH UGH
+include $(make-dir)/Lilypond_vars.make
+
+FLY_FILES = $(wildcard *.fly)
+LY_FILES = $(wildcard *.ly)
+M4_FILES = $(wildcard *.m4)
+LYM4_FILES = $(wildcard *.lym4)
+EXTRA_DIST_FILES += $(FLY_FILES) $(LY_FILES) $(M4_FILES) $(LYM4_FILES)
+
 # WWW.make
 
 ly_examples=$(addprefix $(outdir)/, $(addsuffix .ly.txt, $(examples)))
@@ -10,8 +20,8 @@ gif_examples=$(addprefix $(outdir)/, $(addsuffix .gif, $(all_examples)))
 
 html_subdirs=$(addprefix --subdirs ,$(SUBDIRS))
 
-## UGH!  lily specific
-local-WWW: $(ly_examples) $(fly_examples) $(ps_examples) $(gif_examples)
-	(cd $(outdir); $(PYTHON) ../$(buildscripts)/mutopia-index.py --package=$(topdir) --prefix=../ --suffix=/$(outdir) $(html_subdirs) $(all_examples))
-	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) --index=$(depth)/$(outdir)/index.html $(outdir)/index.html
 
+name-stem= $(notdir $(basename $<))
+
+OUT_FILES = $(addprefix $(outdir)/,$(M4_FILES:%.m4=%)) \
+ $(addprefix $(outdir)/,$(LYM4_FILES:%.lym4=%.ly))

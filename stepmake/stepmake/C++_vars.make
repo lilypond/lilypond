@@ -7,8 +7,19 @@
 EXTRA_CXXFLAGS= -Wall -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
 
 
-CXXFLAGS = $(ICFLAGS) $(DEFINES) $(INCLUDES) $(USER_CFLAGS) $(EXTRA_CFLAGS) $(MODULE_CFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
+CXXFLAGS = $(ICFLAGS) $(DEFINES) $(addprefix -I,$(INCLUDES)) $(USER_CFLAGS) $(EXTRA_CFLAGS) $(MODULE_CFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
 CXX_OUTPUT_OPTION = $< -o $@
 DO_CXX_COMPILE=$(DODEP) $(CXX) -c $(CXXFLAGS) $(CXX_OUTPUT_OPTION)
 
+# template files:
+TCC_FILES := $(wildcard *.tcc)
+HH_FILES := $(wildcard *.hh)
+CC_FILES := $(wildcard *.cc)
+INL_FILES := $(wildcard *.icc)
+YY_FILES := $(wildcard *.yy)
+LL_FILES := $(wildcard *.ll)
 
+SOURCE_FILES+=$(YY_FILES) $(CC_FILES) $(INL_FILES) $(TCC_FILES) $(HH_FILES) $(LL_FILES)
+OBJECT_FILES+=$(YY_FILES:.yy=.o) $(CC_FILES:.cc=.o) $(LL_FILES:.ll=.o)
+
+TAGS_FILES += $(TCC_FILES) $(HH_FILES) $(INL_FILES) $(CC_FILES)

@@ -8,12 +8,6 @@
 # you do make dist 
 #
 
-# derived names
-flowerout = $(buildprefix)/flower/$(outdir)
-libout = $(buildprefix)/lib/$(outdir)
-lilyout = $(buildprefix)/lily/$(outdir)
-mi2muout = $(buildprefix)/mi2mu/$(outdir)
-
 buildscripts = $(depth)/buildscripts
 
 
@@ -25,32 +19,9 @@ make-dir = $(depth)/make
 include-lib = $(depth)/lib/include
 include-flower = $(depth)/flower/include
 
-NO_DOOS_DIST = flower lib lily make mi2mu out
 
-# dummydeps
-#
-DUMMYDEPS=\
- $(flowerout)/dummy.dep\
- $(libout)/dummy.dep\
- $(lilyout)/dummy.dep\
- $(mi2muout)/dummy.dep\
 
-#
-
-# version stuff:
-#
-lily-version = $(lilyout)/version.hh
-flower-version = $(flowerout)/version.hh
-mi2mu-version = $(mi2muout)/version.hh
-#
-
-# custom libraries:
-#
-LIBFLOWER = $(flowerout)/$(LIB_PREFIX)flower$(LIB_SUFFIX)
-LIBLILY = $(libout)/$(LIB_PREFIX)lily$(LIB_SUFFIX)
-#
-
-LILYPOND_INCLUDES = -I$(include-lib) -I$(libout) -I$(include-flower) -I$(flowerout) 
+LILYPOND_INCLUDES = $(include-lib) $(depth)/lib/$(outdir) $(include-flower) $(depth)/flower/$(outdir) 
 LILYPOND_LDFLAGS = -L$(depth)/lib/$(outdir) -L$(depth)/flower/$(outdir)
 LILYPOND_LIBES =
 

@@ -67,7 +67,7 @@ sect(DOZE)
 If you have received this file as part of a DOS/Window32 distribution
 (package()-*.zip), then it is advisable to also download the source
 package, since it might contain more documentation
-lurl(ftp://pcnov095.win.tue.nl/pub/package()/)
+lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/)
 
 If you decide to build Package() from source, please read the INSTALL.txt
 document first, especially the Windows NT/95 section.

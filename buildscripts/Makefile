@@ -1,13 +1,12 @@
 # bin/Makefile
 
 depth = ..
+MAKEFILES=Script
 
 include $(depth)/make/Stepmake.make 
 
-default: 
 
-EXTRA_DIST_FILES = ltconfig
 
-include $(stepdir)/Script_files.make
+
 
 

@@ -1884,7 +1884,7 @@ fi
 
 test -n "$MSGFMT" && break
 done
-test -n "$MSGFMT" || MSGFMT="\$(SHELL) \$(step-bindir)/fake-msgfmt.sh"
+test -n "$MSGFMT" || MSGFMT="\$(SHELL) \$(step-bindir)/fake-msgfmt.sh "
 
     echo $ac_n "checking whether msgfmt accepts -o""... $ac_c" 1>&6
 echo "configure:1891: checking whether msgfmt accepts -o" >&5
@@ -1893,7 +1893,7 @@ echo "configure:1891: checking whether msgfmt accepts -o" >&5
 	echo "$ac_t""yes" 1>&6
     else
 	# urg
-	MSGFMT="\$(SHELL) \$(step-bindir)/fake-msgfmt.sh)"
+	MSGFMT="\$(SHELL) \$(step-bindir)/fake-msgfmt.sh"
 	echo "$ac_t""no" 1>&6
 	
     echo "configure: warning: please install msgfmt from GNU gettext" 1>&2

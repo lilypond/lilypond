@@ -3,12 +3,11 @@
 depth = ../..
 
 SUBDIRS = Petites-Preludes Solo-Cello-Suites 
-
-include $(depth)/make/Stepmake.make
-include $(make-dir)/Mutopia.make
-
 EXTRA_DIST_FILES=
 
+
+LOCALMAKEFILES=Mutopia
 examples=wtk1-fugue2
 
-include $(stepdir)/WWW.make
+include $(depth)/make/Stepmake.make
+

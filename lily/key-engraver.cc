@@ -179,6 +179,7 @@ Key_engraver::do_post_move_processing ()
 {
   keyreq_l_ = 0;
   default_key_b_ = false;
+  old_accidental_idx_arr_.clear ();
 }
 
 

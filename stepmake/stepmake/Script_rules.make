@@ -1,9 +1,7 @@
 # Scripts.make
 
 
-include $(stepdir)/Script_files.make
 
-all: $(PERL_SCRIPTS) $(PYTHON_SCRIPTS) $(SH_SCRIPTS)
 
 $(outdir)/%: %.pl
 	cat $< | $(sed-atvariables) > $@
