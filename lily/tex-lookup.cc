@@ -108,7 +108,7 @@ header_to_tex_string (Scope *head)
   String s;
   String lily_id_str = "Lily was here, " +
     String (lily_version_number_sz ());
-  s+= "\\def\\LilyIdString{"  + lily_id_str + "}";
+  s+= "\\def\\LilyIdString{"  + lily_id_str + "}\n";
   
   for (Dictionary_iter<Identifier*> i(*head); i.ok (); i++)
     {
