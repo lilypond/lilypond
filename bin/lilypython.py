@@ -93,7 +93,11 @@ def guess_mudela_version(filename):
     return ''
 
 def version_tuple_to_str(tup):
-    return '%d.%d.%d%s' % tup
+    mypatch =''
+    if tup[3]:
+	mypatch = '.' + tup[3]
+    
+    return ('%d.%d.%d' % tup[0:3]) + mypatch
 
 class Lilydirs:
     def __init__(self):
@@ -117,7 +121,8 @@ lilydirs = Lilydirs()
 if __name__ == '__main__':
     v= lilydirs.version_tuple()
     print v, prev_version(v), next_version(v)
-
     mv =  guess_mudela_version(lilydirs.topdir + 'init/symbol.ly')
-
-    print version_str_to_tuple(mv)
+    pv=(0,1,1,'jcn4')
+    print version_tuple_to_str(pv), prev_version(pv), next_version(pv)
+    print version_tuple_to_str((0,1,1,''))    
+    print mv, version_str_to_tuple(mv)
