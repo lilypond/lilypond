@@ -17,11 +17,13 @@ Rhythmic_column::Rhythmic_column(Score_column*s, Rhythmic_staff *rs)
     staff_ = rs;
 }
 
-
+Rhythmic_staff::Rhythmic_staff()
+{
+    theline = new Linestaff(1);
+}
 void
 Rhythmic_staff::set_output(PScore* ps )
 {
-    theline = new Linestaff(1);
     pscore_ = ps;
     pscore_->add(theline);
 }
@@ -30,7 +32,7 @@ Rhythmic_staff::set_output(PScore* ps )
 void
 Rhythmic_column::process_commands( )
 {
-    int breakstat = BREAK_END;
+    int breakstat = BREAK_END - BREAK_PRE;
     for (int i = 0 ; i < s_commands.sz(); i++) {
 	Command *com = s_commands[i];
 	switch (com->code){
@@ -41,7 +43,7 @@ Rhythmic_column::process_commands( )
 	case BREAK_POST:
 	case BREAK_END:
 	    score_column->set_breakable();
-	    breakstat = com->code;
+	    breakstat = com->code- BREAK_PRE;
 	    break;
 	    
 	case TYPESET:
@@ -77,7 +79,6 @@ Rhythmic_column::process_requests()
 		the_note = rq;
 	    }
 	    break;
-		
 	}
 }
 
@@ -136,7 +137,7 @@ Rhythmic_column::typeset_req(Request *rq)
 	m->add_right(dm);
     }
     i->output=m;
-    staff_->pscore_->typeset_item(i, score_column->pcol, staff_->theline,0 );
+    staff_->pscore_->typeset_item(i, score_column->pcol, staff_->theline );
 }
 
 void

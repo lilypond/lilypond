@@ -17,7 +17,7 @@ Staff::clean_cols()
 }
 
 Staff_column *
-Staff::get_col(Mtime w, bool mus)
+Staff::get_col(Real w, bool mus)
 {
     Score_column* sc = score_->find_col(w,mus);
     assert(sc->when == w);
@@ -65,7 +65,7 @@ Staff::setup_staffcols()
     
     for (PCursor<Voice*> vc(voices); vc.ok(); vc++) {
 
-	Mtime now = vc->start;
+	Real now = vc->start;
 	for (PCursor<Voice_element *> ve(vc->elts); ve.ok(); ve++) {
 
 	    Staff_column *sc=get_col(now,true);
@@ -130,9 +130,9 @@ Staff::OK() const
 }
 
 
-Mtime
+Real
 Staff::last() const {
-    Mtime l = 0.0;
+    Real l = 0.0;
     for (PCursor<Voice*> vc(voices); vc.ok(); vc++) {
 	l = MAX(l, vc->last());
     }
@@ -154,3 +154,9 @@ Staff::print() const
     #endif
 }
 
+Staff::Staff()
+{
+    score_ =0;
+    pscore_=0;
+    
+}
