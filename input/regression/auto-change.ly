@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.18"
 
 \header {
 
@@ -14,7 +14,7 @@ note. When central C is reached, we don't switch (by default).
 \score {
 	\notes \context PianoStaff <<
 	\context Staff = "up" {
-		\autochange Staff \context Voice = VA << \relative c' { g4 c e d c r4 a g } >>
+		\autochange  \context Voice = VA << \relative c' { g4 c e d c r4 a g } >>
 	}
 	\context Staff = "down" {
 		\clef bass 

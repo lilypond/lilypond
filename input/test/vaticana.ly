@@ -7,24 +7,24 @@ Vaticana ligature test. "
 
 \include "gregorian-init.ly"
 
-cantus = \notes {
+cantus = \context VaticanaVoice = "cantus" \notes {
   \clef "vaticana_fa2"
-  \[ f \quilisma g \auctum \descendens a \]
-  \[ \virga a g \pes a \inclinatum f \inclinatum d
+  \[ f\melisma \quilisma g \auctum \descendens a\melismaEnd \]
+  \[ \virga a\melisma g \pes a \inclinatum f \inclinatum d
      c \pes d \quilisma e \pes f \virga g
-     a \flexa f \pes g \inclinatum f \inclinatum e \]
-  \[ d \quilisma e f \flexa e \pes f \]
-  \[ e \flexa d \]
+     a \flexa f \pes g \inclinatum f \inclinatum e\melismaEnd \]
+  \[ d\melisma \quilisma e f \flexa e \pes f\melismaEnd \]
+  \[ e\melisma \flexa d\melismaEnd \]
 }
 
-verba = \context Lyrics = verba \lyrics {
-  Al-4*3 le-4*15 lu-4*5 ia.4*2
+verba = \context Lyrics = "verba" \lyrics {
+  Al- le- lu- ia.
 }
 
 \score {
-  \context VaticanaVoice <<
+  <<
     \cantus
-    \verba
+    \lyricsto "cantus" \verba
   >>
   \paper {
     linethickness = \staffspace / 7.0
@@ -33,7 +33,6 @@ verba = \context Lyrics = verba \lyrics {
     indent = 0.0
     raggedright = ##t
     packed = ##t
-    % packed = ##t %%%% FIXME
     \translator {
       \ScoreContext
       \remove Bar_number_engraver

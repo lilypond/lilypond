@@ -231,8 +231,16 @@ Ligature_engraver::stop_translation_timestep ()
 {
   if (finished_ligature_)
     {
-      typeset_ligature (finished_ligature_, finished_primitives_);
-      finished_primitives_.clear ();
+      if (!finished_primitives_.size ())
+	{
+	  finished_ligature_->programming_error ("Ligature_engraver::stop_translation_timestep (): "
+						 "junking empty ligature");
+	}
+      else
+	{
+	  typeset_ligature (finished_ligature_, finished_primitives_);
+	  finished_primitives_.clear ();
+	}
       finished_ligature_ = 0;
     }
 

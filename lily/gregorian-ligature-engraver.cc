@@ -208,7 +208,12 @@ provide_context_info (Array<Grob_info> primitives)
     int prefix_set = gh_scm2int (primitive->get_grob_property ("prefix-set"));
 
     if (prefix_set & PES_OR_FLEXA)
-      if (pitch > prev_pitch) // pes
+      if (!i) // ligature may not start with 2nd head of pes or flexa
+	  {
+	    primitive->warning ("may not apply `\\~' on first head of "
+				"ligature; ignoring `\\~'");
+	  }
+      else if (pitch > prev_pitch) // pes
 	{
 	  prev_context_info |= PES_LOWER;
 	  context_info |= PES_UPPER;

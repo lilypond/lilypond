@@ -74,7 +74,6 @@ TODO:
 #include "input.hh"
 #include "lilypond-input-version.hh"
 #include "scm-hash.hh"
-#include "auto-change-iterator.hh"
 #include "ly-modules.hh"
 #include "music-sequence.hh"
 #include "input-smob.hh"
@@ -381,7 +380,7 @@ yylex (YYSTYPE *s,  void * v)
 
 %type <scm>  embedded_scm scalar
 %type <music>	Music Sequential_music Simultaneous_music 
-%type <music>	relative_music re_rhythmed_music part_combined_music
+%type <music>	relative_music re_rhythmed_music 
 %type <music>	music_property_def context_change 
 %type <scm> Music_list
 %type <scm> property_operation context_mod translator_mod optional_context_mod
@@ -911,16 +910,29 @@ context_mod_list:
 	;
 
 Composite_music:
-	AUTOCHANGE STRING Music	{
-		Music*chm = MY_MAKE_MUSIC("AutoChangeMusic");
-		chm->set_mus_property ("element", $3->self_scm ());
-		chm->set_mus_property ("iterator-ctor", Auto_change_iterator::constructor_proc);
+	AUTOCHANGE Music	{
+		static SCM proc ;
+		if (!proc)
+			proc = scm_c_eval_string ("make-autochange-music");
+	
+		SCM res = scm_call_1 (proc,  $2->self_scm ());
+		scm_gc_unprotect_object ($2->self_scm ());
+		$$ = unsmob_music (res);
+		scm_gc_protect_object (res);
+		$$->set_spot (THIS->here_input())
+	}
+	| PARTCOMBINE Music Music {
+		static SCM proc;
+		if (!proc)
+			proc = scm_c_eval_string ("make-part-combine-music");
 
+		SCM res = scm_call_1 (proc, gh_list ($2->self_scm (),
+			$3->self_scm (), SCM_UNDEFINED));  
 		scm_gc_unprotect_object ($3->self_scm ());
-		chm->set_mus_property ("what", scm_string_to_symbol ($2));
-
-		$$ = chm;
-		chm->set_spot (*$3->origin ());
+		scm_gc_unprotect_object ($2->self_scm ());
+		$$ = unsmob_music (res);
+		scm_gc_protect_object (res);
+		$$->set_spot (THIS->here_input());
 	}
 	| grace_head Music {
 #if 1
@@ -1072,7 +1084,6 @@ basic music objects too, since the meaning is different.
 	}
 	| relative_music	{ $$ = $1; }
 	| re_rhythmed_music	{ $$ = $1; } 
-	| part_combined_music	{ $$ = $1; }
 	| TAG embedded_scm Music {
 		tag_music ($3, $2, THIS->here_input ());
 		$$ = $3;
@@ -1109,21 +1120,6 @@ re_rhythmed_music:
 	  scm_gc_unprotect_object ($3->self_scm ());
 	  $$ = l;
 	  l->set_mus_property ("associated-context", $2);
-	}
-	;
-
-part_combined_music:
-	PARTCOMBINE Music Music {
-		static SCM proc;
-		if (!proc)
-			proc = scm_c_eval_string ("make-part-combine-music");
-
-		SCM res = scm_call_1 (proc, gh_list ($2->self_scm (),
-			$3->self_scm (), SCM_UNDEFINED));  
-		scm_gc_unprotect_object ($3->self_scm ());
-		scm_gc_unprotect_object ($2->self_scm ());
-		$$ = unsmob_music (res);
-		scm_gc_protect_object (res);
 	}
 	;
 

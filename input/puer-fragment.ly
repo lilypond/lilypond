@@ -24,77 +24,66 @@ before the ligature (not demonstrated in this example)."
 %%% but this is intentional for editorial purposes (simplifies some
 %%% global search/replace operations in emacs).
 
-cantus = \notes {
-  \[ g4
-    (		%%% Pu-
+cantus = \context VaticanaVoice = "cantus" \notes {
+  \[ g4\melisma %%% Pu-
     \pes
-    d')
+    d'\melismaEnd
   \]
   d'		%%% er
-  \[ d'
-    (		%%% na-
+  \[ d'\melisma %%% na-
     \pes e' \flexa
-    d')
+    d'\melismaEnd
   \]
   c'		%%% tus
-  \[ c'
-    (		%%% est
+  \[ c'\melisma %%% est
     c'
-    c')
+    c'\melismaEnd
   \]
-  \[ d'
-    (		%%% no-
+  \[ d'\melisma %%% no-
     \flexa c' e' \flexa
-    d')
+    d'\melismaEnd
   \]
   d'            %%% bis,
   \divisioMaior
-  \[ g
-    (		%%% et
+  \[ g\melisma %%% et
     \pes \deminutum
-    d')
+    d'\melismaEnd
   \]
-  \[ d'
-    (		%%% fi-
+  \[ d'\melisma %%% fi-
     \pes e' \flexa
-    d')
+    d'\melismaEnd
   \]
-  \[ c'
-    (		%%% li-
+  \[ c'\melisma %%% li-
     \flexa
-    b)
+    b\melismaEnd
   \]
   a		%%% us
-  \[ c'
-    (		%%% da-
+  \[ c'\melisma %%% da-
     c' \pes
-    d')
+    d'\melismaEnd
   \]
   c'		%%% tus-
   c'		%%% est
-  \[ c'
-    (		%%% no-
+  \[ c'\melisma %%% no-
     \pes d' \flexa c'
-    c')
+    c'\melismaEnd
   \]
-  \[ g
-    (		%%% bis:
+  \[ g\melisma %%% bis:
     \pes a \flexa
-    g)
+    g\melismaEnd
   \]
   \divisioMaxima
 }
 
-verba = \context Lyrics = verba \lyrics {
+verba = \context Lyrics = "verba" \lyrics {
   Pu- er na- tus est no- bis,
   et fi- li- us da- tus est no- bis:
 }
 
 \score {
-  \context VaticanaVoice <<
-    \addlyrics
+  <<
     \cantus
-    \verba
+    \lyricsto "cantus" \verba
   >>
   \paper {
     linethickness = \staffspace / 7.0
@@ -103,8 +92,6 @@ verba = \context Lyrics = verba \lyrics {
     indent = 0.0
     raggedright = ##t
     packed = ##t
-%   width = 15.0 \cm %%% no effect?
-
     \translator {
       \ScoreContext
       \remove Bar_number_engraver

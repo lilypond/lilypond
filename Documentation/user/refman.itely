@@ -3114,7 +3114,7 @@ Dynamics are not centered, but kludges do exist. See
 Voices can switch automatically between the top and the bottom
 staff. The syntax for this is
 @example
-  \autochange Staff \context Voice @{ @dots{}@var{music}@dots{} @}
+  \autochange \context Voice @{ @dots{}@var{music}@dots{} @}
 @end example
 The two staffs of the piano staff must be named @code{up} and
 @code{down}.
@@ -3126,8 +3126,8 @@ advance. Here is a practical example:
 @lilypond[verbatim,singleline,quote]
 \score { \notes \context PianoStaff <<
   \context Staff = "up" {
-    \autochange Staff \context Voice = VA << \relative c' {
-       g4 a  b c d r4 a g } >> }
+    \autochange \new Voice \relative c' {
+       g4 a  b c d r4 a g } }
   \context Staff = "down" {
        \clef bass
        s1*2
@@ -3151,6 +3151,7 @@ Internals: @internalsref{AutoChangeMusic}.
 
 The staff switches often do not end up in optimal places. For high
 quality output, staff switches should be specified manually.
+
 
 
 @node Manual staff switches
@@ -4528,7 +4529,7 @@ voices, and stem directions are set automatically.  Also, solo and
 The syntax for part combining is
 
 @example
-  \newpartcombine @var{musicexpr1} @var{musicexpr2}
+  \partcombine @var{musicexpr1} @var{musicexpr2}
 @end example
 
 The music expressions will be interpreted as @internalsref{Voice}
@@ -4539,7 +4540,7 @@ combiner: putting parts on one staff, and setting stem directions and
 polyphony:
 
 @lilypond[verbatim,singleline,fragment,relative 1]
-  \new Staff \newpartcombine 
+  \new Staff \partcombine 
       {
         g a( b) r
       }
@@ -4561,7 +4562,7 @@ may set the property @var{soloADue} to false:
 @lilypond[verbatim,singleline,fragment]
    \new Staff <<
     \property Staff.soloADue = ##f
-    \newpartcombine 
+    \partcombine 
       {
         g a( b) r
       }
@@ -4581,7 +4582,7 @@ Internals: @internalsref{PartCombineMusic},
 
 In @code{soloADue} mode, when the two voices play the same notes on and
 off, the part combiner may typeset @code{a2} more than once in a
-measure:
+measure.
 
 
 
@@ -5135,6 +5136,11 @@ In this manual: for the percussion clef, see @ref{Percussion staves}.
 For the @code{TAB} clef, see @ref{Tablatures}.
 
 Internals: for modern clefs, see @ref{Clef}.
+
+@refbugs
+
+The mensural g clef is temporarily mapped to the Petrucci g clef,
+until a new mensural g clef will have been implemented.
 
 
 
@@ -7368,15 +7374,15 @@ entering the chant, as the following short excerpt demonstrates:
 \include "gregorian-init.ly"
 \score {
 <<
-  \context VaticanaVoice {
+  \context VaticanaVoice = "cantus" {
     \property Score.BarNumber \set #'transparent = ##t
     \notes {
-      \[ c'( c' \flexa a \] \[ a \flexa \deminutum g) \] f \divisioMinima
-      \[ f( \pes a c' c' \pes d') \] c' \divisioMinima \break
-      \[ c'( c' \flexa a \] \[ a \flexa \deminutum g) \] f \divisioMinima
+      \[ c'\melisma c' \flexa a \] \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
+      \[ f\melisma \pes a c' c' \pes d'\melismaEnd \] c' \divisioMinima \break
+      \[ c'\melisma c' \flexa a \] \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
     }
   }
-  \lyricsto "" \new LyricsVoice \lyrics {
+  \lyricsto "cantus" \new LyricsVoice \lyrics {
     San- ctus, San- ctus, San- ctus
   } >>
   

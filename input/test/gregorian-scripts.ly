@@ -17,6 +17,8 @@ FIXME: horizontal spacing (ragged right mode).
 
 FIXME: padding/minimum-distance is fragile.
 
+FIXME: episem stops one notehead too early.
+
 "}
 
 \include "gregorian-init.ly"

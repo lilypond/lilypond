@@ -663,26 +663,8 @@ EasyNotation = \translator {
   \alias "Voice"
   \description "Same as @code{Voice} context, except that it is accommodated for tyepsetting Gregorian Chant in the notational style of Editio Vaticana."
 
-  % We can not remove Slur_engraver, since \addlyrics depends on it.
-  % Instead, we make the grob transparent.
-  % Unfortunately, this gives us a lot of warnings ("Degenerate bow:
-  % infinite steepness reqd"), since in ligatures, all note heads are in
-  % the same paper column such that the (transparent) slurs eventually may
-  % start and end in the same column.
-  Slur \override #'transparent = ##t
-
-  % We can not remove Stem_engraver, since slurs depend on stems.  If
-  % we try anyway, lily will crash in slur.scm:16:6: "Wrong type argument
-  % in position 1 (expecting grob): ()".
-  % As a workaround, we make the grob transparent.
-  Stem \set #'transparent = ##t
-
-  % Since we do not remove stems, but only make it transparent, we have
-  % to set the length to 0.0.  Otherwise, articulation marks (such as
-  % ictus, circulus or accentus) may be vertically placed quite away from
-  % the note head.
-  Stem \set #'length = #'0.0
-
+  \remove "Slur_engraver"
+  \remove "Stem_engraver"
   \remove "Ligature_bracket_engraver"
   \consists "Vaticana_ligature_engraver"
 
@@ -754,26 +736,6 @@ EasyNotation = \translator {
   % warning for every "\[" and "\]".  Therefore, we make the grob
   % transparent instead.
   LigatureBracket \set #'transparent = ##t
-
-  % We can not remove Slur_engraver, since \addlyrics depends on it.
-  % Instead, we make the grob transparent.
-  % Unfortunately, this gives us a lot of warnings ("Degenerate bow:
-  % infinite steepness reqd"), since in ligatures, all note heads are in
-  % the same paper column such that the (transparent) slurs eventually may
-  % start and end in the same column.
-  Slur \override #'transparent = ##t
-
-  % We can not remove Stem_engraver, since slurs depend on stems.  If
-  % we try anyway, lily will crash in slur.scm:16:6: "Wrong type argument
-  % in position 1 (expecting grob): ()".
-  % As a workaround, we make the grob transparent.
-  Stem \set #'transparent = ##t
-
-  % Since we do not remove stems, but only make it transparent, we have
-  % to set the length to 0.0.  Otherwise, articulation marks (such as
-  % ictus, circulus or accentus) may be vertically placed quite away from
-  % the note head.
-  Stem \set #'length = #'0.0
 
   % Put some space before and after divisiones.
   % FIXME: This does not seem to show any effect.

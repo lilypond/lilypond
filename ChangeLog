@@ -1,5 +1,12 @@
 2004-02-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/auto-change-iterator.cc: move contents from
+	new-auto-change-iterator.cc from
+
+	* scm/part-combiner.scm: determine split-list from Scheme. 
+
+	* lily/new-auto-change-iterator.cc (process): new file.
+
 	* lily/parser.yy (part_combined_music): remove old PC cruft.
 
 	* ly/engraver-init.ly: remove old
@@ -20,6 +27,32 @@
 	* input/regression/new-part-combine-solo-global.ly: new file.
 
 	* scm/part-combiner.scm: rewrite.
+
+2004-02-03  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/refman.itely, input/puer-fragment.ly,
+	input/test/vaticana.ly, ly/engraver-init.ly: ancient examples
+	updated for proper use of lyricsto; replaced "(" and ")" ->
+	"\melisma" and "\melismaEnd"
+
+	* input/test/ancient-font.ly: small updates to reduce compile
+	warnings (TODO: junk this file)
+
+	* input/test/gregorian-scripts.ly: added comment about bug
+
+	* lily/gregorian-ligature-engraver.cc, lily/ligature-engraver.cc:
+	tiny robustness fix
+
+	* mf/parmesan-clefs.mf: exact_center fixes (this broke due to
+	recent changes in the feta code); temporarily mapped mensural g
+	clef to a copy of petrucci g clef until mensural g clef will have
+	been rewritten
+
+	* mf/parmesan-heads.mf: bugfix: solved character name clashing
+	between mensural and neo-mensural heads (this broke quite a while
+	ago)
+
+	* mf/parmesan-rests.mf: still more tiny set_char_box() fixes
 
 2004-02-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 

@@ -11,7 +11,7 @@ voices.
   
 "
     }
-\version "1.9.8"
+\version "2.1.18"
 
 vone =\notes
 
@@ -30,5 +30,5 @@ vtwo =\notes
 }
 
 \score {
-    \newpartcombine \vone \vtwo
+    \partcombine \vone \vtwo
     }

@@ -8,9 +8,28 @@
  */
 
 #include "music.hh"
-#include "auto-change-iterator.hh"
 #include "translator-group.hh"
 #include "event.hh"
+#include "music-wrapper-iterator.hh"
+#include "direction.hh"
+
+class Auto_change_iterator : public Music_wrapper_iterator
+{
+public:
+  VIRTUAL_COPY_CONS (Music_iterator);
+  DECLARE_SCHEME_CALLBACK(constructor, ());
+  
+  Auto_change_iterator ();
+
+protected:
+  virtual void construct_children ();
+  virtual void process (Moment);  
+  Array<Pitch> pending_pitch (Moment)const;
+private:
+  SCM split_list_;
+  Direction where_dir_;
+  void change_to (Music_iterator* , SCM, String);
+};
 
 
 
@@ -57,84 +76,38 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
 	  We could change the current translator's id, but that would make 
 	  errors hard to catch
 	  
-	   last->translator_id_string_  = get_change ()->change_to_id_string_;
 	*/
-	//	error (_ ("I'm one myself"));
       }
   else
-    ; //    error (_ ("none of these in my family"));
+    ;
 
-}
-
-/*
-  Look ahead to find first pitches to determine staff position.
-  WARNING: this means that
-
-  \autochange Staff \notes { .... \context Staff = otherstaff { .. } .. }
-
-  will confuse the autochanger, since it will not notice that the
-  music for OTHERSTAFF is not his.
-
-  PRECONDITION: this->ok () holds.
-*/
-Array<Pitch>
-Auto_change_iterator::pending_pitch (Moment m) const
-{
-  Music_iterator * iter = child_iter_ ->clone ();
-  Array<Pitch> ps;
-  while (1)
-    {
-      SCM muses = iter->get_pending_events (m);
-      for (SCM s = muses; gh_pair_p (s); s=ly_cdr (s))
-	{
-	  Music * m = unsmob_music (ly_car (s));
-	  if (m && m->is_mus_type ("note-event"))
-	    {
-	      ps.push (*unsmob_pitch (m->get_mus_property ("pitch")));
-	    }
-	}
-      
-      if (ps.size ())
-	break;
-
-      iter->skip (m);
-      if (!iter->ok ())
-	break;
-      
-      m = iter->pending_moment ();
-    }
-
-  scm_gc_unprotect_object (iter->self_scm());
-
-  return ps;
 }
 
 void
 Auto_change_iterator::process (Moment m)
 {
-  /*
-    first we get the pitches, then we do the real work.
-    Music_wrapper_iterator::process () might process (and throw away)
-    pitches we need.  */
-  Array<Pitch> ps = pending_pitch (m);
-
   Music_wrapper_iterator::process (m);
-  if (ps.size ())
+
+  
+  Moment now = report_to ()->now_mom ();
+  Moment *splitm = 0;
+  
+  for (; gh_pair_p (split_list_); split_list_ = gh_cdr (split_list_))
     {
-      Pitch p = ps[0];
-      Direction s = Direction (sign (p.steps ()));
-      /*
-	Don't change for central C.
+      splitm = unsmob_moment (gh_caar (split_list_));
+      if (*splitm > now)
+	break ;
 
-	TODO: make this tunable somehow. Sometimes, you'd want to
-	switch for C.C. as well.
-
-      */
-      if (s && s != where_dir_)
+      SCM tag = gh_cdar (split_list_);
+      Direction d = to_dir  (tag);
+      
+      if (d && d != where_dir_)
 	{
-	  where_dir_ = s;
-	  String to_id = (s >= 0) ?  "up" : "down";
-	  change_to (child_iter_, get_music ()->get_mus_property ("what"), to_id);	  
+	  where_dir_ = d;
+	  String to_id = (d >= 0) ?  "up" : "down";
+	  change_to (child_iter_,
+		     ly_symbol2scm ("Staff"),
+		     to_id);
 	}
     }
 }
@@ -142,6 +115,14 @@ Auto_change_iterator::process (Moment m)
 Auto_change_iterator::Auto_change_iterator ()
 {
   where_dir_ = CENTER;
+  split_list_ = SCM_EOL;
+}
+
+void
+Auto_change_iterator::construct_children ()
+{
+  Music_wrapper_iterator::construct_children ();
+  split_list_ =  get_music ()->get_mus_property ("split-list");
 }
 
 IMPLEMENT_CTOR_CALLBACK (Auto_change_iterator);
