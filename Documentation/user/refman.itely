@@ -2400,7 +2400,8 @@ command can be
 @item 'end-repeat
  Print a :| bar line
 @item (volta . @var{text})
- Print a volta bracket saying @var{text}.
+ Print a volta bracket saying @var{text} (the text can be specified
+ as a text string or as a markup text, see @ref{Text markup}).
 @item (volta . #f)
  Stop a running volta bracket
 @end table
