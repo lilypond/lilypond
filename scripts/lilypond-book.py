@@ -56,7 +56,7 @@ import __main__
 ## https://sourceforge.net/tracker/?func=detail&aid=604803&group_id=5470&atid=105470
 ##
 
-if float (sys.version[0:3]) <= 2.1:
+if float (sys.version[0:3]) <= 2.1 or sys.version[0:5] == '2.2.1':
 	try:
 		import pre
 		re = pre
@@ -459,8 +459,7 @@ output_dict= {
 \catcode`\@=0
 @end tex
 @html
-<p>
-<a href="%(fn)s.png">
+<p><a href="%(fn)s.png">
 <img border=0 src="%(fn)s.png" alt="[picture of music]">
 </a><p>
 @end html
@@ -473,13 +472,12 @@ output_dict= {
 \input %(fn)s.tex
 \catcode`\@=0
 @end tex
-@end quotation
 @html
-<p>
 <a href="%(fn)s.png">
 <img border=0 src="%(fn)s.png" alt="[picture of music]">
-</a><p>
+</a>
 @end html
+@end quotation
 ''',
 		}
 

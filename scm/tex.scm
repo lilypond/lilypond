@@ -200,6 +200,7 @@
    "    \\endgroup\n"
    "    \\def\\LilyPondDocument{}\n"
    "    \\documentclass{article}\n"
+   "    \\pagestyle{empty}\n"
    ; argh, we can't say \begin{document} because \begin is defined as
    ; \outer in texinfo
    "    \\begingroup\n"

@@ -1,3 +1,24 @@
+2002-09-28  Werner Lemberg  <wl@gnu.org>
+
+	* scm/tex.scm (header-end): Suppress page numbering.
+
+	* scripts/lilypond-book.py (output_dict) <output-texi-quoted>:
+	Fix quotation for HTML output.
+
+
+2002-09-28   Graham Percival   <gperciva@sfu.ca>
+	
+	* Documentation/user/refman.itely: grammar and phrasing
+	  fixes to "Note Entry" section.  Also adds a few new examples.
+
+2002-09-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* flower/include/string-data.icc: include string.h
+
+2002-09-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/chord-name.scm (chord::inner-name-banter): remove space.
+
 2002-09-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/GNUmakefile (extra-local-help): Add.
