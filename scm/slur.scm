@@ -8,12 +8,16 @@
 
 (define (attached-to-stem slur dir)
   (let* ((note-columns (ly:grob-property slur 'note-columns))
-	 (col (if (= dir 1) (car note-columns) (car (last-pair note-columns))))
+	 (col (if (= dir RIGHT)
+		  (car note-columns)
+		  (car (last-pair note-columns))))
 	 (stem (ly:grob-property col 'stem)))
     (and
      (eq? col (ly:spanner-get-bound slur dir))
-     (ly:grob? stem)
-     (ly:grob-property stem 'heads))))
+     ;(ly:grob? stem)
+     ;(pair?  (ly:grob-property stem 'heads))
+
+     )))
 
 
 ;;
@@ -23,26 +27,44 @@
 ;;
 (define (calc-slur-extremity slur dir)
   (let* ((note-columns (ly:grob-property slur 'note-columns))
-	 (col (car (if (= dir 1) note-columns (reverse note-columns))))
-	 (stem (ly:grob-property col 'stem)))
-
+	 (col (if (= dir 1)
+		  (car note-columns)
+		  (car (last-pair note-columns))))
+	 (stem (ly:grob-property col 'stem))
+	 (beaming (if (and (ly:grob? stem)
+			   (ly:grob? (ly:grob-property stem 'beam)))
+		      (ly:grob-property stem 'beaming)
+		      '(() . ())))
+	 (one-side-beaming (if (= dir RIGHT)
+			       (car beaming)
+			       (cdr beaming)))
+		      
+	 )
 
    (cond
     ((< (length note-columns) 1) 'head)
-    ((not (attached-to-stem slur dir)) 'loose-end)
+    ((not (attached-to-stem slur dir))
+
+     'loose-end)
     ((and stem
 	  (not (equal? (ly:grob-property slur 'direction) 
 		       (ly:grob-property stem 'direction))))  'head)
-    ((and (attached-to-stem slur dir)
+    ((and (memq (ly:spanner-get-bound slur dir)
+		(ly:grob-property slur 'note-columns))
 	  (ly:grob? stem)
-	  (ly:grob? (ly:grob-property stem 'beam))
+
+	  ;; slur would go under beam for 'head
+	  (> (length one-side-beaming ) 0)
 	  ;; and beam on same side as slur
 	  (equal?
 	   (ly:grob-property stem 'direction)
-	   (ly:grob-property slur 'direction)))
+	   (ly:grob-property slur 'direction))
+	  )
      'stem)
-    ((not (attached-to-stem slur dir))  'loose-end)
-    (else 'head))
+    ((not (attached-to-stem slur dir))
+     'loose-end)
+    (else
+     'head))
    ))
 
 

@@ -41,7 +41,7 @@ error (String s)
 void
 programming_error (String s)
 {
-  message (_f ("programming error: %s (Continuing; cross thumbs)\n",
+  message (_f ("programming error: %s (Continuing; crossing fingers)\n",
 	       s.to_str0 ()));
 }
 
