@@ -3,7 +3,7 @@
 
 \header{
 texidoc="
-When tieing notes with accidentals across a bar boundary, the
+When tying notes with accidentals across a bar boundary, the
 accidental must not be drawn on the note in the next bar.  Unless the
 tie crosses a line break, in which case the accidental is repeated if
 it would be different from an untied note.  The next note of the same
