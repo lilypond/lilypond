@@ -1,3 +1,7 @@
+2005-03-14  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/fixcc.py (rules): Leave space after operator.
+
 2005-03-14  Werner Lemberg  <wl@gnu.org>
 
 	* mf/feta-klef.mf (draw_gclef): Replace `simple_serif' for
@@ -44,6 +48,7 @@
 	* scm/paper.scm (layout-set-staff-size): increase blotdiameter to
 	0.4pt.
 
+>>>>>>> 1.3297
 2005-03-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* ly/titling-init.ly (bookTitleMarkup): Refinements.
