@@ -828,7 +828,7 @@ def is_derived_class (cl,  baseclass):
 def process_snippets (cmd, snippets):
 	names = filter (lambda x: x, map (Lilypond_snippet.basename, snippets))
 	if names:
-		ly.system (string.join ([cmd] + names))
+		ly.system (string.join ([cmd] + names), progress_p = 1)
 
 	if format == HTML or format == TEXINFO:
 		for i in names:

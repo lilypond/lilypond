@@ -210,9 +210,7 @@ Completion_heads_engraver::process_music ()
   for (int i = 0;
        left_to_do_ && i < note_reqs_.size (); i++)
     {
-      
       Music * req =  note_reqs_[i];
-      Item *note  = make_item ("NoteHead", req->self_scm ());
       if (scratch_note_reqs_.size ())
 	{
 	  req = scratch_note_reqs_[i];
@@ -221,8 +219,10 @@ Completion_heads_engraver::process_music ()
 	}
       
       req->set_property ("duration", note_dur.smobbed_copy ());
+
+      Item *note  = make_item ("NoteHead", req->self_scm ());
       note->set_property ("duration-log",
-				 scm_int2num (note_dur.duration_log ()));
+			  scm_int2num (note_dur.duration_log ()));
       
       int dots= note_dur.dot_count ();
       if (dots)

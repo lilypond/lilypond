@@ -52,6 +52,10 @@ Stem_engraver::make_stem (Grob_info gi)
      stem needs a rhythmic structure to fit it into a beam.  */
   stem_ = make_item ("Stem", gi.music_cause ()->self_scm ());
 
+  /*
+    docme: why do we take duration-log from request, not from note
+    head?
+   */
   int duration_log = gi.music_cause ()->duration_log ();
   stem_->set_property ("duration-log", scm_int2num (duration_log));
 

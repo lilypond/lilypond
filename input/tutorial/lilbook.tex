@@ -1,44 +1,24 @@
 \documentclass[a4paper]{article}
 \begin{document}
 
-In a lilypond-book document, you can freely mix music and text. For
-example:
-\begin{lilypond}
-  \score { \notes \relative c' {
-     c2 g'2 \times 2/3 { f8 e d } c'2 g4
-  } }
-\end{lilypond}
-Notice that the music line length matches the margin settings of the
-document.
-
-If you have no \verb+\score+ block in the fragment,
-\texttt{lilypond-book} will supply one:
+Documents for lilypond-book may freely mix music and text.  For
+example,
 
 \begin{lilypond}
-  c'4
+\relative {
+  c2 g'2 \times 2/3 { f8 e d } c'2 g4
+} 
 \end{lilypond}
 
-In the example you see here, a number of things happened: a
-\verb+\score+ block was added, and the line width was set to natural
-length. You can specify many more options using  \LaTeX style options
-in brackets:
+Options are put in brackets.
 
-\begin[verbatim,11pt,singleline,
-  fragment,relative,intertext="hi there!"]{lilypond}
-  c'4 f bes es
+\begin[fragment,quote,staffsize=26,verbatim]{lilypond}
+  c'4 f16
 \end{lilypond}
 
-\texttt{verbatim} also shows the lilypond code, \texttt{11pt} selects
-the default music size, \texttt{fragment} adds a score block,
-\texttt{relative} uses relative mode for the fragment, and
-\texttt{intertext} specifies what to print between the
-\texttt{verbatim} code and the music.
+Larger examples can be put in a separate file, and introduced with
+\verb+\lilypondfile+.
 
-If you include large examples into the text, it may be more convenient
-to put the example in a separate file:
-
-\lilypondfile[printfilename]{screech-boink.ly}
-
-The \texttt{printfilename} option adds the file name to the output.
+%\lilypondfile[quote,noindent]{screech-boink.ly}
 
 \end{document}

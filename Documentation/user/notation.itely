@@ -62,15 +62,10 @@ related constructs, such as stems, tuplets and ties.
 @subsection Notes
 
 
-A note is printed by specifying its pitch and then its duration
-@footnote{Notes constitute the most basic elements of LilyPond input,
-but they do not form valid input on their own without a @code{\score}
-block.  However, for the sake of brevity and simplicity we will
-generally omit @code{\score} blocks and @code{\paper} declarations in
-this manual.}
+A note is printed by specifying its pitch and then its duration,
 
-@lilypond[quote,fragment,verbatim]
-cis'4 d'8 e'16 c'16
+@lilypond[quote,verbatim]
+{ cis'4 d'8 e'16 c'16 }
 @end lilypond
 
 
@@ -89,7 +84,7 @@ names.  The notes are specified by the letters @code{a} through
 to @code{b}.  The pitch @code{c} is an octave below middle C and the
 letters span the octave above that C
 
-@lilypond[quote,fragment,verbatim]
+@lilypond[fragment,verbatim,noindent]
 \clef bass
 a,4 b, c d e f g a b c' d' e' \clef treble f' g' a' b' c''
 @end lilypond
@@ -103,21 +98,11 @@ names are the Dutch note names.  In Dutch, @code{aes} is contracted to
 @code{as}, but both forms are accepted. Similarly, both
 @code{es} and @code{ees} are accepted.
 
-Half-flats and half-sharps are formed by adding @code{-eh} and
-@code{-ih}; the following is a series of Cs with increasing pitches
-
-@cindex quarter tones
-@cindex semi-flats, semi-sharps
-
 @lilypond[fragment,quote,verbatim,relative=2]
 ceses4
-ceseh
 ces
-ceh
 c
-cih
 cis 
-cisih
 cisis
 @end lilypond
 
@@ -171,6 +156,8 @@ Notes can be hidden and unhidden with the following commands
 
 Program reference: @internalsref{NoteEvent}, and @internalsref{NoteHead}.
 
+
+
 @node Chromatic alterations
 @subsection Chromatic alterations
 
@@ -196,6 +183,23 @@ The automatic production of accidentals can be tuned in many
 ways. For more information, refer to @ref{Accidentals}.
 
 
+
+@node Micro tones
+@subsection Micro tones
+
+Half-flats and half-sharps are formed by adding @code{-eh} and
+@code{-ih}; the following is a series of Cs with increasing pitches
+
+@cindex quarter tones
+@cindex semi-flats, semi-sharps
+
+@lilypond[verbatim,quote,relative=2]
+ceseh ceh cih cisih 
+@end lilypond
+
+Micro tones are also exported to the MIDI file 
+
+
 @refbugs
 
 There are no generally accepted standards for denoting three quarter
@@ -208,8 +212,8 @@ A chord is formed by a enclosing a set of pitches in @code{<} and
 @code{>}. A chord may be followed by  a duration, and a set of
 articulations, just like simple notes.
 
-@lilypond[fragment,quote,relative=1]
-<c e g>4 <c>8 <>8 
+@lilypond[verbatim,fragment,quote,relative=1]
+<c e g>4 <c>8 
 @end lilypond
 
 @node Rests
@@ -232,8 +236,8 @@ must be done  with multi-measure rests. They are discussed in
 
 A rest's vertical position may be explicitly specified by entering a
 note with the @code{\rest} keyword appended. This makes manual
-formatting in polyphonic music easier.  Rest collision testing will
-leave these rests alone
+formatting in polyphonic music easier.  Automatic rest collision
+formatting will leave these rests alone
 
 @cindex @code{\rest}
  
@@ -261,13 +265,14 @@ a2 s4 a4 \skip 1 a4
 @end lilypond
 
 The @code{s} syntax is only available in note mode and chord mode.  In
-other situations, you should use the @code{\skip} command
+other situations, for example, when entering lyrics, you should use
+the @code{\skip} command
 
 @lilypond[quote,raggedright,verbatim]
-  \new Staff <<
-    { \time 4/8 \skip 2 \time 4/4 } 
-    \relative c'' { a2 a1 }
-  >>
+<<
+  \relative { a'2 a1 }
+  \new Lyrics \lyrics { \skip 2 bla1 }
+>>
 @end lilypond
 
 The skip command is merely an empty musical placeholder.  It does not
@@ -278,10 +283,10 @@ The @code{s} skip command does create @internalsref{Staff} and
 commands. For example, the following results in an empty staff.
 
 @lilypond[quote,raggedright,verbatim]
- { s4 } 
+{ s4 } 
 @end lilypond
 
-The same fragment using @code{\skip} results in an empty page.
+The fragment @code{@{ \skip 4 @} } would produce an empty page.
 
 @seealso
 
@@ -307,16 +312,18 @@ longer than a whole you must use variables
 
 @example 
 c'\breve  
-c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64 
+c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64
 r\longa r\breve  
 r1 r2 r4 r8 r16 r32 r64 r64 
 @end example 
 
-@lilypond[quote]
+@lilypond[quote,noindent]
 \score {
  \relative c'' {
     a\breve*1/2  \autoBeamOff
     a1 a2 a4 a8 a16 a32 a64 a64 
+   \bar "empty"
+   \break
     r\longa*1/4 r\breve  *1/2
     r1 r2 r4 r8 r16 r32 r64 r64 
   }
@@ -335,9 +342,12 @@ r1 r2 r4 r8 r16 r32 r64 r64
 @end lilypond
 
 
+@node Augmentation dots
+@subsection Augmentation dots
+
 If the duration is omitted then it is set to the previously entered
 duration. The default for the first note is a quarter note.  The duration
-can be followed by dots (`@code{.}') in order to obtain dotted note
+can be followed by dots (`@code{.}')  to obtain dotted note
 lengths
 @cindex @code{.}
 
@@ -346,18 +356,6 @@ a' b' c''8 b' a'4 a'4. b'4.. c'8.
 @end lilypond
 @cindex @code{r}
 @cindex @code{s}
-
-You can alter the length of duration by a fraction @var{N/M}
-appending `@code{*}@var{N/M}' (or `@code{*}@var{N}' if @var{M=1}). This
-will not affect the appearance of the notes or rests produced.
-
-In the following example, the first three notes take up exactly two
-beats, but no triplet bracket is printed.
-@lilypond[quote,fragment,relative=2,verbatim]
-\time 2/4
-a4*2/3 gis4*2/3 a4*2/3
-a4
-@end lilypond
 
 @refcommands
 
@@ -374,9 +372,28 @@ direction manually
 
 @seealso
 
+Program reference: @internalsref{Dots}, and @internalsref{DotColumn}. 
+
+@node Scaling durations
+@subsection Scaling durations
+
+You can alter the length of duration by a fraction @var{N/M}
+appending `@code{*}@var{N/M}' (or `@code{*}@var{N}' if @var{M=1}). This
+will not affect the appearance of the notes or rests produced.
+
+In the following example, the first three notes take up exactly two
+beats, but no triplet bracket is printed.
+@lilypond[quote,fragment,relative=2,verbatim]
+\time 2/4
+a4*2/3 gis4*2/3 a4*2/3
+a4
+@end lilypond
+
+
+@seealso
+
 This manual: @ref{Tuplets}
 
-Program reference: @internalsref{Dots}, and @internalsref{DotColumn}. 
 
 @node Stems
 @subsection Stems
@@ -414,15 +431,29 @@ e' ~ e' <c' e' g'> ~ <c' e' g'>
 When a tie is applied to a chord, all note heads whose pitches match
 are connected.  When no note heads match, no ties will be created.
 
-In its meaning a tie is just a way of extending a note duration, similar
-to the augmentation dot; in the following example there are two ways of 
-notating exactly the same concept
+A tie is just a way of extending a note duration, similar to the
+augmentation dot. The following example shows two ways of notating
+exactly the same concept
 @c
 @lilypond[quote,fragment,raggedright]
 \time 3/4 c'2. c'2 ~ c'4
 @end lilypond
-If you need to tie a lot of  notes over bars, it may be easier to use automatic
-note splitting (see @ref{Automatic note splitting}).
+
+@noindent
+Ties are used either when the note crosses a bar line, or when dots
+cannot be used to denote the rhythm.  When using ties, larger note
+values should be aligned to subdivisions of the measure, eg.
+
+@lilypond[fragment]
+\relative {
+  r8 c8 ~ c2 r4 | r8^"not" c2 ~ c8 r4  
+}
+@end lilypond
+
+If you need to tie a lot of notes over bars, it may be easier to use
+automatic note splitting (see @ref{Automatic note splitting}). This
+mechanism automatically splits long notes, and ties them across bar
+lines.
 
 @refcommands
 
@@ -444,18 +475,13 @@ In this manual: @ref{Automatic note splitting}.
 
 Program reference: @internalsref{TieEvent}, @internalsref{Tie}.
 
-For tying only a subset of the note heads of a pair of chords, see
-@inputfileref{input/regression,tie-chord-partial.ly}.
-
 @refbugs
 
 
 Switching staves when a tie is active will not produce a slanted tie.
 
 Formatting of ties is a difficult subject. The results are often not
-optimal.
-
-
+optimal. 
 
 @node Tuplets
 @subsection Tuplets
@@ -485,7 +511,7 @@ g'4 \times 2/3 {c'4 c' c'} d'4 d'4
 
 The property @code{tupletSpannerDuration} specifies how long each
 bracket should last.  With this, you can make lots of tuplets while
-typing @code{\times} only once, saving lots of typing. In the next
+typing @code{\times} only once, thus saving lots of typing. In the next
 example, there are two triplets shown, while @code{\times} was only
 used once
 
@@ -537,7 +563,7 @@ tuplet brackets should be moved manually, which is demonstrated in
 @cindex Music entry
 
 This section deals with tricks and features of the input language that
-were added solely to help entering music, finding and correcting
+were added solely to help entering music and finding and correcting
 mistakes.  There are also external tools that make debugging easier.
 See @ref{Point and click} for more information.
 
@@ -572,7 +598,11 @@ piece off by one octave
 @example
   \relative @var{startpitch} @var{musicexpr}
 @end example
-
+or
+@example
+  \relative @var{musicexpr}
+@end example
+ 
 The octave of notes that appear in @var{musicexpr} are calculated as
 follows: If no octave changing marks are used, the basic interval
 between this and the last note is always taken to be a fourth or
@@ -582,8 +612,9 @@ less. This distance is determined without regarding alterations; a
 
 The octave changing marks @code{'} and @code{,} can be added to raise
 or lower the pitch by an extra octave.  Upon entering relative mode,
-an absolute starting pitch must be specified that will act as the
-predecessor of the first note of @var{musicexpr}.
+an absolute starting pitch can be specified that will act as the
+predecessor of the first note of @var{musicexpr}. If no starting pitch
+is specified, then middle C is used as a start.
 
 Here is the relative mode shown in action
 @lilypond[quote,fragment,raggedright,verbatim]
@@ -614,9 +645,9 @@ The pitch after the @code{\relative} contains a note name.
 
 
 The relative conversion will not affect @code{\transpose},
-@code{\chords} or @code{\relative} sections in its argument.  If you
-want to use relative within transposed music, you must place an
-additional @code{\relative} inside the @code{\transpose}.
+@code{\chords} or @code{\relative} sections in its argument.  To use
+relative within transposed music, an additional @code{\relative} must
+be placed inside @code{\transpose}.
 
 @node Octave check
 @subsection Octave check
@@ -702,10 +733,13 @@ Bar checks can also be used in lyrics, for example
 
 Failed bar checks are caused by entering incorrect
 durations. Incorrect durations often completely garble up the score,
-especially if it is polyphonic, so you should start correcting the
-score by scanning for failed bar checks and incorrect durations.  To
-speed up this process, you can use @code{skipTypesetting}, described
-in the next section.
+especially if it is polyphonic, so a good place to correcting input is
+by scanning for failed bar checks and incorrect durations.  To speed
+up this process, the @code{skipTypesetting} feature may be used. It is
+described in the next section.
+
+@cindex @code{|}
+@cindex @code{pipeSymbol}
 
 It is also possible to redefine the meaning of @code{|}. This is done
 by assigning a music expression to @code{pipeSymbol},
@@ -730,7 +764,7 @@ been checked for errors
 \relative c'' {
   c8 d
   \set Score.skipTypesetting = ##t
-  e f g a g c, f e d
+  e e e e e e e e
   \set Score.skipTypesetting = ##f
   c d b bes a g c2 }
 @end lilypond
@@ -761,11 +795,14 @@ is off.
 @refbugs
 
 Not all durations (especially those containing tuplets) can be
-represented exactly; the engraver will not insert tuplets. 
+represented exactly with normal notes and dots, but the engraver will
+not insert tuplets.
 
 @seealso
 
 Examples: @inputfileref{input/regression,completion-heads.ly}.
+
+@noindent
 
 Program reference: @internalsref{Completion_heads_engraver}.
 
