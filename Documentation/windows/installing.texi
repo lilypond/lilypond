@@ -416,3 +416,25 @@ following commands:
 @end example
 @end quotation
 @end itemize
+
+The file @file{bug.txt} should contain information on your system
+(check that).  Send your problem together with @file{bug.txt} to
+@email{lilypond-user@@gnu.org}.
+
+Be sure to turn off HTML email.  It is very annoying.  For reasons
+unknown to man, most Windows email clients have that turned on by
+default.
+
+If you are using Microsoft Outlook (Express), you can send normal
+plain text messages by clicking through the menus
+Tools/Options/Send/Mail Sending Format/Plain Text, with options:
+@quotation
+@example
+Set Message format as MIME, set "Encode text using:" to None.  Set
+Automatically wrap text at 70, and > is used to indent original text.
+@end example
+@end quotation
+Easy instructions for various email clients can be found at
+@uref{http://helpdesk.rootsweb.com/listadmins/plaintext.html,
+helpdesk.rootsweb.com}.
+
