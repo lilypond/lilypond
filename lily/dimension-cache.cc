@@ -78,10 +78,15 @@ Dimension_cache::absolute_coordinate () const
   return r;
 }
 
+/*
+  what *should* these functions *do* anyway.
+ */
 Real
 Dimension_cache::relative_coordinate (Dimension_cache *d) const
 {
   Real r =0.0;
+  if (d == this)		// UGH
+    return 0.0;
 
   for (Dimension_cache* c = parent_l_;
        c != d;

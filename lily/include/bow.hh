@@ -31,7 +31,7 @@ public:
 
 protected:
   virtual Molecule* do_brew_molecule_p () const;
-  virtual Interval do_width () const;    
+  //  virtual Interval do_width () const;    
   Array<Offset> get_controls () const;
   virtual Array<Offset> get_encompass_offset_arr () const;
   virtual Interval do_height () const;

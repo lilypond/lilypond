@@ -12,7 +12,7 @@
 
 #include "bar-script-engraver.hh"
 
-/**
+/**Print rehearsal marks.
   */
 class Mark_engraver : public Bar_script_engraver 
 {

@@ -9,6 +9,7 @@
 
 #include "bar-script-engraver.hh"
 #include "bar.hh"
+#include "clef-item.hh"
 #include "g-staff-side.hh"
 #include "g-text-item.hh"
 #include "lily-guile.hh"
@@ -18,31 +19,69 @@ Bar_script_engraver::Bar_script_engraver ()
   axis_ = Y_AXIS;
   staff_side_p_ = 0;
   text_p_ =0;
+  hang_on_clef_b_ = false;
   visibility_lambda_ 
     = gh_eval_str ("non_postbreak_visibility");
 }
 
 void
-Bar_script_engraver::acknowledge_element (Score_element_info i)
+Bar_script_engraver::do_creation_processing ()
+{
+  Scalar prop = get_property (type_ + "HangOnClef", 0);
+  if (prop.to_bool ())
+    {
+      hang_on_clef_b_ = true;
+    }
+}
+
+void
+Bar_script_engraver::do_acknowledge_element (Item *i)
 {
   Axis other_axis = Axis((axis_ + 1)%2);
-  
   if (staff_side_p_ && !staff_side_p_->dim_cache_[other_axis].parent_l_) 
     {
-      Bar * bar_l = dynamic_cast<Bar*> (i.elem_l_);
-      if (!bar_l)
+      staff_side_p_->dim_cache_[other_axis].parent_l_
+	= &i->dim_cache_[other_axis];
+      staff_side_p_->dim_cache_[axis_].parent_l_
+	=  &i->dim_cache_[axis_];	  
+
+      staff_side_p_->add_support (i);
+      i->add_dependency (staff_side_p_); // UGH. 
+    }
+}
+
+
+Item*
+Bar_script_engraver::cast_to_interesting_item (Score_element *e)
+{
+  Item * i =0;
+  if (hang_on_clef_b_)
+    {
+      i = dynamic_cast<Clef_item*> (e);
+    }
+  else
+    {
+      i = dynamic_cast<Bar*> (e);
+    }
+  return i;
+}
+					       
+void
+Bar_script_engraver::acknowledge_element (Score_element_info inf)
+{
+  if (inf.origin_grav_l_arr_.size () == 1)
+    {
+      Item *i=cast_to_interesting_item (inf.elem_l_);
+      if (!i)
 	return;
-      
+
       /* Only put numbers on bars that are at our own level (don't put
 	 numbers over the staffs of a GrandStaff, only over the GrandStaff
 	 itself */
-      if (i.origin_grav_l_arr_.size () == 1)
-	{
-	  staff_side_p_->dim_cache_[other_axis].parent_l_ =  &bar_l->dim_cache_[other_axis];
-	  //	  staff_side_p_->dim_cache_[axis_].parent_l_ =  &bar_l->dim_cache_[axis_];	  
-	  staff_side_p_->add_support (i.elem_l_);
-	  bar_l->add_dependency (staff_side_p_); // UGH. 
-	}
+      if (inf.origin_grav_l_arr_.size () != 1)
+	return;
+
+      do_acknowledge_element (i);
     }
 }
 
