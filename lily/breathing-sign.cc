@@ -24,7 +24,7 @@
 #include "font-interface.hh"
 
 /*
-  TODO: thickness should be a grob property (unit: stafflinethickness)
+  TODO: thickness should be a grob property (unit: linethickness)
  rather than hardwired to (staff_space / 6).
  */
 

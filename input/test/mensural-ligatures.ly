@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.14"
 % TODO:
 % check with ancient- stuff.  rename, merge, something.  -gp
 
@@ -45,7 +45,7 @@ voice = \notes \transpose c c' {
 	>>
     >>
     \paper {
-	stafflinethickness = \staffspace / 5.0
+	linethickness = \staffspace / 5.0
 	\translator {
 	    \VoiceContext
 	    \name MensuralVoice

@@ -56,7 +56,6 @@ for name in [
 for name in [
 'ly/declarations-init.ly',
 'ly/params-init.ly',
-'ly/params-as-init.ly',
 ]:
     F = open(name, 'r')
     for line in F.readlines():
