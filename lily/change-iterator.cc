@@ -65,7 +65,7 @@ Change_iterator::process (Moment m)
     if (last)
       {
 	Context * dest = 
-	  get_outlet ()->find_create_context (to_type, to_id, SCM_EOL);
+	  get_outlet ()->find_existing_context (to_type, to_id, SCM_EOL);
 	current->remove_context (last);
 	dest->add_context (last);
       }

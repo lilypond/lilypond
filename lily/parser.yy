@@ -793,6 +793,10 @@ Repeated_music:
 		r-> set_property ("elements",alts);
 		if (gh_equal_p ($2, scm_makfrom0str ("tremolo"))) {
 			/*
+			TODO: move this code to Scheme.
+			*/
+
+			/*
 			we can not get durations and other stuff correct down the line, so we have to
 			add to the duration log here.
 			*/
