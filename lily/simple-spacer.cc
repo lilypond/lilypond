@@ -254,7 +254,7 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
 	  continue;
 	}
 
-      if (!desc.sane_b ())
+      if (!desc.is_sane ())
 	{
 	  programming_error ("Insane spring found. Setting to unit spring.");
 
@@ -395,7 +395,7 @@ Spring_description::Spring_description ()
 
 
 bool
-Spring_description::sane_b () const
+Spring_description::is_sane () const
 {
   return (hooke_ > 0) &&  !isinf (ideal_) && !isnan (ideal_);
 }

@@ -90,8 +90,6 @@ public:
     */
   void add_dependency (Grob*);    
   virtual System * get_system () const;
-  bool linked_b () const;
-
 
   VIRTUAL_COPY_CONS (Grob);
  

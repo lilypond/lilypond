@@ -58,7 +58,7 @@ struct Interval_t : public Drul_array<T> {
     TODO: strip hungarian suffix.
    */
   bool is_empty () const { return elem (LEFT) > elem (RIGHT); }
-  bool contains_b (Interval_t<T> const&) const;
+  bool superset (Interval_t<T> const&) const;
   Interval_t () {
     set_empty ();
   }

@@ -131,7 +131,7 @@ System::output_lines ()
 	    Kill no longer needed grobs. 
 	   */
 	  Item * it = dynamic_cast<Item*> (g);
-	  if (it && Item::breakable_b(it))
+	  if (it && Item::is_breakable (it))
 	    {
 	      it->find_prebroken_piece (LEFT)->suicide();
 	      it->find_prebroken_piece (RIGHT)->suicide();
@@ -570,7 +570,7 @@ System::broken_col_range (Item const*l, Item const*r) const
   while (gh_pair_p (s) && ly_car (s) != l->self_scm ())
     {
       Paper_column*c = dynamic_cast<Paper_column*> (unsmob_grob (ly_car (s)));
-      if (Item::breakable_b (c) && !c->system_)
+      if (Item::is_breakable (c) && !c->system_)
 	ret.push (c);
 
       s = ly_cdr (s);
@@ -592,7 +592,7 @@ System::columns ()const
   bool bfound = false;
   for (int i= acs.size (); i -- ;)
     {
-      bool brb = Item::breakable_b (acs[i]);
+      bool brb = Item::is_breakable (acs[i]);
       bfound = bfound || brb;
 
       /*

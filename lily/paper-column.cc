@@ -99,7 +99,7 @@ Paper_column::is_musical (Grob *me)
 bool
 Paper_column::is_used (Grob*me)
 {
-  return gh_pair_p (me->get_grob_property ("elements")) ||  Item::breakable_b (me)
+  return gh_pair_p (me->get_grob_property ("elements")) ||  Item::is_breakable (me)
     || gh_pair_p (me->get_grob_property ("bounded-by-me"))
     ;
 }

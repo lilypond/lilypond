@@ -141,7 +141,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
   *space = (base_space - increment) + *fixed ;
 
   if (!extents[RIGHT].is_empty ()
-      && (Item::breakable_b (right_col)
+      && (Item::is_breakable (right_col)
 	  || right_col->original_))
     {
       /*

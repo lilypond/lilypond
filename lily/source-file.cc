@@ -166,7 +166,7 @@ Source_file::~Source_file ()
 Slice
 Source_file::line_slice (char const* pos_str0) const
 {
-  if (!in_b (pos_str0))
+  if (!contains (pos_str0))
     return Slice (0,0);
 
   char const* data_str0 = to_str0 ();
@@ -196,7 +196,7 @@ Source_file::line_slice (char const* pos_str0) const
 String
 Source_file::line_string (char const* pos_str0) const
 {
-  if (!in_b (pos_str0))
+  if (!contains (pos_str0))
     return "";
 
   Slice line = line_slice (pos_str0);
@@ -207,7 +207,7 @@ Source_file::line_string (char const* pos_str0) const
 int
 Source_file::get_char (char const* pos_str0) const
 {
-  if (!in_b (pos_str0))
+  if (!contains (pos_str0))
     return 0;
 
   char const* data_str0 = to_str0 ();
@@ -217,7 +217,7 @@ Source_file::get_char (char const* pos_str0) const
 int
 Source_file::get_column (char const* pos_str0) const
 {
-  if (!in_b (pos_str0))
+  if (!contains (pos_str0))
     return 0;
 
   int ch_i = get_char (pos_str0);
@@ -236,7 +236,7 @@ Source_file::get_column (char const* pos_str0) const
 String
 Source_file::error_string (char const* pos_str0) const
 {
-  if (!in_b (pos_str0))
+  if (!contains (pos_str0))
     return " (" + _ ("position unknown") + ")";
 
   int ch_i = get_char (pos_str0);
@@ -250,7 +250,7 @@ Source_file::error_string (char const* pos_str0) const
 }
 
 bool
-Source_file::in_b (char const* pos_str0) const
+Source_file::contains (char const* pos_str0) const
 {
   return (pos_str0 && (pos_str0 >= to_str0 ()) && (pos_str0 <= to_str0 () + length ()));
 }
@@ -258,7 +258,7 @@ Source_file::in_b (char const* pos_str0) const
 int
 Source_file::get_line (char const* pos_str0) const
 {
-  if (!in_b (pos_str0))
+  if (!contains (pos_str0))
     return 0;
 
   if (!newline_locations_.size())
@@ -298,7 +298,7 @@ Source_file::to_str0 () const
 void
 Source_file::set_pos (char const * pos_str0)
 {
-  if (in_b (pos_str0))
+  if (contains (pos_str0))
     pos_str0_ = pos_str0;
   else
     error (error_string (pos_str0) + "invalid pos");
@@ -310,7 +310,7 @@ Source_file::seek_str0 (int n)
   char const* new_str0 = to_str0 () + n;
   if (n < 0)
     new_str0 += length ();
-  if (in_b (new_str0))
+  if (contains (new_str0))
     pos_str0_ = new_str0;
   else
     error (error_string (new_str0) + "seek past eof");
@@ -323,7 +323,7 @@ Source_file::forward_str0 (int n)
 {
   char const* old_pos = pos_str0_;
   char const* new_str0 = pos_str0_ + n;
-  if (in_b (new_str0))
+  if (contains (new_str0))
     pos_str0_ = new_str0;
   else
     error (error_string (new_str0)  + "forward past eof");

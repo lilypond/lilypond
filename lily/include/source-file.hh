@@ -29,7 +29,7 @@ public:
   char const* to_str0 () const;
   virtual String error_string (char const* pos_str0 ) const;
   std::istream * get_istream ();
-  bool in_b (char const* pos_str0 ) const;
+  bool contains (char const* pos_str0 ) const;
   int length () const;
   virtual int get_line (char const* pos_str0 ) const;
   String name_string () const;

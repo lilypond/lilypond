@@ -129,7 +129,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
       return ;
     }
   
-  bool ib =Item::breakable_b (it);
+  bool ib =Item::is_breakable (it);
   Item *&p_ref_ (ib ? break_item_
 		 : musical_item_);
 

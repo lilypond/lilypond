@@ -121,8 +121,8 @@ loose_column (Grob *l, Grob *c, Grob *r)
     some cases (two isolated, consecutive clef changes) won't be
     nicely folded, but hey, then don't do that.
   */
-  if(!  ((Paper_column::is_musical (l_neighbor) || Item::breakable_b (l_neighbor))
-	 && (Paper_column::is_musical (r_neighbor) || Item::breakable_b (r_neighbor))) )
+  if(!  ((Paper_column::is_musical (l_neighbor) || Item::is_breakable (l_neighbor))
+	 && (Paper_column::is_musical (r_neighbor) || Item::is_breakable (r_neighbor))) )
     {
       return false;
     }
@@ -167,7 +167,7 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
   Real increment = robust_scm2double (me->get_grob_property ("spacing-increment"), 1.2);
   for (int i=0; i < cols->size ();  i++)
     {
-      if (Item::breakable_b (cols->elem(i)) || Paper_column::is_musical (cols->elem (i)))
+      if (Item::is_breakable (cols->elem(i)) || Paper_column::is_musical (cols->elem (i)))
 	{
 	  newcols.push (cols->elem(i));
 	  continue;
@@ -339,7 +339,7 @@ Spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> cols)
   for (int i = 0; i < cols.size (); i++)
     {
       Item * it = dynamic_cast<Item*>(cols[i]);
-      if (!Item::breakable_b (it) && !Paper_column::is_musical (it))
+      if (!Item::is_breakable (it) && !Paper_column::is_musical (it))
 	continue;
 
       // it->breakable || it->musical
@@ -394,7 +394,7 @@ Spacing_spanner::set_springs (SCM smob)
   for (int i = 1; i < all.size (); i++)
     {
       Grob *sc = all[i];
-      if (Item::breakable_b (sc))
+      if (Item::is_breakable (sc))
         {
 	  Link_array<Grob> measure (all.slice (j, i+1));	  
           do_measure (global_shortest, me, &measure);
@@ -446,7 +446,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
 	  shortest_in_measure = shortest_in_measure <? this_shortest.main_part_;
 	}
       else if (!shortest_in_measure.is_infinity ()
-	       && Item::breakable_b (cols[i]))
+	       && Item::is_breakable (cols[i]))
 	{
 	  int j = 0;
 	  for (; j < durations.size(); j++)
@@ -688,7 +688,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
   while (flip (&d) != LEFT);
   
 
-  if (l->breakable_b (l) && r->breakable_b(r))
+  if (l->is_breakable (l) && r->is_breakable (r))
     {
       Moment *dt = unsmob_moment (l->get_grob_property ("measure-length"));
       Moment mlen (1);

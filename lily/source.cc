@@ -78,7 +78,7 @@ Sources::get_sourcefile (char const* str0)
 {
 
   for (Cons<Source_file> *i = sourcefile_list_; i; i = i->next_)
-    if (i->car_->in_b (str0))	
+    if (i->car_->contains (str0))	
       return i->car_;
   return 0;
 }
