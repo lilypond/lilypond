@@ -1,5 +1,10 @@
 2003-05-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/refman.itely (Repeat syntax): more updates
+
+	* lily/simple-spacer.cc (solve): move solution process into
+	solve(). This fixes a bug with collisions and raggedright = ##t.
+ 
 	* scm/lily.scm (scm): remove output-pysk.scm, music-types.scm
 
 	* ly/engraver-init.ly: remove GraceContext. Update examples.
