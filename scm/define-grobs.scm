@@ -120,7 +120,7 @@
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . 1)
 	(font-family . number)
-	(font-relative-size . -1)
+	(font-relative-size . -3)
 	(kern . 0.2)
 	(meta . ((interfaces . (text-interface 							rhythmic-grob-interface
 												bass-figure-interface item-interface
