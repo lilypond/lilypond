@@ -72,6 +72,22 @@ public:
    */
   SCM get_elt_property (String nm) const;
   void set_elt_property (String, SCM val);
+
+  /**
+     UGH! JUNKME ?
+
+     This gets messy because it changes state
+
+     calling 
+
+     Bar::proc ()
+     {
+       s->remove_elt_property ("foo")
+     } 
+
+     twice may do weird things if Bar::foo has a default set.
+     
+   */
   SCM remove_elt_property (String nm);
 
   void Score_element::set_real (String, Real);
