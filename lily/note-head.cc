@@ -56,15 +56,8 @@ void
 Note_head::before_line_breaking ()
 {
   // 8 ball looks the same as 4 ball:
-  String type; 
-  SCM style  = get_elt_property ("style");
-  if (gh_string_p (style))
-    {
-      type = ly_scm2string (style);
-    }
   
-  
-  if (balltype_i () > 2 || type == "harmonic" || type == "cross")
+  if (balltype_i () > 2)
     set_elt_property ("duration-log", gh_int2scm (2));
 
   if (Dots *d = dots_l ())
