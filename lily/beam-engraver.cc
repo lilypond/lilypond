@@ -48,6 +48,7 @@ protected:
   virtual void create_grobs ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);
+  virtual void process_music ();
 
 public:
   Beam_engraver ();
@@ -114,9 +115,8 @@ Beam_engraver::set_melisma (bool m)
   daddy_trans_l_->set_property ("beamMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
-
 void
-Beam_engraver::create_grobs ()
+Beam_engraver::process_music ()
 {
   if (reqs_drul_[STOP])
     {
@@ -145,7 +145,12 @@ Beam_engraver::create_grobs ()
       else
 	e->forbid_breaks ();
     }
-  
+}
+
+
+void
+Beam_engraver::create_grobs ()
+{
   if (reqs_drul_[START])
     {
       if (beam_p_)
