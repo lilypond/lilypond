@@ -43,22 +43,10 @@ compressmusic = #(def-music-function
 		  (location fraction music) (number-pair? ly:music?)
 		  (ly:music-compress music (ly:make-moment (car fraction) (cdr fraction))))
 
+makeClusters = #(def-music-function
+		(location arg) (ly:music?)
+		(music-map note-to-cluster arg))
 
-%% \mytag #'foo { ... } ==> OK
-%% c-\mytag #'foo ^4    ==> KO
-%{
-#(use-modules (srfi srfi-1))
-#(define-public (symbol-or-symbols? obj)
-  "Return #t iif obj is a symbol or a symbol list."
-  (or (symbol? obj)
-      (and (list? obj)
-           (null? (remove symbol? obj)))))
-
-mytag = #(def-music-function (location tagname music) (symbol-or-symbols? ly:music?)
-        (set! (ly:music-property music 'tags)
-              ((if (list? tagname) append cons) tagname (ly:music-property music 'tags)))
-        music)
-%}
 
 %{
 
