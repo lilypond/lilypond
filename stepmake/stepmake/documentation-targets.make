@@ -1,6 +1,7 @@
 
 default:
 
+# UGH. 
 include $(stepdir)/www-targets.make
 
 local-WWW: $(OUTHTML_FILES) footify
