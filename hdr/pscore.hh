@@ -3,7 +3,7 @@
 #ifndef PSCORE_HH
 #define PSCORE_HH
 
-
+#include "break.hh"
 #include "vray.hh"
 #include "pcol.hh"
 #include "pstaff.hh"
@@ -54,16 +54,11 @@ struct PScore {
     /// after calc_breaking
     void postprocess();
     
-    /// search all pcols which are breakable.
-    svec< PCol *> find_breaks() const;
-
     /// add a line to the broken stuff. Positions given in #config#
-    void add_line(svec< PCol *> curline, svec<Real> config);
-
-    /// helper: solve for the columns in #curline#.
-    svec<Real> solve_line(svec<PCol *> curline) const;
+    void set_breaking(svec< Col_configuration> );
 
     void add(PStaff *);
+    
     /// add item
     void typeset_item(Item *,  PCol *,PStaff*,int=1);
 
@@ -88,19 +83,13 @@ struct PScore {
     /// delete unused columns
     void clean_cols();
 
-
-    /// check if the spacing/breaking problem is well-stated
-    void problem_OK() const;
-
     /// invarinants
     void OK()const;
+
     PScore(Paperdef*);
     void print() const;
 
-    /// does curline fit on the paper?
-    bool feasible(svec<PCol *> curline) const;
-
-    /// which is first (left, higher)
+        /// which is first (left, higher)
     int compare_pcols( PCol*, PCol*)const;
 };
 /** notes, signs, symbols in a score can be grouped in two ways:
