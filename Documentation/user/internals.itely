@@ -883,11 +883,14 @@ LilyPond input to other formats  (@inputfileref{input/test,to-xml.ly})
 @cindex string
 @cindex concatenate
 
-Begins and ends with the @code{"} character.  To include a @code{"}
-character in a string write @code{\"}.  Various other backslash
-sequences have special interpretations as in the C language.  A string
-that contains no spaces can be written without the quotes.  Strings can
-be concatenated with the @code{+} operator.
+By enclosing text in quotes (@code{"}), strings are formed.  To
+include a @code{"} character in a string write @code{\"}.  Various
+other backslash sequences have special interpretations as in the C
+language.  A string that does not contain spaces or special characters
+can be written without the quotes. The exact form of such unquoted
+strings depends on the input mode; there are different rules for
+lyrics, notes and markups.  Strings can be concatenated with the
+@code{+} operator.
 
 
 @node Output details

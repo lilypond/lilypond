@@ -2762,6 +2762,13 @@ staff are squashed, and the staff itself has a single line:
   }
 @end lilypond
 
+@seealso
+
+Internals: @internalsref{RhythmicStaff}.
+
+Examples: @inputfileref{input/regression,rhythmic-staff.ly}.
+
+
 @menu
 * Percussion staves::           
 * Percussion MIDI output::      

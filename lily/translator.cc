@@ -94,7 +94,7 @@ Translator:: stop_translation_timestep ()
   - It is called before try_music()
 
   - It is called before any user information enters the translators.
-  (i.e. any \property is not processed yet.)
+  (i.e. any \property or event is not processed yet.)
 
   */
 void
