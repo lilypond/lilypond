@@ -138,7 +138,7 @@ Score_element::print() const
 {
 #ifndef NPRINT
   DOUT << classname(this) << "{\n";
-  if (check_debug && !monitor->silent_b ("Score_element"))
+  if (check_debug && !lily_monitor->silent_b ("Score_element"))
     ly_display_scm (element_property_alist_);
   DOUT << "dependencies: " << dependency_size();
   if (original_l_)

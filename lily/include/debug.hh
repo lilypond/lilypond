@@ -22,15 +22,15 @@ extern ostream &warnout ;
 extern ostream *mlog;
 
 // debugging
-extern Dstream *monitor; // monitor
+extern Dstream *lily_monitor; // monitor
 
 #ifdef NPRINT
 /** 
   Global debug output. Compare with cin, cout, cerr, DOUT is DEBUG OUTPUT
  */
-#define DOUT if (0) *monitor	// clever hack 
+#define DOUT if (0) *lily_monitor	// clever hack 
 #else
-#define DOUT if (check_debug) monitor->identify_as (__PRETTY_FUNCTION__)
+#define DOUT if (check_debug) lily_monitor->identify_as (__PRETTY_FUNCTION__)
 #endif
 
 extern bool check_debug;

@@ -26,7 +26,7 @@ Bow::do_brew_molecule_p () const
 {
   Real thick = paper_l ()->get_var ("slur_thickness");
   Array<Offset> c = get_controls ();
-  Real dy = c[3].y () - c[0].y ();
+
   Molecule a;
 
   SCM d =  get_elt_property (dashed_scm_sym);
@@ -35,17 +35,6 @@ Bow::do_brew_molecule_p () const
   else
     a = lookup_l ()->dashed_slur (c, thick, gh_scm2int (SCM_CDR(d)));
 
-  if (check_debug && !monitor->silent_b ("Bow"))
-    {
-      static int i = 1;
-      cout << "******" << i++ << "******" << endl;
-      cout << "c0.y: " << c[0].y () << endl;
-      cout << "c3.y: " << c[3].y () << endl;
-      cout << "dy: " << dy << endl;
-      cout << "dy_f_l: " << dy_f_drul_[LEFT] << endl;
-      cout << "dy_f_r: " << dy_f_drul_[RIGHT] << endl;
-      cout << "dy_f: " << dy_f_drul_[RIGHT] - dy_f_drul_[LEFT] << endl;
-    }
   return new Molecule (a); 
 }
 

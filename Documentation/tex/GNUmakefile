@@ -42,7 +42,6 @@ OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 # URG.  Lilypond specific. Move out. 
 $(outdir)/%.html: %.data $(depth)/VERSION
 	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' -o $@ $<
-	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) $@
 
 $(outdir)/%.latex: %.data $(depth)/VERSION
 	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep=''  -o $@ --format=latex $<
@@ -55,7 +54,6 @@ local-WWW: $(HTML_FILES)   $(datafiles) $(PS_GZ_FILES)
 	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation about LilyPond' \
 	   $(DOC_FILES) $(TEX_FILES) $(TELY_FILES) \
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
-	  $(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) $(outdir)/index.html
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@

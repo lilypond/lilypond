@@ -1,3 +1,6 @@
+pl 6.uu1
+	- website fixes.
+
 pl 5.hwn1
 	- more .texi; yodl completely removed.
 	- rm'd several doc stuff: engraving.yo, gnu-page.yo, translated blurbs (leave it to translation project)
@@ -12,6 +15,7 @@ pl 5.jcn1
 	- website/doco fixes
 	- bf: package-diff.py
 
+************
 
 pl 4.hwn1
 	- bf: repeats.

@@ -24,7 +24,6 @@ local-WWW: #index.html
 
 index.html: check-top-web NEWS
 	$(sed-version) < Documentation/topdocs/$(outdir)/topweb.html > $@
-	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) --index=Documentation/top-docs/out-www/index.html $@
 
 WWW-clean: local-WWW-clean
 	$(MAKE) CONFIGSUFFIX='www' clean

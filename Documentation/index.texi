@@ -32,11 +32,9 @@ version this was.
 @unnumberedsubsec Why: Background Information
 
 @itemize @bullet
-@item  @uref{AIMS.html,Why?}
-@item @uref{../pictures/out-www/lelieblond.png,The lilypond
-  logo (Big, format: .png)}
-@item @uref{../pictures/out-www/lelie_logo.png,The lilypond
-  logo (medium size, format: .png)}
+@item  @uref{AIMS.txt,Why?}
+@item @uref{../pictures/out-www/lelieblond.png,The logo} large size}
+@item @uref{../pictures/out-www/lelie_logo.png,The logo} medium size}
 @end itemize
 
 @unnumberedsubsec Documentation: manuals
@@ -52,8 +50,8 @@ version this was.
 @unnumberedsubsec The program
 
 @itemize @bullet
-@item @uref{TODO.html,The TODO list}
-@item @uref{NEWS.html,The Change log}
+@item @uref{TODO.txt,The TODO list}
+@item @uref{CHANGES.txt,The Change log}
 @item @uref{internals.html,About internal structures}
 @item @uref{CodingStyle.html,The coding standards of the lilypond project}
 @item @uref{../topdocs/out-www/AUTHORS.html,The Authors}

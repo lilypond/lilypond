@@ -109,9 +109,9 @@ My_lily_lexer::lookup_identifier (String s)
 void
 My_lily_lexer::start_main_input ()
 {  
-  if (!monitor->silent_b ("InitDeclarations") && check_debug)
+  if (!lily_monitor->silent_b ("InitDeclarations") && check_debug)
     print_declarations (true);
-  if (!monitor->silent_b ("InitLexer") && check_debug)
+  if (!lily_monitor->silent_b ("InitLexer") && check_debug)
     set_debug (1);
 
 

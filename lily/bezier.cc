@@ -16,7 +16,7 @@
 #include "paper-def.hh"
 #include "debug.hh"
 #include "main.hh"
-#define BEZIER_BOW_DOUT if (check_debug && !monitor->silent_b ("Bezier_bow")) cout
+#define BEZIER_BOW_DOUT if (check_debug && !lily_monitor->silent_b ("Bezier_bow")) cout
 #else
 #define BEZIER_BOW_DOUT cerr
 #endif
@@ -30,6 +30,12 @@
   * exact height / tangent calculation
 
  */
+
+
+/*
+  UGH. Clean up debugging junk.
+  */
+
 
 void
 Curve::flipy ()
@@ -99,7 +105,7 @@ void
 Bezier::print () const
 {
 #ifndef NPRINT
-  if (check_debug && !monitor->silent_b ("Bezier_controls"))
+  if (check_debug && !lily_monitor->silent_b ("Bezier_controls"))
     {
       if (control_[1].length ())
         {
@@ -240,9 +246,9 @@ void
 Bezier_bow::calc ()
 {
 #ifndef NPRINT
-//  if (check_debug && !monitor->silent_b ("Bezier_bow_controls"))
-  if (check_debug && !(monitor->silent_b ("Bezier_controls")
-    && monitor->silent_b ("Bezier_bow_controls")))
+//  if (check_debug && !lily_monitor->silent_b ("Bezier_bow_controls"))
+  if (check_debug && !(lily_monitor->silent_b ("Bezier_controls")
+    && lily_monitor->silent_b ("Bezier_bow_controls")))
     {
       cout << "Before transform*********\n";
       print ();
@@ -269,9 +275,9 @@ Bezier_bow::calc ()
   print ();
   transform_back ();
 #ifndef NPRINT
-//  if (check_debug && !monitor->silent_b ("Bezier_bow_controls"))
-  if (check_debug && !(monitor->silent_b ("Bezier_controls")
-    && monitor->silent_b ("Bezier_bow_controls")))
+//  if (check_debug && !lily_monitor->silent_b ("Bezier_bow_controls"))
+  if (check_debug && !(lily_monitor->silent_b ("Bezier_controls")
+    && lily_monitor->silent_b ("Bezier_bow_controls")))
     {
       cout << "After transform*********\n";
       print ();
@@ -544,7 +550,7 @@ Bezier_bow::print () const
 {
 #ifndef NPRINT
   Bezier::print ();
-  if (check_debug && !monitor->silent_b ("Bezier_bow_controls"))
+  if (check_debug && !lily_monitor->silent_b ("Bezier_bow_controls"))
     {
       cout << "Bezier_bow\n";
       cout << "Encompass: ";

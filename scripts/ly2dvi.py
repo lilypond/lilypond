@@ -1,5 +1,8 @@
 #!@PYTHON@
 
+
+# TODO: Rewrite this.  The control structure is too hairy.
+
 """
 =======================================================================
 LilyPond to dvi converter
@@ -468,7 +471,8 @@ class Properties:
         if os.environ.has_key('TMP'):
             this.__set('tmp',os.environ['TMP'],'environment')
 
-        
+
+    def read_titledefs (this):
 	fd=this.get_texfile_path ('titledefs.tex')
         mudefs=[]    
 
@@ -953,7 +957,7 @@ def identify ():
     sys.stderr.write (program_id () + '\n')
 
 def print_version ():
-    sys.stdout.write (program_id ())
+    sys.stdout.write (program_id () + '\n')
 
 def help ():
     sys.stdout.write (
@@ -1046,7 +1050,8 @@ def main():
 	    return 0
 	    
     identify()
-	    
+    Props.read_titledefs ()
+    
     if len(files):
         for file in files:
             infile.open(file)

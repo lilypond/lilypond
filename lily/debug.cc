@@ -21,7 +21,7 @@
 #include "misc.hh"
 #include "main.hh"
 
-Dstream *monitor=0;
+Dstream *lily_monitor=0;
 ostream * nulldev =0;
 
 
@@ -30,12 +30,12 @@ struct _Dinit {
   _Dinit()
     {
 	nulldev = new ofstream ("/dev/null");
-	monitor = new Dstream (&cout,".dstreamrc");
+	lily_monitor = new Dstream (&cout,".dstreamrc");
     }
   ~_Dinit()
     {
 	delete nulldev;
-	delete monitor;
+	delete lily_monitor;
     }
 } dinit;
 
@@ -65,7 +65,7 @@ debug_init()
   // libg++ 2.8.0 doesn't have set_new_handler
   // set_new_handler (&mynewhandler);
 #endif
-  set_flower_debug (*monitor, check_debug);
+  set_flower_debug (*lily_monitor, check_debug);
 
   signal (SIGFPE, float_handler);
 }
@@ -132,7 +132,7 @@ void
 set_debug (bool b)
 {
   check_debug =b;
-  set_flower_debug (*monitor, check_debug);
+  set_flower_debug (*lily_monitor, check_debug);
 #ifdef MEMORY_PARANOID
   if (check_malloc_b)
     if (mcheck (0))

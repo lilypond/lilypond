@@ -1,0 +1,214 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename index.info
+@settitle LilyPond Windows NT 4-0/95 Distribution
+
+@chapter LilyPond Windows NT 4.0/95 Distribution
+
+This page documents the NT port of LilyPond.  It reflects  the latest
+version of lilypond that was ported.
+
+@section Windows NT/95 Binary Distribution
+
+
+This page is dedicated to the distribution of precompiled and
+preformatted LilyPond binaries for Windows NT 4.0 .  This package is
+covered under the GNU General Public License and all of the source is
+available on the official
+@uref{http://www.cs.ruu.nl/people/hanwen/lilypond/index.html,LilyPond
+Homepage}.  A full set of
+@uref{http://www.cs.ruu.nl/people/hanwen/lilypond/Documentation/tex/out-www/index.html,documentation}
+in various formats is also available.
+
+
+    LilyPond is a music typesetter.  It produces beautiful sheet music
+using a high level description file as input.  LilyPond is part of 
+the GNU Project.
+
+
+
+
+@table @samp
+ @item BUG FIXES
+  @itemize @bullet
+   @item
+      @code{os.rename(this.__base + '.' + str(os.getpid()) + '.dvi', outfile)  
+        os.error: (2, 'No such file or directory')}
+        This problem was reported by many and thoroughly debugged by
+	Wolf Lother.  We have abandoned the use of @code{os.getpid()}, which
+	for one reason or another resulted in negative numbers on
+	windows 95, in favor of the tempfile module.  We have also
+        attempted to use only one '.' in naming temporary files.
+  @end itemize
+@end table
+
+@table @samp
+ @item NOTES
+  @itemize @bullet  
+   @item  We have had preliminary reports that the Windows 95
+        installation works on Windows 98.  Many thanks to Christian
+        Mondrup. 
+
+   @item  Please use the Add/Remove program control panel entry to
+        unistall your current version of Lilypond before you attempt to
+	install this one.
+
+   @item  If you are upgrading from a previous version of lilypond you will most
+	likely need to flush your font cache.  I generally just toss
+	@file{D:\localtexmf\fonts\tfm\public\ehrhardt} and
+	@file{D:\localtexmf\fonts\pk\ljfour\public\ehrhardt} in the Recyle
+	Bin. Your local font directory may be different, please refer to your
+	local installation of @code{TeX}.
+
+   @item  The FAT16, FAT32, and NTFS file system problems have been
+	corrected.  I have tested various installations that are known
+	to be operational.  
+  @end itemize 
+@end table
+  
+The installer was created with
+@uref{http://www.gentee.com/,CreateInstall}.  This is a shareware
+application that has capabilities close to the high dollar installers
+@strong{InstallShield}, @strong{Install Vise}, and @strong{WiseInstaller}.
+@strong{CreateInstall} does cost $38 to register which is probably going to
+be frowned upon, but I was unable to find a freeware install builder
+that was suitable.  The self extracting distribution currently:
+
+@itemize @bullet
+ @item  Installs the lilypond distribution on any valid file system.
+ @item  Optionally creates a @emph{Lilypond} shortcut group on your start
+      menu with the following shortcuts.
+  @itemize @bullet
+   @item  @strong{lilyshell}
+   @item  @strong{uninstall}
+  @end itemize
+ @item  Allows unistall through the Add/Remove Program interface on the
+      control panel.
+ @item  The @strong{lilyshell} uses the /E and /K switches to extend the
+      environment size and initialize the shell environment.
+ @item  It has the look and feel of a real Windows installer
+@end itemize
+
+The @strong{lilyshell} shortcut initializes the environment so you can
+generate music from a MSDOS prompt with commands like:
+
+@itemize @bullet
+    @item ly2dvi
+    @item convert-mudela
+    @item mudela-book
+    @item lilypond
+    @item midi2ly
+@end itemize
+
+This release has been tested on Windows NT 4.0sp3 and Windows 95 and
+found to be operational.  If you have any troubles and or comments
+please do not hesitate to drop me a line 
+@uref{mailto:daboys@@austin.rr.com,Jeffrey B. Reed}.
+
+
+
+@itemize @bullet
+
+  @item  Using any text that contains '@{@}' for the value of the any
+       valid mudela @strong{header} construct will cause @strong{ly2dvi} to
+       fail.  A work around for the @strong{latexheaders} construct is to
+       create a @strong{TeX} file and set @strong{latexheaders} to "\input
+       foo.tex". 
+@end itemize
+
+
+
+
+LilyPond uses the @code{TeX} package as its rendering engine. @code{TeX}
+represents the state-of-the-art in computer typesetting. It is used to
+generate documentation, article, and book quality output. It is an
+assume tool to have in your toolbox.
+
+LilyPond uses a @code{Python} script named @code{ly2dvi} to render a
+professional quality music score. @code{Python} is an interpreted,
+interactive, object-oriented programming language.  It is often
+compared to @code{Tcl}, @code{Perl}, @code{Scheme} or @code{Java}.
+
+Gsview is used to display and print the music scores created by
+LilyPond.
+
+@itemize @bullet
+    @item @uref{http://www.snafu.de/~cschenk/miktex/,code(MiKTeX)}. Versions
+        1.10b, 1.11, and 1.20b are known to work.
+    @item @uref{http://www.python.org,code(Python)}. Version 1.5.1 and
+	possibly 1.5 work.
+    @item @uref{http://www.cs.wisc.edu/~ghost/gsview/index.html,code(gsview)}. 
+	Version 5.10 is known to work.
+@end itemize
+
+
+
+
+@itemize @bullet
+    @item Windows 95
+        @uref{lilypond-VERSION-95.exe,lilypond-VERSION-95}
+    @item Windows NT 4.0
+        @uref{lilypond-VERSION-nt.exe,lilypond-VERSION-nt}
+@end itemize
+
+
+
+
+@itemize @bullet
+ the distribution.
+  @item run downloaded executable.  
+  @item  The first installation of LilyPond also requires these
+        additional steps:
+     @table @samp
+       @item LaTeX geometry package
+       @itemize @bullet
+         @item @uref{ftp://ctan.tug.org/tex-archive/macros/latex/contrib/supported/geometry.zip,download} the zip file to @code{\Temp}.
+         @item Extract the zip file into the LaTeX package area of
+             @code{MiKTeX}. This will be @strong{@emph{MiKTeX-dir}\tex\latex}
+         @item From a Command Prompt change directory into geometry
+             directory that was just extracted.
+         @item In the geometry directory type @strong{latex geometry.ins}
+       @end itemize 
+       @item Miscellaneous fonts
+       @itemize @bullet
+         @item In your favorite editor create a file named
+             @code{cmbx14.mf}. Add the following lines:  
+             @strong{design_size=14.4; }  
+             @strong{input b-cmbx;}
+         @item From a Command Prompt copy cmbx14.mf to the public font
+             area of MiKTeX:  
+             @strong{copy cmbx14.mf @emph{MiKTeX-dir}\fonts\source\public\cm\base}
+        @end itemize
+	@item NOTE 
+	MiKTeX-1.11 localtexmf configurations should use
+        @strong{@emph{localtexmf-dir}} in place of @strong{@emph{MiKTeX-dir}}.
+      @end table  
+ instructions below
+@end itemize
+
+
+
+
+@itemize @bullet
+  @item Take a look at @uref{angels.ly,angels.ly}
+  @item Save angels.ly to your local disk
+  @item Select the @strong{lilyshell} shortcut from the @emph{Lilypond} group  
+  @item  From a LilyPond Command Prompt run:  
+  @strong{ly2dvi angels.ly}  
+  @strong{dvips angels.dvi}  
+  @strong{start angels.ps}  
+@end itemize
+
+
+
+
+@itemize @bullet
+  @item @uref{http://www.cs.ruu.nl/people/hanwen/lilypond/index.html,LilyPond Homepage}
+  @item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/,LilyPond Ftp Site}
+  @item @uref{http://jab.org/mail/gnu-music-discuss@@gnu.org/,gnu-music-discuss mail archive}
+  @item Please feel free to mail us at @uref{mailto:gnu-music-discuss@@gnu.org,gnu-music-discuss}
+@end itemize
+
+
+
+
+@bye

@@ -9,28 +9,10 @@
 @end menu
 
 
-@node INSTALL - compiling and installing GNU LilyPond, abstract, , Top
-@menu
-* abstract::                      abstract
-* obtaining::                     obtaining
-* PREREQUISITES::                 PREREQUISITES
-* running::                       running
-* WEBSITE::                       WEBSITE
-* CONFIGURING and COMPILING::     CONFIGURING and COMPILING
-* CONFIGURING FOR MULTIPLE PLATFORMS::CONFIGURING FOR MULTIPLE PLATFORMS
-* INSTALLING::                    INSTALLING
-* REDHAT LINUX::                  REDHAT LINUX
-* DEBIAN GNU/LINUX::              DEBIAN GNU/LINUX
-* WINDOWS NT/95::                 WINDOWS NT/95
-* w32::                           w32
-* BUGS::                          BUGS
-* AUTHORS::                       AUTHORS
-@end menu
 @chapter INSTALL - compiling and installing GNU LilyPond
 
 
-@node abstract, obtaining, INSTALL - compiling and installing GNU LilyPond, INSTALL - compiling and installing GNU LilyPond
-@section abstract
+@section Abstract
 
 TODO: document xdeltas
 
@@ -41,8 +23,7 @@ e.g. when doing development, you might want to check out the
 variables and symlinks, which comes in handly when you have to compile 
 LilyPond more often.  
 
-@node obtaining, PREREQUISITES, abstract, INSTALL - compiling and installing GNU LilyPond
-@section obtaining
+@section Obtaining
 
 You can get the latest version of LilyPond at
 @url{ ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/}.  Refer to the links
@@ -51,8 +32,7 @@ document for mirror sites.
 @emph{If you upgrade by patching do remember to rerun autoconf after
 applying the patch}.
 
-@node PREREQUISITES, running, obtaining, INSTALL - compiling and installing GNU LilyPond
-@section PREREQUISITES
+@section Prerequisites
 
 For compilation you need:
 
@@ -99,8 +79,7 @@ note  that  tetex-0.4pl8 (included with Redhat 5.x) does not include
 
 @end itemize
 
-@node running, WEBSITE, PREREQUISITES, INSTALL - compiling and installing GNU LilyPond
-@section running
+@section Running
 
 GNU LilyPond does use a lot of resources. For operation you need the
 following software
@@ -132,8 +111,7 @@ the proper paths for the bourne and C-shell respectively are generated in
 LilyPond is a hiddeously big, slow and bloated program.  A fast CPU
 and plenty of RAM is recommended for comfortable use.
 
-@node WEBSITE, CONFIGURING and COMPILING, running, INSTALL - compiling and installing GNU LilyPond
-@section WEBSITE
+@section Website
 
 The website is the most convenient form to use for reading the
 documentation on-line documentation. It is made by entering @example 
@@ -188,8 +166,7 @@ hypertextified bibliography.
 You also have to install @file{buildscripts/out/ps-to-gifs} in a
 directory that is in the path.
 
-@node CONFIGURING and COMPILING, CONFIGURING FOR MULTIPLE PLATFORMS, WEBSITE, INSTALL - compiling and installing GNU LilyPond
-@section CONFIGURING and COMPILING
+@section configuring and compiling
 
 to install GNU LilyPond, simply type:
 @example 
@@ -231,8 +208,8 @@ adjust your environment variables to your taste:
 @code{CPPFLAGS} are the preprocessor flags. 
 
 The configure script is Cygnus configure, and it will accept
-@strong{--help}. If you are not root, you will probably have to make it
-with a different @strong{--prefix} option.  Our favourite location is
+@code{--help}. If you are not root, you will probably have to make it
+with a different @code{--prefix} option.  Our favourite location is
 
 @example 
 
@@ -254,20 +231,20 @@ Since GNU LilyPond currently is beta, you are advised to also use
 Options to configure include:
 
 @table @samp
-@item @strong{--enable-printing}
-    Enable debugging print routines (lilypond @strong{-D} option)
-@item @strong{--enable-optimise}
-    Set maximum optimisation: compile with @strong{-O2}.  This can be
+@item @code{--enable-printing}
+    Enable debugging print routines (lilypond @code{-D} option)
+@item @code{--enable-optimise}
+    Set maximum optimisation: compile with @code{-O2}.  This can be
 unreliable on some compiler/platform combinations (eg, DEC Alpha and PPC)
-@item @strong{--enable-profiling}
+@item @code{--enable-profiling}
     Compile with support for profiling.
-@item @strong{--enable-config}
+@item @code{--enable-config}
     Output to a different configuration file.  Needed for multi-platform
     builds
 @end table
 
 All options are documented in the @file{configure} help
-The option @strong{--enable-optimise} is recommended for Real Life usage.
+The option @code{--enable-optimise} is recommended for Real Life usage.
 
 If you do
 
@@ -281,11 +258,10 @@ everything will be compiled, but nothing will be installed.  The
 resulting binaries can be found in the subdirectories @file{out/} (which
 contain all files generated during compilation).
 
-@node CONFIGURING FOR MULTIPLE PLATFORMS, INSTALLING, CONFIGURING and COMPILING, INSTALL - compiling and installing GNU LilyPond
-@section CONFIGURING FOR MULTIPLE PLATFORMS
+@section configuring for multiple platforms
 
 If you want to compile LilyPond with different configuration settings,
-then, you can use the @strong{--enable-config} option.  Example: suppose I
+then, you can use the @code{--enable-config} option.  Example: suppose I
 want to build with and   without profiling.  Then I'd use the
 following for the normal build, 
 
@@ -308,10 +284,9 @@ and for the profiling version, I specify a different configuration.
 @end example 
 
 
-@node INSTALLING, REDHAT LINUX, CONFIGURING FOR MULTIPLE PLATFORMS, INSTALL - compiling and installing GNU LilyPond
-@section INSTALLING
+@section Installing
 
-If you have done a successful @code{make}, then a simple
+if you have done a successful @code{make}, then a simple
 
 @example 
 
@@ -335,8 +310,7 @@ provided to do the work for you, see @file{bin/clean-fonts.sh}.
 @item  On PPC you need at least EGCS-1.1.2f.
 @end itemize
 
-@node REDHAT LINUX, DEBIAN GNU/LINUX, INSTALLING, INSTALL - compiling and installing GNU LilyPond
-@section REDHAT LINUX
+@section Redhat linux
 
 RedHat Linux users can compile an RPM. A spec file is in
 @file{make/out/lilypond.spec}, it is distributed along with the
@@ -365,30 +339,25 @@ in addition to the those needed for running:
 @item texinfo
 @end itemize
 
-@node DEBIAN GNU/LINUX, WINDOWS NT/95, REDHAT LINUX, INSTALL - compiling and installing GNU LilyPond
-@section DEBIAN GNU/LINUX
+@section Debian GNU/linux
 
 A Debian package is also available; contact Anthony Fok
 @email{foka@@debian.org}.  The build scripts are in the subdirectory
 @file{debian/}.
 
-@node WINDOWS NT/95, w32, DEBIAN GNU/LINUX, INSTALL - compiling and installing GNU LilyPond
-@section WINDOWS NT/95
-@node w32, BUGS, WINDOWS NT/95, INSTALL - compiling and installing GNU LilyPond
+@section Windows NT/95
 
 
 Separate instructions on building for W32 are available
 @url{../../outdir/README-W32.html}.
 
-@node BUGS, AUTHORS, w32, INSTALL - compiling and installing GNU LilyPond
-@section BUGS
+@section Bugs
 
 Send bug reports to bug-gnu-music@@gnu.org.  For help and questions use
 help-gnu-music@@gnu.org and gnu-music-discuss@@gnu.org.  Please consult
 the faq before mailing your problems.
 
-@node AUTHORS, Top, BUGS, INSTALL - compiling and installing GNU LilyPond
-@section AUTHORS
+@section Authors
 
 @email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}
 
