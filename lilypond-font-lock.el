@@ -35,22 +35,24 @@
 
     (list 
 ;; Fonts in use (from GNU Emacs Lisp Reference Manual, elisp.ps):
-;; font-lock- comment / string / keyword / builtin / function-name / 
-;;            variable-name / type / constant / warning -face
+;; font-lock- (c)omment / (s)tring / (k)eyword / (b)uiltin / (f)unction-name / 
+;;            (v)ariable-name / (t)ype / co(n)stant / (w)arning -face
 
 ;; The order below is designed so that proofreading would be possible.
 
 ;; Fontify...
-;; ... first identifiers and keywords.
-;; ... then other expressions having '\'-mark in the beginning.
-;; ... the right and the left side of '='-marks.
-;; ... reserved words, e.g., FiguredBass.
-;; ... notes and rests
-;; "on top", 6) ... '<{[]}>'-brackets
-;; "on top", 7) ... ties, slurs and hairpins
-;; "on top", 8) ... (multiline-)scheme; urgh. one should count the slurs
-;; "on top", 9) ... strings
-;; "on top", 10) ... (multiline-)comments
+;; ... (f) identifiers and (k) keywords.
+;; ... (n) user defined indetifiers
+;; ... (v) the right and the left side of '='-marks.
+;; ... (v) reserved words, e.g., FiguredBass.
+;; ... (t) notes and rests
+;; "on top", ... (w) horizontal grouping
+;; "on top", ... (f) vertical grouping
+;; "on top", ... (b) expressional grouping
+;; "on top", ... (s) lyrics-mode
+;; "on top", ... (s) (multiline-)scheme; urgh. one should count the slurs
+;; "on top", ... (s) strings
+;; "on top", ... (c) (multiline-)comments
 
 ;; One should note 'font-lock-multiline' has been possible since Emacs 21.1.
 ;; See, e.g., text in "http://emacs.kldp.org/emacs-21.1/etc/NEWS".
@@ -78,14 +80,20 @@
 ;; ... note or rest (with an accidental), e.g., b,? -- allows cis\longaX
       '("\\(^\\|[ <\{[~(!)\t\\\|]\\)\\(\\(\\(bb\\|as[ae]s\\|eses\\|\\(do\\|re\\|[ms]i\\|[fl]a\\|sol\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-h]\\(\\(flat\\)+\\|\\(sharp\\)+\\|is\\(siss\\|i?s\\)?\\|es\\(sess\\|e?s\\)?\\|ff?\\|ss?\\)?\\)\\)[,']*[?!]?\\|[srR]\\)" 2 font-lock-type-face)
 
-;; "on top", ... '{[]}'-brackets
-      '("\\([][}{]\\)" 0 font-lock-warning-face t)
+;; "on top", ... horizontal grouping:
+;;               - brackets '{[]}'
+;;               - ties '~'
+      '("\\([][~}{]\\)" 0 font-lock-warning-face t)
 
-;; "on top", ... '<>'-brackets, not marcato '->'
-      '("\\(\\(-.\\)+\\|[^-^_]\\)\\([[<>]+\\)" 3 font-lock-warning-face t) 
+;; "on top", ... vertical grouping:
+;;               - '<>'-chord brackets with '\\'-voice sep., not marcato '->'
+;;               - '<< a b >>8' -chords
+      '("\\(\\(-.\\)+\\|[^-^_]\\)\\([<>]+\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\\\(breve\\|longa\\)\\)?\\|\\\\\\\\\\)" 3 font-lock-function-name-face t)
 
-;; "on top", ... ties ~, slurs \( () \), hairpins \<, \>, \! 
-      '("\\(\\\\[(<!>)]\\|[(~)]\\)" 0 font-lock-builtin-face t)
+;; "on top", ... expressional grouping:
+;;               - slurs \( () \)
+;;               - hairpins \<, \>, \! 
+      '("\\(\\\\[(<!>)]\\|[()]\\)" 0 font-lock-builtin-face t)
 
 ;; "on top", ... lyrics-mode: fontify everything between '{' and '}'
       '("\\(\\\\lyrics[^{]*{\\)\\([^}]*\\)" 2 font-lock-string-face t)
