@@ -163,10 +163,10 @@ Score_engraver::typeset_all ()
       
       if (Spanner *s = dynamic_cast <Spanner *> (elem_p))
 	{
-	    /*
+	  /*
 	    do something sensible if spanner not 
 	    spanned on 2 items.
-	   */
+	  */
 	  Direction d = LEFT;
 	  do {
 	    if (!s->get_bound (d))
@@ -180,7 +180,11 @@ Score_engraver::typeset_all ()
 		else
 		  elem_p->warning (_f ("unbound spanner `%s'", s->name ().ch_C ()));
 	      }
-	  } while (flip (&d) != LEFT);
+	  }
+	  while (flip (&d) != LEFT);
+
+	  if (dynamic_cast<Item*> (s->get_parent (Y_AXIS)))
+	    programming_error ("Spanner Y-parent is an item.");
 	}
       else 
 	{
