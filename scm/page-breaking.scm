@@ -15,17 +15,12 @@
 ;;;    - density scoring
 
 
-
-
-
 (define-class <optimally-broken-page-node> ()
   (prev #:init-value '() #:accessor node-prev #:init-keyword #:prev)
   (page #:init-value 0 #:accessor node-page-number #:init-keyword #:pageno)
   (penalty #:init-value 0 #:accessor node-penalty #:init-keyword #:penalty)
   (height #:init-value 0 #:accessor node-height #:init-keyword #:height)
-  (lines #:init-value 0 #:accessor node-lines #:init-keyword #:lines)
-
-  )
+  (lines #:init-value 0 #:accessor node-lines #:init-keyword #:lines))
 
 (define-method (display (node <optimally-broken-page-node>) port)
     (map
@@ -39,20 +34,25 @@
       "\n"
     )))
 
-
-
-
-
-
 ;;
-;; TODO: first-diff and last-diff are arbitrary. 
-;; for the future.
-;;
+;; TODO: first-diff and last-diff are slightly arbitrary interface
+;; For the future, we might want to invoke a function from PAPER-BOOK to 
+;; determine available height given
+;; 
 (define-public (ly:optimal-page-breaks lines
 				       paper-book
 				       text-height
 				       first-diff last-diff)
-  "Return pages as a list starting with 1st page. Each page is a list of lines. "
+
+  "Return pages as a list starting with 1st page. Each page is a list
+of lines.
+
+TEXT-HEIGHT is the height of the printable area, FIRST-DIFF and
+LAST-DIFF are decrements for the 1st and last page. PAPER-BOOK is
+unused, at the moment.
+
+"
+
   
   (define (make-node prev lines page-num penalty)
     (make <optimally-broken-page-node>
@@ -62,7 +62,6 @@
       #:penalty penalty))
 
   (define MAXPENALTY 1e9)
-
   
   (define (line-height line)
     (ly:paper-line-extent line Y))
@@ -87,8 +86,6 @@
 	  (* (1+ relative-empty) relative-empty))))
   
 
-  ;; TODO: rewrite
-  ;; this should take the 
   (define (page-height page-number last?)
     (let ((h text-height))
       (if (= page-number 1)
@@ -101,17 +98,16 @@
     (apply + (map line-height lines)))
 
   (define (get-path node done)
-    "Follow NODE.PREV, and return as an ascending list of pages. DONE is what have
-collected so far, and has  ascending page numbers."
-    
+    "Follow NODE.PREV, and return as an ascending list of pages. DONE
+is what have collected so far, and has ascending page numbers."
     (if (is-a? node <optimally-broken-page-node>)
 	(get-path (node-prev node) (cons node done))
 	done))
   
 	
   (define (add-penalties . lst)
-    (if (find negative? lst)
-	-1
+    (if (find negative? lst) ;; todo: rm support for this  
+	-1   
 	(apply + lst)))
 
   (define (walk-paths done-lines best-paths current-lines  last? current-best)
@@ -123,7 +119,6 @@ corresponding to DONE-LINES.
 CURRENT-BEST is the best result sofar, or #f."
 
     (let*
-	
 	((this-page-num (if (null? best-paths)
 			    1
 			    (1+ (node-page-number (car best-paths)))))
@@ -149,22 +144,25 @@ CURRENT-BEST is the best result sofar, or #f."
 				      (car best-paths))
 				  current-lines
 				  this-page-num total-penalty)
-		       current-best))
+		       current-best)))
 
-	 (debug-info (list
-		      "user pen " user-penalty " prev-penalty " prev-penalty "\n"
-		      "better? " better? " total-penalty " total-penalty "\n"
-		      "height " page-height " spc used: " space-used "\n"
-		      "pen " this-page-penalty " lines: " current-lines  "\n"))
-	 
-;	 (foo (display debug-info))
-	 )
+      (if #f ; debug
+	  (display
+	   (list
+	    "user pen " user-penalty " prev-penalty "
+	    prev-penalty "\n"
+	    "better? " better? " total-penalty " total-penalty "\n"
+	    "height " page-height " spc used: " space-used "\n"
+	    "pen " this-page-penalty " lines: " current-lines  "\n")))
+
 
       (if (and (pair? done-lines)
 	       
 	       ;; if this page is too full, adding another line won't help
 	       (< this-page-penalty MAXPENALTY))
-	  (walk-paths (cdr done-lines) (cdr best-paths) (cons (car done-lines) current-lines)
+	  
+	  (walk-paths (cdr done-lines) (cdr best-paths)
+		      (cons (car done-lines) current-lines)
 		      last? new-best)
 	  new-best)))
   
@@ -182,9 +180,7 @@ DONE."
 	     (next (walk-paths
 		    done best-paths
 		    (list this-line)
-		    last? #f
-
-		    )))
+		    last? #f)))
 
 	  (walk-lines (cons this-line done)
 		      (cons next best-paths)
@@ -193,17 +189,13 @@ DONE."
 
   (define (line-number node)
     (ly:paper-line-number (car (node-lines node))))
-  ; main body.
 
   (let*
       ((best-break-node
 	(walk-lines '() '() lines))
        (break-nodes (get-path best-break-node '()))
        (break-lines (map node-lines break-nodes))
-       (break-numbers (map line-number break-nodes))
-       )
-
-;    (display break-lines)
+       (break-numbers (map line-number break-nodes)))
     
     (if (ly:get-option 'verbose)
 	(begin
@@ -212,7 +204,5 @@ DONE."
 
     ;; TODO: if solution is bad return no breaks and revert to
     ;;       ragged bottom
-    
-
     break-lines))
 

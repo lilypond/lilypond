@@ -2,6 +2,7 @@
 
 	* scm/page-breaking.scm (ly:optimal-page-breaks): don't do
 	negative penalties.
+	cleanups.
 
 	* Documentation/user/changing-defaults.itely (Creating contexts):
 	index entries
