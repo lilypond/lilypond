@@ -106,8 +106,7 @@ Push_property_iterator::process (Moment m)
       SCM val = get_music ()->get_property ("grob-value");
 
       if (to_boolean (get_music ()->get_property ("pop-first"))
-	  && !to_boolean (get_music ()->get_property ("once"))
-	  )
+	  && !to_boolean (get_music ()->get_property ("once")))
 	execute_pushpop_property (get_outlet (), sym, eprop, SCM_UNDEFINED);
 
       execute_pushpop_property (get_outlet (), sym, eprop, val);

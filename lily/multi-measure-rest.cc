@@ -144,7 +144,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
   SCM sml = me->get_property ("use-breve-rest");
   if (measures == 1)
     {
-      if (sml == SCM_BOOL_T)
+      if (to_boolean (sml))
 	{
 	  Stencil s = musfont->find_by_name (Rest::glyph_name (me, -1, ""));
 
@@ -317,13 +317,16 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   Item * lb = l->find_prebroken_piece (RIGHT);
   Item * rb = r->find_prebroken_piece (LEFT);      
   
-  Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
+  Item* combinations[4][2] = {{l,r},
+			      {lb,r},
+			      {l,rb},
+			      {lb,rb}};
 
   Real sym_width = symbol_stencil (me, 0.0).extent (X_AXIS).length ();
   
   for (int i=0; i < 4; i++)
     {
-      Item * l =  combinations[i][0];
+      Item *l = combinations[i][0];
       Item *r = combinations[i][1];
 
       if (!l || !r)

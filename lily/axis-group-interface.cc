@@ -62,7 +62,7 @@ Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
   Grob * common = common_refpoint_of_list (elts, me, a);
 
   Real my_coord = me->relative_coordinate (common, a);
-  Interval r (relative_group_extent (a, common,elts));
+  Interval r (relative_group_extent (a, common, elts));
 
   return ly_interval2scm (r - my_coord);
 }

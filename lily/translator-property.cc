@@ -44,6 +44,7 @@ execute_pushpop_property (Context * trg,
 	   */
 	  if (!where)
 	    return ;
+	  
 	  if (where != trg)
 	    {
 	      SCM base = updated_grob_properties (trg, prop);
