@@ -379,6 +379,15 @@
 	(meta . ((interfaces . (hairpin-interface self-alignment-interface dynamic-interface spanner-interface))))
 	))
 
+    (HorizontalBracket
+     . (
+	(thickness . 1.0)
+	(molecule-callback . ,Horizontal_bracket::brew_molecule)
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(padding . 0.2)
+	(direction . -1)
+	(meta . ((interfaces . (horizontal-bracket-interface spanner-interface))))
+	))
     (InstrumentName
      . (
 	(breakable . #t)

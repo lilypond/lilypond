@@ -38,13 +38,15 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define X 0)
-(define Y 1)
-(define LEFT -1)
-(define RIGHT 1)
-(define UP 1)
-(define DOWN -1)
-(define CENTER 0)
+(define-public X 0)
+(define-public Y 1)
+(define-public START -1)
+(define-public STOP 1)
+(define-public LEFT -1)
+(define-public RIGHT 1)
+(define-public UP 1)
+(define-public DOWN -1)
+(define-public CENTER 0)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lily specific variables.

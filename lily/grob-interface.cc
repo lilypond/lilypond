@@ -67,7 +67,7 @@ check_interfaces_for_property (Grob const *me, SCM sym)
       if (iface == SCM_BOOL_F)
 	{
 	  String msg = to_string ("Unknown interface `%s'",
-			       ly_scm2string (scm_symbol_to_string (gh_car(ifs))).to_str0 ());
+			       ly_symbol2string (gh_car(ifs)).to_str0 ());
 	  programming_error (msg);
 	  continue;
 	}

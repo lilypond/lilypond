@@ -2842,9 +2842,32 @@ c''4 \sostenutoDown d''4 e''4 c'4
 f'4 g'4 a'4 \sostenutoUp
 @end lilypond
 
+@node Cross staff stems
+@subsection Cross staff stems
+@cindex  Cross staff stems
+@cindex Stems, cross staff
+
+Unfortunately, there is no support for putting chords across staves.
+You can get this result by increasing the length of the stem in the
+lower stave so it reaches the stem in the upper stave, or vice versa.
+
+@lilypond
+
+sUp = \translator Staff = "up"
+sDown = \translator Staff = "down"
+
+stemExtend = \property Voice.Stem \set #'length = #22
+stemNormal = \property Voice.Slur \revert #'length
 
 
-@c .   {Arpeggio}
+        < { \stemDown \sDown s4.             a, } \\
+          { \stemDown \sUp   f4. \stemExtend f  }> |
+
+        \stemNormal
+
+        [...]
+@end lilypond
+
 @node Arpeggio
 @subsection Arpeggio
 @cindex Arpeggio
@@ -4954,8 +4977,6 @@ instruments and ranges or change the default settings by overriding the
 @code{instrument-equalizer-alist} defined in @file{scm/midi.scm}.
 
 Both loudness controls are combined to produce the final  MIDI volume. 
-
-
 
 @menu
 * MIDI block::                  

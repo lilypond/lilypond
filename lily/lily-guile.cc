@@ -70,15 +70,12 @@ ly_quote_scm (SCM s)
   return scm_list_n (ly_symbol2scm ("quote"), s, SCM_UNDEFINED);
 }
 
-
-
 String
 ly_symbol2string (SCM s)
 {
   assert (gh_symbol_p (s));
   return String ((Byte*)SCM_STRING_CHARS (s), (int) SCM_STRING_LENGTH (s));
 }
-
 
 String
 gulp_file_to_string (String fn)
@@ -93,7 +90,6 @@ gulp_file_to_string (String fn)
     }
   else if (verbose_global_b)
     progress_indication ("[" + s);
-
 
   int n;
   char * str = gulp_file (s, &n);

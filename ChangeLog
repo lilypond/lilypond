@@ -1,5 +1,16 @@
 2002-10-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/horizontal-bracket.cc: new file.
+
+	* lily/horizontal-bracket-engraver.cc: new file.
+
+	* input/regression/note-group-bracket.ly: new file. Support
+	horizontal note brackets for music analysis.
+
+	* lily/stem.cc (flag): new flag-style: no-flag.
+
+	* input/test/stem-cross-staff.ly: new file
+
 	* lily/include/midi-stream.hh: use stdio.h iso. iostream.h
 
 	* lily/parser.yy: remove \dynamicscript.

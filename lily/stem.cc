@@ -532,19 +532,23 @@ Stem::flag (Grob*me)
   /* TODO: maybe property stroke-style should take different values,
      e.g. "" (i.e. no stroke), "single" and "double" (currently, it's
      '() or "grace").  */
-  String flag_style, staffline_offs;
 
+  String flag_style;
+  
   SCM flag_style_scm = me->get_grob_property ("flag-style");
   if (gh_symbol_p (flag_style_scm))
     {
-      flag_style = ly_scm2string (scm_symbol_to_string (flag_style_scm));
+      flag_style = ly_symbol2string (flag_style_scm);
     }
-  else
+
+  if (flag_style == "no-flag")
     {
-      flag_style = "";
+      return Molecule ();
     }
+
   bool adjust = to_boolean (me->get_grob_property ("adjust-if-on-staffline"));
 
+  String staffline_offs;
   if (String::compare (flag_style, "mensural") == 0)
     /* Mensural notation: For notes on staff lines, use different
        flags than for notes between staff lines.  The idea is that
@@ -592,6 +596,7 @@ Stem::flag (Grob*me)
     {
       staffline_offs = "";
     }
+
   char dir = (get_direction (me) == UP) ? 'u' : 'd';
   String font_char =
     flag_style + to_string (dir) + staffline_offs + to_string (duration_log (me));
@@ -664,9 +669,6 @@ Stem::brew_molecule (SCM smob)
   /*
     TODO: make  the stem start a direction ?
   */
-  
-
-  
   if (to_boolean (me->get_grob_property ("avoid-note-head")))
     {
       Grob * lh = last_head (me);

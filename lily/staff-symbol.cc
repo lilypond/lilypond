@@ -37,7 +37,6 @@ Staff_symbol::brew_molecule (SCM smob)
 
     --hwn.
    */
-  
   SCM width_scm = me->get_grob_property ("width");
   if (gh_number_p (width_scm))
     {

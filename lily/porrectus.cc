@@ -101,7 +101,7 @@ Porrectus::brew_molecule (SCM smob)
   SCM scm_style = me->get_grob_property ("style");
   String style;
   if ((gh_symbol_p (scm_style)) && (scm_style != SCM_EOL))
-    style = ly_scm2string (scm_symbol_to_string (scm_style));
+    style = ly_symbol2string (scm_style);
   else {
     me->warning (_ ("porrectus style undefined; using mensural"));
     style = "mensural";
