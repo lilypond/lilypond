@@ -1268,7 +1268,7 @@ them are not user-serviceable (``Internal properties''), but others
 are.
 
 We have been talking of `the' @code{Fingering} object, but actually it
-does  not amount to much. The initialization file
+does not amount to much. The initialization file
 @file{scm/define-grobs.scm} shows the soul of the `object',
 
 @verbatim
@@ -1407,6 +1407,7 @@ One of the uses of @code{fontSize} is to get smaller symbols for cue
 notes. An elaborate example of those is in
 @inputfileref{input/test,cue-notes.ly}.
 
+@cindex cue notes
 @cindex @code{font-style}
 
 @refcommands
@@ -1946,9 +1947,8 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 
 Internals: @internalsref{BreakEvent}.
 
-
-@node Page layout
-@subsection Page layout
+@node Line length and line breaking
+@subsection Line length and line breaking
 
 @cindex page breaks
 @cindex breaking pages
@@ -1974,37 +1974,112 @@ only affects the last line of the piece. No restrictions are put on
 that line. The result is similar to formatting paragraphs. In a
 paragraph, the last line simply takes its natural length.
 
-The page layout process happens outside the LilyPond formatting
-engine: variables controlling page layout are passed to the output,
-and are further interpreted by @code{lilypond} wrapper program. It
-responds to the following variables in the @code{\paper} block.  The
-spacing between systems is controlled with @code{interscoreline}, its
-default is 16pt.  The distance between the score lines will stretch in
-order to fill the full page @code{interscorelinefill} is set to a
-positive number.  In that case @code{interscoreline} specifies the
-minimum spacing.
 
-@cindex @code{textheight}
-@cindex @code{interscoreline}
-@cindex @code{interscorelinefill}
+@node Titling
+@subsection Titling
 
-If the variable @code{lastpagefill} is defined,
-@c fixme: this should only be done if lastpagefill= #t 
-systems are evenly distributed vertically on the last page.  This
-might produce ugly results in case there are not enough systems on the
-last page.  The @command{lilypond-book} command ignores
-@code{lastpagefill}.  See @ref{lilypond-book manual} for more
-information.
+Titles are created for each @code{\score} block, and over a
+@code{\book}.
 
-@cindex @code{lastpagefill}
+The contents of the titles are taken from the @code{\header} blocks.
+The header block for a book supports the following 
+@table @code
+@item title
+    The title of the music. Centered on top of the first page.
+@item subtitle
+    Subtitle, centered below the title.
+@item poet
+    Name of the poet, left flushed below the subtitle.
+@item composer
+    Name of the composer, right flushed below the subtitle.
+@item meter
+    Meter string, left flushed below the poet.
+@item opus
+    Name of the opus, right flushed below the composer.
+@item arranger
+    Name of the arranger, right flushed below the opus.
+@item instrument
+    Name of the instrument, centered below the arranger.
+@item dedication            
+    To whom the piece is dedicated.
+@item piece
+    Name of the piece, left flushed below the instrument.
+@end table
 
-Page breaks are normally computed by @TeX{}, so they are not under
-direct control of LilyPond.  However, you can insert commands into
-the @file{.tex} output to instruct @TeX{} where to break pages.  This
-is done by setting the @code{between-systems-strings} on the
-@internalsref{NonMusicalPaperColumn} where the system is broken.
-An example is shown in @inputfileref{input/regression,between-systems.ly}.
-The predefined command @code{\newpage} also does this.
+This is a demonstration of the fields available, 
+
+@lilypond
+\book {
+  \header {
+    title = "Title"
+    subtitle = "(and (the) subtitle)"
+    subsubtitle = "Sub sub title"
+    poet = "Poet"
+    composer = "Composer"
+    texttranslator = "Text Translator"
+    meter = "Meter"
+    arranger = "Arranger"
+    instrument = "Instrument"
+    piece = "Piece"
+  }
+  \score {
+    \header {
+      piece = "piece"
+      opus = "opus" 
+    }
+    { c'1 }
+  }
+}
+@end lilypond
+
+Different fonts may be selected for each element, by using a
+@code{\markup}, e.g.
+
+@verbatim
+  \header {
+    title = \markup { \italic { The italic title } }
+  }
+@end verbatim
+
+A more advanced option is to change the Scheme functions
+@code{make-book-title} and @code{make-score-title} functions, defined
+in the @code{\bookpaper} of the @code{\book} block. These functions
+create a block of titling, given the information in the
+@code{\header}. The init file @file{ly/titling.scm} shows how the
+default format is created, and it may be used as a template for
+different styles.
+
+ 
+
+@cindex header
+@cindex footer
+@cindex page layout
+@cindex titles
+
+
+
+
+@node Page breaking
+@subsection Page breaking
+
+The default page breaking may be overriden by inserting
+@code{\pageBreak} or @code{\noPageBreak} commands. These commands are
+analogous to @code{\break} and @code{\noBreak}. They should be
+inserted with a bar line. These commands force and forbid a page-break
+from happening. 
+
+Page breaks are computed by the @code{page-breaking} function in the
+@code{\bookpaper} block. 
+
+@refcommands
+
+@cindex @code{\pageBreak}
+@code{\pageBreak}
+@cindex  @code{\noPageBreak} 
+@code{\noPageBreak} 
+
+@node Paper size
+@subsection Paper size
 
 @cindex paper size
 @cindex page size
@@ -2017,88 +2092,62 @@ To change the paper size, there are two commands,
            #(set-paper-size "a4")
         @}
 @end example
-The second one sets the size of the @code{\paper} block that it's in.
+The second one sets the size of the @code{\paper} block that it is in.
 
-@refcommands
 
-@cindex @code{\newpage}
-@code{\newpage}. 
+@node Page layout
+@subsection Page layout
+
+@cindex page layout
+@cindex margins
+@cindex header, page
+@cindex footer, page
+
+LilyPond will do page layout, setting margins and adding headers and
+footers to each page.
+
+The default layout responds to the following settings in the
+@code{\bookpaper} block
+
+@table @code
+@item hsize
+ The width of the page
+@item vsize
+ The height of the page
+@item top-margin
+ Margin between header and top of the page
+@item bottom-margin
+ Margin between footer and bottom of the page
+@item head-sep
+ Distance between top-most music system and the page header
+@item foot-sep
+ Distance between bottom-most music system and the page footer
+@end itemize
+
+The default page header puts the page number and the @code{instrument}
+field from the @code{\header} block on a line.
+
+@cindex copyright
+@cindex tagline
+
+The default footer is empty, except for the first page, where it the
+@code{copyright} field from @code{\header} is inserted, and the last
+page, where  @code{tagline} from  @code{\header} is added (the default
+tagline is ``Engraved by LilyPond (@var{version})''.
+
+The header and footer are created by the functions @code{make-footer}
+and @code{make-header}, defined in @code{\bookpaper}. The default
+implementations are in @file{scm/page-layout.scm}.
+
+The page layout itself is done by two functions:
+@code{page-music-height} and @code{page-make-stencil}. The former
+tells the line-breaking algorithm how much space can be spent on a
+page, the latter creates the actual page given the system to put on it. 
 
 
 @seealso
 
-In this manual: @ref{Invoking lilypond}.
-
-Examples: @inputfileref{input/regression,between-systems.ly}.
-
-Internals: @internalsref{NonMusicalPaperColumn}.
-
-@refbugs
-
-LilyPond has no concept of page layout, which makes it difficult to
-reliably choose page breaks in longer pieces.
+Examples: TODO
 
 
-
-
-@node Output details
-@section Output details
-
-The default output format is La@TeX{}, which should be run
-through La@TeX{}.  Using the option @option{-f}
-(or @option{--format}) other output formats can be selected also, but
- none of them work reliably.
-
-Now the music is output system by system (a `system' is a single line
-from the score, consisting of staves belonging together).  From
-@TeX{}'s point of view, a system is an @code{\hbox} which contains a
-lowered @code{\vbox} so that it is centered vertically on the baseline
-of the text.  Between systems, @code{\interscoreline} is inserted
-vertically to have stretchable space.  The horizontal dimension of the
-@code{\hbox} is given by the @code{linewidth} parameter from
-LilyPond's @code{\paper} block.
-
-After the last system LilyPond emits a stronger variant of
-@code{\interscoreline} only if the macro
-@code{\lilypondpaperlastpagefill} is not defined (flushing the systems
-to the top of the page).  You can avoid that by setting the variable
-@code{lastpagefill} in LilyPond's @code{\paper} block.
-
-@c FIXME: broken by page layout
-It is possible to fine-tune the vertical offset further by defining the
-macro @code{\lilypondscoreshift}:
-
-@example
-\def\lilypondscoreshift@{0.25\baselineskip@}
-@end example
-
-@noindent
-where @code{\baselineskip} is the distance from one text line to the next.
-
-Here an example how to embed a small LilyPond file @code{foo.ly} into
-running La@TeX{} text without using the @code{lilypond-book} script
-(@pxref{lilypond-book manual}):
-
-@example
-\documentclass@{article@}
-
-\def\lilypondpaperlastpagefill@{@}
-\lineskip 5pt
-\def\lilypondscoreshift@{0.25\baselineskip@}
-
-\begin@{document@}
-This is running text which includes an example music file
-\input@{foo.tex@}
-right here.
-\end@{document@}
-@end example
-
-The file @file{foo.tex} has been simply produced with
-
-@example
-  lilypond-bin foo.ly
-@end example
-
-The call to @code{\lineskip} assures that there is enough vertical space
-between the LilyPond box and the surrounding text lines.
 
