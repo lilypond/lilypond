@@ -21,7 +21,7 @@
   symbol
   )
 
-(define all-user-translation-properties
+(define-public all-user-translation-properties
   (map
    (lambda (x)
      (apply translator-property-description x))
@@ -180,7 +180,7 @@ for the full staff.")
 highest pitch on the instrument. This used by the automatic string
 selector for tab notation.")
 
-     (ignoreMelismata ,boolean? "Ignore melismata for this @ref{Lyrics}.")
+     (ignoreMelismata ,boolean? "Ignore melismata for this @internalsref{Lyrics}.")
      (instr ,markup? "see @code{instrument}")
 
      (instrument ,markup? "The name to print left of a staff.  The
@@ -375,11 +375,11 @@ Example:
 @end example
 
 This will create a start-repeat bar in this staff only.
-Valid values are described in @ref{bar-line-interface}.
+Valid values are described in @internalsref{bar-line-interface}.
 ")
      )))
 
-(define all-internal-translation-properties
+(define-public all-internal-translation-properties
   (map
    (lambda (x)
      (set-object-property! (car x) 'internal-translation #t)
@@ -443,7 +443,7 @@ Description of scripts. This is used by Script_engraver for typesetting note-sup
      )
    ))
 
-(define all-translation-properties
+(define-public all-translation-properties
   (append all-user-translation-properties
 	  all-internal-translation-properties))
 

@@ -274,24 +274,24 @@
     #:children
     (map engraver-doc all-engravers-list)))
 
-(define (all-translation-properties-doc)
-  
+(define (translation-properties-doc-string lst)
   (let*
-      (
-       (ps (sort (map symbol->string all-translation-properties) string<?))
+      ((ps (sort (map symbol->string lst) string<?))
        (sortedsyms (map string->symbol ps))
        (propdescs
 	(map
 	 (lambda (x) (document-property x 'translation #f))
 	 sortedsyms))
-       (texi (description-list->texi propdescs))
-       )
+       (texi (description-list->texi propdescs)))
+    texi
+    ))
 
+(define (all-translation-properties-doc)
     (make <texi-node>
       #:name "Context properties"
-      #:desc "All  context properties"
-      #:text texi)
-    ))
+      #:desc "All context properties"
+      #:text (translation-properties-doc-string all-translation-properties))
+    )
 
 
 ;(dump-node (all-contexts-doc) (current-output-port) 0 )

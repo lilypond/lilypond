@@ -543,7 +543,7 @@ By adding chord names and lyrics we obtain a lead sheet:
 \score { <<
   \context ChordNames \chords  { c2 c f2 c }
   \notes \relative c' { \time 2/4 c4 c g'4 g a4 a g2 }
-  \context LyricsVoice \lyrics  { twin4 kle twin kle lit tle star2 } >> }
+  \context Lyrics \lyrics  { twin4 kle twin kle lit tle star2 } >> }
 @end lilypond
 
 Polyphonic notation and piano music can also be printed. The following

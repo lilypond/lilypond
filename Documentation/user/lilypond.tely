@@ -93,7 +93,7 @@ Copyright @copyright{} 1999--2004 by the authors
   
 @lilypond[raggedright]
 \score {
-    \context LyricsVoice \notes {
+    \context Lyrics \notes {
         \property Score.RehearsalMark \set #'self-alignment-X = #LEFT
         \mark #(ly:export (string-append
              "(For LilyPond version " (lilypond-version) ")"))

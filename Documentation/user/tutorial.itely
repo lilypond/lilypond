@@ -1062,9 +1062,9 @@ surrounding them with @code{\lyrics @{ @dots{} @}}, for example,
 
 Like notes, lyrics are also a form of music, but they must not be
 printed on a staff, which is the default way to print music. To print
-them as lyrics, they must be marked with @code{ \new LyricsVoice}:
+them as lyrics, they must be marked with @code{ \new Lyrics}:
 @example
-  \new LyricsVoice  \lyrics @{ I want to break free @}
+  \new Lyrics  \lyrics @{ I want to break free @}
 @end example
 The melody for this song is as follows:
 
@@ -1077,7 +1077,7 @@ The melody for this song is as follows:
 The lyrics can be set to these notes, combining both with the
 @code{\lyricsto} keyword:
 @example
-  \lyricsto "@var{name}" \new LyricsVoice @dots{}
+  \lyricsto "@var{name}" \new Lyrics @dots{}
 @end example
 where @var{name} identifies to which melody the lyrics should be
 aligned. In this case, there is only one melody, so we can leave it
@@ -1092,7 +1092,7 @@ The final result is
      c8
      \times 2/3 { f g g } \times 2/3 { g4( a2) }
    }
-   \lyricsto "" \new LyricsVoice \lyrics { I want to break free }
+   \lyricsto "" \new Lyrics \lyrics { I want to break free }
  >>
  \paper{ }
 }
@@ -1114,7 +1114,7 @@ line}. It is entered as two underscores, i.e.
      \partial 8
      c8
      \times 2/3 { f g g } \times 2/3 { g4( a2) } }
-   \lyricsto "" \new LyricsVoice \lyrics { I want to break free __ }
+   \lyricsto "" \new Lyrics \lyrics { I want to break free __ }
    >>
  \paper{ }
 }
@@ -1188,7 +1188,7 @@ a lead sheet, for example,
   <<
     \context ChordNames \chords @{ @emph{chords} @}
     \notes @emph{the melody}
-    \lyricsto "" \new LyricsVoice \lyrics @{ @emph{the text} @}
+    \lyricsto "" \new Lyrics \lyrics @{ @emph{the text} @}
   >>
   \paper @{ @}
 @}
@@ -1201,7 +1201,7 @@ a lead sheet, for example,
      \partial 8
      c8
      \times 2/3 { f g g } \times 2/3 { g4( a2) } }
-   \new LyricsVoice \lyricsto "" \lyrics { I want to break free __ }
+   \new Lyrics \lyricsto "" \lyrics { I want to break free __ }
   >>
  \paper{ raggedright = ##t }
 }
