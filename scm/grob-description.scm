@@ -224,7 +224,8 @@
 			(key-signature . (minimum-space . 4.0))
 			(time-signature . (minimum-space . 4.2))
 			(first-note . (minimum-space . 5.0))
-			(next-note . (extra-space . 0.5))			
+			(next-note . (extra-space . 0.5))
+			(right-edge . (extra-space . 0.5))
 			))
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback)) 
 	(meta . ((interfaces . (clef-interface staff-symbol-referencer-interface font-interface break-aligned-interface item-interface ))))
@@ -417,6 +418,7 @@
 	(space-alist . (
 			(time-signature . (extra-space . 1.25))
 			(staff-bar .  (extra-space . 1.1))
+			(right-edge . (extra-space . 0.5))
 			(first-note . (extra-space . 2.5))
 			))
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
