@@ -1,4 +1,4 @@
-\version "1.7.19"
+\version "1.8.0"
 % possible rename to ancient-something.
 
 \header { texidoc	= "Ancient Vaticana
@@ -7,16 +7,7 @@ Vaticana ligature test. "
 
 \include "gregorian-init.ly"
 
-%
-% FIXME: custodes and clefs do not show on all staves
-%
-
-%
-% FIXME: move VaticnaStaff/VaticanaVoice definition to engraver-init.ly?
-% Or rather to gregorian-init.ly?
-%
-
-cantus = \notes \relative c {
+cantus = \notes {
   \clef "vaticana_fa2"
   \[ f \quilisma g \auctum \descendens a \]
   \[ \virga a g \pes a \inclinatum f \inclinatum d
@@ -31,55 +22,23 @@ verba = \context Lyrics = verba \lyrics {
 }
 
 \score {
-  \context VaticanaStaff <
-    \context VaticanaVoice <
-      \cantus
-      \verba
-    >
+  \context VaticanaVoice <
+    \cantus
+    \verba
   >
   \paper {
-    stafflinethickness = \staffspace / 5.0
-    linewidth = 15.0 \cm
+    stafflinethickness = \staffspace / 7.0
+    linewidth = 137.0 \mm
+    width = 137.0 \mm
     indent = 0.0
-	raggedright = ##t
-%
-% FIXME: packed alignment is currently broken
-%
-
-    \translator {
-      \VoiceContext
-      \name VaticanaVoice
-      \alias Voice
-      \remove "Stem_engraver"
-      \remove Ligature_bracket_engraver
-      \consists Vaticana_ligature_engraver
-      NoteHead \set #'style = #'vaticana_punctum
-%     TextScript \set #'padding = #0.0
-    }
-    \translator {
-      \StaffContext
-      \name VaticanaStaff
-      \alias Staff
-      \accepts VaticanaVoice
-      \remove Bar_engraver
-      \consists Custos_engraver
-      StaffSymbol \set #'line-count = #4
-      TimeSignature \set #'transparent = ##t
-      KeySignature \set #'style = #'vaticana
-      Accidental \set #'style = #'vaticana
-      Custos \set #'style = #'vaticana
-      Custos \set #'neutral-position = #3
-      Custos \set #'neutral-direction = #-1
-      Custos \set #'adjust-if-on-staffline = ##t
-    }
-    \translator {
-      \RemoveEmptyStaffContext
-      \accepts VaticanaVoice
-    }
+    raggedright = ##t
+    packed = ##t
+    % packed = ##t %%%% FIXME
     \translator {
       \ScoreContext
-      \accepts VaticanaStaff
       \remove Bar_number_engraver
+      timing = ##f
+      barAlways = ##t
     }
   }
 }

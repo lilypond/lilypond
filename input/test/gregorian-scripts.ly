@@ -1,4 +1,4 @@
-\version "1.7.19"
+\version "1.8.0"
 \header {
     title	= "Gregorian Scripts"
     texidoc     = "@cindex Gregorian Scripts
@@ -7,12 +7,11 @@ Gregorian Scripts:
 
 ictus, circulus, semicirculus, accentus, episem.
 
-TODO: augmentum.
-
-FIXME: when applying an episem within a ligature, the TextSpanner's width
-collapses to 0.0.
-
-FIXME: clef does not show on each line.
+TODO: augmentum.  Syntax: either as bracket (\augmentumInitium,
+\augmentumFinis), or as head prefix with subsequently collecting all
+dots and putting them behind the ligature in a vertical row.
+Counterexample to the second approach: Graduale Triplex, tempus per
+annum, hebdomada septima, alleluia (page 280).
 
 FIXME: horizontal spacing (ragged right mode).
 
@@ -22,81 +21,28 @@ FIXME: padding/minimum-distance is fragile.
 
 \include "gregorian-init.ly"
 
-cantus = \notes \relative c' {
-  \clef "vaticana_do2"
-
-  a-\ictus
-  a-\circulus
-  a-\semicirculus
-  a-\accentus
-
-  %{ %% TODO: augmentum:
-     a-\augmentum
-     \[ \augmentumInitium b \flexa a \augmentumFinis \]
-  %}
-
-  a \episemInitium b \flexa a \episemFinis
-
-  \[ a \episemInitium b \flexa a \episemFinis \]
-}
-
 \score {
-  \context VaticanaStaff <
-    \context VaticanaVoice <
-      \cantus
-    >
-  >
+  \context VaticanaVoice {
+    \property VaticanaVoice.Script \set #'padding = #-0.5
+    \notes {
+      a-\ictus
+      a-\circulus
+      a-\semicirculus
+      a-\accentus
+
+      %{ %% TODO: augmentum:
+	a-\augmentum
+	\[ \augmentumInitium b \flexa a \augmentumFinis \]
+      %}
+
+      \[ a \episemInitium \pes b \flexa a \episemFinis \]
+    }
+  }
   \paper {
     linewidth = 70.0
     stafflinethickness = \staffspace / 5.0
     width = 60.0
     indent = 0.0
     raggedright = ##t
-
-%   width = 15.0 \cm %%% no effect?
-%   gourlay_maxmeasures = 1. %%% no effect?
-
-    \translator {
-      \VoiceContext
-      \name VaticanaVoice
-      \alias Voice
-      \remove "Stem_engraver"
-      \remove Ligature_bracket_engraver
-      \consists Vaticana_ligature_engraver
-      NoteHead \set #'style = #'vaticana_punctum
-      Script \set #'padding = #0.0
-
-      % prepare TextSpanner for \episem{Initium|Finis} use
-      TextSpanner \set #'style = #'line
-      TextSpanner \set #'edge-height = #'(0 . 0)
-      TextSpanner \set #'padding = #0.5
-      TextSpanner \set #'edge-text = #'("" . "")
-    }
-    \translator {
-      \StaffContext
-      \name VaticanaStaff
-      \alias Staff
-      \accepts VaticanaVoice
-      \remove Bar_engraver
-      \consists Custos_engraver
-      StaffSymbol \set #'line-count = #4
-%      StaffSymbol \set #'width = #60.0 % FIXME: should be \linewidth
-      TimeSignature \set #'transparent = ##t
-      KeySignature \set #'style = #'vaticana
-      Accidental \set #'style = #'vaticana
-      Custos \set #'style = #'vaticana
-      Custos \set #'neutral-position = #3
-      Custos \set #'neutral-direction = #-1
-      Custos \set #'adjust-if-on-staffline = ##t
-    }
-    \translator {
-      \RemoveEmptyStaffContext
-      \accepts VaticanaVoice
-    }
-    \translator {
-      \ScoreContext
-      \accepts VaticanaStaff
-      \remove Bar_number_engraver
-    }
   }
 }
