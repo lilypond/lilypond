@@ -70,7 +70,8 @@ public:
   SCM internal_get_grob_property (SCM) const;
   void internal_set_grob_property (SCM, SCM val);
   
-  void warning (String);
+  void warning (String)const;
+  void programming_error (String)const;
   
   void set_elt_pointer (const char*, SCM val);
   friend class Property_engraver; //  UGHUGHUGH.

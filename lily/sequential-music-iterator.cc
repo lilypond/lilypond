@@ -11,6 +11,8 @@
 #include "sequential-music-iterator.hh"
 #include "music-list.hh"
 
+Grace_fixup *copy_grace_fixups (Grace_fixup* src);
+Grace_fixup *get_grace_fixups (SCM cursor);
 
 /*
   
@@ -59,7 +61,7 @@ Sequential_music_iterator::Sequential_music_iterator ()
 Sequential_music_iterator::Sequential_music_iterator (Sequential_music_iterator const &src)
   : Music_iterator (src)
 {
-  grace_fixups_ = src.grace_fixups_;
+  grace_fixups_ = copy_grace_fixups (src.grace_fixups_);
   cursor_ = src.cursor_;
   here_mom_ = src.here_mom_;
   if (src.iter_p_)
@@ -73,17 +75,6 @@ Sequential_music_iterator::~Sequential_music_iterator ()
   delete iter_p_;
 }
 
-
-/*
-
-
-  if (start_music.grace)
-    here.grace -= start_music.grace
-
-  last
-  if (len
-  
- */
 
 Grace_fixup *
 get_grace_fixups (SCM cursor)
@@ -122,6 +113,23 @@ get_grace_fixups (SCM cursor)
 	}
     }
   return  head;
+}
+
+Grace_fixup *
+copy_grace_fixups (Grace_fixup* src)
+{
+  
+  Grace_fixup * head = 0;
+  Grace_fixup **dest = &head;
+
+  while (src)
+    {
+      *dest = new Grace_fixup (*src);
+      dest = & (*dest)->next_;
+      src = src ->next_;
+    }
+
+  return head;
 }
 
 void
@@ -264,16 +272,25 @@ Sequential_music_iterator::get_music (Moment until)const
   descending to child iterator contexts, because they might depend on
   \context specs and \translator changes being executed
 
-  TODO: build support for grace notes here.
+  TODO: check support for grace notes here.
  */
 void
 Sequential_music_iterator::skip (Moment until)
 {
   while (ok ())
     {
-      Moment l =iter_p_->music_length_mom ();
-      if (l >= until - here_mom_)
-	iter_p_->skip (until - here_mom_);
+      if (grace_fixups_ &&
+	  grace_fixups_->start_ == here_mom_
+	  && (grace_fixups_->start_ + grace_fixups_->length_
+	      + Moment (Rational (0), grace_fixups_->grace_start_) == until))
+	{
+	  /*
+	    do the stuff/note/rest preceding a grace.
+	   */
+	  iter_p_->skip (iter_p_->music_length_mom ());
+	}
+      else if (iter_p_->music_length_mom () >= until - here_mom_)
+	iter_p_->skip (until - here_mom_ + iter_p_->music_start_mom ());
 
       if (iter_p_->ok ())
 	return ; 

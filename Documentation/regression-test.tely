@@ -141,6 +141,8 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{grace-sync.ly}
 
+@lilypondfile[printfilename]{grace-part-combine.ly}
+
 @lilypondfile[printfilename]{grace-bar-number.ly}
 
 

@@ -125,7 +125,7 @@ Engraver_group_engraver::do_announces ()
       dynamic_cast<Engraver_group_engraver*> (t)->do_announces ();
     }
 
-  create_grobs_in_simple_children ();
+  //  create_grobs_in_simple_children ();
     
   while (announce_info_arr_.size ())
     {

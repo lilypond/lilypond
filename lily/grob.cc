@@ -791,7 +791,7 @@ Grob::fixup_refpoint (SCM smob)
 }
 
 void
-Grob::warning (String s)
+Grob::warning (String s)const
 {
   SCM cause = self_scm();
   while (cause != SCM_EOL && !unsmob_music (cause))
@@ -806,7 +806,13 @@ Grob::warning (String s)
     }
   else
     ::warning (s);
-      
+}
+
+void
+Grob::programming_error (String s)const
+{
+  s = "Programming error: "  + s;
+  warning (s);
 }
 
 
