@@ -1789,10 +1789,11 @@ The quarter note is followed by 2 NHW, the half by 3 NHW, etc.
 c8 c4 c4 c4
 @end lilypond
 
-Normally, @code{shortest-duration-space} is set to 1.2, which is the
+Normally, @code{spacing-increment} is set to 1.2, which is the
 width of a note head, and @code{shortest-duration-space} is set to
-2.0, meaning that the shortest note gets 2 NHW (i.e. 2 times
-@code{shortest-duration-space}) of space. For normal notes, this space
+2.0, meaning that the shortest note gets 2 NHW 
+@c (i.e. 2 times @code{shortest-duration-space})
+ of space. For normal notes, this space
 is always counted from the left edge of the symbol, so the shortest
 notes are generally followed by one NHW of space.
 
