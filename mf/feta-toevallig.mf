@@ -79,13 +79,28 @@ fet_beginchar("Sharp" , "1", "sharp");
 	labels(1,2,3,4);
 	fet_endchar;
 
+
+%
+% The stems of the natural are brushed (at least, in Barenreiter SCS )
+%
+%
+
 fet_beginchar( "Natural", "0", "natural")
-	set_char_box(0, 8/12 staff_space#, 1.5 staff_space#, 1.5 staff_space#);
-
+	save height;	
 	save interbeam, interstem, beamheight, beamwidth, 
-		stemwidth;
+	stemwidth;
+	save top_stem_thick;
 
-	beamheight = 4.5 stafflinethickness;
+	beamheight# = 4.0 stafflinethickness#;
+	height# = 1.5 staff_space#;
+	set_char_box(0, 2/3 staff_space#, height#, height#);
+
+	define_pixels(height);
+	define_blacker_pixels(beamheight);
+
+	% perhaps we should have a lowres fix?
+	top_stem_thick = 1.9 stafflinethickness;
+
 	interstem + stemwidth =  w;
 	stemwidth = 1.3 stafflinethickness;
 
@@ -101,17 +116,32 @@ fet_beginchar( "Natural", "0", "natural")
 	draw z1 .. z2;
 	draw (xpart z1, -y2) .. (xpart z2, -y1);
 	beamtop = top y2;
-	
+
 	pickup pencircle scaled stemwidth;
-	xpart z3 = xpart z1;
-	xpart z4 = xpart z2;
-	top y3 = 1.5 staff_space;
+	x3 := round (xpart z1);
+	x4 := round (xpart z2);
+
+	penpos3(top_stem_thick, 0);
+	penpos5(top_stem_thick, 0);	
+	penpos4(stemwidth, 0);
+	penpos6(stemwidth, 0);	
+	
+	y3 = height;
 	top y4 = beamtop;
 
-	draw_gridline((xpart z1, -y4),z3,stemwidth);
-	draw_gridline((xpart z2, -y3),z4,stemwidth);
+	x5 = x4;
+	x6 = x3;
+	bot y6 = -beamtop;
+	y5 = - height;
 
-	labels(1,2,3,4);
+	fill simple_serif (z3l, z3r, -30) -- simple_serif(z6r, z6l, -90) -- cycle;
+	fill simple_serif (z5l, z5r, 30) -- simple_serif(z4r, z4l, 90) -- cycle;
+
+
+
+	penlabels(3,4,5,6);
+
+	labels(1,2);
 	fet_endchar;
 
 
@@ -180,12 +210,13 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 	x8r =  xpart center - bottom_stem_thick/2;
 	penlabels(range 0 thru 10);
 
-	z10 = (bottom_stem_thick/2, -1/5 staff_space) + center;
+	y10 = -1/5 staff_space;
+	z10 = whatever [z2r, z1r];
 
-	unfill z3r{up} .. z4r{right} .. tension .9 
+	unfill z3r .. z4r{right} .. tension .9 
 		.. z6r ---
 		z7r{left}
-		.. z10 {up} -- cycle;
+		.. z10  -- cycle;
 	fill z8r{down}
 		.. tension 0.8 ..z8l{(z9-z8)}
 		.. z7l

@@ -3610,8 +3610,8 @@ Lilypond and @code{ly2dvi})
 @cindex breaking lines
 
 Line breaks are normally computed automatically. They are chosen such
-that the resulting spacing has low variation, and looks neither cramped
-nor loose.
+that it looks neither cramped nor loose, and that consecutive lines have
+similar density.
 
 Occasionally you might want to override the automatic breaks; you can do
 this by specifying @code{\break}. This will force a line break at this
@@ -3619,6 +3619,17 @@ point. Do remember that line breaks can only occur at places where there
 are bar lines.  If you want to have a line break where there is no
 bar line, you can force an invisible bar line by entering @code{\bar
 ""}. Similarly, @code{\noBreak} forbids a line break at a certain point.
+
+If you want linebreaks at regular intervals, you can use the following:
+@example
+
+<  \repeat 7 unfold @{ s1 * 4 \break  @}
+   @emph{real music}
+> 
+@end  example
+This makes the following 28 measures (assuming 4/4 time) be broken every
+4 measures.
+
 
 @cindex @code{\penalty}
 
@@ -5082,16 +5093,16 @@ See @ref{convert-ly} for more information on @code{convert-ly}.
 
 
 
-
-@c .{Local emacs vars}
-@c Local variables:
-@c mode: texinfo
-@c minor-mode: font-lock
-@c minor-mode: outline
-@c outline-layout: (-1 : 0)
-@c outline-use-mode-specific-leader: "@c \."
-@c outline-primary-bullet: "{"
-@c outline-stylish-prefixes: nil
-@c outline-override-protect: t
+@c broken with  emacs-21
+@c {Local emac s  vars}
+@c Local varia bles:
+@c mode: texi nfo
+@c minor-mod e: font-lock
+@c minor-mo de: outline
+@c outline -layout: (-1 : 0)
+@c outlin e-use-mode-specific-leader: "@c \."
+@c outli ne-primary-bullet: "{"
+@c outli ne-stylish-prefixes: nil
+@c outli ne-override-protect: t
 @c End:
 

@@ -677,9 +677,8 @@ arithmetic_basicspace = 4.;
 
 @end example"
    '(
-  maximum-duration-for-spacing 
-    arithmetic-basicspace 
-    arithmetic-multiplier 
+spacing-increment
+shortest-duration-space
     
     ))
 
