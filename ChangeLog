@@ -1,5 +1,8 @@
 2004-02-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/tie-performer.cc (process_music): new function. Set melisma
+	property.
+
 	* lily/tuplet-bracket.cc (make_bracket): make sure that gap is
 	always smaller than bracket size.
 	(make_bracket): oops. Size of the gap was off by factor 2
