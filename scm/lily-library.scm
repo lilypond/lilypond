@@ -300,11 +300,15 @@ possibly turned off."
    (else (error "unknown unit" (ly:unit)))))
 
 ;;; font
-(define-public (font-family font)
-  (let ((name (ly:font-name font)))
-    (if name
-	(regexp-substitute/global #f "^GNU-(.*)-[.0-9]*$" name 'pre 1 'post)
-	(begin
-	  ;;(stderr "font-name: ~S\n" (ly:font-name font))
-	  ;;(stderr "font-file-name: ~S\n" (ly:font-file-name font))
-	  (ly:font-file-name font)))))
+(define-public (font-name-style font)
+  ;; FIXME: ughr, (ly:font-name) sometimes also has Style appended.
+  (let* ((font-name (ly:font-name font))
+	 (full-name (if font-name font-name (ly:font-file-name font)))
+	 (name-style (string-split full-name #\-)))
+    ;; FIXME: ughr, barf: feta-alphabet is actually emmentaler
+    (if (string-prefix? "feta-alphabet" full-name)
+	(list "emmentaler"
+	      (substring  full-name (string-length "feta-alphabet")))
+	(if (not (null? (cdr name-style)))
+	    name-style
+	    (append name-style '("Regular"))))))

@@ -9,7 +9,10 @@
 
 ;;;; TODO:
 ;;;;  * font selection: name, size, design size
-;;;;  * .cff MUST NOT be in fc's fontpath?
+;;;;  * .cff MUST NOT be in fc's fontpath.
+;;;;    - workaround: remove mf/out from ~/.fonts.conf,
+;;;;      instead add ~/.fonts and symlink all /mf/out/*otf there.
+;;;;    - bug in fontconfig/freetype/pango?
 
 ;;;;  * inkscape page/pageSet support
 ;;;;  * inkscape SVG-font support
@@ -105,25 +108,17 @@
 ;; FIXME: font can be pango font-name or smob
 ;;        determine size and style properly.
 (define (svg-font font)
-  (let ((family (if (string? font) font (font-family font)))
+  (let ((name-style (if (string? font) (list font "Regular")
+			(font-name-style font)))
 	(size (if (string? font) 12 (font-size font)))
 	(anchor "west"))
     (format #f "font-family:~a;font-style:~a;font-size:~a;text-anchor:~a;"
-	    family
-	    (otf-style-mangling font family)
+	    (car name-style)
+	    (cadr name-style)
 	    size anchor)))
 
 (define (fontify font expr)
    (entity 'text expr (cons 'style (svg-font font))))
-
-(define-public (otf-style-mangling font family)
-  ;; Hmm, family is emmentaler20/26?
-  (if (string=? (substring family 0 (min (string-length family) 10))
-		"emmentaler")
-      ;; urg; currently empty
-      ;;(substring family 10)
-      "20"
-      "Regular"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stencil outputters
