@@ -102,27 +102,22 @@ Lookup::streepjes(int i)
 /****************************************************************/
 // bare bones.
 
-struct Linestaf_symbol : Parametric_symbol {
-    int lines;
-    Linestaf_symbol(int n, Symtables*s): Parametric_symbol(s) { lines = n;}
-    Symbol eval(svec<String>)const;
-};
-
 
 Symbol
-Linestaf_symbol::eval(svec<String> w)const
+Lookup::linestaff(int lines, Real wid) 
 {
-    Real wid = w[0].fvalue();
-
     Symbol s;
     s.dim.x = Interval(0,wid);
-    Real dy=(lines-1)*convert_dimen(5,"pt"); // TODO!
+    Real dy=(lines-1)*internote()*2;
     s.dim.y = Interval(0,dy);
+
     svec<String> a;
     a.add(lines);
-    a.add(w[0]);
+    a.add(print_dimen(wid));
+
     s.tex = (*symtables_)("param")->lookup("linestaf").tex;
     s.tex = substitute_args(s.tex, a);
+    
     return s;
 }
 
@@ -161,10 +156,4 @@ Lookup::stem(Real y1,Real y2)
     return s;
 }
 
-
-Parametric_symbol *
-Lookup::linestaff(int n)
-{
-    return new Linestaf_symbol(n,symtables_);
-}
 

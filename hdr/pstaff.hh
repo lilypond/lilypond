@@ -5,9 +5,9 @@
 #include "item.hh"
 #include "symbol.hh"
 
-/// items grouped vertically.
+/// items grouped horizontally
 struct PStaff {
-    Parametric_symbol *stafsym;
+    Molecule * stafsym;
     PScore * pscore_;
     
     
@@ -15,10 +15,10 @@ struct PStaff {
     PointerList<Item*> its;
 
     /****************/
-    virtual Symbol get_stafsym(Real width)const=0; // maybe overkill
+    virtual void brew_molecule(Real width)=0; // maybe overkill
     void add(Item*i);
     PStaff(PScore*);
-    virtual ~PStaff() {}
+    virtual ~PStaff();
 };
 
 #endif
