@@ -4,11 +4,17 @@ set shiftwidth=2
 "
 " some handy key mappings
 "
+" <F2>  save and go to previous buffer
+map <F2> :w<Return>:bp<Return>
+"
+" <F3>  save and go to next buffer
+map <F3> :w<Return>:bn<Return>
+"
 " <F4>  save & make and play midi
 map <F4> :w<Return>:se makeprg=lilypond\ -m\ %<<Return>:make<Return>:!timidity %<.midi<Return>
 "
 " <F5>  save & make dvi, midi, ps
-map <F5> :w<Return>:se makeprg=lilypond\ -P\ %<<Return>:make<Return>
+map <F5> :w<Return>:se makeprg=lilypond\ %<<Return>:make<Return>
 "
 " <F6>  view ps
 map <F6> :!gv -watch %<.ps &<Return>
@@ -25,11 +31,12 @@ map <F8> :cn<Return>
 " <F9>  make
 map <F9> :w<Return>:se makeprg=make\ -k<Return>:make<Return>
 "
-" <F10> run buffer through lily
-map <F10> :w<Return>:se makeprg=lilypond\ %:t<Return>:make<Return>
-"
-" <S-F10> run buffer through lily -M
-map <S-F10> :w<Return>:se makeprg=lilypond\ -M\ %:t<Return>:make<Return>
+" <F10> menu
+:source $VIMRUNTIME/menu.vim
+:set wildmenu
+:set cpo-=<
+:set wcm=<C-Z>
+:map <F10> :emenu <C-Z>
 "
 " <F12> comment region
 map <F12> :g!/%.*/normal 0i%<Return>
