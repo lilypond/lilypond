@@ -32,11 +32,13 @@ TODO:
       default: create dvi only
       na: create tex, latex and dvi
       -P: create dvi and ps
+      -p: create pdf
       na: * create ps only
 
      etc.
 
-     for foo.ly, rename ly2dvi.dir to out-ly2dvi, foo.ly2dvi, foo.dir ?
+  * for foo.ly, rename ly2dvi.dir to out-ly2dvi, foo.ly2dvi, foo.dir ?
+     
      
   * move versatile taglines, 
   
@@ -45,7 +47,8 @@ TODO:
         endfooter=\tagline  -> 'lily was here <version>'
      }
 
-     lilytagline (->lily was here), usertagline, copyright etc.
+     lilytagline (->lily was here), usertagline, copyright, lily-version
+     etc.
 
   * head/header tagline/endfooter
 
@@ -53,7 +56,18 @@ TODO:
     from lilypond .tex *and* header output.
 
   * multiple \score blocks?
+
+  * Introduce verbosity levels
   
+     0  = QUIET: mute all command output, no ly2dvi progress
+     1  = BRIEF: mute all command output, only ly2dvi progress
+     2a = NORMAL: show only LilyPond command output, show ly2dvi progress
+     2b = NORMAL: show command output, show ly2dvi progress
+     3  = VERBOSE: show command output, run lilypond --verbose
+     4  = DEBUGGING: show all command output, run lilypond --verbose, print
+                   environment and all kinds of client side debugging stuff
+
+     Currently, we only have 1 and 4, but we kludge to have 2a and 4.
 '''
 
 import operator
@@ -233,9 +247,12 @@ def run_lilypond (files, dep_prefix):
 
 	cmd = string.join ((lilypond_cmd,opts, fs))
 	
-	# We unset verbose, because we always want to see lily's
+	# We set verbose, because we always want to see lily's
 	# progess on stderr
 	save_verbose = verbose_p
+	
+	# Ugh, this gives ugly full Invoking ... command
+	verbose_p = 1
 	status = ly.system (cmd, ignore_error = 1)
 	verbose_p = save_verbose
 
@@ -461,6 +478,9 @@ None
 	f.close ()
 
 	cmd = latex_cmd + ' \\\\nonstopmode \\\\input %s' % latex_fn
+	# Ugh.  (La)TeX writes progress and error messages on stdout
+	# Redirect to stderr
+	cmd += ' 1>/dev/stderr'
 	status = ly.system (cmd, ignore_error = 1)
 	signal = 0xf & status
 	exit_status = status >> 8
