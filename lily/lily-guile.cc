@@ -22,7 +22,7 @@
 /* MacOS S fix:
    source-file.hh includes cmath which undefines isinf and isnan
 */
-#ifdef MACOS_X
+#ifdef __APPLE__
 inline int my_isinf (Real r) { return isinf (r); }
 inline int my_isnan (Real r) { return isnan (r); }
 #endif
@@ -386,7 +386,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
   if (scm_exact_p (s) == SCM_BOOL_F)
     {
       Real r (scm_to_double (s));
-#ifdef MACOS_X
+#ifdef __APPLE__
       if (my_isinf (r) || my_isnan (r))
 #else
       if (isinf (r) || isnan (r))
