@@ -1,5 +1,7 @@
 2004-04-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* po/de.po: update.
+
 	* scm/output-tex.scm (font-command): use ly: functions to
 	construct name.
 	(define-fonts): don't use alist, just dump \font definitions.
