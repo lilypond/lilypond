@@ -103,7 +103,7 @@ RhythmicStaffContext=\translator{
 
 	Generic_property_list = #generic-staff-properties
 	
-	barSize = #'staff-height
+	barSize =   4.0 * \interline ; 
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
 	\name RhythmicStaff;
