@@ -1,11 +1,11 @@
 /*
-  key-reg.cc -- implement Key_engraver
+  key-engraver.cc -- implement Key_engraver
 
   source file of the GNU LilyPond music typesetter
 
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
   */
+
 #include "key-engraver.hh"
 #include "key-item.hh"
 #include "command-request.hh"
@@ -28,8 +28,9 @@ Key_engraver::create_key ()
     {
       kit_p_ = new Key_item;
       kit_p_->break_priority_i_ = -1; // ugh
+      kit_p_->multi_octave_b_ = key_.multi_octave_b_;
       announce_element (Score_element_info (kit_p_,keyreq_l_));
-
+      
 
       for (int i = 0; i < accidental_idx_arr_.size(); i++) 
 	{

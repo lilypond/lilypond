@@ -1023,15 +1023,15 @@ expressed with the code(\type) construct.  The following input says
 
 verb(
   \type Staff e'4 
-)
+)COMMENT (
 
-The same can be done for the other note, i.e.,
+) The same can be done for the other note, i.e.,
 
 verb(
   \type Staff g4 
-)
+) COMMENT (
 
-If you want to stack these staffs, you must create a chord of both:
+) If you want to stack these staffs, you must create a chord of both:
 
 verb(
   < \type Staff e'4
@@ -1055,9 +1055,9 @@ mudela(verbatim,fragment)(
   < \type Staff = trebleStaff e'4
     \type Staff = bassStaff  g4 
   >
-)
+)COMMENT (
 
-The names that you choose do not matter just as long as they are
+) The names that you choose do not matter just as long as they are
 different.  This is almost right, except for the brace at the left and
 the clef of the second staff.  The bass clef will be taken care of in
 the next section. If you want a brace, then you have to tell LilyPond
@@ -1079,12 +1079,12 @@ label(sec:polyphonic)
 
 In the last section we explained that a notation context can have
 properties that influence the conversion from music to notation.  A
-simple example of such a property is the clef: the type of clef partially
-determines the vertical position of note heads in a staff.  Some of
-these properties can be modified by commands such as code(\clef) and
-code(\time).   But there is more:  notation contexts  also have
-properties are settable in a generic fashion.  We will demonstrate
-this feature by printing multiple voices on a staff.
+simple example of such a property is the clef: the type of clef
+partially determines the vertical position of note heads in a staff.
+Some of these properties can be modified by commands such as
+code(\clef) and code(\time).  But there is more: notation contexts
+also have properties are settable in a generic fashion.  We will
+demonstrate this feature by printing multiple voices on a staff.
 
 In polyphonic (keyboard) music and orchestral scores often more than
 one voice is printed on one staff.  We'll explain how to achieve this
@@ -1096,9 +1096,9 @@ verb(
     \type Voice = one  ...
     \type Voice = two  ...
   >
-)
+) COMMENT (
 
-On the ellipsis there should be music going from left to right, in
+) On the ellipsis there should be music going from left to right, in
 otherr words, there should be sequential music, notes enclosed in
 braces.  Let us try the following simple melodies:
 
@@ -1173,13 +1173,13 @@ file(property.ly) explains most properties.
 We conclude this section with another example of a context property.
 Polyphonic music that has three or four voices can't be printed by
 simply changing the directions of the stems for each voice, obviously.
-Traditionally, some chords are shifted horizontally to print if this many
-voices have to be printed.
-LilyPond can also do this, and the property that controls the
-horizontal shifting is called code(hshift).  The notes in a
-code(Voice) context that has code(hshift) set to a true value (i.e.,
-non-zero or non-empty), will be shifted horizontally in the case of a
-collision.  The following example demonstrates the effect.
+Traditionally, some chords are shifted horizontally to print if this
+many voices have to be printed.  LilyPond can also do this, and the
+property that controls the horizontal shifting is called code(hshift).
+The notes in a code(Voice) context that has code(hshift) set to a true
+value (i.e., non-zero or non-empty), will be shifted horizontally in
+the case of a collision.  The following example demonstrates the
+effect.
 
 mudela(fragment,verbatim)(
   \type "Staff" <
@@ -1310,7 +1310,6 @@ mudela(verbatim)(
     }
   }
 )
-
 
 
 Another interesting feature of this example are the assignments within
@@ -1595,8 +1594,7 @@ context, the articulation is put over the right notes.
 sect(Transposing)
 label(tutorial:more-grammar)
 
-COMMENT(In this section, we will complete the grammar for Music that was
-sketched earlier. )
+
 One of the things that you can do with music is
 em(transposing) it.  If you want to transpose a piece of music, then
 you should prefix the keyword code(\transpose) along with the pitch
@@ -1716,91 +1714,8 @@ soon be replaced by a construction that mixes more elegantly with the
 grammar for Music.
 
 
-sect(Shortcuts for octaves)
-label(sec:relativeoctaves)
-
-Plain Mudela contains a lot of quotes to get the octaves right.  This
-need for quotes can be reduced: most of the pitch intervals in
-conventional music are small.  Therefore, it makes sense to leave out
-the quotes when the interval is small.  We have built a mode that does
-exactly this.  It is called the relative mode for octaves.  You can
-switch it on by entering code(\relative).  Then LilyPond will
-interpret every note as if they mean the note with the same name
-closest to the previous.  You have to specify the first pitch because
-the first note of a list obviously has no predecessor.  So, you can
-enter a scale without using octavation quotes, e.g.,
-
-mudela(fragment,verbatim)(
-    \relative c' { c d e f g a b c }
-)
-
-For chords, the relative mode works slightly differently.  In a
-sequence of chords, the first note of a chord gives the starting point
-for the next chord.  We can demonstrate this with our twinkle twinkle example
-verb(
-  \relative c' {
-  c4       c            <c g'>    <c e g>
-  <c e a>  <b d a'>     <b2 d g>
-  <a4 d f> <bes d f>    <bes c e> <g c e>
-  <e a d>  <a, g' cis'> <d2 f d'>
-  }
-)
-
-LilyPond converts any music with code(\relative) prepended to absolute
-music immediately when it is read. Internally it is stored it in
-absolute pitches.  Since the tutorial mainly deals with how to specify
-musical information, and not how to enter it conveniently, the
-tutorial doesn't use it.
 
 
-sect(Large pieces)
-label(tutorial:large-pieces)
-
-In our quest for a clean and powerfull music language, we took the effort
-of entering some larger pieces of music as well.  From this we learned
-certain things that lead to direct improvements of Mudela, such as the 
-relative mode.  We also gained some practial experience, that resulted in a 
-compilation of tips that may be of use to you.
-
-Entering a large piece of music will often imply the need to produce a
-conductor's score, as well as individual parts for all instruments.  This
-can most easily be achieved making use of identifiers and including mudela
-files.
-
-subsect(Identifiers)
-
-Briefly introduced before, identifiers are your biggest help in structurising
-a large piece of music.  As an example, we'll consider a string quartet.  
-In short, it will look like this: verb(
-    global = \notes{ }
-    violinoOne = \notes \relative c { .. }
-    violinoTwo = \notes \relative c { .. }
-    viola = \notes \relative c { .. }
-    violoncello = \notes \relative c { .. }
-)
-
-The code(\global) part contains everything that is global, i.e., the
-same, for each instrument.  This may include time signature, key, repeat
-signs, different bar types, time signature- and key changes, rehearsal
-marks, etc.
-
-For each instrument, you'll have something vaguely resembling verb(
-    violinoOneStaff = \type Staff = violinoOne <
-	\property Staff.midi_instrument = "violin"
-	\property Staff.instrument = "Violino I"
-	\property Staff.instr = "Vl. I"
-	\global
-	\violinoOne
-    >
-)
-
-
-[Versions, relative mode,
- barchecks, splitting of files]
-
-subsect(Grouping of staffs)
-
-subsect(Versioning)
 
 sect(Titling)
 label(tutorial:titling)

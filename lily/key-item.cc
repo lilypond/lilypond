@@ -21,6 +21,7 @@ const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 
 Key_item::Key_item ()
 {
+  multi_octave_b_ = false;
   breakable_b_ =true;
   default_b_ = false;
   set_c_position (0);
