@@ -1,3 +1,7 @@
+2005-03-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/abc2ly.py (dump_voices): use alphabet(). 
+
 2005-03-25  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/topdocs/INSTALL.texi: now recommends
