@@ -1,5 +1,4 @@
 \version "1.7.18"
-% rename from empty-staffs.ly to blank-paper-tab.ly
 \header {
     
 texidoc = "@cindex Blank Paper Tab
