@@ -59,6 +59,7 @@ Class::do_print() const { \
 } \
 class Class
 
+
 DEFAULT_PRINT(Script_id, General_script_def, script);
 DEFAULT_PRINT(Lookup_id, Lookup, lookup);
 DEFAULT_PRINT(Symtables_id, Symtables, symtables);
@@ -67,12 +68,19 @@ DEFAULT_PRINT(Request_id, Request, request);
 DEFAULT_PRINT(Score_id, Score, score);
 DEFAULT_PRINT(Input_gravs_id, Input_engraver, igravs);
 DEFAULT_PRINT(Paper_def_id,Paper_def, paperdef);
+
 void
 Real_id::do_print() const
 {
-    Identifier::print();
     mtor << *((Real_id*)this)->real(false)<< "\n";
 }
+
+void
+Int_id::do_print() const
+{
+    mtor << *((Int_id*)this)->intid(false)<< "\n";
+}
+
 
 #define default_accessor(Idclass, Class, accessor)\
 Class*\
@@ -103,6 +111,7 @@ Idclass::Idclass(String s, Class*st, int code):Identifier(s,code) { data = st; }
 
 
 
+implement_id_class(Int_id, int, intid);
 implement_id_class(Real_id, Real, real);
 implement_id_class(Script_id, General_script_def, script);
 implement_id_class(Lookup_id, Lookup, lookup);
@@ -118,7 +127,7 @@ Identifier::Identifier(Identifier const&)
     assert(false);
 }
 
-
+default_accessor(Int_id, int, intid);
 default_accessor(Real_id, Real, real);
 virtual_accessor(Script_id, General_script_def, script);
 default_accessor(Lookup_id, Lookup, lookup);
