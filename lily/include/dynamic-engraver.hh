@@ -20,13 +20,13 @@ class Dynamic_engraver : public Engraver {
   Span_dynamic_req * cresc_req_l_;
   Array<Dynamic_req*> dynamic_req_l_arr_;
 public:
-  TRANSLATOR_CLONE(Dynamic_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Dynamic_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);
-  virtual bool do_try_request (Request *req_l);
+  virtual bool do_try_music (Music *req_l);
   virtual void do_process_requests();
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();

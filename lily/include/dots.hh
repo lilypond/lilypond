@@ -25,7 +25,7 @@ public:
   int no_dots_i_;
   int position_i_;
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Dots ();
 };
 

@@ -39,13 +39,13 @@ public:
   int multiple_i_;
 
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Beam();
   void add_stem (Stem*);
 
   void set_grouping (Rhythmic_grouping def, Rhythmic_grouping current);
   void set_stemlens ();
-  SCORE_ELEMENT_CLONE (Beam);
+  VIRTUAL_COPY_CONS(Score_element);
 
 protected:
   virtual Interval do_width () const;    

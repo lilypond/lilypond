@@ -1,10 +1,8 @@
 %!PS-Adobe-1.0: lily.ps
-%
-%staffrulethickness /stafflinethickness exch def
-%
+
 % round cappings
 1 setlinecap
-%
+
 /draw_beam % width slope thick
 {
         2 div /beam_thick exch def
@@ -17,14 +15,14 @@
         0 beam_thick lineto
         closepath fill
 } bind def
-%
+
 /draw_decrescendo % cont height width
 {
 	stafflinethickness setlinewidth
 	/cresc_cont exch def
 	/cresc_ht exch def
 	/cresc_wd exch def
-%
+
 	cresc_wd cresc_cont moveto
 	0 cresc_ht lineto
 	stroke
@@ -32,14 +30,14 @@
 	0 cresc_ht neg lineto
 	stroke
 } bind def
-%
+
 /draw_crescendo % cont height width
 {
 	stafflinethickness setlinewidth
 	/cresc_cont exch def
 	/cresc_ht exch def
 	/cresc_wd exch def
-%
+
 	0 cresc_cont moveto
 	cresc_wd cresc_ht lineto
 	stroke
@@ -47,13 +45,12 @@
 	cresc_wd cresc_ht neg lineto
 	stroke
 } bind def
-%
+
 /lily_distance 
 {
 	1 copy mul exch 1 copy mul add sqrt
 } bind def
-%
-stafflinethickness 1.2 mul /tuplet_t exch def
+
 /draw_tuplet
 {
 	tuplet_t setlinewidth
@@ -67,7 +64,7 @@ stafflinethickness 1.2 mul /tuplet_t exch def
 	staffheight 2 div /tuplet_gapx exch def
 	tuplet_dy tuplet_dx div tuplet_gapx mul /tuplet_gapy exch def
 	staffheight 4 div dir mul /tuplet_h exch def
-%
+
 	0 0 moveto
 	0 tuplet_h lineto 
 	tuplet_dx tuplet_gapx sub 2 div 
@@ -78,7 +75,7 @@ stafflinethickness 1.2 mul /tuplet_t exch def
 	tuplet_dx tuplet_dy lineto
 	stroke
 } bind def
-%
+
 /draw_slur
 {
 	stafflinethickness setlinewidth
@@ -91,7 +88,7 @@ stafflinethickness 1.2 mul /tuplet_t exch def
 	grestore
 	stroke
 } bind def
-%
+
 /draw_dashed_slur
 {
 	1 setlinecap
@@ -102,9 +99,9 @@ stafflinethickness 1.2 mul /tuplet_t exch def
 	curveto
 	stroke
 } bind def
-%
-staffheight 4 div /interline exch def
-%
+
+
+
 /bracket_traject
 {
   /traject_ds exch def
@@ -114,14 +111,9 @@ staffheight 4 div /interline exch def
   traject_ds traject_alpha cos mul add
   exch
 } bind def
-%
-interline 3 div /bracket_b exch def
-interline 2 mul /bracket_w exch def
-stafflinethickness 2 mul /bracket_t exch def
-interline 1.5 mul /bracket_v exch def
-bracket_v /bracket_u exch def
-50 /bracket_alpha exch def
-%
+
+
+
 /half_bracket
 {
 %6
@@ -149,7 +141,7 @@ bracket_v /bracket_u exch def
 %1
 	0 0
 } bind def
-%
+
 /draw_half_bracket {
 	moveto
 	lineto
@@ -161,7 +153,7 @@ bracket_v /bracket_u exch def
 	fill
 	grestore
 } bind def
-%
+
 /draw_bracket % height
 {
 	2 div bracket_b add /bracket_h exch def
@@ -181,4 +173,4 @@ bracket_v /bracket_u exch def
 	draw_half_bracket
 	stroke
 } bind def
-%
+

@@ -19,7 +19,7 @@
 #include "beam.hh"
 #include "rest.hh"
 
-IMPLEMENT_IS_TYPE_B1 (Stem,Item);
+
 
 
 Stem::~Stem ()

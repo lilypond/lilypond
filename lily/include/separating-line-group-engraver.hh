@@ -25,8 +25,8 @@ protected:
   virtual void do_pre_move_processing ();
 public:
   Separating_line_group_engraver ();
-  TRANSLATOR_CLONE (Separating_line_group_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS (Translator);
+  
 };
 
 

@@ -22,7 +22,7 @@
 #include "stem-info.hh"
 
 
-IMPLEMENT_IS_TYPE_B1 (Abbreviation_beam, Spanner);
+
 
 Abbreviation_beam::Abbreviation_beam ()
   : Beam ()

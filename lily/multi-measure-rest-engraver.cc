@@ -12,7 +12,7 @@
 #include "score-column.hh"
 #include "time-description.hh"
 
-IMPLEMENT_IS_TYPE_B1 (Multi_measure_rest_engraver, Engraver);
+
 ADD_THIS_TRANSLATOR (Multi_measure_rest_engraver);
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
@@ -24,12 +24,12 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 }
 
 bool
-Multi_measure_rest_engraver::do_try_request (Request* req_l)
+Multi_measure_rest_engraver::do_try_music (Music* req_l)
 {
  if (Multi_measure_rest_req *mr = dynamic_cast<Multi_measure_rest_req *> (req_l))
    {
      if (multi_measure_req_l_)
-       if (!multi_measure_req_l_->equal_b (req_l)
+       if (!multi_measure_req_l_->equal_b (mr)
 	   || req_start_mom_ != now_moment ())
 	 return false;
   

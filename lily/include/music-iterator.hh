@@ -32,7 +32,7 @@ protected:
   void inherit_info (Music_iterator const *parent);
 public:
   Translator_group*report_to_l() const;
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
  
   static Music_iterator* static_get_iterator_p (Music const*,Translator_group*);
   Music_iterator();

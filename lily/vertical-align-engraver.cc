@@ -58,5 +58,5 @@ Vertical_align_engraver::acknowledge_element (Score_element_info i)
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Vertical_align_engraver, Engraver);
+
 ADD_THIS_TRANSLATOR(Vertical_align_engraver);

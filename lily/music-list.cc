@@ -14,8 +14,8 @@
 #include "musical-request.hh"
 
 
-IMPLEMENT_IS_TYPE_B1(Sequential_music,Music_sequence);
-IMPLEMENT_IS_TYPE_B1(Simultaneous_music,Music_sequence);
+
+
 
 Moment
 Simultaneous_music::duration () const
@@ -103,7 +103,7 @@ Music_list::add_music (Music*m_p)
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Request_chord, Simultaneous_music);
+
 
 
 Request_chord::Request_chord()

@@ -16,8 +16,8 @@ class Bar:public Item {
 public:
   String type_str_;
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEMENT_CLONE (Bar);
+  
+  VIRTUAL_COPY_CONS(Score_element);
   Bar ();
 
 protected:

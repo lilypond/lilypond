@@ -17,7 +17,7 @@ class Property_iterator : public Music_iterator
   Translation_property *property_l() const;
   
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
   virtual void do_process_and_next (Moment);
 };

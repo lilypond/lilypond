@@ -72,7 +72,7 @@ Clef_item::brew_molecule_p() const
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Clef_item,Item);
+
 
 #include "pointer.tcc"
 template class P<Text_def>;	// ugh

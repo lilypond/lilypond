@@ -34,7 +34,7 @@ struct Audio_item : public Audio_element {
    */
   Request* req_l_;
 
-  DECLARE_MY_RUNTIME_TYPEINFO;    
+      
 protected:
   virtual void do_print () const;
   
@@ -45,7 +45,7 @@ private:
 
 struct Audio_key : public Audio_item {
   Audio_key (Request* req_l);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   virtual Midi_item* midi_item_p();
 };
 
@@ -53,11 +53,11 @@ struct Audio_instrument : public Audio_item {
   Audio_instrument (String instrument_str);
   virtual Midi_item* midi_item_p();
   String str_;
-    DECLARE_MY_RUNTIME_TYPEINFO;
+    
 };
                                       
 struct Audio_note : public Audio_item {
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Audio_note (Request* req_l, int transposing_i = 0);
   virtual Midi_item* midi_item_p();
   int transposing_i_;
@@ -68,7 +68,7 @@ struct Audio_text : Audio_item {
     TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC, 
     MARKER, CUE_POINT
   };
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Audio_text (Audio_text::Type type, String text_str);
   virtual Midi_item* midi_item_p();
 
@@ -79,14 +79,14 @@ struct Audio_text : Audio_item {
 struct Audio_tempo : Audio_item {
   Audio_tempo (int per_minute_4_i);
   virtual Midi_item* midi_item_p();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   int per_minute_4_i_;
 };
 
 struct Audio_time_signature : Audio_item {
   Audio_time_signature (Request* req_l);
   virtual Midi_item* midi_item_p();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 #endif // AUDIO_ITEM_HH

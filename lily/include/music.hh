@@ -53,8 +53,8 @@ public:
 
   /// Scale the music in time by #factor#.
   virtual void compress (Moment factor);
-  VIRTUAL_COPY_CONS(Music,Music);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Music);
+  
   Music();
 protected:
   virtual void do_print() const;

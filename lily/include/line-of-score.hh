@@ -18,7 +18,7 @@ public:
   Link_array<Paper_column> cols;
   bool error_mark_b_;
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Line_of_score();
     
   void add_element (Score_element *);
@@ -37,7 +37,7 @@ protected:
 
   virtual Interval do_width() const;
   virtual void do_print() const;
-  SCORE_ELEMENT_CLONE(Line_of_score);
+  VIRTUAL_COPY_CONS(Score_element);
 };
 
 #endif

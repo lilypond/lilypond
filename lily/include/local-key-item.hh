@@ -23,7 +23,7 @@
  */
 class Local_key_item : public Item {
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
+    
     Array<Musical_pitch> accidental_pitch_arr_;
     Link_array<Item> support_items_;
     int c0_position_i_;

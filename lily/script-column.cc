@@ -13,7 +13,7 @@
 #include "stem.hh"
 #include "general-script-def.hh"
 
-IMPLEMENT_IS_TYPE_B1(Script_column,Horizontal_vertical_group_item);
+
 
 
 void

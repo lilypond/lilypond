@@ -47,7 +47,7 @@ public:
   void add_element (Score_element*);
   void add_element_priority (Score_element*, int);
   bool contains_b (Score_element const*) const;
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
   virtual void do_print() const;
   virtual void do_substitute_dependency (Score_element*,Score_element*);

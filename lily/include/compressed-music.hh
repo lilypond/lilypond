@@ -21,8 +21,8 @@ public:
   int den_i_;
 
   Compressed_music (int, int, Music *);
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  VIRTUAL_COPY_CONS (Compressed_music, Music);
+  
+  VIRTUAL_COPY_CONS(Music);
 };
 
 #endif /* COMPRESSED_MUSIC_HH */

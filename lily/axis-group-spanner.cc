@@ -133,4 +133,4 @@ Axis_group_spanner::do_print() const
 
 
 
-IMPLEMENT_IS_TYPE_B2(Axis_group_spanner, Spanner, Axis_group_element);
+

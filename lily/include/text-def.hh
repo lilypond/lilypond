@@ -15,8 +15,7 @@
 class Text_def : public General_script_def 
 {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  VIRTUAL_COPY_CONS(Text_def,General_script_def);
+  VIRTUAL_COPY_CONS(General_script_def);
 
   /**
      Alignment of typeset text wrt center.

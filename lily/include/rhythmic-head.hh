@@ -15,7 +15,7 @@
 class Rhythmic_head : public Item
 {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
    
   int balltype_i_;
   int dots_i_;

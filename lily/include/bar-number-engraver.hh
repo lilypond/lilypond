@@ -22,8 +22,8 @@ protected:
   void acknowledge_element (Score_element_info);
   void do_pre_move_processing();
 public:
-  TRANSLATOR_CLONE(Bar_number_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Bar_number_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 #endif // BAR_NUMBER_GRAV_HH

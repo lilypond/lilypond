@@ -32,7 +32,7 @@ Dynamic_engraver::do_post_move_processing()
 }
 
 bool
-Dynamic_engraver::do_try_request (Request * r)
+Dynamic_engraver::do_try_music (Music * r)
 {
   if(Dynamic_req * d = dynamic_cast <Dynamic_req *> (r))
     {
@@ -151,7 +151,7 @@ Dynamic_engraver::do_pre_move_processing()
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Dynamic_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR(Dynamic_engraver);
 
 void

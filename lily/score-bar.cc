@@ -9,4 +9,4 @@
 
 #include "score-bar.hh"
 
-IMPLEMENT_IS_TYPE_B1(Score_bar, Bar);
+

@@ -18,7 +18,7 @@ Property_iterator::do_process_and_next (Moment m)
   Music_iterator::do_process_and_next (m);
 }
 
-IMPLEMENT_IS_TYPE_B1(Property_iterator, Music_iterator);
+
 
 Translation_property*
 Property_iterator::property_l () const

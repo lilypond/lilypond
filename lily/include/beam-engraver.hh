@@ -23,13 +23,13 @@ class Beam_engraver : public Engraver
   Rhythmic_grouping *current_grouping_p_;
 
 public:
-  TRANSLATOR_CLONE(Beam_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
   Beam_engraver();
 protected:
   virtual void do_removal_processing();
   virtual void do_process_requests();
-  virtual bool do_try_request (Request*);
+  virtual bool do_try_music (Music*);
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
 };

@@ -26,7 +26,7 @@ Ties_engraver::do_post_move_processing()
 }
 
 bool
-Ties_engraver::do_try_request (Request*req)
+Ties_engraver::do_try_music (Music*req)
 {
   if (Tie_req * r = dynamic_cast <Tie_req *> (req))
     {  
@@ -130,7 +130,7 @@ Ties_engraver::do_process_requests ()
 {}
 
 
-IMPLEMENT_IS_TYPE_B1(Ties_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR(Ties_engraver);
 
 

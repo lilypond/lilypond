@@ -11,6 +11,6 @@
 
 #include "debug.hh"
 
-IMPLEMENT_IS_TYPE_B2(Performer_group_performer,Performer, Translator_group);
+
 ADD_THIS_TRANSLATOR(Performer_group_performer);
 

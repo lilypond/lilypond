@@ -35,4 +35,4 @@ Transposed_music::to_relative_octave (Musical_pitch p)
   return p;
 }
 
-IMPLEMENT_IS_TYPE_B1 (Transposed_music, Music_wrapper);
+

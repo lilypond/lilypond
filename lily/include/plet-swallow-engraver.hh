@@ -18,11 +18,11 @@
 class Plet_swallow_engraver : public Swallow_engraver 
 {
 public:
-  TRANSLATOR_CLONE(Plet_swallow_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
 
 protected:
-  virtual bool do_try_request (Request*);
+  virtual bool do_try_music (Music*);
 };
 
 #endif // PLET_SWALLOW_ENGRAVER_HH

@@ -99,7 +99,7 @@ public:
       Warning: contents are unspecified */
   void set_size (int s) 
     {
-      if (s >= max_) remax (s);
+      if (s > max_) remax (s);
       size_ = s;    
     }
     

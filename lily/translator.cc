@@ -41,7 +41,7 @@ Translator::is_alias_b (String s) const
 }
 
 bool
-Translator::do_try_request (Request *)
+Translator::do_try_music (Music *)
 {
   return false;
 }
@@ -73,8 +73,8 @@ void
 Translator::print () const
 {
 #ifndef NPRINT
-  DOUT << name () << " {";
-  if (name () != type_str_)
+  DOUT << classname (this) << " {";
+  if (classname (this) != type_str_)
     DOUT << "type = " << type_str_;
   for (Dictionary_iter<Scalar> i (properties_dict_); i.ok (); i++)
     {
@@ -90,7 +90,7 @@ Translator::do_print () const
 {
 }
 
-IMPLEMENT_IS_TYPE_B(Translator);
+
 
 
 void
@@ -127,12 +127,12 @@ Translator::removal_processing ()
 
 
 bool
-Translator::try_request (Request * r)
+Translator::try_music (Music * r)
 {
   if (status < MOVE_INITED)
     post_move_processing ();
 
-  return do_try_request (r);
+  return do_try_music (r);
 }
 
 void

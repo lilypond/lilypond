@@ -21,7 +21,7 @@ Bar_engraver::Bar_engraver()
 }
 
 bool
-Bar_engraver::do_try_request (Request*r_l)
+Bar_engraver::do_try_music (Music*r_l)
 {
   if (Bar_req  * b= dynamic_cast <Bar_req *> (r_l))
     {
@@ -95,7 +95,7 @@ Bar_engraver::do_process_requests()
     {
       Break_req r;
       r.penalty_i_ = Break_req::DISALLOW;
-      daddy_grav_l ()->try_request (&r);
+      daddy_grav_l ()->try_music (&r);
     }
 }
 
@@ -117,7 +117,7 @@ Bar_engraver::do_post_move_processing()
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Bar_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR(Bar_engraver);
 
 

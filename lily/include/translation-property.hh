@@ -21,8 +21,8 @@ class Translation_property : public Music
 public:
   String var_str_;
   Scalar value_;
-  VIRTUAL_COPY_CONS(Translation_property, Music);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Music);
+  
 protected:
   virtual void do_print () const;
 };

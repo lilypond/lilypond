@@ -13,7 +13,7 @@
 #include "translator-group.hh"
 #include "command-request.hh"
 
-IMPLEMENT_IS_TYPE_B1(Compressed_music_iterator, Music_wrapper_iterator);
+
 
 Compressed_music_iterator::Compressed_music_iterator ()
 {
@@ -52,17 +52,10 @@ Compressed_music_iterator::do_process_and_next (Moment m)
 {
   if (first_b_)
     {
-      bool success = report_to_l ()->try_request (start_req_p_);
+      bool success =   report_to_l ()->try_music (compressed_l ());
       if (!success)
 	music_l_->warning ( _("No one to print a tuplet start bracket"));
     }
 
   Music_wrapper_iterator::do_process_and_next (m);
-  
-  if (!ok ())
-    {
-      bool success = report_to_l ()->try_request (stop_req_p_);
-      if (!success)
-          music_l_->warning ( _("No one to print a tuplet stop bracket"));
-    }
 }

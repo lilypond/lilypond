@@ -14,8 +14,8 @@
 class Staff_bracket : public Span_score_bar
 {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEMENT_CLONE(Staff_bracket);
+  
+  VIRTUAL_COPY_CONS(Score_element);
 
 protected:
   virtual Interval do_width() const;

@@ -89,7 +89,7 @@ VoiceContext = \translator {
  	\consists "Rest_engraver";
 	\consists "Dot_column_engraver";
 	\consists "Stem_engraver";
-	\consists "Plet_engraver";
+%	\consists "Plet_engraver";
 	\consists "Beam_engraver";
 	\consists "Abbreviation_beam_engraver";
 	\consists "Multi_measure_rest_engraver";

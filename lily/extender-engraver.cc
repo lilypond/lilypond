@@ -12,7 +12,6 @@
 #include "score-column.hh"
 #include "text-item.hh"
 
-IMPLEMENT_IS_TYPE_B1 (Extender_engraver,Engraver);
 ADD_THIS_TRANSLATOR (Extender_engraver);
 
 Extender_engraver::Extender_engraver ()
@@ -40,22 +39,22 @@ Extender_engraver::acknowledge_element (Score_element_info i)
 }
 
 bool
-Extender_engraver::do_try_request (Request* req_l)
+Extender_engraver::do_try_music (Music* req_l)
 {
-  Extender_req* p = dynamic_cast <Extender_req *> (req_l);
-  if (!p)
-    return false;
+  if (Extender_req* p = dynamic_cast <Extender_req *> (req_l))
+    {
+      if (bool (extender_spanner_p_) == bool (p->spantype == Span_req::START))
+	return false;
 
-  if (bool (extender_spanner_p_) == bool (p->spantype == Span_req::START))
-    return false;
+      Direction d = (!extender_spanner_p_) ? LEFT : RIGHT;
+      if (span_reqs_drul_[d] && !span_reqs_drul_[d]->equal_b (p))
+	return false;
 
-  Direction d = (!extender_spanner_p_) ? LEFT : RIGHT;
-  if (span_reqs_drul_[d] && !span_reqs_drul_[d]->equal_b (req_l))
-    return false;
-
-  span_reqs_drul_[d] = p;
-  span_mom_drul_[d] = get_staff_info ().musical_l ()->when ();
-  return true;
+      span_reqs_drul_[d] = p;
+      span_mom_drul_[d] = get_staff_info ().musical_l ()->when ();
+      return true;
+    }
+  return false;
 }
 
 void

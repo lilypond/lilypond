@@ -25,7 +25,7 @@ public:
   virtual void do_process_and_next (Moment) ;
   virtual Moment next_moment () const;
   virtual bool ok () const;
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 #endif /* MUSIC_WRAPPER_ITERATOR_HH */

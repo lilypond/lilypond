@@ -102,5 +102,5 @@ Bar_column_engraver::do_post_move_processing()
   bar_l_ =0;
 }
 
-IMPLEMENT_IS_TYPE_B1(Bar_column_engraver, Engraver);
+
 ADD_THIS_TRANSLATOR(Bar_column_engraver);

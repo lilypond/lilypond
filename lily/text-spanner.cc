@@ -39,7 +39,7 @@ Text_spanner::Text_spanner()
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Text_spanner,Spanner);
+
 
 void
 Text_spanner::do_print() const

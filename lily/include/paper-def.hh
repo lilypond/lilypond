@@ -40,11 +40,11 @@ class Paper_def : public Music_output_def
   static int default_count_i_;
 
 protected:
-  VIRTUAL_COPY_CONS(Paper_def,Music_output_def);
+  VIRTUAL_COPY_CONS(Music_output_def);
 
 public:    
   virtual ~Paper_def ();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
   Array<Interval> shape_int_a_;
 

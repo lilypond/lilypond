@@ -16,20 +16,18 @@ class Tuplet_engraver : public Engraver
 {
   void typeset_all ();
 public:
-  Tuplet_engraver ();
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  TRANSLATOR_CLONE(Tuplet_engraver);
+  VIRTUAL_COPY_CONS(Translator);
+
 
 protected:
-  Link_array<Bracket_req> bracket_req_arr_;
-
+  Link_array<Compressed_music> compressed_music_arr_;
+  Array<Moment> stop_moments_;
   Link_array<Plet_spanner> started_span_p_arr_;
-  Link_array<Plet_spanner> stop_now_span_p_arr_;
+
 
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);
-  virtual void do_pre_move_processing ();
-  virtual bool do_try_request (Request*r);
+  virtual bool do_try_music (Music*r);
   virtual void do_process_requests ();
   virtual void do_post_move_processing ();
 };

@@ -18,6 +18,6 @@ Compressed_music::Compressed_music (int n, int d,Music *mp)
   element_p_->compress (Moment (num_i_,den_i_));
 }
 
-IMPLEMENT_IS_TYPE_B1(Compressed_music, Music_wrapper);
+
 
 

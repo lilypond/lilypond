@@ -55,7 +55,7 @@ Rhythmic_head::do_substitute_dependent (Score_element*o,Score_element*n)
     dots_l_ = n ? dynamic_cast<Dots *> (n) :0;
 }
 
-IMPLEMENT_IS_TYPE_B1(Rhythmic_head, Item);
+
 void
 Rhythmic_head::do_print () const
 {

@@ -54,5 +54,5 @@ Collision_engraver::Collision_engraver()
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Collision_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR(Collision_engraver);

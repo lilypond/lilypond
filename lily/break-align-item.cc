@@ -18,4 +18,4 @@ Break_align_item::do_pre_processing()
   Horizontal_align_item::do_pre_processing();
 }
 
-IMPLEMENT_IS_TYPE_B1(Break_align_item, Horizontal_align_item);
+

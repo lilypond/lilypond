@@ -48,4 +48,4 @@ Dot_column_engraver::acknowledge_element (Score_element_info info)
 
 
 ADD_THIS_TRANSLATOR(Dot_column_engraver);
-IMPLEMENT_IS_TYPE_B1(Dot_column_engraver,Engraver);
+

@@ -16,7 +16,7 @@
 #include "text-def.hh"
 #include "molecule.hh"
 
-IMPLEMENT_IS_TYPE_B1 (Multi_measure_rest, Item);
+
 
 Multi_measure_rest::Multi_measure_rest ()
 {

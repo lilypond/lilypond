@@ -17,7 +17,7 @@ class Compressed_music_iterator : public Music_wrapper_iterator
 public:
   Bracket_req* start_req_p_;
   Bracket_req* stop_req_p_;
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Compressed_music_iterator();
   ~Compressed_music_iterator ();
   virtual void do_process_and_next (Moment);

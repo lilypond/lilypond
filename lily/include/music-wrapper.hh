@@ -20,8 +20,8 @@ public:
   Music_wrapper (Music*);
   virtual void transpose (Musical_pitch);
   virtual void do_print () const;
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  VIRTUAL_COPY_CONS (Music_wrapper, Music);
+  
+  VIRTUAL_COPY_CONS(Music);
   Music_wrapper (Music_wrapper const&);
   virtual Moment  duration () const;
   virtual ~Music_wrapper ();

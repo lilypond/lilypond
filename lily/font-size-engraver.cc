@@ -33,4 +33,4 @@ Font_size_engraver::acknowledge_element (Score_element_info e)
 }
 
 ADD_THIS_TRANSLATOR (Font_size_engraver);
-IMPLEMENT_IS_TYPE_B1(Font_size_engraver,Engraver);
+

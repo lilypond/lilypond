@@ -24,8 +24,8 @@ class Span_bar_engraver : public Engraver
   Array<Bar*> bar_l_arr_;
   Vertical_align_spanner * valign_l_;
 public:
-  TRANSLATOR_CLONE(Span_bar_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
     
   Span_bar_engraver();
 protected:

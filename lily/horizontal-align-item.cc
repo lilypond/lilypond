@@ -9,7 +9,7 @@
 #include "horizontal-align-item.hh"
 #include "debug.hh"
 
-IMPLEMENT_IS_TYPE_B2(Horizontal_align_item,Align_element,Item);
+
 
 void
 Horizontal_align_item::add_item (Item *i,int p)

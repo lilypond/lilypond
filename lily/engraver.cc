@@ -50,7 +50,7 @@ Engraver::get_staff_info() const
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Engraver, Translator);
+
 
 
 Engraver_group_engraver*

@@ -17,7 +17,7 @@ Super_element::Super_element()
 {
 }
 
-IMPLEMENT_IS_TYPE_B1(Super_element,Score_element);
+
 
 
 /**

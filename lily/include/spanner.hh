@@ -37,7 +37,7 @@ public:
   Drul_array<Item*> spanned_drul_;
   void set_bounds (Direction d, Item*);
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   Spanner ();
   Spanner (Spanner const &);
   bool broken_b () const;
@@ -45,7 +45,7 @@ public:
   Spanner* find_broken_piece (Line_of_score*) const;
 protected:
   void set_my_columns ();
-  SCORE_ELEMENT_CLONE (Spanner);
+  VIRTUAL_COPY_CONS(Score_element);
 
   /**
     this is virtual; for instance, Line_of_score overrides it.

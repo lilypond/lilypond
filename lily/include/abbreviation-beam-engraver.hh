@@ -20,15 +20,15 @@
 class Abbreviation_beam_engraver : public Engraver
 {
 public:
-  TRANSLATOR_CLONE(Abbreviation_beam_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
 
   Abbreviation_beam_engraver();
 
 protected:
   virtual void do_removal_processing();
   virtual void do_process_requests();
-  virtual bool do_try_request (Request*);
+  virtual bool do_try_music (Music*);
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
 

@@ -14,29 +14,8 @@
 % ``compiles'' operatorname binding in the body of foo, making
 % the code faster, and more reliable (less flexible)
 
-%must come before PSTeXDimen
-\special{!
-% PS helper: convert (0.2pt) to the token 0.2
-/settexdimen
-{
-        /thestring exch def
-        thestring 0 thestring length 2 sub
-        getinterval
-        token
-        pop exch pop 
-} def
-%
-/deftexdimen
-{
-        settexdimen
-        def     
-} def
-}
 % transplant a TeX dimension into the PS output.
 \def\PSsetTeXdimen#1{\expandafter\special{! /#1 (\the\csname #1\endcsname) deftexdimen}}
-% must come before lily.ps
-\PSsetTeXdimen{stafflinethickness}
-\PSsetTeXdimen{staffheight}
 {%
    \def\par{ }%         %Ugh.  Don't try this at home, kids!
    % neat file-include trick by Piet van Oostrum <piet@cs.uu.nl>
@@ -46,9 +25,7 @@
    \def\filedef#1#2{%#1=command name, #2=file name 
            \openin\defin=#2\relax\def#1{} 
            \ifeof\defin
-                   \message{***************************************}
-                   \message{lily-ps-defs.tex: can't open `#2'}
-                   \message{***************************************}
+                   \message{***************** CAN NOT OPEN #2 ********************}
                    \end
            \fi 
            \loop\ifnot{\ifeof\defin}\read\defin to\tempfiledef
@@ -66,6 +43,23 @@
 }
 
 
+\special{!
+% PS helper: convert (0.2pt) to the token 0.2
+/settexdimen
+{
+        /thestring exch def
+        thestring 0 thestring length 2 sub
+        getinterval
+        token
+        pop exch pop 
+} def
+%
+/deftexdimen
+{
+        settexdimen
+        def     
+} def
+}
 
 \def\turnOnPostScript{%
         \PSsetTeXdimen{stafflinethickness}
@@ -80,7 +74,6 @@
 
         \special{! 
 /interline \mudelapaperinterline0  def % ugh.  Only works x.yyyy floats 
-stafflinethickness 1.2 mul /plet_t exch def
 interline 3 div /bracket_b exch def
 interline 2 mul /bracket_w exch def
 stafflinethickness 2 mul /bracket_t exch def
@@ -88,6 +81,7 @@ interline 1.5 mul /bracket_v exch def
 bracket_v /bracket_u exch def
 50 /bracket_alpha exch def
 staffheight 4 div /interline exch def
+stafflinethickness 1.2 mul /tuplet_t exch def
 1 setlinecap}
 }
 

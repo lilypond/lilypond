@@ -80,4 +80,4 @@ Text_item::brew_molecule_p () const
 }
 
 
-IMPLEMENT_IS_TYPE_B1 (Text_item,Item);
+

@@ -8,11 +8,10 @@ grep for TODO and ugh/ugr/urg
 
 
 BUGS:
+
 	* gallina barlines.
 
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
-
-	* --safe:  disallow backslashes, disallow \include.
 
 	* msgfmt -o check?
 
@@ -67,6 +66,12 @@ BUGS:
 	
 	portato= \script { "portato" 0 -1 0 1 0 }
 
+STUFF
+
+	* move option processing out of gh_enter
+
+	* check out GCC signatures?
+
 	* Align_element::padding  ?
 
 	* uniformise property names.
@@ -76,6 +81,8 @@ BUGS:
 	* typo checks on property names?
 
 	* make engraver hacking robust.
+
+	* --safe:  disallow backslashes, disallow \include.
 
 	* use streambufs and iostream
 	to provide IO handling for TeX stream, mudela stream, data-file.
@@ -103,8 +110,6 @@ BUGS:
 	- junk ^ and _ for scripts
 	- junk _ for lyrics.
 	- abstract grammar.
-
-	* install TeX stuff into tex/generic directory.
 
 	* percussion note heads
 
@@ -565,8 +570,6 @@ SMALLISH PROJECTS
 
 	* Flower types:
 	- A decent scalar type
-	- String hash
-	- Pointer hash
 
 	* binsearch/hash for identifiers
 
@@ -598,7 +601,6 @@ SMALLISH PROJECTS
 
 IDEAS
 
-
 	* Output data structures of Mudela in XML/SGML.
 
 	* create libmudela, or liblily_frontend
@@ -606,7 +608,7 @@ IDEAS
 	* move MIDI stuff (including Quantization) to a ANSI C libmidi library.
 
 	* use an embedded language: Python, Scheme
-	for: 
+	for:
 		- Score_elems
 		- Translators
 
@@ -615,8 +617,6 @@ IDEAS
 	* Spacing_request for manually adjusting spacing
 
 	* caching breakpoints
-
-	* breath marks 
 
 	* used fixedpoint arithmetic for min. energy.
 

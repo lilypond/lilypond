@@ -18,8 +18,8 @@
  */
 class Score_bar : public virtual Bar {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEMENT_CLONE(Score_bar);
+  
+  VIRTUAL_COPY_CONS(Score_element);
 protected:
   void do_pre_processing ();
 };

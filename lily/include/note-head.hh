@@ -17,7 +17,7 @@
 
 class Note_head : public Rhythmic_head {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
   int position_i_;
     

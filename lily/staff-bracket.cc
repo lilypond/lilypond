@@ -42,6 +42,6 @@ Staff_bracket::do_post_processing ()
     }
 }
 
-IMPLEMENT_IS_TYPE_B1(Staff_bracket, Span_score_bar);
+
 
   

@@ -27,8 +27,8 @@ protected:
   virtual void do_print() const;
 public:
   Horizontal_group_item ();
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEMENT_CLONE(Horizontal_group_item);
+  
+  VIRTUAL_COPY_CONS(Score_element);
 };
 
 #endif // HORIZONTAL_GROUP_ITEM_HH

@@ -20,9 +20,9 @@ class Score_priority_engraver : public Engraver
 {
   Assoc<int, Horizontal_group_item  *> align_p_assoc_;
 public:
-  TRANSLATOR_CLONE(Score_priority_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Score_priority_engraver ();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();

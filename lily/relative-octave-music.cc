@@ -30,4 +30,4 @@ Relative_octave_music::do_print () const
   DOUT << "default pitch: " << last_pitch_.str ();
 }
 
-IMPLEMENT_IS_TYPE_B1 (Relative_octave_music, Music_wrapper);
+

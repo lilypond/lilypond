@@ -26,7 +26,7 @@ protected:
   Sequential_music * sequential_music_l() const;
 public:
   Sequential_music_iterator ();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
   virtual void do_print() const;
   virtual void construct_children();

@@ -18,7 +18,7 @@ public:
     Directional_spanner();
     
     /// offset of "center" relative to left-column/0-pos of staff
-    virtual Offset center() const=0;
+    virtual Offset center() const;
     virtual void set_default_dir();
 protected:
     virtual void do_pre_processing();

@@ -62,7 +62,7 @@ Simultaneous_music_iterator::do_process_and_next (Moment until)
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Simultaneous_music_iterator,Music_iterator);
+
 
 Moment
 Simultaneous_music_iterator::next_moment() const

@@ -10,7 +10,7 @@
 #include "command-request.hh"
 #include "audio-item.hh"
 
-IMPLEMENT_IS_TYPE_B1(Time_signature_performer,Performer);
+
 ADD_THIS_TRANSLATOR(Time_signature_performer);
 
 Time_signature_performer::Time_signature_performer()
@@ -40,7 +40,7 @@ Time_signature_performer::do_process_requests()
 }
 
 bool
-Time_signature_performer::do_try_request (Request* req_l)
+Time_signature_performer::do_try_music (Music* req_l)
 {
   if (time_signature_req_l_)
     return false;

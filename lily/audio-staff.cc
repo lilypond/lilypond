@@ -28,4 +28,4 @@ Audio_staff::output (Midi_stream& midi_stream_r, int track_i)
   midi_stream_r << midi_track;
 }
 
-IMPLEMENT_IS_TYPE_B1(Audio_staff, Audio_element);
+

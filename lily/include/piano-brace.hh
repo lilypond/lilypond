@@ -15,8 +15,8 @@
 class Piano_brace : public Span_score_bar
 {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEMENT_CLONE(Piano_brace);
+  
+  VIRTUAL_COPY_CONS(Score_element);
 
   /** make room for Staff_bracket.  Ugh.  Should use some kind of
     relation thingy.  */

@@ -19,13 +19,13 @@
    It's 1 30 am.  Naming suggestions appreciated.  */
 class Single_malt_grouping_item : public Item
 {
-  SCORE_ELEMENT_CLONE (Single_malt_grouping_item);
+  VIRTUAL_COPY_CONS(Score_element);
   Link_array<Item> item_l_arr_;
 public:
   Single_malt_grouping_item ();
   Interval my_width () const;
   void add_item (Item*);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
   virtual  void do_substitute_dependency (Score_element*, Score_element*);
   virtual void do_print () const;

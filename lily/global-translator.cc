@@ -52,7 +52,7 @@ Global_translator::now_moment () const
   return now_mom_;
 }
 
-IMPLEMENT_IS_TYPE_B1(Global_translator, Translator_group);
+
 
 Music_output*
 Global_translator::get_output_p()

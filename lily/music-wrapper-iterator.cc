@@ -16,7 +16,7 @@ Music_wrapper_iterator::Music_wrapper_iterator ()
   child_iter_p_ =0;
 }
 
-IMPLEMENT_IS_TYPE_B1(Music_wrapper_iterator, Music_iterator);
+
 
 void
 Music_wrapper_iterator::do_print () const

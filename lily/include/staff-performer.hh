@@ -17,8 +17,8 @@
 class Staff_performer : public Performer_group_performer 
 {
 public:
-  TRANSLATOR_CLONE(Staff_performer);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
 
   Staff_performer ();
   ~Staff_performer ();

@@ -29,7 +29,7 @@
 #include "encompass-info.hh"
 #include "main.hh"
 
-IMPLEMENT_IS_TYPE_B1(Slur,Bow);
+
 
 Slur::Slur ()
 {

@@ -77,7 +77,7 @@ Graphical_axis_group::do_print() const
 {
 #ifndef NPRINT
   for (int i=0; i < elem_l_arr_.size(); i++) 
-    DOUT << elem_l_arr_[i]->name () << " ";
+    DOUT << classname(elem_l_arr_[i]) << " ";
 #endif
 }
 
@@ -87,4 +87,4 @@ Graphical_axis_group::Graphical_axis_group (Axis a1, Axis a2)
   axis2_ = a2;
 }
 
-IMPLEMENT_IS_TYPE_B1(Graphical_axis_group, Graphical_element);
+

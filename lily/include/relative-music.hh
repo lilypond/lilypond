@@ -19,8 +19,8 @@ public:
 
   void do_print () const;
   Relative_octave_music (Music*, Musical_pitch);
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  VIRTUAL_COPY_CONS (Relative_octave_music, Music);
+  
+  VIRTUAL_COPY_CONS(Music);
   virtual Musical_pitch to_relative_octave (Musical_pitch);
 };
 

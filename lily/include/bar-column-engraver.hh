@@ -29,9 +29,9 @@ protected:
   virtual void do_process_requests ();
   virtual void do_post_move_processing();
 public:
-  TRANSLATOR_CLONE(Bar_column_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Bar_column_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 #endif // BAR_COLUMN_GRAV_HH

@@ -23,7 +23,7 @@ Beam_engraver::Beam_engraver()
 }
 
 bool
-Beam_engraver::do_try_request(Request*r)
+Beam_engraver::do_try_music (Music*r)
 {
   Beam_req* b = dynamic_cast <Beam_req *> (r);
   if (!b)
@@ -131,5 +131,5 @@ Beam_engraver::acknowledge_element (Score_element_info i)
       beam_p_->add_stem (s);
     }
 }
-IMPLEMENT_IS_TYPE_B1(Beam_engraver, Engraver);
+
 ADD_THIS_TRANSLATOR(Beam_engraver);

@@ -42,7 +42,7 @@ public:
 
   Item();
   Real hpos_f() const;
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   virtual Line_of_score * line_l() const;
   virtual Paper_column * column_l () const;
     

@@ -22,7 +22,7 @@ Audio_instrument::midi_item_p()
 {
   return str_.length_i() ? new Midi_instrument(0, str_) : 0;
 }
-IMPLEMENT_IS_TYPE_B1(Audio_instrument, Audio_item);
+
 
 Audio_item::Audio_item (Request* req_l)
 {
@@ -40,7 +40,7 @@ Audio_key::midi_item_p()
 {
   return new Midi_key (this);
 }
-IMPLEMENT_IS_TYPE_B1 (Audio_key, Audio_item);
+
 
 Audio_note::Audio_note (Request* req_l, int transposing_i)
   : Audio_item (req_l)
@@ -54,7 +54,7 @@ Audio_note::midi_item_p()
   return new Midi_note (this);
 }
 
-IMPLEMENT_IS_TYPE_B1(Audio_note, Audio_item);
+
 
 Audio_tempo::Audio_tempo (int per_minute_4_i)
   : Audio_item (0)
@@ -68,7 +68,7 @@ Audio_tempo::midi_item_p()
   return new Midi_tempo (this);
 }
 
-IMPLEMENT_IS_TYPE_B1(Audio_tempo, Audio_item);
+
 
 Audio_time_signature::Audio_time_signature (Request* req_l)
   : Audio_item (req_l)
@@ -81,7 +81,7 @@ Audio_time_signature::midi_item_p()
   return new Midi_time_signature (this);
 }
 
-IMPLEMENT_IS_TYPE_B1(Audio_time_signature, Audio_item);
+
 
 Audio_text::Audio_text (Audio_text::Type type, String text_str)
   : Audio_item (0)
@@ -96,8 +96,8 @@ Audio_text::midi_item_p()
   return text_str_.length_i() ? new Midi_text(this) : 0;
 }
 
-IMPLEMENT_IS_TYPE_B1(Audio_text, Audio_item);
-IMPLEMENT_IS_TYPE_B1(Audio_item, Audio_element);
+
+
 
 void
 Audio_item::do_print () const

@@ -111,7 +111,7 @@ void
 Score_element::print() const
 {
 #ifndef NPRINT
-  DOUT << name() << "{\n";
+  DOUT << classname(this) << "{\n";
   DOUT << "dets: " << dependent_size() << "dependencies: " << 
     dependency_size();
  
@@ -181,7 +181,7 @@ Score_element::do_brew_molecule ()
       i->origin_l_ = this;
     }
   
-  pscore_l_->outputter_l_->output_molecule (output, absolute_offset (), name());
+  pscore_l_->outputter_l_->output_molecule (output, absolute_offset (), classname(this));
   delete output;
 }
 
@@ -242,7 +242,7 @@ Score_element::do_junk_links()
 {
 }
 
-IMPLEMENT_IS_TYPE_B1(Score_element, Graphical_element);
+
 
 Molecule*
 Score_element::brew_molecule_p() const

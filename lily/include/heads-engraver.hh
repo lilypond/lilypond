@@ -18,11 +18,11 @@ class Note_heads_engraver : public Engraver {
   Link_array<Note_req> note_req_l_arr_;
 
 public:
-  TRANSLATOR_CLONE(Note_heads_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Note_heads_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
-  virtual bool do_try_request (Request *req_l) ;
+  virtual bool do_try_music (Music *req_l) ;
   virtual void do_process_requests();
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();

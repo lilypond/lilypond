@@ -36,7 +36,7 @@
 #include "stem-info.hh"
 
 
-IMPLEMENT_IS_TYPE_B1 (Beam, Spanner);
+
 
 Beam::Beam ()
 {

@@ -19,7 +19,7 @@
 #include "translator.hh"
 #include "notename-table.hh"
 
-IMPLEMENT_IS_TYPE_B(Identifier);
+
 
 Identifier::Identifier (int code)
 {
@@ -156,7 +156,6 @@ Class ## _identifier::access_content_ ## Class (bool copy_b) const{\
 }
 
 #define IMPLEMENT_ID_CLASS(Class)	\
-	IMPLEMENT_IS_TYPE_B1(Class ## _identifier,Identifier)\
 	Class ## _identifier::~Class ## _identifier() { delete data_p_; }\
 	Class ## _identifier::Class ## _identifier (Class*st, int code) \
 	  :Identifier (code)\

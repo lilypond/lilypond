@@ -31,7 +31,7 @@ protected:
     Axis_group_element::do_unlink();
   }
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 #endif // AXIS_ITEM_HH

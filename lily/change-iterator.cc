@@ -79,4 +79,4 @@ Change_iterator::do_process_and_next (Moment m)
   Music_iterator::do_process_and_next (m);
 }
 
-IMPLEMENT_IS_TYPE_B1 (Change_iterator, Music_iterator);
+

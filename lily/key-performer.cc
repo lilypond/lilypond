@@ -12,7 +12,7 @@
 
 
 
-IMPLEMENT_IS_TYPE_B1(Key_performer,Performer);
+
 ADD_THIS_TRANSLATOR(Key_performer);
 
 Key_performer::Key_performer()
@@ -42,7 +42,7 @@ Key_performer::do_process_requests()
 }
 
 bool
-Key_performer::do_try_request (Request* req_l)
+Key_performer::do_try_music (Music* req_l)
 {
   if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req_l))
     {

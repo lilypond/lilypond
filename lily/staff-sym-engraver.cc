@@ -52,5 +52,5 @@ Staff_symbol_engraver::do_removal_processing()
 
 
 
-IMPLEMENT_IS_TYPE_B1(Staff_symbol_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR(Staff_symbol_engraver);

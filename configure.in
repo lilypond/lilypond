@@ -39,6 +39,8 @@ AC_STEPMAKE_TEXMF
 AC_STEPMAKE_YODL
 AC_STEPMAKE_GUILE
 
+CXXFLAGS="$CXXFLAGS -fhandle-signatures" 
+
 dnl should check out -print
 dnl huh?
 dnl AC_CHECK_SEARCH_RESULT($FIND, find, Please use --enable-tex-dir)

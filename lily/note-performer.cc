@@ -11,7 +11,7 @@
 #include "audio-item.hh"
 #include "debug.hh"
 
-IMPLEMENT_IS_TYPE_B1 (Note_performer,Performer);
+
 ADD_THIS_TRANSLATOR (Note_performer);
 
 Note_performer::Note_performer ()
@@ -47,7 +47,7 @@ Note_performer::do_process_requests ()
 }
 
 bool 
-Note_performer::do_try_request (Request* req_l)
+Note_performer::do_try_music (Music* req_l)
 {
   if (note_req_l_)
     return false;

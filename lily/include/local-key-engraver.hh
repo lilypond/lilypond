@@ -15,7 +15,7 @@
 struct Local_key_engraver : Engraver {
     Local_key_item *key_item_p_;
 protected:
-  TRANSLATOR_CLONE(Local_key_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   virtual void do_process_requests();
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
@@ -30,7 +30,7 @@ public:
   Link_array<Item  > forced_l_arr_;
   Link_array<Item > tied_l_arr_;
   Local_key_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 #endif // LOCALKEYGRAV_HH

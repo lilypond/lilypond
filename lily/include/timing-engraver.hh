@@ -20,8 +20,8 @@ class Timing_engraver : public Timing_translator, public Engraver
 protected:
   virtual void fill_staff_info (Staff_info&);
 public:
-  TRANSLATOR_CLONE(Timing_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
 };
 
 #endif // TIMING_GRAV_HH

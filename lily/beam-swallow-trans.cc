@@ -10,6 +10,5 @@
 #include "type-swallow-trans.hh"
 #include "musical-request.hh"
 
-
-
 DECLARE_REQUEST_SWALLOWER(Beam_req);
+

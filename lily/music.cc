@@ -24,7 +24,7 @@ Music::print() const
 #ifndef NPRINT
   if (! check_debug)
     return ;
-  DOUT << name() << "{";
+  DOUT << classname(this) << "{";
   if  (translator_type_str_.length_i ())
     DOUT << translator_type_str_ << " = " << translator_id_str_;
   do_print();
@@ -44,7 +44,7 @@ Music::do_print() const
 }
 
 
-IMPLEMENT_IS_TYPE_B(Music);
+
 
 
 

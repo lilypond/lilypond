@@ -19,7 +19,7 @@ class Change_iterator : public Music_iterator
   void  error (String);
   
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 protected:
   virtual void do_process_and_next (Moment);
 };

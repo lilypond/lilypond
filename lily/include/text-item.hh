@@ -24,7 +24,7 @@ public:
 
     Text_item (General_script_def* ,Direction dir=CENTER);
     virtual ~Text_item ();
-    DECLARE_MY_RUNTIME_TYPEINFO;
+    
 
 //protected:
     // ugh: so, are we a text-def, or can this vary?

@@ -60,7 +60,7 @@ Rest_engraver::do_process_requests ()
 }
 
 bool
-Rest_engraver::do_try_request (Request *req)
+Rest_engraver::do_try_music (Music *req)
 {
   if (Rest_req *r = dynamic_cast <Rest_req *> (req))
     {
@@ -70,5 +70,5 @@ Rest_engraver::do_try_request (Request *req)
   return false;
 }
 
-IMPLEMENT_IS_TYPE_B1(Rest_engraver, Engraver);
+
 ADD_THIS_TRANSLATOR(Rest_engraver);

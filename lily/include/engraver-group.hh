@@ -28,11 +28,11 @@ class Engraver_group_engraver : public Engraver,
 protected:
   Array<Score_element_info> announce_info_arr_;
 public:
-  TRANSLATOR_CLONE(Engraver_group_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Engraver_group_engraver();
   ~Engraver_group_engraver();
     
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
     
   virtual Staff_info get_staff_info() const;
   virtual void do_announces();

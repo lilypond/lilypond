@@ -13,7 +13,7 @@
 #include "note-column.hh"
 
 
-IMPLEMENT_IS_TYPE_B1(Rest_collision_engraver, Engraver);
+
 ADD_THIS_TRANSLATOR(Rest_collision_engraver);
 
 Rest_collision_engraver::Rest_collision_engraver()

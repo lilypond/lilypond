@@ -14,14 +14,14 @@
 
 class Key_performer : public Performer {
 public:
-  TRANSLATOR_CLONE(Key_performer);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
   Key_performer();
   ~Key_performer();
 
 protected:
   void do_print() const;
-  virtual bool do_try_request (Request* req_l);
+  virtual bool do_try_music (Music* req_l);
   virtual void do_process_requests();
 
 private:

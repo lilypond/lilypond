@@ -9,7 +9,7 @@
 #include "change-translator.hh"
 #include "debug.hh"
 
-IMPLEMENT_IS_TYPE_B1(Change_translator,Music);
+
 
 void
 Change_translator::do_print () const

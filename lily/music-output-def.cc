@@ -19,7 +19,7 @@ Music_output_def::get_next_default_count () const
   return 0;
 }
 
-IMPLEMENT_IS_TYPE_B(Music_output_def);
+
 
 Music_output_def::Music_output_def ()
 {

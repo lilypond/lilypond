@@ -35,8 +35,8 @@ public:
   /// text def to put above/below clef?
   P<Text_def> octave_marker_td_p_;
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEMENT_CLONE(Clef_item);
+  
+  VIRTUAL_COPY_CONS(Score_element);
   Clef_item();
 };
 

@@ -17,8 +17,6 @@
 #include "text-item.hh"
 #include "text-def.hh"
 
-IMPLEMENT_IS_TYPE_B1 (Extender_spanner, Directional_spanner);
-  
 Extender_spanner::Extender_spanner ()
   : Directional_spanner ()
 {

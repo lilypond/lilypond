@@ -51,4 +51,4 @@ Dots::brew_molecule_p () const
   return out;
 }
 
-IMPLEMENT_IS_TYPE_B1(Dots, Item);
+

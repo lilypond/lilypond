@@ -36,7 +36,7 @@ public:
 
   bool empty_b () const;
   
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
   
   Graphical_axis_group * axis_group_l_a_[NO_AXES];
   

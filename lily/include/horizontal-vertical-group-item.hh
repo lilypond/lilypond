@@ -23,11 +23,11 @@ protected:
   virtual void do_unlink () {
     Axis_group_item::do_unlink ();
   }
-  SCORE_ELEMENT_CLONE(Horizontal_vertical_group_item);
+  VIRTUAL_COPY_CONS(Score_element);
 public:
   Horizontal_vertical_group_item ();
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 #endif // HORIZONTAL_VERTICAL_GROUP_ITEM_HH

@@ -110,7 +110,7 @@ Span_bar::brew_molecule_p () const
   return output;
 }
 
-IMPLEMENT_IS_TYPE_B1 (Span_bar,Bar);
+
 
 Span_bar::Span_bar ()
 {

@@ -12,7 +12,7 @@
 #include "music-list.hh"
 #include "request.hh"
 
-IMPLEMENT_IS_TYPE_B1(Request_chord_iterator,Music_iterator);
+
 
 void
 Request_chord_iterator::construct_children()
@@ -67,12 +67,13 @@ Request_chord_iterator::do_process_and_next (Moment mom)
 	{
 	  if (Request * req_l = dynamic_cast<Request*> (i.ptr()))
 	    {
-	      bool gotcha = report_to_l()->try_request (req_l);
+	      bool gotcha = report_to_l()->try_music (req_l);
 	      if (!gotcha)
-		req_l->warning (_f ("junking request: `%s\'", req_l->name()));
+		req_l->warning (_f ("junking request: `%s\'", classname( req_l)));
 	    }
 	  else
-	    i.ptr ()->warning (_f ("Huh? Not a Request: `%s\'", i.ptr()->name ()));
+	    i.ptr ()->warning (_f ("Huh? Not a Request: `%s\'",
+				   classname (i.ptr())));
 	}
       first_b_ = false;
     }

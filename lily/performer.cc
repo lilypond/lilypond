@@ -12,7 +12,7 @@
 #include "debug.hh"
 
 
-IMPLEMENT_IS_TYPE_B1(Performer, Translator);
+
 
 void 
 Performer::play (Audio_element* p) 

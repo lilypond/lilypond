@@ -185,5 +185,5 @@ Graphical_element::do_print () const
 #endif
 }
 
-IMPLEMENT_IS_TYPE_B(Graphical_element);
+
 

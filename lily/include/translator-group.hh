@@ -35,8 +35,8 @@ public:
 
   int iterator_count_;
 
-  TRANSLATOR_CLONE(Translator_group);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
 
   void set_acceptor (String accepts, bool add);
   void set_element (String accepts, bool add);  
@@ -62,7 +62,7 @@ public:
 
 
   
-  Translator *get_simple_translator (char const *type) const;
+  Translator *get_simple_translator (String) const;
   Translator_group *find_existing_translator_l (String n, String id);
   Translator_group *find_create_translator_l (String n, String id);
   Link_array<Translator_group> path_to_acceptable_translator (String alias) const;
@@ -73,7 +73,7 @@ protected:
   virtual void do_print () const;
   virtual void do_process_requests ();
   virtual void do_add_processing ();
-  virtual bool do_try_request (Request* req_l);       
+  virtual bool do_try_music (Music* req_l);       
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();   
   virtual void do_creation_processing();

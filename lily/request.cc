@@ -10,7 +10,7 @@
 #include "debug.hh"
 
 
-IMPLEMENT_IS_TYPE_B1(Request,Music);
+
 
 void
 Request::do_print() const

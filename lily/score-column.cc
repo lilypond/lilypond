@@ -65,4 +65,4 @@ Score_column::add_duration (Moment d)
   durations.push (d);
 }
 
-IMPLEMENT_IS_TYPE_B1(Score_column, Paper_column);
+

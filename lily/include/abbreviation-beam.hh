@@ -17,11 +17,11 @@
   direction */
 class Abbreviation_beam : public Beam {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
   Abbreviation_beam();
 
-  SCORE_ELEMENT_CLONE(Abbreviation_beam);
+  VIRTUAL_COPY_CONS(Score_element);
 
 protected:
   virtual void do_print() const;

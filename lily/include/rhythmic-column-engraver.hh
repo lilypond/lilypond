@@ -21,14 +21,14 @@ class Rhythmic_column_engraver :public Engraver {
   Dot_column *dotcol_l_;
 
 protected:
-  TRANSLATOR_CLONE(Rhythmic_column_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   virtual void acknowledge_element (Score_element_info);
   virtual void process_acknowledged ();
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();
 public:
   Rhythmic_column_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 #endif // RHYTHMIC_COLUMN_GRAV_HH
 

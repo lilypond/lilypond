@@ -76,4 +76,4 @@ Crescendo::brew_molecule_p() const
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Crescendo,Spanner);
+

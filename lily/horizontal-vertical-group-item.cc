@@ -16,7 +16,7 @@ Horizontal_vertical_group_item::do_print() const
   Horizontal_vertical_group_element::do_print();
 }
 
-IMPLEMENT_IS_TYPE_B2(Horizontal_vertical_group_item,Horizontal_vertical_group_element,Item);
+
 
 Horizontal_vertical_group_item::Horizontal_vertical_group_item ()
 {

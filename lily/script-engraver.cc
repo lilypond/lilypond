@@ -1,5 +1,5 @@
 /*
-  script-reg.cc -- implement Script_engraver
+  script-engraver.cc -- implement Script_engraver
 
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
@@ -19,19 +19,19 @@ Script_engraver::Script_engraver()
 }
 
 bool
-Script_engraver::do_try_request (Request *r_l)
+Script_engraver::do_try_music (Music *r_l)
 {
-  if (!dynamic_cast <Musical_script_req *> (r_l))
-    return false ;
-  
-  for (int i=0; i < script_req_l_arr_.size(); i++) 
+  if (Musical_script_req *mr = dynamic_cast <Musical_script_req *> (r_l))
     {
-      if (r_l->equal_b (script_req_l_arr_[i]))
-	return true;
+      for (int i=0; i < script_req_l_arr_.size(); i++) 
+	{
+	  if (script_req_l_arr_[i]->equal_b (mr))
+	    return true;
+	}
+      script_req_l_arr_.push (mr);
+      return true;
     }
-  script_req_l_arr_.push (dynamic_cast <Script_req *> (r_l));
-  
-  return true;
+  return false;
 }
 
 void
@@ -89,5 +89,5 @@ Script_engraver::do_post_move_processing()
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Script_engraver,Engraver);
+
 ADD_THIS_TRANSLATOR(Script_engraver);

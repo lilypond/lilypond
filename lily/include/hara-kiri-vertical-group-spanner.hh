@@ -18,14 +18,14 @@
 class Hara_kiri_vertical_group_spanner : public Vertical_group_spanner
 {
 public:
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
   Hara_kiri_vertical_group_spanner ();
   virtual void do_post_processing ();
   void add_note (Note_head* n);
 
 protected:
-  SCORE_ELEMENT_CLONE (Hara_kiri_vertical_group_spanner);
+  VIRTUAL_COPY_CONS(Score_element);
 
   virtual void do_substitute_dependency (Score_element*, Score_element*);
   virtual void do_print ()const;

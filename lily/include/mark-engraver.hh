@@ -19,11 +19,11 @@ class Mark_engraver : public Engraver
 public:
   Mark_engraver ();
 
-  TRANSLATOR_CLONE(Mark_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
 
 protected:
-  virtual bool do_try_request (Request *req_l);
+  virtual bool do_try_music (Music *req_l);
   virtual void do_process_requests ();
   virtual void do_pre_move_processing ();
 

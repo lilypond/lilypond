@@ -34,7 +34,7 @@ Note_head::do_pre_processing ()
     dots_l_->position_i_ = position_i_;
 }
 
-IMPLEMENT_IS_TYPE_B1(Note_head,Rhythmic_head);
+
 
 
 int

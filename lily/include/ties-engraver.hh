@@ -37,15 +37,15 @@ class Ties_engraver : public Engraver {
 protected:
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);
-  virtual bool do_try_request (Request*);
+  virtual bool do_try_music (Music*);
   virtual void do_process_requests();
   virtual void process_acknowledged ();
   virtual void do_post_move_processing();
   virtual void do_pre_move_processing();
 public:
-  TRANSLATOR_CLONE(Ties_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Ties_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 };
 
 #endif // Ties_GRAV_HH

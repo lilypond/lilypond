@@ -23,7 +23,7 @@ public:
   Bow ();
   Offset center () const;  
 
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
   int dash_i_;
 

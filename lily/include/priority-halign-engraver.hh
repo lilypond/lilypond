@@ -15,8 +15,8 @@
 class Priority_horizontal_align_engraver : public Engraver {
   Break_align_item * halign_p_;
 public:
-  TRANSLATOR_CLONE(Priority_horizontal_align_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
   Priority_horizontal_align_engraver();
 protected:
   virtual void acknowledge_element (Score_element_info);

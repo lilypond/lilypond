@@ -46,8 +46,7 @@ protected:
   void do_substitute_dependency (Score_element* o, Score_element* n);
   void do_post_processing ();
  
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  SCORE_ELEMENT_CLONE(Extender_spanner);
+  VIRTUAL_COPY_CONS (Score_element);
 
   Extender_spanner (Extender_spanner const&);
 

@@ -18,8 +18,8 @@
 class Staff_margin_engraver : public Engraver 
 {
 public:
-  TRANSLATOR_CLONE(Staff_margin_engraver);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
 
   Staff_margin_engraver ();
 

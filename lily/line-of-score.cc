@@ -20,7 +20,7 @@ Line_of_score::Line_of_score()
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Line_of_score,Spanner);
+
 
 void
 Line_of_score::add_element (Score_element*e)

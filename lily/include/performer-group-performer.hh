@@ -20,8 +20,8 @@
 
 class Performer_group_performer : public Performer, public virtual Translator_group {
 public:
-  TRANSLATOR_CLONE(Performer_group_performer);
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Translator);
+  
 };
 
 #endif // PERFORMER_GROUP_PERFORMER_HH

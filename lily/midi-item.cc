@@ -19,18 +19,18 @@
 #include "midi-stream.hh"
 #include "audio-item.hh"
 
-IMPLEMENT_IS_TYPE_B (Midi_item);
-IMPLEMENT_IS_TYPE_B1 (Midi_chunk, Midi_item);
-IMPLEMENT_IS_TYPE_B1 (Midi_duration, Midi_item);
-IMPLEMENT_IS_TYPE_B1 (Midi_header, Midi_chunk);
-IMPLEMENT_IS_TYPE_B1 (Midi_instrument, Midi_item);
-IMPLEMENT_IS_TYPE_B1 (Midi_key,Midi_item);
-IMPLEMENT_IS_TYPE_B1 (Midi_time_signature, Midi_item);
-IMPLEMENT_IS_TYPE_B1 (Midi_note, Midi_item);
-IMPLEMENT_IS_TYPE_B1 (Midi_note_off, Midi_item);
-IMPLEMENT_IS_TYPE_B1 (Midi_tempo, Midi_item);
-IMPLEMENT_IS_TYPE_B1 (Midi_text, Midi_item);
-IMPLEMENT_IS_TYPE_B1 (Midi_track, Midi_chunk);
+
+
+
+
+
+
+
+
+
+
+
+
 
 Midi_chunk::Midi_chunk ()
   : Midi_item (0)

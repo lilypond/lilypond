@@ -20,15 +20,15 @@ class Bar_engraver : public Engraver {
 
   void create_bar ();
 public:
-  TRANSLATOR_CLONE(Bar_engraver);
+  VIRTUAL_COPY_CONS(Translator);
   Bar_engraver();
-  DECLARE_MY_RUNTIME_TYPEINFO;
+  
 
      
 protected:
   virtual void do_creation_processing ();
   virtual void do_removal_processing ();
-  virtual bool do_try_request (Request *req_l);
+  virtual bool do_try_music (Music *req_l);
   virtual void do_process_requests();
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();
