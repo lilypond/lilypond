@@ -1,5 +1,4 @@
 part = \melodic{
-	\octave c;
 	c-1 c c c
 	r1*3
 	c4-5 c c c
