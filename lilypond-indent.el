@@ -279,7 +279,8 @@ Argument LIM limit."
      ;; but a b c^-> and a b c^^> are close brackets with tenuto/marcato before them
      ;; also \> and \< are hairpins
      ( ?}  .  ("{" . "}"))
-     ( ?]  .  ("[[]" . "[]]"))
+     ;; ligatures  '\[ ... \]' are skipped in the following expression
+     ( ?]  .  ("\\([^\\]\\|^\\)[[]" . "\\([^\\]\\|^\\)[]]"))
      ))
 
 
@@ -320,7 +321,8 @@ slur-paren-p defaults to nil.
     (if (LilyPond-inside-scheme-p)
 	(setq paren-regexp "(\\|)")
       (if slur-paren-p
-	  (setq regexp-alist (cons '( ?\) . ("(" . ")")) regexp-alist)))
+	  ;; expressional slurs  '\( ... \)' are not taken into account
+	  (setq regexp-alist (cons '( ?\) . ("\\([^\\]\\|^\\)(" . "\\([^\\]\\|^\\))")) regexp-alist)))
       (if (memq bracket-type (mapcar 'car regexp-alist))
 	  (progn (setq paren-regexp (cdr (assoc bracket-type regexp-alist)))
 		 (setq paren-regexp (concat (car paren-regexp) "\\|" (cdr paren-regexp))))
@@ -340,7 +342,8 @@ slur-paren-p defaults to nil.
 		   (if (and (= match ?<)
 			    (looking-at ".\\s-+<\\|\\({\\|}\\|<\\|>\\|(\\|)\\|[][]\\)<"))
 		       (forward-char 1))))))
-    (if (looking-at ".<\\|.>") (forward-char 1))
+    ;; somehow here two-char brackets \<, \>, \[, \], \(, \) are handled
+    (if (looking-at ".<\\|.>\\|.[][)(]") (forward-char 1))
     (if (= level 0) 
 	(point)
       (progn (goto-char oldpos)

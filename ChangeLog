@@ -1,3 +1,8 @@
+2003-05-24  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-indent.el: Match '(' and ')' by skipping '\(' and '\)'.
+	Similarly, match '[' and ']' by skipping '\[' and '\]'.
+
 2003-05-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* .cvsignore: Add aclocal.m4.
