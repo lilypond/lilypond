@@ -7,20 +7,13 @@
 @c FIXME: singular vs. plural:  Beams/Beam
 
 
-@node Reference Manual
-@chapter Reference Manual
+@node Notation manual
+@chapter Notation manual
 
 @html
 <!--- @@WEB-TITLE@@=Reference Manual --->
 @end html
 
-
-This document describes GNU LilyPond and its input format. The last
-revision of this document was made for LilyPond 1.7.11.  It assumes
-that you already know a little bit about LilyPond input (how to make
-an input file, how to create sheet music from that input file, etc).
-New users are encouraged to study the tutorial before reading this
-manual.
 
 @menu
 * Note entry::                  
@@ -183,6 +176,9 @@ ways. For more information, refer to @ref{Accidentals}.
 @subsection Rests
 @cindex Rests
 
+
+
+
 Rests are entered like notes, with the note name @code{r}.
 
 @lilypond[singleline,verbatim]
@@ -200,6 +196,8 @@ keyword appended. Rest collision testing will leave these rests alone.
 @lilypond[singleline,verbatim]
 a'4\rest d'4\rest
 @end lilypond
+
+@seealso
 
 @internalsref{RestEvent}, @internalsref{Rest}
 

@@ -244,9 +244,25 @@ produces beautiful typeset music, but nevertheless this program can
 applied to do useful things. In this section, we show a few small
 examples of what is possible.
 
-[TODO: show examples]
+The simplest application, is printing just notes.
 
-The following example combines some more  exotic uses of notation
+@lilypond[relative=1]
+  \time 2/4 c4 c g'4 g a4 a g2  
+@end lilypond
+
+To these notes, chord names and lyrics  may be added
+
+@lilypond[raggedright]
+\score { <
+  \context ChordNames \chords  { c2 c f2 c }
+  \notes \relative c' { \time 2/4 c4 c g'4 g a4 a g2 }
+  \context Lyrics \lyrics  { twin kle twin kle lit tle star } > }
+@end lilypond
+
+
+[TODO: need piano and tab example]
+
+The following example combines some more exotic uses of notation
 
 @lilypondfile{screech-boink.ly}  
 
@@ -278,7 +294,7 @@ document is also available in
 One Big Page,
 @end ifhtml
 @ifnothtml
-@uref{One Big Page,../lilypond.html}
+@uref{../lilypond.html,One Big Page}
 @end ifnothtml 
 which is is available for text search using your browser's search
 facility.
@@ -291,7 +307,7 @@ If you are familiar with music notation, and music terminology
 the glossary as well. This documents explains many terms, and includes
 translations to various languages. It is a 
 @ifhtml
-@uref{separate document,../glossary.html}
+@uref{../glossary.html,separate document}
 @end ifhtml
 @ifnothtml
 separate document, and can be printed as well.
@@ -311,7 +327,7 @@ documentation package for your platform
 @item
 Generated internal documentation.
 @ifhtml
-available @uref{here,../lilypond-internals/lilypond-internals.html}
+available @uref{../lilypond-internals/lilypond-internals.html,here}
 @end ifhtml
 
 Almost all formatting functionality that is used internally, is
@@ -331,7 +347,7 @@ generated documentation.
 @item
   Templates
 @ifhtml
-available @uref{here,../../../input/templates/out-www/collated-files.html}
+available @uref{../../../input/templates/out-www/collated-files.html,here}
 @end ifhtml
 
   When you have gone through the tutorial, you theoretically should be
@@ -344,7 +360,7 @@ generate output.
 @item
   Various input examples
 @ifhtml
-available @uref{here,../../../input/test/out-www/collated-files.html}
+available @uref{../../../input/test/out-www/collated-files.html,here}
 @end ifhtml
 @cindex snippets
 
@@ -356,7 +372,7 @@ included.
 @item
   The regression test
 @ifhtml
-available @uref{here,../../../input/regression/out-www/collated-files.html}
+available @uref{../../../input/regression/out-www/collated-files.html,here}
 @end ifhtml
 
 We strive to test each feature in a collection of input snippets. This

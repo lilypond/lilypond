@@ -379,8 +379,6 @@ ScoreContext = \translator {
 	systemStartDelimiter =#'SystemStartBar
 
 
-	%% name, glyph id, clef position 
-	%% where is c0 in this clef?
 	clefGlyph = #"clefs-G"
 	clefPosition = #-2
 	centralCPosition = #-6
@@ -393,7 +391,7 @@ ScoreContext = \translator {
 
 	explicitClefVisibility = #all-visible
 	explicitKeySignatureVisibility = #all-visible
-	autoBeamSettings = #auto-beam-settings
+	autoBeamSettings = #default-auto-beam-settings
 	autoBeaming = ##t
 	scriptDefinitions = #default-script-alist
 
@@ -449,8 +447,7 @@ ScoreContext = \translator {
 
 	%% One may change the strings tuning as following :
 	%% The lenght of the list must be equal to the number of string
-      
-	stringTunings   = #guitar-tunings
+      	stringTunings   = #guitar-tunings
 	tablatureFormat = #fret-number-tablature-format
 
 	%%

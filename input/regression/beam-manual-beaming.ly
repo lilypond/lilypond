@@ -4,7 +4,7 @@ texidoc =
 }
 \score {
 \notes \relative c'' {
- [c32 c
+  c32-[ c
 
 
 %% WARNING: #'beaming is written, so this

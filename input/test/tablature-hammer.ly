@@ -6,9 +6,9 @@ texidoc = ""
 \score{
   \context TabStaff <
 	\notes\relative c''{
-		c()d
-		d()d
-		d()c
+		c(d-)
+		d(d-)
+		d(c-)
   }
   >
 }

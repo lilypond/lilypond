@@ -7,7 +7,7 @@ follow the same vertical direction it would have had in unbroken state."
   \notes\relative c' {
     \property Voice.Slur \override #'attachment = #'(stem . stem)
     f( c' c c \break
-    c c c \stemUp ) c
+    c c c \stemUp  c-)
   }
   \paper {
     linewidth=40*\staffspace

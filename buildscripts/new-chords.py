@@ -160,3 +160,11 @@ for a in files:
 		os.rename (a + '.NEW', a)
 	else:
 		print str
+
+
+##
+## regexes for postfix slur & beam:
+##
+## ([^-])\[ *([a-z]+[,']*[0-9:]+\.*) -> " \1 \2-["
+## ([^-])\( *([a-z]+[,']*[0-9:]+\.*) -> "\1 \2-("
+##

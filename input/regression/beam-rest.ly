@@ -6,7 +6,7 @@
 
 \score { \notes \relative c, {
   \clef bass	 
-  [e8 r16 f d'8 e16 e16] [c8 c16 r16 bes8 r16 c16-] |
+   e8-[ r16 f d'8 e16 e16]  c8-[ c16 r16 bes8 r16 c16-] |
  }
 \paper { raggedright = ##t}
 }

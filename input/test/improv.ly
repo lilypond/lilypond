@@ -19,9 +19,9 @@ global = \notes { s1*3 \bar "|." }
     \context Staff \notes <
       \context SquashVoice = impro { \global }
       \context Voice = melo \transpose c c' {
-	e8 e g a a16()bes()a8 g \improOn e8
+	e8 e g a a16(bes-)(a8-) g \improOn e8
 	~e2~e8 f4 fis8
-	~fis2 \improOff a16()bes a8 g e
+	~fis2 \improOff a16(bes-) a8 g e
       }
     >
   >

@@ -1,17 +1,25 @@
 \version "1.7.16"
+\header {
 
-%{
-  Currently (1.1.27.jcn3), the auto-beam engraver will only engrave
-  sensible beams, which means that it will end a beam when:
-    * a rest is encountered
-    * another beam (entered manually) is encountered
-    * there's a 'gap' in the beam note's durations
+    texidoc = "
+Show how auto-beaming settings can be overridden.
 
-  The beam will be ended also when
+ The auto-beamer will only engrave beams that end when:
+@itemize @bullet
+@item  a rest is encountered
+@item
+ another beam (entered manually) is encountered
+@item
+ there's a 'gap' in the beam note's durations
+@end itemize
 
-    now / beamAutoEnd = 0
-%}
-	
+The beam will be ended also when now % beamAutoEnd = 0
+
+"
+
+}
+
+
 \score{
     \notes \relative c''{
     	\time 2/4
@@ -19,10 +27,11 @@
       	c8 c c c
       	c16 c c c c c c c
 	% from here on consider ending beam every 1/4 note
-	\property Voice.autoBeamSettings \override #'(end * * * *) = #(ly:make-moment 1 4)
+	#(override-auto-beam-setting '(end * * * *) 1 4)
+
       	c8 c c c
 	% manually override autobeam with weird beaming
-      	c8 [c c] c
+      	c8  c-[ c] c
       	c8 c c r
       	c8 c c4
       	r8 c c c
@@ -33,9 +42,9 @@
     \paper{
       	\translator{
 	    \VoiceContext
-	    % consider ending beam at every 1/2 note
 	    autoBeamSettings \override #'(end * * * *) = #(ly:make-moment 1 2)
 	}
     }
 }
+
 %% new-chords-done %%

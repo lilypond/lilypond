@@ -12,7 +12,7 @@ Text style, bracket style, and a mixture of both are supported.  "
 
 	c4 d e f g
 	-\sustainDown b c
-	c, [d16  c  c c] [e e -\sustainUp -\sustainDown e e ] f4 -\sustainUp 
+	c,  d16-[  c  c c]  e-[ e -\sustainUp -\sustainDown e e ] f4 -\sustainUp 
 	g-\sustainDown  b -\sustainUp c 
 	\property Staff.pedalSustainStrings = #'("-" "-P" "P")
 	\property Staff.SustainPedal \override #'padding = #-2
@@ -21,7 +21,7 @@ Text style, bracket style, and a mixture of both are supported.  "
 
 	\property Staff.SustainPedal \override #'pedal-type = #'bracket
 
-	c4 d e -\sustainDown b c c, -\sustainUp -\sustainDown [d8 c] [e8 e -\sustainUp -\sustainDown] f4 d
+	c4 d e -\sustainDown b c c, -\sustainUp -\sustainDown  d8-[ c]  e8-[ e -\sustainUp -\sustainDown] f4 d
 	-\sustainUp g -\sustainDown b b, -\sustainUp c'
 
 	\property Staff.UnaCordaPedal \override #'pedal-type = #'mixed

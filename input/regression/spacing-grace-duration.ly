@@ -11,9 +11,9 @@
 \score { \notes \relative c''
 	 \context Voice 
 {
-    [c8  c8]
+     c8-[  c8]
     \grace {  b16 }
-    [c8 c8] [c8 c8] 
+     c8-[ c8]  c8-[ c8] 
 
 }
 

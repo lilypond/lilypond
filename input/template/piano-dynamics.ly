@@ -53,7 +53,7 @@ pedal = \notes {
       DynamicText \override #'extra-offset = #'(0 . 2.5)
       Hairpin \override #'extra-offset = #'(0 . 2.5)
 
-      \consists "Skip_req_swallow_translator"
+      \consists "Skip_event_swallow_translator"
 
       \consistsend "Axis_group_engraver"
     }

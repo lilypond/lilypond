@@ -6,11 +6,11 @@ the rest
 
 "
 }
-\score{ \notes  { \stemDown c'4 ( r4 ) c'2
+\score{ \notes  { \stemDown c'4 ( r4  c'2-)
 
 		  \relative c'' { 
 	% Finish with F if played separately 
-	c8-.(   r c,-. r ) c4 r4|  }
+	c8-.(   r c,-. r  c4-) r4|  }
 		  
 
 	      }

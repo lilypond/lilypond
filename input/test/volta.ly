@@ -11,15 +11,15 @@ voiceE =  \notes {
  \property Staff.instr = "B"
 % \property Staff.VoltaBracket = \turnOff
 
- \time 4/4  f,2 (   ) f,8    r8   f8    e8    
+ \time 4/4  f,2 (    f,8-)    r8   f8    e8    
 \repeat  volta 2
 {
  d8.    d16    e8.    f16    f8    c8    c16    c8. 
 }
 \alternative
 {
-    {   f,2 (   ) f,8    r8   f8    e8 ( \break   }
-    {   ) f,2.    r8   c16    c16      |
+    {   f,2 (    f,8-)    r8   f8    e8 ( \break   }
+    {    f,2.-)    r8   c16    c16      |
     }
 }
 }

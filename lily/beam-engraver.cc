@@ -137,8 +137,9 @@ Beam_engraver::try_music (Music *m)
       if (d == START)
 	evs_drul_[d] = m;
       else if (d==STOP)
-	now_stop_ev_ = m;
-
+	{
+	  now_stop_ev_ = m;
+	}
       return true;
     }
   return false;
@@ -239,6 +240,12 @@ Beam_engraver::stop_translation_timestep ()
       beam_ = 0;
       beam_info_ = 0;
       typeset_beam();
+
+      if (to_boolean (get_property ("automaticMelismata"))
+	  && !to_boolean (get_property ("autoBeaming")))
+	{
+	  set_melisma (false);
+	}
     }
 }
 

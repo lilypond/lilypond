@@ -8,9 +8,9 @@
 \relative c'
 	 {
 	     \property Voice.Beam \override #'french-beaming = ##t
-	     [c16 c c c]
-	[c8 c16 c16 c8]
-	[c8 c16 e16 g8]
+	      c16-[ c c c]
+	 c8-[ c16 c16 c8]
+	 c8-[ c16 e16 g8]
 
     }}
 %% new-chords-done %%

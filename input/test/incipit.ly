@@ -34,7 +34,7 @@ violin =  \notes\relative c''{
   \clef treble
 
   a4. b8 c4 fis |
-  gis~ gis8 fis16^\trill ()e b8 c \context Staff<{\voiceOne a d}{\voiceTwo es,4}>|
+  gis~ gis8 fis16^\trill (e-) b8 c \context Staff<{\voiceOne a d}{\voiceTwo es,4}>|
 }
 
 BC  = \notes\relative c{

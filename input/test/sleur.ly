@@ -9,154 +9,154 @@ TestedFeatures = 	 "This file tests Feta embedded slurs" +
 
 
 shortlong =  \notes{
-	c4()c( c c  |
+	c4(c-)( c c  |
 	c c c c |
 	c c c c |
 	\break
-	c c c )c |
+	c c c c-) |
 }
 
 dirs =  \notes\transpose c c {
 
-	c'1() g' () c () g () c |
+	c'1(g'-) (c-) (g-) (c-) |
 }
 over =  \notes\transpose c c{
 
 
-	e( g' g' )e
-	e( a' a' )e
-	e( b' b' )e
-	e( c'' c'' )e
+	e( g' g' e-)
+	e( a' a' e-)
+	e( b' b' e-)
+	e( c'' c'' e-)
 	\stemUp
-	e( c' c' )e
-	e( d' d' )e
-	e( e' e' )e
-	e( c'' c'' )e
+	e( c' c' e-)
+	e( d' d' e-)
+	e( e' e' e-)
+	e( c'' c'' e-)
 	\stemBoth
-	e( f' b' )e
-	e( b' f' )e
-	e( e'' g' )e
-	e( g' e'' )e
+	e( f' b' e-)
+	e( b' f' e-)
+	e( e'' g' e-)
+	e( g' e'' e-)
 	\stemUp
-	e( d' b )e
-	e( b d' )e
-	e( f' c'' )e
-	e( c'' f )e
+	e( d' b e-)
+	e( b d' e-)
+	e( f' c'' e-)
+	e( c'' f e-)
 }
 
 under =  \notes\transpose c c{
 	\stemDown 
-	f'( \stemBoth d d \stemDown )f'
-	f'( \stemBoth c c \stemDown )f'
-	f'( \stemBoth b, b, \stemDown )f'
-	f'( \stemBoth a, a, \stemDown )f'
+	f'( \stemBoth d d \stemDown f'-)
+	f'( \stemBoth c c \stemDown f'-)
+	f'( \stemBoth b, b, \stemDown f'-)
+	f'( \stemBoth a, a, \stemDown f'-)
 	\stemDown
-	f'( a a )f'
-	f'( g g )f'
-	f'( f f )f'
-	f'( a, a, )f'
+	f'( a a f'-)
+	f'( g g f'-)
+	f'( f f f'-)
+	f'( a, a, f'-)
 
 	\stemDown 
-	f'( \stemBoth d b, \stemDown )f'
-	f'( \stemBoth b, d \stemDown )f'
-	f'( \stemBoth d, b, \stemDown )f'
-	f'( \stemBoth b, d, \stemDown )f'
+	f'( \stemBoth d b, \stemDown f'-)
+	f'( \stemBoth b, d \stemDown f'-)
+	f'( \stemBoth d, b, \stemDown f'-)
+	f'( \stemBoth b, d, \stemDown f'-)
 	\stemDown
-	f'( f a )f'
-	f'( a f )f'
-	f'( f e, )f'
-	f'( e, f )f'
+	f'( f a f'-)
+	f'( a f f'-)
+	f'( f e, f'-)
+	f'( e, f f'-)
 }
 
 eccentric =  \notes\transpose c c{
 	\stemUp
-	\times 4/7 { f( a' f f f f )f } |
-	\times 4/7 { f( f f f f a' )f } |
+	\times 4/7 { f( a' f f f f f-) } |
+	\times 4/7 { f( f f f f a' f-) } |
 	\stemDown
-	\times 4/7 { e'( c e' e' e' e' )e' } |
-	\times 4/7 { e'( e' e' e' e' c )e' } |
+	\times 4/7 { e'( c e' e' e' e' e'-) } |
+	\times 4/7 { e'( e' e' e' e' c e'-) } |
 }
 
 tiltup =  \notes\transpose c c{
-	e( c'' c'' )e'
+	e( c'' c'' e'-)
 	\stemUp
-	e( c'' c'' )e'
+	e( c'' c'' e'-)
 	\stemBoth
-	e( g' e'' )e'
+	e( g' e'' e'-)
 	\stemUp
-	e( c'' f )e'
+	e( c'' f e'-)
 	\stemDown 
-	f'( \stemBoth a, a, \stemDown )f''
+	f'( \stemBoth a, a, \stemDown f''-)
 	\stemDown
-	f'( a, a, )f''
+	f'( a, a, f''-)
 }
 
 tiltdown =  \notes\transpose c c{
-	e'( c'' c'' )e
+	e'( c'' c'' e-)
 	\stemUp
-	e'( c'' c'' )e
+	e'( c'' c'' e-)
 	\stemBoth
-	e'( g' e'' )e
+	e'( g' e'' e-)
 	\stemUp
-	e'( c'' f )e
+	e'( c'' f e-)
 	\stemDown 
-	f''( \stemBoth a, a, \stemDown )f'
+	f''( \stemBoth a, a, \stemDown f'-)
 	\stemDown
-	f''( a, a, )f'
+	f''( a, a, f'-)
 }
 
 broken =  \notes\transpose c c'{
       c c c c()
       c c c c(
-      c )c c c(
-      c c )c c(
-      )a' a' a' a'()
+      c c-) c c(
+      c c c-) c(
+      a'-) a' a' a'()
       a' a' a' a'()
-      c( c c )c 
-      c( c c )f, 
-      f,( c c )c 
-      f,( c c )f,
+      c( c c c-) 
+      c( c c f,-) 
+      f,( c c c-) 
+      f,( c c f,-)
 }
 
 blend = 	\notes\transpose c c{
-	e( c'' c'' )e
+	e( c'' c'' e-)
 	\stemUp
-	f'( c'' c'' )f'
-	e( c'' c'' )e
+	f'( c'' c'' f'-)
+	e( c'' c'' e-)
 	\stemDown
-	f'( \stemBoth a, a, \stemDown )f'
-	f'( a, a, )f'
+	f'( \stemBoth a, a, \stemDown f'-)
+	f'( a, a, f'-)
 
 	\stemBoth
-	e( c'' c'' )e'
-	e'( c'' c'' )e
-	d( d d )d
+	e( c'' c'' e'-)
+	e'( c'' c'' e-)
+	d( d d d-)
 
 	\stemDown
-	e( c'' c'' )e'
-	e'( c'' c'' )e
-	d( d d )d
+	e( c'' c'' e'-)
+	e'( c'' c'' e-)
+	d( d d d-)
 }
 
 
 bug =  \notes\transpose c c{
 
-	a()g( f )e
-	b'()a'( g' )f'
-	g( f' e' )d'
-	f f( g )a
-	c' () b () c' c'
+	a(g-)( f e-)
+	b'(a'-)( g' f'-)
+	g( f' e' d'-)
+	f f( g a-)
+	c' (b-) (c'-) c'
 }
 
 clipping =  \notes\transpose c c{
 	\stemBoth
-	c( c''' c''')c
-	c( c''' c )c''
-	c''( c c''' )c
+	c( c''' c'''c-)
+	c( c''' c c''-)
+	c''( c c''' c-)
 	\stemDown
-	c( \stemUp c,,, c,,, \stemDown )c
-	c( \stemUp c,,, c \stemDown )c,,
-	c,,( \stemUp c c,,, \stemDown )c
+	c( \stemUp c,,, c,,, \stemDown c-)
+	c( \stemUp c,,, c \stemDown c,,-)
+	c,,( \stemUp c c,,, \stemDown c-)
 }
 
 \score{

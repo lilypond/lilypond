@@ -47,7 +47,7 @@ finalis, the latter three looking similar to bar glyphs.
 
 % caesura
     \property Voice.BreathingSign \set #'text = #"scripts-caesura"
-    [es8 d] \breathe [es f g f] |
+     es8-[ d] \breathe  es-[ f g f] |
     es2 r4 \bar "||" \break
 
 %

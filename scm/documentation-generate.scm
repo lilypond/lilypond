@@ -81,7 +81,7 @@
 @omfdescription Programmer's reference of the LilyPond music engraving system
 @omftype user's guide
 @omflanguage English
-@omfcategory Music
+@omfcategory Applications|Publishing
 @end ignore
 
 

@@ -6,7 +6,7 @@ texidoc="You can get ugly slurs, if you want.
 }
 
 baseWalk = \notes \relative c {
-  d,8( a' d f a d f d a f d )a
+  d,8( a' d f a d f d a f d  a-)
 }
 
 \score {

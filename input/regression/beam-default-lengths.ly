@@ -11,7 +11,7 @@
 	 ,Beam::check_concave
 	 ,Beam::slope_damping)
 
-        f4 [f8 f] [f16 f] [f32 f] [f64 f] [f128 f] 
+        f4  f8-[ f]  f16-[ f]  f32-[ f]  f64-[ f]  f128-[ f] 
     }
     \paper{ raggedright = ##t}
 }          %% new-chords-done %%

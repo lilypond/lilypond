@@ -329,7 +329,7 @@ lowerDynamics =  \context Dynamics=lower \notes{
 	    TextScript \override #'font-relative-size = #1
 	    TextScript \override #'font-shape = #'italic
 
-	    \consists "Skip_req_swallow_translator"
+	    \consists "Skip_event_swallow_translator"
 
 	    \consistsend "Axis_group_engraver"
     	}

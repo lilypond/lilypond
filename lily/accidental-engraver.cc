@@ -134,7 +134,7 @@ number_accidentals (SCM sig, Music * note, Pitch *pitch, SCM curbarnum, SCM lazy
   if (ignore_octave_b)
     prev = ly_assoc_cdr (scm_int2num (n), sig);
   else
-    prev = gh_assoc (gh_cons (scm_int2num (o), scm_int2num (n)), sig);
+    prev = scm_assoc (gh_cons (scm_int2num (o), scm_int2num (n)), sig);
 
   /* should really be true unless prev == SCM_BOOL_F */
   if (gh_pair_p (prev) && gh_pair_p (ly_cdr (prev)))
@@ -146,7 +146,7 @@ number_accidentals (SCM sig, Music * note, Pitch *pitch, SCM curbarnum, SCM lazy
   /* If an accidental was not found or the accidental was too old */
   if (prev == SCM_BOOL_F ||
       (gh_number_p (lazyness) && curbarnum_i > accbarnum_i + gh_scm2int (lazyness)))
-    prev = gh_assoc (scm_int2num (n), sig);
+    prev = scm_assoc (scm_int2num (n), sig);
 
 
   SCM prev_acc = (prev == SCM_BOOL_F) ? scm_int2num (0) : ly_cdr (prev);

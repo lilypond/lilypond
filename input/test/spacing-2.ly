@@ -18,11 +18,11 @@ source =  "Petits Preludes et Fugues.  Urtext. Editions Henry Lemoine, Paris."
 		\context Voice = VA { \stemUp\slurUp\tieUp
 			e4 dis4 e2 }
 		\context Voice = VB { \stemDown\slurDown\tieDown
-			[cis8 a] [fis b] gis2 }
+			 cis8-[ a]  fis-[ b] gis2 }
 		{\key e \major }
 		>
 	\context Staff = SB { \clef "bass" \key e \major
-		[a,,16 e dis e] [b'8 b,] [e16 e, gis b] e4
+		 a,,16-[ e dis e]  b'8-[ b,]  e16-[ e, gis b] e4
 	} 
 > 
 

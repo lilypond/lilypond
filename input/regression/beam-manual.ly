@@ -13,7 +13,7 @@
     \property Voice.Beam \override #'auto-knee-gap = ##f
     \property Voice.Beam \override #'positions = #'(-10 . 10)
        \stemUp
-  [c16 c'' a f]
+   c16-[ c'' a f]
 
    }
   }

@@ -145,7 +145,7 @@ Lyric_combine_music_iterator::melisma_busy ()
     music_iter_->report_to() might not be the context that sets the
     melisma properties, but rather a parent context.
    */
-  return  music_iter_->try_music (melisma_playing_req);
+  return music_iter_->try_music (melisma_playing_req);
 #endif
   
 }
