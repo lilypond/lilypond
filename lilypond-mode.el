@@ -9,6 +9,9 @@
 ;;;    * Add PS-compilation, PS-viewing and MIDI-play (29th Aug 2001)
 ;;;    * Keyboard shortcuts (12th Sep 2001)
 ;;;    * Inserting tags, inspired on sgml-mode (11th Oct 2001)
+;;;
+;;; Changed 2002 Carlos Betancourt <carlos.betancourt@chello.be>
+;;;    * Added spanish-note-replacements
 
 ;;; Inspired on auctex
 
@@ -25,7 +28,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.5.58"
+(defconst LilyPond-version "1.7.6"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -540,6 +543,15 @@ command."
 	'(("eeses" "eses") ("ees" "es") ("aeses" "asas") ("aes" "as") ("b" "h")
 	  ("beses" "heses") ("bes" "b") ("bis" "his") ("bisis" "hisis")))
 			      ; add more translations of the note names
+  (setq spanish-note-replacements
+	'(("c" "do") ("d" "re") ("e" "mi") ("f" "fa") ("g" "sol") ("a" "la") ("b" "si")
+      ("cis" "dos") ("cisis" "doss") ("ces" "dob") ("ceses" "dobb")
+      ("dis" "res") ("disis" "ress") ("des" "reb") ("deses" "rebb")
+      ("eis" "mis") ("eisis" "miss") ("ees" "mib") ("eeses" "mibb")
+      ("fis" "fas") ("fisis" "fass") ("fes" "fab") ("feses" "fabb")
+      ("gis" "sols") ("gisis" "solss") ("ges" "solb") ("geses" "solbb")
+      ("ais" "las") ("aisis" "lass") ("aes" "lab") ("aeses" "labb")
+      ("bis" "sis") ("bisis" "siss") ("bes" "sib") ("beses" "sibb")))
   (setq other-keys "()<>~}")
   (setq accid 0) (setq octav 0) (setq durat "") (setq dots 0)
 
@@ -604,10 +616,13 @@ command."
 			     (message "Selected Finnish/Deutsch notes") 
 			     (sit-for 0 750 1))) ; n
 			      ; add more translations of the note names
+     ((string= x "p") (progn (setq note-replacements spanish-note-replacements)
+			     (message "Selected Spanish notes") 
+			     (sit-for 0 750 1))) ; p
      ((string= x "h") 
       (progn (message "Insert notes with fewer key strokes. For example \"i,5.f\" produces \"fis,32. \".") (sit-for 5 0 1) 
 	     (message "Add also \"a ~ a\"-ties, \"a ( ) b\"-slurs and \"< a b >\"-chords.") (sit-for 5 0 1) 
-	     (message "Note names are in Du(t)ch by default. Hit 'n' for Fin(n)ish/Deutsch note names.") (sit-for 5 0 1) 
+	     (message "Note names are in Du(t)ch by default. Hit 'n' for Fin(n)ish/Deutsch note names. Hit 'p' for S(p)anish note names") (sit-for 5 0 1) 
 	     (message "Backspace deletes last note, return starts a new indented line and Esc quits.") (sit-for 5 0 1) 
 	     (message "Insert note triplets \"\\times 2/3 { a b } \" by typing \"/23ab}\".") (sit-for 5 0 1) 
 	     (message "Remember to add all other details as well.") (sit-for 5 0 1)))
