@@ -3,10 +3,8 @@
 texidoc = "Concave beams should be horizontal. informally spoken,
   concave refers to the shape of the notes that are opposite a
   beam. If an up-beam has high notes on its center stems, then we call
-  it concave.  In this example, only the beams that are marked `horiz'
-  are considered concave by lily. They should be printed horizontally.
-  "
-}
+  it concave.  This example shows borderline cases. Only the beams
+  that are marked `horiz' should be printed horizontally.  " }
 
 
 %{

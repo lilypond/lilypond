@@ -1,3 +1,11 @@
+2002-05-30  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/stem.cc (calc_stem_info): remove min_y member, rename
+	stuff. 	Remove kneeing stuff.
+
+	* lily/beam.cc (brew_molecule): remove beam direction. Lots of
+	twiddling
+
 2002-05-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/sketch.scm: 

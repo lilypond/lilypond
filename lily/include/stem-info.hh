@@ -15,15 +15,12 @@
 /*
   Parameters for a stem, (multiply with stemdirection, to get real values
   for a downstem.)
-  
  */
 struct Stem_info 
 {
-  Real ideal_y;
-
-  // fixme: we're an Interval!
-  Real min_y;
-  Real max_y;
+  Direction dir_;
+  Real ideal_y_;
+  Real shortest_y_;
 };
 
 #endif // STEM_INFO_HH
