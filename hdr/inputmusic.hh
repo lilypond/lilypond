@@ -18,11 +18,12 @@ struct Voice_list : public PointerList<Voice*> {
 
 /// ABC for input structures
 struct Input_music {
-    virtual Voice_list convert()=0;
-    virtual Moment length()=0;
+    virtual Voice_list convert()const=0;
+    virtual Moment length()const=0;
     virtual void translate_time(Moment dt)=0;
     virtual ~Input_music(){}
     virtual void print() const =0;
+    virtual void set_default_group(String)=0;
     // virtual void transpose(...) const =0;
     
     
@@ -48,8 +49,9 @@ struct Simple_music : Input_music {
     /****/
     virtual Simple_music*simple() { return this; }  
     void add(Voice_element*);
-    virtual Moment length();
-    virtual Voice_list convert();
+    virtual void set_default_group(String g) { voice_.set_default_group(g); }
+    virtual Moment length()const;
+    virtual Voice_list convert()const;
     virtual void translate_time(Moment dt);
     virtual void print() const;
     virtual Input_music *clone() const {
@@ -61,7 +63,8 @@ struct Simple_music : Input_music {
 /// Complex_music consists of multiple voices
 struct Complex_music : Input_music {
     IPointerList<Input_music*> elts;
-
+    /****************/
+    virtual void set_default_group(String g);
     void add(Input_music*);
     Complex_music();
     Complex_music(Complex_music const &);
@@ -75,9 +78,9 @@ struct Music_voice : Complex_music {
  
     
     /****************/
-    Moment length();
+    Moment length()const;
     virtual void translate_time(Moment dt);
-    virtual Voice_list convert();
+    virtual Voice_list convert()const;
     void add_elt(Voice_element*);
     virtual Input_music *clone() const {
 	return new Music_voice(*this);
@@ -94,12 +97,12 @@ struct Music_voice : Complex_music {
 
 /// Multiple musicstuff stacked on top of each other
 struct Music_general_chord : Complex_music {
-    IPointerList<Input_music*> chord_;
+
 
     /****************/
 
-    virtual Moment length();
-    virtual Voice_list convert();
+    virtual Moment length()const;
+    virtual Voice_list convert()const;
     virtual void translate_time(Moment dt);
     void add_elt(Voice_element*);
     virtual Input_music *clone() const {
@@ -115,6 +118,16 @@ struct Music_general_chord : Complex_music {
   
   */
 
+struct Multi_voice_chord : Music_general_chord {
+    void set_default_group(String);
+    virtual Input_music *clone() const {
+	return new Multi_voice_chord(*this);
+    }
+};
+struct Voice_group_chord : Music_general_chord {
 
-
+    virtual Input_music *clone() const {
+	return new Voice_group_chord(*this);
+    }
+};
 #endif // INPUTMUSIC_HH
