@@ -52,3 +52,6 @@ include ./$(depth)/make/Rules.make
 #
 
 localdist: configure
+
+-include /dev/null $(DEPFILES)
+#
