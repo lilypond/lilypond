@@ -605,6 +605,7 @@ Syntax:
 			  ))
 
        )
+
     (if (string? quoted-name)
 	(if  (vector? quoted-vector)
 	     (set! (ly:music-property music 'quoted-events) quoted-vector)

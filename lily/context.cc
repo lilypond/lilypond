@@ -364,7 +364,7 @@ Context::now_mom () const
 int
 Context::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Context *sc = (Context *) ly_cdr (s);
+  Context *sc = (Context *) SCM_CELL_WORD_1 (s);
      
   scm_puts ("#<", port);
   scm_puts (classname (sc), port);

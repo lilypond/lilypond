@@ -1104,7 +1104,7 @@ Prefix_composite_music:
 		Pitch from = *unsmob_pitch ($2);
 		Pitch to = *unsmob_pitch ($3);
 
-		p->transpose (interval (from, to));
+		p->transpose (pitch_interval (from, to));
 		$$->set_property ("element", p->self_scm ());
 		scm_gc_unprotect_object (p->self_scm ());
 	}
@@ -1616,8 +1616,10 @@ command_element:
 		$$->set_spot (THIS->here_input ());
 	}
 	| TRANSPOSITION pitch {
+		Pitch middle_c;
+		Pitch sounds_as_c = pitch_interval (*unsmob_pitch ($2), middle_c);
 		$$ = set_property_music (ly_symbol2scm ("instrumentTransposition"),
-					$2);
+					 sounds_as_c.smobbed_copy());
 		$$->set_spot (THIS-> here_input ());
 		$$ = context_spec_music (ly_symbol2scm ("Staff"), SCM_UNDEFINED,
 			$$, SCM_EOL);

@@ -169,6 +169,24 @@ Music::compress (Moment factor)
 void
 Music::transpose (Pitch delta)
 {
+  for (SCM s = this->get_property_alist (true); scm_is_pair (s); s = ly_cdr (s))
+    {
+      SCM entry = ly_car (s);
+      SCM val = ly_cdr (entry);
+
+      if (Pitch * p = unsmob_pitch (val))
+	{
+	  Pitch transposed =  p->transposed (delta);
+	  scm_set_cdr_x (entry, transposed.smobbed_copy ());
+
+	  if (abs (transposed.get_alteration ()) > DOUBLE_SHARP)
+	    {
+	      warning (_f ("Transposition by %s makes alteration larger than two",
+			   delta.to_string ()));
+	    }
+	}
+    }
+ 
   SCM elt = get_property ("element");
 
   if (Music* m = unsmob_music (elt))

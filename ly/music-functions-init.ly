@@ -25,6 +25,9 @@ applycontext = #(def-music-function (location proc) (procedure?)
                    'origin location
                    'procedure proc))
 
+displayMusic = #(def-music-function (location music) (ly:music?)
+		 (display-music music)
+		 music)
 applyoutput = #(def-music-function (location proc) (procedure?)
                 (make-music 'ApplyOutputEvent 
                   'origin location
