@@ -1658,7 +1658,7 @@ To convert the file into a nice PDF document, run the following
 commands
 
 @example
-$ dvips -Ppdf -u +lilypond lilybook
+$ dvips -Ppdf -u+lilypond -u+ec-mftrace lilybook
 $ ps2pdf lilybook.ps
 @end example
 

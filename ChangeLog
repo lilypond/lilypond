@@ -1,3 +1,13 @@
+2004-07-30  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/changing-defaults.itely (Horizontal spacing):
+	Correct the documentation of the spacing parameters. 
+
+	* Documentation/user/tutorial.itely (Integrating text and music), 
+	Documentation/user/lilypond-book.itely (Integrating LaTeX and
+	music): Document that you need to add the map file ec-mftrace.map
+	in the dvips command. 	
+
 2004-07-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/score-engraver.cc (initialize): abort if ecrm10.pfa not
