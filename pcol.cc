@@ -5,10 +5,10 @@
 void
 Idealspacing::print() const
 {
-    #ifndef NPRINT
+#ifndef NPRINT
     mtor << "idealspacing {" ;
     mtor << "distance "<<space<< " strength " << hooke << "}\n";
-    #endif
+#endif
 }
 
 Idealspacing::Idealspacing(const PCol * l,const PCol * r)
@@ -18,6 +18,7 @@ Idealspacing::Idealspacing(const PCol * l,const PCol * r)
     left = l;
     right = r;
 }
+
 void
 Idealspacing::OK() const
 {
@@ -46,7 +47,11 @@ PCol::print() const
     #ifndef NPRINT
     mtor << "PCol {";
     mtor << "# symbols: " << its.size() ;
-    mtor << "breakable: " << breakable<<"\n";
+    if (breakable()){
+	mtor << "pre,post: ";
+	prebreak->print();
+	postbreak->print();
+    }
     mtor << "extent: " << width().min << ", " << width().max << "\n";
     mtor << "}\n";
     #endif 
@@ -63,7 +68,9 @@ void
 PCol::OK () const
 {
     if (prebreak || postbreak ) {
-	assert(breakable);
+	assert(prebreak&&postbreak);
+	assert(prebreak->daddy == this);
+	assert(postbreak->daddy == this);
     }
     
 }
@@ -71,29 +78,33 @@ PCol::OK () const
 void
 PCol::set_breakable()
 {
-    if (breakable)
+    if (breakable())
 	return;
 
     prebreak = new PCol(this);
     postbreak = new PCol(this);
-    breakable = true;
     used = true;
+}
+
+bool
+PCol::breakable() const
+{
+    return prebreak||postbreak;
 }
 
 PCol::PCol(PCol *parent) {
     daddy = parent;
     prebreak=0;
     postbreak=0;
-    breakable=false;
     line=0;
     used  = false;
 }
 
 PCol::~PCol()
 {
-    if (prebreak)
-	delete prebreak;	// no recursion!
-    if (postbreak)
+
+	delete prebreak;	
+
 	delete postbreak;	
 }
 
