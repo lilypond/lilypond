@@ -129,19 +129,19 @@ internals document,  @internalsref{\NAME\}
 
 @macro refbugs
 @noindent
-@heading Bugs
+@subsubheading Bugs
 
 @end macro
 
 @macro seealso
 @noindent
-@heading See also
+@subsubheading See also
 
 @end macro
 
 @macro refcommands
 @noindent
-@heading Predefined commands
+@subsubheading Predefined commands
 
 @end macro
 
@@ -159,7 +159,7 @@ internals document,  @internalsref{\NAME\}
 
 @macro syntax
 @noindent
-@heading Syntax
+@subsubheading Syntax
 
 @end macro
 

@@ -39,7 +39,7 @@ const int DAMPING_DIRECTION_PENALTY = 800;
 const int MUSICAL_DIRECTION_FACTOR = 400;
 const int IDEAL_SLOPE_FACTOR = 10;
 
-const Real ROUND_TO_ZERO_SLOPE = 0.05;
+const Real ROUND_TO_ZERO_SLOPE = 0.02;
 const int ROUND_TO_ZERO_POINTS = 4;
 
 extern bool debug_beam_quanting_flag;

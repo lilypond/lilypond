@@ -8349,9 +8349,12 @@ is fixed beforehand.  This is also done with a
 staves is fixed by setting @code{forced-distance}. If you want to
 override this, use a @code{\translator} block as follows:
 @example
-  \translator @{
-    \PianoStaffContext
-    VerticalAlignment \override #'forced-distance = #9
+  \paper @{
+    \translator @{
+      \PianoStaffContext
+      \override VerticalAlignment #'forced-distance = #9
+    @}
+    @dots{}
   @}
 @end example
 This would bring the staves together at a distance of 9 staff spaces,
@@ -8361,6 +8364,7 @@ measured from the center line of each staff.
 
 Internals: Vertical alignment of staves is handled by the
 @internalsref{VerticalAlignment} object.
+
 
 
 

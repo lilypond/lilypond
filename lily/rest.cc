@@ -165,6 +165,9 @@ SCM
 Rest::polyphonic_offset_callback (SCM smob, SCM)
 {
   Grob* me = unsmob_grob (smob);
+  if (gh_number_p (me->get_property ("staff-position")))
+    return gh_double2scm (0);
+
   Direction d = get_grob_direction (me);
   Real off = 2* d ;
   if(off)

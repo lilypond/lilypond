@@ -511,6 +511,9 @@ information.
 @section Point and click
 @cindex poind and click
 
+@cindex source specials
+@cindex specials, source
+
 Point and click lets you find notes in the input by clicking on them in
 the Xdvi window. This makes it easier to find input that causes some
 error in the sheet music.
