@@ -103,6 +103,7 @@ $(builddir)/share/lilypond-force:
 	cd $(builddir) && rm -rf lib share
 	mkdir -p $(builddir)/lib/$(package)
 	mkdir -p $(builddir)/share/$(package)
+	mkdir -p $(builddir)/share/$(package)/dvips
 	mkdir -p $(builddir)/share/$(package)/elisp
 	mkdir -p $(builddir)/share/$(package)/fonts
 	mkdir -p $(builddir)/share/$(package)/tex
@@ -110,7 +111,6 @@ $(builddir)/share/lilypond-force:
 		ln -s  ../../python/$(outconfbase) python
 	cd $(builddir)/share/$(package) && \
 		ln -s $(abs-srcdir)/ly ly && \
-		ln -s ../../mf/$(outconfbase) dvips && \
 		ln -s ../../mf/$(outconfbase) otf && \
 		ln -s ../../mf/$(outconfbase) svg && \
 		ln -s ../../mf/$(outconfbase) tfm && \
@@ -118,6 +118,9 @@ $(builddir)/share/lilypond-force:
 		ln -s $(abs-srcdir)/ps && \
 		ln -s ../../python/$(outconfbase) python && \
 		ln -s $(abs-srcdir)/scm
+	cd $(builddir)/share/$(package)/dvips && \
+		ln -s ./../mf/$(outconfbase) mf-out && \
+		ln -s $(abs-srcdir)/ps
 	cd $(builddir)/share/$(package)/tex && \
 		ln -s $(abs-srcdir)/tex source && \
 		ln -s ../../../tex/$(outconfbase) tex-out && \
