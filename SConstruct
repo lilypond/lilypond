@@ -51,35 +51,35 @@ conf = Configure (env)
 
 #ugh -- hardcode territory
 defines = {
-   'DIRSEP' : "'/'",
-   'PATHSEP' : "':'",
+   '0DIRSEP' : "'/'",
+   '1PATHSEP' : "':'",
 
-   'PACKAGE': '"lilypond"',
-   'TOPLEVEL_VERSION' : '"2.3.6"',
-   'DATADIR' : '"' + os.getcwd () + '/share"',
-   'PACKAGE_DATADIR': 'DATADIR "/" PACKAGE',
-   'LILYPOND_DATADIR' : 'PACKAGE_DATADIR',
-   'LOCAL_PACKAGE_DATADIR' : 'PACKAGE_DATADIR "/" TOPLEVEL_VERSION',
-   'LOCAL_LILYPOND_DATADIR' : 'LOCAL_PACKAGE_DATADIR',
-   'LOCALEDIR' : '"' + os.getcwd () + '/share/locale"',
+   '2PACKAGE': '"lilypond"',
+   '3TOPLEVEL_VERSION' : '"2.3.6"',
+   '4DATADIR' : '"' + os.getcwd () + '/share"',
+   '5PACKAGE_DATADIR': 'DATADIR "/" PACKAGE',
+   '6LILYPOND_DATADIR' : 'PACKAGE_DATADIR',
+   '7LOCAL_PACKAGE_DATADIR' : 'PACKAGE_DATADIR "/" TOPLEVEL_VERSION',
+   '8LOCAL_LILYPOND_DATADIR' : 'LOCAL_PACKAGE_DATADIR',
+   '9LOCALEDIR' : '"' + os.getcwd () + '/share/locale"',
 }
 
 headers = ('sys/stat.h', 'assert.h', 'kpathsea/kpathsea.h')
 for i in headers:
 	if conf.CheckCHeader (i):
-       		key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
+       		key = re.sub ('[./]', '_', 'zHAVE_' + string.upper (i))
                 defines[key] = '1'
 
 ccheaders = ('sstream',)
 for i in ccheaders:
 	if conf.CheckCXXHeader (i):
-       		key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
+       		key = re.sub ('[./]', '_', 'zHAVE_' + string.upper (i))
                 defines[key] = '1'
 
 functions = ('gettext', 'isinf', 'memmem', 'snprintf', 'vsnprintf')
 for i in functions:
 	if 0 or conf.CheckFunc (i):
-       		key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
+       		key = re.sub ('[./]', '_', 'zHAVE_' + string.upper (i))
                 defines[key] = '1'
 
 if conf.CheckLib ('dl'):
@@ -90,8 +90,11 @@ if conf.CheckLib ('kpathsea'):
 
 # ugh?
 config = open ('config.h', 'w')
-for i in defines.keys ():
-	config.write ('#define %s %s\n' % (i, defines[i]))
+sort_helper = defines.keys ()
+sort_helper.sort ()
+#for i in defines.keys ():
+for i in sort_helper:
+	config.write ('#define %s %s\n' % (i[1:], defines[i]))
 config.close ()
 env = conf.Finish ()
 
