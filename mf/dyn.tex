@@ -2,7 +2,7 @@
 % A tex file to help view dynamic letters
 %
 
-\font\dynfont=dyn10
+\font\dynfont=dyn10 scaled \magstep2
 \def\thefont{\dynfont}
 
 \def\mb#1{{\thefont\char#1}}
@@ -12,36 +12,16 @@
 %        \vbox to12pt{\vfill\hbox to0pt{\qquad\kern-1pt\twvrul\hss}}%
 %        \hbox to50pt{\qquad\twhrul\mb{#1}\hss}%
         \hbox to 30pt{\qquad\mb{#1}\hss}
-        \setbox0=\hbox{\mb{#1}} width \the\wd0\ depth \the\dp0 \ height \the\ht0}
+	\setbox0=\hbox{\mb{#1}} width \the\wd0\ depth \the\dp0 \ height \the\ht0}
 
 \newcount\n
 \def\charn{\n=-1
-        \loop\ifnum\n<4\advance\n by1
+        \loop\ifnum\n<5\advance\n by1
         \doitem{\number\n}\endgraf\repeat}
 
         \charn
 
-%from lilyponddefs
-% dynamics take extra kerning
-\def\dyn{\dynfont}
-\def\kdynf{{\dynfont \char0\kern-.2ex}}
-\def\kdynm{{\dynfont \char1\kern-.18ex}}
-\def\kdynp{{\dynfont \char2\kern-.08ex}}
-\def\kdyns{{\dynfont \char3\kern-.22ex}}
-\def\kdynz{{\dynfont \char4\kern-.2ex}}
-
-\def\dynp{\kdynp}
-\def\dynpp{\dynp\kdynp}
-\def\dynppp{\dynpp\kdynp}
-\def\dynmp{\kdynm\kdynp}
-\def\dynmf{\kdynm\kdynf}
-\def\dynf{\kdynf}
-\def\dynff{\dynf\kdynf}
-\def\dynfff{\dynff\kdynf}
-
-\def\dynfp{\kdynf\kern.35ex\kdynp}
-\def\dynsf{\kdyns\kdynf}
-\def\dynsfz{\dynsf\kern.3ex\kdynz}
+\input dyndefs
 
 \hbox{\dynp}
 \hbox{\dynpp}
