@@ -202,7 +202,8 @@ Q: I want to implement XXXX!  Should I do this?
 
 A: There might be better ways of doing XXXX, so it's a good thing to
 ask about this before you start hacking.  If you want to keep in touch
-current developments, you should subscribe to the mailing list.
+with current developments, you should subscribe to the mailing list
+(see the "links" section of the documentation).
 
 
 Q: I want to implement XXXX!  How should I do this?

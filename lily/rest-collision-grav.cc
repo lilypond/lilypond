@@ -24,7 +24,7 @@ Rest_collision_engraver::Rest_collision_engraver()
 void
 Rest_collision_engraver::acknowledge_element (Score_elem_info i)
 {
-  if (i.elem_l_->name()== Note_column::static_name()) 
+  if (i.elem_l_->is_type_b (Note_column::static_name())) 
     {
       // what should i do, what should _engraver do?
       if (!rest_collision_p_) 

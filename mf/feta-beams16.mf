@@ -8,6 +8,6 @@ font_size 16;
 mode_setup;
 
 staffsize#:=16pt#;
-input wat-zie-ik;
+input feta-watzieik;
 end.
 

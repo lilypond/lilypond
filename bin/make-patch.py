@@ -33,7 +33,7 @@ def untar(fn):
 #   os.system ('tar xzf ' + fn)
 #   sys.stderr.write('\n')
 # ugh, even this does not work, but one error message less :-)
-    os.system ('gzip -dc ' + fn + '| tar xf - ')
+    os.system ('gzip --quiet -dc ' + fn + '| tar xf - ')
 # so print soothing message:
     sys.stderr.write('make-patch:ugh: Please ignore error: gzip: stdout: Broken pipe\n');
     sys.stderr.flush()

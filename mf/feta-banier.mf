@@ -15,9 +15,10 @@ downflag_width# = .833 black_notehead_width# + stemthickness#/2;
 % so they have less slant.
 
 %
-% Because of optical illusion, the utmost flag 
-% (bottom for down-pointing, top  
-% for up-pointing) should be smaller than the other flags 
+% Because of optical illusion, the utmost flag (bottom for
+% down-pointing, top for up-pointing) should be smaller than the other
+% flags.  Adobe Sonata doesn't do this correctly.  (Instead they have an 
+% extension flag. Yuck)
 %
 
 save hip_thickness, foot_thickness;
@@ -29,7 +30,6 @@ foot_thickness# =  hip_thickness#;
 % for example, see POSTSCRIPT Language -- program design, 
 % page 119, and [Wanske], p 41,42
 %
-
 def draw_flag(expr center, flare, 
 	dims, hip_depth, foot_wid, hip_thickness, foot_thickness)=
 	clearxy;

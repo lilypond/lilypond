@@ -6,7 +6,7 @@
 % (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>,
 % Jan Nieuwenhuizen <jan@digicash.com>
 
-fet_begingroup("klef");
+fet_begingroup("clefs");
 
 def draw_staff(expr first, last)=
 	pickup pencircle scaled stafflinethickness;
@@ -158,7 +158,6 @@ fet_endchar;
 % FIXME bulb should curve (see bass clef)
 % FIXME start (inside) should be little thinner
 % FIXME parametrise.
-% FIXME should be a bit more upright
 %
 
 % Beste lezers, kijk,
@@ -185,20 +184,20 @@ def draw_gclef (expr exact_center, reduction)=
 	downstroke_dir = (14, -75);
 	breapth_factor = 11/7;
 	inner_thick_end = 45;
-	inner_start_angle = angle(-1,-2);
+	inner_start_angle = downstroke_angle - 43;
 	thickness = .4 reduced_il - hair;
 
 	thinnib = thinness - hair;
 	thinpen = thinness;
-	set_char_box(-xpart exact_center + breapth_factor* reduced_il#, 
+	set_char_box(-xpart exact_center + 1.1 * breapth_factor* reduced_il#, 
 		xpart exact_center + .66 breapth_factor* reduced_il#,
 		-ypart exact_center + 3 * reduced_il#,
 		ypart exact_center + 5 * reduced_il#);
 	
 	pickup pencircle scaled hair;
-
 	downstroke_angle = angle downstroke_dir;
-	z1 = center + whatever * dir inner_start_angle;
+
+	z1 = center + whatever * dir (inner_start_angle);
 	x1 = xpart center -.28 reduced_il;
 	
 	top z2r = center + (0,reduced_il + stafflinethickness/2);
@@ -280,10 +279,10 @@ fet_beginchar("G clef", "violin", "violinclef")
 	if test = 1:
 		draw_staff(-1,3);
 	fi;
-	draw_gclef((1.6 interline#,0), 1.0);
+	draw_gclef((1.7 interline#,0), 1.0);
 fet_endchar;
 fet_beginchar("G clef", "violin_change", "cviolinclef")
 	draw_gclef((1.3 interline#,0), .8);
 fet_endchar;
 
-fet_endgroup("klef");
+fet_endgroup("clefs");

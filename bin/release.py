@@ -13,9 +13,20 @@ os.system('rm ../test/*gz')
 os.link(released_tarball(cur_ver), tarball(cur_ver))
 
 
-# not a module, but a script:
+# not a module, but a script (JCN)
 # makepatch.main()
+
+# Module wherefore aren't thou Script
+# A Rose by any other name would be as blonde. --HWN
+
 os.system('python ' + lilydirs.topdir + '/bin/make-patch.py');
 
-os.system('gzip -9 patch*')
+pn = 'patch-%s' % version_tuple_to_str(cur_ver)
+os.system('gzip -9 ' + pn)
+pn = pn + '.gz'
+rel_pn = lilydirs.release_dir + '../patches/' + pn;
+
+os.rename(pn, rel_pn);
+os.link(rel_pn, pn);
+
 os.system('tar cf updeet *gz')

@@ -9,6 +9,8 @@ grep for TODO and ugh/ugr
 0.2:
 	* add a screenshot to the website.
 
+	* fix stdin input
+
 	* LILYSOURCEDIR
 	
 	* documentation

@@ -95,13 +95,13 @@ Local_key_engraver::acknowledge_element (Score_elem_info info)
       key_C_ = &key_grav_l->key_;
       local_key_ = *key_C_;
     }
-  else if (elem_l->name() == Key_item::static_name ()) 
+  else if (elem_l->is_type_b (Key_item::static_name ())) 
     {
       Key_engraver * key_grav_l =
 	(Key_engraver*)info.origin_grav_l_arr_[0];
       key_C_ = &key_grav_l->key_;
     }
-  else if (elem_l->name() == Tie::static_name ()) 
+  else if (elem_l->is_type_b (Tie::static_name ())) 
     {
       Tie * tie_l = (Tie*)elem_l->spanner();
       if (tie_l->same_pitch_b_)

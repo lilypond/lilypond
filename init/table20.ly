@@ -16,6 +16,7 @@ table_twenty =
 		"italic"	"\setitalic{%}"	0.0\pt	0.0\pt	0.0\pt	8.0\pt
 		"dynamic"	"\setdynamic{%}"	0.0\pt	0.0\pt	0.0\pt	8.0\pt
      }
+
      "dynamics" = \table {
 
 	"mf" "\dynmf"
@@ -38,28 +39,12 @@ table_twenty =
  	}
 
 
-    "clefs" = \table {
-	"violin"	"\violinclef" 	0.0\pt	16.0\pt	-12.5\pt	22.5\pt
-	"bass"	"\bassclef" 		0.0\pt	16.0\pt	0.0\pt	20.0\pt
-	"alto"	"\altoclef"	 	0.0\pt	16.0\pt	0.0\pt	20.0\pt
-	"tenor"	"\altoclef"	 	0.0\pt	16.0\pt	0.0\pt	20.0\pt
-	"violin_change"	"\cviolinclef" 	0.0\pt	16.0\pt	-12.5\pt	22.5\pt
-	"bass_change"	"\cbassclef"	0.0\pt	16.0\pt	0.0\pt	20.0\pt
-	"alto_change"	"\caltoclef" 	0.0\pt	16.0\pt	0.0\pt	20.0\pt
-	"tenor_change"	"\caltoclef" 	0.0\pt	16.0\pt	0.0\pt	20.0\pt
-    }
-
 
     "slur" = \table {
 	"whole"	"\slurchar%{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
 	"half"	"\hslurchar%{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
     }
 
-
-    "streepjes" = \table {
-	"toplines"	"\\topledgerlines{%}{%}"	-3.0\pt	9.0\pt	0.0\pt	0.0\pt
-	"botlines"	"\botledgerlines{%}{%}"	-3.0\pt	9.0\pt	0.0\pt	0.0\pt
-    }
 
     "bars" = \table {
 	"empty"	"\emptybar"
@@ -82,7 +67,6 @@ table_twenty =
     "param" = \table {
 	 "brace"    "\pianobrace{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
 	 "meter"	"\generalmeter{%}{%}"	0.0\pt	10.0\pt	-5.0\pt	5.0\pt
-	 "linestaf"	"\linestafsym{%}{%}"
 	 "stem"	"\stem{%}{%}"
 	 "fill"	"\hbox{}"
 	% ugh. 8\pt
@@ -96,6 +80,6 @@ table_twenty =
      }
      
     % ugh what's our outdir called?
-    \include "font-en-tja20.ly"
+    \include "feta20.ly"
 }
 

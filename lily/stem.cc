@@ -28,7 +28,7 @@ Stem::Stem ()
 {
   /*
     TODO: staff-size
-   */
+    */
   abbrev_flag_i_ = 0;
   beam_l_ = 0;
   beams_left_i_ = 0;
@@ -190,10 +190,7 @@ Stem::set_default_extents ()
   if (!stem_length_f ())
     set_default_stemlen ();
 
-  /*  set_stemend ((dir_< 0) ?
-	       head_positions()[BIGGER]-stem_length_f (): 
-	       head_positions()[SMALLER] + stem_length_f ());
-	       */
+
   if (dir_ == UP)
     stem_xdir_ = RIGHT;
   if (invisible_b ())
@@ -289,6 +286,7 @@ Stem::abbrev_mol () const
   Molecule beams;
   Atom a (paper ()->lookup_l ()->beam (slope, w));
   a.translate (Offset(- w / 2, stem_end_f () - (w / 2 * slope)));
+  
   // ugh
   if (!beams_i)
     a.translate_axis (dy + beamdy - dir_ * dy, Y_AXIS);
@@ -305,7 +303,7 @@ Stem::abbrev_mol () const
   return beams;
 }
 
-const Real ANGLE = 20* (2.0*M_PI/360.0);
+const Real ANGLE = 20* (2.0*M_PI/360.0); // ugh!
 
 Molecule*
 Stem::brew_molecule_p () const

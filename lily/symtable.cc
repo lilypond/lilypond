@@ -53,7 +53,10 @@ Symtables::operator()(String s)
 {
   if (!elt_b (s))
     {
-      warning ("Symtables `" + s + _("\' unknown"));
+      error ("Symtable `" + s + _("\' unknown"));
+      /* 
+	 We can't return, because we'll dump core anyway.
+       */
       return 0;
     }
   else
