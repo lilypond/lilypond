@@ -26,7 +26,7 @@ Property_iterator::process (Moment m)
       if (val != SCM_EOL)
 	ok = type_check_assignment (val, sym, ly_symbol2scm ("translation-type?"));
       if (ok)
-	report_to_l ()->set_property (sym, val);
+	report_to_l ()->internal_set_property (sym, val);
     }
   Simple_music_iterator::process (m);
 }

@@ -19,6 +19,7 @@
 
 // egcs
 typedef void (Translator::*Method_pointer) (void);
+#define set_property(x,y) internal_set_property(ly_symbol2scm(x),y)
 
 class Scheme_hash_table;
 
@@ -37,10 +38,10 @@ protected:
 public:
   SCM add_translator (SCM, Translator*);
   void execute_single_pushpop_property (SCM prop, SCM sym, SCM val);
-  SCM get_property (SCM name_sym) const;
-  void set_property (String var_name, SCM value);
+  SCM internal_get_property (SCM name_sym) const;
+
   void unset_property (SCM var_sym);
-  void set_property (SCM var_sym, SCM value);  
+  void internal_set_property (SCM var_sym, SCM value);  
   Translator_group *where_defined (SCM name_sym) const;
 
   String id_str_;

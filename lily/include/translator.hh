@@ -19,6 +19,9 @@
 #include "input.hh"
 #include "smobs.hh"
 
+#define get_property(x) internal_get_property(ly_symbol2scm(x))
+
+
 #define TRANSLATOR_DECLARATIONS(NAME)			\
 public:							\
   NAME();\
@@ -53,8 +56,7 @@ public:
     */
   Music_output_def *output_def_l () const;
 
-  SCM get_property (const char *) const;
-  SCM get_property (SCM symbol) const;
+  SCM internal_get_property (SCM symbol) const;
   
   virtual Moment now_mom () const;  
 

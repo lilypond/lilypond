@@ -63,7 +63,7 @@ Span_bar::brew_molecule (SCM smobbed_me)
     }
 
   Span_bar::evaluate_glyph(me);
-  SCM glyph = me->get_grob_property (ly_symbol2scm ("glyph"));
+  SCM glyph = me->get_grob_property ("glyph");
 
   /*
     glyph may not be a string, when ME is killed by Hara Kiri in
@@ -182,7 +182,7 @@ Span_bar::evaluate_glyph (Grob*me)
 
   while (gh_pair_p (elts))
     {
-      gl =  unsmob_grob (gh_car (elts))->get_grob_property (glyph_symbol);
+      gl =  unsmob_grob (gh_car (elts))->internal_get_grob_property (glyph_symbol);
       if (gh_string_p (gl))
 	break;
       elts =gh_cdr (elts);
@@ -209,8 +209,8 @@ Span_bar::evaluate_glyph (Grob*me)
     }
 
   gl = ly_str02scm (type.ch_C ());
-  if (scm_equal_p (me->get_grob_property (glyph_symbol), gl) != SCM_BOOL_T)
-    me->set_grob_property (glyph_symbol, gl);
+  if (scm_equal_p (me->internal_get_grob_property (glyph_symbol), gl) != SCM_BOOL_T)
+    me->internal_set_grob_property (glyph_symbol, gl);
 }
 
 Interval

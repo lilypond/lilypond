@@ -277,7 +277,7 @@ Translator_def::apply_property_operations (Translator_group*tg)
 	}
       else if (type == assign_sym)
 	{
-	  tg->set_property (ly_car (entry), ly_cadr (entry));
+	  tg->internal_set_property (ly_car (entry), ly_cadr (entry));
 	}
     }
 }

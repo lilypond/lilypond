@@ -97,17 +97,18 @@ Translator::output_def_l () const
 {
   return output_def_l_;
 }
-
+#if 0
 SCM
 Translator::get_property (char const * id) const
 {
   return daddy_trans_l_->get_property (ly_symbol2scm (id));
 }
+#endif
 
 SCM
-Translator::get_property (SCM sym) const
+Translator::internal_get_property (SCM sym) const
 {
-  return daddy_trans_l_->get_property (sym);
+  return daddy_trans_l_->internal_get_property (sym);
 }
 
 void

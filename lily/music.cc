@@ -142,14 +142,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Music);
 /****************************/
 
 SCM
-Music::get_mus_property (const char *nm) const
-{
-  SCM sym = ly_symbol2scm (nm);
-  return get_mus_property (sym);
-}
-
-SCM
-Music::get_mus_property (SCM sym) const
+Music::internal_get_mus_property (SCM sym) const
 {
   SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
   if (s != SCM_BOOL_F)
@@ -159,6 +152,7 @@ Music::get_mus_property (SCM sym) const
   return (s == SCM_BOOL_F) ? SCM_EOL : ly_cdr (s); 
 }
 
+#if 0
 /*
   Remove the value associated with KEY, and return it. The result is
   that a next call will yield SCM_EOL (and not the underlying
@@ -173,6 +167,13 @@ Music::remove_mus_property (const char* key)
   return val;
 }
 
+SCM
+Music::get_mus_property (const char *nm) const
+{
+  SCM sym = ly_symbol2scm (nm);
+  return get_mus_property (sym);
+}
+
 void
 Music::set_mus_property (const char* k, SCM v)
 {
@@ -181,20 +182,15 @@ Music::set_mus_property (const char* k, SCM v)
 }
 
 void
-Music::set_immutable_mus_property (const char*k, SCM v)
-{
-  SCM s = ly_symbol2scm (k);
-  set_immutable_mus_property (s, v);
-}
-
-void
 Music::set_immutable_mus_property (SCM s, SCM v)
 {
   immutable_property_alist_ = gh_cons (gh_cons (s,v), mutable_property_alist_);
   mutable_property_alist_ = scm_assq_remove_x (mutable_property_alist_, s);
 }
+#endif
+
 void
-Music::set_mus_property (SCM s, SCM v)
+Music::internal_set_mus_property (SCM s, SCM v)
 {
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
 }
@@ -232,7 +228,7 @@ ly_get_mus_property (SCM mus, SCM sym)
   
   if (sc)
     {
-      return sc->get_mus_property (sym);
+      return sc->internal_get_mus_property (sym);
     }
   else
     {
@@ -258,7 +254,7 @@ ly_set_mus_property (SCM mus, SCM sym, SCM val)
 
   if (sc)
     {
-      sc->set_mus_property (sym, val);
+      sc->internal_set_mus_property (sym, val);
     }
   else
     {

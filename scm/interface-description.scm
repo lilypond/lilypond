@@ -187,7 +187,9 @@
  "Accidentals"
  '(accidentals
    left-padding 
-   right-padding 
+   right-padding
+   paren-cautionaries
+   cautionary-size
    ))
 
 
@@ -533,9 +535,6 @@ that helps show the length of a melissima (tied/slurred note)."
    "a single piece of lyrics"
    '(
     word-space
-    alignment
-    ignore-length-mismatch
-    begin-alignment
     end-alignment
     ))
 

@@ -58,7 +58,7 @@ Property_engraver::initialize ()
 {
   prop_dict_ = new Scheme_hash_table;
 
-  SCM plist = get_property (ly_symbol2scm ("Generic_property_list"));
+  SCM plist = get_property ("Generic_property_list");
   for (; gh_pair_p (plist); plist = ly_cdr (plist))
     {
       SCM elt_props = ly_car (plist);
@@ -106,14 +106,14 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
       if (preset != SCM_BOOL_F)
 	continue;
   
-      SCM val = get_property (prop_sym);
+      SCM val = internal_get_property (prop_sym);
 
       if (val == SCM_EOL)
 	;			// Not defined in context.
       else if (gh_apply (type_p, scm_list_n (val, SCM_UNDEFINED))
 	       == SCM_BOOL_T)	// defined and  right type: do it
 	{
-	  e->set_grob_property (elt_prop_sym, val);
+	  e->internal_set_grob_property (elt_prop_sym, val);
 
 	  SCM meta = e->get_grob_property ("meta");
 	  SCM name = scm_assoc (ly_symbol2scm ("name"), meta);

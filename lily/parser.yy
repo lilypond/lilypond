@@ -101,7 +101,7 @@ set_music_properties (Music *p, SCM a)
 {
   for (SCM k = a; gh_pair_p (k); k = ly_cdr (k))
 	{
-	p->set_mus_property (ly_caar (k), ly_cdar (k));
+	p->internal_set_mus_property (ly_caar (k), ly_cdar (k));
 	}
 }
 

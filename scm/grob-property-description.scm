@@ -92,7 +92,7 @@ column as start/begin point. Only columns that have grobs or act as bounds are s
 (grob-property-description 'break-glyph-function procedure? "function taking glyph and break-direction, returning the glyph at a line break.")
 (grob-property-description 'breakable boolean? "boolean indicating if this is a breakable item (clef, barline, key sig, etc.).")
 (grob-property-description 'c0-position integer? "integer indicating the position of central C.")
-
+(grob-property-description 'cautionary-size integer? "size of cautionary accidentals (relative to size of accidentals)")
 (grob-property-description 'center-element ly-grob? "grob which will
 be at the center of the group after aligning (when using
 Align_interface::center_on_element). .")
@@ -257,6 +257,7 @@ more than this (in staffspace).")
 
 (grob-property-description 'padding number? "add this much extra space between objects that are next to each other.")
 (grob-property-description 'parallel-beam boolean? "internal: true if there is a beam just as wide as the bracket .")
+(grob-property-description 'paren-cautionaries boolean? "Whether to add parenthesis around cautionary accidentals.")
 (grob-property-description 'pitches list? "list of musical-pitch.")
 (grob-property-description 'porrectus-width number? "width of the porrectus ligature measured in staff space.")
 (grob-property-description 'raise number? "height for text to be raised (a negative value lowers the text.")
@@ -381,10 +382,7 @@ function of type (beam multiplicity dy staff-line-thickness) -> real.  Default v
 (grob-property-description 'visibility-lambda procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY).")
 (grob-property-description 'when moment? "when does this column happen?.")
 (grob-property-description 'word-space number? "elongate left by this much (FIXME: cumbersome semantics).")
-(grob-property-description 'alignment number? "alignment of lyrics on notehead, -1 is LEFT, 0 is CENTRE, 1 is RIGHT .")
-(grob-property-description 'ignore-length-mismatch boolean? "if #t, stanzas with shorter lyrics can be moved away from their respective note-head by the lyric alignment code.")
-(grob-property-description 'begin-alignment number? "proportion of lyric length from beginning to align with note-head for left-aligned lyrics.")
-(grob-property-description 'end-alignment number? "proportion of lyric length from end to align with note-head for right-aligned lyrics.")
+(grob-property-description 'end-alignment number? "proportion of lyric length to align with note-head for non-centered lyrics.")
 (grob-property-description 'x-gap number? "horizontal gap between notehead and tie.")
 (grob-property-description 'y-free number? "minimal vertical gap between slur and noteheads or stems.")
 (grob-property-description 'y-offset number? "extra vertical offset for ties away from the center line.")

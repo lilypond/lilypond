@@ -277,27 +277,21 @@ Translator_group::where_defined (SCM sym) const
   return SCM_EOL when not found.
 */
 SCM
-Translator_group::get_property (SCM sym) const
+Translator_group::internal_get_property (SCM sym) const
 {
   SCM val =SCM_EOL;
   if (properties_dict ()->try_retrieve (sym, &val))
     return val;
 
   if (daddy_trans_l_)
-    return daddy_trans_l_->get_property (sym);
+    return daddy_trans_l_->internal_get_property (sym);
   
   return val;
 }
 
-void
-Translator_group::set_property (String id, SCM val)
-{
-  set_property (ly_symbol2scm (id.ch_C ()), val);
-}
-
 
 void
-Translator_group::set_property (SCM sym, SCM val)
+Translator_group::internal_set_property (SCM sym, SCM val)
 {
   properties_dict ()->set (sym, val);
 }
@@ -323,18 +317,16 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
     {
       if (val != SCM_UNDEFINED)
 	{
-	  SCM prev = get_property (prop);
+	  SCM prev = internal_get_property (prop);
 
 	  if (gh_pair_p (prev) || prev == SCM_EOL)
 	    {
 	      bool ok = type_check_assignment (val, eltprop, ly_symbol2scm ("backend-type?"));
 	      
-
-	      
 	      if (ok)
 		{
 		  prev = gh_cons (gh_cons (eltprop, val), prev);
-		  set_property (prop, prev);
+		  internal_set_property (prop, prev);
 		}
 	    }
 	  else
@@ -345,7 +337,7 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 	}
       else
 	{
-	  SCM prev = get_property (prop);
+	  SCM prev = internal_get_property (prop);
 
 	  SCM newprops= SCM_EOL ;
 	  while (gh_pair_p (prev) && ly_caar (prev) != eltprop)
@@ -357,7 +349,7 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 	  if (gh_pair_p (prev))
 	    {
 	      newprops = scm_reverse_x (newprops, ly_cdr (prev));
-	      set_property (prop, newprops);
+	      internal_set_property (prop, newprops);
 	    }
 	}
     }
@@ -448,7 +440,7 @@ ly_get_trans_property (SCM context, SCM name)
       warning (_ ("ly-get-trans-property: expecting a Translator_group argument"));
       return SCM_EOL;
     }
-  return tr->get_property (name);
+  return tr->internal_get_property (name);
   
 }
 SCM
@@ -459,7 +451,7 @@ ly_set_trans_property (SCM context, SCM name, SCM val)
   Translator_group* tr=   dynamic_cast<Translator_group*> (t);
   if (tr)
     {
-      tr->set_property (name, val);
+      tr->internal_set_property (name, val);
     }
   return SCM_UNSPECIFIED;
 }

@@ -5,7 +5,7 @@
 #
 
 
-import find
+
 import fnmatch
 import sys
 import os
@@ -13,6 +13,32 @@ import re
 import string
 import getopt
 import pipes
+
+
+_debug = 0
+
+_prune = ['(*)']
+
+def find(pattern, dir = os.curdir):
+        list = []
+        names = os.listdir(dir)
+        names.sort()
+        for name in names:
+                if name in (os.curdir, os.pardir):
+                        continue
+                fullname = os.path.join(dir, name)
+                if fnmatch.fnmatch(name, pattern):
+                        list.append(fullname)
+                if os.path.isdir(fullname) and not os.path.islink(fullname):
+                        for p in _prune:
+                                if fnmatch.fnmatch(name, p):
+                                        if _debug: print "skip", `fullname`
+                                        break
+                        else:
+                                if _debug: print "descend into", `fullname`
+                                list = list + find(pattern, fullname)
+        return list
+
 
 topdir = ''
 def gulp_file(f):
@@ -87,20 +113,20 @@ def remove_automatic (dirnames):
 	for d in dirnames:
 		try:
 			for p in pats:
-				files = files + find.find (p, d)
+				files = files + find (p, d)
 		except:
 			sys.stderr.write ("Can't find dir: %s\n" % d)
 			cleanup ()
 			sys.exit (1)
 
-	dirs = map (lambda d: find.find ('out*', d), dirnames)
+	dirs = map (lambda d: find ('out*', d), dirnames)
 	dirs = reduce (lambda x,y:  x + y, dirs)
 	
 	#print dirs
 
 	for d in dirs:
 		if os.path.isdir (d):
-			files = files + find.find ('*', d)
+			files = files + find ('*', d)
 		
 	for f in files:
 		try:

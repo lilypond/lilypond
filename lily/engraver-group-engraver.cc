@@ -41,7 +41,7 @@ Engraver_group_engraver::acknowledge_grobs ()
   if (!announce_info_arr_.size ())
     return ;
   
-  SCM tab =get_property (ly_symbol2scm ("acknowledgeHashTable"));
+  SCM tab = get_property ("acknowledgeHashTable");
   SCM name_sym = ly_symbol2scm ("name");
   SCM meta_sym = ly_symbol2scm ("meta");  
 
@@ -50,7 +50,7 @@ Engraver_group_engraver::acknowledge_grobs ()
     {
       Grob_info info = announce_info_arr_[j];
       
-      SCM meta = info.grob_l_->get_grob_property (meta_sym);
+      SCM meta = info.grob_l_->internal_get_grob_property (meta_sym);
       SCM nm = scm_assoc (name_sym, meta);
       if (gh_pair_p (nm))
 	nm = ly_cdr (nm);
@@ -135,7 +135,7 @@ void
 Engraver_group_engraver::initialize ()
 {
   SCM tab = scm_make_vector (gh_int2scm (61), SCM_BOOL_F); // magic ->
-  set_property (ly_symbol2scm ("acknowledgeHashTable"), tab);
+  set_property ("acknowledgeHashTable", tab);
 
   Translator_group::initialize ();
 }

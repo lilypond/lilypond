@@ -104,7 +104,7 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
       if (first)
 	{
 	  first = false;
-	  set_property (ly_symbol2scm ("measurePosition"), w.smobbed_copy ());
+	  set_property ("measurePosition", w.smobbed_copy ());
 	}
 
       prepare (w);

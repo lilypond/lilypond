@@ -148,7 +148,7 @@ Part_combine_music_iterator::get_state (Moment)
   
   Translator_group *first_translator = first_iter_p_->report_to_l ()->find_create_translator_l (w, "one" + suffix_);
 
-  SCM s = first_translator->get_property (ly_symbol2scm ("changeMoment"));
+  SCM s = first_translator->get_property ("changeMoment");
   if (!gh_pair_p (s))
     return state;
 
@@ -277,7 +277,7 @@ Part_combine_music_iterator::get_state (Moment)
 
 	  if (gh_number_p (interval))
 	    {
-	      SCM s = first_translator->get_property (ly_symbol2scm ("splitInterval"));
+	      SCM s = first_translator->get_property ("splitInterval");
 	      int i = gh_scm2int (interval);
 	      if (gh_pair_p (s)
 		  && gh_number_p (ly_car (s))

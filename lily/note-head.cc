@@ -98,12 +98,14 @@ Note_head::brew_molecule (SCM smob)
 
     UGH: use grob-property.
   */
-  Molecule out = Font_interface::get_default_font (me)->find_by_name (String ("noteheads-") + 
-		ly_scm2string (scm_primitive_eval (scm_list_n (ly_symbol2scm ("find-notehead-symbol"),
-						  me->get_grob_property ("duration-log"),
-						  ly_quote_scm (style),
-							    SCM_UNDEFINED))));
+  SCM log = me->get_grob_property ("duration-log");
+  SCM exp = scm_list_n (ly_symbol2scm ("find-notehead-symbol"), log,
+			ly_quote_scm (style),
+			SCM_UNDEFINED);
+  String name = "noteheads-" + ly_scm2string (scm_primitive_eval (exp));
+  Molecule out = Font_interface::get_default_font (me)->find_by_name (name);
 
+  
   if (streepjes_i) 
     {
       Direction dir = (Direction)sign (p);

@@ -47,7 +47,7 @@
 	(mutehiconga	  cghm	,(make-pitch 0 1 0))
 	(openhiconga	  cgho	,(make-pitch 0 1 1))
 	(hiconga	  cgh	,(make-pitch 0 2 -1))
- (openloconga      cglo  ,(make-pitch 0 1 2))
+	(openloconga      cglo  ,(make-pitch 0 1 2))
 	(loconga	  cgl	,(make-pitch 0 2 0))
 	(hitimbale	  timh	,(make-pitch 0 3 0))
 	(lotimbale	  timl	,(make-pitch 0 3 1))

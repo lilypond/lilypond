@@ -48,8 +48,8 @@ Chord_name::brew_molecule (SCM smob)
   if (!gh_symbol_p (style))
     style = ly_symbol2scm ("banter");
 
-  SCM chord = me-> get_grob_property ("chord");
-  SCM func = me->get_grob_property (ly_symbol2scm ("chord-name-function"));
+  SCM chord = me->get_grob_property ("chord");
+  SCM func = me->get_grob_property ("chord-name-function");
   SCM text = gh_call2 (func, style, chord);
 
   SCM properties = Font_interface::font_alist_chain (me);

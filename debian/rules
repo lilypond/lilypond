@@ -64,7 +64,6 @@ clean:
 
 	# Still not clean enough?  Let's use... BRUTE STRENGTH!  :-)
 	find . -type d -name 'out' -o -name 'out-www' | xargs rm -rf
-	rm -f debian/doc-base debian/TODO
 
 	dh_clean
 

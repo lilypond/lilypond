@@ -40,8 +40,8 @@ Score_engraver::make_columns ()
   if (!command_column_l_)
     //      || *unsmob_moment (command_column_l_->get_grob_property ("when")) != w)
     {
-      set_columns (new Paper_column (get_property (ly_symbol2scm ("NonMusicalPaperColumn"))),
-		   new Paper_column (get_property (ly_symbol2scm ("PaperColumn"))));
+      set_columns (new Paper_column (get_property ("NonMusicalPaperColumn")),
+		   new Paper_column (get_property ("PaperColumn")));
   
       command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
 
@@ -87,7 +87,7 @@ Score_engraver::initialize ()
   pscore_p_ = new Paper_score;
   pscore_p_->paper_l_ = dynamic_cast<Paper_def*> (output_def_l_);
 
-  SCM props = get_property (ly_symbol2scm ("LineOfScore"));
+  SCM props = get_property ("LineOfScore");
 
   pscore_p_->typeset_line (new Line_of_score (props));
   
@@ -106,7 +106,7 @@ Score_engraver::finalize ()
   Engraver_group_engraver::finalize ();
 
   Grob * cc
-    = unsmob_grob (get_property (ly_symbol2scm ("currentCommandColumn")));
+    = unsmob_grob (get_property ("currentCommandColumn"));
   scoreline_l_->set_bound (RIGHT, cc);
   cc->set_grob_property ("breakable", SCM_BOOL_T);
   
@@ -116,7 +116,7 @@ Score_engraver::finalize ()
 void
 Score_engraver::one_time_step ()
 {
-  if (!to_boolean (get_property (ly_symbol2scm("skipTypesetting"))))
+  if (!to_boolean (get_property ("skipTypesetting")))
     {
       process_music ();
       announces ();

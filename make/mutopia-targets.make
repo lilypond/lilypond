@@ -10,7 +10,9 @@ include $(stepdir)/www-targets.make
 
 all: $(OUT_FILES)
 
-local-WWW: $(ly_examples) $(fly_examples) $(ps_examples) $(png_examples)
+# we want dvi_examples as well, because they get thrown away otherwise
+# incurring another costly lilypond run.
+local-WWW: $(ly_examples) $(dvi_examples) $(ps_examples) $(png_examples)
 
 tar:
 	mkdir -p $(outdir)/$(tarball)

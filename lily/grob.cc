@@ -122,14 +122,7 @@ Grob::~Grob ()
 
 
 SCM
-Grob::get_grob_property (const char *nm) const
-{
-  SCM sym = ly_symbol2scm (nm);
-  return get_grob_property (sym);
-}
-
-SCM
-Grob::get_grob_property (SCM sym) const
+Grob::internal_get_grob_property (SCM sym) const
 {
   SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
   if (s != SCM_BOOL_F)
@@ -153,13 +146,8 @@ Grob::remove_grob_property (const char* key)
   return val;
 }
 
-void
-Grob::set_grob_property (const char* k, SCM v)
-{
-  SCM s = ly_symbol2scm (k);
-  set_grob_property (s, v);
-}
 
+#if 0
 /*
   Puts the k, v in the immutable_property_alist_, which is convenient for
   storing variables that are needed during the breaking process. (eg.
@@ -178,8 +166,11 @@ Grob::set_immutable_grob_property (SCM s, SCM v)
   immutable_property_alist_ = gh_cons (gh_cons (s,v), mutable_property_alist_);
   mutable_property_alist_ = scm_assq_remove_x (mutable_property_alist_, s);
 }
+#endif
+
+
 void
-Grob::set_grob_property (SCM s, SCM v)
+Grob::internal_set_grob_property (SCM s, SCM v)
 {
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
 }
@@ -640,13 +631,6 @@ Grob::extent (Grob * refp, Axis a) const
   return ext;
 }
 
-
-Grob*
-Grob::parent_l (Axis a) const
-{
-  return  dim_cache_[a].parent_l_;
-}
-
 Grob * 
 Grob::common_refpoint (Grob const* s, Axis a) const
 {
@@ -786,15 +770,14 @@ Grob::mark_smob (SCM ses)
     {
       scm_gc_mark (s->dim_cache_[a].offset_callbacks_);
       scm_gc_mark (s->dim_cache_[a].dimension_);
+      Grob *p = s->parent_l (Y_AXIS);
+      if (p)
+	scm_gc_mark (p->self_scm ());
     }
   
-  if (s->parent_l (Y_AXIS))
-    scm_gc_mark (s->parent_l (Y_AXIS)->self_scm ());
-  if (s->parent_l (X_AXIS))
-    scm_gc_mark (s->parent_l (X_AXIS)->self_scm ());
-
   if (s->original_l_)
     scm_gc_mark (s->original_l_->self_scm ());
+
   return s->do_derived_mark ();
 }
 
@@ -834,7 +817,7 @@ ly_set_grob_property (SCM elt, SCM sym, SCM val)
 
   if (sc)
     {
-      sc->set_grob_property (sym, val);
+      sc->internal_set_grob_property (sym, val);
     }
   else
     {
@@ -853,7 +836,7 @@ ly_get_grob_property (SCM elt, SCM sym)
   
   if (sc)
     {
-      return sc->get_grob_property (sym);
+      return sc->internal_get_grob_property (sym);
     }
   else
     {
@@ -879,12 +862,10 @@ spanner_get_bound (SCM slur, SCM dir)
 
 
 
-static SCM interfaces_sym;
+
 static void
 init_functions ()
 {
-  interfaces_sym = scm_permanent_object (ly_symbol2scm ("interfaces"));
-
   scm_c_define_gsubr ("ly-get-grob-property", 2, 0, 0,
 		      (Scheme_function_unknown)ly_get_grob_property);
   scm_c_define_gsubr ("ly-set-grob-property", 3, 0, 0,
@@ -896,7 +877,7 @@ init_functions ()
 bool
 Grob::has_interface (SCM k)
 {
-  SCM ifs = get_grob_property (interfaces_sym);
+  SCM ifs = get_grob_property ("interfaces");
 
   return scm_memq (k, ifs) != SCM_BOOL_F;
 }
@@ -908,8 +889,8 @@ Grob::set_interface (SCM k)
     return ;
   else
     {
-      set_grob_property (interfaces_sym,
-			gh_cons (k, get_grob_property (interfaces_sym)));
+      set_grob_property ("interfaces",
+			 gh_cons (k, get_grob_property ("interfaces")));
     }
 }
 

@@ -29,6 +29,7 @@
 		(direction . -1)
 		(left-padding . 0.2)
 		(right-padding . 0.4)
+		(paren-cautionaries . #t)
 		(meta . ,(grob-description accidentals-interface font-interface side-position-interface))
 	))
 
@@ -316,9 +317,7 @@
 		(self-alignment-X . 0)
 		(non-rhythmic . #t)
 		(word-space . 0.6)
-                (ignore-length-mismatch . #f)
-                (begin-alignment . 4)
-                (end-alignment . 2)
+               (end-alignment . 5)
 		(font-family . roman)
 		(font-shape . upright)
 		(meta . ,(grob-description lyric-syllable-interface text-interface font-interface ))

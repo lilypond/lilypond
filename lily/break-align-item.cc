@@ -152,8 +152,8 @@ Break_align_interface::do_alignment (Grob *me)
   symbol_list  = ly_cdr (scm_reverse (symbol_list));
   for (int i=0; i <elems.size ()-1; i++)
     {
-      elems[i]->set_grob_property (ly_car (symbol_list),
-				  scm_cons (gh_double2scm (0),
+      elems[i]->internal_set_grob_property (ly_car (symbol_list),
+				   scm_cons (gh_double2scm (0),
 					    gh_double2scm (dists[i+1])));
 
       symbol_list = ly_cdr (symbol_list);
