@@ -6,16 +6,19 @@
         \font\vetfont=feta-beams16
         \font\fetanummer=feta-nummer8
         \font\dynfont=feta-din10 scaled \magstep1
+        \font\bracefont=feta-braces16
+         \font\fingerfont=feta-nummer4
 }
 \def\fettwentydefs{
         \font\fontentja=feta20
         \font\vetfont=feta-beams20
         \font\fetanummer=feta-nummer10
         \font\dynfont=feta-din10 scaled \magstep2
+        \font\bracefont=feta-braces20
+         \font\fingerfont=feta-nummer5
 }
+
 \def\fetdef#1#2{\def#1{%
-        % what the fuck is this?
-        %\lower.3884\staffrulethickness
         \hbox{\fetchar{#2}}}}
 
 \def\fetchar#1{\fontentja\char#1}
@@ -28,14 +31,16 @@
         {\vetfont\char\count0}}}
 
 % stacked numbers; overrules def in lilyponddefs
-% widest num should be .4 balkheight
+% widest num should be .40 balkheight
 % oeps: \meter 12/8;
 \def\generalmeter#1#2{%
         \vbox to 0pt{\vss%
-        \hbox to0.45\balkheight{\hfill\fetanummer #1\hfill}%
+        \hbox to0.45\balkheight{\hss\fetanummer #1\hss}%
         \nointerlineskip%
-        \hbox to0.45\balkheight{\hfill\fetanummer #2\hfill}%
+        \hbox to0.45\balkheight{\hss\fetanummer #2\hss}%
         \vss}}
+
+\def\pianobrace#1{{\bracefont\char #1}}
 
 \newcount\embedcount\embedcount=0
 \newwrite\checkexists
@@ -195,5 +200,6 @@
         \storeembedcount
         \csname bye\endcsname
 }
+
 
 

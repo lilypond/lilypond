@@ -13,8 +13,9 @@ table_twenty =
 
      "style" = \table {
 		"roman"	"\settext{%}"	0.0\pt	7.5\pt	0.0\pt	10.0\pt
-		"italic"	"\setitalic{%}"	0.0\pt	0.0\pt	0.0\pt	8.0\pt
-		"dynamic"	"\setdynamic{%}"	0.0\pt	0.0\pt	0.0\pt	8.0\pt
+		"italic"	"\setitalic{%}"	0.0\pt	0.0\pt	0.0\pt	10.0\pt
+		"dynamic"	"\setdynamic{%}"	0.0\pt	0.0\pt	0.0\pt	10.0\pt
+		"finger"	"\setfinger{%}"	0.0\pt	0.0\pt	0.0\pt	5.0\pt
      }
 
      "dynamics" = \table {
@@ -65,7 +66,8 @@ table_twenty =
 
     % dims ignored for this table
     "param" = \table {
-	 "brace"    "\pianobrace{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
+%	 "brace"    "\pianobrace{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
+	 "brace"    "\pianobrace{%}"	0.0\pt	0.0\pt	40.0\pt	100.0\pt	 
 	 "meter"	"\generalmeter{%}{%}"	0.0\pt	10.0\pt	-5.0\pt	5.0\pt
 	 "stem"	"\stem{%}{%}"
 	 "fill"	"\hbox{}"

@@ -171,7 +171,6 @@
 \def\startbar#1{\leftalign{\thickbar{#1}\kern\smallspace\thinbar{#1}}}
 \def\finishbar#1{\rightalign{\thinbar{#1}\kern\smallspace\thickbar{#1}}}
 
-\def\pianobrace#1{{\musicdraw\char#1}}
 \def\slurcharh#1{{\slurhfont\char#1}}
 \def\slurcharu#1{{\slurufont\char#1}}
 \def\slurchard#1{{\slurdfont\char#1}}
@@ -195,6 +194,7 @@
 \def\settext#1{\normaltextfont #1}
 \def\setitalic#1{\italicfont #1}
 \def\setdynamic#1{\dynfont #1}
+\def\setfinger#1{\fingerfont #1}
 
 % the interline symbol. Redefine to remove it.
 \def\defaultlineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}

@@ -33,7 +33,7 @@ def draw_c_clef (expr reduction) =
 	xoff=3/4norm+7/2hair;
 	penpos1(hair,-90);
 	z1l=(xoff+norm+hair,h);
-	penpos2(norm-hair,180);
+	penpos2(norm-3/2hair,180);
 	z2l=(w,h/2);
 	penpos3(hair,90);
 	z3=(((w-xoff)/2)+xoff,2hair);
@@ -60,8 +60,8 @@ def draw_c_clef (expr reduction) =
 	penlabels (1,2,3,4,5,6);
 
 	% ugh, should be bulb, not flare?
-	draw_flare(z1l,180,90,hair,norm-1/4hair);
-	draw_flare(z7r,180,-90,hair,norm-1/4hair);
+	draw_flare(z1l,180,90,hair,norm-1/2hair);
+	draw_flare(z7r,180,-90,hair,norm-1/2hair);
 	enddef;
 
 fet_beginchar ("C clef", "alto", "altoclef")
@@ -130,7 +130,9 @@ def draw_bass_klef(expr exact_center, reduction) =
 	labels(2,4);
 	penlabels(1,2,3,4);
 
-	pickup pencircle scaled (.35 reduced_il);
+	save dot_diam;
+	2 dot_diam = reduction* (interline - stafflinethickness);
+	pickup pencircle scaled dot_diam;
 	draw z5;
 	draw z5 yscaled -1;
 enddef;

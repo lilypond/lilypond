@@ -14,6 +14,7 @@ table_sixteen=
 		"roman"	"\settext{%}"	0.0\pt	7.50\pt	0.0\pt	8.0\pt
 		"italic"	"\setitalic{%}"	0.0\pt	0.0\pt	0.0\pt	8.0\pt
 		"dynamic"	"\setdynamic{%}"	0.0\pt	0.0\pt	0.0\pt	8.0\pt
+		"finger"	"\setfinger{%}"	0.0\pt	0.0\pt	0.0\pt	4.0\pt
      }
      "dynamics" = \table {
 
@@ -61,7 +62,8 @@ table_sixteen=
 
      % dims ignored for this table
      "param" = \table {
-	"brace"	"\pianobrace{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
+%	"brace"	"\pianobrace{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
+	"brace"	"\pianobrace{%}"	0.0\pt	0.0\pt	32.0\pt	80.0\pt
 	"meter"	"\generalmeter{%}{%}"	0.0\pt	10.0\pt	-8.0\pt	8.0\pt
 	"stem"	"\stem{%}{%}"
 	"fill"	"\hbox{}"
