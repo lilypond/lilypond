@@ -1,5 +1,5 @@
 /*
-  staff-elem-info.hh -- declare Staff_elem_info
+  staff-elem-info.hh -- declare Score_elem_info
 
   source file of the LilyPond music typesetter
 
@@ -11,19 +11,19 @@
 #define STAFFELEMINFO_HH
 
 #include "scalar.hh"
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "varray.hh"
 
 /// data container.
-struct Staff_elem_info {
-    Staff_elem * elem_l_;
+struct Score_elem_info {
+    Score_elem * elem_l_;
     Request*req_l_;
     Voice const * voice_l_;
     Array<Request_register*> origin_reg_l_arr_;
 
     /* *** */
-    Staff_elem_info(Staff_elem*, Request*);
-    Staff_elem_info();
+    Score_elem_info(Score_elem*, Request*);
+    Score_elem_info();
 };
 
 

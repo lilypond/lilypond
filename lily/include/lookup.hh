@@ -31,6 +31,7 @@ struct Lookup {
       */
     Symbol streepjes(int pos)const;
 
+    Symbol vbrace(Real &dy) const;
     Symbol meter(Array<Scalar>)const;
     Symbol stem(Real y1_pos, Real y2_pos)const;
     Symbol rule_symbol(Real height, Real width)const;

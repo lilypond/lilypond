@@ -8,6 +8,7 @@
 #include "rational.hh"
 class String;
 typedef Rational Moment;
+void print(Moment);
 
 
 #endif // 

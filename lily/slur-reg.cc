@@ -30,10 +30,10 @@ Slur_register::try_request(Request *req_l)
 }
 
 void
-Slur_register::acknowledge_element(Staff_elem_info info)
+Slur_register::acknowledge_element(Score_elem_info info)
 {
     if (info.elem_l_->name() == Note_column::static_name()) { 
-	Note_column *col_l =(Note_column*) info.elem_l_ ;// ugh
+	Note_column *col_l =(Note_column*) info.elem_l_->item() ;// ugh
 	for (int i = 0; i < slur_l_stack_.size(); i++)
 	    slur_l_stack_[i]->add(col_l );
 	for (int i = 0; i < end_slur_l_arr_.size(); i++)
@@ -76,7 +76,7 @@ Slur_register::process_requests()
 	    Slur * s_p =new Slur;
 	    requests_arr_.push(slur_req_l);
 	    start_slur_l_arr_.push(s_p);
-	    announce_element(Staff_elem_info(s_p, slur_req_l));
+	    announce_element(Score_elem_info(s_p, slur_req_l));
 	}
     }
     for (int i=0; i < start_slur_l_arr_.size(); i++)

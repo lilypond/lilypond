@@ -224,9 +224,7 @@ fi
 AC_CHECK_HEADER(FlexLexer.h, true,
 	AC_MSG_WARN(can't find flex header. Please install Flex headers correctly))
 AC_CONFIG_SUBDIRS(flower)
-AC_OUTPUT(make/out/Configure_variables.make:make/Configure_variables.make.in
-    Makefile:make/Toplevel.make.in
-    )
+AC_OUTPUT(make/out/Configure_variables.make:make/Configure_variables.make.in)
 
 
 

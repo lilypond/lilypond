@@ -113,6 +113,12 @@ Q: How do I change the TeX layout?
 
 A: See lilyponddefs.tex, it has some comments.
 
+Q: How do I learn the C++ code?
+
+A: The entry point is in main(). Good luck. :-)
+
+Seriously, read, reread and reread lilygut and CodingStyle, and
+just start anywhere. 
 
 Q: Why GPL?
 

@@ -42,7 +42,6 @@ MODULE_LIBES = -lflower
 
 # main target of this module:
 #
-MAINTARGET = $(lily_bindir)/$(EXECUTABLE)# huh?
 BUILDSTRINGTEST=$(MAINTARGET)
 EXECSTRINGTEST=$(EXECUTABLE)
 

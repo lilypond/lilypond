@@ -29,7 +29,7 @@ Text_register::try_request(Request*req_l)
     return true;
 }
 void
-Text_register::acknowledge_element(Staff_elem_info i)
+Text_register::acknowledge_element(Score_elem_info i)
 {
     if (text_p_ && i.elem_l_->name() == Note_column::static_name()) {
 	text_p_->add_support(i.elem_l_);
@@ -40,7 +40,7 @@ Text_register::process_requests()
 {
     if (text_req_l_) {
 	text_p_ = new Text_item(text_req_l_->tdef_p_, text_req_l_->dir_i_); // ugh
-	announce_element(Staff_elem_info(text_p_, text_req_l_));
+	announce_element(Score_elem_info(text_p_, text_req_l_));
     }
 }
 void

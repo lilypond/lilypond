@@ -203,7 +203,7 @@ Stem::brew_molecule_p()const
 {
     Molecule *out =0;
     if ( invisible_b() )
-	return Staff_elem::brew_molecule_p();
+	return Score_elem::brew_molecule_p();
     
     Real bot  = stem_bottom_f_;
     Real top = stem_top_f_;

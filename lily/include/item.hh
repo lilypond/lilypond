@@ -23,7 +23,7 @@
   spacing calculation. 
   
 */
-class Item : public Staff_elem {
+class Item : public virtual Score_elem {
 public:
     /// indirection to the column it is in
     PCol * pcol_l_;

@@ -13,6 +13,7 @@ EXTRA_DISTFILES = $(SCRIPTS)
 #
 
 
+EXECUTABLES=convert-mudela 
 localinstall: all
 	$(INSTALL) -d $(bindir)
 	$(INSTALL) -m 755 convert-mudela $(bindir)

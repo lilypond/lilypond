@@ -29,7 +29,8 @@ Local_key_register::pre_move_processing()
 	    Item * support_l = support_l_arr_[i];
 
 	    Note_req * note_l = mel_l_arr_[i];
-	    if (tied_l_arr_.find_l(support_l) && !forced_l_arr_.find_l(support_l))
+	    if (tied_l_arr_.find_l(support_l) && 
+		!forced_l_arr_.find_l(support_l))
 		continue;
 	    
 	    if (!key_item_p)
@@ -49,9 +50,9 @@ Local_key_register::pre_move_processing()
 }
 
 void
-Local_key_register::acknowledge_element(Staff_elem_info info)
+Local_key_register::acknowledge_element(Score_elem_info info)
 {    
-    Staff_elem * elem_l = info.elem_l_;
+    Score_elem * elem_l = info.elem_l_;
     if (info.req_l_->note()) {
 	Note_req * note_l = info.req_l_->note();
 	Item * item_l = info.elem_l_->item();
@@ -75,7 +76,7 @@ Local_key_register::acknowledge_element(Staff_elem_info info)
 	    (Key_register*)info.origin_reg_l_arr_[0];
 	key_C_ = &key_reg_l->key_;
     } else if (elem_l->name() == Tie::static_name()) {
-	Tie * tie_l = (Tie*)elem_l;
+	Tie * tie_l = (Tie*)elem_l->spanner();
 	if (tie_l->same_pitch_b_)
 	    tied_l_arr_.push(tie_l-> right_head_l_ );
     }

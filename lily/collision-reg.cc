@@ -11,7 +11,7 @@
 #include "collision.hh"
 
 void
-Collision_register::acknowledge_element(Staff_elem_info i)
+Collision_register::acknowledge_element(Score_elem_info i)
 {
     if (!(i.elem_l_->name() == Note_column::static_name()))
 	return;
@@ -19,7 +19,7 @@ Collision_register::acknowledge_element(Staff_elem_info i)
     if (!col_p_)
 	col_p_ = new Collision;
     
-    col_p_->add((Note_column*)i.elem_l_);
+    col_p_->add((Note_column*)i.elem_l_->item());
 }
 
 void

@@ -34,14 +34,14 @@ Request_register::Request_register()
 }
 
 void
-Request_register::announce_element(Staff_elem_info i)
+Request_register::announce_element(Score_elem_info i)
 {
     i.origin_reg_l_arr_.push(this);
     daddy_reg_l_->announce_element(i);
 }
 
 void
-Request_register::typeset_element(Staff_elem*p)
+Request_register::typeset_element(Score_elem*p)
 {
     daddy_reg_l_->typeset_element(p);
 }

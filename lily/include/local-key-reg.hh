@@ -21,7 +21,7 @@ struct Local_key_register : Request_register {
     Link_array<Item *> tied_l_arr_;
     /* *************** */
     virtual void process_requests();
-    virtual void acknowledge_element(Staff_elem_info);
+    virtual void acknowledge_element(Score_elem_info);
     virtual void pre_move_processing();
     Local_key_register();
     NAME_MEMBERS(Local_key_register);

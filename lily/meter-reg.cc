@@ -41,7 +41,7 @@ Meter_register::process_requests()
     }
 
     if (meter_p_)
-	announce_element(Staff_elem_info(meter_p_, meter_req_l_) );
+	announce_element(Score_elem_info(meter_p_, meter_req_l_) );
 }
 
 void

@@ -97,19 +97,19 @@ Stem_beam_register::process_requests()
 	    stem_p_->print_flag_b_ = true;
 	}
 	
-	announce_element(Staff_elem_info(stem_p_, stem_req_l_));
+	announce_element(Score_elem_info(stem_p_, stem_req_l_));
     }
 }
 
 void
-Stem_beam_register::acknowledge_element(Staff_elem_info info)
+Stem_beam_register::acknowledge_element(Score_elem_info info)
 {
     if (!stem_p_)
 	return;
 
     if (info.elem_l_->name() == Notehead::static_name() &&
 	stem_req_l_->duration() == info.req_l_->rhythmic()->duration()){
-	Notehead * n_l= (Notehead*)info.elem_l_;
+	Notehead * n_l= (Notehead*)info.elem_l_->item();
 	stem_p_->add(n_l);
     }
 }

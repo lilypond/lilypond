@@ -28,7 +28,7 @@ Walker_registers::Walker_registers(Complex_walker *w)
 }
 
 void
-Walker_registers::announce_element(Staff_elem_info info)
+Walker_registers::announce_element(Score_elem_info info)
 {
     if (info.elem_l_->name() == Bar::static_name()) {
 	walk_l_->allow_break();
@@ -37,7 +37,7 @@ Walker_registers::announce_element(Staff_elem_info info)
 }
 
 void
-Walker_registers::acknowledge_element(Staff_elem_info )
+Walker_registers::acknowledge_element(Score_elem_info )
 {
     assert(false);
 }
@@ -47,7 +47,7 @@ Walker_registers::do_announces()
 {
     Request dummy_req;
     for (int i = 0; i < announce_info_arr_.size(); i++){
-	Staff_elem_info info = announce_info_arr_[i];
+	Score_elem_info info = announce_info_arr_[i];
 	mtor << "Announcing " << info.elem_l_->name()<<"\n";
 
 	if (!info.req_l_)
@@ -58,13 +58,13 @@ Walker_registers::do_announces()
 }
 
 void
-Walker_registers::typeset_element(Staff_elem *elem_p)
+Walker_registers::typeset_element(Score_elem *elem_p)
 {
     typeset_musical_item(elem_p);
 }
 
 void
-Walker_registers::typeset_musical_item(Staff_elem * elem_p)
+Walker_registers::typeset_musical_item(Score_elem * elem_p)
 {
     walk_l_->typeset_element(elem_p);
 }

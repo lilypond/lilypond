@@ -33,8 +33,8 @@ setting is not possible without a knowledgeable printer,"  untrue.
 
 =item *
 
-Make a  which system which fully tweakable. It should be possible to
-typeset a book on how not to typeset music. 
+Make a system which is fully tweakable. It should be possible to
+typeset a book on how not to typeset music.
 
 =back 
 

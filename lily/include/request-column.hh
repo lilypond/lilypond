@@ -28,6 +28,7 @@ public:
     bool used_b()const;
     Moment when();
     void add_reqs(int staff_idx, Array<Request*> const&);
+    void update_time(int staff_idx, Time_description &);
     void set_score_cols(Score_column*, Score_column*);
 };
 

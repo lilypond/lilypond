@@ -17,7 +17,7 @@ Staff_side::set_staffsym(Staff_symbol* s_l)
     staff_sym_l_ = s_l;
 }
 
-Staff_side::Staff_side(Staff_elem * elem_l)
+Staff_side::Staff_side(Score_elem * elem_l)
 {
     inter_f_ = 2 PT;
     staff_size_i_ = 0;
@@ -51,7 +51,7 @@ Staff_side::support_height() const
 }
 
 void
-Staff_side::add_support(Staff_elem*i)
+Staff_side::add_support(Score_elem*i)
 {
     support_l_arr_.push(i);
     elem_l_->add_dependency(i);

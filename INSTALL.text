@@ -61,7 +61,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 
 
-2/May/97                 LilyPond 0.0.62                        1
+16/May/97                LilyPond 0.0.64                        1
 
 
 
@@ -127,7 +127,7 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
 
-2/May/97                 LilyPond 0.0.62                        2
+16/May/97                LilyPond 0.0.64                        2
 
 
 
@@ -159,7 +159,8 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
        everything will be compiled, but nothing will be
        installed.  The resulting binaries can be found in the
-       subdirectory _b_i_n_/.
+       subdirectories _o_u_t_/ (which contain all files generated
+       during compilation).
 
 IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
        If you have done a successful make, then a simple
@@ -168,7 +169,7 @@ IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
 
        should do the trick.
 
-       [todo]
+       [todo. Obsolete; fonts are in distribution now.]
 
        Install the musixtex fonts in a directory which TeX and MF
        knows (if you are root, look for a directory which
@@ -189,11 +190,10 @@ CCCCAAAAVVVVEEEEAAAATTTTSSSS
 
 RRRRUUUUNNNNNNNNIIIINNNNGGGG
        GNU LilyPond does use a lot of resources. For operation
-       you need the following:
 
 
 
-2/May/97                 LilyPond 0.0.62                        3
+16/May/97                LilyPond 0.0.64                        3
 
 
 
@@ -201,6 +201,8 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
+
+       you need the following:
 
        +o    A fast computer (a full page of music typically takes
             1 minute on my 486/66, using the --------eeeennnnaaaabbbblllleeee----cccchhhheeeecccckkkkiiiinnnngggg
@@ -257,8 +259,6 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-
-
-2/May/97                 LilyPond 0.0.62                        4
+16/May/97                LilyPond 0.0.64                        4
 
 

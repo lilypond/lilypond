@@ -13,14 +13,14 @@
 #include "class-name.hh"
 
 
-/** Both Spanner and Item are Staff_elem's. Most Staff_elem's depend
-  on other Staff_elem's, eg, Beam needs to know and set direction of
+/** Both Spanner and Item are Score_elem's. Most Score_elem's depend
+  on other Score_elem's, eg, Beam needs to know and set direction of
   Stem. So the Beam has to be calculated *before* Stem. This is
-  accomplished with the dependencies field of struct Staff_elem.
+  accomplished with the dependencies field of struct Score_elem.
 
   (elem)
   */
-class Staff_elem {
+class Score_elem {
 
     /// member: the symbols
     Molecule *output;		// should scrap, and use temp var?
@@ -31,7 +31,7 @@ class Staff_elem {
       NULL.
       */
     Offset offset_;
-    Array<Staff_elem*> dependancy_l_arr_;
+    Array<Score_elem*> dependancy_l_arr_;
 public:
     enum Status {
 	ORPHAN,			// not yet added to pstaff
@@ -40,6 +40,8 @@ public:
 	PRECALCED,		// calcs before spacing done
 	POSTCALCING,		// busy calculating. This is used to trap cyclic deps.
 	POSTCALCED,		// after spacing calcs done
+	VERTICALCING,		// height determined
+	VERTICALCED,
 	OUTPUT,			// molecule has been output
 	DELETED,		// to catch malloc mistakes.
     } status;
@@ -48,15 +50,15 @@ public:
     PStaff *pstaff_l_;
 
     /* *************** */
-    Staff_elem(Staff_elem const&);
+    Score_elem(Score_elem const&);
     String TeXstring () const ;
     virtual void print() const;
     virtual Interval width() const;
     virtual Interval height() const;
     Paper_def *paper() const;
-    virtual ~Staff_elem();
-    Staff_elem();
-    NAME_MEMBERS(Staff_elem);    
+    virtual ~Score_elem();
+    Score_elem();
+    NAME_MEMBERS(Score_elem);    
 
     /**
       translate the symbol. The symbol does not have to be created yet. 
@@ -74,8 +76,8 @@ public:
     /**
       add a dependency. It may be the 0 pointer, in which case, it is ignored.
      */
-    void add_dependency(Staff_elem* );    
-    void substitute_dependency(Staff_elem* old, Staff_elem * newdep);
+    void add_dependency(Score_elem* );    
+    void substitute_dependency(Score_elem* old, Score_elem * newdep);
     
 protected:
     virtual  Interval do_height()const;
@@ -92,7 +94,9 @@ protected:
     /// do calculations after determining horizontal spacing
     virtual void do_post_processing();
 
-    Array<Staff_elem*> dependant_l_arr_;
+    /// do calculations after height of spanners/items is determined.
+    virtual void do_verticalcing();
+    Array<Score_elem*> dependant_l_arr_;
 
 };
 

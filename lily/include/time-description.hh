@@ -8,10 +8,15 @@
 #define tdes_HH
 
 #include "moment.hh"
+#include "lily-proto.hh"
+#include "varray.hh"
 
 /// full info on where we are
 struct Time_description {
     Moment when_;
+
+    /// found an error so far?
+    bool error_b_ ;
 
     /// if true, no bars needed, no reduction of whole_in_measure
     bool cadenza_b_;
@@ -38,7 +43,8 @@ struct Time_description {
     void print() const;
     void setpartial(Moment p);
     String try_set_partial_str(Moment)const;
-    Moment barleft();
+    Moment barleft()const;
+    Moment next_bar_moment()const;
     void set_meter(int,int);
     static int compare (const Time_description&, const Time_description&);
 };
@@ -48,5 +54,10 @@ struct Time_description {
 
 instantiate_compare(Time_description&,Time_description::compare);
 
+
+void
+process_timing_reqs(Time_description &time_, 
+		    Rhythmic_grouping *default_grouping,
+		    Array<Timing_req*> const& timing_req_l_arr);
 #endif // Time_description_HH
 

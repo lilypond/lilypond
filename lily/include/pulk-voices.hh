@@ -12,13 +12,14 @@
 
 #ifndef PULK_VOICES_HH
 #define PULK_VOICES_HH
+
 #include "pqueue.hh"
 #include "plist.hh"
 #include "moment.hh"
 #include "proto.hh"
 #include "lily-proto.hh"
 #include "voice.hh"
-
+#include "time-description.hh"
 
 
 struct Voice_l { 
@@ -36,12 +37,14 @@ class Pulk_voices
 PQueue< Voice_l > voice_pq_;
     Pointer_list< Pulk_voice * > pulk_p_list_;
     Link_list<Staff *> staff_l_list_;
+    Array < Time_description > time_arr_;
     Moment next_mom_;
 
 public:
     Moment last_;
+    bool time_checks_failed_b() const;
     bool ok() const;
-    Moment next_mom() { return next_mom_; }
+    Moment next_mom() const;
     Pulk_voices(Link_list<Staff*> const&);
     void get_aligned_request(Request_column *col_l );
 };

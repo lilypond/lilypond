@@ -12,6 +12,7 @@
 
 #include "colhpos.hh"
 #include "varray.hh"
+#include "lily-proto.hh"
 #include "p-col.hh"
 #include "p-staff.hh"
 
@@ -45,6 +46,7 @@ struct PScore {
     /// broken spanners
     Pointer_list<Spanner*> broken_spans;
 
+    Pointer_list<Vertical_spanner*> vspan_p_list_;
     /* *************** */
     /* CONSTRUCTION */
     

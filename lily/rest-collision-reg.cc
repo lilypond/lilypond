@@ -13,16 +13,16 @@
 #include "note-column.hh"
 
 void
-Rest_collision_register::acknowledge_element(Staff_elem_info i)
+Rest_collision_register::acknowledge_element(Score_elem_info i)
 {
     char const * nC = i.elem_l_->name();
     if (nC == Collision::static_name()) {
-	collision_l_arr_.push((Collision*)i.elem_l_);
+	collision_l_arr_.push((Collision*)i.elem_l_->item());
     } 
     else if (nC == Rest_column ::static_name()) {
 	if (!rest_collision_p_)
 	    rest_collision_p_ = new Rest_collision;
-	rest_collision_p_->add((Rest_column*)i.elem_l_);
+	rest_collision_p_->add((Rest_column*)i.elem_l_->item());
     }
 }
 

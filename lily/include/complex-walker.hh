@@ -27,8 +27,8 @@ public:
     /* *************** */
 
     void regs_process_requests();
-    void typeset_element(Staff_elem *elem_p);
-    void announce_element(Staff_elem_info);
+    void typeset_element(Score_elem *elem_p);
+    void announce_element(Score_elem_info);
     virtual void process_requests();
     virtual void do_post_move();
     virtual void do_pre_move();

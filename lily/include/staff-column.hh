@@ -35,6 +35,7 @@ public:
     void add_reqs (Array<Request*> req_l_arr);
     void OK() const;
     ~Staff_column();
+    void update_time(Time_description&, Rhythmic_grouping*);
     void typeset_breakable_items(Array<Item *> &pre_p_arr,
 				 Array<Item *> &nobreak_p_arr,
 				 Array<Item *> &post_p_arr);

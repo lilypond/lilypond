@@ -48,7 +48,7 @@ Clef_register::read_req(Clef_change_req*c_l)
 	c_l->error("unknown clef type ");
 }
 void
-Clef_register::acknowledge_element(Staff_elem_info info)
+Clef_register::acknowledge_element(Score_elem_info info)
 {
     if (info.elem_l_->name() == Bar::static_name()) {
 	if (!clef_p_){
@@ -76,7 +76,7 @@ Clef_register::create_clef()
 {
     clef_p_ = new Clef_item;
     clef_p_->read(*this);
-    announce_element(Staff_elem_info(clef_p_,
+    announce_element(Score_elem_info(clef_p_,
 					 clef_req_l_));
 }
 

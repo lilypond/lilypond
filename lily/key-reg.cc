@@ -39,7 +39,7 @@ Key_register::try_request(Request * req_l)
 }
 
 void
-Key_register::acknowledge_element(Staff_elem_info info)
+Key_register::acknowledge_element(Score_elem_info info)
 {
     Command_req * r_l = info.req_l_->command() ;
     if (r_l && r_l->clefchange()) {
@@ -61,7 +61,7 @@ Key_register::process_requests()
     else 
 	kit_p_ = new Key_item(c0_i);
     kit_p_->read(*this);
-    announce_element(Staff_elem_info(kit_p_, keyreq_l_));
+    announce_element(Score_elem_info(kit_p_, keyreq_l_));
 }
 
 void

@@ -121,9 +121,9 @@ Staff_registers::acceptable_request_b(Request*r)const
 }
 
 void
-Staff_registers::acknowledge_element(Staff_elem_info i)
+Staff_registers::acknowledge_element(Score_elem_info i)
 {
     Register_group_register::acknowledge_element(i);
     if ( i.elem_l_->name() == Staff_symbol::static_name())
-	staff_sym_l_ = (Staff_symbol*)i.elem_l_;
+	staff_sym_l_ = (Staff_symbol*)i.elem_l_->item();
 }

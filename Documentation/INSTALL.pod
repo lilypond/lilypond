@@ -154,8 +154,9 @@ If you do
 	make all
 
 everything will be compiled, but nothing will be installed.  The
-resulting binaries can be found in the subdirectory
-F<bin/>.
+resulting binaries can be found in the subdirectories F<out/> (which
+contain all files generated during compilation).
+
 
 =head1 INSTALLING
 
@@ -165,7 +166,7 @@ If you have done a successful C<make>, then a simple
 
 should do the trick. 
 
-[todo]
+[todo. Obsolete; fonts are in distribution now.]
 
 Install the musixtex fonts in a directory which TeX and MF knows (if
 you are root, look for a directory which contains the directories with

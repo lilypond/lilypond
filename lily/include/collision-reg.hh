@@ -16,7 +16,7 @@ class Collision_register : public Request_register {
     Collision* col_p_;
 
 protected:
-    virtual void acknowledge_element(Staff_elem_info);
+    virtual void acknowledge_element(Score_elem_info);
     virtual void pre_move_processing();
 public:
     Collision_register();

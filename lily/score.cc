@@ -36,8 +36,11 @@ Score::setup_music()
 	input_.error("Need to have music in a score.");
     }
     
+    Moment previous_mom = -1;
     while (pulk.ok()) {
+
 	Moment w= pulk.next_mom();
+	assert(w > previous_mom);
 	Request_column* rcol_p = new Request_column( staffs_ );
 
 	Score_column* c1 = new Score_column(w);
@@ -54,7 +57,10 @@ Score::setup_music()
 	rcol_p->set_score_cols(c1, c2);
 	rcols_.bottom().add(rcol_p);
 	pulk.get_aligned_request( rcol_p );
+	previous_mom =w;
     }
+
+    errorlevel_i_ |= pulk.time_checks_failed_b(); 
 }
 
 void
@@ -80,7 +86,11 @@ Score::paper()
 {
     if (!paper_p_)
 	return;
-    
+    if( errorlevel_i_){
+	// should we? hampers debugging. 
+	warning("Errors found, /*not processing score*/");
+//	return;
+    }
     pscore_p_ = new PScore(paper_p_);
     do_cols();
     

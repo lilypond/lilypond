@@ -42,7 +42,7 @@ Bar_register::process_requests()
     }
     
     if (bar_p_){
-	announce_element(Staff_elem_info(bar_p_, bar_req_l_) );
+	announce_element(Score_elem_info(bar_p_, bar_req_l_) );
     }
 }
 

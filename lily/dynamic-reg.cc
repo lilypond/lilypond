@@ -58,7 +58,7 @@ Dynamic_register::process_requests()
 	    assert (!dynamic_p_) ; // TODO
 		
 	    dynamic_p_ = new Text_item(td_p);
-	    announce_element(Staff_elem_info(dynamic_p_, dreq_l));
+	    announce_element(Score_elem_info(dynamic_p_, dreq_l));
 	} else if (dreq_l->span_dynamic()) {
 
 	    Span_dynamic_req* span_l = dreq_l->span_dynamic();
@@ -75,7 +75,7 @@ Dynamic_register::process_requests()
 		assert(!new_cresc_p);
 		new_cresc_p  = new Crescendo;
 		new_cresc_p->grow_dir_i_ = span_l->dynamic_dir_i_;
-		announce_element(Staff_elem_info(new_cresc_p, span_l));
+		announce_element(Score_elem_info(new_cresc_p, span_l));
 	    }
 	}
     }
@@ -136,7 +136,7 @@ Dynamic_register::~Dynamic_register()
     delete cresc_p_;
 }
 void
-Dynamic_register::acknowledge_element(Staff_elem_info i)
+Dynamic_register::acknowledge_element(Score_elem_info i)
 {
     if (i.elem_l_->name() == Note_column::static_name()) {
 	if (dynamic_p_) dynamic_p_->add_support(i.elem_l_);

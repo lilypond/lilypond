@@ -143,8 +143,6 @@ struct Spanner;
 struct Subtle_req;
 struct Staff;
 struct Staff_column;
-struct Staff_elem;
-struct Staff_elem_info;
 struct Staff_symbol;
 struct Staff_walker;
 struct Stem;

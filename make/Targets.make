@@ -29,7 +29,7 @@ include ./$(depth)/make/out/Site.make
 
 # dependency list of executable:
 #
-EXECUTABLE = $(lily_bindir)/$(NAME)
+
 $(EXECUTABLE): $(build) $(OFILES)
 	$(MAKE) $(MODULE_LIBDEPS) 
 	$(INCREASE_BUILD)
@@ -64,14 +64,19 @@ $(SHAREDLIBRARY):  $(build) $(OFILES) $(MODULE_LIBDEPS)
 lib: $(LIBRARY)
 #
 TOCLEAN= $(allobs) $(alldeps)
+
+# be careful about deletion.
 clean: localclean
+	rm -f core 
+ifdef EXECUTABLE
+	rm -f $(EXECUTABLE)
+endif
 ifdef allobs
 	rm -f $(allobs)
 endif
 ifdef alldeps
 	rm -f $(alldeps)
 endif
-	rm -f core
 ifdef SUBDIRS
 	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean; done
 endif
@@ -222,3 +227,9 @@ rpm:
 	rpm -ba $(makeout)/lilypond.spec
 #
 
+installexe:
+	$(INSTALL) -d $(bindir)
+	$(INSTALL) -m 755 $(EXECUTABLES) $(bindir)
+
+uninstallexe:
+	for a in $(EXECUTABLES); do rm -f $(bindir)/`basename $a`; done
