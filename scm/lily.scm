@@ -785,8 +785,8 @@
 	  ("french" . ("clefs-G" -4  0))
 	  ("soprano" . ("clefs-C" -4  0))
 	  ("mezzosoprano" . ("clefs-C" -2  0))
-	  ("alto" . ("clefs-C" 0  0))
-	  ("tenor" . ("clefs-C" 2  0))
+	  ("alto" . ("clefs-C" 0 0))
+	  ("tenor" . ("clefs-C" 2 0))
 	  ("baritone" . ("clefs-C" 4  0))
 	  ("varbaritone"  . ("clefs-F" 0 0))
 	  ("bass" . ("clefs-F" 2  0))
@@ -828,21 +828,36 @@
 )
 
 (define (clef-name-to-properties cl)
-  (let ((e (assoc cl supported-clefs))
+  (let ((e '())
+	(oct 0)
+	(l (string-length cl))
 	)
+
+    ;; ugh. cleanme
+    (if (equal? "8" (substring cl (- l 1) l))
+	(begin
+	(if (equal? "^" (substring cl (- l 2) (- l 1)))
+	    (set! oct 7)
+	    (set! oct -7))
+	
+	(set! cl (substring cl 0 (- l 2)))))
+
+
+    (set! e  (assoc cl supported-clefs))
     (if (pair? e)
 	`(((symbol . clefGlyph)
-	   (type . ,Property_iterator::constructor)
+	   (iterator-ctor . ,Property_iterator::constructor)
 	   (value . ,(cadr e))
 	   )
 	  ((symbol . clefPosition)
-	   (type . ,Property_iterator::constructor)
+	   (iterator-ctor . ,Property_iterator::constructor)
 	   (value . ,(caddr e))
 	   )
-	  ((symbol . clefOctavation)
-	   (type . ,Property_iterator::constructor)
-	   (value . ,(caddr (cdr e)))
-	  )
+	  ,(if (not (equal? oct 0))
+	       `((symbol . clefOctavation)
+		 (iterator-ctor . ,Property_iterator::constructor)
+		 (value . ,oct)
+	       ))
 	  )
 	(begin
 	  (ly-warn (string-append "Unknown clef type `" cl "'\nSee scm/lily.scm for supported clefs"))
@@ -864,7 +879,7 @@
 		      (length . ,Repeated_music::folded_music_length)
 		      ))
 	  ("tremolo" . ((iterator-ctor . ,Chord_tremolo_iterator::constructor)
-			(length . ,Repeated_music::volta_music_length)
+			(length . ,Repeated_music::unfolded_music_length)
 			))
 	  ))
 	  
@@ -882,16 +897,17 @@
   ))
 
 
-(begin
-  (eval-string (ly-gulp-file "backend-property.scm"))
-  (eval-string (ly-gulp-file "translator-properties.scm"))  
-  (eval-string (ly-gulp-file "interface.scm"))
-  (eval-string (ly-gulp-file "beam.scm"))
-  (eval-string (ly-gulp-file "slur.scm"))
-  (eval-string (ly-gulp-file "font.scm"))
-  (eval-string (ly-gulp-file "auto-beam.scm"))  
-  (eval-string (ly-gulp-file "generic-property.scm"))
-  (eval-string (ly-gulp-file "basic-properties.scm"))
-  (eval-string (ly-gulp-file "chord-name.scm"))
-  (eval-string (ly-gulp-file "element-descriptions.scm"))
- )
+(map (lambda (x)   (eval-string (ly-gulp-file x)))
+     
+   '("backend-property.scm"
+ "translator-properties.scm"
+ "interface.scm"
+ "beam.scm"
+ "slur.scm"
+ "font.scm"
+ "auto-beam.scm"
+ "generic-property.scm"
+ "basic-properties.scm"
+ "chord-name.scm"
+ "element-descriptions.scm"
+ ))

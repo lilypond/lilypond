@@ -1,5 +1,28 @@
-1.3.110.hwn1
+1.3.111.jcn3
 ============
+
+* Allow two consecutive glissandi.
+
+* Note_head_line_engraver now also listenes to \property
+"followThread": Automagically connect note-heads when thread switches
+staff.
+
+* Fixed american-chords example (except for o/, that waits for kerning fix).
+
+* Added simple glissando line.
+
+* Bugfix: broken [crescendo] text spanner.
+
+* Bugfix: chord tremolos
+
+* Bugfix: staff group brace
+
+* Bugfix: volta repeats
+
+* Resurrected clef _8 and ^8 syntax.  (This should be deprecated?)
+
+1.3.111
+=======
 
 * Fixed non-empty-text feature.
 
