@@ -1,3 +1,9 @@
+2002-12-14  Heikki Junes <hjunes@cc.hut.fi>
+
+	* scm/output-lib.scm (modulo-bar-number-visible): add function.
+
+	* Documentation/user/refman.itely: add modulo-bar-number-visible.
+
 2002-12-10  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: add shortcut for 2midi

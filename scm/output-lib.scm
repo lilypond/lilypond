@@ -207,6 +207,8 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public ((every-nth-bar-number-visible n) barnum) (= 0 (modulo barnum n)))
 
+(define-public ((modulo-bar-number-visible n m) barnum) (and (> barnum 1) (= m (modulo barnum n))))
+
 (define-public (default-bar-number-visibility barnum) (> barnum 1))
 
 ;; See documentation of Item::visibility_lambda_

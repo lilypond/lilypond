@@ -3527,6 +3527,12 @@ adds a box around the bar numbers:
 }
 @end lilypond
 
+By replacing @code{#(every-nth-bar-number-visible 5)} with
+@code{#(modulo-bar-number-visible 4 1)} in the example above, 
+every fourth bar counting from the first bar will be numbered. 
+To number all bars use @code{#(default-bar-number-visibility)}.  
+The first bar, however, is not numbered.
+
 See also @seeinternals{BarNumber}.
 
 @refbugs
