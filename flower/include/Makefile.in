@@ -10,12 +10,8 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-# Automatically generated from ./flower/include/Makefile.am.wild by autowild
-# Do not edit
 # Generated automatically by wild-perl 0.1
-# flower/lib/include/Makefile.am.wild
-
-# the wild-perl script needs this.
+# flower/include/Makefile.am.wild
 
 
 SHELL = /bin/sh
@@ -43,7 +39,7 @@ pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
 
-top_builddir = ..
+top_builddir = ../..
 
 ACLOCAL = @ACLOCAL@
 AUTOCONF = @AUTOCONF@
@@ -65,30 +61,50 @@ POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
 AGE = @AGE@
+AUTOGENERATE = @AUTOGENERATE@
+BISON = @BISON@
 CC = @CC@
+COMPILEINFO = @COMPILEINFO@
+CPPFLAGS = @CPPFLAGS@
 CURRENT = @CURRENT@
 CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+DIR_DATADIR = @DIR_DATADIR@
+EXTRA_LIBES = @EXTRA_LIBES@
+FIND = @FIND@
+FLEX = @FLEX@
+ICFLAGS = @ICFLAGS@
+ILDFLAGS = @ILDFLAGS@
 LD = @LD@
+LDFLAGS = @LDFLAGS@
+LEX = @LEX@
 LIBTOOL = @LIBTOOL@
-LIB_SUFFIX = @LIB_SUFFIX@
+LN = @LN@
 LN_S = @LN_S@
+MAKE = @MAKE@
 MAKEINFO = @MAKEINFO@
-MODULE_CXXFLAGS = @MODULE_CXXFLAGS@
-MODULE_LDFLAGS = @MODULE_LDFLAGS@
+MFDIR = @MFDIR@
 NM = @NM@
 PACKAGE = @PACKAGE@
 PERL = @PERL@
+POD2HTML = @POD2HTML@
+POD2MAN = @POD2MAN@
+PYTHON = @PYTHON@
 RANLIB = @RANLIB@
 REVISION = @REVISION@
+TAR = @TAR@
+TEXDIR = @TEXDIR@
+TEXPREFIX = @TEXPREFIX@
 VERSION = @VERSION@
-
-real_topdir = $(top_srcdir)/..
+YACC = @YACC@
+ZIP = @ZIP@
+absolute_builddir = @absolute_builddir@
 
 noinst_HEADERS = acursor.hh arithmetic-operator.hh assoc-iter.hh assoc.hh choleski.hh compare.hh cpu-timer.hh cursor.hh data-file.hh diagonal-storage.hh dictionary-iter.hh dictionary.hh directed-graph.hh dstream.hh flower-debug.hh fproto.hh full-storage.hh handle.hh international.hh interval.hh iterate.hh lgetopt.hh libc-extension.hh link.hh list.hh matrix-storage.hh matrix.hh nscalar.hh parray.hh path.hh pcursor.hh plist.hh pointer.hh pqueue.hh priorities.hh rational.hh real.hh scalar.hh string-convert.hh string-data.hh string-handle.hh string.hh text-db.hh text-stream.hh timer.hh unionfind.hh varray.hh vector.hh virtual-methods.hh cursor.icc full-storage.icc link.icc list.icc plist.icc string-data.icc string-handle.icc string.icc cursor.tcc interval.tcc list.tcc pcursor.tcc plist.tcc pointer.tcc
 
-EXTRA_DIST = Makefile.am.wild
-mkinstalldirs = $(SHELL) $(top_srcdir)/../mkinstalldirs
-CONFIG_HEADER = ../config.hh
+EXTRA_DIST = Makefile.am.wild GNUmakefile
+mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+CONFIG_HEADER = ../../flower/config.hh
 CONFIG_CLEAN_FILES = 
 HEADERS =  $(noinst_HEADERS)
 
@@ -97,13 +113,12 @@ DIST_COMMON =  Makefile.am Makefile.in
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
-TAR = tar
 GZIP = --best
 default: all
 
 .SUFFIXES:
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
-	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps include/Makefile
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps flower/include/Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	cd $(top_builddir) \
@@ -137,7 +152,7 @@ maintainer-clean-tags:
 
 distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
 
-subdir = include
+subdir = flower/include
 
 distdir: $(DISTFILES)
 	@for file in $(DISTFILES); do \
@@ -203,8 +218,16 @@ distclean-generic clean-generic maintainer-clean-generic clean \
 mostlyclean distclean maintainer-clean
 
 
+# override default target for all-am: to get an extra dependency
+# all-am: Makefile $(PROGRAMS) wild-check
+# ugh, automake doesn't generate the all-am target here...
+all: Makefile $(HEADERS) wild-check
+
+# dummy target for non-GNU makes; is overridden in GNUmakefile
+wild-check:
+
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -10,8 +10,6 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-# Automatically generated from ./init/Makefile.am.wild by autowild
-# Do not edit
 # Generated automatically by wild-perl 0.1
 # init/Makefile.am.wild
 
@@ -62,14 +60,15 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
+AGE = @AGE@
 AUTOGENERATE = @AUTOGENERATE@
 BISON = @BISON@
 CC = @CC@
 COMPILEINFO = @COMPILEINFO@
 CPPFLAGS = @CPPFLAGS@
+CURRENT = @CURRENT@
 CXX = @CXX@
 CXXFLAGS = @CXXFLAGS@
-DEFINES = @DEFINES@
 DIR_DATADIR = @DIR_DATADIR@
 EXTRA_LIBES = @EXTRA_LIBES@
 FIND = @FIND@
@@ -77,6 +76,7 @@ FLEX = @FLEX@
 ICFLAGS = @ICFLAGS@
 ILDFLAGS = @ILDFLAGS@
 LD = @LD@
+LDFLAGS = @LDFLAGS@
 LEX = @LEX@
 LIBTOOL = @LIBTOOL@
 LN = @LN@
@@ -91,6 +91,7 @@ POD2HTML = @POD2HTML@
 POD2MAN = @POD2MAN@
 PYTHON = @PYTHON@
 RANLIB = @RANLIB@
+REVISION = @REVISION@
 TAR = @TAR@
 TEXDIR = @TEXDIR@
 TEXPREFIX = @TEXPREFIX@
@@ -107,7 +108,7 @@ CLEANFILES = feta11.ly feta13.ly feta16.ly feta19.ly feta20.ly feta23.ly feta26.
 FONT_FILES = ../mf/feta-beams16.mf ../mf/feta-beams20.mf ../mf/feta-beams26.mf ../mf/feta-black16.mf ../mf/feta-braces16.mf ../mf/feta-braces20.mf ../mf/feta-din10.mf ../mf/feta-nummer10.mf ../mf/feta-nummer12.mf ../mf/feta-nummer3.mf ../mf/feta-nummer4.mf ../mf/feta-nummer5.mf ../mf/feta-nummer6.mf ../mf/feta-nummer7.mf ../mf/feta-nummer8.mf ../mf/feta-test16.mf ../mf/feta-test20.mf ../mf/feta11.mf ../mf/feta13.mf ../mf/feta16.mf ../mf/feta19.mf ../mf/feta20.mf ../mf/feta23.mf ../mf/feta26.mf
 TABLES = $(patsubst ../mf/%.mf,%.ly,$(FONT_FILES))
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
-CONFIG_HEADER = ../lib/config.hh
+CONFIG_HEADER = ../flower/config.hh
 CONFIG_CLEAN_FILES = 
 DIST_COMMON =  Makefile.am Makefile.in
 
@@ -206,7 +207,7 @@ uninstall-local:
 	for i in $(INIFILES) ; do rm -f $(datadir)/lilypond/init/$$i; done
 	-rmdir $(datadir)/lilypond/init $(datadir)/lilypond/
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -10,8 +10,6 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-# Automatically generated from ./flower/Makefile.am.wild by autowild
-# Do not edit
 # Generated automatically by wild-perl 0.1
 # project  FlowerSoft C++ library
 # title	   top level makefile for FlowerLib
@@ -48,7 +46,7 @@ pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
 
-top_builddir = .
+top_builddir = ..
 
 ACLOCAL = @ACLOCAL@
 AUTOCONF = @AUTOCONF@
@@ -70,48 +68,64 @@ POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
 AGE = @AGE@
+AUTOGENERATE = @AUTOGENERATE@
+BISON = @BISON@
 CC = @CC@
+COMPILEINFO = @COMPILEINFO@
+CPPFLAGS = @CPPFLAGS@
 CURRENT = @CURRENT@
 CXX = @CXX@
+CXXFLAGS = @CXXFLAGS@
+DIR_DATADIR = @DIR_DATADIR@
+EXTRA_LIBES = @EXTRA_LIBES@
+FIND = @FIND@
+FLEX = @FLEX@
+ICFLAGS = @ICFLAGS@
+ILDFLAGS = @ILDFLAGS@
 LD = @LD@
+LDFLAGS = @LDFLAGS@
+LEX = @LEX@
 LIBTOOL = @LIBTOOL@
-LIB_SUFFIX = @LIB_SUFFIX@
+LN = @LN@
 LN_S = @LN_S@
+MAKE = @MAKE@
 MAKEINFO = @MAKEINFO@
-MODULE_CXXFLAGS = @MODULE_CXXFLAGS@
-MODULE_LDFLAGS = @MODULE_LDFLAGS@
+MFDIR = @MFDIR@
 NM = @NM@
 PACKAGE = @PACKAGE@
 PERL = @PERL@
+POD2HTML = @POD2HTML@
+POD2MAN = @POD2MAN@
+PYTHON = @PYTHON@
 RANLIB = @RANLIB@
 REVISION = @REVISION@
+TAR = @TAR@
+TEXDIR = @TEXDIR@
+TEXPREFIX = @TEXPREFIX@
 VERSION = @VERSION@
+YACC = @YACC@
+ZIP = @ZIP@
+absolute_builddir = @absolute_builddir@
 
-SUBDIRS = include test 
-
-# the wild-perl script needs this.
-real_topdir = $(top_srcdir)/..
+SUBDIRS = include
 
 lib_LTLIBRARIES = libflower.la
 
 README_FILES = ONEWS NEWS README TODO VERSION
-EXTRA_DIST = Makefile.am.wild aclocal.m4 configure configure.in $(README_FILES)
+EXTRA_DIST = Makefile.am.wild GNUmakefile $(README_FILES)
 
 libflower_la_SOURCES = choleski.cc cpu-timer.cc data-file.cc diagonal-storage.cc dictionary.cc directed-graph.cc dstream.cc flower-debug.cc flower-version.cc full-storage.cc interval.cc lgetopt.cc libc-extension.cc matrix-debug.cc matrix-storage.cc matrix.cc nscalar.cc path.cc rational.cc scalar.cc string-convert.cc string.cc stringutil.cc text-db.cc text-stream.cc unionfind.cc vector.cc
 
 libflower_la_LDFLAGS = -version-info @CURRENT@:@REVISION@:@AGE@
 
-INCLUDES = -I$(srcdir)/include
-ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-mkinstalldirs = $(SHELL) $(top_srcdir)/../mkinstalldirs
+INCLUDES = -I$(top_srcdir)/flower/include
+mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.hh
 CONFIG_CLEAN_FILES = 
 LTLIBRARIES =  $(lib_LTLIBRARIES)
 
 
 DEFS = @DEFS@ -I. -I$(srcdir) -I.
-CPPFLAGS = @CPPFLAGS@
-LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 libflower_la_LIBADD = 
 libflower_la_OBJECTS =  choleski.lo cpu-timer.lo data-file.lo \
@@ -121,18 +135,14 @@ lgetopt.lo libc-extension.lo matrix-debug.lo matrix-storage.lo \
 matrix.lo nscalar.lo path.lo rational.lo scalar.lo string-convert.lo \
 string.lo stringutil.lo text-db.lo text-stream.lo unionfind.lo \
 vector.lo
-CXXFLAGS = @CXXFLAGS@
 CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
 LTCXXCOMPILE = $(LIBTOOL) --mode=compile $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
 CXXLINK = $(LIBTOOL) --mode=link $(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@
-DIST_COMMON =  README AUTHORS COPYING ChangeLog INSTALL Makefile.am \
-Makefile.in NEWS TODO acconfig.h aclocal.m4 config.hh.in configure \
-configure.in missing mkinstalldirs stamp-h.in
+DIST_COMMON =  README Makefile.am Makefile.in NEWS TODO
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
-TAR = tar
 GZIP = --best
 SOURCES = $(libflower_la_SOURCES)
 OBJECTS = $(libflower_la_OBJECTS)
@@ -142,40 +152,12 @@ default: all
 .SUFFIXES:
 .SUFFIXES: .S .c .cc .lo .o .s
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
-	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps Makefile
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps flower/Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	cd $(top_builddir) \
-	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
-$(ACLOCAL_M4):  configure.in 
-	cd $(srcdir) && $(ACLOCAL)
-
-config.status: $(srcdir)/configure
-	$(SHELL) ./config.status --recheck
-$(srcdir)/configure: $(srcdir)/configure.in $(ACLOCAL_M4) $(CONFIGURE_DEPENDENCIES)
-	cd $(srcdir) && $(AUTOCONF)
-
-config.hh: stamp-h
-	@:
-stamp-h: $(srcdir)/config.hh.in $(top_builddir)/config.status
-	cd $(top_builddir) \
-	  && CONFIG_FILES= CONFIG_HEADERS=config.hh:config.hh.in \
-	     $(SHELL) ./config.status
-	@echo timestamp > stamp-h
-$(srcdir)/config.hh.in: $(srcdir)/stamp-h.in
-$(srcdir)/stamp-h.in: $(top_srcdir)/configure.in $(ACLOCAL_M4) acconfig.h
-	cd $(top_srcdir) && $(AUTOHEADER)
-	@echo timestamp > $(srcdir)/stamp-h.in
-
-mostlyclean-hdr:
-
-clean-hdr:
-
-distclean-hdr:
-	-rm -f config.hh
-
-maintainer-clean-hdr:
 
 mostlyclean-libLTLIBRARIES:
 
@@ -290,7 +272,7 @@ ID: $(HEADERS) $(SOURCES) $(LISP)
 	here=`pwd` && cd $(srcdir) \
 	  && mkid -f$$here/ID $(SOURCES) $(HEADERS) $(LISP)
 
-TAGS: tags-recursive $(HEADERS) $(SOURCES) config.hh.in $(TAGS_DEPENDENCIES) $(LISP)
+TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
 	tags=; \
 	here=`pwd`; \
 	list='$(SUBDIRS)'; for subdir in $$list; do \
@@ -300,8 +282,8 @@ TAGS: tags-recursive $(HEADERS) $(SOURCES) config.hh.in $(TAGS_DEPENDENCIES) $(L
 	unique=`for i in $$list; do echo $$i; done | \
 	  awk '    { files[$$0] = 1; } \
 	       END { for (i in files) print i; }'`; \
-	test -z "$(ETAGS_ARGS)config.hh.in$$unique$(LISP)$$tags" \
-	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags config.hh.in $$unique $(LISP) -o $$here/TAGS)
+	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $$unique $(LISP) -o $$here/TAGS)
 
 mostlyclean-tags:
 
@@ -312,42 +294,11 @@ distclean-tags:
 
 maintainer-clean-tags:
 
-distdir = $(PACKAGE)-$(VERSION)
-top_distdir = $(distdir)
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
 
-# This target untars the dist file and tries a VPATH configuration.  Then
-# it guarantees that the distribution is self-contained by making another
-# tarfile.
-distcheck: dist
-	-rm -rf $(distdir)
-	GZIP=$(GZIP) $(TAR) zxf $(distdir).tar.gz
-	mkdir $(distdir)/=build
-	mkdir $(distdir)/=inst
-	dc_install_base=`cd $(distdir)/=inst && pwd`; \
-	cd $(distdir)/=build \
-	  && ../configure --srcdir=.. --prefix=$$dc_install_base \
-	  && $(MAKE) \
-	  && $(MAKE) dvi \
-	  && $(MAKE) check \
-	  && $(MAKE) install \
-	  && $(MAKE) installcheck \
-	  && $(MAKE) dist
-	-rm -rf $(distdir)
-	@echo "========================"; \
-	echo "$(distdir).tar.gz is ready for distribution"; \
-	echo "========================"
-dist: distdir
-	-chmod -R a+r $(distdir)
-	GZIP=$(GZIP) $(TAR) chozf $(distdir).tar.gz $(distdir)
-	-rm -rf $(distdir)
-dist-all: distdir
-	-chmod -R a+r $(distdir)
-	GZIP=$(GZIP) $(TAR) chozf $(distdir).tar.gz $(distdir)
-	-rm -rf $(distdir)
+subdir = flower
+
 distdir: $(DISTFILES)
-	-rm -rf $(distdir)
-	mkdir $(distdir)
-	-chmod 777 $(distdir)
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  test -f $(distdir)/$$file \
@@ -359,113 +310,9 @@ distdir: $(DISTFILES)
 	  || mkdir $(distdir)/$$subdir \
 	  || exit 1; \
 	  chmod 777 $(distdir)/$$subdir; \
-	  (cd $$subdir && $(MAKE) top_distdir=../$(distdir) distdir=../$(distdir)/$$subdir distdir) \
+	  (cd $$subdir && $(MAKE) top_distdir=../$(top_distdir) distdir=../$(distdir)/$$subdir distdir) \
 	    || exit 1; \
 	done
-choleski.lo choleski.o: choleski.cc include/choleski.hh \
-	include/matrix.hh include/matrix-storage.hh include/varray.hh \
-	include/real.hh include/virtual-methods.hh include/vector.hh
-cpu-timer.lo cpu-timer.o: cpu-timer.cc include/cpu-timer.hh \
-	include/real.hh
-data-file.lo data-file.o: data-file.cc include/international.hh \
-	include/data-file.hh include/text-stream.hh include/string.hh \
-	include/arithmetic-operator.hh include/fproto.hh \
-	include/real.hh include/string-handle.hh include/compare.hh \
-	include/varray.hh
-diagonal-storage.lo diagonal-storage.o: diagonal-storage.cc \
-	include/diagonal-storage.hh include/full-storage.hh \
-	include/varray.hh include/matrix-storage.hh include/real.hh \
-	include/virtual-methods.hh
-dictionary.lo dictionary.o: dictionary.cc
-directed-graph.lo directed-graph.o: directed-graph.cc \
-	include/directed-graph.hh include/parray.hh include/varray.hh
-dstream.lo dstream.o: dstream.cc include/assoc.hh include/varray.hh \
-	include/dstream.hh include/string.hh \
-	include/arithmetic-operator.hh include/fproto.hh \
-	include/real.hh include/string-handle.hh \
-	include/international.hh include/compare.hh include/scalar.hh \
-	include/text-db.hh include/data-file.hh include/text-stream.hh \
-	include/string-convert.hh include/assoc-iter.hh
-flower-debug.lo flower-debug.o: flower-debug.cc include/flower-debug.hh \
-	include/dstream.hh include/string.hh \
-	include/arithmetic-operator.hh include/fproto.hh \
-	include/real.hh include/string-handle.hh \
-	include/international.hh include/compare.hh
-flower-version.lo flower-version.o: flower-version.cc config.hh
-full-storage.lo full-storage.o: full-storage.cc include/full-storage.hh \
-	include/varray.hh include/matrix-storage.hh include/real.hh \
-	include/virtual-methods.hh include/full-storage.icc
-interval.lo interval.o: interval.cc include/interval.hh \
-	include/fproto.hh include/real.hh include/compare.hh \
-	include/interval.tcc include/string.hh \
-	include/arithmetic-operator.hh include/string-handle.hh \
-	include/international.hh include/flower-debug.hh \
-	include/dstream.hh
-lgetopt.lo lgetopt.o: lgetopt.cc include/lgetopt.hh \
-	include/international.hh
-libc-extension.lo libc-extension.o: libc-extension.cc \
-	include/libc-extension.hh include/fproto.hh include/real.hh \
-	config.hh
-matrix-debug.lo matrix-debug.o: matrix-debug.cc include/flower-debug.hh \
-	include/dstream.hh include/string.hh \
-	include/arithmetic-operator.hh include/fproto.hh \
-	include/real.hh include/string-handle.hh \
-	include/international.hh include/compare.hh include/matrix.hh \
-	include/matrix-storage.hh include/varray.hh \
-	include/virtual-methods.hh include/vector.hh
-matrix-storage.lo matrix-storage.o: matrix-storage.cc \
-	include/full-storage.hh include/varray.hh \
-	include/matrix-storage.hh include/real.hh \
-	include/virtual-methods.hh include/diagonal-storage.hh
-matrix.lo matrix.o: matrix.cc include/matrix.hh \
-	include/matrix-storage.hh include/varray.hh include/real.hh \
-	include/virtual-methods.hh include/vector.hh \
-	include/full-storage.hh include/diagonal-storage.hh
-nscalar.lo nscalar.o: nscalar.cc
-path.lo path.o: path.cc include/path.hh include/string.hh \
-	include/arithmetic-operator.hh include/fproto.hh \
-	include/real.hh include/string-handle.hh \
-	include/international.hh include/compare.hh include/varray.hh \
-	include/flower-debug.hh include/dstream.hh
-rational.lo rational.o: rational.cc include/rational.hh \
-	include/compare.hh include/arithmetic-operator.hh \
-	include/fproto.hh include/real.hh include/string.hh \
-	include/string-handle.hh include/international.hh \
-	include/string-convert.hh include/libc-extension.hh config.hh
-scalar.lo scalar.o: scalar.cc include/scalar.hh include/string.hh \
-	include/arithmetic-operator.hh include/fproto.hh \
-	include/real.hh include/string-handle.hh \
-	include/international.hh include/compare.hh include/rational.hh
-string-convert.lo string-convert.o: string-convert.cc \
-	include/libc-extension.hh include/fproto.hh include/real.hh \
-	config.hh include/string.hh include/arithmetic-operator.hh \
-	include/string-handle.hh include/international.hh \
-	include/compare.hh include/string-convert.hh \
-	include/rational.hh
-string.lo string.o: string.cc include/string.hh \
-	include/arithmetic-operator.hh include/fproto.hh \
-	include/real.hh include/string-handle.hh \
-	include/international.hh include/compare.hh \
-	include/libc-extension.hh config.hh include/string-convert.hh
-stringutil.lo stringutil.o: stringutil.cc include/string-handle.hh \
-	include/fproto.hh include/real.hh include/string-data.hh \
-	include/string.hh include/arithmetic-operator.hh \
-	include/international.hh include/compare.hh \
-	include/string-data.icc include/string-handle.icc \
-	include/string.icc
-text-db.lo text-db.o: text-db.cc include/text-db.hh include/data-file.hh \
-	include/text-stream.hh include/string.hh \
-	include/arithmetic-operator.hh include/fproto.hh \
-	include/real.hh include/string-handle.hh \
-	include/international.hh include/compare.hh include/varray.hh
-text-stream.lo text-stream.o: text-stream.cc include/text-stream.hh \
-	include/string.hh include/arithmetic-operator.hh \
-	include/fproto.hh include/real.hh include/string-handle.hh \
-	include/international.hh include/compare.hh include/varray.hh
-unionfind.lo unionfind.o: unionfind.cc include/unionfind.hh \
-	include/varray.hh
-vector.lo vector.o: vector.cc include/vector.hh include/real.hh \
-	include/varray.hh
 
 info: info-recursive
 dvi: dvi-recursive
@@ -514,19 +361,18 @@ distclean-generic:
 maintainer-clean-generic:
 	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
-mostlyclean-am:  mostlyclean-hdr mostlyclean-libLTLIBRARIES \
-		mostlyclean-compile mostlyclean-libtool \
-		mostlyclean-tags mostlyclean-generic
+mostlyclean-am:  mostlyclean-libLTLIBRARIES mostlyclean-compile \
+		mostlyclean-libtool mostlyclean-tags \
+		mostlyclean-generic
 
-clean-am:  clean-hdr clean-libLTLIBRARIES clean-compile clean-libtool \
-		clean-tags clean-generic mostlyclean-am
+clean-am:  clean-libLTLIBRARIES clean-compile clean-libtool clean-tags \
+		clean-generic mostlyclean-am
 
-distclean-am:  distclean-hdr distclean-libLTLIBRARIES distclean-compile \
+distclean-am:  distclean-libLTLIBRARIES distclean-compile \
 		distclean-libtool distclean-tags distclean-generic \
 		clean-am
 
-maintainer-clean-am:  maintainer-clean-hdr \
-		maintainer-clean-libLTLIBRARIES \
+maintainer-clean-am:  maintainer-clean-libLTLIBRARIES \
 		maintainer-clean-compile maintainer-clean-libtool \
 		maintainer-clean-tags maintainer-clean-generic \
 		distclean-am
@@ -542,16 +388,14 @@ distclean:  distclean-recursive distclean-am distclean-local
 maintainer-clean:  maintainer-clean-recursive maintainer-clean-am
 	@echo "This command is intended for maintainers to use;"
 	@echo "it deletes files that may require special tools to rebuild."
-	-rm -f config.status
 
-.PHONY: default mostlyclean-hdr distclean-hdr clean-hdr \
-maintainer-clean-hdr mostlyclean-libLTLIBRARIES \
-distclean-libLTLIBRARIES clean-libLTLIBRARIES \
-maintainer-clean-libLTLIBRARIES uninstall-libLTLIBRARIES \
-install-libLTLIBRARIES mostlyclean-compile distclean-compile \
-clean-compile maintainer-clean-compile mostlyclean-libtool \
-distclean-libtool clean-libtool maintainer-clean-libtool \
-install-data-recursive uninstall-data-recursive install-exec-recursive \
+.PHONY: default mostlyclean-libLTLIBRARIES distclean-libLTLIBRARIES \
+clean-libLTLIBRARIES maintainer-clean-libLTLIBRARIES \
+uninstall-libLTLIBRARIES install-libLTLIBRARIES mostlyclean-compile \
+distclean-compile clean-compile maintainer-clean-compile \
+mostlyclean-libtool distclean-libtool clean-libtool \
+maintainer-clean-libtool install-data-recursive \
+uninstall-data-recursive install-exec-recursive \
 uninstall-exec-recursive installdirs-recursive uninstalldirs-recursive \
 all-recursive check-recursive installcheck-recursive info-recursive \
 dvi-recursive mostlyclean-recursive distclean-recursive clean-recursive \
@@ -565,8 +409,18 @@ maintainer-clean-generic clean mostlyclean distclean maintainer-clean
 
 distclean-local:
 	-rm -rf .deps
+
+# override default target for all-am: to get an extra dependency
+all-am: Makefile $(PROGRAMS) wild-check
+
+# dummy target for non-GNU makes; is overridden in GNUmakefile
+wild-check:
+
+# dummy target for non-GNU makes; is overridden in GNUmakefile
+make-in-build:
+
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
